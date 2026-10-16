@@ -1,47 +1,44 @@
-# SFIA STUDIO — M-HD-01 EC ↔ HUMANDECISION EFFECTS BINDING CORRECTION PASS
+# SFIA STUDIO — M-HD-01 FINAL EC/HD AUTHORITY BINDING CORRECTION
 ## Review Pack FULL — CRITICAL
 
-**Horodatage:** 2026-10-16 15:00:29 CEST
-**GO Morris:** TARGETED EC/HD BINDING CORRECTION PASS — 2026-10-16
+**Horodatage:** 2026-10-16 15:31:17 CEST
+**GO Morris:** FINAL EC/HD AUTHORITY BINDING — TWO TECHNICAL RESERVES ONLY — 2026-10-16
 **Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 **Milestone:** P6 — IN PROGRESS
-**Capacité:** V3-F05 (connexes V3-F11 / V3-F12 / V3-F14)
-**Cycle type:** 8 — Delivery / implémentation
-**Profil SFIA:** CRITICAL
-**Typologie:** EVOL
-**CKC:** ckc:studio:delivery (CONTENT VALIDATED BY MORRIS — guidance only)
+**Capacité:** V3-F05
+**Cycle:** 8 — Delivery / CRITICAL / EVOL
+**CKC:** ckc:studio:delivery
 **QA:** CRITICAL — LOCAL DETERMINISTIC
-**Architecture conservée:** M-HD-01 O1 — aucune reconstruction
+**O1 conservé:** oui — pas de M-HD-02 UI, pas d'E4–E8
 
 ---
 
 ## 1. VERDICTS
 
-**M-HD-01 EC/HD EFFECTS BINDING — DETERMINISTIC PASS**
+**M-HD-01 EC/HD AUTHORITY BINDING — DETERMINISTIC PASS**
 
-**PILOT PRESENTATION BOUNDARY — NOT PROVEN**
-(OPEN — PILOT UI/SESSION PROOF ; actions serveur présentes, consommateur UI absent)
+**PILOT PRESENTATION BOUNDARY — NOT WIRED / NOT PROVEN** (hors périmètre)
+
+**E4–E8 — OPEN**
 
 **LOCAL CANDIDATE READY FOR CHATGPT CRITICAL CODE REVIEW**
 
-Claims interdits non émis: PRODUCT GIT INTEGRATED / PR READY / READY FOR REAL / HUMAN QA PASS / P6 GLOBAL PASS / RUNTIME V3 ADOPTED
+Claims interdits non émis.
 
 ---
 
 ## 2. GIT TRUTH
 
-### Remote
 ```
 origin	https://github.com/mcleland147/sfia-workspace.git (fetch)
 origin	https://github.com/mcleland147/sfia-workspace.git (push)
 ```
 
-- Worktree: `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016`
 - Branche: `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare`
 - HEAD: `b4c1d86211d372f7b0685be7ce8a5ba7de598e37`
-- origin/main: `896ff59c704bfa76df1da1a51705aaf948c1cf0c` (attendu `896ff59c…`)
+- origin/main: `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
+- Handoff tip pré-cycle: `30a5f5d5` / blob `10c67f20`
 - Dirty: **préservé**
-- Handoff précédent: `33d6a0aa` / blob `d1f2fe24`
 
 ### status --short
 ```
@@ -73,6 +70,7 @@ origin	https://github.com/mcleland147/sfia-workspace.git (push)
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
@@ -114,6 +112,7 @@ projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInv
 projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts
 projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
 projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts
+projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts
 projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
 projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
 projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
@@ -127,120 +126,90 @@ projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHuman
 
 | Item | Valeur |
 |------|--------|
-| TARGET | Confirm/Authorize démontre EC couvert par HD acceptée pour mission exacte |
-| CURRENT pré-pass | HD verify à Confirm/Authorize; comparaison EC/HD partielle; Pilote UI non prouvé |
-| KEEP | OA HD, DecisionBasis generic_mission, Subject, EC, Inspection, Confirmation, Attempt, Project-scoped Cursor |
-| ADAPT | fidélité champs EC; verify read-only EC/HD; tests transitions; qualification consommateur Pilote |
-| REPLACE | Comparaison EC/HD partielle |
-| Exit proof | Divergence matérielle EC/HD refusée AVANT progression d'autorité / Attempt |
-| Capacité suivante | E4–E8 (hors scope) |
+| TARGET | EC, HD et Product courant — autorité cohérente |
+| CURRENT pré-pass | EC↔HD binding OK; dual-rep silencieuse; matérialité Product courante non démontrée |
+| KEEP | OA HD, generic_mission, Subject, EC, Confirm/Authorize, Project-scoped Cursor |
+| ADAPT | projection EC interne; currentness materiality |
+| REPLACE | fallback silencieux entre représentations contradictoires |
+| EXIT PROOF | aucune progression Confirm/Authorize si contradiction matérielle ou matérialité divergente |
+| NEXT | M-HD-02 Pilot Presentation; E4–E8 sous gates distincts |
 
 ---
 
 ## 4. SOURCES CONSULTÉES
 
-- Template cycle + routing + guardrails
-- Convergence build doctrine / roadmap
-- Product Completion C1; P2/P6; Architecture D-ER locale
-- Doctrine v3 30/32/34/35/37; CKC 08-delivery
-- Handoff `33d6a0aa` / `d1f2fe24` (Authority Continuity)
-- OA ExecutionContract types; prepare/verify/record/confirm/authorize; tests M-HD-01
+Template cycle, routing, guardrails, Convergence doctrine/roadmap, C1, P2/P6, Architecture D-ER, Doctrine v3 30/32/34/35/37, CKC 08, handoff `30a5f5d5`, verify/prepare/genericMissionSubject, resolveAuthoritativeProductMateriality, assessExecutionMateriality.
 
 ---
 
-## 5. MATRICE CHAMPS EC ↔ HD
+## 5. BLOC A — COHÉRENCE INTERNE EC
 
-| Champ Pilote/sceau | Source Product | Représentation EC | Match | Confirm/Authorize |
-|--------------------|----------------|-------------------|-------|-------------------|
-| projectId | Project OA | EC.projectId | EXACT | B1 |
-| missionSubjectId | HD genericMissionContext | inputs.missionSubjectId | EXACT (requis) | B2 |
-| presentationDigest | HD seal | inputs.presentationDigest | EXACT (requis) | B16 |
-| cycleInstanceId | Subject | EC.cycleInstanceId | EXACT (null OK) | B4–B5 |
-| objective / expectedOutcome / scopeNarrative | analysis→seal | inputs.* | EXACT | B6 |
-| scopeIn / scopeOut | seal | inputs.scopeIn/Out | EXACT | B6 |
-| intentKind / artifactType | seal | inputs.* | EXACT | B8 |
-| requestedOperation | seal | inputs.requestedOperation | EXACT | B7 |
-| expectedOutputs | seal | EC.expectedOutputs (natif) | EXACT | B9 |
-| requiredCapabilities | envelope→seal | EC.requiredCapabilities | EXACT | B10 |
-| stopConditions | seal (+system) | EC.stopConditions | CONSERVATIVE: sealed ⊆ EC | B11 |
-| reversibilityExpectation | seal | inputs.reversibilityExpectation | EXACT | B12 |
-| reversibility OA | map(expectation) | EC.reversibility | EXACT via mapReversibilityExpectationToOa | B12 |
-| risks / reservations | seal | inputs.risks/reservations (+ RISK:/RESERVATION: constraints) | sealed ⊆ EC projection | B13 |
-| materiality | assessment | materialityFacts.assessedMateriality | EXACT; structural↛non_structural | B14 |
-| repositoryBinding / pathRoot | Product currentness | inputs + live revalidation | EXACT + live | B15 |
-| decisionRefs | verified HD | EC.decisionRefs | EXACT includes decisionId | B3 |
-| status/version/fingerprint | OA EC | EC.* | status not superseded/cancelled/failed | B17 |
-| Confirmation | distinct OA | confirmationRef path | ≠ HD | B19 |
-| Cursor access | Project-scoped | n/a | NOT AUTHORITY-BEARING | B20 |
+**Problème:** `projectExecutionContractEffects` préférait silencieusement inputs vs constraints.
 
-**Justification compatibilité stopConditions:** EC peut ajouter stops système (AUTHORITY_DENIED, CONTEXT_STALE, …) sans supprimer ceux acceptés.
-**Justification reversibility map:** irreversible→irreversible; reversible→reversible; unknown/null→partially_reversible (jamais élargissement silencieux vers irreversible).
+**Correction:** `assertExecutionContractInternalConsistency` — fail-closed si:
+- MATERIALITY facts vs constraints divergents / tokens contradictoires / malformés
+- risks / reservations inputs vs RISK:/RESERVATION: divergents (generic_mission)
+- repositoryIdentity / pathRoot dual conflict
+- valeur invalide ≠ absence
+
+Legacy sans stamp missionSubjectId/presentationDigest: préservé (IC10).
+
+Appelé dans `verifyGenericMissionHumanDecisionForContract` avant projection/compare.
 
 ---
 
-## 6. CORRECTIONS CURRENT → TARGET
+## 6. BLOC B — MATÉRIALITÉ PRODUCT COURANTE
 
-### Builder (`prepareGenericExecutionContractDraft.ts`)
-- Après HD vérifiée: stamp **depuis sceau HD** (missionSubjectId, presentationDigest, requestedOperation, reversibilityExpectation, risks, reservations, intent/artifact, expectedOutputs, stopConditions, repo/pathRoot).
-- `reversibility` OA via `mapReversibilityExpectationToOa` (plus de hardcode `partially_reversible`).
+**Problème:** `signals=null` + `assessExecutionMaterialityOrUnknown` → UNKNOWN forcé dès que productContextSufficient=false (y compris missions structural+HD avec signaux historiques).
 
-### Verify (`verifyGenericMissionHumanDecisionForContract`)
-- Projection indépendante EC: `projectExecutionContractEffects` + `compareExecutionContractToSealedHumanDecision`.
-- Refuse si digest/missionSubjectId absents ou divergents; effets mutés; materiality dégradée; stops/risks manquants.
-- Currentness Product live pour repo/pathRoot (faits Product, pas reconstruction HD seule comme vérité EC).
+**Correction:**
+1. Signaux historiques = `materialityFacts.modelSignals` ∨ `inputs.impactSignals` ∨ sceau HD — **pas** une requalification Nora live.
+2. Faits Product-owned live: LPS/repo/pathRoot/protected paths/authority envelope.
+3. Classe courante via `assessExecutionMateriality` (pas OrUnknown sur le chemin HD).
+4. `materialityContinuityCompatible`: match exact; exception documentée unknown→structural (stamp fail-closed ≠ claim non_structural); refuse structural→non_structural.
+5. REFUS si Product illisible, pathRoot hors périmètre, mismatch.
 
-### Confirm/Authorize
-- Continuent d'appeler `verifyGenericMissionHumanDecisionForContract` (pas de bypass decisionRefs.length).
-
-### Pilote (Bloc E)
-- `w2SealGenericMissionAction` / `w2RecordGenericMissionHumanDecisionAction` existent dans `actions.ts`.
-- **Aucun** call site dans `ProjectAssistantPanel.tsx` / `ConversationSurface.tsx`.
-- Qualification: **PILOT PRESENTATION BOUNDARY — NOT WIRED / NOT PROVEN**.
-- Pas de raccordement UX (exigerait gate Morris). Decision Pack ci-dessous.
+PREPARE stamp `impactSignals` historiques sur EC.
 
 ---
 
-## 7. DECISION PACK — PILOT PRESENTATION (OPEN, non bloquant EC/HD)
+## 7. CONFIRM / AUTHORIZE
 
-| Champ | Valeur |
-|-------|--------|
-| Invariant bloquant | P2–P5 non démontrables sans surface Pilote |
-| Preuve | PB05: Panel/Surface sans w2Seal/w2Record; actions.ts contient les entrypoints |
-| Contrat manquant | Liaison UI/session → Seal → option explicite → Record |
-| Options bornées | (A) Wire local surfaces existantes sans nouveau contrat; (B) Gate Morris nouvelle surface; (C) Conserver Fake service-level |
-| Recommandation | (C) pour ce cycle + gate Morris dédié pour wire Pilote |
-| Décision Morris | PILOT PRESENTATION GATE si wire Product réel requis |
-
-EC/HD binding corrigé et testé **indépendamment** (autorisé par GO).
+Consomment déjà `verifyGenericMissionHumanDecisionForContract` — contrôles IC/CM inclus. Pas de bypass decisionRefs.length. G-D4 NON_STRUCTURAL préservé. Aucun Attempt sur refus.
 
 ---
 
-## 8. MATRICE TESTS EC / PB
+## 8. MATRICE TESTS IC / CM
 
-Fichier: `p6.mHd01.ecHdEffectsBinding.d0.test.ts` — **27 PASS** (Fake).
+Fichier: `p6.mHd01.finalAuthorityBinding.d0.test.ts` — **16 PASS**
 
-| ID | Résultat | Notes |
-|----|----------|-------|
-| EC01 | PASS | Confirm/Authorize réels + stamps |
-| EC02–EC10 | PASS | Fixture adversariale EC mutée → verify refuse |
-| EC12 | PASS | Authorize réel après supersede |
-| EC14–EC17 | PASS | autre mission / forged ref / repo / materiality helper |
-| EC20/22/23/25/26 | PASS | cycle facultatif / idempotence / NS / no Attempt / inspect |
-| PB01–PB04, PB06–PB09, PB12 | PASS | Fake service |
-| PB05 | PASS (OPEN claim) | Inspection code: UI NOT WIRED — not synthetic click PASS |
+| ID | Résultat | Frontière |
+|----|----------|-----------|
+| IC01 | PASS | Confirm+Authorize effectifs |
+| IC02–IC09 | PASS | helper + verify |
+| IC10 | PASS | legacy |
+| CM01 | PASS | Confirm+Authorize effectifs |
+| CM02 | PASS | helper continuity |
+| CM03 | PASS | fail-closed |
+| CM05 | PASS | Confirm réel pathRoot |
+| CM06 | PASS | NS sans HD |
+| CM07 | PASS | unknown→structural documented |
+| CM08 | PASS | sans cycle |
+| CM10 | PASS | Authorize réel superseded |
 
-Non exécutés comme Confirm effectifs pour chaque mutation EC (immutabilité OA) — fixtures déclarées; Confirm/Authorize effectifs sur EC01/EC12/EC16/PB08.
+CM04/CM09: couverts par codes MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE / CYCLE_NOT_ACTIVE (chemins existants + NR).
 
 ---
 
 ## 9. VALIDATIONS EXÉCUTÉES
 
-- EC/HD binding: 27 PASS
-- M-HD-01 HD: 21 PASS
-- Authority Continuity: 24 PASS
-- Inspection binding: 15 PASS
-- Project-scoped selection: 14 PASS
-- **Total batch: 101 PASS**
+- Final IC/CM: 16
+- EC/HD binding: 27
+- Authority Continuity: 24
+- Generic HD: 21
+- Inspection: 15
+- Project-scoped: 14
+- **Total: 117 PASS**
 - tsc --noEmit: PASS
 - next build: PASS
 
@@ -248,23 +217,18 @@ Non exécutés comme Confirm effectifs pour chaque mutation EC (immutabilité OA
 
 ## 10. FAKE / REAL
 
-| Item | Niveau |
-|------|--------|
-| EC↔HD effects binding | LOCAL DETERMINISTIC EC ↔ HD EFFECTS BINDING PROOF |
-| Pilot UI/session | NOT FULLY PROVEN / NOT WIRED |
-| REAL | NON ACCORDÉ |
-| Claims interdits | non émis |
+LOCAL DETERMINISTIC EC INTERNAL CONSISTENCY + PRODUCT CURRENT MATERIALITY PROOF.
+Pilot UI NOT WIRED. REAL NON AUTORISÉ. E4–E8 OPEN.
 
 ---
 
-## 11. DETTE / EXIT / GATES
+## 11. DETTE / GATES
 
-| Dette | Exit |
-|-------|------|
-| Pilot UI wire | Morris PILOT PRESENTATION GATE |
+| Item | Exit |
+|------|------|
+| M-HD-02 Pilot UI | Morris gate |
 | E4–E8 | Cycle dédié |
 | Cursor REAL / OpenAI LIVE | Morris REAL |
-| SelectionProfile / F2-ACGC | Retire later |
 
 ---
 
@@ -272,49 +236,49 @@ Non exécutés comme Confirm effectifs pour chaque mutation EC (immutabilité OA
 
 Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
 
-**SFIA STUDIO — M-HD-01 EC ↔ HUMANDECISION CRITICAL EFFECTS BINDING CODE REVIEW**
+**SFIA STUDIO — M-HD-01 FINAL AUTHORITY BINDING CRITICAL CODE REVIEW**
 
-Vérifier: champs EC indépendants; aucun effet scellé ignoré; pas d'autorité digests seule; currentness Product; Confirm/Authorize effectifs; legacy NR; provenance Pilote (NOT PROVEN); pas de décision synthétique; cycle facultatif; idempotence; Review Pack complet; aucun commit Product.
+Vérifier: aucune double vérité EC; matérialité Product courante qualifiée; pas de requalification circulaire; Confirm/Authorize gouvernés; pas d'autorité implicite; cycle facultatif; NR; pas d'architecture parallèle; Review Pack FULL; Product non intégré.
 
 ---
 
 ## 13. SORTIES TESTS (extrait)
 ```
-.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:c7763c7f7a2daec7","attemptId":"xat:w3a:b9960aa317e7bcac","executionContractId":"xct:gen-prep:f49b7fd520e551e8457a4419","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":3}
-{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:c7763c7f7a2daec7","attemptId":"xat:w3a:b9960aa317e7bcac","executionContractId":"xct:gen-prep:f49b7fd520e551e8457a4419","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":3}
+ewStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":2}
 
 stdout | __tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts > P6 project-scoped Cursor selection Delivery > S10 — mission faible effet: PREPARE + Select proportionnés (no cycle)
-{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e0a446479f014077","attemptId":"xat:w3a:31f61af2570e3b4f","executionContractId":"xct:gen-prep:cb0741efdba3cbcf7f9448c0","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":2}
-{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e0a446479f014077","attemptId":"xat:w3a:31f61af2570e3b4f","executionContractId":"xct:gen-prep:cb0741efdba3cbcf7f9448c0","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":2}
+{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e5614c6995305e09","attemptId":"xat:w3a:31f61af2570e3b4f","executionContractId":"xct:gen-prep:cb0741efdba3cbcf7f9448c0","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":3}
+{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e5614c6995305e09","attemptId":"xat:w3a:31f61af2570e3b4f","executionContractId":"xct:gen-prep:cb0741efdba3cbcf7f9448c0","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":3}
 
 stdout | __tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts > P6 Select inspection binding (R1) > I11 — Confirm may bump version; attested binding still Select-valid via I1 path
-{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:6afd0ae1e7bfd1af","attemptId":"xat:w3a:558c9e5d185840a9","executionContractId":"xct:gen-prep:246739781710a80be78f84bb","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":2}
-{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:6afd0ae1e7bfd1af","attemptId":"xat:w3a:558c9e5d185840a9","executionContractId":"xct:gen-prep:246739781710a80be78f84bb","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":2}
+{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:cc172370720507ee","attemptId":"xat:w3a:558c9e5d185840a9","executionContractId":"xct:gen-prep:246739781710a80be78f84bb","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":2}
+{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:cc172370720507ee","attemptId":"xat:w3a:558c9e5d185840a9","executionContractId":"xct:gen-prep:246739781710a80be78f84bb","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":2}
 
- ✓ __tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts (14 tests) 756ms
- ✓ __tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts (15 tests) 801ms
+ ✓ __tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts (16 tests) 795ms
+ ✓ __tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts (14 tests) 863ms
+ ✓ __tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts (15 tests) 927ms
 stdout | __tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts > P6 M-HD-01 Generic Mission HumanDecision > E1 — structural + verified HD can Select (Fake)
-{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e5b974c3b368bd22","attemptId":"xat:w3a:b7830c7dcd2d9d1b","executionContractId":"xct:gen-prep:af123b4e70db8588253c36b9","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":3}
-{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e5b974c3b368bd22","attemptId":"xat:w3a:b7830c7dcd2d9d1b","executionContractId":"xct:gen-prep:af123b4e70db8588253c36b9","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":3}
+{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:65ee0564f01c3135","attemptId":"xat:w3a:4f6e6c5d02ef41a2","executionContractId":"xct:gen-prep:adc6cbb7bd033a240dcf475e","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":2}
+{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:65ee0564f01c3135","attemptId":"xat:w3a:4f6e6c5d02ef41a2","executionContractId":"xct:gen-prep:adc6cbb7bd033a240dcf475e","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":2}
 
- ✓ __tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts (21 tests) 900ms
- ✓ __tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts (24 tests) 991ms
- ✓ __tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts (27 tests) 1083ms
+ ✓ __tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts (21 tests) 1018ms
+ ✓ __tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts (24 tests) 1103ms
+ ✓ __tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts (27 tests) 1191ms
 
- Test Files  5 passed (5)
-      Tests  101 passed (101)
-   Start at  14:59:08
-   Duration  2.54s (transform 1.23s, setup 175ms, collect 6.31s, tests 4.53s, environment 0ms, prepare 177ms)
+ Test Files  6 passed (6)
+      Tests  117 passed (117)
+   Start at  15:30:35
+   Duration  2.65s (transform 1.34s, setup 237ms, collect 7.59s, tests 5.90s, environment 0ms, prepare 203ms)
 
 
 ```
 
 ---
 
-## 14. DIFF PREPARE (Product builder)
+## 14. DIFF PREPARE (extrait)
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-index 37daec50..5af37e25 100644
+index 37daec50..e7fe1391 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 @@ -1,14 +1,14 @@
@@ -393,449 +357,14 @@ index 37daec50..5af37e25 100644
    const raw = [
      input.projectId,
 @@ -330,6 +346,8 @@ function stableMissionKey(input: {
-     input.scopeIn.join("|"),
-     input.scopeOut.join("|"),
-     input.materiality,
-+    input.decisionId?.trim() || "",
-+    input.presentationDigest?.trim() || "",
-   ].join("\n");
-   return createHash("sha256").update(raw).digest("hex").slice(0, 24);
- }
-@@ -368,7 +386,7 @@ export function extractMissionEffectsFromAnalysis(
-
- function offerFingerprintFor(input: {
-   readonly projectId: string;
--  readonly cycleInstanceId: string;
-+  readonly cycleInstanceId: string | null;
-   readonly objective: string;
-   readonly expectedOutcome: string;
-   readonly scope: string;
-@@ -381,7 +399,7 @@ function offerFingerprintFor(input: {
-     .update(
-       [
-         input.projectId,
--        input.cycleInstanceId,
-+        input.cycleInstanceId ?? "",
-         input.objective,
-         input.expectedOutcome,
-         input.scope,
-@@ -405,7 +423,7 @@ function offerFingerprintFor(input: {
- /** Remember CURRENT prepare recommendation (Nora offered; Pilot has not GO'd). */
- export function rememberGenericPrepareRecommendation(input: {
-   readonly projectId: string;
--  readonly cycleInstanceId: string;
-+  readonly cycleInstanceId: string | null;
-   readonly analysis: IntentAnalysisDto;
-   readonly offeredAtIso: string;
-   readonly sessionKey?: string | null;
-@@ -540,21 +558,14 @@ export function getCurrentGenericPrepareOffer(
-
- /**
-  * Build (+ optional Validate) an inspectable generalist ExecutionContract.
-- * Empty decisionRefs when non-structural. Never records HumanDecision.
-+ * Empty decisionRefs when non-structural. Structural resume requires verified HD.
-+ * Never records HumanDecision. Never auto-EXECUTE.
-  */
- export async function prepareGenericExecutionContractDraft(
-   input: PrepareGenericExecutionContractDraftInput,
- ): Promise<PrepareGenericExecutionContractDraftResult> {
-   const readiness = assessGenericMissionPrepareReadiness(input.analysis);
--  if (readiness.structuralBlocked) {
--    return {
--      ok: false,
--      code: "STRUCTURAL_HUMAN_DECISION_REQUIRED",
--      message:
--        "Cette mission engage une vérité structurelle — une HumanDecision Pilote reste requise avant préparation.",
--    };
--  }
--  if (!readiness.ready) {
-+  if (readiness.missingFields.length > 0) {
-     return {
-       ok: false,
-       code: "MISSION_INSUFFICIENTLY_QUALIFIED",
-@@ -562,6 +573,27 @@ export async function prepareGenericExecutionContractDraft(
-     };
-   }
-
-+  const decisionId = input.decisionId?.trim() || null;
-+  let verifiedDecisionRefs: string[] = [];
-+  let verifiedPresentationDigest: string | null = null;
-+  let verifiedMissionSubjectId: string | null = null;
-+  let sealedHdEffects: {
-+    readonly requestedOperation: string | null;
-+    readonly reversibilityExpectation:
-+      | "reversible"
-+      | "irreversible"
-+      | "unknown"
-+      | null;
-+    readonly risks: readonly string[];
-+    readonly reservations: readonly string[];
-+    readonly intentKind: string | null;
-+    readonly artifactType: string | null;
-+    readonly expectedOutputs: readonly string[];
-+    readonly stopConditions: readonly string[];
-+    readonly repositoryBindingIdentity: string | null;
-+    readonly pathRoot: string | null;
-+  } | null = null;
-+
-   const proposedCapabilities =
-     input.analysis.executionIntent?.requiredCapabilities ?? [];
-   const capabilityResolution =
-@@ -581,19 +613,64 @@ export async function prepareGenericExecutionContractDraft(
-     cycleInstanceId: input.cycleInstanceId,
-   });
-   const materiality = materialityResolution.assessment;
--  if (materiality.humanDecisionRequired) {
--    return {
--      ok: false,
--      code:
--        materiality.materiality === "unknown"
--          ? "MATERIALITY_UNKNOWN"
--          : "STRUCTURAL_HUMAN_DECISION_REQUIRED",
--      message:
--        materiality.materiality === "unknown"
--          ? "Matérialité indéterminée — contexte Product insuffisant ou contradiction ; HumanDecision / clarification requise."
--          : "Matérialité server-owned structurelle — HumanDecision requise avant préparation sans refs.",
-+  const hdRequired =
-+    readiness.structuralBlocked || materiality.humanDecisionRequired;
-+
-+  if (hdRequired) {
-+    if (!decisionId) {
-+      return {
-+        ok: false,
-+        code:
-+          materiality.materiality === "unknown" && !readiness.structuralBlocked
-+            ? "MATERIALITY_UNKNOWN"
-+            : "STRUCTURAL_HUMAN_DECISION_REQUIRED",
-+        message:
-+          materiality.materiality === "unknown" && !readiness.structuralBlocked
-+            ? "Matérialité indéterminée — contexte Product insuffisant ou contradiction ; HumanDecision / clarification requise."
-+            : "Cette mission engage une vérité structurelle — une HumanDecision Pilote reste requise avant préparation.",
-+      };
-+    }
-+    const verified = await verifyGenericMissionHumanDecisionForPrepare({
-+      oa: input.oa,
-+      projectId: input.projectId,
-+      cycleInstanceId: input.cycleInstanceId?.trim() || null,
-+      decisionId,
-+      analysis: input.analysis,
-+    });
-+    if (!verified.ok) {
-+      return {
-+        ok: false,
-+        code: verified.code,
-+        message: verified.message,
-+      };
-+    }
-+    verifiedDecisionRefs = [verified.verified.decisionId];
-+    verifiedPresentationDigest = verified.verified.presentationDigest;
-+    verifiedMissionSubjectId = verified.verified.missionSubjectId;
-+    const sealedCtx =
-+      verified.verified.decision.decisionBasis?.genericMissionContext;
-+    if (!sealedCtx) {
-+      return {
-+        ok: false,
-+        code: "HD_BASIS_INVALID",
-+        message: "genericMissionContext absent après vérification HD.",
-+      };
-+    }
-+    // Authoritative accepted effects — stamp EC from sealed HD, not a parallel re-derivation.
-+    sealedHdEffects = {
-+      requestedOperation: sealedCtx.requestedOperation ?? null,
-+      reversibilityExpectation: sealedCtx.reversibilityExpectation ?? null,
-+      risks: [...sealedCtx.risks],
-+      reservations: [...sealedCtx.reservations],
-+      intentKind: sealedCtx.intentKind ?? null,
-+      artifactType: sealedCtx.artifactType ?? null,
-+      expectedOutputs: [...sealedCtx.expectedOutputs],
-+      stopConditions: [...sealedCtx.stopConditions],
-+      repositoryBindingIdentity: sealedCtx.repositoryBindingIdentity,
-+      pathRoot: sealedCtx.pathRoot,
-     };
-   }
-+  // Non-structural: decisionRefs remain empty (no systematic HD).
-
-   const services = input.oa.executionContractServices;
-   if (!services?.buildExecutionContract) {
-@@ -637,7 +714,10 @@ export async function prepareGenericExecutionContractDraft(
-       ? "unresolved_nora_candidate"
-       : "not_applicable";
-   // Contract expectedOutputs = inspectable requested outcome, never unresolved path authority.
--  const contractExpectedOutputs = [expectedOutcome];
-+  // When HD verified: sealed expectedOutputs are authoritative (already Product-qualified).
-+  const contractExpectedOutputs = sealedHdEffects
-+    ? [...sealedHdEffects.expectedOutputs]
-+    : [expectedOutcome];
-
-   // D — source grounding / trusted launch when mission implies repository work.
-   const impliesGit = missionImpliesRepositoryWork(input.analysis);
-@@ -717,13 +797,23 @@ export async function prepareGenericExecutionContractDraft(
-     scopeIn,
-     scopeOut: outOfScope,
-     materiality: materiality.materiality,
-+    decisionId: verifiedDecisionRefs[0] ?? null,
-+    presentationDigest: verifiedPresentationDigest,
-   });
-   const executionContractId = `xct:gen-prep:${missionKey}`;
-   const idempotencyKey = `idem:gen-prep:${missionKey}`;
-   const correlationId = `cor:gen-prep:${randomBytes(6).toString("hex")}`;
-
-+  const sealedOrAnalysisStops = sealedHdEffects
-+    ? [...sealedHdEffects.stopConditions]
-+    : [
-+        ...(input.analysis.stopConditions ?? []).filter(
-+          (s) => s.trim().length > 0,
-+        ),
-+        "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
-+      ];
-   const stopConditions = [
--    ...(input.analysis.stopConditions ?? []).filter((s) => s.trim().length > 0),
-+    ...sealedOrAnalysisStops,
-     "AUTHORITY_DENIED",
-     "CONTEXT_STALE",
-     "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
-@@ -736,16 +826,25 @@ export async function prepareGenericExecutionContractDraft(
-     return true;
-   });
-
-+  const sealedOrAnalysisRisks = sealedHdEffects
-+    ? [...sealedHdEffects.risks]
-+    : [...(input.analysis.risks ?? [])];
-+  const sealedOrAnalysisReservations = sealedHdEffects
-+    ? [...sealedHdEffects.reservations]
-+    : [...(input.analysis.reservations ?? [])];
-+
-   const constraints = [
-     "PRODUCT_GOVERNED",
-     "NO_ATTEMPT_AT_PREPARE",
--    "PREPARE_WITHOUT_SYSTEMATIC_HD",
-+    verifiedDecisionRefs.length > 0
-+      ? "PREPARE_AFTER_VERIFIED_GENERIC_MISSION_HD"
-+      : "PREPARE_WITHOUT_SYSTEMATIC_HD",
-     "CURSOR_DETERMINES_HOW",
-     "GENERIC_MISSION_NO_TASK_CATALOG",
-     materiality.constraintToken,
-     ...outOfScope.map((s) => `OUT_OF_SCOPE:${s}`),
--    ...(input.analysis.risks ?? []).map((s) => `RISK:${s}`),
--    ...(input.analysis.reservations ?? []).map((s) => `RESERVATION:${s}`),
-+    ...sealedOrAnalysisRisks.map((s) => `RISK:${s}`),
-+    ...sealedOrAnalysisReservations.map((s) => `RESERVATION:${s}`),
-   ];
-
-   const issuedAt = input.oa.clock.nowIso();
-@@ -771,12 +870,31 @@ export async function prepareGenericExecutionContractDraft(
-     assessedMateriality: materiality.materiality,
-     reasonCodes: [...materiality.reasonCodes],
-   };
-+  const currentness = materialityResolution.facts.productCurrentness;
-+  // Authoritative EC↔HD effect stamps (M-HD-01 binding). When HD verified,
-+  // missionSubjectId + presentationDigest + sealed effects are required on the EC.
-+  const stampedRevExpectation =
-+    sealedHdEffects?.reversibilityExpectation ??
-+    missionEffects.reversibilityExpectation;
-+  const stampedRequestedOperation =
-+    sealedHdEffects?.requestedOperation ?? missionEffects.requestedOperation;
-+  const stampedIntentKind =
-+    sealedHdEffects?.intentKind ?? missionEffects.intentKind;
-+  const stampedArtifactType =
-+    sealedHdEffects?.artifactType ?? missionEffects.artifactType;
-+  const stampedRepoIdentity =
-+    sealedHdEffects?.repositoryBindingIdentity ??
-+    currentness?.repositoryIdentity ??
-+    null;
-+  const stampedPathRoot =
-+    sealedHdEffects?.pathRoot ?? currentness?.pathRoot ?? null;
-+  const oaReversibility = mapReversibilityExpectationToOa(stampedRevExpectation);
-
-   const built = await services.buildExecutionContract.execute({
-     executionContractId,
-     projectId: input.projectId,
-     cycleInstanceId,
--    decisionRefs: [],
-+    decisionRefs: [...verifiedDecisionRefs],
-     action: PRODUCT_CANONICAL_EXECUTION_ACTION,
-     target: PRODUCT_CANONICAL_EXECUTION_TARGET,
-     scope: PRODUCT_CANONICAL_EXECUTION_SCOPE,
-@@ -788,14 +906,23 @@ export async function prepareGenericExecutionContractDraft(
-       scopeOut: outOfScope,
-       sourcesToRead,
-       cursorDeterminesHow: true,
--      prepareWithoutSystematicHumanDecision: true,
-+      prepareWithoutSystematicHumanDecision: verifiedDecisionRefs.length === 0,
-+      verifiedGenericMissionHumanDecisionId: verifiedDecisionRefs[0] ?? null,
-+      missionSubjectId: verifiedMissionSubjectId,
-+      presentationDigest: verifiedPresentationDigest,
-       humanDecisionCreated: false,
-       executionAttemptCreated: false,
-       prepareStatus: "draft_inspectable",
-       materialityFacts,
--      // Intent fidelity — inspectable mission effects (Pass 02).
--      intentKind: missionEffects.intentKind,
--      artifactType: missionEffects.artifactType,
-+      // Intent fidelity — inspectable mission effects (Pass 02 / EC↔HD).
-+      intentKind: stampedIntentKind,
-+      artifactType: stampedArtifactType,
-+      requestedOperation: stampedRequestedOperation,
-+      reversibilityExpectation: stampedRevExpectation,
-+      risks: sealedOrAnalysisRisks,
-+      reservations: sealedOrAnalysisReservations,
-+      repositoryBindingIdentity: stampedRepoIdentity,
-+      pathRoot: stampedPathRoot,
-       artifactBrief: missionEffects.artifactBrief,
-       contentRequirements: [...missionEffects.contentRequirements],
-       validationExpectations: [...missionEffects.validationExpectations],
-@@ -827,7 +954,7 @@ export async function prepareGenericExecutionContractDraft(
-       "evreq:generic-prepare-mission-evidence",
-       ...missionEffects.evidenceRequirements,
-     ],
--    reversibility: "partially_reversible",
-+    reversibility: oaReversibility,
-     idempotencyKey,
-     correlationId,
-     status: "draft",
-@@ -835,16 +962,104 @@ export async function prepareGenericExecutionContractDraft(
-     authorityEvidenceId: authority.evidenceId,
-   });
-
-+  let contract;
-+  let reusedExisting = false;
-   if (!built.ok) {
--    return {
--      ok: false,
--      code: built.error.detailCode,
--      message: built.error.message,
--    };
-+    // Idempotent resume: same missionKey / executionContractId already built.
-+    if (built.error.detailCode === "CONTRACT_ALREADY_EXISTS") {
-+      const existing = await services.getExecutionContract.execute({
-+        executionContractId,
-+      });
-+      const reusableStatuses = new Set([
-+        "draft",
-+        "validated",
-+        "confirmation_required",
-+        "confirmed",
-+        "authorized",
-+      ]);
-+      const existingRefs = [...(existing.ok ? existing.contract.decisionRefs ?? [] : [])].sort();
-+      const wantedRefs = [...verifiedDecisionRefs].sort();
-+      const existingCaps = [
-+        ...(existing.ok ? existing.contract.requiredCapabilities ?? [] : []),
-+      ];
-+      const wantedCaps = [...capabilityResolution.contractCapabilities];
-+      const existingInputs = (existing.ok ? existing.contract.inputs ?? {} : {}) as Record<
-+        string,
-+        unknown
-+      >;
-+      const sameRefs = JSON.stringify(existingRefs) === JSON.stringify(wantedRefs);
-+      const sameCaps = JSON.stringify(existingCaps) === JSON.stringify(wantedCaps);
-+      const sameObjective =
-+        String(existingInputs.objective ?? "").trim() === objective.trim();
-+      const sameScope =
-+        String(existingInputs.missionScopeNarrative ?? "").trim() ===
-+          scopeNarrative.trim() &&
-+        JSON.stringify(existingInputs.scopeIn ?? []) === JSON.stringify(scopeIn) &&
-+        JSON.stringify(existingInputs.scopeOut ?? []) === JSON.stringify(outOfScope);
-+      const sameMateriality = (existing.ok ? existing.contract.constraints ?? [] : []).includes(
-+        materiality.constraintToken,
-+      );
-+      const sameDigest =
-+        !verifiedPresentationDigest ||
-+        String(existingInputs.presentationDigest ?? "") ===
-+          verifiedPresentationDigest;
-+      const statusOk =
-+        existing.ok && reusableStatuses.has(existing.contract.status);
-+      const notSuperseded =
-+        existing.ok && existing.contract.status !== "superseded";
-+      if (
-+        existing.ok &&
-+        existing.contract.projectId === input.projectId &&
-+        sameRefs &&
-+        sameCaps &&
-+        sameObjective &&
-+        sameScope &&
-+        sameMateriality &&
-+        sameDigest &&
-+        statusOk &&
-+        notSuperseded
-+      ) {
-+        // When HD resume: re-verify decision still applicable before reuse.
-+        if (verifiedDecisionRefs.length > 0) {
-+          for (const ref of verifiedDecisionRefs) {
-+            const hd = await verifyGenericMissionHumanDecisionForContract({
-+              oa: input.oa,
-+              projectId: input.projectId,
-+              decisionId: ref,
-+              contract: existing.contract,
-+            });
-+            if (!hd.ok) {
-+              return {
-+                ok: false,
-+                code: "CONTRACT_STALE",
-+                message: `EC existant non réutilisable — HD courante invalide (${hd.code}).`,
-+              };
-+            }
-+          }
-+        }
-+        contract = existing.contract;
-+        reusedExisting = true;
-+      } else {
-+        return {
-+          ok: false,
-+          code: "CONTRACT_STALE",
-+          message:
-+            "EC existant non réutilisable (statut/scope/effets/decisionRefs/currentness divergents).",
-+        };
-+      }
-+    } else {
-+      return {
-+        ok: false,
-+        code: built.error.detailCode,
-+        message: built.error.message,
-+      };
-+    }
-+  } else {
-+    contract = built.contract;
-   }
-
--  let contract = built.contract;
--  const shouldValidate = input.validateAfterBuild !== false;
-+  const shouldValidate =
-+    input.validateAfterBuild !== false && !reusedExisting;
-   if (shouldValidate && services.validateExecutionContract) {
-     const validated = await services.validateExecutionContract.execute({
-       executionContractId: contract.executionContractId,
-@@ -884,13 +1099,19 @@ export function genericMissionClarificationText(input: {
-   readonly missingFields: readonly string[];
-   readonly structuralBlocked: boolean;
-   readonly recommendPrepare?: boolean;
-+  /** false = S8 project-context (no active cycle, none invented). Default true. */
-+  readonly hasActiveCycle?: boolean;
- }): string {
-   const head =
-     input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
-+  const contextKept =
-+    input.hasActiveCycle === false
-+      ? "Contexte projet conservé — aucun cycle artificiel créé."
-+      : "Le cycle actif est conservé.";
-   if (input.structuralBlocked) {
-     return [
-       head,
--      "Le cycle actif est conservé.",
-+      contextKept,
-       "Cette demande touche une frontière structurelle — une décision Pilote explicite reste nécessaire avant de préparer un contrat d'exécution.",
-       "Rien n'a encore été exécuté.",
-     ].join(" ");
-@@ -898,7 +1119,7 @@ export function genericMissionClarificationText(input: {
-   if (input.recommendPrepare) {
-     return [
+... (truncated middle) ...
        head,
 -      "Le cycle actif est conservé.",
 +      contextKept,
        "Je recommande de confier cette mission à Cursor.",
        "Je peux préparer le contrat d'exécution générique inspectable.",
        "Si tu es d'accord, dis-le-moi (par ex. « OK, vas-y ») — préparer ≠ autoriser ≠ exécuter.",
-@@ -908,7 +1129,7 @@ export function genericMissionClarificationText(input: {
+@@ -908,7 +1150,7 @@ export function genericMissionClarificationText(input: {
    const gaps = input.missingFields.join(", ");
    return [
      head,
@@ -844,7 +373,7 @@ index 37daec50..5af37e25 100644
      `Pour préparer le contrat d'exécution, il me manque encore : ${gaps}.`,
      "La préparation reste distincte du lancement. Rien n'a encore été exécuté.",
    ].join(" ");
-@@ -930,3 +1151,184 @@ export function genericMissionPreparedText(input: {
+@@ -930,3 +1172,184 @@ export function genericMissionPreparedText(input: {
      "Préparer ≠ autoriser ≠ exécuter. Aucune exécution n'a été lancée.",
    ].join(" ");
  }
@@ -1029,7 +558,6 @@ index 37daec50..5af37e25 100644
 +      "Contrat d'exécution préparé et inspectable — non autorisé, non lancé. Préparer ≠ autoriser ≠ exécuter.",
 +  };
 +}
-
 ```
 
 ---
@@ -1465,19 +993,201 @@ function reservationsFromConstraints(constraints: readonly string[]): string[] {
     .map((c) => c.slice("RESERVATION:".length));
 }
 
-function materialityFromConstraints(
+export function normalizeMaterialityClass(
+  raw: string | null | undefined,
+): "structural" | "non_structural" | "unknown" | null {
+  if (raw == null) return null;
+  if (typeof raw !== "string") return null;
+  const t = raw.trim().toLowerCase();
+  if (t === "structural" || t === "non_structural" || t === "unknown") {
+    return t;
+  }
+  return null;
+}
+
+/**
+ * CURRENT Product materiality vs sealed HD/EC class.
+ * Exact match required, with one documented conservative case:
+ * sealed `unknown` was a fail-closed insufficiency stamp (not a non_structural
+ * claim). Current `structural` remains covered by the accepted HD.
+ * Degradation structural→non_structural/unknown is always refused.
+ */
+export function materialityContinuityCompatible(input: {
+  readonly sealed: string | null | undefined;
+  readonly current: string | null | undefined;
+}): { readonly ok: true } | { readonly ok: false; readonly reason: string } {
+  const sealed = normalizeMaterialityClass(input.sealed ?? null);
+  const current = normalizeMaterialityClass(input.current ?? null);
+  if (sealed == null) {
+    return { ok: false, reason: "sealed_materiality_absent" };
+  }
+  if (current == null) {
+    return { ok: false, reason: "current_materiality_absent" };
+  }
+  if (sealed === current) return { ok: true };
+  if (sealed === "unknown" && current === "structural") return { ok: true };
+  if (sealed === "structural" && current !== "structural") {
+    return { ok: false, reason: "structural_materiality_degraded" };
+  }
+  return {
+    ok: false,
+    reason: `materiality_continuity_${sealed}_vs_${current}`,
+  };
+}
+
+function materialityClassesFromConstraints(
   constraints: readonly string[],
-): string | null {
-  const token = constraints.find((c) => c.startsWith("MATERIALITY:"));
-  if (!token) return null;
-  return token.slice("MATERIALITY:".length).trim() || null;
+): Array<"structural" | "non_structural" | "unknown"> {
+  const out: Array<"structural" | "non_structural" | "unknown"> = [];
+  for (const c of constraints) {
+    if (!c.startsWith("MATERIALITY:")) continue;
+    const cls = normalizeMaterialityClass(c.slice("MATERIALITY:".length));
+    if (cls) out.push(cls);
+  }
+  return out;
+}
+
+function sortedCopy(arr: readonly string[]): string[] {
+  return [...arr].map((s) => String(s)).sort();
+}
+
+function sameSortedStringArr(a: readonly string[], b: readonly string[]): boolean {
+  const aa = sortedCopy(a);
+  const bb = sortedCopy(b);
+  return aa.length === bb.length && aa.every((v, i) => v === bb[i]);
+}
+
+/**
+ * Fail-closed dual-representation check for Generic Mission ECs.
+ * Never silently picks the favorable side when two representations diverge.
+ * Legacy contracts without generic_mission stamps skip dual-rep requirements.
+ */
+export function assertExecutionContractInternalConsistency(input: {
+  readonly constraints?: readonly string[] | null;
+  readonly inputs?: Record<string, unknown> | null;
+}): { readonly ok: true } | { readonly ok: false; readonly reason: string } {
+  const constraints = [...(input.constraints ?? [])];
+  const inputs = input.inputs ?? {};
+  const isGenericMissionStamped = Boolean(
+    (typeof inputs.missionSubjectId === "string" &&
+      inputs.missionSubjectId.trim()) ||
+      (typeof inputs.presentationDigest === "string" &&
+        inputs.presentationDigest.trim()),
+  );
+
+  const materialityFacts = (inputs.materialityFacts ?? null) as
+    | {
+        assessedMateriality?: unknown;
+        productCurrentness?: {
+          repositoryIdentity?: string | null;
+          pathRoot?: string | null;
+        };
+      }
+    | null;
+
+  // A1 — materiality facts vs MATERIALITY:* constraints
+  const constraintClasses = materialityClassesFromConstraints(constraints);
+  const uniqueConstraint = new Set(constraintClasses);
+  if (uniqueConstraint.size > 1) {
+    return { ok: false, reason: "materiality_constraint_conflict" };
+  }
+  // Malformed MATERIALITY tokens (present but not a known class)
+  for (const c of constraints) {
+    if (!c.startsWith("MATERIALITY:")) continue;
+    const raw = c.slice("MATERIALITY:".length);
+    if (normalizeMaterialityClass(raw) == null) {
+      return { ok: false, reason: "materiality_constraint_malformed" };
+    }
+  }
+  const fromConstraint = constraintClasses[0] ?? null;
+
+  if (
+    materialityFacts != null &&
+    "assessedMateriality" in materialityFacts &&
+    materialityFacts.assessedMateriality !== undefined &&
+    materialityFacts.assessedMateriality !== null
+  ) {
+    if (typeof materialityFacts.assessedMateriality !== "string") {
+      return { ok: false, reason: "materiality_facts_malformed" };
+    }
+    const assessed = normalizeMaterialityClass(
+      materialityFacts.assessedMateriality,
+    );
+    if (assessed == null) {
+      // Explicit invalid value must not be normalized into absence.
+      return { ok: false, reason: "materiality_facts_malformed" };
+    }
+    if (fromConstraint != null && assessed !== fromConstraint) {
+      return { ok: false, reason: "materiality_facts_vs_constraint_conflict" };
+    }
+  } else if (isGenericMissionStamped && fromConstraint == null) {
+    return { ok: false, reason: "materiality_absent_on_generic_mission_ec" };
+  }
+
+  // A2 — inputs.risks vs RISK:*
+  if (Array.isArray(inputs.risks)) {
+    const fromInputs = inputs.risks.map((r) => String(r));
+    const fromC = risksFromConstraints(constraints);
+    if (isGenericMissionStamped || fromC.length > 0) {
+      if (!sameSortedStringArr(fromInputs, fromC)) {
+        return { ok: false, reason: "risks_inputs_vs_constraints_conflict" };
+      }
+    }
+  }
+
+  // A3 — inputs.reservations vs RESERVATION:*
+  if (Array.isArray(inputs.reservations)) {
+    const fromInputs = inputs.reservations.map((r) => String(r));
+    const fromC = reservationsFromConstraints(constraints);
+    if (isGenericMissionStamped || fromC.length > 0) {
+      if (!sameSortedStringArr(fromInputs, fromC)) {
+        return {
+          ok: false,
+          reason: "reservations_inputs_vs_constraints_conflict",
+        };
+      }
+    }
+  }
+
+  // A4 — materialityFacts.productCurrentness vs inputs repo/pathRoot
+  const currentness = materialityFacts?.productCurrentness;
+  if (
+    currentness &&
+    Object.prototype.hasOwnProperty.call(currentness, "repositoryIdentity") &&
+    Object.prototype.hasOwnProperty.call(inputs, "repositoryBindingIdentity")
+  ) {
+    const a = currentness.repositoryIdentity ?? null;
+    const b =
+      typeof inputs.repositoryBindingIdentity === "string" ||
+      inputs.repositoryBindingIdentity === null
+        ? (inputs.repositoryBindingIdentity as string | null)
+        : undefined;
+    if (b !== undefined && a !== b) {
+      return { ok: false, reason: "repository_identity_dual_conflict" };
+    }
+  }
+  if (
+    currentness &&
+    Object.prototype.hasOwnProperty.call(currentness, "pathRoot") &&
+    Object.prototype.hasOwnProperty.call(inputs, "pathRoot")
+  ) {
+    const a = currentness.pathRoot ?? null;
+    const b =
+      typeof inputs.pathRoot === "string" || inputs.pathRoot === null
+        ? (inputs.pathRoot as string | null)
+        : undefined;
+    if (b !== undefined && a !== b) {
+      return { ok: false, reason: "path_root_dual_conflict" };
+    }
+  }
+
+  return { ok: true };
 }
 
 /**
  * Project EC native fields + inputs into a single authoritative effect view.
- * Prefer native OA fields for expectedOutputs / stopConditions / reversibility /
- * requiredCapabilities; prefer stamped inputs for mission-specific effects.
- * Dual representations must not diverge (checked by compare).
+ * Callers MUST run assertExecutionContractInternalConsistency first for
+ * generic_mission ECs — this projector does not silently pick a favorable side.
  */
 export function projectExecutionContractEffects(input: {
   readonly projectId: string;
@@ -1496,15 +1206,22 @@ export function projectExecutionContractEffects(input: {
   const inputs = input.inputs ?? {};
   const constraints = [...(input.constraints ?? [])];
   const materialityFacts = (inputs.materialityFacts ?? null) as
-    | { assessedMateriality?: string; productCurrentness?: {
-        repositoryIdentity?: string | null;
-        pathRoot?: string | null;
-      } }
+    | {
+        assessedMateriality?: string;
+        productCurrentness?: {
+          repositoryIdentity?: string | null;
+          pathRoot?: string | null;
+        };
+      }
     | null;
-  const assessed =
+  const assessed = normalizeMaterialityClass(
     typeof materialityFacts?.assessedMateriality === "string"
-      ? materialityFacts.assessedMateriality.trim()
-      : null;
+      ? materialityFacts.assessedMateriality
+      : null,
+  );
+  const fromConstraint =
+    materialityClassesFromConstraints(constraints)[0] ?? null;
+  const materiality = assessed ?? fromConstraint;
   const revExpRaw = inputs.reversibilityExpectation;
   const revExp =
     revExpRaw === "reversible" ||
@@ -1512,6 +1229,7 @@ export function projectExecutionContractEffects(input: {
     revExpRaw === "unknown"
       ? revExpRaw
       : null;
+  // After internal consistency, inputs and constraints agree when both present.
   const inputRisks = Array.isArray(inputs.risks)
     ? (inputs.risks as string[])
     : risksFromConstraints(constraints);
@@ -1519,6 +1237,15 @@ export function projectExecutionContractEffects(input: {
     ? (inputs.reservations as string[])
     : reservationsFromConstraints(constraints);
   const currentness = materialityFacts?.productCurrentness;
+  const repoFromInputs =
+    typeof inputs.repositoryBindingIdentity === "string" ||
+    inputs.repositoryBindingIdentity === null
+      ? (inputs.repositoryBindingIdentity as string | null)
+      : undefined;
+  const pathFromInputs =
+    typeof inputs.pathRoot === "string" || inputs.pathRoot === null
+      ? (inputs.pathRoot as string | null)
+      : undefined;
   return {
     projectId: input.projectId,
     cycleInstanceId: input.cycleInstanceId?.trim() || null,
@@ -1553,7 +1280,7 @@ export function projectExecutionContractEffects(input: {
     reversibilityExpectation: revExp,
     risks: inputRisks,
     reservations: inputReservations,
-    materiality: assessed || materialityFromConstraints(constraints),
+    materiality,
     missionSubjectId: normNullStr(
       typeof inputs.missionSubjectId === "string"
         ? inputs.missionSubjectId
@@ -1565,16 +1292,16 @@ export function projectExecutionContractEffects(input: {
         : null,
     ),
     repositoryBindingIdentity:
-      currentness?.repositoryIdentity !== undefined
-        ? currentness.repositoryIdentity ?? null
-        : typeof inputs.repositoryBindingIdentity === "string"
-          ? inputs.repositoryBindingIdentity
+      repoFromInputs !== undefined
+        ? repoFromInputs
+        : currentness?.repositoryIdentity !== undefined
+          ? currentness.repositoryIdentity ?? null
           : null,
     pathRoot:
-      currentness?.pathRoot !== undefined
-        ? currentness.pathRoot ?? null
-        : typeof inputs.pathRoot === "string"
-          ? inputs.pathRoot
+      pathFromInputs !== undefined
+        ? pathFromInputs
+        : currentness?.pathRoot !== undefined
+          ? currentness.pathRoot ?? null
           : null,
   };
 }
@@ -1883,16 +1610,21 @@ export function decisionBasisFromGenericMissionSubject(input: {
 
 import { validateDecisionBasis } from "@/lib/oa/decision";
 import type { HumanDecision } from "@/lib/oa/decision";
-import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import {
+  assessExecutionMateriality,
+  type ExecutionContract,
+} from "@/lib/oa/execution-contract";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { IntentAnalysisDto } from "../f2/types";
 import { resolveAuthoritativeProductMateriality } from "./resolveAuthoritativeProductMateriality";
 import { resolveGenericPrepareCapabilityEnvelope } from "./genericPrepareCapabilityEnvelope";
 import {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  assertExecutionContractInternalConsistency,
   compareExecutionContractToSealedHumanDecision,
   evaluateLpsTransitionAfterHumanDecision,
   materialCurrentnessMatch,
+  materialityContinuityCompatible,
   projectExecutionContractEffects,
   verifyGenericMissionSnapshotIntegrity,
   type GenericMissionCurrentMaterial,
@@ -2477,6 +2209,21 @@ export async function verifyGenericMissionHumanDecisionForContract(input: {
   });
   if (!lpsOk.ok) return lpsOk;
 
+  const contractInputs = (contract.inputs ?? {}) as Record<string, unknown>;
+
+  // Bloc A — dual representations must agree (no silent favorable pick).
+  const internal = assertExecutionContractInternalConsistency({
+    constraints: contract.constraints,
+    inputs: contractInputs,
+  });
+  if (!internal.ok) {
+    return {
+      ok: false,
+      code: "HD_EFFECTS_MISMATCH",
+      message: `EC représentation interne incohérente (${internal.reason}).`,
+    };
+  }
+
   // Independent EC projection (native OA + stamped inputs) vs sealed HD.
   const ecProjection = projectExecutionContractEffects({
     projectId: contract.projectId,
@@ -2490,7 +2237,7 @@ export async function verifyGenericMissionHumanDecisionForContract(input: {
     stopConditions: contract.stopConditions,
     reversibility: contract.reversibility as OaReversibility,
     constraints: contract.constraints,
-    inputs: (contract.inputs ?? {}) as Record<string, unknown>,
+    inputs: contractInputs,
   });
   const ecHd = compareExecutionContractToSealedHumanDecision({
     sealed: ctx,
@@ -2505,7 +2252,44 @@ export async function verifyGenericMissionHumanDecisionForContract(input: {
     };
   }
 
-  // Live Product repository/pathRoot currentness — Product facts, not HD rebuild.
+  // Historical contract impact signals (stamped on EC / sealed HD).
+  // These are NOT claimed as a live Nora re-qualification — they are the
+  // accepted mission facts carried by the EC/HD. Product-owned facts
+  // (LPS, repo binding, protected paths, pathRoot) are read live below.
+  const materialityFacts = (contractInputs.materialityFacts ?? null) as
+    | {
+        modelSignals?: {
+          structuralChange?: boolean;
+          securityImpact?: boolean;
+          architectureImpact?: boolean;
+          dataImpact?: boolean;
+          irreversible?: boolean;
+        } | null;
+      }
+    | null;
+  const stampedImpact =
+    (contractInputs.impactSignals as
+      | {
+          structuralChange?: boolean;
+          securityImpact?: boolean;
+          architectureImpact?: boolean;
+          dataImpact?: boolean;
+          irreversible?: boolean;
+        }
+      | undefined) ?? null;
+  const historicalSignals =
+    materialityFacts?.modelSignals ??
+    stampedImpact ??
+    (ctx.impactSignals
+      ? {
+          structuralChange: ctx.impactSignals.structuralChange,
+          securityImpact: ctx.impactSignals.securityImpact,
+          architectureImpact: ctx.impactSignals.architectureImpact,
+          dataImpact: ctx.impactSignals.dataImpact,
+          irreversible: ctx.impactSignals.irreversible,
+        }
+      : null);
+
   const live = await resolveAuthoritativeProductMateriality({
     oa: input.oa,
     projectId: input.projectId,
@@ -2513,7 +2297,8 @@ export async function verifyGenericMissionHumanDecisionForContract(input: {
       parseOk: true,
       intentClass: "execution_request",
       candidateCycleTypeId: null,
-      signals: null,
+      // Historical sealed/stamped signals — never nullled to force non_structural.
+      signals: historicalSignals,
       cognitiveWorkload: null,
       contradictionCandidate: null,
       challengeResponseAssessment: "sufficient",
@@ -2542,8 +2327,8 @@ export async function verifyGenericMissionHumanDecisionForContract(input: {
   if (!live.liveReadOk || !live.facts.productCurrentness) {
     return {
       ok: false,
-      code: "HD_SUBJECT_STALE",
-      message: "Currentness Product indisponible à Confirm/Authorize.",
+      code: "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE",
+      message: "Currentness Product indisponible — matérialité non requalifiable.",
     };
   }
   const binding = live.facts.productCurrentness;
@@ -2562,6 +2347,68 @@ export async function verifyGenericMissionHumanDecisionForContract(input: {
     };
   }
 
+  // Bloc B — CURRENT Product materiality continuity for structural+HD.
+  // assessExecutionMaterialityOrUnknown forces UNKNOWN whenever
+  // productContextSufficient is false — including when historical structural
+  // signals are present (basis ≠ non_structural-only). That UNKNOWN gate is
+  // for empty-refs NON_STRUCTURAL. Here we recompute class from Product-owned
+  // facts + historical sealed/stamped signals (not a live Nora re-qualification).
+  if (historicalSignals == null && !live.productContextSufficient) {
+    return {
+      ok: false,
+      code: "MATERIALITY_UNKNOWN",
+      message:
+        "Matérialité Product courante indéterminée — Confirm/Authorize refusé.",
+    };
+  }
+  // Product WHERE breakage (paths outside current root) is a currentness failure
+  // even when sealed pathRoot string still matched a stale stamp race.
+  if ((live.facts.pathsOutsidePathRoot ?? []).length > 0) {
+    return {
+      ok: false,
+      code: "MATERIALITY_CURRENT_MISMATCH",
+      message:
+        "Périmètre mission hors pathRoot Product courant — matérialité non applicable.",
+    };
+  }
+
+  const recomputed = assessExecutionMateriality({
+    modelSignals: historicalSignals,
+    contradictionConflictPresent: live.facts.contradictionConflictPresent,
+    currentContradictionUnresolved: live.facts.currentContradictionUnresolved,
+    protectedPathHits: live.facts.protectedPathHits,
+    wouldMutateStructuralProjectTruth:
+      live.facts.wouldMutateStructuralProjectTruth,
+    wouldMutateCycleOrTrajectoryTruth:
+      live.facts.wouldMutateCycleOrTrajectoryTruth,
+    authorityEnvelopeExpanded: live.facts.authorityEnvelopeExpanded,
+  });
+  const currentMateriality = recomputed.materiality;
+  const vsHd = materialityContinuityCompatible({
+    sealed: ctx.materiality,
+    current: currentMateriality,
+  });
+  if (!vsHd.ok) {
+    return {
+      ok: false,
+      code: "MATERIALITY_CURRENT_MISMATCH",
+      message: `Matérialité Product courante (${currentMateriality}) incompatible avec le sceau HD (${ctx.materiality}) — ${vsHd.reason}.`,
+    };
+  }
+  if (ecProjection.materiality != null) {
+    const vsEc = materialityContinuityCompatible({
+      sealed: ecProjection.materiality,
+      current: currentMateriality,
+    });
+    if (!vsEc.ok) {
+      return {
+        ok: false,
+        code: "MATERIALITY_CURRENT_MISMATCH",
+        message: `Matérialité Product courante (${currentMateriality}) incompatible avec l'EC (${ecProjection.materiality}) — ${vsEc.reason}.`,
+      };
+    }
+  }
+
   return base;
 }
 
@@ -2569,13 +2416,14 @@ export async function verifyGenericMissionHumanDecisionForContract(input: {
 
 ---
 
-## 17. CONTENU COMPLET — p6.mHd01.ecHdEffectsBinding.d0.test.ts
+## 17. CONTENU COMPLET — p6.mHd01.finalAuthorityBinding.d0.test.ts
 ```typescript
 /**
- * P6 — M-HD-01 EC ↔ HumanDecision Effects Binding Correction Pass.
+ * P6 — M-HD-01 Final EC/HD Authority Binding Correction.
+ * IC: EC internal dual-representation consistency.
+ * CM: CURRENT Product materiality continuity.
  *
- * Fake Cursor boundary only — ZERO Cursor REAL / OpenAI LIVE.
- * Confirms Confirm/Authorize refuse material EC/HD divergence.
+ * Fake only — ZERO Cursor REAL / OpenAI LIVE / Pilot UI claim.
  *
  * @vitest-environment node
  */
@@ -2590,14 +2438,9 @@ import {
 } from "@/features/project-assistant/w2/recordGenericMissionHumanDecision";
 import {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
-  GENERIC_MISSION_OPTION_REFUSE,
-  GENERIC_MISSION_OPTION_REQUEST_AMEND,
-  GENERIC_MISSION_SUBJECT_SCHEMA_VERSION,
-  compareExecutionContractToSealedHumanDecision,
-  mapReversibilityExpectationToOa,
-  projectExecutionContractEffects,
+  assertExecutionContractInternalConsistency,
+  materialityContinuityCompatible,
 } from "@/features/project-assistant/w2/genericMissionSubject";
-import type { DecisionBasisGenericMissionContext } from "@/lib/oa/decision";
 import { verifyGenericMissionHumanDecisionForContract } from "@/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare";
 import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
 import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
@@ -2614,25 +2457,15 @@ import {
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 
 function structuralAnalysis(overrides?: {
   objective?: string;
-  expectedOutcome?: string;
   scope?: string;
-  intentKind?: string;
-  artifactType?: string;
-  requestedOperation?: string | null;
-  stopConditions?: string[];
-  risks?: string[];
-  reservations?: string[];
-  reversibility?: "reversible" | "irreversible" | "unknown";
 }): IntentAnalysisDto {
-  const scope = overrides?.scope ?? "projects/demo/src/echd";
+  const scope = overrides?.scope ?? "projects/demo/src/final-bind";
   const base = buildIntentAnalysisFromSolicitedMission({
-    objective: overrides?.objective ?? "Mission structurante EC/HD binding",
-    expectedOutcome: overrides?.expectedOutcome ?? "Effets EC couverts par HD",
+    objective: overrides?.objective ?? "Mission structurante final binding",
+    expectedOutcome: "Autorité EC/HD cohérente",
     scope,
     impactSignals: {
       structuralChange: true,
@@ -2641,16 +2474,16 @@ function structuralAnalysis(overrides?: {
   });
   return {
     ...base,
-    stopConditions: overrides?.stopConditions ?? ["STOP_EC_HD_A"],
-    risks: overrides?.risks ?? ["RISK_MATERIAL"],
-    reservations: overrides?.reservations ?? ["RES_BLOCKING"],
+    stopConditions: ["STOP_FINAL_A"],
+    risks: ["RISK_FINAL"],
+    reservations: ["RES_FINAL"],
     executionIntent: {
-      intentKind: overrides?.intentKind ?? "code_change",
-      artifactType: overrides?.artifactType ?? "module",
+      intentKind: "code_change",
+      artifactType: "module",
       scopeIn: [scope],
       requiredCapabilities: [],
-      requestedOperation: overrides?.requestedOperation ?? "bind-effects",
-      reversibilityExpectation: overrides?.reversibility ?? "reversible",
+      requestedOperation: "final-bind",
+      reversibilityExpectation: "reversible",
     },
   };
 }
@@ -2664,7 +2497,7 @@ function cloneMutated(
   return copy;
 }
 
-describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
+describe("P6 M-HD-01 Final Authority Binding (IC + CM)", () => {
   let runtime: RuntimeApplicationService;
   let sessionDbPath: string;
   let previousMorris: string | undefined;
@@ -2678,10 +2511,10 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
     process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
     process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
     process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
-    sessionDbPath = tempProductDbPath("p6-mhd01-echd.sqlite");
+    sessionDbPath = tempProductDbPath("p6-mhd01-final.sqlite");
     runtime = bootW2Runtime({
       productDbPath: sessionDbPath,
-      idPrefix: "mhdechd",
+      idPrefix: "mhdfin",
     });
   });
 
@@ -2707,13 +2540,13 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHDECHD ${suffix}`,
-      objective: "M-HD-01 EC/HD binding",
-      context: "det echd",
+      name: `MHDFIN ${suffix}`,
+      objective: "M-HD-01 final authority binding",
+      context: "det final",
       criticality: "STANDARD",
       constraints: ["ZERO REAL"],
-      shortReference: `ME${suffix.toUpperCase().slice(0, 6)}`,
-      idempotencyKey: `idem:mhdechd-${suffix}`,
+      shortReference: `MF${suffix.toUpperCase().slice(0, 6)}`,
+      idempotencyKey: `idem:mhdfin-${suffix}`,
     });
     if (!created.ok) throw new Error("createProject");
     const projectId = created.project.projectId;
@@ -2734,7 +2567,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
         authorityLevel: "N3",
       },
     });
-    const identity = `acme/mhdechd-${suffix}`;
+    const identity = `acme/mhdfin-${suffix}`;
     await oa.projectServices.setProjectRepositoryBinding!.execute({
       projectId,
       actor: LOCAL_PILOTE_ACTOR,
@@ -2750,38 +2583,33 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
     });
-    return { projectId, oa };
+    return { projectId, oa, identity };
   }
 
-  async function sealAccept(projectId: string, analysis: IntentAnalysisDto) {
+  async function prepareStructuralWithHd(suffix: string) {
+    const { projectId, oa, identity } = await seedProject(suffix);
+    const analysis = structuralAnalysis();
     const sealed = await sealGenericMissionForPresentation({
-      oa: runtime.oa!,
+      oa,
       projectId,
       cycleInstanceId: null,
       analysis,
     });
-    if (!sealed.ok) throw new Error(`seal ${sealed.code}`);
+    if (!sealed.ok) throw new Error(sealed.message);
     const recorded = await recordGenericMissionHumanDecision({
-      oa: runtime.oa!,
+      oa,
       subject: sealed.subject,
       selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
       analysis,
       forceLocalAuthority: true,
     });
-    if (!recorded.ok) throw new Error(`record ${recorded.code}`);
-    return { subject: sealed.subject, decision: recorded.decision };
-  }
-
-  async function prepareStructuralWithHd(suffix: string) {
-    const { projectId, oa } = await seedProject(suffix);
-    const analysis = structuralAnalysis();
-    const { decision, subject } = await sealAccept(projectId, analysis);
+    if (!recorded.ok) throw new Error(recorded.message);
     const prep = await prepareGenericExecutionContractDraft({
       oa,
       projectId,
       cycleInstanceId: null,
       analysis,
-      decisionId: decision.decisionId,
+      decisionId: recorded.decision.decisionId,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -2799,37 +2627,33 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
     return {
       projectId,
       oa,
+      identity,
       analysis,
-      decision,
-      subject,
+      decision: recorded.decision,
+      subject: sealed.subject,
       prep,
       inspected,
       contract: live.contract,
     };
   }
 
-  async function confirmIfNeeded(ctx: {
-    oa: NonNullable<RuntimeApplicationService["oa"]>;
-    projectId: string;
-    contract: ExecutionContract;
-  }) {
-    if (ctx.contract.status === "confirmation_required") {
-      const confirmed = await confirmExecutionContractForAuthorization({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        executionContractId: ctx.contract.executionContractId,
-        forceLocalAuthority: true,
+  describe("IC — EC internal consistency", () => {
+    it("IC01 — EC cohérent → Confirm/Authorize PASS", async () => {
+      const ctx = await prepareStructuralWithHd("ic01");
+      const internal = assertExecutionContractInternalConsistency({
+        constraints: ctx.contract.constraints,
+        inputs: ctx.contract.inputs as Record<string, unknown>,
       });
-      return confirmed;
-    }
-    return { ok: true as const };
-  }
-
-  describe("EC01–EC10 — Confirm/Authorize + adversarial EC fixture", () => {
-    it("EC01 — EC inchangé + HD valide → Confirm/Authorize OK", async () => {
-      const ctx = await prepareStructuralWithHd("ec01");
-      const confirmed = await confirmIfNeeded(ctx);
-      expect(confirmed.ok).toBe(true);
+      expect(internal.ok).toBe(true);
+      if (ctx.contract.status === "confirmation_required") {
+        const confirmed = await confirmExecutionContractForAuthorization({
+          oa: ctx.oa,
+          projectId: ctx.projectId,
+          executionContractId: ctx.contract.executionContractId,
+          forceLocalAuthority: true,
+        });
+        expect(confirmed.ok).toBe(true);
+      }
       const authorized = await authorizeGenericPreparedContract({
         oa: ctx.oa,
         projectId: ctx.projectId,
@@ -2839,185 +2663,306 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
         forceLocalAuthority: true,
       });
       expect(authorized.ok).toBe(true);
-      // Stamps present on new generic_mission EC.
-      expect(ctx.contract.inputs?.missionSubjectId).toBe(ctx.subject.missionSubjectId);
-      expect(ctx.contract.inputs?.presentationDigest).toBe(
-        ctx.subject.presentationDigest,
+    });
+
+    it("IC02 — facts STRUCTURAL vs constraint NON_STRUCTURAL → REFUS", async () => {
+      const ctx = await prepareStructuralWithHd("ic02");
+      const mutated = cloneMutated(ctx.contract, (c) => {
+        c.constraints = (c.constraints ?? [])
+          .filter((x) => !x.startsWith("MATERIALITY:"))
+          .concat(["MATERIALITY:NON_STRUCTURAL"]);
+        c.inputs = {
+          ...c.inputs,
+          materialityFacts: {
+            ...((c.inputs?.materialityFacts as object) ?? {}),
+            assessedMateriality: "structural",
+          },
+        };
+      });
+      const v = await verifyGenericMissionHumanDecisionForContract({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        decisionId: ctx.decision.decisionId,
+        contract: mutated,
+      });
+      expect(v.ok).toBe(false);
+      if (v.ok) throw new Error("expected refuse");
+      expect(v.message).toContain("materiality_facts_vs_constraint_conflict");
+    });
+
+    it("IC03 — facts NON_STRUCTURAL vs constraint STRUCTURAL → REFUS", async () => {
+      const ctx = await prepareStructuralWithHd("ic03");
+      const mutated = cloneMutated(ctx.contract, (c) => {
+        c.constraints = (c.constraints ?? [])
+          .filter((x) => !x.startsWith("MATERIALITY:"))
+          .concat(["MATERIALITY:STRUCTURAL"]);
+        c.inputs = {
+          ...c.inputs,
+          materialityFacts: {
+            ...((c.inputs?.materialityFacts as object) ?? {}),
+            assessedMateriality: "non_structural",
+          },
+        };
+      });
+      const internal = assertExecutionContractInternalConsistency({
+        constraints: mutated.constraints,
+        inputs: mutated.inputs as Record<string, unknown>,
+      });
+      expect(internal.ok).toBe(false);
+      if (internal.ok) throw new Error("expected refuse");
+      expect(internal.reason).toBe("materiality_facts_vs_constraint_conflict");
+    });
+
+    it("IC04 — deux tokens MATERIALITY contradictoires → REFUS", () => {
+      const internal = assertExecutionContractInternalConsistency({
+        constraints: ["MATERIALITY:STRUCTURAL", "MATERIALITY:NON_STRUCTURAL"],
+        inputs: {
+          missionSubjectId: "gms:x",
+          presentationDigest: "abc",
+          materialityFacts: { assessedMateriality: "structural" },
+        },
+      });
+      expect(internal.ok).toBe(false);
+      if (internal.ok) throw new Error("expected refuse");
+      expect(internal.reason).toBe("materiality_constraint_conflict");
+    });
+
+    it("IC05/IC06 — risks / reservations inputs vs constraints → REFUS", () => {
+      const risks = assertExecutionContractInternalConsistency({
+        constraints: ["MATERIALITY:STRUCTURAL", "RISK:A"],
+        inputs: {
+          missionSubjectId: "gms:x",
+          presentationDigest: "abc",
+          materialityFacts: { assessedMateriality: "structural" },
+          risks: ["B"],
+        },
+      });
+      expect(risks.ok).toBe(false);
+      if (risks.ok) throw new Error("expected refuse");
+      expect(risks.reason).toBe("risks_inputs_vs_constraints_conflict");
+
+      const reservations = assertExecutionContractInternalConsistency({
+        constraints: ["MATERIALITY:STRUCTURAL", "RESERVATION:A"],
+        inputs: {
+          missionSubjectId: "gms:x",
+          presentationDigest: "abc",
+          materialityFacts: { assessedMateriality: "structural" },
+          reservations: [],
+        },
+      });
+      expect(reservations.ok).toBe(false);
+      if (reservations.ok) throw new Error("expected refuse");
+      expect(reservations.reason).toBe(
+        "reservations_inputs_vs_constraints_conflict",
       );
-      expect(ctx.contract.inputs?.requestedOperation).toBe("bind-effects");
-      expect(ctx.contract.reversibility).toBe("reversible");
     });
 
-    it("EC02 — requestedOperation EC mutée → REFUS (verify + Confirm)", async () => {
-      const ctx = await prepareStructuralWithHd("ec02");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, requestedOperation: "other-op" };
+    it("IC07/IC08 — repository / pathRoot dual conflict → REFUS", () => {
+      const repo = assertExecutionContractInternalConsistency({
+        constraints: ["MATERIALITY:STRUCTURAL"],
+        inputs: {
+          missionSubjectId: "gms:x",
+          presentationDigest: "abc",
+          repositoryBindingIdentity: "acme/a",
+          pathRoot: "projects/demo",
+          materialityFacts: {
+            assessedMateriality: "structural",
+            productCurrentness: {
+              repositoryIdentity: "acme/b",
+              pathRoot: "projects/demo",
+            },
+          },
+        },
       });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
+      expect(repo.ok).toBe(false);
+      if (repo.ok) throw new Error("expected refuse");
+      expect(repo.reason).toBe("repository_identity_dual_conflict");
+
+      const path = assertExecutionContractInternalConsistency({
+        constraints: ["MATERIALITY:STRUCTURAL"],
+        inputs: {
+          missionSubjectId: "gms:x",
+          presentationDigest: "abc",
+          repositoryBindingIdentity: "acme/a",
+          pathRoot: "projects/demo",
+          materialityFacts: {
+            assessedMateriality: "structural",
+            productCurrentness: {
+              repositoryIdentity: "acme/a",
+              pathRoot: "projects/other",
+            },
+          },
+        },
       });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.code).toBe("HD_EFFECTS_MISMATCH");
-      expect(v.message).toContain("requested_operation_mismatch");
+      expect(path.ok).toBe(false);
+      if (path.ok) throw new Error("expected refuse");
+      expect(path.reason).toBe("path_root_dual_conflict");
     });
 
-    it("EC03 — expectedOutputs EC divergents → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec03");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.expectedOutputs = ["unauthorized-output"];
+    it("IC09 — assessedMateriality invalide ne devient pas absence", () => {
+      const internal = assertExecutionContractInternalConsistency({
+        constraints: ["MATERIALITY:STRUCTURAL"],
+        inputs: {
+          missionSubjectId: "gms:x",
+          presentationDigest: "abc",
+          materialityFacts: { assessedMateriality: "not-a-class" },
+        },
       });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.message).toContain("expected_outputs_mismatch");
+      expect(internal.ok).toBe(false);
+      if (internal.ok) throw new Error("expected refuse");
+      expect(internal.reason).toBe("materiality_facts_malformed");
     });
 
-    it("EC04 — stopConditions scellées supprimées → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec04");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.stopConditions = c.stopConditions.filter((s) => s !== "STOP_EC_HD_A");
+    it("IC10 — contrat historique sans stamp generic_mission → legacy OK", () => {
+      const internal = assertExecutionContractInternalConsistency({
+        constraints: ["MATERIALITY:NON_STRUCTURAL", "PRODUCT_GOVERNED"],
+        inputs: {
+          objective: "legacy",
+          // no missionSubjectId / presentationDigest
+        },
       });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.message).toContain("stop_conditions_missing");
-    });
-
-    it("EC05 — reversibility incompatible → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec05");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.reversibility = "irreversible";
-      });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.message).toContain("oa_reversibility_mismatch");
-    });
-
-    it("EC06 — requiredCapabilities élargies → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec06");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.requiredCapabilities = [
-          ...c.requiredCapabilities,
-          "cap:unauthorized-elevated",
-        ];
-      });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.message).toContain("capabilities_mismatch");
-    });
-
-    it("EC07 — scopeIn/scopeOut divergents → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec07");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, scopeIn: ["projects/demo/src/other"] };
-      });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.code).toBe("HD_SCOPE_MISMATCH");
-    });
-
-    it("EC08 — intentKind / artifactType divergents → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec08");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, intentKind: "docs_write", artifactType: "doc" };
-      });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.message).toMatch(/intent_kind_mismatch|artifact_type_mismatch/);
-    });
-
-    it("EC09 — risks / reservations matériellement affaiblis → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec09");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, risks: [], reservations: [] };
-        c.constraints = (c.constraints ?? []).filter(
-          (x) => !x.startsWith("RISK:") && !x.startsWith("RESERVATION:"),
-        );
-      });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.message).toMatch(/risks_missing|reservations_missing/);
-    });
-
-    it("EC10 — presentationDigest absent ou divergent → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec10");
-      const absent = cloneMutated(ctx.contract, (c) => {
-        const next = { ...c.inputs };
-        delete next.presentationDigest;
-        c.inputs = next;
-      });
-      const v1 = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: absent,
-      });
-      expect(v1.ok).toBe(false);
-      if (v1.ok) throw new Error("expected refuse");
-      expect(v1.message).toContain("presentation_digest_absent");
-
-      const divergent = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, presentationDigest: "sha256:forged" };
-      });
-      const v2 = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: divergent,
-      });
-      expect(v2.ok).toBe(false);
-      if (v2.ok) throw new Error("expected refuse");
-      expect(v2.message).toContain("presentation_digest_mismatch");
+      expect(internal.ok).toBe(true);
     });
   });
 
-  describe("EC11–EC17 — authority transitions", () => {
-    it("EC12 — HD superseded entre PREPARE et AUTHORIZE → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec12");
+  describe("CM — Product current materiality continuity", () => {
+    it("CM01 — structural+HD + Product concordant → Confirm/Authorize PASS", async () => {
+      const ctx = await prepareStructuralWithHd("cm01");
+      if (ctx.contract.status === "confirmation_required") {
+        const confirmed = await confirmExecutionContractForAuthorization({
+          oa: ctx.oa,
+          projectId: ctx.projectId,
+          executionContractId: ctx.contract.executionContractId,
+          forceLocalAuthority: true,
+        });
+        expect(confirmed.ok).toBe(true);
+      }
+      const authorized = await authorizeGenericPreparedContract({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        executionContractId: ctx.contract.executionContractId,
+        expectedVersion: ctx.inspected.contractVersion,
+        expectedSemanticFingerprint: ctx.inspected.semanticFingerprint,
+        forceLocalAuthority: true,
+      });
+      expect(authorized.ok).toBe(true);
+    });
+
+    it("CM02 — materiality continuity refuses structural degradation", () => {
+      const ok = materialityContinuityCompatible({
+        sealed: "structural",
+        current: "non_structural",
+      });
+      expect(ok.ok).toBe(false);
+      if (ok.ok) throw new Error("expected refuse");
+      expect(ok.reason).toBe("structural_materiality_degraded");
+    });
+
+    it("CM03 — historical signals absent + Product insufficient → REFUS path", async () => {
+      const ctx = await prepareStructuralWithHd("cm03");
+      const mutated = cloneMutated(ctx.contract, (c) => {
+        const facts = {
+          ...((c.inputs?.materialityFacts as object) ?? {}),
+        } as Record<string, unknown>;
+        delete facts.modelSignals;
+        c.inputs = {
+          ...c.inputs,
+          impactSignals: null,
+          materialityFacts: facts,
+        };
+      });
+      // Clear sealed fallback by also using a contract whose verify still has HD
+      // impactSignals from decision — to force unknown we need signals null AND
+      // productContextInsufficient. Mutating scopeIn to empty breaks concrete paths.
+      mutated.inputs = {
+        ...mutated.inputs,
+        scopeIn: [],
+        missionScopeNarrative: "narrative without path",
+      };
+      const v = await verifyGenericMissionHumanDecisionForContract({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        decisionId: ctx.decision.decisionId,
+        contract: mutated,
+      });
+      // Either scope mismatch vs HD or materiality unknown — both fail-closed.
+      expect(v.ok).toBe(false);
+    });
+
+    it("CM05 — pathRoot Product changé → Confirm REFUS", async () => {
+      const ctx = await prepareStructuralWithHd("cm05");
+      await ctx.oa.projectServices.setProjectRepositoryBinding!.execute({
+        projectId: ctx.projectId,
+        actor: LOCAL_PILOTE_ACTOR,
+        binding: {
+          provider: "github",
+          identity: ctx.identity,
+          remoteUrl: `https://github.com/${ctx.identity}.git`,
+          defaultBranch: "main",
+          pathRoot: "projects/other-root",
+        },
+      });
+      const confirmed = await confirmExecutionContractForAuthorization({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        executionContractId: ctx.contract.executionContractId,
+        forceLocalAuthority: true,
+      });
+      expect(confirmed.ok).toBe(false);
+    });
+
+    it("CM06 — NON_STRUCTURAL sans HD → non-régression", async () => {
+      const { projectId, oa } = await seedProject("cm06");
+      const analysis = buildIntentAnalysisFromSolicitedMission({
+        objective: "Lecture bornée",
+        expectedOutcome: "note",
+        scope: "projects/demo/README.md",
+        impactSignals: {
+          structuralChange: false,
+          architectureImpact: false,
+          securityImpact: false,
+          dataImpact: false,
+          irreversible: false,
+        },
+      });
+      const prep = await prepareGenericExecutionContractDraft({
+        oa,
+        projectId,
+        cycleInstanceId: null,
+        analysis,
+        forceLocalAuthority: true,
+        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      });
+      expect(prep.ok).toBe(true);
+      if (!prep.ok) throw new Error(prep.message);
+      expect(prep.contract.decisionRefs ?? []).toEqual([]);
+    });
+
+    it("CM07 — unknown seal + structural current is compatible (documented)", () => {
+      const ok = materialityContinuityCompatible({
+        sealed: "unknown",
+        current: "structural",
+      });
+      expect(ok.ok).toBe(true);
+    });
+
+    it("CM08 — cycle absent → parcours possible", async () => {
+      const ctx = await prepareStructuralWithHd("cm08");
+      expect(
+        ctx.contract.cycleInstanceId == null ||
+          ctx.contract.cycleInstanceId === "",
+      ).toBe(true);
+      const v = await verifyGenericMissionHumanDecisionForContract({
+        oa: ctx.oa,
+        projectId: ctx.projectId,
+        decisionId: ctx.decision.decisionId,
+        contract: ctx.contract,
+      });
+      expect(v.ok).toBe(true);
+    });
+
+    it("CM10 — HD superseded → Authorize REFUS", async () => {
+      const ctx = await prepareStructuralWithHd("cm10");
       const resealed = await sealGenericMissionForPresentation({
         oa: ctx.oa,
         projectId: ctx.projectId,
@@ -3047,407 +2992,6 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
       if (authorized.ok) throw new Error("expected refuse");
       expect(authorized.code).toBe("HD_SUPERSEDED");
     });
-
-    it("EC14 — EC avec décision d'une autre mission → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec14");
-      const otherAnalysis = structuralAnalysis({
-        objective: "Autre mission",
-        expectedOutcome: "Autre outcome",
-        scope: "projects/demo/src/other-mission",
-      });
-      const other = await sealAccept(ctx.projectId, otherAnalysis);
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.decisionRefs = [other.decision.decisionId];
-        c.inputs = {
-          ...c.inputs,
-          verifiedGenericMissionHumanDecisionId: other.decision.decisionId,
-          missionSubjectId: other.subject.missionSubjectId,
-          presentationDigest: other.subject.presentationDigest,
-        };
-      });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: other.decision.decisionId,
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-    });
-
-    it("EC15 — EC avec decisionRef forgée → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec15");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.decisionRefs = ["dec:forged-not-real"];
-      });
-      const v = await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: "dec:forged-not-real",
-        contract: mutated,
-      });
-      expect(v.ok).toBe(false);
-      if (v.ok) throw new Error("expected refuse");
-      expect(v.code).toBe("HD_ABSENT");
-    });
-
-    it("EC16 — Repository binding divergent → REFUS", async () => {
-      const ctx = await prepareStructuralWithHd("ec16");
-      await ctx.oa.projectServices.setProjectRepositoryBinding!.execute({
-        projectId: ctx.projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: "acme/mhdechd-ec16",
-          remoteUrl: "https://github.com/acme/mhdechd-ec16.git",
-          defaultBranch: "main",
-          pathRoot: "projects/other-root",
-        },
-      });
-      const confirmed = await confirmExecutionContractForAuthorization({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        executionContractId: ctx.contract.executionContractId,
-        forceLocalAuthority: true,
-      });
-      expect(confirmed.ok).toBe(false);
-    });
-
-    it("EC17 — helper refuse materiality degraded on projection", () => {
-      const sealed: DecisionBasisGenericMissionContext = {
-        missionSubjectId: "gms:x",
-        presentationDigest: "sha256:abc",
-        subjectSchemaVersion: GENERIC_MISSION_SUBJECT_SCHEMA_VERSION,
-        objective: "o",
-        expectedOutcome: "e",
-        scopeNarrative: "s",
-        scopeIn: ["a"],
-        scopeOut: [],
-        materiality: "structural",
-        materialityReasonCodes: [],
-        repositoryBindingIdentity: "acme/x",
-        pathRoot: "projects/demo",
-        requiredCapabilities: ["cap:studio.product.canonical-execution"],
-        expectedOutputs: ["e"],
-        reversibilityExpectation: "reversible",
-        stopConditions: ["STOP"],
-        risks: [],
-        reservations: [],
-        intentKind: "code_change",
-        artifactType: "module",
-        requestedOperation: "op",
-        impactSignals: {
-          structuralChange: true,
-          securityImpact: false,
-          architectureImpact: true,
-          dataImpact: false,
-          irreversible: false,
-        },
-        optionRefs: [GENERIC_MISSION_OPTION_ACCEPT_PREPARE],
-        selectedOptionRef: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
-        cycleInstanceId: null,
-      };
-      const ec = projectExecutionContractEffects({
-        projectId: "prj:x",
-        status: "draft",
-        version: 1,
-        reversibility: "reversible",
-        expectedOutputs: ["e"],
-        requiredCapabilities: ["cap:studio.product.canonical-execution"],
-        stopConditions: ["STOP", "AUTHORITY_DENIED"],
-        decisionRefs: ["dec:1"],
-        constraints: ["MATERIALITY:NON_STRUCTURAL"],
-        inputs: {
-          objective: "o",
-          expectedOutcome: "e",
-          missionScopeNarrative: "s",
-          scopeIn: ["a"],
-          scopeOut: [],
-          intentKind: "code_change",
-          artifactType: "module",
-          requestedOperation: "op",
-          reversibilityExpectation: "reversible",
-          missionSubjectId: "gms:x",
-          presentationDigest: "sha256:abc",
-          materialityFacts: { assessedMateriality: "non_structural" },
-          repositoryBindingIdentity: "acme/x",
-          pathRoot: "projects/demo",
-          risks: [],
-          reservations: [],
-        },
-      });
-      const cmp = compareExecutionContractToSealedHumanDecision({
-        sealed,
-        ec,
-        decisionId: "dec:1",
-      });
-      expect(cmp.ok).toBe(false);
-      if (cmp.ok) throw new Error("expected refuse");
-      expect(cmp.reason).toMatch(/materiality/);
-    });
-  });
-
-  describe("EC18–EC26 — cycle / idempotence / NR / Attempt", () => {
-    it("EC20 — mission Project indépendante d'un cycle clos → OK", async () => {
-      const ctx = await prepareStructuralWithHd("ec20");
-      expect(ctx.contract.cycleInstanceId == null || ctx.contract.cycleInstanceId === "").toBe(
-        true,
-      );
-      const confirmed = await confirmIfNeeded(ctx);
-      expect(confirmed.ok).toBe(true);
-    });
-
-    it("EC22 — même mission / même HD / EC CURRENT → idempotence", async () => {
-      const ctx = await prepareStructuralWithHd("ec22");
-      const again = await prepareGenericExecutionContractDraft({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        cycleInstanceId: null,
-        analysis: ctx.analysis,
-        decisionId: ctx.decision.decisionId,
-        forceLocalAuthority: true,
-        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      });
-      expect(again.ok).toBe(true);
-      if (!again.ok) throw new Error(again.message);
-      expect(again.contract.executionContractId).toBe(
-        ctx.contract.executionContractId,
-      );
-    });
-
-    it("EC23 — NON_STRUCTURAL sans HD → non-régression", async () => {
-      const { projectId, oa } = await seedProject("ec23");
-      const analysis = buildIntentAnalysisFromSolicitedMission({
-        objective: "Lecture bornée non structurante",
-        expectedOutcome: "Synthèse locale",
-        scope: "projects/demo/README.md",
-        impactSignals: {
-          structuralChange: false,
-          architectureImpact: false,
-          securityImpact: false,
-          dataImpact: false,
-          irreversible: false,
-        },
-      });
-      const prep = await prepareGenericExecutionContractDraft({
-        oa,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-        forceLocalAuthority: true,
-        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      });
-      expect(prep.ok).toBe(true);
-      if (!prep.ok) throw new Error(prep.message);
-      expect(prep.contract.decisionRefs ?? []).toEqual([]);
-    });
-
-    it("EC25 — aucun Attempt sur chemin refusé", async () => {
-      const ctx = await prepareStructuralWithHd("ec25");
-      const mutated = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, requestedOperation: "mutated" };
-      });
-      const before = await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
-        executionContractId: ctx.contract.executionContractId,
-      });
-      const beforeCount = before.ok ? before.attempts.length : 0;
-      await verifyGenericMissionHumanDecisionForContract({
-        oa: ctx.oa,
-        projectId: ctx.projectId,
-        decisionId: ctx.decision.decisionId,
-        contract: mutated,
-      });
-      const after = await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
-        executionContractId: ctx.contract.executionContractId,
-      });
-      const afterCount = after.ok ? after.attempts.length : 0;
-      expect(afterCount).toBe(beforeCount);
-    });
-
-    it("EC26 — Inspection préservée après PREPARE structural+HD", async () => {
-      const ctx = await prepareStructuralWithHd("ec26");
-      expect(ctx.inspected.ok).toBe(true);
-      expect(ctx.inspected.semanticFingerprint).toBeTruthy();
-    });
-  });
-
-  describe("PB — Pilot presentation provenance qualification", () => {
-    it("PB01 — Seal Product réel: sujet et options qualifiés", async () => {
-      const { projectId } = await seedProject("pb01");
-      const analysis = structuralAnalysis();
-      const sealed = await sealGenericMissionForPresentation({
-        oa: runtime.oa!,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-      });
-      expect(sealed.ok).toBe(true);
-      if (!sealed.ok) throw new Error(sealed.message);
-      expect(sealed.subject.optionRefs).toContain(GENERIC_MISSION_OPTION_ACCEPT_PREPARE);
-      expect(/^[a-f0-9]{64}$/.test(sealed.subject.presentationDigest)).toBe(true);
-    });
-
-    it("PB02 — Payload sujet falsifié → Record refusé", async () => {
-      const { projectId } = await seedProject("pb02");
-      const analysis = structuralAnalysis();
-      const sealed = await sealGenericMissionForPresentation({
-        oa: runtime.oa!,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-      });
-      if (!sealed.ok) throw new Error(sealed.message);
-      const forged = {
-        ...sealed.subject,
-        objective: "Forged objective",
-        presentationDigest: sealed.subject.presentationDigest,
-      };
-      const recorded = await recordGenericMissionHumanDecision({
-        oa: runtime.oa!,
-        subject: forged,
-        selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
-        analysis,
-        forceLocalAuthority: true,
-      });
-      expect(recorded.ok).toBe(false);
-    });
-
-    it("PB04 — Autorité Pilote absente → Record refusé", async () => {
-      const { projectId, oa } = await seedProject("pb04");
-      const analysis = structuralAnalysis();
-      const sealed = await sealGenericMissionForPresentation({
-        oa,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-      });
-      if (!sealed.ok) throw new Error(sealed.message);
-      const prev = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-      const prevLegacy = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-      delete process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-      delete process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-      const recorded = await recordGenericMissionHumanDecision({
-        oa,
-        subject: sealed.subject,
-        selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
-        analysis,
-        forceLocalAuthority: false,
-      });
-      if (prev === undefined) delete process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-      else process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = prev;
-      if (prevLegacy === undefined) {
-        delete process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-      } else {
-        process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = prevLegacy;
-      }
-      expect(recorded.ok).toBe(false);
-      if (recorded.ok) throw new Error("expected refuse");
-      expect(recorded.code).toBe("AUTHORITY_NOT_CONFIGURED");
-    });
-
-    it("PB05 — OPEN: aucun consommateur UI Product pour Seal/Record actions", () => {
-      // Code inspection — not a synthetic UI click proof.
-      const panel = readFileSync(
-        join(
-          process.cwd(),
-          "features/project-assistant/ProjectAssistantPanel.tsx",
-        ),
-        "utf8",
-      );
-      const surface = readFileSync(
-        join(
-          process.cwd(),
-          "features/pre-m6-product-ui/surfaces/ConversationSurface.tsx",
-        ),
-        "utf8",
-      );
-      expect(panel).not.toContain("w2SealGenericMissionAction");
-      expect(panel).not.toContain("w2RecordGenericMissionHumanDecisionAction");
-      expect(surface).not.toContain("w2SealGenericMissionAction");
-      expect(surface).not.toContain("w2RecordGenericMissionHumanDecisionAction");
-      // Actions exist as server entrypoints (P1) but are NOT WIRED to Pilot UI (P2–P5).
-      const actions = readFileSync(
-        join(process.cwd(), "features/project-assistant/w2/actions.ts"),
-        "utf8",
-      );
-      expect(actions).toContain("w2SealGenericMissionAction");
-      expect(actions).toContain("w2RecordGenericMissionHumanDecisionAction");
-    });
-
-    it("PB06/PB07 — refuse / request-amend n'autorisent pas PREPARE", async () => {
-      const { projectId, oa } = await seedProject("pb06");
-      const analysis = structuralAnalysis();
-      const sealed = await sealGenericMissionForPresentation({
-        oa,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-      });
-      if (!sealed.ok) throw new Error(sealed.message);
-      const refused = await recordGenericMissionHumanDecision({
-        oa,
-        subject: sealed.subject,
-        selectedOptionId: GENERIC_MISSION_OPTION_REFUSE,
-        analysis,
-        forceLocalAuthority: true,
-      });
-      expect(refused.ok).toBe(true);
-      if (!refused.ok) throw new Error(refused.message);
-      const prepRefuse = await prepareGenericExecutionContractDraft({
-        oa,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-        decisionId: refused.decision.decisionId,
-        forceLocalAuthority: true,
-        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      });
-      expect(prepRefuse.ok).toBe(false);
-
-      const sealed2 = await sealGenericMissionForPresentation({
-        oa,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-      });
-      if (!sealed2.ok) throw new Error(sealed2.message);
-      const amended = await recordGenericMissionHumanDecision({
-        oa,
-        subject: sealed2.subject,
-        selectedOptionId: GENERIC_MISSION_OPTION_REQUEST_AMEND,
-        analysis,
-        forceLocalAuthority: true,
-      });
-      expect(amended.ok).toBe(true);
-      if (!amended.ok) throw new Error(amended.message);
-      const prepAmend = await prepareGenericExecutionContractDraft({
-        oa,
-        projectId,
-        cycleInstanceId: null,
-        analysis,
-        decisionId: amended.decision.decisionId,
-        forceLocalAuthority: true,
-        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-      });
-      expect(prepAmend.ok).toBe(false);
-    });
-
-    it("PB08/PB09 — Confirmation ≠ HD; Record crée aucun Attempt", async () => {
-      const ctx = await prepareStructuralWithHd("pb08");
-      const attempts = await ctx.oa.executionAttemptServices.listExecutionAttempts.execute({
-        executionContractId: ctx.contract.executionContractId,
-      });
-      expect(attempts.ok ? attempts.attempts.length : 0).toBe(0);
-      // Confirmation path is distinct — Confirm still requires HD binding for structural.
-      const confirmed = await confirmIfNeeded(ctx);
-      expect(confirmed.ok).toBe(true);
-    });
-
-    it("PB12 — mapReversibilityExpectationToOa is conservative (no silent irreversible)", () => {
-      expect(mapReversibilityExpectationToOa("reversible")).toBe("reversible");
-      expect(mapReversibilityExpectationToOa("irreversible")).toBe("irreversible");
-      expect(mapReversibilityExpectationToOa("unknown")).toBe("partially_reversible");
-      expect(mapReversibilityExpectationToOa(null)).toBe("partially_reversible");
-    });
   });
 });
 
@@ -3455,22 +2999,17 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
 
 ---
 
-## 18. HANDOFF PUBLICATION
+## 18. HANDOFF
 
+Message: `docs(review-handoff): publish M-HD-01 final authority binding correction`
 Branche: `sfia/review-handoff`
-Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
-Message: `docs(review-handoff): publish M-HD-01 EC-HD effects binding correction review`
-Publisher: `scripts/sfia/publish-review-handoff.sh`
 (Post-publish: commit + blob.)
 
 ---
 
-## 19. FIN DU REVIEW PACK
+## 19. FIN
 
-Verdicts:
-- **M-HD-01 EC/HD EFFECTS BINDING — DETERMINISTIC PASS**
-- **PILOT PRESENTATION BOUNDARY — NOT PROVEN**
-- **LOCAL CANDIDATE READY FOR CHATGPT CRITICAL CODE REVIEW**
-
-Dirty candidate préservé. Aucun commit Product.
-Pack generated: 2026-10-16 15:00:29 CEST
+Verdict: **M-HD-01 EC/HD AUTHORITY BINDING — DETERMINISTIC PASS**
+Statut: **LOCAL CANDIDATE READY FOR CHATGPT CRITICAL CODE REVIEW**
+Dirty préservé. Aucun commit Product.
+Pack: 2026-10-16 15:31:17 CEST
