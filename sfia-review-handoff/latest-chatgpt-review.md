@@ -53,12 +53,12 @@ P6 IN PROGRESS. Correctif F05 sur main. Runtime local à requalifier. Données h
 | Champ | Valeur observée |
 |---|---|
 | Listener | PID **1043** (next-server v15.5.20) |
-| Parent next | PID **1011** — `next a --port 3020` |
-| Superviseur | PID **842** — `npm run a` |
+| Parent next | PID **1011** — `next dev --port 3020` |
+| Superviseur | PID **842** — `npm run dev` |
 | Checkout servi | `…/sfia-workspace-studio-runtime-main-bd3f440c` |
 | HEAD servi | `bd3f440c…` (21 commits derrière main) — **STALE** |
 | cwd | `…/bd3f440c/projects/sfia-studio/app` |
-| Mode | Next.js **a** (pas `start` production) |
+| Mode | Next.js **dev** (pas `start` production) |
 | Propriétaire | SFIA Studio confirmé (chemin app + port 3020) |
 | PID historique 66172 | **NON ACTIF** — ne pas réutiliser |
 
@@ -89,7 +89,7 @@ Mêmes chemins absolus Product / Nora / Managed entre worktree bd3f440c et workt
 4. `git merge --ff-only origin/main` dans `…-studio-runtime-main-52f36884` → HEAD `896ff59c…`.
 5. `npm run preflight:runtime` → **STUDIO RUNTIME PROFILE READY** ; `cursorReal: OFF`.
 6. Arrêt contrôlé SIGTERM du superviseur npm PID 842 (bd3f440c) — port libéré.
-7. Démarrage `npm run a` depuis worktree `896ff59c` (procédure nominale existante = a, pas `build`/`start`).
+7. Démarrage `npm run dev` depuis worktree `896ff59c` (procédure nominale existante = dev, pas `build`/`start`).
 8. Smoke HTTP `GET /` → **307** (redirect auth — sans action métier).
 9. Re-preflight après refresh → READY ; cursorReal OFF.
 10. Aucune écriture SQL / seed / reset / message Nora / EC / HD / Attempt.
@@ -100,7 +100,7 @@ Mêmes chemins absolus Product / Nora / Managed entre worktree bd3f440c et workt
 |---|---|
 | Checkout | `…/sfia-workspace-studio-runtime-main-52f36884` |
 | HEAD | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` = origin/main |
-| Mode | `npm run a` / next-server 15.5.20 |
+| Mode | `npm run dev` / next-server 15.5.20 |
 | Listener PID | **4962** |
 | next PID | **4961** |
 | npm PID | **4925** |
@@ -135,7 +135,7 @@ URL : `http://localhost:3020`
 
 ## 11. Réserves
 
-1. Runtime en mode **a** (hot reload) — pas `next start` production.
+1. Runtime en mode **dev** (hot reload) — pas `next start` production.
 2. OpenAI LIVE non requalifié conversationnellement après merge.
 3. Pending Generic PREPARE offer process-local (dette Product connue).
 4. TargetPath autoritatif non résolu au stade PREPARE (dette connue).
