@@ -1,36 +1,42 @@
-# SFIA Studio — Generic Execution Upstream Architecture Simplification — Replacement Impact Review — FULL
+# SFIA Studio — Cycle-Independent Agent Selection Contract — Review Pack FULL
 
-- **Horodatage** : 2026-10-16T11:15:53+0200 (Europe/Paris)
-- **GO Morris** : GENERIC EXECUTION — UPSTREAM ARCHITECTURE SIMPLIFICATION — REPLACEMENT IMPACT REVIEW
-- **Cycle** : 6 — Architecture technique · **Profil** : CRITICAL · **Typologie** : Architecture / Impact Review
-- **Capacité** : V3-F05 · D-ER-16…19 ADOPTED TARGET
-- **Milestone** : P6 IN PROGRESS
+- **Horodatage** : 2026-10-16T11:55:23+0200 (Europe/Paris)
+- **GO Morris** : GENERIC EXECUTION — CYCLE-INDEPENDENT AGENT SELECTION CONTRACT
+- **Cycle** : 6 — Architecture technique · **Profil** : CRITICAL · **Typologie** : Architecture / Decision Support / DOC
+- **Capacité** : V3-F05 · V3-F11 · V3-F12
+- **Décisions consommées** : D-ER-16…19 · **Option B ADOPTED** (Targeted Upstream Replacement)
+- **Décision ouverte** : SP-A vs SP-B (sélection sans cycle) — **NON CONSOMMÉE**
 - **Mutations Product** : **AUCUNE** (READ-ONLY)
-- **Delivery / Correction Pass** : **NON** — impact review only
 
 ## 1. Verdict
 
-**UPSTREAM REPLACEMENT IMPACT REVIEW COMPLETE**
-**TARGET ARCHITECTURE OPTIONS QUALIFIED**
-**READY FOR MORRIS REPLACEMENT DECISION**
+**AGENT SELECTION CONTRACT REVIEW COMPLETE**
+**SP-A / SP-B QUALIFIED**
+**READY FOR MORRIS SELECTION CONTRACT DECISION**
 
-(+ gates ouverts : SelectionProfile sans cycle · HD–mission binding — **NON CONSOMMÉS**)
+**RECOMMENDATION (non adoptée) :** direction doctrinale **SP-B** (server-derived), car elle aligne Option B, évite schema/fingerprint churn, et peut encoder le force Product Cursor REAL déjà observé — **à condition** que Morris définisse l'attribut/règle de posture manquant.
 
-Anti-claims : COMPONENT REPLACEMENT ADOPTED · PRODUCT CODE UPDATED · DELIVERY COMPLETE · GIT INTEGRATED · PR READY · READY FOR REAL · P6 GLOBAL PASS · RUNTIME V3 ADOPTED — **NON**.
+**SP-A / SP-B ADOPTED — NON.**
 
-## 2. Git Truth initial
+Anti-claims : PRODUCT CODE UPDATED · DELIVERY COMPLETE · GIT INTEGRATED · READY FOR REAL · P6 GLOBAL PASS · RUNTIME V3 ADOPTED — **NON**.
+
+## 2. Git Truth
 
 | Check | Valeur |
 | --- | --- |
 | origin/main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` MATCH |
-| Candidat Delivery | `docs/sfia-studio-generic-execution-nora-tool-invocation-20261016` @ `896ff59c` **DIRTY EXPECTED** (17 paths) — **NON MODIFIÉ** ce cycle |
-| Handoff Correction Pass | `9ddea414` / blob `7a6cf17f` VERIFIED |
-| Runtime :3020 | untouched |
-| Product mutations ce cycle | **ZERO** |
+| Candidat path | `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` |
+| Candidat HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
+| Candidat branch | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
+| Dirty paths | 18 |
+| Note identité | FACT : le path historique `docs/…nora-tool-invocation-20261016` pointe désormais sur branche `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862` (≠ rapport antérieur docs/@896ff59c). Contenu Delivery dirty **préservé** ; **aucune mutation** ce cycle. Analyse sur cet arbre. |
+| Runtime :3020 | `studio-runtime-main-52f36884` @ `896ff59c` untouched |
+| Handoff impact | `97a85c3c` / `077c9aad` VERIFIED |
 
-### Candidat status (figé, non muté)
+### Status candidat (non muté)
 
 ```
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
  M projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
@@ -52,137 +58,36 @@ Anti-claims : COMPONENT REPLACEMENT ADOPTED · PRODUCT CODE UPDATED · DELIVERY 
 
 ## 3. Sources
 
-Template + routing + guardrails · Build Doctrine · Roadmap · C1 · P1–P6 (esp. P2/P6) · Architecture main + candidate D-ER-16…19 · Doctrine 30/32/34/35/37 · CKC Architecture · Runtime Reference · Handoff `9ddea414` intégral.
+Template · routing · guardrails · Build Doctrine · Roadmap · C1 · P2 · P6 · Architecture D-ER candidate · Doctrine 30/32/34/35/37 · CKC · Runtime Reference · Handoff `97a85c3c` (SP-A/SP-B sections).
 
 ## 4. Convergence Pre-check
 
 | Item | État |
 | --- | --- |
+| Option B | **ADOPTED** (amont) |
 | D-ER-16…19 | ADOPTED TARGET |
-| Implémentation locale | INCOMPLETE (STOP Correction Pass) |
-| Acquis locaux vérifiés | solicitGeneric + tool Nora + F2→solicit + Runner DET + PREPARE/AUTH sans cycle + cycleTypeId null |
-| Gaps structurants | S8 Attempt `CYCLE_BINDING_REQUIRED` · E12 HD resume |
-| Aval Cursor→Evidence | **HORS REFONTE** — réutilisation |
+| Gap | W3-A `loadContract` → `CYCLE_BINDING_REQUIRED` |
+| Acquis DET (handoff) | Nora tool · admission · PREPARE/AUTH sans cycle |
+| Select/Attempt sans cycle | **NOT PROVEN** |
+| Exit | Politique explicite de sélection sans cycle |
 
-## 5. STOP précédent (rappel)
+## 5. Distinction SelectionProfile ≠ AttemptExecutionProfile
 
-Correction Pass : **INCOMPLETE** + **MORRIS ARCHITECTURE OR AUTHORITY DECISION REQUIRED**
-- Attempt sans cycle bloqué W3-A `loadContract`
-- Generic PREPARE `decisionRefs: []` — HD n'ouvre pas la reprise
-
-Ce cycle **ne corrige pas** — il qualifie le **remplacement amont**.
-
-## 6. CURRENT / TARGET (amont)
-
-```
-CURRENT (candidat local):
-  Nora tool ──┐
-              ├── solicitGenericExecutionPrepare → prepareGeneric… → EC
-  F2 router ──┘   (+ ACGC taxonomy/lifecycle gates + offer UX)
-  Authorize OK sans cycle
-  Execute W3-A: loadContract → CYCLE_BINDING_REQUIRED si !cycleInstanceId
-  Structural: refuse OK ; resume HD NOT PROVEN
-
-TARGET (D-ER-16…19):
-  Nora tool = entrée nominale de sollicitation
-  Un backend Product d'admission (solicitGeneric…)
-  F2 = lifecycle / Artifact continuation / conversation — ≠ gate d'outil
-  Project context suffit ; cycle optionnel
-  SelectionProfile explicite sans cycle artificiel
-  HD liée à mission/offre → reprise structurante
-  Attempt existant réutilisé après frontière stable
-```
-
-## 7. Analyse A — Responsabilités amont
-
-| Q | Réponse (FACT) |
-| --- | --- |
-| A. Pourquoi F2 ? | Routing chat-first + offer + ACGC/cycle gates — **pas** second backend PREPARE |
-| B. Nécessaire exécution | projectId, cycle optionnel, call solicitGeneric, DET pins |
-| C. Lifecycle only | ACGC modes, REQUIRE_ARTIFACT, createCycle, FINALIZE |
-| D. Taxonomie héritée | docs_write / cursor.docs_write.apply / continuationKind dans ACGC |
-| E. Cassé si retrait F2 admission | offer OK accept ; optional documentary F2 path ; Q18/Q19 UX — **pas** Nora tool |
-| F. Nora nominal sans 2e backend | **OUI déjà** — tool→solicitGeneric |
-| G. Simplifiable | Collapser F2 Generic block ; ACGC = Artifact only ; offer owner près de Nora/solicit |
-| H. Continuité sans routeur | pending offer store + fingerprint — ACGC non requis pour accept |
-
-## 8. Classification composants
-
-| Component | Class | Disposition recommandée |
+| | SelectionProfile | AttemptExecutionProfile |
 | --- | --- | --- |
-| solicitGeneric / prepareGeneric | GENERIC CORE | **KEEP** |
-| request_generic_execution_prepare | TECHNICAL ADAPTER | **KEEP** / COMPLETE |
-| orchestrateTurn solicit wire | TECHNICAL ADAPTER | **KEEP** |
-| pendingGenericPrepareOfferStore | TECHNICAL ADAPTER | **KEEP** interim (debt process-local) |
-| F2 Generic PREPARE block | LEGACY ADMISSION | **REPLACE** (thin → solicit) / **ADAPT** interim |
-| ACGC Artifact path | CYCLE LIFECYCLE + LEGACY ADMISSION | **KEEP** lifecycle · **RETIRE LATER** taxonomy as admission |
-| authorizeGeneric / confirm | AUTHORITY BOUNDARY | **KEEP** |
-| loadContract CYCLE_BINDING | EXECUTOR SELECTION seam | **REPLACE** seam rule (Morris) |
-| OA selectExecutionAgent | EXECUTOR SELECTION | **KEEP** (n'exige pas cycle) |
-| prepareExecutionContractFromW2Decision | AUTHORITY BOUNDARY HD-first | **KEEP** legacy |
-| Cursor Gateway → Evidence | DOWNSTREAM CORE | **KEEP** (hors refonte) |
+| Rôle | HOW select (strategy / Critical confirm) | WHICH slice (capabilities / effects / lineage) |
+| Persist | Attempt at Select | **NOT** persisted (by design) |
+| Authority | Affecte human_confirmed_proposal | Explicitement **NOT** authority |
+| Interdit | — | Capability → HD non requise ; AttemptProfile → autorisation |
 
-## 9. Analyse B — Dépendance cycle / SelectionProfile
+**FACT :** fusionner les deux est anti-architecture.
 
-### Ce que le cycle fournit aujourd'hui à Execute
+## 6. CURRENT — loadContract / Select
 
-| Propriété | Usage | Classe |
-| --- | --- | --- |
-| cycleInstanceId présent | Gate loadContract | lineage / authority seam |
-| cycle.projectId match | Tenancy | sécurité |
-| cycle.status non terminal | Lifecycle | autorité lifecycle |
-| cycle.profile → SelectionProfile | Agent HOW | **méthodologique** |
-
-**FACT :** OA `SelectExecutionAgent` **ne charge pas** le Cycle — il consomme `selectionProfile` du request.
-**FACT :** Product Cursor REAL **force** souvent `standard` + `capabilities_deterministic` après le gate.
-**FACT :** Authorize sans cycle **PROVEN** (der16 R4).
-
-### Extrait loadContract
+### Cycle hard-gate
 
 ```typescript
-async function loadContract(
-  oa: RuntimeOaStack,
-  input: GovernedExecuteAuthorizedContractInput,
-): Promise<
-  | { ok: false; result: Failure }
-  | { ok: true; contract: ExecutionContract; selectionProfile: SelectionProfile }
-> {
-  const contractResult =
-    await oa.executionContractServices.getExecutionContract.execute({
-      executionContractId: input.executionContractId,
-    });
-  if (!contractResult.ok) {
-    return {
-      ok: false,
-      result: {
-        ok: false,
-        code: contractResult.error.detailCode,
-        message: "Contrat d'exécution introuvable — exécution refusée.",
-      },
-    };
-  }
-  const contract = contractResult.contract;
-  if (contract.projectId !== input.projectId) {
-    return {
-      ok: false,
-      result: {
-        ok: false,
-        code: "PROJECT_MISMATCH",
-        message: "Le contrat n'appartient pas au projet demandé.",
-      },
-    };
-  }
-
-  const project = await oa.projectServices.getProject.execute({
-    projectId: input.projectId,
-  });
-  if (project.ok && project.project.status === "archived") {
-    return {
-      ok: false,
-      result: {
-        ok: false,
-        code: "PROJECT_ARCHIVED",
-        message: "Projet archivé — aucune exécution.",
+tion.",
       },
     };
   }
@@ -195,211 +100,210 @@ async function loadContract(
         ok: false,
         code: "CYCLE_BINDING_REQUIRED",
         message:
-          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas de fallback Standard).",
-      },
-    };
-  }
-  {
-    const cycle = await oa.cycleServices.getCycle.execute({
-      cycleInstanceId: contract.cycleInstanceId,
-
+          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas d
 ```
 
-### Deux options SelectionProfile sans cycle (NON ADOPTÉES)
+### mapCycleProfileToSelectionProfile
 
-**SP-A — Seal on EC** à PREPARE/Confirm : persister `selectionProfile` (ou équivalent) sur EC AUTHORIZED ; Select lit le sceau ; fail-closed si absent/ambigu.
+```typescript
+function mapCycleProfileToSelectionProfile(
+  profile: CycleProfile | string | null | undefined,
+): SelectionProfile {
+  if (profile === "Critical") return "critical";
+  if (profile === "Light") return "light";
+  return "standard";
+}
 
-**SP-B — Derive from EC Product stamps** déjà présents (materiality / requiredAuthority / sealed generalist vs docs-write) ; Cursor REAL force `standard` déjà — étendre comme règle Product unique ; Confirmation Pilot si Critical ; fail-closed si stamps conflictuels ; **jamais** Standard silencieux.
+function isBoundedDocsWriteContract(contract:
+```
 
-### Impact Attempt / persistence / recovery
+### Cursor REAL force (pratique historique ≠ règle universelle)
 
-- Attempt stocke déjà profile/strategy à Select — OK si fourni autrement
-- Projections W3-A re-appellent loadContract — doivent cesser d'exiger cycle **ou** lire sceau EC
-- Evidence lineage : cycle optionnel quand absent déjà partiellement supporté ; bindings vides risqués
-- Cont01 / git effects : plusieurs chemins attendent cycle — inventaire RETIRE/ADAPT sous Delivery
+```typescript
+ts its specialized agent; Product uses generalist.
+  let effectiveProfile: SelectionProfile = selectionProfile;
+  let selectionStrategy: SelectionStrategy;
+  if (cursorReal) {
+    effectiveProfile = "standard";
+    selectionStrategy = "capabilities_deterministic";
+  } else {
+    const strategyResolved = resolveSelectionStrategy(selectionProfile);
+    if ("detailCode" in strateg
+```
 
-### Fail-closed à préserver
+### Faits CURRENT
 
-Pas de cycle inventé · pas de Standard silencieux · Critical → confirmation · Project archived · EC mismatch.
-
-## 10. Analyse C — HumanDecision–mission
-
-| # | Finding |
+| Fait | Preuve |
 | --- | --- |
-| 1 | Sujets HD actuels = trajectory/proposal/work_rec/obligation — **pas** offerFingerprint générique |
-| 2 | Bind via `offerFingerprint` / `missionKey` / DecisionBasis digests **existants** |
-| 3 | IDs : decisionId, offerFingerprint, missionKey, semanticFingerprint, EC id |
-| 4–6 | Project match + accepted + currentness Digests déjà dans W2 HD path |
-| 7 | Mission change → nouveau missionKey ; stale HD fail-closed si lié |
-| 8 | Partial effects : W2 EFFECTS_UNRESOLVED ; generic partial_reversible |
-| 9 | KEEP prepareExecutionContractFromW2Decision |
-| 10 | Frontière commune : PREPARE structural refuse · Confirm assertDecisionRefs · Authorize HD accepted |
+| Sans cycleInstanceId → CYCLE_BINDING_REQUIRED | loadContract ~397–406 ; der16 R4 |
+| Critical→critical, Light→light, else standard | mapCycleProfile 155–161 |
+| capitalization jamais produit par map | cycle enum Light\|Standard\|Critical |
+| Cursor REAL force standard + capabilities_deterministic | Select ~652–654 |
+| getProject fail → **continue** (seul archived bloque si ok) | ~385–394 — **trou** vs Build fail-closed |
+| OA Select n'exige pas Cycle | selectExecutionAgent |
+| Start ne re-mappe pas Cycle.profile | startExecution |
+| EC **sans** champ selectionProfile | execution-contract/domain/types.ts |
+| requiredAuthority ↛ SelectionProfile | w3aProductExecutionSemantics ; Generic N2 hardcode |
+| Materiality insuffisante seule | STRUCTURAL ≠ selection posture |
 
-**CURRENT gap :** `L780: decisionRefs: [],` hard-wired — aucune HD ne peut peupler refs sur chemin générique.
+### Phases W3-A réutilisant loadContract
 
-**Adaptations minimales (design, non implémentées) :**
-1. `recordHumanDecision` avec basis/subject portant offerFingerprint/missionKey
-2. PREPARE/Confirm structurants avec `decisionRefs: [decisionId]` quand HD valide
-3. Owner continuité offer après shrink F2
-4. Conserver `assertDecisionRefsAdmissibleForConfirm`
+governedExecuteSelectAgent · Start · RecordResult · Cancel · RecordFailure · orchestrateur — chacune recharge.
 
-Confirmation ≠ HumanDecision.
+## 7. Préconditions communes P1–P19
 
-## 11. Analyse D — Frontière ExecutionAttempt
+| ID | Précondition | Statut |
+| --- | --- | --- |
+| P1–P3 | EC + Project réel + projectId match | PARTIAL (getProject miss fail-open) |
+| P4–P5 | Cycle optionnel ; si présent binding OK | P4 TARGET ; P5 CURRENT forcé |
+| P6–P11 | CURRENT, inspect, authority, HD, Conf, scope | KEEP (Authorize path) |
+| P12 | AgentCapability | KEEP AttemptExecutionProfile |
+| P13–P15 | SelectionProfile explicite / strategy / no default | **NOT IMPLEMENTED** sans cycle |
+| P16–P19 | Revalidation, no elevation, version bind, fail-closed | PARTIAL |
 
-### Préconditions observables cibles avant Attempt
+## 8. SP-A — Sealed SelectionProfile
 
-- Project réel (non archived)
-- EC inspecté CURRENT (fingerprint)
-- Mission/scope sur EC
-- Autorité effective (Authorize)
-- HD applicable si structural (refs)
-- Confirmation applicable si effets l'exigent
-- AgentCapability / SelectionProfile **justifié** (sceau ou derive — Morris)
-- Contraintes / stop conditions
-
-### Réutilisation Attempt
-
-| Couche | Compatible sans cycle ? |
+| Thème | Qualification |
 | --- | --- |
-| Authorize | **OUI** (proven) |
-| OA SelectExecutionAgent | **OUI** si profile fourni |
-| W3-A loadContract | **NON** aujourd'hui — seam Product |
-| StartExecution | Cont01/git souvent cycle-aware — ADAPT |
-| Downstream Evidence/RB | KEEP |
+| Moment | Avant Confirm (ou Confirm=seal write) ; immutableAfterConfirm |
+| Source | Server-only ; refuse client (comme selectedAgentRef) |
+| Persistence | Nouveau champ EC dans payload_json **+** material semanticFingerprint |
+| Fingerprint | **Doit** inclure si autoritatif → Confirm churn |
+| Legacy | Migration ou fail-closed ; pas Standard silencieux |
+| Cursor REAL | Seal souvent **overridden** → valeur souvent moot sur path Product |
+| Schema | Extension structurante → **gate Morris persistence** si colonne/modèle formel |
+| Fit Option B | Mécanique mais duplique Cycle ; lourd |
 
-**Conclusion :** pas de second moteur Attempt. Incompatibilité exacte = **W3-A product seam** `CYCLE_BINDING_REQUIRED`, pas OA core Select.
+## 9. SP-B — Server-derived SelectionProfile
 
-## 12. Options A / B / C
-
-### Option A — Convergence incrémentale
-
-Continuer ADAPT F2/ACGC/loadContract patch par patch.
-
-| Critère | Note |
+| Thème | Qualification |
 | --- | --- |
-| Conformité D-ER | Lente / partielle |
-| Simplicité | Faible (routeurs restent) |
-| Code supprimable | Minimal |
-| Risque migration | Faible court terme |
-| Dette | Élevée (Correction Pass loops) |
-| Parallèle | Risque dual F2+Nora durable |
+| Dérivation complète TODAY depuis EC seul | **NON** (FACT) |
+| Attribut manquant | Durable **selection posture** indépendante du Cycle |
+| Propriétaire | Product / Morris |
+| requiredAuthority / materiality | **Insuffisants** seuls ; mapping interdit sans règle adoptée |
+| AttemptExecutionProfile | **Interdit** comme source d'autorité |
+| Persistence | Attempt only (déjà) ; pas de colonne EC si pur SP-B |
+| Minimal rule-shaped SP-B | Product Cursor REAL ⇒ standard+capabilities_deterministic **sans** lire Cycle (déjà de facto) ; fail-closed ailleurs jusqu'à règle Critical-sans-cycle |
+| Fit Option B | **Meilleur doctrinalement** |
 
-### Option B — Remplacement ciblé amont (**recommandée**)
+## 10. Comparaison argumentée (extraits clés)
 
-Nora tool = entrée nominale · solicitGeneric = seul backend admission · F2 réduit à lifecycle/Artifact/conversation · Remplacer seam loadContract (SP-A ou SP-B) · Lier HD–mission via OA existant · KEEP Attempt/Cursor/Evidence.
+| Critère | SP-A | SP-B | Conclusion |
+| --- | --- | --- | --- |
+| Indépendance cycle | Fort si seal | Fort si règle/attr | Les deux viables |
+| Persistence nouvelle | Probable | Optionnelle | SP-B plus léger |
+| Fingerprint/Confirm | Coût élevé | Neutre EC | SP-B |
+| Injection hostile | Refuse channel | Ignore by design | SP-B |
+| Match Cursor REAL actuel | Seal moot | Encode force | SP-B |
+| Critical human confirm | Seal critical | Derive critical | **Ni l'un ni l'autre** ne fixe le bypass REAL seul |
+| Completeness TODAY | Schema manquant | Attr/règle manquante | **DECISION REQUIRED** |
+| Reco doctrinale | — | Préférée | **NON ADOPTÉE** |
 
-| Critère | Note |
-| --- | --- |
-| Conformité D-ER-16…19 | Élevée |
-| Simplicité | Élevée (retire LEGACY ADMISSION) |
-| Réutilisation | Max (solicit, EC, Auth, Attempt, Gateway) |
-| Risque | Moyen — borné aux seams W3-A + HD bind |
-| Persistence | Pas de nouvel agrégat si SP-A/B + DecisionBasis |
-| Autorité | Conservée si fail-closed + Morris SP/HD |
-| Legacy | ACGC Artifact KEEP ; W2 HD-first KEEP |
-| Preuve E2E | Nora→solicit→EC→Auth→Select→Attempt (DET) |
-| Parallèle | **Non** si F2 n'admet plus Generic en parallèle nominal |
+## 11. Cas avec / sans cycle
 
-### Option C — Remplacement large (nouveau contrat mission/autorité)
+**Avec cycle :** préserver project match, status, authority, strategy, confirmation, lineage. Cycle peut rester **input optionnel** de dérivation (méthodologique) ou être ignoré sur Product Cursor REAL — **DECISION**.
 
-Uniquement si SP-A/B + HD bind prouvent contrats insuffisants.
+**Sans cycle :** Project positif obligatoire (fermer fail-open getProject). Profil résolu par politique explicite. Fail-closed si ambigu. Aucun cycle artificiel / type fictif / standard implicite.
 
-| Critère | Note |
-| --- | --- |
-| Nécessité structurelle | **NON démontrée** aujourd'hui |
-| Risque / coût | Élevé |
-| Parallèle | Risque élevé |
+## 12. Frontière OA Select / Start
 
-**Recommandation argumentée :** **Option B**.
-Gain vs A : retire la dette d'admission distribuée et aligne D-ER sans multiplier les Correction Pass.
-Vs C : les contrats EC/OA Decision/Select existent ; le blocage est un **seam Product** + **gap de binding**, pas une absence de modèle.
+| Couche | Cycle dep CURRENT | TARGET |
+| --- | --- | --- |
+| Authorize | Non | KEEP |
+| loadContract | **Hard** | REPLACE resolution |
+| OA Select | Non (profile in request) | KEEP |
+| Start | Cont01/git ids ; revalidate AttemptProfile | ADAPT bindings |
+| Recovery | Attempt-stored profile | KEEP |
 
-**AUCUNE OPTION ADOPTÉE** ce cycle.
+**FACT :** OA Select réutilisable si SelectionProfile fourni. Incompatibilité = seam W3-A loadContract, pas second moteur.
 
-## 13. Matrice d'impact remplacement
+## 13. Matrice scénarios S1–S18 (NOT TESTED ce cycle)
 
-| Component | Responsibility | Callers | Consumers | Authority owner | CURRENT dep | TARGET owner | Impact |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| F2 Generic block | Admit+offer+UX | orchestrateAssistantSend | Pilot UX / solicit | Product routing | ACGC+cycle | Thin solicit caller | REPLACE admission |
-| ACGC | Artifact/lifecycle | F2 | Proposal Artifact | Cycle policy | taxonomy | Lifecycle only | ADAPT/RETIRE admission |
-| solicitGeneric | Qualify+PREPARE | F2, Nora tool | EC | Studio materiality | — | GENERIC CORE | KEEP |
-| loadContract cycle gate | Bind+profile | All W3-A execute | SelectAgent | Product Execute | cycle.profile | EC seal / derive | REPLACE seam |
-| OA Select | Agent pick | W3-A | Attempt | OA invariants | request profile | same | KEEP |
-| decisionRefs:[] | Non-structural stamp | prepareGeneric | Confirm/Auth | Studio | blocks HD | HD bind when structural | ADAPT |
-| offer store | Continuity | F2 remember/accept | GO prepare | session | process-local | KEEP interim | ADAPT owner |
-| W2 HD→EC | HD-first prepare | decideTrajectory | EC | Pilot HD | cycle often | KEEP | KEEP |
+| ID | CURRENT | SP-A | SP-B | FAIL-CLOSED |
+| --- | --- | --- | --- | --- |
+| S1 Cycle Standard | map→standard ; REAL→force | seal / force | derive / force | — |
+| S2 Cycle Critical | REAL→force standard | seal moot | same until override redesigned | — |
+| S3 Sans cycle | CYCLE_BINDING | OK si seal | OK si règle | missing→refuse |
+| S4–S5 Faible / élevés sans cycle | refuse | seal policy | derive or refuse | ambiguous |
+| S6 Structural autorisée | AUTH OK ; Select refuse | seal+refs | derive+refs | — |
+| S7 HD absente | structural refuse PREPARE | same | same | yes |
+| S8 Profil ambigu | N/A | refuse | refuse | yes |
+| S9–S10 Archived / introuvable | archived stop ; miss **continue** | both should refuse miss | | fix hole |
+| S11–S12 Obsoletesuperseded | existing gates | same | same | yes |
+| S13 Agent insuffisant | Select fail | same | same | yes |
+| S14 Agent Confirmation | Critical non-REAL | same | same | yes |
+| S15–S16 Historique cycle / sans stamp | cycle map / refuse null | migrate/fail | fail until inputs | yes |
+| S17–S18 Effets changés / contradiction | supersede | new seal | re-derive | yes |
 
-Preuves clés : `orchestrateF2.ts:2259-2277` · `orchestrateTurn.ts:528-545` · `governedExecuteAuthorizedContract.ts` loadContract · prepareGeneric `decisionRefs:[]` · der16 R1/R2/R4.
+## 14. Contrat cible recommandé (conceptuel — NON ADOPTÉ)
 
-## 14. Trajectoire minimale (sous GO futurs — non démarrée)
+**Nom :** `resolveSelectionProfileForGovernedExecute`
 
-1. **Morris décide** Option B + SP-A vs SP-B + HD subject shape + order HD↔PREPARE
-2. Delivery : shrink F2 Generic admission → solicit only ; offer owner
-3. Delivery : replace loadContract cycle-hard-gate with sealed/derived profile ; Attempt DET
-4. Delivery : HD–mission bind + structural resume tests
-5. Evidence E8–E12 complete DET · Human QA · Git Integration unique
+**Owner Product :** Studio W3-A / OA boundary (pas Nora).
 
-Lots = capacités vérifiables, pas micro-patches.
+**Inputs autoritatifs :** EC confirmed (version, fingerprint), projectId, Project status ; Cycle **optionnel** selon politique.
 
-## 15. Preuves de sortie (futures)
+**Inputs hostiles (ignorés) :** client/Nora selectionProfile, claimedAuthority, attemptProfile.
 
-| Exit | Contenu |
-| --- | --- |
-| XR1 | F2 n'est plus gate nominal Generic (Nora ou thin solicit) |
-| XR2 | Un seul call path solicitGeneric (spy) |
-| XR3 | Attempt sans cycle avec SP justifié — ou policy explicite Execute requires cycle |
-| XR4 | HD structural → prepare/confirm avec refs — sans inventer HD |
-| XR5 | ACGC taxonomy hors admission Generic |
-| XR6 | Non-régression Artifact GOVERNED + W2 HD-first |
+**Moment :** Select (Start fait confiance Attempt + revalidate AttemptExecutionProfile).
 
-## 16. Dette / exit
+**Outputs :** selectionProfile + selectionStrategy + flags ; ou erreur typée (`SELECTION_PROFILE_UNRESOLVABLE`, transitional `CYCLE_BINDING_REQUIRED`).
+
+**Jamais :** inventer standard ; élever autorité ; merger AttemptExecutionProfile.
+
+**Persistence SP-B :** Attempt only. **SP-A :** EC field + fingerprint material → gate persistence.
+
+**Exit cycle-hard-gate :** remplacer require cycleInstanceId par résolution politique ou fail-closed explicite.
+
+## 15. Dette / exit / trajectoire minimale
 
 | Dette | Exit |
 | --- | --- |
-| F2 dual entry UX | XR1 |
-| process-local offers | durable PresentedSubject GO |
-| CYCLE_BINDING seam | Morris SP + XR3 |
-| decisionRefs:[] structural | Morris HD + XR4 |
-| Evidence/git cycle bindings | inventaire ADAPT sous Delivery Attempt |
-| Living Reference digests | refresh post-intégration |
+| CYCLE_BINDING_REQUIRED | Morris SP + Delivery loadContract |
+| getProject fail-open | Hardening indépendant |
+| Cursor REAL Critical hollow | M-SP-03 |
+| Pas d'attr posture | M-SP-02 |
+| capitalization dead enum | Product define or ignore |
 
-## 17. Gates Morris (ouverts — non consommés)
+**Delivery minimal (futur GO) :** (1) Morris M-SP-01…03 (2) rewrite loadContract resolution only (3) tests S1/S3/S10/S12 (4) null-cycle Select DET — **pas** micro-patches isolés.
 
-1. **Adopter Option B** (vs A/C) ?
-2. **SelectionProfile sans cycle** : SP-A seal EC vs SP-B derive stamps ? (ou politique Execute exige cycle)
-3. **HD–mission** : subject/DecisionBasis shape · ordre HD-before-PREPARE vs PREPARE-then-HD · supersession par missionKey ?
-4. Owner continuité offer post-F2 shrink ?
-5. Calendariser RETIRE taxonomy ACGC admission ?
+## 16. Gates Morris (ouverts)
 
-## 18. Fake / Real
+1. **M-SP-01** — Choisir SP-A / SP-B / hybride / différer
+2. **M-SP-02** — Critical-sans-cycle : refuse vs règle Product vs nouvel attribut
+3. **M-SP-03** — Bypass Cursor REAL Critical (`652–654`) : politique intentionnelle ou dette
+4. Si SP-A : gate persistence/schema/fingerprint
+5. getProject fail-open : corriger dans Delivery ?
 
-Architecture IMPACT QUALIFIED.
-Acquis DET du candidat : tool Runner, admission commune, PREPARE/AUTH sans cycle.
-Attempt sans cycle / HD resume : **NOT PROVEN**.
-Aucun nouveau Fake · ZERO REAL · READY FOR REAL = **NO**.
+## 17. Fake / Real
 
-## 19. Validations V1–V16
+ARCHITECTURE CONTRACT QUALIFIED.
+Select/Attempt sans cycle : **NOT PROVEN**.
+Aucun nouveau Fake/REAL. READY FOR REAL = **NO**.
 
-V1–V5, V8, V10–V12, V15–V16 **PASS** (analyse).
-V6 SelectionProfile : **options qualified**.
-V7 HD–mission : **qualified**.
-V9 Attempt : **réutilisable** hors seam W3-A — incompatibilité exacte démontrée.
-V13–V14 : trajectoire + dette **PASS**.
+## 18. Validations V1–V18
 
-## 20. Git Truth final
+V1–V10, V12–V18 **PASS** (analyse).
+V11 persistence SP-A **qualified** (coût).
+V12 SP-B derivation **insuffisance démontrée**.
+
+## 19. Git Truth final
 
 ```
 origin/main=896ff59c
-candidate=DIRTY UNCHANGED (read-only)
+candidate_path=/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016
+candidate_HEAD=b4c1d86211d372f7b0685be7ce8a5ba7de598e37
+candidate_branch=fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare
+candidate_dirty_unchanged=YES
 product_mutations_this_cycle=NONE
 runtime_3020=untouched
 ```
 
-## 21. Instruction ChatGPT
+## 20. Instruction ChatGPT
 
 Lire : `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
 
-**SFIA STUDIO — GENERIC EXECUTION UPSTREAM REPLACEMENT IMPACT CRITICAL ARCHITECTURE REVIEW.**
+**SFIA STUDIO — CYCLE-INDEPENDENT AGENT SELECTION CRITICAL ARCHITECTURE CONTRACT REVIEW.**
 
-Vérifier : valeur du remplacement · dépendances · responsabilités · simplicité · pas de nouveau moteur · S8 · HD–mission · autorité · legacy · D-ER-16…19 · maturité reco · **décisions ouvertes non consommées**.
+Vérifier : fondement reco SP-B · absence sélection implicite · autorité · cycle/sans cycle · distinction profils · réutilisation OA · persistence · currentness · tests futurs · gates Morris · **SP-A/SP-B NON ADOPTÉS**.
