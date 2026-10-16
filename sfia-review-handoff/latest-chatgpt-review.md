@@ -1,24 +1,25 @@
-# SFIA Studio — Inspection Binding + HumanDecision–Mission Convergent Delivery — Review Pack FULL
+# SFIA Studio — M-HD-01 Generic Mission HumanDecision Binding — Technical Contract Review Pack FULL
 
-- **Horodatage** : 2026-10-16T13:23:03+0200 (Europe/Paris)
-- **GO Morris** : GENERIC EXECUTION — INSPECTION BINDING + HUMANDECISION–MISSION CONVERGENT DELIVERY
-- **Cycle** : 8 — Delivery / CRITICAL / EVOL
+- **Horodatage** : 2026-10-16T13:42:28+0200 (Europe/Paris)
+- **GO Morris** : M-HD-01 — GENERIC MISSION HUMANDECISION BINDING — TARGETED TECHNICAL CONTRACT
+- **Direction** : **O1 ADOPTED BY MORRIS** (extension ciblée OA HumanDecision) — PENDING GIT TRACE / IMPLEMENTATION GATE
+- **Cycle** : 6 — Architecture technique · **Profil** : CRITICAL · **Typologie** : DOC — Decision Support
 - **Capacité** : V3-F05 · V3-F11 / V3-F12 / V3-F14
-- **CKC** : ckc:studio:delivery
-- **Mutations Product locales** : OUI (binding A) — **aucun commit/push/PR Product**
-- **Handoff prior** : `f73130cea83d59606f3a76f205f06945a734d80e` / `212658371ae6f7388edd91ab7b256ee64645d242`
+- **CKC** : ckc:studio:technical-architecture
+- **Mode** : **READ-ONLY Product** — zéro mutation code/tests/schema Product
+- **Handoff Decision Pack prior** : `ba0be3fb115bc6550f23dc55b4f8f7d7008da72e` / blob `81b0ea787026181a39d2fe1257b9de7381e9a82b`
 
 ## 1. Verdict
 
-**INSPECTION BINDING — DETERMINISTIC PASS**
+**M-HD-01 TECHNICAL CONTRACT QUALIFIED**
 
-**HUMANDECISION–MISSION — MORRIS DESIGN DECISION REQUIRED**
+**READY FOR MORRIS IMPLEMENTATION CONTRACT GATE**
 
-**END-TO-END PRODUCT CONTINUITY — EXIT PROOF MISSING** (E4–E8 not claimed)
+**NO SQL MIGRATION REQUIRED — PROVEN** (table `oa_human_decisions` / `payload_json`)
 
-**LOCAL CANDIDATE PRESERVED**
+**MODELED / RUNTIME CONTRACT CHANGE — MORRIS IMPLEMENTATION GATE** (types + `validateDecisionBasis` + Product prepare)
 
-Anti-claims : PRODUCT GIT INTEGRATED · PR READY · READY FOR REAL · HUMAN QA PASS · P6 GLOBAL PASS · RUNTIME V3 ADOPTED — **NON**.
+Anti-claims : PRODUCT CODE UPDATED · PRODUCT GIT INTEGRATED · PR READY · READY FOR REAL · HUMAN QA PASS · P6 GLOBAL PASS · RUNTIME V3 ADOPTED — **NON**.
 
 ## 2. Git Truth
 
@@ -28,9 +29,9 @@ Anti-claims : PRODUCT GIT INTEGRATED · PR READY · READY FOR REAL · HUMAN QA P
 | Candidat HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
 | Candidat branch | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
 | Path | `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` |
-| Dirty | Delivery D-ER-16…19 + Project-scoped Select + **ce slice binding** |
+| Dirty Delivery candidate | EXPECTED — **non muté ce cycle** (seul Review Pack réécrit) |
 | Runtime :3020 | untouched |
-| Aucun reset/stash/clean/rebase Product | OUI |
+| Aucun reset/stash/clean/rebase | OUI |
 
 ### Status
 
@@ -64,1040 +65,401 @@ Anti-claims : PRODUCT GIT INTEGRATED · PR READY · READY FOR REAL · HUMAN QA P
 
 | Item | État |
 | --- | --- |
-| Project-scoped Select/Start/Result Fake | DETERMINISTICALLY PROVEN (prior) |
-| Binding strict Select | **DETERMINISTICALLY PROVEN** (ce cycle) |
-| HD–mission resume | **NOT PROVEN** — Decision Pack (ci-dessous) |
-| Retour Product/Nora complet | **NOT PROVEN** |
-| SP-A/SP-B | NON ROUVERTS |
+| M-HD-01 direction O1 | **ADOPTED BY MORRIS** (ce GO) |
+| Gap | Structural Generic PREPARE sans reprise HD |
+| Select/Start/Result sans cycle | DETERMINISTIC Fake (prior) |
+| HD–mission | NOT PROVEN — contrat technique qualifié ici |
+| E4–E8 | NOT PROVEN |
+| Exit | Reprise même mission + HD vérifiée + decisionRefs |
 
 ## 4. Sources
 
-Template · routing · guardrails · Build Doctrine · Roadmap · C1 · P2/P6 · Architecture D-ER · Doctrine 30/32/34/35/37 · CKC Delivery · Handoff `f73130ce` · code W2/OA Decision/EC.
+Template · routing · guardrails · Build Doctrine · Roadmap · C1 · P2/P6 · Architecture D-ER · Doctrine 30/32/34/35/37 · CKC Architecture · Handoff `ba0be3fb` Decision Pack · OA Decision types/invariants/digest/record/get/supersede/sqlite · Product prepareGeneric / pendingOffer / authorizeGeneric / prepareFromW2Decision · db.ts M3 schema · modeled human-decision.schema.json.
 
-## 5. Bloc A — Inspection binding (IMPLÉMENTÉ)
+## 5. Décisions
 
-### CURRENT (bug)
+**Consommées :** D-ER-16…19 · Option B · Project-scoped Tool Access · **M-HD-01 O1**.
 
-Si version **OU** fingerprint manquait, Select lisait l'attestation et **remplaçait les deux** valeurs — écrasement possible d'une moitié explicite.
+**Non décidées (gates résiduels) :** forme exacte figée au Delivery (ce pack propose le minimal) · migration SQL (qualifiée NON) · Delivery Product · Git Product Integration · nouvel objet PresentedMission durable pré-HD (recommandation : NON).
 
-### TARGET (livré)
+## 6. Constats fichier:ligne (OA / Product)
 
-| Règle | Comportement |
+| Constat | Réf |
 | --- | --- |
-| A1 | Les deux absents → attestation durable si suffisante/CURRENT |
-| A2 | Les deux présents → conserver ; authorize valide (jamais overwrite) |
-| A3/A4 | Version XOR fingerprint → `BINDING_INCOMPLETE` |
-| A5–A7 | Pair explicite invalide/contradictoire → refuse via authorize (`FINGERPRINT_MISMATCH` / …) |
-| A8/A9 | Attestation absente/stale → `INSPECTION_REQUIRED` / `INSPECTION_STALE` |
-| A12 | Aucune auto-inspection |
-| A13 | Binding ≠ autorisation |
+| `DecisionBasisSourceType` = proposal \| trajectory_option \| candidate_trajectory \| work_recommendation — **pas** generic_mission | `types.ts:150–154` |
+| `proposalContext` **obligatoire** pour tout DecisionBasis | `types.ts:170` ; `invariants.ts:234–241` |
+| `validateDecisionBasis` refuse tout sourceType hors whitelist | `invariants.ts:207–214` |
+| work_recommendation interdit `prop:` sourceRef | `invariants.ts:309–315` |
+| HD `schemaVersion` const `0.1.0-oa` | `types.ts:218` |
+| SQLite persiste HD complet via `payload_json` | `sqliteDecisionRepository.ts:37,53–68` |
+| Table SQL sans colonne DecisionBasis | `db.ts:91–109` |
+| Generic PREPARE `decisionRefs: []` | `prepareGenericExecutionContractDraft.ts:780` |
+| Structural → `STRUCTURAL_HUMAN_DECISION_REQUIRED` | `prepareGeneric…:553,591` |
+| Offer store process-local ; restart NOT PROVEN | `pendingGenericPrepareOfferStore.ts:11–16` |
+| `missionKey`/`offerFingerprint` = hash tronqué 24 | `prepareGeneric…:315–335,370–403` |
+| Empty decisionRefs interdit si stamp structural | `executionMateriality.ts:187–194` |
+| W2 prepare lie HD via DecisionBasis trajectoire (chemin distinct) | `prepareExecutionContractFromW2Decision.ts:192–226` |
+| Modeled JSON schema HD : `additionalProperties:false`, basis non détaillé runtime | `human-decision.schema.json` — runtime gate = TS validator |
 
-### Helper + call site (sections courantes)
+## 7. Contrat technique minimal proposé (COMPLET)
 
-```typescript
-type StampedSelectInspectionBinding =
-  | {
-      readonly ok: true;
-      readonly expectedVersion: number;
-      readonly expectedSemanticFingerprint: string;
-      /** How the binding was obtained — never an authorization act. */
-      readonly provenance: "caller_explicit" | "durable_attestation";
-    }
-  | { readonly ok: false; readonly code: string; readonly message: string };
 
-/**
- * Resolve G-D4 inspection binding for stamped Generic Select.
- *
- * A1 — both absent → durable attestation if sufficient/current.
- * A2 — both present → keep caller values (never overwrite); authorize validates.
- * A3/A4 — version XOR fingerprint → BINDING_INCOMPLETE.
- * A8/A9 — missing/stale attestation when fallback needed → refuse.
- * A12 — never records inspection.
- * A13 — binding resolution ≠ authorization (caller still evaluates AUTHORIZED).
- */
-async function resolveStampedSelectInspectionBinding(input: {
-  readonly oa: RuntimeOaStack;
-  readonly executionContractId: string;
-  readonly expectedVersion?: number;
-  readonly expectedSemanticFingerprint?: string;
-}): Promise<StampedSelectInspectionBinding> {
-  const hasVersion =
-    typeof input.expectedVersion === "number" &&
-    Number.isFinite(input.expectedVersion);
-  const fpRaw =
-    typeof input.expectedSemanticFingerprint === "string"
-      ? input.expectedSemanticFingerprint.trim()
-      : "";
-  const hasFingerprint = fpRaw.length > 0;
+================================================================================
+M-HD-01 — GENERIC MISSION HUMANDECISION BINDING
+TECHNICAL CONTRACT (PROPOSED — NOT IMPLEMENTED)
+Direction O1 ADOPTED BY MORRIS — PENDING IMPLEMENTATION GATE
+================================================================================
 
-  if (hasVersion !== hasFingerprint) {
-    return {
-      ok: false,
-      code: "BINDING_INCOMPLETE",
-      message: hasVersion
-        ? "Fingerprint d'inspection requis avec la version explicite — binding partiel refusé."
-        : "Version d'inspection requise avec le fingerprint explicite — binding partiel refusé.",
-    };
-  }
+A. Generic Mission Subject (Product-qualified sealed presentation)
 
-  if (hasVersion && hasFingerprint) {
-    // A2 — preserve explicit pair. Do not replace from attestation.
-    // Validity (A5–A7 / mismatch / stale) is enforced by evaluateExecutionAuthorization.
-    return {
-      ok: true,
-      expectedVersion: input.expectedVersion as number,
-      expectedSemanticFingerprint: fpRaw,
-      provenance: "caller_explicit",
-    };
-  }
+Conceptual type (not Product code):
 
-  // A1 — both absent: server-owned durable attestation only.
-  const inspection = await readContractInspectionState({
-    oa: input.oa,
-    executionContractId: input.executionContractId,
-  });
-  if (!inspection.ok) {
-    return {
-      ok: false,
-      code: inspection.code,
-      message: inspection.message,
-    };
+```
+GenericMissionSubject {
+  schemaVersion: "0.1.0-gms"          // presentation seal version (NOT HD schemaVersion)
+  missionSubjectId: string            // "gms:" + sha256(canonicalPresentation).hex
+  projectId: string                   // "prj:…"
+  cycleInstanceId: string | null      // optional; NEVER invented
+  presentedAtIso: string
+  // Product-qualified facts (authoritative at seal time — NOT Nora claims alone)
+  objective: string
+  expectedOutcome: string
+  scopeNarrative: string
+  scopeIn: string[]
+  scopeOut: string[]
+  materiality: "structural" | "non_structural" | "unknown"
+  materialityReasonCodes: string[]
+  repositoryBindingIdentity: string | null   // Product binding if any
+  pathRoot: string | null
+  // Effects envelope sealed for HD (Product-resolved, not free Nora invent)
+  effects: {
+    intentKind: string | null
+    artifactType: string | null
+    requestedOperation: string | null
+    requiredCapabilities: string[]      // Product envelope after resolution
+    expectedOutputs: string[]           // only if Product-authoritative
+    reversibilityExpectation: "reversible" | "irreversible" | "unknown" | null
+    stopConditions: string[]
+    risks: string[]
+    reservations: string[]
   }
-  if (inspection.reinspectionRequired) {
-    return {
-      ok: false,
-      code: "INSPECTION_STALE",
-      message:
-        "Attestation d'inspection obsolète ou réinspection requise — Select refusé.",
-    };
+  // Signal facts used for structural qualification at seal
+  impactSignals: {
+    structuralChange: boolean
+    securityImpact: boolean
+    architectureImpact: boolean
+    dataImpact: boolean
+    irreversible: boolean
   }
-  if (!inspection.inspectionSufficient || inspection.attestedVersion == null) {
-    return {
-      ok: false,
-      code: "INSPECTION_REQUIRED",
-      message:
-        "Inspection Pilote suffisante requise avant Select (contrat matérialité stampé).",
-    };
-  }
-  const attestedFp =
-    inspection.attestedSemanticFingerprint?.trim() ||
-    inspection.semanticFingerprint?.trim();
-  if (!attestedFp) {
-    return {
-      ok: false,
-      code: "EXPECTED_FINGERPRINT_REQUIRED",
-      message:
-        "Empreinte sémantique d'inspection absente — Select refusé (fail-closed).",
-    };
-  }
-  return {
-    ok: true,
-    expectedVersion: inspection.attestedVersion,
-    expectedSemanticFingerprint: attestedFp,
-    provenance: "durable_attestation",
-  };
+  // Currentness anchors
+  lpsId: string
+  lpsVersion: number
+  doctrineDigest?: string
+  // Digests
+  presentationDigest: string          // FULL sha256 hex of canonicalizeJson(subjectWithoutDigests)
+}
+```
+
+Layer separation (mandatory):
+- Nora proposal        → non-authoritative candidates
+- Product-qualified    → materiality, pathRoot, capability envelope, repo binding
+- Presented mission    → GenericMissionSubject sealed for Pilote
+- HumanDecision        → OA durable accept/refuse on that subject
+- ExecutionContract    → PREPARE after verified HD; decisionRefs = [decisionId]
+- Effective authority  → AUTHORIZE / Confirmation / Attempt (unchanged)
+
+missionKey / offerFingerprint (CURRENT):
+- 24-char truncated hashes; process-local offer store
+- MISSING as authority: full digest, durable restart, materiality stamp,
+  repository binding identity, LPS version, doctrineDigest
+- MUST NOT be used as sole authority under M-HD-01
+- MAY seed UI continuity only; HD must seal full presentationDigest
+
+B. DecisionBasis Generic extension (OA types — design only)
+
+```
+DecisionBasisSourceType += "generic_mission"
+
+DecisionBasisGenericMissionContext {
+  missionSubjectId: string            // == DecisionBasis.sourceRef
+  presentationDigest: string          // == DecisionBasis.sourceDigest
+  subjectSchemaVersion: "0.1.0-gms"
+  objective: string
+  expectedOutcome: string
+  scopeNarrative: string
+  scopeIn: string[]
+  scopeOut: string[]
+  materiality: "structural" | "non_structural" | "unknown"
+  repositoryBindingIdentity: string | null
+  pathRoot: string | null
+  requiredCapabilities: string[]
+  expectedOutputs: string[]
+  reversibilityExpectation: "reversible" | "irreversible" | "unknown" | null
+  stopConditions: string[]
+  impactSignals: { … five booleans … }
+  optionRefs: string[]                // presented options
+  selectedOptionRef: string           // must ∈ optionRefs
+  recommendedOptionRef?: string       // Nora advice only — never authority
+  // optional cycle mirror (must match DecisionBasis.cycleInstanceId)
 }
 
+DecisionBasis {
+  sourceType: "generic_mission"
+  sourceRef: missionSubjectId
+  sourceDigest: presentationDigest
+  projectId
+  cycleInstanceId?: string            // optional
+  proposalContext: DecisionBasisProposalContext  // KEEP as LPS/currentness anchor
+  genericMissionContext: DecisionBasisGenericMissionContext
+  // trajectoryContext / candidateTrajectoryContext / workRecommendationContext ABSENT
+  executionBasis: { … subset aligned to sealed effects … }
+}
 ```
 
-Call site Select :
+proposalContext (KEEP — do not invent fake Proposal):
+- Already required for ALL DecisionBasis including work_recommendation
+  (types.ts:170 ; invariants.ts:234–241).
+- Fields = lpsId, lpsVersion, doctrineDigest?, activeCycleInstanceId?, ckcResolutionRef?
+- Responsibility = Product currentness anchor, NOT a Proposal object.
+- Renaming is OPTIONAL future cleanup — NOT required for O1 Delivery.
+- FORBIDDEN: fabricate proposal id / prop: sourceRef for generic_mission
+  (same rule as work_recommendation forbids prop: — invariants.ts:309–315).
 
-```typescript
-    });
-  }
+C. sourceRef / sourceDigest / version rules
 
-  // G-D4 — stamped Generic materiality contracts require version/fingerprint
-  // binding at Select revalidation. Explicit values are NEVER overwritten by
-  // attestation fallback. Partial binding (version XOR fingerprint) fails closed.
-  const stampedMateriality = materialityFromContractConstraints(
-    contract.constraints,
-  );
-  let expectedVersion = input.expectedVersion;
-  let expectedSemanticFingerprint = input.expectedSemanticFingerprint;
-  if (stampedMateriality != null) {
-    const binding = await resolveStampedSelectInspectionBinding({
-      oa: input.oa,
-      executionContractId: contract.executionContractId,
-      expectedVersion: input.expectedVersion,
-      expectedSemanticFingerprint: input.expectedSemanticFingerprint,
-    });
-    if (!binding.ok) {
-      return {
-        ok: false,
-        code: binding.code,
-        message: binding.message,
-      };
-    }
-    expectedVersion = binding.expectedVersion;
-    expectedSemanticFingerprint = binding.expectedSemanticFingerprint;
-  }
+1. sourceRef = missionSubjectId = "gms:" + sha256(canonicalPresentationSansDigests).hex
+2. sourceDigest = presentationDigest = same FULL sha256 hex (not truncated)
+3. HumanDecision.subject = missionSubjectId (enables listAcceptedBySubject supersession)
+4. HumanDecision.schemaVersion remains "0.1.0-oa" (additive nested basis, as WR/GF did)
+5. GenericMissionSubject.schemaVersion "0.1.0-gms" versions the presentation seal only
+6. On PREPARE resume: recompute presentationDigest from CURRENT Product-qualified
+   facts; must equal HD.decisionBasis.sourceDigest OR fail SUBJECT_STALE
+7. Material mission field change ⇒ new subject id ⇒ old HD not reusable (HD06/HD09)
 
-  const authorized = await evaluateExecutionAuthorization({
-    oa: input.oa,
-    projectId: input.projectId,
-    executionContractId: input.executionContractId,
-    forceLocalAuthority: input.forceLocalAuthority,
-    expectedVersion,
-    expectedSemanticFingerprint,
-  });
-  if (!authorized.ok) {
-    return {
-      ok: false,
-      code: authorized.code,
-      message: authorized.message,
-    };
-  }
-  if (authorized.outcome !== "AUTHORIZED") {
-    return {
-      ok: false,
-      code: "NOT_AUTHORIZED",
-      message:
-        "Exécution refusée : le verdict courant n'est pas AUTHORIZED (aucune tentative).",
-    };
-  }
+D. Pilote decision options (minimal closed set)
 
-```
+optionRefs (required, ≥1):
+- "opt:generic-mission:accept-prepare" — authorize PREPARE of this sealed subject
+- "opt:generic-mission:refuse" — refuse structuring mission
+- "opt:generic-mission:request-amend" — optional; forces new presentation (no reuse)
 
-### DIFF git `governedExecuteAuthorizedContract.ts` (vs HEAD candidat)
+selectedOptionId / selectedOptionRef must match.
+recommendedOptionRef may mirror Nora advice; NEVER grants authority.
+status on accept path: "accepted" (RecordHumanDecision OA).
+Refuse → status "refused" — no PREPARE unlock.
+authority: "pilot" (N3 + canActAsPilot) for structuring Generic Mission.
 
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-index 278fec81..9e9db422 100644
---- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-@@ -26,6 +26,7 @@ import {
-   registerLocalAuthorityForExecutionClass,
- } from "@/lib/oa/decision";
- import type { ExecutionContract } from "@/lib/oa/execution-contract";
-+import { materialityFromContractConstraints } from "@/lib/oa/execution-contract";
- import type {
-   ExecutionAttempt,
-   SelectionProfile,
-@@ -39,6 +40,7 @@ import {
- } from "@/lib/oa/execution-attempt";
- import type { CycleProfile } from "@/lib/oa/cycle";
- import { F3_ADAPTER_ID } from "@/features/project-assistant/f3/constants";
-+import { readContractInspectionState } from "./inspectExecutionContract";
- import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
- import { completeBoundedReadOnlyLaunch } from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
- import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
-@@ -244,6 +246,16 @@ export type GovernedExecuteAuthorizedContractInput = {
-   readonly real?: unknown;
-   readonly adapterRef?: unknown;
-   readonly forceLocalAuthority?: boolean;
-+  /**
-+   * Exact inspected contract version for G-D4 MATERIALITY-stamped Select revalidation.
-+   * When omitted on a stamped Generic EC, Select resolves from durable inspection
-+   * attestation (fail-closed if absent/stale) — never invents a binding.
-+   */
-+  readonly expectedVersion?: number;
-+  /**
-+   * Semantic fingerprint paired with expectedVersion for stamped Select revalidation.
-+   */
-+  readonly expectedSemanticFingerprint?: string;
-   /**
-    * Product Cursor Complete: when true (default), await process terminal like
-    * docs_write. When false, running Attempts may surface CURSOR_REPORT_PENDING.
-@@ -379,33 +391,37 @@ async function loadContract(
-     };
-   }
+E. HD verification + supersession (before decisionRefs)
 
-+  // Project positive binding — missing/unreadable Project is never an implicit allow.
-   const project = await oa.projectServices.getProject.execute({
-     projectId: input.projectId,
-   });
--  if (project.ok && project.project.status === "archived") {
-+  if (!project.ok) {
-     return {
-       ok: false,
-       result: {
-         ok: false,
--        code: "PROJECT_ARCHIVED",
--        message: "Projet archivé — aucune exécution.",
-+        code: "PROJECT_NOT_FOUND",
-+        message:
-+          "Projet introuvable ou illisible — exécution refusée (fail-closed).",
-       },
-     };
-   }
--
--  let selectionProfile: SelectionProfile | null = null;
--  if (!contract.cycleInstanceId) {
-+  if (project.project.status === "archived") {
-     return {
-       ok: false,
-       result: {
-         ok: false,
--        code: "CYCLE_BINDING_REQUIRED",
--        message:
--          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas de fallback Standard).",
-+        code: "PROJECT_ARCHIVED",
-+        message: "Projet archivé — aucune exécution.",
-       },
-     };
-   }
--  {
-+
-+  // CycleInstance is optional for Project-scoped generic execution.
-+  // When present: preserve lifecycle binding / active-state gates.
-+  // When absent: do NOT invent a cycle, cycleTypeId, or methodological profile.
-+  let selectionProfile: SelectionProfile;
-+  if (contract.cycleInstanceId) {
-     const cycle = await oa.cycleServices.getCycle.execute({
-       cycleInstanceId: contract.cycleInstanceId,
-     });
-@@ -443,7 +459,17 @@ async function loadContract(
-         },
-       };
-     }
-+    // Historical cycle-bound path: methodological cycle profile informs OA
-+    // SelectionProfile for non–Cursor-REAL branches. Cursor REAL Product path
-+    // still applies capability-deterministic selection below (not access-by-profile).
-     selectionProfile = mapCycleProfileToSelectionProfile(cycle.cycle.profile);
-+  } else {
-+    // Project-scoped generic path (no CycleInstance on EC).
-+    // OA SelectExecutionAgent still requires a SelectionProfile enum value.
-+    // This is the technical carrier for capabilities_deterministic on the
-+    // Product Cursor Generalist path — NOT a claim that the mission is
-+    // methodologically "Standard", and NOT an access gate derived from SFIA profile.
-+    selectionProfile = "standard";
-   }
+PREPARE structural resume MUST:
+1. Load HD via getHumanDecision(decisionId) — OA durable
+2. status === "accepted"
+3. projectId match
+4. decisionBasis.sourceType === "generic_mission"
+5. validateDecisionBasis (extended) passes
+6. subject / sourceRef / sourceDigest coherence
+7. selectedOptionRef === accept-prepare
+8. cycleInstanceId match policy (null↔null or exact)
+9. No other accepted HD for same subject unless this is current
+   (supersedeExistingAccepted semantics — supersedeHumanDecision.ts:275+)
+10. Recompute Product-qualified presentationDigest == sourceDigest
+11. Materiality still structural (or policy-consistent) under CURRENT Product
+12. THEN set decisionRefs: [decisionId] on EC build
+13. NEVER invent HD; NEVER treat Confirmation as HD; NEVER auto-EXECUTE
 
-   return { ok: true, contract, selectionProfile };
-@@ -556,6 +582,109 @@ function registerPiloteAuthority(
-   });
- }
+Refuse codes (target):
+HD_ABSENT | HD_REFUSED | HD_REVOKED | HD_SUPERSEDED | HD_PROJECT_MISMATCH |
+HD_MISSION_MISMATCH | HD_SCOPE_MISMATCH | HD_EFFECTS_MISMATCH |
+HD_SUBJECT_STALE | HD_AUTHORITY_INVALID | HD_SOURCE_TYPE_INVALID |
+CONFIRMATION_IS_NOT_HUMAN_DECISION | CYCLE_NOT_ACTIVE (if EC bound to closed cycle)
 
-+type StampedSelectInspectionBinding =
-+  | {
-+      readonly ok: true;
-+      readonly expectedVersion: number;
-+      readonly expectedSemanticFingerprint: string;
-+      /** How the binding was obtained — never an authorization act. */
-+      readonly provenance: "caller_explicit" | "durable_attestation";
-+    }
-+  | { readonly ok: false; readonly code: string; readonly message: string };
-+
-+/**
-+ * Resolve G-D4 inspection binding for stamped Generic Select.
-+ *
-+ * A1 — both absent → durable attestation if sufficient/current.
-+ * A2 — both present → keep caller values (never overwrite); authorize validates.
-+ * A3/A4 — version XOR fingerprint → BINDING_INCOMPLETE.
-+ * A8/A9 — missing/stale attestation when fallback needed → refuse.
-+ * A12 — never records inspection.
-+ * A13 — binding resolution ≠ authorization (caller still evaluates AUTHORIZED).
-+ */
-+async function resolveStampedSelectInspectionBinding(input: {
-+  readonly oa: RuntimeOaStack;
-+  readonly executionContractId: string;
-+  readonly expectedVersion?: number;
-+  readonly expectedSemanticFingerprint?: string;
-+}): Promise<StampedSelectInspectionBinding> {
-+  const hasVersion =
-+    typeof input.expectedVersion === "number" &&
-+    Number.isFinite(input.expectedVersion);
-+  const fpRaw =
-+    typeof input.expectedSemanticFingerprint === "string"
-+      ? input.expectedSemanticFingerprint.trim()
-+      : "";
-+  const hasFingerprint = fpRaw.length > 0;
-+
-+  if (hasVersion !== hasFingerprint) {
-+    return {
-+      ok: false,
-+      code: "BINDING_INCOMPLETE",
-+      message: hasVersion
-+        ? "Fingerprint d'inspection requis avec la version explicite — binding partiel refusé."
-+        : "Version d'inspection requise avec le fingerprint explicite — binding partiel refusé.",
-+    };
-+  }
-+
-+  if (hasVersion && hasFingerprint) {
-+    // A2 — preserve explicit pair. Do not replace from attestation.
-+    // Validity (A5–A7 / mismatch / stale) is enforced by evaluateExecutionAuthorization.
-+    return {
-+      ok: true,
-+      expectedVersion: input.expectedVersion as number,
-+      expectedSemanticFingerprint: fpRaw,
-+      provenance: "caller_explicit",
-+    };
-+  }
-+
-+  // A1 — both absent: server-owned durable attestation only.
-+  const inspection = await readContractInspectionState({
-+    oa: input.oa,
-+    executionContractId: input.executionContractId,
-+  });
-+  if (!inspection.ok) {
-+    return {
-+      ok: false,
-+      code: inspection.code,
-+      message: inspection.message,
-+    };
-+  }
-+  if (inspection.reinspectionRequired) {
-+    return {
-+      ok: false,
-+      code: "INSPECTION_STALE",
-+      message:
-+        "Attestation d'inspection obsolète ou réinspection requise — Select refusé.",
-+    };
-+  }
-+  if (!inspection.inspectionSufficient || inspection.attestedVersion == null) {
-+    return {
-+      ok: false,
-+      code: "INSPECTION_REQUIRED",
-+      message:
-+        "Inspection Pilote suffisante requise avant Select (contrat matérialité stampé).",
-+    };
-+  }
-+  const attestedFp =
-+    inspection.attestedSemanticFingerprint?.trim() ||
-+    inspection.semanticFingerprint?.trim();
-+  if (!attestedFp) {
-+    return {
-+      ok: false,
-+      code: "EXPECTED_FINGERPRINT_REQUIRED",
-+      message:
-+        "Empreinte sémantique d'inspection absente — Select refusé (fail-closed).",
-+    };
-+  }
-+  return {
-+    ok: true,
-+    expectedVersion: inspection.attestedVersion,
-+    expectedSemanticFingerprint: attestedFp,
-+    provenance: "durable_attestation",
-+  };
-+}
-+
- /** Phase 1 — SelectExecutionAgent → accepted (fresh AUTHORIZED required). */
- export async function governedExecuteSelectAgent(
-   input: GovernedExecuteAuthorizedContractInput,
-@@ -596,11 +725,39 @@ export async function governedExecuteSelectAgent(
-     });
-   }
+F. decisionRefs → EC
 
-+  // G-D4 — stamped Generic materiality contracts require version/fingerprint
-+  // binding at Select revalidation. Explicit values are NEVER overwritten by
-+  // attestation fallback. Partial binding (version XOR fingerprint) fails closed.
-+  const stampedMateriality = materialityFromContractConstraints(
-+    contract.constraints,
-+  );
-+  let expectedVersion = input.expectedVersion;
-+  let expectedSemanticFingerprint = input.expectedSemanticFingerprint;
-+  if (stampedMateriality != null) {
-+    const binding = await resolveStampedSelectInspectionBinding({
-+      oa: input.oa,
-+      executionContractId: contract.executionContractId,
-+      expectedVersion: input.expectedVersion,
-+      expectedSemanticFingerprint: input.expectedSemanticFingerprint,
-+    });
-+    if (!binding.ok) {
-+      return {
-+        ok: false,
-+        code: binding.code,
-+        message: binding.message,
-+      };
-+    }
-+    expectedVersion = binding.expectedVersion;
-+    expectedSemanticFingerprint = binding.expectedSemanticFingerprint;
-+  }
-+
-   const authorized = await evaluateExecutionAuthorization({
-     oa: input.oa,
-     projectId: input.projectId,
-     executionContractId: input.executionContractId,
-     forceLocalAuthority: input.forceLocalAuthority,
-+    expectedVersion,
-+    expectedSemanticFingerprint,
-   });
-   if (!authorized.ok) {
-     return {
-@@ -644,9 +801,13 @@ export async function governedExecuteSelectAgent(
-     return { ok: false, code: authority.code, message: authority.message };
-   }
+- assertDecisionRefsAdmissibleForConfirm already forbids empty refs for structural
+  (executionMateriality.ts:187–194).
+- Generic structural PREPARE today hard-wires decisionRefs: [] (prepareGeneric…:780)
+  and blocks earlier — resume path fills verified refs only after E.
+- Non-structural missions: keep decisionRefs: [] (no systematic HD — B15).
 
--  // Cursor REAL paths (canonical Product + sealed docs-write): mechanical
--  // capabilities_deterministic selection — no Pilot agent-selection HOW.
-+  // Project-scoped Cursor tool access (canonical Product + sealed docs-write):
-+  // select by AgentCapability / effects via capabilities_deterministic.
-+  // Methodological cycle profile (Light/Standard/Critical/Capitalization) is NOT
-+  // an access condition for Cursor. Authority remains: AUTHORIZED evaluation,
-+  // HumanDecision / Confirmation / scope / ActionPolicy upstream of Select.
-   // Sealed docs-write still requests its specialized agent; Product uses generalist.
-+  // Non–Cursor-REAL branches keep historical Critical → agent_selection Confirmation.
-   let effectiveProfile: SelectionProfile = selectionProfile;
-   let selectionStrategy: SelectionStrategy;
-   if (cursorReal) {
+G. Idempotent resume
 
-```
+- Same decisionId + same sealed subject + same Product currentness → same
+  executionContractId / idempotencyKey derivation (extend stableMissionKey to
+  include decisionId + presentationDigest — Delivery detail).
+- Repeat GO must not create duplicate accepted HD for same subject without supersede.
+- RecordHumanDecision supersedeExistingAccepted remains the OA mechanism.
 
-## 6. Preuves I1–I13
+H. With / without cycle
 
-Suite : `p6.inspectionBindingSelect.d0.test.ts` — **12 PASS** (I9/I10 combinés).
+- cycleInstanceId optional on subject + DecisionBasis + EC
+- Never invent cycle / cycleTypeId / copy closed cycle
+- If cycle present on subject: validate active + project match at HD record AND PREPARE
+- Closed cycle on EC remains CYCLE_NOT_ACTIVE (existing W3-A)
 
-| ID | Résultat | Assertion |
-| --- | --- | --- |
-| I1 | PASS | aucun param + attestation → Select accepted |
-| I2 | PASS | pair explicite valide → Select accepted |
-| I3 | PASS | version seule → `BINDING_INCOMPLETE`, 0 Attempt |
-| I4 | PASS | fingerprint seul → `BINDING_INCOMPLETE` |
-| I5 | PASS | fausse version seule → `BINDING_INCOMPLETE` (pas d'overwrite) |
-| I6 | PASS | faux fingerprint seul → `BINDING_INCOMPLETE` |
-| I7 | PASS | pair contradictoire → mismatch refuse, 0 Attempt |
-| I8 | PASS | sans inspect → refuse, 0 Attempt |
-| I9/I10 | PASS | amend → refuse sur binding stale, 0 Attempt |
-| I11 | PASS | Confirm + authorize + Select via attestation |
-| I12/I13 | PASS | refus partiel : 0 Attempt, 0 HD créée |
-| static | PASS | OR-gate overwrite absent ; `BINDING_INCOMPLETE` présent |
+I. Compatibility Product / OA
 
-Fake / REAL : Fake Cursor only.
+KEEP:
+- RecordHumanDecision / GetHumanDecision / SupersedeHumanDecision
+- SqliteDecisionRepository payload_json persistence
+- DecisionBasisProposalContext LPS anchor
+- computeDecisionBasisSourceDigest
+- ExecutionContract.decisionRefs
+- AUTHORIZE / Confirmation / Attempt chain
 
-## 7. Bloc B — HumanDecision–mission — DECISION PACK (STOP)
+ADAPT:
+- DecisionBasisSourceType + validateDecisionBasis branch
+- prepareGenericExecutionContractDraft / solicitGeneric (decisionId input)
+- Product UI / action to record Generic Mission HD
+- stableMissionKey / resume identity
 
-### Constats (fichier:ligne / contrat)
+REPLACE:
+- Permanent structural dead-end without resume
 
-1. `prepareGenericExecutionContractDraft.ts` — `decisionRefs: []` hard-wired (~780) ; structural → `STRUCTURAL_HUMAN_DECISION_REQUIRED` sans reprise.
-2. `solicitGenericExecutionPrepare` — **aucun** input `decisionId` / HD acceptée.
-3. `pendingGenericPrepareOfferStore` — offer process-local (`offerFingerprint` / `missionKey`) — **B14** : pas d'autorité durable.
-4. OA `HumanDecision.subject: string` + `decisionBasis?: DecisionBasis` existent et sont durables.
-5. `DecisionBasisSourceType` = `proposal | trajectory_option | candidate_trajectory | work_recommendation` — **pas** de source « generic_mission ».
-6. `prepareExecutionContractFromW2Decision` lie HD→EC via DecisionBasis trajectoire — chemin **distinct**, non générique Nora.
-7. `assertDecisionRefsAdmissibleForConfirm` : empty refs interdits si stamp structural/unknown — donc une reprise structurale **exige** des decisionRefs non vides, mais le Generic path ne sait pas les peupler correctement aujourd'hui.
+DO NOT:
+- Reuse proposal / trajectory_option / work_recommendation disguises
+- Second Decision store / table
+- Process-local offer as authority after restart
 
-```text
+J. Persistence impact
 
-export type DecisionBasisSourceType =
-  | "proposal" | "trajectory_option" | "candidate_trajectory" | "work_recommendation";
-// Generic mission is NOT a DecisionBasisSourceType.
-// prepareGenericExecutionContractDraft hard-wires decisionRefs: [].
-// solicitGeneric has no decisionId / accepted HD resume input.
-// pendingGenericPrepareOfferStore is process-local (not durable authority).
+SQL table oa_human_decisions (db.ts:91–109):
+  columns = decision_id, project_id, cycle_instance_id, subject, status,
+            authority, version, effective_at, payload_json, …
+  DecisionBasis lives ONLY inside payload_json (sqliteDecisionRepository.ts:37,53,68).
 
-```
+Conclusion:
 
-### Lacune précise
+**NO SQL MIGRATION REQUIRED — PROVEN**
+for oa_human_decisions relational schema / new table.
 
-Impossible de représenter une liaison sûre Generic **mission structurante ↔ HD acceptée ↔ decisionRefs ↔ même identité de mission/effets/scope** sans choisir :
+AND simultaneously:
 
-- un **subject / DecisionBasisSourceType** générique (nouvelle convention) ; et/ou
-- un mécanisme durable de reprise post-arbitrage (au-delà de l'offer process-local) ; et/ou
-- une règle Product adoptée pour peupler `decisionRefs` sur Generic PREPARE.
+**MODELED / RUNTIME CONTRACT CHANGE — MORRIS IMPLEMENTATION GATE**
+required for Delivery touching:
+- types.ts DecisionBasisSourceType + GenericMissionContext
+- invariants.ts validateDecisionBasis whitelist + branch
+- optional modeled human-decision.schema.json sync (docs; runtime uses TS validator)
+- Product prepare/solicit/actions consumers
 
-Cela constitue une **nouvelle décision structurante** — hors GO (« ne constitue PAS une adoption du modèle précis HD–mission »).
+HumanDecision.schemaVersion const "0.1.0-oa" need NOT bump solely for additive
+nested genericMissionContext (precedent: work_recommendation / candidate_trajectory).
 
-### Options (minimales — non choisies)
+K. Files strictly affected (future Delivery — not this cycle)
 
-| Option | Description | Persistence | Risque |
-| --- | --- | --- | --- |
-| O1 | Étendre DecisionBasisSourceType + prepare Generic avec decisionId | Probable schema/basis | Élevé sans gate |
-| O2 | Subject = `missionKey` hash + decisionRefs=[hdId] sans nouveau sourceType | Faible schema | Ambiguïté subject/collision |
-| O3 | Différer ; conserver fail-closed structural | Aucune | Dette continue |
+OA:
+- lib/oa/decision/domain/types.ts
+- lib/oa/decision/domain/invariants.ts
+- (tests) oa/decision/*
 
-### Recommandation (non adoptée)
+Product:
+- w2/prepareGenericExecutionContractDraft.ts
+- w2/actions.ts (record + solicit with decisionId)
+- possibly ProjectAssistant / TrajectorySurface presentation CTA
+- __tests__/project-assistant/p6.* HD matrix
 
-**O3 court terme** + gate Morris pour O1/O2 avec contrat subject/effets/supersession explicite.
+FORBIDDEN without new GO:
+- new SQL tables / Decision stores
+- D-ER / Doctrine / Roadmap / C1/P2/P6
+- Cursor Gateway / Attempt engine rebuild
 
-### Gate Morris requis
+L. Future deterministic tests (NOT EXECUTED this cycle)
 
-**M-HD-01** — Modèle HD–mission Generic (subject, DecisionBasis, decisionRefs, currentness, supersession, reprise sans offer process-local).
+HD01–HD15 as specified in GO §12.
 
-**Aucune implémentation B ce cycle.**
+M. Exit proof toward E1–E8
 
-## 8. Bloc C — Continuité E1–E8
+After Delivery implementing this contract:
+- Structural mission + valid HD → PREPARE EC with decisionRefs → Inspect →
+  Authorize → Select/Start/Result (E1–E3 already Fake-proven for non-structural)
+- Then separate GO for E4–E8 Product/Nora continuity
 
-| Niveau | Statut | Preuve |
-| --- | --- | --- |
-| E1 Select | PASS Fake | Project-scoped + I1/I2 |
-| E2 Start | PASS Fake | Project-scoped S1 |
-| E3 Result (OA Attempt succeeded) | PASS Fake | settleDeterministicProductCursorSuccess |
-| E4 CursorExecutionReport accepté | OPEN / PARTIAL | Non revendiqué end-to-end Generic sans cycle |
-| E5 Evidence | OPEN | Non prouvé ce cycle |
-| E6 ReviewBundle | OPEN | Non prouvé ce cycle |
-| E7 Product Resolution | OPEN | Non prouvé ce cycle |
-| E8 Retour Nora | OPEN | Non prouvé ce cycle |
 
-**END-TO-END PRODUCT CONTINUITY — EXIT PROOF MISSING** (honnête).
+## 8. KEEP / ADAPT / REPLACE
 
-## 9. Validations
-
-| Suite | Résultat |
+| Component | Action |
 | --- | --- |
-| inspectionBinding + projectScoped + der16 + w3a + productGenericCursor | **84 PASS** |
-| tsc --noEmit | PASS |
-| npm run build | PASS |
+| OA Record/Get/Supersede HumanDecision | KEEP |
+| SqliteDecisionRepository / oa_human_decisions | KEEP (no new table) |
+| DecisionBasisProposalContext (LPS) | KEEP as currentness anchor |
+| computeDecisionBasisSourceDigest | KEEP |
+| DecisionBasisSourceType + validateDecisionBasis | ADAPT (+ generic_mission) |
+| Generic PREPARE / solicit | ADAPT (decisionId + verify) |
+| pendingGenericPrepareOfferStore | KEEP as UX only — NOT authority |
+| Fake disguise as proposal/trajectory/WR | FORBIDDEN |
+| Structural dead-end without resume | REPLACE via O1 Delivery |
 
-## 10. Fake / Real
+## 9. Ordre de reprise cible
 
-LOCAL DETERMINISTIC DELIVERY PROOF sur binding + Select/Start/Result Fake.
-Cursor REAL / OpenAI LIVE / READY FOR REAL — **NON**.
+1. Mission qualifiée Product (materiality/effects)
+2. Présentation Pilote (UI) avec payload sealable
+3. Si structural → HumanDecision OA (generic_mission) — **durabilité = HD SQLite**
+4. Relire/vérifier HD (E)
+5. Même subject digest sous CURRENT Product
+6. Generic PREPARE → EC + decisionRefs vérifiées
+7. Inspection → Confirmation si requise → AUTHORIZE
+8. Select/Start/Attempt — **pas** déclenchés par HD seule
 
-## 11. Dette / exit
+**Présentation durable pré-HD :** NON requise si le sceau vit dans `decisionBasis` à l'enregistrement (pattern presentationDigest greenfield). Offer process-local insuffisant pour HD11. **Nouvel objet PresentedMission store = GATE Morris distinct** — non recommandé pour le Delivery minimal.
 
-| Dette | Propriétaire | Exit |
+## 10. Matrice futurs tests (NON EXÉCUTÉS)
+
+| ID | Scénario | Attendu |
 | --- | --- | --- |
-| HD–mission Generic resume | Morris M-HD-01 | Modèle adopté + Delivery |
-| Carrier OA `standard` | Product/OA | Évolution enum si Morris |
-| F2/ACGC admissions | Option B later | Preuve transfert |
-| `cycleInstanceId ?? ""` Start | OA Attempt | Adaptation cycle optionnel |
-| E4–E8 Product/Nora | Product continuity | GO aval borné |
+| HD01 | Non structurante | PREPARE sans HD |
+| HD02 | Structurante sans HD | refuse |
+| HD03 | Structurante + HD valide | reprise même mission |
+| HD04 | HD autre Project | refuse |
+| HD05 | HD autre mission | refuse |
+| HD06 | Scope/effets modifiés | refuse |
+| HD07 | HD superseded | refuse |
+| HD08 | HD revoked/refused | refuse |
+| HD09 | Subject digest obsolète | refuse |
+| HD10 | Idempotence reprise | pas de HD/EC incohérents |
+| HD11 | Restart après HD | reprise depuis SQLite HD, sans offer |
+| HD12 | Avec/sans cycle | même règle |
+| HD13 | Confirmation seule | ≠ HD |
+| HD14 | Record HD | 0 Attempt |
+| HD15 | EC decisionRefs | seulement refs vérifiées |
 
-## 12. FICHIER DE TEST NOUVEAU COMPLET
+## 11. Fake / Real
 
-`projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts`
+ARCHITECTURE CONTRACT QUALIFIED.
+Aucun nouveau test Fake. Cursor REAL / OpenAI LIVE — NON.
 
-```typescript
-/**
- * P6 — G-D4 Select inspection binding (R1).
- *
- * Proves stamped Generic Select never overwrites an explicit binding half,
- * refuses partial/contradictory pairs, and resolves from durable attestation
- * only when BOTH version and fingerprint are absent.
- *
- * Fake Cursor boundary only — ZERO Cursor REAL / OpenAI LIVE.
- *
- * @vitest-environment node
- */
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { readFileSync } from "node:fs";
-import path from "node:path";
-import { governedExecuteSelectAgent } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { solicitGenericExecutionPrepare } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
-import { amendExecutionContractWithConstraint } from "@/features/project-assistant/w2/amendExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
-import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  tempProductDbPath,
-  W2_TEST_PINNED_BASE_HEAD_SHA,
-} from "./w2Harness";
-import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+## 12. Dette / exit
 
-const APP = path.resolve(__dirname, "../..");
+| Dette | Exit |
+| --- | --- |
+| HD–mission NOT PROVEN | Delivery sous Implementation Gate |
+| Offer process-local | UX only ; authority = HD SQLite |
+| Carrier OA standard | inchangé |
+| E4–E8 | GO continuité ultérieur |
 
-describe("P6 Select inspection binding (R1)", () => {
-  let runtime: RuntimeApplicationService;
-  let sessionDbPath: string;
-  let previousMorris: string | undefined;
-  let previousDetPin: string | undefined;
+## 13. Gates Morris résiduels
 
-  beforeEach(() => {
-    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
-    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
-    sessionDbPath = tempProductDbPath("p6-ibind.sqlite");
-    runtime = bootW2Runtime({
-      productDbPath: sessionDbPath,
-      idPrefix: "ibind",
-    });
-  });
+1. **Implementation Contract Gate** — autoriser Delivery O1 selon ce pack.
+2. PresentedMission durable pré-HD — **NON** recommandé ; confirmer.
+3. Sync modeled JSON schema — oui/non au Delivery.
+4. Rename `proposalContext` — différer.
+5. Git Product Integration — GO distinct.
 
-  afterEach(() => {
-    cleanupW2TempDirs();
-    if (previousMorris === undefined) {
-      delete process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-    } else {
-      process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = previousMorris;
-    }
-    if (previousDetPin === undefined) {
-      delete process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
-    } else {
-      process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = previousDetPin;
-    }
-  });
+## 14. Recommandation
 
-  async function seedProject(suffix: string) {
-    const oa = runtime.oa!;
-    const created = await runtime.createProject({
-      name: `IBIND ${suffix}`,
-      objective: "Inspection binding Select",
-      context: "det ibind",
-      criticality: "STANDARD",
-      constraints: ["ZERO REAL"],
-      shortReference: `IB${suffix.toUpperCase().slice(0, 6)}`,
-      idempotencyKey: `idem:ibind-${suffix}`,
-    });
-    if (!created.ok) throw new Error("createProject");
-    const projectId = created.project.projectId;
-    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    if (!lps0.ok) throw new Error("lps0");
-    await oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
-      status: "active",
-      expectedLpsVersion: lps0.livingProjectState.version,
-      createdBy: {
-        actorId: "actor:morris",
-        role: "project_owner",
-        displayName: "Morris",
-        authorityLevel: "N3",
-      },
-    });
-    const identity = `acme/ibind-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
-    ensureManagedRepoCloneSkeleton({
-      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-      identity,
-    });
-    return { projectId, oa };
-  }
+Adopter ce contrat comme base du prochain Delivery O1 :
+- `generic_mission` + `genericMissionContext` + sceau `presentationDigest` ;
+- reprise via `decisionId` sur Generic PREPARE ;
+- **pas** de nouvelle table SQL ;
+- **pas** de second Decision store ;
+- offer process-local jamais autoritative.
 
-  async function prepareInspectAuthorize(suffix: string) {
-    const { projectId, oa } = await seedProject(suffix);
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      mission: {
-        objective: `Mission binding ${suffix}`,
-        expectedOutcome: "Résultat",
-        scope: "projects/demo/src",
-      },
-      sessionDbPath,
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    if (!prep.ok) throw new Error(`prep ${prep.code}`);
-    const inspected = await inspectExecutionContract({
-      oa,
-      projectId,
-      executionContractId: prep.executionContractId,
-    });
-    if (!inspected.ok) throw new Error(`inspect ${inspected.message}`);
-    const authorized = await authorizeGenericPreparedContract({
-      oa,
-      projectId,
-      executionContractId: prep.executionContractId,
-      expectedVersion: inspected.contractVersion,
-      expectedSemanticFingerprint: inspected.semanticFingerprint,
-      forceLocalAuthority: true,
-    });
-    if (!authorized.ok) throw new Error(`auth ${authorized.code}`);
-    return { projectId, oa, prep, inspected, authorized };
-  }
-
-  async function countAttempts(
-    oa: NonNullable<RuntimeApplicationService["oa"]>,
-    projectId: string,
-  ): Promise<number> {
-    const contracts = await oa.executionContractServices.contracts.listByProject(
-      projectId,
-    );
-    let total = 0;
-    for (const c of contracts) {
-      total += (
-        await oa.executionAttemptServices!.attempts.listByContract(
-          c.executionContractId,
-        )
-      ).length;
-    }
-    return total;
-  }
-
-  it("static — partial binding no longer triggers attestation overwrite of the other half", () => {
-    const src = readFileSync(
-      path.join(
-        APP,
-        "features/project-assistant/w2/governedExecuteAuthorizedContract.ts",
-      ),
-      "utf8",
-    );
-    expect(src).toMatch(/BINDING_INCOMPLETE/);
-    expect(src).toMatch(/resolveStampedSelectInspectionBinding/);
-    expect(src).toMatch(/caller_explicit/);
-    expect(src).toMatch(/durable_attestation/);
-    // Old OR-gate that overwrote both when either half missing must be gone.
-    expect(src).not.toMatch(
-      /typeof expectedVersion !== "number"[\s\S]*\|\|[\s\S]*!expectedSemanticFingerprint\.trim\(\)/,
-    );
-  });
-
-  it("I1 — no params + valid durable attestation → Select accepted", async () => {
-    const ctx = await prepareInspectAuthorize("i1");
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) throw new Error(selected.message);
-    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
-  });
-
-  it("I2 — both explicit valid params → Select accepted (no overwrite path)", async () => {
-    const ctx = await prepareInspectAuthorize("i2");
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-      expectedVersion: ctx.inspected.contractVersion,
-      expectedSemanticFingerprint: ctx.inspected.semanticFingerprint,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) throw new Error(selected.message);
-    expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
-  });
-
-  it("I3 — version only → BINDING_INCOMPLETE, no Attempt", async () => {
-    const ctx = await prepareInspectAuthorize("i3");
-    const before = await countAttempts(ctx.oa, ctx.projectId);
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-      expectedVersion: ctx.inspected.contractVersion,
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(selected.code).toBe("BINDING_INCOMPLETE");
-    expect(await countAttempts(ctx.oa, ctx.projectId)).toBe(before);
-  });
-
-  it("I4 — fingerprint only → BINDING_INCOMPLETE, no Attempt", async () => {
-    const ctx = await prepareInspectAuthorize("i4");
-    const before = await countAttempts(ctx.oa, ctx.projectId);
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-      expectedSemanticFingerprint: ctx.inspected.semanticFingerprint,
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(selected.code).toBe("BINDING_INCOMPLETE");
-    expect(await countAttempts(ctx.oa, ctx.projectId)).toBe(before);
-  });
-
-  it("I5 — false version + fingerprint absent → BINDING_INCOMPLETE (no attestation overwrite)", async () => {
-    const ctx = await prepareInspectAuthorize("i5");
-    const before = await countAttempts(ctx.oa, ctx.projectId);
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-      expectedVersion: 999_999,
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(selected.code).toBe("BINDING_INCOMPLETE");
-    expect(await countAttempts(ctx.oa, ctx.projectId)).toBe(before);
-  });
-
-  it("I6 — false fingerprint + version absent → BINDING_INCOMPLETE", async () => {
-    const ctx = await prepareInspectAuthorize("i6");
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-      expectedSemanticFingerprint: "sha256:deadbeef".padEnd(71, "0"),
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(selected.code).toBe("BINDING_INCOMPLETE");
-  });
-
-  it("I7 — contradictory explicit pair → refuse (mismatch), no Attempt", async () => {
-    const ctx = await prepareInspectAuthorize("i7");
-    const before = await countAttempts(ctx.oa, ctx.projectId);
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-      expectedVersion: ctx.inspected.contractVersion,
-      expectedSemanticFingerprint: "sha256:deadbeef".padEnd(71, "0"),
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(
-      selected.code === "FINGERPRINT_MISMATCH" ||
-        selected.code === "VERSION_MISMATCH" ||
-        selected.code === "NOT_AUTHORIZED",
-    ).toBe(true);
-    expect(await countAttempts(ctx.oa, ctx.projectId)).toBe(before);
-  });
-
-  it("I8 — attestation absent (no inspect) → INSPECTION_REQUIRED, no Attempt", async () => {
-    const { projectId, oa } = await seedProject("i8");
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      mission: {
-        objective: "Mission sans inspection",
-        expectedOutcome: "n/a",
-        scope: "projects/demo/src",
-      },
-      sessionDbPath,
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    if (!prep.ok) throw new Error(prep.message);
-    const selected = await governedExecuteSelectAgent({
-      oa,
-      projectId,
-      executionContractId: prep.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(
-      selected.code === "INSPECTION_REQUIRED" ||
-        selected.code === "EXPECTED_VERSION_REQUIRED" ||
-        selected.code === "NOT_AUTHORIZED",
-    ).toBe(true);
-    expect(await countAttempts(oa, projectId)).toBe(0);
-  });
-
-  it("I9/I10 — amended contract → reinspection / binding refuse, no Attempt", async () => {
-    const ctx = await prepareInspectAuthorize("i10");
-    const amended = await amendExecutionContractWithConstraint({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      additionalConstraint: "AMEND_TEST_BINDING_STALE",
-      forceLocalAuthority: true,
-    });
-    expect(amended.ok).toBe(true);
-    if (!amended.ok) throw new Error(amended.message);
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: amended.successor.executionContractId,
-      forceLocalAuthority: true,
-      expectedVersion: ctx.inspected.contractVersion,
-      expectedSemanticFingerprint: ctx.inspected.semanticFingerprint,
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(await countAttempts(ctx.oa, ctx.projectId)).toBe(0);
-  });
-
-  it("I11 — Confirm may bump version; attested binding still Select-valid via I1 path", async () => {
-    const { projectId, oa } = await seedProject("i11");
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      mission: {
-        objective: "Mission confirm binding",
-        expectedOutcome: "n/a",
-        scope: "projects/demo/src",
-      },
-      sessionDbPath,
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    if (!prep.ok) throw new Error(prep.message);
-    const inspected = await inspectExecutionContract({
-      oa,
-      projectId,
-      executionContractId: prep.executionContractId,
-    });
-    if (!inspected.ok) throw new Error(inspected.message);
-    // Confirm when required (status confirmation_required) then authorize.
-    const live = await oa.executionContractServices.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    if (!live.ok) throw new Error("get");
-    if (live.contract.status === "confirmation_required") {
-      const confirmed = await confirmExecutionContractForAuthorization({
-        oa,
-        projectId,
-        executionContractId: prep.executionContractId,
-        forceLocalAuthority: true,
-      });
-      expect(confirmed.ok).toBe(true);
-    }
-    const authorized = await authorizeGenericPreparedContract({
-      oa,
-      projectId,
-      executionContractId: prep.executionContractId,
-      expectedVersion: inspected.contractVersion,
-      expectedSemanticFingerprint: inspected.semanticFingerprint,
-      forceLocalAuthority: true,
-    });
-    // Authorize binds to inspected version/fp (attested survives Confirm).
-    expect(authorized.ok).toBe(true);
-    const selected = await governedExecuteSelectAgent({
-      oa,
-      projectId,
-      executionContractId: prep.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) throw new Error(selected.message);
-  });
-
-  it("I12/I13 — refused partial binding creates neither Attempt nor HumanDecision", async () => {
-    const ctx = await prepareInspectAuthorize("i12");
-    const hdBefore = (
-      await ctx.oa.decisionServices.decisions.listByProject(ctx.projectId)
-    ).length;
-    const selected = await governedExecuteSelectAgent({
-      oa: ctx.oa,
-      projectId: ctx.projectId,
-      executionContractId: ctx.prep.executionContractId,
-      forceLocalAuthority: true,
-      expectedVersion: ctx.inspected.contractVersion,
-    });
-    expect(selected.ok).toBe(false);
-    if (selected.ok) throw new Error("expected refuse");
-    expect(selected.code).toBe("BINDING_INCOMPLETE");
-    expect(await countAttempts(ctx.oa, ctx.projectId)).toBe(0);
-    expect(
-      (await ctx.oa.decisionServices.decisions.listByProject(ctx.projectId))
-        .length,
-    ).toBe(hdBefore);
-  });
-});
-
-```
-
-## 13. Instruction ChatGPT
+## 15. Instruction ChatGPT
 
 Lire : `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
 
-**SFIA STUDIO — GENERIC EXECUTION CONVERGENT DELIVERY CRITICAL CODE REVIEW.**
+**SFIA STUDIO — M-HD-01 GENERIC MISSION DECISION CRITICAL TECHNICAL CONTRACT REVIEW.**
 
-Vérifier en priorité :
-- binding explicite non écrasé (A2–A4) ;
-- HD existante **non** liée génériquement (Decision Pack honnête) ;
-- aucune décision fabriquée ;
-- autorité/Confirmation préservées ;
-- Project/cycle/profile indépendance conservée ;
-- pas d'architecture parallèle ;
-- E1–E3 vs E4–E8 non fusionnés ;
-- Review Pack complet ;
-- zéro intégration Git Product.
+Vérifier : simplicité ; réutilisation OA ; identité de mission ; binding autoritatif ; supersession ; persistence (no SQL migration vs modeled/runtime gate) ; absence de nouveau store ; faisabilité Delivery.
 
-## 14. Git Truth final (pré-publish)
+## 16. Git Truth final (pré-publish)
 
-HEAD `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` · branch `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` · origin/main `896ff59c704bfa76df1da1a51705aaf948c1cf0c` · dirty préservé · binding A seul ajout Product ce cycle.
+HEAD `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` · branch `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` · origin/main `896ff59c704bfa76df1da1a51705aaf948c1cf0c` · **zéro mutation Product ce cycle**.
