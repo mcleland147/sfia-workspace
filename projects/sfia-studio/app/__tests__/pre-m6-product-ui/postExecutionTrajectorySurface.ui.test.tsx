@@ -657,8 +657,95 @@ describe("CR-PCONT-05 TrajectorySurface post-execution recovery", () => {
 
     // D2-A — BOUNDED auto-PREPARE (same as GOVERNED); no mandatory sandbox CTA.
     await screen.findByTestId("w2-contract");
+    // Pass04 — continuity must expose required facts for exam; PREPARE does not attest.
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: "dec:pcont-ui",
+      contract: {
+        executionContractId: "xct:pcont-ui",
+        version: 1,
+        status: "confirmation_required",
+        action: "product:generate-temporary-artifact",
+        target: "product:project-workspace",
+        scope: "product:temporary-local-artifact",
+        requiredAuthority: "N1",
+        constraints: ["PRODUCT_GOVERNED"],
+        stopConditions: [],
+        requiredCapabilities: ["cap:product-temp-artifact"],
+        reversibility: "reversible",
+        semanticFingerprint: "fp:pcont-ui",
+        effectConfirmationRequired: true,
+        effectConfirmationLevel: "N1",
+        inspectionDisclosure: {
+          action: "product:generate-temporary-artifact",
+          technicalTarget: "product:project-workspace",
+          scope: "product:temporary-local-artifact",
+          targetRepositoryRef: null,
+          targetPath: null,
+          scopeIn: null,
+          scopeOut: null,
+          createOrModify: null,
+          noDelete: null,
+          objective: null,
+          artifactType: null,
+          artifactBrief: null,
+          contentRequirements: null,
+          validationExpectations: null,
+          expectedOutputs: null,
+          sourceGrounding: null,
+          acceptanceCriteria: null,
+          validationPlan: null,
+          reportRequirements: null,
+          evidenceRequirements: [],
+          requiredAuthority: "N1",
+          requiredCapabilities: ["cap:product-temp-artifact"],
+          constraints: ["PRODUCT_GOVERNED"],
+          stopConditions: [],
+          reversibility: "reversible",
+          contractVersion: 1,
+          executionContractId: "xct:pcont-ui",
+          semanticFingerprint: "fp:pcont-ui",
+          disclosureComplete: true,
+          incompletenessCode: null,
+        },
+      },
+      inspection: {
+        executionContractId: "xct:pcont-ui",
+        contractVersion: 1,
+        semanticFingerprint: "fp:pcont-ui",
+        statusLabel: "NON INSPECTÉ",
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: null,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: "no_attestation",
+        grantsAuthority: false,
+      },
+      requiredInspectedFacts: [
+        "action",
+        "target",
+        "scope",
+        "requiredAuthority",
+        "requiredCapabilities",
+        "constraints",
+        "stopConditions",
+        "reversibility",
+        "evidenceRequirements",
+        "semanticFingerprint",
+      ],
+    });
     fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+    expect(
+      await screen.findByTestId("w2-trajectory-inspection-panel"),
+    ).toBeVisible();
+    expect(inspectMock).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByTestId("w2-trajectory-attest"));
     await screen.findByTestId("w2-inspection-state");
+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
+      "INSPECTÉ",
+    );
     fireEvent.click(screen.getByTestId("w2-confirm-contract"));
     await waitFor(() => {
       expect(confirmMock).toHaveBeenCalled();

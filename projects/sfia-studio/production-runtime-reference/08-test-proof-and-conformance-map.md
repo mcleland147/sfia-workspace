@@ -15,6 +15,10 @@
 |---|---|---|
 | F05 materialization | continuity CORR-01, bridge CORR-01, corrProof07, **productCycleE2eStabilization.frontDoor**, fakeProvider materialization | **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** — oracle traverses Product UI server actions (Send→Decide→PrepareResolvedM3→ConfirmAndExecuteResolvedM3→Rehydrate) |
 | F05 optional documentary → Generic PREPARE (PR #586) | `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` (+ G-D4, Product Continuity, HQA-F01) | DETERMINISTIC — `no_require_artifact` routes to Generic PREPARE; Artifact obligation path preserved; exact caps; non-authoritative path candidates; Fake cue `__P6_OPTIONAL_DOCUMENTARY_MD__` ≠ OpenAI LIVE |
+| F04 Nora Generic PREPARE tool (D-ER-16) | `p6.der16.genericNoraToolInvocation.d0.test.ts` | DETERMINISTIC — solicit PREPARE only; structural fail-closed; no Attempt; PENDING_GIT_INTEGRATION |
+| F08 Generic PREPARE / M-HD / Option1 | `p6.mHd01*`, `p6.mHd02*`, `p6.hqa.materialityBlock01*`, `p6.o1.continuityGd4EmptyRefs*` | DETERMINISTIC — structural HD-bound vs NON_STRUCTURAL empty refs; PENDING_GIT_INTEGRATION |
+| F09 unified inspection | `p6.uic.unifiedInspectionContract*`, `p6.r03.inspection*` | DETERMINISTIC — explicit exam/attest; identity binding; PENDING_GIT_INTEGRATION |
+| F10 project-scoped Cursor | `p6.projectScopedCursorSelection.d0.test.ts` | DETERMINISTIC Fake Select→Start→Result; null-cycle admitted only if OA allows; ZERO Cursor REAL |
 
 | F03/F15 obligations | corrProof06.artifactObligation | policy HD + applicability |
 | F03 First Framing START | p6.hqa.f01.chatFirstCycleStartGate, chatFirstFramingContinuity(.frontDoor) | explicit START; no auto-START; no technical id in Pilot copy |
@@ -30,6 +34,40 @@
 | F01 greenfield | greenfield continuity tests on main | #531 |
 | F10–F11 attempt/evidence | productCycleE2eStabilization.frontDoor + PWR E2E | Fake adapter / Fake docs-write only |
 | Architecture drift | productionRuntimeReference.conformance | living reference |
+
+## Test-oracle semantic change — Artifact continuity suites (R4)
+
+**Classification (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):**
+
+| Layer | Label | Meaning |
+|---|---|---|
+| Test file edits | **NO_RUNTIME_SEMANTIC_IMPACT** | Product runtime paths under test are not altered by the test-file diff alone |
+| Functional expectations | **TEST_ORACLE_SEMANTIC_CHANGE** | What the suite asserts as correct Product behavior did change |
+
+Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That label is retained for **runtime** impact of the test files; this section records the **oracle** change ChatGPT R4 requires before digest approval.
+
+### `activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`
+
+| | Historical oracle | Candidate oracle |
+|---|---|---|
+| Mode | `ACTIVE_CYCLE_CONTINUATION_BLOCKED` | `NEW_CYCLE_FORMALIZATION` |
+| Reason | `incompatible_execution_intent` | `no_compatible_artifact_effect` |
+
+- Scenario: natural materialization signal **without** `docs_write`-compatible effect under an active cycle with REQUIRE_ARTIFACT.
+- **Does not prove** that a new CycleInstance was created — the same case asserts `countCycles === 1` (resolution alone never invents a cycle).
+- Mode name `NEW_CYCLE_FORMALIZATION` here is a resolution **routing** outcome (D-ER-17: not a dead-end; Generic PREPARE may remain eligible on project/active-cycle context) — **≠** Artifact governed continuation, **≠** CREATE_CYCLE proof.
+- Ceiling: DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). NOT E2E REAL. NOT READY FOR REAL.
+
+### `corrProof07.artifactMaterialization.d0.test.ts`
+
+Candidate assertions distinguish:
+
+1. **Generic PREPARE eligible** on same active-cycle / project context (no dead-end force-unbind).
+2. **Artifact governed materialization not authorized** for the non-`docs_write` natural signal.
+3. **No artificial new CycleInstance** (`countCycles` stable; `createCycle` not required by this path).
+4. **No misleading Artifact materialization Proposal** bound as active-cycle governed continuation.
+
+Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETERMINISTIC at tested scope only — oracle change ≠ proof E2E REAL.
 
 ## Oracle weaknesses (updated after PRODUCT-CYCLE-E2E-STABILIZATION-01)
 

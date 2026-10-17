@@ -42,6 +42,7 @@ import {
   GovernedDecisionCard,
   presentGovernedDecisionNoraPreface,
 } from "./GovernedDecisionCard";
+import { GovernedGenericMissionDecisionCard } from "./GovernedGenericMissionDecisionCard";
 import { FramingContinuityCard } from "./FramingContinuityCard";
 import { GovernedConfirmationCard } from "./GovernedConfirmationCard";
 import {
@@ -223,6 +224,7 @@ export function ConversationSurface({
     string | null
   >(null);
   const {
+    projectId,
     listRef,
     messages,
     draft,
@@ -245,8 +247,16 @@ export function ConversationSurface({
     governedMomentError,
     decideGovernedDirection,
     revealGovernedDecisionAlternate,
-    inspectGovernedContract,
+    attestGovernedInspection,
     confirmGovernedContract,
+    genericMissionSubject,
+    genericMissionUiState,
+    genericMissionError,
+    genericMissionStaleMessage,
+    genericMissionBusy,
+    acceptGenericMission,
+    refuseGenericMission,
+    requestAmendGenericMission,
     framingContinuity,
     framingContinuityBusy,
     framingContinuityError,
@@ -855,7 +865,7 @@ export function ConversationSurface({
                     </div>
                     <div className={styles.factWide}>
                       <dt>Identifiant de cycle</dt>
-                      <dd>{f2.qualification.cycleTypeId}</dd>
+                      <dd>{f2.qualification.cycleTypeId ?? "Aucun cycle actif (contexte projet)"}</dd>
                     </div>
                     {f2.qualification.cycleInstanceId ? (
                       <div className={styles.factWide}>
@@ -986,21 +996,49 @@ export function ConversationSurface({
           />
         </div>
       ) : null}
+      {(genericMissionSubject || genericMissionUiState === "stale") &&
+      !boundAwaitingDecision ? (
+        <div
+          className={styles.governedMomentSlot}
+          data-testid="generic-mission-decision-slot"
+        >
+          <p className={styles.noraMomentLabel}>Nora</p>
+          <p className={styles.noraMomentBody}>
+            {genericMissionUiState === "stale"
+              ? "La présentation précédente n'est plus applicable."
+              : "Voici la mission générique proposée. Examinez le périmètre et les effets, puis décidez explicitement."}
+          </p>
+          <GovernedGenericMissionDecisionCard
+            subject={genericMissionSubject}
+            uiState={genericMissionUiState}
+            busy={genericMissionBusy}
+            error={genericMissionError}
+            staleMessage={genericMissionStaleMessage}
+            onAccept={acceptGenericMission}
+            onRefuse={refuseGenericMission}
+            onRequestAmend={requestAmendGenericMission}
+          />
+        </div>
+      ) : null}
       {confirmationRequiredMoment ? (
         <div
           className={styles.governedMomentSlot}
           data-testid="governed-confirmation-slot"
         >
           <GovernedConfirmationCard
+            projectId={projectId}
             contract={governedExecutionContinuity.contract}
             inspection={governedExecutionContinuity.inspection}
+            requiredInspectedFacts={
+              governedExecutionContinuity.requiredInspectedFacts
+            }
             busy={governedMomentBusy}
             error={governedMomentError}
             onConfirm={() => {
               void confirmGovernedContract();
             }}
-            onInspect={() => {
-              void inspectGovernedContract();
+            onAttestInspection={(facts) => {
+              void attestGovernedInspection(facts);
             }}
             onCancel={() => {
               const input = document.querySelector(

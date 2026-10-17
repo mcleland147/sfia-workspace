@@ -69,7 +69,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
     messages: [],
     journal: { cycleInstanceId: null, entries: [] },
   })),
-  projectAssistantPilotLifecycleProjection: vi.fn(),
+  projectAssistantPilotLifecycleProjection: vi.fn().mockResolvedValue({
+    ok: true,
+    projection: null,
+  }),
   projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
     ok: true,
     cycleTypeId: null,

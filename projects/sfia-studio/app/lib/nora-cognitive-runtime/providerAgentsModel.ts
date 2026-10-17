@@ -149,6 +149,7 @@ export function toolDefinitionsFromModelRequest(
       name === "cycle_journal_get_entry" ||
       name === "cycle_journal_get_sources" ||
       name === "product_execution_context_get" ||
+      name === "request_generic_execution_prepare" ||
       name === "execution_review_get_manifest" ||
       name === "execution_review_read_item"
     ) {

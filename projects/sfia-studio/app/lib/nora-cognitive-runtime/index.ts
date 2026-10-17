@@ -469,7 +469,9 @@ export {
 } from "./cycleJournalAgentsTools";
 export {
   createProductExecutionAgentsTools,
+  GENERIC_PREPARE_TOOL_DISCLOSURE,
   type ProductExecutionToolContext,
+  type SolicitGenericPrepareToolArgs,
 } from "./productExecutionAgentsTools";
 export {
   createExecutionReviewAgentsTools,

@@ -47,6 +47,7 @@ import {
   parseStampedProductCurrentness,
   revalidateMaterialityAgainstCurrentProduct,
 } from "./resolveAuthoritativeProductMateriality";
+import { verifyGenericMissionHumanDecisionForContract } from "./verifyGenericMissionHumanDecisionForPrepare";
 import type {
   AgentCapabilityOutcomeDto,
   ConfirmationRequirementDto,
@@ -435,20 +436,44 @@ export async function evaluateExecutionAuthorization(
       typeof contractInputs.materialityFacts === "object"
         ? (contractInputs.materialityFacts as Record<string, unknown>)
         : null;
-    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
-      oa,
-      projectId: input.projectId,
-      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
-      cycleInstanceId: contract.cycleInstanceId ?? null,
-      stampedMateriality,
-      stampedCurrentness: parseStampedProductCurrentness(factsRaw),
-    });
-    if (!revalidated.ok) {
-      return {
-        ok: false,
-        code: revalidated.code,
-        message: revalidated.message,
-      };
+    const decisionRefs = contract.decisionRefs ?? [];
+    // M-HD-01 CR-03 — structural/unknown: verify each HD currently.
+    const structuralHdResume =
+      decisionRefs.length >= 1 &&
+      (stampedMateriality === "structural" ||
+        stampedMateriality === "unknown");
+    if (structuralHdResume) {
+      for (const ref of decisionRefs) {
+        const hd = await verifyGenericMissionHumanDecisionForContract({
+          oa,
+          projectId: input.projectId,
+          decisionId: ref,
+          contract,
+        });
+        if (!hd.ok) {
+          return {
+            ok: false,
+            code: hd.code,
+            message: hd.message,
+          };
+        }
+      }
+    } else {
+      const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+        oa,
+        projectId: input.projectId,
+        analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
+        cycleInstanceId: contract.cycleInstanceId ?? null,
+        stampedMateriality,
+        stampedCurrentness: parseStampedProductCurrentness(factsRaw),
+      });
+      if (!revalidated.ok) {
+        return {
+          ok: false,
+          code: revalidated.code,
+          message: revalidated.message,
+        };
+      }
     }
   }
 

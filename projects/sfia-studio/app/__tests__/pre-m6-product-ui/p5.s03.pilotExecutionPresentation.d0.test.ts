@@ -46,6 +46,20 @@ function activePreExec(args: {
     ok: true as const,
     kind: "active" as const,
     decisionRef: "dec:1",
+    requiredInspectedFacts: [
+      "action",
+      "target",
+      "scope",
+      "requiredAuthority",
+      "requiredCapabilities",
+      "constraints",
+      "stopConditions",
+      "reversibility",
+      "evidenceRequirements",
+      "semanticFingerprint",
+      "inputs.targetRepositoryRef",
+      "inputs.targetPath",
+    ],
     contract: {
       executionContractId: "xct:1",
       version: 1,
@@ -64,7 +78,7 @@ function activePreExec(args: {
         action: "cursor.docs_write.apply",
         technicalTarget: "workspace.isolated.docs_write",
         scope: "studio.gcec.docs_write",
-        targetRepositoryRef: null,
+        targetRepositoryRef: "acme/demo",
         targetPath: "projects/demo/note.md",
         scopeIn: null,
         scopeOut: null,
@@ -159,7 +173,7 @@ describe("P5-S03 pilotExecutionPresentation", () => {
     expect(view.cta.kind === "execute").toBe(false);
   });
 
-  it("insufficient inspection disables CTA (fail closed)", () => {
+  it("insufficient inspection → Inspect CTA (Confirm not enabled)", () => {
     const view = presentPilotExecution({
       continuityProjection: {
         ok: true,
@@ -174,8 +188,23 @@ describe("P5-S03 pilotExecutionPresentation", () => {
       }),
     });
     expect(view.status).toBe("a_confirmer");
-    expect(view.cta.kind === "confirm" && view.cta.enabled).toBe(false);
-    expect(view.attentionNote).toMatch(/Inspection insuffisante/);
+    expect(view.cta.kind).toBe("inspect");
+    expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
+    expect(view.attentionNote).toMatch(/Examen des faits contractuels|examen/i);
+  });
+
+  it("R1 UI01 — projection EC id alone never enables Confirm/Execute", () => {
+    const view = presentPilotExecution({
+      continuityProjection: {
+        ok: true,
+        projection: baseProjection({
+          executionContractStatus: "confirmation_required",
+        }),
+      },
+      preExecutionContinuity: null,
+    });
+    expect(view.cta.kind).toBe("none");
+    expect(view.attentionNote).toMatch(/identifiant de contrat seul|Continuité/i);
   });
 
   it("RUNNING → En cours, no Exécuter", () => {

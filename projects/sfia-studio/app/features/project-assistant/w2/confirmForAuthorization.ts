@@ -29,6 +29,7 @@ import {
   parseStampedProductCurrentness,
   revalidateMaterialityAgainstCurrentProduct,
 } from "./resolveAuthoritativeProductMateriality";
+import { verifyGenericMissionHumanDecisionForContract } from "./verifyGenericMissionHumanDecisionForPrepare";
 
 export function w2ConfirmationActionRef(input: {
   executionContractId: string;
@@ -173,10 +174,33 @@ export async function confirmExecutionContractForAuthorization(
   const requiresGd4CurrentMaterialityRevalidation =
     stamped != null || stampedCurrentness != null;
 
+  // M-HD-01 CR-03 — structural/unknown + decisionRefs: verify each HD currently
+  // (never skip currentness merely because decisionRefs.length > 0).
+  const structuralHdResume =
+    decisionRefs.length >= 1 &&
+    (stamped === "structural" || stamped === "unknown");
+
   let recomputedMateriality = stamped ?? "unknown";
   if (requiresGd4CurrentMaterialityRevalidation) {
-    // Cases B/C — G-D4 stamped (NON_STRUCTURAL / STRUCTURAL / UNKNOWN) or stamped facts.
-    if (input.skipMaterialityRevalidation !== true) {
+    if (structuralHdResume) {
+      for (const ref of decisionRefs) {
+        const hd = await verifyGenericMissionHumanDecisionForContract({
+          oa,
+          projectId: input.projectId,
+          decisionId: ref,
+          contract,
+        });
+        if (!hd.ok) {
+          return {
+            ok: false,
+            code: hd.code,
+            message: hd.message,
+          };
+        }
+      }
+      recomputedMateriality = stamped ?? "unknown";
+    } else if (input.skipMaterialityRevalidation !== true) {
+      // Cases B/C — G-D4 stamped NON_STRUCTURAL (or stamped facts without HD).
       const revalidated = await revalidateMaterialityAgainstCurrentProduct({
         oa,
         projectId: input.projectId,

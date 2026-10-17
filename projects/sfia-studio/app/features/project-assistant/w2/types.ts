@@ -292,9 +292,19 @@ export type CurrentGovernedExecutionContinuityResult =
   | {
       readonly ok: true;
       readonly kind: "active";
-      readonly decisionRef: string;
+      /**
+       * HD-bound lineage id when decisionRefs were verified.
+       * Null for admissible G-D4 NON_STRUCTURAL empty-refs (no artificial HD).
+       */
+      readonly decisionRef: string | null;
       readonly contract: CurrentGovernedExecutionContinuityContractDto;
       readonly inspection: ContractInspectionStateDto;
+      /**
+       * Canonical required fact IDs from `requiredInspectedFactsForContract`
+       * (read-only transport). Null when disclosure is incomplete — attestation
+       * must refuse. Never invent UI-local required lists.
+       */
+      readonly requiredInspectedFacts: readonly string[] | null;
     }
   | W2Failure;
 

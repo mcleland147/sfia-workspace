@@ -28,6 +28,7 @@ import {
   parseStampedProductCurrentness,
   revalidateMaterialityAgainstCurrentProduct,
 } from "./resolveAuthoritativeProductMateriality";
+import { verifyGenericMissionHumanDecisionForContract } from "./verifyGenericMissionHumanDecisionForPrepare";
 
 export type AuthorizeGenericPreparedContractInput = {
   readonly oa: RuntimeOaStack;
@@ -151,20 +152,43 @@ export async function authorizeGenericPreparedContract(
       : null
   );
   const stamped = materialityFromContractConstraints(loaded.contract.constraints);
-  const revalidated = await revalidateMaterialityAgainstCurrentProduct({
-    oa: input.oa,
-    projectId: input.projectId,
-    analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
-    cycleInstanceId: loaded.contract.cycleInstanceId ?? null,
-    stampedMateriality: stamped,
-    stampedCurrentness: parseStampedProductCurrentness(factsRaw),
-  });
-  if (!revalidated.ok) {
-    return {
-      ok: false,
-      code: revalidated.code,
-      message: revalidated.message,
-    };
+  const decisionRefs = loaded.contract.decisionRefs ?? [];
+  // M-HD-01 CR-03 — structural/unknown: re-verify each HD currently (not refs length).
+  const structuralHdResume =
+    decisionRefs.length >= 1 &&
+    (stamped === "structural" || stamped === "unknown");
+  if (structuralHdResume) {
+    for (const ref of decisionRefs) {
+      const hd = await verifyGenericMissionHumanDecisionForContract({
+        oa: input.oa,
+        projectId: input.projectId,
+        decisionId: ref,
+        contract: loaded.contract,
+      });
+      if (!hd.ok) {
+        return {
+          ok: false,
+          code: hd.code,
+          message: hd.message,
+        };
+      }
+    }
+  } else {
+    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+      oa: input.oa,
+      projectId: input.projectId,
+      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
+      cycleInstanceId: loaded.contract.cycleInstanceId ?? null,
+      stampedMateriality: stamped,
+      stampedCurrentness: parseStampedProductCurrentness(factsRaw),
+    });
+    if (!revalidated.ok) {
+      return {
+        ok: false,
+        code: revalidated.code,
+        message: revalidated.message,
+      };
+    }
   }
 
   let confirmationRef: string | null = loaded.contract.confirmationRef ?? null;

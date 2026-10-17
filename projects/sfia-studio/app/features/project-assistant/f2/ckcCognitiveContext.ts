@@ -573,7 +573,10 @@ export function enrichQualificationWithCkcSemantics(input: {
   packagePin: DoctrinePackagePin;
   ckcCognitiveRecommendation?: string | null;
 }): QualificationDto {
-  if (!isProductStudioNativeCkcProof(input.proof)) {
+  if (
+    !isProductStudioNativeCkcProof(input.proof) ||
+    !input.qualification.cycleTypeId
+  ) {
     return input.qualification;
   }
 

@@ -434,6 +434,8 @@ describe("EC rehydration continuity — readCurrentGovernedExecutionContinuity",
     expect(read.code).toBe("EXECUTION_CONTINUITY_AMBIGUOUS");
   });
 
+  // O1 Delivery: unstamped empty decisionRefs MUST remain INTEGRITY_FAILED.
+  // Stamped MATERIALITY:NON_STRUCTURAL + CURRENT is covered by p6.o1.continuityGd4EmptyRefs.
   it("G5 — missing decisionRef → INTEGRITY_FAILED", async () => {
     const stack = buildStack();
     await seedProject(stack.projects);

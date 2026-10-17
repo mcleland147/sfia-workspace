@@ -44,9 +44,30 @@ export function presentCurrentness(input: {
   stateVersion: number;
   /** Durable living-state / project update timestamp when available. */
   updatedAt?: string | null;
+  /**
+   * Lifecycle / context-rail projection read status.
+   * - pending: load in flight (do not claim « À jour »)
+   * - unavailable: read failed — clear prior projection; never present as current
+   * - available: Product reader succeeded for this project
+   */
+  lifecycleProjectionAvailability?: "available" | "pending" | "unavailable";
 }): CurrentnessPresentation {
   const verified = formatVerifiedRelativeFr(input.updatedAt);
   const versionDetail = `État enregistré · v${input.stateVersion}`;
+  if (input.lifecycleProjectionAvailability === "unavailable") {
+    return {
+      label: "À vérifier",
+      detail: `${versionDetail} · contexte projet indisponible`,
+      tone: "warn",
+    };
+  }
+  if (input.lifecycleProjectionAvailability === "pending") {
+    return {
+      label: "Lecture en cours",
+      detail: `${versionDetail} · contexte projet en cours de lecture`,
+      tone: "neutral",
+    };
+  }
   switch (input.transcriptAvailability) {
     case "unavailable":
       return {

@@ -72,6 +72,7 @@ import {
   resolveActiveCycleGovernedContinuation,
   continuationBlockedMessage,
   isOptionalDocumentaryWithoutClosureArtifactBlock,
+  hasExplicitNewCycleFormalizationSignal,
 } from "./activeCycleGovernedContinuation";
 import {
   enrichQualificationWithCkcSemantics,
@@ -131,7 +132,7 @@ import {
   analysisFromPendingGenericPrepareOffer,
   getCurrentGenericPrepareOffer,
   isChatFirstPrepareAcceptGo,
-  prepareGenericExecutionContractDraft,
+  solicitGenericExecutionPrepare,
   rememberGenericPrepareRecommendation,
   resolveChatFirstGenericPrepareGo,
 } from "../w2/prepareGenericExecutionContractDraft";
@@ -624,6 +625,21 @@ function resolveMode(explicitProvider?: ConversationProvider): {
   return resolveAssistantMode(explicitProvider);
 }
 
+/**
+ * Catalog cycleTypeId guard — Generic PREPARE on PROJECT CONTEXT (S8) carries
+ * `cycleTypeId: null` (no invented catalog id). Cycle-creating / proposal paths
+ * require a real catalog id; fail closed if a project-context qualification
+ * ever reaches them.
+ */
+function requireCatalogCycleTypeId(q: QualificationDto): string {
+  if (!q.cycleTypeId) {
+    throw new Error(
+      "QUALIFICATION_CYCLE_TYPE_REQUIRED: project-context qualification has no catalog cycleTypeId",
+    );
+  }
+  return q.cycleTypeId;
+}
+
 function buildProposal(input: {
   intent: IntentAnalysisDto;
   qualification: QualificationDto;
@@ -648,10 +664,10 @@ function buildProposal(input: {
       input.intent.objective ??
       "Demande reformulée indisponible",
     objective: input.intent.objective ?? input.qualification.rationale,
-    cycleTypeId: input.qualification.cycleTypeId,
+    cycleTypeId: requireCatalogCycleTypeId(input.qualification),
     recommendedProfile: input.qualification.recommendedProfile,
     rationale: input.qualification.rationale,
-    scope: input.intent.scope ?? `Périmètre borné — ${input.qualification.cycleTypeId}`,
+    scope: input.intent.scope ?? `Périmètre borné — ${requireCatalogCycleTypeId(input.qualification)}`,
     outOfScope:
       input.intent.outOfScope.length > 0
         ? input.intent.outOfScope
@@ -744,6 +760,53 @@ function qualificationFromActiveCycle(input: {
     executionAuthority: false,
     cycleInstanceId: input.cycle.cycleInstanceId,
     cycleStatus: input.cycle.status,
+  };
+}
+
+/**
+ * D-ER-17 / S8 — qualification for Generic PREPARE admitted on PROJECT CONTEXT
+ * (no active cycle). NOT a CycleInstance: no cycleInstanceId / cycleStatus,
+ * cycleTypeId = null (NO catalog stamp invented). analysis.candidateCycleTypeId is DESCRIPTIVE
+ * only (disclosure) — never used to create or bind a cycle.
+ */
+function qualificationFromProjectContext(input: {
+  signals: IntentAnalysisDto["signals"];
+  analysis: IntentAnalysisDto;
+}): QualificationDto {
+  const descriptive = input.analysis.candidateCycleTypeId?.trim() || null;
+  return {
+    cycleTypeId: null,
+    cycleLabel: "Contexte projet (sans cycle actif)",
+    recommendedProfile: "Contexte projet",
+    rationale:
+      input.analysis.objective ??
+      "Préparation générique sur contexte projet — aucun cycle artificiel",
+    criticalSignalsPresent: false,
+    requiresJustificationForCritical: false,
+    capitalizationViaCycleTypeId: false,
+    isMorrisDecision: false,
+    catalogVersion: "none",
+    catalogHash: "none",
+    detailedStatus: "GENERIC_PREPARE_PROJECT_CONTEXT",
+    disclosures: [
+      "GENERIC_PREPARE_PROJECT_CONTEXT",
+      "NO_ACTIVE_CYCLE",
+      "PROJECT_CONTEXT_ONLY",
+      "NO_CATALOG_CYCLE_TYPE",
+      "NO_NEW_CYCLE_INSTANCE",
+      "RECOMMENDATION_ONLY",
+      ...(descriptive ? [`DESCRIPTIVE_CANDIDATE_CYCLE_TYPE:${descriptive}`] : []),
+    ],
+    signals: input.signals ?? {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
+    recommendationLabel: "RECOMMANDATION — PAS UNE DÉCISION HUMAINE",
+    executionAuthority: false,
   };
 }
 
@@ -1790,15 +1853,15 @@ export async function orchestrateAssistantSend(input: {
   // must NOT fall through to F1 advisory before the prepare gate.
   const activeIdForChatFirstPrepare =
     project.activeCycleInstanceId?.trim() || null;
-  const chatFirstPrepareGoEarly = activeIdForChatFirstPrepare
-    ? resolveChatFirstGenericPrepareGo({
-        projectId: project.projectId,
-        cycleInstanceId: activeIdForChatFirstPrepare,
-        text: content,
-        pilotDecisionCandidate: analysis.pilotDecisionCandidate,
-        sessionDbPath: input.sessionDbPath,
-      })
-    : { kind: "no_go" as const, reason: "no_active_cycle" };
+  // D-ER-17 / S8 — active cycle is optional context; null cycle matches only a
+  // null-cycle (project-context) offer.
+  const chatFirstPrepareGoEarly = resolveChatFirstGenericPrepareGo({
+    projectId: project.projectId,
+    cycleInstanceId: activeIdForChatFirstPrepare,
+    text: content,
+    pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+    sessionDbPath: input.sessionDbPath,
+  });
   const skipF1ForChatFirstPrepare =
     chatFirstPrepareGoEarly.kind === "prepare" ||
     chatFirstPrepareGoEarly.kind === "explicit_lexical_prepare";
@@ -1986,15 +2049,13 @@ export async function orchestrateAssistantSend(input: {
   // (Q16/Q17/Q18); otherwise clarify gaps or recommend prepare. Never canned.
   {
     const activeIdForPrepare = project.activeCycleInstanceId?.trim() || null;
-    const prepareGoPreview = activeIdForPrepare
-      ? resolveChatFirstGenericPrepareGo({
-          projectId: project.projectId,
-          cycleInstanceId: activeIdForPrepare,
-          text: content,
-          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
-          sessionDbPath: input.sessionDbPath,
-        })
-      : { kind: "no_go" as const, reason: "no_active_cycle" };
+    const prepareGoPreview = resolveChatFirstGenericPrepareGo({
+      projectId: project.projectId,
+      cycleInstanceId: activeIdForPrepare,
+      text: content,
+      pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+      sessionDbPath: input.sessionDbPath,
+    });
     const chatFirstPrepareAccept =
       prepareGoPreview.kind === "prepare" ||
       prepareGoPreview.kind === "explicit_lexical_prepare";
@@ -2011,16 +2072,41 @@ export async function orchestrateAssistantSend(input: {
       continuation.mode === "NEW_CYCLE_FORMALIZATION" ||
       isOptionalDocumentaryWithoutClosureArtifactBlock(continuation);
 
+    // D-ER-17 / S8 — NO active cycle is not a blocker for Generic PREPARE.
+    // Admitted on PROJECT CONTEXT (cycleInstanceId = null) when Project is bound
+    // and the turn is (a) a Pilote prepare GO / explicit prepare intent, or
+    // (b) a natural documentary signal that ACGC no longer dead-ends
+    // (no_compatible_artifact_effect). Explicit NEW_CYCLE formalization
+    // (« prépare un cycle … ») stays on the historical createCycle path.
+    // Other actionable no-cycle missions keep the legacy NEW_CYCLE START path
+    // until the D-ER-19 legacy-admission exit (OPEN — see delivery report).
+    // No CycleInstance is ever invented here.
+    const projectContextAdmission =
+      !activeIdForPrepare &&
+      Boolean(project.projectId?.trim()) &&
+      !hasExplicitNewCycleFormalizationSignal(analysis) &&
+      (chatFirstPrepareAccept ||
+        (continuation.mode === "NEW_CYCLE_FORMALIZATION" &&
+          continuation.reason === "no_compatible_artifact_effect"));
+
     if (
       eligibleForGenericPrepareRouting &&
-      Boolean(activeIdForPrepare) &&
+      (Boolean(activeIdForPrepare) || projectContextAdmission) &&
       actionableForGenericPrepare
     ) {
-    const activeId = activeIdForPrepare!;
-    const cycleLoad = await oa.cycleServices.getCycle.execute({
-      cycleInstanceId: activeId,
-    });
-    if (cycleLoad.ok && cycleLoad.cycle.status === "active") {
+    const activeId: string | null = activeIdForPrepare;
+    const cycleLoad = activeId
+      ? await oa.cycleServices.getCycle.execute({ cycleInstanceId: activeId })
+      : null;
+    const admittedCycle =
+      cycleLoad && cycleLoad.ok && cycleLoad.cycle.status === "active"
+        ? cycleLoad.cycle
+        : null;
+    if (!activeId || admittedCycle) {
+      // Honest wording: cycle kept vs project context only (no artificial cycle).
+      const contextKept = activeId
+        ? "Le cycle actif est conservé."
+        : "Contexte projet conservé — aucun cycle artificiel créé.";
       const prepareGo = prepareGoPreview;
       const mayPrepare =
         prepareGo.kind === "prepare" ||
@@ -2036,14 +2122,34 @@ export async function orchestrateAssistantSend(input: {
         prepareGo.kind === "prepare" && offerForReadiness
           ? analysisFromPendingGenericPrepareOffer(offerForReadiness)
           : analysis;
-      const qualification = qualificationFromActiveCycle({
-        cycle: cycleLoad.cycle,
-        signals: formalizationSignals ?? readinessAnalysis.signals!,
-        analysis: readinessAnalysis,
-      });
+      const qualification = admittedCycle
+        ? qualificationFromActiveCycle({
+            cycle: admittedCycle,
+            signals: formalizationSignals ?? readinessAnalysis.signals!,
+            analysis: readinessAnalysis,
+          })
+        : qualificationFromProjectContext({
+            signals: formalizationSignals ?? readinessAnalysis.signals,
+            analysis: readinessAnalysis,
+          });
       const readiness = assessGenericMissionPrepareReadiness(readinessAnalysis);
 
       if (readiness.structuralBlocked || !readiness.ready) {
+        // M-HD-02 — when structural fields are sufficient, remember CURRENT
+        // offer so ConversationSurface can seal + present Accept/Refuse/Amend.
+        // No PREPARE. No HumanDecision. No PresentedMission store.
+        if (
+          readiness.structuralBlocked &&
+          readiness.missingFields.length === 0
+        ) {
+          rememberGenericPrepareRecommendation({
+            projectId: project.projectId,
+            cycleInstanceId: activeId,
+            analysis: readinessAnalysis,
+            offeredAtIso: oa.clock.nowIso(),
+            sessionDbPath: input.sessionDbPath,
+          });
+        }
         return await completeF2Turn({
           userText: content,
           sessionDbPath: input.sessionDbPath,
@@ -2051,6 +2157,7 @@ export async function orchestrateAssistantSend(input: {
             presentation,
             missingFields: readiness.missingFields,
             structuralBlocked: readiness.structuralBlocked,
+            hasActiveCycle: Boolean(activeId),
           }),
           mode: modeResolution.mode as "fixture" | "live",
           presentation,
@@ -2077,7 +2184,7 @@ export async function orchestrateAssistantSend(input: {
             sessionDbPath: input.sessionDbPath,
             text: [
               presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-              "Le cycle actif est conservé.",
+              contextKept,
               "Aucune recommandation de préparation courante n'est ouverte — je ne prépare pas de contrat sur ce seul accord.",
               "Rien n'a encore été exécuté.",
             ].join(" "),
@@ -2094,7 +2201,7 @@ export async function orchestrateAssistantSend(input: {
         }
         rememberGenericPrepareRecommendation({
           projectId: project.projectId,
-          cycleInstanceId: activeId,
+          cycleInstanceId: activeId, // null on S8 project-context
           analysis: readinessAnalysis,
           offeredAtIso: oa.clock.nowIso(),
           sessionDbPath: input.sessionDbPath,
@@ -2107,6 +2214,7 @@ export async function orchestrateAssistantSend(input: {
             missingFields: [],
             structuralBlocked: false,
             recommendPrepare: true,
+            hasActiveCycle: Boolean(activeId),
           }),
           mode: modeResolution.mode as "fixture" | "live",
           presentation,
@@ -2135,7 +2243,7 @@ export async function orchestrateAssistantSend(input: {
             sessionDbPath: input.sessionDbPath,
             text: [
               presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-              "Le cycle actif est conservé.",
+              contextKept,
               "Plusieurs sujets de décision sont encore ouverts — précise lequel tu confirmes avant que je prépare un contrat.",
               "Rien n'a encore été exécuté.",
             ].join(" "),
@@ -2163,7 +2271,9 @@ export async function orchestrateAssistantSend(input: {
 
       const detPinnedSha =
         process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA?.trim() || null;
-      const prep = await prepareGenericExecutionContractDraft({
+      // R1 — F2 and the Nora tool share ONE Product admission service
+      // (readiness → capability → materiality → prepareGenericExecutionContractDraft).
+      const prep = await solicitGenericExecutionPrepare({
         oa,
         projectId: project.projectId,
         cycleInstanceId: activeId,
@@ -2182,7 +2292,7 @@ export async function orchestrateAssistantSend(input: {
           sessionDbPath: input.sessionDbPath,
           text: [
             presentation === "test_provider" ? "[Mode test]" : "[Mode réel]",
-            "Le cycle actif est conservé.",
+            contextKept,
             prep.message,
             "Rien n'a encore été exécuté.",
           ].join(" "),
@@ -2206,9 +2316,9 @@ export async function orchestrateAssistantSend(input: {
         sessionDbPath: input.sessionDbPath,
         text: genericMissionPreparedText({
           presentation,
-          executionContractId: prep.contract.executionContractId,
+          executionContractId: prep.executionContractId,
           objective,
-          status: prep.contract.status,
+          status: prep.contractStatus,
         }),
         mode: modeResolution.mode as "fixture" | "live",
         presentation,
@@ -2577,7 +2687,7 @@ export async function orchestrateAssistantSend(input: {
     const registryRoot = resolveProductDoctrineRegistryRoot();
     const ckcContent = loadProductCkcCognitiveContent({
       registryRoot,
-      cycleTypeId: qualification.cycleTypeId,
+      cycleTypeId: requireCatalogCycleTypeId(qualification),
       packagePin,
     });
     let ckcCognitiveRecommendation: string | undefined;
@@ -2697,7 +2807,7 @@ export async function orchestrateAssistantSend(input: {
     const startGate = await resolveChatFirstCycleStartGate({
       oa,
       projectId: project.projectId,
-      targetCycleTypeId: qualification.cycleTypeId,
+      targetCycleTypeId: requireCatalogCycleTypeId(qualification),
       cycleLabel: qualification.cycleLabel,
     });
 
@@ -2778,7 +2888,7 @@ export async function orchestrateAssistantSend(input: {
   await cutF2Effect(input.signal, "createCycle", input.beforeF2Effect);
   const created = await oa.cycleServices.createCycle.execute({
     cycleInstanceId,
-    cycleTypeId: qualification.cycleTypeId,
+    cycleTypeId: requireCatalogCycleTypeId(qualification),
     projectId: project.projectId,
     objective: analysis.objective ?? undefined,
     scope: analysis.scope ?? undefined,

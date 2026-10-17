@@ -13,6 +13,7 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -93,10 +94,17 @@ import {
 import { filterProductReservationsForDisplay } from "@/features/project-assistant/w2/w3cProductPresentation";
 import type { ExecutionContractStatus } from "@/lib/oa/execution-contract/domain/types";
 import {
+  buildInspectionExamView,
+  sameInspectionExamSnapshot,
+  type InspectionExamSnapshot,
+} from "./contractInspectionExam";
+import { ContractInspectionExamPanel } from "./ContractInspectionExamPanel";
+import {
   presentPilotContract,
   type PilotContractPresentation,
 } from "./pilotContractPresentation";
 import styles from "./TrajectorySurface.module.css";
+import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
 
 /**
  * Presentation-only labels for ExecutionContractStatus.
@@ -350,6 +358,15 @@ export function TrajectorySurface({
   const [contract, setContract] = useState<PreparedContract | null>(null);
   const [inspection, setInspection] =
     useState<ContractInspectionStateDto | null>(null);
+  /** Pass04 — exam open without write; attestation is a separate gesture. */
+  const [inspectionExamOpen, setInspectionExamOpen] = useState(false);
+  const [inspectionExamSnapshot, setInspectionExamSnapshot] =
+    useState<InspectionExamSnapshot | null>(null);
+  const [examDisclosure, setExamDisclosure] =
+    useState<ExecutionContractInspectionDisclosure | null>(null);
+  const [examRequiredFacts, setExamRequiredFacts] = useState<
+    readonly string[] | null
+  >(null);
   const [authorization, setAuthorization] =
     useState<ExecutionAuthorizationOutcomeDto | null>(null);
   const [amendmentDraft, setAmendmentDraft] = useState("");
@@ -988,29 +1005,170 @@ export function TrajectorySurface({
     rehydrateRecoveryOwnedDecisionContinuity,
   ]);
 
-  /** FR-04 / CR-P6-02 — Pilote inspection of the exact contract version presented. */
-  const inspectPreparedContractId = useCallback(
-    async (executionContractId: string, expectedVersion?: number) => {
-      const result = await w2InspectExecutionContractAction({
-        projectId,
-        executionContractId,
-        expectedVersion,
-      });
-      if (!result || typeof result !== "object") {
-        return null;
-      }
-      if (!result.ok) {
-        setError(result.message);
-        return null;
-      }
-      const { ok: _ok, ...state } = result;
-      setInspection(state);
-      setAuthorization(null);
-      // Return DTO so callers (Exécuter) bind version/fp without waiting on React state.
-      return state.inspectionSufficient === true ? state : null;
-    },
-    [projectId],
+  const closeInspectionExam = useCallback(() => {
+    setInspectionExamOpen(false);
+    setInspectionExamSnapshot(null);
+    setExamDisclosure(null);
+    setExamRequiredFacts(null);
+  }, []);
+
+  const trajectoryExamView = useMemo(
+    () =>
+      buildInspectionExamView({
+        disclosure: examDisclosure,
+        requiredInspectedFacts: examRequiredFacts,
+      }),
+    [examDisclosure, examRequiredFacts],
   );
+
+  /**
+   * Pass04 — open exam (READ-ONLY). Loads canonical required facts from W2
+   * continuity. Never records an attestation.
+   */
+  const openInspectionExam = useCallback(async () => {
+    if (continuityMutationBlocked) return;
+    if (!contract) return;
+    setBusy("inspection");
+    setError(null);
+    const continuity = await w2ReadCurrentGovernedExecutionContinuityAction({
+      projectId,
+    });
+    setBusy(null);
+    if (!continuity || typeof continuity !== "object" || !continuity.ok) {
+      setError(
+        "Continuité pré-exécution indisponible — examen refusé.",
+      );
+      return;
+    }
+    if (continuity.kind !== "active") {
+      setError(
+        "Aucun contrat courant inspectable — examen refusé.",
+      );
+      return;
+    }
+    if (
+      continuity.contract.executionContractId !== contract.executionContractId
+    ) {
+      setError(
+        "Identité contractuelle incohérente — examen refusé.",
+      );
+      return;
+    }
+    if (
+      continuity.requiredInspectedFacts == null ||
+      !continuity.contract.inspectionDisclosure
+    ) {
+      setError(
+        "Disclosure d’inspection incomplète — examen impossible.",
+      );
+      return;
+    }
+    const snapshot: InspectionExamSnapshot = {
+      projectId,
+      executionContractId: continuity.contract.executionContractId,
+      version: continuity.contract.version,
+      semanticFingerprint: continuity.contract.semanticFingerprint ?? "",
+    };
+    setExamDisclosure(continuity.contract.inspectionDisclosure);
+    setExamRequiredFacts(continuity.requiredInspectedFacts);
+    setInspectionExamSnapshot(snapshot);
+    setInspectionExamOpen(true);
+    // Align local presentation to durable identity without writing attestation.
+    if (
+      contract.version !== continuity.contract.version ||
+      contract.semanticFingerprint !== continuity.contract.semanticFingerprint
+    ) {
+      setContract({
+        ...contract,
+        version: continuity.contract.version,
+        status: continuity.contract.status,
+        semanticFingerprint: continuity.contract.semanticFingerprint,
+        inspectionDisclosure: toInspectionDisclosureView(
+          continuity.contract.inspectionDisclosure,
+        ),
+      });
+    }
+  }, [continuityMutationBlocked, contract, projectId]);
+
+  /**
+   * Pass04 — explicit attestation of facts currently displayed in the exam.
+   */
+  const attestInspectionExam = useCallback(async () => {
+    if (continuityMutationBlocked) return;
+    if (!contract || !inspectionExamOpen || !inspectionExamSnapshot) {
+      setError(
+        "Les faits contractuels doivent être affichés avant attestation.",
+      );
+      return;
+    }
+    if (trajectoryExamView.disclosureIncomplete) {
+      setError(
+        "Disclosure d’inspection incomplète — attestation refusée.",
+      );
+      return;
+    }
+    if (trajectoryExamView.missingRequired.length > 0) {
+      setError(
+        `Faits obligatoires non restituables (${trajectoryExamView.missingRequired.join(", ")}) — attestation refusée.`,
+      );
+      return;
+    }
+    if (trajectoryExamView.presentedFactIds.length === 0) {
+      setError("Aucun fait contractuel présenté — attestation refusée.");
+      return;
+    }
+    const live: InspectionExamSnapshot = {
+      projectId,
+      executionContractId: contract.executionContractId,
+      version: contract.version,
+      semanticFingerprint: contract.semanticFingerprint ?? "",
+    };
+    if (!sameInspectionExamSnapshot(inspectionExamSnapshot, live)) {
+      closeInspectionExam();
+      setError(
+        "Identité contractuelle modifiée — nouvel examen requis.",
+      );
+      return;
+    }
+    setBusy("inspection");
+    setError(null);
+    const result = await w2InspectExecutionContractAction({
+      projectId,
+      executionContractId: contract.executionContractId,
+      expectedVersion: contract.version,
+      inspectedFacts: [...trajectoryExamView.presentedFactIds],
+    });
+    setBusy(null);
+    if (!result.ok) {
+      setError(result.message);
+      return;
+    }
+    const { ok: _ok, ...state } = result;
+    setInspection(state);
+    setAuthorization(null);
+    if (state.inspectionSufficient) {
+      closeInspectionExam();
+      if (amendmentNotice) {
+        setAmendmentNotice({
+          ...amendmentNotice,
+          statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
+        });
+      }
+    } else {
+      setError(
+        "Inspection insuffisante — faits attestés incomplets pour cette version.",
+      );
+    }
+  }, [
+    continuityMutationBlocked,
+    contract,
+    inspectionExamOpen,
+    inspectionExamSnapshot,
+    trajectoryExamView,
+    projectId,
+    closeInspectionExam,
+    amendmentNotice,
+  ]);
 
   const decide = useCallback(
     async (selectedOptionRef: string) => {
@@ -1116,7 +1274,7 @@ export function TrajectorySurface({
         setAttemptPhase(null);
         setAttemptStatusLabel(null);
         onDurableFactsChanged?.();
-        await inspectPreparedContractId(prepared.executionContractId);
+        closeInspectionExam();
         return;
       }
 
@@ -1196,7 +1354,7 @@ export function TrajectorySurface({
         setAttemptPhase(null);
         setAttemptStatusLabel(null);
         onDurableFactsChanged?.();
-        await inspectPreparedContractId(prepared.executionContractId);
+        closeInspectionExam();
       }
     },
     [
@@ -1204,7 +1362,7 @@ export function TrajectorySurface({
       optionSet,
       projectId,
       onDurableFactsChanged,
-      inspectPreparedContractId,
+      closeInspectionExam,
     ],
   );
 
@@ -1304,14 +1462,14 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-    // FR-04 — auto-inspect after prepare; never auto-execute.
-    await inspectPreparedContractId(prepared.executionContractId);
+    // Pass04 — PREPARE never records inspection; Pilot must examine explicitly.
+    closeInspectionExam();
   }, [
     continuityMutationBlocked,
     decision,
     projectId,
     onDurableFactsChanged,
-    inspectPreparedContractId,
+    closeInspectionExam,
   ]);
 
   /**
@@ -1358,14 +1516,15 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-    await inspectPreparedContractId(prepared.executionContractId);
+    // Pass04 — recovery PREPARE never records inspection.
+    closeInspectionExam();
   }, [
     continuityMutationBlocked,
     recoveryDecisionId,
     projectId,
     showRecoveryDocsWritePrepare,
     onDurableFactsChanged,
-    inspectPreparedContractId,
+    closeInspectionExam,
   ]);
 
   /**
@@ -1419,14 +1578,15 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-    await inspectPreparedContractId(prepared.executionContractId);
+    // Pass04 — proposal PREPARE never records inspection.
+    closeInspectionExam();
   }, [
     continuityMutationBlocked,
     decision,
     decisionDefersExecution,
     projectId,
     onDurableFactsChanged,
-    inspectPreparedContractId,
+    closeInspectionExam,
   ]);
 
   const rematerializeLegacyDocsWriteContract = useCallback(async () => {
@@ -1563,30 +1723,44 @@ export function TrajectorySurface({
     onDurableFactsChanged,
   ]);
 
+  /** Pass04 — Inspecter opens exam only; attestation is a separate CTA. */
   const inspect = useCallback(async () => {
-    if (continuityMutationBlocked) return;
-    if (!contract) return;
-    setBusy("inspection");
-    setError(null);
-    const result = await w2InspectExecutionContractAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-    });
-    setBusy(null);
-    if (!result.ok) {
-      setError(result.message);
+    await openInspectionExam();
+  }, [openInspectionExam]);
+
+  /** Pass04 — invalidate open exam when contract identity/version/fp drifts. */
+  useEffect(() => {
+    if (!inspectionExamOpen || !inspectionExamSnapshot) return;
+    if (!contract) {
+      closeInspectionExam();
+      setError(
+        "Identité contractuelle modifiée — nouvel examen requis.",
+      );
       return;
     }
-    const { ok: _ok, ...state } = result;
-    setInspection(state);
-    setAuthorization(null);
-    if (amendmentNotice && state.inspectionSufficient) {
-      setAmendmentNotice({
-        ...amendmentNotice,
-        statusLabel: "CONTRAT AMENDÉ — RÉINSPECTION DÉJÀ SATISFAITE",
-      });
+    const live: InspectionExamSnapshot = {
+      projectId,
+      executionContractId: contract.executionContractId,
+      version: contract.version,
+      semanticFingerprint: contract.semanticFingerprint ?? "",
+    };
+    if (!sameInspectionExamSnapshot(inspectionExamSnapshot, live)) {
+      closeInspectionExam();
+      setError(
+        "Identité contractuelle modifiée — nouvel examen requis.",
+      );
     }
-  }, [continuityMutationBlocked, contract, projectId, amendmentNotice]);
+  }, [
+    inspectionExamOpen,
+    inspectionExamSnapshot,
+    contract,
+    projectId,
+    closeInspectionExam,
+  ]);
+
+  useEffect(() => {
+    closeInspectionExam();
+  }, [projectId, closeInspectionExam]);
 
   const amendContract = useCallback(async () => {
     if (continuityMutationBlocked) return;
@@ -1873,17 +2047,15 @@ export function TrajectorySurface({
     setBusy("execute");
     setError(null);
 
-    // Bind to the inspection DTO actually obtained — not stale React state after await.
-    let inspectionForBinding = inspection;
+    // Pass04 — Execute never creates an attestation. Refuse and open exam.
+    const inspectionForBinding = inspection;
     if (!inspectionForBinding?.inspectionSufficient) {
-      const inspected = await inspectPreparedContractId(
-        contract.executionContractId,
+      setBusy(null);
+      setError(
+        "Inspection suffisante requise avant exécution — examinez le contrat.",
       );
-      if (!inspected) {
-        setBusy(null);
-        return;
-      }
-      inspectionForBinding = inspected;
+      await openInspectionExam();
+      return;
     }
 
     let status = contract.status;
@@ -1949,7 +2121,7 @@ export function TrajectorySurface({
     contract,
     inspection,
     projectId,
-    inspectPreparedContractId,
+    openInspectionExam,
     onDurableFactsChanged,
     runServerReconcile,
   ]);
@@ -3319,9 +3491,28 @@ export function TrajectorySurface({
               data-testid="w2-inspect-contract"
               onClick={() => void inspect()}
               disabled={busy !== null || governedContinuationBlocked}
+              title="Ouvre le détail inspectable — n’enregistre aucune attestation."
             >
-              Inspecter le contrat
+              {inspectionExamOpen
+                ? "Réexaminer le contrat"
+                : "Inspecter le contrat"}
             </button>
+            {inspectionExamOpen &&
+            inspectionExamSnapshot &&
+            !trajectoryExamView.disclosureIncomplete ? (
+              <ContractInspectionExamPanel
+                testIdPrefix="w2-trajectory"
+                snapshot={inspectionExamSnapshot}
+                rows={trajectoryExamView.rows}
+                missingRequired={trajectoryExamView.missingRequired}
+                presentedFactIds={trajectoryExamView.presentedFactIds}
+                busy={busy === "inspection"}
+                onAttest={() => {
+                  void attestInspectionExam();
+                }}
+                onDismiss={closeInspectionExam}
+              />
+            ) : null}
             {contract.status === "confirmation_required" &&
             !wrongGenericReplaceableByRecoveryPrepare &&
             decisionWorkflowMode === "legacy_cta" ? (
@@ -3368,19 +3559,20 @@ export function TrajectorySurface({
             </button>
           </div>
 
-          {inspection ? (
-            <p
-              className={styles.inspection}
-              data-testid="w2-inspection-state"
-              role="status"
-            >
-              {inspection.statusLabel}
-              {inspection.reinspectionRequired
-                ? " — l'inspection précédente ne suffit plus"
-                : ""}
-              {" · inspecter n'autorise pas"}
-            </p>
-          ) : null}
+          <p
+            className={styles.inspection}
+            data-testid="w2-inspection-state"
+            role="status"
+          >
+            {inspection
+              ? `${inspection.statusLabel}${
+                  inspection.reinspectionRequired
+                    ? " — l'inspection précédente ne suffit plus"
+                    : ""
+                }`
+              : "NON INSPECTÉ"}
+            {" · inspecter n'autorise pas"}
+          </p>
         </section>
       ) : null}
 

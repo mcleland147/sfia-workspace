@@ -70,6 +70,23 @@ function projection(overrides: Record<string, unknown> = {}) {
   };
 }
 
+const DOCS_WRITE_REQUIRED_FACTS = [
+  "action",
+  "target",
+  "scope",
+  "requiredAuthority",
+  "requiredCapabilities",
+  "constraints",
+  "stopConditions",
+  "reversibility",
+  "evidenceRequirements",
+  "semanticFingerprint",
+  "inputs.targetRepositoryRef",
+  "inputs.targetPath",
+  "inputs.createOrModify",
+  "inputs.noDelete",
+] as const;
+
 function activeCurrent(args: {
   status: "confirmation_required" | "confirmed" | "validated";
   inspectionSufficient?: boolean;
@@ -78,6 +95,7 @@ function activeCurrent(args: {
     ok: true as const,
     kind: "active" as const,
     decisionRef: "dec:1",
+    requiredInspectedFacts: [...DOCS_WRITE_REQUIRED_FACTS],
     contract: {
       executionContractId: "xct:cp01",
       version: 1,
@@ -96,7 +114,7 @@ function activeCurrent(args: {
         action: "cursor.docs_write.apply",
         technicalTarget: "workspace.isolated.docs_write",
         scope: "studio.gcec.docs_write",
-        targetRepositoryRef: null,
+        targetRepositoryRef: "acme/demo",
         targetPath: "projects/demo/note.md",
         scopeIn: null,
         scopeOut: null,
@@ -211,6 +229,8 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
       projectId: "prj:cp01",
       executionContractId: "xct:cp01",
     });
+    // R1 — Confirm must not record inspection as a side effect.
+    expect(inspectMock).not.toHaveBeenCalled();
     expect(reconcileMock).not.toHaveBeenCalled();
     expect(authorizeMock).not.toHaveBeenCalled();
     // Canonical reread after confirm (≥ initial load + post-confirm).
@@ -327,7 +347,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     expect(reconcileMock).not.toHaveBeenCalled();
   });
 
-  it("E5 — insufficient inspection disables confirm CTA", async () => {
+  it("E5 — open examination panel without write; attest only after facts shown", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection(),
@@ -346,15 +366,63 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
       />,
     );
     await waitFor(() => {
-      expect(screen.getByTestId("project-execution-confirm")).toBeTruthy();
+      expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
     });
+    expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
+    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
+
+    // I07 — opening detail does not attest.
+    fireEvent.click(screen.getByTestId("project-execution-inspect"));
+    await waitFor(() => {
+      expect(screen.getByTestId("project-execution-inspection-panel")).toBeTruthy();
+    });
+    expect(inspectMock).not.toHaveBeenCalled();
     expect(
-      (screen.getByTestId("project-execution-confirm") as HTMLButtonElement)
-        .disabled,
-    ).toBe(true);
-    expect(screen.getByTestId("project-execution-attention").textContent).toMatch(
-      /Inspection insuffisante/,
+      screen.getByTestId("project-execution-inspection-fact-inputs.targetPath"),
+    ).toBeTruthy();
+
+    fireEvent.click(screen.getByTestId("project-execution-attest"));
+    await waitFor(() => {
+      expect(inspectMock).toHaveBeenCalledTimes(1);
+    });
+    expect(inspectMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        projectId: "prj:cp01",
+        executionContractId: "xct:cp01",
+        expectedVersion: 1,
+        inspectedFacts: expect.arrayContaining([
+          "action",
+          "semanticFingerprint",
+          "inputs.targetPath",
+          "inputs.targetRepositoryRef",
+        ]),
+      }),
     );
+    const facts = (inspectMock.mock.calls[0]![0] as { inspectedFacts: string[] })
+      .inspectedFacts;
+    expect(facts).not.toContain("inputs.sourceGrounding");
+    expect(confirmMock).not.toHaveBeenCalled();
+  });
+
+  it("UI01 — projection EC id without active pre → no Confirm/Execute", async () => {
+    deriveContinuityMock.mockResolvedValue({
+      ok: true,
+      projection: projection(),
+    });
+    readCurrentContinuityMock.mockResolvedValue({ ok: true, kind: "none" });
+
+    render(
+      <ExecutionSurface
+        projectId="prj:cp01"
+        onReturnToConversation={vi.fn()}
+      />,
+    );
+    await waitFor(() => {
+      expect(screen.getByTestId("project-execution-attention")).toBeTruthy();
+    });
+    expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
+    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
+    expect(screen.queryByTestId("project-execution-inspect")).toBeNull();
   });
 
   it("E6 — RUNNING / terminal: no Exécuter", async () => {

@@ -147,11 +147,63 @@ export type DecisionBasisWorkRecommendationContext = {
   optionSetDigest: string;
 };
 
+/**
+ * M-HD-01 — durable sealed Generic Mission presentation for Pilote HD.
+ * Occurrence identity (missionSubjectId) is distinct from presentationDigest.
+ * NEVER a Proposal / trajectory / Work Recommendation disguise.
+ */
+export type DecisionBasisGenericMissionContext = {
+  /** Occurrence id — also DecisionBasis.sourceRef / HumanDecision.subject. */
+  missionSubjectId: string;
+  /** Full SHA-256 hex of sealed material fields (also DecisionBasis.sourceDigest). */
+  presentationDigest: string;
+  /** Presentation seal schema — NOT HumanDecision.schemaVersion. */
+  subjectSchemaVersion: "0.1.0-gms";
+  objective: string;
+  expectedOutcome: string;
+  scopeNarrative: string;
+  scopeIn: string[];
+  scopeOut: string[];
+  materiality: "structural" | "non_structural" | "unknown";
+  materialityReasonCodes: string[];
+  repositoryBindingIdentity: string | null;
+  pathRoot: string | null;
+  requiredCapabilities: string[];
+  /** Product-authoritative expected outputs only — never unresolved Nora paths. */
+  expectedOutputs: string[];
+  reversibilityExpectation: "reversible" | "irreversible" | "unknown" | null;
+  stopConditions: string[];
+  risks: string[];
+  reservations: string[];
+  intentKind: string | null;
+  artifactType: string | null;
+  requestedOperation: string | null;
+  impactSignals: {
+    structuralChange: boolean;
+    securityImpact: boolean;
+    architectureImpact: boolean;
+    dataImpact: boolean;
+    irreversible: boolean;
+  };
+  /** Options presented to the Pilote at record time. */
+  optionRefs: string[];
+  /** Option the Pilote selected — must belong to optionRefs. */
+  selectedOptionRef: string;
+  /** Nora advice only — never authority. */
+  recommendedOptionRef?: string;
+  /**
+   * Optional cycle mirror; must match DecisionBasis.cycleInstanceId when set.
+   * null = project-context (no artificial cycle).
+   */
+  cycleInstanceId: string | null;
+};
+
 export type DecisionBasisSourceType =
   | "proposal"
   | "trajectory_option"
   | "candidate_trajectory"
-  | "work_recommendation";
+  | "work_recommendation"
+  | "generic_mission";
 
 export type DecisionBasis = {
   sourceType: DecisionBasisSourceType;
@@ -160,7 +212,8 @@ export type DecisionBasis = {
    * - proposal id, or
    * - trajectory option-set ref, or
    * - candidate trajectoryId (D-GF-HD-01), or
-   * - Work Recommendation optionSetRef (MD-WR-06).
+   * - Work Recommendation optionSetRef (MD-WR-06), or
+   * - Generic Mission occurrence id (M-HD-01, `gms:`…).
    */
   sourceRef: string;
   /** SHA-256 hex of canonical JSON over stable source fields. */
@@ -174,6 +227,8 @@ export type DecisionBasis = {
   candidateTrajectoryContext?: DecisionBasisCandidateTrajectoryContext;
   /** Present when sourceType is `work_recommendation` (chat-first Work only). */
   workRecommendationContext?: DecisionBasisWorkRecommendationContext;
+  /** Present when sourceType is `generic_mission` (M-HD-01). */
+  genericMissionContext?: DecisionBasisGenericMissionContext;
   executionBasis: {
     objective?: string;
     scope?: string;

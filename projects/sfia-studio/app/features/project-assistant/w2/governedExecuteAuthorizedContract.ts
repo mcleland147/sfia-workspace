@@ -26,6 +26,7 @@ import {
   registerLocalAuthorityForExecutionClass,
 } from "@/lib/oa/decision";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import { materialityFromContractConstraints } from "@/lib/oa/execution-contract";
 import type {
   ExecutionAttempt,
   SelectionProfile,
@@ -39,6 +40,7 @@ import {
 } from "@/lib/oa/execution-attempt";
 import type { CycleProfile } from "@/lib/oa/cycle";
 import { F3_ADAPTER_ID } from "@/features/project-assistant/f3/constants";
+import { readContractInspectionState } from "./inspectExecutionContract";
 import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
 import { completeBoundedReadOnlyLaunch } from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
 import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
@@ -245,6 +247,16 @@ export type GovernedExecuteAuthorizedContractInput = {
   readonly adapterRef?: unknown;
   readonly forceLocalAuthority?: boolean;
   /**
+   * Exact inspected contract version for G-D4 MATERIALITY-stamped Select revalidation.
+   * When omitted on a stamped Generic EC, Select resolves from durable inspection
+   * attestation (fail-closed if absent/stale) — never invents a binding.
+   */
+  readonly expectedVersion?: number;
+  /**
+   * Semantic fingerprint paired with expectedVersion for stamped Select revalidation.
+   */
+  readonly expectedSemanticFingerprint?: string;
+  /**
    * Product Cursor Complete: when true (default), await process terminal like
    * docs_write. When false, running Attempts may surface CURSOR_REPORT_PENDING.
    */
@@ -379,10 +391,22 @@ async function loadContract(
     };
   }
 
+  // Project positive binding — missing/unreadable Project is never an implicit allow.
   const project = await oa.projectServices.getProject.execute({
     projectId: input.projectId,
   });
-  if (project.ok && project.project.status === "archived") {
+  if (!project.ok) {
+    return {
+      ok: false,
+      result: {
+        ok: false,
+        code: "PROJECT_NOT_FOUND",
+        message:
+          "Projet introuvable ou illisible — exécution refusée (fail-closed).",
+      },
+    };
+  }
+  if (project.project.status === "archived") {
     return {
       ok: false,
       result: {
@@ -393,19 +417,11 @@ async function loadContract(
     };
   }
 
-  let selectionProfile: SelectionProfile | null = null;
-  if (!contract.cycleInstanceId) {
-    return {
-      ok: false,
-      result: {
-        ok: false,
-        code: "CYCLE_BINDING_REQUIRED",
-        message:
-          "ExecutionContract sans cycleInstanceId — Execute W3-A refusé (pas de fallback Standard).",
-      },
-    };
-  }
-  {
+  // CycleInstance is optional for Project-scoped generic execution.
+  // When present: preserve lifecycle binding / active-state gates.
+  // When absent: do NOT invent a cycle, cycleTypeId, or methodological profile.
+  let selectionProfile: SelectionProfile;
+  if (contract.cycleInstanceId) {
     const cycle = await oa.cycleServices.getCycle.execute({
       cycleInstanceId: contract.cycleInstanceId,
     });
@@ -443,7 +459,17 @@ async function loadContract(
         },
       };
     }
+    // Historical cycle-bound path: methodological cycle profile informs OA
+    // SelectionProfile for non–Cursor-REAL branches. Cursor REAL Product path
+    // still applies capability-deterministic selection below (not access-by-profile).
     selectionProfile = mapCycleProfileToSelectionProfile(cycle.cycle.profile);
+  } else {
+    // Project-scoped generic path (no CycleInstance on EC).
+    // OA SelectExecutionAgent still requires a SelectionProfile enum value.
+    // This is the technical carrier for capabilities_deterministic on the
+    // Product Cursor Generalist path — NOT a claim that the mission is
+    // methodologically "Standard", and NOT an access gate derived from SFIA profile.
+    selectionProfile = "standard";
   }
 
   return { ok: true, contract, selectionProfile };
@@ -556,6 +582,177 @@ function registerPiloteAuthority(
   });
 }
 
+type StampedSelectInspectionBinding =
+  | {
+      readonly ok: true;
+      readonly expectedVersion: number;
+      readonly expectedSemanticFingerprint: string;
+      /** How the binding was obtained — never an authorization act. */
+      readonly provenance: "caller_explicit" | "durable_attestation";
+    }
+  | { readonly ok: false; readonly code: string; readonly message: string };
+
+const INSPECTION_FINGERPRINT_PATTERN = /^(?:sha256:)?[a-f0-9]{64}$/i;
+
+function isExplicitBindingPresent(value: unknown): boolean {
+  return value !== undefined && value !== null;
+}
+
+function validateExplicitInspectionVersion(
+  value: unknown,
+):
+  | { readonly ok: true; readonly version: number }
+  | { readonly ok: false; readonly code: string; readonly message: string } {
+  if (typeof value !== "number" || !Number.isFinite(value)) {
+    return {
+      ok: false,
+      code: "BINDING_INVALID",
+      message:
+        "Version d'inspection explicite invalide (NaN / non-finie / type hostile) — Select refusé.",
+    };
+  }
+  if (!Number.isInteger(value) || value < 1) {
+    return {
+      ok: false,
+      code: "BINDING_INVALID",
+      message:
+        "Version d'inspection explicite hors domaine — Select refusé.",
+    };
+  }
+  return { ok: true, version: value };
+}
+
+function validateExplicitInspectionFingerprint(
+  value: unknown,
+):
+  | { readonly ok: true; readonly fingerprint: string }
+  | { readonly ok: false; readonly code: string; readonly message: string } {
+  if (typeof value !== "string") {
+    return {
+      ok: false,
+      code: "BINDING_INVALID",
+      message:
+        "Fingerprint d'inspection explicite invalide (type hostile) — Select refusé.",
+    };
+  }
+  const fp = value.trim();
+  if (!fp || !INSPECTION_FINGERPRINT_PATTERN.test(fp)) {
+    return {
+      ok: false,
+      code: "BINDING_INVALID",
+      message:
+        "Fingerprint d'inspection explicite vide, whitespace ou malformé — Select refusé.",
+    };
+  }
+  return { ok: true, fingerprint: fp };
+}
+
+/**
+ * Resolve G-D4 inspection binding for stamped Generic Select.
+ *
+ * I1 — both truly absent → durable attestation if sufficient/current.
+ * I2 — both valid present → keep caller values (never overwrite).
+ * I3/I4 — version XOR fingerprint (valid or not) → BINDING_INCOMPLETE.
+ * I5–I9 — explicit invalid / hostile → BINDING_INVALID (never treated as absent).
+ * I11 — missing/stale attestation when fallback needed → refuse.
+ * I12 — never records inspection / HD / Attempt.
+ */
+async function resolveStampedSelectInspectionBinding(input: {
+  readonly oa: RuntimeOaStack;
+  readonly executionContractId: string;
+  readonly expectedVersion?: number;
+  readonly expectedSemanticFingerprint?: string;
+}): Promise<StampedSelectInspectionBinding> {
+  const versionProvided = isExplicitBindingPresent(input.expectedVersion);
+  const fingerprintProvided = isExplicitBindingPresent(
+    input.expectedSemanticFingerprint,
+  );
+
+  if (versionProvided !== fingerprintProvided) {
+    // Presence XOR — validate the provided side for invalid-vs-incomplete clarity,
+    // but always refuse incomplete pairs (I3/I4) without attestation overwrite.
+    if (versionProvided) {
+      const v = validateExplicitInspectionVersion(input.expectedVersion);
+      if (!v.ok) return v;
+    }
+    if (fingerprintProvided) {
+      const f = validateExplicitInspectionFingerprint(
+        input.expectedSemanticFingerprint,
+      );
+      if (!f.ok) return f;
+    }
+    return {
+      ok: false,
+      code: "BINDING_INCOMPLETE",
+      message: versionProvided
+        ? "Fingerprint d'inspection requis avec la version explicite — binding partiel refusé."
+        : "Version d'inspection requise avec le fingerprint explicite — binding partiel refusé.",
+    };
+  }
+
+  if (versionProvided && fingerprintProvided) {
+    const v = validateExplicitInspectionVersion(input.expectedVersion);
+    if (!v.ok) return v;
+    const f = validateExplicitInspectionFingerprint(
+      input.expectedSemanticFingerprint,
+    );
+    if (!f.ok) return f;
+    // I2 — preserve explicit valid pair. Do not replace from attestation.
+    return {
+      ok: true,
+      expectedVersion: v.version,
+      expectedSemanticFingerprint: f.fingerprint,
+      provenance: "caller_explicit",
+    };
+  }
+
+  // I1 — both truly absent: server-owned durable attestation only.
+  const inspection = await readContractInspectionState({
+    oa: input.oa,
+    executionContractId: input.executionContractId,
+  });
+  if (!inspection.ok) {
+    return {
+      ok: false,
+      code: inspection.code,
+      message: inspection.message,
+    };
+  }
+  if (inspection.reinspectionRequired) {
+    return {
+      ok: false,
+      code: "INSPECTION_STALE",
+      message:
+        "Attestation d'inspection obsolète ou réinspection requise — Select refusé.",
+    };
+  }
+  if (!inspection.inspectionSufficient || inspection.attestedVersion == null) {
+    return {
+      ok: false,
+      code: "INSPECTION_REQUIRED",
+      message:
+        "Inspection Pilote suffisante requise avant Select (contrat matérialité stampé).",
+    };
+  }
+  const attestedFp =
+    inspection.attestedSemanticFingerprint?.trim() ||
+    inspection.semanticFingerprint?.trim();
+  if (!attestedFp) {
+    return {
+      ok: false,
+      code: "EXPECTED_FINGERPRINT_REQUIRED",
+      message:
+        "Empreinte sémantique d'inspection absente — Select refusé (fail-closed).",
+    };
+  }
+  return {
+    ok: true,
+    expectedVersion: inspection.attestedVersion,
+    expectedSemanticFingerprint: attestedFp,
+    provenance: "durable_attestation",
+  };
+}
+
 /** Phase 1 — SelectExecutionAgent → accepted (fresh AUTHORIZED required). */
 export async function governedExecuteSelectAgent(
   input: GovernedExecuteAuthorizedContractInput,
@@ -596,11 +793,39 @@ export async function governedExecuteSelectAgent(
     });
   }
 
+  // G-D4 — stamped Generic materiality contracts require version/fingerprint
+  // binding at Select revalidation. Explicit values are NEVER overwritten by
+  // attestation fallback. Partial binding (version XOR fingerprint) fails closed.
+  const stampedMateriality = materialityFromContractConstraints(
+    contract.constraints,
+  );
+  let expectedVersion = input.expectedVersion;
+  let expectedSemanticFingerprint = input.expectedSemanticFingerprint;
+  if (stampedMateriality != null) {
+    const binding = await resolveStampedSelectInspectionBinding({
+      oa: input.oa,
+      executionContractId: contract.executionContractId,
+      expectedVersion: input.expectedVersion,
+      expectedSemanticFingerprint: input.expectedSemanticFingerprint,
+    });
+    if (!binding.ok) {
+      return {
+        ok: false,
+        code: binding.code,
+        message: binding.message,
+      };
+    }
+    expectedVersion = binding.expectedVersion;
+    expectedSemanticFingerprint = binding.expectedSemanticFingerprint;
+  }
+
   const authorized = await evaluateExecutionAuthorization({
     oa: input.oa,
     projectId: input.projectId,
     executionContractId: input.executionContractId,
     forceLocalAuthority: input.forceLocalAuthority,
+    expectedVersion,
+    expectedSemanticFingerprint,
   });
   if (!authorized.ok) {
     return {
@@ -644,9 +869,13 @@ export async function governedExecuteSelectAgent(
     return { ok: false, code: authority.code, message: authority.message };
   }
 
-  // Cursor REAL paths (canonical Product + sealed docs-write): mechanical
-  // capabilities_deterministic selection — no Pilot agent-selection HOW.
+  // Project-scoped Cursor tool access (canonical Product + sealed docs-write):
+  // select by AgentCapability / effects via capabilities_deterministic.
+  // Methodological cycle profile (Light/Standard/Critical/Capitalization) is NOT
+  // an access condition for Cursor. Authority remains: AUTHORIZED evaluation,
+  // HumanDecision / Confirmation / scope / ActionPolicy upstream of Select.
   // Sealed docs-write still requests its specialized agent; Product uses generalist.
+  // Non–Cursor-REAL branches keep historical Critical → agent_selection Confirmation.
   let effectiveProfile: SelectionProfile = selectionProfile;
   let selectionStrategy: SelectionStrategy;
   if (cursorReal) {

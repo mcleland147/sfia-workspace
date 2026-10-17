@@ -443,5 +443,56 @@ export function assessProjectWorkspaceCollision(input: {
   return "ambiguous_collision";
 }
 
+/**
+ * Non-authoritative Markdown leaf cue from mission wording (D-PC-09).
+ * Used when Nora did not supply a safe leaf / in-bounds path.
+ * Not a task catalog — ambiguous wording returns null (clarification).
+ *
+ * Framing note convention (cyc:framing + note|document|livrable + cadrage):
+ * `note-de-cadrage.md` under the cycle workspace segment.
+ */
+export function resolveNonAuthoritativeDocumentaryArtifactLeafCandidate(input: {
+  readonly textFields: readonly (string | null | undefined)[];
+  readonly cycleTypeId?: string | null;
+}): string | null {
+  const hay = input.textFields
+    .filter((s): s is string => typeof s === "string" && s.trim().length > 0)
+    .join("\n")
+    .normalize("NFC")
+    .toLowerCase()
+    .replace(/[àáâäã]/g, "a")
+    .replace(/[èéêë]/g, "e")
+    .replace(/[ìíîï]/g, "i")
+    .replace(/[òóôöõ]/g, "o")
+    .replace(/[ùúûü]/g, "u")
+    .replace(/ç/g, "c");
+  if (!hay.trim()) return null;
+
+  const framingCycle = input.cycleTypeId?.trim() === "cyc:framing";
+  if (
+    (framingCycle || /\bcadrage\b/.test(hay)) &&
+    /\b(note|document|livrable)\b/.test(hay) &&
+    /\bcadrage\b/.test(hay)
+  ) {
+    return "note-de-cadrage.md";
+  }
+  if (
+    /\bspecification\b/.test(hay) &&
+    /\bfonctionnelle\b/.test(hay)
+  ) {
+    return "specification-fonctionnelle.md";
+  }
+  if (/\bcahier\b/.test(hay) && /\bcharges\b/.test(hay)) {
+    return "cahier-des-charges.md";
+  }
+  if (/\bspecification\b/.test(hay)) {
+    return "specification.md";
+  }
+  if (/\blivrable\b/.test(hay) && /\breference\b/.test(hay)) {
+    return "livrable-de-reference.md";
+  }
+  return null;
+}
+
 /** Re-export normalize for callers that must share identical path rules. */
 export { normalizeRepoRelativePath as normalizeArtifactRepoRelativePath };

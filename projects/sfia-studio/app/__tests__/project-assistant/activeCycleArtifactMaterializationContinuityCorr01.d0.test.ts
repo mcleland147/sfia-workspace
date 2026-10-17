@@ -321,7 +321,7 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     ).toBe(false);
   });
 
-  it("unit — natural signal without docs_write effect → BLOCKED not NEW_CYCLE", async () => {
+  it("unit — natural signal without docs_write effect → NEW_CYCLE_FORMALIZATION no_compatible_artifact_effect (D-ER-17: not a dead-end; Generic PREPARE eligible)", async () => {
     const { projectId, cycleInstanceId } =
       await seedActiveCycleWithRequireArtifact("blk");
     const overview = await runtime.getProject(projectId);
@@ -361,10 +361,11 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
       analysis,
       oa: runtime.oa!,
     });
-    expect(resolved.mode).toBe("ACTIVE_CYCLE_CONTINUATION_BLOCKED");
-    if (resolved.mode === "ACTIVE_CYCLE_CONTINUATION_BLOCKED") {
-      expect(resolved.reason).toBe("incompatible_execution_intent");
+    expect(resolved.mode).toBe("NEW_CYCLE_FORMALIZATION");
+    if (resolved.mode === "NEW_CYCLE_FORMALIZATION") {
+      expect(resolved.reason).toBe("no_compatible_artifact_effect");
     }
+    // Resolution alone never creates a cycle.
     expect(await countCycles(projectId)).toBe(1);
   });
 

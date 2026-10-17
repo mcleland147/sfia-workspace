@@ -534,7 +534,9 @@ export type ActiveCycleContinuationResolution =
     }
   | {
       readonly mode: "NEW_CYCLE_FORMALIZATION";
-      readonly reason: "no_materialization_intent";
+      readonly reason:
+        | "no_materialization_intent"
+        | "no_compatible_artifact_effect";
     };
 
 /**
@@ -580,9 +582,20 @@ export async function resolveActiveCycleGovernedContinuation(input: {
     return { mode: "NEW_CYCLE_FORMALIZATION", reason: "no_materialization_intent" };
   }
 
-  // Kind/signal present but effect incompatible → BLOCK (never createCycle).
+  // D-ER-16…19 — NATURAL documentary signal WITHOUT a docs_write-compatible
+  // effect is NOT a dead-end: it is not Artifact continuation, so it yields to
+  // NEW_CYCLE_FORMALIZATION where orchestration may route to Generic PREPARE
+  // (no task-taxonomy admission). An EXPLICIT continuationKind with an
+  // incompatible effect (hostile/contradictory Artifact declaration) stays
+  // BLOCKED incompatible_execution_intent — never silent createCycle.
   if (!hasCompatibleDocsWriteMaterializationEffect(input.analysis)) {
-    return blocked("incompatible_execution_intent");
+    if (hasExplicitArtifactContinuationKind(input.analysis)) {
+      return blocked("incompatible_execution_intent");
+    }
+    return {
+      mode: "NEW_CYCLE_FORMALIZATION",
+      reason: "no_compatible_artifact_effect",
+    };
   }
 
   const activeId = input.project.activeCycleInstanceId ?? null;
