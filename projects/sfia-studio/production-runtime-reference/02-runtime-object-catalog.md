@@ -93,10 +93,22 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 - **Paths:** `lib/oa/decision/**`, `f2/recordDecision.ts`, obligation policy HDs in `pilotLifecycleActions.ts`
 - **Examples:** Proposal accept; `OBLIGATION_POLICY_REQUIRE_ARTIFACT`.
 
+## OBJ-GENERIC-MISSION-HD — Generic Mission HumanDecision (M-HD-01/02)
+
+- **Status:** AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION (not INTEGRATED_ON_MAIN until Product git merge).
+- **Purpose:** Structural / HD-required Generic missions bind a durable OA HumanDecision to a sealed mission presentation before Generic PREPARE may resume.
+- **Durable truth:** `oa_human_decisions` with `decisionBasis.genericMissionContext`, `missionSubjectId`, `presentationDigest`.
+- **Process-local carrier:** CURRENT pending Generic PREPARE offer (M-HD-02 remember) enables Pilot Accept/Refuse/Amend seal — **≠** non-structural chat-first PREPARE admission; offer alone ≠ Authorization.
+- **PREPARE gate:** `verifyGenericMissionHumanDecisionForPrepare` — applicability + digest match; historical HD without binding does not unlock.
+- **Non-structural path:** Option 1 / G-D4 may PREPARE with `decisionRefs=[]` when Materiality CURRENT admits — empty refs ≠ structural bypass.
+- **UI:** `useProductConversation` + `GovernedGenericMissionDecisionCard` / `genericMissionPresentation` (read continuity; restart without offer → none/stale fail-closed).
+- **Paths:** `recordGenericMissionHumanDecision.ts`, `genericMissionDecisionContinuity.ts`, `verifyGenericMissionHumanDecisionForPrepare.ts`, `genericMissionSubject.ts`
+- **Invariant:** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation.
+
 ## OBJ-DECISION-BASIS — DecisionBasis
 
 - **Purpose:** Sealed WHAT/scope feeding ExecutionContract preparation.
-- **Paths:** execution-contract domain / F2 accept path.
+- **Paths:** execution-contract domain / F2 accept path; Generic Mission seal uses `genericMissionContext` inside DecisionBasis when HD-bound.
 - **Invariant:** EC cannot expand DecisionBasis WHAT.
 
 ## OBJ-CONFIRMATION — Confirmation

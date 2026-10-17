@@ -38,6 +38,39 @@ LifecycleSurface / lifecyclePresentation
   → does not alone authorize materialization
 ```
 
+## Dual Generic PREPARE admission paths (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
+
+```
+Nora tool (F04) / F2 analysis / F05 adjacent hand-off
+  → assessGenericMissionPrepareReadiness + resolveAuthoritativeProductMateriality
+      ├─ STRUCTURAL / HD-required
+      │    → remember CURRENT offer (process-local)
+      │    → Pilot disposition on sealed presentation (UI)
+      │         ├─ ACCEPT
+      │         │    → OA HumanDecision status=accepted (durable genericMissionContext)
+      │         │    → verifyGenericMissionHumanDecisionForPrepare
+      │         │         (basis / identity / mission / digest / CURRENT / non-superseded)
+      │         │    → solicitGenericExecutionPrepare (decisionRefs verified)
+      │         │    → F09 inspect → Confirm → Authorize → F10 Execute
+      │         │         (PREPARE ≠ Inspect ≠ Confirm ≠ Authorize ≠ Execute)
+      │         ├─ REFUSE
+      │         │    → OA HumanDecision refused (recordable)
+      │         │    → PREPARE forbidden (HD_REFUSED)
+      │         │    → no Authorization / no Attempt
+      │         └─ AMEND
+      │              → HD_AMEND_REQUIRES_NEW_PRESENTATION
+      │              → re-present / re-seal required
+      │              → PREPARE forbidden until new accepted applicable HD
+      └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4)
+           → solicitGenericExecutionPrepare (decisionRefs=[])
+           → F09 inspect → Confirm → Authorize → F10 Execute
+      UNKNOWN materiality / structural without accepted+verified HD → FAIL-CLOSED
+```
+
+OA = authority of record. W2 = Product coordination. Nora = cognition/recommendation only. Cursor = controlled execution under Authorization.
+
+**Structural PREPARE gate (S1):** only an **accepted**, mission-bound, applicable, verified, non-superseded HumanDecision opens Chemin A PREPARE. Refuse and Amend are **not** admissible prepare paths. Accept alone is not Execute authority.
+
 ## DEP edges (stable IDs)
 
 | ID | From | To | Why |
@@ -52,6 +85,9 @@ LifecycleSurface / lifecyclePresentation
 | DEP-MW5-TURN | OBJ-MW5-CHALLENGE | OBJ-TURN-ORCH | challenge gate on turn |
 | DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-INTENT | deterministic structured analysis |
 | DEP-SESSION-TURN | OBJ-MEMORY-B | OBJ-TURN-ORCH | transcript continuity |
+| DEP-NORA-GENPREP | OBJ-TURN-ORCH | OBJ-EC | Nora solicits Generic PREPARE only (D-ER-16); never Attempt |
+| DEP-GMHD-EC | OBJ-GENERIC-MISSION-HD | OBJ-EC | verified mission-bound HD before structural PREPARE |
+| DEP-MAT-GENPREP | OBJ-ARTIFACT-CONTINUATION / materiality | OBJ-EC | Materiality CURRENT gates empty vs HD-bound refs |
 
 ## Sample impact analysis A — `activeCycleGovernedContinuation.ts`
 
