@@ -71,7 +71,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
   }),
   projectAssistantConfirmReservationResolutionAction: vi.fn(),
   projectAssistantDeferReservationAction: vi.fn(),
-  projectAssistantPilotLifecycleProjection: vi.fn(),
+  projectAssistantPilotLifecycleProjection: vi.fn().mockResolvedValue({
+    ok: true,
+    projection: null,
+  }),
   projectAssistantPilotLifecycleAction: vi.fn(),
   projectAssistantRecordObligationPolicyAction: vi.fn(),
   projectAssistantCompleteTrajectoryStepAction: vi.fn(),

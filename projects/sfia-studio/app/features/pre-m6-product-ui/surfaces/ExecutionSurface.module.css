@@ -270,6 +270,38 @@
   line-height: 1.45;
 }
 
+.inspectionList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inspectionItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 0;
+  border-top: 1px solid var(--pm6-border);
+}
+
+.inspectionLabel {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pm6-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.inspectionValue {
+  font-size: 0.8125rem;
+  color: var(--pm6-ink);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
 @media (max-width: 767px) {
   .root {
     gap: 12px;

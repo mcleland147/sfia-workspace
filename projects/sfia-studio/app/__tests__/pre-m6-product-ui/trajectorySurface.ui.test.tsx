@@ -1218,7 +1218,7 @@ describe("W2 TrajectorySurface", () => {
     expect(screen.getByTestId("w2-decided-trajectory")).toBeInTheDocument();
   });
 
-  it("RC-06 — structural GOVERNED auto-PREPARE + inspect; no auto-Execute; no nominal PREPARE", async () => {
+  it("RC-06 — structural GOVERNED auto-PREPARE without auto-inspect; no auto-Execute; no nominal PREPARE", async () => {
     proposeMock.mockResolvedValue({
       ok: true,
       optionSetRef: "optset:rc06",
@@ -1337,7 +1337,11 @@ describe("W2 TrajectorySurface", () => {
       });
     });
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
-    expect(inspectMock).toHaveBeenCalled();
+    // Pass04 — PREPARE never auto-inspects.
+    expect(inspectMock).not.toHaveBeenCalled();
+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
+      /NON INSPECTÉ/i,
+    );
     expect(screen.getByTestId("w2-decision-prepared-step")).toBeVisible();
     expect(screen.queryByTestId("w3a-prepare-execution-from-decision")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
@@ -1844,6 +1848,94 @@ describe("W2 TrajectorySurface", () => {
     // E3 — Confirmation affordance requires sufficient inspection, not mere presence.
     expect(screen.getByTestId("w2-confirm-contract")).toBeDisabled();
 
+    const preparedDisclosure = {
+      action: "product:generate-temporary-artifact",
+      technicalTarget: "product:project-workspace",
+      scope: "product:temporary-local-artifact",
+      targetRepositoryRef: null,
+      targetPath: null,
+      scopeIn: null,
+      scopeOut: null,
+      createOrModify: null,
+      noDelete: null,
+      objective: null,
+      artifactType: null,
+      artifactBrief: null,
+      contentRequirements: null,
+      validationExpectations: null,
+      expectedOutputs: null,
+      sourceGrounding: null,
+      acceptanceCriteria: null,
+      validationPlan: null,
+      reportRequirements: null,
+      evidenceRequirements: [] as string[],
+      requiredAuthority: "N1",
+      requiredCapabilities: ["cap:product-temp-artifact"],
+      constraints: [
+        "PRODUCT_GOVERNED",
+        "EFFECT_CLASS:generate-temporary-artifact",
+        "EFFECT_CONFIRMATION_REQUIRED:N1",
+      ],
+      stopConditions: ["EFFECTS_UNRESOLVED"],
+      reversibility: "reversible",
+      contractVersion: 1,
+      executionContractId: "xct:w2-ui",
+      semanticFingerprint: "abc123def456",
+      disclosureComplete: true,
+      incompletenessCode: null,
+    };
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: "dec:w2-ui",
+      contract: {
+        executionContractId: "xct:w2-ui",
+        version: 1,
+        status: "confirmation_required",
+        action: "product:generate-temporary-artifact",
+        target: "product:project-workspace",
+        scope: "product:temporary-local-artifact",
+        requiredAuthority: "N1",
+        constraints: [
+          "PRODUCT_GOVERNED",
+          "EFFECT_CLASS:generate-temporary-artifact",
+          "EFFECT_CONFIRMATION_REQUIRED:N1",
+        ],
+        stopConditions: ["EFFECTS_UNRESOLVED"],
+        requiredCapabilities: ["cap:product-temp-artifact"],
+        reversibility: "reversible",
+        semanticFingerprint: "abc123def456",
+        effectConfirmationRequired: true,
+        effectConfirmationLevel: "N1",
+        inspectionDisclosure: preparedDisclosure,
+      },
+      inspection: {
+        executionContractId: "xct:w2-ui",
+        contractVersion: 1,
+        semanticFingerprint: "abc123def456",
+        statusLabel: "NON INSPECTÉ",
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: null,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: "no_attestation",
+        grantsAuthority: false,
+      },
+      requiredInspectedFacts: [
+        "action",
+        "target",
+        "scope",
+        "requiredAuthority",
+        "requiredCapabilities",
+        "constraints",
+        "stopConditions",
+        "reversibility",
+        "evidenceRequirements",
+        "semanticFingerprint",
+      ],
+    });
+
     inspectMock.mockResolvedValue({
       ok: true,
       executionContractId: "xct:w2-ui",
@@ -1858,7 +1950,13 @@ describe("W2 TrajectorySurface", () => {
       reason: "inspected",
       grantsAuthority: false,
     });
+    // Pass04 — open exam (no write) then explicit attest.
     fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+    expect(
+      await screen.findByTestId("w2-trajectory-inspection-panel"),
+    ).toBeVisible();
+    expect(inspectMock).not.toHaveBeenCalled();
+    fireEvent.click(screen.getByTestId("w2-trajectory-attest"));
     expect(await screen.findByTestId("w2-inspection-state")).toHaveTextContent(
       "INSPECTÉ",
     );
@@ -2003,7 +2101,89 @@ describe("W2 TrajectorySurface", () => {
       reason: "inspected",
       grantsAuthority: false,
     });
+    readGovernedExecutionContinuityMock.mockResolvedValue({
+      ok: true,
+      kind: "active",
+      decisionRef: "dec:w2-ui",
+      contract: {
+        executionContractId: "xct:w2-ui:amd:deadbeef",
+        version: 1,
+        status: "confirmation_required",
+        action: "w2:inspect-only",
+        target: "studio",
+        scope: "w2-ui",
+        requiredAuthority: "MORRIS",
+        constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
+        stopConditions: ["STOP AVANT EXECUTE"],
+        requiredCapabilities: ["cap:f3-fixture-docs"],
+        reversibility: "reversible",
+        semanticFingerprint: "fff111aaa222",
+        effectConfirmationRequired: true,
+        effectConfirmationLevel: "N1",
+        inspectionDisclosure: {
+          action: "w2:inspect-only",
+          technicalTarget: "studio",
+          scope: "w2-ui",
+          targetRepositoryRef: null,
+          targetPath: null,
+          scopeIn: null,
+          scopeOut: null,
+          createOrModify: null,
+          noDelete: null,
+          objective: null,
+          artifactType: null,
+          artifactBrief: null,
+          contentRequirements: null,
+          validationExpectations: null,
+          expectedOutputs: null,
+          sourceGrounding: null,
+          acceptanceCriteria: null,
+          validationPlan: null,
+          reportRequirements: null,
+          evidenceRequirements: [] as string[],
+          requiredAuthority: "MORRIS",
+          requiredCapabilities: ["cap:f3-fixture-docs"],
+          constraints: ["AUCUNE EXÉCUTION", "BORNER LE SLICE"],
+          stopConditions: ["STOP AVANT EXECUTE"],
+          reversibility: "reversible",
+          contractVersion: 1,
+          executionContractId: "xct:w2-ui:amd:deadbeef",
+          semanticFingerprint: "fff111aaa222",
+          disclosureComplete: true,
+          incompletenessCode: null,
+        },
+      },
+      inspection: {
+        executionContractId: "xct:w2-ui:amd:deadbeef",
+        contractVersion: 1,
+        semanticFingerprint: "fff111aaa222",
+        statusLabel: "NON INSPECTÉ",
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: null,
+        staleAttestationRef: null,
+        reinspectionRequired: false,
+        reason: "no_attestation",
+        grantsAuthority: false,
+      },
+      requiredInspectedFacts: [
+        "action",
+        "target",
+        "scope",
+        "requiredAuthority",
+        "requiredCapabilities",
+        "constraints",
+        "stopConditions",
+        "reversibility",
+        "evidenceRequirements",
+        "semanticFingerprint",
+      ],
+    });
     fireEvent.click(screen.getByTestId("w2-inspect-contract"));
+    expect(
+      await screen.findByTestId("w2-trajectory-inspection-panel"),
+    ).toBeVisible();
+    fireEvent.click(screen.getByTestId("w2-trajectory-attest"));
     expect(await screen.findByTestId("w2-amendment-form")).toBeVisible();
     fireEvent.change(screen.getByTestId("w2-amend-constraint"), {
       target: { value: "BORNER LE SLICE" },
@@ -2758,7 +2938,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     );
   }
 
-  it("RC-01 — pursue auto-PREPARE + auto-inspect; no nominal PREPARE click", async () => {
+  it("RC-01 — pursue auto-PREPARE without auto-inspect; no nominal PREPARE click", async () => {
     await decidePursue("prj:sealed", "prop:f2:sealed");
 
     expect(decideMock).toHaveBeenCalled();
@@ -2778,7 +2958,11 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract-sandbox")).toBeNull();
     expect(prepareM3Mock).toHaveBeenCalledTimes(1);
-    expect(inspectMock).toHaveBeenCalled();
+    // Pass04 — PREPARE never records inspection.
+    expect(inspectMock).not.toHaveBeenCalled();
+    expect(screen.getByTestId("w2-inspection-state")).toHaveTextContent(
+      /NON INSPECTÉ/i,
+    );
     // Never auto-execute
     expect(screen.queryByTestId("w3a-attempt")).toBeNull();
   });
@@ -2835,12 +3019,13 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       "xct:sealed-docs-write",
     );
 
-    // RC-01 — auto-inspect already done; PREPARE not offered again.
+    // Pass04 — PREPARE done; inspection remains explicit; PREPARE not offered again.
     expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
     expect(await screen.findByTestId("w2-inspection-state")).toHaveTextContent(
-      "INSPECTÉ",
+      /NON INSPECTÉ/i,
     );
+    expect(inspectMock).not.toHaveBeenCalled();
   });
 
   it("refuse on a sealed subject exposes no PREPARE path at all", async () => {

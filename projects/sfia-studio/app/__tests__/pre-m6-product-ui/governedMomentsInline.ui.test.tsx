@@ -82,7 +82,8 @@ function baseController(
     governedMomentError: null,
     decideGovernedDirection: vi.fn(),
     revealGovernedDecisionAlternate: vi.fn(),
-    inspectGovernedContract: vi.fn(),
+    projectId: "proj:gov-moment",
+    attestGovernedInspection: vi.fn(),
     confirmGovernedContract: vi.fn(),
     refreshGovernedMoments: vi.fn(),
     reservesText: "",
@@ -237,6 +238,7 @@ describe("GovernedConfirmationCard presentation", () => {
     const onConfirm = vi.fn();
     render(
       <GovernedConfirmationCard
+        projectId="proj:gov-moment"
         contract={contract}
         inspection={{
           executionContractId: "xct:1",
@@ -251,10 +253,11 @@ describe("GovernedConfirmationCard presentation", () => {
           reason: "inspected",
           grantsAuthority: false,
         }}
+        requiredInspectedFacts={["action", "target"]}
         busy={false}
         error={null}
         onConfirm={onConfirm}
-        onInspect={vi.fn()}
+        onAttestInspection={vi.fn()}
       />,
     );
     expect(screen.getByTestId("governed-confirmation-scope")).toBeTruthy();
@@ -269,6 +272,7 @@ describe("GovernedConfirmationCard presentation", () => {
   it("does not render when confirmation is not required", () => {
     const { container } = render(
       <GovernedConfirmationCard
+        projectId="proj:gov-moment"
         contract={{ ...contract, status: "authorized", effectConfirmationRequired: false }}
         inspection={{
           executionContractId: "xct:1",
@@ -283,19 +287,21 @@ describe("GovernedConfirmationCard presentation", () => {
           reason: "inspected",
           grantsAuthority: false,
         }}
+        requiredInspectedFacts={["action", "target"]}
         busy={false}
         error={null}
         onConfirm={vi.fn()}
-        onInspect={vi.fn()}
+        onAttestInspection={vi.fn()}
       />,
     );
     expect(container.querySelector("[data-testid='governed-confirmation-card']")).toBeNull();
   });
 
-  it("requires inspect before confirm when inspection insufficient", () => {
-    const onInspect = vi.fn();
+  it("requires exam before confirm when inspection insufficient — open does not attest", () => {
+    const onAttest = vi.fn();
     render(
       <GovernedConfirmationCard
+        projectId="proj:gov-moment"
         contract={contract}
         inspection={{
           executionContractId: "xct:1",
@@ -310,16 +316,34 @@ describe("GovernedConfirmationCard presentation", () => {
           reason: "no_attestation",
           grantsAuthority: false,
         }}
+        requiredInspectedFacts={[
+          "action",
+          "target",
+          "scope",
+          "requiredAuthority",
+          "requiredCapabilities",
+          "constraints",
+          "stopConditions",
+          "reversibility",
+          "evidenceRequirements",
+          "semanticFingerprint",
+        ]}
         busy={false}
         error={null}
         onConfirm={vi.fn()}
-        onInspect={onInspect}
+        onAttestInspection={onAttest}
       />,
     );
     expect(screen.getByTestId("governed-confirmation-inspect-needed")).toBeTruthy();
     expect(screen.queryByTestId("governed-confirmation-confirm")).toBeNull();
     fireEvent.click(screen.getByTestId("governed-confirmation-inspect"));
-    expect(onInspect).toHaveBeenCalledTimes(1);
+    expect(onAttest).not.toHaveBeenCalled();
+    expect(screen.getByTestId("governed-confirmation-inspection-panel")).toBeTruthy();
+    fireEvent.click(screen.getByTestId("governed-confirmation-attest"));
+    expect(onAttest).toHaveBeenCalledTimes(1);
+    expect(onAttest.mock.calls[0][0]).toEqual(
+      expect.arrayContaining(["action", "target", "semanticFingerprint"]),
+    );
   });
 });
 
@@ -404,6 +428,18 @@ describe("ConversationSurface inline governed moments", () => {
               reason: "inspected",
               grantsAuthority: false,
             },
+            requiredInspectedFacts: [
+              "action",
+              "target",
+              "scope",
+              "requiredAuthority",
+              "requiredCapabilities",
+              "constraints",
+              "stopConditions",
+              "reversibility",
+              "evidenceRequirements",
+              "semanticFingerprint",
+            ],
           },
           confirmGovernedContract,
         })}

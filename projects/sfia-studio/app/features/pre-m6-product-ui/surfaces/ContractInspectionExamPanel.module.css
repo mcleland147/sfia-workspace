@@ -1,0 +1,119 @@
+/* Pass04 — shared inspection exam panel (presentation only). */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--pm6-ink);
+}
+
+.note {
+  margin: 0;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  color: var(--pm6-muted);
+}
+
+.identity {
+  margin: 0;
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--pm6-muted-faint, var(--pm6-muted));
+  word-break: break-all;
+}
+
+.missing {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--pm6-danger, #a33);
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 0;
+  border-top: 1px solid var(--pm6-border, #e6ded5);
+}
+
+.label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pm6-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.value {
+  font-size: 0.8125rem;
+  color: var(--pm6-ink);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.primary,
+.secondary {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.primary {
+  border: 0;
+  background: #1f1a16;
+  color: #fffdf9;
+}
+
+.primary:hover:not(:disabled) {
+  background: #2a241f;
+}
+
+.secondary {
+  border: 1px solid #d8cec4;
+  background: transparent;
+  color: var(--pm6-ink);
+}
+
+.primary:disabled,
+.secondary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: none;
+  box-shadow: var(--pm6-focus-ring, 0 0 0 2px #1f1a16);
+}

@@ -129,6 +129,32 @@ const CONTRACT_ID = "xct:gen-prep:ui01";
 const ATTESTED_FP = "fp:attested-ui-01";
 const CURRENT_FP = "fp:current-ui-01";
 
+/** Canonical required facts presentable from baseContract disclosure. */
+const REQUIRED_INSPECTED_FACTS = [
+  "action",
+  "target",
+  "scope",
+  "requiredAuthority",
+  "requiredCapabilities",
+  "constraints",
+  "stopConditions",
+  "reversibility",
+  "evidenceRequirements",
+  "semanticFingerprint",
+  "inputs.targetRepositoryRef",
+  "inputs.targetPath",
+] as const;
+
+async function openExamAndAttest() {
+  fireEvent.click(await screen.findByTestId("w2-inspect-contract"));
+  expect(
+    await screen.findByTestId("w2-trajectory-inspection-panel"),
+  ).toBeVisible();
+  expect(inspectMock).not.toHaveBeenCalled();
+  fireEvent.click(screen.getByTestId("w2-trajectory-attest"));
+  await waitFor(() => expect(inspectMock).toHaveBeenCalled());
+}
+
 function baseContract(overrides: Record<string, unknown> = {}) {
   return {
     executionContractId: CONTRACT_ID,
@@ -248,6 +274,7 @@ describe("P6 Closure Regularization — TrajectorySurface consent UI", () => {
         attestedSemanticFingerprint: null,
         reason: "no_attestation",
       }),
+      requiredInspectedFacts: [...REQUIRED_INSPECTED_FACTS],
     });
 
     inspectMock.mockResolvedValue({
@@ -299,11 +326,11 @@ describe("P6 Closure Regularization — TrajectorySurface consent UI", () => {
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
     expect(screen.getByTestId("w2-inspect-contract")).toBeEnabled();
 
-    fireEvent.click(screen.getByTestId("w2-inspect-contract"));
-    await waitFor(() => expect(inspectMock).toHaveBeenCalledTimes(1));
+    await openExamAndAttest();
     expect(inspectMock.mock.calls[0]![0]).toMatchObject({
       projectId: "prj:p6-ui",
       executionContractId: CONTRACT_ID,
+      inspectedFacts: expect.arrayContaining(["action", "semanticFingerprint"]),
     });
 
     expect(await screen.findByTestId("w2-pilot-execute")).toBeVisible();
@@ -375,7 +402,7 @@ describe("P6 Closure Regularization — TrajectorySurface consent UI", () => {
     expect(reconcileMock).not.toHaveBeenCalled();
   });
 
-  it("U17 — Exécuter without prior sufficient inspection calls inspect then binds returned attestation", async () => {
+  it("U17 — Exécuter never auto-inspects; open+attest then Exécuter binds returned attestation", async () => {
     readGovernedExecutionContinuityMock.mockResolvedValue({
       ok: true,
       kind: "active",
@@ -389,6 +416,7 @@ describe("P6 Closure Regularization — TrajectorySurface consent UI", () => {
         attestedSemanticFingerprint: null,
         reason: "no_attestation",
       }),
+      requiredInspectedFacts: [...REQUIRED_INSPECTED_FACTS],
     });
 
     inspectMock.mockResolvedValue({
@@ -442,10 +470,13 @@ describe("P6 Closure Regularization — TrajectorySurface consent UI", () => {
       />,
     );
 
-    // Without sufficient inspection, Pilot Exécuter zone is hidden — use authorize
-    // after explicit inspect, OR click inspect first then Exécuter.
-    fireEvent.click(await screen.findByTestId("w2-inspect-contract"));
-    await waitFor(() => expect(inspectMock).toHaveBeenCalled());
+    // Pass04 — without attestation, Exécuter zone stays hidden; open does not write.
+    expect(await screen.findByTestId("w2-contract")).toBeVisible();
+    expect(screen.queryByTestId("w2-pilot-execute")).toBeNull();
+    await openExamAndAttest();
+    expect(inspectMock.mock.calls[0]![0]).toMatchObject({
+      inspectedFacts: expect.arrayContaining(["action"]),
+    });
     expect(await screen.findByTestId("w2-pilot-execute")).toBeVisible();
     fireEvent.click(screen.getByTestId("w2-pilot-execute"));
 

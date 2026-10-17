@@ -4,12 +4,21 @@
  * P3 §18 — Governed Confirmation presentation (INLINE in Conversation).
  * Pure projection: applicability / inspection / confirm come from W2 continuity.
  * Does NOT decide that confirmation is required — Studio/domain already did.
+ *
+ * Pass04 — Inspecter opens an exam panel (no write); Attester persists facts.
  */
 
+import { useEffect, useMemo, useState } from "react";
 import type {
   ContractInspectionStateDto,
   CurrentGovernedExecutionContinuityContractDto,
 } from "@/features/project-assistant/w2/types";
+import {
+  buildInspectionExamView,
+  sameInspectionExamSnapshot,
+  type InspectionExamSnapshot,
+} from "./contractInspectionExam";
+import { ContractInspectionExamPanel } from "./ContractInspectionExamPanel";
 import {
   isTechnicalProductRef,
   presentPilotContract,
@@ -17,24 +26,33 @@ import {
 import styles from "./GovernedConfirmationCard.module.css";
 
 export type GovernedConfirmationCardProps = {
+  readonly projectId: string;
   readonly contract: CurrentGovernedExecutionContinuityContractDto;
   readonly inspection: ContractInspectionStateDto;
+  readonly requiredInspectedFacts: readonly string[] | null;
   readonly busy: boolean;
   readonly error: string | null;
   readonly onConfirm: () => void;
-  readonly onInspect: () => void;
+  /** Explicit attestation with facts actually displayed — never called on open. */
+  readonly onAttestInspection: (inspectedFacts: readonly string[]) => void;
   readonly onCancel?: () => void;
 };
 
 export function GovernedConfirmationCard({
+  projectId,
   contract,
   inspection,
+  requiredInspectedFacts,
   busy,
   error,
   onConfirm,
-  onInspect,
+  onAttestInspection,
   onCancel,
 }: GovernedConfirmationCardProps) {
+  const [examOpen, setExamOpen] = useState(false);
+  const [examSnapshot, setExamSnapshot] =
+    useState<InspectionExamSnapshot | null>(null);
+
   const pilot = presentPilotContract({
     action: contract.action,
     target: contract.target,
@@ -51,6 +69,43 @@ export function GovernedConfirmationCard({
     contract.status === "confirmation_required" ||
     contract.effectConfirmationRequired === true;
 
+  const liveSnapshot = useMemo(
+    (): InspectionExamSnapshot => ({
+      projectId,
+      executionContractId: contract.executionContractId,
+      version: contract.version,
+      semanticFingerprint: contract.semanticFingerprint ?? "",
+    }),
+    [
+      projectId,
+      contract.executionContractId,
+      contract.version,
+      contract.semanticFingerprint,
+    ],
+  );
+
+  const examView = useMemo(
+    () =>
+      buildInspectionExamView({
+        disclosure: contract.inspectionDisclosure,
+        requiredInspectedFacts,
+      }),
+    [contract.inspectionDisclosure, requiredInspectedFacts],
+  );
+
+  useEffect(() => {
+    if (!examOpen || !examSnapshot) return;
+    if (!sameInspectionExamSnapshot(examSnapshot, liveSnapshot)) {
+      setExamOpen(false);
+      setExamSnapshot(null);
+    }
+  }, [examOpen, examSnapshot, liveSnapshot]);
+
+  useEffect(() => {
+    setExamOpen(false);
+    setExamSnapshot(null);
+  }, [projectId]);
+
   if (!confirmationRequired) {
     return null;
   }
@@ -63,6 +118,26 @@ export function GovernedConfirmationCard({
     "Portée dérivée du contrat inspectable";
   const impactText = pilot.impactLine || pilot.nowTitle;
   const reversibilityText = pilot.reversibilityLabel;
+
+  const handleOpenExam = () => {
+    if (examView.disclosureIncomplete) return;
+    setExamSnapshot(liveSnapshot);
+    setExamOpen(true);
+  };
+
+  const handleAttest = () => {
+    if (!examOpen || !examSnapshot) return;
+    if (!sameInspectionExamSnapshot(examSnapshot, liveSnapshot)) {
+      setExamOpen(false);
+      setExamSnapshot(null);
+      return;
+    }
+    if (examView.disclosureIncomplete || examView.missingRequired.length > 0) {
+      return;
+    }
+    if (examView.presentedFactIds.length === 0) return;
+    onAttestInspection(examView.presentedFactIds);
+  };
 
   return (
     <section
@@ -110,16 +185,41 @@ export function GovernedConfirmationCard({
         </p>
       ) : null}
 
+      {examOpen && examSnapshot && !examView.disclosureIncomplete ? (
+        <ContractInspectionExamPanel
+          testIdPrefix="governed-confirmation"
+          snapshot={examSnapshot}
+          rows={examView.rows}
+          missingRequired={examView.missingRequired}
+          presentedFactIds={examView.presentedFactIds}
+          busy={busy}
+          onAttest={handleAttest}
+          onDismiss={() => {
+            setExamOpen(false);
+            setExamSnapshot(null);
+          }}
+        />
+      ) : null}
+
       <div className={styles.actions}>
         {!inspectionOk ? (
           <button
             type="button"
             className={styles.primary}
             data-testid="governed-confirmation-inspect"
-            disabled={busy}
-            onClick={onInspect}
+            disabled={busy || examView.disclosureIncomplete}
+            onClick={handleOpenExam}
+            title={
+              examView.disclosureIncomplete
+                ? "Disclosure d’inspection incomplète — examen impossible."
+                : "Ouvre le détail inspectable — n’enregistre aucune attestation."
+            }
           >
-            {busy ? "Inspection…" : "Inspecter pour confirmer"}
+            {examOpen
+              ? "Réexaminer le contrat"
+              : busy
+                ? "Inspection…"
+                : "Examiner le contrat"}
           </button>
         ) : (
           <button
@@ -129,7 +229,7 @@ export function GovernedConfirmationCard({
             disabled={busy}
             onClick={onConfirm}
           >
-            {busy ? "Confirmation…" : "Confirmer l'action"}
+            {busy ? "Confirmation…" : "Confirmer"}
           </button>
         )}
         {onCancel ? (

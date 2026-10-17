@@ -50,6 +50,13 @@ import type {
 } from "@/features/project-assistant/w2/types";
 import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
 import { framingContinuityForConversationDisplay } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
+import type { GenericMissionDecisionUiState } from "../surfaces/GovernedGenericMissionDecisionCard";
+import {
+  UI_GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  UI_GENERIC_MISSION_OPTION_REFUSE,
+  UI_GENERIC_MISSION_OPTION_REQUEST_AMEND,
+  type GenericMissionSubjectView,
+} from "../surfaces/genericMissionPresentation";
 
 export type ProductDecisionSubjectContinuity =
   | { readonly status: "pending" }
@@ -177,6 +184,19 @@ export function useProductConversation({
   const [governedMomentError, setGovernedMomentError] = useState<string | null>(
     null,
   );
+  /** M-HD-02 — sealed Generic Mission presentation (server-sourced only). */
+  const [genericMissionSubject, setGenericMissionSubject] =
+    useState<GenericMissionSubjectView | null>(null);
+  const [genericMissionUiState, setGenericMissionUiState] =
+    useState<GenericMissionDecisionUiState>("awaiting_decision");
+  const [genericMissionError, setGenericMissionError] = useState<string | null>(
+    null,
+  );
+  const [genericMissionStaleMessage, setGenericMissionStaleMessage] = useState<
+    string | null
+  >(null);
+  const [genericMissionBusy, setGenericMissionBusy] = useState(false);
+  const genericMissionDigestRef = useRef<string | null>(null);
   /** P6 chat-first Framing continuity (Rec → traj decision → prepare → START). */
   const [framingContinuity, setFramingContinuity] =
     useState<FramingContinuitySnapshot | null>(null);
@@ -508,6 +528,123 @@ export function useProductConversation({
     }
   }
 
+  async function refreshGenericMissionDecision() {
+    try {
+      const { w2ReadGenericMissionDecisionContinuityAction } = await import(
+        "@/features/project-assistant/w2/actions"
+      );
+      const result = await w2ReadGenericMissionDecisionContinuityAction({
+        projectId,
+        clientPresentationDigest: genericMissionDigestRef.current,
+      });
+      if (!result.ok) {
+        setGenericMissionError(result.message);
+        return;
+      }
+      if (result.kind === "awaiting_decision") {
+        setGenericMissionSubject(result.subject);
+        genericMissionDigestRef.current = result.subject.presentationDigest;
+        setGenericMissionUiState("awaiting_decision");
+        setGenericMissionStaleMessage(null);
+        setGenericMissionError(null);
+        return;
+      }
+      if (result.kind === "decided") {
+        setGenericMissionSubject(result.subject);
+        genericMissionDigestRef.current = result.subject.presentationDigest;
+        setGenericMissionUiState(
+          result.decision.status === "accepted"
+            ? "accepted"
+            : result.decision.status === "refused"
+              ? "refused"
+              : result.decision.status === "amended"
+                ? "amended"
+                : "awaiting_decision",
+        );
+        setGenericMissionStaleMessage(null);
+        setGenericMissionError(null);
+        return;
+      }
+      if (result.kind === "stale_presentation_required") {
+        setGenericMissionSubject(null);
+        setGenericMissionUiState("stale");
+        setGenericMissionStaleMessage(result.message);
+        setGenericMissionError(null);
+        return;
+      }
+      // none — clear only if we were not holding a local presentation claim
+      if (!genericMissionDigestRef.current) {
+        setGenericMissionSubject(null);
+        setGenericMissionUiState("awaiting_decision");
+        setGenericMissionStaleMessage(null);
+      } else {
+        setGenericMissionSubject(null);
+        setGenericMissionUiState("stale");
+        setGenericMissionStaleMessage(
+          "Cette présentation de mission n'est plus actuelle. Demandez à Nora une nouvelle qualification avant toute décision.",
+        );
+        genericMissionDigestRef.current = null;
+      }
+    } catch {
+      setGenericMissionError("Impossible de relire la présentation de mission.");
+    }
+  }
+
+  async function decideGenericMission(selectedOptionId: string) {
+    if (genericMissionBusy) return;
+    const subject = genericMissionSubject;
+    if (!subject || genericMissionUiState !== "awaiting_decision") return;
+    setGenericMissionBusy(true);
+    setGenericMissionUiState("recording");
+    setGenericMissionError(null);
+    try {
+      const { w2RecordGenericMissionHumanDecisionAction } = await import(
+        "@/features/project-assistant/w2/actions"
+      );
+      const result = await w2RecordGenericMissionHumanDecisionAction({
+        projectId,
+        missionSubjectId: subject.missionSubjectId,
+        presentationDigest: subject.presentationDigest,
+        selectedOptionId,
+      });
+      if (!result.ok) {
+        const authDenied =
+          result.code === "NO_SESSION" ||
+          result.code === "ALLOWLIST_DENIED" ||
+          result.code === "AUTHORITY_NOT_CONFIGURED" ||
+          result.code === "AUTHENTICATED_PILOTE_REQUIRED" ||
+          result.code === "AUTHORITY_DENIED" ||
+          result.code === "PILOTE_ACTOR_IDENTITY_MISMATCH";
+        setGenericMissionUiState(authDenied ? "authority_denied" : "error");
+        setGenericMissionError(result.message);
+        if (
+          result.code === "MISSION_PRESENTATION_STALE" ||
+          result.code === "HD_SUBJECT_STALE"
+        ) {
+          setGenericMissionUiState("stale");
+          setGenericMissionStaleMessage(result.message);
+          setGenericMissionSubject(null);
+          genericMissionDigestRef.current = null;
+        }
+        return;
+      }
+      setGenericMissionUiState(
+        result.decision.status === "accepted"
+          ? "accepted"
+          : result.decision.status === "refused"
+            ? "refused"
+            : "amended",
+      );
+      notifyDurableFactsChanged();
+      await refreshGovernedMoments();
+    } catch {
+      setGenericMissionUiState("error");
+      setGenericMissionError("Décision refusée — réessayez ou reformulez.");
+    } finally {
+      setGenericMissionBusy(false);
+    }
+  }
+
   async function refreshGovernedMoments() {
     try {
       const {
@@ -534,6 +671,7 @@ export function useProductConversation({
       } else {
         setGovernedExecutionContinuity(continuity);
       }
+      await refreshGenericMissionDecision();
       await refreshFramingContinuity();
     } catch {
       setGovernedMomentError("Impossible de relire le moment gouverné.");
@@ -610,7 +748,13 @@ export function useProductConversation({
     });
   }
 
-  async function inspectGovernedContract() {
+  /**
+   * Pass04 — explicit attestation after the confirmation card presented facts.
+   * Opening the exam panel must never call this. Confirm never calls this.
+   */
+  async function attestGovernedInspection(
+    inspectedFacts: readonly string[],
+  ) {
     if (governedMomentBusy) return;
     const continuity = governedExecutionContinuity;
     if (
@@ -619,6 +763,12 @@ export function useProductConversation({
       !continuity.ok ||
       continuity.kind !== "active"
     ) {
+      return;
+    }
+    if (!inspectedFacts || inspectedFacts.length === 0) {
+      setGovernedMomentError(
+        "Aucun fait contractuel présenté — attestation refusée.",
+      );
       return;
     }
     setGovernedMomentBusy(true);
@@ -631,10 +781,16 @@ export function useProductConversation({
         projectId,
         executionContractId: continuity.contract.executionContractId,
         expectedVersion: continuity.contract.version,
+        inspectedFacts: [...inspectedFacts],
       });
       if (!result.ok) {
         setGovernedMomentError(result.message);
         return;
+      }
+      if (!result.inspectionSufficient) {
+        setGovernedMomentError(
+          "Inspection insuffisante — faits attestés incomplets pour cette version.",
+        );
       }
       await refreshGovernedMoments();
     } catch {
@@ -1420,6 +1576,7 @@ export function useProductConversation({
   }
 
   return {
+    projectId,
     listRef,
     messages,
     draft,
@@ -1444,9 +1601,24 @@ export function useProductConversation({
     governedMomentError,
     decideGovernedDirection,
     revealGovernedDecisionAlternate,
-    inspectGovernedContract,
+    attestGovernedInspection,
     confirmGovernedContract,
     refreshGovernedMoments,
+    genericMissionSubject,
+    genericMissionUiState,
+    genericMissionError,
+    genericMissionStaleMessage,
+    genericMissionBusy,
+    acceptGenericMission: () => {
+      void decideGenericMission(UI_GENERIC_MISSION_OPTION_ACCEPT_PREPARE);
+    },
+    refuseGenericMission: () => {
+      void decideGenericMission(UI_GENERIC_MISSION_OPTION_REFUSE);
+    },
+    requestAmendGenericMission: () => {
+      void decideGenericMission(UI_GENERIC_MISSION_OPTION_REQUEST_AMEND);
+    },
+    refreshGenericMissionDecision,
     framingContinuity,
     framingContinuityBusy,
     framingContinuityError,

@@ -43,6 +43,7 @@ import {
   projectAssistantActiveCycleWorkspaceAction,
   projectAssistantConfirmReservationResolutionAction,
   projectAssistantDeferReservationAction,
+  projectAssistantPilotLifecycleProjection,
 } from "@/features/project-assistant/actions";
 import {
   w2DeriveGovernedExecutionContinuityAction,
@@ -148,6 +149,9 @@ export function ProjectWorkspacePage({
   const [memoryTab, setMemoryTab] = useState<JournalMemoryTab>("sujets");
   const [lifecycleProjection, setLifecycleProjection] =
     useState<PilotLifecycleProjection | null>(null);
+  /** R3 — honest freshness for synthetic Execution rail (same Product reader). */
+  const [lifecycleProjectionAvailability, setLifecycleProjectionAvailability] =
+    useState<"available" | "pending" | "unavailable">("pending");
   const [reservationBusyId, setReservationBusyId] = useState<string | null>(null);
   const [reservationNotice, setReservationNotice] = useState<string | null>(null);
   const [latestSynthesis, setLatestSynthesis] =
@@ -161,6 +165,7 @@ export function ProjectWorkspacePage({
     thumbHeight: number;
   }>({ active: false, thumbTop: 0, thumbHeight: 0 });
   const refreshInFlight = useRef(false);
+  const lifecycleProjectionProjectIdRef = useRef<string | null>(null);
 
   const syncContextScrollUi = useCallback(() => {
     const el = contextScrollRef.current;
@@ -217,6 +222,16 @@ export function ProjectWorkspacePage({
     setLifecycleRefreshSignal((n) => n + 1);
   }, [loadProject]);
 
+  const applyLifecycleProjection = useCallback(
+    (projection: PilotLifecycleProjection | null) => {
+      setLifecycleProjection(projection);
+      setLifecycleProjectionAvailability(
+        projection ? "available" : "unavailable",
+      );
+    },
+    [],
+  );
+
   useEffect(() => {
     let cancelled = false;
     void getProjectRuntimeAction(projectId).then((next) => {
@@ -226,6 +241,42 @@ export function ProjectWorkspacePage({
       cancelled = true;
     };
   }, [projectId]);
+
+  /**
+   * LOT B / R3 — Load durable lifecycle projection without requiring
+   * LifecycleSurface mounted (Execution rail is synthetic-only). Same Product
+   * reader as LifecycleSurface.refresh — no second source of truth.
+   * Project change clears prior projection (C5). Failed refresh clears it so
+   * stale data is never shown as current (C4/C7). Successful refresh replaces.
+   */
+  useEffect(() => {
+    let cancelled = false;
+    const projectChanged = lifecycleProjectionProjectIdRef.current !== projectId;
+    lifecycleProjectionProjectIdRef.current = projectId;
+    if (projectChanged) {
+      setLifecycleProjection(null);
+    }
+    setLifecycleProjectionAvailability("pending");
+    void Promise.resolve(projectAssistantPilotLifecycleProjection({ projectId }))
+      .then((result) => {
+        if (cancelled) return;
+        if (result?.ok && result.projection) {
+          setLifecycleProjection(result.projection);
+          setLifecycleProjectionAvailability("available");
+          return;
+        }
+        setLifecycleProjection(null);
+        setLifecycleProjectionAvailability("unavailable");
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setLifecycleProjection(null);
+        setLifecycleProjectionAvailability("unavailable");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [projectId, lifecycleRefreshSignal]);
 
   useEffect(() => {
     if (result?.ok && result.project.name) {
@@ -245,7 +296,7 @@ export function ProjectWorkspacePage({
       setExecutionPresentation(
         presentPilotExecution({
           continuityProjection: derived,
-          preExecutionContinuity: current.ok ? current : null,
+          preExecutionContinuity: current,
         }),
       );
     })();
@@ -353,11 +404,11 @@ export function ProjectWorkspacePage({
           setReservationNotice(
             outcome.message ?? outcome.code ?? "Levée refusée.",
           );
-          if (outcome.projection) setLifecycleProjection(outcome.projection);
+          if (outcome.projection) applyLifecycleProjection(outcome.projection);
           return;
         }
         setReservationNotice(outcome.message ?? "Levée de la réserve confirmée.");
-        if (outcome.projection) setLifecycleProjection(outcome.projection);
+        if (outcome.projection) applyLifecycleProjection(outcome.projection);
         controller.armReservationInteractionContext(null);
         controller.clearReservationResolutionProposal();
         notifyDurableFactsChanged();
@@ -365,7 +416,13 @@ export function ProjectWorkspacePage({
         setReservationBusyId(null);
       }
     },
-    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged, controller],
+    [
+      projectId,
+      reservationCycleInstanceId,
+      notifyDurableFactsChanged,
+      controller,
+      applyLifecycleProjection,
+    ],
   );
 
   const confirmReservationDefer = useCallback(
@@ -389,19 +446,24 @@ export function ProjectWorkspacePage({
           setReservationNotice(
             outcome.message ?? outcome.code ?? "Report refusé.",
           );
-          if (outcome.projection) setLifecycleProjection(outcome.projection);
+          if (outcome.projection) applyLifecycleProjection(outcome.projection);
           return;
         }
         setReservationNotice(
           outcome.message ?? "Réserve reportée — décision enregistrée.",
         );
-        if (outcome.projection) setLifecycleProjection(outcome.projection);
+        if (outcome.projection) applyLifecycleProjection(outcome.projection);
         notifyDurableFactsChanged();
       } finally {
         setReservationBusyId(null);
       }
     },
-    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged],
+    [
+      projectId,
+      reservationCycleInstanceId,
+      notifyDurableFactsChanged,
+      applyLifecycleProjection,
+    ],
   );
 
   /**
@@ -564,6 +626,7 @@ export function ProjectWorkspacePage({
     // Prefer latest synthèse clock when loaded; else LPS createdAt.
     updatedAt:
       latestSynthesis?.generatedAt ?? success.livingState.createdAt ?? null,
+    lifecycleProjectionAvailability,
   });
   const currentJournalTopic = controller.journalEntries.find(
     (e) => e.isCurrentTopic,
@@ -975,6 +1038,13 @@ export function ProjectWorkspacePage({
               onOpenSynthesis={openSynthesisDetail}
             />
 
+            {/*
+              LOT B / Figma 150:682 — Execution rail is synthetic context only.
+              Detailed Lifecycle / LPS / Routing / Trajectory / Journal stay on
+              Conversation (and principal views) so Product CTAs & ownership remain.
+            */}
+            {activeView !== "execution" ? (
+              <>
             <section
               className={styles.stateTrajectoryRegion}
               data-testid="project-state-trajectory-region"
@@ -997,7 +1067,7 @@ export function ProjectWorkspacePage({
                   durableRefreshSignal={lifecycleRefreshSignal}
                   onDurableFactsChanged={notifyDurableFactsChanged}
                   suppressGenericNoraCta={suppressGenericIntentionCta}
-                  onProjectionChange={setLifecycleProjection}
+                  onProjectionChange={applyLifecycleProjection}
                   onOpenReservations={openReservationsTab}
                   onTreatReservationWithNora={treatReservationWithNora}
                   onEscalateTrajectory={() => {
@@ -1086,6 +1156,8 @@ export function ProjectWorkspacePage({
                 </p>
               ) : null}
             </div>
+              </>
+            ) : null}
           </div>
           {contextScrollUi.active ? (
             <div

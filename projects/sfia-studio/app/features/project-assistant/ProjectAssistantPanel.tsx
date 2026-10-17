@@ -891,7 +891,7 @@ export function ProjectAssistantPanel({
             <div>
               <dt>Cycle SFIA</dt>
               <dd data-testid="f2-cycle">
-                {f2.qualification.cycleTypeId} — {f2.qualification.cycleLabel}
+                {f2.qualification.cycleTypeId ?? "Aucun cycle actif"} — {f2.qualification.cycleLabel}
               </dd>
             </div>
             <div>

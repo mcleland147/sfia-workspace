@@ -17,6 +17,12 @@ import {
 } from "@/features/project-assistant/w2/reconcileContinuePolicy";
 import type { CurrentGovernedExecutionContinuityResult } from "@/features/project-assistant/w2/types";
 import {
+  buildInspectionExamView,
+  sameInspectionExamSnapshot,
+  type InspectionExamSnapshot,
+} from "./contractInspectionExam";
+import { ContractInspectionExamPanel } from "./ContractInspectionExamPanel";
+import {
   presentPilotExecution,
   type PilotExecutionPresentation,
 } from "./pilotExecutionPresentation";
@@ -56,6 +62,11 @@ export function ExecutionSurface({
   const [preExec, setPreExec] =
     useState<CurrentGovernedExecutionContinuityResult | null>(null);
   const [expandedWork, setExpandedWork] = useState(false);
+  /** I07 — opening the panel never writes an attestation. */
+  const [inspectionPanelOpen, setInspectionPanelOpen] = useState(false);
+  /** Pass04 — exam identity frozen at open; invalidate on drift. */
+  const [inspectionExamSnapshot, setInspectionExamSnapshot] =
+    useState<InspectionExamSnapshot | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +99,8 @@ export function ExecutionSurface({
     ]);
     if (!reconcileMountedRef.current) return { derived, current };
     setContinuity(derived);
-    setPreExec(current.ok ? current : null);
+    // Preserve failure / kind=none — presenter must not treat absence as success.
+    setPreExec(current);
     const nextId =
       derived.ok && derived.projection.executionContractId
         ? derived.projection.executionContractId
@@ -208,6 +220,10 @@ export function ExecutionSurface({
     };
   }, [clearContinueTimer]);
 
+  useEffect(() => {
+    setInspectionPanelOpen(false);
+  }, [projectId]);
+
   // Initial durable load + remount auto-resume.
   useEffect(() => {
     let cancelled = false;
@@ -255,42 +271,152 @@ export function ExecutionSurface({
     onPresentationChange?.(presentation);
   }, [presentation, onPresentationChange]);
 
-  const resolveContractId = useCallback((): {
+  /**
+   * Mutating actions require verified pre-execution continuity — never
+   * projection.executionContractId alone (R1).
+   */
+  const resolveActivePreContract = useCallback((): {
     executionContractId: string;
-    expectedVersion?: number;
+    expectedVersion: number;
+    semanticFingerprint: string;
+    inspectionSufficient: boolean;
   } | null => {
     if (
-      preExec &&
-      preExec.ok &&
-      preExec.kind === "active" &&
-      preExec.contract.executionContractId
+      !preExec ||
+      !preExec.ok ||
+      preExec.kind !== "active" ||
+      !preExec.contract.executionContractId
     ) {
-      return {
-        executionContractId: preExec.contract.executionContractId,
-        expectedVersion: preExec.contract.version,
-      };
+      return null;
     }
-    const id =
-      continuity && continuity.ok
-        ? continuity.projection.executionContractId
-        : null;
-    if (!id) return null;
-    const version =
-      continuity && continuity.ok
-        ? continuity.projection.executionContractVersion
-        : null;
     return {
-      executionContractId: id,
-      expectedVersion: version ?? undefined,
+      executionContractId: preExec.contract.executionContractId,
+      expectedVersion: preExec.contract.version,
+      semanticFingerprint: preExec.contract.semanticFingerprint ?? "",
+      inspectionSufficient: preExec.inspection.inspectionSufficient === true,
     };
-  }, [preExec, continuity]);
+  }, [preExec]);
 
-  const handleConfirm = useCallback(async () => {
-    const target = resolveContractId();
+  const inspectionView = useMemo(() => {
+    if (
+      !preExec ||
+      !preExec.ok ||
+      preExec.kind !== "active" ||
+      !preExec.contract.inspectionDisclosure
+    ) {
+      return null;
+    }
+    return buildInspectionExamView({
+      disclosure: preExec.contract.inspectionDisclosure,
+      requiredInspectedFacts: preExec.requiredInspectedFacts,
+    });
+  }, [preExec]);
+
+  const liveExamSnapshot = useMemo((): InspectionExamSnapshot | null => {
+    const target = resolveActivePreContract();
+    if (!target) return null;
+    return {
+      projectId,
+      executionContractId: target.executionContractId,
+      version: target.expectedVersion,
+      semanticFingerprint: target.semanticFingerprint,
+    };
+  }, [projectId, resolveActivePreContract]);
+
+  /** Pass04 — close exam when project/contract/version/fingerprint drifts. */
+  useEffect(() => {
+    if (!inspectionPanelOpen || !inspectionExamSnapshot) return;
+    if (!sameInspectionExamSnapshot(inspectionExamSnapshot, liveExamSnapshot)) {
+      setInspectionPanelOpen(false);
+      setInspectionExamSnapshot(null);
+      setError(
+        "Identité contractuelle modifiée — nouvel examen requis.",
+      );
+    }
+  }, [inspectionPanelOpen, inspectionExamSnapshot, liveExamSnapshot]);
+
+  /** Inter-project navigation always invalidates an open exam. */
+  useEffect(() => {
+    setInspectionPanelOpen(false);
+    setInspectionExamSnapshot(null);
+  }, [projectId]);
+
+  /** I07 — open detail only; no Product write. */
+  const handleOpenInspection = useCallback(() => {
+    const target = resolveActivePreContract();
     if (!target) {
-      setError("Aucun contrat d’exécution durable à confirmer.");
+      setError(
+        "Continuité pré-exécution indisponible — examen refusé.",
+      );
       return;
     }
+    if (!inspectionView || inspectionView.disclosureIncomplete) {
+      setError(
+        "Disclosure d’inspection incomplète — examen impossible.",
+      );
+      return;
+    }
+    setError(null);
+    setInspectionExamSnapshot({
+      projectId,
+      executionContractId: target.executionContractId,
+      version: target.expectedVersion,
+      semanticFingerprint: target.semanticFingerprint,
+    });
+    setInspectionPanelOpen(true);
+  }, [projectId, resolveActivePreContract, inspectionView]);
+
+  /**
+   * I06/I08 — explicit attestation after facts are presented.
+   * Attests only presentedFactIds from the rendered disclosure rows.
+   * Confirm / Execute must never call this path.
+   */
+  const handleAttestInspection = useCallback(async () => {
+    const target = resolveActivePreContract();
+    if (!target) {
+      setError(
+        "Continuité pré-exécution indisponible — attestation refusée.",
+      );
+      return;
+    }
+    if (!inspectionPanelOpen || !inspectionExamSnapshot) {
+      setError(
+        "Les faits contractuels doivent être affichés avant attestation.",
+      );
+      return;
+    }
+    if (
+      !sameInspectionExamSnapshot(inspectionExamSnapshot, {
+        projectId,
+        executionContractId: target.executionContractId,
+        version: target.expectedVersion,
+        semanticFingerprint: target.semanticFingerprint,
+      })
+    ) {
+      setInspectionPanelOpen(false);
+      setInspectionExamSnapshot(null);
+      setError(
+        "Identité contractuelle modifiée — nouvel examen requis.",
+      );
+      return;
+    }
+    if (!inspectionView || inspectionView.disclosureIncomplete) {
+      setError(
+        "Disclosure d’inspection incomplète — attestation refusée.",
+      );
+      return;
+    }
+    if (inspectionView.missingRequired.length > 0) {
+      setError(
+        `Faits obligatoires non restituables (${inspectionView.missingRequired.join(", ")}) — attestation refusée.`,
+      );
+      return;
+    }
+    if (inspectionView.presentedFactIds.length === 0) {
+      setError("Aucun fait contractuel présenté — attestation refusée.");
+      return;
+    }
+
     setBusy(true);
     setError(null);
     try {
@@ -298,6 +424,7 @@ export function ExecutionSurface({
         projectId,
         executionContractId: target.executionContractId,
         expectedVersion: target.expectedVersion,
+        inspectedFacts: inspectionView.presentedFactIds,
       });
       if (!inspected.ok) {
         setError(inspected.message);
@@ -306,12 +433,45 @@ export function ExecutionSurface({
       }
       if (!inspected.inspectionSufficient) {
         setError(
-          "Inspection insuffisante — confirmation refusée jusqu’à actualisation.",
+          "Inspection insuffisante — faits attestés incomplets pour cette version.",
         );
-        await refreshExecutionContinuity();
-        return;
+      } else {
+        setInspectionPanelOpen(false);
+        setInspectionExamSnapshot(null);
       }
+      await refreshExecutionContinuity();
+      onDurableFactsChanged?.();
+    } finally {
+      setBusy(false);
+    }
+  }, [
+    projectId,
+    inspectionPanelOpen,
+    inspectionExamSnapshot,
+    inspectionView,
+    resolveActivePreContract,
+    refreshExecutionContinuity,
+    onDurableFactsChanged,
+  ]);
 
+  const handleConfirm = useCallback(async () => {
+    const target = resolveActivePreContract();
+    if (!target) {
+      setError(
+        "Continuité pré-exécution indisponible — confirmation refusée.",
+      );
+      return;
+    }
+    // Confirm never records inspection. Insufficient → refuse (no silent attest).
+    if (!target.inspectionSufficient) {
+      setError(
+        "Inspection suffisante requise avant confirmation — utilisez Inspecter.",
+      );
+      return;
+    }
+    setBusy(true);
+    setError(null);
+    try {
       const confirmed = await w2ConfirmExecutionContractAction({
         projectId,
         executionContractId: target.executionContractId,
@@ -329,15 +489,17 @@ export function ExecutionSurface({
     }
   }, [
     projectId,
-    resolveContractId,
+    resolveActivePreContract,
     refreshExecutionContinuity,
     onDurableFactsChanged,
   ]);
 
   const handleExecute = useCallback(async () => {
-    const target = resolveContractId();
+    const target = resolveActivePreContract();
     if (!target) {
-      setError("Aucun contrat d’exécution durable à exécuter.");
+      setError(
+        "Continuité pré-exécution indisponible — exécution refusée.",
+      );
       return;
     }
     setBusy(true);
@@ -350,6 +512,15 @@ export function ExecutionSurface({
         setError("Contrat durable introuvable après relecture.");
         return;
       }
+      if (
+        active.contract.executionContractId !== target.executionContractId ||
+        active.contract.version !== target.expectedVersion
+      ) {
+        setError(
+          "Identité ou version contractuelle incohérente — exécution refusée.",
+        );
+        return;
+      }
       if (active.contract.status === "confirmation_required") {
         setError(
           "Confirmation encore requise — Exécuter refuse d’agir.",
@@ -357,26 +528,20 @@ export function ExecutionSurface({
         return;
       }
 
+      // Execute never records inspection as a side effect.
       if (!active.inspection.inspectionSufficient) {
-        const inspected = await w2InspectExecutionContractAction({
-          projectId,
-          executionContractId: active.contract.executionContractId,
-          expectedVersion: active.contract.version,
-        });
-        if (!inspected.ok || !inspected.inspectionSufficient) {
-          setError(
-            inspected.ok
-              ? "Inspection insuffisante — exécution refusée."
-              : inspected.message,
-          );
-          await refreshExecutionContinuity();
-          return;
-        }
+        setError(
+          "Inspection suffisante requise avant exécution — utilisez Inspecter.",
+        );
+        return;
       }
 
       const auth = await w2AuthorizeExecutionContractAction({
         projectId,
         executionContractId: active.contract.executionContractId,
+        expectedVersion: active.contract.version,
+        expectedSemanticFingerprint:
+          active.contract.semanticFingerprint || undefined,
       });
       if (!auth.ok) {
         setError(auth.message);
@@ -403,7 +568,7 @@ export function ExecutionSurface({
     }
   }, [
     projectId,
-    resolveContractId,
+    resolveActivePreContract,
     refreshExecutionContinuity,
     runServerReconcile,
   ]);
@@ -587,6 +752,32 @@ export function ExecutionSurface({
         </section>
       ) : null}
 
+      {inspectionPanelOpen &&
+      inspectionExamSnapshot &&
+      inspectionView &&
+      !inspectionView.disclosureIncomplete ? (
+        <section
+          className={styles.section}
+          aria-label="Examen contractuel"
+        >
+          <ContractInspectionExamPanel
+            testIdPrefix="project-execution"
+            snapshot={inspectionExamSnapshot}
+            rows={inspectionView.rows}
+            missingRequired={inspectionView.missingRequired}
+            presentedFactIds={inspectionView.presentedFactIds}
+            busy={busy}
+            onAttest={() => {
+              void handleAttestInspection();
+            }}
+            onDismiss={() => {
+              setInspectionPanelOpen(false);
+              setInspectionExamSnapshot(null);
+            }}
+          />
+        </section>
+      ) : null}
+
       {presentation.attentionNote ? (
         <p className={styles.attention} data-testid="project-execution-attention">
           {presentation.attentionNote}
@@ -600,12 +791,37 @@ export function ExecutionSurface({
       ) : null}
 
       <div className={styles.footer}>
+        {presentation.cta.kind === "inspect" ? (
+          <button
+            type="button"
+            className={styles.primaryButton}
+            data-testid="project-execution-inspect"
+            disabled={!presentation.cta.enabled}
+            aria-label={presentation.cta.label}
+            title={
+              presentation.attentionNote ??
+              "Ouvre le détail inspectable — n’enregistre aucune attestation."
+            }
+            onClick={() => {
+              handleOpenInspection();
+            }}
+          >
+            {presentation.cta.label}
+          </button>
+        ) : null}
         {presentation.cta.kind === "confirm" ? (
           <button
             type="button"
             className={styles.primaryButton}
             data-testid="project-execution-confirm"
             disabled={!presentation.cta.enabled}
+            aria-label={presentation.cta.label}
+            title={
+              presentation.cta.enabled
+                ? presentation.attentionNote ?? presentation.cta.label
+                : presentation.attentionNote ??
+                  "Confirmation indisponible — conditions non satisfaites."
+            }
             onClick={() => {
               void handleConfirm();
             }}
@@ -619,6 +835,13 @@ export function ExecutionSurface({
             className={styles.primaryButton}
             data-testid="project-execution-execute"
             disabled={!presentation.cta.enabled}
+            aria-label={presentation.cta.label}
+            title={
+              presentation.cta.enabled
+                ? presentation.attentionNote ?? presentation.cta.label
+                : presentation.attentionNote ??
+                  "Exécution indisponible — conditions non satisfaites."
+            }
             onClick={() => {
               void handleExecute();
             }}
