@@ -102,7 +102,12 @@ export type CkcSemanticProvenance = {
 };
 
 export type QualificationDto = {
-  cycleTypeId: string;
+  /**
+   * Catalog CycleType id. `null` ONLY for Generic PREPARE on PROJECT CONTEXT
+   * (no active cycle, S8) — never an invented catalog id; disclosures carry
+   * NO_ACTIVE_CYCLE / PROJECT_CONTEXT_ONLY.
+   */
+  cycleTypeId: string | null;
   cycleLabel: string;
   recommendedProfile: string;
   rationale: string;

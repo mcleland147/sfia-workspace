@@ -1,14 +1,14 @@
 /**
  * G-D4 / T-A4 / Authority Continuity — generic ExecutionContract PREPARE
- * without systematic HumanDecision.
+ * without systematic HumanDecision for non-structural missions.
  *
- * When a mission is sufficiently qualified and server-owned Product materiality
- * is non-structural, Studio may Build + Validate a generalist contract with
- * decisionRefs=[] for Pilote inspection. PREPARE ≠ EXECUTE: no Attempt.
+ * M-HD-01 — structural / HD-required missions may resume PREPARE only after a
+ * verified OA HumanDecision (sourceType generic_mission, accept-prepare).
+ * decisionRefs then carries that verified decisionId only. PREPARE ≠ EXECUTE.
  *
  * Confirm/Authorize remain separate Pilote acts. Empty decisionRefs at
  * confirmed require MATERIALITY:NON_STRUCTURAL stamp + CURRENT revalidation
- * (T-A4 schema G-D4). Structural missions still require a real HD ref.
+ * (T-A4 schema G-D4).
  *
  * Reuses BuildExecutionContract + ValidateExecutionContract + generalist surface
  * + resolveTrustedProductLaunchContext + resolveContractSourceGroundingForPrepare.
@@ -50,7 +50,7 @@ import {
   getPendingGenericPrepareOffer,
   rememberPendingGenericPrepareOffer,
   clearPendingGenericPrepareOffer,
-  resolvePrepareOfferSessionKey,
+  resolveProductPrepareOfferSessionKey,
   type PendingGenericPrepareMissionEffects,
   type PendingGenericPrepareOffer,
 } from "./pendingGenericPrepareOfferStore";
@@ -64,6 +64,16 @@ import {
   resolveGenericPrepareCapabilityEnvelope,
   type GenericPrepareCapabilityResolution,
 } from "./genericPrepareCapabilityEnvelope";
+import {
+  mapReversibilityExpectationToOa,
+} from "./genericMissionSubject";
+import {
+  verifyGenericMissionHumanDecisionForContract,
+  verifyGenericMissionHumanDecisionForPrepare,
+} from "./verifyGenericMissionHumanDecisionForPrepare";
+import {
+  resolveGenericPrepareDocumentaryTarget,
+} from "./resolveGenericPrepareDocumentaryTarget";
 
 export {
   GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
@@ -153,7 +163,8 @@ export function isChatFirstPrepareAcceptGo(input: {
  */
 export function resolveChatFirstGenericPrepareGo(input: {
   readonly projectId: string;
-  readonly cycleInstanceId: string;
+  /** null = S8 project-context (no active cycle). Matches only a null-cycle offer. */
+  readonly cycleInstanceId: string | null;
   readonly text: string;
   readonly pilotDecisionCandidate?: PilotDecisionCandidate | null;
   readonly sessionKey?: string | null;
@@ -173,7 +184,7 @@ export function resolveChatFirstGenericPrepareGo(input: {
   ) {
     return { kind: "no_go", reason: "no_prepare_accept_signal" };
   }
-  const sessionKey = resolvePrepareOfferSessionKey({
+  const sessionKey = resolveProductPrepareOfferSessionKey({
     sessionKey: input.sessionKey,
     sessionDbPath: input.sessionDbPath,
   });
@@ -184,7 +195,7 @@ export function resolveChatFirstGenericPrepareGo(input: {
   if (offer.sessionKey !== sessionKey) {
     return { kind: "no_go", reason: "prepare_offer_session_mismatch" };
   }
-  if (offer.cycleInstanceId !== input.cycleInstanceId) {
+  if ((offer.cycleInstanceId ?? null) !== (input.cycleInstanceId ?? null)) {
     return { kind: "no_go", reason: "prepare_offer_cycle_mismatch" };
   }
   return { kind: "prepare", offerFingerprint: offer.offerFingerprint };
@@ -282,6 +293,11 @@ export type PrepareGenericExecutionContractDraftInput = {
   readonly projectId: string;
   readonly cycleInstanceId?: string | null;
   readonly analysis: IntentAnalysisDto;
+  /**
+   * M-HD-01 — durable OA HumanDecision id for structural resume.
+   * Verified before decisionRefs is populated. Never fabricated.
+   */
+  readonly decisionId?: string | null;
   /** When true, bypass local authority env gate (DET tests). */
   readonly forceLocalAuthority?: boolean;
   /**
@@ -320,6 +336,9 @@ function stableMissionKey(input: {
   readonly scopeIn: readonly string[];
   readonly scopeOut: readonly string[];
   readonly materiality: string;
+  /** M-HD-01 — bind EC identity to verified HD when present. */
+  readonly decisionId?: string | null;
+  readonly presentationDigest?: string | null;
 }): string {
   const raw = [
     input.projectId,
@@ -330,6 +349,8 @@ function stableMissionKey(input: {
     input.scopeIn.join("|"),
     input.scopeOut.join("|"),
     input.materiality,
+    input.decisionId?.trim() || "",
+    input.presentationDigest?.trim() || "",
   ].join("\n");
   return createHash("sha256").update(raw).digest("hex").slice(0, 24);
 }
@@ -368,7 +389,7 @@ export function extractMissionEffectsFromAnalysis(
 
 function offerFingerprintFor(input: {
   readonly projectId: string;
-  readonly cycleInstanceId: string;
+  readonly cycleInstanceId: string | null;
   readonly objective: string;
   readonly expectedOutcome: string;
   readonly scope: string;
@@ -381,7 +402,7 @@ function offerFingerprintFor(input: {
     .update(
       [
         input.projectId,
-        input.cycleInstanceId,
+        input.cycleInstanceId ?? "",
         input.objective,
         input.expectedOutcome,
         input.scope,
@@ -405,13 +426,13 @@ function offerFingerprintFor(input: {
 /** Remember CURRENT prepare recommendation (Nora offered; Pilot has not GO'd). */
 export function rememberGenericPrepareRecommendation(input: {
   readonly projectId: string;
-  readonly cycleInstanceId: string;
+  readonly cycleInstanceId: string | null;
   readonly analysis: IntentAnalysisDto;
   readonly offeredAtIso: string;
   readonly sessionKey?: string | null;
   readonly sessionDbPath?: string | null;
 }): string {
-  const sessionKey = resolvePrepareOfferSessionKey({
+  const sessionKey = resolveProductPrepareOfferSessionKey({
     sessionKey: input.sessionKey,
     sessionDbPath: input.sessionDbPath,
   });
@@ -531,7 +552,7 @@ export function getCurrentGenericPrepareOffer(
   const sessionKey =
     typeof sessionKeyOrOpts === "string"
       ? sessionKeyOrOpts
-      : resolvePrepareOfferSessionKey({
+      : resolveProductPrepareOfferSessionKey({
           sessionKey: sessionKeyOrOpts?.sessionKey,
           sessionDbPath: sessionKeyOrOpts?.sessionDbPath,
         });
@@ -540,21 +561,14 @@ export function getCurrentGenericPrepareOffer(
 
 /**
  * Build (+ optional Validate) an inspectable generalist ExecutionContract.
- * Empty decisionRefs when non-structural. Never records HumanDecision.
+ * Empty decisionRefs when non-structural. Structural resume requires verified HD.
+ * Never records HumanDecision. Never auto-EXECUTE.
  */
 export async function prepareGenericExecutionContractDraft(
   input: PrepareGenericExecutionContractDraftInput,
 ): Promise<PrepareGenericExecutionContractDraftResult> {
   const readiness = assessGenericMissionPrepareReadiness(input.analysis);
-  if (readiness.structuralBlocked) {
-    return {
-      ok: false,
-      code: "STRUCTURAL_HUMAN_DECISION_REQUIRED",
-      message:
-        "Cette mission engage une vérité structurelle — une HumanDecision Pilote reste requise avant préparation.",
-    };
-  }
-  if (!readiness.ready) {
+  if (readiness.missingFields.length > 0) {
     return {
       ok: false,
       code: "MISSION_INSUFFICIENTLY_QUALIFIED",
@@ -562,8 +576,62 @@ export async function prepareGenericExecutionContractDraft(
     };
   }
 
+  // MATERIALITY-BLOCK-01 — documentary missions without concrete WHERE reuse
+  // Product artifact target routing (pathRoot + cycle segment) BEFORE materiality.
+  const documentaryBind = await resolveGenericPrepareDocumentaryTarget({
+    oa: input.oa,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    analysis: input.analysis,
+  });
+  if (
+    documentaryBind.kind === "needs_clarification" ||
+    documentaryBind.kind === "blocked"
+  ) {
+    return {
+      ok: false,
+      code: documentaryBind.code,
+      message: documentaryBind.message,
+    };
+  }
+  const analysis = documentaryBind.analysis;
+  const productDocumentaryTargetResolution =
+    documentaryBind.documentaryTargetResolution;
+  const resolvedAuthoritativeTargetPath =
+    documentaryBind.kind === "resolved"
+      ? documentaryBind.resolvedAuthoritativeTargetPath
+      : documentaryBind.resolvedAuthoritativeTargetPath;
+
+  const decisionId = input.decisionId?.trim() || null;
+  let verifiedDecisionRefs: string[] = [];
+  let verifiedPresentationDigest: string | null = null;
+  let verifiedMissionSubjectId: string | null = null;
+  let sealedHdEffects: {
+    readonly requestedOperation: string | null;
+    readonly reversibilityExpectation:
+      | "reversible"
+      | "irreversible"
+      | "unknown"
+      | null;
+    readonly risks: readonly string[];
+    readonly reservations: readonly string[];
+    readonly intentKind: string | null;
+    readonly artifactType: string | null;
+    readonly expectedOutputs: readonly string[];
+    readonly stopConditions: readonly string[];
+    readonly repositoryBindingIdentity: string | null;
+    readonly pathRoot: string | null;
+    readonly impactSignals: {
+      readonly structuralChange: boolean;
+      readonly securityImpact: boolean;
+      readonly architectureImpact: boolean;
+      readonly dataImpact: boolean;
+      readonly irreversible: boolean;
+    };
+  } | null = null;
+
   const proposedCapabilities =
-    input.analysis.executionIntent?.requiredCapabilities ?? [];
+    analysis.executionIntent?.requiredCapabilities ?? [];
   const capabilityResolution =
     resolveGenericPrepareCapabilityEnvelope(proposedCapabilities);
   if (!capabilityResolution.ok) {
@@ -577,23 +645,69 @@ export async function prepareGenericExecutionContractDraft(
   const materialityResolution = await resolveAuthoritativeProductMateriality({
     oa: input.oa,
     projectId: input.projectId,
-    analysis: input.analysis,
+    analysis,
     cycleInstanceId: input.cycleInstanceId,
   });
   const materiality = materialityResolution.assessment;
-  if (materiality.humanDecisionRequired) {
-    return {
-      ok: false,
-      code:
-        materiality.materiality === "unknown"
-          ? "MATERIALITY_UNKNOWN"
-          : "STRUCTURAL_HUMAN_DECISION_REQUIRED",
-      message:
-        materiality.materiality === "unknown"
-          ? "Matérialité indéterminée — contexte Product insuffisant ou contradiction ; HumanDecision / clarification requise."
-          : "Matérialité server-owned structurelle — HumanDecision requise avant préparation sans refs.",
+  const hdRequired =
+    readiness.structuralBlocked || materiality.humanDecisionRequired;
+
+  if (hdRequired) {
+    if (!decisionId) {
+      return {
+        ok: false,
+        code:
+          materiality.materiality === "unknown" && !readiness.structuralBlocked
+            ? "MATERIALITY_UNKNOWN"
+            : "STRUCTURAL_HUMAN_DECISION_REQUIRED",
+        message:
+          materiality.materiality === "unknown" && !readiness.structuralBlocked
+            ? "Matérialité indéterminée — contexte Product insuffisant ou contradiction ; HumanDecision / clarification requise."
+            : "Cette mission engage une vérité structurelle — une HumanDecision Pilote reste requise avant préparation.",
+      };
+    }
+    const verified = await verifyGenericMissionHumanDecisionForPrepare({
+      oa: input.oa,
+      projectId: input.projectId,
+      cycleInstanceId: input.cycleInstanceId?.trim() || null,
+      decisionId,
+      analysis,
+    });
+    if (!verified.ok) {
+      return {
+        ok: false,
+        code: verified.code,
+        message: verified.message,
+      };
+    }
+    verifiedDecisionRefs = [verified.verified.decisionId];
+    verifiedPresentationDigest = verified.verified.presentationDigest;
+    verifiedMissionSubjectId = verified.verified.missionSubjectId;
+    const sealedCtx =
+      verified.verified.decision.decisionBasis?.genericMissionContext;
+    if (!sealedCtx) {
+      return {
+        ok: false,
+        code: "HD_BASIS_INVALID",
+        message: "genericMissionContext absent après vérification HD.",
+      };
+    }
+    // Authoritative accepted effects — stamp EC from sealed HD, not a parallel re-derivation.
+    sealedHdEffects = {
+      requestedOperation: sealedCtx.requestedOperation ?? null,
+      reversibilityExpectation: sealedCtx.reversibilityExpectation ?? null,
+      risks: [...sealedCtx.risks],
+      reservations: [...sealedCtx.reservations],
+      intentKind: sealedCtx.intentKind ?? null,
+      artifactType: sealedCtx.artifactType ?? null,
+      expectedOutputs: [...sealedCtx.expectedOutputs],
+      stopConditions: [...sealedCtx.stopConditions],
+      repositoryBindingIdentity: sealedCtx.repositoryBindingIdentity,
+      pathRoot: sealedCtx.pathRoot,
+      impactSignals: { ...sealedCtx.impactSignals },
     };
   }
+  // Non-structural: decisionRefs remain empty (no systematic HD).
 
   const services = input.oa.executionContractServices;
   if (!services?.buildExecutionContract) {
@@ -605,42 +719,55 @@ export async function prepareGenericExecutionContractDraft(
   }
 
   const objective = (
-    input.analysis.objective ??
-    input.analysis.rephrasedRequest ??
+    analysis.objective ??
+    analysis.rephrasedRequest ??
     ""
   ).trim();
-  const expectedOutcome = (input.analysis.expectedOutcome ?? objective).trim();
-  const scopeNarrative = (input.analysis.scope ?? expectedOutcome).trim();
-  const scopeIn = input.analysis.executionIntent?.scopeIn ?? [];
-  const outOfScope = input.analysis.outOfScope ?? [];
+  const expectedOutcome = (analysis.expectedOutcome ?? objective).trim();
+  const scopeNarrative = (analysis.scope ?? expectedOutcome).trim();
+  // Concrete WHERE after Product documentary bind (may include cycle workspace root).
+  const scopeIn = analysis.executionIntent?.scopeIn ?? [];
+  const outOfScope = analysis.outOfScope ?? [];
   const cycleInstanceId = input.cycleInstanceId?.trim() || undefined;
-  const missionEffects = extractMissionEffectsFromAnalysis(input.analysis);
-  // D-PC-09 / Pass 02 regularization — Nora path/filename/expectedOutputs are
-  // candidates only until Product resolves an authoritative destination.
-  // Generic PREPARE does not yet compose a server-owned documentary targetPath,
-  // so contract.expectedOutputs must NOT list unresolved candidates as if they
-  // were authorized destinations. Keep a readable documentary outcome instead.
+  // Nora proposals from the inbound analysis only — never promote Product-resolved
+  // path as a Nora "proposal" (D-PC-09 / MATERIALITY-BLOCK-01).
+  const noraMissionEffects = extractMissionEffectsFromAnalysis(input.analysis);
+  const missionEffects =
+    documentaryBind.kind === "resolved"
+      ? {
+          ...extractMissionEffectsFromAnalysis(analysis),
+          proposedTargetPath: noraMissionEffects.proposedTargetPath,
+          proposedArtifactFileName: noraMissionEffects.proposedArtifactFileName,
+        }
+      : extractMissionEffectsFromAnalysis(analysis);
   const proposedDocumentaryOutputCandidates = [
-    ...missionEffects.expectedOutputs,
-    ...(missionEffects.proposedTargetPath
-      ? [missionEffects.proposedTargetPath]
+    ...noraMissionEffects.expectedOutputs,
+    ...(noraMissionEffects.proposedTargetPath
+      ? [noraMissionEffects.proposedTargetPath]
       : []),
-    ...(missionEffects.proposedArtifactFileName
-      ? [missionEffects.proposedArtifactFileName]
+    ...(noraMissionEffects.proposedArtifactFileName
+      ? [noraMissionEffects.proposedArtifactFileName]
       : []),
   ].filter((v, i, arr) => v.trim().length > 0 && arr.indexOf(v) === i);
-  const documentaryTargetResolution:
-    | "unresolved_nora_candidate"
-    | "not_applicable" =
-    missionEffects.intentKind === "docs_write" ||
-    proposedDocumentaryOutputCandidates.length > 0
-      ? "unresolved_nora_candidate"
-      : "not_applicable";
-  // Contract expectedOutputs = inspectable requested outcome, never unresolved path authority.
-  const contractExpectedOutputs = [expectedOutcome];
+  const documentaryTargetResolution =
+    productDocumentaryTargetResolution === "resolved_product"
+      ? "resolved_product"
+      : productDocumentaryTargetResolution === "unresolved_nora_candidate"
+        ? "unresolved_nora_candidate"
+        : missionEffects.intentKind === "docs_write" ||
+            proposedDocumentaryOutputCandidates.length > 0
+          ? "unresolved_nora_candidate"
+          : "not_applicable";
+  // Contract expectedOutputs: Product-resolved path when available; else outcome text.
+  // Never list unresolved Nora path candidates as authorized destinations.
+  const contractExpectedOutputs = sealedHdEffects
+    ? [...sealedHdEffects.expectedOutputs]
+    : resolvedAuthoritativeTargetPath
+      ? [resolvedAuthoritativeTargetPath]
+      : [expectedOutcome];
 
   // D — source grounding / trusted launch when mission implies repository work.
-  const impliesGit = missionImpliesRepositoryWork(input.analysis);
+  const impliesGit = missionImpliesRepositoryWork(analysis);
   let launchInputs: Record<string, unknown> = {};
   let sourcesToRead: string[] = [];
   let sourceGroundingPayload: unknown = null;
@@ -717,13 +844,21 @@ export async function prepareGenericExecutionContractDraft(
     scopeIn,
     scopeOut: outOfScope,
     materiality: materiality.materiality,
+    decisionId: verifiedDecisionRefs[0] ?? null,
+    presentationDigest: verifiedPresentationDigest,
   });
   const executionContractId = `xct:gen-prep:${missionKey}`;
   const idempotencyKey = `idem:gen-prep:${missionKey}`;
   const correlationId = `cor:gen-prep:${randomBytes(6).toString("hex")}`;
 
+  const sealedOrAnalysisStops = sealedHdEffects
+    ? [...sealedHdEffects.stopConditions]
+    : [
+        ...(analysis.stopConditions ?? []).filter((s) => s.trim().length > 0),
+        "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
+      ];
   const stopConditions = [
-    ...(input.analysis.stopConditions ?? []).filter((s) => s.trim().length > 0),
+    ...sealedOrAnalysisStops,
     "AUTHORITY_DENIED",
     "CONTEXT_STALE",
     "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
@@ -736,16 +871,25 @@ export async function prepareGenericExecutionContractDraft(
     return true;
   });
 
+  const sealedOrAnalysisRisks = sealedHdEffects
+    ? [...sealedHdEffects.risks]
+    : [...(analysis.risks ?? [])];
+  const sealedOrAnalysisReservations = sealedHdEffects
+    ? [...sealedHdEffects.reservations]
+    : [...(analysis.reservations ?? [])];
+
   const constraints = [
     "PRODUCT_GOVERNED",
     "NO_ATTEMPT_AT_PREPARE",
-    "PREPARE_WITHOUT_SYSTEMATIC_HD",
+    verifiedDecisionRefs.length > 0
+      ? "PREPARE_AFTER_VERIFIED_GENERIC_MISSION_HD"
+      : "PREPARE_WITHOUT_SYSTEMATIC_HD",
     "CURSOR_DETERMINES_HOW",
     "GENERIC_MISSION_NO_TASK_CATALOG",
     materiality.constraintToken,
     ...outOfScope.map((s) => `OUT_OF_SCOPE:${s}`),
-    ...(input.analysis.risks ?? []).map((s) => `RISK:${s}`),
-    ...(input.analysis.reservations ?? []).map((s) => `RESERVATION:${s}`),
+    ...sealedOrAnalysisRisks.map((s) => `RISK:${s}`),
+    ...sealedOrAnalysisReservations.map((s) => `RESERVATION:${s}`),
   ];
 
   const issuedAt = input.oa.clock.nowIso();
@@ -771,12 +915,31 @@ export async function prepareGenericExecutionContractDraft(
     assessedMateriality: materiality.materiality,
     reasonCodes: [...materiality.reasonCodes],
   };
+  const currentness = materialityResolution.facts.productCurrentness;
+  // Authoritative EC↔HD effect stamps (M-HD-01 binding). When HD verified,
+  // missionSubjectId + presentationDigest + sealed effects are required on the EC.
+  const stampedRevExpectation =
+    sealedHdEffects?.reversibilityExpectation ??
+    missionEffects.reversibilityExpectation;
+  const stampedRequestedOperation =
+    sealedHdEffects?.requestedOperation ?? missionEffects.requestedOperation;
+  const stampedIntentKind =
+    sealedHdEffects?.intentKind ?? missionEffects.intentKind;
+  const stampedArtifactType =
+    sealedHdEffects?.artifactType ?? missionEffects.artifactType;
+  const stampedRepoIdentity =
+    sealedHdEffects?.repositoryBindingIdentity ??
+    currentness?.repositoryIdentity ??
+    null;
+  const stampedPathRoot =
+    sealedHdEffects?.pathRoot ?? currentness?.pathRoot ?? null;
+  const oaReversibility = mapReversibilityExpectationToOa(stampedRevExpectation);
 
   const built = await services.buildExecutionContract.execute({
     executionContractId,
     projectId: input.projectId,
     cycleInstanceId,
-    decisionRefs: [],
+    decisionRefs: [...verifiedDecisionRefs],
     action: PRODUCT_CANONICAL_EXECUTION_ACTION,
     target: PRODUCT_CANONICAL_EXECUTION_TARGET,
     scope: PRODUCT_CANONICAL_EXECUTION_SCOPE,
@@ -788,25 +951,54 @@ export async function prepareGenericExecutionContractDraft(
       scopeOut: outOfScope,
       sourcesToRead,
       cursorDeterminesHow: true,
-      prepareWithoutSystematicHumanDecision: true,
+      prepareWithoutSystematicHumanDecision: verifiedDecisionRefs.length === 0,
+      verifiedGenericMissionHumanDecisionId: verifiedDecisionRefs[0] ?? null,
+      missionSubjectId: verifiedMissionSubjectId,
+      presentationDigest: verifiedPresentationDigest,
       humanDecisionCreated: false,
       executionAttemptCreated: false,
       prepareStatus: "draft_inspectable",
       materialityFacts,
-      // Intent fidelity — inspectable mission effects (Pass 02).
-      intentKind: missionEffects.intentKind,
-      artifactType: missionEffects.artifactType,
+      // Intent fidelity — inspectable mission effects (Pass 02 / EC↔HD).
+      intentKind: stampedIntentKind,
+      artifactType: stampedArtifactType,
+      requestedOperation: stampedRequestedOperation,
+      reversibilityExpectation: stampedRevExpectation,
+      risks: sealedOrAnalysisRisks,
+      reservations: sealedOrAnalysisReservations,
+      repositoryBindingIdentity: stampedRepoIdentity,
+      pathRoot: stampedPathRoot,
+      // Historical accepted impact signals (not a live Nora re-qualification).
+      impactSignals: sealedHdEffects?.impactSignals ??
+        (analysis.signals
+          ? {
+              structuralChange: Boolean(analysis.signals.structuralChange),
+              securityImpact: Boolean(analysis.signals.securityImpact),
+              architectureImpact: Boolean(analysis.signals.architectureImpact),
+              dataImpact: Boolean(analysis.signals.dataImpact),
+              irreversible: Boolean(analysis.signals.irreversible),
+            }
+          : null),
       artifactBrief: missionEffects.artifactBrief,
       contentRequirements: [...missionEffects.contentRequirements],
       validationExpectations: [...missionEffects.validationExpectations],
       // D-PC-09 — Nora path/name candidates are NON-AUTHORITATIVE.
-      proposedTargetPath: missionEffects.proposedTargetPath,
-      proposedArtifactFileName: missionEffects.proposedArtifactFileName,
+      proposedTargetPath: noraMissionEffects.proposedTargetPath,
+      proposedArtifactFileName: noraMissionEffects.proposedArtifactFileName,
       proposedDocumentaryOutputCandidates,
       proposedTargetPathAuthoritative: false,
       documentaryTargetResolution,
-      // No authoritative resolved path at Generic PREPARE in this surface.
-      resolvedAuthoritativeTargetPath: null,
+      // Server-owned destination when Product routing resolved it (≠ Nora candidate).
+      resolvedAuthoritativeTargetPath,
+      ...(resolvedAuthoritativeTargetPath
+        ? {
+            targetPath: resolvedAuthoritativeTargetPath,
+            artifactFileName:
+              documentaryBind.kind === "resolved"
+                ? documentaryBind.artifactFileName
+                : missionEffects.proposedArtifactFileName,
+          }
+        : {}),
       proposedRequiredCapabilities: [
         ...capabilityResolution.proposedCapabilities,
       ],
@@ -816,7 +1008,7 @@ export async function prepareGenericExecutionContractDraft(
       ...(sourceGroundingPayload
         ? { [CONTRACT_SOURCE_GROUNDING_INPUT_KEY]: sourceGroundingPayload }
         : {}),
-      protectedPathHitsAtPrepare: collectProtectedPathHits(input.analysis),
+      protectedPathHitsAtPrepare: collectProtectedPathHits(analysis),
     },
     expectedOutputs: contractExpectedOutputs,
     requiredCapabilities: [...capabilityResolution.contractCapabilities],
@@ -827,7 +1019,7 @@ export async function prepareGenericExecutionContractDraft(
       "evreq:generic-prepare-mission-evidence",
       ...missionEffects.evidenceRequirements,
     ],
-    reversibility: "partially_reversible",
+    reversibility: oaReversibility,
     idempotencyKey,
     correlationId,
     status: "draft",
@@ -835,16 +1027,104 @@ export async function prepareGenericExecutionContractDraft(
     authorityEvidenceId: authority.evidenceId,
   });
 
+  let contract;
+  let reusedExisting = false;
   if (!built.ok) {
-    return {
-      ok: false,
-      code: built.error.detailCode,
-      message: built.error.message,
-    };
+    // Idempotent resume: same missionKey / executionContractId already built.
+    if (built.error.detailCode === "CONTRACT_ALREADY_EXISTS") {
+      const existing = await services.getExecutionContract.execute({
+        executionContractId,
+      });
+      const reusableStatuses = new Set([
+        "draft",
+        "validated",
+        "confirmation_required",
+        "confirmed",
+        "authorized",
+      ]);
+      const existingRefs = [...(existing.ok ? existing.contract.decisionRefs ?? [] : [])].sort();
+      const wantedRefs = [...verifiedDecisionRefs].sort();
+      const existingCaps = [
+        ...(existing.ok ? existing.contract.requiredCapabilities ?? [] : []),
+      ];
+      const wantedCaps = [...capabilityResolution.contractCapabilities];
+      const existingInputs = (existing.ok ? existing.contract.inputs ?? {} : {}) as Record<
+        string,
+        unknown
+      >;
+      const sameRefs = JSON.stringify(existingRefs) === JSON.stringify(wantedRefs);
+      const sameCaps = JSON.stringify(existingCaps) === JSON.stringify(wantedCaps);
+      const sameObjective =
+        String(existingInputs.objective ?? "").trim() === objective.trim();
+      const sameScope =
+        String(existingInputs.missionScopeNarrative ?? "").trim() ===
+          scopeNarrative.trim() &&
+        JSON.stringify(existingInputs.scopeIn ?? []) === JSON.stringify(scopeIn) &&
+        JSON.stringify(existingInputs.scopeOut ?? []) === JSON.stringify(outOfScope);
+      const sameMateriality = (existing.ok ? existing.contract.constraints ?? [] : []).includes(
+        materiality.constraintToken,
+      );
+      const sameDigest =
+        !verifiedPresentationDigest ||
+        String(existingInputs.presentationDigest ?? "") ===
+          verifiedPresentationDigest;
+      const statusOk =
+        existing.ok && reusableStatuses.has(existing.contract.status);
+      const notSuperseded =
+        existing.ok && existing.contract.status !== "superseded";
+      if (
+        existing.ok &&
+        existing.contract.projectId === input.projectId &&
+        sameRefs &&
+        sameCaps &&
+        sameObjective &&
+        sameScope &&
+        sameMateriality &&
+        sameDigest &&
+        statusOk &&
+        notSuperseded
+      ) {
+        // When HD resume: re-verify decision still applicable before reuse.
+        if (verifiedDecisionRefs.length > 0) {
+          for (const ref of verifiedDecisionRefs) {
+            const hd = await verifyGenericMissionHumanDecisionForContract({
+              oa: input.oa,
+              projectId: input.projectId,
+              decisionId: ref,
+              contract: existing.contract,
+            });
+            if (!hd.ok) {
+              return {
+                ok: false,
+                code: "CONTRACT_STALE",
+                message: `EC existant non réutilisable — HD courante invalide (${hd.code}).`,
+              };
+            }
+          }
+        }
+        contract = existing.contract;
+        reusedExisting = true;
+      } else {
+        return {
+          ok: false,
+          code: "CONTRACT_STALE",
+          message:
+            "EC existant non réutilisable (statut/scope/effets/decisionRefs/currentness divergents).",
+        };
+      }
+    } else {
+      return {
+        ok: false,
+        code: built.error.detailCode,
+        message: built.error.message,
+      };
+    }
+  } else {
+    contract = built.contract;
   }
 
-  let contract = built.contract;
-  const shouldValidate = input.validateAfterBuild !== false;
+  const shouldValidate =
+    input.validateAfterBuild !== false && !reusedExisting;
   if (shouldValidate && services.validateExecutionContract) {
     const validated = await services.validateExecutionContract.execute({
       executionContractId: contract.executionContractId,
@@ -864,7 +1144,7 @@ export async function prepareGenericExecutionContractDraft(
   // Prepare consumed the CURRENT offer (if any).
   clearPendingGenericPrepareOffer(
     input.projectId,
-    resolvePrepareOfferSessionKey({
+    resolveProductPrepareOfferSessionKey({
       sessionKey: input.sessionKey,
       sessionDbPath: input.sessionDbPath,
     }),
@@ -884,13 +1164,19 @@ export function genericMissionClarificationText(input: {
   readonly missingFields: readonly string[];
   readonly structuralBlocked: boolean;
   readonly recommendPrepare?: boolean;
+  /** false = S8 project-context (no active cycle, none invented). Default true. */
+  readonly hasActiveCycle?: boolean;
 }): string {
   const head =
     input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
+  const contextKept =
+    input.hasActiveCycle === false
+      ? "Contexte projet conservé — aucun cycle artificiel créé."
+      : "Le cycle actif est conservé.";
   if (input.structuralBlocked) {
     return [
       head,
-      "Le cycle actif est conservé.",
+      contextKept,
       "Cette demande touche une frontière structurelle — une décision Pilote explicite reste nécessaire avant de préparer un contrat d'exécution.",
       "Rien n'a encore été exécuté.",
     ].join(" ");
@@ -898,7 +1184,7 @@ export function genericMissionClarificationText(input: {
   if (input.recommendPrepare) {
     return [
       head,
-      "Le cycle actif est conservé.",
+      contextKept,
       "Je recommande de confier cette mission à Cursor.",
       "Je peux préparer le contrat d'exécution générique inspectable.",
       "Si tu es d'accord, dis-le-moi (par ex. « OK, vas-y ») — préparer ≠ autoriser ≠ exécuter.",
@@ -908,7 +1194,7 @@ export function genericMissionClarificationText(input: {
   const gaps = input.missingFields.join(", ");
   return [
     head,
-    "Le cycle actif est conservé.",
+    contextKept,
     `Pour préparer le contrat d'exécution, il me manque encore : ${gaps}.`,
     "La préparation reste distincte du lancement. Rien n'a encore été exécuté.",
   ].join(" ");
@@ -929,4 +1215,200 @@ export function genericMissionPreparedText(input: {
     "Tu peux le consulter dans la trajectoire et me demander de l'ajuster avant d'autoriser l'exécution.",
     "Préparer ≠ autoriser ≠ exécuter. Aucune exécution n'a été lancée.",
   ].join(" ");
+}
+
+// ---------------------------------------------------------------------------
+// D-ER-16…19 — Nora tool solicitation (Option 2). Thin Product service over
+// the SAME backend: assess readiness → prepareGenericExecutionContractDraft.
+// No parallel prepare engine · no task taxonomy · never an ExecutionAttempt.
+// ---------------------------------------------------------------------------
+
+/** Mission fields Nora may supply to the solicitation tool (NON-AUTHORITATIVE). */
+export type SolicitGenericPrepareMissionFields = {
+  readonly objective?: string | null;
+  readonly expectedOutcome?: string | null;
+  readonly scope?: string | null;
+  readonly contextNotes?: string | null;
+  /** Conservative-only: a true flag can only make Product MORE cautious. */
+  readonly impactSignals?: {
+    readonly structuralChange?: boolean;
+    readonly securityImpact?: boolean;
+    readonly architectureImpact?: boolean;
+    readonly dataImpact?: boolean;
+    readonly irreversible?: boolean;
+  } | null;
+};
+
+/**
+ * Minimal IntentAnalysisDto for a tool-solicited mission. Safe defaults:
+ * intentClass execution_request, NO executionIntent taxonomy, NO
+ * continuationKind / artifactMaterializationOperation, NO cycle type.
+ */
+export function buildIntentAnalysisFromSolicitedMission(
+  fields: SolicitGenericPrepareMissionFields,
+): IntentAnalysisDto {
+  const objective = fields.objective?.trim() || null;
+  const expectedOutcome = fields.expectedOutcome?.trim() || null;
+  const scope = fields.scope?.trim() || null;
+  const sig = fields.impactSignals ?? null;
+  const structural =
+    sig?.structuralChange === true ||
+    sig?.securityImpact === true ||
+    sig?.architectureImpact === true ||
+    sig?.dataImpact === true ||
+    sig?.irreversible === true;
+  const notes = fields.contextNotes?.trim() || null;
+  return {
+    parseOk: true,
+    intentClass: "execution_request",
+    candidateCycleTypeId: null,
+    signals: {
+      structuralChange: sig?.structuralChange === true,
+      securityImpact: sig?.securityImpact === true,
+      architectureImpact: sig?.architectureImpact === true,
+      dataImpact: sig?.dataImpact === true,
+      irreversible: sig?.irreversible === true,
+      lowRiskBounded: !structural,
+    },
+    cognitiveWorkload: null,
+    contradictionCandidate: null,
+    challengeResponseAssessment: "sufficient",
+    objective,
+    scope,
+    rephrasedRequest: objective,
+    outOfScope: [],
+    risks: [],
+    reservations: notes ? [notes] : [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome,
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: null,
+  };
+}
+
+export type SolicitGenericExecutionPrepareInput = {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  /** null = S8 project-context (no active cycle; none is ever created here). */
+  readonly cycleInstanceId: string | null;
+  /** Full analysis (F2) OR mission fields (Nora tool) — exactly one source. */
+  readonly analysis?: IntentAnalysisDto;
+  readonly mission?: SolicitGenericPrepareMissionFields;
+  /** M-HD-01 — verified OA HumanDecision for structural resume. */
+  readonly decisionId?: string | null;
+  readonly sessionKey?: string | null;
+  readonly sessionDbPath?: string | null;
+  readonly forceLocalAuthority?: boolean;
+  readonly pinnedBaseHeadSha?: string | null;
+  readonly managedRepoRootBase?: string | null;
+  readonly sourceGroundingReader?: ContractSourceGroundingReader | null;
+};
+
+export type SolicitGenericExecutionPrepareResult =
+  | {
+      readonly ok: true;
+      readonly code: "GENERIC_PREPARE_DRAFTED";
+      readonly executionContractId: string;
+      readonly contractStatus: string;
+      readonly materiality: string;
+      readonly cycleInstanceId: string | null;
+      readonly projectContextOnly: boolean;
+      readonly humanDecisionCreated: false;
+      readonly executionAttemptCreated: false;
+      readonly message: string;
+    }
+  | {
+      readonly ok: false;
+      readonly code: string;
+      readonly message: string;
+      readonly missingFields?: readonly string[];
+      readonly humanDecisionCreated: false;
+      readonly executionAttemptCreated: false;
+    };
+
+/**
+ * Thin Product service for Nora tool injection (D-ER-16). PREPARE only —
+ * AUTHORIZE and EXECUTE remain separate Pilote/Studio acts. Always reports
+ * executionAttemptCreated:false; JSON-serializable.
+ */
+export async function solicitGenericExecutionPrepare(
+  input: SolicitGenericExecutionPrepareInput,
+): Promise<SolicitGenericExecutionPrepareResult> {
+  const projectId = input.projectId.trim();
+  const fail = (
+    code: string,
+    message: string,
+    missingFields?: readonly string[],
+  ): SolicitGenericExecutionPrepareResult => ({
+    ok: false,
+    code,
+    message,
+    ...(missingFields ? { missingFields } : {}),
+    humanDecisionCreated: false,
+    executionAttemptCreated: false,
+  });
+  if (!projectId) {
+    return fail("PRODUCT_PROJECT_REQUIRED", "Project requis pour préparer.");
+  }
+  const analysis =
+    input.analysis ??
+    buildIntentAnalysisFromSolicitedMission(input.mission ?? {});
+
+  const readiness = assessGenericMissionPrepareReadiness(analysis);
+  if (readiness.missingFields.length > 0) {
+    return fail(
+      "MISSION_INSUFFICIENTLY_QUALIFIED",
+      `Informations manquantes pour préparer le contrat : ${readiness.missingFields.join(", ")}.`,
+      readiness.missingFields,
+    );
+  }
+  // Structural without decisionId fails inside prepareGeneric (verified HD path).
+
+  const cycleInstanceId = input.cycleInstanceId?.trim() || null;
+  const prep = await prepareGenericExecutionContractDraft({
+    oa: input.oa,
+    projectId,
+    cycleInstanceId,
+    analysis,
+    decisionId: input.decisionId,
+    forceLocalAuthority: input.forceLocalAuthority,
+    pinnedBaseHeadSha: input.pinnedBaseHeadSha,
+    managedRepoRootBase: input.managedRepoRootBase,
+    sourceGroundingReader: input.sourceGroundingReader,
+    sessionKey: input.sessionKey,
+    sessionDbPath: input.sessionDbPath,
+  });
+  if (!prep.ok) {
+    // M-HD-02 — retain CURRENT offer so Pilot UI can seal/present without a
+    // parallel PresentedMission store (process-local continuity only).
+    if (
+      prep.code === "STRUCTURAL_HUMAN_DECISION_REQUIRED" ||
+      prep.code === "MATERIALITY_UNKNOWN"
+    ) {
+      rememberGenericPrepareRecommendation({
+        projectId,
+        cycleInstanceId,
+        analysis,
+        offeredAtIso: input.oa.clock.nowIso(),
+        sessionKey: input.sessionKey,
+        sessionDbPath: input.sessionDbPath,
+      });
+    }
+    return fail(prep.code, prep.message);
+  }
+  return {
+    ok: true,
+    code: "GENERIC_PREPARE_DRAFTED",
+    executionContractId: prep.contract.executionContractId,
+    contractStatus: prep.contract.status,
+    materiality: prep.materiality.materiality,
+    cycleInstanceId,
+    projectContextOnly: cycleInstanceId === null,
+    humanDecisionCreated: false,
+    executionAttemptCreated: false,
+    message:
+      "Contrat d'exécution préparé et inspectable — non autorisé, non lancé. Préparer ≠ autoriser ≠ exécuter.",
+  };
 }

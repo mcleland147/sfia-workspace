@@ -8,6 +8,15 @@
  * intent fidelity (docs_write / documentary outputs / proposed capabilities)
  * without treating Nora proposals as Product path authority.
  *
+ * M-HD-02 — Product remember/read/record share one server key derived from
+ * the Nora Session SQLite path (not a client-claimed sessionKey).
+ *
+ * CONVERSATION CONTRACT (qualified — do not invent multi-conversation):
+ * Product canonical conversation is ONE per Project within a Session SQLite
+ * (`CANONICAL_CONVERSATION_SESSION_KEY = "f1-default"`). Offer isolation is
+ * therefore Project-scoped (+ Nora Session DB path). Multi-conversation
+ * isolation inside the same Project/SQLite is NOT IMPLEMENTED / NOT CLAIMED.
+ *
  * LIMITATION (documented debt):
  * - Lost on process restart → no stale PREPARE from prior process.
  * - Not multi-instance durable.
@@ -15,6 +24,8 @@
  * Product binding under separate GO if restart continuity required.
  * Restart continuity is NOT PROVEN.
  */
+
+import { resolveNoraSessionSqlitePath } from "@/lib/nora-cognitive-runtime/sessionPaths";
 
 const STORE_KEY = "__SFIA_F2_PENDING_GENERIC_PREPARE_OFFER__" as const;
 
@@ -50,7 +61,8 @@ export type PendingGenericPrepareOffer = {
   readonly projectId: string;
   /** Conversation/session discriminator — never cross-bind without match. */
   readonly sessionKey: string;
-  readonly cycleInstanceId: string;
+  /** null = S8 project-context offer (no active cycle; never an invented CycleInstance). */
+  readonly cycleInstanceId: string | null;
   readonly missionKey: string;
   readonly objective: string;
   readonly expectedOutcome: string;
@@ -123,6 +135,24 @@ export function resolvePrepareOfferSessionKey(input: {
     return `sessdb:${input.sessionDbPath.trim()}`;
   }
   return "default";
+}
+
+/**
+ * M-HD-02 — server-owned Product offer session key.
+ * Aligns remember / read / record with Nora Session SQLite identity.
+ * Explicit sessionKey is for trusted server/test inject only — never a client claim.
+ */
+export function resolveProductPrepareOfferSessionKey(input?: {
+  readonly sessionDbPath?: string | null;
+  readonly sessionKey?: string | null;
+}): string {
+  if (input?.sessionKey?.trim()) {
+    return input.sessionKey.trim();
+  }
+  const sessionDbPath = resolveNoraSessionSqlitePath(
+    input?.sessionDbPath?.trim() || undefined,
+  );
+  return resolvePrepareOfferSessionKey({ sessionDbPath });
 }
 
 export function getPendingGenericPrepareOffer(

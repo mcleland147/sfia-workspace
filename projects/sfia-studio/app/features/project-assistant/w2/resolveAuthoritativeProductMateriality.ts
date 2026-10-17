@@ -148,6 +148,16 @@ function deriveCycleOrTrajectoryMutation(input: {
     return { value: true, basis: "live_cycle_unavailable_fail_closed" };
   }
   if (!input.liveActiveCycleId) {
+    // D-ER-17 / S8 — project-context mission (requested cycle null) on a project
+    // with NO live active cycle mutates no cycle/trajectory truth: there is none
+    // to mutate and none is created. A mission that REQUESTS a cycle which is not
+    // live-active stays fail-closed (cannot anchor non-mutation).
+    if (!input.requestedCycleId) {
+      return {
+        value: false,
+        basis: "project_context_no_active_cycle_none_mutated",
+      };
+    }
     return { value: true, basis: "no_active_cycle_to_anchor_non_mutation" };
   }
   if (
@@ -285,7 +295,8 @@ export async function resolveAuthoritativeProductMateriality(input: {
     liveOk &&
     concretePaths.length > 0 &&
     structural.basis === "live_lps_ok_concrete_non_protected_paths_only" &&
-    cycle.basis === "active_cycle_anchored_matches_requested" &&
+    (cycle.basis === "active_cycle_anchored_matches_requested" ||
+      cycle.basis === "project_context_no_active_cycle_none_mutated") &&
     authority.basis === "paths_within_path_root_and_generalist_capability_only";
 
   const facts: AuthoritativeMaterialityResolution["facts"] = {

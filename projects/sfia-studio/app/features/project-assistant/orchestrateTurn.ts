@@ -521,6 +521,47 @@ export async function orchestrateProjectAssistantTurn(input: {
             query,
           });
         },
+        // D-ER-16…19 (Option 2) — Nora SOLICITS Generic PREPARE through the
+        // unique Product backend. Project bound server-side; active cycle is
+        // optional context (null = S8 project-context, never invented).
+        // PREPARE ≠ AUTHORIZE ≠ EXECUTE — no ExecutionAttempt is ever created.
+        solicitPrepare: async (args) => {
+          const [
+            { getRuntimeApplicationService },
+            { solicitGenericExecutionPrepare },
+          ] = await Promise.all([
+            import("@/lib/vertical-slice-runtime"),
+            import("./w2/prepareGenericExecutionContractDraft"),
+          ]);
+          const oa = getRuntimeApplicationService().oa;
+          if (!oa) {
+            return {
+              ok: false as const,
+              code: "OA_UNAVAILABLE",
+              message: "OA runtime indisponible pour la préparation.",
+              executionAttemptCreated: false as const,
+            };
+          }
+          return solicitGenericExecutionPrepare({
+            oa,
+            projectId: project.projectId,
+            cycleInstanceId: project.activeCycleInstanceId?.trim() || null,
+            mission: {
+              objective: args.objective,
+              expectedOutcome: args.expectedOutcome,
+              scope: args.scope,
+              contextNotes: args.contextNotes,
+              impactSignals: args.impactSignals,
+            },
+            sessionDbPath: input.sessionDbPath,
+            forceLocalAuthority:
+              process.env.VITEST === "true" ||
+              process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1",
+            // Explicit DET pin only (never inferred from VITEST alone).
+            pinnedBaseHeadSha:
+              process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA?.trim() || null,
+          });
+        },
       },
       signal: input.signal,
     });

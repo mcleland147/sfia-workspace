@@ -74,6 +74,28 @@ import type {
 } from "./types";
 import type { ReadW2ProjectHistoryResult } from "./projectHistory";
 import type { RecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
+import type { IntentAnalysisDto } from "../f2/types";
+import {
+  missionSubjectIdFromOfferFingerprint,
+  readGenericMissionDecisionContinuity,
+  type GenericMissionDecisionContinuityResult,
+} from "./genericMissionDecisionContinuity";
+import {
+  analysisFromPendingGenericPrepareOffer,
+  getCurrentGenericPrepareOffer,
+} from "./prepareGenericExecutionContractDraft";
+import { resolveProductPrepareOfferSessionKey } from "./pendingGenericPrepareOfferStore";
+import {
+  GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  GENERIC_MISSION_OPTION_REFUSE,
+  GENERIC_MISSION_OPTION_REQUEST_AMEND,
+} from "./genericMissionSubject";
+import {
+  recordGenericMissionHumanDecision,
+  sealGenericMissionForPresentation,
+  type RecordGenericMissionHumanDecisionResult,
+  type SealGenericMissionForPresentationResult,
+} from "./recordGenericMissionHumanDecision";
 
 const OA_UNAVAILABLE = {
   ok: false as const,
@@ -261,6 +283,15 @@ export async function w2InspectExecutionContractAction(input: {
   projectId: string;
   executionContractId: string;
   expectedVersion?: number;
+  /**
+   * Facts the Pilote attests having read on the displayed contract version.
+   * When provided (including empty), the service must not invent a substitute
+   * set — empty fails closed at record time. When omitted, legacy callers
+   * (Conversation / Trajectory Inspect buttons that already surface disclosure)
+   * keep the prior required-facts default inside inspectExecutionContract.
+   * Confirm / Execute must never call this action as a side effect.
+   */
+  inspectedFacts?: readonly string[];
 }): Promise<InspectExecutionContractResult> {
   const runtime = getRuntimeApplicationService();
   if (!runtime.oa) return OA_UNAVAILABLE;
@@ -270,6 +301,9 @@ export async function w2InspectExecutionContractAction(input: {
     projectId: input.projectId,
     executionContractId: input.executionContractId,
     expectedVersion: input.expectedVersion,
+    ...(input.inspectedFacts !== undefined
+      ? { inspectedFacts: input.inspectedFacts }
+      : {}),
   });
 }
 
@@ -549,6 +583,12 @@ export async function w2PrepareRecoveryDocsWriteAction(input: {
 export async function w2GovernedExecuteSelectAction(input: {
   projectId: string;
   executionContractId: string;
+  /**
+   * Optional Pilote inspection binding for G-D4 stamped Generic Select.
+   * When omitted, Select resolves from durable inspection attestation.
+   */
+  expectedVersion?: number;
+  expectedSemanticFingerprint?: string;
   canActAsMorris?: unknown;
   claimedAuthorityLevel?: unknown;
   authorityReceiptRef?: unknown;
@@ -560,6 +600,8 @@ export async function w2GovernedExecuteSelectAction(input: {
     oa: runtime.oa,
     projectId: input.projectId,
     executionContractId: input.executionContractId,
+    expectedVersion: input.expectedVersion,
+    expectedSemanticFingerprint: input.expectedSemanticFingerprint,
     canActAsMorris: input.canActAsMorris,
     claimedAuthorityLevel: input.claimedAuthorityLevel,
     authorityReceiptRef: input.authorityReceiptRef,
@@ -928,5 +970,274 @@ export async function w2ReadProjectHistoryAction(input: {
   return readW2ProjectHistory({
     oa: runtime.oa,
     projectId: input.projectId,
+  });
+}
+
+/**
+ * M-HD-01 — seal a Generic Mission subject for explicit Pilote presentation.
+ * Does not record HumanDecision. Does not create Attempt.
+ * Session required — analysis must not invent authority.
+ */
+export async function w2SealGenericMissionAction(input: {
+  projectId: string;
+  cycleInstanceId?: string | null;
+  analysis: IntentAnalysisDto;
+  missionSubjectId?: string;
+}): Promise<SealGenericMissionForPresentationResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "OA stack unavailable",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+  const pilote = await resolveCurrentAuthenticatedPilote({
+    headers: await headers(),
+  });
+  if (!pilote.ok) {
+    return {
+      ok: false,
+      code: pilote.code,
+      message: pilote.message,
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+  return sealGenericMissionForPresentation({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    analysis: input.analysis,
+    missionSubjectId: input.missionSubjectId,
+  });
+}
+
+/**
+ * M-HD-02 — read sealed Generic Mission presentation from CURRENT Product offer.
+ * Client cannot inject analysis / materiality / options / sessionKey.
+ * Session binding = server Nora Session SQLite identity.
+ */
+export async function w2ReadGenericMissionDecisionContinuityAction(input: {
+  projectId: string;
+  clientPresentationDigest?: string | null;
+  /** Hostile — ignored. */
+  claimedSessionKey?: unknown;
+}): Promise<GenericMissionDecisionContinuityResult> {
+  void input.claimedSessionKey;
+  // Existing Product boundary: Better Auth session + allowlist (same resolver as Record).
+  // Complements middleware protection of Product surfaces — no new auth policy.
+  const pilote = await resolveCurrentAuthenticatedPilote({
+    headers: await headers(),
+  });
+  if (!pilote.ok) {
+    return {
+      ok: false,
+      code: pilote.code,
+      message: pilote.message,
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "OA stack unavailable",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+  return readGenericMissionDecisionContinuity({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    clientPresentationDigest: input.clientPresentationDigest,
+    // Server-owned Product session key — never a client claim.
+    sessionKey: resolveProductPrepareOfferSessionKey(),
+  });
+}
+
+const GENERIC_MISSION_OPTION_IDS = new Set<string>([
+  GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  GENERIC_MISSION_OPTION_REFUSE,
+  GENERIC_MISSION_OPTION_REQUEST_AMEND,
+]);
+
+/**
+ * M-HD-02 — record Pilote HumanDecision on a sealed Generic Mission via OA.
+ *
+ * Gate A: Better Auth session → allowlist → OA actor + Pilot evidence.
+ * Never trusts client actor / analysis. Reconstructs analysis from CURRENT offer.
+ * Never creates ExecutionAttempt. Never auto-PREPARE / EXECUTE.
+ * Never forceLocalAuthority on Product path.
+ */
+export async function w2RecordGenericMissionHumanDecisionAction(input: {
+  projectId: string;
+  missionSubjectId: string;
+  presentationDigest: string;
+  selectedOptionId: string;
+  rationale?: string;
+  /** Hostile — ignored. */
+  claimedActorId?: unknown;
+  claimedCanActAsPilot?: unknown;
+  claimedSessionKey?: unknown;
+  analysis?: unknown;
+}): Promise<RecordGenericMissionHumanDecisionResult> {
+  void input.claimedActorId;
+  void input.claimedCanActAsPilot;
+  void input.claimedSessionKey;
+  void input.analysis;
+
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_STACK_UNAVAILABLE",
+      message: "OA stack unavailable",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+
+  const pilote = await resolveCurrentAuthenticatedPilote({
+    headers: await headers(),
+  });
+  if (!pilote.ok) {
+    return {
+      ok: false,
+      code: pilote.code,
+      message: pilote.message,
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+
+  const selected = input.selectedOptionId.trim();
+  if (!GENERIC_MISSION_OPTION_IDS.has(selected)) {
+    return {
+      ok: false,
+      code: "HD_OPTION_NOT_PRESENTED",
+      message: "Option Pilote hors ensemble présenté — décision refusée.",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+
+  const projectId = input.projectId.trim();
+  // C — server-owned session key (Nora Session SQLite). Client claims ignored.
+  const sessionKey = resolveProductPrepareOfferSessionKey();
+  const offer = getCurrentGenericPrepareOffer(projectId, { sessionKey });
+  if (!offer) {
+    return {
+      ok: false,
+      code: "MISSION_PRESENTATION_STALE",
+      message:
+        "Cette présentation de mission n'est plus actuelle. Demandez à Nora une nouvelle qualification avant toute décision.",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+  if (offer.projectId !== projectId) {
+    return {
+      ok: false,
+      code: "MISSION_OFFER_PROJECT_MISMATCH",
+      message: "Offre Product hors Project demandé — Record refusé.",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+  if (offer.sessionKey !== sessionKey) {
+    return {
+      ok: false,
+      code: "MISSION_OFFER_SESSION_MISMATCH",
+      message: "Offre Product hors session serveur — Record refusé.",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+
+  // A — canonical identity derived from CURRENT offer, not trusted from client.
+  const canonicalMissionSubjectId = missionSubjectIdFromOfferFingerprint(
+    offer.offerFingerprint,
+  );
+  if (canonicalMissionSubjectId !== input.missionSubjectId.trim()) {
+    return {
+      ok: false,
+      code: "HD_MISSION_IDENTITY_MISMATCH",
+      message:
+        "Identité de mission non dérivée de l'offre Product courante — Record refusé.",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+
+  if (offer.cycleInstanceId) {
+    const cycle = await runtime.oa.cycleServices.getCycle.execute({
+      cycleInstanceId: offer.cycleInstanceId,
+    });
+    if (!cycle.ok || cycle.cycle.projectId !== projectId) {
+      return {
+        ok: false,
+        code: "MISSION_CYCLE_INVALID",
+        message: "Cycle lié à l'offre invalide ou hors Project — Record refusé.",
+        humanDecisionCreated: false,
+        executionAttemptCreated: false,
+      };
+    }
+    if (cycle.cycle.status !== "active") {
+      return {
+        ok: false,
+        code: "MISSION_CYCLE_INVALID",
+        message: "Cycle lié à l'offre non actif — Record refusé.",
+        humanDecisionCreated: false,
+        executionAttemptCreated: false,
+      };
+    }
+  }
+
+  const analysis = analysisFromPendingGenericPrepareOffer(offer);
+  const sealed = await sealGenericMissionForPresentation({
+    oa: runtime.oa,
+    projectId,
+    cycleInstanceId: offer.cycleInstanceId,
+    analysis,
+    missionSubjectId: canonicalMissionSubjectId,
+  });
+  if (!sealed.ok) {
+    return {
+      ok: false,
+      code: sealed.code,
+      message: sealed.message,
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+
+  if (sealed.subject.missionSubjectId !== canonicalMissionSubjectId) {
+    return {
+      ok: false,
+      code: "HD_MISSION_IDENTITY_MISMATCH",
+      message: "Sceau Product divergent de l'identité canonique — Record refusé.",
+      humanDecisionCreated: false,
+      executionAttemptCreated: false,
+    };
+  }
+  // Digest mismatch is resolved inside Record: ALREADY_APPLIED after legitimate
+  // LPS bump, else HD_SUBJECT_STALE. Never invent a new HD on a stale digest.
+  return recordGenericMissionHumanDecision({
+    oa: runtime.oa,
+    subject: sealed.subject,
+    selectedOptionId: selected,
+    analysis,
+    presentedPresentationDigest: input.presentationDigest.trim(),
+    rationale: input.rationale,
+    authenticatedPilote: {
+      actor: pilote.actor,
+      githubUserId: pilote.githubUserId,
+    },
+    // Product path — never forceLocalAuthority (A7).
   });
 }
