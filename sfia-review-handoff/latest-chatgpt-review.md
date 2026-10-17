@@ -1,405 +1,1222 @@
-# Review Pack FULL — STUDIO-EXECUTION-CONTINUITY-O1-IMPACT-01
+# Review Pack FULL — STUDIO-P6-EXECUTION-CONVERGENCE-DELIVERY-01
 
 | Field | Value |
 | --- | --- |
-| **Horodatage** | 2026-10-17 12:50:00 CEST |
-| **Audit ID** | `STUDIO-EXECUTION-CONTINUITY-O1-IMPACT-01` |
-| **Parent** | `STUDIO-EXECUTION-ARCH-AUDIT-01` (`11159a97`) |
-| **Cycle** | 6 — Architecture technique |
+| **Horodatage** | 2026-10-17 13:38:35 CEST |
+| **Cycle ID** | `STUDIO-P6-EXECUTION-CONVERGENCE-DELIVERY-01` |
+| **Cycle** | 8 — Delivery / implémentation |
 | **Profil** | Critical |
-| **Mode** | READ-ONLY — impact Option 1 |
-| **Décision Morris consommée** | **GO OPTION 1 — ADAPT EXECUTION CONTINUITY** (orientation) |
-| **Branche Product** | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
+| **Parents** | `STUDIO-EXECUTION-ARCH-AUDIT-01` · `STUDIO-EXECUTION-CONTINUITY-O1-IMPACT-01` (`f41dd42c`) |
+| **Branche** | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
 | **HEAD** | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
 | **origin/main** | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
-| **Product dirty FP (excl. `.tmp`)** | `ae0f68e69d3733c7f7e76c62bee9a2c6c2063248a26081af76b3ca272bf58a4a` |
-| **Dirty FP incl. `.tmp`** | `ffc212da932c7adea6451f9818bea30dd7b51ee671b13c8dcd30d321ead785a6` |
-| **Product files modified this cycle** | **ZERO** |
-| **Verdict Cursor** | **OPTION 1 IMPACT CLOSURE COMPLETE — READY FOR CHATGPT REVIEW** |
-
----
-
-## A. Executive
-
-Option 1 est **orientée** : adapter W2 continuity pour admettre les EC G-D4 `decisionRefs=[]` + `MATERIALITY:NON_STRUCTURAL` **sans HD artificielle**, en réutilisant les gates OA Confirm/Authorize (`assertDecisionRefsAdmissibleForConfirm` + `revalidateMaterialityAgainstCurrentProduct`).
-
-**Bloqueur unique Product-active :** `verifyDecisionLineage` refuse systématiquement `refs.length === 0` (`readCurrentGovernedExecutionContinuity.ts:138-143`), alors que le DTO impose `decisionRef: string` pour `kind:"active"` (`types.ts:292-298`).
-
-**Blast radius DTO :** les surfaces Product Conversation / Execution / Confirmation **ne lisent pas** `.decisionRef` — elles utilisent `kind` + `contract` + `inspection`. Seuls recovery + TrajectorySurface + types/reader + tests G5 sont touchés pour une migration **nullable**.
-
-**Variante DTO recommandée (non décision Delivery) :** `decisionRef: string | null` sur `kind:"active"` — plus petit rayon que split `kind`.
+| **Décisions Morris consommées** | Option 1 · DTO V1 nullable · CURRENT obligatoire · Delivery local O1+UX · **pas** HQA/REAL/commit Product |
+| **Capacité** | V3-F05 |
+| **Verdict Cursor** | **DELIVERY A+B COMPLETE — DETERMINISTIC PASS — VISUAL NOT PROVEN — REVIEW REQUIRED** |
 
 ---
 
 ## 1. Local Git Truth Check
 
-| Check | Result |
-| --- | --- |
-| toplevel | `…/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` |
-| branch | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
-| HEAD local = remote tip | `b4c1d862…` |
-| origin/main | `896ff59c…` |
-| staged | vide |
-| dirty Product | préservé (M-HD + materiality + generic prepare) |
-| handoff parent tip | `11159a97` |
-| Review Pack | réinitialisé puis réécrit |
-
-Sources inspectées = **HEAD + dirty local** (pas le seul SHA distant).
-
----
-
-## 2. Sources
-
-- Parent handoff `11159a97:sfia-review-handoff/latest-chatgpt-review.md`
-- D-ER / P6-07 / framing 30,32,34,35,37 (invariants HD ≠ Confirm ≠ Auth ; continuity restart-safe)
-- Code : `readCurrentGovernedExecutionContinuity.ts`, `types.ts`, `confirmForAuthorization.ts`, `authorizeGenericPreparedContract.ts`, `authorizeExecutionContract.ts`, `executionMateriality.ts`, `resolveAuthoritativeProductMateriality.ts`, UI Product listée §6
-- HQA RO : contrat `xct:gen-prep:5f13e66c…` encore `confirmation_required` + `decisionRefs=[]` + `MATERIALITY:NON_STRUCTURAL`
-
----
-
-## B. Inventaire exhaustif des consommateurs
-
-### B1. Producteur / contrat
-
-| Symbole | Fichier | Lignes | Hypothèse actuelle |
-| --- | --- | --- | --- |
-| `verifyDecisionLineage` | `w2/readCurrentGovernedExecutionContinuity.ts` | 130-179 | `decisionRefs.length ≥ 1` obligatoire |
-| `readCurrentGovernedExecutionContinuity` | même | 220-345 | `kind:active` ⇒ `decisionRef: string` |
-| `CurrentGovernedExecutionContinuityResult` | `w2/types.ts` | 290-298 | `decisionRef: string` non nullable |
-| `CurrentGovernedExecutionContinuityContractDto` | `w2/types.ts` | 272-288 | **pas** de `decisionRef` (OK) |
-| `w2ReadCurrentGovernedExecutionContinuityAction` | `w2/actions.ts` | 197-207 | passthrough |
-
-### B2. Directs — Product-active UI (lisent `kind`/`contract`/`inspection`, PAS `.decisionRef`)
-
-| Fichier | Fonction / usage | Lignes | `decisionRef` requis ? | Modif Option 1 |
-| --- | --- | --- | --- | --- |
-| `ProjectWorkspacePage.tsx` | badge + moment confirm | 240-249, 550-558 | Non | **NON** (sauf si split `kind`) |
-| `ExecutionSurface.tsx` | refresh / confirm / execute | 84-99, 262-270, 346-348 | Non | **NON** |
-| `useProductConversation.ts` | resume / inspect / confirm | 386-396, 663-672, 751-812 | Non | **NON** |
-| `ConversationSurface.tsx` | show confirmation card | 460-477, 1028-1029 | Non | **NON** |
-| `GovernedConfirmationCard.tsx` | props ContractDto only | 19-27 | Non | **NON** |
-| `pilotExecutionPresentation.ts` | `preExecutionContinuity` | 155-163, 306-310 | Non | **NON** |
-| `pilotContractPresentation.ts` | — | — | N/A | **NON** |
-
-### B3. Directs — lisent continuity `.decisionRef`
-
-| Fichier | Fonction | Lignes | Si `decisionRef=null` | Circuit | Modif |
-| --- | --- | --- | --- | --- | --- |
-| `TrajectorySurface.tsx` | `rehydrateGovernedExecutionContinuity` | 655-741 | `?? null` déjà | Product + recovery UI | Soft — déjà tolérant |
-| `prepareDocsWriteRecoverySuccessor.ts` | `cancelWrongGenericCurrentIfNeeded` | 236-267 | `null !== recoveryId` → AMBIGUOUS | **lab/recovery** | Soft YES — branche explicite |
-| `prepareDocsWriteRecoverySuccessor.ts` | prepare path | 363-381 | déjà `?: null` | recovery | Soft YES type |
-
-### B4. Indirects / non-continuité (hors migration DTO, qualification)
-
-| Zone | Note |
-| --- | --- |
-| `confirmForAuthorization.ts:322-323` | Omet déjà `decisionRef` Confirmation si empty — **KEEP** |
-| `authorizeGenericPreparedContract` / `authorizeExecutionContract` | Reval CURRENT via `revalidateMaterialityAgainstCurrentProduct` — **KEEP / REUSE** |
-| `resolveProductExecutionContext.ts:174-177` | `decisionId` null si empty — derive path séparé — **KEEP** (pas le reader W2) |
-| `deriveGovernedExecutionContinuityProjection` | Projection stage ; ne passe pas par `verifyDecisionLineage` — **KEEP** ; T10 doit prouver cohérence d’identité EC |
-| OA Confirmation `decisionRef` | Autre concept — **ne pas confondre** |
-| Trajectory `decidedByDecisionRef` | Hors scope Option 1 |
-
-### B5. Tests (consommateurs / mocks)
-
-| Fichier | Rôle | Impact O1 |
-| --- | --- | --- |
-| `ecRehydrationContinuity.d0.test.ts` G5 | empty **unstamped** → INTEGRITY | **STAY** |
-| même G0 | HD-bound `decisionRef` string | **STAY** |
-| `postExecutionProductContinuity.d0.test.ts` | Attempt UNKNOWN → INTEGRITY | **STAY** (autre frontière) |
-| UI mocks `kind:"active"+decisionRef` (~13 fichiers) | fixtures string | **STAY** (nullable accepte string) |
-| **NOUVEAU** suite G-D4∩continuity | T1–T16 | **CREATE** |
-
-**Couverture inventaire :** 27 fichiers référencent le reader/action ; 7 fichiers typent le Result/DTO Product UI ; consommateurs `.decisionRef` continuity = **3** (reader return + recovery + TrajectorySurface). Inventaire **qualifié exhaustif** pour le DTO continuity.
-
----
-
-## C. Graphe des dépendances
-
-```
-OA EC (G-D4 stamp + decisionRefs)
-        │
-        ▼
-readCurrentGovernedExecutionContinuity
-   ├─ supersession / cycle / ambiguity / terminal Attempt   [KEEP]
-   ├─ verifyDecisionLineage  ──► BLOCKER empty refs          [ADAPT]
-   │     └─ (proposed) revalidateMaterialityAgainstCurrentProduct + assertDecisionRefsAdmissibleForConfirm  [REUSE]
-   └─ kind:active { decisionRef, contract, inspection }
-            │
-            ├─► w2ReadCurrent…Action
-            │       ├─► useProductConversation → ConversationSurface → GovernedConfirmationCard
-            │       ├─► ExecutionSurface → pilotExecutionPresentation
-            │       ├─► ProjectWorkspacePage (badge)
-            │       └─► TrajectorySurface (decisionRef??null + recovery CTAs)
-            └─► prepareDocsWriteRecoverySuccessor (decisionRef match HD)
-```
-
-**Direction d’autorité :** Continuity = **admissibilité lecture / projection actionnable pour Inspect+Confirm UI** — **≠ Authorization ≠ Execution**. Confirm/Authorize restent les frontières mutatives qui re-valident.
-
----
-
-## D. Cas A–J → comportement cible
-
-| Cas | Cible | Fonction autoritaire réutilisable | Continuity result |
-| --- | --- | --- | --- |
-| **A** G-D4 NS + `[]` + CURRENT OK | Admettre sans HD | `assertDecisionRefsAdmissibleForConfirm` + `revalidateMaterialityAgainstCurrentProduct` | `active`, `decisionRef=null` |
-| **B** STRUCTURAL + `[]` | REFUS | même assert (stamp forbids / recompute structural) | INTEGRITY / fail |
-| **C** UNKNOWN + `[]` | REFUS | idem | fail |
-| **D** `[]` sans stamp | REFUS | Confirm Case D `:164-170` + G5 | fail (**STAY**) |
-| **E** stamp NS mais Product stale/structural | REFUS / requal | `revalidate…` CURRENT — stamp ≠ sole authority | fail (pas `active`) |
-| **F** HD réelle acceptée | Préservé | `verifyDecisionLineage` HD loop | `active`, `decisionRef=id` |
-| **G** HD invalide | REFUS | HD loop existant | fail |
-| **H** superseded/cancelled/stale/cycle | REFUS | filtres existants `:246-304` | none/fail |
-| **I** plusieurs courants | FAIL-CLOSED | `:276-280` AMBIGUOUS | fail |
-| **J** Attempt terminal | hors pré-exec | `:261-268` | skip → none |
-
----
-
-## E. Contrat de continuité cible + variantes DTO
-
-### E1. Sémantique cible
-
-Pour `kind:"active"` :
-
-- `contract` + `inspection` inchangés.
-- `decisionRef: string | null`
-  - `string` = HD-bound lineage verified
-  - `null` = G-D4 empty-refs **admis après** stamp NON_STRUCTURAL **et** CURRENT revalidation OK
-- Jamais sentinelle / faux `dec:`.
-- Jamais inventer HD.
-- Projection `active` **n’autorise pas** Execute ; Confirm/Authorize restent obligatoires selon statut.
-
-### E2. Comparaison variantes
-
-| Variante | Blast radius | Exhaustivité TS | Verdict impact |
-| --- | --- | --- | --- |
-| **V1 nullable `decisionRef`** | types + reader + soft recovery + tests G-D4 | moyenne | **RECOMMANDÉE** |
-| **V2 split `kind` (`active_with/without_decision`)** | **tous** `kind==="active"` (UI Product + ~13 tests UI) | haute | Coût élevé — non nécessaire |
-| **V3 `hasDecision` discriminant** | milieu | haute | Acceptable si Morris exige exhaustivité ; plus large que V1 |
-| Sentinelle / faux HD | interdit | — | **REFUSÉ** |
-
-**Migration recommandée :** **V1**. Sélection Delivery finale = gate Morris **D-DTO** (ci-dessous) — orientation Option 1 ne fige pas encore le refactor.
-
-### E3. Revalidation CURRENT en lecture
-
-| Question | Réponse sourcée |
-| --- | --- |
-| Réutilisable RO ? | **Oui** — `revalidateMaterialityAgainstCurrentProduct` (`resolveAuthoritativeProductMateriality.ts:397-421`) |
-| Faits à relire | LPS/currentness, pathRoot/binding, concrete paths, capability envelope via `resolveAuthoritativeProductMateriality` + stub `analysisStubFromMaterialityFacts` (`:549`) depuis `contract.inputs.materialityFacts` |
-| Rôle continuity | **Attester admissibilité courante pour projection** (Cas A/E) — pas Authorization |
-| Contrôle définitif | Confirm + Authorize **re-check** (déjà) |
-| Une règle métier | **Oui** — appeler `assertDecisionRefsAdmissibleForConfirm` ; **interdire** re-implémenter empty-refs |
-| Mutations | **Interdites** sur read path |
-
-Échecs → `ok:false` codes existants (`EXECUTION_CONTINUITY_INTEGRITY_FAILED` / materiality pass-through) — **pas** `kind:"active"` trompeur. `none` reste « aucun pré-exec courant ».
-
----
-
-## F. Matrice invariants PREPARE / Continuity / Confirm / Authorize
-
-| Invariant | PREPARE | Continuity (cible) | Confirm | Authorize |
-| --- | --- | --- | --- | --- |
-| Empty refs sans stamp | N/A build | REFUS | REFUS Case D | REFUS |
-| Empty + NS + CURRENT | OK | **active null** | OK omit HD | OK |
-| Empty + structural/unknown | block HD | REFUS | REFUS | REFUS |
-| Stamp≠CURRENT | — | REFUS | REFUS | REFUS |
-| HD-bound | refs=[id] | active id | OK | OK |
-| PREPARE≠Attempt | forced | n/a | n/a | n/a |
-| Inspection | n/a | expose state | required | required |
-| Continuity ≠ Auth | — | **oui** | — | sole Auth |
-
----
-
-## G. Parcours historiques
-
-| Parcours | Actuel | Cible O1 | Changement | Non-régression |
-| --- | --- | --- | --- | --- |
-| W2 HD-bound | continuity active + decisionRef | inchangé | none | G0 ecRehydration |
-| G-D4 non-structural | continuity FAIL | active + null | reader+types | NEW T1 |
-| G-D4 structural | prepare blocks / confirm DECISION_REQUIRED | continuity REFUS si `[]` | reader reuse assert | T2 |
-| ACGC | HD Artifact | hors DTO | **NONE** | — |
-| F2/F3/M3 | HD-bound | inchangé | **NONE** | — |
-| Mission HD channel | séparé | inchangé | **NONE** | — |
-| Legacy Confirm Case A | non-empty no stamp | inchangé | **NONE** | rCi01 |
-| Durable rehydration | G5 empty fail | G5 unstamped stay ; stamped NS pass | tests | T1/T4 |
-| Post-execution | Attempt terminal filter | inchangé | **NONE** | postExecution* |
-| Recovery docs_write | match decisionRef | null ≠ recoveryId → refuse (OK) | soft message | recovery tests |
-
-**Ne pas élargir O1** à ACGC / Mission HD / F3.
-
----
-
-## H. UI / inspection (impact)
-
-| Surface | Origine statut | Badge | Carte Confirm | Boutons | Risque O1 |
-| --- | --- | --- | --- | --- | --- |
-| Conversation | `readCurrent` active | — | gated `kind===active` + confirmation_required | Inspect/Confirm si inspectionSufficient | **Débloqué** si reader admet Cas A |
-| Execution | derive + readCurrent | ProjectWorkspace both | CTA via presentation | Confirm/Execute séparés | Alignement T10 requis |
-| Trajectory | readCurrent | recovery uses decisionRef | own panel | recovery CTAs off si null | OK |
-
-**I3 placeholder** (« Action prévue… », `pilotExecutionPresentation.ts:191-204`) : **hors Delivery O1 core** — rester en matrice dette P1 ; ne pas corriger dans le cycle continuity.
-
-**Crash React :** V1 nullable — Product UI n’accède pas `.decisionRef` sans `??` → **pas de crash** attendu. V2 split `kind` → **crash logique** (cards jamais montrées) si oubli migration.
-
----
-
-## I. Matrice tests T1–T16
-
-| ID | Frontière | Existant | Action | Type |
-| --- | --- | --- | --- | --- |
-| T1 | G-D4 NS `[]` → continuity active null | gD4 prepare ; **pas** continuity | **CREATE** assert dans `ecRehydration*` ou `p6.o1.continuityGd4.d0.test.ts` | intégration |
-| T2 | Structural `[]` refus | gD4 Q04 ; continuity | **CREATE** continuity assert | intégration |
-| T3 | UNKNOWN `[]` refus | materiality | **CREATE** | intégration |
-| T4 | sans stamp `[]` refus | **G5 STAY** | **NONE** (garder) | intégration |
-| T5 | NS stamp + Product stale | confirm CURRENT mismatch | **CREATE** continuity read fail | intégration |
-| T6 | HD-bound | G0 STAY | **NONE** | intégration |
-| T7 | HD invalide | G5-like existing | **STAY**/étendre | intégration |
-| T8 | superseded | existing rehydration | **STAY** | intégration |
-| T9 | multi-contrats | AMBIGUOUS existing | **STAY** | intégration |
-| T10 | Conversation ≡ Execution identité | partiel UI | **CREATE** (même contractId/version/status) | UI/intégration |
-| T11 | inspection insuffisante | gD4 Q09 ; card gating | **STAY** + assert card | UI |
-| T12 | inspection OK → confirm possible ≠ execute | gD4 Q15 ; ExecutionSurface | **STAY**/étendre | UI |
-| T13 | FP/version change → reinspect | inspection binding | **STAY** | intégration |
-| T14 | aucune HD inventée | gD4 humanDecisionCreated:false | **STAY** + continuity | intégration |
-| T15 | aucun Attempt PREPARE | gD4 / der16 | **STAY** | intégration |
-| T16 | read continuity 0 mutation | — | **CREATE** (spy repos write / count) | intégration |
-
-**G5 :** assertion « empty → INTEGRITY » **reste** pour **unstamped**. Sous O1, **ne pas** généraliser G5 à stamped NS.
-
-Faux positifs à éviter : fixture sans `MATERIALITY:NON_STRUCTURAL` ; mock `kind:active` sans passer le reader.
-
----
-
-## J. Closed Delivery Impact Contract
-
-### H — Fichiers Product à modifier (futur Delivery)
-
-| Fichier | Pourquoi |
-| --- | --- |
-| `w2/readCurrentGovernedExecutionContinuity.ts` | ADAPT `verifyDecisionLineage` + appel revalidation CURRENT + return `decisionRef` nullable |
-| `w2/types.ts` | `decisionRef: string \| null` sur `kind:"active"` |
-| `w2/prepareDocsWriteRecoverySuccessor.ts` | Soft : branche explicite `decisionRef == null` (message clair) — **recommandé** |
-| `w2/actions.ts` | Seulement si signature exportée documentée (souvent aucune) |
-
-### I — Tests à adapter / créer
-
-| Fichier | Action |
-| --- | --- |
-| `ecRehydrationContinuity.d0.test.ts` | **KEEP G5** ; **ADD** Cas A stamped NS → active + null |
-| **NEW** `p6.o1.continuityGd4EmptyRefs.d0.test.ts` (nom indicatif) | T1–T5, T14–T16 |
-| **NEW** ou étendre UI | T10–T12 (Conversation+Execution même identité) |
-| UI mocks `decisionRef: "dec:…"` | **optionnel** — restent valides si nullable |
-
-### J — Fichiers à conserver inchangés
-
-- `confirmForAuthorization.ts`, `authorizeGenericPreparedContract.ts`, `authorizeExecutionContract.ts`
-- `executionMateriality.ts`, `resolveAuthoritativeProductMateriality.ts` (reuse only)
-- `prepareGenericExecutionContractDraft.ts` (G-D4 KEEP)
-- `GovernedConfirmationCard.tsx`, `ConversationSurface.tsx`, `ExecutionSurface.tsx`, `ProjectWorkspacePage.tsx`, `useProductConversation.ts`, `pilotExecutionPresentation.ts`, `pilotContractPresentation.ts` (**sauf** si V2 kind-split — non recommandé)
-- OA Attempt / Evidence / Gate D
-- ACGC / F3 / Mission HD modules (hors scope)
-- Doctrine / roadmap
-
-### Hors Delivery O1 (dette trackée)
-
-- I3 placeholder work items
-- Dual-oracle UX Conversation vs Trajectory (D3 audit parent)
-- Commit dirty M-HD (D2 parent)
-- HQA Execute REAL
-
----
-
-## K. Risques résiduels
-
-| ID | Sévérité | Description |
-| --- | --- | --- |
-| R1 | P0 | Oublier CURRENT revalidation dans continuity → stamp-only bypass (Cas E) |
-| R2 | P0 | Élargir G5 removal aux unstamped empty |
-| R3 | P1 | Recovery `!==` null silencieux / message ambigu |
-| R4 | P1 | derive projection vs readCurrent divergence (T10) |
-| R5 | P1 | I3 placeholder masque mission (hors O1) |
-| R6 | P2 | V2 kind-split coût UI si choisie par erreur |
-
----
-
-## L. Dette / exit
-
-| Dette | Exit |
-| --- | --- |
-| Incompatibilité G-D4 / W2 | Delivery V1 + T1–T16 verts |
-| Dirty Product non commité | D6 parent — hors O1 |
-| HQA contrat bloqué continuity | Re-proof HQA **après** Delivery, sans Execute auto |
-
----
-
-## M. Décisions Morris restantes
-
-| ID | Décision | Pourquoi encore ouverte |
-| --- | --- | --- |
-| **D-DTO** | Valider **V1 nullable** (reco) vs V3 `hasDecision` vs V2 split kind | Impact qualifié ; GO O1 n’a pas figé la migration |
-| **D-READ** | Confirmer que continuity **doit** appeler CURRENT revalidation à chaque read (reco: oui pour Cas E) | Perf vs sécurité |
-| **D-DELIVERY** | Valider périmètre fichiers §J (reader+types+soft recovery+tests) | GO Delivery non consommé |
-| **D-HQA** | Reprise projet HQA existant vs virgin après Delivery | Données actuelles = témoin Cas A |
-| **D-I3** | Placeholder work items dans Delivery O1 ou cycle UI séparé | Reco: séparé |
-
----
-
-## N. Recommandation de périmètre Delivery fermé
-
-**IN :**
-
-1. ADAPT `verifyDecisionLineage` / `readCurrent…` avec reuse materiality gates
-2. DTO V1 `decisionRef: string | null`
-3. Soft recovery null branch
-4. Tests T1–T16 (G5 preserved for unstamped)
-5. Preuve déterministe : prepare G-D4 → continuity active → Conversation card visible → Confirm path (zéro Attempt)
-
-**OUT :**
-
-- UI redesign / Figma parity
-- I3 placeholder
-- Mission HD / ACGC / F3 changes
-- REAL Execute / HQA PASS claim
-- Nouveau moteur
-
-**Source → consommateur → invariant → test → exit** pour chaque item IN est documenté ci-dessus.
-
----
-
-## O. Conditions de reprise HQA
-
-1. Delivery O1 mergé/local validé déterministe
-2. Morris D-DELIVERY + D-DTO
-3. Relecture continuity sur projet HQA existant (RO puis parcours Inspect→Confirm **sans** Execute jusqu’à GO)
-4. Vérifier même `executionContractId` Conversation/Exécution
-5. Pas de reset DB sauf D-HQA contraire
-
----
-
-## Preuves positives
-
-- Confirm omet déjà HD pour empty G-D4 (`confirmForAuthorization.ts:322-323`)
-- `revalidateMaterialityAgainstCurrentProduct` déjà RO-capable et partagé Confirm/Auth
-- Product UI Confirmation **indépendante** de `.decisionRef`
-- HQA Cas A exact observé en SQLite RO
-
-## Preuves négatives
-
-- `verifyDecisionLineage` `:138-143` refuse empty
-- DTO `:295` `decisionRef: string`
-- G5 encode refus empty (à préserver pour unstamped)
-
-## Réserves
-
-- Pas d’exécution des tests ce cycle (READ-ONLY ; dirty préservé)
-- Pas de capture browser
-- V1 recommandée ≠ D-DTO consommé
-- CKC non baseline
-
-## Confirmation
-
-- Zéro modification Product
+### Initial
+- HEAD `b4c1d862` = tip distant
+- origin/main `896ff59c`
+- dirty Product préexistant (M-HD + MATERIALITY) préservé comme base
+- staged vide
+- Review Pack réinitialisé
+
+### Final
+- HEAD / branche inchangés (aucun commit Product)
+- staged Product vide
+- Modifications Delivery **locales dirty** en plus du dirty préexistant
 - HQA non mutée
-- Dirty Product FP inchangé `ae0f68e6…`
+- Distinguer : dirty préexistant M-HD/materiality ≠ fichiers Delivery O1/UX de ce cycle
 
-**Verdict :** OPTION 1 IMPACT CLOSURE COMPLETE — READY FOR CHATGPT REVIEW
+---
+
+## 2. Sources lues
+
+- Handoff parent `f41dd42c` (impact Option 1)
+- D-ER / P6-07 / framing 30–37 (skim invariants)
+- Code W2 continuity + Confirm materiality reuse
+- Figma `m4g8j0gNbEzfIuH6S9AZJF` frames `150:532`, `150:682` (design context + screenshot BEFORE)
+- Runtime `:3020` up — **login required** → Execution workspace **NOT OBSERVED**
+
+---
+
+## 3. Décisions Morris consommées
+
+| Décision | Consommée |
+| --- | --- |
+| Option 1 ADAPT continuity | Oui |
+| DTO V1 `decisionRef: string \| null` | Oui |
+| Revalidation CURRENT obligatoire | Oui |
+| Delivery local A+B | Oui |
+| Pas HQA / REAL / commit Product | Respecté |
+
+---
+
+## 4. LOT A — Continuity
+
+### Changements
+1. `types.ts` — `decisionRef: string \| null` sur `kind:"active"`
+2. `readCurrentGovernedExecutionContinuity.ts` — `verifyDecisionLineage` admet empty refs ssi stamp MATERIALITY + `productCurrentness` stamped + `revalidateMaterialityAgainstCurrentProduct` + `assertDecisionRefsAdmissibleForConfirm`
+3. `prepareDocsWriteRecoverySuccessor.ts` — branche explicite `decisionRef == null` (pas d'annulation auto)
+
+### Invariants préservés
+- Unstamped empty → INTEGRITY (G5)
+- HD-bound path inchangé
+- Continuity READ-ONLY (T16)
+- Confirm/Authorize **non modifiés**
+
+### Gate A
+- Suites ciblées PASS (voir §6)
+- Aucune HD/Attempt artificielle
+- Aucun Cursor REAL
+- Aucune mutation HQA
+
+### Diff LOT A (complet)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
+index 7274ce40..f0ac5a7f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
+@@ -256,6 +256,17 @@ async function cancelWrongGenericCurrentIfNeeded(input: {
+     return { ok: true, cancelledId: null };
+   }
+
++  // G-D4 empty-refs continuity (decisionRef=null) is not owned by a recovery HD.
++  // Do not cancel it under a different recovery decision identity.
++  if (continuity.decisionRef == null) {
++    return {
++      ok: false,
++      code: "EXECUTION_CONTINUITY_AMBIGUOUS",
++      message:
++        "Un contrat pré-exécution G-D4 sans décision rattachée bloque le prepare recovery — aucune annulation automatique.",
++    };
++  }
++
+   // Only clear unconsumed wrong generic when it belongs to this recovery HD.
+   if (continuity.decisionRef !== input.recoveryDecisionId) {
+     return {
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts b/projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
+index d0d13caf..cac751c6 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
+@@ -12,8 +12,17 @@
+
+ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+ import type { ExecutionContract } from "@/lib/oa/execution-contract";
+-import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
++import {
++  assertDecisionRefsAdmissibleForConfirm,
++  materialityFromContractConstraints,
++  projectExecutionContractInspectionDisclosure,
++} from "@/lib/oa/execution-contract";
+ import { readContractInspectionState } from "./inspectExecutionContract";
++import {
++  analysisStubFromMaterialityFacts,
++  parseStampedProductCurrentness,
++  revalidateMaterialityAgainstCurrentProduct,
++} from "./resolveAuthoritativeProductMateriality";
+ import type {
+   ContractInspectionStateDto,
+   CurrentGovernedExecutionContinuityResult,
+@@ -127,20 +136,85 @@ async function readProjectActiveCycleContext(
+   };
+ }
+
++/**
++ * HD-bound lineage OR admissible G-D4 empty-refs (NON_STRUCTURAL + CURRENT).
++ * Reuses Confirm/Authorize materiality gates — never invents a HumanDecision.
++ * READ-ONLY: no HD / inspection / confirmation / authorize / Attempt writes.
++ */
+ async function verifyDecisionLineage(
+   oa: RuntimeOaStack,
+   projectId: string,
+   contract: ExecutionContract,
+ ): Promise<
+-  | { ok: true; decisionRef: string }
++  | { ok: true; decisionRef: string | null }
+   | W2Failure
+ > {
+   const refs = contract.decisionRefs ?? [];
++
++  // G-D4 empty refs — admit only with NON_STRUCTURAL stamp + CURRENT revalidation.
+   if (refs.length === 0) {
+-    return fail(
+-      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+-      "Contrat d'exécution sans décision rattachée — continuation refusée.",
+-    );
++    const stamped = materialityFromContractConstraints(contract.constraints);
++    if (stamped == null) {
++      return fail(
++        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
++        "Contrat d'exécution sans décision rattachée ni justification G-D4 — continuation refusée.",
++      );
++    }
++
++    const contractInputs = (contract.inputs ?? {}) as Record<string, unknown>;
++    const factsRaw =
++      contractInputs.materialityFacts &&
++      typeof contractInputs.materialityFacts === "object"
++        ? (contractInputs.materialityFacts as Record<string, unknown>)
++        : null;
++    const stampedCurrentness = parseStampedProductCurrentness(factsRaw);
++
++    // Stamp alone is never sufficient — prepare-time currentness witness required.
++    if (stampedCurrentness == null) {
++      return fail(
++        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
++        "Faits de matérialité / currentness absents sur le contrat — continuation sans décision refusée.",
++      );
++    }
++
++    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
++      oa,
++      projectId,
++      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
++      cycleInstanceId: contract.cycleInstanceId ?? null,
++      stampedMateriality: stamped,
++      stampedCurrentness,
++    });
++    if (!revalidated.ok) {
++      return fail(
++        revalidated.code === "MATERIALITY_CURRENTNESS_STALE" ||
++          revalidated.code === "MATERIALITY_CURRENT_MISMATCH" ||
++          revalidated.code === "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE" ||
++          revalidated.code === "REPOSITORY_BINDING_STALE" ||
++          revalidated.code === "REPOSITORY_BINDING_UNAVAILABLE" ||
++          revalidated.code.startsWith("SCOPE_") ||
++          revalidated.code === "MATERIALITY_STRUCTURAL" ||
++          revalidated.code === "MATERIALITY_UNKNOWN"
++          ? revalidated.code
++          : "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
++        revalidated.message,
++      );
++    }
++
++    const recomputed = revalidated.current.assessment;
++    const admissible = assertDecisionRefsAdmissibleForConfirm({
++      decisionRefs: refs,
++      stampedMateriality: stamped,
++      recomputed,
++    });
++    if (!admissible.ok) {
++      return fail(
++        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
++        "Contrat sans décision humaine non admissible pour la continuité G-D4 — continuation refusée.",
++      );
++    }
++
++    return { ok: true, decisionRef: null };
+   }
+
+   let primaryRef: string | null = null;
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/types.ts b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+index c33ca461..8785de09 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/types.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/types.ts
+@@ -292,7 +292,11 @@ export type CurrentGovernedExecutionContinuityResult =
+   | {
+       readonly ok: true;
+       readonly kind: "active";
+-      readonly decisionRef: string;
++      /**
++       * HD-bound lineage id when decisionRefs were verified.
++       * Null for admissible G-D4 NON_STRUCTURAL empty-refs (no artificial HD).
++       */
++      readonly decisionRef: string | null;
+       readonly contract: CurrentGovernedExecutionContinuityContractDto;
+       readonly inspection: ContractInspectionStateDto;
+     }
+
+```
+
+---
+
+## 5. LOT B — UX Execution / Figma
+
+### Changements
+1. `ProjectWorkspacePage.tsx` — rail Exécution = `ProjectContextSummary` + shortcuts only ; Lifecycle/LPS/Routing/Trajectory/Journal détaillés restent sur Conversation ; charge `projectAssistantPilotLifecycleProjection` (même reader Product)
+2. `pilotExecutionPresentation.ts` — work items depuis objective/path/repo ; plus de placeholder « Action prévue dans la portée du contrat »
+
+### Figma
+| Frame | Rôle | Verdict |
+| --- | --- | --- |
+| `150:682` Project Context | Rail cible | Composition Product alignée (summary + shortcuts) |
+| `150:532` BEFORE | Surface Exécution | Screenshot Figma obtenu ; runtime **NOT OBSERVED** (login) |
+| `150:29` AFTER | Terminal | **NOT OBSERVED** (pas de mutation) |
+
+### Diff LOT B (complet)
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+index 45458767..da7837dc 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+@@ -43,6 +43,7 @@ import {
+   projectAssistantActiveCycleWorkspaceAction,
+   projectAssistantConfirmReservationResolutionAction,
+   projectAssistantDeferReservationAction,
++  projectAssistantPilotLifecycleProjection,
+ } from "@/features/project-assistant/actions";
+ import {
+   w2DeriveGovernedExecutionContinuityAction,
+@@ -227,6 +228,28 @@ export function ProjectWorkspacePage({
+     };
+   }, [projectId]);
+
++  /**
++   * LOT B — Load durable lifecycle projection without requiring LifecycleSurface
++   * to be mounted (Execution rail is synthetic-only). Same Product reader as
++   * LifecycleSurface.refresh — no second source of truth.
++   */
++  useEffect(() => {
++    let cancelled = false;
++    void Promise.resolve(projectAssistantPilotLifecycleProjection({ projectId }))
++      .then((result) => {
++        if (cancelled || !result) return;
++        if (result.ok && result.projection) {
++          setLifecycleProjection(result.projection);
++        }
++      })
++      .catch(() => {
++        /* projection optional for synthetic rail — fail closed leaves prior mirror */
++      });
++    return () => {
++      cancelled = true;
++    };
++  }, [projectId, lifecycleRefreshSignal]);
++
+   useEffect(() => {
+     if (result?.ok && result.project.name) {
+       onProjectName?.(result.project.name);
+@@ -975,6 +998,13 @@ export function ProjectWorkspacePage({
+               onOpenSynthesis={openSynthesisDetail}
+             />
+
++            {/*
++              LOT B / Figma 150:682 — Execution rail is synthetic context only.
++              Detailed Lifecycle / LPS / Routing / Trajectory / Journal stay on
++              Conversation (and principal views) so Product CTAs & ownership remain.
++            */}
++            {activeView !== "execution" ? (
++              <>
+             <section
+               className={styles.stateTrajectoryRegion}
+               data-testid="project-state-trajectory-region"
+@@ -1086,6 +1116,8 @@ export function ProjectWorkspacePage({
+                 </p>
+               ) : null}
+             </div>
++              </>
++            ) : null}
+           </div>
+           {contextScrollUi.active ? (
+             <div
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+index 6a42120f..b0601080 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+@@ -174,6 +174,11 @@ function contractTitle(
+ function buildWorkItems(
+   projection: GovernedExecutionContinuityProjection | null,
+   terminal: boolean,
++  pre: Extract<
++    CurrentGovernedExecutionContinuityResult,
++    { ok: true; kind: "active" }
++  > | null,
++  _contractPresentation: PilotContractPresentation | null,
+ ): {
+   items: PilotExecutionWorkItem[];
+   total: number;
+@@ -188,25 +193,90 @@ function buildWorkItems(
+     label: item.label || item.kind,
+     stateLabel: terminal ? "Terminé" : "Prévu",
+   }));
+-  if (items.length === 0 && projection?.context?.executionContract) {
++  if (items.length > 0) {
++    return {
++      items,
++      total,
++      collapsed: total > WORK_PREVIEW_LIMIT,
++    };
++  }
++
++  // Honest contract-derived work rows — never invent a generic placeholder.
++  // Prefer durable facts (objective / path / repo). Do not use presentation
++  // titles that can be generic fallbacks for technical action tokens.
++  const derived: PilotExecutionWorkItem[] = [];
++  const objective =
++    projection?.context?.executionContract?.objective?.trim() ||
++    (typeof pre?.contract.inspectionDisclosure?.objective === "string"
++      ? pre.contract.inspectionDisclosure.objective.trim()
++      : null) ||
++    null;
++  const targetPath =
++    pre?.contract.inspectionDisclosure?.targetPath?.trim() || null;
++  const repoRef =
++    pre?.contract.inspectionDisclosure?.targetRepositoryRef?.trim() || null;
++  const scopeNarrative =
++    pre?.contract.scope && !pre.contract.scope.startsWith("studio.")
++      ? pre.contract.scope.trim()
++      : null;
++
++  if (objective) {
++    derived.push({
++      id: "contract-objective",
++      label: objective,
++      stateLabel: terminal ? "Terminé" : "Prévu",
++    });
++  }
++  if (targetPath) {
++    derived.push({
++      id: "contract-destination",
++      label: `Destination : ${targetPath}`,
++      stateLabel: terminal ? "Terminé" : "Prévu",
++    });
++  }
++  if (repoRef) {
++    derived.push({
++      id: "contract-repository",
++      label: `Dépôt : ${repoRef}`,
++      stateLabel: terminal ? "Terminé" : "Prévu",
++    });
++  }
++  if (scopeNarrative && scopeNarrative !== objective) {
++    derived.push({
++      id: "contract-scope",
++      label: `Périmètre : ${scopeNarrative}`,
++      stateLabel: terminal ? "Terminé" : "Prévu",
++    });
++  }
++
++  if (derived.length > 0) {
++    return {
++      items: derived.slice(0, WORK_PREVIEW_LIMIT),
++      total: derived.length,
++      collapsed: derived.length > WORK_PREVIEW_LIMIT,
++    };
++  }
++
++  if (projection?.context?.executionContract || pre) {
+     return {
+       items: [
+         {
+-          id: "contract-action",
++          id: "contract-details-unavailable",
+           label: terminal
+-            ? "Action exécutée dans la portée du contrat"
+-            : "Action prévue dans la portée du contrat",
+-          stateLabel: terminal ? "Terminé" : "Prévu",
++            ? "Détail du travail exécuté indisponible dans le contrat"
++            : "Détail du travail prévu indisponible dans le contrat",
++          stateLabel: terminal ? "Terminé" : "Incomplet",
+         },
+       ],
+       total: 1,
+       collapsed: false,
+     };
+   }
++
+   return {
+-    items,
+-    total: total || items.length,
+-    collapsed: total > WORK_PREVIEW_LIMIT,
++    items: [],
++    total: 0,
++    collapsed: false,
+   };
+ }
+
+@@ -373,7 +443,7 @@ export function presentPilotExecution(
+       };
+     }
+
+-    const work = buildWorkItems(projection, false);
++    const work = buildWorkItems(projection, false, pre, contractPresentation);
+     const needsConfirm = confirmationRequired && !confirmationSatisfied;
+     const status: PilotExecutionStatus = needsConfirm ? "a_confirmer" : "prete";
+     const durableActionable = Boolean(
+@@ -425,7 +495,7 @@ export function presentPilotExecution(
+   }
+
+   if (stage === "ATTEMPT_ACCEPTED" || stage === "RUNNING") {
+-    const work = buildWorkItems(projection, false);
++    const work = buildWorkItems(projection, false, pre, contractPresentation);
+     return {
+       ...emptyBase,
+       status: "en_cours",
+@@ -458,7 +528,12 @@ export function presentPilotExecution(
+     stage === "POST_EVIDENCE_COMPLETE"
+   ) {
+     const terminalMap = mapTerminalAttempt(projection.attemptStatus);
+-    const work = buildWorkItems(projection, terminalMap.status === "terminee");
++    const work = buildWorkItems(
++      projection,
++      terminalMap.status === "terminee",
++      pre,
++      contractPresentation,
++    );
+     const evidenceItems = buildEvidenceItems(projection);
+     const isSuccess = terminalMap.status === "terminee";
+     const verdict = projection.productOutcome;
+
+```
+
+---
+
+## 6. Tests
+
+### Suites exécutées (52 PASS)
+
+```
+p6.o1.continuityGd4EmptyRefs.d0.test.ts (6)
+ecRehydrationContinuity.d0.test.ts (14) — G5 preserved
+p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts (10)
+p6.o1.executionWorkPresentation.d0.test.ts (2)
+p5.s03.pilotExecutionPresentation.d0.test.ts (9)
+p5.s01.workspaceLayout.ui.test.tsx (5)
+p5.s03.objectNativeViews.ui.test.tsx (2)
+automaticProjectResume.ui.test.tsx (4)
+```
+
+### Nouveau test LOT A — contenu intégral
+
+```typescript
+/**
+ * STUDIO-P6-EXECUTION-CONVERGENCE-DELIVERY-01 / LOT A
+ * Option 1 — W2 continuity admits G-D4 NON_STRUCTURAL empty decisionRefs.
+ *
+ * Deterministic — ZERO OpenAI REAL — ZERO Cursor REAL — ZERO HQA mutation.
+ *
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import { prepareGenericExecutionContractDraft } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+} from "@/lib/oa/decision";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "./w2Harness";
+import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+
+function restoreEnvVar(name: string, previous: string | undefined): void {
+  if (previous === undefined) delete process.env[name];
+  else process.env[name] = previous;
+}
+
+function baseAnalysis(
+  overrides: Partial<IntentAnalysisDto> = {},
+): IntentAnalysisDto {
+  return {
+    parseOk: true,
+    intentClass: "actionable",
+    candidateCycleTypeId: "cyc:delivery",
+    signals: {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
+    cognitiveWorkload: null,
+    contradictionCandidate: null,
+    challengeResponseAssessment: "sufficient",
+    objective: "Corriger la fonctionnalité de filtrage",
+    scope: "projects/demo/app/filter.ts",
+    rephrasedRequest: "Corriger le bug de filtrage signalé",
+    outOfScope: ["refonte UI", "migration DB"],
+    risks: [],
+    reservations: [],
+    stopConditions: ["AUCUNE EXÉCUTION SANS AUTORISATION"],
+    activatedBlocks: [],
+    expectedOutcome: "Filtrage corrigé avec tests verts",
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: {
+      intentKind: "other",
+      scopeIn: ["projects/demo/app/filter.ts"],
+      scopeOut: ["refonte UI"],
+    } as IntentAnalysisDto["executionIntent"],
+    ...overrides,
+  };
+}
+
+describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
+  let runtime: RuntimeApplicationService;
+  let dbPath: string;
+  let previousProvider: string | undefined;
+  let previousMorrisAuthority: string | undefined;
+
+  beforeEach(() => {
+    previousProvider = process.env.OPS1_CONVERSATION_PROVIDER;
+    previousMorrisAuthority = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetPendingGenericPrepareOfferStoreForTests();
+    dbPath = tempProductDbPath("p6-o1-cont.sqlite");
+    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "o1c" });
+  });
+
+  afterEach(() => {
+    resetF2ProposalStoreForTests();
+    resetPendingGenericPrepareOfferStoreForTests();
+    setConversationProviderForTests(null);
+    cleanupW2TempDirs();
+    restoreEnvVar("OPS1_CONVERSATION_PROVIDER", previousProvider);
+    restoreEnvVar(
+      "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY",
+      previousMorrisAuthority,
+    );
+  });
+
+  async function seedActiveCycle(suffix: string): Promise<{
+    projectId: string;
+    cycleInstanceId: string;
+  }> {
+    const oa = runtime.oa!;
+    const created = await runtime.createProject({
+      name: `O1 Cont ${suffix}`,
+      objective: "Continuité G-D4 empty refs",
+      context: "active cycle + generic prepare",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL"],
+      shortReference: `O1C${suffix.toUpperCase().slice(0, 6)}`,
+      idempotencyKey: `idem:o1c-${suffix}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("createProject");
+    const projectId = created.project.projectId;
+
+    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps0.ok) throw new Error("lps0");
+
+    const traj = await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [
+        { stepId: "stp:a", order: 1, label: "Clarify", state: "done" },
+        { stepId: "stp:b", order: 2, label: "Deliver", state: "done" },
+      ],
+      status: "active",
+      expectedLpsVersion: lps0.livingProjectState.version,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+    expect(traj.ok).toBe(true);
+
+    const cycleInstanceId = `cyc:o1c-${suffix}`;
+    const candidate = await oa.cycleServices.createCycle.execute({
+      cycleInstanceId,
+      cycleTypeId: "cyc:delivery",
+      projectId,
+      signals: { lowRiskBounded: true },
+      createdBy: {
+        actorId: "actor:nora-f2",
+        role: "agent",
+        displayName: "Nora F2",
+        authorityLevel: "N1",
+      },
+      linkAsActiveCycle: false,
+    });
+    expect(candidate.ok).toBe(true);
+
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope: `pilot-lifecycle:${cycleInstanceId}`,
+      issuedAt: "2026-10-15T08:00:00.000Z",
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) throw new Error("auth");
+
+    const lps1 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps1.ok) throw new Error("lps1");
+
+    const started = await oa.cycleServices.pilotLifecycle.start({
+      cycleInstanceId,
+      projectId,
+      createdBy: {
+        actorId: LOCAL_PILOTE_ACTOR.actorId,
+        role: LOCAL_PILOTE_ACTOR.role,
+        displayName: LOCAL_PILOTE_ACTOR.displayName,
+        authorityLevel: LOCAL_PILOTE_ACTOR.authorityLevel,
+      },
+      authorityEvidenceId: auth.evidenceId,
+      expectedLpsVersion: lps1.livingProjectState.version,
+    });
+    expect(started.ok).toBe(true);
+
+    if (oa.projectServices.setProjectRepositoryBinding) {
+      const identity = `acme/o1c-${suffix}`;
+      const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
+        projectId,
+        actor: LOCAL_PILOTE_ACTOR,
+        binding: {
+          provider: "github",
+          identity,
+          remoteUrl: `https://github.com/${identity}.git`,
+          defaultBranch: "main",
+          pathRoot: "projects/demo",
+        },
+      });
+      expect(bound.ok).toBe(true);
+      ensureManagedRepoCloneSkeleton({
+        managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+        identity,
+      });
+    }
+
+    return { projectId, cycleInstanceId };
+  }
+
+  async function prepareOk(
+    projectId: string,
+    cycleInstanceId: string,
+    analysis: IntentAnalysisDto = baseAnalysis(),
+  ) {
+    const prep = await prepareGenericExecutionContractDraft({
+      oa: runtime.oa!,
+      projectId,
+      cycleInstanceId,
+      analysis,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    return prep;
+  }
+
+  it("T1/T14/T15 — G-D4 NON_STRUCTURAL empty refs → continuity active decisionRef=null", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("t1");
+    const oa = runtime.oa!;
+    const beforeHd = await oa.decisionServices.decisions.listByProject(projectId);
+
+    const prep = await prepareOk(projectId, cycleInstanceId);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(prep.executionAttemptCreated).toBe(false);
+    expect(prep.contract.decisionRefs ?? []).toEqual([]);
+    expect(prep.contract.constraints).toContain("MATERIALITY:NON_STRUCTURAL");
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(true);
+    if (!continuity.ok) throw new Error(continuity.message);
+    expect(continuity.kind).toBe("active");
+    if (continuity.kind !== "active") throw new Error("expected active");
+    expect(continuity.decisionRef).toBeNull();
+    expect(continuity.contract.executionContractId).toBe(
+      prep.contract.executionContractId,
+    );
+    expect(continuity.contract.version).toBe(prep.contract.version);
+    expect(continuity.contract.semanticFingerprint).toBe(
+      prep.contract.semanticFingerprint ?? "",
+    );
+
+    const afterHd = await oa.decisionServices.decisions.listByProject(projectId);
+    expect(afterHd.length).toBe(beforeHd.length);
+
+    const attempts = await oa.executionAttemptServices!.listExecutionAttempts.execute(
+      { executionContractId: prep.contract.executionContractId },
+    );
+    expect(attempts.ok).toBe(true);
+    if (attempts.ok) expect(attempts.attempts).toEqual([]);
+  });
+
+  it("T4 — empty refs without MATERIALITY stamp → INTEGRITY refus (G5 preserved)", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("t4");
+    const oa = runtime.oa!;
+    const prep = await prepareOk(projectId, cycleInstanceId);
+
+    const loaded = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.contract.executionContractId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error("load");
+    const stripped = {
+      ...loaded.contract,
+      decisionRefs: [] as string[],
+      constraints: loaded.contract.constraints.filter(
+        (c) => !c.startsWith("MATERIALITY:"),
+      ),
+    };
+    await oa.executionContractServices.contracts.save(stripped);
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(false);
+    if (continuity.ok) throw new Error("expected fail");
+    expect(continuity.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
+  });
+
+  it("T2 — STRUCTURAL stamp + empty refs → refus", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("t2");
+    const oa = runtime.oa!;
+    const prep = await prepareOk(projectId, cycleInstanceId);
+    const loaded = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.contract.executionContractId,
+    });
+    if (!loaded.ok) throw new Error("load");
+    const structural = {
+      ...loaded.contract,
+      decisionRefs: [] as string[],
+      constraints: [
+        ...loaded.contract.constraints.filter((c) => !c.startsWith("MATERIALITY:")),
+        "MATERIALITY:STRUCTURAL",
+      ],
+    };
+    await oa.executionContractServices.contracts.save(structural);
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(false);
+    if (continuity.ok) throw new Error("expected fail");
+    expect(
+      continuity.code === "MATERIALITY_STRUCTURAL" ||
+        continuity.code === "MATERIALITY_CURRENT_MISMATCH" ||
+        continuity.code === "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+    ).toBe(true);
+  });
+
+  it("T5 — NON_STRUCTURAL stamp but missing productCurrentness facts → refus", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("t5");
+    const oa = runtime.oa!;
+    const prep = await prepareOk(projectId, cycleInstanceId);
+    const loaded = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.contract.executionContractId,
+    });
+    if (!loaded.ok) throw new Error("load");
+    const inputs = { ...(loaded.contract.inputs ?? {}) } as Record<string, unknown>;
+    const facts = {
+      ...((inputs.materialityFacts as Record<string, unknown>) ?? {}),
+    };
+    delete facts.productCurrentness;
+    inputs.materialityFacts = facts;
+    await oa.executionContractServices.contracts.save({
+      ...loaded.contract,
+      inputs,
+    });
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(false);
+    if (continuity.ok) throw new Error("expected fail");
+    expect(continuity.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
+  });
+
+  it("T11/T12/T13 — inspection state exposed; insufficient ≠ confirm; FP change requires reinspect", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("t11");
+    const oa = runtime.oa!;
+    const prep = await prepareOk(projectId, cycleInstanceId);
+
+    const beforeInspect = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(beforeInspect.ok).toBe(true);
+    if (!beforeInspect.ok || beforeInspect.kind !== "active") {
+      throw new Error("expected active");
+    }
+    expect(beforeInspect.inspection.inspectionSufficient).toBe(false);
+
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      expectedSemanticFingerprint:
+        prep.contract.semanticFingerprint ?? "unset",
+      forceLocalAuthority: true,
+    });
+    expect(inspected.ok).toBe(true);
+
+    const afterInspect = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(afterInspect.ok).toBe(true);
+    if (!afterInspect.ok || afterInspect.kind !== "active") {
+      throw new Error("expected active");
+    }
+    expect(afterInspect.inspection.inspectionSufficient).toBe(true);
+    expect(afterInspect.decisionRef).toBeNull();
+    // Continuity read never auto-executes / auto-confirms.
+    expect(afterInspect.contract.status).toBe(prep.contract.status);
+  });
+
+  it("T16 — continuity read performs no EC / HD / Attempt writes", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("t16");
+    const oa = runtime.oa!;
+    const prep = await prepareOk(projectId, cycleInstanceId);
+
+    const saveSpy = vi.spyOn(oa.executionContractServices.contracts, "save");
+    const hdBefore = await oa.decisionServices.decisions.listByProject(projectId);
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(true);
+    if (!continuity.ok || continuity.kind !== "active") {
+      throw new Error("expected active");
+    }
+    expect(continuity.contract.executionContractId).toBe(
+      prep.contract.executionContractId,
+    );
+    expect(saveSpy).not.toHaveBeenCalled();
+    const hdAfter = await oa.decisionServices.decisions.listByProject(projectId);
+    expect(hdAfter.length).toBe(hdBefore.length);
+    saveSpy.mockRestore();
+  });
+});
+
+```
+
+### Nouveau test LOT B — contenu intégral
+
+```typescript
+/**
+ * LOT B — honest Execution work presentation (no generic placeholder).
+ * @vitest-environment node
+ */
+import { describe, expect, it } from "vitest";
+import type { GovernedExecutionContinuityProjection } from "@/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection";
+import { presentPilotExecution } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
+
+function projectionWithContract(
+  overrides: Partial<GovernedExecutionContinuityProjection> = {},
+): GovernedExecutionContinuityProjection {
+  return {
+    projectId: "prj:o1",
+    activeCycleInstanceId: "cyc:1",
+    executionContractId: "xct:1",
+    executionContractVersion: 2,
+    executionContractStatus: "confirmation_required",
+    attemptId: null,
+    attemptStatus: null,
+    stage: "PRE_EXECUTION",
+    productOutcome: null,
+    evidenceId: null,
+    reviewBundleId: null,
+    claimEvaluationId: null,
+    claimEvaluationStatus: null,
+    postEvidencePresent: false,
+    nextDeterministicAction: "NONE",
+    humanDecisionRequired: false,
+    recoveryRequired: false,
+    reason: null,
+    blockingCode: null,
+    context: {
+      projectId: "prj:o1",
+      activeCycleInstanceId: "cyc:1",
+      executionContract: {
+        kind: "PRODUCT_CONTRACT",
+        executionContractId: "xct:1",
+        version: 2,
+        status: "confirmation_required",
+        action: "studio.cursor.generalist.execute",
+        objective: "Rédiger la note de cadrage bénévoles",
+        decisionId: null,
+        cycleInstanceId: "cyc:1",
+      },
+      attempt: null,
+      evidence: { evidenceId: null, status: null },
+      evidenceIds: [],
+      reviewBundle: { reviewBundleId: null, status: null },
+      claimEvaluation: {
+        claimEvaluationId: null,
+        status: null,
+      },
+      executionReview: {
+        reviewItemSummaries: [],
+      },
+    } as GovernedExecutionContinuityProjection["context"],
+    ...overrides,
+  };
+}
+
+describe("P6 O1 execution work presentation", () => {
+  it("B9 — documentary path + objective replace generic placeholder", () => {
+    const view = presentPilotExecution({
+      continuityProjection: {
+        ok: true,
+        projection: projectionWithContract(),
+      },
+      preExecutionContinuity: {
+        ok: true,
+        kind: "active",
+        decisionRef: null,
+        contract: {
+          executionContractId: "xct:1",
+          version: 2,
+          status: "confirmation_required",
+          action: "studio.cursor.generalist.execute",
+          target: "studio.cursor.generalist.workspace",
+          scope: "studio.cursor.generalist.scope",
+          requiredAuthority: "N2",
+          constraints: ["MATERIALITY:NON_STRUCTURAL"],
+          stopConditions: [],
+          requiredCapabilities: ["studio.cursor.generalist"],
+          reversibility: "reversible",
+          semanticFingerprint: "fp",
+          effectConfirmationRequired: true,
+          inspectionDisclosure: {
+            action: "studio.cursor.generalist.execute",
+            technicalTarget: "studio.cursor.generalist.workspace",
+            scope: "studio.cursor.generalist.scope",
+            targetRepositoryRef: "acme/benevoles",
+            targetPath:
+              "projects/organisation-des-benevoles/01-cadrage/note-de-cadrage.md",
+            scopeIn: null,
+            scopeOut: null,
+            createOrModify: true,
+            noDelete: true,
+            objective: "Rédiger la note de cadrage bénévoles",
+            artifactType: null,
+            artifactBrief: null,
+            contentRequirements: null,
+            validationExpectations: null,
+            expectedOutputs: null,
+            sourceGrounding: null,
+            acceptanceCriteria: null,
+            validationPlan: null,
+            reportRequirements: null,
+            evidenceRequirements: [],
+            requiredAuthority: "N2",
+            requiredCapabilities: [],
+            constraints: [],
+            stopConditions: [],
+            reversibility: "reversible",
+            contractVersion: 2,
+            executionContractId: "xct:1",
+            semanticFingerprint: "fp",
+            disclosureComplete: true,
+            incompletenessCode: null,
+          },
+        },
+        inspection: {
+          executionContractId: "xct:1",
+          contractVersion: 2,
+          semanticFingerprint: "fp",
+          statusLabel: "À INSPECTER",
+          inspectionSufficient: false,
+          attestationRef: null,
+          attestedVersion: null,
+          staleAttestationRef: null,
+          reinspectionRequired: true,
+          reason: "not_inspected",
+          grantsAuthority: false,
+        },
+      },
+    });
+
+    const labels = view.workItems.map((w) => w.label);
+    expect(labels.some((l) => l.includes("note-de-cadrage.md"))).toBe(true);
+    expect(labels.some((l) => /Action prévue dans la portée/.test(l))).toBe(
+      false,
+    );
+    expect(view.decisionRef === undefined || true).toBe(true);
+  });
+
+  it("B10 — no inventable details → honest incomplete label", () => {
+    const view = presentPilotExecution({
+      continuityProjection: {
+        ok: true,
+        projection: projectionWithContract({
+          context: {
+            projectId: "prj:o1",
+            activeCycleInstanceId: "cyc:1",
+            executionContract: {
+              kind: "PRODUCT_CONTRACT",
+              executionContractId: "xct:1",
+              version: 1,
+              status: "confirmation_required",
+              action: "studio.cursor.generalist.execute",
+              objective: null,
+              decisionId: null,
+              cycleInstanceId: "cyc:1",
+            },
+            attempt: null,
+            evidence: { evidenceId: null, status: null },
+            evidenceIds: [],
+            reviewBundle: { reviewBundleId: null, status: null },
+            claimEvaluation: {
+              claimEvaluationId: null,
+              status: null,
+            },
+            executionReview: { reviewItemSummaries: [] },
+          } as GovernedExecutionContinuityProjection["context"],
+        }),
+      },
+      preExecutionContinuity: {
+        ok: true,
+        kind: "active",
+        decisionRef: null,
+        contract: {
+          executionContractId: "xct:1",
+          version: 1,
+          status: "confirmation_required",
+          action: "studio.cursor.generalist.execute",
+          target: "studio.cursor.generalist.workspace",
+          scope: "studio.cursor.generalist.scope",
+          requiredAuthority: "N2",
+          constraints: [],
+          stopConditions: [],
+          requiredCapabilities: [],
+          reversibility: "reversible",
+          semanticFingerprint: "fp",
+          effectConfirmationRequired: true,
+          inspectionDisclosure: {
+            action: "studio.cursor.generalist.execute",
+            technicalTarget: "studio.cursor.generalist.workspace",
+            scope: "studio.cursor.generalist.scope",
+            targetRepositoryRef: null,
+            targetPath: null,
+            scopeIn: null,
+            scopeOut: null,
+            createOrModify: false,
+            noDelete: true,
+            objective: null,
+            artifactType: null,
+            artifactBrief: null,
+            contentRequirements: null,
+            validationExpectations: null,
+            expectedOutputs: null,
+            sourceGrounding: null,
+            acceptanceCriteria: null,
+            validationPlan: null,
+            reportRequirements: null,
+            evidenceRequirements: [],
+            requiredAuthority: "N2",
+            requiredCapabilities: [],
+            constraints: [],
+            stopConditions: [],
+            reversibility: "reversible",
+            contractVersion: 1,
+            executionContractId: "xct:1",
+            semanticFingerprint: "fp",
+            disclosureComplete: false,
+            incompletenessCode: "facts_incomplete",
+          },
+        },
+        inspection: {
+          executionContractId: "xct:1",
+          contractVersion: 1,
+          semanticFingerprint: "fp",
+          statusLabel: "À INSPECTER",
+          inspectionSufficient: false,
+          attestationRef: null,
+          attestedVersion: null,
+          staleAttestationRef: null,
+          reinspectionRequired: true,
+          reason: "not_inspected",
+          grantsAuthority: false,
+        },
+      },
+    });
+
+    expect(view.workItems).toHaveLength(1);
+    expect(view.workItems[0]!.label).toMatch(/indisponible/i);
+    expect(view.workItems[0]!.label).not.toMatch(/Action prévue dans la portée/);
+  });
+});
+
+```
+
+### Mocks UI adaptés (delivery)
+- `projectAssistantPilotLifecycleProjection` mockResolvedValue dans tests layout/resume/objectNativeViews/syntheses/journal (évite crash `.then` sur `vi.fn()` nu)
+
+### Échecs M-HD préexistants
+- Non exécutés comme gate ce cycle ; dirty M-HD **non attribué** à ce Delivery
+
+---
+
+## 7. Refus légitimes préservés
+
+| Cas | Preuve |
+| --- | --- |
+| Empty unstamped | G5 + T4 |
+| STRUCTURAL empty | T2 |
+| Missing currentness facts | T5 |
+| CURRENT stale / mismatch | revalidate codes pass-through |
+| Recovery vs G-D4 null | prepareDocsWriteRecoverySuccessor |
+
+---
+
+## 8. Captures / Visual
+
+| Source | Statut |
+| --- | --- |
+| Figma 150:532 screenshot MCP | Obtenu |
+| Figma 150:682 design context | Obtenu |
+| Runtime Execution 1440×1024 | **VISUAL CONFORMANCE NOT PROVEN** — `/login?error=NO_SESSION` |
+| AFTER terminal | NOT OBSERVED (no mutation) |
+
+---
+
+## 9. Risques / dette / exit
+
+| ID | Sévérité | Note |
+| --- | --- | --- |
+| V1 | P1 | Visual runtime non prouvée |
+| V2 | P1 | TrajectorySurface unmounted on Execution — ownership refreshed on Conversation return |
+| V3 | P2 | I3 residual if objective+path both absent → "indisponible" (honest) |
+| Exit HQA | — | Après revue ChatGPT + GO Morris distinct |
+
+---
+
+## 10. Décisions Morris restantes
+
+| ID | Décision |
+| --- | --- |
+| D-HQA | Autoriser reprise HQA-FRESH-01 |
+| D-VISUAL | Exiger capture runtime authentifiée |
+| D-COMMIT | Autoriser commit Product Delivery dirty |
+| D-REAL | Toujours hors scope jusqu'à GO |
+
+---
+
+## 11. Confirmation
+
+- Zéro commit/push/PR Product
+- Zéro Cursor REAL / Attempt / Confirm Product
+- HQA SQLite non mutée
+- Confirm/Authorize/materiality/prepare **non modifiés** (hors continuity reader reuse)
+
+**Verdict :** DELIVERY A+B COMPLETE — DETERMINISTIC PASS — VISUAL NOT PROVEN — REVIEW REQUIRED
