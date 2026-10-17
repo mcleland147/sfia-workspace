@@ -1,347 +1,461 @@
-# ChatGPT Review Pack FULL — P6 Living Reference Final Digest Synchronization & Conformance
+# ChatGPT Review Pack FULL — P6 Generic Execution Product Git Integration (Draft PR)
 
 ## 1. Horodatage
-- UTC: `2026-10-17T15:18:38Z`
-- Local: `2026-10-17 17:18 CEST`
-- Cycle: `STUDIO-P6-GENERIC-EXECUTION-FINAL-DIGEST-SYNC-01`
-- Type: 8 — Delivery / implémentation technique ciblée
-- Profil: Critical
+- UTC: `2026-10-17T15:31:30Z`
+- Local: `2026-10-17 17:31 CEST`
+- Cycle: `STUDIO-P6-GENERIC-EXECUTION-PRODUCT-GIT-INTEGRATION-01`
+- Type: 13 — PR readiness · Profil: Critical
 
 ## 2. Repo / branche / HEAD / main
 - Repo: `mcleland147/sfia-workspace`
-- Integration: `/Users/morris/Projects/sfia-workspace-p6-generic-execution-integration-consolidation` · `integration/sfia-studio-p6-generic-execution-consolidation` · `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
-- `origin/main`: `896ff59c704bfa76df1da1a51705aaf948c1cf0c` / remote `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
-- Source: `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` · `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` · `b4c1d86211d372f7b0685be7ce8a5ba7de598e37`
-- Parent handoff (pre-publish tip): `69ca34db9907045331dfc98bac80738026f3a469` expected `69ca34db…` / blob `f809fd33…`
+- Integration: `/Users/morris/Projects/sfia-workspace-p6-generic-execution-integration-consolidation` · `integration/sfia-studio-p6-generic-execution-consolidation`
+- HEAD initial: `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
+- HEAD final: `a52626fabd8a9c6e776b374043561d8d8c0029ab`
+- `origin/main`: `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
+- Remote branch SHA: `a52626fabd8a9c6e776b374043561d8d8c0029ab` (MATCH local HEAD)
+- Source: `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` · `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` · `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` · porcelain 78 (preserved dirty historical)
 
-## 3. Git Truth initial / final
+## 3. Git Truth initial
+- HEAD == main == merge-base `896ff59c`
+- No prior Product commits on branch
+- No pre-existing remote integration branch
+- Staged empty
+- Parent digest handoff `0104947e` / blob `b1a4e848` verified before cycle
 
-### Initial
-- HEAD/main `896ff59c` match
-- Parent S1–S2 handoff `69ca34db` / blob `f809fd33` verified
-- Staged Product empty
-- Manifest not yet modified (init sha256 `9a004d6fdac6581e…`)
-- 7 volumes dirty (semantic content approved); 78 Product/allowlist dirty
-- 44 tracked digests; **14 drifts** (inventory PRECHECK PASS)
+## 4. GO Morris consommé
+**GO P6 GENERIC EXECUTION — PRODUCT GIT COMMITS + PUSH + PR.**
 
-### Final
-- Manifest: 14 `sha256_16` only updated (14+/14−)
-- `lastReviewedCommit` / `lastReviewedAt` / schema / components / flows / invariants / dependencies / maintenance / paths: **unchanged**
-- Checker: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-- Vitest: **5 PASS / 0 FAIL**
-- Drift probe restored (exact bytes)
-- Digests 44/44 MATCH
-- Product 78/78; volumes 7/7; source intact; staged empty
-- No Product commit/push
+Authorized: bounded Product commits · push integration branch · unique Draft PR to main · observe CI · Review Handoff.
+**NOT done / NOT authorized:** merge · force push · HQA · Cursor REAL · runtime v3 ADOPTED · functional new work · doctrine promotion.
 
-## 4. Décision Morris consommée
-**GO P6 — FINAL DIGEST SYNCHRONIZATION & CONFORMANCE.**
-
-Semantic approval (ChatGPT): LIVING REFERENCE SEMANTIC CONTENT — APPROVED FOR DIGEST SYNCHRONIZATION @ handoff `69ca34db`.
-Does **not** consume Product commit/push/PR/merge, HQA, Cursor REAL, runtime v3 ADOPTED.
-
-## 5. Sources consultées
+## 5. Sources
 - Convergence Build Doctrine / Roadmap / product-completion / P6 QA / sfia-v3-framing (read)
-- Cycle 8 CKC synthetic (read)
-- Living Reference README + manifest
-- Checker `app/scripts/check-production-runtime-reference.mjs`
-- Test `productionRuntimeReference.conformance.d0.test.ts`
-- Parent handoffs `69ca34db` (S1–S2) and `3c1b5c83` (R1–R4)
+- Cycle 13 CKC / PR readiness rules (read)
+- CI workflow + package.json (read)
+- Handoffs: aabb2314, 8a7ffeae, ae40017f, eae8dbe2, 3c1b5c83, 69ca34db, 0104947e
 
 ## 6. Convergence Pre-check
-- Capacity V3-F05; Milestone P6
-- G-IB CLOSED; R1–R4 ACCEPTED; S1–S2 ACCEPTED; semantic content APPROVED
-- G-DIGEST was PENDING CONFORMANCE → synchronized this cycle (pending ChatGPT close confirmation)
-- P6 PASS NOT CLAIMED; runtime v3 NON ADOPTED
-- Manifest ADAPT digests only; volumes KEEP (no content edit this cycle)
+- Capacity V3-F05 · Milestone P6
+- G-IB CLOSED · G-DIGEST CLOSED · R1–R4/S1–S2 ACCEPTED
+- Gap closed this cycle: Git Product integration of validated candidate
+- Exit: Draft PR open; CI observed; no merge
 
-## 7. Cycle 8 / Critical
-CKC synthetic. Manifest digests touch HD/EC/execution authority paths — Critical. No new architectural arbitration.
+## 7–8. Cycle 13 / Critical · Capacité V3-F05 / P6
+Critical: 86-file authority-sensitive integration. No new v3 capacity created.
 
-## 8. Capacité V3-F05 / P6
-Documentary/conformance gate closure only.
+## 9. Manifest des 86 fichiers
+MATCH_86 True · digests 44/44 · excluded only `.tmp-sfia-review/chatgpt-review.md`.
 
-## 9. Preuve d'approbation sémantique
-- Handoff content approved: `69ca34db9907045331dfc98bac80738026f3a469` / blob `f809fd33a40873aad760c031358dba1038228c4e`
-- Local recalculation of file bytes matched the 14 approved candidate digests before write
-- No volume content modified this cycle
-- No Product source modified this cycle
+Architecture doc retained (no doctrine promotion):
+`projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md`
 
-## 10. Inventaire des 44 entrées (post-sync)
+Whitespace-only EOF normalization before commit (diff --check):
+- `genericMissionDecisionApplicability.ts` (strip extra blank EOF)
+- architecture md (add final newline)
+Neither is a Living Reference tracked digest source; digests remained 44/44.
 
-| Path | Manifest sha256_16 | File actual | Status |
-|---|---|---|---|
-| `projects/sfia-studio/production-runtime-reference/README.md` | `d6e17088b0cc5762` | `d6e17088b0cc5762` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md` | `8bfbcb286b053f04` | `8bfbcb286b053f04` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md` | `243b7c0e390eb19f` | `243b7c0e390eb19f` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md` | `efdc700181d6a2cc` | `efdc700181d6a2cc` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md` | `0e1a3472427bdb90` | `0e1a3472427bdb90` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md` | `101ec96a6908db71` | `101ec96a6908db71` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md` | `93e604fb84081c98` | `93e604fb84081c98` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md` | `8e81c1fd63d604b0` | `8e81c1fd63d604b0` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md` | `9ee8dde351556e12` | `9ee8dde351556e12` | MATCH |
-| `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` | `e9868b78e0a79e7c` | `e9868b78e0a79e7c` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/actions.ts` | `3abbffc860197bb3` | `3abbffc860197bb3` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts` | `8150d48197019412` | `8150d48197019412` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts` | `bf17440e75fd1d6a` | `bf17440e75fd1d6a` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts` | `aeb3359752700910` | `aeb3359752700910` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts` | `93852ec0c2193c86` | `93852ec0c2193c86` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts` | `c4a5ff1ec041343b` | `c4a5ff1ec041343b` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/recordDecision.ts` | `4d6a43b0c2c9fe3e` | `4d6a43b0c2c9fe3e` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/pilotLifecycleActions.ts` | `28d9f987998b6847` | `28d9f987998b6847` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/canonicalConversationSession.ts` | `c4434a8c3447f926` | `c4434a8c3447f926` | MATCH |
-| `projects/sfia-studio/app/features/project-assistant/f2/mw5ChallengeSessionStore.ts` | `3b2dbd8a49169860` | `3b2dbd8a49169860` | MATCH |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/criticalChallengeClarification.ts` | `01c0e604b1758454` | `01c0e604b1758454` | MATCH |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraCognitiveTurn.ts` | `f4804915f8906eda` | `f4804915f8906eda` | MATCH |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts` | `37d79b9db14322c3` | `37d79b9db14322c3` | MATCH |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/sessionPaths.ts` | `d76d75e72451048a` | `d76d75e72451048a` | MATCH |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts` | `f3780f7c36792984` | `f3780f7c36792984` | MATCH |
-| `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts` | `600264cca081308d` | `600264cca081308d` | MATCH |
-| `projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts` | `16d3c4a2141b205f` | `16d3c4a2141b205f` | MATCH |
-| `projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts` | `52e6055fa1013a3c` | `52e6055fa1013a3c` | MATCH |
-| `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts` | `1963f097d0aa9328` | `1963f097d0aa9328` | MATCH |
-| `projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts` | `bd13da2b572cf65f` | `bd13da2b572cf65f` | MATCH |
-| `projects/sfia-studio/app/lib/vertical-slice-runtime/singleton.ts` | `015b001efc49aedb` | `015b001efc49aedb` | MATCH |
-| `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts` | `5cc1d0ffd4760463` | `5cc1d0ffd4760463` | MATCH |
-| `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts` | `b8e30897933dd2f0` | `b8e30897933dd2f0` | MATCH |
-| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx` | `5024a8dde9da86a8` | `5024a8dde9da86a8` | MATCH |
-| `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/lifecyclePresentation.ts` | `0b25b629a4a889d5` | `0b25b629a4a889d5` | MATCH |
-| `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts` | `7eb2fa5f7fb56ac0` | `7eb2fa5f7fb56ac0` | MATCH |
-| `projects/sfia-studio/app/.env.example` | `c14369cbe6ac4f42` | `c14369cbe6ac4f42` | MATCH |
-| `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts` | `23513b92d5cfa5d3` | `23513b92d5cfa5d3` | MATCH |
-| `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts` | `866294bc20ff538e` | `866294bc20ff538e` | MATCH |
-| `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts` | `c2862434ad6fe670` | `c2862434ad6fe670` | MATCH |
-| `projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts` | `8797f3e117cde1ee` | `8797f3e117cde1ee` | MATCH |
-| `projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts` | `8995d4d266fa3cd6` | `8995d4d266fa3cd6` | MATCH |
-| `projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts` | `9ed95e13d8f41f09` | `9ed95e13d8f41f09` | MATCH |
-| `projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts` | `0b4277b6c3e98126` | `0b4277b6c3e98126` | MATCH |
+## 10. Exclusions
+`.tmp-sfia-review/**`, node_modules, .next, secrets, SQLite, caches, logs — not staged.
 
-**Total:** 44 · **MATCH:** 44 · **DRIFT residual:** 0
+## 11. Intégrité source/cible
+- Source HEAD unchanged `b4c1d862`; porcelain 78 preserved
+- Integration remote SHA == local HEAD
+- PR files 86/86 exact match
 
-## 11–13. Les 14 drifts synchronisés (avant → après)
-
-| Path | Before | After (recalculated = approved) |
-|---|---|---|
-| `projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md` | `f820789e8f4d7af3` | `243b7c0e390eb19f` |
-| `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md` | `2e53911afec78653` | `efdc700181d6a2cc` |
-| `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md` | `f7f8d21a0efb997b` | `0e1a3472427bdb90` |
-| `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md` | `e65f13a723097cff` | `93e604fb84081c98` |
-| `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md` | `3dbdf5191b9b4670` | `8e81c1fd63d604b0` |
-| `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md` | `a9adba70a42a1e55` | `9ee8dde351556e12` |
-| `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` | `716f81a3b1cb5937` | `e9868b78e0a79e7c` |
-| `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts` | `1b8d5cd3ff4f3383` | `8150d48197019412` |
-| `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts` | `6200659a4be2f20c` | `bf17440e75fd1d6a` |
-| `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts` | `57646c517d2ccdb6` | `93852ec0c2193c86` |
-| `projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts` | `21dfef1c7b08764a` | `16d3c4a2141b205f` |
-| `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts` | `53eb3081b6bb2c23` | `7eb2fa5f7fb56ac0` |
-| `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts` | `323b22fa466fc23b` | `23513b92d5cfa5d3` |
-| `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts` | `29485cbfb95f7939` | `c2862434ad6fe670` |
-
-Method: targeted in-place replacement of 14 `sha256_16` string values only (not `--write-digests` full JSON rewrite). Size unchanged (21804). Structure equal ignoring digests.
-
-## 14. Diff COMPLET du manifest
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index a3628dc9..c302e3fb 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -15,15 +15,15 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
--      "sha256_16": "f820789e8f4d7af3"
-+      "sha256_16": "243b7c0e390eb19f"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "2e53911afec78653"
-+      "sha256_16": "efdc700181d6a2cc"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
--      "sha256_16": "f7f8d21a0efb997b"
-+      "sha256_16": "0e1a3472427bdb90"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-@@ -31,19 +31,19 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "e65f13a723097cff"
-+      "sha256_16": "93e604fb84081c98"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
--      "sha256_16": "3dbdf5191b9b4670"
-+      "sha256_16": "8e81c1fd63d604b0"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "a9adba70a42a1e55"
-+      "sha256_16": "9ee8dde351556e12"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "716f81a3b1cb5937"
-+      "sha256_16": "e9868b78e0a79e7c"
-     }
-   ],
-   "components": [
-@@ -582,11 +582,11 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
--      "sha256_16": "1b8d5cd3ff4f3383"
-+      "sha256_16": "8150d48197019412"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
--      "sha256_16": "6200659a4be2f20c"
-+      "sha256_16": "bf17440e75fd1d6a"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
-@@ -594,7 +594,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
--      "sha256_16": "57646c517d2ccdb6"
-+      "sha256_16": "93852ec0c2193c86"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts",
-@@ -642,7 +642,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts",
--      "sha256_16": "21dfef1c7b08764a"
-+      "sha256_16": "16d3c4a2141b205f"
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts",
-@@ -678,7 +678,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
--      "sha256_16": "53eb3081b6bb2c23"
-+      "sha256_16": "7eb2fa5f7fb56ac0"
-     },
-     {
-       "path": "projects/sfia-studio/app/.env.example",
-@@ -688,7 +688,7 @@
-   "trackedTests": [
-     {
-       "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts",
--      "sha256_16": "323b22fa466fc23b"
-+      "sha256_16": "23513b92d5cfa5d3"
-     },
-     {
-       "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts",
-@@ -696,7 +696,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts",
--      "sha256_16": "29485cbfb95f7939"
-+      "sha256_16": "c2862434ad6fe670"
-     },
-     {
-       "path": "projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts",
+## 12–14. Commits logiques
 
 ```
-
-## 15. Preuve absence de changement hors digests
-- `git diff --stat`: `1 file changed, 14 insertions(+), 14 deletions(-)`
-- Diff lines exclusively `"sha256_16": "…"` replacements (28 lines)
-- `schemaVersion` / `kind` / `lastReviewedCommit`=`9b9cd5e5052da5781678a23a86c82b8b3283627e` / `lastReviewedAt`=`2026-10-15T22:51:00+02:00` / `canonicalReadme` / `components` / `flows` / `invariants` / `dependencies` / `maintenance` / tracked paths / order: unchanged
-- Deep structural equality after stripping `sha256_16`: **True**
-- README: no diff
-- Volumes: no content edit this cycle (hashes = approved)
-
-## 16. Résultat checker
+a52626fa docs(studio): align living production runtime reference
+cbc87cdc test(studio): allow w2 type-only RuntimeOaStack import boundary
+980f9ef3 feat(studio): unify execution inspection surfaces
+d61ee4db feat(studio): preserve generic execution continuity
+65da75f8 feat(studio): connect nora tools and project-scoped cursor
+dac669d7 feat(studio): enforce generic prepare materiality and admission
+580b118f feat(studio): govern generic mission human decisions
 ```
-OK: canonical README exists
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
+
+### 1-mhd — `580b118f66b1c4eace7cd9b5e0970cc28dd8cbde`
+**feat(studio): govern generic mission human decisions**
+
+Files (17):
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedGenericMissionDecisionCard.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/genericMissionPresentation.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionApplicability.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionContinuity.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts`
+- `projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts`
+- `projects/sfia-studio/app/lib/oa/decision/domain/types.ts`
+- `projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts`
+
+### 2-materiality-prepare — `dac669d7e666bb974bbb9f869a36c55a57761843`
+**feat(studio): enforce generic prepare materiality and admission**
+
+Files (16):
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/types.ts`
+- `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/authorizeGenericPreparedContract.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/resolveGenericPrepareDocumentaryTarget.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/types.ts`
+- `projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts`
+
+### 3-nora-cursor — `65da75f88124767898eb90599565b9c0afa2025e`
+**feat(studio): connect nora tools and project-scoped cursor**
+
+Files (6):
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
+
+### 4-option1-continuity — `d61ee4db8c958989b45f2cadd3f9093294856d86`
+**feat(studio): preserve generic execution continuity**
+
+Files (8):
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.o1.executionWorkPresentation.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts`
+
+### 5-ux-inspection — `980f9ef3d756f7ff929ea863fbeaf24a1a469b18`
+**feat(studio): unify execution inspection surfaces**
+
+Files (29):
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/governedMomentsInline.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalPrincipalView.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.closureRegularization.trajectorySurfaceConsent.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r03.contextFreshness.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r03.inspectionDisclosureClosure.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.r03.inspectionContinuityAttestation.d0.test.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ContractInspectionExamPanel.module.css`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ContractInspectionExamPanel.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.module.css`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedConfirmationCard.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/contractInspectionExam.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts`
+- `projects/sfia-studio/app/features/pre-m6-product-ui/workspaceContextPresentation.ts`
+- `projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx`
+
+### 6-tests-boundaries — `cbc87cdca6c0798d415245da003c490da8fe5442`
+**test(studio): allow w2 type-only RuntimeOaStack import boundary**
+
+Files (1):
+- `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
+
+### 7-living-reference — `a52626fabd8a9c6e776b374043561d8d8c0029ab`
+**docs(studio): align living production runtime reference**
+
+Files (9):
+- `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md`
+- `projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md`
+- `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
+- `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
+- `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
+- `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md`
+- `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
+- `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+- `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+
+## 15–17. Diff consolidé
+
 ```
-Command: `node scripts/check-production-runtime-reference.mjs` (no write) from `projects/sfia-studio/app/`.
-
-## 17. Résultat Vitest conformance
+.../automaticProjectResume.ui.test.tsx             |    5 +-
+ .../governedMomentsInline.ui.test.tsx              |   50 +-
+ .../p5.s01.workspaceLayout.ui.test.tsx             |    5 +-
+ ...03.durableExecutionActionContinuity.ui.test.tsx |   84 +-
+ .../p5.s03.objectNativeViews.ui.test.tsx           |    5 +-
+ .../p5.s03.pilotExecutionPresentation.d0.test.ts   |   37 +-
+ .../p5.s04.synthesesSurface.ui.test.tsx            |    5 +-
+ .../p5.s07.journalPrincipalView.ui.test.tsx        |    5 +-
+ ...larization.trajectorySurfaceConsent.ui.test.tsx |   45 +-
+ .../p6.o1.executionWorkPresentation.d0.test.ts     |  306 ++++
+ .../p6.r02.actionAvailability.d0.test.ts           |  266 +++
+ .../p6.r03.contextFreshness.ui.test.tsx            |  510 ++++++
+ .../p6.r03.inspectionDisclosureClosure.d0.test.ts  |  151 ++
+ .../p6.uic.unifiedInspectionContract.ui.test.tsx   |  558 ++++++
+ .../postExecutionTrajectorySurface.ui.test.tsx     |   87 +
+ .../trajectorySurface.ui.test.tsx                  |  197 ++-
+ ...ifactMaterializationContinuityCorr01.d0.test.ts |    9 +-
+ .../corrProof07.artifactMaterialization.d0.test.ts |   15 +-
+ .../ecRehydrationContinuity.d0.test.ts             |    2 +
+ .../p6.der16.genericNoraToolInvocation.d0.test.ts  | 1778 ++++++++++++++++++++
+ ...aterialityBlock01.documentaryPrepare.d0.test.ts |  562 +++++++
+ .../p6.inspectionBindingSelect.d0.test.ts          |  476 ++++++
+ ....mHd01.authorityContinuityCorrection.d0.test.ts |  902 ++++++++++
+ .../p6.mHd01.ecHdEffectsBinding.d0.test.ts         |  886 ++++++++++
+ .../p6.mHd01.finalAuthorityBinding.d0.test.ts      |  576 +++++++
+ ...p6.mHd01.genericMissionHumanDecision.d0.test.ts |  947 +++++++++++
+ ...d02.missionIdentityContinuitySession.d0.test.ts |  637 +++++++
+ ...mHd02.pilotPresentationRecordBinding.d0.test.ts |  524 ++++++
+ ...mHd02.sessionBoundaryNormalReplayLps.d0.test.ts | 1247 ++++++++++++++
+ .../p6.o1.continuityGd4EmptyRefs.d0.test.ts        |  551 ++++++
+ .../p6.projectScopedCursorSelection.d0.test.ts     |  677 ++++++++
+ ....r03.inspectionContinuityAttestation.d0.test.ts |  334 ++++
+ .../importBoundaries.test.ts                       |    4 +
+ .../pre-m6-product-ui/ProjectWorkspacePage.tsx     |   88 +-
+ .../hooks/useProductConversation.ts                |  176 +-
+ .../ContractInspectionExamPanel.module.css         |  119 ++
+ .../surfaces/ContractInspectionExamPanel.tsx       |  114 ++
+ .../surfaces/ConversationSurface.tsx               |   46 +-
+ .../surfaces/ExecutionSurface.module.css           |   32 +
+ .../surfaces/ExecutionSurface.tsx                  |  317 +++-
+ .../surfaces/GovernedConfirmationCard.tsx          |  112 +-
+ .../GovernedGenericMissionDecisionCard.tsx         |  238 +++
+ .../surfaces/TrajectorySurface.tsx                 |  342 +++-
+ .../surfaces/contractInspectionExam.ts             |   69 +
+ .../surfaces/genericMissionPresentation.ts         |   42 +
+ .../surfaces/pilotExecutionPresentation.ts         |  373 +++-
+ .../workspaceContextPresentation.ts                |   21 +
+ .../project-assistant/ProjectAssistantPanel.tsx    |    2 +-
+ .../f2/activeCycleGovernedContinuation.ts          |   19 +-
+ .../project-assistant/f2/ckcCognitiveContext.ts    |    5 +-
+ .../features/project-assistant/f2/orchestrateF2.ts |  194 ++-
+ .../app/features/project-assistant/f2/types.ts     |    7 +-
+ .../features/project-assistant/orchestrateTurn.ts  |   41 +
+ .../app/features/project-assistant/w2/actions.ts   |  311 ++++
+ .../w2/authorizeExecutionContract.ts               |   53 +-
+ .../w2/authorizeGenericPreparedContract.ts         |   52 +-
+ .../w2/confirmForAuthorization.ts                  |   28 +-
+ .../w2/genericMissionDecisionApplicability.ts      |  232 +++
+ .../w2/genericMissionDecisionContinuity.ts         |  373 ++++
+ .../project-assistant/w2/genericMissionSubject.ts  | 1029 +++++++++++
+ .../w2/governedExecuteAuthorizedContract.ts        |  253 ++-
+ .../w2/pendingGenericPrepareOfferStore.ts          |   32 +-
+ .../w2/prepareDocsWriteRecoverySuccessor.ts        |   11 +
+ .../w2/prepareGenericExecutionContractDraft.ts     |  658 +++++++-
+ .../w2/readCurrentGovernedExecutionContinuity.ts   |   93 +-
+ .../w2/recordGenericMissionHumanDecision.ts        |  524 ++++++
+ .../w2/resolveAuthoritativeProductMateriality.ts   |   13 +-
+ .../w2/resolveGenericPrepareDocumentaryTarget.ts   |  364 ++++
+ .../app/features/project-assistant/w2/types.ts     |   12 +-
+ .../verifyGenericMissionHumanDecisionForPrepare.ts |  811 +++++++++
+ .../app/lib/nora-cognitive-runtime/index.ts        |    2 +
+ .../productExecutionAgentsTools.ts                 |  153 +-
+ .../nora-cognitive-runtime/providerAgentsModel.ts  |    1 +
+ .../app/lib/oa/decision/domain/invariants.ts       |  166 +-
+ .../app/lib/oa/decision/domain/types.ts            |   59 +-
+ .../infrastructure/localSingleUserAuthority.ts     |   17 +-
+ .../lib/oa/project/domain/artifactTargetRouting.ts |   51 +
+ ...generic-execution-review-result-architecture.md |  170 +-
+ .../02-runtime-object-catalog.md                   |   14 +-
+ .../03-end-to-end-flow-catalog.md                  |   46 +-
+ .../04-dependency-impact-map.md                    |   36 +
+ .../06-persistence-restart-and-recovery.md         |   25 +-
+ .../07-authority-invariants-and-failure-modes.md   |   21 +
+ .../08-test-proof-and-conformance-map.md           |   38 +
+ ...9-known-gaps-reserves-and-current-boundaries.md |   26 +-
+ .../production-runtime-reference.manifest.json     |   28 +-
+ 86 files changed, 20028 insertions(+), 474 deletions(-)
 ```
-Test Files  1 passed (1)
-Tests  5 passed (5)
+
+Full name-status (`origin/main...HEAD`):
+
 ```
-File: `__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
-Executed **isolated / sequential** (no concurrent suites).
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/governedMomentsInline.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalPrincipalView.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.closureRegularization.trajectorySurfaceConsent.ui.test.tsx
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.o1.executionWorkPresentation.d0.test.ts
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r03.contextFreshness.ui.test.tsx
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r03.inspectionDisclosureClosure.d0.test.ts
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/ecRehydrationContinuity.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.r03.inspectionContinuityAttestation.d0.test.ts
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ContractInspectionExamPanel.module.css
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ContractInspectionExamPanel.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.module.css
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedConfirmationCard.tsx
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedGenericMissionDecisionCard.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/contractInspectionExam.ts
+A	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/genericMissionPresentation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/workspaceContextPresentation.ts
+M	projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
+M	projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/types.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/authorizeGenericPreparedContract.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
+A	projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionApplicability.ts
+A	projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionContinuity.ts
+A	projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
+A	projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
+A	projects/sfia-studio/app/features/project-assistant/w2/resolveGenericPrepareDocumentaryTarget.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/types.ts
+A	projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+M	projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts
+M	projects/sfia-studio/app/lib/oa/decision/domain/types.ts
+M	projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts
+M	projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts
+M	projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
+M	projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
+M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+M	projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+M	projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
 
-## 18. Contrôle restauration drift probe
-- Probe path: `projects/sfia-studio/app/features/project-assistant/actions.ts` (`trackedSources[0]`)
-- SHA-256 before: `3abbffc860197bb3461111ba59aa021bb4eedfb160e502f564e880ee4c2ff106`
-- SHA-256 after Vitest: `3abbffc860197bb3461111ba59aa021bb4eedfb160e502f564e880ee4c2ff106`
-- **RESTORED: True** (exact bytes)
+New/modified content is on remote head `a52626fabd8a9c6e776b374043561d8d8c0029ab` via PR #587. Cumulative Product candidate previously reviewed in handoffs listed below; this cycle integrates without new functional scope beyond EOF whitespace noted above.
 
-## 19. Préservation Product 78/78
-Freeze `.tmp-sfia-review/s1s2-dirty-freeze.json` product hashes: **78/78 MATCH**. Allowlist included. No Product edit this cycle.
+## 18. Handoffs historiques
+aabb2314 · 8a7ffeae · ae40017f · eae8dbe2 · 3c1b5c83 · 69ca34db · 0104947e
 
-## 20. Préservation 7 volumes
-All seven approved digests match on-disk content (see matrix). No volume file written this cycle.
-
-## 21. Préservation source
-`fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` · porcelain 78 · untouched.
-
-## 22. Autres gates locaux
-- `git diff --check` clean
-- Staged Product empty
-- INT HEAD still `896ff59c` (no Product commit)
-- Historical TypeScript/Lint/Build/328/G-IB — **not re-executed**; not claimed as fresh proof
-- FULL CI PASS **not claimed**
-
-## 23. Fake / Real
-- Entry: SEMANTIC CONTENT APPROVED
-- Exit: DETERMINISTIC MANIFEST CONFORMANCE PASS
-- Fake: local checker + intentional drift probe
-- REAL / HQA / Cursor REAL / E2E REAL: NOT RUN / NOT CLAIMED
-- GO REAL: NO
-
-## 24. Réserves
-- Future Product PR must re-qualify CI baseline (historical 6143/7/143; 5 env/flaky on clean main)
-- Visual Figma/runtime NOT PROVEN
-- HQA suspended
-- P6 PASS / READY FOR REAL / runtime v3 ADOPTED not claimed
-- Product git still requires distinct Morris GO
-
-## 25. Dette / exit
-- Debt closed this cycle: 14 obsolete digests
-- Exit: G-DIGEST synchronization + conformance PASS; ChatGPT review to confirm CLOSE
-- Next capacity: Product Git integration of V3-F05 candidate (distinct GO)
-
-## 26. Git Review Index
-| Artifact | Ref |
+## 19–25. Validations locales (this cycle)
+| Check | Result |
 |---|---|
-| S1–S2 parent handoff | `69ca34db` / `f809fd33` |
-| R1–R4 handoff | `3c1b5c83` |
-| Integration HEAD | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
-| Source HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
-| This handoff | *(post-publish)* |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| importBoundaries | 5/5 PASS |
+| Living Reference conformance | 5/5 PASS (probe restored) |
+| Cross-suite P6 targeted | **394 PASS / 0 FAIL** (33 files) |
+| Secret scan (86) | 0 hits |
+| git diff --check | clean |
+| FULL npm test / FULL CI | **NOT claimed** |
 
-## 27. Gates Morris restants
+Historical reservation: five full-suite failures previously reproduced on clean main (ENVIRONMENT/FLAKY / BASELINE_MAIN_REPRODUCED with prior evidence). Required GitHub checks remain a distinct gate.
+
+## 26–28. Git final / remote
+- Local HEAD: `a52626fabd8a9c6e776b374043561d8d8c0029ab`
+- Remote branch: `a52626fabd8a9c6e776b374043561d8d8c0029ab` MATCH
+- Staged Product empty (only `.tmp-sfia-review/chatgpt-review.md` dirty local)
+
+## 29–32. Pull Request
+- Number: **#587**
+- URL: https://github.com/mcleland147/sfia-workspace/pull/587
+- Title: feat(studio): integrate P6 generic execution and governed continuity
+- Base: `main` · Head: `integration/sfia-studio-p6-generic-execution-consolidation`
+- Head OID: `a52626fabd8a9c6e776b374043561d8d8c0029ab` (MATCH)
+- Draft: `True` · State: `OPEN`
+- Changed files: **86** (+20028/-474)
+- Commits: 7
+
+### CI status (observed, not invented)
+```
+Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/39045364494/job/117432930228
+Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/39045364494/job/117432896416
+```
+
+Rollup:
+- Detect SFIA Studio changes: status=COMPLETED conclusion=SUCCESS
+- Build and validate SFIA Studio: status=IN_PROGRESS conclusion=n/a
+
+PENDING ≠ PASS. Do not invent FULL CI PASS.
+
+## 33. Fake / Real
+- Entry: DETERMINISTIC PROVEN + G-IB/G-DIGEST CLOSED
+- Exit: GIT INTEGRATED ON FEATURE BRANCH · DRAFT PR OPEN · CI STATUS OBSERVED (PENDING)
+- No REAL / HQA / E2E REAL claim · GO REAL: NO
+
+## 34. HQA / Visual
+HQA suspended · Visual Figma/runtime NOT PROVEN · Cursor REAL not run
+
+## 35. Gates Morris restants
 | Gate | State |
 |---|---|
-| G-IB | CLOSED |
-| Semantic content | APPROVED |
-| G-DIGEST | SYNCHRONIZED + CONFORMANCE PASS — pending ChatGPT CLOSE confirmation |
-| Product commit/push/PR/merge | NOT AUTHORIZED |
+| Product commits/push/Draft PR | **DONE** |
+| Required GitHub CI | PENDING / observe |
+| ChatGPT PR review | REQUIRED |
+| Morris GO merge | NOT AUTHORIZED |
 | HQA / REAL / runtime v3 | NOT AUTHORIZED |
 
-## 28. Verdict
+## 36. Git Review Index
+| Artifact | Ref |
+|---|---|
+| Branch tip | `a52626fabd8a9c6e776b374043561d8d8c0029ab` |
+| PR | #587 https://github.com/mcleland147/sfia-workspace/pull/587 |
+| Parent G-DIGEST handoff | `0104947e` |
+| This handoff | *(post-publish)* |
 
-**G-DIGEST SYNCHRONIZATION COMPLETE — CONFORMANCE PASS — READY FOR CHATGPT REVIEW**
+## 37. Verdict
+
+**PRODUCT GIT INTEGRATION PUBLISHED — DRAFT PR OPEN — AWAITING CI AND MORRIS MERGE REVIEW**
 
 ### Instruction ChatGPT
-Lire le Review Handoff distant au SHA publié.
-
-Vérifier: 14 digests exacts; 44/44 conformes; manifest inchangé hors digests; approbation sémantique respectée; checker PASS; Vitest 5 PASS; probe restauré; 78 Product + 7 volumes + source préservés; absence commit/push/PR Product; réserves CI; gates Morris.
-
-Après validation: recommander **GO Product Git Integration**, sans l'exécuter.
-
-Ne pas annoncer READY FOR PR / Product Git intégré / P6 PASS / FULL CI PASS / HQA READY / READY FOR REAL / runtime v3 ADOPTED.
+Lire ce handoff distant + PR #587.
+Vérifier base/head/SHA, 7 commits, 86 files, Morris GO, protected-path provenance, G-IB/G-DIGEST, CI status (do not invent PASS), réserves, absence de merge.
+Qualifier GitHub checks before any merge recommendation.
+Ne pas générer automatiquement un prompt de merge.
