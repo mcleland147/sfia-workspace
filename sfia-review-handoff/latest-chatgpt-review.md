@@ -22,8 +22,8 @@
 | Staged Product | vide |
 | Porcelain lines | 78 |
 | Dirty fingerprint (porcelain sha256) initial | `5d988dd15b9b1664ba4e5a9190f846f5038792b25b735f416c097091b92e600b` |
-| Dirty fingerprint final | `ce99fed1dbce42657f1c5204adf2d4688ef2c86338b8917c8d890c28369a21bc` |
-| Note fingerprint | Identique: les 3 fichiers C1–C4 sont **untracked**; le contenu a changé mais les lignes porcelain `??` sont stables. |
+| Dirty fingerprint final | `5d988dd15b9b1664ba4e5a9190f846f5038792b25b735f416c097091b92e600b` |
+| Note fingerprint | Path-set porcelain **identique** (78 lignes). Les 3 fichiers C1–C4 sont **untracked**: leur contenu a changé; les lignes `??` restent stables donc le hash porcelain est inchangé. |
 
 **Garanties Git cycle:** aucun commit/push/PR/merge/rebase/stash/clean/restore Product. Aucun changement de branche Product. Aucune modification `lib/oa/**`.
 
@@ -589,7 +589,7 @@ Conservés sans mutation Product de ce cycle:
 2. **PR Readiness finale** — requalifier après intégration Git (pas annoncé READY FOR PR ici).
 3. **HQA-FRESH-01** — suspendue; reprise après gates distincts.
 4. **VISUAL / Figma** — NOT PROVEN (héritage).
-5. **Fingerprint porcelain** inchangé (untracked path set); contenu untracked C1–C4 mis à jour.
+5. **Fingerprint porcelain path-set** inchangé (`5d988dd1…`); contenu untracked C1–C4 mis à jour.
 6. Shell host peut encore avoir `SFIA_STUDIO_CURSOR_REAL=1` hors tests — tests isolent désormais.
 
 ---
