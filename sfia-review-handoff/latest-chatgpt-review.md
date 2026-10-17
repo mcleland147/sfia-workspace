@@ -1,257 +1,269 @@
-# SFIA STUDIO — P6-HQA-FRESH-01
-## CONTROLLED REAL RUNTIME ACTIVATION
+# Review Pack FULL — MATERIALITY-BLOCK-01 (P6-HQA-FRESH-01)
 
-**Horodatage:** 2026-10-17 07:38:44 CEST (Europe/Paris)
-**GO Morris consommé:** Nora REAL + Cursor REAL + activation contrôlée runtime (2026-10-17)
-**Campagne:** P6-HQA-FRESH-01
-**Parent:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-**Cycle:** 9 — QA / validation · CRITICAL
-
----
-
-## 1. Verdict
-
-**WAITING MORRIS AUTH BOOTSTRAP**
-
-**Sous-statut REAL:** Runtime candidat redémarré avec `SFIA_STUDIO_CURSOR_REAL=1` effectif · preflight **STUDIO RUNTIME PROFILE READY** · `cursorReal: READY` · deterministic⊕REAL **PASS** · DB QA virgin **préservée** (0 métier) · **0** Attempt / **0** Execute.
-
-Session Better Auth **non prouvée** après restart (storageState agent expiré ; `/studio` → `NO_SESSION`). Morris doit re-valider / bootstrap avant HQA-FRESH-01.
-
-≠ HUMAN QA PASS · ≠ CURSOR PRODUCT E2E PASS · ≠ P6 GLOBAL PASS · ≠ RUNTIME V3 ADOPTED.
+| Field | Value |
+| --- | --- |
+| **Horodatage** | 2026-10-17 09:57:29 CEST |
+| **Programme** | SFIA Studio — Product Completion / Product Simplification |
+| **Milestone** | P6 — Global Integrated Product QA |
+| **Campagne** | P6-GLOBAL-INTEGRATED-PRODUCT-QA-01 / **P6-HQA-FRESH-01** |
+| **Incident** | MATERIALITY-BLOCK-01 |
+| **Cycle type** | 9 — QA / validation |
+| **Profil SFIA** | Critical |
+| **Typologie** | QA / DIAGNOSTIC / PRODUCT GOVERNANCE |
+| **Branche Product** | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
+| **HEAD** | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
+| **origin/main** | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
+| **Worktree** | Dirty Product preserved (M-HD-02 + related); staged empty |
+| **Mode** | READ-ONLY diagnostic — no Product fix, no PREPARE retry, no Cursor REAL, no QA write |
+| **Verdict Cursor** | **DIAGNOSIS COMPLETE — ROOT CAUSE PROVEN** |
 
 ---
 
-## 2. Git Truth
-
-| Champ | Valeur |
-|-------|--------|
-| Branche | fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare |
-| HEAD | b4c1d86211d372f7b0685be7ce8a5ba7de598e37 |
-| origin/main | 896ff59c704bfa76df1da1a51705aaf948c1cf0c |
-| Staged | vide |
-| Dirty fingerprint | `1c8005bf124b365a64b25a7260cc088007207dcea3b71c2b5b1987611ba74ff1` (stable vs handoff CLI preflight) |
-| Product mutate | AUCUNE |
-| .env.local | NON modifié |
-
-```
-M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedConfirmationCard.tsx
- M projects/sfia-studio/app/features/project-assistant/ProjectAssistantPanel.tsx
- M projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
- M projects/sfia-studio/app/features/project-assistant/f2/ckcCognitiveContext.ts
- M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
- M projects/sfia-studio/app/features/project-assistant/f2/types.ts
- M projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
- M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
- M projects/sfia-studio/app/features/project-assistant/w2/authorizeExecutionContract.ts
- M projects/sfia-studio/app/features/project-assistant/w2/authorizeGenericPreparedContract.ts
- M projects/sfia-studio/app/features/project-assistant/w2/confirmForAuthorization.ts
- M projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
- M projects/sfia-studio/app/features/project-assistant/w2/pendingGenericPrepareOfferStore.ts
- M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
- M projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts
- M projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
- M projects/sfia-studio/app/lib/oa/decision/domain/invariants.ts
- M projects/sfia-studio/app/lib/oa/decision/domain/types.ts
- M projects/sfia-studio/app/lib/oa/decision/infrastructure/localSingleUserAuthority.ts
- M projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
-?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedGenericMissionDecisionCard.tsx
-?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/genericMissionPresentation.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionApplicability.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionContinuity.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
-```
-
----
-
-## 3. Sources
-
-Template/routing/guardrails · P6 07 · doctrine/CKC · studio-runtime-preflight · composeStudioProductRealBoundary · studioCursorRealLaunchGateway · handoff CLI preflight f8499257/0ac6759b · artefacts hqa-fresh-01.
-
----
-
-## 4. Convergence Pre-check
-
-TARGET Pilote→Nora REAL→HD→EC→Cursor REAL gouverné. CURRENT: CLI REAL verified; gateway compatible; flag runtime était OFF → **activé**. GAP session post-restart. EXIT: REAL config qualified; auth waiting Morris.
-
----
-
-## 5–8. Runtime avant / après
-
-| | Avant | Après |
-|--|-------|-------|
-| PID | 41566 | **51329** |
-| Port | 3020 | 3020 |
-| cwd | candidate app | candidate app |
-| Next | 15.5.20 | 15.5.20 |
-| CURSOR_REAL | 0 | **1** (process parent env observé) |
-| Deterministic | unset | unset |
-| OPS1_CURSOR_REAL | unset | unset |
-| DB path | hqa-fresh-01 virgin | **même fichier** inode 106828460 |
-
-Arrêt: SIGTERM ciblé npm PID 41544 uniquement → port free → restart `npm run dev`.
-
-Flags process (non secrets):
-```
-timestamp=2026-10-17T07:38:06+0200
-SFIA_STUDIO_CURSOR_REAL=1
-SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=<unset>
-OPS1_CURSOR_REAL=<unset>
-SFIA_CURSOR_BIN=<unset>
-BETTER_AUTH_URL=http://localhost:3020
-SFIA_STUDIO_PRODUCT_DB_PATH=/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/oa-product.sqlite
-SFIA_STUDIO_NORA_SESSION_DB_PATH=/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/nora-session.sqlite
-SFIA_STUDIO_LOCAL_PILOT_AUTHORITY=1
-OPENAI_API_KEY_PRESENT=true
-OPENAI_MODEL=gpt-5.6-luna
-SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY=mcleland147/sfia-workspace
-SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_SET=true
-```
-
----
-
-## 9. DB QA et compteurs
-
-Avant et après: tous compteurs métier **0** (projects/HD/EC/Attempt/LPS/Cycle/Confirmation).
-
-Aucune DB créée/supprimée. Pas de Project précréé.
-
----
-
-## 10. Better Auth
+## 1. Local Git Truth Check (initial)
 
 | Check | Result |
-|-------|--------|
-| Origin | http://localhost:3020 |
-| GET /studio (sans session agent) | 307 → login?error=NO_SESSION |
-| get-session | null |
-| storageState cookies | EXPIRED 2026-10-14 |
-| forceLocalAuthority | NOT USED |
+| --- | --- |
+| toplevel | `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` |
+| branch | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
+| HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
+| origin/main (local + ls-remote) | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
+| remote feature tip | `b4c1d862…` (match HEAD) |
+| staged | empty |
+| dirty fingerprint (porcelain SHA-256) | `1c8005bf124b365a64b25a7260cc088007207dcea3b71c2b5b1987611ba74ff1` |
+| Git Truth | **COHERENT** — proceed |
 
-**WAITING MORRIS — `npm run e2e:auth:bootstrap` puis confirmer `/studio` sans login.**
-
-La capture UI Morris d'avant restart **ne prouve pas** la session après restart.
-
----
-
-## 11–12. Nora / Cursor
-
-Nora: OPENAI_API_KEY présent · model gpt-5.6-luna · **aucun appel LIVE** ce cycle.
-
-Cursor CLI: preuves handoff précédent (CONNECTED). Gateway bin App `cursor` · argv `agent` · compatible. **Aucun spawn gateway / Execute.**
+Product dirty set preserved (modified + untracked M-HD-02 / generic mission UI / tests). No clean/stash/reset.
 
 ---
 
-## 13. Preflight Product
+## 2. Sources consultées
+
+### Gouvernance / P6 / V3-F05
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` (réf. programme)
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — V3-F05 chaîne conv→exec **PARTIAL RUNTIME**
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` (réf.)
+- `projects/sfia-studio/product-simplification/07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
+- `projects/sfia-studio/sfia-v3-framing/30|32|34|35|37` — V3-F05 **VALIDATED** (pack 37); gouvernance exécution / matérialité
+- `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md` (dirty local; D-ER-16 tool solicitation)
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`, `…/pilots/04-qa-validation.md`, `prompts/templates/sfia-cycle-execution-template.md` (réf. process)
+
+### Code Product (local dirty runtime)
+- `w2/resolveAuthoritativeProductMateriality.ts` — `collectConcreteMissionPaths`, `productContextSufficient`
+- `w2/prepareGenericExecutionContractDraft.ts` — `solicitGenericExecutionPrepare`, `buildIntentAnalysisFromSolicitedMission`, MATERIALITY_UNKNOWN gate
+- `w2/pendingGenericPrepareOfferStore.ts` — candidates non-authoritative
+- `w2/genericPrepareCapabilityEnvelope.ts` — docs_write → generalist envelope
+- `lib/oa/execution-contract/domain/executionMateriality.ts` — `assessExecutionMaterialityOrUnknown`
+- `lib/nora-cognitive-runtime/productExecutionAgentsTools.ts` — tool `request_generic_execution_prepare`
+- `orchestrateTurn.ts` / `f2/orchestrateF2.ts` — solicit / accept-GO paths
+
+### Faits Product persistés (READ-ONLY SQLite)
+- Product DB: `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/oa-product.sqlite` (`mode=ro`)
+- Nora session: `…/nora-session.sqlite` (`mode=ro`)
+- Runtime PID 51329 still listening `:3020` (not mutated by this diagnostic)
+
+---
+
+## 3. Contexte scénario (faits)
+
+| Fait | Valeur | Preuve |
+| --- | --- | --- |
+| Projet | Organisation des bénévoles | `oa_projects.title` |
+| projectId | `prj:8048462e-04e3-42c3-a640-9dad70b6c42a` | DB |
+| Cycle C1 | `cyc:trj-8f5488e7f575408f6bc7c413` (`cyc:framing`, **active**) | DB |
+| repositoryBinding.identity | `mcleland147/sfia-workspace` | project payload |
+| repositoryBinding.pathRoot | `projects/organisation-des-benevoles` | project payload |
+| LPS version | 22 | `oa_lps` |
+| ExecutionContract count | **0** | DB |
+| ExecutionAttempt count | **0** | DB |
+| HumanDecision (mission générique) | **0** (seul HD = trajectory approval) | DB |
+| UI / transcript | « Matérialité indéterminée — contexte Product insuffisant ou contradiction… » | `pilot_transcript_turns` seq 39, 41 |
+| Tool result | `MATERIALITY_UNKNOWN` | `session_items` seq 6 |
+
+Intention Pilote (transcript): document de cadrage version de travail sur Git, examiner avant validation, préparer ≠ exécuter.
+
+---
+
+## 4. Chemin de reproduction (établi)
 
 ```
-> sfia-studio@0.1.0 preflight:runtime
-> tsx scripts/studio-runtime-preflight.ts
-
-STUDIO RUNTIME PROFILE READY
-- repository: mcleland147/sfia-workspace (PASS)
-- authority: PASS
-- managedRoot: /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/managed-repos
-- managedClone: /Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/managed-repos/mcleland147__sfia-workspace
-- cursorReal: READY
-- deterministic⊕REAL: PASS
-- realBoundaryConstructed: false
+Pilot intent (documentary framing on Git)
+  → Nora REAL tool request_generic_execution_prepare
+       args: objective + expectedOutcome + narrative scope + contextNotes
+       (NO targetPath / scopeIn / artifactFileName / requiredCapabilities)
+  → orchestrateTurn.solicitPrepare
+  → solicitGenericExecutionPrepare({ mission })
+  → buildIntentAnalysisFromSolicitedMission
+       executionIntent = null
+       scope = narrative string with spaces, no "/"
+  → prepareGenericExecutionContractDraft
+  → resolveAuthoritativeProductMateriality
+       collectConcreteMissionPaths → []
+       structural.basis = no_concrete_mission_paths_fail_closed
+       productContextSufficient = false
+  → assessExecutionMaterialityOrUnknown → materiality=unknown
+       reasonCodes=["product_context_insufficient"]
+  → PREPARE returns MATERIALITY_UNKNOWN BEFORE BuildExecutionContract
+  → rememberGenericPrepareRecommendation (empty scopeIn offer)
+  → later F2 accept ("D'accord…", "ok, vas-y") rebuilds from same empty-path offer
+       → same MATERIALITY_UNKNOWN (EC still 0)
 ```
 
-`realBoundaryConstructed: false` — attendu (construction wiring sans launch).
+### Premier garde-fou bloquant
+
+`prepareGenericExecutionContractDraft` @ lines ~616–638:
+
+- `hdRequired` true because `materiality.humanDecisionRequired` (UNKNOWN)
+- `decisionId` absent
+- returns `code: "MATERIALITY_UNKNOWN"` with the exact UI message
+
+No `BuildExecutionContract` reached.
 
 ---
 
-## 14. Autorités / garde-fous
+## 5. Valeurs Product pertinentes (instance HQA-FRESH-01)
 
-- Activation flag ≠ autorisation Execute
-- HD → EC → Confirmation → Gate D restent obligatoires avant StartExecution
-- OPS1 non activé
-- Deterministic boundary non actif avec REAL
-- .env.local non touché (flags process-local uniquement)
+| Champ | Valeur observée / dérivée | Confiance |
+| --- | --- | --- |
+| Tool objective | Document de cadrage dans le dépôt Git… | PROVEN (session args) |
+| Tool expectedOutcome | Document lisible… emplacement documentaire approprié… | PROVEN |
+| Tool scope | Narrative FR; **"Chemin précis à déterminer après inspection du dépôt"**; spaces; no `/` | PROVEN |
+| executionIntent | `null` (mission solicit path) | PROVEN (code + path) |
+| intentKind / targetPath / artifactFileName / scopeIn / expectedOutputs (paths) | absent | PROVEN |
+| requiredCapabilities | absent → envelope default generalist | PROVEN |
+| collectConcreteMissionPaths | `[]` | PROVEN (replay of push rules on captured scope) |
+| liveReadOk | expected true (active LPS/cycle; runtime up) | HIGH (binding+LPS present; live path not re-invoked in-process) |
+| repositoryBinding | identity + pathRoot present | PROVEN |
+| pathsOutsidePathRoot | n/a (no concrete paths) | PROVEN |
+| structuralTruthBasis | `no_concrete_mission_paths_fail_closed` | PROVEN (code when paths empty) |
+| cycleTruthBasis | would be `active_cycle_anchored_matches_requested` if sufficient context | HIGH |
+| authorityEnvelopeBasis | `paths_within_path_root_and_generalist_capability_only` even with empty paths | PROVEN (code) |
+| productContextSufficient | **false** (requires `concretePaths.length > 0` + non-mutation bases) | PROVEN |
+| assessment.materiality | `unknown` | PROVEN (tool result + assessExecutionMaterialityOrUnknown) |
+| assessment.reasonCodes | `["product_context_insufficient"]` | PROVEN (code path) |
 
----
+### Règles `collectConcreteMissionPaths` (l.56–79)
 
-## 15. Attempt / Execute
+A candidate is kept only if trimmed, **no spaces**, and (`/` present OR file extension). Narrative scope fails all three filters → empty WHERE.
 
-**0 / 0**
+### `productContextSufficient` (l.294–300)
 
----
-
-## 16. Fake / Real Qualification
-
-| | |
-|--|--|
-| Fake | NONE |
-| REAL activated | Studio process flag + preflight cursorReal READY |
-| REAL exercised | CLI ping historique; pas de gateway launch; pas de Nora LIVE |
-| Gap | Auth session post-restart; Product E2E Execute |
-
----
-
-## 17. Evidence
-
-runId: `P6-HQA-FRESH-01-REAL-RUNTIME-ACTIVATION-20261017`
-
-- raw-evidence/real-runtime-activation/*
-- environment-snapshot.json mis à jour (cursorReal=1)
-- ledger append (parent + local)
+Requires `liveOk && concretePaths.length > 0 && structural.basis === "live_lps_ok_concrete_non_protected_paths_only" && …`. Empty paths alone force false.
 
 ---
 
-## 18. Fichiers
+## 6. Classification des causes (A–F)
 
-Créés/modifiés (gitignored): activation evidence, logs real, snapshot, ledger rows, chatgpt-review.md.
-
-Product / .env.local / versionné: **AUCUN**.
-
----
-
-## 19. Réserves
-
-| Item | Exit |
-|------|------|
-| AUTH post-restart | Morris bootstrap + session API non-null |
-| Nora LIVE | Exercer dans HQA-FRESH-01 sous GO |
-| Cursor gateway Execute | Uniquement après HD/EC gouvernés |
+| Id | Hypothèse | Statut |
+| --- | --- | --- |
+| **A** | Périmètre documentaire / chemins concrets absents | **PROVEN — cause racine primaire** |
+| B | repositoryBinding insuffisant | **ÉCARTÉE** (identity + pathRoot présents) |
+| C | Chemin hors pathRoot | **ÉCARTÉE** (aucun chemin concret) |
+| D | Capacité hors enveloppe | **ÉCARTÉE** (pas de caps élevées; default generalist) |
+| E | Contradiction / autre motif facts | **ÉCARTÉE** pour cette instance (`contradictionCandidate` null; reason = product_context_insufficient) |
+| F | Combinaison | **PARTIEL** — A est nécessaire et suffisant pour UNKNOWN; gap structurel secondaire = Product ne compose pas de destination documentaire autoritaire sous pathRoot (commentaires D-PC-09 / Pass 02 @ prepareGeneric ~703–707) |
 
 ---
 
-## 20. Prochaine action Morris
+## 7. Hypothèses distantes — confirmées / écartées
 
-1. `cd projects/sfia-studio/app && npm run e2e:auth:bootstrap`
-2. Confirmer http://localhost:3020/studio authentifié (PID **51329**, CURSOR_REAL=1)
-3. Créer manuellement le **premier Project** (HQA-FRESH-01) — intention libre
-4. Observer Nora REAL — ne pas demander Execute sans gouvernance
-
----
-
-## 21. Instruction ChatGPT
-
-Lire sfia/review-handoff → sfia-review-handoff/latest-chatgpt-review.md
-
-SFIA STUDIO — P6-HQA-FRESH-01 CONTROLLED REAL RUNTIME ACTIVATION CRITICAL EVIDENCE REVIEW.
+| Hypothèse handoff distant | Verdict local |
+| --- | --- |
+| resolveAuthoritativeProductMateriality exige contexte Product suffisant | **CONFIRMÉE** |
+| collectConcreteMissionPaths extrait chemins de l'intention | **CONFIRMÉE** |
+| Absence de chemins → productContextSufficient=false | **CONFIRMÉE** |
+| assessExecutionMaterialityOrUnknown → UNKNOWN | **CONFIRMÉE** |
+| prepare bloque avant BuildExecutionContract | **CONFIRMÉE** (EC=0) |
+| Destination documentaire non résolue systématiquement par Generic PREPARE | **CONFIRMÉE** (code + instance: Nora deferral + no server compose) |
 
 ---
 
-## 22. Fin
+## 8. Qualification du garde-fou / gaps
 
-Handoff: docs(review-handoff): activate P6 HQA fresh real runtime
+| Dimension | Qualification | Confiance |
+| --- | --- | --- |
+| Comportement sécurité | **Conforme fail-closed** — refuse NON_STRUCTURAL / PREPARE sans WHERE enforceable | HIGH |
+| Gap qualification Product | **OUI** — mission métier documentaire qualifiée en langage naturel, mais le canal solicit ne peut pas (et ne compose pas) un WHERE borné sous `pathRoot` | HIGH |
+| Gap UX / Nora restitution | **OUI** — message opaque (« contexte Product insuffisant ou contradiction ») ne dit pas « chemin concret manquant / destination non résolue »; Nora a même déclaré que le chemin serait déterminé après inspection | HIGH |
+| Anomalie de code (bug logique) | **NON** pour le fail-closed UNKNOWN; **dette de conception** sur résolution destination documentaire + schéma outil sans champs path | HIGH |
+
+Lien V3-F05: la chaîne conversation→PREPARE fonctionne jusqu'à la qualification materiality; le blocage est une **exigence WHERE Product**, pas une panne Cursor REAL.
+
+---
+
+## 9. Impact HQA-FRESH-01
+
+- Préparation EC **bloquée** → aucun contrat inspectable → pas d'autorisation → pas d'Execute Cursor REAL.
+- Cycle C1 reste actif (conforme).
+- Campagne ne peut pas prouver la boucle PREPARE→inspect→authorize pour mission documentaire tant que WHERE n'est pas borné.
+- Cookies/auth et CURSOR_REAL=1 ne sont **pas** la cause de cet incident.
+
+---
+
+## 10. Correction minimale recommandée (NON IMPLÉMENTÉE)
+
+**Option préférentielle (Product-owned WHERE):**
+1. Pour missions documentaires génériques sous Generic PREPARE, résoudre une **destination autoritaire** sous `repositoryBinding.pathRoot` (ex. convention framing artifact path / Pilot-selected path), puis l'injecter dans `scopeIn` / materiality facts **avant** `assessExecutionMaterialityOrUnknown`.
+2. Ne pas traiter les propositions Nora comme autorité Git (conserver D-PC-09).
+3. Clarifier le message MATERIALITY_UNKNOWN avec reasonCodes machine (`no_concrete_mission_paths`, …).
+
+**Alternatives bornées:**
+- Étendre le schéma outil avec `scopeIn[]` / `targetPath` / `artifactFileName` **candidats**, toujours soumis à pathRoot + protected-path.
+- Exiger clarification Pilote explicite du chemin avant PREPARE (UX), sans inventer de path.
+
+**Impacts / régressions possibles:**
+- Faux NON_STRUCTURAL si destination inventée hors intention Pilote.
+- Contournement involontaire de protected-path si composition trop large.
+- Divergence F2 offer vs tool solicit si une seule voie résout le path.
+
+**Gate Morris requis:** GO explicite avant implémentation; tests de non-régression listés §11; pas de GO REAL Execute dans le correctif PREPARE.
+
+---
+
+## 11. Tests futurs recommandés (ne pas exécuter maintenant)
+
+1. Paid documentary mission with concrete `scopeIn` under pathRoot → PREPARE ok / non_structural or structural+HD as designed.
+2. Missing path (narrative only) → MATERIALITY_UNKNOWN + reason `product_context_insufficient` / basis `no_concrete_mission_paths_fail_closed`.
+3. Path outside pathRoot → authority envelope expanded / UNKNOWN or structural refusal (current policy).
+4. Protected path in scope → structural / Morris gate path.
+5. Live Product context unavailable → fail-closed UNKNOWN / PRODUCT_CONTEXT_UNAVAILABLE.
+
+---
+
+## 12. Réserves
+
+- `liveReadOk` / bases exactes de l'appel in-process n'ont pas été rejoués via API mutante; reconstruction déterministe à partir du code + args tool capturés + binding DB.
+- Process-local `pendingGenericPrepareOffer` non inspectable après coup (mémoire process); comportement accept-GO déduit du code + EC=0 + messages identiques.
+- Code local dirty peut différer des blobs distants — diagnostic ancré sur **runtime local dirty** qui sert HQA-FRESH-01 (PID 51329).
+
+---
+
+## 13. Décisions Morris requises
+
+1. Accepter cause racine **A** (WHERE concret absent) comme **PROVEN**.
+2. Choisir voie de correction (compose Product destination vs clarification path vs tool schema) sous GO séparé.
+3. Autoriser ou non reprise HQA-FRESH-01 après correctif (mêmes DB virgin/dirty campaign rules).
+4. Aucun Execute REAL tant que EC inspectable + HD/authorize gates non franchis.
+
+**Instruction ChatGPT:** relire ce handoff canonique avant tout verdict de correction.
+
+---
+
+## 14. Conditions de reprise HQA-FRESH-01
+
+Reprise possible seulement après décision Morris + correctif/clarification WHERE, **sans**:
+- mutation silencieuse de matérialité;
+- contournement MATERIALITY_UNKNOWN;
+- Execute Cursor sans EC autorisé.
+
+Preuve de reprise attendue: EC préparé inspectable; message non-UNKNOWN; C1 toujours actif; Attempt=0 jusqu'à GO Execute séparé.
+
+---
+
+## 15. État préservé
+
+| Item | Status |
+| --- | --- |
+| Fichiers Product créés/modifiés par ce cycle | **aucun** (seul `.tmp-sfia-review/chatgpt-review.md`) |
+| Mutation SQLite QA | **aucune** (RO only) |
+| Préparation / exécution Product | **aucune** nouvelle |
+| Verdict | **DIAGNOSIS COMPLETE — ROOT CAUSE PROVEN** |
