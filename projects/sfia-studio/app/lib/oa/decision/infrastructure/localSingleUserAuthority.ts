@@ -194,7 +194,10 @@ function registerLocalGateAuthority(input: {
 }
 
 /**
- * Register N3 + canActAsPilot for the generic Pilote actor.
+ * Register N3 + canActAsPilot for a Pilote actor.
+ * Defaults to LOCAL_PILOTE_ACTOR (historical / test). Product paths should pass
+ * the session-bound actor from resolveCurrentAuthenticatedPilote — same grant
+ * shape as registerLocalMorrisGateAuthority's optional actor (symmetry).
  * Does NOT grant canActAsMorris.
  * Fail-closed when the local Pilot authority env gate is off
  * (unless forceEnable for tests).
@@ -203,15 +206,21 @@ export function registerLocalPiloteAuthority(input: {
   authorityResolver: MemoryAuthorityResolver;
   scope: string;
   issuedAt: string;
+  /** Session-bound Pilote when Product-authenticated; defaults to local temp. */
+  actor?: OaActorReference;
   evidenceId?: string;
-  /** Test inject — bypasses env gate. */
+  /** Test inject — bypasses env gate. Never use on real Product path. */
   forceEnable?: boolean;
   env?: NodeJS.ProcessEnv;
 }): RegisterM3LocalAuthorityResult {
+  const actor = input.actor ?? LOCAL_PILOTE_ACTOR;
+  const evidenceIdPrefix = actor.actorId.startsWith("actor:github:")
+    ? "evd:session-pilote"
+    : "evd:local-pilote";
   return registerLocalGateAuthority({
     ...input,
-    actor: LOCAL_PILOTE_ACTOR,
-    evidenceIdPrefix: "evd:local-pilote",
+    actor,
+    evidenceIdPrefix,
     gate: "pilot",
   });
 }

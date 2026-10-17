@@ -208,7 +208,8 @@ export function validateDecisionBasis(
     basis.sourceType !== "proposal" &&
     basis.sourceType !== "trajectory_option" &&
     basis.sourceType !== "candidate_trajectory" &&
-    basis.sourceType !== "work_recommendation"
+    basis.sourceType !== "work_recommendation" &&
+    basis.sourceType !== "generic_mission"
   ) {
     return { detailCode: "DECISION_INVALID", reason: "decision_basis_source_type" };
   }
@@ -238,6 +239,169 @@ export function validateDecisionBasis(
     return {
       detailCode: "DECISION_INVALID",
       reason: "decision_basis_proposal_context",
+    };
+  }
+
+  if (basis.sourceType === "generic_mission") {
+    if (basis.trajectoryContext !== undefined) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_forbids_trajectory_context",
+      };
+    }
+    if (basis.candidateTrajectoryContext !== undefined) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_forbids_candidate_trajectory_context",
+      };
+    }
+    if (basis.workRecommendationContext !== undefined) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_forbids_work_recommendation_context",
+      };
+    }
+    if (basis.sourceRef.startsWith("prop:")) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_source_ref_is_proposal_id",
+      };
+    }
+    if (!basis.sourceRef.startsWith("gms:") || !isOaIdentifier(basis.sourceRef)) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_source_ref_invalid",
+      };
+    }
+    if (!/^[a-f0-9]{64}$/i.test(basis.sourceDigest.trim())) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_source_digest_not_sha256",
+      };
+    }
+    const ctx = basis.genericMissionContext;
+    if (!ctx) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_context_required",
+      };
+    }
+    if (ctx.subjectSchemaVersion !== "0.1.0-gms") {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_subject_schema_unknown",
+      };
+    }
+    for (const [key, value] of [
+      ["missionSubjectId", ctx.missionSubjectId],
+      ["presentationDigest", ctx.presentationDigest],
+      ["objective", ctx.objective],
+      ["expectedOutcome", ctx.expectedOutcome],
+      ["scopeNarrative", ctx.scopeNarrative],
+      ["selectedOptionRef", ctx.selectedOptionRef],
+    ] as Array<[string, unknown]>) {
+      if (typeof value !== "string" || value.trim().length < 1) {
+        return {
+          detailCode: "DECISION_INVALID",
+          reason: `generic_mission_context_${key}`,
+        };
+      }
+    }
+    if (ctx.missionSubjectId !== basis.sourceRef) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_source_ref_mismatch",
+      };
+    }
+    if (ctx.presentationDigest !== basis.sourceDigest) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_source_digest_mismatch",
+      };
+    }
+    if (
+      ctx.materiality !== "structural" &&
+      ctx.materiality !== "non_structural" &&
+      ctx.materiality !== "unknown"
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_materiality_invalid",
+      };
+    }
+    if (
+      !Array.isArray(ctx.optionRefs) ||
+      ctx.optionRefs.length < 1 ||
+      !ctx.optionRefs.every((r) => typeof r === "string" && r.trim().length > 0)
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_context_optionRefs",
+      };
+    }
+    if (!ctx.optionRefs.includes(ctx.selectedOptionRef)) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_selected_option_not_presented",
+      };
+    }
+    if (
+      ctx.recommendedOptionRef !== undefined &&
+      !ctx.optionRefs.includes(ctx.recommendedOptionRef)
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_recommended_option_not_presented",
+      };
+    }
+    if (!Array.isArray(ctx.scopeIn) || !Array.isArray(ctx.scopeOut)) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_scope_arrays",
+      };
+    }
+    if (
+      !Array.isArray(ctx.requiredCapabilities) ||
+      !Array.isArray(ctx.expectedOutputs) ||
+      !Array.isArray(ctx.stopConditions) ||
+      !Array.isArray(ctx.risks) ||
+      !Array.isArray(ctx.reservations) ||
+      !Array.isArray(ctx.materialityReasonCodes)
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_effect_arrays",
+      };
+    }
+    const signals = ctx.impactSignals;
+    if (
+      !signals ||
+      typeof signals.structuralChange !== "boolean" ||
+      typeof signals.securityImpact !== "boolean" ||
+      typeof signals.architectureImpact !== "boolean" ||
+      typeof signals.dataImpact !== "boolean" ||
+      typeof signals.irreversible !== "boolean"
+    ) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_impact_signals",
+      };
+    }
+    const basisCycle = basis.cycleInstanceId ?? null;
+    const ctxCycle = ctx.cycleInstanceId ?? null;
+    if (basisCycle !== ctxCycle) {
+      return {
+        detailCode: "DECISION_INVALID",
+        reason: "generic_mission_cycle_mirror_mismatch",
+      };
+    }
+    return null;
+  }
+
+  if (basis.genericMissionContext !== undefined) {
+    return {
+      detailCode: "DECISION_INVALID",
+      reason: `${basis.sourceType}_forbids_generic_mission_context`,
     };
   }
 
