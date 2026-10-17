@@ -12,8 +12,18 @@
 
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
+import {
+  assertDecisionRefsAdmissibleForConfirm,
+  materialityFromContractConstraints,
+  projectExecutionContractInspectionDisclosure,
+  requiredInspectedFactsForContract,
+} from "@/lib/oa/execution-contract";
 import { readContractInspectionState } from "./inspectExecutionContract";
+import {
+  analysisStubFromMaterialityFacts,
+  parseStampedProductCurrentness,
+  revalidateMaterialityAgainstCurrentProduct,
+} from "./resolveAuthoritativeProductMateriality";
 import type {
   ContractInspectionStateDto,
   CurrentGovernedExecutionContinuityResult,
@@ -127,20 +137,85 @@ async function readProjectActiveCycleContext(
   };
 }
 
+/**
+ * HD-bound lineage OR admissible G-D4 empty-refs (NON_STRUCTURAL + CURRENT).
+ * Reuses Confirm/Authorize materiality gates — never invents a HumanDecision.
+ * READ-ONLY: no HD / inspection / confirmation / authorize / Attempt writes.
+ */
 async function verifyDecisionLineage(
   oa: RuntimeOaStack,
   projectId: string,
   contract: ExecutionContract,
 ): Promise<
-  | { ok: true; decisionRef: string }
+  | { ok: true; decisionRef: string | null }
   | W2Failure
 > {
   const refs = contract.decisionRefs ?? [];
+
+  // G-D4 empty refs — admit only with NON_STRUCTURAL stamp + CURRENT revalidation.
   if (refs.length === 0) {
-    return fail(
-      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-      "Contrat d'exécution sans décision rattachée — continuation refusée.",
-    );
+    const stamped = materialityFromContractConstraints(contract.constraints);
+    if (stamped == null) {
+      return fail(
+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+        "Contrat d'exécution sans décision rattachée ni justification G-D4 — continuation refusée.",
+      );
+    }
+
+    const contractInputs = (contract.inputs ?? {}) as Record<string, unknown>;
+    const factsRaw =
+      contractInputs.materialityFacts &&
+      typeof contractInputs.materialityFacts === "object"
+        ? (contractInputs.materialityFacts as Record<string, unknown>)
+        : null;
+    const stampedCurrentness = parseStampedProductCurrentness(factsRaw);
+
+    // Stamp alone is never sufficient — prepare-time currentness witness required.
+    if (stampedCurrentness == null) {
+      return fail(
+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+        "Faits de matérialité / currentness absents sur le contrat — continuation sans décision refusée.",
+      );
+    }
+
+    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+      oa,
+      projectId,
+      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
+      cycleInstanceId: contract.cycleInstanceId ?? null,
+      stampedMateriality: stamped,
+      stampedCurrentness,
+    });
+    if (!revalidated.ok) {
+      return fail(
+        revalidated.code === "MATERIALITY_CURRENTNESS_STALE" ||
+          revalidated.code === "MATERIALITY_CURRENT_MISMATCH" ||
+          revalidated.code === "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE" ||
+          revalidated.code === "REPOSITORY_BINDING_STALE" ||
+          revalidated.code === "REPOSITORY_BINDING_UNAVAILABLE" ||
+          revalidated.code.startsWith("SCOPE_") ||
+          revalidated.code === "MATERIALITY_STRUCTURAL" ||
+          revalidated.code === "MATERIALITY_UNKNOWN"
+          ? revalidated.code
+          : "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+        revalidated.message,
+      );
+    }
+
+    const recomputed = revalidated.current.assessment;
+    const admissible = assertDecisionRefsAdmissibleForConfirm({
+      decisionRefs: refs,
+      stampedMateriality: stamped,
+      recomputed,
+    });
+    if (!admissible.ok) {
+      return fail(
+        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+        "Contrat sans décision humaine non admissible pour la continuité G-D4 — continuation refusée.",
+      );
+    }
+
+    return { ok: true, decisionRef: null };
   }
 
   let primaryRef: string | null = null;
@@ -335,11 +410,17 @@ export async function readCurrentGovernedExecutionContinuity(input: {
     grantsAuthority: false,
   };
 
+  const requiredFacts = requiredInspectedFactsForContract(candidate);
+  const requiredInspectedFacts = Array.isArray(requiredFacts)
+    ? requiredFacts
+    : null;
+
   return {
     ok: true,
     kind: "active",
     decisionRef: lineage.decisionRef,
     contract: projected.contract,
     inspection: inspectionDto,
+    requiredInspectedFacts,
   };
 }

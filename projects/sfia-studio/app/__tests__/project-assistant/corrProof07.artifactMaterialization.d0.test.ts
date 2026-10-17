@@ -1162,11 +1162,11 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     expect(result.ok).toBe(true);
     if (!result.ok) return;
 
-    // Historical new-cycle / MW5 path is allowed — must NOT bind ACTIVE continuation.
+    // D-ER-17 — natural docs signal without docs_write discriminants is no longer
+    // a dead-end: Generic PREPARE may keep the SAME active cycle as context.
+    // It must NEVER be Artifact governed materialization continuation.
     const qid = result.f2?.qualification?.cycleInstanceId ?? null;
-    if (qid) {
-      expect(qid).not.toBe(activeCycleId);
-    }
+    expect(await countCycles()).toBe(before);
     const proposal = result.f2?.proposal;
     if (
       proposal?.status === "DECISION_REQUIRED" &&
@@ -1175,9 +1175,10 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
       // If a proposal exists on the LPS active id, it must not be pilot materialization wording.
       expect(proposal.objective ?? "").not.toMatch(/matérialisation du livrable requis/i);
     }
-    // Qualification must not claim active-cycle governed materialization continuation.
-    expect(qid === activeCycleId).toBe(false);
-    void before;
+    // No Artifact materialization Proposal on the active cycle.
+    expect(proposal?.status === "DECISION_REQUIRED" && qid === activeCycleId).toBe(
+      false,
+    );
   });
 
   it("CR04-B — continuationKind without docs_write → BLOCKED incompatible_execution_intent", async () => {

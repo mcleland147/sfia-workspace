@@ -256,6 +256,17 @@ async function cancelWrongGenericCurrentIfNeeded(input: {
     return { ok: true, cancelledId: null };
   }
 
+  // G-D4 empty-refs continuity (decisionRef=null) is not owned by a recovery HD.
+  // Do not cancel it under a different recovery decision identity.
+  if (continuity.decisionRef == null) {
+    return {
+      ok: false,
+      code: "EXECUTION_CONTINUITY_AMBIGUOUS",
+      message:
+        "Un contrat pré-exécution G-D4 sans décision rattachée bloque le prepare recovery — aucune annulation automatique.",
+    };
+  }
+
   // Only clear unconsumed wrong generic when it belongs to this recovery HD.
   if (continuity.decisionRef !== input.recoveryDecisionId) {
     return {
