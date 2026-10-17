@@ -1,43 +1,43 @@
-# Review Pack FULL — STUDIO-P6-EXECUTION-CONVERGENCE-REGULARIZATION-02
+# Review Pack FULL — STUDIO-P6-EXECUTION-INSPECTION-CLOSURE-03
 
 | Field | Value |
 | --- | --- |
-| **Horodatage** | 2026-10-17 13:59:03 CEST |
-| **Cycle ID** | `STUDIO-P6-EXECUTION-CONVERGENCE-REGULARIZATION-02` |
-| **Parent** | `STUDIO-P6-EXECUTION-CONVERGENCE-DELIVERY-01` |
-| **Parent handoff** | `02c50190dc53f26ed0044efaf8fba19029937d82` |
+| **Horodatage** | 2026-10-17 14:22:54 CEST |
+| **Cycle ID** | `STUDIO-P6-EXECUTION-INSPECTION-CLOSURE-03` |
+| **Parent** | `STUDIO-P6-EXECUTION-CONVERGENCE-REGULARIZATION-02` |
+| **Parent handoff** | `7e768ffe9f118b1d0972a23deeb6d91d762437d7` |
 | **Cycle** | 8 — Delivery / implémentation |
 | **Profil** | Critical |
 | **Branche** | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
 | **HEAD** | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
 | **origin/main** | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
-| **Décisions Morris consommées** | GO régularisation ciblée A+B · Option 1 KEEP · DTO V1 nullable KEEP · CURRENT obligatoire · pas HQA/REAL/commit Product |
+| **Décisions Morris** | GO fermeture inspection ciblée · pas OA domain change · pas HQA/REAL/commit Product |
 | **Capacité** | V3-F05 |
-| **Verdict Cursor** | **REGULARIZATION COMPLETE — DETERMINISTIC PASS — VISUAL NOT PROVEN — READY FOR CHATGPT REVIEW** |
+| **Verdict Cursor** | **INSPECTION CLOSURE COMPLETE — DETERMINISTIC PASS — VISUAL NOT PROVEN — READY FOR CHATGPT REVIEW** |
 
 ---
 
 ## 1. Local Git Truth Check
 
-### Initial (Pass 02 start)
-- HEAD `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` = tip distant `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare`
+### Initial
+- HEAD `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` = tip distant
 - origin/main `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
-- dirty Product préexistant (M-HD + MATERIALITY + Delivery A+B) préservé
+- dirty préexistant préservé (M-HD + MATERIALITY + Delivery A+B + Regularization-02)
 - staged vide
-- fingerprint dirty initial (status porcelain SHA-256): `1acea32f554dc99a4e2a056e5f49fddbd79df6546fa13cbd4e7ffdd0a2c03fe4`
-- Baseline Pass 02 figée sous `.tmp-sfia-review/pass02-baseline/` (copies SHA des fichiers cibles avant édition)
+- fingerprint dirty initial: `35fd07d60e10e31d043e9a9335f69e968a4c0384b0498cd846a6a53a1d1f31fc`
+- Baseline Pass 03 sous `.tmp-sfia-review/pass03-baseline/`
 
 ### Final
 - HEAD / branche inchangés (aucun commit Product)
 - staged Product vide
-- dirty final fingerprint (status porcelain SHA-256): `35fd07d60e10e31d043e9a9335f69e968a4c0384b0498cd846a6a53a1d1f31fc`
+- fingerprint dirty final: `ed595b7af651fe91086e6a03afd9647ab5d5536a11c3e4411f40edf1988576b9`
 - HQA non mutée
-- Distinguer : préexistant M-HD/materiality ≠ Delivery A+B ≠ **Pass 02 deltas** (ci-dessous)
 
-### Attribution des couches
-1. **Préexistant M-HD / MATERIALITY** — hors cycle (ne pas attribuer à Pass 02)
-2. **Delivery A+B** — continuité G-D4 + rail Exécution synthétique + work presentation (parent `02c50190`)
-3. **Pass 02** — R1 action UI / inspection ; R2 tests ; R3 fraîcheur contexte ; R4 preuves (visual NOT PROVEN)
+### Couches (attribution)
+1. M-HD / MATERIALITY — préexistant
+2. Delivery A+B — continuité G-D4 + rail Exécution
+3. Regularization-02 — R1 CTA / R2 / R3 fraîcheur partielle
+4. **Pass 03** — disclosure → UI → attestation ; CTX async
 
 ### Status porcelain final
 ```
@@ -55,6 +55,7 @@
  M projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.module.css
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedConfirmationCard.tsx
  M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
@@ -86,6 +87,8 @@
  M projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.o1.executionWorkPresentation.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r03.contextFreshness.ui.test.tsx
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r03.inspectionDisclosureClosure.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts
@@ -98,6 +101,7 @@
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/p6.r03.inspectionContinuityAttestation.d0.test.ts
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/GovernedGenericMissionDecisionCard.tsx
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/genericMissionPresentation.ts
 ?? projects/sfia-studio/app/features/project-assistant/w2/genericMissionDecisionApplicability.ts
@@ -110,1591 +114,1544 @@
 
 ---
 
-## 2. Sources consultées
+## 2. Sources / Phase 1 — Contract Impact
 
-- Handoff parent `02c50190` (Delivery A+B)
-- `pilotExecutionPresentation.ts` / `ExecutionSurface.tsx` / `inspectExecutionContract.ts` / `GovernedConfirmationCard.tsx` / `useProductConversation.ts`
-- `ProjectWorkspacePage.tsx` / `workspaceContextPresentation.ts`
-- Figma file `m4g8j0gNbEzfIuH6S9AZJF` frames `150:532`, `150:682` (screenshots MCP)
-- Runtime local `:3020` → `/login?error=NO_SESSION` (pas de contournement auth)
-- Doctrine / P6 / framing : consommés comme contraintes (pas de modification)
+Lus : `inspectionDisclosure.ts`, `recordContractInspection.ts`, `inspectExecutionContract.ts`, continuity W2, ExecutionSurface, GovernedConfirmationCard, useProductConversation, TrajectorySurface.
 
----
+### Matrice fact → disclosure → UI → attestation (ExecutionSurface)
 
-## 3. Périmètre Pass 02
+| Fact ID | Champ durable | Disclosure | UI (panneau) | Attestation |
+| --- | --- | --- | --- | --- |
+| action | contract.action | action | Action | si rendu |
+| target | contract.target | technicalTarget | Cible technique | si rendu |
+| scope | contract.scope | scope | Portée | si rendu |
+| requiredAuthority | contract.requiredAuthority | requiredAuthority | Autorité requise | si rendu |
+| requiredCapabilities | contract.requiredCapabilities | requiredCapabilities | Capacités | si rendu (ou « aucune ») |
+| constraints | contract.constraints | constraints | Contraintes | si rendu |
+| stopConditions | contract.stopConditions | stopConditions | Conditions d’arrêt | si rendu |
+| reversibility | contract.reversibility | reversibility | Réversibilité | si rendu |
+| evidenceRequirements | contract.evidenceRequirements | evidenceRequirements | Preuves exigées | si rendu |
+| semanticFingerprint | contract.semanticFingerprint | semanticFingerprint | Empreinte | si rendu |
+| inputs.targetRepositoryRef | inputs.* | targetRepositoryRef | Dépôt cible | si présent |
+| inputs.targetPath | inputs.targetPath | targetPath | Chemin cible | si présent |
+| inputs.scopeIn/Out | inputs | scopeIn/Out | Périmètre | si présent |
+| inputs.createOrModify / noDelete | inputs | booleans | oui/non | si non-null |
+| inputs.contentRequirements / validationExpectations | inputs | arrays | listes | si présent |
+| expectedOutputs | contract/inputs | expectedOutputs | Sorties | si présent |
+| inputs.sourceGrounding | inputs.sourceGrounding | sourceGrounding | JSON | si présent |
+| inputs.acceptanceCriteria | inputs.acceptanceCriteria | acceptanceCriteria | critères | si présent |
+| inputs.validationPlan | inputs.validationPlan | validationPlan | plan | si présent |
+| inputs.reportRequirements | inputs.reportRequirements | reportRequirements | exigences | si présent |
 
-### Product modifié (Pass 02)
-- `features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts`
-- `features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx`
-- `features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
-- `features/pre-m6-product-ui/workspaceContextPresentation.ts`
-- `features/project-assistant/w2/actions.ts` (adaptation bornée `inspectedFacts` optionnel)
+Source des IDs requis : `requiredInspectedFactsForContract` (domaine) transporté en DTO `requiredInspectedFacts`.
+Rendu : `buildInspectionFactRowsFromDisclosure` — **aucune liste parallèle hardcodée dans handleAttest**.
 
-### Tests
-- Nouveau : `p6.r02.actionAvailability.d0.test.ts`
-- Adaptés : `p6.o1.continuityGd4EmptyRefs.d0.test.ts`, `p5.s03.pilotExecutionPresentation.d0.test.ts`, `p5.s03.durableExecutionActionContinuity.ui.test.tsx`, `p6.o1.executionWorkPresentation.d0.test.ts`
+### Consommateurs inspection
 
-### Non modifié (volontaire)
-- `readCurrentGovernedExecutionContinuity.ts` (KEEP Delivery)
-- Confirm/Authorize OA invariants
-- Doctrine / HQA / Cursor REAL
+| Surface | Appel | inspectedFacts | Affichage | Verdict Pass 03 |
+| --- | --- | --- | --- | --- |
+| ExecutionSurface | w2Inspect… | presentedFactIds après panneau | panneau complet | **CLOSED** |
+| Conversation (GovernedConfirmationCard) | w2Inspect sans facts | défaut serveur requiredFacts | scope/impact/réversibilité partiels | **GAP — Morris gate** |
+| TrajectorySurface | w2Inspect sans facts | défaut serveur | détail Trajectory | **GAP — Morris gate** |
 
----
-
-## 4. Matrice R1–R4
-
-| Réserve | Objectif | Preuve | Verdict |
-| --- | --- | --- | --- |
-| **R1** | EC id ≠ admissibilité ; Confirm/Execute ≠ inspection implicite ; Inspect explicite | Presenter + ExecutionSurface + UI tests E1/E5/UI01 + r02 UI01–UI10 | **PASS** |
-| **R2** | T3 UNKNOWN, T5 true stale pathRoot, T13 amend+reinspect+confirm refuse, T16 read-only borders, tautologie retirée | continuityGd4 8 PASS ; G5 unstamped préservé via T4 | **PASS** |
-| **R3** | Fraîcheur contexte : pending/unavailable ≠ « À jour » ; clear on project change ; fail clears stale | `presentCurrentness` + ProjectWorkspacePage load effect | **PASS déterministe** |
-| **R4** | Figma frames + runtime comparable | Figma MCP screenshots locaux ; runtime login bloqué | **VISUAL NOT PROVEN** |
-
----
-
-## 5. R1 — détails
-
-### Anomalie corrigée
-`inspectionSufficient = pre?.inspection… \|\| (pre == null && Boolean(projection.executionContractId))` **supprimée**.
-
-### Contrat appliqué
-- Continuité pré-exécution `kind=active` obligatoire pour Confirm/Execute/Inspect
-- Failure / `kind=none` / null → CTA `none` + attention explicite
-- Inspection insuffisante → CTA `inspect` (pas Confirm disabled trompeur)
-- Fingerprint/version drift / `reinspectionRequired` → Inspect
-- Terminaux : pas de réactivation Confirm/Execute
-
-### ExecutionSurface
-- `handleConfirm` / `handleExecute` **ne appellent plus** `w2InspectExecutionContractAction`
-- `handleInspect` transmet `inspectedFacts` dérivés de la disclosure affichée
-- `resolveActivePreContract` : plus de fallback projection-only pour actions mutantes
-- `preExec` conserve les échecs (`setPreExec(current)`)
-
-### Qualification inspection legacy
-Conversation / Trajectory Inspect **sans** `inspectedFacts` conserve le défaut serveur `requiredFacts` (attestation sur clic Inspect explicite, faits déjà présentés sur la carte). Confirm Conversation refusait déjà sans inspection suffisante. **Aucune attestation sur Confirm/Execute Exécution.**
-
-### actions.ts
-Ajout optionnel `inspectedFacts` — n’élargit pas l’autorité ; omettre conserve le comportement legacy.
+INS19 : contournement Conversation/Trajectory **déclaré explicitement** — correction hors fichiers autorisés (hooks / Trajectory / OA). Pas de claim « globalement sûr ».
 
 ---
 
-## 6. R2 — détails tests
+## 3. Correction Product (Pass 03)
 
-- T3 : stamp `MATERIALITY:UNKNOWN` + empty refs → refus
-- T5 : pathRoot change post-PREPARE → `REPOSITORY_BINDING_STALE` (ou famille CURRENT)
-- T5a : missing `productCurrentness` (cas antérieur) conservé
-- T13 : inspect → amend constraint → inspection insufficient → confirm refuse
-- T16 : spy EC save + HD count + inspection attestations + attempts inchangés
-- Tautologie `decisionRef === undefined \|\| true` retirée
+### W2 (conditionnel)
+- `types.ts` : `requiredInspectedFacts: readonly string[] | null` sur active
+- `readCurrentGovernedExecutionContinuity.ts` : remplit via `requiredInspectedFactsForContract`
 
----
+### UI
+- `pilotExecutionPresentation.ts` : `buildInspectionFactRowsFromDisclosure` ; CTA « Examiner le contrat »
+- `ExecutionSurface.tsx` : panneau I07 (open sans write) + I06 attest explicite ; Confirm/Execute inchangés (pas d’inspect implicite)
+- `ExecutionSurface.module.css` : styles liste inspection
 
-## 7. R3 — fraîcheur
-
-- `lifecycleProjectionAvailability`: pending / available / unavailable
-- Changement de `projectId` : clear projection
-- Refresh fail : clear + unavailable (pas de stale silencieux)
-- `presentCurrentness` refuse « À jour » si lifecycle unavailable/pending
-- Même lecteur Product `projectAssistantPilotLifecycleProjection`
+### Invariants OA
+Inchangés. `inspectExecutionContract` / `recordContractInspection` non modifiés.
 
 ---
 
-## 8. R4 — Figma / runtime
+## 4. Tests (70 PASS — 11 files)
 
-| Frame | Dim | Capture | Runtime | Gap | Verdict |
-| --- | --- | --- | --- | --- | --- |
-| 150:532 BEFORE | 1440×1024 | `.tmp-sfia-review/pass02-figma/150-532-before.png` | NOT OBSERVED (`/login?NO_SESSION`) | composition rail déjà Delivery ; interactions R1 prouvées tests | Figma OK / runtime **NOT PROVEN** |
-| 150:682 Context | 356×866 | `.tmp-sfia-review/pass02-figma/150-682-context.png` | NOT OBSERVED | idem | Figma OK / runtime **NOT PROVEN** |
-| 150:29 AFTER | 1440×1024 | — | NOT OBSERVED (pas de mutation) | — | NOT OBSERVED |
+- p6.r03.inspectionDisclosureClosure (4) — INS01/02/04–07/20
+- p6.r03.inspectionContinuityAttestation (2) — INS09/10/13/16/18
+- p6.r03.contextFreshness.ui (3) — CTX01/02/05/06
+- durableExecutionActionContinuity (7) — open≠write ; attest facts
+- pilotExecutionPresentation / r02 / o1 work / continuityGd4 / gD4 / ecInspection / workspaceLayout
 
----
+### Couverture INS / CTX
 
-## 9. Tests exécutés (app package, vitest local)
-
-**79 PASS** (10 files) — 2026-10-17 ~13:58 CEST
-
-- p6.o1.executionWorkPresentation (2)
-- p6.r02.actionAvailability (10)
-- p5.s03.durableExecutionActionContinuity.ui (7)
-- p5.s03.pilotExecutionPresentation (10)
-- p5.s01.workspaceLayout.ui (5)
-- automaticProjectResume.ui (4)
-- ecInspectionDisclosure (9)
-- ecRehydrationContinuity (14)
-- p6.o1.continuityGd4EmptyRefs (8)
-- p6.gD4.genericPrepareWithoutSystematicHd (10)
-
-TypeScript : aucune erreur sur fichiers Pass 02 Product / r02 après correction statusLabel/reason.
-
----
-
-## 10. Preuves négatives préservées
-
-- G5 empty refs unstamped → INTEGRITY (T4)
-- STRUCTURAL empty refs → refus (T2)
-- UNKNOWN → refus (T3)
-- HD-bound path inchangé (non réécrit)
-- Confirm sans inspection → refus (T13 post-amend + UI)
-- Lecture continuité sans writes (T16)
-- Aucun Cursor REAL / HD artificielle / Attempt PREPARE
-
----
-
-## 11. Réserves / dette / gates Morris
-
-| Gate | Statut |
+| ID | Statut |
 | --- | --- |
-| D-VISUAL | Runtime authentifié requis pour VISUAL PASS |
-| D-HQA | Reprise HQA-FRESH-01 **interdite** ici |
-| D-COMMIT | Commit Product non autorisé |
-| D-REAL | Cursor REAL non autorisé |
-| Conversation Inspect legacy default facts | Qualifié — arbitrage Morris si exigence d’`inspectedFacts` obligatoire global |
+| INS01–02, INS04–07, INS09–10, INS13, INS16, INS18, INS20 | PASS |
+| INS03 | couvert via INS01 conditionnels |
+| INS08 | PASS (open panel / row build sans write) |
+| INS11–12 | préservés Regularization-02 / amend path (non rejoués ici) |
+| INS14 | logique Execute refuse sans inspection (Pass 02) — non re-UI ce cycle |
+| INS15 | domaine superseded refuse record — OA KEEP |
+| INS17 | HD-bound non réécrit |
+| INS19 | **GAP déclaré** Conversation/Trajectory |
+| CTX01,02,05,06 | PASS |
+| CTX03,04,07,08 | partiels / non exercés séparément (déclarés) |
 
 ---
 
-## 12. Diffs Pass 02 (complets vs baseline pré-Pass02)
+## 5. Fake/Real / Visual
 
+- DETERMINISTIC PRODUCT INTEGRATION PROVEN (périmètre Exécution + W2)
+- VISUAL NOT PROVEN (`/login?NO_SESSION`)
+- Pas de Cursor REAL / HD / Attempt artificiels / HQA write
+
+---
+
+## 6. Réserves / Gates Morris
+
+| Gate | |
+| --- | --- |
+| D-CONV-TRAJ-INSPECT | Exiger inspectedFacts + disclosure complète Conversation/Trajectory |
+| D-VISUAL | Session authentifiée |
+| D-HQA / D-COMMIT / D-REAL | inchangés — interdits ici |
+
+---
+
+## 7. Diffs Pass 03 (vs baseline pré-Pass03)
+
+### `types.ts.diff`
+
+```diff
+--- .tmp-sfia-review/pass03-baseline/projects_sfia-studio_app_features_project-assistant_w2_types.ts	2026-10-17 14:19:15
++++ projects/sfia-studio/app/features/project-assistant/w2/types.ts	2026-10-17 14:19:36
+@@ -299,6 +299,12 @@
+       readonly decisionRef: string | null;
+       readonly contract: CurrentGovernedExecutionContinuityContractDto;
+       readonly inspection: ContractInspectionStateDto;
++      /**
++       * Canonical required fact IDs from `requiredInspectedFactsForContract`
++       * (read-only transport). Null when disclosure is incomplete — attestation
++       * must refuse. Never invent UI-local required lists.
++       */
++      readonly requiredInspectedFacts: readonly string[] | null;
+     }
+   | W2Failure;
+```
+
+### `readCurrentGovernedExecutionContinuity.ts.diff`
+
+```diff
+--- .tmp-sfia-review/pass03-baseline/projects_sfia-studio_app_features_project-assistant_w2_readCurrentGovernedExecutionContinuity.ts	2026-10-17 14:19:15
++++ projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts	2026-10-17 14:19:41
+@@ -16,6 +16,7 @@
+   assertDecisionRefsAdmissibleForConfirm,
+   materialityFromContractConstraints,
+   projectExecutionContractInspectionDisclosure,
++  requiredInspectedFactsForContract,
+ } from "@/lib/oa/execution-contract";
+ import { readContractInspectionState } from "./inspectExecutionContract";
+ import {
+@@ -409,11 +410,17 @@
+     grantsAuthority: false,
+   };
+
++  const requiredFacts = requiredInspectedFactsForContract(candidate);
++  const requiredInspectedFacts = Array.isArray(requiredFacts)
++    ? requiredFacts
++    : null;
++
+   return {
+     ok: true,
+     kind: "active",
+     decisionRef: lineage.decisionRef,
+     contract: projected.contract,
+     inspection: inspectionDto,
++    requiredInspectedFacts,
+   };
+ }
+```
 
 ### `pilotExecutionPresentation.ts.diff`
 
 ```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app_features_pre-m6-product-ui_surfaces_pilotExecutionPresentation.ts	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts	2026-10-17 13:55:25
-@@ -37,6 +37,7 @@
-
- export type PilotExecutionCta =
-   | { readonly kind: "none" }
-+  | { readonly kind: "inspect"; readonly label: string; readonly enabled: boolean }
-   | { readonly kind: "confirm"; readonly label: string; readonly enabled: boolean }
-   | { readonly kind: "execute"; readonly label: string; readonly enabled: boolean }
-   | {
-@@ -372,12 +373,15 @@
-   }
-
-   const projection = input.continuityProjection.projection;
-+  const preContinuity = input.preExecutionContinuity;
-   const pre =
--    input.preExecutionContinuity &&
--    input.preExecutionContinuity.ok &&
--    input.preExecutionContinuity.kind === "active"
--      ? input.preExecutionContinuity
-+    preContinuity &&
-+    preContinuity.ok &&
-+    preContinuity.kind === "active"
-+      ? preContinuity
-       : null;
-+  /** Fail / none / null — never treat as actionable pre-execution continuity. */
-+  const preContinuityBlocked = pre == null;
-
-   const contractPresentation = pre
-     ? presentPilotContract({
-@@ -413,12 +417,31 @@
-     projection.executionContractStatus === "confirmed" ||
-     projection.executionContractStatus === "validated";
-
--  /** Durable inspection — never Conversation F3 state. */
--  const inspectionSufficient =
--    pre?.inspection.inspectionSufficient === true ||
--    // When only continuity projection is available post-confirm, allow CTA
--    // presentation; final authority remains server-side on click.
--    (pre == null && Boolean(projection.executionContractId));
-+  /**
-+   * Durable inspection only — never Conversation F3, never projection EC id alone.
-+   * R1: executionContractId on the derive projection does not establish admissibility.
-+   */
-+  const inspectionSufficient = pre?.inspection.inspectionSufficient === true;
+--- .tmp-sfia-review/pass03-baseline/projects_sfia-studio_app_features_pre-m6-product-ui_surfaces_pilotExecutionPresentation.ts	2026-10-17 14:19:15
++++ projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts	2026-10-17 14:19:56
+@@ -11,11 +11,155 @@
+   GovernedExecutionContinuityStage,
+ } from "@/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection";
+ import type { CurrentGovernedExecutionContinuityResult } from "@/features/project-assistant/w2/types";
++import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
+ import {
+   presentPilotContract,
+   type PilotContractPresentation,
+ } from "./pilotContractPresentation";
 +
-+  const identityAligned =
-+    pre == null ||
-+    !projection.executionContractId ||
-+    (pre.contract.executionContractId === projection.executionContractId &&
-+      (projection.executionContractVersion == null ||
-+        pre.contract.version === projection.executionContractVersion));
++/** One fact row rendered from canonical disclosure for Pilot examination. */
++export type InspectionFactRow = {
++  readonly factId: string;
++  readonly label: string;
++  readonly value: string;
++};
 +
-+  const inspectionAlignedWithContract =
-+    !inspectionSufficient ||
-+    (pre != null &&
-+      pre.inspection.executionContractId === pre.contract.executionContractId &&
-+      (pre.inspection.attestedVersion == null ||
-+        pre.inspection.attestedVersion === pre.contract.version) &&
-+      (pre.inspection.semanticFingerprint == null ||
-+        pre.inspection.semanticFingerprint === "" ||
-+        pre.contract.semanticFingerprint == null ||
-+        pre.contract.semanticFingerprint === "" ||
-+        pre.inspection.semanticFingerprint === pre.contract.semanticFingerprint) &&
-+      pre.inspection.reinspectionRequired !== true);
++function formatList(values: readonly string[] | null | undefined): string | null {
++  if (!values || values.length === 0) return null;
++  return values.join(" · ");
++}
++
++/**
++ * Map required fact IDs → display rows from the allowlisted disclosure only.
++ * Does not invent values. Missing required facts are listed separately — the
++ * UI must refuse attestation when any required fact cannot be rendered.
++ */
++export function buildInspectionFactRowsFromDisclosure(input: {
++  readonly disclosure: ExecutionContractInspectionDisclosure;
++  readonly requiredInspectedFacts: readonly string[];
++}): {
++  readonly rows: readonly InspectionFactRow[];
++  readonly missingRequired: readonly string[];
++  readonly presentedFactIds: readonly string[];
++} {
++  const d = input.disclosure;
++  const valueByFact = new Map<string, { label: string; value: string }>();
++
++  const put = (factId: string, label: string, value: string | null | undefined) => {
++    if (value == null) return;
++    const trimmed = String(value).trim();
++    if (!trimmed) return;
++    valueByFact.set(factId, { label, value: trimmed });
++  };
++
++  put("action", "Action", d.action);
++  put("target", "Cible technique", d.technicalTarget);
++  put("scope", "Portée", d.scope);
++  put("requiredAuthority", "Autorité requise", d.requiredAuthority);
++  put(
++    "requiredCapabilities",
++    "Capacités requises",
++    formatList(d.requiredCapabilities) ?? "(aucune)",
++  );
++  put(
++    "constraints",
++    "Contraintes",
++    formatList(d.constraints) ?? "(aucune)",
++  );
++  put(
++    "stopConditions",
++    "Conditions d’arrêt",
++    formatList(d.stopConditions) ?? "(aucune)",
++  );
++  put("reversibility", "Réversibilité", d.reversibility);
++  put(
++    "evidenceRequirements",
++    "Preuves exigées",
++    formatList(d.evidenceRequirements) ?? "(aucune)",
++  );
++  put(
++    "semanticFingerprint",
++    "Empreinte sémantique",
++    d.semanticFingerprint,
++  );
++  put(
++    "inputs.targetRepositoryRef",
++    "Dépôt cible",
++    d.targetRepositoryRef,
++  );
++  put("inputs.targetPath", "Chemin cible", d.targetPath);
++  put("inputs.scopeIn", "Périmètre inclus", formatList(d.scopeIn));
++  put("inputs.scopeOut", "Périmètre exclu", formatList(d.scopeOut));
++  if (d.createOrModify !== null && d.createOrModify !== undefined) {
++    put(
++      "inputs.createOrModify",
++      "Création / modification",
++      d.createOrModify ? "oui" : "non",
++    );
++  }
++  if (d.noDelete !== null && d.noDelete !== undefined) {
++    put("inputs.noDelete", "Sans suppression", d.noDelete ? "oui" : "non");
++  }
++  put(
++    "inputs.contentRequirements",
++    "Exigences de contenu",
++    formatList(d.contentRequirements),
++  );
++  put(
++    "inputs.validationExpectations",
++    "Attentes de validation",
++    formatList(d.validationExpectations),
++  );
++  put("expectedOutputs", "Sorties attendues", formatList(d.expectedOutputs));
++  if (d.sourceGrounding) {
++    put(
++      "inputs.sourceGrounding",
++      "Ancrage des sources",
++      JSON.stringify(d.sourceGrounding),
++    );
++  }
++  if (d.acceptanceCriteria && d.acceptanceCriteria.length > 0) {
++    put(
++      "inputs.acceptanceCriteria",
++      "Critères d’acceptation",
++      d.acceptanceCriteria
++        .map((c) => `${c.criterionId}: ${c.statement} (${c.kind})`)
++        .join(" · "),
++    );
++  }
++  if (d.validationPlan) {
++    put(
++      "inputs.validationPlan",
++      "Plan de validation",
++      formatList(d.validationPlan),
++    );
++  }
++  if (d.reportRequirements) {
++    put(
++      "inputs.reportRequirements",
++      "Exigences de rapport",
++      formatList(d.reportRequirements),
++    );
++  }
 
-   const busy = input.actionsBusy === true;
-   const stage = projection.stage;
-@@ -446,22 +469,71 @@
-     const work = buildWorkItems(projection, false, pre, contractPresentation);
-     const needsConfirm = confirmationRequired && !confirmationSatisfied;
-     const status: PilotExecutionStatus = needsConfirm ? "a_confirmer" : "prete";
--    const durableActionable = Boolean(
--      (pre?.contract.executionContractId || projection.executionContractId) &&
--        inspectionSufficient,
--    );
--    const cta: PilotExecutionCta = needsConfirm
--      ? {
--          kind: "confirm",
--          label: "Confirmer",
--          enabled: durableActionable && !busy,
--        }
--      : {
--          kind: "execute",
--          label: "Exécuter",
--          enabled: durableActionable && !needsConfirm && !busy,
--        };
-+
-+    const preActiveVerified = pre != null && identityAligned;
-+    const durableActionable =
-+      preActiveVerified &&
-+      inspectionSufficient &&
-+      inspectionAlignedWithContract;
-+
-+    let cta: PilotExecutionCta;
-+    let attentionNote: string | null;
-
-+    if (preContinuityBlocked || !identityAligned) {
-+      cta = { kind: "none" };
-+      attentionNote =
-+        preContinuity != null && !preContinuity.ok
-+          ? `Continuité pré-exécution refusée (${preContinuity.code}) — aucune confirmation ni exécution.`
-+          : preContinuity != null &&
-+              preContinuity.ok &&
-+              preContinuity.kind === "none"
-+            ? "Aucun contrat courant vérifié — aucune confirmation ni exécution."
-+            : !identityAligned
-+              ? "Identité contractuelle incohérente entre projection et continuité — actions refusées."
-+              : "Continuité pré-exécution indisponible — un identifiant de contrat seul n’autorise aucune action.";
-+    } else if (needsConfirm && !inspectionSufficient) {
-+      cta = {
-+        kind: "inspect",
-+        label: "Inspecter pour confirmer",
-+        enabled: !busy,
-+      };
-+      attentionNote =
-+        "Inspection suffisante requise avant confirmation. Confirmer n’atteste pas l’inspection.";
-+    } else if (needsConfirm && inspectionSufficient && !inspectionAlignedWithContract) {
-+      cta = {
-+        kind: "inspect",
-+        label: "Réinspecter le contrat",
-+        enabled: !busy,
-+      };
-+      attentionNote =
-+        "Version ou empreinte modifiée — réinspection requise avant confirmation.";
-+    } else if (needsConfirm) {
-+      cta = {
-+        kind: "confirm",
-+        label: "Confirmer",
-+        enabled: durableActionable && !busy,
-+      };
-+      attentionNote =
-+        "Aucun effet ne sera produit tant que la confirmation n’est pas donnée.";
-+    } else if (!inspectionSufficient || !inspectionAlignedWithContract) {
-+      cta = {
-+        kind: "inspect",
-+        label: "Inspecter le contrat",
-+        enabled: !busy,
-+      };
-+      attentionNote = !inspectionAlignedWithContract
-+        ? "Version ou empreinte modifiée — réinspection requise avant exécution."
-+        : "Inspection insuffisante — exécution refusée jusqu’à inspection explicite.";
-+    } else {
-+      cta = {
-+        kind: "execute",
-+        label: "Exécuter",
-+        enabled: durableActionable && !busy,
-+      };
-+      attentionNote =
-+        "L’action reste limitée à la portée du contrat. Aucun effet hors contrat n’est prévu.";
++  const rows: InspectionFactRow[] = [];
++  const missingRequired: string[] = [];
++  for (const factId of input.requiredInspectedFacts) {
++    const found = valueByFact.get(factId);
++    if (!found) {
++      missingRequired.push(factId);
++      continue;
 +    }
++    rows.push({ factId, label: found.label, value: found.value });
++  }
 +
-     return {
-       ...emptyBase,
-       status,
-@@ -470,7 +542,9 @@
-       title,
-       subtitle: needsConfirm
-         ? "Confirmation requise avant tout effet."
--        : "Action préparée · prête à être lancée",
-+        : durableActionable
-+          ? "Action préparée · prête à être lancée"
-+          : "Action préparée — inspection ou continuité requise.",
-       stateDetail: needsConfirm ? "En attente de confirmation" : "Action préparée",
-       scopeLabel: scopeLabel ? "Portée" : null,
-       scopeDetail: scopeLabel,
-@@ -478,11 +552,7 @@
-       impactDetail: contractPresentation?.effectSummary ?? null,
-       reversibilityLabel: reversibilityLabel ? "Réversibilité" : null,
-       reversibilityDetail: reversibilityLabel,
--      attentionNote: !inspectionSufficient
--        ? "Inspection insuffisante — actualisez le contrat avant d’agir."
--        : needsConfirm
--          ? "Aucun effet ne sera produit tant que la confirmation n’est pas donnée."
--          : "L’action reste limitée à la portée du contrat. Aucun effet hors contrat n’est prévu.",
-+      attentionNote,
-       workItems: work.items,
-       workItemsTotal: work.total,
-       workItemsCollapsed: work.collapsed,
++  return {
++    rows,
++    missingRequired,
++    presentedFactIds: rows.map((r) => r.factId),
++  };
++}
++
+ /** P3 Pilot-facing execution statuses — never expose internal stage codes. */
+ export type PilotExecutionStatus =
+   | "a_confirmer"
+@@ -494,19 +638,19 @@
+     } else if (needsConfirm && !inspectionSufficient) {
+       cta = {
+         kind: "inspect",
+-        label: "Inspecter pour confirmer",
++        label: "Examiner le contrat",
+         enabled: !busy,
+       };
+       attentionNote =
+-        "Inspection suffisante requise avant confirmation. Confirmer n’atteste pas l’inspection.";
++        "Examen des faits contractuels requis avant confirmation. Ouvrir le détail n’enregistre aucune attestation.";
+     } else if (needsConfirm && inspectionSufficient && !inspectionAlignedWithContract) {
+       cta = {
+         kind: "inspect",
+-        label: "Réinspecter le contrat",
++        label: "Réexaminer le contrat",
+         enabled: !busy,
+       };
+       attentionNote =
+-        "Version ou empreinte modifiée — réinspection requise avant confirmation.";
++        "Version ou empreinte modifiée — réexamen requis avant confirmation.";
+     } else if (needsConfirm) {
+       cta = {
+         kind: "confirm",
+@@ -518,7 +662,7 @@
+     } else if (!inspectionSufficient || !inspectionAlignedWithContract) {
+       cta = {
+         kind: "inspect",
+-        label: "Inspecter le contrat",
++        label: "Examiner le contrat",
+         enabled: !busy,
+       };
+       attentionNote = !inspectionAlignedWithContract
 ```
 
 ### `ExecutionSurface.tsx.diff`
 
 ```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app_features_pre-m6-product-ui_surfaces_ExecutionSurface.tsx	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx	2026-10-17 13:55:45
-@@ -88,7 +88,8 @@
-     ]);
-     if (!reconcileMountedRef.current) return { derived, current };
-     setContinuity(derived);
--    setPreExec(current.ok ? current : null);
-+    // Preserve failure / kind=none — presenter must not treat absence as success.
-+    setPreExec(current);
-     const nextId =
-       derived.ok && derived.projection.executionContractId
-         ? derived.projection.executionContractId
-@@ -255,42 +256,86 @@
-     onPresentationChange?.(presentation);
-   }, [presentation, onPresentationChange]);
-
--  const resolveContractId = useCallback((): {
-+  /**
-+   * Mutating actions require verified pre-execution continuity — never
-+   * projection.executionContractId alone (R1).
-+   */
-+  const resolveActivePreContract = useCallback((): {
-     executionContractId: string;
--    expectedVersion?: number;
-+    expectedVersion: number;
-+    semanticFingerprint: string;
-+    inspectionSufficient: boolean;
-   } | null => {
-     if (
--      preExec &&
--      preExec.ok &&
--      preExec.kind === "active" &&
--      preExec.contract.executionContractId
-+      !preExec ||
-+      !preExec.ok ||
-+      preExec.kind !== "active" ||
-+      !preExec.contract.executionContractId
-     ) {
--      return {
--        executionContractId: preExec.contract.executionContractId,
--        expectedVersion: preExec.contract.version,
--      };
-+      return null;
-     }
--    const id =
--      continuity && continuity.ok
--        ? continuity.projection.executionContractId
--        : null;
--    if (!id) return null;
--    const version =
--      continuity && continuity.ok
--        ? continuity.projection.executionContractVersion
--        : null;
-     return {
--      executionContractId: id,
--      expectedVersion: version ?? undefined,
-+      executionContractId: preExec.contract.executionContractId,
-+      expectedVersion: preExec.contract.version,
-+      semanticFingerprint: preExec.contract.semanticFingerprint ?? "",
-+      inspectionSufficient: preExec.inspection.inspectionSufficient === true,
+--- .tmp-sfia-review/pass03-baseline/projects_sfia-studio_app_features_pre-m6-product-ui_surfaces_ExecutionSurface.tsx	2026-10-17 14:19:15
++++ projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx	2026-10-17 14:20:24
+@@ -17,6 +17,7 @@
+ } from "@/features/project-assistant/w2/reconcileContinuePolicy";
+ import type { CurrentGovernedExecutionContinuityResult } from "@/features/project-assistant/w2/types";
+ import {
++  buildInspectionFactRowsFromDisclosure,
+   presentPilotExecution,
+   type PilotExecutionPresentation,
+ } from "./pilotExecutionPresentation";
+@@ -56,6 +57,8 @@
+   const [preExec, setPreExec] =
+     useState<CurrentGovernedExecutionContinuityResult | null>(null);
+   const [expandedWork, setExpandedWork] = useState(false);
++  /** I07 — opening the panel never writes an attestation. */
++  const [inspectionPanelOpen, setInspectionPanelOpen] = useState(false);
+   const [loading, setLoading] = useState(true);
+   const [busy, setBusy] = useState(false);
+   const [error, setError] = useState<string | null>(null);
+@@ -209,6 +212,10 @@
      };
--  }, [preExec, continuity]);
-+  }, [preExec]);
+   }, [clearContinueTimer]);
 
--  const handleConfirm = useCallback(async () => {
--    const target = resolveContractId();
-+  /**
-+   * Explicit Inspect — attests facts already disclosed on the active contract.
-+   * Confirm / Execute must never call this path as a side effect.
-+   */
-+  const handleInspect = useCallback(async () => {
++  useEffect(() => {
++    setInspectionPanelOpen(false);
++  }, [projectId]);
++
+   // Initial durable load + remount auto-resume.
+   useEffect(() => {
+     let cancelled = false;
+@@ -282,59 +289,87 @@
+     };
+   }, [preExec]);
+
+-  /**
+-   * Explicit Inspect — attests facts already disclosed on the active contract.
+-   * Confirm / Execute must never call this path as a side effect.
+-   */
+-  const handleInspect = useCallback(async () => {
+-    const target = resolveActivePreContract();
+-    if (!target) {
+-      setError(
+-        "Continuité pré-exécution indisponible — inspection refusée.",
+-      );
+-      return;
+-    }
++  const inspectionView = useMemo(() => {
+     if (
+       !preExec ||
+       !preExec.ok ||
+       preExec.kind !== "active" ||
+       !preExec.contract.inspectionDisclosure
+     ) {
++      return null;
++    }
++    const required = preExec.requiredInspectedFacts;
++    if (required == null) {
++      return {
++        rows: [] as const,
++        missingRequired: ["INSPECTION_DISCLOSURE_INCOMPLETE"] as const,
++        presentedFactIds: [] as const,
++        disclosureIncomplete: true as const,
++      };
++    }
++    return {
++      ...buildInspectionFactRowsFromDisclosure({
++        disclosure: preExec.contract.inspectionDisclosure,
++        requiredInspectedFacts: required,
++      }),
++      disclosureIncomplete: false as const,
++    };
++  }, [preExec]);
++
++  /** I07 — open detail only; no Product write. */
++  const handleOpenInspection = useCallback(() => {
 +    const target = resolveActivePreContract();
-     if (!target) {
--      setError("Aucun contrat d’exécution durable à confirmer.");
-+      setError(
-+        "Continuité pré-exécution indisponible — inspection refusée.",
-+      );
++    if (!target) {
+       setError(
+-        "Faits contractuels non affichés — inspection refusée jusqu’à relecture.",
++        "Continuité pré-exécution indisponible — examen refusé.",
+       );
        return;
      }
-+    if (
-+      !preExec ||
-+      !preExec.ok ||
-+      preExec.kind !== "active" ||
-+      !preExec.contract.inspectionDisclosure
-+    ) {
+-    const d = preExec.contract.inspectionDisclosure;
+-    const inspectedFacts: string[] = [
+-      "action",
+-      "target",
+-      "scope",
+-      "requiredAuthority",
+-      "requiredCapabilities",
+-      "constraints",
+-      "stopConditions",
+-      "reversibility",
+-      "evidenceRequirements",
+-      "semanticFingerprint",
+-    ];
+-    if (d.targetRepositoryRef) inspectedFacts.push("inputs.targetRepositoryRef");
+-    if (d.targetPath) inspectedFacts.push("inputs.targetPath");
+-    if (d.scopeIn) inspectedFacts.push("inputs.scopeIn");
+-    if (d.scopeOut) inspectedFacts.push("inputs.scopeOut");
+-    if (d.createOrModify !== null && d.createOrModify !== undefined) {
+-      inspectedFacts.push("inputs.createOrModify");
++    if (!inspectionView || inspectionView.disclosureIncomplete) {
 +      setError(
-+        "Faits contractuels non affichés — inspection refusée jusqu’à relecture.",
++        "Disclosure d’inspection incomplète — examen impossible.",
 +      );
 +      return;
-+    }
-+    const d = preExec.contract.inspectionDisclosure;
-+    const inspectedFacts: string[] = [
-+      "action",
-+      "target",
-+      "scope",
-+      "requiredAuthority",
-+      "requiredCapabilities",
-+      "constraints",
-+      "stopConditions",
-+      "reversibility",
-+      "evidenceRequirements",
-+      "semanticFingerprint",
-+    ];
-+    if (d.targetRepositoryRef) inspectedFacts.push("inputs.targetRepositoryRef");
-+    if (d.targetPath) inspectedFacts.push("inputs.targetPath");
-+    if (d.scopeIn) inspectedFacts.push("inputs.scopeIn");
-+    if (d.scopeOut) inspectedFacts.push("inputs.scopeOut");
-+    if (d.createOrModify !== null && d.createOrModify !== undefined) {
-+      inspectedFacts.push("inputs.createOrModify");
-+    }
-+    if (d.noDelete !== null && d.noDelete !== undefined) {
-+      inspectedFacts.push("inputs.noDelete");
-+    }
-+    if (d.contentRequirements) inspectedFacts.push("inputs.contentRequirements");
-+    if (d.validationExpectations) {
-+      inspectedFacts.push("inputs.validationExpectations");
-+    }
-+    if (d.expectedOutputs && d.expectedOutputs.length > 0) {
-+      inspectedFacts.push("expectedOutputs");
-+    }
+     }
+-    if (d.noDelete !== null && d.noDelete !== undefined) {
+-      inspectedFacts.push("inputs.noDelete");
++    setError(null);
++    setInspectionPanelOpen(true);
++  }, [resolveActivePreContract, inspectionView]);
 +
-     setBusy(true);
-     setError(null);
-     try {
-@@ -298,6 +343,7 @@
-         projectId,
-         executionContractId: target.executionContractId,
-         expectedVersion: target.expectedVersion,
-+        inspectedFacts,
-       });
-       if (!inspected.ok) {
-         setError(inspected.message);
-@@ -306,12 +352,40 @@
-       }
-       if (!inspected.inspectionSufficient) {
-         setError(
--          "Inspection insuffisante — confirmation refusée jusqu’à actualisation.",
-+          "Inspection insuffisante — faits attestés incomplets pour cette version.",
-         );
--        await refreshExecutionContinuity();
--        return;
-       }
-+      await refreshExecutionContinuity();
-+      onDurableFactsChanged?.();
-+    } finally {
-+      setBusy(false);
-+    }
-+  }, [
-+    projectId,
-+    preExec,
-+    resolveActivePreContract,
-+    refreshExecutionContinuity,
-+    onDurableFactsChanged,
-+  ]);
-
-+  const handleConfirm = useCallback(async () => {
++  /**
++   * I06/I08 — explicit attestation after facts are presented.
++   * Attests only presentedFactIds from the rendered disclosure rows.
++   * Confirm / Execute must never call this path.
++   */
++  const handleAttestInspection = useCallback(async () => {
 +    const target = resolveActivePreContract();
 +    if (!target) {
 +      setError(
-+        "Continuité pré-exécution indisponible — confirmation refusée.",
++        "Continuité pré-exécution indisponible — attestation refusée.",
 +      );
 +      return;
-+    }
-+    // Confirm never records inspection. Insufficient → refuse (no silent attest).
-+    if (!target.inspectionSufficient) {
+     }
+-    if (d.contentRequirements) inspectedFacts.push("inputs.contentRequirements");
+-    if (d.validationExpectations) {
+-      inspectedFacts.push("inputs.validationExpectations");
++    if (!inspectionPanelOpen) {
 +      setError(
-+        "Inspection suffisante requise avant confirmation — utilisez Inspecter.",
++        "Les faits contractuels doivent être affichés avant attestation.",
++      );
++      return;
+     }
+-    if (d.expectedOutputs && d.expectedOutputs.length > 0) {
+-      inspectedFacts.push("expectedOutputs");
++    if (!inspectionView || inspectionView.disclosureIncomplete) {
++      setError(
++        "Disclosure d’inspection incomplète — attestation refusée.",
++      );
++      return;
+     }
++    if (inspectionView.missingRequired.length > 0) {
++      setError(
++        `Faits obligatoires non restituables (${inspectionView.missingRequired.join(", ")}) — attestation refusée.`,
 +      );
 +      return;
 +    }
-+    setBusy(true);
-+    setError(null);
-+    try {
-       const confirmed = await w2ConfirmExecutionContractAction({
++    if (inspectionView.presentedFactIds.length === 0) {
++      setError("Aucun fait contractuel présenté — attestation refusée.");
++      return;
++    }
+
+     setBusy(true);
+     setError(null);
+@@ -343,7 +378,7 @@
          projectId,
          executionContractId: target.executionContractId,
-@@ -329,15 +403,17 @@
+         expectedVersion: target.expectedVersion,
+-        inspectedFacts,
++        inspectedFacts: inspectionView.presentedFactIds,
+       });
+       if (!inspected.ok) {
+         setError(inspected.message);
+@@ -354,6 +389,8 @@
+         setError(
+           "Inspection insuffisante — faits attestés incomplets pour cette version.",
+         );
++      } else {
++        setInspectionPanelOpen(false);
+       }
+       await refreshExecutionContinuity();
+       onDurableFactsChanged?.();
+@@ -362,7 +399,8 @@
      }
    }, [
      projectId,
--    resolveContractId,
-+    resolveActivePreContract,
+-    preExec,
++    inspectionPanelOpen,
++    inspectionView,
+     resolveActivePreContract,
      refreshExecutionContinuity,
      onDurableFactsChanged,
-   ]);
-
-   const handleExecute = useCallback(async () => {
--    const target = resolveContractId();
-+    const target = resolveActivePreContract();
-     if (!target) {
--      setError("Aucun contrat d’exécution durable à exécuter.");
-+      setError(
-+        "Continuité pré-exécution indisponible — exécution refusée.",
-+      );
-       return;
-     }
-     setBusy(true);
-@@ -350,6 +426,15 @@
-         setError("Contrat durable introuvable après relecture.");
-         return;
-       }
-+      if (
-+        active.contract.executionContractId !== target.executionContractId ||
-+        active.contract.version !== target.expectedVersion
-+      ) {
-+        setError(
-+          "Identité ou version contractuelle incohérente — exécution refusée.",
-+        );
-+        return;
-+      }
-       if (active.contract.status === "confirmation_required") {
-         setError(
-           "Confirmation encore requise — Exécuter refuse d’agir.",
-@@ -357,26 +442,20 @@
-         return;
-       }
-
-+      // Execute never records inspection as a side effect.
-       if (!active.inspection.inspectionSufficient) {
--        const inspected = await w2InspectExecutionContractAction({
--          projectId,
--          executionContractId: active.contract.executionContractId,
--          expectedVersion: active.contract.version,
--        });
--        if (!inspected.ok || !inspected.inspectionSufficient) {
--          setError(
--            inspected.ok
--              ? "Inspection insuffisante — exécution refusée."
--              : inspected.message,
--          );
--          await refreshExecutionContinuity();
--          return;
--        }
-+        setError(
-+          "Inspection suffisante requise avant exécution — utilisez Inspecter.",
-+        );
-+        return;
-       }
-
-       const auth = await w2AuthorizeExecutionContractAction({
-         projectId,
-         executionContractId: active.contract.executionContractId,
-+        expectedVersion: active.contract.version,
-+        expectedSemanticFingerprint:
-+          active.contract.semanticFingerprint || undefined,
-       });
-       if (!auth.ok) {
-         setError(auth.message);
-@@ -403,7 +482,7 @@
-     }
-   }, [
-     projectId,
--    resolveContractId,
-+    resolveActivePreContract,
-     refreshExecutionContinuity,
-     runServerReconcile,
-   ]);
-@@ -600,12 +679,37 @@
-       ) : null}
-
-       <div className={styles.footer}>
-+        {presentation.cta.kind === "inspect" ? (
+@@ -660,9 +698,65 @@
+               <li key={item.id} className={styles.evidenceItem}>
+                 <span className={styles.evidenceLabel}>{item.label}</span>
+                 <span className={styles.evidenceState}>{item.stateLabel}</span>
++              </li>
++            ))}
++          </ul>
++        </section>
++      ) : null}
++
++      {inspectionPanelOpen && inspectionView && !inspectionView.disclosureIncomplete ? (
++        <section
++          className={styles.section}
++          aria-labelledby="execution-inspection-title"
++          data-testid="project-execution-inspection-panel"
++        >
++          <h3 className={styles.sectionTitle} id="execution-inspection-title">
++            Faits contractuels à examiner
++          </h3>
++          <p className={styles.empty}>
++            Ces faits proviennent de la disclosure durable. L’ouverture de ce
++            panneau n’enregistre aucune attestation.
++          </p>
++          {inspectionView.missingRequired.length > 0 ? (
++            <p
++              className={styles.attention}
++              data-testid="project-execution-inspection-missing"
++              role="alert"
++            >
++              Faits obligatoires non restituables :{" "}
++              {inspectionView.missingRequired.join(", ")}
++            </p>
++          ) : null}
++          <ul className={styles.inspectionList}>
++            {inspectionView.rows.map((row) => (
++              <li
++                key={row.factId}
++                className={styles.inspectionItem}
++                data-testid={`project-execution-inspection-fact-${row.factId}`}
++                data-fact-id={row.factId}
++              >
++                <span className={styles.inspectionLabel}>{row.label}</span>
++                <span className={styles.inspectionValue}>{row.value}</span>
+               </li>
+             ))}
+           </ul>
 +          <button
 +            type="button"
 +            className={styles.primaryButton}
-+            data-testid="project-execution-inspect"
-+            disabled={!presentation.cta.enabled}
-+            aria-label={presentation.cta.label}
-+            title={
-+              presentation.attentionNote ??
-+              "Inspection explicite requise avant confirmation ou exécution."
++            data-testid="project-execution-attest"
++            disabled={
++              busy ||
++              inspectionView.missingRequired.length > 0 ||
++              inspectionView.presentedFactIds.length === 0
 +            }
++            aria-label="Attester l’examen des faits affichés"
++            title="Atteste uniquement les faits affichés ci-dessus pour cette version."
 +            onClick={() => {
-+              void handleInspect();
++              void handleAttestInspection();
 +            }}
 +          >
-+            {busy ? "Inspection…" : presentation.cta.label}
++            {busy ? "Attestation…" : "Attester l’examen"}
 +          </button>
-+        ) : null}
+         </section>
+       ) : null}
+
+@@ -688,13 +782,13 @@
+             aria-label={presentation.cta.label}
+             title={
+               presentation.attentionNote ??
+-              "Inspection explicite requise avant confirmation ou exécution."
++              "Ouvre le détail inspectable — n’enregistre aucune attestation."
+             }
+             onClick={() => {
+-              void handleInspect();
++              handleOpenInspection();
+             }}
+           >
+-            {busy ? "Inspection…" : presentation.cta.label}
++            {presentation.cta.label}
+           </button>
+         ) : null}
          {presentation.cta.kind === "confirm" ? (
-           <button
-             type="button"
-             className={styles.primaryButton}
-             data-testid="project-execution-confirm"
-             disabled={!presentation.cta.enabled}
-+            aria-label={presentation.cta.label}
-+            title={
-+              presentation.cta.enabled
-+                ? presentation.attentionNote ?? presentation.cta.label
-+                : presentation.attentionNote ??
-+                  "Confirmation indisponible — conditions non satisfaites."
-+            }
-             onClick={() => {
-               void handleConfirm();
-             }}
-@@ -619,6 +723,13 @@
-             className={styles.primaryButton}
-             data-testid="project-execution-execute"
-             disabled={!presentation.cta.enabled}
-+            aria-label={presentation.cta.label}
-+            title={
-+              presentation.cta.enabled
-+                ? presentation.attentionNote ?? presentation.cta.label
-+                : presentation.attentionNote ??
-+                  "Exécution indisponible — conditions non satisfaites."
-+            }
-             onClick={() => {
-               void handleExecute();
-             }}
 ```
 
-### `ProjectWorkspacePage.tsx.diff`
+### `ExecutionSurface.module.css.diff`
 
 ```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app_features_pre-m6-product-ui_ProjectWorkspacePage.tsx	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx	2026-10-17 13:56:09
-@@ -149,6 +149,9 @@
-   const [memoryTab, setMemoryTab] = useState<JournalMemoryTab>("sujets");
-   const [lifecycleProjection, setLifecycleProjection] =
-     useState<PilotLifecycleProjection | null>(null);
-+  /** R3 — honest freshness for synthetic Execution rail (same Product reader). */
-+  const [lifecycleProjectionAvailability, setLifecycleProjectionAvailability] =
-+    useState<"available" | "pending" | "unavailable">("pending");
-   const [reservationBusyId, setReservationBusyId] = useState<string | null>(null);
-   const [reservationNotice, setReservationNotice] = useState<string | null>(null);
-   const [latestSynthesis, setLatestSynthesis] =
-@@ -162,6 +165,7 @@
-     thumbHeight: number;
-   }>({ active: false, thumbTop: 0, thumbHeight: 0 });
-   const refreshInFlight = useRef(false);
-+  const lifecycleProjectionProjectIdRef = useRef<string | null>(null);
-
-   const syncContextScrollUi = useCallback(() => {
-     const el = contextScrollRef.current;
-@@ -218,6 +222,16 @@
-     setLifecycleRefreshSignal((n) => n + 1);
-   }, [loadProject]);
-
-+  const applyLifecycleProjection = useCallback(
-+    (projection: PilotLifecycleProjection | null) => {
-+      setLifecycleProjection(projection);
-+      setLifecycleProjectionAvailability(
-+        projection ? "available" : "unavailable",
-+      );
-+    },
-+    [],
-+  );
+--- .tmp-sfia-review/pass03-baseline/projects_sfia-studio_app_features_pre-m6-product-ui_surfaces_ExecutionSurface.module.css	2026-10-17 14:19:15
++++ projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.module.css	2026-10-17 14:20:23
+@@ -268,8 +268,40 @@
+   font-size: 0.8125rem;
+   color: var(--pm6-muted);
+   line-height: 1.45;
++}
 +
-   useEffect(() => {
-     let cancelled = false;
-     void getProjectRuntimeAction(projectId).then((next) => {
-@@ -229,21 +243,35 @@
-   }, [projectId]);
-
-   /**
--   * LOT B — Load durable lifecycle projection without requiring LifecycleSurface
--   * to be mounted (Execution rail is synthetic-only). Same Product reader as
--   * LifecycleSurface.refresh — no second source of truth.
-+   * LOT B / R3 — Load durable lifecycle projection without requiring
-+   * LifecycleSurface mounted (Execution rail is synthetic-only). Same Product
-+   * reader as LifecycleSurface.refresh — no second source of truth.
-+   * Project change clears prior projection (C5). Failed refresh clears it so
-+   * stale data is never shown as current (C4/C7). Successful refresh replaces.
-    */
-   useEffect(() => {
-     let cancelled = false;
-+    const projectChanged = lifecycleProjectionProjectIdRef.current !== projectId;
-+    lifecycleProjectionProjectIdRef.current = projectId;
-+    if (projectChanged) {
-+      setLifecycleProjection(null);
-+    }
-+    setLifecycleProjectionAvailability("pending");
-     void Promise.resolve(projectAssistantPilotLifecycleProjection({ projectId }))
-       .then((result) => {
--        if (cancelled || !result) return;
--        if (result.ok && result.projection) {
-+        if (cancelled) return;
-+        if (result?.ok && result.projection) {
-           setLifecycleProjection(result.projection);
-+          setLifecycleProjectionAvailability("available");
-+          return;
-         }
-+        setLifecycleProjection(null);
-+        setLifecycleProjectionAvailability("unavailable");
-       })
-       .catch(() => {
--        /* projection optional for synthetic rail — fail closed leaves prior mirror */
-+        if (cancelled) return;
-+        setLifecycleProjection(null);
-+        setLifecycleProjectionAvailability("unavailable");
-       });
-     return () => {
-       cancelled = true;
-@@ -268,7 +296,7 @@
-       setExecutionPresentation(
-         presentPilotExecution({
-           continuityProjection: derived,
--          preExecutionContinuity: current.ok ? current : null,
-+          preExecutionContinuity: current,
-         }),
-       );
-     })();
-@@ -376,11 +404,11 @@
-           setReservationNotice(
-             outcome.message ?? outcome.code ?? "Levée refusée.",
-           );
--          if (outcome.projection) setLifecycleProjection(outcome.projection);
-+          if (outcome.projection) applyLifecycleProjection(outcome.projection);
-           return;
-         }
-         setReservationNotice(outcome.message ?? "Levée de la réserve confirmée.");
--        if (outcome.projection) setLifecycleProjection(outcome.projection);
-+        if (outcome.projection) applyLifecycleProjection(outcome.projection);
-         controller.armReservationInteractionContext(null);
-         controller.clearReservationResolutionProposal();
-         notifyDurableFactsChanged();
-@@ -388,7 +416,13 @@
-         setReservationBusyId(null);
-       }
-     },
--    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged, controller],
-+    [
-+      projectId,
-+      reservationCycleInstanceId,
-+      notifyDurableFactsChanged,
-+      controller,
-+      applyLifecycleProjection,
-+    ],
-   );
-
-   const confirmReservationDefer = useCallback(
-@@ -412,19 +446,24 @@
-           setReservationNotice(
-             outcome.message ?? outcome.code ?? "Report refusé.",
-           );
--          if (outcome.projection) setLifecycleProjection(outcome.projection);
-+          if (outcome.projection) applyLifecycleProjection(outcome.projection);
-           return;
-         }
-         setReservationNotice(
-           outcome.message ?? "Réserve reportée — décision enregistrée.",
-         );
--        if (outcome.projection) setLifecycleProjection(outcome.projection);
-+        if (outcome.projection) applyLifecycleProjection(outcome.projection);
-         notifyDurableFactsChanged();
-       } finally {
-         setReservationBusyId(null);
-       }
-     },
--    [projectId, reservationCycleInstanceId, notifyDurableFactsChanged],
-+    [
-+      projectId,
-+      reservationCycleInstanceId,
-+      notifyDurableFactsChanged,
-+      applyLifecycleProjection,
-+    ],
-   );
-
-   /**
-@@ -587,6 +626,7 @@
-     // Prefer latest synthèse clock when loaded; else LPS createdAt.
-     updatedAt:
-       latestSynthesis?.generatedAt ?? success.livingState.createdAt ?? null,
-+    lifecycleProjectionAvailability,
-   });
-   const currentJournalTopic = controller.journalEntries.find(
-     (e) => e.isCurrentTopic,
-@@ -1027,7 +1067,7 @@
-                   durableRefreshSignal={lifecycleRefreshSignal}
-                   onDurableFactsChanged={notifyDurableFactsChanged}
-                   suppressGenericNoraCta={suppressGenericIntentionCta}
--                  onProjectionChange={setLifecycleProjection}
-+                  onProjectionChange={applyLifecycleProjection}
-                   onOpenReservations={openReservationsTab}
-                   onTreatReservationWithNora={treatReservationWithNora}
-                   onEscalateTrajectory={() => {
-```
-
-### `workspaceContextPresentation.ts.diff`
-
-```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app_features_pre-m6-product-ui_workspaceContextPresentation.ts	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/features/pre-m6-product-ui/workspaceContextPresentation.ts	2026-10-17 13:55:49
-@@ -44,9 +44,30 @@
-   stateVersion: number;
-   /** Durable living-state / project update timestamp when available. */
-   updatedAt?: string | null;
-+  /**
-+   * Lifecycle / context-rail projection read status.
-+   * - pending: load in flight (do not claim « À jour »)
-+   * - unavailable: read failed — clear prior projection; never present as current
-+   * - available: Product reader succeeded for this project
-+   */
-+  lifecycleProjectionAvailability?: "available" | "pending" | "unavailable";
- }): CurrentnessPresentation {
-   const verified = formatVerifiedRelativeFr(input.updatedAt);
-   const versionDetail = `État enregistré · v${input.stateVersion}`;
-+  if (input.lifecycleProjectionAvailability === "unavailable") {
-+    return {
-+      label: "À vérifier",
-+      detail: `${versionDetail} · contexte projet indisponible`,
-+      tone: "warn",
-+    };
-+  }
-+  if (input.lifecycleProjectionAvailability === "pending") {
-+    return {
-+      label: "Lecture en cours",
-+      detail: `${versionDetail} · contexte projet en cours de lecture`,
-+      tone: "neutral",
-+    };
-+  }
-   switch (input.transcriptAvailability) {
-     case "unavailable":
-       return {
-```
-
-### `actions.ts.diff`
-
-```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app_features_project-assistant_w2_actions.ts	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/features/project-assistant/w2/actions.ts	2026-10-17 13:55:41
-@@ -283,6 +283,15 @@
-   projectId: string;
-   executionContractId: string;
-   expectedVersion?: number;
-+  /**
-+   * Facts the Pilote attests having read on the displayed contract version.
-+   * When provided (including empty), the service must not invent a substitute
-+   * set — empty fails closed at record time. When omitted, legacy callers
-+   * (Conversation / Trajectory Inspect buttons that already surface disclosure)
-+   * keep the prior required-facts default inside inspectExecutionContract.
-+   * Confirm / Execute must never call this action as a side effect.
-+   */
-+  inspectedFacts?: readonly string[];
- }): Promise<InspectExecutionContractResult> {
-   const runtime = getRuntimeApplicationService();
-   if (!runtime.oa) return OA_UNAVAILABLE;
-@@ -292,6 +301,9 @@
-     projectId: input.projectId,
-     executionContractId: input.executionContractId,
-     expectedVersion: input.expectedVersion,
-+    ...(input.inspectedFacts !== undefined
-+      ? { inspectedFacts: input.inspectedFacts }
-+      : {}),
-   });
++.inspectionList {
++  margin: 0;
++  padding: 0;
++  list-style: none;
++  display: flex;
++  flex-direction: column;
++  gap: 8px;
++}
++
++.inspectionItem {
++  display: flex;
++  flex-direction: column;
++  gap: 2px;
++  padding: 8px 0;
++  border-top: 1px solid var(--pm6-border);
  }
+
++.inspectionLabel {
++  font-size: 0.6875rem;
++  font-weight: 600;
++  color: var(--pm6-muted);
++  text-transform: uppercase;
++  letter-spacing: 0.03em;
++}
++
++.inspectionValue {
++  font-size: 0.8125rem;
++  color: var(--pm6-ink);
++  line-height: 1.4;
++  word-break: break-word;
++}
++
+ @media (max-width: 767px) {
+   .root {
+     gap: 12px;
 ```
 
-### `p6.o1.continuityGd4EmptyRefs.d0.test.ts.diff`
-
-```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app___tests___project-assistant_p6.o1.continuityGd4EmptyRefs.d0.test.ts	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts	2026-10-17 13:56:58
-@@ -324,8 +324,8 @@
-     ).toBe(true);
-   });
-
--  it("T5 — NON_STRUCTURAL stamp but missing productCurrentness facts → refus", async () => {
--    const { projectId, cycleInstanceId } = await seedActiveCycle("t5");
-+  it("T5a — NON_STRUCTURAL stamp but missing productCurrentness facts → refus", async () => {
-+    const { projectId, cycleInstanceId } = await seedActiveCycle("t5a");
-     const oa = runtime.oa!;
-     const prep = await prepareOk(projectId, cycleInstanceId);
-     const loaded = await oa.executionContractServices.getExecutionContract.execute({
-@@ -352,7 +352,78 @@
-     expect(continuity.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
-   });
-
--  it("T11/T12/T13 — inspection state exposed; insufficient ≠ confirm; FP change requires reinspect", async () => {
-+  it("T5 — true Product obsolescence (pathRoot change) → CURRENT/STALE refus", async () => {
-+    const { projectId, cycleInstanceId } = await seedActiveCycle("t5");
-+    const oa = runtime.oa!;
-+    const prep = await prepareOk(projectId, cycleInstanceId);
-+
-+    const before = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId,
-+    });
-+    expect(before.ok).toBe(true);
-+    if (!before.ok || before.kind !== "active") throw new Error("expected active");
-+
-+    const identity = `acme/o1c-t5`;
-+    const rebound = await oa.projectServices.setProjectRepositoryBinding!.execute({
-+      projectId,
-+      actor: LOCAL_PILOTE_ACTOR,
-+      binding: {
-+        provider: "github",
-+        identity,
-+        remoteUrl: `https://github.com/${identity}.git`,
-+        defaultBranch: "main",
-+        pathRoot: "projects/demo-alt",
-+      },
-+    });
-+    expect(rebound.ok).toBe(true);
-+
-+    const continuity = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId,
-+    });
-+    expect(continuity.ok).toBe(false);
-+    if (continuity.ok) throw new Error("expected stale refus");
-+    expect(
-+      continuity.code === "REPOSITORY_BINDING_STALE" ||
-+        continuity.code === "MATERIALITY_CURRENTNESS_STALE" ||
-+        continuity.code === "MATERIALITY_CURRENT_MISMATCH" ||
-+        continuity.code === "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+    ).toBe(true);
-+  });
-+
-+  it("T3 — CURRENT materiality UNKNOWN + empty refs → continuity refus", async () => {
-+    const { projectId, cycleInstanceId } = await seedActiveCycle("t3");
-+    const oa = runtime.oa!;
-+    const prep = await prepareOk(projectId, cycleInstanceId);
-+    const loaded = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: prep.contract.executionContractId,
-+    });
-+    if (!loaded.ok) throw new Error("load");
-+    // Force stamp UNKNOWN while keeping empty refs — never admit without HD.
-+    await oa.executionContractServices.contracts.save({
-+      ...loaded.contract,
-+      decisionRefs: [],
-+      constraints: [
-+        ...loaded.contract.constraints.filter((c) => !c.startsWith("MATERIALITY:")),
-+        "MATERIALITY:UNKNOWN",
-+      ],
-+    });
-+
-+    const continuity = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId,
-+    });
-+    expect(continuity.ok).toBe(false);
-+    if (continuity.ok) throw new Error("expected UNKNOWN refus");
-+    expect(
-+      continuity.code === "MATERIALITY_UNKNOWN" ||
-+        continuity.code === "MATERIALITY_CURRENT_MISMATCH" ||
-+        continuity.code === "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-+    ).toBe(true);
-+  });
-+
-+  it("T11/T12/T13 — inspection + amend fingerprint requires reinspect; confirm refused", async () => {
-     const { projectId, cycleInstanceId } = await seedActiveCycle("t11");
-     const oa = runtime.oa!;
-     const prep = await prepareOk(projectId, cycleInstanceId);
-@@ -372,9 +443,6 @@
-       projectId,
-       executionContractId: prep.contract.executionContractId,
-       expectedVersion: prep.contract.version,
--      expectedSemanticFingerprint:
--        prep.contract.semanticFingerprint ?? "unset",
--      forceLocalAuthority: true,
-     });
-     expect(inspected.ok).toBe(true);
-
-@@ -388,17 +456,68 @@
-     }
-     expect(afterInspect.inspection.inspectionSufficient).toBe(true);
-     expect(afterInspect.decisionRef).toBeNull();
--    // Continuity read never auto-executes / auto-confirms.
-     expect(afterInspect.contract.status).toBe(prep.contract.status);
-+
-+    const { amendExecutionContractWithConstraint } = await import(
-+      "@/features/project-assistant/w2/amendExecutionContract"
-+    );
-+    const amended = await amendExecutionContractWithConstraint({
-+      oa,
-+      projectId,
-+      executionContractId: prep.contract.executionContractId,
-+      additionalConstraint: "PASS02:T13-FP-BUMP",
-+      forceLocalAuthority: true,
-+    });
-+    expect(amended.ok).toBe(true);
-+    if (!amended.ok) throw new Error(amended.message);
-+
-+    const afterAmend = await readCurrentGovernedExecutionContinuity({
-+      oa,
-+      projectId,
-+    });
-+    expect(afterAmend.ok).toBe(true);
-+    if (!afterAmend.ok || afterAmend.kind !== "active") {
-+      throw new Error("expected active after amend");
-+    }
-+    // Successor (or bumped) contract must not reuse prior inspection silently.
-+    expect(afterAmend.inspection.inspectionSufficient).toBe(false);
-+    expect(
-+      afterAmend.inspection.reinspectionRequired === true ||
-+        afterAmend.contract.executionContractId !==
-+          prep.contract.executionContractId ||
-+        afterAmend.contract.version !== prep.contract.version ||
-+        afterAmend.contract.semanticFingerprint !==
-+          (prep.contract.semanticFingerprint ?? ""),
-+    ).toBe(true);
-+
-+    const { confirmExecutionContractForAuthorization } = await import(
-+      "@/features/project-assistant/w2/confirmForAuthorization"
-+    );
-+    const confirmed = await confirmExecutionContractForAuthorization({
-+      oa,
-+      projectId,
-+      executionContractId: afterAmend.contract.executionContractId,
-+      forceLocalAuthority: true,
-+    });
-+    expect(confirmed.ok).toBe(false);
-+    if (confirmed.ok) throw new Error("expected confirm refus before reinspect");
-   });
-
--  it("T16 — continuity read performs no EC / HD / Attempt writes", async () => {
-+  it("T16 — continuity read performs no EC / HD / Inspection / Confirm / Attempt writes", async () => {
-     const { projectId, cycleInstanceId } = await seedActiveCycle("t16");
-     const oa = runtime.oa!;
-     const prep = await prepareOk(projectId, cycleInstanceId);
-
-     const saveSpy = vi.spyOn(oa.executionContractServices.contracts, "save");
-     const hdBefore = await oa.decisionServices.decisions.listByProject(projectId);
-+    const inspBefore =
-+      await oa.executionContractServices.inspectionAttestations.listByContract(
-+        prep.contract.executionContractId,
-+      );
-+    const attemptsBefore =
-+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
-+        executionContractId: prep.contract.executionContractId,
-+      });
-
-     const continuity = await readCurrentGovernedExecutionContinuity({
-       oa,
-@@ -414,6 +533,19 @@
-     expect(saveSpy).not.toHaveBeenCalled();
-     const hdAfter = await oa.decisionServices.decisions.listByProject(projectId);
-     expect(hdAfter.length).toBe(hdBefore.length);
-+    const inspAfter =
-+      await oa.executionContractServices.inspectionAttestations.listByContract(
-+        prep.contract.executionContractId,
-+      );
-+    expect(inspAfter.length).toBe(inspBefore.length);
-+    const attemptsAfter =
-+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
-+        executionContractId: prep.contract.executionContractId,
-+      });
-+    expect(attemptsAfter.ok).toBe(true);
-+    if (attemptsBefore.ok && attemptsAfter.ok) {
-+      expect(attemptsAfter.attempts.length).toBe(attemptsBefore.attempts.length);
-+    }
-     saveSpy.mockRestore();
-   });
- });
-```
-
-### `p5.s03.pilotExecutionPresentation.d0.test.ts.diff`
-
-```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app___tests___pre-m6-product-ui_p5.s03.pilotExecutionPresentation.d0.test.ts	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts	2026-10-17 13:56:25
-@@ -159,7 +159,7 @@
-     expect(view.cta.kind === "execute").toBe(false);
-   });
-
--  it("insufficient inspection disables CTA (fail closed)", () => {
-+  it("insufficient inspection → Inspect CTA (Confirm not enabled)", () => {
-     const view = presentPilotExecution({
-       continuityProjection: {
-         ok: true,
-@@ -174,10 +174,25 @@
-       }),
-     });
-     expect(view.status).toBe("a_confirmer");
--    expect(view.cta.kind === "confirm" && view.cta.enabled).toBe(false);
--    expect(view.attentionNote).toMatch(/Inspection insuffisante/);
-+    expect(view.cta.kind).toBe("inspect");
-+    expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
-+    expect(view.attentionNote).toMatch(/Inspection suffisante requise/);
-   });
-
-+  it("R1 UI01 — projection EC id alone never enables Confirm/Execute", () => {
-+    const view = presentPilotExecution({
-+      continuityProjection: {
-+        ok: true,
-+        projection: baseProjection({
-+          executionContractStatus: "confirmation_required",
-+        }),
-+      },
-+      preExecutionContinuity: null,
-+    });
-+    expect(view.cta.kind).toBe("none");
-+    expect(view.attentionNote).toMatch(/identifiant de contrat seul|Continuité/i);
-+  });
-+
-   it("RUNNING → En cours, no Exécuter", () => {
-     const view = presentPilotExecution({
-       continuityProjection: {
-```
-
-### `p6.o1.executionWorkPresentation.d0.test.ts.diff`
-
-```diff
---- .tmp-sfia-review/pass02-baseline/projects_sfia-studio_app___tests___pre-m6-product-ui_p6.o1.executionWorkPresentation.d0.test.ts	2026-10-17 13:54:29
-+++ projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.o1.executionWorkPresentation.d0.test.ts	2026-10-17 13:56:32
-@@ -138,7 +138,10 @@
-     expect(labels.some((l) => /Action prévue dans la portée/.test(l))).toBe(
-       false,
-     );
--    expect(view.decisionRef === undefined || true).toBe(true);
-+    // Presentation DTO does not invent a decisionRef field.
-+    expect(
-+      Object.prototype.hasOwnProperty.call(view, "decisionRef"),
-+    ).toBe(false);
-   });
-
-   it("B10 — no inventable details → honest incomplete label", () => {
-```
-
-### `p5.s03.durableExecutionActionContinuity.ui.test.tsx` (diff vs HEAD — inclut Pass 02)
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
-index 7c69d8f3..dd40b1c2 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
-@@ -211,6 +211,8 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-       projectId: "prj:cp01",
-       executionContractId: "xct:cp01",
-     });
-+    // R1 — Confirm must not record inspection as a side effect.
-+    expect(inspectMock).not.toHaveBeenCalled();
-     expect(reconcileMock).not.toHaveBeenCalled();
-     expect(authorizeMock).not.toHaveBeenCalled();
-     // Canonical reread after confirm (≥ initial load + post-confirm).
-@@ -327,7 +329,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     expect(reconcileMock).not.toHaveBeenCalled();
-   });
-
--  it("E5 — insufficient inspection disables confirm CTA", async () => {
-+  it("E5 — insufficient inspection → Inspect CTA; Confirm click never attests", async () => {
-     deriveContinuityMock.mockResolvedValue({
-       ok: true,
-       projection: projection(),
-@@ -346,15 +348,52 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-       />,
-     );
-     await waitFor(() => {
--      expect(screen.getByTestId("project-execution-confirm")).toBeTruthy();
-+      expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
-     });
--    expect(
--      (screen.getByTestId("project-execution-confirm") as HTMLButtonElement)
--        .disabled,
--    ).toBe(true);
-+    expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
-+    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
-     expect(screen.getByTestId("project-execution-attention").textContent).toMatch(
--      /Inspection insuffisante/,
-+      /Inspection suffisante requise/,
-+    );
-+
-+    fireEvent.click(screen.getByTestId("project-execution-inspect"));
-+    await waitFor(() => {
-+      expect(inspectMock).toHaveBeenCalledTimes(1);
-+    });
-+    expect(inspectMock).toHaveBeenCalledWith(
-+      expect.objectContaining({
-+        projectId: "prj:cp01",
-+        executionContractId: "xct:cp01",
-+        expectedVersion: 1,
-+        inspectedFacts: expect.arrayContaining([
-+          "action",
-+          "semanticFingerprint",
-+          "inputs.targetPath",
-+        ]),
-+      }),
-+    );
-+    expect(confirmMock).not.toHaveBeenCalled();
-+  });
-+
-+  it("UI01 — projection EC id without active pre → no Confirm/Execute", async () => {
-+    deriveContinuityMock.mockResolvedValue({
-+      ok: true,
-+      projection: projection(),
-+    });
-+    readCurrentContinuityMock.mockResolvedValue({ ok: true, kind: "none" });
-+
-+    render(
-+      <ExecutionSurface
-+        projectId="prj:cp01"
-+        onReturnToConversation={vi.fn()}
-+      />,
-     );
-+    await waitFor(() => {
-+      expect(screen.getByTestId("project-execution-attention")).toBeTruthy();
-+    });
-+    expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
-+    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
-+    expect(screen.queryByTestId("project-execution-inspect")).toBeNull();
-   });
-
-   it("E6 — RUNNING / terminal: no Exécuter", async () => {
-```
-
-### Nouveau test intégral — `p6.r02.actionAvailability.d0.test.ts`
+### Nouveau test — `p6.r03.inspectionDisclosureClosure.d0.test.ts`
 
 ```typescript
 /**
- * STUDIO-P6-EXECUTION-CONVERGENCE-REGULARIZATION-02 — R1 action availability.
- * Deterministic presenter + currentness honesty (ZERO REAL).
+ * STUDIO-P6-EXECUTION-INSPECTION-CLOSURE-03
+ * Disclosure → presented rows → attestable facts (ZERO REAL).
  */
 import { describe, expect, it } from "vitest";
-import type { GovernedExecutionContinuityProjection } from "@/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection";
-import {
-  presentPilotExecution,
-} from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
-import { presentCurrentness } from "@/features/pre-m6-product-ui/workspaceContextPresentation";
+import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
+import { buildInspectionFactRowsFromDisclosure } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
 
-function baseProjection(
-  overrides: Partial<GovernedExecutionContinuityProjection> = {},
-): GovernedExecutionContinuityProjection {
+function baseDisclosure(
+  overrides: Partial<ExecutionContractInspectionDisclosure> = {},
+): ExecutionContractInspectionDisclosure {
   return {
-    projectId: "prj:r02",
-    activeCycleInstanceId: "cyc:1",
+    action: "cursor.docs_write.apply",
+    technicalTarget: "workspace.isolated.docs_write",
+    scope: "studio.gcec.docs_write",
+    targetRepositoryRef: "acme/demo",
+    targetPath: "projects/demo/note.md",
+    scopeIn: ["projects/demo"],
+    scopeOut: null,
+    createOrModify: true,
+    noDelete: true,
+    objective: "Note",
+    artifactType: null,
+    artifactBrief: null,
+    contentRequirements: ["section A"],
+    validationExpectations: null,
+    expectedOutputs: ["projects/demo/note.md"],
+    sourceGrounding: null,
+    acceptanceCriteria: null,
+    validationPlan: null,
+    reportRequirements: null,
+    evidenceRequirements: ["file_evidence"],
+    requiredAuthority: "N2",
+    requiredCapabilities: ["cursor.docs_write"],
+    constraints: ["MATERIALITY:NON_STRUCTURAL"],
+    stopConditions: ["STOP"],
+    reversibility: "reversible",
+    contractVersion: 1,
     executionContractId: "xct:1",
-    executionContractVersion: 1,
-    executionContractStatus: "confirmation_required",
-    attemptId: null,
-    attemptStatus: null,
-    stage: "PRE_EXECUTION",
-    productOutcome: null,
-    evidenceId: null,
-    reviewBundleId: null,
-    claimEvaluationId: null,
-    claimEvaluationStatus: null,
-    postEvidencePresent: false,
-    nextDeterministicAction: "NONE",
-    humanDecisionRequired: false,
-    recoveryRequired: false,
-    reason: null,
-    blockingCode: null,
-    context: null,
+    semanticFingerprint: "fp-abc",
+    disclosureComplete: true,
+    incompletenessCode: null,
     ...overrides,
   };
 }
 
-function activePre(args: {
-  status: "confirmation_required" | "confirmed" | "validated";
-  inspectionSufficient: boolean;
-  version?: number;
-  fingerprint?: string;
-  inspectionFingerprint?: string;
-  attestedVersion?: number | null;
-  reinspectionRequired?: boolean;
-}) {
-  const version = args.version ?? 1;
-  const fp = args.fingerprint ?? "fp";
-  return {
-    ok: true as const,
-    kind: "active" as const,
-    decisionRef: null as string | null,
-    contract: {
-      executionContractId: "xct:1",
-      version,
-      status: args.status,
-      action: "cursor.docs_write.apply",
-      target: "workspace.isolated.docs_write",
-      scope: "studio.gcec.docs_write",
-      requiredAuthority: "N2",
-      constraints: [] as const,
-      stopConditions: [] as const,
-      requiredCapabilities: [] as const,
-      reversibility: "reversible" as const,
-      semanticFingerprint: fp,
-      effectConfirmationRequired: args.status === "confirmation_required",
-      inspectionDisclosure: {
-        action: "cursor.docs_write.apply",
-        technicalTarget: "workspace.isolated.docs_write",
-        scope: "studio.gcec.docs_write",
-        targetRepositoryRef: null,
-        targetPath: "projects/demo/note.md",
-        scopeIn: null,
-        scopeOut: null,
-        createOrModify: true,
-        noDelete: true,
-        objective: null,
-        artifactType: null,
-        artifactBrief: null,
-        contentRequirements: null,
-        validationExpectations: null,
-        expectedOutputs: null,
-        sourceGrounding: null,
-        acceptanceCriteria: null,
-        validationPlan: null,
-        reportRequirements: null,
-        evidenceRequirements: [] as const,
-        requiredAuthority: "N2",
-        requiredCapabilities: [] as const,
-        constraints: [] as const,
-        stopConditions: [] as const,
-        reversibility: "reversible" as const,
-        contractVersion: version,
-        executionContractId: "xct:1",
-        semanticFingerprint: fp,
-        disclosureComplete: true,
-        incompletenessCode: null,
-      },
-    },
-    inspection: {
-      executionContractId: "xct:1",
-      contractVersion: version,
-      semanticFingerprint: args.inspectionFingerprint ?? fp,
-      statusLabel: (args.inspectionSufficient
-        ? "INSPECTÉ"
-        : "NON INSPECTÉ") as "INSPECTÉ" | "NON INSPECTÉ",
-      inspectionSufficient: args.inspectionSufficient,
-      attestationRef: args.inspectionSufficient ? "att:1" : null,
-      attestedVersion:
-        args.attestedVersion !== undefined
-          ? args.attestedVersion
-          : args.inspectionSufficient
-            ? version
-            : null,
-      staleAttestationRef: null,
-      reinspectionRequired: args.reinspectionRequired ?? !args.inspectionSufficient,
-      reason: (args.inspectionSufficient
-        ? "inspected"
-        : "no_attestation") as "inspected" | "no_attestation",
-      grantsAuthority: false as const,
-    },
-  };
-}
-
-describe("P6 R02 — action availability / currentness", () => {
-  it("UI01 — EC id alone → no Confirm/Execute/Inspect", () => {
-    const view = presentPilotExecution({
-      continuityProjection: { ok: true, projection: baseProjection() },
-      preExecutionContinuity: null,
+describe("P6 R03 — inspection disclosure closure (presenter)", () => {
+  it("INS01 — required facts with values are all rendered", () => {
+    const required = [
+      "action",
+      "target",
+      "scope",
+      "requiredAuthority",
+      "requiredCapabilities",
+      "constraints",
+      "stopConditions",
+      "reversibility",
+      "evidenceRequirements",
+      "semanticFingerprint",
+      "inputs.targetRepositoryRef",
+      "inputs.targetPath",
+      "inputs.scopeIn",
+      "inputs.createOrModify",
+      "inputs.noDelete",
+      "inputs.contentRequirements",
+      "expectedOutputs",
+    ];
+    const result = buildInspectionFactRowsFromDisclosure({
+      disclosure: baseDisclosure(),
+      requiredInspectedFacts: required,
     });
-    expect(view.cta.kind).toBe("none");
+    expect(result.missingRequired).toEqual([]);
+    expect(result.presentedFactIds).toEqual(required);
+    expect(
+      result.rows.find((r) => r.factId === "inputs.targetPath")?.value,
+    ).toContain("note.md");
   });
 
-  it("UI02 — pre continuity failure → no premature action", () => {
-    const view = presentPilotExecution({
-      continuityProjection: { ok: true, projection: baseProjection() },
-      preExecutionContinuity: {
-        ok: false,
-        code: "MATERIALITY_CURRENTNESS_STALE",
-        message: "stale",
-      },
+  it("INS02 — missing required fact → not attestable", () => {
+    const result = buildInspectionFactRowsFromDisclosure({
+      disclosure: baseDisclosure({ targetPath: null }),
+      requiredInspectedFacts: ["action", "inputs.targetPath"],
     });
-    expect(view.cta.kind).toBe("none");
-    expect(view.attentionNote).toMatch(/refusée|MATERIALITY_CURRENTNESS_STALE/);
+    expect(result.missingRequired).toContain("inputs.targetPath");
+    expect(result.presentedFactIds).not.toContain("inputs.targetPath");
   });
 
-  it("UI03 — kind=none → no premature action", () => {
-    const view = presentPilotExecution({
-      continuityProjection: { ok: true, projection: baseProjection() },
-      preExecutionContinuity: { ok: true, kind: "none" },
-    });
-    expect(view.cta.kind).toBe("none");
-  });
-
-  it("UI04 — active + inspection insufficient → Inspect, not Confirm enabled", () => {
-    const view = presentPilotExecution({
-      continuityProjection: { ok: true, projection: baseProjection() },
-      preExecutionContinuity: activePre({
-        status: "confirmation_required",
-        inspectionSufficient: false,
+  it("INS04–INS07 — mission facts only when present in disclosure", () => {
+    const withMission = buildInspectionFactRowsFromDisclosure({
+      disclosure: baseDisclosure({
+        sourceGrounding: {
+          version: 1,
+          honesty: "READ_GROUNDED",
+          repositoryIdentity: "acme/demo",
+          repositoryHeadSha: "abc123",
+          cycleInstanceId: "cyc:1",
+          declaredRepositorySources: ["projects/demo/a.md"],
+          readRefs: [],
+          unreadRequiredSources: [],
+          searchIsNotRead: true,
+          reconstructibleFrom: "durable_cycle_read_coverage",
+        },
+        acceptanceCriteria: [
+          {
+            criterionId: "c1",
+            statement: "Artifact at path",
+            kind: "artifact_at_path",
+            expectedOutputRef: null,
+            targetPath: "projects/demo/note.md",
+          },
+        ],
+        validationPlan: ["run checks"],
+        reportRequirements: ["summary"],
       }),
+      requiredInspectedFacts: [
+        "action",
+        "inputs.sourceGrounding",
+        "inputs.acceptanceCriteria",
+        "inputs.validationPlan",
+        "inputs.reportRequirements",
+      ],
     });
-    expect(view.cta.kind).toBe("inspect");
-    expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
+    expect(withMission.missingRequired).toEqual([]);
+    expect(withMission.presentedFactIds).toEqual(
+      expect.arrayContaining([
+        "inputs.sourceGrounding",
+        "inputs.acceptanceCriteria",
+        "inputs.validationPlan",
+        "inputs.reportRequirements",
+      ]),
+    );
+
+    const without = buildInspectionFactRowsFromDisclosure({
+      disclosure: baseDisclosure(),
+      requiredInspectedFacts: ["action", "inputs.sourceGrounding"],
+    });
+    expect(without.missingRequired).toContain("inputs.sourceGrounding");
   });
 
-  it("UI05 — active + inspection sufficient → Confirm enabled", () => {
-    const view = presentPilotExecution({
-      continuityProjection: { ok: true, projection: baseProjection() },
-      preExecutionContinuity: activePre({
-        status: "confirmation_required",
-        inspectionSufficient: true,
-      }),
+  it("INS20 — presented IDs equal rendered rows (no parallel invent)", () => {
+    const required = ["action", "scope", "inputs.targetPath"];
+    const result = buildInspectionFactRowsFromDisclosure({
+      disclosure: baseDisclosure(),
+      requiredInspectedFacts: required,
     });
-    expect(view.cta.kind).toBe("confirm");
-    expect(view.cta.kind === "confirm" && view.cta.enabled).toBe(true);
-  });
-
-  it("UI06 — fingerprint drift → reinspect, Confirm not enabled", () => {
-    const view = presentPilotExecution({
-      continuityProjection: { ok: true, projection: baseProjection() },
-      preExecutionContinuity: activePre({
-        status: "confirmation_required",
-        inspectionSufficient: true,
-        fingerprint: "fp-new",
-        inspectionFingerprint: "fp-old",
-        reinspectionRequired: true,
-      }),
-    });
-    expect(view.cta.kind).toBe("inspect");
-    expect(view.attentionNote).toMatch(/empreinte|réinspection/i);
-  });
-
-  it("UI09 — confirmed ≠ authorized execute without inspection", () => {
-    const view = presentPilotExecution({
-      continuityProjection: {
-        ok: true,
-        projection: baseProjection({
-          executionContractStatus: "confirmed",
-        }),
-      },
-      preExecutionContinuity: activePre({
-        status: "confirmed",
-        inspectionSufficient: false,
-      }),
-    });
-    expect(view.cta.kind).toBe("inspect");
-    expect(view.cta.kind === "execute").toBe(false);
-  });
-
-  it("UI10 — terminal stage → no Confirm/Execute", () => {
-    const view = presentPilotExecution({
-      continuityProjection: {
-        ok: true,
-        projection: baseProjection({
-          stage: "POST_EVIDENCE_COMPLETE",
-          attemptId: "att:1",
-          attemptStatus: "succeeded",
-          evidenceId: "ev:1",
-          postEvidencePresent: true,
-          productOutcome: "PASS",
-        }),
-      },
-      preExecutionContinuity: { ok: true, kind: "none" },
-    });
-    expect(view.status).toBe("terminee");
-    expect(view.cta.kind).not.toBe("confirm");
-    expect(view.cta.kind).not.toBe("execute");
-    expect(view.cta.kind).not.toBe("inspect");
-  });
-
-  it("R3 C4/C7 — lifecycle unavailable never claims À jour", () => {
-    const cur = presentCurrentness({
-      transcriptAvailability: "available",
-      stateVersion: 3,
-      updatedAt: "2026-10-17T10:00:00.000Z",
-      lifecycleProjectionAvailability: "unavailable",
-    });
-    expect(cur.label).not.toBe("À jour");
-    expect(cur.tone).toBe("warn");
-  });
-
-  it("R3 C3 pending — not presented as À jour", () => {
-    const cur = presentCurrentness({
-      transcriptAvailability: "available",
-      stateVersion: 3,
-      lifecycleProjectionAvailability: "pending",
-    });
-    expect(cur.label).toBe("Lecture en cours");
+    expect(result.rows.map((r) => r.factId)).toEqual(result.presentedFactIds);
+    expect(result.presentedFactIds.every((id) => required.includes(id))).toBe(
+      true,
+    );
   });
 });
 ```
 
-## 13. Régularisation handoff parent — mocks UI Delivery (manquaient dans 02c50190)
+### Nouveau test — `p6.r03.inspectionContinuityAttestation.d0.test.ts`
 
-Diffs vs HEAD des patches UI mock lifecycle projection (Delivery A+B / tests associés) :
+```typescript
+/**
+ * STUDIO-P6-EXECUTION-INSPECTION-CLOSURE-03
+ * Durable contract → W2 requiredInspectedFacts → inspect → confirm refuse/pass.
+ *
+ * Deterministic — ZERO Cursor REAL — ZERO HQA mutation.
+ *
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import { prepareGenericExecutionContractDraft } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import { buildInspectionFactRowsFromDisclosure } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
+import {
+  LOCAL_PILOTE_ACTOR,
+  registerLocalPiloteAuthority,
+} from "@/lib/oa/decision";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "./w2Harness";
+import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
-index 9d20de26..5fce798b 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/automaticProjectResume.ui.test.tsx
-@@ -69,7 +69,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
-     messages: [],
-     journal: { cycleInstanceId: null, entries: [] },
-   })),
--  projectAssistantPilotLifecycleProjection: vi.fn(),
-+  projectAssistantPilotLifecycleProjection: vi.fn().mockResolvedValue({
-+    ok: true,
-+    projection: null,
-+  }),
-   projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
-     ok: true,
-     cycleTypeId: null,
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
-index bc8d2b53..7e6ff8b6 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s01.workspaceLayout.ui.test.tsx
-@@ -101,7 +101,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
-   }),
-   projectAssistantConfirmReservationResolutionAction: vi.fn(),
-   projectAssistantDeferReservationAction: vi.fn(),
--  projectAssistantPilotLifecycleProjection: vi.fn(),
-+  projectAssistantPilotLifecycleProjection: vi.fn().mockResolvedValue({
-+    ok: true,
-+    projection: null,
-+  }),
-   projectAssistantPilotLifecycleAction: vi.fn(),
-   projectAssistantRecordObligationPolicyAction: vi.fn(),
-   projectAssistantCompleteTrajectoryStepAction: vi.fn(),
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx
-index ebb52c07..7cb88470 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.objectNativeViews.ui.test.tsx
-@@ -69,7 +69,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
-   }),
-   projectAssistantConfirmReservationResolutionAction: vi.fn(),
-   projectAssistantDeferReservationAction: vi.fn(),
--  projectAssistantPilotLifecycleProjection: vi.fn(),
-+  projectAssistantPilotLifecycleProjection: vi.fn().mockResolvedValue({
-+    ok: true,
-+    projection: null,
-+  }),
-   projectAssistantPilotLifecycleAction: vi.fn(),
-   projectAssistantRecordObligationPolicyAction: vi.fn(),
-   projectAssistantCompleteTrajectoryStepAction: vi.fn(),
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
-index 6fe8d0ad..aca5c02b 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s04.synthesesSurface.ui.test.tsx
-@@ -116,7 +116,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
-   }),
-   projectAssistantConfirmReservationResolutionAction: vi.fn(),
-   projectAssistantDeferReservationAction: vi.fn(),
--  projectAssistantPilotLifecycleProjection: vi.fn(),
-+  projectAssistantPilotLifecycleProjection: vi.fn().mockResolvedValue({
-+    ok: true,
-+    projection: null,
-+  }),
-   projectAssistantPilotLifecycleAction: vi.fn(),
-   projectAssistantRecordObligationPolicyAction: vi.fn(),
-   projectAssistantCompleteTrajectoryStepAction: vi.fn(),
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalPrincipalView.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalPrincipalView.ui.test.tsx
-index 0ae1ef17..3730d256 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalPrincipalView.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s07.journalPrincipalView.ui.test.tsx
-@@ -71,7 +71,10 @@ vi.mock("@/features/project-assistant/actions", () => ({
-   }),
-   projectAssistantConfirmReservationResolutionAction: vi.fn(),
-   projectAssistantDeferReservationAction: vi.fn(),
--  projectAssistantPilotLifecycleProjection: vi.fn(),
-+  projectAssistantPilotLifecycleProjection: vi.fn().mockResolvedValue({
-+    ok: true,
-+    projection: null,
-+  }),
-   projectAssistantPilotLifecycleAction: vi.fn(),
-   projectAssistantRecordObligationPolicyAction: vi.fn(),
-   projectAssistantCompleteTrajectoryStepAction: vi.fn(),
+function restoreEnvVar(name: string, previous: string | undefined): void {
+  if (previous === undefined) delete process.env[name];
+  else process.env[name] = previous;
+}
+
+function baseAnalysis(
+  overrides: Partial<IntentAnalysisDto> = {},
+): IntentAnalysisDto {
+  return {
+    parseOk: true,
+    intentClass: "actionable",
+    candidateCycleTypeId: "cyc:delivery",
+    signals: {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+      lowRiskBounded: true,
+    },
+    cognitiveWorkload: null,
+    contradictionCandidate: null,
+    challengeResponseAssessment: "sufficient",
+    objective: "Corriger la fonctionnalité de filtrage",
+    scope: "projects/demo/app/filter.ts",
+    rephrasedRequest: "Corriger le bug de filtrage signalé",
+    outOfScope: ["refonte UI", "migration DB"],
+    risks: [],
+    reservations: [],
+    stopConditions: ["AUCUNE EXÉCUTION SANS AUTORISATION"],
+    activatedBlocks: [],
+    expectedOutcome: "Filtrage corrigé avec tests verts",
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: {
+      intentKind: "other",
+      scopeIn: ["projects/demo/app/filter.ts"],
+      scopeOut: ["refonte UI"],
+    } as IntentAnalysisDto["executionIntent"],
+    ...overrides,
+  };
+}
+
+describe("P6 R03 — inspection continuity attestation", () => {
+  let runtime: RuntimeApplicationService;
+  let dbPath: string;
+  let previousProvider: string | undefined;
+  let previousMorrisAuthority: string | undefined;
+
+  beforeEach(() => {
+    previousProvider = process.env.OPS1_CONVERSATION_PROVIDER;
+    previousMorrisAuthority = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    setConversationProviderForTests(null);
+    resetF2ProposalStoreForTests();
+    resetPendingGenericPrepareOfferStoreForTests();
+    dbPath = tempProductDbPath("p6-r03-insp.sqlite");
+    runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "r03i" });
+  });
+
+  afterEach(() => {
+    resetF2ProposalStoreForTests();
+    resetPendingGenericPrepareOfferStoreForTests();
+    setConversationProviderForTests(null);
+    cleanupW2TempDirs();
+    restoreEnvVar("OPS1_CONVERSATION_PROVIDER", previousProvider);
+    restoreEnvVar(
+      "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY",
+      previousMorrisAuthority,
+    );
+  });
+
+  async function seedActiveCycle(suffix: string): Promise<{
+    projectId: string;
+    cycleInstanceId: string;
+  }> {
+    const oa = runtime.oa!;
+    const created = await runtime.createProject({
+      name: `R03 Insp ${suffix}`,
+      objective: "Inspection disclosure closure",
+      context: "active cycle + generic prepare",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL"],
+      shortReference: `R03${suffix.toUpperCase().slice(0, 5)}`,
+      idempotencyKey: `idem:r03i-${suffix}`,
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) throw new Error("createProject");
+    const projectId = created.project.projectId;
+
+    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps0.ok) throw new Error("lps0");
+
+    await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [
+        { stepId: "stp:a", order: 1, label: "Clarify", state: "done" },
+        { stepId: "stp:b", order: 2, label: "Deliver", state: "done" },
+      ],
+      status: "active",
+      expectedLpsVersion: lps0.livingProjectState.version,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+
+    const cycleInstanceId = `cyc:r03i-${suffix}`;
+    await oa.cycleServices.createCycle.execute({
+      cycleInstanceId,
+      cycleTypeId: "cyc:delivery",
+      projectId,
+      signals: { lowRiskBounded: true },
+      createdBy: {
+        actorId: "actor:nora-f2",
+        role: "agent",
+        displayName: "Nora F2",
+        authorityLevel: "N1",
+      },
+      linkAsActiveCycle: false,
+    });
+
+    const auth = registerLocalPiloteAuthority({
+      authorityResolver: oa.authorityResolver,
+      scope: `pilot-lifecycle:${cycleInstanceId}`,
+      issuedAt: "2026-10-15T08:00:00.000Z",
+      forceEnable: true,
+    });
+    expect(auth.ok).toBe(true);
+    if (!auth.ok) throw new Error("auth");
+
+    const lps1 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps1.ok) throw new Error("lps1");
+
+    await oa.cycleServices.pilotLifecycle.start({
+      cycleInstanceId,
+      projectId,
+      createdBy: {
+        actorId: LOCAL_PILOTE_ACTOR.actorId,
+        role: LOCAL_PILOTE_ACTOR.role,
+        displayName: LOCAL_PILOTE_ACTOR.displayName,
+        authorityLevel: LOCAL_PILOTE_ACTOR.authorityLevel,
+      },
+      authorityEvidenceId: auth.evidenceId,
+      expectedLpsVersion: lps1.livingProjectState.version,
+    });
+
+    if (oa.projectServices.setProjectRepositoryBinding) {
+      const identity = `acme/r03i-${suffix}`;
+      await oa.projectServices.setProjectRepositoryBinding.execute({
+        projectId,
+        actor: LOCAL_PILOTE_ACTOR,
+        binding: {
+          provider: "github",
+          identity,
+          remoteUrl: `https://github.com/${identity}.git`,
+          defaultBranch: "main",
+          pathRoot: "projects/demo",
+        },
+      });
+      ensureManagedRepoCloneSkeleton({
+        managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+        identity,
+      });
+    }
+
+    return { projectId, cycleInstanceId };
+  }
+
+  it("INS09/INS13/INS16/INS18 — G-D4 required facts from W2; confirm refuses before attest; inspect writes only on attest", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("a");
+    const oa = runtime.oa!;
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId,
+      analysis: baseAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+
+    const beforeHd = await oa.decisionServices.decisions.listByProject(projectId);
+    const inspBefore =
+      await oa.executionContractServices.inspectionAttestations.listByContract(
+        prep.contract.executionContractId,
+      );
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(true);
+    if (!continuity.ok || continuity.kind !== "active") {
+      throw new Error("expected active");
+    }
+    expect(continuity.decisionRef).toBeNull();
+    expect(continuity.requiredInspectedFacts).not.toBeNull();
+    expect(continuity.requiredInspectedFacts!.length).toBeGreaterThan(0);
+    expect(continuity.inspection.inspectionSufficient).toBe(false);
+
+    // Opening a view = presentation only (no write) — simulated by row build.
+    const rows = buildInspectionFactRowsFromDisclosure({
+      disclosure: continuity.contract.inspectionDisclosure,
+      requiredInspectedFacts: continuity.requiredInspectedFacts!,
+    });
+    expect(rows.missingRequired).toEqual([]);
+    const inspMid =
+      await oa.executionContractServices.inspectionAttestations.listByContract(
+        prep.contract.executionContractId,
+      );
+    expect(inspMid.length).toBe(inspBefore.length);
+
+    const refused = await confirmExecutionContractForAuthorization({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(refused.ok).toBe(false);
+
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      inspectedFacts: rows.presentedFactIds,
+    });
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) throw new Error(inspected.message);
+    expect(inspected.inspectionSufficient).toBe(true);
+
+    const inspAfter =
+      await oa.executionContractServices.inspectionAttestations.listByContract(
+        prep.contract.executionContractId,
+      );
+    expect(inspAfter.length).toBe(inspBefore.length + 1);
+    expect([...inspAfter[inspAfter.length - 1]!.inspectedFacts]).toEqual(
+      [...rows.presentedFactIds],
+    );
+
+    const afterHd = await oa.decisionServices.decisions.listByProject(projectId);
+    expect(afterHd.length).toBe(beforeHd.length);
+    const attempts = await oa.executionAttemptServices!.listExecutionAttempts.execute(
+      { executionContractId: prep.contract.executionContractId },
+    );
+    expect(attempts.ok).toBe(true);
+    if (attempts.ok) expect(attempts.attempts).toEqual([]);
+  });
+
+  it("INS10 — incomplete attested facts → inspectionSufficient false", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("b");
+    const oa = runtime.oa!;
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId,
+      analysis: baseAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    if (!continuity.ok || continuity.kind !== "active") {
+      throw new Error("expected active");
+    }
+    expect(continuity.requiredInspectedFacts).not.toBeNull();
+
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      inspectedFacts: ["action", "scope"],
+    });
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) throw new Error(inspected.message);
+    expect(inspected.inspectionSufficient).toBe(false);
+
+    const after = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok || after.kind !== "active") throw new Error("expected active");
+    expect(after.inspection.inspectionSufficient).toBe(false);
+  });
+});
 ```
 
-## 14. Absence d’effets interdits
+### Nouveau test — `p6.r03.contextFreshness.ui.test.tsx`
 
-- Aucun commit/push/PR Product
-- Aucune mutation HQA
-- Aucun Cursor REAL
-- Aucune HumanDecision / ExecutionAttempt artificielle introduite par Pass 02
-- Aucune exécution Confirm/Execute Product runtime
+```typescript
+/** @vitest-environment jsdom */
+/**
+ * STUDIO-P6-EXECUTION-INSPECTION-CLOSURE-03 — R3 CTX async freshness.
+ */
+import { cleanup, render, screen, waitFor, act } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { ProjectWorkspacePage } from "@/features/pre-m6-product-ui/ProjectWorkspacePage";
 
----
+const {
+  getProjectRuntimeActionMock,
+  useProductConversationMock,
+  lifecycleProjectionMock,
+} = vi.hoisted(() => ({
+  getProjectRuntimeActionMock: vi.fn(),
+  useProductConversationMock: vi.fn(),
+  lifecycleProjectionMock: vi.fn(),
+}));
 
-## 15. Verdict
+vi.mock("@/lib/vertical-slice-runtime/actions", () => ({
+  getProjectRuntimeAction: (...args: unknown[]) =>
+    getProjectRuntimeActionMock(...args),
+  setProjectRepositoryBindingAction: vi.fn(),
+}));
 
-**REGULARIZATION COMPLETE — DETERMINISTIC PASS — VISUAL NOT PROVEN — READY FOR CHATGPT REVIEW**
+vi.mock("@/features/pre-m6-product-ui/hooks/useProductConversation", () => ({
+  useProductConversation: (...args: unknown[]) =>
+    useProductConversationMock(...args),
+}));
 
-INSTRUCTION CHATGPT : lire ce handoff au SHA distant vérifié après publication L3.
+vi.mock("@/features/project-assistant/synthesisActions", () => ({
+  getLatestRelevantProductSynthesisAction: vi.fn(async () => ({
+    ok: true,
+    synthesis: null,
+    count: 0,
+  })),
+  listProductSynthesesAction: vi.fn(async () => ({ ok: true, items: [] })),
+  getProductSynthesisAction: vi.fn(),
+  searchProductSynthesesAction: vi.fn(async () => ({ ok: true, items: [] })),
+  materializeProductSynthesisFromLineageAction: vi.fn(),
+}));
+
+vi.mock("@/features/project-assistant/w2/actions", () => ({
+  w2DeriveGovernedExecutionContinuityAction: vi.fn().mockResolvedValue({
+    ok: true,
+    projection: {
+      projectId: "prj:ctx",
+      activeCycleInstanceId: null,
+      executionContractId: null,
+      executionContractVersion: null,
+      executionContractStatus: null,
+      attemptId: null,
+      attemptStatus: null,
+      stage: "PRE_EXECUTION",
+      productOutcome: null,
+      evidenceId: null,
+      reviewBundleId: null,
+      claimEvaluationId: null,
+      claimEvaluationStatus: null,
+      postEvidencePresent: false,
+      nextDeterministicAction: "NONE",
+      humanDecisionRequired: false,
+      recoveryRequired: false,
+      reason: null,
+      blockingCode: null,
+      context: null,
+    },
+  }),
+  w2ReadCurrentGovernedExecutionContinuityAction: vi
+    .fn()
+    .mockResolvedValue({ ok: true, kind: "none" }),
+  w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
+    ok: true,
+    history: {
+      projectId: "prj:ctx",
+      cycle: {
+        activeCycleInstanceId: null,
+        cycleTypeId: null,
+        profile: null,
+        status: null,
+      },
+      trajectory: { versions: [] },
+      decisions: [],
+      contracts: [],
+      absent: [],
+    },
+  }),
+}));
+
+vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
+  projectAssistantActiveCycleWorkspaceAction: vi.fn().mockResolvedValue({
+    ok: true,
+    cycleTypeId: null,
+    repositoryWorkspaceSegment: null,
+  }),
+  projectAssistantConfirmReservationResolutionAction: vi.fn(),
+  projectAssistantDeferReservationAction: vi.fn(),
+  projectAssistantPilotLifecycleProjection: (...args: unknown[]) =>
+    lifecycleProjectionMock(...args),
+  projectAssistantPilotLifecycleAction: vi.fn(),
+  projectAssistantRecordObligationPolicyAction: vi.fn(),
+  projectAssistantCompleteTrajectoryStepAction: vi.fn(),
+  projectAssistantResolveBlockingReservationAction: vi.fn(),
+  projectAssistantRehydrateEvidenceOutcomeAction: vi.fn().mockResolvedValue({
+    ok: false,
+  }),
+}));
+
+vi.mock("@/features/pre-m6-product-ui/surfaces/LifecycleSurface", () => ({
+  LifecycleSurface: () => <div data-testid="lifecycle-stub" />,
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/TrajectorySurface", () => ({
+  TrajectorySurface: () => <div data-testid="trajectory-stub" />,
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/HistorySurface", () => ({
+  HistorySurface: () => <div data-testid="history-stub" />,
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/JournalSurface", () => ({
+  JournalSurface: () => <div data-testid="cycle-journal-rail" />,
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/LpsSurface", () => ({
+  LpsSurface: () => <div data-testid="lps-stub" />,
+  lpsNextAction: () => null,
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/RecoverySurface", () => ({
+  RecoverySurface: () => null,
+}));
+vi.mock(
+  "@/features/pre-m6-product-ui/surfaces/ProjectWorkspaceRoutingPanel",
+  () => ({
+    ProjectWorkspaceRoutingPanelLazy: () => null,
+  }),
+);
+vi.mock("@/features/pre-m6-product-ui/ProductRailRecents", () => ({
+  ProductRailRecents: () => (
+    <div data-testid="studio-rail-recents-stub">Projets récents</div>
+  ),
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/ConversationSurface", () => ({
+  ConversationSurface: () => (
+    <div data-testid="project-assistant-panel">Conversation</div>
+  ),
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/ExecutionSurface", () => ({
+  ExecutionSurface: () => <div data-testid="execution-stub" />,
+}));
+vi.mock("@/features/pre-m6-product-ui/surfaces/SynthesesSurface", () => ({
+  SynthesesSurface: () => <div data-testid="syntheses-stub" />,
+}));
+
+function deferred<T>() {
+  let resolve!: (v: T) => void;
+  let reject!: (e: unknown) => void;
+  const promise = new Promise<T>((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  return { promise, resolve, reject };
+}
+
+function minimalLifecycleProjection(activeCycleInstanceId: string | null) {
+  return {
+    activeCycleInstanceId,
+    selectedCycleInstanceId: activeCycleInstanceId,
+    activeCycle: activeCycleInstanceId
+      ? {
+          cycleInstanceId: activeCycleInstanceId,
+          createdAt: "2026-10-01T00:00:00.000Z",
+          status: "active",
+        }
+      : null,
+    pausedCycles: [] as const,
+    terminalCycles: [] as const,
+    candidateCycles: [] as const,
+    cycleReservations: [] as const,
+    cycleWorkRecommendations: [] as const,
+    cycleDecisions: [] as const,
+    reservationSummary: { activeCount: 0 },
+  };
+}
+
+function runtimeFor(projectId: string) {
+  return {
+    ok: true as const,
+    project: {
+      projectId,
+      name: `Project ${projectId}`,
+      shortReference: "P3",
+      objective: "ctx freshness",
+      contextSummary: "ctx",
+      criticality: "STANDARD",
+      constraints: [],
+      localMode: true,
+      source: "REAL_LOCAL_CORE",
+      fixture: false,
+      projectWorkspaceKey: null,
+      repositoryBinding: null,
+    },
+    livingState: {
+      id: `lps:${projectId}`,
+      version: 3,
+      createdAt: "2026-10-05T00:00:00.000Z",
+      activeCycleInstanceId: null,
+    },
+    doctrine: { id: "d", version: "1", digest: "x", status: "RESOLVED" },
+    readiness: {
+      status: "NOT_READY",
+      hard: "OPEN",
+      tA6: "INCOMPLETE",
+      iam: "NOT_SELECTED",
+      productPersistence: "SQLITE_OA_PRODUCT_STORE",
+      realAgentExecution: "DISABLED",
+      delivery: "NOT_AUTHORIZED",
+      cutover: "NOT_AUTHORIZED",
+      runReady: false,
+      productReady: false,
+    },
+    disclosures: {},
+  };
+}
+
+describe("P6 R03 — context freshness async", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+    getProjectRuntimeActionMock.mockImplementation(async (id: string) =>
+      runtimeFor(id),
+    );
+    useProductConversationMock.mockReturnValue({
+      listRef: { current: null },
+      messages: [],
+      draft: "",
+      setDraft: vi.fn(),
+      toolEvents: [],
+      busy: false,
+      error: null,
+      send: vi.fn(),
+      stop: vi.fn(),
+      transcriptAvailability: "available",
+      journalEntries: [],
+      activeProposal: null,
+      decisionSubjectContinuity: null,
+      governedExecutionContinuity: null,
+      refreshConversationContinuity: vi.fn(),
+      armReservationInteractionContext: vi.fn(),
+      clearReservationResolutionProposal: vi.fn(),
+      setActiveView: vi.fn(),
+    });
+  });
+
+  it("CTX05 — pending load never shows À jour prematurely", async () => {
+    const d = deferred<{ ok: true; projection: { activeCycleInstanceId: string } }>();
+    lifecycleProjectionMock.mockReturnValue(d.promise);
+
+    render(
+      <ProjectWorkspacePage projectId="prj:ctx-a" onProjectName={vi.fn()} />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("project-currentness-chip").textContent).toMatch(
+        /Lecture en cours/,
+      );
+    });
+    expect(screen.getByTestId("project-currentness-chip").textContent).not.toBe(
+      "À jour",
+    );
+
+    await act(async () => {
+      d.resolve({
+        ok: true,
+        projection: minimalLifecycleProjection("cyc:1") as never,
+      });
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId("project-currentness-chip").textContent).toBe(
+        "À jour",
+      );
+    });
+  });
+
+  it("CTX01 — stale resolve for previous project is ignored", async () => {
+    const first = deferred<{
+      ok: true;
+      projection: ReturnType<typeof minimalLifecycleProjection>;
+    }>();
+    const second = deferred<{
+      ok: true;
+      projection: ReturnType<typeof minimalLifecycleProjection>;
+    }>();
+
+    lifecycleProjectionMock.mockImplementation(
+      ({ projectId }: { projectId: string }) => {
+        if (projectId === "prj:ctx-old") return first.promise;
+        return second.promise;
+      },
+    );
+
+    const { rerender } = render(
+      <ProjectWorkspacePage projectId="prj:ctx-old" onProjectName={vi.fn()} />,
+    );
+
+    rerender(
+      <ProjectWorkspacePage projectId="prj:ctx-new" onProjectName={vi.fn()} />,
+    );
+
+    await act(async () => {
+      second.resolve({
+        ok: true,
+        projection: minimalLifecycleProjection("cyc:new"),
+      });
+    });
+
+    await act(async () => {
+      first.resolve({
+        ok: true,
+        projection: minimalLifecycleProjection("cyc:old"),
+      });
+    });
+
+    await waitFor(() => {
+      expect(lifecycleProjectionMock).toHaveBeenCalledWith(
+        expect.objectContaining({ projectId: "prj:ctx-new" }),
+      );
+    });
+    await waitFor(() => {
+      expect(screen.getByTestId("project-currentness-chip").textContent).toBe(
+        "À jour",
+      );
+    });
+  });
+
+  it("CTX02/CTX06 — failed refresh marks unavailable (not À jour)", async () => {
+    lifecycleProjectionMock.mockResolvedValue({
+      ok: false,
+      code: "UNAVAILABLE",
+      message: "fail",
+    });
+
+    render(
+      <ProjectWorkspacePage projectId="prj:ctx-fail" onProjectName={vi.fn()} />,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByTestId("project-currentness-chip").textContent).toMatch(
+        /À vérifier/,
+      );
+    });
+    expect(screen.getByTestId("project-currentness-chip").textContent).not.toBe(
+      "À jour",
+    );
+  });
+});
+```
+
+## 8. Verdict
+
+**INSPECTION CLOSURE COMPLETE — DETERMINISTIC PASS — VISUAL NOT PROVEN — READY FOR CHATGPT REVIEW**
+
+ExecutionSurface : attestation = faits rendus depuis disclosure canonique.
+Conversation/Trajectory : gap explicite — décision Morris requise pour closure globale.
