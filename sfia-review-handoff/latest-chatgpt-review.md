@@ -1,123 +1,125 @@
-# ChatGPT Review Pack FULL — P6 Living Reference Semantic Amendments R1–R4
+# ChatGPT Review Pack FULL — P6 Living Reference Final Semantic Corrections S1 / S2
 
 ## 1. Horodatage
-- UTC: `2026-10-17T14:50:39Z`
-- Local: `2026-10-17 16:50 CEST`
-- Cycle: `STUDIO-P6-GENERIC-EXECUTION-LIVING-REFERENCE-AMENDMENTS-01`
-- Type: 8 — Delivery / implémentation documentaire ciblée
-- Profil SFIA: Critical
+- UTC: `2026-10-17T15:07:59Z`
+- Local: `2026-10-17 17:07 CEST`
+- Cycle: `STUDIO-P6-GENERIC-EXECUTION-LIVING-REFERENCE-SEMANTIC-CLOSURE-02`
+- Parent: `STUDIO-P6-GENERIC-EXECUTION-LIVING-REFERENCE-AMENDMENTS-01`
+- Parent handoff: `3c1b5c83ad76a37bf912f24f3d1ded8fda34ade8` (blob `c2243b81871e463b16adb85e50c9ba0bdbe958c3`) — verified local/remote
+- Type: 8 — Delivery / implémentation documentaire
+- Profil: Critical
 
-## 2. Git Truth initial / final
+## 2. Repo / branche / HEAD / base
+- Repo: `mcleland147/sfia-workspace`
+- Integration: `/Users/morris/Projects/sfia-workspace-p6-generic-execution-integration-consolidation` · `integration/sfia-studio-p6-generic-execution-consolidation` · HEAD `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
+- `origin/main`: `896ff59c704bfa76df1da1a51705aaf948c1cf0c` / remote `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
+- Source: `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016` · `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` · `b4c1d86211d372f7b0685be7ce8a5ba7de598e37`
+- Parent review-handoff tip (pre-publish): `3c1b5c83ad76a37bf912f24f3d1ded8fda34ade8`
 
-### Integration worktree
-- Path: `/Users/morris/Projects/sfia-workspace-p6-generic-execution-integration-consolidation`
-- Branch: `integration/sfia-studio-p6-generic-execution-consolidation`
-- HEAD: `896ff59c704bfa76df1da1a51705aaf948c1cf0c` (expected `896ff59c704bfa76df1da1a51705aaf948c1cf0c`)
-- `origin/main` / remote main: `896ff59c704bfa76df1da1a51705aaf948c1cf0c` / `896ff59c704bfa76df1da1a51705aaf948c1cf0c`
+## 3. Git Truth initial / final
 
-### Source worktree (preserved)
-- Path: `/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016`
-- Branch: `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare`
-- HEAD: `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` (expected `b4c1d86211d372f7b0685be7ce8a5ba7de598e37`)
-- Porcelain Product: 78 paths (unchanged this cycle)
+### Initial
+- HEAD / main match expected `896ff59c`
+- Parent handoff SHA/blob match expected
+- Staged Product: empty
+- Product freeze baseline: 78/78 match prior R1R4 freeze
+- Docs baseline digests (pre-S1S2): 03=`854b94741d7412ec` 04=`7a1689f3b1cb3e9e` 06=`179057f68b7a363d` 07=`6a648b21c7445423`
+- Frozen keep: 02/08/09/manifest/README unchanged this cycle
 
-### Dirty freeze (78 Product + allowlist)
-- Freeze file: `.tmp-sfia-review/r1r4-dirty-freeze.json` (count=78)
-- Post-amendment verification: **78/78 freeze hashes MATCH** in integration worktree
-- Allowlist `importBoundaries.test.ts` freeze match: **YES**
-- Extra Product app paths: **NONE**
-- Staged Product: **EMPTY**
-- Manifest / README: **UNCHANGED** (git diff empty)
+### Final
+- Product 78/78 freeze MATCH (unchanged)
+- Modified only vols 03/04/06/07
+- Vols 02/08/09 + README + manifest KEEP OK
+- Source worktree HEAD + 78 porcelain preserved
+- Staged Product empty
+- No Product commit/push
 
-### Final dirty composition
-- 78 Product candidates (frozen hashes)
-- 7 Living Reference volumes amended (R1–R4)
-- Manifest frozen; digests NOT written
+## 4. Décision Morris consommée
+**GO P6 LIVING REFERENCE — FINAL SEMANTIC CORRECTIONS S1–S2.**
 
-Parent handoff: `eae8dbe20a1309a884338a87f6a00d38dfafb944`
+Authorized: documentary S1/S2 on vols 03/04/06/07 only; Review Pack FULL; L3 handoff.
+Not done: Product code/tests; digests; manifest; R1/R4 reopen; HQA; REAL; Product git.
 
-## 3. Sources
-- Convergence Build Doctrine / Roadmap / product-completion cadrage / P6 QA / sfia-v3-framing (read)
-- Cycle 8 CKC synthetic map (read)
-- Living Reference README + manifest (read; FROZEN)
-- Volumes 01–09 (02/03/04/06/07/08/09 amended)
-- Parent handoff `eae8dbe2` R1–R4 proposal + ChatGPT amendment contract
-- Product candidate paths for verification (read-only; not modified)
+## 5. Sources canoniques
+- Convergence Build Doctrine / Roadmap / product-completion / P6 QA / sfia-v3-framing (read)
+- Cycle 8 CKC synthetic (read)
+- Living Reference README + manifest (FROZEN)
+- Volumes 02–09 (03/04/06/07 amended; 02/08/09 frozen this cycle)
+- Parent handoff `3c1b5c83` (R1–R4)
+- M-HD-01 handoff / HD11: `p6.mHd01.genericMissionHumanDecision.d0.test.ts` HD11 + `verifyGenericMissionHumanDecisionForPrepare.ts` (`HD_REFUSED`, `HD_AMEND_REQUIRES_NEW_PRESENTATION`)
+- Historical M-HD tip reference `86ad2dab` (HD11 scenario)
 
-## 4. Convergence Pre-check
-- Capacity: V3-F05 Conversation → décision → exécution
-- Deps: V3-F02 / F06 / F11 / F12 / F14 / F15
-- Milestone: P6 Global Integrated Product QA
-- State: G-IB **CLOSED**; G-DIGEST **PENDING SEMANTIC CONTENT REVIEW**; P6 PASS **not claimed**; runtime v3 **NON ADOPTED**
-- Assets: OA/W2/Nora/F2/Option1/Inspection unified **KEEP**; Living Reference **ADAPT**; Manifest **FREEZE**
-- Gap closed this cycle: documentary semantic misalignment R1–R4
-- Exit: content ready for ChatGPT review → digest GO distinct
-- Debt: documentary sync deferred until digest approval
+## 6. Convergence Pre-check
+- Capacity V3-F05; deps F02/F06/F11/F12/F14/F15; Milestone P6
+- G-IB CLOSED; R1/R4 ACCEPTED; R2/R3 S1–S2 addressed this cycle; G-DIGEST OPEN
+- P6 PASS NOT CLAIMED; runtime v3 NON ADOPTED
+- Assets KEEP; Living Reference ADAPT; Manifest FREEZE
+- Gap: two authority/restart documentary formulations
+- Exit: S1/S2 corrected → ChatGPT final content review → digest GO distinct
 
-## 5. GO Morris consommé
-**GO P6 LIVING REFERENCE — SEMANTIC AMENDMENTS R1–R4.**
+## 7. Cycle 8 / Critical
+CKC synthetic candidate. Semantic closure on authority + restart resume. Critical: incorrect HD/PREPARE wording could invent authority.
 
-Authorized: documentary R1–R4; targeted Living Reference volumes; reference/invariant checks; candidate-vs-doc control; non-destructive doc tests; Review Pack FULL; L3 handoff.
+## 8. Capacité / milestone
+V3-F05 / P6 Global Integrated Product QA — documentary gate only.
 
-**NOT authorized / NOT done:** Product code; OA/W2/Nora/Cursor; Product tests; digest promotion; manifest edit; architecture change; Product commit/push/PR/merge; HQA; Cursor REAL; runtime v3 adoption.
+## 9. Diagnostic S1
+**Problème:** vol 04 (and F08) presented Accept/Refuse/Amend as one chain into verify→PREPARE, implying Refuse/Amend could prepare.
+**Correction:** three explicit branches — Accept (only prepare path after verify), Refuse (`HD_REFUSED`), Amend (`HD_AMEND_REQUIRES_NEW_PRESENTATION`). Accept ≠ Execute.
+**Files:** 03 F08, 04 dual graph, 07 invariant `INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD`.
 
-## 6. Cycle 8 / Critical
-CKC synthetic candidate only. Documentary semantic regularization / integration readiness. Authority-boundary documentation risk justified Critical profile.
+## 10. Diagnostic S2
+**Problème:** vol 06 could be read as “offer lost ⇒ PREPARE impossible without new offer.”
+**Correction:** four situations A offer / B UI / C durable HD / D PREPARE resume. HD11 proves accepted HD + decisionId + analysis can PREPARE after offer clear + new runtime same SQLite. UI not auto-rehydrated. No global RESTART SAFE.
+**File:** 06 restart matrix + section.
 
-## 7. Matrice R1–R4
+## 11. Preuves OA / M-HD
+- `verifyGenericMissionHumanDecisionForPrepare.ts` — status gates: accepted only; refused→`HD_REFUSED`; amended→`HD_AMEND_REQUIRES_NEW_PRESENTATION`; superseded/revoked fail-closed
+- HD11 — `p6.mHd01.genericMissionHumanDecision.d0.test.ts` lines ~539–570: seal accept → `clearPendingGenericPrepareOffer` → `bootW2Runtime` same SQLite → `getHumanDecision` → `prepareGenericExecutionContractDraft` with `decisionId` → ok; `decisionRefs` bound
+- DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE; NOT UI E2E; NOT REAL/HQA
 
-| ID | Target | Action | Status |
+## 12. Matrice statut HumanDecision (S1)
+
+| Disposition | HD status (Product) | PREPARE structural | Code |
 |---|---|---|---|
-| R1 | vol 03 F04/F05/F08/F09/F10 | Reclassify flows; no F21; taxonomy kept | APPLIED |
-| R2 | vol 04 + 07 | Dual structural / non-structural admission; OA/W2/Nora/Cursor separations | APPLIED |
-| R3 | vol 06 | Process-local offer vs durable HD; restart fail-closed; supersession | APPLIED |
-| R4 | vol 08 (+02/09) | NO_RUNTIME_SEMANTIC_IMPACT vs TEST_ORACLE_SEMANTIC_CHANGE; two artifact tests | APPLIED |
+| Accept | `accepted` + verified applicable mission-bound non-superseded | Allowed iff all gates | verify + prepare |
+| Refuse | `refused` | Forbidden | `HD_REFUSED` |
+| Amend | `amended` | Forbidden until new accepted HD | `HD_AMEND_REQUIRES_NEW_PRESENTATION` |
+| Superseded / revoked / other | fail-closed | Forbidden | `HD_SUPERSEDED` / `HD_REVOKED` / `HD_REFUSED` |
 
-## 8. Flux F04 / F05 / F08 / F09 / F10 (sections complètes post-amendement)
+Accept alone ≠ Inspection ≠ Confirmation ≠ Authorization ≠ Execute.
 
-### F04
-```markdown
-## F04 — Nora conversation during active cycle
-- **Trigger:** Pilot message via product conversation
-- **Steps:** Pilot content → Product orchestration (`orchestrateTurn`) → `runNoraCognitiveTurn` (strategy + **adaptive maxTurns**) → Agents Runner (`runNoraAgentsTurn`) → optional **same-turn** RunState continuation under mission/campaign budget → result + Session append → Product status → (optional) prospective Active Cycle Work / Work Recommendation materialization → journal tools
-- **Nora Generic PREPARE solicitation (D-ER-16 / Option 2 — AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):** `orchestrateTurn` may expose Agents tool `request_generic_execution_prepare` wired to Product `solicitGenericExecutionPrepare`. Cognition may **solicit** PREPARE only. Tool params never create HumanDecision, never create ExecutionAttempt, never authorize or execute. Authority remains OA/W2 Product admission (F08). DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE via `p6.der16.genericNoraToolInvocation.d0.test.ts` (Fake).
-- **Paths:** `orchestrateTurn.ts`, `runNoraCognitiveTurn.ts`, Fake/OpenAI provider; Product UI `useProductConversation.ts` + `ConversationSurface` / `FramingContinuityCard`
-- **Nora autonomy (PR #577 INTEGRATED ON MAIN — DETERMINISTIC):** multi-segment documentary missions may continue via native RunState **inside the same Product turn** only; total budget remains bounded; `incomplete` is honest (no false mission success; no illegitimate durable LR/ACW); a **new** Pilot Product turn reuses Session history — it is **not** a RunState resume; cross-restart RunState **DEFER**. Proof is deterministic ScriptedModel/Fake only — not REAL documentary quality. Merge `d8ceb8ad`.
-- **Documentary cognitive reliability / RCD-01 (PR #578 INTEGRATED ON MAIN — DETERMINISTIC):** Guided Document Review acquisition uses the native tool path `git_local_read_file` → `GitLocalReadAdapter` → `ToolRouter` (`prepareGitLocalReadDataForModel`) → Agents Runner tool result. Coverage metadata (`returnedStartLine`/`returnedEndLine`/`completeLineCount`/`nextStartLineHint`/`truncated` vs `documentHasMore`) must describe the **final model-visible** payload after redaction and JSON envelope capping (`CT_MAX_TOOL_RESULT_CHARS` = 12000). Partial lines are never credited; redacted lines still progress; a line that fits the adapter but not the final envelope is skipped via explicit `lineExceedsCap` (no infinite same-line retry; no mid-line offset protocol). On soft `maxTurns` exhaustion, restitution discloses honest incomplete coverage from tool crumbs when available (no invented FULL / HumanDecision / Deliverable). Natural mono-file documentary prompts elevate Focused adaptive budget (≥8, ≤ ceiling 10) without raising FinOps ceilings. Proof: `p6.nora.min09.documentaryReliability.d0.test.ts` R1–R7 — **not** GDR REAL quality. Merge `44006648` / source `9b855d8d`.
-- **Work Recommendation materialization (P6-HQA-02 / REC-01):** after a coherent Nora Product turn, Studio may mint durable ACW EpistemicItems via `materializeActiveCycleWork`, but only after `filterActiveCycleWorkItemsForProspectiveMaterialization` (bounded cognitive trust). Nora coverage `COMPLETE`|`PARTIAL`|`UNAVAILABLE` is authoritative for novelty claims — Product reader available ≠ COMPLETE. Ordinary suggestions stay in `conversationGuidance` (zero WR). Historical WR never mutated on the prospective path. `itemSourceIndexes` preserve ACW identity under filter/replay. CONTRADICTORY may persist a typed relation envelope (Option A); never auto-HD / auto-disposition.
-- **Non-blocking conversation (CHAT-FIRST-GOVERNED-DECISION-LOOP-01):** a pending governed decision subject no longer turns an unrelated or informative turn into a transport error. `assertExplicitReinstructionGate` stays fail-closed (no competing `DECISION_REQUIRED` is minted) but `orchestrateF2` now renders `EXPLICIT_REINSTRUCTION_REQUIRED` / `AMBIGUOUS_PENDING_REINSTRUCTION` as a conversational clarification turn, so the composer never dead-ends.
-- **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
-- **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope; REC-01 WR path DETERMINISTIC at tested scope (ZERO REAL claim)
-- **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`; REC-01 — `qualifyProspectiveWorkRecommendationMaterialization.d0`, `activeCycleCognitiveWork.d0` (Option A reload + historical replay), `p6.hqa.rec01.minimalStabilization.d0`, Option B context tests
+## 13. Matrice reprise après restart (S2)
+
+| Situation | Meaning |
+|---|---|
+| A Offer process-local | Lost; no auto-reconstruct carrier |
+| B UI continuity | none/stale honest; no PresentedMission store |
+| C Durable OA HD | Recoverable from SQLite; still verified |
+| D PREPARE resume | Accepted verified HD may PREPARE without offer when Product supplies decisionId+context (HD11); offer absence ≠ universal ban; HD presence ≠ universal auth |
+
+## 14–17. Diffs COMPLETS + sections complètes
+
+### Diffstat (4 files vs HEAD; cumulative R1–R4 + S1/S2)
+```
+.../03-end-to-end-flow-catalog.md                  | 46 +++++++++++++++-------
+ .../04-dependency-impact-map.md                    | 36 +++++++++++++++++
+ .../06-persistence-restart-and-recovery.md         | 25 +++++++++++-
+ .../07-authority-invariants-and-failure-modes.md   | 21 ++++++++++
+ 4 files changed, 111 insertions(+), 17 deletions(-)
 ```
 
-### F05
-```markdown
-## F05 — Active-cycle Artifact materialization
-- **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice
-- **Boundary (CI-HQA-F01 / AS-IMPLEMENTED):** explicit NEW_CYCLE formalization (« préparer / créer / démarrer un cycle … », even when a future deliverable/note is mentioned) is **not** Artifact continuation. `hasExplicitNewCycleFormalizationSignal` keeps those turns on `NEW_CYCLE_FORMALIZATION` so absence of an active cycle does not fail-closed as `no_active_cycle` before `createCycle`. Natural Artifact cues still cover produce/write/materialize of a documentary object under an active cycle (F-C9-04).
-- **Admission (Artifact governed continuation):** REQUIRE_ARTIFACT HD **OR** Artifact APPLICABLE ∧ ¬SATISFIED (#532+#533) — unchanged; obligations are not bypassed by Generic PREPARE.
-- **Adjacent hand-off (P6-HQA-F05-GD4-01 / PR #586 AS-IMPLEMENTED):** ordinary documentary materialization recognized by ACGC but **without** a closure Artifact obligation resolves as `ACTIVE_CYCLE_CONTINUATION_BLOCKED` / `no_require_artifact` (or, for natural signal without docs_write-compatible effect, may surface `NEW_CYCLE_FORMALIZATION` / `no_compatible_artifact_effect` — see vol 08 oracle semantics). When the turn is actionable for Generic PREPARE, orchestration may **hand off to F08** via `isOptionalDocumentaryWithoutClosureArtifactBlock`. This is **not** Artifact governed continuation, **not** an invented `REQUIRE_ARTIFACT` HumanDecision, and **not** proof that a new CycleInstance was created. Full Generic PREPARE admission/authority lives under **F08**, not F05.
-- **Leaf / target:** Nora/Pilot leaf candidate is non-authoritative; server owns `targetPath` composition (D-PC-09); no normal filename micro-gate when cues suffice; clarification only when no coherent cue
-- **Continuation fact:** `structurallyResolvedActiveCycleContinuation` is server-owned and local to this Recommendation/Proposal — ≠ Truth C, ≠ HumanDecision, ≠ universal uncertainty resolution; sealed continuation without impacting signals skips gratuitous structural MW5 re-challenge
-- **Same CycleInstance:** no silent NEW_CYCLE / re-formalization on the Artifact path
-- **Exit (Artifact path):** Proposal `DECISION_REQUIRED`
-- **Exit (adjacent → F08):** qualification / pending Generic PREPARE offer or inspectable EC draft under F08 gates — PREPARE ≠ AUTHORIZE; AUTHORIZED ≠ EXECUTED
-- **Product spine (UI server actions):** Send → Decide → PrepareResolvedM3 → ConfirmAndExecuteResolvedM3 → RehydrateEvidenceOutcome
-- **Nominal chat-first spine:** Send (proposal) → Send (disposition) → PrepareResolvedM3 → … — `projectAssistantDecideAction` remains available but is no longer a required UX step
-- **Paths:** `activeCycleGovernedContinuation.ts`, `orchestrateF2.ts` (hand-off), `artifactTargetRouting.ts`, Fake matcher (`__P6_OPTIONAL_DOCUMENTARY_MD__`), `actions.ts` Product actions
-- **Oracle:** `productCycleE2eStabilization.frontDoor.d0.test.ts` (+ continuity/bridge CORR-01, corrProof07); CI-HQA-F01 — `p6.hqa.f01.chatFirstCycleStartGate.d0.test.ts`; optional documentary routing — `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts`
-- **Status / proof:** **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** (ZERO REAL this macro); adjacent Generic PREPARE routing **DETERMINISTIC at tested scope** (PR #586 + candidate consolidation)
-- **Fail-closed:** UNKNOWN/N/A without policy; assess failure; no active cycle (Artifact path); satisfied artifact; other exclusive BLOCKED reasons
-```
-
-### F08
+### F08 (section complète post-S1)
 ```markdown
 ## F08 — EC PREPARE
 - **Trigger (legacy M3):** After required HD / authority path (`projectAssistantPrepareResolvedM3Action`)
 - **Trigger (Generic PREPARE — AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):** F2 chat-first GO / Nora tool solicitation (F04) / adjacent F05 hand-off → Product `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft`
 - **Mission qualification:** Product readiness (`assessGenericMissionPrepareReadiness`) + authoritative Materiality CURRENT (`resolveAuthoritativeProductMateriality`). Materiality UNKNOWN → fail-closed (no silent NON_STRUCTURAL).
-- **Chemin A — STRUCTURAL (M-HD-01/02):** structural signals (architecture/security/data/irreversible/…) or HD-required materiality → remember CURRENT offer for Pilot seal (process-local) → Accept/Refuse/Amend → durable OA HumanDecision with `genericMissionContext` / `presentationDigest` → `verifyGenericMissionHumanDecisionForPrepare` → PREPARE with verified `decisionRefs`. Structural offer alone ≠ PREPARE admission. Historical HD without mission binding ≠ unlock.
+- **Chemin A — STRUCTURAL (M-HD-01/02):** structural signals (architecture/security/data/irreversible/…) or HD-required materiality → remember CURRENT offer for Pilot seal (process-local) → Pilot disposition on sealed presentation. **Three distinct branches (not a single Accept/Refuse/Amend→PREPARE chain):**
+  - **Accept** → durable OA HumanDecision `accepted` with `genericMissionContext` / `presentationDigest` → `verifyGenericMissionHumanDecisionForPrepare` (DecisionBasis, identity/mission/digest, CURRENT applicability, non-superseded) → structural PREPARE with verified `decisionRefs` **iff** all gates pass. Accept alone ≠ Inspection ≠ Confirmation ≠ Authorization ≠ Execute.
+  - **Refuse** → durable refused HD recordable → PREPARE **forbidden** (`HD_REFUSED`); no implicit Authorization; no Attempt.
+  - **Amend** → new presentation / re-seal required → prior presentation does **not** unlock PREPARE (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) until a new **accepted** applicable HD exists.
+  - Structural offer alone ≠ PREPARE admission. Historical HD without mission binding ≠ unlock. Only an **accepted**, mission-bound, applicable, verified, non-superseded HD opens structural PREPARE.
 - **Chemin B — NON_STRUCTURAL (Option 1 / G-D4):** NON_STRUCTURAL CURRENT + gates satisfied → PREPARE with `decisionRefs=[]` admissible; empty refs ≠ structural bypass; Confirm/Authorize unchanged.
 - **S8 project context (D-ER-17):** absence of active CycleInstance does **not** alone block Generic PREPARE; **no invented CycleInstance**.
 - **Fidelity (PR #586 + candidate):** pending offer may retain documentary `missionEffects`; exact capability identities only; Nora path candidates non-authoritative until Product resolve.
@@ -127,31 +129,7 @@ CKC synthetic candidate only. Documentary semantic regularization / integration 
 - **Status:** COMPLETE domain (legacy); Generic PREPARE AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION
 ```
 
-### F09
-```markdown
-## F09 — EC inspect / Confirmation / authority
-- **Objects:** InspectionAttestation, Confirmation, AuthorityVerificationReceipt
-- **Unified inspection (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):** Conversation / Execution / Trajectory share one exam contract (`ContractInspectionExamPanel` + `contractInspectionExam` helpers). Explicit open ≠ write; Attest requires presented facts; identity binding = `projectId` + `executionContractId` + `version` + `semanticFingerprint`. Contract change → reinspection. PREPARE must not auto-inspect. Trajectory does not invent inspection on PREPARE/Execute alone.
-- **requiredInspectedFacts / disclosure:** canonical inspection disclosure on EC; Confirm ≠ Inspect ≠ Authorize ≠ Execute.
-- **Product path (legacy):** Confirm+execute folded in `projectAssistantConfirmAndExecuteResolvedM3Action` (boundary validates MORRIS legacy or N2 Product Pilot matching PREPARE)
-- **Proof:** Pass03/Pass04 UIC suites — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE
-- **Status:** COMPLETE tables/services; unified exam AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION
-```
-
-### F10
-```markdown
-## F10 — Governed execution (docs_write / Cursor)
-- **Gate:** effective Authorization on EC + attempt lifecycle; REAL additionally requires `SFIA_STUDIO_CURSOR_REAL` + managed repo base + Product REAL readiness fail-closed
-- **Project-scoped Cursor Select/Start (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):** AUTHORIZED PRODUCT_GOVERNED EC may Select→Start→Result on Fake Cursor **without** active CycleInstance when the existing OA contract admits null-cycle — **no invented CycleInstance**, **no invented HumanDecision**. `SelectionProfile` is a technical OA carrier (e.g. capabilities_deterministic), **not** a methodological SFIA Standard/Critical access gate. Unauthorized / closed-cycle / missing project remain refuse.
-- **Report protocol (POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01):** EC→Cursor projection requires machine-readable `CURSOR_EXECUTION_REPORT_JSON=<one-line JSON>` (`oa.cursor-execution-report.1`) in addition to business-readable rapport; prose-only is not Evidence-capable
-- **Report-required runtime (docs_write nominal):** after Attempt `succeeded`, Product handoff fail-closes with `CURSOR_EXECUTION_REPORT_REQUIRED` / `CURSOR_EXECUTION_REPORT_MALFORMED` / bind mismatch when the structured claim is absent, unparseable, or identity-mismatched. Technical Attempt stays succeeded; Product SUCCESS is never invented. Independently verified artifact bytes may still be persisted as technical Evidence.
-- **Proof:** `p6.projectScopedCursorSelection.d0.test.ts` — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake; ZERO Cursor REAL)
-- **Status:** BOUNDARY gated; REAL only under distinct Morris GO; Fake docs-write + Fake Select/Start proven at tested scope; no new REAL claim
-```
-
-## 9–10. Frontières d'autorité / double chemin
-
-### Volume 04 — Dual Generic PREPARE admission paths
+### Volume 04 Dual admission (section complète post-S1)
 ```markdown
 ## Dual Generic PREPARE admission paths (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
 
@@ -160,196 +138,107 @@ Nora tool (F04) / F2 analysis / F05 adjacent hand-off
   → assessGenericMissionPrepareReadiness + resolveAuthoritativeProductMateriality
       ├─ STRUCTURAL / HD-required
       │    → remember CURRENT offer (process-local)
-      │    → Pilot seal Accept/Refuse/Amend (UI)
-      │    → OA HumanDecision (durable genericMissionContext)
-      │    → verifyGenericMissionHumanDecisionForPrepare
-      │    → solicitGenericExecutionPrepare (decisionRefs verified)
-      │    → F09 inspect → Confirm → Authorize → F10 Execute
+      │    → Pilot disposition on sealed presentation (UI)
+      │         ├─ ACCEPT
+      │         │    → OA HumanDecision status=accepted (durable genericMissionContext)
+      │         │    → verifyGenericMissionHumanDecisionForPrepare
+      │         │         (basis / identity / mission / digest / CURRENT / non-superseded)
+      │         │    → solicitGenericExecutionPrepare (decisionRefs verified)
+      │         │    → F09 inspect → Confirm → Authorize → F10 Execute
+      │         │         (PREPARE ≠ Inspect ≠ Confirm ≠ Authorize ≠ Execute)
+      │         ├─ REFUSE
+      │         │    → OA HumanDecision refused (recordable)
+      │         │    → PREPARE forbidden (HD_REFUSED)
+      │         │    → no Authorization / no Attempt
+      │         └─ AMEND
+      │              → HD_AMEND_REQUIRES_NEW_PRESENTATION
+      │              → re-present / re-seal required
+      │              → PREPARE forbidden until new accepted applicable HD
       └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4)
            → solicitGenericExecutionPrepare (decisionRefs=[])
            → F09 inspect → Confirm → Authorize → F10 Execute
-      UNKNOWN materiality / structural without verified HD → FAIL-CLOSED
+      UNKNOWN materiality / structural without accepted+verified HD → FAIL-CLOSED
 ```
 
 OA = authority of record. W2 = Product coordination. Nora = cognition/recommendation only. Cursor = controlled execution under Authorization.
 
+**Structural PREPARE gate (S1):** only an **accepted**, mission-bound, applicable, verified, non-superseded HumanDecision opens Chemin A PREPARE. Refuse and Amend are **not** admissible prepare paths. Accept alone is not Execute authority.
+
 ```
 
-### Volume 07 — Dual admission + invariants
+### Volume 06 restart (matrix rows + section complète post-S2)
 ```markdown
+| Pending Generic PREPARE offer (P6-HQA-F05-GD4-01 + M-HD carrier) | none | UI re-offer / re-present as needed | **offer map lost** (process-local) | no silent invent; no stale-offer reuse; offer loss ≠ universal PREPARE ban (see HD11) |
+| Generic Mission HumanDecision (M-HD-01/02) | `oa_human_decisions` (+ DecisionBasis / genericMissionContext / presentationDigest) | decision list + verify path | process-local offer/presentation carrier lost | HD remains durable authority **record**; accepted+verified HD may resume PREPARE without restoring offer (HD11) |
+| Generic Mission presentation (UI seal) | none as Presentation store | none / stale if client held digest without reconstitutable offer | **presentation carrier lost** | UI fail-closed stale; no PresentedMission store invented |
+| HD recorded (general) | `oa_human_decisions` | decision list | proposal may be gone | HD remains authority record |
+
+## Generic Mission / Generic PREPARE restart (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
+
+Four situations must stay distinct (S2 / M-HD-01 HD11):
+
+| Situation | Durability | Restart meaning |
+|---|---|---|
+| A. Pending Generic PREPARE offer | Process-local only | Lost at restart; **no** automatic reconstruction of the presentation carrier |
+| B. UI continuity | Process-local carrier | Absent offer may prevent immediate reconstitution of the Pilot card / sealed presentation UI → honest `none` / `stale` per existing continuity contract; **no** durable PresentedMission store invented |
+| C. Durable OA HumanDecision | Durable OA (`oa_human_decisions`) | Recoverable after restart from Product SQLite; identity + DecisionBasis retained; still subject to CURRENT applicability / digest / supersession verify |
+| D. PREPARE resume | Uses durable HD + Product/OA gates | An **accepted**, mission-bound, applicable, verified HD may resume structural PREPARE **without** restoring the process-local offer when the Product path supplies `decisionId` + coherent mission analysis / project context and all gates pass (HD11). Absence of offer is **not** by itself a universal PREPARE refusal. Presence of HD alone is **not** a universal Authorization |
+
+**Mandatory PREPARE-resume checks (unchanged Product/OA):** project; mission; identity; DecisionBasis; digest; status `accepted`; non-superseded; materiality/currentness; other Product/OA gates via `verifyGenericMissionHumanDecisionForPrepare` / `prepareGenericExecutionContractDraft`.
+
+**Never invent on restart:** new HumanDecision; new presentation; new mission; new CycleInstance; implicit Authorization.
+
+**Proof:** HD11 (`p6.mHd01.genericMissionHumanDecision.d0.test.ts`) — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (clear offer → new runtime same SQLite → load HD → PREPARE with `decisionId` + analysis). Does **not** prove automatic UI rehydration.
+
+**Not claimed:** global RESTART SAFE; UI automatically rehydrated; unconditional PREPARE after restart; REAL/HQA restart proven. No invented recovery mechanism beyond candidate W2/OA paths.
+
+```
+
+### Volume 07 invariants + dual summary (post-S1)
+```markdown
+| INV-STRUCTURAL-NEEDS-VERIFIED-HD | Structural mission PREPARE requires verified mission-bound HD | verifyGenericMissionHumanDecisionForPrepare | mHd01 / DER16 E12 |
+| INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD | STRUCTURAL PREPARE requires **accepted**, applicable, verified, mission-bound, non-superseded HD — Refuse (`HD_REFUSED`) and Amend (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) are not prepare paths; Accept alone ≠ Execute | verifyGenericMissionHumanDecisionForPrepare | mHd01 (incl. refuse/amend cases) / DER16 |
 ## Dual admission paths — authority summary (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
 
-**Chemin A — STRUCTURAL:** mission signals / HD-required materiality → process-local presentation carrier → Pilot HumanDecision → verify applicability+digest → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute. No artificial HD. Structural offer alone does not PREPARE. Unbound historical HD does not unlock a different mission.
+**Chemin A — STRUCTURAL:** mission signals / HD-required materiality → process-local presentation carrier → Pilot disposition:
+- **Accept** → durable HD `accepted` → verify basis/identity/mission/digest/CURRENT/non-superseded → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute.
+- **Refuse** → HD refused → PREPARE forbidden (`HD_REFUSED`); no Authorization; no Attempt.
+- **Amend** → new presentation required → PREPARE forbidden (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) until a new accepted applicable HD.
+No artificial HD. Structural offer alone does not PREPARE. Unbound historical HD does not unlock a different mission. Accept alone ≠ Execute.
 
 **Chemin B — NON_STRUCTURAL:** Materiality CURRENT NON_STRUCTURAL → PREPARE with `decisionRefs=[]` iff Product gates admit → inspect → Confirm (if required) → Authorize → Execute. OA Confirm/Authorize gates remain. UNKNOWN → fail-closed.
 
 **Separations (KEEP):** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation; Confirmation ≠ Authorization; Authorization ≠ Execution; Attempt terminal ≠ Product SUCCESS PROVEN.
 
-**CURRENT revalidation:** when Product material facts change, Materiality / applicability / presentation digest must be re-checked before PREPARE resume — do not invent currentness rules beyond candidate `resolveAuthoritativeProductMateriality` + HD verify. Restart: durable HD ≠ CURRENT offer (see vol 06).
+**CURRENT revalidation:** when Product material facts change, Materiality / applicability / presentation digest must be re-checked before PREPARE resume — do not invent currentness rules beyond candidate `resolveAuthoritativeProductMateriality` + HD verify. Restart: process-local offer loss ≠ universal PREPARE ban when durable accepted HD remains verifiable (see vol 06 / HD11).
 
 ```
 
-## 11. Persistance / restart (R3)
-```markdown
-## Generic Mission / Generic PREPARE restart (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
-
-| Fact | Durability | Restart meaning |
-|---|---|---|
-| A. Pending Generic PREPARE offer | Process-local only | Lost; must re-qualify / re-offer; no fictional reconstruction |
-| B. Generic Mission HumanDecision | Durable OA | Identity + DecisionBasis retained; still subject to CURRENT applicability / digest verify |
-| C. Sealed presentation / digest | Sealed into HD basis when recorded; UI carrier process-local | Process-local carrier does **not** become durable merely because HD is durable |
-| D. Restart composition | — | Durable HD ≠ CURRENT offer available; absent offer ≠ PREPARE authorized; re-examination required; no artificial HD; no implicit Authorization |
-| E. Supersession / stale | — | Do not reuse obsolete presentationDigest / fingerprint against a changed mission; verify against CURRENT sealed presentation |
-
-**Not claimed:** global RESTART SAFE for Generic PREPARE. Candidate recovery paths are those implemented in W2 continuity readers — no invented recovery mechanism.
-
-```
-
-## 12. Tests et sémantique des oracles (R4)
-```markdown
-## Test-oracle semantic change — Artifact continuity suites (R4)
-
-**Classification (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):**
-
-| Layer | Label | Meaning |
-|---|---|---|
-| Test file edits | **NO_RUNTIME_SEMANTIC_IMPACT** | Product runtime paths under test are not altered by the test-file diff alone |
-| Functional expectations | **TEST_ORACLE_SEMANTIC_CHANGE** | What the suite asserts as correct Product behavior did change |
-
-Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That label is retained for **runtime** impact of the test files; this section records the **oracle** change ChatGPT R4 requires before digest approval.
-
-### `activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`
-
-| | Historical oracle | Candidate oracle |
-|---|---|---|
-| Mode | `ACTIVE_CYCLE_CONTINUATION_BLOCKED` | `NEW_CYCLE_FORMALIZATION` |
-| Reason | `incompatible_execution_intent` | `no_compatible_artifact_effect` |
-
-- Scenario: natural materialization signal **without** `docs_write`-compatible effect under an active cycle with REQUIRE_ARTIFACT.
-- **Does not prove** that a new CycleInstance was created — the same case asserts `countCycles === 1` (resolution alone never invents a cycle).
-- Mode name `NEW_CYCLE_FORMALIZATION` here is a resolution **routing** outcome (D-ER-17: not a dead-end; Generic PREPARE may remain eligible on project/active-cycle context) — **≠** Artifact governed continuation, **≠** CREATE_CYCLE proof.
-- Ceiling: DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). NOT E2E REAL. NOT READY FOR REAL.
-
-### `corrProof07.artifactMaterialization.d0.test.ts`
-
-Candidate assertions distinguish:
-
-1. **Generic PREPARE eligible** on same active-cycle / project context (no dead-end force-unbind).
-2. **Artifact governed materialization not authorized** for the non-`docs_write` natural signal.
-3. **No artificial new CycleInstance** (`countCycles` stable; `createCycle` not required by this path).
-4. **No misleading Artifact materialization Proposal** bound as active-cycle governed continuation.
-
-Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETERMINISTIC at tested scope only — oracle change ≠ proof E2E REAL.
-```
-
-Tests **not modified** this cycle. Historical Product test files remain dirty from prior consolidation only.
-
-## 13. Documents modifiés
-
-```
-M	projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-M	projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-M	projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-```
-
-```
-.../02-runtime-object-catalog.md                   | 14 +++++++-
- .../03-end-to-end-flow-catalog.md                  | 42 ++++++++++++++--------
- .../04-dependency-impact-map.md                    | 23 ++++++++++++
- .../06-persistence-restart-and-recovery.md         | 18 ++++++++--
- .../07-authority-invariants-and-failure-modes.md   | 16 +++++++++
- .../08-test-proof-and-conformance-map.md           | 38 ++++++++++++++++++++
- ...9-known-gaps-reserves-and-current-boundaries.md | 26 +++++++++++---
- 7 files changed, 155 insertions(+), 22 deletions(-)
-```
-
-Also amended:
-- vol 02 — OBJ-GENERIC-MISSION-HD
-- vol 09 — P6 consolidation candidate overlay
-
-Frozen: README.md, production-runtime-reference.manifest.json
-
-## 14–15. Diffs COMPLETS + sections complètes
-
-### Volume 02 — OBJ-GENERIC-MISSION-HD (section complète)
-```markdown
-## OBJ-GENERIC-MISSION-HD — Generic Mission HumanDecision (M-HD-01/02)
-
-- **Status:** AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION (not INTEGRATED_ON_MAIN until Product git merge).
-- **Purpose:** Structural / HD-required Generic missions bind a durable OA HumanDecision to a sealed mission presentation before Generic PREPARE may resume.
-- **Durable truth:** `oa_human_decisions` with `decisionBasis.genericMissionContext`, `missionSubjectId`, `presentationDigest`.
-- **Process-local carrier:** CURRENT pending Generic PREPARE offer (M-HD-02 remember) enables Pilot Accept/Refuse/Amend seal — **≠** non-structural chat-first PREPARE admission; offer alone ≠ Authorization.
-- **PREPARE gate:** `verifyGenericMissionHumanDecisionForPrepare` — applicability + digest match; historical HD without binding does not unlock.
-- **Non-structural path:** Option 1 / G-D4 may PREPARE with `decisionRefs=[]` when Materiality CURRENT admits — empty refs ≠ structural bypass.
-- **UI:** `useProductConversation` + `GovernedGenericMissionDecisionCard` / `genericMissionPresentation` (read continuity; restart without offer → none/stale fail-closed).
-- **Paths:** `recordGenericMissionHumanDecision.ts`, `genericMissionDecisionContinuity.ts`, `verifyGenericMissionHumanDecisionForPrepare.ts`, `genericMissionSubject.ts`
-- **Invariant:** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation.
-```
-
-### Volume 09 — P6 overlay (section complète)
-```markdown
-## Overlay — P6 Generic Execution consolidation candidate (LIVING REFERENCE R1–R4)
-
-**Status:** AS_IMPLEMENTED_IN_CANDIDATE on integration worktree `integration/sfia-studio-p6-generic-execution-consolidation` @ base `896ff59c` · Product dirty transferred from source `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862` · **PENDING_GIT_INTEGRATION** · **NOT INTEGRATED_ON_MAIN**.
-
-| Item | Status |
-|---|---|
-| G-IB (importBoundaries allowlist +4 W2 type-only RuntimeOaStack) | **CLOSED** (historical gate) |
-| G-DIGEST Living Reference digests | **PENDING CONTENT APPROVAL** — manifest **FROZEN**; digests **not** promoted this cycle |
-| Living Reference volumes 02/03/04/06/07/08/09 | Semantic amendments R1–R4 applied locally — ChatGPT content review required before digest write |
-| 77 Product candidates + allowlist | Preserved dirty; **no** Product commit/push/PR this cycle |
-| Pending Generic PREPARE offer | Process-local — restart-unsafe (vol 06) |
-| Generic Mission HumanDecision | Durable OA; restart ≠ CURRENT offer; applicability re-check required |
-| Cursor REAL / OpenAI LIVE / HQA | **NOT PROVEN / NOT RETESTED** |
-| P6 GLOBAL PASS / READY FOR REAL / runtime v3 ADOPTED | **NOT CLAIMED** |
-| DETERMINISTIC proof ceiling | Historical 328 targeted PASS + G-IB 5/5 — **not re-executed** this documentary cycle |
-
-**Next (distinct GOs):** ChatGPT semantic content review → Morris digest approval → conformance → Product git decision → PR/CI/merge → HQA reprise. This overlay does **not** claim CURRENT ON MAIN.
-
-```
-
-### COMPLETE DIFF — `02-runtime-object-catalog.md`
+### S1/S2-ONLY DIFF — `03-end-to-end-flow-catalog.md` (post-R1R4 → post-S1S2)
 
 ```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-index b4178031..eeca2b2e 100644
---- a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-+++ b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-@@ -93,10 +93,22 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
- - **Paths:** `lib/oa/decision/**`, `f2/recordDecision.ts`, obligation policy HDs in `pilotLifecycleActions.ts`
- - **Examples:** Proposal accept; `OBLIGATION_POLICY_REQUIRE_ARTIFACT`.
-
-+## OBJ-GENERIC-MISSION-HD — Generic Mission HumanDecision (M-HD-01/02)
-+
-+- **Status:** AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION (not INTEGRATED_ON_MAIN until Product git merge).
-+- **Purpose:** Structural / HD-required Generic missions bind a durable OA HumanDecision to a sealed mission presentation before Generic PREPARE may resume.
-+- **Durable truth:** `oa_human_decisions` with `decisionBasis.genericMissionContext`, `missionSubjectId`, `presentationDigest`.
-+- **Process-local carrier:** CURRENT pending Generic PREPARE offer (M-HD-02 remember) enables Pilot Accept/Refuse/Amend seal — **≠** non-structural chat-first PREPARE admission; offer alone ≠ Authorization.
-+- **PREPARE gate:** `verifyGenericMissionHumanDecisionForPrepare` — applicability + digest match; historical HD without binding does not unlock.
-+- **Non-structural path:** Option 1 / G-D4 may PREPARE with `decisionRefs=[]` when Materiality CURRENT admits — empty refs ≠ structural bypass.
-+- **UI:** `useProductConversation` + `GovernedGenericMissionDecisionCard` / `genericMissionPresentation` (read continuity; restart without offer → none/stale fail-closed).
-+- **Paths:** `recordGenericMissionHumanDecision.ts`, `genericMissionDecisionContinuity.ts`, `verifyGenericMissionHumanDecisionForPrepare.ts`, `genericMissionSubject.ts`
-+- **Invariant:** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation.
-+
- ## OBJ-DECISION-BASIS — DecisionBasis
-
- - **Purpose:** Sealed WHAT/scope feeding ExecutionContract preparation.
--- **Paths:** execution-contract domain / F2 accept path.
-+- **Paths:** execution-contract domain / F2 accept path; Generic Mission seal uses `genericMissionContext` inside DecisionBasis when HD-bound.
- - **Invariant:** EC cannot expand DecisionBasis WHAT.
-
- ## OBJ-CONFIRMATION — Confirmation
+--- a/03-end-to-end-flow-catalog.md (post-R1R4)
++++ b/03-end-to-end-flow-catalog.md (S1S2)
+@@ -80,7 +80,11 @@
+ - **Trigger (legacy M3):** After required HD / authority path (`projectAssistantPrepareResolvedM3Action`)
+ - **Trigger (Generic PREPARE — AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):** F2 chat-first GO / Nora tool solicitation (F04) / adjacent F05 hand-off → Product `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft`
+ - **Mission qualification:** Product readiness (`assessGenericMissionPrepareReadiness`) + authoritative Materiality CURRENT (`resolveAuthoritativeProductMateriality`). Materiality UNKNOWN → fail-closed (no silent NON_STRUCTURAL).
+-- **Chemin A — STRUCTURAL (M-HD-01/02):** structural signals (architecture/security/data/irreversible/…) or HD-required materiality → remember CURRENT offer for Pilot seal (process-local) → Accept/Refuse/Amend → durable OA HumanDecision with `genericMissionContext` / `presentationDigest` → `verifyGenericMissionHumanDecisionForPrepare` → PREPARE with verified `decisionRefs`. Structural offer alone ≠ PREPARE admission. Historical HD without mission binding ≠ unlock.
++- **Chemin A — STRUCTURAL (M-HD-01/02):** structural signals (architecture/security/data/irreversible/…) or HD-required materiality → remember CURRENT offer for Pilot seal (process-local) → Pilot disposition on sealed presentation. **Three distinct branches (not a single Accept/Refuse/Amend→PREPARE chain):**
++  - **Accept** → durable OA HumanDecision `accepted` with `genericMissionContext` / `presentationDigest` → `verifyGenericMissionHumanDecisionForPrepare` (DecisionBasis, identity/mission/digest, CURRENT applicability, non-superseded) → structural PREPARE with verified `decisionRefs` **iff** all gates pass. Accept alone ≠ Inspection ≠ Confirmation ≠ Authorization ≠ Execute.
++  - **Refuse** → durable refused HD recordable → PREPARE **forbidden** (`HD_REFUSED`); no implicit Authorization; no Attempt.
++  - **Amend** → new presentation / re-seal required → prior presentation does **not** unlock PREPARE (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) until a new **accepted** applicable HD exists.
++  - Structural offer alone ≠ PREPARE admission. Historical HD without mission binding ≠ unlock. Only an **accepted**, mission-bound, applicable, verified, non-superseded HD opens structural PREPARE.
+ - **Chemin B — NON_STRUCTURAL (Option 1 / G-D4):** NON_STRUCTURAL CURRENT + gates satisfied → PREPARE with `decisionRefs=[]` admissible; empty refs ≠ structural bypass; Confirm/Authorize unchanged.
+ - **S8 project context (D-ER-17):** absence of active CycleInstance does **not** alone block Generic PREPARE; **no invented CycleInstance**.
+ - **Fidelity (PR #586 + candidate):** pending offer may retain documentary `missionEffects`; exact capability identities only; Nora path candidates non-authoritative until Product resolve.
 ```
 
-### COMPLETE DIFF — `03-end-to-end-flow-catalog.md`
+### FULL DIFF vs HEAD — `03-end-to-end-flow-catalog.md` (includes R1–R4 + S1/S2)
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 99ec0008..e947b90d 100644
+index 99ec0008..13e01c2e 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 @@ -29,6 +29,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
@@ -386,7 +275,7 @@ index 99ec0008..e947b90d 100644
 
  ## F06 — Proposal / Decision Subject / options
  - **Trigger:** F2 turn producing `f2_proposal`
-@@ -77,21 +77,33 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
+@@ -77,21 +77,37 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
  - **Status:** COMPLETE durable Work path (deterministic); First Framing START conversational path DETERMINISTIC at tested scope; other Lifecycle transitions Studio-preserved; ZERO REAL claim
 
  ## F08 — EC PREPARE
@@ -397,7 +286,11 @@ index 99ec0008..e947b90d 100644
 +- **Trigger (legacy M3):** After required HD / authority path (`projectAssistantPrepareResolvedM3Action`)
 +- **Trigger (Generic PREPARE — AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):** F2 chat-first GO / Nora tool solicitation (F04) / adjacent F05 hand-off → Product `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft`
 +- **Mission qualification:** Product readiness (`assessGenericMissionPrepareReadiness`) + authoritative Materiality CURRENT (`resolveAuthoritativeProductMateriality`). Materiality UNKNOWN → fail-closed (no silent NON_STRUCTURAL).
-+- **Chemin A — STRUCTURAL (M-HD-01/02):** structural signals (architecture/security/data/irreversible/…) or HD-required materiality → remember CURRENT offer for Pilot seal (process-local) → Accept/Refuse/Amend → durable OA HumanDecision with `genericMissionContext` / `presentationDigest` → `verifyGenericMissionHumanDecisionForPrepare` → PREPARE with verified `decisionRefs`. Structural offer alone ≠ PREPARE admission. Historical HD without mission binding ≠ unlock.
++- **Chemin A — STRUCTURAL (M-HD-01/02):** structural signals (architecture/security/data/irreversible/…) or HD-required materiality → remember CURRENT offer for Pilot seal (process-local) → Pilot disposition on sealed presentation. **Three distinct branches (not a single Accept/Refuse/Amend→PREPARE chain):**
++  - **Accept** → durable OA HumanDecision `accepted` with `genericMissionContext` / `presentationDigest` → `verifyGenericMissionHumanDecisionForPrepare` (DecisionBasis, identity/mission/digest, CURRENT applicability, non-superseded) → structural PREPARE with verified `decisionRefs` **iff** all gates pass. Accept alone ≠ Inspection ≠ Confirmation ≠ Authorization ≠ Execute.
++  - **Refuse** → durable refused HD recordable → PREPARE **forbidden** (`HD_REFUSED`); no implicit Authorization; no Attempt.
++  - **Amend** → new presentation / re-seal required → prior presentation does **not** unlock PREPARE (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) until a new **accepted** applicable HD exists.
++  - Structural offer alone ≠ PREPARE admission. Historical HD without mission binding ≠ unlock. Only an **accepted**, mission-bound, applicable, verified, non-superseded HD opens structural PREPARE.
 +- **Chemin B — NON_STRUCTURAL (Option 1 / G-D4):** NON_STRUCTURAL CURRENT + gates satisfied → PREPARE with `decisionRefs=[]` admissible; empty refs ≠ structural bypass; Confirm/Authorize unchanged.
 +- **S8 project context (D-ER-17):** absence of active CycleInstance does **not** alone block Generic PREPARE; **no invented CycleInstance**.
 +- **Fidelity (PR #586 + candidate):** pending offer may retain documentary `missionEffects`; exact capability identities only; Nora path candidates non-authoritative until Product resolve.
@@ -430,14 +323,59 @@ index 99ec0008..e947b90d 100644
  - **Paths:** execution-attempt + evidence-review aggregates; docs-write appends LPS `evidenceIds`/`reviewBundleIds` for rehydrate
 ```
 
-### COMPLETE DIFF — `04-dependency-impact-map.md`
+### S1/S2-ONLY DIFF — `04-dependency-impact-map.md` (post-R1R4 → post-S1S2)
+
+```diff
+--- a/04-dependency-impact-map.md (post-R1R4)
++++ b/04-dependency-impact-map.md (S1S2)
+@@ -45,18 +45,31 @@
+   → assessGenericMissionPrepareReadiness + resolveAuthoritativeProductMateriality
+       ├─ STRUCTURAL / HD-required
+       │    → remember CURRENT offer (process-local)
+-      │    → Pilot seal Accept/Refuse/Amend (UI)
+-      │    → OA HumanDecision (durable genericMissionContext)
+-      │    → verifyGenericMissionHumanDecisionForPrepare
+-      │    → solicitGenericExecutionPrepare (decisionRefs verified)
+-      │    → F09 inspect → Confirm → Authorize → F10 Execute
++      │    → Pilot disposition on sealed presentation (UI)
++      │         ├─ ACCEPT
++      │         │    → OA HumanDecision status=accepted (durable genericMissionContext)
++      │         │    → verifyGenericMissionHumanDecisionForPrepare
++      │         │         (basis / identity / mission / digest / CURRENT / non-superseded)
++      │         │    → solicitGenericExecutionPrepare (decisionRefs verified)
++      │         │    → F09 inspect → Confirm → Authorize → F10 Execute
++      │         │         (PREPARE ≠ Inspect ≠ Confirm ≠ Authorize ≠ Execute)
++      │         ├─ REFUSE
++      │         │    → OA HumanDecision refused (recordable)
++      │         │    → PREPARE forbidden (HD_REFUSED)
++      │         │    → no Authorization / no Attempt
++      │         └─ AMEND
++      │              → HD_AMEND_REQUIRES_NEW_PRESENTATION
++      │              → re-present / re-seal required
++      │              → PREPARE forbidden until new accepted applicable HD
+       └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4)
+            → solicitGenericExecutionPrepare (decisionRefs=[])
+            → F09 inspect → Confirm → Authorize → F10 Execute
+-      UNKNOWN materiality / structural without verified HD → FAIL-CLOSED
++      UNKNOWN materiality / structural without accepted+verified HD → FAIL-CLOSED
+ ```
+
+ OA = authority of record. W2 = Product coordination. Nora = cognition/recommendation only. Cursor = controlled execution under Authorization.
++
++**Structural PREPARE gate (S1):** only an **accepted**, mission-bound, applicable, verified, non-superseded HumanDecision opens Chemin A PREPARE. Refuse and Amend are **not** admissible prepare paths. Accept alone is not Execute authority.
+
+ ## DEP edges (stable IDs)
+
+```
+
+### FULL DIFF vs HEAD — `04-dependency-impact-map.md` (includes R1–R4 + S1/S2)
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-index 394f3663..b1ac22bd 100644
+index 394f3663..fdcedba7 100644
 --- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-@@ -38,6 +38,26 @@ LifecycleSurface / lifecyclePresentation
+@@ -38,6 +38,39 @@ LifecycleSurface / lifecyclePresentation
    → does not alone authorize materialization
  ```
 
@@ -448,23 +386,36 @@ index 394f3663..b1ac22bd 100644
 +  → assessGenericMissionPrepareReadiness + resolveAuthoritativeProductMateriality
 +      ├─ STRUCTURAL / HD-required
 +      │    → remember CURRENT offer (process-local)
-+      │    → Pilot seal Accept/Refuse/Amend (UI)
-+      │    → OA HumanDecision (durable genericMissionContext)
-+      │    → verifyGenericMissionHumanDecisionForPrepare
-+      │    → solicitGenericExecutionPrepare (decisionRefs verified)
-+      │    → F09 inspect → Confirm → Authorize → F10 Execute
++      │    → Pilot disposition on sealed presentation (UI)
++      │         ├─ ACCEPT
++      │         │    → OA HumanDecision status=accepted (durable genericMissionContext)
++      │         │    → verifyGenericMissionHumanDecisionForPrepare
++      │         │         (basis / identity / mission / digest / CURRENT / non-superseded)
++      │         │    → solicitGenericExecutionPrepare (decisionRefs verified)
++      │         │    → F09 inspect → Confirm → Authorize → F10 Execute
++      │         │         (PREPARE ≠ Inspect ≠ Confirm ≠ Authorize ≠ Execute)
++      │         ├─ REFUSE
++      │         │    → OA HumanDecision refused (recordable)
++      │         │    → PREPARE forbidden (HD_REFUSED)
++      │         │    → no Authorization / no Attempt
++      │         └─ AMEND
++      │              → HD_AMEND_REQUIRES_NEW_PRESENTATION
++      │              → re-present / re-seal required
++      │              → PREPARE forbidden until new accepted applicable HD
 +      └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4)
 +           → solicitGenericExecutionPrepare (decisionRefs=[])
 +           → F09 inspect → Confirm → Authorize → F10 Execute
-+      UNKNOWN materiality / structural without verified HD → FAIL-CLOSED
++      UNKNOWN materiality / structural without accepted+verified HD → FAIL-CLOSED
 +```
 +
 +OA = authority of record. W2 = Product coordination. Nora = cognition/recommendation only. Cursor = controlled execution under Authorization.
 +
++**Structural PREPARE gate (S1):** only an **accepted**, mission-bound, applicable, verified, non-superseded HumanDecision opens Chemin A PREPARE. Refuse and Amend are **not** admissible prepare paths. Accept alone is not Execute authority.
++
  ## DEP edges (stable IDs)
 
  | ID | From | To | Why |
-@@ -52,6 +72,9 @@ LifecycleSurface / lifecyclePresentation
+@@ -52,6 +85,9 @@ LifecycleSurface / lifecyclePresentation
  | DEP-MW5-TURN | OBJ-MW5-CHALLENGE | OBJ-TURN-ORCH | challenge gate on turn |
  | DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-INTENT | deterministic structured analysis |
  | DEP-SESSION-TURN | OBJ-MEMORY-B | OBJ-TURN-ORCH | transcript continuity |
@@ -476,11 +427,61 @@ index 394f3663..b1ac22bd 100644
 
 ```
 
-### COMPLETE DIFF — `06-persistence-restart-and-recovery.md`
+### S1/S2-ONLY DIFF — `06-persistence-restart-and-recovery.md` (post-R1R4 → post-S1S2)
+
+```diff
+--- a/06-persistence-restart-and-recovery.md (post-R1R4)
++++ b/06-persistence-restart-and-recovery.md (S1S2)
+@@ -42,9 +42,9 @@
+ | Active cycle | Cycle + LPS pointer | lifecycle projection | proposals may be empty | ok |
+ | Recommendation | usually ephemeral | may recompute | yes | Recommendation ≠ HD |
+ | Proposal pending | epistemic markers maybe | subject reconstruct or requalify | **Proposal map lost** | no silent invent |
+-| Pending Generic PREPARE offer (P6-HQA-F05-GD4-01 + M-HD carrier) | none | must re-offer / requalify | **offer map lost** (process-local) | no silent invent; no stale-offer reuse; structural carrier ≠ PREPARE admission |
+-| Generic Mission HumanDecision (M-HD-01/02) | `oa_human_decisions` (+ DecisionBasis / genericMissionContext / presentationDigest) | decision list + verify path | process-local offer/presentation carrier lost | HD remains durable authority **record**; applicability still re-checked before PREPARE |
+-| Generic Mission presentation (UI seal) | none as Presentation store | none / stale if client held digest without reconstitutable offer | **presentation carrier lost** | fail-closed stale; never invent PREPARE from durable HD alone |
++| Pending Generic PREPARE offer (P6-HQA-F05-GD4-01 + M-HD carrier) | none | UI re-offer / re-present as needed | **offer map lost** (process-local) | no silent invent; no stale-offer reuse; offer loss ≠ universal PREPARE ban (see HD11) |
++| Generic Mission HumanDecision (M-HD-01/02) | `oa_human_decisions` (+ DecisionBasis / genericMissionContext / presentationDigest) | decision list + verify path | process-local offer/presentation carrier lost | HD remains durable authority **record**; accepted+verified HD may resume PREPARE without restoring offer (HD11) |
++| Generic Mission presentation (UI seal) | none as Presentation store | none / stale if client held digest without reconstitutable offer | **presentation carrier lost** | UI fail-closed stale; no PresentedMission store invented |
+ | HD recorded (general) | `oa_human_decisions` | decision list | proposal may be gone | HD remains authority record |
+
+ | EC prepared | `oa_execution_contracts` | EC projection | | |
+@@ -65,15 +65,22 @@
+
+ ## Generic Mission / Generic PREPARE restart (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
+
+-| Fact | Durability | Restart meaning |
++Four situations must stay distinct (S2 / M-HD-01 HD11):
++
++| Situation | Durability | Restart meaning |
+ |---|---|---|
+-| A. Pending Generic PREPARE offer | Process-local only | Lost; must re-qualify / re-offer; no fictional reconstruction |
+-| B. Generic Mission HumanDecision | Durable OA | Identity + DecisionBasis retained; still subject to CURRENT applicability / digest verify |
+-| C. Sealed presentation / digest | Sealed into HD basis when recorded; UI carrier process-local | Process-local carrier does **not** become durable merely because HD is durable |
+-| D. Restart composition | — | Durable HD ≠ CURRENT offer available; absent offer ≠ PREPARE authorized; re-examination required; no artificial HD; no implicit Authorization |
+-| E. Supersession / stale | — | Do not reuse obsolete presentationDigest / fingerprint against a changed mission; verify against CURRENT sealed presentation |
++| A. Pending Generic PREPARE offer | Process-local only | Lost at restart; **no** automatic reconstruction of the presentation carrier |
++| B. UI continuity | Process-local carrier | Absent offer may prevent immediate reconstitution of the Pilot card / sealed presentation UI → honest `none` / `stale` per existing continuity contract; **no** durable PresentedMission store invented |
++| C. Durable OA HumanDecision | Durable OA (`oa_human_decisions`) | Recoverable after restart from Product SQLite; identity + DecisionBasis retained; still subject to CURRENT applicability / digest / supersession verify |
++| D. PREPARE resume | Uses durable HD + Product/OA gates | An **accepted**, mission-bound, applicable, verified HD may resume structural PREPARE **without** restoring the process-local offer when the Product path supplies `decisionId` + coherent mission analysis / project context and all gates pass (HD11). Absence of offer is **not** by itself a universal PREPARE refusal. Presence of HD alone is **not** a universal Authorization |
+
+-**Not claimed:** global RESTART SAFE for Generic PREPARE. Candidate recovery paths are those implemented in W2 continuity readers — no invented recovery mechanism.
++**Mandatory PREPARE-resume checks (unchanged Product/OA):** project; mission; identity; DecisionBasis; digest; status `accepted`; non-superseded; materiality/currentness; other Product/OA gates via `verifyGenericMissionHumanDecisionForPrepare` / `prepareGenericExecutionContractDraft`.
++
++**Never invent on restart:** new HumanDecision; new presentation; new mission; new CycleInstance; implicit Authorization.
++
++**Proof:** HD11 (`p6.mHd01.genericMissionHumanDecision.d0.test.ts`) — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (clear offer → new runtime same SQLite → load HD → PREPARE with `decisionId` + analysis). Does **not** prove automatic UI rehydration.
++
++**Not claimed:** global RESTART SAFE; UI automatically rehydrated; unconditional PREPARE after restart; REAL/HQA restart proven. No invented recovery mechanism beyond candidate W2/OA paths.
+
+ ## Additional stores (harvest)
+
+```
+
+### FULL DIFF vs HEAD — `06-persistence-restart-and-recovery.md` (includes R1–R4 + S1/S2)
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index e11a9db2..c9a43753 100644
+index e11a9db2..4dd9bed1 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 +++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 @@ -42,8 +42,10 @@ Do **not** treat Session items as an exhaustive Pilot transcript. Do **not** cla
@@ -489,42 +490,80 @@ index e11a9db2..c9a43753 100644
  | Proposal pending | epistemic markers maybe | subject reconstruct or requalify | **Proposal map lost** | no silent invent |
 -| Pending Generic PREPARE offer (P6-HQA-F05-GD4-01) | none | must re-offer / requalify | **offer map lost** (process-local) | no silent invent; no stale-offer reuse |
 -| HD recorded | `oa_human_decisions` | decision list | proposal may be gone | HD remains authority record |
-+| Pending Generic PREPARE offer (P6-HQA-F05-GD4-01 + M-HD carrier) | none | must re-offer / requalify | **offer map lost** (process-local) | no silent invent; no stale-offer reuse; structural carrier ≠ PREPARE admission |
-+| Generic Mission HumanDecision (M-HD-01/02) | `oa_human_decisions` (+ DecisionBasis / genericMissionContext / presentationDigest) | decision list + verify path | process-local offer/presentation carrier lost | HD remains durable authority **record**; applicability still re-checked before PREPARE |
-+| Generic Mission presentation (UI seal) | none as Presentation store | none / stale if client held digest without reconstitutable offer | **presentation carrier lost** | fail-closed stale; never invent PREPARE from durable HD alone |
++| Pending Generic PREPARE offer (P6-HQA-F05-GD4-01 + M-HD carrier) | none | UI re-offer / re-present as needed | **offer map lost** (process-local) | no silent invent; no stale-offer reuse; offer loss ≠ universal PREPARE ban (see HD11) |
++| Generic Mission HumanDecision (M-HD-01/02) | `oa_human_decisions` (+ DecisionBasis / genericMissionContext / presentationDigest) | decision list + verify path | process-local offer/presentation carrier lost | HD remains durable authority **record**; accepted+verified HD may resume PREPARE without restoring offer (HD11) |
++| Generic Mission presentation (UI seal) | none as Presentation store | none / stale if client held digest without reconstitutable offer | **presentation carrier lost** | UI fail-closed stale; no PresentedMission store invented |
 +| HD recorded (general) | `oa_human_decisions` | decision list | proposal may be gone | HD remains authority record |
 
  | EC prepared | `oa_execution_contracts` | EC projection | | |
  | Inspected | attestations | | | |
-@@ -61,6 +63,18 @@ Do **not** treat Session items as an exhaustive Pilot transcript. Do **not** cla
+@@ -61,6 +63,25 @@ Do **not** treat Session items as an exhaustive Pilot transcript. Do **not** cla
  - Proposal: not durable; Pilot may need new Proposal turn.
  - Never invent HumanDecision on restart.
 
 +## Generic Mission / Generic PREPARE restart (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
 +
-+| Fact | Durability | Restart meaning |
-+|---|---|---|
-+| A. Pending Generic PREPARE offer | Process-local only | Lost; must re-qualify / re-offer; no fictional reconstruction |
-+| B. Generic Mission HumanDecision | Durable OA | Identity + DecisionBasis retained; still subject to CURRENT applicability / digest verify |
-+| C. Sealed presentation / digest | Sealed into HD basis when recorded; UI carrier process-local | Process-local carrier does **not** become durable merely because HD is durable |
-+| D. Restart composition | — | Durable HD ≠ CURRENT offer available; absent offer ≠ PREPARE authorized; re-examination required; no artificial HD; no implicit Authorization |
-+| E. Supersession / stale | — | Do not reuse obsolete presentationDigest / fingerprint against a changed mission; verify against CURRENT sealed presentation |
++Four situations must stay distinct (S2 / M-HD-01 HD11):
 +
-+**Not claimed:** global RESTART SAFE for Generic PREPARE. Candidate recovery paths are those implemented in W2 continuity readers — no invented recovery mechanism.
++| Situation | Durability | Restart meaning |
++|---|---|---|
++| A. Pending Generic PREPARE offer | Process-local only | Lost at restart; **no** automatic reconstruction of the presentation carrier |
++| B. UI continuity | Process-local carrier | Absent offer may prevent immediate reconstitution of the Pilot card / sealed presentation UI → honest `none` / `stale` per existing continuity contract; **no** durable PresentedMission store invented |
++| C. Durable OA HumanDecision | Durable OA (`oa_human_decisions`) | Recoverable after restart from Product SQLite; identity + DecisionBasis retained; still subject to CURRENT applicability / digest / supersession verify |
++| D. PREPARE resume | Uses durable HD + Product/OA gates | An **accepted**, mission-bound, applicable, verified HD may resume structural PREPARE **without** restoring the process-local offer when the Product path supplies `decisionId` + coherent mission analysis / project context and all gates pass (HD11). Absence of offer is **not** by itself a universal PREPARE refusal. Presence of HD alone is **not** a universal Authorization |
++
++**Mandatory PREPARE-resume checks (unchanged Product/OA):** project; mission; identity; DecisionBasis; digest; status `accepted`; non-superseded; materiality/currentness; other Product/OA gates via `verifyGenericMissionHumanDecisionForPrepare` / `prepareGenericExecutionContractDraft`.
++
++**Never invent on restart:** new HumanDecision; new presentation; new mission; new CycleInstance; implicit Authorization.
++
++**Proof:** HD11 (`p6.mHd01.genericMissionHumanDecision.d0.test.ts`) — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (clear offer → new runtime same SQLite → load HD → PREPARE with `decisionId` + analysis). Does **not** prove automatic UI rehydration.
++
++**Not claimed:** global RESTART SAFE; UI automatically rehydrated; unconditional PREPARE after restart; REAL/HQA restart proven. No invented recovery mechanism beyond candidate W2/OA paths.
 +
  ## Additional stores (harvest)
 
  | Store | Role | Notes |
 ```
 
-### COMPLETE DIFF — `07-authority-invariants-and-failure-modes.md`
+### S1/S2-ONLY DIFF — `07-authority-invariants-and-failure-modes.md` (post-R1R4 → post-S1S2)
+
+```diff
+--- a/07-authority-invariants-and-failure-modes.md (post-R1R4)
++++ b/07-authority-invariants-and-failure-modes.md (S1S2)
+@@ -32,16 +32,21 @@
+ | INV-AUTH-NE-EXEC | Authorization ≠ Execution | governedExecute Select/Start | projectScopedCursorSelection |
+ | INV-EMPTY-REFS-NE-STRUCTURAL | `decisionRefs=[]` admissible only when NON_STRUCTURAL CURRENT gates allow | Option 1 / G-D4 + materiality | p6.o1 / gD4 / materialityBlock01 |
+ | INV-STRUCTURAL-NEEDS-VERIFIED-HD | Structural mission PREPARE requires verified mission-bound HD | verifyGenericMissionHumanDecisionForPrepare | mHd01 / DER16 E12 |
++| INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD | STRUCTURAL PREPARE requires **accepted**, applicable, verified, mission-bound, non-superseded HD — Refuse (`HD_REFUSED`) and Amend (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) are not prepare paths; Accept alone ≠ Execute | verifyGenericMissionHumanDecisionForPrepare | mHd01 (incl. refuse/amend cases) / DER16 |
+
+ ## Dual admission paths — authority summary (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
+
+-**Chemin A — STRUCTURAL:** mission signals / HD-required materiality → process-local presentation carrier → Pilot HumanDecision → verify applicability+digest → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute. No artificial HD. Structural offer alone does not PREPARE. Unbound historical HD does not unlock a different mission.
++**Chemin A — STRUCTURAL:** mission signals / HD-required materiality → process-local presentation carrier → Pilot disposition:
++- **Accept** → durable HD `accepted` → verify basis/identity/mission/digest/CURRENT/non-superseded → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute.
++- **Refuse** → HD refused → PREPARE forbidden (`HD_REFUSED`); no Authorization; no Attempt.
++- **Amend** → new presentation required → PREPARE forbidden (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) until a new accepted applicable HD.
++No artificial HD. Structural offer alone does not PREPARE. Unbound historical HD does not unlock a different mission. Accept alone ≠ Execute.
+
+ **Chemin B — NON_STRUCTURAL:** Materiality CURRENT NON_STRUCTURAL → PREPARE with `decisionRefs=[]` iff Product gates admit → inspect → Confirm (if required) → Authorize → Execute. OA Confirm/Authorize gates remain. UNKNOWN → fail-closed.
+
+ **Separations (KEEP):** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation; Confirmation ≠ Authorization; Authorization ≠ Execution; Attempt terminal ≠ Product SUCCESS PROVEN.
+
+-**CURRENT revalidation:** when Product material facts change, Materiality / applicability / presentation digest must be re-checked before PREPARE resume — do not invent currentness rules beyond candidate `resolveAuthoritativeProductMateriality` + HD verify. Restart: durable HD ≠ CURRENT offer (see vol 06).
++**CURRENT revalidation:** when Product material facts change, Materiality / applicability / presentation digest must be re-checked before PREPARE resume — do not invent currentness rules beyond candidate `resolveAuthoritativeProductMateriality` + HD verify. Restart: process-local offer loss ≠ universal PREPARE ban when durable accepted HD remains verifiable (see vol 06 / HD11).
+
+ ## Failure modes (selected)
+
+```
+
+### FULL DIFF vs HEAD — `07-authority-invariants-and-failure-modes.md` (includes R1–R4 + S1/S2)
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index eba27ccd..2f7ea1d3 100644
+index eba27ccd..bee84335 100644
 --- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 +++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-@@ -26,6 +26,22 @@
+@@ -26,6 +26,27 @@
  | INV-NO-SILENT-HD | No silent/auto HumanDecision | recordDecision only on Pilot action | bridge T2 |
  | INV-NO-V3-ADOPT | No automatic runtime v3 adoption | docs + absence of adoption flags | this corpus |
  | INV-APPLICABILITY-NE-AUTHORITY | Artifact APPLICABLE ≠ execution authorized | activeCycleGovernedContinuation bridge | bridge CORR-01 |
@@ -534,255 +573,109 @@ index eba27ccd..2f7ea1d3 100644
 +| INV-AUTH-NE-EXEC | Authorization ≠ Execution | governedExecute Select/Start | projectScopedCursorSelection |
 +| INV-EMPTY-REFS-NE-STRUCTURAL | `decisionRefs=[]` admissible only when NON_STRUCTURAL CURRENT gates allow | Option 1 / G-D4 + materiality | p6.o1 / gD4 / materialityBlock01 |
 +| INV-STRUCTURAL-NEEDS-VERIFIED-HD | Structural mission PREPARE requires verified mission-bound HD | verifyGenericMissionHumanDecisionForPrepare | mHd01 / DER16 E12 |
++| INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD | STRUCTURAL PREPARE requires **accepted**, applicable, verified, mission-bound, non-superseded HD — Refuse (`HD_REFUSED`) and Amend (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) are not prepare paths; Accept alone ≠ Execute | verifyGenericMissionHumanDecisionForPrepare | mHd01 (incl. refuse/amend cases) / DER16 |
 +
 +## Dual admission paths — authority summary (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
 +
-+**Chemin A — STRUCTURAL:** mission signals / HD-required materiality → process-local presentation carrier → Pilot HumanDecision → verify applicability+digest → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute. No artificial HD. Structural offer alone does not PREPARE. Unbound historical HD does not unlock a different mission.
++**Chemin A — STRUCTURAL:** mission signals / HD-required materiality → process-local presentation carrier → Pilot disposition:
++- **Accept** → durable HD `accepted` → verify basis/identity/mission/digest/CURRENT/non-superseded → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute.
++- **Refuse** → HD refused → PREPARE forbidden (`HD_REFUSED`); no Authorization; no Attempt.
++- **Amend** → new presentation required → PREPARE forbidden (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) until a new accepted applicable HD.
++No artificial HD. Structural offer alone does not PREPARE. Unbound historical HD does not unlock a different mission. Accept alone ≠ Execute.
 +
 +**Chemin B — NON_STRUCTURAL:** Materiality CURRENT NON_STRUCTURAL → PREPARE with `decisionRefs=[]` iff Product gates admit → inspect → Confirm (if required) → Authorize → Execute. OA Confirm/Authorize gates remain. UNKNOWN → fail-closed.
 +
 +**Separations (KEEP):** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation; Confirmation ≠ Authorization; Authorization ≠ Execution; Attempt terminal ≠ Product SUCCESS PROVEN.
 +
-+**CURRENT revalidation:** when Product material facts change, Materiality / applicability / presentation digest must be re-checked before PREPARE resume — do not invent currentness rules beyond candidate `resolveAuthoritativeProductMateriality` + HD verify. Restart: durable HD ≠ CURRENT offer (see vol 06).
++**CURRENT revalidation:** when Product material facts change, Materiality / applicability / presentation digest must be re-checked before PREPARE resume — do not invent currentness rules beyond candidate `resolveAuthoritativeProductMateriality` + HD verify. Restart: process-local offer loss ≠ universal PREPARE ban when durable accepted HD remains verifiable (see vol 06 / HD11).
 
  ## Failure modes (selected)
 
 ```
 
-### COMPLETE DIFF — `08-test-proof-and-conformance-map.md`
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index 90b349ac..03626bcd 100644
---- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-+++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -15,6 +15,10 @@
- |---|---|---|
- | F05 materialization | continuity CORR-01, bridge CORR-01, corrProof07, **productCycleE2eStabilization.frontDoor**, fakeProvider materialization | **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** — oracle traverses Product UI server actions (Send→Decide→PrepareResolvedM3→ConfirmAndExecuteResolvedM3→Rehydrate) |
- | F05 optional documentary → Generic PREPARE (PR #586) | `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` (+ G-D4, Product Continuity, HQA-F01) | DETERMINISTIC — `no_require_artifact` routes to Generic PREPARE; Artifact obligation path preserved; exact caps; non-authoritative path candidates; Fake cue `__P6_OPTIONAL_DOCUMENTARY_MD__` ≠ OpenAI LIVE |
-+| F04 Nora Generic PREPARE tool (D-ER-16) | `p6.der16.genericNoraToolInvocation.d0.test.ts` | DETERMINISTIC — solicit PREPARE only; structural fail-closed; no Attempt; PENDING_GIT_INTEGRATION |
-+| F08 Generic PREPARE / M-HD / Option1 | `p6.mHd01*`, `p6.mHd02*`, `p6.hqa.materialityBlock01*`, `p6.o1.continuityGd4EmptyRefs*` | DETERMINISTIC — structural HD-bound vs NON_STRUCTURAL empty refs; PENDING_GIT_INTEGRATION |
-+| F09 unified inspection | `p6.uic.unifiedInspectionContract*`, `p6.r03.inspection*` | DETERMINISTIC — explicit exam/attest; identity binding; PENDING_GIT_INTEGRATION |
-+| F10 project-scoped Cursor | `p6.projectScopedCursorSelection.d0.test.ts` | DETERMINISTIC Fake Select→Start→Result; null-cycle admitted only if OA allows; ZERO Cursor REAL |
+## 18. Compatibilité R1 / R4
+- R1 taxonomy F04/F05/F08/F09/F10 preserved; S1 only clarifies Chemin A dispositions inside F08
+- R4 oracle semantics in vol 08 **untouched** this cycle (KEEP hash)
+- Structural vs NON_STRUCTURAL / UNKNOWN fail-closed / Materiality CURRENT / PREPARE≠AUTHORIZE separations preserved
 
- | F03/F15 obligations | corrProof06.artifactObligation | policy HD + applicability |
- | F03 First Framing START | p6.hqa.f01.chatFirstCycleStartGate, chatFirstFramingContinuity(.frontDoor) | explicit START; no auto-START; no technical id in Pilot copy |
-@@ -31,6 +35,40 @@
- | F10–F11 attempt/evidence | productCycleE2eStabilization.frontDoor + PWR E2E | Fake adapter / Fake docs-write only |
- | Architecture drift | productionRuntimeReference.conformance | living reference |
+## 19. Digests candidats (non promus)
 
-+## Test-oracle semantic change — Artifact continuity suites (R4)
-+
-+**Classification (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION):**
-+
-+| Layer | Label | Meaning |
-+|---|---|---|
-+| Test file edits | **NO_RUNTIME_SEMANTIC_IMPACT** | Product runtime paths under test are not altered by the test-file diff alone |
-+| Functional expectations | **TEST_ORACLE_SEMANTIC_CHANGE** | What the suite asserts as correct Product behavior did change |
-+
-+Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That label is retained for **runtime** impact of the test files; this section records the **oracle** change ChatGPT R4 requires before digest approval.
-+
-+### `activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`
-+
-+| | Historical oracle | Candidate oracle |
-+|---|---|---|
-+| Mode | `ACTIVE_CYCLE_CONTINUATION_BLOCKED` | `NEW_CYCLE_FORMALIZATION` |
-+| Reason | `incompatible_execution_intent` | `no_compatible_artifact_effect` |
-+
-+- Scenario: natural materialization signal **without** `docs_write`-compatible effect under an active cycle with REQUIRE_ARTIFACT.
-+- **Does not prove** that a new CycleInstance was created — the same case asserts `countCycles === 1` (resolution alone never invents a cycle).
-+- Mode name `NEW_CYCLE_FORMALIZATION` here is a resolution **routing** outcome (D-ER-17: not a dead-end; Generic PREPARE may remain eligible on project/active-cycle context) — **≠** Artifact governed continuation, **≠** CREATE_CYCLE proof.
-+- Ceiling: DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). NOT E2E REAL. NOT READY FOR REAL.
-+
-+### `corrProof07.artifactMaterialization.d0.test.ts`
-+
-+Candidate assertions distinguish:
-+
-+1. **Generic PREPARE eligible** on same active-cycle / project context (no dead-end force-unbind).
-+2. **Artifact governed materialization not authorized** for the non-`docs_write` natural signal.
-+3. **No artificial new CycleInstance** (`countCycles` stable; `createCycle` not required by this path).
-+4. **No misleading Artifact materialization Proposal** bound as active-cycle governed continuation.
-+
-+Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETERMINISTIC at tested scope only — oracle change ≠ proof E2E REAL.
-+
- ## Oracle weaknesses (updated after PRODUCT-CYCLE-E2E-STABILIZATION-01)
+| File | Manifest | Pre-S1S2 (R1R4) | Candidate S1S2 |
+|---|---|---|---|
+| `03-end-to-end-flow-catalog.md` | `2e53911afec78653` | `854b94741d7412ec` | `efdc700181d6a2cc` |
+| `04-dependency-impact-map.md` | `f7f8d21a0efb997b` | `7a1689f3b1cb3e9e` | `0e1a3472427bdb90` |
+| `06-persistence-restart-and-recovery.md` | `e65f13a723097cff` | `179057f68b7a363d` | `93e604fb84081c98` |
+| `07-authority-invariants-and-failure-modes.md` | `3dbdf5191b9b4670` | `6a648b21c7445423` | `8e81c1fd63d604b0` |
 
- | Weakness | Classification | Evidence |
-```
+Manifest **not** written. G-DIGEST remains PENDING APPROVAL.
+JSON: `.tmp-sfia-review/s1s2-candidate-digests.json`
 
-### COMPLETE DIFF — `09-known-gaps-reserves-and-current-boundaries.md`
+## 20. Manifest inchangé
+- `production-runtime-reference.manifest.json` hash KEEP `9a004d6fdac6581e…`
+- README KEEP `d6e17088b0cc5762…`
+- Vols 02/08/09 KEEP (pre-S1S2 hashes)
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index f663ab90..d9f19039 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -91,18 +91,36 @@
- - Some object cards mark PARTIAL where aggregate naming is distributed across DTOs.
- - REAL OpenAI leaf candidacy parity not re-proven this macro (DETERMINISTIC only).
+## 21. Contrôles
+- `git diff --check` clean
+- Only 03/04/06/07 content changed this cycle (02/08/09 frozen)
+- Product freeze 78/78
+- Source preserved
+- Staged empty
+- Labels: AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION / DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE / NOT_PROVEN
+- No INTEGRATED_ON_MAIN / P6 PASS / READY FOR REAL / runtime v3 ADOPTED
+- Historical 328 / G-IB 5/5 / typecheck — **not re-executed** this cycle
+- Conformance digest FAIL still expected (not run as pass claim)
 
--## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (CURRENT MACRO — local candidate)
-+## Overlay — P6 Generic Execution consolidation candidate (LIVING REFERENCE R1–R4)
+## 22. Product freeze 78/78
+Verified against `.tmp-sfia-review/s1s2-dirty-freeze.json` (matches R1R4 freeze).
 
--- **CURRENT MACRO** on branch `delivery/sfia-studio-generic-execution-review-result-convergence-01` · Correction Pass **04 RESUMED AFTER MORRIS DECISION** · **CLOSED FOR CRITICAL REVIEW**.
-+**Status:** AS_IMPLEMENTED_IN_CANDIDATE on integration worktree `integration/sfia-studio-p6-generic-execution-consolidation` @ base `896ff59c` · Product dirty transferred from source `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862` · **PENDING_GIT_INTEGRATION** · **NOT INTEGRATED_ON_MAIN**.
-+
-+| Item | Status |
-+|---|---|
-+| G-IB (importBoundaries allowlist +4 W2 type-only RuntimeOaStack) | **CLOSED** (historical gate) |
-+| G-DIGEST Living Reference digests | **PENDING CONTENT APPROVAL** — manifest **FROZEN**; digests **not** promoted this cycle |
-+| Living Reference volumes 02/03/04/06/07/08/09 | Semantic amendments R1–R4 applied locally — ChatGPT content review required before digest write |
-+| 77 Product candidates + allowlist | Preserved dirty; **no** Product commit/push/PR this cycle |
-+| Pending Generic PREPARE offer | Process-local — restart-unsafe (vol 06) |
-+| Generic Mission HumanDecision | Durable OA; restart ≠ CURRENT offer; applicability re-check required |
-+| Cursor REAL / OpenAI LIVE / HQA | **NOT PROVEN / NOT RETESTED** |
-+| P6 GLOBAL PASS / READY FOR REAL / runtime v3 ADOPTED | **NOT CLAIMED** |
-+| DETERMINISTIC proof ceiling | Historical 328 targeted PASS + G-IB 5/5 — **not re-executed** this documentary cycle |
-+
-+**Next (distinct GOs):** ChatGPT semantic content review → Morris digest approval → conformance → Product git decision → PR/CI/merge → HQA reprise. This overlay does **not** claim CURRENT ON MAIN.
-+
-+## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (historical macro — retained)
-+
-+- **Historical macro** on branch `delivery/sfia-studio-generic-execution-review-result-convergence-01` · Correction Pass **04 RESUMED AFTER MORRIS DECISION** · **CLOSED FOR CRITICAL REVIEW** (documentary tip retained; superseding Product consolidation is the P6 overlay above).
- - **CP4-01 WIRED** — Product carrier = Proposal `PresentedOptionSet.sealedExecutionBasis` → pursue HumanDecision → DecisionBasis → generic local-write (MD-CP4-01 consumed). MAIN front-door oracle does **not** inject `durableLocalWriteSeal`.
- - **CP4-02 OPTION C IMPLEMENTED** — Studio Product write protection = sandbox floor ∪ `STUDIO_GOVERNANCE_PROTECTED_PATHS` (framing prefix + exact Build Doctrine / Roadmap / D-ER architecture / C1). No blanket `projects/sfia-studio/**` deny. No Campus360/CT `SFIA_DEFAULT_PROTECTED_PATHS` as Product classifier.
--- Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** · ZERO REAL · READY FOR REAL **NO** · runtime v3 **NON ADOPTED**.
-+- Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** (at time of that macro) · ZERO REAL · READY FOR REAL **NO** · runtime v3 **NON ADOPTED**.
- - Historical: Correction Pass 04 STOP (Morris decision required on CP4-02) superseded by MD-CP4-01/MD-CP4-02 resume — see prior tip / handoff `2daf0dc3…`.
- - docs_write adapters: **TRANSITIONAL bridge retained** (dual-write Review Material) — exit when historical callers = 0.
- - `durableLocalWriteSeal` domain seam: **TRANSITIONAL** (isolated domain/tests only) — exit when GOVERNED trajectory Product carrier is retired or superseded; never browser/client.
- - NoteLite REAL replay: **NOT DONE** (PAUSED; distinct Morris GO).
- - Retention GC / Git promotion: **NOT IMPLEMENTED**.
--- Next = ChatGPT Critical Review of Correction Pass 04 resume → Morris GO commit/push/PR (distinct).
-+- Next after that macro was ChatGPT Critical Review → Morris GO commit/push/PR (distinct). Product consolidation trajectory now tracked under the P6 overlay.
+## 23. Worktree source préservé
+`fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` · porcelain 78 · no edits this cycle.
 
- ### Historical — Correction Pass 04 STOP (superseded)
+## 24. Fake / Real
+- Applicable YES
+- Fake: HD11 + M-HD refuse/amend suites
+- REAL corresponding: authenticated Product SQLite restart + external provider + Cursor REAL — **NOT RUN**
+- Entry DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE → exit SEMANTIC CONTENT READY FOR CHATGPT REVIEW
+- GO REAL: NO
 
-```
+## 25. Risques / réserves
+- G-DIGEST still open until ChatGPT approves then distinct Morris digest GO
+- UI restart rehydration NOT PROVEN (honest none/stale)
+- HD11 scope only — no unconditional PREPARE
+- HQA / REAL / Visual NOT PROVEN
+- Product dirty still uncommitted
 
+## 26. Dette / exit
+- Debt: digest sync deferred
+- Exit this cycle: S1/S2 corrected; HD status matrix; HD11 resume described; UI process-local distinguished; no artificial authority; complete diffs; Product preserved; handoff published
+- Next: ChatGPT final content review → digest GO → conformance → Product git GO
 
-## 16. Preuves Product associées (références — code non recopié)
-- `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft`
-- `resolveAuthoritativeProductMateriality` / `assessGenericMissionPrepareReadiness`
-- `recordGenericMissionHumanDecision` / `verifyGenericMissionHumanDecisionForPrepare`
-- `pendingGenericPrepareOfferStore` (process-local)
-- `request_generic_execution_prepare` (Nora tool → Product solicit only)
-- `ContractInspectionExamPanel` / `contractInspectionExam`
-- `projectScopedCursorSelection` / governed execute Select→Start
-- Suites: `p6.der16*`, `p6.mHd01*`, `p6.mHd02*`, `p6.o1*`, `p6.hqa.materialityBlock01*`, `p6.uic*`, `p6.r03*`, `p6.projectScopedCursorSelection*`, continuity CORR-01, corrProof07
-- Cumulative Product code reviewed in prior handoffs (`ae40017f`, `eae8dbe2`); this cycle did **not** re-audit all 77 files line-by-line
-
-## 17. Labels épistémiques utilisés
-- AS_IMPLEMENTED_IN_CANDIDATE
-- PENDING_GIT_INTEGRATION
-- DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE
-- NOT_PROVEN
-- NOT INTEGRATED_ON_MAIN
-- NO_RUNTIME_SEMANTIC_IMPACT (test files)
-- TEST_ORACLE_SEMANTIC_CHANGE (oracle expectations)
-- **Not used:** INTEGRATED_ON_MAIN for this candidate; P6 PASS; HQA PASS; READY FOR REAL; runtime v3 ADOPTED
-
-## 18. Réserves
-- G-DIGEST pending ChatGPT content approval then distinct Morris digest GO
-- Cursor REAL / OpenAI LIVE / HQA not retested
-- Visual Figma/runtime NOT PROVEN
-- Pending offer process-local restart-unsafe
-- No global RESTART SAFE claim
-- Historical 328 PASS / typecheck/lint/build / G-IB 5/5 **not re-executed** this cycle
-- Product dirty not committed
-- Parent seven source/test digest drifts retained; **+7 volume digests** now drifted by R1–R4
-
-## 19–20. Digests actuels vs candidats
-
-Manifest remains FROZEN. Digests NOT written.
-
-Tracked digests: 44. Drift count: 14.
-
-### Volume digests (this cycle)
-
-| File | Manifest digest | Candidate digest |
-|---|---|---|
-| `02-runtime-object-catalog.md` | `f820789e8f4d7af3` | `243b7c0e390eb19f` |
-| `03-end-to-end-flow-catalog.md` | `2e53911afec78653` | `854b94741d7412ec` |
-| `04-dependency-impact-map.md` | `f7f8d21a0efb997b` | `7a1689f3b1cb3e9e` |
-| `06-persistence-restart-and-recovery.md` | `e65f13a723097cff` | `179057f68b7a363d` |
-| `07-authority-invariants-and-failure-modes.md` | `3dbdf5191b9b4670` | `6a648b21c7445423` |
-| `08-test-proof-and-conformance-map.md` | `a9adba70a42a1e55` | `9ee8dde351556e12` |
-| `09-known-gaps-reserves-and-current-boundaries.md` | `716f81a3b1cb5937` | `e9868b78e0a79e7c` |
-
-### Product source/test digests still drifted (parent + consolidation; unchanged this cycle)
-
-| Path | Manifest | Candidate |
-|---|---|---|
-| `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts` | `1b8d5cd3ff4f3383` | `8150d48197019412` |
-| `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts` | `6200659a4be2f20c` | `bf17440e75fd1d6a` |
-| `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts` | `57646c517d2ccdb6` | `93852ec0c2193c86` |
-| `projects/sfia-studio/app/lib/oa/project/domain/artifactTargetRouting.ts` | `21dfef1c7b08764a` | `16d3c4a2141b205f` |
-| `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts` | `53eb3081b6bb2c23` | `7eb2fa5f7fb56ac0` |
-| `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts` | `323b22fa466fc23b` | `23513b92d5cfa5d3` |
-| `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts` | `29485cbfb95f7939` | `c2862434ad6fe670` |
-
-Full machine JSON: `.tmp-sfia-review/r1r4-candidate-digests.json`
-
-## 21. Manifest inchangé
-- `production-runtime-reference.manifest.json` — no git diff
-- `lastReviewedCommit` / `lastReviewedAt` / `schemaVersion` / components / flows / dependencies / invariants — untouched
-- README.md — untouched
-
-## 22. Contrôles
-- `git diff --check` — clean (no whitespace errors)
-- `git diff --name-status` — 7 volumes only under production-runtime-reference/
-- Links / function names / test refs — spot-checked against candidate paths
-- Conformance checker (non-destructive): **4 PASS / 1 FAIL** on digest match (expected; first mismatch vol 02 `f820789e8f4d7af3` vs `243b7c0e390eb19f`)
-- No runtime ADOPTED claim; no new authority; no false REAL; no candidat/main mix; no new architecture
-- 77 Product candidates + allowlist (=78 freeze) unchanged
-- Source worktree HEAD + Product dirty preserved
-- Staged Product empty
-
-## 23. Git Review Index
+## 27. Git Review Index
 | Artifact | Ref |
 |---|---|
-| Parent gates handoff | `eae8dbe20a1309a884338a87f6a00d38dfafb944` |
-| Preflight handoff | `ae40017f` (historical) |
+| Parent R1–R4 handoff | `3c1b5c83` / blob `c2243b81` |
 | Integration HEAD | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
 | Source HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
-| Remote main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
-| This handoff commit | *(filled after publish)* |
-
-## 24. Fichiers Product préservés
-78/78 freeze hash match. No Product edit this cycle.
-
-## 25. G-IB préservé
-Allowlist `importBoundaries.test.ts` hash unchanged vs freeze (`d0b513bab345cc83…`). G-IB remains CLOSED.
-
-## 26. Fake / Real
-- Applicable: YES (authority boundaries covered by Fake tests)
-- Entry: DETERMINISTIC PROVEN at tested scope (historical)
-- Expected after this cycle: **DOCUMENTARY SEMANTIC REVIEW READY**
-- OUT: new REAL proof; E2E REAL PROVEN; HQA PASS; P6 PASS; runtime v3 ADOPTED
-- GO REAL: **NO**
-- DETERMINISTIC PROVEN ≠ READY FOR REAL
-
-## 27. Dette / exit
-- Debt: digest sync deferred until ChatGPT approves content
-- Exit proof this cycle: R1–R4 corrected; authority invariants preserved; no false maturity; complete doc diffs; handoff published
-- Next capacity: Git integration of V3-F05 candidate **after** digest approval + distinct GO
+| This handoff | *(post-publish)* |
 
 ## 28. Gates Morris
 | Gate | State |
 |---|---|
 | G-IB | CLOSED |
-| G-DIGEST | **PENDING CONTENT APPROVAL** (not closed; digests not promoted) |
-| Product commit/push/PR | NOT AUTHORIZED |
-| HQA / REAL | NOT AUTHORIZED |
+| R1/R4 | ACCEPTED (preserved) |
+| S1/S2 content | READY FOR CHATGPT FINAL CONTENT REVIEW |
+| G-DIGEST | **PENDING APPROVAL** (not closed; digests not promoted) |
+| Product git / HQA / REAL | NOT AUTHORIZED |
 
 ## 29. Verdict
 
-**R1-R4 DOCUMENTARY AMENDMENTS COMPLETE — SEMANTIC CONTENT READY FOR CHATGPT REVIEW — G-DIGEST PENDING APPROVAL**
+**S1-S2 SEMANTIC CORRECTIONS COMPLETE — READY FOR CHATGPT FINAL CONTENT REVIEW — G-DIGEST PENDING APPROVAL**
 
 ### Instruction ChatGPT
-Lire ce Review Handoff distant au SHA publié. Contrôler R1 classification F04/F05/F08/F09/F10; R2 chemins d'autorité; R3 restart/process-local; R4 test oracle semantics; cohérence candidat; contenu complet des sections; labels candidat/main; manifest inchangé; digests non promus; Product dirty préservé; absence d'effets interdits.
+Lire le Review Handoff distant au SHA publié. Vérifier S1 accepted/refused/amended; structural PREPARE only under applicable accepted HD; S2 HD11 resume without offer; UI carrier process-local; F08/vol04/vol06/vol07 coherence; complete diffs; other volumes frozen; digests non promus; Product dirty préservé.
 
-Après revue sémantique: recommander explicitement **APPROVE / AMEND / STOP**.
+Rendre: **APPROVE / AMEND / STOP**.
 
-Ne pas générer automatiquement de prompt commit/push/PR. Ne pas annoncer G-DIGEST CLOSED / DIGESTS PROMOTED / FULL CI PASS / READY FOR PRODUCT COMMIT / HQA READY.
+Ne pas générer de prompt commit/push/PR Product. Ne pas annoncer G-DIGEST CLOSED / DIGESTS PROMOTED / FULL CI PASS / PRODUCT GIT INTEGRATED / READY FOR HQA / READY FOR REAL / P6 PASS / runtime v3 ADOPTED.
