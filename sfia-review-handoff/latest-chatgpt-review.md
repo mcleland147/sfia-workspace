@@ -1,35 +1,30 @@
-# SFIA STUDIO — P6-MIN-07 M-HD-02
-## INTEGRATED PRODUCT QA — BOUNDED EXECUTION
+# SFIA STUDIO — P6-HQA-FRESH-01
+## FRESH START HUMAN QA — CAMPAIGN INITIALIZATION
 
-**Horodatage:** 2026-10-16 21:50:33 CEST (Europe/Paris)
-**GO Morris consommé:** P6-MIN-07 Integrated Product QA on M-HD-02 candidate (2026-10-16)
+**Horodatage:** 2026-10-17 07:11:01 CEST (Europe/Paris)
+**GO Morris consommé:** NEW FRESH HUMAN QA CAMPAIGN — P6-HQA-FRESH-01 initialization (2026-10-17)
 **Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 **Milestone:** P6 — GLOBAL INTEGRATED PRODUCT QA
-**Campaign ID:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-**Scenario ID:** P6-MIN-07
+**Parent campaign:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+**Fresh campaign:** P6-HQA-FRESH-01
 **Cycle:** 9 — QA / validation
 **Profil:** CRITICAL
-**Capacité:** V3-F05 (+ V3-F02 / V3-F11 / V3-F12 / V3-F14)
+**Capacités:** V3-F01 / V3-F02 / V3-F05 / V3-F11-F12 (si rencontrées) / V3-F14
 **CKC:** ckc:studio:qa-validation
 
 ---
 
 ## 1. Verdict
 
-**P6-MIN-07 QA — BLOCKED / ENVIRONMENT OR GATE**
+**P6-HQA-FRESH-01 — WAITING MORRIS AUTH BOOTSTRAP**
 
-**Sous-statut:** Better Auth session cookies EXPIRED (2026-10-14) → get-session = null → parcours Product HD NOT REACHED.
+Environnement QA métier **vierge QUALIFIED** ; runtime candidat up sur virgin DB ; campagne initialisée ; scénario HQA-FRESH-01 prêt.
 
-**WAITING PILOT** pour :
-1. `npm run e2e:auth:bootstrap` (OAuth GitHub headed) sur runtime candidat ;
-2. puis HumanDecision Accept/Refuse explicite (ne pas automatiser).
+**Réserve structurante:** OpenAI LIVE pour Nora sur candidat dirty → **REAL GATE REQUIRED** (ne pas élargir GO P6 REAL historique par analogie).
 
-**Complément DETERMINISTIC (non substitutif):** 53/53 PASS sur suites M-HD-02 Fake/SQLite — preuve DETERMINISTIC, ≠ integrated browser.
+Ce cycle ≠ HUMAN QA PASS · ≠ P6 GLOBAL PASS · ≠ END-TO-END REAL PASS · ≠ PRODUCT GIT INTEGRATED · ≠ RUNTIME V3 ADOPTED.
 
-Claims interdits non revendiqués :
-P6 GLOBAL PASS · P6 COMPLETE · READY FOR REAL GLOBAL · HUMAN QA PASS · PRODUCT GIT INTEGRATED · PR READY · RUNTIME V3 ADOPTED.
-
-**Statut revue:** NOT READY (integrated) / READY WITH RESERVES (env préflight + DET).
+**Statut revue:** READY WITH RESERVES (auth + REAL gate).
 
 ---
 
@@ -38,14 +33,15 @@ P6 GLOBAL PASS · P6 COMPLETE · READY FOR REAL GLOBAL · HUMAN QA PASS · PRODU
 | Champ | Valeur |
 |-------|--------|
 | Remote | mcleland147/sfia-workspace |
-| Branche | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
+| Branche Product | `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` |
 | HEAD | `b4c1d86211d372f7b0685be7ce8a5ba7de598e37` |
 | origin/main | `896ff59c704bfa76df1da1a51705aaf948c1cf0c` |
+| P6 campaign WT | qa/sfia-studio-p6-global-integrated-product-qa @ 980064c0 (non modifié) |
 | Dirty | EXPECTED — préservé |
-| Dirty fingerprint SHA-256 | `1c8005bf124b365a64b25a7260cc088007207dcea3b71c2b5b1987611ba74ff1` |
+| Dirty fingerprint | `1c8005bf124b365a64b25a7260cc088007207dcea3b71c2b5b1987611ba74ff1` |
 | Staged | vide |
-| Modifications Product ce cycle | **AUCUNE** |
-| Handoff entry précédent | `8599058c` / blob `f0fef84f` |
+| Product mutate ce cycle | **AUCUNE** |
+| Handoff précédent | d4304659 / eb0f3893 |
 
 ### git status --short
 
@@ -98,23 +94,19 @@ M .tmp-sfia-review/chatgpt-review.md
 
 ---
 
-## 3. Sources réellement consultées
+## 3. Sources consultées
 
 PROCESSUS: template · routing · guardrails · operating model
 
-Convergence: Build Doctrine · Roadmap · Architecture D-ER candidate
+Convergence: Build Doctrine · Roadmap
 
-Product: C1 · P2 · P6 contract 07 · manifests campaign
+Product: C1 · P1/P2/P3 FOM · P6 contract 07 · p6-qa-integration-state-and-reserves (candidature, non-autorité)
 
-Doctrine/CKC: 30/32/34/35/37 · 09-qa-validation.md
+Doctrine/CKC: 30/32/34/35/37 · 09-qa-validation
 
-Handoff entry: sfia/review-handoff @ 8599058c / f0fef84f
+Handoff P6-MIN-07: sfia/review-handoff @ d4304659 / eb0f3893
 
-Campaign evidence (READ, non modifié):
-/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/
-
-Candidate evidence (créé ce cycle, gitignored):
-.tmp-sfia-review/p6-global-integrated-qa/ sur worktree dirty
+Campaign evidence historique (READ): /Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/
 
 ---
 
@@ -122,238 +114,419 @@ Candidate evidence (créé ce cycle, gitignored):
 
 | | |
 |--|--|
-| TARGET | Pilote→Nora→mission→HD→OA/LPS→relecture→PREPARE |
-| CURRENT | M-HD-02 DET CLOSED ; P6-MIN-07 ENTRY QUALIFIED ; integrated BLOCKED at session |
-| KEEP | Campagne P6 · OA · LPS · Nora · Continuity · PREPARE · UI · Evidence seam |
-| ADAPT/REPLACE | Aucun composant Product |
-| GAP | Session Pilote valide + parcours navigateur HD→PREPARE |
-| EXIT | Comportement intégré non démontré ; écart session précis |
+| TARGET | Pilote nouveau Project → Nora → LPS → décisions → PREPARE gouverné |
+| CURRENT | DET ciblées CLOSED ; HQA intégré NOT PROVEN ; MIN-07 bloqué session |
+| KEEP | Product · Nora · Project create · LPS · HD · OA · PREPARE · Evidence P6 · campagne globale |
+| ADAPT/REPLACE | Aucun Product |
+| GAPS | session valide · virgin env (clos ce cycle) · HQA naturelle |
+| EXIT ce cycle | Campagne init · env qualifié · Project non précréé · scenario Morris |
+
+Roadmap: Phase 5 Human QA track — sous-campagne fraîche, **pas** nouvelle Phase 0.
 
 ---
 
-## 5. Campagne P6 utilisée
+## 5. Campagne P6 de rattachement
 
-- Campaign: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
-- Campaign branch/worktree: qa/sfia-studio-p6-global-integrated-product-qa @ 980064c0 (non modifié)
-- Manifest: P6-SC-MIN-07 mapped P6-MIN-07 · humanQaRequired=true · proofTarget REAL-BOUNDARY
-- Historical ledger: 76 lines — HISTORICAL ; non présenté comme preuve candidat dirty
-- Nouveau ledger candidat: append-preserving sous worktree dirty (2 rows ce run)
-- Aucune nouvelle campagne / moteur Evidence
+- Parent: P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+- Contract: product-simplification/07-…-p6-global-integrated-product-qa.md
+- GO P6 EXECUTION / REAL: AUTHORIZED/CONSUMED historiques — **non étendus**
+- Evidence seam: lib/p6-campaign-evidence + ledger JSONL
+- Aucune reconstruction Phase 0 · aucune nouvelle architecture QA
 
 ---
 
-## 6. Environnement / runtime snapshot
+## 6. Identité P6-HQA-FRESH-01
+
+```json
+{
+  "campaignId": "P6-HQA-FRESH-01",
+  "parentCampaignId": "P6-GLOBAL-INTEGRATED-PRODUCT-QA-01",
+  "milestone": "P6 \u2014 GLOBAL INTEGRATED PRODUCT QA",
+  "macro": "STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01",
+  "phaseTrack": "P6 Phase 5 Human QA (fresh sub-campaign)",
+  "createdAt": "2026-10-17T07:10:34",
+  "candidateBranch": "fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare",
+  "candidateHead": "b4c1d86211d372f7b0685be7ce8a5ba7de598e37",
+  "originMain": "896ff59c704bfa76df1da1a51705aaf948c1cf0c",
+  "p6CampaignBranch": "qa/sfia-studio-p6-global-integrated-product-qa",
+  "p6CampaignHead": "980064c05f1769f00d0ef85ef5284a899c6a0d73",
+  "evidenceRoot": "/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01",
+  "parentEvidenceRoot": "/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa",
+  "historicalCampaignEvidence": "/Users/morris/Projects/sfia-workspace/.tmp-sfia-review/p6-global-integrated-qa/",
+  "productDbPath": "/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/oa-product.sqlite",
+  "noraSessionDbPath": "/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/nora-session.sqlite",
+  "dirtyFingerprintSha256": "1c8005bf124b365a64b25a7260cc088007207dcea3b71c2b5b1987611ba74ff1",
+  "rules": [
+    "Distinct runIds/projects/verdicts from historical P6 runs",
+    "Do not overwrite historical ledger rows",
+    "No automatic inheritance of prior PASS",
+    "Morris creates Project via Studio UI \u2014 no SQL insert",
+    "No Cursor REAL / Execute in this preparation cycle"
+  ]
+}
+```
+
+---
+
+## 7. Derniers deliveries concernés (inventaire validation)
+
+| ID | État constaté | DET existante | Gap HQA | Prio |
+|----|---------------|---------------|---------|------|
+| NEW_PROJECT_ONBOARDING | PRESENT dirty candidate | historical P6 smokes / readiness tests | natural create by Morris on virgin DB | P0 |
+| NORA_QUALIFICATION | PRESENT dirty | Fake-provider DET suites | LIVE spontaneous qualification under REAL gate | P0 |
+| COG01_NARRATIVE | PRESENT | partial | Pilot-facing narrative quality | P1 |
+| F01_CHAT_FIRST_START | PRESENT dirty | UI tests historical | fresh start UX | P0 |
+| CONVERSATION_UI | PRESENT — exact UI01-05 mapping NOT re-audited this cycle | n/a this cycle | observe during HQA | P1 |
+| GENERIC_MISSION_PRESENTATION | PRESENT untracked/dirty | M-HD-02 DET PASS | integrated UI with real Pilote | P0 |
+| M_HD_01_02 | PRESENT | DETERMINISTIC PASS closed by Morris | integrated Human QA | P0 |
+| HUMAN_DECISION | PRESENT | PASS Fake | Morris explicit Accept/Refuse | P0 |
+| OA_LPS_CONTINUITY | PRESENT | PASS Fake | re-read after refresh in Product | P0 |
+| PREPARE_GENERIC | PRESENT | PASS Fake targeted | PREPARE without Execute in HQA-FRESH-07 | P1 |
+
+Inventaire ≠ chantier hardening. Suites DET non relancées en masse.
+
+---
+
+## 8. Environnement runtime
+
+```json
+{
+  "timestamp": "2026-10-17T07:10:27",
+  "campaignId": "P6-HQA-FRESH-01",
+  "runtimeUrl": "http://localhost:3020",
+  "betterAuthUrl": "http://localhost:3020",
+  "node": "v24.16.0",
+  "productDb": "/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/oa-product.sqlite",
+  "cursorReal": "0",
+  "openaiLivePlanned": "NOT_STARTED \u2014 REAL GATE REQUIRED for dirty candidate Nora LIVE",
+  "authStorageState": "EXPIRED as of last probe (2026-10-14 cookies) \u2014 bootstrap required",
+  "priorRuntimeStopped": {
+    "pid": 69865,
+    "reason": "non-virgin MIN-07 DB; replaced for fresh isolation"
+  },
+  "secretsInEvidence": false
+}
+```
 
 | Field | Value |
 |-------|-------|
-| runId | P6-MIN-07-MHD02-20261016T194738Z |
-| timestamp | 2026-10-16 Europe/Paris |
-| runtime | Next.js 15.5.20 npm run dev — PID listen 69865 — http://localhost:3020 |
-| Node | v24.16.0 |
-| Product DB | Isolated copy under candidate .tmp-sfia-review/.../qa-dbs/p6-min07-accept/product/oa-product.sqlite (campaign original untouched) |
+| URL | http://localhost:3020 |
+| Process | next-server 15.5.20 PID **41566** |
+| cwd | candidate projects/sfia-studio/app |
+| Prior PID 69865 | STOPPED (DB MIN-07 non-vierge) — identité cwd candidat prouvée |
 | CURSOR_REAL | 0 |
-| OPENAI_API_KEY | unset in runtime process (no LIVE call) |
+| OpenAI LIVE ce cycle | NOT INVOKED |
+
+---
+
+## 9. DB QA et preuve d'isolation
+
+**Méthode:** nouveau fichier SQLite sous hqa-fresh-01 ; schema via Product openProductSqlite ; **aucune** insertion Project SQL ; **aucune** copie d'état métier.
+
+```json
+{
+  "path": "/Users/morris/Projects/sfia-workspace-docs-generic-execution-nora-tool-invocation-20261016/.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/oa-product.sqlite",
+  "exists": true,
+  "size": 339968,
+  "counts": {
+    "oa_projects": 0,
+    "oa_human_decisions": 0,
+    "oa_execution_contracts": 0,
+    "oa_execution_attempts": 0,
+    "oa_lps": 0,
+    "oa_lps_current": 0,
+    "oa_cycle_instances": 0,
+    "oa_confirmations": 0
+  },
+  "proof": "schema-initialized-empty-no-project-insert",
+  "timestamp": "2026-10-17T07:10:34",
+  "method": "Product openProductSqlite on new path; zero business rows; no SQL Project create"
+}
+```
+
+Post-boot recount: tous compteurs métier **0**.
+
+Anciennes DB (campagne / MIN-07 copies) **préservées**, non utilisées.
+
+Auth Better Auth = cookie/stateless — identité auth ≠ historique Project.
+
+---
+
+## 10. Better Auth
+
+| Check | Result |
+|-------|--------|
 | BETTER_AUTH_URL | http://localhost:3020 |
-| browser | Chromium Playwright 1440×900 |
-| sessionMode | storageState campaign — EXPIRED |
-| secrets in evidence | NONE |
-| snapshot file | environment-snapshot-mhd02-min07.json |
+| GET /login | 200 |
+| GET /api/auth/get-session (sans bootstrap frais) | 200 body null |
+| storageState cookies | EXPIRED 2026-10-14 |
+| forceLocalAuthority | NOT USED |
 
-Runtime laissé up pour bootstrap Morris (CURSOR_REAL=0, no OpenAI).
+**WAITING MORRIS — AUTH BOOTSTRAP**
 
----
+Commande: `cd projects/sfia-studio/app && npm run e2e:auth:bootstrap`
 
-## 7. Prérequis et gates vérifiés
-
-| Gate | Statut |
-|------|--------|
-| GO P6-MIN-07 on M-HD-02 candidate | CONSUMED (ce cycle) |
-| GO P6 EXECUTION / REAL campagne | CONSUMED historique — non étendu à OpenAI LIVE candidat |
-| OpenAI LIVE | NOT INVOKED (ambiguïté couverture) |
-| Cursor REAL / Execute | NOT INVOKED (0/0) |
-| Better Auth session Pilote | FAIL — cookies expired |
-| forceLocalAuthority for session proof | NOT USED |
-| Product code modify | NONE |
-| Campaign worktree modify | NONE |
+Morris effectue OAuth GitHub. Aucun cookie/token dans ce pack.
 
 ---
 
-## 8. Run principal
+## 11. Provider et REAL gates
 
-| Step | Résultat | Mode | Preuve |
-|------|----------|------|--------|
-| 1 Open Project | NOT REACHED (redirect login) | AUTO browser | 01-studio-or-login.png · browser-run.json |
-| 2 Intention mission | NOT REACHED | — | — |
-| 3–5 Offer / D0 / card | NOT REACHED | — | — |
-| 6 HumanDecision | NOT REACHED — would be WAITING PILOT | — | policy: no fabricate |
-| 7–12 OA/LPS/D0/PREPARE/controls | NOT OBSERVED (integrated) | — | — |
+```json
+{
+  "GO_P6_HQA_FRESH_01_PREP": "AUTHORIZED / CONSUMING",
+  "GO_P6_EXECUTION_HISTORICAL": "AUTHORIZED / CONSUMED \u2014 do not extend by analogy",
+  "GO_P6_REAL_BOUNDED_HISTORICAL": "AUTHORIZED / CONSUMED \u2014 do not extend by analogy to this fresh dirty-candidate HQA Nora LIVE",
+  "OPENAI_LIVE_FOR_HQA_FRESH_01": "NOT AUTHORIZED without distinct Morris REAL gate for dirty candidate",
+  "CURSOR_REAL": "FORBIDDEN this cycle",
+  "EXECUTE": "FORBIDDEN this cycle",
+  "AUTH_BOOTSTRAP": "WAITING MORRIS"
+}
+```
 
-GET /api/auth/get-session with storage cookies → HTTP 200 body null.
+Avant Nora LIVE sur ce scénario fresh dirty: **STOP — MORRIS REAL GATE REQUIRED** (décision distincte).
 
----
-
-## 9. HumanDecision
-
-**NOT REACHED.**
-
-Aucune décision fabriquée. Aucune automatisation Accept/Refuse.
-
-Après re-auth Morris → WAITING PILOT HUMAN DECISION avant poursuite oracles HD.
+Fake Nora silencieux pour PASS réel: **interdit**.
 
 ---
 
-## 10. Négatifs
+## 12. Evidence Ledger
 
-| ID | Mode préparé | Résultat intégré | DET complémentaire |
-|----|--------------|------------------|--------------------|
-| N1 Refuse | Product UI | NOT REACHED | Covered in M-HD-02 DET suite PASS |
-| N2 Stale | Product UI | NOT REACHED | DET PASS |
-| N3 LPS drift | Product UI | NOT REACHED | DET PASS |
-| N4 Replay | Product UI | NOT REACHED | DET PASS |
-| N5 Ambiguous | RP04/SC5 | NOT REACHED browser | DET PASS (sessionBoundary suite) |
-| N6 Restart/offer lost | — | NOT PROVEN / DEBT CARRY | process-local debt |
+- Parent candidate ledger append: `.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl` (row INIT)
+- Local campaign ledger: `hqa-fresh-01/evidence-ledger.jsonl`
+- Historical campaign WT ledger: **non modifié**
+- runId: `P6-HQA-FRESH-01-INIT-20261017T0500Z`
+- Anciens PASS: **non attribués** à P6-HQA-FRESH-01
 
 ---
 
-## 11. États OA/LPS (integrated)
+## 13. Premier scénario Human QA (complet)
 
-**NOT OBSERVED** — session bloquante.
+# HQA-FRESH-01 — NEW PROJECT → NORA QUALIFICATION
 
-DET Fake/SQLite: oracles HD/LPS/Continuity/PREPARE codes remain green (53 tests) — classification DETERMINISTIC only.
+**campaignId:** P6-HQA-FRESH-01
+**parentCampaign:** P6-GLOBAL-INTEGRATED-PRODUCT-QA-01
+**scenarioId:** HQA-FRESH-01
+**preparedAt:** 2026-10-17 07:10:26
+**actor:** Morris (Pilote)
+**executionMode:** HUMAN
+**proofTarget:** REAL-BOUNDARY (browser + auth + Product); Nora LIVE only if REAL gate confirmed
+
+## Point de départ
+
+1. Runtime: http://localhost:3020
+2. Authentification Better Auth valide (après bootstrap).
+3. DB métier QA vierge (0 Project / 0 HD / 0 EC / 0 Attempt / 0 LPS métier).
+4. **Aucun Project précréé** — Morris crée dans Studio.
+
+## Première action
+
+Ouvrir Studio → créer un **nouveau Project** via l'UI normale → formuler librement une intention réelle.
+
+## Parcours attendu
+
+1. Accès Studio authentifié
+2. Création nouveau Project (UI)
+3. Intention naturelle du Pilote
+4. Nora prend la conversation
+5. Contexte pertinent mobilisé
+6. Clarifications seulement si nécessaire
+7. Qualification de la demande
+8. Trajectoire cohérente présentée
+9. État Project/LPS évolue selon contrat Product
+10. Inspection Pilote
+11. Appréciation Pilote (notes)
+
+## Oracles (observation Morris)
+
+- Pas de contexte Project ancien
+- Pas de décision héritée
+- Compréhension utile de l'intention
+- Pas de qualification artificielle / Cycle injustifié
+- Pas de HumanDecision inventée
+- Continuité conversationnelle
+- LPS conforme aux actions réelles
+- Distinction recommandation / décision
+- UI utilisable
+- **Aucune exécution implicite** (0 Attempt / 0 Execute / 0 Cursor REAL)
+
+## Conditions d'arrêt
+
+- STOP si Execute / Cursor REAL déclenché
+- STOP si contexte ancien réapparaît
+- WAITING si HumanDecision structurante requise (Morris décide)
+- Si Nora LIVE refusée par gate → noter REAL GATE ; ne pas Fake-passer
+
+## Preuves à capturer (Morris / agent support)
+
+- Screenshots étapes clés
+- Project ID créé
+- Notes d'appréciation
+- runId unique append au ledger candidat
+
 
 ---
 
-## 12. Continuité D0/D1 (integrated)
+## 14. Plan indicatif parcours suivants
 
-**NOT OBSERVED** navigateur.
+# P6-HQA-FRESH-01 — Human QA Plan (indicatif)
 
-DET: D0 re-read / LPS material currentness — PASS (Fake).
+preparedAt: 2026-10-17 07:10:26
 
----
+## Ordre (un sujet à la fois — ne pas ouvrir simultanément)
 
-## 13. PREPARE (integrated)
+| ID | Titre | Statut |
+|----|-------|--------|
+| HQA-FRESH-01 | New Project → Nora qualification | **READY FOR MORRIS** (après auth + REAL si Nora LIVE) |
+| HQA-FRESH-02 | Conversation → Project/LPS continuity | PLANNED |
+| HQA-FRESH-03 | Qualification → Recommendation | PLANNED |
+| HQA-FRESH-04 | Generic Mission Presentation | PLANNED |
+| HQA-FRESH-05 | HumanDecision Accept/Refuse | PLANNED |
+| HQA-FRESH-06 | OA/LPS currentness et relecture | PLANNED |
+| HQA-FRESH-07 | PREPARE générique sans Execute | PLANNED |
 
-**NOT OBSERVED.**
+IDs non conflictuels avec manifest P6-SC-* (préfixe HQA-FRESH-).
 
-Aucune autorisation inventée. 0 Execute.
+## Non-objectifs
 
----
+- Pas de P6 GLOBAL PASS ce cycle
+- Pas de Human QA PASS sans Morris
+- Pas d'Execute / Cursor REAL
+- Pas de reconstruction campagne P6 Phase 0
 
-## 14. Absence Attempt/Execute
-
-| Control | Observation |
-|---------|-------------|
-| ExecutionAttempt (integrated path) | 0 (path not entered; no HD) |
-| Execute | 0 |
-| Cursor REAL | 0 (env SFIA_STUDIO_CURSOR_REAL=0) |
-| Git Product mutation | NONE |
-
----
-
-## 15. Evidence Ledger et runIds
-
-Candidate ledger (append-preserving):
-.tmp-sfia-review/p6-global-integrated-qa/evidence-ledger.jsonl
-
-| runId | kind | result |
-|-------|------|--------|
-| P6-MIN-07-MHD02-20261016T194738Z | p6-scenario-run | BLOCKED_SESSION |
-| P6-MIN-07-MHD02-20261016T194738Z-DET | p6-deterministic-reconfirm | PASS (53) |
-
-Campaign ledger historique non écrasé, non modifié.
-
-RAW:
-- raw-evidence/.../browser-run.json
-- raw-evidence/.../session-diagnosis.json
-- raw-evidence/.../deterministic-mhd02.log
-- screenshots/.../01-studio-or-login.png
 
 ---
 
-## 16. Captures / artefacts
+## 15. Actions exactes pour Morris
 
-Login page capturée (NO_SESSION). Decision Card non atteinte.
+# P6-HQA-FRESH-01 — Fiche Morris (opérateur)
+
+**Date préparation:** 2026-10-17 07:10:26
+**Verdict préparation:** WAITING MORRIS AUTH BOOTSTRAP (+ réserve REAL GATE pour Nora LIVE)
+
+## Avant de commencer
+
+### 1) Auth (obligatoire)
+
+Depuis `projects/sfia-studio/app` sur le worktree candidat dirty :
+
+```bash
+npm run e2e:auth:bootstrap
+```
+
+- Navigateur système (Brave/Chrome) — OAuth GitHub par Morris
+- Ne pas partager cookies/tokens
+- Vérifier ensuite accès http://localhost:3020/studio **sans** redirect login
+
+### 2) Runtime
+
+- URL: http://localhost:3020
+- DB: virgin sous `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/product/`
+- `SFIA_STUDIO_CURSOR_REAL=0`
+- OpenAI LIVE: **ne pas démarrer** tant que GO REAL candidat dirty non confirmé
+
+### 3) Premier scénario
+
+Voir `scenarios/HQA-FRESH-01.md`
+
+**Action immédiate après auth :**
+Créer un **nouveau Project** dans Studio (UI). Formuler une intention réelle. Observer Nora.
+
+## Ne pas faire
+
+- Importer anciens Projects
+- Demander à Cursor d'Accept/Refuse à votre place
+- Lancer Execute / Cursor REAL
+- Déclarer HUMAN QA PASS sans vos observations
+
+## Après le run
+
+Noter: Project ID, impressions, écarts, captures → espace `hqa-fresh-01/raw-evidence/` + ledger append (nouveau runId).
+
 
 ---
 
-## 17. Fake / Real Qualification
+## 16. Fake / Real Qualification
 
 | Axe | Valeur |
 |-----|--------|
-| Entrée | M-HD-02 DETERMINISTIC PROVEN |
-| Browser REAL-BOUNDARY | Partiel — runtime + login page observés ; session not accepted |
-| Better Auth REAL | NOT PROVEN (expired) |
-| Product UI mission/HD | NOT PROVEN |
-| OA/LPS SQLite integrated | NOT PROVEN |
-| Nora/provider | NOT PROVEN — LIVE not called ; Fake not used as silent REAL substitute |
-| PREPARE integrated | NOT PROVEN |
-| DET Fake reconfirm | PASS (53) |
-
-Realism gaps: session bootstrap · Nora spontaneous · Pilot HD · UI08 · restart debt.
+| Applicable | OUI |
+| Entrée | DETERMINISTIC PROVEN ciblé (M-HD etc.) ; HQA intégrée NOT PROVEN |
+| Ce cycle | Env virgin + runtime REAL-BOUNDARY prep ; auth NOT PROVEN ; Nora LIVE NOT INVOKED |
+| Fake | contexte historique DET uniquement |
+| REAL correspondant | browser+auth+Product+provider si gate |
+| Claims | PREPARED / WAITING PILOT auth — pas HUMAN QA PASS |
 
 ---
 
-## 18. UI08
+## 17. Réserves et dette
 
-OPEN — aucun PASS visuel. Frames Figma non re-qualifiées. Decision Card non observée.
-
----
-
-## 19. Défauts / réserves
-
-| ID | Sévérité | Note |
-|----|----------|------|
-| AUTH-SESSION-EXPIRED | BLOCKER for integrated run | storageState 2026-10-14 expired |
-| PROVIDER-REAL-AMBIGUITY | GATE | OpenAI LIVE not invoked without distinct clarity |
-| PENDING-OFFER-PROCESS-LOCAL | DEBT | carry |
-| UI08 | OPEN | carry |
-| N6 restart | NOT PROVEN | carry |
-
-Pas de PRODUCT DEFECT confirmé (blocage amont session).
+| Item | Owner | Exit |
+|------|-------|------|
+| AUTH-SESSION-EXPIRED | Morris | e2e:auth:bootstrap + get-session non-null |
+| OPENAI LIVE dirty candidate | Morris | GO REAL distinct borné |
+| Pending offer process-local | Product debt | documenter si restart mid-HQA |
+| UI08 visual | optional later | frames+capture |
+| Multi-conversation N/I | Product | hors scope |
 
 ---
 
-## 20. Verdict P6-MIN-07
+## 18. Fichiers locaux créés (gitignored)
 
-**P6-MIN-07 QA — BLOCKED / ENVIRONMENT OR GATE**
+Racine: `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/`
 
-Integrated Product continuity NOT PROVEN.
-Deterministic oracles reconfirmed only.
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/campaign-identity.json` (1891 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/deliveries-inventory.json` (3425 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/environment-snapshot.json` (738 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/evidence-ledger.jsonl` (1085 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/gates.json` (505 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/human-qa-plan.md` (912 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/logs/studio-dev-hqa-fresh-01.log` (412 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/logs/studio-dev.pid` (6 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/morris-operator-brief.md` (1309 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/qa-dbs/virgin-isolation-proof.json` (653 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/runs/current.env` (548 bytes)
+- `.tmp-sfia-review/p6-global-integrated-qa/hqa-fresh-01/scenarios/HQA-FRESH-01.md` (2051 bytes)
 
----
+Également: `oa-product.sqlite` virgin schema (binaire, non listé en détail).
 
-## 21. Prochaine capacité / exit
+`.tmp-sfia-review/chatgpt-review.md` — ce Review Pack (réinitialisé mono-cycle).
 
-1. Morris: headed auth bootstrap (e2e:auth:bootstrap) against http://localhost:3020 (runtime candidate left up, PID 69865) or restart with same isolation profile.
-2. Create/open isolated QA Project.
-3. Provider path: either confirm GO coverage for bounded Nora LIVE or explicit SEEDED/CONTROLLED offer path labeled NOT E2E REAL.
-4. WAITING PILOT Accept (principal) + Refuse négatif.
-5. Capture OA/LPS/D0/PREPARE ; 0 Attempt/Execute.
-6. Append new runId (never overwrite FAILED/BLOCKED).
-
----
-
-## 22. Décisions Morris éventuellement requises
-
-1. Re-auth Pilote (bootstrap) — requis pour débloquer.
-2. GO OpenAI LIVE borné candidat dirty — seulement si Nora spontanée exigée ; sinon chemin SEEDED étiqueté.
-3. Aucun GO Delivery/E4–E8/UI08/Execute.
+**Product source / tests / docs versionnés: AUCUNE modification.**
 
 ---
 
-## 23. Instruction ChatGPT
+## 19. Contrôles
+
+- Runtime cwd candidat + virgin DB path
+- Compteurs métier 0 post-boot
+- Campaign WT non touché
+- Staged Product vide
+- 0 Execute / 0 Cursor REAL / 0 OpenAI LIVE call
+- Project non précréé (Morris UI)
+
+---
+
+## 20. Verdict final préparation
+
+**P6-HQA-FRESH-01 — WAITING MORRIS AUTH BOOTSTRAP**
+
+Après auth valide (+ GO REAL si Nora LIVE): démarrer HQA-FRESH-01 — Morris crée le Project.
+
+---
+
+## 21. Instruction ChatGPT
 
 Lire Git sfia/review-handoff → sfia-review-handoff/latest-chatgpt-review.md
 
-SFIA STUDIO — P6-MIN-07 M-HD-02 INTEGRATED PRODUCT QA CRITICAL EVIDENCE REVIEW.
+SFIA STUDIO — P6-HQA-FRESH-01 FRESH START HUMAN QA INITIALIZATION CRITICAL REVIEW.
 
-Vérifier GO/périmètre · env · session · HD identity · OA/LPS · D0/D1 · PREPARE · absence Execute · négatifs · browser · Fake/Real · Evidence provenance · défauts · handoff · non-mutation Product.
+Vérifier GO · v3/P6 · pas de campagne globale parallèle · isolation · dette · session · REAL · plan HQA · pas de simulation HD · pas de modif Product · preuves · Pack · handoff distant.
 
 ---
 
-## 24. Fin de pack
+## 22. Fin de pack
 
 Aucune modification Product.
 Review Pack FULL CRITICAL mono-cycle.
-Handoff message:
-docs(review-handoff): publish P6-MIN-07 M-HD-02 integrated QA
+Handoff message: docs(review-handoff): prepare P6 HQA fresh start
