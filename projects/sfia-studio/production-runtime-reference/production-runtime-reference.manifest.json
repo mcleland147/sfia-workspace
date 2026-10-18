@@ -35,7 +35,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "dcf49d984f2668da"
+      "sha256_16": "8ea3d088c5095108"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
@@ -582,11 +582,11 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "4024ae1078c6f4da"
+      "sha256_16": "f20d8d4a2663d756"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "bf17440e75fd1d6a"
+      "sha256_16": "73d754838d9d13a0"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
