@@ -54,7 +54,7 @@ Dette TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN. R2 pathless fail-closed conserv�
 | npm ci | PASS |
 | npm run build | PASS (Next.js 15.5.20) |
 | npm run preflight:runtime | PASS — STUDIO RUNTIME PROFILE READY; cursorReal=READY; deterministic⊕REAL=PASS; managedClone présent |
-| npm start | PASS — Ready on :3020; listen PID 52494; cwd worktree fresh HEAD 304e30e8 |
+| npm start | PASS — Ready on :3020; listen PID 53076 (daemonized); cwd worktree fresh HEAD 304e30e8 |
 
 ## HTTP observables
 | URL | Code |
