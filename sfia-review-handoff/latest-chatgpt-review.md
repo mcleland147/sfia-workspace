@@ -1,75 +1,107 @@
-# SFIA Studio — PR #588 — Ready, Merge et CI post-merge
-## Review Handoff GitHub — contrôle effectué par ChatGPT
+# SFIA STUDIO — P6 HUMAN QA — ORION ENVIRONMENT RELOAD — Review Pack LIGHT
+# STOP — ORION PERSISTENT STATE NOT LOCATED
 
-**Cycle :** 13 — PR readiness / Git Integration, continuation d'intégration post-merge. **Profil :** Critical.  
-**Date :** 2026-10-18 (Europe/Paris). **GO Morris :** « ok go » après recommandation `GO READY + MERGE — PR #588`.  
-**Périmètre autorisé :** Ready → merge de la PR exacte → vérification sur main et CI post-merge → rapport ; aucun cleanup de branche, Cursor REAL, Human QA ou promotion doctrinale.
+## Horodatage Europe/Paris
+- ISO: `2026-10-18T09:55:34+0200`
+- Local: `2026-10-18 09:55 CEST`
 
-## A. Git Truth / références d'entrée
+## GO Morris
+**Recharger l'environnement SFIA Studio avec la baseline post-PR #588** pour reprise Human QA Project **ORION** par Morris.
+**NE PAS EXÉCUTER LA HUMAN QA.**
 
-- Repository : `mcleland147/sfia-workspace`.
-- PR : [#588](https://github.com/mcleland147/sfia-workspace/pull/588).
-- Base initiale : `main` @ `e03c7b9fd3665b89a4083a937b82424c5e7f6406`.
-- Head Product : `fix/sfia-studio-p6-tool-first-safety-r1r2` @ `c56cc48060383a12712a30b3120a4bb359217917`.
-- Périmètre vérifié : un commit Product, **24 fichiers** (15 Product/tests + huit PRR + un manifeste).
-- CI PR pré-merge : [run 39099048370](https://github.com/mcleland147/sfia-workspace/actions/runs/39099048370), **SUCCESS** ; Detect, Validate et Required Gate **PASS**.
-- Review Handoff d'entrée : `98bb5849ad895daff945ca14a15fb5802ba7f8c7` ; blob `1d656267e034956164a9f9182ab7b032c50fa727`.
+## Git Truth
+| Champ | Valeur |
+|---|---|
+| origin/main | `304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8` — **MATCH** attendu ChatGPT |
+| PR #588 | MERGED (handoff post-merge `8a35e531` observé) |
+| Worktree principal `/Users/morris/Projects/sfia-workspace` | branche `qa/sfia-studio-p6-global-integrated-product-qa` @ `980064c0` — **dirty** ; **non utilisé** pour bascule |
+| Runtime actuellement actif | `/Users/morris/Projects/sfia-workspace-studio-runtime-main-bd3f440c` @ `bd3f440c` — **≠** post-#588 |
+| Runtime historique HQA | `/Users/morris/Projects/sfia-workspace-studio-runtime-main-52f36884` @ `896ff59c` — **≠** post-#588 |
+| Port 3020 | **OCCUPÉ** — `next-server` PID **1005**, parent `next dev --port 3020` PID 957, cwd `…/studio-runtime-main-bd3f440c/projects/sfia-studio/app` |
 
-## B. Sources consultées / convergence
+Aucune modification Product. Aucun reset/stash/clean. Aucun kill du processus 3020 (activité non qualifiée comme ORION).
 
-- Git actuel : PR #588, HEAD/base, commit, workflow et jobs GitHub Actions, fichier PRR et gate R2 sur `main`.
-- Sources du chantier précédemment qualifiées : Build Doctrine, Convergence Roadmap, C1 Product Completion, doctrine v3 30/34/35/37, template externe SFIA v2.6 et CKC `ckc:studio:pr-readiness`.
-- Lien trajectoire : V3-F05, dépendances F11/F12/F14/F15 ; milestone P6 Global Integrated Product QA.
-- État : Tool-First R1/R2 déterministe, PRR sémantique acceptée, P6 GLOBAL PASS **non acquis**, runtime v3 **NON ADOPTED**.
-- KEEP : lot Product versionné, PRR, OA authority, ExecutionContract/Attempt et gates existants. Aucun actif Product modifié par ce contrôle GitHub.
-- Dette ouverte : `TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT`, exit future = enforcement no-write REAL + preuve bornée + GO Morris distinct.
+## Sources consultées
+Template / routing / guardrails (périmètre RUN/QA env) ; Build Doctrine / Roadmap / C1 / P6 (lecture) ; doctrine v3 applicable ; `package.json` scripts (`dev` :3020, `preflight:runtime`) ; handoffs HQA historiques (`5ba56172` runtime readiness, `8a35e531` post-merge #588) ; inventaire worktrees + DBs Product/Nora.
 
-## C. Actions GitHub réellement effectuées
+## Convergence Pre-check
+| Item | État |
+|---|---|
+| Tool-First / PR #588 | MERGED sur main `304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8` |
+| Runtime v3 | NON ADOPTED |
+| P6 GLOBAL PASS | NON ACQUIS |
+| Dette | TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN |
+| Gap traité | **bloqué** — identité Project ORION non établie |
 
-1. Précheck : PR #588 Draft/Open, head `c56cc480`, base `e03c7b9f`, 24 fichiers, mergeable, checks SUCCESS.
-2. Passage de la PR en **Ready for Review** : confirmé (Draft=false).
-3. Merge explicite par méthode `merge`, lié au HEAD attendu `c56cc48060383a12712a30b3120a4bb359217917`.
-4. GitHub retourne : `merged=true`, merge SHA `304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8`.
-5. PR #588 : CLOSED/MERGED à `2026-10-18T05:42:58Z` (07:42:58 CEST).
-6. `main` distant vérifié au SHA `304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8`.
-7. Merge commit : **deux parents exacts**, `e03c7b9fd3665b89a4083a937b82424c5e7f6406` et `c56cc48060383a12712a30b3120a4bb359217917` ; **24 fichiers**.
-8. La branche Product distante demeure à `c56cc48060383a12712a30b3120a4bb359217917`, sans suppression.
-9. Fichier PRR manifest et `boundedNonMutatingRealLaunchGate.ts` présents sur `main` avec blobs attendus.
-10. Aucun commit de correction, aucun force-push, aucun cleanup de branche ni merge de la branche handoff.
+## Inventaire environnement (read-only)
 
-## D. Preuves CI post-merge
+### Runtime Studio actif
+- Worktree: `sfia-workspace-studio-runtime-main-bd3f440c`
+- HEAD code: `bd3f440c` (**ancienne** baseline, pas `304e30e8`)
+- URL historique: `http://localhost:3020`
+- `.env.local` (clés opérationnelles uniquement) pointe vers DB campagne HQA:
+  - `SFIA_STUDIO_PRODUCT_DB_PATH` → `…/p6-rec01-human-qa/…/hqa01-rec01-requal/product/oa-product.sqlite`
+  - `SFIA_STUDIO_NORA_SESSION_DB_PATH` → sibling `nora-session.sqlite`
+  - `SFIA_STUDIO_CURSOR_REAL=1` dans ce fichier env (**non** propagé / non réarmé ici)
+  - `BETTER_AUTH_URL=http://localhost:3020`
 
-- Run : [#39101503154](https://github.com/mcleland147/sfia-workspace/actions/runs/39101503154).
-- Événement : `push` sur `main`.
-- HEAD run : `304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8`.
-- État final : **completed / success** (mise à jour `2026-10-18T05:52:27Z`).
-- Job `Detect SFIA Studio changes` : **success**.
-- Job `Build and validate SFIA Studio` : **success**.
-- Étapes vérifiées : Setup Node.js, npm install, Typecheck **success**, Lint **success**, Build **success**, Unit tests (Vitest) **success**, Modeled governance tests **success**, Secret pattern scan **success**, Trailing whitespace **success**.
-- Job `SFIA Studio Required Gate` : **success** ; étape `Aggregate required gate` : **success**.
-- Les nombres détaillés de tests ne sont pas réattribués ici au run post-merge : les totaux 6166 Vitest PASS / 75 modeled PASS proviennent du rapport PR précédent. Les conclusions des jobs post-merge ont été vérifiées indépendamment.
+### Persistance HQA partagée (candidat historique — PAS nommé ORION)
+Path Product DB:
+`/Users/morris/Projects/sfia-workspace-p6-rec01-human-qa/projects/sfia-studio/.sfia-exec/hqa01-rec01-requal/product/oa-product.sqlite`
 
-## E. Qualification de preuve / réserves
+Projets présents (titres exacts, lecture seule) :
+1. `prj:5d63119d-…` — « Difficultés de suivi de projets dans les petites entreprises »
+2. `prj:9ef1be1a-…` — « Simplification du parcours Pilote et des interactions IA-runtime »
+3. `prj:e66fd58c-…` — « Simplification des interactions avec l’IA » (plus récemment mis à jour ; handoff `5ba56172` le désigne comme projet e66 de campagne)
 
-- Niveau acquis : **MERGED ON MAIN + POST-MERGE CI SUCCESS + REQUIRED GATE PASS**.
-- Non acquis : Cursor REAL no-write, REAL boundary, Human QA P6, P6 Global PASS, runtime v3 ADOPTED.
-- `TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT` : **OPEN**, gate R2 reste Product fail-closed.
-- Aucune modification de code ou PRR pendant l'opération Ready/Merge ; le diff Product reste consultable dans [commit c56cc480](https://github.com/mcleland147/sfia-workspace/commit/c56cc48060383a12712a30b3120a4bb359217917) et [handoff Product précédent](https://github.com/mcleland147/sfia-workspace/blob/5dce5f60ca088095551acb5908e67494794d855c/sfia-review-handoff/latest-chatgpt-review.md).
-- Contrôle Git local et publisher Cursor canonique : **non exécutés dans ce tour** ; les faits Git ci-dessus sont des vérifications distantes GitHub. Cette note est publiée directement via l'intégration GitHub, sans prétendre qu'un `.tmp-sfia-review/chatgpt-review.md` local a été généré ou que le script `publish-review-handoff.sh` a été exécuté.
+Aucun `project_id`, titre, `pathRoot`, managed-repo ou session Nora ne contient la chaîne **ORION** / **Orion**.
 
-## F. Review Index / décisions restantes
+Autres DBs Product scannées (standard `…/.sfia-exec/product/oa-product.sqlite` et campagnes `*/product/oa-product.sqlite` sous worktrees p6/runtime) : **0 hit ORION**.
 
-- [PR #588](https://github.com/mcleland147/sfia-workspace/pull/588) — MERGED.
-- [Merge commit 304e30e8](https://github.com/mcleland147/sfia-workspace/commit/304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8) — présent sur `main`.
-- [CI post-merge #39101503154](https://github.com/mcleland147/sfia-workspace/actions/runs/39101503154) — SUCCESS.
-- [CI PR #39099048370](https://github.com/mcleland147/sfia-workspace/actions/runs/39099048370) — SUCCESS.
-- Prochaine décision Morris : reprise du chantier **P6 Human QA** (périmètre à requalifier sur Git courant). Aucun GO Cursor REAL / changement d'architecture / promotion v3.
-- Cleanup branche Product : **non effectué**, conforme au GO.
+Recherche conversations locales indexées (`ORION`) : **aucun résultat**.
 
-## G. Verdict
+## Preuve d'identité ORION
+**ÉCHEC** — identité métier « Project ORION » **non localisée** dans la persistance accessible.
 
-**PR #588 MERGED — MAIN VERIFIED — POST-MERGE CI SUCCESS — REQUIRED GATE PASS.**
+Conformément au contrat :
+- pas de sélection par supposition ;
+- pas d’assimilation automatique à e66 / HQA01 / autre projet ;
+- pas de démarrage d’un nouveau runtime post-#588 raccordé à une DB non prouvée ORION ;
+- pas de migration / copie / injection.
 
-**Integration GitHub verified at remote scope; NO REAL / HQA / P6 GLOBAL / RUNTIME V3 promotion claims.**
+## Actions NON effectuées (volontairement)
+- Pas de `npm run preflight:runtime` sur baseline `304e30e8` (précondition ORION non satisfaite).
+- Pas de redémarrage Studio post-#588.
+- Pas d’arrêt du PID 1005 (processus non prouvé appartenir à ORION ; GO interdit kill non identifié).
+- Pas de Cursor REAL.
+- Pas de login / tour Nora / PREPARE / Execute.
+- Pas de commit/push Product.
 
-**Source :** revue GitHub directe ChatGPT ; ce document ne constitue pas une sortie Cursor et ne remplace pas un contrôle local Git Truth ultérieur.
+## Fichiers réellement modifiés
+Aucun fichier Product/doctrine/env.
+Seul artefact de cycle : ce Review Pack temporaire `.tmp-sfia-review/chatgpt-review.md`.
+
+## Fake / Real Qualification
+| Item | Valeur |
+|---|---|
+| Applicable | OUI |
+| Exercé | découverte read-only uniquement |
+| Cursor REAL | NON armé par ce cycle ; env historique lit `=1` — **non propagé** |
+| Human QA | NON exécutée |
+| Niveau | STOP avant ENVIRONMENT STARTUP VERIFIED |
+
+## Réserves / décision Morris requise
+1. Confirmer l’identité exacte du Project « ORION » (project_id / titre Product / chemin DB).
+2. Si ORION = projet e66 « Simplification des interactions avec l’IA » dans `hqa01-rec01-requal` : le dire explicitement pour autoriser le raccordement.
+3. Si ORION est ailleurs (autre machine, DB déplacée, nom UI non persisté) : indiquer le chemin.
+4. Décider du sort du Studio actif `:3020` @ `bd3f440c` (conserver / arrêt gracieux sous GO).
+5. Ensuite seulement : worktree propre @ `304e30e8` + preflight REAL OFF + démarrage.
+
+## Verdict
+**STOP — ENVIRONMENT RELOAD BLOCKED**
+**Cause :** `STOP — ORION PERSISTENT STATE NOT LOCATED`
+
+## Instruction ChatGPT
+Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+Vérifier l’échec d’identification ORION, l’absence de mutation, et les options Morris.
+Aucune décision P6 PASS n’est attendue.
