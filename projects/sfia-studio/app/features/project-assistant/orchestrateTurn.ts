@@ -219,6 +219,7 @@ export type ProductDurableEffectBlock =
   | "activeCycleWork"
   | "reservation"
   | "lifecycleRecommendation"
+  | "genericPrepareFinalize"
   | "readCoverage"
   | "transcriptJournal"
   | "terminalSuccess";
@@ -462,6 +463,33 @@ export async function orchestrateProjectAssistantTurn(input: {
   const provider = input.provider ?? resolveConversationProvider();
   const presentation = modeResolution.presentation;
 
+  /**
+   * Nora tool solicitation captured during the Agents round — finalized only
+   * after same-turn durable Product writes (see post-LR finalize below).
+   */
+  let pendingGenericPrepareMission: {
+    readonly objective?: string;
+    readonly expectedOutcome?: string;
+    readonly scope?: string;
+    readonly contextNotes?: string;
+    readonly repositoryMutation?: "none" | "read" | "write" | "unknown";
+    readonly impactSignals?: {
+      readonly structuralChange?: boolean;
+      readonly securityImpact?: boolean;
+      readonly architectureImpact?: boolean;
+      readonly dataImpact?: boolean;
+      readonly irreversible?: boolean;
+    };
+  } | null = null;
+  let genericPrepareTurnFinalize:
+    | {
+        readonly ok: boolean;
+        readonly code: string;
+        readonly executionContractId?: string;
+        readonly message: string;
+      }
+    | null = null;
+
   try {
     const turn = await runNoraCognitiveTurn({
       // P5-S01 — prefer durable logicalTurnId as stable cognitive task identity
@@ -525,43 +553,36 @@ export async function orchestrateProjectAssistantTurn(input: {
         // unique Product backend. Project bound server-side; active cycle is
         // optional context (null = S8 project-context, never invented).
         // PREPARE ≠ AUTHORIZE ≠ EXECUTE — no ExecutionAttempt is ever created.
+        //
+        // P6 Option B same-turn currentness: do NOT prepare mid-Agents-round.
+        // ACW / reservation / LR may bump LPS after the tool returns; stamping
+        // then makes the EC immediately MATERIALITY_CURRENTNESS_STALE.
+        // Queue here; finalize after durable Product writes of this turn.
         solicitPrepare: async (args) => {
-          const [
-            { getRuntimeApplicationService },
-            { solicitGenericExecutionPrepare },
-          ] = await Promise.all([
-            import("@/lib/vertical-slice-runtime"),
-            import("./w2/prepareGenericExecutionContractDraft"),
-          ]);
+          const [{ getRuntimeApplicationService }, prepareMod] =
+            await Promise.all([
+              import("@/lib/vertical-slice-runtime"),
+              import("./w2/prepareGenericExecutionContractDraft"),
+            ]);
           const oa = getRuntimeApplicationService().oa;
           if (!oa) {
             return {
               ok: false as const,
               code: "OA_UNAVAILABLE",
               message: "OA runtime indisponible pour la préparation.",
+              humanDecisionCreated: false as const,
               executionAttemptCreated: false as const,
             };
           }
-          return solicitGenericExecutionPrepare({
-            oa,
-            projectId: project.projectId,
-            cycleInstanceId: project.activeCycleInstanceId?.trim() || null,
-            mission: {
-              objective: args.objective,
-              expectedOutcome: args.expectedOutcome,
-              scope: args.scope,
-              contextNotes: args.contextNotes,
-              repositoryMutation: args.repositoryMutation,
-              impactSignals: args.impactSignals,
-            },
-            sessionDbPath: input.sessionDbPath,
-            forceLocalAuthority:
-              process.env.VITEST === "true" ||
-              process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1",
-            // Explicit DET pin only (never inferred from VITEST alone).
-            pinnedBaseHeadSha:
-              process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA?.trim() || null,
-          });
+          pendingGenericPrepareMission = {
+            objective: args.objective,
+            expectedOutcome: args.expectedOutcome,
+            scope: args.scope,
+            contextNotes: args.contextNotes,
+            repositoryMutation: args.repositoryMutation,
+            impactSignals: args.impactSignals,
+          };
+          return prepareMod.queueGenericPrepareForTurnFinalization();
         },
       },
       signal: input.signal,
@@ -1307,6 +1328,72 @@ export async function orchestrateProjectAssistantTurn(input: {
           lifecycleRecommendationMaterialized = false;
           lifecycleRecommendationCode = "LR_BASIS_UNAVAILABLE";
         }
+      }
+    }
+
+    // P6 Option B — finalize deferred Generic PREPARE AFTER ACW / reservation / LR
+    // so productCurrentness stamps the final LPS of this logical turn.
+    // Post-turn LPS mutations still fail MATERIALITY_CURRENTNESS_STALE (gate kept).
+    if (pendingGenericPrepareMission) {
+      const prepareMod = await import("./w2/prepareGenericExecutionContractDraft");
+      if (suppressCompleteCognitiveEffects) {
+        genericPrepareTurnFinalize = {
+          ok: false,
+          code: prepareMod.GENERIC_PREPARE_TURN_FINALIZATION_SUPPRESSED,
+          message:
+            "Sollicitation Generic PREPARE non finalisée — tour cognitif stoppé ou budget d'exécution atteint. Aucun contrat créé.",
+        };
+      } else {
+        await cutDurableEffect(
+          input.signal,
+          "genericPrepareFinalize",
+          input.beforeDurableEffect,
+        );
+        const { getRuntimeApplicationService } = await import(
+          "@/lib/vertical-slice-runtime"
+        );
+        const oaPrep = getRuntimeApplicationService().oa;
+        if (!oaPrep) {
+          genericPrepareTurnFinalize = {
+            ok: false,
+            code: "OA_UNAVAILABLE",
+            message: "OA runtime indisponible pour finaliser Generic PREPARE.",
+          };
+        } else {
+          const finalized = await prepareMod.solicitGenericExecutionPrepare({
+            oa: oaPrep,
+            projectId: project.projectId,
+            cycleInstanceId: project.activeCycleInstanceId?.trim() || null,
+            mission: pendingGenericPrepareMission,
+            sessionDbPath: input.sessionDbPath,
+            forceLocalAuthority:
+              process.env.VITEST === "true" ||
+              process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1",
+            pinnedBaseHeadSha:
+              process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA?.trim() || null,
+          });
+          genericPrepareTurnFinalize = finalized.ok
+            ? {
+                ok: true,
+                code: finalized.code,
+                executionContractId: finalized.executionContractId,
+                message: finalized.message,
+              }
+            : {
+                ok: false,
+                code: finalized.code,
+                message: finalized.message,
+              };
+        }
+      }
+      pendingGenericPrepareMission = null;
+      if (
+        genericPrepareTurnFinalize &&
+        !genericPrepareTurnFinalize.ok &&
+        typeof assistantText === "string" &&
+        assistantText.trim().length > 0
+      ) {
+        assistantText = `${assistantText.trim()}\n\n[Studio] ${genericPrepareTurnFinalize.message}`;
       }
     }
 

@@ -34,14 +34,20 @@ intention utilisateur
 → continuité sémantique inter-session (sans transcript exhaustif requis)
 → ProjectTrajectory (MUST produit ; recommandation jusqu'à validation)
 → options et recommandation
-→ HumanDecision du Pilote
-→ confirmation proportionnée (N1–N3)
-→ Execution Contract
-→ agent / Cursor / Runtime
+→ HumanDecision du Pilote (trajectoire / vérité Project structurelle — gates propres)
+→ [Generic Execution — amendement D-P6-SHE-01 / 2026-10-18 — TARGET]
+     PREPARE ExecutionContract (sans HD préalable obligatoire)
+     → INSPECT
+     → action Exécuter (autorisation Pilote du contrat inspecté)
+     → HD / Confirmation / Authorization internes (transitions OA distinctes, proportionnées N1–N3)
+     → enforcement (autorité effective / currentness / scope / capability)
+     → agent / Cursor / Runtime SI admissible
 → preuves et ReviewBundle
 → mise à jour de l'état
 → replanification ou capitalisation
 ```
+
+**Amendement D-P6-SHE-01 (2026-10-18) — TARGET ARCHITECTURE — ADOPTED BY MORRIS :** pour **Generic Execution** uniquement, la séquence PREPARE → INSPECT → Exécuter précède l’enregistrement des HD/Confirmations **applicables au contrat**. Cela **n’applique pas** indistinctement aux décisions de trajectoire. Cible ≠ runtime implémenté.
 
 ## 3. V3-F01 — CKC comme couche cognitive canonique (VALIDATED)
 
@@ -89,9 +95,11 @@ Alignement **décisions UX validées** (2026-07-23) :
 **Règles :**
 
 - aucune mutation implicite ;
-- Execution Contract **uniquement** après décisions nécessaires ;
+- **Trajectoire / vérité Project :** HumanDecision explicite lorsque structurante (KEEP) — Recommendation ≠ Decision ;
+- **Generic Execution (D-P6-SHE-01 TARGET) :** PREPARE d’un ExecutionContract inspectable **sans** HD préalable obligatoire ; le clic **Exécuter** sur le contrat inspecté est l’acte explicite du Pilote ; HD/Confirmation/Authorization restent des transitions OA distinctes **avant** lancement ; confirmations N1–N3 proportionnées aux effets (pliables server-side, non supprimées) ; autonomie bornée ; aucune élévation implicite ;
 - phrase conversationnelle ≠ gate ;
-- Composer libre toujours disponible hors modal stricte.
+- Composer libre toujours disponible hors modal stricte ;
+- TARGET ≠ IMPLEMENTED — runtime v3 **NON ADOPTED**.
 
 ## 5. Architecture doctrinale — 7 couches
 

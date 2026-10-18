@@ -75,6 +75,14 @@ import {
   hasExplicitNewCycleFormalizationSignal,
 } from "./activeCycleGovernedContinuation";
 import {
+  cycleInventoryUnavailableMessage,
+  cycleLifecyclePreconditionsMessage,
+  mixedCycleExecutionClarificationMessage,
+  type CycleInventoryReadResult,
+} from "./cycleLifecycleConversationCoordinator";
+import { assessGenericPrepareConversationAdmission } from "./genericExecutionConversationCoordinator";
+import { discriminateConversationWorkflow } from "./conversationWorkflowDiscrimination";
+import {
   enrichQualificationWithCkcSemantics,
   isProductStudioNativeCkcProof,
   loadProductCkcCognitiveContent,
@@ -1613,6 +1621,12 @@ export async function orchestrateAssistantSend(input: {
   // CP-01: when a unique COMPLETE prepared cycle is ready, accept_start must
   // reach resolveChatFirstCycleStartGate HERE — transitionReadiness may still
   // be false (missing candidateCycleTypeId / signals) and must not strand START.
+  //
+  // Greenfield (no CURRENT Recommendation): an attempt_start utterance must NOT
+  // short-circuit with preconditions-only copy — Nora Product turn must run so
+  // Lifecycle Recommendation can materialize via the normal Product path.
+  // Force F1 advisory readiness (not F2 createCycle/START) for that case only.
+  let forceGreenfieldLifecycleRecommendationCognitive = false;
   {
     const oaForFraming = getRuntimeApplicationService().oa;
     if (oaForFraming) {
@@ -1623,6 +1637,44 @@ export async function orchestrateAssistantSend(input: {
       const snap = await projectAssistantReadFramingContinuityAction({
         projectId: project.projectId,
       });
+      // Fail-closed before phase branching: continuity readers call
+      // cycles.listByProject — if that inventory is unavailable, snap.ok is
+      // false and the in-block inventory check would never run. An explicit
+      // START must not fall through to Nora / Generic PREPARE on that failure.
+      if (
+        !snap.ok &&
+        snap.code === "TRJ_BRIDGE_CYCLES_UNAVAILABLE"
+      ) {
+        const labelForProbe =
+          (analysis.candidateCycleTypeId
+            ? getCycleTypeById(analysis.candidateCycleTypeId)?.label
+            : null) ??
+          analysis.candidateCycleTypeId ??
+          null;
+        const startWhenInventoryUnread = resolveChatFirstStartRouting({
+          userContent: content,
+          cycleLabel: labelForProbe,
+          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+        });
+        if (startWhenInventoryUnread.kind === "attempt_start") {
+          return await completeF2Turn({
+            userText: content,
+            sessionDbPath: input.sessionDbPath,
+            text: cycleInventoryUnavailableMessage({
+              presentation,
+              cycleLabel: labelForProbe,
+            }),
+            mode: modeResolution.mode as "fixture" | "live",
+            presentation,
+            model,
+            project,
+            intentClass: analysis.intentClass,
+            reinstructionOfProposalId,
+            executionBlocked: true,
+            turnKind: "f2_blocked",
+          });
+        }
+      }
       if (snap.ok && snap.continuity) {
         const phase = snap.continuity.phase;
         const productCycleLabel =
@@ -1751,6 +1803,92 @@ export async function orchestrateAssistantSend(input: {
         const wantsFramingProgress =
           framingStance.kind === "accept_start" ||
           framingStance.kind === "accept_recommendation";
+        // Option B — when START is explicit but framing preconditions are absent
+        // AND no CycleInstance inventory exists yet, orient Cycle Lifecycle here
+        // so the turn cannot be captured later by Generic PREPARE project-context.
+        // Do NOT intercept when cycles already exist (F01 legacy / START gate owns it)
+        // or when the turn is a non-cycle prepare-accept ("OK" without offer).
+        if (
+          startRoutingEarly.kind === "attempt_start" &&
+          (phase === "blocked_no_recommendation" ||
+            phase === "blocked_stale_or_incomplete")
+        ) {
+          const framingDiscrimination = discriminateConversationWorkflow({
+            userContent: content,
+            analysis,
+            cycleLabel: productCycleLabel,
+            pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+          });
+          // Fail-closed: inventory service error ≠ proven empty inventory.
+          let cycleInventory: CycleInventoryReadResult;
+          try {
+            const listed = await oaForFraming.cycleServices.cycles.listByProject(
+              project.projectId,
+            );
+            cycleInventory = { kind: "available", count: listed.length };
+          } catch (err) {
+            cycleInventory = {
+              kind: "unavailable",
+              reason:
+                err instanceof Error
+                  ? err.message.slice(0, 160)
+                  : "cycle_inventory_read_failed",
+            };
+          }
+          if (cycleInventory.kind === "unavailable") {
+            return await completeF2Turn({
+              userText: content,
+              sessionDbPath: input.sessionDbPath,
+              text: cycleInventoryUnavailableMessage({
+                presentation,
+                cycleLabel: productCycleLabel,
+              }),
+              mode: modeResolution.mode as "fixture" | "live",
+              presentation,
+              model,
+              project,
+              intentClass: analysis.intentClass,
+              reinstructionOfProposalId,
+              executionBlocked: true,
+              turnKind: "f2_blocked",
+            });
+          }
+          // Empty inventory + Cycle Lifecycle intent + no CURRENT Recommendation:
+          // do NOT return cycleLifecyclePreconditionsMessage (that stranded HQA
+          // AtelierNova — "need a recommendation" without allowing Nora to emit one).
+          // Keep Generic PREPARE preempt via discrimination later; route to F1 Nora.
+          if (
+            cycleInventory.count === 0 &&
+            framingDiscrimination.preemptsGenericPrepareProjectContext &&
+            phase === "blocked_no_recommendation"
+          ) {
+            forceGreenfieldLifecycleRecommendationCognitive = true;
+          } else if (
+            cycleInventory.count === 0 &&
+            framingDiscrimination.preemptsGenericPrepareProjectContext &&
+            phase === "blocked_stale_or_incomplete"
+          ) {
+            // Stale/incomplete candidate — orient without inventing Rec/HD/START.
+            return await completeF2Turn({
+              userText: content,
+              sessionDbPath: input.sessionDbPath,
+              text: cycleLifecyclePreconditionsMessage({
+                presentation,
+                phase,
+                cycleLabel: productCycleLabel,
+                discrimination: framingDiscrimination,
+              }),
+              mode: modeResolution.mode as "fixture" | "live",
+              presentation,
+              model,
+              project,
+              intentClass: analysis.intentClass,
+              reinstructionOfProposalId,
+              executionBlocked: true,
+              turnKind: "f2_clarification",
+            });
+          }
+        }
         if (wantsFramingProgress) {
           if (phase === "recommendation_ready") {
             const advanced = await projectAssistantAdvanceFramingContinuityAction(
@@ -1846,7 +1984,9 @@ export async function orchestrateAssistantSend(input: {
   const transition = resolveTransitionReadiness({
     analysis,
     forceRepoInformative:
-      forceRepoInformative || forceReservationResolutionAdvisory,
+      forceRepoInformative ||
+      forceReservationResolutionAdvisory ||
+      forceGreenfieldLifecycleRecommendationCognitive,
   });
 
   // CR-P6-04 — "OK, vas-y" (often informative) bound to a CURRENT prepare offer
@@ -2047,22 +2187,12 @@ export async function orchestrateAssistantSend(input: {
   // is already active must not fall through to NEW_CYCLE START. PREPARE only
   // on explicit prepare intent OR chat-first accept of a CURRENT prepare offer
   // (Q16/Q17/Q18); otherwise clarify gaps or recommend prepare. Never canned.
+  //
+  // Option B / D-ARCH-REC-02 — Cycle Lifecycle intent must not be captured by
+  // Generic PREPARE project-context. Admission is coordinated (not duplicated)
+  // via assessGenericPrepareConversationAdmission.
   {
     const activeIdForPrepare = project.activeCycleInstanceId?.trim() || null;
-    const prepareGoPreview = resolveChatFirstGenericPrepareGo({
-      projectId: project.projectId,
-      cycleInstanceId: activeIdForPrepare,
-      text: content,
-      pilotDecisionCandidate: analysis.pilotDecisionCandidate,
-      sessionDbPath: input.sessionDbPath,
-    });
-    const chatFirstPrepareAccept =
-      prepareGoPreview.kind === "prepare" ||
-      prepareGoPreview.kind === "explicit_lexical_prepare";
-    const actionableForGenericPrepare =
-      analysis.intentClass === "actionable" ||
-      analysis.intentClass === "execution_request" ||
-      chatFirstPrepareAccept;
 
     // P6-HQA-F05-GD4-01 — ordinary documentary materialization without a
     // closure Artifact obligation must not dead-end on no_require_artifact.
@@ -2072,27 +2202,68 @@ export async function orchestrateAssistantSend(input: {
       continuation.mode === "NEW_CYCLE_FORMALIZATION" ||
       isOptionalDocumentaryWithoutClosureArtifactBlock(continuation);
 
-    // D-ER-17 / S8 — NO active cycle is not a blocker for Generic PREPARE.
-    // Admitted on PROJECT CONTEXT (cycleInstanceId = null) when Project is bound
-    // and the turn is (a) a Pilote prepare GO / explicit prepare intent, or
-    // (b) a natural documentary signal that ACGC no longer dead-ends
-    // (no_compatible_artifact_effect). Explicit NEW_CYCLE formalization
-    // (« prépare un cycle … ») stays on the historical createCycle path.
-    // Other actionable no-cycle missions keep the legacy NEW_CYCLE START path
-    // until the D-ER-19 legacy-admission exit (OPEN — see delivery report).
-    // No CycleInstance is ever invented here.
-    const projectContextAdmission =
+    const prepareAdmission = assessGenericPrepareConversationAdmission({
+      projectId: project.projectId,
+      userContent: content,
+      analysis,
+      activeCycleInstanceId: activeIdForPrepare,
+      cycleLabel:
+        (analysis.candidateCycleTypeId
+          ? getCycleTypeById(analysis.candidateCycleTypeId)?.label
+          : null) ?? analysis.candidateCycleTypeId ?? null,
+      pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+      sessionDbPath: input.sessionDbPath,
+      eligibleForGenericPrepareRouting,
+      actionableForIntent:
+        analysis.intentClass === "actionable" ||
+        analysis.intentClass === "execution_request",
+      projectContextLegacyEligible:
+        continuation.mode === "NEW_CYCLE_FORMALIZATION" &&
+        continuation.reason === "no_compatible_artifact_effect",
+    });
+
+    // Mixed cycle+execution without START path → distinguish operations; no silent PREPARE.
+    if (
       !activeIdForPrepare &&
+      !prepareAdmission.allowGenericPrepareRouting &&
+      prepareAdmission.discrimination.kind === "ambiguous_mixed" &&
+      prepareAdmission.discrimination.hasCycleLifecycleLanguage &&
+      prepareAdmission.discrimination.hasExecutionMissionLanguage &&
+      prepareAdmission.discrimination.startRoutingKind === "not_start_path"
+    ) {
+      return await completeF2Turn({
+        userText: content,
+        sessionDbPath: input.sessionDbPath,
+        text: mixedCycleExecutionClarificationMessage({
+          presentation,
+          cycleLabel:
+            (analysis.candidateCycleTypeId
+              ? getCycleTypeById(analysis.candidateCycleTypeId)?.label
+              : null) ?? analysis.candidateCycleTypeId ?? null,
+        }),
+        mode: modeResolution.mode as "fixture" | "live",
+        presentation,
+        model,
+        project,
+        intentClass: analysis.intentClass,
+        reinstructionOfProposalId,
+        executionBlocked: true,
+        turnKind: "f2_clarification",
+      });
+    }
+
+    // D-ER-17 / S8 — NO active cycle is not a blocker for Generic PREPARE when
+    // the turn is a true execution mission. Cycle Lifecycle / mixed cycle-first
+    // turns are excluded by the coordinator (no artificial CycleInstance).
+    // Legacy analysis formalization signal retained as defense-in-depth.
+    const projectContextAdmission =
+      prepareAdmission.allowProjectContextPrepare &&
       Boolean(project.projectId?.trim()) &&
-      !hasExplicitNewCycleFormalizationSignal(analysis) &&
-      (chatFirstPrepareAccept ||
-        (continuation.mode === "NEW_CYCLE_FORMALIZATION" &&
-          continuation.reason === "no_compatible_artifact_effect"));
+      !hasExplicitNewCycleFormalizationSignal(analysis);
 
     if (
-      eligibleForGenericPrepareRouting &&
-      (Boolean(activeIdForPrepare) || projectContextAdmission) &&
-      actionableForGenericPrepare
+      prepareAdmission.allowGenericPrepareRouting &&
+      (Boolean(activeIdForPrepare) || projectContextAdmission)
     ) {
     const activeId: string | null = activeIdForPrepare;
     const cycleLoad = activeId
@@ -2107,7 +2278,7 @@ export async function orchestrateAssistantSend(input: {
       const contextKept = activeId
         ? "Le cycle actif est conservé."
         : "Contexte projet conservé — aucun cycle artificiel créé.";
-      const prepareGo = prepareGoPreview;
+      const prepareGo = prepareAdmission.prepareGo;
       const mayPrepare =
         prepareGo.kind === "prepare" ||
         prepareGo.kind === "explicit_lexical_prepare";

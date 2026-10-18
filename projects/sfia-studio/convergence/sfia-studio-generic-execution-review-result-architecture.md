@@ -7,7 +7,7 @@
 | **Rôle documentaire** | **CURRENT ARCHITECTURE REFERENCE** (cible adoptée + cartographie factuelle du code) |
 | **Chaîne couverte** | `GENERIC EXECUTION → EXECUTION REVIEW → EVIDENCE → NORA → RESULT → PILOT` |
 | **Statut** | **ADOPTED TARGET ARCHITECTURE BY MORRIS** — **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
-| **Décisions datées** | **2026-09-29** (D-ER-01…15) · **Amendement 2026-10-16** (D-ER-16…19 — Nora Tool Invocation) |
+| **Décisions datées** | **2026-09-29** (D-ER-01…15) · **Amendement 2026-10-16** (D-ER-16…19 — Nora Tool Invocation) · **Amendement 2026-10-18** (**D-P6-SHE-01** — SINGLE HUMAN EXECUTE / Option A — amende le séquencement d’autorité de D-ER-18) |
 | **Base main auditée** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` (D-ER-01…15) · amendement ancré sur `896ff59c704bfa76df1da1a51705aaf948c1cf0c` (2026-10-16) |
 | **Qualification épistémique** | Assertions étiquetées : `CURRENT IMPLEMENTED FACT` · `REAL OBSERVATION` · `AUDIT INFERENCE` · `TARGET ARCHITECTURE — ADOPTED BY MORRIS` · `TRANSITIONAL DEBT` · `OPEN DESIGN DETAIL` · `FUTURE PROOF` |
 | **runtime v3** | **NON ADOPTED** |
@@ -57,8 +57,9 @@ Ce document fixe la **référence d’architecture Product** pour le circuit gé
 | --- | --- |
 | Cible architecturale D-ER-01…15 | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-09-29) — **inchangée** |
 | Amendement Nora Tool Invocation D-ER-16…19 | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-10-16) — **complète** D-ER-01…15 ; **≠** réécriture historique |
+| Amendement **D-P6-SHE-01** (SINGLE HUMAN EXECUTE / Option A) | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-10-18) — amende le **séquencement d’autorité** de D-ER-18 ; **≠** réécriture de D-ER-18 historique 2026-10-16 ; **≠** runtime implémenté |
 | Intégration Git de ce document | **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
-| Implémentation de l’amendement | **EN COURS (Delivery local, non fusionné)** — D-ER-16…19 partiellement implémentés sous Delivery GO ; **NON** pour la cible complète (E8–E11 non prouvés bout-en-bout ; S8 persistence/recovery OPEN ; sortie legacy D-ER-19 partielle) — CURRENT ≠ TARGET |
+| Implémentation de l’amendement | **EN COURS (Delivery local, non fusionné)** — D-ER-16…19 partiellement implémentés sous Delivery GO ; **NON** pour la cible complète (E8–E11 non prouvés bout-en-bout ; S8 persistence/recovery OPEN ; sortie legacy D-ER-19 partielle) ; **D-P6-SHE-01 Delivery NON AUTORISÉ** — CURRENT ≠ TARGET |
 | runtime v3 | **NON ADOPTED** |
 | READY FOR REAL (boucle générique cible) | **NO** |
 | Delivery slicing (lots) | **TBD** — **D-ER-15** |
@@ -636,9 +637,9 @@ Toute proposition de lots = décision Morris ultérieure distincte.
 
 ### D-ER-18 — Autorité : PREPARE ≠ AUTHORIZE ≠ EXECUTE · Morris D3
 
-**Tag :** **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-10-16)
+**Tag (historique) :** **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-10-16)
 
-**Décision :**
+**Décision historique (2026-10-16) — conservée comme trace ; séquencement d’autorité amendé ci-dessous :**
 
 - **PREPARE ≠ AUTHORIZE ≠ EXECUTE.**
 - **Même** capacité générique pour missions **non structurantes** et **structurantes**.
@@ -650,6 +651,48 @@ Toute proposition de lots = décision Morris ultérieure distincte.
 - **Nora** ne s’octroie **aucune** permission.
 
 **Alignement :** D-ER-11 (Claim / Fact / Analysis / Authority) · P2-D-01…04 (Rec≠HD ; SUCCESS≠COMPLETE ; Conf≠HD ; close≠next) — sans promotion doctrine.
+
+#### Amendement D-P6-SHE-01 (2026-10-18) — SINGLE HUMAN EXECUTE / Option A
+
+**Tag :** **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-10-18) — **≠ CURRENT IMPLEMENTED FACT**
+
+**Décision Morris D-P6-SHE-01 (D1–D10) — amende le séquencement d’autorité de D-ER-18 ; ne réécrit pas rétroactivement l’historique 2026-10-16 :**
+
+| ID | Contenu adopté |
+| --- | --- |
+| D1 | **OPTION A** — adapter le pipeline Generic Execution existant (pas de second moteur / taxonomie). |
+| D2 | **PREPARE** — tout contrat suffisamment décrit peut être préparé et inspecté, structurant ou non, **sans HumanDecision préalable**. |
+| D3 | **INSPECT** — le Pilote consulte le contrat, périmètre, effets et réserves. |
+| D4 | **SINGLE EXECUTE** — une seule action explicite **Exécuter** après inspection constitue l’autorisation Pilote pour la **version précise** du contrat présenté. |
+| D5 | **AUTHORITY** — Studio enchaîne automatiquement les vérifications et transitions OA internes nécessaires avant lancement. |
+| D6 | **NO EXTRA HUMAN CTA** — pas de confirmation humaine supplémentaire après Exécuter pour le **même** contrat inspecté. |
+| D7 | **FAIL CLOSED** — contrat obsolète, autorité insuffisante, ou frontière protégée non autorisée → **STOP** sans lancement Cursor. |
+| D8 | **ARCHITECTURE** — réutiliser OA + Generic Execution ; **aucun** système parallèle. |
+| D9 | **CONSTRUCTION GATES** — décisions Morris de construction / permissions / chemins protégés **≠** autorisation Pilote runtime. |
+| D10 | **MATURITÉ** — cible adoptée ≠ runtime implémenté ; P6 PASS non acquis ; runtime v3 **NON ADOPTED**. |
+
+**Modèle TARGET (D-P6-SHE-01) — ≠ CURRENT IMPLEMENTED :**
+
+```text
+NORA / STUDIO PREPARE  →  PILOT INSPECT  →  PILOT EXECUTE
+  →  PRODUCT ENFORCEMENT (HD / Confirmation / Authorization / currentness / scope / capability — transitions OA distinctes)
+  →  CURSOR (si admissible)  →  EVIDENCE / RESULT
+sinon STOP sans ExecutionAttempt
+```
+
+**Précisions d’autorité (TARGET) :**
+
+- **PREPARE ≠ AUTHORIZE ≠ EXECUTE** demeure ;
+- PREPARE **ne consomme aucune autorité** et **n’exige pas** de HD préalable ;
+- le contrat PREPARE est **inspectable** mais **non autorisé** jusqu’au clic Exécuter admissible ;
+- l’autorité structurelle applicable est vérifiée **avant tout lancement** (pas avant PREPARE) ;
+- HumanDecision enregistrée **uniquement** sur action explicite du Pilote (sujet / version / digest du contrat inspecté) — **aucune HD silencieuse** ;
+- Confirmations restent liées aux **effets exacts** inspectés (ActionPolicy / materiality) — pliage server-side dans le geste Exécuter ≠ suppression sémantique ;
+- currentness, scope, AgentCapability et frontiers protégées revalidés avant Attempt ;
+- Cursor lancé **uniquement** si admissible ; sinon **0 Attempt** ;
+- même expérience UX pour STRUCTURAL / NON_STRUCTURAL / Critical / Standard (matérialité ≠ boutons distincts).
+
+**CURRENT IMPLEMENTED FACT (rappel — ne pas falsifier) :** le runtime et les tests mHd01 / DER16 E12 / G-D4 appliquent encore HD-avant-PREPARE pour STRUCTURAL — voir `production-runtime-reference/07-authority-invariants-and-failure-modes.md` (AS_IMPLEMENTED vs TARGET ADOPTED).
 
 ### D-ER-19 — Sortie progressive des admissions spécialisées · Morris D4
 

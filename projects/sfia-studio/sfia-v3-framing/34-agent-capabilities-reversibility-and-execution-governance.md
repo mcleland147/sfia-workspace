@@ -42,6 +42,8 @@ valid human authorization
 
 Aucune couche n’élargit seule l’autorité. Un exécuteur insuffisant déclenche `SC-CAP` → STOP / escalation honnête.
 
+**Amendement D-P6-SHE-01 (2026-10-18) — TARGET (Generic Execution) :** l’autorité effective est évaluée au **clic Exécuter** (après inspection du contrat), pas à PREPARE. ActionPolicy / Confirmations N1–N3 restent liées aux **effets** ; elles peuvent être consommées en transitions OA internes dans le geste Exécuter — **sans** CTA humain redondant et **sans** suppression sémantique. Aucune élévation de capacité. Gates Morris de construction (push/PR/merge/doctrine/baseline) demeurent distincts. TARGET ≠ IMPLEMENTED.
+
 **Interdit :** L5 décisionnel global · décision Morris automatisée · élargissement via CKC · chargement doctrine v2.6 comme capacité de lecture produit.
 
 ## 2. V3-F12 — Taxonomie des actions et réversibilité (VALIDATED)
