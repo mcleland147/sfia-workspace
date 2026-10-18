@@ -3,8 +3,8 @@
 
 ## A. Horodatage Europe/Paris
 
-- ISO: `2026-10-18T06:01:44+0200`
-- Local: `2026-10-18 06:01 CEST`
+- ISO: `2026-10-18T06:02:10+0200`
+- Local: `2026-10-18 06:02 CEST`
 
 ## B. GO Morris consommé
 
@@ -527,14 +527,14 @@ index d9f19039..eb600e9c 100644
 
  | Item | Status |
 diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index 25549243..99cc4dd2 100644
+index 25549243..37471f61 100644
 --- a/projects/sfia-studio/production-runtime-reference/README.md
 +++ b/projects/sfia-studio/production-runtime-reference/README.md
 @@ -13,6 +13,7 @@
  **RCD-01 documentary reliability overlay (INTEGRATED ON MAIN):** P6-MIN-09 / **PR #578 MERGED** @ merge `440066485eaae458ccca188b2c91f8f47bd4987f` (source `9b855d8ddabd9bf9fffb8561f63d1138d8939be4`; mergedAt 2026-10-13T07:18:56Z) — honest Git read coverage; secret-safe redaction progression; final model-visible JSON envelope truth; bounded oversized-line skip (`lineExceedsCap`); honest budget-exhausted restitution. Post-merge CI: [run 38361885447](https://github.com/mcleland147/sfia-workspace/actions/runs/38361885447) SUCCESS (Required Gate PASS). Proof: **DETERMINISTIC CORRECTION PROVEN AT TESTED SCOPE** (R1–R7). **GDR REAL PASS / P6 GLOBAL PASS / Product READY: NOT CLAIMED**. Runtime v3 **NON ADOPTED**. FinOps ceilings unchanged (adaptive maxTurns ≤ 10; `CT_MAX_TOOL_RESULT_CHARS` = 12000). Volumes 02 / 03 / 04 / 06 / 08 / 09 + README + digests. Debt `RCD-01-PRR-SEMANTIC-COHERENCE`: documentary correction prepared locally — **integration of this PRR sync still PENDING**.
  **PR #585 cumulative CI correction overlay (scoped, Delivery):** baseline reviewed `e7774a0c71e3b052f091ed2dffdd70651916dd2d` · 2026-10-15 (Europe/Paris) — CI-HQA-F01 NEW_CYCLE vs Artifact natural-signal boundary + digest sync for tracked F2/P6 sources; volumes 03 / 09 + digests. **BOUNDED SEMANTIC IMPACT** on F05 admission only. **Not** a full Living Reference re-audit. P6 GLOBAL PASS / REAL / runtime v3 **NOT CLAIMED**.
  **PR #586 optional Artifact / Generic PREPARE overlay (scoped, Delivery):** Product baseline reviewed `9b9cd5e5052da5781678a23a86c82b8b3283627e` · 2026-10-15 (Europe/Paris) — P6-HQA-F05-GD4-01: ordinary documentary request without closure `REQUIRE_ARTIFACT` may route to Generic PREPARE on the same active cycle (`no_require_artifact` ≠ NEW_CYCLE_FORMALIZATION; ≠ invented HD); exact capability identities; Nora path candidates non-authoritative at PREPARE. Volumes 02 / 03 / 04 / 06 / 07 / 08 / 09 + digests. **BOUNDED SEMANTIC IMPACT** on F05 routing + Fake fixture cue. **Not** a full Living Reference re-audit. Pending offer process-local. OpenAI LIVE / e66 / Cursor REAL **NOT CLAIMED**. P6 GLOBAL PASS / runtime v3 **NOT CLAIMED**.
-+**Tool-First Generic Execution + R1/R2 safety (local candidate — PENDING_GIT_INTEGRATION):** Product worktree `fix/sfia-studio-p6-tool-first-safety-r1r2` @ baseline `e03c7b9` — ordinary pathless analysis may PREPARE as NON_STRUCTURAL without invented file path / systematic HD / mandatory CycleInstance / mandatory Artifact when Product admits a **positive** non-mutating claim (`intentKind=read_only` **or** `repositoryMutationDeclared ∈ {none,read}`); absent/unknown/write/contradictions remain fail-closed. Pilot UI **Exécuter** may fold server Confirm after inspection attestation (Inspect ≠ Execute). Cursor REAL generalist has no technical no-write; Product gate `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` refuses Select/Start when REAL is armed for pathless non-mutating ECs. Fake/DET remains admissible. Volumes 02 / 03 / 05 / 07 / 08 / 09 (+ digests only after ChatGPT semantic content review). **BOUNDED SEMANTIC IMPACT**. **Not** integrated on main. REAL BOUNDARY / HQA / P6 GLOBAL PASS / runtime v3 **NOT CLAIMED**.
++**Tool-First Generic Execution + R1/R2 safety (local candidate — PENDING_GIT_INTEGRATION):** Product worktree `fix/sfia-studio-p6-tool-first-safety-r1r2` @ baseline `e03c7b9` — ordinary pathless analysis may PREPARE as NON_STRUCTURAL without invented file path / systematic HD / mandatory CycleInstance / mandatory Artifact when Product admits a **positive** non-mutating claim (`intentKind=read_only` **or** `repositoryMutationDeclared ∈ {none,read}`); `repositoryMutation` absent refuses only when `read_only` is also absent; unknown/write/contradictions remain fail-closed. Pilot UI **Exécuter** may fold server Confirm after inspection attestation (Inspect ≠ Execute). Cursor REAL generalist has no technical no-write; Product gate `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` — **Select** refuses before new Attempt; **Start** refuses launch while Attempt stays `accepted`. Fake/DET remains admissible. Volumes 02 / 03 / 04 / 05 / 07 / 08 / 09 (+ digests only after ChatGPT semantic content review). **BOUNDED SEMANTIC IMPACT**. **Not** integrated on main. REAL BOUNDARY / HQA / P6 GLOBAL PASS / runtime v3 **NOT CLAIMED**.
 
  ## What this corpus is
 
@@ -799,28 +799,28 @@ M	projects/sfia-studio/production-runtime-reference/README.md
 ### stat
 
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 167 +----------------
- ...03.durableExecutionActionContinuity.ui.test.tsx |  53 +++---
- ...p5.s03.executionReconcileContinuity.ui.test.tsx |  19 +-
- .../p5.s03.pilotExecutionPresentation.d0.test.ts   |  11 +-
- .../p6.r02.actionAvailability.d0.test.ts           |   7 +-
- .../p6.der16.genericNoraToolInvocation.d0.test.ts  |   9 +-
- .../surfaces/ExecutionSurface.tsx                  |  44 ++++-
- .../surfaces/pilotExecutionPresentation.ts         |   8 +-
- .../features/project-assistant/orchestrateTurn.ts  |   1 +
- .../w2/governedExecuteAuthorizedContract.ts        |  25 +++
- .../w2/prepareGenericExecutionContractDraft.ts     |  65 ++++++-
- .../w2/resolveAuthoritativeProductMateriality.ts   | 207 +++++++++++++++++++--
- .../productExecutionAgentsTools.ts                 |  18 ++
- .../02-runtime-object-catalog.md                   |   1 +
- .../03-end-to-end-flow-catalog.md                  |  22 ++-
- .../04-dependency-impact-map.md                    |  19 +-
- ...05-environments-configuration-and-boundaries.md |   1 +
- .../07-authority-invariants-and-failure-modes.md   |  18 +-
- .../08-test-proof-and-conformance-map.md           |   3 +
- ...9-known-gaps-reserves-and-current-boundaries.md |  22 +++
- .../production-runtime-reference/README.md         |   1 +
- 21 files changed, 474 insertions(+), 247 deletions(-)
+ .tmp-sfia-review/chatgpt-review.md                 | 1056 +++++++++++++++++---
+ ...03.durableExecutionActionContinuity.ui.test.tsx |   53 +-
+ ...p5.s03.executionReconcileContinuity.ui.test.tsx |   19 +-
+ .../p5.s03.pilotExecutionPresentation.d0.test.ts   |   11 +-
+ .../p6.r02.actionAvailability.d0.test.ts           |    7 +-
+ .../p6.der16.genericNoraToolInvocation.d0.test.ts  |    9 +-
+ .../surfaces/ExecutionSurface.tsx                  |   44 +-
+ .../surfaces/pilotExecutionPresentation.ts         |    8 +-
+ .../features/project-assistant/orchestrateTurn.ts  |    1 +
+ .../w2/governedExecuteAuthorizedContract.ts        |   25 +
+ .../w2/prepareGenericExecutionContractDraft.ts     |   65 +-
+ .../w2/resolveAuthoritativeProductMateriality.ts   |  207 +++-
+ .../productExecutionAgentsTools.ts                 |   18 +
+ .../02-runtime-object-catalog.md                   |    1 +
+ .../03-end-to-end-flow-catalog.md                  |   22 +-
+ .../04-dependency-impact-map.md                    |   19 +-
+ ...05-environments-configuration-and-boundaries.md |    1 +
+ .../07-authority-invariants-and-failure-modes.md   |   18 +-
+ .../08-test-proof-and-conformance-map.md           |    3 +
+ ...9-known-gaps-reserves-and-current-boundaries.md |   22 +
+ .../production-runtime-reference/README.md         |    1 +
+ 21 files changed, 1376 insertions(+), 234 deletions(-)
 ```
 
 ### untracked
