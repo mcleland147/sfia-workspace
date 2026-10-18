@@ -1251,6 +1251,19 @@ export function genericMissionPreparedText(input: {
 // No parallel prepare engine · no task taxonomy · never an ExecutionAttempt.
 // ---------------------------------------------------------------------------
 
+/**
+ * Same-turn currentness (P6 Option B) — Nora tool solicitation is recorded during
+ * the Agents round; Product FINALIZES PREPARE only after durable turn writes
+ * (ACW / reservation / LR) so the EC stamp binds the final LPS, not a mid-turn
+ * snapshot invalidated by later epistemic materialization.
+ * Does NOT weaken MATERIALITY_CURRENTNESS_STALE for post-turn mutations.
+ */
+export const GENERIC_PREPARE_QUEUED_FOR_TURN_FINALIZATION =
+  "GENERIC_PREPARE_QUEUED_FOR_TURN_FINALIZATION" as const;
+
+export const GENERIC_PREPARE_TURN_FINALIZATION_SUPPRESSED =
+  "GENERIC_PREPARE_TURN_FINALIZATION_SUPPRESSED" as const;
+
 /** Mission fields Nora may supply to the solicitation tool (NON-AUTHORITATIVE). */
 export type SolicitGenericPrepareMissionFields = {
   readonly objective?: string | null;
@@ -1361,6 +1374,10 @@ export type SolicitGenericExecutionPrepareInput = {
   readonly sourceGroundingReader?: ContractSourceGroundingReader | null;
 };
 
+/**
+ * Immediate PREPARE result (drafted EC or fail-closed). Never deferred —
+ * tool-time queueing uses {@link QueuedGenericPrepareForTurnFinalizationResult}.
+ */
 export type SolicitGenericExecutionPrepareResult =
   | {
       readonly ok: true;
@@ -1382,6 +1399,29 @@ export type SolicitGenericExecutionPrepareResult =
       readonly humanDecisionCreated: false;
       readonly executionAttemptCreated: false;
     };
+
+/** Tool-time acknowledgement — no EC written yet (same-turn currentness). */
+export type QueuedGenericPrepareForTurnFinalizationResult = {
+  readonly ok: true;
+  readonly code: typeof GENERIC_PREPARE_QUEUED_FOR_TURN_FINALIZATION;
+  readonly deferredFinalize: true;
+  readonly humanDecisionCreated: false;
+  readonly executionAttemptCreated: false;
+  readonly message: string;
+};
+
+/** Tool-time acknowledgement — no EC written yet (same-turn currentness). */
+export function queueGenericPrepareForTurnFinalization(): QueuedGenericPrepareForTurnFinalizationResult {
+  return {
+    ok: true,
+    code: GENERIC_PREPARE_QUEUED_FOR_TURN_FINALIZATION,
+    deferredFinalize: true,
+    humanDecisionCreated: false,
+    executionAttemptCreated: false,
+    message:
+      "Sollicitation Generic PREPARE enregistrée — Product finalisera le contrat après les écritures durables du tour (empreinte CURRENT). PREPARE ≠ AUTHORIZE ≠ EXECUTE ; aucun ExecutionAttempt créé.",
+  };
+}
 
 /**
  * Thin Product service for Nora tool injection (D-ER-16). PREPARE only —
