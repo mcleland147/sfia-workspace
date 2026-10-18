@@ -39,7 +39,9 @@ Ce document **n’est pas** :
 
 Décision Morris explicite — cible produit Studio (≠ runtime ADOPTED). **Pilote** est le rôle runtime fonctionnel générique ; Morris reste l’autorité de construction / gouvernance de SFIA Studio et peut utiliser le produit en tant que Pilote sans devenir un persona runtime spécifique.
 
-Ordre d’autorité d’exécution aligné sur Product Completion C2 + Functional Architecture (≠ spécification technique) :
+**Amendement d’autorité d’exécution — D-P6-SHE-01** (2026-10-18) — **SINGLE HUMAN EXECUTE / OPTION A** — **TARGET ARCHITECTURE — ADOPTED BY MORRIS**. Cible documentaire ≠ runtime implémenté ; ≠ P6 PASS ; ≠ runtime v3 ADOPTED. Ne confond pas une **HumanDecision de trajectoire** (gates propres) avec l’autorisation d’un **ExecutionContract** générique.
+
+Ordre d’autorité d’exécution aligné sur Product Completion C2 + Functional Architecture, **amendé** par D-P6-SHE-01 (≠ spécification technique) :
 
 ```text
 Pilote
@@ -49,12 +51,13 @@ Pilote
   → analyse / clarification
   → Living Project State
   → ProjectTrajectory / options / recommandation
-  → HumanDecision du Pilote
-  → ExecutionContract natif préparé
-  → ExecutionContract inspecté par le Pilote
-  → Confirmation si requise par les effets / frontières protégées
-  → vérification / calcul de l’autorité effective + executor sufficiency
-  → Cursor / agent sous contrat
+  → HumanDecision du Pilote (trajectoire / vérité Project structurelle — gates propres)
+  → [Generic Execution — D-P6-SHE-01]
+       Nora/Studio PREPARE ExecutionContract (inspectable ; sans HD préalable obligatoire)
+       → Pilote INSPECT (contrat / effets / réserves)
+       → Pilote EXECUTE (seul clic explicite sur la version inspectée)
+       → Studio : HD / Confirmation applicables (transitions OA internes) + autorité effective
+       → Cursor / agent sous contrat SI admissible ; sinon STOP sans Attempt
   → Evidence / ReviewBundle / Git
   → analyse Nora
   → mise à jour LPS / ProjectTrajectory / replanification
@@ -64,12 +67,18 @@ Pilote
 
 Clarifications minimales (gouvernance d’exécution — ≠ implémentation) :
 
+- **PREPARE ≠ AUTHORIZE ≠ EXECUTE** (D-ER-18 conservé ; timing amendé par D-P6-SHE-01) ;
+- PREPARE d’un ExecutionContract générique **n’exige pas** de HumanDecision préalable (structurant ou non) — le contrat peut être **inspectable** sans être **autorisé** ;
+- Inspection ≠ consentement à exécuter ;
+- le clic **Exécuter** est l’acte Pilote explicite sur le **contrat inspecté** (identité / version / empreinte) ;
+- HD / Confirmation applicables restent des **transitions OA distinctes**, consommées **dans** le geste Exécuter lorsque requis — **pas** de CTA humain supplémentaire après ce clic pour le même contrat inspecté ;
 - Confirmation porte sur le **contrat / les effets inspectés** ;
 - Confirmation est **conditionnelle** — jamais une étape obligatoire gratuite ;
 - aucune Confirmation ne précède l’**inspection** du contrat qu’elle autorise ;
-- l’**autorité effective** est résolue **après** les Confirmations requises et **avant** Execute ;
+- l’**autorité effective** est résolue **avant** tout lancement Cursor ; absence d’autorité → STOP sans Attempt ;
 - l’absence de Confirmation requise **n’empêche pas** le calcul d’autorité ;
-- aucune couche ne peut élargir seule l’autorité.
+- aucune couche ne peut élargir seule l’autorité ;
+- gates Morris de **construction** (doctrine, promotion, chemins protégés Studio, push/PR/merge repo Studio) **≠** autorisation runtime Pilote.
 
 Référence fonctionnelle d’autorité :
 
