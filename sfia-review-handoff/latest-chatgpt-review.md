@@ -1,28 +1,29 @@
 # SFIA STUDIO — P6 INTEGRATED PRODUCT ARCHITECTURE RECOVERY
-# DELIVERY INTÉGRÉ — Critical Review Pack (FULL)
+# DELIVERY OPTION B CONTINUATION — Critical Review Pack (FULL)
 
 ## 0. Horodatage / qualification
 
 | Champ | Valeur |
 |---|---|
-| Horodatage ISO | 2026-10-18T15:53:47+0200 |
-| Local | 2026-10-18 15:53 CEST |
+| Horodatage ISO | 2026-10-18T17:21:35+0200 |
+| Local | 2026-10-18 17:21 CEST |
 | Chantier | P6-INTEGRATED-PRODUCT-ARCHITECTURE-RECOVERY |
-| Cycle | 8 — Delivery / implémentation |
+| Cycle | 8 — Delivery / implémentation (CONTINUATION) |
 | Profil | CRITICAL |
-| Typologie | INC / EVOL |
+| Typologie | INC / EVOL — CONTINUATION |
 | Capacité | V3-F05 (+ F06/F07/F11/F12/F14) |
 | Milestone | P6 |
-| Mode preuve | DETERMINISTIC PRODUCT INTEGRATION |
-| Architecture Review entrée | `sfia/review-handoff` @ `9149179b` / blob `d9784d2e` |
+| Mode preuve | DETERMINISTIC FULL FIRST-CYCLE JOURNEY |
+| Previous Delivery handoff | `679c2a2f` / blob `f88788fa` |
+| Architecture Review entrée | `9149179b` / blob `d9784d2e` |
 
 ## 1. GO Morris consommés
 
 | Décision | Statut |
 |---|---|
-| D-ARCH-REC-01 Option B | **CONSUMED** (conversation pilotage — ≠ doctrine Git) |
+| D-ARCH-REC-01 Option B | **CONSUMED** (ADOPTED) |
 | D-ARCH-REC-02 Cycle Lifecycle ≠ détournement Generic PREPARE | **CONSUMED** |
-| D-ARCH-REC-03 GO Delivery intégré | **CONSUMED** |
+| D-ARCH-REC-03 GO Delivery intégré | **CONSUMED** (continuation — aucun nouveau GO) |
 | D-ARCH-REC-04 Documentary sync | **NOT AUTHORIZED** — non exécuté |
 
 ## 2. Git Truth
@@ -33,74 +34,185 @@
 | origin/main base | `304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8` |
 | Delivery worktree | `/Users/morris/Projects/sfia-workspace-p6-arch-recovery-delivery-304e30e8` |
 | Branche Delivery | `delivery/sfia-studio-p6-integrated-architecture-recovery` |
-| HEAD base (uncommitted candidate) | `304e30e8` + local Product changes |
+| HEAD | `304e30e8f9d19fad753a76c7a7b89b5b7e34c3f8` + local Option B (uncommitted) |
 | Product push/PR | **NONE** |
-| QA AtelierNova worktree | préservé (`…-p6-fresh-qa-304e30e8`) |
-| Runtime `:3020` | préservé (`/login` 200) — non stoppé/redémarré |
-| DB QA | non mutées |
+| Working tree | Intentionally dirty — Option B candidate |
+| Runtime `:3020` | préservé (PID 53076 écoute) — non stoppé |
+| DB / AtelierNova historiques | non mutés |
+| Worktrees tiers | préservés |
+
+### git status --short (Delivery WT)
+
+```
+ M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/p6.arch.cycleLifecycleVsGenericPrepare.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/p6.arch.virginFirstCycleJourney.d0.test.ts
+?? projects/sfia-studio/app/features/project-assistant/f2/conversationWorkflowDiscrimination.ts
+?? projects/sfia-studio/app/features/project-assistant/f2/cycleLifecycleConversationCoordinator.ts
+?? projects/sfia-studio/app/features/project-assistant/f2/genericExecutionConversationCoordinator.ts
+```
 
 ## 3. Sources
 
-Processus v2.6 ; Convergence Build Doctrine/Roadmap (lecture) ; C1/P6 (lecture) ; D-ER architecture ; PRR 02–09 ; doctrine v3 30/34/35/37 ; Review Handoff architectural `9149179b` ; tests der16/F01/framing/toolFirst.
+Processus v2.6 ; Convergence Build Doctrine/Roadmap (lecture) ; C1/P6 (lecture) ;
+PRR 02–09 ; doctrine v3 30/34/35/37 ; Review Handoff Delivery précédent `679c2a2f` ;
+tests der16 / F01 / framing / toolFirst / productCycleE2e.
 
-D-ARCH-REC-* : décisions conversationnelles Morris — **non** présentées comme baseline Git doctrine.
+D-ARCH-REC-* : décisions conversationnelles Morris — **non** baseline Git doctrine.
 
 ## 4. Convergence Pre-check
 
-P5 intégré ; P6 HQA en cours ; #587/#588 sur main ; P6 GLOBAL PASS NON ACQUIS ; runtime v3 NON ADOPTED.
-Gap traité : fusion F2 Cycle Lifecycle ↔ Generic PREPARE.
-KEEP OA/EC/Attempt/Gateway/Evidence. ADAPT F2 orchestration + coordinators. COMPLETE tests AtelierNova-like. TRANSITIONAL D-ER-19 / offers session-local (exit documentés).
-
-## 5. Diagnostic causal final (revalidé)
-
-| Cause | Statut |
+| Item | État |
 |---|---|
-| Generic PREPARE project-context (`dac669d7` ⊂ #587) capturait tours START | **PROVEN** |
-| Narrative AtelierNova = `genericMissionClarificationText(structural, no cycle)` | **PROVEN** |
-| 0 cycle / 0 traj / 0 HD / 0 EC sur AtelierNova QA | **PROVEN** (review) |
-| Exclusion formalization analysis-only insuffisante | **PROVEN** mécanisme |
-| Correction : discrimination raw+stance + coordinator admission + framing orient | **IMPLEMENTED** |
+| Option B candidat local | Préservé + complété |
+| Tests Delivery précédent | 76 PASS annoncés |
+| Gap ChatGPT | ORACLE 02 ne prouvait pas START réel ; seed traj ≠ Project vierge |
+| Inventory catch→0 | **CORRIGÉ** fail-closed |
+| Exit proof virgin → ACTIVE | **PROUVÉ** (déterministe) |
+| P6 GLOBAL PASS | **NON ACQUIS** |
+| runtime v3 | **NON ADOPTED** |
+| Human QA navigateur | **HORS SCOPE** — prochain gate Morris |
 
-## 6. Architecture CURRENT vs candidate
+KEEP : OA, LPS, ProjectTrajectory, Cycle Lifecycle, HumanDecision, EC, Gateway, Evidence, Reconciler.
+ADAPT : discrimination + coordinators Option B ; framing/START ; inventaire fail-closed.
+COMPLETE : oracle Project vierge → ACTIVE ; inventaire indisponible ; reload service remount.
+TRANSITIONAL : D-ER-19 admissions legacy ; offers Generic PREPARE session-local.
 
-**CURRENT (pré-fix) :** `orchestrateF2` décidait inline `projectContextAdmission` → PREPARE pouvait short-circuit avant late START.
+## 5. Cause / insuffisances de preuve (revue ChatGPT)
 
-**CANDIDATE (Option B) :**
-1. `conversationWorkflowDiscrimination` — `cycle_lifecycle` / `execution_mission` / `ambiguous_mixed`
-2. `genericExecutionConversationCoordinator.assessGenericPrepareConversationAdmission` — admission PREPARE sans dupliquer readiness/materiality
-3. `cycleLifecycleConversationCoordinator` — messages Cycle Lifecycle / mixed
-4. `orchestrateF2` délègue ; conserve un seul backend `prepareGenericExecutionContractDraft` / `solicitGenericExecutionPrepare`
+1. ORACLE 02 AtelierNova-like vérifiait l'absence de narrative Generic PREPARE et l'absence de CycleInstance — **pas** le START effectif.
+2. `seedProject()` créait une trajectoire initiale — ≠ état AtelierNova réel (0 traj).
+3. `catch { cycleInventoryCount = 0 }` assimilait inventaire indisponible à inventaire vide.
 
-Invariant : Cycle Lifecycle intent **preempts** project-context Generic PREPARE ; D-ER-17 execution missions sans cycle **conservées** ; PREPARE≠AUTHORIZE≠EXECUTE inchangé ; pas de second moteur/SoT.
+## 6. Corrections supplémentaires (continuation)
 
-## 7. Responsabilités séparées
+| Correction | Fichier | Effet |
+|---|---|---|
+| Inventory fail-closed (kind available/unavailable) | `cycleLifecycleConversationCoordinator.ts` + `orchestrateF2.ts` | Erreur listByProject ≠ count 0 |
+| Fail-closed lorsque snap continuity échoue (`TRJ_BRIDGE_CYCLES_UNAVAILABLE`) + attempt_start | `orchestrateF2.ts` | Empêche fall-through Nora/PREPARE si inventory down avant phase branch |
+| Oracle virgin first-cycle journey | `p6.arch.virginFirstCycleJourney.d0.test.ts` | Rec→traj→HD→prepare→START→LPS ACTIVE→reload |
+| ORACLE J inventaire | même fichier | spy listByProject reject → f2_blocked |
 
-| Domaine | Owner |
-|---|---|
-| Discrimination d'intention | `conversationWorkflowDiscrimination` (pure) |
-| Orientation Cycle Lifecycle | `cycleLifecycleConversationCoordinator` |
-| Admission Generic PREPARE conversationnelle | `genericExecutionConversationCoordinator` |
-| Préparation EC / readiness / materiality | W2 existant (KEEP) |
-| START gate | `resolveChatFirstCycleStartGate` (KEEP) |
-| Dispatcher | `orchestrateF2` (allévié, non remplacé) |
+## 7. Architecture finale Option B
+
+1. `conversationWorkflowDiscrimination` — cycle_lifecycle / execution_mission / ambiguous_mixed
+2. `cycleLifecycleConversationCoordinator` — orientation Cycle + inventory unavailable messaging
+3. `genericExecutionConversationCoordinator` — admission PREPARE sans second moteur
+4. `orchestrateF2` — délègue ; conserve un seul backend PREPARE ; framing early START ; inventaire fail-closed
+
+Invariant : Cycle Lifecycle **preempts** project-context Generic PREPARE ; D-ER-17 missions sans cycle **conservées** ; PREPARE≠AUTHORIZE≠EXECUTE ; START gate inchangé ; pas de second SoT ; HD non inventée par « ok go ».
 
 ## 8. Fichiers créés / modifiés
 
 ### Créés
-- `f2/conversationWorkflowDiscrimination.ts`
-- `f2/cycleLifecycleConversationCoordinator.ts`
-- `f2/genericExecutionConversationCoordinator.ts`
-- `__tests__/project-assistant/p6.arch.cycleLifecycleVsGenericPrepare.d0.test.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/conversationWorkflowDiscrimination.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/cycleLifecycleConversationCoordinator.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/genericExecutionConversationCoordinator.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.arch.cycleLifecycleVsGenericPrepare.d0.test.ts`
+- `projects/sfia-studio/app/__tests__/project-assistant/p6.arch.virginFirstCycleJourney.d0.test.ts`
 
 ### Modifiés
-- `f2/orchestrateF2.ts`
+- `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts`
 
-### Interdits non touchés
-Doctrine, Roadmap, C1, D-ER doc, template, secrets, DB QA.
+### Interdits / non touchés
+Build Doctrine, Roadmap, C1, D-ER protégée, doctrine v3, secrets, DB historiques — **OK**.
 
-## 9. Contenu exploitable — fichiers nouveaux
+## 9. Matrice d'oracles
 
-### NEW FILE: `conversationWorkflowDiscrimination.ts`
+| Oracle | Preuve | Test / observation | Verdict |
+|---|---|---|---|
+| A Virgin → Rec CURRENT | createProject + materializeLifecycleRecommendation ; 0 cycle/traj CURRENT/HD/EC | virginFirstCycleJourney A–F | **PASS** |
+| B Framing → candidate traj | send « poursuivons » → phase awaiting ; trajId Product ; hasAny ; CURRENT null jusqu'à HD | idem | **PASS** |
+| C HD applicable | advance approve_candidate + digest serveur ; HD ≥1 ; CURRENT après HD | idem | **PASS** |
+| D Cycle prepared lié | phase ready_to_start ; COMPLETE_TRAJECTORY_BOUND ; 0 EC | idem | **PASS** |
+| E START ACTIVE | send « Je souhaite démarrer » → « est maintenant actif » ; status active | idem | **PASS** |
+| F START sans EC | contracts.listByProject length 0 avant/après START | idem | **PASS** |
+| G Generic PREPARE sans cycle | discrimination + der16 E10 | arch + der16 | **PASS** |
+| H PREPARE avec cycle actif | non-régression toolFirst / der16 | suites | **PASS** (régression) |
+| I ok go | pas d'EC inventé | virgin ORACLE I + arch ORACLE 10 | **PASS** |
+| J Inventaire indisponible | spy reject → message inventaire + f2_blocked ; pas faux « 0 cycle » | virgin ORACLE J | **PASS** |
+| K Reload | resetRuntime + getRuntime même productDbPath ; LPS ACTIVE + phase active | virgin A–F+K | **PASS** (service remount — pas restart OS) |
+| L Tool-First R2 | safetyClosureR1R2 | suite | **PASS** |
+| M Régression | framing / F01 / der16 / gD4 / toolFirst / productCycleE2e | 84 tests ciblés | **PASS** |
+
+**Qualifié K :** re-instanciation service Product sur même SQLite. **Non prouvé :** restart processus Node / serveur HTTP réel.
+
+## 10. États Product (scénario virgin)
+
+| Étape | Avant | Action | Après |
+|---|---|---|---|
+| Boot | — | createProject | 0 cycle, 0 traj, 0 HD, 0 EC, LPS sans active |
+| Rec | virgin | materializeLifecycleRecommendationFromStructuredOutput | Rec CURRENT ; toujours 0 traj/cycle/HD/EC |
+| Prepare candidate | Rec ready | projectAssistantSendAction progress | candidate traj (hasAny) ; CURRENT null ; phase awaiting |
+| HD | awaiting | advanceFramingContinuity approve_candidate | HD≥1 ; CURRENT traj |
+| Prepare cycle | decided | prepare_cycle si besoin | Cycle proposed/ack ; COMPLETE bound ; 0 EC |
+| START | ready_to_start | send START explicite | Cycle ACTIVE ; LPS activeCycleInstanceId ; 0 EC |
+| Reload | ACTIVE | new RuntimeApplicationService same DB | LPS + cycle ACTIVE cohérents |
+
+## 11. Validations exécutées
+
+| Check | Résultat |
+|---|---|
+| virginFirstCycleJourney (4) | PASS |
+| Suites ciblées (9 files) | **84 PASS** |
+| typecheck | PASS |
+| lint | PASS |
+| build | PASS |
+| Cursor REAL Execute | **NON** (interdit) |
+| Nora OpenAI LIVE | **NON** |
+| Human QA navigateur Morris | **NON** — prochain gate |
+
+## 12. Fake / Real
+
+| Frontière | Mode |
+|---|---|
+| Nora | Fake provider (`OPS1_CONVERSATION_PROVIDER=fake`) |
+| Product OA / LPS / traj / HD / cycle / START | **REAL Product paths** |
+| Cursor REAL | OFF |
+| Auth / Git / UI navigateur | HORS SCOPE |
+
+Claims autorisés : DETERMINISTIC FULL FIRST-CYCLE JOURNEY PROVEN au périmètre traversé.
+Claims interdits : P6 GLOBAL PASS ; runtime v3 ADOPTED ; END-TO-END REAL PROVEN ; READY FOR REAL automatique.
+
+## 13. Dettes / réserves
+
+| Dette | Owner | Exit |
+|---|---|---|
+| Human QA Morris navigateur sur candidat isolé | Morris | Session HQA après acceptation |
+| Discrimination regex/stance bornée | Product | Ne pas multiplier heuristics sans preuve |
+| Reload = service remount ≠ process restart | Delivery | Documenté ; pas d'archi persistence nouvelle |
+| D-ER-19 / offers session-local | Existants | Exits déjà documentés ailleurs |
+| D-ARCH-REC-04 docs sync | Morris | GO séparé si besoin |
+
+## 14. Verdict
+
+**INTEGRATED DELIVERY OPTION B — DETERMINISTIC FIRST-CYCLE JOURNEY PROVEN — READY FOR MORRIS HUMAN QA.**
+
+Statut : **READY WITH RESERVES** (HQA navigateur + P6 GLOBAL non acquis).
+
+## 15. Instructions Human QA Morris
+
+1. Isoler un Project **vraiment** vierge (ne pas réutiliser AtelierNova historique si état pollué).
+2. Parcourir Rec → examen trajectoire → validation carte HD → prepare → START explicite.
+3. Vérifier LPS activeCycleInstanceId + absence EC au START.
+4. Tester « ok go » ambigu et demande mixte START+PREPARE.
+5. Ne pas lancer Cursor REAL Product Execute sans gate dédié.
+
+## 16. Gates restants
+
+- Human QA Morris (bounded REAL navigateur)
+- Aucun Product push/PR/merge autorisé ici
+- P6 GLOBAL PASS non déclaré
+
+---
+
+# ANNEXE A — Contenu exploitable des modules créés
+
+
+## A.conversationWorkflowDiscrimination.ts
+
+Path: `projects/sfia-studio/app/features/project-assistant/f2/conversationWorkflowDiscrimination.ts`
 
 ```typescript
 /**
@@ -285,8 +397,12 @@ export function discriminateConversationWorkflow(input: {
     reason: "non_cycle_default_allows_execution_admission",
   };
 }
+
 ```
-### NEW FILE: `cycleLifecycleConversationCoordinator.ts`
+
+## A.cycleLifecycleConversationCoordinator.ts
+
+Path: `projects/sfia-studio/app/features/project-assistant/f2/cycleLifecycleConversationCoordinator.ts`
 
 ```typescript
 /**
@@ -308,6 +424,31 @@ export function shouldExcludeGenericPrepareProjectContext(
   discrimination: ConversationWorkflowDiscrimination,
 ): boolean {
   return discrimination.preemptsGenericPrepareProjectContext;
+}
+
+/** Result of reading CycleInstance inventory for Cycle Lifecycle early orientation. */
+export type CycleInventoryReadResult =
+  | { readonly kind: "available"; readonly count: number }
+  | { readonly kind: "unavailable"; readonly reason: string };
+
+/**
+ * Fail-closed messaging when CycleInstance inventory cannot be proven empty.
+ * Must not claim "0 cycle" or progress as if inventory were empty.
+ */
+export function cycleInventoryUnavailableMessage(input: {
+  readonly presentation: "test_provider" | "openai_live";
+  readonly cycleLabel?: string | null;
+}): string {
+  const head =
+    input.presentation === "test_provider" ? "[Mode test]" : "[Mode réel]";
+  const cycle = (input.cycleLabel ?? "").trim()
+    ? `« ${(input.cycleLabel ?? "").trim()} »`
+    : "ce cycle";
+  return [
+    head,
+    `L'inventaire des cycles du projet est temporairement indisponible — Studio ne peut pas traiter le démarrage de ${cycle} sur une absence non prouvée.`,
+    "Aucun cycle n'a été créé, démarré ni préparé. Aucun contrat d'exécution n'a été préparé. Réessayez lorsque l'état Product est de nouveau lisible.",
+  ].join(" ");
 }
 
 /**
@@ -404,8 +545,12 @@ export function mixedCycleExecutionClarificationMessage(input: {
     "Aucune des deux n'a été engagée silencieusement. Précisez laquelle vous voulez en premier, ou validez la trajectoire du cycle puis redemandez le contrat.",
   ].join(" ");
 }
+
 ```
-### NEW FILE: `genericExecutionConversationCoordinator.ts`
+
+## A.genericExecutionConversationCoordinator.ts
+
+Path: `projects/sfia-studio/app/features/project-assistant/f2/genericExecutionConversationCoordinator.ts`
 
 ```typescript
 /**
@@ -557,8 +702,12 @@ export function assessGenericPrepareConversationAdmission(input: {
     blockReason: null,
   };
 }
+
 ```
-### NEW FILE: `p6.arch.cycleLifecycleVsGenericPrepare.d0.test.ts`
+
+## A.p6.arch.cycleLifecycleVsGenericPrepare.d0.test.ts
+
+Path: `projects/sfia-studio/app/__tests__/project-assistant/p6.arch.cycleLifecycleVsGenericPrepare.d0.test.ts`
 
 ```typescript
 /** @vitest-environment node */
@@ -920,30 +1069,709 @@ describe("P6 arch recovery — Cycle Lifecycle vs Generic PREPARE", () => {
     expect(turn.text).toMatch(/distinct|cycle|trajectoire|contrat|démarr/i);
   });
 });
+
 ```
 
+## A.p6.arch.virginFirstCycleJourney.d0.test.ts
 
-## 10. Diff utile — orchestrateF2.ts
+Path: `projects/sfia-studio/app/__tests__/project-assistant/p6.arch.virginFirstCycleJourney.d0.test.ts`
+
+```typescript
+/** @vitest-environment node */
+/**
+ * P6 Architecture Recovery continuation — DETERMINISTIC FULL FIRST-CYCLE JOURNEY
+ * from a truly virgin Product Project (0 cycle / 0 traj / 0 HD / 0 EC).
+ *
+ * Recommendation is materialized via Product lifecycleRecommendation path
+ * (Nora structured-output seam) — NOT by seeding Trajectory/Cycle/HD/EC.
+ * Decision + prepare + START use Product front-doors.
+ */
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  setConversationProviderForTests,
+  type ConversationProvider,
+  type ProviderChatMessage,
+  type ProviderCompletionResult,
+  type ProviderInputItem,
+  type ProviderRoundResult,
+} from "@/lib/platform/ai";
+import { projectAssistantSendAction } from "@/features/project-assistant/actions";
+import {
+  projectAssistantAdvanceFramingContinuityAction,
+  projectAssistantReadFramingContinuityAction,
+} from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
+import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
+import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  materializeLifecycleRecommendationFromStructuredOutput,
+  NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+  resolveTrajectoryBootstrapPresence,
+  classifyTrajectoryBinding,
+} from "@/lib/oa/cycle";
+import { PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
+import type { Digest, DoctrinePackagePin } from "@/lib/oa/doctrine";
+import {
+  getRuntimeApplicationService,
+  resetRuntimeApplicationServiceForTests,
+} from "@/lib/vertical-slice-runtime";
+import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
+import { W2_REGISTRY_ROOT, W2_SCHEMAS_ROOT } from "./w2Harness";
+
+const VALID_DIGEST =
+  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622" as Digest;
+const VALID_PIN: DoctrinePackagePin = {
+  doctrinePackageId: "pkg:studio-v3-oa",
+  version: "1.0.0",
+  digest: VALID_DIGEST,
+};
+
+const tempDirs: string[] = [];
+let previousPilot: string | undefined;
+let previousMorris: string | undefined;
+let previousCursorReal: string | undefined;
+let previousAllowReset: string | undefined;
+let previousProvider: string | undefined;
+
+function restoreEnv(name: string, previous: string | undefined): void {
+  if (previous === undefined) delete process.env[name];
+  else process.env[name] = previous;
+}
+
+class FixedIdSource implements LocalProjectIdSource {
+  private n = 0;
+  constructor(private readonly prefix: string) {}
+  nextProjectId(): string {
+    this.n += 1;
+    return `prj:${this.prefix}-${this.n}`;
+  }
+  nextLpsVersionId(): string {
+    return `lps:${this.prefix}-${this.n}`;
+  }
+  nextCorrelationId(): string {
+    return `cor:${this.prefix}-${this.n}`;
+  }
+}
+
+function lastUserContent(messages: ProviderChatMessage[]): string {
+  for (let i = messages.length - 1; i >= 0; i -= 1) {
+    if (messages[i]?.role === "user") return messages[i]!.content;
+  }
+  return "";
+}
+
+function demandeCourante(blob: string): string {
+  const marker = "Demande courante (à évaluer):";
+  const idx = blob.indexOf(marker);
+  if (idx < 0) return blob;
+  return blob.slice(idx + marker.length).trim();
+}
+
+class VirginJourneyFakeProvider implements ConversationProvider {
+  readonly providerId = "fake-test";
+  private n = 0;
+
+  async completeStructured(input: {
+    messages: ProviderChatMessage[];
+    schemaName: string;
+    jsonSchema: Record<string, unknown>;
+  }): Promise<ProviderCompletionResult> {
+    void input.schemaName;
+    void input.jsonSchema;
+    return this.complete(input.messages);
+  }
+
+  async complete(messages: ProviderChatMessage[]): Promise<ProviderCompletionResult> {
+    this.n += 1;
+    const current = demandeCourante(lastUserContent(messages));
+    const usage = {
+      inputTokens: 10,
+      outputTokens: 5,
+      totalTokens: 15,
+      model: "fake-test-model",
+      providerResponseId: `virgin-${this.n}`,
+    };
+    const isStart =
+      /\b(je\s+(veux|souhaite)\s+(d[eé]marrer|lancer)|d[eé]marrage\s+effectif|d[eé]marre[- ]?le)\b/i.test(
+        current,
+      );
+    if (isStart) {
+      return {
+        text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+          intentClass: "actionable",
+          candidateCycleTypeId: null,
+          signals: null,
+          cognitiveWorkload: null,
+          contradictionCandidate: null,
+          challengeResponseAssessment: null,
+          objective: null,
+          scope: null,
+          rephrasedRequest: current.slice(0, 160),
+          outOfScope: [],
+          risks: [],
+          reservations: [],
+          stopConditions: [],
+          activatedBlocks: [],
+          expectedOutcome: null,
+          criticalJustification: null,
+          requestedOperation: null,
+          executionIntent: null,
+          continuationKind: null,
+          artifactMaterializationOperation: null,
+          pilotDecisionCandidate: null,
+        })}`,
+        usage,
+      };
+    }
+    return {
+      text: `[TEST/FAKE · NON LIVE] ${JSON.stringify({
+        intentClass: "actionable",
+        candidateCycleTypeId: "cyc:framing",
+        signals: {
+          structuralChange: false,
+          securityImpact: false,
+          architectureImpact: false,
+          dataImpact: false,
+          irreversible: false,
+          lowRiskBounded: true,
+        },
+        cognitiveWorkload: null,
+        contradictionCandidate: null,
+        challengeResponseAssessment: null,
+        objective: "Qualifier le premier cycle Cadrage",
+        scope: "Sans exécution Cursor",
+        rephrasedRequest: current.slice(0, 160),
+        outOfScope: ["Cursor execute"],
+        risks: [],
+        reservations: [],
+        stopConditions: ["AUCUNE EXÉCUTION"],
+        activatedBlocks: ["qualification"],
+        expectedOutcome: "Cycle Cadrage actif",
+        criticalJustification: null,
+        requestedOperation: null,
+        executionIntent: null,
+        continuationKind: null,
+        artifactMaterializationOperation: null,
+        pilotDecisionCandidate: {
+          disposition: "accept",
+          targetKind: "current_recommendation",
+          rationale: "ok",
+        },
+      })}`,
+      usage,
+    };
+  }
+
+  async completeRound(input: {
+    items: ProviderInputItem[];
+    tools: unknown[];
+  }): Promise<ProviderRoundResult> {
+    void input.tools;
+    return {
+      kind: "message",
+      text: "[TEST/FAKE · NON LIVE] virgin-journey",
+      usage: {
+        inputTokens: 1,
+        outputTokens: 1,
+        totalTokens: 2,
+        model: "fake-test-model",
+        providerResponseId: "virgin-round",
+      },
+    };
+  }
+}
+
+async function assertVirginProduct(
+  oa: NonNullable<ReturnType<typeof getRuntimeApplicationService>["oa"]>,
+  projectId: string,
+) {
+  const cycles = await oa.cycleServices.cycles.listByProject(projectId);
+  expect(cycles).toHaveLength(0);
+  expect(
+    await oa.cycleServices.trajectories.hasAnyByProjectId(projectId),
+  ).toBe(false);
+  const traj = await oa.cycleServices.trajectories.findCurrentByProjectId(
+    projectId,
+  );
+  expect(traj).toBeNull();
+  const decisions = await oa.decisionServices.decisions.listByProject(projectId);
+  expect(decisions).toHaveLength(0);
+  const contracts =
+    await oa.executionContractServices.contracts.listByProject(projectId);
+  expect(contracts).toHaveLength(0);
+  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
+    projectId,
+  });
+  expect(lps.ok).toBe(true);
+  if (lps.ok) {
+    expect(lps.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+  }
+}
+
+async function bootVirginProject(suffix: string) {
+  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+  process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+  process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
+  resetRuntimeApplicationServiceForTests();
+  resetF2ProposalStoreForTests();
+  resetMw5ChallengeStoreForTests();
+  resetPendingGenericPrepareOfferStoreForTests();
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "virgin-fc-"));
+  tempDirs.push(dir);
+  const productDbPath = path.join(dir, `${suffix}.sqlite`);
+  const runtime = getRuntimeApplicationService({
+    registryRoot: W2_REGISTRY_ROOT,
+    schemasRoot: W2_SCHEMAS_ROOT,
+    nowIso: "2026-09-09T20:00:00.000Z",
+    idSource: new FixedIdSource(`vg-${suffix}`),
+    auditMode: "noop",
+    productDbPath,
+  });
+  if (!runtime.oa) throw new Error("oa missing");
+  const created = await runtime.createProject({
+    name: `Virgin FC ${suffix}`,
+    objective: "Premier cycle Cadrage depuis Project vierge",
+    context: "AtelierNova-like greenfield",
+    criticality: "STANDARD",
+    constraints: [],
+    shortReference: `VG${suffix}`,
+    idempotencyKey: `idem:vg-${suffix}`,
+  });
+  if (!created.ok) throw new Error("create failed");
+  const projectId = created.projectId;
+  await assertVirginProduct(runtime.oa, projectId);
+  return {
+    runtime,
+    projectId,
+    productDbPath,
+    sessionDbPath: path.join(dir, `${suffix}-session.sqlite`),
+  };
+}
+
+async function materializeCurrentFramingRecommendation(
+  projectId: string,
+): Promise<void> {
+  const oa = getRuntimeApplicationService().oa!;
+  const cycles = await oa.cycleServices.cycles.listByProject(projectId);
+  const decisions = await oa.decisionServices.decisions.listByProject(projectId);
+  const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
+    projectId,
+  });
+  if (!lps.ok) throw new Error("lps");
+  const presence = await resolveTrajectoryBootstrapPresence(
+    oa.cycleServices.trajectories,
+    projectId,
+  );
+  const project = await oa.projectServices.getProject.execute({ projectId });
+  const doctrine =
+    (project.ok ? project.project.doctrinePackageRef : null) ?? VALID_PIN;
+  const mat = await materializeLifecycleRecommendationFromStructuredOutput({
+    projectId,
+    structuredOutput: {
+      narrative: "Recommandation Cadrage — premier cycle.",
+      preCycleRoutingAssessment: {
+        ...PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
+      },
+      lifecycleRecommendation: {
+        intent: "NEXT_CYCLE" as const,
+        statement: "Envisager un Cadrage pour qualifier la mission.",
+        subjectCycleInstanceId: null,
+        targetCycleInstanceId: null,
+        targetCycleTypeId: "cyc:framing",
+        rationale: "Premier travail gouverné supportable.",
+        authority: "none" as const,
+        isHumanDecision: false as const,
+        qualificationSignals: {
+          structuralChange: false,
+          securityImpact: false,
+          architectureImpact: false,
+          dataImpact: false,
+          irreversible: false,
+          lowRiskBounded: true,
+        },
+      },
+    },
+    updateEpistemicState: oa.cycleServices.updateEpistemicState,
+    facts: {
+      cycles,
+      lpsActiveCycleInstanceId: lps.livingProjectState.activeCycleInstanceId,
+      lpsVersion: lps.livingProjectState.version,
+      doctrinePackageId: doctrine.doctrinePackageId,
+      doctrinePackageVersion: doctrine.version,
+      doctrinePackageDigest: doctrine.digest,
+      trajectory: null,
+      trajectoryBootstrapPresence: presence,
+      decisions,
+      evidence: [],
+      epistemicItems: await oa.cycleServices.epistemic.listByProject(projectId),
+    },
+    producedAt: "2026-09-09T20:01:00.000Z",
+    createdBy: NORA_LIFECYCLE_RECOMMENDATION_ACTOR,
+  });
+  expect(mat.materialization?.ok).toBe(true);
+}
+
+describe("P6 arch recovery — virgin Project first-cycle journey", () => {
+  const provider = new VirginJourneyFakeProvider();
+
+  beforeEach(() => {
+    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
+    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    previousCursorReal = process.env.SFIA_STUDIO_CURSOR_REAL;
+    previousAllowReset = process.env.SFIA_V2_RUNTIME_ALLOW_RESET;
+    previousProvider = process.env.OPS1_CONVERSATION_PROVIDER;
+    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    setConversationProviderForTests(provider);
+  });
+
+  afterEach(() => {
+    setConversationProviderForTests(null);
+    resetRuntimeApplicationServiceForTests();
+    resetF2ProposalStoreForTests();
+    resetMw5ChallengeStoreForTests();
+    resetPendingGenericPrepareOfferStoreForTests();
+    vi.restoreAllMocks();
+    while (tempDirs.length) {
+      const d = tempDirs.pop();
+      if (d) fs.rmSync(d, { recursive: true, force: true });
+    }
+    restoreEnv("SFIA_STUDIO_LOCAL_PILOT_AUTHORITY", previousPilot);
+    restoreEnv("SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY", previousMorris);
+    restoreEnv("SFIA_STUDIO_CURSOR_REAL", previousCursorReal);
+    restoreEnv("SFIA_V2_RUNTIME_ALLOW_RESET", previousAllowReset);
+    restoreEnv("OPS1_CONVERSATION_PROVIDER", previousProvider);
+  });
+
+  it("ORACLE A–F + K — virgin Project → Rec → traj → HD → prepare → START ACTIVE → reload; START sans EC", async () => {
+    const { runtime, projectId, productDbPath, sessionDbPath } =
+      await bootVirginProject("e2e");
+    const oa = runtime.oa!;
+
+    // ORACLE A — still virgin before recommendation
+    await assertVirginProduct(oa, projectId);
+
+    // ORACLE A — Recommendation CURRENT via Product materialization seam (not DB seed)
+    await materializeCurrentFramingRecommendation(projectId);
+    // Rec must not invent trajectory / cycle / HD / EC
+    expect(
+      (await oa.cycleServices.trajectories.findCurrentByProjectId(projectId)) ??
+        null,
+    ).toBeNull();
+    expect((await oa.cycleServices.cycles.listByProject(projectId)).length).toBe(
+      0,
+    );
+    expect(
+      (await oa.decisionServices.decisions.listByProject(projectId)).length,
+    ).toBe(0);
+    expect(
+      (await oa.executionContractServices.contracts.listByProject(projectId))
+        .length,
+    ).toBe(0);
+
+    const before = await projectAssistantReadFramingContinuityAction({
+      projectId,
+    });
+    expect(before.continuity?.phase).toBe("recommendation_ready");
+    expect(before.continuity?.hasCurrentNextCycleRecommendation).toBe(true);
+
+    // ORACLE B — framing prepare candidate (Product conversation progress, not START)
+    const progress = await projectAssistantSendAction({
+      projectId,
+      content:
+        "OK, poursuivons la recommandation de Cadrage. Une mission Cursor pourra venir ensuite — pas maintenant.",
+      sessionDbPath,
+      provider,
+    });
+    expect(progress.ok).toBe(true);
+    if (!progress.ok) throw new Error(progress.message ?? "progress");
+    expect(progress.text).not.toMatch(
+      /décision Pilote explicite reste nécessaire avant de préparer un contrat d'exécution/i,
+    );
+    expect(progress.text).not.toMatch(
+      /Contexte projet conservé — aucun cycle artificiel créé/,
+    );
+
+    const afterPrep = await projectAssistantReadFramingContinuityAction({
+      projectId,
+    });
+    expect(afterPrep.continuity?.phase).toBe("awaiting_trajectory_decision");
+    expect(afterPrep.continuity?.presentationDigest).toBeTruthy();
+    // Candidate trajectories are Product-real but not effective CURRENT until HD.
+    expect(afterPrep.continuity?.trajectoryId).toBeTruthy();
+    expect(
+      await oa.cycleServices.trajectories.hasAnyByProjectId(projectId),
+    ).toBe(true);
+    expect(
+      (await oa.cycleServices.trajectories.findCurrentByProjectId(projectId)) ??
+        null,
+    ).toBeNull();
+
+    // ORACLE C — HumanDecision via Product card seam (digest server-side)
+    const approved = await projectAssistantAdvanceFramingContinuityAction({
+      projectId,
+      step: "approve_candidate",
+      presentationDigest: afterPrep.continuity!.presentationDigest!,
+    });
+    expect(approved.ok).toBe(true);
+    expect(
+      (await oa.decisionServices.decisions.listByProject(projectId)).length,
+    ).toBeGreaterThanOrEqual(1);
+    // After HD, trajectory becomes Product CURRENT.
+    expect(
+      await oa.cycleServices.trajectories.findCurrentByProjectId(projectId),
+    ).toBeTruthy();
+    // Conversation "ok" alone must not invent another HD path here — HD is Product action.
+    if (
+      approved.continuity?.phase === "trajectory_decided_prepare_cycle"
+    ) {
+      const prep = await projectAssistantAdvanceFramingContinuityAction({
+        projectId,
+        step: "prepare_cycle",
+      });
+      expect(prep.ok).toBe(true);
+    }
+
+    // ORACLE D — Cycle prepared, linked, not yet ACTIVE
+    const ready = await projectAssistantReadFramingContinuityAction({
+      projectId,
+    });
+    expect(ready.continuity?.phase).toBe("ready_to_start");
+    expect(ready.continuity?.preparedCycleInstanceId).toBeTruthy();
+    const preparedCycles = await oa.cycleServices.cycles.listByProject(projectId);
+    expect(preparedCycles.length).toBe(1);
+    expect(["proposed", "acknowledged"]).toContain(preparedCycles[0]!.status);
+    expect(classifyTrajectoryBinding(preparedCycles[0]!)).toBe(
+      "COMPLETE_TRAJECTORY_BOUND",
+    );
+    expect(
+      (await oa.executionContractServices.contracts.listByProject(projectId))
+        .length,
+    ).toBe(0);
+
+    // ORACLE E + F — explicit START, LPS ACTIVE, no EC required
+    const start = await projectAssistantSendAction({
+      projectId,
+      content: "Je souhaite démarrer le Cadrage.",
+      sessionDbPath,
+      provider,
+    });
+    expect(start.ok).toBe(true);
+    if (!start.ok) throw new Error(start.message ?? "start");
+    expect(start.text).toMatch(/est maintenant actif/i);
+    expect(start.project.activeCycleInstanceId).toBeTruthy();
+
+    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) throw new Error("lps");
+    expect(lps.livingProjectState.activeCycleInstanceId).toBe(
+      start.project.activeCycleInstanceId,
+    );
+    const activeCycles = await oa.cycleServices.cycles.listByProject(projectId);
+    expect(activeCycles).toHaveLength(1);
+    expect(activeCycles[0]!.status).toBe("active");
+    expect(
+      (await oa.executionContractServices.contracts.listByProject(projectId))
+        .length,
+    ).toBe(0);
+
+    // ORACLE K — re-instantiate Product runtime on same SQLite (service remount)
+    const activeId = lps.livingProjectState.activeCycleInstanceId!;
+    resetRuntimeApplicationServiceForTests();
+    const runtime2 = getRuntimeApplicationService({
+      registryRoot: W2_REGISTRY_ROOT,
+      schemasRoot: W2_SCHEMAS_ROOT,
+      nowIso: "2026-09-09T21:00:00.000Z",
+      idSource: new FixedIdSource(`vg-reload`),
+      auditMode: "noop",
+      productDbPath,
+    });
+    expect(runtime2.oa).toBeTruthy();
+    const oa2 = runtime2.oa!;
+    const lps2 = await oa2.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(lps2.ok).toBe(true);
+    if (!lps2.ok) throw new Error("lps2");
+    expect(lps2.livingProjectState.activeCycleInstanceId).toBe(activeId);
+    const cycles2 = await oa2.cycleServices.cycles.listByProject(projectId);
+    expect(cycles2).toHaveLength(1);
+    expect(cycles2[0]!.status).toBe("active");
+    const continuity2 = await projectAssistantReadFramingContinuityAction({
+      projectId,
+    });
+    expect(continuity2.ok).toBe(true);
+    expect(continuity2.continuity?.phase).toBe("active");
+    expect(
+      (await oa2.executionContractServices.contracts.listByProject(projectId))
+        .length,
+    ).toBe(0);
+  });
+
+  it("ORACLE J — cycle inventory unavailable is fail-closed (not treated as empty)", async () => {
+    // Virgin + no recommendation → phase blocked_no_recommendation → early START
+    // inventory read. Service error must NOT be assimilated to count===0.
+    const { projectId, sessionDbPath } = await bootVirginProject("inv");
+    const oa = getRuntimeApplicationService().oa!;
+    const before = await projectAssistantReadFramingContinuityAction({
+      projectId,
+    });
+    expect(before.continuity?.phase).toBe("blocked_no_recommendation");
+
+    const spy = vi
+      .spyOn(oa.cycleServices.cycles, "listByProject")
+      .mockRejectedValueOnce(new Error("simulated_inventory_unavailable"));
+
+    const turn = await orchestrateAssistantSend({
+      projectId,
+      content: "Je souhaite démarrer le Cadrage.",
+      sessionDbPath,
+    });
+    expect(spy).toHaveBeenCalled();
+    expect(turn.ok).toBe(true);
+    if (!turn.ok) throw new Error(turn.message ?? "turn");
+    expect(turn.text).toMatch(/inventaire des cycles.*indisponible/i);
+    expect(turn.text).not.toMatch(
+      /besoin d'une recommandation de cycle puis d'une trajectoire/i,
+    );
+    expect(turn.f2?.turnKind).toBe("f2_blocked");
+    spy.mockRestore();
+    expect((await oa.cycleServices.cycles.listByProject(projectId)).length).toBe(
+      0,
+    );
+    expect(
+      (await oa.executionContractServices.contracts.listByProject(projectId))
+        .length,
+    ).toBe(0);
+  });
+
+  it("ORACLE I — ok go without CURRENT prepare offer does not invent EC after cycle START wording", async () => {
+    const { projectId, sessionDbPath } = await bootVirginProject("okgo");
+    await materializeCurrentFramingRecommendation(projectId);
+    await projectAssistantSendAction({
+      projectId,
+      content: "OK pour le Cadrage.",
+      sessionDbPath,
+      provider,
+    });
+    const turn = await projectAssistantSendAction({
+      projectId,
+      content: "ok go",
+      sessionDbPath,
+      provider,
+    });
+    expect(turn.ok).toBe(true);
+    if (!turn.ok) throw new Error(turn.message ?? "okgo");
+    expect(turn.text).not.toMatch(/xct:gen-prep:/);
+    expect(turn.text).not.toMatch(
+      /décision Pilote explicite reste nécessaire avant de préparer un contrat d'exécution/i,
+    );
+  });
+
+  it("ORACLE F/H intent — mixed START+PREPARE does not invent EC; cycle path remains distinct", async () => {
+    const { projectId, sessionDbPath } = await bootVirginProject("mixed");
+    await materializeCurrentFramingRecommendation(projectId);
+    const turn = await projectAssistantSendAction({
+      projectId,
+      content:
+        "Je souhaite démarrer le Cadrage et préparer en même temps le contrat d'exécution Cursor pour l'outil d'inscriptions.",
+      sessionDbPath,
+      provider,
+    });
+    expect(turn.ok).toBe(true);
+    if (!turn.ok) throw new Error(turn.message ?? "mixed");
+    expect(turn.text).not.toMatch(
+      /décision Pilote explicite reste nécessaire avant de préparer un contrat d'exécution/i,
+    );
+    expect(turn.text).not.toMatch(
+      /Contexte projet conservé — aucun cycle artificiel créé/,
+    );
+    expect(
+      (await getRuntimeApplicationService().oa!.executionContractServices.contracts.listByProject(
+        projectId,
+      )).length,
+    ).toBe(0);
+  });
+});
+
+```
+
+# ANNEXE B — Diff orchestrateF2.ts (Option B + continuation fail-closed)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 7a75a37f..891f938a 100644
+index 7a75a37f..327f86d2 100644
 --- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-@@ -74,6 +74,12 @@ import {
+@@ -74,6 +74,14 @@ import {
    isOptionalDocumentaryWithoutClosureArtifactBlock,
    hasExplicitNewCycleFormalizationSignal,
  } from "./activeCycleGovernedContinuation";
 +import {
++  cycleInventoryUnavailableMessage,
 +  cycleLifecyclePreconditionsMessage,
 +  mixedCycleExecutionClarificationMessage,
++  type CycleInventoryReadResult,
 +} from "./cycleLifecycleConversationCoordinator";
 +import { assessGenericPrepareConversationAdmission } from "./genericExecutionConversationCoordinator";
 +import { discriminateConversationWorkflow } from "./conversationWorkflowDiscrimination";
  import {
    enrichQualificationWithCkcSemantics,
    isProductStudioNativeCkcProof,
-@@ -1751,6 +1757,56 @@ export async function orchestrateAssistantSend(input: {
+@@ -1623,6 +1631,44 @@ export async function orchestrateAssistantSend(input: {
+       const snap = await projectAssistantReadFramingContinuityAction({
+         projectId: project.projectId,
+       });
++      // Fail-closed before phase branching: continuity readers call
++      // cycles.listByProject — if that inventory is unavailable, snap.ok is
++      // false and the in-block inventory check would never run. An explicit
++      // START must not fall through to Nora / Generic PREPARE on that failure.
++      if (
++        !snap.ok &&
++        snap.code === "TRJ_BRIDGE_CYCLES_UNAVAILABLE"
++      ) {
++        const labelForProbe =
++          (analysis.candidateCycleTypeId
++            ? getCycleTypeById(analysis.candidateCycleTypeId)?.label
++            : null) ??
++          analysis.candidateCycleTypeId ??
++          null;
++        const startWhenInventoryUnread = resolveChatFirstStartRouting({
++          userContent: content,
++          cycleLabel: labelForProbe,
++          pilotDecisionCandidate: analysis.pilotDecisionCandidate,
++        });
++        if (startWhenInventoryUnread.kind === "attempt_start") {
++          return await completeF2Turn({
++            userText: content,
++            sessionDbPath: input.sessionDbPath,
++            text: cycleInventoryUnavailableMessage({
++              presentation,
++              cycleLabel: labelForProbe,
++            }),
++            mode: modeResolution.mode as "fixture" | "live",
++            presentation,
++            model,
++            project,
++            intentClass: analysis.intentClass,
++            reinstructionOfProposalId,
++            executionBlocked: true,
++            turnKind: "f2_blocked",
++          });
++        }
++      }
+       if (snap.ok && snap.continuity) {
+         const phase = snap.continuity.phase;
+         const productCycleLabel =
+@@ -1751,6 +1797,80 @@ export async function orchestrateAssistantSend(input: {
          const wantsFramingProgress =
            framingStance.kind === "accept_start" ||
            framingStance.kind === "accept_recommendation";
@@ -963,18 +1791,42 @@ index 7a75a37f..891f938a 100644
 +            cycleLabel: productCycleLabel,
 +            pilotDecisionCandidate: analysis.pilotDecisionCandidate,
 +          });
-+          let cycleInventoryCount = 0;
++          // Fail-closed: inventory service error ≠ proven empty inventory.
++          let cycleInventory: CycleInventoryReadResult;
 +          try {
-+            cycleInventoryCount = (
-+              await oaForFraming.cycleServices.cycles.listByProject(
-+                project.projectId,
-+              )
-+            ).length;
-+          } catch {
-+            cycleInventoryCount = 0;
++            const listed = await oaForFraming.cycleServices.cycles.listByProject(
++              project.projectId,
++            );
++            cycleInventory = { kind: "available", count: listed.length };
++          } catch (err) {
++            cycleInventory = {
++              kind: "unavailable",
++              reason:
++                err instanceof Error
++                  ? err.message.slice(0, 160)
++                  : "cycle_inventory_read_failed",
++            };
++          }
++          if (cycleInventory.kind === "unavailable") {
++            return await completeF2Turn({
++              userText: content,
++              sessionDbPath: input.sessionDbPath,
++              text: cycleInventoryUnavailableMessage({
++                presentation,
++                cycleLabel: productCycleLabel,
++              }),
++              mode: modeResolution.mode as "fixture" | "live",
++              presentation,
++              model,
++              project,
++              intentClass: analysis.intentClass,
++              reinstructionOfProposalId,
++              executionBlocked: true,
++              turnKind: "f2_blocked",
++            });
 +          }
 +          if (
-+            cycleInventoryCount === 0 &&
++            cycleInventory.count === 0 &&
 +            framingDiscrimination.preemptsGenericPrepareProjectContext
 +          ) {
 +            return await completeF2Turn({
@@ -1000,7 +1852,7 @@ index 7a75a37f..891f938a 100644
          if (wantsFramingProgress) {
            if (phase === "recommendation_ready") {
              const advanced = await projectAssistantAdvanceFramingContinuityAction(
-@@ -2047,22 +2103,12 @@ export async function orchestrateAssistantSend(input: {
+@@ -2047,22 +2167,12 @@ export async function orchestrateAssistantSend(input: {
    // is already active must not fall through to NEW_CYCLE START. PREPARE only
    // on explicit prepare intent OR chat-first accept of a CURRENT prepare offer
    // (Q16/Q17/Q18); otherwise clarify gaps or recommend prepare. Never canned.
@@ -1027,7 +1879,7 @@ index 7a75a37f..891f938a 100644
 
      // P6-HQA-F05-GD4-01 — ordinary documentary materialization without a
      // closure Artifact obligation must not dead-end on no_require_artifact.
-@@ -2072,27 +2118,68 @@ export async function orchestrateAssistantSend(input: {
+@@ -2072,27 +2182,68 @@ export async function orchestrateAssistantSend(input: {
        continuation.mode === "NEW_CYCLE_FORMALIZATION" ||
        isOptionalDocumentaryWithoutClosureArtifactBlock(continuation);
 
@@ -1113,7 +1965,7 @@ index 7a75a37f..891f938a 100644
      ) {
      const activeId: string | null = activeIdForPrepare;
      const cycleLoad = activeId
-@@ -2107,7 +2194,7 @@ export async function orchestrateAssistantSend(input: {
+@@ -2107,7 +2258,7 @@ export async function orchestrateAssistantSend(input: {
        const contextKept = activeId
          ? "Le cycle actif est conservé."
          : "Contexte projet conservé — aucun cycle artificiel créé.";
@@ -1125,98 +1977,9 @@ index 7a75a37f..891f938a 100644
 
 ```
 
-## 11. Validations exécutées
+# ANNEXE C — Instruction ChatGPT
 
-| Commande | Résultat |
-|---|---|
-| `vitest` arch + der16 + F01 + framing frontDoor + gD4 + toolFirst R1R2 + toolFirst CAS | **76 passed** |
-| `npm run typecheck` | **PASS** |
-| `npm run lint` | **PASS** (0 warnings) |
-| `npm run build` | **PASS** |
-
-Suites non exécutées dans ce Delivery : e2e Playwright navigateur, suite vitest complète hors périmètre oracle, Human QA REAL.
-
-## 12. Matrice oracles
-
-| Oracle | Couverture |
-|---|---|
-| 01 Rec→traj→HD→prepare→START | COVERED framing frontDoor (existant) |
-| 02 START ≠ détournement PREPARE | COVERED p6.arch AtelierNova-like |
-| 03 START sans EC | COVERED (0 EC assert) |
-| 04 START préconditions manquantes | COVERED framing orient + F01 |
-| 05 PREPARE sans cycle | COVERED der16 E10 + discrimination unit |
-| 06 PREPARE cycle actif | COVERED der16 |
-| 07 non-structural sans HD systématique | COVERED gD4 / toolFirst |
-| 08 structural + HD | COVERED mHd/der16 (réutilisés) |
-| 09 refus/report/ambigu | COVERED F01 routing |
-| 10 ok go sujet | COVERED p6.arch |
-| 11 reload | PARTIAL (non rejoué ici) — réserve |
-| 12 R2 REAL pathless | COVERED toolFirst R1R2 |
-| 13 legacy admissions | COVERED F01 / der16 NEW_CYCLE |
-| 14 rec insuffisante | PARTIAL framing |
-| 15 mixed | COVERED p6.arch |
-
-## 13. Fake / Real Qualification
-
-| Item | Valeur |
-|---|---|
-| Mode | DETERMINISTIC PRODUCT INTEGRATION |
-| Nora LIVE | non appelé |
-| Cursor REAL Attempt métier | non lancé |
-| Parité | mêmes chemins Product `orchestrateAssistantSend` |
-| Gaps | raisonnement LIVE ; HQA navigateur ; AtelierNova REAL replay |
-| Claims interdits | non émis |
-
-## 14. Dettes / exit
-
-| Dette | Owner | Exit |
-|---|---|---|
-| D-ER-19 legacy admissions | P6 convergence | E11 nominal sans taxonomie |
-| Offers PREPARE session-local | W2 | durabilité ou acceptation documentée |
-| TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT | Tool-First | hors scope |
-| Docs PRR/D-ER stale PENDING flags | Docs | D-ARCH-REC-04 ultérieur |
-| ORACLE 11 reload non rejoué | Delivery follow-up HQA | replay Morris |
-
-## 15. Candidat local pour Morris Human QA
-
-| Item | Valeur |
-|---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-p6-arch-recovery-delivery-304e30e8` |
-| Branche | `delivery/sfia-studio-p6-integrated-architecture-recovery` |
-| Base | `304e30e8` + changes locaux non poussés |
-| QA historique AtelierNova | **ne pas écraser** — rejouer sur **nouveau** Project ou env QA dédié après intégration |
-| Runtime Delivery | non démarré sur :3020 (port réservé QA historique) |
-
-### Replay Human QA suggéré
-1. Intégrer/committer le candidat (GO distinct) ou `npm run build &&` start sur **autre port** depuis ce worktree.
-2. Créer Project neuf (pas AtelierNova historique).
-3. Demander démarrage cycle Cadrage (texte type AtelierNova User2).
-4. Vérifier : **pas** de « Contexte projet conservé — … contrat d'exécution » ; orientation trajectoire/START.
-5. Parcourir Rec→traj→HD→prepare→START→LPS active.
-6. Ensuite mission execution → Generic PREPARE (avec ou sans cycle selon D-ER-17).
-
-## 16. Gates encore nécessaires
-
-1. Morris Review de ce Delivery (ChatGPT + Morris).
-2. GO commit/push/PR Product (distinct).
-3. Human QA Morris sur candidat.
-4. D-ARCH-REC-04 si sync documentaire souhaitée.
-5. Pas de P6 GLOBAL PASS automatique.
-
-## 17. Réserves
-
-- Candidat **local non poussé**.
-- Reload/restart oracle 11 non rejoué.
-- Discrimination basée sur regex/stance — cas limites linguistiques possibles (UNKNOWN jusqu'à HQA LIVE).
-- Worktree Delivery avait été brièvement basculé par erreur de branche puis **restauré** sur `304e30e8` avant edits Product.
-
-## 18. Verdict
-
-**INTEGRATED DELIVERY CANDIDATE — READY FOR MORRIS HUMAN QA.**
-
-**Statut :** **READY FOR REVIEW** (avec réserves §17 — **READY WITH RESERVES** sur reload HQA / LIVE linguistic edge).
-
-≠ P6 GLOBAL PASS · ≠ runtime v3 ADOPTED · ≠ REAL E2E PASS.
-
-### Instruction ChatGPT
-Lire handoff distant. Vérifier fichiers créés/modifiés, preuves découplage, tests croisés, réserves. Préparer replay Human QA Morris sur candidat isolé — ne pas conclure READY sans relecture.
+Lire ce handoff canonique en entier.
+Vérifier : code modifié (annexes), contenu exploitable, oracles A–M, résultats 84 PASS + typecheck/lint/build, fail-closed inventaire (y compris TRJ_BRIDGE_CYCLES_UNAVAILABLE), Exit Proof virgin→ACTIVE, réserves HQA.
+Ne pas exiger working tree clean.
+Ne pas déclarer P6 GLOBAL PASS.
