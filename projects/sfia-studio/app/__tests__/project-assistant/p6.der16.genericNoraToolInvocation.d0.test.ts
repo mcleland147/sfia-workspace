@@ -1697,7 +1697,14 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
         .parameters.properties,
     );
     expect(propKeys.sort()).toEqual(
-      ["contextNotes", "expectedOutcome", "impactSignals", "objective", "scope"].sort(),
+      [
+        "contextNotes",
+        "expectedOutcome",
+        "impactSignals",
+        "objective",
+        "repositoryMutation",
+        "scope",
+      ].sort(),
     );
     expect(propKeys.join(",")).not.toMatch(/decision|authority|hd/i);
 

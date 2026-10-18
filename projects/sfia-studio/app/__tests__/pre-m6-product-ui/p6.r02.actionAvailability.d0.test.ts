@@ -179,7 +179,7 @@ describe("P6 R02 — action availability / currentness", () => {
     expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
   });
 
-  it("UI05 — active + inspection sufficient → Confirm enabled", () => {
+  it("UI05 — active + inspection sufficient → Exécuter folds Confirm (tool-first)", () => {
     const view = presentPilotExecution({
       continuityProjection: { ok: true, projection: baseProjection() },
       preExecutionContinuity: activePre({
@@ -187,8 +187,9 @@ describe("P6 R02 — action availability / currentness", () => {
         inspectionSufficient: true,
       }),
     });
-    expect(view.cta.kind).toBe("confirm");
-    expect(view.cta.kind === "confirm" && view.cta.enabled).toBe(true);
+    expect(view.cta.kind).toBe("execute");
+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
+    expect(view.status).toBe("a_confirmer");
   });
 
   it("UI06 — fingerprint drift → reinspect, Confirm not enabled", () => {

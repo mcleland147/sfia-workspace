@@ -153,7 +153,7 @@ describe("P5-S03 pilotExecutionPresentation", () => {
     expect(deriveExecutionTabBadge(view)).toBe(1);
   });
 
-  it("confirmation_required → À confirmer, no direct execute", () => {
+  it("confirmation_required → À confirmer; Exécuter folds Confirm (tool-first)", () => {
     const view = presentPilotExecution({
       continuityProjection: {
         ok: true,
@@ -168,9 +168,12 @@ describe("P5-S03 pilotExecutionPresentation", () => {
       }),
     });
     expect(view.status).toBe("a_confirmer");
-    expect(view.cta.kind).toBe("confirm");
-    expect(view.cta.kind === "confirm" && view.cta.enabled).toBe(true);
-    expect(view.cta.kind === "execute").toBe(false);
+    // Tool-first ordinary path: no separate Confirmer CTA — Exécuter carries
+    // confirm-then-authorize after inspection. Inspect ≠ Execute preserved.
+    expect(view.cta.kind).toBe("execute");
+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
+    expect(view.cta.kind === "confirm").toBe(false);
+    expect(view.attentionNote).toMatch(/confirmation|Exécuter/i);
   });
 
   it("insufficient inspection → Inspect CTA (Confirm not enabled)", () => {

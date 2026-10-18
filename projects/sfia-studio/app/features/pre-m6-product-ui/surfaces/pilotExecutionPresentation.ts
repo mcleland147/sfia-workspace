@@ -652,13 +652,15 @@ export function presentPilotExecution(
       attentionNote =
         "Version ou empreinte modifiée — réexamen requis avant confirmation.";
     } else if (needsConfirm) {
+      // Tool-first ordinary path — one Pilot "Exécuter" gesture folds Confirm
+      // after inspection attestation (Trajectory CR-P6-02 pattern). Inspect ≠ Execute.
       cta = {
-        kind: "confirm",
-        label: "Confirmer",
+        kind: "execute",
+        label: "Exécuter",
         enabled: durableActionable && !busy,
       };
       attentionNote =
-        "Aucun effet ne sera produit tant que la confirmation n’est pas donnée.";
+        "Après inspection, Exécuter porte la confirmation de la version affichée puis l’autorisation — aucun effet avant ce clic.";
     } else if (!inspectionSufficient || !inspectionAlignedWithContract) {
       cta = {
         kind: "inspect",

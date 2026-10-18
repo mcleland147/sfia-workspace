@@ -64,6 +64,7 @@ import { advanceProductExecutionContractAfterEvidence } from "./advanceProductEx
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import { evaluateProductRealReadiness } from "./evaluateProductRealReadiness";
 import { resolveProductExecutionEligibility } from "./resolveProductExecutionEligibility";
+import { assertBoundedNonMutatingCursorRealAdmissible } from "./boundedNonMutatingRealLaunchGate";
 import type {
   GovernedExecuteAuthorizedContractResult,
   GovernedExecuteAttemptProjection,
@@ -775,6 +776,18 @@ export async function governedExecuteSelectAgent(
   const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
 
+  // R2 — pathless non-mutating + REAL armed → refuse BEFORE Attempt/Select.
+  const realNonMutatingGate = assertBoundedNonMutatingCursorRealAdmissible(
+    contract,
+  );
+  if (!realNonMutatingGate.ok) {
+    return {
+      ok: false,
+      code: realNonMutatingGate.code,
+      message: realNonMutatingGate.message,
+    };
+  }
+
   const adapterId = adapterIdForContract(contract);
   const launchCountBefore = launchCountBeforeFor(input.oa, contract);
 
@@ -966,6 +979,18 @@ export async function governedExecuteStart(
   const cursorReal = usesGenericCursorRealBoundary(contract);
   const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
+
+  // R2 — defense in depth: refuse Start before any REAL effect.
+  const realNonMutatingGate = assertBoundedNonMutatingCursorRealAdmissible(
+    contract,
+  );
+  if (!realNonMutatingGate.ok) {
+    return {
+      ok: false,
+      code: realNonMutatingGate.code,
+      message: realNonMutatingGate.message,
+    };
+  }
 
   const adapterId = adapterIdForContract(contract);
   const launchCountBefore = launchCountBeforeFor(input.oa, contract);

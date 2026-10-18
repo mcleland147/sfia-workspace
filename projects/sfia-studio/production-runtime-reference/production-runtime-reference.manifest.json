@@ -7,7 +7,7 @@
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "d6e17088b0cc5762"
+      "sha256_16": "409a4fe71bbb40df"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -15,19 +15,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "243b7c0e390eb19f"
+      "sha256_16": "a63310ed7b85cf1b"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "efdc700181d6a2cc"
+      "sha256_16": "733c07f253de5b65"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "0e1a3472427bdb90"
+      "sha256_16": "b8a66451083f90e3"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-      "sha256_16": "101ec96a6908db71"
+      "sha256_16": "2f13a6917c240eb7"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
@@ -35,15 +35,15 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "8e81c1fd63d604b0"
+      "sha256_16": "dcf49d984f2668da"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "9ee8dde351556e12"
+      "sha256_16": "8237aa210ecfac30"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "e9868b78e0a79e7c"
+      "sha256_16": "252e18777ad9e04b"
     }
   ],
   "components": [
@@ -582,7 +582,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "8150d48197019412"
+      "sha256_16": "4024ae1078c6f4da"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",

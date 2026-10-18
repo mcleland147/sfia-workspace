@@ -521,13 +521,6 @@ export function ExecutionSurface({
         );
         return;
       }
-      if (active.contract.status === "confirmation_required") {
-        setError(
-          "Confirmation encore requise — Exécuter refuse d’agir.",
-        );
-        return;
-      }
-
       // Execute never records inspection as a side effect.
       if (!active.inspection.inspectionSufficient) {
         setError(
@@ -536,12 +529,43 @@ export function ExecutionSurface({
         return;
       }
 
+      // Tool-first / CR-P6-02 — one Pilot "Exécuter" gesture: Confirm (when
+      // required) then Authorize with exact binding to the inspected attestation.
+      // Inspect ≠ Confirm ≠ Authorize ≠ Execute remain distinct server acts.
+      let expectedVersion =
+        active.inspection.attestedVersion ?? active.contract.version;
+      let expectedSemanticFingerprint =
+        active.inspection.attestedSemanticFingerprint ||
+        active.inspection.semanticFingerprint ||
+        active.contract.semanticFingerprint ||
+        undefined;
+
+      if (active.contract.status === "confirmation_required") {
+        const confirmed = await w2ConfirmExecutionContractAction({
+          projectId,
+          executionContractId: active.contract.executionContractId,
+        });
+        if (!confirmed.ok) {
+          setError(confirmed.message);
+          await refreshExecutionContinuity();
+          return;
+        }
+        // Prefer attested binding; fall back to Confirm version bump when present.
+        expectedVersion =
+          active.inspection.attestedVersion ??
+          confirmed.contractVersion ??
+          expectedVersion;
+        expectedSemanticFingerprint =
+          active.inspection.attestedSemanticFingerprint ||
+          active.inspection.semanticFingerprint ||
+          expectedSemanticFingerprint;
+      }
+
       const auth = await w2AuthorizeExecutionContractAction({
         projectId,
         executionContractId: active.contract.executionContractId,
-        expectedVersion: active.contract.version,
-        expectedSemanticFingerprint:
-          active.contract.semanticFingerprint || undefined,
+        expectedVersion,
+        expectedSemanticFingerprint,
       });
       if (!auth.ok) {
         setError(auth.message);

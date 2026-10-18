@@ -561,7 +561,7 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
     expect(staleContinues).toHaveLength(0);
   });
 
-  it("CP01 regression — Confirmer never reconcile execute/continue", async () => {
+  it("CP01 regression — without inspection, confirmation_required shows Inspect (no silent execute)", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection({
@@ -576,6 +576,12 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
         status: "confirmation_required",
         effectConfirmationRequired: true,
       },
+      inspection: {
+        ...current.inspection,
+        inspectionSufficient: false,
+        attestationRef: null,
+        attestedVersion: null,
+      },
     });
 
     render(
@@ -583,13 +589,10 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
     );
     await flush(0);
     await flush(0);
-    expect(screen.getByTestId("project-execution-confirm")).toBeTruthy();
-
-    await act(async () => {
-      fireEvent.click(screen.getByTestId("project-execution-confirm"));
-      await vi.advanceTimersByTimeAsync(0);
-    });
-    expect(confirmMock).toHaveBeenCalled();
+    expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
+    expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
+    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
+    expect(confirmMock).not.toHaveBeenCalled();
     expect(authorizeMock).not.toHaveBeenCalled();
     expect(reconcileMock).not.toHaveBeenCalled();
   });

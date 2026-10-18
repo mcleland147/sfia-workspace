@@ -551,6 +551,7 @@ export async function orchestrateProjectAssistantTurn(input: {
               expectedOutcome: args.expectedOutcome,
               scope: args.scope,
               contextNotes: args.contextNotes,
+              repositoryMutation: args.repositoryMutation,
               impactSignals: args.impactSignals,
             },
             sessionDbPath: input.sessionDbPath,
