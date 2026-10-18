@@ -61,15 +61,26 @@ Nora tool (F04) / F2 analysis / F05 adjacent hand-off
       │              → HD_AMEND_REQUIRES_NEW_PRESENTATION
       │              → re-present / re-seal required
       │              → PREPARE forbidden until new accepted applicable HD
-      └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4)
+      └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4 + Tool-First R1 local candidate)
+           → pathless: positive non-mutating claim required
+                (`read_only` OR repositoryMutationDeclared ∈ {none,read})
+                + complementary Product gates; declaration alone ≠ authority
            → solicitGenericExecutionPrepare (decisionRefs=[])
-           → F09 inspect → Confirm → Authorize → F10 Execute
+           → F09 inspect → Confirm → Authorize
+           → F10 Select → Start → Execute (Fake/DET)
+                └─ if REAL armed + pathless non-mutating (Tool-First R2):
+                     Select: refuse before new Attempt
+                     Start: refuse launch; Attempt stays accepted; no launch-port call
+                     code BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE
       UNKNOWN materiality / structural without accepted+verified HD → FAIL-CLOSED
+      pathless without positive claim (absent mutation AND not read_only) → FAIL-CLOSED
 ```
 
 OA = authority of record. W2 = Product coordination. Nora = cognition/recommendation only. Cursor = controlled execution under Authorization.
 
 **Structural PREPARE gate (S1):** only an **accepted**, mission-bound, applicable, verified, non-superseded HumanDecision opens Chemin A PREPARE. Refuse and Amend are **not** admissible prepare paths. Accept alone is not Execute authority.
+
+**Tool-First R1/R2 (local candidate — PENDING_GIT_INTEGRATION):** R1 gates pathless NON_STRUCTURAL at Materiality→PREPARE (positive claim + Product checks). R2 is a Product dependency of F10 Select/Start on the Cursor REAL boundary — stamp ≠ technical no-write; Fake/DET path unchanged. Not a new OA object; not a parallel engine.
 
 ## DEP edges (stable IDs)
 
@@ -80,14 +91,14 @@ OA = authority of record. W2 = Product coordination. Nora = cognition/recommenda
 | DEP-ACGC-PROP | OBJ-ARTIFACT-CONTINUATION | OBJ-PROPOSAL | continuation emits Proposal/clarification |
 | DEP-PROP-HD | OBJ-PROPOSAL | OBJ-HD | Pilot decision |
 | DEP-HD-EC | OBJ-HD | OBJ-EC | prepare after authority |
-| DEP-EC-ATT | OBJ-EC | OBJ-ATTEMPT | launch |
+| DEP-EC-ATT | OBJ-EC | OBJ-ATTEMPT | Select→Attempt; Tool-First R2 may refuse Select (no Attempt) or Start (Attempt stays accepted) when REAL+pathless non-mutating |
 | DEP-ATT-EV | OBJ-ATTEMPT | OBJ-EVIDENCE | terminal → evidence |
 | DEP-MW5-TURN | OBJ-MW5-CHALLENGE | OBJ-TURN-ORCH | challenge gate on turn |
 | DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-INTENT | deterministic structured analysis |
 | DEP-SESSION-TURN | OBJ-MEMORY-B | OBJ-TURN-ORCH | transcript continuity |
 | DEP-NORA-GENPREP | OBJ-TURN-ORCH | OBJ-EC | Nora solicits Generic PREPARE only (D-ER-16); never Attempt |
 | DEP-GMHD-EC | OBJ-GENERIC-MISSION-HD | OBJ-EC | verified mission-bound HD before structural PREPARE |
-| DEP-MAT-GENPREP | OBJ-ARTIFACT-CONTINUATION / materiality | OBJ-EC | Materiality CURRENT gates empty vs HD-bound refs |
+| DEP-MAT-GENPREP | OBJ-ARTIFACT-CONTINUATION / materiality | OBJ-EC | Materiality CURRENT gates empty vs HD-bound refs; Tool-First R1 pathless positive-claim gate |
 
 ## Sample impact analysis A — `activeCycleGovernedContinuation.ts`
 

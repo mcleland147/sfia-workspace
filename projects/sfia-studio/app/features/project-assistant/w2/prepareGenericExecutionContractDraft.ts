@@ -647,6 +647,9 @@ export async function prepareGenericExecutionContractDraft(
     projectId: input.projectId,
     analysis,
     cycleInstanceId: input.cycleInstanceId,
+    isDocumentaryWriteMission:
+      documentaryBind.kind === "resolved" ||
+      productDocumentaryTargetResolution === "resolved_product",
   });
   const materiality = materialityResolution.assessment;
   const hdRequired =
@@ -766,13 +769,17 @@ export async function prepareGenericExecutionContractDraft(
       ? [resolvedAuthoritativeTargetPath]
       : [expectedOutcome];
 
-  // D — source grounding / trusted launch when mission implies repository work.
+  // D — source grounding / trusted launch when mission implies repository work
+  // OR bounded pathless analysis (Cursor still needs Project binding — ≠ inventing
+  // a documentary/Git mission target; scopeIn stays empty).
   const impliesGit = missionImpliesRepositoryWork(analysis);
+  const needsLaunchContext =
+    impliesGit || materialityResolution.facts.boundedNonMutatingAnalysis === true;
   let launchInputs: Record<string, unknown> = {};
   let sourcesToRead: string[] = [];
   let sourceGroundingPayload: unknown = null;
 
-  if (impliesGit) {
+  if (needsLaunchContext) {
     const launch = await resolveTrustedProductLaunchContext({
       oa: input.oa,
       projectId: input.projectId,
@@ -789,6 +796,12 @@ export async function prepareGenericExecutionContractDraft(
     launchInputs = {
       ...launchContextAsContractInputs(launch.context),
       trustedLaunchContextPinnedAtPrepare: true,
+      ...(materialityResolution.facts.boundedNonMutatingAnalysis
+        ? {
+            launchContextForBoundedAnalysisOnly: true,
+            missionScopeInEmptyByDesign: true,
+          }
+        : {}),
     };
     // Declared READ sources only — mutation scopeIn is NOT a read claim
     // (search ≠ read). Empty declared → honesty NOT_APPLICABLE when no reader.
@@ -863,6 +876,9 @@ export async function prepareGenericExecutionContractDraft(
     "CONTEXT_STALE",
     "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
     "PROTECTED_PATH_GATES_REMAIN_APPLICABLE",
+    ...(materialityResolution.facts.boundedNonMutatingAnalysis
+      ? ["NO_REPOSITORY_MUTATION_FOR_BOUNDED_ANALYSIS"]
+      : []),
   ];
   const stopSeen = new Set<string>();
   const mergedStops = stopConditions.filter((s) => {
@@ -878,6 +894,8 @@ export async function prepareGenericExecutionContractDraft(
     ? [...sealedHdEffects.reservations]
     : [...(analysis.reservations ?? [])];
 
+  const boundedNonMutating =
+    materialityResolution.facts.boundedNonMutatingAnalysis === true;
   const constraints = [
     "PRODUCT_GOVERNED",
     "NO_ATTEMPT_AT_PREPARE",
@@ -887,6 +905,12 @@ export async function prepareGenericExecutionContractDraft(
     "CURSOR_DETERMINES_HOW",
     "GENERIC_MISSION_NO_TASK_CATALOG",
     materiality.constraintToken,
+    ...(boundedNonMutating
+      ? [
+          "MISSION_EFFECT:NO_REPOSITORY_MUTATION_DECLARED",
+          "NO_INVENTED_DOCUMENTARY_OR_GIT_TARGET",
+        ]
+      : []),
     ...outOfScope.map((s) => `OUT_OF_SCOPE:${s}`),
     ...sealedOrAnalysisRisks.map((s) => `RISK:${s}`),
     ...sealedOrAnalysisReservations.map((s) => `RESERVATION:${s}`),
@@ -959,8 +983,12 @@ export async function prepareGenericExecutionContractDraft(
       executionAttemptCreated: false,
       prepareStatus: "draft_inspectable",
       materialityFacts,
+      boundedNonMutatingAnalysis: boundedNonMutating,
+      repositoryMutationDeclared: boundedNonMutating ? "none" : null,
       // Intent fidelity — inspectable mission effects (Pass 02 / EC↔HD).
-      intentKind: stampedIntentKind,
+      intentKind: boundedNonMutating
+        ? stampedIntentKind ?? "read_only"
+        : stampedIntentKind,
       artifactType: stampedArtifactType,
       requestedOperation: stampedRequestedOperation,
       reversibilityExpectation: stampedRevExpectation,
@@ -1229,6 +1257,11 @@ export type SolicitGenericPrepareMissionFields = {
   readonly expectedOutcome?: string | null;
   readonly scope?: string | null;
   readonly contextNotes?: string | null;
+  /**
+   * Optional repository-mutation claim. Product verifies; "write" without paths
+   * stays fail-closed. "none"|"read" strengthens pathless non-mutating admission.
+   */
+  readonly repositoryMutation?: "none" | "read" | "write" | "unknown" | null;
   /** Conservative-only: a true flag can only make Product MORE cautious. */
   readonly impactSignals?: {
     readonly structuralChange?: boolean;
@@ -1258,7 +1291,8 @@ export function buildIntentAnalysisFromSolicitedMission(
     sig?.dataImpact === true ||
     sig?.irreversible === true;
   const notes = fields.contextNotes?.trim() || null;
-  return {
+  const mutation = fields.repositoryMutation ?? null;
+  const base: IntentAnalysisDto = {
     parseOk: true,
     intentClass: "execution_request",
     candidateCycleTypeId: null,
@@ -1284,8 +1318,29 @@ export function buildIntentAnalysisFromSolicitedMission(
     expectedOutcome,
     criticalJustification: null,
     requestedOperation: null,
-    executionIntent: null,
+    executionIntent:
+      mutation === "none" || mutation === "read"
+        ? ({
+            intentKind: "read_only",
+            scopeIn: [],
+            scopeOut: [],
+            expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
+            requiredCapabilities: [],
+          } as IntentAnalysisDto["executionIntent"])
+        : null,
   };
+  if (
+    mutation === "none" ||
+    mutation === "read" ||
+    mutation === "write" ||
+    mutation === "unknown"
+  ) {
+    return {
+      ...base,
+      repositoryMutationDeclared: mutation,
+    } as IntentAnalysisDto;
+  }
+  return base;
 }
 
 export type SolicitGenericExecutionPrepareInput = {

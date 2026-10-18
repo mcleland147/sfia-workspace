@@ -45,6 +45,8 @@ export type AuthoritativeMaterialityResolution = {
     readonly authorityEnvelopeBasis: string;
     readonly concreteMissionPaths: readonly string[];
     readonly pathsOutsidePathRoot: readonly string[];
+    readonly boundedNonMutatingAnalysis: boolean;
+    readonly boundedNonMutatingAnalysisBasis: string | null;
   };
   readonly productContextSufficient: boolean;
   readonly liveReadOk: boolean;
@@ -110,15 +112,132 @@ export function pathsOutsideAuthorizedPathRoot(input: {
 }
 
 /**
+ * Product-owned bounded non-mutating analysis (tool-first ordinary mission).
+ *
+ * R1 safety closure — positive Product facts only:
+ * never keyword absence alone, never “pathless ⇒ safe”, never
+ * `repositoryMutation` absent/unknown as sufficient authority.
+ *
+ * Requires ALL of:
+ * - live Product context;
+ * - empty concrete WHERE (no invented documentary/Git target);
+ * - no structural / write / materialization contradiction;
+ * - generalist envelope only;
+ * - AND an explicit structured non-mutating claim:
+ *   `executionIntent.intentKind === "read_only"`
+ *   OR `repositoryMutationDeclared` ∈ {none, read}.
+ */
+export function qualifyBoundedNonMutatingAnalysisMission(input: {
+  readonly analysis: IntentAnalysisDto;
+  readonly liveOk: boolean;
+  readonly concretePaths: readonly string[];
+  readonly protectedPathHits: readonly string[];
+  readonly positiveStructuralSignal: boolean;
+  readonly requestedCapabilities: readonly string[];
+  readonly isDocumentaryWriteMission: boolean;
+}): { readonly ok: boolean; readonly basis: string } {
+  if (!input.liveOk) {
+    return { ok: false, basis: "live_lps_unavailable" };
+  }
+  if (input.concretePaths.length > 0) {
+    return { ok: false, basis: "concrete_paths_present_use_path_materiality" };
+  }
+  if (input.protectedPathHits.length > 0) {
+    return { ok: false, basis: "protected_path_hits" };
+  }
+  if (input.positiveStructuralSignal) {
+    return { ok: false, basis: "positive_structural_signal" };
+  }
+  if (input.isDocumentaryWriteMission) {
+    return { ok: false, basis: "documentary_write_mission" };
+  }
+  const ei = input.analysis.executionIntent;
+  const intentKind = ei?.intentKind?.trim() || null;
+  if (intentKind === "docs_write") {
+    return { ok: false, basis: "intent_kind_docs_write" };
+  }
+  const elevated = input.requestedCapabilities.filter(
+    (c) => c.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(c),
+  );
+  if (elevated.length > 0) {
+    return { ok: false, basis: "elevated_capabilities" };
+  }
+  if (
+    input.requestedCapabilities.some(
+      (c) => c.trim() === "cap:cursor.docs_write",
+    )
+  ) {
+    return { ok: false, basis: "docs_write_capability_proposed" };
+  }
+  const materialization = (
+    input.analysis as { artifactMaterializationOperation?: string | null }
+  ).artifactMaterializationOperation;
+  if (
+    typeof materialization === "string" &&
+    materialization.trim().length > 0
+  ) {
+    return { ok: false, basis: "artifact_materialization_operation" };
+  }
+  if (ei?.targetPath?.trim() || ei?.artifactFileName?.trim()) {
+    return { ok: false, basis: "write_target_candidate_present" };
+  }
+  if (ei?.artifactWriteMode === "CREATE" || ei?.artifactWriteMode === "UPDATE") {
+    return { ok: false, basis: "artifact_write_mode" };
+  }
+  const objective = (
+    input.analysis.objective ??
+    input.analysis.rephrasedRequest ??
+    ""
+  ).trim();
+  const expectedOutcome = (input.analysis.expectedOutcome ?? "").trim();
+  const scopeNarrative = (input.analysis.scope ?? "").trim();
+  if (!objective || (!expectedOutcome && !scopeNarrative)) {
+    return { ok: false, basis: "mission_data_insufficient" };
+  }
+
+  // Positive structured non-mutating claim (Product-owned — not lexical).
+  const declaredMutation = (
+    input.analysis as {
+      repositoryMutationDeclared?: "none" | "read" | "write" | "unknown" | null;
+    }
+  ).repositoryMutationDeclared;
+  const readOnlyIntent = intentKind === "read_only";
+  const explicitNone =
+    declaredMutation === "none" || declaredMutation === "read";
+  if (declaredMutation === "write") {
+    return { ok: false, basis: "repository_mutation_declared_write" };
+  }
+  if (declaredMutation === "unknown") {
+    return { ok: false, basis: "repository_mutation_unknown" };
+  }
+  // R1 — absence is NOT a positive claim (fail-closed → UNKNOWN upstream).
+  if (declaredMutation == null && !readOnlyIntent) {
+    return { ok: false, basis: "repository_mutation_claim_absent" };
+  }
+  if (readOnlyIntent || explicitNone) {
+    return {
+      ok: true,
+      basis: readOnlyIntent
+        ? "read_only_intent_pathless_verified"
+        : "declared_non_mutating_pathless_verified",
+    };
+  }
+  return { ok: false, basis: "non_mutating_claim_absent" };
+}
+
+/**
  * Structural mutation: Product-path evidence only.
  * Protected path in scope → structural (distinct from Morris gate at launch).
- * Without concrete non-protected paths → cannot claim non-structural (UNKNOWN upstream).
+ * Pathless missions may qualify as bounded non-mutating analysis (tool-first).
+ * Otherwise without concrete non-protected paths → cannot claim non-structural.
  */
 function deriveStructuralProjectMutation(input: {
   readonly protectedPathHits: readonly string[];
   readonly concretePaths: readonly string[];
   readonly liveOk: boolean;
   readonly positiveStructuralSignal: boolean;
+  readonly boundedNonMutatingAnalysis: boolean;
+  readonly boundedNonMutatingBasis: string;
 }): { readonly value: boolean; readonly basis: string } {
   if (!input.liveOk) {
     return { value: true, basis: "live_lps_unavailable_fail_closed" };
@@ -130,6 +249,12 @@ function deriveStructuralProjectMutation(input: {
     return { value: true, basis: "positive_structural_model_signal" };
   }
   if (input.concretePaths.length === 0) {
+    if (input.boundedNonMutatingAnalysis) {
+      return {
+        value: false,
+        basis: `bounded_non_mutating_analysis:${input.boundedNonMutatingBasis}`,
+      };
+    }
     // Cannot prove non-mutation without concrete WHERE — escalate via insufficient context.
     return { value: true, basis: "no_concrete_mission_paths_fail_closed" };
   }
@@ -219,6 +344,11 @@ export async function resolveAuthoritativeProductMateriality(input: {
   readonly projectId: string;
   readonly analysis: IntentAnalysisDto;
   readonly cycleInstanceId?: string | null;
+  /**
+   * When true, documentary write bind already claimed this mission —
+   * never qualify as pathless analysis (avoids circular import).
+   */
+  readonly isDocumentaryWriteMission?: boolean;
 }): Promise<AuthoritativeMaterialityResolution> {
   const live = await readLiveProjectContext(input.oa, input.projectId);
   const liveOk = live.ok;
@@ -257,11 +387,23 @@ export async function resolveAuthoritativeProductMateriality(input: {
       input.analysis.signals?.irreversible,
   );
 
+  const bounded = qualifyBoundedNonMutatingAnalysisMission({
+    analysis: input.analysis,
+    liveOk,
+    concretePaths,
+    protectedPathHits,
+    positiveStructuralSignal,
+    requestedCapabilities,
+    isDocumentaryWriteMission: input.isDocumentaryWriteMission === true,
+  });
+
   const structural = deriveStructuralProjectMutation({
     protectedPathHits,
     concretePaths,
     liveOk,
     positiveStructuralSignal,
+    boundedNonMutatingAnalysis: bounded.ok,
+    boundedNonMutatingBasis: bounded.basis,
   });
   const cycle = deriveCycleOrTrajectoryMutation({
     liveActiveCycleId: liveOk ? live.context.activeCycleInstanceId : null,
@@ -289,15 +431,22 @@ export async function resolveAuthoritativeProductMateriality(input: {
       }
     : null;
 
-  // Sufficient for NON_STRUCTURAL only when live Product + concrete WHERE
-  // + non-mutation bases are derived from Product facts (not keyword absence).
+  const cycleAnchored =
+    cycle.basis === "active_cycle_anchored_matches_requested" ||
+    cycle.basis === "project_context_no_active_cycle_none_mutated";
+  const authorityOk =
+    authority.basis === "paths_within_path_root_and_generalist_capability_only";
+
+  // Sufficient for NON_STRUCTURAL when live Product + (concrete WHERE OR
+  // bounded pathless non-mutating analysis) + non-mutation bases from Product facts.
   const productContextSufficient =
     liveOk &&
-    concretePaths.length > 0 &&
-    structural.basis === "live_lps_ok_concrete_non_protected_paths_only" &&
-    (cycle.basis === "active_cycle_anchored_matches_requested" ||
-      cycle.basis === "project_context_no_active_cycle_none_mutated") &&
-    authority.basis === "paths_within_path_root_and_generalist_capability_only";
+    cycleAnchored &&
+    authorityOk &&
+    ((concretePaths.length > 0 &&
+      structural.basis === "live_lps_ok_concrete_non_protected_paths_only") ||
+      (bounded.ok &&
+        structural.basis.startsWith("bounded_non_mutating_analysis:")));
 
   const facts: AuthoritativeMaterialityResolution["facts"] = {
     modelSignals: input.analysis.signals
@@ -326,6 +475,8 @@ export async function resolveAuthoritativeProductMateriality(input: {
     authorityEnvelopeBasis: authority.basis,
     concreteMissionPaths: concretePaths,
     pathsOutsidePathRoot: outsideRoot,
+    boundedNonMutatingAnalysis: bounded.ok,
+    boundedNonMutatingAnalysisBasis: bounded.ok ? bounded.basis : null,
   };
 
   const assessment = assessExecutionMaterialityOrUnknown({
@@ -350,6 +501,11 @@ export function assertAuthorizedMissionScopeEnforceable(input: {
   readonly scopeIn: readonly string[];
   readonly pathRoot: string | null;
   readonly allowProtectedWithExplicitGate?: boolean;
+  /**
+   * Tool-first pathless analysis — empty WHERE is admissible only when Product
+   * stamped bounded non-mutating analysis (no invented documentary/Git target).
+   */
+  readonly allowEmptyScopeForBoundedNonMutatingAnalysis?: boolean;
 }):
   | { readonly ok: true }
   | { readonly ok: false; readonly code: string; readonly message: string } {
@@ -357,6 +513,9 @@ export function assertAuthorizedMissionScopeEnforceable(input: {
     .map((p) => p.trim())
     .filter((p) => p.length > 0 && !p.includes(" "));
   if (paths.length === 0) {
+    if (input.allowEmptyScopeForBoundedNonMutatingAnalysis === true) {
+      return { ok: true };
+    }
     return {
       ok: false,
       code: "MISSION_SCOPE_EMPTY",
@@ -529,9 +688,16 @@ export async function revalidateMaterialityAgainstCurrentProduct(input: {
   }
 
   // WHERE enforcement at authorize time (CR-P6-03).
+  // Pathless bounded non-mutating analysis may have empty concreteMissionPaths.
+  const allowEmptyScope =
+    current.facts.boundedNonMutatingAnalysis === true &&
+    current.facts.structuralTruthBasis.startsWith(
+      "bounded_non_mutating_analysis:",
+    );
   const scopeCheck = assertAuthorizedMissionScopeEnforceable({
     scopeIn: current.facts.concreteMissionPaths,
     pathRoot: current.facts.productCurrentness?.pathRoot ?? null,
+    allowEmptyScopeForBoundedNonMutatingAnalysis: allowEmptyScope,
   });
   if (!scopeCheck.ok) {
     return {
@@ -568,9 +734,19 @@ export function analysisStubFromMaterialityFacts(
   const protectedHits = Array.isArray(facts?.protectedPathHits)
     ? (facts!.protectedPathHits as string[])
     : [];
-  return {
+  const bounded =
+    facts?.boundedNonMutatingAnalysis === true ||
+    (typeof facts?.structuralTruthBasis === "string" &&
+      facts.structuralTruthBasis.startsWith("bounded_non_mutating_analysis:"));
+  const intentKind =
+    bounded && scopeIn.length === 0
+      ? "read_only"
+      : scopeIn.length > 0
+        ? "other"
+        : "other";
+  const stub = {
     parseOk: true,
-    intentClass: "actionable",
+    intentClass: "actionable" as const,
     candidateCycleTypeId: null,
     signals: {
       structuralChange: modelSignals?.structuralChange === true,
@@ -588,7 +764,7 @@ export function analysisStubFromMaterialityFacts(
             claimedEvidenceIds: [],
           }
         : null,
-    challengeResponseAssessment: "sufficient",
+    challengeResponseAssessment: "sufficient" as const,
     objective:
       typeof contractInputs?.objective === "string"
         ? contractInputs.objective
@@ -615,11 +791,18 @@ export function analysisStubFromMaterialityFacts(
     criticalJustification: null,
     requestedOperation: null,
     executionIntent: {
-      intentKind: "other",
+      intentKind,
       scopeIn: scopeIn.length > 0 ? scopeIn : protectedHits,
       scopeOut: [],
     } as IntentAnalysisDto["executionIntent"],
   };
+  if (bounded && scopeIn.length === 0) {
+    return {
+      ...stub,
+      repositoryMutationDeclared: "none" as const,
+    } as IntentAnalysisDto;
+  }
+  return stub;
 }
 
 export function parseStampedProductCurrentness(

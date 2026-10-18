@@ -123,6 +123,7 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 - **Persistence:** `oa_execution_contracts`.
 - **Paths:** `lib/oa/execution-contract/**`
 - **Gate:** no EC before required Proposal HD (product path).
+- **Tool-First pathless stamp (local candidate — PENDING_GIT_INTEGRATION):** Generic PREPARE may set `inputs.boundedNonMutatingAnalysis` and related `NO_REPOSITORY_MUTATION_*` constraints/stops for Product-admitted pathless analysis. Stamp declares Product intent envelope — **≠** Cursor REAL technical no-write (see F10 R2 / `boundedNonMutatingRealLaunchGate.ts`).
 
 ## OBJ-INSPECTION — InspectionAttestation
 

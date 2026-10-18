@@ -40,6 +40,8 @@ export type SolicitGenericPrepareToolArgs = {
   readonly expectedOutcome?: string;
   readonly scope?: string;
   readonly contextNotes?: string;
+  /** Optional mutation claim — Product verifies (none|read strengthens pathless). */
+  readonly repositoryMutation?: "none" | "read" | "write" | "unknown";
   /** Conservative-only impact flags — can only make Product more cautious. */
   readonly impactSignals?: {
     readonly structuralChange?: boolean;
@@ -216,6 +218,13 @@ export function createProductExecutionAgentsTools(
           type: "string",
           description: "Optional short notes (constraints, risks, reservations).",
         },
+        repositoryMutation: {
+          type: "string",
+          enum: ["none", "read", "write", "unknown"],
+          description:
+            "Optional: declare whether the mission mutates the repository. " +
+            "Use none/read for analysis/compute without file writes. Product verifies; write without paths stays blocked.",
+        },
         impactSignals: {
           type: "object",
           additionalProperties: false,
@@ -250,11 +259,20 @@ export function createProductExecutionAgentsTools(
           ? (args as Record<string, unknown>)
           : {};
       try {
+        const mutationRaw = str(o.repositoryMutation);
+        const repositoryMutation =
+          mutationRaw === "none" ||
+          mutationRaw === "read" ||
+          mutationRaw === "write" ||
+          mutationRaw === "unknown"
+            ? mutationRaw
+            : undefined;
         const result = await solicit({
           objective: str(o.objective),
           expectedOutcome: str(o.expectedOutcome),
           scope: str(o.scope),
           contextNotes: str(o.contextNotes),
+          repositoryMutation,
           impactSignals: parseImpactSignals(o.impactSignals),
         });
         const base =

@@ -194,7 +194,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     });
   });
 
-  it("E1 — fresh mount confirmation_required → Confirmer invokes confirm only", async () => {
+  it("E1 — fresh mount confirmation_required → Exécuter folds Confirm then Authorize+Execute", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection(),
@@ -202,6 +202,15 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     readCurrentContinuityMock.mockResolvedValue(
       activeCurrent({ status: "confirmation_required" }),
     );
+    confirmMock.mockResolvedValue({
+      ok: true,
+      executionContractId: "xct:cp01",
+      contractVersion: 1,
+      confirmationRef: "cfm:1",
+      statusLabel: "CONFIRMATION REQUISE — OBTENUE",
+      alreadyConfirmed: false,
+      executionPerformed: false,
+    });
 
     render(
       <ExecutionSurface
@@ -215,27 +224,28 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
         "À confirmer",
       );
     });
-    const confirmBtn = screen.getByTestId("project-execution-confirm");
-    expect(confirmBtn).toBeTruthy();
-    expect((confirmBtn as HTMLButtonElement).disabled).toBe(false);
-    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
+    // Tool-first: no separate Confirmer CTA — Exécuter folds Confirm after inspect.
+    expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
+    const executeBtn = screen.getByTestId("project-execution-execute");
+    expect((executeBtn as HTMLButtonElement).disabled).toBe(false);
 
-    fireEvent.click(confirmBtn);
+    fireEvent.click(executeBtn);
 
     await waitFor(() => {
       expect(confirmMock).toHaveBeenCalledTimes(1);
+      expect(authorizeMock).toHaveBeenCalledTimes(1);
+      expect(
+        reconcileMock.mock.calls.some(
+          (call) => (call[0] as { intent?: string }).intent === "execute",
+        ),
+      ).toBe(true);
     });
     expect(confirmMock).toHaveBeenCalledWith({
       projectId: "prj:cp01",
       executionContractId: "xct:cp01",
     });
-    // R1 — Confirm must not record inspection as a side effect.
+    // R1 — Exécuter never records inspection as a side effect.
     expect(inspectMock).not.toHaveBeenCalled();
-    expect(reconcileMock).not.toHaveBeenCalled();
-    expect(authorizeMock).not.toHaveBeenCalled();
-    // Canonical reread after confirm (≥ initial load + post-confirm).
-    expect(deriveContinuityMock.mock.calls.length).toBeGreaterThanOrEqual(2);
-    expect(readCurrentContinuityMock.mock.calls.length).toBeGreaterThanOrEqual(2);
   });
 
   it("E2 — fresh mount confirmed → Exécuter authorizes then reconciles execute", async () => {
@@ -287,13 +297,16 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     );
   });
 
-  it("E3 — Confirmer never creates Attempt via reconcile execute", async () => {
+  it("E3 — without inspection sufficient, confirmation_required shows Inspect not Exécuter", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection(),
     });
     readCurrentContinuityMock.mockResolvedValue(
-      activeCurrent({ status: "confirmation_required" }),
+      activeCurrent({
+        status: "confirmation_required",
+        inspectionSufficient: false,
+      }),
     );
 
     render(
@@ -303,15 +316,11 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
       />,
     );
     await waitFor(() => {
-      expect(screen.getByTestId("project-execution-confirm")).toBeTruthy();
+      expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
     });
-    fireEvent.click(screen.getByTestId("project-execution-confirm"));
-    await waitFor(() => {
-      expect(confirmMock).toHaveBeenCalled();
-    });
-    expect(reconcileMock).not.toHaveBeenCalledWith(
-      expect.objectContaining({ intent: "execute" }),
-    );
+    expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
+    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
+    expect(confirmMock).not.toHaveBeenCalled();
     expect(reconcileMock).not.toHaveBeenCalled();
   });
 
