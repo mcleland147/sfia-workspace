@@ -1,259 +1,405 @@
 # REVIEW PACK FULL — CRITICAL
-# D-P6-SHE-01 — TARGETED QA CLOSURE (GAP-03 / FULL VITEST / PRR)
+# D-P6-SHE-01 — PRODUCT GIT INTEGRATION + PRR SEMANTIC SYNC
 
-**Timestamp (UTC):** 2026-10-19T12:09:54Z
+**Timestamp (UTC):** 2026-10-19T14:12:02Z
 **Repository:** mcleland147/sfia-workspace
 **Worktree:** `/Users/morris/Projects/sfia-workspace-p6-she-delivery-476b1c20`
 **Branch:** `delivery/sfia-studio-p6-single-human-execute`
-**HEAD:** `476b1c2065991e05cca298f6669d85b62a07ced3` (= origin/main)
-**Prior Critical handoff:** `253ee27b` / blob `2219a338`
-**Product Delivery:** NON COMMITTÉ — preserved; QA cycle writes = GAP-03 test only
-**GO Morris:** QA Closure uniquement (aucun GO Git Integration / PRR protected / REAL/HQA)
-**Cycle:** 9 — QA / validation / CRITICAL
+**HEAD (remote=local):** `f1fc1af49606dbc600f5f839020639f880529696`
+**Base main:** `476b1c2065991e05cca298f6669d85b62a07ced3`
+**Prior QA handoff:** `d3184a0e` / blob `38c75d2a`
+**Cycle:** 13 — PR readiness / CRITICAL
 **Capability:** V3-F05 | Milestone P6 | D-P6-SHE-01 Option A
 
----
-
-## 1. GO / Git Truth / Convergence
-
-### Git Truth (initial = final Product HEAD)
-- Branch: `delivery/sfia-studio-p6-single-human-execute`
-- HEAD = origin/main = `476b1c2065991e05cca298f6669d85b62a07ced3`
-- Staged: none
-- SHE Delivery dirty preserved (Product + tests uncommitted)
-- No HQA worktree touched
-- No reset / stash / clean / rebase
-
-### Convergence Pre-check
-- Capability V3-F05 / P6
-- CURRENT MAIN: Option B + SHE TARGET ADOPTED; SHE runtime not on main
-- CANDIDATE: local SHE Delivery + GAP-01..05 / I17 corrections
-- KEEP OA backbone (HD/EC/Cycle/Confirm/Auth/Attempt/Evidence/RB/CR/Nora/Reconciler/Cursor Gateway)
-- ADAPT: GAP-03 tests only this cycle
-- REPLACE: none
-- GAPS closed this cycle: positive Git successor proof; actual full Vitest; PRR diagnostic
-- Next: ChatGPT Critical → Morris Git Integration (distinct) → HQA/LIVE → P6 Exit
-
-### GO consumed
-QA Closure only. No Product commit/push/PR. No PRR mutation. No REAL/HQA.
+## GO Morris consumed
+- Commit Product: YES
+- Push Product branch: YES
+- Create PR DRAFT: YES
+- PRR Protected Refresh (bounded): YES
+- Merge: **NO**
+- REAL/HQA: NO
+- Force push / branch delete: NO
 
 ---
 
-## 2. Files modified this QA cycle
+## 1. Git Truth
 
-| Path | Action |
-|------|--------|
-| `app/__tests__/oa/cycle/p6.she.gap03.effectiveGitPrimaryContract.d0.test.ts` | EXTENDED (positive + negatives + legacy) |
-
-No Product service / doctrine / PRR / obligation / persistence / Gateway mutation this cycle.
-
----
-
-## 3. GAP-03 POSITIVE PROOF
-
-### Discriminating property
-Full 7-family typed Git Evidence SET bound to SHE **successor** EC id, with superseded predecessor listed first:
-- `qualifyGitCompletionProofSet(expected=pred)` → BLOCKING `contract_mismatch`
-- `qualifyGitCompletionProofSet(expected=succ)` → SATISFIED
-- `deriveFinalizationApplicability(...)` → `git_repository=APPLICABLE` AND `gitProofPresent=true`
-
-If primaryContract were still `gitApplicable[0]` (pred), the same fixture would yield `gitProofPresent=false`.
-
-### Not Cycle FINALIZED
-`assessFinalizationObligations` with same fixture: git SATISFIED, other MUST still MISSING/BLOCKING, `canComplete=false`.
-
-### Families used
-`git:local_commit`, `git:remote_push`, `git:pull_request`, `git:ci_status`, `git:review_status`, `git:merge`, `git:post_merge_verification` (+ GCEC-strict artifact for digest/path).
-
-### Negatives covered
-pred-only evidence; missing family; status not verified; digest divergent; SHA incoherent; wrong project/cycle/repo; multi effective EC; legacy mono-EC true.
-
-### Targeted result
-```
-SFIA_STUDIO_CURSOR_REAL=0 npx vitest run __tests__/oa/cycle/p6.she.gap03.effectiveGitPrimaryContract.d0.test.ts
-✓ 13 tests passed (Duration ~0.55s)
-```
-
-### Related suites (same env)
-```
-gap03 + gcecOneLotDelivery + p6.she.singleHumanExecute + o1 continuity + productContinuityClosure
-Test Files 5 passed | Tests 62 passed
-```
+| Item | Value |
+|------|-------|
+| Initial HEAD | `476b1c20` (= origin/main) with dirty Delivery |
+| Product commit | `928ab15b032c392dafee74a916f2faad3ed524de` |
+| PRR commit | `f1fc1af49606dbc600f5f839020639f880529696` |
+| Push | `origin/delivery/sfia-studio-p6-single-human-execute` = `f1fc1af4` |
+| PR | **#590** DRAFT — https://github.com/mcleland147/sfia-workspace/pull/590 |
+| Base/Head | `main` ← `delivery/sfia-studio-p6-single-human-execute` |
+| HQA worktrees | present on machine; **not** modified |
 
 ---
 
-## 4. FULL VITEST — ACTUAL RUN (not a forecast)
+## 2. Convergence Pre-check
 
-### Command / env
+CURRENT MAIN: Option B + SHE TARGET adopted (docs).
+CANDIDATE now: SHE Delivery **pushed** + PRR CURRENT sync.
+KEEP OA backbone. ADAPT PRR docs only. COMPLETE Git integration of candidate.
+REPLACE: none.
+EXIT PROOF this cycle: PR DRAFT + PRR PASS + deterministic QA + CI Required Gate.
+
+Debt OPEN: TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT.
+
+---
+
+## 3. Inventory — files in PR (`origin/main...HEAD`)
+
 ```
-cd projects/sfia-studio/app
-export SFIA_STUDIO_CURSOR_REAL=0
-unset SFIA_GCEC_CURSOR_REAL_PROOF SFIA_STUDIO_CURSOR_REAL_AUTHORIZED OPENAI_API_KEY
-npx vitest run --reporter=default
+A	projects/sfia-studio/app/__tests__/oa/cycle/p6.she.gap03.effectiveGitPrimaryContract.d0.test.ts
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.executionReconcileContinuity.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/actions.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
+A	projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
+M	projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
+M	projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
+M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+M	projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+
 ```
-**Start UTC:** 2026-10-19T12:05:56Z
-**End UTC:** 2026-10-19T12:07:09Z
-**Duration:** 71.92s
 
-### Exact totals
-| Metric | Value |
-|--------|-------|
-| Test Files | **1 failed \| 565 passed \| 22 skipped** (588) |
-| Tests | **1 failed \| 6209 passed \| 143 skipped** (6353) |
-| Duration | 71.92s |
+**Excluded from Product commit:** `.tmp-sfia-review/**`, SQLite, secrets, HQA paths, doctrine v3 framing, unrelated branches.
 
-### Sole FAIL (Product suite)
+---
+
+## 4. PRR semantic review (bounded)
+
+### Contradictions corrected
+| Volume | Historical / obsolete claim | CURRENT SHE assertion |
+|--------|----------------------------|------------------------|
+| 03 F08 | STRUCTURAL PREPARE requires accepted HD | Inspectable PREPARE without prior HD; authority on Exécuter |
+| 03 F09 | Tool-First CTA pending | SHE/Tool-First Exécuter CURRENT on Delivery |
+| 03 F15 | (no effective EC note) | GAP-03 effective git primary for MUST |
+| 04 Dual paths / S1 | S1 = HD opens PREPARE | S1 = authority before launch; SHE path documented; historical disposition retained |
+| 02 OBJ-GENERIC-MISSION-HD | HD before PREPARE | SHE: HD on Exécuter; historical path retained |
+| 07 | TARGET ≠ IMPLEMENTED | SHE CURRENT on Delivery; HISTORICAL PREPARE-HD timing |
+| 08 | PENDING_GIT_INTEGRATION SHE absent | SHE + GAP-03 proof rows |
+
+### Digests before → after (only refreshed)
+
+| Path | Before | After |
+|------|--------|-------|
+| orchestrateF2.ts | 73d754838d9d13a0 | c8f491d05217ffc4 |
+| deriveFinalizationApplicability.ts | 1963f097d0aa9328 | 6fba1892149be55c |
+| 02-runtime-object-catalog.md | a63310ed7b85cf1b | 71177cd234b88a3b |
+| 03-end-to-end-flow-catalog.md | 733c07f253de5b65 | 12331c256c76bd30 |
+| 04-dependency-impact-map.md | b8a66451083f90e3 | b7236bfd326f8f9a |
+| 07-authority-invariants… | 8ea3d088c5095108 | 88893854dfe22bd9 |
+| 08-test-proof… | 8237aa210ecfac30 | 6c1f4b5fe1cc50c5 |
+
+`lastReviewedCommit` → `928ab15b032c392dafee74a916f2faad3ed524de` (Product commit).
+
+### Checker / conformance
+- `node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
+- `productionRuntimeReference.conformance.d0.test.ts` → **5/5 PASS**
+
+### PRR key lines (post-edit markers)
+
+#### 03-end-to-end-flow-catalog.md
 ```
-FAIL  __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
-  > tracked source/test/volume digests match current tree
-AssertionError: expected '73d754838d9d13a0' to be 'c8f491d05217ffc4'
-(first mismatch reported by Vitest; full matrix below shows 2 source digests)
+82|- **Trigger (Generic PREPARE — D-P6-SHE-01 CURRENT on Delivery branch):** F2 chat-first GO / Nora tool solicitation (F04) / adjacent F05 hand-off → Product `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft`
+84|- **Chemin SHE (CURRENT — D-P6-SHE-01 Option A):** STRUCTURAL / HD-required / UNKNOWN may PREPARE an **inspectable** draft **without** a prior HumanDecision (`decisionRefs` may be empty; Product may stamp `sheDeferredStructuralAuthority`). PREPARE ≠ AUTHORIZE ≠ EXECUTE. Authority is consumed on Pilot **Exécuter** (`singleHumanExecutePreparedContract`): inspect binding (id/version/fingerprint) → record applicable HD (`authorize-inspected-execute`) from OA EC effects (GAP-04) → Confirm/Authorize OA internals → ExecutionAttempt. No silent HD; no Attempt if pre-launch gates fail.
+89|  - Structural offer alone ≠ Authorization. Historical HD without mission binding ≠ unlock. Under SHE, lack of Accept does **not** forbid inspectable PREPARE — authority moves to Exécuter.
+97|- **Proof:** SHE (`p6.she.singleHumanExecute*`, GAP continuity/HD/finalization) + G-D4 / materiality / M-HD / DER16 / Option1 / Tool-First — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). REAL NOT PROVEN.
+98|- **Status:** COMPLETE domain (legacy M3); Generic PREPARE + SHE Option A CURRENT on Delivery (PR pending merge); Tool-First R1 CURRENT at tested scope
+104|- **SHE / Tool-First Pilot CTA (CURRENT — D-P6-SHE-01):** after inspection attestation is sufficient/aligned, Pilot surface shows **Exécuter** for the inspected contract — the single Pilot gesture records applicable HD when required, folds server Confirm (when required), then Authorize+Select/Start. **Inspect ≠ Execute** preserved (no auto-attest; no silent HD/Confirm). Server steps HD / Confirm / Authorize / Execute remain distinct OA transitions. Paths: `singleHumanExecutePreparedContract.ts`, `pilotExecutionPresentation.ts`, `ExecutionSurface.tsx`.
+106|- **Proof:** SHE + Pass03/Pass04 UIC + durable/reconcile continuity + pilotExecutionPresentation / R02 — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE
+107|- **Status:** COMPLETE tables/services; unified exam + SHE/Tool-First CTA CURRENT on Delivery (PR pending merge)
+152|- **Git MUST primary EC (D-P6-SHE-01 GAP-03 CURRENT):** when obligation snapshot includes `git_repository` MUST, `deriveFinalizationApplicability` selects the **effective** (non-superseded) git-applicable ExecutionContract as `primaryContract` for typed Git proof SET qualification — not raw `gitApplicable[0]`. Multiple effective git-applicable ECs → fail-closed (no arbitrary pick). `gitProofPresent=true` ≠ Cycle FINALIZED (other MUST obligations remain). Obligations policy unchanged.
+156|- **Status:** COMPLETE assessment engine; Pilot finalize HD required; GAP-03 effective EC CURRENT on Delivery
 ```
-Classification: **PRR digest mismatch** — not a Product functional regression in SHE/authority suites.
-NOT declared EXPECTED PASS. PRR conformance remains FAIL.
 
-### Skip note
-22 files skipped (REAL / postgres / seed campaigns) — gated by env (no REAL proof flags). See APPENDIX skipped list.
-
-### Typecheck / lint / build (actual)
-| Check | Result | UTC |
-|-------|--------|-----|
-| `tsc --noEmit` | **PASS** (exit 0) after GAP-03 digest literal cast fix | 2026-10-19T12:08:32Z |
-| `next lint` | **PASS** (exit 0) — No ESLint warnings or errors | 2026-10-19T12:07:48Z |
-| `next build` | **PASS** — Compiled successfully | 2026-10-19T12:07:49Z |
-| `git diff --check` (app) | **clean** (exit 0) | |
-| Secrets scan (SHE/GAP03) | none found | |
-
-Note: first `tsc` attempt failed on GAP-03 test digest template literal typing; fixed in-test only; GAP-03 re-run 13/13 PASS. Full Vitest was executed before that cast-only fix (GAP-03 already green in that run).
-
-### Vitest failure excerpt
+#### 04-dependency-impact-map.md
 ```
- ✓ __tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts (10 tests) 4ms
- ✓ __tests__/auth/allowlist-actor-s1.test.ts (13 tests) 6ms
- ✓ __tests__/nora-cognitive-runtime/reservationContextPilotConfirmation.d0.test.ts (6 tests) 4ms
- ✓ __tests__/project-assistant/p5.s07.cp02.semanticResponsive.d0.test.ts (14 tests) 6ms
- ✓ __tests__/ops1/domain.test.ts (6 tests) 4ms
- ✓ __tests__/pre-m6-product-ui/p6.r03.inspectionDisclosureClosure.d0.test.ts (4 tests) 3ms
- ✓ __tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts (10 tests) 4ms
- ✓ __tests__/fixtures.test.ts (2 tests) 2ms
- ✓ __tests__/pre-m6-product-ui/pilotContractPresentation.d0.test.ts (3 tests) 2ms
- ✓ __tests__/ops1/globalModeBadge.test.ts (6 tests) 1ms
- ✓ __tests__/oa/cycle/ckcQualificationResult.test.ts (2 tests) 3ms
- ✓ __tests__/project-assistant/pilotExecutionExperience.recoveryOwnership.d0.test.ts (4 tests) 2ms
- ✓ __tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts (9 tests) 3ms
- ✓ __tests__/project-assistant/pilotExecutionExperience.trustedLaunch.d0.test.ts (3 tests) 2ms
+41|## Dual Generic PREPARE admission paths (D-P6-SHE-01 CURRENT on Delivery)
+46|      ├─ SHE CURRENT (STRUCTURAL / HD-required / UNKNOWN)
+52|      │         → HD authorize-inspected-execute (OA EC effects — GAP-04)
+87|**Structural authority gate (S1 — CURRENT SHE):** structural / HD-required authority is verified **before Cursor launch** on Exécuter — not as a precondition that blocks inspectable PREPARE. Disposition-before-PREPARE Accept remains a valid historical path; Refuse/Amend still refuse **that** path. Accept alone is never Execute authority. HD / Confirm / Authorize OA objects are **not** removed.
+89|**HISTORICAL S1 (pre-SHE):** only an accepted, mission-bound, applicable, verified, non-superseded HD opened Chemin A PREPARE. Retained for disposition-before-PREPARE callers and legacy M3.
+```
 
-⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
-
- FAIL  __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts > Living Production Runtime Reference conformance > tracked source/test/volume digests match current tree
-AssertionError: expected '73d754838d9d13a0' to be 'c8f491d05217ffc4' // Object.is equality
-
-Expected: "c8f491d05217ffc4"
-Received: "73d754838d9d13a0"
-
- ❯ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts:100:27
-     98|       const abs = path.join(repoRoot, e.path);
-     99|       expect(fs.existsSync(abs)).toBe(true);
-    100|       expect(e.sha256_16).toBe(sha16(abs));
-       |                           ^
-    101|     }
-    102|   });
-
-⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
-
-
- Test Files  1 failed | 565 passed | 22 skipped (588)
-      Tests  1 failed | 6209 passed | 143 skipped (6353)
-   Start at  14:05:57
-   Duration  71.92s (transform 14.38s, setup 25.56s, collect 275.68s, tests 215.87s, environment 27.07s, prepare 23.87s)
-
-EXIT:0
-
+#### 07-authority-invariants-and-failure-modes.md
+```
+5|**Amendement documentaire D-P6-SHE-01 (2026-10-19 — Git Integration) :** SINGLE HUMAN EXECUTE / Option A est **CURRENT on Delivery** (déterministe prouvé au périmètre testé ; PR DRAFT pending merge). Les invariants SHE ci-dessous deviennent CURRENT. Les invariants « STRUCTURAL PREPARE requires HD » restent **HISTORICAL / disposition-before-PREPARE** (chemin encore disponible) — ils ne bloquent plus l’inspectable PREPARE sous SHE. TARGET architecture = Delivery runtime ; ≠ INTEGRATED_ON_MAIN tant que merge Morris non accordé ; ≠ REAL/HQA PROVEN.
+35|| INV-EMPTY-REFS-NE-STRUCTURAL | HISTORICAL: `decisionRefs=[]` only for NON_STRUCTURAL. SHE CURRENT: empty refs also admissible on server-stamped `sheDeferredStructuralAuthority` PREPARE (READ/INSPECT continuity only — GAP-01); Confirm/Authorize still refuse empty STRUCTURAL without HD | Option 1 / G-D4 + SHE continuity | p6.o1 / gD4 / p6.she.* | CURRENT (SHE) + HISTORICAL (G-D4-only) |
+36|| INV-STRUCTURAL-NEEDS-VERIFIED-HD | HISTORICAL disposition-before-PREPARE: verified mission-bound HD before that PREPARE path. SHE CURRENT: verified applicable HD required before **launch** on Exécuter — not before inspectable PREPARE | verifyGenericMissionHumanDecisionForPrepare / SHE Record | mHd01 / DER16 / p6.she.* | HISTORICAL at PREPARE; CURRENT at Execute (SHE) |
+37|| INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD | HISTORICAL: STRUCTURAL disposition PREPARE requires accepted HD. SHE CURRENT: inspectable STRUCTURAL PREPARE without prior HD; Accept alone ≠ Execute; Refuse/Amend still refuse disposition-before-PREPARE | verify* / singleHumanExecutePreparedContract | mHd01 / p6.she.* | HISTORICAL at PREPARE; CURRENT SHE deferral |
+43|## Dual admission paths — CURRENT (SHE + historical disposition)
+45|**Chemin SHE (CURRENT — D-P6-SHE-01):** STRUCTURAL / HD-required / UNKNOWN → inspectable PREPARE (empty refs allowed with server SHE stamp) → Inspect → Pilot Exécuter → applicable HD + Confirm (if required) + Authorize + launch gates → Cursor iff admissible else STOP · 0 Attempt. No silent HD. PREPARE creates neither Authorization nor Attempt.
+55|**SHE / Tool-First ordinary CTA (CURRENT):** after Inspect attest, Pilot **Exécuter** records applicable HD when required, may fold Confirm (server), then Authorize+launch — Inspect ≠ Execute; HD ≠ Confirm ≠ Authorize ≠ Execute remain.
+68|## SHE CURRENT — D-P6-SHE-01 (2026-10-19) — SINGLE HUMAN EXECUTE / Option A
+72|Les invariants HISTORICAL `INV-STRUCTURAL-*PREPARE*HD` et la contrainte PREPARE-only de `INV-EMPTY-REFS-NE-STRUCTURAL` restent vraies pour le **chemin disposition-before-PREPARE** et les suites mHd01 / DER16. Sous SHE, leur **timing PREPARE** est superseded (autorité structurelle avant **lancement**).
+74|### SHE invariant catalog (CURRENT — Delivery)
+76|| ID | Statement (CURRENT SHE) | Proof owner |
+78|| INV-SHE-PREPARE-NO-AUTHORITY | PREPARE ne consomme aucune autorité ; ne crée ni Attempt ni Authorization | `p6.she.singleHumanExecute*` |
+79|| INV-SHE-STRUCTURAL-INSPECTABLE | STRUCTURAL / UNKNOWN n’interdit pas PREPARE ni inspection d’un contrat honnêtement stampé | SHE + continuity GAP-01 |
+80|| INV-SHE-AUTHORITY-BEFORE-LAUNCH | Autorité structurelle / effective vérifiée **avant** tout lancement Cursor (pas avant PREPARE) | SHE Execute path |
+81|| INV-SHE-EXECUTE-BINDS-INSPECTED | Le clic Exécuter est lié au contrat inspecté (id + version + semantic fingerprint) | SHE + GAP-04 |
+82|| INV-SHE-NO-SILENT-HD | Aucune HumanDecision silencieuse ; HD uniquement sur action Pilote explicite (sujet/version/digest) | SHE Record |
+83|| INV-SHE-NO-EXEC-WITHOUT-EFFECTIVE-AUTH | Aucune exécution sans autorité effective ; 0 Attempt si gate pré-lancement échoue | SHE |
+84|| INV-SHE-NO-AUTO-ELEVATION | Aucune élévation automatique de capacité / permission / chemin protégé | SHE |
+85|| INV-SHE-UNKNOWN-BLOCKS-NONADMISSIBLE | UNKNOWN / matérialité non admissible interdit l’exécution (fail-closed) | SHE UNKNOWN gate |
+86|| INV-SHE-STALE-CONTRACT-BLOCKS | Exécution refusée sur contrat obsolète (version/fp/currentness) | SHE currentness |
+87|| INV-SHE-IDEMPOTENT-EXECUTE | Double-clic / retry / restart : idempotence Attempt ; pas de second Cursor silencieux | SHE T23 |
+88|| INV-SHE-SINGLE-UX-PATH | Même parcours UX STRUCTURAL / NON_STRUCTURAL (matérialité ≠ boutons distincts) | ExecutionSurface |
+89|| INV-SHE-NO-EXTRA-HUMAN-CTA | Pas de confirmation humaine supplémentaire après Exécuter pour le même contrat inspecté (Confirm/HD restent transitions OA internes) | SHE |
+91|**Chemin SHE unique (UX) :**
+102|**Dette OPEN (inchangée) :** TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT — non résolue par D-P6-SHE-01.
+126|**Note SHE CURRENT :** sous D-P6-SHE-01 Delivery, STRUCTURAL sans HD préalable peut PREPARE inspectable ; les refus d’autorité portent sur **Exécuter** (HD/Confirm/Authorize/currentness). REAL/HQA et merge main restent des gates Morris distincts.
 ```
 
 ---
 
-## 5. PRR CONFORMANCE DIAGNOSTIC (NO MUTATION)
+## 5. Product excerpts (security / authority critical)
 
-### Failed test (exact)
-`Living Production Runtime Reference conformance > tracked source/test/volume digests match current tree`
-
-### Integrity
-Temporary drift probe restored; `production-runtime-reference/` git status clean after runs.
-
-### Full digest mismatch matrix (computed vs manifest)
-
-| PRR ENTRY (path) | KIND | EXPECTED sha256_16 (manifest) | ACTUAL sha256_16 (tree) | DIRTY Delivery? | COMPONENT | FLOWS | Classification |
-|------------------|------|-------------------------------|-------------------------|-----------------|-----------|-------|----------------|
-| `projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts` | trackedSources | `73d754838d9d13a0` | `c8f491d05217ffc4` | YES | OBJ-TURN-ORCH | F04/F05/F06 | **A** digest drift from legitimate SHE Delivery (structuralBlocked no longer refuses PREPARE; HD deferred to Execute) |
-| `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts` | trackedSources | `1963f097d0aa9328` | `6fba1892149be55c` | YES | OBJ-FINALIZATION-ASSESS | F05/F15 | **A** digest drift from GAP-03 effective EC selection; behavior change vs prior `gitApplicable[0]` |
-
-Volumes: **0 digest mismatches** among tracked volumes (CURRENT tree vs manifest).
-Tracked tests: **0 mismatches**.
-
-### Semantic impact
-| Entry | Impact | Volume PRR | Correction éventuelle | Gate Morris |
-|-------|--------|------------|----------------------|-------------|
-| orchestrateF2 | Aligns code with TARGET SHE (PREPARE inspectable). Volume 07 already documents TARGET vs CURRENT. | 03/07 | Refresh trackedSources digest + confirm F04/F05 narrative still accurate | **PRR protected refresh GO** (not granted) |
-| deriveFinalizationApplicability | Changes git MUST primaryContract selection to effective successor. Volumes do not hardcode `gitApplicable[0]` text; F15/object catalog still name this file. | 02/08 | Refresh digest; optionally document effective-EC selection under F15 | **PRR protected refresh GO** |
-
-### Distinctions
-- **A** Simple digest drift from legitimate Product Delivery — YES (both entries)
-- **B** Semantic contradiction SHE vs CURRENT reference — PARTIAL: volume 07 already TARGET-amended; no volume claims the old primaryContract[0] algorithm literally; still REFERENCE REVIEW REQUIRED before claiming PRR CONFORMANT
-- **C** Product regression — NO (full suite otherwise green; GAP-03 positive proves intended behavior)
-- **D** Tooling — NO
-
-### Treatment required
-1. Do **not** refresh digests this cycle (forbidden).
-2. Do **not** declare PRR CONFORMANT.
-3. Morris gate for Git Integration / PRR path: explicit GO to update `production-runtime-reference.manifest.json` digests (+ any volume narrative deltas) in a **distinct** authorized cycle.
-
-### Diffs causing drift (Product Delivery — not mutated this QA cycle)
-
-#### orchestrateF2.ts
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 9b783ae6..9ca5fa01 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-@@ -2305,29 +2305,16 @@ export async function orchestrateAssistantSend(input: {
-           });
-       const readiness = assessGenericMissionPrepareReadiness(readinessAnalysis);
-
--      if (readiness.structuralBlocked || !readiness.ready) {
--        // M-HD-02 — when structural fields are sufficient, remember CURRENT
--        // offer so ConversationSurface can seal + present Accept/Refuse/Amend.
--        // No PREPARE. No HumanDecision. No PresentedMission store.
--        if (
--          readiness.structuralBlocked &&
--          readiness.missingFields.length === 0
--        ) {
--          rememberGenericPrepareRecommendation({
--            projectId: project.projectId,
--            cycleInstanceId: activeId,
--            analysis: readinessAnalysis,
--            offeredAtIso: oa.clock.nowIso(),
--            sessionDbPath: input.sessionDbPath,
--          });
--        }
-+      // D-P6-SHE-01 — missing descriptive fields still block PREPARE.
-+      // structuralBlocked alone no longer refuses PREPARE (HD deferred to Execute).
-+      if (!readiness.ready) {
-         return await completeF2Turn({
-           userText: content,
-           sessionDbPath: input.sessionDbPath,
-           text: genericMissionClarificationText({
-             presentation,
-             missingFields: readiness.missingFields,
--            structuralBlocked: readiness.structuralBlocked,
-+            structuralBlocked: false,
-             hasActiveCycle: Boolean(activeId),
-           }),
-           mode: modeResolution.mode as "fixture" | "live",
-
+### GAP-04 Record OA binding (excerpt)
+```
+# projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts:248-320
+248|
+249|/**
+250| * D-P6-SHE-01 GAP-04 — AUTHORIZE_INSPECTED_EXECUTE must bind to an OA EC
+251| * identity. Server reloads and projects effects; subject field overrides alone
+252| * are never authority.
+253| */
+254|export type SheInspectedExecutionContractBinding = {
+255|  readonly executionContractId: string;
+256|  readonly expectedVersion: number;
+257|  readonly expectedSemanticFingerprint: string;
+258|};
+259|
+260|export type RecordGenericMissionHumanDecisionInput = {
+261|  readonly oa: RuntimeOaStack;
+262|  readonly subject: GenericMissionSubject;
+263|  readonly selectedOptionId: string;
+264|  /**
+265|   * CR-02 — server re-seals from this analysis + Product facts; caller subject
+266|   * digest must match. Client-only subject is not authority.
+267|   */
+268|  readonly analysis: IntentAnalysisDto;
+269|  /**
+270|   * Product path — session-bound Pilote. Required unless forceLocalAuthority
+271|   * (tests only). Never accept a client-forged ActorReference as authority.
+272|   */
+273|  readonly authenticatedPilote?: AuthenticatedPiloteForMissionDecision;
+274|  /** Test inject only — never on real Product Record path (A7). */
+275|  readonly forceLocalAuthority?: boolean;
+276|  readonly rationale?: string;
+277|  readonly supersedeExistingAccepted?: boolean;
+278|  /** When true (default), link accepted HD into LPS (legitimate version bump). */
+279|  readonly linkToLivingProjectState?: boolean;
+280|  /**
+281|   * Digest of the presentation the Pilote actually saw (client/UI).
+282|   * When omitted, defaults to subject.presentationDigest.
+283|   * Used to recognize normal LPS-bump replay without inventing a new HD.
+284|   */
+285|  readonly presentedPresentationDigest?: string;
+286|  /**
+287|   * Required when selectedOptionId is AUTHORIZE_INSPECTED_EXECUTE.
+288|   * Effects for re-seal are projected from this OA contract, not from subject.
+289|   */
+290|  readonly sheInspectedExecutionContract?: SheInspectedExecutionContractBinding;
+291|};
+292|
+293|export type RecordGenericMissionHumanDecisionResult =
+294|  | {
+295|      readonly ok: true;
+296|      readonly decision: HumanDecision;
+297|      readonly humanDecisionCreated: boolean;
+298|      readonly executionAttemptCreated: false;
+299|      readonly code:
+300|        | "GENERIC_MISSION_HUMAN_DECISION_RECORDED"
+301|        | "GENERIC_MISSION_HUMAN_DECISION_ALREADY_APPLIED";
+302|    }
+303|  | {
+304|      readonly ok: false;
+305|      readonly code: string;
+306|      readonly message: string;
+307|      readonly humanDecisionCreated: false;
+308|      readonly executionAttemptCreated: false;
+309|    };
+310|
+311|export async function recordGenericMissionHumanDecision(
+312|  input: RecordGenericMissionHumanDecisionInput,
+313|): Promise<RecordGenericMissionHumanDecisionResult> {
+314|  const fail = (
+315|    code: string,
+316|    message: string,
+317|  ): RecordGenericMissionHumanDecisionResult => ({
+318|    ok: false,
+319|    code,
+320|    message,
+```
+```
+# projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts:375-476
+375|  // SHE AUTHORIZE_INSPECTED_EXECUTE (GAP-04): require OA EC binding; project
+376|  // effects from the inspected contract — never from subject overrides alone.
+377|  const sheAuthorizePresentation =
+378|    selected === GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE &&
+379|    input.subject.optionRefs.includes(
+380|      GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+381|    );
+382|
+383|  let sheEffectsFromOa: {
+384|    effectsOverride: GenericMissionEffectsSeal;
+385|    objectiveOverride: string;
+386|    expectedOutcomeOverride: string;
+387|    scopeNarrativeOverride: string;
+388|    scopeInOverride: readonly string[];
+389|    scopeOutOverride: readonly string[];
+390|  } | null = null;
+391|
+392|  if (sheAuthorizePresentation) {
+393|    const bind = input.sheInspectedExecutionContract;
+394|    if (
+395|      !bind ||
+396|      !bind.executionContractId.trim() ||
+397|      !Number.isFinite(bind.expectedVersion) ||
+398|      !bind.expectedSemanticFingerprint.trim()
+399|    ) {
+400|      return fail(
+401|        "SHE_INSPECTED_CONTRACT_BINDING_REQUIRED",
+402|        "AUTHORIZE_INSPECTED_EXECUTE exige le binding OA du contrat inspecté — Record refusé.",
+403|      );
+404|    }
+405|    const loaded =
+406|      await input.oa.executionContractServices.getExecutionContract.execute({
+407|        executionContractId: bind.executionContractId.trim(),
+408|      });
+409|    if (!loaded.ok) {
+410|      return fail(
+411|        "SHE_INSPECTED_CONTRACT_NOT_FOUND",
+412|        "Contrat inspecté introuvable — Record SHE refusé.",
+413|      );
+414|    }
+415|    const ec = loaded.contract;
+416|    if (ec.projectId !== input.subject.projectId) {
+417|      return fail(
+418|        "SHE_INSPECTED_CONTRACT_PROJECT_MISMATCH",
+419|        "Contrat inspecté hors projet — Record SHE refusé.",
+420|      );
+421|    }
+422|    if (ec.version !== bind.expectedVersion) {
+423|      return fail(
+424|        "SHE_INSPECTED_CONTRACT_VERSION_MISMATCH",
+425|        "Version du contrat inspecté divergente — Record SHE refusé.",
+426|      );
+427|    }
+428|    const fp = ec.semanticFingerprint ?? "";
+429|    if (!fp || fp !== bind.expectedSemanticFingerprint.trim()) {
+430|      return fail(
+431|        "SHE_INSPECTED_CONTRACT_FINGERPRINT_MISMATCH",
+432|        "Empreinte du contrat inspecté divergente — Record SHE refusé.",
+433|      );
+434|    }
+435|    if ((ec.cycleInstanceId ?? null) !== (input.subject.cycleInstanceId ?? null)) {
+436|      return fail(
+437|        "SHE_INSPECTED_CONTRACT_CYCLE_MISMATCH",
+438|        "Cycle du contrat inspecté divergent — Record SHE refusé.",
+439|      );
+440|    }
+441|    const proj = projectExecutionContractEffects({
+442|      projectId: ec.projectId,
+443|      cycleInstanceId: ec.cycleInstanceId ?? null,
+444|      decisionRefs: ec.decisionRefs ?? [],
+445|      status: ec.status,
+446|      version: ec.version,
+447|      semanticFingerprint: ec.semanticFingerprint,
+448|      expectedOutputs: ec.expectedOutputs,
+449|      requiredCapabilities: ec.requiredCapabilities,
+450|      stopConditions: ec.stopConditions,
+451|      reversibility: ec.reversibility as
+452|        | "reversible"
+453|        | "partially_reversible"
+454|        | "irreversible",
+455|      constraints: ec.constraints,
+456|      inputs: (ec.inputs ?? {}) as Record<string, unknown>,
+457|    });
+458|    sheEffectsFromOa = {
+459|      effectsOverride: {
+460|        intentKind: proj.intentKind,
+461|        artifactType: proj.artifactType,
+462|        requestedOperation: proj.requestedOperation,
+463|        requiredCapabilities: [...proj.requiredCapabilities],
+464|        expectedOutputs: [...proj.expectedOutputs],
+465|        reversibilityExpectation: proj.reversibilityExpectation,
+466|        stopConditions: [...proj.stopConditions],
+467|        risks: [...proj.risks],
+468|        reservations: [...proj.reservations],
+469|      },
+470|      objectiveOverride: proj.objective,
+471|      expectedOutcomeOverride: proj.expectedOutcome,
+472|      scopeNarrativeOverride: proj.scopeNarrative,
+473|      scopeInOverride: proj.scopeIn,
+474|      scopeOutOverride: proj.scopeOut,
+475|    };
+476|  }
 ```
 
-#### deriveFinalizationApplicability.ts
+### SHE binder passes inspected contract
+```
+# projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts:352-375
+352|  const recorded = await recordGenericMissionHumanDecision({
+353|    oa: input.oa,
+354|    subject: sealed.subject,
+355|    selectedOptionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+356|    analysis: sheAnalysis,
+357|    forceLocalAuthority: input.forceLocalAuthority === true,
+358|    authenticatedPilote: input.authenticatedPilote,
+359|    rationale: `SHE Execute — autorisation explicite du contrat inspecté ${input.contract.executionContractId} v${input.contract.version} fp=${input.contract.semanticFingerprint}.`,
+360|    presentedPresentationDigest: sealed.subject.presentationDigest,
+361|    // GAP-04 — Record re-projects effects from this OA contract (not subject alone).
+362|    sheInspectedExecutionContract: {
+363|      executionContractId: input.contract.executionContractId,
+364|      expectedVersion: input.contract.version,
+365|      expectedSemanticFingerprint: input.contract.semanticFingerprint ?? "",
+366|    },
+367|  });
+368|  if (!recorded.ok) {
+369|    return {
+370|      ok: false,
+371|      code: recorded.code,
+372|      message: recorded.message,
+373|      humanDecisionCreated: false,
+374|    };
+375|  }
+```
+
+### GAP-03 effective git primary (diff vs main)
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
 index 16f58a53..133bfdfe 100644
@@ -297,61 +443,117 @@ index 16f58a53..133bfdfe 100644
 
 ```
 
+### GAP-01 continuity stamp
+```
+# projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts:34-42
+34|/**
+35| * D-P6-SHE-01 GAP-01 — Product PREPARE stamped deferred structural authority.
+36| * Server-owned input only; never trust a client-only claim.
+37| */
+38|function isSheDeferredStructuralPrepare(
+39|  contract: ExecutionContract,
+40|): boolean {
+41|  return contract.inputs?.sheDeferredStructuralAuthority === true;
+42|}
+```
+```
+# projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts:248-266
+248|  // Empty refs — G-D4 NON_STRUCTURAL OR SHE deferred STRUCTURAL/UNKNOWN (read-only).
+249|  if (refs.length === 0) {
+250|    const stamped = materialityFromContractConstraints(contract.constraints);
+251|    if (stamped == null) {
+252|      return fail(
+253|        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+254|        "Contrat d'exécution sans décision rattachée ni justification G-D4 — continuation refusée.",
+255|      );
+256|    }
+257|
+258|    // GAP-01 — Product SHE PREPARE provenance (server input), not client stamp alone.
+259|    if (isSheDeferredStructuralPrepare(contract)) {
+260|      return verifySheDeferredPrepareReadLineage(
+261|        oa,
+262|        projectId,
+263|        contract,
+264|        stamped,
+265|      );
+266|    }
+```
+
 ---
 
-## 6. Non-régression / limites
+## 6. Validations (actual — not forecasts)
 
-- PREPARE/INSPECT/EXECUTE / HD / Confirm / Auth / Attempt / Reconciler / obligations / Evidence/RB/CR/Nora/LPS/legacy: no functional edits this QA cycle
-- Evidence→ReviewBundle→ContractResult→Nora Product E2E SHE: **still bounded / not closed** by GAP-03 positive proof
-- Debt OPEN: TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT
+### Targeted (19 files)
+238 PASS / 0 FAIL
+
+### Full Vitest
+```
+SFIA_STUDIO_CURSOR_REAL=0 npx vitest run
+Test Files  566 passed | 22 skipped (588)
+Tests       6210 passed | 143 skipped (6353)
+Duration    76.06s
+FULL_EXIT:0
+```
+
+### Typecheck / lint / build
+| Check | Exit |
+|-------|------|
+| tsc --noEmit | 0 |
+| next lint | 0 |
+| next build | 0 |
+| git diff --check | 0 |
+| secrets (key paths) | none |
+
+### CI (PR #590)
+| Check | Conclusion |
+|-------|------------|
+| Detect SFIA Studio changes | SUCCESS |
+| Build and validate SFIA Studio | SUCCESS (~8m57s) |
+| **SFIA Studio Required Gate** | **SUCCESS** |
+| Workflow run | `39265254684` |
+| Head SHA | `f1fc1af49606dbc600f5f839020639f880529696` |
 
 ---
 
-## 7. Fake / Real qualification
+## 7. Fake / Real
 
-| Item | Value |
-|------|-------|
-| Entry level | DETERMINISTIC CANDIDATE WITH CRITICAL REVIEW RESERVATIONS |
-| Achieved | **QA CLOSURE DETERMINISTICALLY VERIFIED AT TESTED SCOPE** |
-| Out of scope | REAL BOUNDARY PROVEN / E2E REAL / HQA PASS / P6 GLOBAL PASS / Runtime v3 ADOPTED |
-| REAL gate | NOT GRANTED |
-| Claims | Exact Vitest totals; PRR FAIL remains FAIL; GAP-03 positive proven |
-
----
-
-## 8. Verdict
-
-**D-P6-SHE-01 — TARGETED QA CLOSURE COMPLETE — DETERMINISTIC TESTS VERIFIED AT TESTED SCOPE — READY FOR CHATGPT CRITICAL RE-REVIEW.**
-
-Constraints still true:
-- Product Git Integration NOT AUTHORIZED
-- PRR conformance FAIL remains FAIL
-- P6 GLOBAL PASS non acquis
-- Runtime v3 NON ADOPTED
+| | |
+|--|--|
+| Achieved | Product PR CREATED + PRR CONFORMANCE PASS + DETERMINISTIC CI QUALIFIED (Required Gate SUCCESS) |
+| Out of scope | SHE LIVE / HQA / P6 GLOBAL / Runtime v3 ADOPTED |
+| Debt | TOOL-FIRST-REAL-NOWRITE OPEN |
+| E2E Evidence→Nora SHE | still bounded — not closed by GAP-03 alone |
 
 ---
 
-## 9. Gates Morris restants
+## 8. Gates Morris remaining
 
-1. ChatGPT Critical Review conforme
-2. Git Integration GO (Product commit/push/PR) — distinct
-3. PRR protected digest/volume refresh GO — distinct
-4. REAL/HQA GO — distinct
-5. P6 Exit
+1. ChatGPT PR Critical Review (this handoff)
+2. Explicit **Merge GO** (PR stays DRAFT until then)
+3. REAL/HQA GO
+4. P6 Exit
+
+---
+
+## 9. Verdict
+
+**D-P6-SHE-01 — PRODUCT GIT INTEGRATION COMPLETE — PR DRAFT CREATED — DETERMINISTIC QA PASS — PRR CONFORMANCE PASS — READY FOR CHATGPT PR CRITICAL REVIEW.**
+
+CI Required Gate: **SUCCESS** (run `39265254684`).
+
+NOT MERGED. NOT POST-MERGE VERIFIED. NOT SHE LIVE / P6 GLOBAL / Runtime v3 ADOPTED.
 
 ---
 
 ## INSTRUCTION CHATGPT
 
-Vérifier indépendamment: nouveau commit/blob; T18 positive discriminante; négatifs; full Vitest 6209/1/143; matrice PRR 2 digests; absence mutation PRR/services; pas de preuve LIVE.
-
-Ne pas générer Git Integration avant verdict Critical conforme.
+Verify PR #590 DRAFT, head/base, commits `928ab15b`+`f1fc1af4`, PRR semantic sync, digests, Vitest 6210/0/143, Required Gate SUCCESS, reserves, merge NOT authorized.
 
 # END REVIEW PACK FULL — CRITICAL
 
 ---
 
-## APPENDIX A — GAP-03 TEST FILE (FULL)
+## APPENDIX A — GAP-03 test file (FULL)
 
 ```typescript
 /**
@@ -796,32 +998,16 @@ describe("P6 SHE GAP-03 — effective git primaryContract", () => {
 
 ```
 
----
+## APPENDIX B — Git Review Index
 
-## APPENDIX B — SKIPPED TEST FILES (22)
-
-```
-10043: ↓ __tests__/project-assistant/s08-4.seedEmptyProduct.d0.test.ts (1 test | 1 skipped)
-10044: ↓ __tests__/nora-eval/mw0-mw5.businessIntegrated.real.test.ts (1 test | 1 skipped)
-10045: ↓ __tests__/nora-eval/mw5.realCampaign.test.ts (1 test | 1 skipped)
-10046: ↓ __tests__/nora-eval/mw0.realCampaign.test.ts (1 test | 1 skipped)
-10047: ↓ __tests__/nora-cognitive-runtime/p5.s05.r3IntegratedProduct.real.test.ts (1 test | 1 skipped)
-10048: ↓ __tests__/auth/auth-real-boundary-session.test.ts (1 test | 1 skipped)
-10049: ↓ __tests__/oa/finops/postgres/t1.ledger.integration.test.ts (10 tests | 10 skipped)
-10050: ↓ __tests__/oa/finops/postgres/t2.aggregate.integration.test.ts (7 tests | 7 skipped)
-10051: ↓ __tests__/oa/finops/postgres/t2.billed-period-concurrency.integration.test.ts (4 tests | 4 skipped)
-10052: ↓ __tests__/oa/finops/postgres/t2.reconciliation.integration.test.ts (3 tests | 3 skipped)
-10053: ↓ __tests__/oa/finops/postgres/t3.alert-review.integration.test.ts (7 tests | 7 skipped)
-10054: ↓ __tests__/project-assistant/s08-4.seedFinalFidelity.d0.test.ts (2 tests | 2 skipped)
-10055: ↓ __tests__/oa/finops/postgres/t4.enforcement-projection.integration.test.ts (14 tests | 14 skipped)
-10056: ↓ __tests__/nora-cognitive-runtime/p5.s02.boundedReal.r1r2.test.ts (1 test | 1 skipped)
-10057: ↓ __tests__/oa/finops/postgres/t6.audit-journal.integration.test.ts (4 tests | 4 skipped)
-10058: ↓ __tests__/oa/finops/postgres/t4.projection-refresh.integration.test.ts (8 tests | 8 skipped)
-10059: ↓ __tests__/oa/finops/postgres/t6.runtime-composition.integration.test.ts (4 tests | 4 skipped)
-10060: ↓ __tests__/oa/finops/postgres/t7.foundation-runtime.integration.test.ts (16 tests | 16 skipped)
-10061: ↓ __tests__/oa/finops/postgres/t7.rollout.integration.test.ts (12 tests | 12 skipped)
-10062: ↓ __tests__/oa/finops/postgres/t7.shadow-activation-operator.integration.test.ts (19 tests | 19 skipped)
-10063: ↓ __tests__/project-assistant/s08-4.seedGovernedMoments.d0.test.ts (1 test | 1 skipped)
-10064: ↓ __tests__/oa/finops/postgres/t7.shadow-option-a.wiring.integration.test.ts (23 tests | 23 skipped)
-
-```
+| Path | Role |
+|------|------|
+| w2/singleHumanExecutePreparedContract.ts | CREATED — SHE |
+| w2/recordGenericMissionHumanDecision.ts | GAP-04 OA binding |
+| w2/readCurrentGovernedExecutionContinuity.ts | GAP-01 |
+| deriveFinalizationApplicability.ts | GAP-03 |
+| resolveProductExecutionContext.ts | I17 |
+| orchestrateF2.ts | SHE PREPARE admission |
+| ExecutionSurface / pilotExecutionPresentation | UX Exécuter |
+| p6.she.* tests | SHE + GAP |
+| PRR 02/03/04/07/08 + manifest | semantic sync |
