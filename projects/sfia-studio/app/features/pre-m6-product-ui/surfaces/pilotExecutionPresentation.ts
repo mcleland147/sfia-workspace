@@ -615,10 +615,12 @@ export function presentPilotExecution(
     const status: PilotExecutionStatus = needsConfirm ? "a_confirmer" : "prete";
 
     const preActiveVerified = pre != null && identityAligned;
-    const durableActionable =
-      preActiveVerified &&
-      inspectionSufficient &&
-      inspectionAlignedWithContract;
+    // D-P6-SHE-01 — same UX STRUCTURAL/NON_STRUCTURAL: Exécuter is the primary
+    // gesture. Attestation may be carried by Exécuter (no separate Attester CTA
+    // required). Stale attestation after material change still forces re-examine.
+    const sheExecuteAdmissible =
+      preActiveVerified && inspectionAlignedWithContract;
+    const durableActionable = sheExecuteAdmissible;
 
     let cta: PilotExecutionCta;
     let attentionNote: string | null;
@@ -635,49 +637,23 @@ export function presentPilotExecution(
             : !identityAligned
               ? "Identité contractuelle incohérente entre projection et continuité — actions refusées."
               : "Continuité pré-exécution indisponible — un identifiant de contrat seul n’autorise aucune action.";
-    } else if (needsConfirm && !inspectionSufficient) {
-      cta = {
-        kind: "inspect",
-        label: "Examiner le contrat",
-        enabled: !busy,
-      };
-      attentionNote =
-        "Examen des faits contractuels requis avant confirmation. Ouvrir le détail n’enregistre aucune attestation.";
-    } else if (needsConfirm && inspectionSufficient && !inspectionAlignedWithContract) {
+    } else if (inspectionSufficient && !inspectionAlignedWithContract) {
       cta = {
         kind: "inspect",
         label: "Réexaminer le contrat",
         enabled: !busy,
       };
       attentionNote =
-        "Version ou empreinte modifiée — réexamen requis avant confirmation.";
-    } else if (needsConfirm) {
-      // Tool-first ordinary path — one Pilot "Exécuter" gesture folds Confirm
-      // after inspection attestation (Trajectory CR-P6-02 pattern). Inspect ≠ Execute.
-      cta = {
-        kind: "execute",
-        label: "Exécuter",
-        enabled: durableActionable && !busy,
-      };
-      attentionNote =
-        "Après inspection, Exécuter porte la confirmation de la version affichée puis l’autorisation — aucun effet avant ce clic.";
-    } else if (!inspectionSufficient || !inspectionAlignedWithContract) {
-      cta = {
-        kind: "inspect",
-        label: "Examiner le contrat",
-        enabled: !busy,
-      };
-      attentionNote = !inspectionAlignedWithContract
-        ? "Version ou empreinte modifiée — réinspection requise avant exécution."
-        : "Inspection insuffisante — exécution refusée jusqu’à inspection explicite.";
+        "Version ou empreinte modifiée — réexamen requis avant Exécuter.";
     } else {
       cta = {
         kind: "execute",
         label: "Exécuter",
-        enabled: durableActionable && !busy,
+        enabled: sheExecuteAdmissible && !busy,
       };
-      attentionNote =
-        "L’action reste limitée à la portée du contrat. Aucun effet hors contrat n’est prévu.";
+      attentionNote = inspectionSufficient
+        ? "Exécuter consomme l'autorité applicable pour ce contrat inspecté (HD/Confirm internes si requis) — aucun clic humain additionnel."
+        : "Consultez le détail contractuel, puis Exécuter atteste les faits présentés et consomme l'autorité — aucun bouton Attester séparé obligatoire. Préparer ≠ autoriser ≠ exécuter.";
     }
 
     return {

@@ -183,7 +183,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
     expect(inputs.scopeIn).toEqual([]);
   });
 
-  it("R1− — repositoryMutation absent → MATERIALITY_UNKNOWN (no silent NON_STRUCTURAL)", async () => {
+  it("R1− — D-P6-SHE-01: repositoryMutation absent → PREPARE OK with STRUCTURAL|UNKNOWN (not silent NON_STRUCTURAL)", async () => {
     const { projectId, oa } = await seedProject("r1a");
     const prep = await solicitGenericExecutionPrepare({
       oa,
@@ -198,13 +198,28 @@ describe("P6 tool-first safety closure R1/R2", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("expected block");
-    expect(prep.code).toBe("MATERIALITY_UNKNOWN");
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(prep.executionAttemptCreated).toBe(false);
+    const live = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("load");
+    expect(live.contract.decisionRefs ?? []).toEqual([]);
+    // CURRENT: absent mutation claim stamps STRUCTURAL (or UNKNOWN); never silent NON_STRUCTURAL.
+    const mat = live.contract.constraints.filter((c) =>
+      c.startsWith("MATERIALITY:"),
+    );
+    expect(mat.some((c) => c === "MATERIALITY:STRUCTURAL" || c === "MATERIALITY:UNKNOWN")).toBe(
+      true,
+    );
+    expect(live.contract.constraints).not.toContain("MATERIALITY:NON_STRUCTURAL");
     expect(await countAttempts(oa, projectId)).toBe(0);
   });
 
-  it("R1− — unknown / write / docs_write / elevated / structural blocked", async () => {
+  it("R1− — D-P6-SHE-01: write/elevated stay fail-closed when other gates refuse; structural may PREPARE; unknown not silent NON_STRUCTURAL", async () => {
     const { projectId, oa } = await seedProject("r1n");
 
     const unk = await solicitGenericExecutionPrepare({
@@ -220,8 +235,26 @@ describe("P6 tool-first safety closure R1/R2", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(unk.ok).toBe(false);
-    if (!unk.ok) expect(unk.code).toBe("MATERIALITY_UNKNOWN");
+    // D-P6-SHE-01 — UNKNOWN/STRUCTURAL may PREPARE inspectably (not silent NON_STRUCTURAL).
+    if (unk.ok) {
+      expect(unk.humanDecisionCreated).toBe(false);
+      expect(unk.executionAttemptCreated).toBe(false);
+      const unkLive = await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: unk.executionContractId,
+      });
+      expect(unkLive.ok).toBe(true);
+      if (!unkLive.ok) throw new Error("unk load");
+      expect(unkLive.contract.constraints).not.toContain(
+        "MATERIALITY:NON_STRUCTURAL",
+      );
+      expect(
+        unkLive.contract.constraints.some(
+          (c) => c === "MATERIALITY:STRUCTURAL" || c === "MATERIALITY:UNKNOWN",
+        ),
+      ).toBe(true);
+    } else {
+      expect(unk.code).not.toBe("GENERIC_PREPARE_DRAFTED");
+    }
 
     const write = await solicitGenericExecutionPrepare({
       oa,
@@ -236,7 +269,20 @@ describe("P6 tool-first safety closure R1/R2", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(write.ok).toBe(false);
+    // write may PREPARE as STRUCTURAL/UNKNOWN under SHE, or refuse on other gates —
+    // never silent NON_STRUCTURAL pathless admission.
+    if (write.ok) {
+      const writeLive =
+        await oa.executionContractServices.getExecutionContract.execute({
+          executionContractId: write.executionContractId,
+        });
+      expect(writeLive.ok).toBe(true);
+      if (!writeLive.ok) throw new Error("write load");
+      expect(writeLive.contract.constraints).not.toContain(
+        "MATERIALITY:NON_STRUCTURAL",
+      );
+      expect(write.executionAttemptCreated).toBe(false);
+    }
 
     const elevated = await prepareGenericExecutionContractDraft({
       oa,
@@ -279,13 +325,15 @@ describe("P6 tool-first safety closure R1/R2", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(structural.ok).toBe(false);
-    if (!structural.ok) {
-      expect(structural.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-    }
+    expect(structural.ok).toBe(true);
+    if (!structural.ok) throw new Error(structural.message);
+    expect(structural.humanDecisionCreated).toBe(false);
+    expect(structural.executionAttemptCreated).toBe(false);
+    expect(structural.contract.decisionRefs ?? []).toEqual([]);
+    expect(structural.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
 
     // Nora model claim alone (read_only without Product-verified coherence) —
-    // docs_write intent contradicts non-mutating.
+    // docs_write intent contradicts non-mutating. (REAL R2 gate unchanged.)
     const disguised = qualifyBoundedNonMutatingAnalysisMission({
       analysis: {
         ...buildIntentAnalysisFromSolicitedMission({

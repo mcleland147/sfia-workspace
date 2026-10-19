@@ -2,12 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  w2AuthorizeExecutionContractAction,
   w2ConfirmExecutionContractAction,
   w2DeriveGovernedExecutionContinuityAction,
   w2InspectExecutionContractAction,
   w2ReadCurrentGovernedExecutionContinuityAction,
   w2ReconcileGovernedExecutionAction,
+  w2SingleHumanExecuteAction,
 } from "@/features/project-assistant/w2/actions";
 import type { GovernedExecutionContinuityProjection } from "@/features/project-assistant/w2/deriveGovernedExecutionContinuityProjection";
 import {
@@ -502,91 +502,95 @@ export function ExecutionSurface({
       );
       return;
     }
+    // D-P6-SHE-01 — Exécuter may carry attestation of presented facts.
+    // Require an open exam (or prior sufficient inspection) so disclosure is
+    // actually presented; no separate Attester CTA is mandatory.
+    if (!inspectionView || inspectionView.disclosureIncomplete) {
+      setError(
+        "Disclosure d’inspection incomplète — Exécuter refusé.",
+      );
+      return;
+    }
+    const alreadyInspected =
+      preExec != null &&
+      preExec.ok &&
+      preExec.kind === "active" &&
+      preExec.inspection.inspectionSufficient === true;
+    if (!alreadyInspected && !inspectionPanelOpen) {
+      // Soft gate: open the exam so the Pilote can consult before retry.
+      handleOpenInspection();
+      setError(
+        "Consultez les informations contractuelles affichées, puis Exécuter.",
+      );
+      return;
+    }
+    if (inspectionView.presentedFactIds.length === 0) {
+      setError("Aucun fait contractuel présenté — Exécuter refusé.");
+      return;
+    }
+    if (
+      inspectionPanelOpen &&
+      inspectionExamSnapshot &&
+      !sameInspectionExamSnapshot(inspectionExamSnapshot, {
+        projectId,
+        executionContractId: target.executionContractId,
+        version: target.expectedVersion,
+        semanticFingerprint: target.semanticFingerprint,
+      })
+    ) {
+      setInspectionPanelOpen(false);
+      setInspectionExamSnapshot(null);
+      setError(
+        "Identité contractuelle modifiée — nouvel examen requis.",
+      );
+      return;
+    }
+
     setBusy(true);
     setError(null);
     try {
       const { current } = await refreshExecutionContinuity();
-      const active =
+      const activeAfter =
         current.ok && current.kind === "active" ? current : null;
-      if (!active) {
+      if (!activeAfter) {
         setError("Contrat durable introuvable après relecture.");
         return;
       }
       if (
-        active.contract.executionContractId !== target.executionContractId ||
-        active.contract.version !== target.expectedVersion
+        activeAfter.contract.executionContractId !==
+          target.executionContractId ||
+        activeAfter.contract.version !== target.expectedVersion
       ) {
         setError(
           "Identité ou version contractuelle incohérente — exécution refusée.",
         );
         return;
       }
-      // Execute never records inspection as a side effect.
-      if (!active.inspection.inspectionSufficient) {
-        setError(
-          "Inspection suffisante requise avant exécution — utilisez Inspecter.",
-        );
-        return;
-      }
 
-      // Tool-first / CR-P6-02 — one Pilot "Exécuter" gesture: Confirm (when
-      // required) then Authorize with exact binding to the inspected attestation.
-      // Inspect ≠ Confirm ≠ Authorize ≠ Execute remain distinct server acts.
-      let expectedVersion =
-        active.inspection.attestedVersion ?? active.contract.version;
-      let expectedSemanticFingerprint =
-        active.inspection.attestedSemanticFingerprint ||
-        active.inspection.semanticFingerprint ||
-        active.contract.semanticFingerprint ||
-        undefined;
-
-      if (active.contract.status === "confirmation_required") {
-        const confirmed = await w2ConfirmExecutionContractAction({
-          projectId,
-          executionContractId: active.contract.executionContractId,
-        });
-        if (!confirmed.ok) {
-          setError(confirmed.message);
-          await refreshExecutionContinuity();
-          return;
-        }
-        // Prefer attested binding; fall back to Confirm version bump when present.
-        expectedVersion =
-          active.inspection.attestedVersion ??
-          confirmed.contractVersion ??
-          expectedVersion;
-        expectedSemanticFingerprint =
-          active.inspection.attestedSemanticFingerprint ||
-          active.inspection.semanticFingerprint ||
-          expectedSemanticFingerprint;
-      }
-
-      const auth = await w2AuthorizeExecutionContractAction({
+      // One server gesture: attest + HD (if deferred) + Confirm + Authorize.
+      // OA transitions remain distinct; no Attempt until reconcile below.
+      const she = await w2SingleHumanExecuteAction({
         projectId,
-        executionContractId: active.contract.executionContractId,
-        expectedVersion,
-        expectedSemanticFingerprint,
+        executionContractId: activeAfter.contract.executionContractId,
+        expectedVersion: activeAfter.contract.version,
+        expectedSemanticFingerprint:
+          activeAfter.contract.semanticFingerprint ||
+          target.semanticFingerprint,
+        presentedFactIds: inspectionView.presentedFactIds,
       });
-      if (!auth.ok) {
-        setError(auth.message);
-        await refreshExecutionContinuity();
-        return;
-      }
-      if (auth.outcome !== "AUTHORIZED" || auth.executionEligible !== true) {
-        setError(
-          auth.executionEligibilityReasonCode ||
-            "Autorisation insuffisante — exécution refusée.",
-        );
+      if (!she.ok) {
+        setError(she.message);
         await refreshExecutionContinuity();
         return;
       }
 
-      // Execute once; continuation uses intent="continue" only.
-      await runServerReconcile(
-        "execute",
-        active.contract.executionContractId,
-        0,
-      );
+      setInspectionPanelOpen(false);
+      setInspectionExamSnapshot(null);
+      await refreshExecutionContinuity();
+      onDurableFactsChanged?.();
+
+      // Execute once on the authorized contract (may be SHE HD successor).
+      await runServerReconcile("execute", she.executionContractId, 0);
     } finally {
       setBusy(false);
     }
@@ -595,6 +599,12 @@ export function ExecutionSurface({
     resolveActivePreContract,
     refreshExecutionContinuity,
     runServerReconcile,
+    inspectionView,
+    inspectionPanelOpen,
+    inspectionExamSnapshot,
+    handleOpenInspection,
+    onDurableFactsChanged,
+    preExec,
   ]);
 
   const workItems = expandedWork
@@ -854,24 +864,43 @@ export function ExecutionSurface({
           </button>
         ) : null}
         {presentation.cta.kind === "execute" ? (
-          <button
-            type="button"
-            className={styles.primaryButton}
-            data-testid="project-execution-execute"
-            disabled={!presentation.cta.enabled}
-            aria-label={presentation.cta.label}
-            title={
-              presentation.cta.enabled
-                ? presentation.attentionNote ?? presentation.cta.label
-                : presentation.attentionNote ??
-                  "Exécution indisponible — conditions non satisfaites."
-            }
-            onClick={() => {
-              void handleExecute();
-            }}
-          >
-            {busy ? "Exécution…" : presentation.cta.label}
-          </button>
+          <>
+            {/*
+              D-P6-SHE-01 — Consulter is consult-only (no attestation write).
+              Exécuter remains the sole authority gesture; Attester is not required.
+            */}
+            <button
+              type="button"
+              className={styles.moreLink}
+              data-testid="project-execution-inspect"
+              disabled={busy}
+              aria-label="Consulter le contrat"
+              title="Ouvre le détail inspectable — n’enregistre aucune attestation."
+              onClick={() => {
+                handleOpenInspection();
+              }}
+            >
+              Consulter le contrat
+            </button>
+            <button
+              type="button"
+              className={styles.primaryButton}
+              data-testid="project-execution-execute"
+              disabled={!presentation.cta.enabled}
+              aria-label={presentation.cta.label}
+              title={
+                presentation.cta.enabled
+                  ? presentation.attentionNote ?? presentation.cta.label
+                  : presentation.attentionNote ??
+                    "Exécution indisponible — conditions non satisfaites."
+              }
+              onClick={() => {
+                void handleExecute();
+              }}
+            >
+              {busy ? "Exécution…" : presentation.cta.label}
+            </button>
+          </>
         ) : null}
         {presentation.cta.kind === "return_conversation" ||
         presentation.cta.kind === "none" ? (

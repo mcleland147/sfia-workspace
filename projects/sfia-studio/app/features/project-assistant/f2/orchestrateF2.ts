@@ -2305,29 +2305,16 @@ export async function orchestrateAssistantSend(input: {
           });
       const readiness = assessGenericMissionPrepareReadiness(readinessAnalysis);
 
-      if (readiness.structuralBlocked || !readiness.ready) {
-        // M-HD-02 — when structural fields are sufficient, remember CURRENT
-        // offer so ConversationSurface can seal + present Accept/Refuse/Amend.
-        // No PREPARE. No HumanDecision. No PresentedMission store.
-        if (
-          readiness.structuralBlocked &&
-          readiness.missingFields.length === 0
-        ) {
-          rememberGenericPrepareRecommendation({
-            projectId: project.projectId,
-            cycleInstanceId: activeId,
-            analysis: readinessAnalysis,
-            offeredAtIso: oa.clock.nowIso(),
-            sessionDbPath: input.sessionDbPath,
-          });
-        }
+      // D-P6-SHE-01 — missing descriptive fields still block PREPARE.
+      // structuralBlocked alone no longer refuses PREPARE (HD deferred to Execute).
+      if (!readiness.ready) {
         return await completeF2Turn({
           userText: content,
           sessionDbPath: input.sessionDbPath,
           text: genericMissionClarificationText({
             presentation,
             missingFields: readiness.missingFields,
-            structuralBlocked: readiness.structuralBlocked,
+            structuralBlocked: false,
             hasActiveCycle: Boolean(activeId),
           }),
           mode: modeResolution.mode as "fixture" | "live",

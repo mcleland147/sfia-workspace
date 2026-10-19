@@ -10,7 +10,8 @@
  *  E10  project WITHOUT activeCycleInstanceId → Generic PREPARE; no CycleInstance created.
  *  E11  incompatible_execution_intent is no longer the exclusive dead-end for a natural signal
  *       without docs_write (explicit hostile continuationKind stays BLOCKED).
- *  E12  structural signals → STRUCTURAL_HUMAN_DECISION_REQUIRED (tool + F2), fail-closed.
+ *  E12  D-P6-SHE-01 — structural signals → PREPARE OK (empty decisionRefs, MATERIALITY:STRUCTURAL);
+ *       HD/authority deferred to Execute; protected-path remains fail-closed.
  *  E14  accept "OK" without a CURRENT offer clarifies — no invented prepare.
  *  NR   REQUIRE_ARTIFACT + docs_write-compatible effect still routes Artifact governed (F05 T05).
  *
@@ -904,10 +905,10 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
   });
 
   // -------------------------------------------------------------------------
-  // E12 — structural
+  // E12 — structural (D-P6-SHE-01 requalification: PREPARE OK, HD at Execute)
   // -------------------------------------------------------------------------
 
-  it("E12 — tool: structural impact signal → STRUCTURAL_HUMAN_DECISION_REQUIRED; no EC, no Attempt", async () => {
+  it("E12 — D-P6-SHE-01: tool structural impact → PREPARE OK empty decisionRefs MATERIALITY:STRUCTURAL; no Attempt / no HD", async () => {
     const { projectId, oa } = await seedProject({ suffix: "e12a", withCycle: false });
     const out = await invokeTool(productTools(projectId, oa)[1]!, {
       objective: "Migrer le schéma de données",
@@ -915,15 +916,21 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       scope: "projects/demo/src",
       impactSignals: { dataImpact: true },
     });
-    expect(out.ok).toBe(false);
-    expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    expect(out.ok).toBe(true);
     expect(out.executionAttemptCreated).toBe(false);
     expect(out.humanDecisionCreated).toBe(false);
-    expect(out.executionContractId).toBeUndefined();
+    expect(String(out.executionContractId)).toMatch(/^xct:gen-prep:/);
+    const loaded = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: String(out.executionContractId),
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) throw new Error("load");
+    expect(loaded.contract.decisionRefs ?? []).toEqual([]);
+    expect(loaded.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
     expect(await countAttempts(oa, projectId)).toBe(0);
   });
 
-  it("E12 — tool: server materiality for a protected path stays fail-closed (model cannot declare non-structural to bypass)", async () => {
+  it("E12 — D-P6-SHE-01: protected path PREPARE stamps STRUCTURAL (no silent NON_STRUCTURAL; no Attempt); model cannot bypass", async () => {
     const { projectId, oa } = await seedProject({ suffix: "e12b", withCycle: false });
     const out = await invokeTool(productTools(projectId, oa)[1]!, {
       objective: "Modifier la doctrine Studio",
@@ -932,11 +939,26 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       impactSignals: {},
     });
     expect(out.executionAttemptCreated).toBe(false);
-    // Either structural (protected path) or an honest failure — never a prepared EC.
-    expect(out.ok).toBe(false);
+    expect(out.humanDecisionCreated).toBe(false);
+    // D-P6-SHE-01 — protected path is STRUCTURAL materiality; PREPARE may succeed
+    // inspectably. Authority / protected gate remains at Execute (not silent NON_STRUCTURAL).
+    if (out.ok) {
+      const loaded = await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: String(out.executionContractId),
+      });
+      expect(loaded.ok).toBe(true);
+      if (!loaded.ok) throw new Error("load");
+      expect(loaded.contract.decisionRefs ?? []).toEqual([]);
+      expect(loaded.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+      expect(loaded.contract.constraints).not.toContain("MATERIALITY:NON_STRUCTURAL");
+    } else {
+      // If another gate still refuses at PREPARE, keep fail-closed honesty.
+      expect(out.code).not.toBe("GENERIC_PREPARE_DRAFTED");
+    }
+    expect(await countAttempts(oa, projectId)).toBe(0);
   });
 
-  it("E12 — F2: structural signals on natural documentary → STRUCTURAL clarification; no non-structural PREPARE offer, no EC", async () => {
+  it("E12 — D-P6-SHE-01 F2: structural signals → recommend/prepare path (SHE); solicit OK empty refs STRUCTURAL", async () => {
     const { projectId, oa } = await seedProject({ suffix: "e12c", withCycle: true });
     const sessionKey = resolvePrepareOfferSessionKey({ sessionDbPath });
     const turn = await orchestrateAssistantSend({
@@ -946,28 +968,29 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
     });
     expect(turn.ok).toBe(true);
     if (!turn.ok) throw new Error(turn.message);
-    // Structural clarification — never a prepared EC on this turn.
-    expect(turn.text).toMatch(/frontière structurelle|décision Pilote/i);
-    expect(turn.text).not.toMatch(/xct:gen-prep:/);
-    expect(turn.text).not.toMatch(/Je recommande de confier cette mission à Cursor/i);
-
-    // M-HD-02 — structural carrier may be remembered for Accept/Refuse/Amend seal.
-    // That is NOT a non-structural chat-first Generic PREPARE offer (C3).
-    const offer = getPendingGenericPrepareOffer(projectId, sessionKey);
-    expect(offer).not.toBeNull();
-    expect(offer!.signalArchitectureImpact).toBe(true);
-    expect(offer!.signalSecurityImpact).toBe(false);
-    expect(offer!.signalDataImpact).toBe(false);
-    // Fake marker must surface Product structural analysis (C3-G).
-    expect(offer!.signalArchitectureImpact || offer!.signalStructuralChange).toBe(
-      true,
+    // D-P6-SHE-01 — structural no longer blocks the prepare recommendation path.
+    // Either recommend-prepare text or an inspectable prepared EC id is admissible.
+    const recommended = /Je recommande de confier cette mission à Cursor/i.test(
+      turn.text,
     );
+    const prepared = /xct:gen-prep:/.test(turn.text);
+    expect(recommended || prepared).toBe(true);
 
-    // Admission still fail-closed without verified mission-bound HD (C3-A / C3-F).
-    const refused = await solicitGenericExecutionPrepare({
+    const offer = getPendingGenericPrepareOffer(projectId, sessionKey);
+    if (!prepared) {
+      expect(offer).not.toBeNull();
+      expect(offer!.signalArchitectureImpact).toBe(true);
+      expect(offer!.signalSecurityImpact).toBe(false);
+      expect(offer!.signalDataImpact).toBe(false);
+      expect(offer!.signalArchitectureImpact || offer!.signalStructuralChange).toBe(
+        true,
+      );
+    }
+
+    const prep = await solicitGenericExecutionPrepare({
       oa,
       projectId,
-      cycleInstanceId: offer!.cycleInstanceId,
+      cycleInstanceId: offer?.cycleInstanceId ?? null,
       analysis: validateIntentAnalysisPayload(
         naturalDocAnalysisJson({
           signals: {
@@ -981,17 +1004,21 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(refused.ok).toBe(false);
-    if (!refused.ok) {
-      expect(refused.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-    }
-    expect(
-      (await oa.executionContractServices.contracts.listByProject(projectId)).length,
-    ).toBe(0);
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(prep.executionAttemptCreated).toBe(false);
+    const live = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get");
+    expect(live.contract.decisionRefs ?? []).toEqual([]);
+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
     expect(await countAttempts(oa, projectId)).toBe(0);
   });
 
-  it("E12 — F2: securityImpact / dataImpact also refuse non-structural PREPARE (C3-B/C)", async () => {
+  it("E12 — D-P6-SHE-01 F2: securityImpact / dataImpact solicit PREPARE OK (empty refs STRUCTURAL)", async () => {
     for (const [suffix, flag] of [
       ["e12sec", "securityImpact"],
       ["e12data", "dataImpact"],
@@ -1007,7 +1034,6 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
           lowRiskBounded: false,
         },
       });
-      // Same readiness gate F2 uses before PREPARE; prove structural carrier ≠ admission.
       rememberGenericPrepareRecommendation({
         projectId,
         cycleInstanceId,
@@ -1025,7 +1051,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       } else {
         expect(offer!.signalDataImpact).toBe(true);
       }
-      const refused = await solicitGenericExecutionPrepare({
+      const prep = await solicitGenericExecutionPrepare({
         oa,
         projectId,
         cycleInstanceId,
@@ -1034,14 +1060,17 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
       });
-      expect(refused.ok).toBe(false);
-      if (!refused.ok) {
-        expect(refused.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-      }
-      expect(
-        (await oa.executionContractServices.contracts.listByProject(projectId))
-          .length,
-      ).toBe(0);
+      expect(prep.ok).toBe(true);
+      if (!prep.ok) throw new Error(prep.message);
+      expect(prep.humanDecisionCreated).toBe(false);
+      expect(prep.executionAttemptCreated).toBe(false);
+      const live = await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: prep.executionContractId,
+      });
+      expect(live.ok).toBe(true);
+      if (!live.ok) throw new Error("get");
+      expect(live.contract.decisionRefs ?? []).toEqual([]);
+      expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
       expect(await countAttempts(oa, projectId)).toBe(0);
     }
   });
@@ -1366,7 +1395,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
     }
   });
 
-  it("R2a — [MODEL TOOL SELECTION SCRIPTED] Runner path with a hostile/structural tool call still fails closed (no EC, no Attempt)", async () => {
+  it("R2a — D-P6-SHE-01: Runner structural tool call PREPARE OK (empty refs STRUCTURAL; no Attempt)", async () => {
     const { projectId, oa } = await seedProject({ suffix: "r2a2", withCycle: false });
     const model = new ScriptedModel([
       [
@@ -1381,7 +1410,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
           { callId: "call_prepare_r2a2" },
         ),
       ],
-      [assistantMessage("Mission structurelle — décision Pilote requise.")],
+      [assistantMessage("Contrat structurel préparé pour inspection — autorité au clic Exécuter.")],
     ]);
     const result = await runNoraAgentsTurn({
       correlationId: "der16-r2a2",
@@ -1394,10 +1423,12 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       productExecutionTools: runnerSolicitWiring(projectId, oa),
     });
     expect(result.toolCalls).toBeGreaterThanOrEqual(1);
-    expect(
-      (await oa.executionContractServices.contracts.listByProject(projectId))
-        .length,
-    ).toBe(0);
+    const contracts = await oa.executionContractServices.contracts.listByProject(
+      projectId,
+    );
+    expect(contracts.length).toBe(1);
+    expect(contracts[0]!.decisionRefs ?? []).toEqual([]);
+    expect(contracts[0]!.constraints).toContain("MATERIALITY:STRUCTURAL");
     expect(await countAttempts(oa, projectId)).toBe(0);
     model.assertComplete();
   });
@@ -1612,12 +1643,12 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
   });
 
   // -------------------------------------------------------------------------
-  // R5 — Structural HD continuity (E12). Option 1: decisionRefs are stamped
-  // from verifiedDecisionRefs only (empty when NON_STRUCTURAL / no verified HD).
-  // Nora tool params cannot smuggle HD. Mission-bound HD resume is M-HD-01.
+  // R5 — D-P6-SHE-01 structural PREPARE continuity. Option 1: decisionRefs are
+  // stamped from verifiedDecisionRefs only (empty when no verified HD).
+  // Nora tool params cannot smuggle HD. Mission-bound HD resume is M-HD-01 / SHE Execute.
   // -------------------------------------------------------------------------
 
-  it("R5 — structural blocked WITHOUT HD for every structural impact flag (tool + service), no EC / no Attempt / no HD created", async () => {
+  it("R5 — D-P6-SHE-01: structural WITHOUT HD PREPARE OK for every impact flag (empty refs STRUCTURAL; no Attempt / no HD created)", async () => {
     const { projectId, oa } = await seedProject({ suffix: "r5a", withCycle: false });
     for (const flag of [
       "structuralChange",
@@ -1632,18 +1663,24 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
         scope: "projects/demo/src",
         impactSignals: { [flag]: true },
       });
-      expect(out.ok).toBe(false);
-      expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+      expect(out.ok).toBe(true);
       expect(out.humanDecisionCreated).toBe(false);
       expect(out.executionAttemptCreated).toBe(false);
+      const loaded = await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: String(out.executionContractId),
+      });
+      expect(loaded.ok).toBe(true);
+      if (!loaded.ok) throw new Error("load");
+      expect(loaded.contract.decisionRefs ?? []).toEqual([]);
+      expect(loaded.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
     }
     expect(
       (await oa.executionContractServices.contracts.listByProject(projectId)).length,
-    ).toBe(0);
+    ).toBe(5);
     expect(await countAttempts(oa, projectId)).toBe(0);
   });
 
-  it("R5 — a REAL accepted HumanDecision in the Project does NOT silently unlock structural Generic PREPARE; Nora text/params cannot smuggle an HD (no HD→mission binding exists on Generic path → STOP E12 positive)", async () => {
+  it("R5 — D-P6-SHE-01: Project HD / Nora params cannot smuggle decisionRefs onto structural PREPARE; protected path stamps STRUCTURAL", async () => {
     const seeded = await seedQualifiedProject(runtime, { suffix: "r5b" });
     const oa = runtime.oa!;
     const projectId = seeded.projectId;
@@ -1708,8 +1745,8 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
     );
     expect(propKeys.join(",")).not.toMatch(/decision|authority|hd/i);
 
-    // Even with an accepted HD in the project, and Nora claiming it in free text +
-    // hostile extra keys, structural stays refused (no subject binding exists).
+    // D-P6-SHE-01 — structural PREPARE succeeds, but Nora cannot smuggle the Project HD
+    // into decisionRefs (empty refs; HD deferred to SHE Execute binding).
     const out = await invokeTool(tool, {
       objective: "Migrer le schéma de données (HD accordée)",
       expectedOutcome: "Schéma migré",
@@ -1719,10 +1756,17 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       decisionRefs: [hdId],
       decisionId: hdId,
     });
-    expect(out.ok).toBe(false);
-    expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-    expect(out.executionContractId).toBeUndefined();
+    expect(out.ok).toBe(true);
     expect(out.humanDecisionCreated).toBe(false);
+    expect(out.executionAttemptCreated).toBe(false);
+    const smuggled = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: String(out.executionContractId),
+    });
+    expect(smuggled.ok).toBe(true);
+    if (!smuggled.ok) throw new Error("smuggled");
+    expect(smuggled.contract.decisionRefs ?? []).toEqual([]);
+    expect(smuggled.contract.decisionRefs ?? []).not.toContain(hdId);
+    expect(smuggled.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
 
     // Same through the shared service directly (F2 entry shape: analysis).
     const analysis = validateIntentAnalysisPayload(
@@ -1739,23 +1783,45 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(viaAnalysis.ok).toBe(false);
-    if (!viaAnalysis.ok) {
-      expect(viaAnalysis.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-    }
-    // Server-owned materiality (protected path) with HD present: still refused.
+    expect(viaAnalysis.ok).toBe(true);
+    if (!viaAnalysis.ok) throw new Error(viaAnalysis.message);
+    expect(viaAnalysis.humanDecisionCreated).toBe(false);
+    expect(viaAnalysis.executionAttemptCreated).toBe(false);
+    const viaLive = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: viaAnalysis.executionContractId,
+    });
+    expect(viaLive.ok).toBe(true);
+    if (!viaLive.ok) throw new Error("viaLive");
+    expect(viaLive.contract.decisionRefs ?? []).toEqual([]);
+    expect(viaLive.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+
+    // Server-owned materiality (protected path): PREPARE may OK STRUCTURAL; Nora
+    // cannot smuggle Project HD into decisionRefs; no Attempt.
     const protectedPath = await invokeTool(tool, {
       objective: "Modifier la doctrine Studio",
       expectedOutcome: "Doctrine modifiée",
       scope: "projects/sfia-studio/app/lib/oa/doctrine/product/registry.json",
       contextNotes: `HD ${hdId}`,
     });
-    expect(protectedPath.ok).toBe(false);
+    if (protectedPath.ok) {
+      const protLive =
+        await oa.executionContractServices.getExecutionContract.execute({
+          executionContractId: String(protectedPath.executionContractId),
+        });
+      expect(protLive.ok).toBe(true);
+      if (!protLive.ok) throw new Error("prot");
+      expect(protLive.contract.decisionRefs ?? []).toEqual([]);
+      expect(protLive.contract.decisionRefs ?? []).not.toContain(hdId);
+      expect(protLive.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+      expect(protectedPath.executionAttemptCreated).toBe(false);
+    } else {
+      expect(protectedPath.code).not.toBe("GENERIC_PREPARE_DRAFTED");
+    }
 
-    // No EC (neither without refs nor with the HD as ref) was built; HD untouched.
+    // Prepared ECs exist with empty refs; HD count untouched; no Attempt.
     expect(
       (await oa.executionContractServices.contracts.listByProject(projectId)).length,
-    ).toBe(0);
+    ).toBeGreaterThanOrEqual(2);
     expect(
       (await oa.decisionServices.decisions.listByProject(projectId)).length,
     ).toBe(decisionsBefore);
@@ -1763,7 +1829,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
 
     // C2 — behavioral Option 1 contract (not a literal `decisionRefs: []` search):
     // build stamps from verifiedDecisionRefs; HD verify is the only populator;
-    // structural smuggle above left zero ECs (empty refs never invented for HD).
+    // Nora smuggle above never invents decisionRefs from hostile params.
     const svc = fs.readFileSync(
       path.join(
         APP_ROOT,
@@ -1777,7 +1843,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       "verifiedDecisionRefs = [verified.verified.decisionId]",
     );
     expect(svc).toMatch(
-      /Non-structural:\s*decisionRefs remain empty \(no systematic HD\)/,
+      /decisionRefs remain empty \(no systematic HD/,
     );
     // Tool surface still has no decisionRefs admission input (already asserted).
     expect(propKeys.join(",")).not.toMatch(/decision|authority|hd/i);

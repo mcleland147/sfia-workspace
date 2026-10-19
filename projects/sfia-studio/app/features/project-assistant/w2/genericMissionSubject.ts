@@ -18,6 +18,12 @@ export const GENERIC_MISSION_SUBJECT_SCHEMA_VERSION = "0.1.0-gms" as const;
 
 export const GENERIC_MISSION_OPTION_ACCEPT_PREPARE =
   "opt:generic-mission:accept-prepare" as const;
+/**
+ * D-P6-SHE-01 Critical correction — Pilote Exécuter on an inspected contract.
+ * Distinct from ACCEPT_PREPARE (authorize preparation). Historical HDs unchanged.
+ */
+export const GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE =
+  "opt:generic-mission:authorize-inspected-execute" as const;
 export const GENERIC_MISSION_OPTION_REFUSE =
   "opt:generic-mission:refuse" as const;
 export const GENERIC_MISSION_OPTION_REQUEST_AMEND =
@@ -37,6 +43,57 @@ export const GENERIC_MISSION_PRESENTED_OPTIONS = [
     label: "Demander un amendement — nouvelle présentation requise",
   },
 ] as const;
+
+/** Options presented for Single Human Execute (not a PREPARE accept). */
+export const GENERIC_MISSION_SHE_EXECUTE_PRESENTED_OPTIONS = [
+  {
+    optionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+    label:
+      "Exécuter — autoriser le contrat inspecté et ses effets présentés",
+  },
+  {
+    optionId: GENERIC_MISSION_OPTION_REFUSE,
+    label: "Refuser cette mission structurante",
+  },
+  {
+    optionId: GENERIC_MISSION_OPTION_REQUEST_AMEND,
+    label: "Demander un amendement — nouvelle présentation requise",
+  },
+] as const;
+
+const GENERIC_MISSION_OPTION_LABELS: ReadonlyMap<string, string> = new Map([
+  ...GENERIC_MISSION_PRESENTED_OPTIONS.map(
+    (o) => [o.optionId, o.label] as const,
+  ),
+  ...GENERIC_MISSION_SHE_EXECUTE_PRESENTED_OPTIONS.map(
+    (o) => [o.optionId, o.label] as const,
+  ),
+]);
+
+export function isGenericMissionAcceptedAuthorityOption(
+  optionId: string,
+): boolean {
+  return (
+    optionId === GENERIC_MISSION_OPTION_ACCEPT_PREPARE ||
+    optionId === GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE
+  );
+}
+
+export function labelForGenericMissionOption(optionId: string): string | null {
+  return GENERIC_MISSION_OPTION_LABELS.get(optionId) ?? null;
+}
+
+export function resolveGenericMissionPresentedOptions(
+  optionRefs: readonly string[],
+): ReadonlyArray<{ readonly optionId: string; readonly label: string }> {
+  const out: Array<{ optionId: string; label: string }> = [];
+  for (const id of optionRefs) {
+    const label = GENERIC_MISSION_OPTION_LABELS.get(id);
+    if (!label) continue;
+    out.push({ optionId: id, label });
+  }
+  return out;
+}
 
 export type GenericMissionImpactSignals = {
   readonly structuralChange: boolean;
@@ -850,6 +907,82 @@ export function compareExecutionContractToSealedHumanDecision(input: {
     e.status === "failed"
   ) {
     return { ok: false, reason: "ec_status_not_reusable" };
+  }
+  return { ok: true };
+}
+
+/**
+ * D-P6-SHE-01 C1 — material effect equivalence between inspected predecessor
+ * and SHE successor. Status / version / fingerprint / decisionRefs may change;
+ * scope, outputs, capabilities, risks, reversibility, materiality must not.
+ */
+export function compareContractMaterialEffectsForSheBinding(input: {
+  readonly inspected: ExecutionContractEffectProjection;
+  readonly successor: ExecutionContractEffectProjection;
+}): { readonly ok: true } | { readonly ok: false; readonly reason: string } {
+  const a = input.inspected;
+  const b = input.successor;
+  if (a.projectId !== b.projectId) {
+    return { ok: false, reason: "project_mismatch" };
+  }
+  if ((a.cycleInstanceId ?? null) !== (b.cycleInstanceId ?? null)) {
+    return { ok: false, reason: "cycle_mismatch" };
+  }
+  if (a.objective.trim() !== b.objective.trim()) {
+    return { ok: false, reason: "objective_mismatch" };
+  }
+  if (a.expectedOutcome.trim() !== b.expectedOutcome.trim()) {
+    return { ok: false, reason: "expected_outcome_mismatch" };
+  }
+  if (a.scopeNarrative.trim() !== b.scopeNarrative.trim()) {
+    return { ok: false, reason: "scope_narrative_mismatch" };
+  }
+  if (
+    !sameStringArr(a.scopeIn, b.scopeIn) ||
+    !sameStringArr(a.scopeOut, b.scopeOut)
+  ) {
+    return { ok: false, reason: "scope_arrays_mismatch" };
+  }
+  if (normNullStr(a.intentKind) !== normNullStr(b.intentKind)) {
+    return { ok: false, reason: "intent_kind_mismatch" };
+  }
+  if (normNullStr(a.artifactType) !== normNullStr(b.artifactType)) {
+    return { ok: false, reason: "artifact_type_mismatch" };
+  }
+  if (
+    normNullStr(a.requestedOperation) !== normNullStr(b.requestedOperation)
+  ) {
+    return { ok: false, reason: "requested_operation_mismatch" };
+  }
+  if (!sameStringArr(a.expectedOutputs, b.expectedOutputs)) {
+    return { ok: false, reason: "expected_outputs_mismatch" };
+  }
+  if (!sameStringArr(a.requiredCapabilities, b.requiredCapabilities)) {
+    return { ok: false, reason: "capabilities_mismatch" };
+  }
+  if (!sameSortedStringArr(a.stopConditions, b.stopConditions)) {
+    return { ok: false, reason: "stop_conditions_mismatch" };
+  }
+  if (a.reversibilityExpectation !== b.reversibilityExpectation) {
+    return { ok: false, reason: "reversibility_expectation_mismatch" };
+  }
+  if (a.reversibility !== b.reversibility) {
+    return { ok: false, reason: "oa_reversibility_mismatch" };
+  }
+  if (!sameSortedStringArr(a.risks, b.risks)) {
+    return { ok: false, reason: "risks_mismatch" };
+  }
+  if (!sameSortedStringArr(a.reservations, b.reservations)) {
+    return { ok: false, reason: "reservations_mismatch" };
+  }
+  if (a.materiality !== b.materiality) {
+    return { ok: false, reason: "materiality_mismatch" };
+  }
+  if (a.repositoryBindingIdentity !== b.repositoryBindingIdentity) {
+    return { ok: false, reason: "repository_binding_mismatch" };
+  }
+  if (a.pathRoot !== b.pathRoot) {
+    return { ok: false, reason: "path_root_mismatch" };
   }
   return { ok: true };
 }

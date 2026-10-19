@@ -26,6 +26,7 @@ const {
   inspectMock,
   authorizeMock,
   reconcileMock,
+  sheMock,
 } = vi.hoisted(() => ({
   deriveContinuityMock: vi.fn(),
   readCurrentContinuityMock: vi.fn(),
@@ -33,6 +34,7 @@ const {
   inspectMock: vi.fn(),
   authorizeMock: vi.fn(),
   reconcileMock: vi.fn(),
+  sheMock: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -46,6 +48,7 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     authorizeMock(...args),
   w2ReconcileGovernedExecutionAction: (...args: unknown[]) =>
     reconcileMock(...args),
+  w2SingleHumanExecuteAction: (...args: unknown[]) => sheMock(...args),
 }));
 
 function projection(overrides: Record<string, unknown> = {}) {
@@ -74,11 +77,29 @@ function projection(overrides: Record<string, unknown> = {}) {
   };
 }
 
+const DOCS_WRITE_REQUIRED_FACTS = [
+  "action",
+  "target",
+  "scope",
+  "requiredAuthority",
+  "requiredCapabilities",
+  "constraints",
+  "stopConditions",
+  "reversibility",
+  "evidenceRequirements",
+  "semanticFingerprint",
+  "inputs.targetRepositoryRef",
+  "inputs.targetPath",
+  "inputs.createOrModify",
+  "inputs.noDelete",
+] as const;
+
 function activeConfirmed(contractId = "xct:cp02") {
   return {
     ok: true as const,
     kind: "active" as const,
     decisionRef: "dec:1",
+    requiredInspectedFacts: [...DOCS_WRITE_REQUIRED_FACTS],
     contract: {
       executionContractId: contractId,
       version: 1,
@@ -97,7 +118,7 @@ function activeConfirmed(contractId = "xct:cp02") {
         action: "cursor.docs_write.apply",
         technicalTarget: "workspace.isolated.docs_write",
         scope: "studio.gcec.docs_write",
-        targetRepositoryRef: null,
+        targetRepositoryRef: "acme/demo",
         targetPath: "projects/demo/note.md",
         scopeIn: null,
         scopeOut: null,
@@ -173,6 +194,27 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
       ok: true,
       outcome: "AUTHORIZED",
       executionEligible: true,
+    });
+    sheMock.mockImplementation(async (input: unknown) => {
+      const args = input as { executionContractId: string };
+      return {
+        ok: true,
+        executionContractId: args.executionContractId,
+        contractVersion: 1,
+        semanticFingerprint: "fp",
+        status: "authorized",
+        humanDecisionCreated: false,
+        humanDecisionId: null,
+        confirmationRef: null,
+        authorization: {
+          ok: true,
+          outcome: "AUTHORIZED",
+          executionEligible: true,
+        },
+        executionAttemptCreated: false,
+        supersededFromExecutionContractId: null,
+        code: "SHE_EXECUTE_AUTHORIZED",
+      };
     });
   });
 
@@ -561,7 +603,7 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
     expect(staleContinues).toHaveLength(0);
   });
 
-  it("CP01 regression — without inspection, confirmation_required shows Inspect (no silent execute)", async () => {
+  it("CP01 regression — D-P6-SHE-01: without prior inspection, Exécuter+Consulter present (no silent SHE/reconcile)", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection({
@@ -590,10 +632,11 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
     await flush(0);
     await flush(0);
     expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
+    expect(screen.getByTestId("project-execution-execute")).toBeTruthy();
     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
-    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
     expect(confirmMock).not.toHaveBeenCalled();
     expect(authorizeMock).not.toHaveBeenCalled();
+    expect(sheMock).not.toHaveBeenCalled();
     expect(reconcileMock).not.toHaveBeenCalled();
   });
 });

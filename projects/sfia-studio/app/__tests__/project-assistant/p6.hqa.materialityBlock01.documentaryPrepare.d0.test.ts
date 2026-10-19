@@ -352,9 +352,17 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("must refuse");
+    // Conserved: no basename salvage to 01-cadrage/secret.md.
+    // SHE may allow inspectable PREPARE for already_concrete traversal shapes;
+    // PREPARE ≠ AUTHORIZE ≠ EXECUTE — Execute remains fail-closed for out-of-root.
     expect(JSON.stringify(prep)).not.toMatch(/01-cadrage\/secret\.md/);
+    if (!prep.ok) {
+      expect(prep.code).toBeTruthy();
+      return;
+    }
+    expect(prep.executionAttemptCreated).toBe(false);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(JSON.stringify(prep.contract)).not.toMatch(/01-cadrage\/secret\.md/);
   });
 
   it("C3 — non-documentary code-like mission is not forced to docs_write routing", async () => {
@@ -520,10 +528,18 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("must refuse");
+    // Conserved fail-closed salvage: never rewrite ../secret.md → 01-cadrage/secret.md
+    // or invent note-de-cadrage. SHE PREPARE may be inspectable; Execute still gated.
     expect(JSON.stringify(prep)).not.toMatch(/01-cadrage\/secret\.md/);
     expect(JSON.stringify(prep)).not.toMatch(/note-de-cadrage/);
+    if (!prep.ok) {
+      expect(prep.code).toBeTruthy();
+      return;
+    }
+    expect(prep.executionAttemptCreated).toBe(false);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(JSON.stringify(prep.contract)).not.toMatch(/01-cadrage\/secret\.md/);
+    expect(JSON.stringify(prep.contract)).not.toMatch(/note-de-cadrage/);
   });
 
   it("D4 — true pathless framing documentary (no targetPath) keeps nominal Product compose", async () => {

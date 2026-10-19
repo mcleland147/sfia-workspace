@@ -31,6 +31,7 @@ import {
   gitProofFamiliesFromRequirements,
   qualifyGitCompletionProofSet,
 } from "./qualifyGitCompletionProofSet";
+import { selectEffectiveExecutionContracts } from "./selectEffectiveExecutionContracts";
 
 export const OBLIGATION_POLICY_SUBJECT_PREFIX =
   "pilot.lifecycle.obligation-policy:" as const;
@@ -318,7 +319,25 @@ export function deriveFinalizationApplicability(
     const reqs = gitProofFamiliesFromRequirements(
       contracts.flatMap((c) => c.evidenceRequirements ?? []),
     );
-    const primaryContract = gitApplicable[0] ?? contracts[0];
+    // D-P6-SHE-01 GAP-03 — prefer effective (non-superseded) git-applicable EC.
+    // Fail-closed when multiple effective git-applicable ECs (no arbitrary pick).
+    const { effective } = selectEffectiveExecutionContracts(
+      contracts,
+      cycleId,
+    );
+    const effectiveGitApplicable = effective.filter(isGitApplicableContract);
+    let primaryContract: DerivableExecutionContract | undefined;
+    if (effectiveGitApplicable.length === 1) {
+      primaryContract = effectiveGitApplicable[0];
+    } else if (effectiveGitApplicable.length === 0) {
+      // No effective git EC — fall back only when a single git-applicable exists
+      // in the raw set (legacy mono-EC); otherwise leave undefined (fail-closed).
+      primaryContract =
+        gitApplicable.length === 1 ? gitApplicable[0] : undefined;
+    } else {
+      // Multiple effective git-applicable ECs — do not invent a principal.
+      primaryContract = undefined;
+    }
     const artifactEv = evidence.find(
       (e) =>
         e.type === "artifact" &&

@@ -167,7 +167,7 @@ describe("P6 R02 — action availability / currentness", () => {
     expect(view.cta.kind).toBe("none");
   });
 
-  it("UI04 — active + inspection insufficient → Inspect, not Confirm enabled", () => {
+  it("UI04 — D-P6-SHE-01: active + inspection insufficient → Exécuter (not Confirm); consult secondary", () => {
     const view = presentPilotExecution({
       continuityProjection: { ok: true, projection: baseProjection() },
       preExecutionContinuity: activePre({
@@ -175,8 +175,8 @@ describe("P6 R02 — action availability / currentness", () => {
         inspectionSufficient: false,
       }),
     });
-    expect(view.cta.kind).toBe("inspect");
-    expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
+    expect(view.cta.kind).toBe("execute");
+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
   });
 
   it("UI05 — active + inspection sufficient → Exécuter folds Confirm (tool-first)", () => {
@@ -207,7 +207,7 @@ describe("P6 R02 — action availability / currentness", () => {
     expect(view.attentionNote).toMatch(/empreinte|réinspection/i);
   });
 
-  it("UI09 — confirmed ≠ authorized execute without inspection", () => {
+  it("UI09 — D-P6-SHE-01: confirmed without prior inspection still shows Exécuter (server attest/gates)", () => {
     const view = presentPilotExecution({
       continuityProjection: {
         ok: true,
@@ -220,8 +220,8 @@ describe("P6 R02 — action availability / currentness", () => {
         inspectionSufficient: false,
       }),
     });
-    expect(view.cta.kind).toBe("inspect");
-    expect(view.cta.kind === "execute").toBe(false);
+    expect(view.cta.kind).toBe("execute");
+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
   });
 
   it("UI10 — terminal stage → no Confirm/Execute", () => {

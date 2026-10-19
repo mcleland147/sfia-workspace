@@ -285,7 +285,12 @@ describe("P6 Product Continuity Closure — integrated Product path", () => {
     expect(turn2.text).not.toMatch(/J'ai préparé le contrat/i);
   });
 
-  it("M02 — structural path without governance keywords → not NON_STRUCTURAL", async () => {
+  it("M02 — structural Build Doctrine path: SHE PREPARE inspectable ≠ authorize/execute (GAP-02)", async () => {
+    // Historical assertion expected prep.ok=false (HD-before-PREPARE).
+    // D-P6-SHE-01: PREPARE may yield an inspectable STRUCTURAL draft without HD.
+    // Conserved safety: materiality not NON_STRUCTURAL; HD still required;
+    // empty decisionRefs; no Attempt; protected Build Doctrine path is NOT
+    // granted Morris GO by PREPARE alone (Execute still applies protected gates).
     const { projectId, cycleInstanceId, oa } = await seedProject("struct");
     const analysis: IntentAnalysisDto = {
       parseOk: true,
@@ -339,7 +344,25 @@ describe("P6 Product Continuity Closure — integrated Product path", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
+    // SHE: inspectable PREPARE is admissible; PREPARE ≠ AUTHORIZE ≠ EXECUTE.
+    // If a protected-path gate refuses PREPARE itself, that refuse is also valid.
+    if (!prep.ok) {
+      expect(prep.code).toBeTruthy();
+      return;
+    }
+    expect(prep.ok).toBe(true);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(prep.executionAttemptCreated).toBe(false);
+    expect(prep.contract.decisionRefs ?? []).toEqual([]);
+    expect(prep.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+    expect(prep.contract.inputs?.sheDeferredStructuralAuthority).toBe(true);
+    // No Attempt listed for this contract after PREPARE.
+    const attempts =
+      await oa.executionAttemptServices!.listExecutionAttempts.execute({
+        executionContractId: prep.contract.executionContractId,
+      });
+    expect(attempts.ok).toBe(true);
+    if (attempts.ok) expect(attempts.attempts).toHaveLength(0);
   });
 
   it("M04 — scope outside pathRoot → AUTHORITY / not NON_STRUCTURAL", async () => {

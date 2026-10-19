@@ -16,6 +16,7 @@ const {
   inspectMock,
   authorizeMock,
   reconcileMock,
+  sheMock,
 } = vi.hoisted(() => ({
   deriveContinuityMock: vi.fn(),
   readCurrentContinuityMock: vi.fn(),
@@ -23,6 +24,7 @@ const {
   inspectMock: vi.fn(),
   authorizeMock: vi.fn(),
   reconcileMock: vi.fn(),
+  sheMock: vi.fn(),
 }));
 
 vi.mock("@/features/project-assistant/w2/actions", () => ({
@@ -36,6 +38,7 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     authorizeMock(...args),
   w2ReconcileGovernedExecutionAction: (...args: unknown[]) =>
     reconcileMock(...args),
+  w2SingleHumanExecuteAction: (...args: unknown[]) => sheMock(...args),
 }));
 
 function projection(overrides: Record<string, unknown> = {}) {
@@ -182,6 +185,24 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
       outcome: "AUTHORIZED",
       executionEligible: true,
     });
+    sheMock.mockResolvedValue({
+      ok: true,
+      executionContractId: "xct:cp01",
+      contractVersion: 1,
+      semanticFingerprint: "fp",
+      status: "authorized",
+      humanDecisionCreated: false,
+      humanDecisionId: null,
+      confirmationRef: "cfm:1",
+      authorization: {
+        ok: true,
+        outcome: "AUTHORIZED",
+        executionEligible: true,
+      },
+      executionAttemptCreated: false,
+      supersededFromExecutionContractId: null,
+      code: "SHE_EXECUTE_AUTHORIZED",
+    });
     reconcileMock.mockResolvedValue({
       ok: true,
       intent: "execute",
@@ -194,7 +215,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     });
   });
 
-  it("E1 — fresh mount confirmation_required → Exécuter folds Confirm then Authorize+Execute", async () => {
+  it("E1 — D-P6-SHE-01: fresh mount confirmation_required → SHE Exécuter then reconcile", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection(),
@@ -202,15 +223,6 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     readCurrentContinuityMock.mockResolvedValue(
       activeCurrent({ status: "confirmation_required" }),
     );
-    confirmMock.mockResolvedValue({
-      ok: true,
-      executionContractId: "xct:cp01",
-      contractVersion: 1,
-      confirmationRef: "cfm:1",
-      statusLabel: "CONFIRMATION REQUISE — OBTENUE",
-      alreadyConfirmed: false,
-      executionPerformed: false,
-    });
 
     render(
       <ExecutionSurface
@@ -224,7 +236,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
         "À confirmer",
       );
     });
-    // Tool-first: no separate Confirmer CTA — Exécuter folds Confirm after inspect.
+    // D-P6-SHE-01: no separate Confirmer — SHE folds Confirm/Authorize server-side.
     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
     const executeBtn = screen.getByTestId("project-execution-execute");
     expect((executeBtn as HTMLButtonElement).disabled).toBe(false);
@@ -232,23 +244,27 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     fireEvent.click(executeBtn);
 
     await waitFor(() => {
-      expect(confirmMock).toHaveBeenCalledTimes(1);
-      expect(authorizeMock).toHaveBeenCalledTimes(1);
+      expect(sheMock).toHaveBeenCalledTimes(1);
       expect(
         reconcileMock.mock.calls.some(
           (call) => (call[0] as { intent?: string }).intent === "execute",
         ),
       ).toBe(true);
     });
-    expect(confirmMock).toHaveBeenCalledWith({
-      projectId: "prj:cp01",
-      executionContractId: "xct:cp01",
-    });
-    // R1 — Exécuter never records inspection as a side effect.
-    expect(inspectMock).not.toHaveBeenCalled();
+    expect(sheMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        projectId: "prj:cp01",
+        executionContractId: "xct:cp01",
+        expectedVersion: 1,
+        expectedSemanticFingerprint: "fp",
+      }),
+    );
+    // Confirm/Authorize remain internal to SHE — not separate UI actions.
+    expect(confirmMock).not.toHaveBeenCalled();
+    expect(authorizeMock).not.toHaveBeenCalled();
   });
 
-  it("E2 — fresh mount confirmed → Exécuter authorizes then reconciles execute", async () => {
+  it("E2 — D-P6-SHE-01: fresh mount confirmed → SHE then reconciles execute", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection({ executionContractStatus: "confirmed" }),
@@ -275,7 +291,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     fireEvent.click(executeBtn);
 
     await waitFor(() => {
-      expect(authorizeMock).toHaveBeenCalledTimes(1);
+      expect(sheMock).toHaveBeenCalledTimes(1);
       expect(
         reconcileMock.mock.calls.some(
           (call) =>
@@ -297,7 +313,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     );
   });
 
-  it("E3 — without inspection sufficient, confirmation_required shows Inspect not Exécuter", async () => {
+  it("E3 — D-P6-SHE-01: without prior inspection, Exécuter + Consulter present (no Confirm)", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection(),
@@ -316,15 +332,16 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
       />,
     );
     await waitFor(() => {
-      expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
+      expect(screen.getByTestId("project-execution-execute")).toBeTruthy();
     });
+    expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
-    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
     expect(confirmMock).not.toHaveBeenCalled();
+    expect(sheMock).not.toHaveBeenCalled();
     expect(reconcileMock).not.toHaveBeenCalled();
   });
 
-  it("E4 — authorization fail-closed: no reconcile execute", async () => {
+  it("E4 — D-P6-SHE-01: SHE authorization fail-closed: no reconcile execute", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection({ executionContractStatus: "confirmed" }),
@@ -332,11 +349,12 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     readCurrentContinuityMock.mockResolvedValue(
       activeCurrent({ status: "confirmed" }),
     );
-    authorizeMock.mockResolvedValue({
-      ok: true,
-      outcome: "DENIED",
-      executionEligible: false,
-      executionEligibilityReasonCode: "AUTHORITY_INSUFFICIENT",
+    sheMock.mockResolvedValue({
+      ok: false,
+      code: "AUTHORITY_INSUFFICIENT",
+      message: "Autorité insuffisante.",
+      executionAttemptCreated: false,
+      humanDecisionCreated: false,
     });
 
     render(
@@ -350,13 +368,13 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     });
     fireEvent.click(screen.getByTestId("project-execution-execute"));
     await waitFor(() => {
-      expect(authorizeMock).toHaveBeenCalled();
+      expect(sheMock).toHaveBeenCalled();
       expect(screen.getByTestId("project-execution-error")).toBeTruthy();
     });
     expect(reconcileMock).not.toHaveBeenCalled();
   });
 
-  it("E5 — open examination panel without write; attest only after facts shown", async () => {
+  it("E5 — D-P6-SHE-01: Consulter opens exam without write; optional Attest still records inspection", async () => {
     deriveContinuityMock.mockResolvedValue({
       ok: true,
       projection: projection(),
@@ -376,9 +394,9 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
     );
     await waitFor(() => {
       expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
+      expect(screen.getByTestId("project-execution-execute")).toBeTruthy();
     });
     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
-    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
 
     // I07 — opening detail does not attest.
     fireEvent.click(screen.getByTestId("project-execution-inspect"));
@@ -411,6 +429,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
       .inspectedFacts;
     expect(facts).not.toContain("inputs.sourceGrounding");
     expect(confirmMock).not.toHaveBeenCalled();
+    expect(sheMock).not.toHaveBeenCalled();
   });
 
   it("UI01 — projection EC id without active pre → no Confirm/Execute", async () => {

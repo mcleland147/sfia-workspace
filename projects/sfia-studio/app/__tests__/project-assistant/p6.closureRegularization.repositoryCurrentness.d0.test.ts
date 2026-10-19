@@ -429,7 +429,7 @@ describe("P6 Closure Regularization — repository binding currentness", () => {
     ).toBe(true);
   });
 
-  it("A06 — protected path remains STRUCTURAL / gate — not confused with HD forge", async () => {
+  it("A06 — D-P6-SHE-01: protected path PREPARE stamps STRUCTURAL (empty refs; not HD forge / not silent NON_STRUCTURAL)", async () => {
     const seeded = await seed("a06");
     const prep = await prepareGenericExecutionContractDraft({
       oa: seeded.oa,
@@ -450,13 +450,13 @@ describe("P6 Closure Regularization — repository binding currentness", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("expected protected block");
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error("expected SHE inspectable PREPARE");
+    expect(prep.contract.decisionRefs).toEqual([]);
     expect(
-      prep.code === "STRUCTURAL_HUMAN_DECISION_REQUIRED" ||
-        prep.code === "MATERIALITY_UNKNOWN" ||
-        prep.code === "SCOPE_PROTECTED_PATH" ||
-        prep.code === "AUTHORITY_ENVELOPE_EXPANDED",
+      prep.contract.constraints.some((c) =>
+        String(c).includes("MATERIALITY:STRUCTURAL"),
+      ),
     ).toBe(true);
   });
 
