@@ -22,6 +22,7 @@ import { readContractInspectionState } from "./inspectExecutionContract";
 import {
   analysisStubFromMaterialityFacts,
   parseStampedProductCurrentness,
+  resolveAuthoritativeProductMateriality,
   revalidateMaterialityAgainstCurrentProduct,
 } from "./resolveAuthoritativeProductMateriality";
 import type {
@@ -29,6 +30,16 @@ import type {
   CurrentGovernedExecutionContinuityResult,
   W2Failure,
 } from "./types";
+
+/**
+ * D-P6-SHE-01 GAP-01 — Product PREPARE stamped deferred structural authority.
+ * Server-owned input only; never trust a client-only claim.
+ */
+function isSheDeferredStructuralPrepare(
+  contract: ExecutionContract,
+): boolean {
+  return contract.inputs?.sheDeferredStructuralAuthority === true;
+}
 
 const PRE_EXECUTION_STATUSES = new Set<ExecutionContract["status"]>([
   "draft",
@@ -138,9 +149,91 @@ async function readProjectActiveCycleContext(
 }
 
 /**
- * HD-bound lineage OR admissible G-D4 empty-refs (NON_STRUCTURAL + CURRENT).
- * Reuses Confirm/Authorize materiality gates — never invents a HumanDecision.
- * READ-ONLY: no HD / inspection / confirmation / authorize / Attempt writes.
+ * SHE STRUCTURAL/UNKNOWN deferred PREPARE — READ/INSPECT continuity only (GAP-01).
+ * Does NOT unlock Confirm/Authorize/Execute. Currentness: LPS/doctrine/cycle/repo.
+ */
+async function verifySheDeferredPrepareReadLineage(
+  oa: RuntimeOaStack,
+  projectId: string,
+  contract: ExecutionContract,
+  stamped: string,
+): Promise<{ ok: true; decisionRef: null } | W2Failure> {
+  if (stamped !== "structural" && stamped !== "unknown") {
+    return fail(
+      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+      "Provenance SHE différée incohérente avec la matérialité stampée — continuation refusée.",
+    );
+  }
+  const contractInputs = (contract.inputs ?? {}) as Record<string, unknown>;
+  const factsRaw =
+    contractInputs.materialityFacts &&
+    typeof contractInputs.materialityFacts === "object"
+      ? (contractInputs.materialityFacts as Record<string, unknown>)
+      : null;
+  const stampedCurrentness = parseStampedProductCurrentness(factsRaw);
+  if (stampedCurrentness == null) {
+    return fail(
+      "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
+      "Faits de matérialité / currentness absents sur le contrat SHE — continuation refusée.",
+    );
+  }
+  const analysis = analysisStubFromMaterialityFacts(factsRaw, contractInputs);
+  const current = await resolveAuthoritativeProductMateriality({
+    oa,
+    projectId,
+    analysis,
+    cycleInstanceId: contract.cycleInstanceId ?? null,
+  });
+  if (!current.liveReadOk || !current.facts.productCurrentness) {
+    return fail(
+      "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE",
+      "Contexte Product courant indisponible — continuité SHE refusée (fail-closed).",
+    );
+  }
+  const c = current.facts.productCurrentness;
+  if (
+    stampedCurrentness.lpsVersion !== c.lpsVersion ||
+    stampedCurrentness.doctrineDigest !== c.doctrineDigest ||
+    stampedCurrentness.activeCycleInstanceId !== c.activeCycleInstanceId ||
+    stampedCurrentness.projectId !== c.projectId
+  ) {
+    return fail(
+      "MATERIALITY_CURRENTNESS_STALE",
+      "LPS / doctrine / cycle actifs ont changé depuis PREPARE — réinspection requise.",
+    );
+  }
+  const stampedIdentity = stampedCurrentness.repositoryIdentity?.trim() || null;
+  const currentIdentity = c.repositoryIdentity?.trim() || null;
+  const stampedRoot = stampedCurrentness.pathRoot?.trim() || null;
+  const currentRoot = c.pathRoot?.trim() || null;
+  if (stampedIdentity !== null || stampedRoot !== null) {
+    if (stampedIdentity !== null && currentIdentity === null) {
+      return fail(
+        "REPOSITORY_BINDING_UNAVAILABLE",
+        "Repository binding Product courant indisponible — continuité refusée.",
+      );
+    }
+    if (stampedIdentity !== currentIdentity) {
+      return fail(
+        "REPOSITORY_BINDING_STALE",
+        "Repository identity Product a changé depuis PREPARE — continuité refusée.",
+      );
+    }
+    if (stampedRoot !== currentRoot) {
+      return fail(
+        "REPOSITORY_BINDING_STALE",
+        "pathRoot Product a changé depuis PREPARE — continuité refusée.",
+      );
+    }
+  }
+  return { ok: true, decisionRef: null };
+}
+
+/**
+ * HD-bound lineage OR admissible empty-refs:
+ *   - G-D4 NON_STRUCTURAL + CURRENT (Confirm-admissible), OR
+ *   - SHE deferred STRUCTURAL/UNKNOWN PREPARE (READ/INSPECT only — GAP-01).
+ * Never invents a HumanDecision. READ-ONLY: no HD / Confirm / Auth / Attempt writes.
  */
 async function verifyDecisionLineage(
   oa: RuntimeOaStack,
@@ -152,13 +245,23 @@ async function verifyDecisionLineage(
 > {
   const refs = contract.decisionRefs ?? [];
 
-  // G-D4 empty refs — admit only with NON_STRUCTURAL stamp + CURRENT revalidation.
+  // Empty refs — G-D4 NON_STRUCTURAL OR SHE deferred STRUCTURAL/UNKNOWN (read-only).
   if (refs.length === 0) {
     const stamped = materialityFromContractConstraints(contract.constraints);
     if (stamped == null) {
       return fail(
         "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
         "Contrat d'exécution sans décision rattachée ni justification G-D4 — continuation refusée.",
+      );
+    }
+
+    // GAP-01 — Product SHE PREPARE provenance (server input), not client stamp alone.
+    if (isSheDeferredStructuralPrepare(contract)) {
+      return verifySheDeferredPrepareReadLineage(
+        oa,
+        projectId,
+        contract,
+        stamped,
       );
     }
 

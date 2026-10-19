@@ -293,7 +293,9 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
     expect(continuity.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
   });
 
-  it("T2 — STRUCTURAL stamp + empty refs → refus", async () => {
+  it("T2 — arbitrary STRUCTURAL stamp + empty refs WITHOUT SHE provenance → refus (GAP-01 T03)", async () => {
+    // Conserved: client/manual STRUCTURAL stamp alone must not unlock continuity.
+    // SHE Product PREPARE stamps sheDeferredStructuralAuthority (separate case).
     const { projectId, cycleInstanceId } = await seedActiveCycle("t2");
     const oa = runtime.oa!;
     const prep = await prepareOk(projectId, cycleInstanceId);
@@ -308,6 +310,10 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
         ...loaded.contract.constraints.filter((c) => !c.startsWith("MATERIALITY:")),
         "MATERIALITY:STRUCTURAL",
       ],
+      inputs: {
+        ...(loaded.contract.inputs ?? {}),
+        sheDeferredStructuralAuthority: false,
+      },
     };
     await oa.executionContractServices.contracts.save(structural);
 
@@ -322,6 +328,55 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
         continuity.code === "MATERIALITY_CURRENT_MISMATCH" ||
         continuity.code === "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
     ).toBe(true);
+  });
+
+  it("T_SHE — STRUCTURAL SHE PREPARE deferred → READ/INSPECT continuity active (GAP-01 T01)", async () => {
+    const { projectId, cycleInstanceId } = await seedActiveCycle("tshe");
+    const oa = runtime.oa!;
+    const analysis = baseAnalysis({
+      signals: {
+        structuralChange: true,
+        securityImpact: false,
+        architectureImpact: true,
+        dataImpact: false,
+        irreversible: false,
+        lowRiskBounded: false,
+      },
+      objective: "Refactorer le binding d'autorité générique SHE continuity",
+      expectedOutcome: "Contrat inspectable via continuité",
+      scope: "projects/demo/src/authority",
+      executionIntent: {
+        intentKind: "code_change",
+        scopeIn: ["projects/demo/src/authority"],
+      } as IntentAnalysisDto["executionIntent"],
+    });
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId,
+      analysis,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.contract.decisionRefs ?? []).toEqual([]);
+    expect(prep.contract.inputs?.sheDeferredStructuralAuthority).toBe(true);
+    expect(prep.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+
+    const continuity = await readCurrentGovernedExecutionContinuity({
+      oa,
+      projectId,
+    });
+    expect(continuity.ok).toBe(true);
+    if (!continuity.ok) throw new Error(continuity.message);
+    expect(continuity.kind).toBe("active");
+    if (continuity.kind !== "active") throw new Error("kind");
+    expect(continuity.contract.executionContractId).toBe(
+      prep.contract.executionContractId,
+    );
+    expect(continuity.decisionRef).toBeNull();
+    expect(continuity.inspection.grantsAuthority).toBe(false);
   });
 
   it("T5a — NON_STRUCTURAL stamp but missing productCurrentness facts → refus", async () => {

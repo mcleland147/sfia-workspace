@@ -447,7 +447,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
       expect(recorded.code).toBe("AUTHORITY_NOT_CONFIGURED");
     });
 
-    it("PR04 — Confirmation alone is not HumanDecision", async () => {
+    it("PR04 — D-P6-SHE-01: Confirmation alone is not HumanDecision; structural PREPARE empty refs", async () => {
       const { projectId, oa } = await seedProject("pr04");
       const prep = await solicitGenericExecutionPrepare({
         oa,
@@ -480,6 +480,8 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
           forceLocalAuthority: true,
         });
       }
+      // D-P6-SHE-01 — Confirmation alone is not HumanDecision; structural PREPARE
+      // succeeds with empty decisionRefs (HD deferred to Execute).
       const structural = await solicitGenericExecutionPrepare({
         oa,
         projectId,
@@ -489,9 +491,20 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
       });
-      expect(structural.ok).toBe(false);
-      if (structural.ok) throw new Error("expected refuse");
-      expect(structural.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+      expect(structural.ok).toBe(true);
+      if (!structural.ok) throw new Error(structural.message);
+      expect(structural.humanDecisionCreated).toBe(false);
+      expect(structural.executionAttemptCreated).toBe(false);
+      const structuralLive =
+        await oa.executionContractServices.getExecutionContract.execute({
+          executionContractId: structural.executionContractId,
+        });
+      expect(structuralLive.ok).toBe(true);
+      if (!structuralLive.ok) throw new Error("structural get");
+      expect(structuralLive.contract.decisionRefs ?? []).toEqual([]);
+      expect(structuralLive.contract.constraints).toContain(
+        "MATERIALITY:STRUCTURAL",
+      );
     });
 
     it("PR05/PR06/PR07 — refuse/amend/no Attempt", async () => {
@@ -713,7 +726,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
       expect(live.contract.decisionRefs ?? []).toEqual([]);
     });
 
-    it("AU10 — structural without HD fail-closed", async () => {
+    it("AU10 — D-P6-SHE-01: structural without HD → PREPARE OK empty refs STRUCTURAL", async () => {
       const { projectId, oa } = await seedProject("au10");
       const prep = await solicitGenericExecutionPrepare({
         oa,
@@ -724,9 +737,17 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
       });
-      expect(prep.ok).toBe(false);
-      if (prep.ok) throw new Error("expected refuse");
-      expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+      expect(prep.ok).toBe(true);
+      if (!prep.ok) throw new Error(prep.message);
+      expect(prep.humanDecisionCreated).toBe(false);
+      expect(prep.executionAttemptCreated).toBe(false);
+      const live = await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: prep.executionContractId,
+      });
+      expect(live.ok).toBe(true);
+      if (!live.ok) throw new Error("get");
+      expect(live.contract.decisionRefs ?? []).toEqual([]);
+      expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
     });
   });
 

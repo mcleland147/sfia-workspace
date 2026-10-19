@@ -123,20 +123,28 @@ export function assessExecutionMateriality(
 /**
  * When Product context required for a safe non-structural claim is missing,
  * force UNKNOWN (fail-closed — no empty decisionRefs confirm).
+ *
+ * D-P6-SHE-01 / Option A: positive structural facts still stamp STRUCTURAL
+ * even when non-structural sufficiency is absent — UNKNOWN is only for the
+ * residual case (no structural facts ∧ insufficient context for NON_STRUCTURAL).
  */
 export function assessExecutionMaterialityOrUnknown(input: {
   readonly facts: ExecutionMaterialityFacts;
   readonly productContextSufficient: boolean;
 }): ExecutionMaterialityAssessment {
+  const assessed = assessExecutionMateriality(input.facts);
+  if (assessed.materiality === "structural") {
+    return assessed;
+  }
   if (!input.productContextSufficient) {
     return {
       materiality: "unknown",
-      reasonCodes: ["product_context_insufficient"],
+      reasonCodes: ["product_context_insufficient", ...assessed.reasonCodes],
       humanDecisionRequired: true,
       constraintToken: constraintTokenFor("unknown"),
     };
   }
-  return assessExecutionMateriality(input.facts);
+  return assessed;
 }
 
 export function materialityFromContractConstraints(

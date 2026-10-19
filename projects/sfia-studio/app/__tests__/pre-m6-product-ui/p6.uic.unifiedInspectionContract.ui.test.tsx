@@ -54,6 +54,13 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
     authorizeMock(...args),
   w2ReconcileGovernedExecutionAction: (...args: unknown[]) =>
     reconcileMock(...args),
+  w2SingleHumanExecuteAction: vi.fn(async () => ({
+    ok: false,
+    code: "SHE_NOT_UNDER_TEST",
+    message: "SHE not under test in UIC Pass04.",
+    executionAttemptCreated: false,
+    humanDecisionCreated: false,
+  })),
   w2DeriveGovernedExecutionContinuityAction: (...args: unknown[]) =>
     deriveContinuityMock(...args),
   w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>

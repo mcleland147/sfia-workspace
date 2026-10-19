@@ -471,7 +471,7 @@ describe("P6 M-HD-02 Pilot Presentation & Record Binding", () => {
     expect(continuity.subject.cycleInstanceId).toBeNull();
   });
 
-  it("PRES15/16 — structural solicit without HD remembers offer, no execute", async () => {
+  it("PRES15/16 — D-P6-SHE-01: structural solicit without HD prepares (empty refs STRUCTURAL); no Attempt", async () => {
     const { projectId, oa } = await seedProject("pres15");
     const analysis = structuralAnalysis();
     const prep = await solicitGenericExecutionPrepare({
@@ -482,15 +482,17 @@ describe("P6 M-HD-02 Pilot Presentation & Record Binding", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) return;
-    expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.humanDecisionCreated).toBe(false);
     expect(prep.executionAttemptCreated).toBe(false);
-    const continuity = await readGenericMissionDecisionContinuity({
-      oa,
-      projectId,
+    const live = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
     });
-    expect(continuity.ok && continuity.kind === "awaiting_decision").toBe(true);
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get");
+    expect(live.contract.decisionRefs ?? []).toEqual([]);
+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
   });
 
   it("UI01 — GovernedGenericMissionDecisionCard wired in ConversationSurface", () => {

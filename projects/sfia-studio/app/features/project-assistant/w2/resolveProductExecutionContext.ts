@@ -535,9 +535,25 @@ export async function resolveProductExecutionContext(input: {
       await listAttemptsForContract(input.oa, contract.executionContractId),
     );
   } else {
-    const contracts = (await listProjectContracts(input.oa, projectId)).filter(
-      (c) => c.projectId === projectId,
+    // I17 — "latest" must not prefer a superseded predecessor over its
+    // effective successor. Prefer non-superseded / non-pointed-to contracts.
+    const allContracts = (
+      await listProjectContracts(input.oa, projectId)
+    ).filter((c) => c.projectId === projectId);
+    const supersededBySuccessor = new Set<string>();
+    for (const c of allContracts) {
+      const sid = c.supersedesExecutionContractId;
+      if (typeof sid === "string" && sid.trim()) {
+        supersededBySuccessor.add(sid.trim());
+      }
+    }
+    const effectivePool = allContracts.filter(
+      (c) =>
+        c.status !== "superseded" &&
+        !supersededBySuccessor.has(c.executionContractId),
     );
+    const contracts =
+      effectivePool.length > 0 ? effectivePool : allContracts;
     let best: {
       contract: ExecutionContract;
       attempt: ExecutionAttempt | null;

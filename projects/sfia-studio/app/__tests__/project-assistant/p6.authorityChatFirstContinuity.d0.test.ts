@@ -242,7 +242,7 @@ describe("P6 Authority & Chat-First Continuity", () => {
     expect(blocked.code).toBe("MATERIALITY_CURRENTNESS_STALE");
   });
 
-  it("Q06 — protected path in scope blocks NON_STRUCTURAL prepare", async () => {
+  it("Q06 — D-P6-SHE-01: protected path PREPARE stamps STRUCTURAL (empty refs; not silent NON_STRUCTURAL)", async () => {
     const { projectId, cycleInstanceId } = await seed("prot");
     const prep = await prepareGenericExecutionContractDraft({
       oa: runtime.oa!,
@@ -263,15 +263,17 @@ describe("P6 Authority & Chat-First Continuity", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("expected protected block");
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error("expected SHE inspectable PREPARE");
+    expect(prep.contract.decisionRefs).toEqual([]);
     expect(
-      prep.code === "STRUCTURAL_HUMAN_DECISION_REQUIRED" ||
-        prep.code === "MATERIALITY_UNKNOWN",
+      prep.contract.constraints.some((c) =>
+        String(c).includes("MATERIALITY:STRUCTURAL"),
+      ),
     ).toBe(true);
   });
 
-  it("Q23 — Git mission without repository binding → STOP", async () => {
+  it("Q23 — D-P6-SHE-01: without repository binding PREPARE may be inspectable; authorize stays fail-closed", async () => {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
       name: "No binding",
@@ -284,7 +286,6 @@ describe("P6 Authority & Chat-First Continuity", () => {
     });
     if (!created.ok) throw new Error("create");
     const projectId = created.project.projectId;
-    // No cycle / binding — prepare with file scope must fail closed on launch.
     const prep = await prepareGenericExecutionContractDraft({
       oa,
       projectId,
@@ -293,15 +294,36 @@ describe("P6 Authority & Chat-First Continuity", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("expected stop");
-    // Either no active cycle for non-mutation claim, or repo binding missing.
-    expect(
-      [
-        "REPOSITORY_BINDING_REQUIRED",
-        "MATERIALITY_UNKNOWN",
-        "STRUCTURAL_HUMAN_DECISION_REQUIRED",
-      ].includes(prep.code),
-    ).toBe(true);
+    // SHE — missing binding is a reserve / fail-closed at authorize, not a
+    // silent NON_STRUCTURAL. If PREPARE still refuses, accept historical codes.
+    if (!prep.ok) {
+      expect(
+        [
+          "REPOSITORY_BINDING_REQUIRED",
+          "MATERIALITY_UNKNOWN",
+          "STRUCTURAL_HUMAN_DECISION_REQUIRED",
+        ].includes(prep.code),
+      ).toBe(true);
+      return;
+    }
+    expect(prep.contract.decisionRefs).toEqual([]);
+    const inspected = await inspectExecutionContract({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      inspectedFacts: ["action", "semanticFingerprint"],
+    });
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) throw new Error("inspect");
+    const blocked = await authorizeGenericPreparedContract({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      expectedSemanticFingerprint: inspected.semanticFingerprint,
+      forceLocalAuthority: true,
+    });
+    expect(blocked.ok).toBe(false);
   });
 });

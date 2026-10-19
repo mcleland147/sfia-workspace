@@ -308,7 +308,7 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
     expect(after.length).toBe(before.length);
   });
 
-  it("Q04/Q05 — structural / security materiality blocks empty-ref PREPARE", async () => {
+  it("Q04/Q05 — D-P6-SHE-01: structural PREPARE OK empty refs; Confirm still refuses empty refs vs STRUCTURAL", async () => {
     const { projectId, cycleInstanceId } = await seedActiveCycle("struct");
 
     const prep = await prepareGenericExecutionContractDraft({
@@ -328,9 +328,12 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("expected block");
-    expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(prep.executionAttemptCreated).toBe(false);
+    expect(prep.contract.decisionRefs ?? []).toEqual([]);
+    expect(prep.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
 
     const mat = assessExecutionMateriality({
       modelSignals: { securityImpact: true },
@@ -536,7 +539,7 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
     );
   });
 
-  it("readiness helper — structural blocked when signals fire", () => {
+  it("readiness helper — D-P6-SHE-01: structuralBlocked disclosed but ready true (HD deferred)", () => {
     const r = assessGenericMissionPrepareReadiness(
       baseAnalysis({
         signals: {
@@ -550,6 +553,6 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
       }),
     );
     expect(r.structuralBlocked).toBe(true);
-    expect(r.ready).toBe(false);
+    expect(r.ready).toBe(true);
   });
 });

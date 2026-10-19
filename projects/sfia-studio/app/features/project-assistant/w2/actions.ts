@@ -36,6 +36,10 @@ import {
   rehydrateW3bProductTerminal,
 } from "./materializeW3bProductTerminal";
 import { inspectExecutionContract } from "./inspectExecutionContract";
+import {
+  singleHumanExecutePreparedContract,
+  type SingleHumanExecutePreparedContractResult,
+} from "./singleHumanExecutePreparedContract";
 import { loadPresentedOptionSet } from "./presentedOptionSet";
 import { readActiveProposalDecisionSubject } from "./activeProposalDecisionSubject";
 import { readCurrentGovernedExecutionContinuity } from "./readCurrentGovernedExecutionContinuity";
@@ -345,6 +349,56 @@ export async function w2AuthorizeExecutionContractAction(input: {
     expectedSemanticFingerprint: input.expectedSemanticFingerprint,
     canActAsMorris: input.canActAsMorris,
     claimedAuthorityLevel: input.claimedAuthorityLevel,
+  });
+}
+
+/**
+ * D-P6-SHE-01 — single Pilote "Exécuter" gesture after inspectable PREPARE.
+ * Carries presentation attestation, records structural HD when deferred,
+ * Confirm + Authorize. Does not create Attempt (reconcile/governed execute follows).
+ */
+export async function w2SingleHumanExecuteAction(input: {
+  projectId: string;
+  executionContractId: string;
+  expectedVersion: number;
+  expectedSemanticFingerprint: string;
+  presentedFactIds: readonly string[];
+}): Promise<SingleHumanExecutePreparedContractResult> {
+  const runtime = getRuntimeApplicationService();
+  if (!runtime.oa) {
+    return {
+      ok: false,
+      code: "OA_UNAVAILABLE",
+      message: "OA runtime indisponible.",
+      executionAttemptCreated: false,
+      humanDecisionCreated: false,
+    };
+  }
+
+  const headerList = await headers();
+  const pilote = await resolveCurrentAuthenticatedPilote({
+    headers: headerList,
+  });
+  const forceLocalAuthority =
+    process.env.VITEST === "true" ||
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1";
+
+  return singleHumanExecutePreparedContract({
+    oa: runtime.oa,
+    projectId: input.projectId,
+    executionContractId: input.executionContractId,
+    expectedVersion: input.expectedVersion,
+    expectedSemanticFingerprint: input.expectedSemanticFingerprint,
+    presentedFactIds: input.presentedFactIds,
+    forceLocalAuthority,
+    ...(pilote.ok
+      ? {
+          authenticatedPilote: {
+            actor: pilote.actor,
+            githubUserId: pilote.githubUserId,
+          },
+        }
+      : {}),
   });
 }
 

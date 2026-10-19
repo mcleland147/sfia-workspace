@@ -223,8 +223,11 @@ export function assessGenericMissionPrepareReadiness(
     missingFields.push("résultat attendu ou périmètre");
   }
 
+  // D-P6-SHE-01 — structural signals no longer block PREPARE readiness.
+  // HD / authority remain required before launch (Execute), not before an
+  // inspectable proposal. Missing descriptive fields still block PREPARE.
   return {
-    ready: !structuralBlocked && missingFields.length === 0,
+    ready: missingFields.length === 0,
     structuralBlocked,
     missingFields,
   };
@@ -654,21 +657,15 @@ export async function prepareGenericExecutionContractDraft(
   const materiality = materialityResolution.assessment;
   const hdRequired =
     readiness.structuralBlocked || materiality.humanDecisionRequired;
+  /**
+   * D-P6-SHE-01 — STRUCTURAL / UNKNOWN may PREPARE an inspectable contract with
+   * empty decisionRefs. HumanDecision is deferred to the explicit Execute
+   * gesture (INV-SHE-PREPARE-NO-AUTHORITY / INV-SHE-STRUCTURAL-INSPECTABLE).
+   * Optional pre-bound decisionId remains supported for resume paths.
+   */
+  let sheDeferredStructuralAuthority = false;
 
-  if (hdRequired) {
-    if (!decisionId) {
-      return {
-        ok: false,
-        code:
-          materiality.materiality === "unknown" && !readiness.structuralBlocked
-            ? "MATERIALITY_UNKNOWN"
-            : "STRUCTURAL_HUMAN_DECISION_REQUIRED",
-        message:
-          materiality.materiality === "unknown" && !readiness.structuralBlocked
-            ? "Matérialité indéterminée — contexte Product insuffisant ou contradiction ; HumanDecision / clarification requise."
-            : "Cette mission engage une vérité structurelle — une HumanDecision Pilote reste requise avant préparation.",
-      };
-    }
+  if (hdRequired && decisionId) {
     const verified = await verifyGenericMissionHumanDecisionForPrepare({
       oa: input.oa,
       projectId: input.projectId,
@@ -709,8 +706,11 @@ export async function prepareGenericExecutionContractDraft(
       pathRoot: sealedCtx.pathRoot,
       impactSignals: { ...sealedCtx.impactSignals },
     };
+  } else if (hdRequired) {
+    sheDeferredStructuralAuthority = true;
+    // decisionRefs stay []; honest MATERIALITY stamp remains on constraints.
   }
-  // Non-structural: decisionRefs remain empty (no systematic HD).
+  // Non-structural / SHE-deferred: decisionRefs remain empty (no systematic HD at PREPARE).
 
   const services = input.oa.executionContractServices;
   if (!services?.buildExecutionContract) {
@@ -977,6 +977,7 @@ export async function prepareGenericExecutionContractDraft(
       cursorDeterminesHow: true,
       prepareWithoutSystematicHumanDecision: verifiedDecisionRefs.length === 0,
       verifiedGenericMissionHumanDecisionId: verifiedDecisionRefs[0] ?? null,
+      sheDeferredStructuralAuthority,
       missionSubjectId: verifiedMissionSubjectId,
       presentationDigest: verifiedPresentationDigest,
       humanDecisionCreated: false,
@@ -1202,11 +1203,13 @@ export function genericMissionClarificationText(input: {
       ? "Contexte projet conservé — aucun cycle artificiel créé."
       : "Le cycle actif est conservé.";
   if (input.structuralBlocked) {
+    // D-P6-SHE-01 — structural boundary is disclosed; PREPARE of an inspectable
+    // proposal remains admissible. Authority is consumed at Execute, not here.
     return [
       head,
       contextKept,
-      "Cette demande touche une frontière structurelle — une décision Pilote explicite reste nécessaire avant de préparer un contrat d'exécution.",
-      "Rien n'a encore été exécuté.",
+      "Cette demande touche une frontière structurelle — le contrat d'exécution pourra être préparé pour inspection ; l'autorité Pilote sera consommée au clic Exécuter, pas à la préparation.",
+      "Préparer ≠ autoriser ≠ exécuter. Rien n'a encore été exécuté.",
     ].join(" ");
   }
   if (input.recommendPrepare) {

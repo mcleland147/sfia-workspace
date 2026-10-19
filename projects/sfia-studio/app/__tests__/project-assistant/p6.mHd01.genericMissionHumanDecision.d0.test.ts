@@ -221,7 +221,7 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
     expect(live.contract.decisionRefs ?? []).toEqual([]);
   });
 
-  it("HD02 — structural without HD → STRUCTURAL_HUMAN_DECISION_REQUIRED", async () => {
+  it("HD02 — SHE: structural without HD → inspectable PREPARE (empty decisionRefs; HD deferred)", async () => {
     const { projectId, oa } = await seedProject("hd02");
     const prep = await solicitGenericExecutionPrepare({
       oa,
@@ -232,9 +232,17 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("expected refuse");
-    expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    // D-P6-SHE-01 — PREPARE no longer consumes structural HD.
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    const live = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get");
+    expect(live.contract.decisionRefs ?? []).toEqual([]);
+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+    expect(live.contract.inputs?.sheDeferredStructuralAuthority).toBe(true);
   });
 
   it("HD03 — structural with accepted HD → same mission resume + decisionRefs", async () => {
@@ -615,7 +623,8 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       });
       expect(confirmed.ok).toBe(true);
     }
-    // Structural still requires HD — Confirmation on another contract ≠ HD.
+    // D-P6-SHE-01 — Confirmation on another contract ≠ structural HD, but
+    // STRUCTURAL PREPARE is now allowed without HD (authority at Exécuter).
     const structural = await solicitGenericExecutionPrepare({
       oa,
       projectId,
@@ -625,9 +634,18 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(structural.ok).toBe(false);
-    if (structural.ok) throw new Error("expected refuse");
-    expect(structural.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    expect(structural.ok).toBe(true);
+    if (!structural.ok) throw new Error(structural.message);
+    const structuralLive =
+      await oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: structural.executionContractId,
+      });
+    expect(structuralLive.ok).toBe(true);
+    if (!structuralLive.ok) throw new Error("get structural");
+    expect(structuralLive.contract.decisionRefs ?? []).toEqual([]);
+    expect(structuralLive.contract.constraints).toContain(
+      "MATERIALITY:STRUCTURAL",
+    );
   });
 
   it("HD14 — Record HumanDecision creates no Attempt", async () => {

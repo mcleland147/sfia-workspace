@@ -18,6 +18,7 @@ import { resolveAuthoritativeProductMateriality } from "./resolveAuthoritativePr
 import { resolveGenericPrepareCapabilityEnvelope } from "./genericPrepareCapabilityEnvelope";
 import {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  isGenericMissionAcceptedAuthorityOption,
   assertExecutionContractInternalConsistency,
   compareExecutionContractToSealedHumanDecision,
   evaluateLpsTransitionAfterHumanDecision,
@@ -258,14 +259,19 @@ async function loadAndValidateAcceptedGenericMissionHd(input: {
       message: "Sujet HumanDecision ≠ missionSubjectId scellé.",
     };
   }
+  // Accepted authority options: ACCEPT_PREPARE (historical PREPARE-gate) or
+  // AUTHORIZE_INSPECTED_EXECUTE (D-P6-SHE-01 Exécuter). Callers that require
+  // PREPARE specifically re-assert ACCEPT_PREPARE after this load.
   if (
-    decision.selectedOptionId !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE ||
-    ctx.selectedOptionRef !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE
+    !isGenericMissionAcceptedAuthorityOption(decision.selectedOptionId) ||
+    !isGenericMissionAcceptedAuthorityOption(ctx.selectedOptionRef) ||
+    decision.selectedOptionId !== ctx.selectedOptionRef
   ) {
     return {
       ok: false,
       code: "HD_REFUSED",
-      message: "Option accept-prepare absente — PREPARE non débloqué.",
+      message:
+        "Option d'autorité acceptée absente ou incohérente — reprise refusée.",
     };
   }
 
@@ -433,6 +439,19 @@ export async function verifyGenericMissionHumanDecisionForPrepare(input: {
   const decision = base.verified.decision;
   const basis = decision.decisionBasis!;
   const ctx = basis.genericMissionContext!;
+
+  // PREPARE path — only ACCEPT_PREPARE unblocks. SHE authorize-execute is not
+  // a substitute for the historical PREPARE-gate option.
+  if (
+    decision.selectedOptionId !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE ||
+    ctx.selectedOptionRef !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE
+  ) {
+    return {
+      ok: false,
+      code: "HD_REFUSED",
+      message: "Option accept-prepare absente — PREPARE non débloqué.",
+    };
+  }
 
   const expectedCycle = input.cycleInstanceId?.trim() || null;
   const sealedCycle = ctx.cycleInstanceId ?? null;

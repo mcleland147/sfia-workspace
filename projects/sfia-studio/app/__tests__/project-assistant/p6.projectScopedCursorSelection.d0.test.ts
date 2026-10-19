@@ -7,7 +7,7 @@
  *  - Project positive binding (missing / archived → fail-closed)
  *  - Cycle-bound EC keeps lifecycle gates (closed cycle → refuse)
  *  - No invented CycleInstance / cycleTypeId
- *  - Structural HD still fail-closed at PREPARE; HD–mission resume remains OPEN debt
+ *  - D-P6-SHE-01: structural PREPARE OK (empty refs); Select still blocked until SHE Execute/authorize
  *
  * @vitest-environment node
  */
@@ -559,7 +559,7 @@ describe("P6 project-scoped Cursor selection Delivery", () => {
     expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
   });
 
-  it("S12 — mission structurante sans HD → fail-closed at PREPARE (no Select)", async () => {
+  it("S12 — D-P6-SHE-01: structural PREPARE OK without HD; Select still blocked until SHE execute/authorize", async () => {
     const { projectId, oa } = await seedProject({
       suffix: "s12",
       withCycle: false,
@@ -578,9 +578,26 @@ describe("P6 project-scoped Cursor selection Delivery", () => {
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
-    expect(prep.ok).toBe(false);
-    if (prep.ok) throw new Error("expected structural refuse");
-    expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(prep.executionAttemptCreated).toBe(false);
+    const live = await oa.executionContractServices.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get");
+    expect(live.contract.decisionRefs ?? []).toEqual([]);
+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+
+    // No Select without authorize / SHE Execute.
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: prep.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(false);
     expect(await countAttempts(oa, projectId)).toBe(0);
   });
 

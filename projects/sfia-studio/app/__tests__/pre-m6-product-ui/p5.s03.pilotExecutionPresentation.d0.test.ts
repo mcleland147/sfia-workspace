@@ -176,7 +176,7 @@ describe("P5-S03 pilotExecutionPresentation", () => {
     expect(view.attentionNote).toMatch(/confirmation|Exécuter/i);
   });
 
-  it("insufficient inspection → Inspect CTA (Confirm not enabled)", () => {
+  it("D-P6-SHE-01 — insufficient inspection → Exécuter CTA (Confirm not enabled; consult via soft-open)", () => {
     const view = presentPilotExecution({
       continuityProjection: {
         ok: true,
@@ -191,9 +191,9 @@ describe("P5-S03 pilotExecutionPresentation", () => {
       }),
     });
     expect(view.status).toBe("a_confirmer");
-    expect(view.cta.kind).toBe("inspect");
-    expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
-    expect(view.attentionNote).toMatch(/Examen des faits contractuels|examen/i);
+    expect(view.cta.kind).toBe("execute");
+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
+    expect(view.attentionNote).toMatch(/Consultez|Exécuter|Attester/i);
   });
 
   it("R1 UI01 — projection EC id alone never enables Confirm/Execute", () => {

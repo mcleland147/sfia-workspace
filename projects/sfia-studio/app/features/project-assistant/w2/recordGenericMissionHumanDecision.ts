@@ -18,11 +18,17 @@ import { resolveGenericPrepareCapabilityEnvelope } from "./genericPrepareCapabil
 import type { IntentAnalysisDto } from "../f2/types";
 import {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
   GENERIC_MISSION_OPTION_REFUSE,
   GENERIC_MISSION_OPTION_REQUEST_AMEND,
-  GENERIC_MISSION_PRESENTED_OPTIONS,
   buildGenericMissionSubject,
   decisionBasisFromGenericMissionSubject,
+  isGenericMissionAcceptedAuthorityOption,
+  labelForGenericMissionOption,
+  projectExecutionContractEffects,
+  resolveGenericMissionPresentedOptions,
+  type GenericMissionEffectsSeal,
+  type GenericMissionImpactSignals,
   type GenericMissionSubject,
 } from "./genericMissionSubject";
 import {
@@ -47,6 +53,19 @@ export type SealGenericMissionForPresentationInput = {
   readonly analysis: IntentAnalysisDto;
   /** Reuse existing occurrence id on amend re-presentation only when material unchanged. */
   readonly missionSubjectId?: string;
+  /**
+   * D-P6-SHE-01 — when set, seals these optionRefs (e.g. authorize-inspected-execute)
+   * instead of the default ACCEPT_PREPARE presentation set.
+   */
+  readonly optionRefs?: readonly string[];
+  /** Optional effect / impact overrides so EC↔HD binding stays exact (SHE). */
+  readonly effectsOverride?: GenericMissionEffectsSeal;
+  readonly impactSignalsOverride?: GenericMissionImpactSignals;
+  readonly objectiveOverride?: string;
+  readonly expectedOutcomeOverride?: string;
+  readonly scopeNarrativeOverride?: string;
+  readonly scopeInOverride?: readonly string[];
+  readonly scopeOutOverride?: readonly string[];
 };
 
 export type SealGenericMissionForPresentationResult =
@@ -115,12 +134,21 @@ export async function sealGenericMissionForPresentation(
   }
 
   const objective = (
+    input.objectiveOverride ??
     input.analysis.objective ??
     input.analysis.rephrasedRequest ??
     ""
   ).trim();
-  const expectedOutcome = (input.analysis.expectedOutcome ?? objective).trim();
-  const scopeNarrative = (input.analysis.scope ?? expectedOutcome).trim();
+  const expectedOutcome = (
+    input.expectedOutcomeOverride ??
+    input.analysis.expectedOutcome ??
+    objective
+  ).trim();
+  const scopeNarrative = (
+    input.scopeNarrativeOverride ??
+    input.analysis.scope ??
+    expectedOutcome
+  ).trim();
   if (!objective || (!expectedOutcome && !scopeNarrative)) {
     return fail(
       "MISSION_INSUFFICIENTLY_QUALIFIED",
@@ -145,6 +173,43 @@ export async function sealGenericMissionForPresentation(
       ei.reversibilityExpectation === "unknown")
       ? ei.reversibilityExpectation
       : null;
+  const defaultEffects: GenericMissionEffectsSeal = {
+    intentKind: ei?.intentKind?.trim() || null,
+    artifactType: ei?.artifactType?.trim() || null,
+    requestedOperation,
+    requiredCapabilities: [...capabilityResolution.contractCapabilities],
+    expectedOutputs: authoritativeExpectedOutputs,
+    reversibilityExpectation:
+      revFromEi ??
+      (signals?.irreversible === true
+        ? "irreversible"
+        : signals?.irreversible === false
+          ? "reversible"
+          : "unknown"),
+    stopConditions: [
+      ...(input.analysis.stopConditions ?? []).filter((s) => s.trim()),
+      "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
+    ],
+    risks: [...(input.analysis.risks ?? [])],
+    reservations: [...(input.analysis.reservations ?? [])],
+  };
+  const defaultImpact: GenericMissionImpactSignals = {
+    structuralChange: Boolean(signals?.structuralChange),
+    securityImpact: Boolean(signals?.securityImpact),
+    architectureImpact: Boolean(signals?.architectureImpact),
+    dataImpact: Boolean(signals?.dataImpact),
+    irreversible: Boolean(signals?.irreversible),
+  };
+  if (input.optionRefs) {
+    for (const ref of input.optionRefs) {
+      if (!labelForGenericMissionOption(ref)) {
+        return fail(
+          "HD_OPTION_UNKNOWN",
+          `Option de présentation inconnue: ${ref}`,
+        );
+      }
+    }
+  }
   const subject = buildGenericMissionSubject({
     missionSubjectId: input.missionSubjectId,
     projectId,
@@ -152,42 +217,24 @@ export async function sealGenericMissionForPresentation(
     objective,
     expectedOutcome,
     scopeNarrative,
-    scopeIn: ei?.scopeIn ?? [],
-    scopeOut: input.analysis.outOfScope ?? [],
+    scopeIn: input.scopeInOverride
+      ? [...input.scopeInOverride]
+      : (ei?.scopeIn ?? []),
+    scopeOut: input.scopeOutOverride
+      ? [...input.scopeOutOverride]
+      : (input.analysis.outOfScope ?? []),
     materiality: materialityResolution.assessment.materiality,
     materialityReasonCodes: materialityResolution.assessment.reasonCodes,
     repositoryBindingIdentity: currentness.repositoryIdentity,
     pathRoot: currentness.pathRoot,
-    effects: {
-      intentKind: ei?.intentKind?.trim() || null,
-      artifactType: ei?.artifactType?.trim() || null,
-      requestedOperation,
-      requiredCapabilities: [...capabilityResolution.contractCapabilities],
-      expectedOutputs: authoritativeExpectedOutputs,
-      reversibilityExpectation:
-        revFromEi ??
-        (signals?.irreversible === true
-          ? "irreversible"
-          : signals?.irreversible === false
-            ? "reversible"
-            : "unknown"),
-      stopConditions: [
-        ...(input.analysis.stopConditions ?? []).filter((s) => s.trim()),
-        "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
-      ],
-      risks: [...(input.analysis.risks ?? [])],
-      reservations: [...(input.analysis.reservations ?? [])],
-    },
-    impactSignals: {
-      structuralChange: Boolean(signals?.structuralChange),
-      securityImpact: Boolean(signals?.securityImpact),
-      architectureImpact: Boolean(signals?.architectureImpact),
-      dataImpact: Boolean(signals?.dataImpact),
-      irreversible: Boolean(signals?.irreversible),
-    },
+    effects: input.effectsOverride ?? defaultEffects,
+    impactSignals: input.impactSignalsOverride ?? defaultImpact,
     lpsId: currentness.lpsId,
     lpsVersion: currentness.lpsVersion,
     doctrineDigest: currentness.doctrineDigest,
+    ...(input.optionRefs && input.optionRefs.length > 0
+      ? { optionRefs: [...input.optionRefs] }
+      : {}),
     presentedAtIso: input.oa.clock.nowIso(),
   });
 
@@ -198,6 +245,17 @@ export async function sealGenericMissionForPresentation(
     executionAttemptCreated: false,
   };
 }
+
+/**
+ * D-P6-SHE-01 GAP-04 — AUTHORIZE_INSPECTED_EXECUTE must bind to an OA EC
+ * identity. Server reloads and projects effects; subject field overrides alone
+ * are never authority.
+ */
+export type SheInspectedExecutionContractBinding = {
+  readonly executionContractId: string;
+  readonly expectedVersion: number;
+  readonly expectedSemanticFingerprint: string;
+};
 
 export type RecordGenericMissionHumanDecisionInput = {
   readonly oa: RuntimeOaStack;
@@ -225,6 +283,11 @@ export type RecordGenericMissionHumanDecisionInput = {
    * Used to recognize normal LPS-bump replay without inventing a new HD.
    */
   readonly presentedPresentationDigest?: string;
+  /**
+   * Required when selectedOptionId is AUTHORIZE_INSPECTED_EXECUTE.
+   * Effects for re-seal are projected from this OA contract, not from subject.
+   */
+  readonly sheInspectedExecutionContract?: SheInspectedExecutionContractBinding;
 };
 
 export type RecordGenericMissionHumanDecisionResult =
@@ -260,10 +323,10 @@ export async function recordGenericMissionHumanDecision(
   });
 
   const selected = input.selectedOptionId.trim();
-  const presentedIds = new Set(
-    GENERIC_MISSION_PRESENTED_OPTIONS.map((o) => o.optionId),
-  );
-  if (!presentedIds.has(selected as (typeof GENERIC_MISSION_PRESENTED_OPTIONS)[number]["optionId"])) {
+  // Presented options are those sealed on the subject (SHE may present
+  // authorize-inspected-execute instead of accept-prepare).
+  const presentedIds = new Set(input.subject.optionRefs);
+  if (!presentedIds.has(selected) || !labelForGenericMissionOption(selected)) {
     return fail(
       "HD_OPTION_NOT_PRESENTED",
       "Option Pilote hors ensemble présenté — décision refusée.",
@@ -306,12 +369,129 @@ export async function recordGenericMissionHumanDecision(
   if (!projectOk.ok) {
     return fail("PRODUCT_PROJECT_REQUIRED", "Project introuvable pour Record.");
   }
+  // CR-02 — Product-qualified re-seal from analysis + CURRENT Product.
+  // Default ACCEPT_PREPARE: never trust subject field overrides
+  // (forged objective + recomputed digest must diverge → HD_SUBJECT_STALE).
+  // SHE AUTHORIZE_INSPECTED_EXECUTE (GAP-04): require OA EC binding; project
+  // effects from the inspected contract — never from subject overrides alone.
+  const sheAuthorizePresentation =
+    selected === GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE &&
+    input.subject.optionRefs.includes(
+      GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+    );
+
+  let sheEffectsFromOa: {
+    effectsOverride: GenericMissionEffectsSeal;
+    objectiveOverride: string;
+    expectedOutcomeOverride: string;
+    scopeNarrativeOverride: string;
+    scopeInOverride: readonly string[];
+    scopeOutOverride: readonly string[];
+  } | null = null;
+
+  if (sheAuthorizePresentation) {
+    const bind = input.sheInspectedExecutionContract;
+    if (
+      !bind ||
+      !bind.executionContractId.trim() ||
+      !Number.isFinite(bind.expectedVersion) ||
+      !bind.expectedSemanticFingerprint.trim()
+    ) {
+      return fail(
+        "SHE_INSPECTED_CONTRACT_BINDING_REQUIRED",
+        "AUTHORIZE_INSPECTED_EXECUTE exige le binding OA du contrat inspecté — Record refusé.",
+      );
+    }
+    const loaded =
+      await input.oa.executionContractServices.getExecutionContract.execute({
+        executionContractId: bind.executionContractId.trim(),
+      });
+    if (!loaded.ok) {
+      return fail(
+        "SHE_INSPECTED_CONTRACT_NOT_FOUND",
+        "Contrat inspecté introuvable — Record SHE refusé.",
+      );
+    }
+    const ec = loaded.contract;
+    if (ec.projectId !== input.subject.projectId) {
+      return fail(
+        "SHE_INSPECTED_CONTRACT_PROJECT_MISMATCH",
+        "Contrat inspecté hors projet — Record SHE refusé.",
+      );
+    }
+    if (ec.version !== bind.expectedVersion) {
+      return fail(
+        "SHE_INSPECTED_CONTRACT_VERSION_MISMATCH",
+        "Version du contrat inspecté divergente — Record SHE refusé.",
+      );
+    }
+    const fp = ec.semanticFingerprint ?? "";
+    if (!fp || fp !== bind.expectedSemanticFingerprint.trim()) {
+      return fail(
+        "SHE_INSPECTED_CONTRACT_FINGERPRINT_MISMATCH",
+        "Empreinte du contrat inspecté divergente — Record SHE refusé.",
+      );
+    }
+    if ((ec.cycleInstanceId ?? null) !== (input.subject.cycleInstanceId ?? null)) {
+      return fail(
+        "SHE_INSPECTED_CONTRACT_CYCLE_MISMATCH",
+        "Cycle du contrat inspecté divergent — Record SHE refusé.",
+      );
+    }
+    const proj = projectExecutionContractEffects({
+      projectId: ec.projectId,
+      cycleInstanceId: ec.cycleInstanceId ?? null,
+      decisionRefs: ec.decisionRefs ?? [],
+      status: ec.status,
+      version: ec.version,
+      semanticFingerprint: ec.semanticFingerprint,
+      expectedOutputs: ec.expectedOutputs,
+      requiredCapabilities: ec.requiredCapabilities,
+      stopConditions: ec.stopConditions,
+      reversibility: ec.reversibility as
+        | "reversible"
+        | "partially_reversible"
+        | "irreversible",
+      constraints: ec.constraints,
+      inputs: (ec.inputs ?? {}) as Record<string, unknown>,
+    });
+    sheEffectsFromOa = {
+      effectsOverride: {
+        intentKind: proj.intentKind,
+        artifactType: proj.artifactType,
+        requestedOperation: proj.requestedOperation,
+        requiredCapabilities: [...proj.requiredCapabilities],
+        expectedOutputs: [...proj.expectedOutputs],
+        reversibilityExpectation: proj.reversibilityExpectation,
+        stopConditions: [...proj.stopConditions],
+        risks: [...proj.risks],
+        reservations: [...proj.reservations],
+      },
+      objectiveOverride: proj.objective,
+      expectedOutcomeOverride: proj.expectedOutcome,
+      scopeNarrativeOverride: proj.scopeNarrative,
+      scopeInOverride: proj.scopeIn,
+      scopeOutOverride: proj.scopeOut,
+    };
+  }
+
   const fresh = await sealGenericMissionForPresentation({
     oa: input.oa,
     projectId: input.subject.projectId,
     cycleInstanceId: input.subject.cycleInstanceId,
     analysis: input.analysis,
     missionSubjectId: input.subject.missionSubjectId,
+    optionRefs: input.subject.optionRefs,
+    ...(sheEffectsFromOa
+      ? {
+          effectsOverride: sheEffectsFromOa.effectsOverride,
+          objectiveOverride: sheEffectsFromOa.objectiveOverride,
+          expectedOutcomeOverride: sheEffectsFromOa.expectedOutcomeOverride,
+          scopeNarrativeOverride: sheEffectsFromOa.scopeNarrativeOverride,
+          scopeInOverride: sheEffectsFromOa.scopeInOverride,
+          scopeOutOverride: sheEffectsFromOa.scopeOutOverride,
+        }
+      : {}),
   });
   if (!fresh.ok) {
     return fail(fresh.code, fresh.message);
@@ -319,12 +499,11 @@ export async function recordGenericMissionHumanDecision(
   const presentedDigest = (
     input.presentedPresentationDigest ?? input.subject.presentationDigest
   ).trim();
-  const status =
-    selected === GENERIC_MISSION_OPTION_ACCEPT_PREPARE
-      ? ("accepted" as const)
-      : selected === GENERIC_MISSION_OPTION_REFUSE
-        ? ("refused" as const)
-        : ("amended" as const);
+  const status = isGenericMissionAcceptedAuthorityOption(selected)
+    ? ("accepted" as const)
+    : selected === GENERIC_MISSION_OPTION_REFUSE
+      ? ("refused" as const)
+      : ("amended" as const);
 
   // M-HD-02 — identical replay (incl. after legitimate LPS link bump) returns durable state.
   const history = await input.oa.decisionServices.listDecisionHistory.execute({
@@ -452,10 +631,12 @@ export async function recordGenericMissionHumanDecision(
       ? { cycleInstanceId: input.subject.cycleInstanceId }
       : {}),
     subject: input.subject.missionSubjectId,
-    options: GENERIC_MISSION_PRESENTED_OPTIONS.map((o) => ({
-      optionId: o.optionId,
-      label: o.label,
-    })),
+    options: resolveGenericMissionPresentedOptions(input.subject.optionRefs).map(
+      (o) => ({
+        optionId: o.optionId,
+        label: o.label,
+      }),
+    ),
     selectedOptionId: selected,
     actor: decisionActor,
     authority: "pilot",
@@ -519,6 +700,7 @@ export async function recordGenericMissionHumanDecision(
 
 export {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
   GENERIC_MISSION_OPTION_REFUSE,
   GENERIC_MISSION_OPTION_REQUEST_AMEND,
 };
