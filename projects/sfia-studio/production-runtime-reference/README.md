@@ -29,7 +29,7 @@
 
 Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Deterministic proof **≠** READY FOR REAL.
 
-**AKG-M0 methodological continuity overlay (LOCAL AUTHORING — NOT INTEGRATED ON MAIN):** 2026-10-19 — README role/coverage/maintenance (étape 1) + **R-S02 Tool-First CURRENT requalification** + read-only vs Delivery proportion (semantic corrections). **Manifest digests NOT refreshed** — `REFERENCE REVIEW REQUIRED` for this README until ChatGPT semantic re-review + digest sync. P6 GLOBAL PASS / runtime v3 / AKG-M0 ACTIVE ON MAIN **NOT CLAIMED**.
+**AKG-M0 methodological continuity overlay — historical preparation vs PR candidate:** **Historical snapshot (2026-10-19, étape 1 authoring):** README role/coverage/maintenance + R-S02 Tool-First CURRENT requalification + read-only vs Delivery proportion were authored locally; at that stage **manifest digests were not yet refreshed** (`REFERENCE REVIEW REQUIRED` then). **Later in the same AKG-M0 documentary lot (PR #591 candidate):** the README digest was synchronized into `production-runtime-reference.manifest.json` after semantic acceptance — digest match is a **deterministic conformance** fact of this candidate, **not** semantic exhaustiveness and **not** proof that AKG-M0 is ACTIVE ON MAIN. **Activation on main** remains contingent on merge + post-merge verification under distinct Morris gates. P6 GLOBAL PASS / runtime v3 ADOPTED / TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT closed / AKG-M0 ACTIVE ON MAIN **NOT CLAIMED**.
 
 ## What this corpus is
 
