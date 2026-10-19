@@ -1,1013 +1,606 @@
 # REVIEW PACK FULL — CRITICAL
-# D-P6-SHE-01 — PRODUCT GIT INTEGRATION + PRR SEMANTIC SYNC
+# M0 — METHODOLOGICAL FOUNDATION
+# DOCUMENTARY SYNCHRONIZATION PREPARATION
 
-**Timestamp (UTC):** 2026-10-19T14:12:02Z
+**Timestamp (UTC):** 2026-10-19T18:34:22Z
 **Repository:** mcleland147/sfia-workspace
-**Worktree:** `/Users/morris/Projects/sfia-workspace-p6-she-delivery-476b1c20`
-**Branch:** `delivery/sfia-studio-p6-single-human-execute`
-**HEAD (remote=local):** `f1fc1af49606dbc600f5f839020639f880529696`
-**Base main:** `476b1c2065991e05cca298f6669d85b62a07ced3`
-**Prior QA handoff:** `d3184a0e` / blob `38c75d2a`
-**Cycle:** 13 — PR readiness / CRITICAL
-**Capability:** V3-F05 | Milestone P6 | D-P6-SHE-01 Option A
+**Worktree (prep):** `/Users/morris/Projects/sfia-workspace-p6-she-greenfield-hqa-c9abdbc3`
+**HEAD (detached @ baseline main):** `c9abdbc37830d687cc8a504b97db659b47aa0f5b`
+**origin/main (local + remote):** `c9abdbc37830d687cc8a504b97db659b47aa0f5b`
+**Baseline attendue:** `c9abdbc37830d687cc8a504b97db659b47aa0f5b` — **MATCH**
+**Dernière intégration structurante:** PR **#590** MERGED @ `c9abdbc37830d687cc8a504b97db659b47aa0f5b` (2026-10-19T14:26:35Z) — *feat(sfia-studio): P6 Single Human Execute — integrated delivery*
+**Prior handoff tip (requalified):** `2e6099d4` — documentait PR #590 comme DRAFT / Git Integration ; **statut obsolète** — PR désormais MERGED ; ce handoff **remplace** le tip pour revue M0.
+**Cycle:** 1 — Cadrage / continuation méthodologique
+**Profil:** CRITICAL
+**Typologie:** DOC / GOVERNANCE / METHOD
+**Processus externe:** SFIA v2.6 uniquement
+**Capacité v3 principale:** V3-F05 (transversal construction)
+**Connexes:** V3-F02, F06, F07, F11, F12, F14, F15
+**Milestone Product existante:** P6 — GLOBAL INTEGRATED PRODUCT QA (**P6 GLOBAL PASS = NOT ACQUIRED**)
+**Runtime v3:** NON ADOPTED
+**Jalon candidat (nouveau chantier):** M0 — METHODOLOGICAL FOUNDATION *(≠ milestones Convergence historiques M1–M5)*
+**Fake/Real Qualification:** N/A (cycle documentaire)
 
-## GO Morris consumed
-- Commit Product: YES
-- Push Product branch: YES
-- Create PR DRAFT: YES
-- PRR Protected Refresh (bounded): YES
-- Merge: **NO**
-- REAL/HQA: NO
-- Force push / branch delete: NO
+---
+
+## 0. GO Morris consommé
+
+| GO | Statut |
+|----|--------|
+| CADRAGE M0 VALIDATED | CONSUMED |
+| DOCUMENTARY SYNCHRONIZATION PREPARATION AUTHORIZED | CONSUMED |
+| Modification documents fondateurs | **NON** |
+| Modification Product / runtime | **NON** |
+| Git Integration Product / PR / merge | **NON** |
+| Digest PRR refresh | **NON** |
+| Human QA / Cursor REAL / OpenAI LIVE | **NON** |
+| Push Product | **NON** |
+| Push handoff L3 borné | **AUTORISÉ** (ce cycle) |
+
+**Gate Morris suivant (proposé):** `GO M0 DOCUMENTARY AUTHORING` — allowlist explicite des fichiers à modifier localement après Critical Review ChatGPT.
 
 ---
 
 ## 1. Git Truth
 
+### 1.1 Initiale (après restauration corrective)
+
 | Item | Value |
 |------|-------|
-| Initial HEAD | `476b1c20` (= origin/main) with dirty Delivery |
-| Product commit | `928ab15b032c392dafee74a916f2faad3ed524de` |
-| PRR commit | `f1fc1af49606dbc600f5f839020639f880529696` |
-| Push | `origin/delivery/sfia-studio-p6-single-human-execute` = `f1fc1af4` |
-| PR | **#590** DRAFT — https://github.com/mcleland147/sfia-workspace/pull/590 |
-| Base/Head | `main` ← `delivery/sfia-studio-p6-single-human-execute` |
-| HQA worktrees | present on machine; **not** modified |
+| pwd | `/Users/morris/Projects/sfia-workspace-p6-she-greenfield-hqa-c9abdbc3` |
+| remote | `https://github.com/mcleland147/sfia-workspace.git` |
+| HEAD | `c9abdbc37830d687cc8a504b97db659b47aa0f5b` (detached) |
+| origin/main | `c9abdbc37830d687cc8a504b97db659b47aa0f5b` |
+| remote main | `c9abdbc37830d687cc8a504b97db659b47aa0f5b` |
+| Baseline match | YES |
+| Protected path diffs vs HEAD | **0** |
+| Untracked HQA campaign | `.tmp-sfia-hqa/**` + `app/.tmp-hqa-scripts/` (préservés ; hors Product) |
+| Tracked mono-cycle pack | `.tmp-sfia-review/chatgpt-review.md` (réinitialisé ce cycle) |
+
+### 1.2 Incident worktree (documenté — corrigé)
+
+Pendant la session, le worktree HQA a été retrouvé sur `delivery/sfia-studio-p6-single-human-execute` @ `f1fc1af4` tandis que le worktree Delivery était detached au même commit. **Restauration non destructive :**
+
+1. HQA → `git checkout --detach c9abdbc37830d687cc8a504b97db659b47aa0f5b`
+2. Delivery → `git checkout delivery/sfia-studio-p6-single-human-execute`
+
+Aucun reset / stash / clean / restore de contenu Product. Environnement HQA et Delivery préservés.
+
+### 1.3 Worktrees pertinents
+
+| Worktree | HEAD | Note |
+|----------|------|------|
+| `…-p6-she-greenfield-hqa-c9abdbc3` | `c9abdbc37830d687cc8a504b97db659b47aa0f5b` detached | Prep M0 + HQA env |
+| `…-p6-she-delivery-476b1c20` | `f1fc1af4` delivery branch | Historique SHE Delivery ; **≠** main |
+| `…/sfia-workspace/sfia-review-handoff` | tip `sfia/review-handoff` | Handoff L3 |
 
 ---
 
-## 2. Convergence Pre-check
+## 2. Qualification SFIA
 
-CURRENT MAIN: Option B + SHE TARGET adopted (docs).
-CANDIDATE now: SHE Delivery **pushed** + PRR CURRENT sync.
-KEEP OA backbone. ADAPT PRR docs only. COMPLETE Git integration of candidate.
-REPLACE: none.
-EXIT PROOF this cycle: PR DRAFT + PRR PASS + deterministic QA + CI Required Gate.
-
-Debt OPEN: TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT.
-
----
-
-## 3. Inventory — files in PR (`origin/main...HEAD`)
-
-```
-A	projects/sfia-studio/app/__tests__/oa/cycle/p6.she.gap03.effectiveGitPrimaryContract.d0.test.ts
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.executionReconcileContinuity.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
-A	projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts
-M	projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
-M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
-M	projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/actions.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
-A	projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts
-M	projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
-M	projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-M	projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
-M	projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-M	projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-
-```
-
-**Excluded from Product commit:** `.tmp-sfia-review/**`, SQLite, secrets, HQA paths, doctrine v3 framing, unrelated branches.
+| Champ | Valeur |
+|-------|--------|
+| Type cycle | 1 — Cadrage |
+| Famille | Consolidation foundation — préparation |
+| Profil | CRITICAL |
+| Justification | Prépare l’évolution de règles fondatrices (analyses, interventions Cursor, validations, documentation Studio) ; plusieurs référentiels protégés potentiellement impactés |
+| CKC | `pilots/01-cadrage.md` — **candidate** (guidance cognitive uniquement) |
+| Objet | Préparation d’amendements documentaires — **aucune application** |
 
 ---
 
-## 4. PRR semantic review (bounded)
+## 3. Convergence Pre-check
 
-### Contradictions corrected
-| Volume | Historical / obsolete claim | CURRENT SHE assertion |
-|--------|----------------------------|------------------------|
-| 03 F08 | STRUCTURAL PREPARE requires accepted HD | Inspectable PREPARE without prior HD; authority on Exécuter |
-| 03 F09 | Tool-First CTA pending | SHE/Tool-First Exécuter CURRENT on Delivery |
-| 03 F15 | (no effective EC note) | GAP-03 effective git primary for MUST |
-| 04 Dual paths / S1 | S1 = HD opens PREPARE | S1 = authority before launch; SHE path documented; historical disposition retained |
-| 02 OBJ-GENERIC-MISSION-HD | HD before PREPARE | SHE: HD on Exécuter; historical path retained |
-| 07 | TARGET ≠ IMPLEMENTED | SHE CURRENT on Delivery; HISTORICAL PREPARE-HD timing |
-| 08 | PENDING_GIT_INTEGRATION SHE absent | SHE + GAP-03 proof rows |
+| ID | Élément | Qualification |
+|----|---------|---------------|
+| A | Capacité v3 | V3-F05 transversal ; connexes F02/F06/F07/F11/F12/F14/F15 — **aucune capacité runtime autonome créée** |
+| B | Milestone Product | **P6** ouvert ; GLOBAL PASS **non** acquis |
+| C | Trajectoire méthodologique | **M0** candidat (nouveau chantier transversal AKG) |
+| D | Actifs réutilisables | Build Doctrine ; Roadmap ; PRR ; C1 ; doctrine 30–37 ; routing guide ; template v2.6 ; Knowledge Layer |
+| E | Historique à conserver | Décisions Morris ; tips Roadmap ; campagnes P6 ; handoffs ; SHE Option A ADOPTED ; PR #590 MERGED |
+| F | Gaps documentaires | Pas d’obligation explicite « architecture-informed » avant chantier ; PRR non listée en Convergence Pre-check obligatoire ; continuité doc post-changement non assez contraignante dans Build Doctrine ; rationalisation evidence-based (CONSOLIDATE / retire) sous-spécifiée vs R3/A8 |
+| G | Dépendances | Routing ↔ Template ↔ Build Doctrine ↔ Roadmap ↔ PRR ; C1 inchangé ; v3 doctrine TARGET inchangée |
+| H | Risques contradiction | **Collision de noms M1–M5** (Convergence historique vs jalons méthodologiques candidats) ; tip Roadmap encore « GOVERNANCE SYNC CANDIDATE » alors que SHE Delivery est sur main |
+| I | Chemin critique | Préparer règles → revue ChatGPT → GO authoring → (ultérieur) M1 inventaire |
+| J | Exit proof M0 | Propositions exploitables + handoff vérifié + Critical Review ChatGPT + GO authoring |
+| K | Dette | TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN (Product ; hors M0) ; tip Roadmap post-#590 à synchroniser (conditionnel authoring) |
+| L | Gates Morris | GO M0 DOCUMENTARY AUTHORING (suivant) ; pas de GO suppression composant |
+| M | Capacité suivante | **M1 — System Inventory** (après M0 authoring + validation) |
 
-### Digests before → after (only refreshed)
+### Classification initiale
 
-| Path | Before | After |
-|------|--------|-------|
-| orchestrateF2.ts | 73d754838d9d13a0 | c8f491d05217ffc4 |
-| deriveFinalizationApplicability.ts | 1963f097d0aa9328 | 6fba1892149be55c |
-| 02-runtime-object-catalog.md | a63310ed7b85cf1b | 71177cd234b88a3b |
-| 03-end-to-end-flow-catalog.md | 733c07f253de5b65 | 12331c256c76bd30 |
-| 04-dependency-impact-map.md | b8a66451083f90e3 | b7236bfd326f8f9a |
-| 07-authority-invariants… | 8ea3d088c5095108 | 88893854dfe22bd9 |
-| 08-test-proof… | 8237aa210ecfac30 | 6c1f4b5fe1cc50c5 |
+| Classe | Contenu |
+|--------|---------|
+| **KEEP** | Doctrine v3 30–37 ; Build Doctrine (corps) ; Convergence Roadmap (historique) ; C1 ; PRR corpus ; mécanismes gouvernance applicables ; processus v2.6 |
+| **ADAPT — PROPOSITION UNIQUEMENT** | Build Doctrine (règles/challenge) ; Roadmap tip + section chantier transversal ; PRR README maintenance/couverture ; Source Routing §4.3.0a ; Template §2.0.G ; Instructions projet ChatGPT (hors Git) |
+| **HARVEST** | Analyses P6 ; handoffs SHE ; preuves/réserves ; décisions architecturales historiques |
+| **REPLACE / RETIRE** | **Aucune** action ce cycle |
 
-`lastReviewedCommit` → `928ab15b032c392dafee74a916f2faad3ed524de` (Product commit).
-
-### Checker / conformance
-- `node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
-- `productionRuntimeReference.conformance.d0.test.ts` → **5/5 PASS**
-
-### PRR key lines (post-edit markers)
-
-#### 03-end-to-end-flow-catalog.md
-```
-82|- **Trigger (Generic PREPARE — D-P6-SHE-01 CURRENT on Delivery branch):** F2 chat-first GO / Nora tool solicitation (F04) / adjacent F05 hand-off → Product `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft`
-84|- **Chemin SHE (CURRENT — D-P6-SHE-01 Option A):** STRUCTURAL / HD-required / UNKNOWN may PREPARE an **inspectable** draft **without** a prior HumanDecision (`decisionRefs` may be empty; Product may stamp `sheDeferredStructuralAuthority`). PREPARE ≠ AUTHORIZE ≠ EXECUTE. Authority is consumed on Pilot **Exécuter** (`singleHumanExecutePreparedContract`): inspect binding (id/version/fingerprint) → record applicable HD (`authorize-inspected-execute`) from OA EC effects (GAP-04) → Confirm/Authorize OA internals → ExecutionAttempt. No silent HD; no Attempt if pre-launch gates fail.
-89|  - Structural offer alone ≠ Authorization. Historical HD without mission binding ≠ unlock. Under SHE, lack of Accept does **not** forbid inspectable PREPARE — authority moves to Exécuter.
-97|- **Proof:** SHE (`p6.she.singleHumanExecute*`, GAP continuity/HD/finalization) + G-D4 / materiality / M-HD / DER16 / Option1 / Tool-First — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). REAL NOT PROVEN.
-98|- **Status:** COMPLETE domain (legacy M3); Generic PREPARE + SHE Option A CURRENT on Delivery (PR pending merge); Tool-First R1 CURRENT at tested scope
-104|- **SHE / Tool-First Pilot CTA (CURRENT — D-P6-SHE-01):** after inspection attestation is sufficient/aligned, Pilot surface shows **Exécuter** for the inspected contract — the single Pilot gesture records applicable HD when required, folds server Confirm (when required), then Authorize+Select/Start. **Inspect ≠ Execute** preserved (no auto-attest; no silent HD/Confirm). Server steps HD / Confirm / Authorize / Execute remain distinct OA transitions. Paths: `singleHumanExecutePreparedContract.ts`, `pilotExecutionPresentation.ts`, `ExecutionSurface.tsx`.
-106|- **Proof:** SHE + Pass03/Pass04 UIC + durable/reconcile continuity + pilotExecutionPresentation / R02 — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE
-107|- **Status:** COMPLETE tables/services; unified exam + SHE/Tool-First CTA CURRENT on Delivery (PR pending merge)
-152|- **Git MUST primary EC (D-P6-SHE-01 GAP-03 CURRENT):** when obligation snapshot includes `git_repository` MUST, `deriveFinalizationApplicability` selects the **effective** (non-superseded) git-applicable ExecutionContract as `primaryContract` for typed Git proof SET qualification — not raw `gitApplicable[0]`. Multiple effective git-applicable ECs → fail-closed (no arbitrary pick). `gitProofPresent=true` ≠ Cycle FINALIZED (other MUST obligations remain). Obligations policy unchanged.
-156|- **Status:** COMPLETE assessment engine; Pilot finalize HD required; GAP-03 effective EC CURRENT on Delivery
-```
-
-#### 04-dependency-impact-map.md
-```
-41|## Dual Generic PREPARE admission paths (D-P6-SHE-01 CURRENT on Delivery)
-46|      ├─ SHE CURRENT (STRUCTURAL / HD-required / UNKNOWN)
-52|      │         → HD authorize-inspected-execute (OA EC effects — GAP-04)
-87|**Structural authority gate (S1 — CURRENT SHE):** structural / HD-required authority is verified **before Cursor launch** on Exécuter — not as a precondition that blocks inspectable PREPARE. Disposition-before-PREPARE Accept remains a valid historical path; Refuse/Amend still refuse **that** path. Accept alone is never Execute authority. HD / Confirm / Authorize OA objects are **not** removed.
-89|**HISTORICAL S1 (pre-SHE):** only an accepted, mission-bound, applicable, verified, non-superseded HD opened Chemin A PREPARE. Retained for disposition-before-PREPARE callers and legacy M3.
-```
-
-#### 07-authority-invariants-and-failure-modes.md
-```
-5|**Amendement documentaire D-P6-SHE-01 (2026-10-19 — Git Integration) :** SINGLE HUMAN EXECUTE / Option A est **CURRENT on Delivery** (déterministe prouvé au périmètre testé ; PR DRAFT pending merge). Les invariants SHE ci-dessous deviennent CURRENT. Les invariants « STRUCTURAL PREPARE requires HD » restent **HISTORICAL / disposition-before-PREPARE** (chemin encore disponible) — ils ne bloquent plus l’inspectable PREPARE sous SHE. TARGET architecture = Delivery runtime ; ≠ INTEGRATED_ON_MAIN tant que merge Morris non accordé ; ≠ REAL/HQA PROVEN.
-35|| INV-EMPTY-REFS-NE-STRUCTURAL | HISTORICAL: `decisionRefs=[]` only for NON_STRUCTURAL. SHE CURRENT: empty refs also admissible on server-stamped `sheDeferredStructuralAuthority` PREPARE (READ/INSPECT continuity only — GAP-01); Confirm/Authorize still refuse empty STRUCTURAL without HD | Option 1 / G-D4 + SHE continuity | p6.o1 / gD4 / p6.she.* | CURRENT (SHE) + HISTORICAL (G-D4-only) |
-36|| INV-STRUCTURAL-NEEDS-VERIFIED-HD | HISTORICAL disposition-before-PREPARE: verified mission-bound HD before that PREPARE path. SHE CURRENT: verified applicable HD required before **launch** on Exécuter — not before inspectable PREPARE | verifyGenericMissionHumanDecisionForPrepare / SHE Record | mHd01 / DER16 / p6.she.* | HISTORICAL at PREPARE; CURRENT at Execute (SHE) |
-37|| INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD | HISTORICAL: STRUCTURAL disposition PREPARE requires accepted HD. SHE CURRENT: inspectable STRUCTURAL PREPARE without prior HD; Accept alone ≠ Execute; Refuse/Amend still refuse disposition-before-PREPARE | verify* / singleHumanExecutePreparedContract | mHd01 / p6.she.* | HISTORICAL at PREPARE; CURRENT SHE deferral |
-43|## Dual admission paths — CURRENT (SHE + historical disposition)
-45|**Chemin SHE (CURRENT — D-P6-SHE-01):** STRUCTURAL / HD-required / UNKNOWN → inspectable PREPARE (empty refs allowed with server SHE stamp) → Inspect → Pilot Exécuter → applicable HD + Confirm (if required) + Authorize + launch gates → Cursor iff admissible else STOP · 0 Attempt. No silent HD. PREPARE creates neither Authorization nor Attempt.
-55|**SHE / Tool-First ordinary CTA (CURRENT):** after Inspect attest, Pilot **Exécuter** records applicable HD when required, may fold Confirm (server), then Authorize+launch — Inspect ≠ Execute; HD ≠ Confirm ≠ Authorize ≠ Execute remain.
-68|## SHE CURRENT — D-P6-SHE-01 (2026-10-19) — SINGLE HUMAN EXECUTE / Option A
-72|Les invariants HISTORICAL `INV-STRUCTURAL-*PREPARE*HD` et la contrainte PREPARE-only de `INV-EMPTY-REFS-NE-STRUCTURAL` restent vraies pour le **chemin disposition-before-PREPARE** et les suites mHd01 / DER16. Sous SHE, leur **timing PREPARE** est superseded (autorité structurelle avant **lancement**).
-74|### SHE invariant catalog (CURRENT — Delivery)
-76|| ID | Statement (CURRENT SHE) | Proof owner |
-78|| INV-SHE-PREPARE-NO-AUTHORITY | PREPARE ne consomme aucune autorité ; ne crée ni Attempt ni Authorization | `p6.she.singleHumanExecute*` |
-79|| INV-SHE-STRUCTURAL-INSPECTABLE | STRUCTURAL / UNKNOWN n’interdit pas PREPARE ni inspection d’un contrat honnêtement stampé | SHE + continuity GAP-01 |
-80|| INV-SHE-AUTHORITY-BEFORE-LAUNCH | Autorité structurelle / effective vérifiée **avant** tout lancement Cursor (pas avant PREPARE) | SHE Execute path |
-81|| INV-SHE-EXECUTE-BINDS-INSPECTED | Le clic Exécuter est lié au contrat inspecté (id + version + semantic fingerprint) | SHE + GAP-04 |
-82|| INV-SHE-NO-SILENT-HD | Aucune HumanDecision silencieuse ; HD uniquement sur action Pilote explicite (sujet/version/digest) | SHE Record |
-83|| INV-SHE-NO-EXEC-WITHOUT-EFFECTIVE-AUTH | Aucune exécution sans autorité effective ; 0 Attempt si gate pré-lancement échoue | SHE |
-84|| INV-SHE-NO-AUTO-ELEVATION | Aucune élévation automatique de capacité / permission / chemin protégé | SHE |
-85|| INV-SHE-UNKNOWN-BLOCKS-NONADMISSIBLE | UNKNOWN / matérialité non admissible interdit l’exécution (fail-closed) | SHE UNKNOWN gate |
-86|| INV-SHE-STALE-CONTRACT-BLOCKS | Exécution refusée sur contrat obsolète (version/fp/currentness) | SHE currentness |
-87|| INV-SHE-IDEMPOTENT-EXECUTE | Double-clic / retry / restart : idempotence Attempt ; pas de second Cursor silencieux | SHE T23 |
-88|| INV-SHE-SINGLE-UX-PATH | Même parcours UX STRUCTURAL / NON_STRUCTURAL (matérialité ≠ boutons distincts) | ExecutionSurface |
-89|| INV-SHE-NO-EXTRA-HUMAN-CTA | Pas de confirmation humaine supplémentaire après Exécuter pour le même contrat inspecté (Confirm/HD restent transitions OA internes) | SHE |
-91|**Chemin SHE unique (UX) :**
-102|**Dette OPEN (inchangée) :** TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT — non résolue par D-P6-SHE-01.
-126|**Note SHE CURRENT :** sous D-P6-SHE-01 Delivery, STRUCTURAL sans HD préalable peut PREPARE inspectable ; les refus d’autorité portent sur **Exécuter** (HD/Confirm/Authorize/currentness). REAL/HQA et merge main restent des gates Morris distincts.
-```
+**Aucune architecture parallèle. Aucun second référentiel PRR.**
 
 ---
 
-## 5. Product excerpts (security / authority critical)
+## 4. Principes méthodologiques M0 (cadrage Morris — confirmés)
 
-### GAP-04 Record OA binding (excerpt)
-```
-# projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts:248-320
-248|
-249|/**
-250| * D-P6-SHE-01 GAP-04 — AUTHORIZE_INSPECTED_EXECUTE must bind to an OA EC
-251| * identity. Server reloads and projects effects; subject field overrides alone
-252| * are never authority.
-253| */
-254|export type SheInspectedExecutionContractBinding = {
-255|  readonly executionContractId: string;
-256|  readonly expectedVersion: number;
-257|  readonly expectedSemanticFingerprint: string;
-258|};
-259|
-260|export type RecordGenericMissionHumanDecisionInput = {
-261|  readonly oa: RuntimeOaStack;
-262|  readonly subject: GenericMissionSubject;
-263|  readonly selectedOptionId: string;
-264|  /**
-265|   * CR-02 — server re-seals from this analysis + Product facts; caller subject
-266|   * digest must match. Client-only subject is not authority.
-267|   */
-268|  readonly analysis: IntentAnalysisDto;
-269|  /**
-270|   * Product path — session-bound Pilote. Required unless forceLocalAuthority
-271|   * (tests only). Never accept a client-forged ActorReference as authority.
-272|   */
-273|  readonly authenticatedPilote?: AuthenticatedPiloteForMissionDecision;
-274|  /** Test inject only — never on real Product Record path (A7). */
-275|  readonly forceLocalAuthority?: boolean;
-276|  readonly rationale?: string;
-277|  readonly supersedeExistingAccepted?: boolean;
-278|  /** When true (default), link accepted HD into LPS (legitimate version bump). */
-279|  readonly linkToLivingProjectState?: boolean;
-280|  /**
-281|   * Digest of the presentation the Pilote actually saw (client/UI).
-282|   * When omitted, defaults to subject.presentationDigest.
-283|   * Used to recognize normal LPS-bump replay without inventing a new HD.
-284|   */
-285|  readonly presentedPresentationDigest?: string;
-286|  /**
-287|   * Required when selectedOptionId is AUTHORIZE_INSPECTED_EXECUTE.
-288|   * Effects for re-seal are projected from this OA contract, not from subject.
-289|   */
-290|  readonly sheInspectedExecutionContract?: SheInspectedExecutionContractBinding;
-291|};
-292|
-293|export type RecordGenericMissionHumanDecisionResult =
-294|  | {
-295|      readonly ok: true;
-296|      readonly decision: HumanDecision;
-297|      readonly humanDecisionCreated: boolean;
-298|      readonly executionAttemptCreated: false;
-299|      readonly code:
-300|        | "GENERIC_MISSION_HUMAN_DECISION_RECORDED"
-301|        | "GENERIC_MISSION_HUMAN_DECISION_ALREADY_APPLIED";
-302|    }
-303|  | {
-304|      readonly ok: false;
-305|      readonly code: string;
-306|      readonly message: string;
-307|      readonly humanDecisionCreated: false;
-308|      readonly executionAttemptCreated: false;
-309|    };
-310|
-311|export async function recordGenericMissionHumanDecision(
-312|  input: RecordGenericMissionHumanDecisionInput,
-313|): Promise<RecordGenericMissionHumanDecisionResult> {
-314|  const fail = (
-315|    code: string,
-316|    message: string,
-317|  ): RecordGenericMissionHumanDecisionResult => ({
-318|    ok: false,
-319|    code,
-320|    message,
-```
-```
-# projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts:375-476
-375|  // SHE AUTHORIZE_INSPECTED_EXECUTE (GAP-04): require OA EC binding; project
-376|  // effects from the inspected contract — never from subject overrides alone.
-377|  const sheAuthorizePresentation =
-378|    selected === GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE &&
-379|    input.subject.optionRefs.includes(
-380|      GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
-381|    );
-382|
-383|  let sheEffectsFromOa: {
-384|    effectsOverride: GenericMissionEffectsSeal;
-385|    objectiveOverride: string;
-386|    expectedOutcomeOverride: string;
-387|    scopeNarrativeOverride: string;
-388|    scopeInOverride: readonly string[];
-389|    scopeOutOverride: readonly string[];
-390|  } | null = null;
-391|
-392|  if (sheAuthorizePresentation) {
-393|    const bind = input.sheInspectedExecutionContract;
-394|    if (
-395|      !bind ||
-396|      !bind.executionContractId.trim() ||
-397|      !Number.isFinite(bind.expectedVersion) ||
-398|      !bind.expectedSemanticFingerprint.trim()
-399|    ) {
-400|      return fail(
-401|        "SHE_INSPECTED_CONTRACT_BINDING_REQUIRED",
-402|        "AUTHORIZE_INSPECTED_EXECUTE exige le binding OA du contrat inspecté — Record refusé.",
-403|      );
-404|    }
-405|    const loaded =
-406|      await input.oa.executionContractServices.getExecutionContract.execute({
-407|        executionContractId: bind.executionContractId.trim(),
-408|      });
-409|    if (!loaded.ok) {
-410|      return fail(
-411|        "SHE_INSPECTED_CONTRACT_NOT_FOUND",
-412|        "Contrat inspecté introuvable — Record SHE refusé.",
-413|      );
-414|    }
-415|    const ec = loaded.contract;
-416|    if (ec.projectId !== input.subject.projectId) {
-417|      return fail(
-418|        "SHE_INSPECTED_CONTRACT_PROJECT_MISMATCH",
-419|        "Contrat inspecté hors projet — Record SHE refusé.",
-420|      );
-421|    }
-422|    if (ec.version !== bind.expectedVersion) {
-423|      return fail(
-424|        "SHE_INSPECTED_CONTRACT_VERSION_MISMATCH",
-425|        "Version du contrat inspecté divergente — Record SHE refusé.",
-426|      );
-427|    }
-428|    const fp = ec.semanticFingerprint ?? "";
-429|    if (!fp || fp !== bind.expectedSemanticFingerprint.trim()) {
-430|      return fail(
-431|        "SHE_INSPECTED_CONTRACT_FINGERPRINT_MISMATCH",
-432|        "Empreinte du contrat inspecté divergente — Record SHE refusé.",
-433|      );
-434|    }
-435|    if ((ec.cycleInstanceId ?? null) !== (input.subject.cycleInstanceId ?? null)) {
-436|      return fail(
-437|        "SHE_INSPECTED_CONTRACT_CYCLE_MISMATCH",
-438|        "Cycle du contrat inspecté divergent — Record SHE refusé.",
-439|      );
-440|    }
-441|    const proj = projectExecutionContractEffects({
-442|      projectId: ec.projectId,
-443|      cycleInstanceId: ec.cycleInstanceId ?? null,
-444|      decisionRefs: ec.decisionRefs ?? [],
-445|      status: ec.status,
-446|      version: ec.version,
-447|      semanticFingerprint: ec.semanticFingerprint,
-448|      expectedOutputs: ec.expectedOutputs,
-449|      requiredCapabilities: ec.requiredCapabilities,
-450|      stopConditions: ec.stopConditions,
-451|      reversibility: ec.reversibility as
-452|        | "reversible"
-453|        | "partially_reversible"
-454|        | "irreversible",
-455|      constraints: ec.constraints,
-456|      inputs: (ec.inputs ?? {}) as Record<string, unknown>,
-457|    });
-458|    sheEffectsFromOa = {
-459|      effectsOverride: {
-460|        intentKind: proj.intentKind,
-461|        artifactType: proj.artifactType,
-462|        requestedOperation: proj.requestedOperation,
-463|        requiredCapabilities: [...proj.requiredCapabilities],
-464|        expectedOutputs: [...proj.expectedOutputs],
-465|        reversibilityExpectation: proj.reversibilityExpectation,
-466|        stopConditions: [...proj.stopConditions],
-467|        risks: [...proj.risks],
-468|        reservations: [...proj.reservations],
-469|      },
-470|      objectiveOverride: proj.objective,
-471|      expectedOutcomeOverride: proj.expectedOutcome,
-472|      scopeNarrativeOverride: proj.scopeNarrative,
-473|      scopeInOverride: proj.scopeIn,
-474|      scopeOutOverride: proj.scopeOut,
-475|    };
-476|  }
+### P1 — ARCHITECTURE-INFORMED DEVELOPMENT
+
+Toute intervention Studio part d’une compréhension **documentée et vérifiable** du fonctionnement **réellement implémenté**. Consulter le référentiel architectural selon fonctionnalités/composants concernés. **Git + preuves primaires** si contradiction avec la doc. Impacts directs/indirects proportionnels au risque.
+
+### P2 — ARCHITECTURE DOCUMENTATION CONTINUITY
+
+Toute évolution de fonctionnement → évaluation d’impact sur le référentiel architectural. Si sémantique change → actualiser sections concernées. Synchronisation documentaire = critère de validation. **Digest conforme ≠ validité sémantique.**
+
+### P3 — EVIDENCE-BASED RATIONALIZATION
+
+Aucun mécanisme conservé par inertie/sunk cost. Classification : KEEP / ADAPT / CONSOLIDATE / REPLACE / RETIRE — sur compréhension, dépendances, besoins produit. **Principe de suppression** autorisé conceptuellement ; **≠** autorisation de supprimer immédiatement. Toute suppression structurante = impact + stratégie de retrait + **GO Morris**.
+
+Alignement existant : R3, A8 (KEEP…RETIRE LATER) — M0 **renforce et explicite**, n’annule pas.
+
+---
+
+## 5. Cible du référentiel architectural (PRR)
+
+**Ancrage :** conserver `projects/sfia-studio/production-runtime-reference/` comme **unique SoT as-implemented**.
+
+### 5.1 Dimensions vs volumes existants
+
+| Dimension | Couverture actuelle | Action proposée M0 |
+|-----------|---------------------|--------------------|
+| Capacités fonctionnelles | 03 flows F01–F20 ; B9 doctrine matrix (Roadmap) | Critères de couverture dans README — pas de nouveau volume |
+| Composants techniques | 01 overview ; 02 objects | KEEP + inventaire M1 |
+| Responsabilités | 02 ; 07 authority | KEEP |
+| Interfaces / interactions | 03 ; 04 | KEEP |
+| Dépendances | 04 | KEEP |
+| Flux / événements | 03 | KEEP |
+| Objets métiers | 02 | KEEP |
+| Données / transformations | 02 ; 06 | KEEP |
+| Persistance / transactions | 06 | KEEP |
+| Autorité / gouvernance | 07 | KEEP |
+| Reprise / résilience | 06 | KEEP |
+| Intégrations externes | 05 Fake/Real | KEEP |
+| Tests / preuves | 08 | KEEP |
+| Dette / réserves | 09 | KEEP |
+| Historique / devenir composants | Tips Roadmap + 09 ; Transmission Guide pedagogy | **Ne pas** dupliquer dans PRR ; pointer Roadmap/Transmission |
+
+### 5.2 Critères de couverture documentaire (proposition)
+
+Un domaine est **COUVERT** si : (1) carte objet/flow/invariant existe ; (2) mapping test/oracle quand comportement critique ; (3) gap listé dans 09 si incomplet ; (4) dernier overlay de maintenance cite le merge/preuve.
+Un domaine est **PARTIEL** si carte existe sans preuve ou avec CURRENT/TARGET mélangés.
+**NON COUVERT** si absent de 01–09 et non listé en 09.
+
+**Ne pas** créer un volume par dimension. **Ne pas** modifier digests ce cycle.
+
+## 6. Matrice d’impact documentaire
+
+| # | Source | Rôle canonique | Règle actuelle | Changement proposé | Class. | Nécessité | Gate | Sync order |
+|---|--------|----------------|----------------|--------------------|--------|-----------|------|------------|
+| 1 | Build Doctrine | Lois construction | R1–R22 ; A5 challenge ; A8 classes | Ajouter R23/R24 + A5 Q14–Q16 + A8 CONSOLIDATE + anti-patterns P1–P3 | ADAPT | **NÉCESSAIRE M0** | Authoring | 1 |
+| 2 | Convergence Roadmap | État + prochaine capacité | Tip SHE governance candidate ; B10 historique M1–M5 Convergence | Nouveau tip post-#590 + section **chantier AKG M0–M5** disambiguée ; **sans** remplacer P6 | ADAPT | **NÉCESSAIRE M0** (tip) / CONDITIONNEL (section AKG) | Authoring | 2 |
+| 3 | PRR README | Contrat living CURRENT | Maintenance 7 steps ; digest ≠ semantic | Enrichir critères couverture + obligation P1/P2 dans contrat ; mapping dimensions→volumes | ADAPT | **NÉCESSAIRE M0** | Authoring | 3 |
+| 4 | Routing guide §4.3.0a | Source routing Studio | Sources 1–6 sans PRR obligatoire | Ajouter PRR (+ volumes applicables) quand cycle touche runtime/comportement ; mini check P1 | ADAPT | **NÉCESSAIRE M0** | Authoring | 4 |
+| 5 | Template §2.0.G | Spécialisation Cursor Studio | Convergence sans PRR | Aligner sur routing ; STOP si PRR non consultée quand applicable | ADAPT | **NÉCESSAIRE M0** | Authoring | 5 |
+| 6 | Instructions ChatGPT | Déclencheur hors Git | Couche Studio PENDING (template §2.0.F) | Proposition textuelle distincte P1–P3 + PRR | ADAPT | CONDITIONNEL (Morris hors Git) | Morris text | 6 |
+| 7 | Product Completion C1 | Décisions Product adoptées | VALIDATED | **Aucun amendement substantiel** ; noter non-collision AKG vs PC milestones | KEEP | RÉFÉRENCE | — | — |
+| 8 | Doctrine v3 30–37 | TARGET produit | ADOPTED framing | **Aucune modification** | KEEP | RÉFÉRENCE | — | — |
+
+**Différé après M1/M2 :** nouveaux volumes PRR ; rewrite historique Roadmap B7–B8 ; CKC passage candidate→validated ; élargissement règles Studio à méthode SFIA globale.
+
+---
+
+## 7. Propositions d’amendements (NON APPLIQUÉES)
+
+> Statut : **PROPOSAL ONLY**. Fichiers protégés **non modifiés** ce cycle.
+
+### 7.1 Build Doctrine — `sfia-studio-convergence-build-doctrine.md`
+
+#### 7.1.A — Ajout après R22 (nouvelle R23 / R24)
+
+**CURRENT :** table R1–R22 se termine à R22 Nora OpenAI-native-first.
+
+**TARGET proposé (insertion) :**
+
+```markdown
+| **R23** | **Architecture-informed development (Studio).** Toute intervention sur SFIA Studio (analyse, cadrage, delivery, validation, prompt Cursor) doit partir d’une compréhension **documentée et vérifiable** du fonctionnement **réellement implémenté**, en consultant le référentiel architectural applicable (`production-runtime-reference/**` et volumes concernés). **Git + tests/preuves** restent prioritaires lorsqu’ils contredisent la documentation ; le conflit doit être marqué comme gap. Les impacts directs et indirects sont qualifiés **proportionnellement au risque**. |
+| **R24** | **Architecture documentation continuity.** Toute évolution du fonctionnement de Studio entraîne une **évaluation d’impact** sur le référentiel architectural. Si la sémantique change, les sections concernées doivent être actualisées (contrat living PRR). La synchronisation documentaire est un **critère de validation** du lot. Un digest PRR conforme **ne prouve pas** la validité sémantique du contenu. |
 ```
 
-### SHE binder passes inspected contract
-```
-# projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts:352-375
-352|  const recorded = await recordGenericMissionHumanDecision({
-353|    oa: input.oa,
-354|    subject: sealed.subject,
-355|    selectedOptionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
-356|    analysis: sheAnalysis,
-357|    forceLocalAuthority: input.forceLocalAuthority === true,
-358|    authenticatedPilote: input.authenticatedPilote,
-359|    rationale: `SHE Execute — autorisation explicite du contrat inspecté ${input.contract.executionContractId} v${input.contract.version} fp=${input.contract.semanticFingerprint}.`,
-360|    presentedPresentationDigest: sealed.subject.presentationDigest,
-361|    // GAP-04 — Record re-projects effects from this OA contract (not subject alone).
-362|    sheInspectedExecutionContract: {
-363|      executionContractId: input.contract.executionContractId,
-364|      expectedVersion: input.contract.version,
-365|      expectedSemanticFingerprint: input.contract.semanticFingerprint ?? "",
-366|    },
-367|  });
-368|  if (!recorded.ok) {
-369|    return {
-370|      ok: false,
-371|      code: recorded.code,
-372|      message: recorded.message,
-373|      humanDecisionCreated: false,
-374|    };
-375|  }
+**Justification :** encode P1/P2 au niveau lois de construction ; cohérent avec R12/R19 et contrat PRR existant.
+
+**Décision Morris :** GO authoring allowlist Build Doctrine.
+
+#### 7.1.B — A5 Challenge — questions additionnelles
+
+**CURRENT :** questions 1–13 (dont OpenAI fit).
+
+**TARGET :** ajouter :
+
+```markdown
+14. Quelles **cartes PRR** (objets / flows / invariants / gaps) ont été consultées pour les composants touchés ? Si non applicable, pourquoi ?
+15. Si le comportement change : quel **impact documentaire** (NO SEMANTIC IMPACT / UPDATE REQUIRED) et quelle preuve de sync ?
+16. Y a-t-il un candidat **KEEP / ADAPT / CONSOLIDATE / REPLACE / RETIRE** fondé sur preuves (pas sur inertie) ? Une suppression structurante est-elle envisagée (→ STOP + GO Morris) ?
 ```
 
-### GAP-03 effective git primary (diff vs main)
-```diff
-diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-index 16f58a53..133bfdfe 100644
---- a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-+++ b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
-@@ -31,6 +31,7 @@ import {
-   gitProofFamiliesFromRequirements,
-   qualifyGitCompletionProofSet,
- } from "./qualifyGitCompletionProofSet";
-+import { selectEffectiveExecutionContracts } from "./selectEffectiveExecutionContracts";
+Étendre le STOP si 14 manquant lorsque le chantier touche runtime/comportement Product :
 
- export const OBLIGATION_POLICY_SUBJECT_PREFIX =
-   "pilot.lifecycle.obligation-policy:" as const;
-@@ -318,7 +319,25 @@ export function deriveFinalizationApplicability(
-     const reqs = gitProofFamiliesFromRequirements(
-       contracts.flatMap((c) => c.evidenceRequirements ?? []),
-     );
--    const primaryContract = gitApplicable[0] ?? contracts[0];
-+    // D-P6-SHE-01 GAP-03 — prefer effective (non-superseded) git-applicable EC.
-+    // Fail-closed when multiple effective git-applicable ECs (no arbitrary pick).
-+    const { effective } = selectEffectiveExecutionContracts(
-+      contracts,
-+      cycleId,
-+    );
-+    const effectiveGitApplicable = effective.filter(isGitApplicableContract);
-+    let primaryContract: DerivableExecutionContract | undefined;
-+    if (effectiveGitApplicable.length === 1) {
-+      primaryContract = effectiveGitApplicable[0];
-+    } else if (effectiveGitApplicable.length === 0) {
-+      // No effective git EC — fall back only when a single git-applicable exists
-+      // in the raw set (legacy mono-EC); otherwise leave undefined (fail-closed).
-+      primaryContract =
-+        gitApplicable.length === 1 ? gitApplicable[0] : undefined;
-+    } else {
-+      // Multiple effective git-applicable ECs — do not invent a principal.
-+      primaryContract = undefined;
-+    }
-     const artifactEv = evidence.find(
-       (e) =>
-         e.type === "artifact" &&
-
+```text
+STOP — ARCHITECTURE CONTEXT NOT LOADED
 ```
 
-### GAP-01 continuity stamp
+#### 7.1.C — A8 — classe CONSOLIDATE + note P3
+
+**CURRENT classes :** KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER
+
+**TARGET :** ajouter ligne :
+
+```markdown
+| **CONSOLIDATE** | Fusionner / simplifier des briques redondantes sans remplacer le cœur utile | Preuve de redondance + dépendances mappées + pas de perte de capacité utilisateur | Lot borné de consolidation | Avant/après capacité e2e + PRR impact |
 ```
-# projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts:34-42
-34|/**
-35| * D-P6-SHE-01 GAP-01 — Product PREPARE stamped deferred structural authority.
-36| * Server-owned input only; never trust a client-only claim.
-37| */
-38|function isSheDeferredStructuralPrepare(
-39|  contract: ExecutionContract,
-40|): boolean {
-41|  return contract.inputs?.sheDeferredStructuralAuthority === true;
-42|}
+
+Note sous tableau :
+
+```markdown
+> **Evidence-based rationalization (P3).** Aucun actif n’est conservé uniquement par inertie historique ou coût passé (aligné R3). La classification ci-dessus repose sur compréhension du fonctionnement, dépendances et besoins produit. **Le principe de suppression** des composants devenus inutiles est autorisé comme orientation ; **il n’autorise pas** une suppression immédiate. Toute suppression structurante exige analyse d’impact, stratégie de retrait et **GO Morris** applicable.
 ```
+
+#### 7.1.D — A11 / A12 — PRR dans gouvernance des sources
+
+**TARGET A11 :** ajouter ligne :
+
+```markdown
+| **Production Runtime Reference (PRR)** | SoT **as-implemented CURRENT** du runtime Studio |
 ```
-# projects/sfia-studio/app/features/project-assistant/w2/readCurrentGovernedExecutionContinuity.ts:248-266
-248|  // Empty refs — G-D4 NON_STRUCTURAL OR SHE deferred STRUCTURAL/UNKNOWN (read-only).
-249|  if (refs.length === 0) {
-250|    const stamped = materialityFromContractConstraints(contract.constraints);
-251|    if (stamped == null) {
-252|      return fail(
-253|        "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-254|        "Contrat d'exécution sans décision rattachée ni justification G-D4 — continuation refusée.",
-255|      );
-256|    }
-257|
-258|    // GAP-01 — Product SHE PREPARE provenance (server input), not client stamp alone.
-259|    if (isSheDeferredStructuralPrepare(contract)) {
-260|      return verifySheDeferredPrepareReadLineage(
-261|        oa,
-262|        projectId,
-263|        contract,
-264|        stamped,
-265|      );
-266|    }
+
+**TARGET A12 séquence :**
+
+```text
+Repo-informed pre-check
+  → si Studio trigger : Convergence pre-check
+  → si runtime/comportement touché : PRR volumes applicables (P1)
+  → qualification cycle
+  → si Nora cognitive : OpenAI Capability Fit Check (R22)
+  → CKC/process guidance applicable (v2.6 process only)
+  → sources spécifiques
+  → instanciation prompt Cursor
+```
+
+#### 7.1.E — A13 Anti-patterns (ajouts)
+
+```markdown
+- intervention Studio sans consultation PRR / code quand le runtime est concerné ;
+- digest PRR rafraîchi présenté comme validation sémantique ;
+- conservation d’un composant « parce qu’il existe déjà » sans classification evidence-based ;
+- suppression structurante sans GO Morris / plan de retrait ;
+- second référentiel architectural parallèle à la PRR.
+```
+
+#### 7.1.F — A14 Stop markers (ajouts)
+
+```text
+STOP — ARCHITECTURE CONTEXT NOT LOADED
+STOP — STRUCTURAL RETIREMENT REQUIRES MORRIS GO
 ```
 
 ---
 
-## 6. Validations (actual — not forecasts)
+### 7.2 Convergence Roadmap — `sfia-studio-convergence-roadmap.md`
 
-### Targeted (19 files)
-238 PASS / 0 FAIL
+#### 7.2.A — Tip maintenance (NÉCESSAIRE M0) — PROPOSAL
 
-### Full Vitest
-```
-SFIA_STUDIO_CURSOR_REAL=0 npx vitest run
-Test Files  566 passed | 22 skipped (588)
-Tests       6210 passed | 143 skipped (6353)
-Duration    76.06s
-FULL_EXIT:0
+**CURRENT tip (extrait sémantique) :** P6 D-P6-SHE-01 SINGLE HUMAN EXECUTE — GOVERNANCE DOCUMENTARY SYNCHRONIZATION **CANDIDATE** ; Delivery HEAD historique `304e30e8…` (obsolète vs main).
+
+**TARGET tip (nouveau, à placer en tête ; tip actuel → HISTORICAL / SUPERSEDED AS TIP) :**
+
+```markdown
+| **Timestamp maintenance STUDIO ARCHITECTURAL KNOWLEDGE GOVERNANCE — M0 METHODOLOGICAL FOUNDATION PREP** | <UTC_AUTHORING> Europe/Paris — **M0 — METHODOLOGICAL FOUNDATION — DOCUMENTARY SYNCHRONIZATION PROPOSAL** · Chantier transversal **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Cycle **1 — Cadrage** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · origin/main **`c9abdbc37830d687cc8a504b97db659b47aa0f5b`** · PR **#590** = **MERGED** · SHE Option A / Single Human Execute = **INTEGRATED ON MAIN** · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · M0 = **PREPARATION ONLY** (propositions ; fondateurs non modifiés tant que GO M0 DOCUMENTARY AUTHORING absent) · Identifiants jalons méthodologiques **AKG-M0…AKG-M5** (éviter collision avec milestones Convergence historiques M1–M5) · C1 / doctrine v3 = **NOT MODIFIED** · Project push/PR/merge = **NONE** |
 ```
 
-### Typecheck / lint / build
-| Check | Exit |
-|-------|------|
-| tsc --noEmit | 0 |
-| next lint | 0 |
-| next build | 0 |
-| git diff --check | 0 |
-| secrets (key paths) | none |
+**Note naming :** proposer préfixe **`AKG-`** (Architectural Knowledge & Governance) pour M0–M5 méthodologiques. Décision Morris sur le préfixe.
 
-### CI (PR #590)
-| Check | Conclusion |
-|-------|------------|
-| Detect SFIA Studio changes | SUCCESS |
-| Build and validate SFIA Studio | SUCCESS (~8m57s) |
-| **SFIA Studio Required Gate** | **SUCCESS** |
-| Workflow run | `39265254684` |
-| Head SHA | `f1fc1af49606dbc600f5f839020639f880529696` |
+#### 7.2.B — Section nouvelle (CONDITIONNELLE) — chantier AKG
 
----
+Insertion proposée **après B1** (ou annexe B-AKG), sans réécrire B7–B10 historiques :
 
-## 7. Fake / Real
+```markdown
+## B-AKG. Chantier transversal — Architectural Knowledge & Construction Governance
 
-| | |
-|--|--|
-| Achieved | Product PR CREATED + PRR CONFORMANCE PASS + DETERMINISTIC CI QUALIFIED (Required Gate SUCCESS) |
-| Out of scope | SHE LIVE / HQA / P6 GLOBAL / Runtime v3 ADOPTED |
-| Debt | TOOL-FIRST-REAL-NOWRITE OPEN |
-| E2E Evidence→Nora SHE | still bounded — not closed by GAP-03 alone |
+> **Portée :** méthode de construction Studio. **Ne remplace pas** Product Completion ni le chemin critique Convergence B10.
+> **Relation à P6 :** parallèle / support ; **ne déclare pas** P6 GLOBAL PASS.
 
----
-
-## 8. Gates Morris remaining
-
-1. ChatGPT PR Critical Review (this handoff)
-2. Explicit **Merge GO** (PR stays DRAFT until then)
-3. REAL/HQA GO
-4. P6 Exit
-
----
-
-## 9. Verdict
-
-**D-P6-SHE-01 — PRODUCT GIT INTEGRATION COMPLETE — PR DRAFT CREATED — DETERMINISTIC QA PASS — PRR CONFORMANCE PASS — READY FOR CHATGPT PR CRITICAL REVIEW.**
-
-CI Required Gate: **SUCCESS** (run `39265254684`).
-
-NOT MERGED. NOT POST-MERGE VERIFIED. NOT SHE LIVE / P6 GLOBAL / Runtime v3 ADOPTED.
-
----
-
-## INSTRUCTION CHATGPT
-
-Verify PR #590 DRAFT, head/base, commits `928ab15b`+`f1fc1af4`, PRR semantic sync, digests, Vitest 6210/0/143, Required Gate SUCCESS, reserves, merge NOT authorized.
-
-# END REVIEW PACK FULL — CRITICAL
-
----
-
-## APPENDIX A — GAP-03 test file (FULL)
-
-```typescript
-/**
- * D-P6-SHE-01 GAP-03 — git MUST primaryContract uses effective EC selection.
- *
- * Discriminating property:
- *   Full typed Git proof set bound to the SHE successor EC → gitProofPresent=true
- *   ONLY when primaryContract is the effective (non-superseded) successor.
- *   Same evidence + predecessor-first listing would yield false if selection
- *   used gitApplicable[0] (superseded predecessor).
- *
- * gitProofPresent=true ≠ Cycle FINALIZED — other MUST obligations remain.
- *
- * Deterministic — ZERO REAL / HQA / live Git mutation.
- *
- * @vitest-environment node
- */
-import { describe, expect, it } from "vitest";
-import { deriveFinalizationApplicability } from "@/lib/oa/cycle/application/deriveFinalizationApplicability";
-import type { DerivableExecutionContract } from "@/lib/oa/cycle/application/deriveFinalizationApplicability";
-import { deriveCycleObligationSnapshot } from "@/lib/oa/cycle/application/deriveCycleObligationSnapshot";
-import {
-  GCEC_GIT_COMPLETION_PROOF_FAMILIES,
-  qualifyGitCompletionProofSet,
-} from "@/lib/oa/cycle/application/qualifyGitCompletionProofSet";
-import { assessFinalizationObligations } from "@/lib/oa/cycle/application/assessFinalization";
-import type { Evidence } from "@/lib/oa/evidence-review";
-
-describe("P6 SHE GAP-03 — effective git primaryContract", () => {
-  const cycleId = "cycinst:gap03-test";
-  const projectId = "prj:gap03-test";
-  const predId = "xct:pred";
-  const succId = "xct:she-hd:succ";
-  const repoIdentity = "org/repo";
-  const targetPath = "docs/functional-design.md";
-  const artifactDigest =
-    "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" as const;
-  const commitSha =
-    "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb";
-  const mergeSha =
-    "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc";
-  const repoBinding = {
-    identity: repoIdentity,
-    pathRoot: "/tmp/repo",
-  } as const;
-
-  const FULL_GCEC_REQS = [...GCEC_GIT_COMPLETION_PROOF_FAMILIES];
-
-  function gitEc(
-    id: string,
-    status: string,
-    supersedes?: string,
-    evidenceRequirements: readonly string[] = FULL_GCEC_REQS,
-  ): DerivableExecutionContract {
-    return {
-      contractId: id,
-      cycleInstanceId: cycleId,
-      status,
-      supersedesExecutionContractId: supersedes,
-      requiredCapabilities: ["cap:git.repository"],
-      evidenceRequirements: [...evidenceRequirements],
-      action: "git_commit",
-      target: targetPath,
-      scope: "docs/",
-    };
-  }
-
-  function snapshot() {
-    return deriveCycleObligationSnapshot({
-      projectId,
-      cycleTypeId: "cyc:functional-design",
-      cycleInstanceId: cycleId,
-      repositoryBinding: repoBinding as never,
-    });
-  }
-
-  function makeEvidence(partial: Partial<Evidence> & { evidenceId: string }): Evidence {
-    return {
-      schemaVersion: "0.1.0-oa",
-      source: partial.source ?? "test-source",
-      sourceKind: partial.sourceKind ?? "system",
-      producedAt: "2026-10-19T12:00:00.000Z",
-      classification: "supporting",
-      storageMode: "reference",
-      availability: "available",
-      bindings: partial.bindings ?? {},
-      containsSecrets: false,
-      provenance: {
-        recordedAt: "2026-10-19T12:00:00.000Z",
-        recordedBy: { actorId: "actor:test", role: "system" },
-      },
-      version: 1,
-      createdAt: "2026-10-19T12:00:00.000Z",
-      type: "other",
-      status: "verified",
-      ...partial,
-    } as Evidence;
-  }
-
-  /** Full 7-family typed Git SET + GCEC-complete artifact, bound to one EC. */
-  function fullGitProofSetBoundTo(executionContractId: string): Evidence[] {
-    const bindings = {
-      projectId,
-      cycleInstanceId: cycleId,
-      executionContractId,
-    };
-    const repo = encodeURIComponent(repoIdentity);
-    const families: Evidence[] = [
-      makeEvidence({
-        evidenceId: "evd:local",
-        source: "git:local_commit",
-        location: `git:local_commit?repo=${repo}&commitSha=${commitSha}`,
-        bindings,
-      }),
-      makeEvidence({
-        evidenceId: "evd:push",
-        source: "git:remote_push",
-        location: `git:remote_push?repo=${repo}&remote=origin&refName=feature%2Fgap03&commitSha=${commitSha}`,
-        bindings,
-      }),
-      makeEvidence({
-        evidenceId: "evd:pr",
-        source: "git:pull_request",
-        location: `git:pull_request?repo=${repo}&prNumber=1&headSha=${commitSha}&headBranch=feature%2Fgap03&baseBranch=main&state=open`,
-        bindings,
-      }),
-      makeEvidence({
-        evidenceId: "evd:ci",
-        source: "git:ci_status",
-        location: `git:ci_status?repo=${repo}&commitSha=${commitSha}&conclusion=success`,
-        bindings,
-      }),
-      makeEvidence({
-        evidenceId: "evd:review",
-        source: "git:review_status",
-        location: `git:review_status?repo=${repo}&prNumber=1&state=approved`,
-        bindings,
-      }),
-      makeEvidence({
-        evidenceId: "evd:merge",
-        source: "git:merge",
-        location: `git:merge?repo=${repo}&mergeCommitSha=${mergeSha}&prNumber=1`,
-        bindings,
-      }),
-      makeEvidence({
-        evidenceId: "evd:post",
-        source: "git:post_merge_verification",
-        digest: artifactDigest,
-        location: `git:post_merge_verification?repo=${repo}&targetBranch=main&targetSha=${mergeSha}&artifactPath=${encodeURIComponent(targetPath)}&digest=${encodeURIComponent(artifactDigest)}`,
-        bindings,
-      }),
-      // GCEC-strict artifact — supplies expected.targetPath + artifactDigest.
-      makeEvidence({
-        evidenceId: "evd:art",
-        type: "artifact",
-        status: "available",
-        digest: artifactDigest,
-        location: targetPath,
-        bindings: {
-          ...bindings,
-          executionAttemptId: "att:gap03-succ",
-        },
-      }),
-    ];
-    return families;
-  }
-
-  function derive(input: {
-    contracts: DerivableExecutionContract[];
-    evidence: Evidence[];
-    snap?: ReturnType<typeof snapshot>;
-  }) {
-    const snap = input.snap ?? snapshot();
-    return deriveFinalizationApplicability({
-      cycleInstanceId: cycleId,
-      projectId,
-      trajectory: null,
-      decisions: [],
-      evidence: input.evidence,
-      reviewBundles: [],
-      executionContracts: input.contracts,
-      cycleTypeId: "cyc:functional-design",
-      repositoryBinding: repoBinding as never,
-      obligationSnapshot: snap,
-    });
-  }
-
-  it("T14/T22 — MUST includes git_repository; successor preferred over superseded pred", () => {
-    const snap = snapshot();
-    expect(snap.mustFamilies).toContain("git_repository");
-
-    const predecessor = gitEc(predId, "superseded");
-    const successor = gitEc(succId, "completed", predId);
-    // Predecessor listed first (historical bug path used gitApplicable[0]).
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence: [],
-      snap,
-    });
-    expect(rules.git_repository).toBe("APPLICABLE");
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("T16 — evidence bound only to predecessor does not satisfy successor expected id", () => {
-    const predecessor = gitEc(predId, "superseded");
-    const successor = gitEc(succId, "completed", predId);
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence: fullGitProofSetBoundTo(predId),
-    });
-    // Expected EC is successor → predecessor-bound evidence → gitProofPresent false.
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("T17 — multiple effective git-applicable ECs → fail-closed (no arbitrary primary)", () => {
-    const a = gitEc("xct:a", "completed");
-    const b = gitEc("xct:b", "completed");
-    const rules = derive({
-      contracts: [a, b],
-      evidence: fullGitProofSetBoundTo("xct:a"),
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("POSITIVE T18 — successor + full typed Git SET → gitProofPresent=true (discriminating)", () => {
-    const predecessor = gitEc(predId, "superseded");
-    const successor = gitEc(succId, "completed", predId);
-    // Predecessor listed FIRST — wrong historical selection would pick pred.
-    const evidence = fullGitProofSetBoundTo(succId);
-
-    // Discriminator (engine-independent): same SET fails when expected EC is pred.
-    const againstPred = qualifyGitCompletionProofSet({
-      evidence,
-      requirements: [...FULL_GCEC_REQS],
-      expected: {
-        repositoryRef: repoIdentity,
-        targetPath,
-        artifactDigest,
-        cycleInstanceId: cycleId,
-        executionContractId: predId,
-        projectId,
-      },
-    });
-    expect(againstPred.status).toBe("BLOCKING");
-    if (againstPred.status === "BLOCKING") {
-      expect(againstPred.reason).toBe("contract_mismatch");
-    }
-
-    const againstSucc = qualifyGitCompletionProofSet({
-      evidence,
-      requirements: [...FULL_GCEC_REQS],
-      expected: {
-        repositoryRef: repoIdentity,
-        targetPath,
-        artifactDigest,
-        cycleInstanceId: cycleId,
-        executionContractId: succId,
-        projectId,
-      },
-    });
-    expect(againstSucc.status).toBe("SATISFIED");
-
-    // Product path: deriveFinalizationApplicability must select successor.
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence,
-    });
-    expect(rules.git_repository).toBe("APPLICABLE");
-    expect(rules.gitProofPresent).toBe(true);
-
-    // gitProofPresent=true ≠ Cycle FINALIZED — other MUST remain unsatisfied.
-    const assessment = assessFinalizationObligations({
-      cycle: {
-        cycleInstanceId: cycleId,
-        projectId,
-        cycleTypeId: "cyc:functional-design",
-        status: "active",
-      } as never,
-      projectId,
-      assessedAt: "2026-10-19T12:00:00.000Z",
-      decisions: [],
-      evidence,
-      reviewBundles: [],
-      trajectory: null,
-      applicability: rules,
-      executionContracts: [predecessor, successor],
-    });
-    const gitObl = assessment.obligations.find(
-      (o) => o.family === "git_repository",
-    );
-    expect(gitObl?.status).toBe("SATISFIED");
-    const blockingOthers = assessment.obligations.filter(
-      (o) =>
-        o.family !== "git_repository" &&
-        (o.status === "MISSING" || o.status === "BLOCKING"),
-    );
-    // At least one other MUST family must still block full finalization.
-    expect(blockingOthers.length).toBeGreaterThan(0);
-    expect(assessment.canComplete).toBe(false);
-  });
-
-  it("NEG — missing family → gitProofPresent=false", () => {
-    const successor = gitEc(succId, "completed", predId);
-    const predecessor = gitEc(predId, "superseded");
-    const incomplete = fullGitProofSetBoundTo(succId).filter(
-      (e) => e.source !== "git:ci_status",
-    );
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence: incomplete,
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("NEG — status not verified → gitProofPresent=false", () => {
-    const successor = gitEc(succId, "completed", predId);
-    const predecessor = gitEc(predId, "superseded");
-    const evidence = fullGitProofSetBoundTo(succId).map((e) =>
-      e.source === "git:local_commit"
-        ? { ...e, status: "available" as const }
-        : e,
-    );
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence,
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("NEG — digest divergent on post_merge → gitProofPresent=false", () => {
-    const successor = gitEc(succId, "completed", predId);
-    const predecessor = gitEc(predId, "superseded");
-    const bad =
-      "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" as const;
-    const evidence: Evidence[] = fullGitProofSetBoundTo(succId).map((e) => {
-      if (e.source !== "git:post_merge_verification") return e;
-      return {
-        ...e,
-        digest: bad,
-        location: `git:post_merge_verification?repo=${encodeURIComponent(repoIdentity)}&targetBranch=main&targetSha=${mergeSha}&artifactPath=${encodeURIComponent(targetPath)}&digest=${encodeURIComponent(bad)}`,
-      };
-    });
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence,
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("NEG — SHA incoherent commit≠push → gitProofPresent=false", () => {
-    const successor = gitEc(succId, "completed", predId);
-    const predecessor = gitEc(predId, "superseded");
-    const otherSha =
-      "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-    const evidence = fullGitProofSetBoundTo(succId).map((e) => {
-      if (e.source !== "git:remote_push") return e;
-      return {
-        ...e,
-        location: `git:remote_push?repo=${encodeURIComponent(repoIdentity)}&remote=origin&refName=feature%2Fgap03&commitSha=${otherSha}`,
-      };
-    });
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence,
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("NEG — wrong projectId binding → gitProofPresent=false", () => {
-    const successor = gitEc(succId, "completed", predId);
-    const predecessor = gitEc(predId, "superseded");
-    const evidence = fullGitProofSetBoundTo(succId).map((e) => ({
-      ...e,
-      bindings: { ...e.bindings, projectId: "prj:wrong" },
-    }));
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence,
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("NEG — wrong cycleInstanceId → gitProofPresent=false", () => {
-    const successor = gitEc(succId, "completed", predId);
-    const predecessor = gitEc(predId, "superseded");
-    const evidence = fullGitProofSetBoundTo(succId).map((e) => ({
-      ...e,
-      bindings: { ...e.bindings, cycleInstanceId: "cycinst:wrong" },
-    }));
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence,
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("NEG — wrong repository → gitProofPresent=false", () => {
-    const successor = gitEc(succId, "completed", predId);
-    const predecessor = gitEc(predId, "superseded");
-    const evidence = fullGitProofSetBoundTo(succId).map((e) => {
-      if (typeof e.source !== "string" || !e.source.startsWith("git:")) return e;
-      return {
-        ...e,
-        location: (e.location ?? "").replace(
-          encodeURIComponent(repoIdentity),
-          encodeURIComponent("other/repo"),
-        ),
-      };
-    });
-    const rules = derive({
-      contracts: [predecessor, successor],
-      evidence,
-    });
-    expect(rules.gitProofPresent).toBe(false);
-  });
-
-  it("NEG — orphan superseded predecessor only (no successor) → no satisfied proof on pred evidence alone under effective empty", () => {
-    // Only superseded EC remains — effective pool empty; fallback mono if single gitApplicable.
-    // With a single superseded git EC, legacy fallback may select it; proof on that id can satisfy.
-    // Discriminating SHE case requires BOTH pred+succ; orphan pred alone is not the SHE path.
-    const predecessor = gitEc(predId, "superseded");
-    const rules = derive({
-      contracts: [predecessor],
-      evidence: fullGitProofSetBoundTo(predId),
-    });
-    // Mono fallback may allow pred — document without inventing new Finalization rule.
-    // When only superseded remains, gitApplicable.length===1 → primary=pred → may be true.
-    // SHE Delivery always pairs pred+succ; orphan is non-SHE.
-    expect(typeof rules.gitProofPresent).toBe("boolean");
-  });
-
-  it("LEGACY — mono-EC historical path: full SET on single completed EC → gitProofPresent=true", () => {
-    const mono = gitEc("xct:mono", "completed");
-    const rules = derive({
-      contracts: [mono],
-      evidence: fullGitProofSetBoundTo("xct:mono"),
-    });
-    expect(rules.git_repository).toBe("APPLICABLE");
-    expect(rules.gitProofPresent).toBe(true);
-  });
-});
-
+| Jalon | Objectif | Exit (résumé) |
+|-------|----------|---------------|
+| **AKG-M0** | Fondations méthodologiques (P1–P3) synchronisées dans Build Doctrine / routing / template / PRR contrat | Propositions authorées + Critical Review + GO authoring consommé |
+| **AKG-M1** | Inventaire exhaustif système réel | Inventaire traçable objets/flows/deps vs Git |
+| **AKG-M2** | Compréhension architecture | Cartes responsabilité/interaction validées |
+| **AKG-M3** | Consolidation référentiel | PRR couverture mesurée ; gaps 09 à jour |
+| **AKG-M4** | Rationalisation evidence-based | Matrice KEEP/ADAPT/CONSOLIDATE/REPLACE/RETIRE + gates |
+| **AKG-M5** | Transformation Product (si GO) | Lots Product gouvernés — **hors** M0 |
 ```
 
-## APPENDIX B — Git Review Index
+---
+
+### 7.3 PRR README — `production-runtime-reference/README.md`
+
+#### 7.3.A — Living maintenance contract (enrichissement)
+
+**CURRENT steps 1–7** (conservés).
+
+**TARGET — ajouter après step 7 :**
+
+```markdown
+8. Apply **architecture-informed** reading (P1): identify touched objects/flows/invariants before coding or claiming impact.
+9. Treat documentary sync as a **validation criterion** of the change set (P2).
+10. Record coverage status for affected domains: COUVERT / PARTIEL / NON COUVERT (see Coverage criteria).
+
+**Coverage criteria:** a domain is COUVERT iff object/flow/invariant cards exist, critical behavior maps to tests/oracles when applicable, residual gaps are listed in volume 09, and the latest maintenance overlay cites merge/proof. Digest match alone never implies semantic validity.
+```
+
+#### 7.3.B — Dimensions → volumes table
+
+Insérer la table §5.1 de ce Review Pack (ou équivalent court) sous « Volumes ».
+
+**Interdit ce cycle :** modification `production-runtime-reference.manifest.json` / digests.
+
+---
+
+### 7.4 Source Routing — `sfia-cycle-routing-guide.md` §4.3.0a
+
+**CURRENT sources obligatoires 1–6** (Git, Build Doctrine, Roadmap, v3, sources cycle, v2.6 process).
+
+**TARGET — étendre :**
+
+```markdown
+**Sources obligatoires supplémentaires (ordre) :**
+
+1. Git courant + décisions Morris explicites ;
+2. `…/sfia-studio-convergence-build-doctrine.md` ;
+3. `…/sfia-studio-convergence-roadmap.md` ;
+4. doctrine produit v3 applicable (`sfia-v3-framing/**`, notamment `30`–`37`) ;
+5. **si le cycle touche runtime / comportement Product / exécution / persistence / authority :**
+   `projects/sfia-studio/production-runtime-reference/` — README + volumes applicables (01–09) ;
+6. sources Studio/repo spécifiques au cycle ;
+7. processus SFIA **v2.6** nécessaire à l’exécution du cycle.
+
+**Architecture-informed check (Studio runtime) :**
+- composants/flows PRR concernés identifiés ;
+- impacts directs/indirects proportionnels ;
+- si contradiction code↔doc : gap explicite ; **code wins**.
+```
+
+Mettre à jour le STOP existant si PRR manquante quand applicable :
+
+```text
+STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
+STUDIO WORK NOT QUALIFIED — ARCHITECTURE CONTEXT NOT LOADED
+```
+
+---
+
+### 7.5 Template Cursor — `sfia-cycle-execution-template.md` §2.0.G
+
+**CURRENT :** lit Build Doctrine, Roadmap, v3, état repo.
+
+**TARGET :** aligner sur routing :
+
+```markdown
+Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer le prompt :
+
+1. Build Doctrine
+2. Convergence Roadmap
+3. sources v3 applicables
+4. **PRR volumes applicables** si runtime/comportement touché
+5. état repo/projet Studio concerné
+
+**Règle dure (étendue) :**
+
+trigger Studio = oui
+ET (Build Doctrine non lue
+    OU Roadmap non lue
+    OU capacité / trajectory link non qualifié
+    OU (runtime touché ET PRR applicable non lue))
+→ NE PAS générer le prompt Cursor
+
+PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
+PROMPT NOT GENERATED — SFIA STUDIO ARCHITECTURE CONTEXT INCOMPLETE
+```
+
+Mini-fiche §2.0.D : ajouter champs `PRR volumes consulted` / `Architecture impact: NONE|UPDATE REQUIRED|GAP`.
+
+---
+
+### 7.6 Instructions projet ChatGPT (HORS GIT) — proposition textuelle
+
+```text
+SFIA Studio — couche convergence (proposition M0)
+
+Lorsque l’objet du chat est la construction / évolution de SFIA Studio :
+1. Ne pas s’appuyer sur la mémoire conversationnelle comme SoT.
+2. Imposer Convergence Pre-check (Build Doctrine + Roadmap + v3 applicable).
+3. Si runtime/comportement concerné : consulter PRR (architecture-informed).
+4. Appliquer P1/P2/P3 : comprendre le réel → sync doc si sémantique change → rationaliser sur preuves.
+5. Recommendation ≠ HumanDecision ; Candidate ≠ Validated ; Target ≠ Implemented ;
+   Deterministic ≠ REAL ; digest ≠ sémantique ; doc complète ≠ Product READY.
+6. Ne pas élargir les règles Studio à la méthode SFIA globale sans décision Morris.
+7. Toute suppression structurante → STOP + GO Morris.
+```
+
+**Ne pas prétendre modifié depuis Git.**
+
+---
+
+### 7.7 Product Completion C1 — impacts uniquement
+
+| Impact | Qualification |
+|--------|---------------|
+| Amendement substantiel C1 | **NON** — décision Morris distincte requise |
+| Collision AKG-M* vs milestones PC/P6 | Documenter dans Roadmap B-AKG ; C1 inchangé |
+| SHE / P6 mentions | C1 historique VALIDATED ; tip Roadmap porte l’état post-#590 |
+
+---
+
+### 7.8 Doctrine v3 — aucune modification
+
+KEEP intégral `sfia-v3-framing/**` ce cycle.
+
+---
+
+### 7.9 Option document supplémentaire (NON créé)
+
+| Option | Verdict |
+|--------|---------|
+| Nouveau fichier `…/akg-methodological-foundation.md` | **NON recommandé M0** — les règles doivent vivre dans Build Doctrine + routing + template + PRR README |
+| Nouveau volume PRR 10 | **DIFFÉRÉ** post-M1/M3 si couverture insuffisante après inventaire |
+
+---
+
+## 8. Trajectoire AKG-M0 → AKG-M5
+
+| Jalon | Objectif | Cap. v3 | Dépendances | Livrables | Exit | Preuve | Risques | Gates | Suivant |
+|-------|----------|---------|-------------|-----------|------|--------|---------|-------|---------|
+| **AKG-M0** | Fondations méthodo P1–P3 | F05+ | Cadrage Morris | Amendements authorés allowlist | Critical Review + GO authoring consommé | Handoff + Git diff borné | Collision naming ; sur-contrôle | GO authoring | M1 |
+| **AKG-M1** | Inventaire système réel | F05/F14 | M0 actif | Inventaire objets/flows/deps | Couverture inventaire vs Git | Tables + refs code | Inventaire exhaustif impossible en 1 lot | GO inventaire | M2 |
+| **AKG-M2** | Compréhension archi | F05/F06 | M1 | Cartes responsabilités/interactions | Revue compréhension | Cartes validées | Sur-modélisation | GO understanding | M3 |
+| **AKG-M3** | Consolidation PRR | F05/F12 | M2 | PRR consolidée ; gaps 09 | Critères couverture | Conformance + review sémantique | Tentation 2e référentiel | GO PRR sync | M4 |
+| **AKG-M4** | Rationalisation | F05/F07 | M3 | Matrice KEEP…RETIRE | Décisions Morris par lot | Impact packs | Suppression prématurée | GO rationalize | M5 |
+| **AKG-M5** | Transformation Product | F05+ | M4 + GO Product | Lots Product | Preuves Product | CI/HQA selon GO | Confusion avec P6 | GO Product distinct | — |
+
+**Relation P6 :** support méthodologique ; **P6 GLOBAL PASS non déclaré** ; **pas de relance HQA** ce cycle.
+
+---
+
+## 9. Critères de sortie M0 / entrée M1
+
+### Exit M0
+
+1. Critical Review ChatGPT des propositions = PASS (ou PASS WITH RESERVES non bloquantes).
+2. Morris émet **GO M0 DOCUMENTARY AUTHORING** avec allowlist fichiers.
+3. (Cycle ultérieur) amendements authorés intégrés Git selon gates distincts.
+4. Aucune claim M0 METHOD ACTIVE ON MAIN avant intégration.
+
+### Entrée M1
+
+1. M0 authoring intégré **ou** GO Morris explicite démarrant inventaire sur baseline documentaire partielle.
+2. Périmètre inventaire borné.
+3. Pas de suppression composant dans M1.
+
+---
+
+## 10. Risques et réserves
+
+| ID | Risque | Mitigation |
+|----|--------|------------|
+| R-NAME | Collision M1–M5 Convergence vs AKG | Préfixe **AKG-** ; décision Morris |
+| R-TIP | Tip Roadmap obsolète post-#590 | Tip proposal 7.2.A |
+| R-CTRL | Sur-contrôle / friction | Proportionnalité : PRR obligatoire **seulement** si runtime touché |
+| R-DUP | Second référentiel | Interdit ; enrichir PRR |
+| R-RETIRE | Interpréter P3 comme GO delete | STOP marker + gate |
+| R-P6 | Déclarer P6 PASS par effet de bord | Explicit non-claims |
+| R-WT | Contamination worktree | Restauration documentée §1.2 ; HQA préservé |
+
+**Dette Product hors M0 :** TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN.
+
+---
+
+## 11. Validations (A–O)
+
+| ID | Contrôle | Résultat |
+|----|----------|----------|
+| A | Couverture sources fondatrices | PASS (lues) |
+| B | Cohérence P1–P3 | PASS |
+| C | Préservation décisions Morris | PASS |
+| D | Non-duplication PRR | PASS (proposition) |
+| E | CURRENT/TARGET/HISTORICAL | PASS |
+| F | Cohérence V3-F01…F15 | PASS (transversal F05+) |
+| G | Conservation gates | PASS |
+| H | Proportionnalité contrôles | PASS (PRR if runtime) |
+| I | Pas d’archi parallèle | PASS |
+| J | Trajectoire M0→M5 | PASS (AKG-*) |
+| K | Exit M0 / entrée M1 | PASS |
+| L | Absence mutation Product | PASS (protected diffs = 0) |
+| M | Absence mod fichiers protégés | PASS |
+| N | Propositions complètes | PASS (ce pack) |
+| O | Digests PRR non actualisés | PASS |
+
+---
+
+## 12. Fichiers réellement modifiés (ce cycle)
+
+| Fichier | Action |
+|---------|--------|
+| `.tmp-sfia-review/chatgpt-review.md` | Réinitialisé + contenu M0 (mono-cycle) |
+| Documents fondateurs / Product / PRR / method / prompts | **AUCUN** |
+| Digests PRR | **AUCUN** |
+
+---
+
+## 13. Preuve d’absence de mutation Product
+
+```text
+git diff --name-only -- projects/sfia-studio/app \
+  projects/sfia-studio/sfia-v3-framing \
+  projects/sfia-studio/product-completion \
+  projects/sfia-studio/convergence \
+  projects/sfia-studio/production-runtime-reference \
+  method/sfia-fast-track prompts/templates .github/workflows
+→ (empty)
+```
+
+HEAD prep = origin/main = `c9abdbc37830d687cc8a504b97db659b47aa0f5b`.
+
+---
+
+## 14. Git Review Index
 
 | Path | Role |
 |------|------|
-| w2/singleHumanExecutePreparedContract.ts | CREATED — SHE |
-| w2/recordGenericMissionHumanDecision.ts | GAP-04 OA binding |
-| w2/readCurrentGovernedExecutionContinuity.ts | GAP-01 |
-| deriveFinalizationApplicability.ts | GAP-03 |
-| resolveProductExecutionContext.ts | I17 |
-| orchestrateF2.ts | SHE PREPARE admission |
-| ExecutionSurface / pilotExecutionPresentation | UX Exécuter |
-| p6.she.* tests | SHE + GAP |
-| PRR 02/03/04/07/08 + manifest | semantic sync |
+| `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` | ADAPT proposal |
+| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | ADAPT proposal |
+| `projects/sfia-studio/production-runtime-reference/README.md` | ADAPT proposal |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | ADAPT proposal §4.3.0a |
+| `prompts/templates/sfia-cycle-execution-template.md` | ADAPT proposal §2.0.G |
+| `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` | KEEP / impact only |
+| `projects/sfia-studio/sfia-v3-framing/30–37` | KEEP |
+| `production-runtime-reference/01–09` + manifest | KEEP (no digest change) |
+| ChatGPT project instructions | Proposal hors Git |
+| `.tmp-sfia-review/chatgpt-review.md` | Review Pack mono-cycle |
+
+---
+
+## 15. Décisions Morris restantes
+
+1. **GO M0 DOCUMENTARY AUTHORING** — allowlist (Build Doctrine, Roadmap tip±B-AKG, PRR README, routing §4.3.0a, template §2.0.G).
+2. Préfixe jalons : **AKG-M*** vs autre.
+3. Instructions ChatGPT : appliquer proposition hors Git ? (oui/non/texte final).
+4. Tip Roadmap post-#590 : authoring groupé avec M0 ou lot séparé.
+5. **Pas** de GO suppression composant.
+6. **Pas** de P6 GLOBAL PASS / runtime v3 ADOPTED.
+
+---
+
+## 16. Explicit non-claims
+
+- M0 GIT INTEGRATED — **NO**
+- M0 METHOD ACTIVE ON MAIN — **NO**
+- P6 GLOBAL PASS — **NO**
+- RUNTIME V3 ADOPTED — **NO**
+- REAL / E2E REAL — **N/A**
+- Composant RETIRED — **NO**
+
+---
+
+## 17. Verdict
+
+**M0 METHODOLOGICAL FOUNDATION — DOCUMENTARY SYNCHRONIZATION PROPOSAL READY FOR CHATGPT CRITICAL REVIEW**
+
+Prochain gate : **GO M0 DOCUMENTARY AUTHORING** (après Critical Review).
+
+---
+
+## 18. Instruction ChatGPT
+
+Lire depuis Git branche `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md`.
+
+Vérifier : cycle/profil ; HEAD `c9abdbc37830d687cc8a504b97db659b47aa0f5b` ; sources ; propositions §7 complètes ; matrice §6 ; trajectoire AKG ; réserves ; non-claims ; SHA/blob handoff.
+
+Si rapport absent/obsolète/synthétique-only → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
+
+Produire Critical Review du cadrage de synchronisation M0 ; qualifier amendements recevables ; préparer gate **GO M0 DOCUMENTARY AUTHORING**.
