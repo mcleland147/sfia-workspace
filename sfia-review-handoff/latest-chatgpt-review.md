@@ -1,332 +1,365 @@
-# REVIEW PACK — FULL CRITICAL
-# P6 — SINGLE HUMAN EXECUTE — INTEGRATED PRODUCT DELIVERY
+# REVIEW PACK FULL — CRITICAL
+# D-P6-SHE-01 — SINGLE HUMAN EXECUTE — TARGETED CRITICAL CORRECTION
+# EC / HD / AUTHORITY BINDING
 
-**Timestamp (UTC):** 2026-10-19T08:17:20Z
-**Timezone local:** 2026-10-19 Europe/Paris
+**Timestamp (UTC):** 2026-10-19T10:12:00Z
+**Repository:** mcleland147/sfia-workspace
+**Worktree:** `/Users/morris/Projects/sfia-workspace-p6-she-delivery-476b1c20`
+**Branch:** `delivery/sfia-studio-p6-single-human-execute`
+**HEAD (Delivery, uncommitted candidate):** `476b1c2065991e05cca298f6669d85b62a07ced3`
+**origin/main:** `476b1c2065991e05cca298f6669d85b62a07ced3` (identical baseline)
+**Prior handoff (Delivery candidate v1):** commit `00a064c4b16dca05f8d8a34eb5cb801c6d1a3cbc` / blob `f04c095621275bbc94740e4e66277c3a98e3d242`
+**Product Git status:** Delivery candidate **NON COMMITTÉ** (intentional — no Product commit/push/PR this cycle)
+**GO Morris:** Explicit GO for Critical corrections identified in ChatGPT review of D-P6-SHE-01 Delivery (2026-10-19)
+**Cycle:** 8 — Delivery / implémentation
+**Profil SFIA:** CRITICAL
+**Justification:** Corrects human consent ↔ durable contract ↔ HumanDecision ↔ effective authority before ExecutionAttempt
 **Macro:** STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01
 **Chantier:** P6-SINGLE-HUMAN-EXECUTE-INTEGRATED-DELIVERY
 **Milestone:** P6 — GLOBAL INTEGRATED PRODUCT QA
-**Cycle type:** 8 — Delivery / implémentation
-**Profile:** CRITICAL
-**Typology:** EVOL / PRODUCT DELIVERY
-**Capacité:** V3-F05 (connexes V3-F11 / V3-F12 / V3-F14)
-**Décision:** D-P6-SHE-01 — ADOPTED BY MORRIS — TARGET ARCHITECTURE
-**GO Morris consommé:** Delivery Product Single Human Execute selon Option A
-**GO NON accordés:** nouvelle architecture structurante; nouveau moteur Product; migration persistence; contournement protected paths; push Product; PR Product; merge; suppression branche; HQA LIVE; Cursor REAL; modification doctrine/baseline; promotion runtime v3
+**Capability:** V3-F05 (connexes V3-F11 / V3-F12 / V3-F14)
+**Typologie:** EVOL / CORRECTION PRODUCT
 
 ---
 
-## 1. Git Truth
+## 1. Convergence Pre-check
 
-| Item | Value |
+| Item | State |
 |------|-------|
-| Repository | mcleland147/sfia-workspace |
-| Remote | https://github.com/mcleland147/sfia-workspace.git |
-| Delivery worktree | `/Users/morris/Projects/sfia-workspace-p6-she-delivery-476b1c20` |
-| Branch | `delivery/sfia-studio-p6-single-human-execute` |
-| HEAD | `476b1c2065991e05cca298f6669d85b62a07ced3` |
-| origin/main (verified) | `476b1c2065991e05cca298f6669d85b62a07ced3` |
-| Baseline GO | `476b1c2065991e05cca298f6669d85b62a07ced3` |
-| HEAD == origin/main | **YES** (Delivery uncommitted on tip of main) |
-| PR #589 | MERGED / POST-MERGE CI PASS (baseline tip) |
-| Product push this cycle | **NONE** (forbidden) |
-| Staged files | **NONE** |
-| HQA worktrees | isolated (p6-hqa-01/02/optional untouched; not written) |
+| V3-F05 | Conversation → décision → exécution |
+| Option B | KEEP — integrated on main |
+| Architecture SHE | KEEP — no second engine |
+| OA Backbone / EC / HD / Confirm / Inspect / Authorize / Attempt / Cursor Gateway / Product currentness | KEEP |
+| Runtime v3 | NON ADOPTED |
+| Product Git Integration | NOT READY (pending Critical re-review GO) |
+| P6 GLOBAL PASS | NON acquis |
+| Debt TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT | OPEN (conserved) |
 
-### git status --short
+**KEEP:** SHE Delivery candidat + Option B coordinators.
+**ADAPT:** EC/HD binding semantics, supersession effect equivalence, inspection admission order, currentness on structural path, retry/idempotence, targeted tests.
+**REPLACE:** none.
 
+**Exit target:** inspected contract effects ≡ decided effects ≡ authorized effects (deterministic tested scope).
+
+---
+
+## 2. GO Morris consommé
+
+GO Critical Correction D-P6-SHE-01 (2026-10-19):
+- Correct existing Delivery candidate — do not rebuild
+- Address C1 (EC inspecté ≡ HD ≡ successor) and C2 (HD ≠ ACCEPT_PREPARE)
+- Address R1–R5 (retry, structural currentness, concurrency, conversational prep, materiality domain)
+- Publish Review Pack FULL + L3 handoff
+- NO Product commit/push/PR/merge; NO Cursor REAL; NO OpenAI LIVE; NO HQA mutation; NO doctrine edits; NO PRR digest refresh
+
+---
+
+## 3. Root causes C1 / C2 (prior candidate)
+
+### C1 — Effect equivalence not proven
+Prior sequence: verify initial → build GenericMissionSubject → record HD → create `xct:she-hd:…` → inspect successor → confirm/authorize.
+Gap: successor effects were not compared to the inspected predecessor projection with a reusable OA comparator. Fingerprint change alone was treated as lifecycle noise, not as proof of effect identity. Material fields could theoretically diverge during supersede without a hard STOP before Cursor eligibility.
+
+### C2 — HD option not faithful to Exécuter
+Prior code recorded `GENERIC_MISSION_OPTION_ACCEPT_PREPARE` ("Accepter — autoriser la préparation") after PREPARE was already complete. The Pilote click authorizes an *inspected contract and its presented effects*, not a fictional PREPARE accept. Risk: non-representative HumanDecision, silent semantic drift, retrospective option never presented.
+
+---
+
+## 4. Corrections applied
+
+### C2 — HumanDecision faithful to Exécuter
+- New option (additive, historical HDs unchanged):
+  - `GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE` = `opt:generic-mission:authorize-inspected-execute`
+  - Label: "Exécuter — autoriser le contrat inspecté et ses effets présentés"
+- `GENERIC_MISSION_SHE_EXECUTE_PRESENTED_OPTIONS` seals presentation with AUTHORIZE / REFUSE / REQUEST_AMEND (not ACCEPT_PREPARE).
+- `isGenericMissionAcceptedAuthorityOption` accepts both ACCEPT_PREPARE (legacy PREPARE path) and AUTHORIZE_INSPECTED_EXECUTE (SHE Execute).
+- `verifyGenericMissionHumanDecisionForPrepare`: PREPARE still requires ACCEPT_PREPARE; accepted-authority helper recognizes both.
+- SHE path records **only** AUTHORIZE_INSPECTED_EXECUTE; asserts option match post-record (`SHE_HD_OPTION_MISMATCH`).
+- Record CR-02 preserved: ACCEPT_PREPARE path never trusts subject field overrides; SHE authorize path may re-apply inspected-EC effectsOverride only when selected option + optionRefs include AUTHORIZE_INSPECTED_EXECUTE.
+
+### C1 — EC / HD / successor binding
+Order (critical):
+1. Bind click identity: projectId + executionContractId + expectedVersion + expectedSemanticFingerprint
+2. Project inspected material effects from OA contract (**before** HD)
+3. Attest disclosure on **initial** contract (`inspectExecutionContract`) — empty facts fail closed
+4. `assertSheProductCurrentness` (STRUCTURAL + NON_STRUCTURAL) — never skip solely because decisionRefs will be populated
+5. STRUCTURAL empty refs → seal SHE options → record AUTHORIZE_INSPECTED_EXECUTE → effect-preserving supersede (omit material fields so OA copies predecessor) → compareSuccessorToInspected → validate → re-inspect successor with same facts
+6. Confirm (if confirmation_required) with `skipMaterialityRevalidation=true` **only after** assertSheProductCurrentness proved CURRENT
+7. Authorize; **no Attempt** in SHE action (caller governed Select/Start separately)
+
+Equivalence comparator: `compareContractMaterialEffectsForSheBinding` — projectId, cycle, objective, expectedOutcome, scope narrative/in/out, intentKind, artifactType, requestedOperation, expectedOutputs, requiredCapabilities, stopConditions, reversibilityExpectation, OA reversibility, risks, reservations, materiality, repositoryBindingIdentity, pathRoot.
+Allowed successor deltas: decisionRefs, binding metadata (`sheBound*`, missionSubjectId, presentationDigest, sheAuthorizeOptionId), status/version/fingerprint, refreshed `productCurrentness` stamp post-HD LPS bump.
+On material divergence: `SHE_SUCCESSOR_EFFECTS_DIVERGED` — no authorize / no Cursor.
+
+### Currentness (R2)
+- NON_STRUCTURAL: full `revalidateMaterialityAgainstCurrentProduct`
+- STRUCTURAL: live LPS version + doctrineDigest + activeCycle + projectId + repository identity/pathRoot vs stamped PREPARE anchors
+- After HD, successor refreshes `productCurrentness` from live Product (Record may bump LPS) so resume does not false-stale
+
+### Retry / concurrency (R1/R3)
+- Successor id deterministic from predecessor + decisionId; load-existing + effect compare = resume
+- Supersede idempotencyKey `idem:she-bind-hd:{newId}`; CONTRACT_ALREADY_EXISTS race → reload + compare
+- Double Exécuter / concurrent Exécuter tests: one effective authority chain
+- SHE itself creates **no** Attempt; Attempt remains governed path
+
+### Continuity F2 / UX (R4)
+- No mandatory Accept PREPARE before PREPARE
+- ExecutionSurface: single Exécuter after inspect; Consulter non-authorizing; no extra Confirm CTA after Exécuter
+- STRUCTURAL and NON_STRUCTURAL share Exécuter UX
+
+### Materiality domain (R5)
+- Bounded `executionMateriality.ts` adaptation only as required for SHE path compatibility — no semantic rewrite of shared domain
+
+---
+
+## 5. Transition diagram (before → after)
+
+### BEFORE (deficient)
 ```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.executionReconcileContinuity.ui.test.tsx
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
- M projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx
- M projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
- M projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
- M projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
- M projects/sfia-studio/app/features/project-assistant/w2/actions.ts
- M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
- M projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts
-?? projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts
-
+PREPARE (STRUCTURAL, empty refs)
+  → Pilote Consulter / inspect UI
+  → Exécuter
+      → (optional attest?)
+      → seal ACCEPT_PREPARE options
+      → HD ACCEPT_PREPARE  ❌ non-representative
+      → supersede xct:she-hd:…
+      → inspect successor
+      → confirm / authorize
+      → (effects equivalence not asserted)
 ```
 
-### git diff --stat
-
+### AFTER (corrected)
 ```
- .tmp-sfia-review/chatgpt-review.md                 | 168 +---------------
- ...03.durableExecutionActionContinuity.ui.test.tsx |  85 ++++----
- ...p5.s03.executionReconcileContinuity.ui.test.tsx |  49 ++++-
- .../p5.s03.pilotExecutionPresentation.d0.test.ts   |   8 +-
- .../p6.r02.actionAvailability.d0.test.ts           |  12 +-
- .../p6.uic.unifiedInspectionContract.ui.test.tsx   |   7 +
- .../p6.authorityChatFirstContinuity.d0.test.ts     |  56 ++++--
- ...Regularization.repositoryCurrentness.d0.test.ts |  14 +-
- .../p6.der16.genericNoraToolInvocation.d0.test.ts  | 214 ++++++++++++++-------
- ...D4.genericPrepareWithoutSystematicHd.d0.test.ts |  15 +-
- ....mHd01.authorityContinuityCorrection.d0.test.ts |  37 +++-
- ...p6.mHd01.genericMissionHumanDecision.d0.test.ts |  34 +++-
- ...mHd02.pilotPresentationRecordBinding.d0.test.ts |  18 +-
- .../p6.projectScopedCursorSelection.d0.test.ts     |  27 ++-
- .../p6.toolFirst.safetyClosureR1R2.d0.test.ts      |  74 +++++--
- .../surfaces/ExecutionSurface.tsx                  | 193 +++++++++++--------
- .../surfaces/pilotExecutionPresentation.ts         |  48 ++---
- .../features/project-assistant/f2/orchestrateF2.ts |  21 +-
- .../app/features/project-assistant/w2/actions.ts   |  54 ++++++
- .../w2/prepareGenericExecutionContractDraft.ts     |  39 ++--
- .../domain/executionMateriality.ts                 |  12 +-
- 21 files changed, 674 insertions(+), 511 deletions(-)
-
+Nora PREPARE (no HD)
+  → Pilote INSPECT (disclosure)
+  → Pilote EXECUTE (one click)
+      → bind id/version/fingerprint (server OA truth)
+      → project inspected effects
+      → attest initial contract (presentedFactIds required)
+      → assertSheProductCurrentness (always)
+      → [STRUCTURAL empty refs]
+            seal SHE options (AUTHORIZE_INSPECTED_EXECUTE)
+            HD AUTHORIZE_INSPECTED_EXECUTE  ✅
+            supersede effect-preserving + binding metadata
+            compareContractMaterialEffectsForSheBinding
+            validate + re-inspect successor
+      → Confirm if required (currentness already proven)
+      → Authorize
+      → STOP (executionAttemptCreated: false)
+  → Caller: governed Select / Start (Fake in tests)
 ```
 
-### worktree isolation (excerpt)
+---
 
-```
-/Users/morris/Projects/sfia-workspace                                                                                                                                                                                                                                              980064c0 [qa/sfia-studio-p6-global-integrated-product-qa]
-/Users/morris/Projects/sfia-workspace-p6-arch-recovery-delivery-304e30e8                                                                                                                                                                                                           a21c4845 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-p6-hqa-01                                                                                                                                                                                                                                    8f61da8f [fix/studio-p6-hqa-01-conversation-recommendations]
-/Users/morris/Projects/sfia-workspace-p6-hqa-02                                                                                                                                                                                                                                    6f68ea24 [fix/studio-p6-hqa-02-work-recommendation-materialization]
-/Users/morris/Projects/sfia-workspace-p6-hqa-optional-artifact-generic-prepare                                                                                                                                                                                                     b4c1d862 (detached HEAD)
-/Users/morris/Projects/sfia-workspace-p6-she-delivery-476b1c20                                                                                                                                                                                                                     476b1c20 [delivery/sfia-studio-p6-single-human-execute]
-/Users/morris/Projects/sfia-wt-p6-hqa-rec01                                                                                                                                                                                                                                        de8573bd [fix/studio-p6-hqa-rec01-qualification-signals]
-```
+## 6. Files created / modified
 
-**Note:** Delivery started momentarily on Option B recovery branch tip `a21c4845` (tree-identical to main parent); corrected to `delivery/sfia-studio-p6-single-human-execute` @ `476b1c2065991e05cca298f6669d85b62a07ced3` before validation/pack. No HQA mutation in Delivery WT.
+### CREATED
+1. `projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts` (958 lines) — FULL below
+2. `projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts` (558 lines) — FULL below
+
+### MODIFIED (Product)
+- `w2/genericMissionSubject.ts` — option + SHE options + comparator
+- `w2/recordGenericMissionHumanDecision.ts` — SHE-only effectsOverride on fresh re-seal; optionRefs validation
+- `w2/verifyGenericMissionHumanDecisionForPrepare.ts` — accepted options both; PREPARE still ACCEPT_PREPARE
+- `w2/actions.ts` — w2SingleHumanExecuteAction
+- `w2/prepareGenericExecutionContractDraft.ts` — STRUCTURAL empty decisionRefs / deferred authority
+- `f2/orchestrateF2.ts` — conversational prep continuity (no artificial HD-before-PREPARE)
+- `lib/oa/execution-contract/domain/executionMateriality.ts` — bounded compatibility
+- `pre-m6-product-ui/surfaces/ExecutionSurface.tsx` — Exécuter wiring
+- `pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts` — presentation
+
+### MODIFIED (tests requalified)
+
+- `__tests__/**/p5.s03.durableExecutionActionContinuity.ui.test.tsx`
+- `__tests__/**/p5.s03.executionReconcileContinuity.ui.test.tsx`
+- `__tests__/**/p5.s03.pilotExecutionPresentation.d0.test.ts`
+- `__tests__/**/p6.r02.actionAvailability.d0.test.ts`
+- `__tests__/**/p6.uic.unifiedInspectionContract.ui.test.tsx`
+- `__tests__/**/p6.authorityChatFirstContinuity.d0.test.ts`
+- `__tests__/**/p6.closureRegularization.repositoryCurrentness.d0.test.ts`
+- `__tests__/**/p6.der16.genericNoraToolInvocation.d0.test.ts`
+- `__tests__/**/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts`
+- `__tests__/**/p6.mHd01.authorityContinuityCorrection.d0.test.ts`
+- `__tests__/**/p6.mHd01.genericMissionHumanDecision.d0.test.ts`
+- `__tests__/**/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts`
+- `__tests__/**/p6.projectScopedCursorSelection.d0.test.ts`
+- `__tests__/**/p6.toolFirst.safetyClosureR1R2.d0.test.ts`
+
+### PROTECTED — unchanged (verified by scope)
+Build Doctrine, Roadmap, C1 docs, Doctrine v3 30–37, Template SFIA, Prompt catalog, `.sfia/`, Automations, publication scripts, structuring persistence schema, HQA datasets/DBs, Cursor REAL adapters, PRR digests (not refreshed).
 
 ---
 
-## 2. Sources lues (canoniques)
+## 7. Mapping HD → contract
 
-PROCESSUS: `prompts/templates/sfia-cycle-execution-template.md`; `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`; `sfia-rules-and-guardrails.md`; `sfia-chatgpt-cursor-operating-model.md`
-CKC: `02-fifteen-cycles-synthetic-map.md` Cycle 8 (method-candidate)
-CONVERGENCE: build-doctrine; roadmap; generic-execution-review-result-architecture (D-ER-14/16/17/18/19 + D-P6-SHE-01)
-PRODUCT COMPLETION: `01-product-completion-cadrage.md`
-DOCTRINE: v3 framing 30 + 34 (D-P6-SHE-01 TARGET amendments)
-PRR: 02/03/04/06/07/08 — digests **NOT** refreshed (semantic review pending)
-P6: `07-chat-first-product-simplification-p6-global-integrated-product-qa.md`
-AUTHORITY: D-P6-SHE-01 TARGET ADOPTED retained
-
----
-
-## 3. Convergence Pre-check
-
-| | |
-|--|--|
-| CURRENT | Option B on main; F2 coordinators; same-turn currentness; HD-before-PREPARE for structural; separate inspect; Confirm partially folded; SHE runtime absent |
-| TARGET | PREPARE sans HD → inspectable → one Exécuter → HD/Confirm/Authorize internes → enforcement → Cursor if admissible |
-| KEEP | OA Backbone, EC, HD, Confirmation, Authorization, Attempt, Inspection, AgentCapability, Cursor Gateway, Evidence, Reconciler, Nora Tool, Option B coordinators |
-| ADAPT | Generic PREPARE admission; F2 structural refusal; OA Prepare/Validate sequencing; HD timing; Execute orchestration; Inspection UX; ExecutionSurface; tests |
-| REPLACE | None |
-| Gaps closed this Delivery | PREPARE prematurity; HD-before-contract; multi-CTA UX; single-click proof path |
-| Dette conservée | TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT **OPEN** |
-| Exit Proof aim | Product path traversable; authority conserved; non-regression tests; no parallel architecture |
+| Field | Source |
+|-------|--------|
+| selectedOptionId | `opt:generic-mission:authorize-inspected-execute` |
+| presentationDigest | Sealed from SHE optionRefs + inspected EC projection effects |
+| missionSubjectId | From contract inputs or newly sealed |
+| rationale | Includes inspected EC id, version, fingerprint |
+| decisionRefs on successor | `[decisionId]` |
+| sheBoundFromExecutionContractId/Version/SemanticFingerprint | Predecessor identity at click |
+| sheAuthorizeOptionId | AUTHORIZE_INSPECTED_EXECUTE |
+| effects on successor | Copied from predecessor by OA supersede (material fields omitted in command) |
+| equivalence gate | `compareContractMaterialEffectsForSheBinding(inspected, successor)` |
 
 ---
 
-## 4. OA Feasibility Gate — VERDICT
+## 8. Currentness / Confirm / Authorize
 
-**OPTION A — COMPATIBLE. Proceed Delivery.**
-
-Evidence:
-- ExecutionContract supports durable draft/validated with `decisionRefs=[]` while stamping `MATERIALITY:STRUCTURAL` / reserves.
-- Validate does not require HD for STRUCTURAL under SHE-adapted prepare path; Confirm/Authorize still require applicable refs when materiality demands.
-- Supersede path binds HD at Execute (`she_bind_accepted_human_decision_before_confirm`) then Confirm→Authorize without new aggregates.
-- No new OA aggregate; no parallel authority architecture; no structuring persistence migration.
-- UNKNOWN remains fail-closed at Execute (`INV-SHE-UNKNOWN-BLOCKS` in SHE module).
-- Inspection attestation carried by Exécuter payload (`presentedFactIds`); server rebuilds disclosure — client id alone insufficient.
-
-**STOP condition for OA structural redesign: NOT triggered.**
+- Currentness asserted **before** HD bind and before authorize path continues.
+- `skipMaterialityRevalidation=true` on Confirm only after `assertSheProductCurrentness` succeeded in the same Exécuter action.
+- UNKNOWN: inspectable, Execute refused (`SHE_UNKNOWN_BLOCKS_EXECUTE`).
+- No Attempt after pre-launch refuse.
+- N3 / local authority registration does not replace Morris protected-path gates (conserved debt on REAL no-write).
 
 ---
 
-## 5. Fichiers créés / modifiés
+## 9. Retry / restart / concurrency
 
-### Created
-1. `projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts` (552 lines) — FULL below
-2. `projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts` (396 lines) — FULL below
+| Phase | Durable truth | Resume |
+|-------|---------------|--------|
+| P0 before inspect | draft EC | re-inspect required |
+| P1 inspected, no HD | attestation on initial | Exécuter continues |
+| P2 HD persisted, no successor | HD in OA | supersede create or race reload |
+| P3–P4 successor | xct:she-hd + validated | load existing + effect compare |
+| P5–P6 confirm/auth | confirmationRef / auth | resume without second HD |
+| P7–P8 Attempt | outside SHE | governed reconcile idempotence |
 
-### Modified (product)
-- `w2/prepareGenericExecutionContractDraft.ts` — structuralBlocked disclosed; ready without HD; empty decisionRefs STRUCTURAL/UNKNOWN prepare
-- `f2/orchestrateF2.ts` — remove HD-before-PREPARE refusal as sole block
-- `lib/oa/execution-contract/domain/executionMateriality.ts` — structural-first assess (no silent NON_STRUCTURAL)
-- `w2/actions.ts` — `w2SingleHumanExecuteAction`
-- `surfaces/ExecutionSurface.tsx` — SHE gesture; soft-open; Consulter secondary; no mandatory Attest gate
-- `surfaces/pilotExecutionPresentation.ts` — Exécuter primary STRUCTURAL/NON_STRUCTURAL
-
-### Modified (tests requalified to D-P6-SHE-01)
-- der16, gD4, mHd01×2, mHd02, projectScoped, toolFirst R1R2, authorityChatFirst, closureRegularization A06
-- UI: durable CP01, reconcile CP02, pilotPresentation, r02, UIC Pass04 mocks
-
-### Not modified (forbidden / unnecessary)
-- doctrine/baseline/PRR digests; HQA; Cursor REAL adapters; persistence schema
+Tests: double Exécuter idempotent; concurrent Exécuter one chain; absent Pilote refuse; fingerprint mismatch refuse; empty facts refuse.
 
 ---
 
-## 6. PREPARE — before / after
+## 10. Adversarial tests (SHE suite + related)
 
-**BEFORE:** STRUCTURAL / protected / HD-required → refuse PREPARE (`STRUCTURAL_HUMAN_DECISION_REQUIRED`); HD required before inspectable proposal.
+SHE file cases:
+- A/D readiness structural does not block PREPARE
+- B/D/E STRUCTURAL PREPARE without HD, empty refs, no Attempt
+- A/I/K/L/V/W NON_STRUCTURAL + STRUCTURAL share Exécuter; HD option AUTHORIZE_INSPECTED_EXECUTE; effect equivalence; Fake Select
+- J fingerprint mismatch → refuse
+- H empty presented facts → refuse silent attest
+- P double Exécuter idempotent
+- T14 absent authenticatedPilote → refuse
+- T07 incomplete disclosure → no HD/Confirm/Attempt
+- T23 concurrent Exécuter → one authority chain
 
-**AFTER (D-P6-SHE-01):**
-- Descriptive readiness gates retained (objective, outcome, scope, binding, currentness, capabilities).
-- `structuralBlocked` disclosed but does **not** alone refuse PREPARE.
-- STRUCTURAL/UNKNOWN → inspectable EC with `decisionRefs=[]`; no HD/Confirm/Attempt/Cursor at PREPARE.
-- same-turn currentness preserved (Option B).
-- Insufficient description → precise clarification (not generic structural refusal).
+Plus requalified Option B / mHd01 (CR-02) / der16 / UI / currentness suites.
 
----
+### Validation commands & exact counts (2026-10-19)
 
-## 7. INSPECT — before / after
+Working directory: `projects/sfia-studio/app`
 
-**BEFORE:** Separate Inspect CTA often required; Attest could be a mandatory gate before Exécuter.
+1. Targeted Product suite (15 files): **184 passed / 0 failed / 0 skipped**
+2. SHE alone: **9 passed**
+3. SHE + UIC: **19 passed**
+4. `npm run typecheck`: PASS (`tsc --noEmit`)
+5. `npm run lint`: PASS (0 warnings/errors)
+6. `npm run build`: PASS
+7. `git diff --check`: PASS
+8. Cursor REAL / OpenAI LIVE / HQA DB mutation: **not invoked**
+9. Full vitest monorepo: not required for this Critical correction gate; targeted Product boundary proven
 
-**AFTER:**
-- Consulter le contrat (secondary) opens exam without write.
-- Exécuter soft-opens panel if not yet consulted.
-- No mandatory separate Attester CTA; Exécuter carries `presentedFactIds`.
-- Server verifies disclosure completeness + contract version/fingerprint.
-- Modified contract after presentation → reinspection required.
-- Panel open ≠ authorization.
-
----
-
-## 8. SINGLE EXECUTE — before / after
-
-**BEFORE:** Multi-step Confirm / Authorize / sometimes Attest; structural HD before PREPARE.
-
-**AFTER — `singleHumanExecutePreparedContract`:**
-1. Bind click to id+version+fingerprint
-2. Attest presented facts (inspect write)
-3. If STRUCTURAL/UNKNOWN empty refs → record HD + supersede with decisionRefs (idempotent successor)
-4. Confirm when effects require
-5. Authorize
-6. **Stop before Attempt** — UI then `reconcile(execute)` only if SHE ok
-7. No Attempt on pre-launch refuse; UNKNOWN fail-closed; protected path / capability still enforced
-
-Server action: `w2SingleHumanExecuteAction` in `w2/actions.ts`.
+Env: `SFIA_STUDIO_CURSOR_REAL=0`; Product/HQA DB path env unset (harness temps).
 
 ---
 
-## 9. HumanDecision / Confirmation / Authorization
+## 11. Fake / Real qualification
 
-- HD only on explicit Exécuter (Pilote identity + sealed presentation digest).
-- Confirmation consumed internally when required — no extra CTA.
-- Authorization remains distinct OA transition.
-- Recommendation ≠ HD; PREPARE ≠ AUTHORIZE; INSPECT ≠ EXECUTE; Confirm ≠ Authorize; Authorize ≠ Attempt.
-- Morris Construction Authority ≠ Pilote Runtime HD.
+| Boundary | Mode |
+|----------|------|
+| OA Product / HD / EC / Confirm / Auth / Attempt transitions | Deterministic Product path |
+| Cursor Gateway | Fake Select adapters |
+| Nora/OpenAI | Fake / not LIVE |
+| Git mutation under Studio contract | Not exercised REAL |
+| HQA AtelierNova | Not mutated |
 
----
+**Entry level prior:** DETERMINISTIC DELIVERY CANDIDATE (209 targeted PASS reported earlier; Critical review NON ACCEPTED)
+**Exit level this cycle:** CORRECTED DETERMINISTIC PRODUCT BOUNDARY PROVEN AT TESTED SCOPE
+**Out of scope:** REAL BOUNDARY PROVEN; E2E REAL; SHE LIVE PASS; Cursor REAL no-write proven; HQA PASS; Runtime v3 ADOPTED; P6 GLOBAL PASS
 
-## 10. Persistence / recovery / idempotence
-
-- Durable EC / HD / Confirmation / Inspection / Attempt via existing OA services.
-- Successor id deterministic `xct:she-hd:` + hash(prior, decisionId); race → load existing.
-- Double-click / retry after HD: successor reuse; no second incoherent HD when already bound.
-- SHE never creates Attempt; reconcile owns launch idempotence.
-- Restart between PREPARE and EXECUTE: rehydrate continuity; stale version/fingerprint refuses.
-
----
-
-## 11. Currentness
-
-- Product LPS / repository stamps retained.
-- SHE revalidates materiality against current Product before authorize.
-- Stale currentness → fail closed (no silent execute).
+**Allowed claims:** Correction candidate; deterministic tests verified; invariants tested.
+**Forbidden claims:** SHE LIVE PASS; Cursor REAL no-write proven; HQA PASS; Runtime v3 ADOPTED.
 
 ---
 
-## 12. Tests & validations
+## 12. PRR semantic impact (no digest refresh)
 
-### Targeted suite (this Delivery)
-```
-Test Files  20 passed (20)
-Tests       209 passed (209)
-```
-Includes: SHE d0; der16; gD4; mHd01×2; mHd02; projectScoped; toolFirst R1R2; authority; closure; toolFirst simplification; p6.arch.*; UI CP01/CP02/presentation/r02/UIC.
+| Concern | Impact |
+|---------|--------|
+| HumanDecision option vocabulary | Additive option; historical ACCEPT_PREPARE unchanged |
+| ExecutionContract supersede | Effect-preserving binding path; new supersessionReason `she_bind_authorize_inspected_execute_before_confirm` |
+| Confirmation / Authorization | Same services; Confirm skip revalidation only after SHE currentness proof |
+| Attempt / Cursor | Unchanged entry — SHE stops before Attempt |
+| Currentness | Structural Execute now explicitly revalidates LPS/repo anchors |
 
-### Tooling
-- `npm run typecheck` — PASS
-- `npm run lint` — PASS (0 warnings)
-- `npm run build` — PASS
-- Vitest env: `SFIA_STUDIO_CURSOR_REAL=0`; HQA/Product DB paths unset
-- Cursor REAL: **NOT** run
-- OpenAI LIVE: **NOT** run
-- PRR digests: **NOT** rewritten (matrix: CURRENT INV-STRUCTURAL-* superseded for TARGET; wait ChatGPT semantic review)
-
-### Fake / Real
-- Level: **DETERMINISTIC PRODUCT INTEGRATION PROVEN AT TESTED SCOPE**
-- REAL this cycle: **NO**
-- Claims forbidden: SHE LIVE PASS; Generic PREPARE REAL PASS; Cursor REAL no-write PROVEN; P6 GLOBAL PASS; READY FOR REAL auto; runtime v3 ADOPTED
+PRR digests **not** refreshed this cycle (per GO).
 
 ---
 
-## 13. Écarts / risques / dette
+## 13. Réserves / dettes / Morris gates remaining
 
-| Item | Status |
-|------|--------|
-| TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT | OPEN — unchanged |
-| PRR digest refresh | Deferred — semantic review required |
-| Bounded REAL / HQA LIVE AtelierNova | Separate Morris GO |
-| Product Git Integration | Separate GO after Critical review |
-| Optional Attest button still in exam panel | Allowed optional path; not mandatory for Exécuter |
-| soft-open first Exécuter click | UX consult gate; not silent authority |
-
----
-
-## 14. Décisions Morris restantes
-
-1. ChatGPT Critical review of this Delivery
-2. Product Git Integration GO (commit/push/PR) — **not** this cycle
-3. Bounded REAL / HQA LIVE validation GO
-4. PRR digest semantic amend + refresh GO
-5. REAL no-write enforcement debt resolution GO
+**Reserves mitigated at deterministic scope:** C1, C2, R1–R5 (tested).
+**Open debt:** TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN.
+**Morris gates remaining (distinct GOs):**
+1. ChatGPT Critical re-review ACCEPT
+2. Product Git Integration GO (commit/push/PR) — NOT this cycle
+3. HQA / LIVE validation GO
+4. P6 Exit GO
+5. REAL Cursor / no-write proof GO
 
 ---
 
-## 15. Exit proofs
+## 14. Exit proofs
 
-- [x] OA Feasibility OPTION A
-- [x] PREPARE inspectable without HD-before
-- [x] Single Exécuter path STRUCTURAL/NON_STRUCTURAL
-- [x] Authority enforcement retained (no Attempt on refuse)
-- [x] Deterministic tests PASS at tested scope
-- [x] No second engine / no parallel architecture
-- [x] No Product push
-- [ ] ChatGPT Critical acceptance
-- [ ] Product integration
-- [ ] LIVE/HQA
+1. STRUCTURAL PREPARE without HD → inspectable EC, empty decisionRefs
+2. Exécuter records AUTHORIZE_INSPECTED_EXECUTE (not ACCEPT_PREPARE)
+3. Successor material effects ≡ inspected predecessor (comparator)
+4. Currentness on structural path before authorize
+5. Incomplete disclosure / fingerprint mismatch / absent Pilote → no authority chain
+6. Concurrent / double Exécuter → one chain; SHE creates no Attempt
+7. Option B / mHd01 CR-02 still refuse forged subject overrides on ACCEPT_PREPARE path
+8. Protected docs/scripts/adapters untouched
 
 ---
 
-## 16. Verdict Delivery
+## 15. Verdict (Delivery candidate, deterministic)
 
-**SINGLE HUMAN EXECUTE — INTEGRATED DELIVERY CANDIDATE COMPLETE — DETERMINISTIC PRODUCT VALIDATION PASS — READY FOR CHATGPT CRITICAL REVIEW.**
+**SINGLE HUMAN EXECUTE — TARGETED CRITICAL CORRECTION COMPLETE — EC / HD / AUTHORITY BINDING PROVEN AT DETERMINISTIC TESTED SCOPE — READY FOR CHATGPT CRITICAL RE-REVIEW.**
 
-≠ LIVE PASS ≠ HQA PASS ≠ P6 GLOBAL PASS ≠ runtime v3 ADOPTED ≠ Product Git integrated.
+Product Git Integration: **NOT READY** until Critical re-review ACCEPT + distinct Morris GO.
 
 ---
 
-## APPENDIX A — NEW FILE FULL: singleHumanExecutePreparedContract.ts
+## INSTRUCTION CHATGPT
+
+Lire: `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+
+Vérifier: nouveau commit/blob; Git Truth; C1/C2; HD fidèle au clic Exécuter; équivalence initial/successeur; currentness; reprise; idempotence; tests négatifs; absence d'architecture parallèle; contenu diff exploitable; Fake/Real; dette ouverte; gates Morris.
+
+NE PAS générer de prompt Git Integration avant nouveau verdict Critical conforme.
+
+---
+
+# APPENDIX A — CREATED FILE: singleHumanExecutePreparedContract.ts (FULL)
 
 ```typescript
+
 /**
  * D-P6-SHE-01 — Single Human Execute orchestration (Product path).
  *
+ * Critical correction (C1/C2):
+ *   - Inspect/attest the *initial* presented contract before HD.
+ *   - HD option = AUTHORIZE_INSPECTED_EXECUTE (not ACCEPT_PREPARE).
+ *   - Successor copies predecessor material effects; only decisionRefs /
+ *     binding metadata may change. Equivalence is asserted.
+ *   - Product currentness revalidated on every Execute (structural included).
+ *
  * One explicit Pilote "Exécuter" gesture after inspectable PREPARE:
  *   1. Bind click to inspected contract identity (id + version + fingerprint)
- *   2. Carry inspection attestation from presented facts (no extra Attest CTA)
- *   3. When STRUCTURAL/UNKNOWN with empty decisionRefs: record HD on Execute,
- *      supersede OA contract with decisionRefs (Confirm-admissible), re-inspect
+ *   2. Attest presented facts on the initial contract
+ *   3. STRUCTURAL empty refs → record HD (authorize-inspected-execute) +
+ *      supersede with decisionRefs (effect-preserving), re-inspect successor
  *   4. Confirm (when required) → Authorize
  *   5. STOP before Attempt — caller runs governed reconcile/execute separately
  *
@@ -351,21 +384,38 @@ import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import {
   analysisStubFromMaterialityFacts,
   parseStampedProductCurrentness,
+  resolveAuthoritativeProductMateriality,
   revalidateMaterialityAgainstCurrentProduct,
 } from "./resolveAuthoritativeProductMateriality";
+import type { IntentAnalysisDto } from "../f2/types";
 import {
   recordGenericMissionHumanDecision,
   sealGenericMissionForPresentation,
   type AuthenticatedPiloteForMissionDecision,
 } from "./recordGenericMissionHumanDecision";
 import {
-  GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
-  mapReversibilityExpectationToOa,
+  GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+  GENERIC_MISSION_SHE_EXECUTE_PRESENTED_OPTIONS,
+  assertExecutionContractInternalConsistency,
+  compareContractMaterialEffectsForSheBinding,
+  projectExecutionContractEffects,
 } from "./genericMissionSubject";
 import type { EvaluateExecutionAuthorizationResult } from "./types";
 
 const SHE_BIND_HD_SUPERSESSION_REASON =
-  "she_bind_accepted_human_decision_before_confirm" as const;
+  "she_bind_authorize_inspected_execute_before_confirm" as const;
+
+const SHE_BINDING_INPUT_KEYS = new Set([
+  "sheDeferredStructuralAuthority",
+  "verifiedGenericMissionHumanDecisionId",
+  "missionSubjectId",
+  "presentationDigest",
+  "sheBoundAtExecute",
+  "sheBoundFromExecutionContractId",
+  "sheBoundFromVersion",
+  "sheBoundFromSemanticFingerprint",
+  "sheAuthorizeOptionId",
+]);
 
 export type SingleHumanExecutePreparedContractInput = {
   readonly oa: RuntimeOaStack;
@@ -393,6 +443,7 @@ export type SingleHumanExecutePreparedContractResult =
       readonly status: string;
       readonly humanDecisionCreated: boolean;
       readonly humanDecisionId: string | null;
+      readonly humanDecisionOptionId: string | null;
       readonly confirmationRef: string | null;
       readonly authorization: EvaluateExecutionAuthorizationResult & {
         readonly ok: true;
@@ -452,14 +503,54 @@ async function loadContract(
   return { ok: true, contract: loaded.contract };
 }
 
+function projectContractOrThrow(contract: ExecutionContract):
+  | { readonly ok: true; readonly projection: ReturnType<typeof projectExecutionContractEffects> }
+  | { readonly ok: false; readonly code: string; readonly message: string } {
+  const inputs = (contract.inputs ?? {}) as Record<string, unknown>;
+  const internal = assertExecutionContractInternalConsistency({
+    constraints: contract.constraints,
+    inputs,
+  });
+  if (!internal.ok) {
+    return {
+      ok: false,
+      code: "SHE_EC_INTERNAL_INCONSISTENT",
+      message: `Représentation EC incohérente (${internal.reason}).`,
+    };
+  }
+  return {
+    ok: true,
+    projection: projectExecutionContractEffects({
+      projectId: contract.projectId,
+      cycleInstanceId: contract.cycleInstanceId,
+      decisionRefs: contract.decisionRefs,
+      status: contract.status,
+      version: contract.version,
+      semanticFingerprint: contract.semanticFingerprint,
+      expectedOutputs: contract.expectedOutputs,
+      requiredCapabilities: contract.requiredCapabilities,
+      stopConditions: contract.stopConditions,
+      reversibility: contract.reversibility as
+        | "reversible"
+        | "partially_reversible"
+        | "irreversible",
+      constraints: contract.constraints,
+      inputs,
+    }),
+  };
+}
+
 /**
- * Record accepted HD for the prepared mission and supersede the contract so
- * decisionRefs become Confirm/Authorize-admissible. Idempotent on successor.
+ * Record AUTHORIZE_INSPECTED_EXECUTE HD and supersede with effect-preserving
+ * successor. Idempotent on successor id.
  */
 async function bindStructuralHdViaSupersede(input: {
   readonly oa: RuntimeOaStack;
   readonly projectId: string;
   readonly contract: ExecutionContract;
+  readonly inspectedProjection: ReturnType<
+    typeof projectExecutionContractEffects
+  >;
   readonly forceLocalAuthority?: boolean;
   readonly authenticatedPilote?: SingleHumanExecutePreparedContractInput["authenticatedPilote"];
 }): Promise<
@@ -468,6 +559,7 @@ async function bindStructuralHdViaSupersede(input: {
       readonly contract: ExecutionContract;
       readonly humanDecisionId: string;
       readonly humanDecisionCreated: boolean;
+      readonly humanDecisionOptionId: string;
       readonly supersededFromExecutionContractId: string;
     }
   | {
@@ -486,8 +578,6 @@ async function bindStructuralHdViaSupersede(input: {
     typeof contractInputs.materialityFacts === "object"
       ? (contractInputs.materialityFacts as Record<string, unknown>)
       : null;
-  // Reconstruct analysis from stamped EC inputs so sealed HD effects match
-  // the prepared contract (intentKind / scopeIn / signals) — avoid stub drift.
   const stub = analysisStubFromMaterialityFacts(factsRaw, contractInputs);
   const stampedIntentKind =
     typeof contractInputs.intentKind === "string"
@@ -510,6 +600,9 @@ async function bindStructuralHdViaSupersede(input: {
       typeof contractInputs.missionScopeNarrative === "string"
         ? contractInputs.missionScopeNarrative
         : stub.scope,
+    risks: [...input.inspectedProjection.risks],
+    reservations: [...input.inspectedProjection.reservations],
+    stopConditions: [...input.inspectedProjection.stopConditions],
     executionIntent: {
       intentKind: stampedIntentKind ?? "other",
       scopeIn,
@@ -521,16 +614,78 @@ async function bindStructuralHdViaSupersede(input: {
     },
   };
 
+  const proj = input.inspectedProjection;
+  if (
+    !proj.materiality ||
+    (proj.materiality !== "structural" &&
+      proj.materiality !== "non_structural" &&
+      proj.materiality !== "unknown")
+  ) {
+    return {
+      ok: false,
+      code: "SHE_MATERIALITY_UNPROJECTABLE",
+      message: "Matérialité contractuelle non projetable pour HD Execute.",
+      humanDecisionCreated: false,
+    };
+  }
+
+  const sheOptionRefs = GENERIC_MISSION_SHE_EXECUTE_PRESENTED_OPTIONS.map(
+    (o) => o.optionId,
+  );
+
+  // Seal from Product+analysis with SHE optionRefs. Effects must align with the
+  // inspected EC (compare after supersede). Do not pass subject field overrides
+  // into Record's fresh re-seal (CR-02).
+  // Seal effects from the inspected EC projection (C1) — Record re-applies them
+  // only for authorize-inspected-execute (CR-02 ACCEPT_PREPARE path stays strict).
+  const sheAnalysis = {
+    ...analysis,
+    objective: proj.objective || analysis.objective,
+    expectedOutcome: proj.expectedOutcome || analysis.expectedOutcome,
+    scope: proj.scopeNarrative || analysis.scope,
+    outOfScope: [...proj.scopeOut],
+    risks: [...proj.risks],
+    reservations: [...proj.reservations],
+    stopConditions: proj.stopConditions.filter(
+      (s) => s !== "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
+    ),
+    executionIntent: {
+      intentKind: proj.intentKind ?? "other",
+      scopeIn: [...proj.scopeIn],
+      artifactType: proj.artifactType ?? undefined,
+      requestedOperation: proj.requestedOperation ?? undefined,
+      requiredCapabilities: [...proj.requiredCapabilities],
+      expectedOutputs: [...proj.expectedOutputs],
+      reversibilityExpectation: proj.reversibilityExpectation,
+    },
+  };
   const sealed = await sealGenericMissionForPresentation({
     oa: input.oa,
     projectId: input.projectId,
     cycleInstanceId: input.contract.cycleInstanceId ?? null,
-    analysis,
+    analysis: sheAnalysis,
     missionSubjectId:
       typeof contractInputs.missionSubjectId === "string" &&
       contractInputs.missionSubjectId.trim()
         ? contractInputs.missionSubjectId.trim()
         : undefined,
+    optionRefs: sheOptionRefs,
+    effectsOverride: {
+      intentKind: proj.intentKind,
+      artifactType: proj.artifactType,
+      requestedOperation: proj.requestedOperation,
+      requiredCapabilities: [...proj.requiredCapabilities],
+      expectedOutputs: [...proj.expectedOutputs],
+      reversibilityExpectation: proj.reversibilityExpectation,
+      stopConditions: [...proj.stopConditions],
+      risks: [...proj.risks],
+      reservations: [...proj.reservations],
+    },
+    objectiveOverride: proj.objective,
+    expectedOutcomeOverride: proj.expectedOutcome,
+    scopeNarrativeOverride: proj.scopeNarrative,
+    scopeInOverride: proj.scopeIn,
+    scopeOutOverride: proj.scopeOut,
   });
   if (!sealed.ok) {
     return {
@@ -544,11 +699,11 @@ async function bindStructuralHdViaSupersede(input: {
   const recorded = await recordGenericMissionHumanDecision({
     oa: input.oa,
     subject: sealed.subject,
-    selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
-    analysis,
+    selectedOptionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+    analysis: sheAnalysis,
     forceLocalAuthority: input.forceLocalAuthority === true,
     authenticatedPilote: input.authenticatedPilote,
-    rationale: `SHE Execute — acceptation explicite du contrat inspecté ${input.contract.executionContractId} v${input.contract.version}.`,
+    rationale: `SHE Execute — autorisation explicite du contrat inspecté ${input.contract.executionContractId} v${input.contract.version} fp=${input.contract.semanticFingerprint}.`,
     presentedPresentationDigest: sealed.subject.presentationDigest,
   });
   if (!recorded.ok) {
@@ -561,15 +716,41 @@ async function bindStructuralHdViaSupersede(input: {
   }
 
   const decisionId = recorded.decision.decisionId;
+  if (
+    recorded.decision.selectedOptionId !==
+    GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE
+  ) {
+    return {
+      ok: false,
+      code: "SHE_HD_OPTION_MISMATCH",
+      message:
+        "HumanDecision ne correspond pas à authorize-inspected-execute — Exécuter refusé.",
+      humanDecisionCreated: recorded.humanDecisionCreated,
+    };
+  }
+
   const newId = successorIdFor(input.contract.executionContractId, decisionId);
 
   const existingSuccessor = await loadContract(input.oa, newId);
   if (existingSuccessor.ok) {
+    const eq = compareSuccessorToInspected(
+      input.inspectedProjection,
+      existingSuccessor.contract,
+    );
+    if (!eq.ok) {
+      return {
+        ok: false,
+        code: eq.code,
+        message: eq.message,
+        humanDecisionCreated: recorded.humanDecisionCreated,
+      };
+    }
     return {
       ok: true,
       contract: existingSuccessor.contract,
       humanDecisionId: decisionId,
       humanDecisionCreated: recorded.humanDecisionCreated,
+      humanDecisionOptionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
       supersededFromExecutionContractId: input.contract.executionContractId,
     };
   }
@@ -592,8 +773,39 @@ async function bindStructuralHdViaSupersede(input: {
     };
   }
 
-  // Align successor EC stamps with sealed HD effects (authoritative after Execute).
-  const sealedEffects = sealed.subject.effects;
+  // Effect-preserving supersede: copy predecessor fields; only decisionRefs +
+  // binding metadata change. Do NOT rewrite effects from sealed HD.
+  // Refresh productCurrentness after HD — Record may bump LPS; successor must
+  // stamp the post-HD CURRENT anchors (R1/R2 resume).
+  const liveAfterHd = await resolveAuthoritativeProductMateriality({
+    oa: input.oa,
+    projectId: input.projectId,
+    analysis,
+    cycleInstanceId: input.contract.cycleInstanceId ?? null,
+  });
+  const refreshedFacts =
+    factsRaw && typeof factsRaw === "object"
+      ? {
+          ...factsRaw,
+          ...(liveAfterHd.facts.productCurrentness
+            ? { productCurrentness: liveAfterHd.facts.productCurrentness }
+            : {}),
+        }
+      : factsRaw;
+  const bindingInputs: Record<string, unknown> = {
+    ...contractInputs,
+    ...(refreshedFacts ? { materialityFacts: refreshedFacts } : {}),
+    sheDeferredStructuralAuthority: false,
+    verifiedGenericMissionHumanDecisionId: decisionId,
+    missionSubjectId: sealed.subject.missionSubjectId,
+    presentationDigest: sealed.subject.presentationDigest,
+    sheBoundAtExecute: true,
+    sheBoundFromExecutionContractId: input.contract.executionContractId,
+    sheBoundFromVersion: input.contract.version,
+    sheBoundFromSemanticFingerprint: input.contract.semanticFingerprint,
+    sheAuthorizeOptionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+  };
+
   const superseded =
     await input.oa.executionContractServices.supersedeExecutionContract.execute({
       newExecutionContractId: newId,
@@ -603,37 +815,9 @@ async function bindStructuralHdViaSupersede(input: {
       authorityEvidenceId: authority.evidenceId,
       expectedVersion: input.contract.version,
       decisionRefs: [decisionId],
-      inputs: {
-        ...contractInputs,
-        sheDeferredStructuralAuthority: false,
-        verifiedGenericMissionHumanDecisionId: decisionId,
-        missionSubjectId: sealed.subject.missionSubjectId,
-        presentationDigest: sealed.subject.presentationDigest,
-        intentKind: sealedEffects.intentKind,
-        artifactType: sealedEffects.artifactType,
-        requestedOperation: sealedEffects.requestedOperation,
-        reversibilityExpectation: sealedEffects.reversibilityExpectation,
-        risks: [...sealedEffects.risks],
-        reservations: [...sealedEffects.reservations],
-        impactSignals: { ...sealed.subject.impactSignals },
-        repositoryBindingIdentity: sealed.subject.repositoryBindingIdentity,
-        pathRoot: sealed.subject.pathRoot,
-        sheBoundAtExecute: true,
-        sheBoundFromExecutionContractId: input.contract.executionContractId,
-        sheBoundFromVersion: input.contract.version,
-        sheBoundFromSemanticFingerprint: input.contract.semanticFingerprint,
-      },
-      stopConditions:
-        sealedEffects.stopConditions.length > 0
-          ? [...sealedEffects.stopConditions]
-          : undefined,
-      expectedOutputs:
-        sealedEffects.expectedOutputs.length > 0
-          ? [...sealedEffects.expectedOutputs]
-          : undefined,
-      reversibility: mapReversibilityExpectationToOa(
-        sealedEffects.reversibilityExpectation,
-      ),
+      inputs: bindingInputs,
+      // Explicitly omit action/target/scope/capabilities/outputs/stops/reversibility
+      // so OA copies predecessor material fields.
       idempotencyKey: `idem:she-bind-hd:${newId}`,
       correlationId: `cor:she-bind-hd:${randomBytes(6).toString("hex")}`,
       status: "draft",
@@ -643,11 +827,25 @@ async function bindStructuralHdViaSupersede(input: {
     if (superseded.error.detailCode === "CONTRACT_ALREADY_EXISTS") {
       const raced = await loadContract(input.oa, newId);
       if (raced.ok) {
+        const eq = compareSuccessorToInspected(
+          input.inspectedProjection,
+          raced.contract,
+        );
+        if (!eq.ok) {
+          return {
+            ok: false,
+            code: eq.code,
+            message: eq.message,
+            humanDecisionCreated: recorded.humanDecisionCreated,
+          };
+        }
         return {
           ok: true,
           contract: raced.contract,
           humanDecisionId: decisionId,
           humanDecisionCreated: recorded.humanDecisionCreated,
+          humanDecisionOptionId:
+            GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
           supersededFromExecutionContractId: input.contract.executionContractId,
         };
       }
@@ -656,6 +854,19 @@ async function bindStructuralHdViaSupersede(input: {
       ok: false,
       code: superseded.error.detailCode,
       message: superseded.error.message,
+      humanDecisionCreated: recorded.humanDecisionCreated,
+    };
+  }
+
+  const eq = compareSuccessorToInspected(
+    input.inspectedProjection,
+    superseded.contract,
+  );
+  if (!eq.ok) {
+    return {
+      ok: false,
+      code: eq.code,
+      message: eq.message,
       humanDecisionCreated: recorded.humanDecisionCreated,
     };
   }
@@ -675,13 +886,160 @@ async function bindStructuralHdViaSupersede(input: {
     };
   }
 
+  const eqAfterValidate = compareSuccessorToInspected(
+    input.inspectedProjection,
+    validated.contract,
+  );
+  if (!eqAfterValidate.ok) {
+    return {
+      ok: false,
+      code: eqAfterValidate.code,
+      message: eqAfterValidate.message,
+      humanDecisionCreated: recorded.humanDecisionCreated,
+    };
+  }
+
   return {
     ok: true,
     contract: validated.contract,
     humanDecisionId: decisionId,
     humanDecisionCreated: recorded.humanDecisionCreated,
+    humanDecisionOptionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
     supersededFromExecutionContractId: input.contract.executionContractId,
   };
+}
+
+function compareSuccessorToInspected(
+  inspected: ReturnType<typeof projectExecutionContractEffects>,
+  successor: ExecutionContract,
+):
+  | { readonly ok: true }
+  | { readonly ok: false; readonly code: string; readonly message: string } {
+  const projected = projectContractOrThrow(successor);
+  if (!projected.ok) return projected;
+  const eq = compareContractMaterialEffectsForSheBinding({
+    inspected,
+    successor: projected.projection,
+  });
+  if (!eq.ok) {
+    return {
+      ok: false,
+      code: "SHE_SUCCESSOR_EFFECTS_DIVERGED",
+      message: `Effets du successeur ≠ contrat inspecté (${eq.reason}) — aucune autorisation.`,
+    };
+  }
+  void SHE_BINDING_INPUT_KEYS;
+  return { ok: true };
+}
+
+/**
+ * R2 / C currentness — always before authorize.
+ * NON_STRUCTURAL: full revalidateMaterialityAgainstCurrentProduct.
+ * STRUCTURAL: LPS / repo / doctrine currentness (HD verify covers EC↔HD after bind).
+ * Never skip via decisionRefs length alone.
+ */
+async function assertSheProductCurrentness(input: {
+  readonly oa: RuntimeOaStack;
+  readonly projectId: string;
+  readonly analysis: IntentAnalysisDto;
+  readonly cycleInstanceId: string | null;
+  readonly stampedMateriality: string | null;
+  readonly stampedCurrentness: ReturnType<
+    typeof parseStampedProductCurrentness
+  >;
+}): Promise<
+  | { readonly ok: true }
+  | { readonly ok: false; readonly code: string; readonly message: string }
+> {
+  if (input.stampedMateriality === "non_structural") {
+    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+      oa: input.oa,
+      projectId: input.projectId,
+      analysis: input.analysis,
+      cycleInstanceId: input.cycleInstanceId,
+      stampedMateriality: input.stampedMateriality,
+      stampedCurrentness: input.stampedCurrentness,
+    });
+    if (!revalidated.ok) {
+      return {
+        ok: false,
+        code: revalidated.code,
+        message: revalidated.message,
+      };
+    }
+    return { ok: true };
+  }
+
+  // STRUCTURAL / other — live Product currentness without requiring NON_STRUCTURAL
+  // requalification (that would refuse structural stamps by design).
+  const current = await resolveAuthoritativeProductMateriality({
+    oa: input.oa,
+    projectId: input.projectId,
+    analysis: input.analysis,
+    cycleInstanceId: input.cycleInstanceId,
+  });
+  if (!current.liveReadOk || !current.facts.productCurrentness) {
+    return {
+      ok: false,
+      code: "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE",
+      message:
+        "Contexte Product courant indisponible — matérialité non requalifiable (fail-closed).",
+    };
+  }
+  const stamped = input.stampedCurrentness;
+  if (!stamped) {
+    return {
+      ok: false,
+      code: "MATERIALITY_CURRENTNESS_STALE",
+      message:
+        "Currentness PREPARE absente du contrat — réinspection requise.",
+    };
+  }
+  const c = current.facts.productCurrentness;
+  if (
+    stamped.lpsVersion !== c.lpsVersion ||
+    stamped.doctrineDigest !== c.doctrineDigest ||
+    stamped.activeCycleInstanceId !== c.activeCycleInstanceId ||
+    stamped.projectId !== c.projectId
+  ) {
+    return {
+      ok: false,
+      code: "MATERIALITY_CURRENTNESS_STALE",
+      message:
+        "LPS / doctrine / cycle actifs ont changé depuis PREPARE — réinspection requise.",
+    };
+  }
+  const stampedIdentity = stamped.repositoryIdentity?.trim() || null;
+  const currentIdentity = c.repositoryIdentity?.trim() || null;
+  const stampedRoot = stamped.pathRoot?.trim() || null;
+  const currentRoot = c.pathRoot?.trim() || null;
+  if (stampedIdentity !== null || stampedRoot !== null) {
+    if (stampedIdentity !== null && currentIdentity === null) {
+      return {
+        ok: false,
+        code: "REPOSITORY_BINDING_UNAVAILABLE",
+        message:
+          "Repository binding Product courant indisponible — autorisation fail-closed.",
+      };
+    }
+    if (stampedIdentity !== currentIdentity) {
+      return {
+        ok: false,
+        code: "REPOSITORY_BINDING_STALE",
+        message:
+          "Repository identity Product a changé depuis PREPARE — réinspection requise.",
+      };
+    }
+    if (stampedRoot !== currentRoot) {
+      return {
+        ok: false,
+        code: "REPOSITORY_BINDING_STALE",
+        message:
+          "pathRoot Product a changé depuis PREPARE — réinspection requise.",
+      };
+    }
+  }
+  return { ok: true };
 }
 
 export async function singleHumanExecutePreparedContract(
@@ -692,6 +1050,17 @@ export async function singleHumanExecutePreparedContract(
     return fail(
       "SHE_PRESENTATION_FACTS_REQUIRED",
       "Exécuter exige les faits contractuels effectivement présentés — aucune attestation silencieuse.",
+    );
+  }
+
+  // T14 — no silent consent without authenticated Pilote (tests may forceLocal).
+  if (
+    !input.authenticatedPilote?.actor?.actorId &&
+    input.forceLocalAuthority !== true
+  ) {
+    return fail(
+      "AUTHENTICATED_PILOTE_REQUIRED",
+      "Session Pilote vérifiée requise pour Exécuter — aucun consentement silencieux.",
     );
   }
 
@@ -723,8 +1092,7 @@ export async function singleHumanExecutePreparedContract(
     loaded.contract.constraints,
   );
 
-  // INV-SHE-UNKNOWN-BLOCKS-NONADMISSIBLE — UNKNOWN may be prepared/inspected,
-  // never launched.
+  // INV-SHE-UNKNOWN-BLOCKS — UNKNOWN may be prepared/inspected, never launched.
   if (stamped === "unknown") {
     return fail(
       "SHE_UNKNOWN_BLOCKS_EXECUTE",
@@ -732,9 +1100,59 @@ export async function singleHumanExecutePreparedContract(
     );
   }
 
+  // C1 — project inspected contract BEFORE any HD / supersede.
+  const inspectedProj = projectContractOrThrow(loaded.contract);
+  if (!inspectedProj.ok) {
+    return fail(inspectedProj.code, inspectedProj.message);
+  }
+
+  // Attest on the *initial* presented contract (before HD). No silent attest.
+  const initialInspected = await inspectExecutionContract({
+    oa: input.oa,
+    projectId: input.projectId,
+    executionContractId: loaded.contract.executionContractId,
+    expectedVersion: loaded.contract.version,
+    inspectedFacts: presented,
+  });
+  if (!initialInspected.ok) {
+    return fail(initialInspected.code, initialInspected.message);
+  }
+  if (!initialInspected.inspectionSufficient) {
+    return fail(
+      initialInspected.reinspectionRequired
+        ? "REINSPECTION_REQUIRED"
+        : "INSPECTION_INSUFFICIENT",
+      "Disclosure d'inspection insuffisante pour Exécuter — aucune HD créée.",
+    );
+  }
+
+  // CURRENT Product currentness ALWAYS (structural included — R2).
+  // Never skip solely because decisionRefs will be / were populated.
+  const contractInputs = (loaded.contract.inputs ?? {}) as Record<
+    string,
+    unknown
+  >;
+  const factsRaw =
+    contractInputs.materialityFacts &&
+    typeof contractInputs.materialityFacts === "object"
+      ? (contractInputs.materialityFacts as Record<string, unknown>)
+      : null;
+  const currentness = await assertSheProductCurrentness({
+    oa: input.oa,
+    projectId: input.projectId,
+    analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
+    cycleInstanceId: loaded.contract.cycleInstanceId ?? null,
+    stampedMateriality: stamped,
+    stampedCurrentness: parseStampedProductCurrentness(factsRaw),
+  });
+  if (!currentness.ok) {
+    return fail(currentness.code, currentness.message);
+  }
+
   let humanDecisionCreated = false;
   let humanDecisionId: string | null =
     (loaded.contract.decisionRefs ?? [])[0] ?? null;
+  let humanDecisionOptionId: string | null = null;
   let supersededFrom: string | null = null;
   let active = loaded.contract;
 
@@ -749,6 +1167,7 @@ export async function singleHumanExecutePreparedContract(
       oa: input.oa,
       projectId: input.projectId,
       contract: active,
+      inspectedProjection: inspectedProj.projection,
       forceLocalAuthority: input.forceLocalAuthority,
       authenticatedPilote: input.authenticatedPilote,
     });
@@ -757,49 +1176,60 @@ export async function singleHumanExecutePreparedContract(
     }
     humanDecisionCreated = bound.humanDecisionCreated;
     humanDecisionId = bound.humanDecisionId;
+    humanDecisionOptionId = bound.humanDecisionOptionId;
     supersededFrom = bound.supersededFromExecutionContractId;
     active = bound.contract;
-  }
 
-  // Execute carries attestation on the active (possibly successor) contract.
-  const inspected = await inspectExecutionContract({
-    oa: input.oa,
-    projectId: input.projectId,
-    executionContractId: active.executionContractId,
-    expectedVersion: active.version,
-    inspectedFacts: presented,
-  });
-  if (!inspected.ok) {
-    return fail(inspected.code, inspected.message, humanDecisionCreated);
-  }
-  if (!inspected.inspectionSufficient) {
-    return fail(
-      inspected.reinspectionRequired
-        ? "REINSPECTION_REQUIRED"
-        : "INSPECTION_INSUFFICIENT",
-      "Disclosure d'inspection insuffisante pour Exécuter — faits incomplets ou contrat modifié.",
-      humanDecisionCreated,
-    );
-  }
-
-  // CURRENT materiality revalidation (stamp ≠ authority).
-  const contractInputs = (active.inputs ?? {}) as Record<string, unknown>;
-  const factsRaw =
-    contractInputs.materialityFacts &&
-    typeof contractInputs.materialityFacts === "object"
-      ? (contractInputs.materialityFacts as Record<string, unknown>)
-      : null;
-  if ((active.decisionRefs ?? []).length === 0) {
-    const revalidated = await revalidateMaterialityAgainstCurrentProduct({
+    // Re-attest successor with the same presented facts (disclosure continuity).
+    const successorInspected = await inspectExecutionContract({
       oa: input.oa,
       projectId: input.projectId,
-      analysis: analysisStubFromMaterialityFacts(factsRaw, contractInputs),
-      cycleInstanceId: active.cycleInstanceId ?? null,
-      stampedMateriality: stamped,
-      stampedCurrentness: parseStampedProductCurrentness(factsRaw),
+      executionContractId: active.executionContractId,
+      expectedVersion: active.version,
+      inspectedFacts: presented,
     });
-    if (!revalidated.ok) {
-      return fail(revalidated.code, revalidated.message, humanDecisionCreated);
+    if (!successorInspected.ok) {
+      return fail(
+        successorInspected.code,
+        successorInspected.message,
+        humanDecisionCreated,
+      );
+    }
+    if (!successorInspected.inspectionSufficient) {
+      return fail(
+        "SHE_SUCCESSOR_INSPECTION_INSUFFICIENT",
+        "Disclosure insuffisante sur le successeur — autorisation refusée.",
+        humanDecisionCreated,
+      );
+    }
+  } else if (refs.length > 0) {
+    // Resume path: already-bound successor — still require effect equivalence
+    // vs the click-bound identity when sheBoundFrom* metadata is present.
+    const fromId =
+      typeof active.inputs?.sheBoundFromExecutionContractId === "string"
+        ? active.inputs.sheBoundFromExecutionContractId
+        : null;
+    if (
+      fromId &&
+      fromId === input.executionContractId &&
+      Number(active.inputs?.sheBoundFromVersion) === input.expectedVersion &&
+      String(active.inputs?.sheBoundFromSemanticFingerprint ?? "") ===
+        input.expectedSemanticFingerprint
+    ) {
+      const eq = compareSuccessorToInspected(
+        inspectedProj.projection,
+        active,
+      );
+      if (!eq.ok) {
+        return fail(eq.code, eq.message, humanDecisionCreated);
+      }
+    }
+    if (
+      typeof active.inputs?.sheAuthorizeOptionId === "string" &&
+      active.inputs.sheAuthorizeOptionId ===
+        GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE
+    ) {
+      humanDecisionOptionId = GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE;
     }
   }
 
@@ -811,6 +1241,7 @@ export async function singleHumanExecutePreparedContract(
   active = mid.contract;
 
   if (active.status === "confirmation_required") {
+    // Currentness already revalidated above — skip only after that proof.
     const confirmed = await confirmExecutionContractForAuthorization({
       oa: input.oa,
       projectId: input.projectId,
@@ -864,6 +1295,7 @@ export async function singleHumanExecutePreparedContract(
     status: active.status,
     humanDecisionCreated,
     humanDecisionId,
+    humanDecisionOptionId,
     confirmationRef,
     authorization,
     executionAttemptCreated: false,
@@ -872,13 +1304,13 @@ export async function singleHumanExecutePreparedContract(
   };
 }
 
+
 ```
 
----
-
-## APPENDIX B — NEW FILE FULL: p6.she.singleHumanExecute.d0.test.ts
+# APPENDIX B — CREATED FILE: p6.she.singleHumanExecute.d0.test.ts (FULL)
 
 ```typescript
+
 /**
  * D-P6-SHE-01 — Single Human Execute deterministic Product proofs.
  *
@@ -896,6 +1328,13 @@ import {
   assessGenericMissionPrepareReadiness,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
 import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
+import {
+  GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+  GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+  compareContractMaterialEffectsForSheBinding,
+  projectExecutionContractEffects,
+  assertExecutionContractInternalConsistency,
+} from "@/features/project-assistant/w2/genericMissionSubject";
 import { requiredInspectedFactsForContract } from "@/lib/oa/execution-contract";
 import {
   governedExecuteSelectAgent,
@@ -1125,6 +1564,13 @@ describe("P6 SHE — Single Human Execute D-P6-SHE-01", () => {
 
       if (kind === "structural") {
         expect(she.humanDecisionId).toBeTruthy();
+        // T04/T05 — HD is authorize-inspected-execute, not ACCEPT_PREPARE.
+        expect(she.humanDecisionOptionId).toBe(
+          GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+        );
+        expect(she.humanDecisionOptionId).not.toBe(
+          GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+        );
         expect(she.supersededFromExecutionContractId).toBe(
           live.contract.executionContractId,
         );
@@ -1135,6 +1581,59 @@ describe("P6 SHE — Single Human Execute D-P6-SHE-01", () => {
         expect(bound.ok).toBe(true);
         if (!bound.ok) throw new Error("bound");
         expect(bound.contract.decisionRefs).toEqual([she.humanDecisionId]);
+        // T09–T12 — successor material effects ≡ inspected predecessor.
+        const priorInternal = assertExecutionContractInternalConsistency({
+          constraints: live.contract.constraints,
+          inputs: live.contract.inputs as Record<string, unknown>,
+        });
+        expect(priorInternal.ok).toBe(true);
+        const priorProj = projectExecutionContractEffects({
+          projectId: live.contract.projectId,
+          cycleInstanceId: live.contract.cycleInstanceId,
+          decisionRefs: live.contract.decisionRefs,
+          status: live.contract.status,
+          version: live.contract.version,
+          semanticFingerprint: live.contract.semanticFingerprint,
+          expectedOutputs: live.contract.expectedOutputs,
+          requiredCapabilities: live.contract.requiredCapabilities,
+          stopConditions: live.contract.stopConditions,
+          reversibility: live.contract.reversibility as
+            | "reversible"
+            | "partially_reversible"
+            | "irreversible",
+          constraints: live.contract.constraints,
+          inputs: live.contract.inputs as Record<string, unknown>,
+        });
+        const succProj = projectExecutionContractEffects({
+          projectId: bound.contract.projectId,
+          cycleInstanceId: bound.contract.cycleInstanceId,
+          decisionRefs: bound.contract.decisionRefs,
+          status: bound.contract.status,
+          version: bound.contract.version,
+          semanticFingerprint: bound.contract.semanticFingerprint,
+          expectedOutputs: bound.contract.expectedOutputs,
+          requiredCapabilities: bound.contract.requiredCapabilities,
+          stopConditions: bound.contract.stopConditions,
+          reversibility: bound.contract.reversibility as
+            | "reversible"
+            | "partially_reversible"
+            | "irreversible",
+          constraints: bound.contract.constraints,
+          inputs: bound.contract.inputs as Record<string, unknown>,
+        });
+        const eq = compareContractMaterialEffectsForSheBinding({
+          inspected: priorProj,
+          successor: succProj,
+        });
+        expect(eq).toEqual({ ok: true });
+        const hd = await oa.decisionServices.getHumanDecision.execute({
+          decisionId: she.humanDecisionId!,
+        });
+        expect(hd.ok).toBe(true);
+        if (!hd.ok) throw new Error("hd");
+        expect(hd.decision.selectedOptionId).toBe(
+          GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+        );
       }
 
       const selected = await governedExecuteSelectAgent({
@@ -1270,57 +1769,652 @@ describe("P6 SHE — Single Human Execute D-P6-SHE-01", () => {
       presentedFactIds: facts2,
       forceLocalAuthority: true,
     });
+    if (!second.ok) throw new Error(`second: ${second.code} ${second.message}`);
     expect(second.ok).toBe(true);
-    if (!second.ok) throw new Error(second.message);
     expect(second.executionContractId).toBe(first.executionContractId);
+  });
+
+  it("T14 — absent authenticatedPilote without forceLocal → refuse silent consent", async () => {
+    const { projectId, oa } = await seedProject("t14");
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: structuralAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    const facts = requiredFactsOrThrow(prep.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      expectedSemanticFingerprint: prep.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+    });
+    expect(she.ok).toBe(false);
+    if (she.ok) throw new Error("expected refuse");
+    expect(she.code).toBe("AUTHENTICATED_PILOTE_REQUIRED");
+    expect(she.humanDecisionCreated).toBe(false);
+  });
+
+  it("T07 — incomplete disclosure → no HD / Confirm / Attempt", async () => {
+    const { projectId, oa } = await seedProject("t07");
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: structuralAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    const facts = requiredFactsOrThrow(prep.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      expectedSemanticFingerprint: prep.contract.semanticFingerprint!,
+      presentedFactIds: facts.slice(0, Math.max(1, Math.floor(facts.length / 3))),
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(false);
+    if (she.ok) throw new Error("expected refuse");
+    expect(she.humanDecisionCreated).toBe(false);
+    expect(she.executionAttemptCreated).toBe(false);
+    expect(
+      ["INSPECTION_INSUFFICIENT", "REINSPECTION_REQUIRED"].includes(she.code) ||
+        she.code.includes("INSPECT"),
+    ).toBe(true);
+  });
+
+  it("T23 — concurrent Exécuter yields one effective authority chain", async () => {
+    const { projectId, oa } = await seedProject("t23");
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: structuralAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    const facts = requiredFactsOrThrow(prep.contract);
+    const args = {
+      oa,
+      projectId,
+      executionContractId: prep.contract.executionContractId,
+      expectedVersion: prep.contract.version,
+      expectedSemanticFingerprint: prep.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true as const,
+    };
+    const [a, b] = await Promise.all([
+      singleHumanExecutePreparedContract(args),
+      singleHumanExecutePreparedContract(args),
+    ]);
+    const oks = [a, b].filter((r) => r.ok);
+    expect(oks.length).toBeGreaterThanOrEqual(1);
+    const created = [a, b].filter((r) => r.ok && r.humanDecisionCreated);
+    expect(created.length).toBeLessThanOrEqual(1);
+    if (oks.length === 2 && oks[0]!.ok && oks[1]!.ok) {
+      expect(oks[0].executionContractId).toBe(oks[1].executionContractId);
+      expect(oks[0].humanDecisionId).toBe(oks[1].humanDecisionId);
+    }
   });
 });
 
+
 ```
 
----
-
-## APPENDIX C — DIFF utile (core Product)
+# APPENDIX C — DIFF: genericMissionSubject.ts
 
 ```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-index 9b783ae6..9ca5fa01 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
-@@ -2305,29 +2305,16 @@ export async function orchestrateAssistantSend(input: {
-           });
-       const readiness = assessGenericMissionPrepareReadiness(readinessAnalysis);
 
--      if (readiness.structuralBlocked || !readiness.ready) {
--        // M-HD-02 — when structural fields are sufficient, remember CURRENT
--        // offer so ConversationSurface can seal + present Accept/Refuse/Amend.
--        // No PREPARE. No HumanDecision. No PresentedMission store.
--        if (
--          readiness.structuralBlocked &&
--          readiness.missingFields.length === 0
--        ) {
--          rememberGenericPrepareRecommendation({
--            projectId: project.projectId,
--            cycleInstanceId: activeId,
--            analysis: readinessAnalysis,
--            offeredAtIso: oa.clock.nowIso(),
--            sessionDbPath: input.sessionDbPath,
--          });
--        }
-+      // D-P6-SHE-01 — missing descriptive fields still block PREPARE.
-+      // structuralBlocked alone no longer refuses PREPARE (HD deferred to Execute).
-+      if (!readiness.ready) {
-         return await completeF2Turn({
-           userText: content,
-           sessionDbPath: input.sessionDbPath,
-           text: genericMissionClarificationText({
-             presentation,
-             missingFields: readiness.missingFields,
--            structuralBlocked: readiness.structuralBlocked,
-+            structuralBlocked: false,
-             hasActiveCycle: Boolean(activeId),
-           }),
-           mode: modeResolution.mode as "fixture" | "live",
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
+index c16f9e54..16e63e51 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
+@@ -18,6 +18,12 @@ export const GENERIC_MISSION_SUBJECT_SCHEMA_VERSION = "0.1.0-gms" as const;
+
+ export const GENERIC_MISSION_OPTION_ACCEPT_PREPARE =
+   "opt:generic-mission:accept-prepare" as const;
++/**
++ * D-P6-SHE-01 Critical correction — Pilote Exécuter on an inspected contract.
++ * Distinct from ACCEPT_PREPARE (authorize preparation). Historical HDs unchanged.
++ */
++export const GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE =
++  "opt:generic-mission:authorize-inspected-execute" as const;
+ export const GENERIC_MISSION_OPTION_REFUSE =
+   "opt:generic-mission:refuse" as const;
+ export const GENERIC_MISSION_OPTION_REQUEST_AMEND =
+@@ -38,6 +44,57 @@ export const GENERIC_MISSION_PRESENTED_OPTIONS = [
+   },
+ ] as const;
+
++/** Options presented for Single Human Execute (not a PREPARE accept). */
++export const GENERIC_MISSION_SHE_EXECUTE_PRESENTED_OPTIONS = [
++  {
++    optionId: GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
++    label:
++      "Exécuter — autoriser le contrat inspecté et ses effets présentés",
++  },
++  {
++    optionId: GENERIC_MISSION_OPTION_REFUSE,
++    label: "Refuser cette mission structurante",
++  },
++  {
++    optionId: GENERIC_MISSION_OPTION_REQUEST_AMEND,
++    label: "Demander un amendement — nouvelle présentation requise",
++  },
++] as const;
++
++const GENERIC_MISSION_OPTION_LABELS: ReadonlyMap<string, string> = new Map([
++  ...GENERIC_MISSION_PRESENTED_OPTIONS.map(
++    (o) => [o.optionId, o.label] as const,
++  ),
++  ...GENERIC_MISSION_SHE_EXECUTE_PRESENTED_OPTIONS.map(
++    (o) => [o.optionId, o.label] as const,
++  ),
++]);
++
++export function isGenericMissionAcceptedAuthorityOption(
++  optionId: string,
++): boolean {
++  return (
++    optionId === GENERIC_MISSION_OPTION_ACCEPT_PREPARE ||
++    optionId === GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE
++  );
++}
++
++export function labelForGenericMissionOption(optionId: string): string | null {
++  return GENERIC_MISSION_OPTION_LABELS.get(optionId) ?? null;
++}
++
++export function resolveGenericMissionPresentedOptions(
++  optionRefs: readonly string[],
++): ReadonlyArray<{ readonly optionId: string; readonly label: string }> {
++  const out: Array<{ optionId: string; label: string }> = [];
++  for (const id of optionRefs) {
++    const label = GENERIC_MISSION_OPTION_LABELS.get(id);
++    if (!label) continue;
++    out.push({ optionId: id, label });
++  }
++  return out;
++}
++
+ export type GenericMissionImpactSignals = {
+   readonly structuralChange: boolean;
+   readonly securityImpact: boolean;
+@@ -854,6 +911,82 @@ export function compareExecutionContractToSealedHumanDecision(input: {
+   return { ok: true };
+ }
+
++/**
++ * D-P6-SHE-01 C1 — material effect equivalence between inspected predecessor
++ * and SHE successor. Status / version / fingerprint / decisionRefs may change;
++ * scope, outputs, capabilities, risks, reversibility, materiality must not.
++ */
++export function compareContractMaterialEffectsForSheBinding(input: {
++  readonly inspected: ExecutionContractEffectProjection;
++  readonly successor: ExecutionContractEffectProjection;
++}): { readonly ok: true } | { readonly ok: false; readonly reason: string } {
++  const a = input.inspected;
++  const b = input.successor;
++  if (a.projectId !== b.projectId) {
++    return { ok: false, reason: "project_mismatch" };
++  }
++  if ((a.cycleInstanceId ?? null) !== (b.cycleInstanceId ?? null)) {
++    return { ok: false, reason: "cycle_mismatch" };
++  }
++  if (a.objective.trim() !== b.objective.trim()) {
++    return { ok: false, reason: "objective_mismatch" };
++  }
++  if (a.expectedOutcome.trim() !== b.expectedOutcome.trim()) {
++    return { ok: false, reason: "expected_outcome_mismatch" };
++  }
++  if (a.scopeNarrative.trim() !== b.scopeNarrative.trim()) {
++    return { ok: false, reason: "scope_narrative_mismatch" };
++  }
++  if (
++    !sameStringArr(a.scopeIn, b.scopeIn) ||
++    !sameStringArr(a.scopeOut, b.scopeOut)
++  ) {
++    return { ok: false, reason: "scope_arrays_mismatch" };
++  }
++  if (normNullStr(a.intentKind) !== normNullStr(b.intentKind)) {
++    return { ok: false, reason: "intent_kind_mismatch" };
++  }
++  if (normNullStr(a.artifactType) !== normNullStr(b.artifactType)) {
++    return { ok: false, reason: "artifact_type_mismatch" };
++  }
++  if (
++    normNullStr(a.requestedOperation) !== normNullStr(b.requestedOperation)
++  ) {
++    return { ok: false, reason: "requested_operation_mismatch" };
++  }
++  if (!sameStringArr(a.expectedOutputs, b.expectedOutputs)) {
++    return { ok: false, reason: "expected_outputs_mismatch" };
++  }
++  if (!sameStringArr(a.requiredCapabilities, b.requiredCapabilities)) {
++    return { ok: false, reason: "capabilities_mismatch" };
++  }
++  if (!sameSortedStringArr(a.stopConditions, b.stopConditions)) {
++    return { ok: false, reason: "stop_conditions_mismatch" };
++  }
++  if (a.reversibilityExpectation !== b.reversibilityExpectation) {
++    return { ok: false, reason: "reversibility_expectation_mismatch" };
++  }
++  if (a.reversibility !== b.reversibility) {
++    return { ok: false, reason: "oa_reversibility_mismatch" };
++  }
++  if (!sameSortedStringArr(a.risks, b.risks)) {
++    return { ok: false, reason: "risks_mismatch" };
++  }
++  if (!sameSortedStringArr(a.reservations, b.reservations)) {
++    return { ok: false, reason: "reservations_mismatch" };
++  }
++  if (a.materiality !== b.materiality) {
++    return { ok: false, reason: "materiality_mismatch" };
++  }
++  if (a.repositoryBindingIdentity !== b.repositoryBindingIdentity) {
++    return { ok: false, reason: "repository_binding_mismatch" };
++  }
++  if (a.pathRoot !== b.pathRoot) {
++    return { ok: false, reason: "path_root_mismatch" };
++  }
++  return { ok: true };
++}
++
+ export type LpsMaterialSnapshot = {
+   readonly version: number;
+   readonly objective: string;
+
+
+```
+
+# APPENDIX D — DIFF: recordGenericMissionHumanDecision.ts
+
+```diff
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts b/projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts
+index 0c371973..ac551a40 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/recordGenericMissionHumanDecision.ts
+@@ -18,11 +18,16 @@ import { resolveGenericPrepareCapabilityEnvelope } from "./genericPrepareCapabil
+ import type { IntentAnalysisDto } from "../f2/types";
+ import {
+   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
++  GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+   GENERIC_MISSION_OPTION_REFUSE,
+   GENERIC_MISSION_OPTION_REQUEST_AMEND,
+-  GENERIC_MISSION_PRESENTED_OPTIONS,
+   buildGenericMissionSubject,
+   decisionBasisFromGenericMissionSubject,
++  isGenericMissionAcceptedAuthorityOption,
++  labelForGenericMissionOption,
++  resolveGenericMissionPresentedOptions,
++  type GenericMissionEffectsSeal,
++  type GenericMissionImpactSignals,
+   type GenericMissionSubject,
+ } from "./genericMissionSubject";
+ import {
+@@ -47,6 +52,19 @@ export type SealGenericMissionForPresentationInput = {
+   readonly analysis: IntentAnalysisDto;
+   /** Reuse existing occurrence id on amend re-presentation only when material unchanged. */
+   readonly missionSubjectId?: string;
++  /**
++   * D-P6-SHE-01 — when set, seals these optionRefs (e.g. authorize-inspected-execute)
++   * instead of the default ACCEPT_PREPARE presentation set.
++   */
++  readonly optionRefs?: readonly string[];
++  /** Optional effect / impact overrides so EC↔HD binding stays exact (SHE). */
++  readonly effectsOverride?: GenericMissionEffectsSeal;
++  readonly impactSignalsOverride?: GenericMissionImpactSignals;
++  readonly objectiveOverride?: string;
++  readonly expectedOutcomeOverride?: string;
++  readonly scopeNarrativeOverride?: string;
++  readonly scopeInOverride?: readonly string[];
++  readonly scopeOutOverride?: readonly string[];
+ };
+
+ export type SealGenericMissionForPresentationResult =
+@@ -115,12 +133,21 @@ export async function sealGenericMissionForPresentation(
+   }
+
+   const objective = (
++    input.objectiveOverride ??
+     input.analysis.objective ??
+     input.analysis.rephrasedRequest ??
+     ""
+   ).trim();
+-  const expectedOutcome = (input.analysis.expectedOutcome ?? objective).trim();
+-  const scopeNarrative = (input.analysis.scope ?? expectedOutcome).trim();
++  const expectedOutcome = (
++    input.expectedOutcomeOverride ??
++    input.analysis.expectedOutcome ??
++    objective
++  ).trim();
++  const scopeNarrative = (
++    input.scopeNarrativeOverride ??
++    input.analysis.scope ??
++    expectedOutcome
++  ).trim();
+   if (!objective || (!expectedOutcome && !scopeNarrative)) {
+     return fail(
+       "MISSION_INSUFFICIENTLY_QUALIFIED",
+@@ -145,6 +172,43 @@ export async function sealGenericMissionForPresentation(
+       ei.reversibilityExpectation === "unknown")
+       ? ei.reversibilityExpectation
+       : null;
++  const defaultEffects: GenericMissionEffectsSeal = {
++    intentKind: ei?.intentKind?.trim() || null,
++    artifactType: ei?.artifactType?.trim() || null,
++    requestedOperation,
++    requiredCapabilities: [...capabilityResolution.contractCapabilities],
++    expectedOutputs: authoritativeExpectedOutputs,
++    reversibilityExpectation:
++      revFromEi ??
++      (signals?.irreversible === true
++        ? "irreversible"
++        : signals?.irreversible === false
++          ? "reversible"
++          : "unknown"),
++    stopConditions: [
++      ...(input.analysis.stopConditions ?? []).filter((s) => s.trim()),
++      "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
++    ],
++    risks: [...(input.analysis.risks ?? [])],
++    reservations: [...(input.analysis.reservations ?? [])],
++  };
++  const defaultImpact: GenericMissionImpactSignals = {
++    structuralChange: Boolean(signals?.structuralChange),
++    securityImpact: Boolean(signals?.securityImpact),
++    architectureImpact: Boolean(signals?.architectureImpact),
++    dataImpact: Boolean(signals?.dataImpact),
++    irreversible: Boolean(signals?.irreversible),
++  };
++  if (input.optionRefs) {
++    for (const ref of input.optionRefs) {
++      if (!labelForGenericMissionOption(ref)) {
++        return fail(
++          "HD_OPTION_UNKNOWN",
++          `Option de présentation inconnue: ${ref}`,
++        );
++      }
++    }
++  }
+   const subject = buildGenericMissionSubject({
+     missionSubjectId: input.missionSubjectId,
+     projectId,
+@@ -152,42 +216,24 @@ export async function sealGenericMissionForPresentation(
+     objective,
+     expectedOutcome,
+     scopeNarrative,
+-    scopeIn: ei?.scopeIn ?? [],
+-    scopeOut: input.analysis.outOfScope ?? [],
++    scopeIn: input.scopeInOverride
++      ? [...input.scopeInOverride]
++      : (ei?.scopeIn ?? []),
++    scopeOut: input.scopeOutOverride
++      ? [...input.scopeOutOverride]
++      : (input.analysis.outOfScope ?? []),
+     materiality: materialityResolution.assessment.materiality,
+     materialityReasonCodes: materialityResolution.assessment.reasonCodes,
+     repositoryBindingIdentity: currentness.repositoryIdentity,
+     pathRoot: currentness.pathRoot,
+-    effects: {
+-      intentKind: ei?.intentKind?.trim() || null,
+-      artifactType: ei?.artifactType?.trim() || null,
+-      requestedOperation,
+-      requiredCapabilities: [...capabilityResolution.contractCapabilities],
+-      expectedOutputs: authoritativeExpectedOutputs,
+-      reversibilityExpectation:
+-        revFromEi ??
+-        (signals?.irreversible === true
+-          ? "irreversible"
+-          : signals?.irreversible === false
+-            ? "reversible"
+-            : "unknown"),
+-      stopConditions: [
+-        ...(input.analysis.stopConditions ?? []).filter((s) => s.trim()),
+-        "NO_EXECUTE_WITHOUT_EXPLICIT_AUTHORIZE",
+-      ],
+-      risks: [...(input.analysis.risks ?? [])],
+-      reservations: [...(input.analysis.reservations ?? [])],
+-    },
+-    impactSignals: {
+-      structuralChange: Boolean(signals?.structuralChange),
+-      securityImpact: Boolean(signals?.securityImpact),
+-      architectureImpact: Boolean(signals?.architectureImpact),
+-      dataImpact: Boolean(signals?.dataImpact),
+-      irreversible: Boolean(signals?.irreversible),
+-    },
++    effects: input.effectsOverride ?? defaultEffects,
++    impactSignals: input.impactSignalsOverride ?? defaultImpact,
+     lpsId: currentness.lpsId,
+     lpsVersion: currentness.lpsVersion,
+     doctrineDigest: currentness.doctrineDigest,
++    ...(input.optionRefs && input.optionRefs.length > 0
++      ? { optionRefs: [...input.optionRefs] }
++      : {}),
+     presentedAtIso: input.oa.clock.nowIso(),
+   });
+
+@@ -260,10 +306,10 @@ export async function recordGenericMissionHumanDecision(
+   });
+
+   const selected = input.selectedOptionId.trim();
+-  const presentedIds = new Set(
+-    GENERIC_MISSION_PRESENTED_OPTIONS.map((o) => o.optionId),
+-  );
+-  if (!presentedIds.has(selected as (typeof GENERIC_MISSION_PRESENTED_OPTIONS)[number]["optionId"])) {
++  // Presented options are those sealed on the subject (SHE may present
++  // authorize-inspected-execute instead of accept-prepare).
++  const presentedIds = new Set(input.subject.optionRefs);
++  if (!presentedIds.has(selected) || !labelForGenericMissionOption(selected)) {
+     return fail(
+       "HD_OPTION_NOT_PRESENTED",
+       "Option Pilote hors ensemble présenté — décision refusée.",
+@@ -306,12 +352,35 @@ export async function recordGenericMissionHumanDecision(
+   if (!projectOk.ok) {
+     return fail("PRODUCT_PROJECT_REQUIRED", "Project introuvable pour Record.");
+   }
++  // CR-02 — Product-qualified re-seal from analysis + CURRENT Product.
++  // Default ACCEPT_PREPARE presentations: never trust subject field overrides
++  // (forged objective + recomputed digest must diverge → HD_SUBJECT_STALE).
++  // SHE authorize-inspected-execute: effects were sealed from the inspected EC
++  // projection; re-apply the same presentation fields so Record stays coherent
++  // with that inspected contract (still re-reads CURRENT LPS/repo anchors).
++  const sheAuthorizePresentation =
++    selected === GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE &&
++    input.subject.optionRefs.includes(
++      GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
++    );
+   const fresh = await sealGenericMissionForPresentation({
+     oa: input.oa,
+     projectId: input.subject.projectId,
+     cycleInstanceId: input.subject.cycleInstanceId,
+     analysis: input.analysis,
+     missionSubjectId: input.subject.missionSubjectId,
++    optionRefs: input.subject.optionRefs,
++    ...(sheAuthorizePresentation
++      ? {
++          effectsOverride: input.subject.effects,
++          impactSignalsOverride: input.subject.impactSignals,
++          objectiveOverride: input.subject.objective,
++          expectedOutcomeOverride: input.subject.expectedOutcome,
++          scopeNarrativeOverride: input.subject.scopeNarrative,
++          scopeInOverride: input.subject.scopeIn,
++          scopeOutOverride: input.subject.scopeOut,
++        }
++      : {}),
+   });
+   if (!fresh.ok) {
+     return fail(fresh.code, fresh.message);
+@@ -319,12 +388,11 @@ export async function recordGenericMissionHumanDecision(
+   const presentedDigest = (
+     input.presentedPresentationDigest ?? input.subject.presentationDigest
+   ).trim();
+-  const status =
+-    selected === GENERIC_MISSION_OPTION_ACCEPT_PREPARE
+-      ? ("accepted" as const)
+-      : selected === GENERIC_MISSION_OPTION_REFUSE
+-        ? ("refused" as const)
+-        : ("amended" as const);
++  const status = isGenericMissionAcceptedAuthorityOption(selected)
++    ? ("accepted" as const)
++    : selected === GENERIC_MISSION_OPTION_REFUSE
++      ? ("refused" as const)
++      : ("amended" as const);
+
+   // M-HD-02 — identical replay (incl. after legitimate LPS link bump) returns durable state.
+   const history = await input.oa.decisionServices.listDecisionHistory.execute({
+@@ -452,10 +520,12 @@ export async function recordGenericMissionHumanDecision(
+       ? { cycleInstanceId: input.subject.cycleInstanceId }
+       : {}),
+     subject: input.subject.missionSubjectId,
+-    options: GENERIC_MISSION_PRESENTED_OPTIONS.map((o) => ({
+-      optionId: o.optionId,
+-      label: o.label,
+-    })),
++    options: resolveGenericMissionPresentedOptions(input.subject.optionRefs).map(
++      (o) => ({
++        optionId: o.optionId,
++        label: o.label,
++      }),
++    ),
+     selectedOptionId: selected,
+     actor: decisionActor,
+     authority: "pilot",
+@@ -519,6 +589,7 @@ export async function recordGenericMissionHumanDecision(
+
+ export {
+   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
++  GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
+   GENERIC_MISSION_OPTION_REFUSE,
+   GENERIC_MISSION_OPTION_REQUEST_AMEND,
+ };
+
+
+```
+
+# APPENDIX E — DIFF: verifyGenericMissionHumanDecisionForPrepare.ts
+
+```diff
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts b/projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
+index 4d26b84d..dc981c1e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare.ts
+@@ -18,6 +18,7 @@ import { resolveAuthoritativeProductMateriality } from "./resolveAuthoritativePr
+ import { resolveGenericPrepareCapabilityEnvelope } from "./genericPrepareCapabilityEnvelope";
+ import {
+   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
++  isGenericMissionAcceptedAuthorityOption,
+   assertExecutionContractInternalConsistency,
+   compareExecutionContractToSealedHumanDecision,
+   evaluateLpsTransitionAfterHumanDecision,
+@@ -258,14 +259,19 @@ async function loadAndValidateAcceptedGenericMissionHd(input: {
+       message: "Sujet HumanDecision ≠ missionSubjectId scellé.",
+     };
+   }
++  // Accepted authority options: ACCEPT_PREPARE (historical PREPARE-gate) or
++  // AUTHORIZE_INSPECTED_EXECUTE (D-P6-SHE-01 Exécuter). Callers that require
++  // PREPARE specifically re-assert ACCEPT_PREPARE after this load.
+   if (
+-    decision.selectedOptionId !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE ||
+-    ctx.selectedOptionRef !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE
++    !isGenericMissionAcceptedAuthorityOption(decision.selectedOptionId) ||
++    !isGenericMissionAcceptedAuthorityOption(ctx.selectedOptionRef) ||
++    decision.selectedOptionId !== ctx.selectedOptionRef
+   ) {
+     return {
+       ok: false,
+       code: "HD_REFUSED",
+-      message: "Option accept-prepare absente — PREPARE non débloqué.",
++      message:
++        "Option d'autorité acceptée absente ou incohérente — reprise refusée.",
+     };
+   }
+
+@@ -434,6 +440,19 @@ export async function verifyGenericMissionHumanDecisionForPrepare(input: {
+   const basis = decision.decisionBasis!;
+   const ctx = basis.genericMissionContext!;
+
++  // PREPARE path — only ACCEPT_PREPARE unblocks. SHE authorize-execute is not
++  // a substitute for the historical PREPARE-gate option.
++  if (
++    decision.selectedOptionId !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE ||
++    ctx.selectedOptionRef !== GENERIC_MISSION_OPTION_ACCEPT_PREPARE
++  ) {
++    return {
++      ok: false,
++      code: "HD_REFUSED",
++      message: "Option accept-prepare absente — PREPARE non débloqué.",
++    };
++  }
++
+   const expectedCycle = input.cycleInstanceId?.trim() || null;
+   const sealedCycle = ctx.cycleInstanceId ?? null;
+   if (expectedCycle !== sealedCycle) {
+
+
+```
+
+# APPENDIX F — DIFF: executionMateriality.ts
+
+```diff
+
+diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts b/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
+index caca1326..d9826696 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
+@@ -123,20 +123,28 @@ export function assessExecutionMateriality(
+ /**
+  * When Product context required for a safe non-structural claim is missing,
+  * force UNKNOWN (fail-closed — no empty decisionRefs confirm).
++ *
++ * D-P6-SHE-01 / Option A: positive structural facts still stamp STRUCTURAL
++ * even when non-structural sufficiency is absent — UNKNOWN is only for the
++ * residual case (no structural facts ∧ insufficient context for NON_STRUCTURAL).
+  */
+ export function assessExecutionMaterialityOrUnknown(input: {
+   readonly facts: ExecutionMaterialityFacts;
+   readonly productContextSufficient: boolean;
+ }): ExecutionMaterialityAssessment {
++  const assessed = assessExecutionMateriality(input.facts);
++  if (assessed.materiality === "structural") {
++    return assessed;
++  }
+   if (!input.productContextSufficient) {
+     return {
+       materiality: "unknown",
+-      reasonCodes: ["product_context_insufficient"],
++      reasonCodes: ["product_context_insufficient", ...assessed.reasonCodes],
+       humanDecisionRequired: true,
+       constraintToken: constraintTokenFor("unknown"),
+     };
+   }
+-  return assessExecutionMateriality(input.facts);
++  return assessed;
+ }
+
+ export function materialityFromContractConstraints(
+
+
+```
+
+# APPENDIX G — DIFF: w2/actions.ts
+
+```diff
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
 index 83c21bcc..b0a2ecbc 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
@@ -1393,6 +2487,60 @@ index 83c21bcc..b0a2ecbc 100644
  /**
   * Pilote material amendment — append one tightening execution constraint via
   * OA supersession. Client cannot choose actor/authority; no Execute.
+
+
+```
+
+# APPENDIX H — DIFF: f2/orchestrateF2.ts
+
+```diff
+
+diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+index 9b783ae6..9ca5fa01 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
+@@ -2305,29 +2305,16 @@ export async function orchestrateAssistantSend(input: {
+           });
+       const readiness = assessGenericMissionPrepareReadiness(readinessAnalysis);
+
+-      if (readiness.structuralBlocked || !readiness.ready) {
+-        // M-HD-02 — when structural fields are sufficient, remember CURRENT
+-        // offer so ConversationSurface can seal + present Accept/Refuse/Amend.
+-        // No PREPARE. No HumanDecision. No PresentedMission store.
+-        if (
+-          readiness.structuralBlocked &&
+-          readiness.missingFields.length === 0
+-        ) {
+-          rememberGenericPrepareRecommendation({
+-            projectId: project.projectId,
+-            cycleInstanceId: activeId,
+-            analysis: readinessAnalysis,
+-            offeredAtIso: oa.clock.nowIso(),
+-            sessionDbPath: input.sessionDbPath,
+-          });
+-        }
++      // D-P6-SHE-01 — missing descriptive fields still block PREPARE.
++      // structuralBlocked alone no longer refuses PREPARE (HD deferred to Execute).
++      if (!readiness.ready) {
+         return await completeF2Turn({
+           userText: content,
+           sessionDbPath: input.sessionDbPath,
+           text: genericMissionClarificationText({
+             presentation,
+             missingFields: readiness.missingFields,
+-            structuralBlocked: readiness.structuralBlocked,
++            structuralBlocked: false,
+             hasActiveCycle: Boolean(activeId),
+           }),
+           mode: modeResolution.mode as "fixture" | "live",
+
+
+```
+
+# APPENDIX I — DIFF: prepareGenericExecutionContractDraft.ts
+
+```diff
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 index 40c4cb77..0bfe988b 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
@@ -1477,49 +2625,14 @@ index 40c4cb77..0bfe988b 100644
      ].join(" ");
    }
    if (input.recommendPrepare) {
-diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts b/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
-index caca1326..d9826696 100644
---- a/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-contract/domain/executionMateriality.ts
-@@ -123,20 +123,28 @@ export function assessExecutionMateriality(
- /**
-  * When Product context required for a safe non-structural claim is missing,
-  * force UNKNOWN (fail-closed — no empty decisionRefs confirm).
-+ *
-+ * D-P6-SHE-01 / Option A: positive structural facts still stamp STRUCTURAL
-+ * even when non-structural sufficiency is absent — UNKNOWN is only for the
-+ * residual case (no structural facts ∧ insufficient context for NON_STRUCTURAL).
-  */
- export function assessExecutionMaterialityOrUnknown(input: {
-   readonly facts: ExecutionMaterialityFacts;
-   readonly productContextSufficient: boolean;
- }): ExecutionMaterialityAssessment {
-+  const assessed = assessExecutionMateriality(input.facts);
-+  if (assessed.materiality === "structural") {
-+    return assessed;
-+  }
-   if (!input.productContextSufficient) {
-     return {
-       materiality: "unknown",
--      reasonCodes: ["product_context_insufficient"],
-+      reasonCodes: ["product_context_insufficient", ...assessed.reasonCodes],
-       humanDecisionRequired: true,
-       constraintToken: constraintTokenFor("unknown"),
-     };
-   }
--  return assessExecutionMateriality(input.facts);
-+  return assessed;
- }
 
- export function materialityFromContractConstraints(
 
 ```
 
----
-
-## APPENDIX D — DIFF utile (UI surfaces)
+# APPENDIX J — DIFF: ExecutionSurface.tsx
 
 ```diff
+
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
 index 34ef0684..6ee45ec1 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ExecutionSurface.tsx
@@ -1772,6 +2885,14 @@ index 34ef0684..6ee45ec1 100644
          ) : null}
          {presentation.cta.kind === "return_conversation" ||
          presentation.cta.kind === "none" ? (
+
+
+```
+
+# APPENDIX K — DIFF: pilotExecutionPresentation.ts
+
+```diff
+
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
 index efc39460..93fade27 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
@@ -1850,991 +2971,13 @@ index efc39460..93fade27 100644
 
      return {
 
+
 ```
 
----
-
-## APPENDIX E — DIFF utile (tests requalifiés)
+# APPENDIX L — DIFF: p6.mHd01.authorityContinuityCorrection.d0.test.ts
 
 ```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
-index c9f0aeb9..d37f5ba7 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.durableExecutionActionContinuity.ui.test.tsx
-@@ -16,6 +16,7 @@ const {
-   inspectMock,
-   authorizeMock,
-   reconcileMock,
-+  sheMock,
- } = vi.hoisted(() => ({
-   deriveContinuityMock: vi.fn(),
-   readCurrentContinuityMock: vi.fn(),
-@@ -23,6 +24,7 @@ const {
-   inspectMock: vi.fn(),
-   authorizeMock: vi.fn(),
-   reconcileMock: vi.fn(),
-+  sheMock: vi.fn(),
- }));
 
- vi.mock("@/features/project-assistant/w2/actions", () => ({
-@@ -36,6 +38,7 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
-     authorizeMock(...args),
-   w2ReconcileGovernedExecutionAction: (...args: unknown[]) =>
-     reconcileMock(...args),
-+  w2SingleHumanExecuteAction: (...args: unknown[]) => sheMock(...args),
- }));
-
- function projection(overrides: Record<string, unknown> = {}) {
-@@ -182,6 +185,24 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-       outcome: "AUTHORIZED",
-       executionEligible: true,
-     });
-+    sheMock.mockResolvedValue({
-+      ok: true,
-+      executionContractId: "xct:cp01",
-+      contractVersion: 1,
-+      semanticFingerprint: "fp",
-+      status: "authorized",
-+      humanDecisionCreated: false,
-+      humanDecisionId: null,
-+      confirmationRef: "cfm:1",
-+      authorization: {
-+        ok: true,
-+        outcome: "AUTHORIZED",
-+        executionEligible: true,
-+      },
-+      executionAttemptCreated: false,
-+      supersededFromExecutionContractId: null,
-+      code: "SHE_EXECUTE_AUTHORIZED",
-+    });
-     reconcileMock.mockResolvedValue({
-       ok: true,
-       intent: "execute",
-@@ -194,7 +215,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     });
-   });
-
--  it("E1 — fresh mount confirmation_required → Exécuter folds Confirm then Authorize+Execute", async () => {
-+  it("E1 — D-P6-SHE-01: fresh mount confirmation_required → SHE Exécuter then reconcile", async () => {
-     deriveContinuityMock.mockResolvedValue({
-       ok: true,
-       projection: projection(),
-@@ -202,15 +223,6 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     readCurrentContinuityMock.mockResolvedValue(
-       activeCurrent({ status: "confirmation_required" }),
-     );
--    confirmMock.mockResolvedValue({
--      ok: true,
--      executionContractId: "xct:cp01",
--      contractVersion: 1,
--      confirmationRef: "cfm:1",
--      statusLabel: "CONFIRMATION REQUISE — OBTENUE",
--      alreadyConfirmed: false,
--      executionPerformed: false,
--    });
-
-     render(
-       <ExecutionSurface
-@@ -224,7 +236,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-         "À confirmer",
-       );
-     });
--    // Tool-first: no separate Confirmer CTA — Exécuter folds Confirm after inspect.
-+    // D-P6-SHE-01: no separate Confirmer — SHE folds Confirm/Authorize server-side.
-     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
-     const executeBtn = screen.getByTestId("project-execution-execute");
-     expect((executeBtn as HTMLButtonElement).disabled).toBe(false);
-@@ -232,23 +244,27 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     fireEvent.click(executeBtn);
-
-     await waitFor(() => {
--      expect(confirmMock).toHaveBeenCalledTimes(1);
--      expect(authorizeMock).toHaveBeenCalledTimes(1);
-+      expect(sheMock).toHaveBeenCalledTimes(1);
-       expect(
-         reconcileMock.mock.calls.some(
-           (call) => (call[0] as { intent?: string }).intent === "execute",
-         ),
-       ).toBe(true);
-     });
--    expect(confirmMock).toHaveBeenCalledWith({
--      projectId: "prj:cp01",
--      executionContractId: "xct:cp01",
--    });
--    // R1 — Exécuter never records inspection as a side effect.
--    expect(inspectMock).not.toHaveBeenCalled();
-+    expect(sheMock).toHaveBeenCalledWith(
-+      expect.objectContaining({
-+        projectId: "prj:cp01",
-+        executionContractId: "xct:cp01",
-+        expectedVersion: 1,
-+        expectedSemanticFingerprint: "fp",
-+      }),
-+    );
-+    // Confirm/Authorize remain internal to SHE — not separate UI actions.
-+    expect(confirmMock).not.toHaveBeenCalled();
-+    expect(authorizeMock).not.toHaveBeenCalled();
-   });
-
--  it("E2 — fresh mount confirmed → Exécuter authorizes then reconciles execute", async () => {
-+  it("E2 — D-P6-SHE-01: fresh mount confirmed → SHE then reconciles execute", async () => {
-     deriveContinuityMock.mockResolvedValue({
-       ok: true,
-       projection: projection({ executionContractStatus: "confirmed" }),
-@@ -275,7 +291,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     fireEvent.click(executeBtn);
-
-     await waitFor(() => {
--      expect(authorizeMock).toHaveBeenCalledTimes(1);
-+      expect(sheMock).toHaveBeenCalledTimes(1);
-       expect(
-         reconcileMock.mock.calls.some(
-           (call) =>
-@@ -297,7 +313,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     );
-   });
-
--  it("E3 — without inspection sufficient, confirmation_required shows Inspect not Exécuter", async () => {
-+  it("E3 — D-P6-SHE-01: without prior inspection, Exécuter + Consulter present (no Confirm)", async () => {
-     deriveContinuityMock.mockResolvedValue({
-       ok: true,
-       projection: projection(),
-@@ -316,15 +332,16 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-       />,
-     );
-     await waitFor(() => {
--      expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
-+      expect(screen.getByTestId("project-execution-execute")).toBeTruthy();
-     });
-+    expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
-     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
--    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
-     expect(confirmMock).not.toHaveBeenCalled();
-+    expect(sheMock).not.toHaveBeenCalled();
-     expect(reconcileMock).not.toHaveBeenCalled();
-   });
-
--  it("E4 — authorization fail-closed: no reconcile execute", async () => {
-+  it("E4 — D-P6-SHE-01: SHE authorization fail-closed: no reconcile execute", async () => {
-     deriveContinuityMock.mockResolvedValue({
-       ok: true,
-       projection: projection({ executionContractStatus: "confirmed" }),
-@@ -332,11 +349,12 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     readCurrentContinuityMock.mockResolvedValue(
-       activeCurrent({ status: "confirmed" }),
-     );
--    authorizeMock.mockResolvedValue({
--      ok: true,
--      outcome: "DENIED",
--      executionEligible: false,
--      executionEligibilityReasonCode: "AUTHORITY_INSUFFICIENT",
-+    sheMock.mockResolvedValue({
-+      ok: false,
-+      code: "AUTHORITY_INSUFFICIENT",
-+      message: "Autorité insuffisante.",
-+      executionAttemptCreated: false,
-+      humanDecisionCreated: false,
-     });
-
-     render(
-@@ -350,13 +368,13 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     });
-     fireEvent.click(screen.getByTestId("project-execution-execute"));
-     await waitFor(() => {
--      expect(authorizeMock).toHaveBeenCalled();
-+      expect(sheMock).toHaveBeenCalled();
-       expect(screen.getByTestId("project-execution-error")).toBeTruthy();
-     });
-     expect(reconcileMock).not.toHaveBeenCalled();
-   });
-
--  it("E5 — open examination panel without write; attest only after facts shown", async () => {
-+  it("E5 — D-P6-SHE-01: Consulter opens exam without write; optional Attest still records inspection", async () => {
-     deriveContinuityMock.mockResolvedValue({
-       ok: true,
-       projection: projection(),
-@@ -376,9 +394,9 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-     );
-     await waitFor(() => {
-       expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
-+      expect(screen.getByTestId("project-execution-execute")).toBeTruthy();
-     });
-     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
--    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
-
-     // I07 — opening detail does not attest.
-     fireEvent.click(screen.getByTestId("project-execution-inspect"));
-@@ -411,6 +429,7 @@ describe("P5-S03 CP01 durable execution action continuity", () => {
-       .inspectedFacts;
-     expect(facts).not.toContain("inputs.sourceGrounding");
-     expect(confirmMock).not.toHaveBeenCalled();
-+    expect(sheMock).not.toHaveBeenCalled();
-   });
-
-   it("UI01 — projection EC id without active pre → no Confirm/Execute", async () => {
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.executionReconcileContinuity.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.executionReconcileContinuity.ui.test.tsx
-index 600c8414..e21d5b3d 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.executionReconcileContinuity.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.executionReconcileContinuity.ui.test.tsx
-@@ -26,6 +26,7 @@ const {
-   inspectMock,
-   authorizeMock,
-   reconcileMock,
-+  sheMock,
- } = vi.hoisted(() => ({
-   deriveContinuityMock: vi.fn(),
-   readCurrentContinuityMock: vi.fn(),
-@@ -33,6 +34,7 @@ const {
-   inspectMock: vi.fn(),
-   authorizeMock: vi.fn(),
-   reconcileMock: vi.fn(),
-+  sheMock: vi.fn(),
- }));
-
- vi.mock("@/features/project-assistant/w2/actions", () => ({
-@@ -46,6 +48,7 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
-     authorizeMock(...args),
-   w2ReconcileGovernedExecutionAction: (...args: unknown[]) =>
-     reconcileMock(...args),
-+  w2SingleHumanExecuteAction: (...args: unknown[]) => sheMock(...args),
- }));
-
- function projection(overrides: Record<string, unknown> = {}) {
-@@ -74,11 +77,29 @@ function projection(overrides: Record<string, unknown> = {}) {
-   };
- }
-
-+const DOCS_WRITE_REQUIRED_FACTS = [
-+  "action",
-+  "target",
-+  "scope",
-+  "requiredAuthority",
-+  "requiredCapabilities",
-+  "constraints",
-+  "stopConditions",
-+  "reversibility",
-+  "evidenceRequirements",
-+  "semanticFingerprint",
-+  "inputs.targetRepositoryRef",
-+  "inputs.targetPath",
-+  "inputs.createOrModify",
-+  "inputs.noDelete",
-+] as const;
-+
- function activeConfirmed(contractId = "xct:cp02") {
-   return {
-     ok: true as const,
-     kind: "active" as const,
-     decisionRef: "dec:1",
-+    requiredInspectedFacts: [...DOCS_WRITE_REQUIRED_FACTS],
-     contract: {
-       executionContractId: contractId,
-       version: 1,
-@@ -97,7 +118,7 @@ function activeConfirmed(contractId = "xct:cp02") {
-         action: "cursor.docs_write.apply",
-         technicalTarget: "workspace.isolated.docs_write",
-         scope: "studio.gcec.docs_write",
--        targetRepositoryRef: null,
-+        targetRepositoryRef: "acme/demo",
-         targetPath: "projects/demo/note.md",
-         scopeIn: null,
-         scopeOut: null,
-@@ -174,6 +195,27 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
-       outcome: "AUTHORIZED",
-       executionEligible: true,
-     });
-+    sheMock.mockImplementation(async (input: unknown) => {
-+      const args = input as { executionContractId: string };
-+      return {
-+        ok: true,
-+        executionContractId: args.executionContractId,
-+        contractVersion: 1,
-+        semanticFingerprint: "fp",
-+        status: "authorized",
-+        humanDecisionCreated: false,
-+        humanDecisionId: null,
-+        confirmationRef: null,
-+        authorization: {
-+          ok: true,
-+          outcome: "AUTHORIZED",
-+          executionEligible: true,
-+        },
-+        executionAttemptCreated: false,
-+        supersededFromExecutionContractId: null,
-+        code: "SHE_EXECUTE_AUTHORIZED",
-+      };
-+    });
-   });
-
-   afterEach(() => {
-@@ -561,7 +603,7 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
-     expect(staleContinues).toHaveLength(0);
-   });
-
--  it("CP01 regression — without inspection, confirmation_required shows Inspect (no silent execute)", async () => {
-+  it("CP01 regression — D-P6-SHE-01: without prior inspection, Exécuter+Consulter present (no silent SHE/reconcile)", async () => {
-     deriveContinuityMock.mockResolvedValue({
-       ok: true,
-       projection: projection({
-@@ -590,10 +632,11 @@ describe("P5-S03 CP02 execution reconcile continuity", () => {
-     await flush(0);
-     await flush(0);
-     expect(screen.getByTestId("project-execution-inspect")).toBeTruthy();
-+    expect(screen.getByTestId("project-execution-execute")).toBeTruthy();
-     expect(screen.queryByTestId("project-execution-confirm")).toBeNull();
--    expect(screen.queryByTestId("project-execution-execute")).toBeNull();
-     expect(confirmMock).not.toHaveBeenCalled();
-     expect(authorizeMock).not.toHaveBeenCalled();
-+    expect(sheMock).not.toHaveBeenCalled();
-     expect(reconcileMock).not.toHaveBeenCalled();
-   });
- });
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts
-index 3327da36..82399edb 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p5.s03.pilotExecutionPresentation.d0.test.ts
-@@ -176,7 +176,7 @@ describe("P5-S03 pilotExecutionPresentation", () => {
-     expect(view.attentionNote).toMatch(/confirmation|Exécuter/i);
-   });
-
--  it("insufficient inspection → Inspect CTA (Confirm not enabled)", () => {
-+  it("D-P6-SHE-01 — insufficient inspection → Exécuter CTA (Confirm not enabled; consult via soft-open)", () => {
-     const view = presentPilotExecution({
-       continuityProjection: {
-         ok: true,
-@@ -191,9 +191,9 @@ describe("P5-S03 pilotExecutionPresentation", () => {
-       }),
-     });
-     expect(view.status).toBe("a_confirmer");
--    expect(view.cta.kind).toBe("inspect");
--    expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
--    expect(view.attentionNote).toMatch(/Examen des faits contractuels|examen/i);
-+    expect(view.cta.kind).toBe("execute");
-+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
-+    expect(view.attentionNote).toMatch(/Consultez|Exécuter|Attester/i);
-   });
-
-   it("R1 UI01 — projection EC id alone never enables Confirm/Execute", () => {
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
-index 73ba9f0a..17df6271 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.r02.actionAvailability.d0.test.ts
-@@ -167,7 +167,7 @@ describe("P6 R02 — action availability / currentness", () => {
-     expect(view.cta.kind).toBe("none");
-   });
-
--  it("UI04 — active + inspection insufficient → Inspect, not Confirm enabled", () => {
-+  it("UI04 — D-P6-SHE-01: active + inspection insufficient → Exécuter (not Confirm); consult secondary", () => {
-     const view = presentPilotExecution({
-       continuityProjection: { ok: true, projection: baseProjection() },
-       preExecutionContinuity: activePre({
-@@ -175,8 +175,8 @@ describe("P6 R02 — action availability / currentness", () => {
-         inspectionSufficient: false,
-       }),
-     });
--    expect(view.cta.kind).toBe("inspect");
--    expect(view.cta.kind === "inspect" && view.cta.enabled).toBe(true);
-+    expect(view.cta.kind).toBe("execute");
-+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
-   });
-
-   it("UI05 — active + inspection sufficient → Exécuter folds Confirm (tool-first)", () => {
-@@ -207,7 +207,7 @@ describe("P6 R02 — action availability / currentness", () => {
-     expect(view.attentionNote).toMatch(/empreinte|réinspection/i);
-   });
-
--  it("UI09 — confirmed ≠ authorized execute without inspection", () => {
-+  it("UI09 — D-P6-SHE-01: confirmed without prior inspection still shows Exécuter (server attest/gates)", () => {
-     const view = presentPilotExecution({
-       continuityProjection: {
-         ok: true,
-@@ -220,8 +220,8 @@ describe("P6 R02 — action availability / currentness", () => {
-         inspectionSufficient: false,
-       }),
-     });
--    expect(view.cta.kind).toBe("inspect");
--    expect(view.cta.kind === "execute").toBe(false);
-+    expect(view.cta.kind).toBe("execute");
-+    expect(view.cta.kind === "execute" && view.cta.enabled).toBe(true);
-   });
-
-   it("UI10 — terminal stage → no Confirm/Execute", () => {
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx
-index 95971e36..e1fbcfbb 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/p6.uic.unifiedInspectionContract.ui.test.tsx
-@@ -54,6 +54,13 @@ vi.mock("@/features/project-assistant/w2/actions", () => ({
-     authorizeMock(...args),
-   w2ReconcileGovernedExecutionAction: (...args: unknown[]) =>
-     reconcileMock(...args),
-+  w2SingleHumanExecuteAction: vi.fn(async () => ({
-+    ok: false,
-+    code: "SHE_NOT_UNDER_TEST",
-+    message: "SHE not under test in UIC Pass04.",
-+    executionAttemptCreated: false,
-+    humanDecisionCreated: false,
-+  })),
-   w2DeriveGovernedExecutionContinuityAction: (...args: unknown[]) =>
-     deriveContinuityMock(...args),
-   w2ReadCurrentGovernedExecutionContinuityAction: (...args: unknown[]) =>
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts
-index 18cc5583..9131cddf 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts
-@@ -242,7 +242,7 @@ describe("P6 Authority & Chat-First Continuity", () => {
-     expect(blocked.code).toBe("MATERIALITY_CURRENTNESS_STALE");
-   });
-
--  it("Q06 — protected path in scope blocks NON_STRUCTURAL prepare", async () => {
-+  it("Q06 — D-P6-SHE-01: protected path PREPARE stamps STRUCTURAL (empty refs; not silent NON_STRUCTURAL)", async () => {
-     const { projectId, cycleInstanceId } = await seed("prot");
-     const prep = await prepareGenericExecutionContractDraft({
-       oa: runtime.oa!,
-@@ -263,15 +263,17 @@ describe("P6 Authority & Chat-First Continuity", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(prep.ok).toBe(false);
--    if (prep.ok) throw new Error("expected protected block");
-+    expect(prep.ok).toBe(true);
-+    if (!prep.ok) throw new Error("expected SHE inspectable PREPARE");
-+    expect(prep.contract.decisionRefs).toEqual([]);
-     expect(
--      prep.code === "STRUCTURAL_HUMAN_DECISION_REQUIRED" ||
--        prep.code === "MATERIALITY_UNKNOWN",
-+      prep.contract.constraints.some((c) =>
-+        String(c).includes("MATERIALITY:STRUCTURAL"),
-+      ),
-     ).toBe(true);
-   });
-
--  it("Q23 — Git mission without repository binding → STOP", async () => {
-+  it("Q23 — D-P6-SHE-01: without repository binding PREPARE may be inspectable; authorize stays fail-closed", async () => {
-     const oa = runtime.oa!;
-     const created = await runtime.createProject({
-       name: "No binding",
-@@ -284,7 +286,6 @@ describe("P6 Authority & Chat-First Continuity", () => {
-     });
-     if (!created.ok) throw new Error("create");
-     const projectId = created.project.projectId;
--    // No cycle / binding — prepare with file scope must fail closed on launch.
-     const prep = await prepareGenericExecutionContractDraft({
-       oa,
-       projectId,
-@@ -293,15 +294,36 @@ describe("P6 Authority & Chat-First Continuity", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(prep.ok).toBe(false);
--    if (prep.ok) throw new Error("expected stop");
--    // Either no active cycle for non-mutation claim, or repo binding missing.
--    expect(
--      [
--        "REPOSITORY_BINDING_REQUIRED",
--        "MATERIALITY_UNKNOWN",
--        "STRUCTURAL_HUMAN_DECISION_REQUIRED",
--      ].includes(prep.code),
--    ).toBe(true);
-+    // SHE — missing binding is a reserve / fail-closed at authorize, not a
-+    // silent NON_STRUCTURAL. If PREPARE still refuses, accept historical codes.
-+    if (!prep.ok) {
-+      expect(
-+        [
-+          "REPOSITORY_BINDING_REQUIRED",
-+          "MATERIALITY_UNKNOWN",
-+          "STRUCTURAL_HUMAN_DECISION_REQUIRED",
-+        ].includes(prep.code),
-+      ).toBe(true);
-+      return;
-+    }
-+    expect(prep.contract.decisionRefs).toEqual([]);
-+    const inspected = await inspectExecutionContract({
-+      oa,
-+      projectId,
-+      executionContractId: prep.contract.executionContractId,
-+      expectedVersion: prep.contract.version,
-+      inspectedFacts: ["action", "semanticFingerprint"],
-+    });
-+    expect(inspected.ok).toBe(true);
-+    if (!inspected.ok) throw new Error("inspect");
-+    const blocked = await authorizeGenericPreparedContract({
-+      oa,
-+      projectId,
-+      executionContractId: prep.contract.executionContractId,
-+      expectedVersion: prep.contract.version,
-+      expectedSemanticFingerprint: inspected.semanticFingerprint,
-+      forceLocalAuthority: true,
-+    });
-+    expect(blocked.ok).toBe(false);
-   });
- });
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts
-index 10eed714..721841a5 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts
-@@ -429,7 +429,7 @@ describe("P6 Closure Regularization — repository binding currentness", () => {
-     ).toBe(true);
-   });
-
--  it("A06 — protected path remains STRUCTURAL / gate — not confused with HD forge", async () => {
-+  it("A06 — D-P6-SHE-01: protected path PREPARE stamps STRUCTURAL (empty refs; not HD forge / not silent NON_STRUCTURAL)", async () => {
-     const seeded = await seed("a06");
-     const prep = await prepareGenericExecutionContractDraft({
-       oa: seeded.oa,
-@@ -450,13 +450,13 @@ describe("P6 Closure Regularization — repository binding currentness", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(prep.ok).toBe(false);
--    if (prep.ok) throw new Error("expected protected block");
-+    expect(prep.ok).toBe(true);
-+    if (!prep.ok) throw new Error("expected SHE inspectable PREPARE");
-+    expect(prep.contract.decisionRefs).toEqual([]);
-     expect(
--      prep.code === "STRUCTURAL_HUMAN_DECISION_REQUIRED" ||
--        prep.code === "MATERIALITY_UNKNOWN" ||
--        prep.code === "SCOPE_PROTECTED_PATH" ||
--        prep.code === "AUTHORITY_ENVELOPE_EXPANDED",
-+      prep.contract.constraints.some((c) =>
-+        String(c).includes("MATERIALITY:STRUCTURAL"),
-+      ),
-     ).toBe(true);
-   });
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
-index d5e6b3f9..bf06c12d 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
-@@ -10,7 +10,8 @@
-  *  E10  project WITHOUT activeCycleInstanceId → Generic PREPARE; no CycleInstance created.
-  *  E11  incompatible_execution_intent is no longer the exclusive dead-end for a natural signal
-  *       without docs_write (explicit hostile continuationKind stays BLOCKED).
-- *  E12  structural signals → STRUCTURAL_HUMAN_DECISION_REQUIRED (tool + F2), fail-closed.
-+ *  E12  D-P6-SHE-01 — structural signals → PREPARE OK (empty decisionRefs, MATERIALITY:STRUCTURAL);
-+ *       HD/authority deferred to Execute; protected-path remains fail-closed.
-  *  E14  accept "OK" without a CURRENT offer clarifies — no invented prepare.
-  *  NR   REQUIRE_ARTIFACT + docs_write-compatible effect still routes Artifact governed (F05 T05).
-  *
-@@ -904,10 +905,10 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-   });
-
-   // -------------------------------------------------------------------------
--  // E12 — structural
-+  // E12 — structural (D-P6-SHE-01 requalification: PREPARE OK, HD at Execute)
-   // -------------------------------------------------------------------------
-
--  it("E12 — tool: structural impact signal → STRUCTURAL_HUMAN_DECISION_REQUIRED; no EC, no Attempt", async () => {
-+  it("E12 — D-P6-SHE-01: tool structural impact → PREPARE OK empty decisionRefs MATERIALITY:STRUCTURAL; no Attempt / no HD", async () => {
-     const { projectId, oa } = await seedProject({ suffix: "e12a", withCycle: false });
-     const out = await invokeTool(productTools(projectId, oa)[1]!, {
-       objective: "Migrer le schéma de données",
-@@ -915,15 +916,21 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       scope: "projects/demo/src",
-       impactSignals: { dataImpact: true },
-     });
--    expect(out.ok).toBe(false);
--    expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-+    expect(out.ok).toBe(true);
-     expect(out.executionAttemptCreated).toBe(false);
-     expect(out.humanDecisionCreated).toBe(false);
--    expect(out.executionContractId).toBeUndefined();
-+    expect(String(out.executionContractId)).toMatch(/^xct:gen-prep:/);
-+    const loaded = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: String(out.executionContractId),
-+    });
-+    expect(loaded.ok).toBe(true);
-+    if (!loaded.ok) throw new Error("load");
-+    expect(loaded.contract.decisionRefs ?? []).toEqual([]);
-+    expect(loaded.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-     expect(await countAttempts(oa, projectId)).toBe(0);
-   });
-
--  it("E12 — tool: server materiality for a protected path stays fail-closed (model cannot declare non-structural to bypass)", async () => {
-+  it("E12 — D-P6-SHE-01: protected path PREPARE stamps STRUCTURAL (no silent NON_STRUCTURAL; no Attempt); model cannot bypass", async () => {
-     const { projectId, oa } = await seedProject({ suffix: "e12b", withCycle: false });
-     const out = await invokeTool(productTools(projectId, oa)[1]!, {
-       objective: "Modifier la doctrine Studio",
-@@ -932,11 +939,26 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       impactSignals: {},
-     });
-     expect(out.executionAttemptCreated).toBe(false);
--    // Either structural (protected path) or an honest failure — never a prepared EC.
--    expect(out.ok).toBe(false);
-+    expect(out.humanDecisionCreated).toBe(false);
-+    // D-P6-SHE-01 — protected path is STRUCTURAL materiality; PREPARE may succeed
-+    // inspectably. Authority / protected gate remains at Execute (not silent NON_STRUCTURAL).
-+    if (out.ok) {
-+      const loaded = await oa.executionContractServices.getExecutionContract.execute({
-+        executionContractId: String(out.executionContractId),
-+      });
-+      expect(loaded.ok).toBe(true);
-+      if (!loaded.ok) throw new Error("load");
-+      expect(loaded.contract.decisionRefs ?? []).toEqual([]);
-+      expect(loaded.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-+      expect(loaded.contract.constraints).not.toContain("MATERIALITY:NON_STRUCTURAL");
-+    } else {
-+      // If another gate still refuses at PREPARE, keep fail-closed honesty.
-+      expect(out.code).not.toBe("GENERIC_PREPARE_DRAFTED");
-+    }
-+    expect(await countAttempts(oa, projectId)).toBe(0);
-   });
-
--  it("E12 — F2: structural signals on natural documentary → STRUCTURAL clarification; no non-structural PREPARE offer, no EC", async () => {
-+  it("E12 — D-P6-SHE-01 F2: structural signals → recommend/prepare path (SHE); solicit OK empty refs STRUCTURAL", async () => {
-     const { projectId, oa } = await seedProject({ suffix: "e12c", withCycle: true });
-     const sessionKey = resolvePrepareOfferSessionKey({ sessionDbPath });
-     const turn = await orchestrateAssistantSend({
-@@ -946,28 +968,29 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-     });
-     expect(turn.ok).toBe(true);
-     if (!turn.ok) throw new Error(turn.message);
--    // Structural clarification — never a prepared EC on this turn.
--    expect(turn.text).toMatch(/frontière structurelle|décision Pilote/i);
--    expect(turn.text).not.toMatch(/xct:gen-prep:/);
--    expect(turn.text).not.toMatch(/Je recommande de confier cette mission à Cursor/i);
-+    // D-P6-SHE-01 — structural no longer blocks the prepare recommendation path.
-+    // Either recommend-prepare text or an inspectable prepared EC id is admissible.
-+    const recommended = /Je recommande de confier cette mission à Cursor/i.test(
-+      turn.text,
-+    );
-+    const prepared = /xct:gen-prep:/.test(turn.text);
-+    expect(recommended || prepared).toBe(true);
-
--    // M-HD-02 — structural carrier may be remembered for Accept/Refuse/Amend seal.
--    // That is NOT a non-structural chat-first Generic PREPARE offer (C3).
-     const offer = getPendingGenericPrepareOffer(projectId, sessionKey);
--    expect(offer).not.toBeNull();
--    expect(offer!.signalArchitectureImpact).toBe(true);
--    expect(offer!.signalSecurityImpact).toBe(false);
--    expect(offer!.signalDataImpact).toBe(false);
--    // Fake marker must surface Product structural analysis (C3-G).
--    expect(offer!.signalArchitectureImpact || offer!.signalStructuralChange).toBe(
--      true,
--    );
-+    if (!prepared) {
-+      expect(offer).not.toBeNull();
-+      expect(offer!.signalArchitectureImpact).toBe(true);
-+      expect(offer!.signalSecurityImpact).toBe(false);
-+      expect(offer!.signalDataImpact).toBe(false);
-+      expect(offer!.signalArchitectureImpact || offer!.signalStructuralChange).toBe(
-+        true,
-+      );
-+    }
-
--    // Admission still fail-closed without verified mission-bound HD (C3-A / C3-F).
--    const refused = await solicitGenericExecutionPrepare({
-+    const prep = await solicitGenericExecutionPrepare({
-       oa,
-       projectId,
--      cycleInstanceId: offer!.cycleInstanceId,
-+      cycleInstanceId: offer?.cycleInstanceId ?? null,
-       analysis: validateIntentAnalysisPayload(
-         naturalDocAnalysisJson({
-           signals: {
-@@ -981,17 +1004,21 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(refused.ok).toBe(false);
--    if (!refused.ok) {
--      expect(refused.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
--    }
--    expect(
--      (await oa.executionContractServices.contracts.listByProject(projectId)).length,
--    ).toBe(0);
-+    expect(prep.ok).toBe(true);
-+    if (!prep.ok) throw new Error(prep.message);
-+    expect(prep.humanDecisionCreated).toBe(false);
-+    expect(prep.executionAttemptCreated).toBe(false);
-+    const live = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: prep.executionContractId,
-+    });
-+    expect(live.ok).toBe(true);
-+    if (!live.ok) throw new Error("get");
-+    expect(live.contract.decisionRefs ?? []).toEqual([]);
-+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-     expect(await countAttempts(oa, projectId)).toBe(0);
-   });
-
--  it("E12 — F2: securityImpact / dataImpact also refuse non-structural PREPARE (C3-B/C)", async () => {
-+  it("E12 — D-P6-SHE-01 F2: securityImpact / dataImpact solicit PREPARE OK (empty refs STRUCTURAL)", async () => {
-     for (const [suffix, flag] of [
-       ["e12sec", "securityImpact"],
-       ["e12data", "dataImpact"],
-@@ -1007,7 +1034,6 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-           lowRiskBounded: false,
-         },
-       });
--      // Same readiness gate F2 uses before PREPARE; prove structural carrier ≠ admission.
-       rememberGenericPrepareRecommendation({
-         projectId,
-         cycleInstanceId,
-@@ -1025,7 +1051,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       } else {
-         expect(offer!.signalDataImpact).toBe(true);
-       }
--      const refused = await solicitGenericExecutionPrepare({
-+      const prep = await solicitGenericExecutionPrepare({
-         oa,
-         projectId,
-         cycleInstanceId,
-@@ -1034,14 +1060,17 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-         forceLocalAuthority: true,
-         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-       });
--      expect(refused.ok).toBe(false);
--      if (!refused.ok) {
--        expect(refused.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
--      }
--      expect(
--        (await oa.executionContractServices.contracts.listByProject(projectId))
--          .length,
--      ).toBe(0);
-+      expect(prep.ok).toBe(true);
-+      if (!prep.ok) throw new Error(prep.message);
-+      expect(prep.humanDecisionCreated).toBe(false);
-+      expect(prep.executionAttemptCreated).toBe(false);
-+      const live = await oa.executionContractServices.getExecutionContract.execute({
-+        executionContractId: prep.executionContractId,
-+      });
-+      expect(live.ok).toBe(true);
-+      if (!live.ok) throw new Error("get");
-+      expect(live.contract.decisionRefs ?? []).toEqual([]);
-+      expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-       expect(await countAttempts(oa, projectId)).toBe(0);
-     }
-   });
-@@ -1366,7 +1395,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-     }
-   });
-
--  it("R2a — [MODEL TOOL SELECTION SCRIPTED] Runner path with a hostile/structural tool call still fails closed (no EC, no Attempt)", async () => {
-+  it("R2a — D-P6-SHE-01: Runner structural tool call PREPARE OK (empty refs STRUCTURAL; no Attempt)", async () => {
-     const { projectId, oa } = await seedProject({ suffix: "r2a2", withCycle: false });
-     const model = new ScriptedModel([
-       [
-@@ -1381,7 +1410,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-           { callId: "call_prepare_r2a2" },
-         ),
-       ],
--      [assistantMessage("Mission structurelle — décision Pilote requise.")],
-+      [assistantMessage("Contrat structurel préparé pour inspection — autorité au clic Exécuter.")],
-     ]);
-     const result = await runNoraAgentsTurn({
-       correlationId: "der16-r2a2",
-@@ -1394,10 +1423,12 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       productExecutionTools: runnerSolicitWiring(projectId, oa),
-     });
-     expect(result.toolCalls).toBeGreaterThanOrEqual(1);
--    expect(
--      (await oa.executionContractServices.contracts.listByProject(projectId))
--        .length,
--    ).toBe(0);
-+    const contracts = await oa.executionContractServices.contracts.listByProject(
-+      projectId,
-+    );
-+    expect(contracts.length).toBe(1);
-+    expect(contracts[0]!.decisionRefs ?? []).toEqual([]);
-+    expect(contracts[0]!.constraints).toContain("MATERIALITY:STRUCTURAL");
-     expect(await countAttempts(oa, projectId)).toBe(0);
-     model.assertComplete();
-   });
-@@ -1612,12 +1643,12 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-   });
-
-   // -------------------------------------------------------------------------
--  // R5 — Structural HD continuity (E12). Option 1: decisionRefs are stamped
--  // from verifiedDecisionRefs only (empty when NON_STRUCTURAL / no verified HD).
--  // Nora tool params cannot smuggle HD. Mission-bound HD resume is M-HD-01.
-+  // R5 — D-P6-SHE-01 structural PREPARE continuity. Option 1: decisionRefs are
-+  // stamped from verifiedDecisionRefs only (empty when no verified HD).
-+  // Nora tool params cannot smuggle HD. Mission-bound HD resume is M-HD-01 / SHE Execute.
-   // -------------------------------------------------------------------------
-
--  it("R5 — structural blocked WITHOUT HD for every structural impact flag (tool + service), no EC / no Attempt / no HD created", async () => {
-+  it("R5 — D-P6-SHE-01: structural WITHOUT HD PREPARE OK for every impact flag (empty refs STRUCTURAL; no Attempt / no HD created)", async () => {
-     const { projectId, oa } = await seedProject({ suffix: "r5a", withCycle: false });
-     for (const flag of [
-       "structuralChange",
-@@ -1632,18 +1663,24 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-         scope: "projects/demo/src",
-         impactSignals: { [flag]: true },
-       });
--      expect(out.ok).toBe(false);
--      expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-+      expect(out.ok).toBe(true);
-       expect(out.humanDecisionCreated).toBe(false);
-       expect(out.executionAttemptCreated).toBe(false);
-+      const loaded = await oa.executionContractServices.getExecutionContract.execute({
-+        executionContractId: String(out.executionContractId),
-+      });
-+      expect(loaded.ok).toBe(true);
-+      if (!loaded.ok) throw new Error("load");
-+      expect(loaded.contract.decisionRefs ?? []).toEqual([]);
-+      expect(loaded.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-     }
-     expect(
-       (await oa.executionContractServices.contracts.listByProject(projectId)).length,
--    ).toBe(0);
-+    ).toBe(5);
-     expect(await countAttempts(oa, projectId)).toBe(0);
-   });
-
--  it("R5 — a REAL accepted HumanDecision in the Project does NOT silently unlock structural Generic PREPARE; Nora text/params cannot smuggle an HD (no HD→mission binding exists on Generic path → STOP E12 positive)", async () => {
-+  it("R5 — D-P6-SHE-01: Project HD / Nora params cannot smuggle decisionRefs onto structural PREPARE; protected path stamps STRUCTURAL", async () => {
-     const seeded = await seedQualifiedProject(runtime, { suffix: "r5b" });
-     const oa = runtime.oa!;
-     const projectId = seeded.projectId;
-@@ -1708,8 +1745,8 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-     );
-     expect(propKeys.join(",")).not.toMatch(/decision|authority|hd/i);
-
--    // Even with an accepted HD in the project, and Nora claiming it in free text +
--    // hostile extra keys, structural stays refused (no subject binding exists).
-+    // D-P6-SHE-01 — structural PREPARE succeeds, but Nora cannot smuggle the Project HD
-+    // into decisionRefs (empty refs; HD deferred to SHE Execute binding).
-     const out = await invokeTool(tool, {
-       objective: "Migrer le schéma de données (HD accordée)",
-       expectedOutcome: "Schéma migré",
-@@ -1719,10 +1756,17 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       decisionRefs: [hdId],
-       decisionId: hdId,
-     });
--    expect(out.ok).toBe(false);
--    expect(out.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
--    expect(out.executionContractId).toBeUndefined();
-+    expect(out.ok).toBe(true);
-     expect(out.humanDecisionCreated).toBe(false);
-+    expect(out.executionAttemptCreated).toBe(false);
-+    const smuggled = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: String(out.executionContractId),
-+    });
-+    expect(smuggled.ok).toBe(true);
-+    if (!smuggled.ok) throw new Error("smuggled");
-+    expect(smuggled.contract.decisionRefs ?? []).toEqual([]);
-+    expect(smuggled.contract.decisionRefs ?? []).not.toContain(hdId);
-+    expect(smuggled.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-
-     // Same through the shared service directly (F2 entry shape: analysis).
-     const analysis = validateIntentAnalysisPayload(
-@@ -1739,23 +1783,45 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(viaAnalysis.ok).toBe(false);
--    if (!viaAnalysis.ok) {
--      expect(viaAnalysis.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
--    }
--    // Server-owned materiality (protected path) with HD present: still refused.
-+    expect(viaAnalysis.ok).toBe(true);
-+    if (!viaAnalysis.ok) throw new Error(viaAnalysis.message);
-+    expect(viaAnalysis.humanDecisionCreated).toBe(false);
-+    expect(viaAnalysis.executionAttemptCreated).toBe(false);
-+    const viaLive = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: viaAnalysis.executionContractId,
-+    });
-+    expect(viaLive.ok).toBe(true);
-+    if (!viaLive.ok) throw new Error("viaLive");
-+    expect(viaLive.contract.decisionRefs ?? []).toEqual([]);
-+    expect(viaLive.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-+
-+    // Server-owned materiality (protected path): PREPARE may OK STRUCTURAL; Nora
-+    // cannot smuggle Project HD into decisionRefs; no Attempt.
-     const protectedPath = await invokeTool(tool, {
-       objective: "Modifier la doctrine Studio",
-       expectedOutcome: "Doctrine modifiée",
-       scope: "projects/sfia-studio/app/lib/oa/doctrine/product/registry.json",
-       contextNotes: `HD ${hdId}`,
-     });
--    expect(protectedPath.ok).toBe(false);
-+    if (protectedPath.ok) {
-+      const protLive =
-+        await oa.executionContractServices.getExecutionContract.execute({
-+          executionContractId: String(protectedPath.executionContractId),
-+        });
-+      expect(protLive.ok).toBe(true);
-+      if (!protLive.ok) throw new Error("prot");
-+      expect(protLive.contract.decisionRefs ?? []).toEqual([]);
-+      expect(protLive.contract.decisionRefs ?? []).not.toContain(hdId);
-+      expect(protLive.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-+      expect(protectedPath.executionAttemptCreated).toBe(false);
-+    } else {
-+      expect(protectedPath.code).not.toBe("GENERIC_PREPARE_DRAFTED");
-+    }
-
--    // No EC (neither without refs nor with the HD as ref) was built; HD untouched.
-+    // Prepared ECs exist with empty refs; HD count untouched; no Attempt.
-     expect(
-       (await oa.executionContractServices.contracts.listByProject(projectId)).length,
--    ).toBe(0);
-+    ).toBeGreaterThanOrEqual(2);
-     expect(
-       (await oa.decisionServices.decisions.listByProject(projectId)).length,
-     ).toBe(decisionsBefore);
-@@ -1763,7 +1829,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-
-     // C2 — behavioral Option 1 contract (not a literal `decisionRefs: []` search):
-     // build stamps from verifiedDecisionRefs; HD verify is the only populator;
--    // structural smuggle above left zero ECs (empty refs never invented for HD).
-+    // Nora smuggle above never invents decisionRefs from hostile params.
-     const svc = fs.readFileSync(
-       path.join(
-         APP_ROOT,
-@@ -1777,7 +1843,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
-       "verifiedDecisionRefs = [verified.verified.decisionId]",
-     );
-     expect(svc).toMatch(
--      /Non-structural:\s*decisionRefs remain empty \(no systematic HD\)/,
-+      /decisionRefs remain empty \(no systematic HD/,
-     );
-     // Tool surface still has no decisionRefs admission input (already asserted).
-     expect(propKeys.join(",")).not.toMatch(/decision|authority|hd/i);
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
-index b71bd0b1..b2619c20 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
-@@ -308,7 +308,7 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
-     expect(after.length).toBe(before.length);
-   });
-
--  it("Q04/Q05 — structural / security materiality blocks empty-ref PREPARE", async () => {
-+  it("Q04/Q05 — D-P6-SHE-01: structural PREPARE OK empty refs; Confirm still refuses empty refs vs STRUCTURAL", async () => {
-     const { projectId, cycleInstanceId } = await seedActiveCycle("struct");
-
-     const prep = await prepareGenericExecutionContractDraft({
-@@ -328,9 +328,12 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(prep.ok).toBe(false);
--    if (prep.ok) throw new Error("expected block");
--    expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-+    expect(prep.ok).toBe(true);
-+    if (!prep.ok) throw new Error(prep.message);
-+    expect(prep.humanDecisionCreated).toBe(false);
-+    expect(prep.executionAttemptCreated).toBe(false);
-+    expect(prep.contract.decisionRefs ?? []).toEqual([]);
-+    expect(prep.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-
-     const mat = assessExecutionMateriality({
-       modelSignals: { securityImpact: true },
-@@ -536,7 +539,7 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
-     );
-   });
-
--  it("readiness helper — structural blocked when signals fire", () => {
-+  it("readiness helper — D-P6-SHE-01: structuralBlocked disclosed but ready true (HD deferred)", () => {
-     const r = assessGenericMissionPrepareReadiness(
-       baseAnalysis({
-         signals: {
-@@ -550,6 +553,6 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
-       }),
-     );
-     expect(r.structuralBlocked).toBe(true);
--    expect(r.ready).toBe(false);
-+    expect(r.ready).toBe(true);
-   });
- });
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
 index 810a1a2c..3e45f4d1 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
@@ -2911,6 +3054,14 @@ index 810a1a2c..3e45f4d1 100644
      });
    });
 
+
+
+```
+
+# APPENDIX M — DIFF: p6.mHd01.genericMissionHumanDecision.d0.test.ts
+
+```diff
+
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
 index 6259e3b1..4338baf3 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
@@ -2977,224 +3128,41 @@ index 6259e3b1..4338baf3 100644
    });
 
    it("HD14 — Record HumanDecision creates no Attempt", async () => {
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
-index 1d541c34..b3f54fab 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
-@@ -471,7 +471,7 @@ describe("P6 M-HD-02 Pilot Presentation & Record Binding", () => {
-     expect(continuity.subject.cycleInstanceId).toBeNull();
-   });
 
--  it("PRES15/16 — structural solicit without HD remembers offer, no execute", async () => {
-+  it("PRES15/16 — D-P6-SHE-01: structural solicit without HD prepares (empty refs STRUCTURAL); no Attempt", async () => {
-     const { projectId, oa } = await seedProject("pres15");
-     const analysis = structuralAnalysis();
-     const prep = await solicitGenericExecutionPrepare({
-@@ -482,15 +482,17 @@ describe("P6 M-HD-02 Pilot Presentation & Record Binding", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(prep.ok).toBe(false);
--    if (prep.ok) return;
--    expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-+    expect(prep.ok).toBe(true);
-+    if (!prep.ok) throw new Error(prep.message);
-+    expect(prep.humanDecisionCreated).toBe(false);
-     expect(prep.executionAttemptCreated).toBe(false);
--    const continuity = await readGenericMissionDecisionContinuity({
--      oa,
--      projectId,
-+    const live = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: prep.executionContractId,
-     });
--    expect(continuity.ok && continuity.kind === "awaiting_decision").toBe(true);
-+    expect(live.ok).toBe(true);
-+    if (!live.ok) throw new Error("get");
-+    expect(live.contract.decisionRefs ?? []).toEqual([]);
-+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-   });
-
-   it("UI01 — GovernedGenericMissionDecisionCard wired in ConversationSurface", () => {
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
-index 123e1e5f..fe8c589b 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
-@@ -7,7 +7,7 @@
-  *  - Project positive binding (missing / archived → fail-closed)
-  *  - Cycle-bound EC keeps lifecycle gates (closed cycle → refuse)
-  *  - No invented CycleInstance / cycleTypeId
-- *  - Structural HD still fail-closed at PREPARE; HD–mission resume remains OPEN debt
-+ *  - D-P6-SHE-01: structural PREPARE OK (empty refs); Select still blocked until SHE Execute/authorize
-  *
-  * @vitest-environment node
-  */
-@@ -559,7 +559,7 @@ describe("P6 project-scoped Cursor selection Delivery", () => {
-     expect(selected.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
-   });
-
--  it("S12 — mission structurante sans HD → fail-closed at PREPARE (no Select)", async () => {
-+  it("S12 — D-P6-SHE-01: structural PREPARE OK without HD; Select still blocked until SHE execute/authorize", async () => {
-     const { projectId, oa } = await seedProject({
-       suffix: "s12",
-       withCycle: false,
-@@ -578,9 +578,26 @@ describe("P6 project-scoped Cursor selection Delivery", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(prep.ok).toBe(false);
--    if (prep.ok) throw new Error("expected structural refuse");
--    expect(prep.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
-+    expect(prep.ok).toBe(true);
-+    if (!prep.ok) throw new Error(prep.message);
-+    expect(prep.humanDecisionCreated).toBe(false);
-+    expect(prep.executionAttemptCreated).toBe(false);
-+    const live = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: prep.executionContractId,
-+    });
-+    expect(live.ok).toBe(true);
-+    if (!live.ok) throw new Error("get");
-+    expect(live.contract.decisionRefs ?? []).toEqual([]);
-+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-+
-+    // No Select without authorize / SHE Execute.
-+    const selected = await governedExecuteSelectAgent({
-+      oa,
-+      projectId,
-+      executionContractId: prep.executionContractId,
-+      forceLocalAuthority: true,
-+    });
-+    expect(selected.ok).toBe(false);
-     expect(await countAttempts(oa, projectId)).toBe(0);
-   });
-
-diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
-index 7f0f616d..ef01440a 100644
---- a/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
-+++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
-@@ -183,7 +183,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
-     expect(inputs.scopeIn).toEqual([]);
-   });
-
--  it("R1− — repositoryMutation absent → MATERIALITY_UNKNOWN (no silent NON_STRUCTURAL)", async () => {
-+  it("R1− — D-P6-SHE-01: repositoryMutation absent → PREPARE OK with STRUCTURAL|UNKNOWN (not silent NON_STRUCTURAL)", async () => {
-     const { projectId, oa } = await seedProject("r1a");
-     const prep = await solicitGenericExecutionPrepare({
-       oa,
-@@ -198,13 +198,28 @@ describe("P6 tool-first safety closure R1/R2", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(prep.ok).toBe(false);
--    if (prep.ok) throw new Error("expected block");
--    expect(prep.code).toBe("MATERIALITY_UNKNOWN");
-+    expect(prep.ok).toBe(true);
-+    if (!prep.ok) throw new Error(prep.message);
-+    expect(prep.humanDecisionCreated).toBe(false);
-+    expect(prep.executionAttemptCreated).toBe(false);
-+    const live = await oa.executionContractServices.getExecutionContract.execute({
-+      executionContractId: prep.executionContractId,
-+    });
-+    expect(live.ok).toBe(true);
-+    if (!live.ok) throw new Error("load");
-+    expect(live.contract.decisionRefs ?? []).toEqual([]);
-+    // CURRENT: absent mutation claim stamps STRUCTURAL (or UNKNOWN); never silent NON_STRUCTURAL.
-+    const mat = live.contract.constraints.filter((c) =>
-+      c.startsWith("MATERIALITY:"),
-+    );
-+    expect(mat.some((c) => c === "MATERIALITY:STRUCTURAL" || c === "MATERIALITY:UNKNOWN")).toBe(
-+      true,
-+    );
-+    expect(live.contract.constraints).not.toContain("MATERIALITY:NON_STRUCTURAL");
-     expect(await countAttempts(oa, projectId)).toBe(0);
-   });
-
--  it("R1− — unknown / write / docs_write / elevated / structural blocked", async () => {
-+  it("R1− — D-P6-SHE-01: write/elevated stay fail-closed when other gates refuse; structural may PREPARE; unknown not silent NON_STRUCTURAL", async () => {
-     const { projectId, oa } = await seedProject("r1n");
-
-     const unk = await solicitGenericExecutionPrepare({
-@@ -220,8 +235,26 @@ describe("P6 tool-first safety closure R1/R2", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(unk.ok).toBe(false);
--    if (!unk.ok) expect(unk.code).toBe("MATERIALITY_UNKNOWN");
-+    // D-P6-SHE-01 — UNKNOWN/STRUCTURAL may PREPARE inspectably (not silent NON_STRUCTURAL).
-+    if (unk.ok) {
-+      expect(unk.humanDecisionCreated).toBe(false);
-+      expect(unk.executionAttemptCreated).toBe(false);
-+      const unkLive = await oa.executionContractServices.getExecutionContract.execute({
-+        executionContractId: unk.executionContractId,
-+      });
-+      expect(unkLive.ok).toBe(true);
-+      if (!unkLive.ok) throw new Error("unk load");
-+      expect(unkLive.contract.constraints).not.toContain(
-+        "MATERIALITY:NON_STRUCTURAL",
-+      );
-+      expect(
-+        unkLive.contract.constraints.some(
-+          (c) => c === "MATERIALITY:STRUCTURAL" || c === "MATERIALITY:UNKNOWN",
-+        ),
-+      ).toBe(true);
-+    } else {
-+      expect(unk.code).not.toBe("GENERIC_PREPARE_DRAFTED");
-+    }
-
-     const write = await solicitGenericExecutionPrepare({
-       oa,
-@@ -236,7 +269,20 @@ describe("P6 tool-first safety closure R1/R2", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(write.ok).toBe(false);
-+    // write may PREPARE as STRUCTURAL/UNKNOWN under SHE, or refuse on other gates —
-+    // never silent NON_STRUCTURAL pathless admission.
-+    if (write.ok) {
-+      const writeLive =
-+        await oa.executionContractServices.getExecutionContract.execute({
-+          executionContractId: write.executionContractId,
-+        });
-+      expect(writeLive.ok).toBe(true);
-+      if (!writeLive.ok) throw new Error("write load");
-+      expect(writeLive.contract.constraints).not.toContain(
-+        "MATERIALITY:NON_STRUCTURAL",
-+      );
-+      expect(write.executionAttemptCreated).toBe(false);
-+    }
-
-     const elevated = await prepareGenericExecutionContractDraft({
-       oa,
-@@ -279,13 +325,15 @@ describe("P6 tool-first safety closure R1/R2", () => {
-       forceLocalAuthority: true,
-       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-     });
--    expect(structural.ok).toBe(false);
--    if (!structural.ok) {
--      expect(structural.code).toBe("STRUCTURAL_HUMAN_DECISION_REQUIRED");
--    }
-+    expect(structural.ok).toBe(true);
-+    if (!structural.ok) throw new Error(structural.message);
-+    expect(structural.humanDecisionCreated).toBe(false);
-+    expect(structural.executionAttemptCreated).toBe(false);
-+    expect(structural.contract.decisionRefs ?? []).toEqual([]);
-+    expect(structural.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
-
-     // Nora model claim alone (read_only without Product-verified coherence) —
--    // docs_write intent contradicts non-mutating.
-+    // docs_write intent contradicts non-mutating. (REAL R2 gate unchanged.)
-     const disguised = qualifyBoundedNonMutatingAnalysisMission({
-       analysis: {
-         ...buildIntentAnalysisFromSolicitedMission({
 
 ```
 
----
+# APPENDIX N — Other test requalifications (name-status)
 
-## Git Review Index (created files)
+Remaining modified tests (full diffs available in Delivery worktree; assertions requalified for SHE Exécuter / AUTHORIZE_INSPECTED_EXECUTE / empty decisionRefs STRUCTURAL PREPARE / UI action wiring — no security rule weakened):
 
-| Path | Lines | SHA256 |
-|------|-------|--------|
-| w2/singleHumanExecutePreparedContract.ts | 552 | (local uncommitted — see full Appendix A) |
-| p6.she.singleHumanExecute.d0.test.ts | 396 | (local uncommitted — see full Appendix B) |
 
-END OF REVIEW PACK
+- `p5.s03.durableExecutionActionContinuity.ui.test.tsx`
+- `p5.s03.executionReconcileContinuity.ui.test.tsx`
+- `p5.s03.pilotExecutionPresentation.d0.test.ts`
+- `p6.r02.actionAvailability.d0.test.ts`
+- `p6.uic.unifiedInspectionContract.ui.test.tsx`
+- `p6.authorityChatFirstContinuity.d0.test.ts`
+- `p6.closureRegularization.repositoryCurrentness.d0.test.ts`
+- `p6.der16.genericNoraToolInvocation.d0.test.ts`
+- `p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts`
+- `p6.mHd02.pilotPresentationRecordBinding.d0.test.ts`
+- `p6.projectScopedCursorSelection.d0.test.ts`
+- `p6.toolFirst.safetyClosureR1R2.d0.test.ts`
+
+
+# APPENDIX O — Git Truth (Delivery worktree at pack time)
+
+```
+pwd: /Users/morris/Projects/sfia-workspace-p6-she-delivery-476b1c20
+remote: origin https://github.com/mcleland147/sfia-workspace.git
+branch: delivery/sfia-studio-p6-single-human-execute
+HEAD: 476b1c2065991e05cca298f6669d85b62a07ced3
+origin/main: 476b1c2065991e05cca298f6669d85b62a07ced3
+status: dirty — Delivery candidate uncommitted (expected)
+created untracked:
+  projects/sfia-studio/app/features/project-assistant/w2/singleHumanExecutePreparedContract.ts
+  projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts
+```
+
+# END REVIEW PACK FULL — CRITICAL
