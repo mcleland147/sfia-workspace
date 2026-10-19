@@ -38,30 +38,36 @@ LifecycleSurface / lifecyclePresentation
   → does not alone authorize materialization
 ```
 
-## Dual Generic PREPARE admission paths (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
+## Dual Generic PREPARE admission paths (D-P6-SHE-01 CURRENT on Delivery)
 
 ```
 Nora tool (F04) / F2 analysis / F05 adjacent hand-off
   → assessGenericMissionPrepareReadiness + resolveAuthoritativeProductMateriality
-      ├─ STRUCTURAL / HD-required
+      ├─ SHE CURRENT (STRUCTURAL / HD-required / UNKNOWN)
+      │    → solicitGenericExecutionPrepare / prepareGenericExecutionContractDraft
+      │         (inspectable draft; decisionRefs may be empty;
+      │          may stamp sheDeferredStructuralAuthority)
+      │    → F09 INSPECT (attestation; grantsAuthority=false)
+      │    → Pilot Exécuter (singleHumanExecutePreparedContract)
+      │         → HD authorize-inspected-execute (OA EC effects — GAP-04)
+      │         → Confirm (if required) → Authorize → Attempt
+      │         → F10 Select/Start if admissible else STOP · 0 Attempt
+      │         (PREPARE ≠ Inspect ≠ HD ≠ Confirm ≠ Authorize ≠ Execute)
+      ├─ HISTORICAL disposition-before-PREPARE (still available)
       │    → remember CURRENT offer (process-local)
       │    → Pilot disposition on sealed presentation (UI)
       │         ├─ ACCEPT
       │         │    → OA HumanDecision status=accepted (durable genericMissionContext)
       │         │    → verifyGenericMissionHumanDecisionForPrepare
-      │         │         (basis / identity / mission / digest / CURRENT / non-superseded)
       │         │    → solicitGenericExecutionPrepare (decisionRefs verified)
       │         │    → F09 inspect → Confirm → Authorize → F10 Execute
-      │         │         (PREPARE ≠ Inspect ≠ Confirm ≠ Authorize ≠ Execute)
       │         ├─ REFUSE
       │         │    → OA HumanDecision refused (recordable)
-      │         │    → PREPARE forbidden (HD_REFUSED)
-      │         │    → no Authorization / no Attempt
+      │         │    → this disposition path forbids PREPARE (HD_REFUSED)
       │         └─ AMEND
       │              → HD_AMEND_REQUIRES_NEW_PRESENTATION
-      │              → re-present / re-seal required
-      │              → PREPARE forbidden until new accepted applicable HD
-      └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4 + Tool-First R1 local candidate)
+      │              → PREPARE forbidden on this path until new accepted HD
+      └─ NON_STRUCTURAL CURRENT (Option 1 / G-D4 + Tool-First R1)
            → pathless: positive non-mutating claim required
                 (`read_only` OR repositoryMutationDeclared ∈ {none,read})
                 + complementary Product gates; declaration alone ≠ authority
@@ -72,15 +78,17 @@ Nora tool (F04) / F2 analysis / F05 adjacent hand-off
                      Select: refuse before new Attempt
                      Start: refuse launch; Attempt stays accepted; no launch-port call
                      code BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE
-      UNKNOWN materiality / structural without accepted+verified HD → FAIL-CLOSED
+      UNKNOWN Execute without admissible authority → FAIL-CLOSED (inspectable PREPARE allowed)
       pathless without positive claim (absent mutation AND not read_only) → FAIL-CLOSED
 ```
 
 OA = authority of record. W2 = Product coordination. Nora = cognition/recommendation only. Cursor = controlled execution under Authorization.
 
-**Structural PREPARE gate (S1):** only an **accepted**, mission-bound, applicable, verified, non-superseded HumanDecision opens Chemin A PREPARE. Refuse and Amend are **not** admissible prepare paths. Accept alone is not Execute authority.
+**Structural authority gate (S1 — CURRENT SHE):** structural / HD-required authority is verified **before Cursor launch** on Exécuter — not as a precondition that blocks inspectable PREPARE. Disposition-before-PREPARE Accept remains a valid historical path; Refuse/Amend still refuse **that** path. Accept alone is never Execute authority. HD / Confirm / Authorize OA objects are **not** removed.
 
-**Tool-First R1/R2 (local candidate — PENDING_GIT_INTEGRATION):** R1 gates pathless NON_STRUCTURAL at Materiality→PREPARE (positive claim + Product checks). R2 is a Product dependency of F10 Select/Start on the Cursor REAL boundary — stamp ≠ technical no-write; Fake/DET path unchanged. Not a new OA object; not a parallel engine.
+**HISTORICAL S1 (pre-SHE):** only an accepted, mission-bound, applicable, verified, non-superseded HD opened Chemin A PREPARE. Retained for disposition-before-PREPARE callers and legacy M3.
+
+**Tool-First R1/R2 (CURRENT at tested scope):** R1 gates pathless NON_STRUCTURAL at Materiality→PREPARE (positive claim + Product checks). R2 is a Product dependency of F10 Select/Start on the Cursor REAL boundary — stamp ≠ technical no-write; Fake/DET path unchanged. Not a new OA object; not a parallel engine.
 
 ## DEP edges (stable IDs)
 

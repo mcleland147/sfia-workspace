@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "9b9cd5e5052da5781678a23a86c82b8b3283627e",
+  "lastReviewedCommit": "928ab15b032c392dafee74a916f2faad3ed524de",
   "lastReviewedAt": "2026-10-15T22:51:00+02:00",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
@@ -15,15 +15,15 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "a63310ed7b85cf1b"
+      "sha256_16": "71177cd234b88a3b"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "733c07f253de5b65"
+      "sha256_16": "12331c256c76bd30"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "b8a66451083f90e3"
+      "sha256_16": "b7236bfd326f8f9a"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -35,11 +35,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "8ea3d088c5095108"
+      "sha256_16": "88893854dfe22bd9"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "8237aa210ecfac30"
+      "sha256_16": "6c1f4b5fe1cc50c5"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
@@ -586,7 +586,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "73d754838d9d13a0"
+      "sha256_16": "c8f491d05217ffc4"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
@@ -650,7 +650,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts",
-      "sha256_16": "1963f097d0aa9328"
+      "sha256_16": "6fba1892149be55c"
     },
     {
       "path": "projects/sfia-studio/app/lib/oa/cycle/application/assessFinalization.ts",

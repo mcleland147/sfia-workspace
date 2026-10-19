@@ -93,17 +93,18 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 - **Paths:** `lib/oa/decision/**`, `f2/recordDecision.ts`, obligation policy HDs in `pilotLifecycleActions.ts`
 - **Examples:** Proposal accept; `OBLIGATION_POLICY_REQUIRE_ARTIFACT`.
 
-## OBJ-GENERIC-MISSION-HD — Generic Mission HumanDecision (M-HD-01/02)
+## OBJ-GENERIC-MISSION-HD — Generic Mission HumanDecision (M-HD-01/02 + SHE)
 
-- **Status:** AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION (not INTEGRATED_ON_MAIN until Product git merge).
-- **Purpose:** Structural / HD-required Generic missions bind a durable OA HumanDecision to a sealed mission presentation before Generic PREPARE may resume.
+- **Status:** CURRENT on Delivery (D-P6-SHE-01) — not INTEGRATED_ON_MAIN until Product PR merge.
+- **Purpose (SHE CURRENT):** Structural / HD-required Generic missions may PREPARE an inspectable draft without prior HD; durable OA HumanDecision (`authorize-inspected-execute`) is recorded on Pilot Exécuter, bound to the inspected EC (OA-projected effects — GAP-04). HD is **not** deleted; timing moves from PREPARE to Execute.
+- **Purpose (HISTORICAL disposition-before-PREPARE):** bind a durable OA HumanDecision to a sealed mission presentation before disposition-path PREPARE may resume (`verifyGenericMissionHumanDecisionForPrepare`).
 - **Durable truth:** `oa_human_decisions` with `decisionBasis.genericMissionContext`, `missionSubjectId`, `presentationDigest`.
-- **Process-local carrier:** CURRENT pending Generic PREPARE offer (M-HD-02 remember) enables Pilot Accept/Refuse/Amend seal — **≠** non-structural chat-first PREPARE admission; offer alone ≠ Authorization.
-- **PREPARE gate:** `verifyGenericMissionHumanDecisionForPrepare` — applicability + digest match; historical HD without binding does not unlock.
+- **Process-local carrier:** CURRENT pending Generic PREPARE offer (M-HD-02 remember) enables Pilot Accept/Refuse/Amend seal on the historical path — **≠** SHE inspectable PREPARE; offer alone ≠ Authorization.
+- **Gates:** SHE Record requires `sheInspectedExecutionContract` binding + OA EC reload; historical PREPARE verify remains for Accept→PREPARE callers. Historical HD without binding does not unlock a different mission.
 - **Non-structural path:** Option 1 / G-D4 may PREPARE with `decisionRefs=[]` when Materiality CURRENT admits — empty refs ≠ structural bypass.
-- **UI:** `useProductConversation` + `GovernedGenericMissionDecisionCard` / `genericMissionPresentation` (read continuity; restart without offer → none/stale fail-closed).
-- **Paths:** `recordGenericMissionHumanDecision.ts`, `genericMissionDecisionContinuity.ts`, `verifyGenericMissionHumanDecisionForPrepare.ts`, `genericMissionSubject.ts`
-- **Invariant:** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation.
+- **UI:** SHE ExecutionSurface Exécuter + `useProductConversation` / `GovernedGenericMissionDecisionCard` (historical disposition).
+- **Paths:** `singleHumanExecutePreparedContract.ts`, `recordGenericMissionHumanDecision.ts`, `genericMissionDecisionContinuity.ts`, `verifyGenericMissionHumanDecisionForPrepare.ts`, `genericMissionSubject.ts`
+- **Invariant:** Recommendation ≠ HD; Offer ≠ Authorization; HD ≠ Confirmation; Inspection ≠ Confirmation; PREPARE ≠ AUTHORIZE ≠ EXECUTE.
 
 ## OBJ-DECISION-BASIS — DecisionBasis
 

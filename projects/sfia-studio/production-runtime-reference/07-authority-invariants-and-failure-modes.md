@@ -2,7 +2,7 @@
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`** (baseline documentaire historique)
 
-**Amendement documentaire D-P6-SHE-01 (2026-10-18) :** ce volume distingue désormais **CURRENT IMPLEMENTED** (comportement code / tests) et **TARGET ADOPTED** (SINGLE HUMAN EXECUTE / Option A). TARGET ≠ IMPLEMENTED. Aucun test actuel ne prouve les invariants TARGET.
+**Amendement documentaire D-P6-SHE-01 (2026-10-19 — Git Integration) :** SINGLE HUMAN EXECUTE / Option A est **CURRENT on Delivery** (déterministe prouvé au périmètre testé ; PR DRAFT pending merge). Les invariants SHE ci-dessous deviennent CURRENT. Les invariants « STRUCTURAL PREPARE requires HD » restent **HISTORICAL / disposition-before-PREPARE** (chemin encore disponible) — ils ne bloquent plus l’inspectable PREPARE sous SHE. TARGET architecture = Delivery runtime ; ≠ INTEGRATED_ON_MAIN tant que merge Morris non accordé ; ≠ REAL/HQA PROVEN.
 
 ## Invariant catalog — CURRENT IMPLEMENTED
 
@@ -32,25 +32,27 @@
 | INV-INSPECT-NE-CONFIRM | Inspection ≠ Confirmation | unified exam + confirm services | Pass03/04 UIC | CURRENT IMPLEMENTED |
 | INV-CONFIRM-NE-AUTH | Confirmation ≠ Authorization | authorize* services | authorizeGeneric / confirmForAuthorization | CURRENT IMPLEMENTED |
 | INV-AUTH-NE-EXEC | Authorization ≠ Execution | governedExecute Select/Start | projectScopedCursorSelection | CURRENT IMPLEMENTED |
-| INV-EMPTY-REFS-NE-STRUCTURAL | `decisionRefs=[]` admissible only when NON_STRUCTURAL CURRENT gates allow | Option 1 / G-D4 + materiality | p6.o1 / gD4 / materialityBlock01 | CURRENT IMPLEMENTED — **superseded for TARGET** by D-P6-SHE-01 (see TARGET catalog) |
-| INV-STRUCTURAL-NEEDS-VERIFIED-HD | Structural mission PREPARE requires verified mission-bound HD | verifyGenericMissionHumanDecisionForPrepare | mHd01 / DER16 E12 | CURRENT IMPLEMENTED — **superseded for TARGET** by D-P6-SHE-01 |
-| INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD | STRUCTURAL PREPARE requires **accepted**, applicable, verified, mission-bound, non-superseded HD — Refuse (`HD_REFUSED`) and Amend (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) are not prepare paths; Accept alone ≠ Execute | verifyGenericMissionHumanDecisionForPrepare | mHd01 (incl. refuse/amend cases) / DER16 | CURRENT IMPLEMENTED — **superseded for TARGET** by D-P6-SHE-01 |
+| INV-EMPTY-REFS-NE-STRUCTURAL | HISTORICAL: `decisionRefs=[]` only for NON_STRUCTURAL. SHE CURRENT: empty refs also admissible on server-stamped `sheDeferredStructuralAuthority` PREPARE (READ/INSPECT continuity only — GAP-01); Confirm/Authorize still refuse empty STRUCTURAL without HD | Option 1 / G-D4 + SHE continuity | p6.o1 / gD4 / p6.she.* | CURRENT (SHE) + HISTORICAL (G-D4-only) |
+| INV-STRUCTURAL-NEEDS-VERIFIED-HD | HISTORICAL disposition-before-PREPARE: verified mission-bound HD before that PREPARE path. SHE CURRENT: verified applicable HD required before **launch** on Exécuter — not before inspectable PREPARE | verifyGenericMissionHumanDecisionForPrepare / SHE Record | mHd01 / DER16 / p6.she.* | HISTORICAL at PREPARE; CURRENT at Execute (SHE) |
+| INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD | HISTORICAL: STRUCTURAL disposition PREPARE requires accepted HD. SHE CURRENT: inspectable STRUCTURAL PREPARE without prior HD; Accept alone ≠ Execute; Refuse/Amend still refuse disposition-before-PREPARE | verify* / singleHumanExecutePreparedContract | mHd01 / p6.she.* | HISTORICAL at PREPARE; CURRENT SHE deferral |
 | INV-PATHLESS-NEEDS-POSITIVE-NONMUTATING | Pathless NON_STRUCTURAL requires **one** positive structured non-mutating claim: `intentKind=read_only` **OR** `repositoryMutationDeclared ∈ {none,read}` (plus other Product gates). `unknown`/`write` always refuse. `repositoryMutation` **absent** refuses **only when** `read_only` is also absent — absence alone does not invalidate an admissible `read_only` claim | qualifyBoundedNonMutatingAnalysisMission | toolFirst A–J / safetyClosureR1R2 | CURRENT IMPLEMENTED |
 | INV-STAMP-NE-REAL-NOWRITE | Contract `NO_REPOSITORY_MUTATION_*` / bounded analysis stamp ≠ Cursor REAL technical no-write | boundedNonMutatingRealLaunchGate + generalist REAL launch | safetyClosureR1R2 | CURRENT IMPLEMENTED |
 | INV-R2-REAL-PATHLESS-BLOCK | Pathless non-mutating + `SFIA_STUDIO_CURSOR_REAL=1` → Product gate `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` on **both** Select and Start (distinct effects — see R2 note) | assertBoundedNonMutatingCursorRealAdmissible | safetyClosureR1R2 | CURRENT IMPLEMENTED |
 | INV-INSPECT-NE-EXECUTE-CTA | Inspection attestation ≠ Execute; Tool-First Exécuter may fold Confirm server-side after attest only | pilotExecutionPresentation / ExecutionSurface | durable continuity / R02 | CURRENT IMPLEMENTED (partial fold Confirm ; TARGET étend le fold) |
 
-## Dual admission paths — CURRENT IMPLEMENTED (AS_IMPLEMENTED_IN_CANDIDATE / PENDING_GIT_INTEGRATION)
+## Dual admission paths — CURRENT (SHE + historical disposition)
 
-**Chemin A — STRUCTURAL (CURRENT):** mission signals / HD-required materiality → process-local presentation carrier → Pilot disposition:
-- **Accept** → durable HD `accepted` → verify basis/identity/mission/digest/CURRENT/non-superseded → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute.
-- **Refuse** → HD refused → PREPARE forbidden (`HD_REFUSED`); no Authorization; no Attempt.
-- **Amend** → new presentation required → PREPARE forbidden (`HD_AMEND_REQUIRES_NEW_PRESENTATION`) until a new accepted applicable HD.
-No artificial HD. Structural offer alone does not PREPARE. Unbound historical HD does not unlock a different mission. Accept alone ≠ Execute.
+**Chemin SHE (CURRENT — D-P6-SHE-01):** STRUCTURAL / HD-required / UNKNOWN → inspectable PREPARE (empty refs allowed with server SHE stamp) → Inspect → Pilot Exécuter → applicable HD + Confirm (if required) + Authorize + launch gates → Cursor iff admissible else STOP · 0 Attempt. No silent HD. PREPARE creates neither Authorization nor Attempt.
 
-**Chemin B — NON_STRUCTURAL (CURRENT):** Materiality CURRENT NON_STRUCTURAL → PREPARE with `decisionRefs=[]` iff Product gates admit → inspect → Confirm (if required) → Authorize → Execute. OA Confirm/Authorize gates remain. UNKNOWN → fail-closed. **Tool-First R1:** pathless admission requires a positive non-mutating claim (INV-PATHLESS-NEEDS-POSITIVE-NONMUTATING) **and** complementary Product gates (live context, envelope, no write/docs_write/structural/elevated contradiction). Declaration alone ≠ Product authority. No invented file path; no systematic HD.
+**Chemin A — STRUCTURAL disposition-before-PREPARE (HISTORICAL / still available):** mission signals / HD-required materiality → process-local presentation carrier → Pilot disposition:
+- **Accept** → durable HD `accepted` → verify → PREPARE (refs verified) → inspect → Confirm (if required) → Authorize → Execute.
+- **Refuse** → HD refused → this path forbids PREPARE (`HD_REFUSED`); no Authorization; no Attempt.
+- **Amend** → new presentation required → PREPARE forbidden on this path until a new accepted applicable HD.
+No artificial HD. Unbound historical HD does not unlock a different mission. Accept alone ≠ Execute.
 
-**Tool-First ordinary CTA (CURRENT):** after Inspect attest, Pilot **Exécuter** may carry Confirm (server) then Authorize+launch — Inspect ≠ Execute; Confirm ≠ Authorize ≠ Execute remain.
+**Chemin B — NON_STRUCTURAL (CURRENT):** Materiality CURRENT NON_STRUCTURAL → PREPARE with `decisionRefs=[]` iff Product gates admit → inspect → Confirm (if required) → Authorize → Execute. OA Confirm/Authorize gates remain. UNKNOWN inspectable PREPARE allowed; Execute fail-closed without admissible authority. **Tool-First R1:** pathless admission requires a positive non-mutating claim (INV-PATHLESS-NEEDS-POSITIVE-NONMUTATING) **and** complementary Product gates. Declaration alone ≠ Product authority. No invented file path; no systematic HD.
+
+**SHE / Tool-First ordinary CTA (CURRENT):** after Inspect attest, Pilot **Exécuter** records applicable HD when required, may fold Confirm (server), then Authorize+launch — Inspect ≠ Execute; HD ≠ Confirm ≠ Authorize ≠ Execute remain.
 
 **R2 REAL pathless (Select ≠ Start effects):** when REAL is armed for a pathless non-mutating EC:
 - **Select:** gate fires **before** creating a new ExecutionAttempt — no Select-accepted Attempt; no Cursor REAL call.
@@ -63,30 +65,30 @@ Fake/DET (`CURSOR_REAL≠1`) remains admissible for both phases. Ordinary write 
 
 ---
 
-## TARGET ADOPTED — D-P6-SHE-01 (2026-10-18) — SINGLE HUMAN EXECUTE / Option A
+## SHE CURRENT — D-P6-SHE-01 (2026-10-19) — SINGLE HUMAN EXECUTE / Option A
 
-**Tag :** **TARGET ARCHITECTURE — ADOPTED BY MORRIS** · **≠ CURRENT IMPLEMENTED** · **≠ proven by existing tests**
+**Tag :** **CURRENT ON DELIVERY** · déterministe prouvé (`p6.she.*`, GAP-01..05, I17) · **≠ INTEGRATED_ON_MAIN** (merge Morris distinct) · **≠ REAL/HQA PROVEN**
 
-Les invariants CURRENT `INV-STRUCTURAL-NEEDS-VERIFIED-HD`, `INV-STRUCTURAL-PREPARE-REQUIRES-ACCEPTED-HD`, et la contrainte PREPARE de `INV-EMPTY-REFS-NE-STRUCTURAL` restent la **vérité as-implemented** et la base des tests mHd01 / DER16 / G-D4 jusqu’à Delivery. Pour la **cible adoptée**, leur **timing PREPARE** est superseded comme suit (l’exigence d’autorité structurelle avant **lancement** demeure).
+Les invariants HISTORICAL `INV-STRUCTURAL-*PREPARE*HD` et la contrainte PREPARE-only de `INV-EMPTY-REFS-NE-STRUCTURAL` restent vraies pour le **chemin disposition-before-PREPARE** et les suites mHd01 / DER16. Sous SHE, leur **timing PREPARE** est superseded (autorité structurelle avant **lancement**).
 
-### Target invariant catalog (Exit Proof future — Delivery GO distinct)
+### SHE invariant catalog (CURRENT — Delivery)
 
-| ID | Statement (TARGET) | Future proof owner |
+| ID | Statement (CURRENT SHE) | Proof owner |
 |---|---|---|
-| INV-SHE-PREPARE-NO-AUTHORITY | PREPARE ne consomme aucune autorité ; ne crée ni Attempt ni Authorization | Delivery SHE + DET A/C |
-| INV-SHE-STRUCTURAL-INSPECTABLE | STRUCTURAL / UNKNOWN n’interdit pas PREPARE ni inspection d’un contrat honnêtement stampé | Delivery SHE + DET C/E |
-| INV-SHE-AUTHORITY-BEFORE-LAUNCH | Autorité structurelle / effective vérifiée **avant** tout lancement Cursor (pas avant PREPARE) | Delivery SHE + DET C/O |
-| INV-SHE-EXECUTE-BINDS-INSPECTED | Le clic Exécuter est lié au contrat inspecté (id + version + semantic fingerprint) | Delivery SHE + DET F |
-| INV-SHE-NO-SILENT-HD | Aucune HumanDecision silencieuse ; HD uniquement sur action Pilote explicite (sujet/version/digest) | Delivery SHE + DET C |
-| INV-SHE-NO-EXEC-WITHOUT-EFFECTIVE-AUTH | Aucune exécution sans autorité effective ; 0 Attempt si gate pré-lancement échoue | Delivery SHE + DET O/Q |
-| INV-SHE-NO-AUTO-ELEVATION | Aucune élévation automatique de capacité / permission / chemin protégé | Delivery SHE + DET I/J |
-| INV-SHE-UNKNOWN-BLOCKS-NONADMISSIBLE | UNKNOWN / matérialité non admissible interdit l’exécution (fail-closed) | Delivery SHE + DET E/O |
-| INV-SHE-STALE-CONTRACT-BLOCKS | Exécution refusée sur contrat obsolète (version/fp/currentness) | Delivery SHE + DET F/G/H |
-| INV-SHE-IDEMPOTENT-EXECUTE | Double-clic / retry / restart : idempotence Attempt ; pas de second Cursor silencieux | Delivery SHE + DET L/M/N |
-| INV-SHE-SINGLE-UX-PATH | Même parcours UX STRUCTURAL / NON_STRUCTURAL (matérialité ≠ boutons distincts) | Delivery SHE + UI |
-| INV-SHE-NO-EXTRA-HUMAN-CTA | Pas de confirmation humaine supplémentaire après Exécuter pour le même contrat inspecté (Confirm/HD restent transitions OA internes) | Delivery SHE + DET K |
+| INV-SHE-PREPARE-NO-AUTHORITY | PREPARE ne consomme aucune autorité ; ne crée ni Attempt ni Authorization | `p6.she.singleHumanExecute*` |
+| INV-SHE-STRUCTURAL-INSPECTABLE | STRUCTURAL / UNKNOWN n’interdit pas PREPARE ni inspection d’un contrat honnêtement stampé | SHE + continuity GAP-01 |
+| INV-SHE-AUTHORITY-BEFORE-LAUNCH | Autorité structurelle / effective vérifiée **avant** tout lancement Cursor (pas avant PREPARE) | SHE Execute path |
+| INV-SHE-EXECUTE-BINDS-INSPECTED | Le clic Exécuter est lié au contrat inspecté (id + version + semantic fingerprint) | SHE + GAP-04 |
+| INV-SHE-NO-SILENT-HD | Aucune HumanDecision silencieuse ; HD uniquement sur action Pilote explicite (sujet/version/digest) | SHE Record |
+| INV-SHE-NO-EXEC-WITHOUT-EFFECTIVE-AUTH | Aucune exécution sans autorité effective ; 0 Attempt si gate pré-lancement échoue | SHE |
+| INV-SHE-NO-AUTO-ELEVATION | Aucune élévation automatique de capacité / permission / chemin protégé | SHE |
+| INV-SHE-UNKNOWN-BLOCKS-NONADMISSIBLE | UNKNOWN / matérialité non admissible interdit l’exécution (fail-closed) | SHE UNKNOWN gate |
+| INV-SHE-STALE-CONTRACT-BLOCKS | Exécution refusée sur contrat obsolète (version/fp/currentness) | SHE currentness |
+| INV-SHE-IDEMPOTENT-EXECUTE | Double-clic / retry / restart : idempotence Attempt ; pas de second Cursor silencieux | SHE T23 |
+| INV-SHE-SINGLE-UX-PATH | Même parcours UX STRUCTURAL / NON_STRUCTURAL (matérialité ≠ boutons distincts) | ExecutionSurface |
+| INV-SHE-NO-EXTRA-HUMAN-CTA | Pas de confirmation humaine supplémentaire après Exécuter pour le même contrat inspecté (Confirm/HD restent transitions OA internes) | SHE |
 
-**Chemin TARGET unique (remplace la dualité UX A/B) :**
+**Chemin SHE unique (UX) :**
 
 ```text
 PREPARE (inspectable, decisionRefs peuvent être vides en proposition)
@@ -121,4 +123,4 @@ sinon STOP · 0 Attempt
 
 Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is **expected**.
 
-**Note TARGET :** sous D-P6-SHE-01, certains refus aujourd’hui placés au PREPARE (ex. STRUCTURAL sans HD) doivent devenir refus au **Execute** après proposition inspectable — Exit Proof Delivery, pas claim actuel.
+**Note SHE CURRENT :** sous D-P6-SHE-01 Delivery, STRUCTURAL sans HD préalable peut PREPARE inspectable ; les refus d’autorité portent sur **Exécuter** (HD/Confirm/Authorize/currentness). REAL/HQA et merge main restent des gates Morris distincts.
