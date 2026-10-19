@@ -93,14 +93,14 @@ valid human authorization
 
 Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine ; runtime coverage progressive via Roadmap).
 
-## A4. Règles fondatrices de construction (R1–R22)
+## A4. Règles fondatrices de construction (R1–R24)
 
 | ID | Règle |
 | --- | --- |
 | **R1** | Tout développement doit avoir un **lien direct** avec une capacité v3 (fondation V3-Fxx et/ou étape de la boucle A3). |
 | **R2** | La **boucle métier complète** prime sur la profondeur locale non bloquante. |
 | **R3** | **Réutiliser** l’existant utile ; **ne jamais** conserver uniquement par inertie / coût passé. |
-| **R4** | Classifier les actifs : **KEEP / ADAPT / COMPLETE / HARVEST / REPLACE / FREEZE / RETIRE LATER**. |
+| **R4** | Classifier les actifs : **KEEP / ADAPT / COMPLETE / HARVEST / CONSOLIDATE / REPLACE / FREEZE / RETIRE LATER**. |
 | **R5** | Une étape **intermédiaire** n’est autorisée qu’avec justification, cible, condition de sortie et trajectoire de sortie. |
 | **R6** | Une impasse ou **architecture parallèle** sans cible explicite est **interdite** comme chemin de construction par défaut. |
 | **R7** | Aucun **POC / fixture / spike gratuit** sur le chemin critique. |
@@ -119,8 +119,17 @@ Fondations doctrine produit associées : **V3-F01…V3-F15** (VALIDATED doctrine
 | **R20** | Toute brique **temporaire** doit rendre visible sa **sortie**. |
 | **R21** | **Fidélité Fake/Real.** Un fake/fixture substitue une **frontière externe**, pas un second chemin produit. Preuve déterministe ≠ preuve REAL. REAL-shaped deterministic reste DETERMINISTIC PROVEN. Les realism gaps restent visibles. Une frontière REAL significative se prouve **progressivement** (déterministe → REAL borné → end-to-end REAL). Aucun claim supérieur à la preuve. Aucun REAL automatique. |
 | **R22** | **Nora OpenAI-native-first.** Pour tout besoin cognitif Nora, qualifier d’abord les capacités OpenAI courantes pertinentes avant de développer un équivalent interne. Si une primitive OpenAI satisfait les exigences fonctionnelles/cognitives, la frontière Studio↔Nora↔Pilote, les contraintes de gouvernance/autorité, de preuve, sécurité/confidentialité, coût/latence et réversibilité applicables, **préférer son usage ou son adaptation minimale**. Si la couverture est partielle, combiner la primitive avec le **delta réellement spécifique à SFIA**. Construire une mécanique cognitive générique interne seulement si l’insuffisance/incompatibilité OpenAI est qualifiée. Une primitive OpenAI n’acquiert jamais l’autorité métier SFIA. Les capacités fournisseur doivent être revalidées quand le claim en dépend ; un snapshot OpenAI courant **≠ doctrine permanente**. |
+| **R23** | **Architecture-informed development (Studio).** Toute analyse, conception, correction, évolution, rationalisation ou validation pertinente de SFIA Studio doit s’appuyer sur une compréhension **actuelle et vérifiable** des mécanismes existants. Le niveau d’investigation est **proportionné** au risque. Les références architecturales applicables (`production-runtime-reference/**` et volumes concernés) sont consultées avant recommandation ou intervention. **Git courant et preuves primaires** priment sur la documentation descriptive ; toute contradiction devient un **gap** explicitement qualifié. |
+| **R24** | **Architecture documentation continuity.** Toute intervention Studio doit évaluer ses **impacts documentaires**. Toute modification du fonctionnement réel doit déclencher la synchronisation des sections architecturales concernées (contrat living PRR). L’absence d’impact sémantique doit être explicitement qualifiée (`NO SEMANTIC IMPACT`) lorsqu’applicable. Un digest PRR conforme **ne prouve pas** la validité sémantique du référentiel. |
 
 > **Lifecycle R22 : ACTIVE ON MAIN.** Principe de trajectoire explicitement consommé par Morris le 2026-09-01, intégré via PR **#453**, merge `d640b5ba7210b9da3593bea9eeae2100c6da6c09`, post-merge CI `33530815963` **SUCCESS**, Required Gate **PASS**.
+
+> **Lifecycle R23 / R24 — snapshot d’authoring AKG-M0 (2026-10-19) :**
+> - **Contenu des règles R23 / R24 :** fixé dans ce document sous GO M0 DOCUMENTARY AUTHORING (contenu autorisé).
+> - **Statut au moment de l’authoring local :** présentes dans le worktree documentaire `docs/sfia-studio-akg-m0-documentary-authoring` — **≠** intégrées sur `origin/main` — **≠** ACTIVE ON MAIN.
+> - **Activation effective :** dépend d’une **intégration Git** ultérieure (commit/PR/merge sous gates Morris distincts) puis d’une **vérification post-merge** que `origin/main` contient bien ces règles.
+> - **Interprétation durable :** ne pas lire cette note comme une affirmation permanente « R23/R24 never active ». Après merge vérifié, le tip Roadmap / post-merge truth-sync doivent requalifier le lifecycle ; jusqu’alors, traiter R23/R24 comme **AUTHORING LOCAL / NOT YET ACTIVE ON MAIN**.
+> - **Ne pas** déclarer ACTIVE ON MAIN avant intégration + vérification Git.
 
 ## A5. Challenge obligatoire avant tout chantier Studio
 
@@ -139,6 +148,11 @@ Avant cadrage / prompt Cursor / delivery Studio, répondre :
 11. Y a-t-il une **frontière fake/mock/fixture** ? Substitue-t-elle la frontière externe, ou crée-t-elle un **chemin produit parallèle** ?
 12. Quel **niveau de preuve** ce chantier peut-il honnêtement atteindre (DETERMINISTIC / REAL BOUNDARY / END-TO-END REAL) ? Quels **realism gaps** restent ouverts ?
 13. **Si le chantier touche la cognition Nora : quelles capacités OpenAI courantes pertinentes ont été évaluées avant toute solution interne équivalente ? Quelle disposition USE/KEEP · ADAPT · COMBINE · COMPLETE/BUILD · DEFER/REJECT est retenue et pourquoi ?**
+14. Quelles **références PRR** (README / volumes / objets / flows / invariants / gaps) ont été consultées ? Si **N/A**, justification explicite.
+15. Quels **composants, flows et invariants** sont concernés ? Impacts **directs** et **indirects** (proportionnés) ?
+16. Quel **statut de couverture** documentaire pour les domaines touchés (DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP) ?
+17. Quel **impact documentaire** : `NO SEMANTIC IMPACT` / `UPDATE REQUIRED` / gap à ouvrir ?
+18. Y a-t-il un candidat **KEEP / ADAPT / COMPLETE / HARVEST / CONSOLIDATE / REPLACE / FREEZE / RETIRE LATER** fondé sur preuves (pas sur inertie) ? Une **suppression structurante** est-elle envisagée (→ STOP + GO Morris) ?
 
 Si **1** ou **7** n’a pas de réponse exploitable :
 
@@ -147,6 +161,12 @@ STOP — TRAJECTORY LINK MISSING
 ```
 
 Pour un chantier cognitif Nora, l’absence du point **13** empêche de qualifier honnêtement la solution de construction : effectuer l’OpenAI Capability Fit Check avant design interne équivalent.
+
+Lorsque le chantier touche le **fonctionnement Studio** (analyse, conception, architecture, impact, rationalisation — même en lecture seule) et que le point **14** est absent sans justification N/A :
+
+```text
+STOP — ARCHITECTURE CONTEXT NOT LOADED
+```
 
 ## A6. Politique POC / prototype / fixture
 
@@ -177,9 +197,12 @@ Pour un chantier cognitif Nora, l’absence du point **13** empêche de qualifie
 | **ADAPT** | Conserver + adapter interfaces | Cœur utile ; frontières à aligner | Lot d’adaptation borné | Contrat/port clarifié |
 | **COMPLETE** | Combler un trou d’une brique presque prête | Manque wiring/durabilité/UI | Milestone COMPLETE | Capacité e2e démontrée |
 | **HARVEST** | Extraire une capacité d’un système parallèle | Valeur isolable (ex. Cursor spawn) | Anti-corruption adapter | Adapter branché sans dual-product |
+| **CONSOLIDATE** | Fusionner / simplifier des briques redondantes **sans** remplacer le cœur utile | Preuve de redondance + dépendances mappées + pas de perte de capacité utilisateur | Lot borné de consolidation | Avant/après capacité e2e + impact PRR |
 | **REPLACE** | Remplacer par équivalent cible | Brique incompatible / non alignée | Migration + exit ancien | Ancien hors chemin critique |
 | **FREEZE** | Ne plus étendre | N’aide pas le chemin critique | STOP DOING recommandé jusqu’à GO | Recommandation ≠ décision tant que Morris n’a pas tranché |
-| **RETIRE LATER** | Retrait différé | Remplacé ou inutile après milestone | Disposition gate | Plan de retrait + preuve non-régression |
+| **RETIRE LATER** | Retrait différé gouverné | Remplacé ou inutile après milestone | Disposition gate + **conditions de sortie** | Plan de retrait + preuve non-régression + **GO Morris** pour suppression structurante |
+
+> **Distinctions obligatoires (CP01 / P3).** Classifier un actif **≠** recommander une suppression **≠** décider Morris **≠** autoriser l’exécution du retrait. **CONSOLIDATE** n’est pas une suppression. **RETIRE LATER** reste une disposition gouvernée. **Evidence-based rationalization (P3)** : aucun actif n’est conservé uniquement par inertie historique ou coût passé (aligné R3). Toute consolidation, substitution ou suppression doit être justifiée par besoins fonctionnels, responsabilités, dépendances, impacts, risques, preuves et stratégie de sortie. Une **suppression structurante** exige un **GO Morris** spécifique.
 
 ## A9. Chemin critique (priorité)
 
@@ -210,6 +233,7 @@ Elle se termine lorsqu’une **capacité utilisateur** ou une **précondition st
 | **Convergence Roadmap** | État + prochaine capacité |
 | **Product Completion C1 intégré** | Cible / scope / trajectoire adoptés explicitement par Morris |
 | **Nora OpenAI-native-first trajectory** | **ACTIVE ON MAIN** · trajectoire transverse cognitive MW2→MW6 · capability-fit/model-reasoning policy · intégrée via PR **#453** |
+| **Production Runtime Reference (PRR)** | SoT **documentaire CURRENT as-implemented** du runtime Studio — **subordonnée** à Git + preuves primaires (R23 / CP03) |
 | Sources cycle / repo | Preuves locales du chantier |
 | Mémoire conversationnelle | Non SoT |
 
@@ -226,6 +250,8 @@ Séquence attendue :
 ```text
 Repo-informed pre-check
   → si Studio trigger : Convergence pre-check
+  → si fonctionnement Studio concerné (analyse/conception/architecture/impact/rationalisation, même lecture seule) :
+      PRR volumes applicables (R23) — sinon N/A justifié
   → qualification cycle
   → si Nora cognitive : OpenAI Capability Fit Check (R22)
   → CKC/process guidance applicable (v2.6 process only)
@@ -250,7 +276,13 @@ Repo-informed pre-check
 - DETERMINISTIC PROVEN promu READY FOR REAL ;
 - **reconstruire une mécanique cognitive générique Nora alors qu’une capacité OpenAI pertinente existe, sans OpenAI Capability Fit Check ni justification de rejet/complément** ;
 - **traiter une primitive OpenAI comme HumanDecision, Evidence, Truth C ou autorité métier SFIA** ;
-- **figer un snapshot fournisseur/modèle courant comme doctrine permanente sans gate/preuve**.
+- **figer un snapshot fournisseur/modèle courant comme doctrine permanente sans gate/preuve** ;
+- intervention Studio sur le fonctionnement sans consultation PRR / code lorsque applicable (R23) ;
+- digest PRR rafraîchi présenté comme validation sémantique (R24) ;
+- conservation d’un composant « parce qu’il existe déjà » sans classification evidence-based (P3) ;
+- **CONSOLIDATE** ou **RETIRE LATER** présentés comme autorisation de suppression immédiate ;
+- suppression structurante sans GO Morris / plan de retrait ;
+- second référentiel architectural parallèle à la PRR.
 
 ## A14. Stop markers
 
@@ -258,7 +290,11 @@ Repo-informed pre-check
 STOP — TRAJECTORY LINK MISSING
 STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
 PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
+STOP — ARCHITECTURE CONTEXT NOT LOADED
+STOP — STRUCTURAL RETIREMENT REQUIRES MORRIS GO
 ```
+
+> Les marqueurs historiques sont **préservés**. `STOP — ARCHITECTURE CONTEXT NOT LOADED` aligne Build Doctrine, routing et template lorsqu’un contexte PRR obligatoire est absent. Ne pas multiplier des STOP sémantiquement équivalents.
 
 ## A15. Gouvernance d’évolution
 
@@ -276,3 +312,4 @@ PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
 - Routing : `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - Knowledge Layer : `method/sfia-fast-track/core/sfia-knowledge-layer.md`
 - Template : `prompts/templates/sfia-cycle-execution-template.md`
+- Production Runtime Reference : `projects/sfia-studio/production-runtime-reference/`

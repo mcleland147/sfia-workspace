@@ -167,7 +167,15 @@ SFIA Studio Convergence Pre-check :
 - dette temporaire :
 - trajectoire de sortie :
 - gates Morris :
-- verdict : CONVERGENCE CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE / STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
+- PRR applicable : oui / non / N/A
+- PRR N/A justification : [obligatoire si N/A]
+- PRR volumes consultés :
+- composants / flows / invariants concernés :
+- statut de couverture : DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP
+- impact documentaire : NONE / UPDATE REQUIRED / GAP
+- risques architecture :
+- preuves applicables :
+- verdict : CONVERGENCE CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE / STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED / STOP — ARCHITECTURE CONTEXT NOT LOADED
 ```
 
 #### E. Cas Git inaccessible
@@ -196,6 +204,7 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 
 > **Ne s’applique pas** aux projets SFIA sans rapport avec la construction de SFIA Studio.
 > **Ne transforme pas** ce template en template Studio-only.
+> **Ne promeut pas** SFIA v2.6 comme doctrine runtime Studio.
 
 **Trigger Studio = oui** si l’objet est la construction, l’évolution, l’architecture, la roadmap, la validation ou le prompting de **SFIA Studio** (même trigger que routing guide §4.3.0a).
 
@@ -204,7 +213,8 @@ Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer l
 1. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
 2. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 3. sources v3 applicables (`projects/sfia-studio/sfia-v3-framing/**`)
-4. état repo/projet Studio concerné
+4. **PRR applicable** (`projects/sfia-studio/production-runtime-reference/` + volumes sélectionnés) lorsque le cycle concerne le **fonctionnement Studio** — analyse, conception, architecture, impact, rationalisation, correction, delivery runtime, validation comportementale — **y compris en lecture seule** (aligné routing §4.3.0a / CP02). Si non pertinent : **N/A** + justification. Ne pas exiger tous les volumes.
+5. état repo/projet Studio concerné
 
 **Règle dure :**
 
@@ -212,7 +222,10 @@ Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer l
 trigger Studio = oui
 ET (Build Doctrine non lue
     OU Roadmap non lue
-    OU capacité / trajectory link non qualifié)
+    OU capacité / trajectory link non qualifié
+    OU (fonctionnement Studio concerné
+        ET PRR applicable non consultée
+        ET N/A non justifié))
 → NE PAS générer le prompt Cursor
 
 PROMPT NOT GENERATED — SFIA STUDIO CONVERGENCE PRE-CHECK INCOMPLETE
@@ -224,18 +237,27 @@ Si l’analyse Studio elle-même n’a pas chargé le contexte convergence requi
 STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
 ```
 
+Si le fonctionnement Studio est concerné et que le contexte architectural PRR obligatoire est absent :
+
+```text
+STOP — ARCHITECTURE CONTEXT NOT LOADED
+```
+
+> Marqueur unique partagé avec Build Doctrine / routing — ne pas inventer des STOP équivalents supplémentaires.
+
 Séquence :
 
 ```text
 Repo-informed pre-check
 → si Studio trigger : Convergence Pre-check (§2.0.G + mini-fiche)
+→ si fonctionnement Studio : PRR volumes applicables (sinon N/A)
 → qualification cycle
 → CKC/process guidance applicable
 → sources spécifiques
 → instanciation prompt Cursor
 ```
 
-Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; doctrine v3 = destination produit ; v2.6 = baseline opérationnelle processus ; runtime v3 **non ADOPTED** par défaut.
+Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; doctrine v3 = destination produit ; PRR = référence documentaire CURRENT (**subordonnée** à Git/preuves) ; v2.6 = baseline opérationnelle processus ; runtime v3 **non ADOPTED** par défaut.
 
 ### 2.1 Déclenchement
 

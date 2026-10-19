@@ -13,7 +13,23 @@
 **RCD-01 documentary reliability overlay (INTEGRATED ON MAIN):** P6-MIN-09 / **PR #578 MERGED** @ merge `440066485eaae458ccca188b2c91f8f47bd4987f` (source `9b855d8ddabd9bf9fffb8561f63d1138d8939be4`; mergedAt 2026-10-13T07:18:56Z) — honest Git read coverage; secret-safe redaction progression; final model-visible JSON envelope truth; bounded oversized-line skip (`lineExceedsCap`); honest budget-exhausted restitution. Post-merge CI: [run 38361885447](https://github.com/mcleland147/sfia-workspace/actions/runs/38361885447) SUCCESS (Required Gate PASS). Proof: **DETERMINISTIC CORRECTION PROVEN AT TESTED SCOPE** (R1–R7). **GDR REAL PASS / P6 GLOBAL PASS / Product READY: NOT CLAIMED**. Runtime v3 **NON ADOPTED**. FinOps ceilings unchanged (adaptive maxTurns ≤ 10; `CT_MAX_TOOL_RESULT_CHARS` = 12000). Volumes 02 / 03 / 04 / 06 / 08 / 09 + README + digests. Debt `RCD-01-PRR-SEMANTIC-COHERENCE`: documentary correction prepared locally — **integration of this PRR sync still PENDING**.
 **PR #585 cumulative CI correction overlay (scoped, Delivery):** baseline reviewed `e7774a0c71e3b052f091ed2dffdd70651916dd2d` · 2026-10-15 (Europe/Paris) — CI-HQA-F01 NEW_CYCLE vs Artifact natural-signal boundary + digest sync for tracked F2/P6 sources; volumes 03 / 09 + digests. **BOUNDED SEMANTIC IMPACT** on F05 admission only. **Not** a full Living Reference re-audit. P6 GLOBAL PASS / REAL / runtime v3 **NOT CLAIMED**.
 **PR #586 optional Artifact / Generic PREPARE overlay (scoped, Delivery):** Product baseline reviewed `9b9cd5e5052da5781678a23a86c82b8b3283627e` · 2026-10-15 (Europe/Paris) — P6-HQA-F05-GD4-01: ordinary documentary request without closure `REQUIRE_ARTIFACT` may route to Generic PREPARE on the same active cycle (`no_require_artifact` ≠ NEW_CYCLE_FORMALIZATION; ≠ invented HD); exact capability identities; Nora path candidates non-authoritative at PREPARE. Volumes 02 / 03 / 04 / 06 / 07 / 08 / 09 + digests. **BOUNDED SEMANTIC IMPACT** on F05 routing + Fake fixture cue. **Not** a full Living Reference re-audit. Pending offer process-local. OpenAI LIVE / e66 / Cursor REAL **NOT CLAIMED**. P6 GLOBAL PASS / runtime v3 **NOT CLAIMED**.
-**Tool-First Generic Execution + R1/R2 safety (local candidate — PENDING_GIT_INTEGRATION):** Product worktree `fix/sfia-studio-p6-tool-first-safety-r1r2` @ baseline `e03c7b9` — ordinary pathless analysis may PREPARE as NON_STRUCTURAL without invented file path / systematic HD / mandatory CycleInstance / mandatory Artifact when Product admits a **positive** non-mutating claim (`intentKind=read_only` **or** `repositoryMutationDeclared ∈ {none,read}`); `repositoryMutation` absent refuses only when `read_only` is also absent; unknown/write/contradictions remain fail-closed. Pilot UI **Exécuter** may fold server Confirm after inspection attestation (Inspect ≠ Execute). Cursor REAL generalist has no technical no-write; Product gate `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` — **Select** refuses before new Attempt; **Start** refuses launch while Attempt stays `accepted`. Fake/DET remains admissible. Volumes 02 / 03 / 04 / 05 / 07 / 08 / 09 (+ digests only after ChatGPT semantic content review). **BOUNDED SEMANTIC IMPACT**. **Not** integrated on main. REAL BOUNDARY / HQA / P6 GLOBAL PASS / runtime v3 **NOT CLAIMED**.
+**Tool-First Generic Execution + R1/R2 safety — status requalification (AKG-M0 R-S02, 2026-10-19):**
+
+| Epistemic class | Element | Git evidence |
+|---|---|---|
+| **HISTORICAL CANDIDATE** | Delivery/candidate lineage `fix/sfia-studio-p6-tool-first-safety-r1r2` @ ~`e03c7b9` / tip known `c56cc480` — documented as PENDING_GIT_INTEGRATION before main absorption | remote branch may still exist; **branch existence ≠ non-integration** |
+| **CURRENT IMPLEMENTED ON MAIN** | **R1** — pathless NON_STRUCTURAL admission requires a **positive** non-mutating claim (`intentKind=read_only` **OR** `repositoryMutationDeclared ∈ {none,read}`); `repositoryMutation` absent refuses **only when** `read_only` is also absent; unknown/write/contradictions fail-closed; no invented path; no systematic HD | code `resolveAuthoritativeProductMateriality.ts` / `prepareGenericExecutionContractDraft.ts` · test `p6.toolFirst.safetyClosureR1R2.d0.test.ts` · PRR 07 INV-PATHLESS-NEEDS-POSITIVE-NONMUTATING **CURRENT IMPLEMENTED** · integrated via **PR #588** merge `304e30e8` (ancestor of main `c9abdbc3`) |
+| **CURRENT IMPLEMENTED ON MAIN** | **R2** — pathless non-mutating + `SFIA_STUDIO_CURSOR_REAL=1` → Product gate `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` on **Select** (no new Attempt) and **Start** (Attempt may stay `accepted`; no launch) | code `boundedNonMutatingRealLaunchGate.ts` · same test · PRR 07 INV-R2-REAL-PATHLESS-BLOCK **CURRENT IMPLEMENTED** · same PR #588 lineage |
+| **CURRENT IMPLEMENTED ON MAIN** | Pilot **Exécuter** may fold server Confirm after inspection attestation (Inspect ≠ Execute) — shared with SHE ordinary CTA | PR #590 Delivery + continuity suites |
+| **RELATED — DISTINCT** | **Single Human Execute (Option A)** structural inspectable PREPARE → Exécuter HD/Confirm/Authorize | **PR #589** governance/docs+coordinators (`476b1c20`) · **PR #590** Product Delivery (`c9abdbc3`) — **≠** automatic proof that every historical candidate file was consumed under the Tool-First branch name |
+| **OPEN DEBT** | `TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT` — Product admission / refusal gate **≠** technical Cursor REAL no-write sandbox | PRR 07 explicit OPEN · not closed by #588/#589/#590 |
+| **NOT PROVEN** | REAL BOUNDARY / HQA LIVE / P6 GLOBAL PASS / runtime v3 ADOPTED | explicit non-claims |
+
+**Correction vs prior README wording:** the overlay that still said « local candidate — PENDING_GIT_INTEGRATION / Not integrated on main » is **obsolete as CURRENT** after **PR #588 MERGED**. Treat that wording as **HISTORICAL**. Residual PENDING phrasing may still appear in some volume bodies (03/05/09) outside this README allowlist edit — do not promote those stale phrases over Git + volume 07 CURRENT invariants.
+
+Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Deterministic proof **≠** READY FOR REAL.
+
+**AKG-M0 methodological continuity overlay — historical preparation vs PR candidate:** **Historical snapshot (2026-10-19, étape 1 authoring):** README role/coverage/maintenance + R-S02 Tool-First CURRENT requalification + read-only vs Delivery proportion were authored locally; at that stage **manifest digests were not yet refreshed** (`REFERENCE REVIEW REQUIRED` then). **Later in the same AKG-M0 documentary lot (PR #591 candidate):** the README digest was synchronized into `production-runtime-reference.manifest.json` after semantic acceptance — digest match is a **deterministic conformance** fact of this candidate, **not** semantic exhaustiveness and **not** proof that AKG-M0 is ACTIVE ON MAIN. **Activation on main** remains contingent on merge + post-merge verification under distinct Morris gates. P6 GLOBAL PASS / runtime v3 ADOPTED / TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT closed / AKG-M0 ACTIVE ON MAIN **NOT CLAIMED**.
 
 ## What this corpus is
 
@@ -29,6 +45,55 @@ This corpus describes **how SFIA Studio actually works now** in the checked-out 
 - impact-analysis procedure for future changes.
 
 It is the primary **impact-analysis substrate** for future Studio corrections.
+
+### Canonical documentary role (AKG-M0)
+
+The PRR is the **canonical documentary reference** for Studio’s **CURRENT as-implemented** behaviour.
+
+**CP03 — authority boundary:**
+
+1. **Git current tree** and **primary proofs** (tests, schemas, runtime observations) remain **superior** to any descriptive documentation.
+2. The PRR **never** outranks Git or primary proofs.
+3. When code/proofs contradict the PRR: **code/proofs win**; record an explicit **KNOWN GAP** (do not silently “fix” narrative to match hope).
+
+### Progressive architectural dimensions
+
+Cover progressively via existing volumes (do **not** invent a parallel corpus; do **not** auto-create one volume per dimension):
+
+| Dimension | Primary volumes |
+|---|---|
+| Functional capabilities / journeys | 03 (+ Roadmap B9 doctrine coverage) |
+| Technical components | 01, 02 |
+| Responsibilities | 02, 07 |
+| Interfaces / interactions | 03, 04 |
+| Dependencies | 04 |
+| Flows / events | 03 |
+| Business objects | 02 |
+| Data / transformations | 02, 06 |
+| Persistence / transactions | 06 |
+| Authority / governance | 07 |
+| Recovery / resilience | 06 |
+| External integrations | 05 |
+| Tests / proofs | 08 |
+| Debt / reserves | 09 |
+| Component history / disposition | 09 + Convergence Roadmap (history) — do not duplicate chronology here |
+
+**Articulation:** technical inventory (01/02) ↔ functional capabilities & journeys (03) ↔ interactions/dependencies (03/04).
+
+### Coverage status vocabulary (CP04)
+
+Do **not** use “covered” as a synonym for “fully proven behaviour”.
+
+| Status | Meaning |
+|---|---|
+| **DOCUMENTED** | Information is described in the corpus |
+| **COVERAGE VERIFIED** | Scope identified and documentary coverage checked against relevant Git/sources |
+| **BEHAVIOR PROVEN** | Behaviour supported by an explicit proof whose **level** is stated (deterministic / REAL boundary / E2E REAL / …) |
+| **KNOWN GAP** | Missing, contradictory, or insufficiently demonstrated |
+
+A domain may be DOCUMENTED without being COVERAGE VERIFIED or BEHAVIOR PROVEN. Digest match alone never implies semantic validity.
+
+**AKG-M0 does not declare the PRR exhaustive.**
 
 ## What this corpus is NOT
 
@@ -77,20 +142,33 @@ Do not treat the Transmission Guide as the as-implemented oracle.
 
 ## Living maintenance contract
 
-For any Studio change touching tracked paths in the manifest:
+**Proportionnalité — lecture seule vs Delivery (AKG-M0 clarification):**
 
-1. Run **impact analysis** (see volume 04).
-2. Review affected object cards, flows, dependencies, invariants.
-3. Review env / persistence / restart if applicable.
-4. Run mapped regression tests.
-5. Update architecture **content** if semantics changed.
-6. Refresh digests **only after** human/ChatGPT review of content.
-7. Record `NO SEMANTIC IMPACT` when only implementation changed.
+| Mode | Obligations |
+|---|---|
+| **Analyse read-only** (architecture / impact / rationalisation sans mutation Product) | Consulter les volumes PRR **applicables** ; qualifier le code CURRENT ; étudier dépendances ; identifier impacts, risques, preuves et gaps. **Aucune** obligation automatique de lancer des tests ni de modifier la PRR. |
+| **Delivery** (changement qui modifie réellement le comportement / chemins trackés) | Analyser impacts ; sélectionner tests pertinents ; vérifier invariants applicables ; synchroniser sections PRR si la sémantique change ; qualifier `NO SEMANTIC IMPACT` si inchangée ; rafraîchir digests concernés **seulement après** revue sémantique. |
+
+Un seul contrat living — deux **modes d’application**. La proportionnalité reste obligatoire.
+
+For any Studio change touching tracked paths in the manifest — and for **architecture-informed** analyses of Studio behaviour (even read-only):
+
+1. **Consult beforehand** the applicable PRR volumes (proportionate selection — not necessarily all volumes).
+2. Run **impact analysis** (see volume 04): direct and indirect impacts.
+3. Review affected object cards, flows, dependencies, invariants.
+4. Review env / persistence / restart if applicable.
+5. Record **coverage status** for touched domains (DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP).
+6. Run mapped regression tests when behaviour is at stake (**Delivery** with behavioural risk — not automatic for pure read-only analysis).
+7. Update architecture **content** if semantics changed (documentary continuity) — **Delivery** when semantics move.
+8. Record `NO SEMANTIC IMPACT` when only implementation changed without semantic shift.
+9. Refresh digests **only after** human/ChatGPT **semantic** review of content.
+10. Keep non-claims honest (no P6 GLOBAL PASS / runtime v3 ADOPTED inflation).
 
 **AUTOMATE DRIFT DETECTION — NEVER AUTOMATE STRUCTURAL ARBITRATION.**
 
 A digest mismatch means: `REFERENCE REVIEW REQUIRED`.
 Refreshing a digest ≠ validating semantic correctness.
+Documentary sync is a **validation criterion** of the change set when semantics move.
 
 ## Conformance tooling
 

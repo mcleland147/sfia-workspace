@@ -223,6 +223,7 @@ Morris valide le profil si **Critical** ou changement de doctrine.
 
 > **Portée :** uniquement les travaux dont l’objet est la **construction ou l’évolution de SFIA Studio**.
 > **Ne s’applique pas** aux autres projets SFIA sans rapport avec la construction de SFIA Studio.
+> **Ne transforme pas** le routing générique SFIA en processus exclusif Studio.
 
 **Trigger = oui** si la demande concerne analyse, cadrage, roadmap, architecture, conception, delivery, validation, PR readiness, post-merge, capitalisation, prompt Cursor, évolution méthode/template ou évolution runtime **de SFIA Studio**.
 
@@ -231,9 +232,19 @@ Morris valide le profil si **Critical** ou changement de doctrine.
 1. Git courant + décisions Morris explicites ;
 2. `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` ;
 3. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` ;
-4. doctrine produit v3 applicable (`projects/sfia-studio/sfia-v3-framing/**`, notamment `30`–`37`) ;
-5. sources Studio/repo spécifiques au cycle ;
-6. processus SFIA **v2.6** nécessaire à l’exécution du cycle (template, operating model, guardrails).
+4. Product Completion C1 si le cycle touche Product Completion / C2+ : `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` ;
+5. doctrine produit v3 applicable (`projects/sfia-studio/sfia-v3-framing/**`, notamment `30`–`37`) ;
+6. **PRR applicable** — `projects/sfia-studio/production-runtime-reference/` (README + **volumes sélectionnés**) lorsque le cycle concerne le **fonctionnement Studio** : analyse, conception, architecture, étude d’impact, rationalisation, correction, delivery runtime, validation comportementale — **y compris en lecture seule** (CP02). Si non pertinent : déclarer **N/A** avec justification. **Ne pas** exiger la lecture intégrale de tous les volumes ;
+7. sources Studio/repo techniques spécifiques au cycle ;
+8. processus SFIA **v2.6** nécessaire à l’exécution du cycle (template, operating model, guardrails).
+
+**Architecture-informed check (proportionné) :**
+
+- volumes PRR retenus listés ;
+- composants / flows / invariants concernés ;
+- impacts directs et indirects proportionnels ;
+- statut de couverture (DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP) ;
+- si contradiction code↔doc : **KNOWN GAP** ; **Git + preuves primaires gagnent** (CP03).
 
 **Clarifications obligatoires :**
 
@@ -242,6 +253,7 @@ Morris valide le profil si **Critical** ou changement de doctrine.
 | SFIA Studio v3 | doctrine **produit cible Studio** (décidée) |
 | SFIA v2.6 | baseline **opérationnelle** du processus ChatGPT/Cursor externe |
 | Build Doctrine + Roadmap | gouvernance de **construction** — **pas** doctrine runtime produit |
+| PRR | référence **documentaire CURRENT** — **≠** autorité supérieure à Git/preuves |
 | Runtime v3 ADOPTED | **non** tant que preuves/gates manquent |
 | Coexistence doctrinale runtime v2.6/v3 dans Studio | **ne pas réintroduire** |
 
@@ -253,6 +265,12 @@ Si le contexte convergence requis n’est pas chargé :
 STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
 ```
 
+Si le fonctionnement Studio est concerné et que le contexte PRR applicable est absent sans N/A justifié :
+
+```text
+STOP — ARCHITECTURE CONTEXT NOT LOADED
+```
+
 **Sans gate Morris dédié** (contrôles L1 ou validations techniques non structurantes) :
 
 - vérifications read-only de cohérence documentaire ;
@@ -261,6 +279,7 @@ STUDIO WORK NOT QUALIFIED — CONVERGENCE CONTEXT NOT LOADED
 - contrôles répétables automatisables (L1/L2).
 
 > Règle v2.4 : *réserver Morris aux arbitrages structurants — pas à chaque micro-alignement.*
+> Les gates Morris existants (promotion, REAL, suppression structurante, Git Integration) sont **préservés**.
 
 #### 4.3.4 Séquence de routage cible v2.4
 
