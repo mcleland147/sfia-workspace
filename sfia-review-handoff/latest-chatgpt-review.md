@@ -1,431 +1,345 @@
-# SFIA Studio — AKG-M1 Lot D — Gap & Exit Proof Review
+# SFIA Studio — AKG-M1 Formal Closure Record
 ## Review Pack FULL (ChatGPT Critical)
 
 | Field | Value |
 |---|---|
-| Timestamp UTC | 2026-10-20T11:13:38Z |
-| Cycle | 6 — Architecture technique |
-| Spécialisation | Architectural coverage / exit assessment (read-only) |
-| Profil | CRITICAL |
+| Timestamp UTC | 2026-10-20T11:41:50Z |
+| Chantier | SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE |
 | Milestone | AKG-M1 — SYSTEM INVENTORY |
-| Lot | D — Gap & Exit Proof Review |
-| Typologie | DOC / ARCHITECTURE / GOVERNANCE / INVESTIGATION |
-| Capacités v3 | V3-F05 · V3-F14 (cible suivante AKG-M2 : V3-F05/F06 — **not started**) |
+| Cycle | 6 — Architecture technique |
+| Specialisation | Formal Closure / Architectural Evidence Record |
+| Profil | CRITICAL |
+| Typologie | DOC / GOVERNANCE / ARCHITECTURE |
+| Capacites | V3-F05 / V3-F14 ; suivante AKG-M2 V3-F05/F06 (NOT STARTED) |
 | Repository | mcleland147/sfia-workspace |
 | Worktree | /Users/morris/Projects/sfia-workspace-akg-m0-formal-closure-sync |
-| Branch | docs/sfia-studio-akg-m0-formal-closure-sync @ `11da9c5519982779fffc13714944f4376eee26c5` |
+| Branch / HEAD | docs/sfia-studio-akg-m0-formal-closure-sync @ `11da9c5519982779fffc13714944f4376eee26c5` |
 | Git CURRENT (origin/main) | `5689cb737b40d7712d8b31b999faabc0725558ab` |
-| Read method | `git show 5689cb737b40d7712d8b31b999faabc0725558ab:<path>` |
-| Lot C handoff secured | `436bc1bbb1f1f8b2f3cb41a75426cb1d75590524` · blob `f3f211353361fdc5756c00692e066cdd4f830acf` |
-| Lot B / A / Cadrage | `54c08a4afdc8b8d3defa18e869fae23127dc955b` · `ae1e24dbe6b6818ca49882686aacd64e7d5e204a` · `7abb590c7b2d775d3a089a9ca15a7b75938c55e2` |
+| Lot D secured | `0af1381278105d51c53370eef7e743fa31ff5935` · blob `3f1d0cb6172408dfa15c51650184f32f155617df` |
+| Lots A/B/C | `ae1e24dbe6b6818ca49882686aacd64e7d5e204a` · `54c08a4afdc8b8d3defa18e869fae23127dc955b` · `436bc1bbb1f1f8b2f3cb41a75426cb1d75590524` |
 | Project file modifications | **NONE** |
-| PRR semantic impact | **NONE** (R24) |
-| AKG-M1 global exit | **NOT YET VALIDATED BY MORRIS** |
+| PRR / Roadmap / Doctrine / code on project | **UNCHANGED** |
+| Formal Git Integration (Roadmap on main) | **PENDING DISTINCT AUTHORIZATION** |
 | AKG-M2 | **NOT AUTHORIZED / NOT STARTED** |
+| P6 GLOBAL PASS | **NOT ACQUIRED** |
+| Runtime v3 | **NON ADOPTED** |
 
 ---
 
-## 1. GO Morris consommés
+## 1. GO Morris consomme
 
-1. **VALIDATE AKG-M1 LOT C EXIT — WITH R-C01/R-C02/R-C03/R-C04**
-2. **GO AKG-M1 LOT D — GAP & EXIT PROOF REVIEW — READ ONLY**
+**GO FORMAL AKG-M1 CLOSURE — SYSTEM INVENTORY — WITH GOVERNED RESIDUAL GAPS**
 
-Gates **non consommés** : clôture AKG-M1 · démarrage AKG-M2.
+Source: decision explicite Morris (conversation ChatGPT 2026-10-20) apres Critical Review du Lot D.
+
+| Field | Value |
+|---|---|
+| Decision Authority | **MORRIS** |
+| Decision | **FORMAL AKG-M1 CLOSURE APPROVED** |
+| Scope | SYSTEM INVENTORY — BOUNDED ARCHITECTURAL COVERAGE |
+| Condition | R-D01 / R-D02 / R-D03 integrated and verified (this pack) |
+| Residuals | GOVERNED / OPEN |
+| Proof base | Lots A/B/C/D + Critical Reviews |
+| Claim (this record) | **CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** |
+
+Distinctions obligatoires:
+- Decision Morris **n'est pas** inscription sur `main`
+- **pas** INTEGRATED ON MAIN sans preuve Git
+- **pas** PRR SYNCHRONIZED
+- **pas** AKG-M2 AUTHORIZED
+- **pas** P6 GLOBAL PASS / runtime v3 ADOPTED / REAL BOUNDARY PROVEN
+
+Corrections prealables: **R-D01 · R-D02 · R-D03**.
 
 ---
 
 ## 2. Local Git Truth Check
 
-### 2.1 Initial
-
 | Check | Result |
 |---|---|
-| remote | origin → https://github.com/mcleland147/sfia-workspace.git |
-| HEAD worktree | `11da9c5519982779fffc13714944f4376eee26c5` |
-| origin/main / ls-remote | `5689cb737b40d7712d8b31b999faabc0725558ab` |
-| Baseline | **PASS** (matches ChatGPT pré-check) |
-| Dirty | `M .tmp-sfia-review/chatgpt-review.md` only (Review Pack) |
+| origin/main / ls-remote | `5689cb737b40d7712d8b31b999faabc0725558ab` — **PASS** |
+| Worktree HEAD | `11da9c5519982779fffc13714944f4376eee26c5` |
+| Dirty | `M .tmp-sfia-review/chatgpt-review.md` only |
 | Staged project | none |
+| Lot D tip before overwrite | `0af1381278105d51c53370eef7e743fa31ff5935` / `3f1d0cb6172408dfa15c51650184f32f155617df` — **PASS** |
 | Destructive ops | none |
-
-### 2.2 Lot C archive
-
-Confirmed tip `436bc1bbb1f1f8b2f3cb41a75426cb1d75590524` / blob `f3f211353361fdc5756c00692e066cdd4f830acf` before overwrite. L-C1…L-C8 markers present. Lot B ancestor `54c08a4afdc8b8d3defa18e869fae23127dc955b` preserved in history.
-
-### 2.3 Final
-
-See §18 (Cursor report cites **verified remote tip/blob after publish** — not a self-referential SHA chase inside the committed file).
 
 ---
 
-## 3. Sources & CKC
+## 3. Sources et CKC
 
 | Source | Status |
 |---|---|
-| Template / routing v2.6 | CONSULTED (fallback) |
+| Template / routing v2.6 | CONSULTED |
 | Build Doctrine R23/R24 · B-AKG · B9/B10/B12 | CONSULTED |
-| Roadmap AKG-M1→M2→M3 | CONSULTED (`B-AKG` still says AKG-M1 NOT STARTED as **HISTORICAL tip photo** vs this inventory work — see L-D4) |
-| Product Completion C1 | CONSULTED (trajectory only) |
+| Roadmap | CONSULTED (tip AKG-M1 NOT STARTED = HISTORICAL tip photo vs this closure) |
+| Product Completion C1 | CONSULTED (TARGET != CURRENT — G-M1-10) |
 | Doctrine v3 30/35/37 | CONSULTED |
-| PRR README + vols 01–09 + manifest | CONSULTED |
-| Handoffs A/B/C + cadrage | CONSULTED by exact commit |
-| Code/tests | Proportionate residual checks only |
+| PRR 01–09 + manifest 12/20/20/9/27/7 | CONSULTED |
+| Lot D L-D1…L-D8 + R-C01…04 + E1…E15 + Option A | CONSUMED @ `0af13812…` |
+| Lot A D11/D12 | CONSUMED @ `ae1e24db…` L-A5 |
 
-**CKC cycle 6 :** **FOUND (candidate)**  
-Path: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`  
-Status: `candidate` · version 0.1.0 · routed in `04-cycle-to-ckc-routing-matrix.md`.  
-Usage this lot: **cognitive guidance candidate only** · **no execution authority**.
+**CKC cycle 6:** FOUND candidate  
+`method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md`  
+status `candidate` v0.1.0 — cognitive guidance only · **no execution authority**.
 
 ---
 
 ## 4. Convergence Pre-check
 
-| Gate | Status |
+| Item | Status |
 |---|---|
 | AKG-M0 | CLOSED BY MORRIS AT METHODOLOGICAL SCOPE |
-| AKG-M1 Lots A/B/C | VALIDATED (C with R-C01…04 this GO) |
-| Lot D | AUTHORIZED (this cycle) |
-| AKG-M1 global closure | **NOT DECIDED** |
-| AKG-M2 / M3 | NOT AUTHORIZED |
-| Runtime v3 | NON ADOPTED |
-| P6 GLOBAL PASS | NOT ACQUIRED |
-| R23 | architecture-informed proportionate |
-| R24 | **NO SEMANTIC IMPACT** |
+| AKG-M1 Lots A–D | VALIDATED (D Critical Review PASS with R-D01…03) |
+| Morris closure | **APPROVED** at bounded inventory scope |
+| Formal Git record on main | **PENDING INTEGRATION** (distinct GO) |
+| AKG-M2 | NOT AUTHORIZED / NOT STARTED |
+| R23 | proportionate verification of R-D corrections |
+| R24 | **NO SEMANTIC RUNTIME IMPACT** |
 
 ---
 
-## 5. Corrections R-C01…R-C04 (baseline Lot D)
+## 5. Corrections R-D01 / R-D02 / R-D03
 
-### R-C01 — MANIFEST COUNTS
+### R-D01 — D11 / D12 identities restored (Lot A L-A5)
 
-| Item | Exact @ `5689cb737b40d7712d8b31b999faabc0725558ab` |
-|---|---|
-| components | **12** |
-| flows | **20** |
-| **invariants** | **20** (not 27) |
-| dependencies | **9** |
-| **trackedSources** | **27** |
-| trackedTests | **7** |
+| Domain | Lot D error | Corrected identity (Lot A) | Scope this inventory |
+|---|---|---|---|
+| **D11** | wrongly "Ops/FinOps parallel" | **OBSERVABILITE / TESTS / CI** — `__tests__` topology · harness QA · PRR conformance · trackedTests subset · CI/validations when documented | Bornee ; **pas** audit exhaustif de tous les tests |
+| **D12** | wrongly "Meta/governance docs" | **HISTORIQUE / SURFACES PARALLELES** — D1 cockpit · OPS1 · synthese · execution-run · autres surfaces Lot A | HISTORICAL / PARALLEL · **!= UNUSED / RETIRABLE** |
 
-Lot C line claiming « 27 inv » was a **transcription error** (confused with trackedSources). Baseline Lot D corrected. Manifest **not** modified.
+PRR / Roadmap / Doctrine restent des **sources de gouvernance**, non reaffectees a D12.  
+Ops/FinOps parallel BC (`execution-run`) reste sous **D12**, pas D11.
 
-### R-C02 — DEP-EC-ATT
+### R-D02 — Gap register completeness
 
-| Fact | Evidence |
-|---|---|
-| PRR 04 | OBJ-EC → OBJ-ATTEMPT |
-| Manifest | OBJ-EC → OBJ-EC |
-| Conformance | both ends ∈ components[] |
-| OBJ-ATTEMPT in components[] | **NO** |
-| Runtime | authorized EC → Select → Attempt (`governedExecuteSelectAgent`) under gates |
-| Design intent of self-edge | **NOT DEMONSTRATED** |
+Reintroduits dans L-D4: **G-M1-09 · G-M1-10 · G-M1-12** (Lot A). Pas de nouveaux gaps techniques. Aucune dette fermee par la seule cloture.
 
-**Qualification:** **KNOWN GAP — INDEX REPRESENTATION FIDELITY** (G-M1-15).  
-**Not** a demonstrated runtime bug.  
-**Do not assume:** voluntary workaround, required fix, auto-add OBJ-ATTEMPT, schema change.  
-**AKG-M2 impact:** treat PRR 04 narrative + code as authority for EC→Attempt; do not infer ontology from self-edge.
+### R-D03 — Exit proof scope wording
 
-### R-C03 — F11b
-
-| Fact | Evidence |
-|---|---|
-| PRR 03 | F11b Product Continuity / Shared Knowledge |
-| Manifest flows[] | F01–F20 only — **no F11b** |
-| Code/tests | resolveProductExecutionContext · continuity projection · reconcile · productContinuity* tests |
-
-**Qualification:** **COVERAGE VERIFIED** (behavior/path mapped) **+ INDEX SCOPE TO VERIFY** (G-M1-17).  
-Exclusion **not** declared intentional without proof. Absence of index ≠ runtime bug. No auto-enrichment.
-
-### R-C04 — FAIL-CLOSED
-
-L-C4 empty refuse cells are **not** enforcement proofs. Lot D fills critical rows with proven codes or **NOT VERIFIED** / **N/A JUSTIFIED** (see L-D5 / authority matrix below). No invented refuse codes.
+E2 / E6 / E7 requalifies **SATISFIED AT BOUNDED INVENTORY SCOPE** avec limites explicites.  
+**inventory exit != runtime readiness.**  
+SATISFIED != BEHAVIOR PROVEN. Empty refuse cells != enforcement.
 
 ---
 
-# L-D1 — AKG-M1 Consolidated Evidence Index
+# L-D1 — Consolidated Evidence Index (closure)
 
-| Lot | Artifact | Git ref | Primary PRR | Proof level ceiling | Limits | Status |
-|---|---|---|---|---|---|---|
-| Cadrage | AKG-M1 cadrage handoff | `7abb590c7b2d775d3a089a9ca15a7b75938c55e2` | Roadmap B-AKG · doctrine | DOCUMENTED | scope only | CONSUMED |
-| A | L-A1…L-A7 census | `ae1e24dbe6b6818ca49882686aacd64e7d5e204a` | 01 · topology · D1–D12 | DOCUMENTED / COVERAGE VERIFIED (topology) | not object/flow depth | VALIDATED |
-| B | L-B1…L-B7 object inventory | `54c08a4afdc8b8d3defa18e869fae23127dc955b` | 02 · objects · auth/persist | DOCUMENTED / COVERAGE VERIFIED (P0 objects) | + R-B01/02/03 | VALIDATED WITH CORRECTIONS |
-| C | L-C1…L-C8 flow/deps | `436bc1bbb1f1f8b2f3cb41a75426cb1d75590524` | 03/04/07/08 | COVERAGE VERIFIED (flows) · DET proofs mapped | + R-C01…04 ; no new BEHAVIOR PROVEN | VALIDATED WITH R-C01…04 |
-| D | L-D1…L-D8 exit | this pack → L3 | 01–09 · exit | COVERAGE / EXIT QUALIFICATION | recommendation ≠ closure | **THIS CYCLE** |
-| Manifest | production-runtime-reference.manifest.json | `5689cb737b40d7712d8b31b999faabc0725558ab` | index | DOCUMENTED (conformance) | curated ≠ exhaustive | 12/20/20/9/27/7 |
-| Code spine | app/** Product | `5689cb737b40d7712d8b31b999faabc0725558ab` | — | COVERAGE VERIFIED symbols | ZERO REAL this inventory | KEEP |
-| Tests | cited suites | `5689cb737b40d7712d8b31b999faabc0725558ab` | 08 | exist ; **not re-run** Lot D | presence ≠ green HEAD | mapped |
-
-Contradictions resolved by primary Git/PRR (not “latest report wins”): R-B01 path ; R-B02 SHE merge ; R-C01 counts ; R-C02/03 index vs runtime.
+| Lot | Ref | Role | Ceiling | Status |
+|---|---|---|---|---|
+| A Census | `ae1e24dbe6b6818ca49882686aacd64e7d5e204a` | Topology D1–D12 · spine | DOCUMENTED / COVERAGE VERIFIED | VALIDATED |
+| B Objects | `54c08a4afdc8b8d3defa18e869fae23127dc955b` | OBJ catalog · auth/persist | COVERAGE VERIFIED P0 | VALIDATED + R-B01/02/03 |
+| C Flows | `436bc1bbb1f1f8b2f3cb41a75426cb1d75590524` | F01–F20+F11b · deps · proofs | COVERAGE VERIFIED · DET mapped | VALIDATED + R-C01…04 |
+| D Exit | `0af1381278105d51c53370eef7e743fa31ff5935` puis ce record | Exit E1–E15 · Option A | COVERAGE / EXIT QUALIFICATION | Critical Review PASS + R-D01…03 |
+| Manifest | `5689cb73…` | 12/20/20/9/27/7 | DOCUMENTED index | KEEP |
+| Code/tests | `5689cb73…` | Product spine + cited suites | not re-run | KEEP |
 
 ---
 
-# L-D2 — Final Coverage Matrix
+# L-D2 — Final Coverage Matrix (R-D01 corrected)
 
-## A. Domaines D1–D12
+## Domaines D1–D12
 
-| Domain | Incl. | Examined | Proof | Coverage | Maturity limit | Gaps | Before AKG-M2 |
-|---|---|---|---|---|---|---|---|
-| D1 Studio/UI routes | Y | Product /studio + historical | Lot A | COVERAGE VERIFIED | historical surfaces not deep-audited | F20 legacy | keep historical out of spine claims |
-| D2 Composition/orch | Y | vertical-slice · orchestrateTurn | A/B/C | COVERAGE VERIFIED | serverless multi-instance limits | — | reuse |
-| D3 Nora cognition | Y | runNoraCognitiveTurn · Memory B | A/B/C | COVERAGE VERIFIED | REAL Nora NOT PROVEN | Fake≠LIVE | AKG-M2 interaction maps |
-| D4 Project/Cycle/LPS | Y | createProject · qualify · LPS | A/B/C F01–F03 | COVERAGE VERIFIED | — | hors components[] | OK |
-| D5 Proposal/HD/Rec | Y | proposalStore · Decide · chat-first | B/C F06–F07 | COVERAGE VERIFIED | process-local proposal | F17 PARTIAL | document restart limits |
-| D6 EC/Attempt/Auth | Y | prepare · SHE · Select/Start | B/C F08–F10 | COVERAGE VERIFIED | REAL OPEN | G-M1-15 index | narrative>self-edge |
-| D7 Artifact/Evidence/Claim | Y | ACGC · evidence-review · F11/F12 | B/C | COVERAGE VERIFIED | REAL journey PARTIAL | — | OK |
-| D8 Persistence/Recovery | Y transverse | Truth C / Memory B / process-local | A/C L-C5 | COVERAGE VERIFIED | session path drift | F02 PARTIAL | carry to M2 |
-| D9 Authority invariants | Y | PRR 07 + gates | C + R-C04 | COVERAGE VERIFIED / DOCUMENTED mix | some INV refuse NOT VERIFIED | R-C04 | see L-D5 |
-| D10 Adapters/Boundaries | Y transverse | Fake · Cursor REAL · R1/R2 | A/C | DOCUMENTED + DET gates | REAL BOUNDARY NOT PROVEN | G-M1-05 | OPEN debt ≠ M1 block |
-| D11 Ops/FinOps parallel | Y excl. spine | execution-run · ops1 | A F20 | DOCUMENTED HISTORICAL | not Product spine | — | exclude unless proven |
-| D12 Meta/governance docs | Y | PRR · Roadmap · Doctrine | A–D | DOCUMENTED | tip photos stale | G-M1-04/18 | doc sync GO later |
+| Domain | Identity | Coverage | Limit | Gaps | Before AKG-M2 |
+|---|---|---|---|---|---|
+| D1 Studio/UI | Product /studio + routes | COVERAGE VERIFIED | historical shallow | — | keep spine focus |
+| D2 Composition | vertical-slice · orch | COVERAGE VERIFIED | multi-instance limits | — | reuse |
+| D3 Nora | cognition · Memory B | COVERAGE VERIFIED | LIVE/REAL Nora NOT PROVEN | G-M1-09 | interaction maps |
+| D4 Project/Cycle/LPS | Truth C core | COVERAGE VERIFIED | hors components[] | — | OK |
+| D5 Proposal/HD/Rec | decisions | COVERAGE VERIFIED | process-local proposal | F17 PARTIAL | restart limits |
+| D6 EC/Attempt/Auth | prepare · SHE · Select/Start | COVERAGE VERIFIED | REAL OPEN | G-M1-15 | narrative > self-edge |
+| D7 Artifact/Evidence/Claim | ACGC · F11/F12 | COVERAGE VERIFIED | REAL journey PARTIAL | — | OK |
+| D8 Persistence | Truth C / Memory B / local | COVERAGE VERIFIED | session path drift | F02 PARTIAL | carry |
+| D9 Authority | PRR07 + gates | COVERAGE VERIFIED / DOCUMENTED mix | some refuse NOT VERIFIED | R-C04/R-D03 | deepen optional |
+| D10 Adapters | Fake · Cursor · R1/R2 | DOCUMENTED + DET | REAL BOUNDARY NOT PROVEN | G-M1-05/09 | debt GO |
+| **D11** | **OBSERVABILITE / TESTS / CI** | DOCUMENTED counts · conformance · sampled proofs | **not** exhaustive test/CI audit | G-M1-03 | sampling OK for M2 |
+| **D12** | **HISTORIQUE / SURFACES PARALLELES** | DOCUMENTED composition | usage UNKNOWN · no SAFE TO REMOVE | F20 | classify only |
 
-## B–C. OBJ PRR 02 + manifest components
+## Flows / deps / invariants / persistence / tests
 
-- **32 OBJ sections** (Lot B) mapped ; **12 components** curated index.
-- P0 spine objects COVERAGE VERIFIED in code (Project/LPS/Cycle/HD/EC/Attempt/Evidence/…); Attempt/Evidence/Project **hors** components[] by index contract (R-A03) — **GOVERNANCE NON-CLAIM**, not absence.
-- Manifest components COVERAGE VERIFIED as conformance subset.
-
-## D. Flows F01–F20 + F11b
-
-| Set | Status |
-|---|---|
-| F01–F15 | COVERAGE VERIFIED (Lot C) |
-| F11b | COVERAGE VERIFIED + INDEX SCOPE TO VERIFY |
-| F16–F19 | CLASSIFIED PARTIAL (recovery) |
-| F20 | HISTORICAL / parallel |
-
-## E. Dependencies
-
-| Edge | Status |
-|---|---|
-| 9 DEP-* | COVERAGE VERIFIED linkage |
-| DEP-EC-ATT | KNOWN GAP index fidelity ; runtime OK |
-| DEP-ATT-EV | DOCUMENTED hors index (G-M1-16) |
-| D8/D10 transverses | represented when conditioning spine |
-
-## F. Invariants (manifest 20)
-
-Indexed INV-* COVERAGE VERIFIED as **documented + partially gate-linked**. Additional SHE/Tool-First INV in PRR 07 narrative beyond the 20 — DOCUMENTED, not all in manifest index. See L-D5 for refuse qualification.
-
-## G. Persistence / recovery
-
-Truth C durable · Memory B path-dependent · proposal/offer process-local · F11b derived · W3c rehydrate — COVERAGE VERIFIED with PARTIAL restart claims.
-
-## H. Tests / proofs
-
-Mapped in Lot C L-C6 ; Lot D **does not re-run**. Ceiling: DET/Fake · ZERO new BEHAVIOR PROVEN · ZERO REAL.
-
-## I. Legacy / historical / parallel
-
-F20 · D1 cockpit · OPS1 · execution-run BC — DOCUMENTED HISTORICAL ; **no SAFE TO REMOVE**.
-
-**Non-goal:** 100% repository coverage. Unstudied non-critical zones remain unknown but **not claimed**.
+Inchanges en substance vs Lot D (F01–F15+F11b COVERAGE VERIFIED ; F16–F19 PARTIAL ; F20 HISTORICAL ; DEP-EC-ATT index KNOWN GAP ; Fake/DET/REAL ceilings).  
+Docs PRR/Roadmap/Doctrine = **sources**, pas D12.
 
 ---
 
 # L-D3 — Critical Reservations Resolution
 
-| Reservation | Correction | Evidence | Final status |
-|---|---|---|---|
-| R-A01…03 | Lot A exit | census / index perimeter / Tool-First docs | CONSUMED |
-| R-B01 | G-M1-13 PATH DISCOVERY | PRR bare filename · Git w2/ | **RESOLVED / REQUALIFIED** |
-| R-B02 | G-M1-14 HISTORICAL | PR #590 `c9abdbc37830d687cc8a504b97db659b47aa0f5b` ancestor | **RESOLVED / REQUALIFIED** |
-| R-B03 | F11b+F13 mandatory | Lot C L-C1/C2 | CONSUMED |
-| R-C01 | 20 inv / 27 trackedSources | manifest JSON counts | **RESOLVED** (baseline corrected) |
-| R-C02 | DEP-EC-ATT KNOWN GAP index fidelity | PRR04 · manifest · conformance · Select | **RESOLVED qualification** (gap open as index) |
-| R-C03 | F11b COVERAGE + INDEX SCOPE TO VERIFY | PRR03 · flows[] · tests | **RESOLVED qualification** |
-| R-C04 | Fail-closed no empty-cell proof | gate codes sampled | **APPLIED** in L-D5 |
-
----
-
-# L-D4 — Residual Gap / Debt / Risk Register
-
-| ID | Class | Observed | Sources | Consequence | Criticality | Blocks AKG-M1? | Why | Exit chantier | Morris gate? |
-|---|---|---|---|---|---|---|---|---|---|
-| G-M1-01 | COVERAGE TO VERIFY (fraîcheur) | lastReviewedCommit older than tip docs | manifest · git log | re-review pockets | P2 | **NO** | inventory not invalidated | optional digest refresh GO | optional |
-| G-M1-02 | GOVERNANCE NON-CLAIM | 32 OBJ ⊃ 12 components | vol02 · manifest | index curated | P2 | **NO** | by design contract | AKG-M3 PRR sync | later |
-| G-M1-03 | GOVERNANCE NON-CLAIM | 611 tests ⊃ 7 tracked | trackedTests | digest subset | P2 | **NO** | | AKG-M3 | later |
-| G-M1-04 | KNOWN GAP documentaire | README Tool-First CURRENT vs vol05/09 PENDING | README · vol05/09 | reader risk | P1 | **NO** | understanding known | PRR sync GO | **YES** for sync |
-| G-M1-05 | EXISTING DEBT OPEN | TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT | vol09 · R2 gate | REAL technical no-write absent | P0 debt | **NO for M1 inventory** | inventory documents debt | architecture GO REAL | **YES** for close debt |
-| G-M1-06 | EXISTING DEBT OPEN | RS-03 | Roadmap / AKG-M0 reserves | method reserve open | P1 | **NO** | governed residual | distinct GO | YES if close |
-| G-M1-07 | HISTORICAL SNAPSHOT | Roadmap tip noise / AKG-M1 NOT STARTED photo | Roadmap tip | stale photo vs this work | P2 | **NO** | | Roadmap sync under GI GO | YES for sync |
-| G-M1-08/11 | GOVERNANCE NON-CLAIM | objects hors trackedSources | Lot A/B | expected | P2 | **NO** | | — | no |
-| G-M1-13 | PATH DISCOVERY / CLARIFICATION | bare PRR path · Git w2/ | PRR02 · w2 file | clarification only | P3 | **NO** | false claim withdrawn | optional doc prefix | no |
-| G-M1-14 | HISTORICAL SNAPSHOT | SHE « not INTEGRATED » wording | PRR02 · `c9abdbc37830d687cc8a504b97db659b47aa0f5b` | stale status sentence | P1 | **NO** | SHE on main | PRR sync | YES for sync |
-| G-M1-15 | **KNOWN GAP — INDEX REPRESENTATION FIDELITY** | DEP-EC-ATT self-edge | PRR04 · manifest · conformance · Select | misread risk for M2 | P1 | **NO** | runtime present ; intent unknown | AKG-M2 caution · optional index GO | optional |
-| G-M1-16 | GOVERNANCE NON-CLAIM / INDEX SCOPE | DEP-ATT-EV hors deps[] | PRR04 | non-exhaustive index | P2 | **NO** | | optional | no |
-| G-M1-17 | COVERAGE VERIFIED + **INDEX SCOPE TO VERIFY** | F11b hors flows[] | PRR03 · code · tests | index incompleteness unknown intent | P1 | **NO** | continuity covered | decide index under GO | optional |
-| G-M1-18 | HISTORICAL SNAPSHOT | PENDING merge pockets | PRR03 F09 etc. | stale Delivery wording | P1 | **NO** | | PRR sync | YES for sync |
-| vol09 P6-REAL-OBS… | EXISTING DEBT OPEN | REAL receipt conservation | vol09 | REAL OPEN | P0 debt | **NO for M1** | | REAL GO | YES |
-| vol09 Tool-First overlay PENDING | HISTORICAL / conflicts G-M1-04 | stale overlay | vol09 | same as G-M1-04 | P1 | **NO** | | sync | YES |
-
-**No invented debts.** No automatic closure of Roadmap/PRR reserves.
-
-**Blocking AKG-M1 inventory exit?** None of the above **block** a **governed residual** closure recommendation (Option A). They **do** block claiming P6 PASS / REAL BOUNDARY / runtime v3 / index exhaustivity.
-
----
-
-# L-D5 — Architecture Boundary & Proof Ceiling
-
-## Authority & fail-closed (R-C04)
-
-| Invariant / gate | Application point | Refuse condition / code (if found) | Flow | Qualification |
-|---|---|---|---|---|
-| INV-REC-NE-HD / INV-PROP-NE-HD / INV-NO-SILENT-HD | Decide / chat-first disposition | Pilot action required ; model option ≠ HD | F06–F07 | COVERAGE VERIFIED (structure) · specific refuse codes **domain-dependent** |
-| INV-HD-NE-CONF / INV-INSPECT-NE-CONFIRM / INV-CONFIRM-NE-AUTH | OA confirm vs HD vs exam | distinct aggregates | F09 | COVERAGE VERIFIED DOCUMENTED |
-| Historical PREPARE HD verify | `verifyGenericMissionHumanDecisionForPrepare` | `HD_ABSENT` · `HD_REFUSED` · `HD_AMEND_REQUIRES_NEW_PRESENTATION` · `HD_SUBJECT_STALE` · `HD_MISSION_MISMATCH` · `HD_EFFECTS_MISMATCH` · … | F08 path B | **PROVEN codes in source** |
-| SHE Execute | `singleHumanExecutePreparedContract` | `SHE_UNKNOWN_BLOCKS_EXECUTE` · `SHE_MATERIALITY_UNPROJECTABLE` · `SHE_HD_OPTION_MISMATCH` · `SHE_EC_INTERNAL_INCONSISTENT` · materiality/repository stale codes · success path `SHE_EXECUTE_AUTHORIZED` | F08–F10 path A | **PROVEN codes in source** |
-| R2 REAL pathless | `assertBoundedNonMutatingCursorRealAdmissible` | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` | F10 | **PROVEN code** · DET tested · REAL no-write debt still OPEN |
-| INV-AUTH-NE-EXEC | Select/Start | Select refuse before Attempt ; Start refuse launch | F10 | COVERAGE VERIFIED DET |
-| Finalization | `assessFinalization` / undisposed Rec | blockers e.g. `finalize_human_decision_absent` · `artifact_missing` · `execution_contract_missing` · undisposed active Rec | F15 | **PROVEN blocker strings** |
-| INV-MEMB-NE-TRUTHC | dual stores | path/env separation | F02/F04 | COVERAGE VERIFIED DOCUMENTED |
-| INV-FAKE-REAL-SM | provider + server gates | shared Product SM at boundary | F04/F10 | DOCUMENTED · **REAL BOUNDARY NOT PROVEN** |
-| INV-NO-V3-ADOPT | absence of adoption | N/A runtime flag | — | DOCUMENTED governance |
-| Other manifest INV without sampled refuse code this lot | — | — | — | **NOT VERIFIED** (refuse code) · still DOCUMENTED in PRR 07 |
-
-Empty cells from Lot C L-C4 are **explicitly not** treated as enforcement proof.
-
-## Persistence / Fake-DET-REAL / recovery ceilings
-
-| Boundary | Ceiling |
+| ID | Final |
 |---|---|
-| Truth C | durable Product SQLite — COVERAGE VERIFIED |
-| Memory B | session path-dependent — PARTIAL restart |
-| Proposal/offer | process-local — not sole restart authority |
-| Nora Fake vs OpenAI LIVE | Fake mapped · LIVE NOT PROVEN this inventory |
-| Cursor Fake/DET | DET proofs exist · mapped |
-| Cursor REAL | gates documented · R2 DET · **REAL BOUNDARY NOT PROVEN** · no-write OPEN |
-| DETERMINISTIC PROVEN | ≠ READY FOR REAL |
-| P6 GLOBAL PASS | NOT ACQUIRED |
-| Runtime v3 | NON ADOPTED |
-
-**Fake/fixture executed this cycle:** NONE.
+| R-A01…03 · R-B01…03 · R-C01…04 | CONSUMED / RESOLVED as prior |
+| **R-D01** | D11/D12 restored to Lot A identities — **VERIFIED** |
+| **R-D02** | G-M1-09/10/12 reintroduced — **VERIFIED** |
+| **R-D03** | E2/E6/E7 bounded scope — **VERIFIED** |
 
 ---
 
-# L-D6 — AKG-M1 Exit Proof Assessment (E1…E15)
+# L-D4 — Residual Gap / Debt / Risk Register (complete)
 
-| Critère | Status | Proof | Réserve | Blocking? | Exit action |
+| ID | Class | Observation | Sources | Consequence | Crit. | Blocks AKG-M1? | Guardrail | Trajectory / gate |
+|---|---|---|---|---|---|---|---|---|
+| G-M1-01 | COVERAGE TO VERIFY | lastReviewed fresher docs | manifest | optional re-review | P2 | **NO** | no false corpus claim | optional digest GO |
+| G-M1-02 | GOVERNANCE NON-CLAIM | 32 OBJ > 12 components | vol02 · manifest | curated index | P2 | **NO** | use PRR+code | AKG-M3 |
+| G-M1-03 | GOVERNANCE NON-CLAIM | tests > trackedTests | D11 | digest subset | P2 | **NO** | no exhaustivity | AKG-M3 |
+| G-M1-04 | KNOWN GAP documentaire | README CURRENT vs vol05/09 PENDING | README · PRR | reader risk | P1 | **NO** | cite CURRENT Git | **PRR sync GO** |
+| G-M1-05 | EXISTING DEBT OPEN | TOOL-FIRST-REAL-NOWRITE | vol09 · R2 | REAL no-write absent | P0 debt | **NO** (inventory) | DET != REAL | **REAL arch GO** |
+| G-M1-06 | EXISTING DEBT OPEN | RS-03 | Roadmap/AKG-M0 | method reserve | P1 | **NO** | governed residual | distinct GO |
+| G-M1-07 | HISTORICAL SNAPSHOT | Roadmap tip photos | Roadmap | stale "M1 NOT STARTED" | P2 | **NO** | resolve from Git | **Roadmap GI GO** |
+| G-M1-08/11 | GOVERNANCE NON-CLAIM | objects hors trackedSources | A/B | expected | P2 | **NO** | — | — |
+| **G-M1-09** | **RISK / GOVERNANCE NON-CLAIM** | Sur-claim **REAL PROVEN** from DET/Fake coverage | vol05 · Lot A/C ceilings | false readiness | P0 | **NO** | explicit proof ceilings | all future lots |
+| **G-M1-10** | **RISK / TRAJECTORY DISTINCTION** | C1 Product Completion **TARGET** != runtime CURRENT Git/PRR | C1 · PRR | inventaire = as-implemented | P1 | **NO** | inventory != C1 delivery | Product Completion distinct |
+| **G-M1-12** | **GOVERNANCE NON-CLAIM** | Runtime v3 **NON ADOPTED** · INV-NO-V3-ADOPT | vol01 · invariants | no implicit promotion | P0 | **NO** | closure != v3 adopt | all lots |
+| G-M1-13 | PATH DISCOVERY | bare PRR filename · Git `w2/` | R-B01 | clarification | P3 | **NO** | — | optional doc |
+| G-M1-14 | HISTORICAL SNAPSHOT | SHE "not INTEGRATED" wording | PRR02 · `c9abdbc3` | stale | P1 | **NO** | SHE on main | PRR sync GO |
+| G-M1-15 | KNOWN GAP index fidelity | DEP-EC-ATT self-edge | PRR04 · manifest · Select | M2 misread risk | P1 | **NO** | PRR+code authority | optional index GO |
+| G-M1-16 | GOVERNANCE NON-CLAIM | DEP-ATT-EV hors index | PRR04 | non-exhaustive | P2 | **NO** | — | optional |
+| G-M1-17 | COVERAGE VERIFIED + INDEX SCOPE TO VERIFY | F11b hors flows[] | PRR03 · tests | index intent unknown | P1 | **NO** | don't assume intentional omit | optional index GO |
+| G-M1-18 | HISTORICAL SNAPSHOT | PENDING merge pockets | PRR03/05 | stale Delivery | P1 | **NO** | Git supersedes | PRR sync GO |
+| vol09 REAL debts | EXISTING DEBT OPEN | receipt conservation etc. | vol09 | REAL OPEN | P0 | **NO** | — | REAL GO |
+
+**Aucune dette fermee par cette cloture.**
+
+---
+
+# L-D5 — Architecture Boundary and Proof Ceiling
+
+Authority separations KEEP: Rec!=HD · HD!=Confirm · Inspect!=Confirm!=Auth!=Exec · Cognition!=Auth · Memory B!=Truth C · Applicability!=Authority · Attempt!=PROVEN · Stamp!=REAL no-write.
+
+Fail-closed: sampled codes (`HD_*`, `SHE_*`, `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE`, finalization blockers) as Lot D ; unsampled INV refuse = **NOT VERIFIED**.
+
+Fake/DET/REAL: DET mapped · REAL BOUNDARY **NOT PROVEN** · no-write **OPEN**.  
+DETERMINISTIC PROVEN != READY FOR REAL.  
+Fake/fixture this cycle: **NONE**.
+
+---
+
+# L-D6 — Exit Proof E1…E15 (R-D03)
+
+| Critere | Status | Proof | Limit / reserve | Blocking? | AKG-M2 dep |
 |---|---|---|---|---|---|
-| E1 Topology | **SATISFIED** | Lot A spine | historical surfaces shallow | NO | keep |
-| E2 Critical domains | **SATISFIED** | D1–D12 matrix L-D2 | D11/D12 light | NO | — |
-| E3 P0 objects/components | **SATISFIED** | Lot B + manifest 12 | hors-index objects | NO | M2 uses PRR+code |
-| E4 Critical Product flows | **SATISFIED** | Lot C F01–F15+F11b | F16–F19 PARTIAL | NO | M2 deepen if needed |
-| E5 Deps/responsibilities | **SATISFIED** (with reserve) | Lot C deps + R-C02 | G-M1-15 index | NO | caution self-edge |
-| E6 Authority frontiers | **SATISFIED** | PRR07 + R-C04 codes | some INV refuse NOT VERIFIED | NO | optional deepen |
-| E7 Persistence/recovery | **SATISFIED** (PARTIAL maturity) | L-C5 / L-D5 | session drift | NO | carry limits |
-| E8 Fake/DET/REAL separated | **SATISFIED** | Lot C/D ceilings | REAL OPEN | NO | debt GO later |
-| E9 Proofs sourced + ceilings | **SATISFIED** | L-C6 · L-D1 | not re-run | NO | — |
-| E10 Gaps governed | **SATISFIED** | L-D4 | open residuals | NO | governed |
-| E11 No false exhaustivity/adoption | **SATISFIED** | non-claims explicit | — | NO | — |
-| E12 PRR reuse · no parallel arch | **SATISFIED** | packs reference PRR | — | NO | — |
-| E13 AKG-M2 entry exploitable | **SATISFIED** | L-D8 | — | NO | Morris GO M2 |
-| E14 Residual debt not masking critical understanding | **SATISFIED** | debts labeled vs understanding | REAL/RS-03 open but known | NO | — |
-| E15 No unauthorized project change | **SATISFIED** | Git Truth | Review Pack/handoff only | NO | — |
+| E1 Topology | SATISFIED | Lot A | historical shallow | NO | reuse |
+| **E2 Critical domains** | **SATISFIED AT BOUNDED INVENTORY SCOPE** | L-D2 corrected | D11 not global test audit · D12 not full historical path audit | NO | deepen only if M2 needs |
+| E3 P0 objects | SATISFIED | Lot B | hors-index objects | NO | PRR+code |
+| E4 Critical flows | SATISFIED | Lot C | F16–F19 PARTIAL | NO | optional |
+| E5 Deps | SATISFIED (+reserve) | Lot C · R-C02 | G-M1-15 | NO | caution self-edge |
+| **E6 Authority frontiers** | **SATISFIED AT BOUNDED INVENTORY SCOPE** | PRR07 · R-C04 codes | some refuse **NOT VERIFIED** · empty!=enforcement | NO | optional deepen |
+| **E7 Persistence/recovery** | **SATISFIED AT BOUNDED INVENTORY SCOPE** | L-C5 | Memory B path-dependent · F02/F16–F19 PARTIAL · recovery not globally proven | NO | carry limits |
+| E8 Fake/DET/REAL | SATISFIED | ceilings | REAL OPEN · G-M1-09 | NO | debt GO |
+| E9 Proofs sourced | SATISFIED | L-C6 · L-D1 | not re-run | NO | — |
+| E10 Gaps governed | SATISFIED | L-D4 full | open residuals | NO | — |
+| E11 No false exhaustivity/adoption | SATISFIED | non-claims · G-M1-12 | — | NO | — |
+| E12 PRR reuse | SATISFIED | no parallel arch | — | NO | — |
+| E13 AKG-M2 entry | SATISFIED | L-D8 | needs Morris GO M2 | NO | **distinct GO** |
+| E14 Residual debt non-masking | SATISFIED | labeled OPEN | REAL/RS-03 known | NO | — |
+| E15 No unauthorized project change | SATISFIED | Git Truth | pack/handoff only | NO | — |
 
-**Decision rule applied:** not “all perfect”; critical understanding for Architecture Understanding is met; residuals are governed and non-masking.
-
----
-
-# L-D7 — Closure Recommendation & Decision Pack
-
-## Recommendation
-
-### **OPTION A — RECOMMEND AKG-M1 CLOSURE WITH GOVERNED RESIDUAL GAPS**
-
-**Justification:**  
-Lots A/B/C establish a bounded, sourced, PRR-aligned inventory of the Product spine (topology, objects, flows, deps, authority, persistence, Fake/DET/REAL ceilings). Residual items are documentary/index fidelity (G-M1-04/14/15/17/18), OPEN technical debts already known (REAL no-write, RS-03), and PARTIAL recovery flows — **none** prevent AKG-M2 from starting Architecture Understanding on a correct picture of the *existing* system, provided M2 consumes the non-claims and index caveats.
-
-**Not chosen:**  
-- **Option B** — no single missing inventory fact blocks exploitable architectural base; demanding another A/B/C redo would be artificial exhaustivity.  
-- **Option C** — evidence sufficient for a reliable recommendation.
-
-## Conditions (if Morris adopts Option A)
-
-1. Publish/consume this Lot D Critical Review.
-2. Record governed residuals G-M1-04/05/06/15/17/18 explicitly on Roadmap/PRR only under **distinct doc GO** (not implied by closure).
-3. AKG-M2 entry must cite L-D8 and refuse self-edge ontology, F11b index assumptions, and REAL overclaim.
-4. Closure ≠ P6 PASS ≠ v3 ADOPTED ≠ REAL BOUNDARY PROVEN ≠ PRR sync done.
-
-## Alternatives
-
-- Defer closure until PRR photo sync (G-M1-04/14/18) — **optional**, not required for understanding base.
-- Keep AKG-M1 open solely for index enrichment (DEP-EC-ATT / F11b) — **not recommended** as inventory blocker.
-
-## Décisions Morris encore nécessaires
-
-1. ChatGPT Critical Review of Lot D.
-2. **Morris decision on AKG-M1 closure** (Option A candidate).
-3. Distinct GO for AKG-M2 (if/when).
-4. Optional distinct GO: PRR documentary sync.
-5. Optional distinct GO: REAL no-write / RS-03.
-6. **No automatic CLOSED / ADOPTED from this pack.**
+**inventory exit != runtime readiness.**
 
 ---
 
-# L-D8 — AKG-M2 Entry Contract Candidate
-
-| Element | Content |
-|---|---|
-| Acquired in AKG-M1 | Spine topology ; OBJ catalog map ; F01–F20+F11b traces ; DEP-* + D8/D10 ; authority separations ; persistence map ; proof ceilings ; gap register |
-| Known frontiers | Cognition≠Auth · Memory B≠Truth C · PREPARE≠EXECUTE · HD≠Confirm≠Inspect≠Auth · Fake/DET≠REAL · stamp≠REAL no-write |
-| Critical deps | EC→Attempt (code+PRR) ; HD→EC ; Proposal→HD ; ACGC→Proposal/Assess ; session→turn ; Fake→turn |
-| Still uncertain | Intent behind DEP-EC-ATT self-edge ; whether to index F11b ; HEAD test greenness ; REAL boundary |
-| Misinterpretation risks | Self-edge=no Attempt · F11b missing=unimplemented · DET=REAL · Roadmap tip AKG-M1 NOT STARTED as current truth · PENDING overlays as current |
-| Reusable assets | PRR 01–09 · manifest · Lots A–D handoffs · conformance test · cited DET suites |
-| Clarification questions for M2 | responsibility ownership cards ; interaction sequences ; where index should expand vs stay curated |
-| Maps to produce in M2 (later) | responsibility / interaction cards (V3-F05/F06) — **not produced now** |
-| Entry criteria | Morris GO AKG-M2 · consume L-D1…L-D8 · keep non-claims · no REAL without GO |
-| Exit conditions (candidate) | validated understanding maps + explicit residual gaps · still ≠ P6 PASS |
-| GO required | **Distinct Morris GO — AKG-M2 Architecture Understanding** |
-
-**AKG-M2: NOT STARTED / NOT AUTHORIZED.**
-
----
-
-## 6. R23 / R24
-
-- **R23:** proportionate verification of residual qualifications (counts, DEP-EC-ATT, F11b, fail-closed codes).  
-- **R24:** **NO SEMANTIC IMPACT** — no project/PRR/manifest/code/test/Roadmap/Doctrine mutation.
-
----
-
-## 7. Verdict (Lot D)
-
-**AKG-M1 LOT D — GAP & EXIT PROOF REVIEW COMPLETE.**
-
-**LOT D CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW.**
-
-| Gate | Status |
-|---|---|
-| AKG-M1 GLOBAL EXIT | **NOT YET VALIDATED BY MORRIS** |
-| Recommended path | **OPTION A** (candidate only) |
-| AKG-M2 | **NOT AUTHORIZED** |
-| PROJECT FILE MODIFICATIONS | **NONE** |
-| PRR SEMANTIC IMPACT | **NONE** |
-| NEXT GATE | ChatGPT Critical Review of Lot D |
-| THEN | Morris decision on AKG-M1 closure · AKG-M2 requires distinct GO |
-
----
-
-## 8. Instruction ChatGPT (obligatoire)
-
-Lire Git distant :
-
-- Branche: `sfia/review-handoff`
-- Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
-
-Vérifier: HEAD/base `5689cb737b40d7712d8b31b999faabc0725558ab` · cycle 6 Critical · GO · L-D1…L-D8 · R-C01…04 · E1…E15 · Option A/B/C · gaps · Fake/DET/REAL ceilings · SHA/blob tip **as verified by Cursor final report** · non-claims.
-
-Handoff synthesis-only ⇒ **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING.**
-
----
-
-## 18. Handoff L3 publication notes (pre-publish)
+# L-D7 — Formal Closure Decision Record
 
 | Field | Value |
 |---|---|
-| Proposed commit message | docs(review-handoff): publish AKG-M1 lot D exit review |
-| Prior tip (Lot C snapshot) | `436bc1bbb1f1f8b2f3cb41a75426cb1d75590524` · blob `f3f211353361fdc5756c00692e066cdd4f830acf` |
-| Content policy | **No self-referential tip SHA chase** inside the committed file |
-| Verified remote tip/blob | *filled in Cursor final report after push* |
+| Decision Authority | **MORRIS** |
+| Decision | **FORMAL AKG-M1 CLOSURE APPROVED** |
+| Date | 2026-10-20 (ChatGPT conversation after Lot D Critical Review) |
+| Scope | SYSTEM INVENTORY — BOUNDED ARCHITECTURAL COVERAGE |
+| Condition | R-D01 / R-D02 / R-D03 integrated and verified |
+| Residuals | GOVERNED / OPEN (L-D4) |
+| Proof | Lots A/B/C/D + Critical Reviews + this formal record |
+| Claim | **CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** |
+| Prior Option A | ADOPTED as Morris closure path (no longer "pending Morris decision") |
+| Formal Git Integration | **PENDING DISTINCT AUTHORIZATION** |
+| Roadmap tip on main | still HISTORICAL photo until GI GO |
+| PRR sync | NOT DONE · distinct GO |
+| AKG-M2 | **NOT AUTHORIZED / NOT STARTED** |
+| Not claimed | P6 GLOBAL PASS · v3 ADOPTED · REAL PROVEN · debts CLOSED |
 
+### Decisions Morris restantes
+
+1. ChatGPT review of this formal closure record.
+2. **Distinct Git Integration GO** for canonical Roadmap tip (candidate below).
+3. Distinct GO AKG-M2 (when ready).
+4. Optional PRR documentary sync GO.
+5. Optional REAL no-write / RS-03 GO.
+
+---
+
+# L-D8 — AKG-M2 Entry Contract Candidate (updated)
+
+| Element | Content |
+|---|---|
+| Prerequisite | AKG-M1 CLOSED BY MORRIS AT BOUNDED INVENTORY SCOPE (this decision) |
+| Must consume | L-D1…L-D8 corrected · G-M1-09/10/12 · D11/D12 Lot A identities · DEP-EC-ATT caveat · F11b INDEX SCOPE TO VERIFY |
+| Known frontiers | authority separations · Fake/DET!=REAL · Memory B!=Truth C · TARGET!=CURRENT (G-M1-10) |
+| Misread risks | self-edge ontology · F11b missing=unimplemented · DET->REAL · Roadmap tip lag · D11/D12 swap |
+| Produce in M2 | responsibility / interaction cards (V3-F05/F06) — **not now** |
+| Entry | **Distinct Morris GO — AKG-M2 Architecture Understanding** |
+| Status now | **NOT AUTHORIZED / NOT STARTED** |
+
+---
+
+## 6. Roadmap Record Candidate (DO NOT APPLY)
+
+Target file (future GI only):  
+`projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+
+### Candidate tip row (complete section fragment)
+
+```markdown
+| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M1 FORMAL CLOSURE** | 2026-10-20 Europe/Paris — **AKG-M1 — CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M1 — SYSTEM INVENTORY** · Cycle **6 — Architecture technique** · Specialisation **Formal Closure / Architectural Evidence Record** · Profile **Critical** · Typologie **DOC / GOVERNANCE / ARCHITECTURE** · Decision Morris **GO FORMAL AKG-M1 CLOSURE — SYSTEM INVENTORY — WITH GOVERNED RESIDUAL GAPS** = **ADOPTED** (ChatGPT conversation 2026-10-20 after Lot D Critical Review) · Corrections **R-D01/R-D02/R-D03** integrated in formal closure handoff · Fondement : Lots A/B/C/D exit proofs · E1–E15 SATISFIED AT BOUNDED INVENTORY SCOPE (E2/E6/E7 explicitly bounded) · Manifest baseline **12/20/20/9/27/7** · Residuals GOVERNED OPEN : G-M1-04 documentaire · G-M1-05 TOOL-FIRST-REAL-NOWRITE OPEN · G-M1-06 RS-03 OPEN · G-M1-09 DET!=REAL · G-M1-10 C1 TARGET!=CURRENT · G-M1-12 v3 NON ADOPTED · G-M1-15 DEP-EC-ATT index fidelity · G-M1-17 F11b INDEX SCOPE TO VERIFY · G-M1-18 historical PRR photos · vol09 REAL debts OPEN · Formal Git Integration of this tip = **PENDING DISTINCT AUTHORIZATION** · at authoring of handoff: LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN · later status = RESOLVE FROM CURRENT GIT / Morris GI GO · AKG-M2 = **NOT AUTHORIZED / NOT STARTED** (requires distinct GO · V3-F05/F06) · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · Product/runtime/PRR/manifest code changes this cycle = **NONE** · != P6 PASS · != v3 ADOPTED · != REAL BOUNDARY PROVEN · != PRR synchronized · != debts CLOSED by closure · != AKG-M2 AUTHORIZED · Next gate = ChatGPT review of formal closure record → Morris **Git Integration GO** for canonical Roadmap tip · then distinct AKG-M2 GO |
+```
+
+### Candidate B-AKG row update (diff intent — not applied)
+
+```diff
+- | AKG-M1 | System Inventory | **NOT STARTED / NOT AUTHORIZED** (requires distinct inventaire GO) |
++ | AKG-M1 | System Inventory | **CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** (2026-10-20) · Formal Git Integration of tip = PENDING DISTINCT AUTHORIZATION · Residuals GOVERNED OPEN (G-M1-04/05/06/09/10/12/15/17/18 · RS-03 · REAL no-write) · != P6 PASS · != v3 ADOPTED · != AKG-M2 AUTHORIZED |
+```
+
+**Do not modify Roadmap in this cycle.** No PRR/manifest/digest sync.
+
+---
+
+## 7. R23 / R24
+
+- **R23:** D11/D12 restored from Lot A primary ; G-M1-09/10/12 restored ; E2/E6/E7 bounded.
+- **R24:** **NO SEMANTIC RUNTIME IMPACT** — no project sources modified.
+
+---
+
+## 8. Verdict
+
+**AKG-M1 — FORMAL CLOSURE RECORD COMPLETE.**
+
+**AKG-M1 — CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE.**
+
+| Gate | Status |
+|---|---|
+| FORMAL GIT INTEGRATION | **PENDING DISTINCT AUTHORIZATION** |
+| AKG-M2 | **NOT AUTHORIZED / NOT STARTED** |
+| P6 GLOBAL PASS | **NOT ACQUIRED** |
+| STUDIO V3 RUNTIME | **NON ADOPTED** |
+| PROJECT FILE MODIFICATIONS | **NONE** |
+| PRR SEMANTIC IMPACT | **NONE** |
+| NEXT GATE | ChatGPT review of formal closure record |
+| THEN | Distinct Git Integration decision for canonical Roadmap tip |
+
+---
+
+## 9. Instruction ChatGPT
+
+Lire distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+
+Verifier: decision Morris · R-D01/02/03 · L-D1…L-D8 · E1…E15 · G-M1-09/10/12 · D11/D12 · Roadmap candidate · tip/blob (Cursor final) · non-claims · AKG-M2 not authorized.
+
+---
+
+## 18. Handoff L3 notes (pre-publish)
+
+| Field | Value |
+|---|---|
+| Proposed message | docs(review-handoff): record formal AKG-M1 closure |
+| Prior Lot D tip | `0af1381278105d51c53370eef7e743fa31ff5935` · `3f1d0cb6172408dfa15c51650184f32f155617df` |
+| Policy | no tip self-reference SHA chase |
+| Verified remote tip/blob | *Cursor final report after push* |
