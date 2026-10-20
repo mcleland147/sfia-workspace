@@ -547,7 +547,7 @@ Lot D (sous GO distinct) devrait :
 | 19 | No project file modified | PASS (pack/handoff only) |
 | 20 | Lot D/M2 not executed | PASS |
 | 21 | L-C1…L-C8 complete | PASS |
-| 22 | Handoff L3 remote verified | see §18 |
+| 22 | Handoff L3 remote verified | **PASS** `3cef91a2784a0eb7a7d403f66c3cdd804add556a` / `a87249eb50b47593c805ff127ffefc584ade6617` |
 | 23 | Lot D entry exploitable | PASS (this L-C8) |
 
 ---
@@ -631,8 +631,8 @@ _(filled after publish)_
 | Field | Value |
 |---|---|
 | Commit message | `docs(review-handoff): publish AKG-M1 lot C flow verification` |
-| Commit SHA | TBD |
-| Blob SHA | TBD |
-| Remote tip | TBD |
+| Commit SHA | `3cef91a2784a0eb7a7d403f66c3cdd804add556a` |
+| Blob SHA | `a87249eb50b47593c805ff127ffefc584ade6617` |
+| Remote tip | `3cef91a2784a0eb7a7d403f66c3cdd804add556a` |
 | Return worktree | `11da9c5519982779fffc13714944f4376eee26c5` on `docs/sfia-studio-akg-m0-formal-closure-sync` |
-| Final porcelain | TBD |
+| Final porcelain | Review Pack local dirty only; formal-closure HEAD 11da9c55 |
