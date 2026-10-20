@@ -1,165 +1,95 @@
-# SFIA Studio — AKG-M1 Roadmap Sync — PR #594 Ready + Merge
-## Review Pack FULL (ChatGPT Critical)
+# SFIA Studio — AKG-M1 Cycle 14 — Post-Merge Formal Verification
+## Review Pack FULL (ChatGPT)
 
 | Field | Value |
 |---|---|
-| Timestamp UTC | 2026-10-20T13:32:23Z |
-| GO Morris | **GO AKG-M1 ROADMAP SYNC — PR #594 READY + MERGE** (2026-10-20) |
-| Cycle | 13 CONTINUATION — READY + MERGE |
-| Profil | CRITICAL |
-| Typologie | DOC / GOVERNANCE / GIT INTEGRATION |
+| Timestamp UTC | 2026-10-20T13:52:55Z |
+| GO Morris | **GO AKG-M1 — CYCLE 14 POST-MERGE WITHOUT BRANCH CLEANUP** |
+| Cycle | **14 — POST-MERGE** |
+| Profil | STANDARD (Review Pack FULL for decision traceability) |
+| Typologie | DOC / GOVERNANCE / GIT VERIFICATION |
 | Repository | mcleland147/sfia-workspace |
 | Worktree | /Users/morris/Projects/sfia-workspace-akg-m1-formal-closure-roadmap-sync |
 | PR | [#594](https://github.com/mcleland147/sfia-workspace/pull/594) |
-| Prior handoff | `9fa558a2af24ea5a217fbffdb641c01e40ad4b80` / blob `ebfc20457ff2793584808b0f8c0af1c26bb336e3` |
-| Project content mutations this cycle | **NONE** (merge only) |
-| Branch cleanup | **NOT AUTHORIZED / NOT EXECUTED** |
+| Prior handoff (Ready+Merge) | `b24708820b08a9c76de0e5f17988c7252f066b34` / blob `d45a9feb911fb1e4170f4cd6bd096a9c6c7fb864` |
+| Project mutations this cycle | **NONE** |
+| Cleanup | **SKIPPED BY EXPLICIT MORRIS DECISION** |
 | AKG-M2 | **NOT AUTHORIZED / NOT STARTED** |
 
 ---
 
-# MRG-1 — GO Morris et périmètre
+# PM-1 — Git Truth initial et final
 
-**GO consommé :** GO AKG-M1 ROADMAP SYNC — PR #594 READY + MERGE.
+### Initial / Final (same verification window; fetch non-destructif only)
 
-**Autorisé :** Git Truth · requalification PR/CI · Draft→Ready · merge commit conditionné · vérif post-merge · Review Pack FULL · Handoff L3.
-
-**Non autorisé :** nouveau commit/push projet · rewrite Roadmap · push direct main · squash/rebase · cleanup branche · AKG-M2 · PRR/runtime.
-
----
-
-# MRG-2 — Git Truth initial et final
-
-### Initial (pre-actions)
 | Check | Value |
 |---|---|
-| Branch WT | docs/sfia-studio-akg-m1-formal-closure-roadmap-sync |
-| HEAD | `f666f19f99821d9c4480673db7fa398704874945` |
-| origin/main (ls-remote) | `5689cb737b40d7712d8b31b999faabc0725558ab` |
-| Remote head branch | `f666f19f99821d9c4480673db7fa398704874945` |
-| Ahead/Behind | 1 / 0 |
-| Roadmap blob | `f947285068e798b442d83ff71d0efd4cfedada6f` |
-| Dirty | `.tmp-sfia-review/chatgpt-review.md` only |
-| Staged | none |
-
-### Final (post-merge, project WT)
-| Check | Value |
-|---|---|
-| origin/main (fetched) | `4ac169b69dfdc571421328811ba062540cc9655f` |
+| pwd | `/Users/morris/Projects/sfia-workspace-akg-m1-formal-closure-roadmap-sync` |
+| remote | `https://github.com/mcleland147/sfia-workspace.git` |
+| branch | `docs/sfia-studio-akg-m1-formal-closure-roadmap-sync` |
+| HEAD (local source branch) | `f666f19f99821d9c4480673db7fa398704874945` |
+| `ls-remote` main | `4ac169b69dfdc571421328811ba062540cc9655f` |
+| `origin/main` after fetch | `4ac169b69dfdc571421328811ba062540cc9655f` |
+| `ls-remote` source branch | `f666f19f99821d9c4480673db7fa398704874945` |
 | Roadmap blob on main | `f947285068e798b442d83ff71d0efd4cfedada6f` |
-| Local project HEAD (unchanged branch tip) | `f666f19f99821d9c4480673db7fa398704874945` |
-| No project file rewrite | **PASS** |
+| Dirty | `.tmp-sfia-review/chatgpt-review.md` only (Review Pack) |
+| Staged | none |
+| Destructive ops | **none** (no reset/clean/stash/checkout/pull) |
+| Note | Another worktree holds local `main` at an older SHA — **remote GitHub main** used as publication truth; local `main` not moved |
+
+**PASS** — Git Truth qualified; no project content risk.
 
 ---
 
-# MRG-3 — PR #594 avant transition
+# PM-2 — GO Morris consommé
+
+**GO:** GO AKG-M1 — CYCLE 14 POST-MERGE WITHOUT BRANCH CLEANUP.
+
+**Autorisé:** Git Truth · fetch non destructif · lecture PR/CI · vérif Roadmap main · Review Pack FULL · Handoff L3.
+
+**Interdit:** branch -d/-D · push --delete · fetch --prune · worktree remove · Roadmap/runtime/PRR edits · commit/push projet · nouvelle PR/merge · AKG-M2.
+
+**Template note:** v2.6 §6.12.1 cleanup normally in-scope for Cycle 14 — **overridden by this GO**.  
+Marker: **CLEANUP SKIPPED — EXPLICIT MORRIS SCOPE LIMITATION** (≠ doctrine/template change).
+
+---
+
+# PM-3 — PR #594, base/head, merge commit, parents
 
 | Field | Value |
 |---|---|
 | URL | https://github.com/mcleland147/sfia-workspace/pull/594 |
+| State | **MERGED / CLOSED** |
+| merged_at | 2026-10-20T13:31:18Z |
 | Title | docs(sfia-studio): record AKG-M1 formal closure in roadmap |
-| State | OPEN |
-| Draft | **true** |
-| Base | main @ `5689cb737b40d7712d8b31b999faabc0725558ab` |
-| Head | docs/… @ `f666f19f99821d9c4480673db7fa398704874945` |
-| Commits | **1** (`docs(sfia-studio): sync AKG-M1 formal closure roadmap`) |
-| Files | **1** — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (+7/−5) |
-| mergeable | true / CLEAN |
-| Reviews / blocking conversations | none |
-| ChatGPT Critical PR Review | PASS (entry authority) |
+| Base at merge | main @ `5689cb737b40d7712d8b31b999faabc0725558ab` |
+| Head | docs/sfia-studio-akg-m1-formal-closure-roadmap-sync @ `f666f19f99821d9c4480673db7fa398704874945` |
+| Merge SHA | `4ac169b69dfdc571421328811ba062540cc9655f` |
+| Parent 1 | `5689cb737b40d7712d8b31b999faabc0725558ab` (prior main) |
+| Parent 2 | `f666f19f99821d9c4480673db7fa398704874945` (PR head) |
+| Method | **merge commit** (two parents; not squash/rebase) |
+| Files in integration | **1** — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| Ancestry | merge ∈ main · PR commit ∈ main |
 
-**PASS** — baseline matched expected entry proofs.
-
----
-
-# MRG-4 — Required Checks exacts
-
-Workflow **SFIA Studio CI** run [39428840665](https://github.com/mcleland147/sfia-workspace/actions/runs/39428840665)  
-`headSha` = `f666f19f99821d9c4480673db7fa398704874945` · event = pull_request · **conclusion = success**
-
-| Check | Conclusion |
-|---|---|
-| Detect SFIA Studio changes | **SUCCESS** |
-| Build and validate SFIA Studio | **SUCCESS** |
-| SFIA Studio Required Gate | **SUCCESS** |
-
-Commit status aggregate: pending with **0** contexts — **not** treated as failure while check-runs SUCCESS.
-
-Branch protection API: historically 403/unavailable — **not** asserted as “no rules”; server merge decision is authoritative.
-
-**PASS** — MERGE GATE SATISFIED at merge time.
+**PASS.**
 
 ---
 
-# MRG-5 — Passage Ready for Review
-
-Command: `gh pr ready 594`
-
-| After transition | Value |
-|---|---|
-| draft | **false** |
-| state | OPEN |
-| head SHA | `f666f19f99821d9c4480673db7fa398704874945` (unchanged) |
-| base SHA | `5689cb737b40d7712d8b31b999faabc0725558ab` (unchanged) |
-| changed_files | 1 |
-| mergeable / CLEAN | true |
-| checks | all three SUCCESS |
-
-**READY TRANSITION VERIFIED.**
-
----
-
-# MRG-6 — Merge method et résultat
+# PM-4 — Roadmap source/blob et contenu CURRENT
 
 | Item | Value |
 |---|---|
-| Method | **merge** (merge commit) |
-| allow_merge_commit | true |
-| Excluded | squash · rebase · force · auto-merge · delete branch |
-| Condition | `sha=f666f19f99821d9c4480673db7fa398704874945` (atomic server refusal if head drifted) |
-| API result | `merged=true` · message “Pull Request successfully merged” |
-| Merge SHA | `4ac169b69dfdc571421328811ba062540cc9655f` |
-| merged_at | 2026-10-20T13:31:18Z |
+| Path | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| Blob on main | `f947285068e798b442d83ff71d0efd4cfedada6f` |
+| Tip order | line 7 = **AKG-M1 FORMAL CLOSURE** (CURRENT) · line 8 = AKG-M0 FORMAL CLOSURE HISTORICAL |
 
-**PASS** — no alternative merge method used.
+### Tip excerpt (truncated)
 
----
-
-# MRG-7 — Merge SHA et parents
-
-Commit `4ac169b69dfdc571421328811ba062540cc9655f`
-
-| Parent | Role |
-|---|---|
-| `5689cb737b40d7712d8b31b999faabc0725558ab` | main previous |
-| `f666f19f99821d9c4480673db7fa398704874945` | PR head |
-
-Message:
 ```
-docs(sfia-studio): record AKG-M1 formal closure in roadmap (#594)
-
-Merge pull request #594 from mcleland147/docs/sfia-studio-akg-m1-formal-closure-roadmap-sync
+| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M1 FORMAL CLOSURE** | 2026-10-20 Europe/Paris — **AKG-M1 — CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M1 — SYSTEM INVENTORY** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morr…
 ```
 
-**PASS** — two-parent merge commit as required.
-
----
-
-# MRG-8 — main et Roadmap blob distants
-
-| Check | Result |
-|---|---|
-| `ls-remote` / `origin/main` | `4ac169b69dfdc571421328811ba062540cc9655f` |
-| PR merged/closed | **true / closed** |
-| Roadmap blob on main | `f947285068e798b442d83ff71d0efd4cfedada6f` (= expected) |
-| Diff vs first parent | **only** Roadmap file |
-| Semantic on main tip | AKG-M1 CLOSED BY MORRIS… · D11/D12 · residuals OPEN · R-GI-01 `|` · AKG-M2 NOT AUTHORIZED |
-
-**PASS** — INTEGRATION EVIDENCE COMPLETE for Git content.
-
----
-
-# MRG-9 — Diff documentaire intégré
+### Diff integrated (`5689cb737b40d7712d8b31b999faabc0725558ab...f666f19f99821d9c4480673db7fa398704874945`)
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -210,77 +140,158 @@ index 7add4db9..f9472850 100644
 
 ```
 
+**PASS** — mono-file documentary integration.
+
 ---
 
-# MRG-10 — R23/R24 / non-claims
+# PM-5 — CI post-merge
 
-| Claim | Status |
+| Item | Value |
 |---|---|
-| R23 | source-informed merge of already-reviewed documentary tip |
-| R24 | **NO SEMANTIC RUNTIME IMPACT** |
-| P6 GLOBAL PASS | **NOT ACQUIRED** |
-| Runtime v3 | **NON ADOPTED** |
-| REAL BOUNDARY PROVEN | **NOT claimed** |
-| PRR sync | **NOT performed / NOT authorized** |
-| AKG-M2 | **NOT AUTHORIZED / NOT STARTED** |
-| Gaps G-M1-04/05/06/09/10/12/15/17/18 | remain **GOVERNED OPEN** |
+| Workflow | SFIA Studio CI |
+| Run | [39431106278](https://github.com/mcleland147/sfia-workspace/actions/runs/39431106278) |
+| Event | **push** |
+| headSha | `4ac169b69dfdc571421328811ba062540cc9655f` |
+| Attempt | 1 |
+| Status | **completed** |
+| Conclusion | **success** |
+| Created / Updated | 2026-10-20T13:31:21Z → 2026-10-20T13:40:33Z |
 
----
-
-# MRG-11 — Dettes / réserves / écarts
-
-| ID | Note | Blocking? |
+| Job | Conclusion | Completed |
 |---|---|---|
-| Post-merge CI | run [39431106278](https://github.com/mcleland147/sfia-workspace/actions/runs/39431106278) on `4ac169b69dfdc571421328811ba062540cc9655f` — **IN PROGRESS** at pack time | **NO** for merge evidence; **do not claim POST-MERGE CI PASS** |
-| Branch residual | head branch still exists at `f666f19f99821d9c4480673db7fa398704874945` | Cleanup **NOT AUTHORIZED** |
-| Branch protection API | not fully readable historically | Server accepted merge under checks |
-| Residuals M1 | remain OPEN by design | N/A |
+| Detect SFIA Studio changes | **SUCCESS** | 2026-10-20T13:31:31Z |
+| Build and validate SFIA Studio | **SUCCESS** | 2026-10-20T13:40:26Z |
+| SFIA Studio Required Gate | **SUCCESS** | 2026-10-20T13:40:31Z |
 
-No STOP conditions triggered.
+**Distinction:** PR CI run `39428840665` ≠ post-merge run `39431106278`.  
+Prior Ready+Merge pack recorded post-merge CI as IN PROGRESS — **now SUCCESS / VERIFIED**.
 
----
-
-# MRG-12 — Post-Merge contract Cycle 14
-
-**NEXT: CYCLE 14 — POST-MERGE**
-
-Expected Cycle 14 scope (not started):
-- Confirm main tip / blob remain `4ac169b69dfdc571421328811ba062540cc9655f` / `f947285068e798b442d83ff71d0efd4cfedada6f`
-- Observe / qualify post-merge CI run `39431106278` (separate evidence)
-- Roadmap tip CURRENT truth on main
-- No cleanup unless distinct Morris GO
-- AKG-M2 remains blocked until distinct GO
+**PASS** — POST-MERGE CI SUCCESS / VERIFIED.
 
 ---
 
-## Verdict declarations
+# PM-6 — Semantic Verification
 
-**PR #594 — READY TRANSITION VERIFIED.**
+| Check | Result |
+|---|---|
+| A Tip CURRENT AKG-M1 FORMAL CLOSURE | PASS |
+| B CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE | PASS |
+| C AKG-M0 tip HISTORICAL preserved | PASS |
+| D B-AKG AKG-M1 CLOSED BY MORRIS… | PASS |
+| E Jalons Lots A/B/C/D | PASS (present in tip/jalon corpus) |
+| F E1–E15 bounded | PASS |
+| G R-D01 D11/D12 exact labels | PASS |
+| H R-D02 G-M1-09/10/12 | PASS OPEN |
+| I R-D03 E2/E6/E7 bounded language | PASS (in tip) |
+| J Residuals GOVERNED OPEN | PASS |
+| K AKG-M2 distinct GO | PASS NOT AUTHORIZED |
+| L P6 NOT ACQUIRED | PASS |
+| M Runtime v3 NON ADOPTED | PASS |
+| N REAL Boundary NOT PROVEN | PASS |
+| R-GI-01 trailing `\|` | PASS |
 
-**PR #594 — MERGED / CLOSED.**
+Gaps remain OPEN: G-M1-04/05/06/09/10/12/15/17/18 · REAL no-write · RS-03.  
+**No debt closed by documentary merge. No PRR sync.**
 
-**AKG-M1 ROADMAP — INTEGRATED ON MAIN.**
+---
+
+# PM-7 — R23/R24
+
+| Item | Status |
+|---|---|
+| R23 | Proportionate Git/CI/Roadmap verification — **no new architectural investigation** |
+| R24 | **NO SEMANTIC RUNTIME IMPACT** · Product/runtime/PRR unmodified |
+
+---
+
+# PM-8 — Branch State and NO CLEANUP
+
+| Item | Value |
+|---|---|
+| Branch | `docs/sfia-studio-akg-m1-formal-closure-roadmap-sync` |
+| Local WT | present @ `f666f19f99821d9c4480673db7fa398704874945` |
+| Remote SHA | `f666f19f99821d9c4480673db7fa398704874945` |
+| Relation to merge | Parent 2 of `4ac169b69dfdc571421328811ba062540cc9655f` |
+| Dirty in WT | Review Pack only |
+| Cleanup actions | **NONE** |
+
+## **BRANCH CLEANUP — SKIPPED BY EXPLICIT MORRIS DECISION.**
+
+(Even if template §6.12.1 conditions were met — GO forbids cleanup.)
+
+---
+
+# PM-9 — Checklist §13 Post-merge
+
+| # | Criterion | Decision |
+|---|---|---|
+| 1 | PR merged/closed | **PASS** |
+| 2 | Merge SHA on main | **PASS** |
+| 3 | Parents correct (merge commit) | **PASS** |
+| 4 | Expected content on main | **PASS** (blob + semantics) |
+| 5 | Diff scope mono-file | **PASS** |
+| 6 | Post-merge CI SUCCESS | **PASS** |
+| 7 | Required Gate SUCCESS | **PASS** |
+| 8 | No unauthorized project mutation | **PASS** |
+| 9 | Residuals / non-claims preserved | **PASS** |
+| 10 | Cleanup policy | **N/A JUSTIFIED — SKIPPED BY MORRIS GO** |
+| 11 | Review Pack FULL produced | **PASS** |
+| 12 | Handoff L3 required | **PASS** (this cycle) |
+| 13 | AKG-M2 not started | **PASS** |
+| 14 | P6 / v3 non-claims | **PASS** |
+
+---
+
+# PM-10 — Risks / Reservations
+
+| ID | Class | Note |
+|---|---|---|
+| R-PM-01 | Cleanup deferred | Branch remains remotely; future distinct Morris GO if desired |
+| R-PM-02 | Local main elsewhere | Other WT holds older `main` — remote is truth; no move performed |
+| G-M1-* | GOVERNED OPEN | Not closed by Cycle 14 |
+| Prior pack | Historical | Ready+Merge pack at `b24708820b08a9c76de0e5f17988c7252f066b34` remains archived; CI then IN PROGRESS superseded by this verification |
+
+No blocking reserve for post-merge verification completeness.
+
+---
+
+# PM-11 — Final Post-Merge Verdict
+
+**POST-MERGE VERIFICATION — COMPLETE.**
+
+**AKG-M1 FORMAL CLOSURE ROADMAP — INTEGRATED ON MAIN.**
+
+**POST-MERGE CI — SUCCESS / VERIFIED.**
 
 **AKG-M1 — CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE.**
 
-**AKG-M2 — NOT AUTHORIZED / NOT STARTED.**
+**GAPS — GOVERNED OPEN.**
+
+**BRANCH CLEANUP — SKIPPED BY EXPLICIT MORRIS DECISION.**
+
+**CYCLE 14 — POST-MERGE COMPLETE WITH RESERVES (CLEANUP DEFERRED BY MORRIS).**
 
 **P6 GLOBAL PASS — NOT ACQUIRED.**
 
 **STUDIO RUNTIME V3 — NON ADOPTED.**
 
-**BRANCH CLEANUP — NOT AUTHORIZED / NOT EXECUTED.**
+**AKG-M2 — NOT AUTHORIZED / NOT STARTED.**
 
-**POST-MERGE CI — IN PROGRESS** (run `39431106278`) — **≠ PASS**.
+---
 
-**NEXT: CYCLE 14 — POST-MERGE.**
+# PM-12 — Next Gate
+
+1. ChatGPT Review of Cycle 14 handoff.  
+2. **Separate Morris GO** for AKG-M2, if decided.  
+3. Branch cleanup only under **distinct** Morris GO (deferred).  
+4. No implicit GO · no doctrine change · no PRR sync implied.
 
 ---
 
 ## Instruction ChatGPT
 
 Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.  
-Vérifier MRG-1…MRG-12, merge SHA/parents, blob main, Ready transition, CI PR vs post-merge distinction, non-claims.
+Vérifier PM-1…PM-12, merge `4ac169b69dfdc571421328811ba062540cc9655f`, blob `f947285068e798b442d83ff71d0efd4cfedada6f`, CI `39431106278` SUCCESS, cleanup SKIPPED, non-claims.
 
 ---
 
@@ -288,6 +299,6 @@ Vérifier MRG-1…MRG-12, merge SHA/parents, blob main, Ready transition, CI PR 
 
 | Field | Value |
 |---|---|
-| Proposed message | docs(review-handoff): publish AKG-M1 PR 594 ready-merge evidence |
-| Prior tip | `9fa558a2af24ea5a217fbffdb641c01e40ad4b80` |
+| Proposed message | docs(review-handoff): record AKG-M1 post-merge verification |
+| Prior tip | `b24708820b08a9c76de0e5f17988c7252f066b34` |
 | Policy | no tip self-reference SHA chase |
