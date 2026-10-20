@@ -1,74 +1,89 @@
 # SFIA REVIEW PACK — FULL
-## AKG-M0 FORMAL CLOSURE ROADMAP SYNC — GIT INTEGRATION
-## CYCLE 13 — PR readiness / Critical
+## AKG-M1 — SYSTEM INVENTORY — CYCLE 1 CADRAGE READ ONLY
 
-**Timestamp (UTC):** 2026-10-20T06:37:38Z
+**Timestamp (UTC):** 2026-10-20T08:59:57Z
 **Repository:** mcleland147/sfia-workspace
-**Worktree:** `/Users/morris/Projects/sfia-workspace-akg-m0-formal-closure-sync`
-**Branche:** `docs/sfia-studio-akg-m0-formal-closure-sync`
-**Cycle:** 13 — PR readiness (spécialisation Git Integration documentaire gouvernée)
+**Worktree (existant, non créé):** `/Users/morris/Projects/sfia-workspace-akg-m0-formal-closure-sync`
+**Branche checkout:** `docs/sfia-studio-akg-m0-formal-closure-sync`
+**HEAD checkout:** `11da9c5519982779fffc13714944f4376eee26c5`
+**origin/main (ref de lecture):** `5689cb737b40d7712d8b31b999faabc0725558ab`
+**Expected ChatGPT pre-check base:** `5689cb737b40d7712d8b31b999faabc0725558ab` — **ALIGNED**
+**Lecture des sources:** exclusivement via `git show 5689cb737b40d7712d8b31b999faabc0725558ab:…` (checkout local ≠ tip merge main ; contenu Roadmap du tip formal closure est ancêtre de main)
+**Cycle:** 1 — Cadrage
 **Profile:** CRITICAL
-**Typologie:** DOC / GOVERNANCE / METHOD
+**Typologie:** DOC / ARCHITECTURE / GOVERNANCE / READ ONLY
 **Chantier:** SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
-**Milestone:** AKG-M0 — METHODOLOGICAL FOUNDATION
-**Capacité v3:** V3-F05 (+ F02/F06/F07/F11/F12/F14/F15)
-**Capacité suivante:** AKG-M1 — NOT STARTED / NOT AUTHORIZED
-**HEAD:** `11da9c5519982779fffc13714944f4376eee26c5`
-**origin/main:** `c4dd47f8311c0d83410afb471d77cac6f1dfa763`
-**Fake/Real:** N/A
+**Milestone:** AKG-M1 — SYSTEM INVENTORY
+**Capacité v3 principale:** V3-F05 — Chaîne conversation → exécution
+**Capacité connexe:** V3-F14 — Artifact Completeness
+**Fake/Real:** N/A — aucune frontière REAL exécutée
 
 ---
 
 ## GO Morris consommé
 
-**GO AKG-M0 FORMAL CLOSURE ROADMAP SYNC — GIT INTEGRATION — ONE-FILE — CRITICAL**
+**GO AKG-M1 — SYSTEM INVENTORY CADRAGE — READ ONLY**
 
-Autorisé : vérif Git ; validation candidate ; staging Roadmap ; 1 commit ; push branche ; 1 Draft PR ; observation CI nouveau HEAD ; Review Pack FULL ; handoff L3.
-Interdit : autre fichier projet ; push main ; merge ; Draft→Ready ; force push ; cleanup ; doctrine/Product/PRR ; AKG-M1 ; clôture RS-03/REAL no-write.
-Ce GO ≠ Merge GO. Le GO de clôture AKG-M0 est déjà ADOPTED ; ce cycle publie uniquement sa trace documentaire.
+Autorisé : lecture Git/sources ; examen PRR ; inspection code proportionnelle ; délimitation inventaire futur ; gaps ; lots recommandés ; exit criteria ; rapport de cadrage ; Review Pack FULL ; handoff L3.
+Non autorisé : modifier code/PRR/Build Doctrine/Roadmap ; créer référentiel architectural ; exécuter lots d'inventaire ; REAL ; branche/commit/push/PR/merge projet ; AKG-M2 ; suppression/pivot.
+
+Ce cadrage **≠** autorisation d'exécution d'inventaire **≠** AKG-M2.
 
 ---
 
-## Local Git Truth — initial
+## Local Git Truth — initial / final
 
 | Item | Valeur |
 |---|---|
-| pwd | `/Users/morris/Projects/sfia-workspace-akg-m0-formal-closure-sync` |
 | remote | https://github.com/mcleland147/sfia-workspace.git |
-| branch | `docs/sfia-studio-akg-m0-formal-closure-sync` |
-| HEAD initial | `c4dd47f8311c0d83410afb471d77cac6f1dfa763` |
-| origin/main | `c4dd47f8311c0d83410afb471d77cac6f1dfa763` (aligned) |
-| remote branch candidate | ABSENT (pré-push) |
-| staged initial | NONE |
-| modified | Roadmap + .tmp Review Pack |
+| origin/main | `5689cb737b40d7712d8b31b999faabc0725558ab` (inclut merge PR #593 formal closure tip) |
+| checkout HEAD | `11da9c5519982779fffc13714944f4376eee26c5` (docs formal-closure branch tip = parent contenu Roadmap mergé) |
+| dirty | uniquement `.tmp-sfia-review/chatgpt-review.md` |
+| staged | NONE |
+| project file modifications this cycle | **NONE** |
 | merge/rebase | none |
+| worktrees historiques AKG-M0 | PRESERVED (non touchés) |
 
-## Local Git Truth — final
+Prior Review Pack (AKG-M0 GI) sécurisé sur handoff Git :
+- commit `a7df4fc3eaf52807863511dda8d85ebf7bcc37b1`
+- blob `1e15312872771a8acfc75a8b40892bcb618f8406`
 
-| Item | Valeur |
-|---|---|
-| HEAD final | `11da9c5519982779fffc13714944f4376eee26c5` |
-| parent | `c4dd47f8311c0d83410afb471d77cac6f1dfa763` |
-| remote branch SHA | `11da9c5519982779fffc13714944f4376eee26c5` (match) |
-| origin/main | `c4dd47f8311c0d83410afb471d77cac6f1dfa763` (unchanged) |
-| status | ` M .tmp-sfia-review/chatgpt-review.md` |
-| staged final | NONE |
-| project commits this cycle | 1 |
+Status final :
+
+```
+ M .tmp-sfia-review/chatgpt-review.md
+```
+
+diff name-status :
+
+```
+M	.tmp-sfia-review/chatgpt-review.md
+```
+
+cached :
+
+```
+(empty)
+```
+
+Comparaison : seul le Review Pack temporaire a changé (réinitialisation + rédaction). **Aucun diff projet.**
 
 ---
 
-## Sources consultées
+## Sources consultées (ref `5689cb737b40d7712d8b31b999faabc0725558ab`)
 
 | Source | Usage |
 |---|---|
-| template v2.6 §§2–5, 6.11, 6.14, 7–9 | PROCESSUS |
-| routing guide | ROUTING |
-| Build Doctrine A3/A4 R23-R24 / A5 / A8–A11 / A14 | KEEP RO |
-| Roadmap tip/B-AKG/B10/B12 | ADAPT → publié |
-| C1 / doctrine 37 | RO |
-| PRR README | RO · NO SEMANTIC IMPACT |
-| PR #591 / #592 + CI historiques | preuves |
-| Handoff candidate eefb03b4 / blob 3dfc8bb5 | contenu approuvé |
+| `prompts/templates/sfia-cycle-execution-template.md` | PROCESSUS cycle 1 / Critical |
+| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | ROUTING fallback |
+| Build Doctrine A3–A5 / A4 R23–R24 / A8–A11 / A14 | KEEP · architecture-informed |
+| Roadmap tip CURRENT AKG-M0 FORMAL CLOSURE + B-AKG / B9 / B10 / B12 | KEEP · trajectoire AKG |
+| C1 `product-completion/01-…cadrage.md` | contexte cible Product — pas C2+ |
+| Doctrine 37 (V3-F05 / V3-F14 VALIDATED) | capacités |
+| PRR README + volumes 01–09 + `production-runtime-reference.manifest.json` | inventaire existant à réutiliser |
+| `app/` topologie features/lib/db/adapters/__tests__ | inspection proportionnelle |
+
+CKC cycle 1 : guidance cognitive candidate uniquement ; aucune autorité d'exécution supplémentaire.
 
 ---
 
@@ -76,371 +91,304 @@ Ce GO ≠ Merge GO. Le GO de clôture AKG-M0 est déjà ADOPTED ; ce cycle publi
 
 | Item | Statut |
 |---|---|
-| Milestone / capacité | AKG-M0 / V3-F05 |
-| Intégration technique | PASS (#591/#592) |
-| Exit proof A–L | SATISFIED |
-| Décision Morris | ADOPTED — CLOSED AT METHODOLOGICAL SCOPE |
-| Publication avant cycle | LOCAL CANDIDATE / PENDING GIT |
-| KEEP | Build Doctrine, R23/R24, routing, template, PRR, C1, v3, preuves |
-| ADAPT | Aucun nouveau contenu — publier candidate revue |
-| REPLACE/RETIRE | AUCUN |
-| Gaps ouverts | RS-03 OPEN · REAL no-write OPEN |
-| Dette / archi parallèle | AUCUNE |
-
----
-
-## Décision Morris formelle et portée
-
-GO FORMAL AKG-M0 CLOSURE — METHODOLOGICAL FOUNDATION — WITH GOVERNED NON-BLOCKING RESERVES
-Date : 2026-10-20 Europe/Paris
-Portée : méthodologique uniquement
-≠ P6 GLOBAL PASS · ≠ runtime v3 ADOPTED · ≠ AKG-M1 AUTHORIZED · ≠ clôture dette PRR
-
----
-
-## Validation candidate vs handoff eefb03b4
-
-| Contrôle | Résultat |
-|---|---|
-| Tip CURRENT match handoff APRÈS | PASS (exact) |
-| B-AKG match handoff APRÈS | PASS (exact) |
-| Tip hist NOT CLAIMED préservé | PASS |
-| Validations 1–18 contenu | PASS |
-| Diff représentation vs handoff pack | mismatch cosmétique (rstrip artefact sur lignes vides du diff stocké) — contenu tip/B-AKG exact |
-| Stat | 13 insertions / 11 suppressions — conforme |
-
----
-
-## Tip CURRENT — AVANT (main / parent)
-
-```
-| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 POST-MERGE VERIFIED** | 2026-10-19 Europe/Paris — **AKG-M0 — METHODOLOGICAL FOUNDATION — INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M0** · Cycle **14 — Post-merge** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Git Integration **PR #591 MERGED** · merge **`7971d5747892b9dfb84735d66ea1c874de58f781`** · mergedAt **2026-10-19T21:17:35Z** · parents `c9abdbc3…` + `6be5a6ad…` · CI post-merge **#39326333926** · Detect/Build/Required Gate **SUCCESS / PASS** · Required Gate completedAt **2026-10-19T21:25:07Z** · R23/R24 = **INTEGRATED ON MAIN** · Routing/Template = **INTEGRATED ON MAIN** · PRR README/manifest = **INTEGRATED ON MAIN** (digest README `00bd5a869be87d20`) · R-PR-01 = **CLOSED** · RS-03 = **OPEN — KNOWN GAP** · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT = **OPEN** · runtime v3 = **NON ADOPTED** · P6 GLOBAL PASS = **NOT ACQUIRED** · AKG-M0 = **INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** · AKG-M0 CLOSED BY MORRIS = **NOT CLAIMED** · Roadmap truth-sync publication = **HISTORICAL AUTHORING SNAPSHOT (cycle 14, 2026-10-19)** — at that authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that truth-sync remains unpublished, nor that a future publication already occurred) · Next gate = ChatGPT Critical Review of Roadmap truth-sync → Morris Git Integration GO distinct · AKG-M1 = **NOT STARTED / NOT AUTOMATICALLY AUTHORIZED** · Product/runtime changes = **NONE** · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL no-write CLOSED · **≠** AKG-M0 CLOSED BY MORRIS · **≠** AKG-M1 AUTHORIZED |
-```
-
----
-
-## Tip CURRENT — APRÈS (commit 11da9c55)
-
-```
-| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 FORMAL CLOSURE** | 2026-10-20 Europe/Paris — **AKG-M0 — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M0** · Cycle **8 — Delivery / implémentation (spécialisation documentaire gouvernance)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO FORMAL AKG-M0 CLOSURE — METHODOLOGICAL FOUNDATION — WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Fondement : exit proof A–L **SATISFIED** · PR **#591 MERGED** (`7971d5747892b9dfb84735d66ea1c874de58f781`) · CI post-merge **#39326333926 SUCCESS** · PR **#592 MERGED** (`c4dd47f8311c0d83410afb471d77cac6f1dfa763`) · CI post-merge **#39333828638 SUCCESS** · R23/R24 = **INTEGRATED ON MAIN** · Roadmap B-AKG = **COHÉRENTE** · R-PR-01 = **CLOSED** · R-TS-01 = **CLOSED** · AKG-M0 = **CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · Réserves gouvernées non bloquantes : RS-03 = **OPEN — KNOWN GAP** · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT = **OPEN** · cleanup branches #591/#592 = **BLOCKED / SKIPPED** (worktrees dirty) · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · AKG-M1 = **NOT STARTED / NOT AUTHORIZED** · Cette décision **≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** promotion méthodologique globale v3 · **≠** clôture dette PRR · **≠** validation exhaustive runtime · **≠** AKG-M1 AUTHORIZED · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (cycle formal-closure sync, 2026-10-20)** — at this authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that publication already occurred on main) · Next gate = ChatGPT Critical Review of this formal-closure Roadmap sync → Morris Git Integration GO distinct · Product/runtime changes = **NONE** · **≠** additional Git Integration GO deduced from closure decision alone |
-```
-
----
-
-## Tip précédent — HISTORICAL / SUPERSEDED AS TIP
-
-```
-| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 POST-MERGE VERIFIED** | 2026-10-19 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M0 — METHODOLOGICAL FOUNDATION — INTEGRATED ON MAIN / POST-MERGE CI VERIFIED *(true then as tip; CLOSED BY MORRIS = NOT CLAIMED was then-current truth; superseded as tip by AKG-M0 FORMAL CLOSURE decision tip 2026-10-20 after Morris GO FORMAL AKG-M0 CLOSURE — METHODOLOGICAL FOUNDATION — WITH GOVERNED NON-BLOCKING RESERVES)* · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M0** · Cycle **14 — Post-merge** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Git Integration **PR #591 MERGED** · merge **`7971d5747892b9dfb84735d66ea1c874de58f781`** · mergedAt **2026-10-19T21:17:35Z** · parents `c9abdbc3…` + `6be5a6ad…` · CI post-merge **#39326333926** · Detect/Build/Required Gate **SUCCESS / PASS** · Required Gate completedAt **2026-10-19T21:25:07Z** · R23/R24 = **INTEGRATED ON MAIN** · Routing/Template = **INTEGRATED ON MAIN** · PRR README/manifest = **INTEGRATED ON MAIN** (digest README `00bd5a869be87d20`) · R-PR-01 = **CLOSED** · RS-03 = **OPEN — KNOWN GAP** · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT = **OPEN** · runtime v3 = **NON ADOPTED** · P6 GLOBAL PASS = **NOT ACQUIRED** · AKG-M0 = **INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** · AKG-M0 CLOSED BY MORRIS = **NOT CLAIMED** · Roadmap truth-sync publication = **HISTORICAL AUTHORING SNAPSHOT (cycle 14, 2026-10-19)** — at that authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that truth-sync remains unpublished, nor that a future publication already occurred) · Next gate = ChatGPT Critical Review of Roadmap truth-sync → Morris Git Integration GO distinct · AKG-M1 = **NOT STARTED / NOT AUTOMATICALLY AUTHORIZED** · Product/runtime changes = **NONE** · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL no-write CLOSED · **≠** AKG-M0 CLOSED BY MORRIS · **≠** AKG-M1 AUTHORIZED |
-```
-
----
-
-## B-AKG — AVANT (main)
-
-```markdown
-## B-AKG. Chantier transversal — Architectural Knowledge & Construction Governance
-
-> **Portée :** méthode de construction / connaissance architecturale de SFIA Studio.
-> **Ne remplace pas** Product Completion, ni le chemin critique Convergence historique (B10), ni les milestones historiques Convergence M1–M5.
-> **Relation à P6 :** AKG **soutient** la transformation Product et la QA intégrée ; **ne constitue pas** une preuve P6 GLOBAL PASS.
-> **Identifiants :** utiliser exclusivement le préfixe **AKG-M*** pour ce chantier (CP05 / anti-collision).
-
-### Distinctions de statut (CP05 / CP06)
-
-| Stade | Signification | AKG-M0 (CURRENT proofs + cycle-14 authoring notes) |
-| --- | --- | --- |
-| Cadrage validé | GO Morris de préparation / cadrage consommé | **HISTORICAL** — consommé |
-| Propositions préparées | Review Pack préparatoire (handoff `162ab68e`) | **HISTORICAL** |
-| Authoring local | Documents de contenu authorés localement | **HISTORICAL** (étape 1 tip superseded) |
-| Semantic Review | Revue sémantique ChatGPT | **PASS** (with reserves) |
-| Digest sync | Empreinte README PRR synchronisée | **PASS** (`00bd5a869be87d20`) |
-| Intégration Git | Commit/PR/merge | **PR #591 MERGED** (`7971d574…`) |
-| Post-merge CI | Required Gate | **PASS** (run `39326333926`) |
-| R23/R24 on main | Règles fondatrices dans Build Doctrine | **ON MAIN** |
-| Roadmap truth-sync | Tip CURRENT + B-AKG requalifiés | **HISTORICAL AUTHORING SNAPSHOT (cycle 14, 2026-10-19):** LOCAL CANDIDATE / NOT YET INTEGRATED at preparation · subsequent publication status = **RESOLVE FROM CURRENT GIT** |
-| Clôture formelle Morris | Décision métier de clôture M0 | **NOT CLAIMED** |
-| AKG-M1 | System Inventory | **NEXT GATE / NOT STARTED / NOT AUTOMATICALLY AUTHORIZED** |
-
-**AKG-M0 = INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** (preuves Git + CI).
-**≠** AKG-M0 CLOSED BY MORRIS · **≠** Roadmap truth-sync automatically integrated by M0 merge alone · **≠** AKG-M1 authorized.
-
-### Jalons AKG
-
-| Jalon | Finalité | Capacité v3 | Dépendances | Livrables | Critères de sortie | Preuves | Risques | Gates Morris | Suivant |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **AKG-M0** Methodological Foundation | Encoder P1–P3 (architecture-informed, continuité doc, rationalisation evidence-based) dans Build Doctrine / Roadmap / PRR contrat / routing / template | V3-F05 (+ F02/F06/F07/F11/F12/F14/F15 transverses) | Cadrage M0 ; handoff préparatoire | Six documents A–F intégrés via PR #591 | Semantic Review PASS (+ R-PR-01) + digest sync + Git Integration + post-merge CI | Merge `7971d574…` · CI `39326333926` SUCCESS · digest README `00bd5a869be87d20` | Sur-claim CLOSED BY MORRIS ; confusion ACTIVE tip vs truth-sync local | GO authoring / semantic / digest / GI **CONSUMED** · Post-merge GO **CONSUMED** · Roadmap truth-sync GI **PENDING AT CYCLE-14 AUTHORING SNAPSHOT** (later status = RESOLVE FROM CURRENT GIT / Morris GI GO if consumed) · Morris formal close **NOT CLAIMED** | AKG-M1 sous GO inventaire distinct |
-| **AKG-M1** System Inventory | Inventaire exhaustif du système réellement implémenté | V3-F05 / F14 | AKG-M0 intégré ou GO inventaire explicite | Inventaire objets/flows/deps vs Git | Couverture inventaire bornée et traçable | Tables + refs code | Exhaustivité impossible en un lot | GO inventaire | AKG-M2 |
-| **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions | V3-F05 / F06 | AKG-M1 | Cartes validées | Revue de compréhension | Cartes + gaps | Sur-modélisation | GO understanding | AKG-M3 |
-| **AKG-M3** Reference Consolidation | Consolider la PRR ; mesurer couverture | V3-F05 / F12 | AKG-M2 | PRR consolidée ; volume 09 à jour | Critères couverture appliqués | Conformance + revue sémantique | Tentation 2e référentiel | GO PRR sync | AKG-M4 |
-| **AKG-M4** Rationalization Assessment | Matrice KEEP/ADAPT/CONSOLIDATE/REPLACE/RETIRE sur preuves | V3-F05 / F07 | AKG-M3 | Matrice + impact packs | Décisions Morris par lot | Impact + preuves | Suppression prématurée | GO rationalize (+ GO retire si structurant) | AKG-M5 |
-| **AKG-M5** Product Transformation | Lots Product gouvernés si GO | V3-F05+ | AKG-M4 + GO Product distinct | Lots Product | Preuves Product selon GO | CI/HQA selon GO | Confusion avec P6 Exit | GO Product distinct | — |
-
-### Non-claims AKG
-
-- AKG-M0 AUTHORING LOCAL **≠** AKG-M0 INTEGRATED ON MAIN **≠** AKG-M0 CLOSED BY MORRIS
-- AKG-M0 INTEGRATED ON MAIN / POST-MERGE CI VERIFIED **≠** automatic integration of this Roadmap truth-sync (truth-sync publication status is verified separately from CURRENT Git / PR evidence)
-- AKG-M0 INTEGRATED **≠** AKG-M1 AUTHORIZED / STARTED
-- AKG **≠** P6 GLOBAL PASS
-- AKG **≠** runtime v3 ADOPTED
-- Classification CONSOLIDATE/RETIRE **≠** autorisation de retrait immédiat
-```
-
----
-
-## B-AKG — APRÈS (commit)
-
-```markdown
-## B-AKG. Chantier transversal — Architectural Knowledge & Construction Governance
-
-> **Portée :** méthode de construction / connaissance architecturale de SFIA Studio.
-> **Ne remplace pas** Product Completion, ni le chemin critique Convergence historique (B10), ni les milestones historiques Convergence M1–M5.
-> **Relation à P6 :** AKG **soutient** la transformation Product et la QA intégrée ; **ne constitue pas** une preuve P6 GLOBAL PASS.
-> **Identifiants :** utiliser exclusivement le préfixe **AKG-M*** pour ce chantier (CP05 / anti-collision).
-
-### Distinctions de statut (CP05 / CP06)
-
-| Stade | Signification | AKG-M0 (CURRENT proofs + formal-closure authoring notes) |
-| --- | --- | --- |
-| Cadrage validé | GO Morris de préparation / cadrage consommé | **HISTORICAL** — consommé |
-| Propositions préparées | Review Pack préparatoire (handoff `162ab68e`) | **HISTORICAL** |
-| Authoring local | Documents de contenu authorés localement | **HISTORICAL** (étape 1 tip superseded) |
-| Semantic Review | Revue sémantique ChatGPT | **PASS** (with reserves) |
-| Digest sync | Empreinte README PRR synchronisée | **PASS** (`00bd5a869be87d20`) |
-| Intégration Git | Commit/PR/merge | **PR #591 MERGED** (`7971d574…`) |
-| Post-merge CI | Required Gate | **PASS** (run `39326333926`) |
-| R23/R24 on main | Règles fondatrices dans Build Doctrine | **ON MAIN** |
-| Roadmap truth-sync | Tip CURRENT + B-AKG requalifiés | **INTEGRATED ON MAIN** via PR **#592** (`c4dd47f8…`) · CI **#39333828638 SUCCESS** · prior cycle-14 authoring snapshot = **HISTORICAL** |
-| Clôture formelle Morris | Décision métier de clôture M0 | **ADOPTED — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** (2026-10-20 Europe/Paris) · documentary tip publication on main = **PENDING / RESOLVE FROM CURRENT GIT** (this authoring = LOCAL CANDIDATE) |
-| AKG-M1 | System Inventory | **NOT STARTED / NOT AUTHORIZED** (requires distinct inventaire GO) |
-
-**AKG-M0 = CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** (décision 2026-10-20 Europe/Paris) · preuves techniques = PR #591/#592 MERGED + CI post-merge SUCCESS + exit proof A–L SATISFIED.
-**≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** AKG-M1 AUTHORIZED · **≠** automatic Git Integration of this formal-closure tip · **≠** RS-03 / REAL no-write CLOSED.
-
-### Jalons AKG
-
-| Jalon | Finalité | Capacité v3 | Dépendances | Livrables | Critères de sortie | Preuves | Risques | Gates Morris | Suivant |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **AKG-M0** Methodological Foundation | Encoder P1–P3 (architecture-informed, continuité doc, rationalisation evidence-based) dans Build Doctrine / Roadmap / PRR contrat / routing / template | V3-F05 (+ F02/F06/F07/F11/F12/F14/F15 transverses) | Cadrage M0 ; handoff préparatoire | Six documents A–F intégrés via PR #591 | Semantic Review PASS (+ R-PR-01) + digest sync + Git Integration + post-merge CI | Merge #591 `7971d574…` · CI `39326333926` SUCCESS · digest README `00bd5a869be87d20` · Merge #592 `c4dd47f8…` · CI `39333828638` SUCCESS · exit proof A–L SATISFIED · Morris formal close 2026-10-20 | Sur-claim P6 PASS / v3 ADOPTED / AKG-M1 AUTHORIZED ; confusion decision ADOPTED vs tip still LOCAL CANDIDATE | GO authoring / semantic / digest / GI **CONSUMED** · Post-merge GO **CONSUMED** · Roadmap truth-sync GI **CONSUMED** (PR #592) · Morris formal close **ADOPTED — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · formal-closure tip GI **PENDING AT AUTHORING SNAPSHOT** (later status = RESOLVE FROM CURRENT GIT / Morris GI GO distinct) | AKG-M1 sous GO inventaire distinct |
-| **AKG-M1** System Inventory | Inventaire exhaustif du système réellement implémenté | V3-F05 / F14 | AKG-M0 intégré ou GO inventaire explicite | Inventaire objets/flows/deps vs Git | Couverture inventaire bornée et traçable | Tables + refs code | Exhaustivité impossible en un lot | GO inventaire | AKG-M2 |
-| **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions | V3-F05 / F06 | AKG-M1 | Cartes validées | Revue de compréhension | Cartes + gaps | Sur-modélisation | GO understanding | AKG-M3 |
-| **AKG-M3** Reference Consolidation | Consolider la PRR ; mesurer couverture | V3-F05 / F12 | AKG-M2 | PRR consolidée ; volume 09 à jour | Critères couverture appliqués | Conformance + revue sémantique | Tentation 2e référentiel | GO PRR sync | AKG-M4 |
-| **AKG-M4** Rationalization Assessment | Matrice KEEP/ADAPT/CONSOLIDATE/REPLACE/RETIRE sur preuves | V3-F05 / F07 | AKG-M3 | Matrice + impact packs | Décisions Morris par lot | Impact + preuves | Suppression prématurée | GO rationalize (+ GO retire si structurant) | AKG-M5 |
-| **AKG-M5** Product Transformation | Lots Product gouvernés si GO | V3-F05+ | AKG-M4 + GO Product distinct | Lots Product | Preuves Product selon GO | CI/HQA selon GO | Confusion avec P6 Exit | GO Product distinct | — |
-
-### Non-claims AKG
-
-- AKG-M0 AUTHORING LOCAL **≠** AKG-M0 INTEGRATED ON MAIN **≠** AKG-M0 CLOSED BY MORRIS (CLOSED BY MORRIS now **ADOPTED** at methodological scope; distinct from tip publication on main)
-- AKG-M0 CLOSED BY MORRIS (decision ADOPTED) **≠** automatic Git Integration of this formal-closure tip (tip publication status = RESOLVE FROM CURRENT GIT / Morris GI GO distinct)
-- AKG-M0 INTEGRATED ON MAIN / POST-MERGE CI VERIFIED **≠** AKG-M0 CLOSED BY MORRIS (technical integration preceded formal closure; both now true at their respective scopes)
-- AKG-M0 CLOSED BY MORRIS AT METHODOLOGICAL SCOPE **≠** AKG-M1 AUTHORIZED / STARTED
-- AKG **≠** P6 GLOBAL PASS
-- AKG **≠** runtime v3 ADOPTED
-- Classification CONSOLIDATE/RETIRE **≠** autorisation de retrait immédiat
-```
-
----
-
-## Non-claims (préservés / actualisés)
-
-- AKG-M0 CLOSED BY MORRIS (decision ADOPTED) ≠ automatic presence of tip on main avant merge
-- AKG-M0 CLOSED BY MORRIS AT METHODOLOGICAL SCOPE ≠ AKG-M1 AUTHORIZED / STARTED
-- AKG ≠ P6 GLOBAL PASS
-- AKG ≠ runtime v3 ADOPTED
-- Formal closure tip on main : NOT CLAIMED BY THIS CYCLE (Draft PR only)
-
----
-
-## Réserves gouvernées
-
-| Réserve | Statut |
-|---|---|
-| RS-03 | OPEN |
-| TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT | OPEN |
-| Cleanup #591/#592 | BLOCKED / SKIPPED |
-| P6 GLOBAL PASS | NOT ACQUIRED |
+| AKG-M0 | CLOSED BY MORRIS AT METHODOLOGICAL SCOPE (décision ADOPTED ; tip on main via PR #593 merge `5689cb737b40d7712d8b31b999faabc0725558ab`) |
+| AKG-M1 | CADRAGE READ ONLY AUTHORIZED · INVENTORY EXECUTION **NOT AUTHORIZED** |
+| AKG-M2 | NOT AUTHORIZED |
 | Runtime v3 | NON ADOPTED |
-| AKG-M1 | NOT STARTED / NOT AUTHORIZED |
+| P6 GLOBAL PASS | NOT ACQUIRED |
+| Capacités | V3-F05 / V3-F14 |
+| KEEP | Git/code · PRR · manifest · catalogues · tests · Build Doctrine · Roadmap · doctrine v3 · C1 |
+| ADAPT | AUCUNE source ce cycle |
+| HARVEST | structures PRR (IDs, volumes, couverture) |
+| REPLACE/RETIRE | AUCUN |
+| Gap à qualifier | écart couverture documentaire vs Git courant |
+| Dette créée | AUCUNE |
+| Architecture parallèle | INTERDITE |
+
+Note tip Roadmap : le tip CURRENT conserve encore la formulation d'authoring « LOCAL CANDIDATE / RESOLVE FROM CURRENT GIT ». **Git truth :** PR #593 MERGED @ `5689cb737b40d7712d8b31b999faabc0725558ab` — la trace de clôture **est** sur main. Ne pas réécrire la Roadmap dans ce cycle ; éventuel truth-sync tip = cycle documentaire distinct sous GO.
 
 ---
 
-## Staging exact
+## R23 / R24
 
-```
-git add -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-git diff --cached --name-status
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-```
+**R23 (architecture-informed, proportionné cadrage RO) :**
+Composants / responsabilités / flows / invariants / dépendances / impacts potentiels / couverture & preuves — consultés via PRR + topologie code. Git + preuves primaires priment. Contradictions → KNOWN GAP (observations seulement).
 
-EXACTEMENT UN fichier staged. Review Pack hors commit.
+**R24 :**
+Aucune modification du fonctionnement Studio. Aucune modification PRR.
+**Verdict d'impact : NO SEMANTIC IMPACT.**
 
----
-
-## Commit et parent
-
-```
-commit 11da9c5519982779fffc13714944f4376eee26c5
-Author:     Morris Cleland <morris@macbook-air.home>
-AuthorDate: Tue Oct 20 08:27:22 2026 +0200
-Commit:     Morris Cleland <morris@macbook-air.home>
-CommitDate: Tue Oct 20 08:27:22 2026 +0200
-
-    docs(sfia-studio): record AKG-M0 formal methodological closure
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../convergence/sfia-studio-convergence-roadmap.md | 24 ++++++++++++----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
-```
-
-- SHA : `11da9c5519982779fffc13714944f4376eee26c5`
-- Parent : `c4dd47f8311c0d83410afb471d77cac6f1dfa763`
-- Message : docs(sfia-studio): record AKG-M0 formal methodological closure
-- Fichiers : Roadmap uniquement
-- Amend / rebase : NONE
+Aucun référentiel architectural parallèle créé.
 
 ---
 
-## Diff commit (complet)
+# CADRAGE COMPLET (PROPOSITIONS NON DÉCISIONNELLES)
 
-```
-commit 11da9c5519982779fffc13714944f4376eee26c5
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Tue Oct 20 08:27:22 2026 +0200
-
-    docs(sfia-studio): record AKG-M0 formal methodological closure
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 895d24c4..7add4db9 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,8 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 POST-MERGE VERIFIED** | 2026-10-19 Europe/Paris — **AKG-M0 — METHODOLOGICAL FOUNDATION — INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M0** · Cycle **14 — Post-merge** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Git Integration **PR #591 MERGED** · merge **`7971d5747892b9dfb84735d66ea1c874de58f781`** · mergedAt **2026-10-19T21:17:35Z** · parents `c9abdbc3…` + `6be5a6ad…` · CI post-merge **#39326333926** · Detect/Build/Required Gate **SUCCESS / PASS** · Required Gate completedAt **2026-10-19T21:25:07Z** · R23/R24 = **INTEGRATED ON MAIN** · Routing/Template = **INTEGRATED ON MAIN** · PRR README/manifest = **INTEGRATED ON MAIN** (digest README `00bd5a869be87d20`) · R-PR-01 = **CLOSED** · RS-03 = **OPEN — KNOWN GAP** · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT = **OPEN** · runtime v3 = **NON ADOPTED** · P6 GLOBAL PASS = **NOT ACQUIRED** · AKG-M0 = **INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** · AKG-M0 CLOSED BY MORRIS = **NOT CLAIMED** · Roadmap truth-sync publication = **HISTORICAL AUTHORING SNAPSHOT (cycle 14, 2026-10-19)** — at that authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that truth-sync remains unpublished, nor that a future publication already occurred) · Next gate = ChatGPT Critical Review of Roadmap truth-sync → Morris Git Integration GO distinct · AKG-M1 = **NOT STARTED / NOT AUTOMATICALLY AUTHORIZED** · Product/runtime changes = **NONE** · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL no-write CLOSED · **≠** AKG-M0 CLOSED BY MORRIS · **≠** AKG-M1 AUTHORIZED |
-+| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 FORMAL CLOSURE** | 2026-10-20 Europe/Paris — **AKG-M0 — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M0** · Cycle **8 — Delivery / implémentation (spécialisation documentaire gouvernance)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO FORMAL AKG-M0 CLOSURE — METHODOLOGICAL FOUNDATION — WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Fondement : exit proof A–L **SATISFIED** · PR **#591 MERGED** (`7971d5747892b9dfb84735d66ea1c874de58f781`) · CI post-merge **#39326333926 SUCCESS** · PR **#592 MERGED** (`c4dd47f8311c0d83410afb471d77cac6f1dfa763`) · CI post-merge **#39333828638 SUCCESS** · R23/R24 = **INTEGRATED ON MAIN** · Roadmap B-AKG = **COHÉRENTE** · R-PR-01 = **CLOSED** · R-TS-01 = **CLOSED** · AKG-M0 = **CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · Réserves gouvernées non bloquantes : RS-03 = **OPEN — KNOWN GAP** · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT = **OPEN** · cleanup branches #591/#592 = **BLOCKED / SKIPPED** (worktrees dirty) · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · AKG-M1 = **NOT STARTED / NOT AUTHORIZED** · Cette décision **≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** promotion méthodologique globale v3 · **≠** clôture dette PRR · **≠** validation exhaustive runtime · **≠** AKG-M1 AUTHORIZED · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (cycle formal-closure sync, 2026-10-20)** — at this authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that publication already occurred on main) · Next gate = ChatGPT Critical Review of this formal-closure Roadmap sync → Morris Git Integration GO distinct · Product/runtime changes = **NONE** · **≠** additional Git Integration GO deduced from closure decision alone |
-+| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 POST-MERGE VERIFIED** | 2026-10-19 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M0 — METHODOLOGICAL FOUNDATION — INTEGRATED ON MAIN / POST-MERGE CI VERIFIED *(true then as tip; CLOSED BY MORRIS = NOT CLAIMED was then-current truth; superseded as tip by AKG-M0 FORMAL CLOSURE decision tip 2026-10-20 after Morris GO FORMAL AKG-M0 CLOSURE — METHODOLOGICAL FOUNDATION — WITH GOVERNED NON-BLOCKING RESERVES)* · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M0** · Cycle **14 — Post-merge** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Git Integration **PR #591 MERGED** · merge **`7971d5747892b9dfb84735d66ea1c874de58f781`** · mergedAt **2026-10-19T21:17:35Z** · parents `c9abdbc3…` + `6be5a6ad…` · CI post-merge **#39326333926** · Detect/Build/Required Gate **SUCCESS / PASS** · Required Gate completedAt **2026-10-19T21:25:07Z** · R23/R24 = **INTEGRATED ON MAIN** · Routing/Template = **INTEGRATED ON MAIN** · PRR README/manifest = **INTEGRATED ON MAIN** (digest README `00bd5a869be87d20`) · R-PR-01 = **CLOSED** · RS-03 = **OPEN — KNOWN GAP** · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT = **OPEN** · runtime v3 = **NON ADOPTED** · P6 GLOBAL PASS = **NOT ACQUIRED** · AKG-M0 = **INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** · AKG-M0 CLOSED BY MORRIS = **NOT CLAIMED** · Roadmap truth-sync publication = **HISTORICAL AUTHORING SNAPSHOT (cycle 14, 2026-10-19)** — at that authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that truth-sync remains unpublished, nor that a future publication already occurred) · Next gate = ChatGPT Critical Review of Roadmap truth-sync → Morris Git Integration GO distinct · AKG-M1 = **NOT STARTED / NOT AUTOMATICALLY AUTHORIZED** · Product/runtime changes = **NONE** · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL no-write CLOSED · **≠** AKG-M0 CLOSED BY MORRIS · **≠** AKG-M1 AUTHORIZED |
- | **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 DOCUMENTARY AUTHORING** | 2026-10-19 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M0 — METHODOLOGICAL FOUNDATION — DOCUMENTARY AUTHORING LOCAL (ÉTAPE 1) *(true then as tip; superseded after PR #591 MERGED + post-merge CI #39326333926 SUCCESS + this Roadmap truth-sync local candidate)* · Chantier transversal **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Cycle **8 — Delivery / implémentation (spécialisation documentaire gouvernance)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · origin/main **`c9abdbc37830d687cc8a504b97db659b47aa0f5b`** · PR **#590** = **MERGED** · Single Human Execute / Option A = **INTEGRATED ON MAIN** · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · AKG-M0 = **LOCAL AUTHORING IN PROGRESS** (cinq documents de contenu A–E ; **≠** PREPARATION ONLY historique ; **≠** INTEGRATED ON MAIN ; **≠** METHOD ACTIVE ON MAIN) · Critical Review ChatGPT / intégration Git M0 = **OUVERTES** · PRR README digest sync = **PENDING** (étape 2 post-revue sémantique) · manifest PRR = **INCHANGÉ cette étape** · Product/runtime = **NONE** · Project push/PR/merge = **NONE** · Jalons méthodologiques **AKG-M0…AKG-M5** (≠ milestones Convergence historiques M1–M5) · C1 / doctrine v3 = **NOT MODIFIED** · Next = ChatGPT Semantic Review → PRR digest sync → Git Integration GO distinct · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** AKG-M0 ACTIVE ON MAIN |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P6 D-P6-SHE-01 SINGLE HUMAN EXECUTE GOVERNANCE SYNC** | 2026-10-18 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip P6 — SINGLE HUMAN EXECUTE / OPTION A — GOVERNANCE DOCUMENTARY SYNCHRONIZATION CANDIDATE *(true then as tip; superseded as tip by AKG-M0 documentary authoring 2026-10-19 — SHE Option A TARGET ADOPTED facts remain ; PR #590 later MERGED on main `c9abdbc3`)* · **P6 — SINGLE HUMAN EXECUTE / OPTION A — GOVERNANCE DOCUMENTARY SYNCHRONIZATION CANDIDATE** · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Chantier **P6-INTEGRATED-PRODUCT-ARCHITECTURE-RECOVERY** · Cycle **3 — Architecture fonctionnelle** · Profile **Critical** · Typologie **DOC / GOVERNANCE / ARCHITECTURE DECISION SYNC** · Decision **D-P6-SHE-01** = **ADOPTED BY MORRIS — TARGET ARCHITECTURE** (2026-10-18) · Option A = **ADOPTED** · SINGLE HUMAN EXECUTE = **ADOPTED** · Sources sync (local candidate) = Build Doctrine A3 · D-ER-18 amendement · Authority Invariants CURRENT/TARGET · V3-F05/F11-F12 clarifications · this Roadmap tip · C1 = **NOT MODIFIED** (historique VALIDATED) · Architecture impact handoff = `c3095635` / blob `5e2fd1f5` · Structural refusal diagnostic = `eebc6e93` · origin/main / Delivery HEAD known **`304e30e8…`** · Option B Product dirty **PRESERVED / NOT THIS CYCLE** · HQA AtelierNova Generic PREPARE **BLOCKED (CURRENT)** · HQA replay = **NOT AUTHORIZED** · Delivery Product = **NOT AUTHORIZED** · Git Integration of this sync = **NOT AUTHORIZED** (gate ChatGPT Critical Review → GO distinct) · P6 GLOBAL PASS = **NOT CLAIMED** · runtime v3 = **NON ADOPTED** · CURRENT ≠ TARGET · ADOPTED TARGET ≠ IMPLEMENTED · Trajectoire = V3-F05 → **D-P6-SHE-01** → Generic PREPARE inspectable → Execute orchestration → DET proof → HQA LIVE → P6 Exit · Gates restants = (1) ChatGPT documentary review (2) Git Integration GO (3) Delivery Product GO (4) HQA replay GO (5) P6 Exit / promotion · Dette **TOOL-FIRST-REAL-NOWRITE** = **OPEN** · **≠** Delivery · **≠** runtime implemented · **≠** P6 PASS · **≠** v3 ADOPTED |
- | **Timestamp maintenance STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01 P6 MACRO CAMPAIGN CONTINUATION** | 2026-10-08 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip P6 GLOBAL INTEGRATED PRODUCT QA — MACRO CAMPAIGN CONTINUATION / PHASE-1 REQUALIFICATION *(true then; superseded as tip by D-P6-SHE-01 governance sync 2026-10-18 — campaign facts remain VALID / REUSED)* · Macro **STUDIO-CHAT-FIRST-PRODUCT-SIMPLIFICATION-01** · Cycle **9 — QA / validation** · Profile **Critical** · campaignId **P6-GLOBAL-INTEGRATED-PRODUCT-QA-01** · origin/main **`aba6c4a617b6d0cb27f23b59de5bf0ac9360fab1`** · PR **#571** MERGED · CI **#713** SUCCESS · Phase 0 = **COMPLETE / INTEGRATED / POST-MERGE VERIFIED** · GO P6 EXECUTION / GO P6 REAL = **AUTHORIZED / CONSUMED** · Phase 1 = **PASS / REQUALIFIED WITH CURRENT P6 REAL SMOKES** (fresh SMOKE-01/02/03 · browser QUALIFIED · provider CAPTURED · authority profiles CONTROLLED) · prior Phase 2/3/4 evidence = **VALID / REUSED** · Phase 2 scenario disposition + Phase 3 Router-in-situ/discrimination continuation · Phase 5 Human QA batch = **REGENERATING / NOT YET PRIMARY HANDOFF** · P6 PASS = **NOT CLAIMED** · runtime v3 = **NON ADOPTED** · production routing changed = **NO** · branche `qa/sfia-studio-p6-global-integrated-product-qa` · Project push / PR / merge = **NONE** · Next was exhaust AUTO → **MORRIS HUMAN QA BATCH** · **≠** P6 PASS · **≠** runtime v3 ADOPTED |
-@@ -250,7 +251,7 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
-
- ### Distinctions de statut (CP05 / CP06)
-
--| Stade | Signification | AKG-M0 (CURRENT proofs + cycle-14 authoring notes) |
-+| Stade | Signification | AKG-M0 (CURRENT proofs + formal-closure authoring notes) |
- | --- | --- | --- |
- | Cadrage validé | GO Morris de préparation / cadrage consommé | **HISTORICAL** — consommé |
- | Propositions préparées | Review Pack préparatoire (handoff `162ab68e`) | **HISTORICAL** |
-@@ -260,18 +261,18 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
- | Intégration Git | Commit/PR/merge | **PR #591 MERGED** (`7971d574…`) |
- | Post-merge CI | Required Gate | **PASS** (run `39326333926`) |
- | R23/R24 on main | Règles fondatrices dans Build Doctrine | **ON MAIN** |
--| Roadmap truth-sync | Tip CURRENT + B-AKG requalifiés | **HISTORICAL AUTHORING SNAPSHOT (cycle 14, 2026-10-19):** LOCAL CANDIDATE / NOT YET INTEGRATED at preparation · subsequent publication status = **RESOLVE FROM CURRENT GIT** |
--| Clôture formelle Morris | Décision métier de clôture M0 | **NOT CLAIMED** |
--| AKG-M1 | System Inventory | **NEXT GATE / NOT STARTED / NOT AUTOMATICALLY AUTHORIZED** |
-+| Roadmap truth-sync | Tip CURRENT + B-AKG requalifiés | **INTEGRATED ON MAIN** via PR **#592** (`c4dd47f8…`) · CI **#39333828638 SUCCESS** · prior cycle-14 authoring snapshot = **HISTORICAL** |
-+| Clôture formelle Morris | Décision métier de clôture M0 | **ADOPTED — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** (2026-10-20 Europe/Paris) · documentary tip publication on main = **PENDING / RESOLVE FROM CURRENT GIT** (this authoring = LOCAL CANDIDATE) |
-+| AKG-M1 | System Inventory | **NOT STARTED / NOT AUTHORIZED** (requires distinct inventaire GO) |
-
--**AKG-M0 = INTEGRATED ON MAIN / POST-MERGE CI VERIFIED** (preuves Git + CI).
--**≠** AKG-M0 CLOSED BY MORRIS · **≠** Roadmap truth-sync automatically integrated by M0 merge alone · **≠** AKG-M1 authorized.
-+**AKG-M0 = CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** (décision 2026-10-20 Europe/Paris) · preuves techniques = PR #591/#592 MERGED + CI post-merge SUCCESS + exit proof A–L SATISFIED.
-+**≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** AKG-M1 AUTHORIZED · **≠** automatic Git Integration of this formal-closure tip · **≠** RS-03 / REAL no-write CLOSED.
-
- ### Jalons AKG
-
- | Jalon | Finalité | Capacité v3 | Dépendances | Livrables | Critères de sortie | Preuves | Risques | Gates Morris | Suivant |
- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
--| **AKG-M0** Methodological Foundation | Encoder P1–P3 (architecture-informed, continuité doc, rationalisation evidence-based) dans Build Doctrine / Roadmap / PRR contrat / routing / template | V3-F05 (+ F02/F06/F07/F11/F12/F14/F15 transverses) | Cadrage M0 ; handoff préparatoire | Six documents A–F intégrés via PR #591 | Semantic Review PASS (+ R-PR-01) + digest sync + Git Integration + post-merge CI | Merge `7971d574…` · CI `39326333926` SUCCESS · digest README `00bd5a869be87d20` | Sur-claim CLOSED BY MORRIS ; confusion ACTIVE tip vs truth-sync local | GO authoring / semantic / digest / GI **CONSUMED** · Post-merge GO **CONSUMED** · Roadmap truth-sync GI **PENDING AT CYCLE-14 AUTHORING SNAPSHOT** (later status = RESOLVE FROM CURRENT GIT / Morris GI GO if consumed) · Morris formal close **NOT CLAIMED** | AKG-M1 sous GO inventaire distinct |
-+| **AKG-M0** Methodological Foundation | Encoder P1–P3 (architecture-informed, continuité doc, rationalisation evidence-based) dans Build Doctrine / Roadmap / PRR contrat / routing / template | V3-F05 (+ F02/F06/F07/F11/F12/F14/F15 transverses) | Cadrage M0 ; handoff préparatoire | Six documents A–F intégrés via PR #591 | Semantic Review PASS (+ R-PR-01) + digest sync + Git Integration + post-merge CI | Merge #591 `7971d574…` · CI `39326333926` SUCCESS · digest README `00bd5a869be87d20` · Merge #592 `c4dd47f8…` · CI `39333828638` SUCCESS · exit proof A–L SATISFIED · Morris formal close 2026-10-20 | Sur-claim P6 PASS / v3 ADOPTED / AKG-M1 AUTHORIZED ; confusion decision ADOPTED vs tip still LOCAL CANDIDATE | GO authoring / semantic / digest / GI **CONSUMED** · Post-merge GO **CONSUMED** · Roadmap truth-sync GI **CONSUMED** (PR #592) · Morris formal close **ADOPTED — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · formal-closure tip GI **PENDING AT AUTHORING SNAPSHOT** (later status = RESOLVE FROM CURRENT GIT / Morris GI GO distinct) | AKG-M1 sous GO inventaire distinct |
- | **AKG-M1** System Inventory | Inventaire exhaustif du système réellement implémenté | V3-F05 / F14 | AKG-M0 intégré ou GO inventaire explicite | Inventaire objets/flows/deps vs Git | Couverture inventaire bornée et traçable | Tables + refs code | Exhaustivité impossible en un lot | GO inventaire | AKG-M2 |
- | **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions | V3-F05 / F06 | AKG-M1 | Cartes validées | Revue de compréhension | Cartes + gaps | Sur-modélisation | GO understanding | AKG-M3 |
- | **AKG-M3** Reference Consolidation | Consolider la PRR ; mesurer couverture | V3-F05 / F12 | AKG-M2 | PRR consolidée ; volume 09 à jour | Critères couverture appliqués | Conformance + revue sémantique | Tentation 2e référentiel | GO PRR sync | AKG-M4 |
-@@ -280,9 +281,10 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
-
- ### Non-claims AKG
-
--- AKG-M0 AUTHORING LOCAL **≠** AKG-M0 INTEGRATED ON MAIN **≠** AKG-M0 CLOSED BY MORRIS
--- AKG-M0 INTEGRATED ON MAIN / POST-MERGE CI VERIFIED **≠** automatic integration of this Roadmap truth-sync (truth-sync publication status is verified separately from CURRENT Git / PR evidence)
--- AKG-M0 INTEGRATED **≠** AKG-M1 AUTHORIZED / STARTED
-+- AKG-M0 AUTHORING LOCAL **≠** AKG-M0 INTEGRATED ON MAIN **≠** AKG-M0 CLOSED BY MORRIS (CLOSED BY MORRIS now **ADOPTED** at methodological scope; distinct from tip publication on main)
-+- AKG-M0 CLOSED BY MORRIS (decision ADOPTED) **≠** automatic Git Integration of this formal-closure tip (tip publication status = RESOLVE FROM CURRENT GIT / Morris GI GO distinct)
-+- AKG-M0 INTEGRATED ON MAIN / POST-MERGE CI VERIFIED **≠** AKG-M0 CLOSED BY MORRIS (technical integration preceded formal closure; both now true at their respective scopes)
-+- AKG-M0 CLOSED BY MORRIS AT METHODOLOGICAL SCOPE **≠** AKG-M1 AUTHORIZED / STARTED
- - AKG **≠** P6 GLOBAL PASS
- - AKG **≠** runtime v3 ADOPTED
- - Classification CONSOLIDATE/RETIRE **≠** autorisation de retrait immédiat
-```
+Les propositions ci-dessous restent **candidates** jusqu'à validation Morris + GO d'exécution distinct.
 
 ---
 
-## Push distant vérifié
+## A. Périmètre architectural proposé
+
+| Domaine | Justification | Lien v3 | Inclusions | Exclusions (cadrage) | Priorité |
+|---|---|---|---|---|---|
+| D1 Parcours utilisateur Studio | Surfaces chat-first / project UI | F05 | `app/app/**` routes projects/studio/workspace ; `features/pre-m6-product-ui` ; `features/project-assistant` | redesign UX/Figma | P0 |
+| D2 Composition & runtime applicatif | Entrée vertical-slice / composition | F05 | `lib/vertical-slice*` ; OBJ-RUNTIME-COMPOSITION ; Next app composition | rewrite runtime v3 | P0 |
+| D3 Nora / cognition | Chaîne conversation | F05 | `lib/nora-cognitive-runtime/**` ; turn orch ; Fake provider | REAL model campaigns | P0 |
+| D4 Project / LPS / CycleInstance | Backbone Product | F05 | domain cycle/project ; db migrations ; adapters | Product Completion Delivery | P0 |
+| D5 Trajectoire & décisions | HD / Proposal / Recommendations | F05 | OBJ-PROPOSAL/HD/REC ; decision features | nouvelles politiques métier | P0 |
+| D6 ExecutionContract / Attempt | Exécution gouvernée | F05 | OBJ-EC ; oa/execution-* ; Generic PREPARE/SHE | Cursor REAL campaigns | P0 |
+| D7 Evidence / ReviewBundle / Artifacts | Complétude artefacts | F14 | OBJ-EVIDENCE/RB/ARTIFACT* ; evidence adapters | nouveau schéma Evidence | P0 |
+| D8 Persistance / recovery | Restart-safe | F05/F14 | volume 06 ; ProductSqliteSession ; Memory B | migration infra | P1 |
+| D9 Auth / autorité | Invariants | F05 | volume 07 ; lib/auth ; INV-* | IAM redesign | P0 |
+| D10 Adapters & frontières externes | Cursor / OpenAI / Fake | F05 | lib/adapters ; Fake vs REAL boundaries (vol 05) | nouveaux providers | P1 |
+| D11 Observabilité / tests / CI | Preuves | F14 | `__tests__` (~611 fichiers) ; vol 08 ; CI Required Gate | lancer tests ce cycle | P1 |
+| D12 Historique / parallèles | Anti-confusion | — | vertical-slice legacy ; ops1/d1 ; F20 | inventaire exhaustif legacy | P2 |
+
+Cette liste = **point de départ de cadrage**, pas inventaire validé.
+
+---
+
+## B. Unité d'inventaire (granularité proposée)
+
+| Unité | Rôle | Anti-pattern évité |
+|---|---|---|
+| Composant architectural | Bloc responsabilité (aligné OBJ-* PRR quand existe) | listing naïf de tous les `.ts` |
+| Responsabilité | Ce que le composant décide / refuse / produit | prose sans ancrage Git |
+| Objet métier/runtime | Entité durable ou process-locale (Project, HD, EC…) | inventer des IDs canoniques |
+| Flux / interaction | Parcours F0x ou sous-flux nommé | diagrammes sans preuve |
+| Frontière technique | Fake/DET vs REAL ; Studio vs Cursor | sur-qualification REAL |
+| Dépendance | Relation DEP-* ou edge code | graphe exhaustif forcé |
+| Persistance | Store / session / migration | dump SQL |
+| Invariant | INV-* fail-closed | « bonnes pratiques » vagues |
+| Test / preuve | Chemin test + niveau épistémique | confondre présence test = BEHAVIOR PROVEN global |
+| Gap | KNOWN GAP explicite | silent fix |
+
+**Réutilisation IDs :** préférer IDs PRR existants (`OBJ-*`, `F0x`, `INV-*`, `DEP-*`). Tout ID « proposé » reste **non canonique** jusqu'à GO ultérieur.
+
+---
+
+## C. Schéma de preuve (future entrée d'inventaire)
+
+Chaque entrée future devrait pouvoir renseigner :
+
+| Champ | Description |
+|---|---|
+| ID | existant PRR ou proposé (non canonique) |
+| Nom | libellé court |
+| Domaine | D1–D12 |
+| Rôle / responsabilité | une phrase |
+| Source Git | chemin + ref SHA (`5689cb737b40d7712d8b31b999faabc0725558ab` ou plus récent) |
+| Point d'entrée | symbole / route / action |
+| Dépendances | IDs ou paths |
+| Flows associés | F0x |
+| Persistance | si applicable |
+| Invariants | INV-* |
+| Test/proof refs | paths + niveau |
+| Statut couverture | DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP |
+| Incertitudes | explicites |
+| PRR correspondante | volume § |
+| Lien capacité v3 | F05/F14/… justifié |
+
+---
+
+## D. Niveaux de couverture (exclusifs)
+
+| Statut | Signification | Exigence |
+|---|---|---|
+| DOCUMENTED | Décrit dans PRR/Roadmap/code comments | texte présent |
+| COVERAGE VERIFIED | Périmètre identifié et confronté aux sources Git pertinentes | check documentaire vs paths |
+| BEHAVIOR PROVEN | Comportement supporté par preuve **dont le niveau est déclaré** | distinguer : déterministe · REAL bornée · E2E REAL · limites |
+| KNOWN GAP | Manquant, contradictoire, insuffisant | observation + conséquence |
+
+Règles :
+- Code trouvé **≠** comportement exécuté prouvé.
+- Documentation **≠** exhaustivité.
+- Digest match **≠** validité sémantique (R24 / CP04).
+- Manifest counts **≠** preuve d'exhaustivité.
+
+---
+
+## E. Couverture PRR / manifest — snapshot vérifié sur `5689cb737b40d7712d8b31b999faabc0725558ab`
+
+### Manifest (valeurs confirmées)
+
+| Famille | Count | Note |
+|---|---|---|
+| components | **12** | index machine — sous-ensemble |
+| flows | **20** | F01–F20 |
+| invariants | **20** | INV-* |
+| dependencies | **9** | DEP-* |
+| trackedSources | **27** | paths Product ciblés |
+| trackedTests | **7** | vs ~**611** fichiers sous `__tests__/` |
+| volumes | **10** | README + 01–09 |
+| lastReviewedCommit | `928ab15b032c392dafee74a916f2faad3ed524de` | **2026-10-15** |
+| lastReviewedAt | 2026-10-15T22:51:00+02:00 | |
+
+**Écart d'âge :** main = `5689cb737b40d7712d8b31b999faabc0725558ab` (2026-10-20, post #593) vs lastReviewedCommit 928ab15b (2026-10-15). Le manifest n'est **pas** une preuve que le corpus a été re-audité jusqu'à HEAD.
+
+### Components index (12) — IDs réutilisables
+
+1. OBJ-ARTIFACT-CONTINUATION
+2. OBJ-MW5-CHALLENGE
+3. OBJ-PROPOSAL
+4. OBJ-HD
+5. OBJ-ARTIFACT-ROUTING
+6. OBJ-FINALIZATION-ASSESS
+7. OBJ-TURN-ORCH
+8. OBJ-MEMORY-B
+9. OBJ-FAKE-PROVIDER
+10. OBJ-EC
+11. OBJ-UI-LIFECYCLE
+12. OBJ-RUNTIME-COMPOSITION
+
+### Flows catalog (20) — titres volume 03
+
+F01 Project creation · F02 load/restart · F03 cycle qualification · F04 Nora conversation · F05 Artifact materialization · F06 Proposal/options · F07 HD · F08 EC PREPARE · F09 inspect/Confirmation/authority · F10 governed execution · F11 Attempt→Evidence→RB · F11b Product Continuity · F12 ContractResult · F13 Nora post-Evidence · F14 LPS/trajectory · F15 finalization · F16 Replan · F17 Restart Proposal · F18 Restart post-HD · F19 Restart post-Evidence · F20 Legacy compatibility
+
+### Volume 02 vs manifest
+
+- Volume 02 : **~32** sections `## OBJ-*` (catalog narratif large : Project, LPS, Cycle, Trajectory, Recommendation, Confirmation, Attempt, Evidence, RB, etc.).
+- Manifest components : **12** entrées indexées.
+- **Observation :** le catalog 02 est plus large que l'index manifest ; l'inventaire AKG-M1 doit **réutiliser** 02+manifest, pas créer un 3e corpus.
+
+### Digests README
+
+README digest `00bd5a869be87d20` (post AKG-M0) — conformité déterministe ≠ exhaustivité sémantique.
+
+---
+
+## F. Échantillons limités de traçabilité (cadrage — non exhaustif)
+
+| Ancre | PRR | Code (existe sur `5689cb737b40d7712d8b31b999faabc0725558ab`) | Couverture candidate | Limite |
+|---|---|---|---|---|
+| Turn orchestration | OBJ-TURN-ORCH · F04/F05/F06 | `features/project-assistant/orchestrateTurn.ts` (+ f2/*) | DOCUMENTED ; COVERAGE VERIFIED partiel sur trackedSources | BEHAVIOR PROVEN seulement au scope des tests cités — non global |
+| Nora runtime | vol 01 cognitive vs Truth C ; nora overlays README | `lib/nora-cognitive-runtime/index.ts` (+ budget/continuation) | DOCUMENTED | REAL Nora **NOT PROVEN** par ce cadrage |
+| Cycle domain | OBJ-CYCLE (vol 02) | `lib/domain/cycle.ts` · `db/migrations` | DOCUMENTED | non inventorié ligne-à-ligne |
+| EC aggregate | OBJ-EC · F08–F10 | tracked source EC + `oa/execution-contract` tests | DOCUMENTED | SHE/Tool-First : voir gaps |
+| Conformance harness | vol 08 | `__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts` | preuve déterministe de **structure** manifest/digest | ≠ sémantique complète |
+| Tests globaux | vol 08 (partiel) | ~611 tests / 7 trackedTests | KNOWN GAP de représentativité index | ne pas lire 7 comme couverture totale |
+
+---
+
+## G. Gaps structurants initiaux (observations — non corrigés)
+
+| ID | Observation | Source | Conséquence | Importance | Prochaine action proposée |
+|---|---|---|---|---|---|
+| G-M1-01 | Manifest lastReviewedCommit (928ab15b / 2026-10-15) ≪ main `5689cb737b40d7712d8b31b999faabc0725558ab` | manifest vs ls-remote | risque de snapshot « CURRENT » périmé | P0 | Lot A : dater/qualifier fraîcheur ; pas refresh digest auto |
+| G-M1-02 | ~32 OBJ vol02 vs 12 components manifest | vol02 / manifest | index machine incomplet vs catalog | P0 | Lot B : cartographier OBJ catalog → index / hors-index |
+| G-M1-03 | ~611 tests vs 7 trackedTests | tree `__tests__` / manifest | sous-représentation preuves | P0 | Lot C/D : stratégie d'échantillonnage par domaine |
+| G-M1-04 | Vol 09 overlay Tool-First encore « PENDING_GIT_INTEGRATION » alors README R-S02 = CURRENT via PR #588 | vol09 vs README | contradiction documentaire | P1 | KNOWN GAP ; sync PRR sous GO distinct (pas ce cycle) |
+| G-M1-05 | TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN | README / vol07 / Roadmap | frontière REAL no-write non close | P1 | hors clôture M0 ; inventorier comme dette |
+| G-M1-06 | RS-03 OPEN | Roadmap / historique AKG-M0 | gap connu non bloquant M0 | P2 | tracer en inventaire ; ne pas fermer |
+| G-M1-07 | Tip Roadmap formal closure : texte authoring « LOCAL CANDIDATE » alors PR #593 mergée | Roadmap tip vs Git | confusion publication | P2 | truth-sync tip sous GO doc distinct |
+| G-M1-08 | Surfaces historiques (ops1, d1, vertical-slice, F20) coexistent | app/features · F20 | risque double lecture architecture | P1 | Lot A topology : classer CURRENT vs HISTORICAL |
+| G-M1-09 | Fake/DET vs REAL : nombreux overlays « DETERMINISTIC VERIFIED / REAL NOT PROVEN » | README PRR | sur-claim REAL facile | P0 | schema preuve : niveau obligatoire |
+| G-M1-10 | Product Completion C1 cible ≠ runtime as-implemented | C1 vs PRR | confusion trajectoire vs existant | P1 | inventaire = as-implemented ; C1 = intent only |
+| G-M1-11 | trackedSources centrés project-assistant/f2 | manifest | domaines UI/auth/adapters peu indexés | P1 | Lot B census sources hors index |
+| G-M1-12 | Runtime v3 NON ADOPTED / INV-NO-V3-ADOPT | doctrine / invariants | inventaire ne doit pas « adopter » v3 | P0 | garde-fou explicit dans exit proof |
+
+---
+
+## H. Découpage d'exécution proposé (OPTIONS — challengé)
+
+### Option de base (GO)
+
+| Lot | Contenu | Sortie |
+|---|---|---|
+| **A — Census / Topology** | Carte dossiers app + classification CURRENT/HISTORICAL/PARALLEL ; ancrage composition entry | table topologie + exclusions |
+| **B — Domain Inventory** | Pour D1–D9 P0 : objets/responsabilités avec schéma preuve ; réutiliser OBJ/F/INV | tables par domaine |
+| **C — Flow & Dependency Coverage** | F01–F20 + DEP-* : couverture DOCUMENTED→VERIFIED ; edges manquants | matrice flow×preuve |
+| **D — Gap & Exit Proof Review** | Consolider gaps ; qualifier niveaux ; pack exit AKG-M1 | exit proof + backlog |
+
+### Challenge / alternatives
+
+| Variante | Motif | Recommandation candidate |
+|---|---|---|
+| A → B → C → D (séquentiel) | chemin critique clair ; réduit parallélisation | **Recommandé par défaut** |
+| A+C léger en parallèle puis B | flows déjà catalogués F01–F20 | acceptable si capacité revue |
+| Fusion B+C | objets et flows très couplés (F05/OBJ-ARTIFACT*) | possible Lot B′ « Object×Flow » |
+| D précoce | éviter fausse exhaustivité | garder D en fin ; mini-gates gap après chaque lot |
+
+**Non décidé** sans Morris. Aucun lot n'est autorisé à démarrer par ce cadrage.
+
+---
+
+## I. Exit proof AKG-M1 proposé (mesurable — pas 100 % artificiel)
+
+AKG-M1 pourra être proposé CLOSED (sous GO Morris ultérieur) lorsque :
+
+1. **Périmètre** D1–D12 explicite avec inclusions/exclusions documentées.
+2. **Domaines P0** (D1–D7, D9) ont une table d'inventaire traçable (IDs + paths + statut couverture).
+3. **Correspondance code/PRR** : chaque entrée P0 cite volume PRR **ou** KNOWN GAP d'absence.
+4. **Flows essentiels** F01–F15 au minimum : statut DOCUMENTED ou COVERAGE VERIFIED ; F16–F20 classés ou exclus justifiés.
+5. **Dépendances** : DEP-* manifest revues + edges critiques hors-index listés comme gaps si besoin.
+6. **Preuves** : pour tout BEHAVIOR PROVEN, niveau (DET / REAL bornée / E2E) + limites ; sinon ne pas claim.
+7. **Gaps ouverts** recensés (y compris G-M1-* et dettes RS-03 / REAL no-write) sans fermeture fictive.
+8. **Aucune fausse exhaustivité** : exclusions explicites ; manifest counts non présentés comme total système.
+9. **Entrée AKG-M2 utilisable** : tables + gaps + topologie suffisent pour Architecture Understanding sans re-cadrage.
+10. **Non-claims tenus** : pas P6 PASS ; pas runtime v3 ADOPTED ; pas AKG-M2 started.
+
+---
+
+## J. Risques et réserves
+
+| Risque | Mitigation cadrage |
+|---|---|
+| Inventaire fichier-par-fichier sans valeur | granularité composant/flux |
+| 2e référentiel parallèle à la PRR | réutiliser volumes 01–09 + manifest |
+| Sur-claim BEHAVIOR PROVEN | niveaux épistémiques obligatoires |
+| Confondre C1/Product intent avec as-implemented | PRR + Git primaires |
+| Lancer REAL pour « compléter » | hors scope ; GO REAL distinct |
+| Exécuter Lots sans GO | INVENTORY EXECUTION NOT AUTHORIZED |
+| Fermer RS-03 / REAL no-write via inventaire | INTERDIT |
+
+Réserves héritées : RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN · cleanup branches M0 BLOCKED/SKIPPED (hors scope).
+
+---
+
+## K. Gates Morris suivants
+
+1. **ChatGPT Critical Review** de ce cadrage AKG-M1.
+2. **Morris validation** du périmètre / granularité / lots / exit proof.
+3. **GO distinct d'exécution** d'inventaire (un ou plusieurs lots) — **pas déduit** de ce cadrage.
+4. Après inventaire qualifié : GO distinct éventuel **AKG-M2**.
+5. Truth-sync Roadmap tip formal-closure wording / sync PRR contradictions (G-M1-04/07) — GO doc distincts.
+
+---
+
+## Fake / Real qualification
 
 | Item | Valeur |
 |---|---|
-| Branche | origin/docs/sfia-studio-akg-m0-formal-closure-sync |
-| SHA distant | `11da9c5519982779fffc13714944f4376eee26c5` |
-| Match HEAD local | YES |
-| Force push | NO |
-| main inchangé | `c4dd47f8311c0d83410afb471d77cac6f1dfa763` |
+| Frontière REAL exécutée | NON |
+| Fake/fixtures | lecture sources uniquement |
+| Proof | DOCUMENTARY / SOURCE COVERAGE QUALIFICATION |
+| Hors scope | DETERMINISTIC EXECUTION PROOF · REAL BOUNDARY PROVEN · E2E REAL PROVEN |
+| READY/ADOPTED claims | AUCUN |
 
 ---
 
-## Draft PR
+## Validations 1–16
 
-| Item | Valeur |
-|---|---|
-| Number | **#593** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/593 |
-| State | OPEN |
-| Draft | true |
-| Merged | false |
-| Head SHA | `11da9c5519982779fffc13714944f4376eee26c5` |
-| Base SHA | `c4dd47f8311c0d83410afb471d77cac6f1dfa763` |
-| Commits above main | 1 |
-| Files | Roadmap only (13+/11−) |
-| Mergeability | MERGEABLE |
-
----
-
-## CI du nouveau HEAD
-
-| Item | Valeur |
-|---|---|
-| Run | **39380480250** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/39380480250 |
-| headSha | 11da9c5519982779fffc13714944f4376eee26c5 |
-| Workflow conclusion | **SUCCESS** |
-| Detect SFIA Studio changes | PASS |
-| Build and validate SFIA Studio | PASS |
-| SFIA Studio Required Gate | PASS |
-
-Checks bruts :
-
-```
-Build and validate SFIA Studio	pass	8m50s	https://github.com/mcleland147/sfia-workspace/actions/runs/39380480250/job/118488263416
-Detect SFIA Studio changes	pass	7s	https://github.com/mcleland147/sfia-workspace/actions/runs/39380480250/job/118488221898
-SFIA Studio Required Gate	pass	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/39380480250/job/118491027865
-```
-
-Note : runs historiques 39326333926 / 39333828638 = preuves #591/#592 ; ≠ validation de ce HEAD.
-
----
-
-## Aucune modification Product / PRR / doctrine
-
-CONFIRMÉ — allowlist Roadmap only.
-
----
-
-## Fake / Real
-
-N/A — Git Integration documentaire.
-Claims : DOCUMENTARY CONTENT REVIEWED · GIT INTEGRATION VERIFIED · CI STATUS OBSERVED.
-Interdits : REAL BOUNDARY PROVEN · P6 GLOBAL PASS · RUNTIME V3 ADOPTED.
+| # | Contrôle | Résultat |
+|---|---|---|
+| 1 | Git/ref/base exacts | PASS (`5689cb737b40d7712d8b31b999faabc0725558ab`) |
+| 2 | Build Doctrine + Roadmap | PASS |
+| 3 | C1/v3 sans confusion | PASS |
+| 4 | PRR README+volumes | PASS |
+| 5 | Manifest sans claim exhaustivité | PASS |
+| 6 | Code proportionnel | PASS |
+| 7 | Granularité exploitable | PASS (proposée) |
+| 8 | Domaines critiques cadrés | PASS |
+| 9 | Source/proof strategy | PASS |
+| 10 | Couverture épistémique | PASS |
+| 11 | Fake/Real non sur-qualifié | PASS |
+| 12 | Aucun actif supprimé | PASS |
+| 13 | Aucun changement projet | PASS |
+| 14 | AKG-M2 non démarré | PASS |
+| 15 | Lien Roadmap/Product | PASS |
+| 16 | Gates suivants explicites | PASS |
 
 ---
 
@@ -448,60 +396,54 @@ Interdits : REAL BOUNDARY PROVEN · P6 GLOBAL PASS · RUNTIME V3 ADOPTED.
 
 | Artefact | Ref |
 |---|---|
-| origin/main | `c4dd47f8311c0d83410afb471d77cac6f1dfa763` |
-| Commit GI | `11da9c5519982779fffc13714944f4376eee26c5` |
-| PR | #593 DRAFT OPEN |
-| CI new HEAD | 39380480250 SUCCESS |
-| Prior handoff candidate | eefb03b4 / 3dfc8bb5 |
-| Prior merges | #591 7971d574 · #592 c4dd47f8 |
+| origin/main | `5689cb737b40d7712d8b31b999faabc0725558ab` |
+| PR #593 merge (formal closure tip) | inclus dans main |
+| Prior handoff M0 GI | a7df4fc3 / 1e153128 |
+| Manifest lastReviewed | 928ab15b @ 2026-10-15 |
+| Worktree RO | formal-closure-sync (pack only dirty) |
 
 ---
 
-## Décisions Morris restantes
+## Décisions Morris encore requises
 
-1. ChatGPT Critical PR Review of #593
-2. Morris Merge GO distinct (si review + CI PASS)
-3. Post-Merge Verification
-4. Cleanup branches (optionnel) quand worktrees libres
-5. AKG-M1 — GO inventaire distinct
-6. RS-03 / REAL no-write — hors M0
+1. ChatGPT Critical Review of AKG-M1 cadrage
+2. Validation Morris scope/granularity/lots/exit proof
+3. GO exécution inventaire (lots) — distinct
+4. GO éventuels sync PRR / Roadmap tip wording
+5. AKG-M2 — seulement après inventaire qualifié + GO distinct
 
 ---
 
 ## Verdict
 
-**AKG-M0 FORMAL CLOSURE ROADMAP SYNC — GIT INTEGRATION COMPLETE.**
+**AKG-M1 — SYSTEM INVENTORY CADRAGE READ-ONLY COMPLETE.**
 
-**DRAFT PR OPEN — READY FOR CHATGPT CRITICAL PR REVIEW.**
+**CADRAGE CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW.**
 
-| Dimension | Statut |
+| Claim | Statut |
 |---|---|
-| LOCAL CONTENT | PASS |
-| GIT SCOPE | PASS |
-| DRAFT PR | OPEN (#593) |
-| CI NEW HEAD | SUCCESS (39380480250) |
-| REVIEW HANDOFF | (published this cycle — verify remote) |
-| AKG-M0 CLOSED BY MORRIS AT METHODOLOGICAL SCOPE | DECISION ADOPTED |
-| FORMAL CLOSURE TRACE ON MAIN | NOT CLAIMED BY THIS CYCLE |
-| RS-03 | OPEN |
-| REAL no-write | OPEN |
-| AKG-M1 | NOT STARTED / NOT AUTHORIZED |
+| INVENTORY EXECUTION | NOT AUTHORIZED |
+| AKG-M2 | NOT AUTHORIZED |
+| PROJECT FILE MODIFICATIONS | NONE |
+| PRR SEMANTIC IMPACT | NONE (NO SEMANTIC IMPACT) |
 | P6 GLOBAL PASS | NOT ACQUIRED |
-| RUNTIME v3 | NON ADOPTED |
-| MERGE AUTHORIZED | NON |
+| Runtime v3 | NON ADOPTED |
+| AKG-M0 | CLOSED BY MORRIS AT METHODOLOGICAL SCOPE |
 
-GATE SUIVANT : CHATGPT CRITICAL PR REVIEW + NEW HEAD REQUIRED GATE (already SUCCESS) → MORRIS MERGE GO DISTINCT.
+GATE SUIVANT : CHATGPT CRITICAL REVIEW OF AKG-M1 CADRAGE.
+PUIS : MORRIS VALIDATION OF INVENTORY SCOPE AND DISTINCT EXECUTION GO.
 
-STOP AVANT MERGE.
-AUCUN CLEANUP. AUCUN AKG-M1.
+AUCUNE PR. AUCUN MERGE. AUCUN CLEANUP.
 
 ---
 
 ## Instruction ChatGPT (obligatoire)
 
-Avant toute réponse, relire depuis Git :
+Avant revue, lire depuis Git :
 
-Branche : sfia/review-handoff
-Fichier : sfia-review-handoff/latest-chatgpt-review.md
+Branche : `sfia/review-handoff`
+Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 
-Vérifier cycle/profil, worktree/branche, HEAD/base, décision Morris, contenu Roadmap, diff, commit/parent, push/Draft PR, nouvelle CI, réserves, SHA/blob handoff, verdict et gates.
+Vérifier : cycle, profil, branche, HEAD/base, sources, **cadrage complet**, preuves, réserves, décisions, SHA/blob et verdict.
+
+Synthèse seule = REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING.
