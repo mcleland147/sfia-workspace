@@ -1,33 +1,40 @@
 # SFIA REVIEW PACK — FULL
-## AKG-M1 — SYSTEM INVENTORY — CYCLE 1 CADRAGE READ ONLY
+## AKG-M1 — SYSTEM INVENTORY — LOT A CENSUS & COVERAGE BASELINE
 
-**Timestamp (UTC):** 2026-10-20T08:59:57Z
+**Timestamp (UTC):** 2026-10-20T09:22:15Z
 **Repository:** mcleland147/sfia-workspace
-**Worktree (existant, non créé):** `/Users/morris/Projects/sfia-workspace-akg-m0-formal-closure-sync`
+**Worktree:** `/Users/morris/Projects/sfia-workspace-akg-m0-formal-closure-sync`
 **Branche checkout:** `docs/sfia-studio-akg-m0-formal-closure-sync`
 **HEAD checkout:** `11da9c5519982779fffc13714944f4376eee26c5`
-**origin/main (ref de lecture):** `5689cb737b40d7712d8b31b999faabc0725558ab`
-**Expected ChatGPT pre-check base:** `5689cb737b40d7712d8b31b999faabc0725558ab` — **ALIGNED**
-**Lecture des sources:** exclusivement via `git show 5689cb737b40d7712d8b31b999faabc0725558ab:…` (checkout local ≠ tip merge main ; contenu Roadmap du tip formal closure est ancêtre de main)
-**Cycle:** 1 — Cadrage
+**origin/main (Git CURRENT / lecture):** `5689cb737b40d7712d8b31b999faabc0725558ab`
+**Expected baseline:** `5689cb737b40d7712d8b31b999faabc0725558ab` — **ALIGNED**
+**Lecture:** `git show 5689cb737b40d7712d8b31b999faabc0725558ab:…` (checkout ≠ merge tip ; sources CURRENT via ref exacte)
+**Cycle:** 6 — Architecture technique (investigation architecturale read-only)
 **Profile:** CRITICAL
-**Typologie:** DOC / ARCHITECTURE / GOVERNANCE / READ ONLY
+**Typologie:** DOC / ARCHITECTURE / INVESTIGATION
 **Chantier:** SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
 **Milestone:** AKG-M1 — SYSTEM INVENTORY
-**Capacité v3 principale:** V3-F05 — Chaîne conversation → exécution
-**Capacité connexe:** V3-F14 — Artifact Completeness
-**Fake/Real:** N/A — aucune frontière REAL exécutée
+**Lot:** A — Census & Coverage Baseline
+**Capacités:** V3-F05 / V3-F14
+**Fake/Real:** lecture frontières existantes uniquement — aucun REAL exécuté
 
 ---
 
 ## GO Morris consommé
 
-**GO AKG-M1 — SYSTEM INVENTORY CADRAGE — READ ONLY**
+**GO AKG-M1 — SYSTEM INVENTORY — LOT A CENSUS & COVERAGE BASELINE**
 
-Autorisé : lecture Git/sources ; examen PRR ; inspection code proportionnelle ; délimitation inventaire futur ; gaps ; lots recommandés ; exit criteria ; rapport de cadrage ; Review Pack FULL ; handoff L3.
-Non autorisé : modifier code/PRR/Build Doctrine/Roadmap ; créer référentiel architectural ; exécuter lots d'inventaire ; REAL ; branche/commit/push/PR/merge projet ; AKG-M2 ; suppression/pivot.
+Inclut validation cadrage AKG-M1 **avec quatre réserves** Critical Review :
 
-Ce cadrage **≠** autorisation d'exécution d'inventaire **≠** AKG-M2.
+| Réserve | Application Lot A |
+|---|---|
+| **R1** | Différence index ≠ corpus ≠ défaut prouvé → **COVERAGE TO VERIFY** avant KNOWN GAP |
+| **R2** | Flux critiques → COVERAGE VERIFIED ou KNOWN GAP (exécution Lot C) ; Lot A définit périmètre + preuves requises |
+| **R3** | D8/D10 transverses obligatoires quand conditionnent P0 ; pas d'inventaire exhaustif D8/D10 ici |
+| **R4** | Distinguer KNOWN GAP / COVERAGE TO VERIFY / EXISTING DEBT / RISK / HISTORICAL SNAPSHOT / GOVERNANCE NON-CLAIM |
+
+Autorisé : investigation RO ; census ; coverage baseline ; Review Pack FULL ; handoff L3.
+Interdit : modifier projet/PRR/Roadmap/Doctrine ; digests ; lots B/C/D ; AKG-M2 ; REAL ; commit/PR projet.
 
 ---
 
@@ -36,17 +43,13 @@ Ce cadrage **≠** autorisation d'exécution d'inventaire **≠** AKG-M2.
 | Item | Valeur |
 |---|---|
 | remote | https://github.com/mcleland147/sfia-workspace.git |
-| origin/main | `5689cb737b40d7712d8b31b999faabc0725558ab` (inclut merge PR #593 formal closure tip) |
-| checkout HEAD | `11da9c5519982779fffc13714944f4376eee26c5` (docs formal-closure branch tip = parent contenu Roadmap mergé) |
-| dirty | uniquement `.tmp-sfia-review/chatgpt-review.md` |
+| origin/main | `5689cb737b40d7712d8b31b999faabc0725558ab` |
+| checkout | `11da9c5519982779fffc13714944f4376eee26c5` @ `docs/sfia-studio-akg-m0-formal-closure-sync` |
+| dirty | `.tmp-sfia-review/chatgpt-review.md` only |
 | staged | NONE |
-| project file modifications this cycle | **NONE** |
-| merge/rebase | none |
-| worktrees historiques AKG-M0 | PRESERVED (non touchés) |
+| project modifications this cycle | **NONE** |
 
-Prior Review Pack (AKG-M0 GI) sécurisé sur handoff Git :
-- commit `a7df4fc3eaf52807863511dda8d85ebf7bcc37b1`
-- blob `1e15312872771a8acfc75a8b40892bcb618f8406`
+Prior cadrage handoff sécurisé : commit `7abb590c7b2d775d3a089a9ca15a7b75938c55e2` · blob `bef89f0205b109fff8c194600b8e0d59fb331681`
 
 Status final :
 
@@ -66,24 +69,11 @@ cached :
 (empty)
 ```
 
-Comparaison : seul le Review Pack temporaire a changé (réinitialisation + rédaction). **Aucun diff projet.**
-
 ---
 
 ## Sources consultées (ref `5689cb737b40d7712d8b31b999faabc0725558ab`)
 
-| Source | Usage |
-|---|---|
-| `prompts/templates/sfia-cycle-execution-template.md` | PROCESSUS cycle 1 / Critical |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | ROUTING fallback |
-| Build Doctrine A3–A5 / A4 R23–R24 / A8–A11 / A14 | KEEP · architecture-informed |
-| Roadmap tip CURRENT AKG-M0 FORMAL CLOSURE + B-AKG / B9 / B10 / B12 | KEEP · trajectoire AKG |
-| C1 `product-completion/01-…cadrage.md` | contexte cible Product — pas C2+ |
-| Doctrine 37 (V3-F05 / V3-F14 VALIDATED) | capacités |
-| PRR README + volumes 01–09 + `production-runtime-reference.manifest.json` | inventaire existant à réutiliser |
-| `app/` topologie features/lib/db/adapters/__tests__ | inspection proportionnelle |
-
-CKC cycle 1 : guidance cognitive candidate uniquement ; aucune autorité d'exécution supplémentaire.
+Template §§2–5/7–9 · routing · Build Doctrine R23/R24 · Roadmap tip/B-AKG · C1 (contexte) · doctrine 37 F05/F14 · PRR README + vols 01–09 · manifest · conformance test · app routes/features/lib (composition, studio, d1/ops1/synthese) · handoff cadrage 7abb590c + réserves R1–R4.
 
 ---
 
@@ -91,304 +81,296 @@ CKC cycle 1 : guidance cognitive candidate uniquement ; aucune autorité d'exéc
 
 | Item | Statut |
 |---|---|
-| AKG-M0 | CLOSED BY MORRIS AT METHODOLOGICAL SCOPE (décision ADOPTED ; tip on main via PR #593 merge `5689cb737b40d7712d8b31b999faabc0725558ab`) |
-| AKG-M1 | CADRAGE READ ONLY AUTHORIZED · INVENTORY EXECUTION **NOT AUTHORIZED** |
-| AKG-M2 | NOT AUTHORIZED |
-| Runtime v3 | NON ADOPTED |
-| P6 GLOBAL PASS | NOT ACQUIRED |
-| Capacités | V3-F05 / V3-F14 |
-| KEEP | Git/code · PRR · manifest · catalogues · tests · Build Doctrine · Roadmap · doctrine v3 · C1 |
-| ADAPT | AUCUNE source ce cycle |
-| HARVEST | structures PRR (IDs, volumes, couverture) |
-| REPLACE/RETIRE | AUCUN |
-| Gap à qualifier | écart couverture documentaire vs Git courant |
-| Dette créée | AUCUNE |
+| Trajectoire | M0 CLOSED → M1 cadrage VALIDATED → **Lot A** → B/C/D sous GO distinct → M2 sous GO distinct |
+| Lot A | AUTHORIZED / ce cycle |
+| Lots B/C/D · AKG-M2 | NOT AUTHORIZED |
+| KEEP | Git · PRR · manifest · tests · Build Doctrine · Roadmap |
+| ADAPT/COMPLETE | recommandations candidates only |
+| REPLACE/RETIRE | aucune exécution |
+| R23 | compréhension Git CURRENT proportionnée |
+| R24 | **NO SEMANTIC IMPACT** |
 | Architecture parallèle | INTERDITE |
-
-Note tip Roadmap : le tip CURRENT conserve encore la formulation d'authoring « LOCAL CANDIDATE / RESOLVE FROM CURRENT GIT ». **Git truth :** PR #593 MERGED @ `5689cb737b40d7712d8b31b999faabc0725558ab` — la trace de clôture **est** sur main. Ne pas réécrire la Roadmap dans ce cycle ; éventuel truth-sync tip = cycle documentaire distinct sous GO.
 
 ---
 
 ## R23 / R24
 
-**R23 (architecture-informed, proportionné cadrage RO) :**
-Composants / responsabilités / flows / invariants / dépendances / impacts potentiels / couverture & preuves — consultés via PRR + topologie code. Git + preuves primaires priment. Contradictions → KNOWN GAP (observations seulement).
-
-**R24 :**
-Aucune modification du fonctionnement Studio. Aucune modification PRR.
-**Verdict d'impact : NO SEMANTIC IMPACT.**
-
-Aucun référentiel architectural parallèle créé.
+R23 : topologie et couverture établies depuis Git CURRENT + PRR ; contradictions → triage R4.
+R24 : aucun fichier projet/PRR modifié · **NO SEMANTIC IMPACT**.
 
 ---
 
-# CADRAGE COMPLET (PROPOSITIONS NON DÉCISIONNELLES)
-
-Les propositions ci-dessous restent **candidates** jusqu'à validation Morris + GO d'exécution distinct.
+# LIVRABLES LOT A (COMPLETS)
 
 ---
 
-## A. Périmètre architectural proposé
+## L-A1 — Repo Topology Census
 
-| Domaine | Justification | Lien v3 | Inclusions | Exclusions (cadrage) | Priorité |
-|---|---|---|---|---|---|
-| D1 Parcours utilisateur Studio | Surfaces chat-first / project UI | F05 | `app/app/**` routes projects/studio/workspace ; `features/pre-m6-product-ui` ; `features/project-assistant` | redesign UX/Figma | P0 |
-| D2 Composition & runtime applicatif | Entrée vertical-slice / composition | F05 | `lib/vertical-slice*` ; OBJ-RUNTIME-COMPOSITION ; Next app composition | rewrite runtime v3 | P0 |
-| D3 Nora / cognition | Chaîne conversation | F05 | `lib/nora-cognitive-runtime/**` ; turn orch ; Fake provider | REAL model campaigns | P0 |
-| D4 Project / LPS / CycleInstance | Backbone Product | F05 | domain cycle/project ; db migrations ; adapters | Product Completion Delivery | P0 |
-| D5 Trajectoire & décisions | HD / Proposal / Recommendations | F05 | OBJ-PROPOSAL/HD/REC ; decision features | nouvelles politiques métier | P0 |
-| D6 ExecutionContract / Attempt | Exécution gouvernée | F05 | OBJ-EC ; oa/execution-* ; Generic PREPARE/SHE | Cursor REAL campaigns | P0 |
-| D7 Evidence / ReviewBundle / Artifacts | Complétude artefacts | F14 | OBJ-EVIDENCE/RB/ARTIFACT* ; evidence adapters | nouveau schéma Evidence | P0 |
-| D8 Persistance / recovery | Restart-safe | F05/F14 | volume 06 ; ProductSqliteSession ; Memory B | migration infra | P1 |
-| D9 Auth / autorité | Invariants | F05 | volume 07 ; lib/auth ; INV-* | IAM redesign | P0 |
-| D10 Adapters & frontières externes | Cursor / OpenAI / Fake | F05 | lib/adapters ; Fake vs REAL boundaries (vol 05) | nouveaux providers | P1 |
-| D11 Observabilité / tests / CI | Preuves | F14 | `__tests__` (~611 fichiers) ; vol 08 ; CI Required Gate | lancer tests ce cycle | P1 |
-| D12 Historique / parallèles | Anti-confusion | — | vertical-slice legacy ; ops1/d1 ; F20 | inventaire exhaustif legacy | P2 |
+Familles architecturales observées sur `5689cb737b40d7712d8b31b999faabc0725558ab` (pas fichier-par-fichier).
 
-Cette liste = **point de départ de cadrage**, pas inventaire validé.
+| Famille | Périmètre | Responsabilité | Chemins Git principaux | Points d'entrée | Liens | Niveau preuve | Incertitudes |
+|---|---|---|---|---|---|---|---|
+| Surfaces Product CURRENT | UI Studio chat-first | Navigation projets + workspace conversationnel | `app/app/studio/**` · `features/pre-m6-product-ui/**` | `/studio` · `/studio/projects/[id]` · `/studio/projects/new` | → project-assistant · OA | DOCUMENTED + routes importées (code) | BEHAVIOR PROVEN UI non revendiqué ici |
+| Surfaces historiques / parallèles | D1 cockpit, OPS1, synthèse POC | Surfaces non-spine Product | `app/projects/**` · `app/workspace` · `app/ops1/**` · `app/synthese` · `features/d1` · `features/ops1` · `features/synthese` · `lib/d1` · `lib/ops1` | `/projects/[id]` · `/workspace` · `/ops1/…` · `/`→`/synthese` | isolés vs Truth C (vol06) | DOCUMENTED (imports + commentaires legacy) | degré d'usage runtime utilisateur UNKNOWN |
+| Auth gate | Protection routes | Pilote allowlist server-side | `middleware.ts` · `lib/auth/**` | middleware toutes routes sauf `/login` `/api/auth` | D9 | DOCUMENTED | BEHAVIOR PROVEN auth hors Lot A |
+| Project Assistant | Orchestration tour Product | Send / F2 / lifecycle / HD bridge | `features/project-assistant/**` | `actions.ts` · API `app/api/studio/projects/[projectId]/assistant/send` | Nora · OA cycle/decision | DOCUMENTED + trackedSources | — |
+| Nora cognition | Runtime cognitif | Turn Nora · Session · MW5 · budgets | `lib/nora-cognitive-runtime/**` | `runNoraCognitiveTurn.ts` · sessionPaths | Memory B ≠ Truth C | DOCUMENTED (vol01) | REAL Nora NOT PROVEN |
+| OA domain aggregates | Truth C métier | Project/LPS/Cycle/HD/EC/Attempt/Evidence | `lib/oa/{project,cycle,decision,execution-contract,execution-attempt,evidence-review,doctrine,git-ports}` | via vertical-slice-runtime service | D4–D7 · D8 | DOCUMENTED | détail objets → Lot B |
+| Runtime composition | Wiring services + DB | Singleton process-local + OA SQLite wiring | `lib/vertical-slice-runtime/{singleton,service,composeStudioProductRealBoundary}.ts` · `vertical-slice-core` | `getRuntimeApplicationService` | D2 · D6 · D10 | DOCUMENTED + trackedSources | serverless multi-instance limits (code comments) |
+| Persistance Product / Nora | SQLite dual | Truth C vs Memory B | `lib/oa/project/infrastructure/sqlite/**` · nora session | env `SFIA_STUDIO_PRODUCT_DB_PATH` / `NORA_SESSION` | D8 transverse | DOCUMENTED vol06 | path drift risk (vol06) |
+| Frontières Fake/REAL | Providers + Cursor gate | FakeConversationProvider · Cursor REAL flag | `lib/platform/ai/**` · execution-attempt REAL helpers | env `OPS1_CONVERSATION_PROVIDER` · `SFIA_STUDIO_CURSOR_REAL` | D10 · D3 · D6 | DOCUMENTED vol05 | REAL BOUNDARY NOT PROVEN |
+| Parallel BC execution-run | FinOps/T7 shadow | Memory BC — Product SQLite ABSENT | `lib/oa/execution-run/**` | tests finops | NOT Product REAL path (vol01) | DOCUMENTED | — |
+| Preuves / tests / CI | Harness | ~611 tests sous `__tests__` ; 7 tracked | `app/__tests__/**` · conformance PRR | vitest / CI Required Gate | D11 | DOCUMENTED counts | représentativité index → R1 |
+| Campaign / eval harness | Evidence campagnes | Support P6/nora-eval | `lib/p6-campaign-evidence` · `lib/nora-eval` · `lib/harness` | scripts/tests | D11 | DOCUMENTED tree | CURRENT vs HISTORICAL usage TO VERIFY |
 
----
+**Spine Product CURRENT (vol01 + routes vérifiées) :**
 
-## B. Unité d'inventaire (granularité proposée)
-
-| Unité | Rôle | Anti-pattern évité |
-|---|---|---|
-| Composant architectural | Bloc responsabilité (aligné OBJ-* PRR quand existe) | listing naïf de tous les `.ts` |
-| Responsabilité | Ce que le composant décide / refuse / produit | prose sans ancrage Git |
-| Objet métier/runtime | Entité durable ou process-locale (Project, HD, EC…) | inventer des IDs canoniques |
-| Flux / interaction | Parcours F0x ou sous-flux nommé | diagrammes sans preuve |
-| Frontière technique | Fake/DET vs REAL ; Studio vs Cursor | sur-qualification REAL |
-| Dépendance | Relation DEP-* ou edge code | graphe exhaustif forcé |
-| Persistance | Store / session / migration | dump SQL |
-| Invariant | INV-* fail-closed | « bonnes pratiques » vagues |
-| Test / preuve | Chemin test + niveau épistémique | confondre présence test = BEHAVIOR PROVEN global |
-| Gap | KNOWN GAP explicite | silent fix |
-
-**Réutilisation IDs :** préférer IDs PRR existants (`OBJ-*`, `F0x`, `INV-*`, `DEP-*`). Tout ID « proposé » reste **non canonique** jusqu'à GO ultérieur.
+```
+Browser UI (pre-m6-product-ui /studio)
+  → server actions project-assistant
+  → Nora cognitive runtime (Memory B session)
+  → OA aggregates (Truth C SQLite)
+  → (REAL gated) Cursor/Git adapters
+```
 
 ---
 
-## C. Schéma de preuve (future entrée d'inventaire)
+## L-A2 — Runtime Entry & Composition Map
 
-Chaque entrée future devrait pouvoir renseigner :
-
-| Champ | Description |
-|---|---|
-| ID | existant PRR ou proposé (non canonique) |
-| Nom | libellé court |
-| Domaine | D1–D12 |
-| Rôle / responsabilité | une phrase |
-| Source Git | chemin + ref SHA (`5689cb737b40d7712d8b31b999faabc0725558ab` ou plus récent) |
-| Point d'entrée | symbole / route / action |
-| Dépendances | IDs ou paths |
-| Flows associés | F0x |
-| Persistance | si applicable |
-| Invariants | INV-* |
-| Test/proof refs | paths + niveau |
-| Statut couverture | DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP |
-| Incertitudes | explicites |
-| PRR correspondante | volume § |
-| Lien capacité v3 | F05/F14/… justifié |
-
----
-
-## D. Niveaux de couverture (exclusifs)
-
-| Statut | Signification | Exigence |
-|---|---|---|
-| DOCUMENTED | Décrit dans PRR/Roadmap/code comments | texte présent |
-| COVERAGE VERIFIED | Périmètre identifié et confronté aux sources Git pertinentes | check documentaire vs paths |
-| BEHAVIOR PROVEN | Comportement supporté par preuve **dont le niveau est déclaré** | distinguer : déterministe · REAL bornée · E2E REAL · limites |
-| KNOWN GAP | Manquant, contradictoire, insuffisant | observation + conséquence |
-
-Règles :
-- Code trouvé **≠** comportement exécuté prouvé.
-- Documentation **≠** exhaustivité.
-- Digest match **≠** validité sémantique (R24 / CP04).
-- Manifest counts **≠** preuve d'exhaustivité.
-
----
-
-## E. Couverture PRR / manifest — snapshot vérifié sur `5689cb737b40d7712d8b31b999faabc0725558ab`
-
-### Manifest (valeurs confirmées)
-
-| Famille | Count | Note |
-|---|---|---|
-| components | **12** | index machine — sous-ensemble |
-| flows | **20** | F01–F20 |
-| invariants | **20** | INV-* |
-| dependencies | **9** | DEP-* |
-| trackedSources | **27** | paths Product ciblés |
-| trackedTests | **7** | vs ~**611** fichiers sous `__tests__/` |
-| volumes | **10** | README + 01–09 |
-| lastReviewedCommit | `928ab15b032c392dafee74a916f2faad3ed524de` | **2026-10-15** |
-| lastReviewedAt | 2026-10-15T22:51:00+02:00 | |
-
-**Écart d'âge :** main = `5689cb737b40d7712d8b31b999faabc0725558ab` (2026-10-20, post #593) vs lastReviewedCommit 928ab15b (2026-10-15). Le manifest n'est **pas** une preuve que le corpus a été re-audité jusqu'à HEAD.
-
-### Components index (12) — IDs réutilisables
-
-1. OBJ-ARTIFACT-CONTINUATION
-2. OBJ-MW5-CHALLENGE
-3. OBJ-PROPOSAL
-4. OBJ-HD
-5. OBJ-ARTIFACT-ROUTING
-6. OBJ-FINALIZATION-ASSESS
-7. OBJ-TURN-ORCH
-8. OBJ-MEMORY-B
-9. OBJ-FAKE-PROVIDER
-10. OBJ-EC
-11. OBJ-UI-LIFECYCLE
-12. OBJ-RUNTIME-COMPOSITION
-
-### Flows catalog (20) — titres volume 03
-
-F01 Project creation · F02 load/restart · F03 cycle qualification · F04 Nora conversation · F05 Artifact materialization · F06 Proposal/options · F07 HD · F08 EC PREPARE · F09 inspect/Confirmation/authority · F10 governed execution · F11 Attempt→Evidence→RB · F11b Product Continuity · F12 ContractResult · F13 Nora post-Evidence · F14 LPS/trajectory · F15 finalization · F16 Replan · F17 Restart Proposal · F18 Restart post-HD · F19 Restart post-Evidence · F20 Legacy compatibility
-
-### Volume 02 vs manifest
-
-- Volume 02 : **~32** sections `## OBJ-*` (catalog narratif large : Project, LPS, Cycle, Trajectory, Recommendation, Confirmation, Attempt, Evidence, RB, etc.).
-- Manifest components : **12** entrées indexées.
-- **Observation :** le catalog 02 est plus large que l'index manifest ; l'inventaire AKG-M1 doit **réutiliser** 02+manifest, pas créer un 3e corpus.
-
-### Digests README
-
-README digest `00bd5a869be87d20` (post AKG-M0) — conformité déterministe ≠ exhaustivité sémantique.
-
----
-
-## F. Échantillons limités de traçabilité (cadrage — non exhaustif)
-
-| Ancre | PRR | Code (existe sur `5689cb737b40d7712d8b31b999faabc0725558ab`) | Couverture candidate | Limite |
+| Entrée | Type | Preuve positive sur `5689cb737b40d7712d8b31b999faabc0725558ab` | Classification | Limites |
 |---|---|---|---|---|
-| Turn orchestration | OBJ-TURN-ORCH · F04/F05/F06 | `features/project-assistant/orchestrateTurn.ts` (+ f2/*) | DOCUMENTED ; COVERAGE VERIFIED partiel sur trackedSources | BEHAVIOR PROVEN seulement au scope des tests cités — non global |
-| Nora runtime | vol 01 cognitive vs Truth C ; nora overlays README | `lib/nora-cognitive-runtime/index.ts` (+ budget/continuation) | DOCUMENTED | REAL Nora **NOT PROVEN** par ce cadrage |
-| Cycle domain | OBJ-CYCLE (vol 02) | `lib/domain/cycle.ts` · `db/migrations` | DOCUMENTED | non inventorié ligne-à-ligne |
-| EC aggregate | OBJ-EC · F08–F10 | tracked source EC + `oa/execution-contract` tests | DOCUMENTED | SHE/Tool-First : voir gaps |
-| Conformance harness | vol 08 | `__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts` | preuve déterministe de **structure** manifest/digest | ≠ sémantique complète |
-| Tests globaux | vol 08 (partiel) | ~611 tests / 7 trackedTests | KNOWN GAP de représentativité index | ne pas lire 7 comme couverture totale |
+| `app/app/studio/page.tsx` | Route Product home | imports `ProductShell` + `ProjectsPage` from pre-m6-product-ui | CURRENT | ≠ BEHAVIOR PROVEN E2E |
+| `app/app/studio/projects/[id]/page.tsx` | Workspace Product | `ProductShell` + `ProjectWorkspacePage` | CURRENT | — |
+| `app/app/studio/projects/new/page.tsx` | Création intention | (tree present ; NewProjectIntentionPage export) | CURRENT | détail Lot B |
+| `features/project-assistant/actions.ts` | Server actions | `getRuntimeApplicationService` + OA cycle/decision imports ; trackedSource | CURRENT | — |
+| `app/api/studio/projects/[projectId]/assistant/send/route.ts` | HTTP send | path exists in tree | CURRENT | comportement Lot C |
+| `lib/vertical-slice-runtime/singleton.ts` | Composition entry | PRR 01 + trackedSource ; `getRuntimeApplicationService` | CURRENT / SHARED | process-local only |
+| `lib/vertical-slice-runtime/service.ts` | OA wiring | imports createSqlite*Services · composeStudioProductRealBoundary ; trackedSource | CURRENT | — |
+| `middleware.ts` | Auth gate | `resolveCurrentAuthenticatedPilote` fail-closed | CURRENT / SHARED | — |
+| `app/app/page.tsx` | Redirect | `redirect("/synthese")` | CURRENT routing → surface **HISTORICAL/POC** | home ≠ Product spine |
+| `app/app/synthese/page.tsx` | Slice POC | copy « fixture · slice-only » « aucun claim MVP » | HISTORICAL / PARALLEL demo | still default `/` |
+| `app/app/projects/[id]/page.tsx` | D1 cockpit | `lib/d1` + `features/d1` | PARALLEL / HISTORICAL lineage | not Truth C Product |
+| `app/app/workspace/page.tsx` | D1 workspace | `listWorkspaceProjects` d1 | PARALLEL | — |
+| `app/app/ops1/nouvelle-demande/page.tsx` | OPS1 | comment « Legacy OPS1 … preserved » | HISTORICAL | — |
+| `features/pre-m6-product-ui/hooks/useProductConversation.ts` | Conversation hook | exists ; trackedSource ; PRR 01 surface table | CURRENT | — |
+| `lib/platform/ai/fakeProvider.ts` | Fake cognition | trackedSource ; vol05 | CURRENT Fake path | ≠ REAL |
+
+**Règle appliquée :** existence d'un dossier ≠ CURRENT. Classification fondée sur **imports de routes / composition service / PRR 01**.
 
 ---
 
-## G. Gaps structurants initiaux (observations — non corrigés)
+## L-A3 — Architectural Classification Matrix
 
-| ID | Observation | Source | Conséquence | Importance | Prochaine action proposée |
+| Élément | Classe | Justification sourcée | Preuve positive | Confiance | Ne signifie PAS |
 |---|---|---|---|---|---|
-| G-M1-01 | Manifest lastReviewedCommit (928ab15b / 2026-10-15) ≪ main `5689cb737b40d7712d8b31b999faabc0725558ab` | manifest vs ls-remote | risque de snapshot « CURRENT » périmé | P0 | Lot A : dater/qualifier fraîcheur ; pas refresh digest auto |
-| G-M1-02 | ~32 OBJ vol02 vs 12 components manifest | vol02 / manifest | index machine incomplet vs catalog | P0 | Lot B : cartographier OBJ catalog → index / hors-index |
-| G-M1-03 | ~611 tests vs 7 trackedTests | tree `__tests__` / manifest | sous-représentation preuves | P0 | Lot C/D : stratégie d'échantillonnage par domaine |
-| G-M1-04 | Vol 09 overlay Tool-First encore « PENDING_GIT_INTEGRATION » alors README R-S02 = CURRENT via PR #588 | vol09 vs README | contradiction documentaire | P1 | KNOWN GAP ; sync PRR sous GO distinct (pas ce cycle) |
-| G-M1-05 | TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN | README / vol07 / Roadmap | frontière REAL no-write non close | P1 | hors clôture M0 ; inventorier comme dette |
-| G-M1-06 | RS-03 OPEN | Roadmap / historique AKG-M0 | gap connu non bloquant M0 | P2 | tracer en inventaire ; ne pas fermer |
-| G-M1-07 | Tip Roadmap formal closure : texte authoring « LOCAL CANDIDATE » alors PR #593 mergée | Roadmap tip vs Git | confusion publication | P2 | truth-sync tip sous GO doc distinct |
-| G-M1-08 | Surfaces historiques (ops1, d1, vertical-slice, F20) coexistent | app/features · F20 | risque double lecture architecture | P1 | Lot A topology : classer CURRENT vs HISTORICAL |
-| G-M1-09 | Fake/DET vs REAL : nombreux overlays « DETERMINISTIC VERIFIED / REAL NOT PROVEN » | README PRR | sur-claim REAL facile | P0 | schema preuve : niveau obligatoire |
-| G-M1-10 | Product Completion C1 cible ≠ runtime as-implemented | C1 vs PRR | confusion trajectoire vs existant | P1 | inventaire = as-implemented ; C1 = intent only |
-| G-M1-11 | trackedSources centrés project-assistant/f2 | manifest | domaines UI/auth/adapters peu indexés | P1 | Lot B census sources hors index |
-| G-M1-12 | Runtime v3 NON ADOPTED / INV-NO-V3-ADOPT | doctrine / invariants | inventaire ne doit pas « adopter » v3 | P0 | garde-fou explicit dans exit proof |
+| Product Studio UI (`/studio/**` + pre-m6-product-ui) | CURRENT | Routes + PRR 01 primary surfaces | page imports | HIGH | BEHAVIOR PROVEN / REAL |
+| Project Assistant + F2 | CURRENT | trackedSources 27 centré PA/F2 ; actions wiring | paths + conformance existence | HIGH | exhaustivité F2 |
+| Nora cognitive runtime | CURRENT | vol01 layer ; tracked nora paths | files on main | HIGH | REAL cognition proven |
+| OA Product SQLite Truth C | CURRENT | vol06 + service.ts sqlite wiring | code + PRR | HIGH | schema completeness Lot B |
+| Memory B / Nora session | CURRENT / SHARED | vol01/06 dual store | sessionPaths tracked | HIGH | Truth C |
+| Vertical-slice-runtime singleton | CURRENT / SHARED | composition entry PRR 01 | tracked | HIGH | multi-instance safe |
+| FakeConversationProvider | CURRENT (Fake) | vol05 + tracked | file | HIGH | REAL |
+| Cursor REAL gateway path | CURRENT capability gated | vol05 `SFIA_STUDIO_CURSOR_REAL` ; composeStudioProductRealBoundary | code present | MED | REAL BOUNDARY PROVEN |
+| `lib/oa/execution-run/**` | PARALLEL (non Product spine) | PRR 01 explicit | vol01 statement | HIGH | useless/supprimable |
+| D1 (`/projects`,`/workspace`, lib/d1) | PARALLEL / HISTORICAL lineage | separate sqlite ; not Truth C (vol06) | routes + vol06 | HIGH | retire authorized |
+| OPS1 surfaces | HISTORICAL | page comment Legacy ; vol06 ops1 isolated | code | HIGH | retire authorized |
+| Synthèse `/synthese` | HISTORICAL / fixture POC | page copy slice-only | code | HIGH | Product CURRENT |
+| Default `/` → synthese | CURRENT **routing quirk** | page.tsx redirect | code | HIGH | Product home |
+| Manifest 12 components | SHARED index (curated) | conformance test contract | test file | HIGH | full object census |
+| Vol02 ~32 OBJ catalog | DOCUMENTED corpus | volume headings | git show | HIGH | all in manifest index |
+| Runtime v3 | GOVERNANCE NON-CLAIM | vol01 Runtime v3 NON ADOPTED | PRR | HIGH | — |
+| Tool-First R1/R2 Product gates | CURRENT (code) per README | README R-S02 + PR #588 | README table | HIGH | vol09 stale text CURRENT |
+| Vol09 Tool-First PENDING wording | HISTORICAL SNAPSHOT (stale overlay) | conflicts README | both texts on same SHA | HIGH | see G-M1-04 |
 
 ---
 
-## H. Découpage d'exécution proposé (OPTIONS — challengé)
+## L-A4 — PRR/Manifest Coverage Contract
 
-### Option de base (GO)
+### Contrat vérifié (conformance test + maintenance)
 
-| Lot | Contenu | Sortie |
+Le manifest `schemaVersion: 1` / kind `SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE` est un **index de conformité structurelle** :
+
+1. IDs uniques components/flows/invariants/dependencies ;
+2. Résolution des références croisées (flowIds, dependsOn, dependency endpoints) ;
+3. **Existence** des `trackedSourcePaths` / `testPaths` / volumes ;
+4. **Digests sha256_16** match tree pour volumes + trackedSources + trackedTests ;
+5. Maintenance explicite : `refreshDigestDoesNotValidateSemantics: true` · digest mismatch → `REFERENCE REVIEW REQUIRED` · `automateStructuralArbitration: false`.
+
+**Ce contrat NE revendique PAS** l'exhaustivité de tous les objets vol02, ni de tous les tests `__tests__`, ni l'audit sémantique jusqu'à HEAD.
+
+### Chiffres revérifiés sur `5689cb737b40d7712d8b31b999faabc0725558ab`
+
+| Famille | Count | Match cadrage |
 |---|---|---|
-| **A — Census / Topology** | Carte dossiers app + classification CURRENT/HISTORICAL/PARALLEL ; ancrage composition entry | table topologie + exclusions |
-| **B — Domain Inventory** | Pour D1–D9 P0 : objets/responsabilités avec schéma preuve ; réutiliser OBJ/F/INV | tables par domaine |
-| **C — Flow & Dependency Coverage** | F01–F20 + DEP-* : couverture DOCUMENTED→VERIFIED ; edges manquants | matrice flow×preuve |
-| **D — Gap & Exit Proof Review** | Consolider gaps ; qualifier niveaux ; pack exit AKG-M1 | exit proof + backlog |
+| components | **12** | yes |
+| flows | **20** | yes |
+| invariants | **20** | yes |
+| dependencies | **9** | yes |
+| trackedSources | **27** | yes |
+| trackedTests | **7** | yes |
+| volumes | **10** | yes |
+| lastReviewedCommit | `928ab15b032c392dafee74a916f2faad3ed524de` | — |
+| lastReviewedAt | `2026-10-15T22:51:00+02:00` | — |
 
-### Challenge / alternatives
+Tracked paths : **tous présents** sur `5689cb737b40d7712d8b31b999faabc0725558ab` (cat-file OK).
 
-| Variante | Motif | Recommandation candidate |
+### Écarts d'index — qualification R1
+
+| Écart | Observation | Qualification |
 |---|---|---|
-| A → B → C → D (séquentiel) | chemin critique clair ; réduit parallélisation | **Recommandé par défaut** |
-| A+C léger en parallèle puis B | flows déjà catalogués F01–F20 | acceptable si capacité revue |
-| Fusion B+C | objets et flows très couplés (F05/OBJ-ARTIFACT*) | possible Lot B′ « Object×Flow » |
-| D précoce | éviter fausse exhaustivité | garder D en fin ; mini-gates gap après chaque lot |
+| ~32 OBJ vol02 vs 12 components | Catalog narratif ⊃ index machine ; 6 IDs manifest non-headers exacts vol02 (ARTIFACT-CONTINUATION, ROUTING, FAKE-PROVIDER, FINALIZATION-ASSESS, RUNTIME-COMPOSITION, UI-LIFECYCLE) = index d'assemblages | **COVERAGE TO VERIFY** (périmètre index vs corpus) — **≠** KNOWN GAP automatique |
+| ~611 tests vs 7 trackedTests | Index pointe un oracle de drift digests + preuves Artifact/front-door ; reste du corpus hors contrat digest | **COVERAGE TO VERIFY** — exclusions intentionnelles plausibles |
+| trackedSources centrés PA/Nora/OA/UI lifecycle | Domaines auth/adapters/UI routes hors tracked list | **COVERAGE TO VERIFY** (G-M1-11) |
+| lastReviewedCommit ancestor ; commits docs postérieurs (AKG-M0, SHE) sur PRR/app | Delta fraîcheur audit daté 2026-10-15 vs main 2026-10-20 | **COVERAGE TO VERIFY** / fraîcheur — **≠** corpus incorrect prouvé (R1 / G-M1-01) |
 
-**Non décidé** sans Morris. Aucun lot n'est autorisé à démarrer par ce cadrage.
+### Components index (12) — IDs
 
----
+OBJ-ARTIFACT-CONTINUATION · OBJ-MW5-CHALLENGE · OBJ-PROPOSAL · OBJ-HD · OBJ-ARTIFACT-ROUTING · OBJ-FINALIZATION-ASSESS · OBJ-TURN-ORCH · OBJ-MEMORY-B · OBJ-FAKE-PROVIDER · OBJ-EC · OBJ-UI-LIFECYCLE · OBJ-RUNTIME-COMPOSITION
 
-## I. Exit proof AKG-M1 proposé (mesurable — pas 100 % artificiel)
+### Flows F01–F20 (périmètre Lot C — R2)
 
-AKG-M1 pourra être proposé CLOSED (sous GO Morris ultérieur) lorsque :
+| Flow | Titre (vol03) | Preuves requises Lot C (proposées) |
+|---|---|---|
+| F01–F03 | Project create / load / cycle qual | routes studio + OA project/cycle + tests |
+| F04–F07 | Nora · Artifact · Proposal · HD | PA/Nora tracked + decision paths |
+| F08–F11 | EC PREPARE → Evidence/RB | OA EC/Attempt/Evidence + DET proofs |
+| F11b–F15 | Continuity · Claim · post-Evidence · LPS · finalization | cycle/continuity suites |
+| F16–F20 | Replan · restarts · legacy | classer CURRENT vs HISTORICAL ; F20 legacy |
 
-1. **Périmètre** D1–D12 explicite avec inclusions/exclusions documentées.
-2. **Domaines P0** (D1–D7, D9) ont une table d'inventaire traçable (IDs + paths + statut couverture).
-3. **Correspondance code/PRR** : chaque entrée P0 cite volume PRR **ou** KNOWN GAP d'absence.
-4. **Flows essentiels** F01–F15 au minimum : statut DOCUMENTED ou COVERAGE VERIFIED ; F16–F20 classés ou exclus justifiés.
-5. **Dépendances** : DEP-* manifest revues + edges critiques hors-index listés comme gaps si besoin.
-6. **Preuves** : pour tout BEHAVIOR PROVEN, niveau (DET / REAL bornée / E2E) + limites ; sinon ne pas claim.
-7. **Gaps ouverts** recensés (y compris G-M1-* et dettes RS-03 / REAL no-write) sans fermeture fictive.
-8. **Aucune fausse exhaustivité** : exclusions explicites ; manifest counts non présentés comme total système.
-9. **Entrée AKG-M2 utilisable** : tables + gaps + topologie suffisent pour Architecture Understanding sans re-cadrage.
-10. **Non-claims tenus** : pas P6 PASS ; pas runtime v3 ADOPTED ; pas AKG-M2 started.
+Lot A : **périmètre défini** ; vérification COVERAGE VERIFIED/KNOWN GAP = **Lot C NOT AUTHORIZED**.
 
 ---
 
-## J. Risques et réserves
+## L-A5 — Domain D1–D12 Coverage Baseline
 
-| Risque | Mitigation cadrage |
+| Domaine | PRR source | Code refs | Manifest index | Non représenté / notes | Classe | Couverture | Priorité | Lot suivant |
+|---|---|---|---|---|---|---|---|---|
+| D1 Parcours utilisateur | 01 surfaces | `/studio/**` · pre-m6-product-ui | OBJ-UI-LIFECYCLE | home `/`→synthese quirk | CURRENT (+ HIST routing quirk) | DOCUMENTED ; COVERAGE TO VERIFY UX paths | P0 | B (objets UI) · C (F01/F02) |
+| D2 Composition / Runtime | 01 composition | vertical-slice-runtime singleton/service | OBJ-RUNTIME-COMPOSITION | serverless limits | CURRENT | DOCUMENTED | P0 | B |
+| D3 Nora / Cognition | 01 · nora overlays | nora-cognitive-runtime/** | OBJ-TURN-ORCH · OBJ-MW5 · OBJ-MEMORY-B · OBJ-FAKE | REAL Nora | CURRENT | DOCUMENTED | P0 | B · C F04 |
+| D4 Project/LPS/Cycle | 02 OBJ-PROJECT…CYCLE | lib/oa/project · cycle · db | partiel (pas tous OBJ indexés) | OBJ-PROJECT/LPS/CYCLE hors components[] | CURRENT | DOCUMENTED corpus ; index COVERAGE TO VERIFY | P0 | B |
+| D5 Trajectoire/Décisions | 02 Proposal/HD/REC | OA decision · PA f2 recordDecision | OBJ-PROPOSAL · OBJ-HD | REC/CONFIRMATION hors index | CURRENT | DOCUMENTED | P0 | B · C F06/F07 |
+| D6 EC / Attempt | 02 EC/ATTEMPT · 03 F08–F10 | oa/execution-contract · attempt · compose REAL | OBJ-EC | Attempt non component id | CURRENT | DOCUMENTED | P0 | B · C ; D10 transverse |
+| D7 Evidence/RB/Artifacts | 02 · Artifact Cont. | evidence-review · artifact routing · PA continuation | ARTIFACT-* · FINALIZATION | RB/EVIDENCE hors components[] | CURRENT | DOCUMENTED | P0 | B · C F05/F11 |
+| D8 Persistence/Recovery | 06 | dual SQLite · proposalStore process-local · d1/ops1 isolated | MEMORY-B · product db tracked | restart matrix detail | SHARED / TRANSVERSE | DOCUMENTED ; transverse P0 | P0 transverse | B (par objet) · C restart flows |
+| D9 Auth / Autorité | 07 INV-* · middleware | lib/auth · INV set | invariants[] 20 | auth sources non tracked | CURRENT / SHARED | DOCUMENTED | P0 | B authority objects |
+| D10 Adapters/Boundaries | 05 | platform/ai · git-ports · REAL compose · Fake | OBJ-FAKE-PROVIDER | Cursor REAL adapters peu tracked | SHARED / TRANSVERSE | DOCUMENTED | P0 transverse | B/C with D3/D6 |
+| D11 Observabilité/Tests/CI | 08 | __tests__ ~611 · 7 tracked · conformance | trackedTests | majority tests hors digest contract | SHARED | DOCUMENTED counts | P1 | C proof sampling · D |
+| D12 Historique/Parallèles | 03 F20 · 01 parallel note · 06 | d1 · ops1 · synthese · execution-run | F20 | composition non-spine | HISTORICAL / PARALLEL | DOCUMENTED | P2 | B classify only · no retire |
+
+**D8/D10 transverses (R3) — dépendances P0 repérées :**
+
+| Transverse | Conditionne | Observation |
+|---|---|---|
+| D8 Truth C SQLite | D4–D7 durable | service.ts createSqlite* ; vol06 |
+| D8 Memory B session | D3 continuity | productSqliteSession · sessionPaths |
+| D8 proposalStore process-local | D5 Proposal restart | vol06 « not sole restart authority » |
+| D10 Fake provider | D3 DET path | fakeProvider tracked |
+| D10 Cursor REAL gate | D6 Start/Select | composeStudioProductRealBoundary · CURSOR_REAL env |
+| D10 Auth middleware | D1 all Product routes | middleware fail-closed |
+
+Pas d'inventaire exhaustif D8/D10 dans Lot A.
+
+---
+
+## L-A6 — Initial Gap/Risk/Debt Triage (G-M1-01…12)
+
+Reclassement sous R4 (références historiques conservées) :
+
+| ID | Classe R4 | Observation Lot A | Réf Git | Conséquence | Criticité | Lot suivant |
+|---|---|---|---|---|---|---|
+| G-M1-01 | **COVERAGE TO VERIFY** (+ fraîcheur) | lastReviewed 928ab15b (2026-10-15) ancestor de main ; commits docs PRR/AKG-M0 postérieurs — **impact sémantique non prouvé** | manifest · `git log 928ab15b..BASE -- PRR/app` | zones PRR à réexaminer ciblé | P1 | D / sync doc GO |
+| G-M1-02 | **COVERAGE TO VERIFY** | 32 OBJ vs 12 components = corpus ⊃ curated index (contrat conformance) | vol02 · manifest · conformance test | Lot B map OBJ→index/hors-index | P0 | B |
+| G-M1-03 | **COVERAGE TO VERIFY** | 611 tests vs 7 tracked = digest oracle subset | __tests__ tree · trackedTests | échantillonnage preuves Lot C | P0 | C |
+| G-M1-04 | **KNOWN GAP démontré** | README Tool-First **CURRENT via #588** vs vol09 overlay encore **PENDING_GIT_INTEGRATION** sur **même** `5689cb737b40d7712d8b31b999faabc0725558ab` | README L16–28 · vol09 §Tool-First L174+ | lecteur peut sur-pondérer stale overlay | P1 | sync PRR GO distinct (pas Lot A fix) |
+| G-M1-05 | **EXISTING DEBT** | TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN | README · vol07/09 · Roadmap | dette maintenue OPEN | P1 | hors M1 close |
+| G-M1-06 | **EXISTING DEBT** | RS-03 OPEN | Roadmap / M0 | OPEN | P2 | hors M1 |
+| G-M1-07 | **HISTORICAL SNAPSHOT** | Tip Roadmap authoring « LOCAL CANDIDATE » alors PR #593 mergée dans `5689cb737b40d7712d8b31b999faabc0725558ab` | Roadmap tip · merge 5689cb73 | Git CURRENT prévaut | P2 | truth-sync tip GO doc |
+| G-M1-08 | **COVERAGE TO VERIFY** → partial **DOCUMENTED** | Coexistence D1/OPS1/synthese vs `/studio` ; composition actuelle classée L-A2/L-A3 | routes + comments | éviter confusion spine | P1 | B classify ; no retire |
+| G-M1-09 | **RISK** / **GOVERNANCE NON-CLAIM** | Sur-claim REAL depuis DET | vol05 · README | discipline niveaux preuve | P0 | C proof levels |
+| G-M1-10 | **RISK** / trajectoire | C1 Product Completion intent ≠ as-implemented PRR | C1 · PRR | inventaire = as-implemented | P1 | B framing |
+| G-M1-11 | **COVERAGE TO VERIFY** | trackedSources biais PA/F2 | manifest list | census sources hors index Lot B | P1 | B |
+| G-M1-12 | **GOVERNANCE NON-CLAIM** | Runtime v3 NON ADOPTED · INV-NO-V3-ADOPT | vol01 · invariants | garde-fou inventaire | P0 | all lots |
+
+**Aucun nouveau gap artificiel créé.** Aucune correction.
+
+---
+
+## L-A7 — Lot B Inputs / Dependencies / Exclusions
+
+### Périmètre Lot B recommandé (candidate — NOT AUTHORIZED)
+
+1. **Inventaire objets** pour domaines P0 : D1–D7 + D9, en réutilisant IDs vol02 / manifest ; schéma preuve du cadrage.
+2. Pour chaque OBJ vol02 hors components[] : statut DOCUMENTED + lien code + « in/out of manifest index ».
+3. Pour chaque component manifest : vérifier responsabilités vs sources tracked (sans étendre digests).
+4. **Transverses D8/D10** : uniquement champs persistence/boundary **par objet P0** (R3) — pas census exhaustif adapters.
+5. Classifier D12 surfaces avec preuve composition (déjà amorcé L-A2) — **pas** décision RETIRE.
+6. Propager G-M1-02/08/11 comme work items ; ne pas « fermer » G-M1-04/05/06.
+
+### Dépendances Lot B
+
+- Sortie Lot A (ce pack) acceptée / amendée Morris ;
+- Git CURRENT ref (requalifier si main bouge) ;
+- PRR vols 02/06/07 + manifest inchangés (RO).
+
+### Exclusions Lot B (explicites)
+
+- Exécution Lot C flow verification ;
+- Lot D exit proof global AKG-M1 ;
+- AKG-M2 ;
+- Refresh digests / edit PRR ;
+- REAL / HQA ;
+- Rationalisation / suppression composants ;
+- Product Completion Delivery.
+
+### Inconnues bornées transmises
+
+| Inconnue | Bornage |
 |---|---|
-| Inventaire fichier-par-fichier sans valeur | granularité composant/flux |
-| 2e référentiel parallèle à la PRR | réutiliser volumes 01–09 + manifest |
-| Sur-claim BEHAVIOR PROVEN | niveaux épistémiques obligatoires |
-| Confondre C1/Product intent avec as-implemented | PRR + Git primaires |
-| Lancer REAL pour « compléter » | hors scope ; GO REAL distinct |
-| Exécuter Lots sans GO | INVENTORY EXECUTION NOT AUTHORIZED |
-| Fermer RS-03 / REAL no-write via inventaire | INTERDIT |
-
-Réserves héritées : RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN · cleanup branches M0 BLOCKED/SKIPPED (hors scope).
+| Usage réel runtime D1/OPS1/synthese en prod | classés PARALLEL/HISTORICAL ; mesure usage hors scope |
+| Couverture sémantique post-928ab15b | COVERAGE TO VERIFY ; pas claim incorrect |
+| Completeness Attempt/Evidence hors index | Lot B object rows |
+| REAL boundary | NON PROVEN ; Lot C levels only if DET evidence |
 
 ---
 
-## K. Gates Morris suivants
+## Authority / proof frontiers (prep B/C — non E2E)
 
-1. **ChatGPT Critical Review** de ce cadrage AKG-M1.
-2. **Morris validation** du périmètre / granularité / lots / exit proof.
-3. **GO distinct d'exécution** d'inventaire (un ou plusieurs lots) — **pas déduit** de ce cadrage.
-4. Après inventaire qualifié : GO distinct éventuel **AKG-M2**.
-5. Truth-sync Roadmap tip formal-closure wording / sync PRR contradictions (G-M1-04/07) — GO doc distincts.
+Repérées (non re-prouvées) : HumanDecision · Confirmation · ExecutionContract · Attempt · Evidence/RB · Truth C vs Memory B · Fake/REAL · persistence/recovery · Nora orchestration.
+
+Interdits d'inférence : autorité←recommandation · REAL←DET · v3 ADOPTED · P6 PASS · droit de supprimer.
 
 ---
 
-## Fake / Real qualification
+## Exit proof Lot A — évaluation
 
-| Item | Valeur |
-|---|---|
-| Frontière REAL exécutée | NON |
-| Fake/fixtures | lecture sources uniquement |
-| Proof | DOCUMENTARY / SOURCE COVERAGE QUALIFICATION |
-| Hors scope | DETERMINISTIC EXECUTION PROOF · REAL BOUNDARY PROVEN · E2E REAL PROVEN |
-| READY/ADOPTED claims | AUCUN |
-
----
-
-## Validations 1–16
-
-| # | Contrôle | Résultat |
+| # | Critère | Résultat |
 |---|---|---|
-| 1 | Git/ref/base exacts | PASS (`5689cb737b40d7712d8b31b999faabc0725558ab`) |
-| 2 | Build Doctrine + Roadmap | PASS |
-| 3 | C1/v3 sans confusion | PASS |
-| 4 | PRR README+volumes | PASS |
-| 5 | Manifest sans claim exhaustivité | PASS |
-| 6 | Code proportionnel | PASS |
-| 7 | Granularité exploitable | PASS (proposée) |
-| 8 | Domaines critiques cadrés | PASS |
-| 9 | Source/proof strategy | PASS |
-| 10 | Couverture épistémique | PASS |
-| 11 | Fake/Real non sur-qualifié | PASS |
-| 12 | Aucun actif supprimé | PASS |
-| 13 | Aucun changement projet | PASS |
-| 14 | AKG-M2 non démarré | PASS |
-| 15 | Lien Roadmap/Product | PASS |
-| 16 | Gates suivants explicites | PASS |
+| 1 | Git CURRENT sans ambiguïté | **PASS** `5689cb737b40d7712d8b31b999faabc0725558ab` |
+| 2 | Topologie D1–D12 | **PASS** L-A1/L-A5 |
+| 3 | Chemins/entrées sourcés | **PASS** L-A2 |
+| 4 | Classifications + preuves | **PASS** L-A3 |
+| 5 | UNKNOWN explicites | **PASS** (usage D1/OPS1 ; sémantique post-audit) |
+| 6 | Contrat PRR/manifest | **PASS** L-A4 |
+| 7 | Pas fausse exhaustivité | **PASS** R1 |
+| 8 | Couverture domaine initiale | **PASS** L-A5 |
+| 9 | D8/D10 transverses | **PASS** R3 table |
+| 10 | Gaps/risques/dettes séparés | **PASS** L-A6 |
+| 11 | Limites DET/REAL | **PASS** |
+| 12 | Lot B préparé borné | **PASS** L-A7 |
+| 13 | Aucun fichier projet modifié | **PASS** |
+| 14 | B/C/D non exécutés | **PASS** |
+| 15 | Review Pack FULL | **PASS** (ce document) |
+| 16 | Handoff L3 distant | (ce cycle — vérifier remote) |
+
+---
+
+## Validations / Fake-Real / R24
+
+- Aucun build/test lancé générateur d'artefacts.
+- Fake/Real : lecture seulement.
+- R24 : **NO SEMANTIC IMPACT**.
+- Quatre réserves Morris : appliquées.
 
 ---
 
@@ -397,43 +379,42 @@ Réserves héritées : RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT OPEN ·
 | Artefact | Ref |
 |---|---|
 | origin/main | `5689cb737b40d7712d8b31b999faabc0725558ab` |
-| PR #593 merge (formal closure tip) | inclus dans main |
-| Prior handoff M0 GI | a7df4fc3 / 1e153128 |
+| Prior cadrage handoff | 7abb590c / bef89f02 |
 | Manifest lastReviewed | 928ab15b @ 2026-10-15 |
-| Worktree RO | formal-closure-sync (pack only dirty) |
+| Conformance test | `…/productionRuntimeReference.conformance.d0.test.ts` |
+| KNOWN GAP G-M1-04 | README vs vol09 Tool-First |
 
 ---
 
 ## Décisions Morris encore requises
 
-1. ChatGPT Critical Review of AKG-M1 cadrage
-2. Validation Morris scope/granularity/lots/exit proof
-3. GO exécution inventaire (lots) — distinct
-4. GO éventuels sync PRR / Roadmap tip wording
-5. AKG-M2 — seulement après inventaire qualifié + GO distinct
+1. ChatGPT Critical Review of Lot A
+2. Morris validation Lot A exit
+3. **Distinct Lot B GO**
+4. GO doc sync PRR G-M1-04 / tip G-M1-07 (distinct)
+5. Lots C/D · AKG-M2 — plus tard
 
 ---
 
 ## Verdict
 
-**AKG-M1 — SYSTEM INVENTORY CADRAGE READ-ONLY COMPLETE.**
+**AKG-M1 LOT A — CENSUS & COVERAGE BASELINE COMPLETE.**
 
-**CADRAGE CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW.**
+**LOT A CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW.**
 
 | Claim | Statut |
 |---|---|
-| INVENTORY EXECUTION | NOT AUTHORIZED |
+| AKG-M1 LOT B | NOT AUTHORIZED |
+| AKG-M1 LOT C/D | NOT AUTHORIZED |
 | AKG-M2 | NOT AUTHORIZED |
 | PROJECT FILE MODIFICATIONS | NONE |
-| PRR SEMANTIC IMPACT | NONE (NO SEMANTIC IMPACT) |
-| P6 GLOBAL PASS | NOT ACQUIRED |
-| Runtime v3 | NON ADOPTED |
-| AKG-M0 | CLOSED BY MORRIS AT METHODOLOGICAL SCOPE |
+| PRR SEMANTIC IMPACT | NONE |
+| Runtime v3 / P6 | NON ADOPTED / NOT ACQUIRED |
 
-GATE SUIVANT : CHATGPT CRITICAL REVIEW OF AKG-M1 CADRAGE.
-PUIS : MORRIS VALIDATION OF INVENTORY SCOPE AND DISTINCT EXECUTION GO.
+NEXT GATE : CHATGPT CRITICAL REVIEW OF LOT A.
+AFTER : MORRIS VALIDATION OF LOT A EXIT AND DISTINCT LOT B GO.
 
-AUCUNE PR. AUCUN MERGE. AUCUN CLEANUP.
+AUCUN COMMIT PROJET. AUCUNE PR. AUCUN MERGE. AUCUN CLEANUP.
 
 ---
 
@@ -444,6 +425,6 @@ Avant revue, lire depuis Git :
 Branche : `sfia/review-handoff`
 Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 
-Vérifier : cycle, profil, branche, HEAD/base, sources, **cadrage complet**, preuves, réserves, décisions, SHA/blob et verdict.
+Vérifier cycle, refs, **livrables L-A1…L-A7 complets**, classifications, preuves, limitations, réserves R1–R4, triage G-M1, verdict.
 
-Synthèse seule = REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING.
+Si synthesis-only : REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING.
