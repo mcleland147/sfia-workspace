@@ -93,21 +93,45 @@
 
 ## Overlay — P6 Generic Execution consolidation candidate (LIVING REFERENCE R1–R4)
 
-**Status:** AS_IMPLEMENTED_IN_CANDIDATE on integration worktree `integration/sfia-studio-p6-generic-execution-consolidation` @ base `896ff59c` · Product dirty transferred from source `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862` · **PENDING_GIT_INTEGRATION** · **NOT INTEGRATED_ON_MAIN**.
+### A — HISTORICAL AT MACRO TIME (snapshot preserved)
 
-| Item | Status |
+**Do not read this subsection as CURRENT.** It records the consolidation-candidate documentary tip as authored then.
+
+- Integration worktree: `integration/sfia-studio-p6-generic-execution-consolidation` @ base `896ff59c`
+- Product dirty transferred from source `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862`
+- Then-status: **AS_IMPLEMENTED_IN_CANDIDATE** · **PENDING_GIT_INTEGRATION** · **NOT INTEGRATED_ON_MAIN**
+
+| Item (historical tip) | Status **at macro time** |
 |---|---|
 | G-IB (importBoundaries allowlist +4 W2 type-only RuntimeOaStack) | **CLOSED** (historical gate) |
-| G-DIGEST Living Reference digests | **PENDING CONTENT APPROVAL** — manifest **FROZEN**; digests **not** promoted this cycle |
-| Living Reference volumes 02/03/04/06/07/08/09 | Semantic amendments R1–R4 applied locally — ChatGPT content review required before digest write |
-| 77 Product candidates + allowlist | Preserved dirty; **no** Product commit/push/PR this cycle |
+| G-DIGEST Living Reference digests | **PENDING CONTENT APPROVAL** — manifest **FROZEN**; digests **not** promoted that cycle |
+| Living Reference volumes 02/03/04/06/07/08/09 | Semantic amendments R1–R4 applied locally — ChatGPT content review required before digest write (that tip) |
+| 77 Product candidates + allowlist | Preserved dirty; **no** Product commit/push/PR that cycle (**historical** — not a claim about today’s worktree) |
 | Pending Generic PREPARE offer | Process-local — restart-unsafe (vol 06) |
 | Generic Mission HumanDecision | Durable OA; restart ≠ CURRENT offer; applicability re-check required |
 | Cursor REAL / OpenAI LIVE / HQA | **NOT PROVEN / NOT RETESTED** |
 | P6 GLOBAL PASS / READY FOR REAL / runtime v3 ADOPTED | **NOT CLAIMED** |
-| DETERMINISTIC proof ceiling | Historical 328 targeted PASS + G-IB 5/5 — **not re-executed** this documentary cycle |
+| DETERMINISTIC proof ceiling | Historical **328 targeted PASS** + G-IB 5/5 — **not re-executed** in later documentary cycles |
 
-**Next (distinct GOs):** ChatGPT semantic content review → Morris digest approval → conformance → Product git decision → PR/CI/merge → HQA reprise. This overlay does **not** claim CURRENT ON MAIN.
+### B — CURRENT ON MAIN (Git requalification)
+
+Consolidation / Tool-First / SHE lineages absorbed via **PR #587** merge `e03c7b9f`, **PR #588** merge `304e30e8`, **PR #590** merge `c9abdbc3` (ancestors of main tip `c2b3d00c…`). Product behaviour for Generic PREPARE / optional Artifact / Tool-First R1/R2 / SHE is **CURRENT ON MAIN** only at deterministic tested scopes documented in vols 03/05/07. **OPEN / NOT PROVEN:** Cursor REAL · OpenAI LIVE · HQA · P6 GLOBAL PASS · READY FOR REAL · runtime v3 ADOPTED · `TOOL-FIRST-REAL-NOWRITE`.
+
+### C — G6 / CORR-01 LOCAL CANDIDATE (this documentary track)
+
+| Item | Status **now** |
+|---|---|
+| G6 PRR semantic sync authoring | Local dirty candidate (seven PRR paths) — **not** project-integrated |
+| G6-CORR-01 semantic corrections | Local candidate under Critical Re-Review — digests **not** written |
+| G-DIGEST / sha256_16 refresh | **PENDING MORRIS GO Digest Sync** — EXPECTED DIGEST DRIFT until authorized |
+| Global PRR conformance | **NOT ACQUIRED** while digests drift |
+| Project Git integration (commit/push/PR/merge) | **NOT AUTHORIZED** |
+
+### D — Gaps / reserves (continuity)
+
+R-M3A-01 OPEN · R-M3B-01 OPEN · R-G6-SR-01…04 = correction candidates under re-review (**not CLOSED** until Critical Re-Review accepts) · M2 38×20 identities preserved · F18/F19 PARTIAL · REAL NOT PROVEN.
+
+**Do not** promote Layer A PENDING_GIT_INTEGRATION / G-DIGEST historical rows into CURRENT after main absorption.
 
 ## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (historical macro — retained)
 
@@ -171,11 +195,13 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | REAL SprintBoard / Cursor REAL re-proof | NOT PROVEN — ZERO REAL this macro |
 | New store/table / parallel engines | NONE |
 
-## Overlay — Tool-First Generic Execution + R1/R2 (local candidate — PENDING_GIT_INTEGRATION)
+## Overlay — Tool-First Generic Execution + R1/R2
+
+**Epistemic requalification (AKG-M3 G6):** Prior title « local candidate — PENDING_GIT_INTEGRATION » is **HISTORICAL**. Product R1/R2 integrated via **PR #588** merge `304e30e8` → **CURRENT ON MAIN** at deterministic tested scope (see README R-S02 / vols 03/05/07).
 
 | Item | Status |
 |---|---|
-| Pathless analysis PREPARE without invented file path | AS-IMPLEMENTED_IN_CANDIDATE — positive non-mutating claim required (R1) |
+| Pathless analysis PREPARE without invented file path | **CURRENT ON MAIN** — positive non-mutating claim required (R1) |
 | Systematic HD / mandatory CycleInstance / mandatory Artifact for ordinary pathless | **NOT REQUIRED** when NON_STRUCTURAL gates admit |
 | Positive claim forms (R1) | `intentKind=read_only` **OR** `repositoryMutationDeclared ∈ {none,read}` — either form may qualify **iff** complementary Product gates pass |
 | `repositoryMutation` absent **with** admissible `read_only` | **NOT** an automatic refuse of the positive-claim step — `read_only` alone can satisfy that step |
@@ -185,12 +211,12 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | Structural / protected-path / elevated caps / docs_write disguise | **PRESERVED** — HD / refuse paths KEEP |
 | Inspect ≠ Execute; server Confirm/Authorize/Execute distinct | **PRESERVED** — Exécuter may fold Confirm after attest only |
 | Cursor REAL generalist technical no-write | **ABSENT** — debt open |
-| R2 Select (REAL + pathless non-mutating) | AS-IMPLEMENTED_IN_CANDIDATE — refuse **before new Attempt**; code `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` |
-| R2 Start (REAL + pathless non-mutating, Attempt already `accepted`) | AS-IMPLEMENTED_IN_CANDIDATE — refuse Start; Attempt stays `accepted`; zero launch-port calls; same code |
+| R2 Select (REAL + pathless non-mutating) | **CURRENT ON MAIN** — refuse **before new Attempt**; code `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` |
+| R2 Start (REAL + pathless non-mutating, Attempt already `accepted`) | **CURRENT ON MAIN** — refuse Start; Attempt stays `accepted`; zero launch-port calls; same code |
 | Fake/DET pathless non-mutating Select/Start | ADMISSIBLE — DETERMINISTIC at tested scope |
-| Integration on main / GitHub CI / HQA / P6 GLOBAL PASS | **NOT CLAIMED** — PENDING_GIT_INTEGRATION |
+| Integration on main (Product R1/R2) | **CURRENT ON MAIN** (PR #588) — ≠ HQA / P6 GLOBAL PASS |
 | REAL BOUNDARY PROVEN / READY FOR REAL / runtime v3 ADOPTED | **NOT CLAIMED** |
-| Debt `TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT` | OPEN — sandbox or Product-bound RO agent requires distinct Morris architecture GO |
+| Debt `TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT` | **OPEN** — Product gate ≠ technical sandbox; requires distinct Morris architecture GO |
 | Exit for debt | Enforceable no-write at REAL generalist (or equivalent) + GO + Bounded REAL proof |
 
 ## Overlay — P6-HQA-F05-GD4-01 / PR #586 (optional Artifact / Generic PREPARE)
@@ -291,3 +317,28 @@ No `retired-components-ledger.md` — zero components removed.
 - NoteLite REAL re-proof deferred (Morris GO distinct)
 - Nora model/provider tuning deferred
 - `durableLocalWriteSeal` domain API transitional (tests/domain only — not Product front door)
+
+## AKG-M3 G6 — PRR Semantic Sync authoring (LOCAL CANDIDATE) + CORR-01
+
+**Authority:** Morris GO G6 PRR Semantic Sync Authoring (2026-10-21) · Morris GO G6-CORR-01 Bounded Semantic Correction Pass (2026-10-21). Digests / project commit / PR **NOT** authorized.
+
+| ID | Status | Note |
+|---|---|---|
+| **R-M3A-01** | **OPEN** — technical index candidate applied locally (OBJ-ATTEMPT + DEP-EC-ATT retarget); **not FORMALLY CLOSED** pending Critical Re-Review + Digest Sync + conformance | Formal owner NOT ASSIGNED |
+| **R-M3B-01** | **OPEN** — G6 scope completeness (vols 02/03/04/05/07/09 + manifest covered in authoring; README/01/06/08 READ-ONLY) | Formal owner NOT ASSIGNED |
+| **R-G6-SR-01** | Correction candidate (Attempt active vs terminal statuses) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
+| **R-G6-SR-02** | Correction candidate (SHE authority timing / DEP-HD-EC Why) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
+| **R-G6-SR-03** | Correction candidate (curated vs narrative DEP description) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
+| **R-G6-SR-04** | Correction candidate (historical P6 provenance layers) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
+| R-M2A-04 | OPEN/GOVERNED | preserved |
+| R-M2B-03 | PASS WITH GOVERNED RESERVE | preserved |
+| B-M2B-01…05 | OPEN | B-M2B-03 routing ambiguity **not** behaviourally closed by documentary table |
+| RS-03 | OPEN | preserved |
+| TOOL-FIRST-REAL-NOWRITE | OPEN | preserved |
+| F18 / F19 | PARTIAL | preserved — no COMPLETE promotion |
+| REAL | NOT PROVEN | preserved |
+| F11b INDEX SCOPE | POLICY RECORDED (subflow; not in flows[]) | ≠ missing Product |
+| DEP-EC-ATT | LOCAL CANDIDATE fidelity fix (EC→Attempt) | awaiting semantic+digest gates |
+| M2 debt register 38×20 | identities/statuses conserved | `df77b8a2…` immuable |
+
+**Anti-claims:** CORR-01 authoring ≠ Critical Re-Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project Git integrated ≠ AKG-M3 CLOSED ≠ P6/v3/REAL.
