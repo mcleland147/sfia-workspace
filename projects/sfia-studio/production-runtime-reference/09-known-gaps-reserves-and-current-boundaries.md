@@ -117,7 +117,9 @@
 
 Consolidation / Tool-First / SHE lineages absorbed via **PR #587** merge `e03c7b9f`, **PR #588** merge `304e30e8`, **PR #590** merge `c9abdbc3` (ancestors of main tip `c2b3d00c…`). Product behaviour for Generic PREPARE / optional Artifact / Tool-First R1/R2 / SHE is **CURRENT ON MAIN** only at deterministic tested scopes documented in vols 03/05/07. **OPEN / NOT PROVEN:** Cursor REAL · OpenAI LIVE · HQA · P6 GLOBAL PASS · READY FOR REAL · runtime v3 ADOPTED · `TOOL-FIRST-REAL-NOWRITE`.
 
-### C — G6 / CORR-01 LOCAL CANDIDATE (this documentary track)
+### C — G6 / CORR-01 LOCAL CANDIDATE (this documentary track) — **HISTORICAL / SUPERSEDED BY G6/G7 INTEGRATED ON MAIN**
+
+> **Epistemic note:** Rows below describe the **authoring-time** G6/CORR-01 instant. They are **NOT** CURRENT status after PR #599. See **CURRENT overlay — AKG-M3 G6/G7 INTEGRATED ON MAIN** below.
 
 | Item | Status **now** |
 |---|---|
@@ -318,7 +320,60 @@ No `retired-components-ledger.md` — zero components removed.
 - Nora model/provider tuning deferred
 - `durableLocalWriteSeal` domain API transitional (tests/domain only — not Product front door)
 
-## AKG-M3 G6 — PRR Semantic Sync authoring (LOCAL CANDIDATE) + CORR-01
+
+
+## CURRENT overlay — AKG-M3 G6/G7 INTEGRATED ON MAIN (2026-10-21)
+
+**Authority:** Morris G5–G7 chain + D1–D4 Formal Exit Arbitration dispositions (2026-10-21). This overlay is **documentary CURRENT** for consumer reading. It does **not** adopt Formal Exit.
+
+| Fact | Status |
+|---|---|
+| G6 Semantic Review | **PASS** |
+| CORR-01 / CORR-02 | **reviewed** |
+| Digest Sync | **PASS** (six volume sha256_16 accepted; vol 09 baseline then `8e0ff7d45b1b33fa`) |
+| Local / CI Conformance | **PASS** (checker CONFORMANCE OK; post-merge CI `39651441205` SUCCESS) |
+| Git Integration G7 | **PASS** |
+| PR #599 | **MERGED** |
+| Merge SHA | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
+| Parents | `c2b3d00c…` + `d21fbb86…` |
+| Post-Merge Critical Review | **PASS WITH GOVERNED RESERVES** (handoff `3e017afb…`) |
+| Formal Exit Arbitration | Decision Pack COMPLETE (handoff `41f802eb…`) · Formal Exit **NOT ADOPTED** |
+| Index on main | **13 components · 20 flows · 20 invariants · 9 dependencies** · 27 trackedSources · 7 trackedTests · 10 volumes |
+| OBJ-ATTEMPT | **indexed** |
+| DEP-EC-ATT | **OBJ-EC → OBJ-ATTEMPT** (on main) |
+| DEP-HD-EC | **OBJ-HD → OBJ-EC** |
+| F11b | **absent from `flows[]`** (subflow narratif conservé) |
+| AKG-M4 | **NOT AUTHORIZED** |
+| REAL / P6 / runtime v3 | **NOT PROVEN / NOT PASSED / NON ADOPTED** |
+
+### Reserve dispositions — Morris D2 / D3 (FORMALLY CLOSED = NOT THIS CYCLE)
+
+| ID | Technical | Semantic | Morris D2/D3 | Formal status NOW | Owner | Next gate |
+|---|---|---|---|---|---|---|
+| **R-M3A-01** | **TECHNICALLY RESOLVED** (OBJ-ATTEMPT + DEP-EC-ATT on main) | **SEMANTICALLY RESOLVED** | **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** | **NOT FORMALLY CLOSED** | **OWNER UNASSIGNED** | Formal Exit Morris distinct (+ PRR09/Roadmap truth-sync integration) |
+| **R-M3B-01** | **TECHNICALLY RESOLVED** (G6 scope vols+manifest on main) | **SEMANTICALLY RESOLVED** | **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** | **NOT FORMALLY CLOSED** | **OWNER UNASSIGNED** | Formal Exit Morris distinct |
+| **R-G6-SR-01** | n/a (documentary) | **SEMANTICALLY RESOLVED** (Critical Semantic Review PASS + CORR) | **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** | **NOT FORMALLY CLOSED** | **OWNER UNASSIGNED** | Formal Exit Morris distinct |
+| **R-G6-SR-02** | SHE contract present on main | **SEMANTICALLY RESOLVED** | **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** | **NOT FORMALLY CLOSED** | **OWNER UNASSIGNED** | Formal Exit Morris distinct |
+| **R-G6-SR-03** | n/a (documentary) | **SEMANTICALLY RESOLVED** | **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** | **NOT FORMALLY CLOSED** | **OWNER UNASSIGNED** | Formal Exit Morris distinct |
+| **R-G6-SR-04** | n/a (documentary) | **SEMANTICALLY RESOLVED** (correction scope; historical layers remain HISTORICAL) | **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** | **NOT FORMALLY CLOSED** | **OWNER UNASSIGNED** | Formal Exit Morris distinct |
+| **R-M3-PM-CLEANUP-01** | Cleanup **NOT DONE** | n/a | **D3 DEFER APPROVED** | **GOVERNED OPEN / DEFER** | Temporary governance **MORRIS** (≠ invented named owner; Formal owner still UNASSIGNED for register fields) | Distinct cleanup GO when C03/C06/C11 clear; `branch -d` + remote delete; never `-D` |
+
+**R-M3-PM-CLEANUP-01 detail:** Post-Merge §6.12.1 SKIPPED/BLOCKED (C03 main local unaligned · C06 review pack tracked dirty · C11 branch checked out in project worktree). Remote branch `docs/sfia-studio-akg-m3-g7-prr-consolidation` retained @ `d21fbb86`. **≠ CLEANUP DONE.**
+
+### Transverse debts preserved (unchanged by D2)
+
+R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH GOVERNED RESERVE · B-M2B-01…05 OPEN · M2 debt register 38×20 · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED.
+
+### Exit readiness continuity (preparatory — not Formal Exit)
+
+E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FORMAL CLOSURE PENDING · E9–E10 WITH GOVERNED RESERVE · E11 = DOCUMENTARY TRUTH-SYNC LOCAL CANDIDATE (≠ INTEGRATED ON MAIN) · E12 OPEN (Formal Exit GO NOT CONSUMED).
+
+**Anti-claims:** D1–D4 APPROVED ≠ Formal Exit ADOPTED · conditional close ≠ FORMALLY CLOSED · this overlay ≠ Digest Sync of this PRR09 edit · ≠ project GI · ≠ AKG-M4 START · ≠ P6/REAL/v3 promotion.
+
+
+## AKG-M3 G6 — PRR Semantic Sync authoring (LOCAL CANDIDATE) + CORR-01 — **HISTORICAL / SUPERSEDED BY G6/G7 INTEGRATED ON MAIN**
+
+> **Authoring-time snapshot** (Morris GO G6 / CORR-01, 2026-10-21). Digests / project commit / PR were **NOT** authorized **at that instant**. Subsequent Digest Sync + G7 + PR #599 supersede CURRENT claims in the table below. Retain for provenance. **Do not** read « OPEN under re-review » / « Digests NOT authorized » as CURRENT after main integration.
 
 **Authority:** Morris GO G6 PRR Semantic Sync Authoring (2026-10-21) · Morris GO G6-CORR-01 Bounded Semantic Correction Pass (2026-10-21). Digests / project commit / PR **NOT** authorized.
 
