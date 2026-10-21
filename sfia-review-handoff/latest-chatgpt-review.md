@@ -1,237 +1,263 @@
-# SFIA REVIEW PACK FULL — AKG-M2 GLOBAL FORMAL MILESTONE EXIT QUALIFICATION
+# SFIA REVIEW PACK FULL — AKG-M2 GLOBAL FORMAL EXIT QUALIFICATION — CORRECTION PASS 01
 
-**Timestamp UTC:** 2026-10-21T08:15:24Z
+**Timestamp UTC:** 2026-10-21T08:48:16Z
 **Cycle:** 6 — Architecture technique
-**Specialization:** Global Formal Milestone Exit Qualification
+**Specialization:** Critical Review Correction Pass 01 (Bounded Documentary Correction)
 **Profile:** CRITICAL
-**Typology:** DOC / ARCHITECTURE / GOVERNANCE / REVIEW
-**Review Pack:** FULL (mono-cycle)
+**Typology:** DOC / GOVERNANCE / REVIEW CORRECTION
+**Review Pack:** FULL (mono-cycle · autonome)
 **Review Handoff:** REQUIRED — publish-in-cycle — L3 bounded
-**CKC Cycle 6:** PRESENT — pilot `pilots/03-architecture-technique.md` — **CANDIDATE GUIDANCE ONLY** (no decision/execution authority)
+**CKC Cycle 6:** CANDIDATE GUIDANCE ONLY (`pilots/03-architecture-technique.md`)
 
 ---
 
 ## 1. GO Morris exact
 
-**GO CONSUMED (2026-10-21):**
+**GO CONSUMED:**
 
-> AKG-M2 — GLOBAL FORMAL MILESTONE EXIT QUALIFICATION APPROVED.
+> AKG-M2 GLOBAL FORMAL EXIT QUALIFICATION — BOUNDED CORRECTION PASS 01 APPROVED — REVIEW PACK + HANDOFF L3 ONLY.
 
-**Portée:** Qualifier la possibilité de clôturer AKG-M2 global à partir des Lots A/B/C; préparer Formal Exit Decision Pack pour revue ChatGPT et décision Morris.
+**≠** Formal Exit globale · **≠** AKG-M3 START · **≠** Roadmap/PRR/Product mutation · **≠** Project Git Integration.
 
-**Autorisé:** analyse · consolidation preuves · dépendances · réserves · critères de sortie · entrée M3 candidate · options/recommandation · Review Pack FULL · Handoff L3.
-
-**Interdit / NON adopté ici:** Formal Exit AKG-M2 global · CLOSED BY MORRIS globale · AKG-M3 START · PRR consolidation · Product/Roadmap/doctrine/architecture mutation · commit/push/PR/merge projet · cleanup · clôture automatique de dettes.
-
-**Séparation obligatoire:** QUALIFICATION ≠ DÉCISION.
-
-Gate actuel GLOBAL M2 EXIT QUALIFICATION GO = **CONSUMED**.
-Gate G1 M2 GLOBAL FORMAL EXIT APPROVAL = **NOT CONSUMED**.
+Objectif: corriger CP01-01 / CP01-02 / CP01-03 du dossier `d6689e67…` et republier un pack FULL autonome pour Critical Re-Review.
 
 ---
 
-## 2. Git Truth
+## 2. Git Truth initial
 
 | Champ | Valeur |
 | --- | --- |
-| Repository | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-akg-m2-lot-c-formal-exit-roadmap-local` |
 | Branche | `docs/sfia-studio-akg-m2-lot-c-formal-exit-roadmap-local` |
-| HEAD local | `030b5dea51c401121a830b7b070d83f1f9d57c44` |
-| `origin/main` CURRENT | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
-| Roadmap blob main | `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
-| Handoff tip entrée | `fd6ccb5ff31e1e410c82a6268b8a0b48d82acda5` / blob `03ba39f5d2cb3b51f8a1a48f2c761ae8e92487bd` |
+| HEAD | `030b5dea51c401121a830b7b070d83f1f9d57c44` |
+| main CURRENT | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
+| Roadmap blob | `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
+| Handoff tip source | `d6689e67c39960b4695b9fc3bdcb625dcdd6f22e` / blob `7107aa21fc935bb41990302aefda6f3247877ad8` |
 | Status | `(clean tracked)` |
-| Worktrees historiques | M1 / M2-A / M2-B / M2-C préservés |
+| Worktrees | M1/M2-A/M2-B/M2-C préservés |
 
-main = merge PR #597. Aucune opération destructive. Project files **READ ONLY**.
+Aucune opération destructive. Project READ ONLY.
 
 ---
 
 ## 3. Sources v2.6 + Convergence
 
-**Process:** template cycle · routing · operating model · guardrails · validation checklist · engineering principles · delivery pipeline · decision engine.
+Template · routing · operating model · guardrails · checklist · engineering principles · delivery pipeline · decision engine.
 
-**Convergence:** Build Doctrine (A1/A4/A8–A12) · Roadmap B-AKG / Jalons / Non-claims · C1 · v3 framing 30/32/33/34/35/37 · PRR README + 03/06/07/09 · code SHE/reconcile/ExecutionSurface (réutilisation R23).
+Build Doctrine A1/A4/A8–A12 · Roadmap B-AKG/B10 · C1 · v3 30/32/33/34/35/37 · PRR 03/06/07/09 · code SHE/reconcile/ExecutionSurface (R23 reuse).
 
-**R23 PASS** — ARCHITECTURE-INFORMED · PREVIOUS EVIDENCE REUSED · investigation proportionnée.
-**R24 PASS** — NO SEMANTIC PRODUCT IMPACT · NO PRR SYNC THIS CYCLE.
+**R23 PASS** · **R24 PASS** (NO SEMANTIC PRODUCT IMPACT · NO PRR SYNC).
 
 ---
 
-## 4. Trajectoire / états lots
+## 4. Source pack global à corriger
 
-| Item | Statut |
+| Champ | Valeur |
 | --- | --- |
-| Chantier | SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE |
-| Milestone | AKG-M2 — Architecture Understanding (V3-F05 / V3-F06) |
-| M1 | CLOSED BY MORRIS (handoff `068beff9…`) |
-| M2-A | CLOSED BY MORRIS · CP01 `34ce3147…` · PASS WITH RESERVE |
-| M2-B | CLOSED BY MORRIS · CP02 `b699b716…` · PASS WITH GOVERNED RESERVES · PR #596 MERGED |
-| M2-C | CLOSED BY MORRIS · CP01 `435cee9a…` · PASS WITH GOVERNED RESERVES · PR #597 MERGED · C14 `fd6ccb5f…` PASS |
-| AKG-M2 global | **NOT CLOSED** |
-| AKG-M3 | **NOT AUTHORIZED** |
+| Commit | `d6689e67c39960b4695b9fc3bdcb625dcdd6f22e` |
+| Blob | `7107aa21fc935bb41990302aefda6f3247877ad8` |
+| Problèmes | Debt register simplified · M3 Entry conflated with Delivery · Option A under-conditioned |
+
+Preuves primaires réutilisées: M1 `068beff9…` L-D4 · M2-A `34ce3147…` L-M2A5 · M2-B `b699b716…` L-M2B6 · M2-C `435cee9a…` CP01-04/E-C07 · C14 `fd6ccb5f…` · merge `2624ae265d6854c4a1adfc4a73db771f5e35bb15`.
 
 ---
 
-## 5. Dossier de preuves (disponibilité)
+## 5. Correction Register
 
-| Réf | SHA / ID | Statut |
-| --- | --- | --- |
-| M1 Formal Closure | `068beff9…` | AVAILABLE / VERIFIED |
-| M2-A INITIAL | `86a2b1e7…` | AVAILABLE / VERIFIED (historical pack) |
-| M2-A CP01 | `34ce3147…` | AVAILABLE / VERIFIED |
-| M2-B INITIAL | `6bf33c8c…` | AVAILABLE / VERIFIED |
-| M2-B CP01 | `d9ee7f75…` | AVAILABLE / VERIFIED |
-| M2-B CP02 | `b699b716…` | AVAILABLE / VERIFIED |
-| M2-B Roadmap | PR #596 → merge `6fe7d2ce…` | AVAILABLE / VERIFIED / SUPERSEDED AS TIP by M2-C |
-| M2-C INITIAL | `cdb9c5be…` | AVAILABLE / VERIFIED |
-| M2-C CP01 | `435cee9a…` | AVAILABLE / VERIFIED |
-| M2-C Roadmap candidate | `96d595d6…` | AVAILABLE / VERIFIED |
-| M2-C Local Authoring | `ba44cb26…` | AVAILABLE / VERIFIED |
-| M2-C GI | `f7cbb91b…` | AVAILABLE / VERIFIED |
-| M2-C Merge Execution | `33309efd…` | AVAILABLE / VERIFIED |
-| M2-C Cycle 14 | `fd6ccb5f…` / blob `03ba39f5…` | AVAILABLE / VERIFIED |
-| Merge #597 | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` | AVAILABLE / VERIFIED · HEAD main |
-| Post-merge CI | `39559364932` | AVAILABLE / VERIFIED · SUCCESS Detect/Build/Required |
+| ID | Ancien problème | Nouvelle disposition | Impact |
+| --- | --- | --- | --- |
+| **CP01-01** | Registre global fusionnait A-M2A-*/G-M1-*/B-M2B-* | Registre FULL individualisé §8 · statuts sources restaurés | Fidélité dette |
+| **CP01-02** | PRR work classé BLOCKING M3 ENTRY | Séparation ENTRY / DELIVERY / EXIT §9 · backlog M3 ≠ précondition Entry | Frontière M3 |
+| **CP01-03** | OPTION A pouvait sembler gouvernance complète | OPTION A **conditionnelle** §10 · arbitrages Morris explicites · pas de transfer formel inventé | Recommandation |
 
-Aucune synthèse mémorielle en remplacement des commits immuables.
+Aucun statut X-A…X-L modifié (aucune preuve nouvelle contestant la matrice understanding).
 
 ---
 
-## 6. Matrice Exit Proof globale AKG-M2
+## 6. Exit Matrix X-A…X-L (inchangée — COMPLETE)
 
-Critères dérivés Roadmap jalon AKG-M2 + Exit Proofs lots A/B/C (E-A* / E-B01…10 / E-C01…10). Aucun critère doctrinal inventé hors sources.
+| ID | Exigence | Statut | Niveau | Réserve | Impact Formal Exit |
+| --- | --- | --- | --- | --- | --- |
+| X-A | Responsabilités | SATISFIED WITH GOVERNED RESERVE | DOCUMENTED + COVERAGE VERIFIED | A-M2A-* | Non-blocking |
+| X-B | Autorités/frontières | SATISFIED WITH GOVERNED RESERVE | DOCUMENTED + DET @ tested | A-M2A-* | Non-blocking |
+| X-C | Vérité/persistance | SATISFIED WITH GOVERNED RESERVE | DOCUMENTED + PARTIAL | F18/F19 | Non-blocking |
+| X-D | Interactions critiques | SATISFIED WITH GOVERNED RESERVE | DOCUMENTED + COVERAGE VERIFIED | B-M2B-01/02 | Non-blocking |
+| X-E | Gates/refus/re-entry | SATISFIED WITH GOVERNED RESERVE | DET refuse proven | REAL NOT PROVEN | Non-blocking |
+| X-F | SHE/reconcile/continue | SATISFIED WITH GOVERNED RESERVE | DOCUMENTED + PARTIAL | **B-M2B-05 OPEN** | Non-blocking si documenté |
+| X-G | Restart/retry | SATISFIED WITH GOVERNED RESERVE | PARTIAL | F18/F19 | Non-blocking |
+| X-H | Fake/DET/REAL ceilings | SATISFIED | DOCUMENTED honesty | TOOL-FIRST · RS-03 | Non-blocking |
+| X-I | Architecture Understanding Review | SATISFIED WITH GOVERNED RESERVE | COVERAGE VERIFIED (review) | reserves OPEN | Core |
+| X-J | Cohérence A↔B↔C | SATISFIED WITH GOVERNED RESERVE | DOCUMENTED | tip historical snapshot | Non-blocking |
+| X-K | Registre dettes gouverné | SATISFIED WITH GOVERNED RESERVE | DOCUMENTED (CP01-01 restores fidelity) | owners not formal | Non-blocking if disposition preserved |
+| X-L | Aptitude ouvrir M3 | SATISFIED as *candidate understanding readiness* | PROPOSAL ONLY | M3 NOT AUTH | Blocks M3 until G1+G5 |
 
-| ID | Exigence | Lot | Livrable | Preuve primaire | Niveau | Limite | Réserve | Statut | Impact Formal Exit | Recommandation |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| X-A | Responsabilités identifiées | M2-A | Ownership / authority maps | `86a2b1e7…` · `34ce3147…` · Roadmap tip M2-A | DOCUMENTED + COVERAGE VERIFIED (understanding) | ≠ BEHAVIOR PROVEN global | A-M2A-* residual | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking si réserves gouvernées | Carry governed |
-| X-B | Autorités / frontières | M2-A | INV-CONFIRM-NE-AUTH · HumanDecision frontiers | CP01 M2-A · PRR07 consulté | DOCUMENTED + BEHAVIOR PROVEN AT TESTED SCOPE (DET paths) | REAL PARTIAL / unsampled cells | A-M2A-* | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking understanding | Product/REAL later |
-| X-C | Sources vérité / persistance | M2-A/B | Product Truth vs process-local · Attempt/Evidence | M2-A/B packs · PRR06 | DOCUMENTED + PARTIAL | F18/F19 PARTIAL · ≠ RESTART SAFE global | F18/F19 · G-M1-18 | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking M2 understanding | Downstream / M3 PRR |
-| X-D | Interactions critiques | M2-B | I-B01…08 · S1–S5 | `6bf33c8c…` · `d9ee7f75…` · `b699b716…` | DOCUMENTED + COVERAGE VERIFIED | gesture≠server≠Cursor (CP01-01) | B-M2B-01/02 | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | Product optional |
-| X-E | Gates / refus / re-entry | M2-B | Refuse paths · re-entry | M2-B CP02 | BEHAVIOR PROVEN (DET Product refuse) | REAL BOUNDARY NOT PROVEN | REAL NOT PROVEN | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | REAL/HQA later |
-| X-F | SHE / reconciler / continuation | M2-B/C | SHE · reconcile · auto-continue | code CURRENT + CP01 M2-C Q2 | DOCUMENTED + PARTIAL BEHAVIOR | execute+existing ambiguity | R-M2B-03 → **B-M2B-05 OPEN** | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking si B-M2B-05 explicit | Product GO optional |
-| X-G | Restart / retry / partial | M2-B | Restart matrix L-M2B3 | M2-B · PRR06 | DOCUMENTED + PARTIAL | ≠ GLOBAL RESTART SAFE | F18/F19 PARTIAL | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | Product/REAL |
-| X-H | Fake/DET/REAL ceilings | M2-A/B/C | Proof ceilings honnêtes | lots A/B/C + C14 | DOCUMENTED | REAL NOT PROVEN · DET≠REAL | TOOL-FIRST-REAL-NOWRITE · RS-03 | **SATISFIED** (honesty) | Non-blocking | Keep NON-CLAIM |
-| X-I | Architecture Understanding Review | M2-C | Q1…Q10 · E-C01…E-C10 | `cdb9c5be…` · `435cee9a…` | DOCUMENTED + COVERAGE VERIFIED (review) | ≠ readiness runtime | B-M2B-* · R-M2A-04 | **SATISFIED WITH GOVERNED RESERVE** | Core M2 exit | Formal Exit G1 |
-| X-J | Cohérence M2-A↔B↔C | M2-C | Reconciliation lots | E-C01 · Roadmap B-AKG · PR #596/#597 | DOCUMENTED | tip LOCAL CANDIDATE phrases = historical snapshot | Documentary / process | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | Optional tip sync GO |
-| X-K | Registre gaps/dettes gouverné | M2-C CP01-04 | Debt disposition tables | `435cee9a…` E-C07 | DOCUMENTED | OWNER NOT FORMALLY ASSIGNED (some) | See §8 | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking if disposition preserved | Assign owners at Exit |
-| X-L | Aptitude ouvrir M3 | M2-C / global | Entry candidate | L-M2C / Roadmap jalon M3 | DOCUMENTED PROPOSAL ONLY | M3 NOT AUTHORIZED | PRR gaps | **SATISFIED** as candidate readiness of *understanding* | Blocks M3 until G1+G5 | See §9 |
-
-**Synthèse matrice:** Aucun critère X-A…X-L en BLOCKED pour le *scope understanding* M2. Plusieurs **SATISFIED WITH GOVERNED RESERVE**. Aucun critère n’équivaut à BEHAVIOR PROVEN end-to-end global ni REAL BOUNDARY PROVEN.
-
-**Séparation:**
-`M2 EXIT EVIDENCE SATISFIED (WITH GOVERNED RESERVES)` — **qualifié ici**.
-`M2 FORMAL EXIT DECISION ADOPTED` — **interdit / pending Morris G1**.
+`M2 EXIT EVIDENCE SATISFIED (WITH GOVERNED RESERVES)` — qualifié.
+`M2 FORMAL EXIT DECISION ADOPTED` — **interdit / pending G1**.
 
 ---
 
-## 7. Cohérence inter-lots
+## 7. Cohérence inter-lots (COMPLETE)
 
-| Transition | Statut | Note |
-| --- | --- | --- |
-| M1 → M2-A | COHERENT | Inventory CLOSED → understanding GO distinct |
-| M2-A → M2-B | COHERENT | R-M2A-04 OPEN GOVERNED · entry reconciled M2-B |
-| M2-B → M2-C | COHERENT | L-M2B7 → M2-C under distinct GO · PR #596 then #597 |
-| M2-C → M2 global | COHERENT / OPEN GATE | Lots CLOSED · global Formal Exit **NOT** adopted |
-| M2 global → M3 | PROPOSAL ONLY | Requires G1 then G5 · no PRR sync now |
-
-**Points contrôlés (CURRENT):** ownership · authority · HumanDecision/Confirmation · ExecutionContract · Attempt/Evidence · Product Truth vs process-local · ProjectTrajectory vs Roadmap · F11b split · SHE vs server · UI gesture vs Cursor · restart/retry · finalization · tool-first Fake/DET/REAL.
-
-**Contradiction structurante bloquante:** NONE détectée.
-**KNOWN GAP documentaire:** phrases `LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN` dans tips historisés alors que tip M2-C **intégré sur main** via `2624ae265d6854c4a1adfc4a73db771f5e35bb15` / blob `900f1620ce1008dcfc89e6b3207c024d73de83a3` — qualifier **HISTORICAL AUTHORING SNAPSHOT**; sync wording = GO distinct (pas ce cycle).
-
----
-
-## 8. Registre consolidé des dettes (aucune CLOSED)
-
-| ID | Origine | Statut | Nature | Surface | Owner | Milestone | Bloque M2 Exit? | Bloque M3 Entry? | Transférable? | Gate | Extinction | Preuve sortie | Classe | Destination reco |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| R-M2A-04 | M2-A→M2-B entry | OPEN GOVERNED | Entry contract residual | Continuity understanding | NOT FORMALLY ASSIGNED | M2 hygiene | **No** (CP01) | No | Yes if owner+gate | Morris Exit packs | Explicit residual close | Pack+Morris note | GOVERNED NON-BLOCKING CARRY | Carry at G1 or close note |
-| R-M2B-03 | M2-B CP01 | GOVERNED → B-M2B-05 | execute+existing honesty | Reconcile continue | Product/docs | Product optional | **No** if B-M2B-05 open | No | Yes | Product GO optional | Code+DET test Start policy | DET assert | DOWNSTREAM PRODUCT DEBT | Product |
-| B-M2B-01 | M2-B/C | OPEN | Gesture≠single transition | ExecutionSurface/SHE | Product | Product | No | No | Yes | Product | UI/server clarity proof | Tested path | DOWNSTREAM PRODUCT DEBT | Product |
-| B-M2B-02 | M2-B/C | OPEN | Cursor launch layer | Surfaces | Product | Product | No | No | Yes | Product | Doc+test | — | DOWNSTREAM PRODUCT DEBT | Product |
-| B-M2B-03 | M2-B | OPEN | Interaction reserve | Critical path | — | Product/M3 | No | Partial | Yes | — | Per pack M2-B | — | GOVERNED NON-BLOCKING CARRY | Carry/M3 |
-| B-M2B-04 | M2-B | OPEN | Interaction reserve | Critical path | — | Product/M3 | No | Partial | Yes | — | Per pack M2-B | — | GOVERNED NON-BLOCKING CARRY | Carry/M3 |
-| B-M2B-05 | M2-B/C | **OPEN explicit** | Redelegate≠Start honesty | reconcile | Product/docs | Product | **No** (documented) | No | Yes | Product optional | Code+test | DET | DOWNSTREAM PRODUCT DEBT | Product |
-| A-M2A-* | M2-A | OPEN residual | Authority/coverage cells | Authority maps | — | Product/REAL | No | No | Yes | — | Sampled proof | — | GOVERNED NON-BLOCKING CARRY | Carry |
-| G-M1-04/05/06/09/10/12/14/15/17/18 | M1 | OPEN | Inventory residuals | PRR/index/REAL | mixed | M3/Product/REAL | No | **Some yes for M3 PRR** (15/17/18) | Yes | M3 PRR GO / Product | Per G-M1 exit | PRR sync proofs | MIXED | M3 / Product / RISK |
-| RS-03 | M0/M1 | OPEN KNOWN GAP | Tool-first related | Runtime | — | Product/REAL | No | No | Yes | — | Gap close criteria | — | NON-CLAIM / RISK ONLY | Carry RISK |
-| TOOL-FIRST-REAL-NOWRITE | M1 | OPEN | REAL no-write | Tool-first | — | REAL | No | No | Yes | REAL GO | Enforcement proof | REAL | NON-CLAIM / RISK ONLY | REAL |
-| DEP-EC-ATT | M1 | OPEN | Dep index fidelity | EC/Attempt | — | M3/Product | No | Partial | Yes | M3 | Index fidelity | — | GOVERNED NON-BLOCKING CARRY | M3 |
-| F11b INDEX SCOPE | M1 | OPEN | Index scope | F11b | — | M3 | No | Partial | Yes | M3 | Scope verify | — | GOVERNED NON-BLOCKING CARRY | M3 |
-| F18/F19 | M2-B | PARTIAL | Restart | Persistence | — | Product | No | No | Yes | Product | Restart safe criteria | — | DOWNSTREAM PRODUCT DEBT | Product |
-| REAL BOUNDARY NOT PROVEN | transverse | OPEN NON-CLAIM | Proof ceiling | All | — | REAL/HQA | No | No | N/A | REAL | REAL proof campaign | — | NON-CLAIM / RISK ONLY | Keep |
-| PRR known gaps 09 | PRR | OPEN | Doc/runtime gaps | PRR | — | **M3** | No | **Yes for M3 quality** | Yes | G6 PRR SYNC | Coverage criteria | Conformance | BLOCKING M3 ENTRY (content work) | M3 |
-| Review Pack process reserve | Local authoring | GOVERNED ACCEPT | Tracked `.tmp` pack | Process | Morris accepted | Process | No | No | N/A | — | Template unchanged | — | DOCUMENTARY / PROCESS RESERVE | Keep historical |
-| Tip LOCAL CANDIDATE wording | Roadmap tips | HISTORICAL SNAPSHOT | Documentary lag | Roadmap tips | — | Doc sync | No | No | Yes | G2+G3+G4 if edit | Wording sync on main | Diff tip | DOCUMENTARY / PROCESS RESERVE | Optional GO |
-
-**Bloquants M2 Exit (understanding):** **NONE** identifiés si dispositions ci-dessus maintenues à la décision G1.
-**Bloquants M3 Entry:** PRR consolidation work + G5/G6; gaps G-M1-15/17/18 / PRR09 = **BLOCKING M3 ENTRY** (travail), pas M2 Exit.
-
----
-
-## 9. AKG-M3 Entry Contract Candidate — PROPOSAL ONLY
-
-**Statut:** PROPOSAL ONLY · **AKG-M3 NOT AUTHORIZED**.
-
-| Élément | Contenu candidat |
+| Transition | Statut |
 | --- | --- |
-| A. Préconditions M2 | G1 Formal Exit M2 ADOPTED (future) · Lots A/B/C CLOSED · Roadmap tip on main · Exit matrix SATISFIED WITH GOVERNED RESERVES |
-| B. Acquis utilisables | Ownership/authority maps · critical interaction sequences · understanding review Q/E · debt register · Fake/DET/REAL ceilings |
-| C. Sources PRR CURRENT | README · volumes 03/06/07/09 (+ others as needed under M3 GO) |
-| D. Volumes prioritaires | 09 Known Gaps · 03 flows · 06 persistence · 07 authority |
-| E. Gaps cohérence doc | tip historical LOCAL CANDIDATE · PRR vs code residuals G-M1-15/17 |
-| F. Couverture | Understanding DOCUMENTED/COVERAGE VERIFIED · behavior/REAL separate |
-| G. Dépendances/réserves | Carry register §8 · no silent close |
-| H. R24 sync impact | PRR sync = semantic doc work under G6 · still NO Product change unless Product GO |
-| I. Travail consolidation | Align PRR to CURRENT code/evidence · coverage measure · gap update · semantic conformance |
-| J. Preuves sortie M3 | Coverage criteria · conformance review · Formal Exit M3 distinct |
-| K. Risque référentiel parallèle | Anti-pattern A13 / Build Doctrine — PRR remains subordinate to Git+primary proofs |
-| L. Gates | G5 M3 START · G6 PRR SYNC · G7 structurant · ≠ bundled with G1 |
+| M1 → M2-A | COHERENT |
+| M2-A → M2-B | COHERENT · R-M2A-04 OPEN GOVERNED · L-M2B0 reconciled |
+| M2-B → M2-C | COHERENT · #596 then #597 |
+| M2-C → M2 global | COHERENT · Formal Exit global NOT adopted |
+| M2 → M3 | PROPOSAL ONLY · requires G1 then G5 |
 
-**Trajectoire:** M2 evidence → G1 Formal Exit → G5 M3 start → PRR consolidation → coverage → M3 exit → M4 rationalization.
-**Aucune** modification PRR / rationalisation M4 / retrait d’actif dans ce cycle.
+KNOWN DOCUMENTARY GAP: tip phrases LOCAL CANDIDATE = HISTORICAL AUTHORING SNAPSHOT; integration proof = main `2624ae265d6854c4a1adfc4a73db771f5e35bb15` / blob `900f1620ce1008dcfc89e6b3207c024d73de83a3`.
 
 ---
 
-## 10. Options et recommandation
+## 8. Debt Register FULL corrigé (CP01-01) — NONE CLOSED
 
-### OPTION A — RECOMMEND FORMAL EXIT WITH GOVERNED NON-BLOCKING RESERVES
+Colonnes: ID · Origine · Observation · Statut source · Niveau preuve · Impact arch · Crit · Owner · Milestone dest · Bloque M2 Exit? · Bloque M3 Entry? · Impact M3 Delivery? · Impact M3 Exit? · Gate · Extinction · Preuve · Transférable? · Classe · Disposition · Arbitrage Morris
 
-**Conditions:** X-A…X-L SATISFIED or SATISFIED WITH GOVERNED RESERVE · lots A/B/C CLOSED · PR #597 integrated · C14 PASS · debt disposition transferable without blocking understanding.
+### 8.1 R-M2A-04 / R-M2B-03
 
-**Preuves:** Roadmap main `2624ae265d6854c4a1adfc4a73db771f5e35bb15` / blob `900f1620ce1008dcfc89e6b3207c024d73de83a3` · handoffs lots · Exit matrix §6 · debt §8.
+| ID | Origine | Observation | Statut | Niveau | Impact | Crit | Owner | Dest | M2 Exit? | M3 Entry? | M3 Delivery? | M3 Exit? | Gate | Extinction | Preuve | Transf. | Classe | Disposition | Arbitrage |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **R-M2A-04** | M2-A→M2-B · `34ce3147` / L-M2B0 · `435cee9a` E-C07 | Entry Contract Completeness — reconciled in M2-B; residual tracking | **OPEN / GOVERNED** (≠ CLOSED) | DOCUMENTED | Continuity hygiene | Low | **OWNER NOT FORMALLY ASSIGNED** | Formal Exit hygiene | **No** | No | No | No | Morris Formal Exit packs | Explicit residual close decision | Pack+Morris note | Yes if owner+gate | GOVERNED NON-BLOCKING CARRY | Carry at G1 or close note | Owner assign / accept temporary governance |
+| **R-M2B-03** | M2-B CP01/CP02 `b699b716` | execute+existing Attempt ambiguity COMMENT vs OBSERVED | **PASS WITH GOVERNED RESERVE** → links **B-M2B-05 OPEN** (statuts **non fusionnés**) | OBSERVED + PARTIAL TEST | Continue honesty | Med | Domain “Product/docs” ≠ formal person | Product optional | **No** if B-M2B-05 documented | No | Optional Product | No | Product GO optional | Code+DET Start policy | DET asserts | Yes | DOWNSTREAM PRODUCT DEBT | Keep linked to B-M2B-05 | — |
 
-**Avantages:** Libère chemin critique vers M3 sous G5; conserve honesty des gaps; évite confusion lot≠global en formalisant global séparément.
+### 8.2 B-M2B-01…05 (cinq lignes — `b699b716` L-M2B6 · `435cee9a` CP01-01/04)
 
-**Risques:** Sur-lecture « M2 CLOSED ⇒ ready Product/REAL/M3 » — mitiger par anti-claims et gates séparés.
+| ID | Observation précise | Statut | Owner | M2 Exit? | M3 Entry? | M3 Delivery? | Gate | Extinction | Preuve | Classe | Disposition |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **B-M2B-01** | Projection `AWAIT_EXTERNAL` vs reconcile/UI `continue` still progressing Start/Record when gates allow | **OPEN** | Domain UI/Product · **OWNER NOT FORMALLY ASSIGNED** as person | No | No | Possible Product | Product GO if change | Projection contract test | UI+DET | DOWNSTREAM PRODUCT DEBT | Product continuity |
+| **B-M2B-02** | Pilote Exécuter ≠ garantie lancement Cursor (gesture ≠ external launch) | **OPEN** | Domain UX/docs · not formal person | No | No | Docs/M3 narrative | — / M3 | Narrative+gates documented | Review acceptance | DOWNSTREAM PRODUCT DEBT / DOC | Docs honesty |
+| **B-M2B-03** | Même énoncé pouvant être routé NEW_CYCLE / ACGC / F08 | **OPEN** | Domain Product/docs | No | No | Possible PRR route table | M3 if PRR | PRR route table | Scenarios | GOVERNED NON-BLOCKING CARRY | M3 Delivery backlog candidate |
+| **B-M2B-04** | Isolation offres/sessions multi-instances **NOT PROVEN** | **OPEN** | Domain Product | No | No | Product if required | Product GO if required | Isolation DET | Tests | DOWNSTREAM PRODUCT DEBT | Product optional |
+| **B-M2B-05** | `execute` + existing Attempt → label `execute_redelegated_to_continue` only; Start/Record conditionnés à `intent=continue` · **≠** obligation universelle second clic Pilote | **OPEN** explicit | Domain Product · not formal person | **No if documented** | No | Optional Product | Product GO optional | Explicit continue policy proven | DET | DOWNSTREAM PRODUCT DEBT | Keep OPEN; honesty |
 
-**Dette conservée:** §8 carry/product/M3/REAL.
-**Coût reprise:** faible si G1 adopte avec registre attaché; élevé si dettes perdues.
-**Chemin critique:** débloque G5.
-**Gates:** G1 puis éventuellement G2–G4 pour tip sync; G5/G6 pour M3.
+### 8.3 A-M2A-01…05 (cinq lignes — `b699b716` L-M2B6 statuses)
 
-### OPTION B — BOUNDED CORRECTION REQUIRED BEFORE FORMAL EXIT
+| ID | Observation | Statut qualification | Dette associée | Owner | Dest | M2 Exit? | M3 Entry? | M3 Delivery? | Gate | Extinction | Classe |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **A-M2A-01** | All promotions via OA `promoteDecidedTrajectory`; ≥2 Product entry seams | **VERIFIED WITH BOUNDED RESERVE** | Dual-seam doc residual | OWNER NOT FORMALLY ASSIGNED | M2-C note / M4 if consolidate | No | No | Possible M4 | M4 later | Dual-path matrix | GOVERNED NON-BLOCKING CARRY |
+| **A-M2A-02** | Legacy M3/F3 vs W2 Select — Select shared; orchestration not identical | **PARTIALLY VERIFIED** | Dual path residual | OWNER NOT FORMALLY ASSIGNED | M4 rationalize | No | No | M4 | M4 GO | Disposition pack | GOVERNED NON-BLOCKING CARRY |
+| **A-M2A-03** | t-a7 platform history ≠ Product W3c post-Evidence | **PARTIALLY CLARIFIED** | Ownership overclaim risk | OWNER NOT FORMALLY ASSIGNED | M3 if ownership sync | No | No | Possible M3 docs | M3 | Boundary doc | GOVERNED NON-BLOCKING CARRY |
+| **A-M2A-04** | F11b absent flows[]; DEP-EC-ATT self-edge | **OPEN** — F11b / DEP-EC-ATT index | Index fidelity | OWNER NOT FORMALLY ASSIGNED | **M3** | No | **No** (not Entry block) | **Yes — M3 Delivery** | **M3 PRR GO (G6)** | Index corrected | M3 DELIVERY BACKLOG |
+| **A-M2A-05** | Offer≠Auth lacks unique stable refuse string | **NOT VERIFIED** — diagnostics | Diagnostics deepen | OWNER NOT FORMALLY ASSIGNED | optional | No | No | No | optional | Unique refuse code | OPTIONAL DEEPEN |
 
-**Conditions:** Si Morris exige owner formel assigné pour R-M2A-04 / B-M2B-05 *avant* G1, ou tip wording sync *avant* Exit, ou contradiction structurante (non observée ici).
+### 8.4 G-M1-* individualisés (`068beff9` L-D4) + autres L-D4 applicables
 
-**Preuves nécessaires:** correction pack borné sous GO distinct · pas de Product fix obligatoire pour understanding.
+| ID | Class source | Observation | M2 Exit? | M3 Entry? | M3 Delivery? | M3 Exit? | Gate | Classe CP01 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| G-M1-01 | COVERAGE TO VERIFY | lastReviewed fresher docs | No | No | Optional digest | No | optional digest GO | NON-CLAIM / optional |
+| G-M1-02 | GOVERNANCE NON-CLAIM | 32 OBJ > 12 components | No | No | Curated index work | Possible conformance | AKG-M3 | NON-CLAIM · M3 Delivery |
+| G-M1-03 | GOVERNANCE NON-CLAIM | tests > trackedTests | No | No | Digest subset | No | AKG-M3 | NON-CLAIM · M3 Delivery |
+| **G-M1-04** | **KNOWN GAP documentaire** | README CURRENT vs vol05/09 PENDING | No | No | **Yes PRR sync** | Yes if unresolved at M3 exit | **PRR sync GO (G6)** | M3 DELIVERY BACKLOG |
+| **G-M1-05** | **OPEN REAL NO-WRITE DEBT** | TOOL-FIRST-REAL-NOWRITE | No | No | No (REAL track) | No | **REAL arch GO** | NON-CLAIM / RISK · REAL debt |
+| **G-M1-06** | **RS-03 OPEN** | method reserve | No | No | No | No | distinct GO | GOVERNED NON-BLOCKING CARRY |
+| G-M1-07 | HISTORICAL SNAPSHOT | Roadmap tip photos | No | No | No | No | Roadmap GI (done for M2-C) | HISTORICAL SNAPSHOT |
+| G-M1-08/11 | GOVERNANCE NON-CLAIM | objects hors trackedSources | No | No | — | No | — | NON-CLAIM |
+| **G-M1-09** | **RISK / GOVERNANCE NON-CLAIM** | Sur-claim REAL from DET/Fake | No | No | No | No | proof ceilings always | NON-CLAIM / RISK ONLY |
+| **G-M1-10** | **RISK / TARGET ≠ CURRENT** | C1 TARGET ≠ runtime CURRENT | No | No | No | No | Product Completion distinct | RISK / TRAJECTORY |
+| **G-M1-12** | **GOVERNANCE NON-CLAIM — runtime v3 NON ADOPTED** | INV-NO-V3-ADOPT | No | No | No | No | all lots | NON-CLAIM |
+| G-M1-13 | PATH DISCOVERY | bare PRR filename | No | No | optional doc | No | optional | optional |
+| **G-M1-14** | **HISTORICAL SNAPSHOT** | SHE "not INTEGRATED" wording | No | No | PRR sync stale text | Yes if left stale | PRR sync GO | HISTORICAL SNAPSHOT · M3 Delivery |
+| **G-M1-15** | **KNOWN GAP index fidelity** | DEP-EC-ATT self-edge | No | **No** (not Entry) | **Yes** | **Yes** if unresolved | M3 PRR / index GO | M3 DELIVERY BACKLOG |
+| G-M1-16 | GOVERNANCE NON-CLAIM | DEP-ATT-EV hors index | No | No | optional | No | optional | NON-CLAIM |
+| **G-M1-17** | **COVERAGE VERIFIED / INDEX SCOPE TO VERIFY** | F11b hors flows[] | No | **No** | **Yes** | **Yes** if unresolved | optional index GO / M3 | M3 DELIVERY BACKLOG |
+| **G-M1-18** | **HISTORICAL SNAPSHOT** | PENDING merge pockets | No | No | PRR sync | Yes if stale | PRR sync GO | HISTORICAL SNAPSHOT · M3 Delivery |
+| vol09 REAL debts | EXISTING DEBT OPEN | receipt conservation etc. | No | No | May surface in M3 gaps update | Possible | REAL GO | REAL / M3 gap update |
 
-**Risques:** délai chemin critique; confusion avec Product work.
+Snapshots et non-claims **≠** dettes techniques ouvertes automatiques.
+
+### 8.5 Autres réserves
+
+| ID | Statut | M2 Exit? | M3 Entry? | M3 Delivery? | Classe |
+| --- | --- | --- | --- | --- | --- |
+| RS-03 | OPEN KNOWN GAP | No | No | No | GOVERNED CARRY |
+| TOOL-FIRST-REAL-NOWRITE | OPEN (=G-M1-05 related) | No | No | No | REAL debt |
+| DEP-EC-ATT | OPEN | No | No | **Yes** | M3 Delivery |
+| F11b INDEX SCOPE | OPEN | No | No | **Yes** | M3 Delivery |
+| F18/F19 PARTIAL | PARTIAL | No | No | No (Product) | Product debt |
+| REAL BOUNDARY NOT PROVEN | NOT PROVEN NON-CLAIM | No | No | No | NON-CLAIM |
+| Review Pack process reserve | GOVERNED ACCEPT (prior cycle) | No | No | No | PROCESS RESERVE |
+| Tip LOCAL CANDIDATE wording | HISTORICAL SNAPSHOT | No | No | Optional tip sync | DOCUMENTARY |
+
+**Bloquants M2 Exit:** NONE (understanding) si dispositions préservées.
+**Bloquants M3 Entry:** NONE inventés depuis le seul backlog PRR — Entry = G1+G5+contract.
+**M3 Delivery backlog:** G-M1-04/14/15/17/18 · A-M2A-04 · DEP-EC-ATT · F11b · PRR09 · B-M2B-03 candidate.
+
+Aucune dette **CLOSED**. Aucun owner personnel inventé.
+
+---
+
+## 9. M3 Entry / Delivery / Exit (CP01-02) — PROPOSAL ONLY · M3 NOT AUTHORIZED
+
+### 9.1 ENTRY — préconditions
+
+| Précondition | Statut maintenant |
+| --- | --- |
+| Future G1 AKG-M2 Formal Exit ADOPTED | PENDING |
+| Acquis A/B/C disponibles | YES |
+| Entry Contract candidat recevable | YES (this §) |
+| Registre réserves conservé | YES (§8) |
+| Dépendances/risques explicites | YES |
+| Distinct G5 M3 START | NOT consumed |
+
+Aucun prérequis additionnel inventé. **Travail PRR ≠ précondition Entry.**
+
+### 9.2 DELIVERY — travaux (Roadmap AKG-M3 Reference Consolidation)
+
+- Consolider PRR CURRENT · vérifier code↔PRR · mesurer couverture · index/deps · volumes · Known Gaps vol09 · conformance.
+- Backlog lié: G-M1-15/17/18/04/14 · DEP-EC-ATT · F11b · A-M2A-04 · PRR09 · B-M2B-03 (route table candidate).
+
+Ces items = **M3 DELIVERY BACKLOG / DEPENDENCY**, pas **BLOCKING M3 ENTRY** automatiques.
+
+### 9.3 EXIT — preuves de sortie M3 (non acquises)
+
+Couverture appliquée · PRR consolidée au périmètre · conformance · gaps restants gouvernés · preuves Git · Formal Exit M3 distinct — **NOT CLAIMED NOW**.
+
+### 9.4 RISKS / DEBTS / GATES / PROOFS
+
+| | |
+| --- | --- |
+| Risks | Parallel architecture corpus · overclaim REAL/v3 · silent debt close |
+| Debts | §8 carry into M3 Delivery / Product / REAL tracks |
+| Gates | G1 → G5 → G6 PRR sync/protected authoring → G7 if structurant |
+| Proofs | Future M3 packs; none acquired here |
+
+---
+
+## 10. Options A/B/C + recommandation conditionnelle (CP01-03)
+
+### OPTION A — FORMAL EXIT WITH GOVERNED NON-BLOCKING RESERVES (CONDITIONNELLE)
+
+**Candidate si et seulement si:**
+
+1. X-A…X-L satisfaits au niveau Architecture Understanding.
+2. Lots A/B/C CLOSED BY MORRIS.
+3. PR #597 intégrée + C14 vérifiée.
+4. Réserves explicitement OPEN (§8).
+5. Toute réserve *proposée* au transfert est traçable vers destination **ou** arbitrage restant (pas “formally transferred” sans décision).
+6. Owner formel inconnu signalé (**OWNER NOT FORMALLY ASSIGNED**).
+7. Morris arbitre owners **ou** accepte explicitement gouvernance temporaire domaine-level.
+8. Aucune clôture implicite de dette.
+9. Aucune validation runtime / REAL / P6 / v3.
+10. M3 nécessite G5 distinct (et G6 pour sync).
+
+**Ce que A n’autorise pas:** M3 START · PRR consolidated · Product fix · cleanup · tip sync sans GO.
+
+### OPTION B — BOUNDED CORRECTION BEFORE EXIT
+
+Si Morris exige avant G1: owners formels assignés, tip wording sync, ou autre condition bloquante qu’il pose.
 
 ### OPTION C — FORMAL EXIT NOT QUALIFIED
 
-**Conditions:** sources manquantes · contradiction structurante · précondition M3 non qualifiable *comme candidate*.
-**État CURRENT:** **non retenu** — preuves lots + C14 + matrice disponibles; M3 entry *candidate* qualifiable.
+Si contradiction structurante ou preuve manquante — **non retenu sur preuves CURRENT**.
 
-### Recommandation (argumentée / falsifiable) — NE CHOISIT PAS POUR MORRIS
+### Recommandation Cursor (falsifiable — ne décide pas pour Morris)
 
-**Recommandation Cursor:** **OPTION A**.
+**OPTION A conditionnelle**, soutenue par: matrice §6 · lots CLOSED · main `2624ae265d6854c4a1adfc4a73db771f5e35bb15` · C14 · registre §8 fidèle.
 
-**Falsifiabilité:** Invalidée si (1) une dette §8 est reclassée BLOCKING M2 EXIT avec preuve, (2) main perd ascendance merge `2624ae265d6854c4a1adfc4a73db771f5e35bb15` / blob `900f1620ce1008dcfc89e6b3207c024d73de83a3`, (3) contradiction A↔B↔C non gouvernée apparaît, (4) M2-C Formal Exit ou C14 est révoqué.
+**Invalidée si:** dette reclassée BLOCKING M2 EXIT avec preuve · perte ascendance merge/blob · contradiction A↔B↔C · révocation Formal Exit lot · Morris refuse gouvernance temporaire sans owners.
 
-**Ne pas** adopter Formal Exit ici. **Ne pas** autoriser M3.
+**Morris doit décider à G1:** (i) adopter Exit avec reserves §8 + acceptation owners temporaires **ou** (ii) exiger Option B (owners/tip) **ou** (iii) Option C.
 
 ---
 
@@ -239,109 +265,96 @@ Critères dérivés Roadmap jalon AKG-M2 + Exit Proofs lots A/B/C (E-A* / E-B01�
 
 | Gate | Statut |
 | --- | --- |
-| GLOBAL M2 EXIT QUALIFICATION GO | **CONSUMED** (ce cycle) |
-| G1 M2 GLOBAL FORMAL EXIT APPROVAL | **PENDING** |
-| G2 Protected Roadmap Local Authoring | NOT consumed (si tip sync) |
-| G3 Project Git Integration | NOT consumed |
-| G4 Merge | NOT consumed |
-| G5 AKG-M3 START | NOT consumed · NOT AUTHORIZED |
-| G6 PRR SYNC M3 | NOT consumed |
-| G7 Architecture/rationalization structurantes | NOT consumed |
-| G8 Product/REAL/v3 promotions | NOT consumed |
+| Qualification GO / CP01 GO | CONSUMED |
+| G1 Formal Exit Approval | PENDING |
+| G2–G4 tip sync/GI/merge | NOT consumed |
+| G5 M3 START | NOT AUTHORIZED |
+| G6 PRR SYNC | NOT consumed |
+| G7/G8 | NOT consumed |
 
 ---
 
 ## 12. Anti-claims
 
-- **≠** AKG-M2 GLOBAL CLOSED BY MORRIS
-- **≠** AKG-M3 AUTHORIZED
-- **≠** PRR CONSOLIDATED
-- **≠** P6 GLOBAL PASS
-- **≠** RUNTIME V3 ADOPTED
-- **≠** REAL BOUNDARY PROVEN
-- DOCUMENTED ≠ BEHAVIOR PROVEN
-- DET ≠ REAL
-- Lot CLOSED ≠ Milestone CLOSED
-- Qualification ≠ Decision
+≠ AKG-M2 GLOBAL CLOSED · ≠ M3 AUTHORIZED · ≠ PRR CONSOLIDATED · ≠ P6 PASS · ≠ v3 ADOPTED · ≠ REAL PROVEN · DOCUMENTED ≠ BEHAVIOR PROVEN · DET ≠ REAL · Qualification ≠ Decision · CP01 ≠ Formal Exit.
 
-Project files unchanged: **NONE modified/created**. No project commit/push. No cleanup.
+Project files: **NONE** modified/created. No cleanup. No project push.
 
 ---
 
-## 13. Validations V01…V30
+## 13. Comparaison avant/après (sections)
+
+| Section | Avant (`d6689e67`) | Après CP01 |
+| --- | --- | --- |
+| Debt Register | A-M2A et G-M1 fusionnés; B-M2B résumé | Individualisé §8 |
+| M3 | PRR gaps “BLOCKING M3 ENTRY” | ENTRY/DELIVERY/EXIT séparés |
+| Option A | Recommandée | Recommandée **sous conditions 1–10** |
+| X-A…X-L | SATISFIED WITH RESERVE | **Inchangé** |
+
+---
+
+## 14. Validations V01…V30
 
 | ID | Résultat |
 | --- | --- |
-| V01 Git Truth | PASS |
-| V02 Template/routing v2.6 | PASS |
-| V03 Build Doctrine | PASS |
-| V04 Roadmap CURRENT | PASS |
-| V05 C1/v3 | PASS |
-| V06 PRR/code proportionnés | PASS |
-| V07–V11 preuves M1/M2-A/B/C/C14 | PASS |
-| V12 Exit Matrix complète | PASS |
-| V13 Cohérence inter-lots | PASS |
-| V14 Niveaux de preuve | PASS |
-| V15 Dettes consolidées | PASS |
-| V16 R-M2A-04 non fermée | PASS |
-| V17 B-M2B-05 non fermée | PASS |
-| V18 Fake/DET/REAL | PASS |
-| V19 M3 entry candidate bornée | PASS |
-| V20 Options A/B/C | PASS |
-| V21 Recommandation motivée | PASS — OPTION A |
-| V22 Aucun Formal Exit adopté | PASS |
-| V23 Aucun M3 START | PASS |
-| V24 Aucune mutation Product/PRR | PASS |
-| V25 Aucune mutation Roadmap | PASS |
-| V26 Aucun commit/push projet | PASS |
-| V27 Aucun cleanup | PASS |
-| V28 Review Pack FULL | PASS |
-| V29 Handoff L3 | PENDING → post-publish |
-| V30 Gates séparés | PASS |
+| V01–V11 sources/preuves | PASS |
+| V12 CP01-01 complète | PASS |
+| V13 B-M2B-03/04 distincts | PASS |
+| V14 A-M2A-01…05 individualisés | PASS |
+| V15 G-M1-* individualisés (+L-D4 extras) | PASS |
+| V16 Owners non inventés | PASS |
+| V17 Debt states conservés | PASS |
+| V18 M3 Entry/Delivery/Exit | PASS |
+| V19 PRR work ≠ Entry block | PASS |
+| V20 Option A conditionnelle | PASS |
+| V21 B/C conservées | PASS |
+| V22 Exit Matrix cohérente | PASS |
+| V23 Réserves/gates | PASS |
+| V24 M2 global NOT CLOSED | PASS |
+| V25 M3 NOT AUTHORIZED | PASS |
+| V26 Fake/DET/REAL | PASS |
+| V27–V28 project/cleanup | PASS |
+| V29 Pack FULL autonome | PASS |
+| V30 Handoff L3 | PENDING → post-publish |
 
 ---
 
-## 14. Git Review Index
+## 15. Git Review Index
 
 | Artefact | Ref |
 | --- | --- |
-| main / merge #597 | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
-| Roadmap blob | `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
-| C14 handoff | `fd6ccb5ff31e1e410c82a6268b8a0b48d82acda5` |
-| Post-merge CI | `39559364932` |
+| Source qual | `d6689e67c39960b4695b9fc3bdcb625dcdd6f22e` / `7107aa21fc935bb41990302aefda6f3247877ad8` |
+| M1 L-D4 | `068beff9…` |
 | M2-A CP01 | `34ce3147…` |
 | M2-B CP02 | `b699b716…` |
 | M2-C CP01 | `435cee9a…` |
-| CKC6 pilot | `pilots/03-architecture-technique.md` CANDIDATE ONLY |
+| C14 | `fd6ccb5f…` |
+| main | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
 
 ---
 
-## 15. Review Pack process / L3
+## 16. Review Handoff L3
 
-Tracked `.tmp-sfia-review/chatgpt-review.md` blob initial `92f0f7d9d517c52a8864ef2d25b748ef747fe588`.
-Écriture temporaire → publish L3 → restore. Copie non-tracked: `.tmp-sfia-review/akg-m2-global-exit-qual-pack.md`.
-
-Message L3: `docs(review-handoff): qualify AKG-M2 global formal exit`
-Tip entrée: `fd6ccb5ff31e1e410c82a6268b8a0b48d82acda5`
+Message: `docs(review-handoff): correct AKG-M2 global exit qualification CP01`
+Tip entrée: `d6689e67c39960b4695b9fc3bdcb625dcdd6f22e`
+Tracked pack blob initial: `92f0f7d9d517c52a8864ef2d25b748ef747fe588` → restore post-publish.
 
 ---
 
-## 16. Instruction ChatGPT
+## 17. Instruction ChatGPT
 
-Lire handoff distant CURRENT.
+Lire handoff CURRENT.
 
-Produire: **CHATGPT CRITICAL REVIEW — AKG-M2 GLOBAL FORMAL MILESTONE EXIT QUALIFICATION.**
+Produire: **CHATGPT CRITICAL RE-REVIEW — AKG-M2 GLOBAL FORMAL EXIT QUALIFICATION CP01.**
 
-Vérifier: trois lots · Exit Proof Matrix · réserves/destinations · fidélité code/PRR · proof ceilings · critères M2 · entrée M3 candidate · absence promotion · absence mutation projet · handoff L3.
+Vérifier CP01-01/02/03 · matrice X-A…X-L · dette vs sources · owners · transferts · M3 Entry/Delivery/Exit · Option A conditionnelle · B/C · gates · proof ceilings · no project change · pack complet · handoff distant.
 
-**Ne pas** accorder automatiquement le Formal Exit global.
+**Ne pas** accorder automatiquement le Formal Milestone Exit.
 
 ---
 
-## 17. Verdict
+## 18. Verdict
 
-**AKG-M2 GLOBAL — FORMAL MILESTONE EXIT QUALIFICATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW — MORRIS FORMAL EXIT DECISION PENDING.**
+**AKG-M2 GLOBAL — FORMAL EXIT QUALIFICATION CP01 COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW — MORRIS FORMAL EXIT DECISION PENDING.**
 
-Recommandation jointe (non décision): **OPTION A — RECOMMEND FORMAL EXIT WITH GOVERNED NON-BLOCKING RESERVES.**
-
-FIN DU REVIEW PACK FULL — AKG-M2 GLOBAL FORMAL MILESTONE EXIT QUALIFICATION.
+FIN DU REVIEW PACK FULL — AKG-M2 GLOBAL FORMAL EXIT QUALIFICATION CP01.
