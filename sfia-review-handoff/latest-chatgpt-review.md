@@ -1,315 +1,577 @@
-# SFIA REVIEW PACK FULL — AKG-M3-A COVERAGE & REFERENCE BASELINE
+# AKG-M3-B — REFERENCE RECONCILIATION — REVIEW PACK FULL (CRITICAL)
 
-**Timestamp UTC:** 2026-10-21T15:50:27Z
-**Cycle:** 6 — Architecture technique
-**Milestone:** AKG-M3 — Reference Consolidation
-**Sous-cycle:** AKG-M3-A — Coverage & Reference Baseline
-**Profile:** CRITICAL
-**Typologie:** DOC / ARCHITECTURE / AUDIT READ-ONLY
-**Capacités:** V3-F05 (principal) · V3-F12 (connexe) · F02/F06/F07/F11/F14/F15 qualified where dependency shown
-**Review Pack:** FULL (mono-cycle · autonome)
-**Review Handoff:** REQUIRED — publish-in-cycle — L3 bounded
-**CKC Cycle 6:** CANDIDATE GUIDANCE ONLY (`pilots/03-architecture-technique.md`)
-
----
-
-## A1 — Git & Evidence Baseline
-
-### GO Morris G5 (conversation courante)
-
-**GO CONSUMED (2026-10-21):**
-
-> GO AKG-M3 — REFERENCE CONSOLIDATION START.
-
-Sous-cycle autorisé: **M3-A read-only baseline**.
-**G6 PRR SYNC NOT AUTHORIZED.** · No Product/PRR/Roadmap/code mutation · No project push/PR/merge · No REAL/P6/v3 promotion.
-
-### Git Truth
-
-| Champ | Valeur |
-| --- | --- |
-| Worktree | `/Users/morris/Projects/sfia-workspace-akg-m2-global-g1-roadmap-local` |
-| Branche | `docs/sfia-studio-akg-m2-global-g1-roadmap-local` |
-| HEAD local | `6ed646d8441c2f130e1a5ff1979b0b05d2afaedb` (docs branch tip; **≠** analysis baseline) |
-| **Baseline lectures** | **`origin/main` = `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd`** |
-| Roadmap blob on main | `8c03d5a6b29df9f9c302708a62fe0b85ec39aee9` |
-| Handoff tip entrée | `25f91c83ba4469bf18ad20289e290c6a0685a800` |
-| Status worktree | `(clean)` |
-| Project mutations this cycle | **NONE** |
-
-**Note:** Roadmap tip text still contains authoring-time « G5 NOT AUTHORIZED / AKG-M3 NOT AUTHORIZED » snapshots. **ACTUAL:** G5 APPROVED/CONSUMED in conversation; G4 merge #598 INTEGRATED ON MAIN. **Do not treat tip wording as a new refusal.** Roadmap not updated this cycle.
-
-### Sources / Convergence / R23 / R24
-
-Template v2.6 · routing · guardrails · operating model · checklist · engineering principles · Build Doctrine A3/A4/A8–A12 · Roadmap B-AKG · C1 · v3 30/32–35/37 · PRR vols 01–09 + manifest · code: reconcileGovernedExecution / ExecutionSurface / singleHumanExecute / boundedNonMutatingRealLaunchGate / orchestrateTurn/F2 · check-production-runtime-reference.mjs.
-
-Preuves immuables: M1 `068beff9` · M2-A `34ce3147` · M2-B `b699b716` · M2-C `435cee9a` · Semantics `df77b8a2d5d51c223ff42a009ea004545c78da8a` · G1 `f46c8bca674439ac84ec0d8f061913ef6d11fc4d` · G4 `25f91c83ba4469bf18ad20289e290c6a0685a800`.
-
-**R23 PASS** — architecture-informed · M1/M2 reused · no general re-audit.
-**R24 PASS** — **NO SEMANTIC PRODUCT IMPACT** · DOCUMENTARY GAP ASSESSMENT applicable · **PRR SYNC NOT AUTHORIZED**.
+```text
+TIMESTAMP_UTC: 2026-10-21T16:20:00Z
+CYCLE: AKG-M3-B — Reference Reconciliation
+CHANTIER: SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
+MILESTONE: AKG-M3 — Reference Consolidation
+TYPE: Cycle 6 — Architecture technique
+PROFIL: CRITICAL
+TYPOLOGIE: DOC / ARCHITECTURE / READ-ONLY
+CAPACITY: V3-F05 (principal) · V3-F12 (connexe)
+QA: CRITICAL — SOURCE / SEMANTIC / CONFORMANCE
+REVIEW_PACK: FULL
+REVIEW_HANDOFF: REQUIRED — publish-in-cycle (L3)
+G6_PRR_SYNC: NOT AUTHORIZED (this cycle)
+PRODUCT_PRR_ROADMAP_MUTATION: NONE
+```
 
 ---
 
-## A2 — Coverage Matrix (CURRENT @ `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd`)
+## 1. Horodatage UTC
 
-### Manifest cardinalities (recalculated)
-
-| Dimension | Count | Notes |
-| --- | --- | --- |
-| components | **12** | curated · ≠ all Studio objects |
-| flows | **20** | F01–F20 · **F11b NOT in flows[]** |
-| invariants | **20** | |
-| dependencies | **9** | includes DEP-EC-ATT self-edge |
-| trackedSources | **27** | |
-| trackedTests | **7** | subset · ≠ exhaustive suite |
-| lastReviewedCommit | `928ab15b…` | fresher docs may exist (G-M1-01) |
-
-**Index = curated.** Exhaustivity NOT claimed.
-
-### Domains D1–D12 (M1 L-D2 reused · CURRENT confirmation)
-
-| ID | Domaine | Coverage | Proof level | Gap / plafond |
-| --- | --- | --- | --- | --- |
-| D1 | Studio/UI | COVERAGE VERIFIED | DOCUMENTED + DET samples | shallow historical UI |
-| D2 | Composition / orch | COVERAGE VERIFIED | DOCUMENTED + DET | multi-instance limits |
-| D3 | Nora / Memory B | COVERAGE VERIFIED | DOCUMENTED + DET Fake | LIVE/REAL Nora NOT PROVEN |
-| D4 | Project/Cycle/LPS | COVERAGE VERIFIED | DOCUMENTED | hors components[] expected |
-| D5 | Proposal/HD/Rec | COVERAGE VERIFIED | DOCUMENTED + DET | process-local proposal · F17 PARTIAL |
-| D6 | EC/Attempt/Auth/SHE | COVERAGE VERIFIED | DOCUMENTED + DET SHE | REAL OPEN · DEP-EC-ATT index gap |
-| D7 | Artifact/Evidence | COVERAGE VERIFIED | DOCUMENTED + DET | REAL journey PARTIAL |
-| D8 | Persistence | COVERAGE VERIFIED | DOCUMENTED + DET | session path drift · F02 PARTIAL |
-| D9 | Authority / PRR07 | COVERAGE VERIFIED / DOCUMENTED mix | DOCUMENTED + DET gates | some refuse NOT VERIFIED |
-| D10 | Adapters Fake/Cursor | DOCUMENTED + DET | DET Fake | REAL BOUNDARY NOT PROVEN |
-| D11 | Observability/Tests/CI | DOCUMENTED | sampling | ≠ exhaustive test audit |
-| D12 | Historical/parallel surfaces | DOCUMENTED | historical | ≠ unused |
-
-### Components (12) — index coverage
-
-All 12 manifest components are **DOCUMENTED** in PRR02/volumes with **COVERAGE VERIFIED** at inventory/understanding scope. Notable absences from `components[]` (expected curated): OBJ-ATTEMPT, OBJ-EVIDENCE (described in vol02; linked by PRR04 deps).
-
-### Flows F01–F20 + F11b
-
-| Flow | PRR03 | flows[] | Proof ceiling (PRR03) | Status |
-| --- | --- | --- | --- | --- |
-| F01–F17, F20 | present | yes | mix COMPLETE / PARTIAL / DET | COVERAGE VERIFIED |
-| F18 | present | yes | **PARTIAL** | COVERAGE VERIFIED · PARTIAL proof |
-| F19 | present | yes | **PARTIAL** | COVERAGE VERIFIED · PARTIAL proof |
-| **F11b** | **section present** (Product Continuity) | **NO** | code+DET tests exist (`reconcileGovernedExecution`, `productContinuitySharedKnowledge.d0`) | **COVERAGE VERIFIED + INDEX SCOPE TO VERIFY** · ≠ unimplemented |
-
-### Dependencies (9) — critical row
-
-| ID | Manifest | PRR04 | Verdict |
-| --- | --- | --- | --- |
-| DEP-EC-ATT | **OBJ-EC → OBJ-EC** (self-edge) | **OBJ-EC → OBJ-ATTEMPT** | **CONFIRMED GAP** (index fidelity) |
-| DEP-ATT-EV | **absent** from dependencies[] | present OBJ-ATTEMPT→OBJ-EVIDENCE | GOVERNANCE NON-CLAIM / optional index (G-M1-16) |
-| others (7) | aligned at curated level | aligned | COVERAGE VERIFIED |
-
-### Aggregate (honest)
-
-**REFERENCE COVERAGE VERIFIED** at M3-A bounded inventory/reference scope.
-**≠** BEHAVIOR PROVEN global · **≠** REAL PROVEN · **≠** P6 PASS · **≠** runtime v3 ADOPTED.
+**2026-10-21T16:20:00Z** — Review Pack mono-cycle AKG-M3-B (reset; no append of prior cycle).
 
 ---
 
-## A3 — Reference Gap Register
+## 2. GO Morris
 
-| ID | Observation | Sources | Classification | Proof level | Destination |
-| --- | --- | --- | --- | --- | --- |
-| **RG-01 DEP-EC-ATT** | Manifest self-edge vs PRR04 EC→Attempt; Attempt object exists in vol02/code Select→Start path | manifest · PRR04 · M1 G-M1-15 · code W2 | **CONFIRMED GAP** | DOCUMENTED | G6 index/dependency sync |
-| **RG-02 F11b index** | F11b narrative+code+DET; absent flows[] | PRR03 · manifest · tests · G-M1-17 | **INDEX SCOPE TO VERIFY** (not missing feature) | COVERAGE VERIFIED + INDEX SCOPE TO VERIFY | G6 flows[] policy decision |
-| **RG-03 Historical PENDING** | vol09/README residue PENDING_GIT_INTEGRATION / LOCAL CANDIDATE / integration PENDING for some debts | PRR09 · README overlay notes | **HISTORICAL SNAPSHOT / KNOWN GAP documentaire** | DOCUMENTED | G6 status requalification |
-| **RG-04 Routing B-M2B-03** | Same utterance → NEW_CYCLE / ACGC / F08 ambiguity | M2-B · M2-C | OPEN documentary | DOCUMENTED | G6 route table candidate |
-| **RG-05 F18/F19** | Restart ceilings PARTIAL | PRR03 · M2-B | PARTIAL | DOCUMENTED + PARTIAL DET | Product/QA later · G6 disclose ceilings |
-| **RG-06 REAL no-write** | TOOL-FIRST-REAL-NOWRITE OPEN | M1/M2 · PRR | EXISTING DEBT OPEN | DOCUMENTED | REAL ARCH GO (≠ M3-A) |
-| **RG-07 lastReviewed lag** | lastReviewedCommit older than some fresher docs | manifest | COVERAGE TO VERIFY optional | DOCUMENTED | optional digest GO |
-| **RG-08 Roadmap tip lag** | Tip still says G5 NOT AUTHORIZED / tip LOCAL CANDIDATE while G4/G5 consumed | Roadmap `8c03d5a6b29df9f9c302708a62fe0b85ec39aee9` · Git main | HISTORICAL AUTHORING vs ACTUAL GIT | DOCUMENTED | optional tip sync cycle (≠ this cycle) |
+| Décision | Statut | Consommation |
+|---|---|---|
+| GO AKG-M3-A REVIEW ACCEPTANCE WITH GOVERNED RESERVES | CONSUMED (conversation) | M3-A accepted; reserves retained OPEN |
+| GO AKG-M3-B REFERENCE RECONCILIATION READ-ONLY | CONSUMED (conversation) | This cycle |
+| G6 PRR SYNC | **NOT AUTHORIZED** | Package prepared only |
+| Product / PRR / Roadmap / code mutation | **FORBIDDEN** | Observed |
+| REAL / P6 / runtime v3 | **NOT AUTHORIZED / NOT CLAIMED** | Observed |
 
----
-
-## A4 — Documentary Impact Matrix (candidates · NOT APPLIED)
-
-| ID | Volume | Écart | Action candidate | Gate | Exit proof |
-| --- | --- | --- | --- | --- | --- |
-| DI-01 | manifest + PRR04 | DEP-EC-ATT self-edge | COMPLETE / ADAPT index `to: OBJ-ATTEMPT` **or** justify self-model | **G6** | conformance + semantic review |
-| DI-02 | manifest flows + PRR03 | F11b hors flows[] | KEEP as subflow **or** COMPLETE add F11b with policy | **G6** | index policy recorded |
-| DI-03 | PRR09 / README | PENDING / LOCAL CANDIDATE residues | ADAPT CURRENT status from Git | **G6** | phrase matrix before/after |
-| DI-04 | PRR03 routing | B-M2B-03 route ambiguity | COMPLETE route table | **G6** | scenarios documented |
-| DI-05 | PRR03 F18/F19 | PARTIAL ceilings | KEEP + disclose · no false COMPLETE | **G6** | ceiling statements |
-| DI-06 | PRR07/08 | proof ceilings | KEEP NON-CLAIM REAL | all lots | ceilings unchanged |
-| DI-07 | Roadmap tip | G5/G4 lag | ADAPT tip **optional later cycle** | distinct GO | tip GI |
-
-**No diffs applied. No --write-digests.**
+Note: G5 APPROVED/CONSUMED and M3-A acceptance are conversational; Roadmap tip may still lag (historical). Not rewritten this cycle.
 
 ---
 
-## A5 — Debt Routing (38 identities · `df77b8a2d5d51c223ff42a009ea004545c78da8a` immutable)
+## 3. Local Git Truth Check
 
-Full 38×20 register remains authoritative at `df77b8a2d5d51c223ff42a009ea004545c78da8a`. Routing summary:
+| Check | Result |
+|---|---|
+| `pwd -P` | `/Users/morris/Projects/sfia-workspace-akg-m2-global-g1-roadmap-local` |
+| `git rev-parse --show-toplevel` | same |
+| remote `origin` | `mcleland147/sfia-workspace` (github) |
+| branch | `docs/sfia-studio-akg-m2-global-g1-roadmap-local` |
+| HEAD | `6ed646d8441c2f130e1a5ff1979b0b05d2afaedb` |
+| `origin/main` (after fetch) | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` |
+| `ls-remote origin refs/heads/main` | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` |
+| Expected baseline | `c2b3d00c…` — **MATCH** (no BASELINE DRIFT) |
+| `origin/sfia/review-handoff` (pre-publish tip) | `868bc45bb090d706fdd996db6d509970e12d7b79` (M3-A) |
+| M3-A blob | `2fe0be772bba0b770bc819b1d436c0561dccf537` |
+| porcelain project | clean (no unexpected dirty/staged project mutation) |
+| tracked pack blob preserve | `.tmp-sfia-review/chatgpt-review.md` @ `92f0f7d9…` — restore after L3 |
+| STOP conditions | **NONE** (Git Truth PASS) |
 
-| ID | Statut source (df77) | Destination M3-A routing | Classe |
-| --- | --- | --- | --- |
-| R-M2A-04 | OPEN / GOVERNED | METHOD / GOVERNANCE — Formal Exit hygiene carry | GOVERNED |
-| R-M2B-03 | PASS WITH GOVERNED RESERVE | PRODUCT DELIVERY / QA (via B-M2B-05) | GOVERNED |
-| B-M2B-01 | OPEN | PRODUCT DELIVERY / QA | OPEN |
-| B-M2B-02 | OPEN | M3 DOCUMENTARY (narrative honesty) / PRODUCT | OPEN |
-| B-M2B-03 | OPEN | **M3 DOCUMENTARY** — routing table candidate | OPEN |
-| B-M2B-04 | OPEN | PRODUCT / NOT PROVEN isolation | OPEN |
-| B-M2B-05 | OPEN | PRODUCT DELIVERY / QA | OPEN |
-| A-M2A-01 | VERIFIED WITH BOUNDED RESERVE | M4 RATIONALIZATION (dual seams) optional | GOVERNED |
-| A-M2A-02 | PARTIALLY VERIFIED | M4 RATIONALIZATION | PARTIAL |
-| A-M2A-03 | PARTIALLY CLARIFIED | M3 DOCUMENTARY (ownership sync) optional | PARTIAL |
-| A-M2A-04 | OPEN (F11b + DEP-EC-ATT) | **M3 DOCUMENTARY** | OPEN |
-| A-M2A-05 | NOT VERIFIED | NO ACTION / WATCH (optional deepen) | NOT VERIFIED |
-| G-M1-01 | COVERAGE TO VERIFY | NO ACTION / WATCH (digest optional) | WATCH |
-| G-M1-02 | NON-CLAIM MAINTAINED | M3 DOCUMENTARY (curated index honesty) | NON-CLAIM |
-| G-M1-03 | NON-CLAIM MAINTAINED | M3 DOCUMENTARY (trackedTests subset) | NON-CLAIM |
-| G-M1-04 | OPEN — KNOWN GAP | **M3 DOCUMENTARY** — README/vol PENDING sync | OPEN |
-| G-M1-05 | OPEN | REAL ARCHITECTURE | OPEN |
-| G-M1-06 | OPEN | METHOD / GOVERNANCE (RS-03) | OPEN |
-| G-M1-07 | HISTORICAL SNAPSHOT | NO ACTION — tip GI via #597/#598 done; wording lag optional | HISTORICAL |
-| G-M1-08/11 | NON-CLAIM MAINTAINED | NO ACTION / WATCH | NON-CLAIM |
-| G-M1-09 | NON-CLAIM MAINTAINED | METHOD / GOVERNANCE — proof ceilings | NON-CLAIM |
-| G-M1-10 | RISK MAINTAINED | PRODUCT COMPLETION distinct (C1≠CURRENT) | RISK |
-| G-M1-12 | NON-CLAIM MAINTAINED | METHOD / GOVERNANCE — INV-NO-V3-ADOPT | NON-CLAIM |
-| G-M1-13 | PATH DISCOVERY | NO ACTION / WATCH | WATCH |
-| G-M1-14 | HISTORICAL SNAPSHOT | **M3 DOCUMENTARY** — stale SHE wording | HISTORICAL |
-| G-M1-15 | OPEN — KNOWN GAP | **M3 DOCUMENTARY** — DEP-EC-ATT | OPEN |
-| G-M1-16 | NON-CLAIM MAINTAINED | NO ACTION / WATCH (DEP-ATT-EV optional) | NON-CLAIM |
-| G-M1-17 | COVERAGE VERIFIED + INDEX SCOPE TO VERIFY | **M3 DOCUMENTARY** — F11b index | OPEN nuance |
-| G-M1-18 | HISTORICAL SNAPSHOT | **M3 DOCUMENTARY** — PENDING pockets | HISTORICAL |
-| vol09 REAL debts | OPEN | REAL ARCHITECTURE | OPEN |
-| RS-03 | OPEN | METHOD / GOVERNANCE | OPEN |
-| TOOL-FIRST-REAL-NOWRITE | OPEN | REAL ARCHITECTURE (twin G-M1-05) | OPEN |
-| DEP-EC-ATT | OPEN — KNOWN GAP | **M3 DOCUMENTARY** | OPEN |
-| F11b INDEX SCOPE | COVERAGE VERIFIED + INDEX SCOPE TO VERIFY | **M3 DOCUMENTARY** | OPEN nuance |
-| F18/F19 PARTIAL | PARTIAL | PRODUCT DELIVERY / QA | PARTIAL |
-| REAL BOUNDARY NOT PROVEN | NOT PROVEN | REAL ARCHITECTURE / NON-CLAIM | NOT PROVEN |
-| Review Pack process reserve | GOVERNED ACCEPT | METHOD / GOVERNANCE | GOVERNED |
-| Tip LOCAL CANDIDATE wording | HISTORICAL SNAPSHOT | M3 DOCUMENTARY optional tip sync (post-#598) | HISTORICAL |
-
-**Owners:** FORMAL OWNER: NOT ASSIGNED (temporary domain governance from G1 preserved · not promoted).
-**Aucune dette CLOSED** this cycle.
+Baseline de lecture / preuves immuables: **`origin/main` = `c2b3d00c…`**.
 
 ---
 
-## A6 — G6 Candidate Scope (PROPOSAL ONLY · NOT AUTHORIZED)
+## 4. Sources et preuves
 
-### Minimal volume set
+### 4.1 Processus / méthode (read-only)
 
-1. `production-runtime-reference.manifest.json` (DEP-EC-ATT · optional F11b policy · digests only if approved)
-2. `04-dependency-impact-map.md` (align narrative ↔ index)
-3. `03-end-to-end-flow-catalog.md` (F11b index note · F18/F19 ceilings · routing table if in scope)
-4. `09-known-gaps-reserves-and-current-boundaries.md` (requalify PENDING phrases vs Git)
-5. `README.md` (CURRENT allowlist honesty)
-6. Optionally `08-test-proof-and-conformance-map.md` if F11b/tests mapping changes
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- CKC: `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/pilots/03-architecture-technique.md` (guidance only)
 
-### Order
+### 4.2 Convergence / Product Completion / v3
 
-Manifest intent → vol04 → vol03 → vol09 → README → conformance dry-run proposal → semantic review → digests under distinct approval.
+- Build Doctrine A3, A4/R1–R24, A8–A12
+- Roadmap B-AKG, B9, B10, trajectoire M3→M4
+- C1 Product Completion = TARGET/SCOPE/TRAJECTORY (not CURRENT proof)
+- Doctrine v3: 30, 32, 33, 34, 35, 37 (31/36 not required for direct links this cycle)
 
-### Controls
+### 4.3 PRR CURRENT (`c2b3d00c`)
 
-- No Product code change in G6 documentary sync.
-- Conformance script **proposed** for G6; **not executed as mutation** in M3-A.
-- Preserve Fake/DET/REAL ceilings.
-- Keep OPEN debts OPEN unless decision+proof.
+- README + `production-runtime-reference.manifest.json`
+- Volumes 01–09 (priority 02/03/04/07/08/09; complementary 01/05/06 as needed)
+- Manifest counts: components **12** · flows **20** (F01–F20) · invariants **20** · dependencies **9**
+- `lastReviewedCommit`: `928ab15b032c392dafee74a916f2faad3ed524de` (ancestor of main)
+- Digests: volume/source/test sha256_16 present; **digest match ≠ semantic validity**
 
-### Out of G6
+### 4.4 Outillage
 
-REAL no-write enforcement · Product behavior B-M2B-05 · C1 delivery · AKG-M4 rationalize · runtime v3 adopt · P6 PASS.
+- `projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs`
+  - Lines ~115–117: `dependency.from` and `dependency.to` **MUST** ∈ `manifest.components[].id`
+  - Digest drift ⇒ REFERENCE REVIEW REQUIRED; `--write-digests` **NOT executed**
+- `productionRuntimeReference.conformance.d0.test.ts` mirrors same endpoint ∈ components rule
+- `scripts/sfia/publish-review-handoff.sh` (L3 only)
 
-### Stops for G6
+### 4.5 Preuves immuables
 
-Schema/index write without GO · write-digests without approval · Product Delivery conflation · REAL campaign · M3 Formal Exit without evidence.
+| Ref | SHA |
+|---|---|
+| M1 | `068beff9…` |
+| M2-A | `34ce3147…` |
+| M2-B | `b699b716…` |
+| M2-C | `435cee9a…` |
+| Debt 38×20 | `df77b8a2…` |
+| M2 Formal Exit | `f46c8bca…` |
+| M3-A handoff | `868bc45b…` / blob `2fe0be77…` |
 
----
+ChatGPT Critical Review M3-A: **PASS WITH GOVERNED RESERVES** + **R-M3A-01** (not in M2 38×20; not asserted on main).
 
-## A7 — M3-A Exit Review
+### 4.6 Actions read-only this cycle
 
-| Item | Result |
-| --- | --- |
-| Coverage baseline | PRODUCED |
-| Reference gaps | RG-01…08 qualified |
-| Debt routing | 38 IDs preserved · routed |
-| G6 scope | Candidate defined · **NOT AUTHORIZED** |
-| Project files changed | **NONE** |
-| PRR/Product/tests | **NONE** |
-| Fake/REAL new campaigns | **NONE** |
-| Next capability | **M3-B — Reference Reconciliation** (cadrage after Critical Review) |
-
-### Fake / REAL Qualification
-
-| Item | Value |
-| --- | --- |
-| New Fake/fixtures this cycle | NONE |
-| Level achieved | **REFERENCE COVERAGE VERIFIED** (bounded) |
-| REAL | **NOT PROVEN** |
-| DET | inherited M1/M2 only · not re-run |
-| Forbidden inferences | DET ⇏ READY FOR REAL · REAL-SHAPED ⇏ REAL PROVEN |
-
-### Validations
-
-| ID | Result |
-| --- | --- |
-| Git Truth / baseline `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` | PASS |
-| Manifest 12/20/20/9/27/7 | PASS |
-| DEP-EC-ATT confirmed gap | PASS |
-| F11b index nuance | PASS |
-| No project mutation | PASS |
-| No G6 execution | PASS |
-| Debt IDs preserved | PASS |
-| Review Pack FULL | PASS |
-| Handoff L3 | PENDING PUBLICATION |
-
-### Décisions Morris encore requises
-
-1. ChatGPT Critical Review of M3-A.
-2. Confirm M3-B cadrage.
-3. Distinct **G6** if PRR sync authorized.
-4. Later: tip Roadmap sync optional · REAL arch GO · Product GO for B-M2B-*.
-
-### Verdict technique
-
-**M3-A QUALIFICATION WITH RESERVES — G6 SCOPE TO BE REVIEWED.**
-
-(≠ M3 CLOSED · ≠ G6 APPROVED · ≠ PRR CONSOLIDATED)
+- Git Truth (fetch + rev-parse + ls-remote + status)
+- `git show` PRR/manifest/checker/conformance/M3-A/M2-B/debt
+- `rg` historical phrases, routing, F11b, F18/F19
+- **No** `--write-digests`, **no** Product/PRR edit, **no** test/build mutation, **no** project branch/commit/push/PR
 
 ---
 
-## Git Review Index
+## 5. Convergence / R23 / R24
 
-`c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` main · `8c03d5a6b29df9f9c302708a62fe0b85ec39aee9` Roadmap · `df77b8a2d5d51c223ff42a009ea004545c78da8a` debt · `f46c8bca674439ac84ec0d8f061913ef6d11fc4d` Formal Exit · `25f91c83ba4469bf18ad20289e290c6a0685a800` G4 · M1 `068beff9` · M2-A/B/C as cited · manifest lastReviewed `928ab15b…`.
-
----
-
-## Review Handoff L3
-
-Message: `docs(review-handoff): qualify AKG-M3-A coverage reference baseline`
-Tip entrée: `25f91c83ba4469bf18ad20289e290c6a0685a800`. Restore tracked pack `92f0f7d9d517c52a8864ef2d25b748ef747fe588`.
-
----
-
-## Instruction ChatGPT
-
-Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
-
-Produire synthèse globale distincte du rapport Cursor:
-
-- objectif/périmètre M3-A ;
-- coverage + gaps RG-01…08 ;
-- debt routing ;
-- G6 candidate scope ;
-- réserves / proof ceilings ;
-- verdict ChatGPT ;
-- prochaine décision Morris (M3-B / G6).
-
-Ne pas transformer recommandation en GO.
-Si handoff absent/incomplet: REVIEW HANDOFF INCOMPLETE.
+| Item | State |
+|---|---|
+| AKG-M0 / M1 | CLOSED |
+| AKG-M2 | CLOSED AT BOUNDED SCOPE |
+| AKG-M3 G5 | APPROVED / CONSUMED (conversation) |
+| AKG-M3-A | ACCEPTED BY MORRIS WITH GOVERNED RESERVES |
+| AKG-M3-B | READ-ONLY AUTHORIZED — this cycle |
+| G6 | **NOT AUTHORIZED** |
+| R23 | Code + PRR + proofs examined on real architectural perimeter (EC/Attempt, flows, checker) |
+| R24 | **NO SEMANTIC PRODUCT IMPACT THIS CYCLE** — gaps qualified only; no sync executed |
+| Runtime v3 | NON ADOPTED |
+| P6 GLOBAL | NOT PASSED |
+| REAL | NOT PROVEN at AKG-M2/M3-A/M3-B scope |
 
 ---
 
-## Anti-claims
+## 6. RG-01 — Resolution Options Matrix (DEP-EC-ATT / OBJ-ATTEMPT)
 
-≠ G6 AUTHORIZED · ≠ PRR SYNC · ≠ Product Delivery · ≠ M3 Formal Exit · ≠ M4 · ≠ P6 PASS · ≠ v3 ADOPTED · ≠ REAL PROVEN · ≠ debts CLOSED · ≠ F11b unimplemented · ≠ DET⇒REAL.
+### 6.1 Facts (CURRENT)
 
-FIN DU REVIEW PACK FULL — AKG-M3-A.
+| Source | Fact |
+|---|---|
+| Manifest `dependencies[]` | `DEP-EC-ATT`: **from=`OBJ-EC` → to=`OBJ-EC`** (self-edge) |
+| PRR04 table | `DEP-EC-ATT`: **OBJ-EC → OBJ-ATTEMPT** (Select→Attempt; R2 refuse paths) |
+| PRR02 | `OBJ-ATTEMPT` section **documented** (persistence `oa_execution_attempts`, …) |
+| Manifest `components[]` | **OBJ-ATTEMPT absent** (curated 12; also absent: OBJ-EVIDENCE, OBJ-GENERIC-MISSION-HD, …) |
+| Checker | `componentIds.has(d.from)` ∧ `componentIds.has(d.to)` — **hard fail** otherwise |
+| Conformance test | Same assertion on `manifest.dependencies` |
+| OBJ-EC component | `dependencyIds: ["DEP-EC-ATT"]`; `dependsOn: ["OBJ-HD"]`; flows F08/F09/F10/F18 |
+| PRR04 also lists | `DEP-ATT-EV`, `DEP-NORA-GENPREP`, `DEP-GMHD-EC`, `DEP-MAT-GENPREP`, … — **not all** in curated `dependencies[]` (9) |
+
+### 6.2 R-M3A-01 — CONFORMANCE DEPENDENCY GAP
+
+| Field | Value |
+|---|---|
+| ID | **R-M3A-01** |
+| Title | CONFORMANCE DEPENDENCY GAP |
+| Source | ChatGPT Critical Review M3-A (not M2 38×20; not on main as debt row) |
+| Fact | Changing **only** `DEP-EC-ATT.to` → `OBJ-ATTEMPT` **without** indexing `OBJ-ATTEMPT` in `components[]` makes manifest **non-conformant** to checker CURRENT |
+| Status | **OPEN / UNDER RECONCILIATION** |
+| Formal owner | **NOT ASSIGNED** |
+| Temporary governance | DOMAIN-LEVEL, inherited G1 |
+| Closed? | **NO** |
+
+### 6.3 Options
+
+| Dimension | OPTION A — Extend curated catalog | OPTION B — Relax dependency index model | OPTION C — Keep self-edge as explicit gap |
+|---|---|---|---|
+| Action | Add `OBJ-ATTEMPT` to `components[]`; set `DEP-EC-ATT.to=OBJ-ATTEMPT`; align PRR04/08/09 notes; refresh digests after semantic accept | Change checker (+ conformance test) to allow endpoints outside `components[]` (or dual catalog) | Keep `to=OBJ-EC`; document PRR04/09 that index is **KNOWN GAP / conformance-preserving stub**; do not claim self-edge = real edge |
+| Checker conformance | **PASS** (after catalog add) | **PASS** only after checker change | **PASS** (unchanged) |
+| Architectural fidelity | **HIGH** — index matches Select→Attempt | HIGH if model admits external objects honestly | **LOW fidelity index**; honesty via explicit gap |
+| Files | manifest · optionally 02/04/08/09 · digests | `check-production-runtime-reference.mjs` · conformance test · possibly README maintenance contract | 04 · 09 · optionally README · digests if volumes change |
+| Contract change | Curated catalog growth 12→13; may need `trackedSourcePaths` / `flowIds` / `testPaths` for Attempt | **Technical contract change** of checker semantics | Documentary only |
+| Consumers | Manifest consumers expecting 12 components; impact analysis using DEP-EC-ATT | All future deps; risk of silent orphan endpoints | Consumers already see self-edge |
+| Tests | Conformance still green; may extend inventory assertions if hardcoded counts exist (none found — length-based) | Must update test expectations | No test change |
+| Risk | Scope creep (pressure to also add OBJ-EVIDENCE / DEP-ATT-EV) | Weakens curated invariant; larger blast radius | Leaves R-M3A-01 / G-M1-15 OPEN; continued dual truth |
+| Reversibility | Reversible by removing component + restoring self-edge | Harder (contract rollback) | Trivial (already current) |
+| Debt | Closes index gap if complete; may open “why not Evidence?” | New contract debt | Preserves DEP-EC-ATT KNOWN GAP |
+| Exit condition | Conformance OK + semantic review of Attempt component fields + digests | Structural GO + checker/tests + docs | Gap wording accepted; fidelity still deferred |
+| GO needed | **G6** with catalog-extension scope (documentary index; **no checker edit**) | **STRUCTURAL GO** — **G6 DOC-ONLY INSUFFICIENT** | **G6 DOC-ONLY** (narrow) |
+| Recommendation | **PREFERRED for fidelity** when Morris authorizes curated growth | **NOT preferred** this milestone | **Acceptable interim** if G6 must stay doc-only without catalog growth |
+
+### 6.4 Sourced recommendation (not adopted)
+
+**Recommend OPTION A** as the fidelity-preserving path compatible with the **existing** checker (no checker mutation).
+**Do not** adopt OPTION B without a distinct structural GO.
+**OPTION C** remains the only pure DOC-ONLY path that leaves the self-edge untouched while making the dual-truth explicit.
+
+**None of A/B/C is adopted in M3-B.** Morris arbitration required for G6 scope variant (see §14).
+
+**Qualification:** If Morris chooses B → `G6 DOC-ONLY INSUFFICIENT — STRUCTURAL GO REQUIRED`.
+
+---
+
+## 7. R-M3A-01 analysis (detail)
+
+| Question | Answer |
+|---|---|
+| Why does self-edge exist? | Conformance-preserving stub: `to` must be a component ID; Attempt not curated |
+| Is self-edge architectural truth? | **No** — PRR04 + runtime Select/Start path describe EC→Attempt |
+| Minimal breaking edit? | `to: OBJ-ATTEMPT` alone → checker FAIL (R-M3A-01) |
+| Minimal conforming fidelity edit? | Add OBJ-ATTEMPT component **then** retarget DEP-EC-ATT (Option A) |
+| Related non-indexed PRR04 edges | DEP-ATT-EV, DEP-NORA-GENPREP, … = optional curated scope (G-M1-16 family) — **do not auto-expand** in same lot without scope control |
+| M3-B disposition | Documented; **OPEN**; routed to G6 arbitration |
+
+---
+
+## 8. RG-02 — F11b Policy Matrix
+
+### 8.1 Facts
+
+| Fact | Evidence |
+|---|---|
+| F11b section in PRR03 | Present — Product Continuity / Shared Knowledge (`resolveProductExecutionContext`, continuity projection, `reconcileGovernedExecution`) |
+| `manifest.flows[]` | F01–F20 only — **F11b NOT indexed** |
+| Code + DET tests | Inherited (`reconcileGovernedExecution`, product continuity suites) — **≠** missing Product capability |
+| Relation | Bridges F10/F11 → F12/F13/F14 (continuity/reconcile/post-Evidence) — subflow of execution continuity, not a separate top-level journey ID in curated 20 |
+
+### 8.2 Options
+
+| Dimension | OPTION A — Narrative subflow + explicit index policy | OPTION B — Index F11b in `flows[]` |
+|---|---|---|
+| Utility | Preserves 20-flow curated contract; documents policy | Slightly improves inventory searchability |
+| Fidelity | Matches “curated top-level flows” intent | Risk of double-counting with F11/F14/F18 continuity |
+| Doc cost | Low — policy note in PRR03 + 09 | Medium — flows[] + component flowIds + digests + possibly 08 |
+| Duplication risk | Low if policy explicit | Higher (F11b overlaps F11/F14/F18 narrative) |
+| Manifest / tests | No count change | 20→21; update any human allowlists; conformance length-based OK |
+| Proofs | Historical DET remain valid either way | Same |
+| Exit | Policy recorded: “F11b = subflow; not missing feature” | Index complete iff consumers need ID |
+
+### 8.3 Recommendation (not adopted)
+
+**OPTION A** — keep F11b as **sub-flux narratif** with explicit **INDEX POLICY**: curated `flows[]` intentionally omits F11b; absence ≠ unimplemented.
+Do **not** add F11b by automatism.
+Condition de sortie G6 (si inclus): phrase de politique dans PRR03 §F11b + PRR09 known-gap/index note.
+
+---
+
+## 9. Historical Status Phrase Matrix (RG-03 / RG-07)
+
+Git CURRENT: Tool-First R1/R2 **integrated** via **PR #588** merge `304e30e8` (ancestor of `c2b3d00c`). README already requalifies overlay as HISTORICAL vs CURRENT. Residual PENDING phrases remain in volume bodies.
+
+| Path | Approx line | Exact phrase (abbrev.) | Macro/PR | Git CURRENT | Category | Correction candidate |
+|---|---|---|---|---|---|---|
+| README.md | ~20–28 | HISTORICAL CANDIDATE / Correction vs prior PENDING | AKG-M0 R-S02 / #588 | Correct allowlist | **KEEP HISTORICAL** | Keep; already CURRENT policy |
+| 03-…md | ~32 | D-ER-16 Nora Generic PREPARE … PENDING_GIT_INTEGRATION | D-ER-16 / consolidation | Code on main (generic prepare solicitation) | **ADAPT CURRENT** | Requalify AS_IMPLEMENTED ON MAIN at tested scope; keep Fake ceiling |
+| 03-…md | ~33 | Tool-First mission fields … PENDING_GIT_INTEGRATION | Tool-First / #588 | CURRENT on main | **ADAPT CURRENT** | Align to README CURRENT IMPLEMENTED |
+| 03-…md | ~91 | Pathless bounded non-mutating … PENDING_GIT_INTEGRATION | R1 / #588 | CURRENT on main | **ADAPT CURRENT** | Same |
+| 03-…md | ~111–112 | Project-scoped Select/Start / R2 … PENDING_GIT_INTEGRATION | R2 / #588 | CURRENT on main | **ADAPT CURRENT** | Same; keep REAL non-claim |
+| 03-…md | ~186 | LOCAL CANDIDATE / NOT INTEGRATED ON MAIN | older overlay | Misleading as CURRENT | **ADAPT CURRENT** or **CLARIFY BOUNDARY** | Mark HISTORICAL snapshot if still useful |
+| 02-…md | ~127 | Tool-First pathless stamp … PENDING_GIT_INTEGRATION | R1 stamp | CURRENT on main | **ADAPT CURRENT** | Align README |
+| 05-…md | ~41 | Tool-First R2 … PENDING_GIT_INTEGRATION | R2 | CURRENT on main | **ADAPT CURRENT** | Align; keep OPEN TOOL-FIRST-REAL-NOWRITE |
+| 09-…md | ~96 | PENDING_GIT_INTEGRATION · NOT INTEGRATED_ON_MAIN (generic-execution consolidation @ 896ff59c) | consolidation / #587 lineage | Merged lineage on main | **ADAPT CURRENT** | Requalify integration; preserve snapshot date |
+| 09-…md | ~101 | G-DIGEST … PENDING CONTENT APPROVAL | digest governance | Digests exist; semantic review ≠ closed | **CLARIFY BOUNDARY** / **KEEP HISTORICAL** | Digests may be current; “content approval” ≠ auto MERGED claim |
+| 09-…md | ~117 | LOCAL CANDIDATE / NOT INTEGRATED ON MAIN | macro-time status | Historical at time of macro | **KEEP HISTORICAL** + date boundary | Prefix “at time of macro” |
+| 09-…md | ~174–191 | Overlay Tool-First … PENDING_GIT_INTEGRATION | #588 era | Obsolete as CURRENT | **ADAPT CURRENT** | Point to README R-S02 table |
+| 03 F08 status ~98 | “CURRENT on Delivery (PR pending merge)” | SHE/Tool-First | Stale Delivery wording | **ADAPT CURRENT** | Delivery→main requalification |
+
+### RG-07 digests
+
+| Fact | Qualification |
+|---|---|
+| `lastReviewedCommit` = `928ab15b…` | Ancestor of main; **older than** tip — not automatically wrong |
+| Digest match | Conformance OK if hashes match tree — **≠** semantic currency of PENDING phrases |
+| Digest drift | Would mean REFERENCE REVIEW REQUIRED — **not** inspected via mutating write |
+| Rule | Digest conforme ≠ validité sémantique; digest ancien ≠ preuve d’erreur fonctionnelle Product |
+
+**Do not** mechanically convert all PENDING → MERGED. Distinguish: macro snapshot · sous-capacité · DET proof · REAL proof.
+
+---
+
+## 10. RG-04 — Routing Table (candidate — not published to PRR)
+
+Same-utterance ambiguity family: **B-M2B-03** (OPEN). Related: **B-M2B-02** (Exécuter ≠ launch guarantee), **B-M2B-05** (execute+existing Attempt continue honesty).
+
+| Branch | Entry signal | Product responsibility | Gate / refuse | Authority | Exit | Tests / proof ceiling |
+|---|---|---|---|---|---|---|
+| **NEW_CYCLE_FORMALIZATION** | Explicit new-cycle language (`hasExplicitNewCycleFormalizationSignal`) even if deliverable mentioned | `createCycle` / formalization path — **not** Artifact continuation | Fail-closed if formalization required but blocked | Pilot/Product cycle authority | New CycleInstance path | F05 CI-HQA-F01 DET — ≠ REAL |
+| **ACTIVE_CYCLE_GOVERNED_CONTINUATION (ACGC)** | Active cycle + Artifact obligation (REQUIRE_ARTIFACT HD **OR** APPLICABLE∧¬SATISFIED) | `activeCycleGovernedContinuation` / materialization | Refuse invent HD; UNKNOWN≠APPLICABLE | Artifact gates ≠ exec authority | Proposal / materialization continuation | F05 DET — B-M2B-03 OPEN for ambiguity |
+| **ACTIVE_CYCLE_CONTINUATION_BLOCKED** | e.g. `no_require_artifact` | Clarification / refusal messaging | Blocked reason only | No invented REQUIRE_ARTIFACT | May set `eligibleForGenericPrepareRouting` when optional documentary | F05 GD4-01 DET |
+| **Adjacent → F08 Generic PREPARE** | Optional documentary without closure Artifact + conversation admission + actionable/`execution_request` + prepareGo/readiness | `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft` | PREPARE≠AUTHORIZE; Nora solicit≠authority | OA/W2 Product admission | Inspectable EC draft / pending offer | F08 + D-ER-16 Fake DET |
+| **Tool-First pathless NON_STRUCTURAL** | Positive non-mutating claim (R1) | Materiality→PREPARE qualification | Absent positive claim / write/unknown → refuse | Product admission ≠ Cursor sandbox | Pathless EC stamp possible | Tool-First R1 DET; REAL OPEN |
+| **F08 structural / SHE** | Structural / HD-bound / Exécuter path | Inspect → HD/Confirm/Authorize → Attempt | INV-NO-EXEC-BEFORE-AUTH | HumanDecision / receipts | AUTHORIZED EC → F10 | SHE DET; REAL OPEN |
+| **Nora Tool-First solicitation** | Agents tool `request_generic_execution_prepare` | Cognition solicits only | Never creates HD/Attempt/execute | Remains F08 Product | Solicitation only | D-ER-16 Fake |
+| **STOP / refuse** | Ambiguous utterance without qualifying signal | Ask clarification — do not invent mode | Continuation blocked / refuse | No silent PREPARE | Clarification | B-M2B-03 scenarios still OPEN |
+
+**Ceiling:** DOCUMENTED + DET COVERAGE at tested scope · **B-M2B-03 OPEN** · Product chantier **not reopened** · table = G6 documentary candidate only.
+
+---
+
+## 11. F18 / F19 ceilings (RG-05)
+
+| Flow | Documented status | Durable truth | Process-local | Proven | Not proven |
+|---|---|---|---|---|---|
+| **F18** Restart after HD / before execution | **PARTIAL** (domain tests) | HD / DecisionBasis durable; EC durable | Pending Generic PREPARE **offer** / presentation carrier **lost** at restart | HD11: accepted verified HD may resume PREPARE w/ `decisionId` without restoring offer (DET) | Automatic UI rehydration of offer; multi-instance isolation (B-M2B-04); REAL |
+| **F19** Restart post-Evidence | **PARTIAL** — front-door rehydrate at tested scope | Evidence / RB / CE / post-Evidence projection durable paths | TrajectorySurface command≠ownership | Deterministic fresh+restart handoff at tested scope | REAL SprintBoard re-proof; cross-restart RunState (DEFER) |
+| Offer / HD / EC | HD≠offer; offer loss ≠ universal PREPARE ban | EC/Attempt rules per F10/F18 | Offer map process-local | DET HD11 | Silent invent of offer |
+| Reconstruction | Product subject-read / durable HD | — | Proposal store not durable | F17/F18 DET seams | Full automatic journey REAL |
+
+**Keep PARTIAL.** No additional REAL tests. G6 may only **disclose** ceilings — never promote to COMPLETE without proof.
+
+---
+
+## 12. Documentary Impact Matrix
+
+| ID | Topic | CURRENT issue | G6-relevant? | Semantic Product impact if synced? | Depends on |
+|---|---|---|---|---|---|
+| DI-01 | DEP-EC-ATT | Self-edge vs PRR04 Attempt | **YES** | No Product behavior if index-only | Option A/C arbitration · R-M3A-01 |
+| DI-02 | F11b | Missing flows[] | **YES** (policy) | No | Option A policy text |
+| DI-03 | PENDING phrases | Obsolete CURRENT wording | **YES** | No (status honesty) | Phrase matrix |
+| DI-04 | Routing table | B-M2B-03 ambiguity | **OPTIONAL** | No if docs-only | B-M2B-03 |
+| DI-05 | F18/F19 | PARTIAL disclose | **YES** (keep) | No | None |
+| DI-06 | Digests / lastReviewed | Stale review pointer possible | **IF** volumes edited | No | Human review then `--write-digests` under G6 GO |
+| DI-07 | Checker contract | Only if Option B | **NO under DOC-ONLY** | N/A | STRUCTURAL GO |
+
+---
+
+## 13. Debt routing
+
+### 13.1 Preserve (M2 38×20 immuable `df77b8a2` — not recopied)
+
+| ID | Status retained |
+|---|---|
+| R-M2A-04 | OPEN/GOVERNED |
+| R-M2B-03 | PASS WITH GOVERNED RESERVE |
+| B-M2B-01…05 | OPEN |
+| G-M1-* | Source statuses preserved |
+| F11b INDEX SCOPE | COVERAGE VERIFIED + INDEX SCOPE TO VERIFY |
+| DEP-EC-ATT | KNOWN GAP OPEN |
+| RS-03 | OPEN |
+| TOOL-FIRST-REAL-NOWRITE | OPEN |
+| F18/F19 | PARTIAL |
+| REAL | NOT PROVEN |
+
+### 13.2 Added this pack
+
+| ID | Status | Class |
+|---|---|---|
+| **R-M3A-01** | OPEN / UNDER RECONCILIATION | **M3 DOCUMENTARY** → G6 arbitration (may escalate STRUCTURAL if Option B) |
+
+### 13.3 Classification map (work items)
+
+| Item | Class |
+|---|---|
+| DEP-EC-ATT Option A/C docs+index | M3 DOCUMENTARY |
+| F11b index policy | M3 DOCUMENTARY |
+| PENDING→CURRENT phrase sync | M3 DOCUMENTARY |
+| Routing table publish | M3 DOCUMENTARY (optional) |
+| Checker Option B | **M4 RATIONALIZATION** / STRUCTURAL GO (not G6 DOC-ONLY) |
+| B-M2B-03 scenario expansion Product | PRODUCT / QA |
+| TOOL-FIRST-REAL-NOWRITE | REAL ARCH |
+| RS-03 | METHOD / GOVERNANCE |
+| Catalog expansion to all PRR04 edges | WATCH / OUT OF SCOPE (unless scoped) |
+
+**No debt CLOSED this cycle.**
+
+---
+
+## 14. G6 Decision-Ready Package (PROPOSAL ONLY — NOT AUTHORIZED)
+
+### A. Exact file scope (justified)
+
+| File | Retain? | Why |
+|---|---|---|
+| `production-runtime-reference.manifest.json` | **YES if Option A**; else NO for Option C-only | DEP-EC-ATT ± OBJ-ATTEMPT component |
+| `02-runtime-object-catalog.md` | OPTIONAL | Attempt component field alignment / PENDING stamp phrase |
+| `03-end-to-end-flow-catalog.md` | **YES** | F11b policy · PENDING phrases · optional routing · F18/F19 disclose |
+| `04-dependency-impact-map.md` | **YES** | DEP-EC-ATT honesty (gap note or aligned edge) |
+| `07-authority-invariants-and-failure-modes.md` | ONLY if phrase conflict found with CURRENT R1/R2 | Prefer README+03/05 first |
+| `08-test-proof-and-conformance-map.md` | OPTIONAL | If F11b/Attempt mapping notes change |
+| `09-known-gaps-reserves-and-current-boundaries.md` | **YES** | Phrase requalification · gap register · R-M3A-01 disclosure |
+| `README.md` | OPTIONAL | Already CURRENT for Tool-First; cross-links only |
+
+**Final minimal recommended set:** `03`, `04`, `09` + (**manifest** iff Option A).
+
+### B. Section-level change plan (candidates)
+
+| File | Section | CURRENT | Problem | Candidate change | Risk | History rule |
+|---|---|---|---|---|---|---|
+| 04 | DEP edges table DEP-EC-ATT | Says → OBJ-ATTEMPT | Diverges from manifest | **Either** keep table + add “index stub KNOWN GAP” **or** align after Option A | Med | Keep Tool-First R2 refuse notes |
+| 04 | DEP-ATT-EV etc. | Listed beyond curated 9 | Over-complete vs manifest | Clarify curated vs narrative deps | Low | Do not delete narrative without GO |
+| 09 | Tool-First overlay PENDING | Obsolete CURRENT | Misleading | Point to README R-S02; mark HISTORICAL | Med | Preserve dated snapshot lines |
+| 09 | consolidation PENDING | Merged lineage | Misleading | ADAPT CURRENT | Med | Keep base SHAs as history |
+| 03 | F11b | No index policy | Ambiguity | Add INDEX POLICY (Option A) | Low | Keep DET status |
+| 03 | PENDING Tool-First bullets | Stale | Misleading | ADAPT CURRENT | Med | Keep Fake/REAL ceilings |
+| 03 | F18/F19 | PARTIAL | OK | Explicit non-promotion | Low | KEEP PARTIAL |
+| 03 | Routing | Scattered | B-M2B-03 | Optional candidate table | Med | Mark OPEN debt |
+| manifest | DEP-EC-ATT / components | Self-edge | Fidelity | Option A fields | Med–High | No silent Evidence expansion |
+| Digests | volumes | May drift after edits | Conformance | `--write-digests` **only under G6 GO after semantic accept** | Process | refresh ≠ semantic OK |
+
+### C. Dependency impact analysis
+
+| Layer | Impact |
+|---|---|
+| Components | Option A: +OBJ-ATTEMPT; else none |
+| Objects | Attempt already in vol02 |
+| Flows | Policy only for F11b (no add recommended) |
+| Authority invariants | No change expected (R1/R2 already CURRENT in vol07) |
+| Index | DEP-EC-ATT fidelity or explicit gap |
+| Tests | Conformance green if endpoints valid; no Product tests |
+| Consumers | Impact-analysis readers of DEP-EC-ATT |
+| Digests | Refresh if volumes/manifest bytes change |
+| Debt | R-M3A-01 / G-M1-15 / DEP-EC-ATT disposition |
+
+### D. G6 scope variants
+
+| Variant | Contents | When |
+|---|---|---|
+| **Option 1 — G6 DOC-ONLY cohérent** | Phrase matrix ADAPT · F11b INDEX POLICY · DEP-EC-ATT **KNOWN GAP** wording (Option C) · F18/F19 PARTIAL disclose · optional routing table | Prefer if Morris forbids catalog growth |
+| **Option 2 — DOC borné + arbitrage technique préalable** | Option 1 **plus** Option A (add OBJ-ATTEMPT + retarget DEP-EC-ATT) · digests after review · **exclude** checker change · **exclude** full PRR04 edge expansion | Prefer for fidelity; requires Morris OK on curated 12→13 |
+| **Rejected wide** | Checker rewrite; index all PRR04 deps; Product code; REAL; Roadmap mutation; M4 start | Out of G6 |
+
+### E. Exit Proofs (for a future authorized G6)
+
+1. Semantic review of each retained section (before/after phrase matrix)
+2. Conformance script PASS (no unauthorized write beforehand)
+3. Reference coherence: manifest ↔ 04 ↔ 02 for DEP-EC-ATT
+4. Fake/REAL ceilings conserved (no READY FOR REAL / P6 / v3)
+5. Manifest schema v1 valid; endpoint ∈ components
+6. **Zero** Product behavioral change
+7. Debt continuity: no silent CLOSE; R-M3A-01 disposition explicit
+8. Review Pack FULL + L3 for that G6 cycle
+9. Separate Git gates (branch/PR/merge) — not this M3-B
+
+### F. Stops for G6
+
+- Any checker/test harness contract change without STRUCTURAL GO
+- Auto-adding Evidence/GMHD/etc. “while we’re here”
+- Treating digest refresh as semantic approval
+- Implicit G6 consumption from M3-B acceptance
+- Product/REAL/P6/v3 promotion
+
+**AUCUN G6 n’est consommé dans M3-B.**
+
+---
+
+## 15. Fake / Real Qualification
+
+| Boundary | Level |
+|---|---|
+| Applicable | YES (studied frontiers) |
+| New fakes/fixtures | **NONE** |
+| Product / Nora / OpenAI | Unchanged; DET historical only |
+| Product / Cursor | R2 gate DET; REAL no-write **OPEN** |
+| EC / Attempt | Index gap ≠ missing runtime object |
+| Evidence / ReviewBundle | Documented; not all curated |
+| Restart / recovery | F18/F19 PARTIAL |
+| Acquired M3-A | REFERENCE COVERAGE VERIFIED (bounded) |
+| Acquired M3-B | **SEMANTIC / DEPENDENCY RECONCILIATION AT BOUNDED DOCUMENTARY SCOPE** |
+| Not acquired | E2E REAL · REAL BOUNDARY · READY FOR REAL · P6 GLOBAL · runtime v3 ADOPTED |
+| GO REAL | **NOT AUTHORIZED** |
+
+---
+
+## 16. Validations / STOPs
+
+| ID | Check | Result |
+|---|---|---|
+| V01 | Git Truth | **PASS** — main=`c2b3d00c`; no drift |
+| V02 | M3-A handoff coherent | **PASS** — `868bc45b` / `2fe0be77` |
+| V03 | G5/M3-B vs G6 separated | **PASS** — G6 NOT AUTHORIZED |
+| V04 | R23/R24 | **PASS** — examine only; no product semantic mutation |
+| V05 | DEP-EC-ATT sources+checker | **PASS** — self-edge vs Attempt; checker requires components |
+| V06 | OBJ-ATTEMPT scope/consumers | **PASS** — vol02+code; not in components[] |
+| V07 | RG-01 options evaluated | **PASS** — A/B/C matrix |
+| V08 | F11b policy evaluated | **PASS** — recommend subflow policy |
+| V09 | Phrase matrix | **PASS** — categories assigned |
+| V10 | Routing source-grounded | **PASS** — candidate table; B-M2B-03 OPEN |
+| V11 | F18/F19 ceilings | **PASS** — PARTIAL retained |
+| V12 | 38 IDs M2 preserved | **PASS** — not closed |
+| V13 | R-M3A-01 OPEN | **PASS** |
+| V14 | G6 exact scope proposed | **PASS** — variants 1/2 |
+| V15 | No Product/PRR change | **PASS** (process write only) |
+| V16 | No promotion | **PASS** |
+| V17 | Review Pack FULL | **PASS** (this file) |
+| V18 | Handoff remote verified | **PENDING** → filled after publish |
+| V19 | Worktree preserved | **PASS** intent — restore pack blob after L3 |
+| V20 | No implicit G6 GO | **PASS** |
+
+**STOPs encountered:** none.
+
+---
+
+## 17. Réserves / arbitrages
+
+| Reserve | Ask of Morris |
+|---|---|
+| R-M3A-01 / DEP-EC-ATT | Choose G6 **Option 1 (C)** vs **Option 2 (A)**; reject B without structural GO |
+| F11b | Confirm INDEX POLICY = subflow (recommended) |
+| Phrase sync breadth | Confirm volumes 03/05/09 (+02) in G6 vs README-only already done |
+| Routing table | Include in G6 or defer under B-M2B-03 |
+| Catalog creep | Explicitly exclude Evidence/GMHD auto-index |
+
+---
+
+## 18. Verdict M3-B
+
+**M3-B RECONCILIATION WITH RESERVES — G6 SCOPE REQUIRES MORRIS ARBITRATION.**
+
+Meaning:
+
+- Uncertainties from M3-A are **qualified** with sourced options and a decision-ready G6 package.
+- **G6 is NOT authorized / NOT executed.**
+- AKG-M3 is **NOT closed.**
+- P6 / v3 / REAL **NOT** promoted.
+
+---
+
+## 19. Instruction ChatGPT
+
+Avant toute revue, lire **directement Git** :
+
+- branche: `sfia/review-handoff`
+- fichier: `sfia-review-handoff/latest-chatgpt-review.md`
+
+Vérifier: cycle AKG-M3-B, profil CRITICAL, worktree/branche/HEAD, baseline `c2b3d00c`, sources, matrices RG-01…05, R-M3A-01 OPEN, G6 package (non consommé), validations, absence d’écritures projet, commit+blob remote, relecture remote.
+
+Produire une **synthèse globale distincte**:
+
+1. Objectif du cycle
+2. Résultats obtenus
+3. Options et recommandation (A préférée fidélité; C DOC-ONLY; B structural)
+4. Risques et réserves
+5. Décisions déjà validées (M3-A acceptance; M3-B read-only)
+6. Décisions encore nécessaires (G6 variant; catalog growth)
+7. Verdict ChatGPT
+8. Prochain gate Morris
+
+Si handoff absent/incomplet/synthesis-only → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
+Si remote non mis à jour → `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
+
+---
+
+## Appendix — Candidate snippets (for review; NOT applied)
+
+### A. F11b INDEX POLICY (candidate addition under PRR03 F11b)
+
+```text
+INDEX POLICY (curated flows[]): F11b is a narrative sub-flow of Product Continuity /
+execution reconcile spanning F10–F14. It is intentionally omitted from manifest.flows[]
+(F01–F20). Absence from flows[] ≠ unimplemented capability. DET proofs remain historical
+coverage at tested scope. ZERO REAL / runtime v3 NON ADOPTED unchanged.
+```
+
+### B. DEP-EC-ATT KNOWN GAP note (Option C candidate under PRR04)
+
+```text
+INDEX NOTE: manifest.dependencies DEP-EC-ATT currently uses to=OBJ-EC (self-edge) because
+OBJ-ATTEMPT is outside curated components[] and the conformance checker requires both
+endpoints ∈ components[]. Architectural relation remains EC → Attempt (Select/Start).
+See R-M3A-01 / G-M1-15. Do not retarget `to` without indexing OBJ-ATTEMPT (or a structural
+checker GO).
+```
+
+### C. OBJ-ATTEMPT component stub fields (Option A candidate — illustrative)
+
+```json
+{
+  "id": "OBJ-ATTEMPT",
+  "title": "ExecutionAttempt",
+  "docSection": "02-runtime-object-catalog.md",
+  "trackedSourcePaths": [],
+  "flowIds": ["F10", "F11", "F18"],
+  "invariantIds": [],
+  "testPaths": [],
+  "dependsOn": ["OBJ-EC"],
+  "dependencyIds": ["DEP-EC-ATT"],
+  "authoritySensitive": true,
+  "persistence": "oa_execution_attempts"
+}
+```
+
+(Exact paths/invariants to be filled under G6 semantic authoring — not applied here.)
+
+---
+
+END — AKG-M3-B REFERENCE RECONCILIATION REVIEW PACK FULL
