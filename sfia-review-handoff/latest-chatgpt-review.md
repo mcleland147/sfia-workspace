@@ -1,341 +1,347 @@
-# SFIA REVIEW PACK FULL — AKG-M2-C CYCLE 14 FORMAL POST-MERGE VERIFICATION
+# SFIA REVIEW PACK FULL — AKG-M2 GLOBAL FORMAL MILESTONE EXIT QUALIFICATION
 
-**Timestamp UTC:** 2026-10-21T07:31:32Z
-**Cycle:** 14 — POST-MERGE
+**Timestamp UTC:** 2026-10-21T08:15:24Z
+**Cycle:** 6 — Architecture technique
+**Specialization:** Global Formal Milestone Exit Qualification
 **Profile:** CRITICAL
-**Specialization:** Bounded Formal Verification
-**Typology:** GIT / DOC / GOVERNANCE / VALIDATION
+**Typology:** DOC / ARCHITECTURE / GOVERNANCE / REVIEW
 **Review Pack:** FULL (mono-cycle)
 **Review Handoff:** REQUIRED — publish-in-cycle — L3 bounded
-**CKC Cycle 14:** PRESENT (synthetic map / routing matrix) — **CANDIDATE GUIDANCE ONLY** — LEAN; detailed CKC absent; cleanup guidance in CKC **NOT executed** (Morris scope)
+**CKC Cycle 6:** PRESENT — pilot `pilots/03-architecture-technique.md` — **CANDIDATE GUIDANCE ONLY** (no decision/execution authority)
 
 ---
 
 ## 1. GO Morris exact
 
-**GO CONSUMED:**
+**GO CONSUMED (2026-10-21):**
 
-> AKG-M2-C — CYCLE 14 FORMAL POST-MERGE VERIFICATION APPROVED — PR #597 — NO CLEANUP.
+> AKG-M2 — GLOBAL FORMAL MILESTONE EXIT QUALIFICATION APPROVED.
 
-Accordé après Formal Exit M2-C · Critical PR Review PASS · Merge GO · PR #597 MERGED · Post-Merge Critical Review ChatGPT PASS · Post-merge CI SUCCESS.
+**Portée:** Qualifier la possibilité de clôturer AKG-M2 global à partir des Lots A/B/C; préparer Formal Exit Decision Pack pour revue ChatGPT et décision Morris.
 
-**Objectif:** Formaliser les preuves d'intégration PR #597 sur main. Dossier Post-Merge complet et traçable.
+**Autorisé:** analyse · consolidation preuves · dépendances · réserves · critères de sortie · entrée M3 candidate · options/recommandation · Review Pack FULL · Handoff L3.
 
-**≠** Cleanup · **≠** Product/Roadmap/PRR/doctrine change · **≠** AKG-M2 Formal Milestone Exit · **≠** AKG-M3 START · **≠** nouveau commit/push projet.
+**Interdit / NON adopté ici:** Formal Exit AKG-M2 global · CLOSED BY MORRIS globale · AKG-M3 START · PRR consolidation · Product/Roadmap/doctrine/architecture mutation · commit/push/PR/merge projet · cleanup · clôture automatique de dettes.
 
-**CLEANUP = NOT PERFORMED. REASON = EXPLICIT MORRIS SCOPE.**
-(§6.12 non activé par ce GO; exclusion locale; doctrine v2.6 inchangée.)
+**Séparation obligatoire:** QUALIFICATION ≠ DÉCISION.
+
+Gate actuel GLOBAL M2 EXIT QUALIFICATION GO = **CONSUMED**.
+Gate G1 M2 GLOBAL FORMAL EXIT APPROVAL = **NOT CONSUMED**.
 
 ---
 
-## 2. Git Truth initial
+## 2. Git Truth
 
 | Champ | Valeur |
 | --- | --- |
+| Repository | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-akg-m2-lot-c-formal-exit-roadmap-local` |
-| Branche courante | `docs/sfia-studio-akg-m2-lot-c-formal-exit-roadmap-local` |
+| Branche | `docs/sfia-studio-akg-m2-lot-c-formal-exit-roadmap-local` |
 | HEAD local | `030b5dea51c401121a830b7b070d83f1f9d57c44` |
-| `origin/main` local | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
-| main distant CURRENT | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` = **HEAD MATCH** merge |
-| Handoff tip entrée | `33309efd23dac070ad3d331d25c8cc8e7830a42a` |
-| Branche projet remote | `030b5dea51c401121a830b7b070d83f1f9d57c44` |
-| Status tracked | clean |
-| Worktrees préservés | M1 / M2-A / M2-B / M2-C |
+| `origin/main` CURRENT | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
+| Roadmap blob main | `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
+| Handoff tip entrée | `fd6ccb5ff31e1e410c82a6268b8a0b48d82acda5` / blob `03ba39f5d2cb3b51f8a1a48f2c761ae8e92487bd` |
+| Status | `(clean tracked)` |
+| Worktrees historiques | M1 / M2-A / M2-B / M2-C préservés |
 
-Fetch non destructif effectué. Aucun checkout main. Aucun pull/rebase.
-
----
-
-## 3. Sources v2.6
-
-- `prompts/templates/sfia-cycle-execution-template.md` (§2–5 · §6.12 · §7 · §7.10 · §8 · §9)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` (Cycle 14)
-- `prompts/templates/07-write-post-merge-status.md` — **CANDIDATE GUIDANCE** (ne remplace pas v2.6)
-- `docs/architecture/sfia-delivery-pipeline.md`
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+main = merge PR #597. Aucune opération destructive. Project files **READ ONLY**.
 
 ---
 
-## 4. Convergence Pre-check
+## 3. Sources v2.6 + Convergence
 
-| Source | Status |
-| --- | --- |
-| Build Doctrine | LU |
-| Roadmap (main blob `900f1620…`) | LU — tip M2-C |
-| Product Completion C1 | LU |
-| Doctrine v3 30/32/33/34/35/37 | QUALIFIÉS (R23) |
-| PRR README + 03/06/07/09 | LU — **NO PRR SYNC** |
-| Code ExecutionSurface / reconcile | REUSED proportionally |
+**Process:** template cycle · routing · operating model · guardrails · validation checklist · engineering principles · delivery pipeline · decision engine.
 
-**R23 PASS** — ARCHITECTURE-INFORMED · PREVIOUS EVIDENCE REUSED
-**R24 PASS** — NO SEMANTIC PRODUCT IMPACT · NO PRR SYNC REQUIRED
+**Convergence:** Build Doctrine (A1/A4/A8–A12) · Roadmap B-AKG / Jalons / Non-claims · C1 · v3 framing 30/32/33/34/35/37 · PRR README + 03/06/07/09 · code SHE/reconcile/ExecutionSurface (réutilisation R23).
+
+**R23 PASS** — ARCHITECTURE-INFORMED · PREVIOUS EVIDENCE REUSED · investigation proportionnée.
+**R24 PASS** — NO SEMANTIC PRODUCT IMPACT · NO PRR SYNC THIS CYCLE.
 
 ---
 
-## 5. Preuves historiques référencées (immuables)
-
-M2-B CP02 `b699b716…` · PR #596 · M2-C initial `cdb9c5be…` · CP01 `435cee9a…` · Roadmap candidate `96d595d6…` · local authoring `ba44cb26…` · Git Integration `f7cbb91b…` · Merge Execution `33309efd…`.
-
-Non rejouées. Non substituées.
-
----
-
-## 6. PR #597 / Merge / Main
-
-| Champ | Valeur |
-| --- | --- |
-| PR | [#597](https://github.com/mcleland147/sfia-workspace/pull/597) |
-| state | MERGED / CLOSED |
-| mergedAt | 2026-10-21T07:03:27Z |
-| base | main |
-| head | `docs/sfia-studio-akg-m2-lot-c-formal-exit-roadmap-local` @ `030b5dea51c401121a830b7b070d83f1f9d57c44` |
-| Merge commit | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
-| Parent 1 | `6fe7d2cecf2a19e38e8ebb5634abde89c8a23b19` |
-| Parent 2 | `030b5dea51c401121a830b7b070d83f1f9d57c44` |
-| Topology | MERGE COMMIT classique |
-| Main CURRENT | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` — **HEAD MATCH** |
-| Ancestry | MERGE présent comme HEAD main |
-| Scope | Roadmap seule · +9/−6 |
-| Roadmap blob | `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
-
-### Diff exact (P1..P2)
-
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 3696cd32..900f1620 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,8 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M2 LOT B FORMAL EXIT** | 2026-10-20 Europe/Paris — **AKG-M2 LOT B — CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE WITH GOVERNED NON-BLOCKING RESERVES** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M2 — Architecture Understanding** · Lot **M2-B — Critical Interaction Understanding** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO AKG-M2 LOT B — FORMAL EXIT APPROVED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Autorité **MORRIS** · Fondement : Critical Re-Review CP02 = **PASS WITH GOVERNED RESERVES** · Exit Proof **E-B01…E-B10** satisfaits (certains WITH BOUNDED RESERVE) · Complétude CP02 **P1…P10 PASS** · Handoffs : initial **`6bf33c8cb8e8f42c88eb6968089e60c4459560c7`** · CP01 **`d9ee7f75acacf56858da048dcfe6cfb561f00472`** · CP02 **`b699b716445bb2112059b77e3656418a1de4c29b`** / blob **`95f6ab13df4c2e64e35366d6e3066b69b889b9d5`** · Scope = **BOUNDED CRITICAL INTERACTION UNDERSTANDING** (I-B01…08 · S1–S5 · restart · refus · Fake/DET/REAL ceilings · M2-C entry candidate L-M2B7) · Acquis validés au périmètre compréhension (≠ readiness runtime · ≠ BEHAVIOR PROVEN global) · Réserves gouvernées OPEN : **R-M2A-04** (ENTRY CONTRACT RECONCILED / OPEN GOVERNED) · **R-M2B-03** (PASS WITH GOVERNED RESERVE) · **B-M2B-01…05** · A-M2A-* résiduelles · **G-M1-04/05/06/09/10/12/14/15/17/18** · RS-03 · TOOL-FIRST-REAL-NOWRITE · DEP-EC-ATT · F11b INDEX SCOPE · Restart F18/F19 PARTIAL · REAL BOUNDARY NOT PROVEN · AKG-M2 milestone global = **IN PROGRESS / NOT CLOSED** · Lot C = **NOT AUTHORIZED** · AKG-M3 = **NOT AUTHORIZED** · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (candidate Formal Exit Roadmap truth sync, 2026-10-20)** — at this authoring instant: **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN** · Git Integration = **NOT YET VERIFIED** · Post-merge CI = **NOT YET VERIFIED** · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** · Decision Morris ADOPTED ≠ Git Integration complete · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · PRR sync = **NOT IMPLIED** · Product/runtime/PRR/manifest/Build Doctrine/doctrine v3 changes this cycle = **NONE** · **≠** AKG-M2 CLOSED · **≠** M2-C AUTHORIZED · **≠** AKG-M3 AUTHORIZED · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED · Next gate = ChatGPT Critical Review of this Roadmap truth sync → Morris **project Git Integration GO** distinct → merge GO distinct · then M2-C under **distinct GO** |
-+| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M2 LOT C FORMAL EXIT** | 2026-10-20 Europe/Paris — **AKG-M2 LOT C — CLOSED BY MORRIS AT BOUNDED ARCHITECTURE UNDERSTANDING REVIEW SCOPE WITH GOVERNED NON-BLOCKING RESERVES** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M2 — Architecture Understanding** · Lot **M2-C — Architecture Understanding Review** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO AKG-M2 LOT C — FORMAL EXIT APPROVED AT BOUNDED ARCHITECTURE UNDERSTANDING REVIEW SCOPE, WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Autorité **MORRIS** · Fondement : Architecture Understanding Review · Critical Review initiale · Correction Pass 01 · Critical Re-Review ChatGPT = **PASS WITH GOVERNED RESERVES** · Exit Proof **E-C01…E-C09** PASS / PASS WITH GOVERNED RESERVES · **E-C10** Critical Re-Review + Morris Formal Exit **ACQUIRED** (decision) · Handoffs : M2-C initial **`cdb9c5be49942faa414fce8a0d22974326f3ccca`** · CP01 **`435cee9a0a8ec6603a17ddf6d82066684c194b5e`** / blob **`51731bf41883b988f018fe7ff86044b04f2eac23`** · M2-B CLOSED + PR **#596 MERGED** + POST-MERGE VERIFIED (main then `6fe7d2ce…`) · Scope = **BOUNDED ARCHITECTURE UNDERSTANDING REVIEW** (Q1…Q10 · S-C01…S-C12 · coherence M2-A/B · authority · restart · Fake/DET/REAL ceilings · AKG-M3 entry candidate PROPOSAL ONLY) · Acquis validés au périmètre compréhension (≠ readiness runtime · ≠ BEHAVIOR PROVEN global · ≠ PRR consolidated) · Réserves gouvernées OPEN : **R-M2A-04** · **R-M2B-03** (PASS WITH GOVERNED RESERVE) · **B-M2B-01…05** (**B-M2B-05 OPEN** explicit) · A-M2A-* · **G-M1-04/05/06/09/10/12/14/15/17/18** · RS-03 · TOOL-FIRST-REAL-NOWRITE · DEP-EC-ATT · F11b INDEX SCOPE · Restart F18/F19 PARTIAL · REAL BOUNDARY NOT PROVEN · AKG-M2 milestone global = **IN PROGRESS / NOT CLOSED** · AKG-M3 = **NOT AUTHORIZED** · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (candidate Formal Exit Roadmap truth sync, 2026-10-20)** — at this authoring instant: **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN** · Git Integration = **NOT YET VERIFIED** · Post-merge CI = **NOT YET VERIFIED** · patch candidat status at preparation = **PROPOSAL ONLY / NOT APPLIED / NOT INTEGRATED ON MAIN** · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** · Decision Morris ADOPTED ≠ Roadmap Git Integration complete · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · PRR sync = **NOT IMPLIED** · Product/runtime/PRR/manifest/Build Doctrine/doctrine v3 changes this cycle = **NONE** · **≠** AKG-M2 CLOSED · **≠** AKG-M3 AUTHORIZED · **≠** PRR CONSOLIDATED · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED · Next gate = ChatGPT Critical Review of this Roadmap candidate → Morris **PROTECTED-PATH LOCAL AUTHORING GO** distinct → project Git Integration GO distinct → merge GO distinct · then AKG-M2 Formal Milestone Exit under **distinct GO** · then AKG-M3 under **distinct GO** |
-+| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M2 LOT B FORMAL EXIT** | 2026-10-20 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M2 LOT B — CLOSED BY MORRIS *(true then as tip; superseded as tip by AKG-M2 LOT C FORMAL EXIT Roadmap truth sync 2026-10-20 — AKG-M2-B CLOSED BY MORRIS facts remain)* — **AKG-M2 LOT B — CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE WITH GOVERNED NON-BLOCKING RESERVES** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M2 — Architecture Understanding** · Lot **M2-B — Critical Interaction Understanding** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO AKG-M2 LOT B — FORMAL EXIT APPROVED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Autorité **MORRIS** · Fondement : Critical Re-Review CP02 = **PASS WITH GOVERNED RESERVES** · Exit Proof **E-B01…E-B10** satisfaits (certains WITH BOUNDED RESERVE) · Complétude CP02 **P1…P10 PASS** · Handoffs : initial **`6bf33c8cb8e8f42c88eb6968089e60c4459560c7`** · CP01 **`d9ee7f75acacf56858da048dcfe6cfb561f00472`** · CP02 **`b699b716445bb2112059b77e3656418a1de4c29b`** / blob **`95f6ab13df4c2e64e35366d6e3066b69b889b9d5`** · Scope = **BOUNDED CRITICAL INTERACTION UNDERSTANDING** (I-B01…08 · S1–S5 · restart · refus · Fake/DET/REAL ceilings · M2-C entry candidate L-M2B7) · Acquis validés au périmètre compréhension (≠ readiness runtime · ≠ BEHAVIOR PROVEN global) · Réserves gouvernées OPEN : **R-M2A-04** (ENTRY CONTRACT RECONCILED / OPEN GOVERNED) · **R-M2B-03** (PASS WITH GOVERNED RESERVE) · **B-M2B-01…05** · A-M2A-* résiduelles · **G-M1-04/05/06/09/10/12/14/15/17/18** · RS-03 · TOOL-FIRST-REAL-NOWRITE · DEP-EC-ATT · F11b INDEX SCOPE · Restart F18/F19 PARTIAL · REAL BOUNDARY NOT PROVEN · AKG-M2 milestone global = **IN PROGRESS / NOT CLOSED** · Lot C = **NOT AUTHORIZED** · AKG-M3 = **NOT AUTHORIZED** · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (candidate Formal Exit Roadmap truth sync, 2026-10-20)** — at this authoring instant: **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN** · Git Integration = **NOT YET VERIFIED** · Post-merge CI = **NOT YET VERIFIED** · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** · Decision Morris ADOPTED ≠ Git Integration complete · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · PRR sync = **NOT IMPLIED** · Product/runtime/PRR/manifest/Build Doctrine/doctrine v3 changes this cycle = **NONE** · **≠** AKG-M2 CLOSED · **≠** M2-C AUTHORIZED · **≠** AKG-M3 AUTHORIZED · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED · Next gate = ChatGPT Critical Review of this Roadmap truth sync → Morris **project Git Integration GO** distinct → merge GO distinct · then M2-C under **distinct GO** |
- | **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M2 LOT A FORMAL EXIT** | 2026-10-20 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M2 LOT A — CLOSED BY MORRIS *(true then as tip; superseded as tip by AKG-M2 LOT B FORMAL EXIT Roadmap truth sync 2026-10-20 — AKG-M2-A CLOSED BY MORRIS facts remain)* — **AKG-M2 LOT A — CLOSED BY MORRIS AT BOUNDED RESPONSIBILITY & AUTHORITY UNDERSTANDING SCOPE WITH GOVERNED NON-BLOCKING RESERVE R-M2A-04** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M2 — Architecture Understanding** · Lot **M2-A — Responsibility & Authority Understanding** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO AKG-M2 LOT A — FORMAL EXIT APPROVED BY MORRIS WITH GOVERNED NON-BLOCKING RESERVE** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Autorité **MORRIS** · Fondement : Critical Review initiale = CORRECTIONS REQUIRED · Correction Pass 01 = COMPLETE · handoff **`34ce31471782c4d8f53b8e15046ceda8d72f29e3`** / blob **`244a7b434af8782eed50c87b65ea5b4309a8654a`** · ChatGPT Critical Re-Review = **PASS WITH RESERVE** · Morris Formal Exit GO = **ADOPTED** · Scope = **BOUNDED RESPONSIBILITY & AUTHORITY UNDERSTANDING** (ownership · authority frontiers · persistence · deps · Artifact Continuation/Routing · Finalization Assessment · F11b resolve/projection/reconciler split) · Acquis validés au périmètre compréhension (≠ readiness runtime · ≠ BEHAVIOR PROVEN global) · Réserve **R-M2A-04** = **OPEN — NON-BLOCKING** (M2-B Entry Contract Completeness — reconcile handoffs `86a2b1e7…` + `34ce3147…` at M2-B cadrage) · Residuals hérités GOVERNED OPEN : **G-M1-04/05/06/09/10/12/14/15/17/18** · RS-03 · REAL no-write · DEP-EC-ATT · F11b INDEX SCOPE · DET≠REAL · TARGET≠CURRENT · v3 NON ADOPTED · AKG-M2 milestone global = **IN PROGRESS / NOT CLOSED** · Lot B = **NOT AUTHORIZED** · Lot C = **NOT AUTHORIZED** · AKG-M3 = **NOT AUTHORIZED** · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (cycle M2-A formal-exit roadmap truth sync, 2026-10-20)** — at this authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** · Decision Morris ADOPTED ≠ Git Integration complete · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · PRR sync = **NOT IMPLIED** · Product/runtime/PRR/manifest/Build Doctrine/doctrine v3 changes this cycle = **NONE** · **≠** AKG-M2 CLOSED · **≠** M2-B AUTHORIZED · **≠** AKG-M3 AUTHORIZED · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED · Next gate = ChatGPT Critical Review of this Roadmap truth sync → Morris **project Git Integration GO** distinct → merge GO distinct · then M2-B under **distinct GO** |
- | **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M1 FORMAL CLOSURE** | 2026-10-20 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M1 — CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE *(true then as tip; superseded as tip by AKG-M2 LOT A FORMAL EXIT Roadmap truth sync 2026-10-20 — AKG-M1 CLOSED BY MORRIS facts remain)* — **AKG-M1 — CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M1 — SYSTEM INVENTORY** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO FORMAL AKG-M1 CLOSURE — SYSTEM INVENTORY — WITH GOVERNED RESIDUAL GAPS** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Autorité **MORRIS** · Exit proof = Lots **A/B/C/D** · **E1–E15** SATISFIED AT BOUNDED INVENTORY SCOPE (E2/E6/E7 explicitly bounded) · Corrections **R-D01/R-D02/R-D03** intégrées · Baseline preuves **`5689cb737b40d7712d8b31b999faabc0725558ab`** · Handoff formal closure **`068beff9a579e28c870f00b06287aec908007d75`** / blob **`77fddad25e561d823f29ff0376dfeeb14637cc6f`** · Manifest snapshot **12 components / 20 flows / 20 invariants / 9 dependencies / 27 trackedSources / 7 trackedTests** · Classification = **BOUNDED INVENTORY COVERAGE** (≠ complete behavioral proof · ≠ BEHAVIOR PROVEN global) · Residuals GOVERNED OPEN : **G-M1-04** · **G-M1-05** TOOL-FIRST-REAL-NOWRITE · **G-M1-06** RS-03 · **G-M1-09** DET≠REAL (RISK/NON-CLAIM) · **G-M1-10** C1 TARGET≠CURRENT (RISK) · **G-M1-12** v3 NON ADOPTED (NON-CLAIM) · **G-M1-15** DEP-EC-ATT index fidelity · **G-M1-17** F11b INDEX SCOPE TO VERIFY · **G-M1-18** historical PRR photos · autres dettes PRR 09 REAL OPEN · D11 = OBSERVABILITÉ/TESTS/CI · D12 = HISTORIQUE/SURFACES PARALLÈLES · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (cycle roadmap truth sync, 2026-10-20)** — at this authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that publication already occurred on main; do not treat “PENDING INTEGRATION” as a permanent post-publication truth) · Decision Morris ADOPTED ≠ Git Integration complete · AKG-M2 = **NOT AUTHORIZED / NOT STARTED** (requires distinct GO · V3-F05/F06) · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · PRR sync = **NOT IMPLIED** · Product/runtime/PRR/manifest code changes this cycle = **NONE** · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED by closure · **≠** AKG-M2 AUTHORIZED · Next gate = ChatGPT Critical Review of this Roadmap truth sync → Morris **project push/PR GO** distinct → merge GO distinct |
- | **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M0 FORMAL CLOSURE** | 2026-10-20 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M0 — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE *(true then as tip; superseded as tip by AKG-M1 FORMAL CLOSURE Roadmap truth sync 2026-10-20 — AKG-M0 CLOSED BY MORRIS facts remain)* — **AKG-M0 — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M0** · Cycle **8 — Delivery / implémentation (spécialisation documentaire gouvernance)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO FORMAL AKG-M0 CLOSURE — METHODOLOGICAL FOUNDATION — WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Fondement : exit proof A–L **SATISFIED** · PR **#591 MERGED** (`7971d5747892b9dfb84735d66ea1c874de58f781`) · CI post-merge **#39326333926 SUCCESS** · PR **#592 MERGED** (`c4dd47f8311c0d83410afb471d77cac6f1dfa763`) · CI post-merge **#39333828638 SUCCESS** · R23/R24 = **INTEGRATED ON MAIN** · Roadmap B-AKG = **COHÉRENTE** · R-PR-01 = **CLOSED** · R-TS-01 = **CLOSED** · AKG-M0 = **CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · Réserves gouvernées non bloquantes : RS-03 = **OPEN — KNOWN GAP** · TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT = **OPEN** · cleanup branches #591/#592 = **BLOCKED / SKIPPED** (worktrees dirty) · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · AKG-M1 = **NOT STARTED / NOT AUTHORIZED** · Cette décision **≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** promotion méthodologique globale v3 · **≠** clôture dette PRR · **≠** validation exhaustive runtime · **≠** AKG-M1 AUTHORIZED · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (cycle formal-closure sync, 2026-10-20)** — at this authoring instant: LOCAL CANDIDATE / NOT YET INTEGRATED · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** (do not treat this tip as permanent proof that publication already occurred on main) · Next gate = ChatGPT Critical Review of this formal-closure Roadmap sync → Morris Git Integration GO distinct · Product/runtime changes = **NONE** · **≠** additional Git Integration GO deduced from closure decision alone |
-@@ -268,10 +269,11 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
- | Clôture formelle Morris | Décision métier de clôture M0 | **ADOPTED — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** (2026-10-20 Europe/Paris) · documentary tip publication on main = **PENDING / RESOLVE FROM CURRENT GIT** (this authoring = LOCAL CANDIDATE) |
- | AKG-M1 | System Inventory | **CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** (2026-10-20) · handoff `068beff9…` · PR **#594 MERGED** · residuals GOVERNED OPEN · tip CURRENT then / now **HISTORICAL AS TIP** after M2-A formal-exit authoring |
- | AKG-M2 Lot A | Responsibility & Authority Understanding | **CLOSED BY MORRIS AT BOUNDED RESPONSIBILITY & AUTHORITY UNDERSTANDING SCOPE** (2026-10-20) · Critical Re-Review **PASS WITH RESERVE** · Correction Pass 01 handoff `34ce3147…` · **R-M2A-04 OPEN (NON-BLOCKING)** · Roadmap tip later **HISTORICAL AS TIP** after M2-B formal-exit authoring · milestone AKG-M2 global **NOT CLOSED** |
--| AKG-M2 Lot B | Critical Interaction Understanding | **CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE** (2026-10-20) · Critical Re-Review CP02 **PASS WITH GOVERNED RESERVES** · handoffs `6bf33c8c…` / `d9ee7f75…` / `b699b716…` · **R-M2A-04 OPEN** · **R-M2B-03 PASS WITH GOVERNED RESERVE** · **B-M2B-01…05 OPEN** · Lot C **NOT AUTHORIZED** · milestone AKG-M2 global **NOT CLOSED** · this tip = LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN / Git Integration **NOT YET VERIFIED** |
-+| AKG-M2 Lot B | Critical Interaction Understanding | **CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE** (2026-10-20) · Critical Re-Review CP02 **PASS WITH GOVERNED RESERVES** · handoffs `6bf33c8c…` / `d9ee7f75…` / `b699b716…` · PR **#596 MERGED** · POST-MERGE VERIFIED · **R-M2A-04 OPEN** · **R-M2B-03 PASS WITH GOVERNED RESERVE** · **B-M2B-01…05 OPEN** · Roadmap tip later **HISTORICAL AS TIP** after M2-C formal-exit authoring · milestone AKG-M2 global **NOT CLOSED** |
-+| AKG-M2 Lot C | Architecture Understanding Review | **CLOSED BY MORRIS AT BOUNDED ARCHITECTURE UNDERSTANDING REVIEW SCOPE** (2026-10-20) · Critical Re-Review CP01 **PASS WITH GOVERNED RESERVES** · handoffs `cdb9c5be…` / `435cee9a…` · **R-M2A-04 OPEN** · **R-M2B-03 PASS WITH GOVERNED RESERVE** · **B-M2B-01…05 OPEN** (**B-M2B-05 OPEN**) · AKG-M3 **NOT AUTHORIZED** · milestone AKG-M2 global **NOT CLOSED** · this tip = LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN / Git Integration **NOT YET VERIFIED** |
-
- **AKG-M0 = CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** (décision 2026-10-20 Europe/Paris) · preuves techniques = PR #591/#592 MERGED + CI post-merge SUCCESS + exit proof A–L SATISFIED.
--**≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** AKG-M2 milestone CLOSED · **≠** M2-C AUTHORIZED · **≠** automatic Git Integration of the AKG-M2-B Roadmap tip (this authoring) · **≠** RS-03 / REAL no-write CLOSED · **≠** PRR synchronized by implication · **≠** R-M2A-04 CLOSED · **≠** B-M2B-05 CLOSED · **≠** REAL BOUNDARY PROVEN.
-+**≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** AKG-M2 milestone CLOSED · **≠** AKG-M3 AUTHORIZED · **≠** automatic Git Integration of the AKG-M2-C Roadmap tip (this authoring) · **≠** RS-03 / REAL no-write CLOSED · **≠** PRR synchronized by implication · **≠** R-M2A-04 CLOSED · **≠** B-M2B-05 CLOSED · **≠** REAL BOUNDARY PROVEN · **≠** PRR CONSOLIDATED.
-
- ### Jalons AKG
-
-@@ -279,7 +281,7 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
- | **AKG-M0** Methodological Foundation | Encoder P1–P3 (architecture-informed, continuité doc, rationalisation evidence-based) dans Build Doctrine / Roadmap / PRR contrat / routing / template | V3-F05 (+ F02/F06/F07/F11/F12/F14/F15 transverses) | Cadrage M0 ; handoff préparatoire | Six documents A–F intégrés via PR #591 | Semantic Review PASS (+ R-PR-01) + digest sync + Git Integration + post-merge CI | Merge #591 `7971d574…` · CI `39326333926` SUCCESS · digest README `00bd5a869be87d20` · Merge #592 `c4dd47f8…` · CI `39333828638` SUCCESS · exit proof A–L SATISFIED · Morris formal close 2026-10-20 | Sur-claim P6 PASS / v3 ADOPTED / AKG-M1 AUTHORIZED ; confusion decision ADOPTED vs tip still LOCAL CANDIDATE | GO authoring / semantic / digest / GI **CONSUMED** · Post-merge GO **CONSUMED** · Roadmap truth-sync GI **CONSUMED** (PR #592) · Morris formal close **ADOPTED — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · formal-closure tip GI **PENDING AT AUTHORING SNAPSHOT** (later status = RESOLVE FROM CURRENT GIT / Morris GI GO distinct) | AKG-M1 sous GO inventaire distinct |
- | **AKG-M1** System Inventory | Inventaire borné du système réellement implémenté (topology/objets/flux/deps/autorité/persistance/preuves) | V3-F05 / F14 | AKG-M0 CLOSED BY MORRIS AT METHODOLOGICAL SCOPE + GO inventaire | Lots A/B/C/D (census · objects · flows · exit) + formal closure record | E1–E15 SATISFIED AT BOUNDED INVENTORY SCOPE · R-D01/02/03 · couverture bornée et traçable (≠ exhaustivité globale · ≠ BEHAVIOR PROVEN global) | Handoff `068beff9…` · baseline `5689cb73…` · manifest 12/20/20/9/27/7 · refs code/PRR | Exhaustivité artificielle · confondre inventaire et readiness runtime · sur-claim REAL/P6/v3 | GO inventaire **CONSUMED** · GO formal closure **ADOPTED** · Roadmap tip GI **CONSUMED** via PR **#594 MERGED** (main `4ac169b69dfdc571421328811ba062540cc9655f`) · tip later **HISTORICAL / SUPERSEDED AS TIP** by M2-A formal-exit authoring · AKG-M2 Lot A later **CLOSED BY MORRIS** (2026-10-20) · Lot B remains distinct GO | AKG-M2 |
--| **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions critiques / revue de compréhension | V3-F05 / F06 | AKG-M1 CLOSED + GO understanding | **Lots A/B** ownership/authority + critical interactions · Lot C review pending | Lot A Formal Exit · Lot B Formal Exit · Critical Re-Review CP02 PASS WITH GOVERNED RESERVES · R-M2A-04 OPEN · B-M2B-* OPEN · Lot C distinct GO · M2 Formal Milestone Exit later | Lot A handoffs `86a2b1e7…` / `34ce3147…` · Lot B handoffs `6bf33c8c…` / `d9ee7f75…` / `b699b716…` · Roadmap tip M2-B LOCAL CANDIDATE | Sur-modélisation · confondre Lot B CLOSED avec M2 CLOSED · autoriser M2-C sans GO | Lot A Formal Exit **ADOPTED** · Lot B Formal Exit **ADOPTED** · **R-M2A-04 OPEN** · **B-M2B-05 OPEN** · Lot C **NOT AUTHORIZED** · M2 global **NOT CLOSED** · tip GI **PENDING / RESOLVE FROM CURRENT GIT** | AKG-M2-C sous GO distinct |
-+| **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions critiques / revue de compréhension | V3-F05 / F06 | AKG-M1 CLOSED + GO understanding | **Lots A/B/C** ownership/authority + critical interactions + understanding review | Lot A Formal Exit · Lot B Formal Exit · Lot C Formal Exit · Critical Re-Review CP01 PASS WITH GOVERNED RESERVES · R-M2A-04 OPEN · B-M2B-* OPEN · M2 Formal Milestone Exit later · AKG-M3 distinct GO | Lot A handoffs `86a2b1e7…` / `34ce3147…` · Lot B handoffs `6bf33c8c…` / `d9ee7f75…` / `b699b716…` · Lot C handoffs `cdb9c5be…` / `435cee9a…` · Roadmap tip M2-C LOCAL CANDIDATE | Sur-modélisation · confondre Lot C CLOSED avec M2 CLOSED · autoriser M3 sans GO | Lot A Formal Exit **ADOPTED** · Lot B Formal Exit **ADOPTED** · Lot C Formal Exit **ADOPTED** · **R-M2A-04 OPEN** · **B-M2B-05 OPEN** · AKG-M3 **NOT AUTHORIZED** · M2 global **NOT CLOSED** · tip GI **PENDING / RESOLVE FROM CURRENT GIT** | AKG-M2 Formal Milestone Exit sous GO distinct · puis AKG-M3 |
- | **AKG-M3** Reference Consolidation | Consolider la PRR ; mesurer couverture | V3-F05 / F12 | AKG-M2 | PRR consolidée ; volume 09 à jour | Critères couverture appliqués | Conformance + revue sémantique | Tentation 2e référentiel | GO PRR sync | AKG-M4 |
- | **AKG-M4** Rationalization Assessment | Matrice KEEP/ADAPT/CONSOLIDATE/REPLACE/RETIRE sur preuves | V3-F05 / F07 | AKG-M3 | Matrice + impact packs | Décisions Morris par lot | Impact + preuves | Suppression prématurée | GO rationalize (+ GO retire si structurant) | AKG-M5 |
- | **AKG-M5** Product Transformation | Lots Product gouvernés si GO | V3-F05+ | AKG-M4 + GO Product distinct | Lots Product | Preuves Product selon GO | CI/HQA selon GO | Confusion avec P6 Exit | GO Product distinct | — |
-@@ -291,8 +293,9 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
- - AKG-M0 INTEGRATED ON MAIN / POST-MERGE CI VERIFIED **≠** AKG-M0 CLOSED BY MORRIS (technical integration preceded formal closure; both now true at their respective scopes)
- - AKG-M0 CLOSED BY MORRIS AT METHODOLOGICAL SCOPE **≠** automatic AKG-M1 start (AKG-M1 now **CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE** via distinct GO)
- - AKG-M1 CLOSED BY MORRIS AT BOUNDED SYSTEM INVENTORY SCOPE **≠** automatic AKG-M2 start (AKG-M2 Lot A now **CLOSED BY MORRIS AT BOUNDED RESPONSIBILITY & AUTHORITY UNDERSTANDING SCOPE** via distinct GO)
--- AKG-M2 LOT A CLOSED BY MORRIS AT BOUNDED RESPONSIBILITY & AUTHORITY UNDERSTANDING SCOPE **≠** automatic AKG-M2 Lot B (Lot B now **CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE** via distinct GO; M2-C remains **NOT AUTHORIZED**; AKG-M2 milestone **NOT CLOSED**)
--- AKG-M2 LOT B CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE **≠** AKG-M2 CLOSED · **≠** M2-C AUTHORIZED · **≠** AKG-M3 AUTHORIZED · **≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** REAL BOUNDARY PROVEN · **≠** R-M2A-04 CLOSED · **≠** B-M2B-05 CLOSED · **≠** Roadmap tip INTEGRATED ON MAIN without CURRENT Git proof · **≠** PRR synchronized
-+- AKG-M2 LOT A CLOSED BY MORRIS AT BOUNDED RESPONSIBILITY & AUTHORITY UNDERSTANDING SCOPE **≠** automatic AKG-M2 Lot B (Lot B now **CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE** via distinct GO)
-+- AKG-M2 LOT B CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE **≠** automatic AKG-M2 Lot C (Lot C now **CLOSED BY MORRIS AT BOUNDED ARCHITECTURE UNDERSTANDING REVIEW SCOPE** via distinct GO; AKG-M2 milestone **NOT CLOSED**; AKG-M3 **NOT AUTHORIZED**)
-+- AKG-M2 LOT C CLOSED BY MORRIS AT BOUNDED ARCHITECTURE UNDERSTANDING REVIEW SCOPE **≠** AKG-M2 CLOSED · **≠** AKG-M3 AUTHORIZED · **≠** PRR CONSOLIDATED · **≠** P6 GLOBAL PASS · **≠** runtime v3 ADOPTED · **≠** REAL BOUNDARY PROVEN · **≠** R-M2A-04 CLOSED · **≠** B-M2B-05 CLOSED · **≠** Roadmap tip INTEGRATED ON MAIN without CURRENT Git proof · **≠** PRR synchronized
- - AKG **≠** P6 GLOBAL PASS
- - AKG **≠** runtime v3 ADOPTED
- - Classification CONSOLIDATE/RETIRE **≠** autorisation de retrait immédiat
-```
-
----
-
-## 7. CI
-
-### PR CI (workflow 39548921276)
-
-| Champ | Valeur |
-| --- | --- |
-| event | pull_request |
-| headSha | `030b5dea51c401121a830b7b070d83f1f9d57c44` |
-| Detect / Build / Required | SUCCESS / SUCCESS / SUCCESS |
-
-### Post-merge CI (workflow 39559364932)
-
-| Champ | Valeur |
-| --- | --- |
-| event | push |
-| headSha | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
-| Detect / Build / Required | SUCCESS / SUCCESS / SUCCESS |
-
-**CI PR ≠ CI post-merge** — les deux requalifiées CURRENT = SUCCESS.
-
----
-
-## 8. PM01…PM12
-
-| ID | Résultat |
-| --- | --- |
-| PM01 PR Identity | PASS — #597 · base main · head exact |
-| PM02 Merge State | PASS — MERGED · mergedAt présent |
-| PM03 Merge Commit | PASS — `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
-| PM04 Topology | PASS — P1 `6fe7d2ce…` · P2 `030b5dea…` |
-| PM05 Main Integration | PASS — **HEAD MATCH** |
-| PM06 Scope | PASS — Roadmap unique · +9/−6 · no Product/PRR |
-| PM07 Roadmap Blob | PASS — `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
-| PM08 PR CI | PASS — 39548921276 SUCCESS ×3 |
-| PM09 Post-Merge CI | PASS — 39559364932 SUCCESS ×3 |
-| PM10 Branch Preservation | PASS — branch @ `030b5dea51c401121a830b7b070d83f1f9d57c44` · worktrees M1/M2-A/M2-B/M2-C présents |
-| PM11 Handoff Integrity | PASS — `33309efd23dac070ad3d331d25c8cc8e7830a42a` / blob `75e36f2989f4c93be0723af871d2e594afbb9bb1` · pack MERGE EXECUTION |
-| PM12 Governance Continuity | PASS — M2-C CLOSED · M2 global NOT CLOSED · M3 NOT AUTHORIZED · réserves OPEN · no cleanup |
-
----
-
-## 9. Cleanup deferred
-
-**CLEANUP = NOT PERFORMED.**
-**REASON = EXPLICIT MORRIS SCOPE.**
-
-Non déclaré BLOCKED. Exclusion locale. §6.12.1 non déclenché. Aucune suppression branche/worktree.
-
----
-
-## 10. Documentary truth check
-
-Sur blob main `900f1620ce1008dcfc89e6b3207c024d73de83a3` :
-
-- Tip CURRENT = AKG-M2 LOT C FORMAL EXIT — PASS
-- M2-B HISTORICAL / SUPERSEDED AS TIP — PASS
-- M2-A/B/C CLOSED BY MORRIS — PASS
-- M2 global NOT CLOSED — PASS
-- M3 NOT AUTHORIZED — PASS
-- B-M2B-05 OPEN — PASS
-- Phrases `LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN` encore présentes dans tips historisés / snapshots d'authoring — **qualifier HISTORICAL AUTHORING SNAPSHOT**
-- Preuve d'intégration effective = **Git MAIN CURRENT** (merge `2624ae265d6854c4a1adfc4a73db771f5e35bb15` + blob `900f1620ce1008dcfc89e6b3207c024d73de83a3`)
-- **KNOWN DOCUMENTARY GAP:** aucune contradiction vivante bloquante détectée; sync tip wording éventuel = GO distinct futur (aucune correction ce cycle)
-
----
-
-## 11. Réserves gouvernées OPEN
-
-R-M2A-04 · R-M2B-03 GOVERNED · B-M2B-01…05 (**B-M2B-05 OPEN**) · G-M1-* · A-M2A-* · RS-03 · TOOL-FIRST-REAL-NOWRITE · DEP-EC-ATT · F11b INDEX SCOPE · F18/F19 PARTIAL · REAL BOUNDARY NOT PROVEN.
-
-DOCUMENTED ≠ BEHAVIOR PROVEN · DET ≠ REAL · ≠ P6 PASS · ≠ PRR CONSOLIDATED · ≠ v3 ADOPTED.
-
----
-
-## 12. Fake / DET / REAL
-
-Honnête: post-merge = livraison documentaire Git. Pas de REAL BOUNDARY. Pas de Fake/DET promotion.
-
----
-
-## 13. État AKG-M2 / M3 entry
+## 4. Trajectoire / états lots
 
 | Item | Statut |
 | --- | --- |
-| M2-C | CLOSED BY MORRIS · Roadmap INTEGRATED ON MAIN |
+| Chantier | SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE |
+| Milestone | AKG-M2 — Architecture Understanding (V3-F05 / V3-F06) |
+| M1 | CLOSED BY MORRIS (handoff `068beff9…`) |
+| M2-A | CLOSED BY MORRIS · CP01 `34ce3147…` · PASS WITH RESERVE |
+| M2-B | CLOSED BY MORRIS · CP02 `b699b716…` · PASS WITH GOVERNED RESERVES · PR #596 MERGED |
+| M2-C | CLOSED BY MORRIS · CP01 `435cee9a…` · PASS WITH GOVERNED RESERVES · PR #597 MERGED · C14 `fd6ccb5f…` PASS |
 | AKG-M2 global | **NOT CLOSED** |
-| AKG-M3 | **NOT AUTHORIZED** (entry candidate PROPOSAL ONLY historique) |
-| Formal Milestone Exit M2 | **PENDING** — GO distinct |
+| AKG-M3 | **NOT AUTHORIZED** |
 
 ---
 
-## 14. Gates restants
+## 5. Dossier de preuves (disponibilité)
 
-1. ChatGPT Critical Review Cycle 14
-2. AKG-M2 Formal Milestone Exit sous GO distinct
-3. Cleanup éventuel sous GO distinct
-4. Documentary tip sync éventuel sous GO distinct
-5. AKG-M3 START sous GO distinct
+| Réf | SHA / ID | Statut |
+| --- | --- | --- |
+| M1 Formal Closure | `068beff9…` | AVAILABLE / VERIFIED |
+| M2-A INITIAL | `86a2b1e7…` | AVAILABLE / VERIFIED (historical pack) |
+| M2-A CP01 | `34ce3147…` | AVAILABLE / VERIFIED |
+| M2-B INITIAL | `6bf33c8c…` | AVAILABLE / VERIFIED |
+| M2-B CP01 | `d9ee7f75…` | AVAILABLE / VERIFIED |
+| M2-B CP02 | `b699b716…` | AVAILABLE / VERIFIED |
+| M2-B Roadmap | PR #596 → merge `6fe7d2ce…` | AVAILABLE / VERIFIED / SUPERSEDED AS TIP by M2-C |
+| M2-C INITIAL | `cdb9c5be…` | AVAILABLE / VERIFIED |
+| M2-C CP01 | `435cee9a…` | AVAILABLE / VERIFIED |
+| M2-C Roadmap candidate | `96d595d6…` | AVAILABLE / VERIFIED |
+| M2-C Local Authoring | `ba44cb26…` | AVAILABLE / VERIFIED |
+| M2-C GI | `f7cbb91b…` | AVAILABLE / VERIFIED |
+| M2-C Merge Execution | `33309efd…` | AVAILABLE / VERIFIED |
+| M2-C Cycle 14 | `fd6ccb5f…` / blob `03ba39f5…` | AVAILABLE / VERIFIED |
+| Merge #597 | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` | AVAILABLE / VERIFIED · HEAD main |
+| Post-merge CI | `39559364932` | AVAILABLE / VERIFIED · SUCCESS Detect/Build/Required |
+
+Aucune synthèse mémorielle en remplacement des commits immuables.
 
 ---
 
-## 15. Git Review Index
+## 6. Matrice Exit Proof globale AKG-M2
 
-| Artefact | Ref |
+Critères dérivés Roadmap jalon AKG-M2 + Exit Proofs lots A/B/C (E-A* / E-B01…10 / E-C01…10). Aucun critère doctrinal inventé hors sources.
+
+| ID | Exigence | Lot | Livrable | Preuve primaire | Niveau | Limite | Réserve | Statut | Impact Formal Exit | Recommandation |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| X-A | Responsabilités identifiées | M2-A | Ownership / authority maps | `86a2b1e7…` · `34ce3147…` · Roadmap tip M2-A | DOCUMENTED + COVERAGE VERIFIED (understanding) | ≠ BEHAVIOR PROVEN global | A-M2A-* residual | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking si réserves gouvernées | Carry governed |
+| X-B | Autorités / frontières | M2-A | INV-CONFIRM-NE-AUTH · HumanDecision frontiers | CP01 M2-A · PRR07 consulté | DOCUMENTED + BEHAVIOR PROVEN AT TESTED SCOPE (DET paths) | REAL PARTIAL / unsampled cells | A-M2A-* | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking understanding | Product/REAL later |
+| X-C | Sources vérité / persistance | M2-A/B | Product Truth vs process-local · Attempt/Evidence | M2-A/B packs · PRR06 | DOCUMENTED + PARTIAL | F18/F19 PARTIAL · ≠ RESTART SAFE global | F18/F19 · G-M1-18 | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking M2 understanding | Downstream / M3 PRR |
+| X-D | Interactions critiques | M2-B | I-B01…08 · S1–S5 | `6bf33c8c…` · `d9ee7f75…` · `b699b716…` | DOCUMENTED + COVERAGE VERIFIED | gesture≠server≠Cursor (CP01-01) | B-M2B-01/02 | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | Product optional |
+| X-E | Gates / refus / re-entry | M2-B | Refuse paths · re-entry | M2-B CP02 | BEHAVIOR PROVEN (DET Product refuse) | REAL BOUNDARY NOT PROVEN | REAL NOT PROVEN | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | REAL/HQA later |
+| X-F | SHE / reconciler / continuation | M2-B/C | SHE · reconcile · auto-continue | code CURRENT + CP01 M2-C Q2 | DOCUMENTED + PARTIAL BEHAVIOR | execute+existing ambiguity | R-M2B-03 → **B-M2B-05 OPEN** | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking si B-M2B-05 explicit | Product GO optional |
+| X-G | Restart / retry / partial | M2-B | Restart matrix L-M2B3 | M2-B · PRR06 | DOCUMENTED + PARTIAL | ≠ GLOBAL RESTART SAFE | F18/F19 PARTIAL | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | Product/REAL |
+| X-H | Fake/DET/REAL ceilings | M2-A/B/C | Proof ceilings honnêtes | lots A/B/C + C14 | DOCUMENTED | REAL NOT PROVEN · DET≠REAL | TOOL-FIRST-REAL-NOWRITE · RS-03 | **SATISFIED** (honesty) | Non-blocking | Keep NON-CLAIM |
+| X-I | Architecture Understanding Review | M2-C | Q1…Q10 · E-C01…E-C10 | `cdb9c5be…` · `435cee9a…` | DOCUMENTED + COVERAGE VERIFIED (review) | ≠ readiness runtime | B-M2B-* · R-M2A-04 | **SATISFIED WITH GOVERNED RESERVE** | Core M2 exit | Formal Exit G1 |
+| X-J | Cohérence M2-A↔B↔C | M2-C | Reconciliation lots | E-C01 · Roadmap B-AKG · PR #596/#597 | DOCUMENTED | tip LOCAL CANDIDATE phrases = historical snapshot | Documentary / process | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking | Optional tip sync GO |
+| X-K | Registre gaps/dettes gouverné | M2-C CP01-04 | Debt disposition tables | `435cee9a…` E-C07 | DOCUMENTED | OWNER NOT FORMALLY ASSIGNED (some) | See §8 | **SATISFIED WITH GOVERNED RESERVE** | Non-blocking if disposition preserved | Assign owners at Exit |
+| X-L | Aptitude ouvrir M3 | M2-C / global | Entry candidate | L-M2C / Roadmap jalon M3 | DOCUMENTED PROPOSAL ONLY | M3 NOT AUTHORIZED | PRR gaps | **SATISFIED** as candidate readiness of *understanding* | Blocks M3 until G1+G5 | See §9 |
+
+**Synthèse matrice:** Aucun critère X-A…X-L en BLOCKED pour le *scope understanding* M2. Plusieurs **SATISFIED WITH GOVERNED RESERVE**. Aucun critère n’équivaut à BEHAVIOR PROVEN end-to-end global ni REAL BOUNDARY PROVEN.
+
+**Séparation:**
+`M2 EXIT EVIDENCE SATISFIED (WITH GOVERNED RESERVES)` — **qualifié ici**.
+`M2 FORMAL EXIT DECISION ADOPTED` — **interdit / pending Morris G1**.
+
+---
+
+## 7. Cohérence inter-lots
+
+| Transition | Statut | Note |
+| --- | --- | --- |
+| M1 → M2-A | COHERENT | Inventory CLOSED → understanding GO distinct |
+| M2-A → M2-B | COHERENT | R-M2A-04 OPEN GOVERNED · entry reconciled M2-B |
+| M2-B → M2-C | COHERENT | L-M2B7 → M2-C under distinct GO · PR #596 then #597 |
+| M2-C → M2 global | COHERENT / OPEN GATE | Lots CLOSED · global Formal Exit **NOT** adopted |
+| M2 global → M3 | PROPOSAL ONLY | Requires G1 then G5 · no PRR sync now |
+
+**Points contrôlés (CURRENT):** ownership · authority · HumanDecision/Confirmation · ExecutionContract · Attempt/Evidence · Product Truth vs process-local · ProjectTrajectory vs Roadmap · F11b split · SHE vs server · UI gesture vs Cursor · restart/retry · finalization · tool-first Fake/DET/REAL.
+
+**Contradiction structurante bloquante:** NONE détectée.
+**KNOWN GAP documentaire:** phrases `LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN` dans tips historisés alors que tip M2-C **intégré sur main** via `2624ae265d6854c4a1adfc4a73db771f5e35bb15` / blob `900f1620ce1008dcfc89e6b3207c024d73de83a3` — qualifier **HISTORICAL AUTHORING SNAPSHOT**; sync wording = GO distinct (pas ce cycle).
+
+---
+
+## 8. Registre consolidé des dettes (aucune CLOSED)
+
+| ID | Origine | Statut | Nature | Surface | Owner | Milestone | Bloque M2 Exit? | Bloque M3 Entry? | Transférable? | Gate | Extinction | Preuve sortie | Classe | Destination reco |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R-M2A-04 | M2-A→M2-B entry | OPEN GOVERNED | Entry contract residual | Continuity understanding | NOT FORMALLY ASSIGNED | M2 hygiene | **No** (CP01) | No | Yes if owner+gate | Morris Exit packs | Explicit residual close | Pack+Morris note | GOVERNED NON-BLOCKING CARRY | Carry at G1 or close note |
+| R-M2B-03 | M2-B CP01 | GOVERNED → B-M2B-05 | execute+existing honesty | Reconcile continue | Product/docs | Product optional | **No** if B-M2B-05 open | No | Yes | Product GO optional | Code+DET test Start policy | DET assert | DOWNSTREAM PRODUCT DEBT | Product |
+| B-M2B-01 | M2-B/C | OPEN | Gesture≠single transition | ExecutionSurface/SHE | Product | Product | No | No | Yes | Product | UI/server clarity proof | Tested path | DOWNSTREAM PRODUCT DEBT | Product |
+| B-M2B-02 | M2-B/C | OPEN | Cursor launch layer | Surfaces | Product | Product | No | No | Yes | Product | Doc+test | — | DOWNSTREAM PRODUCT DEBT | Product |
+| B-M2B-03 | M2-B | OPEN | Interaction reserve | Critical path | — | Product/M3 | No | Partial | Yes | — | Per pack M2-B | — | GOVERNED NON-BLOCKING CARRY | Carry/M3 |
+| B-M2B-04 | M2-B | OPEN | Interaction reserve | Critical path | — | Product/M3 | No | Partial | Yes | — | Per pack M2-B | — | GOVERNED NON-BLOCKING CARRY | Carry/M3 |
+| B-M2B-05 | M2-B/C | **OPEN explicit** | Redelegate≠Start honesty | reconcile | Product/docs | Product | **No** (documented) | No | Yes | Product optional | Code+test | DET | DOWNSTREAM PRODUCT DEBT | Product |
+| A-M2A-* | M2-A | OPEN residual | Authority/coverage cells | Authority maps | — | Product/REAL | No | No | Yes | — | Sampled proof | — | GOVERNED NON-BLOCKING CARRY | Carry |
+| G-M1-04/05/06/09/10/12/14/15/17/18 | M1 | OPEN | Inventory residuals | PRR/index/REAL | mixed | M3/Product/REAL | No | **Some yes for M3 PRR** (15/17/18) | Yes | M3 PRR GO / Product | Per G-M1 exit | PRR sync proofs | MIXED | M3 / Product / RISK |
+| RS-03 | M0/M1 | OPEN KNOWN GAP | Tool-first related | Runtime | — | Product/REAL | No | No | Yes | — | Gap close criteria | — | NON-CLAIM / RISK ONLY | Carry RISK |
+| TOOL-FIRST-REAL-NOWRITE | M1 | OPEN | REAL no-write | Tool-first | — | REAL | No | No | Yes | REAL GO | Enforcement proof | REAL | NON-CLAIM / RISK ONLY | REAL |
+| DEP-EC-ATT | M1 | OPEN | Dep index fidelity | EC/Attempt | — | M3/Product | No | Partial | Yes | M3 | Index fidelity | — | GOVERNED NON-BLOCKING CARRY | M3 |
+| F11b INDEX SCOPE | M1 | OPEN | Index scope | F11b | — | M3 | No | Partial | Yes | M3 | Scope verify | — | GOVERNED NON-BLOCKING CARRY | M3 |
+| F18/F19 | M2-B | PARTIAL | Restart | Persistence | — | Product | No | No | Yes | Product | Restart safe criteria | — | DOWNSTREAM PRODUCT DEBT | Product |
+| REAL BOUNDARY NOT PROVEN | transverse | OPEN NON-CLAIM | Proof ceiling | All | — | REAL/HQA | No | No | N/A | REAL | REAL proof campaign | — | NON-CLAIM / RISK ONLY | Keep |
+| PRR known gaps 09 | PRR | OPEN | Doc/runtime gaps | PRR | — | **M3** | No | **Yes for M3 quality** | Yes | G6 PRR SYNC | Coverage criteria | Conformance | BLOCKING M3 ENTRY (content work) | M3 |
+| Review Pack process reserve | Local authoring | GOVERNED ACCEPT | Tracked `.tmp` pack | Process | Morris accepted | Process | No | No | N/A | — | Template unchanged | — | DOCUMENTARY / PROCESS RESERVE | Keep historical |
+| Tip LOCAL CANDIDATE wording | Roadmap tips | HISTORICAL SNAPSHOT | Documentary lag | Roadmap tips | — | Doc sync | No | No | Yes | G2+G3+G4 if edit | Wording sync on main | Diff tip | DOCUMENTARY / PROCESS RESERVE | Optional GO |
+
+**Bloquants M2 Exit (understanding):** **NONE** identifiés si dispositions ci-dessus maintenues à la décision G1.
+**Bloquants M3 Entry:** PRR consolidation work + G5/G6; gaps G-M1-15/17/18 / PRR09 = **BLOCKING M3 ENTRY** (travail), pas M2 Exit.
+
+---
+
+## 9. AKG-M3 Entry Contract Candidate — PROPOSAL ONLY
+
+**Statut:** PROPOSAL ONLY · **AKG-M3 NOT AUTHORIZED**.
+
+| Élément | Contenu candidat |
 | --- | --- |
-| PR | #597 |
-| Merge | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
-| PR commit | `030b5dea51c401121a830b7b070d83f1f9d57c44` |
-| Prior main | `6fe7d2cecf2a19e38e8ebb5634abde89c8a23b19` |
-| Roadmap blob | `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
-| PR CI | 39548921276 |
-| Post-merge CI | 39559364932 |
-| Merge handoff | `33309efd23dac070ad3d331d25c8cc8e7830a42a` |
-| Patch source historique | 96d595d6… |
-| Local authoring | ba44cb26… |
-| GI handoff | f7cbb91b… |
+| A. Préconditions M2 | G1 Formal Exit M2 ADOPTED (future) · Lots A/B/C CLOSED · Roadmap tip on main · Exit matrix SATISFIED WITH GOVERNED RESERVES |
+| B. Acquis utilisables | Ownership/authority maps · critical interaction sequences · understanding review Q/E · debt register · Fake/DET/REAL ceilings |
+| C. Sources PRR CURRENT | README · volumes 03/06/07/09 (+ others as needed under M3 GO) |
+| D. Volumes prioritaires | 09 Known Gaps · 03 flows · 06 persistence · 07 authority |
+| E. Gaps cohérence doc | tip historical LOCAL CANDIDATE · PRR vs code residuals G-M1-15/17 |
+| F. Couverture | Understanding DOCUMENTED/COVERAGE VERIFIED · behavior/REAL separate |
+| G. Dépendances/réserves | Carry register §8 · no silent close |
+| H. R24 sync impact | PRR sync = semantic doc work under G6 · still NO Product change unless Product GO |
+| I. Travail consolidation | Align PRR to CURRENT code/evidence · coverage measure · gap update · semantic conformance |
+| J. Preuves sortie M3 | Coverage criteria · conformance review · Formal Exit M3 distinct |
+| K. Risque référentiel parallèle | Anti-pattern A13 / Build Doctrine — PRR remains subordinate to Git+primary proofs |
+| L. Gates | G5 M3 START · G6 PRR SYNC · G7 structurant · ≠ bundled with G1 |
+
+**Trajectoire:** M2 evidence → G1 Formal Exit → G5 M3 start → PRR consolidation → coverage → M3 exit → M4 rationalization.
+**Aucune** modification PRR / rationalisation M4 / retrait d’actif dans ce cycle.
 
 ---
 
-## 16. Review Pack process reserve
+## 10. Options et recommandation
 
-Tracked `.tmp-sfia-review/chatgpt-review.md` blob initial `92f0f7d9d517c52a8864ef2d25b748ef747fe588`.
+### OPTION A — RECOMMEND FORMAL EXIT WITH GOVERNED NON-BLOCKING RESERVES
 
-Écriture temporaire canonique → L3 → restore exacte. Copie non-tracked: `.tmp-sfia-review/akg-m2c-c14-postmerge-pack.md`.
+**Conditions:** X-A…X-L SATISFIED or SATISFIED WITH GOVERNED RESERVE · lots A/B/C CLOSED · PR #597 integrated · C14 PASS · debt disposition transferable without blocking understanding.
 
-Aucun stage/commit projet du pack. Aucun fichier projet créé/modifié.
+**Preuves:** Roadmap main `2624ae265d6854c4a1adfc4a73db771f5e35bb15` / blob `900f1620ce1008dcfc89e6b3207c024d73de83a3` · handoffs lots · Exit matrix §6 · debt §8.
+
+**Avantages:** Libère chemin critique vers M3 sous G5; conserve honesty des gaps; évite confusion lot≠global en formalisant global séparément.
+
+**Risques:** Sur-lecture « M2 CLOSED ⇒ ready Product/REAL/M3 » — mitiger par anti-claims et gates séparés.
+
+**Dette conservée:** §8 carry/product/M3/REAL.
+**Coût reprise:** faible si G1 adopte avec registre attaché; élevé si dettes perdues.
+**Chemin critique:** débloque G5.
+**Gates:** G1 puis éventuellement G2–G4 pour tip sync; G5/G6 pour M3.
+
+### OPTION B — BOUNDED CORRECTION REQUIRED BEFORE FORMAL EXIT
+
+**Conditions:** Si Morris exige owner formel assigné pour R-M2A-04 / B-M2B-05 *avant* G1, ou tip wording sync *avant* Exit, ou contradiction structurante (non observée ici).
+
+**Preuves nécessaires:** correction pack borné sous GO distinct · pas de Product fix obligatoire pour understanding.
+
+**Risques:** délai chemin critique; confusion avec Product work.
+
+### OPTION C — FORMAL EXIT NOT QUALIFIED
+
+**Conditions:** sources manquantes · contradiction structurante · précondition M3 non qualifiable *comme candidate*.
+**État CURRENT:** **non retenu** — preuves lots + C14 + matrice disponibles; M3 entry *candidate* qualifiable.
+
+### Recommandation (argumentée / falsifiable) — NE CHOISIT PAS POUR MORRIS
+
+**Recommandation Cursor:** **OPTION A**.
+
+**Falsifiabilité:** Invalidée si (1) une dette §8 est reclassée BLOCKING M2 EXIT avec preuve, (2) main perd ascendance merge `2624ae265d6854c4a1adfc4a73db771f5e35bb15` / blob `900f1620ce1008dcfc89e6b3207c024d73de83a3`, (3) contradiction A↔B↔C non gouvernée apparaît, (4) M2-C Formal Exit ou C14 est révoqué.
+
+**Ne pas** adopter Formal Exit ici. **Ne pas** autoriser M3.
 
 ---
 
-## 17. Validations V01…V26
+## 11. Gates Morris
+
+| Gate | Statut |
+| --- | --- |
+| GLOBAL M2 EXIT QUALIFICATION GO | **CONSUMED** (ce cycle) |
+| G1 M2 GLOBAL FORMAL EXIT APPROVAL | **PENDING** |
+| G2 Protected Roadmap Local Authoring | NOT consumed (si tip sync) |
+| G3 Project Git Integration | NOT consumed |
+| G4 Merge | NOT consumed |
+| G5 AKG-M3 START | NOT consumed · NOT AUTHORIZED |
+| G6 PRR SYNC M3 | NOT consumed |
+| G7 Architecture/rationalization structurantes | NOT consumed |
+| G8 Product/REAL/v3 promotions | NOT consumed |
+
+---
+
+## 12. Anti-claims
+
+- **≠** AKG-M2 GLOBAL CLOSED BY MORRIS
+- **≠** AKG-M3 AUTHORIZED
+- **≠** PRR CONSOLIDATED
+- **≠** P6 GLOBAL PASS
+- **≠** RUNTIME V3 ADOPTED
+- **≠** REAL BOUNDARY PROVEN
+- DOCUMENTED ≠ BEHAVIOR PROVEN
+- DET ≠ REAL
+- Lot CLOSED ≠ Milestone CLOSED
+- Qualification ≠ Decision
+
+Project files unchanged: **NONE modified/created**. No project commit/push. No cleanup.
+
+---
+
+## 13. Validations V01…V30
 
 | ID | Résultat |
 | --- | --- |
-| V01–V16 PM/Git/CI | PASS |
-| V17 Aucune suppression | PASS |
-| V18 Aucun changement projet | PASS |
-| V19 Aucun commit/push projet | PASS |
-| V20 Réserves OPEN | PASS |
-| V21 Fake/DET/REAL | PASS |
-| V22 Documentary truth | PASS (historical snapshot phrases noted) |
-| V23 Cleanup deferred tracé | PASS |
-| V24 Review Pack FULL | PASS |
-| V25 Handoff L3 | PENDING → post-publish |
-| V26 Formal Exit global NON inféré | PASS |
+| V01 Git Truth | PASS |
+| V02 Template/routing v2.6 | PASS |
+| V03 Build Doctrine | PASS |
+| V04 Roadmap CURRENT | PASS |
+| V05 C1/v3 | PASS |
+| V06 PRR/code proportionnés | PASS |
+| V07–V11 preuves M1/M2-A/B/C/C14 | PASS |
+| V12 Exit Matrix complète | PASS |
+| V13 Cohérence inter-lots | PASS |
+| V14 Niveaux de preuve | PASS |
+| V15 Dettes consolidées | PASS |
+| V16 R-M2A-04 non fermée | PASS |
+| V17 B-M2B-05 non fermée | PASS |
+| V18 Fake/DET/REAL | PASS |
+| V19 M3 entry candidate bornée | PASS |
+| V20 Options A/B/C | PASS |
+| V21 Recommandation motivée | PASS — OPTION A |
+| V22 Aucun Formal Exit adopté | PASS |
+| V23 Aucun M3 START | PASS |
+| V24 Aucune mutation Product/PRR | PASS |
+| V25 Aucune mutation Roadmap | PASS |
+| V26 Aucun commit/push projet | PASS |
+| V27 Aucun cleanup | PASS |
+| V28 Review Pack FULL | PASS |
+| V29 Handoff L3 | PENDING → post-publish |
+| V30 Gates séparés | PASS |
 
 ---
 
-## 18. Review Handoff L3
+## 14. Git Review Index
 
-- Tip entrée: `33309efd23dac070ad3d331d25c8cc8e7830a42a`
-- Message: `docs(review-handoff): verify AKG-M2-C PR 597 post-merge`
-- Push FF only · mono-fichier
-
----
-
-## 19. Git Truth final (pré-L3)
-
-- main `2624ae265d6854c4a1adfc4a73db771f5e35bb15` · branch `030b5dea51c401121a830b7b070d83f1f9d57c44` · handoff `33309efd23dac070ad3d331d25c8cc8e7830a42a`
-- HEAD worktree `030b5dea51c401121a830b7b070d83f1f9d57c44` · status:
-
-```text
-(clean tracked)
-```
+| Artefact | Ref |
+| --- | --- |
+| main / merge #597 | `2624ae265d6854c4a1adfc4a73db771f5e35bb15` |
+| Roadmap blob | `900f1620ce1008dcfc89e6b3207c024d73de83a3` |
+| C14 handoff | `fd6ccb5ff31e1e410c82a6268b8a0b48d82acda5` |
+| Post-merge CI | `39559364932` |
+| M2-A CP01 | `34ce3147…` |
+| M2-B CP02 | `b699b716…` |
+| M2-C CP01 | `435cee9a…` |
+| CKC6 pilot | `pilots/03-architecture-technique.md` CANDIDATE ONLY |
 
 ---
 
-## 20. Instruction ChatGPT
+## 15. Review Pack process / L3
+
+Tracked `.tmp-sfia-review/chatgpt-review.md` blob initial `92f0f7d9d517c52a8864ef2d25b748ef747fe588`.
+Écriture temporaire → publish L3 → restore. Copie non-tracked: `.tmp-sfia-review/akg-m2-global-exit-qual-pack.md`.
+
+Message L3: `docs(review-handoff): qualify AKG-M2 global formal exit`
+Tip entrée: `fd6ccb5ff31e1e410c82a6268b8a0b48d82acda5`
+
+---
+
+## 16. Instruction ChatGPT
 
 Lire handoff distant CURRENT.
 
-Réaliser: **CHATGPT CRITICAL REVIEW — AKG-M2-C CYCLE 14 FORMAL POST-MERGE VERIFICATION.**
+Produire: **CHATGPT CRITICAL REVIEW — AKG-M2 GLOBAL FORMAL MILESTONE EXIT QUALIFICATION.**
 
-Contrôler PM01…PM12 · PR #597 · merge · main ancestry · Roadmap blob · CI post-merge · branch preservation · absence cleanup · absence project mutation · réserves OPEN · M2 global NOT CLOSED · M3 NOT AUTHORIZED · Pack FULL · handoff distant.
+Vérifier: trois lots · Exit Proof Matrix · réserves/destinations · fidélité code/PRR · proof ceilings · critères M2 · entrée M3 candidate · absence promotion · absence mutation projet · handoff L3.
 
-Ne pas accorder automatiquement le Formal Milestone Exit AKG-M2.
+**Ne pas** accorder automatiquement le Formal Exit global.
 
 ---
 
-## 21. Verdict
+## 17. Verdict
 
-**AKG-M2 LOT C — CYCLE 14 FORMAL POST-MERGE VERIFICATION COMPLETE — WITH GOVERNED NON-BLOCKING RESERVES — READY FOR CHATGPT CRITICAL REVIEW — AKG-M2 GLOBAL FORMAL EXIT PENDING.**
+**AKG-M2 GLOBAL — FORMAL MILESTONE EXIT QUALIFICATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW — MORRIS FORMAL EXIT DECISION PENDING.**
 
-FIN DU REVIEW PACK FULL — AKG-M2-C CYCLE 14 FORMAL POST-MERGE VERIFICATION.
+Recommandation jointe (non décision): **OPTION A — RECOMMEND FORMAL EXIT WITH GOVERNED NON-BLOCKING RESERVES.**
+
+FIN DU REVIEW PACK FULL — AKG-M2 GLOBAL FORMAL MILESTONE EXIT QUALIFICATION.
