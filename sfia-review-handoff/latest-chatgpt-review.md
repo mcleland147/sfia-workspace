@@ -1,159 +1,278 @@
-# AKG-M3 G7 — PRR G6 GIT INTEGRATION — REVIEW PACK FULL (CRITICAL)
+# AKG-M3 G7-MERGE-01 — CONTROLLED PR #599 MERGE — REVIEW PACK FULL (CRITICAL)
 
 ```text
-TIMESTAMP_UTC: 2026-10-21T18:00:17Z
-CYCLE: AKG-M3 G7 — PRR G6 Git Integration
+TIMESTAMP_UTC: 2026-10-21T18:19:24Z
+CYCLE: AKG-M3 G7-MERGE-01 — Controlled PR #599 Merge
 CHANTIER: SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
 MILESTONE: AKG-M3 — Reference Consolidation
-TYPE: Cycle 13 — PR Readiness / Git Integration
+TYPE: Cycle 13 — PR Readiness / Merge Gate
 PROFIL: CRITICAL
-TYPOLOGIE: DOC / CONTROLLED GIT INTEGRATION
+TYPOLOGIE: DOC / GIT INTEGRATION
 CAPACITY: V3-F05 · V3-F12
-QA: CRITICAL GIT INTEGRATION REVIEW
+QA: CRITICAL MERGE VERIFICATION
 REVIEW_PACK: FULL
 REVIEW_HANDOFF: REQUIRED — publish-in-cycle (L3)
-MERGE: NOT AUTHORIZED
+METHOD: GitHub merge commit (--merge)
 FORMAL_EXIT: NOT AUTHORIZED
+AKG_M4: NOT AUTHORIZED
+BRANCH_DELETE: NOT AUTHORIZED
 ```
 
 ---
 
-## 1. Timestamp UTC
+## 1. Horodatage UTC
 
-**2026-10-21T18:00:17Z**
-
----
-
-## 2. GO Morris G7
-
-**GO AKG-M3 — G7 GIT INTEGRATION** — Morris « OK GO » 2026-10-21 — CONSUMED.
-
-Authorized: branch · one project commit · push of that branch · one PR to main · validations.
-
-NOT authorized: merge · auto-merge · squash · force push · Product · semantic PRR change · Formal Exit · M4.
+**2026-10-21T18:19:24Z**
 
 ---
 
-## 3. Cycle / profil / justification
+## 2. Cycle / profil / GO Morris
 
-Cycle 13 CRITICAL DOC — integrate reviewed PRR G6 candidate (semantic PASS + digest sync ACCEPTED + local conformance PASS) without new semantic mutation.
+| Field | Value |
+|---|---|
+| Cycle | G7-MERGE-01 — Controlled Merge |
+| Profile | CRITICAL |
+| Typology | DOC / GIT INTEGRATION |
+| GO Morris | **OK GO MERGE** — PR #599 — 2026-10-21 — **CONSUMED** |
+| Method authorized | `gh pr merge 599 --merge --match-head-commit d21fbb86…` |
+| Forbidden | squash · rebase · --admin · --auto · --delete-branch · force push · Product edit · Formal Exit · M4 |
 
 ---
 
-## 4. Local Git Truth initial
+## 3. Git Truth initial
 
 | Field | Value |
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-workspace-akg-m2-global-g1-roadmap-local` |
-| Prior branch | `docs/sfia-studio-akg-m2-global-g1-roadmap-local` |
-| Prior HEAD | `6ed646d8441c2f130e1a5ff1979b0b05d2afaedb` |
-| origin/main | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` — MATCH |
-| Handoff DIGEST SYNC | `22b0b06f…` / blob `97c736bf…` — MATCH |
-| Dirty | 7 PRR unstaged · +178/−62 |
+| Branch | `docs/sfia-studio-akg-m3-g7-prr-consolidation` |
+| HEAD | `d21fbb86d69671987ee9660be768dc16f69a5ca1` |
+| origin/main (pre) | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` |
+| ls-remote main | `c2b3d00c…` — MATCH snapshot |
+| ls-remote PR branch | `d21fbb86…` — MATCH |
+| Staged | none |
+| Repo | `mcleland147/sfia-workspace` |
 
-Note: `HEAD..origin/main` = merge PR #598 (`c2b3d00c`). Tree content of prior HEAD and origin/main identical for PRR paths; Roadmap already on main via that merge — **not** included in G7.
+Merge executed **remotely** via GitHub API; no local checkout of `main` required.
 
 ---
 
-## 5. Git Review Index
+## 4. Sources consultées
 
-| Ref | SHA |
+- `prompts/templates/sfia-cycle-execution-template.md` (via G7/method continuity)
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` (routing Cycle 13)
+- Convergence Build Doctrine / Roadmap (trajectory; **not edited**)
+- Product Completion cadrage (context; **not edited**)
+- PRR volumes on PR HEAD `d21fbb86` + manifest
+- Handoff G7 immutable: commit `82c772c95af8a821c1dc63568e12dfdbecd7fc7a` / blob `2af33a2d7e037ab9d0503929f70e9b006d83b8b6`
+- GitHub PR #599 live preflight
+
+---
+
+## 5. Convergence Pre-check
+
+AKG-M0/M1/M2 CLOSED BY MORRIS (bounded). AKG-M3 Reference Consolidation in progress. G6 semantic PASS · CORR-01/02 · Digest Sync ACCEPTED · G7 Git Integration Review PASS · CI SUCCESS verified before merge. Roadmap / Build Doctrine / Product **unchanged** by this merge cycle.
+
+---
+
+## 6. R23 / R24
+
+| Rule | Verdict |
 |---|---|
-| DIGEST SYNC handoff | `22b0b06f…` |
-| CORR-02 | `c13cf60e…` |
-| CORR-01 | `abc6062d…` |
-| G6 | `ac2e552b…` |
-| G7 commit | `d21fbb86d69671987ee9660be768dc16f69a5ca1` |
-| G7 parent | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` (= origin/main) |
+| R23 | Provenance preserved: merge of previously reviewed G6 candidate `d21fbb86` onto `c2b3d00c` — no new Product mutation |
+| R24 | **NO NEW SEMANTIC IMPACT** — merge only; zero content rewrite |
 
 ---
 
-## 6. Convergence Pre-check
+## 7. Handoff G7 lu et validé
 
-Build Doctrine / Roadmap / C1 / v3 framing as trajectory context. Roadmap tip may lag Morris GOs — **not edited** in G7. D1–D4 conserved. R24: **NO NEW SEMANTIC IMPACT**.
+| Field | Expected | Observed |
+|---|---|---|
+| Commit | `82c772c95af8a821c1dc63568e12dfdbecd7fc7a` | MATCH |
+| Blob | `2af33a2d7e037ab9d0503929f70e9b006d83b8b6` | MATCH |
+| Cycle in pack | AKG-M3 G7 | confirmed via `git show` header |
 
----
-
-## 7. Build Doctrine / Roadmap / C1
-
-Consulted. Roadmap preserved on main (no G7 Roadmap file in PR).
-
----
-
-## 8. Baseline main
-
-`origin/main` = `c2b3d00c…` throughout. G7 branch HEAD before commit = same. Parent of G7 commit = same.
+ChatGPT G7 review: PASS (CI was PENDING at handoff; later SUCCESS revalidated).
 
 ---
 
-## 9. Baseline G6 candidate
+## 8. PR #599 preflight (live)
 
-Pre-commit integrity PASS: 13/20/20/9 · OBJ-ATTEMPT · DEP-EC-ATT EC→Attempt · DEP-HD-EC HD→EC · F11b hors flows · digests 02=`61d089bf93c1676a` 03=`f0ec94936c4d8572` 04=`631fc37fa374c7c1` 05=`9883dc02a7856cf9` 07=`f19dd23a99dc896a` 09=`8e0ff7d45b1b33fa`. Fingerprints of seven files preserved across branch switch.
+| Field | Expected | Observed |
+|---|---|---|
+| Number | 599 | 599 |
+| Title | docs(studio-prr): AKG-M3 G6 reference consolidation | MATCH |
+| State | OPEN | OPEN (pre-merge) |
+| Draft | false | false |
+| Merged | false | false (pre-merge) |
+| Mergeable | MERGEABLE | MERGEABLE |
+| mergeStateStatus | CLEAN | CLEAN |
+| Base | main | main |
+| Base SHA | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` | MATCH |
+| Head branch | `docs/sfia-studio-akg-m3-g7-prr-consolidation` | MATCH |
+| Head SHA | `d21fbb86d69671987ee9660be768dc16f69a5ca1` | MATCH |
+| Commits | 1 | 1 |
+| Changed files | 7 | 7 |
+| Diff | +178 / −62 | +178 / −62 |
+| reviewDecision | (empty / no blocking) | empty |
 
----
-
-## 10. Provenance sept fichiers
-
-Exact seven paths from DIGEST SYNC candidate; bit-identical to local reviewed tree; no opportunistic edits in G7.
-
----
-
-## 11. Branche avant / après
-
-| | |
-|---|---|
-| Created | `docs/sfia-studio-akg-m3-g7-prr-consolidation` from `origin/main` |
-| Method | `git switch -c … origin/main` — dirty PRR carried · no reset/stash/clean |
-| After commit HEAD | `d21fbb86…` |
-| Tracking | `origin/docs/sfia-studio-akg-m3-g7-prr-consolidation` |
-
----
-
-## 12. Contrôle de transition Git
-
-PASS — HEAD==origin/main before commit · seven dirty only · no Roadmap in working tree diff · fingerprints PASS.
+URL: https://github.com/mcleland147/sfia-workspace/pull/599
 
 ---
 
-## 13. PR Readiness validations
-
-| Check | Result |
-|---|---|
-| Seven files vs candidate | PASS |
-| Digests / index | PASS |
-| D1–D4 | PASS |
-| git diff --check | PASS |
-| Secrets | none observed |
-| Checker read-only | **CONFORMANCE OK** |
-| Vitest isolated 5/5 | PASS |
-
-Checker:
+## 9. Base / head / commit
 
 ```text
-OK: canonical README exists
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-
-```
-
-Vitest:
-
-```text
-
- RUN  v3.2.7 /private/tmp/sfia-g7-conform-20261021T175700Z/projects/sfia-studio/app
-
- ✓ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts (5 tests) 9ms
-
- Test Files  1 passed (1)
-      Tests  5 passed (5)
-   Start at  19:58:26
-   Duration  206ms (transform 15ms, setup 35ms, collect 7ms, tests 9ms, environment 0ms, prepare 27ms)
-
-
+baseRefOid  = c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd
+headRefOid  = d21fbb86d69671987ee9660be768dc16f69a5ca1
+commit msg  = docs(studio-prr): consolidate AKG-M3 G6 reference
+parent of head = c2b3d00c… (= main tip pre-merge)
 ```
 
 ---
 
-## 14. Diff projet exact
+## 10. Fichiers exacts (pre-merge PR files)
+
+```text
+M projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
+M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+M projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+M projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+M projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+
+ABSENT from PR: Roadmap · Product · tests · checker · doctrine · scripts.
+
+---
+
+## 11. Required checks (pre-merge)
+
+```text
+Build and validate SFIA Studio	pass	8m52s	https://github.com/mcleland147/sfia-workspace/actions/runs/39648590504/job/119390718113
+Detect SFIA Studio changes	pass	6s	https://github.com/mcleland147/sfia-workspace/actions/runs/39648590504/job/119390644611
+SFIA Studio Required Gate	pass	3s	https://github.com/mcleland147/sfia-workspace/actions/runs/39648590504/job/119395305977
+```
+
+Run: https://github.com/mcleland147/sfia-workspace/actions/runs/39648590504
+
+All three SUCCESS including **SFIA Studio Required Gate**.
+
+---
+
+## 12. Review / mergeability gates
+
+```text
+mergeable=MERGEABLE
+mergeStateStatus=CLEAN
+reviewDecision=<empty — no blocking review required observed>
+branch protection: satisfied without --admin
+```
+
+---
+
+## 13. Commande de merge et résultat
+
+```bash
+gh pr merge 599 \
+  --repo mcleland147/sfia-workspace \
+  --merge \
+  --match-head-commit d21fbb86d69671987ee9660be768dc16f69a5ca1
+```
+
+```text
+MERGE START 2026-10-21T18:17:49Z
+exit=0
+MERGE CMD DONE 2026-10-21T18:17:53Z
+```
+
+No `--squash` / `--rebase` / `--admin` / `--auto` / `--delete-branch`.
+
+---
+
+## 14. PR status après commande
+
+| Field | Value |
+|---|---|
+| state | **MERGED** |
+| mergedAt | `2026-10-21T18:17:52Z` |
+| mergeCommit | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
+
+---
+
+## 15. Merge SHA et parents
+
+```text
+commit d41c6a660196ac26a401297c53f4be6f7ac98882
+Merge: c2b3d00c d21fbb86
+Author:     mcleland147 <m.cleland@live.fr>
+AuthorDate: Wed Oct 21 20:17:51 2026 +0200
+Commit:     GitHub <noreply@github.com>
+CommitDate: Wed Oct 21 20:17:51 2026 +0200
+
+    Merge pull request #599 from mcleland147/docs/sfia-studio-akg-m3-g7-prr-consolidation
+
+    docs(studio-prr): AKG-M3 G6 reference consolidation
+
+ .../02-runtime-object-catalog.md                   | 22 +++++--
+ .../03-end-to-end-flow-catalog.md                  | 45 +++++++++----
+ .../04-dependency-impact-map.md                    | 43 +++++++-----
+ ...05-environments-configuration-and-boundaries.md |  2 +-
+ .../07-authority-invariants-and-failure-modes.md   |  6 +-
+ ...9-known-gaps-reserves-and-current-boundaries.md | 77 ++++++++++++++++++----
+ .../production-runtime-reference.manifest.json     | 45 +++++++++++--
+ 7 files changed, 178 insertions(+), 62 deletions(-)
+```
+
+Parents verified:
+
+| Parent | SHA | Role |
+|---|---|---|
+| ^1 | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` | previous main |
+| ^2 | `d21fbb86d69671987ee9660be768dc16f69a5ca1` | PR head |
+
+---
+
+## 16. Main SHA après merge
+
+| Field | Value |
+|---|---|
+| origin/main | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
+| API branches/main | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
+| Equals merge_commit_sha | **YES** |
+
+---
+
+## 17. Diff main avant/après (`c2b3d00c` → `d41c6a66`)
+
+### name-status
+
+```text
+M	projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
+M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+M	projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+M	projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+
+### stat
+
+```text
+.../02-runtime-object-catalog.md                   | 22 +++++--
+ .../03-end-to-end-flow-catalog.md                  | 45 +++++++++----
+ .../04-dependency-impact-map.md                    | 43 +++++++-----
+ ...05-environments-configuration-and-boundaries.md |  2 +-
+ .../07-authority-invariants-and-failure-modes.md   |  6 +-
+ ...9-known-gaps-reserves-and-current-boundaries.md | 77 ++++++++++++++++++----
+ .../production-runtime-reference.manifest.json     | 45 +++++++++++--
+ 7 files changed, 178 insertions(+), 62 deletions(-)
+```
+
+Exactly **7** PRR paths. No Roadmap/Product.
+
+### Full useful diff (immutable merge delta)
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
@@ -650,141 +769,144 @@ index a25297d5..1cdc1863 100644
 
 ---
 
-## 15. Contrôle staged exact
-
-Staged via explicit `git add -- <7 paths>` only. Cached name-status: 7× M. No creates/deletes. No Roadmap/Product.
-
----
-
-## 16. Commit SHA et parent
-
-| | |
-|---|---|
-| Commit | `d21fbb86d69671987ee9660be768dc16f69a5ca1` |
-| Parent | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` |
-| Message | `docs(studio-prr): consolidate AKG-M3 G6 reference` |
-| Stat | 7 files · +178 / −62 |
-
----
-
-## 17. Commit diff (full — seven files)
-
-See §14 (identical to `git diff parent..commit`).
-
----
-
-## 18. Push remote et SHA
-
-| | |
-|---|---|
-| Remote branch | `origin/docs/sfia-studio-akg-m3-g7-prr-consolidation` |
-| Remote SHA | `d21fbb86d69671987ee9660be768dc16f69a5ca1` |
-| Match local | **PUSH_VERIFIED** |
-
----
-
-## 19. PR number / URL
-
-| | |
-|---|---|
-| Number | **#599** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/599 |
-| Title | docs(studio-prr): AKG-M3 G6 reference consolidation |
-| Base | main @ `c2b3d00c…` |
-| Head | `docs/sfia-studio-akg-m3-g7-prr-consolidation` @ `d21fbb86…` |
-| State | OPEN |
-| Mergeable | MERGEABLE |
-| Commits | 1 |
-| Files | **7** (verified via API) |
-
----
-
-## 20. Base / head / changed files
-
-Seven MODIFIED paths only (manifest + 02/03/04/05/07/09). No Product. No Roadmap. No checker/tests.
-
----
-
-## 21. Checker output
-
-See §13 — CONFORMANCE OK on candidate worktree before commit.
-
----
-
-## 22. Vitest isolation / output
-
-Isolated copy `/private/tmp/sfia-g7-conform-20261021T175700Z` · 5/5 PASS · canonical Product not mutated by G7 test run.
-
----
-
-## 23. CI status réel
-
-Observed at pack time:
+## 18. Manifest / digests après merge (on origin/main)
 
 ```text
-Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/39648590504/job/119390718113
-Detect SFIA Studio changes	pass	6s	https://github.com/mcleland147/sfia-workspace/actions/runs/39648590504/job/119390644611
-
+counts: 13 20 20 9
+02-runtime-object-catalog.md 61d089bf93c1676a
+03-end-to-end-flow-catalog.md f0ec94936c4d8572
+04-dependency-impact-map.md 631fc37fa374c7c1
+05-environments-configuration-and-boundaries.md 9883dc02a7856cf9
+07-authority-invariants-and-failure-modes.md f19dd23a99dc896a
+09-known-gaps-reserves-and-current-boundaries.md 8e0ff7d45b1b33fa
+OBJ-ATTEMPT True
+deps_sample [('DEP-HD-EC', 'OBJ-HD', 'OBJ-EC'), ('DEP-EC-ATT', 'OBJ-EC', 'OBJ-ATTEMPT')]
+F11b_in_flows False
 ```
 
-**CI PENDING** — `Detect SFIA Studio changes` SUCCESS; `Build and validate SFIA Studio` pending/queued (run `39648590504`).
+Index: **13 / 20 / 20 / 9**. Digests six volumes MATCH G6-DIGEST-SYNC. OBJ-ATTEMPT present. DEP-EC-ATT / DEP-HD-EC present. F11b absent from flows[].
 
-**Do not declare CI SUCCESS / READY FOR MERGE.**
-
----
-
-## 24. R23 / R24
-
-R23: provenance = DIGEST SYNC accepted candidate; no new code confrontation required beyond integrity.
-R24: **NO NEW SEMANTIC IMPACT** in G7 — Git transport only.
+Immutable PR head content identity preserved via second parent `d21fbb86`.
 
 ---
 
-## 25. Fake / Real Qualification
+## 19. Workflows post-merge (observe only)
 
-GIT DIFF FIDELITY + PR INTEGRITY + CI STATUS OBSERVED (PENDING). REAL NOT PROVEN · P6 NOT PASSED · v3 NON ADOPTED. No new fakes/REAL.
+| Run | Status | Head | Note |
+|---|---|---|---|
+| `39651441205` | **IN_PROGRESS / PENDING** at pack time | `d41c6a66` | SFIA Studio CI on main after merge |
+| Detect job | SUCCESS (observed early) | | |
+| Build and validate | IN_PROGRESS | | **NOT declared SUCCESS** |
 
----
+Pre-merge CI SUCCESS is the merge gate evidence. Post-merge CI PENDING ≠ SUCCESS; deferred to Post-Merge cycle.
 
-## 26. Réserves OPEN
-
-R-M3A-01 OPEN · R-M3B-01 OPEN · M2 debts preserved · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · REAL NOT PROVEN · B-M2B-03 OPEN.
-
----
-
-## 27. Gates Morris restants
-
-1. ChatGPT Critical Git Integration Review
-2. Wait CI SUCCESS (if still pending)
-3. **GO Morris Merge** (distinct)
-4. Post-merge verification
-5. AKG-M3 Formal Exit
-6. AKG-M4 distinct
+URL: https://github.com/mcleland147/sfia-workspace/actions/runs/39651441205
 
 ---
 
-## 28. Review Handoff preuve
+## 20. Fake / Real Qualification
 
-Filled after L3 publish.
-
----
-
-## 29. Verdict
-
-**G7 PR OPEN — CI PENDING — NOT READY FOR MERGE.**
-
-Anti-claims: ≠ PR MERGED ≠ Formal Exit ≠ M4 ≠ P6/REAL/v3 · Merge NOT executed · auto-merge NOT enabled.
-
----
-
-## 30. Instruction ChatGPT
-
-Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` — cycle **AKG-M3 G7**.
-
-Vérifier: GO G7 · base origin/main · Roadmap absent from PR · parent `c2b3d00c` · commit `d21fbb86` · exactly 7 files · digests · checker · Vitest · PR #599 · remote head · CI status · handoff L3 · reserves · merge not done.
-
-Produire **ChatGPT CRITICAL GIT INTEGRATION REVIEW**. Si PR correcte et CI SUCCESS → proposer GO Morris Merge. Si CI PENDING → recommander attente CI. Si problème → STOP / Correction Pass. Ne pas merger automatiquement.
+| Item | Verdict |
+|---|---|
+| Applicable | YES |
+| New REAL execution | NONE |
+| New fakes | NONE |
+| Entry level | DETERMINISTIC PROVEN AT TESTED SCOPE |
+| New proof | Git Merge / main provenance (`d41c6a66`) |
+| REAL | NOT PROVEN |
+| P6 GLOBAL | NOT PASSED |
+| Runtime v3 | NON ADOPTED |
+| F18/F19 | PARTIAL |
+| TOOL-FIRST-REAL-NOWRITE | OPEN |
 
 ---
 
-END — AKG-M3 G7 GIT INTEGRATION REVIEW PACK FULL
+## 21. Réserves et dettes
+
+| Reserve | Status |
+|---|---|
+| R-M3A-01 | OPEN |
+| R-M3B-01 | OPEN |
+| R-G6-SR-01…04 | semantically resolved; formal closure not automatic |
+| R-M2A-04 | OPEN/GOVERNED |
+| R-M2B-03 | PASS WITH GOVERNED RESERVE |
+| B-M2B-01…05 | OPEN |
+| M2 debt register | preserved |
+| REAL / P6 / v3 | unchanged |
+
+No debt closed by merge alone.
+
+---
+
+## 22. Gates Morris restants
+
+1. ChatGPT Critical Merge Verification (this handoff)
+2. Post-Merge verification cycle under **distinct** Morris GO
+3. AKG-M3 Formal Exit under **distinct** Morris GO
+4. AKG-M4 under **distinct** Morris GO
+5. Merge GO already consumed — **no re-merge**
+
+Branch `docs/sfia-studio-akg-m3-g7-prr-consolidation` **retained** (not deleted).
+
+---
+
+## 23. Verdict
+
+**G7 MERGE COMPLETE — REMOTE VERIFIED — READY FOR POST-MERGE ARBITRATION.**
+
+Anti-claims:
+
+```text
+MERGE COMPLETE
+≠ POST-MERGE VALIDATED
+≠ AKG-M3 FORMAL EXIT
+≠ AKG-M4 STARTED
+≠ P6 GLOBAL PASS
+≠ REAL BOUNDARY PROVEN
+≠ RUNTIME V3 ADOPTED
+```
+
+---
+
+## 24. Instruction ChatGPT
+
+Lire Git branche `sfia/review-handoff` fichier `sfia-review-handoff/latest-chatgpt-review.md`.
+
+Vérifier cycle **G7-MERGE-01**.
+
+Contrôler :
+
+- GO Morris « OK GO MERGE » consommé
+- PR #599 MERGED
+- merge SHA `d41c6a660196ac26a401297c53f4be6f7ac98882`
+- parents `c2b3d00c` + `d21fbb86`
+- origin/main = merge SHA
+- exactement 7 fichiers PRR · +178/−62
+- digests six volumes
+- pre-merge CI SUCCESS (Required Gate included)
+- post-merge CI observed PENDING (not claimed SUCCESS)
+- absence Product/Roadmap mutation
+- handoff L3
+- réserves OPEN
+- pas de delete-branch / Formal Exit / M4
+
+Produire **ChatGPT Critical Merge Verification**.
+
+Si conforme : proposer cycle **Post-Merge AKG-M3** sous GO Morris distinct.
+
+Si anomalie : STOP / MORRIS DECISION REQUIRED.
+
+---
+
+## Appendix A — Immutable references
+
+| Ref | SHA |
+|---|---|
+| Pre-main | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` |
+| PR head | `d21fbb86d69671987ee9660be768dc16f69a5ca1` |
+| Merge commit | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
+| G7 handoff | `82c772c95af8a821c1dc63568e12dfdbecd7fc7a` |
+| G7 handoff blob | `2af33a2d7e037ab9d0503929f70e9b006d83b8b6` |
+| DIGEST SYNC handoff | `22b0b06f43f78c387f297ec5c6ab044ad5a53f5a` |
+
+END — AKG-M3 G7-MERGE-01
