@@ -15,19 +15,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "71177cd234b88a3b"
+      "sha256_16": "61d089bf93c1676a"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "12331c256c76bd30"
+      "sha256_16": "f0ec94936c4d8572"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "b7236bfd326f8f9a"
+      "sha256_16": "631fc37fa374c7c1"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-      "sha256_16": "2f13a6917c240eb7"
+      "sha256_16": "9883dc02a7856cf9"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
@@ -35,7 +35,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "88893854dfe22bd9"
+      "sha256_16": "f19dd23a99dc896a"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
@@ -43,7 +43,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "252e18777ad9e04b"
+      "sha256_16": "8e0ff7d45b1b33fa"
     }
   ],
   "components": [
@@ -317,6 +317,37 @@
       "persistence": "oa_execution_contracts"
     },
     {
+      "id": "OBJ-ATTEMPT",
+      "title": "ExecutionAttempt",
+      "docSection": "02-runtime-object-catalog.md",
+      "trackedSourcePaths": [
+        "projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts",
+        "projects/sfia-studio/app/lib/oa/execution-attempt/application/selectExecutionAgent.ts",
+        "projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts",
+        "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts",
+        "projects/sfia-studio/app/features/project-assistant/w2/boundedNonMutatingRealLaunchGate.ts"
+      ],
+      "flowIds": [
+        "F10",
+        "F11",
+        "F18"
+      ],
+      "invariantIds": [
+        "INV-ATTEMPT-NE-PROVEN",
+        "INV-NO-EXEC-BEFORE-AUTH"
+      ],
+      "testPaths": [
+        "projects/sfia-studio/app/__tests__/oa/execution-attempt/lifecycleFoundation.test.ts",
+        "projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts"
+      ],
+      "dependsOn": [
+        "OBJ-EC"
+      ],
+      "dependencyIds": [],
+      "authoritySensitive": true,
+      "persistence": "oa_execution_attempts"
+    },
+    {
       "id": "OBJ-UI-LIFECYCLE",
       "title": "Lifecycle UI presentation",
       "docSection": "01-system-runtime-overview.md",
@@ -557,7 +588,7 @@
     {
       "id": "DEP-EC-ATT",
       "from": "OBJ-EC",
-      "to": "OBJ-EC"
+      "to": "OBJ-ATTEMPT"
     },
     {
       "id": "DEP-MW5-TURN",
