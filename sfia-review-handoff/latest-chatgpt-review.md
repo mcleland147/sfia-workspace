@@ -1,15 +1,15 @@
-# AKG-M3 G6-CORR-01 — BOUNDED SEMANTIC CORRECTION PASS — REVIEW PACK FULL (CRITICAL)
+# AKG-M3 G6-CORR-02 — FINAL SHE SEMANTIC PRECISION — REVIEW PACK FULL (CRITICAL)
 
 ```text
-TIMESTAMP_UTC: 2026-10-21T17:12:00Z
-CYCLE: AKG-M3 G6-CORR-01 — Bounded Semantic Correction Pass
+TIMESTAMP_UTC: 2026-10-21T17:26:58Z
+CYCLE: AKG-M3 G6-CORR-02 — Final SHE Semantic Precision
 CHANTIER: SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
 MILESTONE: AKG-M3 — Reference Consolidation
 TYPE: Cycle 8 — Delivery / Implementation
 PROFIL: CRITICAL
-TYPOLOGIE: DOC / ARCHITECTURE / CONTROLLED LOCAL CORRECTION
+TYPOLOGIE: DOC / CONTROLLED LOCAL CORRECTION
 CAPACITY: V3-F05 · V3-F12
-QA: CRITICAL SEMANTIC CORRECTION REVIEW
+QA: Critical Semantic Re-Review
 REVIEW_PACK: FULL
 REVIEW_HANDOFF: REQUIRED — publish-in-cycle (L3)
 DIGEST_SYNC: NOT AUTHORIZED
@@ -20,21 +20,25 @@ PROJECT_GIT_INTEGRATION: NOT AUTHORIZED
 
 ## 1. Timestamp UTC
 
-**2026-10-21T17:12:00Z**
+**2026-10-21T17:26:58Z**
 
 ---
 
-## 2. GO Morris CORR-01
+## 2. Cycle / profil
 
-**GO G6-CORR-01 — APPROVED** (Morris « OK GO » 2026-10-21) — CONSUMED.
-
-Corrections only: **R-G6-SR-01…04**. Write allowlist: **02 / 04 / 09** only.
-
-G6 D1–D4 conserved (not reopened). Digest Sync / project Git / Formal Exit **NOT** authorized.
+AKG-M3 G6-CORR-02 — Final SHE Semantic Precision · Cycle 8 · CRITICAL · DOC.
 
 ---
 
-## 3. Git Truth initial
+## 3. GO Morris CORR-02
+
+**GO G6-CORR-02 LOCAL AUTHORING ONLY** — Morris « OK GO » 2026-10-21 — CONSUMED.
+
+Single-cell Why clarification on **DEP-HD-EC** in PRR04. D1–D4 not reopened. Digest Sync / project Git **NOT** authorized.
+
+---
+
+## 4. Local Git Truth initial
 
 | Field | Value |
 |---|---|
@@ -42,131 +46,75 @@ G6 D1–D4 conserved (not reopened). Digest Sync / project Git / Formal Exit **N
 | Branch | `docs/sfia-studio-akg-m2-global-g1-roadmap-local` |
 | HEAD | `6ed646d8441c2f130e1a5ff1979b0b05d2afaedb` |
 | origin/main | `c2b3d00ceb73b07eab44243ac45ecbe75e6e5bfd` — MATCH |
-| Handoff G6 tip | `ac2e552be6bcd6e0218b835f3cf607c0832de355` — MATCH |
-| Staged | none |
-| Dirty | 7 PRR paths (G6 candidate) |
+| Handoff CORR-01 tip | `abc6062d8e50b4103da9074524c25533f703c8be` — MATCH |
+| Blob CORR-01 | `c38f0e7f68dd715ab9d0f6ebc089a10c0d56597d` |
+| Dirty | 7 PRR paths · +172/−56 · unstaged · no staged |
 
 ---
 
-## 4. Git Review Index
+## 5. Git Review Index
 
 | Ref | SHA |
 |---|---|
-| G6 handoff | `ac2e552b…` / blob `024cca4a…` |
-| M3-B | `f670b17d…` |
-| M3-A | `868bc45b…` |
-| Debt 38×20 | `df77b8a2…` |
-| types.ts Attempt | CURRENT tree |
-| SHE | `singleHumanExecutePreparedContract.ts` + PR #590 |
+| CORR-01 handoff | `abc6062d…` |
+| G6 authoring | `ac2e552b…` |
+| SHE source | `singleHumanExecutePreparedContract.ts` |
+| Baseline main | `c2b3d00c…` |
 
 ---
 
-## 5. Baseline G6 vérifiée
+## 6. Handoff CORR-01 source
 
-Pre-CORR fingerprints captured. Diff vs `origin/main` before CORR: **7 files / +137 −54** — MATCH expected G6 candidate. No STOP (G6 CANDIDATE BASELINE MISMATCH).
-
-Bit-identity locked for READ-ONLY during CORR: manifest · 03 · 05 · 07.
+Read at immutable `abc6062d` / blob `c38f0e7f` — sections SR-02 residual ambiguity identified for final precision. Candidate 7/7 +172/−56 preserved as CORR-02 baseline.
 
 ---
 
-## 6. Sources lues
+## 7. Convergence Pre-check
 
-Template v2.6 / routing / operating-model / rules · Build Doctrine A3/A4/A8–A12 · Roadmap B-AKG (historical; not rewritten) · C1 · v3 framing as needed · PRR allowlist · `execution-attempt/domain/types.ts` · SHE path · G6 handoff FULL · immutable M2/M3 handoffs.
-
----
-
-## 7. Convergence / R23 / R24
-
-R23 PASS — statuses vs `types.ts`; SHE timing vs SHE path / PRR03–07; DEP table vs manifest nine; historical overlay vs prior tip + Git merges.
-
-R24: DOCUMENTARY SEMANTIC IMPACT = YES · PRODUCT BEHAVIOR CHANGE = NO · KEEP D1–D4 · ADAPT SR-01…04 · COMPLETE provenance layers.
+AKG-M0/M1/M2 CLOSED · M3 in progress · G6 D1–D4 adopted · CORR-01 authored · CORR-02 authoring GO consumed · Critical Final Re-Review PENDING · Digest Sync NOT AUTHORIZED · Formal Exit NOT ACQUIRED · M4 NOT STARTED.
 
 ---
 
-## 8. R-G6-SR-01 — Attempt status semantics
+## 8. R23 / R24
 
 | | |
 |---|---|
-| Error | « closed terminal statuses » listed all 7 including active |
-| Source | `ActiveExecutionAttemptStatus` (3) vs `TerminalExecutionAttemptStatus` (4) |
-| File | 02 OBJ-ATTEMPT |
-| After | Explicit lifecycle 7 / active 3 / terminal 4 |
+| R23 | PASS — SHE code: Exécuter gesture records HD (`authorize-inspected-execute`) after inspect, then Confirm/Authorize; PREPARE inspectable without prior HD |
+| R24 | DOCUMENTARY SEMANTIC IMPACT = YES (single Why cell) · PRODUCT BEHAVIOR CHANGE = NO · KEEP architecture/manifest/D1–D4 · ADAPT ambiguous phrase only |
 
-### After (section)
+Coverage: **COVERAGE VERIFIED** (documentary vs primary sources). No new behavioural proof.
 
-```text
-147|## OBJ-ATTEMPT — ExecutionAttempt
-148|
-149|- **Purpose:** Bounded attempt against an AUTHORIZED ExecutionContract; Select→Start→Result lifecycle unit. Distinct from ExecutionContract (PREPARE/inspect/authority).
-150|- **Lifecycle statuses (`ExecutionAttemptStatus` — 7):** `accepted` · `running` · `result_pending` · `succeeded` · `failed` · `timeout` · `cancelled` (`lib/oa/execution-attempt/domain/types.ts`).
-151|  - **Non-terminal / active (`ActiveExecutionAttemptStatus` — 3):** `accepted` · `running` · `result_pending` — hold the active-by-contract invariant.
-152|  - **Terminal (`TerminalExecutionAttemptStatus` — 4):** `succeeded` · `failed` · `timeout` · `cancelled`.
-153|- **Persistence:** `oa_execution_attempts`, `oa_execution_attempt_active`, `oa_execution_attempt_result_budget`.
-154|- **Paths:** `lib/oa/execution-attempt/**` (domain types; `selectExecutionAgent` / `startExecution`); SQLite tables in `lib/oa/project/infrastructure/sqlite/db.ts`; Product R2 gate `features/project-assistant/w2/boundedNonMutatingRealLaunchGate.ts`.
-155|- **Manifest index (AKG-M3 G6):** curated `components[]` includes **OBJ-ATTEMPT**; dependency **DEP-EC-ATT** = `OBJ-EC` → `OBJ-ATTEMPT` (conformance endpoints ∈ components).
-156|- **Invariant:** Attempt **terminal** ≠ Product Result PROVEN (`INV-ATTEMPT-NE-PROVEN`); no execution before authority (`INV-NO-EXEC-BEFORE-AUTH`). PREPARE ≠ AUTHORIZE ≠ EXECUTE · Inspect ≠ Execute.
-157|- **Proof ceiling:** DETERMINISTIC at tested scope (lifecycle + Tool-First R2 Fake/DET) · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED.
-158|
-159|## OBJ-ARTIFACT — Artifact obligation / materialization
-160|
-161|- **Purpose:** Whether deliverable is required (applicability) and materialization continuation.
-162|- **Applicability SoT:** `deriveCycleObligationSnapshot` + `deriveFinalizationApplicability` + assess.
-163|- **Continuation gate (Artifact governed):** `activeCycleGovernedContinuation.ts` — REQUIRE_ARTIFACT HD **OR** canonical APPLICABLE∧¬SATISFIED.
-164|- **Adjacent (P6-HQA-F05-GD4-01):** `no_require_artifact` means a materialization signal without a closure Artifact obligation — **not** Artifact governed continuation and **not** an invented HD. `orchestrateF2` may qualify ordinary documentary work via Generic PREPARE on the same cycle when Product readiness allows (`isOptionalDocumentaryWithoutClosureArtifactBlock`).
+---
+
+## 9. SR-02 cause
+
+CORR-01 suffix « applicable HD remains required before **Execute** » could be read as HD-before-Pilot-click. SHE CURRENT records applicable HD **within** the Exécuter gesture after inspection.
+
+---
+
+## 10. Source code SHE
+
+`singleHumanExecutePreparedContract.ts` — one explicit Pilot Exécuter after inspectable PREPARE; records HD authorize-inspected-execute; Confirmation/Authorization distinct; STOP before Attempt/launch if gates fail; governed execution launch is distinct from this service.
+
+---
+
+## 11. Ligne DEP-HD-EC avant
+
+```markdown
+| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE; under SHE CURRENT, applicable HD remains required before **Execute** (not before inspectable PREPARE) | YES |
 ```
 
 ---
 
-## 9. R-G6-SR-02 — SHE authority timing
+## 12. Ligne DEP-HD-EC après
 
-| | |
-|---|---|
-| Error | OBJ-EC Purpose/Gate implied universal HD-before-PREPARE; DEP-HD-EC Why too absolute |
-| Source | SHE CURRENT inspectable PREPARE without prior HD; HD before Execute |
-| Files | 02 OBJ-EC · 04 DEP-HD-EC **Why only** (id/from/to unchanged) |
-| After | Scoped gates; DEP-HD-EC Why clarifies SHE vs historical |
-
-### After OBJ-EC
-
-```text
-121|## OBJ-EC — ExecutionContract
-122|
-123|- **Purpose:** Prepared (inspectable) execution contract draft/aggregate. **PREPARE ≠ AUTHORIZE ≠ EXECUTE** — a prepared EC is **not** automatically authorized for launch.
-124|- **Persistence:** `oa_execution_contracts`.
-125|- **Paths:** `lib/oa/execution-contract/**`
-126|- **Gate (scoped — not universal):**
-127|  - **Legacy / Proposal / disposition-before-PREPARE product path:** no EC prepare on that path before the required Proposal / mission-bound HumanDecision (HD-bound PREPARE).
-128|  - **SHE CURRENT (D-P6-SHE-01 / PR #590):** STRUCTURAL / HD-required / UNKNOWN may obtain an **inspectable** PREPARE **without** prior HD when Product qualification admits (`sheDeferredStructuralAuthority` stamp possible). Authority is consumed on Pilot **Exécuter** (`singleHumanExecutePreparedContract`): Inspect binding → applicable HD (if required) → Confirm (if required) → Authorize → launch gates. **0 Attempt** if pre-launch gates fail. Historical disposition-before-PREPARE remains available at its own boundary.
-129|- **Tool-First pathless stamp (CURRENT ON MAIN — PR #588 merge `304e30e8`):** Generic PREPARE may set `inputs.boundedNonMutatingAnalysis` and related `NO_REPOSITORY_MUTATION_*` constraints/stops for Product-admitted pathless analysis. Stamp declares Product intent envelope — **≠** Cursor REAL technical no-write (see F10 R2 / `boundedNonMutatingRealLaunchGate.ts`). DETERMINISTIC at tested scope · REAL no-write enforcement OPEN (`TOOL-FIRST-REAL-NOWRITE`).
-130|
-131|## OBJ-INSPECTION — InspectionAttestation
-132|
-133|- **Purpose:** EC inspection attestation before launch.
-134|- **Persistence:** `oa_ec_inspection_attestations`.
-135|
-136|## OBJ-AUTH-RECEIPT — AuthorityVerificationReceipt
-137|
-138|- **Purpose:** Durable authority verification evidence.
-139|- **Persistence:** `oa_authority_verification_receipts`.
-140|- **Invariant:** Capability ≠ Authority.
+```markdown
+| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE. Under SHE CURRENT, an inspectable PREPARE does not require prior HD. Any applicable HD is recorded within the Pilot's Exécuter gesture, after inspection, followed by conditional Confirmation and Authorization before any new Attempt or Cursor launch. | YES |
 ```
 
----
-
-## 10. R-G6-SR-03 — Curated dependency description
-
-| | |
-|---|---|
-| Error | Index note listed DEP-FAKE-INTENT with OBJ-INTENT as if non-curated confusion |
-| Source | Manifest: DEP-FAKE-INTENT FAKE→TURN-ORCH (curated YES) |
-| File | 04 DEP edges |
-| After | Curated nine table separate from narrative-only; FAKE curated YES; OBJ-INTENT = historical label only |
-
-### After (DEP section)
+### Table context (Curated nine)
 
 ```text
-95|**Index note (AKG-M3 G6 / CORR-01):** Curated `manifest.dependencies[]` holds exactly **9** edges; both endpoints ∈ `manifest.components[]` (13 after OBJ-ATTEMPT). **DEP-EC-ATT** = `OBJ-EC` → `OBJ-ATTEMPT` (prior self-edge was a conformance-preserving stub — R-M3A-01). Distinguish: (1) **curated indexed edge** (in the nine); (2) **historical narrative endpoint label** on a curated edge (e.g. old `OBJ-INTENT` wording for DEP-FAKE-INTENT — not a curated component); (3) **purely descriptive / non-indexed** edges (not in the nine — not auto-promoted).
-96|
 97|### Curated nine (manifest.dependencies[])
 98|
 99|| ID | From | To | Why | Manifest curated? |
@@ -175,7 +123,7 @@ R24: DOCUMENTARY SEMANTIC IMPACT = YES · PRODUCT BEHAVIOR CHANGE = NO · KEEP D
 102|| DEP-ACGC-ASSESS | OBJ-ARTIFACT-CONTINUATION | OBJ-FINALIZATION-ASSESS | APPLICABLE/SATISFIED gate | YES |
 103|| DEP-ACGC-PROP | OBJ-ARTIFACT-CONTINUATION | OBJ-PROPOSAL | continuation emits Proposal/clarification | YES |
 104|| DEP-PROP-HD | OBJ-PROPOSAL | OBJ-HD | Pilot decision | YES |
-105|| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE; under SHE CURRENT, applicable HD remains required before **Execute** (not before inspectable PREPARE) | YES |
+105|| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE. Under SHE CURRENT, an inspectable PREPARE does not require prior HD. Any applicable HD is recorded within the Pilot's Exécuter gesture, after inspection, followed by conditional Confirmation and Authorization before any new Attempt or Cursor launch. | YES |
 106|| DEP-EC-ATT | OBJ-EC | OBJ-ATTEMPT | Select→Attempt; Tool-First R2 may refuse Select (no Attempt) or Start (Attempt stays `accepted`) when REAL+pathless non-mutating | YES |
 107|| DEP-MW5-TURN | OBJ-MW5-CHALLENGE | OBJ-TURN-ORCH | challenge gate on turn | YES |
 108|| DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-TURN-ORCH | deterministic structured analysis into turn orch (**curated to=`OBJ-TURN-ORCH`**). Historical narrative sometimes labelled the consumer `OBJ-INTENT` — that label is **not** a curated component and does **not** mean this edge is absent from the manifest | YES |
@@ -183,390 +131,50 @@ R24: DOCUMENTARY SEMANTIC IMPACT = YES · PRODUCT BEHAVIOR CHANGE = NO · KEEP D
 110|
 111|### Descriptive / non-indexed (narrative only — not in manifest.dependencies[])
 112|
-113|| ID | From | To | Why | Manifest curated? |
-114||---|---|---|---|---|
-115|| DEP-ATT-EV | OBJ-ATTEMPT | OBJ-EVIDENCE | terminal → evidence | NO (narrative) |
-116|| DEP-NORA-GENPREP | OBJ-TURN-ORCH | OBJ-EC | Nora solicits Generic PREPARE only (D-ER-16); never Attempt | NO (narrative) |
-117|| DEP-GMHD-EC | OBJ-GENERIC-MISSION-HD | OBJ-EC | verified mission-bound HD before structural disposition-before-PREPARE | NO (narrative) |
-118|| DEP-MAT-GENPREP | OBJ-ARTIFACT-CONTINUATION / materiality | OBJ-EC | Materiality CURRENT gates empty vs HD-bound refs; Tool-First R1 pathless positive-claim gate | NO (narrative) |
-119|
-120|## Sample impact analysis A — `activeCycleGovernedContinuation.ts`
-121|
-122|**Changed path:** `features/project-assistant/f2/activeCycleGovernedContinuation.ts`
-123|
-124|| Step | Result |
-125||---|---|
-126|| Components | OBJ-ARTIFACT-CONTINUATION |
-127|| Direct deps | Artifact routing, finalization assess/obligation snapshot, Proposal emission, Fake/intent hints |
-128|| Transitive | DecisionBasis/EC/Attempt/Evidence (via Proposal→HD), Lifecycle UI wording consumers |
-129|| Flows | F05 primary; F04/F06/F07 adjacent; F17 restart at proposal |
-130|| Invariants | INV-APPLICABILITY-NE-AUTHORITY, INV-UNKNOWN-NE-APPLICABLE, INV-NO-AUTO-HD, INV-NO-EXEC-BEFORE-AUTH, INV-OLD-CYCLE-HD |
-131|| Persistence | Reads product DB assess/decisions; writes none directly; Proposal process-local |
-132|| Authority | Opens Proposal path only; never EC |
-133|| Fake/Real | Server gate identical; provider may omit continuationKind (mitigated by natural signal) |
-134|| Tests | continuity CORR-01, bridge CORR-01, corrProof07/06, fakeProvider materialization |
-135|| Docs | volumes 02,03,04,06,07,08,09 |
-136|
-137|## Sample impact analysis B — `criticalChallengeClarification.ts` (MW5)
-138|
-139|**Changed path:** `lib/nora-cognitive-runtime/criticalChallengeClarification.ts`
 ```
 
 ---
 
-## 11. R-G6-SR-04 — Historical provenance
-
-| | |
-|---|---|
-| Error | G6 overlay mixed historical tip statuses with G6-now digest language |
-| File | 09 consolidation overlay |
-| After | Layers A HISTORICAL · B CURRENT ON MAIN · C G6/CORR local · D gaps; G-DIGEST PENDING CONTENT APPROVAL restored to Layer A |
-
-### After (overlay + G6 debt block)
-
-```text
-94|## Overlay — P6 Generic Execution consolidation candidate (LIVING REFERENCE R1–R4)
-95|
-96|### A — HISTORICAL AT MACRO TIME (snapshot preserved)
-97|
-98|**Do not read this subsection as CURRENT.** It records the consolidation-candidate documentary tip as authored then.
-99|
-100|- Integration worktree: `integration/sfia-studio-p6-generic-execution-consolidation` @ base `896ff59c`
-101|- Product dirty transferred from source `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862`
-102|- Then-status: **AS_IMPLEMENTED_IN_CANDIDATE** · **PENDING_GIT_INTEGRATION** · **NOT INTEGRATED_ON_MAIN**
-103|
-104|| Item (historical tip) | Status **at macro time** |
-105||---|---|
-106|| G-IB (importBoundaries allowlist +4 W2 type-only RuntimeOaStack) | **CLOSED** (historical gate) |
-107|| G-DIGEST Living Reference digests | **PENDING CONTENT APPROVAL** — manifest **FROZEN**; digests **not** promoted that cycle |
-108|| Living Reference volumes 02/03/04/06/07/08/09 | Semantic amendments R1–R4 applied locally — ChatGPT content review required before digest write (that tip) |
-109|| 77 Product candidates + allowlist | Preserved dirty; **no** Product commit/push/PR that cycle (**historical** — not a claim about today’s worktree) |
-110|| Pending Generic PREPARE offer | Process-local — restart-unsafe (vol 06) |
-111|| Generic Mission HumanDecision | Durable OA; restart ≠ CURRENT offer; applicability re-check required |
-112|| Cursor REAL / OpenAI LIVE / HQA | **NOT PROVEN / NOT RETESTED** |
-113|| P6 GLOBAL PASS / READY FOR REAL / runtime v3 ADOPTED | **NOT CLAIMED** |
-114|| DETERMINISTIC proof ceiling | Historical **328 targeted PASS** + G-IB 5/5 — **not re-executed** in later documentary cycles |
-115|
-116|### B — CURRENT ON MAIN (Git requalification)
-117|
-118|Consolidation / Tool-First / SHE lineages absorbed via **PR #587** merge `e03c7b9f`, **PR #588** merge `304e30e8`, **PR #590** merge `c9abdbc3` (ancestors of main tip `c2b3d00c…`). Product behaviour for Generic PREPARE / optional Artifact / Tool-First R1/R2 / SHE is **CURRENT ON MAIN** only at deterministic tested scopes documented in vols 03/05/07. **OPEN / NOT PROVEN:** Cursor REAL · OpenAI LIVE · HQA · P6 GLOBAL PASS · READY FOR REAL · runtime v3 ADOPTED · `TOOL-FIRST-REAL-NOWRITE`.
-119|
-120|### C — G6 / CORR-01 LOCAL CANDIDATE (this documentary track)
-121|
-122|| Item | Status **now** |
-123||---|---|
-124|| G6 PRR semantic sync authoring | Local dirty candidate (seven PRR paths) — **not** project-integrated |
-125|| G6-CORR-01 semantic corrections | Local candidate under Critical Re-Review — digests **not** written |
-126|| G-DIGEST / sha256_16 refresh | **PENDING MORRIS GO Digest Sync** — EXPECTED DIGEST DRIFT until authorized |
-127|| Global PRR conformance | **NOT ACQUIRED** while digests drift |
-128|| Project Git integration (commit/push/PR/merge) | **NOT AUTHORIZED** |
-129|
-130|### D — Gaps / reserves (continuity)
-131|
-132|R-M3A-01 OPEN · R-M3B-01 OPEN · R-G6-SR-01…04 = correction candidates under re-review (**not CLOSED** until Critical Re-Review accepts) · M2 38×20 identities preserved · F18/F19 PARTIAL · REAL NOT PROVEN.
-133|
-134|**Do not** promote Layer A PENDING_GIT_INTEGRATION / G-DIGEST historical rows into CURRENT after main absorption.
-135|
-136|## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (historical macro — retained)
-137|
-138|- **Historical macro** on branch `delivery/sfia-studio-generic-execution-review-result-convergence-01` · Correction Pass **04 RESUMED AFTER MORRIS DECISION** · **CLOSED FOR CRITICAL REVIEW** (documentary tip retained; superseding Product consolidation is the P6 overlay above).
-139|- **CP4-01 WIRED** — Product carrier = Proposal `PresentedOptionSet.sealedExecutionBasis` → pursue HumanDecision → DecisionBasis → generic local-write (MD-CP4-01 consumed). MAIN front-door oracle does **not** inject `durableLocalWriteSeal`.
-140|- **CP4-02 OPTION C IMPLEMENTED** — Studio Product write protection = sandbox floor ∪ `STUDIO_GOVERNANCE_PROTECTED_PATHS` (framing prefix + exact Build Doctrine / Roadmap / D-ER architecture / C1). No blanket `projects/sfia-studio/**` deny. No Campus360/CT `SFIA_DEFAULT_PROTECTED_PATHS` as Product classifier.
-141|- Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** (at time of that macro) · ZERO REAL · READY FOR REAL **NO** · runtime v3 **NON ADOPTED**.
-142|- Historical: Correction Pass 04 STOP (Morris decision required on CP4-02) superseded by MD-CP4-01/MD-CP4-02 resume — see prior tip / handoff `2daf0dc3…`.
-143|- docs_write adapters: **TRANSITIONAL bridge retained** (dual-write Review Material) — exit when historical callers = 0.
-144|- `durableLocalWriteSeal` domain seam: **TRANSITIONAL** (isolated domain/tests only) — exit when GOVERNED trajectory Product carrier is retired or superseded; never browser/client.
-145|- NoteLite REAL replay: **NOT DONE** (PAUSED; distinct Morris GO).
-146|- Retention GC / Git promotion: **NOT IMPLEMENTED**.
-147|- Next after that macro was ChatGPT Critical Review → Morris GO commit/push/PR (distinct). Product consolidation trajectory now tracked under the P6 overlay.
-148|
-
-321|## AKG-M3 G6 — PRR Semantic Sync authoring (LOCAL CANDIDATE) + CORR-01
-322|
-323|**Authority:** Morris GO G6 PRR Semantic Sync Authoring (2026-10-21) · Morris GO G6-CORR-01 Bounded Semantic Correction Pass (2026-10-21). Digests / project commit / PR **NOT** authorized.
-324|
-325|| ID | Status | Note |
-326||---|---|---|
-327|| **R-M3A-01** | **OPEN** — technical index candidate applied locally (OBJ-ATTEMPT + DEP-EC-ATT retarget); **not FORMALLY CLOSED** pending Critical Re-Review + Digest Sync + conformance | Formal owner NOT ASSIGNED |
-328|| **R-M3B-01** | **OPEN** — G6 scope completeness (vols 02/03/04/05/07/09 + manifest covered in authoring; README/01/06/08 READ-ONLY) | Formal owner NOT ASSIGNED |
-329|| **R-G6-SR-01** | Correction candidate (Attempt active vs terminal statuses) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
-330|| **R-G6-SR-02** | Correction candidate (SHE authority timing / DEP-HD-EC Why) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
-331|| **R-G6-SR-03** | Correction candidate (curated vs narrative DEP description) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
-332|| **R-G6-SR-04** | Correction candidate (historical P6 provenance layers) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
-333|| R-M2A-04 | OPEN/GOVERNED | preserved |
-334|| R-M2B-03 | PASS WITH GOVERNED RESERVE | preserved |
-335|| B-M2B-01…05 | OPEN | B-M2B-03 routing ambiguity **not** behaviourally closed by documentary table |
-336|| RS-03 | OPEN | preserved |
-337|| TOOL-FIRST-REAL-NOWRITE | OPEN | preserved |
-338|| F18 / F19 | PARTIAL | preserved — no COMPLETE promotion |
-339|| REAL | NOT PROVEN | preserved |
-340|| F11b INDEX SCOPE | POLICY RECORDED (subflow; not in flows[]) | ≠ missing Product |
-341|| DEP-EC-ATT | LOCAL CANDIDATE fidelity fix (EC→Attempt) | awaiting semantic+digest gates |
-342|| M2 debt register 38×20 | identities/statuses conserved | `df77b8a2…` immuable |
-343|
-344|**Anti-claims:** CORR-01 authoring ≠ Critical Re-Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project Git integrated ≠ AKG-M3 CLOSED ≠ P6/v3/REAL.
-```
-
----
-
-## 12. Evidence / Source Matrix
-
-| Reserve | Primary source | Proof class |
-|---|---|---|
-| SR-01 | `domain/types.ts` Active/Terminal unions | COVERAGE VERIFIED vs code |
-| SR-02 | SHE path + PRR03 F08 + PR #590 | DOCUMENTED + DET ceiling |
-| SR-03 | manifest.dependencies[] nine | COVERAGE VERIFIED vs manifest |
-| SR-04 | Prior tip wording + PR #587/#588/#590 ancestry | DOCUMENTED / HISTORICAL vs CURRENT |
-
----
-
-## 13. Documentary Impact Matrix
-
-| ID | File | Direct | Transitive | Type |
-|---|---|---|---|---|
-| SR-01 | 02 | Attempt lifecycle honesty | INV-ATTEMPT-NE-PROVEN reading | ADAPT |
-| SR-02 | 02/04 | EC gate + DEP-HD-EC Why | Authority timing | ADAPT |
-| SR-03 | 04 | Index honesty | Impact-analysis readers | ADAPT |
-| SR-04 | 09 | Provenance | Digest/Git gates clarity | COMPLETE layers |
-
----
-
-## 14. Debt / Reserves
-
-R-M3A-01 OPEN · R-M3B-01 OPEN · **R-G6-SR-01…04 OPEN under re-review** (not CLOSED) · M2 debts preserved · F18/F19 PARTIAL · TOOL-FIRST-REAL-NOWRITE OPEN · REAL NOT PROVEN · F11b policy kept · DEP-EC-ATT EC→Attempt kept · components 13 · flows 20 · deps 9.
-
----
-
-## 15. Fake / Real Qualification
-
-Applicable YES · new fakes NONE · DET ceilings unchanged · no REAL/P6/v3 progression · GO REAL NOT AUTHORIZED.
-
----
-
-## 16. Validations
-
-| ID | Result |
-|---|---|
-| V01 Git Truth | PASS |
-| V02 G6 7/7 preserved | PASS |
-| V03 Only 02/04/09 changed in CORR | PASS |
-| V04 Manifest bit-identical CORR | PASS |
-| V05 03/05/07 bit-identical CORR | PASS |
-| V06 Attempt statuses exact | PASS |
-| V07 SHE timing | PASS |
-| V08 DEP-HD-EC id/from/to | PASS |
-| V09 DEP-FAKE curated YES | PASS |
-| V10 DEP-EC-ATT EC→Attempt | PASS |
-| V11 Historical/G6 separated | PASS |
-| V12 F11b hors flows | PASS |
-| V13 M2 debts not closed | PASS |
-| V14 Fake/REAL ceilings | PASS |
-| V15 diff --check | PASS |
-| V16 Cumulative still 7 files | PASS |
-| V17 Incremental 02/04/09 only | PASS |
-| V18 No staged/commit | PASS |
-| V19 No digest write | PASS |
-| V20 Review Pack FULL | PASS (this file) |
-| V21 Handoff | PENDING → after publish |
-
----
-
-## 17. Digest Drift
-
-**STRUCTURAL VALIDATION PASS — DIGEST SYNC PENDING.**
-
-Six G6 volumes still digest-drift (02/03/04/05/07/09). Checker:
-
-```text
-OK: canonical README exists
-FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md: manifest=71177cd234b88a3b current=61d089bf93c1676a ⇒ REFERENCE REVIEW REQUIRED
-FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md: manifest=12331c256c76bd30 current=f0ec94936c4d8572 ⇒ REFERENCE REVIEW REQUIRED
-FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md: manifest=b7236bfd326f8f9a current=1cdddbd0e193662e ⇒ REFERENCE REVIEW REQUIRED
-FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md: manifest=2f13a6917c240eb7 current=9883dc02a7856cf9 ⇒ REFERENCE REVIEW REQUIRED
-FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md: manifest=88893854dfe22bd9 current=f19dd23a99dc896a ⇒ REFERENCE REVIEW REQUIRED
-FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md: manifest=252e18777ad9e04b current=8e0ff7d45b1b33fa ⇒ REFERENCE REVIEW REQUIRED
-RESULT: REFERENCE REVIEW REQUIRED / CONFORMANCE FAILED
-
-```
-
-Do **not** declare GLOBAL PRR CONFORMANCE PASS / CONFORMANCE OK.
-
----
-
-## 18. Diff incrémental CORR-01 (exact)
+## 13. Diff incrémental exact (CORR-02)
 
 ```diff
---- .tmp-sfia-review/g6-corr01/pre-02-runtime-object-catalog.md	2026-10-21 19:10:16
-+++ projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md	2026-10-21 19:10:31
-@@ -120,10 +120,12 @@
-
- ## OBJ-EC — ExecutionContract
-
--- **Purpose:** Prepared execution contract after required Pilot decision/authority.
-+- **Purpose:** Prepared (inspectable) execution contract draft/aggregate. **PREPARE ≠ AUTHORIZE ≠ EXECUTE** — a prepared EC is **not** automatically authorized for launch.
- - **Persistence:** `oa_execution_contracts`.
- - **Paths:** `lib/oa/execution-contract/**`
--- **Gate:** no EC before required Proposal HD (product path).
-+- **Gate (scoped — not universal):**
-+  - **Legacy / Proposal / disposition-before-PREPARE product path:** no EC prepare on that path before the required Proposal / mission-bound HumanDecision (HD-bound PREPARE).
-+  - **SHE CURRENT (D-P6-SHE-01 / PR #590):** STRUCTURAL / HD-required / UNKNOWN may obtain an **inspectable** PREPARE **without** prior HD when Product qualification admits (`sheDeferredStructuralAuthority` stamp possible). Authority is consumed on Pilot **Exécuter** (`singleHumanExecutePreparedContract`): Inspect binding → applicable HD (if required) → Confirm (if required) → Authorize → launch gates. **0 Attempt** if pre-launch gates fail. Historical disposition-before-PREPARE remains available at its own boundary.
- - **Tool-First pathless stamp (CURRENT ON MAIN — PR #588 merge `304e30e8`):** Generic PREPARE may set `inputs.boundedNonMutatingAnalysis` and related `NO_REPOSITORY_MUTATION_*` constraints/stops for Product-admitted pathless analysis. Stamp declares Product intent envelope — **≠** Cursor REAL technical no-write (see F10 R2 / `boundedNonMutatingRealLaunchGate.ts`). DETERMINISTIC at tested scope · REAL no-write enforcement OPEN (`TOOL-FIRST-REAL-NOWRITE`).
-
- ## OBJ-INSPECTION — InspectionAttestation
-@@ -144,11 +146,14 @@
-
- ## OBJ-ATTEMPT — ExecutionAttempt
-
--- **Purpose:** Bounded attempt against an AUTHORIZED ExecutionContract; Select→Start→Result lifecycle with closed terminal statuses (`accepted` / `running` / `result_pending` / `succeeded` / `failed` / `timeout` / `cancelled`). Distinct from ExecutionContract (PREPARE/inspect/authority) — Attempt is the execution unit.
-+- **Purpose:** Bounded attempt against an AUTHORIZED ExecutionContract; Select→Start→Result lifecycle unit. Distinct from ExecutionContract (PREPARE/inspect/authority).
-+- **Lifecycle statuses (`ExecutionAttemptStatus` — 7):** `accepted` · `running` · `result_pending` · `succeeded` · `failed` · `timeout` · `cancelled` (`lib/oa/execution-attempt/domain/types.ts`).
-+  - **Non-terminal / active (`ActiveExecutionAttemptStatus` — 3):** `accepted` · `running` · `result_pending` — hold the active-by-contract invariant.
-+  - **Terminal (`TerminalExecutionAttemptStatus` — 4):** `succeeded` · `failed` · `timeout` · `cancelled`.
- - **Persistence:** `oa_execution_attempts`, `oa_execution_attempt_active`, `oa_execution_attempt_result_budget`.
- - **Paths:** `lib/oa/execution-attempt/**` (domain types; `selectExecutionAgent` / `startExecution`); SQLite tables in `lib/oa/project/infrastructure/sqlite/db.ts`; Product R2 gate `features/project-assistant/w2/boundedNonMutatingRealLaunchGate.ts`.
- - **Manifest index (AKG-M3 G6):** curated `components[]` includes **OBJ-ATTEMPT**; dependency **DEP-EC-ATT** = `OBJ-EC` → `OBJ-ATTEMPT` (conformance endpoints ∈ components).
--- **Invariant:** Attempt terminal ≠ Product Result PROVEN (`INV-ATTEMPT-NE-PROVEN`); no execution before authority (`INV-NO-EXEC-BEFORE-AUTH`). PREPARE ≠ AUTHORIZE ≠ EXECUTE · Inspect ≠ Execute.
-+- **Invariant:** Attempt **terminal** ≠ Product Result PROVEN (`INV-ATTEMPT-NE-PROVEN`); no execution before authority (`INV-NO-EXEC-BEFORE-AUTH`). PREPARE ≠ AUTHORIZE ≠ EXECUTE · Inspect ≠ Execute.
- - **Proof ceiling:** DETERMINISTIC at tested scope (lifecycle + Tool-First R2 Fake/DET) · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED.
-
- ## OBJ-ARTIFACT — Artifact obligation / materialization
---- .tmp-sfia-review/g6-corr01/pre-04-dependency-impact-map.md	2026-10-21 19:10:16
-+++ projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md	2026-10-21 19:10:44
-@@ -92,22 +92,29 @@
-
- ## DEP edges (stable IDs)
-
--**Index note (AKG-M3 G6):** Curated `manifest.dependencies[]` holds **9** edges with both endpoints ∈ `manifest.components[]` (13 after OBJ-ATTEMPT). **DEP-EC-ATT** = `OBJ-EC` → `OBJ-ATTEMPT` (aligned with this table; prior self-edge was a conformance-preserving stub — see R-M3A-01). Rows below that are **not** in the curated nine (e.g. DEP-ATT-EV, DEP-NORA-GENPREP, DEP-GMHD-EC, DEP-MAT-GENPREP, and DEP-FAKE-INTENT’s `OBJ-INTENT` endpoint) remain **descriptive** narrative dependencies — **not** auto-promoted into the manifest.
-+**Index note (AKG-M3 G6 / CORR-01):** Curated `manifest.dependencies[]` holds exactly **9** edges; both endpoints ∈ `manifest.components[]` (13 after OBJ-ATTEMPT). **DEP-EC-ATT** = `OBJ-EC` → `OBJ-ATTEMPT` (prior self-edge was a conformance-preserving stub — R-M3A-01). Distinguish: (1) **curated indexed edge** (in the nine); (2) **historical narrative endpoint label** on a curated edge (e.g. old `OBJ-INTENT` wording for DEP-FAKE-INTENT — not a curated component); (3) **purely descriptive / non-indexed** edges (not in the nine — not auto-promoted).
-
-+### Curated nine (manifest.dependencies[])
-+
- | ID | From | To | Why | Manifest curated? |
- |---|---|---|---|---|
- | DEP-ACGC-ART | OBJ-ARTIFACT-CONTINUATION | OBJ-ARTIFACT-ROUTING | target composition under workspace | YES |
+--- .tmp-sfia-review/g6-corr02/pre-04-dependency-impact-map.md	2026-10-21 19:26:22
++++ projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md	2026-10-21 19:26:25
+@@ -102,7 +102,7 @@
  | DEP-ACGC-ASSESS | OBJ-ARTIFACT-CONTINUATION | OBJ-FINALIZATION-ASSESS | APPLICABLE/SATISFIED gate | YES |
  | DEP-ACGC-PROP | OBJ-ARTIFACT-CONTINUATION | OBJ-PROPOSAL | continuation emits Proposal/clarification | YES |
  | DEP-PROP-HD | OBJ-PROPOSAL | OBJ-HD | Pilot decision | YES |
--| DEP-HD-EC | OBJ-HD | OBJ-EC | prepare after authority | YES |
--| DEP-EC-ATT | OBJ-EC | OBJ-ATTEMPT | Select→Attempt; Tool-First R2 may refuse Select (no Attempt) or Start (Attempt stays accepted) when REAL+pathless non-mutating | YES |
--| DEP-ATT-EV | OBJ-ATTEMPT | OBJ-EVIDENCE | terminal → evidence | NO (narrative) |
-+| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE; under SHE CURRENT, applicable HD remains required before **Execute** (not before inspectable PREPARE) | YES |
-+| DEP-EC-ATT | OBJ-EC | OBJ-ATTEMPT | Select→Attempt; Tool-First R2 may refuse Select (no Attempt) or Start (Attempt stays `accepted`) when REAL+pathless non-mutating | YES |
+-| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE; under SHE CURRENT, applicable HD remains required before **Execute** (not before inspectable PREPARE) | YES |
++| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE. Under SHE CURRENT, an inspectable PREPARE does not require prior HD. Any applicable HD is recorded within the Pilot's Exécuter gesture, after inspection, followed by conditional Confirmation and Authorization before any new Attempt or Cursor launch. | YES |
+ | DEP-EC-ATT | OBJ-EC | OBJ-ATTEMPT | Select→Attempt; Tool-First R2 may refuse Select (no Attempt) or Start (Attempt stays `accepted`) when REAL+pathless non-mutating | YES |
  | DEP-MW5-TURN | OBJ-MW5-CHALLENGE | OBJ-TURN-ORCH | challenge gate on turn | YES |
--| DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-TURN-ORCH (curated) | deterministic structured analysis into turn orch; historical narrative sometimes named `OBJ-INTENT` (not a curated component) | YES |
-+| DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-TURN-ORCH | deterministic structured analysis into turn orch (**curated to=`OBJ-TURN-ORCH`**). Historical narrative sometimes labelled the consumer `OBJ-INTENT` — that label is **not** a curated component and does **not** mean this edge is absent from the manifest | YES |
- | DEP-SESSION-TURN | OBJ-MEMORY-B | OBJ-TURN-ORCH | transcript continuity | YES |
-+
-+### Descriptive / non-indexed (narrative only — not in manifest.dependencies[])
-+
-+| ID | From | To | Why | Manifest curated? |
-+|---|---|---|---|---|
-+| DEP-ATT-EV | OBJ-ATTEMPT | OBJ-EVIDENCE | terminal → evidence | NO (narrative) |
- | DEP-NORA-GENPREP | OBJ-TURN-ORCH | OBJ-EC | Nora solicits Generic PREPARE only (D-ER-16); never Attempt | NO (narrative) |
--| DEP-GMHD-EC | OBJ-GENERIC-MISSION-HD | OBJ-EC | verified mission-bound HD before structural PREPARE | NO (narrative) |
-+| DEP-GMHD-EC | OBJ-GENERIC-MISSION-HD | OBJ-EC | verified mission-bound HD before structural disposition-before-PREPARE | NO (narrative) |
- | DEP-MAT-GENPREP | OBJ-ARTIFACT-CONTINUATION / materiality | OBJ-EC | Materiality CURRENT gates empty vs HD-bound refs; Tool-First R1 pathless positive-claim gate | NO (narrative) |
-
- ## Sample impact analysis A — `activeCycleGovernedContinuation.ts`
---- .tmp-sfia-review/g6-corr01/pre-09-known-gaps-reserves-and-current-boundaries.md	2026-10-21 19:10:16
-+++ projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md	2026-10-21 19:11:13
-@@ -93,29 +93,46 @@
-
- ## Overlay — P6 Generic Execution consolidation candidate (LIVING REFERENCE R1–R4)
-
--**Epistemic requalification (AKG-M3 G6 — 2026-10-21):**
-+### A — HISTORICAL AT MACRO TIME (snapshot preserved)
-
--| Class | Fact |
--|---|---|
--| **HISTORICAL AT MACRO TIME** | AS_IMPLEMENTED_IN_CANDIDATE on integration worktree `integration/sfia-studio-p6-generic-execution-consolidation` @ base `896ff59c` · Product dirty from `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862` · then **PENDING_GIT_INTEGRATION** / **NOT INTEGRATED_ON_MAIN** |
--| **CURRENT ON MAIN** | Consolidation lineage absorbed via merges including **PR #587** (`e03c7b9f`) and successor Tool-First/SHE Delivery merges (**PR #588**, **PR #590**) — ancestors of main tip `c2b3d00c…`. Product behaviour for Generic PREPARE / optional Artifact / Tool-First / SHE is **CURRENT ON MAIN** at deterministic tested scopes documented in vols 03/07. |
--| **OPEN / PARTIAL / NOT PROVEN** | Cursor REAL / OpenAI LIVE / HQA · P6 GLOBAL PASS · READY FOR REAL · runtime v3 ADOPTED · `TOOL-FIRST-REAL-NOWRITE` |
--| **G6 LOCAL CANDIDATE** | This volume’s semantic sync (AKG-M3 G6 authoring) — digests **not** refreshed this cycle |
--| **FUTURE VALIDATION REQUIRED** | ChatGPT Critical Semantic Review → Morris Digest Sync GO → global conformance PASS → project Git integration gates |
-+**Do not read this subsection as CURRENT.** It records the consolidation-candidate documentary tip as authored then.
-
--| Item | Status |
-+- Integration worktree: `integration/sfia-studio-p6-generic-execution-consolidation` @ base `896ff59c`
-+- Product dirty transferred from source `fix/sfia-studio-p6-hqa-optional-artifact-generic-prepare` @ `b4c1d862`
-+- Then-status: **AS_IMPLEMENTED_IN_CANDIDATE** · **PENDING_GIT_INTEGRATION** · **NOT INTEGRATED_ON_MAIN**
-+
-+| Item (historical tip) | Status **at macro time** |
- |---|---|
- | G-IB (importBoundaries allowlist +4 W2 type-only RuntimeOaStack) | **CLOSED** (historical gate) |
--| G-DIGEST Living Reference digests | **FUTURE VALIDATION REQUIRED** for G6 candidate — digests intentionally **not** written this authoring cycle (EXPECTED DIGEST DRIFT until Digest Sync GO) |
--| Living Reference volumes (G6 allowlist 02/03/04/05/07/09 + manifest) | Semantic sync authored locally — ChatGPT Critical Semantic Review required before digest write |
--| Pending Generic PREPARE offer | Process-local — restart-unsafe (vol 06) — unchanged |
-+| G-DIGEST Living Reference digests | **PENDING CONTENT APPROVAL** — manifest **FROZEN**; digests **not** promoted that cycle |
-+| Living Reference volumes 02/03/04/06/07/08/09 | Semantic amendments R1–R4 applied locally — ChatGPT content review required before digest write (that tip) |
-+| 77 Product candidates + allowlist | Preserved dirty; **no** Product commit/push/PR that cycle (**historical** — not a claim about today’s worktree) |
-+| Pending Generic PREPARE offer | Process-local — restart-unsafe (vol 06) |
- | Generic Mission HumanDecision | Durable OA; restart ≠ CURRENT offer; applicability re-check required |
- | Cursor REAL / OpenAI LIVE / HQA | **NOT PROVEN / NOT RETESTED** |
- | P6 GLOBAL PASS / READY FOR REAL / runtime v3 ADOPTED | **NOT CLAIMED** |
--| DETERMINISTIC proof ceiling | Historical targeted DET suites — **not re-executed** this documentary cycle |
-+| DETERMINISTIC proof ceiling | Historical **328 targeted PASS** + G-IB 5/5 — **not re-executed** in later documentary cycles |
-
--**Do not** treat the historical PENDING_GIT_INTEGRATION snapshot as CURRENT after main absorption.
-+### B — CURRENT ON MAIN (Git requalification)
-
-+Consolidation / Tool-First / SHE lineages absorbed via **PR #587** merge `e03c7b9f`, **PR #588** merge `304e30e8`, **PR #590** merge `c9abdbc3` (ancestors of main tip `c2b3d00c…`). Product behaviour for Generic PREPARE / optional Artifact / Tool-First R1/R2 / SHE is **CURRENT ON MAIN** only at deterministic tested scopes documented in vols 03/05/07. **OPEN / NOT PROVEN:** Cursor REAL · OpenAI LIVE · HQA · P6 GLOBAL PASS · READY FOR REAL · runtime v3 ADOPTED · `TOOL-FIRST-REAL-NOWRITE`.
-+
-+### C — G6 / CORR-01 LOCAL CANDIDATE (this documentary track)
-+
-+| Item | Status **now** |
-+|---|---|
-+| G6 PRR semantic sync authoring | Local dirty candidate (seven PRR paths) — **not** project-integrated |
-+| G6-CORR-01 semantic corrections | Local candidate under Critical Re-Review — digests **not** written |
-+| G-DIGEST / sha256_16 refresh | **PENDING MORRIS GO Digest Sync** — EXPECTED DIGEST DRIFT until authorized |
-+| Global PRR conformance | **NOT ACQUIRED** while digests drift |
-+| Project Git integration (commit/push/PR/merge) | **NOT AUTHORIZED** |
-+
-+### D — Gaps / reserves (continuity)
-+
-+R-M3A-01 OPEN · R-M3B-01 OPEN · R-G6-SR-01…04 = correction candidates under re-review (**not CLOSED** until Critical Re-Review accepts) · M2 38×20 identities preserved · F18/F19 PARTIAL · REAL NOT PROVEN.
-+
-+**Do not** promote Layer A PENDING_GIT_INTEGRATION / G-DIGEST historical rows into CURRENT after main absorption.
-+
- ## GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 (historical macro — retained)
-
- - **Historical macro** on branch `delivery/sfia-studio-generic-execution-review-result-convergence-01` · Correction Pass **04 RESUMED AFTER MORRIS DECISION** · **CLOSED FOR CRITICAL REVIEW** (documentary tip retained; superseding Product consolidation is the P6 overlay above).
-@@ -301,14 +318,18 @@
- - Nora model/provider tuning deferred
- - `durableLocalWriteSeal` domain API transitional (tests/domain only — not Product front door)
-
--## AKG-M3 G6 — PRR Semantic Sync authoring (LOCAL CANDIDATE)
-+## AKG-M3 G6 — PRR Semantic Sync authoring (LOCAL CANDIDATE) + CORR-01
-
--**Authority:** Morris GO G6 PRR Semantic Sync Authoring (2026-10-21). Digests / project commit / PR **NOT** authorized this cycle.
-+**Authority:** Morris GO G6 PRR Semantic Sync Authoring (2026-10-21) · Morris GO G6-CORR-01 Bounded Semantic Correction Pass (2026-10-21). Digests / project commit / PR **NOT** authorized.
-
- | ID | Status | Note |
- |---|---|---|
--| **R-M3A-01** | **OPEN** — technical index candidate applied locally (OBJ-ATTEMPT + DEP-EC-ATT retarget); **not FORMALLY CLOSED** pending Critical Semantic Review + Digest Sync + conformance | Formal owner NOT ASSIGNED |
-+| **R-M3A-01** | **OPEN** — technical index candidate applied locally (OBJ-ATTEMPT + DEP-EC-ATT retarget); **not FORMALLY CLOSED** pending Critical Re-Review + Digest Sync + conformance | Formal owner NOT ASSIGNED |
- | **R-M3B-01** | **OPEN** — G6 scope completeness (vols 02/03/04/05/07/09 + manifest covered in authoring; README/01/06/08 READ-ONLY) | Formal owner NOT ASSIGNED |
-+| **R-G6-SR-01** | Correction candidate (Attempt active vs terminal statuses) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
-+| **R-G6-SR-02** | Correction candidate (SHE authority timing / DEP-HD-EC Why) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
-+| **R-G6-SR-03** | Correction candidate (curated vs narrative DEP description) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
-+| **R-G6-SR-04** | Correction candidate (historical P6 provenance layers) — **OPEN under re-review** | Formal owner NOT ASSIGNED |
- | R-M2A-04 | OPEN/GOVERNED | preserved |
- | R-M2B-03 | PASS WITH GOVERNED RESERVE | preserved |
- | B-M2B-01…05 | OPEN | B-M2B-03 routing ambiguity **not** behaviourally closed by documentary table |
-@@ -320,4 +341,4 @@
- | DEP-EC-ATT | LOCAL CANDIDATE fidelity fix (EC→Attempt) | awaiting semantic+digest gates |
- | M2 debt register 38×20 | identities/statuses conserved | `df77b8a2…` immuable |
-
--**Anti-claims:** G6 authoring ≠ Semantic Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project Git integrated ≠ AKG-M3 CLOSED ≠ P6/v3/REAL.
-+**Anti-claims:** CORR-01 authoring ≠ Critical Re-Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project Git integrated ≠ AKG-M3 CLOSED ≠ P6/v3/REAL.
+ | DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-TURN-ORCH | deterministic structured analysis into turn orch (**curated to=`OBJ-TURN-ORCH`**). Historical narrative sometimes labelled the consumer `OBJ-INTENT` — that label is **not** a curated component and does **not** mean this edge is absent from the manifest | YES |
 
 ```
 
 ---
 
-## 19. Diff CUMULÉ G6 + CORR-01 vs origin/main
+## 14. Validation colonnes ID/from/to/curated
 
-7 files · +172 / −56 (post-CORR cumulative).
+| Column | Value | Unchanged? |
+|---|---|---|
+| ID | DEP-HD-EC | YES |
+| From | OBJ-HD | YES |
+| To | OBJ-EC | YES |
+| Manifest curated? | YES | YES |
+| Why | clarified SHE timing | ONLY change |
+
+---
+
+## 15. Six fichiers bit-identical pendant CORR-02
+
+PASS: manifest · 02 · 03 · 05 · 07 · 09 — identical to pre-CORR-02 fingerprints. Only 04 changed.
+
+---
+
+## 16. Diff cumulé G6 + CORR-01 + CORR-02
+
+Seven files vs `origin/main` (stat still +172/−56 — single-line Why swap of similar length). Full unified diff:
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
@@ -742,7 +350,7 @@ index 46433f6b..3dcefc30 100644
  HumanDecision (durable DecisionBasis + local-write seal) → Generic EC `studio.cursor.generalist.execute` (authorized `EFFECT_CLASS:local-write` / filesystem.create|modify — **≠** Product write taxonomy) → Cursor Generalist → isolated Git worktree → CursorExecutionReport [CLAIM] + native Cursor Review End Of [CLAIM executor-only; missing ⇒ PARTIAL / no Studio synthesis] → Studio `NodeLocalGitStatusDiffPort` / `observeVerifiedChangeSet` [FACTS] (Git delta only; OBSERVED vs UNAVAILABLE — never invent empty FACTS; never full-repo scan in Git mode) → Generic Execution Review Material → Verification Evidence `ev:execution-review:*` + Mission Evidence → same ReviewBundle / ClaimEvaluation / ContractResult (mismatch ⇒ ≠ PASS) → Product Resolution (`executionReview`) → scheduled UI continue (no abandonment counter) + remount auto-resume → Nora Deep Review (shared Agents core; actual `execution_review_*` tool calls) → Result Surface (real fields + Pilot `w2ReadExecutionReviewItemAction` by itemId).
 
 diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-index bfa68d82..46c42205 100644
+index bfa68d82..9ac33e79 100644
 --- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 @@ -38,7 +38,7 @@ LifecycleSurface / lifecyclePresentation
@@ -788,7 +396,7 @@ index bfa68d82..46c42205 100644
 +| DEP-ACGC-ASSESS | OBJ-ARTIFACT-CONTINUATION | OBJ-FINALIZATION-ASSESS | APPLICABLE/SATISFIED gate | YES |
 +| DEP-ACGC-PROP | OBJ-ARTIFACT-CONTINUATION | OBJ-PROPOSAL | continuation emits Proposal/clarification | YES |
 +| DEP-PROP-HD | OBJ-PROPOSAL | OBJ-HD | Pilot decision | YES |
-+| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE; under SHE CURRENT, applicable HD remains required before **Execute** (not before inspectable PREPARE) | YES |
++| DEP-HD-EC | OBJ-HD | OBJ-EC | HD-bound / historical disposition-before-PREPARE and Proposal→prepare linkage — **not** a universal precondition of SHE inspectable PREPARE. Under SHE CURRENT, an inspectable PREPARE does not require prior HD. Any applicable HD is recorded within the Pilot's Exécuter gesture, after inspection, followed by conditional Confirmation and Authorization before any new Attempt or Cursor launch. | YES |
 +| DEP-EC-ATT | OBJ-EC | OBJ-ATTEMPT | Select→Attempt; Tool-First R2 may refuse Select (no Attempt) or Start (Attempt stays `accepted`) when REAL+pathless non-mutating | YES |
 +| DEP-MW5-TURN | OBJ-MW5-CHALLENGE | OBJ-TURN-ORCH | challenge gate on turn | YES |
 +| DEP-FAKE-INTENT | OBJ-FAKE-PROVIDER | OBJ-TURN-ORCH | deterministic structured analysis into turn orch (**curated to=`OBJ-TURN-ORCH`**). Historical narrative sometimes labelled the consumer `OBJ-INTENT` — that label is **not** a curated component and does **not** mean this edge is absent from the manifest | YES |
@@ -1021,42 +629,75 @@ index a25297d5..faf98021 100644
 
 ---
 
-## 20. Fichiers / stat / name-status
+## 17. Conformance structurelle
 
-CORR write: 02, 04, 09 only. Cumulative dirty still exactly the seven G6 paths. Manifest/03/05/07 unchanged during CORR-01.
+Manifest unchanged: components **13** · flows **20** · dependencies **9** · DEP-EC-ATT OBJ-EC→OBJ-ATTEMPT · DEP-HD-EC OBJ-HD→OBJ-EC · F11b absent from flows[].
+
+**STRUCTURAL VALIDATION PASS** (index unchanged this cycle).
 
 ---
 
-## 21. Gates Morris restants
+## 18. Digest drift
 
-1. ChatGPT Critical Semantic **Re-Review**
-2. Optional further Correction Pass
-3. **GO Digest Sync** (distinct) — only if re-review OK
-4. Conformance PASS
-5. Project Git Integration (distinct GOs)
-6. AKG-M3 Formal Exit
-7. AKG-M4 distinct
+**GLOBAL CONFORMANCE DEFERRED — EXPECTED DIGEST DRIFT** (six G6 volumes). Checker (no --write-digests):
+
+```text
+OK: canonical README exists
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md: manifest=71177cd234b88a3b current=61d089bf93c1676a ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md: manifest=12331c256c76bd30 current=f0ec94936c4d8572 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md: manifest=b7236bfd326f8f9a current=631fc37fa374c7c1 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md: manifest=2f13a6917c240eb7 current=9883dc02a7856cf9 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md: manifest=88893854dfe22bd9 current=f19dd23a99dc896a ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md: manifest=252e18777ad9e04b current=8e0ff7d45b1b33fa ⇒ REFERENCE REVIEW REQUIRED
+RESULT: REFERENCE REVIEW REQUIRED / CONFORMANCE FAILED
+
+```
+
+Do **not** declare CONFORMANCE OK / GLOBAL PASS.
+
+---
+
+## 19. Fake / Real Qualification
+
+Applicable YES · fakes NONE · documentary correction only · REAL NOT PROVEN · P6 NOT PASSED · v3 NON ADOPTED · TOOL-FIRST-REAL-NOWRITE OPEN · GO REAL NOT AUTHORIZED.
+
+---
+
+## 20. Réserves OPEN
+
+R-M3A-01 OPEN · R-M3B-01 OPEN · R-G6-SR-01…04 remain under final re-review (not CLOSED by this cell alone) · M2 debts preserved · F18/F19 PARTIAL · REAL NOT PROVEN.
+
+---
+
+## 21. Gates restants
+
+1. ChatGPT Critical Final Semantic Re-Review
+2. Morris **GO Digest Sync** (distinct — only if accepted)
+3. Conformance PASS
+4. Project Git Integration (distinct GOs)
+5. AKG-M3 Formal Exit
+6. AKG-M4 distinct
 
 ---
 
 ## 22. Verdict
 
-**G6-CORR-01 COMPLETE — READY FOR CHATGPT CRITICAL SEMANTIC RE-REVIEW.**
+**G6-CORR-02 COMPLETE — READY FOR CHATGPT CRITICAL FINAL SEMANTIC RE-REVIEW.**
 
 Conformance: **STRUCTURAL VALIDATION PASS — DIGEST SYNC PENDING.**
 
-Anti-claims: ≠ Re-Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project integrated ≠ AKG-M3 CLOSED ≠ P6/v3/REAL.
+Anti-claims: ≠ Semantic Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project integrated ≠ AKG-M3 CLOSED ≠ M4/P6/v3/REAL.
 
 ---
 
 ## 23. Instruction ChatGPT
 
-Lire Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` — verify cycle is **G6-CORR-01** (not prior G6 alone).
+Lire Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` — verify cycle **G6-CORR-02**.
 
-Contrôler: baseline · GO · seven-file provenance · cumulative diff · SR-01…04 · manifest/03/05/07 bit-identical during CORR · SHE vs historical · Attempt active/terminal · DEP-FAKE curated · P6 Layer A historical · reserves OPEN · digest not synced · FULL pack · remote · zero Product · zero project commit/push/PR.
+Comparer: CORR-01 source · SR-02 avant/après · SHE code · DEP-HD-EC ID/from/to · six files bit-identical · seven-file cumulative · digests unchanged · zero Product · zero project Git · reserves not closed by this cell · L3 remote verified.
 
-Produire **Critical Semantic Re-Review** distincte. Proposer GO DIGEST SYNC **seulement** si niveau sémantique atteint; sinon nouveau Correction Pass. Ne pas autoriser Digest Sync implicitement.
+Produire **CHATGPT CRITICAL FINAL SEMANTIC RE-REVIEW**. Si acceptable → proposer GO Morris Digest Sync distinct. Sinon STOP / correction ciblée. Ne pas consommer Digest Sync sans GO explicite.
 
 ---
 
-END — AKG-M3 G6-CORR-01 REVIEW PACK FULL
+END — AKG-M3 G6-CORR-02 REVIEW PACK FULL
