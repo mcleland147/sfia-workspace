@@ -4,127 +4,98 @@
 
 | Field | Value |
 | --- | --- |
-| Timestamp UTC | 2026-10-22T19:36:20Z |
-| Cycle | AKG-M4-A / T-A04 — Storage Topology, Persistence Boundaries & Migration Strategy Assessment |
+| Timestamp UTC | 2026-10-22T19:44:41Z |
+| Cycle | AKG-M4-A / T-A04 — Critical Review Correction Pass 01 |
 | Profile | CRITICAL |
-| Type | Cycle 6 — Architecture technique · DOC / Architecture / Rationalization Assessment |
+| Type | Cycle 6 — Architecture technique · DOC / Architecture / Correction Pass |
 | Branch | `analysis/akg-m4a-ta04-storage-migration` |
 | HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
 | origin/main | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
-| PR #604 | Draft · CI SUCCESS · non mergée |
 | Document | `projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/08-m4a-storage-persistence-and-migration-assessment.md` (untracked) |
-| Document hash-object | `8dd4d32daf647a06321f9daa338853f291539135` |
-| Antecedent T-A01 | `42de13a95c9ca4b103c9192147a4511f4f1df1dd` |
-| Antecedent T-A02 | `510210231ee3ee82647a2e53b21643e536a677e1` |
-| Antecedent T-A03 | `640f19c1ab9d0952ae877bc5328f6705f77a9474` |
+| Document hash-object (prior) | `8dd4d32daf647a06321f9daa338853f291539135` |
+| Document hash-object (this pass) | `351de11d1255fa4dd60adfda5e0c24a83895145e` |
+| Prior T-A04 handoff | commit `9f357d0c151c86ea24dace26ca3ac1377de1e44c` · blob `527e56d31f3ece9a56bc03d32236b665d78d5019` |
 | Project commit/push | NONE |
 | M4-A | NON CLOSED |
-| Migration | design-only · NO dual-write · NO DB open |
+| T-A04 status | LOCAL CANDIDATE (pending independent re-review) |
 
 ## 01. Scope
 
-AUTHORIZED: static storage/persistence/migration assessment; local `08` only; Full pack; L3 handoff.
-NOT AUTHORIZED: open/modify user DBs; run migrations; dual-write; runtime/code/tests/config changes; REAL; FinOps SHADOW ON; project commit/push/PR; close M4-A; declare P6 PASS / v3 ADOPTED; definitive KEEP/REBUILD/RETIRE arbitration.
+AUTHORIZED: correct CORR-01/02 in local `08` only; Full pack; L3 handoff.
+NOT AUTHORIZED: runtime/DB mutation; dual-write; REAL; FinOps SHADOW ON; other project files; project push/PR; M4-A CLOSED; definitive KEEP/REBUILD/RETIRE; Delivery GO.
 
 ## 02. Git Review Index
 
 ```
+ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/08-m4a-storage-persistence-and-migration-assessment.md
 ```
 
 | Control | Result |
 | --- | --- |
 | Branch/HEAD/main | MATCH expected |
-| T-A01/T-A02/T-A03 WTs | NOT modified |
-| Project files besides `08` | NONE |
-| `git diff --no-index --check` | exit `1` (new file; no trailing whitespace) |
+| Prior doc hash | `8dd4d32d…` confirmed before edit |
+| New doc hash | `351de11d1255fa4dd60adfda5e0c24a83895145e` |
+| `git diff --no-index --check` | exit `1` (untracked; no trailing whitespace) |
 | Trailing whitespace | NONE |
-| Document hash-object | `8dd4d32daf647a06321f9daa338853f291539135` |
+| Project files besides `08` | NONE (pack is `.tmp` only) |
+| T-A01/T-A02/T-A03 WTs | untouched |
 
 ### Diff identity
 
 ```
-...torage-persistence-and-migration-assessment.md} | 352 +++++++++++++++++++++
- 1 file changed, 352 insertions(+)
+...torage-persistence-and-migration-assessment.md} | 418 +++++++++++++++++++++
+ 1 file changed, 418 insertions(+)
 ```
 
-## 03. Sources
+## 03. CORR results
 
-SFIA v2.6 template/routing/OM/rules/knowledge; Build Doctrine R23/R24; Roadmap B-AKG; G0 pack; AKG README + M4 01–04; PRR 01–09; doctrine v3 30/32/34/35/37; handoffs T-A01/02/03.
-Code: Product `lib/oa/project/infrastructure/sqlite/*`; Nora `sessionPaths`/`productSqliteSession`/`controlledContinuation`; D1 `lib/d1/*`; OPS1 `lib/ops1/*`; process-local stores; Gate D journal; mission-result/Evidence ingest; FinOps shadow composition (OFF).
-
-## 04. ST-01 → ST-06 results
-
-| ID | Verdict | Durability class |
+| ID | Preuve | Verdict |
 | --- | --- | --- |
-| ST-01 Product Truth C | CONFIRMED schema M9 incl. oa_syntheses; UoW IMMEDIATE; path env/cwd-sensitive | COND-DURABLE |
-| ST-02 Nora Memory B | CONFIRMED sibling sqlite; ≠ Truth C; RunState cross-restart DEFER | COND-DURABLE session; PROCESS-LOCAL RunState |
-| ST-03 D1 | CONFIRMED 5 tables; proj-* ≠ OA; no user volumes; no dual-write | COND-DURABLE island |
-| ST-04 OPS1 | CONFIRMED parallel execution island + worktrees FS non-atomic with DB | COND-DURABLE island |
-| ST-05 process-local | Proposal/offer/MW5/receipts/runtime Maps — lost on restart; carriers ≠ authority | PROCESS-LOCAL |
-| ST-06 other | Gate D launch-safety; mission-result FS+SQLite non-atomic; execution-run memory; FinOps PG SHADOW OFF | mixed |
+| CORR-01 | §3 + ST01-SYN + §5: `oa_syntheses` Product-derived NON-AUTHORITATIVE / NOT Truth C (`db.ts` L322; `sqliteSynthesisRepository.ts` L31–33); same G0-B file; no second SQLite | **PASS** |
+| CORR-02 | §3 typed graph + link table: D1/OPS1 historical routes isolated; Studio→Product; VSR `TYPE_ONLY`; `OPS1_CURSOR_REAL` `CONFIG_FLAG`; no invented Studio→Legacy SQLite edge | **PASS** |
 
-## 05. MIG-A → MIG-D
+## 04. Sources (correction)
 
-| Scenario | Design summary | Hard constraints |
-| --- | --- | --- |
-| MIG-A D1→Product | inventory → archive → id map → convert → cutover → retire | no dual-write; volumes UNKNOWN |
-| MIG-B OPS1→Product caps | harvest concepts; archive rows; do not map gate→HD | OPS1≠Product authority |
-| MIG-C offers/proposals | requalify / re-present / HD11; optional durable carrier under GO | never invent HD/Authorization |
-| MIG-D Evidence multi-store | orphan/reconcile candidates; keep NOT_PROVEN honest | no cross-store atomicity today |
+Template SFIA; routing §4.3.0a; OM/rules; Build Doctrine R23/R24; G0; OR-13; PRR 01/04/06/07; handoffs T-A01/02/03.
+Code: `db.ts` L322–339; `sqliteSynthesisRepository.ts` L31–33; `service.ts` L14/110/174–188; `deterministicExternalLaunchBoundary.ts` L48–57; D1 routes `workspace`/`projects`/`nouvelle-demande`; `ops1/nouvelle-demande/page.tsx`; `studio/page.tsx`; `D1AppShell.tsx` L52.
 
-## 06. Major risks
+## 05. Corrected diagram summary
 
-R1 dual identity · R2 OPS1 gate as HD · R3 path drift · R4 FS↔SQLite orphans · R5 process-local as authority · R6 retention missing · R7 FinOps SHADOW · R8 migrate without inventory · R9 fake external rollback.
+- Physical file vs Truth C authority vs derived Synthesis separated inside Product file subgraph.
+- Legacy edges only via historical D1/OPS1 routes → services → SQLite.
+- Transverse: TYPE_ONLY audit type; conditional RUNTIME if sqlite audit injected; CONFIG_FLAG OPS1_CURSOR_REAL ≠ adapter call.
 
-## 07. Existing vs proposed guarantees
+## 06. Preserved confirmed findings
 
-| Existing (CODE) | Proposed (design only) |
-| --- | --- |
-| Product UoW intra-file | archive D1/OPS1 read-only |
-| Path guards refuse d1/ops1 | explicit id mapping tables if migrate |
-| HD11 without offer | optional PresentedSubject non-authority |
-| Evidence fail-closed / NOT_PROVEN | reconcile FS orphans |
-| Gate D local atomic | keep technical journals separate from Truth C |
+Product UoW IMMEDIATE · COND-DURABLE paths · HD11 · process-local Proposal/Offer · FS+SQLite non-atomic · FinOps SHADOW OFF · RunState DEFER · volumes UNKNOWN · no dual-write · MIG-A–D design-only.
 
-## 08. Validations
+## 07. R23/R24 / Fake-Real
 
-Topology covered · authority vs Memory B vs carrier vs technical · no dual-write · no unjustified DB merge · restart qualified · historical data without assuming volumes · coherent with T-A01/02/03 · Mermaid AS-IS + proposed target · only `08` · whitespace clean · no runtime effects.
+R24 NO PRODUCT SEMANTIC IMPACT. Static only. REAL NOT PROVEN.
 
-## 09. R23/R24 / Fake-Real
-
-R24 NO PRODUCT SEMANTIC IMPACT. Static only. REAL NOT PROVEN. SHADOW NOT ACTIVATED. Migration design-only.
-
-## 10. Handoff L3
+## 08. Handoff L3
 
 Branch `sfia/review-handoff` · `sfia-review-handoff/latest-chatgpt-review.md`
-Prior tip preserved: `640f19c1ab9d0952ae877bc5328f6705f77a9474`
-Message: `docs(review-handoff): AKG-M4-A T-A04 storage persistence migration assessment`
+Preserves prior tip `9f357d0c151c86ea24dace26ca3ac1377de1e44c` / `527e56d31f3ece9a56bc03d32236b665d78d5019` in history.
+Message: `docs(review-handoff): AKG-M4-A T-A04 correction pass 01`
 
-## 11. Human decisions still required
+## 09. Instruction ChatGPT (§9.1)
 
-- Accept/correct T-A04 LOCAL CANDIDATE after Critical Review.
-- Any KEEP/HARVEST/REPLACE/REBUILD/RETIRE remains **candidate** until MethodMode/Morris GO.
-- Inventory of real D1/OPS1 volumes before any Delivery migration.
-- Carrier durability GO (MIG-C4) yes/no.
-- T-A05 impact pack sequencing.
+Read Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+Optional prior: `9f357d0c151c86ea24dace26ca3ac1377de1e44c`.
 
-## 12. Instruction ChatGPT (§9.1)
+Perform: **CHATGPT CRITICAL RE-REVIEW — AKG-M4-A / T-A04 CORRECTION PASS 01**.
 
-Read Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (this pack).
-Optional priors: T-A03 `640f19c1…` · T-A02 `51021023…` · T-A01 `42de13a9…`.
+Verify CORR-01/02 independently; Synthesis ≠ Truth C; typed Product/Legacy links; no dual-write; M4-A NON CLOSED; T-A04 LOCAL CANDIDATE.
 
-Perform: **CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A04**.
+## 10. Verdict target
 
-Verify ST-01–ST-06 vs code; COND-DURABLE qualification; no dual-write; MIG-A–D design-only; no invented volumes/rollback; Mermaid AS-IS vs proposed; only `08`; M4-A NON CLOSED; DET≠REAL.
-
-## 13. Verdict target
-
-READY FOR CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A04 LOCAL CANDIDATE
+READY FOR CHATGPT CRITICAL RE-REVIEW — AKG-M4-A / T-A04 CORRECTION PASS 01
 
 ---
 
-## 14. Full document `08` (verbatim)
+## 11. Full document `08` (verbatim)
 
 
 # AKG-M4-A / T-A04 — Storage, Persistence & Migration Assessment
@@ -133,15 +104,16 @@ READY FOR CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A04 LOCAL CANDIDATE
 | --- | --- |
 | Cycle | **AKG-M4-A / T-A04** — Storage Topology, Persistence Boundaries & Migration Strategy |
 | Type / Profil | Cycle 6 — Architecture technique · **Critical** |
-| Typologie | DOC / Architecture / Rationalization Assessment |
+| Typologie | DOC / Architecture / Rationalization Assessment (+ Correction Pass 01) |
 | Baseline | `analysis/akg-m4a-ta04-storage-migration` @ `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
 | `origin/main` | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
 | PR #604 | Draft · CI SUCCESS · non mergée |
 | Antecedents | T-A01 `42de13a9…` · T-A02 `51021023…` · T-A03 `640f19c1…` (handoffs immuables) |
+| Correction Pass 01 | CORR-01 Synthesis ≠ Truth C · CORR-02 graphe Product/Legacy typé |
 | Méthode | Audit **statique** code + schémas · **pas** d'ouverture DB utilisateur · **pas** de migration exécutée |
 | Principe | **OR-13** · **G0-A/B** · **aucun dual-write D1/OA** |
 | Statut | **LOCAL CANDIDATE** · M4-A **NON CLOSED** · options **candidates** |
-| Non-claims | DETERMINISTIC ≠ REAL · P6 GLOBAL **NOT PASSED** · v3 **NON ADOPTED** · volumes utilisateur D1/OPS1 **UNKNOWN** · migration **design-only** |
+| Non-claims | DETERMINISTIC ≠ REAL · P6 GLOBAL **NOT PASSED** · v3 **NON ADOPTED** · volumes utilisateur D1/OPS1 **UNKNOWN** · migration **design-only** · même fichier SQLite ≠ même autorité |
 
 > **AS-IS :** code + schémas + tests > PRR. « Durable » = **conditionnel** au chemin/backend stables. Une dépendance active ≠ conservation permanente (OR-13).
 
@@ -168,21 +140,37 @@ Worktree isolé ; WTs T-A01/T-A02/T-A03 **non modifiés**. Documents `05`/`06`/`
 
 ---
 
-## 3. Topologie AS-IS (observée)
+## 3. Topologie AS-IS (observée) — CORR-01 / CORR-02
+
+**Trois notions distinctes (CORR-01) :**
+1. **Fichier physique** `oa-product.sqlite` (G0-B Product Store).
+2. **Autorité métier Truth C** — agrégats autoritatifs dans ce fichier (Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/CE…).
+3. **Projection dérivée** `oa_syntheses` — **même fichier**, **NON-AUTHORITATIVE / NOT Truth C** (`db.ts` L322 ; `sqliteSynthesisRepository.ts` L31–33). **Pas** de second SQLite requis.
+
+**Liens typés (CORR-02) :** `TYPE_ONLY` · `RUNTIME_CALL` · `CONFIG_FLAG` · `DB_READ` · `DB_WRITE` · `UNKNOWN`. Un import de type ≠ `DB_READ`. Un flag ≠ appel adaptateur.
 
 ```mermaid
 flowchart TB
-  subgraph TruthC["Truth C — Product SQLite"]
-    P[(oa-product.sqlite)]
-    P --- OA[Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/CE/Synthesis]
+  subgraph ProductFile["Fichier physique oa-product.sqlite"]
+    subgraph TruthC["Autorité métier Truth C"]
+      OA[Project/LPS/Cycle/HD/EC/Attempt/Evidence/RB/CE]
+    end
+    subgraph Derived["Projection dérivée NON-AUTHORITATIVE"]
+      SYN[oa_syntheses M9]
+    end
   end
-  subgraph MemB["Memory B — Nora Session SQLite"]
-    N[(nora-session.sqlite)]
-    N --- SESS[session_items / LPT / transcript / cycle_journal]
+  subgraph MemB["Memory B — nora-session.sqlite"]
+    SESS[session_items / LPT / transcript / cycle_journal]
   end
-  subgraph Legacy["Legacy islands — séparés"]
-    D1[(d1.sqlite)]
-    OPS1[(ops1.sqlite)]
+  subgraph D1Island["Îlot D1"]
+    D1UI["Routes historiques<br/>/workspace /projects /nouvelle-demande"]
+    D1Svc[lib/d1 commands]
+    D1DB[(d1.sqlite)]
+  end
+  subgraph OPS1Island["Îlot OPS1"]
+    OPS1UI["Route historique<br/>/ops1/nouvelle-demande"]
+    OPS1Svc[lib/ops1 + features/ops1]
+    OPS1DB[(ops1.sqlite)]
   end
   subgraph Tech["Technical journals / FS"]
     LS[(launch-safety.sqlite)]
@@ -194,16 +182,46 @@ flowchart TB
   subgraph Off["Off / not Product"]
     PG[(FinOps PostgreSQL — SHADOW NOT ACTIVATED)]
   end
-  UI[Studio UI / PA] --> TruthC
-  UI --> MemB
-  UI -.-> Legacy
-  Attempt[OA Attempt launch] --> LS
-  Attempt --> FS
-  Evidence[Evidence ingest] --> P
-  Evidence --> FS
+
+  Studio["Studio Product<br/>/studio + PA"] -->|RUNTIME_CALL| OA
+  Studio -->|RUNTIME_CALL| SYN
+  Studio -->|RUNTIME_CALL| MemB
+  Nora[Nora cognitive] -->|RUNTIME_CALL DB_READ/WRITE| MemB
+
+  D1UI -->|RUNTIME_CALL| D1Svc
+  D1Svc -->|DB_READ DB_WRITE| D1DB
+
+  OPS1UI -->|RUNTIME_CALL| OPS1Svc
+  OPS1Svc -->|DB_READ DB_WRITE| OPS1DB
+
+  VSR[vertical-slice-runtime] -.->|TYPE_ONLY BoundedAtomicAuditStore| D1Svc
+  VSR -.->|RUNTIME_CALL if auditMode=sqlite + store injecté| D1DB
+  Safety[Product REAL/DET safety] -.->|CONFIG_FLAG OPS1_CURSOR_REAL| FlagNote[≠ appel cursorExecutionAdapter OPS1]
+
+  D1Nav[D1AppShell nav href] -.->|UX navigation only| OPS1UI
+
+  Attempt[OA Attempt launch] -->|RUNTIME_CALL| LS
+  Attempt -->|RUNTIME_CALL| FS
+  Evidence[Evidence ingest] -->|DB_WRITE| OA
+  Evidence -->|DB_WRITE FS| FS
 ```
 
-*Légende : flèches = flux d'écriture/lecture observés. Pas de dual-write D1↔OA. Paths défaut sous `.sfia-exec/` (cwd/env-sensitive).*
+### Table des liens vérifiés (CORR-02)
+
+| Lien | Nature | Preuve | ≠ |
+| --- | --- | --- | --- |
+| `/studio` → Product UI → PA/OA → Truth C | `RUNTIME_CALL` (+ `DB_READ`/`DB_WRITE` via OA) | `app/studio/page.tsx` → `pre-m6-product-ui` ; PA/OA services | Accès D1/OPS1 SQLite |
+| Nora / PA → `nora-session.sqlite` | `RUNTIME_CALL` / `DB_READ` / `DB_WRITE` | `sessionPaths.ts` ; ProductSqliteSession | Truth C |
+| `/workspace`, `/projects/[id]`, `/nouvelle-demande` → `lib/d1` → `d1.sqlite` | `RUNTIME_CALL` / `DB_READ` / `DB_WRITE` | routes L1–3 ; T-A01 A03 | Product Truth C |
+| `/ops1/nouvelle-demande` → OPS1 features → `ops1.sqlite` | `RUNTIME_CALL` / `DB_READ` / `DB_WRITE` | `ops1/nouvelle-demande/page.tsx` ; T-A01 A04 | Product gateway |
+| VSR → `BoundedAtomicAuditStore` type | `TYPE_ONLY` | `service.ts` L14, L110 | `DB_READ` D1 |
+| VSR auditMode=`sqlite` + store injecté | `RUNTIME_CALL` / `DB_WRITE` **conditionnel** | `service.ts` L174–188 | Toujours actif |
+| Product safety → `OPS1_CURSOR_REAL` | `CONFIG_FLAG` | `deterministicExternalLaunchBoundary.ts` L48–57 ; T-A01 | Appel `cursorExecutionAdapter` |
+| D1AppShell → `/ops1/nouvelle-demande` | UX navigation | `D1AppShell.tsx` L52 | Partage DB |
+| Studio/PA → D1/OPS1 SQLite | **absent** (périmètre audité) | T-A01 A03/A04 | — |
+| Dual-write D1↔OA | **absent / forbidden** | G0 ; Product path guards | — |
+
+*Pas de flèche « Studio UI → Legacy » générique. Paths défaut sous `.sfia-exec/` (cwd/env-sensitive). G0-B inchangé : un fichier Product, plusieurs classes d'autorité.*
 
 ---
 
@@ -211,19 +229,21 @@ flowchart TB
 
 **Légende durabilité :** `COND-DURABLE` = fichier SQLite/FS **si** chemin/env stables · `PROCESS-LOCAL` = perdu au restart process · `VOLATILE-DEFAULT` = défaut recomputé · `EXT-DURABLE-IF-WIRED` = PG si composé.
 
-### 4.1 ST-01 — Product SQLite / Truth C
+### 4.1 ST-01 — Product SQLite (fichier G0-B) : Truth C + projections
+
+*Le fichier `oa-product.sqlite` héberge Truth C **et** des projections non autoritatives. Même backend ≠ même autorité (CORR-01). Pas de second fichier SQLite pour Synthesis.*
 
 | Storage ID | Agrégat | Owner | Backend | Localisation | Writers | Readers | Autorité | Durabilité | Txn / idempotence | Restart | Risque | Valeur | Option | Preuve | Statut |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| ST01-PATH | Product DB file | OA project infra | node:sqlite | `SFIA_STUDIO_PRODUCT_DB_PATH` ou `{studioRoot}/.sfia-exec/product/oa-product.sqlite` ; refuse d1/ops1 basenames | `SqliteProductStore` | all Product services | Truth C container | COND-DURABLE | UoW `BEGIN IMMEDIATE` | reload if same path | cwd drift orphans | REQUIRED | KEEP | `paths.ts` L9+ ; `sqliteProductStore.ts` L53, L72 | C |
-| ST01-SCHEMA | schema_meta M1→M9 | OA | same | same | `openProductSqlite` migrations | open | technical | COND-DURABLE | migrate on open | version gate | unsupported schema fail | REQUIRED | KEEP | `db.ts` L3–11, L324+, L409+ | C |
-| ST01-PROJECT | oa_projects / LPS | OA project | same | same | project/LPS repos | PA / LPS readers | Truth C | COND-DURABLE | project idempotency table | durable | — | REQUIRED | KEEP | `db.ts` L21–46 | C |
-| ST01-CYCLE | oa_cycle_instances + trajectories/epistemic | OA cycle | same | same | cycle services | PA | Truth C | COND-DURABLE | cycle journals | durable | epistemic drafts non-materialized = process | REQUIRED | KEEP | `db.ts` L71–82, L204–254 | C |
-| ST01-HD | oa_human_decisions (+ DecisionRef in payload/epistemic) | OA decision | same | same | DecisionServices / recordF2Decision / SHE | verify PREPARE / resume HD11 | Truth C authority | COND-DURABLE | confirmation + decision journals | durable | DecisionRef ≠ table dédiée | REQUIRED | KEEP | `db.ts` L91–104 ; T-A03 | C |
-| ST01-EC | oa_execution_contracts + inspection + confirmations + auth receipts | OA EC | same | same | prepare / SHE / authorize | inspect / execute | Truth C | COND-DURABLE | unique idempotency keys | durable | OCC/version mismatch | REQUIRED | KEEP | `db.ts` L111–123, L228–290 | C |
-| ST01-ATT | oa_execution_attempts (+ active, result_budget) | OA Attempt | same | same | Select/Start/Record | governed execute | Truth C technical attempt | COND-DURABLE | adapter-bound record ; result_pending | durable | Attempt≠PROVEN | REQUIRED | KEEP | `db.ts` L132–155 ; T-A03 CORR-02 | C |
-| ST01-EVID | oa_evidence / review_bundles / claim_evaluations (+ idempotency sidecars) | OA evidence-review | same + FS payloads | same | ingest / materializeW3b | W3C / resolution | Truth C proof | COND-DURABLE meta ; payload external COND | sidecar idempotency ; **FS+DB not cross-atomic** | meta durable ; file may orphan | orphan refs | REQUIRED | KEEP / CONSOLIDATE FS later | `db.ts` L157–319 ; ingestMissionResultEvidence | C |
-| ST01-SYN | oa_syntheses M9 | OA synthesis | same | same | synthesis services | product-derived views | Product-derived ≠ HD | COND-DURABLE | — | durable | PRR 06 omits table | OPTIONAL | KEEP | `db.ts` L324–339 | C |
+| ST01-PATH | Product DB file | OA project infra | node:sqlite | `SFIA_STUDIO_PRODUCT_DB_PATH` ou `{studioRoot}/.sfia-exec/product/oa-product.sqlite` ; refuse d1/ops1 basenames | `SqliteProductStore` | Product services | **Physical container** (Truth C + derived) | COND-DURABLE | UoW `BEGIN IMMEDIATE` | reload if same path | cwd drift orphans | REQUIRED | KEEP | `paths.ts` L9+ ; `sqliteProductStore.ts` L53, L72 | C |
+| ST01-SCHEMA | schema_meta M1→M9 | OA | same | same | `openProductSqlite` migrations | open | technical | COND-DURABLE | migrate on open | version gate | unsupported schema fail | REQUIRED | KEEP | `db.ts` L3–11, L322+, L409+ | C |
+| ST01-PROJECT | oa_projects / LPS | OA project | same | same | project/LPS repos | PA / LPS readers | **Truth C** | COND-DURABLE | project idempotency table | durable | — | REQUIRED | KEEP | `db.ts` L21–46 | C |
+| ST01-CYCLE | oa_cycle_instances + trajectories/epistemic | OA cycle | same | same | cycle services | PA | **Truth C** | COND-DURABLE | cycle journals | durable | epistemic drafts non-materialized = process | REQUIRED | KEEP | `db.ts` L71–82, L204–254 | C |
+| ST01-HD | oa_human_decisions (+ DecisionRef in payload/epistemic) | OA decision | same | same | DecisionServices / recordF2Decision / SHE | verify PREPARE / resume HD11 | **Truth C** authority | COND-DURABLE | confirmation + decision journals | durable | DecisionRef ≠ table dédiée | REQUIRED | KEEP | `db.ts` L91–104 ; T-A03 | C |
+| ST01-EC | oa_execution_contracts + inspection + confirmations + auth receipts | OA EC | same | same | prepare / SHE / authorize | inspect / execute | **Truth C** | COND-DURABLE | unique idempotency keys | durable | OCC/version mismatch | REQUIRED | KEEP | `db.ts` L111–123, L228–290 | C |
+| ST01-ATT | oa_execution_attempts (+ active, result_budget) | OA Attempt | same | same | Select/Start/Record | governed execute | **Truth C** technical attempt | COND-DURABLE | adapter-bound record ; result_pending | durable | Attempt≠PROVEN | REQUIRED | KEEP | `db.ts` L132–155 ; T-A03 CORR-02 | C |
+| ST01-EVID | oa_evidence / review_bundles / claim_evaluations (+ idempotency sidecars) | OA evidence-review | same + FS payloads | same | ingest / materializeW3b | W3C / resolution | **Truth C** proof | COND-DURABLE meta ; payload external COND | sidecar idempotency ; **FS+DB not cross-atomic** | meta durable ; file may orphan | orphan refs | REQUIRED | KEEP / CONSOLIDATE FS later | `db.ts` L157–319 ; ingestMissionResultEvidence | C |
+| ST01-SYN | oa_syntheses M9 | OA synthesis | **same file** | same | synthesis services / SqliteSynthesisRepository | product-derived views | **Product-derived · NON-AUTHORITATIVE · NOT Truth C** | COND-DURABLE | via Product store | durable projection | confondre avec Truth C / HD | OPTIONAL | KEEP as derived ; **not** elevate to Truth C | `db.ts` L322–339 ; `sqliteSynthesisRepository.ts` L31–33 | C |
 
 ### 4.2 ST-02 — Nora Session / Memory B
 
@@ -274,14 +294,17 @@ flowchart TB
 
 | Frontière | Contient | N'est pas |
 | --- | --- | --- |
-| Truth C | Project, LPS, Cycle, HD, EC, Attempt, Evidence, RB, CE, Synthesis | Session chat ; Proposal Map ; OPS1 gate |
+| Fichier Product (`oa-product.sqlite`) | Truth C aggregates **+** projections dérivées (ex. `oa_syntheses`) | Second SQLite pour Synthesis |
+| Truth C (autorité métier) | Project, LPS, Cycle, HD, EC, Attempt, Evidence, RB, CE | Session chat ; Proposal Map ; OPS1 gate ; **`oa_syntheses`** |
+| Projection dérivée Product | `oa_syntheses` M9 (NON-AUTHORITATIVE) | HumanDecision / Authorization / Truth C |
 | Memory B | Session items, transcript, cycle journal | Autorité métier ; RunState durable |
-| D1 island | proj-* projects, MethodMode column, I1 audit | OA Project ; dual-write target |
-| OPS1 island | session/gate/allowlist/contract/attempt/report | Product HD/EC/Attempt |
+| D1 island | proj-* projects, MethodMode column, I1 audit ; routes historiques D1 | OA Project ; dual-write target ; accès depuis Studio Product |
+| OPS1 island | session/gate/allowlist/contract/attempt/report ; route `/ops1` | Product HD/EC/Attempt ; Product adapter call |
 | Technical journals | Gate D launch-safety ; mission-result files | HumanDecision |
 | Process-local | Proposal, offer, MW5, receipts, execution-run | Truth C |
+| Couplages transverses | `TYPE_ONLY` VSR↔D1 audit type ; `CONFIG_FLAG` `OPS1_CURSOR_REAL` | `DB_READ`/`RUNTIME_CALL` OPS1 adapter depuis Product |
 
-**Aucun dual-write D1/OA** (G0 ; path guards Product refusent d1/ops1).
+**Aucun dual-write D1/OA** (G0 ; path guards Product refusent d1/ops1). **Aucun** `DB_READ`/`DB_WRITE` Studio Product → D1/OPS1 SQLite retrouvé (T-A01).
 
 ---
 
@@ -305,6 +328,7 @@ flowchart TB
 | Classe | Exemples | Après restart |
 | --- | --- | --- |
 | COND-DURABLE Truth C | HD, EC, Attempt, Evidence meta | rechargeable si même path |
+| COND-DURABLE derived (same file) | `oa_syntheses` | rechargeable ; **≠** Truth C authority |
 | COND-DURABLE Memory B | session/journal | rechargeable si même path |
 | COND-DURABLE islands | D1, OPS1, launch-safety | rechargeable si même path |
 | PROCESS-LOCAL | Proposal, offer, MW5, RunState, execution-run | **lost** |
@@ -318,7 +342,8 @@ flowchart TB
 
 | Source | Utile à préserver (candidate) | Lecture historique seule | Obsolescence candidate | Volume réel |
 | --- | --- | --- | --- | --- |
-| Truth C | all current Product aggregates | N/A | N/A | env-dependent UNKNOWN |
+| Truth C | autoritative Product aggregates | N/A | N/A | env-dependent UNKNOWN |
+| Product-derived | `oa_syntheses` projections | rebuildable from sources | never elevate to Truth C | UNKNOWN |
 | Memory B | transcript/journal for continuity | optional archive | GC policy missing | UNKNOWN |
 | D1 | audit/idempotency patterns ; MethodMode semantics | project rows if any exist | UI D1 path | **UNKNOWN** (schema only audited) |
 | OPS1 | gate/allowlist/report **concepts** ; past reports | full OPS1 DB as archive | runtime OPS1 after Product harvest | UNKNOWN |
@@ -388,20 +413,22 @@ Ne **pas** présumer de données utilisateur présentes dans l'environnement d'a
 ```mermaid
 flowchart LR
   subgraph ASIS["AS-IS observé"]
-    A1[Product Truth C]
+    A1[Product file: Truth C + derived SYN]
     A2[Nora Memory B]
-    A3[D1]
-    A4[OPS1]
+    A3[D1 island routes]
+    A4[OPS1 island routes]
     A5[process-local]
   end
   subgraph TARGET["Scénario proposé — NON IMPLÉMENTÉ"]
     T1[Truth C unique métier]
+    T1b[Derived projections same file OK]
     T2[Memory B distincte]
     T3[Technical journals]
     T4[Archive historique D1/OPS1 lecture]
     T5[Carriers éphémères non-autorité]
   end
   A1 --> T1
+  A1 --> T1b
   A2 --> T2
   A3 -.->|archive / harvest MethodMode| T4
   A4 -.->|harvest concepts / archive rows| T4
@@ -409,7 +436,7 @@ flowchart LR
   T4 -.->|retire later consumers| X[RETIRE LATER]
 ```
 
-*Diagramme cible = **scénario proposé**, pas preuve d'implémentation.*
+*Diagramme cible = **scénario proposé**, pas preuve d'implémentation. Derived Synthesis reste hors Truth C.*
 
 ---
 
@@ -431,11 +458,12 @@ flowchart LR
 
 ## 12. Recommandations pour T-A05
 
-1. Impact pack : coût dual-path SHE + historical ; OPS1 harvest vs retire.
-2. Storage impact : D1/OPS1 archive strategy ; carrier continuity GO yes/no.
+1. Impact pack : coût dual-path SHE + historical ; OPS1 harvest vs retire ; routes D1/OPS1 vs Studio Product séparées (CORR-02).
+2. Storage impact : D1/OPS1 archive strategy ; carrier continuity GO yes/no ; **ne pas** élever Synthesis en Truth C (CORR-01).
 3. Evidence multi-store coherence as delivery risk item.
 4. MethodMode disposition (T-A02) tied to MIG-A.
-5. **No** Delivery GO from T-A04 alone.
+5. Qualify VSR↔D1 audit optional store vs TYPE_ONLY when sizing retire cost.
+6. **No** Delivery GO from T-A04 alone.
 
 ---
 
@@ -447,7 +475,7 @@ flowchart LR
 | Retention/GC session & OPS1 events | NOT IMPLEMENTED |
 | RunState cross-restart | DEFER |
 | Cross-store atomic Evidence | absent |
-| PRR 06 omits `oa_syntheses` | DOC drift vs CODE |
+| PRR 06 omits `oa_syntheses` / authority class | DOC drift vs CODE (table exists ; NOT Truth C) |
 | Multi-process SQLite writers | UNKNOWN |
 | Full call-graph every write in UoW | PARTIAL |
 | REAL E2E / P6 GLOBAL | NOT PASSED |
@@ -459,7 +487,7 @@ flowchart LR
 | Condition | État |
 | --- | --- |
 | T-A01 / T-A02 / T-A03 | Acceptés (handoffs) |
-| T-A04 storage/migration | **LOCAL CANDIDATE** (ce document) |
+| T-A04 storage/migration | **LOCAL CANDIDATE** + Correction Pass 01 (ce document) |
 | T-A05 impact pack | **NON** |
 | T-A06 Critical alignement | **NON** |
 | M4-A CLOSED | **NON** |
@@ -473,9 +501,18 @@ flowchart LR
 | R23 | Périmètre analysis-only ; pas de Delivery |
 | R24 | **NO PRODUCT SEMANTIC IMPACT** — documentation uniquement |
 | OR-13 | Capacités/invariants > implémentations historiques |
-| G0-A/B | OA backbone + Product sqlite ; **pas** dual-write ; D1/OPS1 séparés |
+| G0-A/B | OA backbone + Product sqlite ; **pas** dual-write ; D1/OPS1 séparés ; **même fichier** peut héberger Truth C + projections non autoritatives |
 | Fake-Real | DET ≠ REAL ; SHADOW NOT ACTIVATED ; pas de Cursor REAL |
 
 ---
 
-END — `AKG-M4-A / T-A04` — LOCAL CANDIDATE STORAGE & MIGRATION ASSESSMENT
+## 16. Correction Pass 01 — fermeture
+
+| ID | Preuve corrigée | Verdict |
+| --- | --- | --- |
+| CORR-01 | §3 diagramme + ST01-SYN + §5 frontières : `oa_syntheses` = Product-derived NON-AUTHORITATIVE / NOT Truth C ; même fichier G0-B ; pas de 2e SQLite | **PASS** |
+| CORR-02 | §3 graphe + table de liens : routes D1/OPS1 isolées ; Studio→Product ; TYPE_ONLY VSR ; CONFIG_FLAG `OPS1_CURSOR_REAL` ; pas de Studio→Legacy SQLite inventé | **PASS** |
+
+---
+
+END — `AKG-M4-A / T-A04` — LOCAL CANDIDATE STORAGE & MIGRATION ASSESSMENT (Correction Pass 01)
