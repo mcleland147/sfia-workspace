@@ -1,207 +1,137 @@
-# AKG-M3-DOC-MERGE-01 — REVIEW PACK FULL (CRITICAL)
+# AKG-M3-DOC-POST-MERGE-01 — REVIEW PACK FULL (CRITICAL)
 
 ```text
-TIMESTAMP_UTC: 2026-10-22T05:40:16Z
-CYCLE: AKG-M3-DOC-MERGE-01
+TIMESTAMP_UTC: 2026-10-22T06:16:24Z
+CYCLE: AKG-M3-DOC-POST-MERGE-01
 CHANTIER: SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
 MILESTONE: AKG-M3 — Reference Consolidation
-TYPE: Cycle 13 — PR Readiness / Merge Gate
+TYPE: Cycle 14 — Post-Merge
 PROFIL: CRITICAL
-TYPOLOGIE: DOC / GIT INTEGRATION
+TYPOLOGIE: DOC / GOVERNANCE — Validation
 CAPACITY: V3-F05 · V3-F12
-MODE: CONTROLLED MERGE EXECUTION
-QA: CRITICAL MERGE REVIEW
+MODE: CONTROLLED POST-MERGE VERIFICATION
+QA: CRITICAL POST-MERGE AND EXIT-READINESS REVIEW
 REVIEW_PACK: FULL
 REVIEW_HANDOFF: REQUIRED — publish-in-cycle (L3)
-PR: #600
+PR: #600 MERGED
 MERGE_SHA: 606f756ef09811c5e68e6ed8a69d08d492a4a426
+PROJECT_COMMIT: NONE
+PROJECT_PUSH_PR_MERGE: NONE
+CLEANUP: NOT EXECUTED (Morris D3 DEFER)
 FORMAL_EXIT: NOT ADOPTED
 AKG_M4: NOT AUTHORIZED
-CLEANUP: NOT EXECUTED
-DELETE_BRANCH: NOT USED
-ADMIN_BYPASS: NOT USED
-SQUASH_REBASE: NOT USED
 ```
 
 ---
 
-## 1. Timestamp UTC
+## 01. Timestamp UTC
 
-**2026-10-22T05:40:16Z**
+**2026-10-22T06:16:24Z**
 
 ---
 
-## 2. GO Morris Merge
+## 02. GO Morris Post-Merge
 
 | Field | Value |
 |---|---|
-| GO | Morris « OK GO MERGE » 2026-10-21 — PR #600 only |
-| Method | GitHub **MERGE COMMIT** (`gh pr merge --merge`) |
-| Head match | `--match-head-commit 2134fc18ca4d330d5bf5cd56b96a455d9641241d` |
-| Forbidden | squash · rebase · auto · admin · delete-branch · Formal Exit · M4 · cleanup · Product |
-| Scope | Merge + immediate verification only · ≠ Post-Merge Verification GO · ≠ Formal Exit |
+| GO | Morris « ok go » after Critical Merge Review of PR #600 |
+| Authorized | verify merge/CI/PRR/E1–E12 · FULL pack · L3 handoff · prepare Formal Exit options |
+| Forbidden | project commit/push/PR · content edits · digest write · cleanup · Formal Exit ADOPTED · M4 · P6/REAL/v3 |
+| §6.12 cleanup | **NOT EXECUTED** — overridden by Morris **D3 CLEANUP DEFER** |
 
 ---
 
-## 3. Cycle / profil / justification
+## 03. Cycle / profil / CKC
 
-Cycle 13 CRITICAL — merge of reviewed documentary CURRENT (Roadmap + PRR09 + digest) onto main under exact HEAD/CI gates.
-
----
-
-## 4. Git Truth initial / final
-
-| Field | Initial | Final |
-|---|---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-akg-m3-documentary-truth-sync-local` | same (not switched to main) |
-| Local branch | `docs/sfia-studio-akg-m3-documentary-truth-sync-local` | same |
-| Local HEAD | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` (unchanged by merge) |
-| origin/main | `d41c6a660196ac26a401297c53f4be6f7ac98882` | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
-| Review pack | dirty tracked (excluded) | dirty tracked (excluded) |
-| Project commit this cycle | NONE | NONE (merge only) |
+Cycle 14 CRITICAL DOC/GOVERNANCE validation — post-merge verification of documentary truth-sync on main; Formal Exit gate preparation only.
 
 ---
 
-## 5. Git Review Index
+## 04. Local Git Truth initial / final
+
+| Field | Value |
+|---|---|
+| Worktree | `/Users/morris/Projects/sfia-workspace-akg-m3-documentary-truth-sync-local` |
+| Local branch | `docs/sfia-studio-akg-m3-documentary-truth-sync-local` |
+| Local HEAD | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` (PR head; not switched to main) |
+| origin/main | `606f756ef09811c5e68e6ed8a69d08d492a4a426` (= merge SHA) |
+| Dirty | `.tmp-sfia-review/chatgpt-review.md` only (qualified separately) |
+| Staged | none |
+| Project mutation this cycle | **NONE** |
+| Isolation | detached worktree at merge SHA `/private/tmp/sfia-akg-m3-doc-post-merge-01-20261022T061512Z` — removed after checker |
+| G7 remote branch | `docs/sfia-studio-akg-m3-g7-prr-consolidation` @ `d21fbb86…` **RETAINED** |
+| #600 remote branch | `docs/sfia-studio-akg-m3-documentary-truth-sync` @ `2134fc18…` **RETAINED** |
+
+```text
+ M .tmp-sfia-review/chatgpt-review.md
+```
+
+---
+
+## 05. Git Review Index
 
 | Ref | SHA / ID |
 |---|---|
-| Base / parent1 | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
-| PR head / parent2 | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` |
-| Merge commit | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
+| Merge | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
+| Parent1 | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
+| Parent2 / PR head | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` |
+| Post-merge CI | `39729128729` COMPLETED/SUCCESS |
 | Pre-merge CI | `39676442989` SUCCESS |
-| Post-merge CI | `39729128729` · status `in_progress` · conclusion `None` |
-| GI handoff | `c6c810e90be30c034bb51a5dff2f5179ae3227c5` |
-| Digest Sync handoff | `98294888740bc3d3930e6ee413c2b6420ca55112` |
-| Truth-Sync handoff | `cf421e3cc2a211f21749eaad7ba2fa380014c234` |
+| Merge handoff | `a0e1c972f28e4dedab0454b630b63fbec2cc3f02` |
+| GI / Digest / Truth-Sync / Arbitration | `c6c810e9` / `98294888` / `cf421e3c` / `41f802eb` |
 
 ---
 
-## 6–8. Sources / Convergence / R23–R24
+## 06–07. Sources / Convergence Pre-check
 
-Consulted read-only: SFIA cycle template · routing guide · Build Doctrine · Roadmap/PRR on merge tip · GI handoff · prior G7/Post-Merge proofs.
+Consulted read-only: SFIA template §2/§6.12/§6.16/§7.10 · routing guide · Build Doctrine A3/A8–A11 · Roadmap/PRR at merge tip · C1 · v3 framing · checker · immutable handoffs Merge→Arbitration.
+
+---
+
+## 08. R23 / R24
 
 | Rule | Verdict |
 |---|---|
-| R23 | Git/primary proofs > snapshots · DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN AT TESTED SCOPE / KNOWN GAP |
-| R24 | **NO NEW PRODUCT SEMANTIC IMPACT** · publishes already-reviewed documentary content |
+| R23 | Git/CI/primary > handoffs · DOCUMENTED · COVERAGE VERIFIED (13/20/20/9) · BEHAVIOR PROVEN AT TESTED SCOPE · KNOWN GAP (REAL/P6/F18/F19/Tool-First/M2) |
+| R24 | **NO NEW PRODUCT SEMANTIC IMPACT** · documentary CURRENT integrated · digest ≠ new semantic approval · KEEP PRR/Roadmap · ADAPT CURRENT presentation verified |
 
 ---
 
-## 9. PR #600 pre-flight
-
-| Check | Result |
-|---|---|
-| State | OPEN → MERGED |
-| Draft | FALSE |
-| Base / Head | `main` / `docs/sfia-studio-akg-m3-documentary-truth-sync` |
-| headRefOid | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` |
-| baseRefOid | `d41c6a660196ac26a401297c53f4be6f7ac98882` |
-| Files / commits / delta | 3 / 1 / +65/−9 |
-| mergeable / mergeable_state | MERGEABLE / CLEAN |
-
-API snapshot pre-merge:
-
-```json
-{"base":"d41c6a660196ac26a401297c53f4be6f7ac98882","head":"2134fc18ca4d330d5bf5cd56b96a455d9641241d","mergeable_state":"clean","merged":false,"state":"open"}
-```
-
----
-
-## 10. Base / head / commit parent
-
-PR commit `2134fc18ca4d330d5bf5cd56b96a455d9641241d` parent = `d41c6a660196ac26a401297c53f4be6f7ac98882` (verified).
-
----
-
-## 11. Trois fichiers / blobs
-
-| File | Blob on merge tip |
-|---|---|
-| Roadmap | `bf6d1c12b49c3f8f0c5c385c42f307df514652dc` (= `bf6d1c12…`) |
-| PRR09 | `5f24b0fbbe5dd012a30c4633ffff138a88950ed0` (= `5f24b0fb…`) |
-| Manifest | `ffd488c0edc64e2ffda892a2f1467dc7fdad3876` (= `ffd488c0…`) |
-
----
-
-## 12. CI pré-merge
-
-| Field | Value |
-|---|---|
-| Run | https://github.com/mcleland147/sfia-workspace/actions/runs/39676442989 |
-| Status / conclusion | completed / **success** |
-| head_sha | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` |
-| Checks | Detect SFIA Studio changes · Build and validate SFIA Studio · SFIA Studio Required Gate — all **SUCCESS** |
-
----
-
-## 13. Protections et mergeability
-
-`mergeable_state=clean` · Required Gate SUCCESS · no admin bypass · no squash/rebase.
-
----
-
-## 14. Commande merge exacte
-
-```bash
-gh pr merge 600 \
-  --repo mcleland147/sfia-workspace \
-  --merge \
-  --match-head-commit \
-  2134fc18ca4d330d5bf5cd56b96a455d9641241d
-```
-
-Flags **not** used: `--delete-branch` · `--admin` · `--auto` · `--squash` · `--rebase`.
-
----
-
-## 15. Résultat de la commande
-
-Exit code **0**. Merge accepted by GitHub.
-
-```text
-(no stdout; exit 0)
-```
-
----
-
-## 16. PR merged state
+## 09. PR #600 merged proof
 
 ```json
 {"base":"d41c6a660196ac26a401297c53f4be6f7ac98882","head":"2134fc18ca4d330d5bf5cd56b96a455d9641241d","merge_commit_sha":"606f756ef09811c5e68e6ed8a69d08d492a4a426","merged":true,"merged_at":"2026-10-22T05:37:55Z","state":"closed"}
 ```
 
-```json
-{"baseRefOid":"d41c6a660196ac26a401297c53f4be6f7ac98882","headRefOid":"2134fc18ca4d330d5bf5cd56b96a455d9641241d","mergeCommit":{"oid":"606f756ef09811c5e68e6ed8a69d08d492a4a426"},"mergedAt":"2026-10-22T05:37:55Z","state":"MERGED","title":"docs(studio-prr): AKG-M3 documentary truth sync"}
+URL: https://github.com/mcleland147/sfia-workspace/pull/600 · CLOSED · merged=true · merged_at=`2026-10-22T05:37:55Z`
+
+---
+
+## 10. Merge SHA / parents
+
+```text
+SHA=606f756ef09811c5e68e6ed8a69d08d492a4a426
+PARENTS=d41c6a660196ac26a401297c53f4be6f7ac98882 2134fc18ca4d330d5bf5cd56b96a455d9641241d
+SUBJECT=Merge pull request #600 from mcleland147/docs/sfia-studio-akg-m3-documentary-truth-sync
 ```
 
-state=closed · merged=true · merged_at=`2026-10-22T05:37:55Z`
+Parents exact: `d41c6a660196ac26a401297c53f4be6f7ac98882` + `2134fc18ca4d330d5bf5cd56b96a455d9641241d` · **PASS**
 
 ---
 
-## 17. Merge SHA réel
+## 11. Main verification
 
-**`606f756ef09811c5e68e6ed8a69d08d492a4a426`**
-
-URL: https://github.com/mcleland147/sfia-workspace/commit/606f756ef09811c5e68e6ed8a69d08d492a4a426
+`origin/main` = `606f756ef09811c5e68e6ed8a69d08d492a4a426` · MAIN_TIP_IS_MERGE=YES · no main drift beyond merge.
 
 ---
 
-## 18. Parents
+## 12. Commit PR ancestry
 
-`d41c6a660196ac26a401297c53f4be6f7ac98882 2134fc18ca4d330d5bf5cd56b96a455d9641241d`
-
-Parent1 = `d41c6a660196ac26a401297c53f4be6f7ac98882` · Parent2 = `2134fc18ca4d330d5bf5cd56b96a455d9641241d` · subject = `Merge pull request #600 from mcleland147/docs/sfia-studio-akg-m3-documentary-truth-sync`
+`2134fc18ca4d330d5bf5cd56b96a455d9641241d` is ancestor of `606f756ef09811c5e68e6ed8a69d08d492a4a426` · `606f756ef09811c5e68e6ed8a69d08d492a4a426` is ancestor of `origin/main` · **PASS**
 
 ---
 
-## 19. Main SHA
-
-`origin/main` = `606f756ef09811c5e68e6ed8a69d08d492a4a426` (= merge SHA)
-
----
-
-## 20. Delta et blobs sur main
+## 13. Three-file scope
 
 ```text
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -222,114 +152,182 @@ M	projects/sfia-studio/production-runtime-reference/production-runtime-reference
  3 files changed, 65 insertions(+), 9 deletions(-)
 ```
 
-Exactly **3** files · +65/−9 · blobs match approved PR head · PR head is ancestor of main.
+Exactly **3** files · **+65 / −9** · no fourth file · **PASS**
 
 ---
 
-## 21. Manifest digest et index
+## 14. Three blobs verified
 
-| Field | Value |
+| File | Blob at merge |
 |---|---|
-| PRR09 sha256_16 | `743d7232f5a9d5b6` |
-| Index | 13 / 20 / 20 / 9 |
-| Unique delta | `8e0ff7d45b1b33fa` → `743d7232f5a9d5b6` |
+| Roadmap | `bf6d1c12b49c3f8f0c5c385c42f307df514652dc` |
+| PRR09 | `5f24b0fbbe5dd012a30c4633ffff138a88950ed0` |
+| Manifest | `ffd488c0edc64e2ffda892a2f1467dc7fdad3876` |
+
+Blobs match approved PR head / GI handoff · **PASS**
 
 ---
 
-## 22. État CI post-merge
+## 15. PRR09 sha256 proof
 
-| Field | Value |
-|---|---|
-| Run ID | `39729128729` |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/39729128729 |
-| Workflow | SFIA Studio CI |
-| Event | push |
-| head_sha | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
-| status | `in_progress` |
-| conclusion | `None` |
-| Verdict | **POST-MERGE CI PENDING — FORMAL POST-MERGE NOT VALIDATED** |
-
-```json
-{"conclusion":null,"event":"push","head_sha":"606f756ef09811c5e68e6ed8a69d08d492a4a426","html_url":"https://github.com/mcleland147/sfia-workspace/actions/runs/39729128729","id":39729128729,"name":"SFIA Studio CI","status":"in_progress"}
-```
-
-This cycle records CI state only · **≠** Formal Post-Merge Verification GO.
+File octets at merge → `743d7232f5a9d5b6` · manifest volumes[9].sha256_16 = `743d7232f5a9d5b6` · **MATCH**
 
 ---
 
-## 23. Réserves et E1–E12
-
-| ID | Status |
-|---|---|
-| R-M3A-01 / R-M3B-01 / R-G6-SR-01…04 | NOT FORMALLY CLOSED (conditional) |
-| R-M3-PM-CLEANUP-01 | GOVERNED OPEN / DEFER · MORRIS · branch retained |
-| M2 debts / REAL / P6 / v3 | unchanged / NOT PROVEN / NOT PASSED / NON ADOPTED |
-| E1–E6 | SATISFIED |
-| E7/E9/E10 | SATISFIED WITH GOVERNED RESERVE |
-| E8 | DISPOSITIONS APPROVED / FORMAL CLOSURE PENDING |
-| E11 | TECHNICAL INTEGRATION ON MAIN — **formal SATISFIED pending Post-Merge Verification** |
-| E12 | OPEN |
-| Formal Exit / M4 | NOT ADOPTED / NOT AUTHORIZED |
-
----
-
-## 24. Fake / Real
-
-DOCUMENTARY MERGE PROOF · no new fake/REAL · DETERMINISTIC PROVEN AT TESTED SCOPE preserved · REAL/P6/v3 not promoted.
-
----
-
-## 25. Branch cleanup NOT EXECUTED
-
-`docs/sfia-studio-akg-m3-documentary-truth-sync` still present on origin · G7 cleanup still DEFER · `--delete-branch` not used.
-
----
-
-## 26. Formal Exit NOT ADOPTED
-
-Confirmed.
-
----
-
-## 27. AKG-M4 NOT AUTHORIZED
-
-Confirmed.
-
----
-
-## 28. Gates Morris suivants
+## 16. Manifest index / invariants
 
 ```text
-ChatGPT Critical Merge Review
-→ Morris AKG-M3 Documentary Post-Merge Verification GO (distinct)
-→ (await/confirm post-merge CI as part of that cycle)
-→ Morris Formal Exit GO (distinct)
-→ [optional] cleanup GO
+MANIFEST_09 743d7232f5a9d5b6
+INDEX 13 20 20 9 27 7 10
+OBJ-ATTEMPT True
+DEP-EC-ATT {'id': 'DEP-EC-ATT', 'from': 'OBJ-EC', 'to': 'OBJ-ATTEMPT'}
+DEP-HD-EC {'id': 'DEP-HD-EC', 'from': 'OBJ-HD', 'to': 'OBJ-EC'}
+F11b False
+```
+
+13/20/20/9 · 27/7/10 · OBJ-ATTEMPT · DEP-EC-ATT EC→Attempt · DEP-HD-EC HD→EC · F11b hors flows[] · **PASS**
+
+---
+
+## 17. CI post-merge / jobs / checks
+
+```json
+{"conclusion":"success","event":"push","head_sha":"606f756ef09811c5e68e6ed8a69d08d492a4a426","html_url":"https://github.com/mcleland147/sfia-workspace/actions/runs/39729128729","id":39729128729,"name":"SFIA Studio CI","run_attempt":1,"status":"completed"}
+```
+
+```json
+{"conclusion":"success","html_url":"https://github.com/mcleland147/sfia-workspace/actions/runs/39729128729/job/119659863073","name":"Detect SFIA Studio changes","status":"completed"}
+{"conclusion":"success","html_url":"https://github.com/mcleland147/sfia-workspace/actions/runs/39729128729/job/119659908998","name":"Build and validate SFIA Studio","status":"completed"}
+{"conclusion":"success","html_url":"https://github.com/mcleland147/sfia-workspace/actions/runs/39729128729/job/119662761519","name":"SFIA Studio Required Gate","status":"completed"}
+```
+
+Run https://github.com/mcleland147/sfia-workspace/actions/runs/39729128729 · event=push · head=`606f756e…` · COMPLETED/**SUCCESS** · Detect / Build / Required Gate all SUCCESS · **PASS**
+
+---
+
+## 18. Checker PRR exact output
+
+Executed on isolated detached worktree at merge SHA (removed after). **NO** `--write-digests`.
+
+```text
+OK: canonical README exists
+RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
+```
+
+**PRODUCTION RUNTIME REFERENCE CONFORMANCE OK** · Product sample unchanged on auth + ISO.
+
+---
+
+## 19. Test evidence boundaries
+
+| Evidence | Status |
+|---|---|
+| Checker re-run this cycle | **YES** — isolated merge SHA · PASS |
+| Vitest d0 re-run this cycle | **NO** — mutating probe; not on canonical Product |
+| Vitest / build proof | **CI post-merge** Build and validate SUCCESS on merge SHA |
+| Prior ISO Vitest 5/5 | Digest Sync cycle evidence (historical; not re-asserted as new) |
+
+---
+
+## 20. Roadmap CURRENT / HISTORICAL
+
+At merge tip: living tip **AKG-M3 DOCUMENTARY TRUTH-SYNC** CURRENT · prior M2 tip **HISTORICAL / SUPERSEDED AS TIP** · B-AKG M3 = INTEGRATED ON MAIN / POST-MERGE VERIFIED / FORMAL EXIT PENDING · AKG-M4 NOT AUTHORIZED.
+
+---
+
+## 21. PRR09 CURRENT / HISTORICAL
+
+CURRENT overlay G6/G7 INTEGRATED ON MAIN present · historical G6/CORR layers preserved under HISTORICAL/SUPERSEDED banners · six reserves dispositioned · cleanup OPEN/DEFER.
+
+---
+
+## 22. Six M3/G6 reserve dispositions
+
+| ID | Status NOW |
+|---|---|
+| R-M3A-01 / R-M3B-01 | TECHNICALLY+SEMANTICALLY RESOLVED · FORMAL CLOSE APPROVED CONDITIONALLY · **NOT FORMALLY CLOSED** · OWNER UNASSIGNED |
+| R-G6-SR-01…04 | SEMANTICALLY RESOLVED · conditional Formal Close · **NOT FORMALLY CLOSED** · OWNER UNASSIGNED |
+
+Merge does **not** equal Formal Close.
+
+---
+
+## 23. Cleanup D3 — NOT EXECUTED
+
+**R-M3-PM-CLEANUP-01** = GOVERNED OPEN / DEFER · temporary governance **MORRIS** · formal owner UNASSIGNED · G7 + #600 remote branches **RETAINED** · §6.12 cleanup **NOT EXECUTED** · ≠ CLEANUP DONE.
+
+---
+
+## 24. M2 debts preserved
+
+R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH RESERVE · B-M2B-01…05 OPEN · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL · REAL NOT PROVEN · P6 NOT PASSED · runtime v3 NON ADOPTED.
+
+---
+
+## 25. E1–E12 exit-proof matrix
+
+| ID | Status | Evidence basis |
+|---|---|---|
+| E1–E6 | **SATISFIED** | G6/G7 chain + prior validations |
+| E7 | **SATISFIED WITH GOVERNED RESERVE** | Post-merge + governed reserves |
+| E8 | **DISPOSITIONS APPROVED / FORMAL CLOSURE PENDING** | D2 conditional · NOT CLOSED |
+| E9–E10 | **SATISFIED WITH GOVERNED RESERVE** | |
+| E11 | **SATISFIED — POST-MERGE VERIFIED** | Roadmap+PRR09+digest on main · blobs · CI 39729128729 SUCCESS · checker PASS |
+| E12 | **OPEN** — Morris Formal Exit GO NOT CONSUMED | |
+
+E11 technical/documentary integration verified · milestone **≠ CLOSED** · Formal Exit **≠ ADOPTED**.
+
+---
+
+## 26. Architecture / R23 / R24
+
+PRR remains unique CURRENT as-implemented reference · no parallel architecture · KEEP · ADAPT presentation verified on main.
+
+---
+
+## 27. Fake / Real
+
+DOCUMENTARY POST-MERGE VERIFICATION · no new fake/REAL · DETERMINISTIC PROVEN AT TESTED SCOPE preserved · REAL/P6/v3 **not** promoted.
+
+---
+
+## 28. AKG-M4 dependency
+
+AKG-M4 Rationalization Assessment (V3-F05/V3-F07) requires Formal Exit M3 + distinct Morris M4 GO · **NOT AUTHORIZED / NOT STARTED**.
+
+---
+
+## 29. Remaining Morris gates
+
+```text
+ChatGPT Critical Post-Merge and Exit-Readiness Review
+→ Morris Formal Exit AKG-M3 GO (distinct) — dossier ready WITH GOVERNED RESERVES
+→ [optional] cleanup GO (D3 still OPEN)
 → AKG-M4 under distinct GO
 ```
 
 ---
 
-## 29. Verdict
+## 30. Verdict
 
-**AKG-M3 PR600 MERGE COMPLETE — REMOTE VERIFIED — READY FOR CHATGPT CRITICAL MERGE REVIEW.**
+**AKG-M3 DOCUMENTARY POST-MERGE VERIFIED — E11 SATISFIED — FORMAL EXIT DECISION GATE READY WITH GOVERNED RESERVES.**
 
-**POST-MERGE CI PENDING — FORMAL POST-MERGE NOT VALIDATED.**
+≠ AKG-M3 CLOSED · ≠ Formal Exit ADOPTED · ≠ six FORMALLY CLOSED · ≠ AKG-M4 AUTHORIZED.
 
 ---
 
-## 30. Instruction ChatGPT
+## 31. Instruction ChatGPT
 
 Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
 
-Vérifier cycle **AKG-M3-DOC-MERGE-01**.
+Vérifier cycle **AKG-M3-DOC-POST-MERGE-01**.
 
-Contrôler: PR state/merged_at · merge SHA · parentage · main SHA · 3 fichiers · blobs · digest · CI pré-merge SUCCESS · CI post-merge état réel · réserves · E11/E12 · cleanup non exécuté · handoff L3 · Formal Exit non adopté · M4 non autorisé.
+Conduire **CHATGPT CRITICAL POST-MERGE AND EXIT-READINESS REVIEW**.
 
-Produire **CHATGPT CRITICAL MERGE REVIEW**.
+Contrôler: handoff · merge/parentage · main/PR · 3 blobs · PRR conformance · CI post-merge · E11 · E8 conditional · E12 OPEN · cleanup DEFER · M2 debts · M4 NOT AUTHORIZED.
 
-Si PASS: proposer Morris **AKG-M3 DOCUMENTARY POST-MERGE VERIFICATION GO** distinct.
+Si PASS: préparer dossier Formal Exit AKG-M3 pour Morris · **ne pas consommer** ce GO par implication.
 
 ---
 
-END — AKG-M3-DOC-MERGE-01
+END — AKG-M3-DOC-POST-MERGE-01
