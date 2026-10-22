@@ -21,7 +21,7 @@
 
 ## 01. GO / Autorisations
 
-AUTHORIZED: static dependency/consumer audit A01–A12; create  on analysis branch; Full Review Pack; Review Handoff L3 publish.
+AUTHORIZED: static dependency/consumer audit A01–A12; create `05-m4a-dependency-consumers-audit.md` on analysis branch; Full Review Pack; Review Handoff L3 publish.
 
 NOT AUTHORIZED: app/runtime/test/config mutation; data migration; Cursor REAL; PRR/Build Doctrine/v3 edits; M4-A CLOSED; v3 ADOPTED; P6 GLOBAL PASS; project commit/push/PR/merge; destructive git.
 
