@@ -322,9 +322,61 @@ No `retired-components-ledger.md` — zero components removed.
 
 
 
-## CURRENT overlay — AKG-M3 G6/G7 INTEGRATED ON MAIN (2026-10-21)
+## CURRENT overlay — AKG-M3 FORMAL EXIT — MORRIS FE-01–FE-04 ADOPTED (2026-10-22)
 
-**Authority:** Morris G5–G7 chain + D1–D4 Formal Exit Arbitration dispositions (2026-10-21). This overlay is **documentary CURRENT** for consumer reading. It does **not** adopt Formal Exit.
+**Authority:** Morris Formal Exit AKG-M3 GO of 2026-10-22 adopted FE-01–FE-04 (Decision Record handoff `7339d49f…` / blob `f141bfef…` · Critical Decision Record Review PASS). A separate subsequent Morris Documentary Truth-Sync GO of 2026-10-22 authorized only the local documentary transcription in Roadmap and PRR09. The documentary GO did not adopt FE-01–FE-04. This overlay is **documentary CURRENT** for Formal Exit governance status. It does **not** authorize AKG-M4, cleanup, digest sync, or Product/runtime promotion.
+
+| Fact | Status |
+|---|---|
+| Formal Exit (FE-01) | **ADOPTED** — **AKG-M3 CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** |
+| Scope | Reference Consolidation as proven (PRR CURRENT · coverage · Vol09 · digests · Git/CI) · **≠** Product readiness · **≠** REAL · **≠** P6 · **≠** runtime v3 |
+| Six Formal Closures (FE-02) | **R-M3A-01 · R-M3B-01 · R-G6-SR-01…04 FORMALLY CLOSED BY MORRIS AT BOUNDED M3/G6 SCOPE** |
+| Cleanup (FE-03) | **R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER** · temporary governance **MORRIS** · formal owner **UNASSIGNED** · **NOT EXECUTED** |
+| Continuity (FE-04) | M2 debts / REAL / P6 / v3 ceilings **preserved** · **AKG-M4 NOT AUTHORIZED** |
+| PR #600 | **MERGED** |
+| Merge SHA | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
+| Parents | `d41c6a66…` + `2134fc18…` |
+| CI post-merge | `39729128729` **COMPLETED / SUCCESS** |
+| PRR conformance | **PASS** (isolated checker on merge SHA · Post-Merge verification) |
+| Index on main | **13 / 20 / 20 / 9** · 27 trackedSources · 7 trackedTests · 10 volumes |
+| OBJ-ATTEMPT / DEP-EC-ATT / DEP-HD-EC / F11b | indexed · EC→Attempt · HD→EC · hors `flows[]` |
+| Prior technical integration | G5–G7 · PR **#599** · merge `d41c6a66…` · CI `39651441205` — **technical** (≠ Formal Exit alone) |
+
+### Reserve dispositions — Morris FE-02 / FE-03 (CURRENT)
+
+| ID | Technical | Semantic | Prior D2 | FE NOW | Formal status NOW | Owner | Next gate |
+|---|---|---|---|---|---|---|---|
+| **R-M3A-01** | **TECHNICALLY RESOLVED** (OBJ-ATTEMPT + DEP-EC-ATT on main) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path (status only) |
+| **R-M3B-01** | **TECHNICALLY RESOLVED** (G6 scope vols+manifest on main) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-01** | n/a (documentary) | **SEMANTICALLY RESOLVED** (Critical Semantic Review PASS + CORR) | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-02** | SHE contract present on main | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-03** | n/a (documentary) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-04** | n/a (documentary) | **SEMANTICALLY RESOLVED** (correction scope; historical layers remain HISTORICAL) | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-M3-PM-CLEANUP-01** | Cleanup **NOT DONE** | n/a | D3 DEFER APPROVED | **FE-03 CONSUMED (DEFER)** | **GOVERNED OPEN / DEFER** | Temporary governance **MORRIS** · Formal owner **UNASSIGNED** | Distinct Morris cleanup GO · G7 + #600 branches **RETAINED** · never `-D` |
+
+**R-M3-PM-CLEANUP-01 detail:** Branches `docs/sfia-studio-akg-m3-g7-prr-consolidation` and `docs/sfia-studio-akg-m3-documentary-truth-sync` retained. §6.12.1 auto-cleanup **NOT APPLIED** (D3/FE-03). **≠ CLEANUP DONE.**
+
+### Exit matrix E1–E12 (decision CURRENT)
+
+| ID | Status |
+|---|---|
+| E1–E6 | **SATISFIED** |
+| E7 | **SATISFIED WITH GOVERNED RESERVE** |
+| E8 | **SATISFIED — FE-02 CONSUMED** |
+| E9–E10 | **SATISFIED WITH GOVERNED RESERVE** |
+| E11 | **SATISFIED — POST-MERGE VERIFIED** |
+| E12 | **SATISFIED — FE-01 CONSUMED** |
+
+### Transverse debts preserved (FE-04 — unchanged)
+
+R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH GOVERNED RESERVE · B-M2B-01…05 OPEN · M2 debt register 38×20 · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED · L5 global NOT AUTHORIZED · **AKG-M4 NOT AUTHORIZED**.
+
+**Anti-claims:** Formal Exit ADOPTED ≠ this documentary lot integrated on main · six FORMALLY CLOSED by FE-02 ≠ all debts CLOSED · cleanup DEFER ≠ DONE · M3 CLOSED ≠ AKG-M4 START · DETERMINISTIC ≠ REAL · PRR conformance ≠ P6 · Studio v3 target ≠ runtime v3 ADOPTED · digest drift of this edit ≠ digest sync authorized.
+
+
+## HISTORICAL overlay — AKG-M3 G6/G7 INTEGRATED ON MAIN (2026-10-21) — **SUPERSEDED FOR CURRENT FORMAL EXIT STATUS**
+
+**Authority (authoring-time):** Morris G5–G7 chain + D1–D4 Formal Exit Arbitration dispositions (2026-10-21). This overlay was **documentary CURRENT** for G6/G7 technical integration. It is now **HISTORICAL / SUPERSEDED FOR CURRENT FORMAL EXIT STATUS** by FE-01–FE-04 (2026-10-22). Retain technical facts (PR #599 · index · deps). **Do not** read Formal Exit NOT ADOPTED / six NOT FORMALLY CLOSED as CURRENT after FE adoption.
 
 | Fact | Status |
 |---|---|
@@ -346,7 +398,7 @@ No `retired-components-ledger.md` — zero components removed.
 | AKG-M4 | **NOT AUTHORIZED** |
 | REAL / P6 / runtime v3 | **NOT PROVEN / NOT PASSED / NON ADOPTED** |
 
-### Reserve dispositions — Morris D2 / D3 (FORMALLY CLOSED = NOT THIS CYCLE)
+### Reserve dispositions — Morris D2 / D3 — **HISTORICAL pre-FE snapshot** (FORMALLY CLOSED = NOT THIS CYCLE *then*)
 
 | ID | Technical | Semantic | Morris D2/D3 | Formal status NOW | Owner | Next gate |
 |---|---|---|---|---|---|---|
@@ -364,7 +416,7 @@ No `retired-components-ledger.md` — zero components removed.
 
 R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH GOVERNED RESERVE · B-M2B-01…05 OPEN · M2 debt register 38×20 · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED.
 
-### Exit readiness continuity (preparatory — not Formal Exit)
+### Exit readiness continuity — **HISTORICAL pre-FE snapshot** (preparatory — not Formal Exit *then*)
 
 E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FORMAL CLOSURE PENDING · E9–E10 WITH GOVERNED RESERVE · E11 = DOCUMENTARY TRUTH-SYNC LOCAL CANDIDATE (≠ INTEGRATED ON MAIN) · E12 OPEN (Formal Exit GO NOT CONSUMED).
 
