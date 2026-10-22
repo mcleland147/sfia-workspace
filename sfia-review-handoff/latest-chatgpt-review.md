@@ -1,284 +1,163 @@
-# AKG-M3-FORMAL-EXIT-PRR09-DIGEST-SYNC-01 — REVIEW PACK FULL (CRITICAL)
+# AKG-M3-FORMAL-EXIT-DOC-GIT-INTEGRATION-01 — REVIEW PACK FULL (CRITICAL)
 
 ```text
-TIMESTAMP_UTC: 2026-10-22T08:42:44Z
-CYCLE: AKG-M3-FORMAL-EXIT-PRR09-DIGEST-SYNC-01
+TIMESTAMP_UTC: 2026-10-22T09:05:37Z
+CYCLE: AKG-M3-FORMAL-EXIT-DOC-GIT-INTEGRATION-01
 CHANTIER: SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
 MILESTONE: AKG-M3 — Reference Consolidation
-TYPE: Cycle 8 — Delivery (Bounded PRR Digest Conformance Sync)
+TYPE: Cycle 8 — Delivery (Controlled Documentary Git Integration + PR)
 PROFIL: CRITICAL
-TYPOLOGIE: DOC / CONFORMANCE
+TYPOLOGIE: DOC / GOVERNANCE / GIT INTEGRATION
 CAPACITY: V3-F05 · V3-F12
-MODE: CONTROLLED LOCAL DIGEST SYNC
-QA: CRITICAL DIGEST CONFORMANCE REVIEW
+MODE: PROJECT COMMIT / PUSH / PR ONLY — MERGE NOT AUTHORIZED
+QA: CRITICAL DOCUMENTARY GIT INTEGRATION REVIEW
 REVIEW_PACK: FULL
 REVIEW_HANDOFF: REQUIRED — publish-in-cycle (L3)
-PROJECT_COMMIT: NONE
-PROJECT_PUSH_PR_MERGE: NONE
-MANIFEST_WRITE: PRR09 sha256_16 ONLY
-WRITE_DIGESTS_FLAG: NOT USED
-ROADMAP_WRITE: NONE
-PRR09_WRITE: NONE
+PROJECT_COMMIT: ONE
+PROJECT_PUSH: ONE (feature branch)
+PROJECT_PR: ONE (OPEN)
+MERGE: NOT AUTHORIZED / NOT EXECUTED
 AKG_M4: NOT AUTHORIZED
+CLEANUP: NOT EXECUTED
 ```
 
 ---
 
 ## 01. Timestamp UTC
 
-`2026-10-22T08:42:44Z`
+`2026-10-22T09:05:37Z`
 
-## 02. GO Morris Digest Sync
+## 02. GO Morris consommé
 
-Morris « ok go » 2026-10-22 — gate **AKG-M3 FORMAL EXIT PRR09 DIGEST SYNC**.
+Morris « ok go » 2026-10-22 — **AKG-M3 FORMAL EXIT DOCUMENTARY GIT INTEGRATION**.
 
-Authorized: surgical refresh of PRR09 `sha256_16` in the PRR manifest only.
-Not authorized: Roadmap/PRR09 rewrite · other digests · project commit/push/PR/merge · cleanup · M4.
+Authorized: project commit / push / PR only.
+**MERGE NOT AUTHORIZED.**
 
 ## 03. Cycle / profil / CKC
 
 | Field | Value |
 |---|---|
 | Cycle | 8 — Delivery / Implementation |
-| Specialization | Bounded PRR Digest Conformance Sync |
+| Specialization | Governed Documentary Git Integration |
 | Profile | CRITICAL |
-| Typology | DOC / CONFORMANCE |
+| Typology | DOC / GOVERNANCE / GIT INTEGRATION |
 | Capacity | V3-F05 / V3-F12 |
 | Milestone | AKG-M3 CLOSED BY MORRIS (bounded RC) |
-| Next | AKG-M4 — NOT AUTHORIZED |
-| CKC | `ckc/08-delivery-implementation.md` (guidance only; no execution authority) |
+| CKC | `ckc/08-delivery-implementation.md` — guidance only |
+| Process baseline | SFIA v2.6 |
 
 ## 04. Git Truth initial
 
 ```text
 toplevel=/Users/morris/Projects/sfia-workspace-akg-m3-formal-exit-truth-sync-local
-branch=docs/sfia-studio-akg-m3-formal-exit-truth-sync-local
-HEAD=606f756ef09811c5e68e6ed8a69d08d492a4a426
+local_branch=docs/sfia-studio-akg-m3-formal-exit-truth-sync-local
+HEAD_now=ea2446e0da9d7f52e7244a9fea5e850a0806ec25
 origin/main=606f756ef09811c5e68e6ed8a69d08d492a4a426
-status:
+status_now:
  M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
- M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
- M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-cached:
-(empty)
 ```
 
-## 05. Convergence Pre-check
+Pre-commit: HEAD = origin/main = `606f756ef09811c5e68e6ed8a69d08d492a4a426`.
+Remote feature branch pre-push: **ABSENT**. Duplicate PR: **NONE**.
+
+## 05. Sources consultées
+
+- SFIA v2.6 template (§2.0 / §6.11 / §6.14 / §7 / §8 / §9) + routing / OM / guardrails / checklist
+- Build Doctrine · Roadmap · Product Completion C1 · v3 framing 30/32/33/35/37
+- PRR README + vols 02/03/04/07/08/09 + manifest
+- Checker `check-production-runtime-reference.mjs`
+- Handoff DIGEST `12025288…` / CORR-01 `7e13a38f…` / Decision Record `7339d49f…`
+- CKC `08-delivery-implementation.md`
+
+## 06. Convergence Pre-check
 
 | Check | Result |
 |---|---|
-| Repo mcleland147/sfia-workspace | PASS |
-| Worktree candidate exact | PASS |
-| HEAD = origin/main = 606f756e… | PASS |
-| Pre-write project dirty = Roadmap + PRR09 | PASS |
-| Manifest initial unchanged | PASS |
-| Staged empty | PASS |
-| KEEP Build Doctrine / PRR / checker / tests | YES |
-| ADAPT manifest PRR09 digest only | YES |
+| KEEP Roadmap/PRR/manifest/checker | YES |
+| ADAPT = publish already-validated content | YES |
+| No parallel architecture | YES |
+| Semantic + Digest reviews PASS (incoming) | YES |
+| GO Morris GI present | YES |
 
-## 06. Sources consultées
+## 07. R23/R24
 
-- SFIA v2.6 template / routing / operating model / guardrails
-- Build Doctrine A3 · R1–R24 · A8–A12
-- Roadmap CURRENT tip · B-AKG · M3/M4
-- Product Completion C1 (read-only)
-- v3 framing 30/32/33/35/37
-- PRR README · 04 · 08 · 09 · manifest
-- `check-production-runtime-reference.mjs`
-- `productionRuntimeReference.conformance.d0.test.ts`
-- CKC `08-delivery-implementation.md`
-- Handoff CORR-01 `7e13a38f…` / blob `58d4f2d9…`
-- Decision Record FE `7339d49f…`
-
-## 07. Handoff CORR-01 vérifié
-
-| Field | Value |
+| Rule | Classification |
 |---|---|
-| Commit | `7e13a38f4f051d399756edf3aba5cdf6054393bb` |
-| Blob | `58d4f2d9c4782ab152f68425c6c8a0fb2cb7364e` |
-| Cycle | AKG-M3-FORMAL-EXIT-DOC-TRUTH-SYNC-CORR-01 |
-| Semantic Re-Review | PASS (incoming) |
+| R23 | DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN AT TESTED SCOPE · KNOWN GAP |
+| R24 | NO PRODUCT SEMANTIC IMPACT · DOCUMENTARY GOVERNANCE STATUS SYNC ONLY · KEEP · ADAPT status already validated |
 
-## 08. Critical Semantic Re-Review
+## 08. Candidate fidelity
 
-Incoming ChatGPT Critical Documentary Semantic Re-Review = **PASS**.
-This cycle does **not** re-author documentary semantics.
+**PROJECT CANDIDATE FIDELITY = PASS** (pre-commit + post-commit tree).
 
-## 09. Candidate fidelity before write
+## 09. Three target blobs
 
-| Proof | Expected | Observed |
+| File | Target | Observed HEAD |
 |---|---|---|
-| Roadmap blob | `8a006dd1ec8941e166214c1717b605ec72543044` | `8a006dd1ec8941e166214c1717b605ec72543044` |
-| PRR09 blob | `ee13e7a7b0407d3cea46535f07b54638b30857f4` | `ee13e7a7b0407d3cea46535f07b54638b30857f4` |
-| PRR09 bytes | `40936` | `40936` |
-| PRR09 sha256_16 | `9e1e97a2524f14de` | `9e1e97a2524f14de` |
-| Manifest INITIAL blob | `ffd488c0edc64e2ffda892a2f1467dc7fdad3876` | MATCH (pre-write) |
-| Initial PRR09 digest in manifest | `743d7232f5a9d5b6` | MATCH (pre-write) |
+| Roadmap | `8a006dd1ec8941e166214c1717b605ec72543044` | `8a006dd1ec8941e166214c1717b605ec72543044` |
+| PRR09 | `ee13e7a7b0407d3cea46535f07b54638b30857f4` | `ee13e7a7b0407d3cea46535f07b54638b30857f4` |
+| Manifest | `079e6315c883b97c8d74a59437750977150b8cba` | `079e6315c883b97c8d74a59437750977150b8cba` |
 
-**DOCUMENTARY CANDIDATE FIDELITY = PASS** before manifest write.
+## 10. PRR09 digest
 
-## 10. Roadmap blob unchanged
+sha256_16 = `9e1e97a2524f14de` · bytes = `40936` · manifest updated from `743d7232f5a9d5b6`.
 
-`8a006dd1ec8941e166214c1717b605ec72543044` — bit-identical to CORR-01 candidate. **No write this cycle.**
+## 11. Manifest consistency
 
-## 11. PRR09 blob unchanged
+Only PRR09 volume digest changed. Index 13/20/20/9 · 27 trackedSources · 7 trackedTests · 10 volumes.
 
-`ee13e7a7b0407d3cea46535f07b54638b30857f4` — bit-identical to CORR-01 candidate. **No write this cycle.**
-
-## 12. Old/new PRR09 sha256_16
-
-| Stage | sha256_16 |
-|---|---|
-| Main / manifest before | `743d7232f5a9d5b6` |
-| Candidate content (CORR-01) | `9e1e97a2524f14de` |
-| Manifest after sync | `9e1e97a2524f14de` |
-
-## 13. PRR09 exact bytes
-
-`40936` octets — sha256_16 `9e1e97a2524f14de`
-
-## 14. Manifest BEFORE (PRR09 volume snippet)
-
-```json
-    {
-      "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "743d7232f5a9d5b6"
-    }
-```
-
-Full BEFORE blob: `ffd488c0edc64e2ffda892a2f1467dc7fdad3876`
-
-## 15. Manifest AFTER (PRR09 volume snippet)
-
-```json
-    {
-      "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "9e1e97a2524f14de"
-    }
-```
-
-Full AFTER blob: `079e6315c883b97c8d74a59437750977150b8cba`
-
-## 16. Manifest incremental diff (this cycle)
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index ffd488c0..079e6315 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -43,7 +43,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "743d7232f5a9d5b6"
-+      "sha256_16": "9e1e97a2524f14de"
-     }
-   ],
-   "components": [
-```
-
-## 17. Manifest full diff vs main
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index ffd488c0..079e6315 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -43,7 +43,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "743d7232f5a9d5b6"
-+      "sha256_16": "9e1e97a2524f14de"
-     }
-   ],
-   "components": [
-```
-
-## 18. Updated manifest Git blob
-
-`079e6315c883b97c8d74a59437750977150b8cba`
-
-## 19. Checker command/result/log
-
-Command (from `projects/sfia-studio/app`):
-
-```text
-node scripts/check-production-runtime-reference.mjs
-```
-
-`--write-digests` = **NOT USED**.
+## 12. Checker result
 
 ```text
 OK: canonical README exists
 RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
 ```
 
-**RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
+`--write-digests` = NOT USED.
 
-## 20. Conformance test result
+## 13. Prior Vitest evidence
 
-Isolation: `trackedSources[0]` = `projects/sfia-studio/app/features/project-assistant/actions.ts`
-was clean · no concurrent process · temporary mutation restored · blob preserved
-`b69703558feeb10ab7b0d7f989b5e8bc6ff6e3a0`.
+From handoff DIGEST-SYNC-01 (`12025288883476f3b276985bb4f3f7f31487e999`):
+Vitest conformance **5/5 PASS** · trackedSources[0] restore MATCH.
+Not re-run this cycle (no necessity; mutator isolation already proven).
 
-```text
+## 14. Pre-commit validations
 
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-akg-m3-formal-exit-truth-sync-local/projects/sfia-studio/app
+- `git diff --check` clean on three files
+- Exactly three project paths · +62/−9
+- Staged empty before `git add --` explicit paths
+- Checker CONFORMANCE OK
 
- ✓ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts (5 tests) 9ms
+## 15. Staged exact scope
 
- Test Files  1 passed (1)
-      Tests  5 passed (5)
-   Start at  10:41:13
-   Duration  209ms (transform 16ms, setup 56ms, collect 7ms, tests 9ms, environment 0ms, prepare 32ms)
-```
+Explicit `git add --` of three paths only. Review Pack **not** staged.
 
-**Vitest: 5/5 PASS** · restore MATCH = YES · no extra project dirty.
+## 16. Commit SHA/parent
 
-## 21. Index manifest unchanged
+- PROJECT_COMMIT_SHA = `ea2446e0da9d7f52e7244a9fea5e850a0806ec25`
+- PARENT = `606f756ef09811c5e68e6ed8a69d08d492a4a426` (expected `606f756ef09811c5e68e6ed8a69d08d492a4a426`)
+- Message: `docs(sfia-studio): record AKG-M3 formal exit in roadmap and PRR`
 
-| Index | Count |
-|---|---|
-| components | 13 |
-| flows | 20 |
-| invariants | 20 |
-| dependencies | 9 |
-| volumes | 10 |
-| trackedSources | 27 |
-| trackedTests | 7 |
-
-Top-level key order preserved. Schema / IDs / paths / metadata untouched.
-
-## 22. Other digests unchanged
-
-Only volume digest changed: PRR09.
-trackedSources digests: **0 changes**.
-trackedTests digests: **0 changes**.
-Other volume digests: **0 changes**.
-
-## 23. Git scope validation
+## 17. Commit three-file tree
 
 ```text
-name-status (project):
+commit ea2446e0da9d7f52e7244a9fea5e850a0806ec25
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Thu Oct 22 11:03:34 2026 +0200
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Thu Oct 22 11:03:34 2026 +0200
+
+    docs(sfia-studio): record AKG-M3 formal exit in roadmap and PRR
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-stat (project):
- .../convergence/sfia-studio-convergence-roadmap.md |  9 ++--
- ...9-known-gaps-reserves-and-current-boundaries.md | 60 ++++++++++++++++++++--
- .../production-runtime-reference.manifest.json     |  2 +-
- 3 files changed, 62 insertions(+), 9 deletions(-)
-cached:
-(empty)
 ```
 
-Total project delta vs main: **exactly 3 files** (Roadmap + PRR09 + Manifest).
-Incremental this cycle: **Manifest only**.
-Staged: **NONE**. Project commit/push/PR/merge: **NONE**.
-
-### Roadmap full diff vs main (unchanged by digest sync)
+## 18. Commit diff FULL
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -308,11 +187,6 @@ index bf6d1c12..8a006dd1 100644
  | **AKG-M5** Product Transformation | Lots Product gouvernés si GO | V3-F05+ | AKG-M4 + GO Product distinct | Lots Product | Preuves Product selon GO | CI/HQA selon GO | Confusion avec P6 Exit | GO Product distinct | — |
 
  ### Non-claims AKG
-```
-
-### PRR09 full diff vs main (unchanged by digest sync)
-
-```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 index 5f24b0fb..ee13e7a7 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
@@ -398,87 +272,146 @@ index 5f24b0fb..ee13e7a7 100644
 +### Exit readiness continuity — **HISTORICAL pre-FE snapshot** (preparatory — not Formal Exit *then*)
 
  E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FORMAL CLOSURE PENDING · E9–E10 WITH GOVERNED RESERVE · E11 = DOCUMENTARY TRUTH-SYNC LOCAL CANDIDATE (≠ INTEGRATED ON MAIN) · E12 OPEN (Formal Exit GO NOT CONSUMED).
+
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index ffd488c0..079e6315 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -43,7 +43,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "743d7232f5a9d5b6"
++      "sha256_16": "9e1e97a2524f14de"
+     }
+   ],
+   "components": [
 ```
 
-## 24. R23/R24
+## 19. Remote branch name/SHA
 
-| Rule | Classification |
+```text
+docs/sfia-studio-akg-m3-formal-exit-truth-sync
+ea2446e0da9d7f52e7244a9fea5e850a0806ec25	refs/heads/docs/sfia-studio-akg-m3-formal-exit-truth-sync
+```
+
+## 20. Push FF verification
+
+Remote SHA = `ea2446e0da9d7f52e7244a9fea5e850a0806ec25` · PUSH_MATCH = YES · no `--force` · main unchanged.
+
+## 21. PR creation authority
+
+Morris GO this cycle: **YES — PR CREATION AUTHORIZED**. Merge: **NOT AUTHORIZED**.
+
+## 22. PR URL/number
+
+- PR **#601** — https://github.com/mcleland147/sfia-workspace/pull/601
+- state = `OPEN` · mergedAt = `None` · autoMerge = `None`
+
+## 23. PR head/base
+
+- base = `main`
+- head = `docs/sfia-studio-akg-m3-formal-exit-truth-sync`
+- headRefOid = `ea2446e0da9d7f52e7244a9fea5e850a0806ec25`
+- commits = 1 · additions = 62 · deletions = 9
+
+## 24. PR files/blobs
+
+GitHub PR files API confirmed three blobs:
+
+| File | Blob |
 |---|---|
-| R23 | DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN AT TESTED SCOPE · KNOWN GAP — no new Product global proof |
-| R24 | NO PRODUCT SEMANTIC IMPACT · NO NEW DOCUMENTARY SEMANTIC CONTENT · DIGEST METADATA SYNC ONLY · KEEP refs · ADAPT PRR09 digest |
+| Roadmap | `8a006dd1ec8941e166214c1717b605ec72543044` |
+| PRR09 | `ee13e7a7b0407d3cea46535f07b54638b30857f4` |
+| Manifest | `079e6315c883b97c8d74a59437750977150b8cba` |
 
-CONFORMANCE PASS ≠ PRODUCT BEHAVIOR PROVEN.
+## 25. PR CI/checks status
 
-## 25. Fake/Real
+Classification: **Detect SFIA Studio changes=SUCCESS; Build and validate SFIA Studio=PENDING/IN_PROGRESS**
 
-| Field | Value |
-|---|---|
-| New fake | NONE |
-| New REAL | NONE |
-| Entering | DOCUMENTARY SEMANTIC RE-REVIEW PASS |
-| Added | PRR DIGEST CONFORMANCE AT LOCAL CANDIDATE SCOPE |
-| REAL | NOT PROVEN |
-| P6 GLOBAL | NOT PASSED |
-| Runtime v3 | NON ADOPTED |
+```text
+Build and validate SFIA Studio	pending	0	https://github.com/mcleland147/sfia-workspace/actions/runs/39752556637/job/119736510441
+Detect SFIA Studio changes	pass	5s	https://github.com/mcleland147/sfia-workspace/actions/runs/39752556637/job/119736451248
+```
+
+**PR OPEN — CI PENDING.** MERGE READINESS NOT YET PROVEN. **≠ READY FOR MERGE.**
 
 ## 26. FE decisions unchanged
 
 | Decision | Status |
 |---|---|
-| FE-01 | ADOPTED — AKG-M3 CLOSED BY MORRIS |
-| FE-02 | six FORMALLY CLOSED BY MORRIS |
-| FE-03 | cleanup GOVERNED OPEN / DEFER |
+| FE-01 | ADOPTED — M3 CLOSED BY MORRIS |
+| FE-02 | six FORMALLY CLOSED |
+| FE-03 | cleanup OPEN/DEFER |
 | FE-04 | M2/REAL/P6/v3 preserved · M4 NOT AUTHORIZED |
 
-## 27. Reserves / cleanup
+## 27. E-matrix
 
-R-M3-PM-CLEANUP-01 = **OPEN/DEFER** · NOT EXECUTED · branches RETAINED.
-Six FE-02 IDs remain FORMALLY CLOSED (no reopen).
+E1–E6 SATISFIED · E7/E9/E10 WITH GOVERNED RESERVE · E8 SATISFIED (FE-02) ·
+E11 SATISFIED (prior lot #600 post-merge) · E12 SATISFIED (FE-01).
+**This new PR OPEN ≠ new Post-Merge Verification PASS.**
 
-## 28. M2 continuity
+## 28. Cleanup OPEN/DEFER
+
+R-M3-PM-CLEANUP-01 OPEN/DEFER · NOT EXECUTED · G7 + #600 branches RETAINED.
+
+## 29. M2 debt continuity
 
 R-M2A-04 · R-M2B-03 · B-M2B-01…05 · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 preserved.
 
-## 29. AKG-M4 NOT AUTHORIZED
+## 30. AKG-M4 NOT AUTHORIZED
 
-Explicit. Digest Sync does not authorize M4.
+Explicit. GI/PR does not authorize M4.
 
-## 30. Remaining gates
+## 31. Fake/Real
 
-1. ChatGPT Critical PRR09 Digest Conformance Review
-2. Morris **Documentary Git Integration GO** (distinct — commit/push/PR)
-3. CI / Critical Integration Review
-4. Morris Merge GO → Post-Merge
+| Field | Value |
+|---|---|
+| New fake | NONE |
+| New REAL | NONE |
+| Added proof | PROJECT DOCUMENTARY GIT INTEGRATION / PR OPEN |
+| REAL | NOT PROVEN |
+| P6 GLOBAL | NOT PASSED |
+| Runtime v3 | NON ADOPTED |
+
+## 32. Remaining gates
+
+1. ChatGPT Critical Documentary Git Integration Review
+2. Required CI SUCCESS
+3. Distinct Morris **MERGE PR #601** GO
+4. Merge → Post-Merge Verification
 5. Cleanup under distinct GO
 6. AKG-M4 under distinct GO
 
-## 31. Review Handoff proof
+## 33. Review Handoff L3 proof
 
 Published in-cycle via `scripts/sfia/publish-review-handoff.sh`.
 Remote SHA/blob recorded in Cursor final report after push verification.
 
-## 32. Verdict
+## 34. Verdict
 
-**AKG-M3 FORMAL EXIT PRR09 DIGEST SYNC LOCAL COMPLETE — PRODUCTION RUNTIME REFERENCE CONFORMANCE OK AT LOCAL CANDIDATE SCOPE — READY FOR CHATGPT CRITICAL DIGEST CONFORMANCE REVIEW.**
+**AKG-M3 FORMAL EXIT DOCUMENTARY GIT INTEGRATION COMPLETE — PR OPEN — MERGE NOT AUTHORIZED — READY FOR CHATGPT CRITICAL INTEGRATION REVIEW.**
 
-## 33. Instruction ChatGPT
+**CI PENDING — MERGE READINESS NOT YET PROVEN.**
+
+## 35. Instruction ChatGPT
 
 Read Git branch `sfia/review-handoff` file
 `sfia-review-handoff/latest-chatgpt-review.md`.
 
-Cycle: **AKG-M3-FORMAL-EXIT-PRR09-DIGEST-SYNC-01**
+Cycle: **AKG-M3-FORMAL-EXIT-DOC-GIT-INTEGRATION-01**
 
-Produce: **CHATGPT CRITICAL PRR09 DIGEST CONFORMANCE REVIEW**.
+Produce: **CHATGPT CRITICAL DOCUMENTARY GIT INTEGRATION REVIEW**.
 
-Independently verify: handoff commit/blob · Git/main/HEAD · Roadmap/PRR09
-unchanged · PRR09 sha256_16 · manifest initial · exact manifest diff · new
-manifest blob · no other digests · checker · Vitest · ≤3 project files ·
-staged empty · no project commit/push/PR · FE-01–FE-04 · six closures ·
-E8/E11/E12 · cleanup DEFER · M2 continuity · M4 NOT AUTHORIZED · Fake/Real/P6/v3.
+Independently verify: handoff SHA/blob · Git main · project commit/parent ·
+three exact files/blobs · PRR09 digest · checker · branch remote SHA ·
+PR OPEN/UNMERGED · PR head/base/scope · CI/checks · FE-01–FE-04 · six closures ·
+E8/E11/E12 · cleanup DEFER · M2 debts · M4 NOT AUTHORIZED · Fake/Real/P6/v3 ·
+no merge/cleanup.
 
-If PASS → propose distinct Morris GO: **AKG-M3 FORMAL EXIT DOCUMENTARY GIT INTEGRATION**
-(commit / push / PR / later merge separately). Digest Sync does not authorize those.
+If all gates PASS and required CI SUCCESS → propose distinct Morris
+**MERGE PR #601** GO. Do not consume by implication.
 
 ---
 
-END — AKG-M3-FORMAL-EXIT-PRR09-DIGEST-SYNC-01
+END — AKG-M3-FORMAL-EXIT-DOC-GIT-INTEGRATION-01
