@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Portée | Construction / connaissance architecturale de **SFIA Studio uniquement** |
-| Version | **V0.1 documentaire candidate**, sur branche dédiée |
+| Version | **V0.1 candidate au snapshot d'authoring du 2026-10-22** (branche documentaire dédiée, non intégrée à `main` à cette date) |
 | Base de lecture | `main` @ `1c2d5ecdac3241ac4ef9d45dea68509f761e2f8b` — 2026-10-22 |
 | Autorisation Pilote | GO **documentaire borné V0.1** le 2026-10-22 |
 | Non-claims | **AKG-M4 FORMAL START non consommé**, aucun delivery, aucune architecture cible formellement adoptée, runtime v3 NON ADOPTED |
@@ -31,6 +31,16 @@ Les acquis AKG-M0 à M3 sont répartis entre la Build Doctrine, la Roadmap, la P
 **Source routing (proportionné) :** code Git courant + preuves primaires → Build Doctrine → Roadmap → doctrine v3 applicable → volumes PRR pertinents → **si architecture cible/rationalisation/transformation touchée : index AKG + TO-BE + registre**, et AS-IS si utile. Jamais un chargement exhaustif obligatoire pour toute petite correction Studio.
 
 Ce rattachement est prévu dans [Cycle Routing Guide §4.3.0a](../../../../method/sfia-fast-track/core/sfia-cycle-routing-guide.md) et [Knowledge Layer — Documentation Routing Matrix](../../../../method/sfia-fast-track/core/sfia-knowledge-layer.md).
+
+## Revue documentaire de cohérence — 2026-10-22
+
+**Niveau de revue : REVUE CRITIQUE DOCUMENTAIRE — SUFFISANTE POUR DRAFT PR, SOUS RÉSERVES.**
+
+- **Périmètre inspecté :** quatre nouveaux documents AKG-M4 et les trois documents de routage/gouvernance modifiés, par comparaison avec le `main` de base ; confrontation ciblée aux doctrines v3 (notamment §30, §32, §34, §35, §37), à la Build Doctrine et aux volumes PRR 01/03/06/07/09.
+- **Corrections intégrées :** origine historique de Single Human Execute (PR #590, antérieure à la consolidation M3) ; syntaxe d'un lien du registre ; terminologie de reprise/redémarrage ; qualification de statut Git datée pour éviter une assertion périmée après merge.
+- **Vérifications documentaires :** index et renvois relatifs des documents M4 passés en revue ; schémas Mermaid présents (AS-IS : 2 ; TO-BE : 2). Cette revue **ne** certifie **ni** l'intégrité exhaustive des liens de toute la Roadmap historique **ni** le rendu automatique des schémas en navigateur.
+- **Réserves non bloquantes :** caractère préliminaire/non exhaustif de l'AS-IS ; dispositions de retrait non prouvées ; cohérence fine du TO-BE à instruire par lots et GO M4 distinct ; REAL/P6 GLOBAL PASS non acquis ; revue GitHub/CI ultérieure à la Draft PR nécessaire.
+- **Statut :** publication en **Draft PR recommandée**, **aucune fusion ni adoption runtime** par la présente revue.
 
 ## Gouvernance et statut des sources
 

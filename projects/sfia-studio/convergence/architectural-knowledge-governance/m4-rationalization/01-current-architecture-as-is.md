@@ -68,7 +68,7 @@ Plusieurs chemins coexistent :
 - Ancien chemin impliquant une décision avant préparation.
 - Chemin plus récent *Single Human Execute* : contrat inspectable, puis geste humain « Exécuter ».
 
-**Point important :** M3 a déjà permis d'intégrer un parcours *Single Human Execute*, prouvé au périmètre déterministe testé. Il serait donc inexact d'affirmer que Studio impose toujours deux validations humaines.
+**Point important :** le parcours *Single Human Execute* a été intégré sur `main` via la **PR #590**, antérieure à la consolidation architecturale AKG-M3, et prouvé au périmètre déterministe testé. Il serait donc inexact d'affirmer que Studio impose toujours deux validations humaines.
 
 En revanche, des transitions internes distinctes et plusieurs chemins d'admission subsistent. Leur nécessité et leur cohérence avec l'expérience cible doivent être réévaluées.
 
@@ -202,7 +202,7 @@ Les chemins incluent NEW_CYCLE, continuation active, propositions F2, Generic PR
 
 ### 5. Limites de preuve et écarts saillants
 
-- **REST/continuité :** propositions et offres process-local ; reprise après restart / multi-instance partielle. [PRR 06](../../../production-runtime-reference/06-persistence-restart-and-recovery.md).
+- **Redémarrage / continuité :** propositions et offres process-local ; reprise après restart / multi-instance partielle. [PRR 06](../../../production-runtime-reference/06-persistence-restart-and-recovery.md).
 - **Rapport/preuve/Nora :** des chemins et des tests déterministes existent, mais aucune preuve universelle de la boucle **Cursor REAL → rapport/STOP → vérification → synthèse Nora → Pilote → nouvelle décision**. [PRR 03](../../../production-runtime-reference/03-end-to-end-flow-catalog.md), [08](../../../production-runtime-reference/08-test-proof-and-conformance-map.md), [09](../../../production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md).
 - **REAL no-write :** des garde-fous refusent le lancement pathless non-mutating lorsque Cursor REAL ne sait pas techniquement garantir l'absence d'écriture. Ne pas confondre « prompt no-write » avec enforcement. [PRR 07](../../../production-runtime-reference/07-authority-invariants-and-failure-modes.md).
 - **Produit :** plusieurs UX et bases historiques, nommage dépendant de jalons, chemins d'orchestration coexistants.
