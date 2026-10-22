@@ -1,476 +1,597 @@
 # SFIA Review Pack — FULL — CRITICAL
 
-## 01. Timestamp UTC
-
-2026-10-22T11:49:26Z (pack authoring start; evidence live-revalidated same session)
-
-Cycle close stamp: post-merge verification evidence complete before L3 handoff publish.
-
-## 02. GO Morris
-
-**GO MORRIS EXPLICITE — 2026-10-22.**
-
-Morris replied **"ok go"** to Cycle 14 — Critical Post-Merge Verification of PR #602.
-
-**AUTHORIZED:** Git Truth Check; PR #602 verification; merge commit verification; Roadmap control; post-merge CI; PRR conformance read-only; FE continuity / reserves; R23/R24; Review Pack FULL; Review Handoff L3.
-
-**NOT AUTHORIZED:** project file mutation; project commit/push; new PR; additional merge; branch deletion; cleanup of preexisting Git/worktree; Roadmap rewrite; PRR/manifest mutation; FE re-arbitration; doctrine/runtime promotion; AKG-M4 START.
-
-**Cleanup:** EXPLICITLY EXCLUDED by this GO (overrides conditional template SFIA v2.6 §6.12 cleanup). No implicit deletion authority.
-
-## 03. Cycle / Profile / CKC
+## 00. Identity
 
 | Field | Value |
 | --- | --- |
-| Cycle | `AKG-M3-POST-MERGE-DOC-STATUS-SYNC-POST-MERGE-01` |
-| Type | CYCLE 14 — POST-MERGE VERIFICATION |
+| Timestamp UTC | 2026-10-22T17:45:17Z |
+| Cycle | AKG-M4-A / T-A01 — Dependency & consumers audit |
+| Type | Cycle 6 — Architecture technique |
 | Profile | CRITICAL |
-| Typology | DOC / GOVERNANCE / POST-MERGE |
-| Mode | PROJECT READ-ONLY + Review Handoff L3 BOUNDED |
-| Repository | `mcleland147/sfia-workspace` |
-| Chantier | SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE |
-| Milestone | AKG-M3 — Reference Consolidation — **CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** |
-| Capabilities | V3-F05 / V3-F12 |
-| Next milestone | AKG-M4 — Rationalization Assessment — **NOT AUTHORIZED / NOT STARTED** |
-| CKC | `projects/sfia-studio/sfia-v3-framing/ckc/14-post-merge.md` — CONTENT VALIDATED BY MORRIS — cognitive guidance only |
-| Process | SFIA v2.6 external |
-| Runtime v3 | NON ADOPTED |
+| Typologie | DOC / Architecture / Rationalization Assessment |
+| Mode | Analysis local candidate + Review Handoff L3 bounded |
+| Repository | mcleland147/sfia-workspace |
+| Analysis branch |  |
+| Analysis HEAD |  (= source tip docs/akg-m4a-capability-first-rationalization) |
+| origin/main |  |
+| PR source | #604 Draft OPEN · CI SUCCESS · non merged |
+| GO | M4 Formal Start + M4-A initial lot (Pilot 2026-10-22); T-A01 investigation |
+| Project mutation authorized | ONE documentary file only; NO project commit/push/PR/merge |
+| Handoff push | L3 bounded only |
 
-## 04. Git Truth initial
+## 01. GO / Autorisations
 
-Live capture from authoring worktree (not assumed clean / not assumed on main):
+AUTHORIZED: static dependency/consumer audit A01–A12; create  on analysis branch; Full Review Pack; Review Handoff L3 publish.
+
+NOT AUTHORIZED: app/runtime/test/config mutation; data migration; Cursor REAL; PRR/Build Doctrine/v3 edits; M4-A CLOSED; v3 ADOPTED; P6 GLOBAL PASS; project commit/push/PR/merge; destructive git.
+
+## 02. Local Git Truth — before
 
 | Check | Result |
 | --- | --- |
-| `pwd -P` | `/Users/morris/Projects/sfia-workspace-akg-m3-postmerge-status-sync-local` |
-| `git rev-parse --show-toplevel` | same |
-| `git remote -v` | `origin` → `https://github.com/mcleland147/sfia-workspace.git` (fetch/push) |
-| `git branch --show-current` | `docs/sfia-studio-akg-m3-postmerge-status-sync-local` |
-| `git rev-parse HEAD` | `b9761d925dba98e9ee92af7553e391b43d7ae43d` (project commit of PR #602) |
-| `git fetch origin` | executed |
-| `git rev-parse origin/main` | `1c2d5ecdac3241ac4ef9d45dea68509f761e2f8b` |
-| `git ls-remote origin refs/heads/main` | `1c2d5ecdac3241ac4ef9d45dea68509f761e2f8b` |
-| porcelain | ` M .tmp-sfia-review/chatgpt-review.md` only (Review Pack temp; not project product on main) |
-| `git diff --name-status` | `M .tmp-sfia-review/chatgpt-review.md` |
-| `git diff --cached --name-status` | empty |
-| Preexisting authoring WT | **PRESENT** — not cleaned |
-| Forced checkout main | **NOT DONE** |
-
-**Main advanced?** No — `origin/main` **IS** the merge commit of PR #602. Merge ancestry intact.
-
-## 05. Sources consultées
-
-Read / consulted (project read-only):
-
-- `prompts/templates/sfia-cycle-execution-template.md` (§ Repo-informed / Studio Convergence Pre-check; §3; Cycle/Profile; §6.12 Post-Merge; §6.14; §6.16; §7 Review Pack; §7.10–7.11; Stops)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
-- `prompts/templates/07-write-post-merge-status.md`
-- `docs/architecture/sfia-delivery-pipeline.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md` (A3 / R1–R24 / A8–A12)
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (on `origin/main`)
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` (READ-ONLY)
-- `projects/sfia-studio/sfia-v3-framing/` 30 / 32 / 33 / 35 / 37
-- PRR: README, 04, 08, 09, `production-runtime-reference.manifest.json`
-- `projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs` (executed non-mutating)
-- `projects/sfia-studio/sfia-v3-framing/ckc/14-post-merge.md`
-- Prior handoff on `sfia/review-handoff` @ `9ea1d4914d2fa250704316bf29e1bd02417a9f11` / blob `a5eaa21f48786f6ee653af74f18c180642632e00` (cycle GI #602)
-- FE Decision Record `7339d49fe6a4807e114bae616caf3f118cc87356` — FE-01–FE-04 ADOPTED
-- `scripts/sfia/publish-review-handoff.sh` (read before use)
-
-## 06. Convergence Pre-check
-
-| Item | Qualification |
-| --- | --- |
-| Capability | V3-F05 / V3-F12 |
-| Milestone AKG-M3 | CLOSED BY MORRIS (bounded Reference Consolidation + governed reserves) |
-| KEEP | Build Doctrine; Roadmap CURRENT; PRR CURRENT; manifest; Git proofs; FE decisions; Review Handoffs |
-| ADAPT | NONE |
-| COMPLETE (this cycle) | Post-merge verification evidence for PR #602 at bounded scope |
-| Parallel architecture | NONE |
-| Runtime implementation | NONE |
-| Dependency chain | FE-01–FE-04 → PR #601 MERGED/VERIFIED → Roadmap status sync → **PR #602 MERGED** → CI post-merge SUCCESS → present Critical verification |
-| Debt / Exit | Cleanup FE-03 OPEN/DEFER; M2 debts preserved |
-| AKG-M4 | NOT AUTHORIZED |
-
-## 07. PR #602 metadata
-
-| Field | Live value |
-| --- | --- |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/602 |
-| State | **MERGED / CLOSED** |
-| mergedAt | `2026-10-22T11:24:06Z` |
-| baseRefName | `main` |
-| headRefName | `docs/sfia-studio-akg-m3-postmerge-status-sync` |
-| mergeCommit.oid | `1c2d5ecdac3241ac4ef9d45dea68509f761e2f8b` |
-| Project commit | `b9761d925dba98e9ee92af7553e391b43d7ae43d` |
-| Message | `docs(sfia-studio): sync AKG-M3 post-merge roadmap status` |
-| additions / deletions | **2 / 1** |
-| files | **1** — `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` |
+| origin/main |  MATCH expected f44a99b4… |
+| Source branch tip | c48c6a582c10ee3cf6902203d6a4eb01ce3f2139 MATCH |
+| PR #604 | Draft OPEN; Detect/Build/Required Gate SUCCESS |
+| Isolation | New worktree  from source commit; preexisting dirty WTs untouched |
+| Analysis HEAD |  |
 
-**PR STATE: MERGED / CLOSED — MATCH.**
+## 03. Sources consulted
 
-## 08. Merge SHA + parents
+Method: sfia-cycle-execution-template (§§2,3,5,7,9); cycle-routing-guide §4.3.0a; operating-model; rules-and-guardrails; knowledge-layer.
 
-```
-commit 1c2d5ecdac3241ac4ef9d45dea68509f761e2f8b
-tree 6942f71d8c628f49b758c606f9a6a24a51fc92f0
-parent 966fc949d4bdeb21ab5e06112b45af564563ddd2
-parent b9761d925dba98e9ee92af7553e391b43d7ae43d
-```
+Governance: Build Doctrine; Roadmap; G0 architecture-persistence decision pack.
 
-Merge message: `Merge pull request #602 from docs/sfia-studio-akg-m3-postmerge-status-sync`
+AKG: README; 01 AS-IS; 02 TO-BE; 03 orientations; 04 M4-A responsibilities.
 
-**MERGE IDENTITY: MATCH** (SHA + both parents exact).
+PRR: README; 01; 02; 03; 04; 06; 07; 08; 09 (relevant sections).
 
-## 09. Main ancestry proof
+Doctrine v3: 30; 32; 34; 35.
 
-| Ancestor check | Exit code |
-| --- | --- |
-| `git merge-base --is-ancestor 1c2d5ecd… origin/main` | **0** |
-| `git merge-base --is-ancestor b9761d92… origin/main` | **0** |
-| `git merge-base --is-ancestor 966fc949… origin/main` | **0** |
+Code (static): app/studio/**; P0 routes; D1/OPS1 routes+libs+features; project-assistant; nora-cognitive-runtime; vertical-slice-runtime (+composeStudioProductRealBoundary); oa modules; proposal/prepare stores; execution-run; sample tests/e2e/scripts.
 
-`origin/main` == merge SHA `1c2d5ecd…` (main tip is the merge). Project commit included. No material divergence. **NO STOP.**
+## 04. Convergence / method notes
 
-## 10. Merge one-file scope
+OR-13 capability-first applied. CKC Architecture = cognitive guidance only. Runtime v3 NON ADOPTED. G0-A/B remain ADOPTED constraints.
 
-Against first-parent base `966fc949…` … merge `1c2d5ecd…`:
+## 05. Deliverable created
 
-```
-projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md | 3 ++-
-1 file changed, 2 insertions(+), 1 deletion(-)
-```
+Path:
 
-Name-status: `M` that single Roadmap path only.
+Only project file added this cycle. Content covers required sections 1–10 (baseline, graph, A01–A12 matrix, capability/impl, historical deps, scenarios, impacts, gaps, recommendations, M4-A exit conditions unmet).
 
-**EXPECTED DIFF MATCH. No unexpected file delta. No second mutation.**
+## 06. Audit matrix — significant conclusions
 
-## 11. Roadmap exact blob
+- A01 Product UI: CONFIRMED consumers; KEEP capability / ADAPT impl candidate.
+- A02 P0: active routes; no Product Spine consumer; CONSOLIDATE/RETIRE LATER candidate.
+- A03 D1: confirmed island + SQLite; HARVEST/REPLACE candidate (SC-A); not KEEP-by-import.
+- A04 OPS1: confirmed island + e2e; Product couples via OPS1_CURSOR_REAL flag only (not adapter import from A12); HARVEST/REBUILD/RETIRE LATER (SC-B).
+- A05 OA: heavy consumption; KEEP socle (G0); ADAPT limits.
+- A06 PA: central orchestration; ADAPT/CONSOLIDATE (SC-C).
+- A07 Nora: cognition consumers via PA; KEEP/ADAPT boundary.
+- A08 VSR: composition hub; KEEP capability / ADAPT or REBUILD composition.
+- A09 D1 audit type: CONFIRMED type + optional sqlite auditMode (default noop); HARVEST/REPLACE port before D1 retire.
+- A10 process-local stores: CONFIRMED F2/W2 path; restart continuity NOT PROVEN; ADAPT/COMPLETE/REBUILD candidate.
+- A11 execution-run: outside Product Spine; FinOps/shadow/tests; FREEZE candidate.
+- A12 REAL boundary: OA execution-attempt only; KEEP guarantees / ADAPT ports.
 
-```
-git rev-parse origin/main:projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-→ 34c1e1c875c94d26364f69c1062c11102a779bc5
-```
+## 07. Candidate classifications (non-final)
 
-**EXPECTED BLOB: `34c1e1c875c94d26364f69c1062c11102a779bc5` — ROADMAP MATCH.**
+SC-A D1 intake · SC-B Cursor unify · SC-C orchestration · SC-D P0 · SC-E composition · SC-F continuity · SC-G execution-run FREEZE.
 
-## 12. New CURRENT tip
+All CANDIDATE. No definitive retire. No Delivery GO.
 
-Tip0 (first Timestamp maintenance row on main Roadmap) documents:
+## 08. Risks / reserves
 
-- AKG-M3 CLOSED BY MORRIS at bounded Reference Consolidation scope with governed reserves
-- **PR #601 MERGED / POST-MERGE VERIFIED**
-- FE-01–FE-04 ADOPTED; six formal closures; FE-03 cleanup OPEN/DEFER; AKG-M4 NOT AUTHORIZED
-- PRR09 / Manifest blobs + sha256_16 as of Formal Exit lot
-- Scope of **that authoring cycle** = Roadmap only
-- Closing clause (authoring-time): *“This new Roadmap status sync: **LOCAL AUTHORING CANDIDATE — NOT YET INTEGRATED ON MAIN**.”*
+- Dual UI generations still routable.
+- Flag coupling OPS1↔Product safety.
+- Process-local continuity debt.
+- Incomplete T-A02…T-A06.
+- REAL / P6 / v3 boundaries unchanged.
+- Dynamic import graph PARTIAL.
 
-After PR #602 merge, that clause is an **AUTHORING-TIME SNAPSHOT** (historically dated). Git CURRENT truth: tip **is** on `origin/main` at blob `34c1e1c8…`.
+## 09. Fake/Real
 
-**No automatic new sync required solely from that temporal phrase.**
+Static analysis only. New Fake: NONE. New REAL proof: NONE. REAL NOT PROVEN. P6 GLOBAL NOT PASSED. Runtime v3 NON ADOPTED.
 
-## 13. Prior HISTORICAL tip
+## 10. Validations
 
-Tip1 marked **HISTORICAL / SUPERSEDED AS TIP** (prior Formal Exit documentary truth-sync tip). History preserved. B-AKG / AKG-M3 / AKG-M4 lines not rewritten by this verification cycle.
+- git status: only untracked  (+ review pack temp).
+- git diff --check: clean on tracked (new file untracked).
+- Single project documentary file created.
+- No project commit/push.
 
-## 14. Temporal reserve
+## 11. Review Handoff L3
 
-| Qualification | Value |
-| --- | --- |
-| Reserve | Tip0 still contains LOCAL AUTHORING CANDIDATE / NOT YET INTEGRATED ON MAIN |
-| Nature | **TEMPORAL AUTHORING SNAPSHOT — NON BLOCKING** |
-| Git prime | `origin/main` holds the tip at expected blob |
-| Action this cycle | **NO Roadmap rewrite**; do not open auto truth-sync loop |
-| Material semantic gap beyond temporality | **NONE observed** requiring new GO |
+Branch: sfia/review-handoff
+Canonical: sfia-review-handoff/latest-chatgpt-review.md
+Publisher: scripts/sfia/publish-review-handoff.sh
+Worktree: /Users/morris/Projects/sfia-workspace/sfia-review-handoff
+Message: docs(review-handoff): AKG-M4-A T-A01 dependency consumers audit
 
-## 15. PRR09 unchanged
+(Results filled after publish in Cursor report.)
 
-```
-origin/main:…/09-known-gaps-reserves-and-current-boundaries.md
-→ ee13e7a7b0407d3cea46535f07b54638b30857f4
-```
+## 12. Verdict (Cursor)
 
-sha256_16 (content): **`9e1e97a2524f14de`**
+READY FOR CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A01 LOCAL CANDIDATE
 
-**PRR09 MATCH — not in merge diff.**
+(Conditional on successful handoff remote verify.)
 
-## 16. Manifest unchanged
+## 13. Instruction ChatGPT (template §9.1)
 
-```
-origin/main:…/production-runtime-reference.manifest.json
-→ 079e6315c883b97c8d74a59437750977150b8cba
-```
+Read on Git branch  the file .
 
-Index on main: **13 components / 20 flows / 20 invariants / 9 dependencies**; trackedSources **27**; trackedTests **7**; volumes **10**.
-
-**MANIFEST MATCH — not in merge diff.**
-
-## 17. Checker evidence
-
-**CHECKER RE-RUN** — ephemeral disposable worktree at exact `origin/main` SHA `1c2d5ecd…` (no project branch; preexisting authoring WTs untouched; ephemeral WT removed after).
-
-From `projects/sfia-studio/app`:
-
-```
-node scripts/check-production-runtime-reference.mjs
-```
-
-(no `--write-digests`)
-
-Output:
-
-```
-OK: canonical README exists
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-```
-
-Saved: `.tmp-sfia-review/akg-m3-post-merge-doc-status-sync-post-merge-01/checker.log`
-
-## 18. Post-merge CI identity
-
-| Field | Live value |
-| --- | --- |
-| Run ID | **39770298100** |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/39770298100 |
-| Workflow | SFIA Studio CI |
-| event | **push** |
-| head_sha | **`1c2d5ecdac3241ac4ef9d45dea68509f761e2f8b`** |
-| status | completed |
-| conclusion | **success** |
-| run_attempt | 1 |
-
-**CI IDENTITY MATCH** (not substituted by PR-check run).
-
-## 19. CI jobs / Required Gate
-
-| Job | status | conclusion |
-| --- | --- | --- |
-| Detect SFIA Studio changes | completed | **success** |
-| Build and validate SFIA Studio | completed | **success** |
-| SFIA Studio Required Gate | completed | **success** |
-
-**POST-MERGE CI SUCCESS.**
-
-## 20. FE-01–FE-04
-
-| ID | Status (unchanged; no new HumanDecision) |
-| --- | --- |
-| FE-01 | AKG-M3 CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES — ADOPTED |
-| FE-02 | Six FORMALLY CLOSED — ADOPTED |
-| FE-03 | R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER — ADOPTED; cleanup NOT EXECUTED |
-| FE-04 | M2 debts / REAL / P6 / runtime v3 continuity — ADOPTED |
-
-Decision Record: `7339d49fe6a4807e114bae616caf3f118cc87356`.
-
-**No reopen / re-adopt / Product readiness promotion.**
-
-## 21. Six formal closures
-
-FORMALLY CLOSED (owners UNASSIGNED) — preserved:
-
-1. R-M3A-01
-2. R-M3B-01
-3. R-G6-SR-01
-4. R-G6-SR-02
-5. R-G6-SR-03
-6. R-G6-SR-04
-
-**Not reopened by PR #602.**
-
-## 22. E1–E12
-
-| Proof | Qualification |
-| --- | --- |
-| E1–E6 | SATISFIED |
-| E7 / E9 / E10 | SATISFIED WITH GOVERNED RESERVE |
-| E8 | SATISFIED — FE-02 |
-| E11 | SATISFIED at prior accepted post-merge scope (#600); #601/#602 = additional documentary proofs (≠ rewrite of E11 row) |
-| E12 | SATISFIED — FE-01 |
-
-## 23. Cleanup OPEN/DEFER
-
-Template v2.6 §6.12 conditional cleanup **overridden** by Morris GO + FE-03.
-
-| Item | Status |
-| --- | --- |
-| R-M3-PM-CLEANUP-01 | GOVERNED OPEN / DEFER |
-| Temporary governance | MORRIS |
-| Formal owner | UNASSIGNED |
-| Cleanup executed this cycle | **NO** |
-| Commands forbidden | `branch -d/-D`, `push --delete`, prune, `gh pr close` on delivery branches — **NOT RUN** |
-
-## 24. Branch preservation
-
-Remote refs live-verified (`git ls-remote`):
-
-| Branch | Expected SHA | Live remote SHA |
-| --- | --- | --- |
-| `docs/sfia-studio-akg-m3-g7-prr-consolidation` | `d21fbb86…` | **MATCH** |
-| `docs/sfia-studio-akg-m3-documentary-truth-sync` | `2134fc18…` | **MATCH** |
-| `docs/sfia-studio-akg-m3-formal-exit-truth-sync` | `ea2446e0…` | **MATCH** |
-| `docs/sfia-studio-akg-m3-postmerge-status-sync` | `b9761d92…` | **MATCH** |
-| `sfia/review-handoff` | prior `9ea1d491…` (will advance only via authorized L3 publish below) | present |
-
-**ALL PROJECT DELIVERY BRANCHES RETAINED.**
-
-## 25. M2 debt continuity
-
-Preserved (not erased by #602): R-M2A-04 · R-M2B-03 · B-M2B-01…05 · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL — as carried on Roadmap tip / FE-04.
-
-**Six formal closures ≠ all debts closed.**
-
-## 26. R23 / R24
-
-**R23 — Architecture-informed review**
-
-| Object | Qualification |
-| --- | --- |
-| PRR volumes / checker / manifest | DOCUMENTED; COVERAGE VERIFIED at checker scope |
-| Roadmap tip status sync | DOCUMENTED on main |
-| Product runtime behavior change | NONE in #602 |
-| Known gap | Temporal authoring snapshot phrase on tip0 — NON BLOCKING |
-| BEHAVIOR PROVEN AT TESTED SCOPE | N/A for product semantics (doc-only PR) |
-
-**R24 — Product semantic impact**
-
-**NO PRODUCT SEMANTIC IMPACT.** Roadmap status sync only. No product functioning change. No PRR sync required solely from this merge. Manifest unchanged.
-
-## 27. Fake / Real / P6 / v3
-
-| Claim | Qualification |
-| --- | --- |
-| New Fake | NONE |
-| New REAL | NONE |
-| New runtime behavior | NONE |
-| REAL | **NOT PROVEN** |
-| P6 GLOBAL | **NOT PASSED** |
-| Runtime v3 | **NON ADOPTED** |
-| L5 global | **NOT AUTHORIZED** |
-| DETERMINISTIC PROVEN | ≠ REAL PROVEN |
-| MERGED | ≠ RUNTIME ADOPTED |
-
-## 28. AKG-M4 NOT AUTHORIZED
-
-AKG-M4 — Rationalization Assessment — **NOT AUTHORIZED / NOT STARTED.**
-
-Formal Exit CLOSED ≠ AKG-M4 authorized. No M4 start in this cycle.
-
-## 29. Project read-only proof
-
-| Mutation class | This cycle |
-| --- | --- |
-| Project file edit on main | NONE |
-| Project commit / push / PR / merge | NONE (verification only; #602 already merged under prior GO) |
-| Roadmap rewrite | NONE |
-| PRR / manifest edit | NONE |
-| Cleanup / branch delete | NONE |
-| Review Pack path | `.tmp-sfia-review/chatgpt-review.md` (temp; not product) |
-| Sole authorized write | Review Handoff L3 bounded (`sfia/review-handoff` only) |
-
-Authoring WT porcelain before handoff: only Review Pack temp dirty. Preexisting dirty attributed to pack rebuild — **not** product on main.
-
-## 30. Known gaps / limits
-
-1. **TEMPORAL AUTHORING SNAPSHOT — NON BLOCKING** — tip0 LOCAL AUTHORING CANDIDATE phrase dated to authoring cycle; Git CURRENT integrates tip via #602.
-2. **FE-03 cleanup** remains OPEN/DEFER — branches retained deliberately.
-3. **M2 debts** remain open (governed continuity).
-4. **REAL / P6 / v3 / L5** boundaries unchanged — no promotion.
-5. Checker re-run used ephemeral WT at exact SHA; not a claim of P6 global pass.
-6. This pack does not rewrite Roadmap; any future documentary sync requires **material** gap + distinct Morris GO.
-
-## 31. Remaining gates
-
-- ChatGPT Critical Post-Merge Review of this handoff (independent re-verify)
-- Optional future: cleanup GO (FE-03) — **separate**
-- Optional future: material Roadmap tip language sync — **only if material gap + GO**
-- AKG-M4 — **separate Morris GO required**; not implied
-
-## 32. Review Handoff L3
-
-| Field | Value |
-| --- | --- |
-| Required | YES |
-| Mode | publish-in-cycle |
-| Push | YES — L3 BOUNDED ONLY |
-| Branch | `sfia/review-handoff` |
-| Canonical file | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Source | `.tmp-sfia-review/chatgpt-review.md` |
-| Publisher | `scripts/sfia/publish-review-handoff.sh` |
-| Handoff worktree (discovered) | `/Users/morris/Projects/sfia-workspace/sfia-review-handoff` @ prior `9ea1d491…` clean |
-| Suggested message | `docs(review-handoff): AKG-M3 PR602 post-merge verification` |
-
-Publication results filled after publish (section updated in final Cursor report / post-publish verify): remote commit SHA + blob SHA + remote content re-read.
-
-**Prior handoff (to be superseded by this publish):** commit `9ea1d4914d2fa250704316bf29e1bd02417a9f11` / blob `a5eaa21f48786f6ee653af74f18c180642632e00`.
-
-## 33. Verdict
-
-**AKG-M3 PR #602 POST-MERGE VERIFICATION COMPLETE — MAIN ROADMAP INTEGRATION VERIFIED — POST-MERGE CI SUCCESS — WITH GOVERNED RESERVES.**
-
-**TEMPORAL SNAPSHOT NON-BLOCKING.**
-
-**CLEANUP NOT EXECUTED.**
-
-**AKG-M4 NOT AUTHORIZED.**
-
-**HANDOFF UPDATED — REMOTE VERIFIED** *(asserted after successful L3 publish + remote SHA/blob verify in Cursor final report).*
-
-Anti-claims held:
-
-- POST-MERGE CI SUCCESS ≠ PRODUCT READY
-- MERGED ≠ RUNTIME ADOPTED
-- FORMAL EXIT CLOSED ≠ AKG-M4 AUTHORIZED
-- POST-MERGE VERIFIED ≠ CLEANUP DONE
-- SIX RESERVES CLOSED ≠ ALL DEBTS CLOSED
-- PRR CONFORMANCE ≠ P6 GLOBAL PASS
-- DETERMINISTIC ≠ REAL
-
-## 34. Instruction ChatGPT
-
-Read on Git:
-
-- branch `sfia/review-handoff`
-- path `sfia-review-handoff/latest-chatgpt-review.md`
-
-Cycle: `AKG-M3-POST-MERGE-DOC-STATUS-SYNC-POST-MERGE-01`
-
-Perform: **CHATGPT CRITICAL AKG-M3 PR #602 POST-MERGE REVIEW.**
+Perform: **CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A01**.
 
 Independently verify:
 
-1. Handoff commit/blob
-2. Main Git CURRENT
-3. PR #602 MERGED
-4. Merge SHA/parents
-5. Project commit ancestor
-6. Roadmap exact blob `34c1e1c8…`
-7. One-file scope
-8. PRR09/manifest unchanged
-9. Post-merge CI SUCCESS run `39770298100`
-10. Checker evidence
-11. FE-01–FE-04
-12. Six formal closures
-13. E8/E11/E12
-14. Cleanup OPEN/DEFER
-15. Branches retained
-16. M2 debt continuity
-17. Temporal snapshot NON-BLOCKING
-18. R23/R24
-19. REAL/P6/v3 boundaries
-20. AKG-M4 NOT AUTHORIZED
-21. No project mutation this cycle
-22. Review Pack completeness
+1. Handoff commit/blob remote.
+2. Git baseline (main f44a99b4…; analysis/source c48c6a58…; PR #604 Draft).
+3. Only one project documentary file created; no runtime mutation.
+4. Completeness of A01–A12 consumer matrix and evidence refs.
+5. OR-13 respected (no KEEP-by-import alone; no REBUILD-by-old-name alone).
+6. G0-A/B continuity; TO-BE alignment without claiming adoption.
+7. Scenarios remain CANDIDATE; M4-A exit conditions unmet.
+8. Fake/Real / P6 / v3 anti-claims.
+9. Open T-A02…T-A06 gaps honest.
+10. No project push/PR/merge claimed.
 
-If PASS: qualify technical + documentary verification closure of PR #602.
+If PASS: qualify T-A01 as accepted local investigation input for subsequent M4-A tasks — **not** M4-A CLOSED.
 
-Do **not** create a new Roadmap truth-sync solely because tip carries local-authoring wording.
+## 14. Full document content
 
-Do **not** treat M4 as implicitly authorized.
+The complete local candidate document follows verbatim.
 
-Cleanup gate and M4 gate remain **separate**.
+---
+# AKG-M4-A / T-A01 — Audit des dépendances et consommateurs du runtime
+
+| Champ | Valeur |
+| --- | --- |
+| Cycle | **AKG-M4-A / T-A01** — Audit dépendances & consommateurs |
+| Type / Profil | Cycle 6 — Architecture technique · **Critical** |
+| Typologie | DOC / Architecture / Rationalization Assessment |
+| Capacités v3 | V3-F05 / V3-F07 (sous doctrines applicables) |
+| Baseline Git (analyse) | Branche `analysis/akg-m4a-ta01-dependency-audit` @ `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` (= tip `docs/akg-m4a-capability-first-rationalization` / PR #604 Draft) |
+| `origin/main` au démarrage | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
+| Méthode | Analyse **statique** (imports, routes, factories, compositions, tests) · profondeur transitive ≤ 6 · **aucune mutation runtime** |
+| Principe | **OR-13 / capability-first** — une dépendance activement utilisée ne justifie pas, à elle seule, la conservation de son implémentation historique |
+| Statut maturité | **LOCAL CANDIDATE — INVESTIGATION** · M4-A **NON CLOSED** · classifications **candidates** seulement |
+| Non-claims | Pas de GO Delivery · pas de retrait · pas de P6 GLOBAL PASS · runtime v3 **NON ADOPTED** · REAL **NOT PROVEN** · Fake/Real inchangés |
+
+> **Autorité de vérité AS-IS :** code Git + preuves primaires > [PRR](../../../production-runtime-reference/README.md) > [04 M4-A](./04-m4a-runtime-responsibilities-and-transition-assessment.md) > le présent audit. Une contradiction documentaire = écart explicite.
 
 ---
 
-END — `AKG-M3-POST-MERGE-DOC-STATUS-SYNC-POST-MERGE-01`
+## 1. Baseline Git, périmètre et limites
+
+### 1.1 Git Truth (démarrage)
+
+| Référence | Attendu | Observé live | Qualification |
+| --- | --- | --- | --- |
+| Repository | `mcleland147/sfia-workspace` | MATCH | CONFIRMED |
+| `origin/main` | `f44a99b4…` | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` | CONFIRMED |
+| Branche source | `docs/akg-m4a-capability-first-rationalization` | tip `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` | CONFIRMED |
+| PR source | #604 Draft, CI validée, non mergée | OPEN Draft · Detect/Build/Required Gate **SUCCESS** · URL https://github.com/mcleland147/sfia-workspace/pull/604 | CONFIRMED |
+| Worktree d'analyse | Créé isolé (ne touche pas les WTs dirty préexistants) | `/Users/morris/Projects/sfia-workspace-akg-m4a-ta01-dependency-audit` · branche `analysis/akg-m4a-ta01-dependency-audit` | CONFIRMED |
+| Push/commit/PR/merge projet | Interdits | Non exécutés | CONFIRMED |
+
+### 1.2 Périmètre
+
+Auditer les **douze actifs A01–A12** du [document M4-A](./04-m4a-runtime-responsibilities-and-transition-assessment.md) :
+
+- Product UI / routes P0 / D1 / OPS1 ;
+- OA Product Runtime ;
+- Project Assistant (F2/W2/`orchestrateTurn`) ;
+- Nora Cognitive Runtime ;
+- `vertical-slice-runtime` et composition REAL ;
+- `oa/execution-run` ;
+- stores process-local et liens SQLite.
+
+Inclure appels **directs et indirects** : imports TS, routes Next.js, server actions, factories/composition, imports dynamiques, scripts et tests lorsque pertinents.
+
+### 1.3 Limites d'investigation (explicites)
+
+| Limite | Conséquence |
+| --- | --- |
+| Statique uniquement | Aucune exécution Cursor REAL, aucun effet mutable, aucun build/test comportemental lancé dans ce cycle |
+| Profondeur transitive plafonnée à **6** | Au-delà : lien marqué PARTIAL / UNKNOWN avec justification |
+| Pas d'inventaire exhaustif de données utilisateur D1/OPS1 | Migration/data = **T-A04** (ouvert) |
+| Pas de séquences temporelles complètes Nora→OA→Cursor | **T-A03** (ouvert) |
+| PRR 04 = arêtes **curatées**, pas graphe d'import automatique | Complété ici par preuves Git ciblées ; non exhaustif global |
+| Consumers « humains » (bookmarks, docs externes) | UNKNOWN hors dépôt |
+| Dynamic `import()` non listés exhaustivement | PARTIAL là où seul un échantillon confirmé |
+
+---
+
+## 2. Cartographie composants et dépendances
+
+### 2.1 Graphe de consommation principal (observé)
+
+```mermaid
+flowchart TB
+  subgraph UI["Interfaces"]
+    STU["A01 /studio + pre-m6-product-ui"]
+    P0["A02 P0 /synthese /cycle-actif /decision"]
+    D1R["A03 D1 routes + features/d1"]
+    OPSR["A04 OPS1 /ops1 + features/ops1"]
+  end
+
+  subgraph ORCH["Orchestration produit"]
+    PA["A06 project-assistant actions / orchestrateTurn / F2 / W2"]
+    API["API /api/studio/.../assistant/send"]
+  end
+
+  subgraph COG["Cognition"]
+    N["A07 nora-cognitive-runtime"]
+    NDB[("Nora Session SQLite — mémoire B")]
+  end
+
+  subgraph COMP["Composition"]
+    VSR["A08 vertical-slice-runtime"]
+    REAL["A12 composeStudioProductRealBoundary"]
+  end
+
+  subgraph OA["A05 OA Product Runtime"]
+    DOM["project / cycle / decision / EC / attempt / evidence"]
+    PDB[("Product SQLite — Truth C")]
+  end
+
+  subgraph HIST["Historique couplé"]
+    D1L["lib/d1"]
+    BAA["A09 BoundedAtomicAuditStore type/runtime optionnel"]
+    OPSL["lib/ops1 + OPS1_CURSOR_REAL flag"]
+    ER["A11 execution-run memory/shadow"]
+  end
+
+  subgraph TEMP["A10 process-local"]
+    PS["proposalStore Map"]
+    PO["pendingGenericPrepareOfferStore Map"]
+  end
+
+  STU --> PA
+  STU --> API
+  API --> PA
+  PA --> N
+  PA --> VSR
+  PA --> TEMP
+  N --> NDB
+  VSR --> DOM
+  VSR --> REAL
+  REAL --> DOM
+  DOM --> PDB
+  VSR -.->|type + auditMode=sqlite| BAA
+  BAA --> D1L
+  D1R --> D1L
+  OPSR --> OPSL
+  VSR -.->|flag mutual exclusion| OPSL
+  ER -.->|FinOps T7 shadow / scripts| ER
+```
+
+**Lecture :** les flèches continues sont des consommations runtime CONFIRMED au tip analysé. Les flèches pointillées sont des couplages de type, de flag, ou de composition optionnelle.
+
+### 2.2 Cycles / couplages transverses observés
+
+| Couplage | Nature | Preuve | Qualification |
+| --- | --- | --- | --- |
+| Product REAL ↔ flag `OPS1_CURSOR_REAL` | Exclusion mutuelle / safety | `deterministicExternalLaunchBoundary.ts` L47–57 ; `realLaunchSafety.ts` L106–107 | CONFIRMED — **dépendance de gouvernance**, pas d'appel OPS1 adapter depuis A12 |
+| VSR → D1 `BoundedAtomicAuditStore` | Type + option `auditMode=sqlite` | `service.ts` L14, L110, L176–187, L758 | CONFIRMED type ; runtime effect **seulement si** store injecté |
+| PA ↔ Nora ↔ OA | Orchestration / cognition / autorité | `orchestrateTurn.ts` imports Nora + OA cycle ; `actions.ts` → `getRuntimeApplicationService` | CONFIRMED |
+| F2 Proposal → HD → EC | Chaîne autorité (PRR 04) | `proposalStore` → `recordDecision` → prepare paths | CONFIRMED (chemin logique) ; continuité process-local PARTIAL restart |
+| execution-run ↔ FinOps T7 | Shadow / scripts | `scripts/finops-t7-shadow-rollout.ts` ; `composeFinOpsT7ShadowExecutionDeps.ts` | CONFIRMED hors Product Spine |
+| D1 ↔ OPS1 (nav) | Lien UX historique | `features/d1/D1AppShell.tsx` href `/ops1/nouvelle-demande` | CONFIRMED navigation ; ≠ partage DB |
+
+### 2.3 Chemins sans consommation Product Spine retrouvée
+
+| Actif | Consommation Product Spine | Autre consommation | Qualification |
+| --- | --- | --- | --- |
+| A02 P0 screens | **Aucune** depuis `/studio` / PA | Routes + features propres + `not-found` → `/synthese` | CONFIRMED routes actives ; consumers Product = absents |
+| A03 D1 (hors audit type) | **Aucune** depuis PA/OA Truth C | Routes D1 + `features/d1` + tests D1 | CONFIRMED îlot |
+| A04 OPS1 adapter Cursor | **Aucune** depuis `composeStudioProductRealBoundary` | Route OPS1 + `features/ops1` + e2e OPS1 + flag cross-check Product | CONFIRMED îlot + **couplage flag** |
+| A11 execution-run | **Aucune** dans Product Spine observée | Tests dédiés + FinOps T7 shadow + script rollout | CONFIRMED hors spine |
+
+---
+
+## 3. Matrice A01–A12 — consommateurs directs / indirects
+
+Légende liens : **C** = CONFIRMED · **P** = PARTIAL · **U** = UNKNOWN.
+Profondeur : D0 = actif · D1 = consommateur direct · D2+ = transitif (cap 6).
+
+### A01 — Product UI `/studio` + `features/pre-m6-product-ui`
+
+| Capacité | Implémentation actuelle | Entrées | Consommateurs D1 | Transitif pertinent | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- | --- |
+| Cockpit produit unique (projets, workspace, conversation) | Routes `app/studio/**` + feature `pre-m6-product-ui` (nom historique) | `/studio`, `/studio/projects/[id]`, `/studio/projects/new` | `ProductShell`, `ProjectsPage`, `ProjectWorkspacePage`, surfaces Lifecycle/Trajectory/Conversation/… | → hooks → `project-assistant` actions / W2 / API send | `app/studio/page.tsx` L1–7 ; `app/studio/projects/[id]/page.tsx` ; `login-client.tsx` tokens CSS | **C** |
+
+**Indirects notables :** nombreuses surfaces importent `features/project-assistant/*` (ex. `TrajectorySurface.tsx`, `LifecycleSurface.tsx`, `ExecutionSurface.tsx`, `HistorySurface.tsx`). Tests UI : ~53 fichiers sous `__tests__/pre-m6-product-ui`.
+
+**Classification candidate (inchangée en esprit vs 04) :** KEEP capability / ADAPT implementation (rename éventuel ≠ ce cycle).
+
+### A02 — P0 `/`, `/synthese`, `/cycle-actif`, `/decision`
+
+| Capacité | Implémentation | Consommateurs D1 | Indirects | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Accès « Studio » historique / POC slice | `app/page.tsx` → `redirect("/synthese")` ; screens `features/{synthese,cycle-actif,decision}` | Browser default `/` ; `app/not-found.tsx` → `/synthese` | UtilityRail pointe aussi `/studio` (parallèle) | `app/page.tsx` L1–5 ; `app/synthese/page.tsx` (pills « fixture · slice-only ») | **C** routes ; **U** bookmarks externes |
+
+**Pas de consommateur** depuis Product Assistant / OA observé.
+**Candidate :** CONSOLIDATE / RETIRE LATER après audit liens + redirections + tests e2e éventuels.
+
+### A03 — D1 intake / workspace / projects
+
+| Capacité | Implémentation | Consommateurs D1 | Indirects | Données | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- | --- |
+| Intake, création/lecture projet (historique) | `lib/d1/**` + `features/d1/**` + routes | `app/nouvelle-demande/page.tsx` → `listWorkspaceProjects` + `IntakeView` ; `app/workspace/page.tsx` ; `app/projects/[id]/page.tsx` → `getProject` ; `app/projects/new/page.tsx` → `NewProjectForm` | `features/d1/intake/*`, confirmation, context matching | SQLite distincte `d1.sqlite` via `lib/d1/paths.ts` | Routes L1–4 ci-dessus ; `lib/d1/db.ts` | **C** |
+
+**Pont Product :** seul pont code observé vers colonne Product = **A09** (type/audit optionnel) — **pas** de partage Truth C.
+**Tests :** ~17 fichiers `__tests__` référencent `lib/d1` (+ e2e D1).
+**Candidate :** HARVEST capability / REPLACE ou CONSOLIDATE implementation (SC-A). **≠ KEEP par existence de routes.**
+
+### A04 — OPS1 sessions / Cursor historique
+
+| Capacité | Implémentation | Consommateurs D1 | Indirects | Couplage Product | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- | --- |
+| Session OPS1, gate, allowlist, Cursor adapter, report | `lib/ops1/**` + `features/ops1/Ops1SessionScreen` | `app/ops1/nouvelle-demande/page.tsx` → `NouvelleDemandePageClient` → `Ops1SessionScreen` | e2e OPS1 nombreux ; `features/d1/D1AppShell` lien nav | Flag `OPS1_CURSOR_REAL` lu par Product safety / DET boundary | `cursorExecutionAdapter.ts` `OPS1_CURSOR_REAL_FLAG` ; `deterministicExternalLaunchBoundary.ts` L47–57 | **C** îlot + **C** flag |
+
+**Non observé :** import de `lib/ops1/cursorExecutionAdapter` depuis `composeStudioProductRealBoundary` (A12 importe `@/lib/oa/execution-attempt`).
+**Candidate :** HARVEST protections utiles / REBUILD ports Product / RETIRE LATER après extinction consumers (SC-B). **Ne pas supprimer safety.**
+
+### A05 — OA Product Runtime (project/cycle/decision/EC/attempt/evidence)
+
+| Capacité | Implémentation | Consommateurs D1 | Volume | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Autorité + vérité métier Product (Truth C) | `lib/oa/{project,cycle,decision,execution-contract,execution-attempt,evidence-review}` + SQLite product | `vertical-slice-runtime/service.ts` compose les services ; PA/actions ; nombreux tests | Imports `@/lib/oa/*` : order of magnitude decision≈214, EC/attempt≈161, cycle≈128, project≈112, evidence≈123 (fichiers matching) | `service.ts` imports L16–70 ; G0-A/B ADOPTED | **C** |
+
+**Décisions G0 :** G0-A OA Native Backbone + Harvest OPS1 Cursor **ADOPTED** ; G0-B Product `node:sqlite` **ADOPTED** ([decision pack](../../sfia-studio-g0-architecture-persistence-decision-pack.md)). Remise en cause = arbitrage explicite.
+**Candidate :** KEEP socle / ADAPT limites — **pas** REBUILD backbone sans GO G0.
+
+### A06 — Project Assistant (`orchestrateTurn`, `actions`, F2/W2)
+
+| Capacité | Implémentation | Entrées D1 | Consommateurs | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Orchestration produit, préparation missions, décisions UI | `features/project-assistant/**` | API `app/api/studio/projects/[projectId]/assistant/send/route.ts` → `sendProjectAssistantTurn` ; surfaces pre-m6 ; server actions | → VSR (`getRuntimeApplicationService` × nombreuses actions) ; → Nora ; → F2/W2/F3 ; → stores A10 | `actions.ts` L3+ ; `orchestrateTurn.ts` imports Nora+OA ; route send L12–17 | **C** |
+
+**Tests :** ~160 fichiers `__tests__/project-assistant`.
+**Candidate :** ADAPT / CONSOLIDATE responsabilités (SC-C) — clarifier frontières vs Nora vs OA ; **ne pas** supprimer HD/Confirm/Authorize pour « simplifier ».
+
+### A07 — Nora Cognitive Runtime
+
+| Capacité | Implémentation | Consommateurs D1 | Persistance | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Cognition, outils admissibles, session/journal | `lib/nora-cognitive-runtime/**` | `orchestrateTurn`, `mw6GovernedNoraTurn`, `logicalProductTurn`, F2/F3, materialize paths | Nora Session SQLite (mémoire B) ≠ Truth C | Imports depuis `features/project-assistant/*` ; `sessionPaths.ts` | **C** |
+
+**Invariant :** cognition ≠ autorité métier (PRR 04 ; doctrine 30/34).
+**Candidate :** KEEP / ADAPT frontière avec orchestrateur ; ne pas dupliquer Truth C dans mémoire B.
+
+### A08 — `vertical-slice-runtime`
+
+| Capacité | Implémentation | Consommateurs D1 | Rôle | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Composition Product runtime, ports, singleton | `lib/vertical-slice-runtime/**` (`service.ts`, `singleton.ts`, actions, preflight) | PA `actions.ts` / `w2/actions.ts` / `mw6GovernedNoraTurn` ; `features/studio-projects/*` ; `features/vertical-slice-ui/*` ; e2e/scripts preflight ; nora-eval | Compose OA + audit optionnel + REAL boundary | `getRuntimeApplicationService` usages ; `service.ts` composition | **C** |
+
+**Candidate :** KEEP capability / ADAPT ou REBUILD **composition** (nom `vertical-slice` historique ≠ inutilité). Examiner durée de vie singleton, points d'entrée, disclosures.
+
+### A09 — Dépendance VSR → `lib/d1/boundedAtomicAudit`
+
+| Capacité | Implémentation | Nature du lien | Consommateurs | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Audit borné création projet locale | Classe `BoundedAtomicAuditStore` dans `lib/d1/boundedAtomicAudit.ts` | **Type import** dans `service.ts` ; runtime via `BoundedSqliteLocalProjectCreationAudit` **si** `auditMode=sqlite` + store fourni ; défaut **noop** | `localSqliteAudit.ts` ; tests platform/vertical-slice-core | `service.ts` L14, L106–110, L176–187, L758 ; `localSqliteAudit.ts` L1–43 | **C** type ; **P** usage runtime prod default (noop) |
+
+**OR-13 :** ce lien **prouve un impact de migration**, pas un KEEP D1.
+**Candidate :** HARVEST / REPLACE type contract dans frontière Product (port d'audit) **avant** retrait D1.
+
+### A10 — Proposals F2 + offres Generic PREPARE (process-local)
+
+| Capacité | Implémentation | Consommateurs D1 (prod) | Tests | Limite | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- | --- |
+| Continuité mission / sujet de décision sans inventer l'autorité | `f2/proposalStore.ts` (`Map` sur `globalThis`) ; `w2/pendingGenericPrepareOfferStore.ts` | `orchestrateF2`, `recordDecision`, `validateF2ForPrepare`, `prepareGenericExecutionContractDraft`, `resolve/close/activeProposal*`, `actions` (notice) | ~72 fichiers tests référencent proposalStore | Perdu au restart ; pas multi-instance | En-têtes stores + PRR 06 | **C** |
+
+**HD durable** reste dans Product SQLite via OA decision — à préserver.
+**Candidate :** ADAPT / COMPLETE ou REBUILD continuity carriers (sans répliquer Truth C).
+
+### A11 — `lib/oa/execution-run`
+
+| Capacité | Implémentation | Consommateurs hors self | Product Spine | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Modèle d'état exécution memory/fixture-first (FinOps/shadow) | `lib/oa/execution-run/**` (+ `server/`) | ~29 tests dédiés ; `scripts/finops-t7-shadow-rollout.ts` ; composition FinOps T7 shadow | **Non branché** dans `service.ts` Product observé | `index.ts` « memory/fixture-first » ; PRR 01 hors spine | **C** hors spine |
+
+**Candidate :** FREEZE / audit KEEP vs REPLACE/RETIRE LATER — **pas** promouvoir en moteur alternatif ; **pas** retirer sans T-A02/T-A05.
+
+### A12 — `composeStudioProductRealBoundary` + `execution-attempt`
+
+| Capacité | Implémentation | Consommateurs D1 | Non-consommé | Preuves | Lien |
+| --- | --- | --- | --- | --- | --- |
+| Exécution Cursor sous contrat/autorité OA | Composition dans VSR + runners/gateway `lib/oa/execution-attempt/infrastructure/*` | `service.ts` L55–57, L764 ; preflight ; tests DET/REAL boundary | OPS1 `cursorExecutionAdapter` **non** importé ici | `composeStudioProductRealBoundary.ts` imports `@/lib/oa/execution-attempt` | **C** |
+
+**Candidate :** KEEP garanties / ADAPT ports ; comparaison OPS1↔Product **obligatoire** avant reconstruction (SC-B). REAL pathless no-write / Tool-First reserves : **KNOWN GAP** (PRR 09) — hors preuve nouvelle ce cycle.
+
+---
+
+## 4. Distinction capacité / implémentation / responsabilité cible
+
+| ID | Capacité à préserver (quoi) | Implémentation AS-IS (comment) | Responsabilité cible TO-BE (où) | Effets / état | Frontière d'autorité | Protections |
+| --- | --- | --- | --- | --- | --- | --- |
+| A01 | Cockpit unique Pilot↔Nora | `pre-m6-product-ui` + routes studio | Product UI `/studio` unique | React client + server actions | Présentation ≠ HD | Auth session / surfaces gouvernées |
+| A02 | Accès fluide sans liens cassés | P0 screens POC | Redirections → `/studio` puis retrait | Aucun Truth C | N/A POC | Claims fixture explicites |
+| A03 | Intake / création projet | `lib/d1` + DB `d1.sqlite` | Intake dans Product Truth C | Écritures D1 isolées | Gouvernance D1 propre | authz D1, confirmation |
+| A04 | Analyse/exécution outillée + garde-fous | OPS1 session + Cursor adapter + DB ops1 | Capacités outils sous EC OA | OPS1 SQLite + worktrees | Gate OPS1 ≠ OA HD | `OPS1_CURSOR_REAL`, allowlist, path policy |
+| A05 | Vérité + autorité métier | Modules OA + Product SQLite | **Socle unique** (G0) | Truth C durable | HD/EC/Attempt | Invariants PRR 07 |
+| A06 | Orchestration conversation→mission | PA F2/W2/orchestrateTurn | Orchestrateur produit clair | Actions + projections | N'autorise pas seule | SHE + historical paths |
+| A07 | Raisonnement / outils cognitifs | nora-cognitive-runtime | Nora cognition | Mémoire B | Reco ≠ autorité | MW5 challenge, budgets |
+| A08 | Composition ports/adapters | vertical-slice-runtime | Composition Product (renommable) | Singleton process | Wiring ≠ policy | serverGuard, disclosures |
+| A09 | Audit borné ops locales | Type/classe D1 | Port audit Product | Table D1 si activé | Audit ≠ autorité | Idempotency keys |
+| A10 | Continuité sujet/offre courte | Maps process-local | Carrier dédié ou reconstruction HD | Volatile | Proposal ≠ HD | Notices + session key |
+| A11 | État exécution shadow/FinOps | execution-run memory | Transverse FinOps **si** valeur | Memory/fixtures | Hors spine | Policy read-only domain |
+| A12 | Launch Cursor borné | OA attempt gateways | Port exécution sous EC | Attempt + safety journal | Authorize ≠ launch | REAL flags, confinement |
+
+---
+
+## 5. Dépendances historiques — nécessité actuelle vs inertie
+
+| Dépendance | Utilisée ? | Nécessité structurelle actuelle | Inertie potentielle | Lecture OR-13 |
+| --- | --- | --- | --- | --- |
+| Routes P0 actives + `/` → synthese | Oui (routing) | **Faible** pour Product Spine | Défaut navigateur `/` | Conserver *capacité d'accès* via redirect ; implémentation POC candidate retrait |
+| D1 routes + DB | Oui (îlot) | **Locale à l'îlot** ; pas Truth C | Données/tests/e2e | Harvest capacité intake ; REPLACE impl |
+| Type `BoundedAtomicAuditStore` dans VSR | Oui (compile + option) | **Contrat d'audit** utile ; packaging D1 **non** nécessaire | Import path historique | Extraire port ; retirer dépendance module D1 ensuite |
+| OPS1 UI + adapter | Oui (îlot + e2e) | Capacités Cursor/gate **à qualifier** vs OA attempt | Surface legacy + flag partagé | Harvest/Rebuild ; flag coupling = impact migration |
+| Flag `OPS1_CURSOR_REAL` dans Product safety | Oui | **Oui** tant que flag existe (fail-closed) | Nom OPS1 dans Product | Remplacer par flag Product unique après extinction OPS1 |
+| proposalStore Map | Oui (chemin F2 courant) | Continuité courte **oui** ; packaging Map **non** sacré | Process-local debt | ADAPT/REBUILD continuity |
+| execution-run | Oui (FinOps/tests) | Pour Product Spine : **non démontrée** | Suite tests large | FREEZE ; ne pas KEEP-as-spine |
+| Nom `pre-m6` / `vertical-slice` | N/A | Non | Lexique historique | ADAPT naming ≠ rebuild forcé |
+
+---
+
+## 6. Scénarios candidats (tous non décidés)
+
+Conformité [04 §4](./04-m4a-runtime-responsibilities-and-transition-assessment.md) et TO-BE OR-13. **Aucune classification définitive.**
+
+| ID scénario | Actifs | Options candidates | Ancrage TO-BE / G0 | Statut |
+| --- | --- | --- | --- | --- |
+| **SC-A** Intake Product | A03, A09, A01 | KEEP D1 (dette) · HARVEST règles · REPLACE intake Truth C · migrer data si besoin | Une expérience `/studio` ; Truth C unique | CANDIDATE |
+| **SC-B** Frontière Cursor unifiée | A04, A12, A05 | HARVEST protections OPS1 · REBUILD ports · RETIRE OPS1 après extinction | Outils sous contrat ; G0-A harvest | CANDIDATE — ne pas supprimer safety |
+| **SC-C** Orchestration Nora/PA/W2 | A06, A07, A10, A01 | Clarifier ownership · CONSOLIDATE chemins redondants · REBUILD carriers non durables | Dialogue continu ; SHE proportionné | CANDIDATE |
+| **SC-D** P0 consolidation | A02 | Redirect `/`→`/studio` · RETIRE screens · conserver claims tests | Cockpit unique | CANDIDATE |
+| **SC-E** Composition runtime | A08, A09 | ADAPT singleton/disclosures · REBUILD composition · extraire audit port | Composition claire | CANDIDATE |
+| **SC-F** Continuity carriers | A10 | COMPLETE restart binding · REBUILD PresentedSubject durable · KEEP Map court terme | Continuité sans 2e vérité | CANDIDATE |
+| **SC-G** execution-run | A11 | KEEP shadow · REPLACE FinOps-only · RETIRE LATER | Pas de 2e moteur Product | CANDIDATE FREEZE |
+
+**Anti-biais :** pas de KEEP parce qu'un import existe ; pas de REBUILD parce qu'un nom est ancien.
+
+---
+
+## 7. Impacts (pour candidats REPLACE / REBUILD / CONSOLIDATE sérieux)
+
+### 7.1 SC-A — D1 → Product intake
+
+| Dimension | Impact |
+| --- | --- |
+| Consommateurs affectés | Routes D1, `features/d1/**`, e2e D1, tests platform audit, **A09** type path |
+| Contrats/données | Schéma `d1.sqlite` ; IDs projet D1 vs OA projectId ; audit events |
+| Autorité/sécurité | Ne pas confondre confirmation D1 avec HD OA |
+| Risques | Perte historique, doublons, divergence d'identifiants, import A09 bloquant retrait |
+| Tests existants | `__tests__` D1/platform ; e2e d1-* |
+| Tests manquants | Migration round-trip ; création via `/studio` ≡ capacité intake |
+| Coexistence | Dual-write ou read-only D1 pendant transition (à concevoir en T-A04) |
+| Retrait ultérieur | Après A09 port extrait + zero import `lib/d1` + data disposition |
+
+### 7.2 SC-B — OPS1 Cursor → OA Attempt
+
+| Dimension | Impact |
+| --- | --- |
+| Consommateurs | `Ops1SessionScreen`, e2e ops1-*, scripts live-smoke ; **flags** Product DET/REAL |
+| Contrats | Allowlist/path policy OPS1 vs managed repo / confinement Product |
+| Autorité | Gate OPS1 ≠ EC authorize ; éviter double chemin REAL |
+| Risques | Perte enforcement, scripts non migrés, assimilation DET/REAL |
+| Tests | `__tests__/ops1` (~26) ; tests Product `deterministicCursorBoundary`, `m4RealOff*` |
+| Manquants | Matrice capacité-à-capacité OPS1↔Attempt (T-A02) |
+| Coexistence | Flag bridge jusqu'à extinction ; surfaces OPS1 read-only |
+| Retrait | Zero route/e2e OPS1 + flag renommé + harvest documenté |
+
+### 7.3 SC-C — Orchestration / continuity
+
+| Dimension | Impact |
+| --- | --- |
+| Consommateurs | pre-m6 surfaces, API send, F2/W2/F3, tests PA (~160) |
+| Contrats | Proposal DTO, pending offer session key, SHE vs historical prepare |
+| Autorité | Préservation HD/Confirm/Authorize/SHE ; Proposal≠HD |
+| Risques | Double exécution, perte restart, REAL non borné, UX régression |
+| Tests | Large deterministic suite ; e2e studio-* |
+| Manquants | Séquences fail/STOP/restart complètes (T-A03) |
+| Coexistence | Dual admission SHE + historical déjà documenté PRR 04 |
+| Retrait carriers | Seulement après continuité prouvée (restart) |
+
+### 7.4 Autres (synthèse)
+
+- **SC-D P0 :** impact UX/bookmarks/`not-found` ; faible impact OA.
+- **SC-E composition :** risque large (tout PA) ; tests runtime composition critiques.
+- **SC-G execution-run :** impact FinOps T7/shadow ; **nul** sur spine si gelé correctement.
+
+---
+
+## 8. Lacunes de preuve et investigations ouvertes
+
+| ID | Lacune | Impact sur T-A01 | Suite |
+| --- | --- | --- | --- |
+| L1 | Inventaire capacités exclusives OPS1/D1/P0/execution-run non exhaustif | Classifications restreignables | **T-A02** |
+| L2 | Séquences runtime temporelles / restart | Continuity A10 PARTIAL | **T-A03** |
+| L3 | Données utilisateur D1/OPS1 volume/valeur | Migration SC-A/B | **T-A04** |
+| L4 | Comparaison coûts KEEP vs REBUILD chiffrée | Décision formelle | **T-A05** |
+| L5 | Revue contradictoire TO-BE/doctrine v3 | Alignement | **T-A06** |
+| L6 | Dynamic imports / conditional requires non exhaustifs | Graphe PARTIAL | Complément audit ciblé |
+| L7 | Consommateurs hors dépôt (URLs partagées) | A02/A03 UNKNOWN | Inventory ops |
+| L8 | REAL E2E générique | Pas de nouvelle preuve | Hors scope ; PRR 09 gaps |
+
+**Fake/Real :** analyse statique seulement — **aucune preuve REAL nouvelle**. Statuts existants conservés. Realism gaps documentés (PRR 09, Tool-First, restart continuity) restent **KNOWN GAP**.
+
+---
+
+## 9. Recommandations argumentées (étapes suivantes)
+
+1. **Traiter T-A01 comme socle de graphe**, pas comme Formal Exit M4-A.
+2. Enchaîner **T-A02** sur A03/A04/A11/A02 : matrice « capacité requise / déjà couverte Product / exclusive / retrait possible ».
+3. Prioriser **extraction du port d'audit (A09)** comme déblocage structurel du retrait D1 — sans encore migrer l'intake.
+4. Documenter la **matrice OPS1 protections ↔ OA attempt** avant tout harvest code (SC-B).
+5. Pour A10 : décider en T-A05 si COMPLETE (binding durable) ou REBUILD carrier — tests restart manquants = bloqueur.
+6. **FREEZE** A11 hors spine jusqu'à T-A02/T-A05 ; interdire promotion silencieuse.
+7. P0 (A02) : candidat redirect `/`→`/studio` sous GO Delivery distinct après inventaire liens.
+8. Maintenir G0-A/B ; toute remise en cause OA/SQLite = arbitrage Morris tracé.
+9. Ne pas ouvrir M5 / Delivery transformation depuis ce lot.
+10. Publier ce document via revue Critical ChatGPT ; intégration Git projet = GO distinct (commit/PR non autorisés ici).
+
+---
+
+## 10. Conditions de sortie M4-A — encore non satisfaites
+
+Reprise du critère [04 §6](./04-m4a-runtime-responsibilities-and-transition-assessment.md) :
+
+> Aucun candidat n'est classé définitivement tant que sa valeur fonctionnelle, ses consommateurs et le risque de transition ne sont pas suffisamment établis.
+
+| Condition | État après T-A01 |
+| --- | --- |
+| Graphe consumers A01–A12 vérifié (direct + transitif borné) | **PARTIELLEMENT SATISFAITE** — présents avec limites §1.3 |
+| Capacités historiques exclusives inventoriées | **NON** — T-A02 |
+| Séquences autorité/temporalité complètes | **NON** — T-A03 |
+| Matrice stockage/migration | **NON** — T-A04 |
+| Impact pack KEEP/HARVEST/REPLACE/REBUILD + reco formelle | **NON** — T-A05 (ce doc fournit impacts préliminaires seulement) |
+| Critical Review alignement TO-BE | **EN COURS** via handoff T-A01 ; clôture T-A06 |
+| M4-A CLOSED | **NON** |
+
+---
+
+## 11. Traçabilité et validations de cycle
+
+### Sources consultées (statut)
+
+- Méthode SFIA v2.6 : template cycle, routing guide §4.3.0a, operating model, rules, knowledge layer (guidance).
+- Build Doctrine, Roadmap, G0 decision pack.
+- AKG : README, 01 AS-IS, 02 TO-BE, 03 registre, 04 M4-A.
+- PRR : README, 01, 02, 03, 04, 06, 07, 08, 09 (sections pertinentes).
+- Doctrine v3 : 30, 32, 34, 35 (confrontation ; pas de mutation).
+- Code tip `c48c6a58…` : routes, features, lib OA/D1/OPS1/VSR/Nora, stores, scripts, tests (échantillon systématique par actif).
+
+### Validations Git (à rejouer en fin de cycle Cursor)
+
+- Un seul fichier projet créé : le présent `05-m4a-dependency-consumers-audit.md`.
+- `git diff --check` / `git diff --stat` / `git status --short` attendus : uniquement ce path (+ Review Pack temp hors produit).
+- Aucun commit/push projet.
+
+### R24
+
+**NO PRODUCT SEMANTIC IMPACT** — document d'analyse uniquement ; PRR/runtime inchangés.
+
+---
+
+END — `AKG-M4-A / T-A01` — LOCAL CANDIDATE DEPENDENCY & CONSUMERS AUDIT
+
+---
+
+## 15. Useful diff identity
+
+Untracked new file only (not yet project-committed — commit/push projet INTERDITS this cycle):
+
+
+
+## 16. Local Git Truth — after (pre-handoff)
+
+Analysis branch unchanged at .
+Project files: single new documentary path untracked.
+No staged project commit.
+
+END — AKG-M4-A / T-A01
