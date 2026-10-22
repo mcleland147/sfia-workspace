@@ -11,9 +11,9 @@
 | Typologie | DOC / Architecture / Rationalization Assessment |
 | Mode | Analysis local candidate + Review Handoff L3 bounded |
 | Repository | mcleland147/sfia-workspace |
-| Analysis branch |  |
-| Analysis HEAD |  (= source tip docs/akg-m4a-capability-first-rationalization) |
-| origin/main |  |
+| Analysis branch | `analysis/akg-m4a-ta01-dependency-audit` |
+| Analysis HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` (= source tip docs/akg-m4a-capability-first-rationalization) |
+| origin/main | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
 | PR source | #604 Draft OPEN · CI SUCCESS · non merged |
 | GO | M4 Formal Start + M4-A initial lot (Pilot 2026-10-22); T-A01 investigation |
 | Project mutation authorized | ONE documentary file only; NO project commit/push/PR/merge |
@@ -29,11 +29,11 @@ NOT AUTHORIZED: app/runtime/test/config mutation; data migration; Cursor REAL; P
 
 | Check | Result |
 | --- | --- |
-| origin/main |  MATCH expected f44a99b4… |
+| origin/main | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` MATCH expected f44a99b4… |
 | Source branch tip | c48c6a582c10ee3cf6902203d6a4eb01ce3f2139 MATCH |
 | PR #604 | Draft OPEN; Detect/Build/Required Gate SUCCESS |
 | Isolation | New worktree  from source commit; preexisting dirty WTs untouched |
-| Analysis HEAD |  |
+| Analysis HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
 
 ## 03. Sources consulted
 
@@ -590,7 +590,7 @@ Untracked new file only (not yet project-committed — commit/push projet INTERD
 
 ## 16. Local Git Truth — after (pre-handoff)
 
-Analysis branch unchanged at .
+Analysis branch unchanged at `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139`.
 Project files: single new documentary path untracked.
 No staged project commit.
 
