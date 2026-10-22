@@ -1,319 +1,386 @@
-# AKG-M3-FORMAL-EXIT-DECISION-RECORD-01 — REVIEW PACK FULL (CRITICAL)
+# AKG-M3-FORMAL-EXIT-DOC-TRUTH-SYNC-01 — REVIEW PACK FULL (CRITICAL)
 
 ```text
-TIMESTAMP_UTC: 2026-10-22T06:36:42Z
-CYCLE: AKG-M3-FORMAL-EXIT-DECISION-RECORD-01
+TIMESTAMP_UTC: 2026-10-22T07:07:14Z
+CYCLE: AKG-M3-FORMAL-EXIT-DOC-TRUTH-SYNC-01
 CHANTIER: SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE
 MILESTONE: AKG-M3 — Reference Consolidation
-TYPE: Cycle 9 — QA / Validation (Formal Exit Decision Record)
+TYPE: Cycle 8 — Delivery (Formal Exit Documentary Governance Truth-Sync)
 PROFIL: CRITICAL
 TYPOLOGIE: DOC / GOVERNANCE
-MODE: READ-ONLY PROJECT + L3 HANDOFF
 CAPACITY: V3-F05 · V3-F12
-QA: CRITICAL FORMAL EXIT DECISION RECORD REVIEW
+MODE: CONTROLLED LOCAL DOCUMENTARY AUTHORING
+QA: CRITICAL DOCUMENTARY SEMANTIC REVIEW
 REVIEW_PACK: FULL
 REVIEW_HANDOFF: REQUIRED — publish-in-cycle (L3)
-PROJECT_WRITE: NONE
-PROJECT_COMMIT_PUSH_PR_MERGE: NONE
-CLEANUP: NOT EXECUTED
-DOCUMENTARY_TRUTH_SYNC: PENDING (distinct GO)
+PROJECT_COMMIT: NONE
+PROJECT_PUSH_PR_MERGE: NONE
+DIGEST_SYNC: NOT AUTHORIZED / NOT EXECUTED
+MANIFEST_WRITE: NONE
 AKG_M4: NOT AUTHORIZED
 ```
 
 ---
 
-## 1. Timestamp UTC
+## 01. Timestamp UTC
 
-**2026-10-22T06:36:42Z**
+**2026-10-22T07:07:14Z**
 
 ---
 
-## 2. GO Morris exact et portée
+## 02. GO Morris Documentary Sync
 
 | Field | Value |
 |---|---|
-| Date | 2026-10-22 |
-| Utterance | Morris « ok go » to Formal Exit proposal FE-01…FE-04 |
-| Nature | **DECISIONS ADOPTED** — not recommendations pending arbitration |
-| Role split | Morris decides · Cursor records/controls · ChatGPT reviews |
-| This cycle | Decision Record auditable only · **no** Roadmap/PRR/manifest write · **no** project GI |
+| GO | Morris « ok go » 2026-10-22 — AKG-M3 FORMAL EXIT DOCUMENTARY TRUTH-SYNC |
+| Prerequisite | FE-01–FE-04 ADOPTED · Decision Record `7339d49f…` · Critical Review PASS |
+| Scope | Local authoring Roadmap + PRR09 only |
+| Forbidden | project commit/push/PR/merge · manifest · `--write-digests` · cleanup · M4 |
 
 ---
 
-## 3. Cycle / profil
+## 03. Cycle / profil / CKC
 
-Cycle 9 CRITICAL DOC/GOVERNANCE — Formal Exit Decision Record. Trace FE-01–FE-04 against primary Git/CI evidence; publish L3 handoff; prepare Documentary Formal Exit Truth-Sync scope.
+Cycle 8 CRITICAL DOC/GOVERNANCE — synchronize CURRENT documentary status with adopted FE-01–FE-04. CKC guidance only.
 
 ---
 
-## 4. Git Truth
+## 04–05. Local Git Truth / Base
 
 | Field | Value |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-akg-m3-documentary-truth-sync-local` |
-| Branch | `docs/sfia-studio-akg-m3-documentary-truth-sync-local` |
-| Local HEAD | `2134fc18ca4d330d5bf5cd56b96a455d9641241d` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-akg-m3-formal-exit-truth-sync-local` |
+| Branch | `docs/sfia-studio-akg-m3-formal-exit-truth-sync-local` (local only) |
+| HEAD | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
 | origin/main | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
-| Dirty | `.tmp-sfia-review/chatgpt-review.md` only |
 | Staged | none |
-| Project mutation | **NONE** |
-| G7 remote | `docs/sfia-studio-akg-m3-g7-prr-consolidation` @ `d21fbb86…` RETAINED |
-| #600 remote | `docs/sfia-studio-akg-m3-documentary-truth-sync` @ `2134fc18…` RETAINED |
-| Prior handoff | `8ebb1a02…` / blob `84be5179…` |
-
-```text
- M .tmp-sfia-review/chatgpt-review.md
-```
+| Project dirty | exactly 2 files |
+| Prior WT | preserved dirty review pack only — not used for authoring |
 
 ---
 
-## 5. Sources consultées
+## 06–07. Sources / Convergence
 
-Read-only: SFIA template/routing · Build Doctrine A3/A8–A12 · Roadmap tip/B-AKG at main · C1 · v3 framing 30/32/33/35/37 · PRR README/02–04/07–09/manifest · Post-Merge handoff `8ebb1a02` · Merge/GI/Digest/Truth-Sync/Arbitration handoffs · FE-01–FE-04 Morris GO.
-
----
-
-## 6. Convergence Pre-check
-
-AKG-M0/M1/M2 GLOBAL CLOSED BY MORRIS (bounded). AKG-M3 Reference Consolidation chain G5→G7→#599→truth-sync→digest→GI #600→merge→post-merge verified. Formal Exit Arbitration D1–D4 previously set Option B + conditional closes. FE-01–FE-04 consume Formal Exit authority.
+Read-only: template/routing · Build Doctrine · Roadmap/PRR · C1 · v3 framing · Decision Record handoff · Post-Merge/GI/Digest/Arbitration chain.
 
 ---
 
-## 7. Formal Exit decision record
+## 08. FE-01–FE-04
 
-```text
-AUTHORITY: MORRIS
-DATE: 2026-10-22
-UTTERANCE: ok go
-OBJECT: Formal Exit AKG-M3 proposal FE-01 … FE-04
-STATUS: ADOPTED / CONSUMED
-RECORD CYCLE: AKG-M3-FORMAL-EXIT-DECISION-RECORD-01
-PROJECT MATERIALIZATION ON MAIN: PENDING distinct Documentary Truth-Sync GO
-```
-
----
-
-## 8. FE-01 — Formal Exit
-
-| Field | Value |
+| ID | Status in authoring |
 |---|---|
-| Decision | **ADOPTED** |
-| Milestone status | **AKG-M3 CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** |
-| Scope | Reference Consolidation as proven (PRR CURRENT · coverage · Vol09 · digests · Git/CI) |
-| Does NOT mean | Product readiness · REAL proven · P6 GLOBAL PASS · runtime v3 ADOPTED · AKG-M4 start |
-| E12 | **SATISFIED** — Formal Exit GO consumed |
+| FE-01 | CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES · E12 SATISFIED |
+| FE-02 | Six FORMALLY CLOSED BY MORRIS · E8 SATISFIED · OWNER UNASSIGNED |
+| FE-03 | Cleanup OPEN/DEFER · MORRIS · NOT EXECUTED · branches RETAINED |
+| FE-04 | M2/REAL/P6/v3 preserved · AKG-M4 NOT AUTHORIZED |
 
 ---
 
-## 9. FE-02 — Six Formal Closures (individual)
-
-Foundations (shared): technical/semantic corrections · Critical PASS · Git publication · CI post-merge SUCCESS · PRR conformance PASS · prior D2 conditional approval · **explicit FE-02 consumption**.
-
-| ID | Technical (prior) | Semantic (prior) | D2 | FE-02 NOW | PRR09 on main (snapshot) | Doc delta |
-|---|---|---|---|---|---|---|
-| **R-M3A-01** | TECHNICALLY RESOLVED (OBJ-ATTEMPT + DEP-EC-ATT on main) | SEMANTICALLY RESOLVED | Conditional Formal Close APPROVED | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | still shows NOT FORMALLY CLOSED / conditional | Truth-Sync required |
-| **R-M3B-01** | TECHNICALLY RESOLVED (G6 scope vols+manifest on main) | SEMANTICALLY RESOLVED | Conditional Formal Close APPROVED | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | still shows NOT FORMALLY CLOSED / conditional | Truth-Sync required |
-| **R-G6-SR-01** | n/a (documentary) | SEMANTICALLY RESOLVED (Critical Semantic Review PASS + CORR) | Conditional Formal Close APPROVED | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | still shows NOT FORMALLY CLOSED / conditional | Truth-Sync required |
-| **R-G6-SR-02** | SHE contract present on main | SEMANTICALLY RESOLVED | Conditional Formal Close APPROVED | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | still shows NOT FORMALLY CLOSED / conditional | Truth-Sync required |
-| **R-G6-SR-03** | n/a (documentary) | SEMANTICALLY RESOLVED | Conditional Formal Close APPROVED | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | still shows NOT FORMALLY CLOSED / conditional | Truth-Sync required |
-| **R-G6-SR-04** | n/a (documentary) | SEMANTICALLY RESOLVED (correction scope; historical layers remain HISTORICAL) | Conditional Formal Close APPROVED | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | still shows NOT FORMALLY CLOSED / conditional | Truth-Sync required |
-
-Owners: **OWNER UNASSIGNED** — no retroactive invented formal owner.
-
-IDs preserved · historical provenance retained · Formal Close ≠ erase history.
-
-E8: **SATISFIED — SIX FORMAL CLOSURES CONSUMED BY MORRIS FE-02** (other debts remain OPEN).
-
----
-
-## 10. FE-03 — Cleanup
-
-| Field | Value |
-|---|---|
-| Reserve | **R-M3-PM-CLEANUP-01** |
-| Status | **GOVERNED OPEN / DEFER** |
-| Temporary governance | **MORRIS** |
-| Formal owner (register) | **UNASSIGNED** |
-| Cleanup executed | **NO** |
-| Branches retained | G7 + #600 remotes |
-| Next | Distinct Morris cleanup GO · §6.12.1 NOT auto-applied |
-
----
-
-## 11. FE-04 — Continuity
-
-Preserve: M2 debts · 38×20 · historical opens · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL · REAL NOT PROVEN · P6 NOT PASSED · runtime v3 NON ADOPTED.
-
-**AKG-M4 NOT AUTHORIZED.** No global promotion.
-
----
-
-## 12. Git / PR / CI evidence index
-
-| Ref | Value |
-|---|---|
-| PR #600 | MERGED · https://github.com/mcleland147/sfia-workspace/pull/600 |
-| Merge SHA | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
-| Parents | `d41c6a660196ac26a401297c53f4be6f7ac98882` + `2134fc18ca4d330d5bf5cd56b96a455d9641241d` |
-| Files / delta | 3 · +65/−9 |
-| Roadmap blob | `bf6d1c12b49c3f8f0c5c385c42f307df514652dc` |
-| PRR09 blob | `5f24b0fbbe5dd012a30c4633ffff138a88950ed0` |
-| Manifest blob | `ffd488c0edc64e2ffda892a2f1467dc7fdad3876` |
-| Post-merge CI | `39729128729` COMPLETED/SUCCESS |
-| Post-Merge handoff | `8ebb1a02fd6945dbd2bd3d6383f67f62d22fc209` |
-
----
-
-## 13. PRR conformance evidence
-
-From Post-Merge cycle (not re-executed this cycle): isolated checker on merge SHA → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**; digest `743d7232f5a9d5b6`; index 13/20/20/9 · 27/7/10; OBJ-ATTEMPT; DEP-EC-ATT; DEP-HD-EC; F11b hors flows[].
-
-Vitest d0: not re-run; CI Build SUCCESS on merge SHA is product-build evidence.
-
----
-
-## 14. Exit matrix E1–E12
-
-| ID | Status | Proof / limit / decision |
-|---|---|---|
-| E1–E6 | **SATISFIED** | G6/G7/truth-sync/digest/GI/merge chain |
-| E7 | **SATISFIED WITH GOVERNED RESERVE** | Cleanup + M2/REAL ceilings remain |
-| E8 | **SATISFIED — SIX FORMAL CLOSURES CONSUMED BY MORRIS FE-02** | Only the six IDs; other debts OPEN |
-| E9 | **SATISFIED WITH GOVERNED RESERVE** | |
-| E10 | **SATISFIED WITH GOVERNED RESERVE** | |
-| E11 | **SATISFIED — POST-MERGE VERIFIED** | #600 on main · CI · conformance |
-| E12 | **SATISFIED — MORRIS FORMAL EXIT GO CONSUMED** | FE-01 |
-
-Milestone result: **AKG-M3 CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES.**
-
----
-
-## 15. Six réserves formellement closes
-
-See §9. Decisionally CLOSED by FE-02. PRR09 on main still shows pre-FE snapshot (NOT FORMALLY CLOSED) → Documentary Truth-Sync pending.
-
----
-
-## 16. Cleanup gouverné OPEN
-
-See §10. FE-03 · OPEN/DEFER · MORRIS · NOT EXECUTED.
-
----
-
-## 17. Dettes M2 préservées
-
-R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH RESERVE · B-M2B-01…05 OPEN · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL.
-
----
-
-## 18. REAL / P6 / v3 ceilings
-
-REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED · L5 global NOT AUTHORIZED.
-
----
-
-## 19. R23 / R24
+## 09. R23 / R24
 
 | Rule | Verdict |
 |---|---|
-| R23 | Git/CI/primary > stale doc snapshots · DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN AT TESTED SCOPE · KNOWN GAP |
-| R24 | **NO NEW PRODUCT SEMANTIC IMPACT** · governance status impact · **DOC STATUS SYNC REQUIRED — NOT AUTHORIZED THIS CYCLE** · KEEP Roadmap/PRR · ADAPT future CURRENT |
+| R23 | Git/CI/primary > stale CURRENT · DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN AT TESTED SCOPE · KNOWN GAP |
+| R24 | **NO PRODUCT SEMANTIC IMPACT** · GOVERNANCE DOCUMENTARY STATUS IMPACT · KEEP Roadmap/PRR · ADAPT CURRENT status |
 
 ---
 
-## 20. Documentary truth gap
-
-**FORMAL EXIT DECISION ADOPTED — DOCUMENTARY TRUTH-SYNC PENDING.**
-
-| Artifact on main | Pre-FE snapshot still present |
-|---|---|
-| Roadmap tip | Formal Exit **PENDING** / six = conditional ≠ FORMALLY CLOSED |
-| PRR09 CURRENT overlay | Six rows **NOT FORMALLY CLOSED** · E12 framing pre-FE |
-
-Decision Morris FE-01–FE-04 is newer than these document snapshots. **Do not rewrite in this cycle.**
-
----
-
-## 21. Scope prochain authoring
-
-Under distinct Morris **AKG-M3 FORMAL EXIT DOCUMENTARY TRUTH-SYNC** GO:
-
-- Roadmap CURRENT tip (CLOSED BY MORRIS … WITH GOVERNED RESERVES)
-- B-AKG AKG-M3 row
-- Prior tips HISTORICAL
-- PRR09 CURRENT overlay: six FORMALLY CLOSED BY MORRIS FE-02
-- E1–E12 matrix sync
-- Cleanup still OPEN/DEFER
-- M2 debts preserved
-- AKG-M4 NOT AUTHORIZED
-- Then: Semantic Review → PRR09 Digest Sync → GI → PR/merge → Post-Merge
-
-PRR09 digest change will require dedicated digest sync (no opportunistic `--write-digests`).
-
----
-
-## 22. AKG-M4 NOT AUTHORIZED
-
-Confirmed by FE-04. Requires distinct Morris M4 GO after documentary sync path as Morris directs.
-
----
-
-## 23. Fake / Real
-
-HUMAN GOVERNANCE FORMAL EXIT DECISION · no new fake/REAL · DETERMINISTIC PROVEN AT TESTED SCOPE preserved · REAL/P6/v3 not promoted.
-
----
-
-## 24. Validation checklist
-
-| Check | Result |
-|---|---|
-| Repo / main / merge | PASS |
-| CI post-merge SUCCESS | PASS |
-| Prior post-merge handoff | PASS |
-| Six FE-02 IDs exact | PASS |
-| FE-01…04 recorded | PASS |
-| E8/E12 decisionally SATISFIED | PASS |
-| No reserve erased | PASS |
-| Cleanup OPEN/DEFER | PASS |
-| M2 preserved | PASS |
-| No Product/project write | PASS |
-| No commit/push/PR/merge projet | PASS |
-| No cleanup/deletion | PASS |
-| No M4/v3/P6/REAL promotion | PASS |
-
----
-
-## 25. Gates restants
+## 10. Scope de deux fichiers
 
 ```text
-ChatGPT Critical Formal Exit Decision Record Review
-→ Morris AKG-M3 FORMAL EXIT DOCUMENTARY TRUTH-SYNC GO (distinct)
-→ Semantic Review → Digest Sync → GI → PR/merge → Post-Merge
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+```
+
+```text
+ .../convergence/sfia-studio-convergence-roadmap.md |  9 ++--
+ ...9-known-gaps-reserves-and-current-boundaries.md | 60 ++++++++++++++++++++--
+ 2 files changed, 61 insertions(+), 8 deletions(-)
+```
+
+---
+
+## 11–13. Roadmap BEFORE / AFTER / diff complet
+
+BEFORE (main tip): Formal Exit PENDING · six conditional · E12 OPEN · local candidate.
+
+AFTER — new CURRENT tip:
+
+```markdown
+| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M3 FORMAL EXIT — DOCUMENTARY TRUTH-SYNC LOCAL AUTHORING** | 2026-10-22 Europe/Paris — **AKG-M3 — REFERENCE CONSOLIDATION — CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M3 — Reference Consolidation** · Cycle **8 — Delivery / implémentation (spécialisation Formal Exit Documentary Governance Truth-Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Autorité **MORRIS** · Décisions **FE-01–FE-04** = **ADOPTED / CONSUMED** (conversation ChatGPT 2026-10-22 · Critical Formal Exit Decision Record Review PASS · réponse « ok go » à Formal Exit Documentary Truth-Sync) · **FE-01** Formal Exit **ADOPTED** — milestone **CLOSED BY MORRIS** at bounded Reference Consolidation scope with governed reserves · Exit Proof **E12 SATISFIED** · **FE-02** six FORMALLY CLOSED BY MORRIS AT BOUNDED M3/G6 SCOPE — **R-M3A-01 · R-M3B-01 · R-G6-SR-01…04** · owners **OWNER UNASSIGNED** · Exit Proof **E8 SATISFIED** · **FE-03** **R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER** · temporary governance **MORRIS** · formal owner **UNASSIGNED** · cleanup **NOT EXECUTED** · branches G7 + PR #600 **RETAINED** · **FE-04** M2/REAL/P6/v3 continuity preserved · **AKG-M4 NOT AUTHORIZED / NOT STARTED** · Chaîne prouvée : G5 START · G6 Semantic PASS · Digest Sync PASS · G7 PASS · PR **#599 MERGED** (`d41c6a66…`) · documentary truth-sync PR **#600 MERGED** · merge **`606f756ef09811c5e68e6ed8a69d08d492a4a426`** · parents `d41c6a66…` + `2134fc18…` · CI post-merge **`39729128729` SUCCESS** · checker PRR **CONFORMANCE OK** · E1–E6 SATISFIED · E7/E9/E10 WITH GOVERNED RESERVE · E8/E11/E12 SATISFIED · Handoffs : Decision Record **`7339d49fe6a4807e114bae616caf3f118cc87356`** / blob **`f141bfef45aa254bf15beb868c01dd67cd0afa9d`** · Post-Merge **`8ebb1a02…`** · Merge **`a0e1c972…`** · GI **`c6c810e9…`** · Digest **`98294888…`** · Truth-Sync **`cf421e3c…`** · Arbitration **`41f802eb…`** · PRR index **13 / 20 / 20 / 9** · OBJ-ATTEMPT · DEP-EC-ATT · DEP-HD-EC · F11b hors flows[] · Dettes préservées : R-M2A-04 · R-M2B-03 · B-M2B-01…05 · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL · REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** · L5 global **NOT AUTHORIZED** · Scope this cycle = **LOCAL DOCUMENTARY AUTHORING ONLY** (Roadmap + PRR09) · **NO** project commit/push/PR/merge · **NO** digest sync · **NO** manifest write · Publication de ce tip = **LOCAL AUTHORING CANDIDATE / NOT YET INTEGRATED ON MAIN** · Next gates = ChatGPT Critical Formal Exit Documentary Semantic Review → Morris **PRR09 Digest Sync GO** distinct → Git Integration / PR / merge / post-merge → [optional] cleanup GO · AKG-M4 sous GO Morris distinct · **≠** Digests synced · **≠** this lot integrated on main · **≠** cleanup DONE · **≠** AKG-M4 START · **≠** P6 PASS · **≠** REAL PROVEN · **≠** v3 ADOPTED |
+```
+
+Prior tip marked **HISTORICAL / SUPERSEDED AS TIP**. B-AKG AKG-M3 = CLOSED BY MORRIS… · AKG-M4 NOT AUTHORIZED.
+
+```diff
+diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+index bf6d1c12..664a0079 100644
+--- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
++++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+@@ -4,7 +4,8 @@
+ | --- | --- |
+ | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
+ | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
+-| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M3 DOCUMENTARY TRUTH-SYNC — ROADMAP LOCAL AUTHORING** | 2026-10-21 Europe/Paris — **AKG-M3 — REFERENCE CONSOLIDATION — INTEGRATED ON MAIN / POST-MERGE VERIFIED / FORMAL EXIT PENDING — DOCUMENTARY TRUTH-SYNC LOCAL AUTHORING CANDIDATE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M3 — Reference Consolidation** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Autorité **MORRIS** · Décisions **D1–D4** = **APPROVED / CONSUMED** (conversation ChatGPT 2026-10-21 · Critical Formal Exit Arbitration Review · réponse « OK GO ») · **D1 OPTION B ADOPTED** — targeted documentary truth-sync of Convergence Roadmap + PRR Volume 09 before Formal Exit · **D2** — conditional Formal Close trajectory APPROVED for **R-M3A-01 · R-M3B-01 · R-G6-SR-01…04** (TECHNICALLY/SEMANTICALLY RESOLVED; **FORMALLY CLOSED = NOT THIS CYCLE**) · **D3** — **R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER** · temporary governance owner **MORRIS** · cleanup under distinct GO · **D4** — gate separation: Formal Exit **NOT ADOPTED** · AKG-M4 **NOT AUTHORIZED** · P6 GLOBAL **NOT PASSED** · REAL **NOT PROVEN** · runtime v3 **NON ADOPTED** · Scope this cycle = **LOCAL DOCUMENTARY AUTHORING ONLY** (Roadmap + PRR09) · **NO** project commit/push/PR/merge · Preuves Git CURRENT : **PR #599 MERGED** · merge **`d41c6a660196ac26a401297c53f4be6f7ac98882`** · parents `c2b3d00c…` + `d21fbb86…` · CI post-merge **`39651441205` SUCCESS** · Chaîne : G5 START · G6 Semantic Review PASS · CORR-01/02 · Digest Sync PASS · G7 Git Integration PASS · Merge Verification PASS · Post-Merge Critical Review PASS WITH GOVERNED RESERVES · Handoffs : Post-Merge **`3e017afbebff68710c2fb7941aa925f9b687cd4e`** · Arbitration **`41f802eb0f51e9e998d208638dddf729e7b667ee`** / blob **`bd7ab66f8df09a5f65cd769aa650469e1b2f3ccf`** · G7-MERGE **`c10be865…`** · G7 **`82c772c9…`** · DIGEST **`22b0b06f…`** · CORR-02 **`c13cf60e…`** · PRR index on main : **13 / 20 / 20 / 9** · OBJ-ATTEMPT · DEP-EC-ATT EC→Attempt · DEP-HD-EC HD→EC · F11b hors flows[] · Réserves : six M3/G6 = **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** (≠ FORMALLY CLOSED) · **R-M3-PM-CLEANUP-01 OPEN/DEFER** · M2 carries preserved (R-M2A-04 · R-M2B-03 · B-M2B-01…05 · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL) · Formal Exit AKG-M3 = **PENDING / NOT ADOPTED** · AKG-M4 = **NOT AUTHORIZED / NOT STARTED** · Publication de ce tip = **LOCAL AUTHORING CANDIDATE / NOT YET INTEGRATED ON MAIN** · Next gates = ChatGPT Critical Documentary Semantic Review → Morris **PRR09 Digest Sync GO** distinct → Git Integration / merge / post-merge → Morris **Formal Exit GO** distinct → AKG-M4 sous GO distinct · **≠** Formal Exit ADOPTED · **≠** six réserves FORMALLY CLOSED · **≠** Digests synced · **≠** project GI authorized · **≠** cleanup DONE · **≠** AKG-M4 START · **≠** P6 PASS · **≠** REAL PROVEN · **≠** v3 ADOPTED |
++| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M3 FORMAL EXIT — DOCUMENTARY TRUTH-SYNC LOCAL AUTHORING** | 2026-10-22 Europe/Paris — **AKG-M3 — REFERENCE CONSOLIDATION — CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M3 — Reference Consolidation** · Cycle **8 — Delivery / implémentation (spécialisation Formal Exit Documentary Governance Truth-Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Autorité **MORRIS** · Décisions **FE-01–FE-04** = **ADOPTED / CONSUMED** (conversation ChatGPT 2026-10-22 · Critical Formal Exit Decision Record Review PASS · réponse « ok go » à Formal Exit Documentary Truth-Sync) · **FE-01** Formal Exit **ADOPTED** — milestone **CLOSED BY MORRIS** at bounded Reference Consolidation scope with governed reserves · Exit Proof **E12 SATISFIED** · **FE-02** six FORMALLY CLOSED BY MORRIS AT BOUNDED M3/G6 SCOPE — **R-M3A-01 · R-M3B-01 · R-G6-SR-01…04** · owners **OWNER UNASSIGNED** · Exit Proof **E8 SATISFIED** · **FE-03** **R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER** · temporary governance **MORRIS** · formal owner **UNASSIGNED** · cleanup **NOT EXECUTED** · branches G7 + PR #600 **RETAINED** · **FE-04** M2/REAL/P6/v3 continuity preserved · **AKG-M4 NOT AUTHORIZED / NOT STARTED** · Chaîne prouvée : G5 START · G6 Semantic PASS · Digest Sync PASS · G7 PASS · PR **#599 MERGED** (`d41c6a66…`) · documentary truth-sync PR **#600 MERGED** · merge **`606f756ef09811c5e68e6ed8a69d08d492a4a426`** · parents `d41c6a66…` + `2134fc18…` · CI post-merge **`39729128729` SUCCESS** · checker PRR **CONFORMANCE OK** · E1–E6 SATISFIED · E7/E9/E10 WITH GOVERNED RESERVE · E8/E11/E12 SATISFIED · Handoffs : Decision Record **`7339d49fe6a4807e114bae616caf3f118cc87356`** / blob **`f141bfef45aa254bf15beb868c01dd67cd0afa9d`** · Post-Merge **`8ebb1a02…`** · Merge **`a0e1c972…`** · GI **`c6c810e9…`** · Digest **`98294888…`** · Truth-Sync **`cf421e3c…`** · Arbitration **`41f802eb…`** · PRR index **13 / 20 / 20 / 9** · OBJ-ATTEMPT · DEP-EC-ATT · DEP-HD-EC · F11b hors flows[] · Dettes préservées : R-M2A-04 · R-M2B-03 · B-M2B-01…05 · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL · REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** · L5 global **NOT AUTHORIZED** · Scope this cycle = **LOCAL DOCUMENTARY AUTHORING ONLY** (Roadmap + PRR09) · **NO** project commit/push/PR/merge · **NO** digest sync · **NO** manifest write · Publication de ce tip = **LOCAL AUTHORING CANDIDATE / NOT YET INTEGRATED ON MAIN** · Next gates = ChatGPT Critical Formal Exit Documentary Semantic Review → Morris **PRR09 Digest Sync GO** distinct → Git Integration / PR / merge / post-merge → [optional] cleanup GO · AKG-M4 sous GO Morris distinct · **≠** Digests synced · **≠** this lot integrated on main · **≠** cleanup DONE · **≠** AKG-M4 START · **≠** P6 PASS · **≠** REAL PROVEN · **≠** v3 ADOPTED |
++| **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M3 DOCUMENTARY TRUTH-SYNC — ROADMAP LOCAL AUTHORING** | 2026-10-21 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M3 DOCUMENTARY TRUTH-SYNC *(true then as tip; superseded as tip by AKG-M3 FORMAL EXIT documentary truth-sync 2026-10-22 — Formal Exit PENDING / six conditional / E12 OPEN claims are authoring-time; FE-01–FE-04 later ADOPTED)* — **AKG-M3 — REFERENCE CONSOLIDATION — INTEGRATED ON MAIN / POST-MERGE VERIFIED / FORMAL EXIT PENDING — DOCUMENTARY TRUTH-SYNC LOCAL AUTHORING CANDIDATE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M3 — Reference Consolidation** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Autorité **MORRIS** · Décisions **D1–D4** = **APPROVED / CONSUMED** (conversation ChatGPT 2026-10-21 · Critical Formal Exit Arbitration Review · réponse « OK GO ») · **D1 OPTION B ADOPTED** — targeted documentary truth-sync of Convergence Roadmap + PRR Volume 09 before Formal Exit · **D2** — conditional Formal Close trajectory APPROVED for **R-M3A-01 · R-M3B-01 · R-G6-SR-01…04** (TECHNICALLY/SEMANTICALLY RESOLVED; **FORMALLY CLOSED = NOT THIS CYCLE**) · **D3** — **R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER** · temporary governance owner **MORRIS** · cleanup under distinct GO · **D4** — gate separation: Formal Exit **NOT ADOPTED** · AKG-M4 **NOT AUTHORIZED** · P6 GLOBAL **NOT PASSED** · REAL **NOT PROVEN** · runtime v3 **NON ADOPTED** · Scope this cycle = **LOCAL DOCUMENTARY AUTHORING ONLY** (Roadmap + PRR09) · **NO** project commit/push/PR/merge · Preuves Git CURRENT : **PR #599 MERGED** · merge **`d41c6a660196ac26a401297c53f4be6f7ac98882`** · parents `c2b3d00c…` + `d21fbb86…` · CI post-merge **`39651441205` SUCCESS** · Chaîne : G5 START · G6 Semantic Review PASS · CORR-01/02 · Digest Sync PASS · G7 Git Integration PASS · Merge Verification PASS · Post-Merge Critical Review PASS WITH GOVERNED RESERVES · Handoffs : Post-Merge **`3e017afbebff68710c2fb7941aa925f9b687cd4e`** · Arbitration **`41f802eb0f51e9e998d208638dddf729e7b667ee`** / blob **`bd7ab66f8df09a5f65cd769aa650469e1b2f3ccf`** · G7-MERGE **`c10be865…`** · G7 **`82c772c9…`** · DIGEST **`22b0b06f…`** · CORR-02 **`c13cf60e…`** · PRR index on main : **13 / 20 / 20 / 9** · OBJ-ATTEMPT · DEP-EC-ATT EC→Attempt · DEP-HD-EC HD→EC · F11b hors flows[] · Réserves : six M3/G6 = **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** (≠ FORMALLY CLOSED) · **R-M3-PM-CLEANUP-01 OPEN/DEFER** · M2 carries preserved (R-M2A-04 · R-M2B-03 · B-M2B-01…05 · 38×20 · RS-03 · TOOL-FIRST-REAL-NOWRITE · F18/F19 PARTIAL) · Formal Exit AKG-M3 = **PENDING / NOT ADOPTED** · AKG-M4 = **NOT AUTHORIZED / NOT STARTED** · Publication de ce tip = **LOCAL AUTHORING CANDIDATE / NOT YET INTEGRATED ON MAIN** · Next gates = ChatGPT Critical Documentary Semantic Review → Morris **PRR09 Digest Sync GO** distinct → Git Integration / merge / post-merge → Morris **Formal Exit GO** distinct → AKG-M4 sous GO distinct · **≠** Formal Exit ADOPTED · **≠** six réserves FORMALLY CLOSED · **≠** Digests synced · **≠** project GI authorized · **≠** cleanup DONE · **≠** AKG-M4 START · **≠** P6 PASS · **≠** REAL PROVEN · **≠** v3 ADOPTED |
+ | **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M2 GLOBAL FORMAL MILESTONE EXIT — ROADMAP DOCUMENTARY AUTHORING LOCAL** | 2026-10-21 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M2 GLOBAL Formal Exit Roadmap documentary authoring *(true then as tip; superseded as tip by AKG-M3 DOCUMENTARY TRUTH-SYNC local authoring 2026-10-21 — AKG-M2 GLOBAL CLOSED BY MORRIS facts remain; tip claims « AKG-M3 = NOT AUTHORIZED / G5–G6 NOT CONSUMED / LOCAL CANDIDATE » describe authoring-time state before G5–G7 + PR #599)* — **AKG-M2 GLOBAL — CLOSED BY MORRIS AT BOUNDED ARCHITECTURE UNDERSTANDING SCOPE WITH GOVERNED OPEN RESERVES AND TEMPORARY DOMAIN-LEVEL GOVERNANCE** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M2 — Architecture Understanding** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **G1 — AKG-M2 GLOBAL FORMAL MILESTONE EXIT APPROVED AT BOUNDED ARCHITECTURE UNDERSTANDING SCOPE — WITH GOVERNED OPEN RESERVES AND EXPLICIT TEMPORARY DOMAIN-LEVEL GOVERNANCE — NO AKG-M3 START** = **ADOPTED / APPROVED BY MORRIS** (conversation ChatGPT 2026-10-21 · réponse « ok go ») · Autorité **MORRIS** · Option **A — Formal Exit with Governed Non-Blocking Reserves** · Capacités **V3-F05 / V3-F06** · Lots **M2-A / M2-B / M2-C CLOSED BY MORRIS** (scopes bornés) · Exit Matrix **X-A…X-L** = **12×11 SATISFIED WITH GOVERNED RESERVES** (aucun BLOCKED) · Debt Register **38×20** gouverné · Critical Re-Review chain PASS (semantic / completeness / field semantics) · Handoff G1 Decision Record **`f46c8bca674439ac84ec0d8f061913ef6d11fc4d`** / blob **`1c96c42f910d5833e6b86d9b12c17cde56294795`** · Preuves qualification Field Semantics **`df77b8a2d5d51c223ff42a009ea004545c78da8a`** / blob **`975886bad83dc19b9a99346684201194c8c38a33`** · Completeness **`fb6a4a1b…`** · CP01 **`bf8c3935…`** · Global Exit Qual **`d6689e67…`** · M2-C CP01 **`435cee9a…`** · M2-C C14 **`fd6ccb5f…`** · M2-B **`b699b716…`** · M2-A **`34ce3147…`** · M1 **`068beff9…`** · PR **#597 MERGED** → main **`2624ae265d6854c4a1adfc4a73db771f5e35bb15`** · CI post-merge **`39559364932` SUCCESS** · Réserves OPEN gouvernées : **R-M2A-04 OPEN/GOVERNED** · **R-M2B-03 PASS WITH GOVERNED RESERVE** · **B-M2B-01…05 OPEN** (**B-M2B-05 OPEN** explicite) · A-M2A-* individualisés · **G-M1-*** · **RS-03 OPEN** · **TOOL-FIRST-REAL-NOWRITE OPEN** · **F18/F19 PARTIAL** · **F11b INDEX SCOPE non clos** (COVERAGE VERIFIED + INDEX SCOPE TO VERIFY) · **DEP-EC-ATT** known gap / M3 candidate · **REAL BOUNDARY NOT PROVEN** · Owners **FORMAL OWNER: NOT ASSIGNED** (gouvernance temporaire domaine acceptée · ≠ owner inventé · ≠ dette CLOSED) · AKG-M3 = **NOT AUTHORIZED** · G5 M3 START = **NOT CONSUMED** · G6 PRR SYNC = **NOT CONSUMED** · G2 = **AUTHORIZED — LOCAL AUTHORING CANDIDATE THIS CYCLE** · G3/G4 project GI/PR/merge = **NOT CONSUMED** · Publication de ce tip = **LOCAL AUTHORING CANDIDATE / NOT YET INTEGRATED ON MAIN** · NO project commit/push/PR/merge this cycle · NO PRR sync · NO Product/runtime change · NO cleanup · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · **≠** ROADMAP G1 SYNC INTEGRATED ON MAIN · **≠** AKG-M3 STARTED · **≠** PRR CONSOLIDATED · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED · Next gate = ChatGPT Critical Review of this G2 local authoring → Morris **G3/G4 project Git Integration GO** distinct → then **G5 AKG-M3 START** distinct |
+ | **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M2 LOT C FORMAL EXIT** | 2026-10-20 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M2 LOT C — CLOSED BY MORRIS *(true then as tip; superseded as tip by AKG-M2 GLOBAL G1 Formal Exit Roadmap documentary authoring 2026-10-21 — AKG-M2-C CLOSED BY MORRIS facts remain; tip LOCAL CANDIDATE claims describe authoring-time state; devenir réel tip Lot C = **PR #597 MERGED ON MAIN** `2624ae265d6854c4a1adfc4a73db771f5e35bb15` · CI post-merge `39559364932` SUCCESS)* — **AKG-M2 LOT C — CLOSED BY MORRIS AT BOUNDED ARCHITECTURE UNDERSTANDING REVIEW SCOPE WITH GOVERNED NON-BLOCKING RESERVES** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M2 — Architecture Understanding** · Lot **M2-C — Architecture Understanding Review** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO AKG-M2 LOT C — FORMAL EXIT APPROVED AT BOUNDED ARCHITECTURE UNDERSTANDING REVIEW SCOPE, WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Autorité **MORRIS** · Fondement : Architecture Understanding Review · Critical Review initiale · Correction Pass 01 · Critical Re-Review ChatGPT = **PASS WITH GOVERNED RESERVES** · Exit Proof **E-C01…E-C09** PASS / PASS WITH GOVERNED RESERVES · **E-C10** Critical Re-Review + Morris Formal Exit **ACQUIRED** (decision) · Handoffs : M2-C initial **`cdb9c5be49942faa414fce8a0d22974326f3ccca`** · CP01 **`435cee9a0a8ec6603a17ddf6d82066684c194b5e`** / blob **`51731bf41883b988f018fe7ff86044b04f2eac23`** · M2-B CLOSED + PR **#596 MERGED** + POST-MERGE VERIFIED (main then `6fe7d2ce…`) · Scope = **BOUNDED ARCHITECTURE UNDERSTANDING REVIEW** (Q1…Q10 · S-C01…S-C12 · coherence M2-A/B · authority · restart · Fake/DET/REAL ceilings · AKG-M3 entry candidate PROPOSAL ONLY) · Acquis validés au périmètre compréhension (≠ readiness runtime · ≠ BEHAVIOR PROVEN global · ≠ PRR consolidated) · Réserves gouvernées OPEN : **R-M2A-04** · **R-M2B-03** (PASS WITH GOVERNED RESERVE) · **B-M2B-01…05** (**B-M2B-05 OPEN** explicit) · A-M2A-* · **G-M1-04/05/06/09/10/12/14/15/17/18** · RS-03 · TOOL-FIRST-REAL-NOWRITE · DEP-EC-ATT · F11b INDEX SCOPE · Restart F18/F19 PARTIAL · REAL BOUNDARY NOT PROVEN · AKG-M2 milestone global = **IN PROGRESS / NOT CLOSED** *(HISTORICAL AT LOT EXIT — later G1 CLOSED BY MORRIS 2026-10-21)* · AKG-M3 = **NOT AUTHORIZED** · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (candidate Formal Exit Roadmap truth sync, 2026-10-20)** — at that authoring instant: **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN** · Git Integration / Post-merge CI then **NOT YET VERIFIED** · later devenir = **PR #597 MERGED ON MAIN** · after that instant for remaining claims, status = **RESOLVE FROM CURRENT GIT / PR / commits** · Decision Morris ADOPTED ≠ Roadmap Git Integration complete · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · PRR sync = **NOT IMPLIED** · Product/runtime/PRR/manifest/Build Doctrine/doctrine v3 changes this cycle = **NONE** · **≠** AKG-M2 CLOSED · **≠** AKG-M3 AUTHORIZED · **≠** PRR CONSOLIDATED · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED · Next gate = ChatGPT Critical Review of this Roadmap candidate → Morris **PROTECTED-PATH LOCAL AUTHORING GO** distinct → project Git Integration GO distinct → merge GO distinct · then AKG-M2 Formal Milestone Exit under **distinct GO** · then AKG-M3 under **distinct GO** |
+ | **Timestamp maintenance SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE AKG-M2 LOT B FORMAL EXIT** | 2026-10-20 Europe/Paris — **HISTORICAL / SUPERSEDED AS TIP** — prior tip AKG-M2 LOT B — CLOSED BY MORRIS *(true then as tip; superseded as tip by AKG-M2 LOT C FORMAL EXIT Roadmap truth sync 2026-10-20 — AKG-M2-B CLOSED BY MORRIS facts remain)* — **AKG-M2 LOT B — CLOSED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE WITH GOVERNED NON-BLOCKING RESERVES** · Chantier **SFIA-STUDIO-ARCHITECTURAL-KNOWLEDGE-AND-CONSTRUCTION-GOVERNANCE** · Milestone **AKG-M2 — Architecture Understanding** · Lot **M2-B — Critical Interaction Understanding** · Cycle **8 — Delivery / implémentation (spécialisation Documentary Governance Truth Sync)** · Profile **Critical** · Typologie **DOC / GOVERNANCE / METHOD** · Décision Morris **GO AKG-M2 LOT B — FORMAL EXIT APPROVED BY MORRIS AT BOUNDED CRITICAL INTERACTION UNDERSTANDING SCOPE WITH GOVERNED NON-BLOCKING RESERVES** = **ADOPTED** (conversation ChatGPT 2026-10-20 Europe/Paris) · Autorité **MORRIS** · Fondement : Critical Re-Review CP02 = **PASS WITH GOVERNED RESERVES** · Exit Proof **E-B01…E-B10** satisfaits (certains WITH BOUNDED RESERVE) · Complétude CP02 **P1…P10 PASS** · Handoffs : initial **`6bf33c8cb8e8f42c88eb6968089e60c4459560c7`** · CP01 **`d9ee7f75acacf56858da048dcfe6cfb561f00472`** · CP02 **`b699b716445bb2112059b77e3656418a1de4c29b`** / blob **`95f6ab13df4c2e64e35366d6e3066b69b889b9d5`** · Scope = **BOUNDED CRITICAL INTERACTION UNDERSTANDING** (I-B01…08 · S1–S5 · restart · refus · Fake/DET/REAL ceilings · M2-C entry candidate L-M2B7) · Acquis validés au périmètre compréhension (≠ readiness runtime · ≠ BEHAVIOR PROVEN global) · Réserves gouvernées OPEN : **R-M2A-04** (ENTRY CONTRACT RECONCILED / OPEN GOVERNED) · **R-M2B-03** (PASS WITH GOVERNED RESERVE) · **B-M2B-01…05** · A-M2A-* résiduelles · **G-M1-04/05/06/09/10/12/14/15/17/18** · RS-03 · TOOL-FIRST-REAL-NOWRITE · DEP-EC-ATT · F11b INDEX SCOPE · Restart F18/F19 PARTIAL · REAL BOUNDARY NOT PROVEN · AKG-M2 milestone global = **IN PROGRESS / NOT CLOSED** · Lot C = **NOT AUTHORIZED** · AKG-M3 = **NOT AUTHORIZED** · Publication de ce tip = **HISTORICAL AUTHORING SNAPSHOT (candidate Formal Exit Roadmap truth sync, 2026-10-20)** — at this authoring instant: **LOCAL CANDIDATE / NOT YET INTEGRATED ON MAIN** · Git Integration = **NOT YET VERIFIED** · Post-merge CI = **NOT YET VERIFIED** · after that instant, publication status = **RESOLVE FROM CURRENT GIT / PR / commits** · Decision Morris ADOPTED ≠ Git Integration complete · P6 GLOBAL PASS = **NOT ACQUIRED** · runtime v3 = **NON ADOPTED** · REAL BOUNDARY = **NOT PROVEN** · PRR sync = **NOT IMPLIED** · Product/runtime/PRR/manifest/Build Doctrine/doctrine v3 changes this cycle = **NONE** · **≠** AKG-M2 CLOSED · **≠** M2-C AUTHORIZED · **≠** AKG-M3 AUTHORIZED · **≠** P6 PASS · **≠** v3 ADOPTED · **≠** REAL PROVEN · **≠** debts CLOSED · Next gate = ChatGPT Critical Review of this Roadmap truth sync → Morris **project Git Integration GO** distinct → merge GO distinct · then M2-C under **distinct GO** |
+@@ -285,9 +286,9 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
+ | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+ | **AKG-M0** Methodological Foundation | Encoder P1–P3 (architecture-informed, continuité doc, rationalisation evidence-based) dans Build Doctrine / Roadmap / PRR contrat / routing / template | V3-F05 (+ F02/F06/F07/F11/F12/F14/F15 transverses) | Cadrage M0 ; handoff préparatoire | Six documents A–F intégrés via PR #591 | Semantic Review PASS (+ R-PR-01) + digest sync + Git Integration + post-merge CI | Merge #591 `7971d574…` · CI `39326333926` SUCCESS · digest README `00bd5a869be87d20` · Merge #592 `c4dd47f8…` · CI `39333828638` SUCCESS · exit proof A–L SATISFIED · Morris formal close 2026-10-20 | Sur-claim P6 PASS / v3 ADOPTED / AKG-M1 AUTHORIZED ; confusion decision ADOPTED vs tip still LOCAL CANDIDATE | GO authoring / semantic / digest / GI **CONSUMED** · Post-merge GO **CONSUMED** · Roadmap truth-sync GI **CONSUMED** (PR #592) · Morris formal close **ADOPTED — CLOSED BY MORRIS AT METHODOLOGICAL SCOPE** · formal-closure tip GI **PENDING AT AUTHORING SNAPSHOT** (later status = RESOLVE FROM CURRENT GIT / Morris GI GO distinct) | AKG-M1 sous GO inventaire distinct |
+ | **AKG-M1** System Inventory | Inventaire borné du système réellement implémenté (topology/objets/flux/deps/autorité/persistance/preuves) | V3-F05 / F14 | AKG-M0 CLOSED BY MORRIS AT METHODOLOGICAL SCOPE + GO inventaire | Lots A/B/C/D (census · objects · flows · exit) + formal closure record | E1–E15 SATISFIED AT BOUNDED INVENTORY SCOPE · R-D01/02/03 · couverture bornée et traçable (≠ exhaustivité globale · ≠ BEHAVIOR PROVEN global) | Handoff `068beff9…` · baseline `5689cb73…` · manifest 12/20/20/9/27/7 · refs code/PRR | Exhaustivité artificielle · confondre inventaire et readiness runtime · sur-claim REAL/P6/v3 | GO inventaire **CONSUMED** · GO formal closure **ADOPTED** · Roadmap tip GI **CONSUMED** via PR **#594 MERGED** (main `4ac169b69dfdc571421328811ba062540cc9655f`) · tip later **HISTORICAL / SUPERSEDED AS TIP** by M2-A formal-exit authoring · AKG-M2 Lot A later **CLOSED BY MORRIS** (2026-10-20) · Lot B remains distinct GO | AKG-M2 |
+-| **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions critiques / revue de compréhension | V3-F05 / F06 | AKG-M1 CLOSED + GO understanding | **Lots A/B/C** ownership/authority + critical interactions + understanding review | Lot A Formal Exit · Lot B Formal Exit · Lot C Formal Exit · Critical Re-Review CP01 PASS WITH GOVERNED RESERVES · Exit Matrix X-A…X-L SATISFIED WITH GOVERNED RESERVES · R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH RESERVE · B-M2B-05 OPEN · G-M1-* governed · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · F11b INDEX SCOPE non clos · REAL BOUNDARY NOT PROVEN · **AKG-M2 GLOBAL FORMAL MILESTONE EXIT — APPROVED BY MORRIS 2026-10-21** · scope **BOUNDED ARCHITECTURE UNDERSTANDING** · Option **A** · AKG-M3 distinct G5 START | Lot A handoffs `86a2b1e7…` / `34ce3147…` · Lot B handoffs `6bf33c8c…` / `d9ee7f75…` / `b699b716…` · Lot C handoffs `cdb9c5be…` / `435cee9a…` · G1 Decision Record `f46c8bca674439ac84ec0d8f061913ef6d11fc4d` · Field Semantics `df77b8a2…` · PR **#597 MERGED** · CI `39559364932` SUCCESS | Sur-modélisation · confondre Lot C CLOSED avec M2 CLOSED *(résolu par G1 distinct)* · autoriser M3 sans G5 · confondre G1 ADOPTED avec tip INTEGRATED ON MAIN | Lot A/B/C Formal Exit **ADOPTED** · **G1 Formal Milestone Exit APPROVED BY MORRIS / CONSUMED** · **M2 GLOBAL CLOSED BY MORRIS AT BOUNDED SCOPE — G1 ADOPTED** · **R-M2A-04 OPEN/GOVERNED** · **B-M2B-05 OPEN** · AKG-M3 later **INTEGRATED ON MAIN / FORMAL EXIT PENDING** (see AKG-M3 row / CURRENT tip) · prior « tip GI PENDING / AKG-M3 NOT AUTHORIZED » = **HISTORICAL AS TIP** | **AKG-M3 sous G5 START distinct** |
+-| **AKG-M3** Reference Consolidation | Consolider la PRR ; mesurer couverture | V3-F05 / F12 | AKG-M2 GLOBAL G1 CLOSED BY MORRIS + **G5 M3 START** consommé | PRR CURRENT consolidation · coverage · index/dependencies · Vol09 Known Gaps · semantic conformance | Critères couverture appliqués · gaps gouvernés · Formal Exit M3 distinct **PENDING** | Conformance + revue sémantique + CI post-merge | Tentation 2e référentiel · Formal Exit implicite · confondre D2 conditionnel avec FORMALLY CLOSED | **REFERENCE CONSOLIDATION INTEGRATED ON MAIN — POST-MERGE VERIFIED — FORMAL EXIT PENDING** · PR **#599 MERGED** · merge `d41c6a66…` · CI `39651441205` SUCCESS · G6 Semantic PASS · Digest Sync PASS · G7 PASS · D1–D4 APPROVED · documentary truth-sync **LOCAL CANDIDATE this cycle** · six réserves **FORMAL CLOSE APPROVED CONDITIONALLY FOR EXIT** (≠ FORMALLY CLOSED) · cleanup **DEFER** · AKG-M4 **NOT AUTHORIZED** | AKG-M4 sous Formal Exit M3 + GO M4 distinct |
+-| **AKG-M4** Rationalization Assessment | Matrice KEEP/ADAPT/CONSOLIDATE/REPLACE/RETIRE sur preuves | V3-F05 / F07 | AKG-M3 | Matrice + impact packs | Décisions Morris par lot | Impact + preuves | Suppression prématurée | GO rationalize (+ GO retire si structurant) | AKG-M5 |
++| **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions critiques / revue de compréhension | V3-F05 / F06 | AKG-M1 CLOSED + GO understanding | **Lots A/B/C** ownership/authority + critical interactions + understanding review | Lot A Formal Exit · Lot B Formal Exit · Lot C Formal Exit · Critical Re-Review CP01 PASS WITH GOVERNED RESERVES · Exit Matrix X-A…X-L SATISFIED WITH GOVERNED RESERVES · R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH RESERVE · B-M2B-05 OPEN · G-M1-* governed · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · F11b INDEX SCOPE non clos · REAL BOUNDARY NOT PROVEN · **AKG-M2 GLOBAL FORMAL MILESTONE EXIT — APPROVED BY MORRIS 2026-10-21** · scope **BOUNDED ARCHITECTURE UNDERSTANDING** · Option **A** · AKG-M3 distinct G5 START | Lot A handoffs `86a2b1e7…` / `34ce3147…` · Lot B handoffs `6bf33c8c…` / `d9ee7f75…` / `b699b716…` · Lot C handoffs `cdb9c5be…` / `435cee9a…` · G1 Decision Record `f46c8bca674439ac84ec0d8f061913ef6d11fc4d` · Field Semantics `df77b8a2…` · PR **#597 MERGED** · CI `39559364932` SUCCESS | Sur-modélisation · confondre Lot C CLOSED avec M2 CLOSED *(résolu par G1 distinct)* · autoriser M3 sans G5 · confondre G1 ADOPTED avec tip INTEGRATED ON MAIN | Lot A/B/C Formal Exit **ADOPTED** · **G1 Formal Milestone Exit APPROVED BY MORRIS / CONSUMED** · **M2 GLOBAL CLOSED BY MORRIS AT BOUNDED SCOPE — G1 ADOPTED** · **R-M2A-04 OPEN/GOVERNED** · **B-M2B-05 OPEN** · AKG-M3 later **CLOSED BY MORRIS** at bounded Reference Consolidation scope (see AKG-M3 row / CURRENT tip) · prior « tip GI PENDING / AKG-M3 NOT AUTHORIZED » = **HISTORICAL AS TIP** | **AKG-M3 sous G5 START distinct** |
++| **AKG-M3** Reference Consolidation | Consolider la PRR ; mesurer couverture | V3-F05 / F12 | AKG-M2 GLOBAL G1 CLOSED BY MORRIS + **G5 M3 START** consommé | PRR CURRENT consolidation · coverage · index/dependencies · Vol09 Known Gaps · semantic conformance | Critères couverture appliqués · gaps gouvernés · Formal Exit **FE-01 ADOPTED** · six FE-02 **FORMALLY CLOSED** · cleanup FE-03 OPEN/DEFER · FE-04 debts preserved | Conformance + revue sémantique + CI post-merge + Decision Record | Tentation 2e référentiel · confondre Formal Exit avec readiness Product/REAL/P6 · confondre FE-02 avec clôture de toutes dettes · démarrer M4 sans GO | **CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** · G5 START consommé · G6 Semantic PASS · Digest Sync PASS · G7 PASS · PR **#599 MERGED** · merge `d41c6a66…` · CI `39651441205` SUCCESS · documentary truth-sync PR **#600 MERGED** · merge `606f756e…` · CI post-merge **`39729128729` SUCCESS** · checker PRR PASS · E1–E12 qualifiés (E8/E11/E12 SATISFIED) · FE-01–FE-04 ADOPTED · six réserves **FORMALLY CLOSED BY MORRIS FE-02** · cleanup **OPEN/DEFER** · AKG-M4 **NOT AUTHORIZED** · this tip publication = **LOCAL AUTHORING CANDIDATE** | AKG-M4 sous GO Morris M4 distinct (Formal Exit M3 acquis ≠ GO M4) |
++| **AKG-M4** Rationalization Assessment | Matrice KEEP/ADAPT/CONSOLIDATE/REPLACE/RETIRE sur preuves | V3-F05 / F07 | AKG-M3 CLOSED BY MORRIS (FE-01) | Matrice + impact packs | Décisions Morris par lot | Impact + preuves | Suppression prématurée · démarrage implicite post-FE | **NOT AUTHORIZED / NOT STARTED** — requires distinct Morris GO M4 (Formal Exit M3 acquis ≠ GO M4) | AKG-M5 |
+ | **AKG-M5** Product Transformation | Lots Product gouvernés si GO | V3-F05+ | AKG-M4 + GO Product distinct | Lots Product | Preuves Product selon GO | CI/HQA selon GO | Confusion avec P6 Exit | GO Product distinct | — |
+
+ ### Non-claims AKG
+```
+
+---
+
+## 14–16. PRR09 BEFORE / AFTER / diff complet
+
+BEFORE: CURRENT overlay G6/G7 with six NOT FORMALLY CLOSED · E12 OPEN.
+
+AFTER — new CURRENT FE overlay:
+
+```markdown
+## CURRENT overlay — AKG-M3 FORMAL EXIT — MORRIS FE-01–FE-04 ADOPTED (2026-10-22)
+
+**Authority:** Morris FE-01–FE-04 ADOPTED 2026-10-22 (Decision Record handoff `7339d49f…` / blob `f141bfef…` · Critical Formal Exit Decision Record Review PASS · GO Documentary Truth-Sync « ok go »). This overlay is **documentary CURRENT** for Formal Exit governance status. It does **not** authorize AKG-M4, cleanup, digest sync, or Product/runtime promotion.
+
+| Fact | Status |
+|---|---|
+| Formal Exit (FE-01) | **ADOPTED** — **AKG-M3 CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** |
+| Scope | Reference Consolidation as proven (PRR CURRENT · coverage · Vol09 · digests · Git/CI) · **≠** Product readiness · **≠** REAL · **≠** P6 · **≠** runtime v3 |
+| Six Formal Closures (FE-02) | **R-M3A-01 · R-M3B-01 · R-G6-SR-01…04 FORMALLY CLOSED BY MORRIS AT BOUNDED M3/G6 SCOPE** |
+| Cleanup (FE-03) | **R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER** · temporary governance **MORRIS** · formal owner **UNASSIGNED** · **NOT EXECUTED** |
+| Continuity (FE-04) | M2 debts / REAL / P6 / v3 ceilings **preserved** · **AKG-M4 NOT AUTHORIZED** |
+| PR #600 | **MERGED** |
+| Merge SHA | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
+| Parents | `d41c6a66…` + `2134fc18…` |
+| CI post-merge | `39729128729` **COMPLETED / SUCCESS** |
+| PRR conformance | **PASS** (isolated checker on merge SHA · Post-Merge verification) |
+| Index on main | **13 / 20 / 20 / 9** · 27 trackedSources · 7 trackedTests · 10 volumes |
+| OBJ-ATTEMPT / DEP-EC-ATT / DEP-HD-EC / F11b | indexed · EC→Attempt · HD→EC · hors `flows[]` |
+| Prior technical integration | G5–G7 · PR **#599** · merge `d41c6a66…` · CI `39651441205` — **technical** (≠ Formal Exit alone) |
+
+### Reserve dispositions — Morris FE-02 / FE-03 (CURRENT)
+
+| ID | Technical | Semantic | Prior D2 | FE NOW | Formal status NOW | Owner | Next gate |
+|---|---|---|---|---|---|---|---|
+| **R-M3A-01** | **TECHNICALLY RESOLVED** (OBJ-ATTEMPT + DEP-EC-ATT on main) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path (status only) |
+| **R-M3B-01** | **TECHNICALLY RESOLVED** (G6 scope vols+manifest on main) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-01** | n/a (documentary) | **SEMANTICALLY RESOLVED** (Critical Semantic Review PASS + CORR) | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-02** | SHE contract present on main | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-03** | n/a (documentary) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-G6-SR-04** | n/a (documentary) | **SEMANTICALLY RESOLVED** (correction scope; historical layers remain HISTORICAL) | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
+| **R-M3-PM-CLEANUP-01** | Cleanup **NOT DONE** | n/a | D3 DEFER APPROVED | **FE-03 CONSUMED (DEFER)** | **GOVERNED OPEN / DEFER** | Temporary governance **MORRIS** · Formal owner **UNASSIGNED** | Distinct Morris cleanup GO · G7 + #600 branches **RETAINED** · never `-D` |
+
+**R-M3-PM-CLEANUP-01 detail:** Branches `docs/sfia-studio-akg-m3-g7-prr-consolidation` and `docs/sfia-studio-akg-m3-documentary-truth-sync` retained. §6.12.1 auto-cleanup **NOT APPLIED** (D3/FE-03). **≠ CLEANUP DONE.**
+
+### Exit matrix E1–E12 (decision CURRENT)
+
+| ID | Status |
+|---|---|
+| E1–E6 | **SATISFIED** |
+| E7 | **SATISFIED WITH GOVERNED RESERVE** |
+| E8 | **SATISFIED — FE-02 CONSUMED** |
+| E9–E10 | **SATISFIED WITH GOVERNED RESERVE** |
+| E11 | **SATISFIED — POST-MERGE VERIFIED** |
+| E12 | **SATISFIED — FE-01 CONSUMED** |
+
+### Transverse debts preserved (FE-04 — unchanged)
+
+R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH GOVERNED RESERVE · B-M2B-01…05 OPEN · M2 debt register 38×20 · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED · L5 global NOT AUTHORIZED · **AKG-M4 NOT AUTHORIZED**.
+
+**Anti-claims:** Formal Exit ADOPTED ≠ this documentary lot integrated on main · six FORMALLY CLOSED by FE-02 ≠ all debts CLOSED · cleanup DEFER ≠ DONE · M3 CLOSED ≠ AKG-M4 START · DETERMINISTIC ≠ REAL · PRR conformance ≠ P6 · Studio v3 target ≠ runtime v3 ADOPTED · digest drift of this edit ≠ digest sync authorized.
+```
+
+Prior G6/G7 overlay = **HISTORICAL / SUPERSEDED FOR CURRENT FORMAL EXIT STATUS** (technical facts retained).
+
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index 5f24b0fb..fa469300 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -322,9 +322,61 @@ No `retired-components-ledger.md` — zero components removed.
+
+
+
+-## CURRENT overlay — AKG-M3 G6/G7 INTEGRATED ON MAIN (2026-10-21)
++## CURRENT overlay — AKG-M3 FORMAL EXIT — MORRIS FE-01–FE-04 ADOPTED (2026-10-22)
+
+-**Authority:** Morris G5–G7 chain + D1–D4 Formal Exit Arbitration dispositions (2026-10-21). This overlay is **documentary CURRENT** for consumer reading. It does **not** adopt Formal Exit.
++**Authority:** Morris FE-01–FE-04 ADOPTED 2026-10-22 (Decision Record handoff `7339d49f…` / blob `f141bfef…` · Critical Formal Exit Decision Record Review PASS · GO Documentary Truth-Sync « ok go »). This overlay is **documentary CURRENT** for Formal Exit governance status. It does **not** authorize AKG-M4, cleanup, digest sync, or Product/runtime promotion.
++
++| Fact | Status |
++|---|---|
++| Formal Exit (FE-01) | **ADOPTED** — **AKG-M3 CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** |
++| Scope | Reference Consolidation as proven (PRR CURRENT · coverage · Vol09 · digests · Git/CI) · **≠** Product readiness · **≠** REAL · **≠** P6 · **≠** runtime v3 |
++| Six Formal Closures (FE-02) | **R-M3A-01 · R-M3B-01 · R-G6-SR-01…04 FORMALLY CLOSED BY MORRIS AT BOUNDED M3/G6 SCOPE** |
++| Cleanup (FE-03) | **R-M3-PM-CLEANUP-01 GOVERNED OPEN / DEFER** · temporary governance **MORRIS** · formal owner **UNASSIGNED** · **NOT EXECUTED** |
++| Continuity (FE-04) | M2 debts / REAL / P6 / v3 ceilings **preserved** · **AKG-M4 NOT AUTHORIZED** |
++| PR #600 | **MERGED** |
++| Merge SHA | `606f756ef09811c5e68e6ed8a69d08d492a4a426` |
++| Parents | `d41c6a66…` + `2134fc18…` |
++| CI post-merge | `39729128729` **COMPLETED / SUCCESS** |
++| PRR conformance | **PASS** (isolated checker on merge SHA · Post-Merge verification) |
++| Index on main | **13 / 20 / 20 / 9** · 27 trackedSources · 7 trackedTests · 10 volumes |
++| OBJ-ATTEMPT / DEP-EC-ATT / DEP-HD-EC / F11b | indexed · EC→Attempt · HD→EC · hors `flows[]` |
++| Prior technical integration | G5–G7 · PR **#599** · merge `d41c6a66…` · CI `39651441205` — **technical** (≠ Formal Exit alone) |
++
++### Reserve dispositions — Morris FE-02 / FE-03 (CURRENT)
++
++| ID | Technical | Semantic | Prior D2 | FE NOW | Formal status NOW | Owner | Next gate |
++|---|---|---|---|---|---|---|---|
++| **R-M3A-01** | **TECHNICALLY RESOLVED** (OBJ-ATTEMPT + DEP-EC-ATT on main) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path (status only) |
++| **R-M3B-01** | **TECHNICALLY RESOLVED** (G6 scope vols+manifest on main) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
++| **R-G6-SR-01** | n/a (documentary) | **SEMANTICALLY RESOLVED** (Critical Semantic Review PASS + CORR) | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
++| **R-G6-SR-02** | SHE contract present on main | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
++| **R-G6-SR-03** | n/a (documentary) | **SEMANTICALLY RESOLVED** | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
++| **R-G6-SR-04** | n/a (documentary) | **SEMANTICALLY RESOLVED** (correction scope; historical layers remain HISTORICAL) | Conditional Formal Close APPROVED | **FE-02 CONSUMED** | **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** | **OWNER UNASSIGNED** | Documentary Truth-Sync GI / digest path |
++| **R-M3-PM-CLEANUP-01** | Cleanup **NOT DONE** | n/a | D3 DEFER APPROVED | **FE-03 CONSUMED (DEFER)** | **GOVERNED OPEN / DEFER** | Temporary governance **MORRIS** · Formal owner **UNASSIGNED** | Distinct Morris cleanup GO · G7 + #600 branches **RETAINED** · never `-D` |
++
++**R-M3-PM-CLEANUP-01 detail:** Branches `docs/sfia-studio-akg-m3-g7-prr-consolidation` and `docs/sfia-studio-akg-m3-documentary-truth-sync` retained. §6.12.1 auto-cleanup **NOT APPLIED** (D3/FE-03). **≠ CLEANUP DONE.**
++
++### Exit matrix E1–E12 (decision CURRENT)
++
++| ID | Status |
++|---|---|
++| E1–E6 | **SATISFIED** |
++| E7 | **SATISFIED WITH GOVERNED RESERVE** |
++| E8 | **SATISFIED — FE-02 CONSUMED** |
++| E9–E10 | **SATISFIED WITH GOVERNED RESERVE** |
++| E11 | **SATISFIED — POST-MERGE VERIFIED** |
++| E12 | **SATISFIED — FE-01 CONSUMED** |
++
++### Transverse debts preserved (FE-04 — unchanged)
++
++R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH GOVERNED RESERVE · B-M2B-01…05 OPEN · M2 debt register 38×20 · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED · L5 global NOT AUTHORIZED · **AKG-M4 NOT AUTHORIZED**.
++
++**Anti-claims:** Formal Exit ADOPTED ≠ this documentary lot integrated on main · six FORMALLY CLOSED by FE-02 ≠ all debts CLOSED · cleanup DEFER ≠ DONE · M3 CLOSED ≠ AKG-M4 START · DETERMINISTIC ≠ REAL · PRR conformance ≠ P6 · Studio v3 target ≠ runtime v3 ADOPTED · digest drift of this edit ≠ digest sync authorized.
++
++
++## HISTORICAL overlay — AKG-M3 G6/G7 INTEGRATED ON MAIN (2026-10-21) — **SUPERSEDED FOR CURRENT FORMAL EXIT STATUS**
++
++**Authority (authoring-time):** Morris G5–G7 chain + D1–D4 Formal Exit Arbitration dispositions (2026-10-21). This overlay was **documentary CURRENT** for G6/G7 technical integration. It is now **HISTORICAL / SUPERSEDED FOR CURRENT FORMAL EXIT STATUS** by FE-01–FE-04 (2026-10-22). Retain technical facts (PR #599 · index · deps). **Do not** read Formal Exit NOT ADOPTED / six NOT FORMALLY CLOSED as CURRENT after FE adoption.
+
+ | Fact | Status |
+ |---|---|
+@@ -346,7 +398,7 @@ No `retired-components-ledger.md` — zero components removed.
+ | AKG-M4 | **NOT AUTHORIZED** |
+ | REAL / P6 / runtime v3 | **NOT PROVEN / NOT PASSED / NON ADOPTED** |
+
+-### Reserve dispositions — Morris D2 / D3 (FORMALLY CLOSED = NOT THIS CYCLE)
++### Reserve dispositions — Morris D2 / D3 — **HISTORICAL pre-FE snapshot** (FORMALLY CLOSED = NOT THIS CYCLE *then*)
+
+ | ID | Technical | Semantic | Morris D2/D3 | Formal status NOW | Owner | Next gate |
+ |---|---|---|---|---|---|---|
+@@ -364,7 +416,7 @@ No `retired-components-ledger.md` — zero components removed.
+
+ R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH GOVERNED RESERVE · B-M2B-01…05 OPEN · M2 debt register 38×20 · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED.
+
+-### Exit readiness continuity (preparatory — not Formal Exit)
++### Exit readiness continuity — **HISTORICAL pre-FE snapshot** (preparatory — not Formal Exit *then*)
+
+ E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FORMAL CLOSURE PENDING · E9–E10 WITH GOVERNED RESERVE · E11 = DOCUMENTARY TRUTH-SYNC LOCAL CANDIDATE (≠ INTEGRATED ON MAIN) · E12 OPEN (Formal Exit GO NOT CONSUMED).
+```
+
+---
+
+## 17. Six Formal Closures
+
+R-M3A-01 · R-M3B-01 · R-G6-SR-01…04 = **FORMALLY CLOSED BY MORRIS FE-02 AT BOUNDED M3/G6 SCOPE** · OWNER UNASSIGNED · IDs preserved · historical pre-FE rows retained under HISTORICAL overlay.
+
+---
+
+## 18. E1–E12
+
+E1–E6 SATISFIED · E7/E9/E10 WITH GOVERNED RESERVE · E8 SATISFIED (FE-02) · E11 SATISFIED · E12 SATISFIED (FE-01).
+
+---
+
+## 19. Historical preservation
+
+Roadmap prior tip HISTORICAL · PRR09 G6/G7 overlay HISTORICAL · authoring-time PENDING/NOT CLOSED claims retained as snapshots.
+
+---
+
+## 20–22. Cleanup / debts / M4
+
+Cleanup OPEN/DEFER · M2 debts preserved · AKG-M4 NOT AUTHORIZED.
+
+---
+
+## 23–25. Manifest / digests / drift
+
+| Field | Value |
+|---|---|
+| Manifest blob | `ffd488c0edc64e2ffda892a2f1467dc7fdad3876` (= `ffd488c0…`) **UNCHANGED** |
+| PRR09 sha256_16 BEFORE | `743d7232f5a9d5b6` |
+| PRR09 sha256_16 AFTER | `0a88bebc3dad541f` |
+| Verdict | **EXPECTED DOCUMENTARY DIGEST DRIFT — CRITICAL SEMANTIC REVIEW REQUIRED** |
+| Action | **NO** `--write-digests` · **NO** conformance PASS claim on dirty candidate |
+
+---
+
+## 26. Git scope validation
+
+Exactly 2 project files · no staged · no Product · no method · `git diff --check` PASS · no remote project branch created.
+
+---
+
+## 27. Fake / Real
+
+DOCUMENTARY FORMAL EXIT STATUS AUTHORING · no new fake/REAL · DETERMINISTIC PROVEN AT TESTED SCOPE preserved · REAL/P6/v3 not promoted.
+
+---
+
+## 28–29. Réserves / gates
+
+```text
+ChatGPT Critical Formal Exit Documentary Semantic Review
+→ Morris PRR09 Digest Sync GO (distinct)
+→ Digest Conformance Review
+→ Morris Git Integration GO
+→ PR / Merge / Post-Merge
 → [optional] cleanup GO
 → AKG-M4 under distinct GO
 ```
 
 ---
 
-## 26. Verdict
+## 30. Review Handoff proof
 
-**AKG-M3 FORMAL EXIT DECISION RECORDED — CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES — DOCUMENTARY TRUTH-SYNC PENDING.**
+Published in-cycle via `scripts/sfia/publish-review-handoff.sh` (remote SHA/blob in Cursor final report).
 
 ---
 
-## 27. Instruction ChatGPT
+## 31. Verdict
+
+**AKG-M3 FORMAL EXIT DOCUMENTARY TRUTH-SYNC LOCAL AUTHORING COMPLETE — READY FOR CHATGPT CRITICAL SEMANTIC REVIEW.**
+
+---
+
+## 32. Instruction ChatGPT
 
 Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
 
-Vérifier cycle **AKG-M3-FORMAL-EXIT-DECISION-RECORD-01**.
+Vérifier cycle **AKG-M3-FORMAL-EXIT-DOC-TRUTH-SYNC-01**.
 
-Conduire **CHATGPT CRITICAL FORMAL EXIT DECISION RECORD REVIEW**.
+Produire **CHATGPT CRITICAL FORMAL EXIT DOCUMENTARY SEMANTIC REVIEW**.
 
-Contrôler: GO FE-01–FE-04 · six closures · E8/E12 · main/CI · cleanup OPEN · M2 · M4 NOT AUTHORIZED · aucun changement projet · handoff FULL.
+Contrôler: GO · handoff · Git/worktree · deux diffs complets · FE-01–FE-04 · six closures · E8/E11/E12 · historique · cleanup DEFER · M2 · manifest unchanged · new PRR09 hash · expected drift · pas projet push · M4 NOT AUTHORIZED · Fake/Real.
 
-Si PASS: proposer Morris GO distinct **AKG-M3 FORMAL EXIT DOCUMENTARY TRUTH-SYNC** (Roadmap + PRR09 status sync; no Product behavior change).
+Si PASS: proposer Morris **PRR09 DIGEST SYNC GO** distinct.
 
 ---
 
-END — AKG-M3-FORMAL-EXIT-DECISION-RECORD-01
+END — AKG-M3-FORMAL-EXIT-DOC-TRUTH-SYNC-01
