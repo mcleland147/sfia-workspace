@@ -4,400 +4,472 @@
 
 | Field | Value |
 | --- | --- |
-| Timestamp UTC | 2026-10-22T18:49:12Z |
-| Cycle | AKG-M4-A / T-A02 — Critical Review Correction Pass 01 |
+| Timestamp UTC | 2026-10-22T19:06:34Z |
+| Cycle | AKG-M4-A / T-A03 — Runtime Sequences, Authority Boundaries & Failure/Restart |
 | Profile | CRITICAL |
-| Branch | `analysis/akg-m4a-ta02-capability-inventory` |
+| Type | Cycle 6 — Architecture technique · DOC / Architecture / Rationalization Assessment |
+| Branch | `analysis/akg-m4a-ta03-authority-sequences` |
 | HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
 | origin/main | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
-| Document | `projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/06-m4a-historical-capabilities-inventory.md` (untracked) |
-| Document hash-object | `072ef71f57a3f765c5929781b1b78e246ce0a0dc` |
-| Prior T-A02 handoff | `e66d5ebceca2823965c79460ea031c3f0e6fcf82` / `544ddbfaa9d9a7f28f35b91da7ad8950b4384d18` |
+| PR #604 | Draft · CI SUCCESS · non mergée (source tip) |
+| Document | `projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/07-m4a-authority-sequences-stop-fail-restart.md` (untracked) |
+| Document hash-object | `ae67fed56b54fa71fe676eade84c9a41e2fa270d` |
+| Antecedent T-A01 handoff | commit `42de13a95c9ca4b103c9192147a4511f4f1df1dd` · blob `5b341ce88b6db868c70dd0f3deb00fc29a2b799a` |
+| Antecedent T-A02 handoff | commit `510210231ee3ee82647a2e53b21643e536a677e1` · blob `d35d0157788ae619fd1b8b718b2bec3f5b2d226e` |
 | Project commit/push | NONE |
+| M4-A | NON CLOSED |
+| REAL / P6 / v3 | DETERMINISTIC ≠ REAL · P6 GLOBAL NOT PASSED · v3 NON ADOPTED |
 
 ## 01. Scope
 
-AUTHORIZED: correct CAP-D1-04, CAP-ER-05, CAP-OPS1-05 + coherence; Full pack; L3 handoff.
-NOT AUTHORIZED: runtime mutation; other project files; project push/PR; M4-A CLOSED; T-A01 WT changes.
+AUTHORIZED: static sequence/authority analysis; local `07` only; Full pack; L3 handoff publish-in-cycle.
+NOT AUTHORIZED: runtime/tests/API mutation; Cursor REAL; DB migration; dual-write; project commit/push/PR/merge; reopen G0; modify PRR/Build Doctrine/Roadmap/TO-BE; close M4-A; declare P6 PASS or v3 ADOPTED.
 
 ## 02. Git Review Index
 
 ```
- M .tmp-sfia-review/chatgpt-review.md
-?? projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/06-m4a-historical-capabilities-inventory.md
+?? projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/07-m4a-authority-sequences-stop-fail-restart.md
 ```
 
 | Control | Result |
 | --- | --- |
-| Branch/HEAD/main | MATCH expected |
-| `git diff --no-index --check` exit | `1` (1=new file expected) |
-| Trailing whitespace | `NONE` |
-| CAP count | 29 |
-| T-A01 WT | untouched |
+| Branch | `analysis/akg-m4a-ta03-authority-sequences` MATCH |
+| HEAD / source tip | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` MATCH expected `c48c6a58…` |
+| origin/main | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` MATCH expected `f44a99b4…` |
+| T-A01 / T-A02 worktrees | NOT modified |
+| Project files besides `07` | NONE |
+| `git diff --no-index --check` | exit `1` (new file; no trailing whitespace) |
+| Trailing whitespace | NONE |
+| Document hash-object | `ae67fed56b54fa71fe676eade84c9a41e2fa270d` |
 
 ### Diff identity
 
 ```
-.../06-m4a-historical-capabilities-inventory.md    | 314 +++++++++++++++++++++
- 1 file changed, 314 insertions(+)
+...7-m4a-authority-sequences-stop-fail-restart.md} | 298 +++++++++++++++++++++
+ 1 file changed, 298 insertions(+)
 ```
 
-## 03. CORR results
+## 03. Sources consulted
 
-| ID | Preuve | Verdict |
+### Method SFIA v2.6
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-knowledge-layer.md`
+- CKC Architecture: fallback méthode canonique (guidance candidate only)
+
+### Governance / AKG / PRR / v3
+- Build Doctrine · Roadmap B-AKG · G0 pack
+- AKG README · M4 `01`–`04`
+- PRR README, 01–04, 06–09
+- Doctrine v3 30/32/34/35/37
+- Immutable handoffs T-A01 / T-A02 (docs 05/06 via handoff blobs — not WT untracked files)
+
+### Primary code symbols
+- `f2/proposalStore.ts` · `f2/recordDecision.ts` · `f2/orchestrateF2.ts`
+- `w2/prepareGenericExecutionContractDraft.ts` · `pendingGenericPrepareOfferStore.ts`
+- `w2/singleHumanExecutePreparedContract.ts` (L11–21, L600+, L704+, L757, L819+)
+- `w2/boundedNonMutatingRealLaunchGate.ts` (R2)
+- `w2/governedExecuteAuthorizedContract.ts` · `w2/actions.ts` L386
+- `oa/execution-attempt/application/*` · `attemptSupport.verifyAttemptAuthority` L44
+- `lib/ops1/*` (gate/allowlist/contract/orchestrator/adapter/report)
+- `f3/rehydrateEvidenceOutcomeFromLps.ts` · W3C post-evidence loop
+
+## 04. Scenario results S01–S07
+
+| ID | Verdict synthétique | Niveau |
 | --- | --- | --- |
-| CORR-01 | cancel = logIntakeEvent only; no session table; subcaps (a)(b)(c)(d) | **PASS** |
-| CORR-02 | compose ≠ SHADOW ON; empty policy; operator/GO; PARTIAL not COMPLETE | **PASS** |
-| CORR-03 | shared module CONFIRMED; Attempt/VSR no pathPolicy import; Product E2E PARTIAL | **PASS** |
+| S01 F2 historical disposition→HD→PREPARE | Proposal process-local carrier; HD Truth C; PREPARE gated by verified accepted HD; still available beside SHE | CONFIRMED |
+| S02 SHE CURRENT | PREPARE inspectable → Inspect → single Exécuter → optional structural HD bind → Confirm → Authorize → STOP before Attempt → Select/Start; objects remain | CONFIRMED |
+| S03 Generic W2 / Tool-First | Offer process-local lost on restart; R1 materiality; R2 Product fail-closed ≠ sandbox no-write; HD11 resume | CONFIRMED (+ OPEN REAL no-write) |
+| S04 OPS1 legacy | Session→gate→allowlist→contract→attempt→adapter→report island; not Product Spine; harvest candidates only | CONFIRMED |
+| S05 STOP/FAIL/PARTIAL | Fail-closed gates; cancel/timeout/system stop; no invented rollback/compensation; retry needs new controls | CONFIRMED (+ PARTIAL evidence path) |
+| S06 Restart | Truth C + Session B durable; proposals/offers lost; RunState DEFER; rehydrate from LPS implemented for evidence paths | CONFIRMED |
+| S07 Migration points | Dual-path SHE+historical; OPS1 harvest; carrier rebuild candidates; Tool-First gap OPEN — all **candidates** | CONFIRMED framing |
 
-## 04. Sources (correction)
+## 05. Authority boundary analysis
 
-Template SFIA; routing §4.3.0a; Build Doctrine R23/R24; G0; OR-13; M4-A 04; PRR 02/04/06/07/09.
-Code: `lib/d1/intake/actions.ts` L68–74; `intakeObservability.ts`; `lib/d1/db.ts` tables; `composeExecutionRunD2D3T7ShadowPilot.ts`; `versionedFinOpsT7ShadowPolicySource.ts`; `operateFinOpsT7ShadowRollout.ts`; `ops1/tools/pathPolicy.ts`; `platform/security/pathPolicy.ts`; import scan Attempt/VSR/PA.
+- Accept Proposal ≠ Inspect ≠ Authorize ≠ Start ≠ Cursor launch.
+- One Pilote click (SHE) does **not** erase internal HD/Confirm/Authorize objects.
+- Module-to-module call ≠ authority delegation.
+- OPS1 similar capability ≠ Product legitimacy.
+- Product R2 gate ≠ technical REAL no-write sandbox proof.
+- DETERMINISTIC tested scope ≠ REAL PROVEN.
 
-## 05. R23/R24 / Fake-Real
+## 06. Matrices (summary)
 
-R24 NO PRODUCT SEMANTIC IMPACT. Static only. REAL NOT PROVEN. P6 GLOBAL NOT PASSED. v3 NON ADOPTED. Composition ≠ activation.
+Full step matrices live in document §4–§10 and diagram §11. Critical rows:
 
-## 06. Handoff L3
+| Sequence | Authority exercised | Durable mutation | Lost on restart |
+| --- | --- | --- | --- |
+| S01 Accept | Pilote + OA Decision | HD Truth C | Proposal Map |
+| S02 Exécuter | Pilote gesture + OA HD/Confirm/Authorize | HD/EC Truth C | — |
+| S02 Select/Start | OA Attempt + R2 gate | Attempt Truth C (+ launch) | — |
+| S03 Offer | Presentation only | none (Map) | Offer Map |
+| S04 OPS1 Gate/Allowlist | OPS1 island | OPS1 DB | — (island) |
+| S05 Refuse/R2 | fail-closed | durable refuse / Attempt may stay accepted | — |
+| S06 HD11 | verified HD | PREPARE resume without offer | Offer |
 
-Branch `sfia/review-handoff` · `sfia-review-handoff/latest-chatgpt-review.md`
-Preserves prior tip identity `e66d5ebceca2823965c79460ea031c3f0e6fcf82` / `544ddbfaa9d9a7f28f35b91da7ad8950b4384d18` in history.
-Message: `docs(review-handoff): AKG-M4-A T-A02 correction pass 01`
+## 07. Diagrams
 
-## 07. Instruction ChatGPT (§9.1)
+Four Mermaid diagrams in `07` §11 (SHE CURRENT, OPS1 legacy, Product failure, Restart/rehydration). Legend: observed call/control flow only; target proposals excluded from edges.
 
-Read Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
-Optional prior: `e66d5ebceca2823965c79460ea031c3f0e6fcf82`.
+## 08. Validations
 
-Perform: **CHATGPT CRITICAL RE-REVIEW — AKG-M4-A / T-A02 CORRECTION PASS 01**.
+| Check | Result |
+| --- | --- |
+| Paths coherent code ↔ tests ↔ PRR | YES (static) |
+| Human gates positioned (Inspect / Exécuter / HD / Authorize / Start) | YES |
+| No implicit authorization claimed | YES |
+| PREPARE / Inspect / Authorize / Start distinguished | YES |
+| Restart classes qualified | YES |
+| No invented rollback | YES |
+| OPS1≠Product equivalence avoided | YES |
+| REBUILD options marked candidate | YES |
+| Mermaid legend present | YES |
+| Only `07` project delta | YES |
+| Whitespace clean | YES |
+| Behavioral / REAL tests run | NOT REQUIRED (static cycle) |
 
-Verify CORR-01/02/03 independently; 29 CAP retained; no COMPLETE false claims on pathPolicy E2E or FinOps SHADOW ON; no project mutation; M4-A NON CLOSED.
+## 09. Gaps / anti-claims
 
-## 08. Verdict target
+G1 REAL E2E generic not proven · G2 TOOL-FIRST-REAL-NOWRITE OPEN · G3 RunState DEFER · G4 dual-path complexity · G5 OPS1≠Product · G6 alternate callers PARTIAL.
 
-READY FOR CHATGPT CRITICAL RE-REVIEW — AKG-M4-A / T-A02 CORRECTION PASS 01
+Anti-claims: M4-A CLOSED · P6 GLOBAL PASS · v3 ADOPTED · REAL PROVEN · Inspect=Execute · HD vanished by one click · Product gate = sandbox · OPS1 = Product Spine · automatic compensation.
 
-## 09. Full corrected document
+## 10. R23 / R24 / Fake-Real
+
+R24 **NO PRODUCT SEMANTIC IMPACT** — analysis documentation only.
+Static reading only. No Cursor REAL. Fake/DET vs REAL distinguished.
+
+## 11. Handoff L3
+
+Branch `sfia/review-handoff` · file `sfia-review-handoff/latest-chatgpt-review.md`
+Prior tip preserved in history: `510210231ee3ee82647a2e53b21643e536a677e1` / `d35d0157788ae619fd1b8b718b2bec3f5b2d226e`
+Message: `docs(review-handoff): AKG-M4-A T-A03 authority sequences STOP FAIL restart`
+
+## 12. Human decisions still required
+
+- Accept / correct T-A03 LOCAL CANDIDATE after ChatGPT Critical Review.
+- T-A04 / T-A05 GO sequencing (not authorized here).
+- Any REBUILD/HARVEST classification remains **candidate** until MethodMode / Morris GO.
+- Tool-First REAL no-write architecture remains OPEN (Morris GO).
+
+## 13. Instruction ChatGPT (§9.1)
+
+Read Git branch `sfia/review-handoff` → file `sfia-review-handoff/latest-chatgpt-review.md` (this pack).
+Optional prior T-A02 tip: `510210231ee3ee82647a2e53b21643e536a677e1`.
+Optional prior T-A01 tip: `42de13a95c9ca4b103c9192147a4511f4f1df1dd`.
+
+Perform: **CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A03**.
+
+Verify independently: S01–S07 against code/PRR; SHE one-click ≠ vanished authority objects; Tool-First gate ≠ sandbox; OPS1≠Product; restart classes; no invented rollback; matrices + 4 Mermaid; only `07` delta; M4-A NON CLOSED; DET≠REAL.
+
+## 14. Verdict target
+
+READY FOR CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A03 LOCAL CANDIDATE
 
 ---
-# AKG-M4-A / T-A02 — Inventaire des capacités historiques & couverture fonctionnelle
+
+## 15. Full document `07` (verbatim)
+
+
+# AKG-M4-A / T-A03 — Séquences d'autorité, STOP/FAIL et restart
 
 | Champ | Valeur |
 | --- | --- |
-| Cycle | **AKG-M4-A / T-A02** — Historical Capability Inventory |
-| Correction | **Critical Review Correction Pass 01** (CORR-01…CORR-03) — 2026-10-22 |
+| Cycle | **AKG-M4-A / T-A03** — Runtime Sequences, Authority Boundaries & Failure/Restart |
 | Type / Profil | Cycle 6 — Architecture technique · **Critical** |
-| Typologie | DOC / Correction d'analyse architecturale |
-| Capacités v3 | V3-F05 / V3-F07 (+ transverses) |
-| Baseline analyse | `analysis/akg-m4a-ta02-capability-inventory` @ `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
+| Typologie | DOC / Architecture / Rationalization Assessment |
+| Capacités | V3-F05 / V3-F07 (+ F2/W2/EC/Attempt/Evidence) |
+| Baseline | `analysis/akg-m4a-ta03-authority-sequences` @ `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
 | `origin/main` | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
-| PR documentaire | #604 Draft · CI SUCCESS · non mergée |
-| Source T-A01 | Handoff immuable `42de13a95c9ca4b103c9192147a4511f4f1df1dd` · blob `5b341ce88b6db868c70dd0f3deb00fc29a2b799a` |
-| Handoff T-A02 antérieur | `e66d5ebceca2823965c79460ea031c3f0e6fcf82` · blob `544ddbfaa9d9a7f28f35b91da7ad8950b4384d18` |
-| Principe | **OR-13 capability-first** — dépendance ≠ KEEP ; nom ancien ≠ REBUILD |
-| Méthode | Analyse **statique** · aucune mutation runtime · **pas de dual-write D1/OA** |
-| Statut | **LOCAL CANDIDATE — INVESTIGATION** · Correction Pass 01 · M4-A **NON CLOSED** · options **candidates** |
-| Capacités conservées | **29** (aucun doublon retiré) |
-| Non-claims | Pas de GO Delivery · pas de retrait · REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** · G0-A/B **non réouverts** · composition ≠ activation |
+| PR #604 | Draft · CI SUCCESS · non mergée |
+| Antecedents | T-A01 handoff `42de13a9…` / `5b341ce8…` · T-A02 handoff `51021023…` / `d35d0157…` (immuables) |
+| Méthode | Analyse **statique** des chemins de code · **pas** de Cursor REAL |
+| Principe | **OR-13** · G0-A/B inchangés · **pas de dual-write** |
+| Statut | **LOCAL CANDIDATE** · M4-A **NON CLOSED** · scénarios **candidates** |
+| Non-claims | DETERMINISTIC ≠ REAL · P6 GLOBAL **NOT PASSED** · v3 **NON ADOPTED** · Inspect ≠ Execute · HD ≠ Confirm ≠ Authorize ≠ Start |
 
-> **Autorité AS-IS :** code Git + preuves primaires > PRR > T-A01 (handoff) > ce document. TO-BE / OR-13 **orientent** ; ils ne remplacent pas G0 adopté.
+> **Autorité AS-IS :** code + tests + PRR CURRENT > analyses AKG. « Séquences réelles » = chemins **présents dans le tip**, pas preuves d'exécution REAL.
 
 ---
 
-## 1. Baseline Git, sources et niveaux de preuve
+## 1. Baseline et périmètre
 
-### 1.1 Git Truth
+Worktree isolé créé ; WTs T-A01/T-A02 **non modifiés**. Documents `05`/`06` lus via handoffs immuables (pas recopiés comme sources projet). CKC Architecture : **fallback méthode canonique** (guidance candidate seulement).
 
-| Référence | Observé | Qualification |
-| --- | --- | --- |
-| Worktree T-A02 | `/Users/morris/Projects/sfia-workspace-akg-m4a-ta02-capability-inventory` | CONFIRMED isolé |
-| Branche | `analysis/akg-m4a-ta02-capability-inventory` | CONFIRMED |
-| HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` | CONFIRMED |
-| Worktree T-A01 | Présent, **non modifié** par ce cycle | CONFIRMED |
-| T-A01 projet | Non committé sur branche projet ; preuve via handoff | CONFIRMED |
+**In scope :** S01–S07 Product + OPS1 legacy comparatif.
+**Out of scope :** mutation runtime, REAL launch, migrations, classifications définitives.
 
-### 1.2 Sources
+---
+
+## 2. Sources et méthode
 
 - SFIA v2.6 template / routing §4.3.0a / operating model / rules / knowledge layer.
-- CKC Architecture : **fallback méthode canonique** si CKC non utilisé comme autorité (guidance candidate seulement).
-- Build Doctrine · Roadmap B-AKG · G0 decision pack · AKG README · M4 `01`–`04`.
-- T-A01 corrigé (handoff `42de13a9…`) — consumers A01–A12, OR-13, anti dual-write.
-- PRR 01–04, 06–09 (sections utiles) · doctrine v3 30/32/34/35/37.
-- Code tip `c48c6a58…` : `lib/d1`, `lib/ops1`, P0 routes/features, `lib/oa/execution-run`, contreparties Product (`lib/oa/*`, `vertical-slice-runtime`, `project-assistant`, `pre-m6-product-ui`).
+- Build Doctrine · Roadmap B-AKG · G0 pack · AKG README · M4 `01`–`04`.
+- PRR 01–04, 06–09 (SHE dual-path, restart, Tool-First).
+- Doctrine v3 30/32/34/35/37.
+- Code : `f2/recordDecision`, `proposalStore`, `prepareGenericExecutionContractDraft`, `singleHumanExecutePreparedContract`, `boundedNonMutatingRealLaunchGate`, `governedExecuteAuthorizedContract`, `lib/oa/execution-attempt/application/*`, `lib/ops1/*`, `w3cPostEvidenceLoop`, `rehydrateEvidenceOutcomeFromLps`.
 
-### 1.3 Niveaux de preuve
-
-| Tag | Sens |
-| --- | --- |
-| **CONFIRMED** | Symbole/route/import inspecté dans le tip |
-| **PARTIAL** | Preuve incomplète, équivalence comportementale non établie, ou couverture inégale |
-| **UNKNOWN** | Hors périmètre statique (runtime REAL, data utilisateur, dynamic imports non exhaustifs) |
-
-Couverture Product : **COMPLETE** / **PARTIAL** / **ABSENT** / **UNKNOWN** — *ABSENT ≠ obligation de développer*.
+**Méthode :** pour chaque étape — déclencheur → caller → exécutant → objet → précondition → autorité → mutation → failure → restart → preuve → niveau → orientation candidate.
 
 ---
 
-## 2. Méthodologie d'identification des capacités
+## 3. Acteurs et frontières d'autorité
 
-1. Partir des **surfaces publiques** (exports `actions`/`commands`, routes, orchestrateurs).
-2. Croiser avec **consommateurs** T-A01 (routes, features, tests, scripts).
-3. Pour chaque capacité : besoin → fournisseur historique → contrepartie Product éventuelle → écart comportemental.
-4. Qualifier **valeur cible** (REQUIRED / OPTIONAL / OBSOLETE CANDIDATE / UNKNOWN) vs TO-BE *sans* adopter le TO-BE.
-5. Proposer option technique **candidate** seulement (KEEP / HARVEST / CONSOLIDATE / REPLACE / REBUILD / RETIRE LATER).
-6. Respecter G0-A/B : OA + Product SQLite = vérité métier Product ; **pas de dual-write** ; remise en cause G0 = arbitrage nouveau.
+| Acteur | Rôle effectif (tip) | N'est pas |
+| --- | --- | --- |
+| Pilote | Disposition / Inspect / **Exécuter** (SHE) | Runtime |
+| Nora / cognitive runtime | Qualification, reco, outils admissibles | Autorité métier |
+| Project Assistant (F2/W2) | Orchestration UI→OA, carriers process-local | Vérité C |
+| OA Decision / EC / Attempt | HD durable, contrat, tentative, lancement | Cognition |
+| Product SQLite (Truth C) | Projet, LPS, Cycle, HD, EC, Attempt, Evidence | Session chat |
+| Nora Session SQLite (B) | Transcript/journal | Truth C |
+| Process-local Maps | Proposal / pending PREPARE offer | Durable |
+| OPS1 (legacy) | Session/gate/allowlist/adapter/report **îlot** | Product Spine |
+| Cursor gateway Product | Launch sous Attempt + flags | Autorisation Pilote |
+
+**Règle :** communication module→module ≠ délégation d'autorité. Accept Proposal ≠ Inspect ≠ Authorize ≠ Start.
+
+---
+
+## 4. S01 — F2 historique : Proposal → Decision → PREPARE
+
+**Chemin A PRR — disposition-before-PREPARE (HISTORICAL / still available).**
+
+| Step | Déclencheur | Caller | Exécutant | Objet | Précondition | Autorité | Mutation | Failure | Restart | Preuve | Nv | Orient. |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S01-01 | Intent / F2 turn | `orchestrateF2` / PA | F2 analysis | Proposal candidate | Session/project | Nora reco | process-local Proposal | refuse create | Proposal **lost** | `proposalStore.ts` | C | HARVEST subject / ADAPT carrier |
+| S01-02 | Save proposal | F2 | `saveProposal` | ProposalDto Map | — | none (carrier) | process-local | — | lost | L38+ | C | REBUILD continuity candidate |
+| S01-03 | Pilot Accept/Refuse/Amend | UI | `recordF2Decision` | HumanDecision OA | Proposal not terminal | Pilote + OA DecisionServices | Truth C HD + DecisionRef UoW | atomic fail | HD **durable** | `recordDecision.ts` L211+, L393 | C | KEEP HD |
+| S01-04 | Accepted → PREPARE | W2/F3 | `verifyGenericMissionHumanDecisionForPrepare` + prepare | EC | accepted verified HD (historical path) | OA gates | EC Truth C | HD refused/amend blocks | HD may resume PREPARE (HD11) | PRR 07 Chemin A ; PRR 06 HD11 | C | KEEP verify |
+| S01-05 | Refuse/Amend | Pilot | recordF2Decision | HD refused/amended | — | Pilote | Truth C | PREPARE forbidden on that path | durable record | PRR 07 | C | KEEP |
+
+**Lecture :** Proposal = carrier **non autorité**. HD = autorité durable. Chemin encore disponible à côté de SHE.
+
+---
+
+## 5. S02 — SHE CURRENT (PR #590)
+
+**Un geste utilisateur « Exécuter » après PREPARE inspectable — objets internes HD/Confirm/Authorize restent.**
+
+| Step | Déclencheur | Caller | Exécutant | Objet | Précondition | Autorité | Mutation | Failure | Restart | Preuve | Nv | Orient. |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S02-01 | Mission/tool | F2/W2 | `solicitGenericExecutionPrepare` / `prepareGenericExecutionContractDraft` | EC draft | Materiality gates ; may set `sheDeferredStructuralAuthority` | Product prepare (≠ launch) | EC Truth C ; maybe empty decisionRefs | MATERIALITY_UNKNOWN etc. | EC durable | prepareGeneric… L570+, L666–710 ; PRR 04 | C | KEEP SHE PREPARE |
+| S02-02 | Present/inspect | UI / `inspectExecutionContract` | Inspection attestation | EC | presented facts | Inspect ≠ Execute | attestation | insufficient → no HD | durable EC | SHE header L11–17 ; inspect call ~L820+ | C | KEEP |
+| S02-03 | Pilot **Exécuter** | `w2/actions` | `singleHumanExecutePreparedContract` | bind id+version+fp | inspected contract | Pilote gesture | — | bind fail | — | L704+ ; actions L386 | C | KEEP |
+| S02-04 | STRUCTURAL empty refs | SHE | record HD authorize-inspected-execute + supersede refs | HD + EC successor | sheDeferred / structural | Pilote+OA | Truth C | UNKNOWN blocks execute | HD durable | L821+ needsStructuralHdBind ; PRR INV-STRUCTURAL-* | C | KEEP |
+| S02-05 | Confirm (si requis) | SHE server | Confirm fold possible | EC | after attest | OA Confirm | Truth C | refuse | durable | PRR INV-INSPECT-NE-EXECUTE-CTA | C | KEEP/ADAPT UX |
+| S02-06 | Authorize | SHE | `evaluateExecutionAuthorization` | EC authorized | gates | OA Authorize | Truth C | refuse | durable | import authorizeExecutionContract | C | KEEP |
+| S02-07 | STOP before Attempt | SHE comment | caller reconcile/execute | — | post-authorize | governed execute séparément | — | — | — | SHE L17 « STOP before Attempt » | C | CONSOLIDATE caller clarity |
+| S02-08 | Select/Start | governed execute | `SelectExecutionAgent` / `StartExecution` | Attempt | verifyAttemptAuthority | OA Attempt | Attempt Truth C + launch port | R2 may refuse | Attempt durable | attemptSupport L44 ; select/start | C | KEEP |
+
+**Anti-claims SHE :** un clic ≠ disparition HD/Confirm/Authorize. DETERMINISTIC tested scope ≠ REAL.
+
+---
+
+## 6. S03 — Generic W2 / Tool-First / PREPARE
+
+| Step | Déclencheur | Exécutant | Objet | Notes d'autorité | Restart | Preuve | Nv | Orient. |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| S03-01 | Remember offer | `pendingGenericPrepareOfferStore` | offer Map | presentation carrier ≠ HD | **lost** process restart ; NOT PROVEN continuity | store header L21–25 | C | ADAPT/REBUILD carrier |
+| S03-02 | Materiality | `resolveAuthoritativeProductMateriality` | stamped materiality | pathless needs positive non-mutating claim (R1) | facts on EC | resolveAuthoritative… ; PRR Tool-First R1 | C | KEEP |
+| S03-03 | PREPARE NON_STRUCTURAL | prepareGeneric… | EC decisionRefs=[] | Complementary Product gates ; declaration ≠ authority | EC durable | PRR 04 Chemin B | C | KEEP |
+| S03-04 | Tool-First R2 | `boundedNonMutatingRealLaunchGate` / governedExecute | Select/Start refuse | REAL+pathless → fail-closed **Product gate** ≠ sandbox no-write technique | Attempt may stay `accepted` without launch | gate L18–65 ; PRR OPEN TOOL-FIRST-REAL-NOWRITE | C | KEEP gate ; gap OPEN |
+| S03-05 | HD11 resume | verify HD + prepare | EC | accepted HD may PREPARE without restoring offer | HD durable ; offer lost OK | PRR 06 HD11 | C | KEEP |
+
+---
+
+## 7. S04 — OPS1 legacy
+
+| Step | Exécutant | Objet | vs Product | Preuve | Nv | Orient. |
+| --- | --- | --- | --- | --- | --- | --- |
+| S04-01 Session | `ops1CreateSessionAction` / lifecycle | OPS1 session DB | ≠ Project+Nora session | actions / sessionLifecycle | C | RETIRE LATER model |
+| S04-02 Candidate/Gate | `createFixtureActionCandidate` / `recordGateDecision` | gate tables | ≠ F2/W2 readiness+HD | actionGate L208–353 | C | HARVEST concepts |
+| S04-03 Allowlist | `evaluateAndPersistAllowlist` | OPS1 allowlist | ≠ managed repo/agents (T-A02 PARTIAL) | allowlistService L98 | C | HARVEST/REBUILD |
+| S04-04 Contract | `createExecutionContract` / revalidate | OPS1 contract | ≠ OA EC Truth C | executionContractService | C | REPLACE sous OA |
+| S04-05 Attempt | `runExecutionAttempt` | OPS1 attempt | ≠ OA Attempt | orchestrator L107 | C | CONSOLIDATE concepts |
+| S04-06 Cursor | `runCursorAdapter` + `OPS1_CURSOR_REAL` | spawn | ≠ StudioCursorRealLaunchGateway | adapter L230 | C | HARVEST/REBUILD ports |
+| S04-07 Report+reinject | `generateExecutionReport` / `generateReportAndReinject` | OPS1 report | ≠ W3C evidence/synthesis | reportReinjection L84 | C | HARVEST exigences |
+
+**Pas d'équivalence inventée** avec Product (T-A02). Flag `OPS1_CURSOR_REAL` couplé Product safety (T-A01).
+
+---
+
+## 8. S05 — STOP / FAIL / PARTIAL / terminal
+
+| Cas | Comportement observé (tip) | Mutation | Compensation auto? | Preuve | Nv |
+| --- | --- | --- | --- | --- | --- |
+| Refus autorité / HD | PREPARE or Execute blocked | HD refused durable possible | **Non** inventée | recordF2Decision ; PRR 07 | C |
+| Inspect insuffisant | SHE fail before HD | no HD | Non | SHE inspectSufficient check | C |
+| Currentness fail | SHE fail | no launch | Non | assertSheProductCurrentness | C |
+| UNKNOWN materiality execute | `SHE_UNKNOWN_BLOCKS_EXECUTE` | no HD | Non | SHE ~L790 | C |
+| Contract stale/OCC | Select/Start fail | no new attempt | Non | selectExecutionAgent fail codes | C |
+| Authority verify fail | `verifyAttemptAuthority` | refuse | Non | attemptSupport L44 | C |
+| Tool-First R2 | refuse Select (0 Attempt) or Start (Attempt stays accepted) | partial Attempt state | Non ; **Product gate** | boundedNonMutatingRealLaunchGate ; PRR 04 | C |
+| Cancel / timeout / system stop | `CancelExecutionAttempt` / `TriggerAttemptTimeout` / `SystemGovernedStop` | Attempt terminal transitions | Non rollback externe inventé | application classes | C |
+| Record failure/result | `RecordExecutionFailure` / `RecordExecutionResult` | Evidence path | Non | application | C |
+| Retry | `RetryExecutionAttempt` | new controls required | Pas de réexec silencieuse | Retry class | C |
+| Partial / missing evidence | W3C loop / claim evaluation | durable markers | Non inventer succès | w3cPostEvidenceLoop ; postEvidenceNoraAnalysis | P |
+
+---
+
+## 9. S06 — Restart / recovery
+
+| Objet | Stockage | Après restart process | Reconstitution | Preuve | Nv |
+| --- | --- | --- | --- | --- | --- |
+| Project / LPS / Cycle | Truth C | durable | get/list OA | PRR 06 | C |
+| HumanDecision | Truth C | durable | list/verify ; HD11 PREPARE | PRR 06 | C |
+| ExecutionContract | Truth C | durable | load by id/version | OA EC | C |
+| ExecutionAttempt | Truth C | durable | get/list | OA Attempt | C |
+| Evidence / ReviewBundle | Truth C | durable | `rehydrateEvidenceOutcomeFromLps` ; `rehydrateW3cPostEvidenceFromLps` | f3/w2 rehydrate | C |
+| Nora Session / transcript | Session SQLite | durable **si** même path DB | session APIs | PRR 06 | C |
+| RunState cognitive | process | **NOT IMPLEMENTED / DEFER** | — | PRR 06 RCD-01 | C |
+| F2 Proposal Map | process-local | **lost** | requalify ; no invent | proposalStore | C |
+| Pending PREPARE offer | process-local | **lost** | re-present ; HD may still PREPARE | pending store ; HD11 | C |
+| OPS1 session/report | OPS1 DB | durable dans îlot | OPS1 APIs | ops1 db | C |
+
+**Jamais inventer** HD / presentation / mission / Authorization au restart.
+
+---
+
+## 10. S07 — Redondances et reconstruction (candidates)
+
+| Zone | Observation | Option candidate |
+| --- | --- | --- |
+| Dual admission SHE + disposition-before-PREPARE | Deux timings HD | CONSOLIDATE documentation/UX ; KEEP safety objects |
+| Proposal Map vs HD | Carrier vs autorité | REBUILD continuity without 2e vérité |
+| OPS1 gate/allowlist/adapter vs OA Attempt | Capacités similaires non équivalentes | HARVEST → Product ports (T-A05) |
+| OPS1 report reinject vs W3C | Restitution double | HARVEST exigences |
+| Tool-First R2 vs « no-write sandbox » | Gate Product ≠ tech sandbox | KEEP gap OPEN ; pas faux COMPLETE |
+| Orchestration PA multi-chemins | Complexité | ADAPT ownership (SC-C) |
+
+---
+
+## 11. Diagrammes (observés)
+
+*Légende : flèches = **appels / flux de contrôle observés** (pas « même nom ⇒ même pouvoir »). Propositions cibles = hors ces diagrammes.*
+
+### 11.1 SHE Product CURRENT (observé)
+
+```mermaid
+sequenceDiagram
+  participant P as Pilote
+  participant W2 as W2/PA
+  participant OA as OA EC/HD/Attempt
+  P->>W2: mission / tool
+  W2->>OA: prepareGeneric EC (maybe sheDeferred)
+  OA-->>P: inspectable PREPARE
+  P->>W2: Inspect attest
+  W2->>OA: inspectExecutionContract
+  P->>W2: Exécuter (single gesture)
+  W2->>OA: optional HD bind + Confirm + Authorize
+  Note over W2,OA: STOP before Attempt then governed Select/Start
+  W2->>OA: SelectExecutionAgent / StartExecution
+  OA-->>W2: Attempt / launch port result
+```
+
+### 11.2 OPS1 legacy (observé)
 
 ```mermaid
 flowchart LR
-  H[Capacité historique observée] --> C{Couverture Product tip?}
-  C -->|COMPLETE| K[KEEP capability / ADAPT or RETIRE impl]
-  C -->|PARTIAL| P[HARVEST / CONSOLIDATE / COMPLETE]
-  C -->|ABSENT| A{Valeur cible?}
-  A -->|REQUIRED candidate| R[REPLACE or REBUILD under GO]
-  A -->|OBSOLETE / UNKNOWN| O[RETIRE LATER or defer T-A05]
+  S[OPS1 Session] --> G[ActionGate candidate/decision]
+  G --> A[Allowlist persist]
+  A --> C[OPS1 ExecutionContract + revalidate]
+  C --> T[runExecutionAttempt]
+  T --> X[cursorExecutionAdapter]
+  X --> R[Report + reinjection]
 ```
 
-*Diagramme **proposé** (méthode), non un graphe d'import observé.*
-
----
-
-## 3. Inventaire D1 (A03) — Priorité 1
-
-**Fournisseur :** `lib/d1/**`, `features/d1/**`, routes `/nouvelle-demande`, `/workspace`, `/projects/*`.
-**Persistance :** `d1.sqlite` (isolée de Truth C).
-**Pont Product (T-A01) :** type/option `BoundedAtomicAuditStore` dans VSR — pas de partage Truth C.
-
-| ID | Besoin fonctionnel | Fournisseur historique | Consommateurs (périmètre) | Couverture Product | Preuves | Données / effets | Invariants | Valeur cible | Option tech. | Risque | Statut |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **CAP-D1-01** | Créer un projet (nom, objectif, idempotence, audit events) | `lib/d1/commands.ts` `createProject` L24+ ; `actionCreateProject` | Routes D1 ; `features/d1/NewProjectForm` | **PARTIAL** — OA `CreateProject` + `createProjectRuntimeAction` + `/studio/projects/new` existent ; **modèle ≠** (pas le même schéma/events/methodMode) | D1 commands ; `lib/oa/project/application/createProject.ts` ; `NewProjectIntentionPage.tsx` | Écriture `d1.sqlite` vs Product SQLite | Idempotency D1 vs OA ports | **REQUIRED** (capacité) | **HARVEST** règles utiles / **REPLACE** impl D1 | Divergence IDs ; perte histo | CONFIRMED |
-| **CAP-D1-02** | Sélectionner / persister un *MethodMode* et activer DRAFT→ACTIVE | `selectMethodMode` ; `lib/d1/domain.ts` ; methodModeHold | Intake/confirmation D1 | **ABSENT** comme champ métier D1 — Product a *advisory* `methodOrientation` (prompt), **≠** MethodMode durable D1 ; commentaires OA « Does not replace … MethodMode » | `lib/oa/project/index.ts` L5 ; `f2/methodOrientation` | Hold/readiness D1 | Mode avant ACTIVE | **UNKNOWN→OPTIONAL?** (cible TO-BE à arbitrer) | **HARVEST** si besoin gouvernance / sinon **RETIRE LATER** concept D1 | Réintroduire Mode sans GO doctrine | PARTIAL (écart nommé CONFIRMED) |
-| **CAP-D1-03** | Lister / lire projets workspace + audit trail projet | `listWorkspaceProjects`, `getProject`, `listProjectAudit` | `/workspace`, `/projects/[id]` | **PARTIAL** — `listProjects`/`getProject` OA + UI studio ; **pas** d'équivalence audit events D1 | commands L200–220 ; VSR list/get | Lectures D1 | Mono-opérateur D1 | **REQUIRED** lecture projet | **REPLACE** vers Truth C | Migration data | CONFIRMED |
-| **CAP-D1-04** | Intake conversationnel — **sous-capacités distinctes (CORR-01)** : (a) analyse d'intention ; (b) journalisation clarification ; (c) *demande* d'annulation journalisée ; (d) annulation **effective/persistée** de session | `actionAnalyzeIntent` / `analyzeIntent` ; `actionLogClarificationAnswer` ; `actionCancelIntakeSession` | `/nouvelle-demande` · `IntakeView` | **PARTIAL** pour (a)/(b) vs onboarding `/studio/projects/new` ; **ABSENT** Product pour modèle session intake D1 ; (d) **non démontrée** côté D1 | (a)(b) actions L42–86 ; (c) `actionCancelIntakeSession` L68–74 = `logIntakeEvent("intake_session_cancelled")` puis `{ok:true}` **sans** update store/DB ; `intakeObservability.ts` = `console.info` ; **aucune** table session intake dans `lib/d1/db.ts` (projects/assignments/audit/idempotency/atomic_audit seulement) | Logs structurés process ; **pas** de statut session durable retrouvé | Fake provider possible pour (a) | **REQUIRED** (a) intention→projet ; (c)(d) valeur **UNKNOWN** si seule télémétrie | **CONSOLIDATE/REPLACE** (a) vers onboarding Product ; **ne pas** inventer lifecycle session D1 | Sur-qualifier cancel comme close durable | CONFIRMED (sémantique cancel = log only) |
-| **CAP-D1-05** | Context matching (projets existants / scoring) | `lib/d1/context/actions.ts` `actionMatchExistingContext` | Intake UI | **UNKNOWN/ABSENT** — aucune contrepartie Product Spine **retrouvée** dans le tip | context/actions | Lectures D1 | — | **UNKNOWN** | Inventaire T-A05 si REQUIRED | Faux négatif dynamic | PARTIAL |
-| **CAP-D1-06** | Confirmation bornée avant mutation (fingerprint, summary, execute) | `lib/d1/confirmation/*` | Intake confirmation panels | **PARTIAL** — Product HD/Confirm/Authorize/SHE sur **EC**, pas sur create D1 | `executeConfirmation.ts` ; W2 SHE paths | Mutations D1 | Fingerprint match | **REQUIRED** (confirmation humaine proportionnée) | **HARVEST** pattern / **REPLACE** sous OA HD | Assimiler ≠ équivalent | CONFIRMED |
-| **CAP-D1-07** | Audit atomique borné (idempotency keys) | `BoundedAtomicAuditStore` | VSR option `auditMode=sqlite` ; tests platform | **PARTIAL** — port utile ; packaging D1 non nécessaire | T-A01 A09 ; `boundedAtomicAudit.ts` | Table D1 si activé | Idempotence | **REQUIRED** (audit ops) | **HARVEST** → port Product | Bloque retrait D1 | CONFIRMED |
-| **CAP-D1-08** | Operational readiness / method mode hold | `operationalReadiness.ts`, `methodModeHold*` | Internes D1 / tests | **ABSENT** Product Spine **non retrouvé** | fichiers cités | Process/override test | Hold reasons | **UNKNOWN** | Différer | — | PARTIAL |
-
-**Synthèse D1 :** la *capacité* « projet + intake + confirmation » est **REQUIRED** pour Studio ; l'*implémentation* D1/SQLite est **candidate REPLACE** sous G0 (migration non destructive T-A04 — **sans dual-write**). MethodMode D1 n'est **pas** prouvé REQUIRED dans la cible Product actuelle. **CORR-01 :** `actionCancelIntakeSession` = journalisation observability uniquement — **≠** fermeture durable de session.
-
----
-
-## 4. Inventaire OPS1 (A04) — Priorité 2
-
-**Fournisseur :** `lib/ops1/**`, `features/ops1/Ops1SessionScreen`, route `/ops1/nouvelle-demande`.
-**Persistance :** DB OPS1 distincte.
-**Couplage Product (T-A01) :** flag `OPS1_CURSOR_REAL` dans safety/DET — **pas** d'import adapter depuis A12.
-
-| ID | Besoin fonctionnel | Fournisseur historique | Consommateurs | Couverture Product | Preuves | Données / effets | Invariants | Valeur cible | Option tech. | Risque | Statut |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **CAP-OPS1-01** | Session OPS1 open/list/get/close/continuation | `ops1CreateSessionAction`… `ops1CloseSessionAction` ; `sessionLifecycle` | Ops1SessionScreen ; e2e ops1-* | **ABSENT** comme modèle session OPS1 — Product = Project + Nora session SQLite + conversation canonique | `lib/ops1/actions.ts` L107+ | OPS1 DB | refuseClosedMutation | **OPTIONAL** (modèle session) | **RETIRE LATER** modèle / **HARVEST** règles lifecycle si utiles | Perte parcours legacy | CONFIRMED |
-| **CAP-OPS1-02** | Conversation outillée dans session | `ops1SendMessageAction` ; conversation/service | UI OPS1 | **PARTIAL** — `orchestrateTurn` / Nora / API studio send | actions L252+ ; PA | Journal OPS1 | Live vs fixture config | **REQUIRED** dialogue | **REPLACE** déjà largement Product | Régression outils | CONFIRMED |
-| **CAP-OPS1-03** | Action gate (qualify / candidate / gate decision / refuse) | `actionGate.ts` ; actions gate | UI + e2e I3 | **PARTIAL** — F2/W2 readiness, HD, SHE ≠ même machine d'états | actionGate exports ; W2 prepare | OPS1 tables gate | Gate avant exec | **REQUIRED** (admission) | **HARVEST** concepts / **CONSOLIDATE** sous OA | Fausse équivalence | CONFIRMED |
-| **CAP-OPS1-04** | Allowlist évaluation persistée | `allowlistService.evaluateAndPersistAllowlist` | Exec path OPS1 | **PARTIAL** — managed repo root + agent allowlists Product **≠** allowlist OPS1 persistée | allowlistService ; managedRepoRootBaseConfig | OPS1 DB | Supersede evaluations | **REQUIRED** (bornage chemins) | **HARVEST/REBUILD** sous ports Product | Trous de couverture | CONFIRMED |
-| **CAP-OPS1-05** | Path policy sécurité (CORR-03 — 3 niveaux) | (1) Module partagé `lib/platform/security/pathPolicy.ts` ; (2) wrapper OPS1 `lib/ops1/tools/pathPolicy.ts` re-export ; (3) enforcement sur chemins d'exécution | OPS1 tools/tests ; `platform/repository/gitLocalReadAdapter` + `githubReadAdapter` ; `execution-run/.../platformGitReadAdapter` | **PARTIAL** Product bout-en-bout — **pas COMPLETE** | (1) Extraction/mutualisation **CONFIRMED** ; (2) Consumers module **CONFIRMED** : OPS1, platform repo adapters, ER git adapter, tests platform/ops1 ; (3) **Aucun** import `pathPolicy` **retrouvé** sous `lib/oa/execution-attempt/**` ni `lib/vertical-slice-runtime/**` ni `features/project-assistant/**` (hors redaction/workspaceRoot) — **parité enforcement Attempt/Product Spine NON établie** | Lectures bornées selon caller | Shared decideReadPath/decideGithubRepo | **REQUIRED** (bornage lecture) | **KEEP** platform ; **RETIRE LATER** wrapper OPS1 ; **ne pas** claim parité Product | Fausse COMPLETE | CONFIRMED extraction ; PARTIAL parité |
-| **CAP-OPS1-06** | Lancer Cursor REAL/fixture sous flag OPS1 | `cursorExecutionAdapter.runCursorAdapter` ; `OPS1_CURSOR_REAL` | Exec OPS1 ; cross-check Product flags | **PARTIAL** — `StudioCursorRealLaunchGateway` + `SFIA_STUDIO_CURSOR_REAL` ; agents M4 bornés ; **≠** même adapter | adapter L13–230 ; composeStudioProductRealBoundary ; realLaunchSafety | Process spawn / worktree | Fail-closed sans flag ; no fixture fallback REAL | **REQUIRED** (exec bornée) | **HARVEST** protections / **REBUILD** ports uniques (SC-B T-A01) | Double chemin REAL | CONFIRMED |
-| **CAP-OPS1-07** | Contrat d'exécution OPS1 + revalidation | `executionContractService` ; `revalidateBeforeExecution` | I5 flow | **PARTIAL** — OA ExecutionContract + inspection attestation + SHE | OPS1 contract service ; OA EC | OPS1 vs Truth C | Revalidate before run | **REQUIRED** | **REPLACE** sous OA EC (G0) | Perte checks OPS1-only | CONFIRMED |
-| **CAP-OPS1-08** | Orchestration attempt + post-check | `executionOrchestrator.runExecutionAttempt` ; `postCheckExecution` | I5/I6 | **PARTIAL** — OA ExecutionAttempt + safety journal SQLite/memory | orchestrator ; attempt infra | Attempts OPS1 | — | **REQUIRED** | **CONSOLIDATE** vers Attempt | Écart STOP/FAIL | CONFIRMED |
-| **CAP-OPS1-09** | Rapport d'exécution + réinjection chat | `reportService` ; `reportReinjection.generateReportAndReinject` | I6 ; UI | **PARTIAL** — W3C post-evidence loop + synthesis Product ; **≠** reinjection OPS1 prefix | reportReinjection L63–84 ; `w3cPostEvidenceLoop.ts` | OPS1 reports | Honest report | **REQUIRED** restitution | **HARVEST** exigences / **REPLACE** sous evidence/review | Perte timeline unifiée OPS1 | CONFIRMED |
-| **CAP-OPS1-10** | SFIA context / instantiate Cursor prompt | `ops1EnsureSfiaContextAction` ; `ops1InstantiateCursorPromptAction` | UI OPS1 | **UNKNOWN/PARTIAL** — doctrine/prompt Product existent sous d'autres modules ; équivalence non prouvée | actions L302–336 | OPS1 sfia/* | — | **UNKNOWN** | T-A02 complément / T-A05 | — | PARTIAL |
-| **CAP-OPS1-11** | Outils lecture Git/GitHub bornés | `tools/gitLocalReadAdapter`, `githubReadAdapter`, `toolRouter` | Conversation OPS1 | **PARTIAL** — `lib/oa/git-ports` et outils Nora ; matrice exacte non exhaustive ici | tools/* ; git-ports imports | Lectures | Path policy | **REQUIRED** lecture | **HARVEST/CONSOLIDATE** | Permissions | PARTIAL |
-
-**Avertissement d'équivalence :** allowlist OPS1, gate I3, adapter Cursor et EC OA peuvent **se ressembler** sans offrir les **mêmes** garanties (autorité HD, Truth C, SHE, confinement env). Qualification **PARTIAL** obligatoire jusqu'à matrice T-A05 / tests croisés.
-
----
-
-## 5. Inventaire P0 (A02) — Priorité 3
-
-**Fournisseur :** `app/page.tsx` → `/synthese` ; `features/{synthese,cycle-actif,decision}` + `Vs*Screen` + fixtures `vertical-slice`.
-
-| ID | Besoin fonctionnel | Fournisseur | Consommateurs | Couverture Product | Preuves | Données / effets | Invariants | Valeur cible | Option tech. | Risque | Statut |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **CAP-P0-01** | Vue synthèse portefeuille/projet | `SyntheseScreen` → `VsSyntheseScreen` + fixture | `/synthese` ; `not-found`→synthese | **ABSENT** comme POC — Product Overview/Lifecycle/Trajectory **PARTIAL** conceptuellement | `app/synthese/page.tsx` pills « fixture · slice-only » | Fixture mémoire démo | Claims anti-MVP explicites | **OBSOLETE CANDIDATE** (POC) | **RETIRE LATER** après redirect | Bookmarks | CONFIRMED |
-| **CAP-P0-02** | Vue cycle actif démo | `CycleActifScreen` / `VsCycleActifScreen` | `/cycle-actif` | **PARTIAL** concept — LifecycleSurface Product | page + Vs fixture | Fixture | — | **OBSOLETE CANDIDATE** | **RETIRE LATER** | — | CONFIRMED |
-| **CAP-P0-03** | Vue décision / GO visuel fixture | `DecisionScreen` / `VsDecisionScreen` | `/decision` | **PARTIAL** — GovernedConfirmation / SHE / Trajectory **≠** GO visuel fixture | VsDecisionScreen fixture HEAD | Fixture | « GO visuel ≠ GO dev » | **OBSOLETE CANDIDATE** | **RETIRE LATER** ; **HARVEST** disclaimer | Confusion autorité | CONFIRMED |
-| **CAP-P0-04** | Entrée site `/` vers expérience Studio | `app/page.tsx` redirect `/synthese` | Navigateur | **ABSENT** vers `/studio` aujourd'hui | page.tsx L1–5 | — | — | **REQUIRED** (accès fluide) | **REPLACE** redirect → `/studio` (GO Delivery) | Casse liens synthese | CONFIRMED |
-| **CAP-P0-05** | Harness démo VsDemoRoot / fixtures | `components/vertical-slice/*`, `fixtures/vertical-slice` | P0 screens | **ABSENT** Product | imports Vs* | — | slice-only | **OPTIONAL** tests/demo | **KEEP** si utile harness / sinon retire avec P0 | — | PARTIAL |
-
----
-
-## 6. Inventaire `oa/execution-run` (A11) — Priorité 4
-
-**Fournisseur :** `lib/oa/execution-run/**` (memory/fixture-first) + `server/` compositions.
-**Consommateurs Product Spine (T-A01) :** **aucun branchement** `vertical-slice-runtime/service.ts` **retrouvé**.
-**Consommateurs hors spine :** tests dédiés ; FinOps T7 shadow (`composeFinOpsT7ShadowExecutionDeps.ts`, `scripts/finops-t7-shadow-rollout.ts`).
-
-| ID | Besoin fonctionnel | Fournisseur | Consommateurs | Couverture Product Attempt | Preuves | Données / effets | Invariants | Valeur cible | Option tech. | Risque | Statut |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **CAP-ER-01** | Machine d'états ExecutionRun + transitions | `domain/transitions.ts` | Tests ER ; FinOps shadow | **ABSENT** comme type Run dans Attempt — Attempt a son propre cycle de vie | transitions exports ; attempt domain | Memory | Terminal states | **OPTIONAL** Product ; **REQUIRED?** FinOps | **FREEZE** / **KEEP** shadow | Promotion silencieuse en spine | CONFIRMED |
-| **CAP-ER-02** | Policy read-only / sandbox path guards | `domain/policy.ts`, `sandboxContract.ts` | Tests ER | **PARTIAL** — confinement/path Product existent ailleurs ; **pas** preuve d'équivalence | sandboxContract exports | — | Protected paths | **UNKNOWN** harvest | **HARVEST** sélectif possible | Duplication rules | PARTIAL |
-| **CAP-ER-03** | Provider boundary validation (untrusted) | `domain/providerBoundary.ts` | Tests ER | **PARTIAL** — gates Product distincts | providerBoundary | — | Validate request/result | **OPTIONAL** | **HARVEST** ou garder en ER | — | PARTIAL |
-| **CAP-ER-04** | Evidence honesty / completeness / disclosure | `domain/evidence.ts` | Tests ER | **PARTIAL** — OA evidence-review Product | evidence.ts ; evidence-review | — | Source honest | **REQUIRED** (concept) | **CONSOLIDATE** concepts ≠ merger BC | Double modèle preuve | PARTIAL |
-| **CAP-ER-05** | Pilotage FinOps T7 shadow (CORR-02 — couches) | `composeExecutionRunD2D3T7ShadowPilot` ; `composeFinOpsT7ShadowExecutionDeps` ; `operateFinOpsT7ShadowRollout` ; policy source versionnée | Script `finops-t7-shadow-rollout` ; tests FinOps/ER | **ABSENT** Product Spine (inchangé) ; maturité shadow **PARTIAL** (pas COMPLETE opérationnel) | Composition **CONFIRMED** (pilot composer L84–118 ; anti-claims « SHADOW NOT ACTIVATED ») ; policy Git **EMPTY/INERT** (`versionedFinOpsT7ShadowPolicySource` L38–40 `{}`) ; activation SHADOW = operator `apply=true` + GO distinct (`operateFinOpsT7ShadowRollout` header) — **non démontrée** comme active par défaut ; REAL/prod **NOT PROVEN** | Postgres rollout store possible si operator ; memory ER | signal_only en SHADOW path | **OPTIONAL** Product ; utile FinOps si activé sous GO | **KEEP** composition hors spine / **FREEZE** ; activer ≠ composer | Assimiler compose→SHADOW ON | CONFIRMED composition ; activation ABSENT/not default |
-
-**Règle :** ne **pas** ériger `execution-run` en moteur Product alternatif sans décision. Différenciation Attempt (autorité Product / Truth C) vs Run (état technique memory/shadow) = **CONFIRMED** au niveau composition. **CORR-02 :** compositeur T7 shadow **≠** SHADOW activé ; policy versionnée **vide** ; activation sous operator/GO distinct.
-
----
-
-## 7. Matrice de couverture historique ↔ Product (synthèse)
-
-| Famille | Capacités REQUIRED (cible) | COMPLETE | PARTIAL | ABSENT / UNKNOWN | Lecture OR-13 |
-| --- | --- | --- | --- | --- | --- |
-| D1 | Création/lecture projet, intake (analyse), confirmation, audit | — | D1-01,03,04(a/b),06,07 | D1-02 Mode? ; D1-04(d) session close durable ; D1-05 ; D1-08 | Préserver capacités ; **REPLACE** îlot D1 ; cancel ≠ close |
-| OPS1 | Dialogue, admission, bornage, Cursor, EC/Attempt, rapport | *(aucune COMPLETE bout-en-bout Product)* — extraction pathPolicy **CONFIRMED** mais ≠ COMPLETE couverture | OPS1-02..09,11 ; **OPS1-05** (parité Product) | OPS1-01 session model ; OPS1-10 | Harvest protections ; **ne pas KEEP** adapter par inertie ; pathPolicy partagé ≠ parité Attempt |
-| P0 | Accès fluide | — | concepts UX | P0-01..03 POC ; P0-04 redirect | Redirect `/studio` ; RETIRE POC |
-| execution-run | Shadow FinOps (si GO) ; éventuellement rules | — | ER-02..04 ; **ER-05** composition/tests (activation non default) | ER-01 dans spine ; ER-05 activation SHADOW default | FREEZE hors spine ; compose ≠ activate |
+### 11.3 Product failure paths (observé, synthétique)
 
 ```mermaid
 flowchart TB
-  subgraph Hist["Historique"]
-    D1[D1 capacities]
-    OPS[OPS1 capacities]
-    P0[P0 POC]
-    ER[execution-run]
-  end
-  subgraph Prod["Product Runtime tip"]
-    STU["/studio + OA + PA + Nora"]
-    ATT[ExecutionAttempt + EC + Evidence]
-    FIN[FinOps T7 shadow]
-  end
-  D1 -.->|PARTIAL/REPLACE candidate| STU
-  OPS -.->|PARTIAL/HARVEST candidate| ATT
-  P0 -.->|RETIRE LATER + redirect| STU
-  ER --> FIN
+  E[Exécuter / Select / Start] --> Q{Gates}
+  Q -->|Inspect/currentness/HD fail| R1[Refuse — no launch]
+  Q -->|R2 REAL pathless| R2[Refuse Select or Start — Attempt may stay accepted]
+  Q -->|Authority/stale OCC| R3[Fail closed]
+  Q -->|Pass| L[Launch port]
+  L --> T{Terminal}
+  T --> OK[Record result + evidence path]
+  T --> FL[Record failure / cancel / timeout / system stop]
 ```
 
-*Diagramme **observé/proposé mixte** : arête ER→FinOps **observée** ; autres = **candidates** de couverture.*
+### 11.4 Restart / rehydration (observé)
+
+```mermaid
+flowchart TB
+  subgraph Durable["Truth C / Session B"]
+    LPS[LPS/Cycle/HD/EC/Attempt/Evidence]
+    NS[Nora Session SQLite]
+  end
+  subgraph Lost["Process-local"]
+    PROP[Proposal Map]
+    OFF[Pending PREPARE offer]
+  end
+  Restart([Process restart]) --> Durable
+  Restart --> Lost
+  Lost -.->|requalify / re-present| UI[UI]
+  LPS -->|HD11 verify| PREP[PREPARE resume possible]
+  LPS -->|rehydrate*FromLps| UI
+```
 
 ---
 
-## 8. Capacités exclusives et divergences comportementales
+## 12. Invariants, tests et preuves
 
-### 8.1 Exclusives ou quasi-exclusives (périmètre audité)
-
-| Capacité | Pourquoi « exclusive » | Impact |
+| Famille | Exemples | Portée |
 | --- | --- | --- |
-| D1 MethodMode durable + hold/readiness | Product n'expose pas le même agrégat | Ne pas importer silencieusement dans OA |
-| D1 intake session lifecycle durable | `actionCancelIntakeSession` log-only ; pas de table session | Ne pas inventer close persistée |
-| D1 context matching intake | Non retrouvé Product | Qualifier besoin réel (UNKNOWN) |
-| OPS1 session BC + DB | Autre vérité session | Ne pas merger DB |
-| OPS1 report reinjection timeline | Préfixe/events OPS1 | Harvest exigences restitution |
-| P0 fixture GO visuel | Hors autorité Product | Éviter confusion Pilot |
-| execution-run state authority memory | Hors `service.ts` Product | FREEZE |
-
-### 8.2 Divergences même quand les noms se ressemblent
-
-| Sujet | Historique | Product | Équivalence? |
-| --- | --- | --- | --- |
-| Confirmation | Fingerprint mutation D1 | HD / SHE / Confirm EC | **Non prouvée** |
-| Cursor REAL | `OPS1_CURSOR_REAL` + adapter OPS1 | `SFIA_STUDIO_CURSOR_REAL` + gateway Attempt | **Partielle** ; flags couplés |
-| Allowlist | Persistée OPS1 par action | Managed repo + agent descriptors | **Non équivalente a priori** |
-| Path policy | Wrapper OPS1 → platform module | Platform repo adapters + ER git ; **pas** Attempt/VSR | **Extraction oui ; parité Product Spine non prouvée** |
-| Projet create | D1 mono-opérateur + methodMode | OA create + onboarding cognitif | **Partielle** |
-| Rapport | generate+reinject OPS1 | Evidence/review + W3C synthesis | **Partielle** |
-| FinOps SHADOW | Compositeurs + operator + policy vide | N/A spine | **Composition ≠ activation** |
-
-Fake / DET / REAL : OPS1 et Product ont des chemins Fake/DET ; **REAL Product NOT PROVEN** (global). Aucune nouvelle preuve REAL dans T-A02.
+| SHE DET | `p6.she.*` | DETERMINISTIC tested scope |
+| HD / PREPARE | `p6.mHd01.genericMissionHumanDecision.d0` (HD11) | DET restart HD≠offer |
+| Tool-First | R1/R2 tests + `boundedNonMutatingRealLaunchGate` | DET ; REAL no-write **OPEN** |
+| Attempt | select/start/cancel/timeout tests | DET |
+| OPS1 | `__tests__/ops1`, e2e ops1-* | îlot |
+| PRR 07/04/06 | invariants SHE dual-path ; restart matrix | DOCUMENTED + coverage refs |
 
 ---
 
-## 9. Capacités à préserver vs implémentations candidates
+## 13. Risques, écarts, non démontré
 
-| Préserver (capacité) | Implémentation historique | Orientation candidate |
+| ID | Écart | Impact |
 | --- | --- | --- |
-| Créer/lire projet + continuité Truth C | D1 commands/DB | REPLACE → OA/Product SQLite (G0) |
-| Intake intention→projet | D1 intake | CONSOLIDATE → onboarding `/studio` |
-| Confirmation humaine proportionnée | D1 confirmation | HARVEST pattern → HD/SHE existants |
-| Audit borné idempotent | D1 BoundedAtomicAudit | HARVEST port hors `lib/d1` |
-| Dialogue + outils lecture | OPS1 conversation/tools | Déjà largement Product ; harvest gaps |
-| Bornage chemins / fail-closed REAL | OPS1 allowlist/adapter | HARVEST/REBUILD sous Attempt |
-| Restitution post-exécution | OPS1 report | HARVEST → evidence/synthesis |
-| Accès URL racine | P0 redirect synthese | REPLACE → `/studio` |
-| FinOps shadow composition (si GO active) | execution-run + FinOps composers | KEEP composition hors spine ; activation séparée |
-
-**Ne pas** wrapper D1/OPS1 en façade permanente par défaut (OR-13 / TO-BE).
+| G1 | REAL E2E générique | Pas de preuve S02 launch REAL |
+| G2 | TOOL-FIRST-REAL-NOWRITE | Gate ≠ sandbox |
+| G3 | RunState cross-restart DEFER | Continuité cognitive partielle |
+| G4 | Dual path SHE + historical | Complexité UX/autorité |
+| G5 | OPS1≠Product parity | T-A05 requis |
+| G6 | Dynamic/alternate callers PARTIAL | Matrice non exhaustive 100% |
 
 ---
 
-## 10. Scénarios architecturaux (qualitatifs)
+## 14. Implications T-A04 / T-A05
 
-| # | Scénario | Bénéfices | Risques | Ancrage |
-| --- | --- | --- | --- | --- |
-| 1 | Conservation intacte D1/OPS1/P0/ER | Zéro migration | Dette UX multi-générations ; confusion autorité | Contre TO-BE cockpit unique |
-| 2 | Extraction sélective (pathPolicy **module** mutualisé ; audit port ; protections Cursor) — **≠** parité enforcement Product déjà acquise | Réduit couplage packaging | Harvest/enforcement incomplet sur Attempt | OR-13 |
-| 3 | Consolidation admission/report sous OA | Une autorité | Régression comportementale | G0-A |
-| 4 | Reconstruction ciblée (intake Product, frontière Cursor unique) | Cohérence | Coût tests ; flags | SC-A/B T-A01 |
-| 5 | Reconstruction globale d'un mécanisme (ex. tout OPS1→new runtime) | Tabula rasa | Hors proportion sans preuve ; risque safety | Seulement si T-A05 montre échec harvest |
-
-**Dual-write D1/OA :** non admissible (G0 / T-A01 CORR-01). Transition = inventaire → lecture histo → migration contrôlée → vérif IDs → bascule.
+- **T-A04 :** persistance Truth C vs B vs process-local vs OPS1/D1 ; migration **sans dual-write** ; offers/proposals continuity.
+- **T-A05 :** impact pack harvest OPS1 gate/allowlist/adapter/report vs Attempt ; coût dual-path SHE ; decision MethodMode (T-A02).
+- **T-A03** fournit la cartographie d'autorité — **pas** GO Delivery.
 
 ---
 
-## 11. Limites de preuve et dettes ouvertes
+## 15. Conditions de sortie M4-A
 
-| ID | Limite | Suite |
-| --- | --- | --- |
-| L1 | Pas d'exécution comportementale / REAL | PRR 09 ; pas de faux COMPLETE |
-| L2 | Dynamic imports / configs conditionnelles non exhaustifs | Complément ciblé |
-| L3 | Data volume D1/OPS1 utilisateur UNKNOWN | **T-A04** |
-| L4 | Séquences temporelles Nora→OA→Cursor | **T-A03** |
-| L5 | Matrice OPS1↔Attempt capacité-à-capacité chiffrée/tests croisés | **T-A05** |
-| L6 | CAP-D1-05 / CAP-OPS1-10 / MethodMode valeur cible | Arbitrage Pilote |
-| L7 | CKC Architecture non autorité | Fallback canonique déclaré |
-
----
-
-## 12. Recommandations pour T-A03, T-A04, T-A05
-
-1. **T-A03** — Séquences réelles (SHE vs historical vs OPS1 legacy) pour CAP-OPS1-03/06/07/08/09 et PA ; STOP/FAIL/restart.
-2. **T-A04** — Matrice stockage D1/OPS1/Truth C/mémoire B/process-local ; plan migration **sans dual-write** pour CAP-D1-01/03/07.
-3. **T-A05** — Impact pack formel KEEP/HARVEST/REPLACE/REBUILD par capacité REQUIRED ; tests de non-régression ; décision Pilote MethodMode & context match.
-4. Extraire **port audit** (CAP-D1-07) avant tout RETIRE D1.
-5. **CAP-OPS1-05 :** retirer le wrapper OPS1 = dette packaging ; **séparément** instruire si Attempt/Product Spine doit consommer `platform/security/pathPolicy` (aujourd'hui **non retrouvé**) — T-A05.
-6. Maintenir **FREEZE** execution-run hors spine ; **CAP-ER-05** : ne pas claim SHADOW ON sans GO/operator apply + preuves.
-7. P0 : préparer redirect `/`→`/studio` sous GO Delivery distinct ; RETIRE screens après inventaire liens.
-8. **CAP-D1-04 :** ne pas migrer une « session intake close » qui n'existe pas comme agrégat durable ; migrer analyse/onboarding.
-
----
-
-## 13. Conditions de sortie M4-A — encore non satisfaites
-
-| Condition | Après T-A02 |
+| Condition | État |
 | --- | --- |
-| Consumers (T-A01) | Accepté avec réserves (handoff) — **hors re-litige** |
-| Inventaire capacités historiques + couverture | **PARTIELLEMENT SATISFAITE** (ce document LOCAL CANDIDATE) |
-| Séquences autorité (T-A03) | **NON** |
-| Migration/storage (T-A04) | **NON** |
-| Impact pack + reco formelle (T-A05) | **NON** |
-| Critical Review alignement (T-A06) | **NON** |
+| T-A01 consumers | Accepté (handoff) |
+| T-A02 capabilities | Accepté Correction Pass 01 (handoff) |
+| T-A03 sequences/authority | **LOCAL CANDIDATE** (ce document) |
+| T-A04 storage/migration | **NON** |
+| T-A05 impact pack | **NON** |
+| T-A06 Critical alignement | **NON** |
 | M4-A CLOSED | **NON** |
 
 ---
 
-## 14. Traçabilité / R24
+## 16. R24
 
-- T-A01 source : handoff `42de13a9…` (immuable) — worktree T-A01 non altéré.
-- Handoff T-A02 initial : `e66d5ebc…` / `544ddbfa…` (historique immuable avant Correction Pass 01).
-- Un seul livrable projet corrigé : le présent `06-m4a-historical-capabilities-inventory.md` (29 CAP conservées).
-- **R24 : NO PRODUCT SEMANTIC IMPACT.**
+**NO PRODUCT SEMANTIC IMPACT** — documentation d'analyse uniquement.
 
 ---
 
-## 15. Matrice de fermeture — Critical Review Correction Pass 01
-
-| ID | Preuve | Verdict |
-| --- | --- | --- |
-| **CORR-01** | `actionCancelIntakeSession` = `logIntakeEvent` + `{ok:true}` ; pas de table session intake ; distinction (a)(b)(c)(d) dans CAP-D1-04 | **PASS** |
-| **CORR-02** | Pilot composer anti-claim SHADOW NOT ACTIVATED ; policy `{}` ; operator apply requis ; CAP-ER-05 PARTIAL / non COMPLETE opérationnel ; hors spine conservé | **PASS** |
-| **CORR-03** | Re-export CONFIRMED ; consumers OPS1/platform/ER CONFIRMED ; Attempt/VSR/PA sans import pathPolicy ; couverture Product bout-en-bout **PARTIAL** | **PASS** |
-
-**T-A02** demeure **LOCAL CANDIDATE** jusqu'à Critical Re-Review. **M4-A** demeure **NON CLOSED**.
-
----
-
-END — `AKG-M4-A / T-A02` — LOCAL CANDIDATE — CORRECTION PASS 01
-
----
-
-## 10. End
-
-END — T-A02 CORRECTION PASS 01
+END — `AKG-M4-A / T-A03` — LOCAL CANDIDATE AUTHORITY SEQUENCES
