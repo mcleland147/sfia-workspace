@@ -256,6 +256,8 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
 > **Ne remplace pas** Product Completion, ni le chemin critique Convergence historique (B10), ni les milestones historiques Convergence M1–M5.
 > **Relation à P6 :** AKG **soutient** la transformation Product et la QA intégrée ; **ne constitue pas** une preuve P6 GLOBAL PASS.
 > **Identifiants :** utiliser exclusivement le préfixe **AKG-M*** pour ce chantier (CP05 / anti-collision).
+>
+> **V0.1 documentaire préparatoire du 2026-10-22 (candidate sur branche dédiée, non sur main)** : [index AKG](./architectural-knowledge-governance/README.md), [AS-IS](./architectural-knowledge-governance/m4-rationalization/01-current-architecture-as-is.md), [TO-BE](./architectural-knowledge-governance/m4-rationalization/02-target-architecture-to-be.md) et [registre](./architectural-knowledge-governance/m4-rationalization/03-orientations-and-gap-register.md). GO documentaire borné **≠ GO FORMAL START AKG-M4**, ni décisions de suppression ou transformation ; PRR = référence CURRENT.
 
 ### Distinctions de statut (CP05 / CP06)
 
