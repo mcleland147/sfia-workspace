@@ -22,15 +22,15 @@ Les acquis AKG-M0 à M3 sont répartis entre la Build Doctrine, la Roadmap, la P
 
 ## Livrables AKG-M4 (V0.1)
 
-1. **[01 — AS-IS](m4-rationalization/01-current-architecture-as-is.md)** : synthèse d'architecture constatée, *dérivée* de Git/PRR. La PRR demeure **le** référentiel documentaire du CURRENT.
-2. **[02 — TO-BE](m4-rationalization/02-target-architecture-to-be.md)** : vision cible et responsabilités, sous réserve d'arbitrage formel et de compatibilité avec la doctrine v3.
+1. **[01 — AS-IS](m4-rationalization/01-current-architecture-as-is.md)** : **deux niveaux dans un document** — vue pédagogique A intégrale + cartographie technique B, *dérivées* de Git/PRR. La PRR demeure **le** référentiel documentaire du CURRENT.
+2. **[02 — TO-BE](m4-rationalization/02-target-architecture-to-be.md)** : **deux niveaux dans un document** — vision pédagogique B intégrale + schémas cible et responsabilités détaillées, sous réserve d'arbitrage formel et de compatibilité avec la doctrine v3.
 3. **[03 — Orientations et écarts](m4-rationalization/03-orientations-and-gap-register.md)** : intentions confirmées en conversation, hypothèses, écarts, risques et décisions encore à consommer.
 
 ## Mode de consultation dans les futurs travaux
 
 **Source routing (proportionné) :** code Git courant + preuves primaires → Build Doctrine → Roadmap → doctrine v3 applicable → volumes PRR pertinents → **si architecture cible/rationalisation/transformation touchée : index AKG + TO-BE + registre**, et AS-IS si utile. Jamais un chargement exhaustif obligatoire pour toute petite correction Studio.
 
-Ce rattachement est prévu dans [Cycle Routing Guide `4.3.0a](../../../../method/sfia-fast-track/core/sfia-cycle-routing-guide.md) et [Knowledge Layer — Documentation Routing Matrix](../../../../method/sfia-fast-track/core/sfia-knowledge-layer.md).
+Ce rattachement est prévu dans [Cycle Routing Guide §4.3.0a](../../../../method/sfia-fast-track/core/sfia-cycle-routing-guide.md) et [Knowledge Layer — Documentation Routing Matrix](../../../../method/sfia-fast-track/core/sfia-knowledge-layer.md).
 
 ## Gouvernance et statut des sources
 
