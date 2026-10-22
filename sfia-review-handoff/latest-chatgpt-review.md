@@ -4,541 +4,732 @@
 
 | Field | Value |
 | --- | --- |
-| Timestamp UTC | 2026-10-22T20:16:33Z |
-| Cycle | AKG-M4-A / T-A05 — Critical Review Correction Pass 01 |
+| Timestamp UTC | 2026-10-22T20:29:10Z |
+| Cycle | AKG-M4-A / T-A06 — Critical Architecture Alignment & Contradictory Review |
 | Profile | CRITICAL |
-| Type | Cycle 6 — Architecture technique · DOC / Architecture / Correction Pass |
-| Branch | `analysis/akg-m4a-ta05-rationalization-impact-pack` |
+| Type | Cycle 6 — Architecture technique · DOC / Architecture / Independent Contradictory Assessment |
+| Branch | `analysis/akg-m4a-ta06-critical-alignment` |
 | HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
 | origin/main | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
-| Document | `projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/09-m4a-rationalization-options-and-impact-pack.md` (untracked) |
-| Document hash-object (prior) | `719d7c48bf2ae017bff54c69e4d21055e29822dd` |
-| Document hash-object (this pass) | `ac79a9079c6416c2012fdbb189bd2a4520ce1fb3` |
-| Prior T-A05 handoff | commit `d05a2b50b2662eedd855e6132dd99a8f60546235` · blob `5e947e4285c15212e2cf0d8b1f9953df13a14243` |
+| PR #604 | OPEN · Draft · head = source HEAD |
+| Document | `projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/10-m4a-critical-architecture-alignment-review.md` (untracked) |
+| Document hash-object | `922131cd95b05aea1fe33806c1795151770e0ab9` |
+| Immutable handoffs | T-A01 `42de13a9…` · T-A02 `51021023…` · T-A03 `640f19c1…` · T-A04 `6717d094…` · T-A05 tip `1e1930d0…` |
+| Prior tip `sfia/review-handoff` | `1e1930d0e7079403ac9a34b5f3b99f9dd1ddb3cd` |
 | Project commit/push | NONE |
 | M4-A | NON CLOSED |
-| Preferred scenario | SC-G2 preferred **candidate** (after contradictory SC-G3 review) |
+| SC-G2 / SC-G3 | candidates only — **NOT adopted** |
 | Delivery / M5 | NOT AUTHORIZED |
+| Architecture verdict | **ARCHITECTURE CANDIDATE READY WITH RESERVES** |
 
 ## 01. Scope
 
-AUTHORIZED: correct CORR-01–04 in local `09` only; Full pack; L3 handoff.
-NOT AUTHORIZED: runtime/DB mutation; dual-write; REAL; FinOps SHADOW ON; adopt SC-G2/G3; project push/PR; close M4-A; Delivery GO.
+AUTHORIZED: static contradictory review CR-01–CR-08; local document `10` only; Full pack; L3 handoff publish-in-cycle.
+NOT AUTHORIZED: runtime/DB/tests/API/routes mutation; dual-write; REAL Cursor; FinOps SHADOW ON; adopt SC-G2/G3; modify G0/PRR/TO-BE/registre; invent Pilote decisions; project commit/push/PR/merge; close M4-A; Delivery GO; P6 GLOBAL PASS; v3 ADOPTED.
 
 ## 02. Git Review Index
 
 ```
+?? projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/10-m4a-critical-architecture-alignment-review.md
  M .tmp-sfia-review/chatgpt-review.md
-?? projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/09-m4a-rationalization-options-and-impact-pack.md
 ```
 
 | Control | Result |
 | --- | --- |
-| Branch/HEAD/main | MATCH |
-| Prior doc hash | `719d7c48…` confirmed |
-| New doc hash | `ac79a9079c6416c2012fdbb189bd2a4520ce1fb3` |
-| `git diff --no-index --check` | exit `1` (untracked; no trailing whitespace) |
-| T-A01–T-A04 WTs | untouched |
-| Project files besides `09` | NONE |
+| Branch/HEAD/main/PR#604 | **MATCH** (Draft OPEN) |
+| Source HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
+| Doc hash-object | `922131cd95b05aea1fe33806c1795151770e0ab9` |
+| `git diff --no-index --check` | exit `1` (untracked; no trailing whitespace errors) |
+| T-A01–T-A05 WTs | untouched |
+| Project files besides `10` | NONE |
+| Handoffs T-A01–T-A05 | extracted to `.tmp-sfia-review/ta06-evidence/` |
 
-### Diff identity
+### Diff identity (new file)
 
 ```
-...m4a-rationalization-options-and-impact-pack.md} | 448 +++++++++++++++++++++
- 1 file changed, 448 insertions(+)
+.../10-m4a-critical-architecture-alignment-review.md | 551 +++++++++++++++++++++
+ 1 file changed, 551 insertions(+)
 ```
 
-## 03. CORR results
+## 03. Sources, preuves et limitations
 
-| ID | Preuve | Verdict |
-| --- | --- | --- |
-| CORR-01 | §3.2 typed AS-IS: VSR TYPE_ONLY; conditional sqlite audit; CONFIG_FLAG OPS1_CURSOR_REAL ≠ adapter; island routes separate; UX-only P0/nav | **PASS** |
-| CORR-02 | §7 SC-G3 independent of harvest failure; 7 questions + criteria matrix; SC-G2 remains preferred candidate; no OA rebuild without G0 | **PASS** |
-| CORR-03 | §13 A09 gate (type+optional path+consumers+tests); A11 gate (FinOps scripts/tests/re-exports; SHADOW OFF) | **PASS** |
-| CORR-04 | §12 GO Delivery required every lot; L1 not « None »; L2 writer/reader order; L3 exclusive REAL only after preuves+GO | **PASS** |
+| Famille | Sources |
+| --- | --- |
+| Méthode | SFIA templates · routing · OM · rules · knowledge layer |
+| Doctrine | R23/R24 · G0-A/B · OR-13 · Build Doctrine · Roadmap B-AKG · doctrine v3 30/32/34/35/37 |
+| M4-A | `01`–`04` AS-IS/TO-BE/registre/assessment |
+| PRR | 01–09 sections pertinentes |
+| Investigations | handoffs immuables T-A01…T-A05 (docs 05–09) |
+| Code/tests | preuves citées T-A01–T-A05 (SHE, R2, Product sqlite, VSR, OPS1 flag, FinOps SHADOW) |
 
-## 04. SC-G comparison (updated)
+Limitations: volumes D1 UNKNOWN; REAL NOT PROVEN; Tool-First OPEN; bookmarks U; RunState DEFER; classifications A* = candidates.
 
-SC-G1 interim · **SC-G2 preferred candidate** · SC-G3 legitimate for targeted PA/carriers **independent** of harvest failure · OA backbone not replaceable without G0 arbitration.
+## 04. Revue contradictoire (CR-01–CR-08 résumé)
 
-## 05. Sources (correction)
+| CR | Résultat |
+| --- | --- |
+| CR-01 Vision | Vision cohérente; AS-IS multi-îlots contredit cockpit/SHE unique; SC-G2 simplifie autorité mais peut déplacer complexité PA |
+| CR-02 SC-G* | SC-G2 preferred **candidate**; SC-G3 ciblé PA/carriers légitime indépendamment harvest; combinaison SC-G2+SC-G3 possible |
+| CR-03 A01–A12 | Matrice critique; anti Dual-Shell; A06/A10 sous-estimés si SC-G2 seul |
+| CR-04 Invariants | G0/SHE/Evidence/SYN/Memory B confirmés DET; R2≠sandbox OPEN; exclusive REAL NOT PROVEN |
+| CR-05 Cutover D1 | Writers-then-readers **seulement** si gates; alternatives freeze/cohorts/migrate-then-open/RO; **no dual-write** |
+| CR-06 Retirement | Gates D1/OPS1/P0/A09/A11/A12 exigibles |
+| CR-07 Risques/H0–H8 | Registre classé; décisions sans réponses inventées |
+| CR-08 Readiness | **READY WITH RESERVES**; M4-A NON CLOSED |
 
-Template SFIA; routing; OM/rules; R23/R24; G0; OR-13; PRR 03/04/06–09; doctrine v3; handoffs T-A01–04.
-Code: `service.ts` L14/106–110/174–188/758; `deterministicExternalLaunchBoundary.ts`; `composeStudioProductRealBoundary.ts` (no OPS1 adapter import); `composeFinOpsT7ShadowExecutionDeps.ts`; `composeExecutionRunD2D3T7ShadowPilot.ts`; `finops-t7-shadow-rollout.ts`; FinOps tests.
+## 05. Matrice A01–A12 (synthèse)
 
-## 06. R23/R24 / Fake-Real
+A01 KEEP/ADAPT · A02 CONSOLIDATE→RETIRE · A03 HARVEST+REPLACE · A04 HARVEST+REBUILD+RETIRE · A05 KEEP (G0) · A06 ADAPT **ou SC-G3 façade** · A07 KEEP/ADAPT · A08 KEEP/ADAPT · A09 HARVEST port (gate type+consumers) · A10 ADAPT/REBUILD (H3) · A11 FREEZE (gate all consumers) · A12 KEEP/ADAPT (exclusivity NOT PROVEN).
 
-R24 NO PRODUCT SEMANTIC IMPACT. Static only. REAL NOT PROVEN. SHADOW NOT ACTIVATED.
+## 06. Comparaison SC-G1 / SC-G2 / SC-G3
 
-## 07. Handoff L3
+SC-G1 = interim dette · **SC-G2 preferred candidate** (spine G0 + harvest) · SC-G3 ciblé A06/A10 **indépendant** du harvest · combinaison SC-G2+SC-G3 si L4 ADAPT insuffisant · **pas** de rebuild OA sans H6 · **pas** d'adoption automatique.
 
-Branch `sfia/review-handoff` · `sfia-review-handoff/latest-chatgpt-review.md`
-Prior tip preserved: `d05a2b50b2662eedd855e6132dd99a8f60546235` / `5e947e4285c15212e2cf0d8b1f9953df13a14243`
-Message: `docs(review-handoff): AKG-M4-A T-A05 correction pass 01`
+## 07. Registre de risques (classes)
 
-## 08. Instruction ChatGPT (§9.1)
+BLOCKER ARCHITECTURE DECISION: R-ARCH-01/02 · BLOCKER M4-A EXIT: R-EXIT-01/02 · BLOCKER DELIVERY: R-DEL-01/02/03 · BLOCKER REAL PROOF: R-PROOF-01/02/03 · FOLLOW-UP HARDENING: R-HARD-01/02/03 · DOC DRIFT: R-DOC-01/02.
 
-Read Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
-Optional prior: `d05a2b50b2662eedd855e6132dd99a8f60546235`.
+## 08. Registre décisions H0–H8
 
-Perform: **CHATGPT CRITICAL RE-REVIEW — AKG-M4-A / T-A05 CORRECTION PASS 01**.
+H0 refuse Delivery jusqu'arbitrage · H1 MethodMode ne pas importer silencieux · H2 Tool-First garder OPEN · H3 carrier requalify/HD11 · H4 inventaire volumes requis · H5 pathPolicy instruct séparément · H6 refuse G0 reopen ordinaire · H7 SC-G2 candidate + réserve SC-G3 · H8 SC-G3 PA option parallèle L4. **Aucune réponse Pilote inventée.**
 
-Verify CORR-01–04; typed AS-IS edges; SC-G3 independent comparison; A09/A11 gates; GO Delivery vs functional arbitration; SC-G2 still preferred candidate; M4-A NON CLOSED; no Delivery.
+## 09. Validations
 
-## 09. Verdict target
+| Check | Result |
+| --- | --- |
+| Sources T-A01–T-A05 | COMPLETE (immutable commits) |
+| Matrice A01–A12 | PRESENT §7 doc 10 |
+| SC-G1/G2/G3 challenged | YES · SC-G3 independent of harvest |
+| Cutover D1 challenge | YES · no implicit obsolete-read window |
+| No dual-write | AFFIRMED |
+| A09/A11 retirement gates | PRESENT |
+| G0 / OA / SHE / Evidence | PRESERVED |
+| Truth C ≠ Memory B ≠ SYN | AFFIRMED |
+| DET ≠ REAL | AFFIRMED |
+| H0–H8 no invented answers | AFFIRMED |
+| Risk classification by scope | AFFIRMED |
+| M4-A premature close | NONE |
+| Markdown + Mermaid | PRESENT |
+| `git status --short` | only `10` + pack |
+| `git diff --no-index --check` | exit 1 OK (no WS errors) |
+| Other project files | NONE |
 
-READY FOR CHATGPT CRITICAL RE-REVIEW — AKG-M4-A / T-A05 CORRECTION PASS 01
+## 10. R23 / R24 / Fake-Real
+
+R23: Git/code primary for AS-IS; handoffs = investigation evidence with reserves, not adopted architecture.
+R24: **NO PRODUCT SEMANTIC IMPACT** (doc/analysis only).
+Fake/Real: N/A runtime; REAL NOT PROVEN; SHADOW NOT ACTIVATED; DET ≠ REAL.
+
+## 11. Handoff L3
+
+Branch `sfia/review-handoff` · path `sfia-review-handoff/latest-chatgpt-review.md`
+Prior tip preserved: `1e1930d0e7079403ac9a34b5f3b99f9dd1ddb3cd`
+Message: `docs(review-handoff): AKG-M4-A T-A06 critical architecture alignment`
+Mode: publish-in-cycle · fast-forward only · mono-file.
+
+## 12. Instruction ChatGPT (§9.1)
+
+> **Instruction ChatGPT obligatoire :**
+>
+> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
+>
+> branche : `sfia/review-handoff`
+> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
+>
+> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
+> - le cycle et le profil ;
+> - la branche projet ;
+> - le HEAD initial et final ;
+> - la base main ;
+> - les sources consultées ;
+> - les fichiers créés ou modifiés ;
+> - le contenu complet des fichiers créés ;
+> - les sections complètes modifiées ou le diff utile ;
+> - l'identité du contenu avant et après synchronisation, si applicable ;
+> - les validations réalisées ;
+> - la mergeabilité ou le statut Git attendu ;
+> - les risques, réserves et écarts ;
+> - les décisions Morris ;
+> - le verdict du review pack ;
+> - le commit et la vérification distante du handoff.
+>
+> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
+> 1. l'objectif et le périmètre du cycle ;
+> 2. les actions et changements réellement réalisés ;
+> 3. les principaux résultats et validations ;
+> 4. les risques, réserves, écarts ou éléments non couverts ;
+> 5. la distinction entre observations, recommandations et décisions déjà validées ;
+> 6. le verdict ChatGPT ;
+> 7. la prochaine décision ou action attendue de Morris.
+>
+> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
+>
+> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris.
+
+Perform: **CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A06**.
+
+Verify: SC-G2 not auto-adopted; SC-G3 independent; cutover D1 challenged; A01–A12 matrix; H0–H8; risk classes; READY WITH RESERVES; M4-A NON CLOSED; no Delivery.
+
+Optional priors: T-A01 `42de13a9…` · T-A02 `51021023…` · T-A03 `640f19c1…` · T-A04 `6717d094…` · T-A05 `1e1930d0…`.
+
+## 13. Verdict target
+
+READY FOR CHATGPT CRITICAL REVIEW — AKG-M4-A / T-A06 LOCAL CANDIDATE
+
+Architecture: **ARCHITECTURE CANDIDATE READY WITH RESERVES**
 
 ---
 
-## 10. Full document `09` (verbatim)
+## 14. Full document `10` (verbatim)
 
-
-# AKG-M4-A / T-A05 — Impact Pack & Rationalization Options
+# AKG-M4-A / T-A06 — Critical Architecture Alignment & Contradictory Review
 
 | Champ | Valeur |
 | --- | --- |
-| Cycle | **AKG-M4-A / T-A05** — Impact Pack & Capability-First Rationalization Options |
-| Type / Profil | Cycle 6 — Architecture technique · **Critical** |
-| Typologie | DOC / Architecture / Rationalization Assessment (+ Correction Pass 01) |
-| Baseline | `analysis/akg-m4a-ta05-rationalization-impact-pack` @ `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
-| `origin/main` | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` |
-| PR #604 | Draft · CI SUCCESS · non mergée |
-| Antecedents | T-A01 `42de13a9…` · T-A02 `51021023…` · T-A03 `640f19c1…` · T-A04 `6717d094…` (handoffs immuables) |
-| Correction Pass 01 | CORR-01 AS-IS edges · CORR-02 SC-G3 contradictoire · CORR-03 gates A09/A11 · CORR-04 GO/lots |
-| Méthode | Consolidation **statique** T-A01–T-A04 + code · **pas** de Delivery · **pas** de REAL |
-| Doctrine | **OR-13** · **G0-A/B** · **aucun dual-write** |
-| Statut | **LOCAL CANDIDATE** · M4-A **NON CLOSED** · options **candidates** · SC-G2 **préféré candidate** après comparaison contradictoire |
-| Non-claims | Pas de GO Delivery/M5 · P6 GLOBAL **NOT PASSED** · v3 **NON ADOPTED** · REAL **NOT PROVEN** · option privilégiée ≠ décision Pilote · Attempt ≠ Evidence ≠ PROVEN · Synthesis ≠ Truth C · SHE clic ≠ disparition HD |
+| Méthode | SFIA v2.6 · Cycle 6 — Architecture technique · Profil **Critical** |
+| Typologie | DOC / Architecture / Independent Contradictory Assessment |
+| Jalon / Lot / Tâche | AKG-M4 · M4-A · **T-A06** |
+| Worktree | `analysis/akg-m4a-ta06-critical-alignment` |
+| Source HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` |
+| Review Pack | **FULL** · Handoff Git **REQUIRED** · publish-in-cycle |
+| Transformation runtime | **Interdite** |
+| GO Delivery / M5 | **Aucun** |
+| Statut | **LOCAL CANDIDATE** · M4-A **NON CLOSED** |
 
-> Les analyses T-A01–T-A04 sont **ACCEPTED WITH RESERVES** à leurs périmètres ChatGPT ; elles **ne constituent pas** une architecture adoptée. Ce pack compare des options — **aucune transformation autorisée**.
+> **Non-claims :** SC-G2 ≠ adopté · SC-G3 ≠ adopté · options = candidates · REAL **NOT PROVEN** · DET ≠ REAL · FinOps SHADOW **OFF** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** · aucun arbitrage Pilote inventé · aucune clôture M4-A.
 
 ---
 
 ## 1. Baseline Git et statut
 
-Worktree isolé ; WTs T-A01–T-A04 **non modifiés**. Documents `05`–`08` lus via handoffs immuables uniquement. CKC Architecture : **fallback méthode canonique**.
+### 1.1 Local Git Truth Check (confirmé T-A06)
 
-**Maturité :** impact pack **LOCAL CANDIDATE** · scénario global privilégié **SC-G2** (candidate) · M4-A **ouvert** jusqu'à T-A06 + arbitrage Pilote.
-
----
-
-## 2. Sources T-A01–T-A04 et limites
-
-| Audit | Apport | Limite |
-| --- | --- | --- |
-| T-A01 | A01–A12 consumers / depth / coupling | Dynamic callers PARTIAL |
-| T-A02 | 29 CAP inventory ; OPS1≠Product ; FinOps≠SHADOW ON | Some CAP PARTIAL |
-| T-A03 | S01–S07 authority ; SHE ; Attempt≠Evidence ; restart | REAL E2E not proven |
-| T-A04 | ST-01–06 ; MIG-A–D ; Synthesis NOT Truth C ; typed Product/Legacy | Volumes UNKNOWN |
-
-Code primary (spot checks) : `app/studio/**`, `project-assistant`, `nora-cognitive-runtime`, `vertical-slice-runtime`, `lib/oa/**`, `lib/d1/**`, `lib/ops1/**`. PRR 03/04/06–09 · doctrine v3 30/32/34/35/37 · G0 · M4 `01`–`04` · Build Doctrine R23/R24.
-
----
-
-## 3. Synthèse AS-IS consolidée
-
-### 3.1 Couches de responsabilité (observées)
-
-| Couche | Rôle AS-IS | Exemples |
-| --- | --- | --- |
-| 1. Métier / autorité | Truth C + HD/EC/Attempt/Evidence | OA Product SQLite |
-| 2. Orchestration produit | UI→OA, SHE, F2/W2 | Project Assistant |
-| 3. Cognition Nora | Qualification, reco, outils | nora-cognitive-runtime + Memory B |
-| 4. Adaptation technique | Cursor launch, path facts | Product REAL boundary ; OPS1 island |
-| 5. Persistance / projection | Truth C, Memory B, derived SYN, FS refs | ST-01–06 |
-| 6. UX | `/studio` Product ; D1/OPS1/P0 historiques | pre-m6-product-ui ; îlots |
-
-### 3.2 Diagramme AS-IS (observé) — CORR-01
-
-```mermaid
-flowchart TB
-  subgraph Product["Product Spine — G0"]
-    Studio["/studio UI"]
-    PA[Project Assistant F2/W2/SHE]
-    Nora[Nora cognition]
-    OA[OA Truth C]
-    SYN[oa_syntheses derived NON-AUTH]
-    MemB[Memory B session]
-    VSR[vertical-slice-runtime]
-    REAL[composeStudioProductRealBoundary / Attempt]
-    Safety[DET/REAL safety guards]
-  end
-  subgraph Islands["Îlots historiques — séparés"]
-    D1Routes["D1 routes<br/>/workspace /projects /nouvelle-demande"]
-    D1Svc[lib/d1]
-    D1DB[(d1.sqlite)]
-    OPS1Routes["OPS1 route /ops1"]
-    OPS1Svc[lib/ops1 + cursorExecutionAdapter]
-    OPS1DB[(ops1.sqlite)]
-    P0[P0 /synthese POC]
-  end
-  Studio -->|RUNTIME_CALL| PA
-  PA -->|RUNTIME_CALL| OA
-  PA -->|RUNTIME_CALL| Nora
-  Nora -->|RUNTIME_CALL DB| MemB
-  PA -->|RUNTIME_CALL| SYN
-  PA -->|RUNTIME_CALL| REAL
-  VSR -->|RUNTIME_CALL| REAL
-  REAL -->|RUNTIME_CALL| OA
-  D1Routes -->|RUNTIME_CALL| D1Svc
-  D1Svc -->|DB_READ DB_WRITE| D1DB
-  OPS1Routes -->|RUNTIME_CALL| OPS1Svc
-  OPS1Svc -->|DB_READ DB_WRITE| OPS1DB
-  VSR -.->|TYPE_ONLY BoundedAtomicAuditStore| D1Svc
-  VSR -.->|RUNTIME_CALL if auditMode=sqlite + store injecté| D1DB
-  Safety -.->|CONFIG_FLAG lit OPS1_CURSOR_REAL| EnvFlag[env — ≠ appel OPS1 adapter]
-  P0 -.->|UX parallel only| Studio
-  D1Nav[D1AppShell href] -.->|UX navigation only| OPS1Routes
-```
-
-### Table des arêtes vérifiées (CORR-01)
-
-| Lien | Nature | Preuve | ≠ |
+| Référence | Attendu | Observé | Statut |
 | --- | --- | --- | --- |
-| Studio → PA → OA/Nora/REAL | `RUNTIME_CALL` (+ DB via OA/MemB) | `/studio` ; project-assistant ; OA services | Accès D1/OPS1 SQLite |
-| D1 routes → lib/d1 → d1.sqlite | `RUNTIME_CALL` / `DB_READ` / `DB_WRITE` | T-A01 A03 ; routes workspace/projects | Product spine |
-| OPS1 route → lib/ops1 → ops1.sqlite | `RUNTIME_CALL` / `DB_READ` / `DB_WRITE` | T-A01 A04 ; `ops1/nouvelle-demande` | Product Attempt gateway |
-| VSR → `BoundedAtomicAuditStore` | `TYPE_ONLY` | `service.ts` L14, L110 | `DB_READ` D1 |
-| VSR `auditMode=sqlite` + store | `RUNTIME_CALL` **conditionnel** | `service.ts` L174–188, L758 ; default **noop** | Toujours actif |
-| Safety → `OPS1_CURSOR_REAL` | `CONFIG_FLAG` | `deterministicExternalLaunchBoundary.ts` | Appel `cursorExecutionAdapter` |
-| `composeStudioProductRealBoundary` → OPS1 adapter | **absent** | grep import OPS1 dans compose… | — |
-| P0 / D1AppShell → OPS1 | UX navigation / parallel entry | `D1AppShell.tsx` ; P0 routes | `RUNTIME_CALL` Product↔Legacy DB |
-| Studio/PA → D1/OPS1 SQLite | **absent** | T-A01/T-A04 | — |
+| `origin/main` | `f44a99b4da84188772b80aca3c9ebe1a3e12617e` | `f44a99b4…` | **MATCH** |
+| Branche documentaire source | `docs/akg-m4a-capability-first-rationalization` | HEAD `c48c6a58…` | **MATCH** |
+| Source HEAD | `c48c6a582c10ee3cf6902203d6a4eb01ce3f2139` | `c48c6a58…` | **MATCH** |
+| PR #604 | Draft, non fusionnée | OPEN · **isDraft: true** · head = source HEAD | **MATCH** |
+| Branche d'analyse | `analysis/akg-m4a-ta06-critical-alignment` | créée depuis source vérifié | **OK** |
 
-*Pas de flèche générique « îlot → PA/REAL ». Pas de `DB_READ` Product→D1/OPS1. Pas de dual-write.*
+### 1.2 Handoffs immuables T-A01…T-A05 (sources d'investigation)
 
----
-
-## 4. Principes et responsabilités TO-BE (candidates)
-
-Alignés G0 / doctrine v3 / OR-13 — **non adoptés** :
-
-1. **Un cockpit Product** Pilote ↔ Nora (`/studio`).
-2. Nora = cognition / qualification / reco — **pas** autorité métier.
-3. OA = backbone Truth C + autorité (G0-A/B).
-4. EC = enveloppe gouvernée ; **SHE** = un clic Exécuter **avec** HD/Confirm/Authorize internes.
-5. Cursor = capacité technique sous Attempt — pas source d'autorité.
-6. Attempt technique ≠ Evidence ≠ ContractResult PROVEN.
-7. Memory B ≠ Truth C ; Synthesis dérivée ≠ Truth C.
-8. Carriers (Proposal/Offer) ≠ HumanDecision.
-9. **Aucun dual-write D1/OA.**
-
-```mermaid
-flowchart TB
-  subgraph TOBE["TO-BE candidate — NON IMPLÉMENTÉ"]
-    Cockpit[Product cockpit /studio]
-    Orch[Product orchestrator]
-    Cog[Nora cognition + Memory B]
-    Auth[OA Truth C + HD/EC/Attempt/Evidence]
-    Tech[Governed Cursor / launch safety]
-    Archive[D1/OPS1 archive read-only]
-  end
-  Cockpit --> Orch
-  Orch --> Cog
-  Orch --> Auth
-  Orch --> Tech
-  Tech --> Auth
-  Archive -.->|retire later after harvest| X[RETIRE]
-```
-
----
-
-## 5. Matrice de rationalisation A01–A12
-
-| ID | Domaine | Capacité utile | Problème AS-IS | Owner actuel | Owner cible | Options étudiées | **Option privilégiée (candidate)** | Alternatives rejetées | Dépendances | Données | Autorité / sécurité | Coût / risque | Non-régression | Transition | Retirement gate | Evidence | Conf. | Decision state |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| A01 | Product UI | Cockpit `/studio` | Nom `pre-m6` ; surface large | pre-m6-product-ui | Product UI | KEEP/ADAPT/REBUILD | **KEEP** cap / **ADAPT** naming | RETIRE (casse cockpit) | Studio, PA, ~53 UI tests | N/A Truth C | Presentation≠HD | L / L | UI + PA e2e | Rename/docs | N/A | T-A01 A01 | H | CANDIDATE |
-| A02 | P0 access | Entrée site | POC `/`→`/synthese` parallèle | P0 routes | Redirect→`/studio` | CONSOLIDATE/RETIRE/KEEP | **CONSOLIDATE** puis **RETIRE LATER** | KEEP POC (confusion CAP-P0) | bookmarks **U** | fixtures | GO visuel≠GO | L / M | redirect e2e | L5 | links+redirect | T-A01 A02 ; CAP-P0 | M | NEEDS EVIDENCE |
-| A03 | D1 island | Intake / create project | SQLite/IDs séparés | lib/d1 | OA Project + `/studio` | HARVEST/REPLACE/KEEP | **HARVEST** + **REPLACE** impl | KEEP as Product ; dual-write | D1 routes, A09 | MIG-A volumes **U** | D1≠HD ; no dual-write | M–H / H | D1+Product create tests | L1→L2 | A09 extracted ; readers cutover | T-A01 A03 ; CAP-D1 ; MIG-A | M | NEEDS EVIDENCE + HUMAN (MethodMode) |
-| A04 | OPS1 island | Tool/exec + guards | Parallel gate/adapter/DB | lib/ops1 | OA Attempt + Product REAL | HARVEST/REBUILD/RETIRE | **HARVEST** + **REBUILD** ports + **RETIRE LATER** | KEEP as Product engine ; retire on tests alone | Ops1 UI, e2e, `OPS1_CURSOR_REAL` | archive OPS1 ; no gate→HD | Gate≠HD ; fail-closed | H / H | Attempt/REAL tests | L3 | SC-B caps/tests/guards | T-A01 A04 ; CAP-OPS1 ; S04 ; MIG-B | M | NEEDS EVIDENCE + HUMAN (Tool-First) |
-| A05 | OA Runtime | Truth C backbone | Complexité ≠ mauvais owner | lib/oa | **Same** | KEEP/ADAPT/REBUILD | **KEEP** / **ADAPT** | Rebuild backbone (reopen G0) | VSR, PA, tests | Truth C ; SYN derived | PRR07 ; SYN≠Truth C | L keep / H reopen | OA suite | N/A | N/A unless G0 reopen | G0 ; ST01 ; T-A03 | H | CANDIDATE |
-| A06 | Project Assistant | Orchestration F2/W2/SHE | Dual path ; ownership blur | project-assistant | Product orchestrator | ADAPT/CONSOLIDATE/REBUILD | **ADAPT** / **CONSOLIDATE** ; SC-G3 façade **candidate** if L4 insuffisant | Delete HD objects « for simplify » ; rebuild OA | API send, F2/W3 | carriers + Truth C | SHE≠vanished HD | M / M–H | SHE DET + historical | L4 | sequence clarity or SC-G3 GO | T-A01 A06 ; S01–S03 ; CORR-02 | H | CANDIDATE |
-| A07 | Nora | Cognition / tools | Risk B↔C confusion | nora-cognitive-runtime | Nora (distinct) | KEEP/ADAPT | **KEEP** / **ADAPT** boundary | Duplicate Truth C in B | orchestrateTurn | Memory B ; RunState DEFER | Cognition≠métier | L / M | session tests | N/A | N/A | ST02 ; S06 | H | CANDIDATE |
-| A08 | VSR | Composition ports | D1 type coupling | vertical-slice-runtime | Product composition | KEEP/ADAPT/REBUILD | **KEEP** / **ADAPT** | Blind rebuild | PA, W2 | singleton | Wiring≠policy | M / H rebuild | composition tests | L1 | after A09 extract | T-A01 A08 | H | CANDIDATE |
-| A09 | Audit bridge | Bounded create audit | Type in `lib/d1` blocks retire | D1 BoundedAtomicAudit | Product audit **port** | HARVEST/REPLACE | **HARVEST** / **REPLACE** port | KEEP in D1 forever | VSR optional audit ; tests inject store | extract port | Audit≠authority ; default noop ≠ activation | L–M / M | audit + composition tests | L1 | **see §13 A09 gate** (type+optional path+consumers+tests) | T-A01 A09 ; `service.ts` L106–110, L174–188 | H | CANDIDATE |
-| A10 | Carriers | Proposal/Offer continuity | Process-local lost | F2/W2 Maps | Non-authority carrier **or** requalify | ADAPT/REBUILD/KEEP | **ADAPT** / **REBUILD** carrier (not 2e vérité) | Promote to Truth C ; invent HD | F2/W2/SHE | PROCESS-LOCAL | Proposal≠HD ; HD11 | M / M–H | restart tests | L4 | continuity proven | T-A03 ; MIG-C ; ST05 | M | HUMAN ARBITRATION (durable GO?) |
-| A11 | execution-run | FinOps/shadow SM | Not Product Spine | oa/execution-run | FinOps if GO | FREEZE/RETIRE | **FREEZE** / **RETIRE LATER** | Promote to spine ; claim SHADOW ON | FinOps scripts/tests ; `sandboxContract` re-export | memory ; PG OFF | Attempt≠Run ; compose≠activate | L freeze / H promote | FinOps unit/integration OFF | L6 | **see §13 A11 gate** (all FinOps/shadow consumers, not spine-only) | CAP-ER ; ST06 ; `composeFinOpsT7Shadow…` | H | CANDIDATE |
-| A12 | Product REAL | Cursor under Attempt | Parity OPS1 PARTIAL ; Tool-First OPEN | composeStudio… + Attempt | Same + harvest | KEEP/ADAPT | **KEEP** guarantees / **ADAPT** ports | Import OPS1 adapter ; claim REAL PROVEN | VSR, DET/REAL tests | Attempt + launch-safety | Authorize≠launch ; R2≠sandbox | M–H / H | REAL DET ; R2 | L3 | exclusive Product REAL **seulement après preuves+GO** (§12) | T-A01 A12 ; S03-R2 | M | NEEDS EVIDENCE + HUMAN (Tool-First) |
-
----
-
-## 6. Options par domaine (synthèse)
-
-### D1 (A03/A09)
-**HARVEST** MethodMode/idempotence/audit patterns → Product ; **REPLACE** intake under OA ; **RETIRE LATER** D1 UI/DB after cutover. **Forbidden :** dual-write. **Blocker :** volumes UNKNOWN ; MethodMode arbitration.
-
-### OPS1 (A04/A12)
-**HARVEST** allowlist/gate/report/fail-closed into Attempt/Product ports ; **do not** map gate→HD ; **RETIRE LATER** island. **Blocker :** pathPolicy Attempt parity PARTIAL ; Tool-First REAL no-write OPEN.
-
-### P0 (A02)
-**CONSOLIDATE** entry to `/studio` ; **RETIRE LATER** POC screens after redirect + link inventory.
-
-### execution-run / FinOps (A11)
-**FREEZE** as non-spine ; SHADOW **NOT ACTIVATED** ; activate only under separate FinOps GO. Retirement = **all** FinOps/shadow/script/test consumers (§13), not « absent from Product Spine » alone.
-
-### Product modern (A01/A05–A08/A10/A12)
-Keep OA/Nora/Studio spine ; **ADAPT** PA dual-path ; **SC-G3 ciblé** on PA/carriers remains a legitimate alternative if L4 ADAPT cannot clarify ownership (CORR-02) ; optional carrier rebuild under GO without 2e vérité ; **OR-13 also applies to recent code**.
-
----
-
-## 7. Comparaison SC-G1 / SC-G2 / SC-G3 — CORR-02
-
-**Questions contradictoires (SC-G3 n'est pas subordonné à l'échec d'un harvest) :**
-
-| # | Question | Lecture |
-| --- | --- | --- |
-| 1 | SC-G2 rend-il la cible plus cohérente, ou fige-t-il des couches de compatibilité ? | SC-G2 **améliore** l'autorité unique (G0) en retirant les îlots après harvest, mais **conserve** temporairement dual SHE/historical et carriers process-local — dette de **compatibilité** à traiter en L4, pas à ignorer. |
-| 2 | Quelles responsabilités modernes pourraient devoir être reconstruites même après absorption D1/OPS1 ? | **A06** orchestration PA (F2/W2/SHE dual paths) ; **A10** continuity carriers ; éventuelle clarté **A08** composition naming ; **pas** OA backbone sans arbitrage G0. |
-| 3 | PA reste-t-il trop fragmenté après consolidation îlots ? | **Oui risque** : SHE + disposition-before-PREPARE + offer Maps + W3C loops — SC-G2 **exige** L4 ADAPT/CONSOLIDATE ; SC-G3 pourrait REBUILD l'orchestrateur produit derrière interfaces stables. |
-| 4 | SC-G3 peut-il simplifier Nora / PA / OA / Cursor ? | **Oui** si on reconstruit PA comme façade unique et Cursor ports exclusifs — **sans** fusionner Nora dans OA ni OA dans Cursor. |
-| 5 | Coût régression / migration / autorité / reprise ? | SC-G3 : **élevé** sur PA/tests (~160) + REAL ; SC-G2 : **moyen–élevé** sur D1/OPS1 data + coexistence ; SC-G1 : **bas** court terme, **élevé** dette long terme. |
-| 6 | Que reconstruire sans remettre G0-A/B ? | PA orchestration surface ; carriers ; audit port ; Product REAL ports (harvest) ; UX naming — **pas** Truth C engine, **pas** Dual-Shell. |
-| 7 | Quand SC-G3 > SC-G2 **indépendamment** du harvest ? | Si PA dual-path + continuity restent **structurellement** incohérents après L4 design ; si TO-BE exige une façade d'orchestration unique non atteignable par ADAPT ; si preuve que harvest OPS1 **suffit** aux ports mais **pas** à une UX/autorité compréhensible — alors SC-G3 **ciblé** (PA/carriers) sans rebuild OA. |
-
-### Matrice comparative approfondie
-
-| Critère | SC-G1 | **SC-G2** | SC-G3 |
+| Investigation | Commit handoff | Blob `latest-chatgpt-review.md` (extrait local) | Statut |
 | --- | --- | --- | --- |
-| Cohérence fonctionnelle | Faible (multi-cockpit) | **Haute** après retire îlots | Haute si rebuild borné |
-| Propriété des responsabilités | Floue (îlots + Product) | Claire sur spine ; L4 doit clarifier PA | Plus claire si PA reconstruit |
-| Dette résiduelle | **Haute** (îlots durables) | Moyenne (compat L4, volumes U) | Basse cible ; dette migration |
-| Complexité d'exploitation | Haute (N surfaces) | Moyenne en coexistence | Basse après cutover |
-| Effort de transition | Bas | Moyen–haut | Haut |
-| Risques de rupture | Bas immédiat | Moyen (data/flags) | Haut (PA/REAL/tests) |
-| Compatibilité G0 | Faible (fige Dual-Shell de fait) | **Forte** | Forte **si** borné hors OA ; **faible** si rebuild backbone |
-| Maintenabilité LT | Faible | **Bonne** si L4 réussi | Meilleure si rebuild PA justifié |
-| Confiance preuves | H (status quo) | M–H (T-A01–04) | M (hypothèse rebuild) |
-| Tests/garanties à établir | Couplage flags only | MIG + Attempt parity + SHE dual | + façade PA non-reg + contract tests |
+| T-A01 | `42de13a95c9ca4b103c9192147a4511f4f1df1dd` | extrait → `.tmp-sfia-review/ta06-evidence/handoff-ta01.md` | **AVAILABLE** |
+| T-A02 | `510210231ee3ee82647a2e53b21643e536a677e1` | handoff-ta02.md | **AVAILABLE** |
+| T-A03 | `640f19c1ab9d0952ae877bc5328f6705f77a9474` | handoff-ta03.md | **AVAILABLE** |
+| T-A04 | `6717d0948c2aace3b058a93dcb305e13f60ad801` | handoff-ta04.md | **AVAILABLE** |
+| T-A05 | `1e1930d0e7079403ac9a34b5f3b99f9dd1ddb3cd` | handoff-ta05.md (tip `sfia/review-handoff` pré-T-A06) | **AVAILABLE** |
 
-**Orientation candidate actualisée :** **SC-G2** reste **préférée** — elle aligne G0/OR-13, évite dual-write, et traite SC-G3 comme **option parallèle légitime** pour **A06/A10** (et éventuellement surface A08), **pas** comme simple « plan B si harvest échoue ». SC-G1 = interim opérationnel seulement. **Pas de décision automatique.** **Pas de remplacement OA Backbone sans arbitrage G0.**
+Les worktrees T-A01…T-A05 **n'ont pas été modifiés**. Les documents projet `05`–`09` restent **non intégrés** à la branche documentaire ; les handoffs L3 sont des **preuves d'investigation acceptées avec réserves**, **pas** une architecture adoptée.
 
----
+### 1.3 Fichier livrable
 
-## 8. Recommandation architecturale candidate
-
-1. Conserver **A01/A05/A07/A12** comme spine Product (G0) — **pas** de rebuild OA.
-2. Extraire **A09** (port audit) pour débloquer D1 — gate §13.
-3. Remplacer intake **A03** sous OA + `/studio` (MIG-A design ; ordre writers/readers §12).
-4. Harvest **A04** vers Attempt/Product REAL ports puis archive OPS1 — **Product REAL exclusif seulement après preuves** (§12 L3).
-5. **ADAPT A06** dual-path ; évaluer **SC-G3 ciblé** sur PA/carriers si L4 ADAPT insuffisant (CORR-02) ; **décider A10** sous GO.
-6. **FREEZE A11** (SHADOW OFF) ; retirement gate = **tous** consumers FinOps/tests (§13) ; **CONSOLIDATE A02**.
-7. **Ne pas** élever Synthesis ; **ne pas** dual-write ; **ne pas** rouvrir G0 sans arbitrage explicite.
-
----
-
-## 9. Impacts consommateurs / interfaces
-
-| Zone | Consumers impactés | Interface à migrer |
-| --- | --- | --- |
-| D1 retire | `/workspace`, `/projects`, `/nouvelle-demande`, features/d1 | Commands → OA Project APIs |
-| OPS1 retire | `/ops1`, Ops1SessionScreen, e2e ops1-* | Gate/allowlist/report → Product ports |
-| A09 | VSR type import ; optional `sqliteAuditStore` ; tests `BoundedSqliteLocalProjectCreationAudit` | Product audit port ; default noop retained until GO |
-| A11 | FinOps scripts (`finops-t7-shadow-rollout`) ; compose shadow pilot ; unit/integration tests ; `sandboxContract` re-export path | FinOps transverse if GO ; **not** Product spine |
-| P0 | `/`, not-found, bookmarks U | Redirect `/studio` |
-| Flag | Product DET/REAL safety lit `OPS1_CURSOR_REAL` | Rename/isolate **after** exclusive Product REAL **prouvé** |
-| PA | Studio send API, SHE actions | Stable public actions ; internal consolidate / optional SC-G3 façade |
-
----
-
-## 10. Impacts données / persistance
-
-| Scénario | Données | Règle |
-| --- | --- | --- |
-| MIG-A | d1.sqlite | inventaire → archive read-only → map ids → cutover ; **no dual-write** |
-| MIG-B | ops1.sqlite + worktrees | archive ; quarantine FS ; **no gate→HD** |
-| MIG-C | Proposal/Offer Maps | requalify/HD11 default ; durable carrier only under GO |
-| MIG-D | mission-result FS + Evidence | keep NOT_PROVEN honest ; reconcile orphans candidate |
-| Truth C / Memory B / SYN | inchangés classement | SYN remains NON-AUTHORITATIVE |
-
-Volumes historiques **UNKNOWN** — pas de GO migration sans inventaire.
-
----
-
-## 11. Autorité, sécurité, invariants
-
-| Invariant | Préservation |
+| Élément | Valeur |
 | --- | --- |
-| G0-A/B OA + Product sqlite | KEEP |
-| No dual-write | KEEP |
-| SHE internals HD/Confirm/Authorize | KEEP |
-| Attempt ≠ Evidence ≠ PROVEN | KEEP |
-| Memory B ≠ Truth C | KEEP |
-| Synthesis ≠ Truth C | KEEP |
-| Proposal/Offer ≠ HD | KEEP |
-| Tool-First R2 fail-closed | KEEP until REAL no-write architecture GO |
-| OPS1 gate ≠ OA HD | KEEP |
-| FinOps SHADOW OFF | KEEP |
-| External rollback | **Never promise** without mechanism |
+| Chemin | `projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/10-m4a-critical-architecture-alignment-review.md` |
+| Tracking | **local untracked only** (pas de commit projet) |
+| Autres fichiers projet | **aucun** créé/modifié hors ce livrable + Review Pack temporaire |
 
 ---
 
-## 12. Stratégie de transition par lots (candidate) — CORR-04
+## 2. Sources et niveau de preuve
 
-**Quatre classes de décision (distinctes) :**
-1. **GO Delivery** — décision humaine formelle **obligatoire** avant toute **implémentation** de chaque lot.
-2. **Arbitrage fonctionnel** — MethodMode, carrier, Tool-First, pathPolicy, etc.
-3. **Gate technique** — preuves non-régression / readiness pour passer au lot suivant.
-4. **Retirement gate** — conditions avant suppression d'un composant historique.
+### 2.1 Hiérarchie d'autorité appliquée
+
+1. **Git + preuves primaires** (code, tests, chemins) → AS-IS.
+2. **PRR CURRENT** → comportements documentés (avec DOC DRIFT signalé).
+3. **Décisions adoptées** (G0-A/B, Build Doctrine R23/R24, OR-13) → contraintes.
+4. **TO-BE / registre / T-A01–T-A05** → propositions et orientations **candidates**.
+
+### 2.2 Sources doctrinales lues / appliquées
+
+| Famille | Sources |
+| --- | --- |
+| Méthode SFIA | `sfia-cycle-execution-template` · routing guide · operating model · rules/guardrails · knowledge layer |
+| CKC Architecture | fallback canonique Cycle 6 si CKC non résolu en session |
+| Architecture | Build Doctrine R23/R24 · Convergence Roadmap B-AKG · G0 Architecture & Persistence Decision Pack · AKG README |
+| M4-A pack | `01` AS-IS · `02` TO-BE · `03` registre (OR-13) · `04` assessment |
+| PRR | volumes `01`–`09` (sections pertinentes) |
+| Doctrine v3 | `30`, `32`, `34`, `35`, `37` |
+| Investigations | handoffs T-A01…T-A05 (docs 05–09 embarqués) |
+| Code / tests | preuves citées dans T-A01–T-A05 (SHE, R2, Product sqlite, VSR audit, OPS1 flag, FinOps SHADOW) |
+
+### 2.3 Niveau de preuve global
+
+| Domaine | Niveau | Limite |
+| --- | --- | --- |
+| Cartographie responsabilités AS-IS | **M–H** | dépendances runtime dynamiques PARTIAL |
+| Invariants autorité / Evidence / SHE | **H** (DET) | REAL **NOT PROVEN** |
+| Orientations SC-G* | **M** (analyse) | **non décidées** |
+| Volumes historiques D1/OPS1 | **U–L** | inventaire absent |
+| Cutover / retirement | **M** (design) | **pas** d'exécution |
+| Experience cockpit unique | **L–M** | bookmarks / liens EXTERNAL U |
+
+---
+
+## 3. Résumé exécutif contradictoire
+
+**Verdict de maturité :** T-A01–T-A05 fournissent un socle d'arbitrage Pilote **suffisamment instrumenté**. Ce n'est **pas** une architecture adoptée.
+
+| Affirmation portée par T-A05 | Contre-lecture T-A06 |
+| --- | --- |
+| SC-G2 « préféré candidate » | **Préférence ≠ adoption.** SC-G2 n'est **pas** le défaut opérationnel tant que H7 n'est pas arbitré. |
+| Harvest îlots ⇒ TO-BE | Harvest D1/OPS1 **ne** résout **pas** la fragmentation PA (dual SHE/historical + carriers process-local). SC-G2 **seul** peut figer une « compatibilité permanente ». |
+| SC-G3 = plan B harvest | **Rejeté.** SC-G3 **ciblé** (A06/A10 ± surface A08) est **légitime indépendamment** du harvest (T-A05 CORR-02). |
+| OA KEEP | **Confirmé sous G0.** Rebuild OA / Dual-Shell / dual-write = **arbitrage G0 nouveau** (H6), pas option ordinaire. |
+| Ordre L2 « writers puis readers » | **Acceptable seulement** sous conditions strictes ; sinon crée lectures obsolètes / Dual-Shell UX — voir §9. |
+
+**Ce que T-A06 n'autorise pas :** Delivery GO · M4-A CLOSED · SHADOW ON · REAL PROVEN · Dual-Shell de fait · writers+readers D1/OA simultanés · inventer des réponses Pilote.
+
+**Trajectoire candidate (non décidée) :** SC-G2 **spine** (OA/Nora/Studio + harvest îlots) **+** réserve explicite SC-G3 ciblé PA/carriers si L4 ADAPT ne clarifie pas ownership — **sans** rebuild OA.
+
+**Verdict Critical Cursor (recommandation, non décision) :**
+
+### ARCHITECTURE CANDIDATE READY WITH RESERVES
+
+---
+
+## 4. Confrontation vision produit / AS-IS / TO-BE (CR-01)
+
+### 4.1 Objectifs produit (vision TO-BE `02`)
+
+Un cockpit unique `/studio` · relation conversationnelle continue Pilote ↔ Nora · Nora copilote sans autorité métier · OA backbone Product / Truth C · outils selon intention et permissions · missions sous ExecutionContract · geste SHE unique · boucle résultat → Evidence → ReviewBundle → interprétation → continuité.
+
+### 4.2 Matrice d'écarts
+
+| Domaine | Vision TO-BE | AS-IS (T-A01–04) | Écart critique |
+| --- | --- | --- | --- |
+| Cockpit | `/studio` unique ; `/` → studio | `/` → `/synthese` POC ; D1/OPS1/P0 parallèles | Multi-entrée = Dual-Shell UX de fait |
+| Nora | Cognition + coordination ; ≠ autorité | Memory B OK ; RunState cross-restart **DEFER** | Continuité PARTIAL ; risque B↔C si carriers flous |
+| OA | Truth C unique (G0) | Product SQLite **CONFIRMED** ; SYN même fichier ≠ Truth C | Aligné G0 ; DOC drift si SYN élevée |
+| SHE | Un Exécuter + contrôles internes | SHE + disposition-before-PREPARE **coexistent** | Dual-path = dette « gouvernance invisible » |
+| Evidence | Rapport → preuves → Nora ; pas d'invention | Attempt ≠ Evidence ≠ PROVEN séparés | Aligné doctrine ; narration PA fragmentée |
+| Outils | Capacité sous contrat | Product Attempt ≠ OPS1 adapter | Double chemin REAL jusqu'à exclusivité **prouvée** |
+| Persistance | Vérité non dupliquée | D1/OPS1 islands + process-local + FS non-atomic | Volumes UNKNOWN ; dual-write **interdit** |
+
+### 4.3 Question critique — SC-G2 simplifie-t-elle vraiment ?
+
+**Réponse contradictoire :** SC-G2 **simplifie l'autorité** (un Truth C, retrait d'îlots) mais **peut déplacer** la complexité dans des couches de compatibilité (dual SHE/historical, Maps process-local, ports harvest) si L4 n'est pas traité comme un chantier d'ownership, pas seulement de « nettoyage ».
+
+OR-13 : les dépendances AS-IS (type A09, flag OPS1) sont des **impacts de migration**, pas des motifs de KEEP.
 
 ```mermaid
 flowchart LR
-  L1[L1 Audit port A09] --> L2[L2 Intake→Truth C]
-  L1 --> L3[L3 Cursor harvest OPS1→Attempt]
-  L2 --> L4[L4 Continuity carriers / SHE paths]
-  L3 --> L4
-  L4 --> L5[L5 P0 redirect]
-  L2 --> L6[L6 Archive / FREEZE FinOps]
-  L3 --> L6
+  subgraph VISION["TO-BE vision"]
+    P[Pilote]
+    N[Nora]
+    OA[OA Truth C]
+    SHE[SHE unique]
+    EV[Evidence loop]
+  end
+  subgraph ASIS["AS-IS observé"]
+    P0[P0 /synthese]
+    D1[D1 island]
+    OPS1[OPS1 REAL]
+    PA[PA dual-path]
+    PL[process-local carriers]
+  end
+  VISION -.->|écarts| ASIS
 ```
 
-| Lot | Objectif | Préconditions | Coexistence | Gate technique (suivant) | Retirement gate | GO Delivery | Arbitrage fonctionnel |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| L1 | Extract A09 Product audit port | Port contract + tests design | D1 still live | Type extracted ; optional sqlite path preserved or replaced ; noop default proven | see §13 A09 | **Required** before implement | Aucun arbitrage fonctionnel **supplémentaire** identifié à ce stade (≠ « aucune décision ») |
-| L2 | Intake→OA | L1 done ; inventaire volumes ; MethodMode | D1 RO possible | Writers then readers cutover proven ; **no dual-write** | D1 UI/DB after §12 L2 order | **Required** | MethodMode ; CAP-D1-05 |
-| L3 | OPS1 harvest→Attempt/ports | CAP matrix ; flags plan | OPS1 UI gel | Guards/parity PARTIAL→accepted or closed ; DET non-reg | OPS1 island after exclusive Product REAL **prouvé** | **Required** | Tool-First REAL ; pathPolicy |
-| L4 | Continuity / PA | T-A03 accepted | Dual admission until UX | Restart + SHE non-reg | — | **Required** | Durable carrier Y/N ; SC-G3 PA? |
-| L5 | P0→`/studio` | Link inventory | Temporary redirects | Screens gone ; claims updated | P0 retire | **Required** | Timing Delivery |
-| L6 | Archive / FREEZE A11 | L2–L3 done or abandon | Archive RO | §13 A11 consumers cleared or frozen | Islands archived | **Required** | FinOps activate = GO séparée ; G0 reopen if demanded |
-
-### L2 — ordre proposé writers/readers D1 → OA (design ; adaptable)
-
-1. Inventaire et qualification des données (volumes aujourd'hui **UNKNOWN**).
-2. Mapping d'identifiants + stratégie d'archive.
-3. Tests de migration/conversion **sans effet réel** dans la phase d'analyse/Delivery prep.
-4. Bascule contrôlée des **capacités d'écriture**.
-5. Bascule des **lecteurs**.
-6. Conservation historique en lecture seule si pertinente.
-7. Retrait sous preuve de non-régression.
-
-**Pas de dual-write.** Ordre = proposition, à adapter aux dépendances observées.
-
-### L3 — Product REAL exclusif
-
-Ne **pas** présenter Product REAL comme exclusif avant : harvest CAP matrix, guards Product, tests DET/REAL pertinents, disposition Tool-First, et **GO Delivery**. Flag `OPS1_CURSOR_REAL` ≠ preuve d'appel adaptateur ; exclusivité = **après** preuves.
-
-**Pas de big bang.** Pas de micro-refactor qui fige l'incohérence.
-
 ---
 
-## 13. Tests, succès, retirement gates — CORR-03
+## 5. Comparaison approfondie SC-G1 / SC-G2 / SC-G3 (CR-02)
 
-| Domaine | Tests existants (ex.) | Manquants / à exiger avant retire |
-| --- | --- | --- |
-| SHE / HD | `p6.she.*`, HD11 | Dual-path UX non-reg after consolidate |
-| D1 | ~17 unit + e2e D1 | Product intake parity ; migration verify |
-| OPS1 | `__tests__/ops1`, e2e ops1-* | Attempt/REAL equivalent guards |
-| Tool-First | R1/R2 DET | REAL no-write if GO chooses sandbox |
-| Evidence | materializeW3b / ingest | Orphan FS reconcile |
-| P0 | POC e2e | Redirect + bookmark survey |
-| A09 audit | `localProjectComposition` ; t-a7 persistence tests | Port contract tests ; noop default ; optional sqlite path |
-| A11 FinOps | t7 shadow unit/integration ; rollout script | Consumer inventory complete ; SHADOW stays OFF |
-
-### A09 — Retirement gate (insuffisant : « plus d'import de type »)
-
-1. Contrat de type extrait hors `lib/d1` (Product audit port).
-2. Chemin optionnel `auditMode=sqlite` + `sqliteAuditStore` **traité** (porté, remplacé, ou retiré avec preuve) — default reste **noop** (`service.ts` L106–110, L758).
-3. Consommateurs identifiés : VSR `resolveAudit` / `BoundedSqliteLocalProjectCreationAudit` ; tests qui injectent `BoundedAtomicAuditStore` ; platform t-a7 si applicable.
-4. Tests de comportement + non-régression (noop + sqlite injecté).
-5. Suppression des dépendances D1 **restantes** (type **et** runtime optionnel) **avant** retrait de la capacité audit ou de `lib/d1` packaging.
-6. **Injection possible ≠ activation effective** — ne pas traiter l'option sqlite comme toujours on.
-
-### A11 — Retirement gate (insuffisant : « pas dans Product Spine »)
-
-1. Inventaire consumers : `composeExecutionRunD2D3T7ShadowPilot`, `composeFinOpsT7ShadowExecutionDeps`, `scripts/finops-t7-shadow-rollout.ts`, tests `__tests__/oa/finops/**`, re-export `sandboxContract` depuis execution-run domain.
-2. FREEZE : pas d'activation SHADOW par composition seule ; SHADOW **OFF** jusqu'à GO FinOps distinct.
-3. Ne **pas** promouvoir execution-run comme moteur Product alternatif.
-4. Retrait seulement si : consumers FinOps/shadow/tests migrés, gelés, ou abandonnés **documentés** ; pas seulement « absent de VSR service.ts ».
-5. Preuves : importBoundaries PA forbids execution-run ; FinOps tests remain coherent with OFF.
-
-**Retirement gate générique :** capacité préservée **ou** abandon documenté · consumers cutover · tests remplacés · authority/security non-regress · archive policy · **pas** de dual-write résiduel.
-
-**Rollback :** app/config revert possible ; data restore from backup ; **external Cursor effects not compensable** without demonstrated mechanism.
-
----
-
-## 14. Arbitrages humains requis
-
-| ID | Classe | Question | Si différé |
+| Critère | SC-G1 — Conservation contrôlée | SC-G2 — Consolidation sélective | SC-G3 — Reconstruction ciblée |
 | --- | --- | --- | --- |
-| H0 | **GO Delivery** | Autoriser l'implémentation d'un lot L1–L6 ? | Aucun lot n'est implémentable sans GO |
-| H1 | Fonctionnel | MethodMode → Product model ? | Ne pas importer silencieusement |
-| H2 | Fonctionnel | Tool-First REAL no-write architecture ? | Garder gate fail-closed OPEN |
-| H3 | Fonctionnel | Durable PresentedSubject carrier ? | Prefer requalify/HD11 only |
-| H4 | Fonctionnel / prérequis | Inventaire volumes D1/OPS1 avant migrate ? | Bloquer Delivery migration |
-| H5 | Fonctionnel | pathPolicy enforcement on Attempt ? | Keep PARTIAL ; instruct separately |
-| H6 | Gouvernance | Reopen G0 (dual-write / Dual-Shell / rebuild OA) ? | **Refuse** as ordinary option |
-| H7 | Orientation | Accept SC-G2 (vs SC-G3 ciblé PA) after T-A06 ? | Remain candidate |
-| H8 | Fonctionnel | SC-G3 ciblé A06/A10 indépendamment du harvest ? | Traiter en T-A06 ; ne pas subordonner au seul échec harvest |
+| Intention | Figer multi-surfaces | Harvest îlots → spine G0 ; ADAPT PA | REBUILD façade orchestration / continuity |
+| Cockpit | Multi | Unique après L2/L5 | Unique + ownership clair |
+| OA / G0 | Menacé (Dual-Shell de fait) | **Préservé** | Préservé **si** borné hors OA |
+| Dual-write | Tentation élevée | **Interdit** | Interdit |
+| Dette PA | Haute | **Moyenne–haute** si L4 échoue | Basse cible ; coût tests ↑ |
+| Effort | Bas court terme | Moyen–haut | Haut (PA ~160 tests + REAL) |
+| Preuves | Status quo | T-A01–04 M–H | Hypothèse rebuild M |
 
----
+### 5.1 KEEP rationnel malgré SC-G2
 
-## 15. Gaps et réserves
-
-| Gap | Impact |
+| Zone | Pourquoi KEEP peut rester rationnel |
 | --- | --- |
-| REAL E2E generic | No REAL PROVEN |
-| TOOL-FIRST-REAL-NOWRITE | Gate ≠ sandbox |
-| RunState cross-restart DEFER | Cognitive continuity partial |
-| D1/OPS1 volumes UNKNOWN | Migration cost unscaled |
-| FS↔SQLite Evidence non-atomic | Orphan risk |
-| Dynamic callers PARTIAL | Matrix not 100% |
-| PRR 06 / Synthesis DOC drift | Authority class must stay explicit |
-| Bookmark inventory P0 | NEEDS EVIDENCE |
-| A09 optional sqlite path consumers | Need full composition inventory before retire |
-| A11 FinOps consumer completeness | Scripts+tests+re-exports must be gated |
-| SC-G3 PA rebuild scope | Evidence for/against independent of harvest still qualitative |
+| OA Truth C / Product Store | G0-A/B adoptés ; rebuild = H6 |
+| Nora Memory B (bornée) | Cognition sans autorité ; pas Truth C |
+| SHE objet + contrôles HD internes | Aligné TO-BE « un clic » ; ne pas supprimer HD |
+| Product Cursor Attempt gateway | Candidat d'exclusivité REAL ; pas OPS1 |
+
+### 5.2 Risque SC-G2 — couches transitoires permanentes
+
+Après retire D1/OPS1, restent : SHE + historical PREPARE, offer/proposal Maps, W3C loops, ownership PA↔Nora↔OA flou. Harvest **ne** reconstruit **pas** une façade d'orchestration unique.
+
+### 5.3 SC-G3 indépendant du harvest
+
+SC-G3 peut viser une façade PA ou un mécanisme carriers **sans** reconstruire OA Truth C. Légitime lorsque :
+
+- L4 ADAPT ne produit pas une ownership PA unique lisible ;
+- continuity carriers restent PROCESS-LOCAL avec faux claims d'autorité ;
+- TO-BE « un Exécuter / mission » reste opaque pour le Pilote ;
+- harvest OPS1 ports OK mais UX/autorité incompréhensible.
+
+**Anti-SC-G3 abusif :** rebuild OA · Dual-Shell · tabula rasa OPS1 sans matrice CAP · delete HD « pour simplifier ».
 
 ---
 
-## 16. Préparation T-A06
+## 6. Options combinées et responsabilités cibles (CR-02 suite)
 
-T-A06 doit :
+### 6.1 Conditions d'arbitrage
 
-1. Revue contradictoire SC-G2 vs SC-G1/SC-G3 **avec** SC-G3 évalué indépendamment du harvest (CORR-02).
-2. Vérifier alignement TO-BE + doctrine v3 sans adopter runtime.
-3. Challenger chaque option privilégiée A01–A12.
-4. Lister décisions Morris bloquantes H0–H8 (GO Delivery vs arbitrages fonctionnels).
-5. Vérifier retirement gates A09/A11.
-6. **Ne pas** clore M4-A sans arbitrage explicite.
-7. **Ne pas** consommer GO Delivery/M5.
-
----
-
-## 17. Conditions de sortie M4-A
-
-| Condition | État |
+| Condition | Orientation candidate |
 | --- | --- |
-| T-A01–T-A04 | Acceptés (handoffs) |
-| T-A05 impact pack | **LOCAL CANDIDATE** + Correction Pass 01 (ce document) |
-| T-A06 Critical contradictoire | **NON** |
-| Arbitrage Pilote SC-G* / H0–H8 | **NON** |
-| M4-A CLOSED | **NON** |
-| Delivery / M5 | **NON AUTORISÉ** |
+| Besoin immédiat = retirer Dual-Shell UX/Truth/Exec sans rebuild OA | **SC-G2 spine** |
+| PA dual-path structurellement opaque après design L4 | **SC-G2 + SC-G3 ciblé A06/A10** |
+| Aucun harvest possible / volumes bloquants long terme | SC-G1 interim **seulement** + inventaire ; pas adoption |
+| Demande de Dual-write / Dual-Shell / rebuild OA | **Refuser** hors H6 G0 reopen |
 
----
+### 6.2 Répartition candidate des responsabilités
 
-## 18. Traçabilité SFIA / R23-R24 / OR-13 / G0
-
-| Règle | Application |
-| --- | --- |
-| R23 | Analysis only ; no Delivery |
-| R24 | **NO PRODUCT SEMANTIC IMPACT** |
-| OR-13 | Capability-first ; KEEP not by inertia ; REBUILD only if better architecture ; SC-G3 possible sans échec harvest |
-| G0-A/B | OA backbone + Product sqlite ; harvest OPS1 Cursor ; **no dual-write** ; no implicit OA rebuild |
-| Fake-Real | DET ≠ REAL ; SHADOW NOT ACTIVATED |
-
----
-
-## 19. Correction Pass 01 — fermeture
-
-| ID | Sujet | Verdict |
+| Responsabilité | Owner candidat | Scénario |
 | --- | --- | --- |
-| CORR-01 | §3.2 graphe AS-IS + table arêtes typées (TYPE_ONLY / CONFIG_FLAG / UX) | **PASS** |
-| CORR-02 | §7 comparaison SC-G3 indépendante du harvest ; SC-G2 reste préféré candidate | **PASS** |
-| CORR-03 | §13 gates A09 (type+optional+consumers) et A11 (FinOps/shadow consumers) | **PASS** |
-| CORR-04 | §12 GO Delivery vs arbitrage vs gates ; L1/L2/L3 clarifiés | **PASS** |
+| Truth C projets / contrats / Evidence | OA Product SQLite | SC-G2 KEEP |
+| Cognition / Memory B | Nora | SC-G2 KEEP/ADAPT |
+| Cockpit UX | `/studio` | SC-G2 CONSOLIDATE |
+| Orchestration mission / SHE surface | PA (ADAPT) ou façade SC-G3 | SC-G2 **ou** SC-G2+G3 |
+| Continuity carriers | Requalify / HD11 défaut ; rebuild sous GO | H3 |
+| Cursor REAL exclusif | Product Attempt + R2 | SC-G2 L3 après preuves |
+| Intake projets | OA + `/studio` | SC-G2 MIG-A |
+| Audit injecté | Port hors `lib/d1` | L1 avant L2 |
+
+```mermaid
+flowchart TB
+  subgraph SPINE["SC-G2 spine candidate"]
+    Studio["/studio"]
+    Nora2[Nora Memory B]
+    OA2[OA Truth C]
+    Prod[Product Attempt]
+  end
+  subgraph TARGET["SC-G3 ciblé candidate"]
+    PA3[PA façade unique]
+    CAR[carriers rebuild optional]
+  end
+  subgraph ISLANDS["Harvest / retire"]
+    D1r[D1]
+    OPS1r[OPS1]
+    P0r[P0]
+  end
+  Studio --> Nora2 --> OA2
+  Studio --> PA3
+  PA3 --> OA2
+  PA3 --> Prod
+  CAR -.-> PA3
+  D1r -.->|MIG-A no dual-write| OA2
+  OPS1r -.->|harvest CAP| Prod
+  P0r -.->|redirect| Studio
+```
 
 ---
 
-END — `AKG-M4-A / T-A05` — LOCAL CANDIDATE IMPACT PACK (Correction Pass 01 · SC-G2 preferred candidate)
+## 7. Matrice critique A01–A12 (CR-03)
+
+Pour chaque actif : capacité conservée · responsabilité cible · implantation candidate · redondance · couplages · alternative · coût résiduel · risque non-régression · preuves · décision humaine.
+
+| ID | Capacité | Cible | Implant. | Redondance | Couplages | Alternative | Coût résiduel | Non-reg | Preuves | Décision humaine |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| A01 Studio | Cockpit | KEEP/ADAPT | `/studio` | Faible vs P0 | routes, send API | — | Faible | UI e2e | M | H0 L5 |
+| A02 P0 | Entrée POC | CONSOLIDATE→RETIRE | redirect `/studio` | **Oui** vs A01 | bookmarks U | KEEP interim | Liens externes | redirect e2e | L–M | Inventaire liens |
+| A03 D1 | Intake projects | HARVEST+REPLACE | OA Project | **Oui** Truth path | A09, IDs `proj-*` | KEEP island | Volumes U | create tests | M + U vol. | **H1 H4** |
+| A04 OPS1 | Cursor REAL | HARVEST+REBUILD+RETIRE | Product Attempt | **Oui** Exec | flag, pathPolicy | KEEP dual | Parity PARTIAL | REAL DET | M | **H0 H2 H5** |
+| A05 OA | Truth C | KEEP/ADAPT | Product sqlite | Non (autorité) | SYN, Evidence | rebuild = Dual-Shell | Complexité | G0 pack | H | **H6 refuse** défaut |
+| A06 PA | Orchestration | ADAPT/CONSOLIDATE | project-assistant | Dual SHE/hist. | F2/W2/W3C/A10 | **SC-G3 façade** | Ownership blur | ~160 tests | H | **H7 H8** |
+| A07 Nora | Cognition | KEEP/ADAPT | Memory B | Non si bornée | session, RunState | — | DEFER restart | session tests | M | Boundary B≠C |
+| A08 VSR | Composition | KEEP/ADAPT | service compose | Faible | A09 type | — | Couplage audit | TYPE_ONLY | M | Après port A09 |
+| A09 Audit | Inject audit | HARVEST port | hors `lib/d1` | Bloque D1 retire | D1, VSR, tests | KEEP in D1 | Optional sqlite | consumers | M | Gate L1 |
+| A10 Carriers | Continuity PREPARE | ADAPT/REBUILD | Maps / HD11 | Soft Dual-Shell | PA, Truth C | Promote→2e vérité | Restart loss | process-local | M | **H3** |
+| A11 FinOps | Shadow costing | FREEZE | hors spine | 3e moteur si promote | scripts/tests | Activate SHADOW | Consumers large | SHADOW OFF | H OFF | Gate consumers |
+| A12 Product Cursor | Attempt/R2 | KEEP/ADAPT | gateway | vs A04 | Tool-First OPEN | Import OPS1 adapter | REAL NOT PROVEN | DET only | M–H | **H2** ; exclusivity GO |
+
+### 7.1 Anti Dual-Shell — risques involontaires
+
+| Risque | Comment il apparaît | Contre-mesure candidate |
+| --- | --- | --- |
+| Second moteur de décisions | Gate OPS1 mappé en HD ; carrier autoritatif | OPS1≠HD ; H3 requalify |
+| Seconde vérité métier | Dual-write D1/OA ; SYN élevée | Interdit dual-write ; SYN NON-AUTH |
+| Second moteur Exec Product | OPS1 + Product REAL simultanés | L3 exclusif **prouvé** |
+| Couche orchestration relais | SC-G2 « façade » qui appelle encore dual-path | L4 ownership ou SC-G3 |
+| Duplication SHE/historique | Conservation permanente des deux paths | Consolidate sous GO L4 |
+| Carriers de facto autoritatifs | Promote Maps sans HD | Défaut requalify/HD11 |
+
+Le **nombre de modules** n'est pas un critère de qualité. Une consolidation qui ajoute une couche de relais **aggrave** Dual-Shell soft.
+
+---
+
+## 8. Autorité, sécurité et invariants (CR-04)
+
+| Invariant | Statut preuve | Note Critical |
+| --- | --- | --- |
+| Pilote = autorité humaine | **Doctrine + SHE path** | UX Inspect distinct de server attest |
+| PREPARE inspectable ≠ autorisation | **CONFIRMED** | Disposition-before-PREPARE ≠ SHE |
+| SHE = un clic ; HD/Confirm/Authorize **conservés** | **CONFIRMED** S02 | Ne pas « simplifier » en les supprimant |
+| Version + fingerprint contrat | **CONFIRMED** (DET) | REAL non prouvé |
+| Attempt ≠ Evidence ≠ ContractResult PROVEN | **CONFIRMED** S05 | Attempt `succeeded` + Evidence manquante / NOT_PROVEN **possible** |
+| R2 Tool-First fail-closed ≠ sandbox REAL no-write | **OPEN GAP** | Ne pas revendiquer sandbox |
+| OPS1 Gate ≠ HumanDecision OA | **CONFIRMED** | Pas de map |
+| Synthesis NON-AUTHORITATIVE | **CONFIRMED** code | Même fichier SQLite ≠ Truth C |
+| Memory B ≠ Truth C | **CONFIRMED** paths | Path drift orphans |
+| FinOps SHADOW non activé | **CONFIRMED** | compose ≠ activate |
+| Exclusive Product REAL | **NOT PROVEN** | Flag ≠ exclusivity |
+| External rollback | **ABSENT** | Ne jamais promettre |
+
+**Invariants insuffisamment prouvés pour transformation/retrait :** exclusivité REAL Product · volumes D1 · MethodMode import · Tool-First no-write sandbox · bookmarks P0 · atomicité FS/SQLite Evidence · RunState cross-restart.
+
+**Ne pas déclarer un comportement REAL garanti sur la base de tests déterministes.**
+
+---
+
+## 9. Persistance et risque de cutover D1 (CR-05)
+
+### 9.1 Challenge obligatoire — writers avant readers
+
+T-A05 L2 propose : bascule des **writers** avant les **readers**.
+
+| Risque si ordre appliqué sans garde-fous | Mécanisme | Effet |
+| --- | --- | --- |
+| Lectures obsolètes | Writers OA actifs + readers D1 | Pilot voit projets fantômes / IDs divergents |
+| Écritures vers IDs divergents | `proj-*` D1 ≠ IDs OA | Split-brain sessions/projets |
+| Incohérence sessions ↔ projets | Memory B / session pointe ancien id | Orphans ; reprise fragile |
+| Erreurs d'idempotence | Double create sous deux stores | Doublons métier |
+| Rupture reprise incident | Cutover partiel + restart | État non rejouable |
+
+**Conditions où writers-then-readers est acceptable :**
+
+1. Inventaire volumes **connu** (H4) et MethodMode arbitré (H1).
+2. A09 port **PASS** (retire D1 non bloqué).
+3. Fenêtre où **aucun** reader D1 n'est exposé aux nouveaux writers OA **sans** mapping id vérifié — ou readers gelés.
+4. Tests identity / non-doublon / no dual-write **PASS**.
+5. GO Delivery lot L2 (H0).
+
+**Sinon :** préférer un pattern alternatif ci-dessous.
+
+### 9.2 Alternatives de transition (aucune = dual-write)
+
+| Pattern | Idée | Quand préférer | Coût |
+| --- | --- | --- | --- |
+| **Freeze + coordinated** | Gel écritures D1 → migrate batch → ouvrir writers OA → bascule readers → RO archive | Volumes connus ; fenêtre contrôlée | Discipline ops |
+| **Route cohorts** | Cohortes URL/utilisateur vers `/studio` ; D1 RO pour non-migrés | Bookmarks / coexistence UX | Complexité routing |
+| **Migrate-then-open** | Convertir archive **avant** tout writer OA intake ; ouvrir Product write post-verify IDs | Identités critiques | Prep plus long |
+| **RO archive** | D1 lecture historique seule ; **tous** writers Product dès GO | Capacité intake déjà Product | Perte features D1-only |
+
+**Interdit :** double écriture D1/OA · silent ID merge · gate OPS1→HD · Synthesis→Truth C.
+
+### 9.3 Autres challenges de persistance
+
+| Sujet | Challenge |
+| --- | --- |
+| Volumes historiques | UNKNOWN → migration aveugle = BLOCKER DELIVERY |
+| Mapping identifiants | Obligatoire avant readers cutover |
+| Données OPS1 / worktrees | Rétention / archivage sous GO ; pas delete silencieux |
+| Atomicité fichiers / SQLite | Evidence FS ↔ DB non-atomic = FOLLOW-UP ; ne pas promettre cohérence transactionnelle absente |
+| RunState cross-restart | DEFER ; ne pas bâtir cutover dessus |
+| Carriers process-local | Perdus au restart ; ≠ Truth C |
+| Projections Synthesis | NON-AUTH ; ne jamais migrer comme vérité |
+
+```mermaid
+sequenceDiagram
+  participant Pilote
+  participant D1 as D1 island
+  participant OA as OA Truth C
+  Note over D1,OA: INTERDIT: dual-write
+  alt Freeze+coordinated candidate
+    Pilote->>D1: freeze writers
+    D1->>OA: migrate+verify IDs
+    Pilote->>OA: open writers
+    Pilote->>D1: readers→RO archive
+  else Writers-then-readers ONLY if gates PASS
+    Pilote->>OA: writers OA
+    Note right of D1: readers gelés ou mappés
+    Pilote->>D1: cutover readers
+  end
+```
+
+---
+
+## 10. Retirement gates (CR-06)
+
+| Composant | Éléments exigibles avant retrait |
+| --- | --- |
+| **D1** | Inventaire CAP · consommateurs · transfert intake→OA · comportement équivalent ou abandon doc · sécurité/autorité · tests remplacés · données archivées · routes migrées · restart/idempotence · proof pack · décision retrait explicite · **A09 extrait** · cutover sans dual-write |
+| **OPS1** | Matrice CAP harvest · guards Attempt/parity · Product REAL **exclusif prouvé** · disposition `OPS1_CURSOR_REAL` · tests remplacés · worktrees/rétention · **pas** retire-on-tests-gone |
+| **P0** | Inventory liens/bookmarks · `/`→`/studio` · claims fixture retirés · e2e redirect · décision |
+| **A09** | **Type** hors `lib/d1` · audit injecté conditionnel traité · optional sqlite path · consumers/tests · noop default · injection ≠ activation |
+| **A11** | **Tous** consumers FinOps / shadow / scripts / tests / re-exports · SHADOW OFF · pas promote spine · « absent VSR » **insuffisant** |
+| **A12 exclusivity** | Harvest + DET/REAL non-reg + Tool-First disposition + **GO** — flag seul ≠ preuve ; **ne jamais** revendiquer Product REAL exclusif avant preuves |
+
+---
+
+## 11. Registre de risques et blockers (CR-07)
+
+| ID | Risque | Classe | Conséquences |
+| --- | --- | --- | --- |
+| R-ARCH-01 | SC-G2 adopté sans réserve SC-G3 → PA Dual-Shell soft | **BLOCKER ARCHITECTURE DECISION** | Empêche arbitrage H7/H8 fiable |
+| R-ARCH-02 | Dual-write / Dual-Shell / rebuild OA comme « facilité » | **BLOCKER ARCHITECTURE DECISION** | Contredit G0 ; H6 |
+| R-EXIT-01 | M4-A CLOSED sans arbitrage SC-G* / H0–H8 | **BLOCKER M4-A EXIT** | Clôture formelle illégitime |
+| R-EXIT-02 | Classifications A01–A12 traitées comme définitives | **BLOCKER M4-A EXIT** | Fige options candidates |
+| R-DEL-01 | Implémentation L1–L6 sans GO Delivery | **BLOCKER DELIVERY** | Transformation non autorisée |
+| R-DEL-02 | Migration D1 sans inventaire volumes | **BLOCKER DELIVERY** | Perte / doublons |
+| R-DEL-03 | Product REAL « exclusif » avant preuves | **BLOCKER DELIVERY** | Faux COMPLETE |
+| R-PROOF-01 | REAL E2E / P6 GLOBAL | **BLOCKER REAL PROOF** | N'empêche pas arbitrage design |
+| R-PROOF-02 | Tool-First REAL no-write = sandbox (si claim) | **BLOCKER REAL PROOF** | Claim faux |
+| R-PROOF-03 | SHADOW ON par composition | **BLOCKER REAL PROOF** / FinOps | Activation illicit |
+| R-HARD-01 | FS↔SQLite Evidence non-atomic | **FOLLOW-UP HARDENING** | Pas blocker architecture immédiat |
+| R-HARD-02 | RunState DEFER ; retention session/OPS1 | **FOLLOW-UP HARDENING** | |
+| R-HARD-03 | pathPolicy Attempt PARTIAL | **FOLLOW-UP HARDENING** | Instruct séparément (H5) |
+| R-DOC-01 | PRR06 / SYN authority class | **DOC DRIFT** | Régularisation doc |
+| R-DOC-02 | pre-m6 / vertical-slice naming | **DOC DRIFT** | |
+
+**Règle :** ne pas imposer de fermer toutes les lacunes REAL pour autoriser la fin d'une investigation architecturale, **sauf** si elles rendent impossible un arbitrage de conception. Ici R-PROOF-* **n'empêchent pas** l'arbitrage SC-G* ; ils **empêchent** Delivery REAL claims.
+
+---
+
+## 12. Registre des décisions humaines H0–H8 (CR-07 suite)
+
+*Aucune réponse Pilote inventée.*
+
+| ID | Question | Options | Implications | Recommandation candidate (analyse) | Preuves | Si différé |
+| --- | --- | --- | --- | --- | --- | --- |
+| **H0** | GO Delivery par lot | GO / refuse / différer | Sans GO : **zéro** implémentation L* | **Refuse** jusqu'à arbitrage SC-G* + gates | Lots L1–L6 design | Lots restent design-only |
+| **H1** | MethodMode | Import OA / abandon / inventaire besoin | Import silencieux = doctrine creep | **Ne pas importer** sans GO | CAP-D1 | Bloque sémantique MIG-A |
+| **H2** | Tool-First REAL no-write | Architecture sandbox / garder fail-closed OPEN | Claim sandbox sans preuve = faux COMPLETE | **Garder gate OPEN** | R2 code | REAL pathless fail-closed |
+| **H3** | Durable carrier | Requalify-only / PresentedSubject GO | Carrier→autorité = 2e vérité | **Défaut requalify/HD11** | T-A03 | Continuity UX process-local |
+| **H4** | Volumes historiques | Inventaire avant migrate / migrer aveugle | Aveugle = R-DEL-02 | **Inventaire requis** avant L2 | Volumes U | Migration blocked |
+| **H5** | pathPolicy Attempt | Enforce now / instruct later | PARTIAL aujourd'hui | **Instruct séparément** | Parity PARTIAL | Parity reste PARTIAL |
+| **H6** | Reopen G0 | Dual-write / Dual-Shell / rebuild OA / **refuse** | Contredit pack ADOPTED | **Refuse** option ordinaire | G0 pack | G0 hold |
+| **H7** | Orientation SC-G2 / SC-G3 | SC-G2 / SC-G2+SC-G3 ciblé / SC-G1 interim | Adoption = trajectoire M4-A exit | **SC-G2 candidate + réserve SC-G3** (pas auto) | CORR-02 | Reste preferred-candidate only |
+| **H8** | SC-G3 PA indépendant harvest | Oui scoped A06/A10 / non / différer | Non ⇒ fragmentation post-îlots | **Oui comme option parallèle** à instruire en L4 | A06 matrix | Traité au GO L4 |
+
+---
+
+## 13. Recommandation architecturale candidate (CR-08)
+
+### 13.1 Cohérence de la cible
+
+La vision TO-BE (cockpit, Nora, OA, SHE, Evidence) est **cohérente avec G0/OR-13**. L'AS-IS multi-îlots **contredit** cette cohérence opérationnelle. SC-G2 est la **meilleure orientation candidate** pour l'autorité unique ; elle **n'est pas suffisante seule** pour garantir une orchestration PA compréhensible.
+
+### 13.2 Responsabilités restantes à clarifier
+
+- Ownership PA (SHE vs historical) — H7/H8.
+- Carrier continuity vs Truth C — H3.
+- Cutover D1 pattern exact — H4 + §9.
+- Exclusivité Product REAL — preuves + H0/H2.
+
+### 13.3 Garanties réellement préservées (si trajectoire candidate suivie)
+
+G0-A/B · no dual-write · SYN≠Truth C · Memory B≠Truth C · SHE≠vanished HD · Attempt≠Evidence≠PROVEN · OPS1≠HD · SHADOW OFF · DET≠REAL.
+
+### 13.4 Meilleure trajectoire candidate
+
+1. Conserver spine G0 : A01 / A05 / A07 / A12 (+ A08).
+2. SC-G2 pour îlots : A09→A03 MIG-A ; A04→A12 harvest ; A02 consolidate ; A11 FREEZE OFF.
+3. Réserver SC-G3 ciblé A06/A10 si L4 ADAPT insuffisant — **sans** rebuild OA.
+4. Cutover D1 via freeze/cohorts/migrate-then-open/RO archive — **never dual-write** ; writers-then-readers **seulement** si gates §9.1.
+5. Retirement gates §10 avant tout RETIRE.
+6. H0–H8 avant Delivery ; M4-A exit seulement après arbitrage explicite.
+
+### 13.5 Arguments favorables SC-G2
+
+- Aligne G0 / OR-13 / Truth C unique.
+- Évite dual-write et Dual-Shell Truth/Exec.
+- Harvest D1/OPS1 instrumenté par T-A01–T-A04.
+- Coût inférieur à rebuild global.
+
+### 13.6 Arguments contradictoires
+
+- SC-G2 peut figer dual-path PA comme « dette temporaire permanente ».
+- Writers-then-readers sans inventaire = Dual-Shell UX.
+- REAL exclusivity et Tool-First sandbox **non prouvés**.
+- SC-G3 ciblé peut être **nécessaire** même si harvest réussit.
+- Classifications A* restent **candidates**.
+
+---
+
+## 14. Corrections documentaires à prévoir
+
+| Cible | Correction candidate | Classe |
+| --- | --- | --- |
+| TO-BE `02` | Clarifier que SC-G2 n'implique pas ownership PA automatique ; mentionner option SC-G3 ciblé | DOC / arbitrage |
+| Registre `03` | Distinguer BLOCKER ARCHITECTURE vs DELIVERY vs REAL | DOC |
+| Impact pack T-A05 | Remplacer formulation L2 writers/readers « implicite OK » par conditions §9.1 | DOC DRIFT design |
+| PRR06 | SYN authority class NON-AUTH explicite | DOC DRIFT |
+| Naming pre-m6 / vertical-slice | Alignement vocabulaire v3 | DOC DRIFT |
+
+**Interdit dans T-A06 :** modifier G0, PRR, Build Doctrine, Roadmap, TO-BE ou registre (corrections = **à prévoir**, non appliquées ici).
+
+---
+
+## 15. Readiness M4-A et conditions de sortie
+
+### 15.1 Verdict
+
+| Verdict possible | Choix T-A06 |
+| --- | --- |
+| ARCHITECTURE CANDIDATE READY FOR PILOTE ARBITRATION | Partiel — pack **arbitrable**, mais réserves structurantes |
+| **ARCHITECTURE CANDIDATE READY WITH RESERVES** | **OUI** |
+| ARCHITECTURE NOT READY — FURTHER INVESTIGATION REQUIRED | Non forcé — graphe/CAP/sequences/storage/impact présents |
+
+### 15.2 Conditions de clôture M4-A **non satisfaites**
+
+1. Arbitrage Pilote H7 (SC-G2 / combinaison / SC-G3).
+2. Traitement explicite H0–H8 (même si plusieurs = « différé documenté »).
+3. Intégration documentaire `05`–`10` (ou décision de ne pas intégrer) — hors scope T-A06 commit.
+4. Absence de confusion handoff L3 ≠ architecture adoptée.
+5. **M4-A NON CLOSED** jusqu'à décision Pilote post-review ChatGPT.
+
+### 15.3 Informations encore nécessaires à l'arbitrage Pilote
+
+- Confirmation orientation SC-G* (H7/H8).
+- Inventaire volumes ou décision de geler L2 (H4).
+- Position MethodMode (H1) et carrier (H3).
+- Acceptation des retirement gates A09/A11 comme préconditions non négociables.
+
+---
+
+## 16. Frontière entre arbitrage M4-A et GO Delivery
+
+| Niveau | Contenu | Autorise |
+| --- | --- | --- |
+| **Arbitrage M4-A** | SC-G* · classifications A* · H1–H8 design · corrections doc | Clôture investigation / orientation |
+| **GO Delivery (par lot)** | H0 sur L1…L6 · proof packs · cutover exécutable | Implémentation / migration / retire |
+| **GO REAL / P6** | Preuves REAL · Tool-First · exclusivity | Claims REAL / P6 GLOBAL |
+| **FinOps** | Activation SHADOW | SHADOW ON (séparé) |
+
+T-A06 prépare l'arbitrage architectural ; **il n'autorise** ni clôture automatique M4-A, ni adoption SC-G2/SC-G3, ni Delivery/M5.
+
+---
+
+## 17. Conclusion Critical
+
+La trajectoire de rationalisation est **globalement cohérente** avec la vision produit et G0, **sous réserve** que SC-G2 ne soit pas adoptée comme simplisme qui déplace la dette PA, et que le cutover D1 ne laisse **aucune** fenêtre de lecture obsolète implicitement acceptable.
+
+**Orientation candidate :** SC-G2 spine + réserve SC-G3 ciblé PA/carriers · G0 préservé · no dual-write · REAL/SHADOW non revendiqués.
+
+### ARCHITECTURE CANDIDATE READY WITH RESERVES
+
+M4-A **NON CLOSED** · Delivery / M5 **NOT AUTHORIZED** · SC-G2 **candidate only** · G0 **preserved**.
+
+R24 : **NO PRODUCT SEMANTIC IMPACT** (documentation / analyse uniquement).
+
+---
+
+## 18. Traçabilité SFIA / R23 / R24 / G0 / OR-13
+
+| Référentiel | Application T-A06 |
+| --- | --- |
+| SFIA v2.6 Cycle 6 Critical | Revue contradictoire indépendante · Full Review Pack · handoff L3 |
+| R23 | Preuves primaires Git/code pour AS-IS ; pas d'adoption sur handoff seul |
+| R24 | Aucun impact sémantique produit runtime |
+| G0-A/B | OA Native + Product sqlite ; harvest OPS1 ; **no dual-write** |
+| OR-13 | Capacités/garanties métiers > implémentations historiques **ou récentes** |
+| M4 `01`–`04` | AS-IS/TO-BE/registre/assessment comme propositions |
+| T-A01…T-A05 | Inputs immuables ; réserves ChatGPT conservées |
+| Non-claims | SC-G* non adoptés · M4-A ouvert · pas de GO Delivery |
+
+---
+
+*Fin du document `10` — AKG-M4-A / T-A06 — LOCAL CANDIDATE — Critical Contradictory Review.*
