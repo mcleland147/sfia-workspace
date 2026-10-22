@@ -33,6 +33,10 @@ Les acquis AKG-M0 à M3 sont répartis entre la Build Doctrine, la Roadmap, la P
 - **OR-13 / capability-first :** conserver les capacités/garanties et considérer la reconstruction d'implémentations, même encore consommées ; dépendance AS-IS ≠ justification de KEEP.
 - **Statut d'authoring :** cette actualisation est **candidate sur branche documentaire** tant qu'une PR/merge distincts n'ont pas été vérifiés. Aucun code runtime, DB, API ou chemin protégé modifié dans le produit. **AKG-M4 ≠ AKG-M5 ; classification ≠ GO Delivery.**
 
+## Lot AKG-M4-A — analyse démarrée
+
+**[04 — M4-A : responsabilités, consommateurs et scénarios de reconstruction](m4-rationalization/04-m4a-runtime-responsibilities-and-transition-assessment.md)** — première cartographie code/PRR, douze actifs identifiés, trois scénarios à comparer (D1 intake, OPS1 Cursor, Nora/Project Assistant) et investigations restantes. **Candidat documentaire ; M4-A non clos.**
+
 ## Mode de consultation dans les futurs travaux
 
 **Source routing (proportionné) :** code Git courant + preuves primaires → Build Doctrine → Roadmap → doctrine v3 applicable → volumes PRR pertinents → **si architecture cible/rationalisation/transformation touchée : index AKG + TO-BE + registre**, et AS-IS si utile. Jamais un chargement exhaustif obligatoire pour toute petite correction Studio.

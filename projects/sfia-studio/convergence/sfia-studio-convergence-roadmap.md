@@ -260,6 +260,8 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
 >
 > **V0.1 documentaire préparatoire du 2026-10-22 (au snapshot d'authoring : candidate sur branche dédiée, non sur main ; statut ultérieur à requalifier depuis Git)** : [index AKG](./architectural-knowledge-governance/README.md), [AS-IS](./architectural-knowledge-governance/m4-rationalization/01-current-architecture-as-is.md), [TO-BE](./architectural-knowledge-governance/m4-rationalization/02-target-architecture-to-be.md) et [registre](./architectural-knowledge-governance/m4-rationalization/03-orientations-and-gap-register.md). GO documentaire borné **≠ GO FORMAL START AKG-M4**, ni décisions de suppression ou transformation ; PRR = référence CURRENT.
 
+> **AKG-M4-A — ANALYSE INITIALISÉE (candidate sur branche documentaire, 2026-10-22)** : [responsabilités, consommateurs et scénarios REBUILD](./architectural-knowledge-governance/m4-rationalization/04-m4a-runtime-responsibilities-and-transition-assessment.md). Premier inventaire **non exhaustif** ; M4-A **NOT CLOSED**, aucun impact produit ni GO M5. À intégrer via revue/PR distincte.
+
 ### Distinctions de statut (CP05 / CP06)
 
 | Stade | Signification | État / preuves — jalons AKG |

@@ -59,6 +59,12 @@ Pour chaque ligne de rationalisation, renseigner :
 
 La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.md) interdit d'assimiler une classification à une autorisation de retrait.
 
+## 4 bis. Démarrage M4-A et trace des travaux
+
+**GO M4-A :** lancement de l'analyse « responsabilités et dépendances runtime » après mise à jour de l'orientation OR-13. **[Cartographie initiale M4-A](04-m4a-runtime-responsibilities-and-transition-assessment.md)**.
+
+**Couverture actuelle :** 12 actifs, premiers consumers directs et 3 scénarios ; **T-A01–T-A06 OPEN**, analyse transitive/non-régression non close. Les options `REPLACE / REBUILD` sont explicitement ouvertes mais **aucune n'est adoptée**, les dispositions ne valent pas GO d'exécution.
+
 ## 5. Règles d'évolution
 
 - Enrichir **AS-IS** à partir de Git courant et PRR applicable (pas de deuxième truth documentaire).
