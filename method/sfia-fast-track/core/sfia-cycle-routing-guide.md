@@ -235,8 +235,9 @@ Morris valide le profil si **Critical** ou changement de doctrine.
 4. Product Completion C1 si le cycle touche Product Completion / C2+ : `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` ;
 5. doctrine produit v3 applicable (`projects/sfia-studio/sfia-v3-framing/**`, notamment `30`–`37`) ;
 6. **PRR applicable** — `projects/sfia-studio/production-runtime-reference/` (README + **volumes sélectionnés**) lorsque le cycle concerne le **fonctionnement Studio** : analyse, conception, architecture, étude d’impact, rationalisation, correction, delivery runtime, validation comportementale — **y compris en lecture seule** (CP02). Si non pertinent : déclarer **N/A** avec justification. **Ne pas** exiger la lecture intégrale de tous les volumes ;
-7. sources Studio/repo techniques spécifiques au cycle ;
-8. processus SFIA **v2.6** nécessaire à l’exécution du cycle (template, operating model, guardrails).
+7. **Dossier AKG/M4 si pertinent** : `projects/sfia-studio/convergence/architectural-knowledge-governance/README.md`. Pour rationalisation, architecture cible et transformations y touchant, consulter `m4-rationalization/02-target-architecture-to-be.md` + `03-orientations-and-gap-register.md`, et `01-current-architecture-as-is.md` si nécessaire. **V0.1 sur branche = candidate, pas une décision formelle** ; la PRR et Git restent prioritaires pour le CURRENT. Ne pas charger systématiquement ces documents pour un travail Studio sans impact architectural.
+8. sources Studio/repo techniques spécifiques au cycle ;
+9. processus SFIA **v2.6** nécessaire à l’exécution du cycle (template, operating model, guardrails).
 
 **Architecture-informed check (proportionné) :**
 
