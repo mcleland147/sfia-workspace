@@ -438,7 +438,7 @@ Ces points **complètent** §§6–10 sans invalider le verdict Q0. Aucune mutat
 | Item | Valeur |
 |---|---|
 | Tip avant corrective | `73d97565e42a95dc4ad63897a61fd623f4449db2` |
-| Commit FULL inventaires (ce contenu) | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
-| Tip distant courant post-publish | `git rev-parse origin/sfia/review-handoff` |
+| Commit FULL inventaires (ce contenu) | `c561ce16784a81c3882b420fc2fcbb3f0709c44d` |
+| Blob FULL | `eb84fbb28d4aa618183b80ed8d957d1c57f6444c` |
+| Tip distant courant | `git rev-parse origin/sfia/review-handoff` (peut avancer d’un sync) |
 | Projet | inchangé @ `94c7a30d` ; pas de push/PR |
