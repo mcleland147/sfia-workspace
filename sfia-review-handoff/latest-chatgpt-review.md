@@ -779,9 +779,9 @@ Pas de merge · pas Delivery · pas H4 PASS · pas D5 PASS · pas R-CUT PROVEN �
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `be1992a2feb0d46ff3868892346a5ad53c42c6bf` |
+| Blob FULL | `5f9a9c6440a68a545e40c7d9511563d4b689c853` |
 | Parent | `b8e74ee1613ef83212964cb4aac656499a048e81` |
 | Tip distant courant | `git rev-parse origin/sfia/review-handoff` |
 | Projet | PR #611 Draft @ `71f06742` ; **NOT MERGED** |
