@@ -1,374 +1,633 @@
-# SFIA Review Pack — FULL — CRITICAL
-
-## 00. Identity
-
-| Field | Value |
-| --- | --- |
-| Timestamp UTC | 2026-10-23T02:25:39Z |
-| Cycle | AKG-M4-A — Formal Exit Readiness & Human Arbitration Pack |
-| Profile | CRITICAL |
-| Type | Cycle 6 — Architecture / Governance / Exit Readiness |
-| GO | Préparation Formal Exit **uniquement** — **NOT** Formal Exit |
-| Branch | `analysis/akg-m4a-formal-exit-readiness` |
-| HEAD / main | `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` |
-| PR #604 | MERGED · merge = HEAD |
-| CI post-merge | `39887430929` SUCCESS (Detect/Build/Required Gate) |
-| Document | `12-m4a-formal-exit-readiness-and-decision-pack.md` |
-| hash-object `12` | `d54ddc6fafa9d57efbb62f25134196808214eeba` |
-| Prior handoff tip | `b26d6558cacc30afde6263983f1641b41a6ddabe` |
-| M4-A | **NON CLOSED** |
-| M4A-FE-01–05 | **PROPOSED — NOT ADOPTED** |
-| Delivery / M5 | NOT AUTHORIZED |
-| R24 | NO PRODUCT SEMANTIC IMPACT |
-
-## 01. GO scope
-
-AUTHORIZED: local `12` · exit criteria · reserves · options A/B/C · FE proposals · Full pack · L3 handoff.
-NOT AUTHORIZED: close M4-A · adopt FE IDs · modify 01–11/README/Roadmap/PRR · project commit/push · Delivery · REAL · M5 · invent owners/answers.
-
-## 02. Git Review Index
-
-```
-?? projects/sfia-studio/convergence/architectural-knowledge-governance/m4-rationalization/12-m4a-formal-exit-readiness-and-decision-pack.md
-```
-
-| Control | Result |
-| --- | --- |
-| main / merge parents / PR MERGED / CI | **MATCH** |
-| Only new project file `12` | YES |
-| `git diff --no-index --check` `12` | no WS errors (exit may be 1 for new file) |
-
-## 03. Recommendation summary
-
-**Option A** (Bounded Formal Exit with Governed Reserves) recommended for Pilote examination after ChatGPT review — **NOT ADOPTED**. No BLOCKER M4-A EXIT identified for bounded investigation scope. H7/H8 unchanged. H0–H6 open with proposed governed reports (not auto-adopted). Post-merge DOC DRIFT → FE-04 truth-sync lot.
-
-## 04. FR-C01–FR-C12
-
-| ID | Result | Preuve | Limitation |
-| --- | --- | --- | --- |
-| FR-C01 | **PASS** | main `d739143f…` · CI 39887430929 | — |
-| FR-C02 | **PASS** | `05`–`10` on main · handoffs | — |
-| FR-C03 | **PASS** | `11` / `03` §2 bis | — |
-| FR-C04 | **PASS** | H0–H6 without invented answers | reports proposed only |
-| FR-C05 | **PASS** | E01–E14 in `12` §6 | E14 WITH GOVERNED RESERVE |
-| FR-C06 | **PASS** | A–D classification §8 | no class-A Exit blocker |
-| FR-C07 | **PASS** | reports PROPOSED NOT ADOPTED | — |
-| FR-C08 | **PASS** | drift table §10 | files not edited this cycle |
-| FR-C09 | **PASS** | Options A/B/C §11 | — |
-| FR-C10 | **PASS** | R24 | — |
-| FR-C11 | **PASS** | no project commit · M4-A OPEN | — |
-| FR-C12 | **PENDING→PASS** after L3 | this pack | fill after publish |
-
-## 05. Non-claims
-
-Formal Exit NOT ADOPTED · Delivery/M5 NO · v3 NON ADOPTED · REAL NOT PROVEN · P6 NOT PASSED · FE IDs NOT ADOPTED · no dual-write · G0 hold.
-
-## 06. Handoff L3
-
-Branch `sfia/review-handoff` · prior `b26d6558…`
-Message: `docs(review-handoff): AKG-M4-A formal exit readiness decision pack`
-
-## 07. Instruction ChatGPT (§9.1)
-
-> **Instruction ChatGPT obligatoire :**
->
-> Avant de répondre à Morris sur ce rapport, ChatGPT doit consulter le fichier Git suivant :
->
-> branche : `sfia/review-handoff`
-> fichier : `sfia-review-handoff/latest-chatgpt-review.md`
->
-> ChatGPT doit vérifier sa cohérence avec le rapport Cursor, notamment :
-> - le cycle et le profil ;
-> - la branche projet ;
-> - le HEAD initial et final ;
-> - la base main ;
-> - les sources consultées ;
-> - les fichiers créés ou modifiés ;
-> - le contenu complet du document `12` ;
-> - les matrices E01–E14 et H0–H8 ;
-> - les réserves et options A/B/C ;
-> - les propositions M4A-FE-01–05 (NOT ADOPTED) ;
-> - les validations FR-C* ;
-> - le verdict du review pack ;
-> - le commit et la vérification distante du handoff.
->
-> **Après cette vérification**, ChatGPT doit produire une **synthèse globale du cycle** à destination de Morris comprenant **au minimum** :
-> 1. l'objectif et le périmètre du cycle ;
-> 2. les actions et changements réellement réalisés ;
-> 3. les principaux résultats et validations ;
-> 4. les risques, réserves, écarts ou éléments non couverts ;
-> 5. la distinction entre observations, recommandations et décisions déjà validées ;
-> 6. le verdict ChatGPT ;
-> 7. la prochaine décision ou action attendue de Morris.
->
-> La synthèse doit être compréhensible sans devoir relire l'intégralité du rapport Cursor ou du review pack, tout en restant fidèle au contenu du handoff Git.
->
-> Elle ne doit **pas** transformer une recommandation, une hypothèse ou un résultat technique en décision validée sans GO Morris. Elle ne doit **pas** clôturer M4-A.
-
-Perform: **CHATGPT CRITICAL REVIEW — AKG-M4-A FORMAL EXIT READINESS**.
-
-## 08. Verdict target
-
-READY FOR CHATGPT CRITICAL REVIEW — AKG-M4-A FORMAL EXIT READINESS / LOCAL DECISION CANDIDATE
-
----
-
-## 09. Full document `12` (verbatim)
-
-# AKG-M4-A — Formal Exit Readiness & Human Arbitration Pack
+# SFIA Review Pack — FULL
+## AKG-M5-A — Product Architecture Convergence & First Delivery Readiness
 
 | Champ | Valeur |
 | --- | --- |
-| Méthode | SFIA v2.6 · Cycle 6 — Architecture technique · Formal Exit Readiness · **CRITICAL** |
-| Typologie | DOC / Architecture / Governance / Exit Readiness |
-| Jalon / Lot | AKG-M4 · M4-A |
-| Worktree | `analysis/akg-m4a-formal-exit-readiness` |
-| Baseline `main` | `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` |
-| GO consommé | **Préparation documentaire Formal Exit uniquement** |
-| Statut document | **FORMAL EXIT READINESS — LOCAL CANDIDATE / DECISION NOT ADOPTED** |
-| Statut jalon M4-A | **NON CLOSED** |
+| Generated (UTC) | 2026-10-23T14:03:00Z |
+| Repository | mcleland147/sfia-workspace |
+| Worktree | `/Users/morris/Projects/sfia-workspace-akg-m5a-product-architecture-convergence` |
+| Branch | `docs/akg-m5a-product-architecture-convergence` |
+| HEAD | `f088c60271722fcf678c3862ebe192da71c7c402` |
+| origin/main | `f088c60271722fcf678c3862ebe192da71c7c402` |
+| Tip match | YES |
+| Profile | Critical · Cycle 6 Architecture |
+| Mode | Documentary authoring only |
+| Project push/PR | **NOT AUTHORIZED** |
+| R24 | **NO PRODUCT SEMANTIC IMPACT** |
 
-> **Non-claims :** ce document **ne clôture pas** M4-A · M4A-FE-01–05 = **PROPOSED — NOT ADOPTED** · aucun GO Delivery/M5 · runtime v3 **NON ADOPTED** · REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · R24 **NO PRODUCT SEMANTIC IMPACT** · aucun owner formel inventé · reports gouvernés = propositions au Pilote, **non** auto-adoptés.
+## Instruction ChatGPT
+
+Lire ce fichier **complet** depuis Git `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` après publication L3.
+Vérifier HEAD, livrables, validations, réserves, SHA distant.
+Puis seulement : synthèse, recommandations, verdict contradictoire, décision Morris (GO L1 sous conditions / amend / STOP).
+
+## Git Review Index
+
+```
+## docs/akg-m5a-product-architecture-convergence...origin/main
+ M .tmp-sfia-review/chatgpt-review.md
+?? projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/
+
+Porcelain:
+M .tmp-sfia-review/chatgpt-review.md
+?? projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/
+
+Document hashes (git hash-object):
+01 blueprint: d5026075f6c9c9fe570d107221bc6431e0c57414
+02 L1 pack:   e9559678f64126abd67c5416e03332a125425fce
+```
+
+## Verdict Cursor (pré-review)
+
+**M5-A READY FOR CRITICAL REVIEW** — sous réserve handoff remote vérifié.
+
+Recommandation Delivery : **GO L1 SOUS CONDITIONS** (voir doc 02 §10).
+H0 Delivery **NOT GRANTED** jusqu'à arbitrage Morris.
+A01–A12 non adoptés ; H1–H5 OPEN ; H7/H8 inchangés.
+
+## Réserves (non fermées)
+
+R-VOL-01, R-MM-01, R-CUT-01, R-TF-01, R-REAL-01, R-EXCL-01, R-PA-01, R-CAR-01, R-PP-01, R-A09-01 (gate L1), R-A11-01, R-RS-01, R-FS-01, R-P0-01, R-DOC-01.
+
+## Décisions Morris attendues
+
+1. Accept blueprint M5-A (cadrage) with reserves
+2. Confirm sequencing L1→(L2∥L3)→L4→L5/L6
+3. **H0 Delivery L1** GO / GO sous conditions / STOP
+4. Naming conventions : defer adoption (guide only)
+
+## Validations exécutées
+
+- Git Truth Check tip MATCH `f088c602…`
+- Aucun dossier M5 préexistant sur main
+- WT isolé clean sur branche docs
+- Sources M4/PRR/doctrine consultées (proportionné)
+- Code A09/VSR/D1/t-a7 inspecté (statique)
+
+## Validations NON exécutées
+
+- Suites de tests runtime / Vitest
+- Cursor REAL / UI capture
+- Sync PRR / README / Roadmap
+- Commit/push/PR projet
 
 ---
 
-## 1. Identity / scope / baseline
+# DOCUMENT 01 — FULL CONTENT
 
-### 1.1 Git Truth (vérifié)
+# AKG-M5-A — 01 · Product Architecture Convergence Blueprint
 
-| Référence | Observé | Statut |
-| --- | --- | --- |
-| `origin/main` | `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` | **MATCH** attendu |
-| Parents merge | `f44a99b4…` + `6a5330c2…` | **MATCH** |
-| PR #604 | **MERGED** · mergeAt 2026-10-23T02:03:02Z | **MATCH** |
-| CI post-merge | workflow `39887430929` · Detect/Build/Required Gate **SUCCESS** · headSha = merge | **MATCH** |
-| Handoff tip pré-cycle | `b26d6558…` | **MATCH** |
-| GO Delivery / Formal Exit | **Aucun** consommé | **AFFIRMED** |
-
-### 1.2 Scope
-
-**In :** readiness d'une Formal Exit **bornée** (Bounded Rationalization Assessment) · matrices · réserves · options · propositions Pilote.
-**Out :** clôture inscrite · Delivery L1–L6 · adoption runtime · M5 · modification `01`–`11`/README/Roadmap/PRR · commit projet.
-
----
-
-## 2. Objectifs de M4-A (rappel)
-
-M4-A vise une **investigation architecturale capability-first** : inventaire des responsabilités/redondances runtime, comparaison SC-G*, orientation Pilote H7/H8, dossier documentaire traçable — **sans** transformation Delivery.
-
-Objectifs atteints au périmètre investigation si : preuves T-A01–T-A06 acceptées · H7/H8 enregistrés · intégration Git des livrables · réserves classées et gouvernables · frontières Delivery/REAL/M5 préservées.
-
----
-
-## 3. Chaîne de preuves T-A01–T-A06
-
-| Audit | Livrable `main` | Handoff immuable | Revue |
-| --- | --- | --- | --- |
-| T-A01 | `05` | `42de13a9…` | Accepted with reserves |
-| T-A02 | `06` (29 CAP) | `51021023…` | Accepted with reserves |
-| T-A03 | `07` (S01–S07) | `640f19c1…` | Accepted with reserves |
-| T-A04 | `08` (ST/MIG) | `6717d094…` | Accepted with reserves |
-| T-A05 | `09` (SC-G* / L1–L6) | `1e1930d0…` | Accepted with reserves |
-| T-A06 | `10` (Critical) | `91d387e0…` | Accepted with reserves · READY WITH RESERVES |
-
-Consolidation locale → Git Integration → **merge #604** → CI post-merge SUCCESS. Mentions `LOCAL CANDIDATE` dans `05`–`11` = **historiques exactes** à leur date.
-
----
-
-## 4. Arbitrage H7 / H8
-
-| ID | Statut | Portée |
-| --- | --- | --- |
-| **H7** | **ADOPTED — ARCHITECTURAL ORIENTATION ONLY** | SC-G2 + option SC-G3 A06/A10 · ≠ runtime |
-| **H8** | **ADOPTED — CONDITIONAL INVESTIGATION DIRECTIVE** | Étude SC-G3 L4 si ADAPT insuffisant · ≠ GO REBUILD |
-
-**Ne pas rouvrir H7/H8.** Référence : [`11`](./11-m4a-h7-h8-architecture-orientation-decision-record.md).
-
----
-
-## 5. Preuve d'intégration PR #604 et CI
-
-| Élément | Preuve |
+| Champ | Valeur |
 | --- | --- |
-| Merge | `d739143f…` · message « Merge pull request #604 — AKG-M4-A documentary rationalization » |
-| Fichiers sur `main` | `01`–`11` présents sous `m4-rationalization/` |
-| CI | `39887430929` COMPLETED/SUCCESS · Detect · Build · Required Gate |
-| Frontière | Merge documentaire **≠** Formal Exit · **≠** Delivery |
+| Cycle | **AKG-M5-A** — Product Architecture Convergence & First Delivery Readiness |
+| Type / Profil | Cycle 6 — Architecture technique · **Critical** |
+| Typologie | EVOL / Architecture / DOC |
+| Baseline Git | `docs/akg-m5a-product-architecture-convergence` @ `f088c60271722fcf678c3862ebe192da71c7c402` (= `origin/main`) |
+| Antecedent | AKG-M4 **GLOBAL CLOSED** (portée *Bounded Rationalization Assessment*) · [14](../m4-rationalization/14-akg-m4-global-formal-exit-decision-record.md) · H7/H8 [11](../m4-rationalization/11-m4a-h7-h8-architecture-orientation-decision-record.md) |
+| Statut document | **LOCAL CANDIDATE** — **non adopté** · dispositions A01–A12 restent **candidates** |
+| Runtime / Delivery | **NON AUTORISÉ** · H0 **NOT GRANTED** · pas de push/PR/merge projet |
+| R24 | **NO PRODUCT SEMANTIC IMPACT** (cycle documentaire) |
+
+> **Non-claims :** AKG-M5 non clos · runtime v3 **NON ADOPTED** · REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · FinOps SHADOW **OFF** · SC-G2 = orientation **≠** runtime livré · H8 ≠ GO REBUILD · aucun dual-write · Attempt ≠ Evidence ≠ PROVEN · Memory B ≠ Truth C · Synthesis ≠ Truth C.
 
 ---
 
-## 6. Matrice E01–E14
+## 1. Provenance et finalité
 
-| ID | Critère | État | Sources | Limites | Réserve | Condition sortie | Arbitrage humain |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| **E01** | T-A01–T-A06 terminés/acceptés | **SATISFIED** | `05`–`10` · handoffs · `03` §6 | Réserves d'investigation conservées | — | — | Non |
-| **E02** | A01–A12 traçabilité décisionnelle | **SATISFIED WITH GOVERNED RESERVE** | `05` · `03` §7 RES-01 · `09`/`10` | RES-01 confirmation revue ; refs abrégées | RES-01 | Accepter réserve auditabilité | M4A-FE-02 |
-| **E03** | 29 capacités historiques | **SATISFIED** | `06` | Couverture Product PARTIAL | — | — | Non |
-| **E04** | Autorité / STOP/FAIL/restart / REAL limits | **SATISFIED WITH GOVERNED RESERVE** | `07` · PRR | REAL NOT PROVEN ; RunState DEFER | R-REAL-01 · R-RS-01 | Report REAL hors Exit | M4A-FE-02 |
-| **E05** | Stockages / MIG-A–D / cutover | **SATISFIED WITH GOVERNED RESERVE** | `08` · `10` §9 | Volumes UNKNOWN ; cutover design | R-VOL-01 · R-CUT-01 | Inventaire avant migrate (Delivery) | M4A-FE-02 |
-| **E06** | SC-G1/G2/G3 contradictoires | **SATISFIED** | `09` CORR-02 · `10` | SC-G2 = orientation, pas runtime | — | — | Non (H7 déjà) |
-| **E07** | H7/H8 fidèles | **SATISFIED** | `11` · `03` §2 bis | — | — | — | Non |
-| **E08** | H0–H6 qualifiés | **SATISFIED WITH GOVERNED RESERVE** | `11` §7 · §7 ci-dessous | Reports proposés ≠ adoptés | H1–H5 | Pilote valide reports | M4A-FE-02 |
-| **E09** | Réserves classées/gouvernables | **SATISFIED WITH GOVERNED RESERVE** | `03` §9 · `11` · §8 | Owner formel souvent absent | §8 | Gouvernance temporaire Pilote | M4A-FE-03 |
-| **E10** | Docs M4-A dans `main` | **SATISFIED** | merge `d739143f…` · tree | Drift README/`03`/Roadmap tip | RES-03/04 nature | Truth-sync séparé | M4A-FE-04 |
-| **E11** | CI post-merge SUCCESS | **SATISFIED** | run `39887430929` | — | — | — | Non |
-| **E12** | Frontières investigation/Delivery/REAL/M5 | **SATISFIED** | H0 · non-claims `03`/`11` | — | — | Confirmer à Exit | M4A-FE-05 |
-| **E13** | Contradictions post-merge cadrées | **SATISFIED WITH GOVERNED RESERVE** | §10 drift table | Fichiers non corrigés ce cycle | DOC FOLLOW-UP | Lot truth-sync | M4A-FE-04 |
-| **E14** | Conditions clôture bornée | **SATISFIED WITH GOVERNED RESERVE** | E01–E13 · §8–§11 | Aucun BLOCKER M4-A EXIT démontré ; reports soumis Pilote | M4A-FE-01 | Décision Pilote post-ChatGPT | **M4A-FE-01** |
+Ce blueprint **traduit** le TO-BE M4 et les lots L1–L6 en architecture de **construction** exploitable, sans rejouer les inventaires M1–M4.
 
-**E14 n'est pas « SATISFIED » absolu :** la clôture reste **conditionnée** à l'acceptation Pilote des reports et de la gouvernance (§12). Aucun verdict de clôture inventé ici.
+**Produit attendu :** un Studio unifié, premium, maintenable, centré Pilote ↔ Nora, avec boucle projet gouvernée end-to-end.
+
+**Hors scope :** découverte de Studio · nouvelle doctrine · refonte générale · implémentation code.
+
+**Sources primaires (consultées) :** Build Doctrine · Roadmap · C1 · doctrine v3 30/31/32/33/34/35/37 · PRR README + 01/03/04/06/07/08/09 · AKG README · M4 `01`–`03`, `05`–`11`, `13`–`14` · code A09/VSR/D1 (spot) · CKC Architecture (guidance only).
 
 ---
 
-## 7. Analyse H0–H8
+## 2. Vision Product héritée (sans recadrage)
 
-| ID | Position | Qualification Formal Exit | Report gouverné proposé ? |
+Héritage TO-BE M4 [02](../m4-rationalization/02-target-architecture-to-be.md) + OR-01…OR-13 [03](../m4-rationalization/03-orientations-and-gap-register.md) :
+
+1. Tour de contrôle conversationnelle : **Pilote autorité** ; **Nora cognition / recommandation / préparation / interprétation**.
+2. Cockpit nominal **`/studio`**.
+3. **OA = Truth C unique** (G0-A/B) ; Memory B distincte.
+4. Contrat inspectable/amendable ; **un Exécuter** = autorisation de **cette** version (SHE) ; HD/Confirm/Authorize **internes**.
+5. Outils = capacités sous effet/périmètre ; Cursor sous Attempt.
+6. Restitution honnête : déclaration ≠ preuve ; continuité sans contexte inventé.
+7. **OR-13 capability-first** : capacité utile ≠ conservation de l'implémentation.
+
+Boucle cible (destination, non couverture actuelle) :
+
+`Intention → Nora → contexte → qualification → trajectoire → décisions → EC inspectable → autorisation → exécution bornée → Evidence/RB → analyse Nora → continuité`
+
+---
+
+## 3. Delta AS-IS → TO-BE (compact)
+
+| Domaine | AS-IS (observé M4) | TO-BE construction | Delta M5 |
 | --- | --- | --- | --- |
-| **H0** | NOT GRANTED | **Séparation investigation/implémentation** — précondition Exit | N/A (interdiction maintenue) |
-| **H1** | MethodMode OPEN | **GOVERNED OPEN — DELIVERY GATE** · ≠ Exit blocker si MIG-A non exécutée | **Oui — proposer** report jusqu'à design MIG-A |
-| **H2** | Tool-First OPEN / fail-closed | **GOVERNED OPEN — REAL/RUNTIME** | **Oui — proposer** report hors Exit |
-| **H3** | Durable carrier OPEN | Continuité partielle · Delivery/L4 | **Oui — proposer** report (lié H8/L4) |
-| **H4** | Volumes UNKNOWN | **DELIVERY GATE** obligatoire avant migrate | **Oui — proposer** ; inventaire = précondition L2 |
-| **H5** | pathPolicy PARTIAL | Archi FOLLOW-UP · Delivery L3 potential blocker | **Oui — proposer** report ; RES-02 |
-| **H6** | G0 reopen NOT AUTHORIZED | **Interdiction** maintenue | N/A |
-| **H7** | ADOPTED orientation | **Ne pas rouvrir** | Non |
-| **H8** | ADOPTED directive L4 | **Ne pas rouvrir** | Non |
+| UX | `/studio` + îlots D1/OPS1/P0 | Un cockpit ; redirect/retire historiques | Concevoir L5 ; exécuter après gates |
+| Vérité | OA Product SQLite ; D1/OPS1 DB séparés | Une Truth C ; archives RO | L2/L3 harvest ; **no dual-write** |
+| Orchestration | PA F2/W2/SHE dual-path | Façade claire Nora/PA/OA | L4 ADAPT ; H8 SC-G3 ciblé si insuffisant |
+| Cursor | Product Attempt + îlot OPS1 | Ports Product exclusifs **après preuves** | L3 ; R-EXCL-01 / R-TF-01 / R-PP-01 |
+| Audit create | Type/runtime optionnel via `lib/d1` | Port Product hors packaging D1 | **L1** |
+| Continuité | Carriers process-local | Carrier non-autorité ou requalify | L4 + H3 |
+| FinOps | execution-run hors spine | FREEZE ; SHADOW OFF | L6 |
+| Noms | `pre-m6`, `ops1`, `d1`, `f2`/`w2`… | Noms de responsabilité | Contrat §7 ; rename aux lots adéquats |
 
-**Aucun H1–H6 classé BLOCKER M4-A EXIT** pour une clôture *bornée investigation* : ils bloquent des **gates futurs**, pas la conclusion que le dossier d'orientation est suffisamment qualifié.
-**Les reports ci-dessus sont PROPOSED — NOT ADOPTED** jusqu'à réponse Pilote (M4A-FE-02).
-
----
-
-## 8. Registre des réserves de sortie
-
-### 8.1 Classification A–D
-
-| ID | Fait | Classe | Impact M4-A Exit | Impact L1–L6 | Résolution | Owner | Gouvernance temporaire | Décision humaine |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| R-REAL-01 | REAL E2E NOT PROVEN | **C** REAL | Non bloquant Exit bornée | Bloque claims REAL / P6 | Preuves REAL + GO | — | Pilote / gate REAL | Report proposé |
-| R-TF-01 | Tool-First no-write OPEN | **C** | Non | L3/REAL | H2 + architecture | — | Fail-closed conserve | = H2 |
-| R-EXCL-01 | Product REAL exclusivity NOT PROVEN | **B/C** | Non | Retire OPS1 | Preuves + GO | — | Flag ≠ exclusivity | Report |
-| R-VOL-01 | Volumes UNKNOWN | **B** DELIVERY | Non (si pas migrate) | L2 BLOCKER | Inventaire H4 | — | Freeze migrate | = H4 |
-| R-MM-01 | MethodMode OPEN | **B** | Non | MIG-A sémantique | H1 | — | Ne pas importer silencieux | = H1 |
-| R-PA-01 | PA dual-path | **B** (H8) | Non si Exit bornée | L4 | ADAPT ou étude SC-G3 | — | H8 | L4 GO distinct |
-| R-CAR-01 | Carriers process-local | **B** | Non | L4 continuity | H3 | — | Requalify défaut | = H3 |
-| R-CUT-01 | Cutover D1 | **B** | Non | L2 | Design sans dual-write | — | Patterns T-A06 | H0+design |
-| R-A09-01 | A09 retirement gate | **B** | Non | L1 | Type+consumers+tests | — | Avant L2 | — |
-| R-A11-01 | A11 FinOps consumers | **B** | Non | L6 | Consumers + SHADOW OFF | — | FREEZE | FinOps GO séparé |
-| R-PP-01 | pathPolicy PARTIAL | **B** (+ archi D) | Non (RES-02) | L3 potential | H5 / enforce | — | Dual qualif | = H5 |
-| R-RS-01 | RunState DEFER | **C/D** | Non | Continuity | Instruire | — | DEFER | — |
-| R-FS-01 | FS/SQLite non-atomic | **C** | Non | Recovery | Instruire limites | — | Ne pas promettre atomicité | — |
-| R-DOC-01 | PRR06 SYN drift | **D** | Non | Doc | Régularisation PRR | — | Lot doc | — |
-| R-P0-01 | Bookmarks U | **B/D** | Non | L5 | Inventaire liens | — | Avant redirect | — |
-| **RES-01** | Auditabilité A01–A12 | **D** (+ E02) | Governed reserve | — | Confirm revue / enrich refs | — | Annex `03` §7 | Confirm |
-| **RES-02** | pathPolicy dual scope | **B/D** | Non | L3 | Voir R-PP-01 | — | Qualified | — |
-| **RES-03** | Statut Git pré-merge dans docs | **D** | Non (Git prouve merge) | — | Truth-sync | — | §10 | M4A-FE-04 |
-| **RES-04** | README / tip statut PR | **D** | Non | — | Truth-sync | — | §10 | M4A-FE-04 |
-| Hist. M1–M3 | R-M2A-04, R-M2B-03, B-M2B-01–05, RS-03, F18/F19, no-write REAL | **B/C** per PRR | Non fermées ; non réouvertes | Continuity | PRR/Roadmap state | — | Préservées | Ne pas closer ici |
-
-**Aucun BLOCKER M4-A EXIT (classe A) identifié** pour le périmètre Bounded Rationalization Assessment, sous réserve d'acceptation Pilote des reports (M4A-FE-02) et de la gouvernance (M4A-FE-03).
+```mermaid
+flowchart LR
+  subgraph ASIS["AS-IS"]
+    StudioA["/studio"]
+    Islands["D1 / OPS1 / P0"]
+    PAa[PA dual-path]
+    OAa[OA Truth C]
+  end
+  subgraph TOBE["TO-BE construction"]
+    StudioB["/studio unique"]
+    Orch[Orchestration claire]
+    OAb[OA Truth C]
+    Ports[Ports Product]
+    Arch[Archives RO]
+  end
+  StudioA --> StudioB
+  PAa --> Orch
+  OAa --> OAb
+  Islands -->|harvest then retire| Ports
+  Islands -.->|after gates| Arch
+```
 
 ---
 
-## 9. Distinction Exit / Delivery / REAL blockers
+## 4. Responsabilités cibles (compact)
 
-| Nature | Exemples | Bloque Formal Exit bornée ? |
+| Acteur / composant | Responsabilité cible | Ne fait pas |
 | --- | --- | --- |
-| **Exit** | Absence d'investigations, H7/H8 non enregistrés, docs hors `main`, CI merge fail, orientation incohérente | **Oui** — non constaté ici |
-| **Delivery** | Volumes, MethodMode, A09/A11 gates, cutover, pathPolicy L3, PA L4 | **Non** — gates L1–L6 |
-| **REAL/Runtime** | REAL E2E, Tool-First sandbox, exclusivity, SHADOW, P6, v3 | **Non** — claims séparés |
-| **Documentary** | README/`03` « non mergée », Roadmap tip M4-A read-only | **Non** — truth-sync séparé |
+| **Pilote** | Objectifs, arbitrages, Exécuter / STOP | Exécuter le runtime technique |
+| **Product UI `/studio`** | Surface nominale conversation, contrats, résultats | Autorité métier |
+| **Nora** | Comprendre, qualifier, recommander, préparer missions, interpréter preuves | Autorité métier autonome ; Truth C |
+| **Project Assistant / façade cible** | Orchestration Product (UI→OA/Nora/ports) | Deuxième Truth C ; HD implicite |
+| **OA** | Project, LPS, trajectoire, cycles, HD, EC, Attempt, Evidence | Cognition conversationnelle |
+| **VSR / composition** | Wiring ports/adapters ; default fail-closed | Policy métier parallèle |
+| **Tools / adapters** | Capacités sous contrat / Attempt | Élargir le mandat |
+| **Persistence** | Truth C SQLite ; Memory B session ; FS Evidence refs | Dual-write ; fuse B↔C |
 
 ---
 
-## 10. Drift documentaire post-merge
+## 5. Cartographie dispositions actuelles → cible
 
-| Document | Ancienne formulation (snapshot) | Vérité Git actuelle | Nature | Correction future |
+| Classe | Actifs / zones | Disposition candidate (M4, non adoptée) | Timing |
+| --- | --- | --- | --- |
+| **Maintenir** | A05 OA, A07 Nora, A12 Product REAL guarantees, A01 cockpit cap | KEEP / ADAPT | Continu |
+| **Déplacer / extraire** | A09 audit port ; patterns D1/OPS1 utiles | HARVEST / REPLACE port | L1 puis L2/L3 |
+| **Consolider** | A06 PA dual-path ; A02 P0 entry ; chemins mission | ADAPT / CONSOLIDATE | L4 / L5 |
+| **Remplacer (impl)** | A03 intake D1 ; A04 OPS1 engine | HARVEST + REPLACE/REBUILD ports | L2 / L3 |
+| **Geler / retirer plus tard** | A11 FinOps ; îlots UI/DB après cutover | FREEZE / RETIRE LATER | L6 |
+| **Étude conditionnelle** | A06/A10 sous H8 | SC-G3 ciblé **si** ADAPT L4 insuffisant | L4 design |
+
+---
+
+## 6. Matrice capacité → actif → cible → option → dépendances → preuves → gate
+
+| Capacité utilisateur | Actif | Responsabilité cible | Option | Dépendances | Preuves actuelles | Gate |
+| --- | --- | --- | --- | --- | --- | --- |
+| Cockpit Pilote↔Nora | A01 | Product UI | KEEP/ADAPT name | PA, tests UI | DET UI | Rename L5+ |
+| Entrée site | A02 | Redirect `/studio` | CONSOLIDATE→RETIRE | bookmarks U | DOC | L5 + R-P0-01 |
+| Créer/lister projets | A03 | OA Project | HARVEST+REPLACE | A09, H1, H4 | DET D1 ; volumes U | L2 |
+| Exécution tool gouvernée | A04/A12 | Attempt + Product REAL | HARVEST+ADAPT | H2, H5, R-EXCL | DET ; REAL NOT PROVEN | L3 |
+| Vérité / autorité | A05 | OA | KEEP/ADAPT | G0 | OA suite | H6 interdit reopen |
+| Orchestrer tour | A06 | Product orchestrator | ADAPT ; SC-G3? | H8, A10 | SHE DET | L4 |
+| Cognition | A07 | Nora + Memory B | KEEP/ADAPT | A06 | session DET | boundary B≠C |
+| Composer runtime | A08 | Product composition | KEEP/ADAPT | A09 | TYPE_ONLY/runtime tests | après L1 |
+| Audit create borné | A09 | Product audit **port** | HARVEST/REPLACE | VSR, tests | CODE VERIFIED | **L1** § doc 02 |
+| Continuité Proposal/Offer | A10 | Carrier non-auth | ADAPT/REBUILD | H3 | process-local | L4 |
+| FinOps shadow | A11 | Hors spine | FREEZE | SHADOW OFF | unit OFF | L6 |
+| Cursor sous EC | A12 | Same + ports | KEEP/ADAPT | L3 | DET≠REAL | exclusive après preuves |
+
+*Les 29 CAP historiques (M4 `06`) se rattachent aux lignes A03/A04/A02/A09/A11 — non re-listées ici.*
+
+---
+
+## 7. Frontière Nora / PA / OA (analyse)
+
+| Question | Lecture construction |
+| --- | --- |
+| Cognition vs orchestration vs autorité | Nora = cognition ; PA = orchestration Product ; OA = autorité + Truth C |
+| SHE vs historique | SHE = cible UX ; chemins disposition-before-PREPARE à consolider en L4 (pas supprimer HD) |
+| Carriers | Proposal/Offer ≠ HD ; perdus au restart (process-local) — H3 OPEN |
+| Persistance / restart | Truth C durable ; Memory B session ; carriers non durables par défaut |
+| Tools / REAL | Ports Attempt Product ; OPS1 island ≠ gateway Product ; Tool-First fail-closed jusqu'à H2 |
+
+**Interdits de construction :** rebuild OA · seconde orchestration métier · promouvoir Memory B / Synthesis / carriers en Truth C.
+
+---
+
+## 8. SC-G2 vs SC-G3 (H7/H8)
+
+| | **SC-G2** (orientation H7) | **SC-G3 ciblé A06/A10** (H8) |
+| --- | --- | --- |
+| Idée | ADAPT/CONSOLIDATE sur spine Product ; harvest îlots | Reconstruction façade orchestration + continuity **si** ADAPT L4 insuffisant |
+| OA | Conservé | Conservé (pas de rebuild) |
+| Risque | Dette compat L4 | Effort tests PA/REAL ; scope creep |
+| Autorisation | Orientation seulement | **Étude** conditionnelle ≠ GO REBUILD |
+
+**Recommandation M5-A :** construire sous **SC-G2** ; préparer critères ADAPT H8 §5.2 dans le design L4 ; ne pas démarrer SC-G3 code.
+
+---
+
+## 9. Contrat de nommage (recommandations — non adoptées)
+
+| Nom historique | Responsabilité réelle | Convention / nom cible proposé | Evidence | Impact rename | Timing | Risques |
+| --- | --- | --- | --- | --- | --- | --- |
+| `pre-m6-product-ui` | Product cockpit UI | `studio-ui` / `product-ui` | A01 ; OR-04 | imports ~53 tests | L5+ après inventaire | casser tests |
+| `vertical-slice-runtime` | Product composition / ports | `product-runtime` / `studio-composition` | A08 | large | Après L1 ; lot dédié | surface large |
+| `lib/d1` | Historical intake island | garder `d1` jusqu'à retire ; **ne pas** « productiser » le nom | A03 | — | L2 retire | confusion |
+| `BoundedAtomicAuditStore` (path D1) | Bounded create/audit journal | Port : `ProjectCreationAuditStore` / `BoundedProjectAuditPort` sous `lib/oa` ou `lib/product-audit` | A09 | L1 | **L1** | type churn |
+| `ops1` / `OPS1_CURSOR_REAL` | Historical tool island / flag | Product REAL flags isolés après exclusivity | A04/A12 | L3+ | Après R-EXCL | faux claim |
+| `f2` / `w2` | Historical mission paths | noms de responsabilité dans PA public API | A06 | L4 | L4 | dual-path |
+| `execution-run` | FinOps SM | rester hors Product spine naming | A11 | L6 | FREEZE | promote accidentel |
+
+**Règle :** préparer conventions **maintenant** ; exécuter renames **aux lots** après consumers/tests ; ne pas rename ce qui sera retiré.
+
+---
+
+## 10. Trajectoire L1–L6 (matrice unique)
+
+| Lot | Capacité v3 / résultat user | Actifs | Composants code | Dépendances | Prérequis / HD | Risques | Tests réutilisables | Nouveaux tests | Preuve sortie | Dette / remboursement | Suite |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| **L1** | Audit create découplé D1 | A09, A08 | `boundedAtomicAudit`, `localSqliteAudit`, `service.ts`, t-a7 port | — | Aucun H1–H5 **supplémentaire** ; **H0 GO L1** | Couplage type ; confondre option sqlite / activation | `localProjectComposition` ; t-a7 persistence | Port contract ; noop default ; sqlite inject | Gate A09 PASS (type+path+consumers) | Adapter D1 jusqu'à L2 | L2 |
+| **L2** | Intake Project sur OA | A03 | `lib/d1/**`, routes D1, OA project | **L1** | H1 MethodMode ; H4 volumes ; R-CUT-01 | dual-write ; id map | tests D1 + OA create | migration/verify ; cutover | Writers→readers ; no dual-write | Archive D1 RO | L4/L6 |
+| **L3** | Exec gouvernée Product Attempt | A04, A12 | ops1 adapters, compose REAL, Attempt | Cap matrix | H2 ; H5/R-PP-01 ; R-EXCL | claim REAL prématuré | DET/REAL boundary ; ops1 e2e | parity guards ; exclusive | Exclusive Product REAL **prouvé** | Flag rename après | L4/L6 |
+| **L4** | Orchestration + continuité | A06, A10 | project-assistant, proposal/offer stores | L2/L3 pertinents | H3 ; **H8 eval** | dual-path figé ; 2e vérité | SHE DET ; proposal tests | restart continuity ; ownership | ADAPT critères **ou** étude SC-G3 | Dette dual jusqu'à cut | L5 |
+| **L5** | UX `/studio` unifiée | A01, A02 | studio UI, page `/`, P0 | Design L4 ownership | R-P0-01 | bookmarks | UI tests | redirect e2e | Screens POC gone | — | — |
+| **L6** | Gel/retrait obsolète | A11, archives | execution-run, routes mortes | L2/L3 done ou abandon doc | FinOps GO séparé si activate | retire prématuré | FinOps OFF tests | consumer clear | R-A11-01 PASS ; SHADOW OFF | — | — |
+
+### Contestation du séquencement (chemin critique Product)
+
+1. **L1 avant L2** : confirmé — A09 bloque le packaging/retire D1 (M4 CORR-03).
+2. **L3 peut démarrer en parallèle de L2** *après* L1 **si** les équipes/GO sont distincts — mais **L4** dépend des deux pour une orchestration « exclusive Product » cohérente.
+3. **Ne pas commencer par renames cosmétiques** (OR-10) : ownership L4 + UX cible L5 se **conçoivent** en M5-A ; code rename plus tard.
+4. **L5 n'est pas « après tout techniquement »** pour la *conception* : invariants UX dès maintenant ; *exécution* redirect après inventaire liens.
+5. **L6 n'est pas un fourre-tout** : FREEZE A11 peut précéder certaines archives si consumers documentés ; retire D1/OPS1 **après** preuves L2/L3.
+
+```mermaid
+flowchart TB
+  M5A[M5-A blueprint + L1 pack] --> GO1[Morris GO Delivery L1]
+  GO1 --> L1[L1 A09 port]
+  L1 --> L2[L2 Intake OA]
+  L1 --> L3[L3 OPS1 harvest]
+  L2 --> L4[L4 PA / carriers]
+  L3 --> L4
+  L4 --> L5[L5 /studio]
+  L2 --> L6[L6 archive / FREEZE]
+  L3 --> L6
+```
+
+---
+
+## 11. Risques et réserves (statut exact — non fermées)
+
+| ID | Implication M5 construction |
+| --- | --- |
+| R-VOL-01 / H4 | Bloque L2 migration |
+| R-MM-01 / H1 | Bloque sémantique intake |
+| R-CUT-01 | Protocole L2 sans dual-write |
+| R-TF-01 / H2 | Fail-closed jusqu'à architecture |
+| R-REAL-01 / R-EXCL-01 | Pas de claim REAL / retire OPS1 |
+| R-PA-01 / H8 | L4 ADAPT vs SC-G3 étude |
+| R-CAR-01 / H3 | Continuité |
+| R-PP-01 / H5 | Potential blocker L3 |
+| R-A09-01 | Gate L1 |
+| R-A11-01 | Gate L6 ; SHADOW OFF |
+| R-RS-01 / R-FS-01 | Reprise / Evidence |
+| R-P0-01 | L5 |
+| R-DOC-01 | Sync PRR aux lots comportementaux (pas ce cycle) |
+
+---
+
+## 12. Recommandations Morris et critères de preuve
+
+### Décisions sollicitées (ce cycle = cadrage)
+
+| # | Décision | Options | Reco Cursor |
+| --- | --- | --- | --- |
+| D1 | Accepter ce blueprint comme **base de construction M5** (candidate→accepted cadrage) | Accept / Accept with reserves / Reject | **Accept with reserves** (réserves §11 inchangées) |
+| D2 | Confirmer séquencement L1→(L2∥L3)→L4→L5/L6 | Confirm / Amend | **Confirm** avec parallélisation L2/L3 sous GO séparés |
+| D3 | GO Delivery **L1/A09** | Voir [02](./02-m5a-l1-a09-delivery-readiness-and-decision-pack.md) | **GO sous conditions** (conditions dans 02) |
+| D4 | Noms cibles §9 | Adopt conventions / Defer | **Defer adoption** ; garder comme guide L1+ |
+
+### Preuves de maturité de ce document
+
+| Critère | État |
+| --- | --- |
+| E01 Source truth Git | `f088c602` MATCH |
+| E02 Vision Product | Héritée M4 + boucle cible |
+| E03 Architecture ownership | Matrice §4–§7 |
+| E04 Capability coverage | §6 + renvoi CAP M4 |
+| E05 Trajectoire | §10 |
+| E06 Governance H0–H8 | Conservés |
+| E07 Delivery readiness | L1 détaillé dans 02 ; L2–L6 cadrés |
+| E08 R23/R24 | DOCUMENTED / CODE VERIFIED spots ; NO SEMANTIC IMPACT |
+| E09 Critical review | À ChatGPT via handoff |
+| E10 Décision humaine | **Requise** — Distinct Formal Exit M5-A / GO L1 |
+| E11 Git publication projet | **NON** ce cycle |
+
+---
+
+## 13. PRR sync future (R24 — ne pas exécuter maintenant)
+
+Lots comportementaux futurs devront synchroniser proportionnellement : PRR **04** (dépendances A09/D1), **06** (persistance audit), **08** (tests), **09** (réserves A09). Ce cycle : **aucune** sync PRR.
+
+---
+
+*Fin — `01` M5-A Product Architecture Convergence Blueprint — LOCAL CANDIDATE.*
+
+
+---
+
+# DOCUMENT 02 — FULL CONTENT
+
+# AKG-M5-A — 02 · L1 / A09 Delivery Readiness & Decision Pack
+
+| Champ | Valeur |
+| --- | --- |
+| Cycle | **AKG-M5-A** — qualification code-first du lot candidat **L1 / A09** |
+| Baseline | `f088c60271722fcf678c3862ebe192da71c7c402` (`origin/main`) |
+| Actif | **A09** — Bounded audit bridge (VSR ↔ `lib/d1/boundedAtomicAudit`) |
+| Statut | **LOCAL CANDIDATE** · **H0 Delivery L1 NOT GRANTED** jusqu'à arbitrage Morris |
+| Code Delivery | **NON AUTORISÉ dans ce cycle** |
+| R23 maturité | CODE VERIFIED (imports/paths) · COVERAGE VERIFIED (tests listés) · BEHAVIOR PROVEN (DET tests existants) · KNOWN GAP (prod sqlite path rarely/never default-on) |
+| R24 | **NO PRODUCT SEMANTIC IMPACT** (doc only) |
+
+> **Non-claims :** extraction de type ≠ retrait D1 · `auditMode=sqlite` optionnel ≠ activation · injection ≠ runtime prod · REAL/migration **hors L1** · A01–A12 non adoptés.
+
+---
+
+## 1. Objectif L1
+
+**Débloquer** le retrait futur de l'îlot D1 (L2) en extrayant le **contrat d'audit borné** hors du packaging `lib/d1`, sans créer un second moteur d'audit métier et sans migrer l'intake.
+
+Capacité utile (CAP-D1-07 / A09) : journal d'audit atomique borné (idempotency / phases) pour création projet locale et coordinator t-a7 — **Audit ≠ autorité**.
+
+---
+
+## 2. Qualification code-first (Git courant)
+
+### 2.1 Définition et implémentation historique
+
+| Élément | Chemin | Rôle |
+| --- | --- | --- |
+| Store SQLite D1 | `app/lib/d1/boundedAtomicAudit.ts` | Classe `BoundedAtomicAuditStore` ; table `d1_atomic_audit` via `openD1Db()` ; implémente `ProjectCycleAuditPort` |
+| Port platform | `app/lib/platform/t-a7/projectCycleAtomicCoordinator.ts` | Interface `ProjectCycleAuditPort` — **déjà** sans import `lib/d1` |
+| Adapter V-slice | `app/lib/vertical-slice-core/localSqliteAudit.ts` | `BoundedSqliteLocalProjectCreationAudit` adapte events → `store.append` ; **importe types depuis `lib/d1`** |
+| Composition VSR | `app/lib/vertical-slice-runtime/service.ts` | `import type { BoundedAtomicAuditStore }` ; `resolveAudit` ; options `auditMode` / `sqliteAuditStore` |
+| Singleton | `app/lib/vertical-slice-runtime/singleton.ts` | `SFIA_V2_RUNTIME_AUDIT` → `noop` \| `memory` \| `sqlite` ; **défaut noop** |
+
+### 2.2 Contrat actuel (observé)
+
+```text
+RuntimeAuditMode = "noop" | "memory" | "sqlite"
+default = noop  (service.ts resolveAudit ; singleton envAuditMode)
+sqlite ⇒ exige sqliteAuditStore sinon throw
+Audit never rehydrates business state  (commentaire D-V2-03)
+```
+
+`BoundedAtomicAuditStore.append` : BEGIN IMMEDIATE + INSERT + COMMIT ; phases prepare/apply_*/verify/commit/rollback ; outcomes IN_PROGRESS/COMMITTED/…
+
+### 2.3 Consommateurs (inventory bornée)
+
+| Consumer | Nature | Preuve |
+| --- | --- | --- |
+| `vertical-slice-runtime/service.ts` | **TYPE_ONLY** import + wiring `resolveAudit` | L14, L106–110, L174–188, L758 |
+| `vertical-slice-core/localSqliteAudit.ts` | **TYPE + runtime adapter** vers store | import store + phases/outcomes |
+| Tests `localProjectComposition.test.ts` | Injecte `BoundedAtomicAuditStore` + adapter | import `@/lib/d1/boundedAtomicAudit` |
+| Tests `t-a7-hard-ta6-persistence-foundation.test.ts` | Injecte store comme `ProjectCycleAuditPort` | idem |
+| Nombreux tests Product/PA/Nora | Passent `auditMode: "noop"` seulement | grep `auditMode: "noop"` — **pas** de dépendance type D1 |
+| Îlot D1 UI/commands | Autre audit D1 métier (`listProjectAudit`, etc.) | **Hors** A09 port VSR — **OUT of L1** |
+
+**Arête AS-IS (M4 CORR-01 confirmée sur tip) :**
+
+- VSR → type D1 : TYPE_ONLY
+- VSR `auditMode=sqlite` + store injecté : RUNTIME_CALL **conditionnel**
+- Défaut prod/singleton : **noop** (pas d'écriture `d1_atomic_audit`)
+
+### 2.4 Chemins noop / memory / sqlite
+
+| Mode | Comportement | Activation typique |
+| --- | --- | --- |
+| `noop` | `NoOpLocalProjectCreationAudit` | **Default** ; quasi tous les tests Product |
+| `memory` | `MemoryLocalProjectCreationAudit` | Tests / debug process-local |
+| `sqlite` | `BoundedSqliteLocalProjectCreationAudit(store)` | Tests composition + t-a7 ; env `SFIA_V2_RUNTIME_AUDIT=sqlite` **et** store fourni |
+
+**KNOWN GAP :** pas de preuve BEHAVIOR PROVEN que le chemin sqlite est utilisé en prod Studio nominal ; l'option existe pour tests/platform.
+
+### 2.5 Dépendances transitives pertinentes
+
+```text
+service.ts --type--> lib/d1/boundedAtomicAudit
+localSqliteAudit.ts --type+value--> lib/d1/boundedAtomicAudit
+boundedAtomicAudit.ts --> lib/d1/db (openD1Db) + ProjectCycleAuditPort (platform)
+```
+
+Retirer `lib/d1` packaging **sans** L1 casse la compilation VSR/core même si runtime reste noop.
+
+### 2.6 Risques
+
+| Risque | Mitigation L1 |
+| --- | --- |
+| Casser imports tests | Adapter paths + re-export temporaire |
+| Second moteur audit | Un seul port ; impl D1 devient **adapter** |
+| Activer sqlite par erreur | Garder default **noop** ; pas de changement env prod |
+| Confondre avec audit D1 UI | Scope OUT ; ne pas migrer `listProjectAudit` |
+| « Type extracted ⇒ A09 done » | Gate §8 exige path optionnel + consumers + tests |
+
+---
+
+## 3. Solution de port Product recommandée
+
+### 3.1 Recommandation (candidate)
+
+**HARVEST / REPLACE port** sous un module Product pérenne, en deux couches :
+
+1. **Port + types** (sans SQLite D1) — ex. proposé :
+   - `projects/sfia-studio/app/lib/product-audit/boundedProjectAuditPort.ts`
+     (ou `lib/oa/project-audit/…` si ownership OA journal est retenu — **à trancher en Delivery design**, reco : **module dédié `product-audit`** pour éviter de charger OA de détails d'îlot)
+   - Types : phases, outcomes, record, `BoundedProjectAuditStore` (interface)
+   - Aligner / dédupliquer avec `ProjectCycleAuditPort` (platform) — soit type alias, soit adapter mince
+
+2. **Adapter D1** (reste dans `lib/d1` jusqu'à L2) :
+   - `BoundedAtomicAuditStore` **implémente** le port Product
+   - `localSqliteAudit` dépend du **port Product**, plus de types D1
+
+3. **VSR** :
+   - `sqliteAuditStore?: BoundedProjectAuditStore` (port)
+   - `resolveAudit` inchangé sémantiquement
+   - default **noop**
+
+### 3.2 Nommage Product proposé (non adopté)
+
+| Actuel | Proposé |
+| --- | --- |
+| Path `lib/d1/boundedAtomicAudit` (contrat) | `lib/product-audit` |
+| `BoundedAtomicAuditStore` (interface contract) | `BoundedProjectAuditStore` (interface) ; classe D1 peut rester nom historique en adapter |
+| `BoundedSqliteLocalProjectCreationAudit` | conserver ou `SqliteProjectCreationAuditAdapter` |
+
+### 3.3 Alternatives et trade-offs
+
+| Option | Description | Pour | Contre | Verdict |
 | --- | --- | --- | --- | --- |
-| `03` V0.4 header | « PUBLIÉ SUR PR #604 DRAFT, NON MERGÉE » · « non intégrés à `main` » · base `main` `f44a99b4…` | PR **MERGED** · contenus sur `main` `d739143f…` | DOC DRIFT post-merge | Truth-sync V0.5+ (lot séparé) |
-| AKG `README` | « PR #604 Draft OPEN, non mergée » · commit `c64f8046` | Merged via `d739143f…` | DOC DRIFT | Truth-sync README |
-| Roadmap tip M4 | « M4-A READ-ONLY ANALYSIS IN PROGRESS » · « n'est pas encore intégré sur main » | Dossier M4-A **intégré** ; Exit **encore OPEN** | DOC DRIFT / tip obsolète | Maintenance tip Roadmap (GO distinct) |
-| `05`–`11` | `LOCAL CANDIDATE` / preferred candidate | Historiquement exacts ; désormais sur `main` | Historique OK | **Ne pas retoucher** |
-
-**Le merge est prouvé par Git**, indépendamment des formulations snapshot. Lot candidat : **Post-Merge Documentary Truth-Sync** (M4A-FE-04) — **hors ce cycle**.
-
----
-
-## 11. Comparaison Option A / B / C
-
-| Option | Contenu | Quand | Coût |
-| --- | --- | --- | --- |
-| **A — Bounded Formal Exit with Governed Reserves** | Clôturer M4-A au périmètre investigation + orientation SC-G2 ; reporter réserves non bloquantes vers gates | E01–E14 WITH GOVERNED RESERVE ; aucun Exit blocker | Faible si Pilote accepte reports |
-| **B — Targeted Pre-Exit Correction** | Corriger d'abord écarts Exit bloquants | Si un BLOCKER M4-A EXIT apparaît | Moyen ; risque dérive Delivery |
-| **C — Exit Deferred** | Maintenir OPEN | Dossier instable / preuves insuffisantes | Report décision |
-
-**Recommandation d'examen (non décision) : Option A** — justifiée par E01–E13 satisfaits (souvent WITH GOVERNED RESERVE), E14 WITH GOVERNED RESERVE, absence de classe A Exit blocker, intégration+CI prouvées, H7/H8 stables. **Condition :** Pilote adopte explicitement M4A-FE-01–05 (ou variantes).
-Option B non requise faute de blocker Exit démontré. Option C si le Pilote refuse les reports ou exige truth-sync avant Exit.
+| **A — Port Product + adapter D1** (reco) | Extraire contrat ; D1 impl | Débloque retire ; clear ownership | Léger churn imports | **Preferred** |
+| **B — Move file only** | Déplacer `boundedAtomicAudit.ts` hors `d1` en gardant `openD1Db` | Rapide | Packaging encore couplé DB D1 ; retire D1 incomplet | Acceptable **étape interne** si suivie de A |
+| **C — Dupliquer store Product SQLite** | Nouvelle table Truth C | « tout dans OA » | Second journal ; risque dual-write sémantique ; hors L1 | **Reject for L1** |
+| **D — Delete audit path** | Retirer sqlite mode | Simplifie | Perd CAP utile ; casse t-a7 tests | **Reject** |
+| **E — Keep type in D1** | Status quo | Zero effort | Bloque L2 packaging | **Reject** (oriente M4) |
 
 ---
 
-## 12. Propositions M4A-FE-01–05 — **PROPOSED — NOT ADOPTED**
+## 4. Fichiers candidats d'implémentation (futur GO L1)
 
-| ID | Arbitrage proposé | Réponses possibles Pilote |
-| --- | --- | --- |
-| **M4A-FE-01** | Clôturer M4-A au périmètre **Bounded Rationalization Assessment** avec réserves gouvernées (**Option A**), **ou** maintenir OPEN | ADOPT A / DEFER (B ou C) / REJECT |
-| **M4A-FE-02** | Accepter les **reports gouvernés** H1–H5 et réserves B/C listées §7–§8 comme hors Exit ; les garder OPEN pour Delivery/REAL | ACCEPT / CONDITION / REJECT |
-| **M4A-FE-03** | Valider gouvernance temporaire : suivi Pilote / ChatGPT jusqu'à assignation owner ; **OWNER UNASSIGNED** explicite | ACCEPT / ADJUST / DEFER |
-| **M4A-FE-04** | Autoriser un lot distinct **Post-Merge Documentary Truth-Sync** (README/`03`/Roadmap tip) **sans** retoucher `05`–`11` | GO / DEFER / REJECT |
-| **M4A-FE-05** | Confirmer séparation stricte : Exit ≠ Delivery ≠ REAL ≠ M5 ≠ adoption v3 ; H0/H6 inchangés | CONFIRM / ADJUST |
-
-**Aucune réponse inventée. Aucun ID ADOPTED dans ce cycle.**
-
----
-
-## 13. Conditions d'une éventuelle clôture
-
-Une Formal Exit bornée ne peut être **inscrite** qu'après :
-
-1. Critical Review ChatGPT de **ce** pack.
-2. Décisions Pilote explicites sur M4A-FE-01–05 (au minimum FE-01 + FE-02 + FE-05).
-3. Decision Record / Roadmap tip d'Exit (GO d'authoring/intégration **distincts**).
-4. Absence de GO Delivery/M5/runtime dans le même acte.
-5. Réserves B/C/D **listées** comme GOVERNED OPEN (non fermées).
-
-**Jusque-là : M4-A NON CLOSED.**
-
----
-
-## 14. Non-claims
-
-- Formal Exit **NOT ADOPTED**.
-- Delivery L1–L6 **NOT AUTHORIZED**.
-- AKG-M5 **NOT AUTHORIZED**.
-- Runtime v3 **NON ADOPTED** · REAL **NOT PROVEN** · P6 **NOT PASSED** · SHADOW **OFF**.
-- Classifications A01–A12 **non** adoptées en bloc.
-- SC-G3 REBUILD **non** autorisé.
-- Truth-sync post-merge **non** exécuté ici.
-- R24 **NO PRODUCT SEMANTIC IMPACT**.
-
----
-
-## 15. Références immuables
-
-| Artefact | Réf |
+| Action | Fichier |
 | --- | --- |
-| `main` merge | `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` |
-| PR #604 | MERGED |
-| CI post-merge | `39887430929` SUCCESS |
-| Docs | `01`–`11` sur `main` |
-| H7/H8 | `11` · handoff `9a415e55…` |
-| Integration tip | `c64f8046…` (parent feature) |
-| Handoffs T-A01–T-A06 | commits listés §3 |
-| G0 | ADOPTED · H6 NOT AUTHORIZED |
+| **Create** | `app/lib/product-audit/boundedProjectAuditPort.ts` (+ `index.ts` si besoin) |
+| **Adapt** | `app/lib/d1/boundedAtomicAudit.ts` — implement port ; optionally re-export types from product-audit |
+| **Adapt** | `app/lib/vertical-slice-core/localSqliteAudit.ts` — import port Product |
+| **Adapt** | `app/lib/vertical-slice-runtime/service.ts` — type import Product |
+| **Adapt** | `app/lib/platform/t-a7/projectCycleAtomicCoordinator.ts` — optional align types |
+| **Adapt tests** | `app/__tests__/vertical-slice-core/localProjectComposition.test.ts` |
+| **Adapt tests** | `app/__tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts` |
+| **Check** | `app/__tests__/vertical-slice-runtime/importBoundaries.test.ts` (règles d1) |
+| **Docs Delivery** | Note R24 PRR 04/06/08/09 — **dans le lot Delivery**, pas ici |
+
+**Ne pas toucher (L1 OUT) :** routes D1, `features/d1`, OA schema Product, OPS1, PA orchestration, REAL flags, FinOps.
 
 ---
 
-## 16. Recommandation pour revue indépendante
+## 5. Tests et non-régression
 
-Soumettre à ChatGPT Critical Review : **Option A** comme trajectoire candidate de Formal Exit bornée, sous réserve des réponses Pilote M4A-FE-01–05 ; classer réserves B/C/D ; cadrer truth-sync post-merge comme **follow-up** non bloquant Exit ; **ne pas** clôturer M4-A dans la revue elle-même.
+### 5.1 Réutiliser
 
-**Verdict Cursor (préparation) :** dossier **READY FOR CHATGPT CRITICAL REVIEW** — Formal Exit **PREPARED / NOT ADOPTED**.
+- `localProjectComposition` — sqlite audit injecté
+- `t-a7-hard-ta6-persistence-foundation` — `BoundedAtomicAuditStore`
+- Smoke composition VSR avec `auditMode: "noop"` (régression large suite Product)
+
+### 5.2 Ajouter / exiger avant gate A09 PASS
+
+| Test | Intention |
+| --- | --- |
+| Port contract unit | append/find API sans importer `lib/d1/db` depuis VSR/core |
+| Default noop | `createRuntimeApplicationService()` sans options → no D1 open for audit |
+| Sqlite inject | mode sqlite + store → events persisted ; sans store → throw (comportement actuel) |
+| importBoundaries | VSR **ne** doit plus importer `@/lib/d1/boundedAtomicAudit` (type ou value) |
+| Adapter D1 | store D1 continue de satisfaire port (t-a7) |
+
+### 5.3 Non exécuté dans ce cycle
+
+Aucune commande test runtime ; maturité = analyse statique + existence des suites.
 
 ---
 
-*Fin — `12` — AKG-M4-A FORMAL EXIT READINESS — LOCAL CANDIDATE / DECISION NOT ADOPTED — M4-A NON CLOSED.*
+## 6. Scope IN / OUT du futur lot Delivery L1
+
+### IN
+
+- Extraire port/types Product pour audit borné create/coordinator
+- Rebrancher VSR + `localSqliteAudit` + tests listés
+- Préserver sémantique noop / memory / sqlite
+- Prouver importBoundaries sans type D1 dans VSR
+- Documenter R24 sync PRR **plan** (exécuter sync dans le même GO Delivery si comportement inchangé côté user — sinon note « no user-visible change »)
+
+### OUT
+
+- Migration données D1 → OA
+- Retrait `lib/d1` / routes / UI
+- Activation sqlite en prod
+- Dual-write
+- Renames massifs `pre-m6` / `vertical-slice-runtime`
+- REAL / OPS1 / FinOps / PA carriers
+- Adoption dispositions A01–A12 hors A09 technique de ce lot
+
+### Stops Delivery L1
+
+- Besoin d'ouvrir Truth C pour le journal
+- Besoin MethodMode / volumes
+- Divergence remote / dirty worktree non isolé
+- Tentative de retire D1 dans le même PR
+
+---
+
+## 7. Exit proof L1 (à satisfaire sous GO Delivery)
+
+Reprise M4 A09 retirement gate (CORR-03) — **insuffisant : « plus d'import de type »** :
+
+1. Contrat de type **hors** `lib/d1`
+2. Chemin `auditMode=sqlite` + store **traité** (porté via port Product) ; default **noop**
+3. Consumers VSR / localSqliteAudit / tests injecteurs mis à jour
+4. Tests port + noop + sqlite inject + importBoundaries
+5. Plus de dépendance **type** VSR→`lib/d1/boundedAtomicAudit`
+6. Injection possible ≠ activation — documenté
+
+**Puis** R-A09-01 peut passer à **PASS** (gate technique) — **≠** autorisation L2.
+
+---
+
+## 8. Périmètre d'implémentation prêt pour prompt Delivery
+
+Sous GO Morris L1, le prochain prompt Cursor Delivery devrait contenir :
+
+1. Baseline tip `main` à figer
+2. WT isolé `delivery/…-l1-a09-product-audit-port`
+3. Fichiers §4 + tests §5
+4. Exit proof §7 checklist
+5. Interdits OUT §6
+6. Review Pack + handoff selon profil Delivery
+7. **Pas** de merge sans CI verte + R24 note
+
+---
+
+## 9. Décisions restant à consommer
+
+| ID | Question | Bloque L1 ? |
+| --- | --- | --- |
+| **H0-L1** | GO Delivery L1 ? | **Oui** |
+| Nommage module `product-audit` vs `oa/…` | Préférence packaging | Non (trancher en Delivery design) |
+| H1–H5 | MethodMode, Tool-First, carrier, volumes, pathPolicy | **Non pour L1** |
+| H6 | G0 reopen | N/A — interdit |
+| H7/H8 | Orientation / L4 | N/A L1 |
+
+---
+
+## 10. Recommandation
+
+### **GO L1 SOUS CONDITIONS**
+
+**Conditions :**
+
+1. Morris accorde **H0 Delivery L1** explicite (périmètre = ce pack §6 IN).
+2. Worktree Delivery isolé depuis `main` tip vérifié.
+3. Default **noop** conservé ; aucun flag prod sqlite activé par le lot.
+4. Exit proof §7 obligatoire avant claim « A09 gate PASS ».
+5. Pas de L2/migration/retire dans le même GO.
+6. Sync index AKG / Roadmap **hors** ou **après** merge L1 sous GO doc distinct si besoin.
+
+**Pourquoi pas STOP :** le couplage est localisé, la capacité est claire, les tests existent, le risque runtime prod est bas (noop default), et L1 est le prérequis structurel documenté pour L2.
+
+**Pourquoi pas GO inconditionnel :** H0 non consommé ; choix exact du path module ; validation ChatGPT Critical encore requise sur ce pack.
+
+---
+
+## 11. Traçabilité
+
+| Source | Usage |
+| --- | --- |
+| M4 `05` A09 · `06` CAP-D1-07 · `09` §13 gate · `03` R-A09-01 | Gates et capacité |
+| `service.ts` / `boundedAtomicAudit.ts` / `localSqliteAudit.ts` / `singleton.ts` / t-a7 coordinator | CODE VERIFIED |
+| Blueprint [01](./01-m5a-product-architecture-convergence-blueprint.md) | Contexte trajectoire |
+
+---
+
+*Fin — `02` M5-A L1/A09 Delivery Readiness — LOCAL CANDIDATE — recommandation **GO L1 SOUS CONDITIONS**.*
+
+
+---
+
+# END FULL REVIEW PACK — AKG-M5-A
