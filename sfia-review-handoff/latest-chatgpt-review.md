@@ -369,10 +369,13 @@ Code @ `94c7a30d` : `lib/d1/**`, `features/d1/**`, routes `app/projects*`, `app/
 
 | Item | Valeur |
 |---|---|
-| Verdict | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
-| Tip courant | `git rev-parse origin/sfia/review-handoff` |
+| Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL (contenu substantiel) | `d5cc774749e9c2416681f0bf1d50d8b0e88cb431` |
+| Blob FULL | `dbfbcec8a3246874b6c6d680e5f5c5c0019815ea` |
+| Parent | `4de5dc55bd3069f4aefafa4ee0cfb1c7e075fe4f` |
+| Tip distant courant | `git rev-parse origin/sfia/review-handoff` (peut être sync §18 descendant) |
+| Force push | NON |
+| Projet push/PR | NON |
 
 ---
 
