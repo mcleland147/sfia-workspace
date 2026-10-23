@@ -150,6 +150,19 @@ Les objets existants — LPS, Cycle, HumanDecision, ExecutionContract, Execution
 - [Artefacts, preuves et dette](https://github.com/mcleland147/sfia-workspace/blob/main/projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md)
 - [Build Doctrine](https://github.com/mcleland147/sfia-workspace/blob/main/projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md)
 
+
+### 10. Principe de rationalisation « capability-first » — orientation confirmée M4
+
+**Préserver les capacités utiles, les comportements métier et les garanties ; ne pas présumer la conservation de leur implémentation historique.** Ce principe complète les orientations de rationalisation sans réécrire la doctrine v3.
+
+Une dépendance active, y compris depuis un composant récent vers OPS1, D1, un vertical slice ou un autre ancien sous-système, **n'est pas une justification suffisante de KEEP**. Elle est une **preuve d'impact et de transition**. Il faut étudier le besoin couvert puis déterminer la bonne responsabilité cible : conservation, extraction, consolidation, remplacement ou reconstruction cohérente.
+
+Une réécriture **de bout en bout d'un mécanisme** est une option légitime si elle permet une architecture plus claire, moins couplée et plus durable que la simple enveloppe autour d'un service historique. Cela n'autorise ni une refonte globale gratuite, ni la création d'un second moteur métier.
+
+**Règle de décision :** évaluer la fonction et son utilité ; cartographier consommateurs, appels indirects, données, effets de bord, sécurité, tests et preuves ; comparer KEEP / HARVEST / CONSOLIDATE / REPLACE / REBUILD avec les coûts de transition ; retenir une solution argumentée ; exécuter uniquement sous GO Delivery distinct, avec non-régression et retrait gouverné.
+
+La cible **oriente** l'évolution ; le graphe de dépendances actuel **contraint la migration**, pas le dessin de l'architecture cible.
+
 ## Partie B — Approfondissement TO-BE et cartographie technique
 
 ### 1. Vision
@@ -222,6 +235,19 @@ flowchart TD
 4. **Preuves avant promotion** : Attempt terminal ≠ réussite démontrée ; résultat Cursor déclaré ≠ preuve vérifiée.
 5. **Nommage fonctionnel** : modules pérennes nommés selon responsabilité, non jalon (`pre-m6`, `w2`, `ops1`, etc.). Noms comme `studio-ui`, `product-domain`, `runtime-composition` sont **illustratifs**, pas encore décidés.
 6. **Retraits contrôlés** : ne renommer ni reconstruire une brique destinée à disparaître ; inventorier consumers, tests, migrations, sécurité et plan de sortie avant suppression.
+
+
+### 4.1. Options de traitement d'une dépendance historique
+
+| Option candidate | Quand envisager | Risque à vérifier |
+| --- | --- | --- |
+| **KEEP** | Capacité et implémentation déjà bien isolées, cohérentes avec la responsabilité cible | Dette cachée, état parallèle, comportement non prouvé |
+| **HARVEST** | Capacité utile à extraire derrière un port/interface stable | Importer involontairement des règles/états historiques |
+| **CONSOLIDATE** | Plusieurs chemins réalisent une même responsabilité sans bénéfice légitime de séparation | Confondre similarité et redondance, perdre un invariant |
+| **REPLACE / REBUILD** | Couplage, modèle de données ou enchaînement historique incompatible avec la cible ; solution neuve objectivement plus saine | Migration, vérification des écarts, surface de régression, coûts |
+| **RETIRE LATER** | Service sans valeur cible après transfert ou extinction de ses consommateurs | Suppression prématurée, migrations/reprise incomplètes |
+
+Une **réécriture ciblée ou systémique** doit être explicitement comparée à la conservation, sans préférence automatique pour l'existant ou pour le neuf. Les objets de contrat, d'autorité et de preuve ne peuvent être supprimés par commodité : leur sémantique doit être préservée ou remplacée avec preuves équivalentes.
 
 ### 5. Limites et arbitrages ouverts
 
