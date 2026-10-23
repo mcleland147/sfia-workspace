@@ -552,10 +552,13 @@ BEHAVIOR PROVEN local (37 tests). DETERMINISTIC ≠ READY FOR REAL. Gates REAL *
 
 | Item | Valeur |
 |---|---|
-| Verdict | _PENDING_PUBLISH_ |
-| Commit FULL (contenu substantiel) | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
-| Tip distant courant | `git rev-parse origin/sfia/review-handoff` (peut être descendant sync §10) |
+| Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL (contenu substantiel) | `bdec0e8c3aae0605c59fe90d491e6f6388446c7c` |
+| Blob FULL | `882c78cd4eece9dc8a57b91abbaaac69018ec241` |
+| Tip distant courant | `git rev-parse origin/sfia/review-handoff` (peut être un sync §10 descendant ; tip exact dans rapport Cursor) |
+| Parent FULL | `14066663df702fa68f8e1f776215d4668c044177` |
+| Force push | NON |
+| Branche projet | `feat/akg-m5-l1-a09-audit-port-decoupling` @ `6176a9d3…` inchangée par handoff |
 
 ---
 
