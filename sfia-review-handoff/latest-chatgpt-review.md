@@ -386,11 +386,12 @@ Chaque étape : precondition / future action / preuve / stop / rollback-type / o
 | Item | Valeur |
 |---|---|
 | Tip avant (Q0) | `ac58a4009f5a3ee40dfd59f5eb0518db75d887d0` |
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
-| Tip courant | `git rev-parse origin/sfia/review-handoff` |
-| Projet | inchangé @ `94c7a30d` |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `9f259c3dd04fd93fe8aa854690c2aa7f58c3d48f` |
+| Blob FULL | `5da7e34f92d615fe65f914dbd46acc59a367e50a` |
+| Parent | `ac58a4009f5a3ee40dfd59f5eb0518db75d887d0` |
+| Tip distant courant | `git rev-parse origin/sfia/review-handoff` |
+| Projet | inchangé @ `94c7a30d` ; pas de push/PR |
 
 ---
 
