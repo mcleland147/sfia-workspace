@@ -497,12 +497,14 @@ Renseigné immédiatement après `publish-review-handoff.sh` (voir §11.3). Le c
 
 | Item | Valeur |
 |---|---|
-| Verdict script | _PENDING_PUBLISH_ |
-| Commit tip (courant) | _PENDING_PUBLISH_ |
-| Blob tip (courant) | _PENDING_PUBLISH_ |
+| Verdict script | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit tip (courant) | `b5a4ce2a7a7c899b7ae4b256d81325db8277c4a6` |
+| Blob tip (courant) | `b735c5a73bf0c255f60e07229fc86a8d711994f9` |
 | Parent | `df18124b890ac0b3c4e0f5b46a28c01c1e265c00` |
 | Force push | NON |
 | Branche projet pushée | NON |
+
+**Désignation:** le tip distant `origin/sfia/review-handoff` **après ce sync §11** peut avancer d’un commit mono-fichier. La relecture ChatGPT doit utiliser `git rev-parse origin/sfia/review-handoff` comme tip courant ; le SHA ci-dessus identifie le commit qui a introduit le pack FULL correctif (diffs + validations). Si tip ≠ SHA ci-dessus, le tip plus récent est un sync de désignation uniquement — le contenu substantiel (diffs §4 + validations §5) reste celui du commit FULL.
 
 ---
 
