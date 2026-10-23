@@ -35,10 +35,10 @@ describe("V2-A1 vertical-slice-runtime import boundaries", () => {
   });
 
   it("does not import product-persistence stores as business state", () => {
-    // Audit may reference BoundedAtomicAuditStore types; forbidding db.ts and
-    // treating SQLite as product persistence rehydration.
+    // L1/A09: VSR must not import D1 audit types or db; SQLite audit is injected
+    // as ProjectCycleAuditPort (transient D1 adapter lives outside VSR).
     const forbidden =
-      /@\/lib\/d1\/db|productPersistence\s*:\s*["']SELECTED["']|runReady\s*:\s*true|productReady\s*:\s*true/;
+      /@\/lib\/d1(?:\/|["'])|productPersistence\s*:\s*["']SELECTED["']|runReady\s*:\s*true|productReady\s*:\s*true/;
     const violations = listSourceFiles(RUNTIME_ROOT).flatMap((file) =>
       fs
         .readFileSync(file, "utf8")

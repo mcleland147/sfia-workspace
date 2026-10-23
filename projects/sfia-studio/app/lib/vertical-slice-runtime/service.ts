@@ -11,7 +11,7 @@ import {
   type LocalVerticalSliceCompositionOptions,
   type LocalVerticalSliceServices,
 } from "@/lib/vertical-slice-core";
-import type { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
+import type { ProjectCycleAuditPort } from "@/lib/platform/t-a7/projectCycleAtomicCoordinator";
 import type { DoctrinePackagePin, ClockPort } from "@/lib/oa/doctrine";
 import {
   createCkcQualificationServices,
@@ -105,9 +105,11 @@ export interface RuntimeApplicationServiceOptions {
   /**
    * D-V2-03: default noop. `sqlite` requires `sqliteAuditStore`.
    * Audit never rehydrates business state.
+   * L1: store typed as ProjectCycleAuditPort (D1 BoundedAtomicAuditStore remains
+   * a transient adapter implementation — not imported here).
    */
   readonly auditMode?: RuntimeAuditMode;
-  readonly sqliteAuditStore?: BoundedAtomicAuditStore;
+  readonly sqliteAuditStore?: ProjectCycleAuditPort;
   /**
    * OA Product SQLite path (M1). Isolated from D1/OPS1/FinOps.
    */
@@ -173,7 +175,7 @@ export type RuntimeOaStack = {
 
 function resolveAudit(
   mode: RuntimeAuditMode,
-  sqliteAuditStore: BoundedAtomicAuditStore | undefined,
+  sqliteAuditStore: ProjectCycleAuditPort | undefined,
 ): LocalVerticalSliceCompositionOptions["audit"] {
   if (mode === "memory") {
     return new MemoryLocalProjectCreationAudit();
@@ -181,7 +183,7 @@ function resolveAudit(
   if (mode === "sqlite") {
     if (!sqliteAuditStore) {
       throw new Error(
-        "sqlite audit mode requires sqliteAuditStore (bounded D1 audit table).",
+        "sqlite audit mode requires sqliteAuditStore (ProjectCycleAuditPort).",
       );
     }
     return new BoundedSqliteLocalProjectCreationAudit(sqliteAuditStore);

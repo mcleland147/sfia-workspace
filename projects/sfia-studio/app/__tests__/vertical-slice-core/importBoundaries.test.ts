@@ -34,6 +34,22 @@ describe("visible slice V1 import boundaries", () => {
     expect(violations).toEqual([]);
   });
 
+  it("does not import D1 audit packaging (L1/A09 — ProjectCycleAuditPort only)", () => {
+    const forbidden = /@\/lib\/d1(?:\/|["'])/;
+    const violations = listSourceFiles(CORE_ROOT).flatMap((file) =>
+      fs
+        .readFileSync(file, "utf8")
+        .split("\n")
+        .map((line, index) => ({
+          file: path.relative(APP_ROOT, file),
+          line: index + 1,
+          text: line.trim(),
+        }))
+        .filter((entry) => forbidden.test(entry.text)),
+    );
+    expect(violations).toEqual([]);
+  });
+
   it("keeps OA T-A0/T-A1 independent from the new facade and D1", () => {
     const roots = [
       path.join(APP_ROOT, "lib/oa/doctrine"),

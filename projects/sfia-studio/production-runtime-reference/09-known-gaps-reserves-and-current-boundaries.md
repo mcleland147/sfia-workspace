@@ -5,6 +5,20 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
+## Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
+
+| Item | Status |
+|---|---|
+| GO | **H0-L1 GRANTED BY MORRIS** (ChatGPT conversation 2026-10-23) — local Delivery only |
+| Branch | `feat/akg-m5-l1-a09-audit-port-decoupling` @ `main` `56447774…` — **NOT pushed / NOT PR / NOT merged** in this cycle |
+| Contract | `ProjectCycleAuditPort` (t-a7) = unique append port for atomic phase journal; `LocalProjectCreationAuditPort` remains distinct |
+| VSR / core | No `@/lib/d1` audit type imports; typed on `ProjectCycleAuditPort` |
+| D1 adapter | `BoundedAtomicAuditStore` remains transient persistence adapter (`d1_atomic_audit`); **NOT migrated / NOT retired** |
+| Default runtime | `auditMode` **noop** — no implicit sqlite activation |
+| R-A09-01 | **PASS TECHNIQUE local** (targeted tests + typecheck) under ChatGPT Critical Review reserve — **≠ GO L2** |
+| L2 exit condition | Durable Product audit SoT decision + D1 retire/migrate under distinct Morris GO |
+| REAL / P6 / v3 | REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** |
+
 ## Overlay — P6-REAL-OBS-P0 Option B (local candidate — CRITICAL CORRECTION)
 
 | Item | Status |
