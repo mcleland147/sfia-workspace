@@ -274,13 +274,21 @@ Checker : **CONFORMANCE OK**. Digest OK ≠ validité sémantique exhaustive.
 
 ---
 
-## 13. Review Handoff Git L3 (à compléter post-publish)
+## 13. Review Handoff Git L3 — REMOTE VERIFIED
 
-Source: `.tmp-sfia-review/chatgpt-review.md`
-Cible: `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
-Script: `scripts/sfia/publish-review-handoff.sh`
+| Item | Valeur |
+|---|---|
+| Verdict script | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Branche | `sfia/review-handoff` |
+| Fichier canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Commit handoff | `c3a001729a9e35c81f123de05a3dfa8c95bcaac2` |
+| Blob | `a4c332685c516b115cd7959c28034e4ae5d15ce1` |
+| Parent | `3c0fd81fa4dd0b157109546cb0d11287e20ae39c` |
+| Force push | **NON** |
+| Branche projet pushée | **NON** |
+| Worktree projet après publish | inchangé — `feat/akg-m5-l1-a09-audit-port-decoupling` @ `56447774…` + working tree L1 |
 
-*(Rempli après exécution publish — commit SHA, blob, relecture distante.)*
+Relecture distante : contenu aligné sur ce pack (Cycle 8 / H0-L1 / Q1–Q10 / verdict READY). Republish éventuel ci-dessous si section 13 complétée.
 
 ---
 
