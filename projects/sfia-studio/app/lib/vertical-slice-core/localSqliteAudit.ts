@@ -1,8 +1,8 @@
-import type { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
 import type {
-  BoundedAtomicOutcome,
-  BoundedAtomicPhase,
-} from "@/lib/d1/boundedAtomicAudit";
+  ProjectCycleAuditOutcome,
+  ProjectCycleAuditPhase,
+  ProjectCycleAuditPort,
+} from "@/lib/platform/t-a7/projectCycleAtomicCoordinator";
 import type {
   LocalProjectCreationAuditEvent,
   LocalProjectCreationAuditPort,
@@ -10,7 +10,7 @@ import type {
 
 function phaseFor(
   event: LocalProjectCreationAuditEvent,
-): BoundedAtomicPhase {
+): ProjectCycleAuditPhase {
   switch (event.event) {
     case "LOCAL_PROJECT_CREATION_REQUESTED":
       return "prepare";
@@ -27,20 +27,23 @@ function phaseFor(
 
 function outcomeFor(
   event: LocalProjectCreationAuditEvent,
-): BoundedAtomicOutcome {
+): ProjectCycleAuditOutcome {
   if (event.result === "FAILED") return "FAILED";
   if (event.event === "LPS_INITIALIZED") return "COMMITTED";
   return "IN_PROGRESS";
 }
 
 /**
- * Optional adapter over the existing bounded D1 audit table.
- * Payload contains references/status only: never objective, context, PII, or secret.
+ * Optional adapter over an injected ProjectCycleAuditPort (historically D1
+ * BoundedAtomicAuditStore). Payload contains references/status only: never
+ * objective, context, PII, or secret.
+ *
+ * L1: core must not import lib/d1; the D1 store remains a transient adapter.
  */
 export class BoundedSqliteLocalProjectCreationAudit
   implements LocalProjectCreationAuditPort
 {
-  constructor(private readonly store: BoundedAtomicAuditStore) {}
+  constructor(private readonly store: ProjectCycleAuditPort) {}
 
   append(event: LocalProjectCreationAuditEvent): void {
     this.store.append({
