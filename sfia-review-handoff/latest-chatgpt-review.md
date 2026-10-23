@@ -1,6 +1,7 @@
 # SFIA Studio — AKG-M5 / L2-Q0 — Intake & Persistence Migration Readiness
 
 **Date / heure:** 2026-10-23 21:10 Europe/Paris (CEST)
+**Passe corrective inventaires:** 2026-10-23 ~21:15 CEST — consolidation CODE VERIFIED des inventaires parallèles D1/OA (sans re-développement, sans mutation projet)
 **Cycle:** 6 — Architecture technique
 **Profil:** Critical
 **Typologie:** Investigation read-only + decision pack
@@ -151,6 +152,47 @@ Code @ `94c7a30d` : `lib/d1/**`, `features/d1/**`, routes `app/projects*`, `app/
 | Deux listes projets | Workspace D1 vs Studio OA | CODE VERIFIED |
 
 ---
+
+
+---
+
+## 6bis. Consolidation inventaires parallèles (CODE VERIFIED) — passe corrective
+
+Sources inventaire (agents read-only @ `94c7a30d`) :
+- [D1 writers/readers inventory](ecd3cb08-9a6a-4d29-8b6e-5e592d629591)
+- [OA Project writers/readers](8de4048e-3f02-44e1-8a1f-cea399fb37e6)
+
+Ces points **complètent** §§6–10 sans invalider le verdict Q0. Aucune mutation projet.
+
+### D1 — précisions
+
+| Point | Preuve | Impact décision |
+|---|---|---|
+| Tout DML produit D1-I1 passe par `D1ProjectRepository` (+ `BoundedAtomicAuditStore` pour `d1_atomic_audit`) | Grep DML `d1_*` limité à `repository.ts` / `boundedAtomicAudit.ts` | Surface cutover writers claire |
+| `d1_assignments` : INSERT à la création ; **aucun SELECT** dans `app/` | Inventaire D1 §2.1 / gaps | Assignments = write-only local ; migration ownership non trivial |
+| `selectMethodMode` / `actionSelectMethodMode` : **pas d’appelant UI production** `features/d1` | Inventaire D1 §4 / §16 | Hold bloque les transitions ; create n’appelle **pas** `assertMethodModeTransitionAllowed` |
+| MethodMode **hold** = in-memory / gouvernance default (`methodModeHoldOverrideSlot`) — **non persisté SQLite** | `methodModeHold.ts` + store | Archive MethodMode column ≠ archive du hold |
+| Intake analyze / cancel : **pas** d’écriture Project DB | `d1EventSink` / intake actions | Cutover intake ≠ geler analyze-only |
+| `CONFIRM_EXISTING_PROJECT_CONTEXT` : read only ; **pas** de lien intake↔project persisté | `executeConfirmation.ts` comments | Pas de relation durable à migrer pour ce path |
+
+### OA Product — précisions
+
+| Point | Preuve | Impact décision |
+|---|---|---|
+| Tables Product Project : `oa_projects`, `oa_lps`, `oa_lps_current`, `oa_idempotency`, `oa_audit_events` | DDL `db.ts` + adapters | SoT Product inchangé |
+| **Default Studio composition** : Project/LPS → **SQLite** ; `ProjectAuditJournalPort` → **`MemoryProjectAuditJournal`** (pas `oa_audit_events`) | `localProjectComposition.ts` inject memory audit | Durabilité Project ≠ durabilité journal OA sur create/list/get Studio |
+| Materialization Memory B : LPS via `AppendLivingProjectStateVersion` ; audit **`SqliteProjectAuditJournal`** quand stack Product SQLite | `service.ts` wireOaStack | Dual sink audit selon chemin — ne pas unifier sans design |
+| `LocalProjectCreationAuditPort` (noop/memory/sqlite→`ProjectCycleAuditPort`) **distinct** de `ProjectAuditJournalPort` | L1 + inventaire OA §5.2 | Confirme non-unification des ports (pack §10) |
+| `GetProject` success : **pas** d’append audit (failures only) | `getProject.ts` | Journal OA non exhaustif des reads |
+| Reader hors-port : `evaluateProductRealReadiness.ts` SELECT existence `oa_projects` | Inventaire OA §8 | Exception à documenter au cutover readers |
+
+### Non-régression vs pack principal
+
+- Dual-write D1↔OA : toujours **absent**.
+- H1/H4/R-CUT-01 : toujours **OPEN** (décision Morris).
+- Option L2 recommandée **A** : inchangée.
+- Verdict : **inchangé** — INVESTIGATION COMPLETE WITH GOVERNED OPEN GATES.
+
 
 ## 7. H1 — MethodMode
 
@@ -388,3 +430,15 @@ Code @ `94c7a30d` : `lib/d1/**`, `features/d1/**`, routes `app/projects*`, `app/
 - WT P6 dirty non interféré.
 
 **Fin pack FULL — matrices substantielles ; SYNTHESIS ONLY interdit.**
+
+---
+
+## 18bis. Handoff tip — passe corrective inventaires
+
+| Item | Valeur |
+|---|---|
+| Tip avant corrective | `73d97565e42a95dc4ad63897a61fd623f4449db2` |
+| Commit FULL inventaires (ce contenu) | _PENDING_PUBLISH_ |
+| Blob FULL | _PENDING_PUBLISH_ |
+| Tip distant courant post-publish | `git rev-parse origin/sfia/review-handoff` |
+| Projet | inchangé @ `94c7a30d` ; pas de push/PR |
