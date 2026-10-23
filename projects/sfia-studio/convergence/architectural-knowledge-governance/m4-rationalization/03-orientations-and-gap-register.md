@@ -2,11 +2,11 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Version | **V0.5 — 2026-10-23** · M4-A Formal Exit adopted / post-merge truth-sync ; V0.1–V0.4 = snapshots historiques |
-| Périmètre GO | **M4A-FE-01–05 ADOPTED** (clôture bornée + reports + gouvernance + GO truth-sync documentaire) ; **NO GO Delivery, AKG-M5 ou merge du nouveau dossier** |
+| Version | **V0.6 — 2026-10-23** · AKG-M4 GLOBAL Formal Exit ; V0.1–V0.5 = historique |
+| Périmètre GO | **AKG-M4 GLOBAL FORMAL EXIT ADOPTED BY PILOTE** ; étude bornée uniquement ; pas de GO AKG-M5, Delivery, REAL ni merge du présent candidat |
 | Autorité | Orientations V0.1 **+** arbitrages Pilote **H7/H8** (2026-10-22) — détail [Decision Record `11`](./11-m4a-h7-h8-architecture-orientation-decision-record.md) · ce fichier = registre consolidé, **pas** une seconde source de vérité H7/H8 |
-| Statut jalon | **M4-A CLOSED BY MORRIS AT BOUNDED RATIONALIZATION ASSESSMENT SCOPE WITH GOVERNED OPEN RESERVES** ; H7/H8 inchangés ; PR #604 MERGED/CI SUCCESS ; **M4 global et AKG-M5 non autorisés par implication** ; runtime v3 NON ADOPTED |
-| Base de preuve | `main` au merge #604 `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` · CI `39887430929` SUCCESS · `12` readiness et [13 — FE](./13-m4a-formal-exit-decision-record.md) · docs `05`–`11` intégrés |
+| Statut jalon | **AKG-M4 GLOBAL CLOSED BY MORRIS — BOUNDED ASSESSMENT WITH GOVERNED OPEN RESERVES** ; M4-A CLOSED ; H7/H8 inchangés ; A01–A12 technical dispositions CANDIDATES ; M5 NOT AUTHORIZED · [Decision Record 14](./14-akg-m4-global-formal-exit-decision-record.md) |
+| Base de preuve | `main` au GO M4 global `b7bff88b4d6baef5745014c990b07af05a0063ff` · PR #605 MERGED · CI post-merge `39893659601` SUCCESS · `12` readiness + `13` Exit M4-A + [14 Global Exit](./14-akg-m4-global-formal-exit-decision-record.md) |
 
 ## 1. Statuts
 
@@ -215,6 +215,16 @@ La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.
 - **M4A-FE-04 ADOPTED :** GO truth-sync documentaire README / `03` / Roadmap ; ce changement est un candidat Git et **n'est pas présumé mergé sans preuve**.
 - **M4A-FE-05 ADOPTED :** Delivery L1–L6 / M5 **NON AUTORISÉS**, Product REAL **NOT PROVEN**, P6 GLOBAL **NOT PASSED**, runtime v3 **NON ADOPTED**, FinOps SHADOW **OFF**. H7/H8 et G0-A/B inchangés.
 - **Réserves gouvernées :** maintenir §9, document `11` et document `13`. RES-01 (preuve documentaire à confirmer), RES-02 (pathPolicy L3), volumes L2, cutover, A09/A11, carriers L4 et dettes historiques restent OPEN/DEFER à leurs gates.
+
+## 14. État CURRENT — AKG-M4 GLOBAL Formal Exit (2026-10-23)
+
+[Decision Record 14](./14-akg-m4-global-formal-exit-decision-record.md) : décision Pilote **AKG-M4 GLOBAL CLOSED** au seul périmètre d'architecture **Bounded Rationalization Assessment with Governed OPEN Reserves**. Le lot M4-A est déjà CLOSED (FE-01–05), PR #605 MERGED et CI post-merge SUCCESS.
+
+- **H7/H8** : orientation SC-G2 avec SC-G3 ciblé A06/A10 et étude conditionnelle L4 seulement. A01–A12 classifications restent **CANDIDATES**.
+- **H0 NOT GRANTED**, **H1–H5 OPEN/GOVERNED**, **H6 G0 REOPEN NOT AUTHORIZED**. Volumes, MethodMode, cutover, Product REAL, pathPolicy, A09/A11, carriers restent soumis aux gates futurs.
+- **Gouvernance temporaire Pilote** ; formal technical owners **UNASSIGNED** ; ChatGPT support documentaire, sans responsabilité opérationnelle.
+- **AKG-M5 NOT STARTED / NOT AUTHORIZED** ; Delivery L1–L6 NOT AUTHORIZED, REAL NOT PROVEN, P6 GLOBAL NOT PASSED, runtime v3 NON ADOPTED, SHADOW OFF.
+- Présent truth-sync candidat Git ; son statut d'intégration dans `main` exige PR, GO merge et CI post-merge distincts.
 
 ---
 

@@ -3,10 +3,10 @@
 | Champ | Valeur |
 | --- | --- |
 | Portée | Construction / connaissance architecturale de **SFIA Studio uniquement** |
-| Version | **V0.3 — 2026-10-23** · Formal Exit bornée et truth-sync FE-04 (V0.1/V0.2 historiques) |
-| Base de lecture | `main` au merge #604 : `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` ; CI `39887430929` SUCCESS ; autres bases V0.1/V0.2 historiques |
-| Autorisation Pilote | M4/M4-A START et H7/H8 consommés ; **M4A-FE-01–05 ADOPTED** (2026-10-23), clôture bornée + truth-sync ; **aucun GO merge du nouveau dossier, Delivery ni AKG-M5** |
-| Non-claims | **M4-A CLOSED BY MORRIS AT BOUNDED RATIONALIZATION ASSESSMENT SCOPE WITH GOVERNED OPEN RESERVES** ; PR #604 MERGED ; M4 global et M5 non démarrés par implication ; REAL NOT PROVEN ; runtime v3 NON ADOPTED |
+| Version | **V0.4 — 2026-10-23** · AKG-M4 GLOBAL Formal Exit bornée ; V0.1–V0.3 snapshots historiques |
+| Base de lecture | `main` au GO M4 global : `b7bff88b4d6baef5745014c990b07af05a0063ff` ; PR #605 MERGED, CI post-merge `39893659601` SUCCESS ; bases V0.1–V0.3 historiques |
+| Autorisation Pilote | **AKG-M4 GLOBAL FORMAL EXIT ADOPTED BY PILOTE** (2026-10-23), bounded assessment only ; M4-A already CLOSED ; **AKG-M5 / Delivery NOT AUTHORIZED** |
+| Non-claims | **AKG-M4 GLOBAL CLOSED BY MORRIS WITH GOVERNED OPEN RESERVES at bounded Rationalization Assessment scope** ; A01–A12 dispositions candidates, H1–H5 OPEN ; REAL NOT PROVEN ; runtime v3 NON ADOPTED ; AKG-M5 NOT AUTHORIZED |
 
 ## Point d'entrée AKG
 
@@ -18,7 +18,7 @@ Les acquis AKG-M0 à M3 sont répartis entre la Build Doctrine, la Roadmap, la P
 | **M1 — System Inventory** | Inventaire système borné et réserves | [PRR 01](../../production-runtime-reference/01-system-runtime-overview.md), [02](../../production-runtime-reference/02-runtime-object-catalog.md), [03](../../production-runtime-reference/03-end-to-end-flow-catalog.md), [Roadmap](../sfia-studio-convergence-roadmap.md) |
 | **M2 — Architecture Understanding** | Responsabilités, dépendances, frontières d'autorité | [PRR 03](../../production-runtime-reference/03-end-to-end-flow-catalog.md), [04](../../production-runtime-reference/04-dependency-impact-map.md), [07](../../production-runtime-reference/07-authority-invariants-and-failure-modes.md), [09](../../production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md) |
 | **M3 — Reference Consolidation** | Living PRR consolidée au périmètre borné, réserves gouvernées | [PRR README](../../production-runtime-reference/README.md), [08](../../production-runtime-reference/08-test-proof-and-conformance-map.md), [09](../../production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md) |
-| **M4 — Rationalization Assessment** | **M4-A CLOSED BY MORRIS (bounded assessment, governed OPEN reserves)** ; T-A01–T-A06 acceptés avec réserves ; H7/H8 conservés ; PR #604 MERGED/CI SUCCESS ; M4 global et AKG-M5 pas clôturés/démarrés par implication | [Registre](m4-rationalization/03-orientations-and-gap-register.md) · [FE Decision Record](m4-rationalization/13-m4a-formal-exit-decision-record.md) |
+| **M4 — Rationalization Assessment** | **GLOBAL FORMAL EXIT ADOPTED — BOUNDED ASSESSMENT with governed OPEN reserves** ; M4-A CLOSED, PR #605 MERGED/CI SUCCESS ; A01–A12 candidate ; M5 et Delivery sous GO distinct | [Global Exit 14](m4-rationalization/14-akg-m4-global-formal-exit-decision-record.md) · [M4-A Exit 13](m4-rationalization/13-m4a-formal-exit-decision-record.md) |
 
 ## Livrables AKG-M4 (V0.1)
 
@@ -53,6 +53,13 @@ Les acquis AKG-M0 à M3 sont répartis entre la Build Doctrine, la Roadmap, la P
 - **Réserves :** H1–H5 et Delivery/REAL OPEN ou DEFER ; gouvernance temporaire Pilote ; formal owners UNASSIGNED ; ChatGPT support documentaire uniquement.
 - **Frontières :** H0 NOT GRANTED, H6 NOT AUTHORIZED ; H7/H8 et G0 inchangés ; **AKG-M5 NOT AUTHORIZED**, Product REAL NOT PROVEN, P6 GLOBAL NOT PASSED, runtime v3 NON ADOPTED.
 - **Publication de ce truth-sync :** candidat documentaire sur branche Git dédiée tant que son merge et sa CI ne sont pas vérifiés.
+
+## État CURRENT — AKG-M4 Global Formal Exit (2026-10-23)
+
+- **GLOBAL CLOSED BY MORRIS** au seul périmètre **Bounded Architectural Rationalization Assessment with Governed Open Reserves** ; [Decision Record 14](m4-rationalization/14-akg-m4-global-formal-exit-decision-record.md).
+- **Preuve d'amont :** `main` au GO `b7bff88b4d6baef5745014c990b07af05a0063ff`, PR #605 MERGED, CI post-merge #39893659601 SUCCESS ; cette nouvelle publication est un candidat Git distinct.
+- **H7/H8** inchangés, dispositions finales A01–A12 non adoptées individuellement ; **H1–H5 OPEN**, H0 Delivery NOT GRANTED, H6 G0 reopen NOT AUTHORIZED ; réserves techniques gardées aux futurs gates.
+- Gouvernance temporaire **Pilote**, propriétaires techniques formels **UNASSIGNED** ; ChatGPT assistance seulement. **AKG-M5 NOT AUTHORIZED**, L1–L6 sans GO, REAL NOT PROVEN, P6 GLOBAL NOT PASSED, runtime v3 NON ADOPTED, SHADOW OFF.
 
 ## Mode de consultation dans les futurs travaux
 
