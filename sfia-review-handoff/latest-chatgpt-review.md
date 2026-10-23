@@ -1,29 +1,28 @@
-# SFIA Studio — AKG-M5 / L1-A09 — Cycle 8 Critical Delivery — FULL Review Pack
+# SFIA Studio — AKG-M5 / L1-A09 — Cycle 13 Critical — FULL Review Pack
 
-**Passe:** CORRECTIVE HANDOFF (pas de re-développement)
-**Date / heure:** 2026-10-23 18:57 Europe/Paris (CEST)
-**Cycle:** 8 — Delivery / implémentation
+**Date / heure:** 2026-10-23 19:31 Europe/Paris (CEST)
+**Cycle:** 13 — PR readiness & Git Integration
+**Spécialisation:** Final L1/A09 Documentary Correction + Governed Git Integration
 **Profil:** Critical
-**GO Morris consommé:** **H0-L1 GRANTED** (ChatGPT 2026-10-23)
-**Autorisations NON consommées:** push branche projet · PR projet · merge · migration D1→OA · retrait D1 · activation sqlite implicite · runtime v3 ADOPTED · REAL / FinOps SHADOW
+**GO Morris consommés:** H0-L1 (Delivery) · Correction Roadmap ChatGPT · **Cycle 13 commit + push + Draft PR**
+**NON accordés:** Merge · L2 · D1 retire/migrate · REAL · SHADOW · v3 ADOPTED
 
-**Instruction ChatGPT (obligatoire):** avant toute review, lire le fichier distant
-`sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md`
-et vérifier cohérence avec HEAD/base, diffs ci-dessous, sorties de validation, Q1–Q10 et verdict.
-Un rapport Cursor seul ne suffit pas.
+**Instruction ChatGPT:** lire d’abord `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` et vérifier cycle, HEAD, base, 8 fichiers, Roadmap M5-A Formal Exit, tests, PR #609, réserves et verdict.
 
 ---
 
 ## 1. Verdict
 
-**L1 LOCAL DELIVERY COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**
+**L1/A09 GIT INTEGRATION PUBLISHED — DRAFT PR READY FOR CHATGPT CRITICAL PR REVIEW**
 
-- Diff local borné **8 fichiers** (working tree, non commité projet)
-- Validations ciblées **ré-exécutées 2026-10-23 18:57 CEST** — vertes
-- Pack FULL avec **diffs utiles complets** des 8 fichiers + sorties de validation
-- Handoff L3 corrective : §13
+- 8 fichiers conformes
+- Correction Roadmap (M5-A Formal Exit conservé)
+- Validations exécutées et vertes
+- Push projet vérifié
+- Draft PR **#609**
+- Handoff L3 : §12
 
-**≠ GO L2.** **≠** push/PR/merge projet.
+**MERGE NOT GRANTED. GO L2 NOT GRANTED.**
 
 ---
 
@@ -31,28 +30,30 @@ Un rapport Cursor seul ne suffit pas.
 
 | Item | Valeur |
 |---|---|
-| Repo | `mcleland147/sfia-workspace` |
-| Worktree Delivery | `/Users/morris/Projects/sfia-workspace-l1-a09-delivery` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-l1-a09-delivery` |
 | Branche | `feat/akg-m5-l1-a09-audit-port-decoupling` |
-| HEAD (= origin/main) | `56447774a66ec5b4b1be58be9a4c581bd70ac845` |
-| Commit projet | **NON** (working tree only) |
-| Staged | aucun |
+| Base `origin/main` | `56447774a66ec5b4b1be58be9a4c581bd70ac845` |
+| Commit projet | `6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d` |
+| Distant branche | `6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d` (SHA local = remote) |
+| Force push | NON |
+| Merge | NON |
 
-### `git status --short` (fichiers Delivery + pack local)
+### Commit
 
 ```
- M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/vertical-slice-core/importBoundaries.test.ts
- M projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
- M projects/sfia-studio/app/lib/vertical-slice-core/localSqliteAudit.ts
- M projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
- M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
- M projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
- M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
- M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+6176a9d3 feat(studio): decouple L1 A09 Product audit from D1
+ .../vertical-slice-core/importBoundaries.test.ts    | 16 ++++++++++++++++
+ .../vertical-slice-runtime/importBoundaries.test.ts |  6 +++---
+ .../app/lib/vertical-slice-core/localSqliteAudit.ts | 21 ++++++++++++---------
+ .../app/lib/vertical-slice-runtime/service.ts       | 10 ++++++----
+ .../convergence/sfia-studio-convergence-roadmap.md  |  7 ++++---
+ .../04-dependency-impact-map.md                     | 12 ++++++++++++
+ ...09-known-gaps-reserves-and-current-boundaries.md | 14 ++++++++++++++
+ .../production-runtime-reference.manifest.json      |  6 +++---
+ 8 files changed, 70 insertions(+), 22 deletions(-)
 ```
 
-### `git diff --name-status` (8 fichiers Delivery)
+### `git diff-tree --name-status -r HEAD`
 
 ```
 M	projects/sfia-studio/app/__tests__/vertical-slice-core/importBoundaries.test.ts
@@ -65,37 +66,45 @@ M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-c
 M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ```
 
-### `git diff --stat` (8 fichiers Delivery)
+---
+
+## 3. Correction Roadmap (réserve ChatGPT)
+
+### Tips commités (extrait)
 
 ```
- .../vertical-slice-core/importBoundaries.test.ts    | 16 ++++++++++++++++
- .../vertical-slice-runtime/importBoundaries.test.ts |  6 +++---
- .../app/lib/vertical-slice-core/localSqliteAudit.ts | 21 ++++++++++++---------
- .../app/lib/vertical-slice-runtime/service.ts       | 10 ++++++----
- .../convergence/sfia-studio-convergence-roadmap.md  |  6 +++---
- .../04-dependency-impact-map.md                     | 12 ++++++++++++
- ...09-known-gaps-reserves-and-current-boundaries.md | 14 ++++++++++++++
- .../production-runtime-reference.manifest.json      |  6 +++---
- 8 files changed, 69 insertions(+), 22 deletions(-)
+| **CURRENT TIP 2026-10-23 — AKG-M5 L1/A09 Git Integration (H0-L1 + Cycle 13)** | **H0-L1 GRANTED BY MORRIS** · Delivery L1/A09 **local techniquement validé** · `ProjectCycleAuditPort` réutilisé (Option A / t-a7) · VSR/core **sans** imports audit `@/lib/d1` · D1 `BoundedAtomicAuditStore` = **adapter transitoire** · Q1–Q10 **PASS LOCAL** · R-A09-01 **PASS TECHNIQUE LOCAL** (≠ PASS CI · ≠ GO L2) · **GO Morris 2026-10-23 Cycle 13** = correction Roadmap + commit + push + **Draft PR** vers `main` · branche `feat/akg-m5-l1-a09-audit-port-decoupling` @ base `56447774…` · **MERGE NOT GRANTED** · **GO L2 NOT GRANTED** · AKG-M5 global **OPEN** · runtime v3 NON ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · SHADOW OFF. |
+| **HISTORICAL TIP 2026-10-23 — AKG-M5-A BOUNDED DOCUMENTARY FORMAL EXIT (CLOSED BY MORRIS)** | **M5-A DOCUMENTARY FORMAL EXIT CLOSED BY MORRIS AT BOUNDED DOCUMENTARY ARCHITECTURE CONVERGENCE SCOPE WITH GOVERNED OPEN RESERVES** ; [Decision Record 03](./architectural-knowledge-governance/m5-product-transformation/03-m5a-formal-exit-decision-record.md) **on main** ; [PR #607](https://github.com/mcleland147/sfia-workspace/pull/607) **MERGED** `0e1181abcd38553d7f489ee5650e0e2957466384` · CI post-merge [#39973034538](https://github.com/mcleland147/sfia-workspace/actions/runs/39973034538) **SUCCESS** ; [PR #608](https://github.com/mcleland147/sfia-workspace/pull/608) **MERGED** `main` `56447774a66ec5b4b1be58be9a4c581bd70ac845` · CI post-merge [#39978574740](https://github.com/mcleland147/sfia-workspace/actions/runs/39978574740) **SUCCESS** ; 01/02 + C1–C4 intégrés ; C3 = COVERAGE VERIFIED ; **AKG-M5 GLOBAL OPEN** ; à la date de ce Formal Exit tip : **H0-L1 NOT GRANTED** / Q1–Q10 NOT PASS / R-A09-01 OPEN = **HISTORICAL AS TIP** (superseded as CURRENT by H0-L1 + L1 Delivery + Cycle 13 GI) ; H1–H5 OPEN ; packaging port t-a7 = candidate alors ; REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED. |
+| **HISTORICAL TIP 2026-10-23 — AKG-M5-A documentary Git Integration (pre-merge snapshot)** | **AKG-M5-A** Product Architecture Convergence + L1/A09 readiness **préparés** ; corrections C1–C4 ; C3 résiduelle requalifiée (sqlite inject = COVERAGE VERIFIED) ; revue ChatGPT **PASS WITH GOVERNED RESERVE** ; **GO Morris 2026-10-23 Git Integration documentaire** (commit / push / Draft PR) ; dossier [m5-product-transformation](./architectural-knowledge-governance/m5-product-transformation/) ; **H0 Delivery L1 NOT GRANTED** *(HISTORICAL AS TIP — later H0-L1 GRANTED)* ; Q1–Q10 NOT PASS *(then)* ; R-A09-01 OPEN *(then)* ; packaging port t-a7 = candidate ; **pas** de Delivery · **pas** runtime v3 ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED ; **intégration `main` non affirmée** tant que merge + CI post-merge non vérifiés *(later: PR #607/#608 MERGED)*. |
 ```
+
+### Ligne tableau AKG-M5 (extrait)
+
+```
+| **AKG-M5** Product Transformation | Product Architecture Convergence documentaire **M5-A CLOSED** ; lots Product gouvernés (L1+) | V3-F05+ | AKG-M4 GLOBAL CLOSED ; GO M5-A documentaire ; **H0-L1** | **M5-A** blueprint + L1 pack + Formal Exit 03 **on main** (PR #607/#608) ; **L1/A09** découplage audit (`ProjectCycleAuditPort`) | M5-A CI post-merge SUCCESS ; L1 Q1–Q10 **PASS LOCAL** ; R-A09-01 **PASS TECHNIQUE LOCAL** | PR #607 `0e1181ab…` · CI #39973034538 · PR #608 `56447774…` · CI #39978574740 · branche L1 `feat/akg-m5-l1-a09-audit-port-decoupling` · Draft PR Cycle 13 | Confusion M5-A CLOSED vs GO Delivery/P6/v3/REAL · confondre PASS local avec PASS CI/merge | **M5-A documentaire CLOSED BY MORRIS** · **H0-L1 GRANTED** · Delivery local **validé** · Git Integration **en cours** (Draft PR) · **MERGE NOT GRANTED** · **L2 sous GO distinct** · runtime v3 NON ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED | Critical PR Review → Morris **GO merge** distinct (si accordé) ; L2 ≠ auto |
+```
+
+**Preuve M5-A post-merge préservée:** PR #607 `0e1181ab…` CI #39973034538 · PR #608 `56447774…` CI #39978574740 · Decision Record 03 on main · AKG-M5 global OPEN · claims H0-L1 NOT GRANTED du tip Formal Exit marqués **HISTORICAL AS TIP**.
 
 ---
 
-## 3. Architecture R23 (rappel borné — inchangé vs Delivery)
-
-**Avant:** VSR + core importaient `TYPE_ONLY` depuis `@/lib/d1/boundedAtomicAudit`.
-**Après (Option A):** typage unique via `ProjectCycleAuditPort` / Phase / Outcome depuis `lib/platform/t-a7/projectCycleAtomicCoordinator.ts`.
-**D1:** `BoundedAtomicAuditStore implements ProjectCycleAuditPort` — adapter transitoire, **non migré / non retiré**.
-**Modes:** noop (défaut) / memory / sqlite (injection explicite requise).
-**Exit L2:** SoT audit Product durable + GO Morris distinct pour retire/migrate D1.
-
----
-
-## 4. Diffs utiles complets — 8 fichiers Delivery
+## 4. Diffs utiles complets — 8 fichiers (commit `6176a9d3f28d`)
 
 ### `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 index 57af11f7..e6b593fc 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
@@ -144,6 +153,18 @@ index 57af11f7..e6b593fc 100644
 ### `projects/sfia-studio/app/lib/vertical-slice-core/localSqliteAudit.ts`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-core/localSqliteAudit.ts b/projects/sfia-studio/app/lib/vertical-slice-core/localSqliteAudit.ts
 index 0863797a..077cccd1 100644
 --- a/projects/sfia-studio/app/lib/vertical-slice-core/localSqliteAudit.ts
@@ -202,6 +223,18 @@ index 0863797a..077cccd1 100644
 ### `projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
 index b5f95213..47d16d6e 100644
 --- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
@@ -224,6 +257,18 @@ index b5f95213..47d16d6e 100644
 ### `projects/sfia-studio/app/__tests__/vertical-slice-core/importBoundaries.test.ts`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-core/importBoundaries.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-core/importBoundaries.test.ts
 index 53762876..35a0371e 100644
 --- a/projects/sfia-studio/app/__tests__/vertical-slice-core/importBoundaries.test.ts
@@ -255,33 +300,58 @@ index 53762876..35a0371e 100644
 ### `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index e20cda75..44ad7dce 100644
+index e20cda75..dc1cca06 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,8 +4,8 @@
+@@ -4,8 +4,9 @@
  | --- | --- |
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **CURRENT TIP 2026-10-23 — AKG-M5-A BOUNDED DOCUMENTARY FORMAL EXIT** | **M5-A DOCUMENTARY FORMAL EXIT CLOSED BY MORRIS WITH GOVERNED OPEN RESERVES** ; [Decision Record 03](./architectural-knowledge-governance/m5-product-transformation/03-m5a-formal-exit-decision-record.md) (**publication du record candidate jusqu'à merge distinct**) ; [PR #607](https://github.com/mcleland147/sfia-workspace/pull/607) **MERGED** `main` `0e1181abcd38553d7f489ee5650e0e2957466384` ; [post-merge CI #39973034538](https://github.com/mcleland147/sfia-workspace/actions/runs/39973034538) **COMPLETED/SUCCESS** (Detect/Build/Required Gate) ; 01/02 intégrés et C1–C4 corrections documentaires ; C3 = COVERAGE VERIFIED, run KNOWN GAP ; **AKG-M5 GLOBAL OPEN** ; **H0-L1 NOT GRANTED**, Q1–Q10 NOT PASS, R-A09-01 OPEN, H1–H5 OPEN ; A01–A12 dispositions candidates, packaging port non décidé ; aucune mutation runtime, NO SEMANTIC IMPACT ; REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED. |
 -| **HISTORICAL TIP 2026-10-23 — AKG-M5-A documentary Git Integration (pre-merge snapshot)** | **AKG-M5-A** Product Architecture Convergence + L1/A09 readiness **préparés** ; corrections C1–C4 ; C3 résiduelle requalifiée (sqlite inject = COVERAGE VERIFIED) ; revue ChatGPT **PASS WITH GOVERNED RESERVE** ; **GO Morris 2026-10-23 Git Integration documentaire** (commit / push / Draft PR) ; dossier [m5-product-transformation](./architectural-knowledge-governance/m5-product-transformation/) ; **H0 Delivery L1 NOT GRANTED** ; Q1–Q10 NOT PASS ; R-A09-01 OPEN ; packaging port t-a7 = candidate ; **pas** de Delivery · **pas** runtime v3 ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED ; **intégration `main` non affirmée** tant que merge + CI post-merge non vérifiés. |
-+| **CURRENT TIP 2026-10-23 — AKG-M5 L1/A09 local Delivery (H0-L1)** | **H0-L1 GRANTED BY MORRIS** (conversation ChatGPT 2026-10-23) — Delivery borné A09 audit-port decoupling ; branche locale `feat/akg-m5-l1-a09-audit-port-decoupling` @ base `main` `56447774…` ; VSR+core typés sur `ProjectCycleAuditPort` ; D1 adapter transitoire ; tests ciblés verts (local) ; **pas** de push/PR/merge projet dans ce cycle ; R-A09-01 = **PASS TECHNIQUE local sous réserve revue ChatGPT** (≠ GO L2) ; Q1–Q10 à confirmer en Critical Review ; runtime v3 NON ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · SHADOW OFF. |
-+| **HISTORICAL TIP 2026-10-23 — AKG-M5-A documentary Git Integration** | **AKG-M5-A** Product Architecture Convergence + L1/A09 readiness **préparés** ; corrections C1–C4 ; C3 résiduelle requalifiée (sqlite inject = COVERAGE VERIFIED) ; revue ChatGPT **PASS WITH GOVERNED RESERVE** ; **GO Morris 2026-10-23 Git Integration documentaire** (commit / push / Draft PR) ; dossier [m5-product-transformation](./architectural-knowledge-governance/m5-product-transformation/) ; à la date du tip : **H0 Delivery L1 NOT GRANTED** (superseded as tip by H0-L1 GO + local Delivery) ; Q1–Q10 NOT PASS ; packaging port t-a7 = candidate ; REAL NOT PROVEN · runtime v3 NON ADOPTED. |
++| **CURRENT TIP 2026-10-23 — AKG-M5 L1/A09 Git Integration (H0-L1 + Cycle 13)** | **H0-L1 GRANTED BY MORRIS** · Delivery L1/A09 **local techniquement validé** · `ProjectCycleAuditPort` réutilisé (Option A / t-a7) · VSR/core **sans** imports audit `@/lib/d1` · D1 `BoundedAtomicAuditStore` = **adapter transitoire** · Q1–Q10 **PASS LOCAL** · R-A09-01 **PASS TECHNIQUE LOCAL** (≠ PASS CI · ≠ GO L2) · **GO Morris 2026-10-23 Cycle 13** = correction Roadmap + commit + push + **Draft PR** vers `main` · branche `feat/akg-m5-l1-a09-audit-port-decoupling` @ base `56447774…` · **MERGE NOT GRANTED** · **GO L2 NOT GRANTED** · AKG-M5 global **OPEN** · runtime v3 NON ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · SHADOW OFF. |
++| **HISTORICAL TIP 2026-10-23 — AKG-M5-A BOUNDED DOCUMENTARY FORMAL EXIT (CLOSED BY MORRIS)** | **M5-A DOCUMENTARY FORMAL EXIT CLOSED BY MORRIS AT BOUNDED DOCUMENTARY ARCHITECTURE CONVERGENCE SCOPE WITH GOVERNED OPEN RESERVES** ; [Decision Record 03](./architectural-knowledge-governance/m5-product-transformation/03-m5a-formal-exit-decision-record.md) **on main** ; [PR #607](https://github.com/mcleland147/sfia-workspace/pull/607) **MERGED** `0e1181abcd38553d7f489ee5650e0e2957466384` · CI post-merge [#39973034538](https://github.com/mcleland147/sfia-workspace/actions/runs/39973034538) **SUCCESS** ; [PR #608](https://github.com/mcleland147/sfia-workspace/pull/608) **MERGED** `main` `56447774a66ec5b4b1be58be9a4c581bd70ac845` · CI post-merge [#39978574740](https://github.com/mcleland147/sfia-workspace/actions/runs/39978574740) **SUCCESS** ; 01/02 + C1–C4 intégrés ; C3 = COVERAGE VERIFIED ; **AKG-M5 GLOBAL OPEN** ; à la date de ce Formal Exit tip : **H0-L1 NOT GRANTED** / Q1–Q10 NOT PASS / R-A09-01 OPEN = **HISTORICAL AS TIP** (superseded as CURRENT by H0-L1 + L1 Delivery + Cycle 13 GI) ; H1–H5 OPEN ; packaging port t-a7 = candidate alors ; REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED. |
++| **HISTORICAL TIP 2026-10-23 — AKG-M5-A documentary Git Integration (pre-merge snapshot)** | **AKG-M5-A** Product Architecture Convergence + L1/A09 readiness **préparés** ; corrections C1–C4 ; C3 résiduelle requalifiée (sqlite inject = COVERAGE VERIFIED) ; revue ChatGPT **PASS WITH GOVERNED RESERVE** ; **GO Morris 2026-10-23 Git Integration documentaire** (commit / push / Draft PR) ; dossier [m5-product-transformation](./architectural-knowledge-governance/m5-product-transformation/) ; **H0 Delivery L1 NOT GRANTED** *(HISTORICAL AS TIP — later H0-L1 GRANTED)* ; Q1–Q10 NOT PASS *(then)* ; R-A09-01 OPEN *(then)* ; packaging port t-a7 = candidate ; **pas** de Delivery · **pas** runtime v3 ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED ; **intégration `main` non affirmée** tant que merge + CI post-merge non vérifiés *(later: PR #607/#608 MERGED)*. |
  | **HISTORICAL TIP 2026-10-23 — AKG-M4 GLOBAL Formal Exit** | **AKG-M4 GLOBAL CLOSED BY MORRIS — BOUNDED ARCHITECTURAL RATIONALIZATION ASSESSMENT WITH GOVERNED OPEN RESERVES** ; [Decision Record 14](./architectural-knowledge-governance/m4-rationalization/14-akg-m4-global-formal-exit-decision-record.md) ; M4-A CLOSED, PR #605 MERGED, CI #39893659601 SUCCESS ; H7/H8 conserved, A01–A12 dispositions CANDIDATE, H1–H5 OPEN ; governance Pilote, formal owners UNASSIGNED ; à la date du tip M4 : AKG-M5 Delivery **NOT AUTHORIZED** ; REAL NOT PROVEN, runtime v3 NON ADOPTED. |
  | **HISTORICAL TIP 2026-10-23 — AKG-M4-A Formal Exit** | **M4A-FE-01–05 ADOPTED BY PILOTE** : **M4-A CLOSED BY MORRIS AT BOUNDED RATIONALIZATION ASSESSMENT SCOPE WITH GOVERNED OPEN RESERVES** ; H7/H8 conservés ; H1–H5 et dettes Delivery/REAL GOVERNED OPEN ; responsabilité temporaire Pilote, owners formels UNASSIGNED ; FE-04 truth-sync documentaire autorisé (candidat Git) ; **PR #604 MERGED**, `main` `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6`, CI `39887430929` SUCCESS ; [13 Formal Exit](./architectural-knowledge-governance/m4-rationalization/13-m4a-formal-exit-decision-record.md) ; **M4 global et AKG-M5 / Delivery NON automatiquement autorisés**, REAL NOT PROVEN, runtime v3 NON ADOPTED ; lignes datées ci-dessous = snapshots historiques. |
  | **HISTORICAL SNAPSHOT — Timestamp maintenance AKG-M4 START / LOT M4-A DOCUMENTARY ANALYSIS — CANDIDATE 2026-10-22** | **GO Morris M4 FORMAL START** reçu dans la conversation après intégration vérifiée **PR #603** (`f44a99b4…`, CI post-merge #39813097786 SUCCESS) ; **GO LOT M4-A** reçu ensuite ; orientation OR-13 **capability-first** confirmée ; lot M4-A **READ-ONLY ANALYSIS IN PROGRESS**, documents candidats dans `convergence/architectural-knowledge-governance/` ; aucune classification finale, aucun runtime/code modifié, aucun retrait, REAL/P6/v3 inchangés ; ce statut documentaire **n'est pas encore intégré sur main** tant que son merge n'est pas vérifié. |
-@@ -301,7 +301,7 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
+@@ -301,7 +302,7 @@ Observation / Recommendation / Decision Required doivent rester **distincts**.
  | **AKG-M2** Architecture Understanding | Cartes responsabilités / interactions critiques / revue de compréhension | V3-F05 / F06 | AKG-M1 CLOSED + GO understanding | **Lots A/B/C** ownership/authority + critical interactions + understanding review | Lot A Formal Exit · Lot B Formal Exit · Lot C Formal Exit · Critical Re-Review CP01 PASS WITH GOVERNED RESERVES · Exit Matrix X-A…X-L SATISFIED WITH GOVERNED RESERVES · R-M2A-04 OPEN/GOVERNED · R-M2B-03 PASS WITH RESERVE · B-M2B-05 OPEN · G-M1-* governed · RS-03 OPEN · TOOL-FIRST-REAL-NOWRITE OPEN · F18/F19 PARTIAL · F11b INDEX SCOPE non clos · REAL BOUNDARY NOT PROVEN · **AKG-M2 GLOBAL FORMAL MILESTONE EXIT — APPROVED BY MORRIS 2026-10-21** · scope **BOUNDED ARCHITECTURE UNDERSTANDING** · Option **A** · AKG-M3 distinct G5 START | Lot A handoffs `86a2b1e7…` / `34ce3147…` · Lot B handoffs `6bf33c8c…` / `d9ee7f75…` / `b699b716…` · Lot C handoffs `cdb9c5be…` / `435cee9a…` · G1 Decision Record `f46c8bca674439ac84ec0d8f061913ef6d11fc4d` · Field Semantics `df77b8a2…` · PR **#597 MERGED** · CI `39559364932` SUCCESS | Sur-modélisation · confondre Lot C CLOSED avec M2 CLOSED *(résolu par G1 distinct)* · autoriser M3 sans G5 · confondre G1 ADOPTED avec tip INTEGRATED ON MAIN | Lot A/B/C Formal Exit **ADOPTED** · **G1 Formal Milestone Exit APPROVED BY MORRIS / CONSUMED** · **M2 GLOBAL CLOSED BY MORRIS AT BOUNDED SCOPE — G1 ADOPTED** · **R-M2A-04 OPEN/GOVERNED** · **B-M2B-05 OPEN** · AKG-M3 later **CLOSED BY MORRIS** at bounded Reference Consolidation scope (see AKG-M3 row / CURRENT tip) · prior « tip GI PENDING / AKG-M3 NOT AUTHORIZED » = **HISTORICAL AS TIP** | **AKG-M3 sous G5 START distinct** |
  | **AKG-M3** Reference Consolidation | Consolider la PRR ; mesurer couverture | V3-F05 / F12 | AKG-M2 GLOBAL G1 CLOSED BY MORRIS + **G5 M3 START** consommé | PRR CURRENT consolidation · coverage · index/dependencies · Vol09 Known Gaps · semantic conformance | Critères couverture appliqués · gaps gouvernés · Formal Exit **FE-01 ADOPTED** · six FE-02 **FORMALLY CLOSED** · cleanup FE-03 OPEN/DEFER · FE-04 debts preserved | Conformance + revue sémantique + CI post-merge + Decision Record | Tentation 2e référentiel · confondre Formal Exit avec readiness Product/REAL/P6 · confondre FE-02 avec clôture de toutes dettes · démarrer M4 sans GO | **CLOSED BY MORRIS AT BOUNDED REFERENCE CONSOLIDATION SCOPE WITH GOVERNED RESERVES** · G5 START consommé · G6 Semantic PASS · Digest Sync PASS · G7 PASS · PR **#599 MERGED** · merge `d41c6a66…` · CI `39651441205` SUCCESS · documentary truth-sync PR **#600 MERGED** · merge `606f756e…` · CI post-merge **`39729128729` SUCCESS** · checker PRR PASS · E1–E12 qualifiés (E8/E11/E12 SATISFIED) · FE-01–FE-04 ADOPTED · six réserves **FORMALLY CLOSED BY MORRIS FE-02** · cleanup **OPEN/DEFER** · AKG-M4 **NOT AUTHORIZED** · this tip publication = **LOCAL AUTHORING CANDIDATE** | AKG-M4 sous GO Morris M4 distinct (Formal Exit M3 acquis ≠ GO M4) |
  | **AKG-M4** Rationalization Assessment | Matrice KEEP/ADAPT/CONSOLIDATE/REPLACE/RETIRE sur preuves | V3-F05 / F07 | AKG-M3 CLOSED BY MORRIS | Matrice, audits, impact packs, FE | Décisions Morris par lot à portée bornée | T-A01–T-A06, M4A-FE-01–05, [Global Exit 14](./architectural-knowledge-governance/m4-rationalization/14-akg-m4-global-formal-exit-decision-record.md) | A01–A12 dispositions techniques encore candidates, dettes Delivery/REAL OPEN | **AKG-M4 GLOBAL CLOSED BY MORRIS (2026-10-23) AT BOUNDED ASSESSMENT SCOPE WITH GOVERNED OPEN RESERVES** ; aucun GO Product, Delivery, AKG-M5 ou adoption runtime | AKG-M5 sous GO distinct |
 -| **AKG-M5** Product Transformation | Product Architecture Convergence documentaire M5-A **CLOSED** ; lots Product gouvernés ultérieurs | V3-F05+ | AKG-M4 GLOBAL CLOSED ; GO M5-A documentaire | **M5-A** blueprint + L1 pack intégrés via PR #607 ; [Formal Exit 03](./architectural-knowledge-governance/m5-product-transformation/03-m5a-formal-exit-decision-record.md) ; L1–L6 restent candidats | M5-A CI post-merge SUCCESS ; Delivery Q1–Q10 selon GO propre | PR #607 merge `0e1181abcd38553d7f489ee5650e0e2957466384` · CI #39973034538 SUCCESS | Confusion clôture M5-A vs GO Delivery/P6 Exit | **M5-A FORMAL EXIT BORNÉE validée Morris** ; H0-L1 NOT GRANTED ; packaging candidate ; merge du record sous gate distinct | Soumettre **H0-L1** décision GO/conditions/STOP ; aucun démarrage implicite |
-+| **AKG-M5** Product Transformation | Cadrage/architecture documentaire puis lots Product gouvernés | V3-F05+ | AKG-M4 GLOBAL CLOSED + GO M5 distinct | **M5-A** blueprint + L1 pack ; **L1/A09** découplage audit (local) | Preuves Product / Q1–Q10 selon GO Delivery | Handoffs M5-A / L1 ; CI Draft PR documentaire | Confusion avec P6 Exit · confondre M5-A doc avec Delivery | **M5-A Git Integration GO** · **H0-L1 GRANTED** (local Delivery) · push/PR/merge projet **NOT** in L1 cycle · L2 sous GO distinct | Critical Review L1 → GO push/PR distinct |
++| **AKG-M5** Product Transformation | Product Architecture Convergence documentaire **M5-A CLOSED** ; lots Product gouvernés (L1+) | V3-F05+ | AKG-M4 GLOBAL CLOSED ; GO M5-A documentaire ; **H0-L1** | **M5-A** blueprint + L1 pack + Formal Exit 03 **on main** (PR #607/#608) ; **L1/A09** découplage audit (`ProjectCycleAuditPort`) | M5-A CI post-merge SUCCESS ; L1 Q1–Q10 **PASS LOCAL** ; R-A09-01 **PASS TECHNIQUE LOCAL** | PR #607 `0e1181ab…` · CI #39973034538 · PR #608 `56447774…` · CI #39978574740 · branche L1 `feat/akg-m5-l1-a09-audit-port-decoupling` · Draft PR Cycle 13 | Confusion M5-A CLOSED vs GO Delivery/P6/v3/REAL · confondre PASS local avec PASS CI/merge | **M5-A documentaire CLOSED BY MORRIS** · **H0-L1 GRANTED** · Delivery local **validé** · Git Integration **en cours** (Draft PR) · **MERGE NOT GRANTED** · **L2 sous GO distinct** · runtime v3 NON ADOPTED · REAL NOT PROVEN · P6 GLOBAL NOT PASSED | Critical PR Review → Morris **GO merge** distinct (si accordé) ; L2 ≠ auto |
 
  ### Non-claims AKG
 ```
 ### `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 index 9ac33e79..e026431a 100644
 --- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
@@ -308,6 +378,18 @@ index 9ac33e79..e026431a 100644
 ### `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 index ee13e7a7..536de8cf 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
@@ -337,6 +419,18 @@ index ee13e7a7..536de8cf 100644
 ### `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
 
 ```diff
+commit 6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Fri Oct 23 19:30:46 2026 +0200
+
+    feat(studio): decouple L1 A09 Product audit from D1
+
+    Reuse ProjectCycleAuditPort so VSR/core no longer import D1 audit types;
+    keep BoundedAtomicAuditStore as a transient adapter. Sync Roadmap tip to
+    preserve M5-A Formal Exit while recording H0-L1 + Cycle 13 Git Integration.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 index 079e6315..7110a35d 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
@@ -372,148 +466,101 @@ index 079e6315..7110a35d 100644
 
 ---
 
-## 5. Validations — sorties pertinentes (ré-exécution corrective)
+## 5. Validations (exécutées Cycle 13)
 
-**CWD:** `projects/sfia-studio/app` dans worktree L1
-**Horodatage run:** 2026-10-23 18:57 CEST
+CWD: `projects/sfia-studio/app`
 
-```text
-### typecheck
+| Commande | Résultat |
+|---|---|
+| `node scripts/check-production-runtime-reference.mjs` | CONFORMANCE OK · exit 0 |
+| `npm run typecheck` | PASS · exit 0 |
+| Vitest 4 suites | **37/37 PASS** · exit 0 |
+| `rg '@/lib/d1'` VSR+core | **NONE** |
+| `git diff --check` (8 fichiers) | clean |
+| PRR 06 / 08 | **inchangés** (justification: pas de changement persistence/restart Product ni carte de preuve CI globale) |
 
-> sfia-studio@0.1.0 typecheck
-> tsc --noEmit
+Suites: `importBoundaries` (runtime + core), `localProjectComposition`, `t-a7-hard-ta6-persistence-foundation`.
 
-typecheck_exit=0
+---
 
-### targeted vitest
+## 6. Q1–Q10 / R-A09-01
 
-> sfia-studio@0.1.0 test
-> vitest run __tests__/vertical-slice-runtime/importBoundaries.test.ts __tests__/vertical-slice-core/importBoundaries.test.ts __tests__/vertical-slice-core/localProjectComposition.test.ts __tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts
-
-
- RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-l1-a09-delivery/projects/sfia-studio/app
-
- ✓ __tests__/platform/t-a7-hard-ta6-persistence-foundation.test.ts (15 tests) 141ms
- ✓ __tests__/vertical-slice-core/importBoundaries.test.ts (4 tests) 758ms
-   ✓ visible slice V1 import boundaries > does not wire V1 into application UI during the headless lot  661ms
- ✓ __tests__/vertical-slice-runtime/importBoundaries.test.ts (5 tests) 781ms
-   ✓ V2-A1 vertical-slice-runtime import boundaries > allows only the bounded V2 UI runtime entrypoints  695ms
- ✓ __tests__/vertical-slice-core/localProjectComposition.test.ts (13 tests) 798ms
-
- Test Files  4 passed (4)
-      Tests  37 passed (37)
-   Start at  18:57:18
-   Duration  4.37s (transform 1.63s, setup 732ms, collect 3.17s, tests 2.48s, environment 1ms, prepare 553ms)
-
-test_exit=0
-
-### PRR checker
-OK: canonical README exists
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-prr_exit=0
-
-### import inspection
-NONE
-
-### git diff --check
-diff_check_exit=0
-```
-
-**Synthèse preuves:**
-
-| Preuve | Référence vérifiable | Résultat |
+| ID | Résultat | Réserve |
 |---|---|---|
-| typecheck | `npm run typecheck` → `typecheck_exit=0` | PASS |
-| Vitest ciblé | 4 files / **37 tests** / `test_exit=0` | PASS |
-| PRR checker | `RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK` / `prr_exit=0` | PASS |
-| Imports D1 VSR+core | `rg '@/lib/d1' …` → `NONE` | PASS |
-| `git diff --check` | `diff_check_exit=0` | PASS |
+| Q1 Ownership | **PASS** | — |
+| Q2 Port append unique | **PASS** | find/list D1 TEST_ONLY |
+| Q3 Zéro import D1 VSR/core | **PASS** | — |
+| Q4 Compat D1 / t-a7 | **PASS** | D1 non migré |
+| Q5 noop/memory/sqlite | **PASS** | sqlite = inject only |
+| Q6 Pas nouvelle table / pas sqlite implicite | **PASS** | — |
+| Q7 Nommage borné | **PASS** | — |
+| Q8 Tests exécutés verts | **PASS** | ≠ CI merge |
+| Q9 Dette D1 + exit L2 | **PASS** | L2 sous GO distinct |
+| Q10 Scope L1 | **PASS** | — |
+| **R-A09-01** | **PASS TECHNIQUE LOCAL** | ≠ PASS CI · ≠ GO L2 · ≠ CLOSED doctrinal global |
 
 ---
 
-## 6. Matrice Q1–Q10
+## 7. Fake / Real
 
-| ID | Attendu | Preuve primaire | Résultat | PASS/FAIL | Réserve |
-|---|---|---|---|---|---|
-| Q1 | Ownership séparé | Diffs service/localSqliteAudit ; D1 hors diff | Séparé | **PASS** | — |
-| Q2 | Port append unique | `ProjectCycleAuditPort` t-a7 ; pas de 3e port | Unique | **PASS** | find/list D1 TEST_ONLY |
-| Q3 | Zéro import D1 VSR+core | Sortie rg `NONE` + importBoundaries | NONE | **PASS** | — |
-| Q4 | Compat D1 / t-a7 | t-a7-hard-ta6 **15/15** | OK | **PASS** | D1 non migré (voulu) |
-| Q5 | noop/memory/sqlite | localProjectComposition **13/13** | OK | **PASS** | sqlite = inject only |
-| Q6 | Pas nouvelle table / pas sqlite implicite | Diffs ; default noop | OK | **PASS** | — |
-| Q7 | Nommage borné | 8 fichiers | OK | **PASS** | — |
-| Q8 | Suites exécutées vertes | §5 sorties 37/37 + typecheck | OK | **PASS** | ≠ CI globale |
-| Q9 | Dette D1 + exit L2 | Diff PRR 09 overlay | Documenté | **PASS** | L2 sous GO distinct |
-| Q10 | Scope L1 only | Diffs 8 fichiers | OK | **PASS** | — |
+BEHAVIOR PROVEN local (37 tests). DETERMINISTIC ≠ READY FOR REAL. Gates REAL **NOT GRANTED**.
 
 ---
 
-## 7. Gate R-A09-01
-
-**PASS TECHNIQUE local** (Q1–Q10 + diffs + validations §5).
-**≠ GO L2.** **≠** Product REAL. **≠** CLOSED doctrinal global sans Critical Review.
-
----
-
-## 8. Fake / Real Qualification
-
-BEHAVIOR PROVEN au périmètre local testé (37 tests).
-DETERMINISTIC PROVEN **n'implique jamais** READY FOR REAL. Gates REAL = N/A / GO distinct.
-
----
-
-## 9. R24
-
-Roadmap tip H0-L1 ; PRR 04 narrative + overlay ; PRR 09 overlay L1 ; manifest digests refresh ; PRR 06/08 non modifiés. Checker CONFORMANCE OK ≠ exhaustivité sémantique.
-
----
-
-## 10. Décisions
-
-**Consommées:** H0-L1 Delivery + handoff L3 (+ cette passe corrective handoff).
-**Requises encore:** GO push/PR/merge projet · GO L2 · REAL/v3/SHADOW.
-
-**Interdit non fait:** push/PR/merge/commit projet · migration/retrait D1 · force push handoff.
-
----
-
-## 11. Review Handoff Git L3 — désignation commit
-
-### 11.1 Tip **avant** cette passe corrective (à superseder)
+## 8. Draft PR
 
 | Item | Valeur |
 |---|---|
-| Branche | `sfia/review-handoff` |
-| Fichier | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Commit tip (pré-corrective) | `df18124b890ac0b3c4e0f5b46a28c01c1e265c00` |
-| Blob (pré-corrective) | `6e1ad4552969064a960b90f20f9825a5a2ae917d` |
-| Anomalie corrigée | Pack antérieur désignait un commit handoff **périmé** (c3a00172 / 3308c68a) au lieu du tip réel |
+| Number | **#609** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/609 |
+| Draft | **yes** |
+| Base | `main` |
+| Head | `feat/akg-m5-l1-a09-audit-port-decoupling` @ `6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d` |
+| Files | **exactly 8** (verified via `gh pr view`) |
 
-### 11.2 Tip **après** publication de cette passe
+### CI PR (au moment du pack — statut réel)
 
-Renseigné immédiatement après `publish-review-handoff.sh` (voir §11.3). Le commit courant du fichier distant **est** le tip de `origin/sfia/review-handoff` post-publish — pas un SHA antérieur.
-
-### 11.3 Résultat publish (à remplir post-script ; pack republishable une fois pour aligner SHA auto-référentiel)
-
-| Item | Valeur |
+| Check | Status |
 |---|---|
-| Verdict script | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Commit tip distant **courant** (HEAD `sfia/review-handoff`) | `e409989ed76cdb12d08336430dee6dc459d5fda7` |
-| Blob tip distant **courant** | `34391f49be35cf675ca428ff34367f8159852004` |
-| Commit FULL correctif (diffs §4 + validations §5) | `b5a4ce2a7a7c899b7ae4b256d81325db8277c4a6` |
-| Blob FULL correctif | `b735c5a73bf0c255f60e07229fc86a8d711994f9` |
-| Parent du FULL | `df18124b890ac0b3c4e0f5b46a28c01c1e265c00` |
-| Force push | NON |
-| Branche projet pushée | NON |
+| Detect SFIA Studio changes | **SUCCESS** |
+| Build and validate SFIA Studio | **IN_PROGRESS** (run `39995733767`) |
+| Required Gate | **not yet observed COMPLETE** at pack authoring |
 
-**Désignation (corrigée):** le tip **courant** à relire est `origin/sfia/review-handoff` HEAD. Le commit FULL correctif (`b5a4ce2a…`) introduit diffs complets + sorties de validation ; le tip peut être un descendant mono-fichier de sync §11 (ex. `e409989e…`). Toujours vérifier tip via `git rev-parse` / relecture distante.
+≠ autorité de merge. Réévaluer en Critical PR Review.
 
 ---
 
-## 12. Prochaines étapes
+## 9. Décisions
 
-1. Critical Review ChatGPT sur handoff distant (tip post-corrective).
-2. Si PASS → GO Morris distinct commit/push/PR projet.
-3. L2 sous GO distinct.
+**Consommées:** H0-L1 · Correction Roadmap · Cycle 13 commit/push/Draft PR · Handoff L3
+**Encore requises:** GO merge (si) · GO L2 · Ready-for-Review (si distinct) · REAL/v3/SHADOW
 
-**Fin pack FULL — diffs complets inclus ; SYNTHESIS ONLY interdit.**
+**Interdit non fait:** merge · force push · suppression branche · migration D1 · activation sqlite implicite · commit de `.tmp-sfia-review`
+
+---
+
+## 10. Review Handoff L3
+
+### 10.1 Tip handoff **avant** ce Cycle 13
+
+| Item | Valeur |
+|---|---|
+| Commit | `14066663df702fa68f8e1f776215d4668c044177` |
+| Blob | `24c00e696151aac42e33007f851264e6cb5cb510` |
+
+### 10.2 Après publish Cycle 13
+
+| Item | Valeur |
+|---|---|
+| Verdict | _PENDING_PUBLISH_ |
+| Commit FULL (contenu substantiel) | _PENDING_PUBLISH_ |
+| Blob FULL | _PENDING_PUBLISH_ |
+| Tip distant courant | `git rev-parse origin/sfia/review-handoff` (peut être descendant sync §10) |
+
+---
+
+## 11. Prochaine action Morris
+
+Critical PR Review ChatGPT → éventuellement GO merge distinct. **Pas de merge dans ce cycle.**
+
+**Fin pack FULL.**
