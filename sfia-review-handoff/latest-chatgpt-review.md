@@ -1,27 +1,27 @@
-# SFIA Studio — AKG-M5 / L2-Q0 — Intake & Persistence Migration Readiness
+# SFIA Studio — AKG-M5 / L2-Q1 — Impact, Rationalization & Retirement Readiness
 
-**Date / heure:** 2026-10-23 21:10 Europe/Paris (CEST)
-**Passe corrective inventaires:** 2026-10-23 ~21:15 CEST — consolidation CODE VERIFIED des inventaires parallèles D1/OA (sans re-développement, sans mutation projet)
+**Date / heure:** 2026-10-23 21:49 Europe/Paris (CEST)
 **Cycle:** 6 — Architecture technique
 **Profil:** Critical
-**Typologie:** Investigation read-only + decision pack
-**GO Morris:** **L2-Q0 QUALIFICATION READ-ONLY — GRANTED**
-**NON autorisé / NON effectué:** Delivery L2 · migration · schéma · dual-write · retrait D1 · cutover · runtime change · commit/push/PR/merge **projet** · L3/L4 start · v3/REAL/SHADOW
+**Typologie:** Impact & Retirement Decision Pack (read-only)
+**GO Morris:** analyse d’impact / préparation retrait **avant** Delivery L2 — **GRANTED** (investigation + pack + handoff L3)
+**NON autorisé / NON effectué:** mutation Product · suppression · migration · schéma · cutover · Doctrine/Roadmap/PRR edit · commit/push/PR/merge projet · Delivery L2 · L3/L4/L6 start · v3/REAL
 
-**Instruction ChatGPT:** lire d’abord `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` ; vérifier tip/blob, matrices, couverture H4, décisions non consommées et verdict.
+**Instruction ChatGPT:** lire d’abord `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (tip/blob de **ce** cycle) ; vérifier matrices, scénarios A/B/C, H4, audit mémoire vs durable, R-CUT-01 amendé, décisions non consommées et verdict.
 
 ---
 
 ## 1. Verdict
 
-**L2-Q0 INVESTIGATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW WITH GOVERNED OPEN GATES**
+**L2-Q1 IMPACT & RETIREMENT QUALIFICATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW — DELIVERY NOT AUTHORIZED**
 
-Gates explicitement **OPEN** (décision Morris requise, non PASS hypothétique) :
-- **H1 / R-MM-01** — MethodMode treatment
-- **H4 / R-VOL-01** — volumes : **local PARTIAL VERIFIED** ; **prod UNKNOWN**
-- **R-CUT-01** — protocole design-only ; **non exécuté**
+- Thèse Morris respectée : **ne pas conserver D1 par inertie** ; OA = cible unique Project.
+- Scénario recommandé (≠ ADOPTED) : **A-leaning** (retrait maximal après preuves) avec **B court conditionnel** uniquement si conservation/consultation justifiée ; **C** sélectif seulement si deep-link/URL continuity prouvée nécessaire.
+- **Dual-write FORBIDDEN.**
+- **H4 / R-VOL-01 OPEN** (prod UNKNOWN).
+- **R-CUT-01** design amendé (rollback write D1 interdit sans réconciliation) — **non exécuté / non PROVEN**.
 
-**Jamais affirmé :** L2 DELIVERY READY · L2 MIGRATION AUTHORIZED · H1/H4 PASS.
+**Jamais :** D1 SAFE TO DELETE · L2 DELIVERY READY · MIGRATION AUTHORIZED · H4 PASS.
 
 ---
 
@@ -29,416 +29,369 @@ Gates explicitement **OPEN** (décision Morris requise, non PASS hypothétique) 
 
 | Item | Valeur |
 |---|---|
-| ChatGPT main tip (pré-check) | `94c7a30d253396cba71f4c4938a1a0671fc0801c` |
-| `origin/main` après fetch | **identique** `94c7a30d…` |
-| PR #609 | MERGED → merge `e8e8b5e1…` |
-| PR #610 | MERGED → tip `94c7a30d…` |
-| Worktree investigation | `/Users/morris/Projects/sfia-workspace-akg-m5-l2-q0-readonly` |
-| HEAD investigation | **detached** `94c7a30d…` |
-| Mutations projet dans ce WT | **aucune** (`git status` clean hors éventuel `.tmp-sfia-review` local) |
-| WT principal concurrent | `sfia-workspace` sur `qa/sfia-studio-p6-…` **dirty** (P6) — **non touché** |
-| Branche projet créée | **NON** |
+| ChatGPT / `origin/main` | `94c7a30d253396cba71f4c4938a1a0671fc0801c` — **ALIGNED** |
+| Investigation WT | `/Users/morris/Projects/sfia-workspace-akg-m5-l2-q0-readonly` detached @ `94c7a30d` |
+| WT P6 | `qa/sfia-studio-p6-…` **dirty** — **non touché** |
+| Mutations projet ce cycle | **aucune** (seul `.tmp-sfia-review/chatgpt-review.md`) |
+| Handoff Q0 tip (entrée) | `ac58a4009f5a3ee40dfd59f5eb0518db75d887d0` |
 | Commit/push/PR projet | **NON** |
 
-### Preuves post-merge L1 (préservées)
+---
 
-- L1/A09 Delivery MERGED (#609) + post-merge status sync (#610).
-- AKG-M5-A Formal Exit CLOSED BY MORRIS (documentary) inchangé.
-- AKG-M5 global **OPEN**.
+## 3. Sources
+
+- FULL handoff **L2-Q0** (priorité) + consolidation §6bis inventaires D1/OA.
+- C1 Product Completion (`O-01`).
+- M5-A `01`/`02`/`03` ; M4-A `06` capacités D1 ; `08` storage ; PRR `04`/`06`/`09`.
+- Code @ `94c7a30d` : `lib/d1/**`, `features/d1/**`, routes historiques ; `lib/oa/project/**`, VSR/core, `pre-m6-product-ui`, `app/studio/**`.
 
 ---
 
-## 3. Sources lues (extrait)
+## 4. Décisions Morris (conversation) — traçabilité
 
-Processus : contrat L2-Q0 ; `publish-review-handoff.sh` ; CKC cycle 6 = guidance candidate.
-
-Convergence : Build Doctrine / Roadmap (via tip CURRENT post-#610) ; M5-A `01`/`02`/`03` ; M4-A `08` storage assessment ; G0 persistence pack (référencé M4).
-
-PRR : `04`, `06`, `09` (focus dépendances / persistence / gaps).
-
-Code @ `94c7a30d` : `lib/d1/**`, `features/d1/**`, routes `app/projects*`, `app/workspace`, `app/nouvelle-demande` ; `lib/oa/project/**`, `lib/vertical-slice-{core,runtime}/**`, `app/studio/**`, `features/pre-m6-product-ui/**`.
+| Décision conversation | Statut Git | Gate technique |
+|---|---|---|
+| **H1** Option A — MethodMode historique **non** réintroduit dans OA | À tracer en tip/record futurs ; **pas** écrit Roadmap ce cycle (read-only) | Hold ACTIVE ; column D1 only — CODE VERIFIED |
+| **H4** preuves représentatives avant migration/retrait | Local PARTIAL (Q0) ; prod **UNKNOWN** | **R-VOL-01 OPEN** |
+| Identités : mapping **sélectif seulement si nécessaire** | Non exécuté | Deep links `/projects/proj-*` vs `/studio/projects/prj:*` |
+| **R-CUT-01** sans dual-write ; rollback à renforcer | Design Q0 + amendement Q1 | **NOT PROVEN** |
+| Option L2 : OA cible unique ; D1 conservation **conditionnelle** | Aligné recommandation Q1 | Delivery GO distinct |
+| « Ne pas garder pour garder ; réécrire/remplacer si trajectoire Product propre » | Principe d’arbitrage **appliqué** aux classifications | — |
 
 ---
 
-## 4. Convergence pre-check (résultat)
+## 5. Statut Q0 / M5
 
-| Item | Statut |
+| Item | Status |
 |---|---|
-| G0-A / G0-B | ADOPTED (doctrine) — OA Product SQLite = backbone Product |
 | M5-A | CLOSED BY MORRIS (documentary) |
-| L1/A09 | MERGED / POST-MERGE VERIFIED |
-| Dual-write D1↔OA | **FORBIDDEN** (doctrine + M4-A 08) ; **CODE VERIFIED** absence d’import croisé write path |
-| Runtime v3 / REAL / SHADOW | NON ADOPTED / NOT PROVEN / OFF |
+| L1/A09 | MERGED (#609/#610) |
+| L2-Q0 | COMPLETE · Critical Review PASS WITH GOVERNED RESERVES |
+| L2 Delivery | **NOT AUTHORIZED** |
+| Local volumes (Q0, non re-scannés) | D1 131 / OA default 43 / prod UNKNOWN |
 
 ---
 
-## 5. Topologie AS-IMPLEMENTED (CODE VERIFIED)
+## 6. AS-IS vs TO-BE
 
-```text
-[Historical D1 island]                    [Product OA backbone]
- /workspace  /projects/*  /nouvelle-demande   /studio/*  pre-m6-product-ui
-        │                                          │
-        ▼                                          ▼
- features/d1 + lib/d1/actions/commands        VSR actions → RuntimeApplicationService
-        │                                          │
-        ▼                                          ▼
- openD1Db() → .sfia-exec/.../d1.sqlite       SqliteProductStore → oa-product.sqlite
- tables: d1_projects, assignments,           tables: oa_projects, oa_lps,
-         audit_events, idempotency,                  oa_idempotency, oa_audit_events, …
-         atomic_audit
- MethodMode column + MethodModeHold          No MethodMode product field
- IDs: proj-{uuid}                            IDs: prj:{uuid}
-```
-
-**Evidence:**
-- D1 path resolver `lib/d1/paths.ts` L9–32 → default `.sfia-exec/local-i1/state/d1.sqlite`
-- OA path `lib/oa/project/infrastructure/sqlite/paths.ts` L9–31 → `.sfia-exec/product/oa-product.sqlite`
-- `openD1Db` **migrate-on-open** (`db.ts` L96–107) — **interdit** pour H4 ; inspection via `sqlite3 mode=ro&immutable=1` seulement
-- `openProductSqlite` également schema-creating — même règle
-
-**Classification actifs (evidence-based):**
-
-| Actif | Classification | Note |
+| Dimension | AS-IS | TO-BE candidate (Product) |
 |---|---|---|
-| OA Project / LPS / Product audit journal | KEEP (Product SoT) | G0-B |
-| D1 intake UI + commands | HARVEST patterns / RETIRE LATER island | After cutover gates |
-| `ProjectCycleAuditPort` + D1 `BoundedAtomicAuditStore` | KEEP port / ADAPT adapter (L1 done) | Transient until L2 audit decision |
-| MethodMode / Hold | GOVERNED OPEN (H1) | Do not productize by default |
-| OPS1 | OUT OF SCOPE L2-Q0 | Separate island |
+| Create Project | Deux UI : D1 `/projects/new` + Intake `/nouvelle-demande` **et** Studio `/studio/projects/new` | **Un** create path Product OA |
+| List / open | `/workspace` + `/projects/[id]` (D1) **et** `/studio` list/workspace (OA) | Studio-only ; legacy deny/redirect |
+| IDs | `proj-*` vs `prj:*` · overlap local 0 | `prj:*` Product ; legacy URLs policy |
+| MethodMode | Column + badges D1 ; hold mémoire | **Archive historique** ; pas de doctrine OA |
+| Persistence | `d1.sqlite` îlot + `oa-product.sqlite` | OA Product SoT |
+| Audit create Studio | Project/LPS SQLite ; `ProjectAuditJournalPort` souvent **Memory** | Garantie journal Product à **compléter** avant retire total A09 D1 |
+| Dual-write | Absent | **Reste interdit** |
 
 ---
 
-## 6. Matrice writers / readers (substantielle)
+## 7. Carte capacités O-01 (D1 vs OA)
 
-### 6.1 D1 Project writes
+Ancrage C1 : **O-01 — Créer, trouver, comprendre et reprendre un Project**.
 
-| Source | Caller | Effect | Store | Authority | Tests (presence) | Evidence |
+| Capacité utile | Chemin D1 | Chemin OA | Équivalence | Delta | Impact si D1 disparaît | Disposition |
 |---|---|---|---|---|---|---|
-| `commands.createProject` | `actions.ts` → UI `NewProjectForm` / confirmation | INSERT project+assignments+audit+idem | `d1_*` | Mono-operator + MethodMode | `__tests__/d1/project-foundation*`, intake-* | CODE VERIFIED `commands.ts` L24–100 |
-| `commands.selectMethodMode` | `actions.ts` | UPDATE method_mode + audit | `d1_projects` | **Hold gate** `assertMethodModeTransitionAllowed` | method-mode-hold tests | `commands.ts` L147–168 ; `methodModeHold.ts` L86–118 |
-| `repository.createProjectAtomic` | commands | txn write | D1 | repo | foundation tests | `repository.ts` L84+ |
-| Intake confirmation `executeConfirmation` | D1 confirmation flow | may call `createProject` | D1 | confirmation validate | intake-c* | `executeConfirmation.ts` |
-| `BoundedAtomicAuditStore.append` | injected / t-a7 tests ; **not** Product VSR import | INSERT `d1_atomic_audit` | D1 | ProjectCycleAuditPort impl | t-a7-hard-ta6 | `boundedAtomicAudit.ts` |
+| Créer projet (nom/objectif/idem) | `createProject` + `NewProjectForm` / confirmation CREATE | `CreateProject` + `NewProjectIntentionPage` | **PARTIAL** | Pas MethodMode ; IDs différents ; events audit différents | **Acceptable** si Studio create est le path unique | **REPLACE** D1 create |
+| Intake conversationnel analyse | `/nouvelle-demande` analyzeIntent | Onboarding intention Studio + Nora | **PARTIAL** | Session intake D1 non durable (cancel = log-only) | Faible si onboarding Studio couvre intention→create | **HARVEST** pattern / **REPLACE** UX |
+| Context match projets existants | `matchExistingContext` lit `d1_projects` | **ABSENT** Spine Product (M4 CAP-D1-05) | UNKNOWN/ABSENT | Scoring legacy | Perte feature **non prouvée REQUIRED** Product | **RETIRE LATER** sauf preuve usage |
+| Confirmation bornée create | fingerprint confirmation D1 | HD/Confirm sur EC ≠ create | PARTIAL | Pattern harvestable | Create Studio a son flux | **HARVEST** / **REPLACE** |
+| Lister / ouvrir | workspace + cockpit | ProjectsPage + workspace Studio | PARTIAL | Deux listes / deux ID spaces | Liste D1 disparaît ; deep links `proj-*` cassés | **REPLACE** readers + policy URLs |
+| Reprise restart | D1 SQLite durable | OA Product SQLite durable | PARTIAL→OK pour OA projects | Pas reprise cross-îlot | OK pour projets OA ; histo D1 selon archive | Product SoT |
+| Ownership / assignments | INSERT assignments D1 ; **no SELECT** | Modèle ownership Product distinct | NON-ÉQUIV | Assignments write-only | Peu d’impact lecture | **RETIRE** avec îlot / ne pas migrer aveugle |
+| MethodMode display | Badges/claims | N/A Product | ABSENT voulu | H1 A | **Souhaité** | **ARCHIVE** valeur / **RETIRE** UI |
+| Traçabilité create | `d1_audit_events` | `oa_audit_events` **si** Sqlite journal ; sinon Memory | GAP | Studio default Memory audit | Retrait D1 ≠ perte si OA durable audit COMPLETE | **COMPLETE** OA journal avant retire A09 |
 
-### 6.2 D1 Project reads
+**Règle :** existence OA ≠ remplacement prouvé du comportement D1 **utile**. Context-match et MethodMode **ne** sont **pas** des exigences de parité par défaut.
 
-| Source | Caller | Effect | Evidence |
+---
+
+## 8. Asset rationalization matrix (substantielle)
+
+| ID | Responsabilité | Capacité | Writers/Readers | Evidence | Cible | Classif. | Impact retrait | Coût adapt | Exit / Gate |
+|---|---|---|---|---|---|---|---|---|---|
+| A03-UI-Shell | `D1AppShell` nav historique | Nav D1 | UI only | `D1AppShell.tsx` L21–59 | Redirect `/studio` | **REPLACE** | Liens morts si non redirect | Faible | GO Delivery + redirect tests |
+| A03-Routes | `/workspace`, `/projects/*`, `/nouvelle-demande` | Create/list/open/intake | SSR + actions | `app/**` pages | Studio routes | **REPLACE** | Deep links | Moyen | Deny/redirect policy |
+| A03-Form | `NewProjectForm` | Create manuel | write D1 | `NewProjectForm.tsx` | Studio new | **REPLACE** | Perte form D1 | Faible | — |
+| A03-Intake | `IntakeView` + analyze/match/confirm | Intake | read/write D1 | `features/d1/intake/**` | Studio onboarding | **HARVEST**/`REPLACE` | Perte match | Moyen | Preuve usage match |
+| A03-Commands | `commands.createProject` etc. | Persistence D1 | write/read | `commands.ts` | OA CreateProject | **REPLACE** | Writer hotspot | — | Freeze writers |
+| A03-Repo | `D1ProjectRepository` | DML `d1_*` | all product DML | `repository.ts` | OA repos | **REPLACE** | — | — | After freeze |
+| A03-Assign | `d1_assignments` | Ownership rows | write-only | Q0 inventaire | OA ownership L4 | **RETIRE LATER** | Faible lecture | — | L4 |
+| A03-MethodMode | enum+column+badges+hold | Gouvernance D1 | column / hold mem | `types.ts`, `methodModeHold.ts` | Archive column | **RETIRE** runtime / **ARCHIVE** data | Aligné H1 A | Faible | H1 formal |
+| A03-Idem | `d1_idempotency_keys` | Replay create | write/read create | repo | `oa_idempotency` | **REPLACE** (espace séparé) | Freeze | — | No merge keys |
+| A03-AuditEv | `d1_audit_events` | Trail intake | write/read cockpit | repo | Archive RO | **ARCHIVE**/`RETIRE LATER` | Consultation | — | H4 policy |
+| A09-Store | `BoundedAtomicAuditStore` | Phase journal | append | `boundedAtomicAudit.ts` | Port t-a7 + OA path | **HARVEST** port / **RETIRE** D1 table later | Adapter transient | Faible si unused (local count 0) | After Product audit COMPLETE |
+| A09-Port | `ProjectCycleAuditPort` | Append phases | inject | t-a7 | **KEEP** | — | — | L1 done |
+| A09-LocalCreate | `LocalProjectCreationAuditPort` | Events create local | noop/mem/sqlite | `audit.ts` | **KEEP**/`ADAPT` | — | — | — |
+| A09-OAJournal | `ProjectAuditJournalPort` | OA events | Memory **default** Studio ; Sqlite materialize | Q0 §6bis | **COMPLETE** durable create path | Gap retire | Moyen | D5 |
+| A09-SqliteJournal | `SqliteProjectAuditJournal` | Durable OA events | materialization | `service.ts` wire | **KEEP** | — | — | — |
+| CTX-Match | context scoring | Match existing | read D1 | `context/**` | Absent Product | **RETIRE LATER** unless REQUIRED | Feature loss | — | Usage proof |
+| Tests D1 | foundation/intake/hold | Regression îlot | — | `__tests__/d1/**` | Replace by Product + denial | **ADAPT**/`RETIRE LATER` | Suite rewrite | Moyen | Delivery |
+| Docs D1 reports | `84/85-d1-*.md` | Historical | — | studio root | Archive | **KEEP** docs | — | — |
+
+**Anti-KEEP :** aucun KEEP d’implémentation D1 « pour éviter de toucher au code ». KEEP réservé aux **ports/capacités Product** déjà utiles (`ProjectCycleAuditPort`, OA Project/LPS, Sqlite journal où durable).
+
+---
+
+## 9. Dependency / impact graph (candidats non exécutés)
+
+| Changement candidat | Consumers directs | Transitifs | Capacité | Risque | Preuve / test NR | Gate |
+|---|---|---|---|---|---|---|
+| Retirer routes D1 | Bookmarks `/projects/proj-*`, `/workspace` | Ops1 link from D1AppShell (hors L2 core) | Open/list | 404 / confusion | Redirect→studio + legacy denial tests | Delivery |
+| Freeze D1 writers | `actionCreateProject`, confirmation CREATE | Intake create path | Create | Divergence si unfreeze | Assert no INSERT `d1_projects` | Cutover |
+| Retirer MethodMode UI | Badges/cockpit | Claims text | Display | Aucun Product | Snapshot UI | H1 |
+| Retirer `BoundedAtomicAuditStore` file | Tests t-a7 ; optional sqlite auditMode | — | Phase audit | Faible si count 0 | Port still testable via memory fake | After A09 Product path |
+| Unique OA writer | Studio create only | PA continuity | O-01 | Incomplete onboarding | Create/list/get/resume DET | Delivery |
+| Reader cutover | Studio list only | Deep links | Find/open | Lost histo | Policy A vs C | D4 |
+
+PRR 04 : edge narrative `DEP-VSR-D1-AUDIT-TYPE` déjà documente retrait TYPE_ONLY L1 ; **pas** de mise à jour PRR ce cycle (R24 NO SEMANTIC IMPACT). Futurs lots : 04/06/08/09.
+
+---
+
+## 10. Scénarios contradictoires A / B / C
+
+### A — Retrait maximal après preuves
+
+**Idée :** OA couvre capacités utiles ; histo sans accès opérationnel requis ; D1 UI/services/store retirables sous GO.
+
+| Critère | Éval |
+|---|---|
+| Admissibilité | H1 A · H4 policy « no ops access » · OA create/list/get/resume PROVEN · redirect legacy |
+| Couverture Product | O-01 create/list/open/resume ; intake enrichi Studio |
+| Risque | Perte context-match ; deep links ; obligations légales UNKNOWN |
+| Complexité | Moyenne |
+| Dette | Minimale si exécuté |
+| Reco | **Cible finale** préférée |
+
+### B — Archive D1 transitoire justifiée
+
+**Idée :** OA new path ; D1 **write-frozen** puis **RO archive** pour consultation bornée.
+
+| Critère | Éval |
+|---|---|
+| Admissibilité | Besoin consultation **démontré** (ops/legal/audit) · owner · durée/exit |
+| Risque | Archive permanente par inertie |
+| Exiger | Périmètre tables · TTL/criterion · owner · exit → A |
+| Reco | **Court-circuit conditionnel**, pas défaut |
+
+### C — Migration sélective avant retrait
+
+**Idée :** Convertir sous-ensemble `proj-*` → OA avec mapping.
+
+| Critère | Éval |
+|---|---|
+| Admissibilité | Continuity URLs/users **prouvée** · mapping sémantique · authz · verify |
+| Risque | Mapping errors ; PII ; faux 1:1 MethodMode/state |
+| Reco | **Seulement** si D4 exige ; pas batch 131 |
+
+### Dual-write
+
+**FORBIDDEN** dans A/B/C.
+
+### Conclusion scénarios
+
+**Minimise la dette tout en protégeant O-01 :** trajectoire **A**, avec **B** seulement si H4/consultation l’exige, et **C** atomique si deep-link continuity est une contrainte Morris **explicite**. Ne pas présupposer B obligatoire.
+
+---
+
+## 11. H1 / H4 requalification
+
+### H1 MethodMode
+
+| Observation | Evidence |
+|---|---|
+| Orientation Morris A | Conversation — non Git tip ce cycle |
+| UI : badges/claims ; create injecte `D1_GOVERNANCE_METHOD_MODE` | `NewProjectForm.tsx` L12–35 |
+| `selectMethodMode` **sans** UI prod | Q0 inventaire |
+| Hold ACTIVE in-memory | `methodModeHold.ts` |
+| Disposition candidate | Archive column values ; retire runtime/UI après freeze ; **jamais** doctrine OA |
+
+### H4 Volumes
+
+| Fact | Status |
+|---|---|
+| Local D1 131 / OA 43 (Q0) | LOCAL VERIFIED — **≠** « 131 à migrer » |
+| Prod | **UNKNOWN** |
+| R-VOL-01 | **OPEN** |
+| Policy needed | Conserve / destroy / archive / sample — **undefined ⇒ no delete** |
+
+---
+
+## 12. Historique / identités
+
+| Topic | Qualification |
+|---|---|
+| ID spaces | `proj-*` vs `prj:*` ; overlap local 0 |
+| Deep links D1 | `/projects/${projectId}` depuis Intake/Workspace |
+| Deep links OA | `/studio/projects/${projectId}` |
+| Stratégie | **Défaut :** freeze + redirect/deny legacy · **Mapping C** seulement si Morris D4 l’exige |
+| Données test vs histo | Non discriminées sans heuristique — H4 OPEN |
+
+---
+
+## 13. Audit / persistence
+
+| Journal | Rôle | Durabilité Studio create | Retrait D1 |
 |---|---|---|---|
-| `getProject` / list via repo | cockpit, workspace home, confirmation | SELECT `d1_projects` | `repository.ts` L37+ ; routes `app/projects/[id]`, `app/workspace` |
-| Context snapshot | intake context | read repo | `context/buildSnapshot.ts` |
+| `d1_audit_events` | Trail intake | D1 only | Archive RO or drop per H4 |
+| `d1_atomic_audit` | Phases | Local count 0 Q0 | Retire with adapter after port fakes |
+| `LocalProjectCreationAuditPort` | Events create local | noop default | KEEP |
+| `ProjectCycleAuditPort` | Append phases | Inject optional | KEEP |
+| `ProjectAuditJournalPort` + **Memory** | OA events create/list | **Non durable** default | **COMPLETE → Sqlite** avant claim audit Product |
+| `SqliteProjectAuditJournal` | Durable OA | Materialization path | KEEP |
+| `oa_audit_events` | Shared Product journal | When Sqlite impl | KEEP |
 
-### 6.3 OA Product writes
+**D5 :** garantie manquante pour retire D1 « propre » = **durabilité explicite du journal OA sur le path create/list Studio** (ou decision documentée Memory-acceptable). Pas de nouveau port/table sans GO.
 
-| Source | Caller | Effect | Store | Evidence |
-|---|---|---|---|---|
-| `LocalProjectFacade.createProject` | `RuntimeApplicationService.createProject` ← `createProjectRuntimeAction` ← `NewProjectIntentionPage` | Project + LPS + OA audit events + idem | `oa_*` | `localProjectComposition.ts` L318+ ; `service.ts` L618+ ; `actions.ts` |
-| `SqliteProjectRepository` insert | OA services | INSERT `oa_projects` | OA | `sqliteProjectRepository.ts` |
-| `SqliteProjectAuditJournal` | OA create path | INSERT `oa_audit_events` | OA | `sqliteProjectAuditJournal.ts` |
+---
 
-### 6.4 OA Product reads
+## 14. Non-régression — tests proposés (non exécutés comme campagne cutover)
 
-| Source | Caller | Evidence |
+| Suite / oracle | But | Note |
 |---|---|---|
-| list/get via VSR | `ProjectsPage`, `ProductRailRecents`, studio workspace | `listProjectsRuntimeAction` / `getProject` |
-| PA / Nora turns | project-assistant (indirect via runtime stack) | DOCUMENTED + CODE VERIFIED wiring (not full BEHAVIOR PROVEN here) |
+| OA create/list/get + resume | O-01 Product | Existantes foundation/durability — re-run sous Delivery |
+| Studio UI new/list/open | UX path | pre-m6 tests |
+| Legacy route denial/redirect | Post-freeze | **À ajouter** Delivery |
+| No D1 INSERT after freeze | Writer freeze | Probe/SQL RO assert — **sans** open migratoire |
+| Idempotence OA only | Create replay | OA tests |
+| MethodMode absent Product | H1 | Assert no field |
+| Audit durable if COMPLETE | D5 | New oracle |
+| Import boundaries VSR/core | L1 conserve | Existantes |
+| D1 suite | Pendant transition | Puis retire/adapt |
 
-### 6.5 Coexistence / dual-write
+**Ne pas** exécuter de tests ouvrant `openD1Db`/`openProductSqlite` sur DB utilisateur dans Q1. Liste ≠ BEHAVIOR PROVEN cutover.
 
-| Question | Résultat | Niveau |
+---
+
+## 15. R-CUT-01 amendé (design-only)
+
+Amendement critique vs Q0 : **après OA exclusive writes, réactiver writers D1 = divergence d’historiques**.
+
+| Rollback type | Autorisé ? | Condition |
 |---|---|---|
-| Deux UI de création actives ? | **OUI** — `/projects/new` (D1) vs `/studio/projects/new` (OA) | CODE VERIFIED |
-| Dual-write même create ? | **NON** — `lib/d1` n’importe pas OA ; `lib/oa` n’importe pas D1 | CODE VERIFIED (grep cross-import write path = empty) |
-| Identités croisées | D1 `proj-*` vs OA `prj:*` ; **overlap local IDs = 0** | CODE VERIFIED + H4 aggregate |
-| Deux listes projets | Workspace D1 vs Studio OA | CODE VERIFIED |
+| UI fallback lecture archive RO | Oui | Archive present |
+| Redirect back to D1 UI read-only | Oui borné | Writers restent frozen |
+| **Re-enable D1 writes** | **NON** sans mécanisme de réconciliation **prouvé** + GO | Sinon STOP |
+| Restore file backup pre-freeze | Oui | Avant exclusive OA window |
+
+Étapes (inchangées dans l’esprit Q0, renforcées) :
+
+1. Inventory + Impact matrix accepted (Q1)
+2. H1 formal
+3. H4 policy (même si prod UNKNOWN — policy explicite)
+4. Identities/deep-link decision (D4)
+5. Backup/hashes
+6. **Freeze D1 writers** (feature/route)
+7. OA exclusive create
+8. Reader cutover + redirects
+9. Verify (counts, smoke DET, no D1 writes)
+10. Archive RO **si** B
+11. Structural delete **later** under L6/GO — not same breath as freeze
+
+Chaque étape : precondition / future action / preuve / stop / rollback-type / owner / Morris gate.
 
 ---
 
+## 16. Trajectoire Delivery candidate (minimal cohérent)
 
----
+**Plus petite unité end-to-end servant O-01 Product-only :**
 
-## 6bis. Consolidation inventaires parallèles (CODE VERIFIED) — passe corrective
-
-Sources inventaire (agents read-only @ `94c7a30d`) :
-- [D1 writers/readers inventory](ecd3cb08-9a6a-4d29-8b6e-5e592d629591)
-- [OA Project writers/readers](8de4048e-3f02-44e1-8a1f-cea399fb37e6)
-
-Ces points **complètent** §§6–10 sans invalider le verdict Q0. Aucune mutation projet.
-
-### D1 — précisions
-
-| Point | Preuve | Impact décision |
-|---|---|---|
-| Tout DML produit D1-I1 passe par `D1ProjectRepository` (+ `BoundedAtomicAuditStore` pour `d1_atomic_audit`) | Grep DML `d1_*` limité à `repository.ts` / `boundedAtomicAudit.ts` | Surface cutover writers claire |
-| `d1_assignments` : INSERT à la création ; **aucun SELECT** dans `app/` | Inventaire D1 §2.1 / gaps | Assignments = write-only local ; migration ownership non trivial |
-| `selectMethodMode` / `actionSelectMethodMode` : **pas d’appelant UI production** `features/d1` | Inventaire D1 §4 / §16 | Hold bloque les transitions ; create n’appelle **pas** `assertMethodModeTransitionAllowed` |
-| MethodMode **hold** = in-memory / gouvernance default (`methodModeHoldOverrideSlot`) — **non persisté SQLite** | `methodModeHold.ts` + store | Archive MethodMode column ≠ archive du hold |
-| Intake analyze / cancel : **pas** d’écriture Project DB | `d1EventSink` / intake actions | Cutover intake ≠ geler analyze-only |
-| `CONFIRM_EXISTING_PROJECT_CONTEXT` : read only ; **pas** de lien intake↔project persisté | `executeConfirmation.ts` comments | Pas de relation durable à migrer pour ce path |
-
-### OA Product — précisions
-
-| Point | Preuve | Impact décision |
-|---|---|---|
-| Tables Product Project : `oa_projects`, `oa_lps`, `oa_lps_current`, `oa_idempotency`, `oa_audit_events` | DDL `db.ts` + adapters | SoT Product inchangé |
-| **Default Studio composition** : Project/LPS → **SQLite** ; `ProjectAuditJournalPort` → **`MemoryProjectAuditJournal`** (pas `oa_audit_events`) | `localProjectComposition.ts` inject memory audit | Durabilité Project ≠ durabilité journal OA sur create/list/get Studio |
-| Materialization Memory B : LPS via `AppendLivingProjectStateVersion` ; audit **`SqliteProjectAuditJournal`** quand stack Product SQLite | `service.ts` wireOaStack | Dual sink audit selon chemin — ne pas unifier sans design |
-| `LocalProjectCreationAuditPort` (noop/memory/sqlite→`ProjectCycleAuditPort`) **distinct** de `ProjectAuditJournalPort` | L1 + inventaire OA §5.2 | Confirme non-unification des ports (pack §10) |
-| `GetProject` success : **pas** d’append audit (failures only) | `getProject.ts` | Journal OA non exhaustif des reads |
-| Reader hors-port : `evaluateProductRealReadiness.ts` SELECT existence `oa_projects` | Inventaire OA §8 | Exception à documenter au cutover readers |
-
-### Non-régression vs pack principal
-
-- Dual-write D1↔OA : toujours **absent**.
-- H1/H4/R-CUT-01 : toujours **OPEN** (décision Morris).
-- Option L2 recommandée **A** : inchangée.
-- Verdict : **inchangé** — INVESTIGATION COMPLETE WITH GOVERNED OPEN GATES.
-
-
-## 7. H1 — MethodMode
-
-### 7.1 As-implemented
-
-| Élément | Contenu | Evidence |
-|---|---|---|
-| Enum | `SFIA_V2_6` \| `TRANSITION` \| `V3_CANDIDATE` | `types.ts` L6–7 |
-| Schema | `d1_projects.method_mode` CHECK same set | `db.ts` L14–16 |
-| Hold | Default **ACTIVE** with reasons B5/R1/R-M01/HARD/T-A7/F11.2/F13.4 | `methodModeHold.ts` L25–69 |
-| Transition | `decideMethodModeTransition` BLOCK if hold.active ; `selectMethodMode` calls assert | L86–118 ; `commands.ts` L155 |
-| Forbidden claims | Blocks V3-ADOPTED / IMPLEMENTED strings in name/objective | `domain.ts` L9–32 |
-| OA Product | **Pas** de champ MethodMode équivalent | CODE VERIFIED schema `oa_projects` |
-
-### 7.2 Volumes MethodMode (local D1 only)
-
-| method_mode | count |
-|---|---|
-| `V3_CANDIDATE` | 127 |
-| `SFIA_V2_6` | 4 |
-| (TRANSITION) | 0 observé |
-
-**Environnement:** `.sfia-exec/local-i1/state/d1.sqlite` — **LOCAL DEV** ; **≠ prod**.
-
-### 7.3 Options H1 (comparaison)
-
-| Option | Description | Pros | Cons | Recommandation |
-|---|---|---|---|---|
-| **A** | Historiser MethodMode **uniquement** D1/archive RO | Respecte doctrine Product ; pas de pollution OA | Perte sémantique si UI Product devait l’afficher | **Préférée** |
-| **B** | Convertir **une** sémantique Product minimale sous GO dédié | Continuité UX si besoin prouvé | Risque de doctrine parallèle ; design + GO | Seulement si preuve produit |
-| **C** | Compat temporaire bornée + exit | Transition douce | Dette ; fenêtre dual-sémantique | Acceptable **bornée** si A+cutover phasé |
-
-**Recommandation motivée (≠ ADOPTED):** **A** comme défaut ; **C** seulement si Morris exige affichage temporaire d’un label non-autoritatif dérivé d’archive ; **jamais** transférer MethodMode comme doctrine Product / runtime v3.
-
-**Décision Morris H1 requise.**
-
----
-
-## 8. H4 — Volumes (read-only)
-
-### 8.1 Méthode
-
-- Chemins résolus depuis code (`paths.ts` D1/OA).
-- Fichiers **sous** `projects/sfia-studio/.sfia-exec/` du workspace principal uniquement.
-- `sqlite3 'file:…?mode=ro&immutable=1'` — **pas** `openD1Db` / `openProductSqlite`.
-- Agrégats COUNT / status / method_mode uniquement — **aucun** nom/objectif/PII/payload.
-- mtime/size D1 inchangés après query.
-
-### 8.2 Inventaire local autorisé
-
-| Env | Path (workspace-relative) | Size | Tables / COUNT | Couverture |
-|---|---|---|---|---|
-| LOCAL D1 | `.sfia-exec/local-i1/state/d1.sqlite` | 376832 B (mtime Aug 22) | projects **131** (ACTIVE 122 / DRAFT 9) ; assignments 262 ; audit_events 385 ; idempotency 131 ; atomic_audit **0** | LOCAL VERIFIED |
-| LOCAL OA default | `.sfia-exec/product/oa-product.sqlite` | 3207168 B | projects **43** (`prj:*`) ; lps 229 ; idempotency 43 ; audit_events 1469 | LOCAL VERIFIED |
-| LOCAL OA campaign | `…/new-project-campaign-01/product/oa-product.sqlite` | ~9 MB | projects 22 ; audit_events 8742 | LOCAL harness |
-| LOCAL OA reproof | `…/pwr-dpc09-real-reproof-01/product/oa-product.sqlite` | ~1.2 MB | projects 11 ; audit_events 604 | LOCAL harness |
-| PROD | — | — | — | **UNKNOWN / NOT VERIFIED** |
-
-### 8.3 Conclusions H4
-
-| Claim | Status |
-|---|---|
-| « volumes = zéro » | **FALSE** locally — D1 non vide |
-| Migration conservation potentiellement nécessaire | **YES (local evidence)** — au minimum archive RO / mapping decision |
-| Couverture cutover-complete | **NO** — prod UNKNOWN |
-| **R-VOL-01** | **OPEN** |
-| H4 qualification | **PARTIAL — LOCAL VERIFIED / PROD UNKNOWN** |
-
----
-
-## 9. Identités & données (matrice)
-
-| Donnée D1 | Importance | Équivalent OA | Migration? | Archive RO? | Reconstruction? | Perte OK? | Décision |
-|---|---|---|---|---|---|---|---|
-| `project_id` `proj-*` | Identité historique | `prj:*` **différent** | Mapping table **si** continuity UX | OUI | Non 1:1 auto | Non si users naviguent anciennes URLs | Morris: mapping vs freeze URLs |
-| name / objective / context | Métier intake | OA project payload | Sélectif si conservation | OUI | Partiel | Dépend usage | H4+product |
-| `method_mode` | Gouvernance D1 | **Aucun** | **Non** vers doctrine OA | OUI | N/A | Acceptable si A | **H1** |
-| state DRAFT/ACTIVE | Cycle D1 | OA lifecycle différent | Non mécanique | OUI | Via Product rules | — | Design L2 |
-| assignments owner/DM | Authz D1 | Product ownership model | Non trivial | OUI | Via L4 later | — | L2/L4 |
-| `d1_audit_events` | Preuve intake | `oa_audit_events` (autre contrat) | Archive ≠ merge ports | OUI | Non | Perte write-path OK si archive | Audit decision |
-| `d1_idempotency_keys` | Replay D1 | `oa_idempotency` | **Ne pas fusionner** keys | OUI | N/A | OK freeze D1 writers | Cutover |
-| `d1_atomic_audit` | Phase journal | ProjectCycleAuditPort / OA journal | Local count **0** | OUI | N/A | Faible volume local | L2 audit path |
-| LPS | N/A D1 | `oa_lps` Product | N/A | — | — | — | Product only |
-
-**Overlap IDs D1∩OA (local default DBs):** **0** — CODE+aggregate VERIFIED.
-
----
-
-## 10. Contrats d’audit (séparés)
-
-| Contrat | Responsabilité | Store | Append | Readers | Notes L2 |
-|---|---|---|---|---|---|
-| `LocalProjectCreationAuditPort` | Events création projet local | memory/noop/sqlite-adapter | append events | tests/composition | Product create path |
-| `ProjectCycleAuditPort` | Journal phases atomiques | D1 `BoundedAtomicAuditStore` (transient) | append | TEST_ONLY find/list on D1 | L1 découplé VSR/core |
-| `ProjectAuditJournalPort` / Sqlite journal | OA project audit | `oa_audit_events` | append | OA services | Product SoT events |
-| `d1_audit_events` | Intake lifecycle events | D1 | via repo atomic | D1 UI | Archive candidate |
-| Unification ports | — | — | — | — | **NOT in Q0** ; needs design+GO |
-
----
-
-## 11. R-CUT-01 — Protocole (design-only, non exécuté)
-
-| # | Étape | Préconditions | Contrôle / preuve | Stop | Rollback |
-|---|---|---|---|---|---|
-| 0 | Baseline writers/readers | L2-Q0 pack accepted | Matrices §6 | Ambiguïté ownership | — |
-| 1 | Gate **H1** | Morris decision A/B/C | Decision record | Unresolved MethodMode | — |
-| 2 | Gate **H4** | Env inventory incl. **prod policy** | R-VOL-01 coverage | Prod UNKNOWN sans policy | — |
-| 3 | Backup + inventaire | RO dumps aggregates + file hashes | Checksums | Incomplete inventory | Restore files |
-| 4 | Identity policy | Mapping vs URL freeze | Spec + tests | Implicit remapping | Abort |
-| 5 | Historical data policy | migrate-select / archive-only | Counts before/after | Dual-write temptation | Abort |
-| 6 | **Freeze D1 writers** | Feature flag / route disable | No new `d1_projects` inserts | Writer still hot | Re-enable D1 UI |
-| 7 | OA writer exclusive Product | Studio create only | Telemetry/tests | D1 still creating | — |
-| 8 | Reader cutover | Nav/list to OA | UX checks | Broken deep links | Point readers back to D1 RO |
-| 9 | Idempotence isolation | Separate key spaces | No shared idem tables | Key collision design | — |
-| 10 | Verify | Counts + smoke DET | Diff report | Drift | Rollback readers |
-| 11 | D1 archive RO | FS permissions / code paths read-only | Attempted write fails | Write still possible | Fix perms |
-| 12 | RETIRE LATER | L6 gate | Consumer clear | Premature delete | Keep archive |
-
-**Atomicité inter-bases:** **NON existante** — ne pas inventer.
-**Compensation effets externes:** N/A / hors scope.
-**Dual-write:** **FORBIDDEN** à toute étape.
-
----
-
-## 12. Options L2 (comparaison)
-
-| Option | Description | Complexité | Risque | Preuves | Effet L3/L4/L6 | Reco |
+| Lot | Objectif user | Scope | Depend | Exit proof | Dette remboursée | GO |
 |---|---|---|---|---|---|---|
-| **A** | Cutover Product OA + **D1 RO archive** | Faible–moyenne | Deep links D1 ; MethodMode | H1=A ; H4 policy ; freeze writers | Débloque L3/L4 ownership later ; L6 retire | **Recommandée** |
-| **B** | Migration sélective + mapping IDs | Moyenne–haute | Mapping errors ; PII handling | Mapping tests ; sampled verify | Plus lourd avant L4 | Si continuity URLs requise |
-| **C** | Migration exhaustive | Haute | Coût ; overclaim | Full inventory prod | Retarde L3 | Seulement si volumes/usages le justifient |
-| **D** | Dual-write | — | — | — | — | **FORBIDDEN** |
+| **L2-D0** Prep | Invariants | Docs tip decisions H1/H4/D4 ; flags freeze | Q1 Critical PASS | Decision record | Clarity | Documentary/Delivery prep |
+| **L2-D1** Parité utile OA | Create/list/open/resume Studio | COMPLETE audit durable si D5 ; UX gaps onboarding | L2-D0 | Tests O-01 DET | Audit gap | Delivery |
+| **L2-D2** Freeze + redirect | Plus de create D1 ; nav→studio | Routes/UI D1 disable/redirect | L2-D1 | No D1 write probe + redirect tests | Dual UX | Delivery |
+| **L2-D3** Data policy exec | Archive RO and/or selective C | Mapping if any ; RO mount | H4+D4 | Inventory verify | Histo chaos | Delivery |
+| **L2-D4 / L6** Retire structurant | Delete code/store | After consumers clear | L2-D2/D3 stable | Import grep zero D1 product path | Island gone | **Distinct GO** |
 
-**Recommandation (≠ ADOPTED):** **A** — plus simple, alignée G0/M5, pas de dual-write ; compléter par **B partiel** seulement sur décision Morris pour URLs/IDs critiques.
+Éviter micro-lots cosmétiques ; éviter second moteur ; L3 Attempt reste **séparé**.
 
 ---
 
-## 13. Trajectoire qualification
+## 17. Dette / conditions de retrait
 
-| Milestone | Statut |
+| Dette | Exit |
 |---|---|
-| V3-F05+ Product capacity | Visée ; runtime v3 NON ADOPTED |
-| M5-A | CLOSED documentary |
-| L1/A09 | MERGED |
-| **L2-Q0** | **Cette investigation** |
-| Delivery L2 | **NOT AUTHORIZED** — needs H1/H4/R-CUT + GO Delivery |
-| L3 Product Attempt | Distinct GO |
-| L4 ownership/orchestration | Distinct ; H8 conditional |
-| L6 retire/freeze | After L2/L3 proofs |
-
-**Chemin critique:** H1 → H4 coverage policy → R-CUT-01 accept → GO Delivery L2 (option A) → freeze D1 writers → verify → archive RO → (later) L6 retire.
+| Dual UX D1+Studio | L2-D2 |
+| MethodMode runtime | H1 + L2-D2 |
+| Memory OA audit on create | D5 COMPLETE |
+| R-VOL-01 | Policy or inventory GO |
+| Deep links `proj-*` | D4 |
+| Adapter `d1_atomic_audit` | After A09 Product path + unused |
+| Archive B sans owner | Forbidden — force exit criterion |
 
 ---
 
-## 14. Fake / Real
+## 18. Décisions Morris requises (D1–D9)
 
-| Item | Valeur |
+| ID | Question | Observation | Options | Recommandation (≠ décision) | Gate |
+|---|---|---|---|---|---|
+| **D1** | Actifs indispensables ? | O-01 Product paths ; ports t-a7/OA | Keep island vs ports only | **Ports + OA** ; pas îlot UI | Critical Review |
+| **D2** | Stratégie retrait ? | A/B/C | A / B / C | **A** + B court si besoin | Explicit |
+| **D3** | Adapt OA nécessaires ? | Create/list/open OK PARTIAL ; match ABSENT ; audit Memory | Adapt list | **COMPLETE audit** ; optionnel match **non** default | D5 |
+| **D4** | `proj-*` ? | Deep links D1 | Deny/redirect vs map C | **Deny/redirect** défaut | Explicit |
+| **D5** | Audit Product manquant ? | Memory default create | COMPLETE Sqlite / accept Memory | **COMPLETE** avant retire A09 D1 | Explicit |
+| **D6** | Conservation/destruction ? | 131 local ; prod UNKNOWN | Policy | **Définir policy** ; pas delete | H4 |
+| **D7** | Amend R-CUT ? | Write rollback dangereux | Adopt amend §15 | **Oui** | Explicit |
+| **D8** | Premier lot Delivery ? | §16 | L2-D0/D1… | **L2-D1→D2** après D0 decisions | Delivery GO |
+| **D9** | Preuves avant GO Delivery ? | H4 OPEN ; audit gap ; NR list | Wait / proceed with reserves | **Critical Review + D1–D7** ; H4 policy minimum | Morris |
+
+---
+
+## 19. R23 / R24
+
+| Niveau | Usage ce pack |
 |---|---|
-| Applicable | Oui — local DBs + DET tests présence |
-| Preuves | CODE VERIFIED + LOCAL RO aggregates |
-| Migration / cutover prouvés | **NON** |
-| Prod volumes | **UNKNOWN** |
-| READY FOR REAL / REAL PROVEN / v3 ADOPTED | **NON** |
-| DETERMINISTIC ≠ READY FOR REAL | Conservé |
+| DOCUMENTED | C1, M4 CAP, decisions conversation |
+| CODE VERIFIED | Routes, writers, audit wiring, IDs |
+| COVERAGE VERIFIED | Tests **présents** cités — non re-run cutover |
+| BEHAVIOR PROVEN | **Non** pour cutover/retire |
+| KNOWN GAP | Prod volumes ; Memory vs Sqlite audit ; context-match value |
+
+**R24 :** NO PRODUCT SEMANTIC IMPACT ce cycle · **pas** d’edit PRR · futurs lots : 01/03/04/06/08/09 + digests après contenu.
 
 ---
 
-## 15. Décisions Morris explicitement sollicitées
+## 20. Réserves Critical
 
-1. **H1 MethodMode:** adopter **A** (archive-only), ou **B/C** avec conditions ?
-2. **H4 / R-VOL-01:** accepter cutover sur **local+policy prod UNKNOWN**, ou exiger inventaire prod/staging avant Delivery L2 ?
-3. **Identités:** mapping `proj-*`→`prj:*` (**B**), ou freeze deep-links D1 + Product-only IDs (**A**) ?
-4. **R-CUT-01:** accepter protocole §11 comme base Delivery, amendements ?
-5. **Option L2:** confirmer **A** (OA + D1 RO) comme trajectoire candidate ?
-6. **GO Delivery L2:** NOT NOW jusqu’à Critical Review + réponses 1–5.
+1. H4 / prod UNKNOWN.
+2. Audit OA Memory sur create Studio.
+3. Context-match D1 sans équivalent Product — valeur UNKNOWN.
+4. Rollback write D1 interdit sans réconciliation.
+5. Conversation decisions ≠ tip Git tant que sync documentaire non GO.
+6. Absence de consumer observé ≠ preuve globale d’absence d’usage.
 
 ---
 
-## 16. Exit proof L2-Q0
+## 21. Exit proof Q1
 
 | Critère | Status |
 |---|---|
-| Git Truth aligned `94c7a30d` | SATISFIED |
+| Git Truth aligned | SATISFIED |
+| Capacités O-01 matrix | SATISFIED |
+| Asset matrix + classifications | SATISFIED |
+| Scénarios A/B/C + reco | SATISFIED |
+| H1/H4 requalifiés | SATISFIED (gates OPEN) |
+| Audit gap nommé | SATISFIED |
+| R-CUT amendé | SATISFIED design |
+| Trajectoire lots | SATISFIED candidate |
+| D1–D9 pack | SATISFIED |
 | Zéro mutation projet | SATISFIED |
-| Writers/readers matrices | SATISFIED (CODE VERIFIED) |
-| H1 inventaire + options | SATISFIED ; **decision OPEN** |
-| H4 local aggregates RO | SATISFIED PARTIAL ; **R-VOL-01 OPEN** |
-| Audit contracts séparés | SATISFIED |
-| Cutover protocol design | SATISFIED ; **not executed** |
-| Options L2 + recommendation | SATISFIED ; **not ADOPTED** |
-| Dual-write absent | SATISFIED |
+| Delivery authorized | **NO** |
 
 ---
 
-## 17. Dette + exit
-
-| Dette | Exit condition |
-|---|---|
-| D1 island still writable via historical routes | Freeze writers under L2 Delivery |
-| MethodMode hold / enum | H1 decision + archive |
-| Adapter D1 atomic audit | L2 audit retention decision post-cutover |
-| R-VOL-01 | Prod/staging policy or inventory GO |
-| R-CUT-01 unproven | Execution under Delivery GO + verify |
-
----
-
-## 18. Review Handoff L3
-
-### Avant publish
+## 22. Review Handoff L3
 
 | Item | Valeur |
 |---|---|
-| Tip précédent (Cycle 13) | `4de5dc55bd3069f4aefafa4ee0cfb1c7e075fe4f` |
-
-### Après publish (à compléter post-script)
-
-| Item | Valeur |
-|---|---|
-| Verdict | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Commit FULL (contenu substantiel) | `d5cc774749e9c2416681f0bf1d50d8b0e88cb431` |
-| Blob FULL | `dbfbcec8a3246874b6c6d680e5f5c5c0019815ea` |
-| Parent | `4de5dc55bd3069f4aefafa4ee0cfb1c7e075fe4f` |
-| Tip distant courant | `git rev-parse origin/sfia/review-handoff` (peut être sync §18 descendant) |
-| Force push | NON |
-| Projet push/PR | NON |
+| Tip avant (Q0) | `ac58a4009f5a3ee40dfd59f5eb0518db75d887d0` |
+| Verdict publish | _PENDING_PUBLISH_ |
+| Commit FULL | _PENDING_PUBLISH_ |
+| Blob FULL | _PENDING_PUBLISH_ |
+| Tip courant | `git rev-parse origin/sfia/review-handoff` |
+| Projet | inchangé @ `94c7a30d` |
 
 ---
 
-## 19. Validations anti-mutation (cette investigation)
-
-- Pas de `openD1Db` / `openProductSqlite` applicatif.
-- Pas de SQL write ; D1 mtime inchangé.
-- Pas de modification schéma / dual-write / cutover.
-- Pas de commit/push/PR/merge projet.
-- WT P6 dirty non interféré.
-
-**Fin pack FULL — matrices substantielles ; SYNTHESIS ONLY interdit.**
-
----
-
-## 18bis. Handoff tip — passe corrective inventaires
-
-| Item | Valeur |
-|---|---|
-| Tip avant corrective | `73d97565e42a95dc4ad63897a61fd623f4449db2` |
-| Commit FULL inventaires (ce contenu) | `c561ce16784a81c3882b420fc2fcbb3f0709c44d` |
-| Blob FULL | `eb84fbb28d4aa618183b80ed8d957d1c57f6444c` |
-| Tip distant courant | `git rev-parse origin/sfia/review-handoff` (peut avancer d’un sync) |
-| Projet | inchangé @ `94c7a30d` ; pas de push/PR |
+**Fin pack FULL — matrices substantielles ; SYNTHESIS-ONLY interdit.**
