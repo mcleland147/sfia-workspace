@@ -698,9 +698,9 @@ Critical Review → (GO Git Integration `04`) → tranchage D2/D4/D5/D6/D7 → *
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `8fcbfa5f180b3ea9dfcc9b1745b0dd854158db84` |
+| Blob FULL | `6fd5171e85fc05f5e876ecdce9e393a6f3f00dd0` |
 | Parent | `aa89c20a047dea6500700db0c9a11c43b702912c` |
 | Tip distant courant | `git rev-parse origin/sfia/review-handoff` |
 | Projet | `04` local untracked @ baseline `94c7a30d` ; pas de push/PR |
