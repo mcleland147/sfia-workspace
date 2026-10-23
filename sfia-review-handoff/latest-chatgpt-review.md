@@ -779,9 +779,9 @@ Tests Product : **NON exécutés**.
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `6908956d5b747957a4d6d135bee87d1f5f1aea03` |
+| Blob FULL | `a9118336103f9f4512c7b7c511d7ea19c832791b` |
 | Parent | `9f9f212f7632f7967f30d94e92b6c1fe1863be5e` |
 | Tip distant courant | `git rev-parse origin/sfia/review-handoff` |
 | Projet | `04` local untracked @ `94c7a30d` ; pas de push/PR |
