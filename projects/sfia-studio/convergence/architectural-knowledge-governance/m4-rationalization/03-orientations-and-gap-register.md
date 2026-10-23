@@ -2,11 +2,11 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Version | **V0.3 — 2026-10-23** (Documentary Consolidation ; trace V0.2 H7/H8 hash `e8d0f231…` ; historique V0.1 conservé) |
-| Périmètre GO | **GO Pilote : LOCAL DOCUMENTARY CONSOLIDATION** · documentation bornée · **GO Delivery NON ACCORDÉ** |
+| Version | **V0.4 — 2026-10-23** (synchronisation post-publication PR #604 ; V0.3 consolidation locale et V0.2 H7/H8 conservées dans l'historique) |
+| Périmètre GO | **GO Pilote : LOCAL DOCUMENTARY CONSOLIDATION + DOCUMENTARY GIT INTEGRATION** consommés (documentation uniquement) · **GO merge et GO Delivery NON ACCORDÉS** |
 | Autorité | Orientations V0.1 **+** arbitrages Pilote **H7/H8** (2026-10-22) — détail [Decision Record `11`](./11-m4a-h7-h8-architecture-orientation-decision-record.md) · ce fichier = registre consolidé, **pas** une seconde source de vérité H7/H8 |
-| Statut jalon | **AKG-M4 FORMAL START AUTORISÉ** · **AKG-M4-A START AUTORISÉ** · **M4 DECIDED — H7/H8 ONLY** · **M4-A DOCUMENTARY CONSOLIDATION — LOCAL CANDIDATE** · **M4-A NON CLOSED** · aucune exécution L1–L6 · runtime v3 **NON ADOPTED** |
-| Base de preuve | `main` `f44a99b4da84188772b80aca3c9ebe1a3e12617e` ; branche doc `c48c6a58…` ; docs `05`–`11` consolidés (hashes §6) ; handoffs T-A01–T-A06 + H7/H8 |
+| Statut jalon | **AKG-M4 FORMAL START AUTORISÉ** · **AKG-M4-A START AUTORISÉ** · **M4 DECIDED — H7/H8 ONLY** · **DOSSIER M4-A PUBLIÉ SUR PR #604 DRAFT, NON MERGÉE** · **M4-A NON CLOSED** · aucune exécution L1–L6 · runtime v3 **NON ADOPTED** |
+| Base de preuve | `main` `f44a99b4da84188772b80aca3c9ebe1a3e12617e` ; commit d'intégration PR #604 `c64f804613dda09e4757febcc2e26f530d6f3014` ; docs `05`–`11` (hashes §6) ; handoffs T-A01–T-A06 + H7/H8 |
 
 ## 1. Statuts
 
@@ -17,7 +17,7 @@
 - **M4 DECIDED — H7/H8 ONLY** *(depuis V0.2)* : arbitrages Pilote formels **H7** / **H8**. **N'adopte pas** l'ensemble des classifications A01–A12. Historique V0.1 : « M4 DECIDED réservé — aucun à cette version » — **supersédé uniquement** pour H7/H8.
 - **M4 START AUTHORIZED** : démarrage de l'analyse (consommé ; **ne plus lire** comme « GO formel encore attendu » pour commencer M4-A).
 - **ORIENTATION ARCHITECTURALE RETENUE (H7)** *(V0.3)* : SC-G2 retenu comme orientation de référence — **≠** runtime SC-G2 implémenté ou adopté.
-- **LOCAL CANDIDATE / preferred candidate** dans `05`–`11` : déclarations **historiques exactes** des audits ; l'interprétation courante (orientation H7 adoptée ; docs consolidés localement) est portée **ici**, sans réécriture silencieuse des livrables acceptés.
+- **LOCAL CANDIDATE / preferred candidate** dans `05`–`11` : déclarations **historiques exactes** des audits ; l'état courant est H7 adopté en orientation, documents consolidés en V0.3 puis publiés sur la branche de la PR #604 (non fusionnée), sans réécriture silencieuse des livrables acceptés.
 
 ## 2. Orientations
 
@@ -87,9 +87,9 @@ La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.
 
 **GO M4-A :** lancement de l'analyse « responsabilités et dépendances runtime » après mise à jour de l'orientation OR-13. **[Cartographie initiale M4-A](04-m4a-runtime-responsibilities-and-transition-assessment.md)**.
 
-**Couverture investigations (V0.3) :** six audits **T-A01–T-A06 terminés et acceptés avec réserves** + Decision Record **H7/H8 accepté avec réserves** ; documents `05`–`11` **consolidés localement** dans ce worktree (copies intègres, hashes §6). Historique V0.1 : « T-A01–T-A06 OPEN » — **mis à jour en V0.2** ; V0.3 ajoute la consolidation locale. L'analyse transitive/non-régression et les preuves REAL restent **non closes**. Les options `REPLACE / REBUILD` restent des **candidats gouvernés** (H8 = étude conditionnelle L4, **pas** adoption REBUILD). Les dispositions **ne valent pas** GO d'exécution.
+**Couverture investigations (V0.4) :** six audits **T-A01–T-A06 terminés et acceptés avec réserves** + Decision Record **H7/H8 accepté avec réserves** ; documents `05`–`11` consolidés localement en V0.3 puis **publiés sur la branche de PR #604** au commit `c64f8046…` (copies intègres, hashes §6), **non intégrés à `main`**. Historique V0.1 : « T-A01–T-A06 OPEN » — mis à jour en V0.2 ; V0.3 = consolidation locale ; V0.4 = statut de publication. L'analyse transitive/non-régression et les preuves REAL restent **non closes**. Les options `REPLACE / REBUILD` restent **candidates gouvernées** (H8 = étude conditionnelle L4, **pas** adoption REBUILD). Les dispositions **ne valent pas** GO d'exécution.
 
-**M4-A NON CLOSED.** Pas de Formal Exit dans ce cycle. Pas de GO Delivery / M5. Intégration Git projet = **autorisation humaine distincte** ultérieure.
+**M4-A NON CLOSED.** Pas de Formal Exit dans ce cycle. Pas de GO Delivery / M5. Le GO d'intégration Git documentaire a été **consommé sur la branche de PR #604** ; **merge dans `main` non autorisé** et soumis à un GO distinct.
 
 ## 5. Règles d'évolution
 
@@ -114,7 +114,7 @@ La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.
 | [`10`](./10-m4a-critical-architecture-alignment-review.md) | Critical alignment review | CR-01–08 | Accepted with reserves (T-A06) | `922131cd95b05aea1fe33806c1795151770e0ab9` | `91d387e0226d4272c2e66c281cea582afd308094` | RES-01/02 ; READY WITH RESERVES |
 | [`11`](./11-m4a-h7-h8-architecture-orientation-decision-record.md) | H7/H8 Decision Record | Orientation formalisée | Accepted with reserves (H7/H8) | `576ea0b056237e42102b93976bc543bbd75938d5` | `9a415e553a71b286402ff11c2241499e741e14ce` | H0–H6 OPEN ; réserves gouvernées |
 
-**Provenance copie :** byte-identical depuis worktrees historiques après `git hash-object` = hash attendu (handoff identity tables). Worktrees d'origine **non modifiés**. Intégration Git projet **non effectuée**.
+**Provenance copie :** byte-identical depuis worktrees historiques après `git hash-object` = hash attendu (handoff identity tables). Worktrees d'origine **non modifiés**. Intégration Git **effectuée sur la branche de la PR #604** au commit `c64f8046…` ; blobs distants vérifiés 8/8 ; **aucun merge dans `main`**.
 
 ## 7. Annexe RES-01 — Traçabilité A01–A12 (preuves vérifiables)
 
@@ -188,14 +188,21 @@ La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.
 | Sécurité | DET ≠ REAL ; R2 ≠ sandbox ; exclusive REAL NOT PROVEN ; SHADOW OFF ; pas de P6 GLOBAL PASS | AFFIRMED |
 | Architecture | SC-G2 = orientation adoptée ; SC-G3 A06/A10 = étude conditionnelle L4 ; A01–A12 non adoptés en bloc ; no Delivery/M5 | AFFIRMED |
 
-## 11. Non-claims (consolidation)
+## 11. Non-claims (consolidation et publication documentaire)
 
 - M4-A **NON CLOSED** · Formal Exit **non** exécutée.
 - SC-G2 runtime **NON ADOPTED** · SC-G3 REBUILD **NON AUTHORIZED**.
 - L1–L6 / Delivery / M5 **NOT GRANTED**.
 - REAL **NOT PROVEN** · FinOps SHADOW **OFF** · P6 GLOBAL **NOT PASSED**.
-- Docs `05`–`11` = copies intègres locales · **pas** publiés sur branche projet.
+- Docs `05`–`11` = copies intègres **publiées sur la branche de PR #604** · **non mergées dans `main`**.
 - R24 **NO PRODUCT SEMANTIC IMPACT**.
+
+## 12. Trace post-intégration Git — traitement RES-03
+
+- **GO documentaire d'intégration consommé :** commit `c64f804613dda09e4757febcc2e26f530d6f3014` sur `docs/akg-m4a-capability-first-rationalization` (PR [#604](https://github.com/mcleland147/sfia-workspace/pull/604)).
+- **Preuve :** huit blobs du commit conformes aux hashes de consolidation ; CI `39883454095` SUCCESS sur ce commit ; PR encore **Draft OPEN, non mergée** lors de cette synchronisation.
+- **RES-03 :** décalage entre le statut local V0.3 et la publication ultérieure **corrigé documentairement en V0.4** ; les déclarations antérieures restent des traces historiques, pas l'état Git courant.
+- **Non-claims :** ce correctif ne constitue ni GO merge, ni Formal Exit M4-A, ni GO Delivery/M5.
 
 ---
 
