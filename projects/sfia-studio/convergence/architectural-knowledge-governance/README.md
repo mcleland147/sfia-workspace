@@ -3,10 +3,10 @@
 | Champ | Valeur |
 | --- | --- |
 | Portée | Construction / connaissance architecturale de **SFIA Studio uniquement** |
-| Version | **V0.5 — 2026-10-23** · AKG-M5-A dossier documentaire (candidat Git) ; V0.4 = M4 GLOBAL Formal Exit ; V0.1–V0.3 historiques |
+| Version | **V0.6 — 2026-10-23** · AKG-M5-A Formal Exit documentaire bornée et preuves post-merge #607 ; V0.5 = authoring/Git Integration ; V0.4 = M4 GLOBAL Formal Exit |
 | Base de lecture | `main` au départ M5-A : `f088c60271722fcf678c3862ebe192da71c7c402` (inclut M4 global exit) ; base M4 GO historique `b7bff88b…` / PR #605 |
-| Autorisation Pilote | **AKG-M4 GLOBAL FORMAL EXIT ADOPTED** ; **GO 2026-10-23 Git Integration documentaire AKG-M5-A** (Draft PR) ; **H0 Delivery L1 NOT GRANTED** |
-| Non-claims | M4 GLOBAL CLOSED (portée assessment) ; M5-A = **dossier documentaire candidat** ≠ M5 CLOSED ≠ Delivery ; A01–A12 candidates ; H1–H5 OPEN ; REAL NOT PROVEN ; runtime v3 NON ADOPTED ; merge M5-A **non** affirmé avant GO merge distinct |
+| Autorisation Pilote | AKG-M4 GLOBAL EXIT ADOPTED ; **AKG-M5-A DOCUMENTARY FORMAL EXIT CLOSED BY MORRIS WITH GOVERNED RESERVES (2026-10-23)** ; **H0 Delivery L1 NOT GRANTED** |
+| Non-claims | M4 et M5-A **clôturés à leurs périmètres documentaires distincts** ; AKG-M5 GLOBAL **OPEN** ; A01–A12 candidates ; H1–H5 OPEN ; H0-L1 NOT GRANTED ; REAL NOT PROVEN ; P6 GLOBAL NOT PASSED ; runtime v3 NON ADOPTED ; ce record est **candidat Git** jusqu'à sa propre intégration |
 
 ## Point d'entrée AKG
 
@@ -19,15 +19,14 @@ Les acquis AKG-M0 à M3 sont répartis entre la Build Doctrine, la Roadmap, la P
 | **M2 — Architecture Understanding** | Responsabilités, dépendances, frontières d'autorité | [PRR 03](../../production-runtime-reference/03-end-to-end-flow-catalog.md), [04](../../production-runtime-reference/04-dependency-impact-map.md), [07](../../production-runtime-reference/07-authority-invariants-and-failure-modes.md), [09](../../production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md) |
 | **M3 — Reference Consolidation** | Living PRR consolidée au périmètre borné, réserves gouvernées | [PRR README](../../production-runtime-reference/README.md), [08](../../production-runtime-reference/08-test-proof-and-conformance-map.md), [09](../../production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md) |
 | **M4 — Rationalization Assessment** | **GLOBAL FORMAL EXIT ADOPTED — BOUNDED ASSESSMENT with governed OPEN reserves** ; M4-A CLOSED, PR #605 MERGED/CI SUCCESS ; A01–A12 candidate | [Global Exit 14](m4-rationalization/14-akg-m4-global-formal-exit-decision-record.md) · [M4-A Exit 13](m4-rationalization/13-m4a-formal-exit-decision-record.md) |
-| **M5 — Product Transformation** | **M5-A documentaire préparé** (blueprint + L1 pack) ; revue ChatGPT PASS WITH GOVERNED RESERVE ; intégration Git sous GO Morris 2026-10-23 ; **H0-L1 NOT GRANTED** ; Delivery/runtime non autorisés | [m5-product-transformation/](m5-product-transformation/) · [01 blueprint](m5-product-transformation/01-m5a-product-architecture-convergence-blueprint.md) · [02 L1 pack](m5-product-transformation/02-m5a-l1-a09-delivery-readiness-and-decision-pack.md) |
+| **M5 — Product Transformation** | **M5-A DOCUMENTARY FORMAL EXIT — CLOSED BY MORRIS WITH GOVERNED RESERVES** ; PR #607 MERGED et CI post-merge SUCCESS ; **AKG-M5 global reste OPEN** ; H0-L1 NOT GRANTED | [01 blueprint](m5-product-transformation/01-m5a-product-architecture-convergence-blueprint.md) · [02 L1 pack](m5-product-transformation/02-m5a-l1-a09-delivery-readiness-and-decision-pack.md) · [M5-A Formal Exit 03](m5-product-transformation/03-m5a-formal-exit-decision-record.md) |
 
-## État CURRENT — AKG-M5-A (2026-10-23)
+## État CURRENT — AKG-M5-A Formal Exit documentaire bornée (2026-10-23)
 
-- **M5-A préparé** : Product Architecture Convergence blueprint + L1/A09 Delivery Readiness pack (corrections C1–C4 ; C3 résiduelle requalifiée en Git Integration).
-- **Revue critique ChatGPT :** PASS WITH GOVERNED RESERVE (handoff `c81d7d47…` puis pack d’intégration).
-- **GO Morris 2026-10-23 :** intégration Git documentaire autorisée (commit / push branche / Draft PR) — **intégration dans `main` non affirmée** tant que merge + CI post-merge non vérifiés.
-- **H0 Delivery L1 :** **NOT GRANTED** · Q1–Q10 **NOT PASS** · R-A09-01 **OPEN** · runtime v3 **NON ADOPTED** · REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED**.
-- **Livrables :** [01 — Convergence blueprint](m5-product-transformation/01-m5a-product-architecture-convergence-blueprint.md) · [02 — L1/A09 readiness](m5-product-transformation/02-m5a-l1-a09-delivery-readiness-and-decision-pack.md).
+- **Statut décidé :** **CLOSED BY MORRIS AT BOUNDED DOCUMENTARY ARCHITECTURE CONVERGENCE SCOPE WITH GOVERNED OPEN RESERVES** ; source [Decision Record 03](m5-product-transformation/03-m5a-formal-exit-decision-record.md) (publication de ce record candidate Git).
+- **Intégration vérifiée :** [PR #607](https://github.com/mcleland147/sfia-workspace/pull/607) MERGED le 2026-10-23 ; `main` = [`0e1181abcd38553d7f489ee5650e0e2957466384`](https://github.com/mcleland147/sfia-workspace/commit/0e1181abcd38553d7f489ee5650e0e2957466384) ; [CI post-merge #39973034538](https://github.com/mcleland147/sfia-workspace/actions/runs/39973034538) **COMPLETED/SUCCESS**, Detect, Build, Required Gate **SUCCESS**.
+- **Livrables conservés :** [01 — Convergence blueprint](m5-product-transformation/01-m5a-product-architecture-convergence-blueprint.md) · [02 — L1/A09 readiness](m5-product-transformation/02-m5a-l1-a09-delivery-readiness-and-decision-pack.md) ; correction C3 = **COVERAGE VERIFIED**, comportement run **KNOWN GAP** avant L1.
+- **Frontières :** AKG-M5 global **OPEN** ; H0-L1 **NOT GRANTED** ; H1–H5 et R-A09-01 **OPEN** ; Q1–Q10 **NOT PASS** ; packaging audit candidate ; P6 GLOBAL NOT PASSED ; REAL NOT PROVEN ; runtime v3 NON ADOPTED ; **NO PRODUCT SEMANTIC IMPACT**.
 
 ## Livrables AKG-M4 (V0.1)
 
