@@ -1,105 +1,76 @@
-# SFIA Studio — AKG-M5 / L2-D0 / CORR-01 — Critical Documentary Correction Pass
+# SFIA Studio — AKG-M5 / L2-D0 — Documentary Git Integration
 
-**Date / heure:** 2026-10-23 22:45 Europe/Paris (CEST)
-**Cycle:** 6 — Architecture technique
+**Date / heure:** 2026-10-23 23:55 Europe/Paris (CEST)
+**Cycle:** 13 — PR Readiness
 **Profil:** Critical
-**Typologie:** DOC / EVOL
-**GO Morris:** L2-D0 / CORR-01 — DOCUMENTARY CORRECTION GRANTED
-**NON autorisé / NON effectué:** Delivery L2-D1/D2 · runtime · tests Product · migration · schéma · cutover · freeze · retrait D1 · Roadmap/Doctrine/PRR · commit/push/PR/merge projet · v3/REAL/SHADOW · adoption implicite D1–D9
+**Typologie:** DOC ONLY
+**GO Morris:** AKG-M5 / L2-D0 — DOCUMENTARY GIT INTEGRATION — **CONSUMED**
+**NON autorisé / NON effectué:** merge · Delivery L2 · Product · schéma · migration · cutover · freeze · retrait D1 · Roadmap/PRR/Doctrine · v3/REAL · force push
 
-**Instruction ChatGPT:** lire `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` (tip/blob **ce** cycle) ; vérifier document **04 intégral** corrigé ; CR-D0-01 atomicité ; CR-D0-02 H4/cutover env-scoped ; CR-D0-03 statuts/preuves ; D1–D9 ; M-01…M-08 ; L2-D1/D2 gates ; R23/R24 ; aucune mutation Product. Re-review ≠ GO Git Integration ≠ GO Delivery.
+**Instruction ChatGPT:** lire `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` **et** inspecter PR Draft [#611](https://github.com/mcleland147/sfia-workspace/pull/611) (commits, diff mono-fichier, base/head, CI). PR Review ≠ GO merge ≠ GO Delivery.
 
 ---
 
 ## 1. Verdict
 
-**L2-D0 CORR-01 DOCUMENTARY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW — NOT GIT INTEGRATED — DELIVERY L2 NOT AUTHORIZED**
+**L2-D0 DOCUMENTARY GIT INTEGRATION COMPLETE — DRAFT PR OPEN — READY FOR CHATGPT CRITICAL PR REVIEW — NOT MERGED — DELIVERY L2 NOT AUTHORIZED**
 
-| Réserve | Statut CORR-01 |
-|---|---|
-| CR-D0-01 Atomicité D5 | **CLOSED documentairement** |
-| CR-D0-02 H4 / cutover | **CLOSED documentairement** |
-| CR-D0-03 Statuts / preuves | **CLOSED documentairement** |
-
-D5 **non** implémenté/PASS · H4/R-VOL **OPEN** · R-CUT **NOT PROVEN** · L2-D2 **NOT AUTHORIZED**.
+**CI PENDING — MERGE NOT READY** (état observé au moment de publication du pack ; ne pas inventer SUCCESS).
 
 ---
 
-## 2. Git Truth initial / final
+## 2. GO Morris consommé
+
+Documentary Git Integration borné au fichier **04** uniquement : commit + push branche + Draft PR + handoff L3.
+
+---
+
+## 3. Git Truth initial / final
 
 | Item | Valeur |
 |---|---|
-| `origin/main` | `94c7a30d253396cba71f4c4938a1a0671fc0801c` — ALIGNED |
-| Branche docs locale | `docs/akg-m5-l2-d0-decision-readiness` @ `94c7a30d` (locale only) |
 | Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d0` |
-| Handoff entrée D0 | tip `9f9f212f7632f7967f30d94e92b6c1fe1863be5e` |
-| P6 | dirty — **non touché** |
-| Fichier projet modifié | **uniquement** `04-m5-l2-d0-decision-and-delivery-readiness.md` (untracked) |
-| Code/tests/PRR/Roadmap | **inchangés** |
-| Commit/push/PR projet | **NON** |
+| Branche | `docs/akg-m5-l2-d0-decision-readiness` |
+| Base / `origin/main` | `94c7a30d253396cba71f4c4938a1a0671fc0801c` — **ALIGNED** (pas d’avance main) |
+| HEAD commit | `71f0674297f42759e2a2424c048b0cdce9e1dc60` |
+| Remote branch SHA | `71f0674297f42759e2a2424c048b0cdce9e1dc60` — **MATCH** |
+| Blob fichier 04 | `b7ad4b74f6a9041581986f4456fd7d750bcf3f3f` |
+| P6 dirty | **non touché** |
+| Handoff CORR-01 entrée | `b8e74ee1613ef83212964cb4aac656499a048e81` |
 
 ---
 
-## 3. Sources consultées
+## 4. Sources vérifiées
 
-- Handoff L2-D0 distant (baseline) · C1 · M5 01/02/03/04 · M4 proportionnel · Doctrine 26/30–37 · PRR 04/06/08/09
-- Code : `createProject.ts` (txn puis audit L249–286) · `sqliteProductStore.ts` `runInTransaction` · `sqliteProjectAuditJournal.ts` · `localProjectComposition.ts` · `service.ts` ~535–541
-
-**Convergence Pre-check :** PASS pour cycle DOC CORR-01.
+Processus Cycle 13 / template · Build Doctrine · Roadmap (**lu non modifié**) · C1 · M5 01/02/03 · PRR 04/06/08/09 · doctrine 26/30–37 · FULL handoff CORR-01.
 
 ---
 
-## 4. GO Morris consommé
+## 5. Référence CORR-01 approuvée
 
-CORR-01 documentary correction only — n’autorise pas Delivery ni adoption D1–D9.
+Tip handoff CORR-01 `b8e74ee1…` · Critical Re-review PASS · CR-D0-01/02/03 CLOSED documentairement.
 
----
-
-## 5. Baseline documentaire D0
-
-Travail L2-D0 conservé (trajectoire, M-01…M-08, D1–D9, séparation D1/D2, anti dual-write, anti inertie). Corrections ciblées CR-D0-01/02/03 uniquement.
+Fidélité : contenu décisionnel aligné ; écart historique = whitespace trailing + **métadonnées lifecycle minimales** pour GI (déclarées §9).
 
 ---
 
-## 6. Analyse CR-D0-01 / 02 / 03
+## 6. Contrôle de fidélité document 04
 
-### CR-D0-01 — Atomicité D5
-
-**Preuve code :** `CreateProject` persiste Project/LPS/idempotence dans `runInTransaction` ; `oa.project.created` append **après** COMMIT ; journal Memory fréquent en composition Studio ; Sqlite journal INSERT hors txn create.
-
-**Avant (D0) :** « journal cohérent / fail create si audit échoue » — pouvait être lu comme swap Memory→Sqlite suffisant, et acceptait un fail post-commit ambigu.
-
-**Après (CORR-01) :** frontière txn explicite ; swap Memory→Sqlite **insuffisant** ; interdiction faux échec post-commit ; design L2-D1 doit traiter cohérence en réutilisant store/txn/journal/`oa_audit_events` ; oracles Q5.1–Q5.7 ; D5 non PASS.
-
-### CR-D0-02 — H4 avant cutover
-
-**Avant :** « H4 policy min » comme dépendance L2-D2 — risque d’interprétation « policy papier ⇒ cutover global ».
-
-**Après :** L2-D1 sans H4 global PASS ; L2-D2 exige checklist **par environnement basculé** (14 points) ; GO cutover **env-limité** autorisé conceptuellement ; cutover global + prod UNKNOWN **interdit** ; R-CUT renforcé env-scoped.
-
-### CR-D0-03 — Statuts / preuves
-
-**Avant :** notation `A → B (ce record)` ambiguë (faux tip Git).
-
-**Après :** « Morris exprimé en conversation — consigné dans le candidat L2-D0 — Git Integration pending » ; distinctions décision/reco/gate/GO ; QA : TEST PRESENT / NOT EXECUTED ≠ COVERAGE VERIFIED ; L1 PASS distinct conservé (Q14).
-
----
-
-## 7. Preuves Git/code référencées
-
-| Preuve | Réf |
+| Check | Résultat |
 |---|---|
-| Txn create | `createProject.ts` L249–269 |
-| Audit post-commit | `createProject.ts` L277–286 |
-| BEGIN/COMMIT | `sqliteProductStore.ts` L57–87 |
-| INSERT audit | `sqliteProjectAuditJournal.ts` L11–25 |
-| Memory default compose | `localProjectComposition.ts` (~audit: new Memory…) |
-| Sqlite materialization path | `service.ts` ~535–541 |
-| Baseline | `94c7a30d` |
+| CR-D0-01/02/03 CLOSED doc | PASS |
+| M-01…M-08 | PASS |
+| D1–D9 NOT GLOBALLY ADOPTED | PASS |
+| H1 archive-only · hold ACTIVE | PASS |
+| H4 / R-VOL OPEN · prod UNKNOWN | PASS |
+| R-CUT NOT PROVEN | PASS |
+| D5 non implémenté · post-commit reconnu · Q5.1–Q5.7 | PASS |
+| L2-D1 non destructif · L2-D2 env-scoped | PASS |
+| Dual-write FORBIDDEN · v3 NON ADOPTED | PASS |
 
 ---
 
-## 8. Document 04 — CONTENU INTÉGRAL (post CORR-01)
+## 7. Document 04 — CONTENU INTÉGRAL (publié sur branche)
 
 ```markdown
 # AKG-M5 / L2-D0 — Decision & Delivery Readiness Record
@@ -113,11 +84,14 @@ Travail L2-D0 conservé (trajectoire, M-01…M-08, D1–D9, séparation D1/D2, a
 | Autorité | **Morris — gouvernance de construction SFIA Studio** |
 | GO consommé (initial) | **L2-D0 DECISION FORMALIZATION & DELIVERY READINESS** (documentaire) |
 | GO consommé (correction) | **L2-D0 / CORR-01 — DOCUMENTARY CORRECTION GRANTED** (CR-D0-01/02/03) |
-| Date locale | **2026-10-23** (Europe/Paris) · CORR-01 même jour |
+| GO consommé (intégration) | **L2-D0 — DOCUMENTARY GIT INTEGRATION** (commit / push / Draft PR — **pas** merge) |
+| Date locale | **2026-10-23** (Europe/Paris) · CORR-01 même jour · GI Cycle 13 |
 | Baseline Git | `origin/main` = `94c7a30d253396cba71f4c4938a1a0671fc0801c` |
+| Handoff entrée CORR-01 | tip `b8e74ee1613ef83212964cb4aac656499a048e81` |
 | Handoff entrée L2-D0 | tip `9f9f212f7632f7967f30d94e92b6c1fe1863be5e` |
 | Handoff entrée L2-Q1 | tip `aa89c20a047dea6500700db0c9a11c43b702912c` · FULL `9f259c3dd04fd93fe8aa854690c2aa7f58c3d48f` |
-| Statut de ce record | **DOCUMENTARY CANDIDATE — LOCAL — NOT INTEGRATED ON MAIN** |
+| Statut de ce record | **DOCUMENTARY CANDIDATE — ON BRANCH / DRAFT PR — NOT MERGED — NOT INTEGRATED ON MAIN** |
+| Statut historique (CORR-01) | *LOCAL — NOT INTEGRATED ON MAIN* (pré-commit untracked — **superseded as lifecycle label**) |
 | Impact runtime | **NO PRODUCT SEMANTIC IMPACT** (R24) |
 | Delivery L2 | **NOT AUTHORIZED** par ce document |
 
@@ -234,7 +208,8 @@ Frontières : OPS1/FinOps/REAL **hors** périmètre L2 core sauf dépendance blo
 **Qualification CORR-01 (CR-D0-03) — ne pas lire comme tip Git ni adoption doctrinale :**
 
 Pour **M-01…M-08** :
-**« Morris exprimé en conversation — consigné dans le candidat L2-D0 — Git Integration pending. »**
+**« Morris exprimé en conversation — consigné dans le candidat L2-D0 — branch/Draft PR possible — tip `main` pending (NOT MERGED). »**
+*(La formulation CORR-01 « Git Integration pending » désignait l’absence de tip ; elle reste vraie pour **main** tant que merge non accordé.)*
 
 Distinctions obligatoires :
 
@@ -698,100 +673,127 @@ Futurs updates Delivery : PRR 01/03/04/06/08/09 + digests après contenu ; Roadm
 
 ---
 
-## 9. Matrice D1–D9 actualisée
-
-Voir §06 du document 04. Agrégat : **NOT GLOBALLY ADOPTED**. D5 exige désormais durabilité **+** cohérence txn. D8 : H4 **env** pour D2, pas « policy min » globale.
-
----
-
-## 10. QA Q1–Q15 actualisée
-
-Voir §14. Q1–Q4 = TEST PRESENT / NOT EXECUTED THIS CYCLE. Q5 = KNOWN GAP. Q5.1–Q5.7 = à écrire. Q14 = BEHAVIOR PROVEN AT TESTED SCOPE (**L1**, distinct).
-
----
-
-## 11. H1 / H4 / R-CUT
-
-| Gate | Statut |
-|---|---|
-| H1 | Orientation archive-only consignée ; hold ACTIVE = fait runtime ≠ annulation |
-| H4 / R-VOL-01 | **OPEN** ; prod UNKNOWN |
-| R-CUT-01 | Design env-scoped ; **NOT PROVEN** |
-| L2-D2 | **NOT AUTHORIZED** |
-
----
-
-## 12. Décisions vs recommandations
-
-M-01…M-08 = orientations conversationnelles consignées candidat. Recommandations Q1/D0 (A-leaning, deny/redirect, lots séparés) ≠ adoption. Décisions complémentaires D4/D5/D6/D7 restent à trancher.
-
----
-
-## 13. Contrat candidat L2-D1 / L2-D2
-
-Inchangé en séparation. L2-D1 : + design txn D5 ; non destructif. L2-D2 : env-scoped only.
-
----
-
-## 14. Réserves restantes (ouvertes, non CR)
-
-1. D5 non implémenté.
-2. H4 prod UNKNOWN / R-VOL-01.
-3. R-CUT non exécuté.
-4. Owner policy UNASSIGNED.
-5. `04` untracked — NOT GIT INTEGRATED.
-6. D2/D4/D5/D6/D7 complémentaires PENDING Morris.
-
----
-
-## 15. R23 / R24
-
-R23 : CODE VERIFIED txn frontier ; KNOWN GAP D5/H4 ; pas BEHAVIOR PROVEN cutover.
-R24 : **NO PRODUCT SEMANTIC IMPACT** · PRR non mise à jour.
-
----
-
-## 16. Validation du scope (V1–V15)
-
-| V | Résultat |
-|---|---|
-| V1 Git Truth | PASS |
-| V2 Un seul fichier projet | PASS (`04`) |
-| V3 Pas code/test/DB/config | PASS |
-| V4 CR-D0-01 closed doc | PASS |
-| V5 CR-D0-02 closed doc | PASS |
-| V6 CR-D0-03 closed doc | PASS |
-| V7 D1–D9 cohérents | PASS |
-| V8 H1/H4/R-CUT non surpromus | PASS |
-| V9 Pas nouveau port/table | PASS |
-| V10 D1/D2 séparés | PASS |
-| V11 D5 à implémenter | PASS (explicit) |
-| V12 H4 prod UNKNOWN | PASS |
-| V13 Handoff↔04 | PASS (intégral ci-dessous/publié) |
-| V14 Dette avec exit | PASS (§16) |
-| V15 R23/R24 | PASS |
-
-Tests Product : **NON exécutés**.
-
----
-
-## 17. Review Handoff L3
+## 8. Diff / fichier créé
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Commit FULL | `6908956d5b747957a4d6d135bee87d1f5f1aea03` |
-| Blob FULL | `a9118336103f9f4512c7b7c511d7ea19c832791b` |
-| Parent | `9f9f212f7632f7967f30d94e92b6c1fe1863be5e` |
+| Path | `projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/04-m5-l2-d0-decision-and-delivery-readiness.md` |
+| Change | **ADDED** (+595 lignes) |
+| Autres fichiers projet | **aucun** |
+
+---
+
+## 9. Changement métadonnées lifecycle (éditorial minimal)
+
+| Avant (CORR-01 local) | Après (GI) |
+|---|---|
+| `DOCUMENTARY CANDIDATE — LOCAL — NOT INTEGRATED ON MAIN` | `DOCUMENTARY CANDIDATE — ON BRANCH / DRAFT PR — NOT MERGED — NOT INTEGRATED ON MAIN` |
+| « Git Integration pending » (M-01…M-08) | Qualifié : branch/Draft PR possible — **tip main pending (NOT MERGED)** |
+| — | GO intégration + handoff CORR-01 tip ajoutés en métadonnées |
+
+**Aucun** changement de fond (décisions, gates, stratégies, D5/H4/R-CUT).
+
+---
+
+## 10. Commit SHA projet
+
+`71f0674297f42759e2a2424c048b0cdce9e1dc60`
+Message : `docs(akg-m5): record L2-D0 decisions and delivery readiness`
+Mono-fichier : **OUI**
+
+---
+
+## 11. Push et SHA distant
+
+Branche `origin/docs/akg-m5-l2-d0-decision-readiness` @ `71f0674297f42759e2a2424c048b0cdce9e1dc60`
+Blob distant = local · relecture markers OK.
+
+---
+
+## 12–13. Draft PR
+
+| Item | Valeur |
+|---|---|
+| Number | **#611** |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/611 |
+| Base | `main` |
+| Head | `docs/akg-m5-l2-d0-decision-readiness` |
+| isDraft | **true** |
+| State | **OPEN** |
+| Files | **1** — fichier 04 only |
+| Commits | **1** — `71f06742…` |
+
+---
+
+## 14. CI / checks (état réel)
+
+| Check | État observé |
+|---|---|
+| Detect SFIA Studio changes (SFIA Studio CI) | **PENDING / IN_PROGRESS** (run `40029951855`) |
+| Build / Required Gate | **non encore conclu** au moment du pack |
+
+**CI PENDING — MERGE NOT READY.** Ne pas affirmer SUCCESS.
+
+---
+
+## 15. Décisions et gates conservés
+
+M-01…M-08 consignés · D1–D9 non ADOPTED global · H1/H4/R-CUT/D5 inchangés · L2-D1 puis L2-D2 sous GO distincts · dual-write forbidden.
+
+Gates : Critical PR Review → GO Morris **merge** → GO Delivery L2-D1 → GO L2-D2 env-scoped.
+
+---
+
+## 16. Réserves restantes
+
+Prod UNKNOWN · H4 OPEN · D5 non implémenté · R-CUT NOT PROVEN · NOT MERGED · Delivery NOT AUTHORIZED · CI PENDING.
+
+---
+
+## 17. R23 / R24
+
+R23 : contexte code/PRR consulté · aucune mutation architecture.
+R24 : **NO PRODUCT SEMANTIC IMPACT** · PRR/Roadmap non modifiés.
+
+---
+
+## 18. Tests
+
+| Type | Résultat |
+|---|---|
+| git diff --check / mono-fichier / remote blob | Exécutés PASS |
+| Fidélité CORR-01 markers | PASS |
+| PR Draft structure | PASS |
+| Tests Product | **NON EXÉCUTÉS** (N/A DOC) — ≠ PASS |
+| Fake/REAL | N/A |
+
+---
+
+## 19. Non-claims
+
+Pas de merge · pas Delivery · pas H4 PASS · pas D5 PASS · pas R-CUT PROVEN · pas D1 SAFE TO DELETE · pas ADOPTED D1–D9 · pas v3 ADOPTED · pas REAL · pas CI SUCCESS inventé.
+
+---
+
+## 20. Review Handoff L3
+
+| Item | Valeur |
+|---|---|
+| Verdict publish | _PENDING_PUBLISH_ |
+| Commit FULL | _PENDING_PUBLISH_ |
+| Blob FULL | _PENDING_PUBLISH_ |
+| Parent | `b8e74ee1613ef83212964cb4aac656499a048e81` |
 | Tip distant courant | `git rev-parse origin/sfia/review-handoff` |
-| Projet | `04` local untracked @ `94c7a30d` ; pas de push/PR |
+| Projet | PR #611 Draft @ `71f06742` ; **NOT MERGED** |
 
 ---
 
-## 18. Verdict (rappel)
+## 21. Verdict (rappel)
 
-**L2-D0 CORR-01 DOCUMENTARY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW — NOT GIT INTEGRATED — DELIVERY L2 NOT AUTHORIZED**
+**L2-D0 DOCUMENTARY GIT INTEGRATION COMPLETE — DRAFT PR OPEN — READY FOR CHATGPT CRITICAL PR REVIEW — NOT MERGED — DELIVERY L2 NOT AUTHORIZED**
+
+**CI PENDING — MERGE NOT READY**
 
 ---
 
-**Fin pack FULL CORR-01 — contenu 04 intégral inclus ; SYNTHESIS-ONLY interdit.**
+**Fin pack FULL Cycle 13 — contenu 04 intégral inclus.**
