@@ -2,11 +2,11 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Version | **V0.4 — 2026-10-23** (synchronisation post-publication PR #604 ; V0.3 consolidation locale et V0.2 H7/H8 conservées dans l'historique) |
-| Périmètre GO | **GO Pilote : LOCAL DOCUMENTARY CONSOLIDATION + DOCUMENTARY GIT INTEGRATION** consommés (documentation uniquement) · **GO merge et GO Delivery NON ACCORDÉS** |
+| Version | **V0.5 — 2026-10-23** · M4-A Formal Exit adopted / post-merge truth-sync ; V0.1–V0.4 = snapshots historiques |
+| Périmètre GO | **M4A-FE-01–05 ADOPTED** (clôture bornée + reports + gouvernance + GO truth-sync documentaire) ; **NO GO Delivery, AKG-M5 ou merge du nouveau dossier** |
 | Autorité | Orientations V0.1 **+** arbitrages Pilote **H7/H8** (2026-10-22) — détail [Decision Record `11`](./11-m4a-h7-h8-architecture-orientation-decision-record.md) · ce fichier = registre consolidé, **pas** une seconde source de vérité H7/H8 |
-| Statut jalon | **AKG-M4 FORMAL START AUTORISÉ** · **AKG-M4-A START AUTORISÉ** · **M4 DECIDED — H7/H8 ONLY** · **DOSSIER M4-A PUBLIÉ SUR PR #604 DRAFT, NON MERGÉE** · **M4-A NON CLOSED** · aucune exécution L1–L6 · runtime v3 **NON ADOPTED** |
-| Base de preuve | `main` `f44a99b4da84188772b80aca3c9ebe1a3e12617e` ; commit d'intégration PR #604 `c64f804613dda09e4757febcc2e26f530d6f3014` ; docs `05`–`11` (hashes §6) ; handoffs T-A01–T-A06 + H7/H8 |
+| Statut jalon | **M4-A CLOSED BY MORRIS AT BOUNDED RATIONALIZATION ASSESSMENT SCOPE WITH GOVERNED OPEN RESERVES** ; H7/H8 inchangés ; PR #604 MERGED/CI SUCCESS ; **M4 global et AKG-M5 non autorisés par implication** ; runtime v3 NON ADOPTED |
+| Base de preuve | `main` au merge #604 `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` · CI `39887430929` SUCCESS · `12` readiness et [13 — FE](./13-m4a-formal-exit-decision-record.md) · docs `05`–`11` intégrés |
 
 ## 1. Statuts
 
@@ -14,10 +14,10 @@
 - **VISION PARTAGÉE** : fonctionnement cible formulé et discuté, à préciser en architecture.
 - **CANDIDATE** : hypothèse/étude et classification préliminaire (dispositions A01–A12, écarts G-*).
 - **CODE VERIFIED / DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP** : qualificatifs factuels par élément, sans sur-claim.
-- **M4 DECIDED — H7/H8 ONLY** *(depuis V0.2)* : arbitrages Pilote formels **H7** / **H8**. **N'adopte pas** l'ensemble des classifications A01–A12. Historique V0.1 : « M4 DECIDED réservé — aucun à cette version » — **supersédé uniquement** pour H7/H8.
+- **M4 DECIDED — H7/H8 ONLY** *(historique V0.2–V0.4 pour la disposition architecturale)* : H7/H8 restent les seules **orientations techniques** adoptées ; M4A-FE-01–05, adoptées ensuite, portent sur la clôture bornée et la gouvernance, **sans** adopter les dispositions A01–A12.
 - **M4 START AUTHORIZED** : démarrage de l'analyse (consommé ; **ne plus lire** comme « GO formel encore attendu » pour commencer M4-A).
 - **ORIENTATION ARCHITECTURALE RETENUE (H7)** *(V0.3)* : SC-G2 retenu comme orientation de référence — **≠** runtime SC-G2 implémenté ou adopté.
-- **LOCAL CANDIDATE / preferred candidate** dans `05`–`11` : déclarations **historiques exactes** des audits ; l'état courant est H7 adopté en orientation, documents consolidés en V0.3 puis publiés sur la branche de la PR #604 (non fusionnée), sans réécriture silencieuse des livrables acceptés.
+- **LOCAL CANDIDATE / preferred candidate** dans `05`–`12` : statuts historiques exacts à la date de rédaction ; `05`–`11` intégrés dans `main` via #604, `12` pack avant décision, `13` décision FE ultérieure. Préserver les audits immuables.
 
 ## 2. Orientations
 
@@ -83,7 +83,7 @@ Pour chaque ligne de rationalisation, renseigner :
 
 La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.md) interdit d'assimiler une classification à une autorisation de retrait.
 
-## 4 bis. Démarrage M4-A et trace des travaux
+## 4 bis. Démarrage M4-A et trace des travaux (snapshot V0.4 avant merge et Formal Exit)
 
 **GO M4-A :** lancement de l'analyse « responsabilités et dépendances runtime » après mise à jour de l'orientation OR-13. **[Cartographie initiale M4-A](04-m4a-runtime-responsibilities-and-transition-assessment.md)**.
 
@@ -188,7 +188,7 @@ La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.
 | Sécurité | DET ≠ REAL ; R2 ≠ sandbox ; exclusive REAL NOT PROVEN ; SHADOW OFF ; pas de P6 GLOBAL PASS | AFFIRMED |
 | Architecture | SC-G2 = orientation adoptée ; SC-G3 A06/A10 = étude conditionnelle L4 ; A01–A12 non adoptés en bloc ; no Delivery/M5 | AFFIRMED |
 
-## 11. Non-claims (consolidation et publication documentaire)
+## 11. Non-claims (snapshot historique V0.4 avant merge et Formal Exit)
 
 - M4-A **NON CLOSED** · Formal Exit **non** exécutée.
 - SC-G2 runtime **NON ADOPTED** · SC-G3 REBUILD **NON AUTHORIZED**.
@@ -197,13 +197,25 @@ La [Build Doctrine — section A8](../../sfia-studio-convergence-build-doctrine.
 - Docs `05`–`11` = copies intègres **publiées sur la branche de PR #604** · **non mergées dans `main`**.
 - R24 **NO PRODUCT SEMANTIC IMPACT**.
 
-## 12. Trace post-intégration Git — traitement RES-03
+## 12. Trace post-intégration Git — traitement RES-03 (snapshot historique V0.4)
 
 - **GO documentaire d'intégration consommé :** commit `c64f804613dda09e4757febcc2e26f530d6f3014` sur `docs/akg-m4a-capability-first-rationalization` (PR [#604](https://github.com/mcleland147/sfia-workspace/pull/604)).
 - **Preuve :** huit blobs du commit conformes aux hashes de consolidation ; CI `39883454095` SUCCESS sur ce commit ; PR encore **Draft OPEN, non mergée** lors de cette synchronisation.
 - **RES-03 :** décalage entre le statut local V0.3 et la publication ultérieure **corrigé documentairement en V0.4** ; les déclarations antérieures restent des traces historiques, pas l'état Git courant.
 - **Non-claims :** ce correctif ne constitue ni GO merge, ni Formal Exit M4-A, ni GO Delivery/M5.
 
+## 13. Statut CURRENT après merge #604 et arbitrage Formal Exit M4-A (2026-10-23)
+
+**Décision de référence :** [13 — Formal Exit Decision Record M4A-FE-01–05](./13-m4a-formal-exit-decision-record.md). **Preuve préparatoire :** [12 — Formal Exit Readiness](./12-m4a-formal-exit-readiness-and-decision-pack.md). Les formulations `M4-A NON CLOSED`, `PR Draft/non mergée` et `LOCAL CANDIDATE` dans les snapshots précédents ne qualifient pas la décision FE courante.
+
+- **Git CURRENT :** PR [#604](https://github.com/mcleland147/sfia-workspace/pull/604) MERGED, `main` au merge = `d739143f9a0e29fdb8475fc1f73d0b9897da5bf6` ; CI post-merge `39887430929` SUCCESS. Les documents `05`–`11` ont été intégrés à l'identique.
+- **M4A-FE-01 ADOPTED :** M4-A **CLOSED BY MORRIS**, uniquement à la portée **Bounded Rationalization Assessment with Governed Open Reserves**. Ne clôture pas le jalon M4 dans son ensemble.
+- **M4A-FE-02 ADOPTED :** H1–H5 et risques Delivery/REAL **REPORTÉS ET OPEN**, pas résolus ; H0 Delivery **NOT GRANTED**, H6 G0 reopen **NOT AUTHORIZED**.
+- **M4A-FE-03 ADOPTED :** gouvernance temporaire = **Pilote** ; owners techniques formels **UNASSIGNED** ; ChatGPT = assistance uniquement.
+- **M4A-FE-04 ADOPTED :** GO truth-sync documentaire README / `03` / Roadmap ; ce changement est un candidat Git et **n'est pas présumé mergé sans preuve**.
+- **M4A-FE-05 ADOPTED :** Delivery L1–L6 / M5 **NON AUTORISÉS**, Product REAL **NOT PROVEN**, P6 GLOBAL **NOT PASSED**, runtime v3 **NON ADOPTED**, FinOps SHADOW **OFF**. H7/H8 et G0-A/B inchangés.
+- **Réserves gouvernées :** maintenir §9, document `11` et document `13`. RES-01 (preuve documentaire à confirmer), RES-02 (pathPolicy L3), volumes L2, cutover, A09/A11, carriers L4 et dettes historiques restent OPEN/DEFER à leurs gates.
+
 ---
 
-[Index AKG](../README.md) · [AS-IS](01-current-architecture-as-is.md) · [TO-BE](02-target-architecture-to-be.md) · [04 assessment](./04-m4a-runtime-responsibilities-and-transition-assessment.md) · [05](./05-m4a-dependency-consumers-audit.md) · [06](./06-m4a-historical-capabilities-inventory.md) · [07](./07-m4a-authority-sequences-stop-fail-restart.md) · [08](./08-m4a-storage-persistence-and-migration-assessment.md) · [09](./09-m4a-rationalization-options-and-impact-pack.md) · [10](./10-m4a-critical-architecture-alignment-review.md) · [H7/H8 Decision Record](./11-m4a-h7-h8-architecture-orientation-decision-record.md) · [Roadmap](../../sfia-studio-convergence-roadmap.md).
+[Index AKG](../README.md) · [AS-IS](01-current-architecture-as-is.md) · [TO-BE](02-target-architecture-to-be.md) · [04 assessment](./04-m4a-runtime-responsibilities-and-transition-assessment.md) · [05](./05-m4a-dependency-consumers-audit.md) · [06](./06-m4a-historical-capabilities-inventory.md) · [07](./07-m4a-authority-sequences-stop-fail-restart.md) · [08](./08-m4a-storage-persistence-and-migration-assessment.md) · [09](./09-m4a-rationalization-options-and-impact-pack.md) · [10](./10-m4a-critical-architecture-alignment-review.md) · [H7/H8 Decision Record](./11-m4a-h7-h8-architecture-orientation-decision-record.md) · [Readiness 12](./12-m4a-formal-exit-readiness-and-decision-pack.md) · [Exit 13](./13-m4a-formal-exit-decision-record.md) · [Roadmap](../../sfia-studio-convergence-roadmap.md).
