@@ -9,18 +9,23 @@
 | Autorité | **Morris — gouvernance de construction SFIA Studio** |
 | GO consommé (initial) | **L2-D0 DECISION FORMALIZATION & DELIVERY READINESS** (documentaire) |
 | GO consommé (correction) | **L2-D0 / CORR-01 — DOCUMENTARY CORRECTION GRANTED** (CR-D0-01/02/03) |
-| GO consommé (intégration) | **L2-D0 — DOCUMENTARY GIT INTEGRATION** (commit / push / Draft PR — **pas** merge) |
-| Date locale | **2026-10-23** (Europe/Paris) · CORR-01 même jour · GI Cycle 13 |
+| GO consommé (intégration) | **L2-D0 — DOCUMENTARY GIT INTEGRATION** — **CONSUMED** (commit / push / Draft PR #611 — **pas** merge) |
+| GO consommé (correctif PR) | **PR611-CORR-01 — TARGETED EDITORIAL CORRECTION** (R01 lifecycle · R02 R4) |
+| Date locale | **2026-10-23** (Europe/Paris) · CORR-01 · GI Cycle 13 · PR611-CORR-01 **2026-10-24** |
 | Baseline Git | `origin/main` = `94c7a30d253396cba71f4c4938a1a0671fc0801c` |
+| Branche / HEAD (CURRENT) | `docs/akg-m5-l2-d0-decision-readiness` · tip branch mis à jour par PR611-CORR-01 · parent GI `71f0674297f42759e2a2424c048b0cdce9e1dc60` |
+| PR | **#611** OPEN / **DRAFT** — base `main` — **NOT MERGED** |
 | Handoff entrée CORR-01 | tip `b8e74ee1613ef83212964cb4aac656499a048e81` |
+| Handoff entrée GI Cycle 13 | tip `327955a2375a126ea4380f0ac5c6af502f24dd92` |
 | Handoff entrée L2-D0 | tip `9f9f212f7632f7967f30d94e92b6c1fe1863be5e` |
 | Handoff entrée L2-Q1 | tip `aa89c20a047dea6500700db0c9a11c43b702912c` · FULL `9f259c3dd04fd93fe8aa854690c2aa7f58c3d48f` |
-| Statut de ce record | **DOCUMENTARY CANDIDATE — ON BRANCH / DRAFT PR — NOT MERGED — NOT INTEGRATED ON MAIN** |
-| Statut historique (CORR-01) | *LOCAL — NOT INTEGRATED ON MAIN* (pré-commit untracked — **superseded as lifecycle label**) |
+| Statut de ce record (CURRENT) | **DOCUMENTARY CANDIDATE — VERSIONED ON BRANCH PR #611 — DRAFT — NOT MERGED — NOT INTEGRATED ON MAIN** |
+| Statut historique (CORR-01 pré-GI) | *LOCAL — NOT INTEGRATED ON MAIN* (untracked) — **HISTORICAL / SUPERSEDED as lifecycle label** |
 | Impact runtime | **NO PRODUCT SEMANTIC IMPACT** (R24) |
 | Delivery L2 | **NOT AUTHORIZED** par ce document |
+| GO merge | **OUVERT** — distinct · non consommé |
 
-> **Frontière :** ce record formalise des orientations Morris déjà exprimées en conversation, confronte les preuves L2-Q0/Q1, et prépare un contrat Delivery candidat. Il **n’adopte pas** automatiquement D1–D9, **n’autorise pas** Delivery, cutover, migration, freeze writers, retrait D1, ni Git Integration projet. Ce n’est **pas** une seconde PRR as-implemented.
+> **Frontière :** ce record formalise des orientations Morris déjà exprimées en conversation, confronte les preuves L2-Q0/Q1, et prépare un contrat Delivery candidat. Il **n’adopte pas** automatiquement D1–D9, **n’autorise pas** Delivery, cutover, migration, freeze writers, retrait D1, ni **merge** sur `main`. Le GO Git Integration (commit/push/Draft PR) est **consommé** ; le **GO merge** reste distinct. Ce n’est **pas** une seconde PRR as-implemented.
 
 ### Journal CORR-01 (Critical Documentary Correction)
 
@@ -37,16 +42,19 @@
 | Item | Valeur |
 | --- | --- |
 | Repository | `mcleland147/sfia-workspace` |
-| Branche documentaire locale | `docs/akg-m5-l2-d0-decision-readiness` @ `94c7a30d` (= `origin/main`) — **locale only** (absente du remote GitHub) |
+| Branche (CURRENT) | `docs/akg-m5-l2-d0-decision-readiness` — **présente sur `origin`** · base ancestrale `94c7a30d` (= `origin/main`) |
+| PR #611 | **OPEN / DRAFT** · fichier `04` versionné · **NOT MERGED** |
 | Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d0` — **P6 dirty non touché** |
-| Autorisé CORR-01 | Modifier **ce** fichier · Review Pack FULL · handoff L3 borné |
-| Non autorisé / non effectué | Code Product · tests Product · schéma · migration · cutover · Roadmap/Doctrine/PRR · commit/push/PR/merge projet · L2 Delivery · L3/L4/L6 start · v3/REAL/SHADOW |
+| GO Git Integration | **CONSUMED** (commit + push + Draft PR) |
+| GO merge | **OUVERT** (non accordé) |
+| Autorisé PR611-CORR-01 | Correction éditoriale **ce** fichier · commit/push branche · Review Pack FULL · handoff L3 |
+| Non autorisé / non effectué | Merge · Ready-for-Review auto · code/tests · schéma · migration · cutover · Roadmap/Doctrine/PRR · L2 Delivery · v3/REAL/SHADOW |
 
 **L1/A09 :** PR #609 + #610 **MERGED / POST-MERGE VERIFIED**.
 **M5-A :** **CLOSED BY MORRIS** (périmètre documentaire).
 **AKG-M5 :** **GLOBAL OPEN**.
 **L2-Q0 / L2-Q1 :** COMPLETE · Critical Review **PASS WITH GOVERNED RESERVES**.
-**L2-D0 initial :** COMPLETE documentaire · réserves CR-D0-01/02/03 → **CORR-01**.
+**L2-D0 documentaire :** COMPLETE · CORR-01 PASS · Git Integration branche/PR **COMPLETE** · Critical PR Review initiale réalisée · **PR611-CORR-01** (ce correctif).
 
 ---
 
@@ -130,36 +138,38 @@ Frontières : OPS1/FinOps/REAL **hors** périmètre L2 core sauf dépendance blo
 
 ## 05. Orientations Morris déjà actées en conversation
 
-**Qualification CORR-01 (CR-D0-03) — ne pas lire comme tip Git ni adoption doctrinale :**
+**Qualification (CR-D0-03 + PR611-R01) — ne pas lire comme tip `main` ni adoption doctrinale :**
 
 Pour **M-01…M-08** :
-**« Morris exprimé en conversation — consigné dans le candidat L2-D0 — branch/Draft PR possible — tip `main` pending (NOT MERGED). »**
-*(La formulation CORR-01 « Git Integration pending » désignait l’absence de tip ; elle reste vraie pour **main** tant que merge non accordé.)*
+**« Morris exprimé en conversation — consigné sur branche PR #611 — non intégré à `main` — aucune adoption supplémentaire implicite. »**
+
+*(HISTORICAL CORR-01 : « Git Integration pending » / untracked — **SUPERSEDED** pour le versionnement branche/PR ; reste vrai que le **tip `main`** et le **merge** sont pending.)*
 
 Distinctions obligatoires :
 
 | Couche | Signification |
 | --- | --- |
 | Décision Morris conversationnelle | Exprimée par Morris en conversation (orientation) |
-| Disposition enregistrée dans le candidat | Texte de **ce** fichier local untracked |
+| Disposition sur branche PR #611 | Texte de **ce** fichier **versionné** sur Draft PR — **≠** tip `main` |
 | Recommandation proposée | ChatGPT/Cursor / pack Q1 — **≠** adoption Morris |
 | Gate ouvert | Preuve technique / policy manquante |
 | Décision complémentaire Morris | Tranchage encore requis (ex. D4 policy, D5 niveau, D6 owner) |
-| Future intégration Git | Sous **GO Git Integration** distinct |
+| Git Integration (commit/push/Draft) | **CONSUMED** sous GO GI |
+| Merge sur `main` | Sous **GO Morris merge** distinct — **OUVERT** |
 | Exécution Delivery | Sous **GO Delivery** indépendant |
 
 | # | Orientation | Provenance | Portée | Limites | Critères techniques | Statut | Gates restants |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| M-01 | OA = cible unique capacité Product Project | Conversation Morris (L2) | SoT Project / O-01 | ≠ retire D1 immédiat | Create/list/get/resume OA ; single writer cible | **Consigné candidat · Git pending** | Delivery GO ; freeze ≠ D0 |
-| M-02 | Ne pas conserver composants D1 par inertie | Conversation Morris renforcée | Classifications KEEP/RETIRE | ≠ delete sans preuves | Consumers + usage + exit | **Consigné candidat · Git pending** | H4/D4 ; L6 GO |
-| M-03 | Adaptation / réécriture ciblée OK si trajectoire Product propre | Conversation Morris | Gaps O-01 utiles | ≠ rewrite massif | Delta prouvé vs dette évitée | **Consigné candidat · Git pending** | Scope Delivery |
-| M-04 | **H1** MethodMode historique ≠ doctrine OA | Conversation (**Option A**) | Pas de MethodMode Product | Hold AS-IS = fait runtime **≠** annulation de l’orientation | Pas de champ/runtime OA ; archive colonne | **Consigné candidat · Git pending** · hold **ACTIVE** (gate) | Formal H1 + freeze UI |
-| M-05 | **H4** preuves pertinentes avant migration/retrait ; volumes locaux ≠ migration exhaustive | Conversation | Inventaire / policy | Prod UNKNOWN | Couverture **par environnement basculé** ; pas delete sans policy | **Consigné candidat · Git pending** | **R-VOL-01 OPEN** |
-| M-06 | Identités : mapping sélectif **seulement si nécessaire** | Conversation | `proj-*` / deep links | Pas mapping implicite | Deny/redirect défaut ; C si prouvé | **Consigné candidat · Git pending** | **D4** explicite |
-| M-07 | Cutover : dual-write interdit ; rollback **write** D1 interdit sans réconciliation prouvée | Conversation + amend Q1 | R-CUT-01 | Design ≠ exécution | Freeze → OA exclusive → verify ; RO fallback OK | **Consigné candidat · Git pending** | **R-CUT NOT PROVEN** |
-| M-08 | Option L2 : OA seul en cible ; conservation D1 **conditionnelle / temporaire** | Conversation | Scénario A(+B court) | B pas obligatoire | Exit + owner si archive | **Consigné candidat · Git pending** | D2 stratégie |
+| M-01 | OA = cible unique capacité Product Project | Conversation Morris (L2) | SoT Project / O-01 | ≠ retire D1 immédiat | Create/list/get/resume OA ; single writer cible | **Consigné branche PR #611 — non sur main** | Delivery GO ; freeze ≠ D0 |
+| M-02 | Ne pas conserver composants D1 par inertie | Conversation Morris renforcée | Classifications R4 (KEEP…RETIRE LATER) | ≠ delete sans preuves | Consumers + usage + exit | **Consigné branche PR #611 — non sur main** | H4/D4 ; L6 GO |
+| M-03 | Adaptation / réécriture ciblée OK si trajectoire Product propre | Conversation Morris | Gaps O-01 utiles | ≠ rewrite massif | Delta prouvé vs dette évitée | **Consigné branche PR #611 — non sur main** | Scope Delivery |
+| M-04 | **H1** MethodMode historique ≠ doctrine OA | Conversation (**Option A**) | Pas de MethodMode Product | Hold AS-IS = fait runtime **≠** annulation de l’orientation | Pas de champ/runtime OA ; archive colonne (action) | **Consigné branche PR #611 — non sur main** · hold **ACTIVE** (gate) | Formal H1 + freeze UI |
+| M-05 | **H4** preuves pertinentes avant migration/retrait ; volumes locaux ≠ migration exhaustive | Conversation | Inventaire / policy | Prod UNKNOWN | Couverture **par environnement basculé** ; pas delete sans policy | **Consigné branche PR #611 — non sur main** | **R-VOL-01 OPEN** |
+| M-06 | Identités : mapping sélectif **seulement si nécessaire** | Conversation | `proj-*` / deep links | Pas mapping implicite | Deny/redirect défaut ; C si prouvé | **Consigné branche PR #611 — non sur main** | **D4** explicite |
+| M-07 | Cutover : dual-write interdit ; rollback **write** D1 interdit sans réconciliation prouvée | Conversation + amend Q1 | R-CUT-01 | Design ≠ exécution | Freeze → OA exclusive → verify ; RO fallback OK | **Consigné branche PR #611 — non sur main** | **R-CUT NOT PROVEN** |
+| M-08 | Option L2 : OA seul en cible ; conservation D1 **conditionnelle / temporaire** | Conversation | Scénario A(+B court) | B pas obligatoire | Exit + owner si archive RO (action) | **Consigné branche PR #611 — non sur main** | D2 stratégie |
 
-**Interdits de confusion :** orientation ≠ preuve technique · recommandation ≠ adoption · GO documentaire ≠ GO Delivery · consignation candidat ≠ tip Git · proposition de suppression ≠ suppression autorisée.
+**Interdits de confusion :** orientation ≠ preuve technique · recommandation ≠ adoption · GO documentaire ≠ GO Delivery · consignation branche/PR ≠ tip `main` · Draft PR ≠ merge · proposition de suppression ≠ suppression autorisée.
 
 ---
 
@@ -167,19 +177,19 @@ Distinctions obligatoires :
 
 | ID | Question | Évidence Q0/Q1/code | Décision Morris conversationnelle ? | Disposition dans candidat | Recommandation (≠ adoption auto) | Décision complémentaire encore nécessaire | Statut Git | Gate technique | Livraison |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| **D1** | Actifs historiques indispensables ? | O-01 via OA ; ports utiles ; îlot = dual UX | **Oui** : îlot non indispensable par principe ; anti-inertie | Ports/OA indispensables ; îlot UI non KEEP | Retire après preuves | Formaliser tip | Candidate local | Consumers ; L6 delete | Prep / D2 / L6 |
-| **D2** | Stratégie retrait ? | A/B/C Q1 | **Oui** conservation conditionnelle | A cible ; B court si besoin ; C si deep-link | Pas archive permanente par inertie | **Adopter label A/(B)/(C)** sous GO | Candidate | H4 **env** ; D4 ; R-CUT | L2-D2…L6 |
-| **D3** | Adaptations OA ? | Create/list PARTIAL ; match ABSENT ; audit post-txn | **Oui** rewrite ciblée OK | COMPLETE D5 (durabilité **+ cohérence txn**) ; pas match défaut | — | **Scope exact L2-D1** | Candidate | D5 + Q5.x | **L2-D1** |
-| **D4** | Identités `proj-*` ? | Deep links ; overlap 0 | **Oui** mapping sélectif si besoin | Deny/redirect défaut ; pas map implicite | Mapping C justifié | **Policy URL explicite** | Candidate | Tests Q7/Q10 | L2-D2 / D3 |
-| **D5** | Audit Product ? | Memory default ; append **hors** txn create (**CODE VERIFIED**) | Orientation « retire propre » | COMPLETE durable **et** cohérence succès↔persist+audit ; **design L2-D1** | Memory-acceptable seulement si Morris écrit | **Niveau contractuel + design txn** | Candidate | Q5.1–Q5.7 ; **non PASS** | **L2-D1** |
-| **D6** | Conservation ? | 131/43 local ; prod UNKNOWN | **Oui** pas migration exhaustive | Policy qualify→archive/migrate/conserve/destroy | Delete immédiat interdit | **Owner + policy** | **OPEN** | **H4 / R-VOL-01** | Avant D3/retire |
-| **D7** | Cutover / R-CUT ? | Design Q0+Q1 | **Oui** no dual-write ; no write rollback sans réconciliation | Protocole candidat **env-scoped** | Re-enable writes = STOP | **Acceptation protocole** ≠ exécution | Candidate design | **NOT PROVEN** | **L2-D2** |
-| **D8** | Premier lot Delivery ? | Trajectoire Q1 | Orientation OA unique | **L2-D1** puis **L2-D2** séparés | Lot unique seulement si GO séquencé explicite | **GO Delivery borné** | Candidate | D5 pour D1 ; H4 **env** pour D2 | L2-D1 |
-| **D9** | Gates avant GO ? | Réserves Critical | — | Séparer prep / non-destructif / freeze / data / retire | Tout-en-un rejeté | Checklist §18 | OPEN | Critical + Morris | Tous |
+| **D1** | Actifs historiques indispensables ? | O-01 via OA ; ports utiles ; îlot = dual UX | **Oui** : îlot non indispensable par principe ; anti-inertie | Ports/OA indispensables ; îlot UI non KEEP | Retrait après preuves (action) | Formaliser tip main | **Candidate PR #611 — NOT MERGED** | Consumers ; L6 delete | Prep / D2 / L6 |
+| **D2** | Stratégie retrait ? | A/B/C Q1 | **Oui** conservation conditionnelle | A cible ; B court si besoin ; C si deep-link | Pas archive permanente par inertie | **Adopter label A/(B)/(C)** sous GO | **Candidate PR #611 — NOT MERGED** | H4 **env** ; D4 ; R-CUT | L2-D2…L6 |
+| **D3** | Adaptations OA ? | Create/list PARTIAL ; match ABSENT ; audit post-txn | **Oui** rewrite ciblée OK | COMPLETE D5 (durabilité **+ cohérence txn**) ; pas match défaut | — | **Scope exact L2-D1** | **Candidate PR #611 — NOT MERGED** | D5 + Q5.x | **L2-D1** |
+| **D4** | Identités `proj-*` ? | Deep links ; overlap 0 | **Oui** mapping sélectif si besoin | Deny/redirect défaut ; pas map implicite | Mapping C justifié | **Policy URL explicite** | **Candidate PR #611 — NOT MERGED** | Tests Q7/Q10 | L2-D2 / D3 |
+| **D5** | Audit Product ? | Memory default ; append **hors** txn create (**CODE VERIFIED**) | Orientation « retire propre » | COMPLETE durable **et** cohérence succès↔persist+audit ; **design L2-D1** | Memory-acceptable seulement si Morris écrit | **Niveau contractuel + design txn** | **Candidate PR #611 — NOT MERGED** | Q5.1–Q5.7 ; **non PASS** | **L2-D1** |
+| **D6** | Conservation ? | 131/43 local ; prod UNKNOWN | **Oui** pas migration exhaustive | Policy qualify→archive RO/migrate/conserve/destroy (actions) | Delete immédiat interdit | **Owner + policy** | **OPEN** | **H4 / R-VOL-01** | Avant D3/retire |
+| **D7** | Cutover / R-CUT ? | Design Q0+Q1 | **Oui** no dual-write ; no write rollback sans réconciliation | Protocole candidat **env-scoped** | Re-enable writes = STOP | **Acceptation protocole** ≠ exécution | **Candidate PR #611 — NOT MERGED** | **NOT PROVEN** | **L2-D2** |
+| **D8** | Premier lot Delivery ? | Trajectoire Q1 | Orientation OA unique | **L2-D1** puis **L2-D2** séparés | Lot unique seulement si GO séquencé explicite | **GO Delivery borné** | **Candidate PR #611 — NOT MERGED** | D5 pour D1 ; H4 **env** pour D2 | L2-D1 |
+| **D9** | Gates avant GO ? | Réserves Critical | — | Séparer prep / non-destructif / freeze / data / retire | Tout-en-un rejeté | Checklist §18 | **OPEN** | Critical + Morris | Tous |
 
 **Statut agrégé D1–D9 :** **NOT GLOBALLY ADOPTED.**
 Les orientations Morris existantes (M-01…M-08 / colonnes « conversationnelle ») **ne sont pas** requalifiées « NOT DECIDED ».
-Les **recommandations** et **décisions complémentaires** restent ouvertes jusqu’à tranchage Morris / tip / GO.
+Les **recommandations** et **décisions complémentaires** restent ouvertes jusqu’à tranchage Morris / merge tip / GO Delivery.
 
 ---
 
@@ -187,12 +197,13 @@ Les **recommandations** et **décisions complémentaires** restent ouvertes jusq
 
 | Élément | Qualification |
 | --- | --- |
-| Orientation Morris | MethodMode = **donnée historique D1 archive-only** ; **aucune** propagation doctrinale OA (Option A) — **consignée candidat · Git pending** |
+| Orientation Morris | MethodMode = **donnée historique D1 archive-only** ; **aucune** propagation doctrinale OA (Option A) — **consignée branche PR #611 — non sur main** |
 | AS-IS | Colonne SQLite D1 · badges/claims · hold **ACTIVE** in-memory |
 | Hold ACTIVE | **Fait runtime historique** — **n’annule pas** l’orientation Morris archive-only |
-| Disposition candidate | Archive valeurs si besoin · retire runtime/UI après freeze · pas doctrine OA |
+| Classification R4 (runtime/UI) | **RETIRE LATER** — conditions : H1 formal · freeze writers · GO Morris |
+| Action future (données) | Archive read-only des valeurs colonne **si** H4/D6 l’exigent (owner + exit) — **≠** classe R4 |
 | Delivery | **Ne pas contourner** MethodModeHold · pas d’extinction runtime D1 dans L2-D1 |
-| Exit extinction runtime | Freeze + H1 formal + Q6 + GO retire UI |
+| Exit extinction runtime | Freeze + H1 formal + Q6 + GO Morris pour suppression structurante |
 | Gate | Hold ACTIVE ouvert jusqu’à extinction sous GO |
 
 ---
@@ -271,7 +282,7 @@ Pour **chaque** environnement explicitement inclus dans un GO L2-D2 :
 | `ProjectCycleAuditPort` (t-a7) | Append phases cycle | **KEEP** (L1) — **≠** journal OA create |
 | `LocalProjectCreationAuditPort` | Events création locale | **KEEP** / ADAPT |
 | `ProjectAuditJournalPort` | Journal événements OA Project | **KEEP** ; Memory vs Sqlite |
-| `BoundedAtomicAuditStore` / `d1_atomic_audit` | Adapter phases D1 | **HARVEST** / **RETIRE LATER** — **pas** suppression auto |
+| `BoundedAtomicAuditStore` / `d1_atomic_audit` | Adapter phases D1 | **HARVEST** (port) · **RETIRE LATER** (store) — **pas** suppression auto |
 | `d1_audit_events` | Trail intake D1 | Selon H4 |
 | `oa_audit_events` | Journal Product partagé | **KEEP** (table existante) |
 
@@ -392,27 +403,45 @@ Si l’événement succès **ne peut pas** être atomique avec la persist :
 
 ## 12. Classifications et retrait D1
 
-Synthèse Q1 (recommandations ≠ delete) — inchangée dans l’esprit :
+Synthèse Q1 (recommandations ≠ delete) — classes **R4 canoniques uniquement** (Build Doctrine) :
+**KEEP / ADAPT / COMPLETE / HARVEST / CONSOLIDATE / REPLACE / FREEZE / RETIRE LATER**.
 
-| Classe | Exemples | Règle |
-| --- | --- | --- |
-| **KEEP** | Ports Product / OA Project/LPS / Sqlite journal | Capacités Product utiles |
-| **REPLACE** | Routes/UI/commands/repo D1 | Par Studio/OA |
-| **COMPLETE** | D5 durabilité **+** cohérence txn create | Avant retire A09 D1 propre |
-| **HARVEST** | Patterns confirmation ; port atomic | Sans îlot |
-| **ARCHIVE / RETIRE LATER** | Events D1, match, tests D1 | Sous H4/usage |
-| **RETIRE** (runtime) | MethodMode UI après freeze | H1 |
+| Classification R4 | Exemples | Action future (≠ classe) | Règle |
+| --- | --- | --- | --- |
+| **KEEP** | Ports Product / OA Project/LPS / Sqlite journal | — | Capacités Product utiles |
+| **REPLACE** | Routes/UI/commands/repo D1 | Remplacer par Studio/OA sous Delivery | Dual UX à éteindre |
+| **COMPLETE** | D5 durabilité **+** cohérence txn create | Implémenter sous GO L2-D1 | Avant retire A09 D1 propre |
+| **HARVEST** | Patterns confirmation ; port atomic | Extraire sans îlot | — |
+| **RETIRE LATER** | Events/audit D1, context-match, tests D1 suite | Archive read-only **conditionnelle** (H4/D6 · owner · exit) **ou** suppression structurante sous GO L6 — **pas** exécuté ici | Preuves + gates |
+| **RETIRE LATER** | MethodMode runtime/UI | Retirer UI/runtime après freeze + H1 formal + **GO Morris** | Hold ACTIVE jusqu’alors |
+| **FREEZE** | (candidat cutover) Writers D1 sur env. nommé | Freeze writes sous GO L2-D2 | Design R-CUT — **NOT PROVEN** |
 
-**Anti-KEEP** · **RETIRE LATER ≠ autorisation de suppression.**
+**Anti-KEEP** (pas de conservation par inertie).
+**RETIRE LATER ≠ autorisation de suppression.** Classifier ≠ recommander ≠ décider Morris ≠ exécuter.
+Libellés non canoniques **« ARCHIVE »** / **« RETIRE »** seuls : **interdits** comme classes ; réservés aux **actions** futures qualifiées.
 
 ---
 
 ## 13. Contrat candidat Delivery L2
 
-### L2-D0 (+ CORR-01)
+### L2-D0 — étapes lifecycle (PR611-R01)
 
-Documentaire seulement.
-**Exit :** record corrigé + Critical **Re-review** + (éventuel) GO Git Integration **distinct**.
+| Étape | Statut CURRENT |
+| --- | --- |
+| D0 Documentary Decision Pack | **COMPLETE** |
+| CORR-01 Documentary Critical | **PASS** (CR-D0-01/02/03 CLOSED doc) |
+| Git Integration (commit/push/Draft PR #611) | **COMPLETE** — GO GI **consommé** |
+| Critical PR Review initiale (#611 @ `71f06742`) | **Réalisée** — réserves R01/R02 |
+| **PR611-CORR-01** (ce correctif éditorial) | **EN COURS → COMPLETE** à publication |
+| Critical PR **Re-review** | Gate **suivant** |
+| GO Morris **merge** | **OUVERT** — distinct |
+| Post-merge verification | Futur |
+| Delivery L2-D1 / L2-D2 | **NOT AUTHORIZED** — GO indépendants |
+
+Documentaire seulement pour D0.
+**Exit D0 documentaire :** satisfait hors merge.
+**Exit Git Integration branche/PR :** satisfait (Draft).
+**Exit merge `main` :** **NON** — GO merge distinct requis.
 
 ### Challenge L2-D1 vs L2-D2
 
@@ -496,22 +525,26 @@ Les **PASS L1** déjà prouvés restent distincts de ce cycle (ne pas les reclas
 
 ## 15. Exit proofs et stops
 
-### Exit proof L2-D0 / CORR-01
+### Exit proof L2-D0 / CORR-01 / GI / PR611-CORR-01
 
 | Critère | Status |
 | --- | --- |
-| Orientations M-01…M-08 consignées sans faux tip Git | SATISFIED (candidat) |
+| Orientations M-01…M-08 consignées (branche PR #611) | SATISFIED (candidat) |
 | CR-D0-01/02/03 fermés **documentairement** | SATISFIED |
 | D1–D9 cohérents ; NOT GLOBALLY ADOPTED | SATISFIED |
 | H1/H4/R-CUT non surpromus | SATISFIED |
 | Challenge D1/D2 + env-scoped D2 | SATISFIED |
 | D5 non déclaré PASS/implémenté | SATISFIED |
 | Zéro mutation Product / PRR / Roadmap | SATISFIED |
-| Git Integration / Delivery | **NOT** |
+| PR611-R01 lifecycle CURRENT cohérent | SATISFIED (ce correctif) |
+| PR611-R02 classes R4 canoniques | SATISFIED (ce correctif) |
+| Git Integration branche/Draft PR | **COMPLETE** (GO GI consommé) |
+| Merge sur `main` | **NOT** — GO merge **OUVERT** |
+| Delivery L2 | **NOT** |
 
 ### Stops
 
-Git Truth incohérent · collision P6 · H4 PASS inventé · R-CUT PROVEN inventé · atomicité affirmée sans code · faux échec post-commit accepté sans Morris · cutover global prod UNKNOWN · tests PRESENT présentés comme PASS · nouveau port/table/dual-write · Delivery sans GO.
+Git Truth incohérent · collision P6 · H4 PASS inventé · R-CUT PROVEN inventé · atomicité affirmée sans code · faux échec post-commit accepté sans Morris · cutover global prod UNKNOWN · tests PRESENT présentés comme PASS · nouveau port/table/dual-write · Delivery sans GO · merge sans GO.
 
 ---
 
@@ -520,14 +553,14 @@ Git Truth incohérent · collision P6 · H4 PASS inventé · R-CUT PROVEN invent
 | Dette | Exit |
 | --- | --- |
 | Dual UX D1 + Studio | L2-D2 env-scoped |
-| MethodMode runtime/UI | H1 + L2-D2 |
+| MethodMode runtime/UI (**RETIRE LATER**) | H1 + freeze + GO Morris |
 | Memory OA audit create | D5 / L2-D1 |
 | **Audit append hors txn create (faux échec post-commit possible)** | Design+impl L2-D1 (Q5.2/Q5.3) |
 | R-VOL-01 / prod UNKNOWN | H4 env coverage + policy |
 | Deep links `proj-*` | D4 + L2-D2/D3 |
 | Adapter `d1_atomic_audit` | Après path Product A09 + unused |
-| Archive B sans owner/exit | **Interdit** |
-| Candidat ≠ tip Git | GO Git Integration `04` |
+| Archive RO B sans owner/exit (action) | **Interdit** |
+| Tip `main` absent (PR Draft) | **GO Morris merge** distinct |
 
 ---
 
@@ -546,33 +579,35 @@ Git Truth incohérent · collision P6 · H4 PASS inventé · R-CUT PROVEN invent
 
 ### R24
 
-**NO PRODUCT SEMANTIC IMPACT** (D0 + CORR-01).
+**NO PRODUCT SEMANTIC IMPACT** (D0 + CORR-01 + GI + PR611-CORR-01).
 **PRR / Roadmap / Doctrine : non modifiés.**
 
-Futurs updates Delivery : PRR 01/03/04/06/08/09 + digests après contenu ; Roadmap sous GO Git distinct.
+Futurs updates Delivery : PRR 01/03/04/06/08/09 + digests après contenu ; Roadmap tip sous **GO merge** / sync distinct.
 
 ---
 
-## 18. Gates Morris encore nécessaires
+## 18. Gates Morris encore nécessaires (CURRENT)
 
 | Gate | Objet | Bloque |
 | --- | --- | --- |
-| ChatGPT Critical **Re-review** CORR-01 | Qualité corrections | Suite |
-| Morris — Git Integration `04` | Tip / PR docs | Visibilité main |
-| Morris — D2/D4/D5/D6/D7 complémentaires | Labels / policy / niveau D5 / acceptation risque txn | Périmètre |
+| ChatGPT Critical **PR Re-review** (PR611-CORR-01) | Qualité R01/R02 | Suite |
+| **GO Morris merge** PR #611 | Intégration tip `main` | Visibilité main |
+| Post-merge verification | CI + tip sync | Clôture GI |
+| Morris — D2/D4/D5/D6/D7 complémentaires | Labels / policy / niveau D5 / acceptation risque txn | Périmètre Delivery |
 | **GO Delivery L2-D1** | O-01 + design/impl D5 | Code Product |
 | **GO Delivery L2-D2** | Freeze/readers **env nommés** seulement | Cutover |
 | Owner + H4 policy + **env checklist** | Conservation / bascule | D2 destructif / D3 |
-| **GO L2-D3** | Data | Archive/C |
-| **GO L6 / L2-D4** | Retire structurant | Delete |
+| **GO L2-D3** | Data | Archive RO / C (actions) |
+| **GO L6 / L2-D4** | Retrait structurant (**RETIRE LATER** → exécution) | Delete |
+| ~~GO Git Integration commit/push/Draft~~ | — | **CONSUMED** (HISTORICAL) |
 | Jamais auto | Delivery / merge / REAL / v3 | — |
 
 ---
 
 ## 19. Prochaine capacité / trajectoire
 
-1. Critical **Re-review** ChatGPT (CORR-01).
-2. Morris : GO Git Integration `04` et/ou tranchages complémentaires.
+1. Critical **PR Re-review** ChatGPT (PR611-CORR-01).
+2. Morris : **GO merge** PR #611 (distinct) et/ou tranchages D2/D4/D5/D6/D7.
 3. Sous GO : **L2-D1** (O-01 + D5 txn-coherent).
 4. Sous GO **env-scoped** : **L2-D2**.
 5. Data / retire : H4/D6/L6.
@@ -581,15 +616,18 @@ Futurs updates Delivery : PRR 01/03/04/06/08/09 + digests après contenu ; Roadm
 
 ## 20. Verdict
 
-**L2-D0 CORR-01 DOCUMENTARY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW — NOT GIT INTEGRATED — DELIVERY L2 NOT AUTHORIZED**
+**PR611-CORR-01 EDITORIAL CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL PR RE-REVIEW — PR #611 DRAFT / NOT MERGED — DELIVERY L2 NOT AUTHORIZED**
 
-- CR-D0-01/02/03 **fermés documentairement**.
+- PR611-R01 / R02 **fermés documentairement**.
+- CR-D0-01/02/03 restent **CLOSED documentairement** (inchangés sur le fond).
 - D5 **à designer/implémenter** sous GO L2-D1 — **non PASS**.
 - H4 / R-VOL-01 **OPEN** ; cutover global **interdit** sans couverture env.
 - R-CUT-01 **NOT PROVEN** ; H1 hold **ACTIVE** (fait runtime ≠ annulation orientation).
-- D1–D9 **NOT GLOBALLY ADOPTED** ; M-01…M-08 **consignés candidat · Git pending**.
+- D1–D9 **NOT GLOBALLY ADOPTED** ; M-01…M-08 **consignés branche PR #611 — non sur main**.
+- Classes R4 **canoniques** ; archive RO / retirer = **actions** conditionnelles.
+- GO Git Integration (Draft) **consommé** ; **GO merge OUVERT**.
 - Aucune mutation Product.
 
 ---
 
-*Document de construction SFIA Studio — L2-D0 Decision & Delivery Readiness (+ CORR-01) ; publication Git = candidate jusqu’à intégration distincte sous GO Morris.*
+*Document de construction SFIA Studio — L2-D0 Decision & Delivery Readiness (+ CORR-01 + GI + PR611-CORR-01) ; Draft PR #611 — candidate jusqu’à merge sous GO Morris distinct.*
