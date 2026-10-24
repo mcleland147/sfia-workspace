@@ -1093,9 +1093,9 @@ Gates: Critical PR Review → GO merge → post-merge CI → GO L2-D2.
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `b7705d48dfad6dd0b4f8867c60faa79b86656b05` |
+| Blob FULL | `840e3d86906398d55bb0100b46b7cbd81f904563` |
 | Parent | `b3a60ac7ed6e88a75e41d8877f676e77fa5d8138` |
 | Projet commit | `d98b39302a484a21f42a25d8c7155bbbf6f6f746` · Draft PR #612 · **NOT MERGED** |
 
