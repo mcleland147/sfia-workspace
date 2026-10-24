@@ -118,7 +118,7 @@ OA = authority of record. W2 = Product coordination. Nora = cognition/recommenda
 | DEP-MAT-GENPREP | OBJ-ARTIFACT-CONTINUATION / materiality | OBJ-EC | Materiality CURRENT gates empty vs HD-bound refs; Tool-First R1 pathless positive-claim gate | NO (narrative) |
 | DEP-VSR-D1-AUDIT-TYPE | vertical-slice-runtime | lib/d1 boundedAtomicAudit | **HISTORICAL** TYPE_ONLY import removed under AKG-M5 L1/A09 (local Delivery). VSR/core now type against `ProjectCycleAuditPort` (`lib/platform/t-a7`); D1 store remains transient adapter when `auditMode=sqlite` + store injected; default **noop** | NO (narrative) |
 
-### Overlay — AKG-M5 L2-D1 D5 CreateProject audit (Delivery 2026-10-24 — branch/Draft PR candidate · NOT ON MAIN)
+### Overlay — AKG-M5 L2-D1 D5 CreateProject audit (CURRENT ON MAIN — PR #612 MERGED; post-merge CI SUCCESS 2026-10-24)
 
 | Edge | From | To | Change |
 |---|---|---|---|
