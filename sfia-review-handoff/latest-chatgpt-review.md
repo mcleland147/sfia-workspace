@@ -241,9 +241,9 @@ Non-claims: pas ENV READY FOR CUTOVER · pas H4 GLOBAL PASS · pas R-CUT PROVEN 
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `5c61cdb2713d3cc4cf4285b57c9b1f51132379f1` |
+| Blob FULL | `bd9e69f14741aeb90c27e4b7edc01dfb2a44641a` |
 | Parent | `e19007bcba0801c982fc5063ec92a628a4b7441d` |
 | Investigation HEAD | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` detached · **no project push** |
 
