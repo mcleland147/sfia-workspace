@@ -1051,11 +1051,11 @@ Pas de redesign D5 · pas O-01 E2E COMPLETE · pas SAFE TO DELETE D1 · pas REAL
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `d90818bb47525fa2c9b4ad09b26187b4f6380bf8` |
+| Blob FULL | `65227ed800a4cdb0c568f311acdff37e60ab09b1` |
 | Parent | `49abd55d0244b154d3abcc511eef738db69685f5` |
-| Projet | local uncommitted @ `d62301771957ecbc74aedf1b405e183f3db3956d` ; **pas de push/PR** |
+| Projet | local uncommitted ; **pas de push/PR** |
 
 ---
 
