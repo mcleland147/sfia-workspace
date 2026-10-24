@@ -42,10 +42,12 @@ Ne pas conclure : DOCUMENTARY INTEGRATED ON MAIN · OA-EXCLUSIVE ACTIVATED · O-
 | Check | Résultat |
 |---|---|
 | Path | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d2-postmerge-truth-sync` |
-| Branch | `feat/akg-m5-l2-d2-local-oa-cutover` |
-| HEAD | `4647983aa36b76ae393200a7a8caaaed96936149` (= `origin/main` merge PR #614) |
-| PR commit ancestor | `4647983a…` **yes** |
+| Branch | `docs/akg-m5-l2-d2-postmerge-truth-sync` |
+| HEAD | `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` (= `origin/main` merge PR #614) |
+| Tree vs PR tip | identical to `4647983a…` (`431ee35c…`) — dirty docs overlays preserved |
+| PR commit ancestor | `4647983a…` **yes** (ancestor of main) |
 | P6 WT | dirty ~11 — **non altéré** |
+| Note | Transient accidental checkout of `feat/…` on docs WT was corrected in-cycle; Delivery restored to `feat/…` @ `4647983a…` |
 
 ### Preuves PR / CI
 
