@@ -379,9 +379,9 @@ Non-claims: pas L2-D2 ADOPTED · pas R-CUT PROVEN · pas H4 GLOBAL PASS · pas O
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `7acc9b7ef4744e834558dd7140a8f9a263b90aff` |
+| Blob FULL | `15183bbfbd8a977f1c70e1116b5f4d4012cf8f7e` |
 | Parent | `c5932e59f044e28a267782ab6ac69cf9fd53f365` |
 | Investigation HEAD | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` detached · **no project push** |
 
