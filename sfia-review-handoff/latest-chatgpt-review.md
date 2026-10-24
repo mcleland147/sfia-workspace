@@ -1,188 +1,201 @@
 # SFIA Studio — AKG-M5 / L2-D2 Cycle 8 — LOCAL OA FRESH START CUTOVER DELIVERY
 
 **Profile:** CRITICAL
-**Typologie:** EVOL / PRODUCT DELIVERY — LOCAL ONLY (CANDIDATE ONLY)
-**Date/heure locale:** 2026-10-24 17:27 CEST
+**Typologie:** EVOL / PRODUCT DELIVERY — LOCAL ONLY
+**Date/heure locale:** 2026-10-24 17:55 CEST
 **Auteur rapport:** Cursor (Composer)
-**Document reçu:** CONTRAT CANDIDAT — EXECUTION GATED
-**GO Morris Delivery consommé:** **AUCUN**
+**GO Morris consommé:** GO AKG-M5 L2-D2 LOCAL CUTOVER DELIVERY IMPLEMENTATION ONLY — GRANTED 2026-10-24
+**Levée du STOP antérieur:** handoff `36d3c289` (G-DELIVERY NOT GRANTED) était correct pour le contrat candidat ; levé par le présent GO.
 
 ---
 
 ## 0. Verdict Cursor
 
-**DELIVERY CONTRACT PREPARED**
-— G-DELIVERY OPEN
-— EXECUTION NOT AUTHORIZED
+**L2-D2 LOCAL CUTOVER DELIVERY — IMPLEMENTED AT TESTED SCOPE**
+— CRITICAL REVIEW REQUIRED
+— ACTIVATION NOT AUTHORIZED
+— G-GIT OPEN
 
-**STOP — G-DELIVERY NOT GRANTED.**
+Non-claims : CUTOVER PROVEN · PRODUCT COMPLETION COMPLETE · P6 GLOBAL PASS · PRODUCTION READY · REAL BOUNDARY PROVEN · STUDIO V3 RUNTIME ADOPTED.
 
-Aucune mutation Product, configuration, DB, worktree Delivery, branche `feat/akg-m5-l2-d2-local-oa-cutover`, freeze D1, route D4, init OA durable, binding env, activation Studio, test mutatif O-01, push/PR projet.
-
-Instruction ChatGPT : confirmer le STOP gate ; ne pas traiter le contrat candidat comme autorisation ; si Morris émet un GO Delivery explicite, réévaluer Git Truth + worktree Delivery dédié (hors P6) avant toute implémentation.
-
----
-
-## 1. GO / Autorité
-
-### 1.1 Décisions Morris validées (contrat — design accepté, ≠ Delivery)
-
-- OA Truth C unique pour nouveaux projets
-- Fresh Start local sans migration historique
-- Persistance OA hors worktrees, Option A
-- Session Nora neuve, isolée de P6
-- D4 Option A deny/redirect
-- H1 MethodMode D1 historique uniquement
-- Freeze de **tous** les writers D1
-- Oracle O-01 Product→UI obligatoire
-- R-CUT local avec reprise sans perte OA
-- Aucune suppression des bases historiques
-
-### 1.2 Autorité non acquise
-
-| Gate | État |
-|---|---|
-| **G-DELIVERY** | **OPEN / NOT GRANTED** — texte reçu = « CE CONTRAT EST UN CANDIDAT » + « Si le GO Delivery explicite n'est pas fourni… STOP » |
-| G-ACTIVATION | NON ATTEIGNABLE sans G-DELIVERY |
-| G-O01 / G-RCUT PROOF | NON EXÉCUTÉS |
-| G-GIT (projet) | NON AUTORISÉ |
-
-**FAIT :** le message utilisateur ne contient pas de formule GO Delivery explicite (ex. « GO LOCAL STUDIO OA CUTOVER DELIVERY » / « G-DELIVERY GRANTED »). Il contient explicitement le STOP si GO absent.
+Instruction ChatGPT : Critical Review code/tests/R23/R24/freeze D1/O-01 ; challenger dette ; définir gates G-ACTIVATION sans l'accorder.
 
 ---
 
-## 2. Git Truth (preflight only)
+## 1. GO / périmètre
+
+**Fait (autorisé) :** worktree Delivery dédié ; branche locale ; freeze D1 fail-closed ; D4 routes ; tests DET ; O-01 Product→UI intégré ; pack FULL ; handoff L3.
+
+**Non fait (interdit) :** activation Studio ; config active ; DB Application Support ; migration/suppression ; ouverture DB P6/D1 réelles ; restart Studio ; push/PR/merge projet ; PRR/Doctrine/Roadmap.
+
+G-ACTIVATION / G-GIT : OPEN.
+
+---
+
+## 2. Git Truth
 
 | Check | Résultat |
 |---|---|
-| `pwd -P` | `/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-readiness` |
-| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
-| toplevel | readiness WT |
-| Branch | *(detached HEAD)* |
-| HEAD | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
-| `origin/main` / `ls-remote main` | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
-| Status | ` M .tmp-sfia-review/chatgpt-review.md` only |
-| Diff Product | **aucune** |
-| Worktree utilisé | readiness (qualification) — **pas** un Delivery WT dédié |
+| Delivery WT | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` |
+| Branch | `feat/akg-m5-l2-d2-local-oa-cutover` |
+| HEAD | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` (= `origin/main`) |
+| Note | Path `…-akg-m5-l2-d2-local-oa-cutover` était déjà un WT L2-D1 — non utilisé. Delivery = path `feat-…`. Incident : le WT Delivery a brièvement pointé `feat/akg-m5-l2-d1-product-o01-audit` ; **corrigé** par `checkout feat/akg-m5-l2-d2-local-oa-cutover` en conservant le dirty Delivery. Re-tests PASS après correction. |
+| P6 | dirty préservé (~11) — non utilisé |
+| Fresh Start candidate | size=339968 mtime=15:28:18 — intacte |
+| App Support `SFIA-Studio/product` | ABSENT |
 
-**Handoff d'entrée (Readiness) tip distant :**
-- commit `1f2ad8b540efe95f55e95b66676286e741cdc32e`
-- blob `d55c35e15d526b9e767f524140631ac4a63acf04`
-- aligné contrat §02
-
-**P6 :**
-- path `/Users/morris/Projects/sfia-workspace`
-- HEAD `980064c0…` branch `qa/sfia-studio-p6-global-integrated-product-qa`
-- dirty_lines≈14 — **préservé** ; Delivery depuis P6 **interdit** (conforme)
-
-**Branche candidate `feat/akg-m5-l2-d2-local-oa-cutover` :** **non créée** (GO absent).
-
-Git Truth : PASS pour observation ; **non qualifié comme worktree Delivery**.
+Handoffs d'entrée : STOP `36d3c289` + Readiness `1f2ad8b5`.
 
 ---
 
-## 3. Sources
+## 3. Convergence
 
-Contrat candidat reçu + handoff Readiness tip `1f2ad8b5` (Cycle 6 Decision Pack) comme entrée d'autorité design.
-
-Sources listées §03 du contrat **non re-exécutées en profondeur** ce cycle (STOP immédiat après preflight Git + absence GO) — le contenu design reste celui du handoff Readiness ACCEPTED / contrat candidat ; **aucune implémentation** ne les consomme.
+G-DELIVERY GRANTED. Décisions Morris Option A / Nora isolée / D4 A / freeze all-writers / O-01 oracle : implémentées en **mode inactif par défaut**. Runtime v3 NON ADOPTED. H4 local no-migration. R-CUT partiel jusqu'activation.
 
 ---
 
-## 4. Convergence (rappel état — inchangé)
+## 4. R23
 
-| Item | État |
+### 4.1 Freeze D1 (FREEZE gated)
+
+- Marqueur `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1` (default OFF)
+- `assertD1AccessAllowedWhenLocalOaExclusive()` dans `openD1Db` **avant** resolve/DDL
+- Lazy repos : plus de default-arg `openD1Db()` pré-corps (`commands`, `repository`, `boundedAtomicAudit`, `executeConfirmation`, `buildSnapshot`)
+- Code erreur `FORBIDDEN`
+- CR-D2-01 : freeze ≠ MethodModeHold
+
+### 4.2 D4 (ADAPT)
+
+- Generics → `redirect("/studio")`
+- Deep link `/projects/[id]` → `notFound()` avant getProject
+- Hors mode : historique inchangé
+- Pas de mapping `proj-*`→`prj:*`
+
+### 4.3 Persistence (KEEP / doc only)
+
+`.env.example` documente marqueur + chemins Option A futurs. Aucune DB durable créée. Aucun env actif modifié.
+
+### 4.4 O-01 (COMPLETE at DET tested scope)
+
+create → SQLite → list UI → workspace UI → reopen → D1 blocked.
+
+---
+
+## 5. Fichiers
+
+**Créés :** `localOaExclusiveMode*.ts`, `legacyNavigation.ts`, tests `l2d2LocalOaExclusiveFreeze`, `l2d2D4LegacyNavigation`, `l2d2O01ProductUiIntegrated`.
+
+**Modifiés :** `db.ts`, `commands.ts`, `repository.ts`, `boundedAtomicAudit.ts`, `executeConfirmation.ts`, `buildSnapshot.ts`, `errors.ts`, `index.ts`, pages workspace/projects/nouvelle-demande, `.env.example`.
+
+**Interdits non touchés :** Doctrine, Roadmap, C1, PRR, P6.
+
+---
+
+## 6. Extraits code
+
+### openD1Db
+```
+export function openD1Db(dbPath?: string): DatabaseSync {
+  assertD1AccessAllowedWhenLocalOaExclusive();
+  const resolved = dbPath ?? resolveD1SqlitePath();
+  ...
+}
+```
+
+### Marker
+```
+return process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE?.trim() === "1";
+```
+
+### D4 deep link
+```
+if (!isLocalOaExclusiveMode()) return;
+notFound();
+```
+
+---
+
+## 7. Tests exécutés
+
+`vitest run` freeze + D4 + O-01 + D5 + m1 durability → **5 files / 27 PASS**.
+`tsc --noEmit` PASS. `git diff --check` PASS.
+Re-verify post branch-fix : freeze+D4+O-01 PASS.
+
+Skips : Q12 live rollback ; Q15 conversational large ; REAL ; Human QA ; Studio start.
+
+O-01 : `serverGuard` stubbed en jsdom uniquement pour import actions ; store SQLite réel.
+
+---
+
+## 8. Q matrix
+
+| ID | Niveau |
 |---|---|
-| L2-D2 Readiness | COMPLETE / CRITICAL REVIEW ACCEPTED (entrée) |
-| Fresh Start candidate | PREPARED / NOT ACTIVE |
-| H4 local | no-migration décidé |
-| H4 global | OPEN |
-| R-CUT | DESIGNED / NOT PROVEN |
-| O-01 intégré | KNOWN GAP |
-| Runtime v3 | NON ADOPTED |
-| L2-D2 Cutover Delivery | **NOT AUTHORIZED** (ce cycle) |
+| Q7 | BEHAVIOR PROVEN AT TESTED SCOPE |
+| Q8 | BEHAVIOR PROVEN AT TESTED SCOPE |
+| Q9 | BEHAVIOR PROVEN AT TESTED SCOPE |
+| Q10 | BEHAVIOR PROVEN AT TESTED SCOPE |
+| Q11 | N/A Fresh Start |
+| Q12 | DOCUMENTED (activation) |
+| Q15 | PARTIAL |
+| O-01 | BEHAVIOR PROVEN AT TESTED SCOPE (DET) ≠ live activation |
 
 ---
 
-## 5. Actions effectuées
+## 9. Isolation
 
-| Action | Statut |
-|---|---|
-| Git Truth read-only | FAIT |
-| Lecture gate G-DELIVERY | FAIT → NOT GRANTED |
-| Création branche feat | **NON** |
-| Worktree Delivery dédié | **NON** |
-| Init OA Application Support | **NON** |
-| Init Nora session | **NON** |
-| Env `SFIA_STUDIO_*_DB_PATH` | **NON** |
-| Freeze writers D1 | **NON** |
-| Routes D4 | **NON** |
-| Tests O-01 / Q7–Q12 | **NON** |
-| Mutation Product source | **NON** |
-| Activation Studio | **NON** |
-| Review Pack FULL | CE FICHIER |
-| Handoff L3 | PUBLISH-IN-CYCLE (seul push autorisé) |
+P6/D1 réels non ouverts ; candidate intacte ; App Support absent ; marqueur default OFF (create D1 hors mode PASS).
 
 ---
 
-## 6. Fichiers créés / modifiés (Product)
+## 10. R24 / PRR (non synchronisé — protégé)
 
-**AUCUN.**
-
-Seul artefact local : `.tmp-sfia-review/chatgpt-review.md` (pack) + publication handoff canonique.
-
----
-
-## 7. R23 / R24
-
-**R23 :** aucun changement architecture — contrat design déjà cartographié en Readiness ; pas de re-classification runtime.
-
-**R24 :** **NO PRODUCT SEMANTIC IMPACT** ce cycle (aucune implémentation). Volumes PRR 03–09 restent candidats **post-Delivery futur** uniquement.
+Impact sémantique Product **oui** (mode gated).
+Volumes candidats : 04/05/06/07/08/09.
+Digests non rafraîchis. G-PRR OPEN avant intégration si exigé.
+Pas de claim READY FOR INTEGRATION.
 
 ---
 
-## 8. Paths Option A (rappel — non créés)
+## 11. Fake/Real
 
-Référence contrat (à revalider sous GO futur) :
-
-- OA : `/Users/morris/Library/Application Support/SFIA-Studio/product/oa-product.sqlite`
-- Nora : `/Users/morris/Library/Application Support/SFIA-Studio/product/nora-session.sqlite`
-
-**Ce cycle :** aucune création, aucun `stat` destructif requis pour STOP ; collision check complet = obligation **sous G-DELIVERY**, pas avant.
+DET yes · Studio live no · REAL no · HQA no.
 
 ---
 
-## 9. Réserves / dette / exit
+## 12. Réversibilité / dette / exit
 
-1. Contrat candidat ≠ GO — risque de confusion ops si un agent ignore le STOP.
-2. Worktree readiness ≠ Delivery WT dédié — à créer **après** GO.
-3. P6 dirty — ne jamais exécuter Delivery depuis P6.
-4. Reversibility : ne pas unset env comme rollback (rappel contrat §10) — applicable seulement post-activation future.
-5. Exit ce cycle : attendre GO Morris explicite `LOCAL STUDIO OA CUTOVER DELIVERY` (ou formule équivalente claire).
+Dette : D1 dormant ; `/`→`/synthese` hors scope ; `actionExecuteConfirmation` shape `ok:true`+FAILED historique.
+Exit post G-ACTIVATION : exclusive=1 + paths absolus + O-01 live.
+Rollback : ne pas unset PRODUCT_DB_PATH ; préserver OA ; pas d'unfreeze D1.
 
 ---
 
-## 10. Stops déclenchés
+## 13. Gates G-ACTIVATION
 
-**STOP — G-DELIVERY NOT GRANTED** (contrat §01 / §15).
-
-Autres stops (collision path, writer leak, etc.) : **non évalués en exécution** faute d'autorité.
-
----
-
-## 11. Tests
-
-**Aucun exécuté.** Aucun PASS inventé.
-
----
-
-## 12. Instruction ChatGPT
-
-1. Confirmer STOP correct (contrat candidat sans GO Delivery).
-2. Confirmer qu'aucune exécution Product n'a eu lieu.
-3. Si Morris veut livrer : exiger un message GO explicite distinct, puis worktree `feat/akg-m5-l2-d2-local-oa-cutover` hors P6, puis T0–T12.
-4. Ne pas fusionner « décisions Morris validées » avec « G-DELIVERY GRANTED ».
+1. GO G-ACTIVATION
+2. Preflight collision paths Option A
+3. Init OA+Nora virgin
+4. Bind instance-only PRODUCT/NORA/EXCLUSIVE
+5. Start Studio contrôlé
+6. Re-proof O-01/Q7–Q10 live
+7. G-PRR si requis
+8. G-GIT
 
 ---
 
-**FIN DU RAPPORT — DELIVERY CONTRACT PREPARED / EXECUTION NOT AUTHORIZED**
+## 14. Réserves
+
+1. Incident checkout L2-D1 corrigé — documenté.
+2. Q15 partiel.
+3. Confirmation action wrapping historique.
+
+---
+
+## 15. Instruction ChatGPT
+
+Review freeze-before-open ; D4 ; O-01 ; wrapping confirmation ; G-ACTIVATION exact ; G-PRR vs G-GIT.
+
+---
+
+**FIN — L2-D2 LOCAL CUTOVER DELIVERY IMPLEMENTED AT TESTED SCOPE**
