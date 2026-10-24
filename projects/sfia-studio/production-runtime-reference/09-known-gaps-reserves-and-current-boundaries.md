@@ -14,14 +14,14 @@
 | G-ACTIVATION | **OPEN** — no Studio live arming ; no definitive App Support DBs by merge |
 | DET proof | **31 PASS / 7 suites** + post-merge CI SUCCESS |
 | O-01 « comprendre » | LPS objective → Product UI **BEHAVIOR PROVEN AT TESTED SCOPE (DET)** — **≠** LIVE E2E COMPLETE |
-| **R-01** documentary lag | Pre-merge PRR/Roadmap « NOT CURRENT / G-GIT OPEN / dirty » — **corrected in Cycle 14 local authoring** · **NOT** yet integrated on main until documentary G-GIT |
+| **R-01** documentary lag | Documentary lag corrected and integrated on main through [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) · post-merge CI [#40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **exit proof satisfied** · **formal close pending Morris** (**≠** FORMALLY CLOSED BY MORRIS) |
 | **R-02** D4 LIVE | DET redirect/notFound proven · Studio/HTTP LIVE path **NOT PROVEN** |
 | **R-03** SQLite / raw DB | Raw `DatabaseSync` KNOWN GAP · `R-L2D2-SQLITE-SNAPSHOT` OPEN — naive file copy **≠** coherent backup |
 | Q15 global | **PARTIAL** |
 | R-CUT LIVE | **NOT PROVEN** |
 | P6 GLOBAL PASS | **NOT CLAIMED** |
 | Runtime v3 | **NON ADOPTED** · AKG-M5 GLOBAL **OPEN** |
-| Exit path | C14 Semantic Review → **G-MANIFEST CONSUMED LOCAL** → documentary G-GIT / Draft PR → Critical PR Review → GO Morris merge distinct → post-merge CI → **G-ACTIVATION PREPARATION** → SQLite snapshot / H4-env / R-CUT exit proofs → GO Morris **G-ACTIVATION** distinct (**≠** merge/activation accomplished by authoring) |
+| Exit path | **Historical:** [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · [CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **R-01 exit proof satisfied**. **Governance:** R-01 formal closure remains a distinct Morris decision (**NOT CONSUMED** / ≠ FORMALLY CLOSED). **Remaining product trajectory:** **G-ACTIVATION PREPARATION** only under distinct Morris GO · H4-env qualification · coherent SQLite snapshot/restore · D4 HTTP LIVE · R-CUT LIVE · then eventual GO Morris **G-ACTIVATION** (**NOT GRANTED**; ≠ preparation/activation authorization) |
 
 ## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
 

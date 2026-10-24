@@ -40,11 +40,11 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
 | **C — CURRENT @ marker OFF (default)** | Code on main ; exclusive inactive ; historical D1 paths unchanged for operators who do not arm the marker |
 | **D — Conditional @ marker ON (DET)** | Fail-closed D1 open+mutation (incl. injected writers) ; confirmation `ok:false`/FORBIDDEN ; D4 redirect/notFound ; O-01 LPS objective→UI — **31 PASS / 7 suites** at tested scope |
 | **E — LIVE** | Studio HTTP / Application Support / R-CUT / coherent snapshot restore — **NOT PROVEN** |
-| **F — Gates** | **G-ACTIVATION OPEN** · **G-MANIFEST CONSUMED LOCAL / PRR CONFORMANCE PASS** (digests synced locally; digest match ≠ semantic exhaustiveness) · documentary G-GIT / Draft PR = publication path toward main (**≠ merged** until distinct Morris GO) |
+| **F — Gates** | **G-ACTIVATION OPEN** · [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · documentary **G-MERGE consumed** · **R-01 EXIT PROOF SATISFIED** · **R-01 FORMAL CLOSE NOT CONSUMED** · digest conformance ≠ semantic exhaustiveness · OA-exclusive **NOT ACTIVATED** |
 | **Runtime v3** | **NON ADOPTED** |
 | **Anti-claims** | OA-exclusive **not** ACTIVATED · CUTOVER LIVE **not** PROVEN · O-01 LIVE E2E **not** COMPLETE · P6 GLOBAL PASS **not** claimed · DET ≠ LIVE · AKG-M5 GLOBAL **OPEN** |
 
-Cycle 14 documentary content reviewed · **G-MANIFEST** synchronized digests locally · checker PRR **PASS** at verified local scope · publication on main still requires merge + post-merge control · digest match alone does **not** prove semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**).
+Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · eight Cycle-14 digests on main · **R-01 exit proof satisfied** · formal close **NOT CONSUMED** · digest match ≠ semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**) · code L2-D2 remains DEFAULT OFF / NOT ACTIVATED (PR #614 distinct).
 
 ## What this corpus is
 
