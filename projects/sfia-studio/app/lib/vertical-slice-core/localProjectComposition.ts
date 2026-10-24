@@ -15,7 +15,6 @@ import {
 } from "@/lib/oa/doctrine";
 import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
 import {
-  MemoryProjectAuditJournal,
   createSqliteProductProjectServices,
   describeServerOwnedRepositoryConfigGap,
   resolveServerOwnedRepositoryConfig,
@@ -562,10 +561,11 @@ export function createLocalVerticalSliceServices(
           "oa-product.sqlite",
         )
       : undefined);
+  // L2-D1 / D5: default SqliteProjectAuditJournal on Product SQLite (same store).
+  // Do not inject Memory here — durable create audit is contractual on Studio path.
   const projectServices = createSqliteProductProjectServices({
     doctrineResolver,
     clock,
-    audit: new MemoryProjectAuditJournal(),
     dbPath: productDbPath,
   });
   const idSource = options.idSource ?? new RandomLocalProjectIdSource();

@@ -87,15 +87,21 @@ export class CreateProject {
         internalCauseRef,
         ...extra,
       });
-      this.audit.append({
-        event: "oa.project.created",
-        ts: timestamp,
-        correlationId,
-        projectId: request.projectId,
-        result: "error",
-        detailCode,
-        durationMs,
-      });
+      // Failure/attempt audit is observational — must not mask the create failure
+      // (e.g. when success-audit throw already rolled back the UnitOfWork).
+      try {
+        this.audit.append({
+          event: "oa.project.created",
+          ts: timestamp,
+          correlationId,
+          projectId: request.projectId,
+          result: "error",
+          detailCode,
+          durationMs,
+        });
+      } catch {
+        /* best-effort error audit */
+      }
       return { ok: false, error, durationMs };
     };
 
@@ -111,16 +117,22 @@ export class CreateProject {
             : null;
           if (project && livingProjectState) {
             const durationMs = Date.now() - started;
-            this.audit.append({
-              event: "oa.project.created",
-              ts: timestamp,
-              correlationId,
-              projectId: project.projectId,
-              lpsVersion: livingProjectState.version,
-              result: "ok",
-              durationMs,
-              reusedFromIdempotencyKey: true,
-            });
+            // Idempotent reuse: Project already durable. Audit is observational —
+            // must not invent a false create-failure if append fails (no new write txn).
+            try {
+              this.audit.append({
+                event: "oa.project.created",
+                ts: timestamp,
+                correlationId,
+                projectId: project.projectId,
+                lpsVersion: livingProjectState.version,
+                result: "ok",
+                durationMs,
+                reusedFromIdempotencyKey: true,
+              });
+            } catch {
+              /* best-effort reuse audit */
+            }
             return {
               ok: true,
               project,
@@ -246,6 +258,12 @@ export class CreateProject {
         provenance,
       };
 
+      // D5 Option A (L2-D1): contractual success audit joins Project/LPS/idempotence
+      // in the same UnitOfWork. With SqliteProductStore, SqliteProjectAuditJournal
+      // INSERTs on the same connection participate in BEGIN IMMEDIATE…COMMIT —
+      // append failure rolls back; no durable Project without success audit, and
+      // no post-commit ok:false / false "project absent" contradiction.
+      let durationMs = 0;
       const persist = async () => {
         // Re-check under txn/mutex — concurrent creates of the same id must conflict.
         if (await this.projects.exists(request.projectId)) {
@@ -259,6 +277,16 @@ export class CreateProject {
             project.projectId,
           );
         }
+        durationMs = Date.now() - started;
+        this.audit.append({
+          event: "oa.project.created",
+          ts: timestamp,
+          correlationId,
+          projectId: project.projectId,
+          lpsVersion: 1,
+          result: "ok",
+          durationMs,
+        });
       };
 
       try {
@@ -273,17 +301,6 @@ export class CreateProject {
         }
         return fail("PERSISTENCE_FAILURE", "atomic_create_failed");
       }
-
-      const durationMs = Date.now() - started;
-      this.audit.append({
-        event: "oa.project.created",
-        ts: timestamp,
-        correlationId,
-        projectId: project.projectId,
-        lpsVersion: 1,
-        result: "ok",
-        durationMs,
-      });
 
       // Return deep clones so callers cannot alias into the returned graph.
       return {

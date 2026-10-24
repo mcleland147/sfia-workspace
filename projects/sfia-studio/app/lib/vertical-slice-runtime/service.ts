@@ -533,8 +533,9 @@ function wireOaStack(
 
   // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
   // Product SQLite: durable materialization audit via SqliteProjectAuditJournal
-  // on the same Product store / oa_audit_events (no new table). LPS create/append
-  // may still use MemoryProjectAuditJournal from local composition.
+  // on the same Product store / oa_audit_events (no new table).
+  // L2-D1: localProjectComposition also defaults to SqliteProjectAuditJournal
+  // (D5 create-path durable audit); do not reintroduce Memory on Studio create.
   const materializationAudit =
     productSqlite !== null
       ? new SqliteProjectAuditJournal(productSqlite)
