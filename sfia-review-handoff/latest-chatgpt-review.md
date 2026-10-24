@@ -1,36 +1,32 @@
-# SFIA Studio — AKG-M5 / L2-D1 / CORR-01 — Critical Evidence Correction
+# SFIA Studio — AKG-M5 / L2-D1 — Git Integration / PR Readiness
 
-**Date / heure:** 2026-10-24 10:55 Europe/Paris (CEST)
-**Cycle:** 8 — Delivery / implémentation
+**Date / heure:** 2026-10-24 11:25 Europe/Paris (CEST)
+**Cycle:** 13 — PR Readiness
 **Profil:** Critical
-**Typologie:** EVOL / TEST CORRECTION
-**GO Morris:** L2-D1 / CORR-01 — TARGETED EVIDENCE CORRECTION — **CONSUMED**
-**NON autorisé / NON effectué:** redesign D5 · nouveau port/table · cutover L2-D2 · commit/push/PR/merge projet · Roadmap/Doctrine · REAL · touch P6 dirty
+**Typologie:** EVOL
+**GO Morris:** L2-D1 — GIT INTEGRATION — **CONSUMED**
+**NON autorisé / NON effectué:** merge · L2-D2 · dual-write · D1 migrate/freeze/retire · Roadmap/Doctrine · v3/REAL · nouveau port/table · force push
 
-**Instruction ChatGPT:** lire `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` ; contrôler Q5.3 txn réelle, Q5.4 fail→rollback→retry, Q5.1–Q5.7, régressions, O-01 quatre dimensions, absence redesign D5, handoff FULL. Critical Re-review ≠ GO Git Integration. L2-D1 ≠ GO L2-D2.
+**Instruction ChatGPT:** lire `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` et Draft PR #612 (https://github.com/mcleland147/sfia-workspace/pull/612) ; contrôler 9 fichiers, D5 Option A, Q5.3/Q5.4, CI @ Delivery SHA, PRR lifecycle, O-01 gap, NOT MERGED. Critical PR Review ≠ GO merge. Merge ≠ GO L2-D2.
 
 ---
 
 ## 1. Verdict
 
-**L2-D1 CORR-01 EVIDENCE CORRECTIONS COMPLETE**
-**— READY FOR CHATGPT CRITICAL RE-REVIEW**
-**— NOT GIT INTEGRATED**
+**L2-D1 GIT INTEGRATION COMPLETE**
+**— DRAFT PR OPEN**
+**— READY FOR CHATGPT CRITICAL PR REVIEW**
+**— NOT MERGED**
+**— O-01 E2E GAP GOVERNED**
 **— L2-D2 NOT AUTHORIZED**
 
-**O-01 COVERAGE GAP GOVERNED** — dimension « comprendre » : surfaces Product + UI mock presentation couvertes ; chaîne intégrée durable Product→UI « comprendre » = **KNOWN GAP** (pas E2E COMPLETE inventé).
-
-- CR-D1-02 / Q5.3 : `DatabaseSync.isTransaction === true` à l’append succès.
-- CR-D1-01 / Q5.4 : audit failure → rollback → clean retry → single create → idempotent reuse.
-- Q5.1–Q5.7 **7/7 PASS** ; batch régression **82/82 PASS** ; `tsc` PASS.
-- Product source D5 Option A **conservée** (aucune mutation CORR-01).
-- R24 : **NO ADDITIONAL PRODUCT SEMANTIC IMPACT** (tests + note PRR 08/09).
+CI @ Delivery SHA: **PASS** (Detect + Build/validate + Required Gate).
 
 ---
 
-## 2. GO consommé
+## 2. GO Morris GI consommé
 
-CORR-01 = correction de preuves ciblée. N’autorise pas redesign D5, cutover D1, ni Git Integration projet.
+Autorise commit/push/Draft PR + validations + handoff L3. Merge et L2-D2 **hors** GO. CORR-01 Critical Re-review PASS (CR-D1-01/02 CLOSED) prérequis.
 
 ---
 
@@ -40,62 +36,236 @@ CORR-01 = correction de preuves ciblée. N’autorise pas redesign D5, cutover D
 |---|---|
 | Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d1` |
 | Branche | `feat/akg-m5-l2-d1-product-o01-audit` |
-| HEAD (base, uncommitted) | `d62301771957ecbc74aedf1b405e183f3db3956d` |
-| `origin/main` | `d62301771957ecbc74aedf1b405e183f3db3956d` — **ALIGNED** |
-| Ascendance base L2-D1 | OK (`d6230177…`) |
+| HEAD local | `d98b39302a484a21f42a25d8c7155bbbf6f6f746` |
+| Remote branch | `d98b39302a484a21f42a25d8c7155bbbf6f6f746` |
+| `origin/main` base | `d62301771957ecbc74aedf1b405e183f3db3956d` |
+| Commit Delivery | `d98b39302a484a21f42a25d8c7155bbbf6f6f746` |
 | P6 dirty | **non touché** |
-| Handoff L2-D1 parent | `49abd55d…` / blob `24b092e0…` |
-| Commit/push/PR projet | **NON** |
-
-Fichiers L2-D1 préservés (Product + test + PRR) ; CORR-01 mutates test + PRR 08/09 notes.
+| Merge | **NON** |
+| Handoff CORR-01 parent | `b3a60ac7ed6e88a75e41d8877f676e77fa5d8138` |
 
 ---
 
-## 4–5. Sources / Convergence Pre-check
+## 4. Sources / Convergence
 
-Process Cycle 8 · Build Doctrine/Roadmap/C1 (lecture) · M5 docs 01–04 · Doctrine 26/32/34/37 · PRR 04/06/08/09 · handoff L2-D1 tip `49abd55d` — **PASS** pour exécution bornée CORR-01.
-
----
-
-## 6. Rappel L2-D1 initial
-
-Option A D5 : audit succès dans UnitOfWork ; composition `SqliteProjectAuditJournal` ; Q5 oracles initiaux insuffisants pour CR-D1-01/02 (Critical Review).
+Build Doctrine / Roadmap / C1 consultés (non modifiés). M5 docs 01–04 · Doctrine 26/32/34/37 · PRR CURRENT · handoff CORR-01.
 
 ---
 
-## 7. CR-D1-01 — cause et correction
+## 5–6. R23 / R24
 
-| | |
-|---|---|
-| Cause | Q5.4 prouvait SUCCESS→RETRY→reuse, pas incident audit |
-| Correction | ThrowingAuditJournal fail on contractual success append → assert no Project/LPS/idem/success ; disable fail ; retry same ids → single create ; reuse ; reopen |
-| PASS iff | FAILED CONTRACTUAL AUDIT → ATOMIC ROLLBACK → CLEAN RETRY → DURABLE SINGLE CREATE |
+R23: CreateProject success audit in-txn + Sqlite journal default — **CODE + DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE** (Q5).
+R24: PRODUCT SEMANTIC IMPACT YES (L2-D1) · CORR-01 no additional · PRR 04/06/08/09 + digests · lifecycle editorial Draft PR / NOT ON MAIN.
 
 ---
 
-## 8. CR-D1-02 — cause et correction
+## 7–8. Handoff source + fidélité
 
-| | |
-|---|---|
-| Cause | Q5.3 = create ok + get ok, sans observation txn |
-| Correction | `TransactionObservingAuditJournal` lit `store.db.isTransaction` (node:sqlite ; équivalent better-sqlite3 `inTransaction`, **exposé** sur DatabaseSync) au moment de l’append succès, puis délègue au vrai journal |
-| PASS iff | SUCCESS AUDIT APPEND OBSERVED INSIDE PRODUCT SQLITE TRANSACTION AT TESTED SCOPE |
-| Non-claim | Ne prouve pas toutes catégories crash/COMMIT |
+Source Critical Re-review: tip `b3a60ac7ed6e88a75e41d8877f676e77fa5d8138` / blob `b67c986578c7971beb182348cd4cbeaba7d51522`.
+Fidélité: D5 Option A inchangée · Q5.3 isTransaction · Q5.4 fail→rollback→retry · composition Sqlite · pas de 10e fichier fonctionnel · O-01 comprendre KNOWN GAP.
+Éditorial lifecycle PRR uniquement (NOT GIT INTEGRATED → Draft PR candidate / NOT MERGED / NOT ON MAIN).
 
 ---
 
-## 9. Q5.3 / Q5.4 avant → après
+## 9. Neuf fichiers du commit
 
-| Oracle | Avant | Après CORR-01 |
-|---|---|---|
-| Q5.3 | create ok + get ok | isTransaction true à append ; false après ; durable Project/LPS/audit + reopen |
-| Q5.4 | success→retry reuse | fail audit→rollback→retry success→reuse→reopen |
+```
+projects/sfia-studio/app/__tests__/oa/project/l2d1D5CreateAuditAtomicity.test.ts
+projects/sfia-studio/app/lib/oa/project/application/createProject.ts
+projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
+projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+
+Count: 9 (exact 9 required).
 
 ---
 
-## 10–11. Diff / contenu intégral du test
+## 10. Diff Product substantiel
 
-Fichier **NEW/untracked** dans le lot L2-D1 : contenu intégral ci-dessous (reconstructible).
+```diff
+commit d98b39302a484a21f42a25d8c7155bbbf6f6f746
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sat Oct 24 11:14:07 2026 +0200
+
+    feat(studio): complete L2-D1 Product create audit atomicity
+
+    AKG-M5 / L2-D1
+    - Product O-01 create audit durable
+    - D5 contractual success in Product UoW
+    - Q5.1-Q5.7 including CORR-01 negative proof
+    - PRR R24 synchronized
+    - O-01 comprehend E2E gap governed
+    - No D1 cutover or migration
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/lib/oa/project/application/createProject.ts b/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
+index 24dd6807..40c727bc 100644
+--- a/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
++++ b/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
+@@ -87,15 +87,21 @@ export class CreateProject {
+         internalCauseRef,
+         ...extra,
+       });
+-      this.audit.append({
+-        event: "oa.project.created",
+-        ts: timestamp,
+-        correlationId,
+-        projectId: request.projectId,
+-        result: "error",
+-        detailCode,
+-        durationMs,
+-      });
++      // Failure/attempt audit is observational — must not mask the create failure
++      // (e.g. when success-audit throw already rolled back the UnitOfWork).
++      try {
++        this.audit.append({
++          event: "oa.project.created",
++          ts: timestamp,
++          correlationId,
++          projectId: request.projectId,
++          result: "error",
++          detailCode,
++          durationMs,
++        });
++      } catch {
++        /* best-effort error audit */
++      }
+       return { ok: false, error, durationMs };
+     };
+
+@@ -111,16 +117,22 @@ export class CreateProject {
+             : null;
+           if (project && livingProjectState) {
+             const durationMs = Date.now() - started;
+-            this.audit.append({
+-              event: "oa.project.created",
+-              ts: timestamp,
+-              correlationId,
+-              projectId: project.projectId,
+-              lpsVersion: livingProjectState.version,
+-              result: "ok",
+-              durationMs,
+-              reusedFromIdempotencyKey: true,
+-            });
++            // Idempotent reuse: Project already durable. Audit is observational —
++            // must not invent a false create-failure if append fails (no new write txn).
++            try {
++              this.audit.append({
++                event: "oa.project.created",
++                ts: timestamp,
++                correlationId,
++                projectId: project.projectId,
++                lpsVersion: livingProjectState.version,
++                result: "ok",
++                durationMs,
++                reusedFromIdempotencyKey: true,
++              });
++            } catch {
++              /* best-effort reuse audit */
++            }
+             return {
+               ok: true,
+               project,
+@@ -246,6 +258,12 @@ export class CreateProject {
+         provenance,
+       };
+
++      // D5 Option A (L2-D1): contractual success audit joins Project/LPS/idempotence
++      // in the same UnitOfWork. With SqliteProductStore, SqliteProjectAuditJournal
++      // INSERTs on the same connection participate in BEGIN IMMEDIATE…COMMIT —
++      // append failure rolls back; no durable Project without success audit, and
++      // no post-commit ok:false / false "project absent" contradiction.
++      let durationMs = 0;
+       const persist = async () => {
+         // Re-check under txn/mutex — concurrent creates of the same id must conflict.
+         if (await this.projects.exists(request.projectId)) {
+@@ -259,6 +277,16 @@ export class CreateProject {
+             project.projectId,
+           );
+         }
++        durationMs = Date.now() - started;
++        this.audit.append({
++          event: "oa.project.created",
++          ts: timestamp,
++          correlationId,
++          projectId: project.projectId,
++          lpsVersion: 1,
++          result: "ok",
++          durationMs,
++        });
+       };
+
+       try {
+@@ -274,17 +302,6 @@ export class CreateProject {
+         return fail("PERSISTENCE_FAILURE", "atomic_create_failed");
+       }
+
+-      const durationMs = Date.now() - started;
+-      this.audit.append({
+-        event: "oa.project.created",
+-        ts: timestamp,
+-        correlationId,
+-        projectId: project.projectId,
+-        lpsVersion: 1,
+-        result: "ok",
+-        durationMs,
+-      });
+-
+       // Return deep clones so callers cannot alias into the returned graph.
+       return {
+         ok: true,
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts b/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
+index 8e404b34..83572029 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
+@@ -15,7 +15,6 @@ import {
+ } from "@/lib/oa/doctrine";
+ import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
+ import {
+-  MemoryProjectAuditJournal,
+   createSqliteProductProjectServices,
+   describeServerOwnedRepositoryConfigGap,
+   resolveServerOwnedRepositoryConfig,
+@@ -562,10 +561,11 @@ export function createLocalVerticalSliceServices(
+           "oa-product.sqlite",
+         )
+       : undefined);
++  // L2-D1 / D5: default SqliteProjectAuditJournal on Product SQLite (same store).
++  // Do not inject Memory here — durable create audit is contractual on Studio path.
+   const projectServices = createSqliteProductProjectServices({
+     doctrineResolver,
+     clock,
+-    audit: new MemoryProjectAuditJournal(),
+     dbPath: productDbPath,
+   });
+   const idSource = options.idSource ?? new RandomLocalProjectIdSource();
+diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+index e6b593fc..f25f7588 100644
+--- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
++++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
+@@ -533,8 +533,9 @@ function wireOaStack(
+
+   // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
+   // Product SQLite: durable materialization audit via SqliteProjectAuditJournal
+-  // on the same Product store / oa_audit_events (no new table). LPS create/append
+-  // may still use MemoryProjectAuditJournal from local composition.
++  // on the same Product store / oa_audit_events (no new table).
++  // L2-D1: localProjectComposition also defaults to SqliteProjectAuditJournal
++  // (D5 create-path durable audit); do not reintroduce Memory on Studio create.
+   const materializationAudit =
+     productSqlite !== null
+       ? new SqliteProjectAuditJournal(productSqlite)
+```
+
+---
+
+## 11. Test NEW — CONTENU INTÉGRAL
 
 ```typescript
 /**
@@ -672,236 +842,70 @@ describe("L2-D1 D5 CreateProject audit atomicity", () => {
 
 ---
 
-## 12. Q5.1–Q5.7 résultat réel
-
-```
-vitest run __tests__/oa/project/l2d1D5CreateAuditAtomicity.test.ts
-✓ 7 tests passed (7)
-```
-
----
-
-## 13. Régressions résultat réel
-
-Commande batch (10 fichiers) :
-
-```
-vitest run l2d1D5… m1ProductSqliteDurability m1RestartProcessProof projectLpsFoundation localProjectComposition importBoundaries×2 createProjectUi studioProjectsHome automaticProjectResume
-Test Files  10 passed (10)
-Tests  82 passed (82)
-tsc --noEmit → exit 0
-git diff --check → clean (test trailing ws 0)
-```
-
-REAL / DB utilisateur : **non exécutés**.
-
----
-
-## 14. Matrice O-01 — quatre dimensions
-
-| Dimension | Source Product | Surface UI | Test/oracle | Couverture | Preuve d’exécution | Gap | Exit |
-|---|---|---|---|---|---|---|---|
-| **Créer** | `CreateProject` + composition Sqlite | `NewProjectIntentionPage` / create UI | Q5.1/Q5.7 + `createProjectUi` | **BEHAVIOR PROVEN AT TESTED SCOPE** | 82/82 batch CORR-01 | — | — |
-| **Trouver** | `ListProjects` / get | `ProjectsPage` / `StudioProjectsHome` | Q5.4 list + `studioProjectsHome` | **BEHAVIOR PROVEN AT TESTED SCOPE** (list UI = mock action) | batch PASS | E2E list sans mock = KNOWN GAP léger | gate UI intégration optionnel |
-| **Comprendre** | Project title/objective/status + LPS + `ProjectContextSummary` / `lpsNextAction` | `ProjectWorkspacePage` (`project-title`/`project-subtitle`) + context rail | `projectWorkspaceUi` (id/title/LPS projection) ; principal readback (mock get) ; source COVERAGE REVIEWED | **COVERAGE VERIFIED** (Product surfaces) · UI presentation **BEHAVIOR AT TESTED SCOPE** (mocks) | source + tests UI mock existants | **KNOWN GAP** : chaîne intégrée durable Product→UI « comprendre » non prouvée E2E | GO UI intégration bornée distinct si requis |
-| **Reprendre** | SQLite Product reopen / LPS | `automaticProjectResume` / workspace | Q5.5 + `m1RestartProcessProof` + `automaticProjectResume.ui` | **BEHAVIOR PROVEN AT TESTED SCOPE** (persist) · UI resume mock presentation | batch PASS | REAL resume hors scope | — |
-
-**Distinction obligatoire :** UI mock ≠ lecture persistante Product end-to-end. **O-01 E2E COMPLETE : NON déclaré.**
-
----
-
-## 15. Couverture / gaps résiduels
-
-- « Comprendre » intégré durable → UI : **KNOWN GAP GOVERNED**.
-- Dual UX D1 / L2-D2 : hors scope.
-- H4 OPEN · R-CUT NOT PROVEN · REAL NOT PROVEN.
-
----
-
-## 16. Source Product
-
-**CORR-01 n’a pas modifié** `createProject.ts` / `localProjectComposition.ts` / `service.ts`.
-Delta Product inchangé vs L2-D1 Delivery (rappel diff existant local) :
+## 12–13. Diffs PRR + manifest digests
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/oa/project/application/createProject.ts b/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
-index 24dd6807..40c727bc 100644
---- a/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
-+++ b/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
-@@ -87,15 +87,21 @@ export class CreateProject {
-         internalCauseRef,
-         ...extra,
-       });
--      this.audit.append({
--        event: "oa.project.created",
--        ts: timestamp,
--        correlationId,
--        projectId: request.projectId,
--        result: "error",
--        detailCode,
--        durationMs,
--      });
-+      // Failure/attempt audit is observational — must not mask the create failure
-+      // (e.g. when success-audit throw already rolled back the UnitOfWork).
-+      try {
-+        this.audit.append({
-+          event: "oa.project.created",
-+          ts: timestamp,
-+          correlationId,
-+          projectId: request.projectId,
-+          result: "error",
-+          detailCode,
-+          durationMs,
-+        });
-+      } catch {
-+        /* best-effort error audit */
-+      }
-       return { ok: false, error, durationMs };
-     };
+commit d98b39302a484a21f42a25d8c7155bbbf6f6f746
+Author: Morris Cleland <morris@macbook-air.home>
+Date:   Sat Oct 24 11:14:07 2026 +0200
 
-@@ -111,16 +117,22 @@ export class CreateProject {
-             : null;
-           if (project && livingProjectState) {
-             const durationMs = Date.now() - started;
--            this.audit.append({
--              event: "oa.project.created",
--              ts: timestamp,
--              correlationId,
--              projectId: project.projectId,
--              lpsVersion: livingProjectState.version,
--              result: "ok",
--              durationMs,
--              reusedFromIdempotencyKey: true,
--            });
-+            // Idempotent reuse: Project already durable. Audit is observational —
-+            // must not invent a false create-failure if append fails (no new write txn).
-+            try {
-+              this.audit.append({
-+                event: "oa.project.created",
-+                ts: timestamp,
-+                correlationId,
-+                projectId: project.projectId,
-+                lpsVersion: livingProjectState.version,
-+                result: "ok",
-+                durationMs,
-+                reusedFromIdempotencyKey: true,
-+              });
-+            } catch {
-+              /* best-effort reuse audit */
-+            }
-             return {
-               ok: true,
-               project,
-@@ -246,6 +258,12 @@ export class CreateProject {
-         provenance,
-       };
+    feat(studio): complete L2-D1 Product create audit atomicity
 
-+      // D5 Option A (L2-D1): contractual success audit joins Project/LPS/idempotence
-+      // in the same UnitOfWork. With SqliteProductStore, SqliteProjectAuditJournal
-+      // INSERTs on the same connection participate in BEGIN IMMEDIATE…COMMIT —
-+      // append failure rolls back; no durable Project without success audit, and
-+      // no post-commit ok:false / false "project absent" contradiction.
-+      let durationMs = 0;
-       const persist = async () => {
-         // Re-check under txn/mutex — concurrent creates of the same id must conflict.
-         if (await this.projects.exists(request.projectId)) {
-@@ -259,6 +277,16 @@ export class CreateProject {
-             project.projectId,
-           );
-         }
-+        durationMs = Date.now() - started;
-+        this.audit.append({
-+          event: "oa.project.created",
-+          ts: timestamp,
-+          correlationId,
-+          projectId: project.projectId,
-+          lpsVersion: 1,
-+          result: "ok",
-+          durationMs,
-+        });
-       };
+    AKG-M5 / L2-D1
+    - Product O-01 create audit durable
+    - D5 contractual success in Product UoW
+    - Q5.1-Q5.7 including CORR-01 negative proof
+    - PRR R24 synchronized
+    - O-01 comprehend E2E gap governed
+    - No D1 cutover or migration
 
-       try {
-@@ -274,17 +302,6 @@ export class CreateProject {
-         return fail("PERSISTENCE_FAILURE", "atomic_create_failed");
-       }
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
--      const durationMs = Date.now() - started;
--      this.audit.append({
--        event: "oa.project.created",
--        ts: timestamp,
--        correlationId,
--        projectId: project.projectId,
--        lpsVersion: 1,
--        result: "ok",
--        durationMs,
--      });
--
-       // Return deep clones so callers cannot alias into the returned graph.
-       return {
-         ok: true,
-diff --git a/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts b/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
-index 8e404b34..83572029 100644
---- a/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
-+++ b/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
-@@ -15,7 +15,6 @@ import {
- } from "@/lib/oa/doctrine";
- import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
- import {
--  MemoryProjectAuditJournal,
-   createSqliteProductProjectServices,
-   describeServerOwnedRepositoryConfigGap,
-   resolveServerOwnedRepositoryConfig,
-@@ -562,10 +561,11 @@ export function createLocalVerticalSliceServices(
-           "oa-product.sqlite",
-         )
-       : undefined);
-+  // L2-D1 / D5: default SqliteProjectAuditJournal on Product SQLite (same store).
-+  // Do not inject Memory here — durable create audit is contractual on Studio path.
-   const projectServices = createSqliteProductProjectServices({
-     doctrineResolver,
-     clock,
--    audit: new MemoryProjectAuditJournal(),
-     dbPath: productDbPath,
-   });
-   const idSource = options.idSource ?? new RandomLocalProjectIdSource();
-diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-index e6b593fc..f25f7588 100644
---- a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-+++ b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
-@@ -533,8 +533,9 @@ function wireOaStack(
+diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+index e026431a..f7ecaf1f 100644
+--- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
++++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+@@ -118,6 +118,15 @@ OA = authority of record. W2 = Product coordination. Nora = cognition/recommenda
+ | DEP-MAT-GENPREP | OBJ-ARTIFACT-CONTINUATION / materiality | OBJ-EC | Materiality CURRENT gates empty vs HD-bound refs; Tool-First R1 pathless positive-claim gate | NO (narrative) |
+ | DEP-VSR-D1-AUDIT-TYPE | vertical-slice-runtime | lib/d1 boundedAtomicAudit | **HISTORICAL** TYPE_ONLY import removed under AKG-M5 L1/A09 (local Delivery). VSR/core now type against `ProjectCycleAuditPort` (`lib/platform/t-a7`); D1 store remains transient adapter when `auditMode=sqlite` + store injected; default **noop** | NO (narrative) |
 
-   // MW1-S03 / CORR-01 — compose materialization on normal RuntimeOaStack path.
-   // Product SQLite: durable materialization audit via SqliteProjectAuditJournal
--  // on the same Product store / oa_audit_events (no new table). LPS create/append
--  // may still use MemoryProjectAuditJournal from local composition.
-+  // on the same Product store / oa_audit_events (no new table).
-+  // L2-D1: localProjectComposition also defaults to SqliteProjectAuditJournal
-+  // (D5 create-path durable audit); do not reintroduce Memory on Studio create.
-   const materializationAudit =
-     productSqlite !== null
-       ? new SqliteProjectAuditJournal(productSqlite)
-```
++### Overlay — AKG-M5 L2-D1 D5 CreateProject audit (Delivery 2026-10-24 — branch/Draft PR candidate · NOT ON MAIN)
++
++| Edge | From | To | Change |
++|---|---|---|---|
++| DEP-CREATE-AUDIT-TXN | `CreateProject` | `ProjectAuditJournalPort` + `SqliteProductStore` | Success `oa.project.created` append **inside** UnitOfWork (same SQLite txn when durable) |
++| DEP-COMPOSE-AUDIT-DEFAULT | `localProjectComposition` | `SqliteProjectAuditJournal` | Default Product create journal durable (replaces Memory inject) |
++| New Product table | — | — | **NONE** (`oa_audit_events` reused) |
++| D1 / dual-write | — | — | **NONE** — L2-D2 NOT AUTHORIZED |
++
+ ### Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
 
----
+ | Item | Status |
+diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+index 4dd9bed1..eabf60aa 100644
+--- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
++++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+@@ -82,6 +82,20 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 
-## 17. R23 / R24
+ **Not claimed:** global RESTART SAFE; UI automatically rehydrated; unconditional PREPARE after restart; REAL/HQA restart proven. No invented recovery mechanism beyond candidate W2/OA paths.
 
-| | |
-|---|---|
-| R23 call graph O-01 | inchangé |
-| R23 D5 txn | preuve Q5.3 renforcée → **BEHAVIOR PROVEN AT TESTED SCOPE** |
-| R23 fail/retry | preuve Q5.4 renforcée → **BEHAVIOR PROVEN AT TESTED SCOPE** |
-| R24 L2-D1 initial | PRODUCT SEMANTIC IMPACT YES (conservé) |
-| R24 CORR-01 | **NO ADDITIONAL PRODUCT SEMANTIC IMPACT** (tests + notes PRR 08/09) |
++## Overlay — AKG-M5 L2-D1 D5 CreateProject audit atomicity (Delivery 2026-10-24)
++
++| Item | AS-IMPLEMENTED (branch candidate — **NOT MERGED** / **NOT ON MAIN**) |
++|---|---|
++| Lifecycle | Historical local Delivery + CORR-01 → **Git Integration candidate** on `feat/akg-m5-l2-d1-product-o01-audit` (Draft PR) — ≠ CURRENT ON MAIN until merge GO |
++| Contractual success event | `oa.project.created` result=`ok` |
++| Atomicity | Append runs **inside** `SqliteProductStore.runInTransaction` with Project/LPS/idempotence (same `oa_*` DB / `oa_audit_events`) |
++| Studio composition | `localProjectComposition` defaults to `SqliteProjectAuditJournal` (no Memory inject on create path) |
++| Failure audit | Observational / best-effort — must not mask create failure |
++| Idempotent reuse audit | Best-effort (Project already durable) |
++| New table / port | **NONE** |
++| Proof | `l2d1D5CreateAuditAtomicity.test.ts` Q5.1–Q5.7 — DETERMINISTIC AT TESTED SCOPE |
++| Not claimed | L2-D2 cutover · REAL · runtime v3 ADOPTED · D1 retire · CURRENT ON MAIN |
++
+ ## Additional stores (harvest)
 
----
-
-## 18. PRR / digests
-
-PRR 08/09 annotés CORR-01 ; digests `--write-digests` OK. 04/06 overlays L2-D1 inchangés sémantiquement.
-
-```diff
+ | Store | Role | Notes |
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 index bf5add8c..e6010120 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
@@ -915,36 +919,38 @@ index bf5add8c..e6010120 100644
  | F05 optional documentary → Generic PREPARE (PR #586) | `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` (+ G-D4, Product Continuity, HQA-F01) | DETERMINISTIC — `no_require_artifact` routes to Generic PREPARE; Artifact obligation path preserved; exact caps; non-authoritative path candidates; Fake cue `__P6_OPTIONAL_DOCUMENTARY_MD__` ≠ OpenAI LIVE |
  | F04 Nora Generic PREPARE tool (D-ER-16) | `p6.der16.genericNoraToolInvocation.d0.test.ts` | DETERMINISTIC — solicit PREPARE only; structural fail-closed; no Attempt; PENDING_GIT_INTEGRATION |
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 536de8cf..14fb7df2 100644
+index 536de8cf..d62916f3 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -5,18 +5,43 @@
+@@ -5,18 +5,45 @@
  - Runtime v3 **NON ADOPTED**
  - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-+## Overlay — AKG-M5 L2-D1 O-01 + D5 (local Delivery 2026-10-24)
++## Overlay — AKG-M5 L2-D1 O-01 + D5 (Delivery 2026-10-24 → Git Integration candidate)
 +
 +| Item | Status |
 +|---|---|
-+| GO | **L2-D1 BOUNDED LOCAL PRODUCT DELIVERY** — local only · **NOT GIT INTEGRATED** |
-+| Branch | `feat/akg-m5-l2-d1-product-o01-audit` @ `main` `d6230177…` |
++| GO | **L2-D1 BOUNDED LOCAL PRODUCT DELIVERY** + **L2-D1 GIT INTEGRATION** (Draft PR) — **NOT MERGED** / **NOT ON MAIN** |
++| Branch | `feat/akg-m5-l2-d1-product-o01-audit` @ base `main` `d6230177…` |
++| Lifecycle note | Overlay title “local Delivery” remains a historical snapshot; branch/Draft PR ≠ CURRENT ON MAIN |
 +| D5 | Success create audit **inside** Product UnitOfWork · Studio composition defaults `SqliteProjectAuditJournal` |
 +| Q5.1–Q5.7 | DETERMINISTIC PROVEN AT TESTED SCOPE (`l2d1D5CreateAuditAtomicity.test.ts`) |
-+| O-01 | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover |
++| O-01 | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover · « comprendre » E2E Product→UI = **KNOWN GAP** |
 +| L2-D2 | **NOT AUTHORIZED** |
 +| H4 / R-CUT | **OPEN / NOT PROVEN** (unchanged) |
 +| REAL / P6 / v3 | REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** |
 +
-+## Overlay — AKG-M5 L2-D1 / CORR-01 evidence correction (local 2026-10-24)
++## Overlay — AKG-M5 L2-D1 / CORR-01 evidence correction (2026-10-24)
 +
 +| Item | Status |
 +|---|---|
-+| GO | **L2-D1 / CORR-01 — TARGETED EVIDENCE CORRECTION** — tests/preuves · **no Product redesign** |
++| GO | **L2-D1 / CORR-01 — TARGETED EVIDENCE CORRECTION** — tests/preuves · **no Product redesign** · absorbed into Git Integration candidate |
 +| CR-D1-02 / Q5.3 | Success `oa.project.created` append observed with `DatabaseSync.isTransaction === true` (node:sqlite) |
 +| CR-D1-01 / Q5.4 | Contractual audit failure → rollback (no Project/LPS/idem/success) → clean retry → single durable create → idempotent reuse |
 +| Product source | **UNCHANGED** vs L2-D1 Delivery (Option A conserved) |
 +| O-01 « comprendre » | Surfaces Product COVERAGE VERIFIED; UI mocks presentation BEHAVIOR AT TESTED SCOPE; **integrated durable Product→UI comprehend** = **KNOWN GAP** (governed) |
 +| Additional product semantic impact | **NONE** beyond L2-D1 initial R24 |
++| Lifecycle | **NOT MERGED** / **NOT ON MAIN** until distinct Morris merge GO |
 +| L2-D2 | **NOT AUTHORIZED** |
 +
  ## Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
@@ -966,7 +972,7 @@ index 536de8cf..14fb7df2 100644
 
  ## Overlay — P6-REAL-OBS-P0 Option B (local candidate — CRITICAL CORRECTION)
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 7110a35d..28aeed49 100644
+index 7110a35d..b0deb3ef 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -23,7 +23,7 @@
@@ -974,7 +980,7 @@ index 7110a35d..28aeed49 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
 -      "sha256_16": "d72f09a904bc5b1c"
-+      "sha256_16": "5978d00f4c53a52e"
++      "sha256_16": "5721333d432b4374"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -983,7 +989,7 @@ index 7110a35d..28aeed49 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
 -      "sha256_16": "93e604fb84081c98"
-+      "sha256_16": "17febea948bbfb0c"
++      "sha256_16": "19920b2897a11d22"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
@@ -997,7 +1003,7 @@ index 7110a35d..28aeed49 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "0f6e34e353fea6fa"
-+      "sha256_16": "bac4759d0b66dfd3"
++      "sha256_16": "b843a205573a6d29"
      }
    ],
    "components": [
@@ -1012,55 +1018,87 @@ index 7110a35d..28aeed49 100644
        "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
 ```
 
+`check-production-runtime-reference.mjs --write-digests` → CONFORMANCE OK (pre-commit).
+
 ---
 
-## 19. Dette / exit
+## 14–15. Q5 + régressions (pre-push local)
 
-| Dette | Exit |
+| Suite | Résultat |
 |---|---|
-| O-01 comprendre E2E intégré | GO UI intégration bornée / suite |
-| Dual UX D1 | L2-D2 sous GO |
-| Local uncommitted | GO Git Integration distinct |
+| Q5.1–Q5.7 | **7/7 PASS** |
+| Batch 10 fichiers (durability/restart/UI/composition/boundaries) | **82/82 PASS** |
+| `tsc --noEmit` | PASS |
+| PRR digests | OK |
+
+REAL / DB user : non exécutés.
 
 ---
 
-## 20. Non-claims
+## 16–17. O-01 / H4 / R-CUT / REAL / v3
 
-Pas de redesign D5 · pas O-01 E2E COMPLETE · pas SAFE TO DELETE D1 · pas REAL · pas v3 ADOPTED · pas merge.
-
----
-
-## 21. Gates Morris
-
-1. ChatGPT Critical Re-review CORR-01
-2. GO Git Integration (projet) distinct
-3. GO merge distinct
-4. GO L2-D2 distinct
+O-01 créer/trouver/reprendre : DETERMINISTIC AT TESTED SCOPE. Comprendre E2E Product→UI : **KNOWN GAP GOVERNED**. H4 OPEN · R-CUT NOT PROVEN · REAL NOT PROVEN · v3 NON ADOPTED.
 
 ---
 
-## 22. Verdict
-
-**L2-D1 CORR-01 EVIDENCE CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL RE-REVIEW — NOT GIT INTEGRATED — L2-D2 NOT AUTHORIZED**
-
-**O-01 COVERAGE GAP GOVERNED** (comprendre intégré).
-
----
-
-## 23. Review Handoff L3
+## 18–22. Commit / Push / Draft PR
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Commit FULL | `d90818bb47525fa2c9b4ad09b26187b4f6380bf8` |
-| Blob FULL | `65227ed800a4cdb0c568f311acdff37e60ab09b1` |
-| Parent | `49abd55d0244b154d3abcc511eef738db69685f5` |
-| Projet | local uncommitted ; **pas de push/PR** |
+| Commit | `d98b39302a484a21f42a25d8c7155bbbf6f6f746` |
+| Push remote | `d98b39302a484a21f42a25d8c7155bbbf6f6f746` (identity match) |
+| Draft PR | **#612** — https://github.com/mcleland147/sfia-workspace/pull/612 |
+| Base / Head | `main` ← `feat/akg-m5-l2-d1-product-o01-audit` |
+| État | **DRAFT** OPEN · **NOT MERGED** |
+| Fichiers PR | 9 exact |
 
 ---
 
-## 24. Instruction ChatGPT (rappel)
+## 23. CI @ Delivery SHA
 
-Vérifier Q5.3/Q5.4 renforcés, observation txn réelle, retry après rollback, O-01 matrice, diffs, handoff distant. Critical Re-review ≠ Git Integration GO.
+Workflow run: [40081164062](https://github.com/mcleland147/sfia-workspace/actions/runs/40081164062)
+Commit SHA: `d98b39302a484a21f42a25d8c7155bbbf6f6f746`
 
-**Fin pack FULL L2-D1 / CORR-01.**
+| Check | Conclusion | URL |
+|---|---|---|
+| Detect SFIA Studio changes | **SUCCESS** | https://github.com/mcleland147/sfia-workspace/actions/runs/40081164062/job/120834846981 |
+| Build and validate SFIA Studio | **SUCCESS** (7m31s) | https://github.com/mcleland147/sfia-workspace/actions/runs/40081164062/job/120834872660 |
+| SFIA Studio Required Gate | **SUCCESS** | https://github.com/mcleland147/sfia-workspace/actions/runs/40081164062/job/120836334480 |
+
+**CI PASS at Delivery SHA** — MERGE NOT AUTHORIZED (GO merge distinct).
+
+---
+
+## 24–26. Dette / Non-claims / Gates
+
+| Dette | Exit |
+|---|---|
+| O-01 comprendre E2E | GO UI intégration distinct |
+| Dual UX D1 | L2-D2 sous GO |
+| Draft → merge | Critical PR Review + GO Morris merge |
+
+Non-claims: pas CURRENT ON MAIN · pas O-01 E2E COMPLETE · pas SAFE TO DELETE D1 · pas REAL · pas v3 ADOPTED · pas L2-D2.
+
+Gates: Critical PR Review → GO merge → post-merge CI → GO L2-D2.
+
+---
+
+## 27. Verdict
+
+**L2-D1 GIT INTEGRATION COMPLETE — DRAFT PR OPEN — READY FOR CHATGPT CRITICAL PR REVIEW — NOT MERGED — O-01 E2E GAP GOVERNED — L2-D2 NOT AUTHORIZED**
+
+---
+
+## 28. Review Handoff L3
+
+| Item | Valeur |
+|---|---|
+| Verdict publish | _PENDING_PUBLISH_ |
+| Commit FULL | _PENDING_PUBLISH_ |
+| Blob FULL | _PENDING_PUBLISH_ |
+| Parent | `b3a60ac7ed6e88a75e41d8877f676e77fa5d8138` |
+| Projet commit | `d98b39302a484a21f42a25d8c7155bbbf6f6f746` · Draft PR #612 · **NOT MERGED** |
+
+---
+
+**Fin pack FULL L2-D1 Git Integration.**
