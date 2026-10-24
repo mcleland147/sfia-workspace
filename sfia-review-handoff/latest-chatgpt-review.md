@@ -1,309 +1,424 @@
-# SFIA Studio — AKG-M5 / L2-D2 Cycle 9 — CORR-REVIEW-01 REVIEW PACK EVIDENCE COMPLETION
+# SFIA Studio — AKG-M5 / L2-D2 Cycle 8 — CORR-02 TARGETED DELIVERY CORRECTION
 
 **Profile:** CRITICAL
-**Typologie:** DOC / EVIDENCE CORRECTION
-**Date/heure locale:** 2026-10-24 18:02 CEST
+**Typologie:** EVOL / TARGETED CORRECTION
+**Date/heure locale:** 2026-10-24 18:30 CEST
 **Auteur rapport:** Cursor (Composer)
-**GO / Autorité:** Consomme le GO Delivery L2-D2 précédent **uniquement** pour régulariser ses preuves. **Aucune nouvelle mutation Product.** Aucun G-ACTIVATION / G-GIT projet.
+**GO / Autorité:** **G-CORR02 GRANTED** (Morris 2026-10-24). Autorise uniquement : CR-D2-02/03/04 + tests ciblés + Review Pack FULL + L3 handoff. **G-ACTIVATION / G-GIT PROJET / G-PRR OPEN.**
 
 ---
 
 ## 0. Verdict Cursor
 
-**REVIEW PACK EVIDENCE COMPLETE**
-— MODIFIED CONTENT INCLUDED
-— PRODUCT CODE UNCHANGED
+**AKG-M5 L2-D2 CORR-02**
+— TARGETED CORRECTIONS IMPLEMENTED
+— EVIDENCE COMPLETE
 — CRITICAL REVIEW REQUIRED
 — ACTIVATION NOT AUTHORIZED
+— G-PRR / G-GIT OPEN
 
-Instruction ChatGPT : Critical Review désormais possible sur le contenu intégral ci-dessous (diffs tracked + fichiers new complets + preuves tests). Ne pas traiter ce cycle comme une nouvelle Delivery.
-
----
-
-## 1. Objectif CORR-REVIEW-01
-
-Le handoff Delivery `fd416a75` / blob `982a2b02` était trop synthétique pour une Critical Review du freeze, des routes et des tests. Ce cycle publie le **contenu substantiel** des modifications **sans** retoucher le code Product.
+Instruction ChatGPT : Critical Review du **delta CORR-02** puis cumul Delivery L2-D2. Ne pas traiter CORR-02 comme création du Delivery initial. Ne pas accorder G-ACTIVATION / G-GIT / G-PRR implicitement.
 
 ---
 
-## 2. Git Truth
+## 01. GO Morris CORR-02
+
+GO explicite reçu 2026-10-24 :
+
+- Corriger retour FORBIDDEN confirmation D1 (CR-D2-02).
+- Fermer writers D1 via connexions injectées (CR-D2-03).
+- Renforcer preuve O-01 Product→UI « comprendre » (CR-D2-04).
+- Tests ciblés + Review Pack FULL + Handoff L3 distant vérifié.
+
+**Non autorisé :** activation Studio ; config active ; DB OA/Nora définitives ; DB P6 réelles ; cutover ; migration/suppression historique ; push projet / PR / merge ; édition PRR ; promotion runtime v3.
+
+---
+
+## 02. Git Truth / état worktree
 
 | Check | Résultat |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` |
+| `pwd -P` | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` |
+| Remote | `https://github.com/mcleland147/sfia-workspace.git` |
 | Branch | `feat/akg-m5-l2-d2-local-oa-cutover` |
 | HEAD | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
-| origin/main | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
+| `origin/main` (local + `ls-remote`) | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
 | Staged | **vide** |
-| Handoff tip entrée | `fd416a75d457d0e340dfbb22d269e0f996402fba` |
-| P6 dirty | ~11 — non altéré |
-| WT collision note | `…-akg-m5-l2-d2-local-oa-cutover` = L2-D1 WT distinct (d98b3930) ; Delivery = path `feat-…` |
+| Delivery dirty | **préservé** (Delivery L2-D2 + delta CORR-02) — non committé / non poussé |
+| Handoff tip entrée | `828e9197111f1f5485f5f3d00995b9b75b64a238` (CORR-REVIEW-01) / blob `0f8d825551261040cb7b0efb80d1b876ea27ddda` |
+| P6 WT | `/Users/morris/Projects/sfia-workspace` — dirty ~11 — **non altéré** |
+| Fresh Start candidate | intacte (non touchée) |
+| WT collision note | path `…-akg-m5-l2-d2-local-oa-cutover` = L2-D1 distinct ; Delivery = `feat-…` |
 
-Git Truth : PASS. Aucun reset/stash/clean.
-
----
-
-## 3. Sources / Convergence
-
-Sources v2.6 + Doctrine/PRR/M5/L2-D0 + handoff Delivery lus en contexte. Capacité O-01. L2-D2 implémenté localement (dirty). G-ACTIVATION/G-GIT OPEN. Runtime v3 NON ADOPTED.
-
-**Ce cycle :** PRODUCT CODE UNCHANGED (aucune écriture sous `app/lib`, `app/app`, tests Product). Seul artefact : Review Pack + handoff L3.
+Git Truth : **PASS**. Aucun reset/stash/clean/checkout destructif.
 
 ---
 
-## 4. Inventaire exact des fichiers Delivery (état working tree)
+## 03. Base et HEAD
 
-### 4.1 Tracked modified (Product / config doc)
-
-| Path | Status |
-|---|---|
-| `projects/sfia-studio/app/.env.example` | M |
-| `projects/sfia-studio/app/app/nouvelle-demande/page.tsx` | M |
-| `projects/sfia-studio/app/app/projects/[id]/page.tsx` | M |
-| `projects/sfia-studio/app/app/projects/new/page.tsx` | M |
-| `projects/sfia-studio/app/app/workspace/page.tsx` | M |
-| `projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts` | M |
-| `projects/sfia-studio/app/lib/d1/commands.ts` | M |
-| `projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts` | M |
-| `projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts` | M |
-| `projects/sfia-studio/app/lib/d1/db.ts` | M |
-| `projects/sfia-studio/app/lib/d1/errors.ts` | M |
-| `projects/sfia-studio/app/lib/d1/index.ts` | M |
-| `projects/sfia-studio/app/lib/d1/repository.ts` | M |
-
-### 4.2 Untracked (créés Delivery)
-
-| Path | Status |
-|---|---|
-| `projects/sfia-studio/app/lib/d1/localOaExclusiveMode.ts` | ?? |
-| `projects/sfia-studio/app/lib/d1/localOaExclusiveMode.store.ts` | ?? |
-| `projects/sfia-studio/app/lib/d1/localOaExclusiveMode.test-only.ts` | ?? |
-| `projects/sfia-studio/app/lib/d1/legacyNavigation.ts` | ?? |
-| `projects/sfia-studio/app/__tests__/d1/l2d2LocalOaExclusiveFreeze.test.ts` | ?? |
-| `projects/sfia-studio/app/__tests__/d1/l2d2D4LegacyNavigation.test.ts` | ?? |
-| `projects/sfia-studio/app/__tests__/oa/project/l2d2O01ProductUiIntegrated.test.tsx` | ?? |
-
-### 4.3 Artefact local (pack)
-
-| Path | Status |
-|---|---|
-| `.tmp-sfia-review/chatgpt-review.md` | M (ce cycle) |
-
-Staged : aucun.
+- Base historique Delivery = `main` @ `1a380f22c2ee9c63c525213e01de4bca14dff9ca` (= ChatGPT remote main attendu).
+- Aucun commit Product sur la branche Delivery.
+- Cumul dirty = Delivery L2-D2 (déjà publié CORR-REVIEW-01) **+** delta CORR-02 ci-dessous.
 
 ---
 
-## 5. R23 — Composants / invariants / preuves
+## 04. Sources v2.6 / Convergence
 
-| Composant | Classification | Invariant | Preuve |
-|---|---|---|---|
-| `localOaExclusiveMode` + `openD1Db` | FREEZE gated | Exclusive=1 ⇒ aucun open D1 avant resolve/DDL | Q8 BEHAVIOR PROVEN AT TESTED SCOPE |
-| Lazy repo/commands/confirm/audit | ADAPT | Pas d'open via default-arg pré-corps | COVERAGE VERIFIED + Q8 |
-| `legacyNavigation` + pages | ADAPT D4 | Generics redirect ; deep-link notFound ; no map IDs | Q7/Q10 BEHAVIOR PROVEN |
-| OA Product path | KEEP | Marqueur default OFF ; OA inchangé hors tests jetables | O-01 BEHAVIOR PROVEN DET |
-| MethodModeHold | KEEP | ≠ freeze create (CR-D2-01) | DOCUMENTED |
-| Confirmation `ok:true`+FAILED | KNOWN GAP / dette | Freeze effectif via `result.errorCode=FORBIDDEN` ; shape historique | DOCUMENTED réserve |
-| O-01 « comprendre » live Studio | KNOWN GAP activation | DET UI intégré ≠ G-ACTIVATION | PARTIAL vs live |
-| Q15 conversational large | PARTIAL | Non expansé | DOCUMENTED |
+Consultées (guidance) : template cycle ; routing ; guardrails ; operating model ; CKC 08 ; Convergence Build Doctrine / Roadmap ; Product Completion 01 ; M4 to-be ; M5 blueprint + L2-D0 readiness ; Framings 30/32/34/37 ; PRR README + volumes 03–09 (lecture seule) ; handoff CORR-REVIEW-01 @ `828e9197`.
+
+Capacité : **O-01**. Fondations : V3-F02 / V3-F06 / V3-F12. Milestone AKG-M5. Runtime v3 **NON ADOPTED**.
 
 ---
 
-## 6. Ordre des guards D1 (fail-closed)
+## 05. R23 / composants / invariants
 
-1. Appel writer/reader D1 (`createProject` / `selectMethodMode` / `executeConfirmedMutation` / `new D1ProjectRepository()` / `new BoundedAtomicAuditStore()` / `openD1Db`).
-2. Corps résout repo **lazy** (`repoArg ?? new D1ProjectRepository()`).
-3. Constructeur repo → `openD1Db()`.
-4. **`assertD1AccessAllowedWhenLocalOaExclusive()`** — si mode actif → `D1Error FORBIDDEN` **avant** `resolveD1SqlitePath` / `DatabaseSync` / DDL.
-5. Sinon resolve path + open + migrate.
+| Correction | Composants | Flux | Invariants | Entrée | Consumers | Dépendances | Risques | Couverture | Exit proof |
+|---|---|---|---|---|---|---|---|---|---|
+| CR-D2-02 | `confirmation/actions.ts` ; `ConfirmationPanel` (inchangé) | Confirm CREATE sous exclusive | FAILED+FORBIDDEN → `ok:false` ; pas de fausse réussite UI | `actionExecuteConfirmation` | Intake / ConfirmationPanel | `executeConfirmedMutation` + freeze | Régression autres status | freeze A1–A6 + UI unit | **BEHAVIOR PROVEN AT TESTED SCOPE** |
+| CR-D2-03 | `repository.ts` ; `boundedAtomicAudit.ts` ; guard existant | Mutation via DB injectée | Aucune écriture D1 applicative si exclusive ON | `createProjectAtomic` / `selectMethodModeAtomic` / `append` / `clearForTests` | commands / audit port | `assertD1AccessAllowedWhenLocalOaExclusive` | Connexion brute hors API | injected suite B1–B9 | **BEHAVIOR PROVEN AT TESTED SCOPE** (frontière résiduelle déclarée) |
+| CR-D2-04 | O-01 test ; UI existante `ProjectsPage` / `ProjectWorkspacePage` | Create OA → list → workspace → reopen | Objective LPS Truth C visible | objective create input | Product UI | SqliteProductStore + runtime | Mock-only UI | O-01 assertions objective | **BEHAVIOR PROVEN AT TESTED SCOPE** (DET) |
 
-Pages D4 : helpers **avant** tout `listWorkspaceProjects` / `getProject`.
+Niveaux : pas de promotion DET → LIVE. **LIVE E2E / CUTOVER / Studio actif : NOT PROVEN / NOT AUTHORIZED.**
 
-Server actions : `actionCreateProject` / `actionSelectMethodMode` catch → `{ok:false, code:FORBIDDEN}`.
-`actionExecuteConfirmation` : catch seulement si throw ; `executeConfirmedMutation` **retourne** FAILED sans rethrow → `ok:true` + `result.status=FAILED` + `errorCode=FORBIDDEN` (**réserve documentée**).
+**Frontière résiduelle CR-D2-03 (déclarée) :** une `DatabaseSync` brute hors APIs D1 applicatives (`exec`/`prepare` directs) n'est **pas** contrôlée. Couverture = writers exposés (`D1ProjectRepository` mutatifs + `BoundedAtomicAuditStore` mutatifs) + `openD1Db`.
 
 ---
 
-## 7. Preuves tests (Delivery — non re-exécutés ce cycle CORR)
-
-Commandes historiques Delivery (cwd `projects/sfia-studio/app`) :
+## 06. Liste complète des fichiers dirty
 
 ```
-./node_modules/.bin/vitest run \
-  __tests__/d1/l2d2LocalOaExclusiveFreeze.test.ts \
-  __tests__/d1/l2d2D4LegacyNavigation.test.ts \
-  __tests__/oa/project/l2d2O01ProductUiIntegrated.test.tsx \
-  __tests__/oa/project/l2d1D5CreateAuditAtomicity.test.ts \
-  __tests__/oa/project/m1ProductSqliteDurability.test.ts
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/.env.example
+ M projects/sfia-studio/app/app/nouvelle-demande/page.tsx
+ M projects/sfia-studio/app/app/projects/[id]/page.tsx
+ M projects/sfia-studio/app/app/projects/new/page.tsx
+ M projects/sfia-studio/app/app/workspace/page.tsx
+ M projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
+ M projects/sfia-studio/app/lib/d1/commands.ts
+ M projects/sfia-studio/app/lib/d1/confirmation/actions.ts
+ M projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts
+ M projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts
+ M projects/sfia-studio/app/lib/d1/db.ts
+ M projects/sfia-studio/app/lib/d1/errors.ts
+ M projects/sfia-studio/app/lib/d1/index.ts
+ M projects/sfia-studio/app/lib/d1/repository.ts
+?? projects/sfia-studio/app/__tests__/d1/l2d2ConfirmationForbiddenUi.test.tsx
+?? projects/sfia-studio/app/__tests__/d1/l2d2D4LegacyNavigation.test.ts
+?? projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts
+?? projects/sfia-studio/app/__tests__/d1/l2d2LocalOaExclusiveFreeze.test.ts
+?? projects/sfia-studio/app/__tests__/oa/project/l2d2O01ProductUiIntegrated.test.tsx
+?? projects/sfia-studio/app/lib/d1/legacyNavigation.ts
+?? projects/sfia-studio/app/lib/d1/localOaExclusiveMode.store.ts
+?? projects/sfia-studio/app/lib/d1/localOaExclusiveMode.test-only.ts
+?? projects/sfia-studio/app/lib/d1/localOaExclusiveMode.ts
 ```
 
-Résultat rapporté Delivery : **Test Files 5 passed / Tests 27 passed**.
-
-```
-npm run typecheck   # tsc --noEmit — PASS
-git diff --check    # PASS
-```
-
-**Ce cycle CORR :** aucun nouveau test exécuté ; aucun PASS inventé au-delà de ces preuves Delivery déjà établies.
-
-### Setup / mocks / SQLite (résumé + contenu full §9)
-
-- **Freeze/Q8 :** `mkdtemp` + `D1_SQLITE_PATH` jetable ; `setLocalOaExclusiveModeForTests(true)` ; assert `fs.existsSync(probe)===false` après refus.
-- **D4/Q7/Q10 :** `vi.mock("next/navigation")` redirect/notFound ; inactive = no-op.
-- **O-01 :** temp `oa-product.sqlite` via `productDbPath` ; `serverGuard` stub jsdom only ; UI `ProjectsPage` / `ProjectWorkspacePage` actions réelles ; probe D1 absent ; exclusive ON pendant scénario.
+**Légende :**
+- Fichiers Delivery L2-D2 déjà inventoriés CORR-REVIEW-01 (freeze/D4/mode/routes/env/tests freeze·D4·O01) : **conservés**.
+- **Delta CORR-02 Product code :** `confirmation/actions.ts` ; `repository.ts` (asserts mutation) ; `boundedAtomicAudit.ts` (asserts mutation).
+- **Delta CORR-02 tests new :** `l2d2InjectedConnectionWriterGuards.test.ts` ; `l2d2ConfirmationForbiddenUi.test.tsx`.
+- **Delta CORR-02 tests modified :** `l2d2LocalOaExclusiveFreeze.test.ts` (ok:false) ; `l2d2O01ProductUiIntegrated.test.tsx` (objective UI/LPS).
 
 ---
 
-## 8. Q15 PARTIAL et réserve ok:true + FAILED
+## 07. Delta exact CORR-02 (vs Delivery déjà dirty)
 
-**Q15 :** non-régression conversationnelle large non étendue ; O-01 prouve titre/état UI depuis OA DET seulement → **PARTIAL**.
+### A — CR-D2-02 Confirmation FORBIDDEN
 
-**Réserve confirmation :** sous exclusive, `executeConfirmedMutation` retourne `{status:"FAILED", errorCode:"FORBIDDEN"}` sans throw ; `actionExecuteConfirmation` renvoie donc `{ok:true, result:…FAILED}`. Effet freeze OK (pas d'écriture / pas de fichier) ; **amélioration future possible** : fail-closed shape `{ok:false}` — **gap code ultérieur**, hors CORR-REVIEW-01.
+`actionExecuteConfirmation` : si `result.status === "FAILED" && result.errorCode === "FORBIDDEN"` → `{ ok:false, code:"FORBIDDEN", message:… }` au lieu de `{ ok:true, result }`.
 
-### Gaps correction code ultérieure (hors ce GO)
+Autres status inchangés (SUCCEEDED / ALREADY_APPLIED / NO_MUTATION / CANCELLED / autres erreurs via catch).
 
-1. Harmoniser `actionExecuteConfirmation` pour propager FORBIDDEN en `ok:false`.
-2. Q15 conversational NR ciblé post-activation.
-3. G-ACTIVATION live proofs (App Support paths, Studio start).
-4. Sync PRR (G-PRR).
+UI non modifiée : `ConfirmationPanel` baille déjà sur `!res.ok` (pas d'`onDone` → Intake ne passe pas en confirmed).
+
+### B — CR-D2-03 Injected writers
+
+Réutilise `assertD1AccessAllowedWhenLocalOaExclusive()` **avant** `BEGIN IMMEDIATE` / INSERT / UPDATE / DELETE dans :
+- `D1ProjectRepository.createProjectAtomic`
+- `D1ProjectRepository.selectMethodModeAtomic`
+- `BoundedAtomicAuditStore.append`
+- `BoundedAtomicAuditStore.clearForTests`
+
+Pas de moteur de policy parallèle.
+
+### C — CR-D2-04 O-01 comprendre
+
+Donnée métier : **objective LPS** (Truth C), déjà projetée :
+- persistée `oa_lps.payload_json.objective`
+- runtime list enrichit `project.objective`
+- UI list `data-testid="studio-projects-current"`
+- UI workspace `data-testid="project-subtitle"` ← `success.project.objective`
+
+Aucun nouvel attribut / aucune refonte UI.
 
 ---
 
-## 9. Contenu complet — fichiers NEW (untracked)
+## 08. Diffs substantiels CORR-02 (Product)
 
-### NEW `projects/sfia-studio/app/lib/d1/localOaExclusiveMode.ts`
+```diff
+diff --git a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
+index a8e9d1b1..8e422679 100644
+--- a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
++++ b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
+@@ -6,6 +6,7 @@
 
-```ts
-/**
- * Local OA-exclusive cutover marker (L2-D2 Delivery).
- *
- * Env: SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1
- * Default: inactive (historical D1 runtime unchanged).
- *
- * When active (future G-ACTIVATION only):
- * - all D1 SQLite opens fail closed before resolve/open/DDL
- * - legacy navigation uses deny/redirect (D4 Option A)
- *
- * Server-only intent. Not a parallel policy engine.
- * Test override: localOaExclusiveMode.test-only.ts (never barrel-exported).
- */
+ import type { DatabaseSync } from "node:sqlite";
+ import { openD1Db, nowIso } from "@/lib/d1/db";
++import { assertD1AccessAllowedWhenLocalOaExclusive } from "@/lib/d1/localOaExclusiveMode";
+ import type { ProjectCycleAuditPort } from "@/lib/platform/t-a7/projectCycleAtomicCoordinator";
 
-import { D1Error } from "./errors";
-import { localOaExclusiveModeOverrideSlot } from "./localOaExclusiveMode.store";
+ export const BOUNDED_ATOMIC_AUDIT_SCHEMA_VERSION =
+@@ -51,9 +52,16 @@ export interface AppendAtomicAuditInput {
+ }
 
-export const LOCAL_OA_EXCLUSIVE_ENV_KEY =
-  "SFIA_STUDIO_LOCAL_OA_EXCLUSIVE" as const;
+ export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
+-  constructor(private readonly db: DatabaseSync = openD1Db()) {}
++  private readonly db: DatabaseSync;
++
++  /** Lazy open — respects local OA-exclusive fail-closed before D1 DDL. */
++  constructor(db?: DatabaseSync) {
++    this.db = db ?? openD1Db();
++  }
 
-export function isLocalOaExclusiveMode(): boolean {
-  const override = localOaExclusiveModeOverrideSlot.current;
-  if (override !== null) return override;
-  return process.env[LOCAL_OA_EXCLUSIVE_ENV_KEY]?.trim() === "1";
+   append(input: AppendAtomicAuditInput): BoundedAtomicAuditRecord {
++    // CR-D2-03: mutation guard for injected connections (openD1Db alone is insufficient).
++    assertD1AccessAllowedWhenLocalOaExclusive();
+     const createdAt = nowIso();
+     const record: BoundedAtomicAuditRecord = {
+       opId: input.opId,
+@@ -124,6 +132,8 @@ export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
+   }
+
+   clearForTests(): void {
++    // CR-D2-03: DELETE is a mutation — block under OA-exclusive.
++    assertD1AccessAllowedWhenLocalOaExclusive();
+     this.db.exec("DELETE FROM d1_atomic_audit");
+   }
+ }
+diff --git a/projects/sfia-studio/app/lib/d1/confirmation/actions.ts b/projects/sfia-studio/app/lib/d1/confirmation/actions.ts
+index d647a3ec..4f86a547 100644
+--- a/projects/sfia-studio/app/lib/d1/confirmation/actions.ts
++++ b/projects/sfia-studio/app/lib/d1/confirmation/actions.ts
+@@ -36,6 +36,16 @@ export async function actionExecuteConfirmation(
+ ): Promise<ConfirmActionResult> {
+   try {
+     const result = executeConfirmedMutation(input);
++    // CR-D2-02: OA-exclusive freeze returns FAILED+FORBIDDEN without throw —
++    // surface as ok:false so UI does not treat confirmation as success.
++    if (result.status === "FAILED" && result.errorCode === "FORBIDDEN") {
++      return {
++        ok: false,
++        code: "FORBIDDEN",
++        message:
++          "Confirmation refusée : écriture D1 bloquée (mode OA exclusif local).",
++      };
++    }
+     return { ok: true, result };
+   } catch (error) {
+     return serializeError(error);
+diff --git a/projects/sfia-studio/app/lib/d1/repository.ts b/projects/sfia-studio/app/lib/d1/repository.ts
+index 44d09652..6167b750 100644
+--- a/projects/sfia-studio/app/lib/d1/repository.ts
++++ b/projects/sfia-studio/app/lib/d1/repository.ts
+@@ -1,6 +1,7 @@
+ import type { DatabaseSync } from "node:sqlite";
+ import { openD1Db, nowIso } from "./db";
+ import { D1Error } from "./errors";
++import { assertD1AccessAllowedWhenLocalOaExclusive } from "./localOaExclusiveMode";
+ import type {
+   D1Assignment,
+   D1AuditEvent,
+@@ -29,7 +30,12 @@ function mapProject(row: Record<string, unknown>): D1Project {
+ }
+
+ export class D1ProjectRepository {
+-  constructor(private readonly db: DatabaseSync = openD1Db()) {}
++  private readonly db: DatabaseSync;
++
++  /** Lazy open — avoids default-arg openD1Db() before caller guards. */
++  constructor(db?: DatabaseSync) {
++    this.db = db ?? openD1Db();
++  }
+
+   listProjects(workspaceId: string): D1Project[] {
+     const rows = this.db
+@@ -94,6 +100,8 @@ export class D1ProjectRepository {
+     idempotencyKey: string;
+     responseJson: string;
+   }): { kind: "created" } | { kind: "idempotent"; responseJson: string } {
++    // CR-D2-03: injected DatabaseSync must not bypass OA-exclusive freeze.
++    assertD1AccessAllowedWhenLocalOaExclusive();
+     this.db.exec("BEGIN IMMEDIATE");
+     try {
+       const existing = this.getIdempotentResponse(args.idempotencyKey);
+@@ -177,6 +185,8 @@ export class D1ProjectRepository {
+     correlationId: string;
+     eventIds: { mode: string; activated?: string };
+   }): D1Project {
++    // CR-D2-03: injected DatabaseSync must not bypass OA-exclusive freeze.
++    assertD1AccessAllowedWhenLocalOaExclusive();
+     this.db.exec("BEGIN IMMEDIATE");
+     try {
+       const current = this.getProject(args.projectId);
+
+```
+
+### `actions.ts` complet (post CORR-02)
+
+```typescript
+"use server";
+
+import { executeConfirmedMutation } from "./executeConfirmation";
+import { buildConfirmationSummary } from "./summary";
+import { getProject } from "../commands";
+import { D1Error } from "../errors";
+import type {
+  BoundedMutationResult,
+  ConfirmationSummary,
+  ExecuteConfirmationInput,
+  ProjectDraftFields,
+} from "./types";
+import { logIntakeEvent } from "../intakeObservability";
+
+function serializeError(error: unknown): {
+  ok: false;
+  code: string;
+  message: string;
+} {
+  if (error instanceof D1Error) {
+    return { ok: false, code: error.code, message: error.message };
+  }
+  return {
+    ok: false,
+    code: "UNKNOWN",
+    message: "Échec de confirmation. Réessayez.",
+  };
 }
 
-/**
- * Fail-closed gate for any D1 persistence open/write path.
- * Must run before resolveD1SqlitePath / DatabaseSync / DDL.
- */
-export function assertD1AccessAllowedWhenLocalOaExclusive(): void {
-  if (!isLocalOaExclusiveMode()) return;
-  throw new D1Error(
-    "FORBIDDEN",
-    "D1 access blocked: SFIA_STUDIO_LOCAL_OA_EXCLUSIVE is active (OA Product Truth C only).",
-  );
+export type ConfirmActionResult =
+  | { ok: true; result: BoundedMutationResult }
+  | { ok: false; code: string; message: string };
+
+export async function actionExecuteConfirmation(
+  input: ExecuteConfirmationInput,
+): Promise<ConfirmActionResult> {
+  try {
+    const result = executeConfirmedMutation(input);
+    // CR-D2-02: OA-exclusive freeze returns FAILED+FORBIDDEN without throw —
+    // surface as ok:false so UI does not treat confirmation as success.
+    if (result.status === "FAILED" && result.errorCode === "FORBIDDEN") {
+      return {
+        ok: false,
+        code: "FORBIDDEN",
+        message:
+          "Confirmation refusée : écriture D1 bloquée (mode OA exclusif local).",
+      };
+    }
+    return { ok: true, result };
+  } catch (error) {
+    return serializeError(error);
+  }
 }
+
+export async function actionPrepareExistingProjectSummary(input: {
+  projectId: string;
+}): Promise<
+  | {
+      ok: true;
+      project: {
+        projectId: string;
+        name: string;
+        objective: string;
+        state: string;
+        version: number;
+        updatedAt: string;
+      };
+      summary: ConfirmationSummary;
+    }
+  | { ok: false; code: string; message: string }
+> {
+  try {
+    const project = getProject(input.projectId);
+    const summary = buildConfirmationSummary({
+      actionType: "CONFIRM_EXISTING_PROJECT_CONTEXT",
+      project,
+    });
+    logIntakeEvent("intake_confirmation_presented", {
+      sessionLocalId: "prepare",
+      status: "CONFIRM_EXISTING_PROJECT_CONTEXT",
+      projectId: project.projectId,
+    });
+    return {
+      ok: true,
+      project: {
+        projectId: project.projectId,
+        name: project.name,
+        objective: project.objective,
+        state: project.state,
+        version: project.version,
+        updatedAt: project.updatedAt,
+      },
+      summary,
+    };
+  } catch (error) {
+    return serializeError(error);
+  }
+}
+
+export async function actionPrepareCreateSummary(input: {
+  draft: ProjectDraftFields;
+}): Promise<{ ok: true; summary: ConfirmationSummary }> {
+  const summary = buildConfirmationSummary({
+    actionType: "CREATE_PROJECT",
+    draft: input.draft,
+  });
+  return { ok: true, summary };
+}
+
 ```
 
-### NEW `projects/sfia-studio/app/lib/d1/localOaExclusiveMode.store.ts`
+---
 
-```ts
+## 09. Contenu exact des nouveaux / tests CORR-02
+
+### NEW — `l2d2InjectedConnectionWriterGuards.test.ts`
+
+```typescript
 /**
- * Process-local override slot for tests only.
- * Not durable. Production always reads env via isLocalOaExclusiveMode().
- */
-export const localOaExclusiveModeOverrideSlot: {
-  current: boolean | null;
-} = {
-  current: null,
-};
-```
-
-### NEW `projects/sfia-studio/app/lib/d1/localOaExclusiveMode.test-only.ts`
-
-```ts
-import { localOaExclusiveModeOverrideSlot } from "./localOaExclusiveMode.store";
-
-/** Test-only. Never import from production barrels. */
-export function resetLocalOaExclusiveModeForTests(): void {
-  localOaExclusiveModeOverrideSlot.current = null;
-}
-
-/** Test-only. Pass null to clear override (env wins). */
-export function setLocalOaExclusiveModeForTests(active: boolean | null): void {
-  localOaExclusiveModeOverrideSlot.current = active;
-}
-```
-
-### NEW `projects/sfia-studio/app/lib/d1/legacyNavigation.ts`
-
-```ts
-/**
- * D4 Option A — legacy Project navigation under local OA-exclusive mode.
- * Inactive when isLocalOaExclusiveMode() is false.
- */
-
-import { notFound, redirect } from "next/navigation";
-import { isLocalOaExclusiveMode } from "./localOaExclusiveMode";
-
-/** Generic legacy entry → Product Studio home. */
-export function redirectLegacyGenericEntryToStudioIfExclusive(): void {
-  if (!isLocalOaExclusiveMode()) return;
-  redirect("/studio");
-}
-
-/**
- * Historical project deep link (proj-* or any D1 id): explicit absence.
- * Never maps to prj:* / never fabricates an OA project.
- */
-export function denyLegacyProjectDeepLinkIfExclusive(): void {
-  if (!isLocalOaExclusiveMode()) return;
-  notFound();
-}
-```
-
-### NEW `projects/sfia-studio/app/__tests__/d1/l2d2LocalOaExclusiveFreeze.test.ts`
-
-```ts
-/**
- * L2-D2 — Local OA-exclusive D1 freeze (Q8).
- * Fail-closed BEFORE openD1Db resolve/DDL. Disposable paths only.
+ * L2-D2 CORR-02 / CR-D2-03 — mutation guards on injected DatabaseSync.
+ * openD1Db alone is insufficient when a connection was opened before exclusive ON.
  * @vitest-environment node
  */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { actionCreateProject, actionSelectMethodMode } from "@/lib/d1/actions";
 import { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
-import {
-  createProject,
-  selectMethodMode,
-  resetD1DbForTests,
-} from "@/lib/d1/commands";
-import { actionExecuteConfirmation } from "@/lib/d1/confirmation/actions";
-import { executeConfirmedMutation } from "@/lib/d1/confirmation/executeConfirmation";
-import { openD1Db } from "@/lib/d1/db";
+import { openD1Db, resetD1DbForTests } from "@/lib/d1/db";
 import { D1Error } from "@/lib/d1/errors";
 import {
   resetLocalOaExclusiveModeForTests,
   setLocalOaExclusiveModeForTests,
 } from "@/lib/d1/localOaExclusiveMode.test-only";
-import { D1_GOVERNANCE_METHOD_MODE } from "@/lib/d1/types";
+import { D1ProjectRepository } from "@/lib/d1/repository";
+import {
+  D1_DEFAULT_WORKSPACE_ID,
+  D1_GOVERNANCE_METHOD_MODE,
+  D1_MONO_OPERATOR_ACTOR_ID,
+} from "@/lib/d1/types";
 
 const tempDirs: string[] = [];
 
-function tempPath(name: string): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-l2d2-freeze-"));
+function openDisposableD1() {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-l2d2-inj-"));
   tempDirs.push(dir);
-  return path.join(dir, name);
+  const dbPath = path.join(dir, "d1.sqlite");
+  // Open while exclusive OFF so schema can initialize.
+  setLocalOaExclusiveModeForTests(false);
+  process.env.D1_SQLITE_PATH = dbPath;
+  resetD1DbForTests();
+  const db = openD1Db(dbPath);
+  return { dbPath, db };
 }
 
 beforeEach(() => {
@@ -325,213 +440,277 @@ afterEach(() => {
   }
 });
 
-describe("L2-D2 local OA-exclusive D1 freeze (Q8)", () => {
-  it("default inactive — createProject still works on disposable D1", () => {
-    const dbPath = tempPath("d1-ok.sqlite");
-    process.env.D1_SQLITE_PATH = dbPath;
-    const result = createProject({
-      name: "Legacy OK",
-      objective: "Hors cutover",
-      methodMode: D1_GOVERNANCE_METHOD_MODE,
-      activate: true,
-      idempotencyKey: "idem-ok-1",
-    });
-    expect(result.project.projectId.startsWith("proj-")).toBe(true);
-    expect(fs.existsSync(dbPath)).toBe(true);
-  });
+describe("L2-D2 CORR-02 CR-D2-03 injected connection writer guards", () => {
+  it("createProjectAtomic / selectMethodModeAtomic refuse after exclusive ON (injected db)", () => {
+    const { dbPath, db } = openDisposableD1();
+    const repo = new D1ProjectRepository(db);
 
-  it("exclusive — openD1Db fails before creating the SQLite file", () => {
+    // Seed one project while exclusive OFF.
+    const seeded = repo.createProjectAtomic({
+      project: {
+        projectId: "proj-seed-1",
+        workspaceId: D1_DEFAULT_WORKSPACE_ID,
+        name: "Seed",
+        objective: "baseline",
+        initialContextSummary: null,
+        methodMode: D1_GOVERNANCE_METHOD_MODE,
+        state: "ACTIVE",
+        ownerActorId: D1_MONO_OPERATOR_ACTOR_ID,
+        createdAt: "2026-10-24T16:00:00.000Z",
+        updatedAt: "2026-10-24T16:00:00.000Z",
+        version: 1,
+      },
+      assignments: [
+        {
+          principalId: D1_MONO_OPERATOR_ACTOR_ID,
+          projectId: "proj-seed-1",
+          role: "project_owner",
+          createdAt: "2026-10-24T16:00:00.000Z",
+        },
+      ],
+      events: [
+        {
+          eventId: "d1-evt-seed",
+          eventType: "PROJECT_CREATED",
+          actorId: D1_MONO_OPERATOR_ACTOR_ID,
+          correlationId: "corr-seed",
+          payload: {},
+        },
+      ],
+      idempotencyKey: "idem-seed",
+      responseJson: "{}",
+    });
+    expect(seeded.kind).toBe("created");
+    const beforeCount = (
+      db.prepare("SELECT COUNT(*) AS c FROM d1_projects").get() as { c: number }
+    ).c;
+    expect(beforeCount).toBe(1);
+
     setLocalOaExclusiveModeForTests(true);
-    const probe = tempPath("must-not-exist.sqlite");
-    expect(fs.existsSync(probe)).toBe(false);
-    expect(() => openD1Db(probe)).toThrow(D1Error);
+
     try {
-      openD1Db(probe);
+      repo.createProjectAtomic({
+        project: {
+          projectId: "proj-blocked",
+          workspaceId: D1_DEFAULT_WORKSPACE_ID,
+          name: "Blocked",
+          objective: "must fail",
+          initialContextSummary: null,
+          methodMode: D1_GOVERNANCE_METHOD_MODE,
+          state: "DRAFT",
+          ownerActorId: D1_MONO_OPERATOR_ACTOR_ID,
+          createdAt: "2026-10-24T16:01:00.000Z",
+          updatedAt: "2026-10-24T16:01:00.000Z",
+          version: 1,
+        },
+        assignments: [],
+        events: [],
+        idempotencyKey: "idem-blocked",
+        responseJson: "{}",
+      });
+      expect.unreachable("createProjectAtomic should refuse");
     } catch (error) {
       expect(error).toBeInstanceOf(D1Error);
       expect((error as D1Error).code).toBe("FORBIDDEN");
     }
-    expect(fs.existsSync(probe)).toBe(false);
-  });
 
-  it("exclusive — createProject refused (CR-D2-01 path, not hold-only)", () => {
-    setLocalOaExclusiveModeForTests(true);
-    const probe = tempPath("create-blocked.sqlite");
-    process.env.D1_SQLITE_PATH = probe;
-    expect(() =>
-      createProject({
-        name: "Blocked",
-        objective: "Must fail",
-        methodMode: D1_GOVERNANCE_METHOD_MODE,
-        activate: true,
-        idempotencyKey: "idem-blocked-create",
-      }),
-    ).toThrow(D1Error);
-    expect(fs.existsSync(probe)).toBe(false);
-  });
-
-  it("exclusive — actionCreateProject returns FORBIDDEN without D1 file", async () => {
-    setLocalOaExclusiveModeForTests(true);
-    const probe = tempPath("action-create-blocked.sqlite");
-    process.env.D1_SQLITE_PATH = probe;
-    const result = await actionCreateProject({
-      name: "Blocked action",
-      objective: "Must fail",
-      methodMode: D1_GOVERNANCE_METHOD_MODE,
-      activate: true,
-      idempotencyKey: "idem-action-create",
-    });
-    expect(result.ok).toBe(false);
-    if (!result.ok) expect(result.code).toBe("FORBIDDEN");
-    expect(fs.existsSync(probe)).toBe(false);
-  });
-
-  it("exclusive — selectMethodMode and actionSelectMethodMode refused", async () => {
-    setLocalOaExclusiveModeForTests(true);
-    const probe = tempPath("select-blocked.sqlite");
-    process.env.D1_SQLITE_PATH = probe;
-    expect(() =>
-      selectMethodMode({
-        projectId: "proj-does-not-matter",
-        methodMode: D1_GOVERNANCE_METHOD_MODE,
+    try {
+      repo.selectMethodModeAtomic({
+        projectId: "proj-seed-1",
+        methodMode: "SFIA_V2_6",
         expectedVersion: 1,
-      }),
-    ).toThrow(D1Error);
-    const action = await actionSelectMethodMode({
-      projectId: "proj-does-not-matter",
-      methodMode: D1_GOVERNANCE_METHOD_MODE,
-      expectedVersion: 1,
-    });
-    expect(action.ok).toBe(false);
-    if (!action.ok) expect(action.code).toBe("FORBIDDEN");
-    expect(fs.existsSync(probe)).toBe(false);
-  });
-
-  it("exclusive — confirmation CREATE_PROJECT refused", async () => {
-    setLocalOaExclusiveModeForTests(true);
-    const probe = tempPath("confirm-blocked.sqlite");
-    process.env.D1_SQLITE_PATH = probe;
-    const input = {
-      actionType: "CREATE_PROJECT" as const,
-      sessionLocalId: "sess-1",
-      proposalId: "prop-1",
-      matchId: null,
-      targetProjectId: null,
-      confirmationId: "conf-1",
-      idempotencyKey: "idem-confirm-create",
-      expectedProjectVersion: null,
-      expectedUpdatedAt: null,
-      explicitConfirmation: true,
-      projectDraft: {
-        name: "Intake create",
-        objective: "Must fail under exclusive",
-        initialContextSummary: "",
-        activate: true,
-      },
-    };
-    // executeConfirmedMutation catches D1Error and returns FAILED (does not rethrow).
-    const mutation = executeConfirmedMutation(input);
-    expect(mutation.status).toBe("FAILED");
-    expect(mutation.errorCode).toBe("FORBIDDEN");
-    // Server action wraps caught FAILED mutation as ok:true + result (historical shape).
-    const action = await actionExecuteConfirmation(input);
-    expect(action.ok).toBe(true);
-    if (action.ok) {
-      expect(action.result.status).toBe("FAILED");
-      expect(action.result.errorCode).toBe("FORBIDDEN");
+        nextState: "ACTIVE",
+        actorId: D1_MONO_OPERATOR_ACTOR_ID,
+        correlationId: "corr-blocked",
+        eventIds: { mode: "d1-evt-mode" },
+      });
+      expect.unreachable("selectMethodModeAtomic should refuse");
+    } catch (error) {
+      expect(error).toBeInstanceOf(D1Error);
+      expect((error as D1Error).code).toBe("FORBIDDEN");
     }
-    expect(fs.existsSync(probe)).toBe(false);
+
+    const afterCount = (
+      db.prepare("SELECT COUNT(*) AS c FROM d1_projects").get() as { c: number }
+    ).c;
+    expect(afterCount).toBe(1);
+    const mode = (
+      db
+        .prepare("SELECT method_mode FROM d1_projects WHERE project_id = ?")
+        .get("proj-seed-1") as { method_mode: string }
+    ).method_mode;
+    expect(mode).toBe(D1_GOVERNANCE_METHOD_MODE);
+    expect(fs.existsSync(dbPath)).toBe(true);
   });
 
-  it("exclusive — BoundedAtomicAuditStore construction refuses before DDL", () => {
+  it("BoundedAtomicAuditStore append/clearForTests refuse under exclusive with injected db", () => {
+    const { db } = openDisposableD1();
+    const store = new BoundedAtomicAuditStore(db);
+    store.append({
+      opId: "op-1",
+      idempotencyKey: "idem-audit-1",
+      phase: "prepare",
+      outcome: "IN_PROGRESS",
+      correlationId: "corr-1",
+    });
+    const before = (
+      db.prepare("SELECT COUNT(*) AS c FROM d1_atomic_audit").get() as {
+        c: number;
+      }
+    ).c;
+    expect(before).toBe(1);
+
     setLocalOaExclusiveModeForTests(true);
-    const probe = tempPath("audit-blocked.sqlite");
-    process.env.D1_SQLITE_PATH = probe;
-    expect(() => new BoundedAtomicAuditStore()).toThrow(D1Error);
-    expect(fs.existsSync(probe)).toBe(false);
+    try {
+      store.append({
+        opId: "op-2",
+        idempotencyKey: "idem-audit-2",
+        phase: "commit",
+        outcome: "COMMITTED",
+        correlationId: "corr-2",
+      });
+      expect.unreachable("append should refuse");
+    } catch (error) {
+      expect(error).toBeInstanceOf(D1Error);
+      expect((error as D1Error).code).toBe("FORBIDDEN");
+    }
+    try {
+      store.clearForTests();
+      expect.unreachable("clearForTests should refuse");
+    } catch (error) {
+      expect(error).toBeInstanceOf(D1Error);
+      expect((error as D1Error).code).toBe("FORBIDDEN");
+    }
+
+    const after = (
+      db.prepare("SELECT COUNT(*) AS c FROM d1_atomic_audit").get() as {
+        c: number;
+      }
+    ).c;
+    expect(after).toBe(1);
+  });
+
+  it("exclusive OFF — injected repository mutations still work", () => {
+    const { db } = openDisposableD1();
+    setLocalOaExclusiveModeForTests(false);
+    const repo = new D1ProjectRepository(db);
+    const outcome = repo.createProjectAtomic({
+      project: {
+        projectId: "proj-ok",
+        workspaceId: D1_DEFAULT_WORKSPACE_ID,
+        name: "OK",
+        objective: "off mode",
+        initialContextSummary: null,
+        methodMode: D1_GOVERNANCE_METHOD_MODE,
+        state: "DRAFT",
+        ownerActorId: D1_MONO_OPERATOR_ACTOR_ID,
+        createdAt: "2026-10-24T16:02:00.000Z",
+        updatedAt: "2026-10-24T16:02:00.000Z",
+        version: 1,
+      },
+      assignments: [],
+      events: [
+        {
+          eventId: "d1-evt-ok",
+          eventType: "PROJECT_CREATED",
+          actorId: D1_MONO_OPERATOR_ACTOR_ID,
+          correlationId: "corr-ok",
+          payload: {},
+        },
+      ],
+      idempotencyKey: "idem-ok-off",
+      responseJson: "{}",
+    });
+    expect(outcome.kind).toBe("created");
   });
 });
+
 ```
 
-### NEW `projects/sfia-studio/app/__tests__/d1/l2d2D4LegacyNavigation.test.ts`
+### NEW — `l2d2ConfirmationForbiddenUi.test.tsx`
 
-```ts
+```typescript
 /**
- * L2-D2 — D4 Option A legacy navigation (Q7 / Q10).
- * @vitest-environment node
+ * L2-D2 CORR-02 / CR-D2-02 — ConfirmationPanel must not call onDone on FORBIDDEN.
+ * @vitest-environment jsdom
  */
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
-  resetLocalOaExclusiveModeForTests,
-  setLocalOaExclusiveModeForTests,
-} from "@/lib/d1/localOaExclusiveMode.test-only";
+  cleanup,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
-const redirectMock = vi.fn();
-const notFoundMock = vi.fn(() => {
-  throw new Error("NEXT_NOT_FOUND");
-});
+const actionExecuteConfirmationMock = vi.fn();
 
-vi.mock("next/navigation", () => ({
-  redirect: (...args: unknown[]) => redirectMock(...args),
-  notFound: () => notFoundMock(),
+vi.mock("@/lib/d1/confirmation/actions", () => ({
+  actionExecuteConfirmation: (...args: unknown[]) =>
+    actionExecuteConfirmationMock(...args),
 }));
 
-describe("L2-D2 D4 legacy navigation (Q7/Q10)", () => {
-  beforeEach(() => {
-    resetLocalOaExclusiveModeForTests();
-    redirectMock.mockReset();
-    notFoundMock.mockClear();
-  });
+import { ConfirmationPanel } from "@/features/d1/confirmation/ConfirmationPanel";
 
-  afterEach(() => {
-    resetLocalOaExclusiveModeForTests();
-  });
+afterEach(() => {
+  cleanup();
+  actionExecuteConfirmationMock.mockReset();
+});
 
-  it("inactive — helpers are no-ops (historical UX preserved)", async () => {
-    const {
-      redirectLegacyGenericEntryToStudioIfExclusive,
-      denyLegacyProjectDeepLinkIfExclusive,
-    } = await import("@/lib/d1/legacyNavigation");
-    redirectLegacyGenericEntryToStudioIfExclusive();
-    denyLegacyProjectDeepLinkIfExclusive();
-    expect(redirectMock).not.toHaveBeenCalled();
-    expect(notFoundMock).not.toHaveBeenCalled();
-  });
+describe("L2-D2 CORR-02 confirmation FORBIDDEN UI (Q15 targeted)", () => {
+  it("does not invoke onDone when action returns ok:false FORBIDDEN", async () => {
+    actionExecuteConfirmationMock.mockResolvedValue({
+      ok: false,
+      code: "FORBIDDEN",
+      message: "Confirmation refusée : écriture D1 bloquée.",
+    });
+    const onDone = vi.fn();
+    const onCancel = vi.fn();
 
-  it("exclusive — generic entries redirect to /studio", async () => {
-    setLocalOaExclusiveModeForTests(true);
-    const { redirectLegacyGenericEntryToStudioIfExclusive } = await import(
-      "@/lib/d1/legacyNavigation"
+    render(
+      <ConfirmationPanel
+        sessionLocalId="sess-ui"
+        proposalId="prop-ui"
+        matchId={null}
+        actionType="CREATE_PROJECT"
+        targetProjectId={null}
+        initialDraft={{
+          name: "X",
+          objective: "Y",
+          initialContextSummary: "",
+          activate: true,
+        }}
+        expectedProjectVersion={null}
+        expectedUpdatedAt={null}
+        idempotencyKey="idem-ui-forbidden"
+        summary={{
+          actionLabel: "Créer le projet",
+          targetLabel: "Nouveau projet",
+          consequences: ["Création D1"],
+          dataToPersist: [],
+          warnings: [],
+          irreversibleEffects: [],
+          confirmationRequired: true,
+        }}
+        onDone={onDone}
+        onCancel={onCancel}
+      />,
     );
-    redirectLegacyGenericEntryToStudioIfExclusive();
-    expect(redirectMock).toHaveBeenCalledWith("/studio");
-  });
 
-  it("exclusive — project deep link denies without OA mapping", async () => {
-    setLocalOaExclusiveModeForTests(true);
-    const { denyLegacyProjectDeepLinkIfExclusive } = await import(
-      "@/lib/d1/legacyNavigation"
-    );
-    expect(() => denyLegacyProjectDeepLinkIfExclusive()).toThrow(
-      /NEXT_NOT_FOUND/,
-    );
-    expect(notFoundMock).toHaveBeenCalledTimes(1);
-    expect(redirectMock).not.toHaveBeenCalled();
-  });
-
-  it("Q10 — ID namespaces remain disjoint (no mapper module)", async () => {
-    const ids = await import("@/lib/d1/ids");
-    const d1Id = ids.createProjectId();
-    expect(d1Id.startsWith("proj-")).toBe(true);
-    expect(d1Id.startsWith("prj:")).toBe(false);
-    // OA generator lives in local composition — sample format only
-    expect("prj:example".startsWith("prj:")).toBe(true);
-    expect("prj:example".startsWith("proj-")).toBe(false);
+    fireEvent.click(screen.getByRole("button", { name: /Créer ce projet/i }));
+    await waitFor(() => {
+      expect(actionExecuteConfirmationMock).toHaveBeenCalled();
+    });
+    await waitFor(() => {
+      expect(screen.getByText(/Confirmation refusée/i)).toBeTruthy();
+    });
+    expect(onDone).not.toHaveBeenCalled();
   });
 });
+
 ```
 
-### NEW `projects/sfia-studio/app/__tests__/oa/project/l2d2O01ProductUiIntegrated.test.tsx`
+### MODIFIED — O-01 `l2d2O01ProductUiIntegrated.test.tsx` (complet)
 
 ```tsx
 /**
@@ -633,9 +812,11 @@ describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
   it("create → SQLite durable → list UI → workspace UI → reopen + no D1 write", async () => {
     setLocalOaExclusiveModeForTests(true);
 
+    const OBJECTIVE =
+      "Prouver comprendre l'état métier LPS depuis OA durable";
     const created = await createProjectRuntimeAction({
       name: "O-01 Fresh Project",
-      objective: "Prouver comprendre depuis OA durable",
+      objective: OBJECTIVE,
       context: "L2-D2 integrated oracle",
       criticality: "STANDARD",
       constraints: ["ZERO REAL", "OA exclusive"],
@@ -645,6 +826,8 @@ describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
     expect(created.ok).toBe(true);
     if (!created.ok) throw new Error("create failed");
     expect(created.projectId.startsWith("prj:")).toBe(true);
+    // Runtime create projection carries LPS-backed objective (Truth C).
+    expect(created.project.objective).toBe(OBJECTIVE);
 
     const db = openProductSqlite(productDbPath);
     const projectRow = db
@@ -657,12 +840,16 @@ describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
     expect(projectRow?.project_id).toBe(created.projectId);
     const payload = JSON.parse(projectRow!.payload_json) as { title?: string };
     expect(payload.title).toBe("O-01 Fresh Project");
-    const lpsCount = (
-      db
-        .prepare("SELECT COUNT(*) AS c FROM oa_lps WHERE project_id = ?")
-        .get(created.projectId) as { c: number }
-    ).c;
-    expect(lpsCount).toBeGreaterThan(0);
+    const lpsRow = db
+      .prepare(
+        "SELECT payload_json FROM oa_lps WHERE project_id = ? ORDER BY version ASC LIMIT 1",
+      )
+      .get(created.projectId) as { payload_json: string } | undefined;
+    expect(lpsRow).toBeTruthy();
+    const lpsPayload = JSON.parse(lpsRow!.payload_json) as {
+      objective?: string;
+    };
+    expect(lpsPayload.objective).toBe(OBJECTIVE);
     db.close();
 
     const listed = await listProjectsRuntimeAction();
@@ -672,6 +859,8 @@ describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
       (p) => p.projectId === created.projectId,
     );
     expect(listedRow?.title).toBe("O-01 Fresh Project");
+    // List enriches rows from current LPS objective (Product Truth C).
+    expect(listedRow?.objective).toBe(OBJECTIVE);
 
     render(<ProjectsPage />);
     await waitFor(() => {
@@ -679,12 +868,24 @@ describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
         "O-01 Fresh Project",
       );
     });
+    // CR-D2-04: « En cours » column renders LPS objective (not a static mock).
+    await waitFor(() => {
+      expect(
+        screen.getByTestId("studio-projects-current").textContent,
+      ).toContain(OBJECTIVE);
+    });
 
     cleanup();
     render(<ProjectWorkspacePage projectId={created.projectId} />);
     await waitFor(() => {
       expect(screen.getByTestId("project-title").textContent).toContain(
         "O-01 Fresh Project",
+      );
+    });
+    // Workspace subtitle is success.project.objective from getProjectRuntimeAction.
+    await waitFor(() => {
+      expect(screen.getByTestId("project-subtitle").textContent).toContain(
+        OBJECTIVE,
       );
     });
 
@@ -699,12 +900,19 @@ describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
     expect(reread.ok).toBe(true);
     if (!reread.ok) throw new Error("get after reopen failed");
     expect(reread.project.name).toBe("O-01 Fresh Project");
+    expect(reread.project.objective).toBe(OBJECTIVE);
     expect(reread.livingState.id.startsWith("lps:")).toBe(true);
+    expect(reread.livingState.version).toBe(1);
 
     render(<ProjectWorkspacePage projectId={created.projectId} />);
     await waitFor(() => {
       expect(screen.getByTestId("project-title").textContent).toContain(
         "O-01 Fresh Project",
+      );
+    });
+    await waitFor(() => {
+      expect(screen.getByTestId("project-subtitle").textContent).toContain(
+        OBJECTIVE,
       );
     });
 
@@ -720,762 +928,189 @@ describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
     expect(fs.existsSync(d1ProbePath)).toBe(false);
   });
 });
+
+```
+
+### MODIFIED — freeze confirmation assert (extrait)
+
+```typescript
+    const mutation = executeConfirmedMutation(input);
+    expect(mutation.status).toBe("FAILED");
+    expect(mutation.errorCode).toBe("FORBIDDEN");
+    // CR-D2-02: FORBIDDEN must surface as ok:false (not ok:true + FAILED).
+    const action = await actionExecuteConfirmation(input);
+    expect(action.ok).toBe(false);
+    if (!action.ok) {
+      expect(action.code).toBe("FORBIDDEN");
+      expect(action.message.length).toBeGreaterThan(0);
+    }
+    expect(fs.existsSync(probe)).toBe(false);
 ```
 
 ---
 
-## 10. Diffs complets — fichiers TRACKED modifiés
+## 10. CR-D2-02 avant / après
 
-Chaque bloc = `git diff` unstaged (aucun staged).
-
-### DIFF `projects/sfia-studio/app/.env.example`
-
-```diff
-diff --git a/projects/sfia-studio/app/.env.example b/projects/sfia-studio/app/.env.example
-index eed33436..4ee52ab1 100644
---- a/projects/sfia-studio/app/.env.example
-+++ b/projects/sfia-studio/app/.env.example
-@@ -112,3 +112,21 @@ SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH=main
- # Role: test double for external Cursor boundary. Required: no for Product local.
- # Secret: no. Server-only. Must remain unset/0 when CURSOR_REAL=1.
- # SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=0
-+
-+# ---------------------------------------------------------------------------
-+# L2-D2 local OA-exclusive cutover marker (INACTIVE by default)
-+# ---------------------------------------------------------------------------
-+# When set to exactly "1" on an explicitly designated local Studio instance:
-+# - all D1 SQLite opens fail closed before path resolve / DDL
-+# - legacy Project routes deny/redirect (D4 Option A)
-+# Default unset/0 preserves historical D1 behavior.
-+# Do NOT set globally for all worktrees. Activation requires a separate Morris
-+# G-ACTIVATION GO — this Delivery only ships the code path.
-+#
-+# Role: local cutover marker. Required: no (default OFF). Secret: no. Server-only.
-+# SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=0
-+#
-+# Future absolute Product / Nora paths (Option A) are bound per-instance via:
-+# SFIA_STUDIO_PRODUCT_DB_PATH=/absolute/path/to/oa-product.sqlite
-+# SFIA_STUDIO_NORA_SESSION_DB_PATH=/absolute/path/to/nora-session.sqlite
-+# Do not create those durable files or set active values in this Delivery cycle.
-```
-
-### DIFF `projects/sfia-studio/app/app/nouvelle-demande/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-index feab120f..b8fd10a7 100644
---- a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-+++ b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-@@ -1,11 +1,13 @@
- import { listWorkspaceProjects } from "@/lib/d1/commands";
- import { D1Error } from "@/lib/d1/errors";
-+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
- import { IntakeView } from "@/features/d1/intake/IntakeView";
-
- export const dynamic = "force-dynamic";
-
- /** D1-C1: conversational intake is the primary Nouvelle demande surface. */
- export default function NouvelleDemandePage() {
-+  redirectLegacyGenericEntryToStudioIfExclusive();
-   try {
-     const projects = listWorkspaceProjects();
-     return <IntakeView projects={projects} />;
-```
-
-### DIFF `projects/sfia-studio/app/app/projects/[id]/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/app/projects/[id]/page.tsx b/projects/sfia-studio/app/app/projects/[id]/page.tsx
-index 70001c1e..a181e309 100644
---- a/projects/sfia-studio/app/app/projects/[id]/page.tsx
-+++ b/projects/sfia-studio/app/app/projects/[id]/page.tsx
-@@ -1,6 +1,7 @@
- import { notFound } from "next/navigation";
- import { getProject, listProjectAudit } from "@/lib/d1/commands";
- import { D1Error } from "@/lib/d1/errors";
-+import { denyLegacyProjectDeepLinkIfExclusive } from "@/lib/d1/legacyNavigation";
- import { ProjectCockpitView } from "@/features/d1/ProjectCockpitView";
-
- export const dynamic = "force-dynamic";
-@@ -10,6 +11,10 @@ export default async function ProjectPage({
- }: {
-   params: Promise<{ id: string }>;
- }) {
-+  // D4 Option A: historical deep links are unavailable under OA-exclusive —
-+  // never map proj-* → prj:* and never open D1 to "find" a substitute.
-+  denyLegacyProjectDeepLinkIfExclusive();
-+
-   const { id } = await params;
-   try {
-     const project = getProject(id);
-```
-
-### DIFF `projects/sfia-studio/app/app/projects/new/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/app/projects/new/page.tsx b/projects/sfia-studio/app/app/projects/new/page.tsx
-index c42faa83..83856f9b 100644
---- a/projects/sfia-studio/app/app/projects/new/page.tsx
-+++ b/projects/sfia-studio/app/app/projects/new/page.tsx
-@@ -1,5 +1,7 @@
-+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
- import { NewProjectForm } from "@/features/d1/NewProjectForm";
-
- export default function NewProjectPage() {
-+  redirectLegacyGenericEntryToStudioIfExclusive();
-   return <NewProjectForm />;
- }
-```
-
-### DIFF `projects/sfia-studio/app/app/workspace/page.tsx`
-
-```diff
-diff --git a/projects/sfia-studio/app/app/workspace/page.tsx b/projects/sfia-studio/app/app/workspace/page.tsx
-index 4013cfe3..3b5969e1 100644
---- a/projects/sfia-studio/app/app/workspace/page.tsx
-+++ b/projects/sfia-studio/app/app/workspace/page.tsx
-@@ -1,10 +1,12 @@
- import { listWorkspaceProjects } from "@/lib/d1/commands";
- import { D1Error } from "@/lib/d1/errors";
-+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
- import { WorkspaceHomeView } from "@/features/d1/WorkspaceHomeView";
-
- export const dynamic = "force-dynamic";
-
- export default function WorkspacePage() {
-+  redirectLegacyGenericEntryToStudioIfExclusive();
-   try {
-     const projects = listWorkspaceProjects();
-     return <WorkspaceHomeView projects={projects} />;
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-index a8e9d1b1..fd542f65 100644
---- a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-+++ b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-@@ -51,7 +51,12 @@ export interface AppendAtomicAuditInput {
- }
-
- export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
--  constructor(private readonly db: DatabaseSync = openD1Db()) {}
-+  private readonly db: DatabaseSync;
-+
-+  /** Lazy open — respects local OA-exclusive fail-closed before D1 DDL. */
-+  constructor(db?: DatabaseSync) {
-+    this.db = db ?? openD1Db();
-+  }
-
-   append(input: AppendAtomicAuditInput): BoundedAtomicAuditRecord {
-     const createdAt = nowIso();
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/commands.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/commands.ts b/projects/sfia-studio/app/lib/d1/commands.ts
-index 6a82de66..04988e69 100644
---- a/projects/sfia-studio/app/lib/d1/commands.ts
-+++ b/projects/sfia-studio/app/lib/d1/commands.ts
-@@ -1,5 +1,5 @@
- import { D1ProjectRepository } from "./repository";
--import { openD1Db, nowIso, resetD1DbForTests } from "./db";
-+import { nowIso, resetD1DbForTests } from "./db";
- import { createAuditEventId, createCorrelationId, createProjectId } from "./ids";
- import { validateCreateProjectInput, assertMethodMode } from "./domain";
- import { requireMonoOperator } from "./authz";
-@@ -23,10 +23,12 @@ export interface CreateProjectResult {
-
- export function createProject(
-   input: CreateProjectInput,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): CreateProjectResult {
-   const started = Date.now();
-   try {
-+    // Resolve repo inside body so OA-exclusive guard runs before openD1Db/DDL.
-+    const repo = repoArg ?? new D1ProjectRepository();
-     validateCreateProjectInput(input);
-     const actorId = requireMonoOperator();
-
-@@ -146,10 +148,11 @@ export function createProject(
-
- export function selectMethodMode(
-   input: SelectMethodModeInput,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): D1Project {
-   const started = Date.now();
-   try {
-+    const repo = repoArg ?? new D1ProjectRepository();
-     const actorId = requireMonoOperator();
-     assertMethodMode(input.methodMode);
-     assertMethodModeTransitionAllowed();
-@@ -199,17 +202,19 @@ export function selectMethodMode(
-
- export function listWorkspaceProjects(
-   workspaceId = D1_DEFAULT_WORKSPACE_ID,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): D1Project[] {
-   requireMonoOperator();
-+  const repo = repoArg ?? new D1ProjectRepository();
-   return repo.listProjects(workspaceId);
- }
-
- export function getProject(
-   projectId: string,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): D1Project {
-   requireMonoOperator();
-+  const repo = repoArg ?? new D1ProjectRepository();
-   const project = repo.getProject(projectId);
-   if (!project) {
-     throw new D1Error("NOT_FOUND", "Projet introuvable.");
-@@ -219,9 +224,10 @@ export function getProject(
-
- export function listProjectAudit(
-   projectId: string,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ) {
-   requireMonoOperator();
-+  const repo = repoArg ?? new D1ProjectRepository();
-   return repo.listAuditEvents(projectId);
- }
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts b/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts
-index c5230c18..ef5e3908 100644
---- a/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts
-+++ b/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts
-@@ -1,7 +1,6 @@
- import { randomUUID } from "node:crypto";
- import { createProject, getProject } from "../commands";
- import { D1ProjectRepository } from "../repository";
--import { openD1Db } from "../db";
- import { D1Error } from "../errors";
- import {
-   D1_GOVERNANCE_METHOD_MODE,
-@@ -85,11 +84,13 @@ function asActionTypeSafe(
-  */
- export function executeConfirmedMutation(
-   input: ExecuteConfirmationInput,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): BoundedMutationResult {
-   const started = Date.now();
-
-   try {
-+    // Lazy repo: OA-exclusive mode must block before openD1Db/DDL.
-+    const repo = repoArg ?? new D1ProjectRepository();
-     const intent = buildConfirmationIntent(input);
-
-     logIntakeEvent("intake_confirmation_presented", {
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts b/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts
-index e02bd34f..6d161ef0 100644
---- a/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts
-+++ b/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts
-@@ -1,6 +1,5 @@
- import { randomUUID } from "node:crypto";
- import { D1ProjectRepository } from "../repository";
--import { openD1Db } from "../db";
- import { D1_DEFAULT_WORKSPACE_ID } from "../types";
- import { D1Error } from "../errors";
- import {
-@@ -48,7 +47,7 @@ export function buildExistingContextSnapshot(
-   }
-
-   try {
--    const repo = options.repo ?? new D1ProjectRepository(openD1Db());
-+    const repo = options.repo ?? new D1ProjectRepository();
-     const workspaceId = options.workspaceId ?? D1_DEFAULT_WORKSPACE_ID;
-     const all = repo.listProjects(workspaceId);
-     const max = CONTEXT_MATCH_LIMITS.maxProjectsEvaluated;
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/db.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/db.ts b/projects/sfia-studio/app/lib/d1/db.ts
-index 90e64b08..962e9c29 100644
---- a/projects/sfia-studio/app/lib/d1/db.ts
-+++ b/projects/sfia-studio/app/lib/d1/db.ts
-@@ -1,6 +1,7 @@
- import { DatabaseSync } from "node:sqlite";
- import { resolveD1SqlitePath } from "./paths";
- import { D1Error } from "./errors";
-+import { assertD1AccessAllowedWhenLocalOaExclusive } from "./localOaExclusiveMode";
-
- const SCHEMA_SQL = `
- PRAGMA foreign_keys = ON;
-@@ -104,8 +105,14 @@ function migrate(db: DatabaseSync): void {
-   }
- }
-
--export function openD1Db(dbPath = resolveD1SqlitePath()): DatabaseSync {
--  if (singleton && singletonPath === dbPath) {
-+/**
-+ * Open D1 SQLite. When local OA-exclusive mode is active, fails closed
-+ * BEFORE path resolve / file open / schema DDL (L2-D2 freeze).
-+ */
-+export function openD1Db(dbPath?: string): DatabaseSync {
-+  assertD1AccessAllowedWhenLocalOaExclusive();
-+  const resolved = dbPath ?? resolveD1SqlitePath();
-+  if (singleton && singletonPath === resolved) {
-     return singleton;
-   }
-   if (singleton) {
-@@ -118,10 +125,10 @@ export function openD1Db(dbPath = resolveD1SqlitePath()): DatabaseSync {
-     singletonPath = null;
-   }
-   try {
--    const db = new DatabaseSync(dbPath);
-+    const db = new DatabaseSync(resolved);
-     migrate(db);
-     singleton = db;
--    singletonPath = dbPath;
-+    singletonPath = resolved;
-     return db;
-   } catch (error) {
-     if (error instanceof D1Error) throw error;
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/errors.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/errors.ts b/projects/sfia-studio/app/lib/d1/errors.ts
-index 8ef7e99f..7d996ceb 100644
---- a/projects/sfia-studio/app/lib/d1/errors.ts
-+++ b/projects/sfia-studio/app/lib/d1/errors.ts
-@@ -3,6 +3,7 @@ export type D1ErrorCode =
-   | "NOT_FOUND"
-   | "CONFLICT"
-   | "UNAUTHORIZED"
-+  | "FORBIDDEN"
-   | "IDEMPOTENCY"
-   | "PERSISTENCE"
-   | "CLAIM_FORBIDDEN"
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/index.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/index.ts b/projects/sfia-studio/app/lib/d1/index.ts
-index 8ac869aa..9f90bf45 100644
---- a/projects/sfia-studio/app/lib/d1/index.ts
-+++ b/projects/sfia-studio/app/lib/d1/index.ts
-@@ -29,6 +29,11 @@ export type {
-   OperationalReadinessAccessSurface,
- } from "./operationalReadiness";
- export { resetD1DbForTests } from "./db";
-+export {
-+  LOCAL_OA_EXCLUSIVE_ENV_KEY,
-+  isLocalOaExclusiveMode,
-+  assertD1AccessAllowedWhenLocalOaExclusive,
-+} from "./localOaExclusiveMode";
- export {
-   BoundedAtomicAuditStore,
-   BOUNDED_ATOMIC_AUDIT_SCHEMA_VERSION,
-```
-
-### DIFF `projects/sfia-studio/app/lib/d1/repository.ts`
-
-```diff
-diff --git a/projects/sfia-studio/app/lib/d1/repository.ts b/projects/sfia-studio/app/lib/d1/repository.ts
-index 44d09652..e9918861 100644
---- a/projects/sfia-studio/app/lib/d1/repository.ts
-+++ b/projects/sfia-studio/app/lib/d1/repository.ts
-@@ -29,7 +29,12 @@ function mapProject(row: Record<string, unknown>): D1Project {
- }
-
- export class D1ProjectRepository {
--  constructor(private readonly db: DatabaseSync = openD1Db()) {}
-+  private readonly db: DatabaseSync;
-+
-+  /** Lazy open — avoids default-arg openD1Db() before caller guards. */
-+  constructor(db?: DatabaseSync) {
-+    this.db = db ?? openD1Db();
-+  }
-
-   listProjects(workspaceId: string): D1Project[] {
-     const rows = this.db
-```
+| | Avant (CORR-REVIEW-01) | Après CORR-02 |
+|---|---|---|
+| `executeConfirmedMutation` exclusive | `status=FAILED` `errorCode=FORBIDDEN` | inchangé |
+| `actionExecuteConfirmation` | `ok:true` + `result.status=FAILED` | **`ok:false` `code=FORBIDDEN`** |
+| ConfirmationPanel | `onDone` appelé si ok:true | **pas d'`onDone`** (chemin `!res.ok`) |
+| Fichier D1 | non créé | non créé (A2) |
+| Exclusive OFF | create OK | préservé (A6) |
 
 ---
 
-## 11. Diff agrégé app/ (référence)
+## 11. CR-D2-03 injected DB tests
 
-```diff
-diff --git a/projects/sfia-studio/app/.env.example b/projects/sfia-studio/app/.env.example
-index eed33436..4ee52ab1 100644
---- a/projects/sfia-studio/app/.env.example
-+++ b/projects/sfia-studio/app/.env.example
-@@ -112,3 +112,21 @@ SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH=main
- # Role: test double for external Cursor boundary. Required: no for Product local.
- # Secret: no. Server-only. Must remain unset/0 when CURSOR_REAL=1.
- # SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY=0
-+
-+# ---------------------------------------------------------------------------
-+# L2-D2 local OA-exclusive cutover marker (INACTIVE by default)
-+# ---------------------------------------------------------------------------
-+# When set to exactly "1" on an explicitly designated local Studio instance:
-+# - all D1 SQLite opens fail closed before path resolve / DDL
-+# - legacy Project routes deny/redirect (D4 Option A)
-+# Default unset/0 preserves historical D1 behavior.
-+# Do NOT set globally for all worktrees. Activation requires a separate Morris
-+# G-ACTIVATION GO — this Delivery only ships the code path.
-+#
-+# Role: local cutover marker. Required: no (default OFF). Secret: no. Server-only.
-+# SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=0
-+#
-+# Future absolute Product / Nora paths (Option A) are bound per-instance via:
-+# SFIA_STUDIO_PRODUCT_DB_PATH=/absolute/path/to/oa-product.sqlite
-+# SFIA_STUDIO_NORA_SESSION_DB_PATH=/absolute/path/to/nora-session.sqlite
-+# Do not create those durable files or set active values in this Delivery cycle.
-diff --git a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-index feab120f..b8fd10a7 100644
---- a/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-+++ b/projects/sfia-studio/app/app/nouvelle-demande/page.tsx
-@@ -1,11 +1,13 @@
- import { listWorkspaceProjects } from "@/lib/d1/commands";
- import { D1Error } from "@/lib/d1/errors";
-+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
- import { IntakeView } from "@/features/d1/intake/IntakeView";
+Suite jetable : open OFF → inject repo/store → exclusive ON → mutations FORBIDDEN + counts inchangés → OFF fonctionne. Guard `openD1Db` précoce **conservé** (freeze suite).
 
- export const dynamic = "force-dynamic";
+---
 
- /** D1-C1: conversational intake is the primary Nouvelle demande surface. */
- export default function NouvelleDemandePage() {
-+  redirectLegacyGenericEntryToStudioIfExclusive();
-   try {
-     const projects = listWorkspaceProjects();
-     return <IntakeView projects={projects} />;
-diff --git a/projects/sfia-studio/app/app/projects/[id]/page.tsx b/projects/sfia-studio/app/app/projects/[id]/page.tsx
-index 70001c1e..a181e309 100644
---- a/projects/sfia-studio/app/app/projects/[id]/page.tsx
-+++ b/projects/sfia-studio/app/app/projects/[id]/page.tsx
-@@ -1,6 +1,7 @@
- import { notFound } from "next/navigation";
- import { getProject, listProjectAudit } from "@/lib/d1/commands";
- import { D1Error } from "@/lib/d1/errors";
-+import { denyLegacyProjectDeepLinkIfExclusive } from "@/lib/d1/legacyNavigation";
- import { ProjectCockpitView } from "@/features/d1/ProjectCockpitView";
+## 12. CR-D2-04 UI state proof
 
- export const dynamic = "force-dynamic";
-@@ -10,6 +11,10 @@ export default async function ProjectPage({
- }: {
-   params: Promise<{ id: string }>;
- }) {
-+  // D4 Option A: historical deep links are unavailable under OA-exclusive —
-+  // never map proj-* → prj:* and never open D1 to "find" a substitute.
-+  denyLegacyProjectDeepLinkIfExclusive();
-+
-   const { id } = await params;
-   try {
-     const project = getProject(id);
-diff --git a/projects/sfia-studio/app/app/projects/new/page.tsx b/projects/sfia-studio/app/app/projects/new/page.tsx
-index c42faa83..83856f9b 100644
---- a/projects/sfia-studio/app/app/projects/new/page.tsx
-+++ b/projects/sfia-studio/app/app/projects/new/page.tsx
-@@ -1,5 +1,7 @@
-+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
- import { NewProjectForm } from "@/features/d1/NewProjectForm";
+Chaîne prouvée DET :
+1. Create runtime avec OBJECTIVE constant.
+2. SQLite `oa_lps.payload_json.objective === OBJECTIVE`.
+3. `listProjectsRuntimeAction` row.objective === OBJECTIVE.
+4. UI list `studio-projects-current` contient OBJECTIVE.
+5. UI workspace `project-subtitle` contient OBJECTIVE.
+6. Reset singleton + reopen service → getProject.objective + subtitle cohérents.
+7. Probe `createProject` D1 → FORBIDDEN ; fichier D1 absent.
 
- export default function NewProjectPage() {
-+  redirectLegacyGenericEntryToStudioIfExclusive();
-   return <NewProjectForm />;
- }
-diff --git a/projects/sfia-studio/app/app/workspace/page.tsx b/projects/sfia-studio/app/app/workspace/page.tsx
-index 4013cfe3..3b5969e1 100644
---- a/projects/sfia-studio/app/app/workspace/page.tsx
-+++ b/projects/sfia-studio/app/app/workspace/page.tsx
-@@ -1,10 +1,12 @@
- import { listWorkspaceProjects } from "@/lib/d1/commands";
- import { D1Error } from "@/lib/d1/errors";
-+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
- import { WorkspaceHomeView } from "@/features/d1/WorkspaceHomeView";
+**Restart qualifié :** remount React + reset singleton + reopen SQLite path. **Pas** redémarrage processus Studio actif (interdit). Process A/B M1 déjà couvert par `m1ProductSqliteDurability` (PASS). **LIVE E2E NOT CLAIMED.**
 
- export const dynamic = "force-dynamic";
+---
 
- export default function WorkspacePage() {
-+  redirectLegacyGenericEntryToStudioIfExclusive();
-   try {
-     const projects = listWorkspaceProjects();
-     return <WorkspaceHomeView projects={projects} />;
-diff --git a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-index a8e9d1b1..fd542f65 100644
---- a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-+++ b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-@@ -51,7 +51,12 @@ export interface AppendAtomicAuditInput {
- }
+## 13. D4 / Q15 impacts
 
- export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
--  constructor(private readonly db: DatabaseSync = openD1Db()) {}
-+  private readonly db: DatabaseSync;
-+
-+  /** Lazy open — respects local OA-exclusive fail-closed before D1 DDL. */
-+  constructor(db?: DatabaseSync) {
-+    this.db = db ?? openD1Db();
-+  }
+**D4 :** tests `l2d2D4LegacyNavigation` — 4 PASS ; comportement générique→`/studio` et deep links→`notFound` conservé. Mode OFF no-op.
 
-   append(input: AppendAtomicAuditInput): BoundedAtomicAuditRecord {
-     const createdAt = nowIso();
-diff --git a/projects/sfia-studio/app/lib/d1/commands.ts b/projects/sfia-studio/app/lib/d1/commands.ts
-index 6a82de66..04988e69 100644
---- a/projects/sfia-studio/app/lib/d1/commands.ts
-+++ b/projects/sfia-studio/app/lib/d1/commands.ts
-@@ -1,5 +1,5 @@
- import { D1ProjectRepository } from "./repository";
--import { openD1Db, nowIso, resetD1DbForTests } from "./db";
-+import { nowIso, resetD1DbForTests } from "./db";
- import { createAuditEventId, createCorrelationId, createProjectId } from "./ids";
- import { validateCreateProjectInput, assertMethodMode } from "./domain";
- import { requireMonoOperator } from "./authz";
-@@ -23,10 +23,12 @@ export interface CreateProjectResult {
+**Q15 (ciblé CORR-02 seulement) :**
+- confirmation refusée explicite ;
+- absence fausse réussite (`onDone` non appelé) ;
+- flux OFF préservés ;
+- continuité Product O-01 objective.
 
- export function createProject(
-   input: CreateProjectInput,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): CreateProjectResult {
-   const started = Date.now();
-   try {
-+    // Resolve repo inside body so OA-exclusive guard runs before openD1Db/DDL.
-+    const repo = repoArg ?? new D1ProjectRepository();
-     validateCreateProjectInput(input);
-     const actorId = requireMonoOperator();
+Q15 global P6 : **reste PARTIAL** (pas de campagne globale).
 
-@@ -146,10 +148,11 @@ export function createProject(
+---
 
- export function selectMethodMode(
-   input: SelectMethodModeInput,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): D1Project {
-   const started = Date.now();
-   try {
-+    const repo = repoArg ?? new D1ProjectRepository();
-     const actorId = requireMonoOperator();
-     assertMethodMode(input.methodMode);
-     assertMethodModeTransitionAllowed();
-@@ -199,17 +202,19 @@ export function selectMethodMode(
+## 14. Résultats tests réels
 
- export function listWorkspaceProjects(
-   workspaceId = D1_DEFAULT_WORKSPACE_ID,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): D1Project[] {
-   requireMonoOperator();
-+  const repo = repoArg ?? new D1ProjectRepository();
-   return repo.listProjects(workspaceId);
- }
+cwd : `projects/sfia-studio/app`
 
- export function getProject(
-   projectId: string,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): D1Project {
-   requireMonoOperator();
-+  const repo = repoArg ?? new D1ProjectRepository();
-   const project = repo.getProject(projectId);
-   if (!project) {
-     throw new D1Error("NOT_FOUND", "Projet introuvable.");
-@@ -219,9 +224,10 @@ export function getProject(
-
- export function listProjectAudit(
-   projectId: string,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ) {
-   requireMonoOperator();
-+  const repo = repoArg ?? new D1ProjectRepository();
-   return repo.listAuditEvents(projectId);
- }
-
-diff --git a/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts b/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts
-index c5230c18..ef5e3908 100644
---- a/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts
-+++ b/projects/sfia-studio/app/lib/d1/confirmation/executeConfirmation.ts
-@@ -1,7 +1,6 @@
- import { randomUUID } from "node:crypto";
- import { createProject, getProject } from "../commands";
- import { D1ProjectRepository } from "../repository";
--import { openD1Db } from "../db";
- import { D1Error } from "../errors";
- import {
-   D1_GOVERNANCE_METHOD_MODE,
-@@ -85,11 +84,13 @@ function asActionTypeSafe(
-  */
- export function executeConfirmedMutation(
-   input: ExecuteConfirmationInput,
--  repo = new D1ProjectRepository(openD1Db()),
-+  repoArg?: D1ProjectRepository,
- ): BoundedMutationResult {
-   const started = Date.now();
-
-   try {
-+    // Lazy repo: OA-exclusive mode must block before openD1Db/DDL.
-+    const repo = repoArg ?? new D1ProjectRepository();
-     const intent = buildConfirmationIntent(input);
-
-     logIntakeEvent("intake_confirmation_presented", {
-diff --git a/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts b/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts
-index e02bd34f..6d161ef0 100644
---- a/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts
-+++ b/projects/sfia-studio/app/lib/d1/context/buildSnapshot.ts
-@@ -1,6 +1,5 @@
- import { randomUUID } from "node:crypto";
- import { D1ProjectRepository } from "../repository";
--import { openD1Db } from "../db";
- import { D1_DEFAULT_WORKSPACE_ID } from "../types";
- import { D1Error } from "../errors";
- import {
-@@ -48,7 +47,7 @@ export function buildExistingContextSnapshot(
-   }
-
-   try {
--    const repo = options.repo ?? new D1ProjectRepository(openD1Db());
-+    const repo = options.repo ?? new D1ProjectRepository();
-     const workspaceId = options.workspaceId ?? D1_DEFAULT_WORKSPACE_ID;
-     const all = repo.listProjects(workspaceId);
-     const max = CONTEXT_MATCH_LIMITS.maxProjectsEvaluated;
-diff --git a/projects/sfia-studio/app/lib/d1/db.ts b/projects/sfia-studio/app/lib/d1/db.ts
-index 90e64b08..962e9c29 100644
---- a/projects/sfia-studio/app/lib/d1/db.ts
-+++ b/projects/sfia-studio/app/lib/d1/db.ts
-@@ -1,6 +1,7 @@
- import { DatabaseSync } from "node:sqlite";
- import { resolveD1SqlitePath } from "./paths";
- import { D1Error } from "./errors";
-+import { assertD1AccessAllowedWhenLocalOaExclusive } from "./localOaExclusiveMode";
-
- const SCHEMA_SQL = `
- PRAGMA foreign_keys = ON;
-@@ -104,8 +105,14 @@ function migrate(db: DatabaseSync): void {
-   }
- }
-
--export function openD1Db(dbPath = resolveD1SqlitePath()): DatabaseSync {
--  if (singleton && singletonPath === dbPath) {
-+/**
-+ * Open D1 SQLite. When local OA-exclusive mode is active, fails closed
-+ * BEFORE path resolve / file open / schema DDL (L2-D2 freeze).
-+ */
-+export function openD1Db(dbPath?: string): DatabaseSync {
-+  assertD1AccessAllowedWhenLocalOaExclusive();
-+  const resolved = dbPath ?? resolveD1SqlitePath();
-+  if (singleton && singletonPath === resolved) {
-     return singleton;
-   }
-   if (singleton) {
-@@ -118,10 +125,10 @@ export function openD1Db(dbPath = resolveD1SqlitePath()): DatabaseSync {
-     singletonPath = null;
-   }
-   try {
--    const db = new DatabaseSync(dbPath);
-+    const db = new DatabaseSync(resolved);
-     migrate(db);
-     singleton = db;
--    singletonPath = dbPath;
-+    singletonPath = resolved;
-     return db;
-   } catch (error) {
-     if (error instanceof D1Error) throw error;
-diff --git a/projects/sfia-studio/app/lib/d1/errors.ts b/projects/sfia-studio/app/lib/d1/errors.ts
-index 8ef7e99f..7d996ceb 100644
---- a/projects/sfia-studio/app/lib/d1/errors.ts
-+++ b/projects/sfia-studio/app/lib/d1/errors.ts
-@@ -3,6 +3,7 @@ export type D1ErrorCode =
-   | "NOT_FOUND"
-   | "CONFLICT"
-   | "UNAUTHORIZED"
-+  | "FORBIDDEN"
-   | "IDEMPOTENCY"
-   | "PERSISTENCE"
-   | "CLAIM_FORBIDDEN"
-diff --git a/projects/sfia-studio/app/lib/d1/index.ts b/projects/sfia-studio/app/lib/d1/index.ts
-index 8ac869aa..9f90bf45 100644
---- a/projects/sfia-studio/app/lib/d1/index.ts
-+++ b/projects/sfia-studio/app/lib/d1/index.ts
-@@ -29,6 +29,11 @@ export type {
-   OperationalReadinessAccessSurface,
- } from "./operationalReadiness";
- export { resetD1DbForTests } from "./db";
-+export {
-+  LOCAL_OA_EXCLUSIVE_ENV_KEY,
-+  isLocalOaExclusiveMode,
-+  assertD1AccessAllowedWhenLocalOaExclusive,
-+} from "./localOaExclusiveMode";
- export {
-   BoundedAtomicAuditStore,
-   BOUNDED_ATOMIC_AUDIT_SCHEMA_VERSION,
-diff --git a/projects/sfia-studio/app/lib/d1/repository.ts b/projects/sfia-studio/app/lib/d1/repository.ts
-index 44d09652..e9918861 100644
---- a/projects/sfia-studio/app/lib/d1/repository.ts
-+++ b/projects/sfia-studio/app/lib/d1/repository.ts
-@@ -29,7 +29,12 @@ function mapProject(row: Record<string, unknown>): D1Project {
- }
-
- export class D1ProjectRepository {
--  constructor(private readonly db: DatabaseSync = openD1Db()) {}
-+  private readonly db: DatabaseSync;
-+
-+  /** Lazy open — avoids default-arg openD1Db() before caller guards. */
-+  constructor(db?: DatabaseSync) {
-+    this.db = db ?? openD1Db();
-+  }
-
-   listProjects(workspaceId: string): D1Project[] {
-     const rows = this.db
+```
+npx vitest run \
+  __tests__/d1/l2d2LocalOaExclusiveFreeze.test.ts \
+  __tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts \
+  __tests__/d1/l2d2ConfirmationForbiddenUi.test.tsx \
+  __tests__/d1/l2d2D4LegacyNavigation.test.ts \
+  __tests__/oa/project/l2d2O01ProductUiIntegrated.test.tsx \
+  __tests__/oa/project/l2d1D5CreateAuditAtomicity.test.ts \
+  __tests__/oa/project/m1ProductSqliteDurability.test.ts
 ```
 
----
+**Résultat CORR-02 :** Test Files **7 passed** / Tests **31 passed** / 0 failed / 0 skipped.
 
-## 12. R24
+Comparatif Delivery historique : 27 PASS (5 files, sans injected/UI confirmation). Après CORR-02 : **31 PASS** (+ injected 3 + UI confirm 1 ; freeze/O-01 assertions renforcées).
 
-Impact sémantique Product : **OUI** (mode gated Delivery).
-PRR non synchronisée : **G-PRR OPEN**.
-Ce cycle : **aucune** modification PRR / Doctrine / Roadmap.
-Digests non rafraîchis.
+```
+git diff --check   # PASS
+npm run typecheck  # tsc --noEmit — PASS
+```
 
----
+SQLite : uniquement `mkdtemp` / `os.tmpdir()` jetables. **Aucune** DB Application Support créée. **Aucune** mutation P6. Studio serveur **non lancé**. `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` utilisateur **non activé** (overrides test-only).
 
-## 13. Isolation / non-mutation ce cycle
-
-- Aucun fichier Product/test modifié par CORR-REVIEW-01
-- Aucune DB historique ouverte
-- P6 non altéré
-- Studio non démarré
-- App Support non créé
+Limites : **DET** only. LIVE / cutover / REAL BOUNDARY **NOT PROVEN**.
 
 ---
 
-## 14. Stops non déclenchés
+## 15. R24 / PRR delta proposé (G-PRR OPEN — aucune édition)
 
-Git Truth OK ; contenu modifié inclus ; code Product inchangé ce cycle ; handoff L3 à publier.
+Proposition documentaire **sans** modifier les chemins protégés :
+
+| Volume | Delta proposé |
+|---|---|
+| **03** flows | Confirmation D1 sous OA-exclusive : action surface `ok:false/FORBIDDEN` ; UI ne traite pas comme succès. |
+| **04** deps | Writers D1 mutatifs dépendent du guard exclusif **à l'ouverture et à la mutation** (injected connection). |
+| **05** objects | `assertD1AccessAllowedWhenLocalOaExclusive` points d'appel : `openD1Db` + repo atomic writers + BoundedAtomicAudit mutatifs. |
+| **06** persistence | Mode exclusive : zéro écriture D1 via APIs applicatives testées ; frontière brute SQLite déclarée. |
+| **07** invariants | INV candidate : FAILED+FORBIDDEN confirmation → ok:false ; INV candidate : injected DatabaseSync cannot mutate via D1 repos when exclusive. |
+| **08** proof map | Pointer suites `l2d2LocalOaExclusiveFreeze` / `l2d2InjectedConnectionWriterGuards` / `l2d2ConfirmationForbiddenUi` / O-01 objective UI ; niveau DET. |
+| **09** gaps | Residual : raw `DatabaseSync` hors API ; Q15 global PARTIAL ; activation / cutover non prouvés ; G-PRR sync PENDING jusqu'à GO. |
+
+Pas de référentiel parallèle créé.
 
 ---
 
-## 15. Instruction ChatGPT
+## 16. Fake / Real qualification
 
-1. Review intégrale des diffs + NEW files ci-dessus.
-2. Valider ordre fail-closed avant openD1Db.
-3. Challenger réserve `ok:true`+FAILED.
-4. Juger O-01 DET vs besoin G-ACTIVATION.
-5. Ne pas accorder activation / merge.
+| Preuve | Classe |
+|---|---|
+| Freeze / confirmation / injected writers | **DETERMINISTIC VERIFIED AT TESTED SCOPE** |
+| O-01 Product→UI objective | **DETERMINISTIC VERIFIED AT TESTED SCOPE** (jsdom + SQLite jetable + UI réelle) |
+| Studio live / Application Support / cutover | **NOT PROVEN / NOT AUTHORIZED** |
+| P6 GLOBAL / REAL BOUNDARY / runtime v3 | **NOT CLAIMED** |
 
 ---
 
-**FIN — REVIEW PACK EVIDENCE COMPLETE / PRODUCT CODE UNCHANGED**
+## 17. Dette / risques / exit
+
+- G-PRR sync requis avant verdict d'intégration documentaire CURRENT.
+- G-GIT projet OPEN — dirty Delivery non intégré.
+- G-ACTIVATION OPEN — cutover local non autorisé.
+- Residual writer : SQLite brut hors API.
+- Q15 global PARTIAL.
+
+**Exit CORR-02 :** corrections CR-D2-02/03/04 + preuves DET + pack FULL + handoff L3. **≠** exit activation.
+
+---
+
+## 18. Réserves et stops
+
+Aucun STOP déclenché. Réserves :
+- Activation / cutover / P6 / App Support inchangés (interdits).
+- PRR non édité.
+- Frontière SQLite brute déclarée (pas STOP — hors APIs D1, explicitement hors promesse).
+
+---
+
+## 19. Gates encore ouverts
+
+| Gate | État |
+|---|---|
+| G-CORR02 | **CONSUMED** (ce cycle) |
+| G-ACTIVATION | OPEN |
+| G-GIT PROJET | OPEN |
+| G-PRR PROTECTED EDIT | OPEN |
+| Runtime v3 adoption | NON ADOPTED |
+| Cutover local prouvé | NOT AUTHORIZED |
+
+---
+
+## 20. Verdict et instruction ChatGPT
+
+**AKG-M5 L2-D2 CORR-02 — TARGETED CORRECTIONS IMPLEMENTED — EVIDENCE COMPLETE — CRITICAL REVIEW REQUIRED — ACTIVATION NOT AUTHORIZED — G-PRR / G-GIT OPEN.**
+
+ChatGPT doit :
+1. Critical Review du **delta CORR-02** (pas relire Delivery comme nouveau).
+2. Vérifier cumul Delivery L2-D2 + CORR-02.
+3. Qualifier retour FORBIDDEN (`ok:false`).
+4. Contrôler injected writers + frontière résiduelle.
+5. Évaluer preuve O-01 « comprendre » (objective LPS→UI).
+6. Statuer Q15 ciblé vs global PARTIAL.
+7. Qualifier R24 / nécessité G-PRR.
+8. Confirmer gates restants.
+9. Déterminer ordre sûr Git Integration vs activation locale.
+10. Préparer prochaine recommandation **sans GO implicite**.
+
+Ne pas déclarer : CUTOVER PROVEN ; STUDIO LIVE VALIDATED ; P6 GLOBAL PASS ; REAL BOUNDARY PROVEN ; PRODUCT COMPLETION COMPLETE ; STUDIO V3 RUNTIME ADOPTED.
+
+---
+
+## Annexe — Cumul Delivery L2-D2 déjà publié
+
+Contenu Delivery (freeze `openD1Db` + lazy repos + D4 navigation + O-01 base + env example + pages redirects) : handoff **CORR-REVIEW-01** `828e9197` / blob `0f8d8255`. CORR-02 **n'a pas** créé ces fichiers ; il les corrige / complète.
+
+FIN DU PACK CORR-02.
