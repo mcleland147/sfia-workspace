@@ -820,9 +820,9 @@ H4 OPEN · D5 non impl · R-CUT NOT PROVEN · NOT MERGED · Delivery NOT AUTHORI
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `03dafabfb5844bf1d4e4987fc6ea3aaa4d0babff` |
+| Blob FULL | `dd482d8fc601053ed66c3cc581328baee2a52335` |
 | Parent | `327955a2375a126ea4380f0ac5c6af502f24dd92` |
 | Projet | PR #611 Draft @ `90bd0064` ; **NOT MERGED** |
 
