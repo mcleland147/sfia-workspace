@@ -5,18 +5,45 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
+## Overlay — AKG-M5 L2-D1 O-01 + D5 (Delivery 2026-10-24 → Git Integration candidate)
+
+| Item | Status |
+|---|---|
+| GO | **L2-D1 BOUNDED LOCAL PRODUCT DELIVERY** + **L2-D1 GIT INTEGRATION** (Draft PR) — **NOT MERGED** / **NOT ON MAIN** |
+| Branch | `feat/akg-m5-l2-d1-product-o01-audit` @ base `main` `d6230177…` |
+| Lifecycle note | Overlay title “local Delivery” remains a historical snapshot; branch/Draft PR ≠ CURRENT ON MAIN |
+| D5 | Success create audit **inside** Product UnitOfWork · Studio composition defaults `SqliteProjectAuditJournal` |
+| Q5.1–Q5.7 | DETERMINISTIC PROVEN AT TESTED SCOPE (`l2d1D5CreateAuditAtomicity.test.ts`) |
+| O-01 | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover · « comprendre » E2E Product→UI = **KNOWN GAP** |
+| L2-D2 | **NOT AUTHORIZED** |
+| H4 / R-CUT | **OPEN / NOT PROVEN** (unchanged) |
+| REAL / P6 / v3 | REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** |
+
+## Overlay — AKG-M5 L2-D1 / CORR-01 evidence correction (2026-10-24)
+
+| Item | Status |
+|---|---|
+| GO | **L2-D1 / CORR-01 — TARGETED EVIDENCE CORRECTION** — tests/preuves · **no Product redesign** · absorbed into Git Integration candidate |
+| CR-D1-02 / Q5.3 | Success `oa.project.created` append observed with `DatabaseSync.isTransaction === true` (node:sqlite) |
+| CR-D1-01 / Q5.4 | Contractual audit failure → rollback (no Project/LPS/idem/success) → clean retry → single durable create → idempotent reuse |
+| Product source | **UNCHANGED** vs L2-D1 Delivery (Option A conserved) |
+| O-01 « comprendre » | Surfaces Product COVERAGE VERIFIED; UI mocks presentation BEHAVIOR AT TESTED SCOPE; **integrated durable Product→UI comprehend** = **KNOWN GAP** (governed) |
+| Additional product semantic impact | **NONE** beyond L2-D1 initial R24 |
+| Lifecycle | **NOT MERGED** / **NOT ON MAIN** until distinct Morris merge GO |
+| L2-D2 | **NOT AUTHORIZED** |
+
 ## Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
 
 | Item | Status |
 |---|---|
 | GO | **H0-L1 GRANTED BY MORRIS** (ChatGPT conversation 2026-10-23) — local Delivery only |
-| Branch | `feat/akg-m5-l1-a09-audit-port-decoupling` @ `main` `56447774…` — **NOT pushed / NOT PR / NOT merged** in this cycle |
+| Branch | `feat/akg-m5-l1-a09-audit-port-decoupling` — **HISTORICAL as tip** (merged via PR #609/#610; see Roadmap CURRENT TIP) |
 | Contract | `ProjectCycleAuditPort` (t-a7) = unique append port for atomic phase journal; `LocalProjectCreationAuditPort` remains distinct |
 | VSR / core | No `@/lib/d1` audit type imports; typed on `ProjectCycleAuditPort` |
 | D1 adapter | `BoundedAtomicAuditStore` remains transient persistence adapter (`d1_atomic_audit`); **NOT migrated / NOT retired** |
 | Default runtime | `auditMode` **noop** — no implicit sqlite activation |
-| R-A09-01 | **PASS TECHNIQUE local** (targeted tests + typecheck) under ChatGPT Critical Review reserve — **≠ GO L2** |
-| L2 exit condition | Durable Product audit SoT decision + D1 retire/migrate under distinct Morris GO |
+| R-A09-01 | **PASS TECHNIQUE** at merged scope — **≠ GO L2-D2** |
+| L2-D1 D5 | Addressed locally under L2-D1 overlay above (durable create journal + txn coherence) |
 | REAL / P6 / v3 | REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** |
 
 ## Overlay — P6-REAL-OBS-P0 Option B (local candidate — CRITICAL CORRECTION)

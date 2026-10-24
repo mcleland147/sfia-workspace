@@ -82,6 +82,20 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 
 **Not claimed:** global RESTART SAFE; UI automatically rehydrated; unconditional PREPARE after restart; REAL/HQA restart proven. No invented recovery mechanism beyond candidate W2/OA paths.
 
+## Overlay — AKG-M5 L2-D1 D5 CreateProject audit atomicity (Delivery 2026-10-24)
+
+| Item | AS-IMPLEMENTED (branch candidate — **NOT MERGED** / **NOT ON MAIN**) |
+|---|---|
+| Lifecycle | Historical local Delivery + CORR-01 → **Git Integration candidate** on `feat/akg-m5-l2-d1-product-o01-audit` (Draft PR) — ≠ CURRENT ON MAIN until merge GO |
+| Contractual success event | `oa.project.created` result=`ok` |
+| Atomicity | Append runs **inside** `SqliteProductStore.runInTransaction` with Project/LPS/idempotence (same `oa_*` DB / `oa_audit_events`) |
+| Studio composition | `localProjectComposition` defaults to `SqliteProjectAuditJournal` (no Memory inject on create path) |
+| Failure audit | Observational / best-effort — must not mask create failure |
+| Idempotent reuse audit | Best-effort (Project already durable) |
+| New table / port | **NONE** |
+| Proof | `l2d1D5CreateAuditAtomicity.test.ts` Q5.1–Q5.7 — DETERMINISTIC AT TESTED SCOPE |
+| Not claimed | L2-D2 cutover · REAL · runtime v3 ADOPTED · D1 retire · CURRENT ON MAIN |
+
 ## Additional stores (harvest)
 
 | Store | Role | Notes |
