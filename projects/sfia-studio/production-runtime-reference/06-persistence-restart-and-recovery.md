@@ -84,9 +84,9 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 
 ## Overlay — AKG-M5 L2-D1 D5 CreateProject audit atomicity (Delivery 2026-10-24)
 
-| Item | AS-IMPLEMENTED (branch candidate — **NOT MERGED** / **NOT ON MAIN**) |
+| Item | CURRENT AS-IMPLEMENTED ON MAIN — PR #612 MERGED / post-merge CI SUCCESS |
 |---|---|
-| Lifecycle | Historical local Delivery + CORR-01 → **Git Integration candidate** on `feat/akg-m5-l2-d1-product-o01-audit` (Draft PR) — ≠ CURRENT ON MAIN until merge GO |
+| Lifecycle | Local Delivery, CORR-01 and Draft PR = **HISTORICAL** ; [PR #612](https://github.com/mcleland147/sfia-workspace/pull/612) **MERGED** into `main` at `b792bc83e1fbe3ee2f630d2637c137ee246bf07a` ; [CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) **SUCCESS** |
 | Contractual success event | `oa.project.created` result=`ok` |
 | Atomicity | Append runs **inside** `SqliteProductStore.runInTransaction` with Project/LPS/idempotence (same `oa_*` DB / `oa_audit_events`) |
 | Studio composition | `localProjectComposition` defaults to `SqliteProjectAuditJournal` (no Memory inject on create path) |
@@ -94,7 +94,7 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 | Idempotent reuse audit | Best-effort (Project already durable) |
 | New table / port | **NONE** |
 | Proof | `l2d1D5CreateAuditAtomicity.test.ts` Q5.1–Q5.7 — DETERMINISTIC AT TESTED SCOPE |
-| Not claimed | L2-D2 cutover · REAL · runtime v3 ADOPTED · D1 retire · CURRENT ON MAIN |
+| Not claimed | L2-D2 cutover · O-01 E2E COMPLETE (« comprendre » Product→UI KNOWN GAP) · REAL · runtime v3 ADOPTED · D1 retire |
 
 ## Additional stores (harvest)
 

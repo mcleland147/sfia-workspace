@@ -5,13 +5,13 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## Overlay — AKG-M5 L2-D1 O-01 + D5 (Delivery 2026-10-24 → Git Integration candidate)
+## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
 
 | Item | Status |
 |---|---|
-| GO | **L2-D1 BOUNDED LOCAL PRODUCT DELIVERY** + **L2-D1 GIT INTEGRATION** (Draft PR) — **NOT MERGED** / **NOT ON MAIN** |
-| Branch | `feat/akg-m5-l2-d1-product-o01-audit` @ base `main` `d6230177…` |
-| Lifecycle note | Overlay title “local Delivery” remains a historical snapshot; branch/Draft PR ≠ CURRENT ON MAIN |
+| GO | L2-D1 local Delivery + CORR-01 + Git Integration + merge **consumed** at their bounded scopes ; **PR #612 MERGED ON MAIN** ; no GO L2-D2 |
+| Branch | **HISTORICAL source:** `feat/akg-m5-l2-d1-product-o01-audit` @ base `d6230177…` ; **CURRENT main:** `b792bc83e1fbe3ee2f630d2637c137ee246bf07a` (PR #612 merge) |
+| Lifecycle note | Local Delivery / CORR-01 / Draft PR = **HISTORICAL stages** ; [PR #612](https://github.com/mcleland147/sfia-workspace/pull/612) **MERGED** ; [post-merge CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) **SUCCESS** ; Product capability is CURRENT on main only at its proven scope |
 | D5 | Success create audit **inside** Product UnitOfWork · Studio composition defaults `SqliteProjectAuditJournal` |
 | Q5.1–Q5.7 | DETERMINISTIC PROVEN AT TESTED SCOPE (`l2d1D5CreateAuditAtomicity.test.ts`) |
 | O-01 | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover · « comprendre » E2E Product→UI = **KNOWN GAP** |
@@ -23,13 +23,13 @@
 
 | Item | Status |
 |---|---|
-| GO | **L2-D1 / CORR-01 — TARGETED EVIDENCE CORRECTION** — tests/preuves · **no Product redesign** · absorbed into Git Integration candidate |
+| GO | **L2-D1 / CORR-01 — TARGETED EVIDENCE CORRECTION** — tests/preuves · **no Product redesign** · absorbed into PR #612 **MERGED** |
 | CR-D1-02 / Q5.3 | Success `oa.project.created` append observed with `DatabaseSync.isTransaction === true` (node:sqlite) |
 | CR-D1-01 / Q5.4 | Contractual audit failure → rollback (no Project/LPS/idem/success) → clean retry → single durable create → idempotent reuse |
 | Product source | **UNCHANGED** vs L2-D1 Delivery (Option A conserved) |
 | O-01 « comprendre » | Surfaces Product COVERAGE VERIFIED; UI mocks presentation BEHAVIOR AT TESTED SCOPE; **integrated durable Product→UI comprehend** = **KNOWN GAP** (governed) |
 | Additional product semantic impact | **NONE** beyond L2-D1 initial R24 |
-| Lifecycle | **NOT MERGED** / **NOT ON MAIN** until distinct Morris merge GO |
+| Lifecycle | **CURRENT ON MAIN after PR #612 MERGED / CI SUCCESS** ; historical CORR-01 proven at deterministic tested scope, not O-01 E2E COMPLETE |
 | L2-D2 | **NOT AUTHORIZED** |
 
 ## Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
