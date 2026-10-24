@@ -1,6 +1,7 @@
 import type { DatabaseSync } from "node:sqlite";
 import { openD1Db, nowIso } from "./db";
 import { D1Error } from "./errors";
+import { assertD1AccessAllowedWhenLocalOaExclusive } from "./localOaExclusiveMode";
 import type {
   D1Assignment,
   D1AuditEvent,
@@ -29,7 +30,12 @@ function mapProject(row: Record<string, unknown>): D1Project {
 }
 
 export class D1ProjectRepository {
-  constructor(private readonly db: DatabaseSync = openD1Db()) {}
+  private readonly db: DatabaseSync;
+
+  /** Lazy open — avoids default-arg openD1Db() before caller guards. */
+  constructor(db?: DatabaseSync) {
+    this.db = db ?? openD1Db();
+  }
 
   listProjects(workspaceId: string): D1Project[] {
     const rows = this.db
@@ -94,6 +100,8 @@ export class D1ProjectRepository {
     idempotencyKey: string;
     responseJson: string;
   }): { kind: "created" } | { kind: "idempotent"; responseJson: string } {
+    // CR-D2-03: injected DatabaseSync must not bypass OA-exclusive freeze.
+    assertD1AccessAllowedWhenLocalOaExclusive();
     this.db.exec("BEGIN IMMEDIATE");
     try {
       const existing = this.getIdempotentResponse(args.idempotencyKey);
@@ -177,6 +185,8 @@ export class D1ProjectRepository {
     correlationId: string;
     eventIds: { mode: string; activated?: string };
   }): D1Project {
+    // CR-D2-03: injected DatabaseSync must not bypass OA-exclusive freeze.
+    assertD1AccessAllowedWhenLocalOaExclusive();
     this.db.exec("BEGIN IMMEDIATE");
     try {
       const current = this.getProject(args.projectId);

@@ -9,6 +9,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **Steps:** LocalProjectComposition → oa_projects/LPS → optional trajectory bootstrap
 - **Paths:** `vertical-slice-runtime/service.ts`, project create use cases
 - **Status:** COMPLETE (deterministic); greenfield continuity corrections on main (#531)
+- **Overlay — AKG-M5 L2-D2 LOCAL DELIVERY CANDIDATE (≠ CURRENT ON MAIN):** Product create remains OA Truth C (`prj:*` / `oa_*`). Under local exclusive marker (future G-ACTIVATION only), D1 create/confirm paths fail-closed — **no dual-write**, **no** `proj-*`→`prj:*` mapping. O-01 DET proves create → durable LPS objective → list/workspace UI (« comprendre ») on disposable SQLite. **≠** live Studio activation.
 
 ## F02 — Project load / restart
 - **Trigger:** Open `/studio/projects/[id]`
@@ -197,6 +198,19 @@ Descriptive Product routing map for the same conversational front door. **Does n
 - **OPS1 ops surface:** `/ops1/nouvelle-demande` + `lib/ops1/**` (isolated sqlite; D1 nav still links; product Fake env reuses `OPS1_*` names)
 - **Parallel BC:** `lib/oa/execution-run/**` (memory-only; FinOps/T7 shadow consumer; not product EC→Attempt)
 - **Status:** ACTIVE compatibility / temporary keep — **no SAFE TO REMOVE proven** under SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (see vol 09)
+
+### Overlay — AKG-M5 L2-D2 D4 + D1 confirmation (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+| Flow | Candidate behavior (dirty Delivery + CORR-02) | Status class |
+|---|---|---|
+| **D4 Option A — generic legacy routes** | `/workspace`, `/projects/new`, `/nouvelle-demande` → redirect `/studio` when exclusive ON | LOCAL CANDIDATE · DET proven (`l2d2D4LegacyNavigation`) · **≠** live Studio |
+| **D4 — legacy deep links** | `/projects/[id]` (D1-shaped) → `notFound()` when exclusive ON — **no** `proj-*`→`prj:*` rewrite | same |
+| **D4 — exclusive OFF** | helpers no-op — historical D1 routes unchanged | CURRENT ON MAIN behavior preserved until activation |
+| **D1 confirmation CREATE** | Exclusive ON: `executeConfirmedMutation` → `FAILED`+`FORBIDDEN` ; **CORR-02:** `actionExecuteConfirmation` → **`ok:false` / `FORBIDDEN`** (not `ok:true`+FAILED) | LOCAL CANDIDATE · DET (`l2d2LocalOaExclusiveFreeze` + `l2d2ConfirmationForbiddenUi`) |
+| **Confirmation UI** | `ConfirmationPanel` already bails on `!res.ok` — **no `onDone`** → Intake does not enter confirmed success | BEHAVIOR PROVEN AT TESTED SCOPE (unit) |
+| **Product vs D1** | Target create/find/comprehend/resume = OA Product UI (`/studio/...`) ; D1 Intake/confirm = historical freeze-gated surface | D1 FREEZE gated · RETIRE LATER |
+
+**Anti-claims:** exclusive mode **not** active on main · cutover **not** proven · routes live **not** proven.
 
 ## Generic Execution → Review → Result (CURRENT — Correction Pass 02 candidate)
 

@@ -5,17 +5,36 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
+## Overlay — AKG-M5 L2-D2 local OA cutover + CORR-02 + R24 (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+| Item | Status |
+|---|---|
+| Epistemic | **LOCAL DELIVERY CANDIDATE** on `feat/akg-m5-l2-d2-local-oa-cutover` @ dirty tip over base `1a380f22…` — **NOT CURRENT ON MAIN** · **NOT ACTIVATED** |
+| G-DELIVERY / CORR-02 | Consumed at tested scope ; Critical Review PASS WITH GOVERNED RESERVES (handoff `ceb0a69d` / blob `bb749527`) |
+| G-PRR (this cycle) | **DOCUMENTARY AUTHORING GRANTED** — R24 semantic sync of README/03–09 · Product code **unchanged by R24** · digests **not** rewritten (manifest outside allowlist) |
+| G-GIT | **OPEN** — no project commit/push/PR/merge |
+| G-ACTIVATION | **OPEN** — exclusive default OFF ; no Studio live ; no definitive App Support DBs |
+| DET proof | **31 PASS / 7 suites** (freeze / injected / confirmation UI / D4 / O-01 / D5 / M1) |
+| O-01 « comprendre » | LPS objective → Product UI **BEHAVIOR PROVEN AT TESTED SCOPE (DET)** on disposable SQLite — **≠** LIVE E2E |
+| Q15 global | **PARTIAL** — CORR-02 conversational impacts targeted only |
+| Residual writer | Raw `DatabaseSync` outside D1 applicative APIs — **KNOWN GAP** |
+| `R-L2D2-SQLITE-SNAPSHOT` | Coherent SQLite snapshot/restore for Truth C (+ Memory B) **NOT PROVEN** — must be qualified before G-ACTIVATION (see vol 06) · naive file copy **≠** validated backup |
+| R-CUT / routes live | **NOT PROVEN** |
+| P6 GLOBAL PASS | **NOT CLAIMED** |
+| Runtime v3 | **NON ADOPTED** |
+| Temporary debt exit | Digests sync (this Cycle 13 G-MANIFEST) → ChatGPT Critical Review → G-GIT decision on **cumulative** Delivery → post-merge → **separate** G-ACTIVATION (+ snapshot debt exit) for local exclusive cutover |
+
 ## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
 
 | Item | Status |
 |---|---|
-| GO | L2-D1 local Delivery + CORR-01 + Git Integration + merge **consumed** at their bounded scopes ; **PR #612 MERGED ON MAIN** ; no GO L2-D2 |
+| GO | L2-D1 local Delivery + CORR-01 + Git Integration + merge **consumed** at their bounded scopes ; **PR #612 MERGED ON MAIN** ; at merge time L2-D2 was not yet authorized (see L2-D2 candidate overlay above for later local Delivery) |
 | Branch | **HISTORICAL source:** `feat/akg-m5-l2-d1-product-o01-audit` @ base `d6230177…` ; **CURRENT main:** `b792bc83e1fbe3ee2f630d2637c137ee246bf07a` (PR #612 merge) |
 | Lifecycle note | Local Delivery / CORR-01 / Draft PR = **HISTORICAL stages** ; [PR #612](https://github.com/mcleland147/sfia-workspace/pull/612) **MERGED** ; [post-merge CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) **SUCCESS** ; Product capability is CURRENT on main only at its proven scope |
 | D5 | Success create audit **inside** Product UnitOfWork · Studio composition defaults `SqliteProjectAuditJournal` |
 | Q5.1–Q5.7 | DETERMINISTIC PROVEN AT TESTED SCOPE (`l2d1D5CreateAuditAtomicity.test.ts`) |
-| O-01 | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover · « comprendre » E2E Product→UI = **KNOWN GAP** |
-| L2-D2 | **NOT AUTHORIZED** |
+| O-01 (at L2-D1 merge) | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover · integrated « comprendre » Product→UI was **KNOWN GAP** then |
+| L2-D2 (at L2-D1 merge) | Was **NOT AUTHORIZED** — superseded as *authorization status* by later L2-D2 local Delivery candidate (still **not** on main / not activated) |
 | H4 / R-CUT | **OPEN / NOT PROVEN** (unchanged) |
 | REAL / P6 / v3 | REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** |
 
@@ -27,10 +46,10 @@
 | CR-D1-02 / Q5.3 | Success `oa.project.created` append observed with `DatabaseSync.isTransaction === true` (node:sqlite) |
 | CR-D1-01 / Q5.4 | Contractual audit failure → rollback (no Project/LPS/idem/success) → clean retry → single durable create → idempotent reuse |
 | Product source | **UNCHANGED** vs L2-D1 Delivery (Option A conserved) |
-| O-01 « comprendre » | Surfaces Product COVERAGE VERIFIED; UI mocks presentation BEHAVIOR AT TESTED SCOPE; **integrated durable Product→UI comprehend** = **KNOWN GAP** (governed) |
+| O-01 « comprendre » (CORR-01 epoch) | Surfaces Product COVERAGE VERIFIED; UI mocks presentation BEHAVIOR AT TESTED SCOPE; integrated durable Product→UI comprehend was **KNOWN GAP** then — see L2-D2 candidate overlay for later DET objective→UI proof |
 | Additional product semantic impact | **NONE** beyond L2-D1 initial R24 |
-| Lifecycle | **CURRENT ON MAIN after PR #612 MERGED / CI SUCCESS** ; historical CORR-01 proven at deterministic tested scope, not O-01 E2E COMPLETE |
-| L2-D2 | **NOT AUTHORIZED** |
+| Lifecycle | **CURRENT ON MAIN after PR #612 MERGED / CI SUCCESS** ; historical CORR-01 proven at deterministic tested scope, not O-01 LIVE E2E COMPLETE |
+| L2-D2 (CORR-01 epoch) | **NOT AUTHORIZED** then — later local Delivery candidate exists (not on main) |
 
 ## Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
 

@@ -3,6 +3,7 @@ export type D1ErrorCode =
   | "NOT_FOUND"
   | "CONFLICT"
   | "UNAUTHORIZED"
+  | "FORBIDDEN"
   | "IDEMPOTENCY"
   | "PERSISTENCE"
   | "CLAIM_FORBIDDEN"

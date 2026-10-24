@@ -15,8 +15,9 @@
 
 | Name | Purpose | Required | Default/notes | Boundaries |
 |---|---|---|---|---|
-| `SFIA_STUDIO_PRODUCT_DB_PATH` | Absolute product SQLite | optional | else `.sfia-exec/product/oa-product.sqlite` | Truth C |
-| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | Absolute Nora session SQLite | optional | else cwd-relative `.sfia-exec/product/nora-session.sqlite` | Memory B; **worktree-sensitive** |
+| `SFIA_STUDIO_PRODUCT_DB_PATH` | Absolute product SQLite | optional | else `.sfia-exec/product/oa-product.sqlite` | Truth C · server-only · prefer absolute path for durable instance |
+| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | Absolute Nora session SQLite | optional | else cwd-relative `.sfia-exec/product/nora-session.sqlite` | Memory B · **≠ Truth C** · worktree-sensitive · prefer absolute per-instance |
+| `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` | Local OA-exclusive cutover marker (L2-D2) | no — default **OFF** | Arms when `process.env` value **after `trim()`** equals `"1"` (code: `isLocalOaExclusiveMode`) ; `"1"` / `" 1 "` → ON ; unset / `"0"` / other → OFF (historical D1) | Server-only · **not** global across worktrees · **G-ACTIVATION** required · LOCAL CANDIDATE code on dirty Delivery **≠** active on main |
 | `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` | Server-owned repo identity | yes Product local | fail-closed if absent | config |
 | `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` | Server-owned remote | yes Product local | fail-closed | config |
 | `SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH` | Default branch | optional | `main` | config |
@@ -44,3 +45,15 @@
 
 - Product binding/authority envs are **server-only** (never `NEXT_PUBLIC_*`).
 - Browser must not supply repository binding or Pilot authority claims.
+
+## Overlay — AKG-M5 L2-D2 exclusive marker + Option A paths (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+| Rule | Detail |
+|---|---|
+| Activation predicate | Env value **trimmed** must equal `"1"` — matches `isLocalOaExclusiveMode()` (`trim() === "1"`). Examples: `"1"` ON · `" 1 "` ON · `"0"` OFF · unset OFF · other strings OFF |
+| Default | OFF / unset — preserves CURRENT ON MAIN D1 behavior |
+| Binding | Server-only ; documented in `app/.env.example` ; **never** `NEXT_PUBLIC_*` |
+| Future instance paths | Absolute `SFIA_STUDIO_PRODUCT_DB_PATH` + `SFIA_STUDIO_NORA_SESSION_DB_PATH` for isolated Application Support–class locations (Option A design) |
+| Isolation | Do **not** set exclusive globally for all Git worktrees ; Fresh Start candidate remains a distinct preparation |
+| This cycle | R24 documents the marker — **does not** set user `.env.local`, create definitive DBs, or start Studio |
+| Anti-claims | Exclusive **not** ADOPTED · cutover **not** proven · configuration of this Delivery worktree **unchanged** for activation |

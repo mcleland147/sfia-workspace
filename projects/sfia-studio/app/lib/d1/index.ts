@@ -30,6 +30,11 @@ export type {
 } from "./operationalReadiness";
 export { resetD1DbForTests } from "./db";
 export {
+  LOCAL_OA_EXCLUSIVE_ENV_KEY,
+  isLocalOaExclusiveMode,
+  assertD1AccessAllowedWhenLocalOaExclusive,
+} from "./localOaExclusiveMode";
+export {
   BoundedAtomicAuditStore,
   BOUNDED_ATOMIC_AUDIT_SCHEMA_VERSION,
 } from "./boundedAtomicAudit";

@@ -6,6 +6,7 @@
 
 import type { DatabaseSync } from "node:sqlite";
 import { openD1Db, nowIso } from "@/lib/d1/db";
+import { assertD1AccessAllowedWhenLocalOaExclusive } from "@/lib/d1/localOaExclusiveMode";
 import type { ProjectCycleAuditPort } from "@/lib/platform/t-a7/projectCycleAtomicCoordinator";
 
 export const BOUNDED_ATOMIC_AUDIT_SCHEMA_VERSION =
@@ -51,9 +52,16 @@ export interface AppendAtomicAuditInput {
 }
 
 export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
-  constructor(private readonly db: DatabaseSync = openD1Db()) {}
+  private readonly db: DatabaseSync;
+
+  /** Lazy open — respects local OA-exclusive fail-closed before D1 DDL. */
+  constructor(db?: DatabaseSync) {
+    this.db = db ?? openD1Db();
+  }
 
   append(input: AppendAtomicAuditInput): BoundedAtomicAuditRecord {
+    // CR-D2-03: mutation guard for injected connections (openD1Db alone is insufficient).
+    assertD1AccessAllowedWhenLocalOaExclusive();
     const createdAt = nowIso();
     const record: BoundedAtomicAuditRecord = {
       opId: input.opId,
@@ -124,6 +132,8 @@ export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
   }
 
   clearForTests(): void {
+    // CR-D2-03: DELETE is a mutation — block under OA-exclusive.
+    assertD1AccessAllowedWhenLocalOaExclusive();
     this.db.exec("DELETE FROM d1_atomic_audit");
   }
 }

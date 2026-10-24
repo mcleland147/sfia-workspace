@@ -1,11 +1,13 @@
 import { listWorkspaceProjects } from "@/lib/d1/commands";
 import { D1Error } from "@/lib/d1/errors";
+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
 import { IntakeView } from "@/features/d1/intake/IntakeView";
 
 export const dynamic = "force-dynamic";
 
 /** D1-C1: conversational intake is the primary Nouvelle demande surface. */
 export default function NouvelleDemandePage() {
+  redirectLegacyGenericEntryToStudioIfExclusive();
   try {
     const projects = listWorkspaceProjects();
     return <IntakeView projects={projects} />;

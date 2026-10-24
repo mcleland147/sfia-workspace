@@ -36,6 +36,16 @@ export async function actionExecuteConfirmation(
 ): Promise<ConfirmActionResult> {
   try {
     const result = executeConfirmedMutation(input);
+    // CR-D2-02: OA-exclusive freeze returns FAILED+FORBIDDEN without throw —
+    // surface as ok:false so UI does not treat confirmation as success.
+    if (result.status === "FAILED" && result.errorCode === "FORBIDDEN") {
+      return {
+        ok: false,
+        code: "FORBIDDEN",
+        message:
+          "Confirmation refusée : écriture D1 bloquée (mode OA exclusif local).",
+      };
+    }
     return { ok: true, result };
   } catch (error) {
     return serializeError(error);
