@@ -31,22 +31,20 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
 
 **AKG-M0 methodological continuity overlay — historical preparation vs PR candidate:** **Historical snapshot (2026-10-19, étape 1 authoring):** README role/coverage/maintenance + R-S02 Tool-First CURRENT requalification + read-only vs Delivery proportion were authored locally; at that stage **manifest digests were not yet refreshed** (`REFERENCE REVIEW REQUIRED` then). **Later in the same AKG-M0 documentary lot (PR #591 candidate):** the README digest was synchronized into `production-runtime-reference.manifest.json` after semantic acceptance — digest match is a **deterministic conformance** fact of this candidate, **not** semantic exhaustiveness and **not** proof that AKG-M0 is ACTIVE ON MAIN. **Activation on main** remains contingent on merge + post-merge verification under distinct Morris gates. P6 GLOBAL PASS / runtime v3 ADOPTED / TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT closed / AKG-M0 ACTIVE ON MAIN **NOT CLAIMED**.
 
-**AKG-M5 L2-D2 local OA Fresh Start cutover — LOCAL DELIVERY CANDIDATE + R24 PRR authoring (2026-10-24):**
+**AKG-M5 L2-D2 local OA Fresh Start cutover readiness — CURRENT ON MAIN (PR #614) + Cycle 14 documentary truth-sync (2026-10-24):**
 
 | Epistemic class | Element |
 |---|---|
-| **LOCAL DELIVERY CANDIDATE** | Worktree `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` · branch `feat/akg-m5-l2-d2-local-oa-cutover` · HEAD base `1a380f22c2ee9c63c525213e01de4bca14dff9ca` (= `origin/main`) · Product code **dirty / uncommitted / not on main** |
-| **G-DELIVERY** | Consumed — L2-D2 freeze D1 / D4 legacy nav / O-01 DET implemented locally at tested scope |
-| **CORR-02** | Critical Review PASS WITH GOVERNED RESERVES (handoff `ceb0a69db87fcf443cf08525cb6d99ec44c1e8fd` / blob `bb74952741e117dfbcbe5da198d1987beb3907e6`) — confirmation `ok:false`+FORBIDDEN ; injected writer guards ; O-01 LPS objective→UI |
-| **R24 this cycle** | **G-PRR DOCUMENTARY AUTHORING GRANTED** — semantic sync of vols README/03–09 only ; **≠** Product mutation ; **≠** digest write (manifest not in allowlist) |
-| **DETERMINISTIC PROVEN** | 31 tests / 7 suites at CORR-02 tested scope (freeze / injected / confirmation UI / D4 / O-01 / D5 / M1) |
-| **NOT CURRENT ON MAIN** | New D1 exclusive guards, D4 redirects, confirmation FORBIDDEN contract — **inactive on integrated runtime** until G-GIT + merge |
-| **G-GIT** | **OPEN** — no project commit/push/PR/merge |
-| **G-ACTIVATION** | **OPEN** — `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default OFF ; no Studio live cutover |
+| **A — Historical (pre-integration)** | **A1 LOCAL AUTHORING:** Delivery + CORR-02 + R24/Cycle13 on `feat/akg-m5-l2-d2-local-oa-cutover`, initially dirty/uncommitted over base `1a380f22c2ee9c63c525213e01de4bca14dff9ca`. **A2 G-GIT:** source commit `4647983aa36b76ae393200a7a8caaaed96936149` created (≠ dirty HEAD). **A3 INTEGRATION:** [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) MERGED → `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` · CI [#40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) SUCCESS — **HISTORICAL AS TIP** (see prior handoffs) |
+| **B — Git Integration** | [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) **MERGED** · merge `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` · [post-merge CI #40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **SUCCESS** |
+| **C — CURRENT @ marker OFF (default)** | Code on main ; exclusive inactive ; historical D1 paths unchanged for operators who do not arm the marker |
+| **D — Conditional @ marker ON (DET)** | Fail-closed D1 open+mutation (incl. injected writers) ; confirmation `ok:false`/FORBIDDEN ; D4 redirect/notFound ; O-01 LPS objective→UI — **31 PASS / 7 suites** at tested scope |
+| **E — LIVE** | Studio HTTP / Application Support / R-CUT / coherent snapshot restore — **NOT PROVEN** |
+| **F — Gates** | **G-ACTIVATION OPEN** · **G-MANIFEST CONSUMED LOCAL / PRR CONFORMANCE PASS** (digests synced locally; digest match ≠ semantic exhaustiveness) · documentary G-GIT / Draft PR = publication path toward main (**≠ merged** until distinct Morris GO) |
 | **Runtime v3** | **NON ADOPTED** |
-| **Anti-claims** | OA-exclusive **not** ADOPTED · CUTOVER **not** PROVEN · STUDIO LIVE **not** VALIDATED · P6 GLOBAL PASS **not** claimed · DET ≠ LIVE |
+| **Anti-claims** | OA-exclusive **not** ACTIVATED · CUTOVER LIVE **not** PROVEN · O-01 LIVE E2E **not** COMPLETE · P6 GLOBAL PASS **not** claimed · DET ≠ LIVE · AKG-M5 GLOBAL **OPEN** |
 
-Volumes touched by this R24 overlay: README · 03 · 04 · 05 · 06 · 07 · 08 · 09. Digest refresh deferred until ChatGPT semantic accept + distinct digest authorization (manifest path protected / not edited here).
+Cycle 14 documentary content reviewed · **G-MANIFEST** synchronized digests locally · checker PRR **PASS** at verified local scope · publication on main still requires merge + post-merge control · digest match alone does **not** prove semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**).
 
 ## What this corpus is
 
