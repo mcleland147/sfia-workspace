@@ -96,22 +96,22 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 | Proof | `l2d1D5CreateAuditAtomicity.test.ts` Q5.1–Q5.7 — DETERMINISTIC AT TESTED SCOPE |
 | Not claimed (at L2-D1 merge) | L2-D2 cutover · O-01 integrated Product→UI « comprendre » (then KNOWN GAP) · REAL · runtime v3 ADOPTED · D1 retire |
 
-## Overlay — AKG-M5 L2-D2 OA / D1 persistence freeze (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+## Overlay — AKG-M5 L2-D2 OA / D1 persistence freeze (CURRENT ON MAIN — PR #614; 2026-10-24)
 
-| Item | Candidate status |
+| Item | Status |
 |---|---|
 | Product OA Truth C | KEEP — `oa-product.sqlite` / `SFIA_STUDIO_PRODUCT_DB_PATH` · Project + LPS |
 | Nora Memory B | KEEP distinct — `nora-session.sqlite` / `SFIA_STUDIO_NORA_SESSION_DB_PATH` · **≠** Truth C |
-| D1 historical | FREEZE gated when exclusive `"1"` · RETIRE LATER · **no** physical removal in L2-D2/CORR-02 |
-| Freeze at open | `openD1Db` → assert **before** resolve / open / DDL |
-| Freeze at mutation | **CORR-02:** `createProjectAtomic` / `selectMethodModeAtomic` / `BoundedAtomicAuditStore.append|clearForTests` assert before BEGIN/INSERT/UPDATE/DELETE |
+| D1 historical | FREEZE gated when exclusive trim=`"1"` · RETIRE LATER · **no** physical removal in L2-D2 |
+| Freeze at open | `openD1Db` → assert **before** resolve / open / DDL — code CURRENT |
+| Freeze at mutation | `createProjectAtomic` / `selectMethodModeAtomic` / `BoundedAtomicAuditStore.append|clearForTests` assert before BEGIN/INSERT/UPDATE/DELETE — code CURRENT |
 | Dual-write Product↔D1 | **None** as target under exclusive |
-| H4 local | No historical D1→OA migration in this Delivery |
-| Backups / snapshot | **NOT PROVEN** — see debt `R-L2D2-SQLITE-SNAPSHOT` below. Do **not** treat a naive file copy of `*.sqlite` as a validated cutover backup |
-| Restart | DET reopen / singleton reset / M1 process durability proven at tested scope · **Studio live restart / R-CUT** = **NOT PROVEN** |
-| Residual boundary | Raw `DatabaseSync` outside D1 applicative APIs **not** guarded — **KNOWN GAP** (declared CORR-02) |
-| Proof | freeze + injected + O-01 + D5 + M1 suites — **DETERMINISTIC AT TESTED SCOPE** (31 PASS / 7 files per CORR-02 handoff) |
-| Anti-claims | Exclusive **not** active on main · cutover **not** proven · App Support definitive DBs **not** created · live backup **not** executed this cycle |
+| H4 local | No historical D1→OA migration |
+| Backups / snapshot | **NOT PROVEN** — debt `R-L2D2-SQLITE-SNAPSHOT` (R-03). Naive file copy of `*.sqlite` **≠** validated cutover backup |
+| Restart | DET reopen / singleton reset / M1 process durability at tested scope · **Studio live restart / R-CUT** = **NOT PROVEN** |
+| Residual boundary | Raw `DatabaseSync` outside D1 applicative APIs **not** guarded — **KNOWN GAP** |
+| Proof | freeze + injected + O-01 + D5 + M1 — **DETERMINISTIC AT TESTED SCOPE** (31 PASS / 7) · post-merge CI SUCCESS |
+| Anti-claims | Exclusive **not** ACTIVATED by merge · cutover LIVE **not** proven · App Support definitive DBs **not** created by merge |
 
 ### Debt — `R-L2D2-SQLITE-SNAPSHOT` (operational, pre–G-ACTIVATION)
 

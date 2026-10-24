@@ -127,9 +127,9 @@ OA = authority of record. W2 = Product coordination. Nora = cognition/recommenda
 | New Product table | — | — | **NONE** (`oa_audit_events` reused) |
 | D1 / dual-write | — | — | **NONE** at L2-D1 merge scope — L2-D2 was **not** authorized then (see L2-D2 candidate overlay below) |
 
-### Overlay — AKG-M5 L2-D2 local OA-exclusive D1 freeze + D4 (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+### Overlay — AKG-M5 L2-D2 local OA-exclusive D1 freeze + D4 (CURRENT ON MAIN — PR #614; 2026-10-24)
 
-**Epistemic:** dirty branch `feat/akg-m5-l2-d2-local-oa-cutover` @ base `1a380f22…` — **NOT CURRENT ON MAIN**. Default exclusive OFF preserves historical D1. Activation = distinct G-ACTIVATION.
+**Epistemic:** [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) **MERGED** @ `1a0ccd84…` · post-merge CI SUCCESS. Code CURRENT on main. Default exclusive OFF preserves historical D1 operator paths. Arming = distinct **G-ACTIVATION**. Pre-merge « LOCAL DELIVERY CANDIDATE / dirty » wording = **HISTORICAL AS TIP**.
 
 | Edge / surface | From | To | Candidate change |
 |---|---|---|---|

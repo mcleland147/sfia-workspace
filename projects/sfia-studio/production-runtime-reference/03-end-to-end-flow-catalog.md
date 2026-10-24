@@ -9,7 +9,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **Steps:** LocalProjectComposition → oa_projects/LPS → optional trajectory bootstrap
 - **Paths:** `vertical-slice-runtime/service.ts`, project create use cases
 - **Status:** COMPLETE (deterministic); greenfield continuity corrections on main (#531)
-- **Overlay — AKG-M5 L2-D2 LOCAL DELIVERY CANDIDATE (≠ CURRENT ON MAIN):** Product create remains OA Truth C (`prj:*` / `oa_*`). Under local exclusive marker (future G-ACTIVATION only), D1 create/confirm paths fail-closed — **no dual-write**, **no** `proj-*`→`prj:*` mapping. O-01 DET proves create → durable LPS objective → list/workspace UI (« comprendre ») on disposable SQLite. **≠** live Studio activation.
+- **Overlay — AKG-M5 L2-D2 (CURRENT ON MAIN — PR #614; DEFAULT OFF / NOT ACTIVATED):** Product create remains OA Truth C (`prj:*` / `oa_*`). When `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` trim=`"1"` (future **G-ACTIVATION** only), D1 create/confirm paths fail-closed — **no dual-write**, **no** `proj-*`→`prj:*` mapping. O-01 DET proves create → durable LPS objective → list/workspace UI (« comprendre ») on disposable SQLite. Marker default OFF preserves pre-L2-D2 D1 operator paths. **≠** live Studio activation / HTTP E2E.
 
 ## F02 — Project load / restart
 - **Trigger:** Open `/studio/projects/[id]`
@@ -199,18 +199,18 @@ Descriptive Product routing map for the same conversational front door. **Does n
 - **Parallel BC:** `lib/oa/execution-run/**` (memory-only; FinOps/T7 shadow consumer; not product EC→Attempt)
 - **Status:** ACTIVE compatibility / temporary keep — **no SAFE TO REMOVE proven** under SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (see vol 09)
 
-### Overlay — AKG-M5 L2-D2 D4 + D1 confirmation (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+### Overlay — AKG-M5 L2-D2 D4 + D1 confirmation (CURRENT ON MAIN — PR #614; 2026-10-24)
 
-| Flow | Candidate behavior (dirty Delivery + CORR-02) | Status class |
+| Flow | Behavior on main | Status class |
 |---|---|---|
-| **D4 Option A — generic legacy routes** | `/workspace`, `/projects/new`, `/nouvelle-demande` → redirect `/studio` when exclusive ON | LOCAL CANDIDATE · DET proven (`l2d2D4LegacyNavigation`) · **≠** live Studio |
+| **D4 Option A — generic legacy routes** | `/workspace`, `/projects/new`, `/nouvelle-demande` → redirect `/studio` when exclusive ON | Code CURRENT · DET proven (`l2d2D4LegacyNavigation`) · LIVE HTTP **NOT PROVEN** |
 | **D4 — legacy deep links** | `/projects/[id]` (D1-shaped) → `notFound()` when exclusive ON — **no** `proj-*`→`prj:*` rewrite | same |
-| **D4 — exclusive OFF** | helpers no-op — historical D1 routes unchanged | CURRENT ON MAIN behavior preserved until activation |
-| **D1 confirmation CREATE** | Exclusive ON: `executeConfirmedMutation` → `FAILED`+`FORBIDDEN` ; **CORR-02:** `actionExecuteConfirmation` → **`ok:false` / `FORBIDDEN`** (not `ok:true`+FAILED) | LOCAL CANDIDATE · DET (`l2d2LocalOaExclusiveFreeze` + `l2d2ConfirmationForbiddenUi`) |
-| **Confirmation UI** | `ConfirmationPanel` already bails on `!res.ok` — **no `onDone`** → Intake does not enter confirmed success | BEHAVIOR PROVEN AT TESTED SCOPE (unit) |
-| **Product vs D1** | Target create/find/comprehend/resume = OA Product UI (`/studio/...`) ; D1 Intake/confirm = historical freeze-gated surface | D1 FREEZE gated · RETIRE LATER |
+| **D4 — exclusive OFF (default)** | helpers no-op — historical D1 routes unchanged | CURRENT default operator path |
+| **D1 confirmation CREATE** | Exclusive ON: `executeConfirmedMutation` → `FAILED`+`FORBIDDEN` ; `actionExecuteConfirmation` → **`ok:false` / `FORBIDDEN`** | Code CURRENT · DET proven |
+| **Confirmation UI** | `ConfirmationPanel` bails on `!res.ok` — **no `onDone`** | BEHAVIOR PROVEN AT TESTED SCOPE (unit) |
+| **Product vs D1** | Target continuity = OA Product UI (`/studio/...`) ; D1 Intake/confirm = freeze-gated when exclusive ON | D1 FREEZE gated · RETIRE LATER |
 
-**Anti-claims:** exclusive mode **not** active on main · cutover **not** proven · routes live **not** proven.
+**Anti-claims:** exclusive **not** ACTIVATED by merge · cutover LIVE **not** proven · D4 LIVE HTTP **not** proven (R-02).
 
 ## Generic Execution → Review → Result (CURRENT — Correction Pass 02 candidate)
 

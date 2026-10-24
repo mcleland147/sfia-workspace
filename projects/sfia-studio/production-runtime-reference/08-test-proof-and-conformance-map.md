@@ -9,7 +9,7 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
-## Overlay — AKG-M5 L2-D2 proof map (LOCAL DELIVERY CANDIDATE — R24 2026-10-24)
+## Overlay — AKG-M5 L2-D2 proof map (CURRENT ON MAIN — PR #614; DET — 2026-10-24)
 
 | Suite file | What it proves | Class |
 |---|---|---|
@@ -21,14 +21,14 @@
 | `l2d1D5CreateAuditAtomicity.test.ts` | D5 non-regression | DET (CURRENT ON MAIN capability) |
 | `m1ProductSqliteDurability.test.ts` | Process/reopen durability non-regression | DET |
 
-**Batch cited:** CORR-02 handoff `ceb0a69d` — **31 PASS / 7 files**. SQLite = `os.tmpdir()` only. **LIVE Studio / Application Support / R-CUT: NOT PROVEN.** Q15 conversational global: **PARTIAL** (CORR-02 targeted only).
+**Batch cited:** CORR-02 / G-GIT pre-commit — **31 PASS / 7 files**. Post-merge CI [#40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **SUCCESS** on merge `1a0ccd84…`. SQLite = `os.tmpdir()` only for DET. **LIVE Studio / Application Support / R-CUT / D4 HTTP: NOT PROVEN.** Q15 global: **PARTIAL**.
 
 ## Flow → tests (selected)
 
 | Flow | Deterministic tests | Notes |
 |---|---|---|
 | O-01 / D5 CreateProject audit (AKG-M5 L2-D1 CURRENT ON MAIN PR #612 + CORR-01) | `l2d1D5CreateAuditAtomicity.test.ts` (Q5.1–Q5.7) + M1 durability/restart suites | **DETERMINISTIC AT TESTED SCOPE** — success audit inside Product UnitOfWork; Studio composition Sqlite journal default; **CORR-01:** Q5.3 observes `DatabaseSync.isTransaction` during success append; Q5.4 covers audit-failure→rollback→clean retry→single create; PR #612 [post-merge CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) SUCCESS; at L2-D1 merge, integrated O-01 « comprendre » Product→UI was KNOWN GAP (addressed as **LOCAL CANDIDATE** under L2-D2 row below) · **≠** REAL |
-| O-01 / L2-D2 local OA exclusive + D4 + CORR-02 (LOCAL DELIVERY CANDIDATE — **≠ CURRENT ON MAIN**) | `l2d2LocalOaExclusiveFreeze.test.ts` · `l2d2InjectedConnectionWriterGuards.test.ts` · `l2d2ConfirmationForbiddenUi.test.tsx` · `l2d2D4LegacyNavigation.test.ts` · `l2d2O01ProductUiIntegrated.test.tsx` (+ D5 + M1 non-regression in same CORR-02 batch) | **DETERMINISTIC AT TESTED SCOPE** — CORR-02 handoff reports **31 PASS / 7 suites** ; disposable SQLite only ; O-01 LPS **objective** → list `studio-projects-current` + workspace `project-subtitle` ; confirmation FORBIDDEN → `ok:false` ; injected writers guarded ; D4 redirect/notFound ; **≠** Studio live · **≠** cutover · Q15 global **PARTIAL** |
+| O-01 / L2-D2 local OA exclusive + D4 + CORR-02 (CURRENT ON MAIN — PR #614; **DEFAULT OFF / NOT ACTIVATED**) | `l2d2LocalOaExclusiveFreeze.test.ts` · `l2d2InjectedConnectionWriterGuards.test.ts` · `l2d2ConfirmationForbiddenUi.test.tsx` · `l2d2D4LegacyNavigation.test.ts` · `l2d2O01ProductUiIntegrated.test.tsx` (+ D5 + M1) | **DETERMINISTIC AT TESTED SCOPE** — **31 PASS / 7** · post-merge CI SUCCESS · O-01 LPS **objective** → UI · confirmation FORBIDDEN → `ok:false` · injected writers · D4 redirect/notFound · **≠** Studio live · **≠** cutover · Q15 **PARTIAL** |
 | F05 materialization | continuity CORR-01, bridge CORR-01, corrProof07, **productCycleE2eStabilization.frontDoor**, fakeProvider materialization | **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** — oracle traverses Product UI server actions (Send→Decide→PrepareResolvedM3→ConfirmAndExecuteResolvedM3→Rehydrate) |
 | F05 optional documentary → Generic PREPARE (PR #586) | `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` (+ G-D4, Product Continuity, HQA-F01) | DETERMINISTIC — `no_require_artifact` routes to Generic PREPARE; Artifact obligation path preserved; exact caps; non-authoritative path candidates; Fake cue `__P6_OPTIONAL_DOCUMENTARY_MD__` ≠ OpenAI LIVE |
 | F04 Nora Generic PREPARE tool (D-ER-16) | `p6.der16.genericNoraToolInvocation.d0.test.ts` | DETERMINISTIC — solicit PREPARE only; structural fail-closed; no Attempt; PENDING_GIT_INTEGRATION |
