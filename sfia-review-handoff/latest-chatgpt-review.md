@@ -1170,11 +1170,11 @@ Pas de Product READY · pas SAFE TO DELETE D1 · pas dual-write · pas nouveau p
 
 | Item | Valeur |
 |---|---|
-| Verdict publish | _PENDING_PUBLISH_ |
-| Commit FULL | _PENDING_PUBLISH_ |
-| Blob FULL | _PENDING_PUBLISH_ |
+| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
+| Commit FULL | `fd3e784f3fc12c44696b41f25f5cb7886c197191` |
+| Blob FULL | `ec0b25eadc82be35bc048bb32f6da8d410958c11` |
 | Parent | `67eb1d83b5893afd5e179cdef8ae01a28ec86e23` |
-| Projet | local uncommitted @ `d62301771957ecbc74aedf1b405e183f3db3956d` ; **pas de push/PR** |
+| Projet | local uncommitted ; **pas de push/PR** |
 
 ---
 
