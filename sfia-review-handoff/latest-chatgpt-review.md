@@ -1,252 +1,348 @@
-# SFIA Studio — AKG-M5 / L2-D2-P1 — G-ENV + H4 Environment Qualification
+# SFIA Studio — AKG-M5 / L2-D2 Cycle 7 — LOCAL OA FRESH START PREPARATION
 
-**Date / heure:** 2026-10-24 14:15 Europe/Paris (CEST)
-**Cycle:** 1 — Cadrage
-**Profil:** Critical
-**Typologie:** DOC / READ-ONLY
-**GO Morris:** L2-D2-P1 — G-ENV / H4 PREPARATION — **CONSUMED**
-**NON autorisé / NON effectué:** cutover · freeze · ouverture DB user/prod · migration · backup DB réelle · inventaire SQL · code/PRR/Roadmap edit · création d’env · commit/push/PR/merge projet · L2-D2 Delivery
-
-**Instruction ChatGPT:** lire `sfia/review-handoff:sfia-review-handoff/latest-chatgpt-review.md` ; vérifier env réellement prouvé, owners, H4 checklist, writers D1 (CR-D2-01), absence de staging inventé, décisions Morris minimales. Critical Review ≠ GO Delivery.
+**Profile:** CRITICAL
+**Typologie:** RUN / ENVIRONMENT PREPARATION
+**Date/heure locale:** 2026-10-24 15:29 CEST
+**Auteur rapport:** Cursor (Composer)
+**GO Morris consommé:** LOCAL FRESH START PREPARATION ONLY
+**Cutover:** NOT AUTHORIZED (ce GO n'est PAS un GO cutover L2-D2)
 
 ---
 
-## 1. Verdict
+## 0. Verdict Cursor
 
-**L2-D2-P1 ENVIRONMENT QUALIFICATION COMPLETE**
-**— H4 GAPS EXPLICIT**
-**— MORRIS ENVIRONMENT DECISION REQUIRED**
-**— NO CUTOVER AUTHORITY**
+**LOCAL OA FRESH START PREPARATION PASS**
+— NEW OA CANDIDATE ISOLATED
+— HISTORICAL DATA UNTOUCHED
+— CUTOVER NOT AUTHORIZED
 
-**STAGING NOT VERIFIED — OWNER INPUT REQUIRED.** Aucun staging/production déployé n’est démontré dans Git/CI/docs. Candidat documenté : **Product local-dev** (config `.env.example` / localhost:3020) avec H4 majoritairement **UNKNOWN**. CI = validation isolée éphémère ≠ cutover réel.
-
----
-
-## 2. GO Morris P1
-
-Qualification G-ENV/H4 only. N’adopte pas H1/D4/D6/R-CUT. Handoff L2-D2 readiness tip `e19007bc…` réutilisé.
+Instruction ChatGPT : revue critique du pack FULL ; confirmer isolation + virginité ; ne pas interpréter comme autorisation de bascule runtime / D1 freeze / activation `SFIA_STUDIO_PRODUCT_DB_PATH` / restart Studio. Prochain GO borné candidate : **LOCAL STUDIO OA CUTOVER READINESS**.
 
 ---
 
-## 3. Git Truth
+## 1. GO Morris consommé
 
-| Item | Valeur |
+Décision Morris 2026-10-24 :
+
+- Développement/test exclusif Mac local.
+- Aucune reprise des anciens projets D1/OA.
+- Cible Product OA avec base SQLite neuve et vierge.
+- Ancien historique intact.
+- Aucun staging séparé.
+
+Résultat attendu de CE cycle uniquement : environnement de persistance OA **candidat**, isolé, initialisé via mécanismes Product actuels, avec preuves de sécurité et d'initialisation.
+
+**NE PAS exécuté (conforme) :** bascule config active ; start/restart Studio ; désactivation D1 ; migration projets ; suppression anciennes bases ; architecture de stockage parallèle ; commit/push/PR projet.
+
+---
+
+## 2. Git Truth
+
+| Check | Résultat |
 |---|---|
-| Worktree | `/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-readiness` |
-| Mode | **detached** `origin/main` |
-| HEAD / origin/main | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` — **ALIGNED** |
-| Status projet | clean (seul `.tmp-sfia-review/chatgpt-review.md` dirty) |
-| Handoff parent | `e19007bc…` (L2-D2 Readiness) |
-| P6 dirty | **non touché** · **aucun probe P6** ce cycle |
-| Projet push/PR | **NON** |
+| `pwd -P` | `/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-readiness` |
+| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
+| `HEAD` | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
+| `origin/main` | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
+| Branch | *(detached HEAD on origin/main)* |
+| Status porcelain | ` M .tmp-sfia-review/chatgpt-review.md` only (pack local) |
+| Diff source Product | **aucune** (AUCUN fichier source créé/modifié) |
+| Worktree utilisé | **readiness** `/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-readiness` |
+
+Alignement tip P1 handoff (pré-publication) :
+
+- Branche distante `sfia/review-handoff` tip : `58b3f2afe84da26160203df8de0762b7a26e327e`
+- Worktree handoff : `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` clean @ même SHA
+
+**P6 worktree préservé (non muté) :**
+`/Users/morris/Projects/sfia-workspace` @ `980064c0` branch `qa/sfia-studio-p6-global-integrated-product-qa` — dirty state **non touché** (ni stash, ni reset, ni open DB métier).
+
+**Divergence Git Truth :** aucune. PASS.
 
 ---
 
-## 4. Sources Git précises
+## 3. Sources et convergence (lecture)
 
-- Process Cycle 1 + CKC 01-cadrage (lecture)
-- Build Doctrine / Roadmap CURRENT TIP L2-D1 / C1
-- M4 01/02/03/14 · M5 01/03/04 (H4 §08 checklist)
-- PRR 01/03/04/05/06/07/08/09
-- `app/.env.example` (placeholders only)
-- `.github/workflows/sfia-studio-ci.yml`
-- `lib/d1/{paths,db,commands,actions,methodModeHold}.ts`
-- `lib/oa/project/infrastructure/sqlite/paths.ts`
-- Handoff L2-D2 Readiness FULL (réserves CR-D2-01/02)
+Canoniques lues / prises en compte (guidance, non exécutées comme authority runtime) :
+
+- SFIA v2.6 templates / routing / guardrails / operating model (référence contrat).
+- CKC `07-integration-devops.md` — guidance contenu.
+- Convergence Build Doctrine + Roadmap (note R24 : Roadmap B-AKG détaillée historiquement moins à jour que CURRENT TIP — **aucune correction doc ce cycle**).
+- Product Completion cadrage ; M4 to-be ; M5 blueprint + L2-D0 readiness.
+- Doctrine v3 32/34/37 — **Runtime v3 NON ADOPTED**.
+- PRR CURRENT volumes 04/05/06/07/08/09 — **pas de sync R24** (aucun changement Product).
+- Handoff P1 FULL (tip `58b3f2af…`) + orientation Morris Fresh Start.
+- Code path Product : `sqlite/paths.ts`, `sqlite/db.ts` (`openProductSqlite`, `PRODUCT_SCHEMA_VERSION` = `m9-0.1.0`), composition locale, D1 paths (lecture résolution seulement).
+
+**Convergence pre-check :**
+
+- Capacité cible O-01 — hors preuve E2E ce cycle.
+- Architecture : OA = Product Truth C ; Studio `/studio` parcours nominal.
+- Actifs : OA SQLite / SqliteProductStore / Product Schema / SqliteProjectAuditJournal / LPS+idempotence = KEEP ; D1 = RETIRE LATER ; données P6 = PRESERVE.
+- État : L2-D1 MERGED/VERIFIED ; L2-D2 READINESS QUALIFIED ; P1 ENV QUAL ACCEPTED ; H4 GLOBAL OPEN ; R-CUT NOT PROVEN.
+- Orientation Morris : LOCAL FRESH START, NO HISTORICAL PROJECT MIGRATION (périmètre local identifié uniquement).
+
+Trajectoire rappelée : Fresh OA preparation → Critical Review ChatGPT → separate local cutover qualification → D1 writer/reader cutover sous GO → O-01 proof → future D1 retirement sous GO.
 
 ---
 
-## 5. Convergence Pre-check / R23
+## 4. Worktree et processus
 
-| Item | Qualification |
+**Worktree d'exécution :** readiness (detached `origin/main`).
+
+**Processus observés (sans secrets) :**
+
+- Aucun processus Next.js / Studio / `sfia-studio` applicatif détecté au moment du check.
+- Seul bruit node hors périmètre : daemon Codex artifact-session (non Studio).
+- `lsof` sur la base candidate : aucun holder applicatif.
+
+**Runtime actif Studio :** non démarré / non redémarré (interdit par GO).
+
+---
+
+## 5. Configuration / path discovery (R23)
+
+### 5.1 Overrides shell (session agent)
+
+| Clé | État |
 |---|---|
-| Capacité v3 | O-01 |
-| Milestone | AKG-M5 / L2-D2-P1 |
-| TO-BE | OA Truth C unique |
-| AS-IS | D1 + OA coexistent (COVERAGE VERIFIED) |
-| Dette | Dual surface · données D1 historiques |
-| Dépendances | H1 · H4 · D4 · R-CUT (ouverts) |
-| Sortie P1 | Env identifiable + lacunes H4 |
-| Next | Morris G-ENV / G-OWNER / G-H4-ACCESS |
+| `SFIA_STUDIO_PRODUCT_DB_PATH` | UNSET |
+| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | UNSET |
+| `D1_SQLITE_PATH` | UNSET |
+| `OPS1_EXEC_ROOT` | UNSET |
+| `SFIA_STUDIO_CURSOR_REAL` | UNSET |
+| `BETTER_AUTH_SECRET` | UNSET |
 
----
+### 5.2 Fichiers env
 
-## 6. Environments Inventory
+- `app/.env.local` : **ABSENT** dans le worktree readiness (aucune clé active locale à masquer).
+- Aucune modification `.env*` effectuée.
 
-| ID | Nom | Provenance | Existence | Scope | Owner | Runtime | D1 store | OA store | Users | Cutover pertinence | Risk data | Gate avant investigation active |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| E-LOCAL | Product local-dev | `.env.example` BETTER_AUTH_URL=`http://localhost:3020` · PRR 05 · paths default `.sfia-exec/...` | **DOCUMENTED** (config) · instance machine **NOT VERIFIED** ce cycle | Single-user Product local profile | **UNKNOWN** (Pilote temporaire) | Local Next | Default `D1_SQLITE_PATH`/`OPS1_EXEC_ROOT`/`.sfia-exec/local-i1/state/d1.sqlite` | `SFIA_STUDIO_PRODUCT_DB_PATH` / `.sfia-exec/product/oa-product.sqlite` | UNKNOWN | Préparation possible · **faible** comme preuve cutover réel | Medium (fichiers peuvent exister hors WT) | GO inventaire RO / owner |
-| E-CI | CI ephemeral | `sfia-studio-ci.yml` `runs-on: ubuntu-latest` | **VERIFIED** (workflow Git) | PR/push tests | GitHub Actions | Ephemeral | Temp test paths | Temp | None | **Non** (pas de D1 historique durable) | Low | N/A protocol dry-run only |
-| E-STAGING | Staging représentatif | Recherche workflows/docs/deploy | **STAGING NOT VERIFIED** | — | **OWNER INPUT REQUIRED** | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN | Serait prioritaire **si** prouvé | — | Owner name + proof of deployment |
-| E-PROD | Production | PRR boundaries / REAL gates docs | **NOT VERIFIED** as deployed instance | — | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN | UNKNOWN | **NOT first env** without reinforced gates | High | Explicit GO + H4 + backups |
+### 5.3 Résolution Product (code, non invoquée sur bases historiques)
 
-Règle respectée : configuration ≠ instance déployée. Absence repo ≠ absence externe. Aucun environnement créé.
+`resolveProductSqlitePath` (`paths.ts`) :
 
-### Volumes (rappel — NON COURANTS)
+1. Si override explicite ou `SFIA_STUDIO_PRODUCT_DB_PATH` → `path.resolve` + **`ensureDir(dirname)`** + refuse chemins alien `d1.sqlite` / `ops1`.
+2. Sinon default : `{studioRoot}/.sfia-exec/product/oa-product.sqlite` où `studioRoot = resolve(cwd, "..")` quand cwd = `app/`.
 
-| Snapshot | Valeur | Statut P1 |
-|---|---|---|
-| D1 Q0 | 131 | **HISTORICAL** |
-| OA Q0 | 43 | **HISTORICAL** |
-| Overlap | 0 | **HISTORICAL** |
-| Production | UNKNOWN | **UNKNOWN** (≠ 0) |
-| Fichiers SQLite P6 (rapport L2-D2) | EXISTS sizes | **NOT RE-PROBED** · **NOT OPENED** · volumes **UNKNOWN** |
+**Avertissement opérationnel :** invoquer le résolveur default **crée** le répertoire product. Pendant la découverte, le résolveur n'a **pas** été appelé sur le chemin default historique. L'init candidate a utilisé `openProductSqlite(absolutePath)` directement (mécanisme Product d'ouverture/schéma), sans toucher l'env actif.
 
----
+### 5.4 Existence chemins (stat only — aucun open SQLite historique)
 
-## 7. Owners / data authority
+**Readiness WT :**
 
-| Domaine | Status |
+| Chemin | État |
 |---|---|
-| Env local-dev ownership | **UNKNOWN** — Pilote temporaire (doc D0) |
-| Staging ownership | **UNKNOWN** — staging not verified |
-| Production ownership | **UNKNOWN** |
-| D1 historical data policy (D6) | **UNASSIGNED** |
-| Conservation obligations | **UNKNOWN** / none demonstrated |
+| `…/readiness/…/.sfia-exec/product/oa-product.sqlite` | ABSENT (avant et après) |
+| `…/readiness/…/.sfia-exec/local-i1/state/d1.sqlite` | ABSENT |
+| Default product dir readiness | non créé par ce cycle |
+
+**P6 WT (existence fichier seulement — contenus NON lus / NON ouverts) :**
+
+| Chemin | État |
+|---|---|
+| `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/product/oa-product.sqlite` | EXISTS FILE size=3207168 |
+| `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/local-i1/state/d1.sqlite` | EXISTS FILE size=376832 |
+
+### 5.5 Risques de collision
+
+| Risque | Évaluation |
+|---|---|
+| Candidate == P6 OA path | **FAUX** (`realpath` distincts) |
+| Candidate sous P6 worktree | **FAUX** |
+| Symlink candidate → hist | **FAUX** (`isLink=false`, realpath = path) |
+| Partage D1 / OPS1 | **FAUX** (hors `state/d1`, hors ops1 ; basename `oa-product.sqlite`) |
+| Processus utilisant candidate | **Aucun** observé |
+| Env actif pointant candidate | **Non** (UNSET + pas de `.env.local`) |
+| Default readiness créé par erreur | **Non** (DEFAULT_STILL_ABSENT) |
 
 ---
 
-## 8. Writers / readers (delta utile) + CR-D2-01
+## 6. Chemin candidat OA (TEMPORARY)
 
-| Path | W/R | DB | Garde-fou actuel | Env usage connu | Risque si D1 RO | Oracle futur |
-|---|---|---|---|---|---|---|
-| `commands.createProject` / `actionCreateProject` | **Writer** | D1 | authz mono-operator · **pas** MethodModeHold | Routes `/projects/new` · features/d1 | Create legacy bloqué seulement après freeze | **Q8 must include createProject** |
-| `selectMethodMode` / `actionSelectMethodMode` | Writer (blocked) | D1 | `assertMethodModeTransitionAllowed` when hold ACTIVE | Cockpit badges | Already blocked when hold active | Q6/Q8 transition |
-| Intake + confirmation execute | Writers | D1 | Confirmation flows | `/nouvelle-demande` | Legacy intake writes | Q8 intake/confirm |
-| `listWorkspaceProjects` / `getProject` / audit | Readers | D1 | NOT_FOUND | `/workspace` `/projects/[id]` | Deep-link read | Q7/Q10/Q12 |
-| OA CreateProject / List / Get | W/R | OA Product | D5 txn audit (L2-D1) | `/studio` | Nominal Product | Q1–Q5 HISTORICAL |
-
-### CR-D2-01 — MethodModeHold ≠ freeze writers
-
-**FAIT CODE (COVERAGE VERIFIED @ `1a380f22`):** `createProject` (`commands.ts`) écrit `methodMode: input.methodMode` et appelle `repo.createProjectAtomic` **sans** `assertMethodModeTransitionAllowed`. Le hold n’est invoqué que dans `selectMethodMode`.
-**Implication:** hold ACTIVE **ne freeze pas** createProject D1. Q8 cutover doit prouver l’absence de **tous** writers D1 post-freeze, y compris create/intake/confirmation — pas seulement selectMethodMode.
-**P1:** aucune correction code.
-
-### CR-D2-02 — Q1–Q4 oracles (lien précis)
-
-| Q | Oracle existant (historique) | Niveau |
-|---|---|---|
-| Q1 Create | `createProjectUi` + Q5.1/Q5.7 + L2-D1 CI | PASS HISTORICAL AT TESTED SCOPE |
-| Q2 List/Get | `studioProjectsHome` + Q5 list/get | PASS HISTORICAL (UI list = mock action) |
-| Q3 Resume | `m1RestartProcessProof` + Q5.5 + `automaticProjectResume.ui` | PASS HISTORICAL persist / UI mock séparée |
-| Q4 Idempotence | Q5.4 CORR-01 | PASS HISTORICAL |
-| Comprendre E2E | — | **KNOWN GAP** (inchangé) |
-
----
-
-## 9. H4 checklist par environnement
-
-### E-LOCAL (Product local-dev)
-
-| # | Critère | Statut | Source / preuve | Manque | Owner attendu | Next | Gate |
-|---|---|---|---|---|---|---|---|
-| 1 | Nom/périmètre | **PARTIAL** | local-dev / localhost:3020 DOCUMENTED | Instance machine named | Morris/Pilote | Name machine profile | G-ENV |
-| 2 | Owners | **UNKNOWN** | D0 UNASSIGNED | Named owner | Morris | G-OWNER | G-OWNER |
-| 3 | Writers D1 | **VERIFIED** (code) | commands/actions inventory | Usage effectif sur instance | — | Optional runtime probe under GO | — |
-| 4 | Readers/routes | **VERIFIED** (code) | routes D1 list | Usage réel | — | — | D4 later |
-| 5 | Volumes/identités | **UNKNOWN** | Q0 HISTORICAL only | Current aggregates | Data owner | **G-H4-ACCESS** RO inventory | H4 |
-| 6 | Users/parcours | **UNKNOWN** | — | Who uses local D1 | Owner | Qualify | H4 |
-| 7 | Conservation | **UNKNOWN** | none demonstrated | Policy | D6 owner | G-H4-POLICY | D6 |
-| 8 | Backup/RO | **UNKNOWN** | — | Backup plan | Owner | Decide if inventory needs RO copy | H4 |
-| 9 | D4 links | **BLOCKED** | D4 not decided | Policy A/B/C | Morris | Separate gate | D4 |
-| 10 | Fallback | **PARTIAL** | R-CUT designed | Env-specific plan | — | After G-ENV | R-CUT |
-| 11 | Q7–Q12 | **NOT APPLICABLE** yet | Tests cutover NOT PRESENT | Write tests under Delivery | Eng | After env chosen | L2-D2 |
-| 12 | Q8 post-freeze | **NOT APPLICABLE** | Freeze not done | Must cover createProject | Eng | Delivery | L2-D2 |
-| 13 | STOP | **VERIFIED** (doc) | Writer leak · dual-write · open user DB | — | — | — | — |
-| 14 | GO env-scoped | **BLOCKED** | No Delivery GO | Morris | After Critical + decisions | G-DELIV |
-
-**H4-env PASS E-LOCAL: NON.**
-
-### E-CI
-
-| Synthèse | **NOT APPLICABLE** as cutover env — ephemeral, no historical D1. Useful only for protocol dry-run. |
-
-### E-STAGING / E-PROD
-
-| Synthèse | Checklist **BLOCKED** — environment **NOT VERIFIED**. All 14 criteria UNKNOWN/BLOCKED until owner proves existence. |
-
-**H4 GLOBAL PASS: NON.**
-
----
-
-## 10. Options environnement + recommandation
-
-| Option | Applicabilité | Valeur cutover | Risque | Reco |
-|---|---|---|---|---|
-| A — Local-dev named + RO inventory GO | Config DOCUMENTED | Faible→moyenne | Data on developer machine | Candidate **préparation** seulement |
-| B — Staging if owner proves deploy | **NOT VERIFIED** today | Haute | Depends | **Priorité** dès que prouvé |
-| C — CI fixture protocol only | VERIFIED | **Non** (≠ réel) | Low | Prep oracles, not cutover proof |
-| D — Production first | NOT VERIFIED · NOT AUTHORIZED | Max | High | **Reject** as first |
-
-**Recommandation Cursor (≠ ADOPTED):** ne pas inventer de staging. Morris doit (1) nommer un owner et prouver staging **ou** (2) autoriser explicitement un inventaire RO borné sur un local-dev nommé sous G-H4-ACCESS, en acceptant que cela ≠ preuve cutover représentatif. Ne pas traiter fixture CI comme cutover.
-
----
-
-## 11. Morris decision packet (P1)
-
-| ID | Question | Fait prouvé | Hypothèse | Reco | Décision déjà Morris | Nouvelle décision |
-|---|---|---|---|---|---|---|
-| **G-ENV** | Premier périmètre ? | Local-dev DOCUMENTED · Staging NOT VERIFIED · CI ephemeral | Staging may exist hors repo | Prefer staging if proven else decide local-dev prep | L2-D2 env-scoped concept (D0) | **REQUIRED** |
-| **G-OWNER** | Qui possède env + data D1 ? | UNASSIGNED in docs | Pilote = Morris temporaire | Name owner | — | **REQUIRED** |
-| **G-H4-ACCESS** | Quelle lecture inventaire autoriser ensuite ? | No DB opened P1 · P6 files reported EXISTS previously | Aggregates possible without PII dump | Authorize RO count/identity aggregates only on named env | — | **REQUIRED** before inventory |
-| **G-H4-POLICY** | Conservation sur périmètre ? | none demonstrated | May be none | Document none vs retain | D6 OPEN | **REQUIRED** with/after inventory |
-
-H1 / D4 / O-01 : gouvernés, **hors** décisions principales P1.
-
----
-
-## 12. Critical path / next capability
+**Chemin absolu résolu :**
 
 ```
-L2-D2 Readiness (done)
-  → L2-D2-P1 G-ENV/H4 (THIS)
-    → Morris: G-ENV + G-OWNER + G-H4-ACCESS (+ G-H4-POLICY)
-      → P2 candidate: authorized RO inventory on named env
-        → then D4/H1/R-CUT packaging
-          → L2-D2 Delivery env-scoped (NOT AUTHORIZED)
+/Users/morris/Projects/sfia-workspace-akg-m5-l2-d2-readiness/projects/sfia-studio/.sfia-exec/fresh-start-candidates/2026-10-24-oa-isolated/oa-product.sqlite
 ```
 
+**Statut artefact :** TEMPORARY — cible = future base OA locale sous GO cutover ; exit = activation autorisée **ou** retrait contrôlé sous décision Morris.
+
+**Preuve d'absence préalable :** `CANDIDATE_ABSENT` avant mkdir/init.
+
+**Gitignore :** `projects/sfia-studio/.sfia-exec/**` → fichier **non versionné** (confirmé `git check-ignore`).
+
+**Aucun changement** de `SFIA_STUDIO_PRODUCT_DB_PATH` / runtime / Studio.
+
 ---
 
-## 13. Dette / exit / STOP
+## 7. Initialisation effectuée
 
-| Dette | Exit |
+**Mécanisme :** `openProductSqlite(dbPath)` depuis `app/lib/oa/project/infrastructure/sqlite/db.ts` (Product schema M1→M9, `PRODUCT_SCHEMA_VERSION = m9-0.1.0`).
+
+**Runner :** `tsx` one-shot sous `.tmp-sfia-review/` (hors source Product) — **AUCUN** fichier source Product créé/modifié.
+
+**Résultat init :**
+
+| Champ | Valeur |
 |---|---|
-| Staging unverified | Owner proves deploy URL/runtime |
-| Volumes UNKNOWN | G-H4-ACCESS aggregates |
-| Q8 incomplete if hold-only | Include createProject writers |
-| O-01 comprendre gap | Separate oracle (B) |
+| schema_version | `m9-0.1.0` (match expected) |
+| isLink | false |
+| size | 339968 bytes |
+| tables Product | jeu OA courant présent (`oa_projects`, `oa_lps`, `oa_lps_current`, `oa_idempotency`, `oa_audit_events`, … + `schema_meta`) |
+| `oa_projects` | 0 |
+| `oa_lps` | 0 |
+| `oa_lps_current` | 0 |
+| `oa_idempotency` | 0 |
+| `oa_audit_events` | 0 |
+| create-like audit rows | 0 |
+| `schema_meta` rows | 1 (`schema_version`) — métadonnée technique attendue, **pas** ligne métier |
+| WAL/SHM résiduels | absents après close |
+| Dépendance D1 pour init | **aucune** (Product-only) |
 
-STOP déjà respectés: no DB open · no P6 probe · no secrets · no invented staging · no H4 PASS · no cutover.
+**Reopen preuve :** second `openProductSqlite` sur la **même** candidate → schéma `m9-0.1.0`, counts métier toujours 0, size inchangé (339968).
 
----
-
-## 14. R24 / Fake-Real
-
-**NO PRODUCT SEMANTIC IMPACT.** Fichiers projet modifiés: **NONE**.
-Tests exécutés: **NONE**.
-REAL GO: **NON ACCORDÉ**. Pas de REAL/P6/v3 promotion.
-
----
-
-## 15. Verdict
-
-**L2-D2-P1 ENVIRONMENT QUALIFICATION COMPLETE — H4 GAPS EXPLICIT — MORRIS ENVIRONMENT DECISION REQUIRED — NO CUTOVER AUTHORITY**
-
-Non-claims: pas ENV READY FOR CUTOVER · pas H4 GLOBAL PASS · pas R-CUT PROVEN · pas L2-D2 DELIVERY AUTHORIZED · pas staging inventé.
+**STOP structural :** non déclenché (aucun changement code/schéma/chemin protégé requis).
 
 ---
 
-## 16. Review Handoff L3
+## 8. Validation ciblée (tests jetables)
 
-| Item | Valeur |
+**Règle respectée :** la base candidate n'a **pas** servi de fixture ; tests utilisent `os.tmpdir()` / `mkdtemp` via `createTestSqliteProductProjectServices`.
+
+**Env Product path :** UNSET pendant les tests.
+
+**Suite exécutée** (`vitest run`, cwd `app/`) :
+
+| Fichier | Résultat |
 |---|---|
-| Verdict publish | **HANDOFF UPDATED — REMOTE VERIFIED** |
-| Commit FULL | `5c61cdb2713d3cc4cf4285b57c9b1f51132379f1` |
-| Blob FULL | `bd9e69f14741aeb90c27e4b7edc01dfb2a44641a` |
-| Parent | `e19007bcba0801c982fc5063ec92a628a4b7441d` |
-| Investigation HEAD | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` detached · **no project push** |
+| `m1ProductSqliteDurability.test.ts` | PASS |
+| `m5ProductSchemaMigration.test.ts` | PASS |
+| `m5W1LpsAppend.test.ts` | PASS |
+| `l2d1D5CreateAuditAtomicity.test.ts` | PASS (D5 / Q5.x scope) |
+| `projectLpsFoundation.test.ts` | PASS |
+| `m1RestartProcessProof.test.ts` | PASS |
+| `m5RestartProcessProof.test.ts` | PASS |
+
+**Agrégat :** 7 files / **50 tests PASS** / exit 0.
+**Errors / skips :** aucun.
+
+**Post-tests candidate :** reopen → always virgin ; size/mtime inchangés vs post-init (`mtime=Oct 24 15:28:18 2026`, size=339968).
+
+### Niveaux de preuve (séparés)
+
+| Affirmation | Niveau |
+|---|---|
+| Candidate isolée créée via Product init | **BEHAVIOR PROVEN AT TESTED SCOPE** |
+| Schéma `m9-0.1.0` + tables OA | **BEHAVIOR PROVEN AT TESTED SCOPE** |
+| Virginité métier (0 projects/LPS/idempotency/audits) | **BEHAVIOR PROVEN AT TESTED SCOPE** |
+| Tests OA schema/persist/LPS/audit/idempotence/restart sur DB jetables | **COVERAGE VERIFIED** + **BEHAVIOR PROVEN AT TESTED SCOPE** |
+| Isolation vs P6 paths (realpath ≠) | **DOCUMENTED** + path identity proven |
+| Contenu métier P6/D1 historiques | **UNKNOWN** (volontairement non ouverts — H4 local Fresh Start) |
+| Cutover runtime / O-01 E2E Studio UI | **KNOWN GAP** (hors GO) |
+| REAL Cursor agent / P6 Human QA | **Non exécuté** (interdit) |
+
+Aucun claim **REAL**.
 
 ---
 
-**Fin pack FULL L2-D2-P1.**
+## 9. H4 / H1 / D4 / R-CUT (état inchangé côté décision globale)
+
+| Item | État ce cycle |
+|---|---|
+| H4 local Fresh Start | Morris : pas de reprise anciens projets → **pas de migration D1→OA nécessaire pour cette cible locale neuve** |
+| H4 GLOBAL | **reste OPEN** — ne pas convertir |
+| Contenu anciennes DB | UNKNOWN ; non inventorié (sans valeur dans ce périmètre) |
+| H1 MethodModeHold | ACTIVE côté D1 historique ; **aucune propagation OA** ; aucun writer D1 modifié |
+| CR-D2-01 | rappel : `createProject` D1 peut écrire methodMode hors hold — hors scope mutation |
+| D4 | deny/redirect = recommandation candidate, **non implémenté** |
+| R-CUT | design only ; Q7–Q12 / Q15 **non fermés** |
+
+---
+
+## 10. Isolation vis-à-vis de D1 / P6
+
+**FAITS :**
+
+1. Candidate créée uniquement sous readiness WT, sous `.sfia-exec/fresh-start-candidates/…` (non default `product/`).
+2. P6 OA et D1 existent toujours aux chemins historiques ; tailles observées par `stat` uniquement.
+3. Aucune écriture, backup, delete, WAL/SHM mutation sur historiques.
+4. Aucune bascule env ; Studio non redémarré.
+5. Tests n'ont pas ciblé la candidate.
+
+**HYPOTHÈSES (explicites) :**
+
+- H1 : P6 dirty files hors DB restent inchangés faute d'opérations sur ce worktree (non re-diffés exhaustivement ce cycle — préservation par non-toucher).
+- H2 : aucun autre agent n'a écrit la candidate entre init et pack (mtime stable observé).
+
+---
+
+## 11. R23 / R24
+
+**R23 :** frontières de chemins reconstituées ; collision candidate/historique non prouvée comme risque actif ; `ensureDir` risk documenté pour futurs appels `resolveProductSqlitePath` sans override.
+
+**R24 :**
+
+- Qualification : **NO PRODUCT SEMANTIC IMPACT**.
+- Aucune sync PRR requise.
+- Aucune correction Roadmap/Doctrine.
+- Aucun fichier Product dans le Review Pack (aucune source Product modifiée).
+
+---
+
+## 12. Capacité v3 et trajectoire
+
+- Runtime v3 : **NON ADOPTED**.
+- O-01 : non prouvé E2E ici ; préparation persistence seulement.
+- Pas de store/moteur parallèle durable ajouté (candidate = instance Product schema standard, emplacement temporaire hors activation).
+
+---
+
+## 13. Conditions pour prochain GO — LOCAL STUDIO OA CUTOVER READINESS
+
+Bornes suggérées (à décider Morris — **non autorisées ici**) :
+
+1. Décider activation candidate **ou** chemin final local OA (peut être ce candidate ou autre path absolu neuf).
+2. Plan borné : set `SFIA_STUDIO_PRODUCT_DB_PATH` (ou équivalent documenté) **sans** toucher P6 DB ; preuve lecture/écriture O-01 sur OA neuf.
+3. Qualifier writers/readers D1 restants (incl. create/intake/confirmation + CR-D2-01) avant freeze/read-only.
+4. D4 redirect/deny comme décision séparée.
+5. Ne pas migrer historique (aligné Fresh Start).
+6. Preuves séparées : DOCUMENTED / COVERAGE / BEHAVIOR — toujours pas REAL sauf GO explicite.
+
+**Aucun GO Delivery ou cutover implicite.**
+
+---
+
+## 14. Réserves
+
+1. `npm ci` a été exécuté dans readiness `app/` pour permettre tsx/vitest — `node_modules` local ; pas de commit.
+2. Scripts one-shot sous `.tmp-sfia-review/` (init/reopen) — jetables, hors Product source.
+3. Existence taille P6 DBs via `stat` seulement ; pas d'intégrité SQLite historique vérifiée (interdit/non nécessaire).
+4. Roadmap B-AKG détaillée peut diverger du tip — signalé, non corrigé.
+
+---
+
+## 15. Distinction faits / hypothèses (synthèse)
+
+| Type | Contenu |
+|---|---|
+| FAIT | Git Truth HEAD=origin/main `1a380f22…` ; candidate absente puis créée ; schema `m9-0.1.0` ; counts métier 0 ; 50 tests PASS sur DB jetables ; candidate toujours vierge après ; P6 paths distincts |
+| HYPOTHÈSE | Stabilité long-terme hors observation ; contenu P6 UNKNOWN |
+| NON-CLAIM | Cutover ; REAL ; H4 GLOBAL PASS ; D1 retirement ; O-01 E2E Studio |
+
+---
+
+## 16. Instruction ChatGPT
+
+Revue critique FULL :
+
+1. Confirmer que le GO « PREPARATION ONLY » est respecté (pas de cutover implicite).
+2. Valider l'isolation candidate vs P6/D1 et la virginité métier.
+3. Valider que les tests n'ont pas pollué la candidate.
+4. Ne pas élargir vers activation env / restart / D1 freeze.
+5. Si PASS critique : recommander formulation exacte du prochain GO **LOCAL STUDIO OA CUTOVER READINESS** borné.
+6. Si réserve : formuler STOP ou PARTIAL avec gate précise.
+
+---
+
+**FIN DU RAPPORT CYCLE 7 — LOCAL OA FRESH START PREPARATION**
