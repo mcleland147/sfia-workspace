@@ -1,93 +1,92 @@
-# SFIA Studio — AKG-M5 / L2-D2 Cycle 8 — CORR-02 TARGETED DELIVERY CORRECTION
+# SFIA Studio — AKG-M5 / L2-D2 Cycle 8 — R24 PRR SEMANTIC SYNCHRONIZATION
 
 **Profile:** CRITICAL
-**Typologie:** EVOL / TARGETED CORRECTION
-**Date/heure locale:** 2026-10-24 18:30 CEST
+**Typologie:** DOC / R24 SEMANTIC SYNC
+**Date/heure locale:** 2026-10-24 19:12 CEST
 **Auteur rapport:** Cursor (Composer)
-**GO / Autorité:** **G-CORR02 GRANTED** (Morris 2026-10-24). Autorise uniquement : CR-D2-02/03/04 + tests ciblés + Review Pack FULL + L3 handoff. **G-ACTIVATION / G-GIT PROJET / G-PRR OPEN.**
+**GO / Autorité:** **G-PRR DOCUMENTARY AUTHORING GRANTED** (Morris) — R24 PRR SYNCHRONIZATION ONLY. **G-GIT OPEN. G-ACTIVATION OPEN.**
 
 ---
 
 ## 0. Verdict Cursor
 
-**AKG-M5 L2-D2 CORR-02**
-— TARGETED CORRECTIONS IMPLEMENTED
-— EVIDENCE COMPLETE
-— CRITICAL REVIEW REQUIRED
-— ACTIVATION NOT AUTHORIZED
-— G-PRR / G-GIT OPEN
+**AKG-M5 L2-D2 R24 PRR SEMANTIC SYNC**
+— LOCAL AUTHORING COMPLETE
+— PRR CONTENT REVIEW REQUIRED
+— PRODUCT CODE UNCHANGED
+— G-GIT OPEN
+— G-ACTIVATION OPEN
+— HANDOFF REMOTE VERIFIED *(après publication L3)*
 
-Instruction ChatGPT : Critical Review du **delta CORR-02** puis cumul Delivery L2-D2. Ne pas traiter CORR-02 comme création du Delivery initial. Ne pas accorder G-ACTIVATION / G-GIT / G-PRR implicitement.
-
----
-
-## 01. GO Morris CORR-02
-
-GO explicite reçu 2026-10-24 :
-
-- Corriger retour FORBIDDEN confirmation D1 (CR-D2-02).
-- Fermer writers D1 via connexions injectées (CR-D2-03).
-- Renforcer preuve O-01 Product→UI « comprendre » (CR-D2-04).
-- Tests ciblés + Review Pack FULL + Handoff L3 distant vérifié.
-
-**Non autorisé :** activation Studio ; config active ; DB OA/Nora définitives ; DB P6 réelles ; cutover ; migration/suppression historique ; push projet / PR / merge ; édition PRR ; promotion runtime v3.
+Instruction ChatGPT : Critical Review cohérence code/PRR, exactitude des statuts candidate vs CURRENT ON MAIN, preuves DET, digests REFERENCE REVIEW REQUIRED, préparation G-GIT sans activation.
 
 ---
 
-## 02. Git Truth / état worktree
+## 01. GO Morris
+
+Autorisé uniquement :
+- synchroniser PRR (allowlist README + vols 03–09) avec L2-D2 + CORR-02 ;
+- validations conformité ;
+- Review Pack FULL + handoff L3.
+
+**Non autorisé :** Product mutation ; digest/manifest edit ; commit/push/PR projet ; activation Studio ; DB historiques / définitives.
+
+---
+
+## 02. Git Truth
 
 | Check | Résultat |
 |---|---|
-| `pwd -P` | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` |
-| Remote | `https://github.com/mcleland147/sfia-workspace.git` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` |
 | Branch | `feat/akg-m5-l2-d2-local-oa-cutover` |
 | HEAD | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
-| `origin/main` (local + `ls-remote`) | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
-| Staged | **vide** |
-| Delivery dirty | **préservé** (Delivery L2-D2 + delta CORR-02) — non committé / non poussé |
-| Handoff tip entrée | `828e9197111f1f5485f5f3d00995b9b75b64a238` (CORR-REVIEW-01) / blob `0f8d825551261040cb7b0efb80d1b876ea27ddda` |
-| P6 WT | `/Users/morris/Projects/sfia-workspace` — dirty ~11 — **non altéré** |
-| Fresh Start candidate | intacte (non touchée) |
-| WT collision note | path `…-akg-m5-l2-d2-local-oa-cutover` = L2-D1 distinct ; Delivery = `feat-…` |
+| origin/main | `1a380f22c2ee9c63c525213e01de4bca14dff9ca` |
+| Delivery+CORR-02 dirty | **préservé** (non reset) |
+| Handoff tip entrée | `ceb0a69db87fcf443cf08525cb6d99ec44c1e8fd` / blob `bb74952741e117dfbcbe5da198d1987beb3907e6` |
+| P6 dirty | ~11 — non altéré |
+| Staged | vide |
 
-Git Truth : **PASS**. Aucun reset/stash/clean/checkout destructif.
+Git Truth : **PASS**.
 
 ---
 
-## 03. Base et HEAD
+## 03. Convergence Pre-check
 
-- Base historique Delivery = `main` @ `1a380f22c2ee9c63c525213e01de4bca14dff9ca` (= ChatGPT remote main attendu).
-- Aucun commit Product sur la branche Delivery.
-- Cumul dirty = Delivery L2-D2 (déjà publié CORR-REVIEW-01) **+** delta CORR-02 ci-dessous.
+Build Doctrine VALIDATED · Roadmap ACTIVE · C1 VALIDATED · L2-D1 MERGED · L2-D2 Readiness ACCEPTED · Delivery IMPLEMENTED LOCALLY · CORR-02 Critical Review PASS WITH GOVERNED RESERVES · Runtime v3 NON ADOPTED · D1 FREEZE gated RETIRE LATER · H4 local no migration · R-CUT NOT PROVEN.
 
----
-
-## 04. Sources v2.6 / Convergence
-
-Consultées (guidance) : template cycle ; routing ; guardrails ; operating model ; CKC 08 ; Convergence Build Doctrine / Roadmap ; Product Completion 01 ; M4 to-be ; M5 blueprint + L2-D0 readiness ; Framings 30/32/34/37 ; PRR README + volumes 03–09 (lecture seule) ; handoff CORR-REVIEW-01 @ `828e9197`.
-
-Capacité : **O-01**. Fondations : V3-F02 / V3-F06 / V3-F12. Milestone AKG-M5. Runtime v3 **NON ADOPTED**.
+Ce cycle = documentation candidate de cette trajectoire. Aucune architecture parallèle.
 
 ---
 
-## 05. R23 / composants / invariants
+## 04. Sources
 
-| Correction | Composants | Flux | Invariants | Entrée | Consumers | Dépendances | Risques | Couverture | Exit proof |
-|---|---|---|---|---|---|---|---|---|---|
-| CR-D2-02 | `confirmation/actions.ts` ; `ConfirmationPanel` (inchangé) | Confirm CREATE sous exclusive | FAILED+FORBIDDEN → `ok:false` ; pas de fausse réussite UI | `actionExecuteConfirmation` | Intake / ConfirmationPanel | `executeConfirmedMutation` + freeze | Régression autres status | freeze A1–A6 + UI unit | **BEHAVIOR PROVEN AT TESTED SCOPE** |
-| CR-D2-03 | `repository.ts` ; `boundedAtomicAudit.ts` ; guard existant | Mutation via DB injectée | Aucune écriture D1 applicative si exclusive ON | `createProjectAtomic` / `selectMethodModeAtomic` / `append` / `clearForTests` | commands / audit port | `assertD1AccessAllowedWhenLocalOaExclusive` | Connexion brute hors API | injected suite B1–B9 | **BEHAVIOR PROVEN AT TESTED SCOPE** (frontière résiduelle déclarée) |
-| CR-D2-04 | O-01 test ; UI existante `ProjectsPage` / `ProjectWorkspacePage` | Create OA → list → workspace → reopen | Objective LPS Truth C visible | objective create input | Product UI | SqliteProductStore + runtime | Mock-only UI | O-01 assertions objective | **BEHAVIOR PROVEN AT TESTED SCOPE** (DET) |
+Processus v2.6 templates/routing/guardrails/operating model · CKC 08 · Convergence · Product Completion · M4/M5 · Framings 30/32/34/37 · PRR README + 03–09 · code/tests dirty Delivery+CORR-02 · handoffs CORR-REVIEW-01 + CORR-02.
 
-Niveaux : pas de promotion DET → LIVE. **LIVE E2E / CUTOVER / Studio actif : NOT PROVEN / NOT AUTHORIZED.**
-
-**Frontière résiduelle CR-D2-03 (déclarée) :** une `DatabaseSync` brute hors APIs D1 applicatives (`exec`/`prepare` directs) n'est **pas** contrôlée. Couverture = writers exposés (`D1ProjectRepository` mutatifs + `BoundedAtomicAuditStore` mutatifs) + `openD1Db`.
+Règle : Git + code + preuves > PRR.
 
 ---
 
-## 06. Liste complète des fichiers dirty
+## 05. R23 (architecture applicable)
+
+| Volume | Objet | Source primaire | Delta | Preuve | Trajectoire | Statut |
+|---|---|---|---|---|---|---|
+| README | Overlay L2-D2 identity/gates | handoff CORR-02 + Git | overlay borné | DOCUMENTED | O-01 local exclusive | LOCAL CANDIDATE |
+| 03 | F01 OA create ; F20 D4/confirm | code routes + actions | overlays | DET suites | Product vs D1 | LOCAL CANDIDATE |
+| 04 | deps marker/open/mutation/D4 | repository/audit/db/nav | overlay edges | DET injected/freeze | freeze writers | LOCAL CANDIDATE |
+| 05 | env exclusive + absolute DB paths | `.env.example` + mode ts | inventory + overlay | DOCUMENTED | future G-ACTIVATION | LOCAL CANDIDATE env semantics |
+| 06 | Truth C / Memory B / D1 freeze | persistence + CORR-02 | overlay | DET | no dual-write | LOCAL CANDIDATE + KNOWN GAP raw SQLite |
+| 07 | candidate INVs | actions/UI/nav | candidate table **≠ CURRENT** | DET | fail-closed exclusive | LOCAL CANDIDATE |
+| 08 | proof map 31/7 | CORR-02 handoff | overlay + rows | COVERAGE VERIFIED / BEHAVIOR DET | Q15 PARTIAL | LOCAL CANDIDATE proofs |
+| 09 | gaps/gates/exit | GO matrix | top overlay | DOCUMENTED | G-GIT then G-ACTIVATION | LOCAL CANDIDATE |
+
+---
+
+## 06. Inventaire fichiers
+
+### Dirty complet (Delivery + CORR-02 + R24)
 
 ```
-M .tmp-sfia-review/chatgpt-review.md
+ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/.env.example
  M projects/sfia-studio/app/app/nouvelle-demande/page.tsx
  M projects/sfia-studio/app/app/projects/[id]/page.tsx
@@ -102,6 +101,14 @@ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/lib/d1/errors.ts
  M projects/sfia-studio/app/lib/d1/index.ts
  M projects/sfia-studio/app/lib/d1/repository.ts
+ M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+ M projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+ M projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+ M projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+ M projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+ M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+ M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+ M projects/sfia-studio/production-runtime-reference/README.md
 ?? projects/sfia-studio/app/__tests__/d1/l2d2ConfirmationForbiddenUi.test.tsx
 ?? projects/sfia-studio/app/__tests__/d1/l2d2D4LegacyNavigation.test.ts
 ?? projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts
@@ -113,1004 +120,620 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/lib/d1/localOaExclusiveMode.ts
 ```
 
-**Légende :**
-- Fichiers Delivery L2-D2 déjà inventoriés CORR-REVIEW-01 (freeze/D4/mode/routes/env/tests freeze·D4·O01) : **conservés**.
-- **Delta CORR-02 Product code :** `confirmation/actions.ts` ; `repository.ts` (asserts mutation) ; `boundedAtomicAudit.ts` (asserts mutation).
-- **Delta CORR-02 tests new :** `l2d2InjectedConnectionWriterGuards.test.ts` ; `l2d2ConfirmationForbiddenUi.test.tsx`.
-- **Delta CORR-02 tests modified :** `l2d2LocalOaExclusiveFreeze.test.ts` (ok:false) ; `l2d2O01ProductUiIntegrated.test.tsx` (objective UI/LPS).
+### Delta R24 uniquement (allowlist)
+
+```
+M projects/sfia-studio/production-runtime-reference/README.md
+M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+M projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+M projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+M projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+M projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+```
+
+**8 files changed, +140 / −11** (PRR only).
+
+**Product code this cycle:** **UNCHANGED** (Delivery/CORR-02 dirty inchangé ; aucune nouvelle mutation Product R24).
+
+**Manifest / digests:** **non modifiés** (hors allowlist GO) → digests drift attendu.
 
 ---
 
-## 07. Delta exact CORR-02 (vs Delivery déjà dirty)
+## 07–08. Contenu des sections PRR créées/modifiées + diff
 
-### A — CR-D2-02 Confirmation FORBIDDEN
+### README — overlay L2-D2
 
-`actionExecuteConfirmation` : si `result.status === "FAILED" && result.errorCode === "FORBIDDEN"` → `{ ok:false, code:"FORBIDDEN", message:… }` au lieu de `{ ok:true, result }`.
+```markdown
+**AKG-M5 L2-D2 local OA Fresh Start cutover — LOCAL DELIVERY CANDIDATE + R24 PRR authoring (2026-10-24):**
 
-Autres status inchangés (SUCCEEDED / ALREADY_APPLIED / NO_MUTATION / CANCELLED / autres erreurs via catch).
+| Epistemic class | Element |
+|---|---|
+| **LOCAL DELIVERY CANDIDATE** | Worktree `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` · branch `feat/akg-m5-l2-d2-local-oa-cutover` · HEAD base `1a380f22c2ee9c63c525213e01de4bca14dff9ca` (= `origin/main`) · Product code **dirty / uncommitted / not on main** |
+| **G-DELIVERY** | Consumed — L2-D2 freeze D1 / D4 legacy nav / O-01 DET implemented locally at tested scope |
+| **CORR-02** | Critical Review PASS WITH GOVERNED RESERVES (handoff `ceb0a69db87fcf443cf08525cb6d99ec44c1e8fd` / blob `bb74952741e117dfbcbe5da198d1987beb3907e6`) — confirmation `ok:false`+FORBIDDEN ; injected writer guards ; O-01 LPS objective→UI |
+| **R24 this cycle** | **G-PRR DOCUMENTARY AUTHORING GRANTED** — semantic sync of vols README/03–09 only ; **≠** Product mutation ; **≠** digest write (manifest not in allowlist) |
+| **DETERMINISTIC PROVEN** | 31 tests / 7 suites at CORR-02 tested scope (freeze / injected / confirmation UI / D4 / O-01 / D5 / M1) |
+| **NOT CURRENT ON MAIN** | New D1 exclusive guards, D4 redirects, confirmation FORBIDDEN contract — **inactive on integrated runtime** until G-GIT + merge |
+| **G-GIT** | **OPEN** — no project commit/push/PR/merge |
+| **G-ACTIVATION** | **OPEN** — `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default OFF ; no Studio live cutover |
+| **Runtime v3** | **NON ADOPTED** |
+| **Anti-claims** | OA-exclusive **not** ADOPTED · CUTOVER **not** PROVEN · STUDIO LIVE **not** VALIDATED · P6 GLOBAL PASS **not** claimed · DET ≠ LIVE |
 
-UI non modifiée : `ConfirmationPanel` baille déjà sur `!res.ok` (pas d'`onDone` → Intake ne passe pas en confirmed).
+Volumes touched by this R24 overlay: README · 03 · 04 · 05 · 06 · 07 · 08 · 09. Digest refresh deferred until ChatGPT semantic accept + distinct digest authorization (manifest path protected / not edited here).
 
-### B — CR-D2-03 Injected writers
+```
 
-Réutilise `assertD1AccessAllowedWhenLocalOaExclusive()` **avant** `BEGIN IMMEDIATE` / INSERT / UPDATE / DELETE dans :
-- `D1ProjectRepository.createProjectAtomic`
-- `D1ProjectRepository.selectMethodModeAtomic`
-- `BoundedAtomicAuditStore.append`
-- `BoundedAtomicAuditStore.clearForTests`
+### Volume 03 — F01 note + F20 D4/confirm overlay
 
-Pas de moteur de policy parallèle.
+```markdown
+## F01 — Project creation / greenfield
+- **Trigger:** Studio create project
+- **Steps:** LocalProjectComposition → oa_projects/LPS → optional trajectory bootstrap
+- **Paths:** `vertical-slice-runtime/service.ts`, project create use cases
+- **Status:** COMPLETE (deterministic); greenfield continuity corrections on main (#531)
+- **Overlay — AKG-M5 L2-D2 LOCAL DELIVERY CANDIDATE (≠ CURRENT ON MAIN):** Product create remains OA Truth C (`prj:*` / `oa_*`). Under local exclusive marker (future G-ACTIVATION only), D1 create/confirm paths fail-closed — **no dual-write**, **no** `proj-*`→`prj:*` mapping. O-01 DET proves create → durable LPS objective → list/workspace UI (« comprendre ») on disposable SQLite. **≠** live Studio activation.
 
-### C — CR-D2-04 O-01 comprendre
+## F02 — Project load / restart
 
-Donnée métier : **objective LPS** (Truth C), déjà projetée :
-- persistée `oa_lps.payload_json.objective`
-- runtime list enrichit `project.objective`
-- UI list `data-testid="studio-projects-current"`
-- UI workspace `data-testid="project-subtitle"` ← `success.project.objective`
+### Overlay — AKG-M5 L2-D2 D4 + D1 confirmation (LOCAL DELIVERY CANDIDATE — 2026-10-24)
 
-Aucun nouvel attribut / aucune refonte UI.
+| Flow | Candidate behavior (dirty Delivery + CORR-02) | Status class |
+|---|---|---|
+| **D4 Option A — generic legacy routes** | `/workspace`, `/projects/new`, `/nouvelle-demande` → redirect `/studio` when exclusive ON | LOCAL CANDIDATE · DET proven (`l2d2D4LegacyNavigation`) · **≠** live Studio |
+| **D4 — legacy deep links** | `/projects/[id]` (D1-shaped) → `notFound()` when exclusive ON — **no** `proj-*`→`prj:*` rewrite | same |
+| **D4 — exclusive OFF** | helpers no-op — historical D1 routes unchanged | CURRENT ON MAIN behavior preserved until activation |
+| **D1 confirmation CREATE** | Exclusive ON: `executeConfirmedMutation` → `FAILED`+`FORBIDDEN` ; **CORR-02:** `actionExecuteConfirmation` → **`ok:false` / `FORBIDDEN`** (not `ok:true`+FAILED) | LOCAL CANDIDATE · DET (`l2d2LocalOaExclusiveFreeze` + `l2d2ConfirmationForbiddenUi`) |
+| **Confirmation UI** | `ConfirmationPanel` already bails on `!res.ok` — **no `onDone`** → Intake does not enter confirmed success | BEHAVIOR PROVEN AT TESTED SCOPE (unit) |
+| **Product vs D1** | Target create/find/comprehend/resume = OA Product UI (`/studio/...`) ; D1 Intake/confirm = historical freeze-gated surface | D1 FREEZE gated · RETIRE LATER |
 
----
+**Anti-claims:** exclusive mode **not** active on main · cutover **not** proven · routes live **not** proven.
 
-## 08. Diffs substantiels CORR-02 (Product)
+```
+
+### Volume 04 — dependency overlay
+
+```markdown
+### Overlay — AKG-M5 L2-D2 local OA-exclusive D1 freeze + D4 (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+**Epistemic:** dirty branch `feat/akg-m5-l2-d2-local-oa-cutover` @ base `1a380f22…` — **NOT CURRENT ON MAIN**. Default exclusive OFF preserves historical D1. Activation = distinct G-ACTIVATION.
+
+| Edge / surface | From | To | Candidate change |
+|---|---|---|---|
+| Marker | `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` | `localOaExclusiveMode.ts` | Exactly `"1"` arms fail-closed ; default OFF |
+| Open guard | callers of `openD1Db` | `assertD1AccessAllowedWhenLocalOaExclusive` | Before path resolve / open / DDL |
+| Mutative repo | `D1ProjectRepository.createProjectAtomic` / `selectMethodModeAtomic` | same assert | **CORR-02** — closes injected `DatabaseSync` bypass |
+| Mutative audit | `BoundedAtomicAuditStore.append` / `clearForTests` | same assert | **CORR-02** |
+| Commands | `createProject` / `selectMethodMode` / confirmation execute | repo + open guards | FORBIDDEN without D1 file create |
+| Confirmation action | `actionExecuteConfirmation` | UI `ConfirmationPanel` | **CORR-02:** FAILED+FORBIDDEN → `ok:false` (no false success) |
+| D4 routes | `app/workspace`, `projects/new`, `nouvelle-demande`, `projects/[id]` | `legacyNavigation.ts` | redirect `/studio` or `notFound` when exclusive ON |
+| Indirect consumers | Intake / D1 pages / audit port injectors | above writers | Covered when they use guarded APIs |
+| Residual | raw `DatabaseSync.exec/prepare` outside D1 APIs | — | **KNOWN GAP** — not controlled by applicative guards |
+
+Manifest curated edges: **unchanged** (narrative / non-indexed dependency only). Dual-write Product↔D1: **none** as target architecture.
+
+```
+
+### Volume 05 — inventory rows + overlay
+
+```markdown
+| `SFIA_STUDIO_PRODUCT_DB_PATH` | Absolute product SQLite | optional | else `.sfia-exec/product/oa-product.sqlite` | Truth C · server-only · prefer absolute path for durable instance |
+| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | Absolute Nora session SQLite | optional | else cwd-relative `.sfia-exec/product/nora-session.sqlite` | Memory B · **≠ Truth C** · worktree-sensitive · prefer absolute per-instance |
+| `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` | Local OA-exclusive cutover marker (L2-D2) | no — default **OFF** | Arms **only** when exactly `"1"` ; unset/`0` = historical D1 | Server-only · **not** global across worktrees · **G-ACTIVATION** required · LOCAL CANDIDATE code on dirty Delivery **≠** active on main |
+| Activation value | Exactly `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1` (string `"1"` only) |
+| Future instance paths | Absolute `SFIA_STUDIO_PRODUCT_DB_PATH` + `SFIA_STUDIO_NORA_SESSION_DB_PATH` for isolated Application Support–class locations (Option A design) |
+
+## Overlay — AKG-M5 L2-D2 exclusive marker + Option A paths (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+| Rule | Detail |
+|---|---|
+| Activation value | Exactly `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1` (string `"1"` only) |
+| Default | OFF / unset — preserves CURRENT ON MAIN D1 behavior |
+| Binding | Server-only ; documented in `app/.env.example` ; **never** `NEXT_PUBLIC_*` |
+| Future instance paths | Absolute `SFIA_STUDIO_PRODUCT_DB_PATH` + `SFIA_STUDIO_NORA_SESSION_DB_PATH` for isolated Application Support–class locations (Option A design) |
+| Isolation | Do **not** set exclusive globally for all Git worktrees ; Fresh Start candidate remains a distinct preparation |
+| This cycle | R24 documents the marker — **does not** set user `.env.local`, create definitive DBs, or start Studio |
+| Anti-claims | Exclusive **not** ADOPTED · cutover **not** proven · configuration of this Delivery worktree **unchanged** for activation |
+```
+
+### Volume 06 — persistence overlay
+
+```markdown
+## Overlay — AKG-M5 L2-D2 OA / D1 persistence freeze (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+| Item | Candidate status |
+|---|---|
+| Product OA Truth C | KEEP — `oa-product.sqlite` / `SFIA_STUDIO_PRODUCT_DB_PATH` · Project + LPS |
+| Nora Memory B | KEEP distinct — `nora-session.sqlite` / `SFIA_STUDIO_NORA_SESSION_DB_PATH` · **≠** Truth C |
+| D1 historical | FREEZE gated when exclusive `"1"` · RETIRE LATER · **no** physical removal in L2-D2/CORR-02 |
+| Freeze at open | `openD1Db` → assert **before** resolve / open / DDL |
+| Freeze at mutation | **CORR-02:** `createProjectAtomic` / `selectMethodModeAtomic` / `BoundedAtomicAuditStore.append|clearForTests` assert before BEGIN/INSERT/UPDATE/DELETE |
+| Dual-write Product↔D1 | **None** as target under exclusive |
+| H4 local | No historical D1→OA migration in this Delivery |
+| Backups | Coherent SQLite file copies remain the operational model for Truth C / Memory B when activated — **not** proven this cycle |
+| Restart | DET reopen / singleton reset / M1 process durability proven at tested scope · **Studio live restart / R-CUT** = **NOT PROVEN** |
+| Residual boundary | Raw `DatabaseSync` outside D1 applicative APIs **not** guarded — **KNOWN GAP** (declared CORR-02) |
+| Proof | freeze + injected + O-01 + D5 + M1 suites — **DETERMINISTIC AT TESTED SCOPE** (31 PASS / 7 files per CORR-02 handoff) |
+| Anti-claims | Exclusive **not** active on main · cutover **not** proven · App Support definitive DBs **not** created |
+
+```
+
+### Volume 07 — candidate invariants (not CURRENT)
+
+```markdown
+## Overlay — AKG-M5 L2-D2 candidate invariants (LOCAL DELIVERY CANDIDATE — NOT CURRENT ON MAIN)
+
+Do **not** promote these to **CURRENT IMPLEMENTED** until G-GIT merge + post-merge verification. They describe dirty Delivery + CORR-02 behavior at DET scope.
+
+| ID (candidate) | Statement | Source | Proof class |
+|---|---|---|---|
+| INV-L2D2-D1-REFUSED-EXCLUSIVE | When `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1`, D1 open + guarded mutative APIs refuse with `D1Error` `FORBIDDEN` | `localOaExclusiveMode.ts` / `db.ts` / `repository.ts` / `boundedAtomicAudit.ts` | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-CONFIRM-FORBIDDEN-OK-FALSE | Confirmation `FAILED`+`FORBIDDEN` surfaces as `actionExecuteConfirmation` → `ok:false` / `code=FORBIDDEN` (not `ok:true`) | `confirmation/actions.ts` CORR-02 | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-CONFIRM-NO-ONDONE-ON-REFUSAL | UI must not treat refused confirmation as success (`ConfirmationPanel` skips `onDone` on `!ok`) | `ConfirmationPanel.tsx` + `l2d2ConfirmationForbiddenUi` | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-NO-MUTATION-VIA-GUARDED-APIS | No D1 write via guarded repository/audit APIs under exclusive (incl. pre-opened injected connection) | CORR-02 injected suite | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-REC-NE-HD / INV-MEMB-NE-TRUTHC | Unchanged CURRENT — Recommendation ≠ HD ; Memory B ≠ Truth C | existing catalog | CURRENT IMPLEMENTED (main) |
+
+**Residual KNOWN GAP:** unguarded raw SQLite on a held `DatabaseSync` outside D1 APIs.
+
+**Failure mode (candidate):** exclusive ON + D1 create/confirm → Pilot sees refusal ; Product OA create path remains the target continuity surface.
+
+```
+
+### Volume 08 — proof map + O-01 rows
+
+```markdown
+## Overlay — AKG-M5 L2-D2 proof map (LOCAL DELIVERY CANDIDATE — R24 2026-10-24)
+
+| Suite file | What it proves | Class |
+|---|---|---|
+| `l2d2LocalOaExclusiveFreeze.test.ts` | Exclusive ON: open/create/methodMode/confirm refuse ; no D1 file ; OFF preserved ; CORR-02 `ok:false` | DET |
+| `l2d2InjectedConnectionWriterGuards.test.ts` | Pre-opened injected DB cannot mutate via repo/audit APIs under exclusive | DET |
+| `l2d2ConfirmationForbiddenUi.test.tsx` | Panel does not call `onDone` on `ok:false` FORBIDDEN | DET (jsdom) |
+| `l2d2D4LegacyNavigation.test.ts` | Generic→`/studio` ; deep link→`notFound` ; OFF no-op ; no proj→prj map | DET |
+| `l2d2O01ProductUiIntegrated.test.tsx` | OA create + LPS objective durable → Product list/workspace UI → reopen ; D1 probe blocked | DET (jsdom + real SqliteProductStore) |
+| `l2d1D5CreateAuditAtomicity.test.ts` | D5 non-regression | DET (CURRENT ON MAIN capability) |
+| `m1ProductSqliteDurability.test.ts` | Process/reopen durability non-regression | DET |
+
+**Batch cited:** CORR-02 handoff `ceb0a69d` — **31 PASS / 7 files**. SQLite = `os.tmpdir()` only. **LIVE Studio / Application Support / R-CUT: NOT PROVEN.** Q15 conversational global: **PARTIAL** (CORR-02 targeted only).
+
+
+| O-01 / D5 CreateProject audit (AKG-M5 L2-D1 CURRENT ON MAIN PR #612 + CORR-01) | `l2d1D5CreateAuditAtomicity.test.ts` (Q5.1–Q5.7) + M1 durability/restart suites | **DETERMINISTIC AT TESTED SCOPE** — success audit inside Product UnitOfWork; Studio composition Sqlite journal default; **CORR-01:** Q5.3 observes `DatabaseSync.isTransaction` during success append; Q5.4 covers audit-failure→rollback→clean retry→single create; PR #612 [post-merge CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) SUCCESS; at L2-D1 merge, integrated O-01 « comprendre » Product→UI was KNOWN GAP (addressed as **LOCAL CANDIDATE** under L2-D2 row below) · **≠** REAL |
+| O-01 / L2-D2 local OA exclusive + D4 + CORR-02 (LOCAL DELIVERY CANDIDATE — **≠ CURRENT ON MAIN**) | `l2d2LocalOaExclusiveFreeze.test.ts` · `l2d2InjectedConnectionWriterGuards.test.ts` · `l2d2ConfirmationForbiddenUi.test.tsx` · `l2d2D4LegacyNavigation.test.ts` · `l2d2O01ProductUiIntegrated.test.tsx` (+ D5 + M1 non-regression in same CORR-02 batch) | **DETERMINISTIC AT TESTED SCOPE** — CORR-02 handoff reports **31 PASS / 7 suites** ; disposable SQLite only ; O-01 LPS **objective** → list `studio-projects-current` + workspace `project-subtitle` ; confirmation FORBIDDEN → `ok:false` ; injected writers guarded ; D4 redirect/notFound ; **≠** Studio live · **≠** cutover · Q15 global **PARTIAL** |
+```
+
+### Volume 09 — gaps overlay
+
+```markdown
+## Overlay — AKG-M5 L2-D2 local OA cutover + CORR-02 + R24 (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+| Item | Status |
+|---|---|
+| Epistemic | **LOCAL DELIVERY CANDIDATE** on `feat/akg-m5-l2-d2-local-oa-cutover` @ dirty tip over base `1a380f22…` — **NOT CURRENT ON MAIN** · **NOT ACTIVATED** |
+| G-DELIVERY / CORR-02 | Consumed at tested scope ; Critical Review PASS WITH GOVERNED RESERVES (handoff `ceb0a69d` / blob `bb749527`) |
+| G-PRR (this cycle) | **DOCUMENTARY AUTHORING GRANTED** — R24 semantic sync of README/03–09 · Product code **unchanged by R24** · digests **not** rewritten (manifest outside allowlist) |
+| G-GIT | **OPEN** — no project commit/push/PR/merge |
+| G-ACTIVATION | **OPEN** — exclusive default OFF ; no Studio live ; no definitive App Support DBs |
+| DET proof | **31 PASS / 7 suites** (freeze / injected / confirmation UI / D4 / O-01 / D5 / M1) |
+| O-01 « comprendre » | LPS objective → Product UI **BEHAVIOR PROVEN AT TESTED SCOPE (DET)** on disposable SQLite — **≠** LIVE E2E |
+| Q15 global | **PARTIAL** — CORR-02 conversational impacts targeted only |
+| Residual writer | Raw `DatabaseSync` outside D1 applicative APIs — **KNOWN GAP** |
+| R-CUT / routes live | **NOT PROVEN** |
+| P6 GLOBAL PASS | **NOT CLAIMED** |
+| Runtime v3 | **NON ADOPTED** |
+| Temporary debt exit | After ChatGPT PRR content review → digest refresh under distinct authorization → G-GIT PR readiness of **cumulative** Delivery (Product+PRR) → post-merge → **separate** G-ACTIVATION for local exclusive cutover |
+
+```
+
+### Diff exploitable (PRR only)
 
 ```diff
-diff --git a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-index a8e9d1b1..8e422679 100644
---- a/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-+++ b/projects/sfia-studio/app/lib/d1/boundedAtomicAudit.ts
-@@ -6,6 +6,7 @@
+diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+index 3dcefc30..d07dc70f 100644
+--- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
++++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+@@ -9,6 +9,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
+ - **Steps:** LocalProjectComposition → oa_projects/LPS → optional trajectory bootstrap
+ - **Paths:** `vertical-slice-runtime/service.ts`, project create use cases
+ - **Status:** COMPLETE (deterministic); greenfield continuity corrections on main (#531)
++- **Overlay — AKG-M5 L2-D2 LOCAL DELIVERY CANDIDATE (≠ CURRENT ON MAIN):** Product create remains OA Truth C (`prj:*` / `oa_*`). Under local exclusive marker (future G-ACTIVATION only), D1 create/confirm paths fail-closed — **no dual-write**, **no** `proj-*`→`prj:*` mapping. O-01 DET proves create → durable LPS objective → list/workspace UI (« comprendre ») on disposable SQLite. **≠** live Studio activation.
 
- import type { DatabaseSync } from "node:sqlite";
- import { openD1Db, nowIso } from "@/lib/d1/db";
-+import { assertD1AccessAllowedWhenLocalOaExclusive } from "@/lib/d1/localOaExclusiveMode";
- import type { ProjectCycleAuditPort } from "@/lib/platform/t-a7/projectCycleAtomicCoordinator";
+ ## F02 — Project load / restart
+ - **Trigger:** Open `/studio/projects/[id]`
+@@ -198,6 +199,19 @@ Descriptive Product routing map for the same conversational front door. **Does n
+ - **Parallel BC:** `lib/oa/execution-run/**` (memory-only; FinOps/T7 shadow consumer; not product EC→Attempt)
+ - **Status:** ACTIVE compatibility / temporary keep — **no SAFE TO REMOVE proven** under SFIA-STUDIO-LEGACY-ARCHITECTURE-DECOMMISSION-01 (see vol 09)
 
- export const BOUNDED_ATOMIC_AUDIT_SCHEMA_VERSION =
-@@ -51,9 +52,16 @@ export interface AppendAtomicAuditInput {
- }
-
- export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
--  constructor(private readonly db: DatabaseSync = openD1Db()) {}
-+  private readonly db: DatabaseSync;
++### Overlay — AKG-M5 L2-D2 D4 + D1 confirmation (LOCAL DELIVERY CANDIDATE — 2026-10-24)
 +
-+  /** Lazy open — respects local OA-exclusive fail-closed before D1 DDL. */
-+  constructor(db?: DatabaseSync) {
-+    this.db = db ?? openD1Db();
-+  }
-
-   append(input: AppendAtomicAuditInput): BoundedAtomicAuditRecord {
-+    // CR-D2-03: mutation guard for injected connections (openD1Db alone is insufficient).
-+    assertD1AccessAllowedWhenLocalOaExclusive();
-     const createdAt = nowIso();
-     const record: BoundedAtomicAuditRecord = {
-       opId: input.opId,
-@@ -124,6 +132,8 @@ export class BoundedAtomicAuditStore implements ProjectCycleAuditPort {
-   }
-
-   clearForTests(): void {
-+    // CR-D2-03: DELETE is a mutation — block under OA-exclusive.
-+    assertD1AccessAllowedWhenLocalOaExclusive();
-     this.db.exec("DELETE FROM d1_atomic_audit");
-   }
- }
-diff --git a/projects/sfia-studio/app/lib/d1/confirmation/actions.ts b/projects/sfia-studio/app/lib/d1/confirmation/actions.ts
-index d647a3ec..4f86a547 100644
---- a/projects/sfia-studio/app/lib/d1/confirmation/actions.ts
-+++ b/projects/sfia-studio/app/lib/d1/confirmation/actions.ts
-@@ -36,6 +36,16 @@ export async function actionExecuteConfirmation(
- ): Promise<ConfirmActionResult> {
-   try {
-     const result = executeConfirmedMutation(input);
-+    // CR-D2-02: OA-exclusive freeze returns FAILED+FORBIDDEN without throw —
-+    // surface as ok:false so UI does not treat confirmation as success.
-+    if (result.status === "FAILED" && result.errorCode === "FORBIDDEN") {
-+      return {
-+        ok: false,
-+        code: "FORBIDDEN",
-+        message:
-+          "Confirmation refusée : écriture D1 bloquée (mode OA exclusif local).",
-+      };
-+    }
-     return { ok: true, result };
-   } catch (error) {
-     return serializeError(error);
-diff --git a/projects/sfia-studio/app/lib/d1/repository.ts b/projects/sfia-studio/app/lib/d1/repository.ts
-index 44d09652..6167b750 100644
---- a/projects/sfia-studio/app/lib/d1/repository.ts
-+++ b/projects/sfia-studio/app/lib/d1/repository.ts
-@@ -1,6 +1,7 @@
- import type { DatabaseSync } from "node:sqlite";
- import { openD1Db, nowIso } from "./db";
- import { D1Error } from "./errors";
-+import { assertD1AccessAllowedWhenLocalOaExclusive } from "./localOaExclusiveMode";
- import type {
-   D1Assignment,
-   D1AuditEvent,
-@@ -29,7 +30,12 @@ function mapProject(row: Record<string, unknown>): D1Project {
- }
-
- export class D1ProjectRepository {
--  constructor(private readonly db: DatabaseSync = openD1Db()) {}
-+  private readonly db: DatabaseSync;
++| Flow | Candidate behavior (dirty Delivery + CORR-02) | Status class |
++|---|---|---|
++| **D4 Option A — generic legacy routes** | `/workspace`, `/projects/new`, `/nouvelle-demande` → redirect `/studio` when exclusive ON | LOCAL CANDIDATE · DET proven (`l2d2D4LegacyNavigation`) · **≠** live Studio |
++| **D4 — legacy deep links** | `/projects/[id]` (D1-shaped) → `notFound()` when exclusive ON — **no** `proj-*`→`prj:*` rewrite | same |
++| **D4 — exclusive OFF** | helpers no-op — historical D1 routes unchanged | CURRENT ON MAIN behavior preserved until activation |
++| **D1 confirmation CREATE** | Exclusive ON: `executeConfirmedMutation` → `FAILED`+`FORBIDDEN` ; **CORR-02:** `actionExecuteConfirmation` → **`ok:false` / `FORBIDDEN`** (not `ok:true`+FAILED) | LOCAL CANDIDATE · DET (`l2d2LocalOaExclusiveFreeze` + `l2d2ConfirmationForbiddenUi`) |
++| **Confirmation UI** | `ConfirmationPanel` already bails on `!res.ok` — **no `onDone`** → Intake does not enter confirmed success | BEHAVIOR PROVEN AT TESTED SCOPE (unit) |
++| **Product vs D1** | Target create/find/comprehend/resume = OA Product UI (`/studio/...`) ; D1 Intake/confirm = historical freeze-gated surface | D1 FREEZE gated · RETIRE LATER |
 +
-+  /** Lazy open — avoids default-arg openD1Db() before caller guards. */
-+  constructor(db?: DatabaseSync) {
-+    this.db = db ?? openD1Db();
-+  }
++**Anti-claims:** exclusive mode **not** active on main · cutover **not** proven · routes live **not** proven.
++
+ ## Generic Execution → Review → Result (CURRENT — Correction Pass 02 candidate)
 
-   listProjects(workspaceId: string): D1Project[] {
-     const rows = this.db
-@@ -94,6 +100,8 @@ export class D1ProjectRepository {
-     idempotencyKey: string;
-     responseJson: string;
-   }): { kind: "created" } | { kind: "idempotent"; responseJson: string } {
-+    // CR-D2-03: injected DatabaseSync must not bypass OA-exclusive freeze.
-+    assertD1AccessAllowedWhenLocalOaExclusive();
-     this.db.exec("BEGIN IMMEDIATE");
-     try {
-       const existing = this.getIdempotentResponse(args.idempotencyKey);
-@@ -177,6 +185,8 @@ export class D1ProjectRepository {
-     correlationId: string;
-     eventIds: { mode: string; activated?: string };
-   }): D1Project {
-+    // CR-D2-03: injected DatabaseSync must not bypass OA-exclusive freeze.
-+    assertD1AccessAllowedWhenLocalOaExclusive();
-     this.db.exec("BEGIN IMMEDIATE");
-     try {
-       const current = this.getProject(args.projectId);
+ Nominal Product path (architecture D-ER; **CURRENT ON MAIN** at deterministic tested scope — prior “LOCAL CANDIDATE / NOT INTEGRATED ON MAIN” wording is **HISTORICAL** relative to Generic Execution / Tool-First / SHE merges on main; ≠ REAL · ≠ P6 GLOBAL PASS):
+diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+index 77c62354..14c4c296 100644
+--- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
++++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+@@ -125,7 +125,25 @@ OA = authority of record. W2 = Product coordination. Nora = cognition/recommenda
+ | DEP-CREATE-AUDIT-TXN | `CreateProject` | `ProjectAuditJournalPort` + `SqliteProductStore` | Success `oa.project.created` append **inside** UnitOfWork (same SQLite txn when durable) |
+ | DEP-COMPOSE-AUDIT-DEFAULT | `localProjectComposition` | `SqliteProjectAuditJournal` | Default Product create journal durable (replaces Memory inject) |
+ | New Product table | — | — | **NONE** (`oa_audit_events` reused) |
+-| D1 / dual-write | — | — | **NONE** — L2-D2 NOT AUTHORIZED |
++| D1 / dual-write | — | — | **NONE** at L2-D1 merge scope — L2-D2 was **not** authorized then (see L2-D2 candidate overlay below) |
++
++### Overlay — AKG-M5 L2-D2 local OA-exclusive D1 freeze + D4 (LOCAL DELIVERY CANDIDATE — 2026-10-24)
++
++**Epistemic:** dirty branch `feat/akg-m5-l2-d2-local-oa-cutover` @ base `1a380f22…` — **NOT CURRENT ON MAIN**. Default exclusive OFF preserves historical D1. Activation = distinct G-ACTIVATION.
++
++| Edge / surface | From | To | Candidate change |
++|---|---|---|---|
++| Marker | `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` | `localOaExclusiveMode.ts` | Exactly `"1"` arms fail-closed ; default OFF |
++| Open guard | callers of `openD1Db` | `assertD1AccessAllowedWhenLocalOaExclusive` | Before path resolve / open / DDL |
++| Mutative repo | `D1ProjectRepository.createProjectAtomic` / `selectMethodModeAtomic` | same assert | **CORR-02** — closes injected `DatabaseSync` bypass |
++| Mutative audit | `BoundedAtomicAuditStore.append` / `clearForTests` | same assert | **CORR-02** |
++| Commands | `createProject` / `selectMethodMode` / confirmation execute | repo + open guards | FORBIDDEN without D1 file create |
++| Confirmation action | `actionExecuteConfirmation` | UI `ConfirmationPanel` | **CORR-02:** FAILED+FORBIDDEN → `ok:false` (no false success) |
++| D4 routes | `app/workspace`, `projects/new`, `nouvelle-demande`, `projects/[id]` | `legacyNavigation.ts` | redirect `/studio` or `notFound` when exclusive ON |
++| Indirect consumers | Intake / D1 pages / audit port injectors | above writers | Covered when they use guarded APIs |
++| Residual | raw `DatabaseSync.exec/prepare` outside D1 APIs | — | **KNOWN GAP** — not controlled by applicative guards |
++
++Manifest curated edges: **unchanged** (narrative / non-indexed dependency only). Dual-write Product↔D1: **none** as target architecture.
 
-```
+ ### Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
 
-### `actions.ts` complet (post CORR-02)
+diff --git a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+index 8513b780..94da5380 100644
+--- a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+@@ -15,8 +15,9 @@
 
-```typescript
-"use server";
+ | Name | Purpose | Required | Default/notes | Boundaries |
+ |---|---|---|---|---|
+-| `SFIA_STUDIO_PRODUCT_DB_PATH` | Absolute product SQLite | optional | else `.sfia-exec/product/oa-product.sqlite` | Truth C |
+-| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | Absolute Nora session SQLite | optional | else cwd-relative `.sfia-exec/product/nora-session.sqlite` | Memory B; **worktree-sensitive** |
++| `SFIA_STUDIO_PRODUCT_DB_PATH` | Absolute product SQLite | optional | else `.sfia-exec/product/oa-product.sqlite` | Truth C · server-only · prefer absolute path for durable instance |
++| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | Absolute Nora session SQLite | optional | else cwd-relative `.sfia-exec/product/nora-session.sqlite` | Memory B · **≠ Truth C** · worktree-sensitive · prefer absolute per-instance |
++| `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` | Local OA-exclusive cutover marker (L2-D2) | no — default **OFF** | Arms **only** when exactly `"1"` ; unset/`0` = historical D1 | Server-only · **not** global across worktrees · **G-ACTIVATION** required · LOCAL CANDIDATE code on dirty Delivery **≠** active on main |
+ | `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` | Server-owned repo identity | yes Product local | fail-closed if absent | config |
+ | `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` | Server-owned remote | yes Product local | fail-closed | config |
+ | `SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH` | Default branch | optional | `main` | config |
+@@ -44,3 +45,15 @@
 
-import { executeConfirmedMutation } from "./executeConfirmation";
-import { buildConfirmationSummary } from "./summary";
-import { getProject } from "../commands";
-import { D1Error } from "../errors";
-import type {
-  BoundedMutationResult,
-  ConfirmationSummary,
-  ExecuteConfirmationInput,
-  ProjectDraftFields,
-} from "./types";
-import { logIntakeEvent } from "../intakeObservability";
+ - Product binding/authority envs are **server-only** (never `NEXT_PUBLIC_*`).
+ - Browser must not supply repository binding or Pilot authority claims.
++
++## Overlay — AKG-M5 L2-D2 exclusive marker + Option A paths (LOCAL DELIVERY CANDIDATE — 2026-10-24)
++
++| Rule | Detail |
++|---|---|
++| Activation value | Exactly `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1` (string `"1"` only) |
++| Default | OFF / unset — preserves CURRENT ON MAIN D1 behavior |
++| Binding | Server-only ; documented in `app/.env.example` ; **never** `NEXT_PUBLIC_*` |
++| Future instance paths | Absolute `SFIA_STUDIO_PRODUCT_DB_PATH` + `SFIA_STUDIO_NORA_SESSION_DB_PATH` for isolated Application Support–class locations (Option A design) |
++| Isolation | Do **not** set exclusive globally for all Git worktrees ; Fresh Start candidate remains a distinct preparation |
++| This cycle | R24 documents the marker — **does not** set user `.env.local`, create definitive DBs, or start Studio |
++| Anti-claims | Exclusive **not** ADOPTED · cutover **not** proven · configuration of this Delivery worktree **unchanged** for activation |
+diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+index 31dc9845..53ffaadc 100644
+--- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
++++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+@@ -94,7 +94,24 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
+ | Idempotent reuse audit | Best-effort (Project already durable) |
+ | New table / port | **NONE** |
+ | Proof | `l2d1D5CreateAuditAtomicity.test.ts` Q5.1–Q5.7 — DETERMINISTIC AT TESTED SCOPE |
+-| Not claimed | L2-D2 cutover · O-01 E2E COMPLETE (« comprendre » Product→UI KNOWN GAP) · REAL · runtime v3 ADOPTED · D1 retire |
++| Not claimed (at L2-D1 merge) | L2-D2 cutover · O-01 integrated Product→UI « comprendre » (then KNOWN GAP) · REAL · runtime v3 ADOPTED · D1 retire |
++
++## Overlay — AKG-M5 L2-D2 OA / D1 persistence freeze (LOCAL DELIVERY CANDIDATE — 2026-10-24)
++
++| Item | Candidate status |
++|---|---|
++| Product OA Truth C | KEEP — `oa-product.sqlite` / `SFIA_STUDIO_PRODUCT_DB_PATH` · Project + LPS |
++| Nora Memory B | KEEP distinct — `nora-session.sqlite` / `SFIA_STUDIO_NORA_SESSION_DB_PATH` · **≠** Truth C |
++| D1 historical | FREEZE gated when exclusive `"1"` · RETIRE LATER · **no** physical removal in L2-D2/CORR-02 |
++| Freeze at open | `openD1Db` → assert **before** resolve / open / DDL |
++| Freeze at mutation | **CORR-02:** `createProjectAtomic` / `selectMethodModeAtomic` / `BoundedAtomicAuditStore.append|clearForTests` assert before BEGIN/INSERT/UPDATE/DELETE |
++| Dual-write Product↔D1 | **None** as target under exclusive |
++| H4 local | No historical D1→OA migration in this Delivery |
++| Backups | Coherent SQLite file copies remain the operational model for Truth C / Memory B when activated — **not** proven this cycle |
++| Restart | DET reopen / singleton reset / M1 process durability proven at tested scope · **Studio live restart / R-CUT** = **NOT PROVEN** |
++| Residual boundary | Raw `DatabaseSync` outside D1 applicative APIs **not** guarded — **KNOWN GAP** (declared CORR-02) |
++| Proof | freeze + injected + O-01 + D5 + M1 suites — **DETERMINISTIC AT TESTED SCOPE** (31 PASS / 7 files per CORR-02 handoff) |
++| Anti-claims | Exclusive **not** active on main · cutover **not** proven · App Support definitive DBs **not** created |
 
-function serializeError(error: unknown): {
-  ok: false;
-  code: string;
-  message: string;
-} {
-  if (error instanceof D1Error) {
-    return { ok: false, code: error.code, message: error.message };
-  }
-  return {
-    ok: false,
-    code: "UNKNOWN",
-    message: "Échec de confirmation. Réessayez.",
-  };
-}
+ ## Additional stores (harvest)
 
-export type ConfirmActionResult =
-  | { ok: true; result: BoundedMutationResult }
-  | { ok: false; code: string; message: string };
+diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+index aef82ade..8ce19a5a 100644
+--- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
++++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+@@ -103,6 +103,23 @@ sinon STOP · 0 Attempt
 
-export async function actionExecuteConfirmation(
-  input: ExecuteConfirmationInput,
-): Promise<ConfirmActionResult> {
-  try {
-    const result = executeConfirmedMutation(input);
-    // CR-D2-02: OA-exclusive freeze returns FAILED+FORBIDDEN without throw —
-    // surface as ok:false so UI does not treat confirmation as success.
-    if (result.status === "FAILED" && result.errorCode === "FORBIDDEN") {
-      return {
-        ok: false,
-        code: "FORBIDDEN",
-        message:
-          "Confirmation refusée : écriture D1 bloquée (mode OA exclusif local).",
-      };
-    }
-    return { ok: true, result };
-  } catch (error) {
-    return serializeError(error);
-  }
-}
+ ---
 
-export async function actionPrepareExistingProjectSummary(input: {
-  projectId: string;
-}): Promise<
-  | {
-      ok: true;
-      project: {
-        projectId: string;
-        name: string;
-        objective: string;
-        state: string;
-        version: number;
-        updatedAt: string;
-      };
-      summary: ConfirmationSummary;
-    }
-  | { ok: false; code: string; message: string }
-> {
-  try {
-    const project = getProject(input.projectId);
-    const summary = buildConfirmationSummary({
-      actionType: "CONFIRM_EXISTING_PROJECT_CONTEXT",
-      project,
-    });
-    logIntakeEvent("intake_confirmation_presented", {
-      sessionLocalId: "prepare",
-      status: "CONFIRM_EXISTING_PROJECT_CONTEXT",
-      projectId: project.projectId,
-    });
-    return {
-      ok: true,
-      project: {
-        projectId: project.projectId,
-        name: project.name,
-        objective: project.objective,
-        state: project.state,
-        version: project.version,
-        updatedAt: project.updatedAt,
-      },
-      summary,
-    };
-  } catch (error) {
-    return serializeError(error);
-  }
-}
++## Overlay — AKG-M5 L2-D2 candidate invariants (LOCAL DELIVERY CANDIDATE — NOT CURRENT ON MAIN)
++
++Do **not** promote these to **CURRENT IMPLEMENTED** until G-GIT merge + post-merge verification. They describe dirty Delivery + CORR-02 behavior at DET scope.
++
++| ID (candidate) | Statement | Source | Proof class |
++|---|---|---|---|
++| INV-L2D2-D1-REFUSED-EXCLUSIVE | When `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1`, D1 open + guarded mutative APIs refuse with `D1Error` `FORBIDDEN` | `localOaExclusiveMode.ts` / `db.ts` / `repository.ts` / `boundedAtomicAudit.ts` | BEHAVIOR PROVEN AT TESTED SCOPE |
++| INV-L2D2-CONFIRM-FORBIDDEN-OK-FALSE | Confirmation `FAILED`+`FORBIDDEN` surfaces as `actionExecuteConfirmation` → `ok:false` / `code=FORBIDDEN` (not `ok:true`) | `confirmation/actions.ts` CORR-02 | BEHAVIOR PROVEN AT TESTED SCOPE |
++| INV-L2D2-CONFIRM-NO-ONDONE-ON-REFUSAL | UI must not treat refused confirmation as success (`ConfirmationPanel` skips `onDone` on `!ok`) | `ConfirmationPanel.tsx` + `l2d2ConfirmationForbiddenUi` | BEHAVIOR PROVEN AT TESTED SCOPE |
++| INV-L2D2-NO-MUTATION-VIA-GUARDED-APIS | No D1 write via guarded repository/audit APIs under exclusive (incl. pre-opened injected connection) | CORR-02 injected suite | BEHAVIOR PROVEN AT TESTED SCOPE |
++| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests | BEHAVIOR PROVEN AT TESTED SCOPE |
++| INV-REC-NE-HD / INV-MEMB-NE-TRUTHC | Unchanged CURRENT — Recommendation ≠ HD ; Memory B ≠ Truth C | existing catalog | CURRENT IMPLEMENTED (main) |
++
++**Residual KNOWN GAP:** unguarded raw SQLite on a held `DatabaseSync` outside D1 APIs.
++
++**Failure mode (candidate):** exclusive ON + D1 create/confirm → Pilot sees refusal ; Product OA create path remains the target continuity surface.
++
+ ## Failure modes (selected) — CURRENT IMPLEMENTED
 
-export async function actionPrepareCreateSummary(input: {
-  draft: ProjectDraftFields;
-}): Promise<{ ok: true; summary: ConfirmationSummary }> {
-  const summary = buildConfirmationSummary({
-    actionType: "CREATE_PROJECT",
-    draft: input.draft,
-  });
-  return { ok: true, summary };
-}
+ | Code/State | Layer | Trigger | User effect | Mutations | Fail-closed |
+diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+index 686ba4ce..f9076138 100644
+--- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
++++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+@@ -9,11 +9,26 @@
+ - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
+ - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
-```
++## Overlay — AKG-M5 L2-D2 proof map (LOCAL DELIVERY CANDIDATE — R24 2026-10-24)
++
++| Suite file | What it proves | Class |
++|---|---|---|
++| `l2d2LocalOaExclusiveFreeze.test.ts` | Exclusive ON: open/create/methodMode/confirm refuse ; no D1 file ; OFF preserved ; CORR-02 `ok:false` | DET |
++| `l2d2InjectedConnectionWriterGuards.test.ts` | Pre-opened injected DB cannot mutate via repo/audit APIs under exclusive | DET |
++| `l2d2ConfirmationForbiddenUi.test.tsx` | Panel does not call `onDone` on `ok:false` FORBIDDEN | DET (jsdom) |
++| `l2d2D4LegacyNavigation.test.ts` | Generic→`/studio` ; deep link→`notFound` ; OFF no-op ; no proj→prj map | DET |
++| `l2d2O01ProductUiIntegrated.test.tsx` | OA create + LPS objective durable → Product list/workspace UI → reopen ; D1 probe blocked | DET (jsdom + real SqliteProductStore) |
++| `l2d1D5CreateAuditAtomicity.test.ts` | D5 non-regression | DET (CURRENT ON MAIN capability) |
++| `m1ProductSqliteDurability.test.ts` | Process/reopen durability non-regression | DET |
++
++**Batch cited:** CORR-02 handoff `ceb0a69d` — **31 PASS / 7 files**. SQLite = `os.tmpdir()` only. **LIVE Studio / Application Support / R-CUT: NOT PROVEN.** Q15 conversational global: **PARTIAL** (CORR-02 targeted only).
++
+ ## Flow → tests (selected)
 
----
+ | Flow | Deterministic tests | Notes |
+ |---|---|---|
+-| O-01 / D5 CreateProject audit (AKG-M5 L2-D1 CURRENT ON MAIN PR #612 + CORR-01) | `l2d1D5CreateAuditAtomicity.test.ts` (Q5.1–Q5.7) + M1 durability/restart suites | **DETERMINISTIC AT TESTED SCOPE** — success audit inside Product UnitOfWork; Studio composition Sqlite journal default; **CORR-01:** Q5.3 observes `DatabaseSync.isTransaction` during success append; Q5.4 covers audit-failure→rollback→clean retry→single create; PR #612 [post-merge CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) SUCCESS; O-01 « comprendre » Product→UI integrated E2E = KNOWN GAP; **≠** L2-D2 · **≠** REAL |
++| O-01 / D5 CreateProject audit (AKG-M5 L2-D1 CURRENT ON MAIN PR #612 + CORR-01) | `l2d1D5CreateAuditAtomicity.test.ts` (Q5.1–Q5.7) + M1 durability/restart suites | **DETERMINISTIC AT TESTED SCOPE** — success audit inside Product UnitOfWork; Studio composition Sqlite journal default; **CORR-01:** Q5.3 observes `DatabaseSync.isTransaction` during success append; Q5.4 covers audit-failure→rollback→clean retry→single create; PR #612 [post-merge CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) SUCCESS; at L2-D1 merge, integrated O-01 « comprendre » Product→UI was KNOWN GAP (addressed as **LOCAL CANDIDATE** under L2-D2 row below) · **≠** REAL |
++| O-01 / L2-D2 local OA exclusive + D4 + CORR-02 (LOCAL DELIVERY CANDIDATE — **≠ CURRENT ON MAIN**) | `l2d2LocalOaExclusiveFreeze.test.ts` · `l2d2InjectedConnectionWriterGuards.test.ts` · `l2d2ConfirmationForbiddenUi.test.tsx` · `l2d2D4LegacyNavigation.test.ts` · `l2d2O01ProductUiIntegrated.test.tsx` (+ D5 + M1 non-regression in same CORR-02 batch) | **DETERMINISTIC AT TESTED SCOPE** — CORR-02 handoff reports **31 PASS / 7 suites** ; disposable SQLite only ; O-01 LPS **objective** → list `studio-projects-current` + workspace `project-subtitle` ; confirmation FORBIDDEN → `ok:false` ; injected writers guarded ; D4 redirect/notFound ; **≠** Studio live · **≠** cutover · Q15 global **PARTIAL** |
+ | F05 materialization | continuity CORR-01, bridge CORR-01, corrProof07, **productCycleE2eStabilization.frontDoor**, fakeProvider materialization | **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** — oracle traverses Product UI server actions (Send→Decide→PrepareResolvedM3→ConfirmAndExecuteResolvedM3→Rehydrate) |
+ | F05 optional documentary → Generic PREPARE (PR #586) | `p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` (+ G-D4, Product Continuity, HQA-F01) | DETERMINISTIC — `no_require_artifact` routes to Generic PREPARE; Artifact obligation path preserved; exact caps; non-authoritative path candidates; Fake cue `__P6_OPTIONAL_DOCUMENTARY_MD__` ≠ OpenAI LIVE |
+ | F04 Nora Generic PREPARE tool (D-ER-16) | `p6.der16.genericNoraToolInvocation.d0.test.ts` | DETERMINISTIC — solicit PREPARE only; structural fail-closed; no Attempt; PENDING_GIT_INTEGRATION |
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index 87edbab6..4048f49d 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -5,17 +5,35 @@
+ - Runtime v3 **NON ADOPTED**
+ - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## 09. Contenu exact des nouveaux / tests CORR-02
++## Overlay — AKG-M5 L2-D2 local OA cutover + CORR-02 + R24 (LOCAL DELIVERY CANDIDATE — 2026-10-24)
++
++| Item | Status |
++|---|---|
++| Epistemic | **LOCAL DELIVERY CANDIDATE** on `feat/akg-m5-l2-d2-local-oa-cutover` @ dirty tip over base `1a380f22…` — **NOT CURRENT ON MAIN** · **NOT ACTIVATED** |
++| G-DELIVERY / CORR-02 | Consumed at tested scope ; Critical Review PASS WITH GOVERNED RESERVES (handoff `ceb0a69d` / blob `bb749527`) |
++| G-PRR (this cycle) | **DOCUMENTARY AUTHORING GRANTED** — R24 semantic sync of README/03–09 · Product code **unchanged by R24** · digests **not** rewritten (manifest outside allowlist) |
++| G-GIT | **OPEN** — no project commit/push/PR/merge |
++| G-ACTIVATION | **OPEN** — exclusive default OFF ; no Studio live ; no definitive App Support DBs |
++| DET proof | **31 PASS / 7 suites** (freeze / injected / confirmation UI / D4 / O-01 / D5 / M1) |
++| O-01 « comprendre » | LPS objective → Product UI **BEHAVIOR PROVEN AT TESTED SCOPE (DET)** on disposable SQLite — **≠** LIVE E2E |
++| Q15 global | **PARTIAL** — CORR-02 conversational impacts targeted only |
++| Residual writer | Raw `DatabaseSync` outside D1 applicative APIs — **KNOWN GAP** |
++| R-CUT / routes live | **NOT PROVEN** |
++| P6 GLOBAL PASS | **NOT CLAIMED** |
++| Runtime v3 | **NON ADOPTED** |
++| Temporary debt exit | After ChatGPT PRR content review → digest refresh under distinct authorization → G-GIT PR readiness of **cumulative** Delivery (Product+PRR) → post-merge → **separate** G-ACTIVATION for local exclusive cutover |
++
+ ## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
 
-### NEW — `l2d2InjectedConnectionWriterGuards.test.ts`
+ | Item | Status |
+ |---|---|
+-| GO | L2-D1 local Delivery + CORR-01 + Git Integration + merge **consumed** at their bounded scopes ; **PR #612 MERGED ON MAIN** ; no GO L2-D2 |
++| GO | L2-D1 local Delivery + CORR-01 + Git Integration + merge **consumed** at their bounded scopes ; **PR #612 MERGED ON MAIN** ; at merge time L2-D2 was not yet authorized (see L2-D2 candidate overlay above for later local Delivery) |
+ | Branch | **HISTORICAL source:** `feat/akg-m5-l2-d1-product-o01-audit` @ base `d6230177…` ; **CURRENT main:** `b792bc83e1fbe3ee2f630d2637c137ee246bf07a` (PR #612 merge) |
+ | Lifecycle note | Local Delivery / CORR-01 / Draft PR = **HISTORICAL stages** ; [PR #612](https://github.com/mcleland147/sfia-workspace/pull/612) **MERGED** ; [post-merge CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) **SUCCESS** ; Product capability is CURRENT on main only at its proven scope |
+ | D5 | Success create audit **inside** Product UnitOfWork · Studio composition defaults `SqliteProjectAuditJournal` |
+ | Q5.1–Q5.7 | DETERMINISTIC PROVEN AT TESTED SCOPE (`l2d1D5CreateAuditAtomicity.test.ts`) |
+-| O-01 | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover · « comprendre » E2E Product→UI = **KNOWN GAP** |
+-| L2-D2 | **NOT AUTHORIZED** |
++| O-01 (at L2-D1 merge) | Create/list/get/resume OA paths reused — no parallel engine · no D1 cutover · integrated « comprendre » Product→UI was **KNOWN GAP** then |
++| L2-D2 (at L2-D1 merge) | Was **NOT AUTHORIZED** — superseded as *authorization status* by later L2-D2 local Delivery candidate (still **not** on main / not activated) |
+ | H4 / R-CUT | **OPEN / NOT PROVEN** (unchanged) |
+ | REAL / P6 / v3 | REAL **NOT PROVEN** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED** |
 
-```typescript
-/**
- * L2-D2 CORR-02 / CR-D2-03 — mutation guards on injected DatabaseSync.
- * openD1Db alone is insufficient when a connection was opened before exclusive ON.
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
-import { openD1Db, resetD1DbForTests } from "@/lib/d1/db";
-import { D1Error } from "@/lib/d1/errors";
-import {
-  resetLocalOaExclusiveModeForTests,
-  setLocalOaExclusiveModeForTests,
-} from "@/lib/d1/localOaExclusiveMode.test-only";
-import { D1ProjectRepository } from "@/lib/d1/repository";
-import {
-  D1_DEFAULT_WORKSPACE_ID,
-  D1_GOVERNANCE_METHOD_MODE,
-  D1_MONO_OPERATOR_ACTOR_ID,
-} from "@/lib/d1/types";
+@@ -27,10 +45,10 @@
+ | CR-D1-02 / Q5.3 | Success `oa.project.created` append observed with `DatabaseSync.isTransaction === true` (node:sqlite) |
+ | CR-D1-01 / Q5.4 | Contractual audit failure → rollback (no Project/LPS/idem/success) → clean retry → single durable create → idempotent reuse |
+ | Product source | **UNCHANGED** vs L2-D1 Delivery (Option A conserved) |
+-| O-01 « comprendre » | Surfaces Product COVERAGE VERIFIED; UI mocks presentation BEHAVIOR AT TESTED SCOPE; **integrated durable Product→UI comprehend** = **KNOWN GAP** (governed) |
++| O-01 « comprendre » (CORR-01 epoch) | Surfaces Product COVERAGE VERIFIED; UI mocks presentation BEHAVIOR AT TESTED SCOPE; integrated durable Product→UI comprehend was **KNOWN GAP** then — see L2-D2 candidate overlay for later DET objective→UI proof |
+ | Additional product semantic impact | **NONE** beyond L2-D1 initial R24 |
+-| Lifecycle | **CURRENT ON MAIN after PR #612 MERGED / CI SUCCESS** ; historical CORR-01 proven at deterministic tested scope, not O-01 E2E COMPLETE |
+-| L2-D2 | **NOT AUTHORIZED** |
++| Lifecycle | **CURRENT ON MAIN after PR #612 MERGED / CI SUCCESS** ; historical CORR-01 proven at deterministic tested scope, not O-01 LIVE E2E COMPLETE |
++| L2-D2 (CORR-01 epoch) | **NOT AUTHORIZED** then — later local Delivery candidate exists (not on main) |
 
-const tempDirs: string[] = [];
+ ## Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
 
-function openDisposableD1() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-l2d2-inj-"));
-  tempDirs.push(dir);
-  const dbPath = path.join(dir, "d1.sqlite");
-  // Open while exclusive OFF so schema can initialize.
-  setLocalOaExclusiveModeForTests(false);
-  process.env.D1_SQLITE_PATH = dbPath;
-  resetD1DbForTests();
-  const db = openD1Db(dbPath);
-  return { dbPath, db };
-}
+diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
+index 0ddd5661..07b05c74 100644
+--- a/projects/sfia-studio/production-runtime-reference/README.md
++++ b/projects/sfia-studio/production-runtime-reference/README.md
+@@ -31,6 +31,23 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
 
-beforeEach(() => {
-  resetLocalOaExclusiveModeForTests();
-  resetD1DbForTests();
-  delete process.env.D1_SQLITE_PATH;
-});
+ **AKG-M0 methodological continuity overlay — historical preparation vs PR candidate:** **Historical snapshot (2026-10-19, étape 1 authoring):** README role/coverage/maintenance + R-S02 Tool-First CURRENT requalification + read-only vs Delivery proportion were authored locally; at that stage **manifest digests were not yet refreshed** (`REFERENCE REVIEW REQUIRED` then). **Later in the same AKG-M0 documentary lot (PR #591 candidate):** the README digest was synchronized into `production-runtime-reference.manifest.json` after semantic acceptance — digest match is a **deterministic conformance** fact of this candidate, **not** semantic exhaustiveness and **not** proof that AKG-M0 is ACTIVE ON MAIN. **Activation on main** remains contingent on merge + post-merge verification under distinct Morris gates. P6 GLOBAL PASS / runtime v3 ADOPTED / TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT closed / AKG-M0 ACTIVE ON MAIN **NOT CLAIMED**.
 
-afterEach(() => {
-  resetLocalOaExclusiveModeForTests();
-  resetD1DbForTests();
-  delete process.env.D1_SQLITE_PATH;
-  for (const dir of tempDirs.splice(0)) {
-    try {
-      fs.rmSync(dir, { recursive: true, force: true });
-    } catch {
-      /* ignore */
-    }
-  }
-});
++**AKG-M5 L2-D2 local OA Fresh Start cutover — LOCAL DELIVERY CANDIDATE + R24 PRR authoring (2026-10-24):**
++
++| Epistemic class | Element |
++|---|---|
++| **LOCAL DELIVERY CANDIDATE** | Worktree `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` · branch `feat/akg-m5-l2-d2-local-oa-cutover` · HEAD base `1a380f22c2ee9c63c525213e01de4bca14dff9ca` (= `origin/main`) · Product code **dirty / uncommitted / not on main** |
++| **G-DELIVERY** | Consumed — L2-D2 freeze D1 / D4 legacy nav / O-01 DET implemented locally at tested scope |
++| **CORR-02** | Critical Review PASS WITH GOVERNED RESERVES (handoff `ceb0a69db87fcf443cf08525cb6d99ec44c1e8fd` / blob `bb74952741e117dfbcbe5da198d1987beb3907e6`) — confirmation `ok:false`+FORBIDDEN ; injected writer guards ; O-01 LPS objective→UI |
++| **R24 this cycle** | **G-PRR DOCUMENTARY AUTHORING GRANTED** — semantic sync of vols README/03–09 only ; **≠** Product mutation ; **≠** digest write (manifest not in allowlist) |
++| **DETERMINISTIC PROVEN** | 31 tests / 7 suites at CORR-02 tested scope (freeze / injected / confirmation UI / D4 / O-01 / D5 / M1) |
++| **NOT CURRENT ON MAIN** | New D1 exclusive guards, D4 redirects, confirmation FORBIDDEN contract — **inactive on integrated runtime** until G-GIT + merge |
++| **G-GIT** | **OPEN** — no project commit/push/PR/merge |
++| **G-ACTIVATION** | **OPEN** — `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default OFF ; no Studio live cutover |
++| **Runtime v3** | **NON ADOPTED** |
++| **Anti-claims** | OA-exclusive **not** ADOPTED · CUTOVER **not** PROVEN · STUDIO LIVE **not** VALIDATED · P6 GLOBAL PASS **not** claimed · DET ≠ LIVE |
++
++Volumes touched by this R24 overlay: README · 03 · 04 · 05 · 06 · 07 · 08 · 09. Digest refresh deferred until ChatGPT semantic accept + distinct digest authorization (manifest path protected / not edited here).
++
+ ## What this corpus is
 
-describe("L2-D2 CORR-02 CR-D2-03 injected connection writer guards", () => {
-  it("createProjectAtomic / selectMethodModeAtomic refuse after exclusive ON (injected db)", () => {
-    const { dbPath, db } = openDisposableD1();
-    const repo = new D1ProjectRepository(db);
-
-    // Seed one project while exclusive OFF.
-    const seeded = repo.createProjectAtomic({
-      project: {
-        projectId: "proj-seed-1",
-        workspaceId: D1_DEFAULT_WORKSPACE_ID,
-        name: "Seed",
-        objective: "baseline",
-        initialContextSummary: null,
-        methodMode: D1_GOVERNANCE_METHOD_MODE,
-        state: "ACTIVE",
-        ownerActorId: D1_MONO_OPERATOR_ACTOR_ID,
-        createdAt: "2026-10-24T16:00:00.000Z",
-        updatedAt: "2026-10-24T16:00:00.000Z",
-        version: 1,
-      },
-      assignments: [
-        {
-          principalId: D1_MONO_OPERATOR_ACTOR_ID,
-          projectId: "proj-seed-1",
-          role: "project_owner",
-          createdAt: "2026-10-24T16:00:00.000Z",
-        },
-      ],
-      events: [
-        {
-          eventId: "d1-evt-seed",
-          eventType: "PROJECT_CREATED",
-          actorId: D1_MONO_OPERATOR_ACTOR_ID,
-          correlationId: "corr-seed",
-          payload: {},
-        },
-      ],
-      idempotencyKey: "idem-seed",
-      responseJson: "{}",
-    });
-    expect(seeded.kind).toBe("created");
-    const beforeCount = (
-      db.prepare("SELECT COUNT(*) AS c FROM d1_projects").get() as { c: number }
-    ).c;
-    expect(beforeCount).toBe(1);
-
-    setLocalOaExclusiveModeForTests(true);
-
-    try {
-      repo.createProjectAtomic({
-        project: {
-          projectId: "proj-blocked",
-          workspaceId: D1_DEFAULT_WORKSPACE_ID,
-          name: "Blocked",
-          objective: "must fail",
-          initialContextSummary: null,
-          methodMode: D1_GOVERNANCE_METHOD_MODE,
-          state: "DRAFT",
-          ownerActorId: D1_MONO_OPERATOR_ACTOR_ID,
-          createdAt: "2026-10-24T16:01:00.000Z",
-          updatedAt: "2026-10-24T16:01:00.000Z",
-          version: 1,
-        },
-        assignments: [],
-        events: [],
-        idempotencyKey: "idem-blocked",
-        responseJson: "{}",
-      });
-      expect.unreachable("createProjectAtomic should refuse");
-    } catch (error) {
-      expect(error).toBeInstanceOf(D1Error);
-      expect((error as D1Error).code).toBe("FORBIDDEN");
-    }
-
-    try {
-      repo.selectMethodModeAtomic({
-        projectId: "proj-seed-1",
-        methodMode: "SFIA_V2_6",
-        expectedVersion: 1,
-        nextState: "ACTIVE",
-        actorId: D1_MONO_OPERATOR_ACTOR_ID,
-        correlationId: "corr-blocked",
-        eventIds: { mode: "d1-evt-mode" },
-      });
-      expect.unreachable("selectMethodModeAtomic should refuse");
-    } catch (error) {
-      expect(error).toBeInstanceOf(D1Error);
-      expect((error as D1Error).code).toBe("FORBIDDEN");
-    }
-
-    const afterCount = (
-      db.prepare("SELECT COUNT(*) AS c FROM d1_projects").get() as { c: number }
-    ).c;
-    expect(afterCount).toBe(1);
-    const mode = (
-      db
-        .prepare("SELECT method_mode FROM d1_projects WHERE project_id = ?")
-        .get("proj-seed-1") as { method_mode: string }
-    ).method_mode;
-    expect(mode).toBe(D1_GOVERNANCE_METHOD_MODE);
-    expect(fs.existsSync(dbPath)).toBe(true);
-  });
-
-  it("BoundedAtomicAuditStore append/clearForTests refuse under exclusive with injected db", () => {
-    const { db } = openDisposableD1();
-    const store = new BoundedAtomicAuditStore(db);
-    store.append({
-      opId: "op-1",
-      idempotencyKey: "idem-audit-1",
-      phase: "prepare",
-      outcome: "IN_PROGRESS",
-      correlationId: "corr-1",
-    });
-    const before = (
-      db.prepare("SELECT COUNT(*) AS c FROM d1_atomic_audit").get() as {
-        c: number;
-      }
-    ).c;
-    expect(before).toBe(1);
-
-    setLocalOaExclusiveModeForTests(true);
-    try {
-      store.append({
-        opId: "op-2",
-        idempotencyKey: "idem-audit-2",
-        phase: "commit",
-        outcome: "COMMITTED",
-        correlationId: "corr-2",
-      });
-      expect.unreachable("append should refuse");
-    } catch (error) {
-      expect(error).toBeInstanceOf(D1Error);
-      expect((error as D1Error).code).toBe("FORBIDDEN");
-    }
-    try {
-      store.clearForTests();
-      expect.unreachable("clearForTests should refuse");
-    } catch (error) {
-      expect(error).toBeInstanceOf(D1Error);
-      expect((error as D1Error).code).toBe("FORBIDDEN");
-    }
-
-    const after = (
-      db.prepare("SELECT COUNT(*) AS c FROM d1_atomic_audit").get() as {
-        c: number;
-      }
-    ).c;
-    expect(after).toBe(1);
-  });
-
-  it("exclusive OFF — injected repository mutations still work", () => {
-    const { db } = openDisposableD1();
-    setLocalOaExclusiveModeForTests(false);
-    const repo = new D1ProjectRepository(db);
-    const outcome = repo.createProjectAtomic({
-      project: {
-        projectId: "proj-ok",
-        workspaceId: D1_DEFAULT_WORKSPACE_ID,
-        name: "OK",
-        objective: "off mode",
-        initialContextSummary: null,
-        methodMode: D1_GOVERNANCE_METHOD_MODE,
-        state: "DRAFT",
-        ownerActorId: D1_MONO_OPERATOR_ACTOR_ID,
-        createdAt: "2026-10-24T16:02:00.000Z",
-        updatedAt: "2026-10-24T16:02:00.000Z",
-        version: 1,
-      },
-      assignments: [],
-      events: [
-        {
-          eventId: "d1-evt-ok",
-          eventType: "PROJECT_CREATED",
-          actorId: D1_MONO_OPERATOR_ACTOR_ID,
-          correlationId: "corr-ok",
-          payload: {},
-        },
-      ],
-      idempotencyKey: "idem-ok-off",
-      responseJson: "{}",
-    });
-    expect(outcome.kind).toBe("created");
-  });
-});
-
-```
-
-### NEW — `l2d2ConfirmationForbiddenUi.test.tsx`
-
-```typescript
-/**
- * L2-D2 CORR-02 / CR-D2-02 — ConfirmationPanel must not call onDone on FORBIDDEN.
- * @vitest-environment jsdom
- */
-import {
-  cleanup,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
-
-const actionExecuteConfirmationMock = vi.fn();
-
-vi.mock("@/lib/d1/confirmation/actions", () => ({
-  actionExecuteConfirmation: (...args: unknown[]) =>
-    actionExecuteConfirmationMock(...args),
-}));
-
-import { ConfirmationPanel } from "@/features/d1/confirmation/ConfirmationPanel";
-
-afterEach(() => {
-  cleanup();
-  actionExecuteConfirmationMock.mockReset();
-});
-
-describe("L2-D2 CORR-02 confirmation FORBIDDEN UI (Q15 targeted)", () => {
-  it("does not invoke onDone when action returns ok:false FORBIDDEN", async () => {
-    actionExecuteConfirmationMock.mockResolvedValue({
-      ok: false,
-      code: "FORBIDDEN",
-      message: "Confirmation refusée : écriture D1 bloquée.",
-    });
-    const onDone = vi.fn();
-    const onCancel = vi.fn();
-
-    render(
-      <ConfirmationPanel
-        sessionLocalId="sess-ui"
-        proposalId="prop-ui"
-        matchId={null}
-        actionType="CREATE_PROJECT"
-        targetProjectId={null}
-        initialDraft={{
-          name: "X",
-          objective: "Y",
-          initialContextSummary: "",
-          activate: true,
-        }}
-        expectedProjectVersion={null}
-        expectedUpdatedAt={null}
-        idempotencyKey="idem-ui-forbidden"
-        summary={{
-          actionLabel: "Créer le projet",
-          targetLabel: "Nouveau projet",
-          consequences: ["Création D1"],
-          dataToPersist: [],
-          warnings: [],
-          irreversibleEffects: [],
-          confirmationRequired: true,
-        }}
-        onDone={onDone}
-        onCancel={onCancel}
-      />,
-    );
-
-    fireEvent.click(screen.getByRole("button", { name: /Créer ce projet/i }));
-    await waitFor(() => {
-      expect(actionExecuteConfirmationMock).toHaveBeenCalled();
-    });
-    await waitFor(() => {
-      expect(screen.getByText(/Confirmation refusée/i)).toBeTruthy();
-    });
-    expect(onDone).not.toHaveBeenCalled();
-  });
-});
-
-```
-
-### MODIFIED — O-01 `l2d2O01ProductUiIntegrated.test.tsx` (complet)
-
-```tsx
-/**
- * L2-D2 — O-01 Product→UI integrated oracle (deterministic, disposable SQLite).
- * Real RuntimeApplicationService + Product UI surfaces.
- * serverGuard is stubbed only to allow jsdom import of server actions —
- * persistence remains the live SqliteProductStore (not mocked).
- * Does NOT start Studio user runtime / Application Support DBs.
- * @vitest-environment jsdom
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import {
-  cleanup,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-
-vi.mock("@/lib/vertical-slice-runtime/serverGuard", () => ({
-  assertServerOnly: () => undefined,
-}));
-
-vi.mock("next/link", () => ({
-  default: ({
-    children,
-    href,
-    ...props
-  }: {
-    children: React.ReactNode;
-    href: string;
-  }) => (
-    <a href={href} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
-import { ProjectsPage } from "@/features/pre-m6-product-ui/ProjectsPage";
-import { ProjectWorkspacePage } from "@/features/pre-m6-product-ui/ProjectWorkspacePage";
-import { createProject, resetD1DbForTests } from "@/lib/d1/commands";
-import { D1Error } from "@/lib/d1/errors";
-import {
-  resetLocalOaExclusiveModeForTests,
-  setLocalOaExclusiveModeForTests,
-} from "@/lib/d1/localOaExclusiveMode.test-only";
-import { D1_GOVERNANCE_METHOD_MODE } from "@/lib/d1/types";
-import { openProductSqlite } from "@/lib/oa/project/infrastructure/sqlite/db";
-import {
-  createProjectRuntimeAction,
-  getProjectRuntimeAction,
-  listProjectsRuntimeAction,
-} from "@/lib/vertical-slice-runtime/actions";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime/singleton";
-
-const tempDirs: string[] = [];
-let productDbPath = "";
-let d1ProbePath = "";
-
-beforeEach(() => {
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-  resetLocalOaExclusiveModeForTests();
-  resetD1DbForTests();
-  resetRuntimeApplicationServiceForTests();
-
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "sfia-l2d2-o01-"));
-  tempDirs.push(dir);
-  productDbPath = path.join(dir, "oa-product.sqlite");
-  d1ProbePath = path.join(dir, "d1-must-stay-absent.sqlite");
-  process.env.SFIA_STUDIO_PRODUCT_DB_PATH = productDbPath;
-  process.env.D1_SQLITE_PATH = d1ProbePath;
-
-  getRuntimeApplicationService({
-    productDbPath,
-    auditMode: "noop",
-    nowIso: "2026-10-24T16:00:00.000Z",
-  });
-});
-
-afterEach(() => {
-  cleanup();
-  resetLocalOaExclusiveModeForTests();
-  resetD1DbForTests();
-  resetRuntimeApplicationServiceForTests();
-  delete process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
-  delete process.env.D1_SQLITE_PATH;
-  while (tempDirs.length) {
-    const dir = tempDirs.pop();
-    if (dir) fs.rmSync(dir, { recursive: true, force: true });
-  }
-});
-
-describe("L2-D2 O-01 Product→UI integrated (Q-O01 / Q9)", () => {
-  it("create → SQLite durable → list UI → workspace UI → reopen + no D1 write", async () => {
-    setLocalOaExclusiveModeForTests(true);
-
-    const OBJECTIVE =
-      "Prouver comprendre l'état métier LPS depuis OA durable";
-    const created = await createProjectRuntimeAction({
-      name: "O-01 Fresh Project",
-      objective: OBJECTIVE,
-      context: "L2-D2 integrated oracle",
-      criticality: "STANDARD",
-      constraints: ["ZERO REAL", "OA exclusive"],
-      shortReference: "O01FS",
-      idempotencyKey: `idem:l2d2-o01-${Date.now()}`,
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) throw new Error("create failed");
-    expect(created.projectId.startsWith("prj:")).toBe(true);
-    // Runtime create projection carries LPS-backed objective (Truth C).
-    expect(created.project.objective).toBe(OBJECTIVE);
-
-    const db = openProductSqlite(productDbPath);
-    const projectRow = db
-      .prepare(
-        "SELECT project_id, payload_json FROM oa_projects WHERE project_id = ?",
-      )
-      .get(created.projectId) as
-      | { project_id: string; payload_json: string }
-      | undefined;
-    expect(projectRow?.project_id).toBe(created.projectId);
-    const payload = JSON.parse(projectRow!.payload_json) as { title?: string };
-    expect(payload.title).toBe("O-01 Fresh Project");
-    const lpsRow = db
-      .prepare(
-        "SELECT payload_json FROM oa_lps WHERE project_id = ? ORDER BY version ASC LIMIT 1",
-      )
-      .get(created.projectId) as { payload_json: string } | undefined;
-    expect(lpsRow).toBeTruthy();
-    const lpsPayload = JSON.parse(lpsRow!.payload_json) as {
-      objective?: string;
-    };
-    expect(lpsPayload.objective).toBe(OBJECTIVE);
-    db.close();
-
-    const listed = await listProjectsRuntimeAction();
-    expect(listed.ok).toBe(true);
-    if (!listed.ok) throw new Error("list failed");
-    const listedRow = listed.projects.find(
-      (p) => p.projectId === created.projectId,
-    );
-    expect(listedRow?.title).toBe("O-01 Fresh Project");
-    // List enriches rows from current LPS objective (Product Truth C).
-    expect(listedRow?.objective).toBe(OBJECTIVE);
-
-    render(<ProjectsPage />);
-    await waitFor(() => {
-      expect(screen.getByTestId("studio-projects-open").textContent).toContain(
-        "O-01 Fresh Project",
-      );
-    });
-    // CR-D2-04: « En cours » column renders LPS objective (not a static mock).
-    await waitFor(() => {
-      expect(
-        screen.getByTestId("studio-projects-current").textContent,
-      ).toContain(OBJECTIVE);
-    });
-
-    cleanup();
-    render(<ProjectWorkspacePage projectId={created.projectId} />);
-    await waitFor(() => {
-      expect(screen.getByTestId("project-title").textContent).toContain(
-        "O-01 Fresh Project",
-      );
-    });
-    // Workspace subtitle is success.project.objective from getProjectRuntimeAction.
-    await waitFor(() => {
-      expect(screen.getByTestId("project-subtitle").textContent).toContain(
-        OBJECTIVE,
-      );
-    });
-
-    cleanup();
-    resetRuntimeApplicationServiceForTests();
-    getRuntimeApplicationService({
-      productDbPath,
-      auditMode: "noop",
-      nowIso: "2026-10-24T16:05:00.000Z",
-    });
-    const reread = await getProjectRuntimeAction(created.projectId);
-    expect(reread.ok).toBe(true);
-    if (!reread.ok) throw new Error("get after reopen failed");
-    expect(reread.project.name).toBe("O-01 Fresh Project");
-    expect(reread.project.objective).toBe(OBJECTIVE);
-    expect(reread.livingState.id.startsWith("lps:")).toBe(true);
-    expect(reread.livingState.version).toBe(1);
-
-    render(<ProjectWorkspacePage projectId={created.projectId} />);
-    await waitFor(() => {
-      expect(screen.getByTestId("project-title").textContent).toContain(
-        "O-01 Fresh Project",
-      );
-    });
-    await waitFor(() => {
-      expect(screen.getByTestId("project-subtitle").textContent).toContain(
-        OBJECTIVE,
-      );
-    });
-
-    expect(() =>
-      createProject({
-        name: "Should not land in D1",
-        objective: "dual-write probe",
-        methodMode: D1_GOVERNANCE_METHOD_MODE,
-        activate: true,
-        idempotencyKey: "idem-o01-d1-probe",
-      }),
-    ).toThrow(D1Error);
-    expect(fs.existsSync(d1ProbePath)).toBe(false);
-  });
-});
-
-```
-
-### MODIFIED — freeze confirmation assert (extrait)
-
-```typescript
-    const mutation = executeConfirmedMutation(input);
-    expect(mutation.status).toBe("FAILED");
-    expect(mutation.errorCode).toBe("FORBIDDEN");
-    // CR-D2-02: FORBIDDEN must surface as ok:false (not ok:true + FAILED).
-    const action = await actionExecuteConfirmation(input);
-    expect(action.ok).toBe(false);
-    if (!action.ok) {
-      expect(action.code).toBe("FORBIDDEN");
-      expect(action.message.length).toBeGreaterThan(0);
-    }
-    expect(fs.existsSync(probe)).toBe(false);
+ This corpus describes **how SFIA Studio actually works now** in the checked-out Git tree:
 ```
 
 ---
 
-## 10. CR-D2-02 avant / après
+## 09. Preuves et limites
 
-| | Avant (CORR-REVIEW-01) | Après CORR-02 |
-|---|---|---|
-| `executeConfirmedMutation` exclusive | `status=FAILED` `errorCode=FORBIDDEN` | inchangé |
-| `actionExecuteConfirmation` | `ok:true` + `result.status=FAILED` | **`ok:false` `code=FORBIDDEN`** |
-| ConfirmationPanel | `onDone` appelé si ok:true | **pas d'`onDone`** (chemin `!res.ok`) |
-| Fichier D1 | non créé | non créé (A2) |
-| Exclusive OFF | create OK | préservé (A6) |
-
----
-
-## 11. CR-D2-03 injected DB tests
-
-Suite jetable : open OFF → inject repo/store → exclusive ON → mutations FORBIDDEN + counts inchangés → OFF fonctionne. Guard `openD1Db` précoce **conservé** (freeze suite).
-
----
-
-## 12. CR-D2-04 UI state proof
-
-Chaîne prouvée DET :
-1. Create runtime avec OBJECTIVE constant.
-2. SQLite `oa_lps.payload_json.objective === OBJECTIVE`.
-3. `listProjectsRuntimeAction` row.objective === OBJECTIVE.
-4. UI list `studio-projects-current` contient OBJECTIVE.
-5. UI workspace `project-subtitle` contient OBJECTIVE.
-6. Reset singleton + reopen service → getProject.objective + subtitle cohérents.
-7. Probe `createProject` D1 → FORBIDDEN ; fichier D1 absent.
-
-**Restart qualifié :** remount React + reset singleton + reopen SQLite path. **Pas** redémarrage processus Studio actif (interdit). Process A/B M1 déjà couvert par `m1ProductSqliteDurability` (PASS). **LIVE E2E NOT CLAIMED.**
-
----
-
-## 13. D4 / Q15 impacts
-
-**D4 :** tests `l2d2D4LegacyNavigation` — 4 PASS ; comportement générique→`/studio` et deep links→`notFound` conservé. Mode OFF no-op.
-
-**Q15 (ciblé CORR-02 seulement) :**
-- confirmation refusée explicite ;
-- absence fausse réussite (`onDone` non appelé) ;
-- flux OFF préservés ;
-- continuité Product O-01 objective.
-
-Q15 global P6 : **reste PARTIAL** (pas de campagne globale).
-
----
-
-## 14. Résultats tests réels
-
-cwd : `projects/sfia-studio/app`
-
-```
-npx vitest run \
-  __tests__/d1/l2d2LocalOaExclusiveFreeze.test.ts \
-  __tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts \
-  __tests__/d1/l2d2ConfirmationForbiddenUi.test.tsx \
-  __tests__/d1/l2d2D4LegacyNavigation.test.ts \
-  __tests__/oa/project/l2d2O01ProductUiIntegrated.test.tsx \
-  __tests__/oa/project/l2d1D5CreateAuditAtomicity.test.ts \
-  __tests__/oa/project/m1ProductSqliteDurability.test.ts
-```
-
-**Résultat CORR-02 :** Test Files **7 passed** / Tests **31 passed** / 0 failed / 0 skipped.
-
-Comparatif Delivery historique : 27 PASS (5 files, sans injected/UI confirmation). Après CORR-02 : **31 PASS** (+ injected 3 + UI confirm 1 ; freeze/O-01 assertions renforcées).
-
-```
-git diff --check   # PASS
-npm run typecheck  # tsc --noEmit — PASS
-```
-
-SQLite : uniquement `mkdtemp` / `os.tmpdir()` jetables. **Aucune** DB Application Support créée. **Aucune** mutation P6. Studio serveur **non lancé**. `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` utilisateur **non activé** (overrides test-only).
-
-Limites : **DET** only. LIVE / cutover / REAL BOUNDARY **NOT PROVEN**.
-
----
-
-## 15. R24 / PRR delta proposé (G-PRR OPEN — aucune édition)
-
-Proposition documentaire **sans** modifier les chemins protégés :
-
-| Volume | Delta proposé |
+| Classe | Contenu |
 |---|---|
-| **03** flows | Confirmation D1 sous OA-exclusive : action surface `ok:false/FORBIDDEN` ; UI ne traite pas comme succès. |
-| **04** deps | Writers D1 mutatifs dépendent du guard exclusif **à l'ouverture et à la mutation** (injected connection). |
-| **05** objects | `assertD1AccessAllowedWhenLocalOaExclusive` points d'appel : `openD1Db` + repo atomic writers + BoundedAtomicAudit mutatifs. |
-| **06** persistence | Mode exclusive : zéro écriture D1 via APIs applicatives testées ; frontière brute SQLite déclarée. |
-| **07** invariants | INV candidate : FAILED+FORBIDDEN confirmation → ok:false ; INV candidate : injected DatabaseSync cannot mutate via D1 repos when exclusive. |
-| **08** proof map | Pointer suites `l2d2LocalOaExclusiveFreeze` / `l2d2InjectedConnectionWriterGuards` / `l2d2ConfirmationForbiddenUi` / O-01 objective UI ; niveau DET. |
-| **09** gaps | Residual : raw `DatabaseSync` hors API ; Q15 global PARTIAL ; activation / cutover non prouvés ; G-PRR sync PENDING jusqu'à GO. |
-
-Pas de référentiel parallèle créé.
+| CURRENT ON MAIN | L2-D1 D5 / OA create paths ; exclusive OFF = historical D1 |
+| LOCAL DELIVERY CANDIDATE | Freeze / D4 / CORR-02 confirmation+writers / O-01 objective UI |
+| DETERMINISTIC PROVEN | 31 PASS / 7 suites (CORR-02) — non re-exécutés ce cycle R24 |
+| NOT PROVEN | Cutover live · Studio activation · R-CUT · routes live · P6 GLOBAL · runtime v3 |
 
 ---
 
-## 16. Fake / Real qualification
+## 10. Validations
 
-| Preuve | Classe |
+| Check | Résultat |
 |---|---|
-| Freeze / confirmation / injected writers | **DETERMINISTIC VERIFIED AT TESTED SCOPE** |
-| O-01 Product→UI objective | **DETERMINISTIC VERIFIED AT TESTED SCOPE** (jsdom + SQLite jetable + UI réelle) |
-| Studio live / Application Support / cutover | **NOT PROVEN / NOT AUTHORIZED** |
-| P6 GLOBAL / REAL BOUNDARY / runtime v3 | **NOT CLAIMED** |
+| Allowlist only | **PASS** (8 fichiers) |
+| Product unchanged (R24) | **PASS** |
+| Candidate ≠ CURRENT wording | **PASS** (overlays explicites) |
+| 31 tests referenced | **PASS** (vol 08/09/README) |
+| `git diff --check` (PRR) | **PASS** |
+| `check-production-runtime-reference.mjs` | **FAIL expected** — REFERENCE REVIEW REQUIRED (digest drift volumes + `.env.example` Delivery) |
+| Conformance vitest | **1 failed / 4 passed** — digest match test (expected) |
+
+### Checker output (réel)
+
+```
+OK: canonical README exists
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/README.md: manifest=00bd5a869be87d20 current=9f4f725a6e74292e ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md: manifest=f0ec94936c4d8572 current=aa0ecb788594ba28 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md: manifest=e561093e584e0dc6 current=7da9514415827a0b ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md: manifest=9883dc02a7856cf9 current=7951897601b6e914 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md: manifest=14d06a6e0492f23c current=91bd1db759d22b05 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md: manifest=f19dd23a99dc896a current=87023ecee1e04ab5 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md: manifest=b5589e7ce97e6595 current=708e2b7512ec293f ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md: manifest=0306ff8900fdbb7f current=9e087c95200b915d ⇒ REFERENCE REVIEW REQUIRED
+FAIL: trackedSource digest drift for projects/sfia-studio/app/.env.example: manifest=c14369cbe6ac4f42 current=c32542c141934455 ⇒ REFERENCE REVIEW REQUIRED
+RESULT: REFERENCE REVIEW REQUIRED / CONFORMANCE FAILED
+
+```
+
+### Conformance tail (réel)
+
+```
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover/projects/sfia-studio/app
+
+ ❯ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts (5 tests | 1 failed) 177ms
+   ✓ Living Production Runtime Reference conformance > manifest exists and is valid JSON schema v1 3ms
+   ✓ Living Production Runtime Reference conformance > canonical README and all volumes exist 1ms
+   ✓ Living Production Runtime Reference conformance > component / flow / invariant / dependency IDs are unique and resolve 7ms
+   × Living Production Runtime Reference conformance > tracked source/test/volume digests match current tree 146ms
+     → expected '00bd5a869be87d20' to be '9f4f725a6e74292e' // Object.is equality
+   ✓ Living Production Runtime Reference conformance > intentional digest drift is detectable (temporary mutation) 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts > Living Production Runtime Reference conformance > tracked source/test/volume digests match current tree
+AssertionError: expected '00bd5a869be87d20' to be '9f4f725a6e74292e' // Object.is equality
+
+Expected: "9f4f725a6e74292e"
+Received: "00bd5a869be87d20"
+
+ ❯ __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts:100:27
+     98|       const abs = path.join(repoRoot, e.path);
+     99|       expect(fs.existsSync(abs)).toBe(true);
+    100|       expect(e.sha256_16).toBe(sha16(abs));
+       |                           ^
+    101|     }
+    102|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  19:11:55
+   Duration  1.72s (transform 87ms, setup 207ms, collect 41ms, tests 177ms, environment 0ms, prepare 160ms)
+
+```
+
+**Gate digests:** refresh mécanique **non effectué** — manifest hors allowlist R24 ; contrat living = digests après revue sémantique ChatGPT + autorisation distincte.
 
 ---
 
-## 17. Dette / risques / exit
+## 11. Impacts documentaires
 
-- G-PRR sync requis avant verdict d'intégration documentaire CURRENT.
-- G-GIT projet OPEN — dirty Delivery non intégré.
-- G-ACTIVATION OPEN — cutover local non autorisé.
-- Residual writer : SQLite brut hors API.
+- PRR désormais distingue CURRENT ON MAIN vs LOCAL DELIVERY CANDIDATE pour L2-D2/CORR-02.
+- Guards D1 **non** présentés comme actifs sur runtime intégré.
+- OA-exclusive **non** ADOPTED.
+- DET **non** promu LIVE.
+- Exit dette temporaire : content review → digest GO → G-GIT cumul Delivery → G-ACTIVATION distinct.
+
+---
+
+## 12. Réserves / stops
+
+Aucun STOP. Réserves :
+- Digests non synchronisés (attendu).
 - Q15 global PARTIAL.
-
-**Exit CORR-02 :** corrections CR-D2-02/03/04 + preuves DET + pack FULL + handoff L3. **≠** exit activation.
-
----
-
-## 18. Réserves et stops
-
-Aucun STOP déclenché. Réserves :
-- Activation / cutover / P6 / App Support inchangés (interdits).
-- PRR non édité.
-- Frontière SQLite brute déclarée (pas STOP — hors APIs D1, explicitement hors promesse).
+- Raw SQLite KNOWN GAP.
+- G-GIT / G-ACTIVATION OPEN.
 
 ---
 
-## 19. Gates encore ouverts
+## 13. Statut gates
 
 | Gate | État |
 |---|---|
-| G-CORR02 | **CONSUMED** (ce cycle) |
-| G-ACTIVATION | OPEN |
-| G-GIT PROJET | OPEN |
-| G-PRR PROTECTED EDIT | OPEN |
-| Runtime v3 adoption | NON ADOPTED |
-| Cutover local prouvé | NOT AUTHORIZED |
+| G-PRR DOCUMENTARY AUTHORING | **CONSUMED** (contenu local) — **PRR CONTENT REVIEW REQUIRED** avant CURRENT ON MAIN claim |
+| G-GIT | **OPEN** |
+| G-ACTIVATION | **OPEN** |
+| Runtime v3 | **NON ADOPTED** |
 
 ---
 
-## 20. Verdict et instruction ChatGPT
+## 14. Verdict
 
-**AKG-M5 L2-D2 CORR-02 — TARGETED CORRECTIONS IMPLEMENTED — EVIDENCE COMPLETE — CRITICAL REVIEW REQUIRED — ACTIVATION NOT AUTHORIZED — G-PRR / G-GIT OPEN.**
+**AKG-M5 L2-D2 R24 PRR SEMANTIC SYNC — LOCAL AUTHORING COMPLETE — PRR CONTENT REVIEW REQUIRED — PRODUCT CODE UNCHANGED — G-GIT OPEN — G-ACTIVATION OPEN.**
 
-ChatGPT doit :
-1. Critical Review du **delta CORR-02** (pas relire Delivery comme nouveau).
-2. Vérifier cumul Delivery L2-D2 + CORR-02.
-3. Qualifier retour FORBIDDEN (`ok:false`).
-4. Contrôler injected writers + frontière résiduelle.
-5. Évaluer preuve O-01 « comprendre » (objective LPS→UI).
-6. Statuer Q15 ciblé vs global PARTIAL.
-7. Qualifier R24 / nécessité G-PRR.
-8. Confirmer gates restants.
-9. Déterminer ordre sûr Git Integration vs activation locale.
-10. Préparer prochaine recommandation **sans GO implicite**.
-
-Ne pas déclarer : CUTOVER PROVEN ; STUDIO LIVE VALIDATED ; P6 GLOBAL PASS ; REAL BOUNDARY PROVEN ; PRODUCT COMPLETION COMPLETE ; STUDIO V3 RUNTIME ADOPTED.
+Ne pas déclarer : PRR CURRENT ON MAIN pour L2-D2 ; CUTOVER PROVEN ; STUDIO LIVE VALIDATED ; PRODUCT COMPLETION COMPLETE ; RUNTIME V3 ADOPTED.
 
 ---
 
-## Annexe — Cumul Delivery L2-D2 déjà publié
+## 15. Instruction ChatGPT
 
-Contenu Delivery (freeze `openD1Db` + lazy repos + D4 navigation + O-01 base + env example + pages redirects) : handoff **CORR-REVIEW-01** `828e9197` / blob `0f8d8255`. CORR-02 **n'a pas** créé ces fichiers ; il les corrige / complète.
+1. Critical Review cohérence code dirty / PRR overlays.
+2. Vérifier exactitude des statuts candidate vs CURRENT.
+3. Contrôler périmètre (pas de réforme globale PRR).
+4. Qualifier preuves DET + digests REFERENCE REVIEW REQUIRED.
+5. Confirmer absence d'architecture parallèle.
+6. Statuer dette/exit (digest puis G-GIT).
+7. Proposer **PR Readiness** du Delivery cumulé (Product+PRR) **sans** commit/push/PR/merge/activation implicites.
 
-FIN DU PACK CORR-02.
+FIN DU PACK R24.
