@@ -94,7 +94,36 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 | Idempotent reuse audit | Best-effort (Project already durable) |
 | New table / port | **NONE** |
 | Proof | `l2d1D5CreateAuditAtomicity.test.ts` Q5.1–Q5.7 — DETERMINISTIC AT TESTED SCOPE |
-| Not claimed | L2-D2 cutover · O-01 E2E COMPLETE (« comprendre » Product→UI KNOWN GAP) · REAL · runtime v3 ADOPTED · D1 retire |
+| Not claimed (at L2-D1 merge) | L2-D2 cutover · O-01 integrated Product→UI « comprendre » (then KNOWN GAP) · REAL · runtime v3 ADOPTED · D1 retire |
+
+## Overlay — AKG-M5 L2-D2 OA / D1 persistence freeze (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+| Item | Candidate status |
+|---|---|
+| Product OA Truth C | KEEP — `oa-product.sqlite` / `SFIA_STUDIO_PRODUCT_DB_PATH` · Project + LPS |
+| Nora Memory B | KEEP distinct — `nora-session.sqlite` / `SFIA_STUDIO_NORA_SESSION_DB_PATH` · **≠** Truth C |
+| D1 historical | FREEZE gated when exclusive `"1"` · RETIRE LATER · **no** physical removal in L2-D2/CORR-02 |
+| Freeze at open | `openD1Db` → assert **before** resolve / open / DDL |
+| Freeze at mutation | **CORR-02:** `createProjectAtomic` / `selectMethodModeAtomic` / `BoundedAtomicAuditStore.append|clearForTests` assert before BEGIN/INSERT/UPDATE/DELETE |
+| Dual-write Product↔D1 | **None** as target under exclusive |
+| H4 local | No historical D1→OA migration in this Delivery |
+| Backups / snapshot | **NOT PROVEN** — see debt `R-L2D2-SQLITE-SNAPSHOT` below. Do **not** treat a naive file copy of `*.sqlite` as a validated cutover backup |
+| Restart | DET reopen / singleton reset / M1 process durability proven at tested scope · **Studio live restart / R-CUT** = **NOT PROVEN** |
+| Residual boundary | Raw `DatabaseSync` outside D1 applicative APIs **not** guarded — **KNOWN GAP** (declared CORR-02) |
+| Proof | freeze + injected + O-01 + D5 + M1 suites — **DETERMINISTIC AT TESTED SCOPE** (31 PASS / 7 files per CORR-02 handoff) |
+| Anti-claims | Exclusive **not** active on main · cutover **not** proven · App Support definitive DBs **not** created · live backup **not** executed this cycle |
+
+### Debt — `R-L2D2-SQLITE-SNAPSHOT` (operational, pre–G-ACTIVATION)
+
+**Owner / gate:** Morris G-ACTIVATION preparation (distinct from G-GIT). **Exit:** documented + DET-proven coherent snapshot/restore of Truth C (+ Memory B if in scope) **before** exclusive arming on a designated local instance.
+
+**To qualify and prove (not claimed now):**
+1. Quiesce writers — no active Studio Product/Nora connections holding the target DB (or equivalent exclusive access).
+2. Account for SQLite sidecar files when present (`*-wal` / `*-shm`) — a lone `.sqlite` copy while WAL is hot is **not** a coherent backup.
+3. Prefer an online-safe mechanism when quiesce is incomplete (e.g. SQLite backup API / VACUUM INTO / checked checkpoint) over blind filesystem copy.
+4. Preserve source OA files until restore verification succeeds.
+5. Verify recovery by opening the snapshot on a disposable path and reading Project + LPS (Truth C) without mutating the live source.
+6. Record procedure + proof artifacts under the activation Decision Pack — **no live backup in this Cycle 13**.
 
 ## Additional stores (harvest)
 

@@ -31,6 +31,23 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
 
 **AKG-M0 methodological continuity overlay — historical preparation vs PR candidate:** **Historical snapshot (2026-10-19, étape 1 authoring):** README role/coverage/maintenance + R-S02 Tool-First CURRENT requalification + read-only vs Delivery proportion were authored locally; at that stage **manifest digests were not yet refreshed** (`REFERENCE REVIEW REQUIRED` then). **Later in the same AKG-M0 documentary lot (PR #591 candidate):** the README digest was synchronized into `production-runtime-reference.manifest.json` after semantic acceptance — digest match is a **deterministic conformance** fact of this candidate, **not** semantic exhaustiveness and **not** proof that AKG-M0 is ACTIVE ON MAIN. **Activation on main** remains contingent on merge + post-merge verification under distinct Morris gates. P6 GLOBAL PASS / runtime v3 ADOPTED / TOOL-FIRST-REAL-NOWRITE-ENFORCEMENT closed / AKG-M0 ACTIVE ON MAIN **NOT CLAIMED**.
 
+**AKG-M5 L2-D2 local OA Fresh Start cutover — LOCAL DELIVERY CANDIDATE + R24 PRR authoring (2026-10-24):**
+
+| Epistemic class | Element |
+|---|---|
+| **LOCAL DELIVERY CANDIDATE** | Worktree `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-local-oa-cutover` · branch `feat/akg-m5-l2-d2-local-oa-cutover` · HEAD base `1a380f22c2ee9c63c525213e01de4bca14dff9ca` (= `origin/main`) · Product code **dirty / uncommitted / not on main** |
+| **G-DELIVERY** | Consumed — L2-D2 freeze D1 / D4 legacy nav / O-01 DET implemented locally at tested scope |
+| **CORR-02** | Critical Review PASS WITH GOVERNED RESERVES (handoff `ceb0a69db87fcf443cf08525cb6d99ec44c1e8fd` / blob `bb74952741e117dfbcbe5da198d1987beb3907e6`) — confirmation `ok:false`+FORBIDDEN ; injected writer guards ; O-01 LPS objective→UI |
+| **R24 this cycle** | **G-PRR DOCUMENTARY AUTHORING GRANTED** — semantic sync of vols README/03–09 only ; **≠** Product mutation ; **≠** digest write (manifest not in allowlist) |
+| **DETERMINISTIC PROVEN** | 31 tests / 7 suites at CORR-02 tested scope (freeze / injected / confirmation UI / D4 / O-01 / D5 / M1) |
+| **NOT CURRENT ON MAIN** | New D1 exclusive guards, D4 redirects, confirmation FORBIDDEN contract — **inactive on integrated runtime** until G-GIT + merge |
+| **G-GIT** | **OPEN** — no project commit/push/PR/merge |
+| **G-ACTIVATION** | **OPEN** — `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default OFF ; no Studio live cutover |
+| **Runtime v3** | **NON ADOPTED** |
+| **Anti-claims** | OA-exclusive **not** ADOPTED · CUTOVER **not** PROVEN · STUDIO LIVE **not** VALIDATED · P6 GLOBAL PASS **not** claimed · DET ≠ LIVE |
+
+Volumes touched by this R24 overlay: README · 03 · 04 · 05 · 06 · 07 · 08 · 09. Digest refresh deferred until ChatGPT semantic accept + distinct digest authorization (manifest path protected / not edited here).
+
 ## What this corpus is
 
 This corpus describes **how SFIA Studio actually works now** in the checked-out Git tree:

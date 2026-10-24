@@ -103,6 +103,23 @@ sinon STOP · 0 Attempt
 
 ---
 
+## Overlay — AKG-M5 L2-D2 candidate invariants (LOCAL DELIVERY CANDIDATE — NOT CURRENT ON MAIN)
+
+Do **not** promote these to **CURRENT IMPLEMENTED** until G-GIT merge + post-merge verification. They describe dirty Delivery + CORR-02 behavior at DET scope.
+
+| ID (candidate) | Statement | Source | Proof class |
+|---|---|---|---|
+| INV-L2D2-D1-REFUSED-EXCLUSIVE | When `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1`, D1 open + guarded mutative APIs refuse with `D1Error` `FORBIDDEN` | `localOaExclusiveMode.ts` / `db.ts` / `repository.ts` / `boundedAtomicAudit.ts` | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-CONFIRM-FORBIDDEN-OK-FALSE | Confirmation `FAILED`+`FORBIDDEN` surfaces as `actionExecuteConfirmation` → `ok:false` / `code=FORBIDDEN` (not `ok:true`) | `confirmation/actions.ts` CORR-02 | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-CONFIRM-NO-ONDONE-ON-REFUSAL | UI must not treat refused confirmation as success (`ConfirmationPanel` skips `onDone` on `!ok`) | `ConfirmationPanel.tsx` + `l2d2ConfirmationForbiddenUi` | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-NO-MUTATION-VIA-GUARDED-APIS | No D1 write via guarded repository/audit APIs under exclusive (incl. pre-opened injected connection) | CORR-02 injected suite | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests | BEHAVIOR PROVEN AT TESTED SCOPE |
+| INV-REC-NE-HD / INV-MEMB-NE-TRUTHC | Unchanged CURRENT — Recommendation ≠ HD ; Memory B ≠ Truth C | existing catalog | CURRENT IMPLEMENTED (main) |
+
+**Residual KNOWN GAP:** unguarded raw SQLite on a held `DatabaseSync` outside D1 APIs.
+
+**Failure mode (candidate):** exclusive ON + D1 create/confirm → Pilot sees refusal ; Product OA create path remains the target continuity surface.
+
 ## Failure modes (selected) — CURRENT IMPLEMENTED
 
 | Code/State | Layer | Trigger | User effect | Mutations | Fail-closed |

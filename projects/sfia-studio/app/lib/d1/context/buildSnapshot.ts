@@ -1,6 +1,5 @@
 import { randomUUID } from "node:crypto";
 import { D1ProjectRepository } from "../repository";
-import { openD1Db } from "../db";
 import { D1_DEFAULT_WORKSPACE_ID } from "../types";
 import { D1Error } from "../errors";
 import {
@@ -48,7 +47,7 @@ export function buildExistingContextSnapshot(
   }
 
   try {
-    const repo = options.repo ?? new D1ProjectRepository(openD1Db());
+    const repo = options.repo ?? new D1ProjectRepository();
     const workspaceId = options.workspaceId ?? D1_DEFAULT_WORKSPACE_ID;
     const all = repo.listProjects(workspaceId);
     const max = CONTEXT_MATCH_LIMITS.maxProjectsEvaluated;

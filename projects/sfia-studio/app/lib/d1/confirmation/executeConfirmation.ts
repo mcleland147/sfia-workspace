@@ -1,7 +1,6 @@
 import { randomUUID } from "node:crypto";
 import { createProject, getProject } from "../commands";
 import { D1ProjectRepository } from "../repository";
-import { openD1Db } from "../db";
 import { D1Error } from "../errors";
 import {
   D1_GOVERNANCE_METHOD_MODE,
@@ -85,11 +84,13 @@ function asActionTypeSafe(
  */
 export function executeConfirmedMutation(
   input: ExecuteConfirmationInput,
-  repo = new D1ProjectRepository(openD1Db()),
+  repoArg?: D1ProjectRepository,
 ): BoundedMutationResult {
   const started = Date.now();
 
   try {
+    // Lazy repo: OA-exclusive mode must block before openD1Db/DDL.
+    const repo = repoArg ?? new D1ProjectRepository();
     const intent = buildConfirmationIntent(input);
 
     logIntakeEvent("intake_confirmation_presented", {

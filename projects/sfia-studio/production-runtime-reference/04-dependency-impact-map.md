@@ -125,7 +125,25 @@ OA = authority of record. W2 = Product coordination. Nora = cognition/recommenda
 | DEP-CREATE-AUDIT-TXN | `CreateProject` | `ProjectAuditJournalPort` + `SqliteProductStore` | Success `oa.project.created` append **inside** UnitOfWork (same SQLite txn when durable) |
 | DEP-COMPOSE-AUDIT-DEFAULT | `localProjectComposition` | `SqliteProjectAuditJournal` | Default Product create journal durable (replaces Memory inject) |
 | New Product table | — | — | **NONE** (`oa_audit_events` reused) |
-| D1 / dual-write | — | — | **NONE** — L2-D2 NOT AUTHORIZED |
+| D1 / dual-write | — | — | **NONE** at L2-D1 merge scope — L2-D2 was **not** authorized then (see L2-D2 candidate overlay below) |
+
+### Overlay — AKG-M5 L2-D2 local OA-exclusive D1 freeze + D4 (LOCAL DELIVERY CANDIDATE — 2026-10-24)
+
+**Epistemic:** dirty branch `feat/akg-m5-l2-d2-local-oa-cutover` @ base `1a380f22…` — **NOT CURRENT ON MAIN**. Default exclusive OFF preserves historical D1. Activation = distinct G-ACTIVATION.
+
+| Edge / surface | From | To | Candidate change |
+|---|---|---|---|
+| Marker | `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` | `localOaExclusiveMode.ts` | Fail-closed when env **after `trim()`** equals `"1"` ; default OFF |
+| Open guard | callers of `openD1Db` | `assertD1AccessAllowedWhenLocalOaExclusive` | Before path resolve / open / DDL |
+| Mutative repo | `D1ProjectRepository.createProjectAtomic` / `selectMethodModeAtomic` | same assert | **CORR-02** — closes injected `DatabaseSync` bypass |
+| Mutative audit | `BoundedAtomicAuditStore.append` / `clearForTests` | same assert | **CORR-02** |
+| Commands | `createProject` / `selectMethodMode` / confirmation execute | repo + open guards | FORBIDDEN without D1 file create |
+| Confirmation action | `actionExecuteConfirmation` | UI `ConfirmationPanel` | **CORR-02:** FAILED+FORBIDDEN → `ok:false` (no false success) |
+| D4 routes | `app/workspace`, `projects/new`, `nouvelle-demande`, `projects/[id]` | `legacyNavigation.ts` | redirect `/studio` or `notFound` when exclusive ON |
+| Indirect consumers | Intake / D1 pages / audit port injectors | above writers | Covered when they use guarded APIs |
+| Residual | raw `DatabaseSync.exec/prepare` outside D1 APIs | — | **KNOWN GAP** — not controlled by applicative guards |
+
+Manifest curated edges: **unchanged** (narrative / non-indexed dependency only). Dual-write Product↔D1: **none** as target architecture.
 
 ### Overlay — AKG-M5 L1/A09 audit-port decoupling (local Delivery 2026-10-23)
 

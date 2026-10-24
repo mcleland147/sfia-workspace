@@ -1,5 +1,5 @@
 import { D1ProjectRepository } from "./repository";
-import { openD1Db, nowIso, resetD1DbForTests } from "./db";
+import { nowIso, resetD1DbForTests } from "./db";
 import { createAuditEventId, createCorrelationId, createProjectId } from "./ids";
 import { validateCreateProjectInput, assertMethodMode } from "./domain";
 import { requireMonoOperator } from "./authz";
@@ -23,10 +23,12 @@ export interface CreateProjectResult {
 
 export function createProject(
   input: CreateProjectInput,
-  repo = new D1ProjectRepository(openD1Db()),
+  repoArg?: D1ProjectRepository,
 ): CreateProjectResult {
   const started = Date.now();
   try {
+    // Resolve repo inside body so OA-exclusive guard runs before openD1Db/DDL.
+    const repo = repoArg ?? new D1ProjectRepository();
     validateCreateProjectInput(input);
     const actorId = requireMonoOperator();
 
@@ -146,10 +148,11 @@ export function createProject(
 
 export function selectMethodMode(
   input: SelectMethodModeInput,
-  repo = new D1ProjectRepository(openD1Db()),
+  repoArg?: D1ProjectRepository,
 ): D1Project {
   const started = Date.now();
   try {
+    const repo = repoArg ?? new D1ProjectRepository();
     const actorId = requireMonoOperator();
     assertMethodMode(input.methodMode);
     assertMethodModeTransitionAllowed();
@@ -199,17 +202,19 @@ export function selectMethodMode(
 
 export function listWorkspaceProjects(
   workspaceId = D1_DEFAULT_WORKSPACE_ID,
-  repo = new D1ProjectRepository(openD1Db()),
+  repoArg?: D1ProjectRepository,
 ): D1Project[] {
   requireMonoOperator();
+  const repo = repoArg ?? new D1ProjectRepository();
   return repo.listProjects(workspaceId);
 }
 
 export function getProject(
   projectId: string,
-  repo = new D1ProjectRepository(openD1Db()),
+  repoArg?: D1ProjectRepository,
 ): D1Project {
   requireMonoOperator();
+  const repo = repoArg ?? new D1ProjectRepository();
   const project = repo.getProject(projectId);
   if (!project) {
     throw new D1Error("NOT_FOUND", "Projet introuvable.");
@@ -219,9 +224,10 @@ export function getProject(
 
 export function listProjectAudit(
   projectId: string,
-  repo = new D1ProjectRepository(openD1Db()),
+  repoArg?: D1ProjectRepository,
 ) {
   requireMonoOperator();
+  const repo = repoArg ?? new D1ProjectRepository();
   return repo.listAuditEvents(projectId);
 }
 

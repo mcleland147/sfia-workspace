@@ -1,10 +1,12 @@
 import { listWorkspaceProjects } from "@/lib/d1/commands";
 import { D1Error } from "@/lib/d1/errors";
+import { redirectLegacyGenericEntryToStudioIfExclusive } from "@/lib/d1/legacyNavigation";
 import { WorkspaceHomeView } from "@/features/d1/WorkspaceHomeView";
 
 export const dynamic = "force-dynamic";
 
 export default function WorkspacePage() {
+  redirectLegacyGenericEntryToStudioIfExclusive();
   try {
     const projects = listWorkspaceProjects();
     return <WorkspaceHomeView projects={projects} />;

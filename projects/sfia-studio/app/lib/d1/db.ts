@@ -1,6 +1,7 @@
 import { DatabaseSync } from "node:sqlite";
 import { resolveD1SqlitePath } from "./paths";
 import { D1Error } from "./errors";
+import { assertD1AccessAllowedWhenLocalOaExclusive } from "./localOaExclusiveMode";
 
 const SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -104,8 +105,14 @@ function migrate(db: DatabaseSync): void {
   }
 }
 
-export function openD1Db(dbPath = resolveD1SqlitePath()): DatabaseSync {
-  if (singleton && singletonPath === dbPath) {
+/**
+ * Open D1 SQLite. When local OA-exclusive mode is active, fails closed
+ * BEFORE path resolve / file open / schema DDL (L2-D2 freeze).
+ */
+export function openD1Db(dbPath?: string): DatabaseSync {
+  assertD1AccessAllowedWhenLocalOaExclusive();
+  const resolved = dbPath ?? resolveD1SqlitePath();
+  if (singleton && singletonPath === resolved) {
     return singleton;
   }
   if (singleton) {
@@ -118,10 +125,10 @@ export function openD1Db(dbPath = resolveD1SqlitePath()): DatabaseSync {
     singletonPath = null;
   }
   try {
-    const db = new DatabaseSync(dbPath);
+    const db = new DatabaseSync(resolved);
     migrate(db);
     singleton = db;
-    singletonPath = dbPath;
+    singletonPath = resolved;
     return db;
   } catch (error) {
     if (error instanceof D1Error) throw error;
