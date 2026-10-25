@@ -1,321 +1,378 @@
-# SFIA Studio — AKG-M5 / L2-D2 — R-01 FINAL STABLE STATUS + G-MANIFEST TARGETED + G-GIT DOCUMENTAIRE
+# SFIA Studio — AKG-M5 / L2-D2 — G-ACTIVATION PRE-READINESS — INTEGRATED TECHNICAL QUALIFICATION
 
-**Profile:** Standard
-**Typologie:** DOC / CAPA / GIT INTEGRATION
-**Cycle:** 13 — PR readiness / Git Integration documentaire (consécutif micro-cycle 14 post-merge R-01)
-**Date/heure locale:** 2026-10-25 00:59 CEST
+**Profile:** Critical
+**Typologie:** EVOL / QA / ARCHITECTURE READINESS
+**Cycle projet:** 6 — Architecture technique (+ bloc 9 QA qualification)
+**Date/heure locale:** 2026-10-25 03:58 CET
 **Auteur rapport:** Cursor (Composer)
-**GO / Autorité:** Morris « R-01 FINAL STABLE STATUS + G-MANIFEST TARGETED + G-GIT DOCUMENTAIRE ».
-**Autorisé:** 2 ajustements rédactionnels · 2 digests · commit · push · Draft PR · Review Pack FULL · Handoff L3.
-**NON autorisé:** merge · Ready for Review auto · Product mutation · OA activation · formal close R-01 · cleanup branche/worktree · runtime v3.
+**GO / Autorité:** Morris — Qualifier les preuves techniques manquantes avant G-ACTIVATION, après PR #616. **QUALIFICATION ONLY.**
+**Autorisé:** lecture Git/code/PRR · matrice de preuves · proposition Delivery intégré · Review Pack FULL · Handoff L3.
+**NON autorisé:** activation · LIVE · migration · code Delivery · commit/push/PR projet · manifest write · suppression · DB utilisateur · Studio LIVE.
 
 ---
 
 ## 0. Verdict Cursor
 
-**R-01 FINAL STABLE STATUS — PASS**
-**G-MANIFEST TARGETED — CONSUMED**
-**PRR CONFORMANCE — PASS**
-**G-GIT DOCUMENTAIRE — CONSUMED**
-**PROJECT COMMIT — CREATED**
-**PROJECT BRANCH — PUSHED / REMOTE VERIFIED**
-**DRAFT PR — OPEN**
-**REVIEW HANDOFF — REMOTE VERIFIED** *(après publication L3)*
-**R-01 EXIT PROOF — SATISFIED**
-**R-01 FORMAL CLOSE — NOT CONSUMED**
-**MERGE — NOT AUTHORIZED**
-**G-ACTIVATION — OPEN**
-**AKG-M5 GLOBAL — OPEN**
-**RUNTIME V3 — NON ADOPTED**
+**AKG-M5 L2-D2 G-ACTIVATION PRE-READINESS QUALIFIED WITH EVIDENCE-BASED GAPS**
 
-Ne pas conclure : FORMALLY CLOSED BY MORRIS · OA activated · LIVE · P6 GLOBAL PASS · PR CI SUCCESS (sauf preuve workflow).
+**G-ACTIVATION — NOT GRANTED**
+**REAL CUTOVER — NOT PROVEN**
+**RUNTIME V3 — NON ADOPTED**
+**PROJECT GIT — NOT MUTATED**
+**REVIEW HANDOFF — REMOTE VERIFIED** *(après publication L3)*
+
+Qualification = faits + gaps + options + recommandation. **Aucune recommandation ≠ décision Morris.**
 
 ---
 
 ## 01. Horodatage / GO
 
-2026-10-25 00:59 CEST · GO R-01 Final Stable + G-MANIFEST Targeted + G-GIT Documentaire consommé.
+2026-10-25 03:58 CET · GO G-ACTIVATION Pre-Readiness Integrated Technical Qualification consommé.
 
 ---
 
-## 02. Local Git Truth — initial
+## 02. Local Git Truth
 
 | Check | Résultat |
 |---|---|
 | toplevel | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l2-d2-postmerge-truth-sync` |
-| Branch | `docs/akg-m5-l2-d2-r01-postmerge-status` |
-| HEAD | `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` |
-| origin/main | `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` |
-| Dirty | Roadmap · README · 09 · `.tmp` (micro-cycle précédent) |
+| Branch locale | `docs/akg-m5-l2-d2-r01-postmerge-status` @ `241335ee27aa463c02b1b1cabce2f67bc6f49f08` |
+| origin/main | `d7aad77e999e4fe64f31a776ddf39c1d99278b1b` |
+| PR #616 | **MERGED** 2026-10-25T02:19:57Z · merge = main |
+| CI post-merge | [run 40154041670](https://github.com/mcleland147/sfia-workspace/actions/runs/40154041670) **COMPLETED / SUCCESS** |
+| Dirty tracked projet | **aucun** (seulement `.tmp` pack) |
 | Staged | aucun |
-| PR existante branche | **aucune** |
-| Handoff tip | `4d1e4b0a…` / blob `2e080d3b…` |
+| Delivery / P6 / autres WT | **préservés** (non touchés) |
+| Lecture code | `projects/sfia-studio/app/` **diff 0** vs `origin/main` sur chemins L2-D2 investigés |
 
-Git Truth : **PASS**.
+Git Truth : **PASS**. Main requalifié : `7b64ab21…` → `d7aad77e…` = merge PR #616 (attendu).
 
 ---
 
 ## 03. Sources Git consultées
 
-Template cycle · routing · operating model · guardrails · post-merge template · delivery pipeline · Build Doctrine · Roadmap · C1 · M5 blueprint + L2-D0 · Framings 30/32/34/35/37 · PRR README/03/06/08/09 + manifest · checker · handoff publisher · handoff R-01 précédent · preuves PR #614/#615.
+Méthode v2.6 : cycle template · routing · operating model.
+Convergence : Build Doctrine · Roadmap CURRENT tip L2-D2.
+C1 Product Completion.
+M5 blueprint + L2-D0 `04` (§08 H4 checklist, R-CUT protocol).
+Doctrine v3 : 30 / 32 / 34 / 35 / 37.
+PRR README + 03–09 (CURRENT overlays L2-D2).
+Code : `localOaExclusiveMode.ts` · `db.ts` · `repository.ts` · `boundedAtomicAudit.ts` · `legacyNavigation.ts` · Product/Nora paths · confirmation · suites `l2d2*` / M1 / L2-D1 D5.
+Preuves : PR #614 / #615 / #616 + CI associées.
 
 ---
 
-## 04. Convergence / R23 / R24
+## 04. Capacité / milestone / actifs
 
-Capacité O-01 · Milestone AKG-M5 L2-D2 · code PR #614 · docs PR #615 · marker DEFAULT OFF · DET 31/7 · DET ≠ LIVE.
-R23: status sync proportionné.
-R24: **NO NEW PRODUCT SEMANTIC IMPACT**.
+| Item | Statut |
+|---|---|
+| Capacité v3 | **O-01** Créer, trouver, comprendre et reprendre un Project |
+| Milestone | AKG-M5 / L2-D2 |
+| OA Product Truth C | **KEEP** |
+| Nora Memory B | **KEEP** (fichier distinct) |
+| D1 historique | **FREEZE** sous marker / **RETIRE LATER** (pas de retrait) |
+| Dual-write | **aucun** sur create Product (DET) |
+| Runtime v3 | **NON ADOPTED** |
 
 ---
 
-## 05. Preuves PR #614 / #615
+## 05. R23 / R24
 
-| PR | Merge | CI |
+**R23:** architecture-informed — code/preuves primaires vs PRR. Pas de rebuild M4/M5. DET ≠ LIVE.
+**R24:** **NO NEW PRODUCT SEMANTIC IMPACT** — ce cycle ne modifie aucun artefact projet.
+
+---
+
+## 06. Acquis vs non acquis (faits)
+
+### 6.1 Faits prouvés (DET + Git)
+
+1. L2-D2 code **CURRENT ON MAIN** (PR #614) · marker default **OFF** · arming `trim()==="1"`.
+2. Guards D1 : `openD1Db` + `createProjectAtomic` / `selectMethodModeAtomic` + audit append/clear — **BEHAVIOR PROVEN AT TESTED SCOPE**.
+3. Injected writer guards (CORR-02) — **DET**.
+4. Confirmation FORBIDDEN → `ok:false` — **DET**.
+5. D4 Option A helpers redirect/`notFound` · **no** `proj-*`→`prj:*` — **DET** (unit, mocked next/navigation).
+6. O-01 LPS objective → UI — **DET** (`l2d2O01ProductUiIntegrated`).
+7. Product txn durability / D5 audit-in-txn — **DET** (M1 / L2-D1 suites).
+8. Documentary R-01 status + digests — PR #615/#616 MERGED · CI SUCCESS.
+9. Structural: VSR/Product create **sans** import `@/lib/d1`.
+
+### 6.2 Gaps non prouvés (KNOWN GAP / UNKNOWN)
+
+1. **H4-env** : aucune instance cible formellement désignée → **H4-ENV NOT QUALIFIED**.
+2. **R-VOL-01** : volumes production **UNKNOWN**.
+3. **R-L2D2-SQLITE-SNAPSHOT** : aucun helper backup/restore Product/Nora/D1 dans `app/lib` · pas de WAL management code.
+4. **raw DatabaseSync** : bypass possible sur handle D1 pré-ouvert (`exec`/`prepare`) · reads D1 non gelés · OPS1/Product/Nora hors scope du freeze.
+5. **D4 HTTP LIVE** : pas de Playwright/e2e avec env exclusive ON.
+6. **Env trim arming** : tests utilisent override test-only · **aucun** test `process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE`.
+7. **R-CUT LIVE** : protocole L2-D0 steps backup/verify/RO non exécutés sur instance Studio.
+8. **Q12 RO fallback** : **NOT IMPLEMENTED**.
+9. **Application Support** paths : documentés Option A · **non câblés** en code (cwd-relative `.sfia-exec` par défaut).
+
+### 6.3 Hypothèses (non décisions)
+
+- Un Fresh Start jetable avec chemins absolus env est le candidat le plus sûr pour première LIVE.
+- Une copie fichier « à froid » après close des connexions peut être un MVP snapshot · **non prouvé**.
+- `/ops1/nouvelle-demande` hors D4 instrumenté · policy à clarifier (in/out of exclusive UX).
+
+---
+
+## 07. Matrice de preuves intégrée
+
+| ID | Capacité | Composants | Sources code | Preuve primaire | Couverture | KNOWN GAP | Impact user | Impact data | Dépendance | Mitigation proposée | Exit proof | Gate Morris | Statut |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| H4-env | O-01 continuity | Product/Nora/D1/OPS1 paths | `paths.ts` · `sessionPaths.ts` · `d1/paths.ts` · PRR 05 · L2-D0 §08 | Inventaire code + docs | DOCUMENTED (local model) | Instance cible / owners / prod volumes UNKNOWN | Confusion multi-worktree si env global | Partage DB si absolute path mal géré | Désignation instance | Checklist H4 remplie sur instance nommée | Checklist signée + owner | GO désignation env | **H4-ENV NOT QUALIFIED** |
+| R-VOL-01 | O-01 | volumes D1/OA | L2-D0 §08 counts (local Q0) | Doc historique | DOCUMENTED (local) | Prod UNKNOWN | — | Conservation | Inventaire env | Scan env ciblé (RO) | Inventaire + conservation | GO inventaire | **OPEN** |
+| R-L2D2-SQLITE-SNAPSHOT | O-01 durable | Product + Nora (+D1 RO) | *absence* backup helpers · PRR 06 | DET reopen tests ≠ snapshot | BEHAVIOR PROVEN reopen DET | Coherent backup/restore NOT PROVEN | Perte données si cutover sans backup | Corruption / hot copy | Connexions fermées | Helper snapshot borné (SQLite API ou stop-the-world copy) sur chemins jetables | Restore → Project+LPS+Memory B OK | GO Delivery prep | **KNOWN GAP** |
+| raw DatabaseSync | Freeze integrity | D1 `DatabaseSync` | `db.ts` · `repository.ts` · injected tests · Product/Nora/OPS1 opens | DET injected writers guarded | COVERAGE VERIFIED guards | Raw `exec` bypass · reads ungated | Contournement freeze | Mutation D1 hors API | Exclusive ON | (A) document residual + deny operational use (B) optional interceptor/tests non-contournement | Preuve non-contournement DET + policy | GO si code change | **KNOWN GAP** |
+| D4 HTTP | O-01 navigation | 4 routes + `legacyNavigation.ts` | pages workspace/projects/nouvelle-demande | `l2d2D4LegacyNavigation.test.ts` | BEHAVIOR PROVEN DET helpers | HTTP LIVE NOT PROVEN · ops1 policy UNKNOWN | Liens historiques cassés/404 attendus | Aucune migration id | Marker ON | Harness HTTP/e2e env=`1` disposable | GET redirect/404 codes | GO LIVE harness | **R-02 OPEN** |
+| dual-write | Truth C unique | OA create vs D1 | VSR sans d1 · O01 test | DET O01 + structural | BEHAVIOR PROVEN DET | LIVE cutover not proven | Double écriture | Divergence Truth | Freeze D1 | Garder fail-closed · smoke LIVE | Smoke create OA only | G-ACTIVATION | **DET OK / LIVE OPEN** |
+| R-CUT | Cutover borné | marker + freeze + D4 + backup | `localOaExclusiveMode.ts` · L2-D0 R-CUT | DET freeze/D4/O01 | PARTIAL DET | LIVE protocol NOT PROVEN | Basculer writers | Perte si pas backup | H4 + snapshot + D4 HTTP | Réhearsal disposables | Protocol steps 5–9 LIVE disposable | **G-ACTIVATION** | **NOT PROVEN LIVE** |
+| recovery/restart | O-01 reprise | Product SQLite | M1 restart/durability tests | DET process reopen | BEHAVIOR PROVEN DET | Studio LIVE restart / App Support | Session perdue | Incohérence | Snapshot | Restart Studio disposable après snapshot | UI list/get project | G-ACTIVATION prep | **DET OK / LIVE OPEN** |
+| G-ACTIVATION | Gate | env marker | `.env.example` · PRR 05/09 | Docs + code default OFF | DOCUMENTED | NOT GRANTED | Active freeze LIVE | All D1 writers blocked | All prior exits | Distinct Morris GO after proofs | GO explicit | **OPEN / NOT GRANTED** |
+
+---
+
+## 08. H4-env — synthèse checklist L2-D0 §08
+
+| # | Item | Statut |
 |---|---|---|
-| #614 Product | `1a0ccd84…` | #40130977607 SUCCESS |
-| #615 Docs | `7b64ab21…` | #40138037280 SUCCESS |
+| 1 | Environment identified | DOCUMENTED policy · **UNKNOWN** named instance → **H4-ENV NOT QUALIFIED** |
+| 2 | Owners | DOCUMENTED UNASSIGNED · **UNKNOWN** named |
+| 3 | Writers D1 | COVERAGE VERIFIED + BEHAVIOR PROVEN DET freeze |
+| 4 | Readers / routes | COVERAGE VERIFIED (4 routes) |
+| 5 | Volumes | DOCUMENTED local Q0 · prod UNKNOWN |
+| 6 | Users / journeys | UNKNOWN prod |
+| 7 | Conservation | DOCUMENTED options · UNKNOWN prod |
+| 8 | Backup / RO | **KNOWN GAP** (R-L2D2-SQLITE-SNAPSHOT · Q12 absent) |
+| 9 | Old links D4 | DOCUMENTED + DET proven · LIVE OPEN |
+| 10 | Fallback | DOCUMENTED concept · NOT PROVEN |
+| 11 | NR tests env | PARTIAL (L2-D2 DET ≠ full NR) |
+| 12 | No writer post-freeze | BEHAVIOR PROVEN DET guarded APIs · raw residual |
+| 13 | Stops | DOCUMENTED |
+| 14 | Morris GO per env | **NOT GRANTED** |
 
-R-01: EXIT PROOF SATISFIED · FORMAL CLOSE NOT CONSUMED (inchangé).
-
----
-
-## 06. Stabilisation rédactionnelle
-
-### 6A Roadmap — PRÉSERVÉE
-
-Hash SHA-256 inchangé pendant cette intervention :
-`964e55203c48a6f83cee0d906eede708b1f47398f0bba6d0ed1b051ae0e88403`
-(contenu micro-cycle précédent conservé dans le commit).
-
-### 6B README — cellule F
-
-**AVANT (micro-cycle, temporel):**
-```
-… formal close NOT CONSUMED · digest match ≠ semantic exhaustiveness · this micro-cycle status sync = local candidate pending distinct G-MANIFEST (2 digests)
-```
-
-**APRÈS (stable):**
-```
-| **F — Gates** | **G-ACTIVATION OPEN** · [PR #615](...) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [CI #40138037280](...) **SUCCESS** · documentary **G-MERGE consumed** · **R-01 EXIT PROOF SATISFIED** · **R-01 FORMAL CLOSE NOT CONSUMED** · digest conformance ≠ semantic exhaustiveness · OA-exclusive **NOT ACTIVATED** |
-```
-
-Note finale README : **inchangée** (déjà validée).
-
-### 6C PRR09 — Exit path
-
-**AVANT (chaîne publication micro-cycle):**
-```
-PR #615 post-merge verified → R-01 status truth-sync (this micro-cycle) → ChatGPT review → G-MANIFEST TARGETED → Git Integration → G-ACTIVATION PREPARATION…
-```
-
-**APRÈS (stable Historical / Governance / Remaining product trajectory):**
-```
-| Exit path | **Historical:** PR #615 MERGED · CI #40138037280 SUCCESS · R-01 exit proof satisfied. **Governance:** R-01 formal closure remains a distinct Morris decision (NOT CONSUMED / ≠ FORMALLY CLOSED). **Remaining product trajectory:** G-ACTIVATION PREPARATION only under distinct Morris GO · H4-env · SQLite snapshot/restore · D4 HTTP LIVE · R-CUT LIVE · then eventual GO Morris G-ACTIVATION (NOT GRANTED; ≠ preparation/activation authorization) |
-```
-
-R-01 / R-02 / R-03 lignes : **R-01 préservée** · R-02/R-03 **OPEN** inchangés.
+**Path model CURRENT (code):**
+- Truth C: `SFIA_STUDIO_PRODUCT_DB_PATH` ou `{studioRoot}/.sfia-exec/product/oa-product.sqlite`
+- Memory B: `SFIA_STUDIO_NORA_SESSION_DB_PATH` ou sibling `nora-session.sqlite`
+- D1: `D1_SQLITE_PATH` / `OPS1_EXEC_ROOT` → `.sfia-exec/local-i1/state/d1.sqlite`
+- Isolation: **cwd/worktree-relative** sauf absolute env
+- **Pas** d'Application Support hardcodé
 
 ---
 
-## 07. Digests (G-MANIFEST TARGETED)
+## 09. SQLite / raw DatabaseSync
 
-Pré-stabilisation (handoff précédent, **non réutilisés**) : README `4d22017a…` · 09 `11fe31fd…`.
+### Snapshot/restore
 
-| Volume | main (HEAD cycle) | final (écrit) |
+- Aucun `VACUUM INTO` / `sqlite3_backup` / `journal_mode=WAL` dans `app/lib`.
+- Preuve existante = **reopen same file** (DET), pas backup cohérent multi-fichiers Truth C + Memory B.
+- Naive file copy **≠** validated backup (PRR 06/09).
+
+### raw DatabaseSync residual
+
+| Classe | Couvert exclusive? |
+|---|---|
+| `openD1Db` + repo/audit writers | OUI (assert) |
+| Injected D1 mutation APIs | OUI (CORR-02 DET) |
+| Raw `db.exec` sur handle pré-ouvert | **NON** — KNOWN GAP |
+| D1 reads via repo | **NON gelés** (by design writer-freeze) |
+| Product / Nora / OPS1 / M4 safety | **Hors** marker |
+
+Absence de preuve LIVE ≠ absence de risque.
+
+---
+
+## 10. D4 / R-CUT
+
+### D4
+
+```
+legacyNavigation.ts:
+  redirectLegacyGenericEntryToStudioIfExclusive → redirect("/studio")
+  denyLegacyProjectDeepLinkIfExclusive → notFound()  // never maps to prj:*
+```
+
+Consumers: `/workspace` · `/projects/new` · `/nouvelle-demande` · `/projects/[id]`.
+Proof: **DET helpers only**. HTTP LIVE = R-02 OPEN.
+`/ops1/nouvelle-demande` : **non instrumenté** D4 → policy UNKNOWN.
+
+### R-CUT vs L2-D0
+
+| Step (doc) | Code | Proof |
 |---|---|---|
-| README.md | `a8b2fee95be353e7` | `c6b8457f7e51f32e` |
-| 09-…boundaries.md | `d34e9a75e1c88afd` | `55665592d9c99ce5` |
+| H4 checklist | process | OPEN |
+| Backup before freeze | missing | NOT PROVEN |
+| Freeze writers | implemented | DET |
+| D4 deny/redirect | implemented | DET · LIVE OPEN |
+| Smoke verify | partial DET | LIVE OPEN |
+| RO fallback Q12 | missing | NOT PROVEN |
+| Unfreeze sans réconciliation | policy only | — |
 
-Manifest : **exactement 2** `sha256_16` · volumes 01–08 / métadonnées / tracked* **inchangés**.
-
-Checker post-write : **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**.
-
----
-
-## 08. Diffs exploitables — 4 fichiers (`7b64ab21..241335ee`)
-
-### Roadmap
-
-```diff
-diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index 7246707f..bdb8c96b 100644
---- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-+++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-@@ -4,7 +4,7 @@
- | --- | --- |
- | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
- | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
--| **CURRENT TIP 2026-10-24 — AKG-M5 L2-D2 POST-MERGE VERIFIED (PR #614)** | **L2-D2 MERGED ON MAIN / POST-MERGE CI SUCCESS / DEFAULT OFF / NOT ACTIVATED** — [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) **MERGED** 2026-10-24, source `4647983aa36b76ae393200a7a8caaaed96936149`, merge `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` = `main` contrôlé ; [CI #40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **COMPLETED / SUCCESS** (Detect, Build and validate, Required Gate · event=push · branch=main · HEAD=merge) ; GO Morris Delivery + CORR-02 + R24 + Cycle13 digests + G-GIT commit/push/Draft PR **consommés** ; code CURRENT : marker `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default **OFF** (trim=`"1"` arms fail-closed) · D1 open+mutation guards (injected writers) · confirmation FORBIDDEN→`ok:false` · D4 Option A redirect/notFound · O-01 LPS objective→UI **DET 31/7 PASS** ; **aucun dual-write** · **aucun** `proj-*`→`prj:*` · D1 FREEZE gated / RETIRE LATER (pas de retrait physique) ; **G-ACTIVATION OPEN** · **R-CUT LIVE NOT PROVEN** · D4 LIVE HTTP NOT PROVEN · dette `R-L2D2-SQLITE-SNAPSHOT` OPEN · raw `DatabaseSync` KNOWN GAP · Q15 global PARTIAL ; chronologie L2-D0→L2-D1→L2-D2 conservée ; **AKG-M5 GLOBAL OPEN** · H1 hold ACTIVE · H4/R-VOL-01 OPEN · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED ; suite = **G-ACTIVATION PREPARATION sous réserves** (≠ autorisation d'activation) ; Cycle 14 documentary truth-sync = **LOCAL CANDIDATE / NO PRODUCT SEMANTIC IMPACT**. |
-+| **CURRENT TIP 2026-10-24 — AKG-M5 L2-D2 POST-MERGE VERIFIED (PR #614)** | **L2-D2 MERGED ON MAIN / POST-MERGE CI SUCCESS / DEFAULT OFF / NOT ACTIVATED** — [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) **MERGED** 2026-10-24, source `4647983aa36b76ae393200a7a8caaaed96936149`, merge `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` = `main` contrôlé ; [CI #40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **COMPLETED / SUCCESS** (Detect, Build and validate, Required Gate · event=push · branch=main · HEAD=merge) ; GO Morris Delivery + CORR-02 + R24 + Cycle13 digests + G-GIT commit/push/Draft PR **consommés** ; code CURRENT : marker `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default **OFF** (trim=`"1"` arms fail-closed) · D1 open+mutation guards (injected writers) · confirmation FORBIDDEN→`ok:false` · D4 Option A redirect/notFound · O-01 LPS objective→UI **DET 31/7 PASS** ; **aucun dual-write** · **aucun** `proj-*`→`prj:*` · D1 FREEZE gated / RETIRE LATER (pas de retrait physique) ; **G-ACTIVATION OPEN** · **R-CUT LIVE NOT PROVEN** · D4 LIVE HTTP NOT PROVEN · dette `R-L2D2-SQLITE-SNAPSHOT` OPEN · raw `DatabaseSync` KNOWN GAP · Q15 global PARTIAL ; chronologie L2-D0→L2-D1→L2-D2 conservée ; **AKG-M5 GLOBAL OPEN** · H1 hold ACTIVE · H4/R-VOL-01 OPEN · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED ; suite = **G-ACTIVATION PREPARATION sous réserves** (≠ autorisation d'activation) ; Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** on main · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **NO PRODUCT SEMANTIC IMPACT** · **R-01 exit proof satisfied** · formal closure separate. |
- | **HISTORICAL TIP 2026-10-24 — AKG-M5 L2-D1 POST-MERGE VERIFIED (PR #612)** | **HISTORICAL AS TIP** (superseded as CURRENT by PR #614) — **L2-D1 MERGED ON MAIN / POST-MERGE CI SUCCESS** — [PR #612](https://github.com/mcleland147/sfia-workspace/pull/612) **MERGED** 2026-10-24, source `d98b39302a484a21f42a25d8c7155bbbf6f6f746`, merge `b792bc83e1fbe3ee2f630d2637c137ee246bf07a` ; [CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) **SUCCESS** ; D5 Option A `oa.project.created` dans UnitOfWork ; Q5.1–Q5.7 DET ; à la date du tip : O-01 « comprendre » Product→UI = KNOWN GAP et **L2-D2 NOT AUTHORIZED** *(HISTORICAL AS TIP — later L2-D2 Delivery + PR #614 MERGED)* ; AKG-M5 GLOBAL OPEN · REAL NOT PROVEN · runtime v3 NON ADOPTED. |
- | **HISTORICAL TIP 2026-10-24 — AKG-M5 L2-D0 DOCUMENTARY POST-MERGE VERIFIED (PR #611)** | L2-D0 Decision & Delivery Readiness document `04` intégré via [PR #611](https://github.com/mcleland147/sfia-workspace/pull/611) **MERGED** 2026-10-24, merge `d62301771957ecbc74aedf1b405e183f3db3956d` ; [CI #40064638222](https://github.com/mcleland147/sfia-workspace/actions/runs/40064638222) **SUCCESS** (post-merge) ; D1–D9 = candidate/decision record, **NOT GLOBALLY ADOPTED**, D5/H4/R-CUT restent gates Delivery ; GO L2-D1 ultérieur reçu et consommé (voir tip historique PR #612) ; à la date : **L2-D2 NON AUTORISÉ** *(HISTORICAL AS TIP)* ; ce statut est HISTORICAL AS TIP. |
- | **HISTORICAL TIP 2026-10-23 — AKG-M5 L1/A09 POST-MERGE VERIFIED (PR #609)** | **HISTORICAL AS TIP** (superseded as CURRENT by PR #611/#612) ; **L1/A09 MERGED ON MAIN / POST-MERGE CI SUCCESS** — [PR #609](https://github.com/mcleland147/sfia-workspace/pull/609) **MERGED** 2026-10-23, source `6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d`, merge `e8e8b5e1ed0304f54babb265b7529b61bb3cdcbc` = `main` vérifié ; [CI #39998468332](https://github.com/mcleland147/sfia-workspace/actions/runs/39998468332) **COMPLETED / SUCCESS** (Detect / Build / SFIA Studio Required Gate) ; **H0-L1 GRANTED** et **GO Morris merge #609 consommé** ; `ProjectCycleAuditPort` réutilisé (Option A / t-a7), consommateurs VSR + core sans import d'audit `@/lib/d1`, `BoundedAtomicAuditStore` D1 conservé en adaptateur transitoire ; noop par défaut, memory/sqlite compatibles sans activation implicite ; **Q1–Q10 PASS au périmètre local testé** ; **R-A09-01 PASS TECHNIQUE au périmètre testé** (preuves locales + CI, ≠ clôture doctrinale globale / ≠ GO L2) ; **M5-A FORMAL EXIT CLOSED BY MORRIS** (PR #607/#608, preuves CI conservées dans tip historique) ; **AKG-M5 GLOBAL OPEN** ; **L2 NOT GRANTED**, H1–H5 OPEN, aucun D1 retire/migrate, aucune nouvelle persistance/dual-write ; REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED · SHADOW OFF ; synchronisation documentaire post-merge bornée (Roadmap uniquement), **NO PRODUCT SEMANTIC IMPACT**. |
-```
-
-### README
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index 054c822e..0367ea7b 100644
---- a/projects/sfia-studio/production-runtime-reference/README.md
-+++ b/projects/sfia-studio/production-runtime-reference/README.md
-@@ -40,11 +40,11 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
- | **C — CURRENT @ marker OFF (default)** | Code on main ; exclusive inactive ; historical D1 paths unchanged for operators who do not arm the marker |
- | **D — Conditional @ marker ON (DET)** | Fail-closed D1 open+mutation (incl. injected writers) ; confirmation `ok:false`/FORBIDDEN ; D4 redirect/notFound ; O-01 LPS objective→UI — **31 PASS / 7 suites** at tested scope |
- | **E — LIVE** | Studio HTTP / Application Support / R-CUT / coherent snapshot restore — **NOT PROVEN** |
--| **F — Gates** | **G-ACTIVATION OPEN** · **G-MANIFEST CONSUMED LOCAL / PRR CONFORMANCE PASS** (digests synced locally; digest match ≠ semantic exhaustiveness) · documentary G-GIT / Draft PR = publication path toward main (**≠ merged** until distinct Morris GO) |
-+| **F — Gates** | **G-ACTIVATION OPEN** · [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · documentary **G-MERGE consumed** · **R-01 EXIT PROOF SATISFIED** · **R-01 FORMAL CLOSE NOT CONSUMED** · digest conformance ≠ semantic exhaustiveness · OA-exclusive **NOT ACTIVATED** |
- | **Runtime v3** | **NON ADOPTED** |
- | **Anti-claims** | OA-exclusive **not** ACTIVATED · CUTOVER LIVE **not** PROVEN · O-01 LIVE E2E **not** COMPLETE · P6 GLOBAL PASS **not** claimed · DET ≠ LIVE · AKG-M5 GLOBAL **OPEN** |
-
--Cycle 14 documentary content reviewed · **G-MANIFEST** synchronized digests locally · checker PRR **PASS** at verified local scope · publication on main still requires merge + post-merge control · digest match alone does **not** prove semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**).
-+Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · eight Cycle-14 digests on main · **R-01 exit proof satisfied** · formal close **NOT CONSUMED** · digest match ≠ semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**) · code L2-D2 remains DEFAULT OFF / NOT ACTIVATED (PR #614 distinct).
-
- ## What this corpus is
-
-```
-
-### PRR 09
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 84457dee..0ec067ee 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -14,14 +14,14 @@
- | G-ACTIVATION | **OPEN** — no Studio live arming ; no definitive App Support DBs by merge |
- | DET proof | **31 PASS / 7 suites** + post-merge CI SUCCESS |
- | O-01 « comprendre » | LPS objective → Product UI **BEHAVIOR PROVEN AT TESTED SCOPE (DET)** — **≠** LIVE E2E COMPLETE |
--| **R-01** documentary lag | Pre-merge PRR/Roadmap « NOT CURRENT / G-GIT OPEN / dirty » — **corrected in Cycle 14 local authoring** · **NOT** yet integrated on main until documentary G-GIT |
-+| **R-01** documentary lag | Documentary lag corrected and integrated on main through [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) · post-merge CI [#40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **exit proof satisfied** · **formal close pending Morris** (**≠** FORMALLY CLOSED BY MORRIS) |
- | **R-02** D4 LIVE | DET redirect/notFound proven · Studio/HTTP LIVE path **NOT PROVEN** |
- | **R-03** SQLite / raw DB | Raw `DatabaseSync` KNOWN GAP · `R-L2D2-SQLITE-SNAPSHOT` OPEN — naive file copy **≠** coherent backup |
- | Q15 global | **PARTIAL** |
- | R-CUT LIVE | **NOT PROVEN** |
- | P6 GLOBAL PASS | **NOT CLAIMED** |
- | Runtime v3 | **NON ADOPTED** · AKG-M5 GLOBAL **OPEN** |
--| Exit path | C14 Semantic Review → **G-MANIFEST CONSUMED LOCAL** → documentary G-GIT / Draft PR → Critical PR Review → GO Morris merge distinct → post-merge CI → **G-ACTIVATION PREPARATION** → SQLite snapshot / H4-env / R-CUT exit proofs → GO Morris **G-ACTIVATION** distinct (**≠** merge/activation accomplished by authoring) |
-+| Exit path | **Historical:** [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · [CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **R-01 exit proof satisfied**. **Governance:** R-01 formal closure remains a distinct Morris decision (**NOT CONSUMED** / ≠ FORMALLY CLOSED). **Remaining product trajectory:** **G-ACTIVATION PREPARATION** only under distinct Morris GO · H4-env qualification · coherent SQLite snapshot/restore · D4 HTTP LIVE · R-CUT LIVE · then eventual GO Morris **G-ACTIVATION** (**NOT GRANTED**; ≠ preparation/activation authorization) |
-
- ## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
-
-```
-
-### Manifest
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index ca6b28bb..c9e9cb24 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -7,7 +7,7 @@
-   "volumes": [
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/README.md",
--      "sha256_16": "a8b2fee95be353e7"
-+      "sha256_16": "c6b8457f7e51f32e"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
-@@ -43,7 +43,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "d34e9a75e1c88afd"
-+      "sha256_16": "55665592d9c99ce5"
-     }
-   ],
-   "components": [
-```
+Arming LIVE = `process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE=1` sur instance nommée — **≠** override test-only.
 
 ---
 
-## 09. Validations
+## 11. Fake / Real Qualification
 
-| Contrôle | Résultat |
+| Classe | Contenu |
 |---|---|
-| `git diff --check` | OK |
-| Allowlist staged | 4 fichiers exacts · pas de `.tmp` |
-| Checker | PASS |
-| Vitest | **NOT RUN** — `node_modules` absent |
-| Product / OA / SQLite | non touchés |
+| Entrée | DETERMINISTIC PROVEN AT TESTED SCOPE (L2-D2 31/7 historiques + CI #614) + PR #615/#616 documentary |
+| Ce cycle | DOCUMENTARY/CODE QUALIFICATION ONLY · **aucun** nouveau test exécuté |
+| Tests | **NOT RUN** — `node_modules` absent · pas d'install · pas de Studio LIVE · pas de DB utilisateur |
+| REAL / LIVE | **NOT PROVEN** · DETERMINISTIC ≠ READY FOR REAL |
 
 ---
 
-## 10. G-GIT — commit / push / Draft PR
+## 12. Options (≠ décisions)
 
-| Item | Value |
+**Option A — Fresh Start disposable only (recommandée pour premier lot technique)**
+Préparer instance jetable absolute-path · snapshot DET · HTTP D4 harness · R-CUT rehearsal sans données utilisateur.
+
+**Option B — Application Support / instance réelle**
+Exige H4 owners + conservation + backup prouvé **avant** tout arming · risque élevé · **non recommandé** comme premier LIVE.
+
+**Option C — Documentation-only continue**
+N'ajoute pas de preuve technique · **insuffisant** pour G-ACTIVATION.
+
+**Recommandation Cursor (non ADOPTED):** Option A — un seul Delivery technique borné « G-ACTIVATION PREPARATION ».
+
+---
+
+## 13. Proposition Delivery intégré
+
+### Titre candidat
+
+**AKG-M5 L2-D2 — G-ACTIVATION PREPARATION — BOUNDED DELIVERY**
+
+### Objectif end-to-end
+
+Sur une **instance jetable désignée** (Fresh Start / absolute env paths), produire les exit proofs techniques manquants pour permettre un futur GO **G-ACTIVATION** distinct — sans activer une instance utilisateur.
+
+### Instance / classe
+
+**Classe:** disposable local Studio (worktree ou managed root dédié).
+**Owner:** à assigner (aujourd'hui UNASSIGNED) — **décision Morris**.
+**Volumes:** Product + Nora (+ D1 historique présent mais freeze) sous chemins absolus documentés.
+
+### Chemin critique
+
+1. Morris désigne instance jetable + conservation rules (H4 partial).
+2. Delivery: helper/procedure **coherent snapshot/restore** Truth C (+ Memory B) sur artefacts temporaires · DET proof.
+3. Delivery: **non-contournement** raw D1 sous exclusive (tests DET + policy; code minimal si GO).
+4. Delivery: **D4 HTTP LIVE harness** (server test / Playwright) with **real env** `=1` on disposable.
+5. Delivery: **R-CUT rehearsal** disposable: snapshot → arm env → freeze verify → D4 HTTP → OA create smoke → restore drill.
+6. ChatGPT Critical Review → Morris **G-ACTIVATION** distinct (ou STOP).
+
+### Sous-ensembles exécutables (un lot, étapes validables)
+
+| Slice | Output | Preuve |
+|---|---|---|
+| S1 Snapshot | API/script borné + DET restore Project/LPS | DET |
+| S2 Residual writer | Tests non-contournement ± garde minimale | DET |
+| S3 D4 HTTP | Harness HTTP exclusive ON | Bounded REAL / HTTP |
+| S4 R-CUT rehearsal | Runbook exécuté disposable | Bounded REAL |
+
+### Composants réutilisés (pas d'architecture parallèle)
+
+- `localOaExclusiveMode` · D1 guards · `legacyNavigation` · Product `SqliteProductStore` · Nora `ProductSqliteSession` · chemins existants.
+- **Réutiliser** SQLite natif / stop-the-world close+copy plutôt que nouveau store.
+
+### Fichiers candidats (indicatif — sous GO Delivery)
+
+- `app/lib/oa/project/infrastructure/sqlite/*` (snapshot helper)
+- `app/lib/nora-cognitive-runtime/sessionPaths.ts` / session (coordonner Memory B)
+- `app/lib/d1/*` (uniquement si garde residual autorisée)
+- `app/__tests__/**` + éventuel `e2e/` HTTP
+- PRR 05/06/08/09 sync **après** preuves (doc distincte)
+
+### Modifications minimales
+
+- Ajouter capacité snapshot/restore **bornée** + tests jetables.
+- Ajouter preuve HTTP D4.
+- Documenter runbook R-CUT disposable.
+- **Pas** d'activation default ON · **pas** dual-write · **pas** mapper proj→prj.
+
+### Risques / reversibility
+
+- Risque principal = toucher mauvaises DB → mitiger par absolute disposable paths + deny user App Support.
+- Reversibility: marker OFF · restore snapshot · D1 files préservés (freeze ≠ delete).
+
+### Dettes / exit
+
+| Dette | Exit |
 |---|---|
-| Branch | `docs/akg-m5-l2-d2-r01-postmerge-status` |
-| Commit | `241335ee27aa463c02b1b1cabce2f67bc6f49f08` |
-| Parent | `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` |
-| Tree | `0726902a975ec30a5f48856e91ae94b170067b7f` |
-| Message | `docs(studio): close R-01 evidence status gap` (**≠** formal close) |
-| Remote SHA | `241335ee27aa463c02b1b1cabce2f67bc6f49f08` |
-| Draft PR | [#616](https://github.com/mcleland147/sfia-workspace/pull/616) |
-| isDraft | **true** |
-| CI constaté | Detect = **IN_PROGRESS** — **≠ SUCCESS claim** |
+| R-L2D2-SQLITE-SNAPSHOT | DET restore proof + procedure |
+| R-02 | HTTP LIVE pass disposable |
+| R-03 raw | Non-contournement DET + policy |
+| H4-env | Instance nommée + checklist |
+| R-CUT LIVE | Rehearsal disposable documented |
+| Q12 RO | Explicit in/out of scope for first G-ACTIVATION |
 
-**MERGE NOT AUTHORIZED — DISTINCT MORRIS GO REQUIRED.**
+### Challenge obligatoire
 
----
-
-## 11. Fake / Real
-
-Entrée: PR #614/#615 CI SUCCESS + R-01 exit proof.
-Sortie: 2 corrections stables + 2 digests + commit/push + Draft PR.
-Hors scope: LIVE HTTP · R-CUT · snapshot · activation · formal close · O-01 LIVE E2E · P6 · runtime v3.
-
----
-
-## 12. Réserves / gates
-
-| ID | Statut |
+| Question | Réponse |
 |---|---|
-| R-01 exit proof | SATISFIED |
-| R-01 formal close | **NOT CONSUMED** |
-| R-02 | OPEN |
-| R-03 | OPEN |
-| G-MANIFEST TARGETED | **CONSUMED** |
-| G-GIT documentaire | **CONSUMED** |
-| G-MERGE | **OPEN** |
-| G-ACTIVATION | **OPEN** |
-| AKG-M5 | GLOBAL OPEN |
+| Utile pour O-01 ? | Oui — reprise Project/LPS après cutover sans perte |
+| Plus simple ? | Oui vs App Support first |
+| Réutiliser existant ? | Oui — marker/guards/D4/Product SQLite |
+| Architecture parallèle ? | Non si snapshot sur fichiers existants |
+| Preuve bout-en-bout ? | Oui via S1–S4 sur même instance jetable |
+| REAL proof nécessaire ? | Bounded REAL (HTTP + rehearsal) **avant** G-ACTIVATION ; pas user LIVE |
+| Décisions Morris ? | (1) désigner instance (2) GO Delivery prep (3) GO G-ACTIVATION later (4) formal close R-01 séparée |
+| Studio après lot ? | Toujours DEFAULT OFF jusqu'à G-ACTIVATION ; runbook prêt |
 
 ---
 
-## 13. REX borné
+## 14. Décisions Morris requises
 
-- Fait: formulations « micro-cycle / pending G-MANIFEST » obsolètes dès publication.
-- Conséquence: cellule F et Exit path doivent porter des faits durables (Historical/Governance/Trajectory).
-- Règle: post-merge status sync → stabiliser le wording **avant** G-GIT pour éviter un second truth-sync immédiat.
+1. **Désigner** la classe/instance H4 pour première préparation (recommandé: disposable Fresh Start).
+2. **GO Delivery** « G-ACTIVATION PREPARATION — BOUNDED DELIVERY » (scope S1–S4).
+3. Clarifier policy **`/ops1/nouvelle-demande`** sous exclusive.
+4. Clarifier si **Q12 RO fallback** est in-scope du premier G-ACTIVATION ou DEFER.
+5. **G-ACTIVATION** elle-même — **distincte**, après exit proofs.
+6. **R-01 formal close** — **NOT** ce cycle (déjà exit proof satisfied).
+
+**Ne pas autoriser l'exécution par anticipation.**
 
 ---
 
-## 14. Cleanup
+## 15. Stops / garde-fous respectés
 
-**PRESERVED** — ancienne branche docs · Delivery · P6 · worktrees · handoff branch. Pas de suppression.
+- Aucune modification code projet.
+- Aucun commit/push/PR/merge projet.
+- Aucune activation / migration / DB utilisateur / Studio LIVE.
+- Aucun manifest write.
+- Aucune suppression worktree/branche.
+- Tests Product **NOT RUN** (node_modules absent) — motif documenté.
+- Qualification **non STOP** : gaps identifiés sans contradiction structurante bloquant la *qualification* elle-même.
 
 ---
 
-## 15. Local Git Truth — final
+## 16. Cleanup
+
+**PRESERVED** — docs WT · Delivery · P6 · handoff branch · aucune suppression.
+
+---
+
+## 17. Git Truth final
 
 | Check | Résultat |
 |---|---|
 | Branch | `docs/akg-m5-l2-d2-r01-postmerge-status` |
-| HEAD | `241335ee27aa463c02b1b1cabce2f67bc6f49f08` |
-| Tracking | `origin/docs/akg-m5-l2-d2-r01-postmerge-status` @ même SHA |
-| Dirty | `.tmp-sfia-review/chatgpt-review.md` only |
-| origin/main | `7b64ab21…` (inchangé) |
+| HEAD | `241335ee…` |
+| origin/main | `d7aad77e…` |
+| Projet dirty | **aucun** |
+| Pack | `.tmp-sfia-review/chatgpt-review.md` only |
 
 ---
 
-## 16. Instruction ChatGPT
+## 18. Instruction ChatGPT
 
-1. Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
-2. Vérifier 4 fichiers · digests `c6b8457f` / `55665592` · commit `241335ee` · Draft PR #616.
-3. Confirmer R-01 exit proof vs formal close NOT CONSUMED.
-4. Critical PR Review **avant** recommandation GO merge Morris.
+1. Lire handoff distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
+2. Requalifier sur Git CURRENT `origin/main=d7aad77e…`.
+3. Vérifier matrice H4 / SQLite / raw DB / D4 / R-CUT.
+4. Challenger Option A Delivery intégré.
+5. Proposer **GO Delivery borné** ou **STOP** — **sans** G-ACTIVATION.
 
-FIN DU PACK R-01 FINAL STABLE + G-GIT.
+FIN DU PACK G-ACTIVATION PRE-READINESS QUALIFICATION.
