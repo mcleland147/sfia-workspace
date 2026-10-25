@@ -1,7 +1,7 @@
 # SFIA Review Pack — FULL — AKG-M5 Cycle 8 CRITICAL CI SEMANTIC RECONCILIATION
 
 ## 1. Horodatage
-- UTC: **2026-10-25T20:13:14Z**
+- UTC: **2026-10-25T20:26:47Z**
 - Europe/Paris: 2026-10-25 (Cycle 8 delivery)
 
 ## 2. GO Morris
@@ -1821,7 +1821,9 @@ index 08704a60..b6c4af83 100644
 | build (`next build`) | **PASS** |
 | Vitest 44 baseline suites | **44/44 PASS · 639/639 tests** |
 | PRR conformance (`check-production-runtime-reference.mjs`) | **PASS** after `--write-digests` |
-| Vitest global | see Cursor final report (running / recorded) |
+| Vitest global (after CI-44 green) | First residual outside-44: fakeProvider P1/P4b + NELC hostile docsWriteSpec — **ADAPTED/PASS** |
+| Vitest global full | `2 failed | 552 passed | 22 skipped` (576) — failures = **timeouts under load** on `g2.catalog-versioning-mw6` + `genericExecutionReviewResultConvergence01.trajectorySurface` |
+| Isolated re-run of those 2 | **PASS** (flaky under global parallel load — class F) |
 | GitHub CI | last known `40215089725` **FAILURE** — **no new GitHub run** (no project push) |
 
 ## 16. Réserves classées
@@ -1833,6 +1835,7 @@ index 08704a60..b6c4af83 100644
 | R4 | FS→SHA Evidence allowlist remains historical `execution_attempt:docs_write` | KNOWN GAP (CORR-02) |
 | R5 | Lint unused-var warnings in touched Product files | NON-BLOCKING |
 | R6 | H4 / G-REAL / G-ACTIVATION | NOT GRANTED |
+| R7 | Global Vitest 2 timeout flakes under load (PASS isolated) | NON-BLOCKING / F |
 
 ## 17. KNOWN GAPS + exit proof
 - **M3 bounded docs_write Execute REAL** — FORBIDDEN; DET Fake path restored under AKG-M5 naming.
@@ -1857,6 +1860,6 @@ index 08704a60..b6c4af83 100644
 4. Separate gates for H4 / G-REAL / Evidence generic source.
 
 ## 21. Verdict borné
-**LOCAL CORRECTION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**
+**LOCAL CORRECTION COMPLETE WITH RESERVES — CRITICAL REVIEW REQUIRED**
 
 Anti-claims: ≠ READY FOR MERGE · ≠ MERGED · ≠ REAL PROVEN · ≠ RUNTIME V3 ADOPTED · ≠ GitHub CI PASS.
