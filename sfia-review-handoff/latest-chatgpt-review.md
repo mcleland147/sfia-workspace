@@ -1,100 +1,272 @@
-# AKG-M5 L2-D2 — G-ACTIVATION PREPARATION — CR-S2-02
-## REVIEW PACK FULL (mono-cycle)
+# SFIA Review Pack — FULL
+# AKG-M5 / L2-D2 — G-ACTIVATION PREPARATION
+# G-MANIFEST TARGETED + G-GIT PROJECT — SINGLE INTEGRATED DELIVERY
 
-**Horodatage:** 2026-10-25T06:13:00+0100 (2026-10-25T05:13:00Z)
-**GO Morris:** CR-S2-02 — Native SQLite Proxy boundary hardening (borné, Delivery existant)
-**Cycle:** 8 Delivery + 9 QA · Critical · EVOL/QA
-**Consomme:** correction bornée wrapper D1 only.
-**Ne consomme PAS:** G-ACTIVATION · G-REAL · G-GIT · G-MANIFEST · Studio LIVE · runtime v3.
+## 0. Meta
+- Generated (UTC): 2026-10-25T05:32:50Z
+- Generated (local): 2026-10-25 06:32:50 +0100
+- Cycle type: 7 — Intégration / DevOps (+ blocs 9 QA, 13 PR readiness gate interne)
+- Profile: Critical
+- Typology: EVOL / QA / GIT INTEGRATION
+- Review level: FULL
+- Mono-cycle: G-MANIFEST TARGETED + G-GIT PROJECT
+- Mode: publish-in-cycle (L3 handoff)
+- NOT this cycle: Ready for Review auto; merge; main mutation; OA-exclusive activation; G-REAL; LIVE cutover; user migration; R-01 formal close; runtime v3 promotion; branch cleanup
 
----
+## 1. GO Morris (accordé) et exclusions
+### Accordé
+1. Synchroniser manifest PRR ciblé (6 digests volumes README+05–09)
+2. Finaliser cohérence documentaire R24
+3. Revalider Delivery technique complet
+4. Git Integration du lot
+5. Commit projet cohérent
+6. Push branche Delivery
+7. UNE Draft PR vers main
+8. Publier Review Handoff L3 dans le même cycle
 
-## 1. Git Truth
+### Exclusions explicites
+- Ready for Review automatique
+- Merge / modification de main
+- Activation OA-exclusive
+- Exécution G-REAL
+- Cutover LIVE / migration utilisateur
+- R-01 formal close
+- Promotion runtime v3
+- Nettoyage ou suppression de branches
+- Force push / reset --hard / clean -fd
 
-| Check | Value |
-|---|---|
-| Toplevel | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-activation-prep-bounded` |
-| Branch | `feat/akg-m5-l2-d2-activation-prep-bounded` |
-| HEAD / origin/main | `d7aad77e999e4fe64f31a776ddf39c1d99278b1b` |
-| Staged | empty |
-| Lot S1–S4+CORR-01 | présent (uncommitted) + CR-S2-02 |
-| Entrée handoff | `8690ae4f` · blob `a8a427d9…` |
-| Node | **v24.16.0** (re-verified) |
+## 2. Git Truth — initial (cycle entry) et final
+### Expected (contrat)
+- Repo: mcleland147/sfia-workspace
+- Branch: feat/akg-m5-l2-d2-activation-prep-bounded
+- Worktree: /Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-activation-prep-bounded
+- Base / origin/main: d7aad77e999e4fe64f31a776ddf39c1d99278b1b
+- Entry handoff: b469484766851383ee95ed3f5eeeb370b97344f9 (CR-S2-02)
+- Entry blob: cabd5407fa813d2b7feb2f718941585af4068b5f
 
----
+### Final (post G-GIT)
+- toplevel: /Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-activation-prep-bounded
+- branch: feat/akg-m5-l2-d2-activation-prep-bounded
+- HEAD: cdc9909d8adaa6b31df3b75e33e58a8d27c88317
+- tree: 04e1249009ab8daeaedc95f8606a8d837865a992
+- origin/main: d7aad77e999e4fe64f31a776ddf39c1d99278b1b (UNCHANGED)
+- origin/feat/akg-m5-l2-d2-activation-prep-bounded: cdc9909d8adaa6b31df3b75e33e58a8d27c88317 (matches local)
+- Draft PR: #617 (DRAFT OPEN)
+- Handoff worktree: /Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023 @ sfia/review-handoff (pre-publish was b4694847)
 
-## 2. Native API inventory (Node 24.16.0)
+### Worktrees preserved (list at publish time)
+See `git worktree list` — Delivery and handoff used; other WTs not mutated.
 
-**DatabaseSync methods:** aggregate, applyChangeset, close, constructor, createSession, createTagStore, deserialize, enableDefensive, enableLoadExtension, exec, function, loadExtension, location, open, prepare, serialize, setAuthorizer
+## 3. Sources consultées
+### Processus v2.6
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md
+- method/sfia-fast-track/core/sfia-rules-and-guardrails.md
+### Convergence / Product / AKG-M5
+- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+- projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/01-m5a-product-architecture-convergence-blueprint.md
+- .../04-m5-l2-d0-decision-and-delivery-readiness.md
+### Doctrine v3 applicable (NON ADOPTED runtime)
+- 30, 32, 34, 35, 37 (sfia-v3-framing)
+### Architecture CURRENT / PRR
+- production-runtime-reference/README + 05–09 + manifest
+- __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
+### Git integration
+- docs/architecture/sfia-delivery-pipeline.md
+- method/sfia-fast-track/checklists/sfia-validation-checklist.md
+- prompts/templates/2026-07-04-05-validate-pr-readiness.md
+### Entry handoff
+- sfia/review-handoff @ b4694847 — CR-S2-02 (blob cabd5407)
 
-**StatementSync:** all, columns, constructor, get, iterate, run, setAllowBareNamedParameters, setAllowUnknownNamedParameters, setReadBigInts, setReturnArrays
+## 4. Capacité / Milestone / Trajectoire
+- Capacity: O-01 — Créer, trouver, comprendre et reprendre un Project
+- Milestone: AKG-M5 / L2-D2 — G-ACTIVATION PREPARATION
+- Next (NOT this cycle): H4 + REAL bornée — décision Morris distincte
+- Assets KEEP: Truth C, Memory B, D4 Option A; D1 FREEZE/RETIRE LATER
+- S1–S4 COMPLETE at bounded DET scope
+- Product Completion global: NOT PROVEN
+- Runtime v3: NON ADOPTED
 
-**SQLTagStore:** run/get/all/iterate (template literals) · own: capacity, **db**, size · **`ts.db === underlying DatabaseSync`** (raw identity)
+## 5. R23 / R24
+### R23 (code/mechanisms — proportional)
+- Product snapshot: VACUUM INTO + restore; closed_copy UNAVAILABLE; integrity via migrate RO path
+- D1: openD1Db wraps DatabaseSync with allowlist Proxy; seal singleton; setAuthorizer non-exposable; iterate refused always; prepare mutation gate under exclusive
+- S3: D4 Option A DET harness (no LIVE HTTP)
+- S4: R-CUT DET rehearsal; exclusive ON only in test; final D1 RO oracle diagnostic ≠ Q12
+- Residual: raw `new DatabaseSync` outside openD1Db — OPEN (R-03)
 
-**Observed escapes (pre-fix):**
-| API | Class | Risk | Disposition |
-|---|---|---|---|
-| setAuthorizer(null) | C | Clears authorizer → mutations resume | **Refuse always** (not exposable) |
-| createTagStore → .db | D+E | Raw mutative DatabaseSync | **Refuse always** |
-| SQLTagStore.run`…` | B | Mutates via tag store | unreachable if createTagStore refused |
-| deserialize | B | Replaces connection state | **Refuse always** |
-| Statement.iterate deferred | B | Pull after exclusive ON still mutates; authorizer does **not** re-check (proven) | **Refuse always** |
-| createSession/applyChangeset | B/D | Changeset mutation | **Refuse always** |
-| loadExtension/function/aggregate | B/G | Extension/UDF risk | **Refuse always** |
-| prepare/exec/close | B/F | Required by D1 | **Allowlist** · exclusive-gated |
-| location/isOpen/isTransaction/limits | A | Safe getters | Allow |
-| new DatabaseSync outside openD1Db | — | Residual R-03 | **KNOWN GAP** (not this GO) |
+### R24 SEMANTIC REVIEW — PASS
+PRR README+05–09 stabilized to implementation-centered language:
+- Distinguishes IMPLEMENTED DET vs ACTIVATED capability
+- Does NOT claim G-ACTIVATION consumed / REAL proven / R-03 fully closed
+- H4 real NOT QUALIFIED; Q12 OPEN; HTTP LIVE / R-CUT LIVE OPEN
+- D1 raw construction residual retained
+- Describes VACUUM INTO, closed_copy unavailable, integrity RO, allowlist, authorizer, iterate refused, seal, S4 diagnostic RO non-operational
+- Avoids perishable LOCAL DELIVERY CANDIDATE / G-GIT NOT GRANTED / PR NOT MERGED as permanent CURRENT status
+- Avoids anticipatory MERGED ON MAIN / POST-MERGE VERIFIED / G-ACTIVATION GRANTED
+- No fictional PR/SHA; no Roadmap/Build Doctrine/C1/v3 edits
 
----
+## 6. Lot S1–S4 + CORR-01 + CR-S2-02 (integrated)
+| ID | Contenu | Preuve |
+|----|---------|--------|
+| S1 | productSqliteSnapshot VACUUM INTO / restore | l2d2S1ProductSqliteSnapshot.test.ts |
+| S2 | wrapD1DatabaseSyncForExclusiveGate + db.ts | l2d2S2RawDatabaseSyncExclusiveGate.test.ts |
+| S3 | D4 Option A DET harness | l2d2S3D4HttpReadinessHarness.test.ts |
+| S4 | R-CUT DET rehearsal | l2d2S4RcutDeterministicRehearsal.test.ts |
+| CORR-01 | snapshot + native statement safety | covered in S1/S2/S4 + injected guards |
+| CR-S2-02 | native Proxy escape hardening | S2 allowlist refuse setAuthorizer/createTagStore/.db etc. |
 
-## 3. Solution (Option A allowlist + exclusive gates)
+## 7. G-MANIFEST TARGETED
+### Digests BEFORE (origin/main) → AFTER (HEAD / disk / manifest)
+| Volume | before sha256_16 | after sha256_16 |
+|--------|------------------|-----------------|
+| README.md | c6b8457f7e51f32e | 508d21f295b578f5 |
+| 05-environments-configuration-and-boundaries.md | 4e67c2e6acced70b | aef317f3aa031be5 |
+| 06-persistence-restart-and-recovery.md | c9132f48db3f0608 | 7fdf3ef0761118ca |
+| 07-authority-invariants-and-failure-modes.md | 24ae31d1e9d17e0f | ad4c4774f42d6540 |
+| 08-test-proof-and-conformance-map.md | d9fe8e57cdef6442 | 7f27c5740e1ad080 |
+| 09-known-gaps-reserves-and-current-boundaries.md | 55665592d9c99ce5 | 56d2f057722faedb |
 
-Deny-by-default Proxy on openD1Db handles:
-- Allow: `prepare`, `exec`, `close` + safe getters
-- Exclusive: assert on prepare/exec/Statement run|get|all
-- Always refuse: `iterate`, `setAuthorizer`, `createTagStore`, `deserialize`, session/changeset/extension/UDF…
-- Authorizer installed at wrap; **cannot** be cleared via wrapped handle
-- Marker OFF: prepare/exec still work for historical D1
+- Only six sha256_16 fields changed
+- lastReviewedCommit unchanged: 928ab15b032c392dafee74a916f2faad3ed524de
+- lastReviewedAt unchanged: 2026-10-15T22:51:00+02:00
+- trackedSources / trackedTests / IDs / schema v1 untouched
+- Disk digest == manifest for all six
+- ZERO UNEXPLAINED DRIFT
+- PRR conformance PASS (vitest productionRuntimeReference.conformance.d0.test.ts)
+- Post-conformance DRIFTS=0 (probe restore verified; no concurrent writers)
 
----
-
-## 4. Validations (this cycle)
-
+## 8. Revalidation Delivery (pre-commit, from projects/sfia-studio/app)
+### Commands executed
 ```
-vitest S2 CR-S2-02 → 10 PASS
-vitest S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 → 52 PASS / 10 files
-tsc --noEmit → PASS
-lint → PASS
-PRR digests → 6 expected drifts (manifest READ-ONLY)
-git diff --check → clean
+cd projects/sfia-studio/app
+npx vitest run \
+  __tests__/oa/project/l2d2S1ProductSqliteSnapshot.test.ts \
+  __tests__/d1/l2d2S2RawDatabaseSyncExclusiveGate.test.ts \
+  __tests__/d1/l2d2S3D4HttpReadinessHarness.test.ts \
+  __tests__/oa/project/l2d2S4RcutDeterministicRehearsal.test.ts \
+  __tests__/d1/l2d2LocalOaExclusiveFreeze.test.ts \
+  __tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts \
+  __tests__/d1/l2d2ConfirmationForbiddenUi.test.ts \
+  __tests__/d1/l2d2D4LegacyNavigation.test.ts \
+  __tests__/oa/project/l2d2O01ProductUiIntegrated.test.ts \
+  __tests__/d1/l2d1D5CreateAuditAtomicity.test.ts \
+  __tests__/m1/m1ProductSqliteDurability.test.ts \
+  __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
+npm run typecheck
+npm run lint
+git diff --check
 ```
+### Results
+- Tests: **58 PASS / 12 files** (0 fail, 0 skip reported)
+- Typecheck: PASS
+- Lint: PASS
+- PRR conformance: PASS
+- git diff --check: clean
+- CR-S1-01 / CR-S2-01 / CR-S2-02: PASS (within S1/S2 suites)
+- Exclusive DEFAULT OFF outside isolated tests
+- No D1 mutation under exclusive in proven scope
+- Raw bypass NOT claimed resolved
+- No user data migration; no LIVE external deps
+
+## 9. PR readiness gate interne — PASS (≠ Ready for Review / Merge Ready)
+- Allowlist exact 16 files; no secrets/.env/DB/tmp/artefacts in commit
+- No Build Doctrine / Roadmap / C1 / v3 / method / other manifests / CI scripts
+- Six digests correct; DRIFTS=0
+- Tests/typecheck/lint/conformance PASS
+- No dual-write; no D1 deletion; activation policy unchanged
+- Diff = CR-S2-02 delivery + R24/manifest only
+
+## 10. Staged list (exact, before commit)
+```
+M  projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts
+A  projects/sfia-studio/app/__tests__/d1/l2d2S2RawDatabaseSyncExclusiveGate.test.ts
+A  projects/sfia-studio/app/__tests__/d1/l2d2S3D4HttpReadinessHarness.test.ts
+A  projects/sfia-studio/app/__tests__/oa/project/l2d2S1ProductSqliteSnapshot.test.ts
+A  projects/sfia-studio/app/__tests__/oa/project/l2d2S4RcutDeterministicRehearsal.test.ts
+M  projects/sfia-studio/app/lib/d1/db.ts
+A  projects/sfia-studio/app/lib/d1/wrapD1DatabaseSyncForExclusiveGate.ts
+M  projects/sfia-studio/app/lib/oa/project/index.ts
+A  projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteSnapshot.ts
+M  projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+M  projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+M  projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M  projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+M  projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M  projects/sfia-studio/production-runtime-reference/README.md
+M  projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+STAGED_COUNT=16. `.tmp-sfia-review/` NOT staged.
+
+## 11. Project commit / push / Draft PR
+- Commit: `cdc9909d8adaa6b31df3b75e33e58a8d27c88317`
+- Message: feat(studio): prepare bounded OA-exclusive cutover safety
+- Stats: 16 files, +1466 / −37
+- Push: origin/feat/akg-m5-l2-d2-activation-prep-bounded = `cdc9909d8adaa6b31df3b75e33e58a8d27c88317` (new upstream, normal push, no force)
+- origin/main unchanged: `d7aad77e999e4fe64f31a776ddf39c1d99278b1b`
+- Draft PR: **#617** https://github.com/mcleland147/sfia-workspace/pull/617
+  - base: main @ `d7aad77e999e4fe64f31a776ddf39c1d99278b1b`
+  - head: feat/akg-m5-l2-d2-activation-prep-bounded @ `cdc9909d8adaa6b31df3b75e33e58a8d27c88317`
+  - state: OPEN, **isDraft=true**
+  - files changed: 16 (matches allowlist)
+- CI observed at pack time:
+  - Run ID: 40165829736
+  - Detect SFIA Studio changes: SUCCESS
+  - Build and validate SFIA Studio: **PENDING / QUEUED / in_progress** (CI PENDING ≠ CI SUCCESS)
+  - URL: https://github.com/mcleland147/sfia-workspace/actions/runs/40165829736
+
+## 12. Fake / Real qualification
+- Applicable: YES (SQLite Product/Nora/D1, Next nav, R-CUT rehearsal, exclusive marker test-only)
+- Proven: DETERMINISTIC PROVEN AT INTEGRATED COMMIT / DRAFT PR SCOPE
+- NOT claimed: REAL BOUNDARY PROVEN / E2E REAL / Production cutover / App Support instance
+- G-REAL: NOT GRANTED
+- G-ACTIVATION: NOT GRANTED
+
+## 13. Remaining debts / exits / gates
+- R-03 raw `new DatabaseSync` outside openD1Db: OPEN
+- H4 real: NOT QUALIFIED
+- Q12: OPEN
+- D4 HTTP LIVE: NOT PROVEN
+- R-CUT LIVE: NOT PROVEN
+- R-03 full close: NOT CLAIMED
+- G-REAL / G-ACTIVATION: NOT GRANTED
+- AKG-M5 GLOBAL: OPEN
+- Runtime v3: NON ADOPTED
+- PR READINESS CRITICAL REVIEW (ChatGPT): PENDING
+- MERGE: NOT AUTHORIZED
+
+## 14. Verdict (evidence-backed)
+AKG-M5 L2-D2 S1–S4 + CORR-01 + CR-S2-02
+G-MANIFEST TARGETED — PASS
+PRR SEMANTIC REVIEW — PASS
+PRR CONFORMANCE — PASS
+DELIVERY DETERMINISTIC — PASS
+G-GIT PROJECT — EXECUTED
+PROJECT BRANCH — PUSH VERIFIED
+DRAFT PR — OPEN / DRAFT (#617)
+REVIEW HANDOFF — (filled after publish)
+PR READINESS CRITICAL REVIEW — PENDING
+MERGE — NOT AUTHORIZED
+R-03 RAW RESIDUAL — OPEN
+H4 REAL — NOT QUALIFIED
+Q12 — OPEN
+D4 HTTP LIVE — NOT PROVEN
+R-CUT LIVE — NOT PROVEN
+G-REAL — NOT GRANTED
+G-ACTIVATION — NOT GRANTED
+AKG-M5 GLOBAL — OPEN
+RUNTIME V3 — NON ADOPTED
 
 ---
+## 15. NEW FILES — FULL CONTENT (committed blobs)
 
-## 5. Verdict
+### FILE: `projects/sfia-studio/app/lib/d1/wrapD1DatabaseSyncForExclusiveGate.ts`
+- blob: `48abe15ecdb72233a21524fad696f945e9fae936`
+- lines: 186
 
-**CR-S2-02 — RESOLVED AT APPLICATIVE DET SCOPE**
-D1 WRAPPED HANDLE MUTATION SAFETY — DETERMINISTICALLY PROVEN AT TESTED SCOPE
-S1–S4 — DETERMINISTIC PASS
-RAW new DatabaseSync — KNOWN GAP / R-03 FULL CLOSE NOT CLAIMED
-H4 / Q12 / D4 HTTP LIVE / R-CUT LIVE — OPEN / NOT PROVEN
-G-MANIFEST / G-GIT / G-REAL / G-ACTIVATION — NOT GRANTED
-AKG-M5 GLOBAL — OPEN · RUNTIME V3 — NON ADOPTED
-
----
-
-## 6. Décisions Morris
-
-1. G-MANIFEST targeted (6 PRR digests) after semantic review
-2. G-GIT projet same lot after Critical Re-Review
-3. Raw DatabaseSync residual policy
-4. Q12 / H4 / G-REAL later · G-ACTIVATION later
-
----
-
-## 7. FULL LOT CONTENT (S1–S4 + CORR-01 + CR-S2-02)
-
-### FILE: projects/sfia-studio/app/lib/d1/wrapD1DatabaseSyncForExclusiveGate.ts
 ```typescript
 /**
  * Applicative D1 DatabaseSync boundary (CR-S2-01 + CR-S2-02).
@@ -282,9 +454,13 @@ export function wrapD1DatabaseSyncForExclusiveGate(
     },
   }) as DatabaseSync;
 }
+
 ```
 
-### FILE: projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteSnapshot.ts
+### FILE: `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/productSqliteSnapshot.ts`
+- blob: `d66e94cde10f3dd0c1592ae6bc3417b50e9ef33b`
+- lines: 182
+
 ```typescript
 /**
  * Coherent Product SQLite snapshot/restore (L2-D2 G-ACTIVATION PREPARATION S1 / CR-S1-01).
@@ -468,9 +644,13 @@ export function openRestoredProductSqlite(snapshotPath: string): DatabaseSync {
   verifyProductSqliteIntegrityAtPath(snapshotPath);
   return openProductSqlite(snapshotPath);
 }
+
 ```
 
-### FILE: projects/sfia-studio/app/__tests__/d1/l2d2S2RawDatabaseSyncExclusiveGate.test.ts
+### FILE: `projects/sfia-studio/app/__tests__/d1/l2d2S2RawDatabaseSyncExclusiveGate.test.ts`
+- blob: `6ca1a3191f4d7a0dd20d65468f3a5fa0ce6f416d`
+- lines: 326
+
 ```typescript
 /**
  * L2-D2 S2 / CR-S2-01 + CR-S2-02 — D1 openD1Db native boundary.
@@ -798,9 +978,13 @@ describe("L2-D2 S2 / CR-S2-02 native Proxy boundary hardening", () => {
     expect(countProjectsReadonly(dbPath)).toBe(before);
   });
 });
+
 ```
 
-### FILE: projects/sfia-studio/app/__tests__/d1/l2d2S3D4HttpReadinessHarness.test.ts
+### FILE: `projects/sfia-studio/app/__tests__/d1/l2d2S3D4HttpReadinessHarness.test.ts`
+- blob: `82df1718fc81b2f43ceda2be6ecd60046f24bae1`
+- lines: 112
+
 ```typescript
 /**
  * L2-D2 G-ACTIVATION PREPARATION S3 — D4 navigation readiness harness (DET).
@@ -914,9 +1098,13 @@ describe("L2-D2 S3 D4 HTTP readiness harness (DET)", () => {
     // Any future writer under exclusive requires distinct Morris decision.
   });
 });
+
 ```
 
-### FILE: projects/sfia-studio/app/__tests__/oa/project/l2d2S1ProductSqliteSnapshot.test.ts
+### FILE: `projects/sfia-studio/app/__tests__/oa/project/l2d2S1ProductSqliteSnapshot.test.ts`
+- blob: `6d18019e6d1587275385cfd96bd561ea46e13660`
+- lines: 295
+
 ```typescript
 /**
  * L2-D2 G-ACTIVATION PREPARATION S1 / CR-S1-01 — Product SQLite snapshot/restore DET.
@@ -1213,9 +1401,13 @@ describe("L2-D2 S1 / CR-S1-01 Product SQLite snapshot/restore", () => {
     restored.close();
   });
 });
+
 ```
 
-### FILE: projects/sfia-studio/app/__tests__/oa/project/l2d2S4RcutDeterministicRehearsal.test.ts
+### FILE: `projects/sfia-studio/app/__tests__/oa/project/l2d2S4RcutDeterministicRehearsal.test.ts`
+- blob: `a48df873cc5261839a6b0eb6a3df728bba24387a`
+- lines: 260
+
 ```typescript
 /**
  * L2-D2 G-ACTIVATION PREPARATION S4 — deterministic R-CUT rehearsal (disposable).
@@ -1477,9 +1669,14 @@ describe("L2-D2 S4 R-CUT deterministic rehearsal", () => {
     // Q12 RO fallback product path: NOT IMPLEMENTED — left OPEN.
   });
 });
+
 ```
 
-### DIFF: db.ts
+---
+## 16. MODIFIED FILES — FULL DIFF vs origin/main
+
+### DIFF: `projects/sfia-studio/app/lib/d1/db.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/d1/db.ts b/projects/sfia-studio/app/lib/d1/db.ts
 index 962e9c29..8af49898 100644
@@ -1527,9 +1724,11 @@ index 962e9c29..8af49898 100644
  export function nowIso(): string {
    return new Date().toISOString();
  }
+
 ```
 
-### DIFF: index.ts
+### DIFF: `projects/sfia-studio/app/lib/oa/project/index.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
 index 770c0187..6aafb918 100644
@@ -1550,9 +1749,11 @@ index 770c0187..6aafb918 100644
 
  import type {
    ClockPort,
+
 ```
 
-### DIFF: injected guards
+### DIFF: `projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts`
+
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts b/projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts
 index cfe62bba..8ed89cbf 100644
@@ -1638,9 +1839,30 @@ index cfe62bba..8ed89cbf 100644
      ).c;
      expect(after).toBe(1);
    });
+
 ```
 
-### DIFF: PRR
+### DIFF: `projects/sfia-studio/production-runtime-reference/README.md`
+
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
+index 0367ea7b..a9f20a18 100644
+--- a/projects/sfia-studio/production-runtime-reference/README.md
++++ b/projects/sfia-studio/production-runtime-reference/README.md
+@@ -46,6 +46,8 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
+
+ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · eight Cycle-14 digests on main · **R-01 exit proof satisfied** · formal close **NOT CONSUMED** · digest match ≠ semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**) · code L2-D2 remains DEFAULT OFF / NOT ACTIVATED (PR #614 distinct).
+
++**G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (IMPLEMENTED — DET scope — 2026-10-25):** Product `VACUUM INTO` snapshot/restore (closed_copy unavailable; RO integrity) · `openD1Db` native **allowlist** Proxy (closes `setAuthorizer`/`createTagStore`/`deserialize`/deferred `iterate` escapes — **CR-S2-01/02**) · D4 DET harness · R-CUT DET rehearsal (exclusive held; disposable RO D1 oracle ≠ Q12). Volumes 05–09 describe this behaviour. **Operational anti-claims (unchanged by Git Integration):** exclusive **DEFAULT OFF / NOT ACTIVATED** · G-ACTIVATION / G-REAL **NOT GRANTED** · H4 real instance **NOT QUALIFIED** · D4 HTTP LIVE / R-CUT LIVE **NOT PROVEN** · raw `new DatabaseSync` outside `openD1Db` **KNOWN GAP** · Q12 **OPEN** · runtime v3 **NON ADOPTED**.
++
+ ## What this corpus is
+
+ This corpus describes **how SFIA Studio actually works now** in the checked-out Git tree:
+
+```
+
+### DIFF: `projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md`
+
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
 index bd52a599..e2193a5a 100644
@@ -1661,8 +1883,14 @@ index bd52a599..e2193a5a 100644
 +| Dual-write | None — Product Truth C writes allowed under exclusive ; D1 applicative writers refuse |
 +| Anti-claims | DET harness identity **≠** qualified operational instance · G-REAL / G-ACTIVATION **NOT GRANTED** by this overlay |
 +| S4 D1 oracle | Disposable `{ readOnly: true }` file open under exclusive ON — diagnostic only · **≠** marker OFF rollback · **≠** Q12 product RO fallback |
+
+```
+
+### DIFF: `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
+
+```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index f2e9a658..47b891b6 100644
+index f2e9a658..2621353c 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 +++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 @@ -107,23 +107,26 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
@@ -1677,7 +1905,7 @@ index f2e9a658..47b891b6 100644
 +| Backups / snapshot | **DET PROVEN AT SYNTHETIC SCOPE** (S1 + **CR-S1-01**) via operational `VACUUM INTO` only · `closed_copy` **REMOVED from operational contract** (`CLOSED_COPY_UNAVAILABLE` — WAL absence ≠ quiescence) · RO `PRAGMA integrity_check` without Product migration · debt `R-L2D2-SQLITE-SNAPSHOT` **PARTIAL** · LIVE/H4 **NOT PROVEN** |
 +| Restart | DET reopen / singleton reset / M1 + S4 DET R-CUT (exclusive stays ON; D1 oracle = disposable `readOnly` open) · **R-CUT LIVE** = **NOT PROVEN** |
 +| Residual boundary | `openD1Db` allowlist Proxy (`prepare`/`exec`/`close`) + non-exposable `setAuthorizer` + Statement `run`/`get`/`all` gated / `iterate` refuse-always (**CR-S2-01/02**) · unwrapped `new DatabaseSync` outside `openD1Db` = **KNOWN GAP** |
-+| Proof | freeze + injected + O-01 + D5 + M1 + S1–S4 DET (**CORR-01 revalidated**) — local Delivery candidate · not yet project-merged |
++| Proof | freeze + injected + O-01 + D5 + M1 + S1–S4 DET (**CORR-01 / CR-S2-02 revalidated**) — **DETERMINISTIC AT TESTED SCOPE** |
 +| Anti-claims | Exclusive **not** ACTIVATED · cutover LIVE **not** proven · DET snapshot **≠** H4 real instance PASS · S4 RO diagnostic **≠** Q12 · **≠** exclusive OFF rollback |
 
  ### Debt — `R-L2D2-SQLITE-SNAPSHOT` (operational, pre–G-ACTIVATION)
@@ -1705,8 +1933,14 @@ index f2e9a658..47b891b6 100644
 
  ## Additional stores (harvest)
 
+
+```
+
+### DIFF: `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md`
+
+```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 7a2d0c7e..c7f60234 100644
+index 7a2d0c7e..062a920d 100644
 --- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 +++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 @@ -113,10 +113,12 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
@@ -1714,8 +1948,8 @@ index 7a2d0c7e..c7f60234 100644
  | INV-L2D2-CONFIRM-NO-ONDONE-ON-REFUSAL | UI must not treat refused confirmation as success (`ConfirmationPanel` skips `onDone` on `!ok`) | `ConfirmationPanel.tsx` + tests | CURRENT IMPLEMENTED · DET |
  | INV-L2D2-NO-MUTATION-VIA-GUARDED-APIS | No D1 write via guarded repository/audit APIs under exclusive (incl. injected connection) | injected suite | CURRENT IMPLEMENTED · DET |
 -| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests | CURRENT IMPLEMENTED · DET · LIVE HTTP NOT PROVEN |
-+| INV-L2D2-OPEN-HANDLE-MUTATION-GATED | `openD1Db` Proxy **allowlist** (`prepare`/`exec`/`close` + safe getters) + native `setAuthorizer` (not exposable): under exclusive, prepare/exec/Statement `run|get|all` refuse (`D1Error`); `iterate` refused always (deferred-escape); `setAuthorizer`/`createTagStore`/`deserialize`/session/changeset/extension/UDF refused (**CR-S2-01 + CR-S2-02**) | `wrapD1DatabaseSyncForExclusiveGate.ts` / S2 suite | LOCAL DELIVERY CANDIDATE · DET · not yet project-merged |
-+| INV-L2D2-SINGLETON-SEAL-ON-CUTOVER | `sealD1DbSingletonForLocalOaExclusiveCutover` closes process singleton before exclusive arming | `db.ts` / S2+S4 | LOCAL DELIVERY CANDIDATE · DET |
++| INV-L2D2-OPEN-HANDLE-MUTATION-GATED | `openD1Db` Proxy **allowlist** (`prepare`/`exec`/`close` + safe getters) + native `setAuthorizer` (not exposable): under exclusive, prepare/exec/Statement `run|get|all` refuse (`D1Error`); `iterate` refused always (deferred-escape); `setAuthorizer`/`createTagStore`/`deserialize`/session/changeset/extension/UDF refused (**CR-S2-01 + CR-S2-02**) | `wrapD1DatabaseSyncForExclusiveGate.ts` / S2 suite | CURRENT IMPLEMENTED · DET |
++| INV-L2D2-SINGLETON-SEAL-ON-CUTOVER | `sealD1DbSingletonForLocalOaExclusiveCutover` closes process singleton before exclusive arming | `db.ts` / S2+S4 | CURRENT IMPLEMENTED · DET |
 +| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests + S3 harness | CURRENT IMPLEMENTED · DET · LIVE HTTP NOT PROVEN |
  | INV-REC-NE-HD / INV-MEMB-NE-TRUTHC | Recommendation ≠ HD ; Memory B ≠ Truth C | existing catalog | CURRENT IMPLEMENTED |
 
@@ -1724,15 +1958,21 @@ index 7a2d0c7e..c7f60234 100644
 
  **Failure mode (when exclusive ON):** D1 create/confirm refused ; Product OA create path remains the target continuity surface.
 
+
+```
+
+### DIFF: `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
+
+```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index eb0601e3..7b6e0a9d 100644
+index eb0601e3..9d02495d 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 @@ -23,6 +23,17 @@
 
  **Batch cited:** CORR-02 / G-GIT pre-commit — **31 PASS / 7 files**. Post-merge CI [#40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **SUCCESS** on merge `1a0ccd84…`. SQLite = `os.tmpdir()` only for DET. **LIVE Studio / Application Support / R-CUT / D4 HTTP: NOT PROVEN.** Q15 global: **PARTIAL**.
 
-+## Overlay — AKG-M5 L2-D2 G-ACTIVATION PREPARATION S1–S4 + CORR-01 (LOCAL DELIVERY CANDIDATE — DET — 2026-10-25)
++## Overlay — AKG-M5 L2-D2 G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (IMPLEMENTED — DET — 2026-10-25)
 +
 +| Suite file | What it proves | Class |
 +|---|---|---|
@@ -1741,13 +1981,19 @@ index eb0601e3..7b6e0a9d 100644
 +| `l2d2S3D4HttpReadinessHarness.test.ts` | Marker OFF/ON ; generic→`/studio` ; deep link notFound ; no mapper ; OPS1 OUT | DET · **≠** HTTP LIVE |
 +| `l2d2S4RcutDeterministicRehearsal.test.ts` | Integrated rehearsal ; exclusive **stays ON** ; final D1 oracle = disposable `readOnly` (not marker OFF) ; oracle non-mutating ; Q12 OPEN | DET · **≠** R-CUT LIVE |
 +
-+**CORR-01 revalidation:** S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 — **47 PASS / 10 files**. **Anti-claims:** DET ≠ LIVE · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · CONFORMANCE PASS **not** declared (manifest digests unsynced).
++**Integrated DET batch (pre-commit revalidation):** S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 — **52 PASS / 10 files** (includes CR-S2-02 suite growth). **Anti-claims:** DET ≠ LIVE · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · exclusive **DEFAULT OFF**.
 +
  ## Flow → tests (selected)
 
  | Flow | Deterministic tests | Notes |
+
+```
+
+### DIFF: `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+
+```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0ec067ee..8273bae5 100644
+index 0ec067ee..cb1b2673 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -15,13 +15,17 @@
@@ -1767,30 +2013,98 @@ index 0ec067ee..8273bae5 100644
  | P6 GLOBAL PASS | **NOT CLAIMED** |
  | Runtime v3 | **NON ADOPTED** · AKG-M5 GLOBAL **OPEN** |
 -| Exit path | **Historical:** [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · [CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **R-01 exit proof satisfied**. **Governance:** R-01 formal closure remains a distinct Morris decision (**NOT CONSUMED** / ≠ FORMALLY CLOSED). **Remaining product trajectory:** **G-ACTIVATION PREPARATION** only under distinct Morris GO · H4-env qualification · coherent SQLite snapshot/restore · D4 HTTP LIVE · R-CUT LIVE · then eventual GO Morris **G-ACTIVATION** (**NOT GRANTED**; ≠ preparation/activation authorization) |
-+| Exit path | G-ACTIVATION PREPARATION S1–S4 + **CORR-01** local DET candidate · **G-GIT / G-MANIFEST / G-REAL / G-ACTIVATION NOT GRANTED**. Remaining: digest sync after semantic review · H4 instance · D4 HTTP LIVE · R-CUT LIVE · raw-DB policy · then G-ACTIVATION |
++| Exit path | G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 **IMPLEMENTED at DET scope** (exclusive still **DEFAULT OFF**). **Remaining operational gates:** H4 real instance qualification · D4 HTTP LIVE · R-CUT LIVE · Q12 · raw-DB residual policy · then distinct Morris **G-REAL** / **G-ACTIVATION** (**NOT GRANTED** by this lot) |
 
  ## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
 
-diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index 0367ea7b..33fda299 100644
---- a/projects/sfia-studio/production-runtime-reference/README.md
-+++ b/projects/sfia-studio/production-runtime-reference/README.md
-@@ -46,6 +46,8 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
 
- Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · eight Cycle-14 digests on main · **R-01 exit proof satisfied** · formal close **NOT CONSUMED** · digest match ≠ semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**) · code L2-D2 remains DEFAULT OFF / NOT ACTIVATED (PR #614 distinct).
-
-+**G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (LOCAL DELIVERY CANDIDATE — 2026-10-25):** DET proofs for Product `VACUUM INTO` · `openD1Db` native **allowlist** Proxy (closes `setAuthorizer`/`createTagStore`/`deserialize`/deferred `iterate` escapes — **CR-S2-01/02**) · D4 DET · R-CUT rehearsal. Volumes 05–09 R24 in same lot. **Manifest digests NOT refreshed** (await G-MANIFEST). **Anti-claims:** G-ACTIVATION / G-REAL / H4 / D4 HTTP LIVE / R-CUT LIVE / G-GIT **NOT** granted · raw `new DatabaseSync` KNOWN GAP · Q12 OPEN · runtime v3 **NON ADOPTED**.
-+
- ## What this corpus is
-
- This corpus describes **how SFIA Studio actually works now** in the checked-out Git tree:
 ```
 
+### DIFF: `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
 
-## 8. Handoff L3 (pending fill)
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index c9e9cb24..1c9ae0fd 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -7,7 +7,7 @@
+   "volumes": [
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/README.md",
+-      "sha256_16": "c6b8457f7e51f32e"
++      "sha256_16": "508d21f295b578f5"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
+@@ -27,23 +27,23 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
+-      "sha256_16": "4e67c2e6acced70b"
++      "sha256_16": "aef317f3aa031be5"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+-      "sha256_16": "c9132f48db3f0608"
++      "sha256_16": "7fdf3ef0761118ca"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+-      "sha256_16": "24ae31d1e9d17e0f"
++      "sha256_16": "ad4c4774f42d6540"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "d9fe8e57cdef6442"
++      "sha256_16": "7f27c5740e1ad080"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "55665592d9c99ce5"
++      "sha256_16": "56d2f057722faedb"
+     }
+   ],
+   "components": [
 
-| Field | Value |
-|---|---|
-| Message | review(handoff): AKG-M5 L2-D2 CR-S2-02 |
-| Remote SHA | _(pending)_ |
-| Remote blob | _(pending)_ |
+```
+
+---
+## 17. Commit object
+```
+commit cdc9909d8adaa6b31df3b75e33e58a8d27c88317
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Sun Oct 25 06:30:47 2026 +0100
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Sun Oct 25 06:30:47 2026 +0100
+
+    feat(studio): prepare bounded OA-exclusive cutover safety
+
+    Add deterministic Product SQLite VACUUM INTO snapshot/restore, harden
+    openD1Db with a native allowlist Proxy (CR-S2-01/02), and cover D4/R-CUT
+    DET rehearsals with PRR R24 + targeted manifest digests. Exclusive remains
+    default OFF; no LIVE activation.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../d1/l2d2InjectedConnectionWriterGuards.test.ts  |  39 ++-
+ .../d1/l2d2S2RawDatabaseSyncExclusiveGate.test.ts  | 326 +++++++++++++++++++++
+ .../d1/l2d2S3D4HttpReadinessHarness.test.ts        | 112 +++++++
+ .../oa/project/l2d2S1ProductSqliteSnapshot.test.ts | 295 +++++++++++++++++++
+ .../l2d2S4RcutDeterministicRehearsal.test.ts       | 260 ++++++++++++++++
+ projects/sfia-studio/app/lib/d1/db.ts              |  14 +-
+ .../lib/d1/wrapD1DatabaseSyncForExclusiveGate.ts   | 186 ++++++++++++
+ projects/sfia-studio/app/lib/oa/project/index.ts   |   8 +
+ .../infrastructure/sqlite/productSqliteSnapshot.ts | 182 ++++++++++++
+ ...05-environments-configuration-and-boundaries.md |  11 +
+ .../06-persistence-restart-and-recovery.md         |  29 +-
+ .../07-authority-invariants-and-failure-modes.md   |   6 +-
+ .../08-test-proof-and-conformance-map.md           |  11 +
+ ...9-known-gaps-reserves-and-current-boundaries.md |  10 +-
+ .../production-runtime-reference/README.md         |   2 +
+ .../production-runtime-reference.manifest.json     |  12 +-
+ 16 files changed, 1466 insertions(+), 37 deletions(-)
+
+```
+
+## 18. End of pack body (handoff SHA/blob appended after L3 publish)
+END_OF_PACK_PRE_HANDOFF
