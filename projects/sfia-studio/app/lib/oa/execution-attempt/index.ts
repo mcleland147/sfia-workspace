@@ -139,7 +139,9 @@ export {
   buildMutatingCursorConfinementEnv,
   isMutatingGcecCursorProfile,
   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+  MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
   resolveMutatingConfinementEffectClass,
+  resolveMutatingCursorConfinement,
   MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
   MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
   REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
@@ -156,6 +158,8 @@ export {
   type SpawnPrimitive,
   type NodeCursorProcessRunnerOptions,
   type MutatingCursorConfinementEffectClass,
+  type MutatingCursorConfinementInput,
+  type MutatingCursorConfinementResolution,
 } from "./infrastructure/cursorCliLaunchGateway";
 export {
   assertLocalBranchRefMatchesExpectedSha,

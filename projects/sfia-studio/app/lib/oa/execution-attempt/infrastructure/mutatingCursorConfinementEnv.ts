@@ -1,14 +1,26 @@
 /**
- * D-GCEC-CONF-02A / D-GCEC-EXEC-01 — server-owned child env for mutating GCEC Cursor profiles.
+ * D-GCEC-CONF-02A / D-GCEC-EXEC-01 — server-owned child env for mutating Cursor launches.
+ *
+ * Effect class comes from server-owned authorized effects and sealed launch-profile
+ * flags (local commit / remote push / PR create / PR merge). A docs_write taxonomy
+ * flag is not an input and cannot turn confinement on or off.
  *
  * Effect-sensitive (CR-02):
- * - local (A docs_write + B local_commit): strip Git/GitHub/SSH write-auth channels
- * - remote_git (C git.push): preserve SSH / askpass channels; still strip GH tokens +
+ * - local (filesystem create/modify/delete, git.commit, local-commit profile):
+ *   strip Git/GitHub/SSH write-auth channels
+ * - remote_git (git.push): preserve SSH / askpass channels; still strip GH tokens +
  *   inherited GIT_CONFIG injection; then inject a Product-owned GitHub HTTPS credential
  *   helper overlay (`gh auth git-credential`) so non-interactive HTTPS push can use the
  *   host's stored gh session without restoring ~/.gitconfig or propagating GH_TOKEN
- * - remote_github (D/E pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize
+ * - remote_github (pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize
  *   GIT_CONFIG injection; no remote_git helper overlay
+ *
+ * Mixed local+remote, remote_git+remote_github, unknown effect ids, or disagreement
+ * between request authorized effects and the sealed slice fail closed. They do not
+ * silently select remote_git.
+ *
+ * Read-only / validation.run / empty authorized effects do not apply mutating
+ * confinement (credential keys stay; only inherited Cursor egress keys are stripped).
  *
  * CAPABILITY ≠ AUTHORITY: this grants a technical HTTPS auth path for remote_git only.
  * Destination/scope remain governed by ExecutionContract ∩ Confirmation ∩ gateway rules.
@@ -179,28 +191,180 @@ export function buildMutatingCursorConfinementEnv(
   return child as NodeJS.ProcessEnv;
 }
 
-export function isMutatingGcecCursorProfile(input: {
-  readonly isDocsWrite: boolean;
-  readonly isLocalCommitProfile: boolean;
+/**
+ * Local filesystem / local git effects share one credential policy.
+ * Distinct from AttemptExecutionProfile kinds: filesystem+git.commit is still
+ * `local` here (same strip), while local+remote is ambiguous.
+ */
+const LOCAL_MUTATING_EFFECTS: ReadonlySet<string> = new Set([
+  "filesystem.create",
+  "filesystem.modify",
+  "filesystem.delete",
+  "git.commit",
+]);
+const REMOTE_GIT_EFFECTS: ReadonlySet<string> = new Set(["git.push"]);
+const REMOTE_GITHUB_EFFECTS: ReadonlySet<string> = new Set([
+  "github.pr.create",
+  "github.pr.merge",
+]);
+/** Known non-mutating executable effect — does not select a confinement class. */
+const NON_MUTATING_EFFECTS: ReadonlySet<string> = new Set(["validation.run"]);
+
+export const MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON =
+  "mutating_confinement_effect_class_ambiguous" as const;
+
+export type MutatingCursorConfinementInput = {
+  /** Server-owned authorized effects on the launch request. */
+  readonly authorizedEffects?: readonly string[] | null;
+  /**
+   * Sealed AuthorizedExecutionSlice.authorizedEffects when the launch carries one.
+   * Disagreement with `authorizedEffects` fails closed.
+   */
+  readonly sealedAuthorizedEffects?: readonly string[] | null;
+  readonly isLocalCommitProfile?: boolean;
   readonly isRemotePushProfile?: boolean;
   readonly isPrCreateProfile?: boolean;
   readonly isPrMergeProfile?: boolean;
-}): boolean {
-  return (
-    input.isDocsWrite === true ||
-    input.isLocalCommitProfile === true ||
-    input.isRemotePushProfile === true ||
-    input.isPrCreateProfile === true ||
-    input.isPrMergeProfile === true
-  );
+};
+
+export type MutatingCursorConfinementResolution =
+  | {
+      readonly ok: true;
+      readonly apply: false;
+    }
+  | {
+      readonly ok: true;
+      readonly apply: true;
+      readonly effectClass: MutatingCursorConfinementEffectClass;
+    }
+  | {
+      readonly ok: false;
+      readonly reason: typeof MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON;
+    };
+
+function uniqueEffectSet(effects: readonly string[]): Set<string> {
+  return new Set(effects);
 }
 
-export function resolveMutatingConfinementEffectClass(input: {
-  readonly isRemotePushProfile?: boolean;
-  readonly isPrCreateProfile?: boolean;
-  readonly isPrMergeProfile?: boolean;
-}): MutatingCursorConfinementEffectClass {
-  if (input.isRemotePushProfile) return "remote_git";
-  if (input.isPrCreateProfile || input.isPrMergeProfile) return "remote_github";
-  return "local";
+function sameEffectSet(a: readonly string[], b: readonly string[]): boolean {
+  const left = uniqueEffectSet(a);
+  const right = uniqueEffectSet(b);
+  if (left.size !== right.size) return false;
+  for (const effect of left) {
+    if (!right.has(effect)) return false;
+  }
+  return true;
+}
+
+function classesFromEffects(effects: readonly string[]): {
+  local: boolean;
+  remoteGit: boolean;
+  remoteGithub: boolean;
+  unknown: boolean;
+} {
+  let local = false;
+  let remoteGit = false;
+  let remoteGithub = false;
+  let unknown = false;
+  for (const effect of effects) {
+    if (LOCAL_MUTATING_EFFECTS.has(effect)) local = true;
+    else if (REMOTE_GIT_EFFECTS.has(effect)) remoteGit = true;
+    else if (REMOTE_GITHUB_EFFECTS.has(effect)) remoteGithub = true;
+    else if (NON_MUTATING_EFFECTS.has(effect)) continue;
+    else unknown = true;
+  }
+  return { local, remoteGit, remoteGithub, unknown };
+}
+
+/**
+ * Classify mutating Cursor child-env policy from authorized effects and sealed
+ * profile flags. Mixed classes and unknown effect ids fail closed (never remote_git
+ * by precedence). Empty / validation-only input does not apply mutating confinement.
+ */
+export function resolveMutatingCursorConfinement(
+  input: MutatingCursorConfinementInput,
+): MutatingCursorConfinementResolution {
+  const requestEffects = input.authorizedEffects ?? null;
+  const sealedEffects = input.sealedAuthorizedEffects ?? null;
+  if (
+    requestEffects != null &&
+    sealedEffects != null &&
+    !sameEffectSet(requestEffects, sealedEffects)
+  ) {
+    return {
+      ok: false,
+      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+    };
+  }
+
+  const effects = sealedEffects ?? requestEffects;
+  const fromEffects =
+    effects == null
+      ? {
+          local: false,
+          remoteGit: false,
+          remoteGithub: false,
+          unknown: false,
+        }
+      : classesFromEffects(effects);
+
+  if (fromEffects.unknown) {
+    return {
+      ok: false,
+      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+    };
+  }
+
+  const local = fromEffects.local || input.isLocalCommitProfile === true;
+  const remoteGit = fromEffects.remoteGit || input.isRemotePushProfile === true;
+  const remoteGithub =
+    fromEffects.remoteGithub ||
+    input.isPrCreateProfile === true ||
+    input.isPrMergeProfile === true;
+
+  let classCount = 0;
+  if (local) classCount += 1;
+  if (remoteGit) classCount += 1;
+  if (remoteGithub) classCount += 1;
+  if (classCount > 1) {
+    return {
+      ok: false,
+      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+    };
+  }
+  if (classCount === 0) return { ok: true, apply: false };
+
+  const effectClass: MutatingCursorConfinementEffectClass = remoteGit
+    ? "remote_git"
+    : remoteGithub
+      ? "remote_github"
+      : "local";
+  return { ok: true, apply: true, effectClass };
+}
+
+/**
+ * True when mutating confinement must be considered.
+ * Ambiguous input returns true so callers cannot fall through to host-credential
+ * inheritance. Effect class for that case fails closed via
+ * {@link resolveMutatingCursorConfinement}.
+ */
+export function isMutatingGcecCursorProfile(
+  input: MutatingCursorConfinementInput,
+): boolean {
+  const resolved = resolveMutatingCursorConfinement(input);
+  if (!resolved.ok) return true;
+  return resolved.apply;
+}
+
+export function resolveMutatingConfinementEffectClass(
+  input: MutatingCursorConfinementInput,
+): MutatingCursorConfinementEffectClass {
+  const resolved = resolveMutatingCursorConfinement(input);
+  if (!resolved.ok) {
+    throw new Error(resolved.reason);
+  }
+  if (!resolved.apply) {
+    throw new Error("mutating_confinement_not_applicable");
+  }
+  return resolved.effectClass;
 }

@@ -94,7 +94,7 @@ describe("P6 project-scoped Cursor selection Delivery", () => {
   }) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `PSCS ${input.suffix}`,
+      name: "demo",
       objective: "Project-scoped Cursor selection",
       context: "det pscs",
       criticality: "STANDARD",

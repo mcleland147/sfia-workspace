@@ -11,6 +11,15 @@
 | Capability | What an agent *can* do technically |
 | Authority | What a Pilot/Morris *may* authorize |
 
+## Overlay — PR #618 mutating Cursor confinement (LOCAL CANDIDATE — 2026-10-25)
+
+| Item | Status |
+|---|---|
+| Policy | Confinement follows **authorized effects** + sealed Attempt profile flags (`local` / `remote_git` / `remote_github`), **not** a `docs_write` taxonomy flag. Mixed/ambiguous effect classes **fail closed** before spawn. |
+| Code | `resolveMutatingCursorConfinement` · `buildMutatingCursorConfinementEnv` · `StudioCursorRealLaunchGateway` |
+| Proof | `gcecMutatingCursorConfinementEnv.d0.test.ts` **DET** · **≠** REAL · **≠** MERGED ON MAIN |
+| Parent env | Unchanged; child env strip/helper overlay only |
+
 ## Inventory (selected, factual)
 
 | Name | Purpose | Required | Default/notes | Boundaries |

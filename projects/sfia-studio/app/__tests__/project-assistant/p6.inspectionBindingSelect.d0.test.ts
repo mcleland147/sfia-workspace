@@ -83,7 +83,7 @@ describe("P6 Select inspection binding (R1)", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `IBIND ${suffix}`,
+      name: "demo",
       objective: "Inspection binding Select",
       context: "det ibind",
       criticality: "STANDARD",

@@ -30,6 +30,8 @@ import {
 } from "@/lib/oa/cycle";
 import type { Project } from "@/lib/oa/project";
 import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
+import { isCapabilityWithinGenericPrepareEnvelope } from "@/features/project-assistant/w2/genericPrepareCapabilityEnvelope";
+import { resolveSealedGitTargetFromEnv } from "@/features/project-assistant/w2/resolveTrustedProductLaunchContext";
 import {
   assessProjectWorkspaceCollision,
   classifyArtifactWriteMode,
@@ -365,14 +367,27 @@ export function isBlankOrCanonicalDocsWriteOperation(raw: unknown): boolean {
 }
 
 /**
- * Specialized document-write effect is not a Product admission.
- * Always false: explicit continuation kinds fail closed; natural documentary
- * signals yield to NEW_CYCLE_FORMALIZATION and generic PREPARE / generalist.
+ * Product-admitted materialization effect for an active-cycle continuation.
+ * Only a generalist deliverable (intent read_only/other/absent, envelope
+ * capabilities, and a filename or target) is admitted. A retired specialized
+ * document-write kind, an elevated capability, or a pathless natural signal
+ * is not: explicit continuation then fail-closes, and natural signals yield
+ * to generic PREPARE.
  */
 export function hasCompatibleDocsWriteMaterializationEffect(
-  _analysis: IntentAnalysisDto,
+  analysis: IntentAnalysisDto,
 ): boolean {
-  return false;
+  const ei = analysis.executionIntent;
+  if (!ei) return false;
+  const kind = ei.intentKind?.trim() || null;
+  if (kind != null && kind !== "read_only" && kind !== "other") return false;
+  const elevated = (ei.requiredCapabilities ?? []).some(
+    (cap) =>
+      cap.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(cap),
+  );
+  if (elevated) return false;
+  const leaf = ei.artifactFileName?.trim() || ei.targetPath?.trim() || "";
+  return leaf.length > 0;
 }
 
 /**
@@ -664,12 +679,17 @@ export async function resolveActiveCycleGovernedContinuation(input: {
 
   // CR-PWR-03 — workspace collision before first materialization (automatic roots).
   // Automatic Product workspaces require a readable managed-repo fact (UNKNOWN ≠ ABSENT).
+  // Probe identity = sealed Git-target env witness (not Product RepositoryBinding).
   const pathRoot = repositoryBinding?.pathRoot?.trim() || "";
   const isAutomaticRoot =
     Boolean(pathRoot) && isAutomaticProjectWorkspacePathRoot(pathRoot);
   const managedBase = resolveManagedRepoRootBaseFromEnv();
+  const probeIdentity =
+    repositoryBinding?.identity?.trim() ||
+    resolveSealedGitTargetFromEnv()?.identity?.trim() ||
+    null;
 
-  if (isAutomaticRoot && repositoryBinding?.identity) {
+  if (isAutomaticRoot && probeIdentity) {
     if (!managedBase) {
       return {
         mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
@@ -691,7 +711,7 @@ export async function resolveActiveCycleGovernedContinuation(input: {
       projectId: input.project.projectId,
       pathRoot,
       workspaceKey: projectWorkspaceKey,
-      identity: repositoryBinding.identity,
+      identity: probeIdentity,
       managedRepoRootBase: managedBase,
     });
     if (
@@ -719,10 +739,11 @@ export async function resolveActiveCycleGovernedContinuation(input: {
 
   // CR-PWR-02 — repository existence + Evidence same-deliverable → CREATE/UPDATE/ASK.
   // Automatic Product workspace: UNKNOWN repo fact MUST fail closed (never null→CREATE).
+  // Probe uses sealed env identity — Project no longer carries Product Binding.
   const targetPath = enriched.executionIntent?.targetPath?.trim() || "";
   let withMode: ExecutionIntentPayload = { ...(enriched.executionIntent ?? {}) };
 
-  if (isAutomaticRoot && repositoryBinding?.identity) {
+  if (isAutomaticRoot && probeIdentity) {
     if (!managedBase || !targetPath) {
       return {
         mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
@@ -739,7 +760,7 @@ export async function resolveActiveCycleGovernedContinuation(input: {
     }
 
     const targetExists = probeManagedRepoRelativePathExists({
-      identity: repositoryBinding.identity,
+      identity: probeIdentity,
       repoRelativePath: targetPath,
       managedRepoRootBase: managedBase,
     });
@@ -809,6 +830,20 @@ export async function resolveActiveCycleGovernedContinuation(input: {
         enrichedExecutionIntent: withMode,
       };
     }
+  } else if (isAutomaticRoot && !probeIdentity) {
+    // O-01 Project without sealed Git-target env: cannot classify CREATE/UPDATE safely.
+    return {
+      mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+      activeCycle,
+      repositoryBinding,
+      needsTargetClarification: true,
+      clarificationReason: "repository_fact_unavailable",
+      enrichedExecutionIntent: {
+        ...withMode,
+        intentKind: "other",
+        artifactWriteMode: "ASK",
+      },
+    };
   }
 
   return {

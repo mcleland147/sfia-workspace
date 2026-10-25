@@ -24,6 +24,7 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
 import type { IntentAnalysisDto } from "../f2/types";
 import { isCapabilityWithinGenericPrepareEnvelope } from "./genericPrepareCapabilityEnvelope";
+import { resolveSealedGitTargetFromEnv } from "./resolveTrustedProductLaunchContext";
 
 export type ProductMaterialityCurrentness = {
   readonly lpsId: string;
@@ -365,7 +366,9 @@ export async function resolveAuthoritativeProductMateriality(input: {
         projectWorkspacePathRootFromKey(
           projectResult.project.projectWorkspaceKey,
         ) || null;
-      repositoryIdentity = null;
+      // Residual git-target seal (env), same witness as launch-context
+      // repositoryBindingIdentity. Not a Project repository-binding record.
+      repositoryIdentity = resolveSealedGitTargetFromEnv()?.identity ?? null;
     }
   }
 

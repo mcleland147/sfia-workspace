@@ -38,17 +38,15 @@ describe("FakeConversationProvider — user-valid artifact materialization", () 
   it("P1 — canonical natural FR request WITHOUT sentinel → materialization F2", async () => {
     const obj = await analyze(CANONICAL_NATURAL);
     expect(obj.intentClass).toBe("execution_request");
-    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
-    expect(obj.artifactMaterializationOperation).toBe(
-      "cursor.docs_write.apply",
-    );
+    expect(obj.continuationKind).toBeNull(); // AKG-M5: natural → Generic PREPARE, not specialized continuation
+    // Product specialization retired — FakeProvider no longer stamps docs_write.
+    expect(obj.artifactMaterializationOperation).toBeNull();
     expect(obj.executionIntent).toBeTruthy();
     const ei = obj.executionIntent as Record<string, unknown>;
     expect(ei.targetPath).toBe(
       "projects/sfia-studio/.sandbox/gestion-de-taches.md",
     );
-    expect(ei.intentKind).toBe("docs_write");
-    expect(ei.requiredCapabilities).toEqual(["cap:cursor.docs_write"]);
+    expect(ei.intentKind).toBe("other");
   });
 
   it("P2 — canonical natural request contains no fixture sentinel", () => {
@@ -76,12 +74,10 @@ N'exécute rien : prépare la proposition pour ma décision.`;
       "Matérialise le livrable attendu. N'exécute rien : prépare la proposition pour ma décision.",
     );
     expect(obj.intentClass).toBe("execution_request");
-    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
-    expect(obj.artifactMaterializationOperation).toBe(
-      "cursor.docs_write.apply",
-    );
+    expect(obj.continuationKind).toBeNull(); // AKG-M5: natural → Generic PREPARE, not specialized continuation
+    expect(obj.artifactMaterializationOperation).toBeNull();
     const ei = obj.executionIntent as Record<string, unknown>;
-    expect(ei.intentKind).toBe("docs_write");
+    expect(ei.intentKind).toBe("other");
     expect(ei.targetPath ?? null).toBeNull();
   });
 
@@ -90,10 +86,8 @@ N'exécute rien : prépare la proposition pour ma décision.`;
       "Matérialise cette spécification fonctionnelle comme livrable de référence du cycle, sans élargir le périmètre ni ajouter de choix techniques.",
     );
     expect(obj.intentClass).toBe("execution_request");
-    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
-    expect(obj.artifactMaterializationOperation).toBe(
-      "cursor.docs_write.apply",
-    );
+    expect(obj.continuationKind).toBeNull(); // AKG-M5: natural → Generic PREPARE, not specialized continuation
+    expect(obj.artifactMaterializationOperation).toBeNull();
     const ei = obj.executionIntent as Record<string, unknown>;
     expect(ei.targetPath ?? null).toBeNull();
     expect(String(ei.artifactBrief ?? "")).toMatch(/spécification fonctionnelle/i);
@@ -141,10 +135,8 @@ N'exécute rien : prépare la proposition pour ma décision.`,
       "Matérialise ce livrable __F2_ARTIFACT_MATERIALIZE__",
     );
     expect(obj.intentClass).toBe("execution_request");
-    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
-    expect(obj.artifactMaterializationOperation).toBe(
-      "cursor.docs_write.apply",
-    );
+    expect(obj.continuationKind).toBeNull(); // AKG-M5: natural → Generic PREPARE, not specialized continuation
+    expect(obj.artifactMaterializationOperation).toBeNull();
     const ei = obj.executionIntent as Record<string, unknown>;
     expect(ei.targetPath).toBe("docs/livrable-cycle.md");
   });
@@ -154,6 +146,7 @@ N'exécute rien : prépare la proposition pour ma décision.`,
       "Matérialise ce livrable __F2_ARTIFACT_HOSTILE_MERGE_OP__",
     );
     expect(obj.intentClass).toBe("execution_request");
+    // Hostile fixture keeps explicit continuationKind to prove fail-closed merge discrimination.
     expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
     expect(obj.artifactMaterializationOperation).toBeNull();
     expect(obj.requestedOperation).toBe("github.pr.merge");

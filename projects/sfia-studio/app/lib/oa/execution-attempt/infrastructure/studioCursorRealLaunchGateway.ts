@@ -55,8 +55,7 @@ import {
 } from "../domain/shellSafeArg";
 import {
   buildMutatingCursorConfinementEnv,
-  isMutatingGcecCursorProfile,
-  resolveMutatingConfinementEffectClass,
+  resolveMutatingCursorConfinement,
   stripInheritedCursorShellEgressEnv,
 } from "./mutatingCursorConfinementEnv";
 
@@ -929,24 +928,34 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           instruction,
         ];
 
-    // D-GCEC-CONF-02A / D-GCEC-EXEC-01: mutating A+B+C+D+E get server-owned env
-    // confinement; effect-sensitive (local vs remote_git vs remote_github).
-    // RO / other profiles keep minimal non-mutating spawn env (no auth strip).
-    // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
-    // Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
-    const childEnv: NodeJS.ProcessEnv = isMutatingGcecCursorProfile({
-      isDocsWrite: false,
+    // D-GCEC-CONF-02A / D-GCEC-EXEC-01: confinement follows authorized effects
+    // and sealed profile flags (local FS / local commit / remote_git / remote_github).
+    // Not a docs_write flag. RO / no mutating effects keep non-mutating spawn env.
+    // Mixed or unknown effect classes fail closed before spawn — never remote_git
+    // by precedence. Prompt forbids remain defense-in-depth — NOT the authority
+    // boundary. Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
+    const confinement = resolveMutatingCursorConfinement({
+      authorizedEffects: request.authorizedEffects,
+      sealedAuthorizedEffects:
+        request.authorizedExecutionSlice?.authorizedEffects,
       isLocalCommitProfile,
       isRemotePushProfile,
       isPrCreateProfile,
       isPrMergeProfile,
-    })
+    });
+    if (!confinement.ok) {
+      return {
+        outcome: "reject",
+        gatewayId: this.gatewayId,
+        attemptId: request.attemptId,
+        reason: confinement.reason,
+        realProcessInvoked: false,
+        detailCode: "REAL_AGENT_PROFILE_INVALID",
+      };
+    }
+    const childEnv: NodeJS.ProcessEnv = confinement.apply
       ? buildMutatingCursorConfinementEnv(this.env, {
-          effectClass: resolveMutatingConfinementEffectClass({
-            isRemotePushProfile,
-            isPrCreateProfile,
-            isPrMergeProfile,
-          }),
+          effectClass: confinement.effectClass,
         })
       : stripInheritedCursorShellEgressEnv({
           ...this.env,

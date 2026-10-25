@@ -327,7 +327,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
   }) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `D16 ${input.suffix}`,
+      name: "demo",
       objective: "Generic Nora tool invocation",
       context: "det der16",
       criticality: "STANDARD",

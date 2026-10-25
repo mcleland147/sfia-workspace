@@ -10,12 +10,15 @@
 | Item | Status |
 |---|---|
 | Decision | **DECIDED BY MORRIS 2026-10-25** |
-| Branch | `feat/akg-m5-remove-repository-binding-docs-write` — **LOCAL IMPLEMENTED** · **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED** |
+| Branch | `feat/akg-m5-remove-repository-binding-docs-write` — **LOCAL IMPLEMENTED** · Draft [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) · **CI RECONCILIATION corrective** in-cycle · **NOT MERGED** |
 | **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617 activation prep) still has server-owned RepositoryBinding, `SFIA_STUDIO_PROJECT_REPOSITORY_*`, and docs_write Product admission. PR #614 / #616 / #617 facts above and below stay main facts. |
 | RepositoryBinding | **RETIRED IN LOCAL DELIVERY** — CreateProject has no `repositoryBinding`; preflight / `.env.example` no longer require `PROJECT_REPOSITORY_*` |
 | docs_write Product specialization | **RETIRED IN LOCAL DELIVERY** — Product admission (`intentKind` / cap / action) removed from active lib+features. Historical docs_write rows later in this volume remain the **CURRENT ON MAIN** record (superseded history for the local candidate). |
 | Preserved | `projectWorkspaceKey` / `projects/<key>` routing |
 | Proof | O-01 DET **PASS** · typecheck **PASS** · **known regressions accepted** |
+| PR #618 CI Reconciliation (2026-10-25) | Baseline CI Vitest **301 FAIL / 65 files** (run `40207375690`). P0 effect-based Cursor confinement **DET PROVEN**. P1 write-mode CREATE/UPDATE/ASK uses sealed env probe identity (not Product Binding). Local triage of the 65: **21 PASS / 44 FAIL residual** (160 FAIL / 828 PASS in-set). Residuals: Git lifecycle / Agent01 / M3 docs_write prepare-execute / monolithic GCEC / some corrProof / UI trajectory. **≠** CI PASS claimed until post-push workflow proves it. |
+| KNOWN GAP — M3 bounded docs_write Execute | Historical `reachAuthorizedDocsWrite` / Fake docs_write launch path **RETIRED** with specialization. Deterministic Fake Execute via generalist for TOCTOU E2E is **not** re-proven in PWR application-path suite (routing→Authorize remains). |
+| KNOWN GAP — import deep paths | Prefer `@/lib/vertical-slice-runtime` barrel for managed-repo helpers (importBoundaries allowlist). |
 | Not granted | **H4 / G-REAL / G-ACTIVATION NOT GRANTED** · **AKG-M5 OPEN** · runtime v3 **NON ADOPTED** |
 | Anti-claim | ≠ **MERGED ON MAIN** |
 | CORR-01 — KNOWN GAP | `sameMacroClosure` helpers (`repositorySourcesFromProductFacts` / `normalize*Outcome`) lack a dedicated test after the docs_write suite retirement |

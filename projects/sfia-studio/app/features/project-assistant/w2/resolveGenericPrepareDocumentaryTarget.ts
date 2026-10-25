@@ -7,17 +7,27 @@
  * Nora path/filename proposals remain NON-AUTHORITATIVE candidates (D-PC-09).
  */
 
-import { enrichExecutionIntentFromBinding } from "../f2/activeCycleGovernedContinuation";
+import {
+  enrichExecutionIntentFromBinding,
+  isAutomaticProjectWorkspacePathRoot,
+} from "../f2/activeCycleGovernedContinuation";
 import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
 import type { IntentAnalysisDto } from "../f2/types";
 import type { ExecutionIntentPayload } from "../f2/executionIntentSchema";
 import {
+  classifyArtifactWriteMode,
   extractArtifactFileNameCandidate,
+  hasDurableSameArtifactEvidence,
   isSafeArtifactFileNameLeaf,
   resolveNonAuthoritativeDocumentaryArtifactLeafCandidate,
 } from "@/lib/oa/project/domain/artifactTargetRouting";
-import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  resolveManagedRepoRootBaseFromEnv,
+  type RuntimeOaStack,
+} from "@/lib/vertical-slice-runtime";
 import { collectConcreteMissionPaths } from "./resolveAuthoritativeProductMateriality";
+import { resolveSealedGitTargetFromEnv } from "./resolveTrustedProductLaunchContext";
 
 /**
  * Bare safe Markdown leaf (ex. note-de-cadrage.md) is a Nora filename candidate,
@@ -354,15 +364,117 @@ export async function resolveGenericPrepareDocumentaryTarget(input: {
   const resolvedLeaf =
     enriched.executionIntent.artifactFileName?.trim() || leaf || "";
 
+  // CR-PWR-02 — CREATE/UPDATE/ASK for automatic Project workspaces.
+  // Probe identity is the sealed Git-target env witness (not Product Binding).
+  let sealedIntent: ExecutionIntentPayload = { ...enriched.executionIntent };
+  const automaticRoot = binding.pathRoot.trim();
+  if (isAutomaticProjectWorkspacePathRoot(automaticRoot)) {
+    const managedBase = resolveManagedRepoRootBaseFromEnv();
+    const probeIdentity =
+      resolveSealedGitTargetFromEnv()?.identity?.trim() || null;
+    if (!managedBase || !probeIdentity) {
+      return {
+        kind: "needs_clarification",
+        analysis: {
+          ...analysis,
+          executionIntent: {
+            ...sealedIntent,
+            artifactWriteMode: "ASK",
+          },
+        },
+        code: "DOCUMENTARY_TARGET_UNRESOLVED",
+        message:
+          "Fait dépôt managé indisponible pour classer CREATE/UPDATE — clarification Pilote requise (fail-closed).",
+        documentaryTargetResolution: "unresolved_needs_clarification",
+        resolvedAuthoritativeTargetPath: null,
+      };
+    }
+
+    const targetExists = probeManagedRepoRelativePathExists({
+      identity: probeIdentity,
+      repoRelativePath: resolvedPath,
+      managedRepoRootBase: managedBase,
+    });
+    if (targetExists === null) {
+      return {
+        kind: "needs_clarification",
+        analysis: {
+          ...analysis,
+          executionIntent: {
+            ...sealedIntent,
+            artifactWriteMode: "ASK",
+          },
+        },
+        code: "DOCUMENTARY_TARGET_UNRESOLVED",
+        message:
+          "Existence du fichier cible inconnue (clone/base managé) — clarification Pilote requise (fail-closed).",
+        documentaryTargetResolution: "unresolved_needs_clarification",
+        resolvedAuthoritativeTargetPath: null,
+      };
+    }
+
+    let intentClearlySameDeliverable: boolean | undefined;
+    if (targetExists === true) {
+      let evidenceList: ReadonlyArray<{
+        type?: string;
+        source?: string;
+        sourceKind?: string;
+        location?: string;
+        status?: string;
+        availability?: string;
+        bindings?: { projectId?: string };
+      }> = [];
+      let evidenceReadOk = false;
+      if (input.oa.evidenceReviewServices) {
+        try {
+          evidenceList =
+            await input.oa.evidenceReviewServices.repository.listByProject(
+              input.projectId,
+            );
+          evidenceReadOk = true;
+        } catch {
+          evidenceReadOk = false;
+        }
+      }
+      intentClearlySameDeliverable = evidenceReadOk
+        ? hasDurableSameArtifactEvidence({
+            projectId: input.projectId,
+            targetPath: resolvedPath,
+            evidence: evidenceList,
+          })
+        : false;
+    }
+
+    const artifactWriteMode = classifyArtifactWriteMode({
+      targetExists,
+      intentClearlySameDeliverable,
+    });
+    sealedIntent = { ...sealedIntent, artifactWriteMode };
+
+    if (artifactWriteMode === "ASK") {
+      return {
+        kind: "needs_clarification",
+        analysis: {
+          ...analysis,
+          executionIntent: sealedIntent,
+        },
+        code: "DOCUMENTARY_TARGET_UNRESOLVED",
+        message:
+          "Mode d'écriture ASK — fichier existant sans Evidence exacte du même livrable, ou fait ambigu. Clarification Pilote requise (aucun overwrite silencieux).",
+        documentaryTargetResolution: "unresolved_needs_clarification",
+        resolvedAuthoritativeTargetPath: null,
+      };
+    }
+  }
+
   return {
     kind: "resolved",
     analysis: {
       ...analysis,
-      executionIntent: enriched.executionIntent,
+      executionIntent: sealedIntent,
     },
     resolvedAuthoritativeTargetPath: resolvedPath,
-    cycleWorkspaceRoot:
-      enriched.executionIntent.scopeIn?.[0]?.trim() || null,
+    cycleWorkspaceRoot: sealedIntent.scopeIn?.[0]?.trim() || null,
     artifactFileName: resolvedLeaf,
     documentaryTargetResolution: "resolved_product",
     proposedTargetPath,

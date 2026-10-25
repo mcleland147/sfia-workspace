@@ -11,16 +11,19 @@ import {
   assertStudioCursorRealOffForTests,
   buildMutatingCursorConfinementEnv,
   isMutatingGcecCursorProfile,
-  M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_BOUNDED_PR_CREATE_ACTION,
   M4_BOUNDED_REMOTE_PUSH_ACTION,
   M4_BOUNDED_RO_ACTION,
   M4_REAL_GATEWAY_ADAPTER_ID,
+  MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
   REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
   REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE,
   resolveMutatingConfinementEffectClass,
+  resolveMutatingCursorConfinement,
   SFIA_STUDIO_CURSOR_REAL_FLAG,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
   StudioCursorRealLaunchGateway,
 } from "@/lib/oa/execution-attempt";
 import { FakeProcessRunner } from "./support/fakeProcessRunner";
@@ -175,15 +178,24 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     const child = buildMutatingCursorConfinementEnv(base);
     assertSanitizedChild(child);
     expect(base).toEqual(snapshot);
-    expect(isMutatingGcecCursorProfile({ isDocsWrite: true, isLocalCommitProfile: false })).toBe(
-      true,
-    );
-    expect(isMutatingGcecCursorProfile({ isDocsWrite: false, isLocalCommitProfile: true })).toBe(
-      true,
-    );
-    expect(isMutatingGcecCursorProfile({ isDocsWrite: false, isLocalCommitProfile: false })).toBe(
-      false,
-    );
+    expect(
+      isMutatingGcecCursorProfile({
+        authorizedEffects: ["filesystem.create", "filesystem.modify"],
+        isLocalCommitProfile: false,
+      }),
+    ).toBe(true);
+    expect(
+      isMutatingGcecCursorProfile({ isLocalCommitProfile: true }),
+    ).toBe(true);
+    expect(
+      isMutatingGcecCursorProfile({
+        authorizedEffects: [],
+        isLocalCommitProfile: false,
+      }),
+    ).toBe(false);
+    expect(
+      isMutatingGcecCursorProfile({ authorizedEffects: ["validation.run"] }),
+    ).toBe(false);
   });
 
   function gateway(baseEnv: NodeJS.ProcessEnv) {
@@ -316,6 +328,9 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     expect(resolveMutatingConfinementEffectClass({ isRemotePushProfile: true })).toBe(
       "remote_git",
     );
+    expect(
+      resolveMutatingConfinementEffectClass({ authorizedEffects: ["git.push"] }),
+    ).toBe("remote_git");
     const child = buildMutatingCursorConfinementEnv(base, {
       effectClass: "remote_git",
     });
@@ -470,10 +485,181 @@ describe("D-GCEC-CONF-02A mutating Cursor confinement env", () => {
     expect(runner.calls[3]!.env.GIT_CONFIG_KEY_0).toBeUndefined();
     expect(
       isMutatingGcecCursorProfile({
-        isDocsWrite: false,
+        authorizedEffects: ["git.push"],
         isLocalCommitProfile: false,
         isRemotePushProfile: true,
       }),
     ).toBe(true);
+    expect(
+      resolveMutatingCursorConfinement({ authorizedEffects: ["git.push"] }),
+    ).toEqual({ ok: true, apply: true, effectClass: "remote_git" });
+  });
+
+  function generalistRequest(
+    overrides: Record<string, unknown> = {},
+  ): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
+    return baseRequest({
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
+      cursorMissionPrompt: "Apply the authorized workspace change.",
+      authorizedEffects: ["filesystem.create", "filesystem.modify"],
+      authorizedExecutionSlice: {
+        authorizedEffects: ["filesystem.create", "filesystem.modify"],
+        blockedEffects: [],
+      },
+      ...overrides,
+    });
+  }
+
+  it("generalist local FS mutation strips SSH, GH tokens, and hostile GIT_CONFIG", async () => {
+    const base = hostileBaseEnv();
+    const baseSnap = { ...base };
+    const { gw, runner } = gateway(base);
+    const result = await gw.launch(
+      generalistRequest({ attemptId: "xat:generalist-local-fs" }),
+    );
+    expect(result.outcome).toBe("ack");
+    expect(runner.calls).toHaveLength(1);
+    assertSanitizedChild(runner.calls[0]!.env);
+    expect(runner.calls[0]!.env.SSH_AUTH_SOCK).toBeUndefined();
+    expect(runner.calls[0]!.env.GH_TOKEN).toBeUndefined();
+    expect(runner.calls[0]!.env.GITHUB_TOKEN).toBeUndefined();
+    expect(runner.calls[0]!.env.GIT_CONFIG_PARAMETERS).toBeUndefined();
+    expect(runner.calls[0]!.env.GIT_CONFIG_COUNT).toBeUndefined();
+    expect(runner.calls[0]!.env.GIT_CONFIG_KEY_0).toBeUndefined();
+    expect(runner.calls[0]!.env.GIT_CONFIG_VALUE_0).toBeUndefined();
+    expect(
+      resolveMutatingConfinementEffectClass({
+        authorizedEffects: ["filesystem.modify"],
+      }),
+    ).toBe("local");
+    expect(base).toEqual(baseSnap);
+  });
+
+  it("validation.run and empty effects do not apply mutating confinement", async () => {
+    const base = hostileBaseEnv();
+    const { gw, runner } = gateway(base);
+    expect(
+      resolveMutatingCursorConfinement({ authorizedEffects: ["validation.run"] }),
+    ).toEqual({ ok: true, apply: false });
+    expect(resolveMutatingCursorConfinement({ authorizedEffects: [] })).toEqual({
+      ok: true,
+      apply: false,
+    });
+    const validation = await gw.launch(
+      generalistRequest({
+        attemptId: "xat:generalist-validation",
+        authorizedEffects: ["validation.run"],
+        authorizedExecutionSlice: {
+          authorizedEffects: ["validation.run"],
+          blockedEffects: [],
+        },
+        cursorMissionPrompt: "Run the authorized validation only.",
+      }),
+    );
+    expect(validation.outcome).toBe("ack");
+    expect(runner.calls[0]!.env.SSH_AUTH_SOCK).toBe("TEST_SSH_SOCKET");
+    expect(runner.calls[0]!.env.GH_TOKEN).toBe("TEST_GH_TOKEN");
+    expect(runner.calls[0]!.env.GIT_CONFIG_PARAMETERS).toBe(
+      "'credential.helper=osxkeychain'",
+    );
+    expect(runner.calls[0]!.env.GIT_CONFIG_NOSYSTEM).toBeUndefined();
+  });
+
+  it("mixed local+remote effects fail closed and do not select remote_git", async () => {
+    const base = hostileBaseEnv();
+    const baseSnap = { ...base };
+    const mixed = ["filesystem.modify", "git.push"] as const;
+    expect(isMutatingGcecCursorProfile({ authorizedEffects: mixed })).toBe(true);
+    expect(resolveMutatingCursorConfinement({ authorizedEffects: mixed })).toEqual({
+      ok: false,
+      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+    });
+    expect(() =>
+      resolveMutatingConfinementEffectClass({
+        authorizedEffects: mixed,
+        isRemotePushProfile: true,
+      }),
+    ).toThrow(MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON);
+    expect(
+      resolveMutatingCursorConfinement({
+        authorizedEffects: ["filesystem.create", "filesystem.modify", "git.commit"],
+      }),
+    ).toEqual({ ok: true, apply: true, effectClass: "local" });
+    expect(
+      resolveMutatingCursorConfinement({
+        authorizedEffects: ["filesystem.delete"],
+      }),
+    ).toEqual({ ok: true, apply: true, effectClass: "local" });
+    expect(
+      resolveMutatingCursorConfinement({
+        authorizedEffects: ["filesystem.read"],
+      }),
+    ).toEqual({
+      ok: false,
+      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+    });
+    expect(
+      resolveMutatingCursorConfinement({
+        authorizedEffects: ["git.push", "github.pr.create"],
+      }),
+    ).toEqual({
+      ok: false,
+      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+    });
+
+    const { gw, runner } = gateway(base);
+    const result = await gw.launch(
+      generalistRequest({
+        attemptId: "xat:generalist-mixed",
+        authorizedEffects: [...mixed],
+        authorizedExecutionSlice: {
+          authorizedEffects: [...mixed],
+          blockedEffects: [],
+        },
+      }),
+    );
+    expect(result.outcome).toBe("reject");
+    if (result.outcome === "reject") {
+      expect(result.reason).toBe(
+        MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+      );
+      expect(result.realProcessInvoked).toBe(false);
+      expect(result.detailCode).toBe("REAL_AGENT_PROFILE_INVALID");
+    }
+    expect(runner.calls).toHaveLength(0);
+    expect(base).toEqual(baseSnap);
+  });
+
+  it("sealed slice disagreement with request effects fails closed", async () => {
+    const base = hostileBaseEnv();
+    const { gw, runner } = gateway(base);
+    expect(
+      resolveMutatingCursorConfinement({
+        authorizedEffects: ["filesystem.modify"],
+        sealedAuthorizedEffects: ["git.push"],
+        isRemotePushProfile: true,
+      }),
+    ).toEqual({
+      ok: false,
+      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+    });
+    const result = await gw.launch(
+      generalistRequest({
+        attemptId: "xat:generalist-slice-disagree",
+        authorizedEffects: ["filesystem.modify"],
+        authorizedExecutionSlice: {
+          authorizedEffects: ["git.push"],
+          blockedEffects: [],
+        },
+      }),
+    );
+    expect(result.outcome).toBe("reject");
+    if (result.outcome === "reject") {
+      expect(result.reason).toBe(
+        MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+      );
+    }
+    expect(runner.calls).toHaveLength(0);
   });
 });

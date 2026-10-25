@@ -354,10 +354,13 @@ function buildArtifactMaterializationAnalysis(input: {
     contradictionCandidate: null,
     // Do not pre-satisfy MW5 — product Fake must not mask structural challenge.
     challengeResponseAssessment: input.challengeResponseAssessment ?? null,
-    continuationKind: "active_cycle_artifact_materialization",
+    // AKG-M5: do not stamp retired specialized continuationKind — natural
+    // documentary signal routes to Generic PREPARE / generalist (D-ER-16…19).
+    // Explicit kind without admitted effect fail-closes incompatible_execution_intent.
+    continuationKind: null,
     artifactMaterializationOperation: null,
     objective: "Matérialiser le livrable requis du cycle actif",
-    scope: "docs_write borné — cycle actif — aucune exécution automatique",
+    scope: "documentary generalist — cycle actif — aucune exécution automatique",
     rephrasedRequest: "Matérialisation gouvernée du livrable requis",
     outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
     risks: ["Confusion continuation / nouvelle formalisation"],

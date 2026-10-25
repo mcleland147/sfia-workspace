@@ -74,7 +74,7 @@ function structuralAnalysis(overrides?: {
     reservations: overrides?.reservations ?? ["Réserve A"],
     stopConditions: overrides?.stopConditions ?? ["STOP_A"],
     executionIntent: {
-      intentKind: "code_change",
+      intentKind: "other",
       scopeIn: ["projects/demo/src/mhd02-corr"],
       requiredCapabilities: [],
       requestedOperation: "refactor-corr",
@@ -141,7 +141,7 @@ describe("P6 M-HD-02 mission identity / continuity / session / replay", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHD02C ${suffix}`,
+      name: "demo",
       objective: "M-HD-02 correction",
       context: "det mhd02c",
       criticality: "STANDARD",
@@ -218,7 +218,7 @@ describe("P6 M-HD-02 mission identity / continuity / session / replay", () => {
       ...structuralAnalysis({ risks: ["R1"] }),
       expectedOutcome: "Résultat matériellement différent",
       executionIntent: {
-        intentKind: "code_change",
+        intentKind: "other",
         scopeIn: ["projects/demo/src/mhd02-corr"],
         requiredCapabilities: [],
         requestedOperation: "other-op",

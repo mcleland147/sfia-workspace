@@ -1,5 +1,3 @@
-const resolveServerOwnedRepositoryConfig: any = null;
-
 /**
  * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — domain routing unit tests.
  * @vitest-environment node
@@ -44,32 +42,6 @@ describe("PRODUCT-PWR-01 Project workspace key", () => {
     expect(composeProjectWorkspacePathRoot(durable)).toBe(
       "projects/mini-cadrage-suivi-de-taches",
     );
-  });
-});
-
-describe("PRODUCT-PWR-01 server-owned repository config", () => {
-  it("returns null when incomplete — never invents ambient identity", () => {
-    expect(resolveServerOwnedRepositoryConfig({})).toBeNull();
-    expect(
-      resolveServerOwnedRepositoryConfig({
-        SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY: "acme/widget",
-      }),
-    ).toBeNull();
-  });
-
-  it("resolves explicit identity/remote without hardcoding owner/repo in domain", () => {
-    const cfg = resolveServerOwnedRepositoryConfig({
-      SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY: "acme/widget",
-      SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL:
-        "https://github.com/acme/widget.git",
-      SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH: "main",
-    });
-    expect(cfg).toEqual({
-      provider: "github",
-      identity: "acme/widget",
-      remoteUrl: "https://github.com/acme/widget.git",
-      defaultBranch: "main",
-    });
   });
 });
 

@@ -4,6 +4,14 @@
 
 **Amendement documentaire D-P6-SHE-01 (requalifié AKG-M3 G6 — 2026-10-21) :** SINGLE HUMAN EXECUTE / Option A est **CURRENT ON MAIN** — Product integrated via **PR #590** merge `c9abdbc3` (ancestor of main tip `c2b3d00c…`). DETERMINISTIC at tested scope. Les invariants SHE ci-dessous restent CURRENT. Les invariants « STRUCTURAL PREPARE requires HD » restent **HISTORICAL / disposition-before-PREPARE** (chemin encore disponible) — ils ne bloquent plus l’inspectable PREPARE sous SHE. Prior wording « CURRENT on Delivery / PR DRAFT pending merge / NOT INTEGRATED ON MAIN » is **HISTORICAL**. ≠ REAL/HQA PROVEN · ≠ P6 GLOBAL PASS · runtime v3 NON ADOPTED.
 
+## Overlay — PR #618 effect-based confinement + write-mode without Product Binding (LOCAL CANDIDATE — 2026-10-25)
+
+| ID | Statement | Status |
+|---|---|---|
+| INV-CONFINE-BY-EFFECT | Mutating Cursor child env follows authorized effects / sealed slice — **not** `isDocsWrite` | **LOCAL CANDIDATE** DET · **NOT ON MAIN** |
+| INV-WRITE-MODE-NO-BINDING | CREATE/UPDATE/ASK for automatic `projects/<key>` uses sealed env probe identity + managed base — **not** `Project.repositoryBinding` | **LOCAL CANDIDATE** DET (PWR routing) · **NOT ON MAIN** |
+| INV-NO-RESTORE-DOCS-WRITE | docs_write Product admission remains **RETIRED** on this branch | **LOCAL CANDIDATE** |
+
 ## Invariant catalog — CURRENT IMPLEMENTED
 
 | ID | Statement | Enforcing code (examples) | Tests | Epistemic |

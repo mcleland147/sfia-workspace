@@ -84,7 +84,7 @@ function structuralAnalysis(overrides?: {
     risks: overrides?.risks ?? ["RISK_MATERIAL"],
     reservations: overrides?.reservations ?? ["RES_BLOCKING"],
     executionIntent: {
-      intentKind: overrides?.intentKind ?? "code_change",
+      intentKind: overrides?.intentKind ?? "other",
       artifactType: overrides?.artifactType ?? "module",
       scopeIn: [scope],
       requiredCapabilities: [],
@@ -101,6 +101,12 @@ function cloneMutated(
   const copy = structuredClone(contract) as ExecutionContract;
   mutate(copy);
   return copy;
+}
+
+function driftSealedGitTarget(identity: string): void {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = identity;
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+    `https://github.com/${identity}.git`;
 }
 
 describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
@@ -146,7 +152,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHDECHD ${suffix}`,
+      name: "demo",
       objective: "M-HD-01 EC/HD binding",
       context: "det echd",
       criticality: "STANDARD",
@@ -379,7 +385,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
     it("EC08 — intentKind / artifactType divergents → REFUS", async () => {
       const ctx = await prepareStructuralWithHd("ec08");
       const mutated = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, intentKind: "docs_write", artifactType: "doc" };
+        c.inputs = { ...c.inputs, intentKind: "read_only", artifactType: "doc" };
       });
       const v = await verifyGenericMissionHumanDecisionForContract({
         oa: ctx.oa,
@@ -518,8 +524,9 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
       expect(v.code).toBe("HD_ABSENT");
     });
 
-    it("EC16 — Repository binding divergent → REFUS", async () => {
+    it("EC16 — sealed git-target divergent → REFUS", async () => {
       const ctx = await prepareStructuralWithHd("ec16");
+      driftSealedGitTarget("acme/mhd-echd-mutated");
       const confirmed = await confirmExecutionContractForAuthorization({
         oa: ctx.oa,
         projectId: ctx.projectId,
@@ -549,7 +556,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
         stopConditions: ["STOP"],
         risks: [],
         reservations: [],
-        intentKind: "code_change",
+        intentKind: "other",
         artifactType: "module",
         requestedOperation: "op",
         impactSignals: {
@@ -579,7 +586,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
           missionScopeNarrative: "s",
           scopeIn: ["a"],
           scopeOut: [],
-          intentKind: "code_change",
+          intentKind: "other",
           artifactType: "module",
           requestedOperation: "op",
           reversibilityExpectation: "reversible",

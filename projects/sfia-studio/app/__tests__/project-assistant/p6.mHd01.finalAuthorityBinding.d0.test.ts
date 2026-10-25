@@ -70,7 +70,7 @@ function structuralAnalysis(overrides?: {
     risks: ["RISK_FINAL"],
     reservations: ["RES_FINAL"],
     executionIntent: {
-      intentKind: "code_change",
+      intentKind: "other",
       artifactType: "module",
       scopeIn: [scope],
       requiredCapabilities: [],
@@ -87,6 +87,12 @@ function cloneMutated(
   const copy = structuredClone(contract) as ExecutionContract;
   mutate(copy);
   return copy;
+}
+
+function driftSealedGitTarget(identity: string): void {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = identity;
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+    `https://github.com/${identity}.git`;
 }
 
 describe("P6 M-HD-01 Final Authority Binding (IC + CM)", () => {
@@ -132,7 +138,7 @@ describe("P6 M-HD-01 Final Authority Binding (IC + CM)", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHDFIN ${suffix}`,
+      name: "demo",
       objective: "M-HD-01 final authority binding",
       context: "det final",
       criticality: "STANDARD",
@@ -470,8 +476,9 @@ describe("P6 M-HD-01 Final Authority Binding (IC + CM)", () => {
       expect(v.ok).toBe(false);
     });
 
-    it("CM05 — pathRoot Product changé → Confirm REFUS", async () => {
+    it("CM05 — sealed git-target divergent → Confirm REFUS", async () => {
       const ctx = await prepareStructuralWithHd("cm05");
+      driftSealedGitTarget("acme/mhdfin-mutated");
       const confirmed = await confirmExecutionContractForAuthorization({
         oa: ctx.oa,
         projectId: ctx.projectId,

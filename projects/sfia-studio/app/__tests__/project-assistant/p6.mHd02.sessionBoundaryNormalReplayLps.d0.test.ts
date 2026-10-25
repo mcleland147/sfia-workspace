@@ -78,7 +78,7 @@ function structuralAnalysis(): IntentAnalysisDto {
     reservations: ["Réserve exit"],
     stopConditions: ["STOP_EXIT"],
     executionIntent: {
-      intentKind: "code_change",
+      intentKind: "other",
       scopeIn: ["projects/demo/src/mhd02-exit"],
       requiredCapabilities: [],
       requestedOperation: "refactor-exit",
@@ -139,7 +139,7 @@ describe("P6 M-HD-02 session boundary / normal LPS replay / fail-closed", () => 
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHD02E ${suffix}`,
+      name: "demo",
       objective: "M-HD-02 exit proof",
       context: "det mhd02e",
       criticality: "STANDARD",

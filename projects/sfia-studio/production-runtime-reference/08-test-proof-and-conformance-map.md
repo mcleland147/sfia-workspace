@@ -9,6 +9,18 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
+## Overlay — PR #618 CI Reconciliation proof map (LOCAL CANDIDATE — 2026-10-25)
+
+| Suite / scope | Result | Epistemic |
+|---|---|---|
+| Baseline CI Vitest (workflow `40207375690`) | 301 FAIL / 65 files / 5721 PASS | **CI FACT** on HEAD `15d3bd39` |
+| `gcecMutatingCursorConfinementEnv.d0.test.ts` | PASS | **DET** P0 confinement |
+| `gcecCursorFullCapabilityParity.d0.test.ts` | PASS (docs_write parity retired) | **DET** |
+| `nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts` | PASS (docs_write overlay its retired; git/RO/generalist kept) | **DET** |
+| `productWorkspaceArtifactRouting*.d0.test.ts` + natural materialization | PASS | **DET** P1 routing / O-01 without Binding |
+| Original 65 CI-fail files (local re-run after corrective) | 21 PASS / 44 FAIL · 828 PASS / 160 FAIL tests | **LOCAL RECONCILIATION** · residuals explicit · **≠** full CI PASS until post-push |
+| typecheck / lint / build | PASS | **LOCAL** |
+
 ## Overlay — AKG-M5 L2-D2 proof map (CURRENT ON MAIN — PR #614; DET — 2026-10-24)
 
 | Suite file | What it proves | Class |

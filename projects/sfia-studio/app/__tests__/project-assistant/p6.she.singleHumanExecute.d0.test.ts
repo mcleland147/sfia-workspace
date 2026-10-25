@@ -85,7 +85,7 @@ function structuralAnalysis(): IntentAnalysisDto {
   return {
     ...base,
     executionIntent: {
-      intentKind: "code_change",
+      intentKind: "other",
       scopeIn: ["projects/demo/src/authority"],
       requiredCapabilities: [],
     },
@@ -139,7 +139,7 @@ describe("P6 SHE — Single Human Execute D-P6-SHE-01", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `SHE ${suffix}`,
+      name: "demo",
       objective: "SHE Delivery",
       context: "det she",
       criticality: "STANDARD",

@@ -79,7 +79,7 @@ function structuralAnalysis(overrides?: {
   return {
     ...base,
     executionIntent: {
-      intentKind: "code_change",
+      intentKind: "other",
       scopeIn: [overrides?.scope ?? "projects/demo/src/authority"],
       requiredCapabilities: [],
     },
@@ -95,11 +95,17 @@ function nonStructuralAnalysis(): IntentAnalysisDto {
   return {
     ...base,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       scopeIn: ["projects/demo/src/notes.md"],
       requiredCapabilities: [],
     },
   };
+}
+
+function driftSealedGitTarget(identity: string): void {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = identity;
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+    `https://github.com/${identity}.git`;
 }
 
 describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
@@ -145,7 +151,7 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHD01 ${suffix}`,
+      name: "demo",
       objective: "M-HD-01 Generic Mission HD",
       context: "det mhd01",
       criticality: "STANDARD",
@@ -733,6 +739,7 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
     const { projectId, oa } = await seedProject("hd21");
     const analysis = structuralAnalysis();
     const { decision } = await sealAndAccept({ projectId, analysis });
+    driftSealedGitTarget("acme/mhd01-mutated");
     const prep = await prepareGenericExecutionContractDraft({
       oa,
       projectId,

@@ -65,7 +65,7 @@ function structuralAnalysis(): IntentAnalysisDto {
     risks: ["Risque de dérive de périmètre"],
     reservations: ["Réserve inspection"],
     executionIntent: {
-      intentKind: "code_change",
+      intentKind: "other",
       scopeIn: ["projects/demo/src/mhd02"],
       requiredCapabilities: [],
       requestedOperation: "refactor-mhd02",
@@ -125,7 +125,7 @@ describe("P6 M-HD-02 Pilot Presentation & Record Binding", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHD02 ${suffix}`,
+      name: "demo",
       objective: "M-HD-02 Pilot Presentation",
       context: "det mhd02",
       criticality: "STANDARD",

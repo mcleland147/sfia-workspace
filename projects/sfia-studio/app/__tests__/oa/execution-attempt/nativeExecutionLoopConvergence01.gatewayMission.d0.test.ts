@@ -1,4 +1,3 @@
-const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
 
 /**
  * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — the gateway no longer discards the
@@ -16,6 +15,7 @@ import os from "node:os";
 import path from "node:path";
 import {
   assertStudioCursorRealOffForTests,
+  M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_BOUNDED_PR_CREATE_ACTION,
   M4_BOUNDED_REMOTE_PUSH_ACTION,
   M4_BOUNDED_RO_ACTION,
@@ -26,6 +26,8 @@ import {
 import { FakeProcessRunner } from "./support/fakeProcessRunner";
 import { FakeRealExecutionWorkspacePort } from "./support/fakeSpawnAndGit";
 import { M4_TEST_BASE_HEAD_SHA } from "./support/m4Fixtures";
+
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
 
 const PARENT = M4_TEST_BASE_HEAD_SHA;
 const TARGET = "docs/functional-design.md";
@@ -101,37 +103,12 @@ function baseRequest(
   } as Parameters<StudioCursorRealLaunchGateway["launch"]>[0];
 }
 
-function docsWriteRequest(
-  overrides: Record<string, unknown> = {},
-): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
-  return baseRequest({
-    action: M4_BOUNDED_DOCS_WRITE_ACTION,
-    selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
-    authorizedEffects: ["filesystem.create", "filesystem.modify"],
-    docsWriteSpec: {
-      repositoryRef: "acme/widget",
-      targetPath: TARGET,
-      pathAllowlist: ["docs/"],
-      artifactType: "functional_design",
-      artifactBrief: "brief",
-      contentRequirements: ["x"],
-      scopeIn: ["docs/"],
-      scopeOut: [],
-      expectedOutputs: [TARGET],
-      validationExpectations: [],
-      evidenceRequirements: ["artifact"],
-      createOrModify: true,
-      noDelete: true,
-    },
-    ...overrides,
-  });
-}
 
 function localCommitRequest(
   overrides: Record<string, unknown> = {},
 ): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
   return baseRequest({
-    action: M4_BOUNDED_DOCS_WRITE_ACTION,
+    action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
     selectedAgentRef: "agt:m4.cursor.bounded_local_commit",
     authorizedEffects: ["git.commit"],
     workspaceContinuation: {
@@ -205,6 +182,18 @@ function expectMissionThenOverlay(instruction: string): void {
   );
 }
 
+function generalistRequest(
+  overrides: Record<string, unknown> = {},
+): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
+  return baseRequest({
+    action: "cursor.mission.execute",
+    selectedAgentRef: "agt:studio.cursor.generalist",
+    authorizedEffects: ["filesystem.create", "filesystem.modify"],
+    cursorMissionPrompt: MISSION_PROMPT,
+    ...overrides,
+  });
+}
+
 describe("NELC-01 gateway — EC mission is not replaced by a competing brief", () => {
   beforeEach(() => {
     assertStudioCursorRealOffForTests();
@@ -214,113 +203,21 @@ describe("NELC-01 gateway — EC mission is not replaced by a competing brief", 
     assertStudioCursorRealOffForTests();
   });
 
-  it("docs_write uses cursorMissionPrompt as the semantic mission", async () => {
+  it("generalist uses the EC mission and ignores a retired docs-write spec", async () => {
     const { gw, runner } = gateway();
+    const hostile = "docs/../../etc/passwd";
     const result = await gw.launch(
-      docsWriteRequest({ cursorMissionPrompt: MISSION_PROMPT }),
-    );
-    expect(result.outcome).toBe("ack");
-    const instruction = instructionOf(runner);
-    expect(instruction).toContain("Documenter la conception fonctionnelle");
-    expect(instruction).toContain("executionContractId: xct:nelc01");
-    expect(instruction).toContain(
-      "honnêteté du grounding: READ_GROUNDED (recherche ≠ lecture)",
-    );
-    expectMissionThenOverlay(instruction);
-  });
-
-  it("docs_write enforcement overlay carries no competing WHAT brief", async () => {
-    const { gw, runner } = gateway();
-    expect(
-      (await gw.launch(docsWriteRequest({ cursorMissionPrompt: MISSION_PROMPT })))
-        .outcome,
-    ).toBe("ack");
-    const instruction = instructionOf(runner);
-    expect(instruction).toContain("Documenter la conception fonctionnelle");
-    expect(instruction).not.toContain("Brief:");
-    expect(instruction).not.toContain("Exigences de contenu:");
-    expect(instruction).not.toContain("Sorties attendues:");
-    expect(instruction).not.toContain("Type d'artifact:");
-    expect(instruction).toContain("EXACT AUTHORIZED FILE");
-    expect(instruction).toContain("noDelete=true");
-  });
-
-  it("docs_write keeps every enforcement overlay line", async () => {
-    const { gw, runner, workspacePath } = gateway();
-    expect(
-      (await gw.launch(docsWriteRequest({ cursorMissionPrompt: MISSION_PROMPT })))
-        .outcome,
-    ).toBe("ack");
-    const instruction = instructionOf(runner);
-    expect(instruction).toContain("EXACT AUTHORIZED FILE");
-    expect(instruction).toContain(path.resolve(workspacePath, TARGET));
-    expect(instruction).toContain(
-      `Canonical sealed targetPath (repo-relative, do not reinterpret): ${TARGET}`,
-    );
-    expect(instruction).toContain("Ne supprimer AUCUN fichier (noDelete=true).");
-    expect(instruction).toContain(
-      "Ne pas commit, push, PR, merge, ni remote git.",
-    );
-    expect(instruction).toContain("Ne lancer aucune commande Shell.");
-    expect(instruction).toContain("fingerprint=fp:nelc01");
-  });
-
-  it("docs_write without a mission prompt keeps the bounded brief alone", async () => {
-    const { gw, runner } = gateway();
-    expect((await gw.launch(docsWriteRequest())).outcome).toBe("ack");
-    const instruction = instructionOf(runner);
-    expect(instruction).not.toContain(ENFORCEMENT_HEADER);
-    expect(instruction.startsWith("TÂCHE UNIQUE — bounded docs-write")).toBe(
-      true,
-    );
-    expect(instruction).toContain("EXACT AUTHORIZED FILE");
-  });
-
-  it("path protections still reject before spawn when a mission is supplied", async () => {
-    const { gw, runner } = gateway();
-    const result = await gw.launch(
-      docsWriteRequest({
-        cursorMissionPrompt: MISSION_PROMPT,
+      generalistRequest({
         docsWriteSpec: {
           repositoryRef: "acme/widget",
-          targetPath: "docs/../../etc/passwd",
+          targetPath: hostile,
           pathAllowlist: ["docs/"],
           artifactType: "functional_design",
           artifactBrief: "brief",
           contentRequirements: ["x"],
           scopeIn: ["docs/"],
           scopeOut: [],
-          expectedOutputs: ["docs/../../etc/passwd"],
-          validationExpectations: [],
-          evidenceRequirements: ["artifact"],
-          createOrModify: true,
-          noDelete: true,
-        },
-      }),
-    );
-    expect(result.outcome).toBe("reject");
-    if (result.outcome === "reject") {
-      expect(result.reason).toBe("target_path_invalid");
-      expect(result.realProcessInvoked).toBe(false);
-    }
-    expect(runner.calls).toHaveLength(0);
-  });
-
-  it("write-mode revalidation still rejects a MODIFY on an absent target", async () => {
-    const { gw, runner } = gateway();
-    const result = await gw.launch(
-      docsWriteRequest({
-        cursorMissionPrompt: MISSION_PROMPT,
-        docsWriteSpec: {
-          repositoryRef: "mcleland147/sfia-workspace",
-          targetPath: "projects/sfia-studio/.sandbox/absent.md",
-          pathAllowlist: ["projects/sfia-studio/.sandbox"],
-          artifactType: "functional_design",
-          artifactBrief: "brief",
-          contentRequirements: ["x"],
-          scopeIn: ["projects/sfia-studio/.sandbox"],
-          scopeOut: [],
-          expectedOutputs: ["projects/sfia-studio/.sandbox/absent.md"],
+          expectedOutputs: [hostile],
           validationExpectations: [],
           evidenceRequirements: ["artifact"],
           createOrModify: true,
@@ -329,8 +226,25 @@ describe("NELC-01 gateway — EC mission is not replaced by a competing brief", 
         },
       }),
     );
-    expect(result.outcome).toBe("reject");
-    expect(runner.calls).toHaveLength(0);
+    expect(result.outcome).toBe("ack");
+    const instruction = instructionOf(runner);
+    expect(instruction).toContain("Documenter la conception fonctionnelle");
+    expect(instruction).toContain("fingerprint=fp:nelc01");
+    expect(instruction).not.toContain(ENFORCEMENT_HEADER);
+    expect(instruction).not.toContain("EXACT AUTHORIZED FILE");
+    expect(instruction).not.toContain(hostile);
+    expect(instruction).not.toContain("noDelete=true");
+  });
+
+  it("generalist without a mission prompt fails closed", async () => {
+    const { gw, runner } = gateway();
+    const result = await gw.launch(
+      generalistRequest({ cursorMissionPrompt: "   " }),
+    );
+    expect(result.outcome).toBe("ack");
+    const instruction = instructionOf(runner);
+    expect(instruction).toContain("STOP — aucune mission Cursor fournie");
+    expect(instruction).not.toContain("EXACT AUTHORIZED FILE");
   });
 
   it("git commit / push / PR-create keep enforcement while carrying the mission", async () => {
