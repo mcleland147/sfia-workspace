@@ -1,3 +1,20 @@
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+
 /**
  * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — deterministic PRODUCT front-door oracle.
  *
@@ -22,9 +39,15 @@ import {
   projectAssistantPrepareResolvedM3Action,
   projectAssistantSendAction,
 } from "@/features/project-assistant/actions";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
-import { w2ReadActiveDecisionSubjectAction } from "@/features/project-assistant/w2/actions";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  w2ReadActiveDecisionSubjectAction,
+} from "@/features/project-assistant/w2/actions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -35,15 +58,18 @@ import {
   produceLifecycleRecommendation,
   resolveCanonicalLifecycleRecommendationBasis,
 } from "@/lib/oa/cycle";
-import { assessChatFirstWorkEligibility } from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
+import {
+  assessChatFirstWorkEligibility,
+} from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
 import {
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
   MemoryLaunchSafetyJournal,
   isStudioCursorRealEnabled,
 } from "@/lib/oa/execution-attempt";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project";
 import {
   SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
   getRuntimeApplicationService,
@@ -104,6 +130,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
     cwd: repoRoot,
   });
   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
+  execFileSync(
+    "git",
+    ["remote", "add", "origin", `https://github.com/${identity}.git`],
+    { cwd: repoRoot },
+  );
   execFileSync("git", ["add", "."], { cwd: repoRoot });
   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {

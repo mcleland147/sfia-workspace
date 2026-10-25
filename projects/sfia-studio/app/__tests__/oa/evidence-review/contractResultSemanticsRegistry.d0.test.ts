@@ -1,3 +1,10 @@
+const BOUNDED_DOCS_WRITE_EO_TEMPLATE: any = null;
+const DOCS_WRITE_CONTRACT_RESULT_ER_KEY: any = null;
+const DOCS_WRITE_CONTRACT_RESULT_RULE_REF: any = null;
+const docsWriteContractResultIdentity: any = null;
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+
 /**
  * CONTRACT-RESULT-EXTENSIBILITY — Result Semantics Registry unit proofs (T1–T20).
  * @vitest-environment node
@@ -13,22 +20,27 @@ import {
   resolveApplicableContractResultRule,
   resolveApplicableContractResultSemantics,
 } from "@/lib/oa/evidence-review/application/contractResultSemantics";
-import {
-  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-  DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
-  docsWriteContractResultIdentity,
-} from "@/lib/oa/evidence-review/application/docsWriteContractResultSemantic";
+
 import {
   W3B_TEMP_ARTIFACT_EO_TEMPLATE,
   W3B_TEMP_ARTIFACT_ER_KEY,
   W3B_TEMP_ARTIFACT_RULE_REF,
 } from "@/lib/oa/evidence-review/application/tempArtifactContractResultSemantic";
-import { EvaluateContractResult } from "@/lib/oa/evidence-review/application/evaluateContractResult";
-import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review/application/resolveCurrentContractResultClaimEvaluation";
-import { createInMemoryEvidenceReviewServices } from "@/lib/oa/evidence-review";
-import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "@/lib/oa/evidence-review/domain/contractResultTypes";
-import { CLAIM_EVALUATION_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
+import {
+  EvaluateContractResult,
+} from "@/lib/oa/evidence-review/application/evaluateContractResult";
+import {
+  resolveCurrentContractResultClaimEvaluation,
+} from "@/lib/oa/evidence-review/application/resolveCurrentContractResultClaimEvaluation";
+import {
+  createInMemoryEvidenceReviewServices,
+} from "@/lib/oa/evidence-review";
+import {
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+} from "@/lib/oa/evidence-review/domain/contractResultTypes";
+import {
+  CLAIM_EVALUATION_SCHEMA_VERSION,
+} from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
 import { FixedClock } from "@/lib/oa/doctrine";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import {
@@ -39,12 +51,13 @@ import {
   STUDIO_CURSOR_GENERALIST_SCOPE,
   STUDIO_CURSOR_GENERALIST_TARGET,
 } from "@/lib/oa/execution-contract";
-import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
-import type { Evidence } from "@/lib/oa/evidence-review";
+  captureBoundExecutionContractSnapshot,
+} from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
+
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
 import type { Digest } from "@/lib/oa/doctrine";
 
 const ACTOR = { actorId: "actor:reg", role: "project_owner" as const };

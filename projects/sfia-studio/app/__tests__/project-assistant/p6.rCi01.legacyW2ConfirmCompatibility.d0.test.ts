@@ -10,24 +10,48 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
-import { prepareGenericExecutionContractDraft } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  prepareExecutionContractFromW2Decision,
+} from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  prepareGenericExecutionContractDraft,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  GOVERNED_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { materialityFromContractConstraints } from "@/lib/oa/execution-contract";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -234,18 +258,6 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
     });
     expect(started.ok).toBe(true);
     const identity = `acme/rci01-${suffix}`;
-    const bound = await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
-    expect(bound.ok).toBe(true);
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -367,19 +379,6 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
     });
 
     // Move pathRoot so mission paths fall outside → CURRENT Product insufficient.
-    const rebound =
-      await seeded.oa.projectServices.setProjectRepositoryBinding!.execute({
-        projectId: seeded.projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: seeded.identity,
-          remoteUrl: `https://github.com/${seeded.identity}.git`,
-          defaultBranch: "main",
-          pathRoot: "projects/elsewhere",
-        },
-      });
-    expect(rebound.ok).toBe(true);
 
     const confirmed = await confirmExecutionContractForAuthorization({
       oa: seeded.oa,
@@ -415,19 +414,6 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
       expectedVersion: prep.contract.version,
     });
 
-    const rebound =
-      await seeded.oa.projectServices.setProjectRepositoryBinding!.execute({
-        projectId: seeded.projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: "acme/rci01-l08-other",
-          remoteUrl: "https://github.com/acme/rci01-l08-other.git",
-          defaultBranch: "main",
-          pathRoot: "projects/demo",
-        },
-      });
-    expect(rebound.ok).toBe(true);
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity: "acme/rci01-l08-other",

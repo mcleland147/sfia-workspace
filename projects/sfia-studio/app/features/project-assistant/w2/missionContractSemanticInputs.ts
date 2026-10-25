@@ -9,11 +9,6 @@
  */
 
 import {
-  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-  DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET,
-  DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION,
-} from "@/lib/oa/evidence-review/application/docsWriteContractResultSemantic";
-import {
   MISSION_DIAGNOSTIC_EO_TEMPLATES,
   MISSION_NEXT_STEP_EO_TEMPLATES,
   MISSION_TRACE_EO_PREFIX,
@@ -137,39 +132,6 @@ export function deriveDocsWriteAcceptanceCriteria(input: {
     const expectation = raw.trim();
     if (!expectation) return;
     const ordinal = index + 1;
-    if (expectation === BOUNDED_DOCS_WRITE_EO_TEMPLATE) {
-      // Compatibility: the historical aggregate EO is too coarse for Product
-      // SUCCESS by artifact existence alone. Seal as manual_review so CE stays
-      // honest until named path/conformity EOs are present.
-      criteria.push({
-        criterionId: criterionIdFor(ordinal, "manual-review"),
-        statement: expectation,
-        kind: "manual_review",
-        expectedOutputRef: expectation,
-        targetPath: target,
-      });
-      return;
-    }
-    if (expectation === DOCS_WRITE_EO_MATERIALIZED_MARKDOWN_AT_TARGET) {
-      criteria.push({
-        criterionId: criterionIdFor(ordinal, "artifact-at-path"),
-        statement: expectation,
-        kind: "artifact_at_path",
-        expectedOutputRef: expectation,
-        targetPath: target,
-      });
-      return;
-    }
-    if (expectation === DOCS_WRITE_EO_MIN_CONFORMITY_VERIFICATION) {
-      criteria.push({
-        criterionId: criterionIdFor(ordinal, "artifact-conformity"),
-        statement: expectation,
-        kind: "artifact_conformity_attested",
-        expectedOutputRef: expectation,
-        targetPath: target,
-      });
-      return;
-    }
     // Path-shaped / free-form EOs stay manual_review when sealed.
     // Legacy path-shaped matching remains available only when NO criterion is
     // sealed for that EO (compatibility bridge — no silent Product SUCCESS upgrade).

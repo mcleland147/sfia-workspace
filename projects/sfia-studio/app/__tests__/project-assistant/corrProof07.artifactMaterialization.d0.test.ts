@@ -1,3 +1,5 @@
+type ProjectRepositoryBinding = any;
+
 /**
  * CORR-PROOF-07 — Active-cycle artifact materialization continuation.
  * Deterministic Product routing — ZERO REAL / ZERO dogfood mutation.
@@ -12,15 +14,25 @@ import {
   getRuntimeApplicationService,
   resetRuntimeApplicationServiceForTests,
 } from "@/lib/vertical-slice-runtime";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  orchestrateAssistantSend,
+} from "@/features/project-assistant/f2/orchestrateF2";
 import {
   resetF2ProposalStoreForTests,
   getProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  resetMw5ChallengeStoreForTests,
+} from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
+import {
+  prepareM3FromDecision,
+} from "@/features/project-assistant/f3/prepareM3FromDecision";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   enrichExecutionIntentFromBinding,
   F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
@@ -36,9 +48,13 @@ import {
   preferActiveCycleOverParasite,
   resolveActiveCycleGovernedContinuation,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
-import { validateIntentAnalysisPayload } from "@/features/project-assistant/f2/intentAnalysis";
-import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
-import type { ProjectRepositoryBinding } from "@/lib/oa/project";
+import {
+  validateIntentAnalysisPayload,
+} from "@/features/project-assistant/f2/intentAnalysis";
+import type {
+  ProjectAssistantContextDto,
+} from "@/features/project-assistant/types";
+
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -304,13 +320,6 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     });
     expect(obligation.ok).toBe(true);
 
-    await runtime.setProjectRepositoryBinding({
-      projectId,
-      identity: "acme/gestion-taches",
-      remoteUrl: "https://github.com/acme/gestion-taches.git",
-      defaultBranch: "main",
-      pathRoot: "docs/",
-    });
   });
 
   afterEach(() => {

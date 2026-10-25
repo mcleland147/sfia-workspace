@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * D-GCEC-CONF-02A — mutating Cursor env confinement (docs-write A + local-commit B).
  * FakeProcessRunner only. ZERO REAL. Synthetic sentinel env values only.
@@ -9,7 +11,6 @@ import {
   assertStudioCursorRealOffForTests,
   buildMutatingCursorConfinementEnv,
   isMutatingGcecCursorProfile,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_BOUNDED_PR_CREATE_ACTION,
   M4_BOUNDED_REMOTE_PUSH_ACTION,

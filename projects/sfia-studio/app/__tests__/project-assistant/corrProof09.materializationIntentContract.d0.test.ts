@@ -24,7 +24,9 @@ import {
   F2_INTENT_JSON_SCHEMA,
   validateIntentAnalysisPayload,
 } from "@/features/project-assistant/f2/intentAnalysis";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 
 function baseSignals() {
   return {

@@ -1,3 +1,6 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * Checkpoint F / R10 — restart recovery CTA precedence (wrong generic current).
  * ZERO REAL / ZERO Execute / ZERO campaign mutation.
@@ -7,11 +10,10 @@ import { describe, expect, it } from "vitest";
 import {
   isWrongGenericPreExecReplaceableByRecoveryPrepare,
 } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
-import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
-} from "@/lib/oa/execution-attempt";
+import type {
+  RecoveryExecutionBinding,
+} from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
+
 
 const TARGET =
   "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";

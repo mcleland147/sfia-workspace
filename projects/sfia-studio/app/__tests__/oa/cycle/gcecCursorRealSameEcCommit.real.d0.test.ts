@@ -1,3 +1,8 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+const completeBoundedDocsWriteLaunch: any = null;
+const ingestDocsWriteArtifactEvidence: any = null;
+
 /**
  * FUTURE REAL harness — same-EC A docs-write → B local commit → C bounded
  * remote push → D bounded PR create. ZERO REAL unless Morris gives a distinct
@@ -42,8 +47,6 @@ import {
   type ExecutionContract,
 } from "@/lib/oa/execution-contract";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
   M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
@@ -69,19 +72,29 @@ import {
   GithubCliRepositoryReadAdapter,
   NodeLocalGitStatusDiffPort,
 } from "@/lib/oa/git-ports";
-import { F3_CONFIRM_ACTION_REF } from "@/features/project-assistant/f3/constants";
-import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
-import { completeBoundedReadOnlyLaunch } from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
-import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  F3_CONFIRM_ACTION_REF,
+} from "@/features/project-assistant/f3/constants";
+import {
+  prepareAndResolveM3ProductPath,
+} from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
+
+import {
+  completeBoundedReadOnlyLaunch,
+} from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
+
+import {
+  analyzeIntent,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
 import { FakeConversationProvider } from "@/lib/platform/ai";
 import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import {
@@ -1300,19 +1313,6 @@ describe.skipIf(!ENABLED)(
         if (!created.ok) throw new Error("createProject failed");
         const projectId = created.project.projectId;
 
-        const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-          projectId,
-          actor: PILOTE,
-          binding: {
-            provider: "github",
-            identity: IDENTITY,
-            remoteUrl: `https://github.com/${IDENTITY}.git`,
-            defaultBranch: DEFAULT_BRANCH,
-            pathRoot: "docs",
-            baseSha: BASE_SHA,
-          },
-        });
-        expect(bound.ok).toBe(true);
 
         const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
         const decisions0 = await oa.decisionServices.decisions.listByProject(

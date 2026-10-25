@@ -4,7 +4,6 @@
  * Pure application/domain projection — no persistence.
  */
 import type { Evidence } from "@/lib/oa/evidence-review";
-import type { ProjectRepositoryBinding } from "@/lib/oa/project";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
 import type { GitEffectConfirmationMatch } from "./authorizedExecutionSlice";
@@ -29,11 +28,16 @@ export type ResolveGitEffectTargetInput = {
     ExecutionContract,
     "executionContractId" | "projectId" | "cycleInstanceId" | "inputs"
   >;
-  /** Canonical Project.repositoryBinding — required for protected Git. */
-  projectRepositoryBinding: ProjectRepositoryBinding;
+  /** ExecutionContract repository identity — required for protected Git. */
+  projectRepositoryBinding: {
+    readonly identity: string;
+    readonly remoteUrl: string;
+    readonly defaultBranch: string;
+    readonly pathRoot?: string;
+  };
   /**
-   * Projected docs-write / EC repositoryRef when present.
-   * MUST match Project.repositoryBinding.identity or resolution fails.
+   * Projected EC repositoryRef when present.
+   * MUST match repository identity or resolution fails.
    */
   projectedRepositoryRef?: string;
   actorId: string;

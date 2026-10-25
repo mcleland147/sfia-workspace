@@ -9,13 +9,6 @@
 import { existsSync } from "node:fs";
 import path from "node:path";
 import {
-  describeServerOwnedRepositoryConfigGap,
-  resolveServerOwnedRepositoryConfig,
-  SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV,
-} from "@/lib/oa/project/domain/serverOwnedRepositoryConfig";
-import {
   isLocalPilotAuthorityEnabled,
   LOCAL_PILOT_AUTHORITY_ENV,
   LOCAL_MORRIS_GATE_AUTHORITY_ENV,
@@ -33,8 +26,6 @@ import {
 import { composeStudioProductRealBoundary } from "@/lib/vertical-slice-runtime/composeStudioProductRealBoundary";
 import {
   isStudioCursorRealEnabled,
-  ManagedProjectRepositoryResolver,
-  sanitizeManagedRepoIdentity,
   SFIA_STUDIO_CURSOR_REAL_FLAG,
 } from "@/lib/oa/execution-attempt";
 
@@ -44,7 +35,6 @@ export const STUDIO_RUNTIME_PROFILE_NOT_READY =
 export type StudioRuntimeCursorRealMode = "READY" | "OFF";
 
 export type StudioRuntimeProfilePreflightSections = {
-  readonly repository: "PASS" | "FAIL";
   readonly authority: "PASS" | "FAIL";
   readonly managedRepository: "PASS" | "FAIL";
   readonly cursorReal: StudioRuntimeCursorRealMode;
@@ -57,7 +47,6 @@ export type StudioRuntimeProfilePreflightResult =
       readonly sections: StudioRuntimeProfilePreflightSections;
       readonly managedRepoRoot: string;
       readonly managedClonePath: string;
-      readonly repositoryIdentity: string;
       readonly cursorReal: StudioRuntimeCursorRealMode;
       readonly realBoundaryConstructed: boolean;
     }
@@ -114,34 +103,6 @@ export function runStudioRuntimeProfilePreflight(
     );
   }
 
-  // --- Repository (server-owned) ---
-  const repo = resolveServerOwnedRepositoryConfig(env);
-  let repository: "PASS" | "FAIL" = "PASS";
-  if (!repo) {
-    repository = "FAIL";
-    const gap = describeServerOwnedRepositoryConfigGap(env);
-    if (!(env[SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV]?.trim())) {
-      pushUnique(blockers, "REPOSITORY_IDENTITY_MISSING");
-    } else if (
-      !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(
-        env[SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV]!.trim(),
-      )
-    ) {
-      pushUnique(blockers, "REPOSITORY_IDENTITY_INVALID");
-    }
-    if (!(env[SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV]?.trim())) {
-      pushUnique(blockers, "REPOSITORY_REMOTE_MISSING");
-    } else {
-      const remote = env[SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV]!.trim();
-      if (!remote.startsWith("https://") && !remote.startsWith("git@")) {
-        pushUnique(blockers, "REPOSITORY_REMOTE_INVALID");
-      }
-    }
-    if (blockers.every((b) => !b.startsWith("REPOSITORY_"))) {
-      pushUnique(blockers, `REPOSITORY_CONFIG_GAP:${gap}`);
-    }
-  }
-
   // --- Local single-user Pilot authority (TEMPORARY WITH EXIT) ---
   let authority: "PASS" | "FAIL" = "PASS";
   if (!isLocalPilotAuthorityEnabled(env as NodeJS.ProcessEnv)) {
@@ -163,32 +124,8 @@ export function runStudioRuntimeProfilePreflight(
     if (!existsSync(managedRoot)) {
       managedRepository = "FAIL";
       pushUnique(blockers, "MANAGED_REPO_ROOT_BASE_ABSENT");
-    } else if (repo) {
-      let sanitized: string;
-      try {
-        sanitized = sanitizeManagedRepoIdentity(repo.identity);
-      } catch {
-        managedRepository = "FAIL";
-        pushUnique(blockers, "MANAGED_REPO_IDENTITY_INVALID");
-        sanitized = "";
-      }
-      if (sanitized) {
-        const expected = path.join(managedRoot, sanitized);
-        const resolver = new ManagedProjectRepositoryResolver();
-        const resolved = resolver.resolveLocalRepoRoot(
-          { identity: repo.identity },
-          managedRoot,
-        );
-        if (!resolved) {
-          managedRepository = "FAIL";
-          pushUnique(
-            blockers,
-            `MANAGED_REPO_ABSENT:expected=${expected}`,
-          );
-        } else {
-          managedClonePath = resolved;
-        }
-      }
+    } else {
+      managedClonePath = managedRoot;
     }
   }
 
@@ -217,7 +154,6 @@ export function runStudioRuntimeProfilePreflight(
   }
 
   const sections: StudioRuntimeProfilePreflightSections = {
-    repository,
     authority,
     managedRepository,
     cursorReal,
@@ -239,7 +175,6 @@ export function runStudioRuntimeProfilePreflight(
     sections,
     managedRepoRoot: managedRoot!,
     managedClonePath,
-    repositoryIdentity: repo!.identity,
     cursorReal,
     realBoundaryConstructed,
   };
@@ -247,9 +182,6 @@ export function runStudioRuntimeProfilePreflight(
 
 /** Keys documented for Product local profile (non-secret). */
 export const STUDIO_RUNTIME_PROFILE_ENV_KEYS = [
-  SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL_ENV,
-  SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH_ENV,
   LOCAL_PILOT_AUTHORITY_ENV,
   LOCAL_MORRIS_GATE_AUTHORITY_ENV,
   M3_LOCAL_AUTHORITY_ENV,

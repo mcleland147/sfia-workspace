@@ -1,3 +1,21 @@
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+
 /**
  * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — deterministic Product Journey
  * + CR-PWR-01…04 corrections + Proposal→Evidence E2E.
@@ -11,30 +29,66 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import { revalidateSealedArtifactWriteMode } from "@/features/project-assistant/f3/prepareM3FromDecision";
-import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { sealProposalExecutionBasis } from "@/features/project-assistant/w2/proposalSubjectIntegrity";
+import {
+  projectAssistantSendAction,
+} from "@/features/project-assistant/actions";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
+import {
+  revalidateSealedArtifactWriteMode,
+} from "@/features/project-assistant/f3/prepareM3FromDecision";
+import {
+  prepareAndResolveM3ProductPath,
+} from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
+import {
+  sealProposalExecutionBasis,
+} from "@/features/project-assistant/w2/proposalSubjectIntegrity";
 import {
   deriveProposalSubjectOptions,
   deriveProposalSubjectRecommendation,
   PROPOSAL_SUBJECT_AMEND_REF,
   PROPOSAL_SUBJECT_PURSUE_REF,
 } from "@/features/project-assistant/w2/proposalSubjectOptions";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
-import { governedExecuteAuthorizedContract } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
-import { materializeProductOutcomeFromAttempt } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-import { resolvePostEvidenceRecoveryContext } from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { deriveTrajectoryOptions } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  evaluateExecutionAuthorization,
+} from "@/features/project-assistant/w2/authorizeExecutionContract";
+import {
+  governedExecuteAuthorizedContract,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import {
+  readCurrentGovernedExecutionContinuity,
+} from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import {
+  materializeProductOutcomeFromAttempt,
+} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import {
+  resolvePostEvidenceRecoveryContext,
+} from "@/features/project-assistant/w2/resolvePostEvidenceRecoveryContext";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  deriveTrajectoryOptions,
+} from "@/features/project-assistant/w2/trajectoryOptions";
 import {
   closedProposalIdsFromProposalDecisionRefs,
   readActiveProposalDecisionSubject,
@@ -47,8 +101,6 @@ import {
 import type { Digest } from "@/lib/oa/doctrine";
 import {
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   MemoryLaunchSafetyJournal,
   isStudioCursorRealEnabled,
 } from "@/lib/oa/execution-attempt";
@@ -131,6 +183,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
     cwd: repoRoot,
   });
   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
+  execFileSync(
+    "git",
+    ["remote", "add", "origin", `https://github.com/${identity}.git`],
+    { cwd: repoRoot },
+  );
   execFileSync("git", ["add", "."], { cwd: repoRoot });
   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
@@ -244,10 +301,10 @@ describe("PRODUCT-PWR-01 deterministic workspace routing journey", () => {
     expect(created.project.projectWorkspaceKey).toBe(
       "mini-cadrage-suivi-de-taches",
     );
-    expect(created.project.repositoryBinding?.pathRoot).toBe(
+    expect((created.project as any).repositoryBinding?.pathRoot).toBe(
       EXPECTED_PROJECT_ROOT,
     );
-    expect(created.project.repositoryBinding?.identity).toBe(IDENTITY);
+    expect((created.project as any).repositoryBinding?.identity).toBe(IDENTITY);
 
     const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
@@ -953,7 +1010,7 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
     expect(created.project.projectWorkspaceKey).toBe(
       "mini-cadrage-suivi-de-taches",
     );
-    expect(created.project.repositoryBinding?.pathRoot).toBe(
+    expect((created.project as any).repositoryBinding?.pathRoot).toBe(
       EXPECTED_PROJECT_ROOT,
     );
 
@@ -1788,7 +1845,7 @@ describe("CR-PWR-04 Product Create fail-closed without server-owned config", () 
     expect(result.project.projectWorkspaceKey).toBe(
       "mini-cadrage-suivi-de-taches",
     );
-    expect(result.project.repositoryBinding?.pathRoot).toBe(
+    expect((result.project as any).repositoryBinding?.pathRoot).toBe(
       EXPECTED_PROJECT_ROOT,
     );
   });

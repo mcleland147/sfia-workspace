@@ -1170,3 +1170,25 @@ C1 INTEGRATED ON MAIN
 | Post-merge CI | attempt 1 FAIL = three timing timeouts (**CI_LOAD_TIMING_FLAKE**) · attempt 2 **SUCCESS** · Required Gate **PASS** |
 | Reserve | **REAL EVIDENCE PAYLOAD VERIFICATION ADAPTER ABSENT** |
 | Explicit non-claims | ≠ merge `8448c3f5` itself called REAL-proven · ≠ Product Completion newly COMPLETE/CLOSED · ≠ runtime v3 ADOPTED · ≠ global L5 ADOPTED · ≠ next capability started |
+
+---
+
+## Amendment 2026-10-25 — D-PC-09 supersession of server-owned RepositoryBinding projection
+
+| Métadonnée | Valeur |
+| --- | --- |
+| **Date** | 2026-10-25 |
+| **Autorité** | **Morris GO 2026-10-25** |
+| **Relation** | Amendement **additif**. Le texte historique D-PC-09 ci-dessus (construction 2026-09-19 et truth-sync post-merge 2026-09-20) est **PRÉSERVÉ**. Il n’est pas réécrit comme s’il n’avait jamais existé. |
+| **Décision** | Ce GO **supersedes** la projection technique **server-owned RepositoryBinding** adoptée dans D-PC-09 (identité / remote / branche par défaut injectées à Create Project). |
+| **Préservé** | `projectWorkspaceKey` et le routage `projects/<project-workspace-key>/` restent. Le filename Pilote/Nora reste un candidat non autoritaire. La composition serveur du chemin workspace reste. Aucune écriture Git à la création. |
+| **Retiré — LOCAL DELIVERY** | **RepositoryBinding RETIRED IN LOCAL DELIVERY** — CreateProject n’a plus `repositoryBinding` ; `SFIA_STUDIO_PROJECT_REPOSITORY_*` retirés du preflight et de `.env.example`. **docs_write Product specialization RETIRED IN LOCAL DELIVERY** — admission Product (`intentKind` / cap / action) retirée des lib + features actifs. |
+| **Statut Git** | **LOCAL IMPLEMENTED** sur `feat/akg-m5-remove-repository-binding-docs-write` · **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED**. `origin/main` `7db8afd7c27720712f08000274dbbc4e1a62d935` conserve encore le binding historique. |
+| **Preuve locale** | O-01 DET **PASS** · typecheck **PASS** · **known regressions accepted** |
+| **Anti-claims** | ≠ **MERGED ON MAIN** · ≠ H4 / G-REAL / G-ACTIVATION granted · ≠ AKG-M5 CLOSED · ≠ runtime v3 ADOPTED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS |
+
+### Disposition
+
+- Sur `origin/main`, la projection server-owned RepositoryBinding de D-PC-09 reste **historiquement présente** jusqu’à un merge ultérieur.
+- Cette Delivery locale est le **candidat** qui supprime cette projection. Elle ne falsifie pas le record 2026-09-19 ni le truth-sync PR **#506**.
+- Le routage workspace `projects/<key>` n’est pas le mécanisme retiré.

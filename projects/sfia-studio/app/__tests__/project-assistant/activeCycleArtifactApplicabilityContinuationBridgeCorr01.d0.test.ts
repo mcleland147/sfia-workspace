@@ -11,21 +11,31 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
+import {
+  projectAssistantSendAction,
+} from "@/features/project-assistant/actions";
 import {
   admitsActiveCycleArtifactMaterializationContinuation,
   hasCanonicalArtifactApplicableUnsatisfied,
   hasCurrentRequireArtifactObligation,
   resolveActiveCycleGovernedContinuation,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
-import { validateIntentAnalysisPayload } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  validateIntentAnalysisPayload,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   recordObligationPolicyNoGovernedEffects,
   recordObligationPolicyRequireArtifact,
 } from "@/features/project-assistant/f2/pilotLifecycleActions";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  ProjectAssistantContextDto,
+} from "@/features/project-assistant/types";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -270,14 +280,6 @@ describe("ACTIVE-CYCLE ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORR-01", () =
       expectedLpsVersion: lps1.livingProjectState.version,
     });
     expect(started.ok).toBe(true);
-
-    if (input.withRepoBinding) {
-      const bound = await runtime.setProjectRepositoryBinding({
-        projectId,
-        ...SANDBOX_BINDING,
-      });
-      expect(bound.ok).toBe(true);
-    }
 
     if (input.withNoGovernedEffects) {
       const noFx = await recordObligationPolicyNoGovernedEffects({

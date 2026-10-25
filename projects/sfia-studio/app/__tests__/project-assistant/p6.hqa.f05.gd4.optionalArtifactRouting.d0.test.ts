@@ -10,16 +10,28 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  orchestrateAssistantSend,
+} from "@/features/project-assistant/f2/orchestrateF2";
 import {
   isOptionalDocumentaryWithoutClosureArtifactBlock,
   resolveActiveCycleGovernedContinuation,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
-import { validateIntentAnalysisPayload } from "@/features/project-assistant/f2/intentAnalysis";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  validateIntentAnalysisPayload,
+} from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  resetMw5ChallengeStoreForTests,
+} from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   getPendingGenericPrepareOffer,
   resolvePrepareOfferSessionKey,
@@ -40,13 +52,17 @@ import {
   w2ConfirmExecutionContractAction,
   w2InspectExecutionContractAction,
 } from "@/features/project-assistant/w2/actions";
-import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import type {
+  ProjectAssistantContextDto,
+} from "@/features/project-assistant/types";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -231,17 +247,6 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
       if (!pol.ok) throw new Error("require_artifact_policy");
     }
     const identity = `acme/f05-${input.suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,

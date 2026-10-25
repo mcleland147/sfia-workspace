@@ -6,7 +6,7 @@
  * Requires ProcessRunner + RealExecutionWorkspacePort (no Fake defaults).
  * Order: enablement → bin resolve → prepareWorkspace → runner.invoke.
  */
-import { accessSync, constants, existsSync } from "node:fs";
+import { accessSync, constants } from "node:fs";
 import path from "node:path";
 import {
   isStudioCursorRealEnabled,
@@ -24,10 +24,6 @@ import type {
   RealLaunchResult,
   RealProcessObservation,
 } from "../ports/realExecutionLaunchPort";
-import {
-  assertArtifactWriteModeAtExecution,
-  isAutomaticProductDocsWriteTargetPath,
-} from "@/lib/oa/project/domain/artifactTargetRouting";
 import type { RealExecutionWorkspacePort } from "../ports/realExecutionWorkspacePort";
 import { DisabledRealProcessRunner } from "./nodeCursorProcessRunner";
 import { assertResolvedTimeoutMs } from "@/lib/oa/execution-contract";
@@ -35,7 +31,6 @@ import {
   CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
   isCursorTrustMarkerPathCompatible,
 } from "./cursorTrustMarkerPathCompatibility";
-import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
 import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
 import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
 import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
@@ -64,7 +59,6 @@ import {
   resolveMutatingConfinementEffectClass,
   stripInheritedCursorShellEgressEnv,
 } from "./mutatingCursorConfinementEnv";
-import { resolveSealedDocsWriteWorktreePaths } from "../application/resolveSealedDocsWriteWorktreePaths";
 
 /**
  * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — one mission, one enforcement overlay.
@@ -521,13 +515,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       !isPrCreateProfile &&
       (Boolean(gitPrMergeSpec) ||
         request.action === M4_BOUNDED_PR_MERGE_ACTION);
-    const isDocsWrite =
-      !isLocalCommitProfile &&
-      !isRemotePushProfile &&
-      !isPrCreateProfile &&
-      !isPrMergeProfile &&
-      request.action === M4_BOUNDED_DOCS_WRITE_ACTION;
-
     const rejectFreeShell = (): RealLaunchResult | null => {
       if (
         typeof (request as { freeShellScript?: unknown }).freeShellScript ===
@@ -855,92 +842,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         semanticFingerprint: request.semanticFingerprint,
         missionPrompt,
       });
-    } else if (isDocsWrite) {
-      const spec = request.docsWriteSpec;
-      if (!spec) {
-        return {
-          outcome: "reject",
-          gatewayId: this.gatewayId,
-          attemptId: request.attemptId,
-          reason: "docs_write_spec_missing",
-          realProcessInvoked: false,
-          detailCode: "REAL_AGENT_PROFILE_INVALID",
-        };
-      }
-      // Sealed EC paths stay repo-relative; absolutize only for Cursor instruction
-      // under the prepared worktree so the agent cannot drop monorepo prefixes.
-      const resolvedPaths = resolveSealedDocsWriteWorktreePaths({
-        worktreeRoot: workspacePath,
-        targetPath: spec.targetPath,
-        pathAllowlist: spec.pathAllowlist,
-      });
-      if (!resolvedPaths.ok) {
-        return {
-          outcome: "reject",
-          gatewayId: this.gatewayId,
-          attemptId: request.attemptId,
-          reason: resolvedPaths.reason,
-          realProcessInvoked: false,
-          detailCode: "REAL_WORKSPACE_INVALID",
-        };
-      }
-      // Execution-time TOCTOU — same invariant as FakeDocsWriteLaunchPort,
-      // before Cursor REAL process is invoked.
-      let targetExists: boolean | null = null;
-      try {
-        if (!existsSync(workspacePath)) {
-          targetExists = null;
-        } else {
-          targetExists = existsSync(resolvedPaths.absoluteTargetPath);
-        }
-      } catch {
-        targetExists = null;
-      }
-      const writeGuard = assertArtifactWriteModeAtExecution({
-        artifactWriteMode: spec.artifactWriteMode,
-        targetExists,
-        requireResolvedWriteMode: isAutomaticProductDocsWriteTargetPath(
-          resolvedPaths.sealedTargetPath,
-        ),
-      });
-      if (!writeGuard.ok) {
-        return {
-          outcome: "reject",
-          gatewayId: this.gatewayId,
-          attemptId: request.attemptId,
-          reason: writeGuard.code,
-          realProcessInvoked: false,
-          detailCode: "REAL_WORKSPACE_INVALID",
-        };
-      }
-      // Enforcement overlay only — the EC mission carries WHAT to write.
-      // Brief / content / scope / expectedOutputs must NOT appear here as a
-      // competing mission authority (NELC-01 WS3).
-      const docsWriteEnforcement = [
-        "TÂCHE UNIQUE — bounded docs-write déterministe (GCEC).",
-        `EXACT AUTHORIZED FILE (absolute path inside prepared worktree — modify exactly this file and no other): ${resolvedPaths.absoluteTargetPath}`,
-        `Canonical sealed targetPath (repo-relative, do not reinterpret): ${resolvedPaths.sealedTargetPath}`,
-        `AUTHORIZED ROOT(S) (absolute under prepared worktree): ${resolvedPaths.absolutePathAllowlist.join(", ")}`,
-        `Canonical sealed pathAllowlist (repo-relative): ${resolvedPaths.sealedPathAllowlist.join(", ")}`,
-        "Do not reinterpret relative paths against a nested subproject or editor root.",
-        `Repository: ${spec.repositoryRef}`,
-        `Validations techniques: ${spec.validationExpectations.join(", ") || "path_allowlist; no_delete"}`,
-        "Ne créer/modifier AUCUN autre fichier.",
-        "Ne supprimer AUCUN fichier (noDelete=true).",
-        "Ne pas commit, push, PR, merge, ni remote git.",
-        "Ne lancer aucune commande Shell.",
-        "Utiliser uniquement les outils d'édition de fichiers (Write/StrReplace).",
-        "Ne pas modifier README.md.",
-        "En cas d'ambiguïté ou de chemin hors allowlist: STOP immédiatement.",
-        `target=${request.target ?? ""}`,
-        `action=${request.action ?? ""}`,
-        `scope=${request.scope ?? ""}`,
-        `fingerprint=${request.semanticFingerprint}`,
-      ];
-      instruction = composeBoundedInstruction({
-        missionPrompt,
-        enforcement: docsWriteEnforcement,
-      });
     } else if (
       request.action === M4_BOUNDED_RO_ACTION ||
       request.selectedAgentRef === M4_BOUNDED_RO_CURSOR_AGENT_ID
@@ -997,7 +898,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
     const hasMissionPrompt = missionPrompt !== null;
     const usesAgentMode =
-      isDocsWrite ||
       isLocalCommitProfile ||
       isRemotePushProfile ||
       isPrCreateProfile ||
@@ -1035,7 +935,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
     // Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
     const childEnv: NodeJS.ProcessEnv = isMutatingGcecCursorProfile({
-      isDocsWrite,
+      isDocsWrite: false,
       isLocalCommitProfile,
       isRemotePushProfile,
       isPrCreateProfile,

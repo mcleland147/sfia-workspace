@@ -18,22 +18,34 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
+import {
+  projectAssistantSendAction,
+} from "@/features/project-assistant/actions";
+import {
+  projectAssistantPrepareM3Action,
+} from "@/features/project-assistant/actions";
 import {
   w2DecideTrajectoryAction,
   w2InspectExecutionContractAction,
   w2ProposeTrajectoryOptionsAction,
 } from "@/features/project-assistant/w2/actions";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  prepareExecutionContractFromW2Decision,
+} from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
 import {
   getProposal,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { F2_PROCESS_LOCAL_NOTICE } from "@/features/project-assistant/f2/proposalStore";
-import type { ProposalDto } from "@/features/project-assistant/f2/types";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  F2_PROCESS_LOCAL_NOTICE,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  ProposalDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
 import {
   PROPOSAL_SUBJECT_AMEND_REF,
   PROPOSAL_SUBJECT_PURSUE_REF,
@@ -51,7 +63,9 @@ import {
   listEffectivePendingDecisionSubjectMarkers,
   readActiveProposalDecisionSubject,
 } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -280,11 +294,6 @@ describe("PRODUCT-PROOF-JOURNEY-INTEGRITY — application path AP11–AP24", () 
     });
     expect(obligation.ok).toBe(true);
 
-    const bound = await runtime.setProjectRepositoryBinding({
-      projectId,
-      ...DOCS_BINDING,
-    });
-    expect(bound.ok).toBe(true);
 
     return { projectId, cycleInstanceId };
   }

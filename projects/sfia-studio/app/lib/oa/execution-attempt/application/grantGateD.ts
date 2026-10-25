@@ -13,7 +13,7 @@ import {
 import { createAttemptError, isExecutionAttemptDomainError } from "../domain/errors";
 import type { AttemptDetailCode, ActorReference } from "../domain/types";
 import type { GateDGrant } from "../domain/realLaunchSafety";
-import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
+import { isM4AuthorizedCursorRealAgent } from "../infrastructure/authorizedCursorRealAgent";
 import type { AgentRegistryPort } from "../ports/agentRegistry";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
 import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";

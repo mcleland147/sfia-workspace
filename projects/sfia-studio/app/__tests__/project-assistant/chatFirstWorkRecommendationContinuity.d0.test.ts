@@ -1,3 +1,20 @@
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+
 /**
  * MD-WR-03 — chat-first Work Recommendation (ACW identity) disposition oracle.
  *
@@ -14,9 +31,15 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  projectAssistantSendAction,
+} from "@/features/project-assistant/actions";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   LOCAL_PILOTE_ACTOR,
   computeDecisionBasisSourceDigest,
@@ -30,10 +53,18 @@ import {
   projectCycleWorkRecommendations,
   recommendationClassificationUnavailableRef,
 } from "@/lib/oa/cycle";
-import { assessChatFirstWorkEligibility } from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
-import { resolveChatFirstPilotDecision } from "@/features/project-assistant/w2/resolveChatFirstPilotDecision";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { sealWorkRecommendationPresentedOptionSet } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  assessChatFirstWorkEligibility,
+} from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
+import {
+  resolveChatFirstPilotDecision,
+} from "@/features/project-assistant/w2/resolveChatFirstPilotDecision";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  sealWorkRecommendationPresentedOptionSet,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
 import {
   findActiveWorkRecommendationSubject,
   selectActiveWorkRecommendationCandidates,
@@ -57,15 +88,18 @@ import {
   resolveProjectTrajectoryRecommendationCutoff,
   resolveTrajectoryRecommendationCutoffFromDecisions,
 } from "@/features/project-assistant/trajectoryRecommendationCurrentness";
-import { listProposalsForProject } from "@/features/project-assistant/f2/proposalStore";
+import {
+  listProposalsForProject,
+} from "@/features/project-assistant/f2/proposalStore";
 import {
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
   MemoryLaunchSafetyJournal,
   isStudioCursorRealEnabled,
 } from "@/lib/oa/execution-attempt";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project";
 import {
   SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
   getRuntimeApplicationService,
@@ -114,6 +148,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
     cwd: repoRoot,
   });
   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
+  execFileSync(
+    "git",
+    ["remote", "add", "origin", `https://github.com/${identity}.git`],
+    { cwd: repoRoot },
+  );
   execFileSync("git", ["add", "."], { cwd: repoRoot });
   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {

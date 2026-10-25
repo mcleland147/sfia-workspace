@@ -10,7 +10,6 @@ export * from "./domain/types";
 export * from "./domain/errors";
 export * from "./domain/invariants";
 export * from "./domain/projectWorkspaceKey";
-export * from "./domain/serverOwnedRepositoryConfig";
 export * from "./domain/artifactTargetRouting";
 export {
   probeManagedRepoRelativePathExists,
@@ -29,11 +28,6 @@ export { ListProjects } from "./application/listProjects";
 export { GetCurrentLivingProjectState } from "./application/getCurrentLivingProjectState";
 export { GetLivingProjectStateVersion } from "./application/getLivingProjectStateVersion";
 export { AppendLivingProjectStateVersion } from "./application/appendLivingProjectStateVersion";
-export { SetProjectRepositoryBinding } from "./application/setProjectRepositoryBinding";
-export type {
-  SetProjectRepositoryBindingRequest,
-  SetProjectRepositoryBindingResult,
-} from "./application/setProjectRepositoryBinding";
 export {
   MaterializeFromMemoryB,
   createMaterializeFromMemoryB,
@@ -104,7 +98,6 @@ import { GetCurrentLivingProjectState } from "./application/getCurrentLivingProj
 import { GetLivingProjectStateVersion } from "./application/getLivingProjectStateVersion";
 import { GetProject } from "./application/getProject";
 import { ListProjects } from "./application/listProjects";
-import { SetProjectRepositoryBinding } from "./application/setProjectRepositoryBinding";
 import { MemoryLivingProjectStateRepository } from "./infrastructure/memoryLivingProjectStateRepository";
 import { MemoryProjectRepository } from "./infrastructure/memoryProjectRepository";
 import { MemoryProjectStore } from "./infrastructure/memoryProjectStore";
@@ -128,7 +121,6 @@ export type ProjectServices = {
   getCurrentLivingProjectState: GetCurrentLivingProjectState;
   getLivingProjectStateVersion: GetLivingProjectStateVersion;
   appendLivingProjectStateVersion: AppendLivingProjectStateVersion;
-  setProjectRepositoryBinding: SetProjectRepositoryBinding;
   /** Optional dispose for durable backends (SQLite). */
   dispose?: () => void;
 };
@@ -182,11 +174,6 @@ export function createInMemoryProjectServices(
       clock,
       audit,
       store,
-    ),
-    setProjectRepositoryBinding: new SetProjectRepositoryBinding(
-      projects,
-      clock,
-      audit,
     ),
   };
 }

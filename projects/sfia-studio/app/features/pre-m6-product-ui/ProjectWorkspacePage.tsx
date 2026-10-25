@@ -1080,12 +1080,8 @@ export function ProjectWorkspacePage({
                   projectWorkspaceKey={
                     success.project.projectWorkspaceKey ?? null
                   }
-                  pathRoot={
-                    success.project.repositoryBinding?.pathRoot ?? null
-                  }
-                  repositoryIdentity={
-                    success.project.repositoryBinding?.identity ?? null
-                  }
+                  pathRoot={null}
+                  repositoryIdentity={null}
                   loadActiveCycleWorkspace={async () => {
                     const info = await projectAssistantActiveCycleWorkspaceAction(
                       { projectId },

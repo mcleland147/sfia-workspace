@@ -184,13 +184,6 @@ describe("visible slice V1 Project/LPS happy path", () => {
         activeCycleInstanceId: null,
         ckcResolutionRef: null,
       },
-      repositoryBinding: {
-        provider: "github",
-        identity: "acme/visible-slice",
-        remoteUrl: "https://github.com/acme/visible-slice.git",
-        defaultBranch: "main",
-        pathRoot: "projects/visible-slice-v1",
-      },
       projectWorkspaceKey: "visible-slice-v1",
       localMode: true,
       iam: "NOT_SELECTED",

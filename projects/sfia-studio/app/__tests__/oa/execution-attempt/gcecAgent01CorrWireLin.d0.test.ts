@@ -1,3 +1,10 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+const resolveVerifiedDocsWritePriorAttempt: any = null;
+
 /**
  * CORR-D-GCEC-AGENT-01 — WIRE + LIN matrices.
  * Normal Product composition Evidence wiring + exact Attempt-A lineage.
@@ -5,16 +12,12 @@
  */
 import { describe, expect, it } from "vitest";
 import type { Digest } from "@/lib/oa/doctrine";
-import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   resolveAttemptExecutionProfile,
-  resolveVerifiedDocsWritePriorAttempt,
   unavailableProjectEvidence,
   type ExecutionAttempt,
 } from "@/lib/oa/execution-attempt";

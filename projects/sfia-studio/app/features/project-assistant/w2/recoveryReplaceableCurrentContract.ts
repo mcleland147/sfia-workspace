@@ -3,10 +3,9 @@
  * replaceable by recovery PREPARE for next-action ownership.
  * Pure — no OA I/O, no Cancel, no persistence. Client-safe.
  *
- * Action/target literals match M4_BOUNDED_DOCS_WRITE_* (avoid server-only imports).
+ * No specialized document-write contract is recognized. Pre-exec generic
+ * contracts that match the recovery binding are replaceable.
  */
-const DOCS_WRITE_ACTION = "cursor.docs_write.apply";
-const DOCS_WRITE_TARGET = "workspace.isolated.docs_write";
 
 const PRE_EXEC_REPLACEABLE_BY_RECOVERY_PREPARE = new Set([
   "draft",
@@ -40,9 +39,5 @@ export function isWrongGenericPreExecReplaceableByRecoveryPrepare(input: {
   if (!PRE_EXEC_REPLACEABLE_BY_RECOVERY_PREPARE.has(input.currentContract.status)) {
     return false;
   }
-  const isDocsWrite =
-    input.currentContract.action === DOCS_WRITE_ACTION &&
-    input.currentContract.target === DOCS_WRITE_TARGET;
-  if (isDocsWrite) return false;
   return true;
 }

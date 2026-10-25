@@ -1,3 +1,23 @@
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * Live managed-repository composition — bare default Product singleton exit proof.
  *
@@ -25,23 +45,25 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import {
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   MemoryLaunchSafetyJournal,
   isStudioCursorRealEnabled,
   sanitizeManagedRepoIdentity,
 } from "@/lib/oa/execution-attempt";
-import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  prepareAndResolveM3ProductPath,
+} from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
+import {
+  analyzeIntent,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
 import {
   FakeConversationProvider,
   setConversationProviderForTests,
@@ -72,9 +94,15 @@ import {
   approveCandidateTrajectory,
   buildPreCycleCandidateApprovalPresentation,
 } from "@/features/project-assistant/approveCandidateTrajectory";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  evaluateExecutionAuthorization,
+} from "@/features/project-assistant/w2/authorizeExecutionContract";
 import {
   governedExecuteAuthorizedContract,
 } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
@@ -158,6 +186,11 @@ function initManagedRepo(managedBase: string, identity: string) {
     cwd: repoRoot,
   });
   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
+  execFileSync(
+    "git",
+    ["remote", "add", "origin", `https://github.com/${identity}.git`],
+    { cwd: repoRoot },
+  );
   execFileSync("git", ["add", "."], { cwd: repoRoot });
   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
@@ -355,7 +388,7 @@ async function bootBareSingletonDocsWriteJourney(input: {
 
   const created = await runtime.createProject({
     name: `LMR ${input.suffix}`,
-    objective: "Live managed repo composition bare singleton",
+    objective: `LMR ${input.suffix}`,
     context: "delivery",
     criticality: "STANDARD",
     constraints: ["ZERO LIVE", "ZERO REAL"],
@@ -365,20 +398,6 @@ async function bootBareSingletonDocsWriteJourney(input: {
   expect(created.ok).toBe(true);
   if (!created.ok) throw new Error("createProject");
   const projectId = created.project.projectId;
-
-  const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-    projectId,
-    actor: PILOTE,
-    binding: {
-      provider: "github",
-      identity: IDENTITY,
-      remoteUrl: `https://github.com/${IDENTITY}.git`,
-      defaultBranch: BRANCH,
-      pathRoot: "docs",
-      baseSha: input.baseHeadSha,
-    },
-  });
-  expect(bound.ok).toBe(true);
 
   const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
   const decisions0 = await oa.decisionServices.decisions.listByProject(projectId);
@@ -816,7 +835,7 @@ describe("injected FakeDocsWrite composition regression (NOT exit proof)", () =>
 
     const created = await runtime.createProject({
       name: `LMR inj ${input.suffix}`,
-      objective: "Injected composition regression",
+      objective: `LMR inj ${input.suffix}`,
       context: "delivery",
       criticality: "STANDARD",
       constraints: ["ZERO LIVE"],
@@ -826,20 +845,6 @@ describe("injected FakeDocsWrite composition regression (NOT exit proof)", () =>
     expect(created.ok).toBe(true);
     if (!created.ok) throw new Error("createProject");
     const projectId = created.project.projectId;
-
-    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-      projectId,
-      actor: PILOTE,
-      binding: {
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: BRANCH,
-        pathRoot: "docs",
-        baseSha: input.baseHeadSha,
-      },
-    });
-    expect(bound.ok).toBe(true);
 
     const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
     const decisions0 = await oa.decisionServices.decisions.listByProject(projectId);

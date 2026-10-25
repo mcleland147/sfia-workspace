@@ -9,10 +9,18 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  orchestrateAssistantSend,
+} from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  resetMw5ChallengeStoreForTests,
+} from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   getPendingGenericPrepareOffer,
   resolvePrepareOfferSessionKey,
@@ -22,15 +30,23 @@ import {
   w2ConfirmExecutionContractAction,
   w2InspectExecutionContractAction,
 } from "@/features/project-assistant/w2/actions";
-import { prepareGenericExecutionContractDraft } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { resolveAuthoritativeProductMateriality } from "@/features/project-assistant/w2/resolveAuthoritativeProductMateriality";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import {
+  prepareGenericExecutionContractDraft,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  resolveAuthoritativeProductMateriality,
+} from "@/features/project-assistant/w2/resolveAuthoritativeProductMateriality";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -151,17 +167,6 @@ describe("P6 Product Continuity Closure — integrated Product path", () => {
     });
     if (!started.ok) throw new Error("start");
     const identity = `acme/pcc-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,

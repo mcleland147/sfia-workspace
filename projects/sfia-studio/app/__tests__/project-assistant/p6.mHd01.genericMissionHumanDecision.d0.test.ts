@@ -25,14 +25,28 @@ import {
   computeGenericMissionPresentationDigest,
   verifyGenericMissionSnapshotIntegrity,
 } from "@/features/project-assistant/w2/genericMissionSubject";
-import { clearPendingGenericPrepareOffer } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { governedExecuteSelectAgent } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import {
+  clearPendingGenericPrepareOffer,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  governedExecuteSelectAgent,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
 import { LOCAL_PILOTE_ACTOR, validateDecisionBasis } from "@/lib/oa/decision";
-import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
+} from "@/lib/oa/execution-attempt";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -41,7 +55,9 @@ import {
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 
 const APP = path.resolve(__dirname, "../..");
 
@@ -157,17 +173,6 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       },
     });
     const identity = `acme/mhd01-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -728,17 +733,6 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
     const { projectId, oa } = await seedProject("hd21");
     const analysis = structuralAnalysis();
     const { decision } = await sealAndAccept({ projectId, analysis });
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity: "acme/mhd01-mutated",
-        remoteUrl: "https://github.com/acme/mhd01-mutated.git",
-        defaultBranch: "main",
-        pathRoot: "projects/other",
-      },
-    });
     const prep = await prepareGenericExecutionContractDraft({
       oa,
       projectId,

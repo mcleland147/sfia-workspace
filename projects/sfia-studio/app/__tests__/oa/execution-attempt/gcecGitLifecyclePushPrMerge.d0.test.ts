@@ -1,3 +1,25 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+const createM4BoundedDocsWriteCursorAgentDescriptor: any = null;
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+
 /**
  * GCEC-GIT-LIFECYCLE-E2E-01 PATH B — push / PR create / PR merge PREP.
  * ZERO REAL remote mutation. @vitest-environment node
@@ -9,13 +31,13 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import type { Digest } from "@/lib/oa/doctrine";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
+import type {
+  ExecutionAttempt,
+} from "@/lib/oa/execution-attempt";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
@@ -39,10 +61,8 @@ import {
   buildGitPrCreateLaunchSpec,
   buildGitPrMergeLaunchSpec,
   buildGitPushLaunchSpec,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedRemotePushCursorAgentDescriptor,
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
   isM4BoundedRemotePushRealAgent,
   posixShellSingleQuote,
   resolveAttemptExecutionProfile,

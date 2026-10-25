@@ -1576,10 +1576,7 @@ export class PilotLifecycleTransitions {
     const projectResult = await this.deps.projectServices.getProject.execute({
       projectId: input.projectId,
     });
-    const repositoryBinding =
-      projectResult.ok === true
-        ? (projectResult.project.repositoryBinding ?? null)
-        : null;
+    const repositoryBinding = null;
 
     const applicability = deriveFinalizationApplicability({
       cycleInstanceId: input.cycle.cycleInstanceId,

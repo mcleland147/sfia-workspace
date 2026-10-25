@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * CR-GCEC-01 — actual F2 structured intent → DecisionBasis → PREPARE.
  * Fake provider only; ZERO OpenAI REAL.
@@ -9,16 +11,22 @@ import {
   resetRuntimeApplicationServiceForTests,
 } from "@/lib/vertical-slice-runtime";
 import { FakeConversationProvider } from "@/lib/platform/ai";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  analyzeIntent,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
-import { M4_BOUNDED_DOCS_WRITE_ACTION } from "@/lib/oa/execution-attempt";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
+import {
+  prepareM3FromDecision,
+} from "@/features/project-assistant/f3/prepareM3FromDecision";
+
 
 describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () => {
   beforeEach(() => {

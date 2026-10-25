@@ -152,9 +152,6 @@ export {
   projectExecutionContractInspectionDisclosure,
   requiredInspectedFactsForContract,
   attestationCoversRequiredFacts,
-  isDocsWriteExecutionContract,
-  DOCS_WRITE_ACTION,
-  DOCS_WRITE_TECHNICAL_TARGET,
   type ExecutionContractInspectionDisclosure,
   type InspectionDisclosureProjectionResult,
 } from "./projection/inspectionDisclosure";

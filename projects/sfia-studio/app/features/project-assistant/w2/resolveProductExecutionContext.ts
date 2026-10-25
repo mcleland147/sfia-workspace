@@ -14,10 +14,7 @@ import {
   resolveCurrentContractResultClaimEvaluation,
 } from "@/lib/oa/evidence-review";
 import type { ContractResultVerdict } from "@/lib/oa/evidence-review/domain/contractResultTypes";
-import {
-  loadDocsWriteArtifactReviewMaterial,
-  resolveProductEvidenceRefsRoot,
-} from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/productEvidenceRefsRoot";
 import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import { isExecutionReviewVerificationEvidenceId } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
 import { isMissionResultEvidenceId } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
@@ -677,29 +674,6 @@ export async function resolveProductExecutionContext(input: {
         completeness: durableSurface.artifactReviewCompleteness ?? null,
         preview: durableSurface.artifactReviewMaterial.slice(0, 2000),
       };
-    } else {
-      const loaded = loadDocsWriteArtifactReviewMaterial({
-        refsRoot: resolveProductEvidenceRefsRoot(),
-        attemptId: attempt.attemptId,
-        ...(targetPath ? { targetPath } : {}),
-      });
-      if (loaded.ok) {
-        artifact = {
-          kind: "ARTIFACT",
-          present: true,
-          completeness: loaded.completeness,
-          preview: loaded.artifactText.slice(0, 2000),
-        };
-        if (loaded.cursorReport && !cursorReport.present) {
-          cursorReport = {
-            kind: "EXECUTOR_CLAIM",
-            present: true,
-            status: loaded.cursorReport.status,
-            summary: `status=${loaded.cursorReport.status}`,
-            disclosure: "CLAIM_NOT_EVIDENCE",
-          };
-        }
-      }
     }
 
     const genericReview = loadGenericExecutionReviewMaterial({

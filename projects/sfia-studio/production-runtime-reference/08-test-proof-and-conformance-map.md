@@ -34,6 +34,28 @@
 
 **Integrated DET batch (pre-commit revalidation):** S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 — **52 PASS / 10 files** (includes CR-S2-02 suite growth). **Anti-claims:** DET ≠ LIVE · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · exclusive **DEFAULT OFF**.
 
+## Overlay — CORR-01 restored generic proofs (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+
+docs_write suites retired with the Product specialization are not restored. These rows are the generic mission / wording proofs re-ported on the generalist contract. **NOT MERGED**. **≠** GI. **≠** REAL.
+
+| Suite file | What it proves | Class |
+|---|---|---|
+| `acceptanceCriterionAmbiguity.generic.d0.test.ts` | NONE ≠ AMBIGUOUS; ambiguous structured matches and unique `manual_review` stay NOT_PROVEN (no legacy PASS fall-through) | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
+| `missionResultContractResultSemantic.generic.d0.test.ts` | Generalist mission Result Semantic dispatch and Evidence binding (Claim ≠ Fact; technical success without Evidence stays NOT_PROVEN) | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
+| `postExecutionProductContinuity.generic.d0.test.ts` | FAIL / STOP / UNCLAIMED trajectory wording only | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
+| `contractResultCriteria.generic.d0.test.ts` | Project-specific EO without a criterion → NOT_PROVEN; `mission_diagnostic` bound to that EO → PASS; `manual_review` → NOT_PROVEN; criterion bound to a different EO does not leak PASS | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
+
+## Overlay — CORR-02 Git target fidelity (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+
+Identity↔remote↔checkout and the tightened FS-anchor allowlist. Docs_write Product suites are **not** restored. **NOT MERGED**. **≠** REAL. **≠** GI.
+
+| Suite file | What it proves | Class |
+|---|---|---|
+| `gitTargetIdentityRemoteFidelity.d0.test.ts` | T1–T2 coherent HTTPS/SSH seal (synthesized remote only when absent and identity canonical); T3–T4 owner/repo or non-GitHub host → `repository_remote_identity_mismatch` / seal `null`; T5–T8 checkout `.git` or one-hop worktree gitfile accepted only when `origin` matches, else `managed_repo_identity_mismatch`; absent checkout → `managed_repo_absent`; T9 protected path fail-closed | **DETERMINISTIC VERIFIED** · **≠** REAL |
+| `gcecCont01ContinuationResolver.d0.test.ts` T11 | Irrelevant Attempt Evidence (wrong source: `execution_attempt:mission_result`, `execution_attempt:docs_write_fake`, prose `execution attempt … (succeeded)`, or right source on the wrong Attempt) → no FS supersession; continuation stays required and not ok | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
+| `gcecCont01ContinuationResolver.d0.test.ts` T12 | Two matching historical artifact Evidence rows (exact or dotted twin) → no supersession / no auto PASS | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
+| `gcecCont01ContinuationResolver.d0.test.ts` historical allowlist | `execution_attempt:docs_write` and `execution_attempt:docs_write.v2` still supersede when lineage is otherwise exact — historical reading only | **DETERMINISTIC AT TESTED SCOPE** · **≠** Product admission of docs_write |
+
 ## Flow → tests (selected)
 
 | Flow | Deterministic tests | Notes |
@@ -85,7 +107,8 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That 
 | Mode | `ACTIVE_CYCLE_CONTINUATION_BLOCKED` | `NEW_CYCLE_FORMALIZATION` |
 | Reason | `incompatible_execution_intent` | `no_compatible_artifact_effect` |
 
-- Scenario: natural materialization signal **without** `docs_write`-compatible effect under an active cycle with REQUIRE_ARTIFACT.
+- Scenario: natural materialization signal **without** a `docs_write`-compatible effect under an active cycle with REQUIRE_ARTIFACT.
+- **Epistemic split 2026-10-25:** this oracle wording is **CURRENT ON MAIN** (`7db8afd7`), where a docs_write-compatible effect can still be admitted. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** docs_write Product admission is **RETIRED**, so that specialized effect is not a Product admission path. The historical oracle is superseded history for the local candidate. **NOT MERGED**.
 - **Does not prove** that a new CycleInstance was created — the same case asserts `countCycles === 1` (resolution alone never invents a cycle).
 - Mode name `NEW_CYCLE_FORMALIZATION` here is a resolution **routing** outcome (D-ER-17: not a dead-end; Generic PREPARE may remain eligible on project/active-cycle context) — **≠** Artifact governed continuation, **≠** CREATE_CYCLE proof.
 - Ceiling: DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). NOT E2E REAL. NOT READY FOR REAL.
@@ -95,7 +118,7 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That 
 Candidate assertions distinguish:
 
 1. **Generic PREPARE eligible** on same active-cycle / project context (no dead-end force-unbind).
-2. **Artifact governed materialization not authorized** for the non-`docs_write` natural signal.
+2. **Artifact governed materialization not authorized** for the natural signal that, **on main**, is non-`docs_write`. **LOCAL DELIVERY CANDIDATE:** docs_write is not a Product admission effect; this bullet stays the historical / main oracle. **NOT MERGED**.
 3. **No artificial new CycleInstance** (`countCycles` stable; `createCycle` not required by this path).
 4. **No misleading Artifact materialization Proposal** bound as active-cycle governed continuation.
 

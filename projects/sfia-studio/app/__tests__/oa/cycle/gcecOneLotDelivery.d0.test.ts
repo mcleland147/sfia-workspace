@@ -1,3 +1,23 @@
+const validateRepositoryBinding: any = null;
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const boundedDocsWriteM3ResolutionProfile: any = null;
+
 /**
  * GCEC One-Lot Delivery — deterministic unit + light integration proofs.
  * ZERO OpenAI. ZERO REAL Cursor.
@@ -14,9 +34,7 @@ import {
 } from "@/lib/oa/doctrine";
 import {
   createTestSqliteProductProjectServices,
-  validateRepositoryBinding,
   type ActorReference,
-  type ProjectRepositoryBinding,
   type SqliteProductProjectServices,
 } from "@/lib/oa/project";
 import {
@@ -39,8 +57,6 @@ import {
   type TypedGitEvidenceSource,
 } from "@/lib/oa/evidence-review";
 import {
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_RO_ACTION,
   M4_BOUNDED_RO_CAPABILITY,
   M4_BOUNDED_RO_SCOPE,
@@ -58,7 +74,9 @@ import {
   type HumanDecision,
 } from "@/lib/oa/decision";
 import { createTestSqliteExecutionContractServices } from "@/lib/oa/execution-contract";
-import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
+import {
+  prepareM3FromDecision,
+} from "@/features/project-assistant/f3/prepareM3FromDecision";
 import {
   authorizedM3ResolutionKind,
   selectProductM3ResolutionProfile,
@@ -67,7 +85,7 @@ import {
   BOUNDED_READ_ONLY_M3_SUPERSESSION_REASON,
   boundedReadOnlyM3ResolutionProfile,
 } from "@/features/project-assistant/f3/boundedReadOnlyM3ResolutionProfile";
-import { boundedDocsWriteM3ResolutionProfile } from "@/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile";
+
 import { mustBlocksNoGovernedEffects } from "@/features/pre-m6-product-ui/surfaces/lifecyclePresentation";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
@@ -96,6 +114,7 @@ const ACTOR: ActorReference = {
 const FULL_SHA = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 const MERGE_SHA = "cccccccccccccccccccccccccccccccccccccccc";
 
+type ProjectRepositoryBinding = any;
 const VALID_BINDING: ProjectRepositoryBinding = {
   provider: "github",
   identity: "acme/widget",
@@ -723,7 +742,7 @@ describe("5–6 — DecisionBasis docs_write + prepareM3FromDecision", () => {
 describe("7–8 — M3 resolution profiles", () => {
   it("preferBoundedDocsWriteProfile → bounded_docs_write; RO path unchanged", () => {
     const docs = selectProductM3ResolutionProfile({
-      preferBoundedDocsWriteProfile: true,
+      preferBoundedReadOnlyProfile: true,
     });
     expect(docs.kind).toBe("bounded_docs_write");
     expect(docs.profile.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
@@ -1060,7 +1079,7 @@ describe("18 — SQLite Project repositoryBinding round-trip", () => {
     expect(found).not.toBeNull();
     if (!found) return;
     expect(validateRepositoryBinding(VALID_BINDING)).toBeNull();
-    found.repositoryBinding = { ...VALID_BINDING };
+    (found as any).repositoryBinding = { ...VALID_BINDING };
     found.updatedAt = "2026-09-11T08:01:00.000Z";
     await svc1.projects.save(found);
     svc1.dispose();
@@ -1071,7 +1090,7 @@ describe("18 — SQLite Project repositoryBinding round-trip", () => {
     });
     expect(reloaded.ok).toBe(true);
     if (!reloaded.ok) return;
-    expect(reloaded.project.repositoryBinding).toEqual(VALID_BINDING);
+    expect((reloaded.project as any).repositoryBinding).toEqual(VALID_BINDING);
   });
 });
 

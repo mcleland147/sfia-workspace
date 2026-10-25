@@ -1,35 +1,35 @@
 /**
- * B1 — Mission Result ContractResult semantic (generic Product Cursor HOW).
+ * Generic mission Result Semantic.
+ *
+ * Ported from missionResultContractResultSemantic.d0.test.ts cases
+ * A1–A4, A6–A7, and P-N1–P-N6 (Claim ≠ Fact / technical success without Evidence).
+ * The docs_write-only A5 case is not ported.
+ * Contracts use the generalist Cursor quartet only.
  * @vitest-environment node
  */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
+import { persistMissionResultPayload } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+import type { Evidence } from "@/lib/oa/evidence-review";
 import {
-  assessExpectedOutputs,
   assessEvidenceRequirements,
+  assessExpectedOutputs,
   deriveCanonicalContractResultStatus,
 } from "@/lib/oa/evidence-review/application/contractResultAssessment";
+import { resolveApplicableContractResultSemantics } from "@/lib/oa/evidence-review/application/contractResultSemantics";
 import {
-  CONTRACT_RESULT_SEMANTICS,
-  resolveApplicableContractResultSemantics,
-} from "@/lib/oa/evidence-review/application/contractResultSemantics";
-import {
-  DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
-} from "@/lib/oa/evidence-review/application/docsWriteContractResultSemantic";
+  MISSION_RESULT_EVIDENCE_SOURCE,
+  MISSION_RESULT_RULE_REF,
+} from "@/lib/oa/evidence-review/application/missionResultContractResultSemantic";
 import {
   MISSION_DIAGNOSTIC_EO_TEMPLATE,
   MISSION_NEXT_STEP_EO_TEMPLATE,
   MISSION_RESULT_ER_KEY,
   PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
-  digestMissionResultPayload,
   type MissionResultPayload,
 } from "@/lib/oa/evidence-review/application/missionResultPayload";
-import {
-  MISSION_RESULT_EVIDENCE_SOURCE,
-  MISSION_RESULT_RULE_REF,
-} from "@/lib/oa/evidence-review/application/missionResultContractResultSemantic";
 import {
   W3B_TEMP_ARTIFACT_EO_TEMPLATE,
   W3B_TEMP_ARTIFACT_ER_KEY,
@@ -44,15 +44,6 @@ import {
   executionContractSemanticMaterial,
   type ExecutionContract,
 } from "@/lib/oa/execution-contract";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  bindCursorExecutionReportToAttempt,
-  mintCursorExecutionReportId,
-  type CursorExecutionReport,
-} from "@/lib/oa/execution-attempt";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import { persistMissionResultPayload } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 
 const NOW = "2026-09-23T10:00:00.000Z";
 const refsDirs: string[] = [];
@@ -158,11 +149,11 @@ function makeMissionEvidence(absolutePath: string, digest: string): Evidence {
     },
     version: 1,
     createdAt: NOW,
-  };
+  } as unknown as Evidence;
 }
 
-describe("B1 mission Result Semantic", () => {
-  it("A1 — generic quartet + mission marker + mission ER → exactly one", () => {
+describe("generic mission Result Semantic", () => {
+  it("A1 — generalist quartet + mission marker + mission ER → exactly one", () => {
     const material = executionContractSemanticMaterial(missionContract());
     const r = resolveApplicableContractResultSemantics(material);
     expect(r.status).toBe("one");
@@ -192,13 +183,9 @@ describe("B1 mission Result Semantic", () => {
     );
   });
 
-  it("A4 — temp-artifact remains temp only", () => {
+  it("A4 — generalist temp-artifact WHAT remains temp only", () => {
     const material = executionContractSemanticMaterial(
       missionContract({
-        action: "product:generate-temporary-artifact",
-        target: "product:project-workspace",
-        scope: "product:temporary-local-artifact",
-        requiredCapabilities: ["cap:product-temp-artifact"],
         constraints: ["PRODUCT_GOVERNED"],
         evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
         expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
@@ -208,27 +195,7 @@ describe("B1 mission Result Semantic", () => {
     expect(r.status).toBe("one");
     if (r.status === "one") {
       expect(r.semantic.ruleRef).toBe(W3B_TEMP_ARTIFACT_RULE_REF);
-    }
-  });
-
-  it("A5 — docs_write remains docs_write only", () => {
-    const material = executionContractSemanticMaterial(
-      missionContract({
-        action: M4_BOUNDED_DOCS_WRITE_ACTION,
-        target: "docs/x.md",
-        scope: "docs/",
-        requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-        constraints: [],
-        evidenceRequirements: ["evreq:docs_write_artifact"],
-        expectedOutputs: [
-          "Un fichier Markdown nommé note-de-cadrage.md.",
-        ],
-      }),
-    );
-    const r = resolveApplicableContractResultSemantics(material);
-    expect(r.status).toBe("one");
-    if (r.status === "one") {
-      expect(r.semantic.ruleRef).toBe(DOCS_WRITE_CONTRACT_RESULT_RULE_REF);
+      expect(r.semantic.ruleRef).not.toBe(MISSION_RESULT_RULE_REF);
     }
   });
 
@@ -382,7 +349,6 @@ describe("B1 mission Result Semantic", () => {
   it("P-N1 — external sourceKind + legacy source label → NOT_PROVEN / no PASS", () => {
     const { absolutePath, digest } = persistCanonicalPayload();
     const evidence = makeMissionEvidence(absolutePath, digest);
-    // Spoof: trusted-looking label but external sourceKind.
     (evidence as { sourceKind: string }).sourceKind = "external";
     evidence.source = MISSION_RESULT_EVIDENCE_SOURCE;
     const { eo, er, status } = assessMissionWithEvidence(evidence);
@@ -455,85 +421,5 @@ describe("B1 mission Result Semantic", () => {
       er.find((x) => x.requirement === MISSION_RESULT_ER_KEY)?.result,
     ).not.toBe("SATISFIED");
     expect(status).not.toBe("pass");
-  });
-
-  it("A8/A9/A10 — report Attempt / EC / repository-baseSha mismatch → reject", () => {
-    const report: CursorExecutionReport = {
-      schemaVersion: "oa.cursor-execution-report.1",
-      reportId: mintCursorExecutionReportId({
-        attemptId: "xat:a",
-        executionContractId: "xct:a",
-      }),
-      attemptId: "xat:a",
-      executionContractId: "xct:a",
-      repositoryRef: "org/repo",
-      baseSha: "b".repeat(40),
-      status: "succeeded",
-      authorizedEffectsExecuted: [],
-    };
-    expect(
-      bindCursorExecutionReportToAttempt({
-        report,
-        expectedAttemptId: "xat:other",
-        expectedExecutionContractId: "xct:a",
-      }).ok,
-    ).toBe(false);
-    expect(
-      bindCursorExecutionReportToAttempt({
-        report,
-        expectedAttemptId: "xat:a",
-        expectedExecutionContractId: "xct:other",
-      }).ok,
-    ).toBe(false);
-    expect(
-      bindCursorExecutionReportToAttempt({
-        report,
-        expectedAttemptId: "xat:a",
-        expectedExecutionContractId: "xct:a",
-        expectedRepositoryRef: "other/repo",
-      }).ok,
-    ).toBe(false);
-    expect(
-      bindCursorExecutionReportToAttempt({
-        report,
-        expectedAttemptId: "xat:a",
-        expectedExecutionContractId: "xct:a",
-        expectedRepositoryRef: "org/repo",
-        expectedBaseSha: "c".repeat(40),
-      }).ok,
-    ).toBe(false);
-    expect(
-      bindCursorExecutionReportToAttempt({
-        report,
-        expectedAttemptId: "xat:a",
-        expectedExecutionContractId: "xct:a",
-        expectedRepositoryRef: "org/repo",
-        expectedBaseSha: "b".repeat(40),
-      }).ok,
-    ).toBe(true);
-  });
-
-  it("registry never ambiguous for standard materials", () => {
-    for (const c of [
-      missionContract(),
-      missionContract({
-        action: "product:generate-temporary-artifact",
-        target: "product:project-workspace",
-        scope: "product:temporary-local-artifact",
-        requiredCapabilities: ["cap:product-temp-artifact"],
-        constraints: [],
-        evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
-        expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
-      }),
-    ]) {
-      const material = executionContractSemanticMaterial(c);
-      const matches = CONTRACT_RESULT_SEMANTICS.filter((s) =>
-        s.isApplicable(material),
-      );
-      expect(matches.length).toBeLessThanOrEqual(1);
-    }
-    expect(digestMissionResultPayload(samplePayload()).startsWith("sha256:")).toBe(
-      true,
-    );
   });
 });

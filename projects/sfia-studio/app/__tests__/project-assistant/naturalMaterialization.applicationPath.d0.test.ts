@@ -10,11 +10,21 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { listEffectivePendingDecisionSubjectMarkers } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  projectAssistantSendAction,
+} from "@/features/project-assistant/actions";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  listEffectivePendingDecisionSubjectMarkers,
+} from "@/features/project-assistant/w2/activeProposalDecisionSubject";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -176,11 +186,6 @@ describe("DETERMINISTIC NORA BOUNDARY PARITY — natural materialization applica
     });
     expect(obligation.ok).toBe(true);
 
-    const bound = await runtime.setProjectRepositoryBinding({
-      projectId,
-      ...SANDBOX_BINDING,
-    });
-    expect(bound.ok).toBe(true);
 
     return { projectId, cycleInstanceId };
   }

@@ -3,11 +3,13 @@
  * EC_C != EC_D; C launch count 0; D reaches fake launch with PR-create only.
  * ZERO MUTATING REAL. @vitest-environment node
  */
-import { mkdirSync, mkdtempSync } from "node:fs";
+import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
 import {
   assertStudioCursorRealOffForTests,
   buildGitEffectActionRef,
@@ -235,9 +237,13 @@ async function runStartD(input: {
   const includeBinding = input.includeBinding !== false;
   const seedEvidence = input.seedEvidence !== false;
   const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-xec-d-"));
-  mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
-    recursive: true,
-  });
+  const gitDir = path.join(managedBase, "acme__widget", ".git");
+  mkdirSync(gitDir, { recursive: true });
+  writeFileSync(
+    path.join(gitDir, "config"),
+    `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
+    "utf8",
+  );
   const journal = new SqliteRealLaunchSafetyJournal({
     databasePath: path.join(managedBase, "safety.sqlite"),
   });
@@ -265,14 +271,7 @@ async function runStartD(input: {
       safetyJournal: journal,
       managedRepoRootBase: managedBase,
     },
-    resolveProjectRepositoryBinding: async () => ({
-      provider: "github",
-      identity: IDENTITY,
-      remoteUrl: `https://github.com/${IDENTITY}.git`,
-      defaultBranch: "main",
-      pathRoot: "docs",
-      baseSha: M4_TEST_BASE_HEAD_SHA,
-    }),
+
     listProjectEvidence: async () => ({
       ok: true as const,
       evidence: evidenceBag,

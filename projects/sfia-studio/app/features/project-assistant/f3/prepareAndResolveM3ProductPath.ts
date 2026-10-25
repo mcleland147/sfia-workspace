@@ -20,7 +20,6 @@ import {
   type ResolveM3Success,
 } from "./resolveM3ExecutionContract";
 import { type GitCommandRunner } from "@/lib/oa/execution-attempt";
-import { qualifyDocsWriteM3Intent } from "./qualifyDocsWriteM3Intent";
 import { selectProductM3ResolutionProfile } from "./selectProductM3ResolutionProfile";
 import {
   resolveBoundedReadOnlyBaseHeadSha,
@@ -146,58 +145,18 @@ export async function prepareAndResolveM3ProductPath(input: {
       message: decisionLoaded.error.message,
     };
   }
-  const executionBasis = decisionLoaded.decision.decisionBasis?.executionBasis;
-  // B2 — no authority widening: capability alone / action alone / incompatible
-  // DecisionBasis never promote to bounded_docs_write. Explicit server prefer
-  // remains a test escape hatch; client REAL flags never participate.
-  const intent = qualifyDocsWriteM3Intent({
-    executionBasis,
-    action: preparedContract.action,
-    requiredCapabilities: preparedContract.requiredCapabilities,
-    preferBoundedDocsWriteProfile: input.deps.preferBoundedDocsWriteProfile,
-  });
-  if (!intent.ok) {
-    return intent;
-  }
-
   const selected = selectProductM3ResolutionProfile({
     preferBoundedReadOnlyProfile: input.deps.preferBoundedReadOnlyProfile === true,
-    preferBoundedDocsWriteProfile: intent.preferDocsWrite,
   });
 
   let resolution = selected.profile;
-  if (
-    selected.kind === "bounded_read_only" ||
-    selected.kind === "bounded_docs_write"
-  ) {
+  if (selected.kind === "bounded_read_only") {
     let sha: string | null = null;
     let trustedInputs: Record<string, string> = {};
     /** RC-03 — marker only when resolveTrustedProductLaunchContext succeeded. */
     let trustedLaunchPinned = false;
-    if (selected.kind === "bounded_docs_write" && input.deps.oa) {
-      const launch = await resolveTrustedProductLaunchContext({
-        oa: input.deps.oa,
-        projectId: input.projectId,
-        pinnedBaseHeadSha:
-          input.deps.boundedDocsWriteBaseHeadSha ??
-          input.deps.boundedReadOnlyBaseHeadSha,
-      });
-      if (!launch.ok) {
-        return {
-          ok: false,
-          code: launch.code,
-          message: launch.message,
-        };
-      }
-      sha = launch.context.baseHeadSha;
-      trustedInputs = launchContextAsContractInputs(launch.context);
-      trustedLaunchPinned = true;
-    } else {
-      const pinned =
-        selected.kind === "bounded_docs_write"
-          ? (input.deps.boundedDocsWriteBaseHeadSha ??
-            input.deps.boundedReadOnlyBaseHeadSha)
-          : input.deps.boundedReadOnlyBaseHeadSha;
+    {
+      const pinned = input.deps.boundedReadOnlyBaseHeadSha;
       if (pinned !== undefined) {
         sha = validateBaseHeadSha(pinned);
       } else if (input.deps.resolveBoundedReadOnlyHead) {
@@ -254,7 +213,6 @@ export async function prepareAndResolveM3ProductPath(input: {
   }
 
   const fixtureSelected = selected.kind === "fixture";
-  const docsWriteSelected = selected.kind === "bounded_docs_write";
   const readOnlySelected = selected.kind === "bounded_read_only";
   return {
     ok: true,
@@ -262,9 +220,7 @@ export async function prepareAndResolveM3ProductPath(input: {
       turnKind: "f3_m3_resolved",
       mode: fixtureSelected
         ? "M3_RESOLVED_FIXTURE"
-        : docsWriteSelected
-          ? "M3_RESOLVED_BOUNDED_DOCS_WRITE"
-          : "M3_RESOLVED_BOUNDED_READ_ONLY",
+        : "M3_RESOLVED_BOUNDED_READ_ONLY",
       decisionId: input.decisionId,
       projectId: input.projectId,
       prepare: prepared.payload,
@@ -279,16 +235,12 @@ export async function prepareAndResolveM3ProductPath(input: {
         "M3 durable PREPARE from HumanDecision + DecisionBasis",
         fixtureSelected
           ? "G-UX-15 resolveM3ExecutionContract — fixture-safe ZERO REAL profile"
-          : docsWriteSelected
-            ? "G-UX-15 resolveM3ExecutionContract — bounded docs-write M4 profile (server-selected from DecisionBasis; ZERO LIVE Cursor; Fake boundary in tests)"
-            : "G-UX-15 resolveM3ExecutionContract — bounded read-only M4 profile (server-selected; ZERO LIVE in this cycle)",
+          : "G-UX-15 resolveM3ExecutionContract — bounded read-only M4 profile (server-selected; ZERO LIVE in this cycle)",
         "NO Proposal authority",
         "Confirmation required before StartExecution",
         fixtureSelected
           ? "NO CURSOR REAL"
-          : readOnlySelected || docsWriteSelected
-            ? "CURSOR REAL NOT EXECUTED AT PREPARE"
-            : "CURSOR REAL NOT EXECUTED AT PREPARE",
+          : "CURSOR REAL NOT EXECUTED AT PREPARE",
         "Profile is server-side; client adapter/command/real fields are ignored",
         ...resolved.disclosures,
       ],

@@ -29,7 +29,7 @@ export const F2_EXECUTION_INTENT_JSON_SCHEMA: Record<string, unknown> = {
   properties: {
     intentKind: {
       anyOf: [
-        { type: "string", enum: ["docs_write", "read_only", "other"] },
+        { type: "string", enum: ["read_only", "other"] },
         { type: "null" },
       ],
     },
@@ -140,6 +140,14 @@ export function validateExecutionIntentPayload(
   const r = raw as Record<string, unknown>;
   const intentKind = asNullableString(r.intentKind);
   if (intentKind === undefined && "intentKind" in r && r.intentKind !== null) {
+    return { ok: false, reason: "intent_kind_invalid" };
+  }
+  // Retired specialized kinds fail closed. Only read_only / other / null.
+  if (
+    intentKind != null &&
+    intentKind !== "read_only" &&
+    intentKind !== "other"
+  ) {
     return { ok: false, reason: "intent_kind_invalid" };
   }
   const reversibility = r.reversibilityExpectation;

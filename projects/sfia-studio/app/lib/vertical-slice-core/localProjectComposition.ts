@@ -16,8 +16,6 @@ import {
 import { DEFAULT_PRODUCT_DOCTRINE_PIN } from "@/lib/oa/doctrine/product/constants";
 import {
   createSqliteProductProjectServices,
-  describeServerOwnedRepositoryConfigGap,
-  resolveServerOwnedRepositoryConfig,
   type LivingProjectState,
   type Project,
   type ProjectServices,
@@ -117,23 +115,7 @@ function freezeView(view: LocalProjectCreationView): LocalProjectCreationView {
   Object.freeze(view.constraints);
   Object.freeze(view.doctrine);
   Object.freeze(view.lps);
-  if (view.repositoryBinding) Object.freeze(view.repositoryBinding);
   return Object.freeze(view);
-}
-
-function projectRepositoryBindingProjection(
-  project: Project,
-): LocalProjectCreationView["repositoryBinding"] {
-  const binding = project.repositoryBinding;
-  if (!binding) return null;
-  return Object.freeze({
-    provider: binding.provider,
-    identity: binding.identity,
-    remoteUrl: binding.remoteUrl,
-    defaultBranch: binding.defaultBranch,
-    ...(binding.pathRoot !== undefined ? { pathRoot: binding.pathRoot } : {}),
-    ...(binding.baseSha !== undefined ? { baseSha: binding.baseSha } : {}),
-  });
 }
 
 function contextSummary(context: string): string {
@@ -282,7 +264,6 @@ function buildProjection(
       activeCycleInstanceId: lps.activeCycleInstanceId ?? null,
       ckcResolutionRef: lps.ckcResolutionRef ?? null,
     }),
-    repositoryBinding: projectRepositoryBindingProjection(project),
     projectWorkspaceKey: project.projectWorkspaceKey?.trim() || null,
     localMode: true,
     iam: "NOT_SELECTED",
@@ -344,33 +325,6 @@ class LocalProjectFacadeImpl implements LocalProjectFacade {
       return Object.freeze({
         ok: false,
         error: invalid,
-        auditStatus: this.auditStatus(auditFailed),
-      });
-    }
-
-    // CR-PWR-04 — Product Create authoritative boundary: server-owned repository
-    // config is a precondition. Fail closed BEFORE any Project/LPS persistence.
-    // Low-level OA CreateProject remains available for legacy/fixture reload.
-    const serverRepo = resolveServerOwnedRepositoryConfig(process.env);
-    if (!serverRepo) {
-      const configError = projectError(
-        "PROJECT_CREATION_FAILED",
-        describeServerOwnedRepositoryConfigGap(process.env),
-        { projectDetailCode: "PROJECT_INVALID" },
-      );
-      auditFailed =
-        !this.appendAudit({
-          event: "LOCAL_PROJECT_CREATION_FAILED",
-          timestamp,
-          correlationId,
-          idempotencyKey: command.idempotencyKey ?? "missing",
-          projectId: requestedProjectId,
-          result: "FAILED",
-          errorCode: configError.code,
-        }) || auditFailed;
-      return Object.freeze({
-        ok: false,
-        error: configError,
         auditStatus: this.auditStatus(auditFailed),
       });
     }

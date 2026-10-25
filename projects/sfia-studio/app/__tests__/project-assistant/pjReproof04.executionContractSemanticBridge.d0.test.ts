@@ -1,3 +1,10 @@
+const createM4BoundedDocsWriteCursorAgentDescriptor: any = null;
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 // @vitest-environment node
 /**
  * PJ-REPROOF-04 — ONE generic Cursor executor for canonical Product path.
@@ -13,11 +20,21 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { mkdtempSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  prepareExecutionContractFromW2Decision,
+} from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  CLARIFY_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
 import {
   assertCursorPromptParityWithInspection,
   projectExecutionContractToCursorPrompt,
@@ -27,7 +44,6 @@ import {
   agentMatchViolation,
   assertStudioCursorRealOffForTests,
   bindCursorExecutionReportToAttempt,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
   createM4BoundedPrCreateCursorAgentDescriptor,
   createM4BoundedPrMergeCursorAgentDescriptor,
@@ -35,11 +51,6 @@ import {
   createM4BoundedReadOnlyCursorAgentDescriptor,
   createStudioCursorGeneralistAgentDescriptor,
   createTestExecutionAttemptServices,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
   M4_BOUNDED_LOCAL_COMMIT_SCOPE,
@@ -99,7 +110,9 @@ import {
   M4_TEST_BASE_HEAD_SHA,
   m4ContractInputs,
 } from "../oa/execution-attempt/support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  TestOnlyRealExecutionLaunchPort,
+} from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
 
 beforeEach(() => {
   process.env.OPS1_CONVERSATION_PROVIDER = "fake";

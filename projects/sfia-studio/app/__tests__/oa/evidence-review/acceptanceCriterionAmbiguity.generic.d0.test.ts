@@ -1,40 +1,34 @@
 // @vitest-environment node
 /**
- * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — FINAL FAIL-CLOSED CORRECTION
+ * Generic acceptance-criterion ambiguity.
  *
- * NONE ≠ AMBIGUOUS for structured acceptance criteria resolution.
- * Ambiguous structured matches must never fall through to legacy PASS.
- * @vitest-environment node
+ * Ported from the generic half of
+ * nativeExecutionLoopConvergence01.acceptanceAmbiguity.d0.test.ts.
+ * NONE ≠ AMBIGUOUS. Ambiguous structured matches and unique manual_review
+ * must never fall through to a legacy PASS.
+ * docs_write Result Semantic is not covered here.
  */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
+import { persistMissionResultPayload } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import {
+  assessMissionResultExpectedOutput,
+  MISSION_RESULT_EVIDENCE_SOURCE,
+} from "@/lib/oa/evidence-review/application/missionResultContractResultSemantic";
 import {
   digestMissionResultPayload,
   MISSION_DIAGNOSTIC_EO_TEMPLATES,
   type MissionResultPayload,
 } from "@/lib/oa/evidence-review/application/missionResultPayload";
 import {
-  assessMissionResultExpectedOutput,
-  MISSION_RESULT_EVIDENCE_SOURCE,
-} from "@/lib/oa/evidence-review/application/missionResultContractResultSemantic";
-import {
-  assessDocsWriteExpectedOutput,
-  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
-} from "@/lib/oa/evidence-review/application/docsWriteContractResultSemantic";
-import {
   CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
   resolveAcceptanceCriterionForExpectedOutput,
 } from "@/lib/oa/execution-contract";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import { persistMissionResultPayload } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 
 const NOW = "2026-09-23T10:00:00.000Z";
-const DOCS_TARGET = "docs/note-de-cadrage.md";
-const ARTIFACT_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622";
 const LEGACY_DIAGNOSTIC = MISSION_DIAGNOSTIC_EO_TEMPLATES[0]!;
 
 const refsDirs: string[] = [];
@@ -76,7 +70,7 @@ describe("resolveAcceptanceCriterionForExpectedOutput — NONE ≠ AMBIGUOUS", (
   });
 });
 
-describe("mission semantic — NONE / UNIQUE / AMBIGUOUS", () => {
+describe("mission semantic — AMBIGUOUS and manual_review stay NOT_PROVEN", () => {
   function missionEvidence(absolutePath: string, digest: string): Evidence {
     return {
       schemaVersion: "0.2.0-oa",
@@ -133,7 +127,7 @@ describe("mission semantic — NONE / UNIQUE / AMBIGUOUS", () => {
       inspectedDurableTrace:
         "Trace d'inspection Attempt xat:mission:1 / Evidence ev:x",
       authorizedEffectsExecuted: [],
-    } as MissionResultPayload;
+    };
     const persisted = persistMissionResultPayload({
       refsRoot: refs,
       attemptId: payload.attemptId,
@@ -150,42 +144,6 @@ describe("mission semantic — NONE / UNIQUE / AMBIGUOUS", () => {
     status: "succeeded" as const,
     resultRef: "res:w3a:abc123",
   };
-
-  it("NONE — legacy diagnostic template still PASSes (compatibility)", () => {
-    const evidence = preparePayloadEvidence();
-    expect(
-      assessMissionResultExpectedOutput({
-        expectation: LEGACY_DIAGNOSTIC,
-        ordinal: 1,
-        attempt: attempt as never,
-        evidence,
-        contractInputs: {},
-      }),
-    ).toBe("PASS");
-  });
-
-  it("UNIQUE deterministic — structured criterion PASSes", () => {
-    const evidence = preparePayloadEvidence();
-    expect(
-      assessMissionResultExpectedOutput({
-        expectation: LEGACY_DIAGNOSTIC,
-        ordinal: 1,
-        attempt: attempt as never,
-        evidence,
-        contractInputs: {
-          [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-            {
-              criterionId: "acc:01:mission-diagnostic",
-              statement: LEGACY_DIAGNOSTIC,
-              kind: "mission_diagnostic",
-              expectedOutputRef: LEGACY_DIAGNOSTIC,
-              targetPath: null,
-            },
-          ],
-        },
-      }),
-    ).toBe("PASS");
-  });
 
   it("UNIQUE manual_review — NOT_PROVEN even when legacy grammar would PASS", () => {
     const evidence = preparePayloadEvidence();
@@ -265,139 +223,6 @@ describe("mission semantic — NONE / UNIQUE / AMBIGUOUS", () => {
               targetPath: null,
             },
           ],
-        },
-      }),
-    ).toBe("NOT_PROVEN");
-  });
-});
-
-describe("docs_write semantic — NONE / UNIQUE / AMBIGUOUS", () => {
-  function docsEvidence(): Evidence {
-    return {
-      schemaVersion: "0.2.0-oa",
-      evidenceId: "ev:docs-write:xat1",
-      type: "artifact",
-      source: DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
-      sourceKind: "execution_attempt",
-      location: DOCS_TARGET,
-      digest: ARTIFACT_DIGEST as never,
-      producedBy: { actorId: "actor:t", role: "project_owner" },
-      producedAt: NOW,
-      status: "verified",
-      availability: "available",
-      freshness: "fresh",
-      bindings: {
-        projectId: "prj:docs",
-        executionAttemptId: "xat:docs:1",
-        executionContractId: "xct:docs:1",
-      },
-    } as unknown as Evidence;
-  }
-
-  const attempt = {
-    attemptId: "xat:docs:1",
-    status: "succeeded" as const,
-    executionContractId: "xct:docs:1",
-  };
-
-  const materialBase = {
-    executionContractId: "xct:docs:1",
-    projectId: "prj:docs",
-    inputs: { targetPath: DOCS_TARGET },
-  };
-
-  it("NONE — legacy BOUNDED template still PASSes (compatibility)", () => {
-    expect(
-      assessDocsWriteExpectedOutput({
-        expectation: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-        ordinal: 1,
-        attempt: attempt as never,
-        evidence: docsEvidence(),
-        material: materialBase,
-      }),
-    ).toBe("PASS");
-  });
-
-  it("UNIQUE deterministic artifact_at_path — PASS", () => {
-    expect(
-      assessDocsWriteExpectedOutput({
-        expectation: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-        ordinal: 1,
-        attempt: attempt as never,
-        evidence: docsEvidence(),
-        material: {
-          ...materialBase,
-          inputs: {
-            targetPath: DOCS_TARGET,
-            [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-              {
-                criterionId: "acc:01:artifact-at-path",
-                statement: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                kind: "artifact_at_path",
-                expectedOutputRef: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                targetPath: DOCS_TARGET,
-              },
-            ],
-          },
-        },
-      }),
-    ).toBe("PASS");
-  });
-
-  it("UNIQUE manual_review — NOT_PROVEN even when legacy BOUNDED would PASS", () => {
-    expect(
-      assessDocsWriteExpectedOutput({
-        expectation: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-        ordinal: 1,
-        attempt: attempt as never,
-        evidence: docsEvidence(),
-        material: {
-          ...materialBase,
-          inputs: {
-            targetPath: DOCS_TARGET,
-            [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-              {
-                criterionId: "acc:01:manual-review",
-                statement: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                kind: "manual_review",
-                expectedOutputRef: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                targetPath: DOCS_TARGET,
-              },
-            ],
-          },
-        },
-      }),
-    ).toBe("NOT_PROVEN");
-  });
-
-  it("AMBIGUOUS 2+ including a kind that would PASS alone — stays NOT_PROVEN", () => {
-    expect(
-      assessDocsWriteExpectedOutput({
-        expectation: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-        ordinal: 1,
-        attempt: attempt as never,
-        evidence: docsEvidence(),
-        material: {
-          ...materialBase,
-          inputs: {
-            targetPath: DOCS_TARGET,
-            [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-              {
-                criterionId: "acc:01:artifact-at-path",
-                statement: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                kind: "artifact_at_path",
-                expectedOutputRef: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                targetPath: DOCS_TARGET,
-              },
-              {
-                criterionId: "acc:02:manual-review",
-                statement: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                kind: "manual_review",
-                expectedOutputRef: BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-                targetPath: DOCS_TARGET,
-              },
-            ],
-          },
         },
       }),
     ).toBe("NOT_PROVEN");

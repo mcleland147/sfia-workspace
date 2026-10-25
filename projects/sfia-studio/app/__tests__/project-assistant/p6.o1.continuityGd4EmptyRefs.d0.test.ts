@@ -7,18 +7,32 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import { prepareGenericExecutionContractDraft } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  prepareGenericExecutionContractDraft,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  readCurrentGovernedExecutionContinuity,
+} from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -186,25 +200,7 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
     });
     expect(started.ok).toBe(true);
 
-    if (oa.projectServices.setProjectRepositoryBinding) {
-      const identity = `acme/o1c-${suffix}`;
-      const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-        projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity,
-          remoteUrl: `https://github.com/${identity}.git`,
-          defaultBranch: "main",
-          pathRoot: "projects/demo",
-        },
-      });
-      expect(bound.ok).toBe(true);
-      ensureManagedRepoCloneSkeleton({
-        managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-        identity,
-      });
-    }
+
 
     return { projectId, cycleInstanceId };
   }
@@ -420,18 +416,6 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
     if (!before.ok || before.kind !== "active") throw new Error("expected active");
 
     const identity = `acme/o1c-t5`;
-    const rebound = await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo-alt",
-      },
-    });
-    expect(rebound.ok).toBe(true);
 
     const continuity = await readCurrentGovernedExecutionContinuity({
       oa,

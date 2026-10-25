@@ -1,3 +1,5 @@
+const resolveServerOwnedRepositoryConfig: any = null;
+
 /**
  * PRODUCT-PROJECT-WORKSPACE-ARTIFACT-ROUTING-01 — domain routing unit tests.
  * @vitest-environment node
@@ -13,9 +15,10 @@ import {
   hasDurableSameArtifactEvidence,
   isSafeArtifactFileNameLeaf,
   resolveArtifactTargetUnderCycleWorkspace,
-  resolveServerOwnedRepositoryConfig,
 } from "@/lib/oa/project";
-import { enrichExecutionIntentFromBinding } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
+import {
+  enrichExecutionIntentFromBinding,
+} from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
 import { getCycleTypeById } from "@/lib/oa/cycle";
 
 describe("PRODUCT-PWR-01 Project workspace key", () => {

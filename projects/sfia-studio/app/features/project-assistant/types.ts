@@ -457,7 +457,24 @@ export type ProjectAssistantResolveLegacyM3DocsWriteSuccess = {
   text: string;
   project: ProjectAssistantContextDto;
   ephemeralNotice: string;
-  f3: import("./f3/resolveExistingLegacyM3DocsWriteProductPath").F3M3LegacyResolvedPayload;
+  f3: {
+    successor: {
+      executionContractId: string;
+      version: number;
+      status: string;
+      action: string;
+      target: string;
+      scope: string;
+      requiredAuthority: string;
+      constraints: readonly string[];
+      stopConditions: readonly string[];
+      requiredCapabilities: readonly string[];
+      reversibility: string;
+      semanticFingerprint: string;
+      inspectionDisclosure: unknown;
+    };
+    original: { executionContractId: string };
+  };
 };
 
 export type ProjectAssistantResolveLegacyM3DocsWriteFailure = {

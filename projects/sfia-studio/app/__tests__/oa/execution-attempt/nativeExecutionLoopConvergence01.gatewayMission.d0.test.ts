@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — the gateway no longer discards the
  * projected ExecutionContract mission for specialized Product profiles.
@@ -14,7 +16,6 @@ import os from "node:os";
 import path from "node:path";
 import {
   assertStudioCursorRealOffForTests,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_PR_CREATE_ACTION,
   M4_BOUNDED_REMOTE_PUSH_ACTION,
   M4_BOUNDED_RO_ACTION,

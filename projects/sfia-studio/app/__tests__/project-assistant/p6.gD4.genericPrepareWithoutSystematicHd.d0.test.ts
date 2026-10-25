@@ -7,8 +7,12 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 import {
   assessGenericMissionPrepareReadiness,
   assessMaterialityForGenericPrepare,
@@ -18,9 +22,15 @@ import {
   rememberGenericPrepareRecommendation,
   resolveChatFirstGenericPrepareGo,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   PRODUCT_CANONICAL_EXECUTION_ACTION,
   PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
@@ -34,7 +44,9 @@ import {
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -203,26 +215,7 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
     expect(started.ok).toBe(true);
 
     // D — repository binding required for Git-implying generic prepare.
-    if (oa.projectServices.setProjectRepositoryBinding) {
-      const identity = `acme/gd4-${suffix}`;
-      const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-        projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity,
-          remoteUrl: `https://github.com/${identity}.git`,
-          defaultBranch: "main",
-          // Align with baseAnalysis scopeIn under projects/demo/…
-          pathRoot: "projects/demo",
-        },
-      });
-      expect(bound.ok).toBe(true);
-      ensureManagedRepoCloneSkeleton({
-        managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-        identity,
-      });
-    }
+
 
     return { projectId, cycleInstanceId };
   }

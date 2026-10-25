@@ -7,7 +7,6 @@
 import type { HumanDecision } from "@/lib/oa/decision";
 import type { Evidence } from "@/lib/oa/evidence-review";
 import type { ReviewBundle } from "@/lib/oa/evidence-review/domain/reviewBundleTypes";
-import type { ProjectRepositoryBinding } from "@/lib/oa/project";
 import { evaluateFunctionalDesignArtifactCompleteness } from "@/lib/oa/evidence-review";
 import type {
   FinalizationApplicabilityRules,
@@ -76,7 +75,7 @@ export type DeriveFinalizationApplicabilityInput = {
   /** GCEC — cycle type for pre-row F14 obligation binding. */
   cycleTypeId?: string;
   /** GCEC — explicit Project repository binding (contextual Git MUST). */
-  repositoryBinding?: ProjectRepositoryBinding | null;
+  repositoryBinding?: { identity?: string | null } | null;
   /** Optional precomputed snapshot; otherwise derived when cycleTypeId set. */
   obligationSnapshot?: CycleObligationSnapshot | null;
 };

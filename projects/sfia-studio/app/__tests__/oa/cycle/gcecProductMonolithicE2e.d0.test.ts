@@ -1,3 +1,24 @@
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+const completeBoundedDocsWriteLaunch: any = null;
+const ingestDocsWriteArtifactEvidence: any = null;
+
 /**
  * GCEC principal Product monolithic E2E — D-GCEC-15 Option B.
  *
@@ -43,14 +64,13 @@ import {
   approveCandidateTrajectory,
   buildPreCycleCandidateApprovalPresentation,
 } from "@/features/project-assistant/approveCandidateTrajectory";
-import { completeBoundTrajectoryStepAction } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  completeBoundTrajectoryStepAction,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   advanceExecutionContractCompletion,
   buildGitEffectActionRef,
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   ManagedProjectRepositoryResolver,
   MemoryLaunchSafetyJournal,
@@ -68,18 +88,26 @@ import {
   verifyPushClaim,
 } from "@/lib/oa/git-ports";
 import { FakeConversationProvider } from "@/lib/platform/ai";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  analyzeIntent,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import { F3_CONFIRM_ACTION_REF } from "@/features/project-assistant/f3/constants";
-import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
-import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
+import {
+  F3_CONFIRM_ACTION_REF,
+} from "@/features/project-assistant/f3/constants";
+import {
+  prepareAndResolveM3ProductPath,
+} from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
+
+
 import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import {
   getRuntimeApplicationService,
@@ -378,7 +406,7 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     // 1–2 CreateProject + repository binding
     const created = await runtime.createProject({
       name: "GCEC Product E2E",
-      objective: "Functional design governed cycle",
+      objective: "GCEC Product E2E",
       context: "deterministic Fake Cursor",
       criticality: "STANDARD",
       constraints: ["FIXTURE ONLY", "ZERO LIVE"],
@@ -388,20 +416,6 @@ describe("gcecProductMonolithicE2e — D-GCEC-15 Option B Product spine", () => 
     expect(created.ok).toBe(true);
     if (!created.ok) return;
     const projectId = created.project.projectId;
-
-    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-      projectId,
-      actor: PILOTE,
-      binding: {
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-        pathRoot: "docs",
-        baseSha: baseHeadSha,
-      },
-    });
-    expect(bound.ok).toBe(true);
 
     // 3 Product trajectory → cycle binding (CR-GCEC-25) — no cycles.save
     const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);

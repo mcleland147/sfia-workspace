@@ -10,13 +10,27 @@ import {
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { F2_PROCESS_LOCAL_NOTICE } from "@/features/project-assistant/f2/proposalStore";
-import type { ProposalDto } from "@/features/project-assistant/f2/types";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
-import { PROPOSAL_SUBJECT_PURSUE_REF } from "@/features/project-assistant/w2/proposalSubjectOptions";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  F2_PROCESS_LOCAL_NOTICE,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  ProposalDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  PROPOSAL_SUBJECT_PURSUE_REF,
+} from "@/features/project-assistant/w2/proposalSubjectOptions";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
@@ -45,12 +59,16 @@ import {
   listEffectivePendingDecisionSubjectMarkers,
   readActiveProposalDecisionSubject,
 } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
-import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
+import {
+  prepareM3FromDecision,
+} from "@/features/project-assistant/f3/prepareM3FromDecision";
 import type {
   RuntimeApplicationService,
   RuntimeOaStack,
 } from "@/lib/vertical-slice-runtime";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 
 const TARGET_PATH = "projects/sfia-studio/.sandbox/gestion-de-taches.md";
@@ -522,12 +540,6 @@ describe("PRODUCT-PROOF-JOURNEY-INTEGRITY — T02–T07 / N03 / N05 / T15–T17"
 
   it("T15/T16/T17 — pursue → PREPARE keeps sandbox targetPath; binding not acme/widget", async () => {
     const { projectId, cycleInstanceId, ctx } = await seed();
-    const bound = await runtime.setProjectRepositoryBinding({
-      projectId,
-      ...NON_ACME_BINDING,
-    });
-    expect(bound.ok).toBe(true);
-    if (!bound.ok) return;
     const managedBase = process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
     expect(managedBase).toBeTruthy();
     if (managedBase) {
@@ -536,13 +548,6 @@ describe("PRODUCT-PROOF-JOURNEY-INTEGRITY — T02–T07 / N03 / N05 / T15–T17"
         identity: NON_ACME_BINDING.identity,
       });
     }
-    const binding = bound.repositoryBinding as {
-      identity?: string;
-      pathRoot?: string;
-    } | null;
-    expect(binding?.identity).toBe(NON_ACME_BINDING.identity);
-    expect(binding?.identity).not.toMatch(/acme\/widget/i);
-    expect(String(binding?.pathRoot ?? "")).not.toMatch(/acme\/widget/i);
 
     const proposal = docsWriteProposal({
       projectId,

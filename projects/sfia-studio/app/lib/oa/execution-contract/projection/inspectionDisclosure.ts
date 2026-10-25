@@ -21,9 +21,6 @@ import {
   type ContractSourceGrounding,
 } from "../domain/contractSourceGrounding";
 
-export const DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
-export const DOCS_WRITE_TECHNICAL_TARGET = "workspace.isolated.docs_write" as const;
-
 export type ExecutionContractInspectionDisclosure = {
   readonly action: string;
   readonly technicalTarget: string;
@@ -55,7 +52,7 @@ export type ExecutionContractInspectionDisclosure = {
   readonly contractVersion: number;
   readonly executionContractId: string;
   readonly semanticFingerprint: string | null;
-  /** docs_write contracts missing mandatory effect targets are incomplete. */
+  /** Always complete: the retired specialized document-write profile is unavailable. */
   readonly disclosureComplete: boolean;
   readonly incompletenessCode: "INSPECTION_DISCLOSURE_INCOMPLETE" | null;
 };
@@ -89,15 +86,6 @@ function asStringArray(value: unknown): readonly string[] | null {
 
 function asBoolean(value: unknown): boolean | null {
   return typeof value === "boolean" ? value : null;
-}
-
-export function isDocsWriteExecutionContract(
-  contract: Pick<ExecutionContract, "action" | "target">,
-): boolean {
-  return (
-    contract.action === DOCS_WRITE_ACTION ||
-    contract.target === DOCS_WRITE_TECHNICAL_TARGET
-  );
 }
 
 /**
@@ -145,9 +133,7 @@ export function projectExecutionContractInspectionDisclosure(
   const reportRequirements =
     parsedReportRequirements.length > 0 ? parsedReportRequirements : null;
 
-  const docsWrite = isDocsWriteExecutionContract(contract);
-  const disclosureComplete =
-    !docsWrite || (targetPath !== null && targetRepositoryRef !== null);
+  const disclosureComplete = true;
 
   const disclosure: ExecutionContractInspectionDisclosure = {
     action: contract.action,
@@ -190,7 +176,7 @@ export function projectExecutionContractInspectionDisclosure(
       code: "INSPECTION_DISCLOSURE_INCOMPLETE",
       disclosure,
       message:
-        "Disclosure d'inspection incomplète — cible exacte docs_write absente du contrat durable.",
+        "Disclosure d'inspection incomplète — faits obligatoires absents du contrat durable.",
     };
   }
 
@@ -200,8 +186,7 @@ export function projectExecutionContractInspectionDisclosure(
 /**
  * Stable fact identifiers the Pilot must have inspected for this contract.
  * Optional contract fields that are absent are not invented.
- * Mandatory docs_write effect facts fail closed when absent (empty profile
- * is never returned for incomplete docs_write — callers must refuse).
+ * The retired specialized document-write profile adds no mandatory facts.
  */
 export function requiredInspectedFactsForContract(
   contract: ExecutionContract,
@@ -223,17 +208,6 @@ export function requiredInspectedFactsForContract(
     "evidenceRequirements",
     "semanticFingerprint",
   ];
-
-  if (isDocsWriteExecutionContract(contract)) {
-    facts.push("inputs.targetRepositoryRef");
-    facts.push("inputs.targetPath");
-    if (d.scopeIn) facts.push("inputs.scopeIn");
-    if (d.scopeOut) facts.push("inputs.scopeOut");
-    if (d.createOrModify !== null) facts.push("inputs.createOrModify");
-    if (d.noDelete !== null) facts.push("inputs.noDelete");
-    if (d.contentRequirements) facts.push("inputs.contentRequirements");
-    if (d.validationExpectations) facts.push("inputs.validationExpectations");
-  }
 
   if (d.expectedOutputs && d.expectedOutputs.length > 0) {
     facts.push("expectedOutputs");

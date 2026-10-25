@@ -14,7 +14,7 @@ import {
   type ExecutionReviewCompleteness,
   type ExecutionReviewItem,
 } from "./persistGenericExecutionReviewMaterial";
-import { resolveProductEvidenceRefsRoot } from "./persistDocsWriteArtifactReviewMaterial";
+import { resolveProductEvidenceRefsRoot } from "./productEvidenceRefsRoot";
 
 export type BoundExecutionReviewItemReadResult =
   | {

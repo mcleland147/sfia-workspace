@@ -2,7 +2,7 @@
  * AuthorizedExecutionSlice — current authorized Cursor effects (D-GCEC-13/15).
  * Derived from EC ∩ agent capabilities ∩ HD ∩ Confirmations ∩ runtime policy.
  * Future gated effects are NOT granted in advance.
- * CR-GCEC-15: cap:cursor.docs_write does NOT imply Git effects.
+ * CR-GCEC-15: a documentary capability token does NOT imply Git effects.
  * CR-GCEC-19: protected Git effects require effect-target-bound Confirmation
  * (EC + effect + repo + branch/PR when applicable) — generic scope ≠ target identity.
  * CR-GCEC-24: Cursor executable effects ≠ Studio verification obligations.

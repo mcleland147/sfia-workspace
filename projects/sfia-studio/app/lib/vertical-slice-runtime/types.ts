@@ -53,16 +53,7 @@ export interface RuntimeProjectState {
   readonly localMode: true;
   readonly source: "REAL_LOCAL_CORE";
   readonly fixture: false;
-  /** GCEC — explicit Product repository binding when set. */
-  readonly repositoryBinding?: {
-    readonly provider: "github";
-    readonly identity: string;
-    readonly remoteUrl: string;
-    readonly defaultBranch: string;
-    readonly pathRoot?: string;
-    readonly baseSha?: string;
-  } | null;
-  /** Durable Project workspace key — null for legacy / unbound. */
+  /** Durable Project workspace key — null when unset. */
   readonly projectWorkspaceKey?: string | null;
 }
 

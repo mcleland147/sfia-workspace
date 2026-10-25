@@ -26,10 +26,7 @@ import {
   formatW3cRecommendationPayloadForLps,
   lastW3cEvidenceIdInLpsContext,
 } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
-import {
-  loadDocsWriteArtifactReviewMaterial,
-  resolveProductEvidenceRefsRoot,
-} from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/productEvidenceRefsRoot";
 import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import {
   buildCkcCognitivePromptSection,
@@ -96,91 +93,15 @@ export function projectW3cExecutionReportSurfaceFromDurable(input: {
   readonly stopReason: string | undefined;
   readonly cursorReportSummary: string | undefined;
 } {
-  const durable = loadDocsWriteArtifactReviewMaterial({
-    refsRoot: resolveProductEvidenceRefsRoot(input.refsRoot),
-    attemptId: input.attemptId,
-    ...(input.targetPath ? { targetPath: input.targetPath } : {}),
-  });
-  if (!durable.ok) {
-    return {
-      executionReport: null,
-      artifactReviewMaterial: undefined,
-      artifactReviewCompleteness: undefined,
-      workPerformedSummary: undefined,
-      blockersSummary: undefined,
-      stopReason: undefined,
-      cursorReportSummary: undefined,
-    };
-  }
-  const artifactReviewMaterial = durable.artifactText;
-  const artifactReviewCompleteness = durable.completeness;
-  const report = durable.cursorReport;
-  if (!report) {
-    // Artifact bytes may exist without a Cursor claim — do not fabricate a report surface.
-    return {
-      executionReport: null,
-      artifactReviewMaterial,
-      artifactReviewCompleteness,
-      workPerformedSummary: undefined,
-      blockersSummary: undefined,
-      stopReason: undefined,
-      cursorReportSummary: undefined,
-    };
-  }
-  const workPerformedSummary = (report.workPerformed ?? [])
-    .map((s) => String(s))
-    .join("; ")
-    .slice(0, 1200);
-  const blockersSummary = (report.blockers ?? [])
-    .map((s) => String(s))
-    .join("; ")
-    .slice(0, 800);
-  const stopReason = report.stopConditionTriggered?.trim() || undefined;
-  const fileFx = report.fileEffects;
-  const artifactsSummary = fileFx
-    ? [
-        ...(fileFx.created ?? []).map((p) => `créé:${p}`),
-        ...(fileFx.modified ?? []).map((p) => `modifié:${p}`),
-        ...(fileFx.deleted ?? []).map((p) => `supprimé:${p}`),
-      ]
-        .join("; ")
-        .slice(0, 800)
-    : null;
-  const validationsSummary = (report.validationEffects ?? [])
-    .map((v) => `${v.identity}:${v.result}`)
-    .join("; ")
-    .slice(0, 600);
-  const reservationsSummary = (report.reservations ?? [])
-    .map((s) => String(s))
-    .join("; ")
-    .slice(0, 600);
-  const cursorReportSummary = [
-    `status=${report.status}`,
-    workPerformedSummary ? `work=${workPerformedSummary}` : null,
-    artifactsSummary ? `files=${artifactsSummary}` : null,
-    validationsSummary ? `validations=${validationsSummary}` : null,
-    blockersSummary ? `blockers=${blockersSummary}` : null,
-    `artifactReview=${durable.completeness}`,
-  ]
-    .filter(Boolean)
-    .join(" | ")
-    .slice(0, 2000);
+  void input;
   return {
-    executionReport: {
-      cursorStatus: report.status,
-      workPerformedSummary: workPerformedSummary || null,
-      artifactsSummary,
-      validationsSummary: validationsSummary || null,
-      blockersSummary: blockersSummary || null,
-      reservationsSummary: reservationsSummary || null,
-      artifactReviewCompleteness: durable.completeness,
-    },
-    artifactReviewMaterial,
-    artifactReviewCompleteness,
-    workPerformedSummary: workPerformedSummary || undefined,
-    blockersSummary: blockersSummary || undefined,
-    stopReason,
-    cursorReportSummary,
+    executionReport: null,
+    artifactReviewMaterial: undefined,
+    artifactReviewCompleteness: undefined,
+    workPerformedSummary: undefined,
+    blockersSummary: undefined,
+    stopReason: undefined,
+    cursorReportSummary: undefined,
   };
 }
 

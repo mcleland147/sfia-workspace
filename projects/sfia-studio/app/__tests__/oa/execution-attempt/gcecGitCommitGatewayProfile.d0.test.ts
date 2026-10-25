@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * GCEC bounded git.commit gateway profile — GC-01..GC-12.
  * FakeProcessRunner only. ZERO REAL Cursor / ZERO Product git mutation.
@@ -6,7 +8,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   assertStudioCursorRealOffForTests,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_REAL_GATEWAY_ADAPTER_ID,
   SFIA_STUDIO_CURSOR_REAL_FLAG,

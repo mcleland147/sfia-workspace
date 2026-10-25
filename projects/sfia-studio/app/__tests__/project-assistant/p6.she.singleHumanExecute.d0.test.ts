@@ -14,7 +14,9 @@ import {
   solicitGenericExecutionPrepare,
   assessGenericMissionPrepareReadiness,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
+import {
+  singleHumanExecutePreparedContract,
+} from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
 import {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
   GENERIC_MISSION_OPTION_AUTHORIZE_INSPECTED_EXECUTE,
@@ -28,15 +30,21 @@ import {
   recordGenericMissionHumanDecision,
   sealGenericMissionForPresentation,
 } from "@/features/project-assistant/w2/recordGenericMissionHumanDecision";
-import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import {
+  readCurrentGovernedExecutionContinuity,
+} from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
 import { requiredInspectedFactsForContract } from "@/lib/oa/execution-contract";
 import {
   governedExecuteSelectAgent,
   governedExecuteStart,
 } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
+import {
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
+} from "@/lib/oa/execution-attempt";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import { settleDeterministicProductCursorSuccess } from "./w2Harness";
 import {
@@ -46,7 +54,9 @@ import {
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 
 function restoreEnvVar(name: string, previous: string | undefined): void {
   if (previous === undefined) delete process.env[name];
@@ -157,17 +167,6 @@ describe("P6 SHE — Single Human Execute D-P6-SHE-01", () => {
       },
     });
     const identity = `acme/she-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,

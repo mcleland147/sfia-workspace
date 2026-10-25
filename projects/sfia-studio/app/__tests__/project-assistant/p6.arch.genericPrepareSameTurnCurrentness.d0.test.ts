@@ -8,19 +8,33 @@
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import * as prepareSvc from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { GENERIC_PREPARE_QUEUED_FOR_TURN_FINALIZATION } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  GENERIC_PREPARE_QUEUED_FOR_TURN_FINALIZATION,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
 import {
   analysisStubFromMaterialityFacts,
   parseStampedProductCurrentness,
   revalidateMaterialityAgainstCurrentProduct,
 } from "@/features/project-assistant/w2/resolveAuthoritativeProductMateriality";
 import { materialityFromContractConstraints } from "@/lib/oa/execution-contract";
-import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
-import { orchestrateProjectAssistantTurn } from "@/features/project-assistant/orchestrateTurn";
-import { composeStudioCognitiveContext } from "@/features/project-assistant/f2/studioCognitiveContext";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  readCurrentGovernedExecutionContinuity,
+} from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import {
+  orchestrateProjectAssistantTurn,
+} from "@/features/project-assistant/orchestrateTurn";
+import {
+  composeStudioCognitiveContext,
+} from "@/features/project-assistant/f2/studioCognitiveContext";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  resetMw5ChallengeStoreForTests,
+} from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   FakeConversationProvider,
   setConversationProviderForTests,
@@ -33,13 +47,19 @@ import type {
   ProviderRoundResult,
 } from "@/lib/platform/ai/types";
 import type { ToolDefinition } from "@/lib/platform/tools/types";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
+import type {
+  ProjectAssistantContextDto,
+} from "@/features/project-assistant/types";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -363,17 +383,6 @@ describe("P6 arch — Generic PREPARE same-turn currentness", () => {
     if (!started.ok) throw new Error("start");
 
     const identity = `acme/stc-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/ateliernova",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,

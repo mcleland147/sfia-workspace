@@ -18,8 +18,6 @@ import { getRuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime/liveProjectContext";
 import { resolveCurrentAuthenticatedPilote } from "@/lib/auth/resolveCurrentPilote";
 import { amendExecutionContractWithConstraint } from "./amendExecutionContract";
-import { rematerializeDocsWriteEvidenceRequirements } from "../f3/rematerializeDocsWriteEvidenceRequirements";
-import type { RematerializeDocsWriteEvidenceResult } from "../f3/rematerializeDocsWriteEvidenceRequirements";
 import { evaluateExecutionAuthorization } from "./authorizeExecutionContract";
 import { confirmExecutionContractForAuthorization } from "./confirmForAuthorization";
 import { decideTrajectory } from "./decideTrajectory";
@@ -52,7 +50,6 @@ import {
 import { resolveProductExecutionContext } from "./resolveProductExecutionContext";
 import { prepareExecutionContractFromW2Decision } from "./prepareExecutionContractFromW2Decision";
 import { createNoraSessionContractSourceGroundingReader } from "./resolveContractSourceGrounding";
-import { prepareDocsWriteRecoverySuccessorFromDecision } from "./prepareDocsWriteRecoverySuccessor";
 import { resolveRecoveryExecutionBinding } from "./resolveRecoveryExecutionBinding";
 import {
   readRecoveryOwnedDecisionContinuity,
@@ -435,21 +432,15 @@ export async function w2AmendExecutionContractAction(input: {
 export async function w2RematerializeDocsWriteEvidenceAction(input: {
   projectId: string;
   executionContractId: string;
-  /** Hostile — ignored. */
   canActAsMorris?: unknown;
   claimedAuthorityLevel?: unknown;
-}): Promise<RematerializeDocsWriteEvidenceResult> {
-  void input.canActAsMorris;
-  void input.claimedAuthorityLevel;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) return OA_UNAVAILABLE;
-
-  return rematerializeDocsWriteEvidenceRequirements({
-    oa: runtime.oa,
-    projectId: input.projectId,
-    executionContractId: input.executionContractId,
-  });
+}): Promise<{ ok: false; code: string; message: string }> {
+  void input;
+  return {
+    ok: false,
+    code: "DOCS_WRITE_REMATERIALIZE_REMOVED",
+    message: "La rematérialisation d'exigences historiques n'est plus disponible.",
+  };
 }
 
 async function loadF2ContextForProject(
@@ -573,67 +564,17 @@ export async function w2ReadRecoveryExecutionBindingAction(input: {
  * R8 — prepare bounded docs_write successor from recovery HD + failed EC binding.
  * Does not accept client path/operation. Cancels wrong generic current if needed.
  */
-export async function w2PrepareRecoveryDocsWriteAction(input: {
+export async function w2PrepareRecoveryDocsWriteAction(_input: {
   projectId: string;
   decisionId: string;
-  /** Hostile — ignored. */
-  targetPath?: unknown;
-  qualifiedOperationKind?: unknown;
-  real?: unknown;
-}): Promise<
-  | {
-      readonly ok: true;
-      readonly contract: AmendedExecutionContractDto;
-      readonly decisionId: string;
-      readonly cancelledWrongGenericContractId: string | null;
-      readonly reusedFromIdempotency: boolean;
-      readonly f3SemanticOverwrite: false;
-      readonly executionPerformed: false;
-      readonly attemptCreated: false;
-      readonly binding: RecoveryExecutionBinding;
-    }
-  | { readonly ok: false; readonly code: string; readonly message: string }
-> {
-  void input.targetPath;
-  void input.qualifiedOperationKind;
-  void input.real;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) return OA_UNAVAILABLE;
-
-  const context = await loadF2ContextForProject(runtime.oa, input.projectId);
-  if (!context) {
-    return {
-      ok: false,
-      code: "PROJECT_NOT_FOUND",
-      message: "Projet ou LPS introuvable pour la préparation recovery.",
-    };
-  }
-
-  const prepared = await prepareDocsWriteRecoverySuccessorFromDecision({
-    oa: runtime.oa,
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    currentContext: context,
-  });
-  if (!prepared.ok) return prepared;
-
+}): Promise<{ ok: false; code: string; message: string }> {
   return {
-    ok: true,
-    contract: prepared.successor,
-    decisionId: prepared.decisionId,
-    cancelledWrongGenericContractId: prepared.cancelledWrongGenericContractId,
-    reusedFromIdempotency: prepared.reusedFromIdempotency,
-    f3SemanticOverwrite: false,
-    executionPerformed: false,
-    attemptCreated: false,
-    binding: prepared.binding,
+    ok: false,
+    code: "DOCS_WRITE_RECOVERY_PREPARE_REMOVED",
+    message: "La préparation de reprise historique n'est plus disponible.",
   };
 }
 
-/**
- * W3-A phase 1 — SelectExecutionAgent → accepted.
- */
 export async function w2GovernedExecuteSelectAction(input: {
   projectId: string;
   executionContractId: string;

@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * GCEC Cursor full-capability executor parity — deterministic CAP/AUTH matrix.
  * FakeProcessRunner only. ZERO MUTATING REAL. No credential-bridge wiring.
@@ -10,7 +12,6 @@ import {
   CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY,
   CURSOR_FORCED_SHELL_EGRESS_KEY,
   CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_PR_CREATE_ACTION,
   M4_BOUNDED_REMOTE_PUSH_ACTION,
   M4_BOUNDED_RO_ACTION,

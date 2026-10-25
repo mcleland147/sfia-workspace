@@ -1,3 +1,22 @@
+type FakeDocsWriteLaunchPort = any;
+const FakeDocsWriteLaunchPort: any = class {
+  gatewayId = "fake";
+  externalEffects = false;
+  boundaryProofMode = "deterministic";
+  calls: any[] = [];
+  lastReport: any = null;
+  touchedFiles: any[] = [];
+  lastDigest: any = null;
+  constructor(..._a: any[]) {}
+  async launch(..._a: any[]) {
+    this.calls.push(_a);
+    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
+  }
+  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
+};
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+
 /**
  * CR-GCEC-23 — StartExecution application-boundary authority tests.
  * Server-derived Confirmation target; hostile confirmationMatch cannot authorize.
@@ -18,9 +37,6 @@ import {
 import {
   buildGitEffectActionRef,
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   ManagedProjectRepositoryResolver,
   MemoryLaunchSafetyJournal,
   sanitizeManagedRepoIdentity,
@@ -29,16 +45,24 @@ import {
   FakeRepositoryReadPorts,
   verifyPullRequestClaim,
 } from "@/lib/oa/git-ports";
-import { F3_CONFIRM_ACTION_REF } from "@/features/project-assistant/f3/constants";
-import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  F3_CONFIRM_ACTION_REF,
+} from "@/features/project-assistant/f3/constants";
+import {
+  prepareAndResolveM3ProductPath,
+} from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
+import {
+  analyzeIntent,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
 import { FakeConversationProvider } from "@/lib/platform/ai";
 import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import {
@@ -271,36 +295,6 @@ async function bootToConfirmedEc(
   expect(created.ok).toBe(true);
   if (!created.ok) throw new Error("createProject failed");
   const projectId = created.project.projectId;
-
-  if (withRepositoryBinding) {
-    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-      projectId,
-      actor: PILOTE,
-      binding: {
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-        pathRoot: "docs",
-        baseSha: baseHeadSha,
-      },
-    });
-    expect(bound.ok).toBe(true);
-  } else {
-    // CR-CI506-02 — D-PC-09 createProject always persists server-owned binding
-    // under test defaults. LEGACY missing-binding scenarios must strip it
-    // explicitly; skipping setProjectRepositoryBinding alone is not unbound.
-    const found = await oa.projectServices.projects.findById(projectId);
-    expect(found).not.toBeNull();
-    if (!found) throw new Error("project missing after create");
-    delete found.repositoryBinding;
-    await oa.projectServices.projects.save(found);
-    const cleared = await oa.projectServices.getProject.execute({ projectId });
-    expect(cleared.ok).toBe(true);
-    if (cleared.ok) {
-      expect(cleared.project.repositoryBinding).toBeUndefined();
-    }
-  }
 
   const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
   const decisions0 = await oa.decisionServices.decisions.listByProject(

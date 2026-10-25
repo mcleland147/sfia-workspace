@@ -8,6 +8,7 @@
  */
 
 import { enrichExecutionIntentFromBinding } from "../f2/activeCycleGovernedContinuation";
+import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
 import type { IntentAnalysisDto } from "../f2/types";
 import type { ExecutionIntentPayload } from "../f2/executionIntentSchema";
 import {
@@ -105,7 +106,6 @@ export function isGenericPrepareDocumentaryMission(
   analysis: IntentAnalysisDto,
 ): boolean {
   if (!analysis.parseOk) return false;
-  if (analysis.executionIntent?.intentKind === "docs_write") return true;
 
   const hay = normalizeHaystack([
     analysis.objective,
@@ -224,14 +224,17 @@ export async function resolveGenericPrepareDocumentaryTarget(input: {
     };
   }
 
-  const binding = projectResult.project.repositoryBinding ?? null;
-  if (!binding?.identity?.trim() || !binding.pathRoot?.trim()) {
+  const pathRoot = projectWorkspacePathRootFromKey(
+    projectResult.project.projectWorkspaceKey,
+  );
+  const binding = pathRoot ? { pathRoot, identity: null } : null;
+  if (!binding?.pathRoot?.trim()) {
     return {
       kind: "blocked",
       analysis,
       code: "REPOSITORY_BINDING_UNAVAILABLE",
       message:
-        "Repository binding Product absent ou incomplet — destination documentaire non résoluble (fail-closed).",
+        "Workspace Product (projects/<key>) absent — destination documentaire non résoluble (fail-closed).",
       documentaryTargetResolution: "blocked",
       resolvedAuthoritativeTargetPath: null,
     };
@@ -310,16 +313,20 @@ export async function resolveGenericPrepareDocumentaryTarget(input: {
     };
   }
 
+  const incomingKind = analysis.executionIntent?.intentKind;
   const seedIntent: ExecutionIntentPayload = {
     ...(analysis.executionIntent ?? {}),
-    intentKind: "docs_write",
+    intentKind:
+      incomingKind === "read_only" || incomingKind === "other"
+        ? incomingKind
+        : "other",
     artifactFileName: leaf ?? proposedArtifactFileName,
     targetPath: proposedTargetPath,
     // Candidate capability only — envelope still resolved at PREPARE.
-    requiredCapabilities:
-      analysis.executionIntent?.requiredCapabilities?.length
-        ? analysis.executionIntent.requiredCapabilities
-        : ["cap:cursor.docs_write"],
+    // Do not invent a specialized document-write capability.
+    requiredCapabilities: analysis.executionIntent?.requiredCapabilities?.length
+      ? analysis.executionIntent.requiredCapabilities
+      : [],
   };
 
   const enriched = enrichExecutionIntentFromBinding({

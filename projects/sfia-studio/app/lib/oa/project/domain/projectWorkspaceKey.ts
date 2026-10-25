@@ -30,6 +30,15 @@ export function composeProjectWorkspacePathRoot(workspaceKey: string): string {
   return `${PROJECT_WORKSPACE_PREFIX}/${key}`;
 }
 
+/** Repo-relative workspace root from a durable key, or null when the key is absent/invalid. */
+export function projectWorkspacePathRootFromKey(
+  workspaceKey: string | null | undefined,
+): string | null {
+  const key = workspaceKey?.trim() ?? "";
+  if (!isValidProjectWorkspaceKey(key)) return null;
+  return composeProjectWorkspacePathRoot(key);
+}
+
 export function isValidProjectWorkspaceKey(key: string): boolean {
   return (
     typeof key === "string" &&
