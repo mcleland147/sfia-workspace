@@ -84,6 +84,14 @@ export {
   type CreateSqliteProductProjectServicesOptions,
   type SqliteProductProjectServices,
 } from "./infrastructure/sqlite/createSqliteProductProjectServices";
+export {
+  openRestoredProductSqlite,
+  ProductSqliteSnapshotError,
+  snapshotProductSqliteClosedCopy,
+  snapshotProductSqliteVacuumInto,
+  verifyProductSqliteIntegrityAtPath,
+  type ProductSqliteSnapshotResult,
+} from "./infrastructure/sqlite/productSqliteSnapshot";
 
 import type {
   ClockPort,

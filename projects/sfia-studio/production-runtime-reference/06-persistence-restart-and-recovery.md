@@ -107,23 +107,26 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 | Freeze at mutation | `createProjectAtomic` / `selectMethodModeAtomic` / `BoundedAtomicAuditStore.append|clearForTests` assert before BEGIN/INSERT/UPDATE/DELETE — code CURRENT |
 | Dual-write Product↔D1 | **None** as target under exclusive |
 | H4 local | No historical D1→OA migration |
-| Backups / snapshot | **NOT PROVEN** — debt `R-L2D2-SQLITE-SNAPSHOT` (R-03). Naive file copy of `*.sqlite` **≠** validated cutover backup |
-| Restart | DET reopen / singleton reset / M1 process durability at tested scope · **Studio live restart / R-CUT** = **NOT PROVEN** |
-| Residual boundary | Raw `DatabaseSync` outside D1 applicative APIs **not** guarded — **KNOWN GAP** |
-| Proof | freeze + injected + O-01 + D5 + M1 — **DETERMINISTIC AT TESTED SCOPE** (31 PASS / 7) · post-merge CI SUCCESS |
-| Anti-claims | Exclusive **not** ACTIVATED by merge · cutover LIVE **not** proven · App Support definitive DBs **not** created by merge |
+| Backups / snapshot | **DET PROVEN AT SYNTHETIC SCOPE** (S1 + **CR-S1-01**) via operational `VACUUM INTO` only · `closed_copy` **REMOVED from operational contract** (`CLOSED_COPY_UNAVAILABLE` — WAL absence ≠ quiescence) · RO `PRAGMA integrity_check` without Product migration · debt `R-L2D2-SQLITE-SNAPSHOT` **PARTIAL** · LIVE/H4 **NOT PROVEN** |
+| Restart | DET reopen / singleton reset / M1 + S4 DET R-CUT (exclusive stays ON; D1 oracle = disposable `readOnly` open) · **R-CUT LIVE** = **NOT PROVEN** |
+| Residual boundary | `openD1Db` allowlist Proxy (`prepare`/`exec`/`close`) + non-exposable `setAuthorizer` + Statement `run`/`get`/`all` gated / `iterate` refuse-always (**CR-S2-01/02**) · unwrapped `new DatabaseSync` outside `openD1Db` = **KNOWN GAP** |
+| Proof | freeze + injected + O-01 + D5 + M1 + S1–S4 DET (**CORR-01 / CR-S2-02 revalidated**) — **DETERMINISTIC AT TESTED SCOPE** |
+| Anti-claims | Exclusive **not** ACTIVATED · cutover LIVE **not** proven · DET snapshot **≠** H4 real instance PASS · S4 RO diagnostic **≠** Q12 · **≠** exclusive OFF rollback |
 
 ### Debt — `R-L2D2-SQLITE-SNAPSHOT` (operational, pre–G-ACTIVATION)
 
-**Owner / gate:** Morris G-ACTIVATION preparation (distinct from G-GIT). **Exit:** documented + DET-proven coherent snapshot/restore of Truth C (+ Memory B if in scope) **before** exclusive arming on a designated local instance.
+**Owner / gate:** Morris G-ACTIVATION preparation (distinct from G-GIT). **DET exit (synthetic Fresh Start class / CR-S1-01):** PASS via `snapshotProductSqliteVacuumInto` + RO integrity + S1/S4 suites. **LIVE/instance exit:** still required before exclusive arming on a designated H4-qualified local instance.
 
-**To qualify and prove (not claimed now):**
-1. Quiesce writers — no active Studio Product/Nora connections holding the target DB (or equivalent exclusive access).
-2. Account for SQLite sidecar files when present (`*-wal` / `*-shm`) — a lone `.sqlite` copy while WAL is hot is **not** a coherent backup.
-3. Prefer an online-safe mechanism when quiesce is incomplete (e.g. SQLite backup API / VACUUM INTO / checked checkpoint) over blind filesystem copy.
-4. Preserve source OA files until restore verification succeeds.
-5. Verify recovery by opening the snapshot on a disposable path and reading Project + LPS (Truth C) without mutating the live source.
-6. Record procedure + proof artifacts under the activation Decision Pack — **no live backup in this Cycle 13**.
+**Proven at DET synthetic scope (CORR-01):**
+1. Operational snapshot = `VACUUM INTO` on open Product `DatabaseSync` (sync path; Node also exposes async `backup()` — not adopted as contract here).
+2. `closed_copy` **unavailable** — no false quiescence claim from missing WAL/SHM.
+3. Integrity = `{ readOnly: true }` + `PRAGMA integrity_check` — **no** Product schema migration on verify.
+4. Source preserved; restore on disposable path via Product services after RO verify; dest overwrite refused; corrupt/missing fail-closed.
+
+**Still required for LIVE/H4 instance (not claimed):**
+1. Quiesce writers on a designated Application Support–class instance.
+2. Operator procedure + Decision Pack evidence on that instance.
+3. No restore over a live user source without distinct GO.
 
 ## Additional stores (harvest)
 

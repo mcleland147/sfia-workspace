@@ -1,11 +1,14 @@
 /**
  * L2-D2 CORR-02 / CR-D2-03 — mutation guards on injected DatabaseSync.
  * openD1Db alone is insufficient when a connection was opened before exclusive ON.
+ * CR-S2-01: post-exclusive row oracles use disposable readOnly opens (wrapped
+ * Statement.get is conservatively gated under exclusive).
  * @vitest-environment node
  */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { DatabaseSync } from "node:sqlite";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { BoundedAtomicAuditStore } from "@/lib/d1/boundedAtomicAudit";
 import { openD1Db, resetD1DbForTests } from "@/lib/d1/db";
@@ -33,6 +36,20 @@ function openDisposableD1() {
   resetD1DbForTests();
   const db = openD1Db(dbPath);
   return { dbPath, db };
+}
+
+/** Diagnostic RO — not applicative reopen, not exclusive OFF. */
+function roGet<T>(
+  dbPath: string,
+  sql: string,
+  ...params: Array<null | number | bigint | string>
+): T {
+  const ro = new DatabaseSync(dbPath, { readOnly: true });
+  try {
+    return ro.prepare(sql).get(...params) as T;
+  } finally {
+    ro.close();
+  }
 }
 
 beforeEach(() => {
@@ -144,21 +161,22 @@ describe("L2-D2 CORR-02 CR-D2-03 injected connection writer guards", () => {
       expect((error as D1Error).code).toBe("FORBIDDEN");
     }
 
-    const afterCount = (
-      db.prepare("SELECT COUNT(*) AS c FROM d1_projects").get() as { c: number }
+    const afterCount = roGet<{ c: number }>(
+      dbPath,
+      "SELECT COUNT(*) AS c FROM d1_projects",
     ).c;
     expect(afterCount).toBe(1);
-    const mode = (
-      db
-        .prepare("SELECT method_mode FROM d1_projects WHERE project_id = ?")
-        .get("proj-seed-1") as { method_mode: string }
+    const mode = roGet<{ method_mode: string }>(
+      dbPath,
+      "SELECT method_mode FROM d1_projects WHERE project_id = ?",
+      "proj-seed-1",
     ).method_mode;
     expect(mode).toBe(D1_GOVERNANCE_METHOD_MODE);
     expect(fs.existsSync(dbPath)).toBe(true);
   });
 
   it("BoundedAtomicAuditStore append/clearForTests refuse under exclusive with injected db", () => {
-    const { db } = openDisposableD1();
+    const { dbPath, db } = openDisposableD1();
     const store = new BoundedAtomicAuditStore(db);
     store.append({
       opId: "op-1",
@@ -196,10 +214,9 @@ describe("L2-D2 CORR-02 CR-D2-03 injected connection writer guards", () => {
       expect((error as D1Error).code).toBe("FORBIDDEN");
     }
 
-    const after = (
-      db.prepare("SELECT COUNT(*) AS c FROM d1_atomic_audit").get() as {
-        c: number;
-      }
+    const after = roGet<{ c: number }>(
+      dbPath,
+      "SELECT COUNT(*) AS c FROM d1_atomic_audit",
     ).c;
     expect(after).toBe(1);
   });

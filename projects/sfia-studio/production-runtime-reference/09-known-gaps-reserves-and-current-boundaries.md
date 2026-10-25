@@ -15,13 +15,17 @@
 | DET proof | **31 PASS / 7 suites** + post-merge CI SUCCESS |
 | O-01 « comprendre » | LPS objective → Product UI **BEHAVIOR PROVEN AT TESTED SCOPE (DET)** — **≠** LIVE E2E COMPLETE |
 | **R-01** documentary lag | Documentary lag corrected and integrated on main through [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) · post-merge CI [#40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **exit proof satisfied** · **formal close pending Morris** (**≠** FORMALLY CLOSED BY MORRIS) |
-| **R-02** D4 LIVE | DET redirect/notFound proven · Studio/HTTP LIVE path **NOT PROVEN** |
-| **R-03** SQLite / raw DB | Raw `DatabaseSync` KNOWN GAP · `R-L2D2-SQLITE-SNAPSHOT` OPEN — naive file copy **≠** coherent backup |
+| **R-02** D4 LIVE | DET redirect/notFound + S3 harness proven · Studio/HTTP LIVE path **NOT PROVEN** · **R-02 remains OPEN** |
+| **R-03** SQLite / raw DB | Snapshot DET **PARTIAL** (**CR-S1-01**) · applicative `openD1Db` native allowlist + authorizer DET-proven (**CR-S2-01/02**) · residual raw `new DatabaseSync` outside `openD1Db` **KNOWN GAP** · R-03 FULL CLOSE **NOT CLAIMED** |
+| Q12 RO fallback | **OPEN** — S4 uses test-only disposable RO diagnostic ≠ product Q12 |
+| OPS1 | **OUT** of initial D4 · unchanged |
 | Q15 global | **PARTIAL** |
+| R-CUT DET | **PASS** (CORR-01: exclusive stays ON through final D1 oracle) |
 | R-CUT LIVE | **NOT PROVEN** |
+| H4 real instance | **NOT QUALIFIED** |
 | P6 GLOBAL PASS | **NOT CLAIMED** |
 | Runtime v3 | **NON ADOPTED** · AKG-M5 GLOBAL **OPEN** |
-| Exit path | **Historical:** [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · [CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **R-01 exit proof satisfied**. **Governance:** R-01 formal closure remains a distinct Morris decision (**NOT CONSUMED** / ≠ FORMALLY CLOSED). **Remaining product trajectory:** **G-ACTIVATION PREPARATION** only under distinct Morris GO · H4-env qualification · coherent SQLite snapshot/restore · D4 HTTP LIVE · R-CUT LIVE · then eventual GO Morris **G-ACTIVATION** (**NOT GRANTED**; ≠ preparation/activation authorization) |
+| Exit path | G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 **IMPLEMENTED at DET scope** (exclusive still **DEFAULT OFF**). **Remaining operational gates:** H4 real instance qualification · D4 HTTP LIVE · R-CUT LIVE · Q12 · raw-DB residual policy · then distinct Morris **G-REAL** / **G-ACTIVATION** (**NOT GRANTED** by this lot) |
 
 ## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
 

@@ -2,6 +2,7 @@ import { DatabaseSync } from "node:sqlite";
 import { resolveD1SqlitePath } from "./paths";
 import { D1Error } from "./errors";
 import { assertD1AccessAllowedWhenLocalOaExclusive } from "./localOaExclusiveMode";
+import { wrapD1DatabaseSyncForExclusiveGate } from "./wrapD1DatabaseSyncForExclusiveGate";
 
 const SCHEMA_SQL = `
 PRAGMA foreign_keys = ON;
@@ -125,7 +126,7 @@ export function openD1Db(dbPath?: string): DatabaseSync {
     singletonPath = null;
   }
   try {
-    const db = new DatabaseSync(resolved);
+    const db = wrapD1DatabaseSyncForExclusiveGate(new DatabaseSync(resolved));
     migrate(db);
     singleton = db;
     singletonPath = resolved;
@@ -136,7 +137,12 @@ export function openD1Db(dbPath?: string): DatabaseSync {
   }
 }
 
-export function resetD1DbForTests(): void {
+/**
+ * Close the process D1 singleton before / during local OA-exclusive cutover.
+ * Prevents reuse of a pre-opened applicative handle after exclusive ON.
+ * Does not track DatabaseSync instances constructed outside openD1Db.
+ */
+export function sealD1DbSingletonForLocalOaExclusiveCutover(): void {
   if (singleton) {
     try {
       singleton.close();
@@ -146,6 +152,10 @@ export function resetD1DbForTests(): void {
   }
   singleton = null;
   singletonPath = null;
+}
+
+export function resetD1DbForTests(): void {
+  sealD1DbSingletonForLocalOaExclusiveCutover();
 }
 
 export function nowIso(): string {

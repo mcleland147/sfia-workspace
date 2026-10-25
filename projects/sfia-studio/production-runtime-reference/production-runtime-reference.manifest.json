@@ -7,7 +7,7 @@
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "c6b8457f7e51f32e"
+      "sha256_16": "508d21f295b578f5"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -27,23 +27,23 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-      "sha256_16": "4e67c2e6acced70b"
+      "sha256_16": "aef317f3aa031be5"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "c9132f48db3f0608"
+      "sha256_16": "7fdf3ef0761118ca"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "24ae31d1e9d17e0f"
+      "sha256_16": "ad4c4774f42d6540"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "d9fe8e57cdef6442"
+      "sha256_16": "7f27c5740e1ad080"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "55665592d9c99ce5"
+      "sha256_16": "56d2f057722faedb"
     }
   ],
   "components": [
