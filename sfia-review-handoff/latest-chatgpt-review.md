@@ -1,11 +1,11 @@
-# AKG-M5 L2-D2 — G-ACTIVATION PREPARATION — CORR-01
+# AKG-M5 L2-D2 — G-ACTIVATION PREPARATION — CR-S2-02
 ## REVIEW PACK FULL (mono-cycle)
 
-**Horodatage:** 2026-10-25T05:48:00+0100 (2026-10-25T04:48:00Z)
-**GO Morris:** CORR-01 — CR-S2-01 D1 mutation safety · CR-S1-01 SQLite snapshot safety · S4 rehearsal clarification · R24 in-cycle
+**Horodatage:** 2026-10-25T06:13:00+0100 (2026-10-25T05:13:00Z)
+**GO Morris:** CR-S2-02 — Native SQLite Proxy boundary hardening (borné, Delivery existant)
 **Cycle:** 8 Delivery + 9 QA · Critical · EVOL/QA
-**Consomme:** correction bornée du Delivery S1–S4 non commité.
-**Ne consomme PAS:** G-ACTIVATION · G-REAL · G-GIT projet · G-MANIFEST · R-01 formal close · Studio LIVE · runtime v3.
+**Consomme:** correction bornée wrapper D1 only.
+**Ne consomme PAS:** G-ACTIVATION · G-REAL · G-GIT · G-MANIFEST · Studio LIVE · runtime v3.
 
 ---
 
@@ -15,149 +15,118 @@
 |---|---|
 | Toplevel | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-activation-prep-bounded` |
 | Branch | `feat/akg-m5-l2-d2-activation-prep-bounded` |
-| HEAD / origin/main | `d7aad77e999e4fe64f31a776ddf39c1d99278b1b` (match) |
+| HEAD / origin/main | `d7aad77e999e4fe64f31a776ddf39c1d99278b1b` |
 | Staged | empty |
-| Project commit/push/PR | **NONE** |
-| Entrée handoff | `37bd68dc` · blob `805649db…` |
-| Docs / P6 WTs | preserved |
-
-Working tree: Delivery S1–S4 + CORR-01 + PRR R24 uncommitted (expected).
+| Lot S1–S4+CORR-01 | présent (uncommitted) + CR-S2-02 |
+| Entrée handoff | `8690ae4f` · blob `a8a427d9…` |
+| Node | **v24.16.0** (re-verified) |
 
 ---
 
-## 2. Sources consultées
+## 2. Native API inventory (Node 24.16.0)
 
-Processus v2.6 templates/method · Convergence / Product Completion / AKG-M5 / v3 doctrine · PRR README+03/05–09 · code S1/S2/S4 · Node 24.16.0 `node:sqlite` inventory (exec/prepare/run/get/all/iterate/applyChangeset/createSession/setAuthorizer/readOnly/backup) · handoff entrée CORR cycle.
+**DatabaseSync methods:** aggregate, applyChangeset, close, constructor, createSession, createTagStore, deserialize, enableDefensive, enableLoadExtension, exec, function, loadExtension, location, open, prepare, serialize, setAuthorizer
 
----
+**StatementSync:** all, columns, constructor, get, iterate, run, setAllowBareNamedParameters, setAllowUnknownNamedParameters, setReadBigInts, setReturnArrays
 
-## 3. Convergence / R23
+**SQLTagStore:** run/get/all/iterate (template literals) · own: capacity, **db**, size · **`ts.db === underlying DatabaseSync`** (raw identity)
 
-| Asset | Action |
-|---|---|
-| Truth C / Memory B / D1 FREEZE / D4 Option A | KEEP |
-| S1 snapshot helper | **ADAPT** (CR-S1-01) |
-| S2 D1 wrapper | **ADAPT** (CR-S2-01) |
-| S3 harness | KEEP |
-| S4 rehearsal | **ADAPT** (clarification) |
-| Parallel store / dual-write / proxy-global / schema pivot | REJECTED |
-
----
-
-## 4. CR-S2-01 — D1 mutation safety
-
-**Node:** v24.16.0 — confirmed `get`/`all`/`iterate` execute INSERT…RETURNING mutations; `applyChangeset`/`createSession` present; `setAuthorizer` + constants available (types lag → narrow casts).
-
-**Solution:**
-1. Proxy gates `exec`, `applyChangeset`, `createSession`, Statement `run|get|all|iterate` → `assertD1AccessAllowedWhenLocalOaExclusive` (D1Error FORBIDDEN).
-2. Native `setAuthorizer` denies non-SELECT/READ/FUNCTION when exclusive ON (defense-in-depth, no SQL regex).
-3. Conservative: SELECT on wrapped handle also gated under exclusive; DET oracles use disposable `{ readOnly: true }` file opens.
-4. Residual `new DatabaseSync` outside `openD1Db` — honest negative test retained · R-03 FULL CLOSE **NOT CLAIMED**.
-
-**Preuve:** S2 suite — mutations refused; row count unchanged via RO diagnostic; marker OFF preserved; injected suite updated for RO post-exclusive oracles.
+**Observed escapes (pre-fix):**
+| API | Class | Risk | Disposition |
+|---|---|---|---|
+| setAuthorizer(null) | C | Clears authorizer → mutations resume | **Refuse always** (not exposable) |
+| createTagStore → .db | D+E | Raw mutative DatabaseSync | **Refuse always** |
+| SQLTagStore.run`…` | B | Mutates via tag store | unreachable if createTagStore refused |
+| deserialize | B | Replaces connection state | **Refuse always** |
+| Statement.iterate deferred | B | Pull after exclusive ON still mutates; authorizer does **not** re-check (proven) | **Refuse always** |
+| createSession/applyChangeset | B/D | Changeset mutation | **Refuse always** |
+| loadExtension/function/aggregate | B/G | Extension/UDF risk | **Refuse always** |
+| prepare/exec/close | B/F | Required by D1 | **Allowlist** · exclusive-gated |
+| location/isOpen/isTransaction/limits | A | Safe getters | Allow |
+| new DatabaseSync outside openD1Db | — | Residual R-03 | **KNOWN GAP** (not this GO) |
 
 ---
 
-## 5. CR-S1-01 — Snapshot / closed_copy / integrity
+## 3. Solution (Option A allowlist + exclusive gates)
 
-**Solution (option A):** `closed_copy` removed from operational contract → always `CLOSED_COPY_UNAVAILABLE` (WAL absence ≠ quiescence; no unverifiable sourceClosed flag).
-
-**Operational path:** `VACUUM INTO` only.
-
-**Integrity:** `{ readOnly: true }` + `PRAGMA integrity_check` — no Product migration, no create-if-missing. Restore then opens disposable copy via Product services.
-
-**Preuve:** VACUUM restore Project+LPS; closed_copy unavailable; RO integrity mtime/size/schema_version stable; corrupt/missing fail; dest overwrite refuse; Memory B VACUUM; source preserved.
-
----
-
-## 6. S4 clarification
-
-Exclusive remains ON through final D1 oracle. Oracle = disposable `readOnly` DatabaseSync (diagnostic ≠ marker OFF rollback ≠ Q12). Write attempt on RO fails; count stable; `openD1Db` still FORBIDDEN. Q12 **OPEN**.
+Deny-by-default Proxy on openD1Db handles:
+- Allow: `prepare`, `exec`, `close` + safe getters
+- Exclusive: assert on prepare/exec/Statement run|get|all
+- Always refuse: `iterate`, `setAuthorizer`, `createTagStore`, `deserialize`, session/changeset/extension/UDF…
+- Authorizer installed at wrap; **cannot** be cleared via wrapped handle
+- Marker OFF: prepare/exec still work for historical D1
 
 ---
 
-## 7. Validations (this CORR-01)
+## 4. Validations (this cycle)
 
 ```
-vitest S1+S2+S3+S4+freeze+injected+D4+O-01+D5+M1 → 47 PASS / 10 files
-vitest S1+S2+S4 reconfirm after typecast → 12 PASS
-npm run typecheck → PASS (tsc --noEmit)
-npm run lint → PASS (no warnings)
-PRR conformance digests → EXPECTED DRIFT (6 volumes; manifest NOT written)
+vitest S2 CR-S2-02 → 10 PASS
+vitest S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 → 52 PASS / 10 files
+tsc --noEmit → PASS
+lint → PASS
+PRR digests → 6 expected drifts (manifest READ-ONLY)
 git diff --check → clean
 ```
 
-Expected digest drifts (manifest READ-ONLY; CONFORMANCE PASS not declared):
-- README c6b8457f7e51f32e → 48805e965bcec9f0
-- 05 4e67c2e6acced70b → aef317f3aa031be5
-- 06 c9132f48db3f0608 → 2ca56f430eb9e2ea
-- 07 24ae31d1e9d17e0f → e91b6dc2fc81ab4b
-- 08 d9fe8e57cdef6442 → 8ae378863238711e
-- 09 55665592d9c99ce5 → 3f6d95c27ac77026
-
 ---
 
-## 8. Fake/Real · Gates
+## 5. Verdict
 
-DETERMINISTIC PROVEN AT CORRECTED SCOPE · REAL BOUNDARY NOT PROVEN · H4 NOT QUALIFIED · OPS1 OUT · Q12 OPEN · G-MANIFEST / G-GIT / G-REAL / G-ACTIVATION NOT GRANTED · AKG-M5 GLOBAL OPEN · RUNTIME V3 NON ADOPTED.
-
----
-
-## 9. Décisions Morris
-
-1. G-MANIFEST targeted (6 PRR digests) after semantic review
-2. G-GIT project same lot after Critical Re-Review PASS
-3. Raw DatabaseSync residual policy
-4. Q12 implement/defer/waive
-5. G-REAL / H4 instance before LIVE
-6. G-ACTIVATION later only
-
----
-
-## 10. Verdict
-
-**CR-S1-01 — RESOLVED AT DET SCOPE**
-**CR-S2-01 — RESOLVED AT APPLICATIVE DET SCOPE**
-**S1–S4 — DETERMINISTIC PASS**
-D1 RAW CONSTRUCTION — KNOWN GAP · R-03 FULL CLOSE — NOT CLAIMED
-D4 HTTP LIVE / R-CUT LIVE — NOT PROVEN · H4 — NOT QUALIFIED · Q12 — OPEN
+**CR-S2-02 — RESOLVED AT APPLICATIVE DET SCOPE**
+D1 WRAPPED HANDLE MUTATION SAFETY — DETERMINISTICALLY PROVEN AT TESTED SCOPE
+S1–S4 — DETERMINISTIC PASS
+RAW new DatabaseSync — KNOWN GAP / R-03 FULL CLOSE NOT CLAIMED
+H4 / Q12 / D4 HTTP LIVE / R-CUT LIVE — OPEN / NOT PROVEN
 G-MANIFEST / G-GIT / G-REAL / G-ACTIVATION — NOT GRANTED
 AKG-M5 GLOBAL — OPEN · RUNTIME V3 — NON ADOPTED
 
 ---
 
-## 11. MODIFIED / CREATED CONTENT (FULL)
+## 6. Décisions Morris
+
+1. G-MANIFEST targeted (6 PRR digests) after semantic review
+2. G-GIT projet same lot after Critical Re-Review
+3. Raw DatabaseSync residual policy
+4. Q12 / H4 / G-REAL later · G-ACTIVATION later
+
+---
+
+## 7. FULL LOT CONTENT (S1–S4 + CORR-01 + CR-S2-02)
 
 ### FILE: projects/sfia-studio/app/lib/d1/wrapD1DatabaseSyncForExclusiveGate.ts
 ```typescript
 /**
- * Bound D1 DatabaseSync handles returned by openD1Db so that under
- * SFIA_STUDIO_LOCAL_OA_EXCLUSIVE the handle cannot mutate D1 — including when
- * the connection was opened before exclusive ON.
+ * Applicative D1 DatabaseSync boundary (CR-S2-01 + CR-S2-02).
  *
- * CR-S2-01: StatementSync.get / all / iterate can execute mutative SQL
- * (e.g. INSERT…RETURNING). Protection is capacity-based:
- * 1) Proxy asserts exclusive on every statement-execution / mutative DB API
- *    before call-through (D1Error FORBIDDEN).
- * 2) Native setAuthorizer denies non-read SQLite actions when exclusive is ON
- *    (defense-in-depth; no SQL regex). Runtime Node 24 exposes these APIs;
- *    @types/node may lag — accessed via narrow casts.
+ * openD1Db returns a Proxy that:
+ * 1) Allowlists only methods required by D1 consumers (prepare / exec / close)
+ *    plus safe diagnostic getters — deny-by-default for every other native API.
+ * 2) Gates prepare + Statement run/get/all and exec under OA-exclusive
+ *    (D1Error FORBIDDEN). Statement.iterate refused always (deferred-escape:
+ *    authorizer does not re-check pulls after exclusive flips ON on Node 24.16).
+ * 3) Installs a native setAuthorizer that denies non-read actions when exclusive
+ *    is ON — defense-in-depth. setAuthorizer itself is NOT exposed on the Proxy
+ *    (cannot be cleared/replaced via the wrapped handle).
  *
- * Pure SELECT via get/all/iterate is intentionally refused under exclusive on
- * the applicative wrapped handle (conservative). DET oracles that need a row
- * count must use a disposable readOnly DatabaseSync on the file path — that is
- * diagnostic, not an applicative D1 reopen and not Q12.
+ * Known escape hatches closed at this boundary (Node 24.16 / node:sqlite):
+ * - setAuthorizer(null) / replace
+ * - createTagStore → SQLTagStore.db (raw DatabaseSync identity)
+ * - deserialize (connection state replace)
+ * - Statement.iterate deferred mutation across exclusive flip
+ * - createSession / applyChangeset / loadExtension / function / aggregate / …
  *
- * Handles constructed via `new DatabaseSync(...)` outside openD1Db are NOT
- * wrapped — residual KNOWN GAP (see S2 negative test). R-03 FULL CLOSE OPEN.
+ * Handles from `new DatabaseSync(...)` outside openD1Db remain unwrapped —
+ * residual KNOWN GAP (R-03 FULL CLOSE NOT CLAIMED).
  */
 import { constants, type DatabaseSync, type StatementSync } from "node:sqlite";
+import { D1Error } from "./errors";
 import {
   assertD1AccessAllowedWhenLocalOaExclusive,
   isLocalOaExclusiveMode,
 } from "./localOaExclusiveMode";
 
-/** Runtime node:sqlite authorizer constants (types may lag Node 24). */
+/** Runtime node:sqlite authorizer constants (@types/node may lag Node 24). */
 type SqliteAuthConstants = {
   SQLITE_OK: number;
   SQLITE_DENY: number;
@@ -167,7 +136,7 @@ type SqliteAuthConstants = {
 };
 
 type DatabaseSyncWithAuthorizer = DatabaseSync & {
-  setAuthorizer: (callback: (actionCode: number) => number) => void;
+  setAuthorizer: (callback: ((actionCode: number) => number) | null) => void;
 };
 
 const C = constants as unknown as SqliteAuthConstants;
@@ -177,6 +146,24 @@ const READ_ACTION_CODES = new Set<number>([
   C.SQLITE_READ,
   C.SQLITE_FUNCTION,
 ]);
+
+/** Applicative DatabaseSync method allowlist (D1 repository / audit / migrate). */
+const DB_METHOD_ALLOWLIST = new Set<string>(["prepare", "exec", "close"]);
+
+/** Safe non-function properties observed on Node 24 DatabaseSync. */
+const DB_SAFE_GETTERS = new Set<string>([
+  "location",
+  "isOpen",
+  "isTransaction",
+  "limits",
+]);
+
+function refuseNativeApi(api: string): never {
+  throw new D1Error(
+    "FORBIDDEN",
+    `D1 applicative boundary refuses DatabaseSync.${api} (CR-S2-02 native allowlist).`,
+  );
+}
 
 function installExclusiveAuthorizer(db: DatabaseSync): void {
   (db as DatabaseSyncWithAuthorizer).setAuthorizer((actionCode: number) => {
@@ -190,7 +177,7 @@ function installExclusiveAuthorizer(db: DatabaseSync): void {
   });
 }
 
-function gateMutativeCall<T extends unknown[], R>(
+function gateExclusiveCall<T extends unknown[], R>(
   fn: (...args: T) => R,
 ): (...args: T) => R {
   return (...args: T) => {
@@ -202,17 +189,21 @@ function gateMutativeCall<T extends unknown[], R>(
 function wrapStatement(stmt: StatementSync): StatementSync {
   return new Proxy(stmt, {
     get(target, prop, receiver) {
-      // All StatementSync execution surfaces can run mutative SQL.
+      // iterate() can start a deferred execution whose pulls are NOT re-checked
+      // by setAuthorizer after exclusive flips ON (Node 24.16 observed). D1
+      // consumers never use iterate — refuse always to close the deferred escape.
+      if (prop === "iterate") {
+        return () =>
+          refuseNativeApi("StatementSync.iterate");
+      }
       if (
-        prop === "run" ||
-        prop === "get" ||
-        prop === "all" ||
-        prop === "iterate"
+        typeof prop === "string" &&
+        (prop === "run" || prop === "get" || prop === "all")
       ) {
         const value = Reflect.get(target, prop, receiver) as (
           ...a: unknown[]
         ) => unknown;
-        return gateMutativeCall((...args: unknown[]) =>
+        return gateExclusiveCall((...args: unknown[]) =>
           value.apply(target, args),
         );
       }
@@ -224,42 +215,70 @@ function wrapStatement(stmt: StatementSync): StatementSync {
   }) as StatementSync;
 }
 
+/**
+ * Wrap a raw DatabaseSync so only the D1 applicative surface is reachable.
+ * Must be applied to every handle returned by openD1Db.
+ */
 export function wrapD1DatabaseSyncForExclusiveGate(
   db: DatabaseSync,
 ): DatabaseSync {
   installExclusiveAuthorizer(db);
+
   return new Proxy(db, {
     get(target, prop, receiver) {
-      if (prop === "exec" || prop === "applyChangeset") {
-        const value = Reflect.get(target, prop, receiver) as (
-          ...a: unknown[]
-        ) => unknown;
-        return gateMutativeCall((...args: unknown[]) =>
-          value.apply(target, args),
-        );
+      if (typeof prop === "symbol") {
+        // Allow engine brand symbols / non-enumerable diagnostics; never bind
+        // unknown callable escapes through symbol keys in practice on node:sqlite.
+        return Reflect.get(target, prop, receiver);
       }
-      if (prop === "createSession") {
-        // Session/changeset construction is a mutation-enablement path — refuse
-        // under exclusive rather than allow later applyChangeset elsewhere.
-        const value = Reflect.get(target, prop, receiver) as (
-          ...a: unknown[]
-        ) => unknown;
-        return gateMutativeCall((...args: unknown[]) =>
-          value.apply(target, args),
-        );
-      }
+
       if (prop === "prepare") {
         return (sql: string) => {
-          const value = Reflect.get(target, prop, receiver) as (
+          // Under exclusive, refuse before native prepare: Node authorizer may
+          // deny INSERT prepare with ERR_SQLITE_ERROR instead of D1Error.
+          assertD1AccessAllowedWhenLocalOaExclusive();
+          const prepare = Reflect.get(target, "prepare", receiver) as (
             s: string,
           ) => StatementSync;
-          return wrapStatement(value.call(target, sql));
+          return wrapStatement(prepare.call(target, sql));
         };
       }
+
+      if (prop === "exec") {
+        const exec = Reflect.get(target, "exec", receiver) as (
+          ...a: unknown[]
+        ) => unknown;
+        return gateExclusiveCall((...args: unknown[]) =>
+          exec.apply(target, args),
+        );
+      }
+
+      if (prop === "close") {
+        const close = Reflect.get(target, "close", receiver) as (
+          ...a: unknown[]
+        ) => unknown;
+        // Lifecycle must remain available for seal/reset under exclusive.
+        return (...args: unknown[]) => close.apply(target, args);
+      }
+
+      if (typeof prop === "string" && DB_SAFE_GETTERS.has(prop)) {
+        return Reflect.get(target, prop, receiver);
+      }
+
+      // Deny-by-default: any other native function (setAuthorizer, createTagStore,
+      // deserialize, createSession, applyChangeset, loadExtension, function, …)
+      // is replaced by an explicit refusal — including captures before exclusive ON.
       const value = Reflect.get(target, prop, receiver);
-      return typeof value === "function"
-        ? (value as (...a: unknown[]) => unknown).bind(target)
-        : value;
+      if (typeof value === "function") {
+        if (
+          typeof prop === "string" &&
+          !DB_METHOD_ALLOWLIST.has(prop)
+        ) {
+          return () => refuseNativeApi(prop);
+        }
+      }
+
+      return value;
     },
   }) as DatabaseSync;
 }
@@ -454,9 +473,11 @@ export function openRestoredProductSqlite(snapshotPath: string): DatabaseSync {
 ### FILE: projects/sfia-studio/app/__tests__/d1/l2d2S2RawDatabaseSyncExclusiveGate.test.ts
 ```typescript
 /**
- * L2-D2 G-ACTIVATION PREPARATION S2 / CR-S2-01 — D1 exclusive mutation safety.
- * Applicative openD1Db handles must not mutate after exclusive ON (incl. pre-open).
- * Residual: unwrapped `new DatabaseSync` outside openD1Db — KNOWN GAP (honest negative).
+ * L2-D2 S2 / CR-S2-01 + CR-S2-02 — D1 openD1Db native boundary.
+ * CR-S2-01: Statement execution surfaces gated under exclusive.
+ * CR-S2-02: Deny-by-default allowlist; setAuthorizer / createTagStore / deserialize
+ *           escapes closed; pre-ON captures cannot re-enable mutation.
+ * Residual: unwrapped `new DatabaseSync` outside openD1Db — KNOWN GAP.
  * @vitest-environment node
  */
 import fs from "node:fs";
@@ -512,7 +533,7 @@ function openDisposableD1() {
   return { dbPath, db };
 }
 
-/** Diagnostic RO open — not applicative D1, not Q12, not exclusive rollback. */
+/** Diagnostic RO — not applicative D1, not Q12, not exclusive rollback. */
 function countProjectsReadonly(dbPath: string): number {
   const ro = new DatabaseSync(dbPath, { readOnly: true });
   try {
@@ -549,7 +570,6 @@ describe("L2-D2 S2 / CR-S2-01 D1 mutation safety on openD1Db handles", () => {
     db.prepare(INSERT_SQL).run("proj-seed", "Seed");
     expect(countProjectsReadonly(dbPath)).toBe(1);
 
-    // Prepare statements BEFORE exclusive ON (retained handles).
     const stmtRun = db.prepare(INSERT_SQL);
     const stmtGetReturning = db.prepare(INSERT_RETURNING);
     const stmtAllReturning = db.prepare(INSERT_RETURNING);
@@ -574,13 +594,11 @@ describe("L2-D2 S2 / CR-S2-01 D1 mutation safety on openD1Db handles", () => {
     expect(() => stmtRun.run("proj-run", "Run")).toThrow(D1Error);
     expect(() => stmtGetReturning.get("proj-get", "Get")).toThrow(D1Error);
     expect(() => stmtAllReturning.all("proj-all", "All")).toThrow(D1Error);
-    expect(() => [...stmtIterReturning.iterate("proj-iter", "Iter")]).toThrow(
+    // iterate is refuse-always (deferred-escape close); before and after ON.
+    expect(() => stmtIterReturning.iterate("proj-iter", "Iter")).toThrow(
       D1Error,
     );
-
-    // Conservative: even SELECT on wrapped handle is gated under exclusive.
     expect(() => stmtSelect.get()).toThrow(D1Error);
-    // Fresh prepare+get under exclusive also refused.
     expect(() =>
       db.prepare("SELECT COUNT(*) AS c FROM d1_projects").get(),
     ).toThrow(D1Error);
@@ -658,6 +676,126 @@ describe("L2-D2 S2 / CR-S2-01 D1 mutation safety on openD1Db handles", () => {
       }),
     ).toThrow(D1Error);
     expect(countProjectsReadonly(dbPath)).toBe(0);
+  });
+});
+
+describe("L2-D2 S2 / CR-S2-02 native Proxy boundary hardening", () => {
+  it("setAuthorizer is not exposable — capture before ON cannot clear protection", () => {
+    const { dbPath, db } = openDisposableD1();
+    db.prepare(INSERT_SQL).run("proj-auth", "Auth");
+    expect(countProjectsReadonly(dbPath)).toBe(1);
+
+    // Capture the (stub) reference before exclusive ON.
+    const capturedSetAuthorizer = (
+      db as unknown as { setAuthorizer: (cb: unknown) => void }
+    ).setAuthorizer;
+    expect(typeof capturedSetAuthorizer).toBe("function");
+
+    // Clearing before ON must refuse — authorizer stays installed.
+    expect(() => capturedSetAuthorizer(null)).toThrow(D1Error);
+    expect(() =>
+      (
+        db as unknown as { setAuthorizer: (cb: unknown) => void }
+      ).setAuthorizer(null),
+    ).toThrow(D1Error);
+
+    setLocalOaExclusiveModeForTests(true);
+
+    // After ON, clear still refuses; mutation still blocked; rows stable.
+    expect(() => capturedSetAuthorizer(null)).toThrow(D1Error);
+    expect(() => db.prepare(INSERT_SQL).run("proj-auth-2", "Nope")).toThrow(
+      D1Error,
+    );
+    // Authorizer remains as defense-in-depth even if a future path skipped Proxy.
+    expect(countProjectsReadonly(dbPath)).toBe(1);
+  });
+
+  it("createTagStore refused — no SQLTagStore / .db raw escape (before and after ON)", () => {
+    const { dbPath, db } = openDisposableD1();
+    db.prepare(INSERT_SQL).run("proj-tag", "Tag");
+    expect(countProjectsReadonly(dbPath)).toBe(1);
+
+    const createTagStore = (
+      db as unknown as { createTagStore: () => unknown }
+    ).createTagStore;
+    expect(typeof createTagStore).toBe("function");
+
+    // Before exclusive ON: allowlist refuses — no tag store / .db obtained.
+    expect(() => createTagStore()).toThrow(D1Error);
+    expect(() =>
+      (db as unknown as { createTagStore: () => unknown }).createTagStore(),
+    ).toThrow(D1Error);
+
+    setLocalOaExclusiveModeForTests(true);
+    expect(() => createTagStore()).toThrow(D1Error);
+    expect(countProjectsReadonly(dbPath)).toBe(1);
+  });
+
+  it("deserialize / createSession / applyChangeset / loadExtension refused", () => {
+    const { dbPath, db } = openDisposableD1();
+    db.prepare(INSERT_SQL).run("proj-ser", "Ser");
+    const before = countProjectsReadonly(dbPath);
+
+    const api = db as unknown as Record<string, (...a: unknown[]) => unknown>;
+    for (const name of [
+      "deserialize",
+      "createSession",
+      "applyChangeset",
+      "loadExtension",
+      "enableLoadExtension",
+      "function",
+      "aggregate",
+    ]) {
+      expect(typeof api[name]).toBe("function");
+      expect(() => api[name]()).toThrow(D1Error);
+    }
+
+    setLocalOaExclusiveModeForTests(true);
+    for (const name of ["deserialize", "createSession", "applyChangeset"]) {
+      expect(() => api[name]()).toThrow(D1Error);
+    }
+    expect(countProjectsReadonly(dbPath)).toBe(before);
+  });
+
+  it("Statement.iterate refused always — closes deferred-escape before exclusive ON", () => {
+    const { dbPath, db } = openDisposableD1();
+    db.prepare(INSERT_SQL).run("proj-def", "Def");
+    expect(countProjectsReadonly(dbPath)).toBe(1);
+
+    // Native Node 24: iterate() started before ON can mutate on later pull even
+    // with a dynamic authorizer. Applicative boundary refuses iterate entirely.
+    const stmt = db.prepare(INSERT_RETURNING);
+    expect(() => stmt.iterate("proj-def-2", "Lazy")).toThrow(D1Error);
+
+    setLocalOaExclusiveModeForTests(true);
+    expect(() => stmt.iterate("proj-def-3", "Lazy2")).toThrow(D1Error);
+    expect(countProjectsReadonly(dbPath)).toBe(1);
+  });
+
+  it("native method capture before ON cannot reopen mutative surface after ON", () => {
+    const { dbPath, db } = openDisposableD1();
+    db.prepare(INSERT_SQL).run("proj-cap", "Cap");
+    const before = countProjectsReadonly(dbPath);
+
+    const captured = {
+      setAuthorizer: (db as unknown as { setAuthorizer: () => void })
+        .setAuthorizer,
+      createTagStore: (db as unknown as { createTagStore: () => void })
+        .createTagStore,
+      deserialize: (db as unknown as { deserialize: () => void }).deserialize,
+      createSession: (db as unknown as { createSession: () => void })
+        .createSession,
+      applyChangeset: (db as unknown as { applyChangeset: () => void })
+        .applyChangeset,
+    };
+
+    setLocalOaExclusiveModeForTests(true);
+
+    for (const fn of Object.values(captured)) {
+      expect(() => fn()).toThrow(D1Error);
+    }
+    expect(() => db.exec("SELECT 1")).toThrow(D1Error);
+    expect(countProjectsReadonly(dbPath)).toBe(before);
   });
 });
 ```
@@ -1341,7 +1479,7 @@ describe("L2-D2 S4 R-CUT deterministic rehearsal", () => {
 });
 ```
 
-### DIFF: projects/sfia-studio/app/lib/d1/db.ts
+### DIFF: db.ts
 ```diff
 diff --git a/projects/sfia-studio/app/lib/d1/db.ts b/projects/sfia-studio/app/lib/d1/db.ts
 index 962e9c29..8af49898 100644
@@ -1391,7 +1529,7 @@ index 962e9c29..8af49898 100644
  }
 ```
 
-### DIFF: projects/sfia-studio/app/lib/oa/project/index.ts
+### DIFF: index.ts
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
 index 770c0187..6aafb918 100644
@@ -1414,7 +1552,7 @@ index 770c0187..6aafb918 100644
    ClockPort,
 ```
 
-### DIFF: projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts
+### DIFF: injected guards
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts b/projects/sfia-studio/app/__tests__/d1/l2d2InjectedConnectionWriterGuards.test.ts
 index cfe62bba..8ed89cbf 100644
@@ -1502,7 +1640,7 @@ index cfe62bba..8ed89cbf 100644
    });
 ```
 
-### DIFF: PRR README + 05–09
+### DIFF: PRR
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
 index bd52a599..e2193a5a 100644
@@ -1524,7 +1662,7 @@ index bd52a599..e2193a5a 100644
 +| Anti-claims | DET harness identity **≠** qualified operational instance · G-REAL / G-ACTIVATION **NOT GRANTED** by this overlay |
 +| S4 D1 oracle | Disposable `{ readOnly: true }` file open under exclusive ON — diagnostic only · **≠** marker OFF rollback · **≠** Q12 product RO fallback |
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index f2e9a658..378e1c16 100644
+index f2e9a658..47b891b6 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 +++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 @@ -107,23 +107,26 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
@@ -1538,7 +1676,7 @@ index f2e9a658..378e1c16 100644
 -| Anti-claims | Exclusive **not** ACTIVATED by merge · cutover LIVE **not** proven · App Support definitive DBs **not** created by merge |
 +| Backups / snapshot | **DET PROVEN AT SYNTHETIC SCOPE** (S1 + **CR-S1-01**) via operational `VACUUM INTO` only · `closed_copy` **REMOVED from operational contract** (`CLOSED_COPY_UNAVAILABLE` — WAL absence ≠ quiescence) · RO `PRAGMA integrity_check` without Product migration · debt `R-L2D2-SQLITE-SNAPSHOT` **PARTIAL** · LIVE/H4 **NOT PROVEN** |
 +| Restart | DET reopen / singleton reset / M1 + S4 DET R-CUT (exclusive stays ON; D1 oracle = disposable `readOnly` open) · **R-CUT LIVE** = **NOT PROVEN** |
-+| Residual boundary | `openD1Db` Proxy + `setAuthorizer` gate **all** Statement execution (`run`/`get`/`all`/`iterate`) + `exec`/`applyChangeset`/`createSession` (**CR-S2-01**) · unwrapped `new DatabaseSync` outside `openD1Db` = **KNOWN GAP** |
++| Residual boundary | `openD1Db` allowlist Proxy (`prepare`/`exec`/`close`) + non-exposable `setAuthorizer` + Statement `run`/`get`/`all` gated / `iterate` refuse-always (**CR-S2-01/02**) · unwrapped `new DatabaseSync` outside `openD1Db` = **KNOWN GAP** |
 +| Proof | freeze + injected + O-01 + D5 + M1 + S1–S4 DET (**CORR-01 revalidated**) — local Delivery candidate · not yet project-merged |
 +| Anti-claims | Exclusive **not** ACTIVATED · cutover LIVE **not** proven · DET snapshot **≠** H4 real instance PASS · S4 RO diagnostic **≠** Q12 · **≠** exclusive OFF rollback |
 
@@ -1568,7 +1706,7 @@ index f2e9a658..378e1c16 100644
  ## Additional stores (harvest)
 
 diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 7a2d0c7e..6ed40518 100644
+index 7a2d0c7e..c7f60234 100644
 --- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 +++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 @@ -113,10 +113,12 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
@@ -1576,7 +1714,7 @@ index 7a2d0c7e..6ed40518 100644
  | INV-L2D2-CONFIRM-NO-ONDONE-ON-REFUSAL | UI must not treat refused confirmation as success (`ConfirmationPanel` skips `onDone` on `!ok`) | `ConfirmationPanel.tsx` + tests | CURRENT IMPLEMENTED · DET |
  | INV-L2D2-NO-MUTATION-VIA-GUARDED-APIS | No D1 write via guarded repository/audit APIs under exclusive (incl. injected connection) | injected suite | CURRENT IMPLEMENTED · DET |
 -| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests | CURRENT IMPLEMENTED · DET · LIVE HTTP NOT PROVEN |
-+| INV-L2D2-OPEN-HANDLE-MUTATION-GATED | `openD1Db` Proxy + native `setAuthorizer`: under exclusive, `exec` / `applyChangeset` / `createSession` / Statement `run|get|all|iterate` refuse (`D1Error` FORBIDDEN) — blocks INSERT…RETURNING via get/all/iterate (**CR-S2-01**); SELECT on wrapped handle also conservatively gated | `wrapD1DatabaseSyncForExclusiveGate.ts` / S2 suite | LOCAL DELIVERY CANDIDATE · DET (CORR-01) · not yet project-merged |
++| INV-L2D2-OPEN-HANDLE-MUTATION-GATED | `openD1Db` Proxy **allowlist** (`prepare`/`exec`/`close` + safe getters) + native `setAuthorizer` (not exposable): under exclusive, prepare/exec/Statement `run|get|all` refuse (`D1Error`); `iterate` refused always (deferred-escape); `setAuthorizer`/`createTagStore`/`deserialize`/session/changeset/extension/UDF refused (**CR-S2-01 + CR-S2-02**) | `wrapD1DatabaseSyncForExclusiveGate.ts` / S2 suite | LOCAL DELIVERY CANDIDATE · DET · not yet project-merged |
 +| INV-L2D2-SINGLETON-SEAL-ON-CUTOVER | `sealD1DbSingletonForLocalOaExclusiveCutover` closes process singleton before exclusive arming | `db.ts` / S2+S4 | LOCAL DELIVERY CANDIDATE · DET |
 +| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests + S3 harness | CURRENT IMPLEMENTED · DET · LIVE HTTP NOT PROVEN |
  | INV-REC-NE-HD / INV-MEMB-NE-TRUTHC | Recommendation ≠ HD ; Memory B ≠ Truth C | existing catalog | CURRENT IMPLEMENTED |
@@ -1587,7 +1725,7 @@ index 7a2d0c7e..6ed40518 100644
  **Failure mode (when exclusive ON):** D1 create/confirm refused ; Product OA create path remains the target continuity surface.
 
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index eb0601e3..b5c637a0 100644
+index eb0601e3..7b6e0a9d 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 @@ -23,6 +23,17 @@
@@ -1599,7 +1737,7 @@ index eb0601e3..b5c637a0 100644
 +| Suite file | What it proves | Class |
 +|---|---|---|
 +| `l2d2S1ProductSqliteSnapshot.test.ts` | `VACUUM INTO` Project+LPS restore ; `closed_copy` → `CLOSED_COPY_UNAVAILABLE` ; RO integrity without migration ; corrupt/missing fail ; dest overwrite refuse ; Memory B VACUUM | DET · **CR-S1-01** |
-+| `l2d2S2RawDatabaseSyncExclusiveGate.test.ts` | Pre-open handle: `exec`/`run`/`get`/`all`/`iterate` mutative+RETURNING refuse ; row count unchanged via RO diagnostic ; marker OFF preserved ; raw `new DatabaseSync` residual documented | DET · **CR-S2-01** |
++| `l2d2S2RawDatabaseSyncExclusiveGate.test.ts` | CR-S2-01 execution gates + **CR-S2-02** allowlist: `setAuthorizer`/`createTagStore`/`deserialize`/session/changeset refused ; iterate refuse-always ; pre-ON captures inert ; RO row-count oracle ; raw `new DatabaseSync` residual documented | DET · **CR-S2-01/02** |
 +| `l2d2S3D4HttpReadinessHarness.test.ts` | Marker OFF/ON ; generic→`/studio` ; deep link notFound ; no mapper ; OPS1 OUT | DET · **≠** HTTP LIVE |
 +| `l2d2S4RcutDeterministicRehearsal.test.ts` | Integrated rehearsal ; exclusive **stays ON** ; final D1 oracle = disposable `readOnly` (not marker OFF) ; oracle non-mutating ; Q12 OPEN | DET · **≠** R-CUT LIVE |
 +
@@ -1609,7 +1747,7 @@ index eb0601e3..b5c637a0 100644
 
  | Flow | Deterministic tests | Notes |
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0ec067ee..2e02a471 100644
+index 0ec067ee..8273bae5 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -15,13 +15,17 @@
@@ -1619,7 +1757,7 @@ index 0ec067ee..2e02a471 100644
 -| **R-02** D4 LIVE | DET redirect/notFound proven · Studio/HTTP LIVE path **NOT PROVEN** |
 -| **R-03** SQLite / raw DB | Raw `DatabaseSync` KNOWN GAP · `R-L2D2-SQLITE-SNAPSHOT` OPEN — naive file copy **≠** coherent backup |
 +| **R-02** D4 LIVE | DET redirect/notFound + S3 harness proven · Studio/HTTP LIVE path **NOT PROVEN** · **R-02 remains OPEN** |
-+| **R-03** SQLite / raw DB | Snapshot DET **PARTIAL** (`VACUUM INTO` + RO integrity; `closed_copy` out of contract — **CR-S1-01**) · applicative `openD1Db` mutation surfaces DET-proven (**CR-S2-01**) · residual raw `new DatabaseSync` **KNOWN GAP** · R-03 FULL CLOSE **NOT CLAIMED** |
++| **R-03** SQLite / raw DB | Snapshot DET **PARTIAL** (**CR-S1-01**) · applicative `openD1Db` native allowlist + authorizer DET-proven (**CR-S2-01/02**) · residual raw `new DatabaseSync` outside `openD1Db` **KNOWN GAP** · R-03 FULL CLOSE **NOT CLAIMED** |
 +| Q12 RO fallback | **OPEN** — S4 uses test-only disposable RO diagnostic ≠ product Q12 |
 +| OPS1 | **OUT** of initial D4 · unchanged |
  | Q15 global | **PARTIAL** |
@@ -1634,14 +1772,14 @@ index 0ec067ee..2e02a471 100644
  ## Overlay — AKG-M5 L2-D1 O-01 + D5 (CURRENT ON MAIN — PR #612 post-merge verified 2026-10-24)
 
 diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index 0367ea7b..a30b16c4 100644
+index 0367ea7b..33fda299 100644
 --- a/projects/sfia-studio/production-runtime-reference/README.md
 +++ b/projects/sfia-studio/production-runtime-reference/README.md
 @@ -46,6 +46,8 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
 
  Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · eight Cycle-14 digests on main · **R-01 exit proof satisfied** · formal close **NOT CONSUMED** · digest match ≠ semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**) · code L2-D2 remains DEFAULT OFF / NOT ACTIVATED (PR #614 distinct).
 
-+**G-ACTIVATION PREPARATION S1–S4 + CORR-01 (LOCAL DELIVERY CANDIDATE — 2026-10-25):** DET proofs for Product `VACUUM INTO` (closed_copy out of contract; RO integrity) · `openD1Db` Proxy+authorizer on all Statement execution surfaces (**CR-S2-01**) · D4 DET · R-CUT rehearsal with exclusive held + RO D1 oracle. Volumes 05–09 R24 in same lot. **Manifest digests NOT refreshed** (await G-MANIFEST). **Anti-claims:** G-ACTIVATION / G-REAL / H4 / D4 HTTP LIVE / R-CUT LIVE / G-GIT **NOT** granted · raw `new DatabaseSync` KNOWN GAP · Q12 OPEN · runtime v3 **NON ADOPTED**.
++**G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (LOCAL DELIVERY CANDIDATE — 2026-10-25):** DET proofs for Product `VACUUM INTO` · `openD1Db` native **allowlist** Proxy (closes `setAuthorizer`/`createTagStore`/`deserialize`/deferred `iterate` escapes — **CR-S2-01/02**) · D4 DET · R-CUT rehearsal. Volumes 05–09 R24 in same lot. **Manifest digests NOT refreshed** (await G-MANIFEST). **Anti-claims:** G-ACTIVATION / G-REAL / H4 / D4 HTTP LIVE / R-CUT LIVE / G-GIT **NOT** granted · raw `new DatabaseSync` KNOWN GAP · Q12 OPEN · runtime v3 **NON ADOPTED**.
 +
  ## What this corpus is
 
@@ -1649,10 +1787,10 @@ index 0367ea7b..a30b16c4 100644
 ```
 
 
-## 12. Handoff L3 (filled after publish)
+## 8. Handoff L3 (pending fill)
 
 | Field | Value |
 |---|---|
-| Message | review(handoff): L2-D2 S1 S2 bounded corrections |
+| Message | review(handoff): AKG-M5 L2-D2 CR-S2-02 |
 | Remote SHA | _(pending)_ |
 | Remote blob | _(pending)_ |
