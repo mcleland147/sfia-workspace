@@ -1,12 +1,13 @@
-# SFIA STUDIO — AKG-M5 — STRUCTURAL REMOVAL — CORRECTION PASS 01
+# SFIA STUDIO — AKG-M5 — STRUCTURAL REMOVAL — CORRECTION PASS 02
 ## REVIEW PACK FULL / Critical
 
-- **Generated (UTC):** 2026-10-25T14:01:50Z
-- **Cycle:** CORRECTION PASS 01 — Review completeness / generic invariant coverage
+- **Generated (UTC):** 2026-10-25T14:51:12Z
+- **Cycle:** CORR-02 — Git target fidelity & residual cleanup
 - **Profil:** CRITICAL
-- **Typologie:** CAPA / QA
+- **Typologie:** CAPA / QA / SECURITY
 - **Baseline:** SFIA v2.6
-- **GO Morris:** 2026-10-25 — targeted correction; integral removal decision stands; no restore RepositoryBinding/docs_write; no parallel architecture; no project GI yet
+- **GO Morris:** 2026-10-25 — CORR-02 after CORR-01 Critical Review; removal decision stands; no restore RepositoryBinding/docs_write; no REAL; no project GI
+- **Prior handoff CORR-01:** `c9ddb83a3928e05f8126d9d0c8adc4b1502be91f` / blob `84bbe25c585a1b77b92747a2087f83c5c5cb35be`
 
 ---
 ## 1. Git Truth
@@ -17,362 +18,292 @@
 | branch | `feat/akg-m5-remove-repository-binding-docs-write` |
 | HEAD | `7db8afd7c27720712f08000274dbbc4e1a62d935` |
 | origin/main | `7db8afd7c27720712f08000274dbbc4e1a62d935` |
-| merge-base(HEAD, origin/main) | `7db8afd7c27720712f08000274dbbc4e1a62d935` |
-| prior handoff SHA (declared) | `5595e4681920668ab82dee37f62026c8e9f7c588` |
-| prior blob (declared) | `f364de43ecbbf420f0860b7749d5f42be6cb8dd7` |
-| base known | `7db8afd7c27720712f08000274dbbc4e1a62d935` |
+| merge-base | `7db8afd7c27720712f08000274dbbc4e1a62d935` |
+| base | `7db8afd7c27720712f08000274dbbc4e1a62d935` |
 
-### Status summary (vs HEAD)
-- Deleted (D): **51**
-- Modified project delivery (M excl. `.tmp`): **147**
-- Modified including tracked `.tmp` pack: **148**
-- Added in diff (A): **2**
-- Untracked CORR-01 tests (??): **4**
-- Delivery added total (A + ??): **6**
+### Cumulative inventory vs HEAD
+- D **51** · M project **150** · M incl `.tmp` **151** · A **2** · ?? **5**
+- Delivery added total (A+??): **7**
 
 ### `.tmp-sfia-review/chatgpt-review.md`
 ```
  M .tmp-sfia-review/chatgpt-review.md
 ```
-- Present in `git diff --name-status HEAD` as M: **True**
-- **Cause:** file is historically **tracked** in the project tree; CORR-01 resets it mono-cycle for Review Pack.
-- **Rule:** Review Pack stays local / handoff-only; **must not** be staged into project GI commit. No destructive `git rm --cached` in this cycle.
-- **Pack content policy:** `.tmp` self-diff is **excluded** from §4 to avoid recursive embedding of prior incomplete pack.
+- Tracked historical review artifact. CORR-02 resets mono-cycle. **Exclude from project GI.** Self-diff excluded from §4.
 
-### Correspondence Git Truth ↔ Review Pack
-| Git class | Count | Pack section |
-|---|---:|---|
-| D | 51 | §3 |
-| M (project) | 147 | §4 full diffs |
-| M (.tmp tracked) | 1 | §1 qualification only (no recursive diff) |
-| A | 2 | §5 full content |
-| ?? | 4 | §5b full content |
-
-**Inventory correction vs prior handoff:** prior pack said `Files added (0)` while shipping 2 new files — **FALSE**. Exact now: A=2 + untracked CORR-01=4.
+### A vs B classification
+- **A — Cumulative Structural Removal (+ CORR-01):** 51 D, retirement of Product RepositoryBinding/docs_write admission, generic test restores, seal field KEEP.
+- **B — CORR-02 only:** identity↔remote↔checkout fidelity, Evidence allowlist tighten, stub removal, PRR/Roadmap CORR-02 overlay, new fidelity tests.
 
 ---
-## 2. Context / prior removal review
+## 2. Sources consulted
 
-Prior Delivery retired Product `RepositoryBinding` and docs_write Product admission locally atop `7db8afd7`. ChatGPT reserved: **REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING**, inventory inconsistency (added 0 vs 2), insufficient generic-invariant coverage after test deletions, and `repositoryBindingIdentity` disposition proof.
-
-CORR-01 answers those reserves without restoring retired mechanisms.
+- Cycle template / routing / CKC QA / Build doctrine / Roadmap / Product completion / Generic ER architecture / M5 / doctrine v3 / PRR 02–09 / CORR-01 remote handoff
+- Code primary: LOCAL Delivery candidate; main remains CURRENT ON MAIN
 
 ---
-## 3. Deleted files (exact)
+## 3. Initial findings G1–G4
+
+| Gap | Finding | Disposition |
+|---|---|---|
+| G1 identity/remote | seal accepted remote by https/git@ prefix only | **CLOSED** — `assertRemoteUrlMatchesRepositoryRef` |
+| G2 checkout=.git | managed resolver returned path on .git presence alone | **CLOSED** — origin must match identity (config/gitdir) |
+| G3 residuals | always-false docs_write stubs; dead helpers | **CLOSED** stubs removed; residual field/env named |
+| G4 Evidence | `execution_attempt:*` too wide for FS supersession | **CLOSED** — allowlist historical docs_write artifact sources only |
+
+---
+## 4. R23 frontiers
+
+| Component | Qualification |
+|---|---|
+| resolveTrustedProductLaunchContext | BEHAVIOR PROVEN DET — seal identity/remote |
+| startExecution seal + managed resolve | BEHAVIOR PROVEN DET — mismatch fail-closed |
+| managedProjectRepositoryResolver | BEHAVIOR PROVEN DET — origin match; worktree gitfile 1 hop |
+| resolveGitEffectTarget | COVERAGE VERIFIED — still requires sealed binding bag for protected Git |
+| observeLocalCommitFacts | DOCUMENTED/verified on main path — remote check before HEAD |
+| resolvePreCommitWorkspaceContinuation | BEHAVIOR PROVEN DET — allowlisted sources |
+| studioCursorRealLaunchGateway | residual cleanup; unused imports removed |
+| preflight / managedRepoRootBaseConfig | O-01 no Git required — PASS |
+
+---
+## 5. CORR-02 corrections (B)
+
+### CORR-A — identity ↔ remote
+- `resolveSealedGitTargetFromEnv` + `assertRemoteUrlMatchesRepositoryRef`
+- startExecution: provided remote mismatch → `REAL_WORKSPACE_INVALID` / `repository_remote_identity_mismatch`
+- GitHub.com HTTPS/SSH only via existing normalizer; no arbitrary https host
+
+### CORR-B — checkout
+- Managed checkout accepted only if origin remote matches sealed identity
+- `.git` file worktree: follow gitdir (+ commondir) hop; unreadable/mismatch → refuse
+- No clone, no process.cwd fallback, no REAL
+
+### CORR-C — Evidence
+- Allowlist: `execution_attempt:docs_write` (+ dotted suffixes) for durable historical Artifact Evidence
+- Excludes `execution_attempt:mission_result` and bare `execution_attempt:*`
+- Lineage Project/Cycle/EC/Attempt/path/digest/commit Evidence preserved
+- **KNOWN GAP:** no new Product generic materialization Evidence source after docs_write retirement → FS→SHA supersession is historical-Evidence-only (fail-closed for new sources)
+
+### CORR-D — residuals
+- Removed `isDocsWriteExecutionContract` + export
+- Removed always-false `isBoundedDocsWriteContract` / dead docsWrite branches in governedExecute
+- Removed dead recovery clone/stub helpers where unused
+- KEEP `repositoryBindingIdentity` residual sealed field; KEEP `SFIA_STUDIO_PROJECT_REPOSITORY_*` seal-only env
+
+---
+## 6. Deleted files (cumulative A) — justifications
 
 ### D-01 `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealDocsWrite.real.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-02 `projects/sfia-studio/app/__tests__/oa/evidence-review/missionResultContractResultSemantic.d0.test.ts`
-- **Class:** A+B — docs_write slice withdrawn; generic restored in CORR-01
-- **Historical responsibility:** mixed generic + docs_write evidence-review proofs
-- **Replacement:** CORR-01 *.generic.d0.test.ts replacements
-- **Impact:** Generic invariants re-proven; docs_write slices intentionally gone
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-03 `projects/sfia-studio/app/__tests__/oa/evidence-review/nativeExecutionLoopConvergence01.acceptanceAmbiguity.d0.test.ts`
-- **Class:** A+B — docs_write slice withdrawn; generic restored in CORR-01
-- **Historical responsibility:** mixed generic + docs_write evidence-review proofs
-- **Replacement:** CORR-01 *.generic.d0.test.ts replacements
-- **Impact:** Generic invariants re-proven; docs_write slices intentionally gone
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-04 `projects/sfia-studio/app/__tests__/oa/evidence-review/nativeExecutionLoopConvergence01.contractResultCriteria.d0.test.ts`
-- **Class:** A+B — docs_write slice withdrawn; generic restored in CORR-01
-- **Historical responsibility:** mixed generic + docs_write evidence-review proofs
-- **Replacement:** CORR-01 *.generic.d0.test.ts replacements
-- **Impact:** Generic invariants re-proven; docs_write slices intentionally gone
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-05 `projects/sfia-studio/app/__tests__/oa/execution-attempt/docsWriteSealedWorktreePaths.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-06 `projects/sfia-studio/app/__tests__/oa/execution-attempt/nativeExecutionLoopConvergence01.sameMacroClosure.d0.test.ts`
-- **Class:** A+C
-- **Historical responsibility:** docs_write criteria + some normalize helpers
-- **Replacement:** contractSemantics covers grounding; normalize*Outcome KNOWN GAP
-- **Impact:** Missing dedicated proof ≠ functional deletion
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-07 `projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceCoherence.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-08 `projects/sfia-studio/app/__tests__/oa/execution-contract/checkpointE.docsWriteEvidenceRematerialize.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-09 `projects/sfia-studio/app/__tests__/pre-m6-product-ui/repositoryBindingForm.ui.test.tsx`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** Product RepositoryBinding SoT / UI / config projection
-- **Replacement:** projectWorkspaceKey + projects/<key> + sealed EC git-target string
-- **Impact:** Create no longer projects binding
+- **Class:** A withdrawn RepositoryBinding
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-10 `projects/sfia-studio/app/__tests__/project-assistant/automaticResultQualification.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-11 `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryDocsWriteSuccessor.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-12 `projects/sfia-studio/app/__tests__/project-assistant/claimEvidenceCompletion.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-13 `projects/sfia-studio/app/__tests__/project-assistant/contractResultCrBlk04PreserveWhat.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-14 `projects/sfia-studio/app/__tests__/project-assistant/contractResultDocsWriteRequal.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-15 `projects/sfia-studio/app/__tests__/project-assistant/docsWriteProductAwaitCompletionWiring.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-16 `projects/sfia-studio/app/__tests__/project-assistant/nativeExecutionLoopPostEvidenceRecoveryContinuityCorr01.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-17 `projects/sfia-studio/app/__tests__/project-assistant/p6.closureRegularization.repositoryCurrentness.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-18 `projects/sfia-studio/app/__tests__/project-assistant/postExecutionCursorReportArtifactHandoff.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-19 `projects/sfia-studio/app/__tests__/project-assistant/postExecutionHandoff.integrated.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-20 `projects/sfia-studio/app/__tests__/project-assistant/postExecutionProductContinuity.d0.test.ts`
-- **Class:** A — withdrawn / partial B
-- **Historical responsibility:** docs_write-heavy continuity/replan/prestart integration
-- **Replacement:** thin generic continuity wording test + existing recoveryOwnership.prestartFailure.d0 / w2Eabc
-- **Impact:** KNOWN GAP for some non-ported helpers
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-21 `projects/sfia-studio/app/__tests__/project-assistant/productJourneyGovernedDocsWriteWiring.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-22 `projects/sfia-studio/app/__tests__/project-assistant/productJourneyPostExecutionReplan.d0.test.ts`
-- **Class:** A — withdrawn / partial B
-- **Historical responsibility:** docs_write-heavy continuity/replan/prestart integration
-- **Replacement:** thin generic continuity wording test + existing recoveryOwnership.prestartFailure.d0 / w2Eabc
-- **Impact:** KNOWN GAP for some non-ported helpers
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-23 `projects/sfia-studio/app/__tests__/project-assistant/recoveryBindingWriteModePrestartContinuity.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-24 `projects/sfia-studio/app/__tests__/project-assistant/recoveryDocsWriteModeSealing.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-25 `projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.corr03.governedClaim.d0.test.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-26 `projects/sfia-studio/app/__tests__/project-assistant/recoveryOwnership.prestartFailure.integration.d0.test.ts`
-- **Class:** A — withdrawn / partial B
-- **Historical responsibility:** docs_write-heavy continuity/replan/prestart integration
-- **Replacement:** thin generic continuity wording test + existing recoveryOwnership.prestartFailure.d0 / w2Eabc
-- **Impact:** KNOWN GAP for some non-ported helpers
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-27 `projects/sfia-studio/app/__tests__/vertical-slice-runtime/repositoryBindingProjection.d0.test.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** Product RepositoryBinding SoT / UI / config projection
-- **Replacement:** projectWorkspaceKey + projects/<key> + sealed EC git-target string
-- **Impact:** Create no longer projects binding
+- **Class:** A withdrawn RepositoryBinding
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-28 `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/RepositoryBindingForm.tsx`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** Product RepositoryBinding SoT / UI / config projection
-- **Replacement:** projectWorkspaceKey + projects/<key> + sealed EC git-target string
-- **Impact:** Create no longer projects binding
+- **Class:** A withdrawn RepositoryBinding
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-29 `projects/sfia-studio/app/features/project-assistant/f3/boundedDocsWriteM3ResolutionProfile.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-30 `projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-31 `projects/sfia-studio/app/features/project-assistant/f3/docsWriteEvidenceContradictionView.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-32 `projects/sfia-studio/app/features/project-assistant/f3/executeConfirmedBoundedDocsWriteContract.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-33 `projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-34 `projects/sfia-studio/app/features/project-assistant/f3/legacyDocsWritePrepareContractView.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-35 `projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-36 `projects/sfia-studio/app/features/project-assistant/f3/qualifyDocsWriteM3Intent.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-37 `projects/sfia-studio/app/features/project-assistant/f3/rematerializeDocsWriteEvidenceRequirements.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-38 `projects/sfia-studio/app/features/project-assistant/f3/resolveExistingLegacyM3DocsWriteProductPath.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-39 `projects/sfia-studio/app/features/project-assistant/w2/completeDocsWriteClaimEvidenceCompletion.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-40 `projects/sfia-studio/app/features/project-assistant/w2/prepareDocsWriteRecoverySuccessor.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-41 `projects/sfia-studio/app/features/project-assistant/w2/repairIncompleteRecoveryDocsWriteSuccessor.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-42 `projects/sfia-studio/app/features/project-assistant/w2/requalifyDocsWriteContractResult.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-43 `projects/sfia-studio/app/features/project-assistant/w2/resolveDocsWriteArtifactAbsolutePath.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-44 `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteContractResultSemantic.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-45 `projects/sfia-studio/app/lib/oa/evidence-review/application/docsWriteMinConformityVerifier.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-46 `projects/sfia-studio/app/lib/oa/execution-attempt/application/resolveSealedDocsWriteWorktreePaths.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-47 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedDocsWritePriorAttempt.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-48 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeDocsWriteLaunchPort.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-49 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** docs_write Product specialization / Fake/REAL harness
-- **Replacement:** Product admission retired; generalist Cursor + mission Result Semantic remain
-- **Impact:** Known accepted test regression if suite still expects docs_write
+- **Class:** A withdrawn docs_write
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-50 `projects/sfia-studio/app/lib/oa/project/application/setProjectRepositoryBinding.ts`
-- **Class:** A — withdrawn capability
-- **Historical responsibility:** Product RepositoryBinding SoT / UI / config projection
-- **Replacement:** projectWorkspaceKey + projects/<key> + sealed EC git-target string
-- **Impact:** Create no longer projects binding
+- **Class:** A withdrawn RepositoryBinding
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ### D-51 `projects/sfia-studio/app/lib/oa/project/domain/serverOwnedRepositoryConfig.ts`
-- **Class:** A — structural removal support
-- **Historical responsibility:** supporting test/doc/code for retired surfaces
-- **Replacement:** generic Product path
-- **Impact:** accepted if docs_write/binding-only
+- **Class:** A structural support / coupled tests
+- **Replacement:** projectWorkspaceKey / generalist Cursor / sealed EC git-target / generic mission semantics
 
 ---
-## 4. Modified files — useful diffs (inspectable)
+## 7. Modified files — useful diffs
 
-Each subsection is the complete `git diff HEAD -- <path>` (`.tmp` excluded). Path-list-only is insufficient.
+CORR-02 paths marked **[CORR-02]**. `.tmp` excluded. Full `git diff HEAD -- path`.
 
-### M-001 `projects/sfia-studio/app/.env.example`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-001 `projects/sfia-studio/app/.env.example` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/.env.example b/projects/sfia-studio/app/.env.example
 index 4ee52ab1..7574f964 100644
@@ -430,8 +361,8 @@ index 4ee52ab1..7574f964 100644
  #
 ```
 
-### M-002 `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-002 `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts
 index 84e90811..b88c2798 100644
@@ -472,8 +403,8 @@ index 84e90811..b88c2798 100644
    beforeEach(() => {
 ```
 
-### M-003 `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-003 `projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts` **[CORR-02]**
+- **Semantic change:** CORR-02 supporting fixture/test
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
 index b4a49ba7..af63f514 100644
@@ -580,8 +511,8 @@ index b4a49ba7..af63f514 100644
      projectId,
 ```
 
-### M-004 `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-004 `projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecCursorRealSameEcCommit.real.d0.test.ts
 index 9ed99995..55887458 100644
@@ -664,8 +595,8 @@ index 9ed99995..55887458 100644
          const decisions0 = await oa.decisionServices.decisions.listByProject(
 ```
 
-### M-005 `projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-005 `projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
 index 2fe10f79..a9caaf63 100644
@@ -768,8 +699,8 @@ index 2fe10f79..a9caaf63 100644
          defaultBranch: "main",
 ```
 
-### M-006 `projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-006 `projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts
 index 13eeda65..4af6b570 100644
@@ -875,8 +806,8 @@ index 13eeda65..4af6b570 100644
 
 ```
 
-### M-007 `projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-007 `projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
 index 92251ede..e32e0f23 100644
@@ -990,11 +921,11 @@ index 92251ede..e32e0f23 100644
      const decisions0 = await oa.decisionServices.decisions.listByProject(
 ```
 
-### M-008 `projects/sfia-studio/app/__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-008 `projects/sfia-studio/app/__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts
-index 5201e8b2..3c8af933 100644
+index 5201e8b2..8dc7d631 100644
 --- a/projects/sfia-studio/app/__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts
 @@ -1,3 +1,10 @@
@@ -1008,7 +939,13 @@ index 5201e8b2..3c8af933 100644
  /**
   * GCEC-GIT-LIFECYCLE-E2E-01 — Product RepositoryRead composition (P-RR-01..08).
   * ZERO REAL. Deterministic FakeRepositoryReadPorts only.
-@@ -10,20 +17,16 @@ import os from "node:os";
+@@ -5,25 +12,21 @@
+  * @vitest-environment node
+  */
+ import { createHash } from "node:crypto";
+-import { mkdirSync, mkdtempSync, readFileSync } from "node:fs";
++import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+ import os from "node:os";
  import path from "node:path";
  import { afterEach, beforeEach, describe, expect, it } from "vitest";
  import type { Digest } from "@/lib/oa/doctrine";
@@ -1048,7 +985,24 @@ index 5201e8b2..3c8af933 100644
 
  const APP_ROOT = path.resolve(__dirname, "../../..");
  const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-@@ -381,14 +389,7 @@ async function startAttemptD(input: {
+@@ -347,9 +355,13 @@ async function startAttemptD(input: {
+   read: TrackingRead | undefined;
+ }> {
+   const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-rr-d-"));
+-  mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
+-    recursive: true,
+-  });
++  const gitDir = path.join(managedBase, "acme__widget", ".git");
++  mkdirSync(gitDir, { recursive: true });
++  writeFileSync(
++    path.join(gitDir, "config"),
++    `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
++    "utf8",
++  );
+   const journal = new SqliteRealLaunchSafetyJournal({
+     databasePath: path.join(managedBase, "safety.sqlite"),
+   });
+@@ -381,14 +393,7 @@ async function startAttemptD(input: {
        safetyJournal: journal,
        managedRepoRootBase: managedBase,
      },
@@ -1066,8 +1020,8 @@ index 5201e8b2..3c8af933 100644
        evidence: evidenceBag,
 ```
 
-### M-009 `projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-009 `projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts
 index 306eed8d..4c67e6c8 100644
@@ -1144,8 +1098,8 @@ index 306eed8d..4c67e6c8 100644
  const ACTOR = { actorId: "actor:reg", role: "project_owner" as const };
 ```
 
-### M-010 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-010 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
 index a89a6876..e9e89d80 100644
@@ -1181,8 +1135,8 @@ index a89a6876..e9e89d80 100644
    M4_BOUNDED_LOCAL_COMMIT_SCOPE,
 ```
 
-### M-011 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-011 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts
 index a226a53c..8732f7e7 100644
@@ -1221,11 +1175,214 @@ index a226a53c..8732f7e7 100644
  } from "@/lib/oa/execution-attempt";
 ```
 
-### M-012 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-012 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts` **[CORR-02]**
+- **Semantic change:** Evidence FS-anchor allowlist tighten
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
+index bf818d04..2dae7536 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
+@@ -11,6 +11,8 @@ import {
+   preCommitWorkspaceContinuationRequired,
+   resolvePreCommitWorkspaceContinuation,
+   isFsAnchorSupersededByVerifiedLocalCommit,
++  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
++  STUDIO_CURSOR_GENERALIST_AGENT_ID,
+ } from "@/lib/oa/execution-attempt";
+
+ const HEAD = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+@@ -1139,4 +1141,184 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
+     });
+     expect(r).toEqual({ required: false, descriptor: null });
+   });
++
++  function lineageSupersession(input: {
++    artifactSource: string;
++    artifactAttemptId?: string;
++    extraArtifacts?: Evidence[];
++  }) {
++    const artifactAttemptId = input.artifactAttemptId ?? "xat:a";
++    return {
++      projectId: PROJECT,
++      cycleInstanceId: CYCLE,
++      executionContractId: EC,
++      priorAttemptId: "xat:a",
++      expectedParentSha: HEAD,
++      repositoryRef: "acme/widget",
++      requiredPaths: [PATH],
++      attempts: [
++        attempt({
++          attemptId: "xat:a",
++          selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
++        }),
++        attempt({
++          attemptId: "xat:b",
++          selectedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
++        }),
++      ],
++      evidence: [
++        evidence({
++          evidenceId: "ev:a",
++          source: input.artifactSource,
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: artifactAttemptId,
++          },
++        }),
++        ...(input.extraArtifacts ?? []),
++        evidence({
++          evidenceId: "ev:commit",
++          type: "other" as const,
++          source: "git:local_commit",
++          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
++          bindings: {
++            projectId: PROJECT,
++            cycleInstanceId: CYCLE,
++            executionContractId: EC,
++            executionAttemptId: "xat:b",
++          },
++        }),
++      ],
++    };
++  }
++
++  it("historical execution_attempt:docs_write (+ dotted suffix) still supersedes", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({ artifactSource: "execution_attempt:docs_write" }),
++      ),
++    ).toBe(true);
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:docs_write.v2",
++        }),
++      ),
++    ).toBe(true);
++  });
++
++  it("T11 irrelevant Attempt Evidence (wrong source / wrong attempt) → no supersession", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:mission_result",
++        }),
++      ),
++    ).toBe(false);
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:docs_write_fake",
++        }),
++      ),
++    ).toBe(false);
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution attempt xat:a (succeeded)",
++        }),
++      ),
++    ).toBe(false);
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:docs_write",
++          artifactAttemptId: "xat:other",
++        }),
++      ),
++    ).toBe(false);
++
++    const resolved = resolvePreCommitWorkspaceContinuation({
++      ...baseInput,
++      repositoryRef: "acme/widget",
++      authorizedEffects: ["git.push"],
++      verifiedEffects: [
++        "filesystem.create",
++        "filesystem.modify",
++        "git.commit",
++      ],
++      attempts: lineageSupersession({
++        artifactSource: "execution_attempt:mission_result",
++      }).attempts,
++      evidence: lineageSupersession({
++        artifactSource: "execution_attempt:mission_result",
++      }).evidence,
++    });
++    expect(resolved.required).toBe(true);
++    if (resolved.required) expect(resolved.ok).toBe(false);
++  });
++
++  it("T12 contradictory/ambiguous (2 matching artifacts) → no supersession / no auto PASS", () => {
++    const second = evidence({
++      evidenceId: "ev:a2",
++      source: "execution_attempt:docs_write",
++      bindings: {
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        executionAttemptId: "xat:a",
++      },
++    });
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:docs_write",
++          extraArtifacts: [second],
++        }),
++      ),
++    ).toBe(false);
++
++    const dottedTwin = evidence({
++      evidenceId: "ev:a-dotted",
++      source: "execution_attempt:docs_write.replica",
++      bindings: {
++        projectId: PROJECT,
++        cycleInstanceId: CYCLE,
++        executionContractId: EC,
++        executionAttemptId: "xat:a",
++      },
++    });
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:docs_write",
++          extraArtifacts: [dottedTwin],
++        }),
++      ),
++    ).toBe(false);
++
++    const resolved = resolvePreCommitWorkspaceContinuation({
++      ...baseInput,
++      repositoryRef: "acme/widget",
++      authorizedEffects: ["git.push"],
++      verifiedEffects: [
++        "filesystem.create",
++        "filesystem.modify",
++        "git.commit",
++      ],
++      attempts: lineageSupersession({
++        artifactSource: "execution_attempt:docs_write",
++        extraArtifacts: [second],
++      }).attempts,
++      evidence: lineageSupersession({
++        artifactSource: "execution_attempt:docs_write",
++        extraArtifacts: [second],
++      }).evidence,
++    });
++    expect(resolved).not.toEqual({ required: false, descriptor: null });
++    expect(resolved.required).toBe(true);
++    if (resolved.required) expect(resolved.ok).toBe(false);
++  });
+ });
+```
+
+### M-013 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
-index 4fb417d7..279824d2 100644
+index 4fb417d7..00335aa9 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
 @@ -1,3 +1,10 @@
@@ -1261,7 +1418,23 @@ index 4fb417d7..279824d2 100644
    M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
    resolvePreCommitWorkspaceContinuation,
    SqliteRealLaunchSafetyJournal,
-@@ -262,14 +265,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+@@ -236,8 +239,13 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+   it("A→B Cont01 + D-GCEC-AGENT-01: local-commit agent Start with unique continuation", async () => {
+     const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-cont-managed-"));
+     const repoRoot = path.join(managedBase, "acme__widget");
+-    mkdirSync(repoRoot, { recursive: true });
+-    mkdirSync(path.join(repoRoot, ".git"));
++    const gitDir = path.join(repoRoot, ".git");
++    mkdirSync(gitDir, { recursive: true });
++    writeFileSync(
++      path.join(gitDir, "config"),
++      `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
++      "utf8",
++    );
+
+     const journal = new SqliteRealLaunchSafetyJournal({
+       databasePath: tempJournalPath("gcec-cont-ab-"),
+@@ -262,14 +270,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
          safetyJournal: journal,
          managedRepoRootBase: managedBase,
        },
@@ -1277,7 +1450,23 @@ index 4fb417d7..279824d2 100644
        listProjectEvidence: async () => ({ ok: true as const, evidence: evidenceBag }),
        fixedNowIso: NOW,
      }) as typeof stack.attempts;
-@@ -427,14 +423,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+@@ -407,8 +408,13 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
+       path.join(os.tmpdir(), "gcec-cont-none-"),
+     );
+     const repoRoot = path.join(managedBase, "acme__widget");
+-    mkdirSync(repoRoot, { recursive: true });
+-    mkdirSync(path.join(repoRoot, ".git"));
++    const gitDir = path.join(repoRoot, ".git");
++    mkdirSync(gitDir, { recursive: true });
++    writeFileSync(
++      path.join(gitDir, "config"),
++      `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
++      "utf8",
++    );
+
+     const journal = new SqliteRealLaunchSafetyJournal({
+       databasePath: tempJournalPath("gcec-cont-none-"),
+@@ -427,14 +433,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
          safetyJournal: journal,
          managedRepoRootBase: managedBase,
        },
@@ -1295,14 +1484,19 @@ index 4fb417d7..279824d2 100644
      }) as typeof stack.attempts;
 ```
 
-### M-013 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCrossEcPrCreateIntegration.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-014 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCrossEcPrCreateIntegration.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCrossEcPrCreateIntegration.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCrossEcPrCreateIntegration.d0.test.ts
-index b08c7584..8dccc27e 100644
+index b08c7584..88d6fe74 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCrossEcPrCreateIntegration.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCrossEcPrCreateIntegration.d0.test.ts
-@@ -7,7 +7,9 @@ import { mkdirSync, mkdtempSync } from "node:fs";
+@@ -3,11 +3,13 @@
+  * EC_C != EC_D; C launch count 0; D reaches fake launch with PR-create only.
+  * ZERO MUTATING REAL. @vitest-environment node
+  */
+-import { mkdirSync, mkdtempSync } from "node:fs";
++import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
  import os from "node:os";
  import path from "node:path";
  import { afterEach, beforeEach, describe, expect, it } from "vitest";
@@ -1313,7 +1507,24 @@ index b08c7584..8dccc27e 100644
  import {
    assertStudioCursorRealOffForTests,
    buildGitEffectActionRef,
-@@ -265,14 +267,7 @@ async function runStartD(input: {
+@@ -235,9 +237,13 @@ async function runStartD(input: {
+   const includeBinding = input.includeBinding !== false;
+   const seedEvidence = input.seedEvidence !== false;
+   const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-xec-d-"));
+-  mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
+-    recursive: true,
+-  });
++  const gitDir = path.join(managedBase, "acme__widget", ".git");
++  mkdirSync(gitDir, { recursive: true });
++  writeFileSync(
++    path.join(gitDir, "config"),
++    `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
++    "utf8",
++  );
+   const journal = new SqliteRealLaunchSafetyJournal({
+     databasePath: path.join(managedBase, "safety.sqlite"),
+   });
+@@ -265,14 +271,7 @@ async function runStartD(input: {
        safetyJournal: journal,
        managedRepoRootBase: managedBase,
      },
@@ -1331,8 +1542,8 @@ index b08c7584..8dccc27e 100644
        evidence: evidenceBag,
 ```
 
-### M-014 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-015 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts
 index 0fcd435d..6d31862d 100644
@@ -1354,8 +1565,8 @@ index 0fcd435d..6d31862d 100644
    M4_BOUNDED_RO_ACTION,
 ```
 
-### M-015 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-016 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts
 index 4a3a89dd..c7eb16d9 100644
@@ -1377,14 +1588,14 @@ index 4a3a89dd..c7eb16d9 100644
    SFIA_STUDIO_CURSOR_REAL_FLAG,
 ```
 
-### M-016 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-017 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts
-index 0685a4bf..182a8a2e 100644
+index 0685a4bf..b0bf848f 100644
 --- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts
-@@ -1,3 +1,10 @@
+@@ -1,28 +1,33 @@
 +const createM4BoundedDocsWriteCursorAgentDescriptor: any = null;
 +const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
 +const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
@@ -1395,7 +1606,11 @@ index 0685a4bf..182a8a2e 100644
  /**
   * D-GCEC-AGENT-01 + GCEC git.commit same-EC A→B (honest agent swap).
   * ZERO REAL. @vitest-environment node
-@@ -8,21 +15,19 @@ import os from "node:os";
+  */
+ import { createHash } from "node:crypto";
+-import { mkdirSync, mkdtempSync } from "node:fs";
++import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
+ import os from "node:os";
  import path from "node:path";
  import { afterEach, beforeEach, describe, expect, it } from "vitest";
  import type { Digest } from "@/lib/oa/doctrine";
@@ -1423,7 +1638,35 @@ index 0685a4bf..182a8a2e 100644
    M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
    resolvePreCommitWorkspaceContinuation,
    SqliteRealLaunchSafetyJournal,
-@@ -263,14 +268,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
+@@ -62,6 +67,14 @@ function tempJournalPath(prefix: string): string {
+   return path.join(dir, "safety.sqlite");
+ }
+
++function writeCoherentOrigin(gitDir: string): void {
++  writeFileSync(
++    path.join(gitDir, "config"),
++    `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
++    "utf8",
++  );
++}
++
+ function docsWriteInputs(baseHeadSha: string): Record<string, unknown> {
+   return {
+     baseHeadSha,
+@@ -237,9 +250,9 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
+
+   it("AG-01/02 Attempt A docs-write; Attempt B local-commit under SAME EC", async () => {
+     const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-agent01-ab-"));
+-    mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
+-      recursive: true,
+-    });
++    const gitDir = path.join(managedBase, "acme__widget", ".git");
++    mkdirSync(gitDir, { recursive: true });
++    writeCoherentOrigin(gitDir);
+     const journal = new SqliteRealLaunchSafetyJournal({
+       databasePath: tempJournalPath("gcec-agent01-ab-"),
+     });
+@@ -263,14 +276,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
          safetyJournal: journal,
          managedRepoRootBase: managedBase,
        },
@@ -1439,7 +1682,20 @@ index 0685a4bf..182a8a2e 100644
        listProjectEvidence: async () => ({ ok: true as const, evidence: evidenceBag }),
        fixedNowIso: NOW,
      }) as typeof stack.attempts;
-@@ -433,14 +431,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
+@@ -411,9 +417,9 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
+
+   it("SR-02 stale docs-write selection + later commit slice → Start reject / zero process", async () => {
+     const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-sr02-"));
+-    mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
+-      recursive: true,
+-    });
++    const gitDir = path.join(managedBase, "acme__widget", ".git");
++    mkdirSync(gitDir, { recursive: true });
++    writeCoherentOrigin(gitDir);
+     const journal = new SqliteRealLaunchSafetyJournal({
+       databasePath: tempJournalPath("gcec-sr02-"),
+     });
+@@ -433,14 +439,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
          safetyJournal: journal,
          managedRepoRootBase: managedBase,
        },
@@ -1457,8 +1713,8 @@ index 0685a4bf..182a8a2e 100644
      }) as typeof stack.attempts;
 ```
 
-### M-017 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-018 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
 index e919ec83..948212ac 100644
@@ -1523,8 +1779,8 @@ index e919ec83..948212ac 100644
    resolveAttemptExecutionProfile,
 ```
 
-### M-018 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-019 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts
 index 8bf7eb23..3b151858 100644
@@ -1546,8 +1802,8 @@ index 8bf7eb23..3b151858 100644
    M4_BOUNDED_REMOTE_PUSH_ACTION,
 ```
 
-### M-019 `projects/sfia-studio/app/__tests__/oa/execution-attempt/nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-020 `projects/sfia-studio/app/__tests__/oa/execution-attempt/nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts
 index e787ad0d..57d0eb63 100644
@@ -1569,8 +1825,8 @@ index e787ad0d..57d0eb63 100644
    M4_BOUNDED_RO_ACTION,
 ```
 
-### M-020 `projects/sfia-studio/app/__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-021 `projects/sfia-studio/app/__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts
 index 0d023459..740c7135 100644
@@ -1597,8 +1853,8 @@ index 0d023459..740c7135 100644
  describe("PRODUCT-PWR-01 Project workspace key", () => {
 ```
 
-### M-021 `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-022 `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts
 index 68780b37..671e905a 100644
@@ -1658,8 +1914,8 @@ index 68780b37..671e905a 100644
          projectId,
 ```
 
-### M-022 `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-023 `projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
 index 6f49f49c..e4875364 100644
@@ -1713,11 +1969,11 @@ index 6f49f49c..e4875364 100644
    }
 ```
 
-### M-023 `projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-024 `projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts
-index 6f71a2bd..ce9b6986 100644
+index 6f71a2bd..c2f0e65e 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts
 @@ -1,3 +1,20 @@
@@ -1805,10 +2061,22 @@ index 6f71a2bd..ce9b6986 100644
  import {
    SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
    getRuntimeApplicationService,
+@@ -114,6 +148,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
+     cwd: repoRoot,
+   });
+   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
++  execFileSync(
++    "git",
++    ["remote", "add", "origin", `https://github.com/${identity}.git`],
++    { cwd: repoRoot },
++  );
+   execFileSync("git", ["add", "."], { cwd: repoRoot });
+   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
+   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
 ```
 
-### M-024 `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-025 `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts
 index f565e90b..357fa052 100644
@@ -1845,8 +2113,8 @@ index f565e90b..357fa052 100644
 
 ```
 
-### M-025 `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryCtaRestartPrecedence.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-026 `projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryCtaRestartPrecedence.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryCtaRestartPrecedence.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryCtaRestartPrecedence.d0.test.ts
 index 0a84d534..04980367 100644
@@ -1877,8 +2145,8 @@ index 0a84d534..04980367 100644
    "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
 ```
 
-### M-026 `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-027 `projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
 index 05a0ed12..570d63d8 100644
@@ -1954,8 +2222,8 @@ index 05a0ed12..570d63d8 100644
    afterEach(() => {
 ```
 
-### M-027 `projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-028 `projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
 index 014bac68..32e34d16 100644
@@ -1974,8 +2242,8 @@ index 014bac68..32e34d16 100644
    return {
 ```
 
-### M-028 `projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-029 `projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts
 index 537bfbe5..8448d70f 100644
@@ -2048,8 +2316,8 @@ index 537bfbe5..8448d70f 100644
        projectId,
 ```
 
-### M-029 `projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-030 `projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts
 index f7444d48..c0f06120 100644
@@ -2164,8 +2432,8 @@ index f7444d48..c0f06120 100644
        oa,
 ```
 
-### M-030 `projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-031 `projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts
 index 85c554d1..8058fcbf 100644
@@ -2212,8 +2480,8 @@ index 85c554d1..8058fcbf 100644
    }
 ```
 
-### M-031 `projects/sfia-studio/app/__tests__/project-assistant/p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-032 `projects/sfia-studio/app/__tests__/project-assistant/p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts
 index 26caeb08..6c2f5372 100644
@@ -2303,8 +2571,8 @@ index 26caeb08..6c2f5372 100644
        identity,
 ```
 
-### M-032 `projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-033 `projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.authorityChatFirstContinuity.d0.test.ts
 index 9131cddf..9be63b84 100644
@@ -2370,8 +2638,8 @@ index 9131cddf..9be63b84 100644
        identity,
 ```
 
-### M-033 `projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-034 `projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts
 index bf06c12d..da8aa9ae 100644
@@ -2481,8 +2749,8 @@ index bf06c12d..da8aa9ae 100644
        identity,
 ```
 
-### M-034 `projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-035 `projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
 index b2619c20..46bacebe 100644
@@ -2563,8 +2831,8 @@ index b2619c20..46bacebe 100644
    }
 ```
 
-### M-035 `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-036 `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts
 index f6389fdc..5c20e27c 100644
@@ -2645,8 +2913,8 @@ index f6389fdc..5c20e27c 100644
        identity,
 ```
 
-### M-036 `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-037 `projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts
 index 34e208ba..79d994d8 100644
@@ -2699,8 +2967,8 @@ index 34e208ba..79d994d8 100644
        identity,
 ```
 
-### M-037 `projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-038 `projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts
 index bfdb689c..67af3544 100644
@@ -2766,8 +3034,8 @@ index bfdb689c..67af3544 100644
        identity,
 ```
 
-### M-038 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-039 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts
 index 3e45f4d1..e7698a39 100644
@@ -2886,8 +3154,8 @@ index 3e45f4d1..e7698a39 100644
          projectId,
 ```
 
-### M-039 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-040 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts
 index cdc11279..b91a0360 100644
@@ -2971,8 +3239,8 @@ index cdc11279..b91a0360 100644
          projectId: ctx.projectId,
 ```
 
-### M-040 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-041 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts
 index 746e0228..92154af8 100644
@@ -3056,8 +3324,8 @@ index 746e0228..92154af8 100644
          projectId: ctx.projectId,
 ```
 
-### M-041 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-042 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts
 index 4338baf3..2c6ad187 100644
@@ -3148,8 +3416,8 @@ index 4338baf3..2c6ad187 100644
        projectId,
 ```
 
-### M-042 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-043 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts
 index 9d341c16..48a33de4 100644
@@ -3208,8 +3476,8 @@ index 9d341c16..48a33de4 100644
        identity,
 ```
 
-### M-043 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-044 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts
 index b3f54fab..d8a8fb37 100644
@@ -3268,8 +3536,8 @@ index b3f54fab..d8a8fb37 100644
        identity,
 ```
 
-### M-044 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-045 `projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts
 index 7bc7d16c..0023a413 100644
@@ -3342,8 +3610,8 @@ index 7bc7d16c..0023a413 100644
        identity,
 ```
 
-### M-045 `projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-046 `projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts
 index c6662e0e..446f5dbf 100644
@@ -3437,8 +3705,8 @@ index c6662e0e..446f5dbf 100644
        oa,
 ```
 
-### M-046 `projects/sfia-studio/app/__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-047 `projects/sfia-studio/app/__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts
 index caf814f3..883bbea0 100644
@@ -3515,8 +3783,8 @@ index caf814f3..883bbea0 100644
        identity,
 ```
 
-### M-047 `projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-048 `projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts
 index fe8c589b..9bff68c0 100644
@@ -3573,8 +3841,8 @@ index fe8c589b..9bff68c0 100644
        identity,
 ```
 
-### M-048 `projects/sfia-studio/app/__tests__/project-assistant/p6.r03.inspectionContinuityAttestation.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-049 `projects/sfia-studio/app/__tests__/project-assistant/p6.r03.inspectionContinuityAttestation.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.r03.inspectionContinuityAttestation.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.r03.inspectionContinuityAttestation.d0.test.ts
 index 6cb4a67d..0cfb5e40 100644
@@ -3653,8 +3921,8 @@ index 6cb4a67d..0cfb5e40 100644
    }
 ```
 
-### M-049 `projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-050 `projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
 index e1737a26..08704a60 100644
@@ -3782,8 +4050,8 @@ index e1737a26..08704a60 100644
        identity: "acme/rci01-l08-other",
 ```
 
-### M-050 `projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-051 `projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts
 index 14587220..c95bf3be 100644
@@ -3856,8 +4124,8 @@ index 14587220..c95bf3be 100644
        identity,
 ```
 
-### M-051 `projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.executionContractSimplification.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-052 `projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.executionContractSimplification.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.executionContractSimplification.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.executionContractSimplification.d0.test.ts
 index d0015233..f9fe3e71 100644
@@ -3922,8 +4190,8 @@ index d0015233..f9fe3e71 100644
        identity,
 ```
 
-### M-052 `projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-053 `projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
 index ef01440a..9d069c9e 100644
@@ -3994,8 +4262,8 @@ index ef01440a..9d069c9e 100644
        identity,
 ```
 
-### M-053 `projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-054 `projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts
 index 01ba57c5..8d0c1a1e 100644
@@ -4072,8 +4340,8 @@ index 01ba57c5..8d0c1a1e 100644
    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
 ```
 
-### M-054 `projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-055 `projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/pjReproof05.executionEligibility.d0.test.ts
 index 4f7bdd2f..8c50b0b6 100644
@@ -4147,11 +4415,11 @@ index 4f7bdd2f..8c50b0b6 100644
  });
 ```
 
-### M-055 `projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-056 `projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts
-index db53e63e..56cd9eac 100644
+index db53e63e..18b47d67 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts
 @@ -1,3 +1,20 @@
@@ -4216,13 +4484,25 @@ index db53e63e..56cd9eac 100644
  import {
    SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
    getRuntimeApplicationService,
+@@ -104,6 +130,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
+     cwd: repoRoot,
+   });
+   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
++  execFileSync(
++    "git",
++    ["remote", "add", "origin", `https://github.com/${identity}.git`],
++    { cwd: repoRoot },
++  );
+   execFileSync("git", ["add", "."], { cwd: repoRoot });
+   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
+   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
 ```
 
-### M-056 `projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-057 `projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts
-index e055c00c..bf734c00 100644
+index e055c00c..3867a6f0 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts
 @@ -1,3 +1,20 @@
@@ -4288,7 +4568,19 @@ index e055c00c..bf734c00 100644
  import {
    SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
    getRuntimeApplicationService,
-@@ -265,10 +291,10 @@ describe("PRODUCT-CYCLE-E2E-STABILIZATION-01 front-door oracle", () => {
+@@ -108,6 +134,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
+     cwd: repoRoot,
+   });
+   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
++  execFileSync(
++    "git",
++    ["remote", "add", "origin", `https://github.com/${identity}.git`],
++    { cwd: repoRoot },
++  );
+   execFileSync("git", ["add", "."], { cwd: repoRoot });
+   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
+   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
+@@ -265,10 +296,10 @@ describe("PRODUCT-CYCLE-E2E-STABILIZATION-01 front-door oracle", () => {
      expect(created.project.projectWorkspaceKey).toBe(
        "mini-cadrage-suivi-de-taches",
      );
@@ -4303,8 +4595,8 @@ index e055c00c..bf734c00 100644
        managedRepoRootBase: managedBase,
 ```
 
-### M-057 `projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-058 `projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts
 index e0deffee..27b2f36d 100644
@@ -4376,8 +4668,8 @@ index e0deffee..27b2f36d 100644
    }
 ```
 
-### M-058 `projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-059 `projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts
 index 2fe8535b..e076c208 100644
@@ -4466,11 +4758,11 @@ index 2fe8535b..e076c208 100644
        projectId,
 ```
 
-### M-059 `projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-060 `projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts
-index 1adfa5f6..4606ae98 100644
+index 1adfa5f6..881437c6 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts
 @@ -1,3 +1,21 @@
@@ -4589,7 +4881,19 @@ index 1adfa5f6..4606ae98 100644
    MemoryLaunchSafetyJournal,
    isStudioCursorRealEnabled,
  } from "@/lib/oa/execution-attempt";
-@@ -244,10 +296,10 @@ describe("PRODUCT-PWR-01 deterministic workspace routing journey", () => {
+@@ -131,6 +183,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
+     cwd: repoRoot,
+   });
+   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
++  execFileSync(
++    "git",
++    ["remote", "add", "origin", `https://github.com/${identity}.git`],
++    { cwd: repoRoot },
++  );
+   execFileSync("git", ["add", "."], { cwd: repoRoot });
+   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
+   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
+@@ -244,10 +301,10 @@ describe("PRODUCT-PWR-01 deterministic workspace routing journey", () => {
      expect(created.project.projectWorkspaceKey).toBe(
        "mini-cadrage-suivi-de-taches",
      );
@@ -4602,7 +4906,7 @@ index 1adfa5f6..4606ae98 100644
 
      const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
        projectId,
-@@ -953,7 +1005,7 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
+@@ -953,7 +1010,7 @@ describe("CR-PWR-01…04 + DETERMINISTIC E2E Proposal→Evidence", () => {
      expect(created.project.projectWorkspaceKey).toBe(
        "mini-cadrage-suivi-de-taches",
      );
@@ -4611,7 +4915,7 @@ index 1adfa5f6..4606ae98 100644
        EXPECTED_PROJECT_ROOT,
      );
 
-@@ -1788,7 +1840,7 @@ describe("CR-PWR-04 Product Create fail-closed without server-owned config", ()
+@@ -1788,7 +1845,7 @@ describe("CR-PWR-04 Product Create fail-closed without server-owned config", ()
      expect(result.project.projectWorkspaceKey).toBe(
        "mini-cadrage-suivi-de-taches",
      );
@@ -4622,8 +4926,8 @@ index 1adfa5f6..4606ae98 100644
    });
 ```
 
-### M-060 `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-061 `projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts b/projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
 index f1e88ca3..693cc5a4 100644
@@ -4683,8 +4987,8 @@ index f1e88ca3..693cc5a4 100644
      projectId,
 ```
 
-### M-061 `projects/sfia-studio/app/__tests__/setup.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-062 `projects/sfia-studio/app/__tests__/setup.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/setup.ts b/projects/sfia-studio/app/__tests__/setup.ts
 index f17c550d..873a765e 100644
@@ -4712,8 +5016,8 @@ index f17c550d..873a765e 100644
 -}
 ```
 
-### M-062 `projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-063 `projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-core/localProjectComposition.test.ts
 index 858144e5..a1e67a77 100644
@@ -4735,11 +5039,11 @@ index 858144e5..a1e67a77 100644
        iam: "NOT_SELECTED",
 ```
 
-### M-063 `projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-064 `projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts
-index d8973a5c..5d375996 100644
+index d8973a5c..2bfce257 100644
 --- a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts
 @@ -1,3 +1,23 @@
@@ -4818,7 +5122,19 @@ index d8973a5c..5d375996 100644
  import {
    governedExecuteAuthorizedContract,
  } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-@@ -355,7 +383,7 @@ async function bootBareSingletonDocsWriteJourney(input: {
+@@ -158,6 +186,11 @@ function initManagedRepo(managedBase: string, identity: string) {
+     cwd: repoRoot,
+   });
+   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
++  execFileSync(
++    "git",
++    ["remote", "add", "origin", `https://github.com/${identity}.git`],
++    { cwd: repoRoot },
++  );
+   execFileSync("git", ["add", "."], { cwd: repoRoot });
+   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
+   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {
+@@ -355,7 +388,7 @@ async function bootBareSingletonDocsWriteJourney(input: {
 
    const created = await runtime.createProject({
      name: `LMR ${input.suffix}`,
@@ -4827,7 +5143,7 @@ index d8973a5c..5d375996 100644
      context: "delivery",
      criticality: "STANDARD",
      constraints: ["ZERO LIVE", "ZERO REAL"],
-@@ -366,20 +394,6 @@ async function bootBareSingletonDocsWriteJourney(input: {
+@@ -366,20 +399,6 @@ async function bootBareSingletonDocsWriteJourney(input: {
    if (!created.ok) throw new Error("createProject");
    const projectId = created.project.projectId;
 
@@ -4848,7 +5164,7 @@ index d8973a5c..5d375996 100644
    const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
    const decisions0 = await oa.decisionServices.decisions.listByProject(projectId);
    const lpsBoot = await oa.projectServices.getCurrentLivingProjectState.execute({
-@@ -816,7 +830,7 @@ describe("injected FakeDocsWrite composition regression (NOT exit proof)", () =>
+@@ -816,7 +835,7 @@ describe("injected FakeDocsWrite composition regression (NOT exit proof)", () =>
 
      const created = await runtime.createProject({
        name: `LMR inj ${input.suffix}`,
@@ -4857,7 +5173,7 @@ index d8973a5c..5d375996 100644
        context: "delivery",
        criticality: "STANDARD",
        constraints: ["ZERO LIVE"],
-@@ -827,20 +841,6 @@ describe("injected FakeDocsWrite composition regression (NOT exit proof)", () =>
+@@ -827,20 +846,6 @@ describe("injected FakeDocsWrite composition regression (NOT exit proof)", () =>
      if (!created.ok) throw new Error("createProject");
      const projectId = created.project.projectId;
 
@@ -4880,8 +5196,8 @@ index d8973a5c..5d375996 100644
      const lpsBoot = await oa.projectServices.getCurrentLivingProjectState.execute({
 ```
 
-### M-064 `projects/sfia-studio/app/__tests__/vertical-slice-runtime/studioRuntimeProfilePreflight.d0.test.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-065 `projects/sfia-studio/app/__tests__/vertical-slice-runtime/studioRuntimeProfilePreflight.d0.test.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/vertical-slice-runtime/studioRuntimeProfilePreflight.d0.test.ts b/projects/sfia-studio/app/__tests__/vertical-slice-runtime/studioRuntimeProfilePreflight.d0.test.ts
 index 9d2865e4..893dbae0 100644
@@ -4983,8 +5299,8 @@ index 9d2865e4..893dbae0 100644
    it("T6 — deterministic + REAL → FAIL-CLOSED via canonical rule", () => {
 ```
 
-### M-065 `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-066 `projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/ProjectWorkspacePage.tsx
 index 3a47e6ea..5f30dec7 100644
@@ -5007,8 +5323,8 @@ index 3a47e6ea..5f30dec7 100644
                        { projectId },
 ```
 
-### M-066 `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-067 `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
 index a0c93cb2..daf8a878 100644
@@ -5266,8 +5582,8 @@ index a0c93cb2..daf8a878 100644
      contract,
 ```
 
-### M-067 `projects/sfia-studio/app/features/project-assistant/actions.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-068 `projects/sfia-studio/app/features/project-assistant/actions.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
 index b6970355..52e4d130 100644
@@ -5394,8 +5710,8 @@ index b6970355..52e4d130 100644
    proposalId: string;
 ```
 
-### M-068 `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-069 `projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts b/projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts
 index cd37a663..346e6a84 100644
@@ -5742,8 +6058,8 @@ index cd37a663..346e6a84 100644
    }
 ```
 
-### M-069 `projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-070 `projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts b/projects/sfia-studio/app/features/project-assistant/f2/executionIntentSchema.ts
 index e360bd30..425e4f1f 100644
@@ -5775,8 +6091,8 @@ index e360bd30..425e4f1f 100644
      reversibility !== undefined &&
 ```
 
-### M-070 `projects/sfia-studio/app/features/project-assistant/f2/f2CanonicalOperations.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-071 `projects/sfia-studio/app/features/project-assistant/f2/f2CanonicalOperations.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/f2CanonicalOperations.ts b/projects/sfia-studio/app/features/project-assistant/f2/f2CanonicalOperations.ts
 index d57c60a9..fd30bf4b 100644
@@ -5832,8 +6148,8 @@ index d57c60a9..fd30bf4b 100644
    (typeof F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM)[number];
 ```
 
-### M-071 `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-072 `projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts b/projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts
 index eb300ce1..9ae8f6fc 100644
@@ -5921,8 +6237,8 @@ index eb300ce1..9ae8f6fc 100644
 
 ```
 
-### M-072 `projects/sfia-studio/app/features/project-assistant/f2/types.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-073 `projects/sfia-studio/app/features/project-assistant/f2/types.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/types.ts b/projects/sfia-studio/app/features/project-assistant/f2/types.ts
 index 39d79d4a..3c06c5ec 100644
@@ -5957,8 +6273,8 @@ index 39d79d4a..3c06c5ec 100644
     * of the Pilot's disposition on an already-presented decision subject.
 ```
 
-### M-073 `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-074 `projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts b/projects/sfia-studio/app/features/project-assistant/f3/confirmAndExecuteResolvedM3.ts
 index cd720860..a50f3e97 100644
@@ -6022,8 +6338,8 @@ index cd720860..a50f3e97 100644
 
 ```
 
-### M-074 `projects/sfia-studio/app/features/project-assistant/f3/index.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-075 `projects/sfia-studio/app/features/project-assistant/f3/index.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/index.ts b/projects/sfia-studio/app/features/project-assistant/f3/index.ts
 index 6643b377..cfa8d1fb 100644
@@ -6071,8 +6387,8 @@ index 6643b377..cfa8d1fb 100644
 -} from "../w2/requalifyDocsWriteContractResult";
 ```
 
-### M-075 `projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-076 `projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareAndResolveM3ProductPath.ts
 index 37b1fea9..97c62bae 100644
@@ -6188,8 +6504,8 @@ index 37b1fea9..97c62bae 100644
        ],
 ```
 
-### M-076 `projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-077 `projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
 index 7dd7c5cf..0dac12ef 100644
@@ -6432,8 +6748,8 @@ index 7dd7c5cf..0dac12ef 100644
    const fields = fieldsFromBasis(basis, decision.decisionId);
 ```
 
-### M-077 `projects/sfia-studio/app/features/project-assistant/f3/readBoundExecutionReviewItem.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-078 `projects/sfia-studio/app/features/project-assistant/f3/readBoundExecutionReviewItem.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/readBoundExecutionReviewItem.ts b/projects/sfia-studio/app/features/project-assistant/f3/readBoundExecutionReviewItem.ts
 index 7d30eee9..80b0bca1 100644
@@ -6450,8 +6766,8 @@ index 7d30eee9..80b0bca1 100644
    | {
 ```
 
-### M-078 `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-079 `projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts b/projects/sfia-studio/app/features/project-assistant/f3/resolveM3ExecutionContract.ts
 index 2b467eba..0eda83aa 100644
@@ -6487,8 +6803,8 @@ index 2b467eba..0eda83aa 100644
    if (original.status === "superseded") {
 ```
 
-### M-079 `projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-080 `projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts b/projects/sfia-studio/app/features/project-assistant/f3/selectProductM3ResolutionProfile.ts
 index 9d46a095..3eabf4da 100644
@@ -6551,8 +6867,8 @@ index 9d46a095..3eabf4da 100644
      input?.preferBoundedReadOnlyProfile === true ||
 ```
 
-### M-080 `projects/sfia-studio/app/features/project-assistant/types.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-081 `projects/sfia-studio/app/features/project-assistant/types.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
 index cbabef85..6c28859d 100644
@@ -6586,8 +6902,8 @@ index cbabef85..6c28859d 100644
  export type ProjectAssistantResolveLegacyM3DocsWriteFailure = {
 ```
 
-### M-081 `projects/sfia-studio/app/features/project-assistant/w2/actions.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-082 `projects/sfia-studio/app/features/project-assistant/w2/actions.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/actions.ts b/projects/sfia-studio/app/features/project-assistant/w2/actions.ts
 index b0a2ecbc..3762a992 100644
@@ -6714,8 +7030,8 @@ index b0a2ecbc..3762a992 100644
    executionContractId: string;
 ```
 
-### M-082 `projects/sfia-studio/app/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-083 `projects/sfia-studio/app/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty.ts b/projects/sfia-studio/app/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty.ts
 index dcc5221a..2a9a4f9b 100644
@@ -6732,8 +7048,8 @@ index dcc5221a..2a9a4f9b 100644
 
 ```
 
-### M-083 `projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-084 `projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
 index b762c321..6f0ca250 100644
@@ -6802,8 +7118,8 @@ index b762c321..6f0ca250 100644
 
 ```
 
-### M-084 `projects/sfia-studio/app/features/project-assistant/w2/genericPrepareCapabilityEnvelope.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-085 `projects/sfia-studio/app/features/project-assistant/w2/genericPrepareCapabilityEnvelope.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/genericPrepareCapabilityEnvelope.ts b/projects/sfia-studio/app/features/project-assistant/w2/genericPrepareCapabilityEnvelope.ts
 index 954ec758..2c284cf4 100644
@@ -6863,11 +7179,11 @@ index 954ec758..2c284cf4 100644
  }
 ```
 
-### M-085 `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-086 `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts` **[CORR-02]**
+- **Semantic change:** Residual docs_write stub/helper cleanup
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
-index c6bbdfcb..ba489e19 100644
+index c6bbdfcb..5864cc82 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
 @@ -33,7 +33,6 @@ import type {
@@ -6900,20 +7216,49 @@ index c6bbdfcb..ba489e19 100644
  import {
    bindCursorExecutionReportToAttempt,
    parseCursorExecutionReport,
-@@ -163,8 +158,10 @@ function mapCycleProfileToSelectionProfile(
+@@ -163,30 +158,22 @@ function mapCycleProfileToSelectionProfile(
    return "standard";
  }
 
 -function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
 -  return authorizedM3ResolutionKind(contract) === "bounded_docs_write";
-+function isBoundedDocsWriteContract(
-+  _contract: ExecutionContract,
-+): boolean {
-+  return false;
+-}
+-
+ /**
+  * Canonical Product EC: Nora/Studio-prepared PRODUCT_GOVERNED envelope.
+- * Not a sealed GCEC docs-write profile. Not an explicit fixture-only stamp.
++ * Explicit fixture stamp is excluded.
+  */
+ function isCanonicalProductGovernedContract(
+   contract: ExecutionContract,
+ ): boolean {
+-  if (isBoundedDocsWriteContract(contract)) return false;
+   if (contract.constraints.includes("FIXTURE_EXECUTOR_BOUNDARY_ONLY")) {
+     return false;
+   }
+   return contract.constraints.includes("PRODUCT_GOVERNED");
+ }
+
+-/** Generic Cursor REAL launch boundary (Product or sealed docs-write). */
++/** PRODUCT_GOVERNED uses the generic Cursor REAL boundary. Fixture stamp does not. */
+ function usesGenericCursorRealBoundary(contract: ExecutionContract): boolean {
+-  return (
+-    isBoundedDocsWriteContract(contract) ||
+-    isCanonicalProductGovernedContract(contract)
+-  );
++  return isCanonicalProductGovernedContract(contract);
  }
 
  /**
-@@ -930,11 +927,9 @@ export async function governedExecuteSelectAgent(
+@@ -770,7 +757,6 @@ export async function governedExecuteSelectAgent(
+     return loaded.result;
+   }
+   const { contract, selectionProfile } = loaded;
+-  const docsWrite = isBoundedDocsWriteContract(contract);
+   const productCursor = isCanonicalProductGovernedContract(contract);
+   const cursorReal = usesGenericCursorRealBoundary(contract);
+   const boundary = executionBoundaryFailure(input.oa, contract);
+@@ -930,11 +916,9 @@ export async function governedExecuteSelectAgent(
        selectionProfile: effectiveProfile,
        selectionStrategy,
        systemInitiated: cursorReal,
@@ -6928,7 +7273,25 @@ index c6bbdfcb..ba489e19 100644
      });
    if (!selected.ok) {
      return {
-@@ -1214,235 +1209,6 @@ export async function governedExecuteRecordResult(
+@@ -973,9 +957,7 @@ export async function governedExecuteStart(
+   const loaded = await loadContract(input.oa, input);
+   if (!loaded.ok) return loaded.result;
+   const { contract, selectionProfile } = loaded;
+-  const docsWrite = isBoundedDocsWriteContract(contract);
+   const productCursor = isCanonicalProductGovernedContract(contract);
+-  void docsWrite;
+   const cursorReal = usesGenericCursorRealBoundary(contract);
+   const boundary = executionBoundaryFailure(input.oa, contract);
+   if (boundary) return boundary;
+@@ -1191,7 +1173,6 @@ export async function governedExecuteRecordResult(
+   const loaded = await loadContract(input.oa, input);
+   if (!loaded.ok) return loaded.result;
+   const { contract, selectionProfile } = loaded;
+-  const docsWrite = isBoundedDocsWriteContract(contract);
+   const productCursor = isCanonicalProductGovernedContract(contract);
+   const boundary = executionBoundaryFailure(input.oa, contract);
+   if (boundary) return boundary;
+@@ -1214,235 +1195,6 @@ export async function governedExecuteRecordResult(
      });
    }
 
@@ -7166,8 +7529,8 @@ index c6bbdfcb..ba489e19 100644
    if (productCursor) {
 ```
 
-### M-086 `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-087 `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 index a9b4fd0a..cfd2ce0c 100644
@@ -7414,8 +7777,8 @@ index a9b4fd0a..cfd2ce0c 100644
      return {
 ```
 
-### M-087 `projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-088 `projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts b/projects/sfia-studio/app/features/project-assistant/w2/missionContractSemanticInputs.ts
 index efc19105..cb34456d 100644
@@ -7475,8 +7838,8 @@ index efc19105..cb34456d 100644
      // sealed for that EO (compatibility bridge — no silent Product SUCCESS upgrade).
 ```
 
-### M-088 `projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-089 `projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 index 0bfe988b..fe01dd88 100644
@@ -7510,8 +7873,8 @@ index 0bfe988b..fe01dd88 100644
    // Contract expectedOutputs: Product-resolved path when available; else outcome text.
 ```
 
-### M-089 `projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-090 `projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts b/projects/sfia-studio/app/features/project-assistant/w2/proposalSubjectOptions.ts
 index 9d86c474..695170ea 100644
@@ -7549,8 +7912,8 @@ index 9d86c474..695170ea 100644
      const materialGaps: string[] = [];
 ```
 
-### M-090 `projects/sfia-studio/app/features/project-assistant/w2/recoveryReplaceableCurrentContract.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-091 `projects/sfia-studio/app/features/project-assistant/w2/recoveryReplaceableCurrentContract.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/recoveryReplaceableCurrentContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/recoveryReplaceableCurrentContract.ts
 index 02206e73..9820da5c 100644
@@ -7581,8 +7944,8 @@ index 02206e73..9820da5c 100644
  }
 ```
 
-### M-091 `projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-092 `projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveAuthoritativeProductMateriality.ts
 index cc28654c..f2523eff 100644
@@ -7671,8 +8034,8 @@ index cc28654c..f2523eff 100644
      const currentIdentity = c.repositoryIdentity?.trim() || null;
 ```
 
-### M-092 `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-093 `projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveChatFirstPilotDecision.ts
 index cae3b206..6a4de49f 100644
@@ -7699,8 +8062,8 @@ index cae3b206..6a4de49f 100644
        ok: false,
 ```
 
-### M-093 `projects/sfia-studio/app/features/project-assistant/w2/resolveGenericPrepareDocumentaryTarget.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-094 `projects/sfia-studio/app/features/project-assistant/w2/resolveGenericPrepareDocumentaryTarget.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveGenericPrepareDocumentaryTarget.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveGenericPrepareDocumentaryTarget.ts
 index 9e7ff509..7df36ebd 100644
@@ -7771,8 +8134,8 @@ index 9e7ff509..7df36ebd 100644
    const enriched = enrichExecutionIntentFromBinding({
 ```
 
-### M-094 `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-095 `projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveProductExecutionContext.ts
 index 5be2ab43..534e0117 100644
@@ -7822,26 +8185,34 @@ index 5be2ab43..534e0117 100644
      const genericReview = loadGenericExecutionReviewMaterial({
 ```
 
-### M-095 `projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-096 `projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts` **[CORR-02]**
+- **Semantic change:** Residual docs_write stub/helper cleanup
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
-index 47a6ada4..6a17b082 100644
+index 47a6ada4..bbf93d71 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveRecoveryExecutionBinding.ts
-@@ -5,11 +5,6 @@
+@@ -4,18 +4,7 @@
+  * with R7 PostEvidenceRecoveryContext (+ optional recovery trajectory HD).
   */
  import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
- import type { ExecutionContract } from "@/lib/oa/execution-contract";
+-import type { ExecutionContract } from "@/lib/oa/execution-contract";
 -import {
 -  M4_BOUNDED_DOCS_WRITE_ACTION,
 -  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
 -  M4_BOUNDED_DOCS_WRITE_TARGET,
 -} from "@/lib/oa/execution-attempt";
- import {
-   resolvePostEvidenceRecoveryContext,
-   type PostEvidenceRecoveryContext,
-@@ -36,8 +31,8 @@ export type RecoveryExecutionBinding = {
+-import {
+-  resolvePostEvidenceRecoveryContext,
+-  type PostEvidenceRecoveryContext,
+-} from "./resolvePostEvidenceRecoveryContext";
+-import { isConfirmedPreStartRejectionRecoverySource } from "./isConfirmedPreStartRejectionRecoverySource";
+-import { GOVERNED_OPTION_REF } from "./trajectoryOptions";
++import type { PostEvidenceRecoveryContext } from "./resolvePostEvidenceRecoveryContext";
+
+ export type RecoveryExecutionBindingResolution =
+   | {
+@@ -36,8 +25,8 @@ export type RecoveryExecutionBinding = {
    readonly recovery: PostEvidenceRecoveryContext;
    readonly sourceExecutionContractId: string;
    readonly sourceAttemptId: string;
@@ -7852,10 +8223,16 @@ index 47a6ada4..6a17b082 100644
    readonly targetPath: string;
    readonly scope: string;
    readonly requiredCapabilities: readonly string[];
-@@ -58,19 +53,10 @@ function asNonEmptyString(value: unknown): string | null {
-   return trimmed.length > 0 ? trimmed : null;
- }
+@@ -52,64 +41,6 @@ export type RecoveryExecutionBinding = {
+   readonly sourceStatus: string;
+ };
 
+-function asNonEmptyString(value: unknown): string | null {
+-  if (typeof value !== "string") return null;
+-  const trimmed = value.trim();
+-  return trimmed.length > 0 ? trimmed : null;
+-}
+-
 -function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
 -  if (contract.action !== M4_BOUNDED_DOCS_WRITE_ACTION) return false;
 -  if (contract.target !== M4_BOUNDED_DOCS_WRITE_TARGET) return false;
@@ -7863,18 +8240,55 @@ index 47a6ada4..6a17b082 100644
 -    return false;
 -  }
 -  return true;
-+function isBoundedDocsWriteContract(_contract: ExecutionContract): boolean {
-+  return false;
- }
-
+-}
+-
 -/**
 - * Clone durable inputs for a fresh successor — drop stale authority / OCC /
 - * confirmation / attempt bindings; keep business path + content requirements.
 - */
- export function cloneDocsWriteInputsForRecoverySuccessor(
-   inputs: Record<string, unknown> | undefined,
- ): Record<string, unknown> {
-@@ -119,145 +105,6 @@ export async function resolveRecoveryExecutionBinding(input: {
+-export function cloneDocsWriteInputsForRecoverySuccessor(
+-  inputs: Record<string, unknown> | undefined,
+-): Record<string, unknown> {
+-  const src = inputs ?? {};
+-  const out: Record<string, unknown> = {};
+-  const keepKeys = [
+-    "targetPath",
+-    "targetRepositoryRef",
+-    "repositoryRef",
+-    "pathAllowlist",
+-    "scopeIn",
+-    "scopeOut",
+-    "createOrModify",
+-    "noDelete",
+-    "artifactType",
+-    "artifactBrief",
+-    "contentRequirements",
+-    "validationExpectations",
+-    "evidenceRequirements",
+-    "expectedOutputs",
+-    "repositoryIdentity",
+-    "repositoryBindingIdentity",
+-    "remoteUrl",
+-    "defaultBranch",
+-    "workingBranch",
+-    "pathRoot",
+-    "objective",
+-    "recommendedProfile",
+-    "cycleTypeId",
+-    "activatedBlocks",
+-  ] as const;
+-  for (const key of keepKeys) {
+-    if (key in src && src[key] !== undefined) {
+-      out[key] = structuredClone(src[key]);
+-    }
+-  }
+-  return out;
+-}
+-
+ export async function resolveRecoveryExecutionBinding(input: {
+   readonly oa: RuntimeOaStack;
+   readonly projectId: string;
+@@ -119,145 +50,6 @@ export async function resolveRecoveryExecutionBinding(input: {
     */
    readonly decisionId?: string | null;
  }): Promise<RecoveryExecutionBindingResolution> {
@@ -8024,20 +8438,21 @@ index 47a6ada4..6a17b082 100644
  }
 ```
 
-### M-096 `projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts`
-- **Semantic change:** CORR-01: seal EC git-target from server env (not Project.repositoryBinding)
+### M-097 `projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts` **[CORR-02]**
+- **Semantic change:** Git target fidelity identity/remote/checkout
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts b/projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts
-index d58e6e66..d3cc098a 100644
+index d58e6e66..474d4eeb 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/resolveTrustedProductLaunchContext.ts
-@@ -6,19 +6,80 @@
+@@ -6,19 +6,90 @@
   * Never silently bind to Studio's own checkout (process.cwd / sfia-workspace).
   */
 
 +import { existsSync } from "node:fs";
 +import path from "node:path";
  import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
++import { assertRemoteUrlMatchesRepositoryRef } from "@/lib/oa/execution-attempt/domain/assertLocalBranchRefMatchesExpectedSha";
 +import { assertCanonicalGithubRepositoryRef } from "@/lib/oa/execution-attempt/domain/shellSafeArg";
 +import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
  import {
@@ -8052,13 +8467,15 @@ index d58e6e66..d3cc098a 100644
 -  readonly repositoryBindingIdentity: string;
 +/**
 + * Server env that still carries a git-target owner/repo string for launch.
-+ * Read only to stamp ExecutionContract inputs. Never written onto Project,
-+ * and never a Product repository-binding record.
++ * Seal-only. Read only to stamp ExecutionContract inputs.
++ * Not Product SoT. Never written onto Project, and never a Product
++ * repository-binding record.
 + */
-+const SEALED_GIT_TARGET_IDENTITY_ENV = "SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY";
-+const SEALED_GIT_TARGET_REMOTE_URL_ENV =
++export const SEALED_GIT_TARGET_IDENTITY_ENV =
++  "SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY";
++export const SEALED_GIT_TARGET_REMOTE_URL_ENV =
 +  "SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL";
-+const SEALED_GIT_TARGET_DEFAULT_BRANCH_ENV =
++export const SEALED_GIT_TARGET_DEFAULT_BRANCH_ENV =
 +  "SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH";
 +
 +type SealedGitTarget = {
@@ -8069,9 +8486,12 @@ index d58e6e66..d3cc098a 100644
 +
 +/**
 + * Canonical owner/repo from server env when present and valid.
-+ * Absent or non-canonical → null (execution eligibility stays fail-closed).
++ * A provided remote must identify that same GitHub repository.
++ * Absent remote may be synthesized as `https://github.com/${identity}.git`
++ * only after the identity is canonical (coherent by construction).
++ * Non-canonical identity, non-GitHub host, or owner/repo mismatch → null.
 + */
-+function readSealedGitTargetFromServerEnv(
++export function resolveSealedGitTargetFromEnv(
 +  env: NodeJS.ProcessEnv | Record<string, string | undefined> = process.env,
 +): SealedGitTarget | null {
 +  const rawIdentity = env[SEALED_GIT_TARGET_IDENTITY_ENV];
@@ -8082,15 +8502,17 @@ index d58e6e66..d3cc098a 100644
 +
 +  const rawRemote = env[SEALED_GIT_TARGET_REMOTE_URL_ENV];
 +  const remoteTrimmed = typeof rawRemote === "string" ? rawRemote.trim() : "";
-+  if (
-+    remoteTrimmed &&
-+    !remoteTrimmed.startsWith("https://") &&
-+    !remoteTrimmed.startsWith("git@")
-+  ) {
-+    return null;
++  let remoteUrl: string;
++  if (!remoteTrimmed) {
++    remoteUrl = `https://github.com/${canonical.ref}.git`;
++  } else {
++    const match = assertRemoteUrlMatchesRepositoryRef({
++      remoteUrl: remoteTrimmed,
++      repositoryRef: canonical.ref,
++    });
++    if (!match.ok) return null;
++    remoteUrl = remoteTrimmed;
 +  }
-+  const remoteUrl =
-+    remoteTrimmed || `https://github.com/${canonical.ref}.git`;
 +
 +  const rawBranch = env[SEALED_GIT_TARGET_DEFAULT_BRANCH_ENV];
 +  const defaultBranch =
@@ -8106,8 +8528,10 @@ index d58e6e66..d3cc098a 100644
 +export type TrustedProductLaunchContext = {
 +  readonly baseHeadSha: string;
 +  /**
-+   * Sealed git-target identity string when generic Git needs one.
-+   * Not a Product repository-binding record. Documentary WHERE is pathRoot
++   * Residual sealed git-target field (CORR-01/02).
++   * Server-owned owner/repo string stamped onto ExecutionContract inputs.
++   * Not Product SoT, not a Product repository-binding record, and not
++   * NewRepositoryBinding. Documentary WHERE is pathRoot
 +   * (projects/<projectWorkspaceKey>).
 +   */
 +  readonly repositoryBindingIdentity: string | null;
@@ -8116,7 +8540,7 @@ index d58e6e66..d3cc098a 100644
    readonly pathRoot: string | null;
    readonly managedRepoRoot: string | null;
  };
-@@ -27,11 +88,9 @@ export type ResolveTrustedProductLaunchContextResult =
+@@ -27,11 +98,13 @@ export type ResolveTrustedProductLaunchContextResult =
    | { readonly ok: true; readonly context: TrustedProductLaunchContext }
    | { readonly ok: false; readonly code: string; readonly message: string };
 
@@ -8127,10 +8551,14 @@ index d58e6e66..d3cc098a 100644
 - * of the project's managed clone (never Studio cwd).
 + * Resolve launch context from the durable Project workspace key and, when
 + * pinned or a managed clone is available, the server HEAD. Never Studio cwd.
++ *
++ * `repositoryBindingIdentity` on the result remains the residual sealed
++ * git-target field (CORR-01/02). It is not Product SoT and not
++ * NewRepositoryBinding.
   *
   * Test hooks: pinnedBaseHeadSha / managedRepoRootBase — never from browser Execute.
   */
-@@ -52,20 +111,9 @@ export async function resolveTrustedProductLaunchContext(input: {
+@@ -52,20 +125,9 @@ export async function resolveTrustedProductLaunchContext(input: {
          "Projet introuvable — contexte de lancement impossible à fixer.",
      };
    }
@@ -8154,7 +8582,7 @@ index d58e6e66..d3cc098a 100644
 
    const managedBase =
      (typeof input.managedRepoRootBase === "string" &&
-@@ -73,13 +121,8 @@ export async function resolveTrustedProductLaunchContext(input: {
+@@ -73,13 +135,8 @@ export async function resolveTrustedProductLaunchContext(input: {
        ? input.managedRepoRootBase.trim()
        : null) ?? resolveManagedRepoRootBaseFromEnv() ?? null;
 
@@ -8170,14 +8598,14 @@ index d58e6e66..d3cc098a 100644
 
    let sha: string | null = null;
    if (input.pinnedBaseHeadSha !== undefined && input.pinnedBaseHeadSha !== null) {
-@@ -123,13 +166,18 @@ export async function resolveTrustedProductLaunchContext(input: {
+@@ -123,13 +180,18 @@ export async function resolveTrustedProductLaunchContext(input: {
      };
    }
 
 +  // Sealed git-target string for EC inputs when the server env is canonical.
 +  // Missing/invalid stays null — Select eligibility remains fail-closed.
 +  // Not persisted as Project.repositoryBinding.
-+  const sealedGitTarget = readSealedGitTargetFromServerEnv();
++  const sealedGitTarget = resolveSealedGitTargetFromEnv();
 +
    return {
      ok: true,
@@ -8192,7 +8620,7 @@ index d58e6e66..d3cc098a 100644
        pathRoot,
        managedRepoRoot,
      },
-@@ -139,13 +187,22 @@ export async function resolveTrustedProductLaunchContext(input: {
+@@ -139,13 +201,22 @@ export async function resolveTrustedProductLaunchContext(input: {
  export function launchContextAsContractInputs(
    context: TrustedProductLaunchContext,
  ): Record<string, string> {
@@ -8222,8 +8650,8 @@ index d58e6e66..d3cc098a 100644
 +}
 ```
 
-### M-097 `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-098 `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 index b8416960..dd6e6672 100644
@@ -8343,8 +8771,8 @@ index b8416960..dd6e6672 100644
 
 ```
 
-### M-098 `projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-099 `projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/executionReviewAgentsTools.ts
 index 54294d81..51c84022 100644
@@ -8361,8 +8789,8 @@ index 54294d81..51c84022 100644
  export type ExecutionReviewToolContext = {
 ```
 
-### M-099 `projects/sfia-studio/app/lib/oa/cycle/application/cycleExitState.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-100 `projects/sfia-studio/app/lib/oa/cycle/application/cycleExitState.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/cycleExitState.ts b/projects/sfia-studio/app/lib/oa/cycle/application/cycleExitState.ts
 index 05e2b58a..853ec900 100644
@@ -8387,8 +8815,8 @@ index 05e2b58a..853ec900 100644
    evidence: readonly Evidence[];
 ```
 
-### M-100 `projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-101 `projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts b/projects/sfia-studio/app/lib/oa/cycle/application/deriveCycleObligationSnapshot.ts
 index dee7bca6..04ce19bc 100644
@@ -8413,8 +8841,8 @@ index dee7bca6..04ce19bc 100644
     * Production callers should rely on repositoryBinding presence.
 ```
 
-### M-101 `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-102 `projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts b/projects/sfia-studio/app/lib/oa/cycle/application/deriveFinalizationApplicability.ts
 index 133bfdfe..96036d91 100644
@@ -8439,8 +8867,8 @@ index 133bfdfe..96036d91 100644
  };
 ```
 
-### M-102 `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-103 `projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts b/projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
 index 1b1c849d..68e9c120 100644
@@ -8460,8 +8888,8 @@ index 1b1c849d..68e9c120 100644
        cycleInstanceId: input.cycle.cycleInstanceId,
 ```
 
-### M-103 `projects/sfia-studio/app/lib/oa/decision/domain/types.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-104 `projects/sfia-studio/app/lib/oa/decision/domain/types.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/decision/domain/types.ts b/projects/sfia-studio/app/lib/oa/decision/domain/types.ts
 index 0e0bf8fa..47be7f62 100644
@@ -8480,8 +8908,8 @@ index 0e0bf8fa..47be7f62 100644
    requiredCapabilities: string[];
 ```
 
-### M-104 `projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-105 `projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts b/projects/sfia-studio/app/lib/oa/evidence-review/application/contractResultSemantics.ts
 index 5edd5280..5876b6f5 100644
@@ -8505,8 +8933,8 @@ index 5edd5280..5876b6f5 100644
 
 ```
 
-### M-105 `projects/sfia-studio/app/lib/oa/evidence-review/index.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-106 `projects/sfia-studio/app/lib/oa/evidence-review/index.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/evidence-review/index.ts b/projects/sfia-studio/app/lib/oa/evidence-review/index.ts
 index 8d6d207d..cb510edc 100644
@@ -8556,8 +8984,8 @@ index 8d6d207d..cb510edc 100644
    type ResolveCurrentContractResultClaimEvaluationResult,
 ```
 
-### M-106 `projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-107 `projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/grantGateD.ts
 index fab2a812..9703fca8 100644
@@ -8574,11 +9002,11 @@ index fab2a812..9703fca8 100644
  import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
 ```
 
-### M-107 `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-108 `projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts` **[CORR-02]**
+- **Semantic change:** Git target fidelity identity/remote/checkout
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
-index bd81eed1..3dd63147 100644
+index bd81eed1..f084e5b6 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
 @@ -60,7 +60,7 @@ import type {
@@ -8590,23 +9018,73 @@ index bd81eed1..3dd63147 100644
  import { isM4BoundedLocalCommitRealAgent } from "../infrastructure/m4BoundedLocalCommitCursorAgent";
  import { isM4BoundedRemotePushRealAgent } from "../infrastructure/m4BoundedRemotePushCursorAgent";
  import { isM4BoundedPrCreateRealAgent } from "../infrastructure/m4BoundedPrCreateCursorAgent";
-@@ -73,8 +73,6 @@ import type { ExecutionAdapterPort } from "../ports/executionAdapter";
+@@ -73,9 +73,12 @@ import type { ExecutionAdapterPort } from "../ports/executionAdapter";
  import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
  import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
  import type { RealExecutionLaunchPort } from "../ports/realExecutionLaunchPort";
 -import type { DocsWriteLaunchSpec } from "../ports/realExecutionLaunchPort";
 -import { M4_BOUNDED_DOCS_WRITE_ACTION } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
- import { ManagedProjectRepositoryResolver } from "../infrastructure/managedProjectRepositoryResolver";
+-import { ManagedProjectRepositoryResolver } from "../infrastructure/managedProjectRepositoryResolver";
++import { assertRemoteUrlMatchesRepositoryRef } from "../domain/assertLocalBranchRefMatchesExpectedSha";
++import { assertCanonicalGithubRepositoryRef } from "../domain/shellSafeArg";
++import {
++  guardedManagedRepoRootForProtectedGit,
++  resolveIdentityMatchedLocalRepo,
++} from "../infrastructure/managedProjectRepositoryResolver";
  import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
  import { deriveAuthorizedExecutionSlice } from "../domain/authorizedExecutionSlice";
-@@ -158,95 +156,6 @@ function asNonEmptyString(value: unknown): string | null {
+ import {
+@@ -158,92 +161,109 @@ function asNonEmptyString(value: unknown): string | null {
    return t || null;
  }
 
--/**
++const PROTECTED_GIT_EFFECTS = [
++  "git.commit",
++  "git.push",
++  "github.pr.create",
++  "github.pr.merge",
++] as const;
++
++type ProtectedGitEffect = (typeof PROTECTED_GIT_EFFECTS)[number];
++
++function isProtectedGitEffect(effect: string): effect is ProtectedGitEffect {
++  return (PROTECTED_GIT_EFFECTS as readonly string[]).includes(effect);
++}
++
++function pendingProtectedGitEffects(
++  contract: ExecutionContract,
++  verifiedEffects: readonly string[] | undefined,
++): ProtectedGitEffect[] {
++  const classified = deriveExecutableEffectsFromContractRequirements({
++    evidenceRequirements: Array.isArray(contract.evidenceRequirements)
++      ? contract.evidenceRequirements.map(String)
++      : [],
++    expectedOutputs: Array.isArray(contract.expectedOutputs)
++      ? contract.expectedOutputs.map(String)
++      : undefined,
++    requiredCapabilities: Array.isArray(contract.requiredCapabilities)
++      ? contract.requiredCapabilities.map(String)
++      : undefined,
++    constraints: Array.isArray(contract.constraints)
++      ? contract.constraints.map(String)
++      : undefined,
++    allowFilesystemCreateOrModify: true,
++  });
++  const verified = new Set(verifiedEffects ?? []);
++  return classified.executableEffects.filter(
++    (effect): effect is ProtectedGitEffect =>
++      isProtectedGitEffect(effect) && !verified.has(effect),
++  );
++}
++
+ /**
 - * Extract DocsWriteLaunchSpec from contract.inputs (CR-GCEC-02).
 - * Fail-closed: returns { ok:false, reason } when required fields missing.
-- */
++ * EC inputs → repository binding for REAL start.
++ * A provided remote must match the canonical identity. Mismatch does not
++ * fall back to a synthesized GitHub URL.
++ * Absent remote is synthesized only after the identity is canonical.
+  */
 -export function extractDocsWriteLaunchSpec(
 -  contract: ExecutionContract,
 -):
@@ -8654,10 +9132,56 @@ index bd81eed1..3dd63147 100644
 -  }
 -  if (!artifactBrief) {
 -    return { ok: false, reason: "docs_write_artifact_brief_missing" };
--  }
++export function sealRepositoryBindingFromExecutionInputs(input: {
++  readonly identity: string;
++  readonly remoteUrl?: unknown;
++  readonly defaultBranch?: unknown;
++  readonly pathRoot?: unknown;
++}):
++  | {
++      readonly ok: true;
++      readonly binding: {
++        identity: string;
++        remoteUrl: string;
++        defaultBranch: string;
++        pathRoot?: string;
++      };
++    }
++  | {
++      readonly ok: false;
++      readonly code: "REAL_WORKSPACE_INVALID";
++      readonly reason:
++        | "repository_identity_not_canonical"
++        | "repository_remote_identity_mismatch";
++    } {
++  const canonical = assertCanonicalGithubRepositoryRef(input.identity.trim());
++  if (!canonical.ok) {
++    return {
++      ok: false,
++      code: "REAL_WORKSPACE_INVALID",
++      reason: "repository_identity_not_canonical",
++    };
+   }
 -  if (contentRequirements.length === 0) {
 -    return { ok: false, reason: "docs_write_content_requirements_missing" };
--  }
++  const provided = asNonEmptyString(input.remoteUrl);
++  let remoteUrl: string;
++  if (provided) {
++    const match = assertRemoteUrlMatchesRepositoryRef({
++      remoteUrl: provided,
++      repositoryRef: canonical.ref,
++    });
++    if (!match.ok) {
++      return {
++        ok: false,
++        code: "REAL_WORKSPACE_INVALID",
++        reason: "repository_remote_identity_mismatch",
++      };
++    }
++    remoteUrl = provided;
++  } else {
++    remoteUrl = `https://github.com/${canonical.ref}.git`;
+   }
 -
 -  const bindingIdentity =
 -    asNonEmptyString(inputs.repositoryBindingIdentity) ??
@@ -8670,8 +9194,10 @@ index bd81eed1..3dd63147 100644
 -      ? rawMode
 -      : undefined;
 -
--  return {
--    ok: true,
++  const defaultBranch = asNonEmptyString(input.defaultBranch) ?? "main";
++  const pathRoot = asNonEmptyString(input.pathRoot) ?? undefined;
+   return {
+     ok: true,
 -    spec: {
 -      repositoryRef,
 -      targetPath,
@@ -8687,15 +9213,17 @@ index bd81eed1..3dd63147 100644
 -      createOrModify: true,
 -      noDelete: true,
 -      ...(artifactWriteMode ? { artifactWriteMode } : {}),
--    },
++    binding: {
++      identity: canonical.ref,
++      remoteUrl,
++      defaultBranch,
++      ...(pathRoot ? { pathRoot } : {}),
+     },
 -    repositoryBindingIdentity: bindingIdentity ?? undefined,
--  };
--}
--
- function mapRealLaunchRejectDetail(
-   reason: string,
-   detailCode?: string,
-@@ -299,16 +208,10 @@ export class StartExecution {
+   };
+ }
+
+@@ -299,16 +319,10 @@ export class StartExecution {
      private readonly safetyJournal?: RealLaunchSafetyJournalPort,
      /**
       * D-GCEC-09/13 — server-only managed repository root base.
@@ -8713,7 +9241,7 @@ index bd81eed1..3dd63147 100644
      /**
       * CR-GCEC-23 / CORR-D-GCEC-AGENT-01 — Evidence list (Result; late-bound OK).
       */
-@@ -779,8 +682,6 @@ export class StartExecution {
+@@ -779,8 +793,6 @@ export class StartExecution {
        );
      }
 
@@ -8722,7 +9250,7 @@ index bd81eed1..3dd63147 100644
      let repositoryBindingIdentity: string | undefined;
      let managedRepoRoot: string | undefined;
      let repositoryBinding:
-@@ -791,84 +692,47 @@ export class StartExecution {
+@@ -791,84 +803,59 @@ export class StartExecution {
            pathRoot?: string;
          }
        | undefined;
@@ -8808,32 +9336,44 @@ index bd81eed1..3dd63147 100644
 +        asNonEmptyString(inputs.repositoryIdentity) ??
 +        asNonEmptyString(inputs.repositoryBindingIdentity);
 +      if (identity) {
-+        const remoteUrl =
-+          asNonEmptyString(inputs.remoteUrl) ??
-+          `https://github.com/${identity}.git`;
-+        const defaultBranch = asNonEmptyString(inputs.defaultBranch) ?? "main";
-+        const pathRoot = asNonEmptyString(inputs.pathRoot) ?? undefined;
-+        repositoryBinding = {
++        const sealed = sealRepositoryBindingFromExecutionInputs({
 +          identity,
-+          remoteUrl,
-+          defaultBranch,
-+          ...(pathRoot ? { pathRoot } : {}),
-+        };
-+        repositoryBindingIdentity = identity;
++          remoteUrl: inputs.remoteUrl,
++          defaultBranch: inputs.defaultBranch,
++          pathRoot: inputs.pathRoot,
++        });
++        if (!sealed.ok) {
++          return fail(sealed.code, sealed.reason, {
++            executionContractId: contract.executionContractId,
++          });
++        }
++        repositoryBinding = sealed.binding;
++        repositoryBindingIdentity = sealed.binding.identity;
 +        if (this.managedRepoRootBase?.trim()) {
-+          const resolver = new ManagedProjectRepositoryResolver();
-+          const resolved = resolver.resolveLocalRepoRoot(
-+            { identity },
-+            this.managedRepoRootBase,
-+          );
-+          if (resolved) managedRepoRoot = resolved;
++          const resolution = resolveIdentityMatchedLocalRepo({
++            identity: sealed.binding.identity,
++            managedRootBase: this.managedRepoRootBase,
++          });
++          const guarded = guardedManagedRepoRootForProtectedGit({
++            protectedGitPending:
++              pendingProtectedGitEffects(contract, request.verifiedEffects)
++                .length > 0,
++            checked: true,
++            resolution,
++          });
++          if (!guarded.ok) {
++            return fail(guarded.code, guarded.reason, {
++              executionContractId: contract.executionContractId,
++            });
++          }
++          if (guarded.managedRepoRoot) managedRepoRoot = guarded.managedRepoRoot;
 +        }
        }
 -      managedRepoRoot = resolved;
      }
 
      const fingerprint =
-@@ -990,11 +854,9 @@ export class StartExecution {
+@@ -990,11 +977,9 @@ export class StartExecution {
      }
 
      // D-GCEC-15 / CR-GCEC-23/24 — AuthorizedExecutionSlice from server-derived targets.
@@ -8848,7 +9388,7 @@ index bd81eed1..3dd63147 100644
      const contractConstraints = Array.isArray(contract.constraints)
        ? contract.constraints.map(String)
        : undefined;
-@@ -1040,10 +902,8 @@ export class StartExecution {
+@@ -1040,10 +1025,8 @@ export class StartExecution {
        (e) => !(request.verifiedEffects ?? []).includes(e),
      );
 
@@ -8861,7 +9401,7 @@ index bd81eed1..3dd63147 100644
        if (!binding?.identity?.trim()) {
          // Canonical repository unavailable — all remaining protected Git blocked.
          unavailableProtectedEffects.push(...remainingGit);
-@@ -1054,10 +914,9 @@ export class StartExecution {
+@@ -1054,10 +1037,9 @@ export class StartExecution {
            ? (contract.inputs as Record<string, unknown>)
            : {};
        const projectedRepo =
@@ -8874,7 +9414,7 @@ index bd81eed1..3dd63147 100644
        if (projectedRepo && projectedRepo !== binding.identity.trim()) {
          return fail(
            "ATTEMPT_INVALID",
-@@ -1128,7 +987,7 @@ export class StartExecution {
+@@ -1128,7 +1110,7 @@ export class StartExecution {
          );
        }
        }
@@ -8883,7 +9423,7 @@ index bd81eed1..3dd63147 100644
        // CR-GCEC-23H-A — resolver absent: never derive Git authority from caller.
        // Non-Git slices may still proceed; all remaining protected Git stay blocked.
        if (request.confirmationMatch) {
-@@ -1282,9 +1141,6 @@ export class StartExecution {
+@@ -1282,9 +1264,6 @@ export class StartExecution {
          );
        }
        const evidenceList = evidenceReadCont.evidence;
@@ -8893,7 +9433,7 @@ index bd81eed1..3dd63147 100644
        const cont = resolvePreCommitWorkspaceContinuation({
          currentAttemptId: attempt.attemptId,
          executionContractId: contract.executionContractId,
-@@ -1293,7 +1149,7 @@ export class StartExecution {
+@@ -1293,7 +1272,7 @@ export class StartExecution {
          expectedHeadSha: baseHeadSha,
          attempts: peerAttempts,
          evidence: evidenceList,
@@ -8902,7 +9442,7 @@ index bd81eed1..3dd63147 100644
          authorizedEffects:
            authorizedSlice.authorizedEffects as CursorAuthorizedEffectId[],
          verifiedEffects: request.verifiedEffects,
-@@ -1330,7 +1186,6 @@ export class StartExecution {
+@@ -1330,7 +1309,6 @@ export class StartExecution {
            : {};
        const message = deriveTrustedCommitMessage({
          contractInputs,
@@ -8910,7 +9450,7 @@ index bd81eed1..3dd63147 100644
        });
        if (!message.ok) {
          return fail("ATTEMPT_INVALID", message.reason, {
-@@ -1339,7 +1194,6 @@ export class StartExecution {
+@@ -1339,7 +1317,6 @@ export class StartExecution {
        }
        const repositoryRef =
          repositoryBindingIdentity?.trim() ||
@@ -8918,7 +9458,7 @@ index bd81eed1..3dd63147 100644
          (typeof contractInputs.repositoryRef === "string"
            ? contractInputs.repositoryRef.trim()
            : "");
-@@ -1354,8 +1208,9 @@ export class StartExecution {
+@@ -1354,8 +1331,9 @@ export class StartExecution {
        // docsWriteSpec.targetPath + contract baseHeadSha (fail closed if absent).
        const exactPaths = workspaceContinuation
          ? workspaceContinuation.expectedVerifiedFiles.map((f) => f.path)
@@ -8930,7 +9470,7 @@ index bd81eed1..3dd63147 100644
            : [];
        const expectedParentSha =
          workspaceContinuation?.expectedHeadSha ?? baseHeadSha;
-@@ -1401,9 +1256,7 @@ export class StartExecution {
+@@ -1401,9 +1379,7 @@ export class StartExecution {
            { executionContractId: contract.executionContractId },
          );
        }
@@ -8941,7 +9481,7 @@ index bd81eed1..3dd63147 100644
        if (!projectBindingPush?.identity?.trim()) {
          return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
            executionContractId: contract.executionContractId,
-@@ -1498,9 +1351,7 @@ export class StartExecution {
+@@ -1498,9 +1474,7 @@ export class StartExecution {
            { executionContractId: contract.executionContractId },
          );
        }
@@ -8952,7 +9492,7 @@ index bd81eed1..3dd63147 100644
        if (!projectBindingPr?.identity?.trim()) {
          return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
            executionContractId: contract.executionContractId,
-@@ -1666,9 +1517,7 @@ export class StartExecution {
+@@ -1666,9 +1640,7 @@ export class StartExecution {
            { executionContractId: contract.executionContractId },
          );
        }
@@ -8963,7 +9503,7 @@ index bd81eed1..3dd63147 100644
        if (!projectBindingMerge?.identity?.trim()) {
          return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
            executionContractId: contract.executionContractId,
-@@ -1751,7 +1600,6 @@ export class StartExecution {
+@@ -1751,7 +1723,6 @@ export class StartExecution {
      // PJ-REPROOF-04 — EC → Cursor prompt projection at Start (server-side only).
      // Exact durable contract + Attempt identity; no client-supplied prompt.
      const repositoryRefForPrompt =
@@ -8971,7 +9511,7 @@ index bd81eed1..3dd63147 100644
        repositoryBindingIdentity?.trim() ||
        (typeof (contract.inputs as Record<string, unknown> | undefined)
          ?.repositoryRef === "string"
-@@ -1807,7 +1655,6 @@ export class StartExecution {
+@@ -1807,7 +1778,6 @@ export class StartExecution {
          scope: contract.scope,
          timeoutMs: window.resolvedMaxDurationMs,
          cursorMissionPrompt,
@@ -8981,8 +9521,8 @@ index bd81eed1..3dd63147 100644
          ...(gitPrCreateSpec ? { gitPrCreateSpec } : {}),
 ```
 
-### M-108 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/authorizedExecutionSlice.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-109 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/authorizedExecutionSlice.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/authorizedExecutionSlice.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/authorizedExecutionSlice.ts
 index 1f71f016..a740b6c4 100644
@@ -8999,8 +9539,8 @@ index 1f71f016..a740b6c4 100644
   * CR-GCEC-24: Cursor executable effects ≠ Studio verification obligations.
 ```
 
-### M-109 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-110 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/realLaunchSafety.ts
 index 91542613..cbf756fd 100644
@@ -9018,8 +9558,8 @@ index 91542613..cbf756fd 100644
 
 ```
 
-### M-110 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-111 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
 index 5b57020c..db735e53 100644
@@ -9347,8 +9887,8 @@ index 5b57020c..db735e53 100644
    // on ExecutionContract / cursorMissionPrompt — never agent types.
 ```
 
-### M-111 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-112 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveGitEffectTarget.ts
 index b881cc71..89d3b97f 100644
@@ -9385,11 +9925,11 @@ index b881cc71..89d3b97f 100644
    actorId: string;
 ```
 
-### M-112 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-113 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts` **[CORR-02]**
+- **Semantic change:** Evidence FS-anchor allowlist tighten
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
-index 1b670162..973a3b8b 100644
+index 1b670162..cbe42113 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
 @@ -10,10 +10,9 @@ import type { Evidence } from "@/lib/oa/evidence-review";
@@ -9404,7 +9944,60 @@ index 1b670162..973a3b8b 100644
  } from "./realLaunchSafety";
 
  const FS_EFFECTS = new Set<CursorAuthorizedEffectId>([
-@@ -47,7 +46,7 @@ export type ResolvePreCommitWorkspaceContinuationInput = {
+@@ -29,6 +28,52 @@ const PROTECTED_GIT_EFFECTS = new Set<CursorAuthorizedEffectId>([
+   "github.pr.merge",
+ ]);
+
++/**
++ * Artifact-materialization Evidence sources that may supersede an FS anchor.
++ *
++ * HISTORICAL durable reading only — not Product admission of docs_write.
++ * Origin/main stamped file artifacts as `execution_attempt:docs_write`
++ * (retired `DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE`), including dotted suffixes
++ * such as `execution_attempt:docs_write.v2`. That producer is gone.
++ *
++ * Product generalist materialization does not stamp a replacement
++ * `execution_attempt:*` artifact source. `IngestExecutionAttemptEvidence`
++ * writes a prose source (`execution attempt <id> (succeeded)`), which is a
++ * terminal-attempt label shared with non-artifact rows and is excluded.
++ * `execution_attempt:mission_result` and every other non-allowlisted source
++ * cannot supersede (false / NOT_PROVEN).
++ */
++export const FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES = [
++  "execution_attempt:docs_write",
++] as const;
++
++export type FsAnchorArtifactMaterializationEvidenceSource =
++  (typeof FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES)[number];
++
++/**
++ * HISTORICAL Attempt agent recorded by the retired bounded docs-write executor.
++ * Durable reading only — not Product admission of a docs_write launch path.
++ * Current materialization Attempts use {@link STUDIO_CURSOR_GENERALIST_AGENT_ID}.
++ */
++const HISTORICAL_BOUNDED_DOCS_WRITE_AGENT_ID =
++  "agt:m4.cursor.bounded_docs_write" as const;
++
++function isDurableArtifactMaterializationAttemptAgent(
++  selectedAgentRef: string | undefined,
++): boolean {
++  return (
++    selectedAgentRef === STUDIO_CURSOR_GENERALIST_AGENT_ID ||
++    selectedAgentRef === HISTORICAL_BOUNDED_DOCS_WRITE_AGENT_ID
++  );
++}
++
++function isAllowlistedArtifactMaterializationSource(source: string): boolean {
++  for (const allowed of FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES) {
++    if (source === allowed || source.startsWith(`${allowed}.`)) return true;
++  }
++  return false;
++}
++
+ export type WorkspaceContinuationDescriptor = {
+   readonly priorAttemptId: string;
+   readonly expectedHeadSha: string;
+@@ -47,7 +92,7 @@ export type ResolvePreCommitWorkspaceContinuationInput = {
    readonly evidence: readonly Evidence[];
    readonly authorizedEffects: readonly CursorAuthorizedEffectId[];
    readonly verifiedEffects?: readonly CursorAuthorizedEffectId[];
@@ -9413,16 +10006,31 @@ index 1b670162..973a3b8b 100644
    readonly repositoryRef?: string;
  };
 
-@@ -152,7 +151,7 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
+@@ -126,9 +171,11 @@ export type FsAnchorSupersessionInput = {
+  * verifiedEffects alone MUST NOT supersede.
+  * All lineage fields are required — no weak/same-EC-only fallback.
+  *
+- * Requires: succeeded docs-write Attempt A + VERIFIED Artifact Evidence on A
+- * + succeeded local-commit Attempt B + VERIFIED git:local_commit Evidence on B
+- * with exact H0 / repo / paths.
++ * Requires: succeeded generalist or historical bounded-docs-write Attempt A
++ * + exactly one VERIFIED artifact Evidence on A whose source is an allowlisted
++ * artifact-materialization identity + succeeded local-commit Attempt B
++ * + VERIFIED git:local_commit Evidence on B with exact H0 / repo / paths.
++ * Ambiguous (not exactly one) or non-allowlisted artifact source → false.
+  */
+ export function isFsAnchorSupersededByVerifiedLocalCommit(
+   input: FsAnchorSupersessionInput,
+@@ -152,7 +199,7 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
      !priorAttempt ||
      priorAttempt.status !== "succeeded" ||
      priorAttempt.executionContractId !== input.executionContractId ||
 -    priorAttempt.selectedAgentRef !== M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID
-+    priorAttempt.selectedAgentRef !== STUDIO_CURSOR_GENERALIST_AGENT_ID
++    !isDurableArtifactMaterializationAttemptAgent(priorAttempt.selectedAgentRef)
    ) {
      return false;
    }
-@@ -167,10 +166,7 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
+@@ -167,10 +214,7 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
      }
      if (ev.bindings.executionAttemptId !== priorAttemptId) return false;
      const source = String(ev.source ?? "");
@@ -9430,11 +10038,113 @@ index 1b670162..973a3b8b 100644
 -      source !== "execution_attempt:docs_write" &&
 -      !/^execution_attempt:docs_write(\.|$)/.test(source)
 -    ) {
-+    if (!source.startsWith("execution_attempt:")) {
++    if (!isAllowlistedArtifactMaterializationSource(source)) {
        return false;
      }
      const loc = String(ev.location ?? "").trim();
-@@ -248,70 +244,6 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
+@@ -237,8 +281,100 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
+   return matching.length === 1;
+ }
+
++type PriorArtifactMaterialization = {
++  readonly priorAttemptId: string;
++  readonly evidenceId: string;
++  readonly artifactPath: string;
++  readonly artifactDigest: string;
++};
++
++type ResolvePriorArtifactMaterializationResult =
++  | { readonly ok: true; readonly prior: PriorArtifactMaterialization }
++  | {
++      readonly ok: false;
++      readonly reason: "prior_none" | "prior_ambiguous" | "prior_incomplete";
++      readonly candidateAttemptIds?: readonly string[];
++    };
++
++/**
++ * Unique prior succeeded materialization Attempt + exactly one allowlisted
++ * VERIFIED artifact Evidence. Historical docs_write source/agent are recognized
++ * as durable Evidence. Not a docs_write Product admission path.
++ */
++function resolvePriorArtifactMaterializationAttempt(input: {
++  readonly currentAttemptId: string;
++  readonly executionContractId: string;
++  readonly projectId: string;
++  readonly cycleInstanceId: string;
++  readonly attempts: readonly ExecutionAttempt[];
++  readonly evidence: readonly Evidence[];
++}): ResolvePriorArtifactMaterializationResult {
++  const candidates: PriorArtifactMaterialization[] = [];
++
++  for (const attempt of input.attempts) {
++    if (attempt.attemptId === input.currentAttemptId) continue;
++    if (attempt.executionContractId !== input.executionContractId) continue;
++    if (attempt.status !== "succeeded") continue;
++    if (!isDurableArtifactMaterializationAttemptAgent(attempt.selectedAgentRef)) {
++      continue;
++    }
++
++    const matching = input.evidence.filter((ev) => {
++      if (ev.status !== "verified") return false;
++      if (ev.type !== "artifact") return false;
++      if (ev.bindings.projectId !== input.projectId) return false;
++      if (ev.bindings.cycleInstanceId !== input.cycleInstanceId) return false;
++      if (ev.bindings.executionContractId !== input.executionContractId) {
++        return false;
++      }
++      if (ev.bindings.executionAttemptId !== attempt.attemptId) return false;
++      if (!isAllowlistedArtifactMaterializationSource(String(ev.source ?? ""))) {
++        return false;
++      }
++      const loc = String(ev.location ?? "").trim();
++      if (!loc) return false;
++      const digest = String(ev.digest ?? "").trim().toLowerCase();
++      if (!digest.startsWith("sha256:") || digest.length < "sha256:".length + 64) {
++        return false;
++      }
++      return true;
++    });
++    if (matching.length === 0) continue;
++    if (matching.length > 1) {
++      return {
++        ok: false,
++        reason: "prior_ambiguous",
++        candidateAttemptIds: [attempt.attemptId],
++      };
++    }
++    const ev = matching[0]!;
++    candidates.push({
++      priorAttemptId: attempt.attemptId,
++      evidenceId: ev.evidenceId,
++      artifactPath: String(ev.location).trim(),
++      artifactDigest: String(ev.digest).trim().toLowerCase(),
++    });
++  }
++
++  if (candidates.length === 0) {
++    return { ok: false, reason: "prior_none" };
++  }
++  if (candidates.length > 1) {
++    return {
++      ok: false,
++      reason: "prior_ambiguous",
++      candidateAttemptIds: candidates.map((c) => c.priorAttemptId),
++    };
++  }
++  const only = candidates[0]!;
++  if (!only.artifactPath || !only.artifactDigest.startsWith("sha256:")) {
++    return { ok: false, reason: "prior_incomplete" };
++  }
++  return { ok: true, prior: only };
++}
++
+ /**
+- * Resolve unique prior succeeded Attempt whose VERIFIED docs-write Evidence
++ * Resolve unique prior succeeded Attempt whose VERIFIED artifact Evidence
+  * matches Project / Cycle / EC / Attempt bindings (shared with Attempt profile).
+  *
+  * CR-08: supersession ONLY when priorA.ok with exact lineage fields.
+@@ -248,17 +384,13 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
  export function resolvePreCommitWorkspaceContinuation(
    input: ResolvePreCommitWorkspaceContinuationInput,
  ): ResolvePreCommitWorkspaceContinuationResult {
@@ -9446,130 +10156,57 @@ index 1b670162..973a3b8b 100644
 -      expectedOutputs: undefined,
 -      inputs: undefined,
 -    },
--    attempts: input.attempts,
--    evidence: input.evidence,
++  const priorA = resolvePriorArtifactMaterializationAttempt({
++    currentAttemptId: input.currentAttemptId,
++    executionContractId: input.executionContractId,
++    projectId: input.projectId,
++    cycleInstanceId: input.cycleInstanceId,
+     attempts: input.attempts,
+     evidence: input.evidence,
 -    excludeAttemptId: input.currentAttemptId,
--  });
--
--  if (priorA.ok) {
--    if (
--      input.repositoryRef?.trim() &&
--      input.expectedHeadSha?.trim() &&
--      isFsAnchorSupersededByVerifiedLocalCommit({
--        projectId: input.projectId,
--        cycleInstanceId: input.cycleInstanceId,
--        executionContractId: input.executionContractId,
--        evidence: input.evidence,
--        attempts: input.attempts,
--        priorAttemptId: priorA.prior.priorAttemptId,
--        expectedParentSha: input.expectedHeadSha,
--        repositoryRef: input.repositoryRef,
--        requiredPaths: [priorA.prior.artifactPath],
--      })
--    ) {
--      return { required: false, descriptor: null };
--    }
+   });
+
+   if (priorA.ok) {
+@@ -279,8 +411,7 @@ export function resolvePreCommitWorkspaceContinuation(
+     ) {
+       return { required: false, descriptor: null };
+     }
 -  } else if (priorA.reason === "docs_write_prior_ambiguous") {
 -    // CR-08: ambiguous A → fail closed; do NOT evaluate generic commit Evidence.
--    if (
--      preCommitWorkspaceContinuationRequired({
--        authorizedEffects: input.authorizedEffects,
--        verifiedEffects: input.verifiedEffects,
--      })
--    ) {
--      return {
--        required: true,
--        ok: false,
--        reason: "continuation_candidate_ambiguous",
--        candidateAttemptIds: priorA.candidateAttemptIds,
--      };
--    }
--    return { required: false, descriptor: null };
++  } else if (priorA.reason === "prior_ambiguous") {
+     if (
+       preCommitWorkspaceContinuationRequired({
+         authorizedEffects: input.authorizedEffects,
+@@ -295,7 +426,7 @@ export function resolvePreCommitWorkspaceContinuation(
+       };
+     }
+     return { required: false, descriptor: null };
 -  } else if (priorA.reason === "docs_write_prior_incomplete") {
--    if (
--      preCommitWorkspaceContinuationRequired({
--        authorizedEffects: input.authorizedEffects,
--        verifiedEffects: input.verifiedEffects,
--      })
--    ) {
--      return {
--        required: true,
--        ok: false,
--        reason: "continuation_evidence_incomplete",
--      };
--    }
--    return { required: false, descriptor: null };
--  }
--  // priorA none: NO FS→SHA supersession. Fall through to continuation semantics.
--
-   if (
-     !preCommitWorkspaceContinuationRequired({
-       authorizedEffects: input.authorizedEffects,
-@@ -320,50 +252,18 @@ export function resolvePreCommitWorkspaceContinuation(
-   ) {
++  } else if (priorA.reason === "prior_incomplete") {
+     if (
+       preCommitWorkspaceContinuationRequired({
+         authorizedEffects: input.authorizedEffects,
+@@ -310,7 +441,6 @@ export function resolvePreCommitWorkspaceContinuation(
+     }
      return { required: false, descriptor: null };
    }
--
--  if (!priorA.ok) {
--    if (priorA.reason === "docs_write_prior_none") {
--      const succeededSameEc = input.attempts.filter(
--        (a) =>
--          a.attemptId !== input.currentAttemptId &&
--          a.executionContractId === input.executionContractId &&
--          a.status === "succeeded",
--      );
--      if (succeededSameEc.length === 0) {
--        return { required: false, descriptor: null };
--      }
--      return {
--        required: true,
--        ok: false,
--        reason: "continuation_candidate_none",
--      };
--    }
--    return {
--      required: true,
--      ok: false,
--      reason: "continuation_evidence_incomplete",
--    };
--  }
--
--  const only = priorA.prior;
--  if (!input.expectedHeadSha || !/^[0-9a-f]{40}$/i.test(input.expectedHeadSha)) {
--    return {
--      required: true,
--      ok: false,
--      reason: "continuation_evidence_incomplete",
--    };
-+  const succeededSameEc = input.attempts.filter(
-+    (a) =>
-+      a.attemptId !== input.currentAttemptId &&
-+      a.executionContractId === input.executionContractId &&
-+      a.status === "succeeded",
-+  );
-+  if (succeededSameEc.length === 0) {
-+    return { required: false, descriptor: null };
+-  // priorA none: NO FS→SHA supersession. Fall through to continuation semantics.
+
+   if (
+     !preCommitWorkspaceContinuationRequired({
+@@ -322,7 +452,7 @@ export function resolvePreCommitWorkspaceContinuation(
    }
--
-   return {
-     required: true,
--    ok: true,
--    descriptor: {
--      priorAttemptId: only.priorAttemptId,
--      expectedHeadSha: input.expectedHeadSha.toLowerCase(),
--      expectedVerifiedFiles: [
--        { path: only.artifactPath, digest: only.artifactDigest },
--      ],
--      evidenceId: only.evidenceId,
--    },
-+    ok: false,
-+    reason: "continuation_candidate_none",
-   };
- }
+
+   if (!priorA.ok) {
+-    if (priorA.reason === "docs_write_prior_none") {
++    if (priorA.reason === "prior_none") {
+       const succeededSameEc = input.attempts.filter(
+         (a) =>
+           a.attemptId !== input.currentAttemptId &&
 ```
 
-### M-113 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-114 `projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/types.ts
 index 52bd35f1..7f777f79 100644
@@ -9589,8 +10226,8 @@ index 52bd35f1..7f777f79 100644
    confirmationMatch?: {
 ```
 
-### M-114 `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-115 `projects/sfia-studio/app/lib/oa/execution-attempt/index.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
 index d509b3cc..78d1f9d2 100644
@@ -9689,8 +10326,245 @@ index d509b3cc..78d1f9d2 100644
      ),
 ```
 
-### M-115 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-116 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver.ts` **[CORR-02]**
+- **Semantic change:** Git target fidelity identity/remote/checkout
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver.ts
+index 16d348e9..4d7e5494 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver.ts
+@@ -2,15 +2,24 @@
+  * ManagedProjectRepositoryResolver — maps Project repository binding identity
+  * to a local managed clone under managedRootBase (CR-GCEC-03).
+  *
+- * ZERO network. Fail-closed if path missing or not a git repo.
++ * ZERO network. Does not clone, fetch, or fall back to process.cwd.
++ * Path existence (`.git` present) is not identity fidelity. Protected Git
++ * must use resolveIdentityMatchedLocalRepo, which accepts a candidate only
++ * when origin matches the repository identity.
+  */
+-import { existsSync } from "node:fs";
++import { existsSync, readFileSync, statSync } from "node:fs";
+ import path from "node:path";
++import { assertRemoteUrlMatchesRepositoryRef } from "../domain/assertLocalBranchRefMatchesExpectedSha";
+
+ export type ManagedRepoBindingIdentity = {
+   readonly identity: string;
+ };
+
++const GIT_CONFIG_READ_MAX_BYTES = 1_000_000;
++const REMOTE_ORIGIN_HEADER = /^\[remote\s+["']origin["']\]$/i;
++const SECTION_HEADER = /^\[[^\]]+\]$/;
++const ORIGIN_URL_LINE = /^\s*url\s*=\s*(.*?)\s*$/;
++
+ /**
+  * Sanitize owner/repo → filesystem-safe segment (no traversal).
+  */
+@@ -22,10 +31,118 @@ export function sanitizeManagedRepoIdentity(identity: string): string {
+   return trimmed.replace(/[^a-zA-Z0-9._-]+/g, "__");
+ }
+
++export type IdentityMatchedLocalRepoFailure =
++  | "managed_repo_absent"
++  | "managed_repo_identity_mismatch";
++
++export type IdentityMatchedLocalRepoResolution =
++  | { readonly ok: true; readonly repoRoot: string }
++  | { readonly ok: false; readonly reason: IdentityMatchedLocalRepoFailure };
++
++/**
++ * Read `origin` from checkout metadata without invoking git and without
++ * network mutation.
++ *
++ * Directory `.git/config` is read directly. A `.git` gitfile (`gitdir:`) is
++ * followed one hop, then `commondir` when the worktree gitdir has no origin
++ * url (the usual linked-worktree layout).
++ *
++ * KNOWN GAP: this is not a worktree engine. It does not run git, follow
++ * `core.worktree`, resolve submodules, or chase more than one commondir hop.
++ * Unreadable or mismatched origin fails closed.
++ */
++export function readOriginRemoteUrlFromGitMetadata(
++  checkoutRoot: string,
++): string | null {
++  const configPath = resolveGitConfigPath(checkoutRoot);
++  if (!configPath) return null;
++  const text = readTextIfSmall(configPath);
++  if (text == null) return null;
++  return parseOriginUrlFromGitConfig(text);
++}
++
++export function parseOriginUrlFromGitConfig(configText: string): string | null {
++  let inOrigin = false;
++  let url: string | null = null;
++  for (const rawLine of configText.split(/\r?\n/)) {
++    const line = rawLine.trim();
++    if (!line || line.startsWith("#") || line.startsWith(";")) continue;
++    if (SECTION_HEADER.test(line)) {
++      inOrigin = REMOTE_ORIGIN_HEADER.test(line);
++      continue;
++    }
++    if (!inOrigin) continue;
++    const urlMatch = rawLine.match(ORIGIN_URL_LINE);
++    if (!urlMatch) continue;
++    const value = stripGitConfigValue(urlMatch[1] ?? "");
++    if (value) url = value;
++  }
++  return url;
++}
++
++/**
++ * Candidate under managedRootBase is accepted only when its origin remote
++ * matches `identity` via assertRemoteUrlMatchesRepositoryRef.
++ * Missing checkout, missing origin, or a mismatch → not ok. Never creates a repo.
++ */
++export function resolveIdentityMatchedLocalRepo(input: {
++  readonly identity: string;
++  readonly managedRootBase: string;
++}): IdentityMatchedLocalRepoResolution {
++  const resolver = new ManagedProjectRepositoryResolver();
++  const candidate = resolver.resolveLocalRepoRoot(
++    { identity: input.identity },
++    input.managedRootBase,
++  );
++  if (!candidate) return { ok: false, reason: "managed_repo_absent" };
++  const origin = readOriginRemoteUrlFromGitMetadata(candidate);
++  if (!origin) return { ok: false, reason: "managed_repo_identity_mismatch" };
++  const match = assertRemoteUrlMatchesRepositoryRef({
++    remoteUrl: origin,
++    repositoryRef: input.identity,
++  });
++  if (!match.ok) return { ok: false, reason: "managed_repo_identity_mismatch" };
++  return { ok: true, repoRoot: candidate };
++}
++
++/**
++ * Protected Git may use a managed checkout only when identity resolution
++ * succeeded. A configured base whose checkout is absent or origin-mismatched
++ * fails closed. Non-protected work does not fail when the checkout is unusable.
++ */
++export function guardedManagedRepoRootForProtectedGit(input: {
++  readonly protectedGitPending: boolean;
++  readonly checked: boolean;
++  readonly resolution: IdentityMatchedLocalRepoResolution | null;
++}):
++  | {
++      readonly ok: true;
++      readonly managedRepoRoot?: string;
++    }
++  | {
++      readonly ok: false;
++      readonly code: "REAL_WORKSPACE_INVALID";
++      readonly reason: IdentityMatchedLocalRepoFailure;
++    } {
++  if (!input.checked || input.resolution == null) return { ok: true };
++  if (input.resolution.ok) {
++    return { ok: true, managedRepoRoot: input.resolution.repoRoot };
++  }
++  if (input.protectedGitPending) {
++    return {
++      ok: false,
++      code: "REAL_WORKSPACE_INVALID",
++      reason: input.resolution.reason,
++    };
++  }
++  return { ok: true };
++}
++
+ export class ManagedProjectRepositoryResolver {
+   /**
+-   * Resolve `{managedRootBase}/{sanitizedIdentity}` when it exists as a git repo.
+-   * Returns null when missing / not a git directory.
++   * Resolve `{managedRootBase}/{sanitizedIdentity}` when a `.git` directory
++   * or gitfile exists. This existence check is NOT remote fidelity.
++   * Returns null when missing / not a git directory or gitfile.
+    */
+   resolveLocalRepoRoot(
+     binding: ManagedRepoBindingIdentity,
+@@ -54,4 +171,79 @@ export class ManagedProjectRepositoryResolver {
+     }
+     return candidate;
+   }
++
++  /**
++   * Protected-Git resolution: same candidate as resolveLocalRepoRoot, accepted
++   * only when origin matches identity. Otherwise null.
++   */
++  resolveIdentityMatchedLocalRepoRoot(
++    binding: ManagedRepoBindingIdentity,
++    managedRootBase: string,
++  ): string | null {
++    const resolved = resolveIdentityMatchedLocalRepo({
++      identity: binding.identity,
++      managedRootBase,
++    });
++    return resolved.ok ? resolved.repoRoot : null;
++  }
++}
++
++function resolveGitConfigPath(checkoutRoot: string): string | null {
++  const gitPath = path.join(checkoutRoot, ".git");
++  if (!existsSync(gitPath)) return null;
++  let st;
++  try {
++    st = statSync(gitPath);
++  } catch {
++    return null;
++  }
++  if (st.isDirectory()) {
++    const config = path.join(gitPath, "config");
++    return existsSync(config) ? config : null;
++  }
++  if (!st.isFile()) return null;
++  const gitfile = readTextIfSmall(gitPath);
++  if (gitfile == null) return null;
++  const match = gitfile.match(/^gitdir:\s*(.+)\s*$/m);
++  const gitdirRaw = match?.[1]?.trim();
++  if (!gitdirRaw) return null;
++  const gitdir = path.resolve(checkoutRoot, gitdirRaw);
++  return configPathFromGitDir(gitdir);
++}
++
++function configPathFromGitDir(gitdir: string): string | null {
++  const direct = path.join(gitdir, "config");
++  if (existsSync(direct)) {
++    const text = readTextIfSmall(direct);
++    if (text != null && parseOriginUrlFromGitConfig(text)) return direct;
++  }
++  const commonFile = path.join(gitdir, "commondir");
++  if (!existsSync(commonFile)) return existsSync(direct) ? direct : null;
++  const commonRel = readTextIfSmall(commonFile)?.trim();
++  if (!commonRel) return existsSync(direct) ? direct : null;
++  const commonConfig = path.join(path.resolve(gitdir, commonRel), "config");
++  if (existsSync(commonConfig)) return commonConfig;
++  return existsSync(direct) ? direct : null;
++}
++
++function readTextIfSmall(filePath: string): string | null {
++  try {
++    const st = statSync(filePath);
++    if (!st.isFile() || st.size > GIT_CONFIG_READ_MAX_BYTES) return null;
++    return readFileSync(filePath, "utf8");
++  } catch {
++    return null;
++  }
++}
++
++function stripGitConfigValue(raw: string): string {
++  const value = raw.trim();
++  if (
++    value.length >= 2 &&
++    ((value.startsWith('"') && value.endsWith('"')) ||
++      (value.startsWith("'") && value.endsWith("'")))
++  ) {
++    return value.slice(1, -1).trim();
++  }
++  return value;
+ }
+```
+
+### M-117 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/sqlite/createSqliteExecutionAttemptServices.ts
 index acf1f9aa..c958e318 100644
@@ -9716,14 +10590,34 @@ index acf1f9aa..c958e318 100644
      ),
 ```
 
-### M-116 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-118 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts` **[CORR-02]**
+- **Semantic change:** Residual docs_write stub/helper cleanup
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-index b7134aac..671ae967 100644
+index b7134aac..c55c48d7 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-@@ -35,7 +35,6 @@ import {
+@@ -6,7 +6,7 @@
+  * Requires ProcessRunner + RealExecutionWorkspacePort (no Fake defaults).
+  * Order: enablement → bin resolve → prepareWorkspace → runner.invoke.
+  */
+-import { accessSync, constants, existsSync } from "node:fs";
++import { accessSync, constants } from "node:fs";
+ import path from "node:path";
+ import {
+   isStudioCursorRealEnabled,
+@@ -24,10 +24,6 @@ import type {
+   RealLaunchResult,
+   RealProcessObservation,
+ } from "../ports/realExecutionLaunchPort";
+-import {
+-  assertArtifactWriteModeAtExecution,
+-  isAutomaticProductDocsWriteTargetPath,
+-} from "@/lib/oa/project/domain/artifactTargetRouting";
+ import type { RealExecutionWorkspacePort } from "../ports/realExecutionWorkspacePort";
+ import { DisabledRealProcessRunner } from "./nodeCursorProcessRunner";
+ import { assertResolvedTimeoutMs } from "@/lib/oa/execution-contract";
+@@ -35,7 +31,6 @@ import {
    CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
    isCursorTrustMarkerPathCompatible,
  } from "./cursorTrustMarkerPathCompatibility";
@@ -9731,7 +10625,7 @@ index b7134aac..671ae967 100644
  import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
  import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
  import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
-@@ -64,7 +63,6 @@ import {
+@@ -64,7 +59,6 @@ import {
    resolveMutatingConfinementEffectClass,
    stripInheritedCursorShellEgressEnv,
  } from "./mutatingCursorConfinementEnv";
@@ -9739,7 +10633,7 @@ index b7134aac..671ae967 100644
 
  /**
   * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — one mission, one enforcement overlay.
-@@ -521,13 +519,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -521,13 +515,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
        !isPrCreateProfile &&
        (Boolean(gitPrMergeSpec) ||
          request.action === M4_BOUNDED_PR_MERGE_ACTION);
@@ -9753,7 +10647,7 @@ index b7134aac..671ae967 100644
      const rejectFreeShell = (): RealLaunchResult | null => {
        if (
          typeof (request as { freeShellScript?: unknown }).freeShellScript ===
-@@ -855,92 +846,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -855,92 +842,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
          semanticFingerprint: request.semanticFingerprint,
          missionPrompt,
        });
@@ -9846,7 +10740,7 @@ index b7134aac..671ae967 100644
      } else if (
        request.action === M4_BOUNDED_RO_ACTION ||
        request.selectedAgentRef === M4_BOUNDED_RO_CURSOR_AGENT_ID
-@@ -997,7 +902,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -997,7 +898,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
      // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
      const hasMissionPrompt = missionPrompt !== null;
      const usesAgentMode =
@@ -9854,7 +10748,7 @@ index b7134aac..671ae967 100644
        isLocalCommitProfile ||
        isRemotePushProfile ||
        isPrCreateProfile ||
-@@ -1035,7 +939,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
+@@ -1035,7 +935,7 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
      // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
      // Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
      const childEnv: NodeJS.ProcessEnv = isMutatingGcecCursorProfile({
@@ -9865,17 +10759,18 @@ index b7134aac..671ae967 100644
        isPrCreateProfile,
 ```
 
-### M-117 `projects/sfia-studio/app/lib/oa/execution-contract/index.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-119 `projects/sfia-studio/app/lib/oa/execution-contract/index.ts` **[CORR-02]**
+- **Semantic change:** Residual docs_write stub/helper cleanup
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/index.ts b/projects/sfia-studio/app/lib/oa/execution-contract/index.ts
-index c20ea5e7..76df4cfc 100644
+index c20ea5e7..0c5659c3 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-contract/index.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-contract/index.ts
-@@ -153,8 +153,6 @@ export {
+@@ -152,9 +152,6 @@ export {
+   projectExecutionContractInspectionDisclosure,
    requiredInspectedFactsForContract,
    attestationCoversRequiredFacts,
-   isDocsWriteExecutionContract,
+-  isDocsWriteExecutionContract,
 -  DOCS_WRITE_ACTION,
 -  DOCS_WRITE_TECHNICAL_TARGET,
    type ExecutionContractInspectionDisclosure,
@@ -9883,11 +10778,11 @@ index c20ea5e7..76df4cfc 100644
  } from "./projection/inspectionDisclosure";
 ```
 
-### M-118 `projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-120 `projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts` **[CORR-02]**
+- **Semantic change:** Residual docs_write stub/helper cleanup
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts b/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
-index 559172eb..169f9bc2 100644
+index 559172eb..e831f481 100644
 --- a/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
 +++ b/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
 @@ -21,9 +21,6 @@ import {
@@ -9909,27 +10804,23 @@ index 559172eb..169f9bc2 100644
    readonly disclosureComplete: boolean;
    readonly incompletenessCode: "INSPECTION_DISCLOSURE_INCOMPLETE" | null;
  };
-@@ -91,13 +88,14 @@ function asBoolean(value: unknown): boolean | null {
+@@ -91,15 +88,6 @@ function asBoolean(value: unknown): boolean | null {
    return typeof value === "boolean" ? value : null;
  }
 
-+/**
-+ * Retired Product specialization. Always unavailable — never a disclosure
-+ * profile and never an admission path.
-+ */
- export function isDocsWriteExecutionContract(
+-export function isDocsWriteExecutionContract(
 -  contract: Pick<ExecutionContract, "action" | "target">,
-+  _contract: Pick<ExecutionContract, "action" | "target">,
- ): boolean {
+-): boolean {
 -  return (
 -    contract.action === DOCS_WRITE_ACTION ||
 -    contract.target === DOCS_WRITE_TECHNICAL_TARGET
 -  );
-+  return false;
- }
-
+-}
+-
  /**
-@@ -145,9 +143,7 @@ export function projectExecutionContractInspectionDisclosure(
+  * Allowlisted execution-significant facts for Product inspection disclosure.
+  * Does not expose the raw `inputs` bag.
+@@ -145,9 +133,7 @@ export function projectExecutionContractInspectionDisclosure(
    const reportRequirements =
      parsedReportRequirements.length > 0 ? parsedReportRequirements : null;
 
@@ -9940,7 +10831,7 @@ index 559172eb..169f9bc2 100644
 
    const disclosure: ExecutionContractInspectionDisclosure = {
      action: contract.action,
-@@ -190,7 +186,7 @@ export function projectExecutionContractInspectionDisclosure(
+@@ -190,7 +176,7 @@ export function projectExecutionContractInspectionDisclosure(
        code: "INSPECTION_DISCLOSURE_INCOMPLETE",
        disclosure,
        message:
@@ -9949,7 +10840,7 @@ index 559172eb..169f9bc2 100644
      };
    }
 
-@@ -200,8 +196,7 @@ export function projectExecutionContractInspectionDisclosure(
+@@ -200,8 +186,7 @@ export function projectExecutionContractInspectionDisclosure(
  /**
   * Stable fact identifiers the Pilot must have inspected for this contract.
   * Optional contract fields that are absent are not invented.
@@ -9959,7 +10850,7 @@ index 559172eb..169f9bc2 100644
   */
  export function requiredInspectedFactsForContract(
    contract: ExecutionContract,
-@@ -224,17 +219,6 @@ export function requiredInspectedFactsForContract(
+@@ -224,17 +209,6 @@ export function requiredInspectedFactsForContract(
      "semanticFingerprint",
    ];
 
@@ -9979,8 +10870,8 @@ index 559172eb..169f9bc2 100644
    }
 ```
 
-### M-119 `projects/sfia-studio/app/lib/oa/project/application/createProject.ts`
-- **Semantic change:** Create without repositoryBinding SoT
+### M-121 `projects/sfia-studio/app/lib/oa/project/application/createProject.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/application/createProject.ts b/projects/sfia-studio/app/lib/oa/project/application/createProject.ts
 index 40c727bc..e0f4be3e 100644
@@ -10028,8 +10919,8 @@ index 40c727bc..e0f4be3e 100644
          createdBy: structuredClone(request.createdBy),
 ```
 
-### M-120 `projects/sfia-studio/app/lib/oa/project/domain/invariants.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-122 `projects/sfia-studio/app/lib/oa/project/domain/invariants.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/domain/invariants.ts b/projects/sfia-studio/app/lib/oa/project/domain/invariants.ts
 index cc94efda..27b1bcb5 100644
@@ -10117,8 +11008,8 @@ index cc94efda..27b1bcb5 100644
 -}
 ```
 
-### M-121 `projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-123 `projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts b/projects/sfia-studio/app/lib/oa/project/domain/projectWorkspaceKey.ts
 index 57145ed6..92b46f5a 100644
@@ -10142,8 +11033,8 @@ index 57145ed6..92b46f5a 100644
      typeof key === "string" &&
 ```
 
-### M-122 `projects/sfia-studio/app/lib/oa/project/domain/types.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-124 `projects/sfia-studio/app/lib/oa/project/domain/types.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/domain/types.ts b/projects/sfia-studio/app/lib/oa/project/domain/types.ts
 index 3e6c5323..0f1e085b 100644
@@ -10193,8 +11084,8 @@ index 3e6c5323..0f1e085b 100644
    createdBy: ActorReference;
 ```
 
-### M-123 `projects/sfia-studio/app/lib/oa/project/index.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-125 `projects/sfia-studio/app/lib/oa/project/index.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/index.ts b/projects/sfia-studio/app/lib/oa/project/index.ts
 index 6aafb918..52be22a7 100644
@@ -10250,8 +11141,57 @@ index 6aafb918..52be22a7 100644
 
 ```
 
-### M-124 `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-126 `projects/sfia-studio/app/lib/oa/project/infrastructure/managedRepoPathFacts.ts` **[CORR-02]**
+- **Semantic change:** CORR-02 supporting fixture/test
+```diff
+diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/managedRepoPathFacts.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/managedRepoPathFacts.ts
+index 317c21c9..325b9255 100644
+--- a/projects/sfia-studio/app/lib/oa/project/infrastructure/managedRepoPathFacts.ts
++++ b/projects/sfia-studio/app/lib/oa/project/infrastructure/managedRepoPathFacts.ts
+@@ -6,8 +6,9 @@
+  *
+  * Returns null when the managed clone / base is unavailable (unknown fact → ASK).
+  */
+-import { existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
++import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
+ import path from "node:path";
++import { assertCanonicalGithubRepositoryRef } from "@/lib/oa/execution-attempt/domain/shellSafeArg";
+ import {
+   ManagedProjectRepositoryResolver,
+   sanitizeManagedRepoIdentity,
+@@ -98,7 +99,12 @@ export function listManagedRepoPathsUnderRoot(input: {
+   return out;
+ }
+
+-/** Test helper: ensure a managed clone skeleton exists (git dir marker only). */
++/**
++ * Test helper: ensure a managed clone skeleton exists.
++ * Writes a coherent origin url when identity is canonical and config is absent,
++ * so protected Git identity checks do not treat the marker as a foreign remote.
++ * Does not clone or contact a network.
++ */
+ export function ensureManagedRepoCloneSkeleton(input: {
+   managedRepoRootBase: string;
+   identity: string;
+@@ -110,5 +116,14 @@ export function ensureManagedRepoCloneSkeleton(input: {
+   if (!existsSync(gitDir)) {
+     mkdirSync(gitDir, { recursive: true });
+   }
++  const configPath = path.join(gitDir, "config");
++  const canonical = assertCanonicalGithubRepositoryRef(input.identity.trim());
++  if (!existsSync(configPath) && canonical.ok) {
++    writeFileSync(
++      configPath,
++      `[remote "origin"]\n\turl = https://github.com/${canonical.ref}.git\n`,
++      "utf8",
++    );
++  }
+   return repoRoot;
+ }
+```
+
+### M-127 `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts b/projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/createSqliteProductProjectServices.ts
 index 7a011934..7558eca5 100644
@@ -10299,8 +11239,8 @@ index 7a011934..7558eca5 100644
 
 ```
 
-### M-125 `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-128 `projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts b/projects/sfia-studio/app/lib/oa/synthesis/application/buildProductSynthesis.ts
 index 70915182..9d83a17d 100644
@@ -10317,8 +11257,8 @@ index 70915182..9d83a17d 100644
  function presentPlanned(
 ```
 
-### M-126 `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-129 `projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts b/projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
 index ea865141..f2472146 100644
@@ -10451,8 +11391,8 @@ index ea865141..f2472146 100644
              contentRequirements: [],
 ```
 
-### M-127 `projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-130 `projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts b/projects/sfia-studio/app/lib/vertical-slice-core/localProjectComposition.ts
 index 83572029..ec0cf937 100644
@@ -10537,8 +11477,8 @@ index 83572029..ec0cf937 100644
        title: command.name,
 ```
 
-### M-128 `projects/sfia-studio/app/lib/vertical-slice-core/types.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-131 `projects/sfia-studio/app/lib/vertical-slice-core/types.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-core/types.ts b/projects/sfia-studio/app/lib/vertical-slice-core/types.ts
 index 353cda27..a64d1ec9 100644
@@ -10570,8 +11510,8 @@ index 353cda27..a64d1ec9 100644
     * Set once at create; never recomputed from title rename.
 ```
 
-### M-129 `projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-132 `projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/actions.ts
 index d346d857..68a13dc9 100644
@@ -10615,8 +11555,8 @@ index d346d857..68a13dc9 100644
 -}
 ```
 
-### M-130 `projects/sfia-studio/app/lib/vertical-slice-runtime/managedRepoRootBaseConfig.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-133 `projects/sfia-studio/app/lib/vertical-slice-runtime/managedRepoRootBaseConfig.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/managedRepoRootBaseConfig.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/managedRepoRootBaseConfig.ts
 index 7838afdd..fff3f431 100644
@@ -10643,8 +11583,8 @@ index 7838afdd..fff3f431 100644
   */
 ```
 
-### M-131 `projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-134 `projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/mapping.ts
 index 8c5e1b87..59b96a05 100644
@@ -10679,8 +11619,8 @@ index 8c5e1b87..59b96a05 100644
 
 ```
 
-### M-132 `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-135 `projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/service.ts
 index f25f7588..214276f8 100644
@@ -10786,8 +11726,8 @@ index f25f7588..214276f8 100644
  export function createRuntimeApplicationService(
 ```
 
-### M-133 `projects/sfia-studio/app/lib/vertical-slice-runtime/studioRuntimeProfilePreflight.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-136 `projects/sfia-studio/app/lib/vertical-slice-runtime/studioRuntimeProfilePreflight.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/studioRuntimeProfilePreflight.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/studioRuntimeProfilePreflight.ts
 index 54f53743..797babfc 100644
@@ -10930,8 +11870,8 @@ index 54f53743..797babfc 100644
    M3_LOCAL_AUTHORITY_ENV,
 ```
 
-### M-134 `projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-137 `projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts b/projects/sfia-studio/app/lib/vertical-slice-runtime/types.ts
 index c86dd4ae..c95b13b4 100644
@@ -10957,8 +11897,8 @@ index c86dd4ae..c95b13b4 100644
 
 ```
 
-### M-135 `projects/sfia-studio/app/scripts/studio-runtime-preflight.ts`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-138 `projects/sfia-studio/app/scripts/studio-runtime-preflight.ts` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/app/scripts/studio-runtime-preflight.ts b/projects/sfia-studio/app/scripts/studio-runtime-preflight.ts
 index 40b40483..e6988e90 100644
@@ -10974,11 +11914,11 @@ index 40b40483..e6988e90 100644
  console.log(`- managedClone: ${result.managedClonePath || "(skipped)"}`);
 ```
 
-### M-136 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-139 `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-index bdb8c96b..2c920ec3 100644
+index bdb8c96b..98f4c0d2 100644
 --- a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 +++ b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 @@ -4,7 +4,8 @@
@@ -10986,15 +11926,15 @@ index bdb8c96b..2c920ec3 100644
  | **Rôle** | Roadmap **vivante** de convergence vers l’utilisation complète de la doctrine produit SFIA Studio v3 |
  | **Statut** | **VALIDATED — ACTIVE LIVING ROADMAP** |
 -| **CURRENT TIP 2026-10-24 — AKG-M5 L2-D2 POST-MERGE VERIFIED (PR #614)** | **L2-D2 MERGED ON MAIN / POST-MERGE CI SUCCESS / DEFAULT OFF / NOT ACTIVATED** — [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) **MERGED** 2026-10-24, source `4647983aa36b76ae393200a7a8caaaed96936149`, merge `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` = `main` contrôlé ; [CI #40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **COMPLETED / SUCCESS** (Detect, Build and validate, Required Gate · event=push · branch=main · HEAD=merge) ; GO Morris Delivery + CORR-02 + R24 + Cycle13 digests + G-GIT commit/push/Draft PR **consommés** ; code CURRENT : marker `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default **OFF** (trim=`"1"` arms fail-closed) · D1 open+mutation guards (injected writers) · confirmation FORBIDDEN→`ok:false` · D4 Option A redirect/notFound · O-01 LPS objective→UI **DET 31/7 PASS** ; **aucun dual-write** · **aucun** `proj-*`→`prj:*` · D1 FREEZE gated / RETIRE LATER (pas de retrait physique) ; **G-ACTIVATION OPEN** · **R-CUT LIVE NOT PROVEN** · D4 LIVE HTTP NOT PROVEN · dette `R-L2D2-SQLITE-SNAPSHOT` OPEN · raw `DatabaseSync` KNOWN GAP · Q15 global PARTIAL ; chronologie L2-D0→L2-D1→L2-D2 conservée ; **AKG-M5 GLOBAL OPEN** · H1 hold ACTIVE · H4/R-VOL-01 OPEN · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED ; suite = **G-ACTIVATION PREPARATION sous réserves** (≠ autorisation d'activation) ; Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** on main · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **NO PRODUCT SEMANTIC IMPACT** · **R-01 exit proof satisfied** · formal closure separate. |
-+| **CURRENT TIP 2026-10-25 — AKG-M5 LOCAL DELIVERY — Product RepositoryBinding + docs_write specialization RETIRED** | **DECIDED BY MORRIS 2026-10-25** · **LOCAL IMPLEMENTED** · **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED** — branche `feat/akg-m5-remove-repository-binding-docs-write` (Delivery locale non intégrée, au-dessus de `origin/main` `7db8afd7c27720712f08000274dbbc4e1a62d935`) ; **RepositoryBinding RETIRED IN LOCAL DELIVERY** (CreateProject sans `repositoryBinding` ; `SFIA_STUDIO_PROJECT_REPOSITORY_*` retirés du preflight et de `.env.example`) ; **docs_write Product specialization RETIRED IN LOCAL DELIVERY** (admission Product `intentKind` / cap / action retirée des lib + features actifs) ; `projectWorkspaceKey` et routage `projects/<key>` **PRÉSERVÉS** ; O-01 DET **PASS** ; typecheck **PASS** ; **known regressions accepted** ; **H4 / G-REAL / G-ACTIVATION NOT GRANTED** ; **AKG-M5 OPEN** ; runtime v3 **NON ADOPTED** ; `origin/main` `7db8afd7` conserve le binding et l'admission docs_write **historiquement présents sur main** (PR #617 = activation prep, pas ce retrait) ; **≠ MERGED ON MAIN** · **≠** H4 qualifié · **≠** exclusive ACTIVATED · **≠** REAL PROVEN · **≠** P6 GLOBAL PASS. |
++| **CURRENT TIP 2026-10-25 — AKG-M5 LOCAL DELIVERY — CORR-02 Git target fidelity on structural removal** | **DECIDED BY MORRIS 2026-10-25** · **LOCAL IMPLEMENTED** · **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED** — branche `feat/akg-m5-remove-repository-binding-docs-write` (Delivery locale non intégrée, au-dessus de `origin/main` `7db8afd7c27720712f08000274dbbc4e1a62d935`) ; **RepositoryBinding RETIRED IN LOCAL DELIVERY** (CreateProject sans `repositoryBinding` ; `SFIA_STUDIO_PROJECT_REPOSITORY_*` retirés du preflight et de `.env.example`) ; **docs_write Product specialization RETIRED IN LOCAL DELIVERY** (admission Product `intentKind` / cap / action retirée des lib + features actifs) ; `projectWorkspaceKey` et routage `projects/<key>` **PRÉSERVÉS** ; **CORR-02 LOCAL CORRECTION** on that structural removal (Git target fidelity) — identity↔remote↔checkout **DET VERIFIED** ; Evidence FS-anchor allowlist tightened to historical `execution_attempt:docs_write` (+ dotted suffix) ; residual stubs removed ; managed resolver requires origin match ; provided remote must match sealed identity (`repository_remote_identity_mismatch` / `managed_repo_identity_mismatch`) ; **NOT MERGED** · **≠** REAL ; O-01 DET **PASS** ; typecheck **PASS** ; **known regressions accepted** ; **H4 / G-REAL / G-ACTIVATION NOT GRANTED** ; **AKG-M5 OPEN** ; runtime v3 **NON ADOPTED** ; `origin/main` `7db8afd7` conserve le binding et l'admission docs_write **historiquement présents sur main** (PR #617 = activation prep, pas ce retrait) ; **≠ MERGED ON MAIN** · **≠** H4 qualifié · **≠** exclusive ACTIVATED · **≠** REAL PROVEN · **≠** P6 GLOBAL PASS. C1 D-PC-09 **NO SEMANTIC IMPACT** (historical text not rewritten). |
 +| **HISTORICAL TIP 2026-10-24 — AKG-M5 L2-D2 POST-MERGE VERIFIED (PR #614)** | **HISTORICAL AS TIP** (superseded as CURRENT by the 2026-10-25 LOCAL Delivery tip) — truth sync : [PR #617](https://github.com/mcleland147/sfia-workspace/pull/617) **MERGED** 2026-10-25 on main for **L2-D2 activation prep** (S1–S4) · source `cdc9909d8adaa6b31df3b75e33e58a8d27c88317` · merge `7db8afd7c27720712f08000274dbbc4e1a62d935` = `origin/main` · [CI #40169014052](https://github.com/mcleland147/sfia-workspace/actions/runs/40169014052) **COMPLETED / SUCCESS** (Detect, Build and validate, Required Gate · event=push · branch=main · HEAD=merge) · exclusive **DEFAULT OFF / NOT ACTIVATED** · **G-ACTIVATION / G-REAL NOT GRANTED** by #617 · [PR #616](https://github.com/mcleland147/sfia-workspace/pull/616) also **MERGED** `d7aad77e999e4fe64f31a776ddf39c1d99278b1b` (R-01 evidence status) between #615 and #617 · RepositoryBinding / docs_write retirement is **not** in #617 and is **NOT MERGED** — **L2-D2 MERGED ON MAIN / POST-MERGE CI SUCCESS / DEFAULT OFF / NOT ACTIVATED** — [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) **MERGED** 2026-10-24, source `4647983aa36b76ae393200a7a8caaaed96936149`, merge `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` = `main` contrôlé ; [CI #40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **COMPLETED / SUCCESS** (Detect, Build and validate, Required Gate · event=push · branch=main · HEAD=merge) ; GO Morris Delivery + CORR-02 + R24 + Cycle13 digests + G-GIT commit/push/Draft PR **consommés** ; code CURRENT : marker `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default **OFF** (trim=`"1"` arms fail-closed) · D1 open+mutation guards (injected writers) · confirmation FORBIDDEN→`ok:false` · D4 Option A redirect/notFound · O-01 LPS objective→UI **DET 31/7 PASS** ; **aucun dual-write** · **aucun** `proj-*`→`prj:*` · D1 FREEZE gated / RETIRE LATER (pas de retrait physique) ; **G-ACTIVATION OPEN** · **R-CUT LIVE NOT PROVEN** · D4 LIVE HTTP NOT PROVEN · dette `R-L2D2-SQLITE-SNAPSHOT` OPEN · raw `DatabaseSync` KNOWN GAP · Q15 global PARTIAL ; chronologie L2-D0→L2-D1→L2-D2 conservée ; **AKG-M5 GLOBAL OPEN** · H1 hold ACTIVE · H4/R-VOL-01 OPEN · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED ; suite = **G-ACTIVATION PREPARATION sous réserves** (≠ autorisation d'activation) ; Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** on main · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **NO PRODUCT SEMANTIC IMPACT** · **R-01 exit proof satisfied** · formal closure separate. |
  | **HISTORICAL TIP 2026-10-24 — AKG-M5 L2-D1 POST-MERGE VERIFIED (PR #612)** | **HISTORICAL AS TIP** (superseded as CURRENT by PR #614) — **L2-D1 MERGED ON MAIN / POST-MERGE CI SUCCESS** — [PR #612](https://github.com/mcleland147/sfia-workspace/pull/612) **MERGED** 2026-10-24, source `d98b39302a484a21f42a25d8c7155bbbf6f6f746`, merge `b792bc83e1fbe3ee2f630d2637c137ee246bf07a` ; [CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) **SUCCESS** ; D5 Option A `oa.project.created` dans UnitOfWork ; Q5.1–Q5.7 DET ; à la date du tip : O-01 « comprendre » Product→UI = KNOWN GAP et **L2-D2 NOT AUTHORIZED** *(HISTORICAL AS TIP — later L2-D2 Delivery + PR #614 MERGED)* ; AKG-M5 GLOBAL OPEN · REAL NOT PROVEN · runtime v3 NON ADOPTED. |
  | **HISTORICAL TIP 2026-10-24 — AKG-M5 L2-D0 DOCUMENTARY POST-MERGE VERIFIED (PR #611)** | L2-D0 Decision & Delivery Readiness document `04` intégré via [PR #611](https://github.com/mcleland147/sfia-workspace/pull/611) **MERGED** 2026-10-24, merge `d62301771957ecbc74aedf1b405e183f3db3956d` ; [CI #40064638222](https://github.com/mcleland147/sfia-workspace/actions/runs/40064638222) **SUCCESS** (post-merge) ; D1–D9 = candidate/decision record, **NOT GLOBALLY ADOPTED**, D5/H4/R-CUT restent gates Delivery ; GO L2-D1 ultérieur reçu et consommé (voir tip historique PR #612) ; à la date : **L2-D2 NON AUTORISÉ** *(HISTORICAL AS TIP)* ; ce statut est HISTORICAL AS TIP. |
  | **HISTORICAL TIP 2026-10-23 — AKG-M5 L1/A09 POST-MERGE VERIFIED (PR #609)** | **HISTORICAL AS TIP** (superseded as CURRENT by PR #611/#612) ; **L1/A09 MERGED ON MAIN / POST-MERGE CI SUCCESS** — [PR #609](https://github.com/mcleland147/sfia-workspace/pull/609) **MERGED** 2026-10-23, source `6176a9d3f28d178ce5687a62c18e1c8fa4fcc68d`, merge `e8e8b5e1ed0304f54babb265b7529b61bb3cdcbc` = `main` vérifié ; [CI #39998468332](https://github.com/mcleland147/sfia-workspace/actions/runs/39998468332) **COMPLETED / SUCCESS** (Detect / Build / SFIA Studio Required Gate) ; **H0-L1 GRANTED** et **GO Morris merge #609 consommé** ; `ProjectCycleAuditPort` réutilisé (Option A / t-a7), consommateurs VSR + core sans import d'audit `@/lib/d1`, `BoundedAtomicAuditStore` D1 conservé en adaptateur transitoire ; noop par défaut, memory/sqlite compatibles sans activation implicite ; **Q1–Q10 PASS au périmètre local testé** ; **R-A09-01 PASS TECHNIQUE au périmètre testé** (preuves locales + CI, ≠ clôture doctrinale globale / ≠ GO L2) ; **M5-A FORMAL EXIT CLOSED BY MORRIS** (PR #607/#608, preuves CI conservées dans tip historique) ; **AKG-M5 GLOBAL OPEN** ; **L2 NOT GRANTED**, H1–H5 OPEN, aucun D1 retire/migrate, aucune nouvelle persistance/dual-write ; REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED · SHADOW OFF ; synchronisation documentaire post-merge bornée (Roadmap uniquement), **NO PRODUCT SEMANTIC IMPACT**. |
 ```
 
-### M-137 `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- **Semantic change:** Structural removal cascade / test expectation / residual naming
+### M-140 `projects/sfia-studio/product-completion/01-product-completion-cadrage.md` **[CUMULATIVE]**
+- **Semantic change:** Cumulative structural removal / CORR-01
 ```diff
 diff --git a/projects/sfia-studio/product-completion/01-product-completion-cadrage.md b/projects/sfia-studio/product-completion/01-product-completion-cadrage.md
 index 806d672f..141a7b4f 100644
@@ -11028,11 +11968,11 @@ index 806d672f..141a7b4f 100644
 +- Le routage workspace `projects/<key>` n’est pas le mécanisme retiré.
 ```
 
-### M-138 `projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-141 `projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-index a284704d..918ddfce 100644
+index a284704d..59ce9676 100644
 --- a/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
 @@ -6,20 +6,22 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
@@ -11064,15 +12004,16 @@ index a284704d..918ddfce 100644
 
  ## OBJ-LPS — LivingProjectState
 
-@@ -127,6 +129,7 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
+@@ -127,6 +129,8 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
    - **Legacy / Proposal / disposition-before-PREPARE product path:** no EC prepare on that path before the required Proposal / mission-bound HumanDecision (HD-bound PREPARE).
    - **SHE CURRENT (D-P6-SHE-01 / PR #590):** STRUCTURAL / HD-required / UNKNOWN may obtain an **inspectable** PREPARE **without** prior HD when Product qualification admits (`sheDeferredStructuralAuthority` stamp possible). Authority is consumed on Pilot **Exécuter** (`singleHumanExecutePreparedContract`): Inspect binding → applicable HD (if required) → Confirm (if required) → Authorize → launch gates. **0 Attempt** if pre-launch gates fail. Historical disposition-before-PREPARE remains available at its own boundary.
  - **Tool-First pathless stamp (CURRENT ON MAIN — PR #588 merge `304e30e8`):** Generic PREPARE may set `inputs.boundedNonMutatingAnalysis` and related `NO_REPOSITORY_MUTATION_*` constraints/stops for Product-admitted pathless analysis. Stamp declares Product intent envelope — **≠** Cursor REAL technical no-write (see F10 R2 / `boundedNonMutatingRealLaunchGate.ts`). DETERMINISTIC at tested scope · REAL no-write enforcement OPEN (`TOOL-FIRST-REAL-NOWRITE`).
 +- **CORR-01 / LOCAL DELIVERY:** `inputs.repositoryBindingIdentity` is **residual naming** for a sealed git-target string stamped from server env when canonical — **≠** OBJ-REPO-BINDING / **≠** `Project.repositoryBinding` SoT.
++- **CORR-02 / LOCAL DELIVERY — sealed git-target + managed checkout:** before protected Git start, a provided remote must match the canonical identity (`sealRepositoryBindingFromExecutionInputs`; mismatch → `repository_remote_identity_mismatch`, no synthesized-URL fallback). A managed checkout under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` is accepted only when its `origin` matches that identity (`resolveIdentityMatchedLocalRepo`). `.git` presence is not fidelity. Worktree gitfile is followed one `gitdir` hop, then `commondir` when the worktree gitdir has no origin url. **DETERMINISTIC VERIFIED** at tested scope (`gitTargetIdentityRemoteFidelity.d0.test.ts`). **NOT MERGED**. **≠** REAL.
 
  ## OBJ-INSPECTION — InspectionAttestation
 
-@@ -141,7 +144,8 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
+@@ -141,7 +145,8 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
 
  ## OBJ-CAPABILITY — AgentCapability
 
@@ -11082,20 +12023,32 @@ index a284704d..918ddfce 100644
  - **Authority:** capability presence ≠ permission to execute.
 
  ## OBJ-ATTEMPT — ExecutionAttempt
+@@ -169,6 +174,7 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**.
+
+ - **Purpose:** Durable evidence records tied to attempts/artifacts.
+ - **Persistence:** `oa_evidence` (+ idempotency).
++- **CORR-02 / LOCAL DELIVERY — FS-anchor allowlist:** FS→SHA supersession (`isFsAnchorSupersededByVerifiedLocalCommit`) accepts only historical artifact sources `execution_attempt:docs_write` and dotted suffixes (`execution_attempt:docs_write.*`). That reading is **not** Product admission of docs_write. No new Product materialization Evidence source is stamped after the retirement. Prose `execution attempt <id> (succeeded)`, `execution_attempt:mission_result`, and other non-allowlisted sources do not supersede. Ambiguous matching artifacts do not auto-PASS (T11/T12). **NOT MERGED**. **≠** REAL.
+
+ ## OBJ-RB — ReviewBundle
+
 ```
 
-### M-139 `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-142 `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 09858205..c867e81e 100644
+index 09858205..3b6277e8 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-@@ -4,12 +4,15 @@
+@@ -4,12 +4,19 @@
 
  Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
 +**Epistemic split 2026-10-25 — RepositoryBinding + docs_write Product specialization:** sentences below that describe server-owned RepositoryBinding or docs_write Product admission (`intentKind` / cap / action) are **CURRENT ON MAIN** (`origin/main` `7db8afd7`, PR #617). The same mechanisms are a **LOCAL DELIVERY CANDIDATE / NOT ON MAIN** on `feat/akg-m5-remove-repository-binding-docs-write` (Morris GO 2026-10-25): **RepositoryBinding RETIRED IN LOCAL DELIVERY**; **docs_write Product specialization RETIRED IN LOCAL DELIVERY**. `projectWorkspaceKey` / `projects/<key>` routing stays. **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED**. **H4 / G-REAL / G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**. Historical flow text is not rewritten as if the main behaviour never existed.
++
++## Overlay — CORR-02 Git target fidelity (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
++
++**BOUNDED FLOW IMPACT — F10 only.** Protected Git start seals identity↔remote and accepts a managed checkout only when `origin` matches the sealed identity. **NO SEMANTIC IMPACT** on unrelated flows (F01–F09, F11–F20), including D-PC-09 workspace routing (`projects/<key>`). FS→SHA continuation reading (narrative under F10/F11b pre-commit continuation) stays historical-only on `execution_attempt:docs_write` Evidence; it does not restore docs_write Product admission. **NOT MERGED**. **≠** REAL.
 +
  ## F01 — Project creation / greenfield
  - **Trigger:** Studio create project
@@ -11108,7 +12061,7 @@ index 09858205..c867e81e 100644
 
  ## F02 — Project load / restart
  - **Trigger:** Open `/studio/projects/[id]`
-@@ -45,8 +48,8 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
+@@ -45,8 +52,8 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
  - **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice
  - **Boundary (CI-HQA-F01 / AS-IMPLEMENTED):** explicit NEW_CYCLE formalization (« préparer / créer / démarrer un cycle … », even when a future deliverable/note is mentioned) is **not** Artifact continuation. `hasExplicitNewCycleFormalizationSignal` keeps those turns on `NEW_CYCLE_FORMALIZATION` so absence of an active cycle does not fail-closed as `no_active_cycle` before `createCycle`. Natural Artifact cues still cover produce/write/materialize of a documentary object under an active cycle (F-C9-04).
  - **Admission (Artifact governed continuation):** REQUIRE_ARTIFACT HD **OR** Artifact APPLICABLE ∧ ¬SATISFIED (#532+#533) — unchanged; obligations are not bypassed by Generic PREPARE.
@@ -11119,16 +12072,18 @@ index 09858205..c867e81e 100644
  - **Continuation fact:** `structurallyResolvedActiveCycleContinuation` is server-owned and local to this Recommendation/Proposal — ≠ Truth C, ≠ HumanDecision, ≠ universal uncertainty resolution; sealed continuation without impacting signals skips gratuitous structural MW5 re-challenge
  - **Same CycleInstance:** no silent NEW_CYCLE / re-formalization on the Artifact path
  - **Exit (Artifact path):** Proposal `DECISION_REQUIRED`
-@@ -123,6 +126,8 @@ Descriptive Product routing map for the same conversational front door. **Does n
+@@ -123,7 +130,10 @@ Descriptive Product routing map for the same conversational front door. **Does n
  - **Status:** COMPLETE tables/services; unified exam + SHE/Tool-First CTA **CURRENT ON MAIN** (PR #590 / #588 lineages) at tested scope · ≠ REAL
 
  ## F10 — Governed execution (docs_write / Cursor)
 +
 +**Status split:** the docs_write Product path in this section is **CURRENT ON MAIN** (`7db8afd7`). **LOCAL DELIVERY CANDIDATE / NOT ON MAIN (2026-10-25):** docs_write Product admission (`intentKind` / cap / action) is **RETIRED** from active lib+features; documentary work is generic PREPARE / generalist. Historical docs_write execution, report, and evidence sentences below stay the main record. **NOT MERGED**. Known regressions of that retirement are **accepted** and are not a new REAL claim.
  - **Gate:** effective Authorization on EC + attempt lifecycle; REAL additionally requires `SFIA_STUDIO_CURSOR_REAL` + managed repo base + Product REAL readiness fail-closed
++- **CORR-02 / LOCAL DELIVERY — git-target fidelity (F10):** `sealRepositoryBindingFromExecutionInputs` refuses a provided remote that does not match the canonical identity (`repository_remote_identity_mismatch` / `REAL_WORKSPACE_INVALID`; no synthesized GitHub URL fallback). `resolveIdentityMatchedLocalRepo` accepts `{managedRootBase}/{sanitizedIdentity}` only when checkout `origin` matches that identity (`managed_repo_identity_mismatch` / `managed_repo_absent` on the protected path). **DETERMINISTIC VERIFIED** at tested scope. **NOT MERGED**. **≠** REAL. Unrelated flows: **NO SEMANTIC IMPACT**.
  - **Project-scoped Cursor Select/Start (CURRENT ON MAIN at tested scope):** AUTHORIZED PRODUCT_GOVERNED EC may Select→Start→Result on Fake Cursor **without** active CycleInstance when the existing OA contract admits null-cycle — **no invented CycleInstance**, **no invented HumanDecision**. `SelectionProfile` is a technical OA carrier (e.g. capabilities_deterministic), **not** a methodological SFIA Standard/Critical access gate. Unauthorized / closed-cycle / missing project remain refuse. DETERMINISTIC Fake/DET · ≠ REAL BOUNDARY PROVEN.
  - **R2 — pathless non-mutating vs Cursor REAL (CURRENT ON MAIN — PR #588 merge `304e30e8`):** Cursor REAL generalist launch remains technically writable (`--sandbox disabled` class). A contract stamp / prompt “no write” is **not** enforcement. When EC is pathless non-mutating (`boundedNonMutatingAnalysis` / `NO_REPOSITORY_MUTATION_*` + empty concrete scope) **and** `SFIA_STUDIO_CURSOR_REAL=1`, Product applies `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (`boundedNonMutatingRealLaunchGate.ts`) at **two distinct phases**:
-@@ -137,7 +142,7 @@ Descriptive Product routing map for the same conversational front door. **Does n
+   - **Select (`governedExecuteSelectAgent`):** refuse **before** creating a new Attempt — no accepted Attempt from that Select; no REAL process.
+@@ -137,7 +147,7 @@ Descriptive Product routing map for the same conversational front door. **Does n
  ## F11 — Attempt terminal → Evidence → ReviewBundle
  - **Paths:** execution-attempt + evidence-review aggregates; docs-write appends LPS `evidenceIds`/`reviewBundleIds` for rehydrate
  - **Docs_write durable artifact (POST-EXECUTION-…-01):** when hot-worktree bytes are available at completion, Artifact Evidence uses `external_payload_ref` under existing `mission-result-refs/refs/attempts/…/docs-write-artifact` (same filesystem Evidence layout as MissionResult — **no new store/table**). CursorExecutionReport claim is persisted alongside as `cursor-execution-report.json` on the nominal path (CLAIM, not Evidence). Independent digest verify retained.
@@ -11137,7 +12092,7 @@ index 09858205..c867e81e 100644
 
  ## F11b — Product Continuity / Shared Knowledge (PRODUCT-CONTINUITY-SHARED-KNOWLEDGE-01)
 
-@@ -152,7 +157,7 @@ Descriptive Product routing map for the same conversational front door. **Does n
+@@ -152,7 +162,7 @@ Descriptive Product routing map for the same conversational front door. **Does n
  - **Paths:** claim evaluation tables/services; docs_write automatic `completeDocsWriteClaimEvidenceCompletion` while hot worktree / durable absolute path available
  - **Claim-completion propagation:** RecordResult **consumes** the completion result via closed `classifyDocsWriteClaimCompletionFailure` — only `CONFORMITY_HEADINGS_MISSING` / `ARTIFACT_EMPTY` → Product NOT_PROVEN/UNCLAIMED; all oracle/integrity/lineage/unknown codes → `POST_EXECUTION_CONTINUITY_ADVANCE_FAILED`. No startsWith/includes catch-alls.
  - **Honesty:** Attempt `succeeded` ≠ Product PASS; NOT_PROVEN remains when conformity Evidence insufficient
@@ -11146,7 +12101,7 @@ index 09858205..c867e81e 100644
 
  ## F13 — Nora post-Evidence
  - **Handoff (POST-EXECUTION-…-01):** `runW3cPostEvidenceLoop` and `rehydrateW3cPostEvidenceFromLps` share `projectW3cExecutionReportSurfaceFromDurable` — loads durable artifact review material + Cursor report into `PostEvidenceAnalysisFacts` / `executionReport` (`artifactReviewMaterial` FULL/PARTIAL, never invent FULL). Fresh and restart/rehydrate paths project the same `W3cExecutionReportSurface`. No fabricated « sans CursorExecutionReport » surface. Nora must not depend on generic worktree `read` that yields `PATH_NOT_ALLOWED`.
-@@ -218,4 +223,4 @@ Nominal Product path (architecture D-ER; **CURRENT ON MAIN** at deterministic te
+@@ -218,4 +228,4 @@ Nominal Product path (architecture D-ER; **CURRENT ON MAIN** at deterministic te
 
  HumanDecision (durable DecisionBasis + local-write seal) → Generic EC `studio.cursor.generalist.execute` (authorized `EFFECT_CLASS:local-write` / filesystem.create|modify — **≠** Product write taxonomy) → Cursor Generalist → isolated Git worktree → CursorExecutionReport [CLAIM] + native Cursor Review End Of [CLAIM executor-only; missing ⇒ PARTIAL / no Studio synthesis] → Studio `NodeLocalGitStatusDiffPort` / `observeVerifiedChangeSet` [FACTS] (Git delta only; OBSERVED vs UNAVAILABLE — never invent empty FACTS; never full-repo scan in Git mode) → Generic Execution Review Material → Verification Evidence `ev:execution-review:*` + Mission Evidence → same ReviewBundle / ClaimEvaluation / ContractResult (mismatch ⇒ ≠ PASS) → Product Resolution (`executionReview`) → scheduled UI continue (no abandonment counter) + remount auto-resume → Nora Deep Review (shared Agents core; actual `execution_review_*` tool calls) → Result Surface (real fields + Pilot `w2ReadExecutionReviewItemAction` by itemId).
 
@@ -11154,14 +12109,14 @@ index 09858205..c867e81e 100644
 +**CURRENT ON MAIN:** docs_write specialized persist remains a TRANSITIONAL dual-write bridge. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN (2026-10-25):** docs_write Product specialization is **RETIRED** (admission removed from active lib+features). This bridge sentence remains true of `origin/main` `7db8afd7` and is superseded history for the local candidate. **NOT MERGED**. Anti-stall: mounted schedule + remount from durable projection; Reconciler remains owner of transitions. Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
 ```
 
-### M-140 `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-143 `projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-index b483bc8e..aa24378a 100644
+index b483bc8e..ddda7370 100644
 --- a/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-@@ -17,6 +17,10 @@ Given changed paths:
+@@ -17,6 +17,14 @@ Given changed paths:
  9. Collect `testPaths` as mandatory regression set.
  10. List doc volumes requiring review; after content review only, refresh digests.
 
@@ -11169,16 +12124,20 @@ index b483bc8e..aa24378a 100644
 +
 +**CORR-01 NO SEMANTIC IMPACT** on this dependency map beyond the RepositoryBinding / docs_write Product specialization retirement already documented in the LOCAL DELIVERY overlays (README and volumes 02, 03, 05, 09). Restored generic proofs add no dependency edges. **NOT MERGED**.
 +
++## Overlay — CORR-02 (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
++
++**BOUNDED DEPENDENCY IMPACT.** Protected managed-checkout resolution now requires an origin match: `resolveIdentityMatchedLocalRepo` (`ManagedProjectRepositoryResolver`) accepts a candidate under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` only when checkout `origin` matches the sealed git-target identity. `.git` existence is not that dependency. No new curated `manifest.dependencies[]` edge (the nine indexed edges are unchanged). Callers on the protected Git start path (`startExecution` seal + guarded managed root) fail closed on mismatch. **NOT MERGED**. **≠** REAL.
++
  ## Core dependency edges (harvested)
 
  ```
 ```
 
-### M-141 `projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-144 `projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
-index e2193a5a..c2024932 100644
+index e2193a5a..6a9a4f8a 100644
 --- a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
 @@ -18,10 +18,10 @@
@@ -11189,33 +12148,37 @@ index e2193a5a..c2024932 100644
 -| `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` | Server-owned remote | yes Product local | fail-closed | config |
 -| `SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH` | Default branch | optional | `main` | config |
 -| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | Managed clone root | yes for REAL docs_write | fail-closed if blank | config |
-+| `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` | Server-owned repo identity | **CURRENT ON MAIN** (`7db8afd7`): yes Product local, fail-closed if absent. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** **NOT** CreateProject SoT — removed from preflight and `.env.example` as Product **RepositoryBinding** projection. **CORR-01:** may still be read by `resolveTrustedProductLaunchContext` **only** to stamp sealed ExecutionContract git-target inputs (`repositoryBindingIdentity` field name = residual naming). Absent / non-canonical → identity `null` → **Select** eligibility fail-closed. **Not** written onto Project. | config · historical on main · **NOT MERGED** |
-+| `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` | Server-owned remote | **CURRENT ON MAIN:** yes Product local, fail-closed. **LOCAL DELIVERY CANDIDATE:** same CORR-01 sealed git-target stamp path as identity (not CreateProject / not RepositoryBinding SoT); removed from preflight / `.env.example` with binding retirement | config · **NOT MERGED** |
-+| `SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH` | Default branch | **CURRENT ON MAIN:** optional, `main`. **LOCAL DELIVERY CANDIDATE:** same CORR-01 sealed git-target stamp path; removed from preflight / `.env.example` with binding retirement | config · **NOT MERGED** |
++| `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` | Server-owned repo identity | **CURRENT ON MAIN** (`7db8afd7`): yes Product local, fail-closed if absent. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** **NOT** CreateProject SoT — removed from preflight and `.env.example` as Product **RepositoryBinding** projection. **CORR-01 / CORR-02:** **seal-only** — read by `resolveTrustedProductLaunchContext` only to stamp sealed ExecutionContract git-target inputs (`repositoryBindingIdentity` field name = residual naming / env-key rename debt). Absent / non-canonical → identity `null` → **Select** eligibility fail-closed. **Not** written onto Project. | config · historical on main · **NOT MERGED** |
++| `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` | Server-owned remote | **CURRENT ON MAIN:** yes Product local, fail-closed. **LOCAL DELIVERY CANDIDATE:** **seal-only** (not CreateProject / not RepositoryBinding SoT); removed from preflight / `.env.example`. **CORR-02:** a provided remote **must match** the canonical identity (HTTPS or SSH GitHub). Mismatch → `repository_remote_identity_mismatch`. Absent remote is synthesized only after the identity is canonical. | config · **NOT MERGED** |
++| `SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH` | Default branch | **CURRENT ON MAIN:** optional, `main`. **LOCAL DELIVERY CANDIDATE:** **seal-only** with identity/remote; removed from preflight / `.env.example` with binding retirement. Does not by itself prove remote fidelity. | config · **NOT MERGED** |
 +| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | Managed checkout root | **CURRENT ON MAIN:** yes for REAL docs_write; identity subpath; fail-closed if blank. **LOCAL DELIVERY CANDIDATE:** still required for preflight / `SFIA_STUDIO_CURSOR_REAL`; no RepositoryBinding identity map; fail-closed `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | config · **NOT MERGED** |
  | `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` | Local Pilot N3 gate | yes single-user profile | fail-closed | TEMPORARY WITH EXIT |
  | `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` | Deprecated alias | compat | prefer canonical | TEMPORARY |
  | `SFIA_STUDIO_CURSOR_REAL` | Enable Cursor REAL | optional default OFF | exclusive vs deterministic boundary | REAL gate |
-@@ -44,7 +44,8 @@
+@@ -44,7 +44,12 @@
  ## Server vs client
 
  - Product binding/authority envs are **server-only** (never `NEXT_PUBLIC_*`).
 -- Browser must not supply repository binding or Pilot authority claims.
 +- **CURRENT ON MAIN:** browser must not supply repository binding or Pilot authority claims.
-+- **LOCAL DELIVERY CANDIDATE / NOT ON MAIN (2026-10-25):** Product **RepositoryBinding** projection is retired — CreateProject does **not** read `SFIA_STUDIO_PROJECT_REPOSITORY_*` and those keys are **not** CreateProject SoT (removed from preflight / `.env.example`). **CORR-01:** the same env keys may still be read by `resolveTrustedProductLaunchContext` **only** to stamp sealed ExecutionContract git-target inputs (`inputs.repositoryBindingIdentity` = residual field naming). Absent / non-canonical → identity `null` → **Select** eligibility fail-closed; values are **not** written onto Project. Pilot authority envs stay server-only. **NOT MERGED**. `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` remains a server path (no RepositoryBinding identity subfolder in the local candidate).
++- **LOCAL DELIVERY CANDIDATE / NOT ON MAIN (2026-10-25):** Product **RepositoryBinding** projection is retired — CreateProject does **not** read `SFIA_STUDIO_PROJECT_REPOSITORY_*` and those keys are **not** CreateProject SoT (removed from preflight / `.env.example`). **CORR-01 / CORR-02:** the same env keys remain **seal-only**. `resolveTrustedProductLaunchContext` may read them only to stamp sealed ExecutionContract git-target inputs (`inputs.repositoryBindingIdentity` = residual field naming). **CORR-02:** a provided `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` must match that identity. Absent / non-canonical identity → `null` → **Select** eligibility fail-closed; values are **not** written onto Project. Pilot authority envs stay server-only. **NOT MERGED**. `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` remains a server path; the managed resolver accepts a checkout only when `origin` matches the sealed identity (no RepositoryBinding identity subfolder as CreateProject SoT).
++
++## Overlay — CORR-02 sealed git-target (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
++
++`SFIA_STUDIO_PROJECT_REPOSITORY_*` = **seal-only**. Remote must match identity. Mismatch does not fall back to a synthesized GitHub URL. **D-PC-09 workspace routing: NO SEMANTIC IMPACT** (historical C1 text not rewritten). **NOT MERGED**. **≠** REAL.
 
  ## Overlay — AKG-M5 L2-D2 exclusive marker + Option A paths (CURRENT ON MAIN — PR #614; 2026-10-24)
 
 ```
 
-### M-142 `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-145 `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index 2621353c..489316ec 100644
+index 2621353c..dabd8bfa 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 +++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-@@ -2,6 +2,10 @@
+@@ -2,6 +2,14 @@
 
  **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
 
@@ -11223,37 +12186,43 @@ index 2621353c..489316ec 100644
 +
 +**CORR-01 NO SEMANTIC IMPACT** on persistence / restart / recovery. Generic continuity wording is **DETERMINISTIC AT TESTED SCOPE** only (`postExecutionProductContinuity.generic.d0.test.ts`); restart continuity remains covered by existing suites. **≠** REAL. **NOT MERGED**.
 +
++## Overlay — CORR-02 (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
++
++**CORR-02 NO SEMANTIC IMPACT** on persistence stores, restart, or recovery tables. Identity↔remote↔checkout checks are in-process seal and filesystem metadata reads (no new table, migration, or clone). Evidence FS→SHA supersession reads already-persisted Evidence and is **historical-only** for allowlisted sources `execution_attempt:docs_write` (+ dotted suffix). No new Product materialization Evidence source is persisted after the docs_write retirement. **≠** REAL. **NOT MERGED**.
++
  ## Store topology
 
  | Store | Path resolution | Contents |
 ```
 
-### M-143 `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-146 `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 062a920d..e963674c 100644
+index 062a920d..2b508fd2 100644
 --- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 +++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-@@ -137,7 +137,7 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
+@@ -137,7 +137,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
  | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
  | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
  | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
 -| `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | docs_write | missing managed root | cannot REAL write | none | yes |
 +| `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN:** docs_write REAL. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** missing managed root still fail-closes; this is no longer a docs_write Product-admission gate. **NOT MERGED** | missing managed root | cannot REAL write | none | yes |
++| `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
++| `managed_repo_identity_mismatch` | managed resolver (`resolveIdentityMatchedLocalRepo` / `guardedManagedRepoRootForProtectedGit`) — **CORR-02 LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | checkout `origin` missing or does not match sealed identity (including one-hop worktree gitfile whose resolved origin mismatches) | protected Git fail-closed (`REAL_WORKSPACE_INVALID`); non-protected work does not fail solely because the checkout is unusable | none | yes — DET · **≠** REAL |
  | Session path orphan | Memory B | worktree cwd default | empty transcript UI | Truth C intact | operational |
 
  Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is **expected**.
 ```
 
-### M-144 `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-147 `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index 9d02495d..0f4478c3 100644
+index 9d02495d..1fec83f7 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -34,6 +34,17 @@
+@@ -34,6 +34,28 @@
 
  **Integrated DET batch (pre-commit revalidation):** S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 — **52 PASS / 10 files** (includes CR-S2-02 suite growth). **Anti-claims:** DET ≠ LIVE · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · exclusive **DEFAULT OFF**.
 
@@ -11268,10 +12237,21 @@ index 9d02495d..0f4478c3 100644
 +| `postExecutionProductContinuity.generic.d0.test.ts` | FAIL / STOP / UNCLAIMED trajectory wording only | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
 +| `contractResultCriteria.generic.d0.test.ts` | Project-specific EO without a criterion → NOT_PROVEN; `mission_diagnostic` bound to that EO → PASS; `manual_review` → NOT_PROVEN; criterion bound to a different EO does not leak PASS | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
 +
++## Overlay — CORR-02 Git target fidelity (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
++
++Identity↔remote↔checkout and the tightened FS-anchor allowlist. Docs_write Product suites are **not** restored. **NOT MERGED**. **≠** REAL. **≠** GI.
++
++| Suite file | What it proves | Class |
++|---|---|---|
++| `gitTargetIdentityRemoteFidelity.d0.test.ts` | T1–T2 coherent HTTPS/SSH seal (synthesized remote only when absent and identity canonical); T3–T4 owner/repo or non-GitHub host → `repository_remote_identity_mismatch` / seal `null`; T5–T8 checkout `.git` or one-hop worktree gitfile accepted only when `origin` matches, else `managed_repo_identity_mismatch`; absent checkout → `managed_repo_absent`; T9 protected path fail-closed | **DETERMINISTIC VERIFIED** · **≠** REAL |
++| `gcecCont01ContinuationResolver.d0.test.ts` T11 | Irrelevant Attempt Evidence (wrong source: `execution_attempt:mission_result`, `execution_attempt:docs_write_fake`, prose `execution attempt … (succeeded)`, or right source on the wrong Attempt) → no FS supersession; continuation stays required and not ok | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
++| `gcecCont01ContinuationResolver.d0.test.ts` T12 | Two matching historical artifact Evidence rows (exact or dotted twin) → no supersession / no auto PASS | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
++| `gcecCont01ContinuationResolver.d0.test.ts` historical allowlist | `execution_attempt:docs_write` and `execution_attempt:docs_write.v2` still supersede when lineage is otherwise exact — historical reading only | **DETERMINISTIC AT TESTED SCOPE** · **≠** Product admission of docs_write |
++
  ## Flow → tests (selected)
 
  | Flow | Deterministic tests | Notes |
-@@ -85,7 +96,8 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That
+@@ -85,7 +107,8 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That
  | Mode | `ACTIVE_CYCLE_CONTINUATION_BLOCKED` | `NEW_CYCLE_FORMALIZATION` |
  | Reason | `incompatible_execution_intent` | `no_compatible_artifact_effect` |
 
@@ -11281,7 +12261,7 @@ index 9d02495d..0f4478c3 100644
  - **Does not prove** that a new CycleInstance was created — the same case asserts `countCycles === 1` (resolution alone never invents a cycle).
  - Mode name `NEW_CYCLE_FORMALIZATION` here is a resolution **routing** outcome (D-ER-17: not a dead-end; Generic PREPARE may remain eligible on project/active-cycle context) — **≠** Artifact governed continuation, **≠** CREATE_CYCLE proof.
  - Ceiling: DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). NOT E2E REAL. NOT READY FOR REAL.
-@@ -95,7 +107,7 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That
+@@ -95,7 +118,7 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That
  Candidate assertions distinguish:
 
  1. **Generic PREPARE eligible** on same active-cycle / project context (no dead-end force-unbind).
@@ -11292,14 +12272,14 @@ index 9d02495d..0f4478c3 100644
 
 ```
 
-### M-145 `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-148 `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index cb1b2673..725d131d 100644
+index cb1b2673..66d489dc 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -5,6 +5,24 @@
+@@ -5,6 +5,29 @@
  - Runtime v3 **NON ADOPTED**
  - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
@@ -11320,20 +12300,25 @@ index cb1b2673..725d131d 100644
 +| CORR-01 — KNOWN GAP | `replan` / `w3cPayloadMatchesCurrentProduct` / `isEvidenceBackedNotProvenUnclaimed` not re-ported |
 +| CORR-01 — `repositoryBindingIdentity` | **KEEP** residual field name — sealed **git-target** identity string on ExecutionContract `inputs` / subject; source = server env (`SFIA_STUDIO_PROJECT_REPOSITORY_*`) when canonical via `resolveTrustedProductLaunchContext`; absent / non-canonical → `null` → **Select** fail-closed. **NOT** `Project.repositoryBinding` SoT (no `NewRepositoryBinding`; not written onto Project). `identity: null` in `activeCycleGovernedContinuation` local `WorkspacePathRoot` variable |
 +| CORR-01 — restored proofs | Generic ambiguity / mission / criteria / continuity wording proofs restored (`*.generic.d0.test.ts`). **DET at tested scope** · **≠** REAL · **≠** GI |
++| CORR-02 — Git target fidelity | **LOCAL CORRECTION** on the structural removal. Identity↔remote↔checkout **DETERMINISTIC VERIFIED** (`gitTargetIdentityRemoteFidelity.d0.test.ts`). Evidence FS-anchor allowlist tightened; residual stubs removed. **NOT MERGED**. **≠** REAL |
++| CORR-02 — KNOWN GAP — FS supersession sources | FS→SHA supersession allowlist is **historical-only** `execution_attempt:docs_write` (+ dotted suffix). **No new Product materialization Evidence source** after docs_write retirement. Prose attempt labels and `execution_attempt:mission_result` do not supersede |
++| CORR-02 — KNOWN GAP — worktree layout | Checkout origin read follows **one** `.git` gitfile `gitdir` hop, then `commondir` when that gitdir has no origin url. Not a worktree engine: no `git` invocation, no `core.worktree`, no submodules, no further commondir hops. Layouts beyond that hop fail closed |
++| CORR-02 — KNOWN GAP — residual naming | `repositoryBindingIdentity` field name **KEEP** (same residual as CORR-01). Env keys remain `SFIA_STUDIO_PROJECT_REPOSITORY_*` — **env key rename debt**. Seal-only; not `Project.repositoryBinding` SoT |
++| CORR-02 — D-PC-09 | **NO SEMANTIC IMPACT** on D-PC-09 workspace routing. Historical C1 text is not rewritten. Qualification lives in this volume and volumes 03 / 05 |
 +
  ## Overlay — AKG-M5 L2-D2 local OA cutover readiness (CURRENT ON MAIN — PR #614; Cycle 14 truth-sync — 2026-10-24)
 
  | Item | Status |
-@@ -138,7 +156,7 @@
+@@ -138,7 +161,7 @@
  |---|---|---|
  | Natural active-cycle materialization routing corrected (#532) | CONFIRMED | continuity tests on main |
  | Artifact applicability bridge corrected (#533) | CONFIRMED | bridge helpers on HEAD |
 -| D-PC-09: filename candidate + server exact target; no micro-gate | CONFIRMED (doc) | product-completion cadrage amendment |
-+| D-PC-09: filename candidate + server exact target; no micro-gate | CONFIRMED (doc) on main for workspace routing. `projects/<key>` **PRESERVED** in the 2026-10-25 local candidate. Server-owned RepositoryBinding projection stays **CURRENT ON MAIN** (`7db8afd7`) and is superseded only as **LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | product-completion cadrage amendment; historical D-PC-09 text not rewritten |
++| D-PC-09: filename candidate + server exact target; no micro-gate | CONFIRMED (doc) on main for workspace routing. `projects/<key>` **PRESERVED** in the 2026-10-25 local candidate. Server-owned RepositoryBinding projection stays **CURRENT ON MAIN** (`7db8afd7`) and is superseded only as **LOCAL DELIVERY CANDIDATE / NOT ON MAIN**. **CORR-02: NO SEMANTIC IMPACT** on this routing sentence; sealed git-target fidelity is not a D-PC-09 rewrite | product-completion cadrage amendment; historical D-PC-09 text not rewritten |
  | REAL PocketTasks asked Pilot for filename | OBSERVATION | campaign UX; REAL not re-run here |
  | Fake may derive `note-de-cadrage.md`; REAL may leave null | MITIGATED Fake / REAL still provider-dependent | Fake now uses provider-neutral leaf cues; REAL not re-run |
  | MW5 may re-challenge structurally resolved continuation | MITIGATED at tested scope | `structurallyResolvedActiveCycleContinuation` |
-@@ -205,7 +223,7 @@ R-M3A-01 OPEN · R-M3B-01 OPEN · R-G6-SR-01…04 = correction candidates under
+@@ -205,7 +228,7 @@ R-M3A-01 OPEN · R-M3B-01 OPEN · R-G6-SR-01…04 = correction candidates under
  - **CP4-02 OPTION C IMPLEMENTED** — Studio Product write protection = sandbox floor ∪ `STUDIO_GOVERNANCE_PROTECTED_PATHS` (framing prefix + exact Build Doctrine / Roadmap / D-ER architecture / C1). No blanket `projects/sfia-studio/**` deny. No Campus360/CT `SFIA_DEFAULT_PROTECTED_PATHS` as Product classifier.
  - Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** (at time of that macro) · ZERO REAL · READY FOR REAL **NO** · runtime v3 **NON ADOPTED**.
  - Historical: Correction Pass 04 STOP (Morris decision required on CP4-02) superseded by MD-CP4-01/MD-CP4-02 resume — see prior tip / handoff `2daf0dc3…`.
@@ -11342,7 +12327,7 @@ index cb1b2673..725d131d 100644
  - `durableLocalWriteSeal` domain seam: **TRANSITIONAL** (isolated domain/tests only) — exit when GOVERNED trajectory Product carrier is retired or superseded; never browser/client.
  - NoteLite REAL replay: **NOT DONE** (PAUSED; distinct Morris GO).
  - Retention GC / Git promotion: **NOT IMPLEMENTED**.
-@@ -232,8 +250,8 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
+@@ -232,8 +255,8 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
  | Item | Status |
  |---|---|
  | Cursor report machine-readable protocol in EC→Cursor prompt | AS-IMPLEMENTED — `CURSOR_EXECUTION_REPORT_JSON=` required |
@@ -11353,7 +12338,7 @@ index cb1b2673..725d131d 100644
  | Durable artifact review without hot worktree / Pilot paste | AS-IMPLEMENTED — `external_payload_ref` under existing mission-result-refs layout |
  | Claim completion result propagation | AS-IMPLEMENTED — closed classifier; only headings-missing / empty-content → NOT_PROVEN; oracle/integrity/lineage/unknown → continuity fail-closed |
  | Nora grounding (contract + report + artifact FULL/PARTIAL + CE) | AS-IMPLEMENTED at tested scope — no PATH_NOT_ALLOWED for governed artifact handoff |
-@@ -273,7 +291,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
+@@ -273,7 +296,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
  | `repositoryMutation` absent **without** `read_only` | **FORBIDDEN** as pathless NON_STRUCTURAL — fail-closed (`repository_mutation_claim_absent` / Materiality UNKNOWN) |
  | `repositoryMutation` unknown / write → pathless NON_STRUCTURAL | **FORBIDDEN** — fail-closed |
  | Nora `repositoryMutation` / `read_only` alone as Product authority | **INSUFFICIENT** — live context, envelope, contradiction checks still apply |
@@ -11362,7 +12347,7 @@ index cb1b2673..725d131d 100644
  | Inspect ≠ Execute; server Confirm/Authorize/Execute distinct | **PRESERVED** — Exécuter may fold Confirm after attest only |
  | Cursor REAL generalist technical no-write | **ABSENT** — debt open |
  | R2 Select (REAL + pathless non-mutating) | **CURRENT ON MAIN** — refuse **before new Attempt**; code `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` |
-@@ -292,7 +310,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
+@@ -292,7 +315,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
  | `no_require_artifact` aliased as NEW_CYCLE_FORMALIZATION | **FORBIDDEN** — preserved |
  | Invented REQUIRE_ARTIFACT / silent HD for optional documentary | **FORBIDDEN** — preserved |
  | Applicable Artifact obligation / REQUIRE_ARTIFACT path | **PRESERVED** — Generic PREPARE does not bypass Artifact governance |
@@ -11371,7 +12356,7 @@ index cb1b2673..725d131d 100644
  | Capability envelope | Exact Product identities only; substring spoofing fail-closed |
  | Nora proposed path as authorized expectedOutput | **FORBIDDEN** at Generic PREPARE when unresolved — candidate only (`unresolved_nora_candidate`) |
  | Pending Generic PREPARE offer persistence | **PROCESS-LOCAL** — restart-unsafe; re-offer required |
-@@ -376,7 +394,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
+@@ -376,7 +399,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
  No `retired-components-ledger.md` — zero components removed.
 
  ### CP4 residual reserves (acceptable debt after resume)
@@ -11382,14 +12367,14 @@ index cb1b2673..725d131d 100644
  - NoteLite REAL re-proof deferred (Morris GO distinct)
 ```
 
-### M-146 `projects/sfia-studio/production-runtime-reference/README.md`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-149 `projects/sfia-studio/production-runtime-reference/README.md` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index a9f20a18..05972f8b 100644
+index a9f20a18..4f113676 100644
 --- a/projects/sfia-studio/production-runtime-reference/README.md
 +++ b/projects/sfia-studio/production-runtime-reference/README.md
-@@ -46,11 +46,26 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
+@@ -46,11 +46,27 @@ Fake/DET remains the deterministic proof path for R1/R2 at tested scope. Determi
 
  Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · eight Cycle-14 digests on main · **R-01 exit proof satisfied** · formal close **NOT CONSUMED** · digest match ≠ semantic exhaustiveness (**NO PRODUCT SEMANTIC IMPACT**) · code L2-D2 remains DEFAULT OFF / NOT ACTIVATED (PR #614 distinct).
 
@@ -11408,6 +12393,7 @@ index a9f20a18..05972f8b 100644
 +| **Anti-claims** | ≠ **MERGED ON MAIN** · ≠ exclusive ACTIVATED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS · historical D-PC-09 / docs_write sentences in volumes 02–09 stay the main record until merge |
 +
 +- **CORR-01 (LOCAL DELIVERY CANDIDATE):** Review Pack completeness + generic invariant coverage restored (ambiguity / mission / criteria / continuity wording). **Not GI**. **NOT MERGED**. **≠** REAL.
++- **CORR-02 (LOCAL DELIVERY CANDIDATE):** Git target fidelity on the structural removal — identity↔remote↔checkout **DETERMINISTIC VERIFIED** at tested scope. Evidence FS-anchor allowlist tightened to historical `execution_attempt:docs_write` (+ dotted suffix); residual stubs removed. **NOT MERGED**. **≠** REAL.
 +
 +Checked-out tree may already contain this uncommitted retirement. That working-tree fact is **not** integration on main. Volumes below that still describe binding or docs_write as as-implemented behaviour describe **CURRENT ON MAIN** unless they are explicitly marked **LOCAL DELIVERY CANDIDATE**.
 
@@ -11418,7 +12404,7 @@ index a9f20a18..05972f8b 100644
 
  - objects and responsibilities;
  - end-to-end flows;
-@@ -61,6 +76,8 @@ This corpus describes **how SFIA Studio actually works now** in the checked-out
+@@ -61,6 +77,8 @@ This corpus describes **how SFIA Studio actually works now** in the checked-out
  - tests and proof oracles;
  - impact-analysis procedure for future changes.
 
@@ -11429,11 +12415,11 @@ index a9f20a18..05972f8b 100644
  ### Canonical documentary role (AKG-M0)
 ```
 
-### M-147 `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
-- **Semantic change:** PRR LOCAL CANDIDATE / CORR-01 sync (not CURRENT ON MAIN)
+### M-150 `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` **[CORR-02]**
+- **Semantic change:** R24 CORR-02 LOCAL CANDIDATE documentation
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 1c9ae0fd..7988a916 100644
+index 1c9ae0fd..6b66e1e9 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -7,7 +7,7 @@
@@ -11441,7 +12427,7 @@ index 1c9ae0fd..7988a916 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/README.md",
 -      "sha256_16": "508d21f295b578f5"
-+      "sha256_16": "1d49f48961ad8b96"
++      "sha256_16": "7ba814d9fab072c3"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -11450,42 +12436,42 @@ index 1c9ae0fd..7988a916 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
 -      "sha256_16": "61d089bf93c1676a"
-+      "sha256_16": "e96d92d686dfc1d7"
++      "sha256_16": "29f5090856249f87"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
 -      "sha256_16": "e629977124c113a5"
-+      "sha256_16": "a60d0e99ff730f55"
++      "sha256_16": "a5a30590681df038"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
 -      "sha256_16": "9bdf207ceeac259e"
-+      "sha256_16": "f74e0095a154e6b0"
++      "sha256_16": "768d13f5c4e16b02"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
 -      "sha256_16": "aef317f3aa031be5"
-+      "sha256_16": "599570684413c882"
++      "sha256_16": "212ce15d79c0141a"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
 -      "sha256_16": "7fdf3ef0761118ca"
-+      "sha256_16": "4bd42b8fa7baa84c"
++      "sha256_16": "0a28f40356eb10e0"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
 -      "sha256_16": "ad4c4774f42d6540"
-+      "sha256_16": "f27d8730486fc318"
++      "sha256_16": "c94404621eb849e3"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "7f27c5740e1ad080"
-+      "sha256_16": "ae2cc63d72d33664"
++      "sha256_16": "ee58d273c118ec64"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "56d2f057722faedb"
-+      "sha256_16": "c299a87dbf698c4c"
++      "sha256_16": "19a5e08fe8ad6f86"
      }
    ],
    "components": [
@@ -11571,18 +12557,17 @@ index 1c9ae0fd..7988a916 100644
      {
        "path": "projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts",
 -      "sha256_16": "0b4277b6c3e98126"
-+      "sha256_16": "9a966273f084f072"
++      "sha256_16": "d43a9e6a9f07ed6a"
      }
    ],
    "maintenance": {
 ```
 
 ---
-## 5. Added files (git A vs HEAD) — full content
+## 8. Added files (A vs HEAD) — full content
 
-### A-01 `projects/sfia-studio/app/features/project-assistant/f3/productEvidenceRefsRoot.ts`
-- **Role:** new local module from structural removal (not parallel architecture).
-- **Why not parallel architecture:** extracts existing Product evidence-refs root / authorized Cursor real agent wiring without reintroducing RepositoryBinding or docs_write SoT.
+### A-01 `projects/sfia-studio/app/features/project-assistant/f3/productEvidenceRefsRoot.ts` **[CUMULATIVE]**
+- Structural-removal extract (not parallel architecture).
 ```typescript
 /**
  * Default refs root beside Product SQLite (same convention as mission-result-refs).
@@ -11615,9 +12600,8 @@ export function resolveProductEvidenceRefsRoot(
 }
 ```
 
-### A-02 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/authorizedCursorRealAgent.ts`
-- **Role:** new local module from structural removal (not parallel architecture).
-- **Why not parallel architecture:** extracts existing Product evidence-refs root / authorized Cursor real agent wiring without reintroducing RepositoryBinding or docs_write SoT.
+### A-02 `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/authorizedCursorRealAgent.ts` **[CUMULATIVE]**
+- Structural-removal extract (not parallel architecture).
 ```typescript
 /**
  * REAL Cursor allowlist — generalist | read-only | local-commit | push | PR create | PR merge.
@@ -11646,11 +12630,9 @@ export function isM4AuthorizedCursorRealAgent(
 ```
 
 ---
-## 5b. CORR-01 untracked added tests — full content
+## 9. Untracked added tests — full content
 
-### U-01 `projects/sfia-studio/app/__tests__/oa/evidence-review/acceptanceCriterionAmbiguity.generic.d0.test.ts`
-- **Role:** restore generic invariant proofs previously coupled to deleted docs_write suites.
-- **Justification:** adaptation to existing generalist/mission primitives only; docs_write not restored.
+### U-01 `projects/sfia-studio/app/__tests__/oa/evidence-review/acceptanceCriterionAmbiguity.generic.d0.test.ts` **[CORR-01]**
 ```typescript
 // @vitest-environment node
 /**
@@ -11884,9 +12866,7 @@ describe("mission semantic — AMBIGUOUS and manual_review stay NOT_PROVEN", () 
 });
 ```
 
-### U-02 `projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCriteria.generic.d0.test.ts`
-- **Role:** restore generic invariant proofs previously coupled to deleted docs_write suites.
-- **Justification:** adaptation to existing generalist/mission primitives only; docs_write not restored.
+### U-02 `projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultCriteria.generic.d0.test.ts` **[CORR-01]**
 ```typescript
 /**
  * Generic Contract Result criteria parity.
@@ -12127,9 +13107,7 @@ describe("mission Result Semantic honours sealed acceptance criteria", () => {
 });
 ```
 
-### U-03 `projects/sfia-studio/app/__tests__/oa/evidence-review/missionResultContractResultSemantic.generic.d0.test.ts`
-- **Role:** restore generic invariant proofs previously coupled to deleted docs_write suites.
-- **Justification:** adaptation to existing generalist/mission primitives only; docs_write not restored.
+### U-03 `projects/sfia-studio/app/__tests__/oa/evidence-review/missionResultContractResultSemantic.generic.d0.test.ts` **[CORR-01]**
 ```typescript
 /**
  * Generic mission Result Semantic.
@@ -12558,9 +13536,345 @@ describe("generic mission Result Semantic", () => {
 });
 ```
 
-### U-04 `projects/sfia-studio/app/__tests__/project-assistant/postExecutionProductContinuity.generic.d0.test.ts`
-- **Role:** restore generic invariant proofs previously coupled to deleted docs_write suites.
-- **Justification:** adaptation to existing generalist/mission primitives only; docs_write not restored.
+### U-04 `projects/sfia-studio/app/__tests__/oa/execution-attempt/gitTargetIdentityRemoteFidelity.d0.test.ts` **[CORR-02]**
+```typescript
+/**
+ * CORR-A / CORR-B — identity ↔ remote fidelity and checkout origin fidelity.
+ * DET only. Fake .git/config. No network, no clone.
+ *
+ * @vitest-environment node
+ */
+import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  SEALED_GIT_TARGET_DEFAULT_BRANCH_ENV,
+  SEALED_GIT_TARGET_IDENTITY_ENV,
+  SEALED_GIT_TARGET_REMOTE_URL_ENV,
+  resolveSealedGitTargetFromEnv,
+} from "@/features/project-assistant/w2/resolveTrustedProductLaunchContext";
+import { sealRepositoryBindingFromExecutionInputs } from "@/lib/oa/execution-attempt/application/startExecution";
+import {
+  ManagedProjectRepositoryResolver,
+  guardedManagedRepoRootForProtectedGit,
+  resolveIdentityMatchedLocalRepo,
+  sanitizeManagedRepoIdentity,
+} from "@/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver";
+
+const IDENTITY = "acme/widget";
+const HTTPS_ORIGIN = `https://github.com/${IDENTITY}.git`;
+const SSH_ORIGIN = `git@github.com:${IDENTITY}.git`;
+
+const temps: string[] = [];
+
+afterEach(() => {
+  while (temps.length > 0) {
+    const dir = temps.pop();
+    if (dir) rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+function tempBase(): string {
+  const base = mkdtempSync(path.join(os.tmpdir(), "sfia-git-fidelity-"));
+  temps.push(base);
+  return base;
+}
+
+function writeDirCheckout(originUrl: string | null): {
+  base: string;
+  repoRoot: string;
+} {
+  const base = tempBase();
+  const repoRoot = path.join(base, sanitizeManagedRepoIdentity(IDENTITY));
+  const gitDir = path.join(repoRoot, ".git");
+  mkdirSync(gitDir, { recursive: true });
+  if (originUrl != null) {
+    writeFileSync(
+      path.join(gitDir, "config"),
+      `[core]\n\trepositoryformatversion = 0\n[remote "origin"]\n\turl = ${originUrl}\n`,
+      "utf8",
+    );
+  }
+  return { base, repoRoot };
+}
+
+function writeWorktreeCheckout(originUrl: string): {
+  base: string;
+  repoRoot: string;
+} {
+  const base = tempBase();
+  const repoRoot = path.join(base, sanitizeManagedRepoIdentity(IDENTITY));
+  mkdirSync(repoRoot, { recursive: true });
+  const mainGit = path.join(base, "main.git");
+  const wtGit = path.join(mainGit, "worktrees", "wt");
+  mkdirSync(wtGit, { recursive: true });
+  writeFileSync(
+    path.join(mainGit, "config"),
+    `[remote "origin"]\n\turl = ${originUrl}\n`,
+    "utf8",
+  );
+  writeFileSync(path.join(wtGit, "commondir"), "../..\n", "utf8");
+  writeFileSync(path.join(wtGit, "HEAD"), "ref: refs/heads/main\n", "utf8");
+  writeFileSync(path.join(repoRoot, ".git"), `gitdir: ${wtGit}\n`, "utf8");
+  return { base, repoRoot };
+}
+
+describe("git target identity ↔ remote fidelity", () => {
+  it("T1 HTTPS coherent accept, including synthesized remote when absent", () => {
+    const provided = resolveSealedGitTargetFromEnv({
+      [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+      [SEALED_GIT_TARGET_REMOTE_URL_ENV]: HTTPS_ORIGIN,
+      [SEALED_GIT_TARGET_DEFAULT_BRANCH_ENV]: "main",
+    });
+    expect(provided).toEqual({
+      identity: IDENTITY,
+      remoteUrl: HTTPS_ORIGIN,
+      defaultBranch: "main",
+    });
+
+    const synthesized = resolveSealedGitTargetFromEnv({
+      [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+    });
+    expect(synthesized).toEqual({
+      identity: IDENTITY,
+      remoteUrl: HTTPS_ORIGIN,
+      defaultBranch: "main",
+    });
+
+    const sealed = sealRepositoryBindingFromExecutionInputs({
+      identity: IDENTITY,
+      remoteUrl: HTTPS_ORIGIN,
+      defaultBranch: "main",
+      pathRoot: "docs",
+    });
+    expect(sealed.ok).toBe(true);
+    if (sealed.ok) {
+      expect(sealed.binding.remoteUrl).toBe(HTTPS_ORIGIN);
+      expect(sealed.binding.pathRoot).toBe("docs");
+    }
+
+    const synthesizedBinding = sealRepositoryBindingFromExecutionInputs({
+      identity: IDENTITY,
+    });
+    expect(synthesizedBinding.ok).toBe(true);
+    if (synthesizedBinding.ok) {
+      expect(synthesizedBinding.binding.remoteUrl).toBe(HTTPS_ORIGIN);
+    }
+  });
+
+  it("T2 SSH coherent accept", () => {
+    const sshScp = resolveSealedGitTargetFromEnv({
+      [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+      [SEALED_GIT_TARGET_REMOTE_URL_ENV]: SSH_ORIGIN,
+    });
+    expect(sshScp?.identity).toBe(IDENTITY);
+    expect(sshScp?.remoteUrl).toBe(SSH_ORIGIN);
+
+    const sshUrl = "ssh://git@github.com/acme/widget.git";
+    const sshProtocol = resolveSealedGitTargetFromEnv({
+      [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+      [SEALED_GIT_TARGET_REMOTE_URL_ENV]: sshUrl,
+    });
+    expect(sshProtocol?.remoteUrl).toBe(sshUrl);
+
+    const sealed = sealRepositoryBindingFromExecutionInputs({
+      identity: IDENTITY,
+      remoteUrl: SSH_ORIGIN,
+    });
+    expect(sealed.ok).toBe(true);
+    if (sealed.ok) expect(sealed.binding.remoteUrl).toBe(SSH_ORIGIN);
+  });
+
+  it("T3 owner/repo diverge refuse", () => {
+    expect(
+      resolveSealedGitTargetFromEnv({
+        [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+        [SEALED_GIT_TARGET_REMOTE_URL_ENV]: "https://github.com/other/repo.git",
+      }),
+    ).toBeNull();
+    expect(
+      resolveSealedGitTargetFromEnv({
+        [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+        [SEALED_GIT_TARGET_REMOTE_URL_ENV]: "git@github.com:acme/other.git",
+      }),
+    ).toBeNull();
+
+    const sealed = sealRepositoryBindingFromExecutionInputs({
+      identity: IDENTITY,
+      remoteUrl: "https://github.com/other/repo.git",
+    });
+    expect(sealed).toEqual({
+      ok: false,
+      code: "REAL_WORKSPACE_INVALID",
+      reason: "repository_remote_identity_mismatch",
+    });
+  });
+
+  it("T4 non-github host refuse", () => {
+    expect(
+      resolveSealedGitTargetFromEnv({
+        [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+        [SEALED_GIT_TARGET_REMOTE_URL_ENV]: "https://gitlab.com/acme/widget.git",
+      }),
+    ).toBeNull();
+    expect(
+      resolveSealedGitTargetFromEnv({
+        [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+        [SEALED_GIT_TARGET_REMOTE_URL_ENV]:
+          "https://github.com.evil.example/acme/widget.git",
+      }),
+    ).toBeNull();
+    expect(
+      resolveSealedGitTargetFromEnv({
+        [SEALED_GIT_TARGET_IDENTITY_ENV]: IDENTITY,
+        [SEALED_GIT_TARGET_REMOTE_URL_ENV]: "git@gitlab.com:acme/widget.git",
+      }),
+    ).toBeNull();
+    expect(
+      resolveSealedGitTargetFromEnv({
+        [SEALED_GIT_TARGET_IDENTITY_ENV]: "not a repo",
+        [SEALED_GIT_TARGET_REMOTE_URL_ENV]: HTTPS_ORIGIN,
+      }),
+    ).toBeNull();
+
+    const sealed = sealRepositoryBindingFromExecutionInputs({
+      identity: IDENTITY,
+      remoteUrl: "https://example.com/acme/widget.git",
+    });
+    expect(sealed).toEqual({
+      ok: false,
+      code: "REAL_WORKSPACE_INVALID",
+      reason: "repository_remote_identity_mismatch",
+    });
+  });
+
+  it("T5 checkout .git with wrong HTTPS origin is refused", () => {
+    const wrong = writeDirCheckout("https://github.com/other/repo.git");
+    const resolved = resolveIdentityMatchedLocalRepo({
+      identity: IDENTITY,
+      managedRootBase: wrong.base,
+    });
+    expect(resolved).toEqual({
+      ok: false,
+      reason: "managed_repo_identity_mismatch",
+    });
+
+    const missingOrigin = writeDirCheckout(null);
+    expect(
+      resolveIdentityMatchedLocalRepo({
+        identity: IDENTITY,
+        managedRootBase: missingOrigin.base,
+      }),
+    ).toEqual({
+      ok: false,
+      reason: "managed_repo_identity_mismatch",
+    });
+
+    const coherent = writeDirCheckout(HTTPS_ORIGIN);
+    const accepted = resolveIdentityMatchedLocalRepo({
+      identity: IDENTITY,
+      managedRootBase: coherent.base,
+    });
+    expect(accepted).toEqual({ ok: true, repoRoot: coherent.repoRoot });
+  });
+
+  it("T6 managed root absent → null", () => {
+    const base = tempBase();
+    const resolved = resolveIdentityMatchedLocalRepo({
+      identity: IDENTITY,
+      managedRootBase: base,
+    });
+    expect(resolved).toEqual({ ok: false, reason: "managed_repo_absent" });
+    expect(
+      new ManagedProjectRepositoryResolver().resolveIdentityMatchedLocalRepoRoot(
+        { identity: IDENTITY },
+        base,
+      ),
+    ).toBeNull();
+  });
+
+  it("T7 checkout .git with wrong SSH origin is refused", () => {
+    const wrong = writeDirCheckout("git@github.com:other/repo.git");
+    expect(
+      resolveIdentityMatchedLocalRepo({
+        identity: IDENTITY,
+        managedRootBase: wrong.base,
+      }),
+    ).toEqual({
+      ok: false,
+      reason: "managed_repo_identity_mismatch",
+    });
+
+    const coherent = writeDirCheckout(SSH_ORIGIN);
+    expect(
+      resolveIdentityMatchedLocalRepo({
+        identity: IDENTITY,
+        managedRootBase: coherent.base,
+      }),
+    ).toEqual({ ok: true, repoRoot: coherent.repoRoot });
+  });
+
+  it("T8 worktree .git file is accepted only when the resolved origin matches", () => {
+    const coherent = writeWorktreeCheckout(HTTPS_ORIGIN);
+    expect(
+      resolveIdentityMatchedLocalRepo({
+        identity: IDENTITY,
+        managedRootBase: coherent.base,
+      }),
+    ).toEqual({ ok: true, repoRoot: coherent.repoRoot });
+
+    const wrong = writeWorktreeCheckout("https://github.com/other/repo.git");
+    expect(
+      resolveIdentityMatchedLocalRepo({
+        identity: IDENTITY,
+        managedRootBase: wrong.base,
+      }),
+    ).toEqual({
+      ok: false,
+      reason: "managed_repo_identity_mismatch",
+    });
+  });
+
+  it("T9 protected path with insufficient checkout fails closed", () => {
+    const wrong = writeDirCheckout("https://gitlab.com/acme/widget.git");
+    const resolution = resolveIdentityMatchedLocalRepo({
+      identity: IDENTITY,
+      managedRootBase: wrong.base,
+    });
+    const guarded = guardedManagedRepoRootForProtectedGit({
+      protectedGitPending: true,
+      checked: true,
+      resolution,
+    });
+    expect(guarded).toEqual({
+      ok: false,
+      code: "REAL_WORKSPACE_INVALID",
+      reason: "managed_repo_identity_mismatch",
+    });
+
+    const absent = guardedManagedRepoRootForProtectedGit({
+      protectedGitPending: true,
+      checked: true,
+      resolution: { ok: false, reason: "managed_repo_absent" },
+    });
+    expect(absent).toEqual({
+      ok: false,
+      code: "REAL_WORKSPACE_INVALID",
+      reason: "managed_repo_absent",
+    });
+
+    const nonProtected = guardedManagedRepoRootForProtectedGit({
+      protectedGitPending: false,
+      checked: true,
+      resolution,
+    });
+    expect(nonProtected).toEqual({ ok: true });
+  });
+});
+```
+
+### U-05 `projects/sfia-studio/app/__tests__/project-assistant/postExecutionProductContinuity.generic.d0.test.ts` **[CORR-01]**
 ```typescript
 /**
  * Thin generic continuity from postExecutionProductContinuity.d0.test.ts.
@@ -12674,119 +13988,79 @@ describe("generic post-execution continuity — FAIL / STOP / UNCLAIMED", () => 
 ```
 
 ---
-## 6. Priority deleted tests — generic coverage matrix
-
-| Deleted test | Invariants | docs_write vs generic | Coverage now | Class |
-|---|---|---|---|---|
-| missionResultContractResultSemantic.d0.test.ts | Claim≠Fact; Attempt≠Product success; Evidence integrity | A5 docs_write-only; rest generic | `missionResultContractResultSemantic.generic.d0.test.ts` (12) + existing bridges | B (+A for A5) |
-| nativeExecutionLoopConvergence01.acceptanceAmbiguity.d0.test.ts | ambiguous≠PASS; NONE≠AMBIGUOUS; manual_review≠PASS | docs_write block A; resolver/mission generic | `acceptanceCriterionAmbiguity.generic.d0.test.ts` (4) + contractSemantics.d0 | B (+A docs_write) |
-| nativeExecutionLoopConvergence01.contractResultCriteria.d0.test.ts | unbound EO NOT_PROVEN; deterministic PASS; no leak | docs_write criteria A | `contractResultCriteria.generic.d0.test.ts` (4) | B (+A docs_write) |
-| nativeExecutionLoopConvergence01.sameMacroClosure.d0.test.ts | grounding currentness; normalize*Outcome; repositorySourcesFromProductFacts | docs_write criteria A | grounding B in contractSemantics; normalize helpers **KNOWN GAP** | C (+A) |
-| postExecutionProductContinuity.d0.test.ts | FAIL/STOP/UNCLAIMED wording; docs_write completion | docs_write harness A | thin `postExecutionProductContinuity.generic.d0.test.ts` (3); trajectory B elsewhere | A+B |
-| productJourneyPostExecutionReplan.d0.test.ts | rematerialize/requalify | docs_write heavy | not restored | A |
-| recoveryOwnership.prestartFailure.integration.d0.test.ts | prestart fail-closed | bounded_docs_write agent | generic `recoveryOwnership.prestartFailure.d0.test.ts` B; integration A | A (+B slice) |
-
-**D — generic regression observed:** none for re-proven invariants. Accepted reds remain on docs_write-expecting suites (§8).
-
-### KNOWN GAP (generic proofs missing; code may still implement)
-- `repositorySourcesFromProductFacts` / `normalizeCursorExecutionReportOutcome` / `normalizePreStartRejectionOutcome` / `normalizeBindingMismatchOutcome`
-- `isEvidenceBackedNotProvenUnclaimed` / `recommendationFromOutcome` UNCLAIMED-without-HD / `w3cPayloadMatchesCurrentProduct` claim/outcome drift
-
----
-## 7. repositoryBindingIdentity disposition
-
-| Question | Answer |
-|---|---|
-| Still used? | **YES** — EC inputs / mission subject / HD effects / eligibility |
-| Transports Git target? | **YES** — sealed `owner/repo` (+ remoteUrl/defaultBranch when present) |
-| Depends on Project.repositoryBinding? | **NO** |
-| Generic representation? | Sealed string on EC inputs; documentary WHERE = `projectWorkspaceKey` → `projects/<key>` |
-| Remove field without losing identity? | **Not without migration** |
-| Treatment | **KEEP residual field name**; CORR-01 stamps from server env `SFIA_STUDIO_PROJECT_REPOSITORY_*` when canonical via `resolveTrustedProductLaunchContext`; absent → null → Select fail-closed; never write onto Project; **no** NewRepositoryBinding |
-| activeCycleGovernedContinuation `repositoryBinding` | **RESIDUAL NAMING** — local `WorkspacePathRoot` with `identity: null` from workspace key |
-| Coverage | pjReproof05 + productGenericCursorCompletion **PASS** after seal fix |
-| Bounded debt | Env key names still say PROJECT_REPOSITORY_* while not Product SoT — PRR 05 documents seal-only use |
-
----
-## 8. Validations
+## 10. Tests & validations
 
 | Check | Result |
 |---|---|
-| `npm run typecheck` | **PASS** |
-| `npm run build` | **PASS** (eslint warnings on unused docs_write residual imports/stubs) |
-| PRR conformance | **PASS** |
-| CORR-01 generic tests (23) | **PASS** |
-| pjReproof05 + productGenericCursorCompletion (21) | **PASS** after seal fix |
-| O-01 / composition / preflight / create UI / greenfield / contractSemantics | **PASS** (75 in core batch) |
+| typecheck (post-build) | PASS |
+| build | PASS (unused-var warnings residual) |
+| gitTargetIdentityRemoteFidelity T1–T9 | 9 PASS |
+| gcecCont01ContinuationResolver (+T11/T12) | 30 PASS |
+| O-01 / composition / preflight / create UI | 37 PASS |
+| pjReproof05 + productGenericCursorCompletion | 21 PASS |
+| CORR-01 generics | 23 PASS |
+| Focused vitest batch | **120 PASS / 0 FAIL** |
+| PRR conformance | OK |
+| Accepted docs_write suite reds | KEPT (not restored) |
 
-### Accepted regressions (docs_write-expecting — Class A)
-- `liveManagedRepoComposition.d0.test.ts` — 3 FAIL
-- `contractResultSemanticsRegistry.d0.test.ts` — docs_write registry/assess FAIL
-- `m3ExecutionContractPrepare.test.ts` — CHECKPOINT-E docs_write prepare FAIL
-- Cause: docs_write Product admission retired; `isBoundedDocsWriteContract` / `isDocsWriteExecutionContract` return false
-- Decision: **KEEP** (do not restore docs_write)
-
-### Fake / Real
-- REAL **NOT AUTHORIZED** · G-REAL **NOT GRANTED** · G-ACTIVATION **NOT GRANTED** · H4 REAL **NOT QUALIFIED** · P6 GLOBAL **NOT PASSED** · runtime v3 **NON ADOPTED**
-- DET Fake PASS ≠ REAL-proven
+Fake/Real: REAL NOT AUTHORIZED · G-REAL NOT GRANTED · G-ACTIVATION NOT GRANTED · H4 NOT QUALIFIED · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED
 
 ---
-## 9. Residual reference classification
+## 11. Residual matrix (active Product)
 
-Admission tokens in active lib+features (`intentKind` docs_write / `cap:cursor.docs_write` / `cursor.docs_write.apply` / Create SoT `PROJECT_REPOSITORY_*` / `SetProjectRepositoryBinding`): **0**.
-
-| Pattern | Class |
+| Item | Class |
 |---|---|
-| `isBoundedDocsWriteContract` / `isDocsWriteExecutionContract` → false | RESIDUAL NAMING / DEAD specialization detector |
-| `repositoryBindingIdentity` on EC/subject | RESIDUAL FIELD / NAMING + ACTIVE DEPENDENCY (sealed git-target) |
-| `SFIA_STUDIO_PROJECT_REPOSITORY_*` in resolveTrustedProductLaunchContext | ACTIVE DEPENDENCY for EC seal only; NOT CreateProject SoT |
-| Legacy `*DocsWrite*` actions/comments/labels | HISTORICAL REFERENCE / residual CTA naming |
-| PRR/Roadmap/C1 LOCAL CANDIDATE | HISTORICAL + LOCAL CANDIDATE documentary |
-| docs_write-expecting tests still red | TEST-ONLY accepted FAIL |
+| Product admission docs_write / SetProjectRepositoryBinding / Create SoT | **ZERO** |
+| isDocsWriteExecutionContract / isBoundedDocsWriteContract stubs | **REMOVED** |
+| repositoryBindingIdentity | RESIDUAL FIELD + ACTIVE sealed git-target |
+| SFIA_STUDIO_PROJECT_REPOSITORY_* | ACTIVE seal-only env (not Create SoT) |
+| Historical Evidence source docs_write | HISTORICAL durable read allowlist only |
+| Legacy *DocsWrite* names in comments/CTA/tests | HISTORICAL / TEST-ONLY |
+| resolveRecoveryExecutionBinding null stub | DEAD/legacy surface kept null |
+| Local var repositoryBinding in activeCycleGovernedContinuation | RESIDUAL NAMING (identity null) |
 
-**Not claimed:** zero textual references overall.
-
----
-## 10. R23 / R24
-
-### R23
-- 4 generic evidence/continuity test files added
-- `resolveTrustedProductLaunchContext` sealed git-target from server env
-- PRR 02/04/05/06/08/09/README + manifest digests
-
-### R24
-- **04** CORR-01 NO SEMANTIC IMPACT beyond documented retirement
-- **06** CORR-01 NO SEMANTIC IMPACT on persistence/recovery
-- **05** env seal vs Create SoT clarification
-- **08** new generic proof map
-- **09** KNOWN GAPs + bindingIdentity disposition
-- **02** EC residual naming ≠ OBJ-REPO-BINDING
-- Roadmap LOCAL CANDIDATE / NOT ON MAIN · C1 D-PC-09 amendment · PR #617 = main `7db8afd7` · retirement **NOT** CURRENT ON MAIN
+**Not claimed:** zero textual string matches repo-wide.
 
 ---
-## 11. Risks / gates
+## 12. R24 / Roadmap / C1
 
-- Accepted docs_write suite reds; KNOWN GAP proofs §6; env rename debt
-- Gates NOT granted: READY FOR GIT INTEGRATION (awaits ChatGPT) · G-REAL · G-ACTIVATION · H4 · P6 GLOBAL
-
----
-## 12. Exit proof
-
-- Uncommitted Delivery WT on `feat/akg-m5-remove-repository-binding-docs-write` @ `7db8afd7` preserved
-- Review Pack FULL with inspectable diffs for all project M + full A/U content
-- Inventory exact; prior added(0) inconsistency corrected
-- Generic invariants re-proven or KNOWN GAP named
-- repositoryBindingIdentity disposition proven
+- PRR README + 02–09 + manifest digests synced; CONFORMANCE OK
+- 04/06/others updated for fidelity / Evidence historical-only / failure modes
+- Roadmap tip: CORR-02 local Git target fidelity on structural removal
+- C1 D-PC-09: **no rewrite** (NO SEMANTIC IMPACT additive needed)
+- Status: LOCAL CANDIDATE / NOT ON MAIN / NOT MERGED
 
 ---
-## 13. Verdict
+## 13. KNOWN GAP / risks / gates
 
-**CORRECTION PASS 01 — COMPLETE / READY FOR CHATGPT CRITICAL REVIEW**
+- FS→SHA supersession: historical docs_write Artifact Evidence only (no new generic materialization source)
+- Worktree layouts beyond supported gitdir/commondir hops refuse
+- Env key rename debt (PROJECT_REPOSITORY_* seal-only naming)
+- repositoryBindingIdentity residual naming (migration not done)
+- Gates NOT granted: project GI · G-REAL · G-ACTIVATION · H4 · P6 GLOBAL
 
-## 14. Next Morris decision
+---
+## 14. Exit proof
 
-After ChatGPT Critical Review of remote handoff: if dossier complete → Morris gate **Git Integration**. Do **not** self-declare READY FOR GIT INTEGRATION before that review.
+- Identity/remote coherent → accept; mismatch → refuse
+- Checkout origin must match sealed identity before protected Git
+- Evidence supersession not open to arbitrary execution_attempt:*
+- Dead Product specialization stubs removed
+- Structural removal preserved; O-01 without Git preserved
+- Review Pack FULL; L3 handoff follows
+
+---
+## 15. Verdict
+
+**CORR-02 — COMPLETE**
+**STRUCTURAL REMOVAL — LOCAL CANDIDATE**
+**GIT TARGET FIDELITY — VERIFIED AT DET SCOPE**
+**READY FOR CHATGPT CRITICAL REVIEW**
+
+## 16. Next Morris gate
+
+ChatGPT Critical Review → if OK, distinct Morris **Git Integration** GO. Do not self-declare RETIRED ON MAIN / READY FOR REAL / G-REAL / G-ACTIVATION / P6 GLOBAL / runtime v3 ADOPTED.
 
 ## ChatGPT instruction
 
-Read the remote handoff completely. Compare removal proofs to Git sources and generic guarantees. Do not require restoration of voluntarily removed capabilities. Qualify remaining regressions precisely; if complete, recommend Morris Git Integration gate.
+Read remote handoff completely. Verify CORR-02 closed G1–G4 without restoring RepositoryBinding/docs_write under another name. Confront proofs to code, tests, PRR. If satisfactory, recommend a distinct Morris Git Integration GO.
