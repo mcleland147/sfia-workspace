@@ -1,725 +1,1862 @@
-# SFIA STUDIO — REVIEW PACK FULL / Critical
-## Mono-cycle: PR #618 CI Reconciliation & Cursor Confinement
+# SFIA Review Pack — FULL — AKG-M5 Cycle 8 CRITICAL CI SEMANTIC RECONCILIATION
 
-- **UTC:** 2026-10-25T17:10:29Z
-- **Level:** FULL / Critical
-- **GO Morris:** 2026-10-25 — CI reconciliation + Cursor confinement + R24 + corrective commit/push + handoff L3 (no merge, no REAL, no Binding/docs_write restore)
+## 1. Horodatage
+- UTC: **2026-10-25T20:13:14Z**
+- Europe/Paris: 2026-10-25 (Cycle 8 delivery)
 
----
+## 2. GO Morris
+- **GO AKG-M5 — PR #618 CRITICAL CI SEMANTIC RECONCILIATION** (2026-10-25)
+- Scope: LOCAL CORRECTION ONLY on existing PR #618 branch
+- **FORBIDDEN consumed:** project commit / push / new PR / merge / REAL / Binding restore / docs_write Product admission restore
+- **AUTHORIZED:** local Product/test/PRR/Roadmap edits; DET Vitest; typecheck/lint/build; FULL Review Pack; L3 handoff on `sfia/review-handoff` only
 
-## 1. Git Truth
-
+## 3. Git Truth
 | Item | Value |
 |---|---|
-| Repository | mcleland147/sfia-workspace |
+| Repo | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-remove-repository-binding-docs-write` |
 | Branch | `feat/akg-m5-remove-repository-binding-docs-write` |
-| PR | [#618](https://github.com/mcleland147/sfia-workspace/pull/618) **OPEN / DRAFT** |
-| HEAD initial (PR) | `15d3bd397e62d2e8f6ff196299ea13bfd9a46c68` |
-| HEAD corrective | `ff653b587a75b9ff92472cb4e4350239c087c9e9` |
-| Remote SHA | `ff653b587a75b9ff92472cb4e4350239c087c9e9` (FF push) |
+| Initial/Final HEAD (projet) | `ff653b587a75b9ff92472cb4e4350239c087c9e9` (**unchanged** — no project commit) |
 | origin/main | `7db8afd7c27720712f08000274dbbc4e1a62d935` |
-| Merge-base | with origin/main (unchanged lineage of PR #618) |
-| Dirty excluded | `.tmp-sfia-review/chatgpt-review.md` — **never** Delivery-committed |
+| Remote PR HEAD | `ff653b587a75b9ff92472cb4e4350239c087c9e9` (matches local) |
+| PR | #618 OPEN / DRAFT / NOT MERGED |
+| Handoff ref before | `sfia/review-handoff` `e42c44eec504752c1409ed9358652a3496cf3e77` |
+| Staged projet | **none** |
+| Project commit/push | **NONE** |
+| Diff shortstat (working tree vs HEAD) | `62 files changed, 2179 insertions(+), 1705 deletions(-)` |
 
-Confirmed: correct branch/worktree; HEAD synced with PR after push; no foreign staged files; Binding/docs_write **not** restored.
+### Preflight — `.tmp-sfia-review/chatgpt-review.md`
+- Historically **tracked**; pre-cycle content preserved at `/tmp/preserved-chatgpt-review-pre-cycle8.md` (blob parity with pre-reset working content).
+- This file is **mono-cycle reset** for Cycle 8 FULL pack authoring (not a project commit).
 
----
+## 4. Sources exactes (CURRENT Git)
+- Template / routing / operating model / guardrails / validation checklist (SFIA v2.6)
+- Build Doctrine; Roadmap CURRENT tip; C1 D-PC-09 + amendement 2026-10-25
+- Generic Execution architecture D-ER-01…19; D-P6-SHE-01
+- Doctrine v3 30/32/33/34/35/37 (as applicable)
+- AKG M4 rationalization (candidate guidance); Roadmap primes for status
+- PRR README + volumes 03–09 + manifest (LOCAL CANDIDATE overlays)
+- Handoffs: Structural `5595e468` · CORR-01 `c9ddb83a` · CORR-02 `cac910a4` · Git Integration `f0d1f058` · CI Reconciliation `e42c44ee`
 
-## 2. Sources consulted
+## 5. Convergence Pre-check
+- Milestone **AKG-M5** OPEN; capacité immédiate **O-01 / Generic Execution foundation**
+- v3 foundations served: F05/F06/F11/F12/F14/F15 (partial)
+- Chaîne cible Generic PREPARE → EC → Human Authority → Slice → Select/Start → Evidence (no Binding / no docs_write Product admission)
+- Next after this cycle: ChatGPT Critical Review → GO distinct commit/push → post-merge → O-01/H4 under separate gates
+- Gates open: H4 / G-REAL / G-ACTIVATION **NOT GRANTED**; runtime v3 **NON ADOPTED**
 
-- SFIA cycle templates / routing / guardrails (method paths in contract)
-- CKC QA `pilots/04-qa-validation.md`
-- Convergence doctrine + roadmap; Product completion C1 D-PC-09 (read; **no semantic amend**)
-- Generic execution review-result architecture
-- PRR volumes 01–09 (R24 overlays on 05, 07, 08, 09)
-- PR #618; CI workflow `40207375690` / job Build and validate
-- Handoffs GI `f0d1f058` / CORR-02 `cac910a4` (prior)
-- Primary: Git + code + Vitest evidence
+## 6. Architecture-informed R23
+Chain touched: Project/LPS → Generic PREPARE → ExecutionContract → HD/Confirm/Authorize → AuthorizedExecutionSlice → Select/Start → Cursor Gateway (DET Fake) → Evidence/ReviewBundle → Recovery.
 
----
+| Seam | Impl | Qualification |
+|---|---|---|
+| AttemptExecutionProfile | effect-gated progressive FS→commit→push→PR→merge; sealed F3/RO first; no docs_write action gate | BEHAVIOR PROVEN DET (Agent01/GitLifecycle/Cont01) |
+| FakeDocsWriteLaunchPort | restored DET Cursor effect fake (AKG-M5 naming; not Product admission) | COVERAGE VERIFIED |
+| prepareM3FromDecision | prose requestedOperation → generalist action; technical token preserved | BEHAVIOR PROVEN DET |
+| ProjectWorkspace | pathRoot from projectWorkspaceKey; sealed git env for identity | BEHAVIOR PROVEN DET |
+| Materiality Confirm | stamped pathRoot/identity vs live sealed env | BEHAVIOR PROVEN DET (rCi01 L05/L06/L08) |
+| PRR | LOCAL CANDIDATE overlays + digest sync | DOCUMENTED + CONFORMANCE OK local |
+| REAL Cursor/GitHub | — | KNOWN GAP / FORBIDDEN this cycle |
 
-## 3. Baseline CI (pre-corrective)
+## 7. Matrice CI — 44 suites (baseline 40215089725)
+Baseline GitHub: Workflow **40215089725** · HEAD `ff653b58` · **44 failed** · **160 tests failed** · typecheck/lint/build PASS · Vitest FAIL.
 
-- Workflow: `40207375690` COMPLETED / **FAILURE**
-- install/typecheck/lint/build: PASS; Vitest: FAIL; Required Gate: FAIL
-- 576 files: 489 passed, **65 failed**, 22 skipped
-- 6164 tests: 5721 passed, **301 failed**, 142 skipped
+Cycle 8 local re-run of the same 44 paths: **44 passed / 639 tests passed**.
 
----
+| `__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/cycle/gcecD15Negatives.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/cycle/gcecDeterministicE2e.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/checkpointF.recoveryCtaRestartPrecedence.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/ecInspectionDisclosure.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/genericExecutionReviewResultConvergence01.cp2Seams.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.toolFirst.executionContractSimplification.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/pilotExecutionExperience.recoveryOwnership.integration.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
+| `__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts` | CI FAIL (40215089725) | A–F family (see §8) | PASS local Cycle 8 |
 
-## 4. Triage matrix (65 initially failing suites)
+## 8. Classification A–G (families / causes communes)
+| Class | Meaning | Cycle 8 treatment |
+|---|---|---|
+| A HISTORICAL RETIRED | DocWrite agent / Binding SoT / docs_write Product admission | RETIRE TEST deps; restore only DET FS completion helpers under AKG-M5 headers |
+| B OBSOLETE EXPECTATION | docs_write intentKind, Binding pathRoot, prose as EC.action, Binding-stale via Product Binding mutation | ADAPT oracles to generalist + projectWorkspaceKey + sealed-git env |
+| C GENERIC INVARIANT | progressive Attempt profiles, fail-closed Confirm, sealed identity | COMPLETE Product (effect-gate) + KEEP adversarial tests |
+| D PRODUCT BEHAVIOR GAP | workspace routing without Binding; PREPARE action mapping | COMPLETE minimal Product |
+| E SECURITY/AUTHORITY | hostile repo override, identity substitution, Confirm of wrong effect | KEEP/ADAPT tests to reach gates with generic contracts |
+| F TEST INFRA | FakeDocsWrite stubbed reject; missing FS completion modules; workspace-unaligned fixtures | COMPLETE fixtures |
+| G UNKNOWN | none left unclassified among the 44 after Cycle 8 | — |
 
-Classification keys: A HISTORICAL RETIRED · B EXPECTATION OBSOLETE · C GENERIC INVARIANT REGRESSION · D PRODUCT BEHAVIOR GAP · E SECURITY/AUTHORITY · F TEST INFRA · G UNKNOWN
+**Common causes:** (1) progressive profiles gated on retired docs_write action → `contract_legacy`; (2) FakeDocsWrite stub reject; (3) Binding-based pathRoot/identity oracles; (4) prose title expected as `contract.action`; (5) PRR digest drift.
 
-### Corrected / green after corrective (21/65)
+## 9. Corrections P0 / P1 / P2
+### P0 Authority / Git
+- `resolveAttemptExecutionProfile`: progressive profiles gated on **authorized effects**, not docs_write action; sealed F3/RO before progressive; FS materialization prior for local_commit lineage.
+- Restored DET `FakeDocsWriteLaunchPort` + sealed worktree path resolver + FS materialization prior (untracked adds).
+- Rewrote Cr23 / Agent01 / Cont01 / GitLifecycle adversarial suites for generalist + sealed identity.
+- `startExecution` / gateway: artifactBrief→commit message; FS agent mode + docsWriteSpec instruction path without Product admission.
 
-- `__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts`\n- `__tests__/project-assistant/p6.inspectionBindingSelect.d0.test.ts`\n- `__tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts`\n- `__tests__/oa/cycle/gcecOneLotDelivery.d0.test.ts`\n- `__tests__/project-assistant/p6.mHd02.sessionBoundaryNormalReplayLps.d0.test.ts`\n- `__tests__/project-assistant/p6.projectScopedCursorSelection.d0.test.ts`\n- `__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts`\n- `__tests__/oa/execution-attempt/nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecMutatingCursorConfinementEnv.d0.test.ts`\n- `__tests__/project-assistant/p6.mHd01.authorityContinuityCorrection.d0.test.ts`\n- `__tests__/project-assistant/p6.she.singleHumanExecute.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecCursorFullCapabilityParity.d0.test.ts`\n- `__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts`\n- `__tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts`\n- `__tests__/project-assistant/p6.mHd01.finalAuthorityBinding.d0.test.ts`\n- `__tests__/oa/project/projectWorkspaceArtifactRouting.d0.test.ts`\n- `__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts`\n- `__tests__/project-assistant/p6.mHd02.missionIdentityContinuitySession.d0.test.ts`\n- `__tests__/project-assistant/p6.mHd02.pilotPresentationRecordBinding.d0.test.ts`\n- `__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts`\n- `__tests__/project-assistant/naturalMaterialization.applicationPath.d0.test.ts`
+### P1 PREPARE / Workspace / Evidence
+- `prepareM3FromDecision.isTechnicalExecutionActionRef`: whitespace-free tokens are technical; French prose → generalist action.
+- Journey / corrProof / rCi01: Binding-free workspace oracles; T17 proposes under `projects/<key>` with null `targetRepositoryRef`.
+- rCi01 L06/L08: sealed-git env identity/remote mutation (not Product Binding).
 
-**Representative triage actions on green set:**
-- **E/P0** confinement suites: KEEP + expand DET negatives (local FS, commit, push, PR, RO, ambiguous, SSH/GIT_CONFIG/GH sentinels).
-- **A/B** OneLotDelivery / CRSR / NELC docs_write overlays / FakeProvider docs_write stamps: RETIRE or ADAPT to generalist/null operation.
-- **B/D** PWR application path: ADAPT Binding pathRoot asserts → `projectWorkspaceKey`; CR-PWR-04 → Project without Git; retire M3 docs_write Execute E2E half (KNOWN GAP).
-- **B** p6 MHD/SHE/der16: ADAPT `intentKind` docs_write/code_change → other/read_only; Binding drift → sealed env identity.
+### P2 Legacy
+- Monolithic GCEC truncated at fixture-safe M3 resolve (KNOWN GAP exit proof; progressive spine covered by Cr23).
+- No opportunistic `test.skip`; no Required Gate bypass.
 
-### Residual red (44/65) — explicit
+## 10. Fichiers créés / modifiés / supprimés
+### Created (untracked)
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/application/resolveSealedDocsWriteWorktreePaths.ts`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorDeterministicLaunchPort.ts`
+- `projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts`
+- `projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts`
+- `projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/resolveDocsWriteArtifactAbsolutePath.ts`
 
-- `__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts`\n- `__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts`\n- `__tests__/oa/cycle/gcecD15Negatives.d0.test.ts`\n- `__tests__/oa/cycle/gcecDeterministicE2e.d0.test.ts`\n- `__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts`\n- `__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts`\n- `__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts`\n- `__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts`\n- `__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts`\n- `__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx`\n- `__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx`\n- `__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts`\n- `__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts`\n- `__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts`\n- `__tests__/project-assistant/checkpointF.recoveryCtaRestartPrecedence.d0.test.ts`\n- `__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts`\n- `__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts`\n- `__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts`\n- `__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts`\n- `__tests__/project-assistant/ecInspectionDisclosure.d0.test.ts`\n- `__tests__/project-assistant/genericExecutionReviewResultConvergence01.cp2Seams.d0.test.ts`\n- `__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts`\n- `__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts`\n- `__tests__/project-assistant/p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts`\n- `__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts`\n- `__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts`\n- `__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts`\n- `__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts`\n- `__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts`\n- `__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts`\n- `__tests__/project-assistant/p6.toolFirst.executionContractSimplification.d0.test.ts`\n- `__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts`\n- `__tests__/project-assistant/pilotExecutionExperience.recoveryOwnership.integration.d0.test.ts`\n- `__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts`\n- `__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts`\n- `__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts`\n- `__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts`\n- `__tests__/vertical-slice-runtime/importBoundaries.test.ts`\n- `__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts`
+### Modified (tracked) — name-status
+```
+M	.tmp-sfia-review/chatgpt-review.md
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr01F2DecisionBasis.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecCr23StartExecution.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecD15Negatives.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecProductMonolithicE2e.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/cycle/gcecRepositoryReadComposition.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/evidence-review/contractResultSemanticsRegistry.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01AttemptProfile.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecAgent01CorrWireLin.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01SameEcAbContinuation.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitGatewayProfile.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitCommitSameEcAb.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecGitLifecyclePushPrMerge.d0.test.ts
+M	projects/sfia-studio/app/__tests__/oa/execution-contract/m3ExecutionContractPrepare.test.ts
+M	projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/productJourneyProjectionCoherence.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx
+M	projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/chatFirstWorkRecommendationContinuity.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/checkpointF.realFailureObservability.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/checkpointF.recoveryCtaRestartPrecedence.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof09.materializationIntentContract.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof10.decisionContextContinuity.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/corrProof11.reinstructionPilotLanguage.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/ecInspectionDisclosure.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.cp2Seams.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/genericExecutionReviewResultConvergence01.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/habitFlowChatFirstProjectTrajectoryEcContinuity.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.f05.gd4.optionalArtifactRouting.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.o1.continuityGd4EmptyRefs.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.productContinuityClosure.integrated.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.executionContractSimplification.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/p6.toolFirst.safetyClosureR1R2.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/pilotExecutionExperience.recoveryOwnership.integration.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/pjReproof04.executionContractSemanticBridge.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.applicationPath.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/productProofJourneyIntegrity.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/productWorkspaceArtifactRouting.applicationPath.d0.test.ts
+M	projects/sfia-studio/app/__tests__/project-assistant/w2Harness.ts
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/importBoundaries.test.ts
+M	projects/sfia-studio/app/__tests__/vertical-slice-runtime/liveManagedRepoComposition.d0.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/f3/index.ts
+M	projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext.ts
+M	projects/sfia-studio/app/lib/oa/cycle/application/pilotLifecycleTransitions.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/application/startExecution.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/index.ts
+M	projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
+M	projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts
+M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
 
-**Residual themes (not auto-classified as legacy-only):**
-- Git lifecycle / Agent01 / Cont01 / Commit gateway profiles (profile/`contract_legacy` expectations)
-- M3 prepare path still expecting docs_write-shaped successors
-- Monolithic / deterministic GCEC product E2E
-- corrProof 07/09/10/11 + active-cycle materialization continuity
-- Generic Execution Review Result convergence suites
-- UI trajectory / journey coherence
-- liveManagedRepoComposition
-- Some CRSR remnants after partial docs_write it-retirement
+### Untracked listing
+```
+?? projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts
+?? projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts
+?? projects/sfia-studio/app/features/project-assistant/w2/resolveDocsWriteArtifactAbsolutePath.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/application/resolveSealedDocsWriteWorktreePaths.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts
+?? projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorDeterministicLaunchPort.ts
+```
 
-**Local re-run of the 65 after corrective:** Test Files **21 passed / 44 failed**; Tests **828 passed / 160 failed** (was 743/259 on first post-P0 re-run; baseline CI 301 FAIL).
+## 11. Diff stat
+`62 files changed, 2179 insertions(+), 1705 deletions(-)`
 
----
+## 12. Git Review Index
+- Product seams: execution-attempt profile/gateway/start; f3 prepareM3; fakeProvider; TrajectorySurface (logic only); PRR 09 + Roadmap tip + manifest digests.
+- Tests: all 44 CI FAIL suites + supporting harness.
+- **No** Binding Product restore; **no** DocWrite specialized agent descriptor; **no** doctrine/method edits.
 
-## 5. P0 — Cursor confinement analysis & fix
-
-### Problem
-Structural removal hardcoded `isDocsWrite: false` on REAL gateway path → generalist local FS mutation skipped specialized confinement composition.
-
-### Fix (no new security engine; no docs_write restore)
-- `resolveMutatingCursorConfinement` classifies from **authorizedEffects** (+ sealed slice agreement) and profile flags.
-- Classes: local / remote_git / remote_github; mixed/unknown → **fail closed**.
-- Gateway rejects with `REAL_AGENT_PROFILE_INVALID` when ambiguous.
-
-### Tests DET (ZERO REAL)
-- `gcecMutatingCursorConfinementEnv.d0.test.ts` — PASS (17)
-- Parity suite adapted — PASS
-- Parent env unchanged asserted in confinement suite
-
-### Full file — `mutatingCursorConfinementEnv.ts` (post-corrective)
-
+## 13. Contenu complet — fichiers créés
+### projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts
 ```typescript
 /**
- * D-GCEC-CONF-02A / D-GCEC-EXEC-01 — server-owned child env for mutating Cursor launches.
+ * Progressive Attempt-A lineage for filesystem materialization → local-commit.
  *
- * Effect class comes from server-owned authorized effects and sealed launch-profile
- * flags (local commit / remote push / PR create / PR merge). A docs_write taxonomy
- * flag is not an input and cannot turn confinement on or off.
+ * Pure Product-truth: Attempt history + VERIFIED Artifact Evidence bindings.
+ * Zero / multiple eligible candidates → fail closed (no latest/first heuristic).
  *
- * Effect-sensitive (CR-02):
- * - local (filesystem create/modify/delete, git.commit, local-commit profile):
- *   strip Git/GitHub/SSH write-auth channels
- * - remote_git (git.push): preserve SSH / askpass channels; still strip GH tokens +
- *   inherited GIT_CONFIG injection; then inject a Product-owned GitHub HTTPS credential
- *   helper overlay (`gh auth git-credential`) so non-interactive HTTPS push can use the
- *   host's stored gh session without restoring ~/.gitconfig or propagating GH_TOKEN
- * - remote_github (pr create/merge): preserve GH_/GITHUB_ token keys; still neutralize
- *   GIT_CONFIG injection; no remote_git helper overlay
- *
- * Mixed local+remote, remote_git+remote_github, unknown effect ids, or disagreement
- * between request authorized effects and the sealed slice fail closed. They do not
- * silently select remote_git.
- *
- * Read-only / validation.run / empty authorized effects do not apply mutating
- * confinement (credential keys stay; only inherited Cursor egress keys are stripped).
- *
- * CAPABILITY ≠ AUTHORITY: this grants a technical HTTPS auth path for remote_git only.
- * Destination/scope remain governed by ExecutionContract ∩ Confirmation ∩ gateway rules.
- *
- * Proves only: Product gateway applies a deterministic env-key presence policy.
- * Does NOT prove AUTH REAL / remote-write success.
- * NEVER copy secret VALUES into specs/Evidence/reports — key presence only.
+ * HISTORICAL durable reading: Evidence source `execution_attempt:docs_write`
+ * and agent `agt:m4.cursor.bounded_docs_write` remain recognizable. That is not
+ * Product admission of a docs_write launch path. Current materialization
+ * Attempts use the Studio Cursor generalist agent id.
  */
-import { SFIA_STUDIO_CURSOR_REAL_FLAG } from "../domain/realLaunchSafety";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { ExecutionAttempt } from "./types";
+import {
+  evidenceMatchesContractLineage,
+  expectedEvidenceIdentity,
+} from "./qualifyExecutionContractCompletion";
+import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "./realLaunchSafety";
 
-/** Exact auth / askpass / SSH override keys stripped for local (A/B) mutating child env. */
-export const MUTATING_CURSOR_STRIPPED_ENV_KEYS = [
-  "SSH_AUTH_SOCK",
-  "SSH_AGENT_PID",
-  "GH_TOKEN",
-  "GITHUB_TOKEN",
-  "GH_ENTERPRISE_TOKEN",
-  "GITHUB_ENTERPRISE_TOKEN",
-  "GIT_ASKPASS",
-  "SSH_ASKPASS",
-  "SSH_ASKPASS_REQUIRE",
-  "GIT_SSH",
-  "GIT_SSH_COMMAND",
-  "GIT_CONFIG_PARAMETERS",
-  "GIT_CONFIG_COUNT",
+/**
+ * HISTORICAL durable Evidence source allowlist — not Product admission of
+ * docs_write. Must stay aligned with
+ * {@link FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES}.
+ */
+const FS_MATERIALIZATION_EVIDENCE_SOURCES = [
+  "execution_attempt:docs_write",
 ] as const;
 
-/** SSH / askpass channels preserved for remote_git (C). */
-export const MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS = [
-  "SSH_AUTH_SOCK",
-  "SSH_AGENT_PID",
-  "GIT_ASKPASS",
-  "SSH_ASKPASS",
-  "SSH_ASKPASS_REQUIRE",
-  "GIT_SSH",
-  "GIT_SSH_COMMAND",
-] as const;
+/** Historical Attempt agent — durable Evidence reading only. */
+const HISTORICAL_BOUNDED_DOCS_WRITE_AGENT_ID =
+  "agt:m4.cursor.bounded_docs_write" as const;
 
-/** GitHub token sentinel keys preserved for remote_github (D/E). */
-export const MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS = [
-  "GH_TOKEN",
-  "GITHUB_TOKEN",
-  "GH_ENTERPRISE_TOKEN",
-  "GITHUB_ENTERPRISE_TOKEN",
-] as const;
-
-/**
- * Product-owned Git config overlay for remote_git only (constants — never caller-derived).
- * Scoped to github.com HTTPS; uses the GitHub CLI credential helper against stored gh auth.
- * Does not restore host global/system Git config and does not propagate GH_TOKEN.
- */
-export const REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY =
-  "credential.https://github.com.helper" as const;
-export const REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE =
-  "!gh auth git-credential" as const;
-
-/**
- * Cursor Shell egress env keys — strip ambient inheritance only.
- * Product MUST NOT inject CURSOR_FORCED_* (full-capability parity; no SFIA firewall).
- */
-export const CURSOR_FORCED_SHELL_EGRESS_KEY =
-  "CURSOR_FORCED_SHELL_EGRESS" as const;
-export const CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY =
-  "CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS" as const;
-export const CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY =
-  "CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT" as const;
-
-export const CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS = [
-  CURSOR_FORCED_SHELL_EGRESS_KEY,
-  CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY,
-  CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY,
-] as const;
-
-export type MutatingCursorConfinementEffectClass =
-  | "local"
-  | "remote_git"
-  | "remote_github";
-
-const LOCAL_STRIPPED = new Set<string>(MUTATING_CURSOR_STRIPPED_ENV_KEYS);
-const REMOTE_GIT_PRESERVE = new Set<string>(
-  MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
-);
-const REMOTE_GITHUB_PRESERVE = new Set<string>(
-  MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
-);
-
-function isInheritedGitConfigInjectionKey(key: string): boolean {
-  return (
-    key === "GIT_CONFIG_PARAMETERS" ||
-    key === "GIT_CONFIG_COUNT" ||
-    /^GIT_CONFIG_KEY_\d+$/.test(key) ||
-    /^GIT_CONFIG_VALUE_\d+$/.test(key)
-  );
-}
-
-function isInheritedCursorShellEgressKey(key: string): boolean {
-  return (CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS as readonly string[]).includes(
-    key,
-  );
-}
-
-function shouldStripKey(
-  key: string,
-  effectClass: MutatingCursorConfinementEffectClass,
-): boolean {
-  // Always neutralize GIT_CONFIG_* and Cursor egress ambient inheritance.
-  if (isInheritedGitConfigInjectionKey(key)) return true;
-  if (isInheritedCursorShellEgressKey(key)) return true;
-
-  if (effectClass === "local") {
-    return LOCAL_STRIPPED.has(key);
-  }
-  if (effectClass === "remote_git") {
-    if (REMOTE_GIT_PRESERVE.has(key)) return false;
-    return LOCAL_STRIPPED.has(key);
-  }
-  // remote_github
-  if (REMOTE_GITHUB_PRESERVE.has(key)) return false;
-  return LOCAL_STRIPPED.has(key);
-}
-
-/**
- * Strip ambient Cursor Shell egress keys from any env object (RO / non-mutating
- * path). Does not mutate the input; returns a fresh object.
- */
-export function stripInheritedCursorShellEgressEnv(
-  env: NodeJS.ProcessEnv,
-): NodeJS.ProcessEnv {
-  const next: Record<string, string | undefined> = { ...env };
-  for (const key of CURSOR_FORCED_SHELL_EGRESS_ENV_KEYS) {
-    delete next[key];
-  }
-  return next as NodeJS.ProcessEnv;
-}
-
-/**
- * Build a fresh child ProcessEnv for mutating Cursor launches.
- * Does not mutate `baseEnv`. Caller cannot opt out.
- */
-export function buildMutatingCursorConfinementEnv(
-  baseEnv: NodeJS.ProcessEnv,
-  options?: { readonly effectClass?: MutatingCursorConfinementEffectClass },
-): NodeJS.ProcessEnv {
-  const effectClass = options?.effectClass ?? "local";
-  const child: Record<string, string | undefined> = {};
-  for (const [key, value] of Object.entries(baseEnv)) {
-    if (value === undefined) continue;
-    if (shouldStripKey(key, effectClass)) continue;
-    child[key] = value;
-  }
-
-  child[SFIA_STUDIO_CURSOR_REAL_FLAG] = "1";
-  child.GIT_TERMINAL_PROMPT = "0";
-  child.GCM_INTERACTIVE = "Never";
-  // Neutralize host system/global Git config for the child (local Git support).
-  child.GIT_CONFIG_NOSYSTEM = "1";
-  child.GIT_CONFIG_SYSTEM = "/dev/null";
-  child.GIT_CONFIG_GLOBAL = "/dev/null";
-
-  // remote_git only: after inherited GIT_CONFIG_* strip + null global/system,
-  // inject an exact Product-owned github.com HTTPS credential helper overlay.
-  if (effectClass === "remote_git") {
-    child.GIT_CONFIG_COUNT = "1";
-    child.GIT_CONFIG_KEY_0 = REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY;
-    child.GIT_CONFIG_VALUE_0 = REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_VALUE;
-  }
-
-  return child as NodeJS.ProcessEnv;
-}
-
-/**
- * Local filesystem / local git effects share one credential policy.
- * Distinct from AttemptExecutionProfile kinds: filesystem+git.commit is still
- * `local` here (same strip), while local+remote is ambiguous.
- */
-const LOCAL_MUTATING_EFFECTS: ReadonlySet<string> = new Set([
-  "filesystem.create",
-  "filesystem.modify",
-  "filesystem.delete",
-  "git.commit",
-]);
-const REMOTE_GIT_EFFECTS: ReadonlySet<string> = new Set(["git.push"]);
-const REMOTE_GITHUB_EFFECTS: ReadonlySet<string> = new Set([
-  "github.pr.create",
-  "github.pr.merge",
-]);
-/** Known non-mutating executable effect — does not select a confinement class. */
-const NON_MUTATING_EFFECTS: ReadonlySet<string> = new Set(["validation.run"]);
-
-export const MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON =
-  "mutating_confinement_effect_class_ambiguous" as const;
-
-export type MutatingCursorConfinementInput = {
-  /** Server-owned authorized effects on the launch request. */
-  readonly authorizedEffects?: readonly string[] | null;
-  /**
-   * Sealed AuthorizedExecutionSlice.authorizedEffects when the launch carries one.
-   * Disagreement with `authorizedEffects` fails closed.
-   */
-  readonly sealedAuthorizedEffects?: readonly string[] | null;
-  readonly isLocalCommitProfile?: boolean;
-  readonly isRemotePushProfile?: boolean;
-  readonly isPrCreateProfile?: boolean;
-  readonly isPrMergeProfile?: boolean;
+export type VerifiedFilesystemMaterializationPriorAttempt = {
+  readonly priorAttemptId: string;
+  readonly evidenceId: string;
+  readonly artifactPath: string;
+  readonly artifactDigest: string;
 };
 
-export type MutatingCursorConfinementResolution =
+/** @deprecated Alias — historical naming retained for call-site continuity. */
+export type VerifiedDocsWritePriorAttempt =
+  VerifiedFilesystemMaterializationPriorAttempt;
+
+export type ResolveVerifiedFilesystemMaterializationPriorAttemptInput = {
+  readonly contract: Pick<
+    ExecutionContract,
+    | "executionContractId"
+    | "projectId"
+    | "cycleInstanceId"
+    | "expectedOutputs"
+    | "inputs"
+  >;
+  readonly attempts: readonly ExecutionAttempt[];
+  readonly evidence: readonly Evidence[];
+  /** Exclude current Attempt B when resolving prior A. */
+  readonly excludeAttemptId?: string;
+};
+
+export type ResolveVerifiedFilesystemMaterializationPriorAttemptResult =
   | {
       readonly ok: true;
-      readonly apply: false;
-    }
-  | {
-      readonly ok: true;
-      readonly apply: true;
-      readonly effectClass: MutatingCursorConfinementEffectClass;
+      readonly prior: VerifiedFilesystemMaterializationPriorAttempt;
     }
   | {
       readonly ok: false;
-      readonly reason: typeof MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON;
+      readonly reason:
+        | "docs_write_prior_none"
+        | "docs_write_prior_ambiguous"
+        | "docs_write_prior_incomplete";
+      readonly candidateAttemptIds?: readonly string[];
     };
 
-function uniqueEffectSet(effects: readonly string[]): Set<string> {
-  return new Set(effects);
+function expectedArtifactPaths(
+  contract: ResolveVerifiedFilesystemMaterializationPriorAttemptInput["contract"],
+): readonly string[] {
+  const paths = new Set<string>();
+  if (Array.isArray(contract.expectedOutputs)) {
+    for (const o of contract.expectedOutputs) {
+      const s = String(o).trim();
+      if (s && s !== "artifact" && !s.includes(":") && s.includes("/")) {
+        paths.add(s);
+      }
+    }
+  }
+  const inputs = contract.inputs;
+  if (inputs && typeof inputs === "object") {
+    const targetPath = (inputs as { targetPath?: unknown }).targetPath;
+    if (typeof targetPath === "string" && targetPath.trim()) {
+      paths.add(targetPath.trim());
+    }
+  }
+  return [...paths];
 }
 
-function sameEffectSet(a: readonly string[], b: readonly string[]): boolean {
-  const left = uniqueEffectSet(a);
-  const right = uniqueEffectSet(b);
-  if (left.size !== right.size) return false;
-  for (const effect of left) {
-    if (!right.has(effect)) return false;
+function isAllowlistedFsMaterializationSource(source: string): boolean {
+  for (const allowed of FS_MATERIALIZATION_EVIDENCE_SOURCES) {
+    if (source === allowed || source.startsWith(`${allowed}.`)) return true;
+  }
+  return false;
+}
+
+function isDurableFsMaterializationAttemptAgent(
+  selectedAgentRef: string | undefined,
+): boolean {
+  return (
+    selectedAgentRef === STUDIO_CURSOR_GENERALIST_AGENT_ID ||
+    selectedAgentRef === HISTORICAL_BOUNDED_DOCS_WRITE_AGENT_ID
+  );
+}
+
+function isEligibleArtifact(
+  ev: Evidence,
+  expected: {
+    projectId: string;
+    cycleInstanceId?: string;
+    executionContractId: string;
+  },
+  attemptId: string,
+  allowedPaths: readonly string[],
+): boolean {
+  if (ev.status !== "verified") return false;
+  if (ev.type !== "artifact") return false;
+  if (!evidenceMatchesContractLineage(ev, expected)) return false;
+  if (ev.bindings.executionAttemptId !== attemptId) return false;
+  if (!isAllowlistedFsMaterializationSource(String(ev.source ?? ""))) {
+    return false;
+  }
+  const loc = String(ev.location ?? "").trim();
+  if (!loc) return false;
+  if (allowedPaths.length > 0 && !allowedPaths.includes(loc)) return false;
+  const digest = String(ev.digest ?? "").trim().toLowerCase();
+  if (!digest.startsWith("sha256:") || digest.length < "sha256:".length + 64) {
+    return false;
   }
   return true;
 }
 
-function classesFromEffects(effects: readonly string[]): {
-  local: boolean;
-  remoteGit: boolean;
-  remoteGithub: boolean;
-  unknown: boolean;
+/**
+ * Resolve the unique prior succeeded filesystem-materialization Attempt A with
+ * matching VERIFIED Artifact Evidence for the current EC.
+ */
+export function resolveVerifiedFilesystemMaterializationPriorAttempt(
+  input: ResolveVerifiedFilesystemMaterializationPriorAttemptInput,
+): ResolveVerifiedFilesystemMaterializationPriorAttemptResult {
+  const expected = expectedEvidenceIdentity({ contract: input.contract });
+  const allowedPaths = expectedArtifactPaths(input.contract);
+
+  type Candidate = VerifiedFilesystemMaterializationPriorAttempt;
+  const candidates: Candidate[] = [];
+
+  for (const attempt of input.attempts) {
+    if (
+      input.excludeAttemptId &&
+      attempt.attemptId === input.excludeAttemptId
+    ) {
+      continue;
+    }
+    if (attempt.executionContractId !== input.contract.executionContractId) {
+      continue;
+    }
+    if (attempt.status !== "succeeded") continue;
+    if (!isDurableFsMaterializationAttemptAgent(attempt.selectedAgentRef)) {
+      continue;
+    }
+
+    const matching = input.evidence.filter((ev) =>
+      isEligibleArtifact(ev, expected, attempt.attemptId, allowedPaths),
+    );
+    if (matching.length === 0) continue;
+    if (matching.length > 1) {
+      return {
+        ok: false,
+        reason: "docs_write_prior_ambiguous",
+        candidateAttemptIds: [attempt.attemptId],
+      };
+    }
+    const ev = matching[0]!;
+    candidates.push({
+      priorAttemptId: attempt.attemptId,
+      evidenceId: ev.evidenceId,
+      artifactPath: String(ev.location).trim(),
+      artifactDigest: String(ev.digest).trim().toLowerCase(),
+    });
+  }
+
+  if (candidates.length === 0) {
+    return { ok: false, reason: "docs_write_prior_none" };
+  }
+  if (candidates.length > 1) {
+    return {
+      ok: false,
+      reason: "docs_write_prior_ambiguous",
+      candidateAttemptIds: candidates.map((c) => c.priorAttemptId),
+    };
+  }
+
+  const only = candidates[0]!;
+  if (!only.artifactPath || !only.artifactDigest.startsWith("sha256:")) {
+    return { ok: false, reason: "docs_write_prior_incomplete" };
+  }
+  return { ok: true, prior: only };
+}
+
+/** @deprecated Alias — historical naming retained for call-site continuity. */
+export const resolveVerifiedDocsWritePriorAttempt =
+  resolveVerifiedFilesystemMaterializationPriorAttempt;
+
+```
+### projects/sfia-studio/app/lib/oa/execution-attempt/application/resolveSealedDocsWriteWorktreePaths.ts
+```typescript
+/**
+ * Resolve sealed repo-relative docsWrite paths under a prepared worktree root.
+ * Canonical EC/docsWriteSpec paths stay repo-relative; absolute forms are for
+ * Cursor external instruction only (and fail-closed confinement checks).
+ */
+import path from "node:path";
+
+export type ResolveSealedDocsWriteWorktreePathsResult =
+  | {
+      ok: true;
+      sealedTargetPath: string;
+      absoluteTargetPath: string;
+      sealedPathAllowlist: readonly string[];
+      absolutePathAllowlist: readonly string[];
+    }
+  | { ok: false; reason: string };
+
+function normalizeSealedRel(p: string): string | null {
+  const n = p.replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/+$/, "").trim();
+  if (!n || n.startsWith("/") || n.split("/").includes("..")) {
+    return null;
+  }
+  return n;
+}
+
+function resolveUnderWorktree(
+  worktreeRoot: string,
+  sealedRel: string,
+): { abs: string; root: string } | null {
+  const root = path.resolve(worktreeRoot);
+  const abs = path.resolve(root, ...sealedRel.split("/"));
+  if (abs !== root && !abs.startsWith(root + path.sep)) {
+    return null;
+  }
+  return { abs, root };
+}
+
+/**
+ * Derive absolute Cursor instruction paths from sealed repo-relative target +
+ * allowlist under the prepared worktree. Does not rewrite sealed EC inputs.
+ */
+export function resolveSealedDocsWriteWorktreePaths(input: {
+  worktreeRoot: string;
+  targetPath: string;
+  pathAllowlist: readonly string[];
+}): ResolveSealedDocsWriteWorktreePathsResult {
+  const sealedTargetPath = normalizeSealedRel(input.targetPath);
+  if (!sealedTargetPath) {
+    return { ok: false, reason: "target_path_invalid" };
+  }
+
+  const targetResolved = resolveUnderWorktree(
+    input.worktreeRoot,
+    sealedTargetPath,
+  );
+  if (!targetResolved) {
+    return { ok: false, reason: "target_path_escape" };
+  }
+
+  if (!input.pathAllowlist.length) {
+    return { ok: false, reason: "path_allowlist_empty" };
+  }
+
+  const sealedPathAllowlist: string[] = [];
+  const absolutePathAllowlist: string[] = [];
+  for (const entry of input.pathAllowlist) {
+    const sealed = normalizeSealedRel(entry);
+    if (!sealed) {
+      return { ok: false, reason: "path_allowlist_invalid" };
+    }
+    const allowResolved = resolveUnderWorktree(input.worktreeRoot, sealed);
+    if (!allowResolved) {
+      return { ok: false, reason: "path_allowlist_escape" };
+    }
+    sealedPathAllowlist.push(sealed);
+    absolutePathAllowlist.push(allowResolved.abs);
+  }
+
+  const underAllowlist = sealedPathAllowlist.some(
+    (root) =>
+      sealedTargetPath === root || sealedTargetPath.startsWith(`${root}/`),
+  );
+  if (!underAllowlist) {
+    return { ok: false, reason: "target_outside_allowlist" };
+  }
+
+  return {
+    ok: true,
+    sealedTargetPath,
+    absoluteTargetPath: targetResolved.abs,
+    sealedPathAllowlist,
+    absolutePathAllowlist,
+  };
+}
+
+```
+### projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/fakeCursorDeterministicLaunchPort.ts
+```typescript
+/**
+ * TEST-ONLY — deterministic fake Cursor external boundary (filesystem + Git
+ * lifecycle effects). Writes allowlisted text files into an isolated worktree.
+ * Same Product StartExecution / Gate D path as REAL; substitutes launch only.
+ * ZERO REAL Cursor. ZERO remote Git.
+ *
+ * AKG-M5: not a Product docs_write admission path. Historical export alias
+ * `FakeDocsWriteLaunchPort` retained for DET fixture continuity.
+ *
+ * D-GCEC-15: honors AuthorizedExecutionSlice — filesystem + optional fake Git
+ * effects via shared FakeCursorGitExternalState.
+ *
+ * CR-GCEC-02: prefer request.docsWriteSpec; constructor options are fallback
+ * for unit tests only.
+ */
+import { createHash } from "node:crypto";
+import { existsSync } from "node:fs";
+import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
+import path from "node:path";
+import {
+  M4_REAL_GATEWAY_ADAPTER_ID,
+  type RealExecutionLaunchPort,
+  type RealLaunchRequest,
+  type RealLaunchResult,
+  type RealProcessObservation,
+} from "@/lib/oa/execution-attempt";
+import {
+  assertArtifactWriteModeAtExecution,
+  isAutomaticProductDocsWriteTargetPath,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
+import {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+} from "./studioCursorGeneralistAgent";
+import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
+import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
+import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
+import { M4_BOUNDED_PR_MERGE_ACTION } from "./m4BoundedPrMergeCursorAgent";
+import {
+  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+  M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
+  M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID,
+  M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
+} from "../domain/realLaunchSafety";
+
+/** Historical action token — durable fixture recognition only. */
+const HISTORICAL_BOUNDED_DOCS_WRITE_ACTION =
+  "cursor.docs_write.apply" as const;
+import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
+import { buildGitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
+import {
+  buildGitPushLaunchSpec,
+  isBoundedGitPushOnlySlice,
+} from "../domain/gitPushLaunchSpec";
+import {
+  assertLocalBranchRefMatchesExpectedSha,
+  assertRemoteUrlMatchesRepositoryRef,
+} from "../domain/assertLocalBranchRefMatchesExpectedSha";
+import {
+  buildGitPrCreateLaunchSpec,
+  isBoundedGitPrCreateOnlySlice,
+} from "../domain/gitPrCreateLaunchSpec";
+import {
+  buildGitPrMergeLaunchSpec,
+  isBoundedGitPrMergeOnlySlice,
+} from "../domain/gitPrMergeLaunchSpec";
+import type {
+  CursorAuthorizedEffectId,
+  CursorExecutionReport,
+  CursorGitEffectClaims,
+} from "../domain/cursorExecutionReport";
+import { mintCursorExecutionReportId } from "../domain/cursorExecutionReport";
+import {
+  FakeCursorGitExternalState,
+} from "./fakeCursorGitExternalState";
+
+export type FakeDocsWriteLaunchPortOptions = {
+  worktreeRoot: string;
+  pathAllowlist: readonly string[];
+  /** Relative path written on success (must be allowlisted). Fallback only. */
+  targetPath?: string;
+  failLaunch?: boolean;
+  content?: string;
+  /** Optional fallback repositoryRef when docsWriteSpec absent. */
+  repositoryRef?: string;
+  /** Shared mutable Fake Cursor Git/GitHub external state (D-GCEC-15). */
+  gitState?: FakeCursorGitExternalState;
+  /** Default branch name used for fake commit/push when not otherwise known. */
+  defaultBranch?: string;
+  /**
+   * TestOnly — control CursorExecutionReport stdout claim emission.
+   * Default `emit` (nominal). `omit` / `malformed` prove fail-closed handoff.
+   */
+  cursorReportMode?: "emit" | "omit" | "malformed";
+};
+
+const DEFAULT_FILESYSTEM_EFFECTS: readonly CursorAuthorizedEffectId[] = [
+  "filesystem.create",
+  "filesystem.modify",
+  "validation.run",
+];
+
+const ALL_PROGRESSIVE_EFFECTS: readonly CursorAuthorizedEffectId[] = [
+  "filesystem.create",
+  "filesystem.modify",
+  "validation.run",
+  "git.commit",
+  "git.push",
+  "github.pr.create",
+  "github.pr.merge",
+];
+
+function normalizeRel(p: string): string {
+  const n = p.replace(/\\/g, "/").replace(/^\.\//, "").replace(/\/+$/, "");
+  if (!n || n.startsWith("/") || n.split("/").includes("..")) {
+    throw new Error("PATH_ESCAPE");
+  }
+  return n;
+}
+
+function isAllowlisted(rel: string, allowlist: readonly string[]): boolean {
+  const n = normalizeRel(rel);
+  return allowlist.some((a) => {
+    const root = normalizeRel(a);
+    return n === root || n.startsWith(`${root}/`);
+  });
+}
+
+function resolveAuthorizedEffects(
+  request: RealLaunchRequest,
+): {
+  authorized: Set<CursorAuthorizedEffectId>;
+  blocked: CursorAuthorizedEffectId[];
 } {
-  let local = false;
-  let remoteGit = false;
-  let remoteGithub = false;
-  let unknown = false;
-  for (const effect of effects) {
-    if (LOCAL_MUTATING_EFFECTS.has(effect)) local = true;
-    else if (REMOTE_GIT_EFFECTS.has(effect)) remoteGit = true;
-    else if (REMOTE_GITHUB_EFFECTS.has(effect)) remoteGithub = true;
-    else if (NON_MUTATING_EFFECTS.has(effect)) continue;
-    else unknown = true;
+  const fromRequest = request.authorizedEffects;
+  const slice = request.authorizedExecutionSlice;
+  if (fromRequest && fromRequest.length > 0) {
+    const authorized = new Set<CursorAuthorizedEffectId>(fromRequest);
+    const blocked =
+      (slice?.blockedEffects as CursorAuthorizedEffectId[] | undefined) ??
+      ALL_PROGRESSIVE_EFFECTS.filter((e) => !authorized.has(e));
+    return { authorized, blocked };
   }
-  return { local, remoteGit, remoteGithub, unknown };
+  if (slice?.authorizedEffects?.length) {
+    const authorized = new Set(
+      slice.authorizedEffects as CursorAuthorizedEffectId[],
+    );
+    const blocked =
+      (slice.blockedEffects as CursorAuthorizedEffectId[] | undefined) ??
+      ALL_PROGRESSIVE_EFFECTS.filter((e) => !authorized.has(e));
+    return { authorized, blocked };
+  }
+  // Default: filesystem only (CR-GCEC-15 — Git never inferred).
+  const authorized = new Set<CursorAuthorizedEffectId>(DEFAULT_FILESYSTEM_EFFECTS);
+  return {
+    authorized,
+    blocked: [
+      "filesystem.delete",
+      "git.commit",
+      "git.push",
+      "github.pr.create",
+      "github.pr.update",
+      "github.pr.merge",
+    ],
+  };
 }
 
+export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
+  readonly gatewayId = M4_REAL_GATEWAY_ADAPTER_ID;
+  readonly externalEffects = true as const;
+  /** Deterministic Fake substitution — never Cursor OS REAL proof. */
+  readonly boundaryProofMode = "deterministic_fake" as const;
+  readonly calls: RealLaunchRequest[] = [];
+  readonly touchedFiles: string[] = [];
+  lastDigest: string | null = null;
+  lastReport: CursorExecutionReport | null = null;
+  private readonly options: FakeDocsWriteLaunchPortOptions;
+  private readonly observations = new Map<string, RealProcessObservation>();
+  readonly gitState: FakeCursorGitExternalState;
+
+  constructor(options: FakeDocsWriteLaunchPortOptions) {
+    this.options = options;
+    this.gitState =
+      options.gitState ??
+      new FakeCursorGitExternalState({
+        worktreeRoot: options.worktreeRoot,
+        initialBranch: options.defaultBranch ?? "main",
+      });
+  }
+
+  async launch(request: RealLaunchRequest): Promise<RealLaunchResult> {
+    this.calls.push(request);
+    if (this.options.failLaunch) {
+      return {
+        outcome: "reject",
+        gatewayId: this.gatewayId,
+        attemptId: request.attemptId,
+        reason: "FAKE_DOCS_WRITE_LAUNCH_FAILED",
+        realProcessInvoked: false,
+        detailCode: "REAL_LAUNCH_FAILED",
+      };
+    }
+    const { authorized, blocked } = resolveAuthorizedEffects(request);
+    const wantsCommitProfile = Boolean(request.gitCommitSpec);
+    const wantsPushProfile = Boolean(request.gitPushSpec);
+    const wantsPrCreateProfile = Boolean(request.gitPrCreateSpec);
+    const wantsPrMergeProfile = Boolean(request.gitPrMergeSpec);
+    if (wantsCommitProfile) {
+      if (!isBoundedGitCommitOnlySlice([...authorized])) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason:
+            authorized.size === 0
+              ? "git_commit_authorized_effects_empty"
+              : "git_commit_slice_not_commit_only",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      if (
+        request.selectedAgentRef !== M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID
+      ) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason:
+            request.selectedAgentRef === "agt:m4.cursor.bounded_docs_write"
+              ? "git_commit_agent_capability_bypass"
+              : "git_commit_selected_agent_invalid",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      if (!request.workspaceContinuation) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_commit_continuation_required",
+          realProcessInvoked: false,
+          detailCode: "REAL_WORKSPACE_INVALID",
+        };
+      }
+      const revalidated = buildGitCommitLaunchSpec({
+        repositoryRef: request.gitCommitSpec!.repositoryRef,
+        expectedParentSha: request.gitCommitSpec!.expectedParentSha,
+        exactPaths: request.gitCommitSpec!.exactPaths,
+        commitMessage: request.gitCommitSpec!.commitMessage,
+        ...(request.gitCommitSpec!.branchOrRef
+          ? { branchOrRef: request.gitCommitSpec!.branchOrRef }
+          : {}),
+      });
+      if (!revalidated.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: revalidated.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+    }
+    if (wantsPushProfile) {
+      if (!isBoundedGitPushOnlySlice([...authorized])) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_push_slice_not_push_only",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      if (request.selectedAgentRef !== M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_push_agent_capability_bypass",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      const revalidated = buildGitPushLaunchSpec({
+        repositoryRef: request.gitPushSpec!.repositoryRef,
+        remoteName: request.gitPushSpec!.remoteName,
+        branchName: request.gitPushSpec!.branchName,
+        expectedCommitSha: request.gitPushSpec!.expectedCommitSha,
+        force: false,
+        delete: false,
+        noTags: true,
+      });
+      if (!revalidated.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: revalidated.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+    }
+    if (wantsPrCreateProfile) {
+      if (!isBoundedGitPrCreateOnlySlice([...authorized])) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_pr_create_slice_not_create_only",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      if (request.selectedAgentRef !== M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: "git_pr_create_agent_capability_bypass",
+          realProcessInvoked: false,
+          detailCode: "REAL_AGENT_PROFILE_INVALID",
+        };
+      }
+      const revalidated = buildGitPrCreateLaunchSpec({
+        repositoryRef: request.gitPrCreateSpec!.repositoryRef,
+        headBranch: request.gitPrCreateSpec!.headBranch,
+        baseBranch: request.gitPrCreateSpec!.baseBranch,
+        title: request.gitPrCreateSpec!.title,
+        expectedHeadSha: request.gitPrCreateSpec!.expectedHeadSha,
+        ...(request.git
+… [truncated; full file 29680 bytes on disk]
+```
+### projects/sfia-studio/app/features/project-assistant/f3/completeBoundedDocsWriteLaunch.ts
+```typescript
 /**
- * Classify mutating Cursor child-env policy from authorized effects and sealed
- * profile flags. Mixed classes and unknown effect ids fail closed (never remote_git
- * by precedence). Empty / validation-only input does not apply mutating confinement.
+ * AKG-M5: historical name retained — filesystem materialization completion /
+ * artifact Evidence ingest. Not Product docs_write admission.
  */
-export function resolveMutatingCursorConfinement(
-  input: MutatingCursorConfinementInput,
-): MutatingCursorConfinementResolution {
-  const requestEffects = input.authorizedEffects ?? null;
-  const sealedEffects = input.sealedAuthorizedEffects ?? null;
+/**
+ * CR-GCEC-04 / D-GCEC-11 / CR-GCEC-14 — complete bounded docs-write launch.
+ * Awaits observation, independently verifies workspace file effects (no stdout trust).
+ */
+import {
+  type ExecutionAttempt,
+  type ExecutionAttemptServices,
+  type RealProcessObservation,
+  parseCursorExecutionReport,
+  type CursorExecutionReport,
+  verifyWorkspaceFileEffects,
+} from "@/lib/oa/execution-attempt";
+import {
+  NodeLocalGitStatusDiffPort,
+  type LocalGitStatusDiffPort,
+} from "@/lib/oa/git-ports";
+import {
+  completeBoundedReadOnlyLaunch,
+  type CompleteBoundedReadOnlyLaunchResult,
+} from "./completeBoundedReadOnlyLaunch";
+
+export type DocsWriteCompletionFacts = {
+  attemptId: string;
+  processRef: string;
+  targetPath: string;
+  digest: string;
+  touchedFiles: string[];
+  worktreeRef: string | null;
+  stdout: string;
+  /** Cursor claim report when present — never trusted alone. */
+  cursorReport?: CursorExecutionReport;
+};
+
+export type CompleteBoundedDocsWriteLaunchResult =
+  | {
+      ok: true;
+      status: "succeeded";
+      attempt: ExecutionAttempt;
+      observation: RealProcessObservation;
+      facts: DocsWriteCompletionFacts;
+    }
+  | Extract<
+      CompleteBoundedReadOnlyLaunchResult,
+      { ok: true; status: "running" | "failed" | "timeout" } | { ok: false }
+    >;
+
+function tryParseReportFromStdout(stdout: string): CursorExecutionReport | null {
+  const marker = "CURSOR_EXECUTION_REPORT_JSON=";
+  const idx = stdout.indexOf(marker);
+  if (idx < 0) return null;
+  const json = stdout.slice(idx + marker.length).trim().split("\n")[0] ?? "";
+  try {
+    const parsed = parseCursorExecutionReport(JSON.parse(json));
+    return parsed.ok ? parsed.report : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function completeBoundedDocsWriteLaunch(input: {
+  attempt: ExecutionAttempt;
+  services: ExecutionAttemptServices;
+  /** Expected relative target path (from docsWriteSpec / EC.inputs). */
+  targetPath?: string;
+  pathAllowlist?: readonly string[];
+  /** Independent full-worktree status/diff (CR-GCEC-14). */
+  statusDiffPort?: LocalGitStatusDiffPort;
+  /** Test-only injectable porcelain when git unavailable. */
+  nameStatusText?: string;
+  /** See completeBoundedReadOnlyLaunch.awaitIfPending. */
+  awaitIfPending?: boolean;
+}): Promise<CompleteBoundedDocsWriteLaunchResult> {
+  const base = await completeBoundedReadOnlyLaunch({
+    attempt: input.attempt,
+    services: input.services,
+    awaitIfPending: input.awaitIfPending,
+  });
+  if (!base.ok) return base;
+  if (base.status !== "succeeded") {
+    return base as CompleteBoundedDocsWriteLaunchResult;
+  }
+
+  const stdout = base.observation.stdout ?? "";
+  const cursorReport = tryParseReportFromStdout(stdout);
+  const targetPath =
+    input.targetPath?.trim() ||
+    cursorReport?.fileEffects?.created[0] ||
+    cursorReport?.fileEffects?.modified[0] ||
+    "docs/functional-design.md";
+  const worktreeRef = base.observation.worktreeRef ?? null;
+  const pathAllowlist =
+    input.pathAllowlist ??
+    (targetPath.startsWith("docs/") ? ["docs/"] : [targetPath]);
+
+  if (!worktreeRef) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_WORKTREE_MISSING",
+      message: "Docs-write completion missing worktree for independent verify.",
+    };
+  }
+
+  const statusDiffPort =
+    input.statusDiffPort ??
+    (input.nameStatusText ? undefined : new NodeLocalGitStatusDiffPort());
+
+  const verified = await verifyWorkspaceFileEffects({
+    worktreePath: worktreeRef,
+    pathAllowlist,
+    targetPath,
+    report: cursorReport,
+    ...(statusDiffPort ? { statusDiffPort } : {}),
+    ...(input.nameStatusText ? { nameStatusText: input.nameStatusText } : {}),
+  });
+
+  if (!verified.ok) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_WORKSPACE_VERIFY_FAILED",
+      message: verified.reason,
+    };
+  }
+
+  return {
+    ok: true,
+    status: "succeeded",
+    attempt: base.attempt,
+    observation: base.observation,
+    facts: {
+      attemptId: input.attempt.attemptId,
+      processRef: base.observation.processRef,
+      targetPath: verified.targetPath,
+      digest: verified.digest,
+      touchedFiles: verified.touchedFiles,
+      worktreeRef,
+      stdout: base.facts?.stdout ?? stdout,
+      ...(cursorReport ? { cursorReport } : {}),
+    },
+  };
+}
+
+```
+### projects/sfia-studio/app/features/project-assistant/f3/ingestDocsWriteArtifactEvidence.ts
+```typescript
+/**
+ * AKG-M5: historical name retained — filesystem materialization completion /
+ * artifact Evidence ingest. Not Product docs_write admission.
+ */
+/**
+ * CR-GCEC-04 — ingest docs-write artifact Evidence + ReviewBundle.
+ * Strong bindings: projectId, cycleInstanceId, executionContractId, executionAttemptId.
+ *
+ * POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01:
+ * When artifact bytes are supplied, persist under existing Evidence refs layout
+ * (`external_payload_ref`) so Nora can review without hot worktree / Pilot paste.
+ * CursorExecutionReport claim may be persisted alongside (still NOT Evidence).
+ */
+import type { Digest } from "@/lib/oa/doctrine";
+import type {
+  ActorReference,
+  EvidenceReviewServices,
+} from "@/lib/oa/evidence-review";
+import type { CursorExecutionReport } from "@/lib/oa/execution-attempt";
+import { LOCAL_MORRIS_ACTOR } from "../f2/recordDecision";
+import {
+  persistDocsWriteArtifactReviewMaterial,
+  resolveProductEvidenceRefsRoot,
+} from "./persistDocsWriteArtifactReviewMaterial";
+
+export type IngestDocsWriteArtifactEvidenceInput = {
+  evidenceReviewServices: EvidenceReviewServices;
+  projectId: string;
+  cycleInstanceId: string;
+  executionContractId: string;
+  executionAttemptId: string;
+  targetPath: string;
+  digest: string;
+  actor?: ActorReference;
+  correlationId?: string;
+  nowIso?: string;
+  /**
+   * Independently verified artifact bytes from the hot worktree.
+   * When present → durable external_payload_ref (restart-safe review).
+   * When absent → legacy metadata_only (location = relative targetPath).
+   */
+  artifactBytes?: Buffer;
+  cursorReport?: CursorExecutionReport | null;
+  /** Absolute refs root (defaults beside Product SQLite). */
+  refsRoot?: string;
+};
+
+export type IngestDocsWriteArtifactEvidenceResult =
+  | {
+      ok: true;
+      evidenceId: string;
+      reviewBundleId: string;
+      evidenceStatus: string;
+      storageMode: "metadata_only" | "external_payload_ref";
+      durableArtifactAbsolutePath?: string;
+      durableCursorReportAbsolutePath?: string | null;
+    }
+  | { ok: false; code: string; message: string };
+
+export async function ingestDocsWriteArtifactEvidence(
+  input: IngestDocsWriteArtifactEvidenceInput,
+): Promise<IngestDocsWriteArtifactEvidenceResult> {
+  const actor = input.actor ?? LOCAL_MORRIS_ACTOR;
+  const segment = input.executionAttemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const evidenceId = `ev:docs-write:${segment}`.slice(0, 128);
+  const reviewBundleId = `rb:docs-write:${segment}`.slice(0, 128);
+  const digest = input.digest as Digest;
+
+  let location = input.targetPath;
+  let storageMode: "metadata_only" | "external_payload_ref" = "metadata_only";
+  let durableArtifactAbsolutePath: string | undefined;
+  let durableCursorReportAbsolutePath: string | null | undefined;
+
+  if (input.artifactBytes) {
+    const refsRoot = resolveProductEvidenceRefsRoot(input.refsRoot);
+    const persisted = persistDocsWriteArtifactReviewMaterial({
+      refsRoot,
+      attemptId: input.executionAttemptId,
+      artifactBytes: input.artifactBytes,
+      expectedDigest: input.digest,
+      targetPath: input.targetPath,
+      cursorReport: input.cursorReport ?? null,
+    });
+    if (!persisted.ok) {
+      return {
+        ok: false,
+        code: persisted.code,
+        message: persisted.message,
+      };
+    }
+    location = persisted.artifactAbsolutePath;
+    storageMode = "external_payload_ref";
+    durableArtifactAbsolutePath = persisted.artifactAbsolutePath;
+    durableCursorReportAbsolutePath = persisted.cursorReportAbsolutePath;
+
+    // Dual-write Generic Execution Review Material (D-ER-04) — transitional bridge.
+    // docs_write persist remains compatibility; generic path is the nominal target.
+    if (input.cursorReport) {
+      const { finalizeGenericExecutionReview } = await import(
+        "./finalizeGenericExecutionReview"
+      );
+      await finalizeGenericExecutionReview({
+        refsRoot,
+        projectId: input.projectId,
+        cycleInstanceId: input.cycleInstanceId,
+        executionContractId: input.executionContractId,
+        attemptId: input.executionAttemptId,
+        repositoryRef: input.cursorReport.repositoryRef,
+        baseSha: input.cursorReport.baseSha,
+        cursorReport: input.cursorReport,
+        extraReviewItems: [
+          {
+            kind: "artifact",
+            logicalPath: input.targetPath,
+            label: `artifact: ${input.targetPath}`,
+            bytes: input.artifactBytes,
+            summary: input.digest,
+          },
+        ],
+      });
+    }
+  }
+
+  const registered = await input.evidenceReviewServices.registerEvidence.execute({
+    evidenceId,
+    type: "artifact",
+    status: "available",
+    digest,
+    location,
+    source: "execution_attempt:docs_write",
+    sourceKind: "external",
+    classification: "internal",
+    storageMode,
+    bindings: {
+      projectId: input.projectId,
+      cycleInstanceId: input.cycleInstanceId,
+      executionContractId: input.executionContractId,
+      executionAttemptId: input.executionAttemptId,
+    },
+    actor,
+    correlationId: input.correlationId ?? `cor:docs-write:${segment}`,
+    nowIso: input.nowIso,
+    idempotencyKey: `idem:docs-write:${evidenceId}`,
+  });
+  if (!registered.ok) {
+    return {
+      ok: false,
+      code: registered.error.detailCode,
+      message: registered.error.message,
+    };
+  }
+
+  let evidenceStatus = registered.evidence.status;
+
+  // external_payload_ref → VerifyEvidenceIntegrity when possible (filesystem probe).
   if (
-    requestEffects != null &&
-    sealedEffects != null &&
-    !sameEffectSet(requestEffects, sealedEffects)
+    storageMode === "external_payload_ref" &&
+    registered.evidence.status === "available" &&
+    registered.evidence.digest
   ) {
+    const verified =
+      await input.evidenceReviewServices.verifyEvidenceIntegrity.execute({
+        evidenceId: registered.evidence.evidenceId,
+        expectedVersion: registered.evidence.version,
+        actor,
+        correlationId: input.correlationId ?? `cor:docs-write-verify:${segment}`,
+        nowIso: input.nowIso,
+      });
+    if (verified.ok && verified.evidence) {
+      evidenceStatus = verified.evidence.status;
+    }
+  }
+
+  const bundle = await input.evidenceReviewServices.createReviewBundle.execute({
+    reviewBundleId,
+    projectId: input.projectId,
+    cycleInstanceId: input.cycleInstanceId,
+    executionContractId: input.executionContractId,
+    evidenceIds: [evidenceId],
+    actor,
+    correlationId: input.correlationId ?? `cor:docs-write-rb:${segment}`,
+    nowIso: input.nowIso,
+    idempotencyKey: `idem:docs-write-rb:${reviewBundleId}`,
+  });
+  if (!bundle.ok) {
     return {
       ok: false,
-      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
+      code: bundle.error.detailCode,
+      message: bundle.error.message,
     };
   }
 
-  const effects = sealedEffects ?? requestEffects;
-  const fromEffects =
-    effects == null
-      ? {
-          local: false,
-          remoteGit: false,
-          remoteGithub: false,
-          unknown: false,
-        }
-      : classesFromEffects(effects);
-
-  if (fromEffects.unknown) {
-    return {
-      ok: false,
-      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
-    };
-  }
-
-  const local = fromEffects.local || input.isLocalCommitProfile === true;
-  const remoteGit = fromEffects.remoteGit || input.isRemotePushProfile === true;
-  const remoteGithub =
-    fromEffects.remoteGithub ||
-    input.isPrCreateProfile === true ||
-    input.isPrMergeProfile === true;
-
-  let classCount = 0;
-  if (local) classCount += 1;
-  if (remoteGit) classCount += 1;
-  if (remoteGithub) classCount += 1;
-  if (classCount > 1) {
-    return {
-      ok: false,
-      reason: MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
-    };
-  }
-  if (classCount === 0) return { ok: true, apply: false };
-
-  const effectClass: MutatingCursorConfinementEffectClass = remoteGit
-    ? "remote_git"
-    : remoteGithub
-      ? "remote_github"
-      : "local";
-  return { ok: true, apply: true, effectClass };
+  return {
+    ok: true,
+    evidenceId,
+    reviewBundleId,
+    evidenceStatus,
+    storageMode,
+    ...(durableArtifactAbsolutePath
+      ? { durableArtifactAbsolutePath }
+      : {}),
+    ...(durableCursorReportAbsolutePath !== undefined
+      ? { durableCursorReportAbsolutePath }
+      : {}),
+  };
 }
 
+```
+### projects/sfia-studio/app/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial.ts
+```typescript
 /**
- * True when mutating confinement must be considered.
- * Ambiguous input returns true so callers cannot fall through to host-credential
- * inheritance. Effect class for that case fails closed via
- * {@link resolveMutatingCursorConfinement}.
+ * POST-EXECUTION-CURSOR-REPORT-ARTIFACT-HANDOFF-01 —
+ * Persist docs_write artifact bytes + CursorExecutionReport claim under the
+ * existing Evidence refs filesystem layout (no new store/table).
+ *
+ * Artifact content becomes restart-safe for Nora review.
+ * CursorExecutionReport remains a CLAIM file — not Evidence by itself.
  */
-export function isMutatingGcecCursorProfile(
-  input: MutatingCursorConfinementInput,
-): boolean {
-  const resolved = resolveMutatingCursorConfinement(input);
-  if (!resolved.ok) return true;
-  return resolved.apply;
+import { createHash } from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import type { Digest } from "@/lib/oa/doctrine";
+import type { CursorExecutionReport } from "@/lib/oa/execution-attempt";
+
+/** Soft cap for Nora-facing artifact body (bytes). Truncation → PARTIAL. */
+export const DOCS_WRITE_ARTIFACT_NORA_REVIEW_BYTE_CAP = 12_000;
+
+export type DocsWriteArtifactReviewCompleteness = "FULL" | "PARTIAL";
+
+export function docsWriteArtifactRefsRelative(
+  attemptId: string,
+  targetPath?: string,
+): {
+  readonly artifact: string;
+  readonly cursorReport: string;
+} {
+  const segment = attemptId.replace(/[^a-zA-Z0-9:_-]/g, "");
+  const safeTarget = (targetPath ?? "artifact.bin")
+    .replace(/\\/g, "/")
+    .replace(/^\/+/, "")
+    .split("/")
+    .filter((p) => p && p !== "." && p !== "..")
+    .join("/");
+  return {
+    artifact: `refs/attempts/${segment}/docs-write-artifact/${safeTarget || "artifact.bin"}`,
+    cursorReport: `refs/attempts/${segment}/cursor-execution-report.json`,
+  };
 }
 
-export function resolveMutatingConfinementEffectClass(
-  input: MutatingCursorConfinementInput,
-): MutatingCursorConfinementEffectClass {
-  const resolved = resolveMutatingCursorConfinement(input);
-  if (!resolved.ok) {
-    throw new Error(resolved.reason);
+export function digestUtf8OrBytes(content: string | Buffer): Digest {
+  const buf = typeof content === "string" ? Buffer.from(content, "utf8") : content;
+  return `sha256:${createHash("sha256").update(buf).digest("hex")}`;
+}
+
+export function persistDocsWriteArtifactReviewMaterial(input: {
+  readonly refsRoot: string;
+  readonly attemptId: string;
+  readonly artifactBytes: Buffer;
+  /** Independent digest already verified from the hot worktree (must match). */
+  readonly expectedDigest: string;
+  /** Relative contract target path — preserved under durable refs tree. */
+  readonly targetPath?: string;
+  readonly cursorReport?: CursorExecutionReport | null;
+}):
+  | {
+      ok: true;
+      artifactAbsolutePath: string;
+      artifactDigest: Digest;
+      cursorReportAbsolutePath: string | null;
+    }
+  | { ok: false; code: string; message: string } {
+  const computed = digestUtf8OrBytes(input.artifactBytes);
+  if (computed !== input.expectedDigest) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_ARTIFACT_DIGEST_MISMATCH",
+      message:
+        "Durable artifact digest does not match independently verified digest.",
+    };
   }
-  if (!resolved.apply) {
-    throw new Error("mutating_confinement_not_applicable");
+  try {
+    fs.mkdirSync(input.refsRoot, { recursive: true });
+    const rel = docsWriteArtifactRefsRelative(
+      input.attemptId,
+      input.targetPath,
+    );
+    const artifactAbsolutePath = path.join(input.refsRoot, rel.artifact);
+    fs.mkdirSync(path.dirname(artifactAbsolutePath), { recursive: true });
+    fs.writeFileSync(artifactAbsolutePath, input.artifactBytes);
+    let cursorReportAbsolutePath: string | null = null;
+    if (input.cursorReport) {
+      cursorReportAbsolutePath = path.join(input.refsRoot, rel.cursorReport);
+      fs.writeFileSync(
+        cursorReportAbsolutePath,
+        `${JSON.stringify(input.cursorReport)}\n`,
+        "utf8",
+      );
+    }
+    return {
+      ok: true,
+      artifactAbsolutePath,
+      artifactDigest: computed,
+      cursorReportAbsolutePath,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_ARTIFACT_PERSIST_FAILED",
+      message: err instanceof Error ? err.message : String(err),
+    };
   }
-  return resolved.effectClass;
+}
+
+export function loadDocsWriteArtifactReviewMaterial(input: {
+  readonly refsRoot: string;
+  readonly attemptId: string;
+  readonly targetPath?: string;
+  /** Soft Nora cap — never claim FULL when truncated. */
+  readonly byteCap?: number;
+}):
+  | {
+      ok: true;
+      artifactText: string;
+      completeness: DocsWriteArtifactReviewCompleteness;
+      cursorReport: CursorExecutionReport | null;
+      artifactAbsolutePath: string;
+      cursorReportAbsolutePath: string | null;
+    }
+  | { ok: false; code: string; message: string } {
+  const rel = docsWriteArtifactRefsRelative(input.attemptId, input.targetPath);
+  let artifactAbsolutePath = path.join(input.refsRoot, rel.artifact);
+  const cursorReportAbsolutePath = path.join(input.refsRoot, rel.cursorReport);
+  if (!fs.existsSync(artifactAbsolutePath) && !input.targetPath) {
+    // Fallback: first file under docs-write-artifact/ for the attempt.
+    const dir = path.join(
+      input.refsRoot,
+      `refs/attempts/${input.attemptId.replace(/[^a-zA-Z0-9:_-]/g, "")}/docs-write-artifact`,
+    );
+    if (fs.existsSync(dir)) {
+      const walk = (d: string): string | null => {
+        for (const name of fs.readdirSync(d)) {
+          const child = path.join(d, name);
+          const st = fs.statSync(child);
+          if (st.isFile()) return child;
+          if (st.isDirectory()) {
+            const nested = walk(child);
+            if (nested) return nested;
+          }
+        }
+        return null;
+      };
+      const found = walk(dir);
+      if (found) artifactAbsolutePath = found;
+    }
+  }
+  if (!fs.existsSync(artifactAbsolutePath)) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_ARTIFACT_REVIEW_MISSING",
+      message: "Durable docs_write artifact review material introuvable.",
+    };
+  }
+  try {
+    const bytes = fs.readFileSync(artifactAbsolutePath);
+    const cap = input.byteCap ?? DOCS_WRITE_ARTIFACT_NORA_REVIEW_BYTE_CAP;
+    const truncated = bytes.byteLength > cap;
+    const slice = truncated ? bytes.subarray(0, cap) : bytes;
+    const artifactText = slice.toString("utf8");
+    let cursorReport: CursorExecutionReport | null = null;
+    if (fs.existsSync(cursorReportAbsolutePath)) {
+      try {
+        const raw = JSON.parse(
+          fs.readFileSync(cursorReportAbsolutePath, "utf8"),
+        ) as unknown;
+        if (
+          raw &&
+          typeof raw === "object" &&
+          (raw as { schemaVersion?: unknown }).schemaVersion ===
+            "oa.cursor-execution-report.1"
+        ) {
+          cursorReport = raw as CursorExecutionReport;
+        }
+      } catch {
+        cursorReport = null;
+      }
+    }
+    return {
+      ok: true,
+      artifactText,
+      completeness: truncated ? "PARTIAL" : "FULL",
+      cursorReport,
+      artifactAbsolutePath,
+      cursorReportAbsolutePath: fs.existsSync(cursorReportAbsolutePath)
+        ? cursorReportAbsolutePath
+        : null,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      code: "DOCS_WRITE_ARTIFACT_REVIEW_READ_FAILED",
+      message: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+/** Default refs root beside Product SQLite (same convention as mission-result-refs). */
+export function resolveProductEvidenceRefsRoot(
+  explicit?: string | null,
+): string {
+  const trimmed = explicit?.trim();
+  if (trimmed) return trimmed;
+  const fromEnv =
+    typeof process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT === "string" &&
+    process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT.trim()
+      ? process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT.trim()
+      : null;
+  if (fromEnv) return fromEnv;
+  const db =
+    typeof process.env.SFIA_STUDIO_PRODUCT_DB_PATH === "string" &&
+    process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
+      ? process.env.SFIA_STUDIO_PRODUCT_DB_PATH.trim()
+      : path.join(process.cwd(), "..", ".sfia-exec", "product", "oa-product.sqlite");
+  return path.join(path.dirname(db), "mission-result-refs");
+}
+
+```
+### projects/sfia-studio/app/features/project-assistant/w2/resolveDocsWriteArtifactAbsolutePath.ts
+```typescript
+/**
+ * Resolve absolute filesystem path of a docs_write artifact for server-owned
+ * conformity verification (ZERO client path trust).
+ *
+ * Priority:
+ * 1) explicit worktreeRef from the just-completed launch (hottest)
+ * 2) Evidence.location when already absolute and present
+ * 3) managedRepoRootBase + repository identity + relative targetPath
+ */
+import { existsSync } from "node:fs";
+import path from "node:path";
+import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import { sanitizeManagedRepoIdentity } from "@/lib/oa/execution-attempt/infrastructure/managedProjectRepositoryResolver";
+import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+
+function boundInputsOf(
+  attempt: ExecutionAttempt,
+  contract: ExecutionContract,
+): Record<string, unknown> {
+  const bound = attempt.boundExecutionContract?.semanticMaterial?.inputs;
+  if (bound && typeof bound === "object") return bound as Record<string, unknown>;
+  return (contract.inputs ?? {}) as Record<string, unknown>;
+}
+
+function relativeTargetPath(
+  attempt: ExecutionAttempt,
+  contract: ExecutionContract,
+  evidence: Evidence | null,
+): string | null {
+  const inputs = boundInputsOf(attempt, contract);
+  const fromBound =
+    typeof inputs.targetPath === "string" ? inputs.targetPath.trim() : "";
+  if (fromBound) return fromBound;
+  const loc = evidence?.location?.trim() ?? "";
+  if (loc && !path.isAbsolute(loc)) return loc;
+  return null;
+}
+
+function repositoryIdentity(
+  attempt: ExecutionAttempt,
+  contract: ExecutionContract,
+): string | null {
+  const inputs = boundInputsOf(attempt, contract);
+  for (const key of [
+    "repositoryBindingIdentity",
+    "repositoryIdentity",
+    "repositoryRef",
+    "targetRepositoryRef",
+  ] as const) {
+    const v = inputs[key];
+    if (typeof v === "string" && v.trim()) return v.trim();
+  }
+  return null;
+}
+
+export function resolveDocsWriteArtifactAbsolutePath(input: {
+  readonly attempt: ExecutionAttempt;
+  readonly contract: ExecutionContract;
+  readonly evidence: Evidence | null;
+  /** Hot worktree from the same process that just completed docs_write. */
+  readonly worktreeRef?: string | null;
+  readonly managedRepoRootBase?: string | null;
+}): string | null {
+  const rel = relativeTargetPath(input.attempt, input.contract, input.evidence);
+  const candidates: string[] = [];
+
+  const wt = input.worktreeRef?.trim();
+  if (wt && rel) {
+    candidates.push(path.resolve(wt, ...rel.split("/")));
+  }
+
+  const loc = input.evidence?.location?.trim();
+  if (loc && path.isAbsolute(loc)) {
+    candidates.push(loc);
+  }
+
+  const base =
+    input.managedRepoRootBase?.trim() ||
+    resolveManagedRepoRootBaseFromEnv() ||
+    undefined;
+  const identity = repositoryIdentity(input.attempt, input.contract);
+  if (base && identity && rel) {
+    try {
+      const sanitized = sanitizeManagedRepoIdentity(identity);
+      candidates.push(path.resolve(base, sanitized, ...rel.split("/")));
+    } catch {
+      // identity invalid — skip managed candidate
+    }
+  }
+
+  for (const abs of candidates) {
+    if (existsSync(abs)) return abs;
+  }
+  return null;
 }
 
 ```
 
-### Diff — `studioCursorRealLaunchGateway.ts` (confinement wiring)
 
+## 14. Sections / diffs utiles (extraits)
+### resolveAttemptExecutionProfile.ts (extrait)
 ```diff
-commit ff653b587a75b9ff92472cb4e4350239c087c9e9
-Author: Morris Cleland <morris@macbook-air.home>
-Date:   Sun Oct 25 18:09:13 2026 +0100
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+index db735e53..36f223b7 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveAttemptExecutionProfile.ts
+@@ -1,7 +1,9 @@
+ /**
+  * D-GCEC-AGENT-01 — AttemptExecutionProfile (non-persistent).
+- * CORR-D-GCEC-AGENT-01 / GCEC-GIT-LIFECYCLE-E2E-01 PATH B:
+- * progressive docs-write → local-commit → remote_push → pr_create → pr_merge.
++ * CORR-D-GCEC-AGENT-01 / GCEC-GIT-LIFECYCLE-E2E-01 PATH B / AKG-M5:
++ * progressive filesystem materialization → local-commit → remote_push →
++ * pr_create → pr_merge, gated on executable/authorized effects (not on a
++ * Product docs_write action or specialized DocWrite agent).
+  *
+  * Server-derived executor sufficiency for THIS Attempt's current eligible slice.
+  * NOT an authority source, NOT client-authoritative, NOT persisted.
+@@ -61,6 +63,10 @@ import {
+ } from "./resolveVerifiedRemotePushPriorAttempt";
+ import { resolveVerifiedRemotePushPriorForPrCreate } from "./resolveCrossEcVerifiedRemotePushPrior";
+ import { resolveVerifiedPullRequestNumber } from "./resolveGitEffectTarget";
++import {
++  resolveVerifiedFilesystemMaterializationPriorAttempt,
++  type VerifiedFilesystemMaterializationPriorAttempt,
++} from "./resolveVerifiedFilesystemMaterializationPriorAttempt";
 
-    fix(studio): reconcile structural removal CI and generic Cursor confinement
+ export type AttemptExecutionProfileKind =
+   | "local_commit"
+@@ -146,6 +152,50 @@ const UNSUPPORTED_M4_PROTECTED: ReadonlySet<CursorAuthorizedEffectId> = new Set(
+   "github.pr.update",
+ ]);
 
-    Effect-based mutating Cursor confinement replaces the retired docs_write flag; Product Binding probes use sealed env identity; historical Binding/docs_write suites are adapted or retired with residual CI failures explicit.
++/**
++ * Filesystem materialization slice — Product generalist technical quartet.
++ * effectClass remains filesystem for audit; kind is contract_legacy (docs_write
++ * AttemptExecutionProfileKind retired with Product DocWrite specialization).
++ */
++function filesystemMaterializationProfile(
++  reason: string,
++): AttemptExecutionProfile {
++  return {
++    kind: "contract_legacy",
++    effectClass: "filesystem",
++    reason,
++    criteria: {
++      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
++      action: STUDIO_CURSOR_GENERALIST_ACTION,
++      target: STUDIO_CURSOR_GENERALIST_TARGET,
++      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
++    },
++  };
++}
++
++function localCommitProfile(
++  reason: string,
++  prior: VerifiedFilesystemMaterializationPriorAttempt,
++): AttemptExecutionProfile {
++  return {
++    kind: "local_commit",
++    effectClass: "git.commit",
++    reason,
++    lineage: {
++      priorAttemptId: prior.priorAttemptId,
++      evidenceId: prior.evidenceId,
++      artifactPath: prior.artifactPath,
++      artifactDigest: prior.artifactDigest,
++    },
++    criteria: {
++      requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
++      action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
++      target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
++      scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
++    },
++  };
++}
++
+ function remotePushProfile(
+   reason: string,
+   prior: VerifiedLocalCommitPriorAttempt,
+@@ -344,6 +394,41 @@ function requireEvidenceReader(
+   return null;
+ }
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-index c55c48d7..13fc9462 100644
---- a/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-+++ b/projects/sfia-studio/app/lib/oa/execution-attempt/infrastructure/studioCursorRealLaunchGateway.ts
-@@ -55,8 +55,7 @@ import {
- } from "../domain/shellSafeArg";
- import {
-   buildMutatingCursorConfinementEnv,
--  isMutatingGcecCursorProfile,
--  resolveMutatingConfinementEffectClass,
-+  resolveMutatingCursorConfinement,
-   stripInheritedCursorShellEgressEnv,
- } from "./mutatingCursorConfinementEnv";
-
-@@ -929,24 +928,34 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
-           instruction,
-         ];
-
--    // D-GCEC-CONF-02A / D-GCEC-EXEC-01: mutating A+B+C+D+E get server-owned env
--    // confinement; effect-sensitive (local vs remote_git vs remote_github).
--    // RO / other profiles keep minimal non-mutating spawn env (no auth strip).
--    // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
--    // Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
--    const childEnv: NodeJS.ProcessEnv = isMutatingGcecCursorProfile({
--      isDocsWrite: false,
-+    // D-GCEC-CONF-02A / D-GCEC-EXEC-01: confinement follows authorized effects
-+    // and sealed profile flags (local FS / local commit / remote_git / remote_github).
-+    // Not a docs_write flag. RO / no mutating effects keep non-mutating spawn env.
-+    // Mixed or unknown effect classes fail closed before spawn — never remote_git
-+    // by precedence. Prompt forbids remain defense-in-depth — NOT the authority
-+    // boundary. Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
-+    const confinement = resolveMutatingCursorConfinement({
-+      authorizedEffects: request.authorizedEffects,
-+      sealedAuthorizedEffects:
-+        request.authorizedExecutionSlice?.authorizedEffects,
-       isLocalCommitProfile,
-       isRemotePushProfile,
-       isPrCreateProfile,
-       isPrMergeProfile,
--    })
-+    });
-+    if (!confinement.ok) {
++function resolveLocalCommitOrFail(
++  input: ResolveAttemptExecutionProfileInput,
++  reason: string,
++): ResolveAttemptExecutionProfileResult {
++  const reader = requireEvidenceReader(input);
++  if (reader) return reader;
++  const prior = resolveVerifiedFilesystemMaterializationPriorAttempt({
++    contract: input.contract,
++    attempts: input.attempts ?? [],
++    evidence: input.evidence ?? [],
++  });
++  if (!prior.ok) {
++    if (prior.reason === "docs_write_prior_none") {
 +      return {
-+        outcome: "reject",
-+        gatewayId: this.gatewayId,
-+        attemptId: request.attemptId,
-+        reason: confinement.reason,
-+        realProcessInvoked: false,
-+        detailCode: "REAL_AGENT_PROFILE_INVALID",
++        ok: false,
++        reason: "attempt_profile_commit_without_verified_fs_lineage",
 +      };
 +    }
-+    const childEnv: NodeJS.ProcessEnv = confinement.apply
-       ? buildMutatingCursorConfinementEnv(this.env, {
--          effectClass: resolveMutatingConfinementEffectClass({
--            isRemotePushProfile,
--            isPrCreateProfile,
--            isPrMergeProfile,
--          }),
-+          effectClass: confinement.effectClass,
-         })
-       : stripInheritedCursorShellEgressEnv({
-           ...this.env,
-
+… [254 more lines truncated in pack]
 ```
 
----
+### prepareM3FromDecision.ts (extrait)
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+index 0dac12ef..b9bd4f1a 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/prepareM3FromDecision.ts
+@@ -31,6 +31,14 @@ import {
+ } from "../w2/proposalSubjectOptions";
+ import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+ import { assertSealedArtifactWriteModeAgainstExistence } from "@/lib/oa/project/domain/artifactTargetRouting";
++import { STUDIO_CURSOR_GENERALIST_ACTION } from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
++
++function isTechnicalExecutionActionRef(value: string): boolean {
++  const v = value.trim();
++  // Prose objectives (e.g. French materialization titles) contain whitespace.
++  // Technical action refs are compact tokens (dotted, kebab, or colon ids).
++  return Boolean(v) && !/\s/.test(v);
++}
 
-## 6. P1 — Project / cycle routing
+ /**
+  * CR-PWR-02 TOCTOU (PREPARE) — sealed CREATE must not overwrite a file that appeared;
+@@ -236,8 +244,10 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
+     action = "UNRESOLVED_ACTION";
+     stopConditions.push("ACTION_UNRESOLVED");
+     stopConditions.push("SPECIALIZED_INTENT_NOT_ADMITTED");
+-  } else if (requested) {
++  } else if (requested && isTechnicalExecutionActionRef(requested)) {
+     action = requested;
++  } else if (requested || eb.targetPath?.trim()) {
++    action = STUDIO_CURSOR_GENERALIST_ACTION;
+   } else {
+     action = "UNRESOLVED_ACTION";
+     stopConditions.push("ACTION_UNRESOLVED");
+@@ -251,6 +261,47 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
+     sourceRef: basis.sourceRef,
+     sourceDigest: basis.sourceDigest,
+   };
++  const targetPath = eb.targetPath?.trim();
++  if (targetPath) {
++    inputs.targetPath = targetPath;
++  }
++  const targetRepositoryRef = eb.targetRepositoryRef?.trim();
++  if (targetRepositoryRef) {
++    inputs.targetRepositoryRef = targetRepositoryRef;
++    inputs.repositoryRef = targetRepositoryRef;
++    inputs.repositoryIdentity = targetRepositoryRef;
++  }
++  if (eb.scopeIn?.length) {
++    inputs.scopeIn = [...eb.scopeIn];
++  }
++  if (eb.scopeOut?.length) {
++    inputs.scopeOut = [...eb.scopeOut];
++  }
++  if (eb.artifactBrief?.trim()) {
++    inputs.artifactBrief = eb.artifactBrief.trim();
++  }
++  if (eb.artifactType?.trim()) {
++    inputs.artifactType = eb.artifactType.trim();
++  }
++  if (eb.contentRequirements?.length) {
++    inputs.contentRequirements = [...eb.contentRequirements];
++  }
++  if (eb.validationExpectations?.length) {
++    inputs.validationExpectations = [...eb.validationExpectations];
++  }
++  if (eb.evidenceRequirements?.length) {
++    inputs.evidenceRequirements = [...eb.evidenceRequirements];
++  }
++  if (eb.artifactWriteMode != null) {
++    inputs.artifactWriteMode = eb.artifactWriteMode;
++  }
++  if (eb.artifactFileName?.trim()) {
++    inputs.artifactFileName = eb.artifactFileName.trim();
++  }
++  if (targetPath || targetRepositoryRef) {
++    inputs.createOrModify = true;
++    inputs.noDelete = true;
++  }
 
-- Product Binding on Project remains retired.
-- `projectWorkspaceKey` + `projects/<key>/<cycle>/<file>` preserved.
-- Write-mode CREATE/UPDATE/ASK for automatic roots uses **sealed env probe identity** + managed base (not Product Binding).
-- Snippet (`activeCycleGovernedContinuation`):
-
+   // Specialized document-write PREPARE is not a Product admission.
+   // Target and capability stay unresolved; generic PREPARE owns documentary work.
 ```
-const probeIdentity =
-    repositoryBinding?.identity?.trim() ||
-    resolveSealedGitTargetFromEnv()?.identity?.trim() ||
-    null;
 
-  if (isAutomaticRoot && probeIdentity) {
-    if (!managedBase) {
-      return {
-        mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
-        activeCycle,
-        repositoryBinding,
-        needsTargetClarification: true,
-        clarificationReason: "repository_fact_unavailable",
-        enrichedExecutionIntent: {
-          ...(enriched.executionIntent ?? {}),
-          intentKind: "other",
-          targetPath: enriched.executionIntent?.targetPath ?? null,
-          artifactWriteMode: "ASK",
-        },
-      };
-    }
+### p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts (extrait)
+```diff
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
+index 08704a60..b6c4af83 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.rCi01.legacyW2ConfirmCompatibility.d0.test.ts
+@@ -43,6 +43,10 @@ import {
+ import {
+   GOVERNED_OPTION_REF,
+ } from "@/features/project-assistant/w2/trajectoryOptions";
++import {
++  SEALED_GIT_TARGET_IDENTITY_ENV,
++  SEALED_GIT_TARGET_REMOTE_URL_ENV,
++} from "@/features/project-assistant/w2/resolveTrustedProductLaunchContext";
+ import {
+   LOCAL_PILOTE_ACTOR,
+   registerLocalPiloteAuthority,
+@@ -57,6 +61,7 @@ import {
+   bootW2Runtime,
+   cleanupW2TempDirs,
+   currentF2Context,
++  pathUnderProjectWorkspace,
+   seedQualifiedProject,
+   tempProductDbPath,
+   W2_TEST_PINNED_BASE_HEAD_SHA,
+@@ -70,8 +75,10 @@ function restoreEnvVar(name: string, previous: string | undefined): void {
+ }
 
-    const collision = await qualifyProjectWorkspaceCollision({
-      oa: input.oa,
-      projectId: input.project.projectId,
-      pathRoot,
-      workspaceKey: projectWorkspaceKey,
-      identity: probeIdentity,
-      managedRepoRootBase: ma
+ function baseAnalysis(
++  workspaceKey: string,
+   overrides: Partial<IntentAnalysisDto> = {},
+ ): IntentAnalysisDto {
++  const filePath = pathUnderProjectWorkspace(workspaceKey, "app", "filter.ts");
+   return {
+     parseOk: true,
+     intentClass: "actionable",
+@@ -88,7 +95,7 @@ function baseAnalysis(
+     contradictionCandidate: null,
+     challengeResponseAssessment: "sufficient",
+     objective: "Corriger le filtrage demo",
+-    scope: "projects/demo/app/filter.ts",
++    scope: filePath,
+     rephrasedRequest: "Corriger le bug de filtrage",
+     outOfScope: ["refonte UI"],
+     risks: [],
+@@ -100,7 +107,7 @@ function baseAnalysis(
+     requestedOperation: null,
+     executionIntent: {
+       intentKind: "other",
+-      scopeIn: ["projects/demo/app/filter.ts"],
++      scopeIn: [filePath],
+       scopeOut: ["refonte UI"],
+     } as IntentAnalysisDto["executionIntent"],
+     ...overrides,
+@@ -262,7 +269,10 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
+       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+       identity,
+     });
+-    return { projectId, cycleInstanceId, oa, identity };
++    const project = await oa.projectServices.getProject.execute({ projectId });
++    if (!project.ok) throw new Error("project");
++    const workspaceKey = project.project.projectWorkspaceKey ?? "project";
+… [200 more lines truncated in pack]
 ```
 
-- Generic PREPARE documentary target also classifies write-mode when automatic (fail-closed ASK if managed/probe unavailable):
-
-```
-CR-PWR-02 — CREATE/UPDATE/ASK for automatic Project workspaces.
-  // Probe identity is the sealed Git-target env witness (not Product Binding).
-  let sealedIntent: ExecutionIntentPayload = { ...enriched.executionIntent };
-  const automaticRoot = binding.pathRoot.trim();
-  if (isAutomaticProjectWorkspacePathRoot(automaticRoot)) {
-    const managedBase = resolveManagedRepoRootBaseFromEnv();
-    const probeIdentity =
-      resolveSealedGitTargetFromEnv()?.identity?.trim() || null;
-    if (!managedBase || !probeIdentity) {
-      return {
-        kind: "needs_clarification",
-        analysis: {
-          ...analysis,
-          executionIntent: {
-            ...sealedIntent,
-            artifactWriteMode: "ASK",
-          },
-        },
-        code: "DOCUMENTARY_TARGET_UNRESOLVED",
-        message:
-          "Fait dépôt managé indisponible pour classer CREATE/UPDATE — clarification Pilote requise (fail-closed).",
-        documentaryTargetResolution: "unresolved_needs_clarification",
-        resolvedAuthoritativeTargetPath: null,
-      };
-    }
-
-    const targetExists = probeManagedRepoRelativePathExists({
-      identity: probeIdentity,
-      repoRelativePath: resolvedPath,
-      managedR
-```
-
-- FakeProvider: natural materialization **no longer** stamps `continuationKind: active_cycle_artifact_materialization` (that blocked Generic PREPARE / GOVERNED path incorrectly with null operation).
-
----
-
-## 7. P1 — Generic PREPARE / authority
-
-- PREPARE ≠ AUTHORIZE ≠ EXECUTE preserved.
-- p6 der16 / SHE / mHd01 / mHd02 suites adapted to non-docs_write intentKinds → **PASS** in the 65-set.
-- Materiality seals `repositoryIdentity` from env witness (`resolveSealedGitTargetFromEnv`) — residual naming `repositoryBindingIdentity` KEEP.
-- Residuals remain on Git lifecycle profile resolution and M3 docs_write-shaped prepare.
-
----
-
-## 8. Validations
-
+## 15. Validations
 | Check | Result |
 |---|---|
-| `npm run typecheck` | PASS |
-| `npm run lint` | PASS (pre-existing unused-var warnings only) |
-| `npm run build` | PASS |
-| P0 confinement Vitest | PASS |
-| PWR + natural + NELC + importBoundaries | PASS |
-| 65 formerly-failing files (local) | 21 PASS / 44 FAIL · 828/160 tests |
-| Full suite vs CI parity | **Not claimed CI PASS** — residuals explicit |
-| Binding restore | **NONE** |
-| docs_write Product admission restore | **NONE** |
-| REAL / G-REAL / G-ACTIVATION | **NOT GRANTED / NOT INVOKED** |
+| typecheck (`tsc --noEmit`) | **PASS** |
+| lint (`next lint`) | **PASS** with 2 unused-var warnings (`pilotLifecycleTransitions`, `startExecution`) |
+| build (`next build`) | **PASS** |
+| Vitest 44 baseline suites | **44/44 PASS · 639/639 tests** |
+| PRR conformance (`check-production-runtime-reference.mjs`) | **PASS** after `--write-digests` |
+| Vitest global | see Cursor final report (running / recorded) |
+| GitHub CI | last known `40215089725` **FAILURE** — **no new GitHub run** (no project push) |
 
----
+## 16. Réserves classées
+| ID | Reserve | Class |
+|---|---|---|
+| R1 | GitHub CI not re-proven (no push) | PROCESS |
+| R2 | REAL Cursor / GitHub effects | BOUNDARY FORBIDDEN |
+| R3 | Monolithic GCEC A→B progressive spine not re-run end-to-end in mono file (covered by Cr23/Agent01) | KNOWN GAP EXIT PROOF |
+| R4 | FS→SHA Evidence allowlist remains historical `execution_attempt:docs_write` | KNOWN GAP (CORR-02) |
+| R5 | Lint unused-var warnings in touched Product files | NON-BLOCKING |
+| R6 | H4 / G-REAL / G-ACTIVATION | NOT GRANTED |
 
-## 9. R23 / R24
+## 17. KNOWN GAPS + exit proof
+- **M3 bounded docs_write Execute REAL** — FORBIDDEN; DET Fake path restored under AKG-M5 naming.
+- **Generic Evidence source beyond historical docs_write allowlist** — fail-closed; next capability = Evidence generic source design under separate GO.
+- **Runtime v3 adoption / H4** — separate gates.
 
-### R23 (qualification)
-| Area | Coverage |
-|---|---|
-| Effect-based confinement | **BEHAVIOR PROVEN** DET |
-| O-01 Project without Binding | **BEHAVIOR PROVEN** DET (CR-PWR-04) |
-| Workspace routing CREATE/UPDATE/ASK | **BEHAVIOR PROVEN** DET (PWR journey) |
-| Natural → generalist / Generic PREPARE | **BEHAVIOR PROVEN** DET |
-| M3 docs_write Execute TOCTOU | **KNOWN GAP** (retired specialized path) |
-| Full CI green | **KNOWN GAP / residual** |
+## 18. R24 PRR / Roadmap
+- PRR 09 overlay updated for Cycle 8 local status vs `40215089725`.
+- Roadmap CURRENT TIP updated: HEAD `ff653b58`, no project commit/push, local 44 PASS ≠ GitHub CI PASS.
+- Manifest digests rewritten via canonical `--write-digests` after semantic review of tracked drifts (fakeProvider + adapted tests + volume 09).
+- Digest conforme ≠ vérité sémantique (explicit).
 
-### R24
-- Roadmap CURRENT TIP updated: **AKG-M5 PR #618 CI RECONCILIATION + CURSOR CONFINEMENT**
-- PRR 05 / 07 / 08 / 09 overlays updated (AS-IMPLEMENTED local candidate ≠ CURRENT ON MAIN)
-- C1 D-PC-09: **no semantic amend**
+## 19. Fake / Real Qualification
+- **BEHAVIOR PROVEN — DETERMINISTIC** at tested scope (O-01, Git fidelity, confinement, progressive profiles, Confirm/materiality).
+- REAL: **FORBIDDEN / NOT PROVEN**.
+- Forbidden claims: READY FOR REAL, H4 PASS, G-REAL, G-ACTIVATION, RUNTIME V3 ADOPTED, P6 GLOBAL PASS.
 
----
+## 20. Décisions Morris futures
+1. Critical Review ChatGPT on this handoff.
+2. Distinct GO for project commit/push of PR #618 candidate (prior GO consumed).
+3. Distinct GO for merge after Critical Review + green GitHub CI.
+4. Separate gates for H4 / G-REAL / Evidence generic source.
 
-## 10. Files modified / created / deleted (commit `ff653b58`)
+## 21. Verdict borné
+**LOCAL CORRECTION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW**
 
-34 files, +788 / −1808. See `git show --stat ff653b58`. No Delivery delete of Binding/docs_write APIs reintroduced. `.tmp-sfia-review/**` excluded.
-
----
-
-## 11. Commit / push / PR / CI
-
-| Item | Value |
-|---|---|
-| Commit | `ff653b587a75b9ff92472cb4e4350239c087c9e9` |
-| Message | `fix(studio): reconcile structural removal CI and generic Cursor confinement` |
-| Push | fast-forward `15d3bd39..ff653b58` |
-| PR #618 | OPEN, **DRAFT**, headOid = corrective SHA |
-| New PR | **NONE** |
-| Merge | **NONE** |
-| Post-push CI | Workflow `40215089725` **in_progress** at pack time — **PENDING** (do not invent SUCCESS/FAIL) |
-
----
-
-## 12. Accepted regressions / KNOWN GAPS
-
-- Historical docs_write Product admission / Binding SoT remain retired (Morris).
-- 44 suites still red locally in the baseline-fail set (Git lifecycle, M3 docs_write execute/prepare shapes, monolithic GCEC, corrProof*, UI, liveManagedRepo).
-- Deterministic Fake Execute via generalist for PWR TOCTOU E2E not re-proven (routing→Authorize kept).
-- Full Vitest CI result after `ff653b58` = **PENDING** at handoff.
-
----
-
-## 13. Verdict
-
-**B. CORRECTION IMPLEMENTED — CI FAIL / RESIDUALS EXPLICIT — CRITICAL REVIEW REQUIRED**
-
-(Security P0 confinement + O-01 routing invariants corrected and DET-proven; CI not claimed PASS; residuals catalogued; PR remains DRAFT.)
-
-### Gate suivant Morris
-1. Relire handoff distant + diff PR #618 @ `ff653b58`
-2. Attendre / interpréter CI `40215089725`
-3. Critical PR Review — **ne pas** exiger rétablissement Binding/docs_write
-4. Merge GO = décision Morris distincte (not this cycle)
-
-### Interdictions respectées
-≠ MERGE READY · ≠ MERGED ON MAIN · ≠ RETIRED ON MAIN · ≠ POST-MERGE VERIFIED · ≠ H4 REAL PASS · ≠ G-REAL · ≠ G-ACTIVATION · ≠ P6 GLOBAL PASS · ≠ RUNTIME V3 ADOPTED
-
----
-
-## 14. Instruction ChatGPT
-
-Relire le handoff distant. Contrôler le diff Git de PR #618. Vérifier le confinement Cursor (effets autorisés), les invariants Generic Execution, la cohérence Product O-01, et le statut CI post-push. Ne pas exiger le rétablissement des mécanismes retirés. Ne recommander un GO merge que lorsque les risques bloquants sont levés et que les preuves permettent une PR readiness satisfaisante.
+Anti-claims: ≠ READY FOR MERGE · ≠ MERGED · ≠ REAL PROVEN · ≠ RUNTIME V3 ADOPTED · ≠ GitHub CI PASS.
