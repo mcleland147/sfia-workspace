@@ -1,187 +1,210 @@
-# SFIA Review Pack — LIGHT (H4-01)
-# AKG-M5 / L2-D2 — PRE-REAL QUALIFICATION H4-01
-# ENVIRONMENT AND PERSISTENCE BOUNDARY ASSESSMENT
+# SFIA Review Pack — FULL (proportionné)
+# AKG-M5 / L2-D2 — H4-02 OA-ONLY CONVERGENCE & D1 EXIT QUALIFICATION
+# ARCHITECTURE-INFORMED / REPO-FIRST / READ-ONLY
 
 ## 0. Meta
-- Generated (UTC): 2026-10-25T07:16:47Z
-- Generated (local): 2026-10-25 08:16:47 +0100
-- Cycle: 6 Architecture technique + bloc 9 QA proportionnée
-- Profile: Critical · Typology: EVOL / QUALIFICATION
-- Capacity: O-01 · Milestone: AKG-M5 L2-D2 post-merge verified / G-ACTIVATION preparation
-- Mode: READ-ONLY investigation · publish-in-cycle L3 handoff
-- NO code change · NO PRR/Roadmap edit · NO project commit/push/PR/merge · NO G-REAL · NO G-ACTIVATION
+- Generated (UTC): 2026-10-25T08:24:31Z
+- Generated (local): 2026-10-25 09:24:31 +0100
+- Cycle: 6 Architecture + bloc 9 QA
+- Profile: Critical · Typology: EVOL / ARCHITECTURE / QUALIFICATION
+- Capacity: O-01 · Milestone: AKG-M5 L2-D2 post-merge / G-ACTIVATION PREPARATION
+- Entry: S1–S4+CORR-01+CR-S2-02 on main via PR #617 · CI post-merge SUCCESS
+- Mode: READ-ONLY · publish-in-cycle L3 only
+- NO code/PRR/Roadmap mutation · NO project commit/push/PR/merge
+- NO G-REAL · NO G-ACTIVATION · NO D1 structural removal · NO exclusive arming
 
-## 1. GO Morris
-Engage preparatory H4-01 qualification after verified PR #617 integration.
-Qualify prerequisites of a first isolated Studio instance for later bounded REAL validations.
-Does NOT cover: G-REAL, G-ACTIVATION, migration, cutover, code/doctrine/v3 changes.
+## 1. GO Morris / Intention
+Reorient H4 toward **OA-only** and preparation of **D1 exit**.
+Central question: what still prevents Studio from operating the nominal OA Project path without operational D1 dependence?
+Explicitly **not**: generic SQLite audit, new Proxy/hardening, parallel engine, theoretical test campaign, D1 rewrite.
+
+Authorized: RO qualification, targeted consumer inventory, evidence analysis, blockers, exit proposal, Fresh Start class, Morris decisions, pack+handoff.
+Forbidden: delete D1, runtime change, migration, create/inspect user DBs, G-REAL/G-ACTIVATION, v3 promotion.
 
 ## 2. Git Truth
 - Repo: mcleland147/sfia-workspace
-- Reading WT: /Users/morris/Projects/sfia-workspace-feat-akg-m5-l2-d2-activation-prep-bounded
-- Branch: feat/akg-m5-l2-d2-activation-prep-bounded @ cdc9909d8adaa6b31df3b75e33e58a8d27c88317
-- origin/main: 7db8afd7c27720712f08000274dbbc4e1a62d935 (EXPECTED MATCH — PR #617 merge)
-- PR #617: MERGED
-- CI post-merge 40169014052: SUCCESS (event=push, head=7db8afd7)
-- Local dirty: only `.tmp-sfia-review/chatgpt-review.md` (this pack)
-- No branch switch / no new project branch / no reset/clean/force
-- Other worktrees preserved (list observed; not mutated)
+- Reading WT: …/sfia-workspace-feat-akg-m5-l2-d2-activation-prep-bounded
+- WT branch/HEAD: feat/… @ `cdc9909d` (**pre-merge tip**; ancestor of main — **not** treated as current main)
+- **origin/main (CURRENT):** `7db8afd7c27720712f08000274dbbc4e1a62d935` (PR #617 merge)
+- SOURCE_ON_MAIN(cdc9909d): YES · key OA blobs match between HEAD and origin/main for investigated trees
+- CI post-merge `40169014052`: SUCCESS
+- Dirty local: `.tmp-sfia-review/chatgpt-review.md` only
+- No rebase/reset/move of worktrees · other WTs preserved
+- Entry handoff H4-01: `cb093db0` / blob `544d8ecf…` — **reused** (persistences, CAND-ABS-A, R-03/Q12 OPEN, H4 NOT QUALIFIED)
 
-## 3. Sources (Git; SHAs via main tip)
-- Process: cycle template · routing · operating model · guardrails
-- Convergence: build-doctrine · roadmap (CURRENT TIP still cites PR #614 — divergence noted §9)
-- Product completion cadrage · AKG-M5 blueprint + 04 L2-D0 §08 H4 checklist
-- Doctrine v3 30/32/34/35/37 — NON ADOPTED
-- PRR README + 03–09 + manifest (CURRENT as-implemented reference)
-- Code: `app/lib/d1/**`, `oa/project/**` paths/db/snapshot, `nora-cognitive-runtime/sessionPaths`, `ops1/paths`, wrap Proxy
-- Entry handoff: sfia/review-handoff @ 86223858 (PR617 merge verification)
+## 3. Sources
+Process v2.6 · Build Doctrine · Roadmap · Product Completion · AKG-M5 blueprint + L2-D0 §08 · M4 target architecture §4 · doctrine v3 30/32/34/35/37 (NON ADOPTED) · PRR README+03–09 · H4-01 handoff.
+Code (targeted): `lib/d1/**`, `lib/oa/project/**`, `lib/vertical-slice-runtime/**`, `lib/vertical-slice-core/localProjectComposition.ts`, `features/project-assistant/**`, `features/pre-m6-product-ui/**`, `features/d1/**`, `app/studio/**`, `app/projects/**`, `app/workspace/**`, `app/page.tsx`, O-01 DET `l2d2O01ProductUiIntegrated.test.tsx`.
 
 ## 4. R23 / R24
-- R23: PRR + code + DET proofs confronted for H4 boundaries — see matrices below
-- R24: NO SEMANTIC IMPACT — no behaviour/doc mutation this cycle
-- Roadmap status lag: CURRENT TIP still **PR #614** while Git establishes **PR #617 POST-MERGE VERIFIED** — signalled only; no Roadmap overwrite; defer to authorized truth-sync cycle
+- R23: architecture-informed evidence from code+tests on main tip content
+- R24: **NO SEMANTIC IMPACT** (no Product/doc mutation)
+- Roadmap CURRENT TIP still **PR #614** while Git has **PR #617** integrated — truth-sync debt; **no** docs cycle this pack
 
-## 5. Environment candidates (no invented machine / App Support path / owner)
+## 5. Frontiers CURRENT (AS-IS)
+| Frontier | Truth | D1 role |
+|----------|-------|---------|
+| Studio UI `/studio/**` | Product shell (pre-m6-product-ui) | **None** (no `@/lib/d1` imports) |
+| Project Assistant | OA `projectServices` | **None** (no d1 imports) |
+| OA Product Project/LPS | Truth C `oa-product.sqlite` | Isolated (collision guards vs d1/ops1) |
+| Nora Memory B | `nora-session.sqlite` | Distinct · ≠ Truth C · ≠ D1 |
+| Vertical Slice Runtime | wires OA SqliteProduct + optional cycle audit port | D1 BoundedAtomicAudit = **transient adapter option** · L1: core must not import lib/d1 · default composition uses Product Sqlite audit |
+| D1 historical | `/workspace`, `/projects/*`, `/nouvelle-demande`, features/d1 | Active **when those routes hit** and exclusive OFF |
+| Legacy nav helpers | D4 Option A | Redirect/notFound **only if** exclusive ON |
+| `/` home | redirects to `/synthese` (POC fixture) | Not D1 · also **not** Product `/studio` (M4 target gap) |
 
-| ID | Type | Identified? | Owner | Notes |
-|----|------|-------------|-------|-------|
-| CAND-DET | DET / synthetic Vitest tmpdir | YES (code/tests) | test harness | S1–S4 scope · **≠ H4 instance** |
-| CAND-WT-LOCAL | Local operational · cwd-relative `.sfia-exec` under studio root | PATTERN YES · this WT: default DBs **absent** | UNASSIGNED | Worktree-coupled · multi-WT risk · not Application Support–class |
-| CAND-ABS-A | Isolated absolute paths via `SFIA_STUDIO_PRODUCT_DB_PATH` + `SFIA_STUDIO_NORA_SESSION_DB_PATH` (+ optional `D1_SQLITE_PATH`) — Option A design | PATTERN YES · **instance NOT DESIGNATED** | UNASSIGNED | Preferred future H4 candidate class · Morris must name path + owner + population policy |
-| CAND-PROD | Production | UNKNOWN | UNKNOWN | R-VOL-01 OPEN · **out of scope** · ≠ empty |
+## 6. O-01 OA-only nominal path
 
-**H4 REAL — NOT QUALIFIED** (no designated real instance).
-**Recommendation:** Morris designate **CAND-ABS-A** (or reject) before any G-REAL / exclusive arming.
+| Step | Component | SoT | D1 dep? | Path | Proof | Gap | O-01 impact |
+|------|-----------|-----|---------|------|-------|-----|-------------|
+| 1 Create Project | `createProjectRuntimeAction` → OA CreateProject | Truth C | **No** | `/studio/projects/new` + runtime | DET O-01 integrated · COVERAGE VERIFIED code | LIVE HTTP NOT PROVEN | Unblocked for OA-only |
+| 2 Persist OA | SqliteProductStore | Truth C | No | product db.ts `new DatabaseSync` (Product, not D1) | M1 + O-01 DET | LIVE instance | Unblocked |
+| 3 LPS create/read | OA LPS services | Truth C | No | same stack | O-01 DET | LIVE | Unblocked |
+| 4 List/consult | ProjectsPage / studio | Truth C | No | `/studio` | O-01 DET UI | LIVE | Unblocked |
+| 5 Reopen/restart | Product SQLite file | Truth C | No | path env/default | M1 durability DET | LIVE restart on designated instance | Unblocked conceptually |
+| 6 Nora continuity | session sqlite | Memory B | No | distinct path | session path guards | LIVE | Unblocked |
+| 7 Product audit | SqliteProjectAuditJournal default | Truth C `oa_audit_events` | No (default) | localProjectComposition L2-D1/D5 | D5 DET | — | Unblocked |
+| 8 Nav Studio | `/studio/**` | — | No | ProductShell | code | `/`→synthese not studio | Prefer enter via `/studio` |
 
-## 6. H4 checklist §08 (14) — AS-IS against designated REAL instance
+**Classification of D1 touchpoints relative to O-01:**
+- **A. Runtime nominal → D1:** **Not on `/studio` O-01 path** (COVERAGE VERIFIED).
+- **B. Import unused:** N/A for studio/PA/OA (no imports).
+- **C. Adapter still required by Product:** **No** for default composition (Product audit on Truth C).
+- **D. Distinct historical user path:** YES — `/workspace`, `/projects/new`, `/projects/[id]`, `/nouvelle-demande` + `features/d1/**` call `lib/d1/commands` / actions when exclusive OFF → **opens D1**.
+- **E. Test/compat:** D1 suites + O-01 probe that exclusive blocks D1 create.
+- **F. Historical data w/o active consumer:** Fresh Start has none; prod UNKNOWN (H4-01).
 
-| # | Element | Status | Evidence level |
-|---|---------|--------|----------------|
-| 1 | Environnement identifié | FAIL for REAL — no named env in GO | DOCUMENTED pattern only |
-| 2 | Owners / autorités | FAIL — UNASSIGNED (D0 D6) | DOCUMENTED |
-| 3 | Writers D1 utilisés | PARTIAL — code inventory known; **effective usage on REAL env unknown** | COVERAGE VERIFIED (code) · BEHAVIOR PROVEN DET only |
-| 4 | Readers / parcours historiques | PARTIAL — D4 Option A code CURRENT; LIVE HTTP NOT PROVEN | COVERAGE VERIFIED (code) |
-| 5 | Volumes / identités | FAIL for REAL — prod UNKNOWN; local Q0 historical 131/43 not re-scanned; this WT defaults absent | KNOWN GAP / DOCUMENTED |
-| 6 | Utilisateurs / parcours affectés | FAIL — not qualified for a designated instance | KNOWN GAP |
-| 7 | Obligations de conservation | FAIL — owner/policy UNASSIGNED | DOCUMENTED OPEN |
-| 8 | Disponibilité données / backup | PARTIAL — VACUUM INTO DET PROVEN; LIVE instance procedure NOT PROVEN | BEHAVIOR PROVEN DET · KNOWN GAP LIVE |
-| 9 | Politique anciens liens | PARTIAL — D4 Option A DET; LIVE NOT PROVEN | BEHAVIOR PROVEN DET |
-| 10 | Plan reprise / fallback | PARTIAL — S4 DET RO diagnostic ≠ Q12 product | KNOWN GAP Q12 |
-| 11 | Tests NR Q7–Q12 env scope | PARTIAL — DET suites exist; env-scoped REAL missing | KNOWN GAP |
-| 12 | Preuve absence writer D1 post-freeze | PARTIAL — DET freeze/injected/S2; LIVE NOT PROVEN | BEHAVIOR PROVEN DET |
-| 13 | Stop conditions | DOCUMENTED (writer leak · dual-write · prod sans preuve) | DOCUMENTED |
-| 14 | Gate Morris env-limited | NOT CONSUMED for a named REAL env | OPEN |
+### Verdict O-01
+**OA-ONLY NOMINAL PATH — COVERAGE VERIFIED** (code + DET for `/studio` Product create/list/reopen; no D1 SoT).
+Caveat: **not** REAL BOUNDARY PROVEN · **not** global “D1 unused in process” while legacy routes remain live under exclusive OFF.
 
-## 7. Persistence inventory (config/code — no user DB opened)
+## 7. Minimal D1 dependency matrix (exit-relevant only)
 
-### A. Product Truth C
-- File: `oa-product.sqlite` · override `SFIA_STUDIO_PRODUCT_DB_PATH` · default `…/.sfia-exec/product/oa-product.sqlite`
-- Role: Project / LPS / decisions / executions — Product truth
-- Writer: OA Product services (`lib/oa/project` SqliteProductStore — `new DatabaseSync` in product db.ts — **not** D1)
-- Reader: Studio OA / project-assistant / product UI
-- Restart: file durable under configured path; cwd-relative defaults are worktree-sensitive
-- Snapshot: `productSqliteSnapshot.ts` VACUUM INTO — DET PROVEN; LIVE NOT PROVEN
-- Exit: KEEP
+| Component | Real consumer | Exec path | Utility now | Proof | Class | Proposed action | Dep | Exit proof | Gate |
+|-----------|---------------|-----------|-------------|-------|-------|-----------------|-----|------------|------|
+| `/studio` + PA + OA Product | O-01 operators | Product runtime | Primary Product | O-01 DET + imports | **KEEP** | Continue | — | LIVE later | H4/G-REAL |
+| Nora session | chat context | Memory B | KEEP distinct | path guards | **KEEP** | Continue | — | — | — |
+| `openD1Db` + Proxy | Legacy D1 pages/commands | when legacy hit / exclusive OFF | Historical intake | code | **FREEZE** candidate / **RETIRE LATER** | Neutralize consumers first | exclusive or route ADAPT | No open under OA-only policy | Morris |
+| `lib/d1/commands` create/get/list | `app/projects/*`, workspace, nouvelle-demande | SSR/actions | Historical UI | page imports | **RETIRE LATER** | After nav ADAPT / exclusive policy | D4 | Routes dead or redirect | Delivery GO |
+| `features/d1/**` | same routes | UI | Historical | imports | **RETIRE LATER** / **HARVEST** only if UI pattern needed (not engine) | Do not harden | — | No Product dep | L6/retire GO |
+| D4 legacyNavigation | gated by exclusive | redirect/notFound | Cutover aid | DET D4 | **KEEP** until routes retired | Optional: ADAPT redirect **without** exclusive (future Delivery) | G-ACTIVATION vs nav Delivery | Routes never open D1 | Morris choose |
+| BoundedAtomicAudit D1 | optional cycle audit inject | not default Product path | HARVEST port already | L1 comments | **HARVEST** (port) · store **RETIRE LATER** | No Product requirement | — | Product audit independent | — |
+| Raw `new DatabaseSync` D1 | theoretical / tests | outside openD1Db | Residual R-03 | S2 negative | KNOWN GAP | **No new hardening** if OA-only excludes D1 path | — | Instance-scoped non-applicability | see §8 |
+| Historical D1 data 131/43 | prior local Q0 | — | Conservation policy | H4-01 | **F** for Fresh Start | Do not import into Fresh Start | D6 owner | Policy | H4/D6 |
+| Tests D1 | CI | vitest | Compat | suites | **KEEP** (tests) until retire | — | — | — | — |
 
-### B. Nora Memory B
-- File: `nora-session.sqlite` · `SFIA_STUDIO_NORA_SESSION_DB_PATH` · default sibling under `.sfia-exec/product/`
-- Role: conversation/context — **≠** Truth C (collision guards vs product/d1/ops1)
-- Writer: `productSqliteSession.ts` / Nora runtime
-- Exit: KEEP distinct
+**RETIRE LATER ≠ permission to delete.** Structural removal needs explicit Morris GO.
 
-### C. D1 historical
-- File: `d1.sqlite` · `D1_SQLITE_PATH` or `OPS1_EXEC_ROOT/.../state` or default `…/.sfia-exec/local-i1/state/d1.sqlite`
-- Role: intake/audit historical · FREEZE when exclusive trim=`"1"` · RETIRE LATER
-- Applicative open: `openD1Db` → allowlist Proxy + authorizer + seal singleton
-- Exit: FREEZE gated / RETIRE LATER — no physical removal in L2-D2
+## 8. R-03 — qualification, not hardening
+Morris position: no new D1 guardians unless they block OA-only exit.
 
-### D. Other
-- OPS1: `ops1.sqlite` under `.sfia-exec/local-i1` — parallel; not Product Truth C
-- M4 launch safety SQLite (`sqliteLaunchSafetyJournal.ts`) — separate
-- Exclusive marker: `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` DEFAULT OFF — process-local; **not** global across worktrees
-- This Delivery WT: default product/nora/d1/ops1 paths **do not exist** (presence check only; **no SQLite open**)
-- Application Support: **no scan of real volumes** (authorization not granted)
+Facts: openD1Db Proxy DET PROVEN · raw constructions KNOWN GAP · R-03 FULL CLOSE NOT CLAIMED.
 
-## 8. R-03 D1 boundaries (recommendation classes ≠ adopted exemptions)
+**Fresh Start OA-only impact:**
+If instance uses absolute Product+Nora paths, operators stay on `/studio`, and legacy D1 routes are not exercised (and/or later neutralized), then raw D1 `DatabaseSync` **cannot affect Product Truth C** and has **no operational D1 file to mutate**.
+→ **R-03 NON-APPLICABLE TO THIS INSTANCE** under those **explicit conditions**.
+→ Does **NOT** close R-03 globally · does **NOT** authorize exclusive arming · does **NOT** recommend new Proxy/monkey-patch/surveillance.
 
-| Path | Characterisation | Risk class (recommendation) |
-|------|------------------|-----------------------------|
-| `openD1Db` + wrap + seal + injected writers | DET BEHAVIOR PROVEN | Baseline for exclusive ON |
-| `setAuthorizer` non-exposable; iterate refuse-always | CR-S2-01/02 DET | Contained on applicative path |
-| Raw `new DatabaseSync` on **D1 file** outside `openD1Db` | Theoretical residual; honest negative tests | **BLOCKING FOR G-ACTIVATION** honesty · **BLOCKING FOR G-REAL** containment claim · **NON-BLOCKING WITH EXIT** for H4 *designation* of isolated empty instance |
-| Product/Nora/OPS1/launch-safety `new DatabaseSync` | Other stores — not D1 freeze surface | Out of R-03 D1 residual (separate ownership) |
-| RO disposable D1 opens in tests | Diagnostic only | ≠ Q12 |
+If legacy routes remain reachable on the same process with default exclusive OFF, D1 can still open via Class D paths → residual process-level exposure until nav policy or exclusive GO.
 
-**Policy options for Morris (raw-DB):**
-1. Accept residual + document STOP if raw D1 open detected on H4 instance (monitor/process review).
-2. Require all D1 access via `openD1Db` only + forbid/detect raw opens (future Delivery — not this cycle).
-3. Defer G-ACTIVATION until chosen policy + exit proof.
+**No additional D1 hardening recommended** — actual blocker for OA-only exit is **legacy route reachability / instance designation**, not missing Proxy coverage on applicative openD1Db.
 
-R-03 FULL CLOSE — **NOT CLAIMED**.
+## 9. H4 Fresh Start (CAND-ABS-A reuse)
+Architecture candidate: Studio → Truth C + Nora B · **no nominal D1** · absolute instance paths · outside worktree defaults.
+**NOT** inventing App Support path · **NOT** creating DB · **NOT** launching Studio · **NOT** arming exclusive · **NOT** H4 PASS.
 
-## 9. Q12 / recovery
-| Item | Status |
-|------|--------|
-| Coherent snapshot VACUUM INTO | DET ACQUIRED |
-| Restore disposable | DET ACQUIRED |
-| Integrity RO | DET ACQUIRED |
-| Diagnostic RO under exclusive | DET (S4) ≠ Q12 |
-| Product Q12 RO fallback | **OPEN / NOT IMPLEMENTED** |
-| R-CUT LIVE | NOT PROVEN |
-| Restore on operational instance | NOT PROVEN |
-| D1 write re-enable | FORBIDDEN without reconciliation + distinct GO |
+Checklist §08 for Fresh Start **without historical data**:
 
-Missing proofs before REAL cutover claims: designated instance quiesce · operator snapshot/restore on that instance · Q12 product behaviour · R-CUT LIVE oracle with exclusive held.
+| # | Element | Fresh Start reading |
+|---|---------|---------------------|
+| 1 Env | Still **not designated** — pattern CAND-ABS-A only |
+| 2 Owner | UNASSIGNED |
+| 3 Writers | Product+Nora writers only if OA-only policy held; D1 writers N/A if routes unused |
+| 4 Readers | `/studio` Product readers; legacy D1 readers = residual if routes live |
+| 5 Volumes | Fresh Start: empty/new files · **do not import** 131/43 · prod UNKNOWN unchanged |
+| 6 Users | To be named with instance |
+| 7 Conservation | **N/A** for empty Fresh Start historical D1 · still document “none demonstrated” |
+| 8 Backup | Product VACUUM INTO DET proven · LIVE procedure still required before broad activation |
+| 9 Navigation | Prefer `/studio`; `/`→`/synthese` POC; legacy D1 routes residual |
+| 10 Fallback | STOP without D1 write re-enable; S4 RO ≠ Q12 |
+| 11 Q7–Q12 | DET partial; env-scoped REAL missing |
+| 12 Absence D1 writers | DET under exclusive; Fresh Start can achieve by **non-use + later route neutralize** without claiming exclusive LIVE |
+| 13 Stops | Dual-write · shared WT paths · exclusive without H4 · prod cutover |
+| 14 Gate Morris | Designate instance + OA-only scope GO |
 
-## 10. Exit matrix (compressed)
+**H4 REAL — NOT QUALIFIED until instance designated.**
 
-| Capacity/prereq | State | Primary proof | Gap | Risk | Decision | Exit proof | Next |
-|-----------------|-------|---------------|-----|------|----------|------------|------|
-| H4 env identified | NOT for REAL | Code path patterns | No designated instance | High if arm exclusive blindly | Morris name CAND-ABS-A | Named path+owner+scope | H4 instance-scoped |
-| Owner | UNASSIGNED | D0 | Policy | Medium | Assign owner | Named authority | D6/H4 |
-| Writers inventoriés | Code YES / REAL NO | db.ts / repository / audit | Effective REAL usage | High on shared DB | Inventory on designated env | Usage evidence | G-REAL prep |
-| R-03 residual | OPEN | S2 negative test | Raw D1 | High for activation claim | Raw-DB policy | Policy+proof | G-ACTIVATION |
-| Q12 | OPEN | S4 ≠ Q12 | Product fallback | High for recovery story | Scope Q12 Delivery | Behaviour proof | R-CUT LIVE |
-| Snapshot LIVE | NOT PROVEN | S1 DET | Instance procedure | High | H4 then LIVE snapshot GO | Operator evidence | G-ACTIVATION |
-| D4/R-CUT LIVE | NOT PROVEN | DET only | HTTP/LIVE | High | After H4 | LIVE suites | G-REAL |
+## 10. Q12 / recovery (no implementation)
+Strict Fresh Start needs:
+- Product snapshot capability (DET: VACUUM INTO) + integrity
+- Data availability on designated paths
+- On cutover/activation failure: **STOP opérationnel sans mutation D1** (option D) — sufficient for first bounded REAL prep
+- Controlled Product restore (C) when proving recovery on that instance — later GO
+- Product Q12 RO fallback (B) — **not** imperative for empty Fresh Start if D1 not in nominal path; remains OPEN for broader activation
 
-Explicit answers:
-- H4 environnement identifié? **NO (REAL)**
-- Owner connu? **NO**
-- Données identifiées? **NO on REAL** (WT defaults absent; prod UNKNOWN)
-- Writers inventoriés? **YES at code** / **NO at REAL usage**
-- Couverture lecteurs? **PARTIAL (code/DET)**
-- R-03 impact caractérisé? **YES (recommendation classes)**
-- Q12 nécessaire et cadré? **YES necessary · NOT implemented**
-- Snapshot opérationnel prouvé? **NO (DET only)**
-- D4 LIVE admissible? **NO**
-- R-CUT LIVE admissible? **NO**
-- Instance candidat REAL acceptable? **NO until Morris designates**
+S4 diagnostic RO ≠ Q12. No restore executed this cycle.
 
-## 11. Fake / Real
-- Entry: DETERMINISTIC PROVEN AT TESTED SCOPE
-- This cycle: **ENVIRONMENT BOUNDARY ASSESSED AT READ-ONLY EVIDENCE SCOPE**
-- NOT: REAL BOUNDARY PROVEN · LIVE CUTOVER · E2E REAL
+## 11. Trajectories
+
+### MINIMAL PATH (indispensable for OA-only instance)
+1. Morris designates **CAND-ABS-A** (absolute Product + Nora paths, owner, isolation vs worktrees).
+2. Operate **O-01 solely via `/studio`** (documented entry); do not use legacy D1 URLs on that instance.
+3. Rely on existing Product snapshot DET tooling for operator backup procedure (no new engine).
+4. Treat D1 as **out of nominal path**; no exclusive arming required solely to “prove OA-only” if routes unused — optional later.
+5. Evidence next: bounded REAL on that instance (distinct G-REAL) — create/list/reopen Project.
+
+**Removes blocker:** missing designated isolated SoT for Product/Nora.
+**Does not require:** new D1 Proxy, Q12 product impl, D1 deletion, Roadmap edit.
+
+### LATER CLEANUP (non-blocking for first OA-only)
+1. ADAPT legacy routes → always redirect/`notFound` to `/studio` (or retire) — eliminates Class D D1 opens without more freeze tech.
+2. Align `/` with M4 (`/studio`) when docs/UI GO allows.
+3. Harvest any UI patterns if needed; retire `features/d1` + commands under structural GO.
+4. Data policy for any remaining historical D1 volumes (D6) — separate from Fresh Start.
+5. Roadmap tip sync PR #617.
+6. Only then: structural D1 removal GO.
+
+### Why no new D1 hardening cycle
+Applicative freeze already DET-proven; OA-only exit is blocked by **instance designation + residual legacy navigation**, not by incomplete Proxy.
+
+## 12. Fake / Real
+- Entry: S1–S4 DETERMINISTIC PROVEN
+- This cycle: **OA-only execution-path and dependency qualification at read-only code scope**
+- NOT claimed: REAL BOUNDARY · LIVE OA-only success · LIVE D4/R-CUT · H4 REAL PASS · global R-03 CLOSE
 - G-REAL / G-ACTIVATION: **NOT GRANTED**
-- DETERMINISTIC ≠ READY FOR REAL
 
-## 12. Critical path
-O-01 (DET integrated) → **H4 designate instance** → R-03/Q12 policy → G-REAL → D4 HTTP / R-CUT LIVE proofs → éventuel G-ACTIVATION
-Do NOT divert to L3/OPS1 rebuild / L4 / L5 without distinct qualification.
+## 13. Evidence / gaps / exit (summary)
+| Item | Level | Gap | Exit |
+|------|-------|-----|------|
+| OA `/studio` O-01 path free of D1 SoT | COVERAGE VERIFIED + DET BEHAVIOR | LIVE | Designate H4 + G-REAL |
+| Legacy D1 routes active if exclusive OFF | COVERAGE VERIFIED | LIVE neutralize | Nav Delivery or exclusive GO |
+| R-03 instance-scoped non-applicability | DOCUMENTED conditional | Misuse of legacy routes | Policy + optional route ADAPT |
+| Q12 product | KNOWN GAP | — | Later if activation broadens |
+| H4 instance | KNOWN GAP | designation | Morris |
+| Roadmap tip lag | DOCUMENTED | #614 vs #617 | Docs GO |
 
-## 13. Decisions requested of Morris
-1. Designate (or refuse) **CAND-ABS-A**: absolute Product + Nora (+ optional D1) paths, owner, isolation rule vs worktrees.
-2. Assign conservation/policy owner (D6) or keep UNASSIGNED with explicit STOP on data actions.
-3. Choose raw-DB residual policy option (1/2/3 above) before G-ACTIVATION.
-4. Authorize a later Roadmap tip sync acknowledging PR #617 (separate docs cycle).
-5. Do **not** grant G-REAL / G-ACTIVATION on this pack alone.
+## 14. Decisions requested of Morris
+1. **Accept OA-only strategy** for next H4: Fresh Start CAND-ABS-A, D1 out of nominal path.
+2. **Designate** instance paths + owner (or refuse).
+3. Choose residual legacy handling: (a) procedural non-use for first REAL, (b) Delivery to redirect/retire routes, (c) later G-ACTIVATION exclusive — **prefer a/b over new D1 hardening**.
+4. Confirm **no structural D1 removal** until consumers neutralized + explicit retire GO.
+5. Defer Roadmap #617 tip sync to authorized docs cycle.
+6. Do **not** grant G-REAL/G-ACTIVATION on this pack alone.
 
-## 14. Verdict
-**H4 PRE-QUALIFICATION COMPLETE — CANDIDATE RECOMMENDED, MORRIS DECISION REQUIRED**
-**H4 PRE-QUALIFICATION — EVIDENCE-BASED / NO REAL ACTIVATION**
-**H4 REAL — NOT QUALIFIED**
-**NO READY FOR REAL**
+## 15. Next capability / smallest useful Delivery
+**Next:** Morris H4 instance designation (CAND-ABS-A) → then bounded G-REAL OA-only on that instance.
+**Smallest useful code Delivery (if Morris wants mechanical D1 non-reachability without exclusive):** unconditional D4-style redirect of legacy D1 entry routes to `/studio` / `notFound` — **not** more Proxy work.
+Avoid: raw-DB hardening campaigns; Q12 impl before instance exists; D1 delete.
+
+## 16. Verdict
+**H4-02 OA-ONLY QUALIFICATION — EVIDENCE-BASED**
+**OA-ONLY NOMINAL PATH — COVERAGE VERIFIED**
+**D1 DEPENDENCY EXIT PATH — QUALIFIED** (residual Class D legacy routes = LATER / optional nav Delivery; **not** blocked by missing D1 hardening)
+**NO ADDITIONAL D1 HARDENING RECOMMENDED UNLESS AN ACTUAL BLOCKER IS PROVEN**
+**H4 REAL — NOT QUALIFIED UNTIL INSTANCE DESIGNATED**
 **G-REAL — NOT GRANTED · G-ACTIVATION — NOT GRANTED**
+**D1 STRUCTURAL REMOVAL — NOT AUTHORIZED**
+**R-03 — instance-scoped non-applicable under OA-only conditions; globally OPEN**
 **AKG-M5 GLOBAL — OPEN · RUNTIME V3 — NON ADOPTED**
 **R24 — NO SEMANTIC IMPACT**
 
