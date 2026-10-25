@@ -113,10 +113,12 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
 | INV-L2D2-CONFIRM-FORBIDDEN-OK-FALSE | Confirmation `FAILED`+`FORBIDDEN` → `actionExecuteConfirmation` `ok:false` / `FORBIDDEN` | `confirmation/actions.ts` | CURRENT IMPLEMENTED · DET |
 | INV-L2D2-CONFIRM-NO-ONDONE-ON-REFUSAL | UI must not treat refused confirmation as success (`ConfirmationPanel` skips `onDone` on `!ok`) | `ConfirmationPanel.tsx` + tests | CURRENT IMPLEMENTED · DET |
 | INV-L2D2-NO-MUTATION-VIA-GUARDED-APIS | No D1 write via guarded repository/audit APIs under exclusive (incl. injected connection) | injected suite | CURRENT IMPLEMENTED · DET |
-| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests | CURRENT IMPLEMENTED · DET · LIVE HTTP NOT PROVEN |
+| INV-L2D2-OPEN-HANDLE-MUTATION-GATED | `openD1Db` Proxy **allowlist** (`prepare`/`exec`/`close` + safe getters) + native `setAuthorizer` (not exposable): under exclusive, prepare/exec/Statement `run|get|all` refuse (`D1Error`); `iterate` refused always (deferred-escape); `setAuthorizer`/`createTagStore`/`deserialize`/session/changeset/extension/UDF refused (**CR-S2-01 + CR-S2-02**) | `wrapD1DatabaseSyncForExclusiveGate.ts` / S2 suite | CURRENT IMPLEMENTED · DET |
+| INV-L2D2-SINGLETON-SEAL-ON-CUTOVER | `sealD1DbSingletonForLocalOaExclusiveCutover` closes process singleton before exclusive arming | `db.ts` / S2+S4 | CURRENT IMPLEMENTED · DET |
+| INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests + S3 harness | CURRENT IMPLEMENTED · DET · LIVE HTTP NOT PROVEN |
 | INV-REC-NE-HD / INV-MEMB-NE-TRUTHC | Recommendation ≠ HD ; Memory B ≠ Truth C | existing catalog | CURRENT IMPLEMENTED |
 
-**Residual KNOWN GAP:** unguarded raw SQLite on a held `DatabaseSync` outside D1 APIs (R-03).
+**Residual KNOWN GAP (R-03):** `new DatabaseSync(path)` constructed **outside** `openD1Db` is **not** wrapped — honest negative test retained. Applicative path DET-proven. Full close needs Morris architecture decision (not done). DET row oracles under exclusive use disposable `{ readOnly: true }` file opens — **≠** Q12 product fallback · **≠** exclusive OFF.
 
 **Failure mode (when exclusive ON):** D1 create/confirm refused ; Product OA create path remains the target continuity surface.
 

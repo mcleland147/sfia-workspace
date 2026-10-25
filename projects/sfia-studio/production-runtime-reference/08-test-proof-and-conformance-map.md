@@ -23,6 +23,17 @@
 
 **Batch cited:** CORR-02 / G-GIT pre-commit — **31 PASS / 7 files**. Post-merge CI [#40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **SUCCESS** on merge `1a0ccd84…`. SQLite = `os.tmpdir()` only for DET. **LIVE Studio / Application Support / R-CUT / D4 HTTP: NOT PROVEN.** Q15 global: **PARTIAL**.
 
+## Overlay — AKG-M5 L2-D2 G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (IMPLEMENTED — DET — 2026-10-25)
+
+| Suite file | What it proves | Class |
+|---|---|---|
+| `l2d2S1ProductSqliteSnapshot.test.ts` | `VACUUM INTO` Project+LPS restore ; `closed_copy` → `CLOSED_COPY_UNAVAILABLE` ; RO integrity without migration ; corrupt/missing fail ; dest overwrite refuse ; Memory B VACUUM | DET · **CR-S1-01** |
+| `l2d2S2RawDatabaseSyncExclusiveGate.test.ts` | CR-S2-01 execution gates + **CR-S2-02** allowlist: `setAuthorizer`/`createTagStore`/`deserialize`/session/changeset refused ; iterate refuse-always ; pre-ON captures inert ; RO row-count oracle ; raw `new DatabaseSync` residual documented | DET · **CR-S2-01/02** |
+| `l2d2S3D4HttpReadinessHarness.test.ts` | Marker OFF/ON ; generic→`/studio` ; deep link notFound ; no mapper ; OPS1 OUT | DET · **≠** HTTP LIVE |
+| `l2d2S4RcutDeterministicRehearsal.test.ts` | Integrated rehearsal ; exclusive **stays ON** ; final D1 oracle = disposable `readOnly` (not marker OFF) ; oracle non-mutating ; Q12 OPEN | DET · **≠** R-CUT LIVE |
+
+**Integrated DET batch (pre-commit revalidation):** S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 — **52 PASS / 10 files** (includes CR-S2-02 suite growth). **Anti-claims:** DET ≠ LIVE · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · exclusive **DEFAULT OFF**.
+
 ## Flow → tests (selected)
 
 | Flow | Deterministic tests | Notes |

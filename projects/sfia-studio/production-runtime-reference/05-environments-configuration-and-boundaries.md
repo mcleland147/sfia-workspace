@@ -57,3 +57,14 @@
 | Isolation | Do **not** set exclusive globally for all Git worktrees ; Fresh Start remains a distinct preparation |
 | Merge effect | Code integrated — **does not** arm marker, create definitive DBs, or start Studio |
 | Anti-claims | Exclusive **not** ACTIVATED · cutover LIVE **not** proven · G-ACTIVATION **OPEN** |
+
+## Overlay — G-ACTIVATION PREPARATION H4-env class (DET harness — 2026-10-25)
+
+| Rule | Detail |
+|---|---|
+| Accepted class | **Fresh Start synthetic / disposable** for Delivery DET (S1–S4) — temp dirs, absolute SQLite paths, teardown of harness-owned resources only |
+| Not claimed | H4 **PASS** for a Morris-designated Studio user instance · Application Support paths · shared DBs across worktrees |
+| Marker in tests | Test-only override **or** real `process.env` trim=`"1"` inside isolated Vitest process — **≠** LIVE Studio env arming |
+| Dual-write | None — Product Truth C writes allowed under exclusive ; D1 applicative writers refuse |
+| Anti-claims | DET harness identity **≠** qualified operational instance · G-REAL / G-ACTIVATION **NOT GRANTED** by this overlay |
+| S4 D1 oracle | Disposable `{ readOnly: true }` file open under exclusive ON — diagnostic only · **≠** marker OFF rollback · **≠** Q12 product RO fallback |
