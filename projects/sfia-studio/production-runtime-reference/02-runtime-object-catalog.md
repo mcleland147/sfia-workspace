@@ -7,21 +7,21 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 ## OBJ-PROJECT — Project
 
 - **Purpose:** Durable product container (name, objective, workspace key). Historical cards also named a repository binding; see the status split.
-- **Status split 2026-10-25:** **CURRENT ON MAIN** (`origin/main` `7db8afd7`): CreateProject still projects server-owned RepositoryBinding from `SFIA_STUDIO_PROJECT_REPOSITORY_*`. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** **RepositoryBinding RETIRED IN LOCAL DELIVERY** — CreateProject has no `repositoryBinding`. `projectWorkspaceKey` / `projects/<key>` routing **PRESERVED**. **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED**.
+- **Status split (post-merge 2026-10-26):** **CURRENT ON MAIN** (`fec4e65d` / PR #618 MERGED): **RepositoryBinding RETIRED** — CreateProject has no `repositoryBinding`. `projectWorkspaceKey` / `projects/<key>` routing **PRESERVED**. **HISTORICAL SNAPSHOT** before merge: on `7db8afd7` CreateProject still projected server-owned RepositoryBinding from `SFIA_STUDIO_PROJECT_REPOSITORY_*`.
 - **SoT / persistence:** `oa_projects` (+ payload_json) via OA project store.
 - **Create:** `RuntimeApplicationService.createProject` / LocalProjectComposition.
-- **Upstream:** **CURRENT ON MAIN:** server-owned repository binding env (`SFIA_STUDIO_PROJECT_REPOSITORY_*`). **LOCAL DELIVERY CANDIDATE:** those keys are removed from preflight and `.env.example`.
+- **Upstream:** **CURRENT ON MAIN after #618:** CreateProject does **not** take RepositoryBinding from env; `SFIA_STUDIO_PROJECT_REPOSITORY_*` removed from CreateProject preflight / `.env.example` as Product SoT (may remain **seal-only** for ExecutionContract git-target). **HISTORICAL:** before #618, server-owned binding env fed CreateProject.
 - **Downstream:** LPS, trajectories, cycles, decisions, contracts.
 - **Paths:** `lib/oa/project/**`, `lib/vertical-slice-runtime/service.ts`
 - **Restart:** survives product DB.
 
 ## OBJ-REPO-BINDING — RepositoryBinding
 
-- **Status:** **CURRENT ON MAIN** (`7db8afd7`) and **RETIRED IN LOCAL DELIVERY**. The card below is the historical / main object. It is a **LOCAL DELIVERY CANDIDATE / NOT ON MAIN** retirement (Morris GO 2026-10-25): not projected at CreateProject; `SFIA_STUDIO_PROJECT_REPOSITORY_*` removed from preflight and `.env.example`. **NOT MERGED**. Do not read this card as the local candidate's create path.
-- **Purpose (historical / CURRENT ON MAIN):** Explicit GitHub identity/remote/branch/pathRoot for Project.
-- **SoT (CURRENT ON MAIN):** Project payload / binding fields — server-owned; never client-authored.
-- **Paths (CURRENT ON MAIN):** project domain + `SFIA_STUDIO_PROJECT_REPOSITORY_*` in `.env.example`. Absent from the local-candidate preflight.
-- **Authority:** configuration ≠ authority. On main it enables docs_write composition. In the local candidate, docs_write Product admission is also retired (see OBJ-CAPABILITY). `projectWorkspaceKey` routing is not this object.
+- **Status:** **RETIRED ON MAIN** via PR #618 MERGED (`fec4e65d`). The card below is a **HISTORICAL SNAPSHOT** of the pre-merge object (true on `7db8afd7`). Do not read it as CURRENT CreateProject.
+- **Purpose (historical):** Explicit GitHub identity/remote/branch/pathRoot for Project.
+- **SoT (historical):** Project payload / binding fields — server-owned; never client-authored.
+- **Paths (historical):** project domain + `SFIA_STUDIO_PROJECT_REPOSITORY_*` in `.env.example` as CreateProject SoT. **CURRENT:** those keys are not CreateProject SoT; seal-only residual may remain for git-target.
+- **Authority:** configuration ≠ authority. Historical Binding enabled docs_write composition; **CURRENT:** docs_write Product admission also **RETIRED** (see OBJ-CAPABILITY). `projectWorkspaceKey` routing is not this object.
 
 ## OBJ-LPS — LivingProjectState
 
@@ -130,7 +130,7 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
   - **SHE CURRENT (D-P6-SHE-01 / PR #590):** STRUCTURAL / HD-required / UNKNOWN may obtain an **inspectable** PREPARE **without** prior HD when Product qualification admits (`sheDeferredStructuralAuthority` stamp possible). Authority is consumed on Pilot **Exécuter** (`singleHumanExecutePreparedContract`): Inspect binding → applicable HD (if required) → Confirm (if required) → Authorize → launch gates. **0 Attempt** if pre-launch gates fail. Historical disposition-before-PREPARE remains available at its own boundary.
 - **Tool-First pathless stamp (CURRENT ON MAIN — PR #588 merge `304e30e8`):** Generic PREPARE may set `inputs.boundedNonMutatingAnalysis` and related `NO_REPOSITORY_MUTATION_*` constraints/stops for Product-admitted pathless analysis. Stamp declares Product intent envelope — **≠** Cursor REAL technical no-write (see F10 R2 / `boundedNonMutatingRealLaunchGate.ts`). DETERMINISTIC at tested scope · REAL no-write enforcement OPEN (`TOOL-FIRST-REAL-NOWRITE`).
 - **CORR-01 / LOCAL DELIVERY:** `inputs.repositoryBindingIdentity` is **residual naming** for a sealed git-target string stamped from server env when canonical — **≠** OBJ-REPO-BINDING / **≠** `Project.repositoryBinding` SoT.
-- **CORR-02 / LOCAL DELIVERY — sealed git-target + managed checkout:** before protected Git start, a provided remote must match the canonical identity (`sealRepositoryBindingFromExecutionInputs`; mismatch → `repository_remote_identity_mismatch`, no synthesized-URL fallback). A managed checkout under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` is accepted only when its `origin` matches that identity (`resolveIdentityMatchedLocalRepo`). `.git` presence is not fidelity. Worktree gitfile is followed one `gitdir` hop, then `commondir` when the worktree gitdir has no origin url. **DETERMINISTIC VERIFIED** at tested scope (`gitTargetIdentityRemoteFidelity.d0.test.ts`). **NOT MERGED**. **≠** REAL.
+- **CORR-02 / LOCAL DELIVERY — sealed git-target + managed checkout:** before protected Git start, a provided remote must match the canonical identity (`sealRepositoryBindingFromExecutionInputs`; mismatch → `repository_remote_identity_mismatch`, no synthesized-URL fallback). A managed checkout under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` is accepted only when its `origin` matches that identity (`resolveIdentityMatchedLocalRepo`). `.git` presence is not fidelity. Worktree gitfile is followed one `gitdir` hop, then `commondir` when the worktree gitdir has no origin url. **DETERMINISTIC VERIFIED** at tested scope (`gitTargetIdentityRemoteFidelity.d0.test.ts`). **MERGED via #618** (pre-merge NOT MERGED claim = HISTORICAL). **≠** REAL.
 
 ## OBJ-INSPECTION — InspectionAttestation
 
@@ -146,7 +146,7 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 ## OBJ-CAPABILITY — AgentCapability
 
 - **Purpose:** Declared agent capabilities. Historical Product example: `cap:cursor.docs_write`.
-- **Status split 2026-10-25:** **CURRENT ON MAIN** (`7db8afd7`): docs_write Product admission (`intentKind` / `cap:cursor.docs_write` / `cursor.docs_write.apply`) remains in active lib+features. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** that Product specialization is **RETIRED**; the generalist envelope refuses the retired document-write token (`CAPABILITY_OUTSIDE_GENERALIST_ENVELOPE`). **NOT MERGED**.
+- **Status split 2026-10-25:** **CURRENT ON MAIN** (`7db8afd7`): docs_write Product admission (`intentKind` / `cap:cursor.docs_write` / `cursor.docs_write.apply`) remains in active lib+features. **CURRENT ON MAIN (PR #618 MERGED) — was LOCAL DELIVERY pre-merge:** that Product specialization is **RETIRED**; the generalist envelope refuses the retired document-write token (`CAPABILITY_OUTSIDE_GENERALIST_ENVELOPE`). **MERGED via #618** (pre-merge NOT MERGED claim = HISTORICAL).
 - **Authority:** capability presence ≠ permission to execute.
 
 ## OBJ-ATTEMPT — ExecutionAttempt
@@ -174,7 +174,7 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 
 - **Purpose:** Durable evidence records tied to attempts/artifacts.
 - **Persistence:** `oa_evidence` (+ idempotency).
-- **CORR-02 / LOCAL DELIVERY — FS-anchor allowlist:** FS→SHA supersession (`isFsAnchorSupersededByVerifiedLocalCommit`) accepts only historical artifact sources `execution_attempt:docs_write` and dotted suffixes (`execution_attempt:docs_write.*`). That reading is **not** Product admission of docs_write. No new Product materialization Evidence source is stamped after the retirement. Prose `execution attempt <id> (succeeded)`, `execution_attempt:mission_result`, and other non-allowlisted sources do not supersede. Ambiguous matching artifacts do not auto-PASS (T11/T12). **NOT MERGED**. **≠** REAL.
+- **CORR-02 / LOCAL DELIVERY — FS-anchor allowlist:** FS→SHA supersession (`isFsAnchorSupersededByVerifiedLocalCommit`) accepts only historical artifact sources `execution_attempt:docs_write` and dotted suffixes (`execution_attempt:docs_write.*`). That reading is **not** Product admission of docs_write. No new Product materialization Evidence source is stamped after the retirement. Prose `execution attempt <id> (succeeded)`, `execution_attempt:mission_result`, and other non-allowlisted sources do not supersede. Ambiguous matching artifacts do not auto-PASS (T11/T12). **MERGED via #618** (pre-merge NOT MERGED claim = HISTORICAL). **≠** REAL.
 
 ## OBJ-RB — ReviewBundle
 

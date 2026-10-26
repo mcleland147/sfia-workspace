@@ -5,53 +5,37 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## Overlay — Product RepositoryBinding + docs_write Product specialization (GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN — 2026-10-26)
+## Overlay — Product RepositoryBinding + docs_write Product specialization (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
 | Item | Status |
 |---|---|
-| Decision | **DECIDED BY MORRIS 2026-10-25** (structural removal) · **GO Morris Git Integration consommé** 2026-10-26 |
-| Branch / HEAD | `feat/akg-m5-remove-repository-binding-docs-write` @ **`a75d0ed5785861dd198894ea1c5d7436b6d1840c`** — Draft [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) **OPEN / DRAFT / NOT MERGED** |
-| Git Integration | Commit `refactor(studio): retire Product repository binding and docs_write admission` · **63 files** (60 M + 3 A KEEP helpers) · four orphan docs_write helpers **absent** · Review Pack **excluded** from project commit |
-| GitHub CI | [run `40258385791`](https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791) **COMPLETED / SUCCESS** · event=`pull_request` · HEAD=`a75d0ed5` · Detect **SUCCESS** · Build and validate **SUCCESS** · **SFIA Studio Required Gate SUCCESS** |
-| Local attestations (pre-push) | typecheck/lint/build **PASS** · CI-44 **639 PASS** · `CI=true npm test` **6013 PASS / 142 skipped** (skipped ≠ PASS) |
-| **CURRENT ON MAIN** | `origin/main` `7db8afd7` ([PR #617](https://github.com/mcleland147/sfia-workspace/pull/617) activation prep) **still has** server-owned RepositoryBinding, `SFIA_STUDIO_PROJECT_REPOSITORY_*`, and docs_write Product admission. PR #614 / #616 / #617 facts below stay **main** facts. **#618 code is a pushed Git candidate, not merged.** |
-| RepositoryBinding | **RETIRED ON BRANCH CANDIDATE ONLY** — CreateProject has no `repositoryBinding`; preflight / `.env.example` no longer require `PROJECT_REPOSITORY_*`. **Main retains prior behaviour until #618 merges.** |
-| docs_write Product specialization | **RETIRED ON BRANCH CANDIDATE ONLY** — Product admission (`intentKind` / cap / action) removed from active lib+features. Historical docs_write rows later in this volume remain the **CURRENT ON MAIN** record. Historical Evidence durable-read `execution_attempt:docs_write` **≠** Product docs_write action admission. |
-| Preserved | `projectWorkspaceKey` / `projects/<key>` routing · Generic PREPARE / EC / AES / Cursor generalist / Evidence / ReviewBundle |
-| KEEP helpers (in commit) | `resolveSealedDocsWriteWorktreePaths.ts` · `resolveVerifiedFilesystemMaterializationPriorAttempt.ts` · `fakeCursorDeterministicLaunchPort.ts` |
+| Decision | **DECIDED BY MORRIS 2026-10-25** (structural removal) · **GO Morris Git Integration consommé** · **GO Morris undraft + merge consommé** 2026-10-26 |
+| PR / merge | [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) **MERGED** `2026-10-26T05:01:23Z` · merge **`fec4e65d1c8437f15fc6cf8ea81376d655c79394`** · parents `7db8afd7…` + `ffc033a7…` · feature branch **conservée** @ `ffc033a7` |
+| Post-merge CI | [run `40272048259`](https://github.com/mcleland147/sfia-workspace/actions/runs/40272048259) **SUCCESS** · event=`push` · branch=`main` · HEAD=merge · Detect / Build / **Required Gate SUCCESS** |
+| Pre-merge CI (historical) | [run `40258385791`](https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791) **SUCCESS** on Product HEAD `a75d0ed5` (pull_request) — dated fact |
+| **CURRENT ON MAIN** | **RepositoryBinding RETIRED** · **docs_write Product admission RETIRED** · CreateProject has no `repositoryBinding` · Product admission tokens removed from active lib+features |
+| Preserved | `projectWorkspaceKey` / `projects/<key>` · Generic PREPARE / EC / AES / Cursor generalist / Evidence / ReviewBundle · sealed Git identity (seal-only) |
+| KEEP helpers | `resolveSealedDocsWriteWorktreePaths.ts` · `resolveVerifiedFilesystemMaterializationPriorAttempt.ts` · `fakeCursorDeterministicLaunchPort.ts` |
 | Orphans RETIRE (absent) | `completeBoundedDocsWriteLaunch` · `ingestDocsWriteArtifactEvidence` · `persistDocsWriteArtifactReviewMaterial` · `resolveDocsWriteArtifactAbsolutePath` |
-| Historical CI (superseded) | Baseline Vitest **301 FAIL / 65 files** (`40207375690`) · Corrective on `ff653b58` **160 FAIL / 44 suites** (`40215089725`) — **dated FAILURE facts**; superseded as CI status by **`40258385791` SUCCESS** on `a75d0ed5` |
-| Cycle 8 LOCAL (historical) | Pre-push Cycle 8 on `ff653b58` (no project commit *then*): P0 effect-gated profiles + FakeDocsWrite DET + adversarial Git Start rewrite — **HISTORICAL stage** before Git Integration |
-| Epistemic supersession | PRR **README** canonical block corrected 2026-10-26 (no longer CURRENT **PENDING GIT INTEGRATION**). PRR 03 / 07 / 08 overlays dated 2026-10-25 that still say **PENDING GIT INTEGRATION** or pre-push-only **LOCAL DELIVERY** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status — **superseded by this overlay + README**. Code remains **NOT ON MAIN** until merge. Residual dated wording in vols 03/07/08 is not rewritten in this R24 cycle. |
+| HISTORICAL stages | LOCAL DELIVERY · Cycle 8 CI FAILURE · GIT-INTEGRATED PR CANDIDATE / Draft / NOT ON MAIN / MERGE NOT GRANTED — **true at their dates**; superseded as CURRENT by this overlay |
+| Epistemic supersession | README + this overlay are **CURRENT**. Volumes 02–08 overlays that still said LOCAL DELIVERY / NOT ON MAIN / PENDING GIT INTEGRATION for #618 are requalified in the same P0 pass to **CURRENT ON MAIN** (or marked HISTORICAL where they correctly describe pre-merge). |
 | KNOWN GAP — Product E2E FS→Git→Review | Front-door généraliste Product E2E physique FS→Git→Review **not re-proven** end-to-end (partially fixture-safe). **OPEN** |
 | KNOWN GAP — FS→SHA Evidence source | Allowlist **historical-only** `execution_attempt:docs_write` (+ dotted suffix). **No new generic Product materialization Evidence source** proven after retirement. **OPEN** |
 | KNOWN GAP — worktree layouts | Checkout origin read: one `.git` gitfile `gitdir` hop (+ `commondir`). Layouts beyond tested hops **fail-closed**. **OPEN** |
 | KNOWN GAP — residual naming | `repositoryBindingIdentity` seal-only field name **KEEP**; env keys `SFIA_STUDIO_PROJECT_REPOSITORY_*` — rename debt. **NOT** `Project.repositoryBinding` SoT. **OPEN** |
-| KNOWN GAP — REAL / H4 / G-ACTIVATION | **NOT QUALIFIED / NOT GRANTED**. **OPEN** — no automatic CLOSED |
-| KNOWN GAP — M3 bounded docs_write Execute | Historical `reachAuthorizedDocsWrite` / Fake docs_write launch path **RETIRED**. Deterministic Fake Execute via generalist for TOCTOU E2E **not** re-proven in PWR application-path suite (routing→Authorize remains). |
+| KNOWN GAP — REAL / H4 / G-ACTIVATION | **NOT QUALIFIED / NOT GRANTED**. **OPEN** |
+| KNOWN GAP — M3 bounded docs_write Execute | Historical Fake docs_write launch path **RETIRED**. Deterministic Fake Execute via generalist for TOCTOU E2E **not** re-proven in PWR application-path suite (routing→Authorize remains). |
 | KNOWN GAP — import deep paths | Prefer `@/lib/vertical-slice-runtime` barrel for managed-repo helpers (importBoundaries allowlist). |
-| Not granted | **H4 / G-REAL / G-ACTIVATION NOT GRANTED** · **AKG-M5 OPEN** · runtime v3 **NON ADOPTED** · merge **NOT GRANTED** · undraft **NOT GRANTED** |
-| Anti-claim | ≠ **MERGED ON MAIN** · ≠ **CI SUCCESS on future R24 SHA** · ≠ **runtime v3 ADOPTED** · ≠ **REAL PROVEN** |
+| Not granted | **H4 / G-REAL / G-ACTIVATION NOT GRANTED** · **AKG-M5 OPEN** · runtime v3 **NON ADOPTED** · exclusive **DEFAULT OFF** |
+| Anti-claim | ≠ exclusive ACTIVATED · ≠ L3 complete · ≠ REAL PROVEN · ≠ AKG-M5 CLOSED · ≠ P6 GLOBAL PASS |
 | CORR-01 — KNOWN GAP | `sameMacroClosure` helpers (`repositorySourcesFromProductFacts` / `normalize*Outcome`) lack a dedicated test after the docs_write suite retirement |
 | CORR-01 — KNOWN GAP | `replan` / `w3cPayloadMatchesCurrentProduct` / `isEvidenceBackedNotProvenUnclaimed` not re-ported |
-| CORR-01 — `repositoryBindingIdentity` | **KEEP** residual field name — sealed **git-target** identity string on ExecutionContract `inputs` / subject; source = server env (`SFIA_STUDIO_PROJECT_REPOSITORY_*`) when canonical via `resolveTrustedProductLaunchContext`; absent / non-canonical → `null` → **Select** fail-closed. **NOT** `Project.repositoryBinding` SoT (no `NewRepositoryBinding`; not written onto Project). `identity: null` in `activeCycleGovernedContinuation` local `WorkspacePathRoot` variable |
-| CORR-01 — restored proofs | Generic ambiguity / mission / criteria / continuity wording proofs restored (`*.generic.d0.test.ts`). **DET at tested scope** · **≠** REAL |
-| CORR-02 — Git target fidelity | Identity↔remote↔checkout **DETERMINISTIC VERIFIED** (`gitTargetIdentityRemoteFidelity.d0.test.ts`). Evidence FS-anchor allowlist tightened. On branch candidate `a75d0ed5` · **NOT MERGED**. **≠** REAL |
-| CORR-02 — D-PC-09 | **NO SEMANTIC IMPACT** on D-PC-09 workspace routing. Historical C1 text is not rewritten. Qualification lives in this volume and volumes 03 / 05 |
+| CORR-01 — `repositoryBindingIdentity` | **KEEP** residual field name — sealed **git-target** identity string on ExecutionContract `inputs` / subject; source = server env (`SFIA_STUDIO_PROJECT_REPOSITORY_*`) when canonical via `resolveTrustedProductLaunchContext`; absent / non-canonical → `null` → **Select** fail-closed. **NOT** `Project.repositoryBinding` SoT. |
+| CORR-01 — restored proofs | Generic ambiguity / mission / criteria / continuity wording proofs restored (`*.generic.d0.test.ts`). **DET at tested scope** · **≠** REAL · **CURRENT ON MAIN** via #618 |
+| CORR-02 — Git target fidelity | Identity↔remote↔checkout **DETERMINISTIC VERIFIED** (`gitTargetIdentityRemoteFidelity.d0.test.ts`). Evidence FS-anchor allowlist tightened. **CURRENT ON MAIN** via #618 · **≠** REAL |
+| CORR-02 — D-PC-09 | **NO SEMANTIC IMPACT** on D-PC-09 workspace routing. Historical C1 text is not rewritten. |
 
-## Overlay — AKG-M5 L2-D2 local OA cutover readiness (CURRENT ON MAIN — PR #614; Cycle 14 truth-sync — 2026-10-24)
-
-| Item | Status |
-|---|---|
-| Epistemic | **CURRENT ON MAIN** — [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) MERGED `1a0ccd84…` · [CI #40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) SUCCESS · marker **DEFAULT OFF / NOT ACTIVATED** |
-| Pre-merge history | Local Delivery / CORR-02 / R24 / Cycle13 digests / G-GIT Draft PR = **HISTORICAL stages** (handoffs `ceb0a69d` / `85f15081` / `f23c4f54` / `e6e43b5b`) |
-| G-ACTIVATION | **OPEN** — no Studio live arming ; no definitive App Support DBs by merge |
-| DET proof | **31 PASS / 7 suites** + post-merge CI SUCCESS |
-| O-01 « comprendre » | LPS objective → Product UI **BEHAVIOR PROVEN AT TESTED SCOPE (DET)** — **≠** LIVE E2E COMPLETE |
-| **R-01** documentary lag | Documentary lag corrected and integrated on main through [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) · post-merge CI [#40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **exit proof satisfied** · **formal close pending Morris** (**≠** FORMALLY CLOSED BY MORRIS) |
-| **R-02** D4 LIVE | DET redirect/notFound + S3 harness proven · Studio/HTTP LIVE path **NOT PROVEN** · **R-02 remains OPEN** |
-| **R-03** SQLite / raw DB | Snapshot DET **PARTIAL** (**CR-S1-01**) · applicative `openD1Db` native allowlist + authorizer DET-proven (**CR-S2-01/02**) · residual raw `new DatabaseSync` outside `openD1Db` **KNOWN GAP** · R-03 FULL CLOSE **NOT CLAIMED** |
-| Q12 RO fallback | **OPEN** — S4 uses test-only disposable RO diagnostic ≠ product Q12 |
+ — S4 uses test-only disposable RO diagnostic ≠ product Q12 |
 | OPS1 | **OUT** of initial D4 · unchanged |
 | Q15 global | **PARTIAL** |
 | R-CUT DET | **PASS** (CORR-01: exclusive stays ON through final D1 oracle) |
@@ -172,7 +156,7 @@
 |---|---|---|
 | Natural active-cycle materialization routing corrected (#532) | CONFIRMED | continuity tests on main |
 | Artifact applicability bridge corrected (#533) | CONFIRMED | bridge helpers on HEAD |
-| D-PC-09: filename candidate + server exact target; no micro-gate | CONFIRMED (doc) on main for workspace routing. `projects/<key>` **PRESERVED** in the 2026-10-25 local candidate. Server-owned RepositoryBinding projection stays **CURRENT ON MAIN** (`7db8afd7`) and is superseded only as **LOCAL DELIVERY CANDIDATE / NOT ON MAIN**. **CORR-02: NO SEMANTIC IMPACT** on this routing sentence; sealed git-target fidelity is not a D-PC-09 rewrite | product-completion cadrage amendment; historical D-PC-09 text not rewritten |
+| D-PC-09: filename candidate + server exact target; no micro-gate | CONFIRMED (doc) on main for workspace routing. `projects/<key>` **PRESERVED**. Server-owned RepositoryBinding projection is **RETIRED ON MAIN** via #618 (historical on `7db8afd7` before merge). **CORR-02: NO SEMANTIC IMPACT** on this routing sentence; sealed git-target fidelity is not a D-PC-09 rewrite | product-completion cadrage amendment; historical D-PC-09 text not rewritten |
 | REAL PocketTasks asked Pilot for filename | OBSERVATION | campaign UX; REAL not re-run here |
 | Fake may derive `note-de-cadrage.md`; REAL may leave null | MITIGATED Fake / REAL still provider-dependent | Fake now uses provider-neutral leaf cues; REAL not re-run |
 | MW5 may re-challenge structurally resolved continuation | MITIGATED at tested scope | `structurallyResolvedActiveCycleContinuation` |
@@ -239,7 +223,7 @@ R-M3A-01 OPEN · R-M3B-01 OPEN · R-G6-SR-01…04 = correction candidates under 
 - **CP4-02 OPTION C IMPLEMENTED** — Studio Product write protection = sandbox floor ∪ `STUDIO_GOVERNANCE_PROTECTED_PATHS` (framing prefix + exact Build Doctrine / Roadmap / D-ER architecture / C1). No blanket `projects/sfia-studio/**` deny. No Campus360/CT `SFIA_DEFAULT_PROTECTED_PATHS` as Product classifier.
 - Proof ceiling: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · **LOCAL CANDIDATE / NOT INTEGRATED ON MAIN** (at time of that macro) · ZERO REAL · READY FOR REAL **NO** · runtime v3 **NON ADOPTED**.
 - Historical: Correction Pass 04 STOP (Morris decision required on CP4-02) superseded by MD-CP4-01/MD-CP4-02 resume — see prior tip / handoff `2daf0dc3…`.
-- docs_write adapters: **CURRENT ON MAIN** — TRANSITIONAL bridge retained (dual-write Review Material) — exit when historical callers = 0. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN (2026-10-25):** docs_write Product admission is **RETIRED**; this bridge sentence is superseded history for that candidate and is **NOT MERGED**. Do not read it as proof the bridge was deleted.
+- docs_write adapters: **HISTORICAL ON MAIN before #618** — TRANSITIONAL bridge retained while admission existed. **CURRENT ON MAIN after PR #618 MERGED:** docs_write Product admission is **RETIRED**; do not read residual bridge sentences as Product admission. Historical Evidence `execution_attempt:docs_write` durable-read **≠** admission.
 - `durableLocalWriteSeal` domain seam: **TRANSITIONAL** (isolated domain/tests only) — exit when GOVERNED trajectory Product carrier is retired or superseded; never browser/client.
 - NoteLite REAL replay: **NOT DONE** (PAUSED; distinct Morris GO).
 - Retention GC / Git promotion: **NOT IMPLEMENTED**.
@@ -266,8 +250,8 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | Item | Status |
 |---|---|
 | Cursor report machine-readable protocol in EC→Cursor prompt | AS-IMPLEMENTED — `CURSOR_EXECUTION_REPORT_JSON=` required |
-| docs_write report **runtime** required (not optional) | **CURRENT ON MAIN** — `CURSOR_EXECUTION_REPORT_REQUIRED` / `_MALFORMED` / bind fail-closed; Attempt may stay succeeded. **LOCAL DELIVERY CANDIDATE:** docs_write Product admission **RETIRED** / **NOT ON MAIN**; do not promote this row to the local candidate |
-| docs_write report continuity after `completeBoundedDocsWriteLaunch` | **CURRENT ON MAIN** — bind + persist claim beside Artifact Evidence. Superseded history for the 2026-10-25 local candidate. **NOT MERGED** |
+| docs_write report **runtime** required (not optional) | **HISTORICAL** for specialized docs_write admission path. **CURRENT ON MAIN after #618:** Product admission **RETIRED**; generalist report/bind rules follow Generic Execution — do not re-admit docs_write |
+| docs_write report continuity after `completeBoundedDocsWriteLaunch` | **HISTORICAL** — helper **RETIRED / ABSENT** on main after #618. Do not treat as CURRENT Product path |
 | Durable artifact review without hot worktree / Pilot paste | AS-IMPLEMENTED — `external_payload_ref` under existing mission-result-refs layout |
 | Claim completion result propagation | AS-IMPLEMENTED — closed classifier; only headings-missing / empty-content → NOT_PROVEN; oracle/integrity/lineage/unknown → continuity fail-closed |
 | Nora grounding (contract + report + artifact FULL/PARTIAL + CE) | AS-IMPLEMENTED at tested scope — no PATH_NOT_ALLOWED for governed artifact handoff |
@@ -307,7 +291,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | `repositoryMutation` absent **without** `read_only` | **FORBIDDEN** as pathless NON_STRUCTURAL — fail-closed (`repository_mutation_claim_absent` / Materiality UNKNOWN) |
 | `repositoryMutation` unknown / write → pathless NON_STRUCTURAL | **FORBIDDEN** — fail-closed |
 | Nora `repositoryMutation` / `read_only` alone as Product authority | **INSUFFICIENT** — live context, envelope, contradiction checks still apply |
-| Structural / protected-path / elevated caps / docs_write disguise | **PRESERVED on main** — HD / refuse paths KEEP. **LOCAL DELIVERY CANDIDATE:** the retired document-write token stays outside the generalist envelope (refuse, not re-admission). **NOT MERGED** |
+| Structural / protected-path / elevated caps / docs_write disguise | **PRESERVED / CURRENT ON MAIN after #618** — HD / refuse paths KEEP; retired document-write token stays outside the generalist envelope (refuse, not re-admission) |
 | Inspect ≠ Execute; server Confirm/Authorize/Execute distinct | **PRESERVED** — Exécuter may fold Confirm after attest only |
 | Cursor REAL generalist technical no-write | **ABSENT** — debt open |
 | R2 Select (REAL + pathless non-mutating) | **CURRENT ON MAIN** — refuse **before new Attempt**; code `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` |
@@ -326,7 +310,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 | `no_require_artifact` aliased as NEW_CYCLE_FORMALIZATION | **FORBIDDEN** — preserved |
 | Invented REQUIRE_ARTIFACT / silent HD for optional documentary | **FORBIDDEN** — preserved |
 | Applicable Artifact obligation / REQUIRE_ARTIFACT path | **PRESERVED** — Generic PREPARE does not bypass Artifact governance |
-| Intent fidelity (`docs_write` / missionEffects) | **CURRENT ON MAIN** — offer → rebuild → inspectable contract at tested scope. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** `docs_write` is not a Product admission `intentKind`; documentary work uses generic PREPARE. **NOT MERGED** |
+| Intent fidelity (`docs_write` / missionEffects) | **CURRENT ON MAIN after #618:** `docs_write` is **not** a Product admission `intentKind`; documentary work uses generic PREPARE. Historical offer/rebuild sentences that assumed admission are **HISTORICAL** |
 | Capability envelope | Exact Product identities only; substring spoofing fail-closed |
 | Nora proposed path as authorized expectedOutput | **FORBIDDEN** at Generic PREPARE when unresolved — candidate only (`unresolved_nora_candidate`) |
 | Pending Generic PREPARE offer persistence | **PROCESS-LOCAL** — restart-unsafe; re-offer required |
@@ -410,7 +394,7 @@ NoteLite bounded REAL re-proof — **PAUSED**. Gate Morris distinct. Not this de
 No `retired-components-ledger.md` — zero components removed.
 
 ### CP4 residual reserves (acceptable debt after resume)
-- docs_write compatibility bridges retained on **CURRENT ON MAIN**. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN (2026-10-25):** Product admission of that specialization is **RETIRED**; bridges are not claimed deleted by this note. **NOT MERGED**
+- docs_write compatibility bridges: **HISTORICAL** while admission existed. **CURRENT ON MAIN after #618:** Product admission **RETIRED**; bridges are not claimed physically deleted by this note, and must not be read as re-admission
 - Review Material GC/retention not implemented
 - Git promotion of reviewed candidate not implemented
 - NoteLite REAL re-proof deferred (Morris GO distinct)
