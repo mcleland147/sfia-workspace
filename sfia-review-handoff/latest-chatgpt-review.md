@@ -2,14 +2,18 @@
 ## FULL MONO-CYCLE — CRITICAL — GO Morris undraft + merge + post-merge verify
 
 ## A. Horodatage
-- UTC: 2026-10-26T05:07:33Z
-- Europe/Paris: 2026-10-26T06:07:33+0100
+- UTC: 2026-10-26T05:10:12Z
+- Europe/Paris: 2026-10-26T06:10:12+0100
+- Merge consumed: 2026-10-26T05:01:23Z · Post-merge CI completed: 2026-10-26T05:06:45Z
 
 ## B. GO Morris consommé
 - Undraft PR #618: **DONE** (`gh pr ready 618`)
 - Merge commit into main: **DONE** (`gh pr merge 618 --merge`)
 - Post-merge CI verify: **DONE — SUCCESS**
-- Review Pack FULL + Handoff L3: **in progress**
+- Review Pack FULL + Handoff L3: **DONE** (`scripts/sfia/publish-review-handoff.sh` → `sfia/review-handoff`)
+  - message: `docs(review-handoff): AKG-M5 PR618 controlled merge review`
+  - prior tip `130ca639a9a9ba4f70bd50a6f5b6854bcc5e36c9` → superseded by this cycle’s handoff tip (see Cursor Critical / remote tip)
+  - project HEAD preserved `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` · no project push · no main push
 - EXCLUS / NON consommés: delete-branch · force push · --admin · Product edits · REAL · H4 · G-REAL · G-ACTIVATION · runtime v3 · AKG-M5 global close
 
 ## C. Git Truth avant / après
