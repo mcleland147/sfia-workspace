@@ -1,50 +1,51 @@
-# SFIA Review Pack — AKG-M5 Cycle 13 R24 DOCUMENTARY TRUTH SYNC
-## FULL MONO-CYCLE — CONSOLIDATED FINAL LOCAL CORRECTION
-## Standard / DOC only / LOCAL
+# SFIA Review Pack — AKG-M5 Cycle 13 R24 GROUPED GIT INTEGRATION
+## FULL MONO-CYCLE — STANDARD — GO Morris A–E
 
 ## A. Horodatage
-- UTC: 2026-10-26T04:15:07Z
-- Europe/Paris: 2026-10-26T05:15:07+0100
+- UTC: 2026-10-26T04:47:28Z
+- Europe/Paris: 2026-10-26T05:47:28+0100
 
-## B. GO Morris
-- GO initial: R24 documentary truth sync (Roadmap + PRR 09 + manifest) — ACCEPTED WITH RESERVES (handoff `f2c84d07b03d24651336a1f22c87d4c160ee406d`)
-- Extension: correction README PRR canonique + consolidation finale des **4** documents
-- Autorisé: docs locaux + Review Pack FULL + Handoff L3
-- Interdit: commit/push projet · gh pr edit · merge · undraft · Product · REAL · H4 · G-ACTIVATION
+## B. GO Morris groupé consommé
+- A Commit 4 docs R24: **DONE**
+- B Push FF branche PR #618: **DONE**
+- C Actualisation PR body: **DONE**
+- D Vérification nouvelle CI: **DONE — SUCCESS**
+- E PR readiness + Review Pack + Handoff L3: **in progress**
+- EXCLUS: merge · undraft · Product · REAL · H4 · G-ACTIVATION
 
-## C. Local Git Truth
-- Repo: mcleland147/sfia-workspace
-- Worktree: `/Users/morris/Projects/sfia-workspace-feat-akg-m5-remove-repository-binding-docs-write`
-- Branch: `feat/akg-m5-remove-repository-binding-docs-write`
-- HEAD projet: `a75d0ed5785861dd198894ea1c5d7436b6d1840c` (inchangé)
-- origin/main: `7db8afd7c27720712f08000274dbbc4e1a62d935`
-- Remote feature tip: `a75d0ed5785861dd198894ea1c5d7436b6d1840c`
-- PR #618: OPEN / DRAFT / NOT MERGED
-- CI `a75d0ed5785861dd198894ea1c5d7436b6d1840c`: run `40258385791` SUCCESS — https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791
-- Handoff précédent R24: `f2c84d07b03d24651336a1f22c87d4c160ee406d`
-- Avant extension: Roadmap + PRR09 + manifest + pack dirty
-- Après consolidation: **4 docs projet** + pack dirty · staged **empty** · **aucun commit projet**
+## C. Git Truth
+| | Avant | Après |
+|---|---|---|
+| Branch | feat/akg-m5-remove-repository-binding-docs-write | idem |
+| HEAD | `a75d0ed5785861dd198894ea1c5d7436b6d1840c` | **`ffc033a7b69bbf37b2834b999bb621d3c3465f7a`** |
+| origin/main | `7db8afd7c27720712f08000274dbbc4e1a62d935` | idem |
+| Remote tip | `a75d0ed5785861dd198894ea1c5d7436b6d1840c` | **`ffc033a7b69bbf37b2834b999bb621d3c3465f7a`** |
+| PR #618 | OPEN/DRAFT head=`a75d0ed5785861dd198894ea1c5d7436b6d1840c` | OPEN/DRAFT head=`ffc033a7b69bbf37b2834b999bb621d3c3465f7a` |
+| Staged | empty | empty |
+| Working tree residual | pack local only | pack local only |
 
 ## D. Sources / Convergence
-- Template / routing / operating model / guardrails / CKC Cycle 13 synthetic
+- Template / routing / operating model / guardrails / CKC Cycle 13
 - Convergence doctrine / Roadmap / C1 / AKG / Generic Execution architecture
-- Doctrine v3 framing 30/32/33/34/35/37 (read-only)
-- PRR README + vols 03/07/08/09 + manifest
-- Code R23 read-only: resolveAttemptExecutionProfile · verified FS prior · studioCursorRealLaunchGateway · conformance test
-- Handoff base: `f2c84d07b03d24651336a1f22c87d4c160ee406d` (accepted with reserves — not abandoned)
+- Doctrine v3 30/32/33/34/35/37 (read-only)
+- PRR README + 03/07/08/09 + manifest
+- Handoff consolidé `53a1419d3dbe321759b257ad36394d42880cb45b` (base R24 local validée)
+- R23 code read-only (non modifié)
 
-## E. R23 / R24
-- R23: aucun changement code/flux — DOCUMENTED + CI VERIFIED at `a75d0ed5785861dd198894ea1c5d7436b6d1840c` · NOT BEHAVIOR PROVEN REAL
-- R24: **DOCUMENTARY STATUS CORRECTION ONLY** · **NO PRODUCT SEMANTIC IMPACT**
-- Digest match ≠ semantic validity
+## E. Inventaire commit R24 (exactement 4 M)
+```
+M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M projects/sfia-studio/production-runtime-reference/README.md
+M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+- Message: `docs(studio): sync PR618 R24 Git and CI truth`
+- Parent: `a75d0ed5785861dd198894ea1c5d7436b6d1840c`
+- SHA: `ffc033a7b69bbf37b2834b999bb621d3c3465f7a`
+- Review Pack: **EXCLU**
+- Product/tests: **aucun**
 
-## F. Inventaire des 4 fichiers projet
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — KEEP (tip mention README)
-2. `projects/sfia-studio/production-runtime-reference/README.md` — **extension** (PENDING GI retiré comme CURRENT)
-3. `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` — KEEP + supersession README
-4. `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` — digests README + 09
-
-## G. Diff complet Roadmap
+## F. Diffs complets du commit R24
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index 566b4a82..79a4d19a 100644
@@ -60,55 +61,6 @@ index 566b4a82..79a4d19a 100644
  | **HISTORICAL TIP 2026-10-25 — AKG-M5 LOCAL DELIVERY — CORR-02 Git target fidelity on structural removal** | **DECIDED BY MORRIS 2026-10-25** · **LOCAL IMPLEMENTED** · **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED** — branche `feat/akg-m5-remove-repository-binding-docs-write` (Delivery locale non intégrée, au-dessus de `origin/main` `7db8afd7c27720712f08000274dbbc4e1a62d935`) ; **RepositoryBinding RETIRED IN LOCAL DELIVERY** (CreateProject sans `repositoryBinding` ; `SFIA_STUDIO_PROJECT_REPOSITORY_*` retirés du preflight et de `.env.example`) ; **docs_write Product specialization RETIRED IN LOCAL DELIVERY** (admission Product `intentKind` / cap / action retirée des lib + features actifs) ; `projectWorkspaceKey` et routage `projects/<key>` **PRÉSERVÉS** ; **CORR-02 LOCAL CORRECTION** on that structural removal (Git target fidelity) — identity↔remote↔checkout **DET VERIFIED** ; Evidence FS-anchor allowlist tightened to historical `execution_attempt:docs_write` (+ dotted suffix) ; residual stubs removed ; managed resolver requires origin match ; provided remote must match sealed identity (`repository_remote_identity_mismatch` / `managed_repo_identity_mismatch`) ; **NOT MERGED** · **≠** REAL ; O-01 DET **PASS** ; typecheck **PASS** ; **known regressions accepted** ; **H4 / G-REAL / G-ACTIVATION NOT GRANTED** ; **AKG-M5 OPEN** ; runtime v3 **NON ADOPTED** ; `origin/main` `7db8afd7` conserve le binding et l'admission docs_write **historiquement présents sur main** (PR #617 = activation prep, pas ce retrait) ; **≠ MERGED ON MAIN** · **≠** H4 qualifié · **≠** exclusive ACTIVATED · **≠** REAL PROVEN · **≠** P6 GLOBAL PASS. C1 D-PC-09 **NO SEMANTIC IMPACT** (historical text not rewritten). Superseded as CURRENT tip by PR #618 CI Reconciliation entry above. |
  | **HISTORICAL TIP 2026-10-24 — AKG-M5 L2-D2 POST-MERGE VERIFIED (PR #614)** | **HISTORICAL AS TIP** (superseded as CURRENT by the 2026-10-25 LOCAL Delivery tip) — truth sync : [PR #617](https://github.com/mcleland147/sfia-workspace/pull/617) **MERGED** 2026-10-25 on main for **L2-D2 activation prep** (S1–S4) · source `cdc9909d8adaa6b31df3b75e33e58a8d27c88317` · merge `7db8afd7c27720712f08000274dbbc4e1a62d935` = `origin/main` · [CI #40169014052](https://github.com/mcleland147/sfia-workspace/actions/runs/40169014052) **COMPLETED / SUCCESS** (Detect, Build and validate, Required Gate · event=push · branch=main · HEAD=merge) · exclusive **DEFAULT OFF / NOT ACTIVATED** · **G-ACTIVATION / G-REAL NOT GRANTED** by #617 · [PR #616](https://github.com/mcleland147/sfia-workspace/pull/616) also **MERGED** `d7aad77e999e4fe64f31a776ddf39c1d99278b1b` (R-01 evidence status) between #615 and #617 · RepositoryBinding / docs_write retirement is **not** in #617 and is **NOT MERGED** — **L2-D2 MERGED ON MAIN / POST-MERGE CI SUCCESS / DEFAULT OFF / NOT ACTIVATED** — [PR #614](https://github.com/mcleland147/sfia-workspace/pull/614) **MERGED** 2026-10-24, source `4647983aa36b76ae393200a7a8caaaed96936149`, merge `1a0ccd846247d8d96c4c6e1258edd739a2bb5d11` = `main` contrôlé ; [CI #40130977607](https://github.com/mcleland147/sfia-workspace/actions/runs/40130977607) **COMPLETED / SUCCESS** (Detect, Build and validate, Required Gate · event=push · branch=main · HEAD=merge) ; GO Morris Delivery + CORR-02 + R24 + Cycle13 digests + G-GIT commit/push/Draft PR **consommés** ; code CURRENT : marker `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` default **OFF** (trim=`"1"` arms fail-closed) · D1 open+mutation guards (injected writers) · confirmation FORBIDDEN→`ok:false` · D4 Option A redirect/notFound · O-01 LPS objective→UI **DET 31/7 PASS** ; **aucun dual-write** · **aucun** `proj-*`→`prj:*` · D1 FREEZE gated / RETIRE LATER (pas de retrait physique) ; **G-ACTIVATION OPEN** · **R-CUT LIVE NOT PROVEN** · D4 LIVE HTTP NOT PROVEN · dette `R-L2D2-SQLITE-SNAPSHOT` OPEN · raw `DatabaseSync` KNOWN GAP · Q15 global PARTIAL ; chronologie L2-D0→L2-D1→L2-D2 conservée ; **AKG-M5 GLOBAL OPEN** · H1 hold ACTIVE · H4/R-VOL-01 OPEN · REAL NOT PROVEN · P6 GLOBAL NOT PASSED · runtime v3 NON ADOPTED ; suite = **G-ACTIVATION PREPARATION sous réserves** (≠ autorisation d'activation) ; Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-workspace/pull/615) **MERGED** on main · merge `7b64ab21aa29211d5fce93d06d24bce539a0c5a5` · [post-merge CI #40138037280](https://github.com/mcleland147/sfia-workspace/actions/runs/40138037280) **SUCCESS** · **NO PRODUCT SEMANTIC IMPACT** · **R-01 exit proof satisfied** · formal closure separate. |
  | **HISTORICAL TIP 2026-10-24 — AKG-M5 L2-D1 POST-MERGE VERIFIED (PR #612)** | **HISTORICAL AS TIP** (superseded as CURRENT by PR #614) — **L2-D1 MERGED ON MAIN / POST-MERGE CI SUCCESS** — [PR #612](https://github.com/mcleland147/sfia-workspace/pull/612) **MERGED** 2026-10-24, source `d98b39302a484a21f42a25d8c7155bbbf6f6f746`, merge `b792bc83e1fbe3ee2f630d2637c137ee246bf07a` ; [CI #40082088441](https://github.com/mcleland147/sfia-workspace/actions/runs/40082088441) **SUCCESS** ; D5 Option A `oa.project.created` dans UnitOfWork ; Q5.1–Q5.7 DET ; à la date du tip : O-01 « comprendre » Product→UI = KNOWN GAP et **L2-D2 NOT AUTHORIZED** *(HISTORICAL AS TIP — later L2-D2 Delivery + PR #614 MERGED)* ; AKG-M5 GLOBAL OPEN · REAL NOT PROVEN · runtime v3 NON ADOPTED. |
-```
-
-## H. Diff complet README
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index 4f113676..35902ec2 100644
---- a/projects/sfia-studio/production-runtime-reference/README.md
-+++ b/projects/sfia-studio/production-runtime-reference/README.md
-@@ -50,19 +50,19 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
-
- **G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (IMPLEMENTED — DET scope — CURRENT ON MAIN via PR #617 — 2026-10-25):** Product `VACUUM INTO` snapshot/restore (closed_copy unavailable; RO integrity) · `openD1Db` native **allowlist** Proxy (closes `setAuthorizer`/`createTagStore`/`deserialize`/deferred `iterate` escapes — **CR-S2-01/02**) · D4 DET harness · R-CUT DET rehearsal (exclusive held; disposable RO D1 oracle ≠ Q12). Volumes 05–09 describe this behaviour. **Operational anti-claims (unchanged by Git Integration):** exclusive **DEFAULT OFF / NOT ACTIVATED** · G-ACTIVATION / G-REAL **NOT GRANTED** · H4 real instance **NOT QUALIFIED** · D4 HTTP LIVE / R-CUT LIVE **NOT PROVEN** · raw `new DatabaseSync` outside `openD1Db` **KNOWN GAP** · Q12 **OPEN** · runtime v3 **NON ADOPTED**.
-
--**Product RepositoryBinding + docs_write Product specialization — LOCAL DELIVERY CANDIDATE / NOT ON MAIN (Morris GO 2026-10-25):**
-+**Product RepositoryBinding + docs_write Product specialization — GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN (2026-10-26):**
-
- | Epistemic class | Element |
- |---|---|
--| **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617) still has server-owned RepositoryBinding on CreateProject, `SFIA_STUDIO_PROJECT_REPOSITORY_*` in preflight / `.env.example`, and docs_write Product admission (`intentKind` / cap / action) in active lib+features. That is historical presence on main, not this retirement. |
--| **LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | Branch `feat/akg-m5-remove-repository-binding-docs-write`. **DECIDED BY MORRIS 2026-10-25**. **LOCAL IMPLEMENTED**. **RepositoryBinding RETIRED IN LOCAL DELIVERY** (CreateProject has no `repositoryBinding`; `PROJECT_REPOSITORY_*` removed from preflight and `.env.example`). **docs_write Product specialization RETIRED IN LOCAL DELIVERY** (Product admission of `intentKind` / cap / action removed from active lib+features). `projectWorkspaceKey` / `projects/<key>` routing **PRESERVED**. O-01 DET **PASS**. Typecheck **PASS**. **Known regressions accepted**. |
--| **Gates** | **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED**. **H4 / G-REAL / G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**. |
--| **Anti-claims** | ≠ **MERGED ON MAIN** · ≠ exclusive ACTIVATED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS · historical D-PC-09 / docs_write sentences in volumes 02–09 stay the main record until merge |
-+| **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617) still has server-owned RepositoryBinding on CreateProject, `SFIA_STUDIO_PROJECT_REPOSITORY_*` in preflight / `.env.example`, and docs_write Product admission (`intentKind` / cap / action) in active lib+features. Main retains that behaviour until [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) merges. |
-+| **GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN** | Branch `feat/akg-m5-remove-repository-binding-docs-write` @ HEAD **`a75d0ed5785861dd198894ea1c5d7436b6d1840c`**. **DECIDED BY MORRIS 2026-10-25**. **GO Morris Git Integration CONSUMED** 2026-10-26. Commit `refactor(studio): retire Product repository binding and docs_write admission` (63 files). **RepositoryBinding RETIRED ON BRANCH CANDIDATE ONLY**. **docs_write Product admission RETIRED ON BRANCH CANDIDATE ONLY**. Preserved: `projectWorkspaceKey` / `projects/<key>` · Generic Execution · sealed Git identity · Evidence / ReviewBundle · transitional historical durable-read `execution_attempt:docs_write` (≠ Product admission). |
-+| **CI / Review** | [CI #40258385791](https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791) **COMPLETED / SUCCESS** (Detect · Build and validate · **Required Gate** · event=`pull_request` · HEAD=`a75d0ed5`). Critical Review post-push **PASS WITH RESERVES**. |
-+| **PR / Gates** | Draft [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) **OPEN / DRAFT / NOT MERGED**. Merge **NOT GRANTED**. **H4 NOT QUALIFIED** · **G-REAL NOT GRANTED** · **G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**. REAL **NOT PROVEN**. |
-+| **Anti-claims** | ≠ **INTEGRATED ON MAIN** · ≠ **MERGED ON MAIN** · ≠ exclusive ACTIVATED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS · ≠ CI SUCCESS on a future R24 documentary SHA · historical D-PC-09 / docs_write sentences in volumes 02–09 stay the **main** record until merge |
-
--- **CORR-01 (LOCAL DELIVERY CANDIDATE):** Review Pack completeness + generic invariant coverage restored (ambiguity / mission / criteria / continuity wording). **Not GI**. **NOT MERGED**. **≠** REAL.
--- **CORR-02 (LOCAL DELIVERY CANDIDATE):** Git target fidelity on the structural removal — identity↔remote↔checkout **DETERMINISTIC VERIFIED** at tested scope. Evidence FS-anchor allowlist tightened to historical `execution_attempt:docs_write` (+ dotted suffix); residual stubs removed. **NOT MERGED**. **≠** REAL.
-+- **CORR-01 / CORR-02 (HISTORICAL STAGES → `a75d0ed5`):** Local Delivery corrections (generic invariant coverage + Git target fidelity DET; FS-anchor allowlist historical `execution_attempt:docs_write`) led to the Git-integrated candidate commit. They are **not** a separate pending GI status. Detail: volume 09 overlay. **NOT MERGED**. **≠** REAL.
-
--Checked-out tree may already contain this uncommitted retirement. That working-tree fact is **not** integration on main. Volumes below that still describe binding or docs_write as as-implemented behaviour describe **CURRENT ON MAIN** unless they are explicitly marked **LOCAL DELIVERY CANDIDATE**.
-+Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
-
- ## What this corpus is
-
-@@ -77,7 +77,7 @@ This corpus describes **how SFIA Studio actually works** in Git:
- - tests and proof oracles;
- - impact-analysis procedure for future changes.
-
--For RepositoryBinding and docs_write Product admission, **CURRENT ON MAIN** (`origin/main` `7db8afd7`) wins over the uncommitted local retirement until merge.
-+For RepositoryBinding and docs_write Product admission, **CURRENT ON MAIN** (`origin/main` `7db8afd7`) wins over the Git-integrated PR candidate (`a75d0ed5` / Draft PR #618) until merge.
-
- It is the primary **impact-analysis substrate** for future Studio corrections.
-
-```
-
-## I. Diff complet PRR 09
-```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 index 182968a7..b8f8ceae 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
@@ -169,10 +121,47 @@ index 182968a7..b8f8ceae 100644
  | CORR-02 — D-PC-09 | **NO SEMANTIC IMPACT** on D-PC-09 workspace routing. Historical C1 text is not rewritten. Qualification lives in this volume and volumes 03 / 05 |
 
  ## Overlay — AKG-M5 L2-D2 local OA cutover readiness (CURRENT ON MAIN — PR #614; Cycle 14 truth-sync — 2026-10-24)
-```
+diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
+index 4f113676..35902ec2 100644
+--- a/projects/sfia-studio/production-runtime-reference/README.md
++++ b/projects/sfia-studio/production-runtime-reference/README.md
+@@ -50,19 +50,19 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
 
-## J. Diff complet manifest
-```diff
+ **G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (IMPLEMENTED — DET scope — CURRENT ON MAIN via PR #617 — 2026-10-25):** Product `VACUUM INTO` snapshot/restore (closed_copy unavailable; RO integrity) · `openD1Db` native **allowlist** Proxy (closes `setAuthorizer`/`createTagStore`/`deserialize`/deferred `iterate` escapes — **CR-S2-01/02**) · D4 DET harness · R-CUT DET rehearsal (exclusive held; disposable RO D1 oracle ≠ Q12). Volumes 05–09 describe this behaviour. **Operational anti-claims (unchanged by Git Integration):** exclusive **DEFAULT OFF / NOT ACTIVATED** · G-ACTIVATION / G-REAL **NOT GRANTED** · H4 real instance **NOT QUALIFIED** · D4 HTTP LIVE / R-CUT LIVE **NOT PROVEN** · raw `new DatabaseSync` outside `openD1Db` **KNOWN GAP** · Q12 **OPEN** · runtime v3 **NON ADOPTED**.
+
+-**Product RepositoryBinding + docs_write Product specialization — LOCAL DELIVERY CANDIDATE / NOT ON MAIN (Morris GO 2026-10-25):**
++**Product RepositoryBinding + docs_write Product specialization — GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN (2026-10-26):**
+
+ | Epistemic class | Element |
+ |---|---|
+-| **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617) still has server-owned RepositoryBinding on CreateProject, `SFIA_STUDIO_PROJECT_REPOSITORY_*` in preflight / `.env.example`, and docs_write Product admission (`intentKind` / cap / action) in active lib+features. That is historical presence on main, not this retirement. |
+-| **LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | Branch `feat/akg-m5-remove-repository-binding-docs-write`. **DECIDED BY MORRIS 2026-10-25**. **LOCAL IMPLEMENTED**. **RepositoryBinding RETIRED IN LOCAL DELIVERY** (CreateProject has no `repositoryBinding`; `PROJECT_REPOSITORY_*` removed from preflight and `.env.example`). **docs_write Product specialization RETIRED IN LOCAL DELIVERY** (Product admission of `intentKind` / cap / action removed from active lib+features). `projectWorkspaceKey` / `projects/<key>` routing **PRESERVED**. O-01 DET **PASS**. Typecheck **PASS**. **Known regressions accepted**. |
+-| **Gates** | **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED**. **H4 / G-REAL / G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**. |
+-| **Anti-claims** | ≠ **MERGED ON MAIN** · ≠ exclusive ACTIVATED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS · historical D-PC-09 / docs_write sentences in volumes 02–09 stay the main record until merge |
++| **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617) still has server-owned RepositoryBinding on CreateProject, `SFIA_STUDIO_PROJECT_REPOSITORY_*` in preflight / `.env.example`, and docs_write Product admission (`intentKind` / cap / action) in active lib+features. Main retains that behaviour until [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) merges. |
++| **GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN** | Branch `feat/akg-m5-remove-repository-binding-docs-write` @ HEAD **`a75d0ed5785861dd198894ea1c5d7436b6d1840c`**. **DECIDED BY MORRIS 2026-10-25**. **GO Morris Git Integration CONSUMED** 2026-10-26. Commit `refactor(studio): retire Product repository binding and docs_write admission` (63 files). **RepositoryBinding RETIRED ON BRANCH CANDIDATE ONLY**. **docs_write Product admission RETIRED ON BRANCH CANDIDATE ONLY**. Preserved: `projectWorkspaceKey` / `projects/<key>` · Generic Execution · sealed Git identity · Evidence / ReviewBundle · transitional historical durable-read `execution_attempt:docs_write` (≠ Product admission). |
++| **CI / Review** | [CI #40258385791](https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791) **COMPLETED / SUCCESS** (Detect · Build and validate · **Required Gate** · event=`pull_request` · HEAD=`a75d0ed5`). Critical Review post-push **PASS WITH RESERVES**. |
++| **PR / Gates** | Draft [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) **OPEN / DRAFT / NOT MERGED**. Merge **NOT GRANTED**. **H4 NOT QUALIFIED** · **G-REAL NOT GRANTED** · **G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**. REAL **NOT PROVEN**. |
++| **Anti-claims** | ≠ **INTEGRATED ON MAIN** · ≠ **MERGED ON MAIN** · ≠ exclusive ACTIVATED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS · ≠ CI SUCCESS on a future R24 documentary SHA · historical D-PC-09 / docs_write sentences in volumes 02–09 stay the **main** record until merge |
+
+-- **CORR-01 (LOCAL DELIVERY CANDIDATE):** Review Pack completeness + generic invariant coverage restored (ambiguity / mission / criteria / continuity wording). **Not GI**. **NOT MERGED**. **≠** REAL.
+-- **CORR-02 (LOCAL DELIVERY CANDIDATE):** Git target fidelity on the structural removal — identity↔remote↔checkout **DETERMINISTIC VERIFIED** at tested scope. Evidence FS-anchor allowlist tightened to historical `execution_attempt:docs_write` (+ dotted suffix); residual stubs removed. **NOT MERGED**. **≠** REAL.
++- **CORR-01 / CORR-02 (HISTORICAL STAGES → `a75d0ed5`):** Local Delivery corrections (generic invariant coverage + Git target fidelity DET; FS-anchor allowlist historical `execution_attempt:docs_write`) led to the Git-integrated candidate commit. They are **not** a separate pending GI status. Detail: volume 09 overlay. **NOT MERGED**. **≠** REAL.
+
+-Checked-out tree may already contain this uncommitted retirement. That working-tree fact is **not** integration on main. Volumes below that still describe binding or docs_write as as-implemented behaviour describe **CURRENT ON MAIN** unless they are explicitly marked **LOCAL DELIVERY CANDIDATE**.
++Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
+
+ ## What this corpus is
+
+@@ -77,7 +77,7 @@ This corpus describes **how SFIA Studio actually works** in Git:
+ - tests and proof oracles;
+ - impact-analysis procedure for future changes.
+
+-For RepositoryBinding and docs_write Product admission, **CURRENT ON MAIN** (`origin/main` `7db8afd7`) wins over the uncommitted local retirement until merge.
++For RepositoryBinding and docs_write Product admission, **CURRENT ON MAIN** (`origin/main` `7db8afd7`) wins over the Git-integrated PR candidate (`a75d0ed5` / Draft PR #618) until merge.
+
+ It is the primary **impact-analysis substrate** for future Studio corrections.
+
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 index 1a9e6e92..1d27e568 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
@@ -197,79 +186,149 @@ index 1a9e6e92..1d27e568 100644
    "components": [
 ```
 
-## K. Digests avant/après
-| Volume | Avant (HEAD `a75d0ed5` / prior local) | Après consolidation |
-|---|---|---|
-| README.md | `7ba814d9fab072c3` | **`e7e4c631d181781f`** |
-| 09-known-gaps… | `04f62b733009c944` (HEAD) → prior local `83e5c1fcc0f317a3` | **`4c0b16bd2723f6e8`** |
-| other volumes | unchanged | unchanged |
-| lastReviewedCommit / At | preserved | unchanged |
+## G. SHA parent / nouveau
+- Parent: `a75d0ed5785861dd198894ea1c5d7436b6d1840c` (code structural removal)
+- Nouveau: `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` (R24 docs only)
+- Digests: README `e7e4c631d181781f` · PRR 09 `4c0b16bd2723f6e8`
 
-## L. Validations
-| Check | Result |
-|---|---|
-| git diff --check | clean |
-| scope = 4 project docs + pack | OK |
-| staged empty / HEAD `a75d0ed5785861dd198894ea1c5d7436b6d1840c` | OK |
-| no Product/test/doctrine | OK |
-| README CURRENT « PENDING GIT INTEGRATION » | **removed** (historical supersession wording only) |
-| npx vitest run productionRuntimeReference.conformance.d0.test.ts | **5/5 PASS** |
-| CI re-run | not required for local DOC |
-| CI historical `40258385791` | SUCCESS unchanged |
+## H. Staging audit
+- `git add --` chemins explicites ×4 seulement
+- cached name-status = 4 M
+- pack / orphans / Product: non staged
+- `git diff --cached --check`: clean
 
-## M. Known gaps / exit / anti-claims
-KNOWN GAPS OPEN: E2E FS→Git→Review · FS Evidence historical-only · worktree hops · residual naming · REAL/H4/G-ACTIVATION.
-Exit: 4 docs cohérents Git/CI · conformance PASS · handoff vérifié · **R24 not yet Git-integrated**.
-Anti-claims: NOT MERGED · NOT INTEGRATED ON MAIN · NOT CI on future R24 SHA · NOT READY FOR MERGE by this cycle alone.
-Vols 03/07/08: dated residual wording superseded by README + 09 — not rewritten (intentional).
+## I. Push FF
+- Commande: `git push origin HEAD:refs/heads/feat/akg-m5-remove-repository-binding-docs-write`
+- `a75d0ed5785861dd198894ea1c5d7436b6d1840c` → `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` FF only · no force
+- ls-remote match: YES
+- PR headRefOid = `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` · OPEN / DRAFT · unique PR #618
 
-## N. Description PR #618 proposée (ENTIÈRE — ne pas appliquer)
+## J. PR body AVANT (entier)
+```markdown
+## A. CONTEXTE
 
+GO Morris Structural Removal 2026-10-25.
+Trajectoire AKG-M5 / O-01 / Generic Execution.
+Critical Review CORR-02: PASS WITH RESERVES → Morris Git Integration GO.
+
+Base: `origin/main` `7db8afd7c27720712f08000274dbbc4e1a62d935`.
+Delivery commit: see PR head.
+
+## B. CHANGEMENTS
+
+- Suppression Product `RepositoryBinding` (CreateProject / SoT / UI / `SetProjectRepositoryBinding` / server-owned projection).
+- Suppression admission et chemins spécialisés Product `docs_write` (`intentKind` / cap / action / Fake/REAL specialized agents).
+- Maintien du routage `projectWorkspaceKey` / `projects/<key>` / Project+LPS Truth C.
+- Consolidation Generic Execution (PREPARE / ExecutionContract / Cursor generalist / Attempt / Evidence / ReviewBundle / Resolution / Reconciler).
+- Git target fidelity (CORR-02): identity ↔ remote ↔ managed checkout origin match; fail-closed on mismatch.
+- Evidence FS→SHA supersession: allowlist historique `execution_attempt:docs_write(+suffix)` only (pas `execution_attempt:*`).
+- Synchronisation Roadmap / C1 amendment / PRR LOCAL CANDIDATE + digests.
+
+## C. PREUVES
+
+- HEAD/base: branch tip vs `7db8afd7`.
+- Typecheck: PASS.
+- Build: PASS.
+- Tests ciblés CORR-02 batch: **120 PASS / 0 FAIL** (O-01, composition, preflight, Git fidelity T1–T9, Evidence continuation T11/T12, generics CORR-01, pjReproof05, generic Cursor).
+- PRR conformance: OK.
+- Handoffs: CORR-01 `c9ddb83a` / CORR-02 `cac910a4`.
+
+## D. RÉGRESSIONS ACCEPTÉES (Morris)
+
+- Suites historiques docs_write peuvent rester rouges.
+- Fonctions spécialisées retirées non restaurées.
+- Comportements historiques docs_write / binding non restaurés.
+
+## E. KNOWN GAPS
+
+- `repositoryBindingIdentity` residual sealed git-target field (not Product SoT).
+- `SFIA_STUDIO_PROJECT_REPOSITORY_*` seal-only env (retirés du preflight Create; encore lus pour scellement EC).
+- FS→SHA: pas de nouvelle source Evidence de matérialisation Product générique après retrait.
+- Dispositions worktree au-delà des hops gitdir supportés → fail-closed.
+- Dette résiduelle de nommage documentée en PRR 09.
+
+## F. ANTI-CLAIMS
+
+- runtime v3 **NON ADOPTED**
+- H4 REAL **NOT QUALIFIED**
+- G-REAL **NOT GRANTED**
+- G-ACTIVATION **NOT GRANTED**
+- P6 GLOBAL **NOT PASSED**
+- retrait **NOT YET MERGED**
+- Draft PR ≠ promotion ou merge
+
+## G. GATES
+
+- Morris Git Integration: **GRANTED** (ce cycle)
+- Morris Merge: **NOT GRANTED**
+
+## H. RISQUES
+
+- Retrait transversal majeur.
+- Compatibilité historique acceptée (régressions docs_write).
+- Tests historiques rouges explicitement déclarés.
+- Preuve REAL non réalisée (DET only).
+
+
+Made with [Cursor](https://cursor.com)
+```
+
+## J2. PR body APRÈS (entier)
+```markdown
 ## A. CONTEXTE
 
 GO Morris Structural Removal 2026-10-25 + GO Morris Git Integration 2026-10-26 consommés.
+GO Morris Cycle 13 R24 Grouped Git Integration 2026-10-26 consommé (docs only).
 Trajectoire AKG-M5 / O-01 / Generic Execution.
-Critical Review post-push: PASS WITH RESERVES.
-Cycle 13 R24 documentary truth-sync **LOCAL consolidé** (Roadmap + PRR README + PRR 09 + manifest) — **pas encore** dans le commit `a75d0ed5`.
+Critical Review post-push code: PASS WITH RESERVES.
+Critical Review R24 consolidé: PASS → intégration documentaire groupée.
 
 Base: `origin/main` `7db8afd7c27720712f08000274dbbc4e1a62d935`.
-HEAD projet Git-intégré: `a75d0ed5785861dd198894ea1c5d7436b6d1840c`
-(`refactor(studio): retire Product repository binding and docs_write admission`).
 Branche: `feat/akg-m5-remove-repository-binding-docs-write`.
 PR: OPEN / DRAFT / NOT MERGED.
 
 ## B. CHANGEMENTS (code — commit a75d0ed5)
 
+HEAD code Product: `a75d0ed5785861dd198894ea1c5d7436b6d1840c`
+(`refactor(studio): retire Product repository binding and docs_write admission`).
+
 - Suppression Product `RepositoryBinding` **sur la branche candidat**.
 - Suppression admission Product `docs_write` **sur la branche candidat**.
 - Maintien `projectWorkspaceKey` / `projects/<key>` / Generic Execution / sealed Git identity / Evidence / ReviewBundle.
 - Inventaire: **60 M + 3 A KEEP = 63**. Quatre helpers orphelins docs_write **absents**. Review Pack **exclu**.
-- C1 consulté, **NON MODIFIÉ** par `a75d0ed5`.
+- C1 consulté, **NON MODIFIÉ** par `a75d0ed5` ni par le commit R24.
 
-## C. DOCUMENTATION R24 (LOCAL — pas dans a75d0ed5)
+## C. DOCUMENTATION R24 — GIT-INTEGRATED ON PR BRANCH
 
-Dossier consolidé local (Cycle 13 continuation):
-- `sfia-studio-convergence-roadmap.md` — CURRENT TIP Git Integrated / CI SUCCESS / R24 LOCAL
-- `production-runtime-reference/README.md` — bloc canonique **GIT-INTEGRATED PR CANDIDATE** (retrait CURRENT **PENDING GIT INTEGRATION**)
-- `09-known-gaps-reserves-and-current-boundaries.md` — overlay lifecycle + known gaps
-- `production-runtime-reference.manifest.json` — digests README + 09
+Commit R24: `ffc033a7b69bbf37b2834b999bb621d3c3465f7a`
+(`docs(studio): sync PR618 R24 Git and CI truth`) — parent `a75d0ed5`.
 
-Nécessite GO Morris distinct commit/push R24 + nouveau Required Gate sur futur SHA.
+Quatre fichiers documentaires uniquement:
+- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+- `projects/sfia-studio/production-runtime-reference/README.md`
+- `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+- `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
 
-## D. PREUVES (SHA a75d0ed5)
+Digests: README `e7e4c631d181781f` · PRR 09 `4c0b16bd2723f6e8`.
+R24 = DOCUMENTARY STATUS CORRECTION ONLY · **NO PRODUCT SEMANTIC IMPACT**.
+≠ MERGED ON MAIN · ≠ runtime v3 ADOPTED.
 
+## D. PREUVES
+
+### Code `a75d0ed5`
 - GitHub CI [40258385791](https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791) **COMPLETED / SUCCESS** (Detect · Build and validate · **Required Gate**).
-- Typecheck / lint / build PASS.
-- CI-44: **639 PASS**.
-- `CI=true npm test`: **6013 PASS / 142 skipped** (skipped ≠ PASS).
-- PRR conformance (R24 local): PASS after digest sync.
+- Typecheck / lint / build PASS · CI-44 639 PASS · `CI=true npm test` 6013 PASS / 142 skipped.
+
+### Docs R24 `ffc033a7`
+- GitHub CI [40269966593](https://github.com/mcleland147/sfia-workspace/actions/runs/40269966593) **COMPLETED / SUCCESS** (Detect · Build and validate · **Required Gate** · event=`pull_request` · HEAD=`ffc033a7`).
+- PRR conformance 5/5 PASS (pré-commit R24).
 
 ## E. HISTORIQUE CI (supersédé)
 
 - `40207375690` FAILURE — historique.
 - `40215089725` FAILURE on `ff653b58` — historique.
-- Statut CI courant pour HEAD `a75d0ed5`: **40258385791 SUCCESS**.
-- CI sur futur SHA R24: **NOT YET VERIFIED**.
+- `40258385791` SUCCESS on `a75d0ed5` — preuve code structural removal.
+- `40269966593` SUCCESS on `ffc033a7` — preuve R24 documentary integration.
 
 ## F. KNOWN GAPS (OPEN)
 
@@ -284,40 +343,81 @@ Nécessite GO Morris distinct commit/push R24 + nouveau Required Gate sur futur 
 - runtime v3 **NON ADOPTED**
 - H4 REAL **NOT QUALIFIED** · G-REAL **NOT GRANTED** · G-ACTIVATION **NOT GRANTED**
 - P6 GLOBAL **NOT PASSED**
-- retrait **NOT YET MERGED** · Draft ≠ merge
-- CI SUCCESS `a75d0ed5` ≠ CI SUCCESS futur SHA R24
-- GO R24 LOCAL ≠ GO GIT INTEGRATION R24
+- retrait **NOT YET MERGED** · Draft ≠ merge / undraft
+- CI SUCCESS ≠ READY FOR MERGE autorisé automatiquement
 
 ## H. GATES
 
-- Morris Git Integration (code `a75d0ed5`): **CONSUMED / PASS**
-- Morris R24 documentary commit/push: **NOT GRANTED** (local consolidé only)
-- Morris PR body remote update: **NOT GRANTED**
-- Morris Merge / undraft: **NOT GRANTED**
+- Morris Git Integration code (`a75d0ed5`): **CONSUMED / PASS**
+- Morris R24 Grouped Git Integration (`ffc033a7` + PR body): **CONSUMED / PASS**
+- Morris Merge: **NOT GRANTED**
+- Undraft / Ready for Review: **NOT GRANTED**
+- H4 / G-REAL / G-ACTIVATION: **NOT GRANTED**
+```
 
+## K. Vérification PR #618 distante
+- URL: https://github.com/mcleland147/sfia-workspace/pull/618
+- state OPEN · isDraft true · mergedAt null
+- headRefOid `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` · baseRefOid `7db8afd7c27720712f08000274dbbc4e1a62d935`
+- body_match prepared file: YES
+- contient `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` + CI `40269966593` SUCCESS + Merge NOT GRANTED
+
+## L. Nouvelle CI (ne pas confondre avec `40258385791`)
+- Run: `40269966593` — https://github.com/mcleland147/sfia-workspace/actions/runs/40269966593
+- Workflow: SFIA Studio CI
+- Event: pull_request
+- head_sha: `ffc033a7b69bbf37b2834b999bb621d3c3465f7a`
+- status: completed · conclusion: **success**
+- Detect SFIA Studio changes: **SUCCESS**
+- Build and validate SFIA Studio: **SUCCESS** (~6m17s)
+- SFIA Studio Required Gate: **SUCCESS**
+- Historical code CI `40258385791` on `a75d0ed5785861dd198894ea1c5d7436b6d1840c`: SUCCESS (distinct)
+
+## M. Manifest conformance
+- Digests match files: README `e7e4c631d181781f` · 09 `4c0b16bd2723f6e8`
+- Pre-commit: `npx vitest run productionRuntimeReference.conformance.d0.test.ts` **5/5 PASS**
+- Digest ≠ semantic architecture proof
+
+## N. R23 / R24
+- R23: aucun changement architecture/code Product
+- R24: DOCUMENTARY STATUS CORRECTION ONLY · **NO PRODUCT SEMANTIC IMPACT**
+- Vols 03/07/08: non modifiés; superseded wording via README/09
 
 ## O. Fake / Real
-Documentary only · CI SUCCESS historical on `a75d0ed5785861dd198894ea1c5d7436b6d1840c` · NOT REAL · NOT G-REAL · NOT H4 · NOT runtime v3 ADOPTED
+- DET proofs historical on `a75d0ed5785861dd198894ea1c5d7436b6d1840c`
+- GitHub CI verified SUCCESS on `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` and `a75d0ed5785861dd198894ea1c5d7436b6d1840c` (distinct runs)
+- Git push = gouvernance externe · NOT Studio Cursor REAL
+- Product REAL / H4 / G-REAL / G-ACTIVATION: NOT
+- runtime v3: NON ADOPTED
 
-## P. Décisions Morris restantes
-1. Critical Review ChatGPT **finale** de ce dossier consolidé (une seule revue)
-2. GO groupé recommandé (si Review OK): (A) commit 4 fichiers R24 · (B) push FF PR #618 · (C) actualiser PR body · (D) nouvelle CI · (E) requalifier PR readiness
-3. GO merge **distinct** après CI R24
-4. Post-merge truth-sync **après** merge
-5. REAL / H4 / G-ACTIVATION séparés
+## P. Known gaps / réserves
+KNOWN GAPS OPEN: E2E FS→Git→Review · FS Evidence historical-only · worktree hops · residual naming · REAL/H4/G-ACTIVATION.
+Node 20 deprecation annotations CI (infra) — non bloquant.
+Vols 03/07/08 dated residual wording — intentional.
 
-## Q. Verdict
-**R24 CONSOLIDATED — READY FOR CHATGPT FINAL REVIEW**
+## Q. Verdict PR readiness
+**PR READINESS TECHNICAL PASS — READY FOR CHATGPT CRITICAL REVIEW**
 
-Rappel: GO R24 LOCAL ≠ GO GIT INTEGRATION · CI green `a75d0ed5785861dd198894ea1c5d7436b6d1840c` ≠ CI green futur SHA R24 · Draft ≠ Merged · Build ≠ runtime ADOPTED · RECOMMANDATION ≠ DÉCISION MORRIS.
+≠ READY FOR MERGE autorisé automatiquement.
+
+## R. Décisions Morris ouvertes
+1. Critical Review ChatGPT post-intégration R24
+2. GO merge distinct (si Review OK)
+3. Undraft / Ready for Review — GO distinct si requis
+4. Post-merge truth-sync après merge
+5. H4 / G-REAL / G-ACTIVATION / runtime v3 — distincts
+
+## Verdict cycle
+**R24 GIT INTEGRATED — CI SUCCESS — READY FOR CHATGPT CRITICAL REVIEW**
 
 ## Completeness attestation
-- FULL mono-cycle consolidé R24
-- Diffs complets G–J des **quatre** fichiers projet (vs HEAD `a75d0ed5785861dd198894ea1c5d7436b6d1840c`)
-- PR body complète §N
-- Pack local non staged pour commit projet
+- FULL mono-cycle grouped integration
+- Diffs complets §F
+- PR body avant/après §J/J2
+- CI nouveau SHA §L
+- Pack local non commit projet
 
 ## Instruction ChatGPT
 Lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`.
-Vérifier HEAD `a75d0ed5785861dd198894ea1c5d7436b6d1840c`, 4 diffs, digests `e7e4c631d181781f` / `4c0b16bd2723f6e8`, PR body, conformance PASS, absence commit/push projet, handoff SHA/blob.
-Une seule Critical Review documentaire finale. Si conforme: recommander GO groupé A–E ci-dessus (sans merge).
+Vérifier commit `ffc033a7b69bbf37b2834b999bb621d3c3465f7a` (4 fichiers), exclusion pack, PR head/body, CI `40269966593` Required Gate SUCCESS, gaps, gouvernance.
+Une Critical Review post-intégration. Si conforme: préparer décision Morris merge (gate distinct).
