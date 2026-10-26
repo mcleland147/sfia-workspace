@@ -196,6 +196,20 @@ Merge tree = Roadmap only. No Product code. No PRR. No Build Doctrine. No script
 Local worktree HEAD unchanged at `266459c4…`.
 **Not deleted.**
 
+### Review Handoff publish (L3 borné)
+
+| Field | Value |
+|-------|-------|
+| Mode | publish-in-cycle |
+| Branch | `sfia/review-handoff` |
+| Path | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Publisher | `scripts/sfia/publish-review-handoff.sh` |
+| Verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Commit | `d1285dccc02f5ea4fff619bb0b9f83695b4bbe94` |
+| Blob | `e5dac5e45454c7156a5ea1324b3f0707df751a04` |
+| Parent handoff | `7e303a6e2ad40019a26386695049c49ba7770f8b` |
+| Project docs HEAD | unchanged `266459c4ca25655754d01d422b10f4da4473be2b` |
+
 ## 23. CI post-merge exacte
 
 | Field | Value |
@@ -273,6 +287,9 @@ No STOP triggered on merge gate.
 | Post-merge CI | `40394299727` PENDING |
 | Prior GI handoff tip | `7e303a6e…` / `ff72296a…` |
 | Docs branch retained | `266459c4…` |
+| Cycle 14 handoff tip | `d1285dccc02f5ea4fff619bb0b9f83695b4bbe94` |
+| Cycle 14 handoff blob | `e5dac5e45454c7156a5ea1324b3f0707df751a04` |
+| Handoff publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
 
 ## 28. Next Gate
 
@@ -289,7 +306,7 @@ This cycle does **NOT** authorize L3-S2 qualification execution, Delivery, or ar
 
 Merge Git: **CONFIRMED**.
 Post-merge CI: **PENDING** (run `40394299727`, Detect SUCCESS, Build IN_PROGRESS).
-Handoff: published this cycle — see publisher tip after this pack.
+Handoff Git **REMOTE VERIFIED**: commit `d1285dcc…` · blob `e5dac5e4…` (tip SHA authoritative if republish advances tip).
 
 ### NON-GO
 
