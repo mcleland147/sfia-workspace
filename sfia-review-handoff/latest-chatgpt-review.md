@@ -242,8 +242,8 @@ Only file staged. Interdits non staged: `.tmp-sfia-review/`, PRR, Product, scrip
 | Path | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Publisher | `scripts/sfia/publish-review-handoff.sh` |
 | Verdict | `HANDOFF UPDATED — REMOTE VERIFIED` |
-| Commit | `4cddaa0527a38f81ee5794545594f7e99af2c4cf` |
-| Blob | `12a7a05e754b460783c62e753c63ee5604a0ef43` |
+| Commit | `d9698d2c077257894a0d90f8dbea353bdf48d077` |
+| Blob | `d53713e3d988c3248a4d1c4e7165c8b0cb3439de` |
 | Parent handoff | `b64dd5bab7991f2b5d39739e78fea68fd522e748` |
 | Project HEAD after handoff | unchanged `266459c4ca25655754d01d422b10f4da4473be2b` |
 
@@ -341,9 +341,9 @@ Next: ChatGPT Documentary Critical PR Review → distinct Morris GO for undraft+
 | Old #621 post-merge CI | `40381306724` SUCCESS (historical; not this PR) |
 | Docs branch remote | `docs/akg-m5-l3-s1-post-merge-roadmap-sync` @ `266459c4…` |
 | Review handoff branch | `sfia/review-handoff` |
-| Review handoff commit | `4cddaa0527a38f81ee5794545594f7e99af2c4cf` |
-| Review handoff blob | `12a7a05e754b460783c62e753c63ee5604a0ef43` |
-| Handoff publisher | `HANDOFF UPDATED — REMOTE VERIFIED` (then republish for SHA closure) |
+| Review handoff commit | `d9698d2c077257894a0d90f8dbea353bdf48d077` |
+| Review handoff blob | `d53713e3d988c3248a4d1c4e7165c8b0cb3439de` |
+| Handoff publisher | `HANDOFF UPDATED — REMOTE VERIFIED` (final tip verified post-publish) |
 
 ## 25. Verdict final
 
@@ -355,7 +355,7 @@ with explicit qualifier: **CI PENDING** on PR #622 HEAD `266459c4…`.
 - push distant SHA verified: YES
 - Draft PR on main: YES (#622)
 - diff exact: YES
-- handoff Git **REMOTE VERIFIED**: commit `4cddaa05…` · blob `12a7a05e…` (republish closes index after first push)
+- handoff Git **REMOTE VERIFIED**: commit `d9698d2c…` · blob `d53713e3…` (final tip SHA reported post-publish; project SHAs authoritative)
 
 ### Instruction ChatGPT
 
