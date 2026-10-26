@@ -186,14 +186,8 @@ const PROJECT = {
     localMode: true as const,
     source: "REAL_LOCAL_CORE" as const,
     fixture: false as const,
-    repositoryBinding: {
-      provider: "github" as const,
-      identity: "mcleland147/sfia-workspace",
-      remoteUrl: "https://github.com/mcleland147/sfia-workspace.git",
-      defaultBranch: "main",
-      pathRoot: "projects/sfia-studio/.sandbox",
-    },
-    projectWorkspaceKey: null as string | null,
+    repositoryBinding: null as null,
+    projectWorkspaceKey: "case-a" as string | null,
   },
   doctrine: {
     id: "pkg:studio-v3-oa",
@@ -378,7 +372,7 @@ describe("JOURNEY-INTEGRITY — ProjectWorkspace CASE A composition", () => {
     ).toBeTruthy();
     expect(await screen.findByTestId("project-workspace-routing")).toBeTruthy();
     expect(screen.getByTestId("project-workspace-path")).toHaveTextContent(
-      /projects\/sfia-studio\/\.sandbox/i,
+      /projects\/case-a\//i,
     );
     expect(screen.queryByTestId("repository-binding-form")).toBeNull();
   });

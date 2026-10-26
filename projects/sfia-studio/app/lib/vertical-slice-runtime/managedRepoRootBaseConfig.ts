@@ -1,13 +1,13 @@
 /**
- * Server-owned managed repository root base for Product docs_write REAL composition.
+ * Server-owned managed repository root base for Product REAL composition.
  *
  * Operational precondition (no network clone in this capability):
- * under the configured absolute base, each Project.repositoryBinding.identity must
- * already exist as a local Git repository at
- * `{base}/{sanitizedIdentity}` (see ManagedProjectRepositoryResolver).
+ * the configured absolute base is the managed Git checkout. Documentary WHERE
+ * is projects/<projectWorkspaceKey> inside that checkout. No Product
+ * repository-binding identity is mapped under this base.
  *
  * Absent/blank → undefined (StartExecution fail-closed:
- * docs_write_managed_repo_root_base_unconfigured).
+ * MANAGED_REPO_ROOT_BASE_UNCONFIGURED).
  *
  * Never accept client/EC absolute roots. Never expose via NEXT_PUBLIC_*.
  */

@@ -1,3 +1,6 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * Checkpoint F / R10 — restart recovery CTA precedence (wrong generic current).
  * ZERO REAL / ZERO Execute / ZERO campaign mutation.
@@ -7,11 +10,10 @@ import { describe, expect, it } from "vitest";
 import {
   isWrongGenericPreExecReplaceableByRecoveryPrepare,
 } from "@/features/project-assistant/w2/recoveryReplaceableCurrentContract";
-import type { RecoveryExecutionBinding } from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
-} from "@/lib/oa/execution-attempt";
+import type {
+  RecoveryExecutionBinding,
+} from "@/features/project-assistant/w2/resolveRecoveryExecutionBinding";
+
 
 const TARGET =
   "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md";
@@ -72,7 +74,8 @@ describe("R10 — wrong generic replaceable by recovery PREPARE (pure)", () => {
     ).toBe(true);
   });
 
-  it("T9 — current already docs_write → not replaceable", () => {
+  it("T9 — recovery-aligned current contract → replaceable when pre-exec (AKG-M5)", () => {
+    // Specialized docs_write non-replacement gate retired; continuity ref match suffices.
     expect(
       isWrongGenericPreExecReplaceableByRecoveryPrepare({
         recoveryBinding: SAMPLE_BINDING,
@@ -85,7 +88,7 @@ describe("R10 — wrong generic replaceable by recovery PREPARE (pure)", () => {
         recoveryDecisionId: RECOVERY_HD,
         attemptPresent: false,
       }),
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it("T10 — different decisionRef → not replaceable", () => {

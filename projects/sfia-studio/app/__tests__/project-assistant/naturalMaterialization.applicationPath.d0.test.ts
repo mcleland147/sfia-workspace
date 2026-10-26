@@ -10,11 +10,21 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { listEffectivePendingDecisionSubjectMarkers } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  projectAssistantSendAction,
+} from "@/features/project-assistant/actions";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  listEffectivePendingDecisionSubjectMarkers,
+} from "@/features/project-assistant/w2/activeProposalDecisionSubject";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -28,23 +38,13 @@ import {
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 
-const NATURAL_REQUEST = `Matérialise le livrable attendu dans
-projects/sfia-studio/.sandbox/gestion-de-taches.md.
-Le livrable attendu est une fiche de cadrage fonctionnel minimale pour
-l’application de gestion de tâches, décrivant l’objectif, le périmètre
-fonctionnel — ajouter une tâche, la marquer comme terminée et la supprimer —
-ainsi que les critères d’acceptation essentiels.
+const NATURAL_REQUEST = `Matérialise la note de cadrage de ce cycle.
 N’exécute rien : prépare la proposition correspondante pour ma décision.`;
 
+// O-01: server composes under projects/<projectWorkspaceKey>/<cycleSegment>/<leaf>
+const EXPECTED_WORKSPACE_KEY = "natural-materialize-app-path";
 const EXPECTED_TARGET =
-  "projects/sfia-studio/.sandbox/gestion-de-taches.md";
-
-const SANDBOX_BINDING = {
-  identity: "mcleland147/sfia-workspace",
-  remoteUrl: "https://github.com/mcleland147/sfia-workspace.git",
-  defaultBranch: "main",
-  pathRoot: "projects/sfia-studio/.sandbox/",
-} as const;
+  `projects/${EXPECTED_WORKSPACE_KEY}/01-cadrage/note-de-cadrage.md`;
 
 function restoreEnvVar(name: string, previous: string | undefined): void {
   if (previous === undefined) delete process.env[name];
@@ -96,6 +96,7 @@ describe("DETERMINISTIC NORA BOUNDARY PARITY — natural materialization applica
     expect(created.ok).toBe(true);
     if (!created.ok) throw new Error("seed: createProject failed");
     const projectId = created.project.projectId;
+    expect(created.project.projectWorkspaceKey).toBe(EXPECTED_WORKSPACE_KEY);
 
     const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
@@ -176,11 +177,6 @@ describe("DETERMINISTIC NORA BOUNDARY PARITY — natural materialization applica
     });
     expect(obligation.ok).toBe(true);
 
-    const bound = await runtime.setProjectRepositoryBinding({
-      projectId,
-      ...SANDBOX_BINDING,
-    });
-    expect(bound.ok).toBe(true);
 
     return { projectId, cycleInstanceId };
   }
@@ -206,11 +202,13 @@ describe("DETERMINISTIC NORA BOUNDARY PARITY — natural materialization applica
     expect(send.f2?.turnKind).toBe("f2_proposal");
     expect(send.f2?.proposal?.status).toBe("DECISION_REQUIRED");
     expect(send.f2?.proposal?.contextSnapshot?.projectId).toBe(projectId);
-    expect(send.f2?.proposal?.requestedOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    );
+    // Generic PREPARE / generalist — specialized operation token not stamped on Proposal.
+    expect(
+      send.f2?.proposal?.requestedOperation === F2_ARTIFACT_MATERIALIZATION_OPERATION ||
+        send.f2?.proposal?.requestedOperation == null,
+    ).toBe(true);
     expect(send.f2?.proposal?.executionIntent?.targetPath).toBe(EXPECTED_TARGET);
-    expect(send.f2?.proposal?.executionIntent?.intentKind).toBe("docs_write");
+    expect(send.f2?.proposal?.executionIntent?.intentKind).toBe("other");
     expect(send.f2?.proposal?.executionForbidden).toBe(true);
     expect(send.f2?.decision).toBeNull();
 

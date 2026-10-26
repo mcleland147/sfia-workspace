@@ -19,14 +19,23 @@ import {
   type RuntimeOaStack,
 } from "@/lib/vertical-slice-runtime";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  composeProjectWorkspacePathRoot,
+} from "@/lib/oa/project/domain/projectWorkspaceKey";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import {
   M4_REAL_GATEWAY_ADAPTER_ID,
   SqliteRealLaunchSafetyJournal,
   type ExecutionAttempt,
 } from "@/lib/oa/execution-attempt";
-import { buildProcessFailureDiagnostic } from "@/features/project-assistant/f3/processFailureDiagnostic";
-import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  buildProcessFailureDiagnostic,
+} from "@/features/project-assistant/f3/processFailureDiagnostic";
+import {
+  TestOnlyRealExecutionLaunchPort,
+} from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
 
 const APP_ROOT = path.resolve(__dirname, "../..");
 export const W2_REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/product");
@@ -35,6 +44,19 @@ export const W2_SCHEMAS_ROOT = path.resolve(
   "../sfia-v3-modeled/v3-native-option-a/schemas",
 );
 export const W2_FIXED_NOW = "2026-08-23T04:30:00.000Z";
+
+/** Title → workspace key `demo` (matches fake marker paths under projects/demo/). */
+export const W2_DEMO_WORKSPACE_PROJECT_TITLE = "demo";
+
+/** Repo-relative path under projects/<workspaceKey>/… */
+export function pathUnderProjectWorkspace(
+  workspaceKey: string,
+  ...segments: string[]
+): string {
+  const root = composeProjectWorkspacePathRoot(workspaceKey);
+  if (segments.length === 0) return root;
+  return `${root}/${segments.join("/")}`;
+}
 
 export const W2_TEST_ACTOR: ActorReference = {
   actorId: "actor:w2-test-seed",
@@ -243,26 +265,7 @@ export async function seedQualifiedProject(
 
   // PJ-REPROOF-05 — Product executable EC prepare requires durable repository
   // binding. Ambient Studio checkout is never implied.
-  if (oa.projectServices.setProjectRepositoryBinding) {
-    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-      projectId,
-      actor: W2_TEST_ACTOR,
-      binding: {
-        provider: "github",
-        identity: `acme/w2-harness-${suffix}`,
-        remoteUrl: `https://github.com/acme/w2-harness-${suffix}.git`,
-        defaultBranch: "main",
-        pathRoot: `projects/w2-harness-${suffix}`,
-      },
-    });
-    expect(bound.ok).toBe(true);
-    if (!bound.ok) throw new Error("seed: setProjectRepositoryBinding failed");
-    // Existence probes require the managed clone directory to exist (UNKNOWN ≠ ABSENT).
-    ensureManagedRepoCloneSkeleton({
-      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-      identity: `acme/w2-harness-${suffix}`,
-    });
-  }
+
 
   return {
     projectId,

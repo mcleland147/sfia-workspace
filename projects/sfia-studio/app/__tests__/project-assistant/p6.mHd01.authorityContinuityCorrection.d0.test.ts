@@ -23,12 +23,22 @@ import {
   evaluateLpsTransitionAfterHumanDecision,
   materialCurrentnessMatch,
 } from "@/features/project-assistant/w2/genericMissionSubject";
-import { verifyGenericMissionHumanDecisionForContract } from "@/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  verifyGenericMissionHumanDecisionForContract,
+} from "@/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -37,7 +47,9 @@ import {
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 import type { DecisionBasisGenericMissionContext } from "@/lib/oa/decision";
 
 function structuralAnalysis(overrides?: {
@@ -65,7 +77,7 @@ function structuralAnalysis(overrides?: {
     ...base,
     stopConditions: overrides?.stopConditions ?? ["STOP_MATERIAL_A"],
     executionIntent: {
-      intentKind: overrides?.intentKind ?? "code_change",
+      intentKind: overrides?.intentKind ?? "other",
       artifactType: overrides?.artifactType ?? "module",
       scopeIn: [scope],
       requiredCapabilities: overrides?.requiredCapabilities ?? [],
@@ -73,6 +85,13 @@ function structuralAnalysis(overrides?: {
       reversibilityExpectation: overrides?.reversibility ?? "reversible",
     },
   };
+}
+
+/** Sealed git-target drift — not a Product repository-binding write. */
+function driftSealedGitTarget(identity: string): void {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = identity;
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+    `https://github.com/${identity}.git`;
 }
 
 describe("P6 M-HD-01 Authority Continuity Correction", () => {
@@ -118,7 +137,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHDCR ${suffix}`,
+      name: "demo",
       objective: "M-HD-01 authority continuity",
       context: "det mhdcr",
       criticality: "STANDARD",
@@ -146,17 +165,6 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
       },
     });
     const identity = `acme/mhdcr-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -205,13 +213,13 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
 
     it("FX02 — intentKind change → REFUS", async () => {
       const { projectId, oa } = await seedProject("fx02");
-      const analysis = structuralAnalysis({ intentKind: "code_change" });
+      const analysis = structuralAnalysis({ intentKind: "other" });
       const { decision } = await sealAccept(projectId, analysis);
       const prep = await prepareGenericExecutionContractDraft({
         oa,
         projectId,
         cycleInstanceId: null,
-        analysis: structuralAnalysis({ intentKind: "docs_write" }),
+        analysis: structuralAnalysis({ intentKind: "read_only" }),
         decisionId: decision.decisionId,
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
@@ -252,7 +260,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
         pathRoot: "projects/demo",
         requiredCapabilities: ["cap:x"],
         expectedOutputs: ["e"],
-        intentKind: "code_change",
+        intentKind: "other",
         artifactType: "module",
         requestedOperation: "op",
         reversibilityExpectation: "reversible" as const,
@@ -325,17 +333,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
       });
       expect(scopeDrift.ok).toBe(false);
 
-      await oa.projectServices.setProjectRepositoryBinding!.execute({
-        projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: "acme/mhdcr-mutated",
-          remoteUrl: "https://github.com/acme/mhdcr-mutated.git",
-          defaultBranch: "main",
-          pathRoot: "projects/other",
-        },
-      });
+      driftSealedGitTarget("acme/mhdcr-mutated");
       const repoDrift = await prepareGenericExecutionContractDraft({
         oa,
         projectId,
@@ -654,17 +652,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
 
     it("AU05 — repository divergent → contract verify REFUS", async () => {
       const ctx = await prepareStructuralWithHd("au05");
-      await ctx.oa.projectServices.setProjectRepositoryBinding!.execute({
-        projectId: ctx.projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: "acme/mhdcr-au05",
-          remoteUrl: "https://github.com/acme/mhdcr-au05.git",
-          defaultBranch: "main",
-          pathRoot: "projects/other",
-        },
-      });
+      driftSealedGitTarget("acme/mhdcr-au05");
       const live = await ctx.oa.executionContractServices.getExecutionContract.execute({
         executionContractId: ctx.prep.contract.executionContractId,
       });
@@ -802,17 +790,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
       const { projectId, oa } = await seedProject("lp04");
       const analysis = structuralAnalysis();
       const { decision } = await sealAccept(projectId, analysis);
-      await oa.projectServices.setProjectRepositoryBinding!.execute({
-        projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: "acme/lp04-mut",
-          remoteUrl: "https://github.com/acme/lp04-mut.git",
-          defaultBranch: "main",
-          pathRoot: "projects/other",
-        },
-      });
+      driftSealedGitTarget("acme/lp04-mut");
       const prep = await prepareGenericExecutionContractDraft({
         oa,
         projectId,

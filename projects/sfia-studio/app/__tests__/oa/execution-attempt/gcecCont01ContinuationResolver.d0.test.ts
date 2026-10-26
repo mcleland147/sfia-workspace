@@ -11,6 +11,8 @@ import {
   preCommitWorkspaceContinuationRequired,
   resolvePreCommitWorkspaceContinuation,
   isFsAnchorSupersededByVerifiedLocalCommit,
+  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
 } from "@/lib/oa/execution-attempt";
 
 const HEAD = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
@@ -1138,5 +1140,185 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
       ],
     });
     expect(r).toEqual({ required: false, descriptor: null });
+  });
+
+  function lineageSupersession(input: {
+    artifactSource: string;
+    artifactAttemptId?: string;
+    extraArtifacts?: Evidence[];
+  }) {
+    const artifactAttemptId = input.artifactAttemptId ?? "xat:a";
+    return {
+      projectId: PROJECT,
+      cycleInstanceId: CYCLE,
+      executionContractId: EC,
+      priorAttemptId: "xat:a",
+      expectedParentSha: HEAD,
+      repositoryRef: "acme/widget",
+      requiredPaths: [PATH],
+      attempts: [
+        attempt({
+          attemptId: "xat:a",
+          selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
+        }),
+        attempt({
+          attemptId: "xat:b",
+          selectedAgentRef: M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+        }),
+      ],
+      evidence: [
+        evidence({
+          evidenceId: "ev:a",
+          source: input.artifactSource,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: artifactAttemptId,
+          },
+        }),
+        ...(input.extraArtifacts ?? []),
+        evidence({
+          evidenceId: "ev:commit",
+          type: "other" as const,
+          source: "git:local_commit",
+          location: `git:local_commit?repo=${encodeURIComponent("acme/widget")}&commitSha=${COMMIT_H1}&parentSha=${HEAD}&path=${encodeURIComponent(PATH)}`,
+          bindings: {
+            projectId: PROJECT,
+            cycleInstanceId: CYCLE,
+            executionContractId: EC,
+            executionAttemptId: "xat:b",
+          },
+        }),
+      ],
+    };
+  }
+
+  it("historical execution_attempt:docs_write (+ dotted suffix) still supersedes", () => {
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({ artifactSource: "execution_attempt:docs_write" }),
+      ),
+    ).toBe(true);
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({
+          artifactSource: "execution_attempt:docs_write.v2",
+        }),
+      ),
+    ).toBe(true);
+  });
+
+  it("T11 irrelevant Attempt Evidence (wrong source / wrong attempt) → no supersession", () => {
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({
+          artifactSource: "execution_attempt:mission_result",
+        }),
+      ),
+    ).toBe(false);
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({
+          artifactSource: "execution_attempt:docs_write_fake",
+        }),
+      ),
+    ).toBe(false);
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({
+          artifactSource: "execution attempt xat:a (succeeded)",
+        }),
+      ),
+    ).toBe(false);
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({
+          artifactSource: "execution_attempt:docs_write",
+          artifactAttemptId: "xat:other",
+        }),
+      ),
+    ).toBe(false);
+
+    const resolved = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: lineageSupersession({
+        artifactSource: "execution_attempt:mission_result",
+      }).attempts,
+      evidence: lineageSupersession({
+        artifactSource: "execution_attempt:mission_result",
+      }).evidence,
+    });
+    expect(resolved.required).toBe(true);
+    if (resolved.required) expect(resolved.ok).toBe(false);
+  });
+
+  it("T12 contradictory/ambiguous (2 matching artifacts) → no supersession / no auto PASS", () => {
+    const second = evidence({
+      evidenceId: "ev:a2",
+      source: "execution_attempt:docs_write",
+      bindings: {
+        projectId: PROJECT,
+        cycleInstanceId: CYCLE,
+        executionContractId: EC,
+        executionAttemptId: "xat:a",
+      },
+    });
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({
+          artifactSource: "execution_attempt:docs_write",
+          extraArtifacts: [second],
+        }),
+      ),
+    ).toBe(false);
+
+    const dottedTwin = evidence({
+      evidenceId: "ev:a-dotted",
+      source: "execution_attempt:docs_write.replica",
+      bindings: {
+        projectId: PROJECT,
+        cycleInstanceId: CYCLE,
+        executionContractId: EC,
+        executionAttemptId: "xat:a",
+      },
+    });
+    expect(
+      isFsAnchorSupersededByVerifiedLocalCommit(
+        lineageSupersession({
+          artifactSource: "execution_attempt:docs_write",
+          extraArtifacts: [dottedTwin],
+        }),
+      ),
+    ).toBe(false);
+
+    const resolved = resolvePreCommitWorkspaceContinuation({
+      ...baseInput,
+      repositoryRef: "acme/widget",
+      authorizedEffects: ["git.push"],
+      verifiedEffects: [
+        "filesystem.create",
+        "filesystem.modify",
+        "git.commit",
+      ],
+      attempts: lineageSupersession({
+        artifactSource: "execution_attempt:docs_write",
+        extraArtifacts: [second],
+      }).attempts,
+      evidence: lineageSupersession({
+        artifactSource: "execution_attempt:docs_write",
+        extraArtifacts: [second],
+      }).evidence,
+    });
+    expect(resolved).not.toEqual({ required: false, descriptor: null });
+    expect(resolved.required).toBe(true);
+    if (resolved.required) expect(resolved.ok).toBe(false);
   });
 });

@@ -15,9 +15,15 @@ import {
   prepareGenericExecutionContractDraft,
   solicitGenericExecutionPrepare,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { qualifyBoundedNonMutatingAnalysisMission } from "@/features/project-assistant/w2/resolveAuthoritativeProductMateriality";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  qualifyBoundedNonMutatingAnalysisMission,
+} from "@/features/project-assistant/w2/resolveAuthoritativeProductMateriality";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
 import {
   governedExecuteSelectAgent,
   governedExecuteStart,
@@ -31,16 +37,22 @@ import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
   tempProductDbPath,
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
-import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  TestOnlyRealExecutionLaunchPort,
+} from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 
 function restoreEnvVar(name: string, previous: string | undefined): void {
@@ -110,17 +122,6 @@ describe("P6 tool-first safety closure R1/R2", () => {
       },
     });
     const identity = `acme/r12-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -358,7 +359,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       isDocumentaryWriteMission: false,
     });
     expect(disguised.ok).toBe(false);
-    expect(disguised.basis).toBe("intent_kind_docs_write");
+    expect(disguised.basis).toBe("intent_kind_not_admitted");
   });
 
   // ---------------------------------------------------------------------------

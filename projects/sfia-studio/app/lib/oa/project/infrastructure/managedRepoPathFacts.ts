@@ -6,8 +6,9 @@
  *
  * Returns null when the managed clone / base is unavailable (unknown fact → ASK).
  */
-import { existsSync, mkdirSync, readdirSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import { assertCanonicalGithubRepositoryRef } from "@/lib/oa/execution-attempt/domain/shellSafeArg";
 import {
   ManagedProjectRepositoryResolver,
   sanitizeManagedRepoIdentity,
@@ -98,7 +99,12 @@ export function listManagedRepoPathsUnderRoot(input: {
   return out;
 }
 
-/** Test helper: ensure a managed clone skeleton exists (git dir marker only). */
+/**
+ * Test helper: ensure a managed clone skeleton exists.
+ * Writes a coherent origin url when identity is canonical and config is absent,
+ * so protected Git identity checks do not treat the marker as a foreign remote.
+ * Does not clone or contact a network.
+ */
 export function ensureManagedRepoCloneSkeleton(input: {
   managedRepoRootBase: string;
   identity: string;
@@ -109,6 +115,15 @@ export function ensureManagedRepoCloneSkeleton(input: {
   const gitDir = path.join(repoRoot, ".git");
   if (!existsSync(gitDir)) {
     mkdirSync(gitDir, { recursive: true });
+  }
+  const configPath = path.join(gitDir, "config");
+  const canonical = assertCanonicalGithubRepositoryRef(input.identity.trim());
+  if (!existsSync(configPath) && canonical.ok) {
+    writeFileSync(
+      configPath,
+      `[remote "origin"]\n\turl = https://github.com/${canonical.ref}.git\n`,
+      "utf8",
+    );
   }
   return repoRoot;
 }

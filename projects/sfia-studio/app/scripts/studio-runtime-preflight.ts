@@ -29,7 +29,6 @@ if (!result.ok) {
 }
 
 console.log("STUDIO RUNTIME PROFILE READY");
-console.log(`- repository: ${result.repositoryIdentity} (${result.sections.repository})`);
 console.log(`- authority: ${result.sections.authority}`);
 console.log(`- managedRoot: ${result.managedRepoRoot}`);
 console.log(`- managedClone: ${result.managedClonePath || "(skipped)"}`);

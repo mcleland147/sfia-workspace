@@ -582,7 +582,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
         objective:
           "Matérialiser la fiche Markdown requise par le cycle actif dans le dépôt lié.",
         requestedOperation: "cursor.docs_write.apply",
-        intentKind: "docs_write",
+        intentKind: "other",
         targetRepositoryRef: "mcleland147/sfia-workspace",
         targetPath:
           "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
@@ -606,26 +606,25 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
     expect(result.prepared.mode).toBe("M3_PREPARE");
     expect(result.prepared.executionPerformed).toBe(false);
     expect(result.prepared.cursorReal).toBe(false);
-    expect(result.contract.action).toBe("cursor.docs_write.apply");
-    expect(result.contract.target).toBe("workspace.isolated.docs_write");
-    // Contract field must be OA identifiers — Nora prose must not leak here.
+    // AKG-M5: docs_write specialized target/evidence coercion retired.
+    // Free-text still coerces to OA identifiers (never CONTRACT_INVALID).
     for (const id of result.contract.evidenceRequirements) {
       expect(id).toMatch(/^[a-z][a-z0-9]*:/);
     }
-    expect(result.contract.evidenceRequirements).toEqual([
-      "evreq:docs_write_artifact",
-    ]);
-    // Free-text preserved in inputs for disclosure (not EC identifier SoT).
-    expect(result.contract.inputs?.evidenceRequirements).toEqual(noraProse);
+    expect(result.contract.evidenceRequirements.length).toBeGreaterThan(0);
+    // Free-text must not leak into EC identifier SoT (OA-prefixed only above).
+    for (const id of result.contract.evidenceRequirements) {
+      expect(noraProse).not.toContain(id);
+    }
   });
 
-  it("CHECKPOINT-E R4 — docs_write free-text fallback must NOT demand Git lifecycle under NO_* profile", async () => {
+  it("CHECKPOINT-E R4 — free-text fallback must NOT demand Git lifecycle under NO_* profile", async () => {
     const result = await recordAndPrepare(
       "ckpt-e-r4-local-evidence.sqlite",
       {
         objective: "Matérialiser un fichier sandbox local.",
         requestedOperation: "cursor.docs_write.apply",
-        intentKind: "docs_write",
+        intentKind: "other",
         targetRepositoryRef: "mcleland147/sfia-workspace",
         targetPath:
           "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",
@@ -654,9 +653,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
       expect(gitLifecycle).not.toContain(id);
       expect(id).toMatch(/^[a-z][a-z0-9]*:/);
     }
-    expect(result.contract.evidenceRequirements).toEqual([
-      "evreq:docs_write_artifact",
-    ]);
+    expect(result.contract.evidenceRequirements.length).toBeGreaterThan(0);
   });
 
   it("CHECKPOINT-E regression — docs_write with valid OA evidenceRequirements preserves them", async () => {
@@ -664,7 +661,7 @@ describe("M3 ExecutionContract UNRESOLVED semantics (R1)", () => {
       "ckpt-e-valid-evidence.sqlite",
       {
         requestedOperation: "cursor.docs_write.apply",
-        intentKind: "docs_write",
+        intentKind: "other",
         targetRepositoryRef: "mcleland147/sfia-workspace",
         targetPath:
           "projects/sfia-studio/.sandbox/product-journey-e2e-real-01.md",

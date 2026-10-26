@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * GCEC bounded git.commit gateway profile — GC-01..GC-12.
  * FakeProcessRunner only. ZERO REAL Cursor / ZERO Product git mutation.
@@ -6,7 +8,6 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   assertStudioCursorRealOffForTests,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_REAL_GATEWAY_ADAPTER_ID,
   SFIA_STUDIO_CURSOR_REAL_FLAG,
@@ -99,7 +100,7 @@ describe("GCEC git.commit gateway profile GC-01..12", () => {
     return { gw, runner, workspace };
   }
 
-  it("GC-01 docs-write profile remains unchanged (no Shell, Write tools)", async () => {
+  it("GC-01 filesystem materialization profile (no Shell, Write tools)", async () => {
     const { gw, runner, workspace } = gateway();
     const result = await gw.launch(
       baseRequest({

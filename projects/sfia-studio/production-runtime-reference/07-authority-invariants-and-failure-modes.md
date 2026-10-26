@@ -4,6 +4,14 @@
 
 **Amendement documentaire D-P6-SHE-01 (requalifié AKG-M3 G6 — 2026-10-21) :** SINGLE HUMAN EXECUTE / Option A est **CURRENT ON MAIN** — Product integrated via **PR #590** merge `c9abdbc3` (ancestor of main tip `c2b3d00c…`). DETERMINISTIC at tested scope. Les invariants SHE ci-dessous restent CURRENT. Les invariants « STRUCTURAL PREPARE requires HD » restent **HISTORICAL / disposition-before-PREPARE** (chemin encore disponible) — ils ne bloquent plus l’inspectable PREPARE sous SHE. Prior wording « CURRENT on Delivery / PR DRAFT pending merge / NOT INTEGRATED ON MAIN » is **HISTORICAL**. ≠ REAL/HQA PROVEN · ≠ P6 GLOBAL PASS · runtime v3 NON ADOPTED.
 
+## Overlay — PR #618 effect-based confinement + write-mode without Product Binding (LOCAL CANDIDATE — 2026-10-25)
+
+| ID | Statement | Status |
+|---|---|---|
+| INV-CONFINE-BY-EFFECT | Mutating Cursor child env follows authorized effects / sealed slice — **not** `isDocsWrite` | **LOCAL CANDIDATE** DET · **NOT ON MAIN** |
+| INV-WRITE-MODE-NO-BINDING | CREATE/UPDATE/ASK for automatic `projects/<key>` uses sealed env probe identity + managed base — **not** `Project.repositoryBinding` | **LOCAL CANDIDATE** DET (PWR routing) · **NOT ON MAIN** |
+| INV-NO-RESTORE-DOCS-WRITE | docs_write Product admission remains **RETIRED** on this branch | **LOCAL CANDIDATE** |
+
 ## Invariant catalog — CURRENT IMPLEMENTED
 
 | ID | Statement | Enforcing code (examples) | Tests | Epistemic |
@@ -137,7 +145,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
 | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
 | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
 | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
-| `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | docs_write | missing managed root | cannot REAL write | none | yes |
+| `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN:** docs_write REAL. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** missing managed root still fail-closes; this is no longer a docs_write Product-admission gate. **NOT MERGED** | missing managed root | cannot REAL write | none | yes |
+| `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
+| `managed_repo_identity_mismatch` | managed resolver (`resolveIdentityMatchedLocalRepo` / `guardedManagedRepoRootForProtectedGit`) — **CORR-02 LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | checkout `origin` missing or does not match sealed identity (including one-hop worktree gitfile whose resolved origin mismatches) | protected Git fail-closed (`REAL_WORKSPACE_INVALID`); non-protected work does not fail solely because the checkout is unusable | none | yes — DET · **≠** REAL |
 | Session path orphan | Memory B | worktree cwd default | empty transcript UI | Truth C intact | operational |
 
 Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is **expected**.

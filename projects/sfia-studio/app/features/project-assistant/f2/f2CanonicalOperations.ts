@@ -1,28 +1,34 @@
 /**
- * CORR-PROOF-09 — single source for Artifact materialization technical IDs.
+ * CORR-PROOF-09 — Artifact materialization technical IDs.
  * TECHNICAL CAPABILITY ≠ EXECUTION AUTHORITY.
  *
- * CR-09-02 remediation: do NOT expose a global executionIntent.requestedOperation
- * enum (especially hostile-only IDs) to the OpenAI producer contract.
- * The dedicated IntentAnalysis field carries the Artifact-only discriminator.
+ * The specialized document-write operation is not a Product admission.
+ * Producer schema admits null only. Documentary work routes through generic
+ * PREPARE and the studio cursor generalist surface.
  */
 
-/** Server-owned action for Artifact materialization (TECHNICAL ≠ AUTHORITY). */
-export const F2_ARTIFACT_MATERIALIZATION_OPERATION =
-  "cursor.docs_write.apply" as const;
+import {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+} from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
 
-/** Server-owned capability set for Artifact materialization. */
+/**
+ * Not a Product operation admission. Retained so callers can name the
+ * generalist action without a specialized document-write token.
+ */
+export const F2_ARTIFACT_MATERIALIZATION_OPERATION =
+  STUDIO_CURSOR_GENERALIST_ACTION;
+
+/** Generalist capability only — not a specialized document-write capability. */
 export const F2_ARTIFACT_MATERIALIZATION_CAPABILITIES = [
-  "cap:cursor.docs_write",
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
 ] as const;
 
 /**
- * OpenAI Structured Outputs allowlist for the dedicated Artifact field only.
- * Hostile ops (e.g. github.pr.merge) are NOT producer choices — inject via DTO.
+ * OpenAI Structured Outputs allowlist for the dedicated Artifact field.
+ * Empty: any non-null operation fail-closes. No specialized operation is offered.
  */
-export const F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM = [
-  F2_ARTIFACT_MATERIALIZATION_OPERATION,
-] as const;
+export const F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM = [] as const;
 
 export type F2ArtifactMaterializationOperation =
   (typeof F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM)[number];

@@ -1,3 +1,4 @@
+
 /**
  * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — deterministic PRODUCT front-door oracle.
  *
@@ -22,9 +23,15 @@ import {
   projectAssistantPrepareResolvedM3Action,
   projectAssistantSendAction,
 } from "@/features/project-assistant/actions";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
-import { w2ReadActiveDecisionSubjectAction } from "@/features/project-assistant/w2/actions";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  w2ReadActiveDecisionSubjectAction,
+} from "@/features/project-assistant/w2/actions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -35,15 +42,19 @@ import {
   produceLifecycleRecommendation,
   resolveCanonicalLifecycleRecommendationBasis,
 } from "@/lib/oa/cycle";
-import { assessChatFirstWorkEligibility } from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
+import {
+  assessChatFirstWorkEligibility,
+} from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
 import {
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
   MemoryLaunchSafetyJournal,
   isStudioCursorRealEnabled,
+  FakeDocsWriteLaunchPort,
 } from "@/lib/oa/execution-attempt";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project";
 import {
   SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
   getRuntimeApplicationService,
@@ -104,6 +115,11 @@ function initManagedGitRepo(managedBase: string, identity: string) {
     cwd: repoRoot,
   });
   execFileSync("git", ["config", "user.name", "Test"], { cwd: repoRoot });
+  execFileSync(
+    "git",
+    ["remote", "add", "origin", `https://github.com/${identity}.git`],
+    { cwd: repoRoot },
+  );
   execFileSync("git", ["add", "."], { cwd: repoRoot });
   execFileSync("git", ["commit", "-m", "init"], { cwd: repoRoot });
   const baseHeadSha = execFileSync("git", ["rev-parse", "HEAD"], {

@@ -1,3 +1,9 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 // @vitest-environment node
 /**
  * PJ-REPROOF-04 — ONE generic Cursor executor for canonical Product path.
@@ -13,11 +19,21 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { mkdtempSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  prepareExecutionContractFromW2Decision,
+} from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  CLARIFY_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
 import {
   assertCursorPromptParityWithInspection,
   projectExecutionContractToCursorPrompt,
@@ -27,7 +43,6 @@ import {
   agentMatchViolation,
   assertStudioCursorRealOffForTests,
   bindCursorExecutionReportToAttempt,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
   createM4BoundedPrCreateCursorAgentDescriptor,
   createM4BoundedPrMergeCursorAgentDescriptor,
@@ -35,12 +50,8 @@ import {
   createM4BoundedReadOnlyCursorAgentDescriptor,
   createStudioCursorGeneralistAgentDescriptor,
   createTestExecutionAttemptServices,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
+  M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
   M4_BOUNDED_LOCAL_COMMIT_SCOPE,
   M4_BOUNDED_LOCAL_COMMIT_TARGET,
@@ -99,7 +110,9 @@ import {
   M4_TEST_BASE_HEAD_SHA,
   m4ContractInputs,
 } from "../oa/execution-attempt/support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  TestOnlyRealExecutionLaunchPort,
+} from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
 
 beforeEach(() => {
   process.env.OPS1_CONVERSATION_PROVIDER = "fake";
@@ -537,16 +550,6 @@ describe("Acceptance 4 — GCEC isolation (generalist must NOT satisfy specializ
       specialized: createM4BoundedReadOnlyCursorAgentDescriptor(NOW),
     },
     {
-      name: "docs_write",
-      criteria: {
-        requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-        action: M4_BOUNDED_DOCS_WRITE_ACTION,
-        target: M4_BOUNDED_DOCS_WRITE_TARGET,
-        scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
-      },
-      specialized: createM4BoundedDocsWriteCursorAgentDescriptor(NOW),
-    },
-    {
       name: "local_commit",
       criteria: {
         requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
@@ -605,103 +608,61 @@ describe("Acceptance 4 — GCEC isolation (generalist must NOT satisfy specializ
     }
   });
 
-  it("Select: specialized candidate wins when present; generalist is not a candidate", async () => {
-    const docsWrite = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+  it("registry: local_commit specialized is candidate; generalist is not", () => {
+    // AKG-M5: docs_write specialized retired — isolation proved on local_commit.
+    const localCommit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
     const stack = buildStack({
-      agents: [generalist, docsWrite],
+      agents: [generalist, localCommit],
       adapter: new TestExecutionAdapter(),
     });
-    await seedProject(stack.projects);
-    registerMorris(stack.decisions.authority, M4_BOUNDED_DOCS_WRITE_SCOPE, M4_EVIDENCE);
-    await seedAcceptedDecision(stack);
-    await seedStandardCycle(stack);
-
-    const built = await stack.execution.buildExecutionContract.execute(
-      baseBuildRequest(
-        docsWriteBuildOverrides({
-          executionContractId: "xct:pj-reproof04:gcec-iso",
-          idempotencyKey: "idem:pj-reproof04:gcec-iso",
-        }),
-      ),
-    );
-    if (!built.ok) {
-      throw new Error(
-        `build failed: ${built.error.detailCode} ${built.error.message} ${built.error.internalCauseRef ?? ""}`,
-      );
-    }
-    expect(built.ok).toBe(true);
-    const validated = await stack.execution.validateExecutionContract.execute({
-      executionContractId: built.contract.executionContractId,
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(validated.ok).toBe(true);
-    if (!validated.ok) return;
-    const confirmationId = await grantContractConfirmation(stack, {
-      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
-      evidenceId: M4_EVIDENCE,
-    });
-    const confirmed = await stack.execution.confirmExecutionContract.execute({
-      executionContractId: validated.contract.executionContractId,
-      confirmationId,
-      actor: MORRIS_ACTOR,
-      authorityEvidenceId: M4_EVIDENCE,
-      expectedVersion: validated.contract.version,
-    });
-    expect(confirmed.ok).toBe(true);
-    if (!confirmed.ok) return;
-
-    const profile = resolveAttemptExecutionProfile({
-      contract: confirmed.contract,
-      attempts: [],
-      evidence: [],
-    });
-    expect(profile.ok).toBe(true);
-    if (!profile.ok) return;
-    expect(profile.profile.kind).toBe("docs_write");
-
-    const candidates = stack.attempts.registry.findCandidates(
-      profile.profile.criteria,
-    );
+    const criteria = {
+      requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+      action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+      target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+      scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+    };
+    const candidates = stack.attempts.registry.findCandidates(criteria);
     expect(candidates.map((c) => c.agentId)).toEqual([
-      M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
     ]);
     expect(
       candidates.some((c) => c.agentId === STUDIO_CURSOR_GENERALIST_AGENT_ID),
     ).toBe(false);
-
-    const selected = await selectStandardAgent(stack, {
-      attemptId: "xat:pj-reproof04:gcec-iso",
-      executionContractId: confirmed.contract.executionContractId,
-      authorityEvidenceId: M4_EVIDENCE,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) return;
-    expect(selected.attempt.selectedAgentRef).toBe(
-      M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-    );
   });
 });
 
-describe("Acceptance 5 — GCEC fail-closed (generalist must NOT silently substitute)", () => {
-  it("docs_write profile with only generalist registered → AGENT_NOT_FOUND", async () => {
+describe("Acceptance 5 — GCEC fail-closed (wrong agent must NOT silently substitute)", () => {
+  it("local_commit profile with only generalist registered → AGENT_NOT_FOUND/MISMATCH", async () => {
+    // AKG-M5: FS materialization uses generalist; fail-closed proves specialized
+    // local_commit cannot be substituted by generalist alone when profile is commit.
     const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
     const stack = buildStack({
       agents: [generalist],
       adapter: new TestExecutionAdapter(),
     });
     await seedProject(stack.projects);
-    registerMorris(stack.decisions.authority, M4_BOUNDED_DOCS_WRITE_SCOPE, M4_EVIDENCE);
+    registerMorris(stack.decisions.authority, M4_BOUNDED_LOCAL_COMMIT_SCOPE, M4_EVIDENCE);
     await seedAcceptedDecision(stack);
     await seedStandardCycle(stack);
 
     const built = await stack.execution.buildExecutionContract.execute(
-      baseBuildRequest(
-        docsWriteBuildOverrides({
-          executionContractId: "xct:pj-reproof04:gcec-fail",
-          idempotencyKey: "idem:pj-reproof04:gcec-fail",
-        }),
-      ),
+      baseBuildRequest({
+        cycleInstanceId: "cyc:std-001",
+        executionContractId: "xct:pj-reproof04:gcec-fail",
+        idempotencyKey: "idem:pj-reproof04:gcec-fail",
+        action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+        target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+        scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+        requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+        authorityEvidenceId: M4_EVIDENCE,
+        evidenceRequirements: ["git:local_commit"],
+        expectedOutputs: ["artifact", DOCS_WRITE_TARGET_PATH],
+        inputs: {
+          ...m4ContractInputs(),
+          targetPath: DOCS_WRITE_TARGET_PATH,
+          commitMessage: "docs: fail-closed proof",
+        },
+      }),
     );
     expect(built.ok).toBe(true);
     if (!built.ok) return;
@@ -713,7 +674,7 @@ describe("Acceptance 5 — GCEC fail-closed (generalist must NOT silently substi
     expect(validated.ok).toBe(true);
     if (!validated.ok) return;
     const confirmationId = await grantContractConfirmation(stack, {
-      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+      scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
       evidenceId: M4_EVIDENCE,
     });
     const confirmed = await stack.execution.confirmExecutionContract.execute({
@@ -742,9 +703,8 @@ describe("Acceptance 5 — GCEC fail-closed (generalist must NOT silently substi
 describe("Acceptance 6 — hostile requestedAgentRef", () => {
   it("canonical Product: specialized requestedAgentRef must NOT route away from generalist (fail-closed)", async () => {
     const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
-    const docsWrite = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
     const stack = buildStack({
-      agents: [generalist, docsWrite],
+      agents: [generalist],
       adapter: new TestExecutionAdapter(),
     });
     await seedProject(stack.projects);
@@ -832,24 +792,36 @@ describe("Acceptance 6 — hostile requestedAgentRef", () => {
   });
 
   it("GCEC: requestedAgentRef=generalist must NOT bypass specialized profile matching", async () => {
+    // AKG-M5: sealed local_commit profile — generalist request must fail closed.
     const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
-    const docsWrite = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const localCommit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
     const stack = buildStack({
-      agents: [generalist, docsWrite],
+      agents: [generalist, localCommit],
       adapter: new TestExecutionAdapter(),
     });
     await seedProject(stack.projects);
-    registerMorris(stack.decisions.authority, M4_BOUNDED_DOCS_WRITE_SCOPE, M4_EVIDENCE);
+    registerMorris(stack.decisions.authority, M4_BOUNDED_LOCAL_COMMIT_SCOPE, M4_EVIDENCE);
     await seedAcceptedDecision(stack);
     await seedStandardCycle(stack);
 
     const built = await stack.execution.buildExecutionContract.execute(
-      baseBuildRequest(
-        docsWriteBuildOverrides({
-          executionContractId: "xct:pj-reproof04:hostile-gcec",
-          idempotencyKey: "idem:pj-reproof04:hostile-gcec",
-        }),
-      ),
+      baseBuildRequest({
+        cycleInstanceId: "cyc:std-001",
+        executionContractId: "xct:pj-reproof04:hostile-gcec",
+        idempotencyKey: "idem:pj-reproof04:hostile-gcec",
+        action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+        target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+        scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+        requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+        authorityEvidenceId: M4_EVIDENCE,
+        evidenceRequirements: ["git:local_commit"],
+        expectedOutputs: ["artifact", DOCS_WRITE_TARGET_PATH],
+        inputs: {
+          ...m4ContractInputs(),
+          targetPath: DOCS_WRITE_TARGET_PATH,
+          commitMessage: "docs: hostile generalist proof",
+        },
+      }),
     );
     expect(built.ok).toBe(true);
     if (!built.ok) return;
@@ -861,7 +833,7 @@ describe("Acceptance 6 — hostile requestedAgentRef", () => {
     expect(validated.ok).toBe(true);
     if (!validated.ok) return;
     const confirmationId = await grantContractConfirmation(stack, {
-      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+      scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
       evidenceId: M4_EVIDENCE,
     });
     const confirmed = await stack.execution.confirmExecutionContract.execute({

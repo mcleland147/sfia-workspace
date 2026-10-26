@@ -129,15 +129,7 @@ export function deriveProposalSubjectOptions(
       : null,
   ].filter((n): n is string => Boolean(n));
   const opNote = `Opération scellée: ${sealed.requestedOperation}`;
-  const automaticDocsWrite =
-    sealed.intentKind === "docs_write" &&
-    Boolean(
-      sealed.projectWorkspaceRoot?.startsWith("projects/") ||
-        sealed.targetPath?.startsWith("projects/"),
-    );
-  const askBlocksPursue =
-    sealed.artifactWriteMode === "ASK" ||
-    (automaticDocsWrite && sealed.artifactWriteMode == null);
+  const askBlocksPursue = sealed.artifactWriteMode === "ASK";
 
   return [
     {
@@ -200,11 +192,7 @@ export function deriveProposalSubjectRecommendation(
 
   if (
     sealed.reservations.length > 0 ||
-    sealed.artifactWriteMode === "ASK" ||
-    (sealed.intentKind === "docs_write" &&
-      (sealed.projectWorkspaceRoot?.startsWith("projects/") ||
-        sealed.targetPath?.startsWith("projects/")) &&
-      sealed.artifactWriteMode == null)
+    sealed.artifactWriteMode === "ASK"
   ) {
     // FR-03 — AMEND must cite a material delta, never a generic prudence loop.
     const materialGaps: string[] = [];

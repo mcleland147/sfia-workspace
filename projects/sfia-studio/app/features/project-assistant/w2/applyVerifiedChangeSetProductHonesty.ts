@@ -3,7 +3,7 @@
  * Cursor CLAIM ≠ Studio FACT. Attempt succeeded ≠ Product PASS.
  * Does NOT create a second Evidence engine — only downgrades dishonest PASS.
  */
-import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/productEvidenceRefsRoot";
 import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
 

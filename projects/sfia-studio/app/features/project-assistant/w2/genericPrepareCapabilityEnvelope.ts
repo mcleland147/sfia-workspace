@@ -2,15 +2,12 @@
  * Generic PREPARE capability envelope — shared by offer reconstruction,
  * materiality, and ExecutionContract PREPARE.
  *
- * Documentary effect-class `cap:cursor.docs_write` may be proposed by Nora.
- * Product Generic PREPARE resolves it onto studio.cursor.generalist — never
- * silently dropped, never treated as elevated authority by itself.
+ * Only the studio cursor generalist capability is inside the envelope.
+ * Any other proposed capability fail-closes. A retired specialized
+ * document-write token is outside the envelope (not resolved onto Product).
  */
 
 import { PRODUCT_CANONICAL_EXECUTION_CAPABILITY } from "./w3aProductExecutionSemantics";
-
-export const GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY =
-  "cap:cursor.docs_write" as const;
 
 /**
  * Exact Product identities only — no substring / prefix / suffix matching.
@@ -18,7 +15,6 @@ export const GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY =
  */
 export const GENERIC_PREPARE_ENVELOPE_CAPABILITY_IDENTITIES = Object.freeze([
   PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
-  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
 ] as const);
 
 export function isCapabilityWithinGenericPrepareEnvelope(cap: string): boolean {
@@ -38,7 +34,6 @@ export type GenericPrepareCapabilityResolution =
       readonly proposedCapabilities: readonly string[];
       readonly resolution:
         | "no_proposed_capabilities_default_generalist"
-        | "docs_write_effect_resolved_onto_generalist_product_surface"
         | "already_generalist_envelope";
     }
   | {
@@ -73,15 +68,10 @@ export function resolveGenericPrepareCapabilityEnvelope(
       proposedCapabilities: cleaned,
     };
   }
-  const hasDocsWrite = cleaned.includes(
-    GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
-  );
   return {
     ok: true,
     contractCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
     proposedCapabilities: cleaned,
-    resolution: hasDocsWrite
-      ? "docs_write_effect_resolved_onto_generalist_product_surface"
-      : "already_generalist_envelope",
+    resolution: "already_generalist_envelope",
   };
 }

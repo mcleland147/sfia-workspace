@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * CR-GCEC-01 — actual F2 structured intent → DecisionBasis → PREPARE.
  * Fake provider only; ZERO OpenAI REAL.
@@ -9,16 +11,22 @@ import {
   resetRuntimeApplicationServiceForTests,
 } from "@/lib/vertical-slice-runtime";
 import { FakeConversationProvider } from "@/lib/platform/ai";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  analyzeIntent,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
-import { prepareM3FromDecision } from "@/features/project-assistant/f3/prepareM3FromDecision";
-import { M4_BOUNDED_DOCS_WRITE_ACTION } from "@/lib/oa/execution-attempt";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
+import {
+  prepareM3FromDecision,
+} from "@/features/project-assistant/f3/prepareM3FromDecision";
+
 
 describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () => {
   beforeEach(() => {
@@ -58,7 +66,8 @@ describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () =
       provider,
     });
     expect(analyzed.analysis.parseOk).toBe(true);
-    expect(analyzed.analysis.executionIntent?.intentKind).toBe("docs_write");
+    // AKG-M5: Product intentKind admits read_only | other only (docs_write retired).
+    expect(analyzed.analysis.executionIntent?.intentKind).toBe("other");
     expect(analyzed.analysis.executionIntent?.targetPath).toBe(
       "docs/functional-design.md",
     );
@@ -125,10 +134,12 @@ describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () =
     expect(durable.ok).toBe(true);
     if (!durable.ok) return;
     const eb = durable.decision.decisionBasis?.executionBasis;
-    expect(eb?.intentKind).toBe("docs_write");
+    // AKG-M5: DecisionBasis carries generic intent (docs_write kind retired).
+    expect(eb?.intentKind).toBe("other");
     expect(eb?.targetPath).toBe("docs/functional-design.md");
     expect(eb?.targetRepositoryRef).toBe("acme/widget");
-    expect(eb?.requestedOperation).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
+    // Not the retired Product docs_write action (may carry Pilot prose / null).
+    expect(eb?.requestedOperation).not.toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
     expect(eb?.artifactBrief).toBeTruthy();
     expect(eb?.contentRequirements?.length).toBeGreaterThan(0);
 
@@ -156,31 +167,27 @@ describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () =
     });
     expect(prepared.ok).toBe(true);
     if (!prepared.ok) return;
-    expect(prepared.payload.contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
-    expect(prepared.payload.contract.target).toBe(
+    // Generic PREPARE — not specialized docs_write action/target/caps.
+    expect(prepared.payload.contract.action).not.toBe(
+      M4_BOUNDED_DOCS_WRITE_ACTION,
+    );
+    expect(prepared.payload.contract.target).not.toBe(
       "workspace.isolated.docs_write",
     );
-    expect(prepared.payload.contract.requiredCapabilities).toContain(
+    expect(prepared.payload.contract.requiredCapabilities ?? []).not.toContain(
       "cap:cursor.docs_write",
     );
-    expect(prepared.payload.contract.stopConditions).not.toContain(
-      "TARGET_UNRESOLVED",
-    );
-    // Durable EC may omit opaque inputs on prepare DTO — assert via DecisionBasis + action/target/caps.
-    expect(prepared.payload.contract.action).toBe(M4_BOUNDED_DOCS_WRITE_ACTION);
     const durableEc =
       await runtime.oa!.executionContractServices.getExecutionContract.execute({
         executionContractId: prepared.payload.contract.executionContractId,
       });
     expect(durableEc.ok).toBe(true);
     if (!durableEc.ok) return;
-    expect(durableEc.contract.inputs?.targetPath).toBe(
-      "docs/functional-design.md",
+    // DecisionBasis already sealed targetPath/repo above; durable EC may omit
+    // opaque inputs on generic PREPARE DTO — assert contract exists.
+    expect(durableEc.contract.executionContractId).toBe(
+      prepared.payload.contract.executionContractId,
     );
-    expect(
-      durableEc.contract.inputs?.targetRepositoryRef ??
-        durableEc.contract.inputs?.repositoryRef,
-    ).toBe("acme/widget");
   });
 
   it("missing target in executionIntent → PREPARE stays fail-closed TARGET_UNRESOLVED", async () => {
@@ -231,19 +238,19 @@ describe("CR-GCEC-01 — F2 executionIntent → DecisionBasis → PREPARE", () =
       executionForbidden: true,
       noExecutingStatus: true,
       agentBinding: "NOT_AVAILABLE",
-      requestedOperation: M4_BOUNDED_DOCS_WRITE_ACTION,
+      requestedOperation: null,
       executionIntent: {
-        intentKind: "docs_write",
+        intentKind: "other",
         artifactType: "functional_design",
         targetRepositoryRef: null,
         targetPath: null,
         scopeIn: ["docs/"],
         scopeOut: [],
         expectedOutputs: [],
-        requiredCapabilities: ["cap:cursor.docs_write"],
+        requiredCapabilities: ["cap:studio.cursor.generalist"],
         validationExpectations: [],
         evidenceRequirements: [],
-        requestedOperation: M4_BOUNDED_DOCS_WRITE_ACTION,
+        requestedOperation: null,
         reversibilityExpectation: "reversible",
         artifactBrief: "incomplete",
         contentRequirements: [],

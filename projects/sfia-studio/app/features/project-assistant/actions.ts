@@ -47,7 +47,6 @@ import { confirmAndExecuteResolvedM3 } from "./f3/confirmAndExecuteResolvedM3";
 import { prepareF3Fixture } from "./f3/prepareF3Fixture";
 import { prepareM3FromDecision } from "./f3/prepareM3FromDecision";
 import { prepareAndResolveM3ProductPath } from "./f3/prepareAndResolveM3ProductPath";
-import { resolveExistingLegacyM3DocsWriteProductPath } from "./f3/resolveExistingLegacyM3DocsWriteProductPath";
 import { rehydrateEvidenceOutcomeFromLps } from "./f3/rehydrateEvidenceOutcomeFromLps";
 import { resolveF3EphemeralNotice } from "./f3/constants";
 import {
@@ -563,103 +562,20 @@ export async function projectAssistantResolveLegacyM3DocsWriteAction(input: {
   canActAsMorris?: unknown;
   claimedAuthorityLevel?: unknown;
 }): Promise<ProjectAssistantResolveLegacyM3DocsWriteResult> {
-  void input.mode;
-  void input.adapterRef;
-  void input.agentId;
-  void input.command;
-  void input.real;
-  void input.profile;
-  void input.action;
-  void input.target;
-  void input.scope;
-  void input.baseHeadSha;
-  void input.selectedAgentRef;
-  void input.canActAsMorris;
-  void input.claimedAuthorityLevel;
-
-  const runtime = getRuntimeApplicationService();
-  if (!runtime.oa) {
-    return {
-      ok: false,
-      status: "prepare_error",
-      code: "OA_STACK_UNAVAILABLE",
-      message: "Services OA indisponibles pour rematérialisation M3 legacy.",
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-
-  const projectResult = await loadProjectRuntimeForAssistant(input.projectId);
-  if (!projectResult.ok) {
-    return {
-      ok: false,
-      status: "project_not_found",
-      code: projectResult.error.code,
-      message: projectResult.error.message,
-      mode: "unavailable",
-      retryable: false,
-    };
-  }
-  const project = toContextDto(projectResult);
-
-  const resolved = await resolveExistingLegacyM3DocsWriteProductPath({
-    projectId: input.projectId,
-    decisionId: input.decisionId,
-    currentContext: {
-      projectId: project.projectId,
-      lpsId: project.lpsId,
-      lpsVersion: project.lpsVersion,
-      doctrineDigest: project.doctrineDigest,
-      activeCycleInstanceId: project.activeCycleInstanceId,
-      ckcResolutionRef: project.ckcResolutionRef,
-    },
-    deps: {
-      decisionServices: runtime.oa.decisionServices,
-      authorityResolver: runtime.oa.authorityResolver,
-      executionContractServices: runtime.oa.executionContractServices,
-      executionAttemptServices: runtime.oa.executionAttemptServices,
-      nowIso: () => runtime.oa!.clock.nowIso(),
-    },
-  });
-
-  if (!resolved.ok) {
-    return {
-      ok: false,
-      status: resolved.code === "CONTEXT_STALE" ? "stale" : "prepare_error",
-      code: resolved.code,
-      message: resolved.message,
-      mode: "fixture",
-      retryable: resolved.code === "CONTEXT_STALE",
-    };
-  }
-
-  const f3 = resolved.payload;
+  void input;
   return {
-    ok: true,
-    status: "ok",
-    mode: "m3_legacy_docs_write_resolved",
-    presentation: "unconfirmed",
-    text: [
-      "Contrat d'exécution actualisé — prêt à inspecter",
-      `Successeur ${f3.successor.executionContractId} v${f3.successor.version} (${f3.successor.status})`,
-      `Action ${f3.successor.action} · cible ${f3.successor.target} · scope ${f3.successor.scope}`,
-      "Nouvelle inspection requise — ancienne confirmation non transférée",
-      "AUCUNE EXÉCUTION RÉELLE",
-    ].join(" — "),
-    project,
-    ephemeralNotice:
-      "Préparation historique rematérialisée en contrat gouverné actuel. Inspection puis confirmation process-local. Cursor REAL bloqué.",
-    f3,
+    ok: false,
+    status: "prepare_error",
+    code: "LEGACY_M3_DOCS_WRITE_REMOVED",
+    message: "La rematérialisation M3 historique n'est plus disponible.",
+    mode: "unavailable",
+    retryable: false,
   };
 }
 
 type ProjectAssistantPrepareF3FailureProposal =
   import("./f2/types").ProposalDto | null;
 
-/**
- * F3 confirm + fixture execute + evidence reinjection.
- * No client authority. Hostile REAL/adapter/agent/command rejected.
- */
 export async function projectAssistantConfirmAndExecuteF3FixtureAction(input: {
   projectId: string;
   proposalId: string;

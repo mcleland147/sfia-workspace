@@ -123,7 +123,7 @@ function docsWriteProposal(input: {
     agentBinding: "NOT_AVAILABLE",
     requestedOperation: input.requestedOperation ?? null,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: null,
       targetPath: input.targetPath ?? TARGET_PATH,
       scopeIn: ["sandbox"],

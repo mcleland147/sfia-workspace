@@ -275,7 +275,7 @@ function presentAttemptDone(
 
 /**
  * Planned work — never surface raw action/target/scope machine codes
- * (cursor.docs_write.apply, workspace.isolated.*, studio.gcec.*, …).
+ * (studio.cursor.generalist.execute, workspace.isolated.*, studio.gcec.*, …).
  * Prefer human-readable title/objective/description when present.
  */
 function presentPlanned(

@@ -6,7 +6,6 @@
  */
 import type { Evidence } from "@/lib/oa/evidence-review";
 import { evaluateFunctionalDesignArtifactCompleteness } from "@/lib/oa/evidence-review";
-import type { ProjectRepositoryBinding } from "@/lib/oa/project";
 import {
   deriveCycleObligationSnapshot,
   type CycleObligationSnapshot,
@@ -123,7 +122,7 @@ export type DeriveCycleExitStateInput = {
   projectId: string;
   cycleInstanceId: string;
   cycleTypeId?: string;
-  repositoryBinding?: ProjectRepositoryBinding | null;
+  repositoryBinding?: { identity?: string | null } | null;
   obligationSnapshot?: CycleObligationSnapshot | null;
   executionContracts: readonly DerivableExecutionContract[];
   evidence: readonly Evidence[];

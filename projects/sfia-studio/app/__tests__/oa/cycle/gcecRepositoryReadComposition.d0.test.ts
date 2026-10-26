@@ -1,3 +1,9 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * GCEC-GIT-LIFECYCLE-E2E-01 — Product RepositoryRead composition (P-RR-01..08).
  * ZERO REAL. Deterministic FakeRepositoryReadPorts only.
@@ -5,31 +11,28 @@
  * @vitest-environment node
  */
 import { createHash } from "node:crypto";
-import { mkdirSync, mkdtempSync, readFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { Digest } from "@/lib/oa/doctrine";
-import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
 import {
   assertStudioCursorRealOffForTests,
   buildGitEffectActionRef,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
   createM4BoundedPrCreateCursorAgentDescriptor,
   createM4BoundedRemotePushCursorAgentDescriptor,
   createTestExecutionAttemptServices,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
   M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
   SqliteRealLaunchSafetyJournal,
   TestExecutionAdapter,
   type ExecutionAttempt,
+  createStudioCursorGeneralistAgentDescriptor,
 } from "@/lib/oa/execution-attempt";
 import {
   FakeRepositoryReadPorts,
@@ -54,8 +57,13 @@ import {
   selectStandardAgent,
   type Stack,
 } from "../execution-attempt/helpers";
-import { M4_EVIDENCE, M4_TEST_BASE_HEAD_SHA } from "../execution-attempt/support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "../execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  M4_EVIDENCE,
+  M4_TEST_BASE_HEAD_SHA,
+} from "../execution-attempt/support/m4Fixtures";
+import {
+  TestOnlyRealExecutionLaunchPort,
+} from "../execution-attempt/support/testOnlyRealExecutionLaunchPort";
 
 const APP_ROOT = path.resolve(__dirname, "../../..");
 const REGISTRY_ROOT = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
@@ -347,15 +355,19 @@ async function startAttemptD(input: {
   read: TrackingRead | undefined;
 }> {
   const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-rr-d-"));
-  mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
-    recursive: true,
-  });
+  const gitDir = path.join(managedBase, "acme__widget", ".git");
+  mkdirSync(gitDir, { recursive: true });
+  writeFileSync(
+    path.join(gitDir, "config"),
+    `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
+    "utf8",
+  );
   const journal = new SqliteRealLaunchSafetyJournal({
     databasePath: path.join(managedBase, "safety.sqlite"),
   });
   const launchPort = new TestOnlyRealExecutionLaunchPort();
   const agents = [
-    createM4BoundedDocsWriteCursorAgentDescriptor(NOW),
+    createStudioCursorGeneralistAgentDescriptor(NOW),
     createM4BoundedLocalCommitCursorAgentDescriptor(NOW),
     createM4BoundedRemotePushCursorAgentDescriptor(NOW),
     createM4BoundedPrCreateCursorAgentDescriptor(NOW),
@@ -381,14 +393,7 @@ async function startAttemptD(input: {
       safetyJournal: journal,
       managedRepoRootBase: managedBase,
     },
-    resolveProjectRepositoryBinding: async () => ({
-      provider: "github",
-      identity: IDENTITY,
-      remoteUrl: `https://github.com/${IDENTITY}.git`,
-      defaultBranch: "main",
-      pathRoot: "docs",
-      baseSha: H0,
-    }),
+
     listProjectEvidence: async () => ({
       ok: true as const,
       evidence: evidenceBag,

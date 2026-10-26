@@ -16,15 +16,25 @@ import {
   governedExecuteSelectAgent,
   governedExecuteStart,
 } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { solicitGenericExecutionPrepare } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  solicitGenericExecutionPrepare,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
-import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
+} from "@/lib/oa/execution-attempt";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -84,7 +94,7 @@ describe("P6 project-scoped Cursor selection Delivery", () => {
   }) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `PSCS ${input.suffix}`,
+      name: "demo",
       objective: "Project-scoped Cursor selection",
       context: "det pscs",
       criticality: "STANDARD",
@@ -162,17 +172,6 @@ describe("P6 project-scoped Cursor selection Delivery", () => {
     }
 
     const identity = `acme/pscs-${input.suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,

@@ -7,8 +7,12 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 import {
   assessGenericMissionPrepareReadiness,
   assessMaterialityForGenericPrepare,
@@ -18,9 +22,15 @@ import {
   rememberGenericPrepareRecommendation,
   resolveChatFirstGenericPrepareGo,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   PRODUCT_CANONICAL_EXECUTION_ACTION,
   PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
@@ -34,11 +44,14 @@ import {
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
+  pathUnderProjectWorkspace,
   tempProductDbPath,
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
@@ -50,8 +63,10 @@ function restoreEnvVar(name: string, previous: string | undefined): void {
 }
 
 function baseAnalysis(
+  workspaceKey: string,
   overrides: Partial<IntentAnalysisDto> = {},
 ): IntentAnalysisDto {
+  const filePath = pathUnderProjectWorkspace(workspaceKey, "app", "filter.ts");
   return {
     parseOk: true,
     intentClass: "actionable",
@@ -68,7 +83,7 @@ function baseAnalysis(
     contradictionCandidate: null,
     challengeResponseAssessment: "sufficient",
     objective: "Corriger la fonctionnalité de filtrage",
-    scope: "projects/demo/app/filter.ts",
+    scope: filePath,
     rephrasedRequest: "Corriger le bug de filtrage signalé",
     outOfScope: ["refonte UI", "migration DB"],
     risks: [],
@@ -80,7 +95,7 @@ function baseAnalysis(
     requestedOperation: null,
     executionIntent: {
       intentKind: "other",
-      scopeIn: ["projects/demo/app/filter.ts"],
+      scopeIn: [filePath],
       scopeOut: ["refonte UI"],
     } as IntentAnalysisDto["executionIntent"],
     ...overrides,
@@ -120,6 +135,7 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
   async function seedActiveCycle(suffix: string): Promise<{
     projectId: string;
     cycleInstanceId: string;
+    workspaceKey: string;
   }> {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
@@ -202,41 +218,21 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
     });
     expect(started.ok).toBe(true);
 
-    // D — repository binding required for Git-implying generic prepare.
-    if (oa.projectServices.setProjectRepositoryBinding) {
-      const identity = `acme/gd4-${suffix}`;
-      const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-        projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity,
-          remoteUrl: `https://github.com/${identity}.git`,
-          defaultBranch: "main",
-          // Align with baseAnalysis scopeIn under projects/demo/…
-          pathRoot: "projects/demo",
-        },
-      });
-      expect(bound.ok).toBe(true);
-      ensureManagedRepoCloneSkeleton({
-        managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-        identity,
-      });
-    }
-
-    return { projectId, cycleInstanceId };
+    const workspaceKey = created.project.projectWorkspaceKey ?? "project";
+    return { projectId, cycleInstanceId, workspaceKey };
   }
 
   async function prepareOk(
     projectId: string,
     cycleInstanceId: string,
-    analysis: IntentAnalysisDto = baseAnalysis(),
+    workspaceKey: string,
+    analysis?: IntentAnalysisDto,
   ) {
     const prep = await prepareGenericExecutionContractDraft({
       oa: runtime.oa!,
       projectId,
       cycleInstanceId,
-      analysis,
+      analysis: analysis ?? baseAnalysis(workspaceKey),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -267,17 +263,18 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
   });
 
   it("Q02 — sync assess without Product context is UNKNOWN (never false-implicit)", () => {
-    const mat = assessMaterialityForGenericPrepare(baseAnalysis());
+    const mat = assessMaterialityForGenericPrepare(baseAnalysis("demo"));
     expect(mat.materiality).toBe("unknown");
     expect(mat.humanDecisionRequired).toBe(true);
   });
 
   it("Q01/Q08/Q22 — PREPARE from Product materiality + launch grounding, no HD/Attempt", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("prep");
+    const { projectId, cycleInstanceId, workspaceKey } =
+      await seedActiveCycle("prep");
     const oa = runtime.oa!;
     const before = await oa.decisionServices.decisions.listByProject(projectId);
 
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
 
     expect(prep.humanDecisionCreated).toBe(false);
     expect(prep.executionAttemptCreated).toBe(false);
@@ -309,13 +306,14 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
   });
 
   it("Q04/Q05 — D-P6-SHE-01: structural PREPARE OK empty refs; Confirm still refuses empty refs vs STRUCTURAL", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("struct");
+    const { projectId, cycleInstanceId, workspaceKey } =
+      await seedActiveCycle("struct");
 
     const prep = await prepareGenericExecutionContractDraft({
       oa: runtime.oa!,
       projectId,
       cycleInstanceId,
-      analysis: baseAnalysis({
+      analysis: baseAnalysis(workspaceKey, {
         signals: {
           structuralChange: true,
           securityImpact: false,
@@ -350,8 +348,9 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
   });
 
   it("Q09/Q10 — authorize without prior Pilot inspection BLOCKS (no auto-attestation)", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("noinsp");
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const { projectId, cycleInstanceId, workspaceKey } =
+      await seedActiveCycle("noinsp");
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
 
     const blocked = await authorizeGenericPreparedContract({
       oa: runtime.oa!,
@@ -368,13 +367,15 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
   });
 
   it("Q06/Q07/Q11/Q15 — inspect → confirm → authorize without Attempt / without HD", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("auth");
+    const { projectId, cycleInstanceId, workspaceKey } =
+      await seedActiveCycle("auth");
     const oa = runtime.oa!;
 
     const prep = await prepareOk(
       projectId,
       cycleInstanceId,
-      baseAnalysis({
+      workspaceKey,
+      baseAnalysis(workspaceKey, {
         objective: "Corriger le tri (#auth)",
         expectedOutcome: "Tests verts sur le tri",
       }),
@@ -435,9 +436,10 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
   });
 
   it("Q12/Q13 — version / fingerprint mismatch BLOCK", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("vfp");
+    const { projectId, cycleInstanceId, workspaceKey } =
+      await seedActiveCycle("vfp");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
 
     const inspected = await inspectExecutionContract({
       oa,
@@ -487,10 +489,10 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
     rememberGenericPrepareRecommendation({
       projectId,
       cycleInstanceId,
-      analysis: baseAnalysis({
+      analysis: baseAnalysis("demo", {
         objective: "Réorganiser les fichiers du projet",
         expectedOutcome: "Arborescence clarifiée",
-        scope: "projects/demo/docs",
+        scope: pathUnderProjectWorkspace("demo", "docs"),
       }),
       offeredAtIso: "2026-10-15T12:00:00.000Z",
     });
@@ -504,18 +506,22 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
   });
 
   it("Q14 — different scope yields distinct contract ids (no silent reuse)", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("idem");
+    const { projectId, cycleInstanceId, workspaceKey } =
+      await seedActiveCycle("idem");
+    const pathA = pathUnderProjectWorkspace(workspaceKey, "src", "a.ts");
+    const pathB = pathUnderProjectWorkspace(workspaceKey, "src", "b.ts");
 
     const a = await prepareOk(
       projectId,
       cycleInstanceId,
-      baseAnalysis({
+      workspaceKey,
+      baseAnalysis(workspaceKey, {
         objective: "Mission idem A",
-        scope: "projects/demo/src/a.ts",
+        scope: pathA,
         expectedOutcome: "A done",
         executionIntent: {
           intentKind: "other",
-          scopeIn: ["projects/demo/src/a.ts"],
+          scopeIn: [pathA],
           scopeOut: [],
         } as IntentAnalysisDto["executionIntent"],
       }),
@@ -523,13 +529,14 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
     const b = await prepareOk(
       projectId,
       cycleInstanceId,
-      baseAnalysis({
+      workspaceKey,
+      baseAnalysis(workspaceKey, {
         objective: "Mission idem A",
-        scope: "projects/demo/src/b.ts",
+        scope: pathB,
         expectedOutcome: "A done",
         executionIntent: {
           intentKind: "other",
-          scopeIn: ["projects/demo/src/b.ts"],
+          scopeIn: [pathB],
           scopeOut: [],
         } as IntentAnalysisDto["executionIntent"],
       }),
@@ -541,7 +548,7 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
 
   it("readiness helper — D-P6-SHE-01: structuralBlocked disclosed but ready true (HD deferred)", () => {
     const r = assessGenericMissionPrepareReadiness(
-      baseAnalysis({
+      baseAnalysis("demo", {
         signals: {
           structuralChange: true,
           securityImpact: false,

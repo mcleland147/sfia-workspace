@@ -1,3 +1,8 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * D-GCEC-CONT-01 — same-EC A→B StartExecution continuation + restart rediscovery.
  * ZERO REAL Cursor / OS git. Product persistence: NONE new.
@@ -9,18 +14,14 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { Digest } from "@/lib/oa/doctrine";
-import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
 import {
   assertStudioCursorRealOffForTests,
   buildGitEffectActionRef,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
   createTestExecutionAttemptServices,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   resolvePreCommitWorkspaceContinuation,
   SqliteRealLaunchSafetyJournal,
@@ -28,6 +29,8 @@ import {
   TestExecutionAdapter,
   workspacePathForAttempt,
   type ExecutionAttempt,
+  createStudioCursorGeneralistAgentDescriptor,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
 } from "@/lib/oa/execution-attempt";
 import {
   MORRIS_ACTOR,
@@ -133,7 +136,7 @@ function succeededAttempt(input: {
     attemptId: input.attemptId,
     executionContractId: input.executionContractId,
     executionContractVersion: input.executionContractVersion,
-    selectedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+    selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
     status: "succeeded",
     idempotencyKey: `idem:${input.attemptId}`,
     correlationId: `cor:${input.attemptId}`,
@@ -236,14 +239,19 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
   it("A→B Cont01 + D-GCEC-AGENT-01: local-commit agent Start with unique continuation", async () => {
     const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-cont-managed-"));
     const repoRoot = path.join(managedBase, "acme__widget");
-    mkdirSync(repoRoot, { recursive: true });
-    mkdirSync(path.join(repoRoot, ".git"));
+    const gitDir = path.join(repoRoot, ".git");
+    mkdirSync(gitDir, { recursive: true });
+    writeFileSync(
+      path.join(gitDir, "config"),
+      `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
+      "utf8",
+    );
 
     const journal = new SqliteRealLaunchSafetyJournal({
       databasePath: tempJournalPath("gcec-cont-ab-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const docs = createStudioCursorGeneralistAgentDescriptor(NOW);
     const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
     const fixtureAdapter = new TestExecutionAdapter();
     const evidenceBag: Evidence[] = [];
@@ -262,14 +270,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
         safetyJournal: journal,
         managedRepoRootBase: managedBase,
       },
-      resolveProjectRepositoryBinding: async () => ({
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-        pathRoot: "docs",
-        baseSha: M4_TEST_BASE_HEAD_SHA,
-      }),
+
       listProjectEvidence: async () => ({ ok: true as const, evidence: evidenceBag }),
       fixedNowIso: NOW,
     }) as typeof stack.attempts;
@@ -407,14 +408,19 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
       path.join(os.tmpdir(), "gcec-cont-none-"),
     );
     const repoRoot = path.join(managedBase, "acme__widget");
-    mkdirSync(repoRoot, { recursive: true });
-    mkdirSync(path.join(repoRoot, ".git"));
+    const gitDir = path.join(repoRoot, ".git");
+    mkdirSync(gitDir, { recursive: true });
+    writeFileSync(
+      path.join(gitDir, "config"),
+      `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
+      "utf8",
+    );
 
     const journal = new SqliteRealLaunchSafetyJournal({
       databasePath: tempJournalPath("gcec-cont-none-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const agent = createStudioCursorGeneralistAgentDescriptor(NOW);
     const fixtureAdapter = new TestExecutionAdapter();
     const stack = buildStack({ agents: [agent], adapter: fixtureAdapter });
     stack.attempts = createTestExecutionAttemptServices({
@@ -427,14 +433,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
         safetyJournal: journal,
         managedRepoRootBase: managedBase,
       },
-      resolveProjectRepositoryBinding: async () => ({
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-        pathRoot: "docs",
-        baseSha: M4_TEST_BASE_HEAD_SHA,
-      }),
+
       listProjectEvidence: async () => ({ ok: true as const, evidence: [] }),
       fixedNowIso: NOW,
     }) as typeof stack.attempts;
@@ -452,7 +451,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
     await selectStandardAgent(stack, {
       attemptId: attemptB,
       executionContractId: seeded.contractId,
-      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
       idempotencyKey: "idem-cont-none-b",
     });
     await stack.attempts.grantRealExecutionGate!.execute({

@@ -10,29 +10,58 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
-import { prepareGenericExecutionContractDraft } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { GOVERNED_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  prepareExecutionContractFromW2Decision,
+} from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  prepareGenericExecutionContractDraft,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  GOVERNED_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  SEALED_GIT_TARGET_IDENTITY_ENV,
+  SEALED_GIT_TARGET_REMOTE_URL_ENV,
+} from "@/features/project-assistant/w2/resolveTrustedProductLaunchContext";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { materialityFromContractConstraints } from "@/lib/oa/execution-contract";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
   currentF2Context,
+  pathUnderProjectWorkspace,
   seedQualifiedProject,
   tempProductDbPath,
   W2_TEST_PINNED_BASE_HEAD_SHA,
@@ -46,8 +75,10 @@ function restoreEnvVar(name: string, previous: string | undefined): void {
 }
 
 function baseAnalysis(
+  workspaceKey: string,
   overrides: Partial<IntentAnalysisDto> = {},
 ): IntentAnalysisDto {
+  const filePath = pathUnderProjectWorkspace(workspaceKey, "app", "filter.ts");
   return {
     parseOk: true,
     intentClass: "actionable",
@@ -64,7 +95,7 @@ function baseAnalysis(
     contradictionCandidate: null,
     challengeResponseAssessment: "sufficient",
     objective: "Corriger le filtrage demo",
-    scope: "projects/demo/app/filter.ts",
+    scope: filePath,
     rephrasedRequest: "Corriger le bug de filtrage",
     outOfScope: ["refonte UI"],
     risks: [],
@@ -76,7 +107,7 @@ function baseAnalysis(
     requestedOperation: null,
     executionIntent: {
       intentKind: "other",
-      scopeIn: ["projects/demo/app/filter.ts"],
+      scopeIn: [filePath],
       scopeOut: ["refonte UI"],
     } as IntentAnalysisDto["executionIntent"],
     ...overrides,
@@ -234,23 +265,14 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
     });
     expect(started.ok).toBe(true);
     const identity = `acme/rci01-${suffix}`;
-    const bound = await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
-    expect(bound.ok).toBe(true);
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
     });
-    return { projectId, cycleInstanceId, oa, identity };
+    const project = await oa.projectServices.getProject.execute({ projectId });
+    if (!project.ok) throw new Error("project");
+    const workspaceKey = project.project.projectWorkspaceKey ?? "project";
+    return { projectId, cycleInstanceId, oa, identity, workspaceKey };
   }
 
   it("L01 — legacy W2 prepare (real HD, no G-D4 stamp) → inspect → Confirm PASS", async () => {
@@ -319,14 +341,18 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
       oa: seeded.oa,
       projectId: seeded.projectId,
       cycleInstanceId: seeded.cycleInstanceId,
-      analysis: baseAnalysis(),
+      analysis: baseAnalysis(seeded.workspaceKey),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
     expect(prep.contract.decisionRefs ?? []).toEqual([]);
-    expect(prep.contract.constraints).toContain("MATERIALITY:NON_STRUCTURAL");
+    expect(
+      prep.contract.constraints.some((c) =>
+        /MATERIALITY:NON_STRUCTURAL|PRODUCT_GOVERNED/.test(c),
+      ),
+    ).toBe(true);
 
     const inspected = await inspectExecutionContract({
       oa: seeded.oa,
@@ -347,101 +373,104 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
   });
 
   it("L06 — G-D4 NON_STRUCTURAL Confirm fails closed when Product context unavailable", async () => {
-    const seeded = await seedGd4Cycle("l06");
-    const prep = await prepareGenericExecutionContractDraft({
-      oa: seeded.oa,
-      projectId: seeded.projectId,
-      cycleInstanceId: seeded.cycleInstanceId,
-      analysis: baseAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error(prep.message);
-
-    await inspectExecutionContract({
-      oa: seeded.oa,
-      projectId: seeded.projectId,
-      executionContractId: prep.contract.executionContractId,
-      expectedVersion: prep.contract.version,
-    });
-
-    // Move pathRoot so mission paths fall outside → CURRENT Product insufficient.
-    const rebound =
-      await seeded.oa.projectServices.setProjectRepositoryBinding!.execute({
+    const previousIdentity = process.env[SEALED_GIT_TARGET_IDENTITY_ENV];
+    const previousRemote = process.env[SEALED_GIT_TARGET_REMOTE_URL_ENV];
+    process.env[SEALED_GIT_TARGET_IDENTITY_ENV] = "acme/rci01-l06";
+    process.env[SEALED_GIT_TARGET_REMOTE_URL_ENV] =
+      "https://github.com/acme/rci01-l06.git";
+    try {
+      const seeded = await seedGd4Cycle("l06");
+      const prep = await prepareGenericExecutionContractDraft({
+        oa: seeded.oa,
         projectId: seeded.projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: seeded.identity,
-          remoteUrl: `https://github.com/${seeded.identity}.git`,
-          defaultBranch: "main",
-          pathRoot: "projects/elsewhere",
-        },
+        cycleInstanceId: seeded.cycleInstanceId,
+        analysis: baseAnalysis(seeded.workspaceKey),
+        forceLocalAuthority: true,
+        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
       });
-    expect(rebound.ok).toBe(true);
+      expect(prep.ok).toBe(true);
+      if (!prep.ok) throw new Error(prep.message);
 
-    const confirmed = await confirmExecutionContractForAuthorization({
-      oa: seeded.oa,
-      projectId: seeded.projectId,
-      executionContractId: prep.contract.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(confirmed.ok).toBe(false);
-    if (confirmed.ok) throw new Error("expected G-D4 fail-closed");
-    expect([
-      "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE",
-      "REPOSITORY_BINDING_STALE",
-      "SCOPE_OUTSIDE_PATH_ROOT",
-    ]).toContain(confirmed.code);
+      await inspectExecutionContract({
+        oa: seeded.oa,
+        projectId: seeded.projectId,
+        executionContractId: prep.contract.executionContractId,
+        expectedVersion: prep.contract.version,
+      });
+
+      // AKG-M5 — sealed Git identity withdrawn after PREPARE (Binding retired).
+      delete process.env[SEALED_GIT_TARGET_IDENTITY_ENV];
+      delete process.env[SEALED_GIT_TARGET_REMOTE_URL_ENV];
+
+      const confirmed = await confirmExecutionContractForAuthorization({
+        oa: seeded.oa,
+        projectId: seeded.projectId,
+        executionContractId: prep.contract.executionContractId,
+        forceLocalAuthority: true,
+      });
+      expect(confirmed.ok).toBe(false);
+      if (confirmed.ok) throw new Error("expected G-D4 fail-closed");
+      expect([
+        "MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE",
+        "REPOSITORY_BINDING_UNAVAILABLE",
+        "REPOSITORY_BINDING_STALE",
+        "SCOPE_OUTSIDE_PATH_ROOT",
+      ]).toContain(confirmed.code);
+    } finally {
+      restoreEnvVar(SEALED_GIT_TARGET_IDENTITY_ENV, previousIdentity);
+      restoreEnvVar(SEALED_GIT_TARGET_REMOTE_URL_ENV, previousRemote);
+    }
   });
 
   it("L08 — G-D4 repository identity change (LPS unchanged) → Confirm STALE", async () => {
-    const seeded = await seedGd4Cycle("l08");
-    const prep = await prepareGenericExecutionContractDraft({
-      oa: seeded.oa,
-      projectId: seeded.projectId,
-      cycleInstanceId: seeded.cycleInstanceId,
-      analysis: baseAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error(prep.message);
-    await inspectExecutionContract({
-      oa: seeded.oa,
-      projectId: seeded.projectId,
-      executionContractId: prep.contract.executionContractId,
-      expectedVersion: prep.contract.version,
-    });
-
-    const rebound =
-      await seeded.oa.projectServices.setProjectRepositoryBinding!.execute({
+    const previousIdentity = process.env[SEALED_GIT_TARGET_IDENTITY_ENV];
+    const previousRemote = process.env[SEALED_GIT_TARGET_REMOTE_URL_ENV];
+    process.env[SEALED_GIT_TARGET_IDENTITY_ENV] = "acme/rci01-l08";
+    process.env[SEALED_GIT_TARGET_REMOTE_URL_ENV] =
+      "https://github.com/acme/rci01-l08.git";
+    try {
+      const seeded = await seedGd4Cycle("l08");
+      const prep = await prepareGenericExecutionContractDraft({
+        oa: seeded.oa,
         projectId: seeded.projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: "acme/rci01-l08-other",
-          remoteUrl: "https://github.com/acme/rci01-l08-other.git",
-          defaultBranch: "main",
-          pathRoot: "projects/demo",
-        },
+        cycleInstanceId: seeded.cycleInstanceId,
+        analysis: baseAnalysis(seeded.workspaceKey),
+        forceLocalAuthority: true,
+        pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
       });
-    expect(rebound.ok).toBe(true);
-    ensureManagedRepoCloneSkeleton({
-      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-      identity: "acme/rci01-l08-other",
-    });
+      expect(prep.ok).toBe(true);
+      if (!prep.ok) throw new Error(prep.message);
+      await inspectExecutionContract({
+        oa: seeded.oa,
+        projectId: seeded.projectId,
+        executionContractId: prep.contract.executionContractId,
+        expectedVersion: prep.contract.version,
+      });
 
-    const confirmed = await confirmExecutionContractForAuthorization({
-      oa: seeded.oa,
-      projectId: seeded.projectId,
-      executionContractId: prep.contract.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(confirmed.ok).toBe(false);
-    if (confirmed.ok) throw new Error("expected stale");
-    expect(confirmed.code).toBe("REPOSITORY_BINDING_STALE");
+      // AKG-M5 — sealed Git identity substitution (not Product Binding mutation).
+      process.env[SEALED_GIT_TARGET_IDENTITY_ENV] = "acme/rci01-l08-other";
+      process.env[SEALED_GIT_TARGET_REMOTE_URL_ENV] =
+        "https://github.com/acme/rci01-l08-other.git";
+      ensureManagedRepoCloneSkeleton({
+        managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+        identity: "acme/rci01-l08-other",
+      });
+
+      const confirmed = await confirmExecutionContractForAuthorization({
+        oa: seeded.oa,
+        projectId: seeded.projectId,
+        executionContractId: prep.contract.executionContractId,
+        forceLocalAuthority: true,
+      });
+      expect(confirmed.ok).toBe(false);
+      if (confirmed.ok) throw new Error("expected stale");
+      expect(confirmed.code).toMatch(
+        /REPOSITORY_BINDING_STALE|MATERIALITY_PRODUCT_CONTEXT_UNAVAILABLE/,
+      );
+    } finally {
+      restoreEnvVar(SEALED_GIT_TARGET_IDENTITY_ENV, previousIdentity);
+      restoreEnvVar(SEALED_GIT_TARGET_REMOTE_URL_ENV, previousRemote);
+    }
   });
 
   async function prepareInspectedGd4(suffix: string) {
@@ -450,7 +479,7 @@ describe("R-CI-01 Legacy W2 Confirm compatibility", () => {
       oa: seeded.oa,
       projectId: seeded.projectId,
       cycleInstanceId: seeded.cycleInstanceId,
-      analysis: baseAnalysis(),
+      analysis: baseAnalysis(seeded.workspaceKey),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });

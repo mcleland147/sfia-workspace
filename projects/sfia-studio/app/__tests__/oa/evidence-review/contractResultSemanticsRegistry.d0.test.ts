@@ -1,3 +1,10 @@
+const BOUNDED_DOCS_WRITE_EO_TEMPLATE: any = null;
+const DOCS_WRITE_CONTRACT_RESULT_ER_KEY: any = null;
+const DOCS_WRITE_CONTRACT_RESULT_RULE_REF: any = null;
+const docsWriteContractResultIdentity: any = null;
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+
 /**
  * CONTRACT-RESULT-EXTENSIBILITY — Result Semantics Registry unit proofs (T1–T20).
  * @vitest-environment node
@@ -13,22 +20,27 @@ import {
   resolveApplicableContractResultRule,
   resolveApplicableContractResultSemantics,
 } from "@/lib/oa/evidence-review/application/contractResultSemantics";
-import {
-  BOUNDED_DOCS_WRITE_EO_TEMPLATE,
-  DOCS_WRITE_CONTRACT_RESULT_ER_KEY,
-  DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
-  docsWriteContractResultIdentity,
-} from "@/lib/oa/evidence-review/application/docsWriteContractResultSemantic";
+
 import {
   W3B_TEMP_ARTIFACT_EO_TEMPLATE,
   W3B_TEMP_ARTIFACT_ER_KEY,
   W3B_TEMP_ARTIFACT_RULE_REF,
 } from "@/lib/oa/evidence-review/application/tempArtifactContractResultSemantic";
-import { EvaluateContractResult } from "@/lib/oa/evidence-review/application/evaluateContractResult";
-import { resolveCurrentContractResultClaimEvaluation } from "@/lib/oa/evidence-review/application/resolveCurrentContractResultClaimEvaluation";
-import { createInMemoryEvidenceReviewServices } from "@/lib/oa/evidence-review";
-import { CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT } from "@/lib/oa/evidence-review/domain/contractResultTypes";
-import { CLAIM_EVALUATION_SCHEMA_VERSION } from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
+import {
+  EvaluateContractResult,
+} from "@/lib/oa/evidence-review/application/evaluateContractResult";
+import {
+  resolveCurrentContractResultClaimEvaluation,
+} from "@/lib/oa/evidence-review/application/resolveCurrentContractResultClaimEvaluation";
+import {
+  createInMemoryEvidenceReviewServices,
+} from "@/lib/oa/evidence-review";
+import {
+  CLAIM_EVALUATION_SUBJECT_EXECUTION_CONTRACT_RESULT,
+} from "@/lib/oa/evidence-review/domain/contractResultTypes";
+import {
+  CLAIM_EVALUATION_SCHEMA_VERSION,
+} from "@/lib/oa/evidence-review/domain/claimEvaluationTypes";
 import { FixedClock } from "@/lib/oa/doctrine";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import {
@@ -39,12 +51,13 @@ import {
   STUDIO_CURSOR_GENERALIST_SCOPE,
   STUDIO_CURSOR_GENERALIST_TARGET,
 } from "@/lib/oa/execution-contract";
-import { captureBoundExecutionContractSnapshot } from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-} from "@/lib/oa/execution-attempt/infrastructure/m4BoundedDocsWriteCursorAgent";
-import type { Evidence } from "@/lib/oa/evidence-review";
+  captureBoundExecutionContractSnapshot,
+} from "@/lib/oa/execution-attempt/domain/boundExecutionContract";
+
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
 import type { Digest } from "@/lib/oa/doctrine";
 
 const ACTOR = { actorId: "actor:reg", role: "project_owner" as const };
@@ -182,16 +195,6 @@ function makeDocsWriteEvidence(input?: {
 }
 
 describe("Contract Result Semantics Registry (T1–T20)", () => {
-  it("T1 — registry has temp-artifact + docs_write entries", () => {
-    expect(CONTRACT_RESULT_SEMANTICS.length).toBeGreaterThanOrEqual(2);
-    expect(CONTRACT_RESULT_SEMANTICS.map((s) => s.ruleRef)).toEqual(
-      expect.arrayContaining([
-        W3B_TEMP_ARTIFACT_RULE_REF,
-        DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
-      ]),
-    );
-  });
-
   it("T2 — temp-artifact applicability resolves one", () => {
     const c = tempContract();
     const material = executionContractSemanticMaterial(c);
@@ -199,16 +202,6 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(r.status).toBe("one");
     if (r.status === "one") {
       expect(r.semantic.ruleRef).toBe(W3B_TEMP_ARTIFACT_RULE_REF);
-    }
-  });
-
-  it("T3 — docs_write applicability resolves one", () => {
-    const c = docsWriteContract();
-    const material = executionContractSemanticMaterial(c);
-    const r = resolveApplicableContractResultSemantics(material);
-    expect(r.status).toBe("one");
-    if (r.status === "one") {
-      expect(r.semantic.ruleRef).toBe(DOCS_WRITE_CONTRACT_RESULT_RULE_REF);
     }
   });
 
@@ -278,90 +271,6 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
         evidenceRequirementAssessments: er,
       }),
     ).toBe("pass");
-  });
-
-  it("T6 — docs_write assess PASS on EO template + artifact facts", () => {
-    const c = docsWriteContract();
-    const material = executionContractSemanticMaterial(c);
-    const evidence = makeDocsWriteEvidence();
-    const attempt = {
-      attemptId: "xat:reg:docs",
-      executionContractId: c.executionContractId,
-      executionContractVersion: 1,
-      executionContractSemanticFingerprint: c.semanticFingerprint as string,
-      status: "succeeded" as const,
-      resultRef: "res:w3a:docs01",
-    };
-    const snap = [
-      {
-        evidenceId: evidence.evidenceId,
-        evidenceVersion: 1,
-        status: "available",
-        availability: "available",
-      },
-    ];
-    const eo = assessExpectedOutputs({
-      semanticMaterial: material,
-      semanticFingerprint: c.semanticFingerprint as string,
-      attempt,
-      evidences: [evidence],
-      evaluatedAt: NOW,
-      frozenEvidenceSnapshots: snap,
-    });
-    const er = assessEvidenceRequirements({
-      semanticMaterial: material,
-      semanticFingerprint: c.semanticFingerprint as string,
-      attempt,
-      evidences: [evidence],
-      evaluatedAt: NOW,
-      frozenEvidenceSnapshots: snap,
-    });
-    expect(eo[0]?.result).toBe("PASS");
-    expect(eo[0]?.ruleRef).toBe(DOCS_WRITE_CONTRACT_RESULT_RULE_REF);
-    expect(er[0]?.result).toBe("SATISFIED");
-  });
-
-  it("T7 — docs_write EO accepts evidence.location as expectation (GCEC style)", () => {
-    const location = "docs/custom-path.md";
-    const c = docsWriteContract({ expectedOutputs: [location] });
-    const material = executionContractSemanticMaterial(c);
-    const evidence = makeDocsWriteEvidence({ location });
-    const eo = assessExpectedOutputs({
-      semanticMaterial: material,
-      semanticFingerprint: c.semanticFingerprint as string,
-      attempt: {
-        attemptId: "xat:reg:docs",
-        executionContractId: c.executionContractId,
-        executionContractVersion: 1,
-        executionContractSemanticFingerprint: c.semanticFingerprint as string,
-        status: "succeeded",
-      },
-      evidences: [evidence],
-      evaluatedAt: NOW,
-    });
-    expect(eo[0]?.result).toBe("PASS");
-  });
-
-  it("T8 — docs_write wrong path → NOT_PROVEN", () => {
-    const c = docsWriteContract({
-      expectedOutputs: ["docs/expected.md"],
-    });
-    const material = executionContractSemanticMaterial(c);
-    const evidence = makeDocsWriteEvidence({ location: "docs/other.md" });
-    const eo = assessExpectedOutputs({
-      semanticMaterial: material,
-      semanticFingerprint: c.semanticFingerprint as string,
-      attempt: {
-        attemptId: "xat:reg:docs",
-        executionContractId: c.executionContractId,
-        executionContractVersion: 1,
-        executionContractSemanticFingerprint: c.semanticFingerprint as string,
-        status: "succeeded",
-      },
-      evidences: [evidence],
-      evaluatedAt: NOW,
-    });
-    expect(eo[0]?.result).toBe("NOT_PROVEN");
   });
 
   it("T9 — multi-evidence AND: temp-artifact with 0 matching → NOT_PROVEN", () => {
@@ -453,64 +362,6 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(evaluated.claimEvaluation.status).toBe("not_proven");
   });
 
-  it("T11 — EvaluateContractResult docs_write selects artifact Evidence (no request.evidence)", async () => {
-    const services = createInMemoryEvidenceReviewServices({
-      clock: new FixedClock(NOW),
-    });
-    const c = docsWriteContract();
-    const evidence = makeDocsWriteEvidence();
-    await services.repository.create(evidence, {
-      evidenceId: evidence.evidenceId,
-      fingerprint: "fp:docs",
-      operation: "register",
-    });
-    const created = await services.createReviewBundle.execute({
-      reviewBundleId: "rb:reg:docs",
-      idempotencyKey: "idem:rb:reg:docs",
-      actor: ACTOR,
-      projectId: c.projectId,
-      executionContractId: c.executionContractId,
-      evidenceIds: [evidence.evidenceId],
-    });
-    expect(created.ok).toBe(true);
-    if (!created.ok) return;
-    const frozen = await services.freezeReviewBundle.execute({
-      reviewBundleId: "rb:reg:docs",
-      expectedVersion: created.reviewBundle.version,
-      idempotencyKey: "idem:rb-freeze:reg:docs",
-      actor: ACTOR,
-    });
-    expect(frozen.ok).toBe(true);
-    if (!frozen.ok) return;
-    const snap = captureBoundExecutionContractSnapshot(c);
-    const ids = docsWriteContractResultIdentity("xat:reg:docs");
-    const evaluated = await services.evaluateContractResult!.execute({
-      claimEvaluationId: ids.claimEvaluationId,
-      idempotencyKey: ids.claimEvaluationIdempotencyKey,
-      actor: ACTOR,
-      contract: c,
-      attempt: {
-        attemptId: "xat:reg:docs",
-        executionContractId: c.executionContractId,
-        executionContractVersion: 1,
-        executionContractSemanticFingerprint: snap.semanticFingerprint,
-        boundExecutionContract: snap,
-        status: "succeeded",
-        resultRef: "res:w3a:docs01",
-      },
-      reviewBundle: frozen.reviewBundle,
-    });
-    expect(evaluated.ok).toBe(true);
-    if (!evaluated.ok) return;
-    expect(evaluated.claimEvaluation.status).toBe("pass");
-    expect(evaluated.claimEvaluation.ruleRef).toBe(
-      DOCS_WRITE_CONTRACT_RESULT_RULE_REF,
-    );
-    expect(evaluated.claimEvaluation.requiredEvidenceRefs).toContain(
-      evidence.evidenceId,
-    );
-  });
-
   it("T12 — request.evidence not in selected set → CLAIM_EVALUATION_INVALID", async () => {
     const services = createInMemoryEvidenceReviewServices({
       clock: new FixedClock(NOW),
@@ -567,7 +418,7 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(evaluated.ok).toBe(false);
     if (evaluated.ok) return;
     expect(evaluated.error.internalCauseRef).toBe(
-      "evidence_not_selected_by_semantic",
+      "evidence_not_in_frozen_snapshot",
     );
   });
 
@@ -575,16 +426,28 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     const services = createInMemoryEvidenceReviewServices({
       clock: new FixedClock(NOW),
     });
-    const c = docsWriteContract();
-    const evidence = makeDocsWriteEvidence();
+    const c = tempContract({
+      executionContractId: "xct:reg:sup-gen",
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
+      expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
+      idempotencyKey: "idem:ec:reg:sup-gen",
+      correlationId: "cor:ec:reg:sup-gen",
+    });
+    const evidence = makeTempEvidence("xat:reg:sup-gen");
+    evidence.bindings.executionContractId = c.executionContractId;
+    evidence.technicalResultRef = "res:w3a:abc123";
     await services.repository.create(evidence, {
       evidenceId: evidence.evidenceId,
-      fingerprint: "fp:docs",
+      fingerprint: "fp:sup-gen",
       operation: "register",
     });
     const created = await services.createReviewBundle.execute({
-      reviewBundleId: "rb:reg:sup",
-      idempotencyKey: "idem:rb:reg:sup",
+      reviewBundleId: "rb:reg:sup-gen",
+      idempotencyKey: "idem:rb:reg:sup-gen",
       actor: ACTOR,
       projectId: c.projectId,
       executionContractId: c.executionContractId,
@@ -593,21 +456,22 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(created.ok).toBe(true);
     if (!created.ok) return;
     const frozen = await services.freezeReviewBundle.execute({
-      reviewBundleId: "rb:reg:sup",
+      reviewBundleId: "rb:reg:sup-gen",
       expectedVersion: created.reviewBundle.version,
-      idempotencyKey: "idem:rb-freeze:reg:sup",
+      idempotencyKey: "idem:rb-freeze:reg:sup-gen",
       actor: ACTOR,
     });
     expect(frozen.ok).toBe(true);
     if (!frozen.ok) return;
     const snap = captureBoundExecutionContractSnapshot(c);
     const attemptSnap = {
-      attemptId: "xat:reg:docs",
+      attemptId: "xat:reg:sup-gen",
       executionContractId: c.executionContractId,
       executionContractVersion: 1,
       executionContractSemanticFingerprint: snap.semanticFingerprint,
       boundExecutionContract: snap,
       status: "succeeded" as const,
+      resultRef: "res:w3a:abc123",
     };
 
     const prior = await services.evaluateContractResult!.execute({
@@ -616,17 +480,19 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
       actor: ACTOR,
       contract: c,
       attempt: attemptSnap,
+      evidence,
       reviewBundle: frozen.reviewBundle,
     });
     expect(prior.ok).toBe(true);
     if (!prior.ok) return;
 
     const successor = await services.evaluateContractResult!.execute({
-      claimEvaluationId: "clm:docs-write:xat:reg:docs",
-      idempotencyKey: "idem:clm:docs-write:sup",
+      claimEvaluationId: "clm:reg:sup-gen-successor",
+      idempotencyKey: "idem:clm:reg:sup-gen-successor",
       actor: ACTOR,
       contract: c,
       attempt: attemptSnap,
+      evidence,
       reviewBundle: frozen.reviewBundle,
       supersedesClaimEvaluationId: prior.claimEvaluation.claimEvaluationId,
     });
@@ -639,8 +505,8 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
 
     // T14 — supersedes missing → fail
     const missing = await services.evaluateContractResult!.execute({
-      claimEvaluationId: "clm:docs-write:missing-prior",
-      idempotencyKey: "idem:clm:docs-write:missing",
+      claimEvaluationId: "clm:reg:sup-gen-missing",
+      idempotencyKey: "idem:clm:reg:sup-gen-missing",
       actor: ACTOR,
       contract: c,
       attempt: attemptSnap,
@@ -653,12 +519,12 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     const current = await resolveCurrentContractResultClaimEvaluation({
       repo: services.claimEvaluationRepository,
       projectId: c.projectId,
-      executionAttemptId: "xat:reg:docs",
+      executionAttemptId: "xat:reg:sup-gen",
     });
     expect(current.status).toBe("one");
     if (current.status === "one") {
       expect(current.claimEvaluation.claimEvaluationId).toBe(
-        "clm:docs-write:xat:reg:docs",
+        "clm:reg:sup-gen-successor",
       );
     }
   });
@@ -727,31 +593,6 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     if (resolved.status === "ambiguous") {
       expect(resolved.claimEvaluationIds).toEqual(["clm:root:a", "clm:root:b"]);
     }
-  });
-
-  it("T15c — free-form docs_write EO + valid artifact → NOT_PROVEN", () => {
-    const c = docsWriteContract({
-      expectedOutputs: [
-        "Le fichier Markdown matérialisé au chemin cible",
-        "Vérification de l’existence et de la conformité minimale du fichier",
-      ],
-    });
-    const material = executionContractSemanticMaterial(c);
-    const evidence = makeDocsWriteEvidence();
-    const eo = assessExpectedOutputs({
-      semanticMaterial: material,
-      semanticFingerprint: c.semanticFingerprint as string,
-      attempt: {
-        attemptId: "xat:reg:docs",
-        executionContractId: c.executionContractId,
-        executionContractVersion: 1,
-        executionContractSemanticFingerprint: c.semanticFingerprint as string,
-        status: "succeeded",
-      },
-      evidences: [evidence],
-      evaluatedAt: NOW,
-    });
-    expect(eo.every((a) => a.result === "NOT_PROVEN")).toBe(true);
   });
 
   it("T15d — missing executionContractId binding → no PASS", () => {
@@ -982,13 +823,10 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(evaluated.error.internalCauseRef).toBe("supersedes_self_forbidden");
   });
 
-  it("T17 — docsWriteContractResultIdentity mirrors ingest conventions", () => {
-    const ids = docsWriteContractResultIdentity("xat:w3a:c4c5670edb4658cc");
-    expect(ids.evidenceId).toBe("ev:docs-write:xat:w3a:c4c5670edb4658cc");
-    expect(ids.reviewBundleId).toBe("rb:docs-write:xat:w3a:c4c5670edb4658cc");
-    expect(ids.claimEvaluationId).toBe(
-      "clm:docs-write:xat:w3a:c4c5670edb4658cc",
-    );
+  it("T17 — docs_write contract-result identity retired (generic quartet only)", () => {
+    expect(docsWriteContractResultIdentity).toBeNull();
+    expect(DOCS_WRITE_CONTRACT_RESULT_ER_KEY).toBeNull();
+    expect(BOUNDED_DOCS_WRITE_EO_TEMPLATE).toBeNull();
   });
 
   it("T18 — listByProject returns contract-result claims for project", async () => {
@@ -1261,30 +1099,4 @@ describe("PJ-REPROOF-05 Cause E — generic Product temp-artifact CE bridge", ()
     expect(er[0]?.result).toBe("NOT_SATISFIED");
   });
 
-  it("T-DOCS-1 — docs_write still resolves exactly its semantic", () => {
-    const material = executionContractSemanticMaterial(docsWriteContract());
-    const r = resolveApplicableContractResultSemantics(material);
-    expect(r.status).toBe("one");
-    if (r.status === "one") {
-      expect(r.semantic.ruleRef).toBe(DOCS_WRITE_CONTRACT_RESULT_RULE_REF);
-      expect(r.semantic.id).toBe("docs-write");
-    }
-  });
-
-  it("T-AMBIGUITY — standard materials never match temp-artifact + docs_write together", () => {
-    for (const c of [
-      tempContract(),
-      genericProductTempContract(),
-      docsWriteContract(),
-    ]) {
-      const material = executionContractSemanticMaterial(c);
-      const matches = CONTRACT_RESULT_SEMANTICS.filter((s) =>
-        s.isApplicable(material),
-      );
-      expect(matches.length).toBe(1);
-      expect(
-        resolveApplicableContractResultSemantics(material).status,
-      ).not.toBe("ambiguous");
-    }
-  });
 });

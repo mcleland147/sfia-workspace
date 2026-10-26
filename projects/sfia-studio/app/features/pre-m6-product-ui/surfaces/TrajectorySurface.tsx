@@ -22,8 +22,6 @@ import {
   projectAssistantPrepareResolvedM3Action,
   projectAssistantResolveLegacyM3DocsWriteAction,
 } from "@/features/project-assistant/actions";
-import { isLegacyDocsWritePrepareContractView } from "@/features/project-assistant/f3/legacyDocsWritePrepareContractView";
-import { isDocsWriteEvidenceContradictionView } from "@/features/project-assistant/f3/docsWriteEvidenceContradictionView";
 import {
   w2AmendExecutionContractAction,
   w2AuthorizeExecutionContractAction,
@@ -468,38 +466,21 @@ export function TrajectorySurface({
       recoveryDecisionId,
       attemptPresent: Boolean(attempt?.attemptId),
     });
-  const showRecoveryDocsWritePrepare = Boolean(
-    recoveryDocsWritePrepareReady &&
-      recoveryBinding &&
-      (!contract || wrongGenericReplaceableByRecoveryPrepare),
-  );
+  // AKG-M5 — bounded docs_write recovery PREPARE retired (action fail-closed).
+  const showRecoveryDocsWritePrepare = false;
   const rematerializeDecisionId =
     decision?.decisionId ?? continuityDecisionRef ?? null;
   const legacyDocsWriteRematerializeReady = Boolean(
     !decisionDefersExecution &&
       rematerializeDecisionId &&
       contract &&
-      isLegacyDocsWritePrepareContractView({
-        decisionId: rematerializeDecisionId,
-        executionContractId: contract.executionContractId,
-        action: contract.action,
-        target: contract.target,
-        scope: contract.scope,
-        constraints: contract.constraints,
-        requiredCapabilities: contract.requiredCapabilities,
-      }),
+      false,
   );
   const docsWriteEvidenceRematerializeReady = Boolean(
     !decisionDefersExecution &&
       !legacyDocsWriteRematerializeReady &&
       contract &&
-      isDocsWriteEvidenceContradictionView({
-        action: contract.action,
-        target: contract.target,
-        constraints: contract.constraints,
-        evidenceRequirements:
-          contract.inspectionDisclosure?.evidenceRequirements ?? [],
-      }),
+      false,
   );
 
   const pilotContractView: PilotContractPresentation | null = contract
@@ -1462,7 +1443,6 @@ export function TrajectorySurface({
     setAttemptPhase(null);
     setAttemptStatusLabel(null);
     onDurableFactsChanged?.();
-    // Pass04 — PREPARE never records inspection; Pilot must examine explicitly.
     closeInspectionExam();
   }, [
     continuityMutationBlocked,
@@ -1490,34 +1470,6 @@ export function TrajectorySurface({
       setError(result.message);
       return;
     }
-    const prepared = result.contract;
-    setContract({
-      executionContractId: prepared.executionContractId,
-      version: prepared.version,
-      status: prepared.status,
-      action: prepared.action,
-      target: prepared.target,
-      scope: prepared.scope,
-      requiredAuthority: prepared.requiredAuthority,
-      constraints: [...prepared.constraints],
-      stopConditions: [...prepared.stopConditions],
-      requiredCapabilities: [...prepared.requiredCapabilities],
-      reversibility: prepared.reversibility,
-      semanticFingerprint: prepared.semanticFingerprint,
-      inspectionDisclosure: toInspectionDisclosureView(
-        prepared.inspectionDisclosure,
-      ),
-    });
-    setInspection(null);
-    setAuthorization(null);
-    setAmendmentDraft("");
-    setAmendmentNotice(null);
-    setAttempt(null);
-    setAttemptPhase(null);
-    setAttemptStatusLabel(null);
-    onDurableFactsChanged?.();
-    // Pass04 — recovery PREPARE never records inspection.
-    closeInspectionExam();
   }, [
     continuityMutationBlocked,
     recoveryDecisionId,
@@ -1531,7 +1483,7 @@ export function TrajectorySurface({
    * JOURNEY-INTEGRITY / Lot A-B final — Proposal-backed PREPARE+RESOLVE.
    *
    * After pursue on a Proposal Decision Subject, the sealed DecisionBasis already
-   * carries the decided operation (e.g. cursor.docs_write.apply). The Pilot must
+   * carries the decided operation (e.g. studio.cursor.generalist.execute). The Pilot must
    * not re-select a sandbox op. Client sends only projectId + decisionId; the
    * server resolves targetPath / operation / binding from durable lineage and
    * supersedes PREPARE into the canonical M4 docs-write machine profile when
@@ -1593,63 +1545,8 @@ export function TrajectorySurface({
     if (continuityMutationBlocked) return;
     const decisionId = decision?.decisionId ?? continuityDecisionRef;
     if (!decisionId || !contract) return;
-    if (
-      !isLegacyDocsWritePrepareContractView({
-        decisionId,
-        executionContractId: contract.executionContractId,
-        action: contract.action,
-        target: contract.target,
-        scope: contract.scope,
-        constraints: contract.constraints,
-        requiredCapabilities: contract.requiredCapabilities,
-      })
-    ) {
-      return;
-    }
-    setBusy("contract");
-    setError(null);
-    const result = await projectAssistantResolveLegacyM3DocsWriteAction({
-      projectId,
-      decisionId,
-    });
-    setBusy(null);
-    if (!result.ok) {
-      setError(result.message);
-      return;
-    }
-    const prepared = result.f3.successor;
-    setContract({
-      executionContractId: prepared.executionContractId,
-      version: prepared.version,
-      status: prepared.status,
-      action: prepared.action,
-      target: prepared.target,
-      scope: prepared.scope,
-      requiredAuthority: prepared.requiredAuthority,
-      constraints: [...prepared.constraints],
-      stopConditions: [...prepared.stopConditions],
-      requiredCapabilities: [...prepared.requiredCapabilities],
-      reversibility: prepared.reversibility,
-      semanticFingerprint: prepared.semanticFingerprint,
-      inspectionDisclosure: toInspectionDisclosureView(
-        prepared.inspectionDisclosure,
-      ),
-    });
-    setInspection(null);
-    setAuthorization(null);
-    setAmendmentDraft("");
-    setAmendmentNotice({
-      priorExecutionContractId: result.f3.original.executionContractId,
-      additionalConstraint:
-        "préparation historique → contrat d'exécution gouverné actuel",
-      statusLabel:
-        "CONTRAT ACTUALISÉ — RÉINSPECTION REQUISE AVANT CONFIRMATION",
-      priorInspectionDoesNotCoverSuccessor: true,
-    });
-    setAttempt(null);
-    setAttemptPhase(null);
-    setAttemptStatusLabel(null);
-    onDurableFactsChanged?.();
+    return;
+
   }, [
     continuityMutationBlocked,
     decision,
@@ -1662,60 +1559,8 @@ export function TrajectorySurface({
   const rematerializeDocsWriteEvidenceContract = useCallback(async () => {
     if (continuityMutationBlocked) return;
     if (!contract) return;
-    if (
-      !isDocsWriteEvidenceContradictionView({
-        action: contract.action,
-        target: contract.target,
-        constraints: contract.constraints,
-        evidenceRequirements:
-          contract.inspectionDisclosure?.evidenceRequirements ?? [],
-      })
-    ) {
-      return;
-    }
-    setBusy("contract");
-    setError(null);
-    const result = await w2RematerializeDocsWriteEvidenceAction({
-      projectId,
-      executionContractId: contract.executionContractId,
-    });
-    setBusy(null);
-    if (!result.ok) {
-      setError(result.message);
-      return;
-    }
-    const prepared = result.successor;
-    setContract({
-      executionContractId: prepared.executionContractId,
-      version: prepared.version,
-      status: prepared.status,
-      action: prepared.action,
-      target: prepared.target,
-      scope: prepared.scope,
-      requiredAuthority: prepared.requiredAuthority,
-      constraints: [...prepared.constraints],
-      stopConditions: [...prepared.stopConditions],
-      requiredCapabilities: [...prepared.requiredCapabilities],
-      reversibility: prepared.reversibility,
-      semanticFingerprint: prepared.semanticFingerprint,
-      inspectionDisclosure: toInspectionDisclosureView(
-        prepared.inspectionDisclosure,
-      ),
-    });
-    setInspection(null);
-    setAuthorization(null);
-    setAmendmentDraft("");
-    setAmendmentNotice({
-      priorExecutionContractId: result.priorExecutionContractId,
-      additionalConstraint:
-        "evidenceRequirements cohérents avec NO_* (sans lifecycle Git)",
-      statusLabel: result.statusLabel,
-      priorInspectionDoesNotCoverSuccessor: true,
-    });
-    setAttempt(null);
-    setAttemptPhase(null);
-    setAttemptStatusLabel(null);
-    onDurableFactsChanged?.();
+    return;
+
   }, [
     continuityMutationBlocked,
     contract,
@@ -3144,7 +2989,7 @@ export function TrajectorySurface({
               >
                 Prochaine action :{" "}
                 {wrongGenericReplaceableByRecoveryPrepare
-                  ? "Préparer le contrat recovery docs_write (explicite)"
+                  ? "Reprendre la préparation (contrat générique remplaçable)"
                   : pilotContractView.simplifiedExecutePath &&
                       inspection?.inspectionSufficient
                     ? "Exécuter"
@@ -3158,7 +3003,7 @@ export function TrajectorySurface({
           ) : null}
           <p className={styles.blockNote}>
             {wrongGenericReplaceableByRecoveryPrepare
-              ? "Contrat générique pré-exécution visible pour cette décision. La prochaine action utile est de préparer le contrat recovery docs_write — pas d'inspection de ce dead-end."
+              ? "Contrat générique pré-exécution visible pour cette décision. Reprenez la préparation gouvernée — pas d'inspection de ce dead-end."
               : pilotContractView?.simplifiedExecutePath
                 ? "Le contrat est préparé et inspecté. Un clic Exécuter lance la gouvernance interne (confirmation si requise, autorisation, tentative) — sans micro-étapes visibles."
                 : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}

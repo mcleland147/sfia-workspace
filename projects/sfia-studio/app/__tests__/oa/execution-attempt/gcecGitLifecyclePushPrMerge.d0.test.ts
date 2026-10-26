@@ -1,6 +1,14 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * GCEC-GIT-LIFECYCLE-E2E-01 PATH B — push / PR create / PR merge PREP.
  * ZERO REAL remote mutation. @vitest-environment node
+ *
+ * AKG-M5: FakeDocsWriteLaunchPort is the DET Cursor effect fake (historical
+ * name); Product docs_write admission remains retired.
  */
 import { describe, expect, it } from "vitest";
 import { execFileSync } from "node:child_process";
@@ -9,13 +17,13 @@ import { mkdtemp, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import type { Digest } from "@/lib/oa/doctrine";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
+import type {
+  ExecutionAttempt,
+} from "@/lib/oa/execution-attempt";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   M4_BOUNDED_LOCAL_COMMIT_CAPABILITY,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
@@ -39,8 +47,8 @@ import {
   buildGitPrCreateLaunchSpec,
   buildGitPrMergeLaunchSpec,
   buildGitPushLaunchSpec,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedRemotePushCursorAgentDescriptor,
+  createStudioCursorGeneralistAgentDescriptor,
   FakeCursorGitExternalState,
   FakeDocsWriteLaunchPort,
   isM4BoundedRemotePushRealAgent,
@@ -320,10 +328,12 @@ describe("GCEC-GIT-LIFECYCLE-E2E-01 PATH B push/PR/merge", () => {
       expect(r.ok).toBe(true);
     });
 
-    it("NEGATIVE docs-write agent cannot satisfy push criteria", () => {
-      const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    it("NEGATIVE non-push agent (generalist) cannot satisfy push criteria", () => {
+      // AKG-M5: DocWrite specialized descriptor retired; generalist proves the
+      // same negative — push criteria are exclusive to the remote_push agent.
+      const generalist = createStudioCursorGeneralistAgentDescriptor(NOW);
       const push = createM4BoundedRemotePushCursorAgentDescriptor(NOW);
-      expect(isM4BoundedRemotePushRealAgent(docs)).toBe(false);
+      expect(isM4BoundedRemotePushRealAgent(generalist)).toBe(false);
       expect(isM4BoundedRemotePushRealAgent(push)).toBe(true);
       const r = resolveAttemptExecutionProfile({
         contract: contract(),

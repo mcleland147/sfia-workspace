@@ -248,8 +248,8 @@ function missionFromClarifyWithoutRecovery(
 }
 
 /**
- * Durable Product facts sufficient to qualify a bounded local-write effect
- * WITHOUT docs_write Product taxonomy. Product EC surface stays generalist.
+ * Durable Product facts sufficient to qualify a bounded local-write effect.
+ * Product EC surface stays the generic Cursor generalist quartet.
  */
 export function canQualifyGenericLocalWriteFromDurableFacts(input: {
   readonly basis: DecisionBasis;
@@ -277,15 +277,27 @@ export function canQualifyGenericLocalWriteFromDurableFacts(input: {
     };
   }
   const eb = basis.executionBasis;
-  const requested = eb.requestedOperation?.trim() ?? "";
-  // docs_write sealed path stays on PREPARE Proposal/M3 — not this path.
   if (
-    eb.intentKind === "docs_write" ||
-    requested === "cursor.docs_write.apply"
+    eb.intentKind != null &&
+    eb.intentKind !== "read_only" &&
+    eb.intentKind !== "other"
   ) {
     return {
       ok: false,
-      reason: "docs_write sealed — use PREPARE Proposal/M3 path",
+      reason:
+        "retired specialized intent — not a Product local-write admission",
+    };
+  }
+  const requestedOp = eb.requestedOperation?.trim() ?? "";
+  if (
+    requestedOp.length > 0 &&
+    (requestedOp.includes("docs_write") ||
+      requestedOp === "cursor.docs_write.apply")
+  ) {
+    return {
+      ok: false,
+      reason:
+        "retired docs_write operation — not Product local-write admission",
     };
   }
   if (eb.reversibilityExpectation === "irreversible") {
@@ -453,7 +465,7 @@ function buildInternalWorkFromMissionPerimeter(input: {
       ok: false,
       code: "EFFECTS_UNRESOLVED",
       message:
-        "Mission mutante sans faits durables suffisants pour local-write produit (chemins + réversibilité) — pas de docs_write taxonomy inventée.",
+        "Mission mutante sans faits durables suffisants pour local-write produit (chemins + réversibilité).",
     };
   }
   const built = buildActualExecutionWork({
@@ -580,14 +592,15 @@ export function deriveActualExecutionWorkFromProductContext(input: {
   const requested = basis.executionBasis.requestedOperation?.trim() ?? "";
   if (
     !isNonExecutableTrajectoryRequestedOperation(requested) &&
-    (basis.executionBasis.intentKind === "docs_write" ||
-      requested === "cursor.docs_write.apply")
+    basis.executionBasis.intentKind != null &&
+    basis.executionBasis.intentKind !== "read_only" &&
+    basis.executionBasis.intentKind !== "other"
   ) {
     return {
       ok: false,
-      code: "PREPARE_ROUTE_DOCS_WRITE",
+      code: "INTENT_KIND_NOT_ADMITTED",
       message:
-        "DecisionBasis scellée docs_write — utiliser le chemin PREPARE Proposal/M3, pas le sandbox W3-A.",
+        "DecisionBasis porte une intention spécialisée retirée — pas d'admission Product. Utiliser PREPARE générique / generalist.",
     };
   }
 

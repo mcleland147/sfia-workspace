@@ -21,6 +21,7 @@
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
 import { isRepositorySourceRef } from "@/lib/oa/execution-contract";
+import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
 import type {
   PilotDecisionDisposition,
   PilotDecisionTargetKind,
@@ -386,9 +387,8 @@ async function resolveProjectTrajectoryDurableLocalWriteSeal(input: {
       message: "Projet illisible — impossible de dériver un périmètre local-write.",
     };
   }
-  const binding = project.project.repositoryBinding;
   const pathRoot =
-    typeof binding?.pathRoot === "string" ? binding.pathRoot.trim() : "";
+    projectWorkspacePathRootFromKey(project.project.projectWorkspaceKey) ?? "";
   if (!pathRoot) {
     return {
       ok: false,

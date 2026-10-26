@@ -16,7 +16,9 @@ import {
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import { M3_LOCAL_AUTHORITY_ENV } from "@/lib/oa/decision/infrastructure/localSingleUserAuthority";
 import { SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG } from "@/lib/vertical-slice-runtime/deterministicExternalLaunchBoundary";
-import { SFIA_STUDIO_CURSOR_REAL_FLAG } from "@/lib/oa/execution-attempt";
+import {
+  SFIA_STUDIO_CURSOR_REAL_FLAG,
+} from "@/lib/oa/execution-attempt";
 import { execFileSync } from "node:child_process";
 
 const IDENTITY = "acme/runtime-preflight";
@@ -26,10 +28,8 @@ function baseEnv(overrides: Record<string, string | undefined> = {}): Record<
   string,
   string | undefined
 > {
+  // PROJECT_REPOSITORY_* retired with Product RepositoryBinding — not required.
   return {
-    SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY: IDENTITY,
-    SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL: REMOTE,
-    SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH: "main",
     [M3_LOCAL_AUTHORITY_ENV]: "1",
     [SFIA_STUDIO_CURSOR_REAL_FLAG]: "0",
     [SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY_FLAG]: undefined,
@@ -57,7 +57,7 @@ describe("studioRuntimeProfilePreflight", () => {
     }
   });
 
-  it("T1 — repository env complete → preflight PASS repository section", () => {
+  it("T1 — managed root present → preflight PASS (no Product repository binding)", () => {
     const managedBase = mkdtempSync(path.join(tmpdir(), "sfia-rt-t1-"));
     tmpDirs.push(managedBase);
     seedManagedClone(managedBase, IDENTITY);
@@ -66,30 +66,20 @@ describe("studioRuntimeProfilePreflight", () => {
     });
     expect(r.ok).toBe(true);
     if (!r.ok) return;
-    expect(r.sections.repository).toBe("PASS");
-    expect(r.repositoryIdentity).toBe(IDENTITY);
+    expect(r.sections.authority).toBe("PASS");
+    expect(r.sections.managedRepository).toBe("PASS");
   });
 
-  it("T2 — missing repository identity/remote → FAIL-CLOSED", () => {
+  it("T2 — Project create no longer requires PROJECT_REPOSITORY_* env", () => {
     const r = runStudioRuntimeProfilePreflight({
       env: baseEnv({
-        SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY: "",
-        SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL: "",
         [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: "/tmp/unused",
       }),
       requireManagedClonePresent: false,
     });
-    expect(r.ok).toBe(false);
-    if (r.ok) return;
-    expect(r.code).toBe(STUDIO_RUNTIME_PROFILE_NOT_READY);
-    expect(r.sections.repository).toBe("FAIL");
-    expect(r.blockers).toEqual(
-      expect.arrayContaining([
-        "REPOSITORY_IDENTITY_MISSING",
-        "REPOSITORY_REMOTE_MISSING",
-      ]),
-    );
-    expect(r.message).toContain(STUDIO_RUNTIME_PROFILE_NOT_READY);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.sections.authority).toBe("PASS");
   });
 
   it("T3 — local authority missing → FAIL-CLOSED", () => {
@@ -121,19 +111,16 @@ describe("studioRuntimeProfilePreflight", () => {
     expect(r.sections.managedRepository).toBe("FAIL");
   });
 
-  it("T5 — managed repo expected absent → FAIL-CLOSED with precise diagnostic", () => {
+  it("T5 — managed base directory present is enough (identity clone not required post-binding retirement)", () => {
     const managedBase = mkdtempSync(path.join(tmpdir(), "sfia-rt-t5-"));
     tmpDirs.push(managedBase);
-    // base exists but clone missing
+    // base exists; per-identity clone no longer gated by Product RepositoryBinding
     const r = runStudioRuntimeProfilePreflight({
       env: baseEnv({ [SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]: managedBase }),
     });
-    expect(r.ok).toBe(false);
-    if (r.ok) return;
-    expect(r.sections.managedRepository).toBe("FAIL");
-    const absent = r.blockers.find((b) => b.startsWith("MANAGED_REPO_ABSENT:"));
-    expect(absent).toBeTruthy();
-    expect(absent).toContain(managedBase);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.sections.managedRepository).toBe("PASS");
   });
 
   it("T6 — deterministic + REAL → FAIL-CLOSED via canonical rule", () => {

@@ -64,29 +64,11 @@ export type {
   CompleteBoundedReadOnlyLaunchResult,
 } from "./completeBoundedReadOnlyLaunch";
 export { executeConfirmedBoundedReadOnlyContract } from "./executeConfirmedBoundedReadOnlyContract";
-export { executeConfirmedBoundedDocsWriteContract } from "./executeConfirmedBoundedDocsWriteContract";
 export { prepareAndResolveM3ProductPath } from "./prepareAndResolveM3ProductPath";
 export type {
   F3M3ResolvedPayload,
   PrepareAndResolveM3Deps,
 } from "./prepareAndResolveM3ProductPath";
-export { resolveExistingLegacyM3DocsWriteProductPath } from "./resolveExistingLegacyM3DocsWriteProductPath";
-export { isLegacyDocsWritePrepareContractView } from "./legacyDocsWritePrepareContractView";
-export { isDocsWriteEvidenceContradictionView } from "./docsWriteEvidenceContradictionView";
-export { rematerializeDocsWriteEvidenceRequirements } from "./rematerializeDocsWriteEvidenceRequirements";
-export type {
-  RematerializeDocsWriteEvidenceResult,
-  RematerializeDocsWriteEvidenceSuccess,
-} from "./rematerializeDocsWriteEvidenceRequirements";
-export type {
-  F3M3LegacyResolvedPayload,
-  ResolveExistingLegacyM3DocsWriteDeps,
-} from "./resolveExistingLegacyM3DocsWriteProductPath";
-export { qualifyDocsWriteM3Intent } from "./qualifyDocsWriteM3Intent";
-export type {
-  DocsWriteIntentQualification,
-  DocsWriteExecutionBasisLike,
-} from "./qualifyDocsWriteM3Intent";
 export { confirmAndExecuteF3Fixture } from "./confirmAndExecuteF3Fixture";
 export { confirmAndExecuteResolvedM3 } from "./confirmAndExecuteResolvedM3";
 export type { ConfirmExecuteResolvedM3Deps } from "./confirmAndExecuteResolvedM3";
@@ -114,9 +96,3 @@ export {
   createF3TestExecutionAdapter,
 } from "./fixtureAgent";
 export { createAttemptReaderBridge } from "./attemptReaderBridge";
-export { BOUNDED_DOCS_WRITE_EO_TEMPLATE } from "@/lib/oa/evidence-review";
-export { requalifyDocsWriteContractResult } from "../w2/requalifyDocsWriteContractResult";
-export type {
-  RequalifyDocsWriteContractResultInput,
-  RequalifyDocsWriteContractResultResult,
-} from "../w2/requalifyDocsWriteContractResult";

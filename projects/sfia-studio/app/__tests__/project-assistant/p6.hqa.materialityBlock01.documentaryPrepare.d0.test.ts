@@ -22,14 +22,22 @@ import {
   isGenericPrepareDocumentaryMission,
   resolveGenericPrepareDocumentaryTarget,
 } from "@/features/project-assistant/w2/resolveGenericPrepareDocumentaryTarget";
-import { resolveNonAuthoritativeDocumentaryArtifactLeafCandidate } from "@/lib/oa/project/domain/artifactTargetRouting";
-import { collectConcreteMissionPaths } from "@/features/project-assistant/w2/resolveAuthoritativeProductMateriality";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  resolveNonAuthoritativeDocumentaryArtifactLeafCandidate,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
+import {
+  collectConcreteMissionPaths,
+} from "@/features/project-assistant/w2/resolveAuthoritativeProductMateriality";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -144,17 +152,6 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
     if (!started.ok) throw new Error(`start: ${started.error?.detailCode}`);
 
     const identity = `acme/mb01-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot,
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -334,7 +331,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
     const withBadPath = {
       ...analysis,
       executionIntent: {
-        intentKind: "docs_write" as const,
+        intentKind: "other" as const,
         targetPath: "../secret.md",
         scopeIn: [],
         scopeOut: [],
@@ -431,7 +428,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
     const analysis = {
       ...base,
       executionIntent: {
-        intentKind: "docs_write" as const,
+        intentKind: "other" as const,
         targetPath: "note-de-cadrage.md",
         scopeIn: [] as string[],
         scopeOut: [] as string[],
@@ -502,7 +499,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
     const analysis = {
       ...buildIntentAnalysisFromSolicitedMission(pathlessFramingMission),
       executionIntent: {
-        intentKind: "docs_write" as const,
+        intentKind: "other" as const,
         targetPath: "../secret.md",
         scopeIn: [] as string[],
         scopeOut: [] as string[],

@@ -3,7 +3,6 @@
  * Derives APPLICABLE before EC/Evidence/RB rows exist.
  * Absence of rows ≠ N/A. Nora does not own applicability.
  */
-import type { ProjectRepositoryBinding } from "@/lib/oa/project";
 import type {
   FinalizationApplicabilityRules,
   ObligationApplicability,
@@ -43,7 +42,7 @@ export type DeriveCycleObligationSnapshotInput = {
   projectId: string;
   cycleTypeId: string;
   cycleInstanceId?: string;
-  repositoryBinding?: ProjectRepositoryBinding | null;
+  repositoryBinding?: { identity?: string | null } | null;
   /**
    * When true, treat as repo-backed even without binding (tests only).
    * Production callers should rely on repositoryBinding presence.

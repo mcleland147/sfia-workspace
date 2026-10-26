@@ -1,9 +1,13 @@
 /**
- * CORR-D-GCEC-AGENT-01 / CR-GCEC-AGENT-07 — exact Attempt-A lineage for M4
- * progressive docs-write → local-commit transition.
+ * Progressive Attempt-A lineage for filesystem materialization → local-commit.
  *
  * Pure Product-truth: Attempt history + VERIFIED Artifact Evidence bindings.
  * Zero / multiple eligible candidates → fail closed (no latest/first heuristic).
+ *
+ * HISTORICAL durable reading: Evidence source `execution_attempt:docs_write`
+ * and agent `agt:m4.cursor.bounded_docs_write` remain recognizable. That is not
+ * Product admission of a docs_write launch path. Current materialization
+ * Attempts use the Studio Cursor generalist agent id.
  */
 import type { Evidence } from "@/lib/oa/evidence-review";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
@@ -12,18 +16,33 @@ import {
   evidenceMatchesContractLineage,
   expectedEvidenceIdentity,
 } from "./qualifyExecutionContractCompletion";
-import {
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-} from "./realLaunchSafety";
+import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "./realLaunchSafety";
 
-export type VerifiedDocsWritePriorAttempt = {
+/**
+ * HISTORICAL durable Evidence source allowlist — not Product admission of
+ * docs_write. Must stay aligned with
+ * {@link FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES}.
+ */
+const FS_MATERIALIZATION_EVIDENCE_SOURCES = [
+  "execution_attempt:docs_write",
+] as const;
+
+/** Historical Attempt agent — durable Evidence reading only. */
+const HISTORICAL_BOUNDED_DOCS_WRITE_AGENT_ID =
+  "agt:m4.cursor.bounded_docs_write" as const;
+
+export type VerifiedFilesystemMaterializationPriorAttempt = {
   readonly priorAttemptId: string;
   readonly evidenceId: string;
   readonly artifactPath: string;
   readonly artifactDigest: string;
 };
 
-export type ResolveVerifiedDocsWritePriorAttemptInput = {
+/** @deprecated Alias — historical naming retained for call-site continuity. */
+export type VerifiedDocsWritePriorAttempt =
+  VerifiedFilesystemMaterializationPriorAttempt;
+
+export type ResolveVerifiedFilesystemMaterializationPriorAttemptInput = {
   readonly contract: Pick<
     ExecutionContract,
     | "executionContractId"
@@ -38,8 +57,11 @@ export type ResolveVerifiedDocsWritePriorAttemptInput = {
   readonly excludeAttemptId?: string;
 };
 
-export type ResolveVerifiedDocsWritePriorAttemptResult =
-  | { readonly ok: true; readonly prior: VerifiedDocsWritePriorAttempt }
+export type ResolveVerifiedFilesystemMaterializationPriorAttemptResult =
+  | {
+      readonly ok: true;
+      readonly prior: VerifiedFilesystemMaterializationPriorAttempt;
+    }
   | {
       readonly ok: false;
       readonly reason:
@@ -50,7 +72,7 @@ export type ResolveVerifiedDocsWritePriorAttemptResult =
     };
 
 function expectedArtifactPaths(
-  contract: ResolveVerifiedDocsWritePriorAttemptInput["contract"],
+  contract: ResolveVerifiedFilesystemMaterializationPriorAttemptInput["contract"],
 ): readonly string[] {
   const paths = new Set<string>();
   if (Array.isArray(contract.expectedOutputs)) {
@@ -71,11 +93,19 @@ function expectedArtifactPaths(
   return [...paths];
 }
 
-function isCanonicalDocsWriteSource(source: string): boolean {
-  // Exact or dotted suffix only — reject fake-prefix lookalikes.
+function isAllowlistedFsMaterializationSource(source: string): boolean {
+  for (const allowed of FS_MATERIALIZATION_EVIDENCE_SOURCES) {
+    if (source === allowed || source.startsWith(`${allowed}.`)) return true;
+  }
+  return false;
+}
+
+function isDurableFsMaterializationAttemptAgent(
+  selectedAgentRef: string | undefined,
+): boolean {
   return (
-    source === "execution_attempt:docs_write" ||
-    /^execution_attempt:docs_write(\.|$)/.test(source)
+    selectedAgentRef === STUDIO_CURSOR_GENERALIST_AGENT_ID ||
+    selectedAgentRef === HISTORICAL_BOUNDED_DOCS_WRITE_AGENT_ID
   );
 }
 
@@ -93,7 +123,9 @@ function isEligibleArtifact(
   if (ev.type !== "artifact") return false;
   if (!evidenceMatchesContractLineage(ev, expected)) return false;
   if (ev.bindings.executionAttemptId !== attemptId) return false;
-  if (!isCanonicalDocsWriteSource(String(ev.source ?? ""))) return false;
+  if (!isAllowlistedFsMaterializationSource(String(ev.source ?? ""))) {
+    return false;
+  }
   const loc = String(ev.location ?? "").trim();
   if (!loc) return false;
   if (allowedPaths.length > 0 && !allowedPaths.includes(loc)) return false;
@@ -105,16 +137,16 @@ function isEligibleArtifact(
 }
 
 /**
- * Resolve the unique prior succeeded docs-write Attempt A with matching
- * VERIFIED Artifact Evidence for the current EC.
+ * Resolve the unique prior succeeded filesystem-materialization Attempt A with
+ * matching VERIFIED Artifact Evidence for the current EC.
  */
-export function resolveVerifiedDocsWritePriorAttempt(
-  input: ResolveVerifiedDocsWritePriorAttemptInput,
-): ResolveVerifiedDocsWritePriorAttemptResult {
+export function resolveVerifiedFilesystemMaterializationPriorAttempt(
+  input: ResolveVerifiedFilesystemMaterializationPriorAttemptInput,
+): ResolveVerifiedFilesystemMaterializationPriorAttemptResult {
   const expected = expectedEvidenceIdentity({ contract: input.contract });
   const allowedPaths = expectedArtifactPaths(input.contract);
 
-  type Candidate = VerifiedDocsWritePriorAttempt;
+  type Candidate = VerifiedFilesystemMaterializationPriorAttempt;
   const candidates: Candidate[] = [];
 
   for (const attempt of input.attempts) {
@@ -128,7 +160,7 @@ export function resolveVerifiedDocsWritePriorAttempt(
       continue;
     }
     if (attempt.status !== "succeeded") continue;
-    if (attempt.selectedAgentRef !== M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID) {
+    if (!isDurableFsMaterializationAttemptAgent(attempt.selectedAgentRef)) {
       continue;
     }
 
@@ -169,3 +201,7 @@ export function resolveVerifiedDocsWritePriorAttempt(
   }
   return { ok: true, prior: only };
 }
+
+/** @deprecated Alias — historical naming retained for call-site continuity. */
+export const resolveVerifiedDocsWritePriorAttempt =
+  resolveVerifiedFilesystemMaterializationPriorAttempt;

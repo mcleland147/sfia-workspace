@@ -25,13 +25,23 @@ import {
   projectExecutionContractEffects,
 } from "@/features/project-assistant/w2/genericMissionSubject";
 import type { DecisionBasisGenericMissionContext } from "@/lib/oa/decision";
-import { verifyGenericMissionHumanDecisionForContract } from "@/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  verifyGenericMissionHumanDecisionForContract,
+} from "@/features/project-assistant/w2/verifyGenericMissionHumanDecisionForPrepare";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
 import type { ExecutionContract } from "@/lib/oa/execution-contract";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -40,7 +50,9 @@ import {
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -72,7 +84,7 @@ function structuralAnalysis(overrides?: {
     risks: overrides?.risks ?? ["RISK_MATERIAL"],
     reservations: overrides?.reservations ?? ["RES_BLOCKING"],
     executionIntent: {
-      intentKind: overrides?.intentKind ?? "code_change",
+      intentKind: overrides?.intentKind ?? "other",
       artifactType: overrides?.artifactType ?? "module",
       scopeIn: [scope],
       requiredCapabilities: [],
@@ -89,6 +101,12 @@ function cloneMutated(
   const copy = structuredClone(contract) as ExecutionContract;
   mutate(copy);
   return copy;
+}
+
+function driftSealedGitTarget(identity: string): void {
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = identity;
+  process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+    `https://github.com/${identity}.git`;
 }
 
 describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
@@ -134,7 +152,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHDECHD ${suffix}`,
+      name: "demo",
       objective: "M-HD-01 EC/HD binding",
       context: "det echd",
       criticality: "STANDARD",
@@ -162,17 +180,6 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
       },
     });
     const identity = `acme/mhdechd-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -378,7 +385,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
     it("EC08 — intentKind / artifactType divergents → REFUS", async () => {
       const ctx = await prepareStructuralWithHd("ec08");
       const mutated = cloneMutated(ctx.contract, (c) => {
-        c.inputs = { ...c.inputs, intentKind: "docs_write", artifactType: "doc" };
+        c.inputs = { ...c.inputs, intentKind: "read_only", artifactType: "doc" };
       });
       const v = await verifyGenericMissionHumanDecisionForContract({
         oa: ctx.oa,
@@ -517,19 +524,9 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
       expect(v.code).toBe("HD_ABSENT");
     });
 
-    it("EC16 — Repository binding divergent → REFUS", async () => {
+    it("EC16 — sealed git-target divergent → REFUS", async () => {
       const ctx = await prepareStructuralWithHd("ec16");
-      await ctx.oa.projectServices.setProjectRepositoryBinding!.execute({
-        projectId: ctx.projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity: "acme/mhdechd-ec16",
-          remoteUrl: "https://github.com/acme/mhdechd-ec16.git",
-          defaultBranch: "main",
-          pathRoot: "projects/other-root",
-        },
-      });
+      driftSealedGitTarget("acme/mhd-echd-mutated");
       const confirmed = await confirmExecutionContractForAuthorization({
         oa: ctx.oa,
         projectId: ctx.projectId,
@@ -559,7 +556,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
         stopConditions: ["STOP"],
         risks: [],
         reservations: [],
-        intentKind: "code_change",
+        intentKind: "other",
         artifactType: "module",
         requestedOperation: "op",
         impactSignals: {
@@ -589,7 +586,7 @@ describe("P6 M-HD-01 EC ↔ HD Effects Binding", () => {
           missionScopeNarrative: "s",
           scopeIn: ["a"],
           scopeOut: [],
-          intentKind: "code_change",
+          intentKind: "other",
           artifactType: "module",
           requestedOperation: "op",
           reversibilityExpectation: "reversible",

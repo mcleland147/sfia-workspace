@@ -60,7 +60,7 @@ import type {
   ContractSafetyIdentity,
   GateDGrant,
 } from "../domain/realLaunchSafety";
-import { isM4AuthorizedCursorRealAgent } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
+import { isM4AuthorizedCursorRealAgent } from "../infrastructure/authorizedCursorRealAgent";
 import { isM4BoundedLocalCommitRealAgent } from "../infrastructure/m4BoundedLocalCommitCursorAgent";
 import { isM4BoundedRemotePushRealAgent } from "../infrastructure/m4BoundedRemotePushCursorAgent";
 import { isM4BoundedPrCreateRealAgent } from "../infrastructure/m4BoundedPrCreateCursorAgent";
@@ -73,9 +73,12 @@ import type { ExecutionAdapterPort } from "../ports/executionAdapter";
 import type { ExecutionAttemptAuditPort } from "../ports/executionAttemptAudit";
 import type { ExecutionAttemptRepositoryPort } from "../ports/executionAttemptRepository";
 import type { RealExecutionLaunchPort } from "../ports/realExecutionLaunchPort";
-import type { DocsWriteLaunchSpec } from "../ports/realExecutionLaunchPort";
-import { M4_BOUNDED_DOCS_WRITE_ACTION } from "../infrastructure/m4BoundedDocsWriteCursorAgent";
-import { ManagedProjectRepositoryResolver } from "../infrastructure/managedProjectRepositoryResolver";
+import { assertRemoteUrlMatchesRepositoryRef } from "../domain/assertLocalBranchRefMatchesExpectedSha";
+import { assertCanonicalGithubRepositoryRef } from "../domain/shellSafeArg";
+import {
+  guardedManagedRepoRootForProtectedGit,
+  resolveIdentityMatchedLocalRepo,
+} from "../infrastructure/managedProjectRepositoryResolver";
 import type { RealLaunchSafetyJournalPort } from "../ports/realLaunchSafetyJournalPort";
 import { deriveAuthorizedExecutionSlice } from "../domain/authorizedExecutionSlice";
 import {
@@ -158,92 +161,109 @@ function asNonEmptyString(value: unknown): string | null {
   return t || null;
 }
 
-/**
- * Extract DocsWriteLaunchSpec from contract.inputs (CR-GCEC-02).
- * Fail-closed: returns { ok:false, reason } when required fields missing.
- */
-export function extractDocsWriteLaunchSpec(
+const PROTECTED_GIT_EFFECTS = [
+  "git.commit",
+  "git.push",
+  "github.pr.create",
+  "github.pr.merge",
+] as const;
+
+type ProtectedGitEffect = (typeof PROTECTED_GIT_EFFECTS)[number];
+
+function isProtectedGitEffect(effect: string): effect is ProtectedGitEffect {
+  return (PROTECTED_GIT_EFFECTS as readonly string[]).includes(effect);
+}
+
+function pendingProtectedGitEffects(
   contract: ExecutionContract,
-):
-  | { ok: true; spec: DocsWriteLaunchSpec; repositoryBindingIdentity?: string }
-  | { ok: false; reason: string } {
-  const inputs =
-    contract.inputs && typeof contract.inputs === "object"
-      ? (contract.inputs as Record<string, unknown>)
-      : {};
-  const repositoryRef =
-    asNonEmptyString(inputs.repositoryRef) ??
-    asNonEmptyString(inputs.targetRepositoryRef);
-  const targetPath = asNonEmptyString(inputs.targetPath);
-  const pathAllowlist =
-    asStringList(inputs.pathAllowlist) ?? asStringList(inputs.scopeIn) ?? [];
-  const artifactType =
-    asNonEmptyString(inputs.artifactType) ?? "functional_design";
-  const artifactBrief = asNonEmptyString(inputs.artifactBrief);
-  const contentRequirements = asStringList(inputs.contentRequirements) ?? [];
-  const scopeIn = asStringList(inputs.scopeIn) ?? pathAllowlist;
-  const scopeOut = asStringList(inputs.scopeOut) ?? [];
-  const expectedOutputs =
-    asStringList(inputs.expectedOutputs) ??
-    (Array.isArray(contract.expectedOutputs)
-      ? asStringList(contract.expectedOutputs)
-      : null) ??
-    (targetPath ? [targetPath] : []);
-  const validationExpectations =
-    asStringList(inputs.validationExpectations) ?? [];
-  const evidenceRequirements =
-    asStringList(inputs.evidenceRequirements) ??
-    (Array.isArray(contract.evidenceRequirements)
-      ? asStringList(contract.evidenceRequirements)
-      : null) ??
-    [];
+  verifiedEffects: readonly string[] | undefined,
+): ProtectedGitEffect[] {
+  const classified = deriveExecutableEffectsFromContractRequirements({
+    evidenceRequirements: Array.isArray(contract.evidenceRequirements)
+      ? contract.evidenceRequirements.map(String)
+      : [],
+    expectedOutputs: Array.isArray(contract.expectedOutputs)
+      ? contract.expectedOutputs.map(String)
+      : undefined,
+    requiredCapabilities: Array.isArray(contract.requiredCapabilities)
+      ? contract.requiredCapabilities.map(String)
+      : undefined,
+    constraints: Array.isArray(contract.constraints)
+      ? contract.constraints.map(String)
+      : undefined,
+    allowFilesystemCreateOrModify: true,
+  });
+  const verified = new Set(verifiedEffects ?? []);
+  return classified.executableEffects.filter(
+    (effect): effect is ProtectedGitEffect =>
+      isProtectedGitEffect(effect) && !verified.has(effect),
+  );
+}
 
-  if (!repositoryRef) {
-    return { ok: false, reason: "docs_write_repository_ref_missing" };
+/**
+ * EC inputs → repository binding for REAL start.
+ * A provided remote must match the canonical identity. Mismatch does not
+ * fall back to a synthesized GitHub URL.
+ * Absent remote is synthesized only after the identity is canonical.
+ */
+export function sealRepositoryBindingFromExecutionInputs(input: {
+  readonly identity: string;
+  readonly remoteUrl?: unknown;
+  readonly defaultBranch?: unknown;
+  readonly pathRoot?: unknown;
+}):
+  | {
+      readonly ok: true;
+      readonly binding: {
+        identity: string;
+        remoteUrl: string;
+        defaultBranch: string;
+        pathRoot?: string;
+      };
+    }
+  | {
+      readonly ok: false;
+      readonly code: "REAL_WORKSPACE_INVALID";
+      readonly reason:
+        | "repository_identity_not_canonical"
+        | "repository_remote_identity_mismatch";
+    } {
+  const canonical = assertCanonicalGithubRepositoryRef(input.identity.trim());
+  if (!canonical.ok) {
+    return {
+      ok: false,
+      code: "REAL_WORKSPACE_INVALID",
+      reason: "repository_identity_not_canonical",
+    };
   }
-  if (!targetPath) {
-    return { ok: false, reason: "docs_write_target_path_missing" };
+  const provided = asNonEmptyString(input.remoteUrl);
+  let remoteUrl: string;
+  if (provided) {
+    const match = assertRemoteUrlMatchesRepositoryRef({
+      remoteUrl: provided,
+      repositoryRef: canonical.ref,
+    });
+    if (!match.ok) {
+      return {
+        ok: false,
+        code: "REAL_WORKSPACE_INVALID",
+        reason: "repository_remote_identity_mismatch",
+      };
+    }
+    remoteUrl = provided;
+  } else {
+    remoteUrl = `https://github.com/${canonical.ref}.git`;
   }
-  if (pathAllowlist.length === 0) {
-    return { ok: false, reason: "docs_write_path_allowlist_missing" };
-  }
-  if (!artifactBrief) {
-    return { ok: false, reason: "docs_write_artifact_brief_missing" };
-  }
-  if (contentRequirements.length === 0) {
-    return { ok: false, reason: "docs_write_content_requirements_missing" };
-  }
-
-  const bindingIdentity =
-    asNonEmptyString(inputs.repositoryBindingIdentity) ??
-    asNonEmptyString(inputs.repositoryIdentity) ??
-    repositoryRef;
-
-  const rawMode = inputs.artifactWriteMode;
-  const artifactWriteMode =
-    rawMode === "CREATE" || rawMode === "UPDATE" || rawMode === "ASK"
-      ? rawMode
-      : undefined;
-
+  const defaultBranch = asNonEmptyString(input.defaultBranch) ?? "main";
+  const pathRoot = asNonEmptyString(input.pathRoot) ?? undefined;
   return {
     ok: true,
-    spec: {
-      repositoryRef,
-      targetPath,
-      pathAllowlist,
-      artifactType,
-      artifactBrief,
-      contentRequirements,
-      scopeIn,
-      scopeOut,
-      expectedOutputs: expectedOutputs ?? [],
-      validationExpectations,
-      evidenceRequirements: evidenceRequirements ?? [],
-      createOrModify: true,
-      noDelete: true,
-      ...(artifactWriteMode ? { artifactWriteMode } : {}),
+    binding: {
+      identity: canonical.ref,
+      remoteUrl,
+      defaultBranch,
+      ...(pathRoot ? { pathRoot } : {}),
     },
-    repositoryBindingIdentity: bindingIdentity ?? undefined,
   };
 }
 
@@ -299,16 +319,10 @@ export class StartExecution {
     private readonly safetyJournal?: RealLaunchSafetyJournalPort,
     /**
      * D-GCEC-09/13 — server-only managed repository root base.
-     * Resolves Project.repositoryBinding.identity → local clone.
+     * The managed checkout itself; not a Product repository-binding record.
      * MUST NOT come from ExecutionContract / client.
      */
     private readonly managedRepoRootBase?: string,
-    /**
-     * CR-GCEC-23 — resolve Project.repositoryBinding from durable Project.
-     */
-    private readonly resolveProjectRepositoryBinding?: (
-      projectId: string,
-    ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>,
     /**
      * CR-GCEC-23 / CORR-D-GCEC-AGENT-01 — Evidence list (Result; late-bound OK).
      */
@@ -779,8 +793,6 @@ export class StartExecution {
       );
     }
 
-    // CR-GCEC-02 — docsWriteSpec BEFORE Gate D consume (fail-closed).
-    let docsWriteSpec: DocsWriteLaunchSpec | undefined;
     let repositoryBindingIdentity: string | undefined;
     let managedRepoRoot: string | undefined;
     let repositoryBinding:
@@ -791,84 +803,59 @@ export class StartExecution {
           pathRoot?: string;
         }
       | undefined;
-    if (contract.action === M4_BOUNDED_DOCS_WRITE_ACTION) {
-      const extracted = extractDocsWriteLaunchSpec(contract);
-      if (!extracted.ok) {
-        return fail("REAL_AGENT_PROFILE_INVALID", extracted.reason, {
-          executionContractId: contract.executionContractId,
-        });
-      }
-      docsWriteSpec = extracted.spec;
-      repositoryBindingIdentity = extracted.repositoryBindingIdentity;
-
+    {
       const inputs =
         contract.inputs && typeof contract.inputs === "object"
           ? (contract.inputs as Record<string, unknown>)
           : {};
-      // D-GCEC-09 — reject client/EC-supplied absolute managed roots.
       if (
         typeof inputs.managedRepoRoot === "string" &&
         inputs.managedRepoRoot.trim()
       ) {
         return fail(
           "REAL_WORKSPACE_INVALID",
-          "docs_write_managed_repo_root_not_ec_controlled",
+          "managed_repo_root_not_ec_controlled",
           { executionContractId: contract.executionContractId },
         );
       }
-
       const identity =
-        (typeof inputs.repositoryIdentity === "string" &&
-          inputs.repositoryIdentity.trim()) ||
-        (typeof inputs.repositoryBindingIdentity === "string" &&
-          inputs.repositoryBindingIdentity.trim()) ||
-        docsWriteSpec.repositoryRef;
-      const remoteUrl =
-        (typeof inputs.remoteUrl === "string" && inputs.remoteUrl.trim()) ||
-        `https://github.com/${identity}.git`;
-      const defaultBranch =
-        (typeof inputs.defaultBranch === "string" &&
-          inputs.defaultBranch.trim()) ||
-        "main";
-      const pathRoot =
-        typeof inputs.pathRoot === "string" && inputs.pathRoot.trim()
-          ? inputs.pathRoot.trim()
-          : undefined;
-      if (!identity) {
-        return fail(
-          "REAL_WORKSPACE_INVALID",
-          "docs_write_repository_binding_missing",
-          { executionContractId: contract.executionContractId },
-        );
+        asNonEmptyString(inputs.repositoryRef) ??
+        asNonEmptyString(inputs.repositoryIdentity) ??
+        asNonEmptyString(inputs.repositoryBindingIdentity);
+      if (identity) {
+        const sealed = sealRepositoryBindingFromExecutionInputs({
+          identity,
+          remoteUrl: inputs.remoteUrl,
+          defaultBranch: inputs.defaultBranch,
+          pathRoot: inputs.pathRoot,
+        });
+        if (!sealed.ok) {
+          return fail(sealed.code, sealed.reason, {
+            executionContractId: contract.executionContractId,
+          });
+        }
+        repositoryBinding = sealed.binding;
+        repositoryBindingIdentity = sealed.binding.identity;
+        if (this.managedRepoRootBase?.trim()) {
+          const resolution = resolveIdentityMatchedLocalRepo({
+            identity: sealed.binding.identity,
+            managedRootBase: this.managedRepoRootBase,
+          });
+          const guarded = guardedManagedRepoRootForProtectedGit({
+            protectedGitPending:
+              pendingProtectedGitEffects(contract, request.verifiedEffects)
+                .length > 0,
+            checked: true,
+            resolution,
+          });
+          if (!guarded.ok) {
+            return fail(guarded.code, guarded.reason, {
+              executionContractId: contract.executionContractId,
+            });
+          }
+          if (guarded.managedRepoRoot) managedRepoRoot = guarded.managedRepoRoot;
+        }
       }
-      repositoryBinding = {
-        identity,
-        remoteUrl,
-        defaultBranch,
-        ...(pathRoot ? { pathRoot } : {}),
-      };
-
-      // Server-side resolution only (D-GCEC-09/13).
-      if (!this.managedRepoRootBase?.trim()) {
-        return fail(
-          "REAL_WORKSPACE_INVALID",
-          "docs_write_managed_repo_root_base_unconfigured",
-          { executionContractId: contract.executionContractId },
-        );
-      }
-      const resolver = new ManagedProjectRepositoryResolver();
-      const resolved = resolver.resolveLocalRepoRoot(
-        { identity },
-        this.managedRepoRootBase,
-      );
-      if (!resolved) {
-        return fail(
-          "REAL_WORKSPACE_INVALID",
-          "docs_write_managed_repo_unresolved",
-          { executionContractId: contract.executionContractId },
-        );
-      }
-      managedRepoRoot = resolved;
     }
 
     const fingerprint =
@@ -990,11 +977,9 @@ export class StartExecution {
     }
 
     // D-GCEC-15 / CR-GCEC-23/24 — AuthorizedExecutionSlice from server-derived targets.
-    const evidenceRequirements =
-      docsWriteSpec?.evidenceRequirements ??
-      (Array.isArray(contract.evidenceRequirements)
-        ? contract.evidenceRequirements.map(String)
-        : []);
+    const evidenceRequirements = Array.isArray(contract.evidenceRequirements)
+      ? contract.evidenceRequirements.map(String)
+      : [];
     const contractConstraints = Array.isArray(contract.constraints)
       ? contract.constraints.map(String)
       : undefined;
@@ -1040,10 +1025,8 @@ export class StartExecution {
       (e) => !(request.verifiedEffects ?? []).includes(e),
     );
 
-    if (remainingGit.length > 0 && this.resolveProjectRepositoryBinding) {
-      const binding = await this.resolveProjectRepositoryBinding(
-        contract.projectId,
-      );
+    if (remainingGit.length > 0 && repositoryBinding?.identity?.trim()) {
+      const binding = repositoryBinding;
       if (!binding?.identity?.trim()) {
         // Canonical repository unavailable — all remaining protected Git blocked.
         unavailableProtectedEffects.push(...remainingGit);
@@ -1054,10 +1037,9 @@ export class StartExecution {
           ? (contract.inputs as Record<string, unknown>)
           : {};
       const projectedRepo =
-        docsWriteSpec?.repositoryRef?.trim() ||
-        (typeof contractInputs.repositoryRef === "string"
+        typeof contractInputs.repositoryRef === "string"
           ? contractInputs.repositoryRef.trim()
-          : undefined);
+          : undefined;
       if (projectedRepo && projectedRepo !== binding.identity.trim()) {
         return fail(
           "ATTEMPT_INVALID",
@@ -1128,7 +1110,7 @@ export class StartExecution {
         );
       }
       }
-    } else if (remainingGit.length > 0 && !this.resolveProjectRepositoryBinding) {
+    } else if (remainingGit.length > 0) {
       // CR-GCEC-23H-A — resolver absent: never derive Git authority from caller.
       // Non-Git slices may still proceed; all remaining protected Git stay blocked.
       if (request.confirmationMatch) {
@@ -1282,9 +1264,6 @@ export class StartExecution {
         );
       }
       const evidenceList = evidenceReadCont.evidence;
-      const projectBinding = this.resolveProjectRepositoryBinding
-        ? await this.resolveProjectRepositoryBinding(contract.projectId)
-        : null;
       const cont = resolvePreCommitWorkspaceContinuation({
         currentAttemptId: attempt.attemptId,
         executionContractId: contract.executionContractId,
@@ -1293,7 +1272,7 @@ export class StartExecution {
         expectedHeadSha: baseHeadSha,
         attempts: peerAttempts,
         evidence: evidenceList,
-        repositoryRef: projectBinding?.identity,
+        repositoryRef: repositoryBindingIdentity,
         authorizedEffects:
           authorizedSlice.authorizedEffects as CursorAuthorizedEffectId[],
         verifiedEffects: request.verifiedEffects,
@@ -1328,9 +1307,15 @@ export class StartExecution {
         contract.inputs && typeof contract.inputs === "object"
           ? (contract.inputs as Record<string, unknown>)
           : {};
+      // AKG-M5: prefer explicit commitMessage; fall back to inputs.artifactBrief
+      // (historical docsWriteSpec.artifactBrief path retired with Product DocWrite).
+      const artifactBriefFromInputs =
+        typeof contractInputs.artifactBrief === "string"
+          ? contractInputs.artifactBrief
+          : undefined;
       const message = deriveTrustedCommitMessage({
         contractInputs,
-        docsWriteArtifactBrief: docsWriteSpec?.artifactBrief,
+        docsWriteArtifactBrief: artifactBriefFromInputs,
       });
       if (!message.ok) {
         return fail("ATTEMPT_INVALID", message.reason, {
@@ -1339,7 +1324,6 @@ export class StartExecution {
       }
       const repositoryRef =
         repositoryBindingIdentity?.trim() ||
-        docsWriteSpec?.repositoryRef?.trim() ||
         (typeof contractInputs.repositoryRef === "string"
           ? contractInputs.repositoryRef.trim()
           : "");
@@ -1354,8 +1338,9 @@ export class StartExecution {
       // docsWriteSpec.targetPath + contract baseHeadSha (fail closed if absent).
       const exactPaths = workspaceContinuation
         ? workspaceContinuation.expectedVerifiedFiles.map((f) => f.path)
-        : docsWriteSpec?.targetPath
-          ? [docsWriteSpec.targetPath]
+        : typeof contractInputs.targetPath === "string" &&
+            contractInputs.targetPath.trim()
+          ? [contractInputs.targetPath.trim()]
           : [];
       const expectedParentSha =
         workspaceContinuation?.expectedHeadSha ?? baseHeadSha;
@@ -1401,9 +1386,7 @@ export class StartExecution {
           { executionContractId: contract.executionContractId },
         );
       }
-      const projectBindingPush = this.resolveProjectRepositoryBinding
-        ? await this.resolveProjectRepositoryBinding(contract.projectId)
-        : null;
+      const projectBindingPush = repositoryBinding ?? null;
       if (!projectBindingPush?.identity?.trim()) {
         return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
           executionContractId: contract.executionContractId,
@@ -1498,9 +1481,7 @@ export class StartExecution {
           { executionContractId: contract.executionContractId },
         );
       }
-      const projectBindingPr = this.resolveProjectRepositoryBinding
-        ? await this.resolveProjectRepositoryBinding(contract.projectId)
-        : null;
+      const projectBindingPr = repositoryBinding ?? null;
       if (!projectBindingPr?.identity?.trim()) {
         return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
           executionContractId: contract.executionContractId,
@@ -1666,9 +1647,7 @@ export class StartExecution {
           { executionContractId: contract.executionContractId },
         );
       }
-      const projectBindingMerge = this.resolveProjectRepositoryBinding
-        ? await this.resolveProjectRepositoryBinding(contract.projectId)
-        : null;
+      const projectBindingMerge = repositoryBinding ?? null;
       if (!projectBindingMerge?.identity?.trim()) {
         return fail("ATTEMPT_INVALID", "project_repository_binding_missing", {
           executionContractId: contract.executionContractId,
@@ -1751,7 +1730,6 @@ export class StartExecution {
     // PJ-REPROOF-04 — EC → Cursor prompt projection at Start (server-side only).
     // Exact durable contract + Attempt identity; no client-supplied prompt.
     const repositoryRefForPrompt =
-      docsWriteSpec?.repositoryRef?.trim() ||
       repositoryBindingIdentity?.trim() ||
       (typeof (contract.inputs as Record<string, unknown> | undefined)
         ?.repositoryRef === "string"
@@ -1807,7 +1785,6 @@ export class StartExecution {
         scope: contract.scope,
         timeoutMs: window.resolvedMaxDurationMs,
         cursorMissionPrompt,
-        ...(docsWriteSpec ? { docsWriteSpec } : {}),
         ...(gitCommitSpec ? { gitCommitSpec } : {}),
         ...(gitPushSpec ? { gitPushSpec } : {}),
         ...(gitPrCreateSpec ? { gitPrCreateSpec } : {}),

@@ -26,7 +26,9 @@ import {
   missionSubjectIdFromOfferFingerprint,
   readGenericMissionDecisionContinuity,
 } from "@/features/project-assistant/w2/genericMissionDecisionContinuity";
-import { assessApplicableGenericMissionDecision } from "@/features/project-assistant/w2/genericMissionDecisionApplicability";
+import {
+  assessApplicableGenericMissionDecision,
+} from "@/features/project-assistant/w2/genericMissionDecisionApplicability";
 import {
   GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
   GENERIC_MISSION_OPTION_REFUSE,
@@ -34,7 +36,9 @@ import {
 } from "@/features/project-assistant/w2/genericMissionSubject";
 import { mapGithubIdentityToPiloteActor } from "@/lib/auth/actorMapping";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -43,7 +47,9 @@ import {
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
 
 const APP = path.resolve(__dirname, "../..");
 
@@ -68,7 +74,7 @@ function structuralAnalysis(overrides?: {
     reservations: overrides?.reservations ?? ["Réserve A"],
     stopConditions: overrides?.stopConditions ?? ["STOP_A"],
     executionIntent: {
-      intentKind: "code_change",
+      intentKind: "other",
       scopeIn: ["projects/demo/src/mhd02-corr"],
       requiredCapabilities: [],
       requestedOperation: "refactor-corr",
@@ -135,7 +141,7 @@ describe("P6 M-HD-02 mission identity / continuity / session / replay", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `MHD02C ${suffix}`,
+      name: "demo",
       objective: "M-HD-02 correction",
       context: "det mhd02c",
       criticality: "STANDARD",
@@ -146,17 +152,6 @@ describe("P6 M-HD-02 mission identity / continuity / session / replay", () => {
     if (!created.ok) throw new Error("createProject");
     const projectId = created.project.projectId;
     const identity = `acme/mhd02c-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -223,7 +218,7 @@ describe("P6 M-HD-02 mission identity / continuity / session / replay", () => {
       ...structuralAnalysis({ risks: ["R1"] }),
       expectedOutcome: "Résultat matériellement différent",
       executionIntent: {
-        intentKind: "code_change",
+        intentKind: "other",
         scopeIn: ["projects/demo/src/mhd02-corr"],
         requiredCapabilities: [],
         requestedOperation: "other-op",

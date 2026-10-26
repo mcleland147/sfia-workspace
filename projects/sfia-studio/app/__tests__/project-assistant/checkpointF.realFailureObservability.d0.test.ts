@@ -1,3 +1,4 @@
+
 /**
  * Checkpoint F / R6 — REAL failure observability + provenance truth.
  * ZERO REAL / ZERO Cursor binary / fake runners only.
@@ -5,8 +6,8 @@
  */
 import { describe, expect, it } from "vitest";
 import {
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   M4_REAL_GATEWAY_ADAPTER_ID,
+  createStudioCursorGeneralistAgentDescriptor,
 } from "@/lib/oa/execution-attempt";
 import {
   buildProcessFailureDiagnostic,
@@ -18,8 +19,12 @@ import {
   F3_BOUNDED_M4_DETERMINISTIC_MODE,
   F3_REAL_MODE,
 } from "@/features/project-assistant/f3/deriveAttemptProvenance";
-import { productReservationsForAttempt } from "@/features/project-assistant/w2/w3bProductTerminalProjection";
-import type { ExecutionAttempt } from "@/lib/oa/execution-attempt";
+import {
+  productReservationsForAttempt,
+} from "@/features/project-assistant/w2/w3bProductTerminalProjection";
+import type {
+  ExecutionAttempt,
+} from "@/lib/oa/execution-attempt";
 
 const NOW = "2026-09-17T20:00:00.000Z";
 
@@ -135,7 +140,7 @@ describe("Checkpoint F R6 — process failure diagnostic (G1)", () => {
 });
 
 describe("Checkpoint F R6 — Nora provenance (G2)", () => {
-  const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+  const agent = createStudioCursorGeneralistAgentDescriptor(NOW);
 
   it("T4 — cursor_real + launched + failed → realProcessInvoked true, no business success", () => {
     const prov = deriveAttemptProvenance({

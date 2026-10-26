@@ -16,11 +16,7 @@ import type {
   LivingProjectState,
   Project,
 } from "../domain/types";
-import {
-  composeProjectWorkspacePathRoot,
-  deriveProjectWorkspaceKeyFromTitle,
-} from "../domain/projectWorkspaceKey";
-import { resolveServerOwnedRepositoryConfig } from "../domain/serverOwnedRepositoryConfig";
+import { deriveProjectWorkspaceKeyFromTitle } from "../domain/projectWorkspaceKey";
 import type { LivingProjectStateRepositoryPort } from "../ports/livingProjectStateRepositoryPort";
 import type { ProjectAuditJournalPort } from "../ports/projectAuditJournalPort";
 import type { ProjectRepositoryPort } from "../ports/projectRepositoryPort";
@@ -230,18 +226,6 @@ export class CreateProject {
       const projectWorkspaceKey = deriveProjectWorkspaceKeyFromTitle(
         request.title,
       );
-      const projectPathRoot =
-        composeProjectWorkspacePathRoot(projectWorkspaceKey);
-      const serverRepo = resolveServerOwnedRepositoryConfig(process.env);
-      const repositoryBinding = serverRepo
-        ? {
-            provider: serverRepo.provider,
-            identity: serverRepo.identity,
-            remoteUrl: serverRepo.remoteUrl,
-            defaultBranch: serverRepo.defaultBranch,
-            pathRoot: projectPathRoot,
-          }
-        : undefined;
 
       const project: Project = {
         schemaVersion: "0.1.0-oa",
@@ -251,7 +235,6 @@ export class CreateProject {
         currentLpsVersionId: lpsVersionId,
         doctrinePackageRef: structuredClone(doctrinePackageRef),
         projectWorkspaceKey,
-        ...(repositoryBinding ? { repositoryBinding } : {}),
         createdAt: timestamp,
         updatedAt: timestamp,
         createdBy: structuredClone(request.createdBy),

@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * D-GCEC-15 Option B negatives — N1–N28 (unit/integration focused).
  * CR-GCEC-17: technicalResultRef is never a trust marker; only Evidence.status=verified.
@@ -24,10 +26,9 @@ import {
 import {
   buildGitEffectActionRef,
   deriveAuthorizedExecutionSlice,
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   qualifyExecutionContractCompletion,
   verifyWorkspaceFileEffects,
+  FakeDocsWriteLaunchPort,
 } from "@/lib/oa/execution-attempt";
 import {
   FakeRepositoryReadPorts,
@@ -1374,7 +1375,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: { workingBranch: "gcec/docs" },
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: "acme/widget",
         remoteUrl: "https://github.com/acme/widget.git",
         defaultBranch: "main",
@@ -1402,7 +1402,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: { workingBranch: "main" },
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: "acme/widget",
         remoteUrl: "https://github.com/acme/widget.git",
         defaultBranch: "main",
@@ -1454,7 +1453,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: { workingBranch: "branch-a" },
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: REPO,
         remoteUrl: `https://github.com/${REPO}.git`,
         defaultBranch: "main",
@@ -1501,7 +1499,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: {},
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: "acme/widget",
         remoteUrl: "https://github.com/acme/widget.git",
         defaultBranch: "main",
@@ -1531,7 +1528,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: { workingBranch: "main" },
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: REPO,
         remoteUrl: `https://github.com/${REPO}.git`,
         defaultBranch: "main",
@@ -1559,7 +1555,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: { workingBranch: "main" },
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: REPO,
         remoteUrl: `https://github.com/${REPO}.git`,
         defaultBranch: "main",
@@ -1606,7 +1601,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: { workingBranch: "main" },
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: REPO,
         remoteUrl: `https://github.com/${REPO}.git`,
         defaultBranch: "main",
@@ -1725,7 +1719,6 @@ describe("gcecD15Negatives — N1–N28", () => {
         inputs: {},
       },
       projectRepositoryBinding: {
-        provider: "github",
         identity: REPO,
         remoteUrl: `https://github.com/${REPO}.git`,
         defaultBranch: "main",

@@ -18,22 +18,34 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { projectAssistantSendAction } from "@/features/project-assistant/actions";
-import { projectAssistantPrepareM3Action } from "@/features/project-assistant/actions";
+import {
+  projectAssistantSendAction,
+} from "@/features/project-assistant/actions";
+import {
+  projectAssistantPrepareM3Action,
+} from "@/features/project-assistant/actions";
 import {
   w2DecideTrajectoryAction,
   w2InspectExecutionContractAction,
   w2ProposeTrajectoryOptionsAction,
 } from "@/features/project-assistant/w2/actions";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  prepareExecutionContractFromW2Decision,
+} from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
 import {
   getProposal,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { F2_PROCESS_LOCAL_NOTICE } from "@/features/project-assistant/f2/proposalStore";
-import type { ProposalDto } from "@/features/project-assistant/f2/types";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  F2_PROCESS_LOCAL_NOTICE,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  ProposalDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
 import {
   PROPOSAL_SUBJECT_AMEND_REF,
   PROPOSAL_SUBJECT_PURSUE_REF,
@@ -51,7 +63,9 @@ import {
   listEffectivePendingDecisionSubjectMarkers,
   readActiveProposalDecisionSubject,
 } from "@/features/project-assistant/w2/activeProposalDecisionSubject";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -71,13 +85,12 @@ import type {
 
 const MATERIALIZE_SIGNAL = "__F2_ARTIFACT_MATERIALIZE__";
 /** pathRoot must contain the fixture target, otherwise Nora clarifies instead. */
-const DOCS_BINDING = {
-  identity: "mcleland147/sfia-workspace",
-  remoteUrl: "https://github.com/mcleland147/sfia-workspace.git",
-  defaultBranch: "main",
-  pathRoot: "docs/",
-} as const;
-const EXPECTED_TARGET_PATH = "docs/livrable-cycle.md";
+const ARTIFACT_LEAF = "livrable-cycle.md";
+const CYCLE_SEGMENT = "01-cadrage";
+
+function expectedActiveCycleArtifactTarget(workspaceKey: string): string {
+  return `projects/${workspaceKey}/${CYCLE_SEGMENT}/${ARTIFACT_LEAF}`;
+}
 
 /** Prior pending subject A — the thing a reinstruction must actually replace. */
 function priorProposal(input: {
@@ -117,19 +130,20 @@ function priorProposal(input: {
     executionForbidden: true,
     noExecutingStatus: true,
     agentBinding: "NOT_AVAILABLE",
-    requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
+    requestedOperation: null,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: null,
       targetRepositoryRef: null,
-      targetPath: EXPECTED_TARGET_PATH,
-      scopeIn: ["docs/"],
+      targetPath: null,
+      artifactFileName: ARTIFACT_LEAF,
+      scopeIn: [],
       scopeOut: ["git"],
       expectedOutputs: ["markdown"],
-      requiredCapabilities: ["cap:cursor.docs_write"],
+      requiredCapabilities: ["cap:studio.cursor.generalist"],
       validationExpectations: [],
       evidenceRequirements: [],
-      requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
+      requestedOperation: null,
       reversibilityExpectation: "reversible",
       artifactBrief: "Note gestion de tâches",
       contentRequirements: [],
@@ -280,11 +294,6 @@ describe("PRODUCT-PROOF-JOURNEY-INTEGRITY — application path AP11–AP24", () 
     });
     expect(obligation.ok).toBe(true);
 
-    const bound = await runtime.setProjectRepositoryBinding({
-      projectId,
-      ...DOCS_BINDING,
-    });
-    expect(bound.ok).toBe(true);
 
     return { projectId, cycleInstanceId };
   }
@@ -458,13 +467,22 @@ describe("PRODUCT-PROOF-JOURNEY-INTEGRITY — application path AP11–AP24", () 
     expect(hd.decision.decisionBasis?.sourceRef).toBe(newProposalId);
     expect(hd.decision.selectedOptionId).toBe(PROPOSAL_SUBJECT_PURSUE_REF);
     expect(executionBasis?.requestedOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
+      "Matérialisation gouvernée du livrable requis",
     );
-    // docs_write lineage travels in the sealed DecisionBasis, not in a UI field.
-    expect(executionBasis?.intentKind).toBe("docs_write");
-    expect(executionBasis?.targetPath).toBe(EXPECTED_TARGET_PATH);
+    const proj = await runtime.oa!.projectServices.getProject.execute({
+      projectId,
+    });
+    expect(proj.ok).toBe(true);
+    if (!proj.ok) return;
+    const workspaceKey = proj.project.projectWorkspaceKey;
+    expect(workspaceKey).toBeTruthy();
+    // AKG-M5 — generalist intent only; server composes workspace/cycle target.
+    expect(executionBasis?.intentKind).toBe("other");
+    expect(executionBasis?.targetPath).toBe(
+      expectedActiveCycleArtifactTarget(workspaceKey!),
+    );
     expect(executionBasis?.requiredCapabilities).toContain(
-      "cap:cursor.docs_write",
+      "cap:studio.cursor.generalist",
     );
 
     /**

@@ -235,8 +235,9 @@ export type StartExecutionRequest = {
   confirmations?: readonly Confirmation[];
   /**
    * CR-GCEC-23 — HOSTILE / ASSERTION only.
-   * Server derives canonical Confirmation target from Project.repositoryBinding,
-   * durable EC inputs, and VERIFIED Evidence. If supplied, assertion must match
+   * Server derives canonical Confirmation target from durable EC inputs
+   * (sealed git-target identity string, not a Product repository-binding
+   * record) and VERIFIED Evidence. If supplied, assertion must match
    * server truth or StartExecution refuses. NEVER used to build actionRef.
    */
   confirmationMatch?: {

@@ -9,17 +9,29 @@ import {
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { F2_PROCESS_LOCAL_NOTICE } from "@/features/project-assistant/f2/proposalStore";
-import type { ProposalDto } from "@/features/project-assistant/f2/types";
-import { F2_ARTIFACT_MATERIALIZATION_OPERATION } from "@/features/project-assistant/f2/f2CanonicalOperations";
+import {
+  F2_PROCESS_LOCAL_NOTICE,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  ProposalDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
 import {
   PROPOSAL_SUBJECT_AMEND_REF,
   PROPOSAL_SUBJECT_PURSUE_REF,
   PROPOSAL_SUBJECT_REFUSE_REF,
 } from "@/features/project-assistant/w2/proposalSubjectOptions";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
@@ -48,8 +60,12 @@ import {
   pilotPrepareNotApplicableMessage,
   pilotProposalOptionLabel,
 } from "@/features/project-assistant/presentationLabels";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  orchestrateAssistantSend,
+} from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
@@ -103,7 +119,7 @@ function docsWriteProposal(input: {
     agentBinding: "NOT_AVAILABLE",
     requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: null,
       targetRepositoryRef: null,
       targetPath: TARGET_PATH,
@@ -832,13 +848,6 @@ describe("CORR-PROOF-11 — reinstruction + pilot language R01–R22", () => {
     });
     expect(obligation.ok).toBe(true);
 
-    await runtime.setProjectRepositoryBinding({
-      projectId,
-      identity: "acme/gestion-taches",
-      remoteUrl: "https://github.com/acme/gestion-taches.git",
-      defaultBranch: "main",
-      pathRoot: "docs/",
-    });
 
     const send = await orchestrateAssistantSend({
       projectId,

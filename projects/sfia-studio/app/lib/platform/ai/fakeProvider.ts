@@ -354,10 +354,15 @@ function buildArtifactMaterializationAnalysis(input: {
     contradictionCandidate: null,
     // Do not pre-satisfy MW5 — product Fake must not mask structural challenge.
     challengeResponseAssessment: input.challengeResponseAssessment ?? null,
-    continuationKind: "active_cycle_artifact_materialization",
-    artifactMaterializationOperation: "cursor.docs_write.apply",
+    // Explicit continuation when a concrete leaf/path is present (sentinel + natural compose).
+    // Pathless analysis stays null and routes via natural-signal gates only.
+    continuationKind:
+      targetPath || artifactFileName
+        ? "active_cycle_artifact_materialization"
+        : null,
+    artifactMaterializationOperation: null,
     objective: "Matérialiser le livrable requis du cycle actif",
-    scope: "docs_write borné — cycle actif — aucune exécution automatique",
+    scope: "documentary generalist — cycle actif — aucune exécution automatique",
     rephrasedRequest: "Matérialisation gouvernée du livrable requis",
     outOfScope: ["Nouveau CycleInstance", "Pilot START", "Cursor REAL"],
     risks: ["Confusion continuation / nouvelle formalisation"],
@@ -368,7 +373,7 @@ function buildArtifactMaterializationAnalysis(input: {
     criticalJustification: null,
     requestedOperation: null,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: "deliverable_document",
       targetRepositoryRef: null,
       targetPath,
@@ -376,7 +381,7 @@ function buildArtifactMaterializationAnalysis(input: {
       scopeIn,
       scopeOut: [],
       expectedOutputs: targetPath ? [targetPath] : artifactFileName ? [artifactFileName] : [],
-      requiredCapabilities: ["cap:cursor.docs_write"],
+      requiredCapabilities: ["cap:studio.cursor.generalist"],
       validationExpectations: [],
       evidenceRequirements: [],
       requestedOperation: null,
@@ -878,6 +883,22 @@ export class FakeConversationProvider implements ConversationProvider {
       };
     }
 
+    if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
+      const content = markerProbe;
+      let challengeResponseAssessment: FakeChallengeAssessment = "sufficient";
+      if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
+        challengeResponseAssessment = "insufficient";
+      }
+      return fakeF2JsonResult(
+        this.callCount,
+        buildArtifactMaterializationAnalysis({
+          targetPath: null,
+          artifactFileName: "livrable-cycle.md",
+          challengeResponseAssessment,
+        }),
+      );
+    }
+
     // Natural active-cycle materialization (pathless / leaf candidate) — before other markers.
     if (isF2IntentAnalysisContext(messages)) {
       const naturalMaterialization =
@@ -1106,7 +1127,7 @@ export class FakeConversationProvider implements ConversationProvider {
           objective: "Rédiger le design fonctionnel borné",
           scope: "docs/functional-design.md uniquement",
           rephrasedRequest:
-            "Produire docs/functional-design.md via cursor.docs_write.apply",
+            "Produire docs/functional-design.md dans le workspace projet",
           outOfScope: ["Cursor REAL hors fake", "commit/push/PR"],
           risks: ["Contenu incomplet"],
           reservations: [],
@@ -1114,16 +1135,16 @@ export class FakeConversationProvider implements ConversationProvider {
           activatedBlocks: ["qualification", "proposition", "gate"],
           expectedOutcome: "Artifact functional-design prêt pour revue",
           criticalJustification: null,
-          requestedOperation: "cursor.docs_write.apply",
+          requestedOperation: null,
           executionIntent: {
-            intentKind: "docs_write",
+            intentKind: "other",
             artifactType: "functional_design",
             targetRepositoryRef: "acme/widget",
             targetPath: "docs/functional-design.md",
             scopeIn: ["docs/"],
             scopeOut: ["src/", ".github/"],
             expectedOutputs: ["docs/functional-design.md"],
-            requiredCapabilities: ["cap:cursor.docs_write"],
+            requiredCapabilities: ["cap:studio.cursor.generalist"],
             validationExpectations: ["path_allowlist", "no_delete"],
             evidenceRequirements: [
               "git:local_commit",
@@ -1134,7 +1155,7 @@ export class FakeConversationProvider implements ConversationProvider {
               "git:merge",
               "git:post_merge_verification",
             ],
-            requestedOperation: "cursor.docs_write.apply",
+            requestedOperation: null,
             reversibilityExpectation: "reversible",
             artifactBrief:
               "Functional design covering goals, actors, flows, and constraints",
@@ -1217,7 +1238,7 @@ export class FakeConversationProvider implements ConversationProvider {
           contradictionCandidate: null,
           challengeResponseAssessment: "sufficient",
           continuationKind: null,
-          artifactMaterializationOperation: "cursor.docs_write.apply",
+          artifactMaterializationOperation: null,
           objective:
             "Produire un document Markdown enregistré dans le dépôt du projet",
           scope: "projects/demo/docs",
@@ -1232,7 +1253,7 @@ export class FakeConversationProvider implements ConversationProvider {
           criticalJustification: null,
           requestedOperation: null,
           executionIntent: {
-            intentKind: "docs_write",
+            intentKind: "other",
             artifactType: "deliverable_document",
             targetRepositoryRef: null,
             targetPath: "projects/demo/docs/note-cadrage.md",
@@ -1240,7 +1261,7 @@ export class FakeConversationProvider implements ConversationProvider {
             scopeIn: ["projects/demo/docs"],
             scopeOut: ["projects/sfia-studio/convergence"],
             expectedOutputs: ["projects/demo/docs/note-cadrage.md"],
-            requiredCapabilities: ["cap:cursor.docs_write"],
+            requiredCapabilities: ["cap:studio.cursor.generalist"],
             validationExpectations: [],
             evidenceRequirements: [],
             requestedOperation: null,
@@ -1503,7 +1524,7 @@ export class FakeConversationProvider implements ConversationProvider {
           criticalJustification: null,
           requestedOperation: "github.pr.merge",
           executionIntent: {
-            intentKind: "docs_write",
+            intentKind: "other",
             artifactType: "deliverable_document",
             targetRepositoryRef: null,
             targetPath: "docs/livrable-cycle.md",
@@ -1528,21 +1549,6 @@ export class FakeConversationProvider implements ConversationProvider {
           providerResponseId: `fake-resp-${this.callCount}`,
         },
       };
-    }
-    if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
-      // Historical sentinel fixture — same builder as natural Pilot contract.
-      const content = markerProbe;
-      let challengeResponseAssessment: FakeChallengeAssessment = "sufficient";
-      if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
-        challengeResponseAssessment = "insufficient";
-      }
-      return fakeF2JsonResult(
-        this.callCount,
-        buildArtifactMaterializationAnalysis({
-          targetPath: "docs/livrable-cycle.md",
-          challengeResponseAssessment,
-        }),
-      );
     }
     if (markerProbe.includes("__F2_DOCS_WRITE_GENERIC__")) {
       return {
@@ -1571,19 +1577,19 @@ export class FakeConversationProvider implements ConversationProvider {
           activatedBlocks: ["qualification", "proposition"],
           expectedOutcome: "Proposition docs_write générique",
           criticalJustification: null,
-          requestedOperation: "cursor.docs_write.apply",
+          requestedOperation: null,
           executionIntent: {
-            intentKind: "docs_write",
+            intentKind: "other",
             artifactType: null,
             targetRepositoryRef: null,
             targetPath: "README.md",
             scopeIn: ["projects/"],
             scopeOut: [],
             expectedOutputs: ["README.md"],
-            requiredCapabilities: ["cap:cursor.docs_write"],
+            requiredCapabilities: ["cap:studio.cursor.generalist"],
             validationExpectations: [],
             evidenceRequirements: [],
-            requestedOperation: "cursor.docs_write.apply",
+            requestedOperation: null,
             reversibilityExpectation: null,
             artifactBrief: null,
             contentRequirements: [],

@@ -11,6 +11,15 @@
 | Capability | What an agent *can* do technically |
 | Authority | What a Pilot/Morris *may* authorize |
 
+## Overlay — PR #618 mutating Cursor confinement (LOCAL CANDIDATE — 2026-10-25)
+
+| Item | Status |
+|---|---|
+| Policy | Confinement follows **authorized effects** + sealed Attempt profile flags (`local` / `remote_git` / `remote_github`), **not** a `docs_write` taxonomy flag. Mixed/ambiguous effect classes **fail closed** before spawn. |
+| Code | `resolveMutatingCursorConfinement` · `buildMutatingCursorConfinementEnv` · `StudioCursorRealLaunchGateway` |
+| Proof | `gcecMutatingCursorConfinementEnv.d0.test.ts` **DET** · **≠** REAL · **≠** MERGED ON MAIN |
+| Parent env | Unchanged; child env strip/helper overlay only |
+
 ## Inventory (selected, factual)
 
 | Name | Purpose | Required | Default/notes | Boundaries |
@@ -18,10 +27,10 @@
 | `SFIA_STUDIO_PRODUCT_DB_PATH` | Absolute product SQLite | optional | else `.sfia-exec/product/oa-product.sqlite` | Truth C · server-only · prefer absolute path for durable instance |
 | `SFIA_STUDIO_NORA_SESSION_DB_PATH` | Absolute Nora session SQLite | optional | else cwd-relative `.sfia-exec/product/nora-session.sqlite` | Memory B · **≠ Truth C** · worktree-sensitive · prefer absolute per-instance |
 | `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE` | Local OA-exclusive cutover marker (L2-D2) | no — default **OFF** | Arms when `process.env` value **after `trim()`** equals `"1"` (code: `isLocalOaExclusiveMode`) ; `"1"` / `" 1 "` → ON ; unset / `"0"` / other → OFF (historical D1) | Server-only · **not** global across worktrees · code **CURRENT ON MAIN** (PR #614) · default OFF · **G-ACTIVATION** required to arm · **NOT ACTIVATED** by merge |
-| `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` | Server-owned repo identity | yes Product local | fail-closed if absent | config |
-| `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` | Server-owned remote | yes Product local | fail-closed | config |
-| `SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH` | Default branch | optional | `main` | config |
-| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | Managed clone root | yes for REAL docs_write | fail-closed if blank | config |
+| `SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY` | Server-owned repo identity | **CURRENT ON MAIN** (`7db8afd7`): yes Product local, fail-closed if absent. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** **NOT** CreateProject SoT — removed from preflight and `.env.example` as Product **RepositoryBinding** projection. **CORR-01 / CORR-02:** **seal-only** — read by `resolveTrustedProductLaunchContext` only to stamp sealed ExecutionContract git-target inputs (`repositoryBindingIdentity` field name = residual naming / env-key rename debt). Absent / non-canonical → identity `null` → **Select** eligibility fail-closed. **Not** written onto Project. | config · historical on main · **NOT MERGED** |
+| `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` | Server-owned remote | **CURRENT ON MAIN:** yes Product local, fail-closed. **LOCAL DELIVERY CANDIDATE:** **seal-only** (not CreateProject / not RepositoryBinding SoT); removed from preflight / `.env.example`. **CORR-02:** a provided remote **must match** the canonical identity (HTTPS or SSH GitHub). Mismatch → `repository_remote_identity_mismatch`. Absent remote is synthesized only after the identity is canonical. | config · **NOT MERGED** |
+| `SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH` | Default branch | **CURRENT ON MAIN:** optional, `main`. **LOCAL DELIVERY CANDIDATE:** **seal-only** with identity/remote; removed from preflight / `.env.example` with binding retirement. Does not by itself prove remote fidelity. | config · **NOT MERGED** |
+| `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` | Managed checkout root | **CURRENT ON MAIN:** yes for REAL docs_write; identity subpath; fail-closed if blank. **LOCAL DELIVERY CANDIDATE:** still required for preflight / `SFIA_STUDIO_CURSOR_REAL`; no RepositoryBinding identity map; fail-closed `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | config · **NOT MERGED** |
 | `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY` | Local Pilot N3 gate | yes single-user profile | fail-closed | TEMPORARY WITH EXIT |
 | `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY` | Deprecated alias | compat | prefer canonical | TEMPORARY |
 | `SFIA_STUDIO_CURSOR_REAL` | Enable Cursor REAL | optional default OFF | exclusive vs deterministic boundary | REAL gate |
@@ -44,7 +53,12 @@
 ## Server vs client
 
 - Product binding/authority envs are **server-only** (never `NEXT_PUBLIC_*`).
-- Browser must not supply repository binding or Pilot authority claims.
+- **CURRENT ON MAIN:** browser must not supply repository binding or Pilot authority claims.
+- **LOCAL DELIVERY CANDIDATE / NOT ON MAIN (2026-10-25):** Product **RepositoryBinding** projection is retired — CreateProject does **not** read `SFIA_STUDIO_PROJECT_REPOSITORY_*` and those keys are **not** CreateProject SoT (removed from preflight / `.env.example`). **CORR-01 / CORR-02:** the same env keys remain **seal-only**. `resolveTrustedProductLaunchContext` may read them only to stamp sealed ExecutionContract git-target inputs (`inputs.repositoryBindingIdentity` = residual field naming). **CORR-02:** a provided `SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL` must match that identity. Absent / non-canonical identity → `null` → **Select** eligibility fail-closed; values are **not** written onto Project. Pilot authority envs stay server-only. **NOT MERGED**. `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` remains a server path; the managed resolver accepts a checkout only when `origin` matches the sealed identity (no RepositoryBinding identity subfolder as CreateProject SoT).
+
+## Overlay — CORR-02 sealed git-target (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+
+`SFIA_STUDIO_PROJECT_REPOSITORY_*` = **seal-only**. Remote must match identity. Mismatch does not fall back to a synthesized GitHub URL. **D-PC-09 workspace routing: NO SEMANTIC IMPACT** (historical C1 text not rewritten). **NOT MERGED**. **≠** REAL.
 
 ## Overlay — AKG-M5 L2-D2 exclusive marker + Option A paths (CURRENT ON MAIN — PR #614; 2026-10-24)
 

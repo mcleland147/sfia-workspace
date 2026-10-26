@@ -8,17 +8,31 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { mkdtempSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { prepareExecutionContractFromW2Decision } from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
-import { evaluateExecutionAuthorization } from "@/features/project-assistant/w2/authorizeExecutionContract";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  prepareExecutionContractFromW2Decision,
+} from "@/features/project-assistant/w2/prepareExecutionContractFromW2Decision";
+import {
+  evaluateExecutionAuthorization,
+} from "@/features/project-assistant/w2/authorizeExecutionContract";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
 import {
   governedExecuteSelectAgent,
   governedExecuteStart,
 } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { decideTrajectory } from "@/features/project-assistant/w2/decideTrajectory";
-import { proposeTrajectoryOptions } from "@/features/project-assistant/w2/proposeTrajectoryOptions";
-import { resolveW2QualificationInputs } from "@/features/project-assistant/w2/qualificationInputs";
-import { CLARIFY_OPTION_REF } from "@/features/project-assistant/w2/trajectoryOptions";
+import {
+  decideTrajectory,
+} from "@/features/project-assistant/w2/decideTrajectory";
+import {
+  proposeTrajectoryOptions,
+} from "@/features/project-assistant/w2/proposeTrajectoryOptions";
+import {
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import {
+  CLARIFY_OPTION_REF,
+} from "@/features/project-assistant/w2/trajectoryOptions";
 import {
   resolveProductExecutionEligibility,
   shouldApplyProductExecutionEligibility,
@@ -54,8 +68,13 @@ import {
   seedStandardCycle,
   agentDescriptor,
 } from "../oa/execution-attempt/helpers";
-import { M4_EVIDENCE, M4_TEST_BASE_HEAD_SHA } from "../oa/execution-attempt/support/m4Fixtures";
-import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  M4_EVIDENCE,
+  M4_TEST_BASE_HEAD_SHA,
+} from "../oa/execution-attempt/support/m4Fixtures";
+import {
+  TestOnlyRealExecutionLaunchPort,
+} from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
 
 beforeEach(() => {
   process.env.OPS1_CONVERSATION_PROVIDER = "fake";
@@ -232,8 +251,8 @@ describe("PJ-REPROOF-05 — new Product EC truthful semantics", () => {
     const proj = await oa.projectServices.getProject.execute({ projectId });
     expect(proj.ok).toBe(true);
     if (!proj.ok) throw new Error("proj");
-    if (!proj.project.repositoryBinding) {
-      expect(proj.project.repositoryBinding).toBeUndefined();
+    if (!(proj.project as any).repositoryBinding) {
+      expect((proj.project as any).repositoryBinding).toBeUndefined();
     }
   });
 });

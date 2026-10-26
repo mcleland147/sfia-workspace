@@ -59,7 +59,6 @@ import {
   type ExecutionIntentPayload,
 } from "../f2/executionIntentSchema";
 import {
-  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
   isCapabilityWithinGenericPrepareEnvelope,
   resolveGenericPrepareCapabilityEnvelope,
   type GenericPrepareCapabilityResolution,
@@ -76,7 +75,6 @@ import {
 } from "./resolveGenericPrepareDocumentaryTarget";
 
 export {
-  GENERIC_PREPARE_DOCS_WRITE_EFFECT_CAPABILITY,
   isCapabilityWithinGenericPrepareEnvelope,
   resolveGenericPrepareCapabilityEnvelope,
 };
@@ -757,8 +755,7 @@ export async function prepareGenericExecutionContractDraft(
       ? "resolved_product"
       : productDocumentaryTargetResolution === "unresolved_nora_candidate"
         ? "unresolved_nora_candidate"
-        : missionEffects.intentKind === "docs_write" ||
-            proposedDocumentaryOutputCandidates.length > 0
+        : proposedDocumentaryOutputCandidates.length > 0
           ? "unresolved_nora_candidate"
           : "not_applicable";
   // Contract expectedOutputs: Product-resolved path when available; else outcome text.

@@ -6,7 +6,6 @@
 import type { ExecutionContractSemanticMaterial } from "@/lib/oa/execution-contract";
 import type { Evidence, ExecutionAttemptSnapshot } from "../domain/types";
 import type { ReviewBundleEvidenceSnapshot } from "../domain/reviewBundleTypes";
-import { docsWriteContractResultSemantic } from "./docsWriteContractResultSemantic";
 import { missionResultContractResultSemantic } from "./missionResultContractResultSemantic";
 import {
   tempArtifactContractResultSemantic,
@@ -72,7 +71,6 @@ export type ContractResultSemantic = {
 /** Static server-owned registry — compile-time entries only. */
 export const CONTRACT_RESULT_SEMANTICS: readonly ContractResultSemantic[] = [
   tempArtifactContractResultSemantic,
-  docsWriteContractResultSemantic,
   missionResultContractResultSemantic,
 ];
 

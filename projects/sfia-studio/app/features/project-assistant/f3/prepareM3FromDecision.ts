@@ -20,10 +20,6 @@ import type {
   ExecutionContractServices,
 } from "@/lib/oa/execution-contract";
 import {
-  CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
-  CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY,
-  CONTRACT_VALIDATION_PLAN_INPUT_KEY,
-  isRepositorySourceRef,
   projectCursorPrepareOnly,
   projectExecutionContractInspectionDisclosure,
 } from "@/lib/oa/execution-contract";
@@ -33,17 +29,16 @@ import {
   isProposalSubjectOptionRef,
   PROPOSAL_SUBJECT_PURSUE_REF,
 } from "../w2/proposalSubjectOptions";
-import {
-  deriveDocsWriteAcceptanceCriteria,
-  deriveDocsWriteValidationPlan,
-  deriveMissionReportRequirements,
-} from "../w2/missionContractSemanticInputs";
-import { BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS } from "./boundedDocsWriteM3ResolutionProfile";
 import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
-import {
-  assertSealedArtifactWriteModeAgainstExistence,
-  isAutomaticProductDocsWriteTargetPath,
-} from "@/lib/oa/project/domain/artifactTargetRouting";
+import { assertSealedArtifactWriteModeAgainstExistence } from "@/lib/oa/project/domain/artifactTargetRouting";
+import { STUDIO_CURSOR_GENERALIST_ACTION } from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
+
+function isTechnicalExecutionActionRef(value: string): boolean {
+  const v = value.trim();
+  // Prose objectives (e.g. French materialization titles) contain whitespace.
+  // Technical action refs are compact tokens (dotted, kebab, or colon ids).
+  return Boolean(v) && !/\s/.test(v);
+}
 
 /**
  * CR-PWR-02 TOCTOU (PREPARE) — sealed CREATE must not overwrite a file that appeared;
@@ -152,15 +147,11 @@ export { assertArtifactWriteModeAtExecution } from "@/lib/oa/project/domain/arti
  * the bounded NO_* profile (not the GCEC Git lifecycle set).
  */
 function resolveEvidenceRequirementsForContract(input: {
-  docsWriteIntent: boolean;
   raw: string[] | undefined;
 }): string[] | undefined {
   const raw = input.raw;
   if (raw && raw.length > 0 && raw.every(isOaIdentifier)) {
     return [...raw];
-  }
-  if (input.docsWriteIntent) {
-    return [...BOUNDED_DOCS_WRITE_LOCAL_EVIDENCE_REQUIREMENTS];
   }
   if (raw && raw.length > 0) {
     const valid = raw.filter(isOaIdentifier);
@@ -242,23 +233,26 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     "DECISION_NOT_CURRENT",
   ];
 
-  const docsWriteIntent =
-    eb.intentKind === "docs_write" ||
-    eb.requestedOperation?.trim() === "cursor.docs_write.apply";
+  const retiredSpecializedIntent =
+    eb.intentKind != null &&
+    eb.intentKind !== "read_only" &&
+    eb.intentKind !== "other";
 
   const requested = eb.requestedOperation?.trim() ?? "";
   let action: string;
-  if (requested) {
+  if (retiredSpecializedIntent) {
+    action = "UNRESOLVED_ACTION";
+    stopConditions.push("ACTION_UNRESOLVED");
+    stopConditions.push("SPECIALIZED_INTENT_NOT_ADMITTED");
+  } else if (requested && isTechnicalExecutionActionRef(requested)) {
     action = requested;
-  } else if (docsWriteIntent) {
-    action = "cursor.docs_write.apply";
+  } else if (requested || eb.targetPath?.trim()) {
+    action = STUDIO_CURSOR_GENERALIST_ACTION;
   } else {
     action = "UNRESOLVED_ACTION";
     stopConditions.push("ACTION_UNRESOLVED");
   }
 
-  let target: string;
-  let requiredCapabilities: string[];
   const inputs: Record<string, unknown> = {
     objective: eb.objective,
     recommendedProfile: eb.recommendedProfile,
@@ -267,75 +261,58 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     sourceRef: basis.sourceRef,
     sourceDigest: basis.sourceDigest,
   };
-
-  if (docsWriteIntent) {
-    const targetPath = eb.targetPath?.trim() ?? "";
-    const targetRepositoryRef = eb.targetRepositoryRef?.trim() ?? "";
-    if (!targetPath || !targetRepositoryRef) {
-      target = "UNRESOLVED_TARGET";
-      stopConditions.push("TARGET_UNRESOLVED");
-    } else {
-      // Sentinel target for resolve; concrete path lives in inputs.
-      target = "workspace.isolated.docs_write";
-      inputs.targetPath = targetPath;
-      inputs.targetRepositoryRef = targetRepositoryRef;
-      inputs.repositoryRef = targetRepositoryRef;
-      inputs.pathAllowlist = eb.scopeIn ?? [];
-      inputs.scopeIn = eb.scopeIn ?? [];
-      inputs.scopeOut = eb.scopeOut ?? [];
-      inputs.createOrModify = true;
-      inputs.noDelete = true;
-      if (eb.artifactWriteMode === "CREATE" || eb.artifactWriteMode === "UPDATE") {
-        inputs.artifactWriteMode = eb.artifactWriteMode;
-      }
-      if (eb.artifactFileName) inputs.artifactFileName = eb.artifactFileName;
-      if (eb.artifactType) inputs.artifactType = eb.artifactType;
-      if (eb.artifactBrief) inputs.artifactBrief = eb.artifactBrief;
-      if (eb.contentRequirements)
-        inputs.contentRequirements = [...eb.contentRequirements];
-      if (eb.validationExpectations)
-        inputs.validationExpectations = [...eb.validationExpectations];
-      if (eb.evidenceRequirements)
-        inputs.evidenceRequirements = [...eb.evidenceRequirements];
-      if (eb.expectedOutputs)
-        inputs.expectedOutputs = [...eb.expectedOutputs];
-      inputs.repositoryIdentity = targetRepositoryRef;
-      inputs.repositoryBindingIdentity = targetRepositoryRef;
-      inputs.remoteUrl = `https://github.com/${targetRepositoryRef}.git`;
-      inputs.defaultBranch = "main";
-      // CR-GCEC-23 — durable working branch for Confirmation target (server-owned).
-      const working =
-        typeof (eb as { workingBranch?: unknown }).workingBranch === "string"
-          ? (eb as { workingBranch?: string }).workingBranch?.trim()
-          : undefined;
-      inputs.workingBranch = working || inputs.defaultBranch;
-      if (eb.scopeIn?.[0]) inputs.pathRoot = eb.scopeIn[0];
-    }
-
-    if (eb.requiredCapabilities && eb.requiredCapabilities.length > 0) {
-      requiredCapabilities = [...eb.requiredCapabilities];
-    } else {
-      requiredCapabilities = ["cap:cursor.docs_write"];
-    }
-  } else {
-    // No explicit target field on DecisionBasis today → always unresolved.
-    target = "UNRESOLVED_TARGET";
-    stopConditions.push("TARGET_UNRESOLVED");
-    requiredCapabilities = ["cap:unresolved"];
-    stopConditions.push("CAPABILITY_UNRESOLVED");
+  const targetPath = eb.targetPath?.trim();
+  if (targetPath) {
+    inputs.targetPath = targetPath;
   }
+  const targetRepositoryRef = eb.targetRepositoryRef?.trim();
+  if (targetRepositoryRef) {
+    inputs.targetRepositoryRef = targetRepositoryRef;
+    inputs.repositoryRef = targetRepositoryRef;
+    inputs.repositoryIdentity = targetRepositoryRef;
+  }
+  if (eb.scopeIn?.length) {
+    inputs.scopeIn = [...eb.scopeIn];
+  }
+  if (eb.scopeOut?.length) {
+    inputs.scopeOut = [...eb.scopeOut];
+  }
+  if (eb.artifactBrief?.trim()) {
+    inputs.artifactBrief = eb.artifactBrief.trim();
+  }
+  if (eb.artifactType?.trim()) {
+    inputs.artifactType = eb.artifactType.trim();
+  }
+  if (eb.contentRequirements?.length) {
+    inputs.contentRequirements = [...eb.contentRequirements];
+  }
+  if (eb.validationExpectations?.length) {
+    inputs.validationExpectations = [...eb.validationExpectations];
+  }
+  if (eb.evidenceRequirements?.length) {
+    inputs.evidenceRequirements = [...eb.evidenceRequirements];
+  }
+  if (eb.artifactWriteMode != null) {
+    inputs.artifactWriteMode = eb.artifactWriteMode;
+  }
+  if (eb.artifactFileName?.trim()) {
+    inputs.artifactFileName = eb.artifactFileName.trim();
+  }
+  if (targetPath || targetRepositoryRef) {
+    inputs.createOrModify = true;
+    inputs.noDelete = true;
+  }
+
+  // Specialized document-write PREPARE is not a Product admission.
+  // Target and capability stay unresolved; generic PREPARE owns documentary work.
+  const target = "UNRESOLVED_TARGET";
+  stopConditions.push("TARGET_UNRESOLVED");
+  const requiredCapabilities = ["cap:unresolved"];
+  stopConditions.push("CAPABILITY_UNRESOLVED");
 
   let reversibility: "reversible" | "irreversible" = "irreversible";
-  if (
-    docsWriteIntent &&
-    (eb.reversibilityExpectation === "reversible" ||
-      eb.reversibilityExpectation === "irreversible")
-  ) {
-    reversibility = eb.reversibilityExpectation;
-  } else {
-    // Fail-closed safety default — not a sourced reversibility analysis.
-    stopConditions.push("REVERSIBILITY_UNRESOLVED");
-  }
+  // Fail-closed safety default — not a sourced reversibility analysis.
+  stopConditions.push("REVERSIBILITY_UNRESOLVED");
 
   const scope =
     (eb.scope && eb.scope.trim()) || `decision:${decisionId}`;
@@ -361,37 +338,11 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
         ? [eb.expectedOutcome]
         : undefined;
   const evidenceRequirements = resolveEvidenceRequirementsForContract({
-    docsWriteIntent,
     raw:
       eb.evidenceRequirements && eb.evidenceRequirements.length > 0
         ? [...eb.evidenceRequirements]
         : undefined,
   });
-
-  // NELC-01 — docs_write uses the same structured acceptanceCriteria model
-  // as the generic mission path (no second criterion format).
-  if (docsWriteIntent && expectedOutputs && expectedOutputs.length > 0) {
-    const targetPath =
-      typeof inputs.targetPath === "string" ? inputs.targetPath : null;
-    inputs[CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY] =
-      deriveDocsWriteAcceptanceCriteria({
-        expectedOutputs,
-        targetPath,
-      });
-    inputs[CONTRACT_VALIDATION_PLAN_INPUT_KEY] = deriveDocsWriteValidationPlan({
-      validationExpectations: eb.validationExpectations,
-    });
-    inputs[CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY] =
-      deriveMissionReportRequirements();
-    if (targetPath && isRepositorySourceRef(targetPath)) {
-      const declared = Array.isArray(inputs.sourcesToRead)
-        ? (inputs.sourcesToRead as unknown[]).filter(
-            (s): s is string => typeof s === "string",
-          )
-        : [];
-      inputs.sourcesToRead = [...new Set([...declared, targetPath])];
-    }
-  }
 
   return {
     action,
@@ -519,21 +470,17 @@ export async function prepareM3FromDecision(input: {
   }
 
   const eb = basis.executionBasis;
-  const docsWriteIntent =
-    eb.intentKind === "docs_write" ||
-    eb.requestedOperation?.trim() === "cursor.docs_write.apply";
-  if (docsWriteIntent) {
-    const targetPath = eb.targetPath?.trim() || "";
-    const writeCheck = revalidateSealedArtifactWriteMode({
-      artifactWriteMode: eb.artifactWriteMode,
-      targetPath: eb.targetPath,
-      targetRepositoryRef: eb.targetRepositoryRef,
-      requireResolvedWriteMode:
-        isAutomaticProductDocsWriteTargetPath(targetPath),
-    });
-    if (!writeCheck.ok) {
-      return writeCheck;
-    }
+  const admittedIntent =
+    eb.intentKind == null ||
+    eb.intentKind === "read_only" ||
+    eb.intentKind === "other";
+  if (!admittedIntent) {
+    return {
+      ok: false,
+      code: "SPECIALIZED_INTENT_NOT_ADMITTED",
+      message:
+        "Intention spécialisée retirée — PREPARE M3 refusé. La préparation documentaire passe par PREPARE générique.",
+    };
   }
 
   const fields = fieldsFromBasis(basis, decision.decisionId);

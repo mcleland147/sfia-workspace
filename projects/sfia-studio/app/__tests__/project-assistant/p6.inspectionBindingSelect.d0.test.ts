@@ -12,15 +12,31 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
 import path from "node:path";
-import { governedExecuteSelectAgent } from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { solicitGenericExecutionPrepare } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { authorizeGenericPreparedContract } from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
-import { amendExecutionContractWithConstraint } from "@/features/project-assistant/w2/amendExecutionContract";
-import { confirmExecutionContractForAuthorization } from "@/features/project-assistant/w2/confirmForAuthorization";
+import {
+  governedExecuteSelectAgent,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import {
+  solicitGenericExecutionPrepare,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  authorizeGenericPreparedContract,
+} from "@/features/project-assistant/w2/authorizeGenericPreparedContract";
+import {
+  amendExecutionContractWithConstraint,
+} from "@/features/project-assistant/w2/amendExecutionContract";
+import {
+  confirmExecutionContractForAuthorization,
+} from "@/features/project-assistant/w2/confirmForAuthorization";
 import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
-import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
+} from "@/lib/oa/execution-attempt";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
@@ -67,7 +83,7 @@ describe("P6 Select inspection binding (R1)", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `IBIND ${suffix}`,
+      name: "demo",
       objective: "Inspection binding Select",
       context: "det ibind",
       criticality: "STANDARD",
@@ -95,17 +111,6 @@ describe("P6 Select inspection binding (R1)", () => {
       },
     });
     const identity = `acme/ibind-${suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,

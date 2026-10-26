@@ -1,31 +1,39 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * D-GCEC-AGENT-01 + GCEC git.commit same-EC A→B (honest agent swap).
  * ZERO REAL. @vitest-environment node
+ *
+ * AKG-M5: Attempt A uses Studio generalist (FS materialization). DocWrite
+ * specialized descriptor remains retired.
  */
 import { createHash } from "node:crypto";
-import { mkdirSync, mkdtempSync } from "node:fs";
+import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import type { Digest } from "@/lib/oa/doctrine";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import { createTestEvidenceReviewServices } from "@/lib/oa/evidence-review";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
+import {
+  createTestEvidenceReviewServices,
+} from "@/lib/oa/evidence-review";
 import {
   assertStudioCursorRealOffForTests,
   buildGitEffectActionRef,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
+  createStudioCursorGeneralistAgentDescriptor,
   createTestExecutionAttemptServices,
   isFsAnchorSupersededByVerifiedLocalCommit,
   isM4BoundedLocalCommitRealAgent,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
   resolvePreCommitWorkspaceContinuation,
   SqliteRealLaunchSafetyJournal,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
   TestExecutionAdapter,
   verifyLocalCommitEffect,
   type ExecutionAttempt,
@@ -60,6 +68,14 @@ const MSG = "docs: Functional design for continuation proof";
 function tempJournalPath(prefix: string): string {
   const dir = mkdtempSync(path.join(os.tmpdir(), prefix));
   return path.join(dir, "safety.sqlite");
+}
+
+function writeCoherentOrigin(gitDir: string): void {
+  writeFileSync(
+    path.join(gitDir, "config"),
+    `[remote "origin"]\n\turl = https://github.com/${IDENTITY}.git\n`,
+    "utf8",
+  );
 }
 
 function docsWriteInputs(baseHeadSha: string): Record<string, unknown> {
@@ -138,7 +154,7 @@ function succeededAttempt(input: {
     executionContractId: input.executionContractId,
     executionContractVersion: input.executionContractVersion,
     selectedAgentRef:
-      input.selectedAgentRef ?? M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      input.selectedAgentRef ?? STUDIO_CURSOR_GENERALIST_AGENT_ID,
     status: "succeeded",
     idempotencyKey: `idem:${input.attemptId}`,
     correlationId: `cor:${input.attemptId}`,
@@ -235,16 +251,16 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
     assertStudioCursorRealOffForTests();
   });
 
-  it("AG-01/02 Attempt A docs-write; Attempt B local-commit under SAME EC", async () => {
+  it("AG-01/02 Attempt A generalist FS; Attempt B local-commit under SAME EC", async () => {
     const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-agent01-ab-"));
-    mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
-      recursive: true,
-    });
+    const gitDir = path.join(managedBase, "acme__widget", ".git");
+    mkdirSync(gitDir, { recursive: true });
+    writeCoherentOrigin(gitDir);
     const journal = new SqliteRealLaunchSafetyJournal({
       databasePath: tempJournalPath("gcec-agent01-ab-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const docs = createStudioCursorGeneralistAgentDescriptor(NOW);
     const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
     expect(isM4BoundedLocalCommitRealAgent(commit)).toBe(true);
     const fixtureAdapter = new TestExecutionAdapter();
@@ -263,14 +279,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
         safetyJournal: journal,
         managedRepoRootBase: managedBase,
       },
-      resolveProjectRepositoryBinding: async () => ({
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-        pathRoot: "docs",
-        baseSha: M4_TEST_BASE_HEAD_SHA,
-      }),
+
       listProjectEvidence: async () => ({ ok: true as const, evidence: evidenceBag }),
       fixedNowIso: NOW,
     }) as typeof stack.attempts;
@@ -285,7 +294,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
         attemptId: attemptA,
         executionContractId: seeded.contractId,
         executionContractVersion: seeded.version,
-        selectedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+        selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
       }),
     );
     evidenceBag.push(
@@ -302,7 +311,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
     const wrong = await selectStandardAgent(stack, {
       attemptId: "xat:gc-b-wrong",
       executionContractId: seeded.contractId,
-      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
       idempotencyKey: "idem-gc-b-wrong",
     });
     expect(wrong.ok).toBe(false);
@@ -320,7 +329,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
       M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
     );
     expect(selectedB.attempt.selectedAgentRef).not.toBe(
-      M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      STUDIO_CURSOR_GENERALIST_AGENT_ID,
     );
 
     await stack.attempts.grantRealExecutionGate!.execute({
@@ -409,16 +418,16 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
     journal.close();
   });
 
-  it("SR-02 stale docs-write selection + later commit slice → Start reject / zero process", async () => {
+  it("SR-02 stale generalist FS selection + later commit slice → Start reject / zero process", async () => {
     const managedBase = mkdtempSync(path.join(os.tmpdir(), "gcec-sr02-"));
-    mkdirSync(path.join(managedBase, "acme__widget", ".git"), {
-      recursive: true,
-    });
+    const gitDir = path.join(managedBase, "acme__widget", ".git");
+    mkdirSync(gitDir, { recursive: true });
+    writeCoherentOrigin(gitDir);
     const journal = new SqliteRealLaunchSafetyJournal({
       databasePath: tempJournalPath("gcec-sr02-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const docs = createStudioCursorGeneralistAgentDescriptor(NOW);
     const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
     const fixtureAdapter = new TestExecutionAdapter();
     const evidenceBag: Evidence[] = [];
@@ -433,25 +442,18 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
         safetyJournal: journal,
         managedRepoRootBase: managedBase,
       },
-      resolveProjectRepositoryBinding: async () => ({
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-        pathRoot: "docs",
-        baseSha: M4_TEST_BASE_HEAD_SHA,
-      }),
+
       listProjectEvidence: async () => ({ ok: true as const, evidence: evidenceBag }),
       fixedNowIso: NOW,
     }) as typeof stack.attempts;
 
     const seeded = await seedDocsWriteConfirmedContract(stack);
 
-    // Select B as docs-write while FS Evidence not yet present (profile = docs-write).
+    // Select B as generalist while FS Evidence not yet present (profile = FS outstanding).
     const selected = await selectStandardAgent(stack, {
       attemptId: "xat:sr-b",
       executionContractId: seeded.contractId,
-      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
       idempotencyKey: "idem-sr-b",
     });
     expect(selected.ok).toBe(true);
@@ -506,7 +508,7 @@ describe("D-GCEC-AGENT-01 same-EC A→B agent swap", () => {
     expect(started.ok).toBe(false);
     expect(launchPort.calls).toHaveLength(0);
     const still = await stack.attempts.attempts.findById("xat:sr-b");
-    expect(still?.selectedAgentRef).toBe(M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID);
+    expect(still?.selectedAgentRef).toBe(STUDIO_CURSOR_GENERALIST_AGENT_ID);
     journal.close();
   });
 

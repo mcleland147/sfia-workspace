@@ -37,7 +37,6 @@ import {
   createSqliteExecutionAttemptServices,
   createStudioCursorGeneralistAgentDescriptor,
   createM4BoundedReadOnlyCursorAgentDescriptor,
-  createM4BoundedDocsWriteCursorAgentDescriptor,
   createM4BoundedLocalCommitCursorAgentDescriptor,
   createM4BoundedRemotePushCursorAgentDescriptor,
   createM4BoundedPrCreateCursorAgentDescriptor,
@@ -454,7 +453,6 @@ function wireOaStack(
         w3aBoundedAgent,
         createStudioCursorGeneralistAgentDescriptor(clock.nowIso()),
         createM4BoundedReadOnlyCursorAgentDescriptor(clock.nowIso()),
-        createM4BoundedDocsWriteCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedLocalCommitCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedRemotePushCursorAgentDescriptor(clock.nowIso()),
         createM4BoundedPrCreateCursorAgentDescriptor(clock.nowIso()),
@@ -473,11 +471,6 @@ function wireOaStack(
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
         realBoundary,
-        resolveProjectRepositoryBinding: async (projectId) => {
-          const r = await projectServices.getProject.execute({ projectId });
-          if (!r.ok) return null;
-          return r.project.repositoryBinding ?? null;
-        },
         listProjectEvidence: async (projectId) => {
           if (!late.evidenceReviewServices) {
             return { ok: false as const, reason: "evidence_reader_unavailable" as const };
@@ -497,11 +490,6 @@ function wireOaStack(
         authorityResolver,
         policy: { defaultMaxRetriesBudget: 0 },
         realBoundary,
-        resolveProjectRepositoryBinding: async (projectId) => {
-          const r = await projectServices.getProject.execute({ projectId });
-          if (!r.ok) return null;
-          return r.project.repositoryBinding ?? null;
-        },
         listProjectEvidence: async (projectId) => {
           if (!late.evidenceReviewServices) {
             return { ok: false as const, reason: "evidence_reader_unavailable" as const };
@@ -681,57 +669,6 @@ export class RuntimeApplicationService {
       }),
     );
     return toListProjectsRuntimeSuccess(enriched);
-  }
-
-  /** CR-GCEC-03 — set explicit Project repository binding (no network). */
-  async setProjectRepositoryBinding(input: {
-    projectId: string;
-    identity: string;
-    remoteUrl: string;
-    defaultBranch: string;
-    pathRoot?: string;
-    baseSha?: string;
-  }): Promise<
-    | { ok: true; projectId: string; repositoryBinding: unknown }
-    | { ok: false; code: string; message: string }
-  > {
-    if (!this.oa?.projectServices.setProjectRepositoryBinding) {
-      return {
-        ok: false,
-        code: "NOT_AVAILABLE",
-        message: "Repository binding is unavailable in this runtime.",
-      };
-    }
-    const result =
-      await this.oa.projectServices.setProjectRepositoryBinding.execute({
-        projectId: input.projectId,
-        binding: {
-          provider: "github",
-          identity: input.identity,
-          remoteUrl: input.remoteUrl,
-          defaultBranch: input.defaultBranch,
-          ...(input.pathRoot ? { pathRoot: input.pathRoot } : {}),
-          ...(input.baseSha ? { baseSha: input.baseSha } : {}),
-        },
-        actor: {
-          actorId: "actor:local-pilote",
-          role: "project_owner",
-          displayName: "Local Pilote",
-          authorityLevel: "N2",
-        },
-      });
-    if (!result.ok) {
-      return {
-        ok: false,
-        code: result.error.detailCode,
-        message: result.error.message,
-      };
-    }
-    return {
-      ok: true,
-      projectId: result.project.projectId,
-      repositoryBinding: result.project.repositoryBinding ?? null,
-    };
   }
 }
 

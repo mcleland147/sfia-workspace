@@ -166,6 +166,10 @@ export type DecisionBasisGenericMissionContext = {
   scopeOut: string[];
   materiality: "structural" | "non_structural" | "unknown";
   materialityReasonCodes: string[];
+  /**
+   * Sealed git-target identity string for generic Git when a mission needs one.
+   * Not a Product repository-binding record.
+   */
   repositoryBindingIdentity: string | null;
   pathRoot: string | null;
   requiredCapabilities: string[];

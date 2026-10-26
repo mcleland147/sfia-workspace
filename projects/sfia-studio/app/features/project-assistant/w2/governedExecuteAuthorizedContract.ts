@@ -33,7 +33,6 @@ import type {
   SelectionStrategy,
 } from "@/lib/oa/execution-attempt";
 import {
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   M4_REAL_GATEWAY_ADAPTER_ID,
   resolveSelectionStrategy,
   STUDIO_CURSOR_GENERALIST_AGENT_ID,
@@ -41,9 +40,7 @@ import {
 import type { CycleProfile } from "@/lib/oa/cycle";
 import { F3_ADAPTER_ID } from "@/features/project-assistant/f3/constants";
 import { readContractInspectionState } from "./inspectExecutionContract";
-import { completeBoundedDocsWriteLaunch } from "@/features/project-assistant/f3/completeBoundedDocsWriteLaunch";
 import { completeBoundedReadOnlyLaunch } from "@/features/project-assistant/f3/completeBoundedReadOnlyLaunch";
-import { ingestDocsWriteArtifactEvidence } from "@/features/project-assistant/f3/ingestDocsWriteArtifactEvidence";
 import { ingestMissionResultEvidence } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 import { finalizeGenericExecutionReview } from "@/features/project-assistant/f3/finalizeGenericExecutionReview";
 import { ingestExecutionReviewVerificationEvidence } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
@@ -51,10 +48,8 @@ import {
   buildMissionResultPayloadFromReport,
   type CursorExecutionReportWithMission,
 } from "@/features/project-assistant/f3/buildMissionResultPayloadFromReport";
-import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/persistDocsWriteArtifactReviewMaterial";
+import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/productEvidenceRefsRoot";
 import { deriveAttemptProvenance } from "@/features/project-assistant/f3/deriveAttemptProvenance";
-import { authorizedM3ResolutionKind } from "@/features/project-assistant/f3/selectProductM3ResolutionProfile";
-import { completeDocsWriteClaimEvidenceCompletion } from "./completeDocsWriteClaimEvidenceCompletion";
 import {
   bindCursorExecutionReportToAttempt,
   parseCursorExecutionReport,
@@ -163,30 +158,22 @@ function mapCycleProfileToSelectionProfile(
   return "standard";
 }
 
-function isBoundedDocsWriteContract(contract: ExecutionContract): boolean {
-  return authorizedM3ResolutionKind(contract) === "bounded_docs_write";
-}
-
 /**
  * Canonical Product EC: Nora/Studio-prepared PRODUCT_GOVERNED envelope.
- * Not a sealed GCEC docs-write profile. Not an explicit fixture-only stamp.
+ * Explicit fixture stamp is excluded.
  */
 function isCanonicalProductGovernedContract(
   contract: ExecutionContract,
 ): boolean {
-  if (isBoundedDocsWriteContract(contract)) return false;
   if (contract.constraints.includes("FIXTURE_EXECUTOR_BOUNDARY_ONLY")) {
     return false;
   }
   return contract.constraints.includes("PRODUCT_GOVERNED");
 }
 
-/** Generic Cursor REAL launch boundary (Product or sealed docs-write). */
+/** PRODUCT_GOVERNED uses the generic Cursor REAL boundary. Fixture stamp does not. */
 function usesGenericCursorRealBoundary(contract: ExecutionContract): boolean {
-  return (
-    isBoundedDocsWriteContract(contract) ||
-    isCanonicalProductGovernedContract(contract)
-  );
+  return isCanonicalProductGovernedContract(contract);
 }
 
 /**
@@ -770,7 +757,6 @@ export async function governedExecuteSelectAgent(
     return loaded.result;
   }
   const { contract, selectionProfile } = loaded;
-  const docsWrite = isBoundedDocsWriteContract(contract);
   const productCursor = isCanonicalProductGovernedContract(contract);
   const cursorReal = usesGenericCursorRealBoundary(contract);
   const boundary = executionBoundaryFailure(input.oa, contract);
@@ -930,11 +916,9 @@ export async function governedExecuteSelectAgent(
       selectionProfile: effectiveProfile,
       selectionStrategy,
       systemInitiated: cursorReal,
-      ...(docsWrite
-        ? { requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID }
-        : productCursor
-          ? { requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID }
-          : {}),
+      ...(productCursor
+        ? { requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID }
+        : {}),
     });
   if (!selected.ok) {
     return {
@@ -973,9 +957,7 @@ export async function governedExecuteStart(
   const loaded = await loadContract(input.oa, input);
   if (!loaded.ok) return loaded.result;
   const { contract, selectionProfile } = loaded;
-  const docsWrite = isBoundedDocsWriteContract(contract);
   const productCursor = isCanonicalProductGovernedContract(contract);
-  void docsWrite;
   const cursorReal = usesGenericCursorRealBoundary(contract);
   const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
@@ -1191,7 +1173,6 @@ export async function governedExecuteRecordResult(
   const loaded = await loadContract(input.oa, input);
   if (!loaded.ok) return loaded.result;
   const { contract, selectionProfile } = loaded;
-  const docsWrite = isBoundedDocsWriteContract(contract);
   const productCursor = isCanonicalProductGovernedContract(contract);
   const boundary = executionBoundaryFailure(input.oa, contract);
   if (boundary) return boundary;
@@ -1211,235 +1192,6 @@ export async function governedExecuteRecordResult(
       oa: input.oa,
       reusedExistingAttempt: true,
       launchCountBefore,
-    });
-  }
-
-  if (docsWrite) {
-    const existing =
-      await input.oa.executionAttemptServices!.getExecutionAttempt.execute({
-        attemptId: input.attemptId,
-      });
-    if (!existing.ok || !existing.attempt) {
-      return {
-        ok: false,
-        code: existing.ok ? "ATTEMPT_NOT_FOUND" : existing.error.detailCode,
-        message: existing.ok
-          ? "Attempt introuvable pour completion docs-write."
-          : existing.error.message,
-      };
-    }
-    let attempt = existing.attempt;
-    if (attempt.status === "running" && !attempt.resultRef) {
-      const targetPath =
-        typeof contract.inputs?.targetPath === "string"
-          ? contract.inputs.targetPath
-          : undefined;
-      const pathAllowlist = Array.isArray(contract.inputs?.pathAllowlist)
-        ? (contract.inputs.pathAllowlist as string[])
-        : undefined;
-      const completed = await completeBoundedDocsWriteLaunch({
-        attempt: attempt as never,
-        services: input.oa.executionAttemptServices!,
-        ...(targetPath ? { targetPath } : {}),
-        ...(pathAllowlist ? { pathAllowlist } : {}),
-        // Product Execute must terminalize REAL spawn-ACK (invoke ≠ completion).
-        awaitIfPending: true,
-      });
-      if (!completed.ok) {
-        return {
-          ok: false,
-          code: completed.code,
-          message: completed.message,
-          attempt: projectAttempt(attempt, adapterId),
-        };
-      }
-      attempt = completed.attempt;
-      if (
-        completed.status === "succeeded" &&
-        "facts" in completed &&
-        completed.facts &&
-        contract.cycleInstanceId
-      ) {
-        const refsRoot =
-          input.missionResultRefsRoot?.trim() ||
-          resolveProductEvidenceRefsRoot();
-
-        // Read independently verified hot-worktree bytes for durable review material.
-        let artifactBytes: Buffer | undefined;
-        let hotArtifactAbsolutePath: string | undefined;
-        if (completed.facts.worktreeRef) {
-          hotArtifactAbsolutePath = path.join(
-            completed.facts.worktreeRef,
-            completed.facts.targetPath,
-          );
-          try {
-            artifactBytes = fs.readFileSync(hotArtifactAbsolutePath);
-          } catch (err) {
-            return {
-              ok: false,
-              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
-              message: `Attempt succeeded durable — lecture artifact hot-worktree échouée: ${
-                err instanceof Error ? err.message : String(err)
-              }`,
-              attempt: projectAttempt(attempt, adapterId),
-            };
-          }
-        }
-
-        // R1 — CursorExecutionReport REQUIRED for nominal docs_write Product handoff.
-        // Technical Attempt may remain succeeded; missing/malformed report ≠ product handoff.
-        const stdout = completed.facts.stdout ?? "";
-        const classified = classifyCursorReportFromStdout(stdout);
-        const reportCandidate =
-          completed.facts.cursorReport ??
-          (classified.kind === "ok" ? classified.report : null);
-        if (!reportCandidate) {
-          // Preserve independently verified artifact as technical Evidence when possible.
-          if (artifactBytes) {
-            await ingestDocsWriteArtifactEvidence({
-              evidenceReviewServices: input.oa.evidenceReviewServices,
-              projectId: input.projectId,
-              cycleInstanceId: contract.cycleInstanceId,
-              executionContractId: contract.executionContractId,
-              executionAttemptId: attempt.attemptId,
-              targetPath: completed.facts.targetPath,
-              digest: completed.facts.digest,
-              nowIso: input.oa.clock.nowIso(),
-              refsRoot,
-              artifactBytes,
-            });
-          }
-          const code =
-            classified.kind === "malformed"
-              ? "CURSOR_EXECUTION_REPORT_MALFORMED"
-              : "CURSOR_EXECUTION_REPORT_REQUIRED";
-          const message =
-            classified.kind === "malformed"
-              ? classified.message
-              : "CursorExecutionReport structuré obligatoire pour le handoff Product docs_write — rapport absent après Attempt succeeded.";
-          return {
-            ok: false,
-            code,
-            message: `Attempt succeeded durable — continuité Product refusée (${code}): ${message}`,
-            attempt: projectAttempt(attempt, adapterId),
-          };
-        }
-
-        const expectedRepo =
-          typeof contract.inputs?.repositoryBindingIdentity === "string"
-            ? contract.inputs.repositoryBindingIdentity
-            : null;
-        const expectedSha =
-          typeof contract.inputs?.baseHeadSha === "string"
-            ? contract.inputs.baseHeadSha
-            : null;
-        const bound = bindCursorExecutionReportToAttempt({
-          report: reportCandidate,
-          expectedAttemptId: attempt.attemptId,
-          expectedExecutionContractId: contract.executionContractId,
-          attemptExecutionContractId: attempt.executionContractId,
-          expectedRepositoryRef: expectedRepo,
-          expectedBaseSha: expectedSha,
-        });
-        if (!bound.ok) {
-          return {
-            ok: false,
-            code: bound.code,
-            message: bound.message,
-            attempt: projectAttempt(attempt, adapterId),
-          };
-        }
-        const boundReport = reportCandidate;
-
-        const ingested = await ingestDocsWriteArtifactEvidence({
-          evidenceReviewServices: input.oa.evidenceReviewServices,
-          projectId: input.projectId,
-          cycleInstanceId: contract.cycleInstanceId,
-          executionContractId: contract.executionContractId,
-          executionAttemptId: attempt.attemptId,
-          targetPath: completed.facts.targetPath,
-          digest: completed.facts.digest,
-          nowIso: input.oa.clock.nowIso(),
-          refsRoot,
-          cursorReport: boundReport,
-          ...(artifactBytes ? { artifactBytes } : {}),
-        });
-        // CR-PCONT-06 — Attempt succeeded stays durable; ingest / advance failure
-        // must surface as post-execution continuity failure (never silent).
-        if (!ingested.ok) {
-          return {
-            ok: false,
-            code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
-            message: `Attempt succeeded durable — ingest Evidence post-exécution échoué (${ingested.code}): ${ingested.message}`,
-            attempt: projectAttempt(attempt, adapterId),
-          };
-        }
-        // D-MORRIS-PCONT-01 Option A — qualify completion after Evidence update.
-        // available ≠ verified; advance only completes when requirements are satisfied.
-        // CR-PCONT-04 — never pass digest/script; Product is payload-agnostic.
-        const advanced = await advanceProductExecutionContractAfterEvidence({
-          oa: input.oa,
-          projectId: input.projectId,
-          executionContractId: contract.executionContractId,
-          cycleInstanceId: contract.cycleInstanceId,
-          freshlyIngestedEvidenceId: ingested.evidenceId,
-        });
-        if (!advanced.ok) {
-          return {
-            ok: false,
-            code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
-            message: `Attempt succeeded durable — avancement EC post-Evidence échoué (${advanced.reason}).`,
-            attempt: projectAttempt(attempt, adapterId),
-          };
-        }
-        // R3 — Automatic Product result qualification while worktree / durable path hot.
-        // Never swallow the result: infra fail-closed; insufficiency → honest NOT_PROVEN later.
-        const qualifyPath =
-          ingested.durableArtifactAbsolutePath ?? hotArtifactAbsolutePath;
-        if (!qualifyPath) {
-          return {
-            ok: false,
-            code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
-            message:
-              "Attempt succeeded durable — aucun chemin artifact pour claim completion (durable ou hot).",
-            attempt: projectAttempt(attempt, adapterId),
-          };
-        }
-        const qualified = await completeDocsWriteClaimEvidenceCompletion({
-          evidenceReviewServices: input.oa.evidenceReviewServices!,
-          attempt,
-          contract,
-          actor: LOCAL_PILOTE_ACTOR,
-          artifactAbsolutePath: qualifyPath,
-          nowIso: input.oa.clock.nowIso(),
-        });
-        if (!qualified.ok) {
-          if (
-            classifyDocsWriteClaimCompletionFailure(qualified.code) ===
-            "CONTINUITY_FAILURE"
-          ) {
-            return {
-              ok: false,
-              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
-              message: `Attempt succeeded durable — claim completion continuity fail-closed (${qualified.code}): ${qualified.message}`,
-              attempt: projectAttempt(attempt, adapterId),
-            };
-          }
-          // CONFORMITY_INSUFFICIENCY only: keep technical Attempt; Product materialize stays NOT_PROVEN/UNCLAIMED.
-        }
-      }
-    }
-    return buildTechnicalTerminal({
-      contract,
-      attempt,
-      selectionProfile,
-      oa: input.oa,
-      reusedExistingAttempt: false,
-      launchCountBefore,
-      statusLabel:
-        attempt.status === "succeeded"
-          ? "TERMINAL TECHNIQUE DOCS-WRITE — QUALIFICATION PRODUIT AUTOMATIQUE"
-          : undefined,
     });
   }
 

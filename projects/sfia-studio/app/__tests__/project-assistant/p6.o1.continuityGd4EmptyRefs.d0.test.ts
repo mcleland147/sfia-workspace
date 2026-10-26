@@ -7,22 +7,37 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import { prepareGenericExecutionContractDraft } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { readCurrentGovernedExecutionContinuity } from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
-import { inspectExecutionContract } from "@/features/project-assistant/w2/inspectExecutionContract";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import type {
+  IntentAnalysisDto,
+} from "@/features/project-assistant/f2/types";
+import {
+  prepareGenericExecutionContractDraft,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  readCurrentGovernedExecutionContinuity,
+} from "@/features/project-assistant/w2/readCurrentGovernedExecutionContinuity";
+import {
+  inspectExecutionContract,
+} from "@/features/project-assistant/w2/inspectExecutionContract";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
+  pathUnderProjectWorkspace,
   tempProductDbPath,
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
@@ -34,8 +49,10 @@ function restoreEnvVar(name: string, previous: string | undefined): void {
 }
 
 function baseAnalysis(
+  workspaceKey: string,
   overrides: Partial<IntentAnalysisDto> = {},
 ): IntentAnalysisDto {
+  const filePath = pathUnderProjectWorkspace(workspaceKey, "app", "filter.ts");
   return {
     parseOk: true,
     intentClass: "actionable",
@@ -52,7 +69,7 @@ function baseAnalysis(
     contradictionCandidate: null,
     challengeResponseAssessment: "sufficient",
     objective: "Corriger la fonctionnalité de filtrage",
-    scope: "projects/demo/app/filter.ts",
+    scope: filePath,
     rephrasedRequest: "Corriger le bug de filtrage signalé",
     outOfScope: ["refonte UI", "migration DB"],
     risks: [],
@@ -64,7 +81,7 @@ function baseAnalysis(
     requestedOperation: null,
     executionIntent: {
       intentKind: "other",
-      scopeIn: ["projects/demo/app/filter.ts"],
+      scopeIn: [filePath],
       scopeOut: ["refonte UI"],
     } as IntentAnalysisDto["executionIntent"],
     ...overrides,
@@ -104,6 +121,7 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   async function seedActiveCycle(suffix: string): Promise<{
     projectId: string;
     cycleInstanceId: string;
+    workspaceKey: string;
   }> {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
@@ -186,39 +204,23 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
     });
     expect(started.ok).toBe(true);
 
-    if (oa.projectServices.setProjectRepositoryBinding) {
-      const identity = `acme/o1c-${suffix}`;
-      const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-        projectId,
-        actor: LOCAL_PILOTE_ACTOR,
-        binding: {
-          provider: "github",
-          identity,
-          remoteUrl: `https://github.com/${identity}.git`,
-          defaultBranch: "main",
-          pathRoot: "projects/demo",
-        },
-      });
-      expect(bound.ok).toBe(true);
-      ensureManagedRepoCloneSkeleton({
-        managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-        identity,
-      });
-    }
 
-    return { projectId, cycleInstanceId };
+
+    const workspaceKey = created.project.projectWorkspaceKey ?? "project";
+    return { projectId, cycleInstanceId, workspaceKey };
   }
 
   async function prepareOk(
     projectId: string,
     cycleInstanceId: string,
-    analysis: IntentAnalysisDto = baseAnalysis(),
+    workspaceKey: string,
+    analysis?: IntentAnalysisDto,
   ) {
     const prep = await prepareGenericExecutionContractDraft({
       oa: runtime.oa!,
       projectId,
       cycleInstanceId,
-      analysis,
+      analysis: analysis ?? baseAnalysis(workspaceKey),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
     });
@@ -228,11 +230,11 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   }
 
   it("T1/T14/T15 — G-D4 NON_STRUCTURAL empty refs → continuity active decisionRef=null", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t1");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t1");
     const oa = runtime.oa!;
     const beforeHd = await oa.decisionServices.decisions.listByProject(projectId);
 
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
     expect(prep.humanDecisionCreated).toBe(false);
     expect(prep.executionAttemptCreated).toBe(false);
     expect(prep.contract.decisionRefs ?? []).toEqual([]);
@@ -266,9 +268,9 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   });
 
   it("T4 — empty refs without MATERIALITY stamp → INTEGRITY refus (G5 preserved)", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t4");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t4");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
 
     const loaded = await oa.executionContractServices.getExecutionContract.execute({
       executionContractId: prep.contract.executionContractId,
@@ -296,9 +298,9 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   it("T2 — arbitrary STRUCTURAL stamp + empty refs WITHOUT SHE provenance → refus (GAP-01 T03)", async () => {
     // Conserved: client/manual STRUCTURAL stamp alone must not unlock continuity.
     // SHE Product PREPARE stamps sheDeferredStructuralAuthority (separate case).
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t2");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t2");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
     const loaded = await oa.executionContractServices.getExecutionContract.execute({
       executionContractId: prep.contract.executionContractId,
     });
@@ -331,9 +333,10 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   });
 
   it("T_SHE — STRUCTURAL SHE PREPARE deferred → READ/INSPECT continuity active (GAP-01 T01)", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("tshe");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("tshe");
     const oa = runtime.oa!;
-    const analysis = baseAnalysis({
+    const authorityPath = pathUnderProjectWorkspace(workspaceKey, "src", "authority");
+    const analysis = baseAnalysis(workspaceKey, {
       signals: {
         structuralChange: true,
         securityImpact: false,
@@ -344,10 +347,10 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
       },
       objective: "Refactorer le binding d'autorité générique SHE continuity",
       expectedOutcome: "Contrat inspectable via continuité",
-      scope: "projects/demo/src/authority",
+      scope: authorityPath,
       executionIntent: {
         intentKind: "code_change",
-        scopeIn: ["projects/demo/src/authority"],
+        scopeIn: [authorityPath],
       } as IntentAnalysisDto["executionIntent"],
     });
     const prep = await prepareGenericExecutionContractDraft({
@@ -380,9 +383,9 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   });
 
   it("T5a — NON_STRUCTURAL stamp but missing productCurrentness facts → refus", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t5a");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t5a");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
     const loaded = await oa.executionContractServices.getExecutionContract.execute({
       executionContractId: prep.contract.executionContractId,
     });
@@ -407,10 +410,10 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
     expect(continuity.code).toBe("EXECUTION_CONTINUITY_INTEGRITY_FAILED");
   });
 
-  it("T5 — true Product obsolescence (pathRoot change) → CURRENT/STALE refus", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t5");
+  it("T5 — true Product obsolescence (LPS bump) → CURRENT/STALE refus", async () => {
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t5");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
 
     const before = await readCurrentGovernedExecutionContinuity({
       oa,
@@ -419,19 +422,43 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
     expect(before.ok).toBe(true);
     if (!before.ok || before.kind !== "active") throw new Error("expected active");
 
-    const identity = `acme/o1c-t5`;
-    const rebound = await oa.projectServices.setProjectRepositoryBinding!.execute({
+    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo-alt",
-      },
     });
-    expect(rebound.ok).toBe(true);
+    expect(lps.ok).toBe(true);
+    if (!lps.ok) throw new Error("lps");
+    const epiId = `epi:o1-t5:${cycleInstanceId}`;
+    const written = await oa.cycleServices.updateEpistemicState.execute({
+      projectId,
+      createdBy: LOCAL_PILOTE_ACTOR,
+      correlationId: `cor:o1-t5-${cycleInstanceId}`,
+      items: [
+        {
+          epistemicItemId: epiId,
+          type: "Observation",
+          statement: "Mutation Product post-PREPARE (obsolescence witness).",
+          status: "active",
+          source: "test:o1-t5",
+          relatedObjects: [projectId, cycleInstanceId],
+        },
+      ],
+    });
+    expect(written.ok).toBe(true);
+    const appended = await oa.projectServices.appendLivingProjectStateVersion.execute({
+      projectId,
+      expectedVersion: lps.livingProjectState.version,
+      objective: `${lps.livingProjectState.objective} · post-prepare bump`,
+      context: lps.livingProjectState.context,
+      scope: lps.livingProjectState.scope,
+      createdBy: LOCAL_PILOTE_ACTOR,
+      correlationId: `cor:o1-t5-append-${cycleInstanceId}`,
+      epistemicItemIds: [
+        ...(lps.livingProjectState.epistemicItemIds ?? []),
+        epiId,
+      ],
+      activeCycleInstanceId: cycleInstanceId,
+    });
+    expect(appended.ok).toBe(true);
 
     const continuity = await readCurrentGovernedExecutionContinuity({
       oa,
@@ -439,18 +466,13 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
     });
     expect(continuity.ok).toBe(false);
     if (continuity.ok) throw new Error("expected stale refus");
-    expect(
-      continuity.code === "REPOSITORY_BINDING_STALE" ||
-        continuity.code === "MATERIALITY_CURRENTNESS_STALE" ||
-        continuity.code === "MATERIALITY_CURRENT_MISMATCH" ||
-        continuity.code === "EXECUTION_CONTINUITY_INTEGRITY_FAILED",
-    ).toBe(true);
+    expect(continuity.code).toBe("MATERIALITY_CURRENTNESS_STALE");
   });
 
   it("T3 — CURRENT materiality UNKNOWN + empty refs → continuity refus", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t3");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t3");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
     const loaded = await oa.executionContractServices.getExecutionContract.execute({
       executionContractId: prep.contract.executionContractId,
     });
@@ -479,9 +501,9 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   });
 
   it("T11/T12/T13 — inspection + amend fingerprint requires reinspect; confirm refused", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t11");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t11");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
 
     const beforeInspect = await readCurrentGovernedExecutionContinuity({
       oa,
@@ -559,9 +581,9 @@ describe("P6 O1 — continuity G-D4 empty decisionRefs", () => {
   });
 
   it("T16 — continuity read performs no EC / HD / Inspection / Confirm / Attempt writes", async () => {
-    const { projectId, cycleInstanceId } = await seedActiveCycle("t16");
+    const { projectId, cycleInstanceId, workspaceKey } = await seedActiveCycle("t16");
     const oa = runtime.oa!;
-    const prep = await prepareOk(projectId, cycleInstanceId);
+    const prep = await prepareOk(projectId, cycleInstanceId, workspaceKey);
 
     const saveSpy = vi.spyOn(oa.executionContractServices.contracts, "save");
     const hdBefore = await oa.decisionServices.decisions.listByProject(projectId);

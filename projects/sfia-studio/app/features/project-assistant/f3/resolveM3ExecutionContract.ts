@@ -37,11 +37,6 @@ import type {
 } from "@/lib/oa/execution-contract";
 import { projectExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
 import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract/projection/inspectionDisclosure";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-} from "@/lib/oa/execution-attempt";
-import { resolveDocsWriteEvidenceRequirementsForBoundedProfile } from "./boundedDocsWriteM3ResolutionProfile";
-
 const UNRESOLVED_ACTION = "UNRESOLVED_ACTION";
 const UNRESOLVED_TARGET = "UNRESOLVED_TARGET";
 const UNRESOLVED_CAP = "cap:unresolved";
@@ -678,14 +673,7 @@ export async function resolveM3ExecutionContract(
     original,
     input.resolution,
   );
-  const evidenceRequirements =
-    input.resolution.action.trim() === M4_BOUNDED_DOCS_WRITE_ACTION
-      ? (input.resolution.evidenceRequirements ??
-        resolveDocsWriteEvidenceRequirementsForBoundedProfile({
-          fromPrepare: original.evidenceRequirements ?? [],
-          constraints,
-        }))
-      : input.resolution.evidenceRequirements;
+  const evidenceRequirements = input.resolution.evidenceRequirements;
 
   // C2 — original already superseded: recover/validate existing successor.
   if (original.status === "superseded") {

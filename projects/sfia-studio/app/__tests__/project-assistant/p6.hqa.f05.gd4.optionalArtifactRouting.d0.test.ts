@@ -10,16 +10,28 @@
  * @vitest-environment node
  */
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { orchestrateAssistantSend } from "@/features/project-assistant/f2/orchestrateF2";
+import {
+  orchestrateAssistantSend,
+} from "@/features/project-assistant/f2/orchestrateF2";
 import {
   isOptionalDocumentaryWithoutClosureArtifactBlock,
   resolveActiveCycleGovernedContinuation,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
-import { validateIntentAnalysisPayload } from "@/features/project-assistant/f2/intentAnalysis";
-import { recordObligationPolicyRequireArtifact } from "@/features/project-assistant/f2/pilotLifecycleActions";
-import { resetF2ProposalStoreForTests } from "@/features/project-assistant/f2/proposalStore";
-import { resetMw5ChallengeStoreForTests } from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
-import { resetPendingGenericPrepareOfferStoreForTests } from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
+import {
+  validateIntentAnalysisPayload,
+} from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  recordObligationPolicyRequireArtifact,
+} from "@/features/project-assistant/f2/pilotLifecycleActions";
+import {
+  resetF2ProposalStoreForTests,
+} from "@/features/project-assistant/f2/proposalStore";
+import {
+  resetMw5ChallengeStoreForTests,
+} from "@/features/project-assistant/f2/mw5ChallengeSessionStore";
+import {
+  resetPendingGenericPrepareOfferStoreForTests,
+} from "@/features/project-assistant/w2/pendingGenericPrepareOfferStore";
 import {
   getPendingGenericPrepareOffer,
   resolvePrepareOfferSessionKey,
@@ -40,18 +52,23 @@ import {
   w2ConfirmExecutionContractAction,
   w2InspectExecutionContractAction,
 } from "@/features/project-assistant/w2/actions";
-import type { ProjectAssistantContextDto } from "@/features/project-assistant/types";
+import type {
+  ProjectAssistantContextDto,
+} from "@/features/project-assistant/types";
 import {
   LOCAL_PILOTE_ACTOR,
   registerLocalPiloteAuthority,
 } from "@/lib/oa/decision";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import {
+  ensureManagedRepoCloneSkeleton,
+} from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
   tempProductDbPath,
+  W2_DEMO_WORKSPACE_PROJECT_TITLE,
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
@@ -77,7 +94,7 @@ function optionalDocumentaryAnalysis() {
     contradictionCandidate: null,
     challengeResponseAssessment: "sufficient",
     continuationKind: null,
-    artifactMaterializationOperation: "cursor.docs_write.apply",
+    artifactMaterializationOperation: null,
     objective:
       "Produire un document Markdown enregistré dans le dépôt du projet",
     scope: "projects/demo/docs",
@@ -92,7 +109,7 @@ function optionalDocumentaryAnalysis() {
     criticalJustification: null,
     requestedOperation: null,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: "deliverable_document",
       targetRepositoryRef: null,
       targetPath: "projects/demo/docs/note-cadrage.md",
@@ -100,7 +117,7 @@ function optionalDocumentaryAnalysis() {
       scopeIn: ["projects/demo/docs"],
       scopeOut: [],
       expectedOutputs: ["projects/demo/docs/note-cadrage.md"],
-      requiredCapabilities: ["cap:cursor.docs_write"],
+      requiredCapabilities: [PRODUCT_CANONICAL_EXECUTION_CAPABILITY],
       validationExpectations: [],
       evidenceRequirements: [],
       requestedOperation: null,
@@ -154,7 +171,7 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
   }) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `F05 ${input.suffix}`,
+      name: W2_DEMO_WORKSPACE_PROJECT_TITLE,
       objective: "Optional documentary routing",
       context: "det hqa f05",
       criticality: "STANDARD",
@@ -231,17 +248,6 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
       if (!pol.ok) throw new Error("require_artifact_policy");
     }
     const identity = `acme/f05-${input.suffix}`;
-    await oa.projectServices.setProjectRepositoryBinding!.execute({
-      projectId,
-      actor: LOCAL_PILOTE_ACTOR,
-      binding: {
-        provider: "github",
-        identity,
-        remoteUrl: `https://github.com/${identity}.git`,
-        defaultBranch: "main",
-        pathRoot: "projects/demo",
-      },
-    });
     ensureManagedRepoCloneSkeleton({
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
@@ -334,16 +340,15 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     expect(offer).toBeTruthy();
     expect(offer?.cycleInstanceId).toBe(cycleInstanceId);
     // Pass 02 — offer retains documentary mission effects (not stripped).
-    expect(offer?.missionEffects?.intentKind).toBe("docs_write");
+    expect(offer?.missionEffects?.intentKind).toBe("other");
     expect(offer?.missionEffects?.proposedTargetPath).toMatch(/note-cadrage\.md$/);
     expect(offer?.missionEffects?.artifactBrief).toBeTruthy();
     expect(offer?.missionEffects?.contentRequirements.length).toBeGreaterThan(0);
     expect(offer?.missionEffects?.proposedRequiredCapabilities).toContain(
-      "cap:cursor.docs_write",
+      PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
     );
     const rebuilt = analysisFromPendingGenericPrepareOffer(offer!);
-    expect(rebuilt.executionIntent?.intentKind).toBe("docs_write");
-    expect(rebuilt.executionIntent?.intentKind).not.toBe("other");
+    expect(rebuilt.executionIntent?.intentKind).toBe("other");
 
     const turn2 = await orchestrateAssistantSend({
       projectId,
@@ -366,7 +371,7 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     expect(loaded.contract.decisionRefs ?? []).toEqual([]);
     expect(loaded.contract.constraints).toContain("MATERIALITY:NON_STRUCTURAL");
     const inputs = loaded.contract.inputs as Record<string, unknown>;
-    expect(inputs.intentKind).toBe("docs_write");
+    expect(inputs.intentKind).toBe("other");
     expect(inputs.proposedTargetPathAuthoritative).toBe(false);
     expect(inputs.documentaryTargetResolution).toBe("unresolved_nora_candidate");
     expect(inputs.resolvedAuthoritativeTargetPath).toBeNull();
@@ -383,9 +388,7 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
       ),
     ).toBe(false);
     expect((loaded.contract.expectedOutputs ?? []).length).toBeGreaterThan(0);
-    expect(inputs.capabilityResolution).toBe(
-      "docs_write_effect_resolved_onto_generalist_product_surface",
-    );
+    expect(inputs.capabilityResolution).toBe("already_generalist_envelope");
     expect(loaded.contract.requiredCapabilities).toEqual([
       PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
     ]);
@@ -490,7 +493,7 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     expect(turn.text).not.toMatch(/aucune décision CURRENT REQUIRE_ARTIFACT/i);
   });
 
-  it("Pass02-T01/T05 — fingerprint distinguishes path/capability; reconstruction keeps docs_write", async () => {
+  it("Pass02-T01/T05 — fingerprint distinguishes path/capability; reconstruction keeps generic intent", async () => {
     const { projectId, cycleInstanceId } = await seedProject({ suffix: "fp" });
     const base = optionalDocumentaryAnalysis();
     const fpA = rememberGenericPrepareRecommendation({
@@ -506,7 +509,7 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     );
     expect(offerA?.offerFingerprint).toBe(fpA);
     expect(analysisFromPendingGenericPrepareOffer(offerA!).executionIntent?.intentKind).toBe(
-      "docs_write",
+      "other",
     );
 
     const otherPath = optionalDocumentaryAnalysis();
@@ -537,14 +540,9 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
     const docsOnly = resolveGenericPrepareCapabilityEnvelope([
       "cap:cursor.docs_write",
     ]);
-    expect(docsOnly.ok).toBe(true);
-    if (docsOnly.ok) {
-      expect(docsOnly.resolution).toBe(
-        "docs_write_effect_resolved_onto_generalist_product_surface",
-      );
-      expect(docsOnly.contractCapabilities).toEqual([
-        PRODUCT_CANONICAL_EXECUTION_CAPABILITY,
-      ]);
+    expect(docsOnly.ok).toBe(false);
+    if (!docsOnly.ok) {
+      expect(docsOnly.code).toBe("CAPABILITY_OUTSIDE_GENERALIST_ENVELOPE");
     }
   });
 
@@ -553,7 +551,7 @@ describe("P6-HQA-F05-GD4-01 optional Artifact / Generic PREPARE routing", () => 
       isCapabilityWithinGenericPrepareEnvelope(PRODUCT_CANONICAL_EXECUTION_CAPABILITY),
     ).toBe(true);
     expect(isCapabilityWithinGenericPrepareEnvelope("cap:cursor.docs_write")).toBe(
-      true,
+      false,
     );
     // Spoofing / substring — must NOT match.
     expect(

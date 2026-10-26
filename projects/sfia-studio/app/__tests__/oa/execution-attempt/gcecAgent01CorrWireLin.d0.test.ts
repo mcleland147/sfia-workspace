@@ -1,17 +1,23 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
+const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
+
 /**
  * CORR-D-GCEC-AGENT-01 — WIRE + LIN matrices.
  * Normal Product composition Evidence wiring + exact Attempt-A lineage.
  * ZERO REAL. @vitest-environment node
+ *
+ * AKG-M5: FS prior resolver remains as durable Evidence reading (historical
+ * docs_write source/agent + generalist). Not Product docs_write admission.
  */
 import { describe, expect, it } from "vitest";
 import type { Digest } from "@/lib/oa/doctrine";
-import type { Evidence } from "@/lib/oa/evidence-review";
+import type {
+  Evidence,
+} from "@/lib/oa/evidence-review";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
   M4_BOUNDED_LOCAL_COMMIT_ACTION,
   resolveAttemptExecutionProfile,
   resolveVerifiedDocsWritePriorAttempt,
@@ -126,7 +132,7 @@ describe("CORR-D-GCEC-AGENT-01 WIRE — Evidence reader", () => {
     if (!r.ok) expect(r.reason).toMatch(/evidence_reader_unavailable/);
   });
 
-  it("WIRE-04 available empty Evidence → initial docs-write", () => {
+  it("WIRE-04 available empty Evidence → initial FS materialization (generalist)", () => {
     const r = resolveAttemptExecutionProfile({
       contract: contract(),
       attempts: [],
@@ -135,7 +141,9 @@ describe("CORR-D-GCEC-AGENT-01 WIRE — Evidence reader", () => {
     });
     expect(r.ok).toBe(true);
     if (!r.ok) return;
-    expect(r.profile.kind).toBe("docs_write");
+    // AKG-M5: docs_write profile kind retired → contract_legacy + filesystem.
+    expect(r.profile.kind).toBe("contract_legacy");
+    expect(r.profile.effectClass).toBe("filesystem");
   });
 
   it("WIRE-01/05 Evidence bag drives B local_commit profile with lineage", () => {
@@ -237,7 +245,9 @@ describe("CORR-D-GCEC-AGENT-01 LIN — exact Attempt-A lineage", () => {
     );
   });
 
-  it("LIN-08 A selected agent not bounded docs-write → reject", () => {
+  it("LIN-08 A selected agent not durable FS materialization agent → reject", () => {
+    // Durable agents: historical bounded_docs_write OR Studio generalist.
+    // Arbitrary other agent ids remain rejected.
     const prior = resolveVerifiedDocsWritePriorAttempt({
       contract: contract(),
       attempts: [attempt("xat:a", "succeeded", "agt:other")],

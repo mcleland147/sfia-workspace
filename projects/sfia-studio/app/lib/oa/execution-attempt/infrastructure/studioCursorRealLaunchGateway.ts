@@ -9,6 +9,11 @@
 import { accessSync, constants, existsSync } from "node:fs";
 import path from "node:path";
 import {
+  assertArtifactWriteModeAtExecution,
+  isAutomaticProductDocsWriteTargetPath,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
+import { resolveSealedDocsWriteWorktreePaths } from "../application/resolveSealedDocsWriteWorktreePaths";
+import {
   isStudioCursorRealEnabled,
   M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
   M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID,
@@ -24,10 +29,6 @@ import type {
   RealLaunchResult,
   RealProcessObservation,
 } from "../ports/realExecutionLaunchPort";
-import {
-  assertArtifactWriteModeAtExecution,
-  isAutomaticProductDocsWriteTargetPath,
-} from "@/lib/oa/project/domain/artifactTargetRouting";
 import type { RealExecutionWorkspacePort } from "../ports/realExecutionWorkspacePort";
 import { DisabledRealProcessRunner } from "./nodeCursorProcessRunner";
 import { assertResolvedTimeoutMs } from "@/lib/oa/execution-contract";
@@ -35,7 +36,6 @@ import {
   CURSOR_TRUST_MARKER_PATH_TOO_LONG_REASON,
   isCursorTrustMarkerPathCompatible,
 } from "./cursorTrustMarkerPathCompatibility";
-import { M4_BOUNDED_DOCS_WRITE_ACTION } from "./m4BoundedDocsWriteCursorAgent";
 import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
 import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
 import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
@@ -60,11 +60,9 @@ import {
 } from "../domain/shellSafeArg";
 import {
   buildMutatingCursorConfinementEnv,
-  isMutatingGcecCursorProfile,
-  resolveMutatingConfinementEffectClass,
+  resolveMutatingCursorConfinement,
   stripInheritedCursorShellEgressEnv,
 } from "./mutatingCursorConfinementEnv";
-import { resolveSealedDocsWriteWorktreePaths } from "../application/resolveSealedDocsWriteWorktreePaths";
 
 /**
  * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — one mission, one enforcement overlay.
@@ -521,13 +519,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       !isPrCreateProfile &&
       (Boolean(gitPrMergeSpec) ||
         request.action === M4_BOUNDED_PR_MERGE_ACTION);
-    const isDocsWrite =
-      !isLocalCommitProfile &&
-      !isRemotePushProfile &&
-      !isPrCreateProfile &&
-      !isPrMergeProfile &&
-      request.action === M4_BOUNDED_DOCS_WRITE_ACTION;
-
     const rejectFreeShell = (): RealLaunchResult | null => {
       if (
         typeof (request as { freeShellScript?: unknown }).freeShellScript ===
@@ -855,20 +846,33 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         semanticFingerprint: request.semanticFingerprint,
         missionPrompt,
       });
-    } else if (isDocsWrite) {
+    } else if (
+      request.action === M4_BOUNDED_RO_ACTION ||
+      request.selectedAgentRef === M4_BOUNDED_RO_CURSOR_AGENT_ID
+    ) {
+      // Historical sealed M4 RO GCEC — deterministic README probe (not Product).
+      instruction = [
+        "TÂCHE UNIQUE — preuve read-only déterministe.",
+        "Lire uniquement le fichier README.md à la racine du workspace.",
+        "Ne modifier aucun fichier.",
+        "Ne créer aucun fichier.",
+        "Ne lancer aucune commande Shell.",
+        "Ne faire aucune recherche récursive, Glob ou Grep.",
+        "Ne consulter aucun autre fichier.",
+        "Si README.md peut être lu, répondre exactement :",
+        "M4_READ_ONLY_OK",
+        "Si README.md ne peut pas être lu, répondre exactement :",
+        "M4_READ_ONLY_UNAVAILABLE",
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
+        `fingerprint=${request.semanticFingerprint}`,
+        "Aucune mutation, aucun git remote/commit/push/PR/merge.",
+      ].join("\n");
+    } else if (request.docsWriteSpec) {
+      // AKG-M5: filesystem materialization enforcement from sealed docsWriteSpec
+      // (historical field name). Not Product docs_write action admission.
       const spec = request.docsWriteSpec;
-      if (!spec) {
-        return {
-          outcome: "reject",
-          gatewayId: this.gatewayId,
-          attemptId: request.attemptId,
-          reason: "docs_write_spec_missing",
-          realProcessInvoked: false,
-          detailCode: "REAL_AGENT_PROFILE_INVALID",
-        };
-      }
-      // Sealed EC paths stay repo-relative; absolutize only for Cursor instruction
-      // under the prepared worktree so the agent cannot drop monorepo prefixes.
       const resolvedPaths = resolveSealedDocsWriteWorktreePaths({
         worktreeRoot: workspacePath,
         targetPath: spec.targetPath,
@@ -884,8 +888,6 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           detailCode: "REAL_WORKSPACE_INVALID",
         };
       }
-      // Execution-time TOCTOU — same invariant as FakeDocsWriteLaunchPort,
-      // before Cursor REAL process is invoked.
       let targetExists: boolean | null = null;
       try {
         if (!existsSync(workspacePath)) {
@@ -913,11 +915,8 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           detailCode: "REAL_WORKSPACE_INVALID",
         };
       }
-      // Enforcement overlay only — the EC mission carries WHAT to write.
-      // Brief / content / scope / expectedOutputs must NOT appear here as a
-      // competing mission authority (NELC-01 WS3).
-      const docsWriteEnforcement = [
-        "TÂCHE UNIQUE — bounded docs-write déterministe (GCEC).",
+      const fsMaterializationEnforcement = [
+        "TÂCHE UNIQUE — bounded filesystem materialization déterministe (GCEC).",
         `EXACT AUTHORIZED FILE (absolute path inside prepared worktree — modify exactly this file and no other): ${resolvedPaths.absoluteTargetPath}`,
         `Canonical sealed targetPath (repo-relative, do not reinterpret): ${resolvedPaths.sealedTargetPath}`,
         `AUTHORIZED ROOT(S) (absolute under prepared worktree): ${resolvedPaths.absolutePathAllowlist.join(", ")}`,
@@ -939,31 +938,8 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
       ];
       instruction = composeBoundedInstruction({
         missionPrompt,
-        enforcement: docsWriteEnforcement,
+        enforcement: fsMaterializationEnforcement,
       });
-    } else if (
-      request.action === M4_BOUNDED_RO_ACTION ||
-      request.selectedAgentRef === M4_BOUNDED_RO_CURSOR_AGENT_ID
-    ) {
-      // Historical sealed M4 RO GCEC — deterministic README probe (not Product).
-      instruction = [
-        "TÂCHE UNIQUE — preuve read-only déterministe.",
-        "Lire uniquement le fichier README.md à la racine du workspace.",
-        "Ne modifier aucun fichier.",
-        "Ne créer aucun fichier.",
-        "Ne lancer aucune commande Shell.",
-        "Ne faire aucune recherche récursive, Glob ou Grep.",
-        "Ne consulter aucun autre fichier.",
-        "Si README.md peut être lu, répondre exactement :",
-        "M4_READ_ONLY_OK",
-        "Si README.md ne peut pas être lu, répondre exactement :",
-        "M4_READ_ONLY_UNAVAILABLE",
-        `target=${request.target ?? ""}`,
-        `action=${request.action ?? ""}`,
-        `scope=${request.scope ?? ""}`,
-        `fingerprint=${request.semanticFingerprint}`,
-        "Aucune mutation, aucun git remote/commit/push/PR/merge.",
-      ].join("\n");
     } else if (missionPrompt) {
       // PJ-REPROOF-04 — generalist Cursor mission = authorized EC projection.
       // Cursor determines HOW inside the contract; no mandatory step sequence.
@@ -994,14 +970,18 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     }
 
     // Full-capability native mode: --sandbox disabled --force (parity with Cursor CLI).
-    // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
+    // Filesystem mutation + git mutation profiles + generalist mission prompt: agent mode.
+    // AKG-M5: no longer keyed on Product docs_write action — effect-based.
     const hasMissionPrompt = missionPrompt !== null;
+    const hasFilesystemMutation = (request.authorizedEffects ?? []).some(
+      (e) => e === "filesystem.create" || e === "filesystem.modify",
+    );
     const usesAgentMode =
-      isDocsWrite ||
       isLocalCommitProfile ||
       isRemotePushProfile ||
       isPrCreateProfile ||
       isPrMergeProfile ||
+      hasFilesystemMutation ||
       hasMissionPrompt;
     const argv = usesAgentMode
       ? [
@@ -1029,24 +1009,34 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
           instruction,
         ];
 
-    // D-GCEC-CONF-02A / D-GCEC-EXEC-01: mutating A+B+C+D+E get server-owned env
-    // confinement; effect-sensitive (local vs remote_git vs remote_github).
-    // RO / other profiles keep minimal non-mutating spawn env (no auth strip).
-    // Prompt forbids remain defense-in-depth — NOT the technical authority boundary.
-    // Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
-    const childEnv: NodeJS.ProcessEnv = isMutatingGcecCursorProfile({
-      isDocsWrite,
+    // D-GCEC-CONF-02A / D-GCEC-EXEC-01: confinement follows authorized effects
+    // and sealed profile flags (local FS / local commit / remote_git / remote_github).
+    // Not a docs_write flag. RO / no mutating effects keep non-mutating spawn env.
+    // Mixed or unknown effect classes fail closed before spawn — never remote_git
+    // by precedence. Prompt forbids remain defense-in-depth — NOT the authority
+    // boundary. Proves REMOTE AUTH ENVIRONMENT POLICY only — NOT AUTH REAL.
+    const confinement = resolveMutatingCursorConfinement({
+      authorizedEffects: request.authorizedEffects,
+      sealedAuthorizedEffects:
+        request.authorizedExecutionSlice?.authorizedEffects,
       isLocalCommitProfile,
       isRemotePushProfile,
       isPrCreateProfile,
       isPrMergeProfile,
-    })
+    });
+    if (!confinement.ok) {
+      return {
+        outcome: "reject",
+        gatewayId: this.gatewayId,
+        attemptId: request.attemptId,
+        reason: confinement.reason,
+        realProcessInvoked: false,
+        detailCode: "REAL_AGENT_PROFILE_INVALID",
+      };
+    }
+    const childEnv: NodeJS.ProcessEnv = confinement.apply
       ? buildMutatingCursorConfinementEnv(this.env, {
-          effectClass: resolveMutatingConfinementEffectClass({
-            isRemotePushProfile,
-            isPrCreateProfile,
-            isPrMergeProfile,
-          }),
+          effectClass: confinement.effectClass,
         })
       : stripInheritedCursorShellEgressEnv({
           ...this.env,

@@ -1,28 +1,30 @@
 /**
- * NATIVE-EXECUTION-LOOP-CONVERGENCE-01 — Contract Result criteria parity.
+ * Generic Contract Result criteria parity.
  *
+ * Ported from the mission half of
+ * nativeExecutionLoopConvergence01.contractResultCriteria.d0.test.ts.
  * Sealed structured acceptance criteria are evaluated by the SAME semantics
  * (no second evaluator). Only deterministic kinds can PASS; manual_review and
  * unbound prose stay NOT_PROVEN — no LLM auto-PASS.
+ * The docs_write Result Semantic half is not ported.
+ * Contracts use the generalist Cursor quartet only.
  * @vitest-environment node
  */
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
+import { persistMissionResultPayload } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+import type { Evidence } from "@/lib/oa/evidence-review";
 import { assessExpectedOutputs } from "@/lib/oa/evidence-review/application/contractResultAssessment";
 import { resolveApplicableContractResultSemantics } from "@/lib/oa/evidence-review/application/contractResultSemantics";
+import { MISSION_RESULT_EVIDENCE_SOURCE } from "@/lib/oa/evidence-review/application/missionResultContractResultSemantic";
 import {
   digestMissionResultPayload,
   MISSION_RESULT_ER_KEY,
   PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
   type MissionResultPayload,
 } from "@/lib/oa/evidence-review/application/missionResultPayload";
-import { MISSION_RESULT_EVIDENCE_SOURCE } from "@/lib/oa/evidence-review/application/missionResultContractResultSemantic";
-import {
-  assessDocsWriteExpectedOutput,
-  DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
-} from "@/lib/oa/evidence-review/application/docsWriteContractResultSemantic";
 import {
   CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY,
   computeExecutionContractSemanticMaterialFingerprint,
@@ -33,19 +35,12 @@ import {
   STUDIO_CURSOR_GENERALIST_TARGET,
   type ExecutionContract,
 } from "@/lib/oa/execution-contract";
-import type { Evidence } from "@/lib/oa/evidence-review";
-import { persistMissionResultPayload } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 
 const NOW = "2026-09-23T10:00:00.000Z";
 
 /** Project-specific EO prose — no fixed template grammar can decide it. */
 const CUSTOM_DIAGNOSTIC_EO =
   "Diagnostic ciblé du blocage de finalisation du cycle en cours";
-const CUSTOM_ARTIFACT_EO =
-  "Note de cadrage matérialisée pour le Pilote (livrable du cycle)";
-const DOCS_TARGET = "docs/note-de-cadrage.md";
-const ARTIFACT_DIGEST =
-  "sha256:3b4507505ddad333cd16730fcddf466aae24bc123b48e6a8c956c2e5cd9ac622";
 
 const refsDirs: string[] = [];
 
@@ -167,7 +162,6 @@ function assessMissionEo(inputs: Record<string, unknown>) {
     status: "succeeded" as const,
     resultRef: "res:w3a:abc123",
   };
-  // The registry must dispatch to exactly the mission semantic.
   expect(
     resolveApplicableContractResultSemantics(
       executionContractSemanticMaterial(contract),
@@ -239,146 +233,5 @@ describe("mission Result Semantic honours sealed acceptance criteria", () => {
       ],
     });
     expect(eo[0]?.result).toBe("NOT_PROVEN");
-  });
-});
-
-describe("docs_write Result Semantic honours sealed acceptance criteria", () => {
-  const attempt = {
-    attemptId: "xat:docs:1",
-    executionContractId: "xct:docs:1",
-    executionContractVersion: 1,
-    executionContractSemanticFingerprint: "fp:docs",
-    status: "succeeded" as const,
-    resultRef: "res:docs:1",
-  };
-
-  const artifact = {
-    schemaVersion: "0.2.0-oa",
-    evidenceId: "ev:docs-write:xatdocs1",
-    type: "artifact",
-    source: DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE,
-    sourceKind: "execution_attempt",
-    location: DOCS_TARGET,
-    digest: ARTIFACT_DIGEST,
-    producedAt: NOW,
-    freshness: "fresh",
-    status: "verified",
-    availability: "available",
-    bindings: {
-      projectId: "prj:docs",
-      executionContractId: "xct:docs:1",
-      executionAttemptId: "xat:docs:1",
-      cycleInstanceId: "cyc:docs",
-    },
-    version: 1,
-    createdAt: NOW,
-  } as unknown as Evidence;
-
-  function assess(inputs: Record<string, unknown>, expectation: string) {
-    return assessDocsWriteExpectedOutput({
-      expectation,
-      ordinal: 0,
-      attempt,
-      evidence: artifact,
-      material: {
-        executionContractId: "xct:docs:1",
-        projectId: "prj:docs",
-        cycleInstanceId: "cyc:docs",
-        inputs,
-      },
-      evidences: [artifact],
-    });
-  }
-
-  it("prose EO without a criterion stays NOT_PROVEN", () => {
-    expect(assess({ targetPath: DOCS_TARGET }, CUSTOM_ARTIFACT_EO)).toBe(
-      "NOT_PROVEN",
-    );
-  });
-
-  it("artifact_at_path criterion bound to the EO yields PASS", () => {
-    expect(
-      assess(
-        {
-          targetPath: DOCS_TARGET,
-          [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-            {
-              criterionId: "acc:01:artifact-at-path",
-              statement: CUSTOM_ARTIFACT_EO,
-              kind: "artifact_at_path",
-              expectedOutputRef: CUSTOM_ARTIFACT_EO,
-              targetPath: DOCS_TARGET,
-            },
-          ],
-        },
-        CUSTOM_ARTIFACT_EO,
-      ),
-    ).toBe("PASS");
-  });
-
-  it("artifact_at_path criterion pointing elsewhere stays NOT_PROVEN", () => {
-    expect(
-      assess(
-        {
-          targetPath: DOCS_TARGET,
-          [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-            {
-              criterionId: "acc:01:artifact-at-path",
-              statement: CUSTOM_ARTIFACT_EO,
-              kind: "artifact_at_path",
-              expectedOutputRef: CUSTOM_ARTIFACT_EO,
-              targetPath: "docs/other.md",
-            },
-          ],
-        },
-        CUSTOM_ARTIFACT_EO,
-      ),
-    ).toBe("NOT_PROVEN");
-  });
-
-  it("conformity criterion without a conformity attestation stays NOT_PROVEN", () => {
-    expect(
-      assess(
-        {
-          targetPath: DOCS_TARGET,
-          [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-            {
-              criterionId: "acc:01:conformity",
-              statement: CUSTOM_ARTIFACT_EO,
-              kind: "artifact_conformity_attested",
-              expectedOutputRef: CUSTOM_ARTIFACT_EO,
-              targetPath: null,
-            },
-          ],
-        },
-        CUSTOM_ARTIFACT_EO,
-      ),
-    ).toBe("NOT_PROVEN");
-  });
-
-  it("a failed Attempt still FAILs regardless of criteria", () => {
-    expect(
-      assessDocsWriteExpectedOutput({
-        expectation: CUSTOM_ARTIFACT_EO,
-        ordinal: 0,
-        attempt: { ...attempt, status: "failed" as const },
-        evidence: artifact,
-        material: {
-          executionContractId: "xct:docs:1",
-          inputs: {
-            [CONTRACT_ACCEPTANCE_CRITERIA_INPUT_KEY]: [
-              {
-                criterionId: "acc:01:artifact-at-path",
-                statement: CUSTOM_ARTIFACT_EO,
-                kind: "artifact_at_path",
-                expectedOutputRef: CUSTOM_ARTIFACT_EO,
-                targetPath: DOCS_TARGET,
-              },
-            ],
-          },
-        },
-        evidences: [artifact],
-      }),
-    ).toBe("FAIL");
   });
 });

@@ -239,8 +239,8 @@ export type IntentAnalysisDto = {
   criticalJustification: string | null;
   requestedOperation: string | null;
   /**
-   * GCEC — NON-AUTHORITATIVE docs_write / execution intent fragment.
-   * Present as null when not applicable; invalid shape fails closed.
+   * NON-AUTHORITATIVE execution intent fragment (read_only / other / null).
+   * A retired specialized document-write kind fails closed. Never authority.
    */
   executionIntent: ExecutionIntentPayload | null;
   /**
@@ -252,12 +252,10 @@ export type IntentAnalysisDto = {
   continuationKind?: F2ContinuationKind;
   /**
    * CORR-PROOF-09 — dedicated NON-AUTHORITATIVE Artifact materialization
-   * technical operation discriminator. Schema: cursor.docs_write.apply | null.
-   * Never free-form; never execution authority.
+   * discriminator. Product admits null only; any non-null value fail-closes.
+   * Never free-form authority. Not a specialized document-write operation.
    */
-  artifactMaterializationOperation?:
-    | "cursor.docs_write.apply"
-    | null;
+  artifactMaterializationOperation?: string | null;
   /**
    * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — NON-AUTHORITATIVE candidate reading
    * of the Pilot's disposition on an already-presented decision subject.

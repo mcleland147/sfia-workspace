@@ -21,8 +21,10 @@ import {
 import { classifyStudioProductProtectedPath } from "@/lib/oa/sandboxContract";
 import { readLiveProjectContext } from "@/lib/vertical-slice-runtime";
 import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
+import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
 import type { IntentAnalysisDto } from "../f2/types";
 import { isCapabilityWithinGenericPrepareEnvelope } from "./genericPrepareCapabilityEnvelope";
+import { resolveSealedGitTargetFromEnv } from "./resolveTrustedProductLaunchContext";
 
 export type ProductMaterialityCurrentness = {
   readonly lpsId: string;
@@ -96,7 +98,8 @@ function normalizePathRoot(pathRoot: string | null | undefined): string | null {
 }
 
 /**
- * Paths outside Project.repositoryBinding.pathRoot are outside authorized WHERE.
+ * Paths outside the Project workspace pathRoot (projects/<key>) are outside
+ * authorized WHERE.
  */
 export function pathsOutsideAuthorizedPathRoot(input: {
   readonly paths: readonly string[];
@@ -153,21 +156,18 @@ export function qualifyBoundedNonMutatingAnalysisMission(input: {
   }
   const ei = input.analysis.executionIntent;
   const intentKind = ei?.intentKind?.trim() || null;
-  if (intentKind === "docs_write") {
-    return { ok: false, basis: "intent_kind_docs_write" };
+  if (
+    intentKind != null &&
+    intentKind !== "read_only" &&
+    intentKind !== "other"
+  ) {
+    return { ok: false, basis: "intent_kind_not_admitted" };
   }
   const elevated = input.requestedCapabilities.filter(
     (c) => c.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(c),
   );
   if (elevated.length > 0) {
     return { ok: false, basis: "elevated_capabilities" };
-  }
-  if (
-    input.requestedCapabilities.some(
-      (c) => c.trim() === "cap:cursor.docs_write",
-    )
-  ) {
-    return { ok: false, basis: "docs_write_capability_proposed" };
   }
   const materialization = (
     input.analysis as { artifactMaterializationOperation?: string | null }
@@ -319,8 +319,7 @@ function deriveAuthorityEnvelopeExpanded(input: {
       basis: "mission_paths_outside_repository_path_root",
     };
   }
-  // Pass 02 — docs_write effect-class is within Generic PREPARE envelope
-  // (resolved onto studio.cursor.generalist). Other elevated caps remain structural.
+  // Elevated capabilities outside the generalist envelope remain structural.
   const elevated = input.requestedCapabilities.filter(
     (c) => c.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(c),
   );
@@ -363,9 +362,13 @@ export async function resolveAuthoritativeProductMateriality(input: {
       projectId: input.projectId,
     });
     if (projectResult.ok) {
-      pathRoot = projectResult.project.repositoryBinding?.pathRoot?.trim() || null;
-      repositoryIdentity =
-        projectResult.project.repositoryBinding?.identity?.trim() || null;
+      pathRoot =
+        projectWorkspacePathRootFromKey(
+          projectResult.project.projectWorkspaceKey,
+        ) || null;
+      // Residual git-target seal (env), same witness as launch-context
+      // repositoryBindingIdentity. Not a Project repository-binding record.
+      repositoryIdentity = resolveSealedGitTargetFromEnv()?.identity ?? null;
     }
   }
 
@@ -611,7 +614,7 @@ export async function revalidateMaterialityAgainstCurrentProduct(input: {
     }
 
     // CR-P6-CLOSURE-01 — repository binding may change WITHOUT lpsVersion bump
-    // (SetProjectRepositoryBinding). Stamp pathRoot/identity are authoritative
+    // (Product repository-binding projection retired). Stamp pathRoot/identity are authoritative
     // witnesses of the prepare-time Product binding; compare independently of LPS.
     const stampedIdentity = s.repositoryIdentity?.trim() || null;
     const currentIdentity = c.repositoryIdentity?.trim() || null;

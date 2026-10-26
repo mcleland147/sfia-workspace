@@ -53,8 +53,6 @@ export * from "./domain/resolveGitEffectTarget";
 export * from "./domain/resolvePreCommitWorkspaceContinuation";
 export { verifyWorkspaceFileEffects } from "./application/verifyWorkspaceFileEffects";
 export type { WorkspaceFileVerificationResult } from "./application/verifyWorkspaceFileEffects";
-export { resolveSealedDocsWriteWorktreePaths } from "./application/resolveSealedDocsWriteWorktreePaths";
-export type { ResolveSealedDocsWriteWorktreePathsResult } from "./application/resolveSealedDocsWriteWorktreePaths";
 
 export * from "./ports/executionAttemptRepository";
 export * from "./ports/executionAttemptTechnicalStorePort";
@@ -67,7 +65,7 @@ export * from "./ports/realLaunchSafetyJournalPort";
 // launchSafetyJournalPort is a thin re-export — avoid duplicate export * conflict.
 
 export { SelectExecutionAgent } from "./application/selectExecutionAgent";
-export { StartExecution, extractContractBaseHeadSha, extractDocsWriteLaunchSpec } from "./application/startExecution";
+export { StartExecution, extractContractBaseHeadSha } from "./application/startExecution";
 export {
   o3LaterIntervalMs,
   o3ObservationScheduleMs,
@@ -141,7 +139,9 @@ export {
   buildMutatingCursorConfinementEnv,
   isMutatingGcecCursorProfile,
   MUTATING_CURSOR_STRIPPED_ENV_KEYS,
+  MUTATING_CONFINEMENT_EFFECT_CLASS_AMBIGUOUS_REASON,
   resolveMutatingConfinementEffectClass,
+  resolveMutatingCursorConfinement,
   MUTATING_CURSOR_REMOTE_GIT_PRESERVED_ENV_KEYS,
   MUTATING_CURSOR_REMOTE_GITHUB_PRESERVED_ENV_KEYS,
   REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
@@ -158,6 +158,8 @@ export {
   type SpawnPrimitive,
   type NodeCursorProcessRunnerOptions,
   type MutatingCursorConfinementEffectClass,
+  type MutatingCursorConfinementInput,
+  type MutatingCursorConfinementResolution,
 } from "./infrastructure/cursorCliLaunchGateway";
 export {
   assertLocalBranchRefMatchesExpectedSha,
@@ -203,15 +205,7 @@ export {
   STUDIO_CURSOR_GENERALIST_TARGET,
   STUDIO_CURSOR_GENERALIST_SCOPE,
 } from "./infrastructure/studioCursorGeneralistAgent";
-export {
-  createM4BoundedDocsWriteCursorAgentDescriptor,
-  isM4BoundedDocsWriteRealAgent,
-  isM4AuthorizedCursorRealAgent,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-} from "./infrastructure/m4BoundedDocsWriteCursorAgent";
+export { isM4AuthorizedCursorRealAgent } from "./infrastructure/authorizedCursorRealAgent";
 export {
   createM4BoundedLocalCommitCursorAgentDescriptor,
   isM4BoundedLocalCommitRealAgent,
@@ -245,18 +239,21 @@ export {
   M4_BOUNDED_PR_MERGE_SCOPE,
 } from "./infrastructure/m4BoundedPrMergeCursorAgent";
 export {
-  FakeDocsWriteLaunchPort,
-  listRelativeFiles,
-  sha256File,
-  type FakeDocsWriteLaunchPortOptions,
-} from "./infrastructure/fakeDocsWriteLaunchPort";
-export {
   FakeCursorGitExternalState,
   type FakeCursorCommitRecord,
   type FakeCursorPrRecord,
   type FakeCursorCiConclusion,
   type FakeCursorReviewState,
 } from "./infrastructure/fakeCursorGitExternalState";
+export {
+  FakeDocsWriteLaunchPort,
+  listRelativeFiles,
+  sha256File,
+  type FakeDocsWriteLaunchPortOptions,
+} from "./infrastructure/fakeCursorDeterministicLaunchPort";
+/** @deprecated Alias — DET fake is effect-based, not Product docs_write. */
+export { FakeDocsWriteLaunchPort as FakeCursorDeterministicLaunchPort } from "./infrastructure/fakeCursorDeterministicLaunchPort";
+export type { FakeDocsWriteLaunchPortOptions as FakeCursorDeterministicLaunchPortOptions } from "./infrastructure/fakeCursorDeterministicLaunchPort";
 export { qualifyExecutionContractCompletion } from "./domain/qualifyExecutionContractCompletion";
 export type { ExecutionContractCompletionQualification } from "./domain/qualifyExecutionContractCompletion";
 export { advanceExecutionContractCompletion } from "./application/advanceExecutionContractCompletion";
@@ -269,8 +266,21 @@ export {
   resolveAttemptExecutionProfile,
 } from "./domain/resolveAttemptExecutionProfile";
 export {
+  resolveSealedDocsWriteWorktreePaths,
+} from "./application/resolveSealedDocsWriteWorktreePaths";
+export type {
+  ResolveSealedDocsWriteWorktreePathsResult,
+} from "./application/resolveSealedDocsWriteWorktreePaths";
+export {
+  resolveVerifiedFilesystemMaterializationPriorAttempt,
   resolveVerifiedDocsWritePriorAttempt,
-} from "./domain/resolveVerifiedDocsWritePriorAttempt";
+} from "./domain/resolveVerifiedFilesystemMaterializationPriorAttempt";
+export type {
+  VerifiedFilesystemMaterializationPriorAttempt,
+  VerifiedDocsWritePriorAttempt,
+  ResolveVerifiedFilesystemMaterializationPriorAttemptInput,
+  ResolveVerifiedFilesystemMaterializationPriorAttemptResult,
+} from "./domain/resolveVerifiedFilesystemMaterializationPriorAttempt";
 export {
   resolveVerifiedLocalCommitPriorAttempt,
   parseLocalCommitShaFromEvidenceLocation,
@@ -309,11 +319,6 @@ export type {
   ResolveAttemptExecutionProfileInput,
   ResolveAttemptExecutionProfileResult,
 } from "./domain/resolveAttemptExecutionProfile";
-export type {
-  VerifiedDocsWritePriorAttempt,
-  ResolveVerifiedDocsWritePriorAttemptInput,
-  ResolveVerifiedDocsWritePriorAttemptResult,
-} from "./domain/resolveVerifiedDocsWritePriorAttempt";
 export type {
   VerifiedLocalCommitPriorAttempt,
   ResolveVerifiedLocalCommitPriorAttemptInput,
@@ -507,12 +512,6 @@ export type CreateInMemoryExecutionAttemptServicesOptions = {
   launchSafetyJournal?: RealLaunchSafetyJournalPort;
   realLaunch?: RealExecutionLaunchPort;
   /**
-   * CR-GCEC-23 — Project.repositoryBinding resolver (server-derived Confirmation).
-   */
-  resolveProjectRepositoryBinding?: (
-    projectId: string,
-  ) => Promise<import("@/lib/oa/project").ProjectRepositoryBinding | null>;
-  /**
    * CR-GCEC-23 — Evidence list for verified PR identity (may be late-bound).
    */
   listProjectEvidence?: import("./domain/projectEvidenceList").ListProjectEvidenceFn;
@@ -608,7 +607,6 @@ export function createInMemoryExecutionAttemptServices(
       realBoundary?.launchPort,
       realBoundary?.safetyJournal,
       realBoundary?.managedRepoRootBase,
-      options.resolveProjectRepositoryBinding,
       options.listProjectEvidence,
       options.repositoryRead,
     ),

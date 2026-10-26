@@ -1,3 +1,13 @@
+const TARGET_PATH = "docs/functional-design.md" as const;
+
+const PROGRESSIVE_COMMIT_EVIDENCE = ["git:local_commit"] as const;
+const PROGRESSIVE_FULL_GIT_LIFECYCLE_EVIDENCE = [
+  "git:local_commit",
+  "git:remote_push",
+  "git:pull_request",
+  "git:merge",
+] as const;
+
 /**
  * CR-GCEC-23 — StartExecution application-boundary authority tests.
  * Server-derived Confirmation target; hostile confirmationMatch cannot authorize.
@@ -18,27 +28,35 @@ import {
 import {
   buildGitEffectActionRef,
   FakeCursorGitExternalState,
-  FakeDocsWriteLaunchPort,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
   ManagedProjectRepositoryResolver,
   MemoryLaunchSafetyJournal,
   sanitizeManagedRepoIdentity,
+  FakeDocsWriteLaunchPort,
+  STUDIO_CURSOR_GENERALIST_ACTION,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
+  STUDIO_CURSOR_GENERALIST_CAPABILITY,
+  STUDIO_CURSOR_GENERALIST_SCOPE,
+  STUDIO_CURSOR_GENERALIST_TARGET,
 } from "@/lib/oa/execution-attempt";
 import {
   FakeRepositoryReadPorts,
   verifyPullRequestClaim,
 } from "@/lib/oa/git-ports";
-import { F3_CONFIRM_ACTION_REF } from "@/features/project-assistant/f3/constants";
-import { prepareAndResolveM3ProductPath } from "@/features/project-assistant/f3/prepareAndResolveM3ProductPath";
-import { analyzeIntent } from "@/features/project-assistant/f2/intentAnalysis";
+import {
+  F3_CONFIRM_ACTION_REF,
+} from "@/features/project-assistant/f3/constants";
+import {
+  analyzeIntent,
+} from "@/features/project-assistant/f2/intentAnalysis";
 import {
   createProposalId,
   F2_PROCESS_LOCAL_NOTICE,
   resetF2ProposalStoreForTests,
   saveProposal,
 } from "@/features/project-assistant/f2/proposalStore";
-import { recordF2Decision } from "@/features/project-assistant/f2/recordDecision";
+import {
+  recordF2Decision,
+} from "@/features/project-assistant/f2/recordDecision";
 import { FakeConversationProvider } from "@/lib/platform/ai";
 import type { LocalProjectIdSource } from "@/lib/vertical-slice-core";
 import {
@@ -219,15 +237,55 @@ async function grantCnf(input: {
   return granted.confirmation;
 }
 
+function progressiveGitLifecycleInputs(
+  baseHeadSha: string,
+  options: {
+    omitSealedRepository?: boolean;
+    evidenceRequirements?: readonly string[];
+  } = {},
+): Record<string, unknown> {
+  const evidenceRequirements =
+    options.evidenceRequirements ?? PROGRESSIVE_COMMIT_EVIDENCE;
+  const base: Record<string, unknown> = {
+    baseHeadSha,
+    defaultBranch: "main",
+    workingBranch: BRANCH,
+    pathRoot: "docs",
+    targetPath: TARGET_PATH,
+    pathAllowlist: ["docs/"],
+    scopeIn: ["docs/"],
+    scopeOut: ["src/"],
+    artifactType: "functional_design",
+    artifactBrief: "Functional design for CR-GCEC-23 StartExecution gates",
+    contentRequirements: ["problem", "constraints", "acceptance"],
+    expectedOutputs: [TARGET_PATH],
+    validationExpectations: ["markdown"],
+    evidenceRequirements: [...evidenceRequirements],
+    commitMessage: "docs: functional design (CR-GCEC-23)",
+  };
+  if (!options.omitSealedRepository) {
+    base.repositoryRef = IDENTITY;
+    base.repositoryIdentity = IDENTITY;
+    base.remoteUrl = `https://github.com/${IDENTITY}.git`;
+  }
+  return base;
+}
+
 /**
- * Product path through confirmed docs-write EC (git:local_commit present).
+ * Runtime path through confirmed progressive generalist EC (sealed git target).
  * Returns before any StartExecution.
  */
 async function bootToConfirmedEc(
   suffix: string,
-  options: { withRepositoryBinding?: boolean } = {},
+  options: {
+    omitSealedRepository?: boolean;
+    fullGitLifecycle?: boolean;
+  } = {},
 ) {
-  const withRepositoryBinding = options.withRepositoryBinding !== false;
+  const omitSealedRepository = options.omitSealedRepository === true;
+  const contractEvidenceRequirements = options.fullGitLifecycle
+    ? PROGRESSIVE_FULL_GIT_LIFECYCLE_EVIDENCE
+    : PROGRESSIVE_COMMIT_EVIDENCE;
   const root = tempDir(`sfia-c23-${suffix}-`);
   const managedBase = path.join(root, "managed");
   const { repoRoot, baseHeadSha } = initManagedRepo(managedBase, IDENTITY);
@@ -271,36 +329,6 @@ async function bootToConfirmedEc(
   expect(created.ok).toBe(true);
   if (!created.ok) throw new Error("createProject failed");
   const projectId = created.project.projectId;
-
-  if (withRepositoryBinding) {
-    const bound = await oa.projectServices.setProjectRepositoryBinding.execute({
-      projectId,
-      actor: PILOTE,
-      binding: {
-        provider: "github",
-        identity: IDENTITY,
-        remoteUrl: `https://github.com/${IDENTITY}.git`,
-        defaultBranch: "main",
-        pathRoot: "docs",
-        baseSha: baseHeadSha,
-      },
-    });
-    expect(bound.ok).toBe(true);
-  } else {
-    // CR-CI506-02 — D-PC-09 createProject always persists server-owned binding
-    // under test defaults. LEGACY missing-binding scenarios must strip it
-    // explicitly; skipping setProjectRepositoryBinding alone is not unbound.
-    const found = await oa.projectServices.projects.findById(projectId);
-    expect(found).not.toBeNull();
-    if (!found) throw new Error("project missing after create");
-    delete found.repositoryBinding;
-    await oa.projectServices.projects.save(found);
-    const cleared = await oa.projectServices.getProject.execute({ projectId });
-    expect(cleared.ok).toBe(true);
-    if (cleared.ok) {
-      expect(cleared.project.repositoryBinding).toBeUndefined();
-    }
-  }
 
   const cycles0 = await oa.cycleServices.cycles.listByProject(projectId);
   const decisions0 = await oa.decisionServices.decisions.listByProject(
@@ -490,45 +518,55 @@ async function bootToConfirmedEc(
   if (!go.ok) throw new Error("go");
   const decisionId = go.decision.decisionId;
 
-  const overviewAfter = await runtime.getProject(projectId);
-  if (!overviewAfter.ok) throw new Error("overviewAfter");
-  const prepared = await prepareAndResolveM3ProductPath({
-    projectId,
-    decisionId,
-    currentContext: {
-      projectId,
-      lpsId: overviewAfter.livingState.id,
-      lpsVersion: overviewAfter.livingState.version,
-      doctrineDigest: overviewAfter.doctrine.digest,
-      activeCycleInstanceId: cycleInstanceId,
-    },
-    deps: {
-      decisionServices: oa.decisionServices,
-      authorityResolver: oa.authorityResolver,
-      executionContractServices: oa.executionContractServices,
-      nowIso: () => oa.clock.nowIso(),
-      forceM3Authority: true,
-      preferBoundedDocsWriteProfile: true,
-      boundedDocsWriteBaseHeadSha: baseHeadSha,
-    },
-  });
-  expect(prepared.ok).toBe(true);
-  if (!prepared.ok) throw new Error("prepareM3");
-  const durableEc =
-    await oa.executionContractServices.getExecutionContract.execute({
-      executionContractId: prepared.payload.successor.executionContractId,
-    });
-  expect(durableEc.ok).toBe(true);
-  if (!durableEc.ok) throw new Error("ec missing");
-  let contract = durableEc.contract;
-
   const execAuth = registerLocalMorrisGateAuthority({
     authorityResolver: oa.authorityResolver,
-    scope: contract.scope,
+    scope: STUDIO_CURSOR_GENERALIST_SCOPE,
     issuedAt: NOW,
-    evidenceId: `evd:c23-exec:${contract.executionContractId}`,
+    evidenceId: `evd:c23-exec:${suffix}`,
     forceEnable: true,
   });
+  const execAuthEvidenceId = requireAuth(execAuth);
+
+  const executionContractId = `xct:c23-${suffix}`.slice(0, 128);
+  const built = await oa.executionContractServices.buildExecutionContract.execute(
+    {
+      executionContractId,
+      projectId,
+      cycleInstanceId,
+      decisionRefs: [decisionId],
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      requiredAuthority: "N3",
+      constraints: ["ZERO LIVE"],
+      stopConditions: ["DOCTRINE_UNRESOLVED", "AUTHORITY_DENIED"],
+      evidenceRequirements: [...contractEvidenceRequirements],
+      expectedOutputs: ["artifact", TARGET_PATH],
+      reversibility: "partially_reversible",
+      idempotencyKey: `idem:xct-c23-${suffix}`,
+      correlationId: `cor:c23-ec-${suffix}`,
+      actor: PILOTE,
+      authorityEvidenceId: execAuthEvidenceId,
+      inputs: progressiveGitLifecycleInputs(baseHeadSha, {
+        omitSealedRepository,
+        evidenceRequirements: contractEvidenceRequirements,
+      }),
+    },
+  );
+  expect(built.ok).toBe(true);
+  if (!built.ok) throw new Error(`build ec: ${built.error?.detailCode ?? "?"}`);
+
+  const validated =
+    await oa.executionContractServices.validateExecutionContract.execute({
+      executionContractId: built.contract.executionContractId,
+      actor: PILOTE,
+      authorityEvidenceId: execAuthEvidenceId,
+    });
+  expect(validated.ok).toBe(true);
+  if (!validated.ok) throw new Error("validate ec");
+
+  let contract = validated.contract;
   const gateConfirmId = `cfm:gate:${contract.executionContractId}`;
   const requested = await oa.decisionServices.requestConfirmation.execute({
     confirmationId: gateConfirmId,
@@ -544,7 +582,7 @@ async function bootToConfirmedEc(
   const grantedGate = await oa.decisionServices.grantConfirmation.execute({
     confirmationId: gateConfirmId,
     actor: PILOTE,
-    authorityEvidenceId: requireAuth(execAuth),
+    authorityEvidenceId: execAuthEvidenceId,
   });
   expect(grantedGate.ok).toBe(true);
   const confirmed =
@@ -552,7 +590,7 @@ async function bootToConfirmedEc(
       executionContractId: contract.executionContractId,
       confirmationId: gateConfirmId,
       actor: PILOTE,
-      authorityEvidenceId: requireAuth(execAuth),
+      authorityEvidenceId: execAuthEvidenceId,
       expectedVersion: contract.version,
     });
   expect(confirmed.ok).toBe(true);
@@ -566,7 +604,7 @@ async function bootToConfirmedEc(
     cycleInstanceId,
     decisionId,
     contract,
-    execAuthEvidenceId: requireAuth(execAuth),
+    execAuthEvidenceId,
     fakeLaunch,
     gitState,
   };
@@ -606,7 +644,7 @@ async function selectGate(input: {
     expectedContractVersion: input.contractVersion,
     selectionProfile: "standard",
     selectionStrategy: "capabilities_deterministic",
-    requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+    requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
     systemInitiated: true,
   });
   expect(selected.ok).toBe(true);
@@ -632,7 +670,7 @@ async function selectGate(input: {
 }
 
 describe("gcecCr23StartExecution — application boundary", () => {
-  it("C23-N1 StartExecution refuses caller repo override vs Project binding", async () => {
+  it("C23-N1 StartExecution refuses caller repo override vs sealed EC target", async () => {
     const ctx = await bootToConfirmedEc("n1");
     const hostileRef = buildGitEffectActionRef({
       executionContractId: ctx.contract.executionContractId,
@@ -714,7 +752,7 @@ describe("gcecCr23StartExecution — application boundary", () => {
   }, 90_000);
 
   it("C23-N3 StartExecution refuses caller PR override vs verified Evidence", async () => {
-    const ctx = await bootToConfirmedEc("n3");
+    const ctx = await bootToConfirmedEc("n3", { fullGitLifecycle: true });
     ctx.gitState.currentBranch = "feature";
     ctx.gitState.branchHeads.set(
       "feature",
@@ -903,9 +941,9 @@ describe("gcecCr23StartExecution — application boundary", () => {
     expect(ctx.fakeLaunch.calls).toHaveLength(0);
   }, 90_000);
 
-  it("H23A-N1 missing Project repository binding + crafted empty-repo Confirmation → git.commit refused", async () => {
+  it("H23A-N1 missing sealed repositoryRef + crafted empty-repo Confirmation → git.commit refused", async () => {
     const ctx = await bootToConfirmedEc("h23a-n1", {
-      withRepositoryBinding: false,
+      omitSealedRepository: true,
     });
     const emptyRef = buildGitEffectActionRef({
       executionContractId: ctx.contract.executionContractId,
@@ -941,9 +979,9 @@ describe("gcecCr23StartExecution — application boundary", () => {
     expect(ctx.fakeLaunch.calls.length).toBe(callsBefore);
   }, 90_000);
 
-  it("H23A-N2 missing binding: filesystem may authorize; git.commit blocked", async () => {
+  it("H23A-N2 missing sealed repositoryRef: filesystem may authorize; git.commit blocked", async () => {
     const ctx = await bootToConfirmedEc("h23a-n2", {
-      withRepositoryBinding: false,
+      omitSealedRepository: true,
     });
     const emptyRef = buildGitEffectActionRef({
       executionContractId: ctx.contract.executionContractId,
@@ -1018,7 +1056,7 @@ describe("gcecCr23StartExecution — application boundary", () => {
   }, 90_000);
 
   it("H23B-P1 M4 merge under progressive contract → fail closed (CR-06)", async () => {
-    const ctx = await bootToConfirmedEc("h23b-p1");
+    const ctx = await bootToConfirmedEc("h23b-p1", { fullGitLifecycle: true });
     ctx.gitState.currentBranch = "feature";
     ctx.gitState.branchHeads.set(
       "feature",

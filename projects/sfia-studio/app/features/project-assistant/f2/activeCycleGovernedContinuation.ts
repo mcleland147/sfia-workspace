@@ -15,10 +15,11 @@
  * - pathRoot bounds effective scopeIn (never Nora-widened)
  * - repo-relative target validation (no traversal / absolute)
  * - never invent reversibilityExpectation
- * - continuationKind required AND docs_write-compatible effect
+ * - continuationKind required; a retired specialized document-write effect
+ *   is not an admission (fail-closed or generic PREPARE)
  * - recognized continuation + durable failure → BLOCKED (never silent createCycle)
- * - docs_write + contradictory requestedOperation → BLOCKED (never silent rewrite)
- * - accepted continuation: server-owned action + capabilities only
+ * - contradictory requestedOperation → BLOCKED (never silent rewrite)
+ * - accepted continuation: server-owned generalist surface only
  */
 
 import type { HumanDecision } from "@/lib/oa/decision";
@@ -27,7 +28,10 @@ import {
   OBLIGATION_POLICY_REQUIRE_ARTIFACT,
   type CycleInstance,
 } from "@/lib/oa/cycle";
-import type { Project, ProjectRepositoryBinding } from "@/lib/oa/project";
+import type { Project } from "@/lib/oa/project";
+import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
+import { isCapabilityWithinGenericPrepareEnvelope } from "@/features/project-assistant/w2/genericPrepareCapabilityEnvelope";
+import { resolveSealedGitTargetFromEnv } from "@/features/project-assistant/w2/resolveTrustedProductLaunchContext";
 import {
   assessProjectWorkspaceCollision,
   classifyArtifactWriteMode,
@@ -37,6 +41,15 @@ import {
   extractArtifactFileNameCandidate,
 } from "@/lib/oa/project/domain/artifactTargetRouting";
 import { isValidProjectWorkspaceKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
+
+type WorkspacePathRoot = {
+  pathRoot?: string | null;
+  identity?: string | null;
+  remoteUrl?: string | null;
+  defaultBranch?: string | null;
+  provider?: string | null;
+  baseSha?: string | null;
+};
 import {
   listManagedRepoPathsUnderRoot,
   probeManagedRepoRelativePathExists,
@@ -114,7 +127,6 @@ export type ActiveCycleContinuationOa = {
             project: {
               projectId: string;
               projectWorkspaceKey?: string;
-              repositoryBinding?: ProjectRepositoryBinding;
             };
           }
         | { ok: false }
@@ -188,8 +200,7 @@ export function parseContinuationKind(
 }
 
 /**
- * Pure repo-relative path normalize — mirrors GCEC docs_write normalizeRel
- * (fakeDocsWriteLaunchPort) without importing the launch port.
+ * Pure repo-relative path normalize.
  * Rejects absolute paths and any ".." segment. No silent rewrite.
  */
 export function normalizeRepoRelativePath(raw: string): string | null {
@@ -318,13 +329,11 @@ export function hasNaturalActiveCycleDeliverableMaterializationSignal(
   const documentaryObject =
     /\b(livrable|fichier|document|note|markdown|\.md\b|specification|cahier|memoire)\b/.test(
       hay,
-    ) || analysis.executionIntent?.intentKind === "docs_write";
+    );
   const repoOrDeliverableFrame =
     /\b(depot|repo|repository|git|workspace|projet|cycle|reference|consolide|attendu|emplacement)\b/.test(
       hay,
-    ) ||
-    Boolean(analysis.executionIntent?.targetPath?.trim()) ||
-    analysis.executionIntent?.intentKind === "docs_write";
+    ) || Boolean(analysis.executionIntent?.targetPath?.trim());
 
   if (!productionVerb || !documentaryObject) return false;
   if (!repoOrDeliverableFrame) return false;
@@ -348,60 +357,43 @@ export function shouldEnterActiveCycleArtifactContinuationHandling(
 }
 
 /**
- * CR-07-06 — blank/null/undefined OR exact cursor.docs_write.apply after trim.
- * Any other non-empty value is contradictory (never silently rewritten).
+ * Blank/null/undefined after trim is not a contradictory operation.
+ * Any non-empty value is not a Product-admitted specialized operation.
  */
 export function isBlankOrCanonicalDocsWriteOperation(raw: unknown): boolean {
   if (raw === null || raw === undefined) return true;
   if (typeof raw !== "string") return false;
-  const t = raw.trim();
-  return t.length === 0 || t === F2_ARTIFACT_MATERIALIZATION_OPERATION;
+  return raw.trim().length === 0;
 }
 
 /**
- * Compatible materialization effect (non-authoritative alone).
- * CORR-PROOF-09 CR-09-02 — requires dedicated artifactMaterializationOperation
- * === cursor.docs_write.apply. Generic requestedOperation surfaces stay free-form
- * elsewhere but must be blank or exact-canonical here (contradiction → fail-closed).
- * CR-07-06 — intentKind=docs_write never overrides a contradictory requestedOperation.
+ * Product-admitted materialization effect for an active-cycle continuation.
+ * Only a generalist deliverable (intent read_only/other/absent, envelope
+ * capabilities, and a filename or target) is admitted. A retired specialized
+ * document-write kind, an elevated capability, or a pathless natural signal
+ * is not: explicit continuation then fail-closes, and natural signals yield
+ * to generic PREPARE.
  */
 export function hasCompatibleDocsWriteMaterializationEffect(
   analysis: IntentAnalysisDto,
 ): boolean {
-  if (!analysis.parseOk) return false;
-  if (
-    analysis.intentClass !== "actionable" &&
-    analysis.intentClass !== "execution_request"
-  ) {
-    return false;
-  }
   const ei = analysis.executionIntent;
   if (!ei) return false;
-  if (ei.intentKind !== "docs_write") return false;
-
-  // Dedicated Artifact discriminator (producer-schema enum|null only).
-  if (
-    analysis.artifactMaterializationOperation !==
-    F2_ARTIFACT_MATERIALIZATION_OPERATION
-  ) {
-    return false;
-  }
-
-  // Generic surfaces: blank/null OR exact canonical — never contradict.
-  if (!isBlankOrCanonicalDocsWriteOperation(ei.requestedOperation)) {
-    return false;
-  }
-  if (!isBlankOrCanonicalDocsWriteOperation(analysis.requestedOperation)) {
-    return false;
-  }
-
-  return true;
+  const kind = ei.intentKind?.trim() || null;
+  if (kind != null && kind !== "read_only" && kind !== "other") return false;
+  const elevated = (ei.requiredCapabilities ?? []).some(
+    (cap) =>
+      cap.trim().length > 0 && !isCapabilityWithinGenericPrepareEnvelope(cap),
+  );
+  if (elevated) return false;
+  const leaf = ei.artifactFileName?.trim() || ei.targetPath?.trim() || "";
+  return leaf.length > 0;
 }
 
 /**
  * Fully qualified semantic Artifact materialization continuation:
- * continuationKind AND docs_write-compatible effect.
- * docs_write alone is NEVER sufficient (CR-07-04).
+ * continuationKind AND a Product-admitted materialization effect.
+ * A retired specialized document-write kind is never sufficient.
  */
 export function isQualifiedArtifactMaterializationContinuation(
   analysis: IntentAnalysisDto,
@@ -522,7 +514,7 @@ export type ActiveCycleContinuationResolution =
   | {
       readonly mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION";
       readonly activeCycle: CycleInstance;
-      readonly repositoryBinding: ProjectRepositoryBinding | null;
+      readonly repositoryBinding: WorkspacePathRoot | null;
       readonly needsTargetClarification: boolean;
       readonly clarificationReason?: ActiveCycleContinuationClarificationReason;
       readonly enrichedExecutionIntent: ExecutionIntentPayload | null;
@@ -576,18 +568,17 @@ export async function resolveActiveCycleGovernedContinuation(input: {
 }): Promise<ActiveCycleContinuationResolution> {
   // CR-07-04 / CR-07-05 / CORR-01 — enter Artifact-continuation handling when
   // explicit continuationKind OR natural active-cycle deliverable materialization
-  // signal is present. Without either, docs_write alone stays historical NEW_CYCLE.
-  // Recognized continuation + incomplete effect → BLOCKED (never silent createCycle).
+  // signal is present. A retired specialized kind alone stays historical NEW_CYCLE.
+  // Recognized continuation + no admitted effect → BLOCKED (never silent createCycle).
   if (!shouldEnterActiveCycleArtifactContinuationHandling(input.analysis)) {
     return { mode: "NEW_CYCLE_FORMALIZATION", reason: "no_materialization_intent" };
   }
 
-  // D-ER-16…19 — NATURAL documentary signal WITHOUT a docs_write-compatible
-  // effect is NOT a dead-end: it is not Artifact continuation, so it yields to
-  // NEW_CYCLE_FORMALIZATION where orchestration may route to Generic PREPARE
-  // (no task-taxonomy admission). An EXPLICIT continuationKind with an
-  // incompatible effect (hostile/contradictory Artifact declaration) stays
-  // BLOCKED incompatible_execution_intent — never silent createCycle.
+  // D-ER-16…19 — NATURAL documentary signal is not Artifact continuation.
+  // It yields to NEW_CYCLE_FORMALIZATION where orchestration may route to
+  // Generic PREPARE / generalist (no specialized admission). An EXPLICIT
+  // continuationKind without an admitted effect stays BLOCKED
+  // incompatible_execution_intent — never silent createCycle.
   if (!hasCompatibleDocsWriteMaterializationEffect(input.analysis)) {
     if (hasExplicitArtifactContinuationKind(input.analysis)) {
       return blocked("incompatible_execution_intent");
@@ -656,15 +647,17 @@ export async function resolveActiveCycleGovernedContinuation(input: {
     return blocked("no_require_artifact", activeCycle);
   }
 
-  // Authoritative Project.repositoryBinding — never invent a second SoT.
-  let repositoryBinding: ProjectRepositoryBinding | null = null;
+  // Documentary WHERE is projects/<workspaceKey> from the durable key.
+  // Never read a Product repository-binding record.
+  let repositoryBinding: WorkspacePathRoot | null = null;
   let projectWorkspaceKey: string | undefined;
   const proj = await input.oa.projectServices.getProject.execute({
     projectId: input.project.projectId,
   });
   if (proj.ok) {
-    repositoryBinding = proj.project.repositoryBinding ?? null;
     projectWorkspaceKey = proj.project.projectWorkspaceKey;
+    const pathRoot = projectWorkspacePathRootFromKey(projectWorkspaceKey);
+    repositoryBinding = pathRoot ? { pathRoot, identity: null } : null;
   }
 
   const enriched = enrichExecutionIntentFromBinding({
@@ -686,12 +679,17 @@ export async function resolveActiveCycleGovernedContinuation(input: {
 
   // CR-PWR-03 — workspace collision before first materialization (automatic roots).
   // Automatic Product workspaces require a readable managed-repo fact (UNKNOWN ≠ ABSENT).
+  // Probe identity = sealed Git-target env witness (not Product RepositoryBinding).
   const pathRoot = repositoryBinding?.pathRoot?.trim() || "";
   const isAutomaticRoot =
     Boolean(pathRoot) && isAutomaticProjectWorkspacePathRoot(pathRoot);
   const managedBase = resolveManagedRepoRootBaseFromEnv();
+  const probeIdentity =
+    repositoryBinding?.identity?.trim() ||
+    resolveSealedGitTargetFromEnv()?.identity?.trim() ||
+    null;
 
-  if (isAutomaticRoot && repositoryBinding?.identity) {
+  if (isAutomaticRoot && probeIdentity) {
     if (!managedBase) {
       return {
         mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
@@ -701,7 +699,7 @@ export async function resolveActiveCycleGovernedContinuation(input: {
         clarificationReason: "repository_fact_unavailable",
         enrichedExecutionIntent: {
           ...(enriched.executionIntent ?? {}),
-          intentKind: "docs_write",
+          intentKind: "other",
           targetPath: enriched.executionIntent?.targetPath ?? null,
           artifactWriteMode: "ASK",
         },
@@ -713,7 +711,7 @@ export async function resolveActiveCycleGovernedContinuation(input: {
       projectId: input.project.projectId,
       pathRoot,
       workspaceKey: projectWorkspaceKey,
-      identity: repositoryBinding.identity,
+      identity: probeIdentity,
       managedRepoRootBase: managedBase,
     });
     if (
@@ -731,7 +729,7 @@ export async function resolveActiveCycleGovernedContinuation(input: {
             : "workspace_collision_ambiguous",
         enrichedExecutionIntent: {
           ...(enriched.executionIntent ?? {}),
-          intentKind: "docs_write",
+          intentKind: "other",
           targetPath: null,
           artifactWriteMode: "ASK",
         },
@@ -741,10 +739,11 @@ export async function resolveActiveCycleGovernedContinuation(input: {
 
   // CR-PWR-02 — repository existence + Evidence same-deliverable → CREATE/UPDATE/ASK.
   // Automatic Product workspace: UNKNOWN repo fact MUST fail closed (never null→CREATE).
+  // Probe uses sealed env identity — Project no longer carries Product Binding.
   const targetPath = enriched.executionIntent?.targetPath?.trim() || "";
   let withMode: ExecutionIntentPayload = { ...(enriched.executionIntent ?? {}) };
 
-  if (isAutomaticRoot && repositoryBinding?.identity) {
+  if (isAutomaticRoot && probeIdentity) {
     if (!managedBase || !targetPath) {
       return {
         mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
@@ -754,14 +753,14 @@ export async function resolveActiveCycleGovernedContinuation(input: {
         clarificationReason: "repository_fact_unavailable",
         enrichedExecutionIntent: {
           ...withMode,
-          intentKind: "docs_write",
+          intentKind: "other",
           artifactWriteMode: "ASK",
         },
       };
     }
 
     const targetExists = probeManagedRepoRelativePathExists({
-      identity: repositoryBinding.identity,
+      identity: probeIdentity,
       repoRelativePath: targetPath,
       managedRepoRootBase: managedBase,
     });
@@ -775,7 +774,7 @@ export async function resolveActiveCycleGovernedContinuation(input: {
         clarificationReason: "repository_fact_unavailable",
         enrichedExecutionIntent: {
           ...withMode,
-          intentKind: "docs_write",
+          intentKind: "other",
           artifactWriteMode: "ASK",
         },
       };
@@ -831,6 +830,20 @@ export async function resolveActiveCycleGovernedContinuation(input: {
         enrichedExecutionIntent: withMode,
       };
     }
+  } else if (isAutomaticRoot && !probeIdentity) {
+    // O-01 Project without sealed Git-target env: cannot classify CREATE/UPDATE safely.
+    return {
+      mode: "ACTIVE_CYCLE_GOVERNED_CONTINUATION",
+      activeCycle,
+      repositoryBinding,
+      needsTargetClarification: true,
+      clarificationReason: "repository_fact_unavailable",
+      enrichedExecutionIntent: {
+        ...withMode,
+        intentKind: "other",
+        artifactWriteMode: "ASK",
+      },
+    };
   }
 
   return {
@@ -881,7 +894,8 @@ async function qualifyProjectWorkspaceCollision(input: {
     if (input.workspaceKey && p.projectWorkspaceKey === input.workspaceKey) {
       return true;
     }
-    const otherRoot = p.repositoryBinding?.pathRoot?.trim() || "";
+    const otherRoot =
+      projectWorkspacePathRootFromKey(p.projectWorkspaceKey) ?? "";
     return otherRoot === input.pathRoot;
   });
   if (otherClaimants.length > 0) {
@@ -925,10 +939,12 @@ async function qualifyProjectWorkspaceCollision(input: {
 function withCanonicalArtifactMaterializationAction(
   payload: ExecutionIntentPayload,
 ): ExecutionIntentPayload {
+  const kind = payload.intentKind;
+  const intentKind = kind === "read_only" || kind === "other" ? kind : "other";
   return {
     ...payload,
-    intentKind: "docs_write",
-    requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
+    intentKind,
+    requestedOperation: null,
     requiredCapabilities: [...F2_ARTIFACT_MATERIALIZATION_CAPABILITIES],
   };
 }
@@ -944,7 +960,7 @@ function withCanonicalArtifactMaterializationAction(
  */
 export function enrichExecutionIntentFromBinding(input: {
   analysisIntent: ExecutionIntentPayload | null;
-  binding: ProjectRepositoryBinding | null;
+  binding: WorkspacePathRoot | null;
   /** Active cycle type id — used to resolve stable repositoryWorkspaceSegment. */
   activeCycleTypeId?: string | null;
 }): {
@@ -953,7 +969,11 @@ export function enrichExecutionIntentFromBinding(input: {
 } {
   const base: ExecutionIntentPayload = {
     ...(input.analysisIntent ?? {}),
-    intentKind: input.analysisIntent?.intentKind ?? "docs_write",
+    intentKind:
+      input.analysisIntent?.intentKind === "read_only" ||
+      input.analysisIntent?.intentKind === "other"
+        ? input.analysisIntent.intentKind
+        : "other",
   };
 
   // CORR-PROOF-09 — unsourced affirmative reversibility is never trusted fact
@@ -979,7 +999,7 @@ export function enrichExecutionIntentFromBinding(input: {
     return {
       executionIntent: withCanonicalArtifactMaterializationAction({
         ...base,
-        intentKind: "docs_write",
+        intentKind: "other",
         targetRepositoryRef: input.binding.identity,
         targetPath: null,
         scopeIn: [],
@@ -993,7 +1013,7 @@ export function enrichExecutionIntentFromBinding(input: {
     return {
       executionIntent: withCanonicalArtifactMaterializationAction({
         ...base,
-        intentKind: "docs_write",
+        intentKind: "other",
         targetRepositoryRef: input.binding.identity,
         targetPath: null,
         scopeIn: [],
@@ -1020,7 +1040,7 @@ export function enrichExecutionIntentFromBinding(input: {
       return {
         executionIntent: withCanonicalArtifactMaterializationAction({
           ...base,
-          intentKind: "docs_write",
+          intentKind: "other",
           targetRepositoryRef: input.binding.identity,
           targetPath: null,
           scopeIn: [routed.cycleRoot ?? canonicalRoot],
@@ -1032,7 +1052,7 @@ export function enrichExecutionIntentFromBinding(input: {
     return {
       executionIntent: withCanonicalArtifactMaterializationAction({
         ...base,
-        intentKind: "docs_write",
+        intentKind: "other",
         targetRepositoryRef: input.binding.identity,
         targetPath: routed.targetPath,
         artifactFileName: routed.artifactFileName,
@@ -1083,7 +1103,7 @@ export function enrichExecutionIntentFromBinding(input: {
 
   const out: ExecutionIntentPayload = withCanonicalArtifactMaterializationAction({
     ...base,
-    intentKind: "docs_write",
+    intentKind: "other",
     targetRepositoryRef: input.binding.identity,
     targetPath,
     ...(sealedLeaf ? { artifactFileName: sealedLeaf } : {}),
@@ -1131,7 +1151,7 @@ export function continuationBlockedMessage(
     case "lifecycle_assess_failed":
       return `Continuation Artifact demandée, mais l'évaluation Pilot lifecycle a échoué (fail-closed).${cycleHint} Aucun nouveau CycleInstance créé.`;
     case "incompatible_execution_intent":
-      return `Continuation Artifact signalée, mais l'intention d'effet docs_write compatible est absente.${cycleHint} Aucune proposition de matérialisation. Aucun nouveau CycleInstance créé.`;
+      return `Continuation Artifact signalée, mais aucun effet de matérialisation admis n'est présent.${cycleHint} La spécialisation documentaire n'est pas une admission Product — utiliser PREPARE générique. Aucun nouveau CycleInstance créé.`;
     case "workspace_collision_ambiguous":
       return `Workspace Project déjà présent sans preuve d'appartenance durable — collision ambiguë.${cycleHint} Aucune Proposal exécutable. Aucun nouveau CycleInstance créé.`;
   }

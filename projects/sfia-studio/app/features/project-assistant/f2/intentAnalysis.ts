@@ -39,7 +39,6 @@ import {
 import { parseContinuationKind } from "./activeCycleGovernedContinuation";
 import {
   F2_ARTIFACT_MATERIALIZATION_OPERATION,
-  F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM,
   isF2ArtifactMaterializationOperation,
 } from "./f2CanonicalOperations";
 
@@ -238,15 +237,7 @@ export const F2_INTENT_JSON_SCHEMA: Record<string, unknown> = {
         { type: "null" },
       ],
     },
-    artifactMaterializationOperation: {
-      anyOf: [
-        {
-          type: "string",
-          enum: [...F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM],
-        },
-        { type: "null" },
-      ],
-    },
+    artifactMaterializationOperation: { type: "null" },
     pilotDecisionCandidate: {
       anyOf: [PILOT_DECISION_CANDIDATE_OBJECT_SCHEMA, { type: "null" }],
     },
@@ -568,9 +559,9 @@ contradictionCandidate (objet candidat cognitif OU null — PAS Evidence, PAS ev
 challengeResponseAssessment (sufficient|insufficient|unknown|null — INTERNAL MW5 seulement ; PAS Truth C, PAS Evidence, PAS HumanDecision, PAS autorité ; missing/unknown/insufficient = fail-closed),
 objective, scope, rephrasedRequest, outOfScope[], risks[], reservations[], stopConditions[], activatedBlocks[],
 expectedOutcome, criticalJustification, requestedOperation (string libre / legacy OU null — PAS un ID technique obligatoire hors matérialisation Artifact),
-executionIntent (objet structuré docs_write/read_only/other NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; executionIntent.requestedOperation reste générique/nullable ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
-continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT).
-artifactMaterializationOperation (cursor.docs_write.apply OU null — discriminateur TECHNIQUE dédié à la matérialisation Artifact active-cycle ; JAMAIS du texte libre ; JAMAIS une autorité d'exécution).
+executionIntent (objet structuré read_only/other NON-AUTORITAIRE OU null — intention d'exécution proposée, JAMAIS une grant REAL / HumanDecision / autorité ; un kind spécialisé retiré est invalide ; executionIntent.requestedOperation reste générique/nullable ; champs incluant artifactBrief, contentRequirements, targetPath, evidenceRequirements).
+continuationKind (active_cycle_artifact_materialization OU null — hint NON-AUTORITAIRE de continuation du cycle actif ; JAMAIS une permission createCycle/skip ; le serveur valide contre activeCycle + REQUIRE_ARTIFACT ; ce hint seul n'admet pas une opération spécialisée).
+artifactMaterializationOperation (null uniquement — aucune opération spécialisée n'est admise ; un non-null fail-closed ; JAMAIS une autorité d'exécution).
 pilotDecisionCandidate ({disposition, targetKind, rationale} OU null — lecture NON-AUTORITAIRE de la disposition du Pilote sur un sujet de décision DÉJÀ présenté ; JAMAIS une HumanDecision ; targetKind n'est JAMAIS un optionRef).
 
 === DISTINCTION FONDAMENTALE ===
@@ -735,27 +726,26 @@ rationale : justification courte NON-AUTORITAIRE ou null.
 
 === CONTINUATION CYCLE ACTIF (CORR-PROOF-07 / CORR-PROOF-09 / ACTIVE-CYCLE-ARTIFACT-MATERIALIZATION-CONTINUITY-CORR-01) ===
 NEW_CYCLE_FORMALIZATION ≠ ACTIVE_CYCLE_GOVERNED_CONTINUATION ≠ ACTIVE_CYCLE_CONTINUATION_BLOCKED.
-Si le Project a déjà un cycle actif et que la demande porte sur la matérialisation gouvernée du livrable requis (REQUIRE_ARTIFACT) de CE cycle :
-- continuationKind=active_cycle_artifact_materialization EST REQUIS (hint NON-AUTORITAIRE) — MÊME sans targetPath / filename technique fourni par le Pilote ;
-- ET executionIntent.intentKind=docs_write EST REQUIS ;
-- ET artifactMaterializationOperation=cursor.docs_write.apply EST REQUIS (discriminateur technique dédié) ;
-- docs_write SEUL ne suffit JAMAIS à détourner vers la continuation Artifact ;
+Une opération spécialisée d'écriture documentaire N'EST PAS une admission Product.
+Le travail documentaire se route par PREPARE générique / generalist.
+Si le Project a déjà un cycle actif et que la demande porte sur un livrable du cycle :
+- continuationKind peut être active_cycle_artifact_materialization (hint NON-AUTORITAIRE) ou null ;
+- executionIntent.intentKind est read_only, other, ou null — JAMAIS un kind spécialisé retiré ;
+- artifactMaterializationOperation DOIT être null (tout non-null fail-closed) ;
 - continuationKind SEUL ne suffit JAMAIS à ouvrir une proposition exécutable ;
-- NE PAS traiter cela comme création d'un nouveau CycleInstance / nouveau Cadrage ;
-- NE PAS retomber en NEW_CYCLE_FORMALIZATION uniquement parce qu'un chemin / artifactFileName / hint technique est absent ;
-- si la cible exacte n'est pas résolue : laisser targetPath=null (et éventuellement artifactFileName null ou leaf sûr) — le serveur clarifie DANS le cycle actif ;
-- CONTRAT TECHNIQUE (CORR-PROOF-09 CR-09-01/02) :
-  * artifactMaterializationOperation DOIT être EXACTEMENT « cursor.docs_write.apply » (pas d'alias « docs_write », pas de français, pas d'autre opération) ;
-  * hors de ce chemin Artifact, artifactMaterializationOperation=null ;
-  * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ailleurs ; pour CETTE continuation Artifact, les laisser null (préféré) ou exactement cursor.docs_write.apply — JAMAIS une valeur contradictoire (ex. github.pr.merge) ;
-  * si des requiredCapabilities sont fournies pour ce chemin → « cap:cursor.docs_write » (le serveur reste autoritaire après acceptation) ;
+- NE PAS traiter une demande documentaire ordinaire comme création obligatoire d'un nouveau CycleInstance lorsque PREPARE générique peut la porter ;
+- si la cible exacte n'est pas résolue : laisser targetPath=null (et éventuellement artifactFileName null ou leaf sûr) ;
+- CONTRAT TECHNIQUE :
+  * artifactMaterializationOperation=null ;
+  * requestedOperation (top-level) ET executionIntent.requestedOperation restent génériques ou null — JAMAIS une opération spécialisée, JAMAIS une valeur contradictoire (ex. github.pr.merge) sur un hint de continuation ;
+  * requiredCapabilities, si fournies, restent dans l'enveloppe generalist — le serveur reste autoritaire après acceptation ;
   * la description naturelle du livrable va dans objective / rephrasedRequest / artifactBrief / contentRequirements — JAMAIS dans artifactMaterializationOperation ;
   * CONTINUITÉ SÉMANTIQUE DU WHAT : reporter dans artifactBrief / contentRequirements les règles fonctionnelles déjà stabilisées dans le contexte (statuts, attributs, filtres, persistance, exclusions) — NE PAS inventer une seconde spécification contradictoire (ex. retirer des statuts/attributs déjà établis ou les déclarer hors périmètre) ;
-  * targetPath / targetRepositoryRef PEUVENT rester null (le serveur compose sous Project workspace + cycle segment) — ne PAS inventer de chemin repository complet ;
+  * targetPath / targetRepositoryRef PEUVENT rester null (le serveur compose sous le workspace Project projects/<key> + cycle segment) — ne PAS inventer de chemin repository complet ;
   * si le Pilote a fourni un filename leaf sûr (ex. note-de-cadrage.md), le reporter dans artifactFileName ;
   * si aucun filename n'est fourni, artifactFileName PEUT rester null (clarification serveur) OU proposer un leaf Markdown cohérent (NON-AUTORITAIRE) ;
   * ne PAS demander au Pilote de construire un path technique repository complet lorsque workspace Project+cycle est déterminable ;
-  * reversibilityExpectation pour cette continuation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
+  * reversibilityExpectation : null ou unknown seulement — NE PAS affirmer reversible/irreversible sans provenance serveur ;
 - définition seule du livrable (sans effet de matérialisation) → informative, continuationKind=null, artifactMaterializationOperation=null.
 Aucune phrase magique exacte n'autorise seule cette continuation.`;
 

@@ -1,3 +1,5 @@
+const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
+
 /**
  * GCEC Cursor full-capability executor parity — deterministic CAP/AUTH matrix.
  * FakeProcessRunner only. ZERO MUTATING REAL. No credential-bridge wiring.
@@ -10,7 +12,6 @@ import {
   CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY,
   CURSOR_FORCED_SHELL_EGRESS_KEY,
   CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY,
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_BOUNDED_PR_CREATE_ACTION,
   M4_BOUNDED_REMOTE_PUSH_ACTION,
   M4_BOUNDED_RO_ACTION,
@@ -76,32 +77,6 @@ function baseRequest(
     timeoutMs: 15 * 60 * 1000,
     ...overrides,
   } as Parameters<StudioCursorRealLaunchGateway["launch"]>[0];
-}
-
-function docsWriteRequest(
-  overrides: Record<string, unknown> = {},
-): Parameters<StudioCursorRealLaunchGateway["launch"]>[0] {
-  return baseRequest({
-    action: M4_BOUNDED_DOCS_WRITE_ACTION,
-    selectedAgentRef: "agt:m4.cursor.bounded_docs_write",
-    authorizedEffects: ["filesystem.create", "filesystem.modify"],
-    docsWriteSpec: {
-      repositoryRef: "acme/widget",
-      targetPath: PATH,
-      pathAllowlist: ["docs/"],
-      artifactType: "functional_design",
-      artifactBrief: "brief",
-      contentRequirements: ["x"],
-      scopeIn: ["docs/"],
-      scopeOut: [],
-      expectedOutputs: [PATH],
-      validationExpectations: [],
-      evidenceRequirements: ["artifact"],
-      createOrModify: true,
-      noDelete: true,
-    },
-    ...overrides,
-  });
 }
 
 function localCommitRequest(
@@ -250,129 +225,6 @@ describe("GCEC Cursor full-capability executor parity", () => {
     assertStudioCursorRealOffForTests();
   });
 
-  it("CAP-01/02 A docs-write: sandbox disabled + force; no CURSOR_FORCED inject", async () => {
-    const hostile = baseEnv({
-      [CURSOR_FORCED_SHELL_EGRESS_KEY]: "1",
-      [CURSOR_FORCED_SHELL_EGRESS_ALLOW_DOMAINS_KEY]: "api.github.com",
-      [CURSOR_FORCED_SHELL_EGRESS_NETWORK_DEFAULT_KEY]: "deny",
-    });
-    const { gw, runner } = gateway(hostile);
-    const result = await gw.launch(docsWriteRequest());
-    expect(result.outcome).toBe("ack");
-    expectFullCapabilityArgv(runner.calls[0]!.argv);
-    expectNoCursorForcedInjection(runner.calls[0]!.env);
-  });
-
-  it("docs_write_instruction_embeds_absolute_target_under_workspace", async () => {
-    const sealed =
-      "projects/sfia-studio/.sandbox/gestion-de-taches.md";
-    const allow = "projects/sfia-studio/.sandbox";
-    const { gw, runner, workspacePath } = gateway();
-    const result = await gw.launch(
-      docsWriteRequest({
-        docsWriteSpec: {
-          repositoryRef: "mcleland147/sfia-workspace",
-          targetPath: sealed,
-          pathAllowlist: [allow],
-          artifactType: "functional_design",
-          artifactBrief: "brief",
-          contentRequirements: ["x"],
-          scopeIn: [allow],
-          scopeOut: [],
-          expectedOutputs: [sealed],
-          validationExpectations: [],
-          evidenceRequirements: ["artifact"],
-          createOrModify: true,
-          noDelete: true,
-          // CR-CI506-04 — automatic projects/… target requires sealed write mode.
-          artifactWriteMode: "CREATE",
-        },
-      }),
-    );
-    expect(result.outcome).toBe("ack");
-    const instruction = runner.calls[0]!.argv.at(-1) as string;
-    const absTarget = path.resolve(
-      workspacePath,
-      ...sealed.split("/"),
-    );
-    const absAllow = path.resolve(
-      workspacePath,
-      ...allow.split("/"),
-    );
-    expect(instruction).toContain(`EXACT AUTHORIZED FILE`);
-    expect(instruction).toContain(absTarget);
-    expect(instruction).toContain(
-      `Canonical sealed targetPath (repo-relative, do not reinterpret): ${sealed}`,
-    );
-    expect(instruction).toContain(absAllow);
-    expect(instruction).toContain(
-      `Canonical sealed pathAllowlist (repo-relative): ${allow}`,
-    );
-    expect(instruction).not.toMatch(
-      /Créer ou modifier UNIQUEMENT le fichier: projects\/sfia-studio/,
-    );
-    // Prefix must not be stripped from sealed or absolute forms.
-    expect(absTarget).toContain("/projects/sfia-studio/.sandbox/");
-  });
-
-  it("docs_write_rejects_root_dot_sandbox_when_sealed_allowlist_is_projects_sfia_studio", async () => {
-    const { gw, runner } = gateway();
-    const result = await gw.launch(
-      docsWriteRequest({
-        docsWriteSpec: {
-          repositoryRef: "mcleland147/sfia-workspace",
-          targetPath: ".sandbox/gestion-de-taches.md",
-          pathAllowlist: ["projects/sfia-studio/.sandbox"],
-          artifactType: "functional_design",
-          artifactBrief: "brief",
-          contentRequirements: ["x"],
-          scopeIn: ["projects/sfia-studio/.sandbox"],
-          scopeOut: [],
-          expectedOutputs: [".sandbox/gestion-de-taches.md"],
-          validationExpectations: [],
-          evidenceRequirements: ["artifact"],
-          createOrModify: true,
-          noDelete: true,
-        },
-      }),
-    );
-    expect(result.outcome).toBe("reject");
-    if (result.outcome === "reject") {
-      expect(result.reason).toBe("target_outside_allowlist");
-      expect(result.realProcessInvoked).toBe(false);
-    }
-    expect(runner.calls).toHaveLength(0);
-  });
-
-  it("docs_write_rejects_path_traversal_before_spawn", async () => {
-    const { gw, runner } = gateway();
-    const result = await gw.launch(
-      docsWriteRequest({
-        docsWriteSpec: {
-          repositoryRef: "acme/widget",
-          targetPath: "docs/../../etc/passwd",
-          pathAllowlist: ["docs/"],
-          artifactType: "functional_design",
-          artifactBrief: "brief",
-          contentRequirements: ["x"],
-          scopeIn: ["docs/"],
-          scopeOut: [],
-          expectedOutputs: ["docs/../../etc/passwd"],
-          validationExpectations: [],
-          evidenceRequirements: ["artifact"],
-          createOrModify: true,
-          noDelete: true,
-        },
-      }),
-    );
-    expect(result.outcome).toBe("reject");
-    if (result.outcome === "reject") {
-      expect(result.reason).toBe("target_path_invalid");
-      expect(result.realProcessInvoked).toBe(false);
-    }
-    expect(runner.calls).toHaveLength(0);
-  });
-
   it("CAP-01/02 B local-commit: full-capability argv", async () => {
     const { gw, runner } = gateway();
     expect((await gw.launch(localCommitRequest())).outcome).toBe("ack");
@@ -468,10 +320,18 @@ describe("GCEC Cursor full-capability executor parity", () => {
     expect(process.env.GH_TOKEN).toBe(before);
   });
 
-  it("CAP-C remote_git confinement effect class unchanged", () => {
+  it("CAP-C confinement effect class follows authorized effects", () => {
     expect(
       resolveMutatingConfinementEffectClass({ isRemotePushProfile: true }),
     ).toBe("remote_git");
+    expect(
+      resolveMutatingConfinementEffectClass({ authorizedEffects: ["git.push"] }),
+    ).toBe("remote_git");
+    expect(
+      resolveMutatingConfinementEffectClass({
+        authorizedEffects: ["filesystem.create", "filesystem.modify"],
+      }),
+    ).toBe("local");
     const child = buildMutatingCursorConfinementEnv(baseEnv({ GH_TOKEN: "X" }), {
       effectClass: "remote_git",
     });
@@ -479,6 +339,12 @@ describe("GCEC Cursor full-capability executor parity", () => {
     expect(child.GIT_CONFIG_KEY_0).toBe(
       REMOTE_GIT_GITHUB_HTTPS_CREDENTIAL_HELPER_KEY,
     );
+    const local = buildMutatingCursorConfinementEnv(
+      baseEnv({ SSH_AUTH_SOCK: "TEST_SSH_SOCKET", GH_TOKEN: "X" }),
+      { effectClass: "local" },
+    );
+    expect(local.SSH_AUTH_SOCK).toBeUndefined();
+    expect(local.GH_TOKEN).toBeUndefined();
   });
 
   it("redaction helper still available for accidental secret capture", () => {

@@ -1,7 +1,9 @@
 /**
  * D-GCEC-AGENT-01 — AttemptExecutionProfile (non-persistent).
- * CORR-D-GCEC-AGENT-01 / GCEC-GIT-LIFECYCLE-E2E-01 PATH B:
- * progressive docs-write → local-commit → remote_push → pr_create → pr_merge.
+ * CORR-D-GCEC-AGENT-01 / GCEC-GIT-LIFECYCLE-E2E-01 PATH B / AKG-M5:
+ * progressive filesystem materialization → local-commit → remote_push →
+ * pr_create → pr_merge, gated on executable/authorized effects (not on a
+ * Product docs_write action or specialized DocWrite agent).
  *
  * Server-derived executor sufficiency for THIS Attempt's current eligible slice.
  * NOT an authority source, NOT client-authoritative, NOT persisted.
@@ -14,12 +16,6 @@ import type { ExecutionContract } from "@/lib/oa/execution-contract";
 import type { AgentMatchCriteria } from "./invariants";
 import type { ExecutionAttempt } from "./types";
 import { deriveExecutableEffectsFromContractRequirements } from "./contractEffectClassification";
-import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
-  M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-  M4_BOUNDED_DOCS_WRITE_SCOPE,
-  M4_BOUNDED_DOCS_WRITE_TARGET,
-} from "../infrastructure/m4BoundedDocsWriteCursorAgent";
 import {
   M4_BOUNDED_RO_ACTION,
   M4_BOUNDED_RO_CAPABILITY,
@@ -58,10 +54,6 @@ import {
 } from "../infrastructure/studioCursorGeneralistAgent";
 import type { CursorAuthorizedEffectId } from "./cursorExecutionReport";
 import {
-  resolveVerifiedDocsWritePriorAttempt,
-  type VerifiedDocsWritePriorAttempt,
-} from "./resolveVerifiedDocsWritePriorAttempt";
-import {
   resolveVerifiedLocalCommitPriorAttempt,
   type VerifiedLocalCommitPriorAttempt,
 } from "./resolveVerifiedLocalCommitPriorAttempt";
@@ -71,9 +63,12 @@ import {
 } from "./resolveVerifiedRemotePushPriorAttempt";
 import { resolveVerifiedRemotePushPriorForPrCreate } from "./resolveCrossEcVerifiedRemotePushPrior";
 import { resolveVerifiedPullRequestNumber } from "./resolveGitEffectTarget";
+import {
+  resolveVerifiedFilesystemMaterializationPriorAttempt,
+  type VerifiedFilesystemMaterializationPriorAttempt,
+} from "./resolveVerifiedFilesystemMaterializationPriorAttempt";
 
 export type AttemptExecutionProfileKind =
-  | "docs_write"
   | "local_commit"
   | "remote_push"
   | "pr_create"
@@ -157,23 +152,30 @@ const UNSUPPORTED_M4_PROTECTED: ReadonlySet<CursorAuthorizedEffectId> = new Set(
   "github.pr.update",
 ]);
 
-function docsWriteProfile(reason: string): AttemptExecutionProfile {
+/**
+ * Filesystem materialization slice — Product generalist technical quartet.
+ * effectClass remains filesystem for audit; kind is contract_legacy (docs_write
+ * AttemptExecutionProfileKind retired with Product DocWrite specialization).
+ */
+function filesystemMaterializationProfile(
+  reason: string,
+): AttemptExecutionProfile {
   return {
-    kind: "docs_write",
+    kind: "contract_legacy",
     effectClass: "filesystem",
     reason,
     criteria: {
-      requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-      action: M4_BOUNDED_DOCS_WRITE_ACTION,
-      target: M4_BOUNDED_DOCS_WRITE_TARGET,
-      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
     },
   };
 }
 
 function localCommitProfile(
   reason: string,
-  prior: VerifiedDocsWritePriorAttempt,
+  prior: VerifiedFilesystemMaterializationPriorAttempt,
 ): AttemptExecutionProfile {
   return {
     kind: "local_commit",
@@ -398,7 +400,7 @@ function resolveLocalCommitOrFail(
 ): ResolveAttemptExecutionProfileResult {
   const reader = requireEvidenceReader(input);
   if (reader) return reader;
-  const prior = resolveVerifiedDocsWritePriorAttempt({
+  const prior = resolveVerifiedFilesystemMaterializationPriorAttempt({
     contract: input.contract,
     attempts: input.attempts ?? [],
     evidence: input.evidence ?? [],
@@ -655,15 +657,132 @@ export function resolveAttemptExecutionProfile(
     UNSUPPORTED_M4_PROTECTED.has(e as CursorAuthorizedEffectId),
   );
 
-  const isM4DocsWriteContract =
-    contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
-    (contract.requiredCapabilities ?? []).includes(
-      M4_BOUNDED_DOCS_WRITE_CAPABILITY,
-    );
+  // Sealed historical profiles BEFORE effect-gated progressive (AKG-M5).
+  // F3 fixture / RO / standalone specialized actions must not be captured by
+  // progressive Git lifecycle merely because evidenceRequirements list git:*.
+  const isM4RoContract =
+    contract.action === M4_BOUNDED_RO_ACTION &&
+    (contract.requiredCapabilities ?? []).includes(M4_BOUNDED_RO_CAPABILITY);
+  if (isM4RoContract) {
+    return {
+      ok: true,
+      profile: readOnlyProfile("m4_bounded_readonly_sealed"),
+    };
+  }
+
+  const isF3FixtureContract =
+    contract.action === F3_FIXTURE_ACTION &&
+    (contract.requiredCapabilities ?? []).includes(F3_FIXTURE_CAPABILITY);
+  if (isF3FixtureContract) {
+    return {
+      ok: true,
+      profile: f3FixtureProfile("f3_fixture_sealed"),
+    };
+  }
+
+  const caps = contract.requiredCapabilities ?? [];
+  if (
+    contract.action === M4_BOUNDED_PR_CREATE_ACTION &&
+    caps.includes(M4_BOUNDED_PR_CREATE_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "pr_create",
+        effectClass: "github.pr.create",
+        reason: "standalone_pr_create_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_PR_CREATE_CAPABILITY],
+          action: M4_BOUNDED_PR_CREATE_ACTION,
+          target: M4_BOUNDED_PR_CREATE_TARGET,
+          scope: M4_BOUNDED_PR_CREATE_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_REMOTE_PUSH_ACTION &&
+    caps.includes(M4_BOUNDED_REMOTE_PUSH_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "remote_push",
+        effectClass: "git.push",
+        reason: "standalone_remote_push_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_REMOTE_PUSH_CAPABILITY],
+          action: M4_BOUNDED_REMOTE_PUSH_ACTION,
+          target: M4_BOUNDED_REMOTE_PUSH_TARGET,
+          scope: M4_BOUNDED_REMOTE_PUSH_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_LOCAL_COMMIT_ACTION &&
+    caps.includes(M4_BOUNDED_LOCAL_COMMIT_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "local_commit",
+        effectClass: "git.commit",
+        reason: "standalone_local_commit_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+          action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+          target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+          scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+        },
+      },
+    };
+  }
+  if (
+    contract.action === M4_BOUNDED_PR_MERGE_ACTION &&
+    caps.includes(M4_BOUNDED_PR_MERGE_CAPABILITY)
+  ) {
+    return {
+      ok: true,
+      profile: {
+        kind: "pr_merge",
+        effectClass: "github.pr.merge",
+        reason: "standalone_pr_merge_sealed",
+        criteria: {
+          requiredCapabilities: [M4_BOUNDED_PR_MERGE_CAPABILITY],
+          action: M4_BOUNDED_PR_MERGE_ACTION,
+          target: M4_BOUNDED_PR_MERGE_TARGET,
+          scope: M4_BOUNDED_PR_MERGE_SCOPE,
+        },
+      },
+    };
+  }
+
+  const hasProgressiveGitLifecycle =
+    hasCommit || hasPush || hasPr || hasMerge || hasUnsupportedProtected;
+
+  /**
+   * Progressive Git lifecycle — effect-gated (AKG-M5).
+   * Independent of Product docs_write action / DocWrite agent specialization.
+   * FS-only contracts (no git lifecycle) stay on generalist contract_legacy.
+   * Sealed historical profiles above take precedence.
+   */
+  const progressiveLifecycleEligible =
+    hasProgressiveGitLifecycle ||
+    (hasFs && (hasCommit || hasPush || hasPr || hasMerge));
 
   // When Start provides server-derived authorizedEffects, use them to confirm
   // the unique slice — still require exact prior lineage for progressive steps.
-  if (input.authorizedEffects && isM4DocsWriteContract) {
+  if (
+    input.authorizedEffects &&
+    (progressiveLifecycleEligible ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "filesystem" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "git.commit" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "git.push" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) ===
+        "github.pr.create" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "github.pr.merge")
+  ) {
     const cls = uniqueAuthorizedEffectClass(input.authorizedEffects);
     if (cls === "empty") {
       return { ok: false, reason: "attempt_profile_zero_eligible" };
@@ -677,7 +796,7 @@ export function resolveAttemptExecutionProfile(
     if (cls === "filesystem") {
       return {
         ok: true,
-        profile: docsWriteProfile("authorized_slice_filesystem"),
+        profile: filesystemMaterializationProfile("authorized_slice_filesystem"),
       };
     }
     if (cls === "git.commit") {
@@ -692,16 +811,16 @@ export function resolveAttemptExecutionProfile(
     if (cls === "github.pr.merge") {
       return resolvePrMergeOrFail(input, "authorized_slice_pr_merge");
     }
-    // validation-only / unknown under M4 progressive — fail closed (CR-06).
-    return { ok: false, reason: "attempt_profile_effect_not_supported" };
+    if (progressiveLifecycleEligible) {
+      // validation-only / unknown under progressive lifecycle — fail closed.
+      return { ok: false, reason: "attempt_profile_effect_not_supported" };
+    }
+    // Non-progressive + unrecognized authorized class → fall through.
   }
 
   // Selection-time / restart: durable Evidence only.
-  if (
-    isM4DocsWriteContract &&
-    (hasFs || hasCommit || hasPush || hasPr || hasMerge || hasUnsupportedProtected)
-  ) {
-    // Progressive M4 path — never fall back to contract_legacy for later effects.
+  if (progressiveLifecycleEligible) {
+    // Progressive path — never fall back to contract_legacy for later effects.
     if (
       hasUnsupportedProtected &&
       !hasFs &&
@@ -720,17 +839,19 @@ export function resolveAttemptExecutionProfile(
           reason: "attempt_profile_evidence_reader_unavailable",
         };
       }
-      const prior = resolveVerifiedDocsWritePriorAttempt({
+      const prior = resolveVerifiedFilesystemMaterializationPriorAttempt({
         contract,
         attempts: input.attempts ?? [],
         evidence,
       });
       if (!prior.ok) {
         if (prior.reason === "docs_write_prior_none") {
-          // No qualified A yet → still on docs-write slice.
+          // No qualified A yet → still on filesystem materialization slice.
           return {
             ok: true,
-            profile: docsWriteProfile("progressive_fs_outstanding"),
+            profile: filesystemMaterializationProfile(
+              "progressive_fs_outstanding",
+            ),
           };
         }
         if (prior.reason === "docs_write_prior_ambiguous") {
@@ -811,7 +932,7 @@ export function resolveAttemptExecutionProfile(
     if (hasFs && !hasCommit && !hasPush && !hasPr && !hasMerge) {
       return {
         ok: true,
-        profile: docsWriteProfile("docs_write_only_contract"),
+        profile: filesystemMaterializationProfile("fs_only_contract"),
       };
     }
 
@@ -831,122 +952,7 @@ export function resolveAttemptExecutionProfile(
     return { ok: false, reason: "attempt_profile_effect_not_supported" };
   }
 
-  // Sealed historical M4 RO GCEC — exact specialized criteria (not generalist).
-  const isM4RoContract =
-    contract.action === M4_BOUNDED_RO_ACTION &&
-    (contract.requiredCapabilities ?? []).includes(M4_BOUNDED_RO_CAPABILITY);
-  if (isM4RoContract) {
-    return {
-      ok: true,
-      profile: readOnlyProfile("m4_bounded_readonly_sealed"),
-    };
-  }
-
-  // Sealed historical F3 fixture — exact specialized criteria (not generalist).
-  const isF3FixtureContract =
-    contract.action === F3_FIXTURE_ACTION &&
-    (contract.requiredCapabilities ?? []).includes(F3_FIXTURE_CAPABILITY);
-  if (isF3FixtureContract) {
-    return {
-      ok: true,
-      profile: f3FixtureProfile("f3_fixture_sealed"),
-    };
-  }
-
-  // Sealed standalone GCEC specialized contracts (phase-scoped / non-progressive
-  // parent). Criteria-only seal for Select; Start re-resolves prior lineage and
-  // remains fail-closed on missing cross-EC binding / Evidence.
-  // Must NOT fall through to Product generalist matching.
-  const caps = contract.requiredCapabilities ?? [];
-  if (
-    contract.action === M4_BOUNDED_PR_CREATE_ACTION &&
-    caps.includes(M4_BOUNDED_PR_CREATE_CAPABILITY)
-  ) {
-    return {
-      ok: true,
-      profile: {
-        kind: "pr_create",
-        effectClass: "github.pr.create",
-        reason: "standalone_pr_create_sealed",
-        criteria: {
-          requiredCapabilities: [M4_BOUNDED_PR_CREATE_CAPABILITY],
-          action: M4_BOUNDED_PR_CREATE_ACTION,
-          target: M4_BOUNDED_PR_CREATE_TARGET,
-          scope: M4_BOUNDED_PR_CREATE_SCOPE,
-        },
-      },
-    };
-  }
-  if (
-    contract.action === M4_BOUNDED_REMOTE_PUSH_ACTION &&
-    caps.includes(M4_BOUNDED_REMOTE_PUSH_CAPABILITY)
-  ) {
-    return {
-      ok: true,
-      profile: {
-        kind: "remote_push",
-        effectClass: "git.push",
-        reason: "standalone_remote_push_sealed",
-        criteria: {
-          requiredCapabilities: [M4_BOUNDED_REMOTE_PUSH_CAPABILITY],
-          action: M4_BOUNDED_REMOTE_PUSH_ACTION,
-          target: M4_BOUNDED_REMOTE_PUSH_TARGET,
-          scope: M4_BOUNDED_REMOTE_PUSH_SCOPE,
-        },
-      },
-    };
-  }
-  if (
-    contract.action === M4_BOUNDED_LOCAL_COMMIT_ACTION &&
-    caps.includes(M4_BOUNDED_LOCAL_COMMIT_CAPABILITY)
-  ) {
-    return {
-      ok: true,
-      profile: {
-        kind: "local_commit",
-        effectClass: "git.commit",
-        reason: "standalone_local_commit_sealed",
-        criteria: {
-          requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
-          action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
-          target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
-          scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
-        },
-      },
-    };
-  }
-  if (
-    contract.action === M4_BOUNDED_PR_MERGE_ACTION &&
-    caps.includes(M4_BOUNDED_PR_MERGE_CAPABILITY)
-  ) {
-    return {
-      ok: true,
-      profile: {
-        kind: "pr_merge",
-        effectClass: "github.pr.merge",
-        reason: "standalone_pr_merge_sealed",
-        criteria: {
-          requiredCapabilities: [M4_BOUNDED_PR_MERGE_CAPABILITY],
-          action: M4_BOUNDED_PR_MERGE_ACTION,
-          target: M4_BOUNDED_PR_MERGE_TARGET,
-          scope: M4_BOUNDED_PR_MERGE_SCOPE,
-        },
-      },
-    };
-  }
-  if (
-    contract.action === M4_BOUNDED_DOCS_WRITE_ACTION &&
-    caps.includes(M4_BOUNDED_DOCS_WRITE_CAPABILITY)
-  ) {
-    // Docs-write without progressive evidenceRequirements classification —
-    // still sealed specialized (not generalist).
-    return {
-      ok: true,
-      profile: docsWriteProfile("standalone_docs_write_sealed"),
-    };
-  }
-
-  // Non-M4 / W3A / other → contract_legacy binds the ONE Product
+  // Non-progressive / non-sealed → contract_legacy binds the ONE Product
   // generalist technical quartet (normal matching). Functional mission stays
   // on ExecutionContract / cursorMissionPrompt — never agent types.
   if (

@@ -1,8 +1,11 @@
 /**
- * TEST-ONLY — fake Cursor docs-write external boundary.
- * Writes allowlisted text files into an isolated worktree directory.
+ * TEST-ONLY — deterministic fake Cursor external boundary (filesystem + Git
+ * lifecycle effects). Writes allowlisted text files into an isolated worktree.
  * Same Product StartExecution / Gate D path as REAL; substitutes launch only.
  * ZERO REAL Cursor. ZERO remote Git.
+ *
+ * AKG-M5: not a Product docs_write admission path. Historical export alias
+ * `FakeDocsWriteLaunchPort` retained for DET fixture continuity.
  *
  * D-GCEC-15: honors AuthorizedExecutionSlice — filesystem + optional fake Git
  * effects via shared FakeCursorGitExternalState.
@@ -15,7 +18,6 @@ import { existsSync } from "node:fs";
 import { mkdir, writeFile, readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import {
-  M4_BOUNDED_DOCS_WRITE_ACTION,
   M4_REAL_GATEWAY_ADAPTER_ID,
   type RealExecutionLaunchPort,
   type RealLaunchRequest,
@@ -26,6 +28,9 @@ import {
   assertArtifactWriteModeAtExecution,
   isAutomaticProductDocsWriteTargetPath,
 } from "@/lib/oa/project/domain/artifactTargetRouting";
+import {
+  STUDIO_CURSOR_GENERALIST_ACTION,
+} from "./studioCursorGeneralistAgent";
 import { M4_BOUNDED_LOCAL_COMMIT_ACTION } from "./m4BoundedLocalCommitCursorAgent";
 import { M4_BOUNDED_REMOTE_PUSH_ACTION } from "./m4BoundedRemotePushCursorAgent";
 import { M4_BOUNDED_PR_CREATE_ACTION } from "./m4BoundedPrCreateCursorAgent";
@@ -36,6 +41,10 @@ import {
   M4_BOUNDED_PR_MERGE_CURSOR_AGENT_ID,
   M4_BOUNDED_REMOTE_PUSH_CURSOR_AGENT_ID,
 } from "../domain/realLaunchSafety";
+
+/** Historical action token — durable fixture recognition only. */
+const HISTORICAL_BOUNDED_DOCS_WRITE_ACTION =
+  "cursor.docs_write.apply" as const;
 import { isBoundedGitCommitOnlySlice } from "../domain/verifyLocalCommitFacts";
 import { buildGitCommitLaunchSpec } from "../domain/gitCommitLaunchSpec";
 import {
@@ -388,7 +397,8 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
     const isPrMergeOnly =
       wantsPrMergeProfile && isBoundedGitPrMergeOnlySlice([...authorized]);
     const actionOk =
-      request.action === M4_BOUNDED_DOCS_WRITE_ACTION ||
+      request.action === STUDIO_CURSOR_GENERALIST_ACTION ||
+      request.action === HISTORICAL_BOUNDED_DOCS_WRITE_ACTION ||
       request.action === M4_BOUNDED_LOCAL_COMMIT_ACTION ||
       request.action === M4_BOUNDED_REMOTE_PUSH_ACTION ||
       request.action === M4_BOUNDED_PR_CREATE_ACTION ||
@@ -402,7 +412,7 @@ export class FakeDocsWriteLaunchPort implements RealExecutionLaunchPort {
         outcome: "reject",
         gatewayId: this.gatewayId,
         attemptId: request.attemptId,
-        reason: "ACTION_NOT_DOCS_WRITE",
+        reason: "ACTION_NOT_SUPPORTED_BY_FAKE_CURSOR",
         realProcessInvoked: false,
         detailCode: "REAL_AGENT_PROFILE_INVALID",
       };
