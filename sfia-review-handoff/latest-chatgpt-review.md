@@ -1,141 +1,143 @@
-# SFIA REVIEW PACK FULL — AKG-M5 L3-S1 CRITICAL REVIEW CORRECTION PASS 01
+# SFIA REVIEW PACK FULL — AKG-M5 L3-S1 PROJECT GIT INTEGRATION / DRAFT PR
 
 **Profile:** CRITICAL
-**Cycle type:** 8 — Delivery / implémentation (correction bornée)
-**Timestamp (UTC):** 2026-10-26T16:49:11Z
-**Timestamp (local):** 2026-10-26T17:50:00+01:00
-**Mono-cycle:** AKG-M5 L3-S1 CRITICAL REVIEW CORRECTION PASS 01
+**Cycle type:** 13 — PR readiness
+**Timestamp (UTC):** 2026-10-26T17:45:12Z
+**Timestamp (local):** 2026-10-26T18:45:00+01:00
+**Mono-cycle:** AKG-M5 L3-S1 PROJECT GIT INTEGRATION / DRAFT PR CRITICAL
 **Process baseline:** SFIA v2.6
 
 ---
 
 ## 1. GO Morris
 
-- **GO:** 2026-10-26 — CORRECTION LOCALE BORNÉE (Critical Review Correction Pass 01).
-- **Décisions déjà adoptées (NE PAS ROUVRIR):**
-  - AKG-M5-TC-2026-10-26 — T-C
-  - AKG-M5-L3S1-2026-10-26 — L3-S1
-  - D-P6-SHE-01 — Single Human Execute
-- **Autorisé:** investigation locale; correction oracle intégré; tests DET; Review Pack FULL; publication handoff Git L3 bornée.
-- **NON-GO:** commit/push/PR projet; merge; main; G-REAL; G-ACTIVATION; OA-exclusive ON; H4 LIVE; L3-S2; L4; v3 ADOPTED; Binding/docs_write restore; architecture structurante.
+- **GO:** 2026-10-26 — PROJECT GIT INTEGRATION + DRAFT PR (Cycle 13).
+- **Autorisé:** commit mono-fichier oracle; push branche; Draft PR; Review Pack FULL; handoff L3.
+- **NON-GO:** undraft; merge; main; force push; L3-S2; REAL; OA-exclusive; runtime change; docs protégées.
+- **Décisions inchangées:** T-C / L3-S1 / D-P6-SHE-01 ADOPTED.
+- **Prior handoff (Correction Pass 01):** `111c649afffab73389a3eb8d7ca64c5ccb4d775f` / blob `e14fe883d24257c9a55f839f649c782736822935`
 
 ---
 
-## 2. Git Truth
+## 2. Git Truth initial
 
 | Item | Value |
 |------|-------|
 | Repository | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s1-generic-det-integration` |
 | Branch | `feat/akg-m5-l3-s1-generic-det-integration` |
-| HEAD | `b20733c799aa4abef16a283dc2069fd61325367e` |
+| HEAD avant | `b20733c799aa4abef16a283dc2069fd61325367e` |
 | origin/main | `b20733c799aa4abef16a283dc2069fd61325367e` |
-| Prior handoff tip | `3b0e8a6b7a0d8d68fdb1b0aea881b4b4daee3e8c` |
-| Prior handoff blob | `1a19c5386b34f6f3e9f9f11777c30defafb120ab` |
+| Remote feat branch (avant push) | ABSENT |
+| Prior handoff tip | `111c649afffab73389a3eb8d7ca64c5ccb4d775f` |
+| Porcelain initial | `M .tmp-sfia-review/chatgpt-review.md`; `??` oracle |
+| Staged initial | none |
 
-**Initial content drift check (Correction Pass start):**
-Prior handoff embedded oracle sha16 `d296d690dac215aa` matched local untracked file exactly (`exact_match_embedded True`). No LOCAL CONTENT DRIFT STOP. Baseline matched — no BASELINE DRIFT.
+No BASELINE DRIFT. No PROJECT BRANCH MISMATCH. No unexpected project diffs.
 
-**Final porcelain (project worktree, before handoff publish):**
+---
+
+## 3. Sources consultées
+
+- Correction Pass 01 handoff (`111c649a` / blob `e14fe883`) — oracle §8 référence
+- Decision Pack 05 / Generic Execution architecture (référence; non re-analysés hors intégrité)
+- `scripts/sfia/publish-review-handoff.sh` + README
+- CKC Cycle 13 via carte synthétique (candidate guidance)
+
+PRR READ-ONLY. Roadmap non modifiée (retard documentaire connu vs merge #620 — non traité ici).
+
+---
+
+## 4. Intégrité oracle
+
+| Check | Result |
+|-------|--------|
+| Path | `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts` |
+| SHA256 | `6372ddf8af1a9adb0c8b0fcf62e33efd8c57613fefbd8350b94147189ed9f316` |
+| Match attendu Correction Pass 01 | **EXACT** |
+| Secrets / paths sensibles | none observed |
+| Second oracle parallèle | none |
+| docs_write Product restored | no |
+| Reformatting this cycle | **NONE** — contenu inchangé |
+
+---
+
+## 5. Validations pré-commit (ce cycle)
 
 ```
- M .tmp-sfia-review/chatgpt-review.md
-?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts
+npx vitest run __tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts
+→ Test Files 1 passed | Tests 7 passed (2026-10-26)
+npm run typecheck → PASS
+git diff --check → clean (no unexpected project mutations from commands)
 ```
 
-**Oracle sha256 (full):** `6372ddf8af1a9adb0c8b0fcf62e33efd8c57613fefbd8350b94147189ed9f316`
-**Oracle sha256_16:** `6372ddf8af1a9adb`
-
-**Product runtime:** unchanged (ZERO Product code mutation this pass).
-**Staged:** none.
-**Project commits this pass:** none.
+`CI=true npm test` : **NOT RUN THIS CYCLE.**
+Previous Correction Pass 01 reported 6020 PASS / 142 SKIPPED — **PREVIOUS LOCAL RUN — REPORTED BY CURSOR.**
 
 ---
 
-## 3. Sources relues
+## 6. Commit projet
 
-- Decision Pack 05 §7.2 / §7.5 / §8.1 / §8.2 (M5 Target Journey)
-- `sfia-studio-generic-execution-review-result-architecture.md`
-- Prior Review Handoff L3-S1 Delivery (`3b0e8a6b` / blob `1a19c538`)
-- Product: `prepareGenericExecutionContractDraft`, `singleHumanExecutePreparedContract`, `governedExecuteAuthorizedContract`, `materializeW3bProductTerminal`, `w3bProductTerminalProjection`, `missionResultPayload` (stamp boundary)
-- Oracles: GERRC frontDoor, productMissionEvidenceChain, p6.she, p6.projectScopedCursorSelection, p5.s03, w2Harness, TestOnlyRealExecutionLaunchPort
+| Item | Value |
+|------|-------|
+| Commit | `de1fa7aefa0cc08c0afb6e2fbc307287f305427d` |
+| Parent / base | `b20733c799aa4abef16a283dc2069fd61325367e` |
+| Message | `test(studio): cover AKG-M5 L3-S1 generic DET integration` |
+| Files | **A** oracle only (734 lines) |
+| Review Pack in commit | **NO** |
+| Product runtime | **ZERO** |
 
----
+Staging contrôlé avant commit:
 
-## 4. R23 — Investigation avant modification
+```
+A projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts
+```
 
-### Classification
-
-| Component | Class | Note |
-|-----------|-------|------|
-| `prepareGenericExecutionContractDraft` / solicit | KEEP | Honest `repositoryMutation:"write"` + scopeIn |
-| `singleHumanExecutePreparedContract` | KEEP | SHE unchanged |
-| `governedExecuteSelectAgent` / `Start` | KEEP | Idempotence via `findSucceededAttempt` |
-| `settleDeterministicProductCursorSuccess` | KEEP | Order fixed: Start then settle |
-| `materializeW3bProductTerminal` | KEEP | Tech Evidence + RB + CE without mission stamp |
-| `finalizeGenericExecutionReview` | FREEZE / NON-CLAIM | Gated on PRODUCT_MISSION_FROM_DURABLE_CONTEXT |
-| CycleInstance invent / stamp invent | FREEZE | Not done — L3-S2 / Morris |
-| Product Binding / docs_write | RETIRE LATER (already retired) | Not restored |
-| L3-S1 oracle suite | ADAPT | Single file corrected for R1–R6 |
-| Runtime Product | KEEP — ZERO change | Prefer test-only |
-
-### Key findings
-
-1. **R1:** `materializeW3bProductTerminal` after Fake Cursor settle produces technical Evidence `ev:w3b:*`, frozen RB `rb:w3b:*`, CE `not_proven`, Product `UNCLAIMED` when stamp absent.
-2. **R2:** `repositoryMutation:"none"` was dishonest; `write` + concrete non-protected `scopeIn` admits PREPARE without forcing NON_STRUCTURAL via false none claim.
-3. **R3:** `cycleInstanceId:null` kept. Rich continuity via stamp NOT invented.
-4. **R4:** Observe `TestOnlyRealExecutionLaunchPort.launchCallCount` + Attempt list; second Select/Start → `reusedExistingAttempt:true`, launch stays 1.
-5. **R5:** Presentation Confirm residual only; Nora post-Evidence NOT in this oracle.
-6. **R6:** Full `CI=true npm test` executed this pass (not extrapolated).
-
-**Runtime modification necessary?** NO.
+Post-commit SHA256 revalidé: EXACT match.
 
 ---
 
-## 5. Réserves R1–R6 — actions
+## 7. Push projet
 
-| Reserve | Action | Status |
-|---------|--------|--------|
-| R1 Evidence/RB/CE | Call `materializeW3bProductTerminal`; assert Evidence bound, RB frozen, CE `not_proven`, Product `UNCLAIMED` | CORRECTED |
-| R2 Mission fidelity | `repositoryMutation:"write"`, `intentKind:"other"`, scopeIn notes path; assert no `MISSION_EFFECT:NO_REPOSITORY_MUTATION_DECLARED` | CORRECTED |
-| R3 Post-exec continuity | Keep `cycleInstanceId:null`; do NOT stamp PRODUCT_MISSION_FROM_DURABLE_CONTEXT; qualify rich mission path NON-CLAIM | QUALIFIED / NON-CLAIM |
-| R4 Double execute | Expand to Select→Start→settle→retry Select/Start; assert 1 Attempt, 1 launch, reuse | CORRECTED |
-| R5 UX/Nora | Keep presentation Exécuter oracle; declare NORA POST-EVIDENCE NOT PROVEN BY L3-S1 INTEGRATED ORACLE | QUALIFIED |
-| R6 Validations | Targeted + regressions + typecheck/build/lint + `CI=true npm test` | CORRECTED (CI RUN) |
-
----
-
-## 6. Actions exactes
-
-1. Git Truth + prior handoff content match check (PASS).
-2. R23 map of materialize / mutation / idempotence (test-only).
-3. Rewrite single oracle `akgM5L3S1.genericExecutionIntegrated.d0.test.ts`.
-4. Run validations (below).
-5. Write this Review Pack FULL (reset, mono-cycle).
-6. Publish handoff via `scripts/sfia/publish-review-handoff.sh`.
+| Item | Value |
+|------|-------|
+| Remote | `origin` https://github.com/mcleland147/sfia-workspace.git |
+| Branch | `feat/akg-m5-l3-s1-generic-det-integration` (new upstream) |
+| Remote SHA | `de1fa7aefa0cc08c0afb6e2fbc307287f305427d` |
+| Local = remote | **YES** |
+| Force push | **NO** |
 
 ---
 
-## 7. Fichiers créés / modifiés
+## 8. Draft PR
 
-### Créé depuis main (untracked — present as full content)
+| Item | Value |
+|------|-------|
+| Number | #621 |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/621 |
+| isDraft | **true** |
+| state | OPEN |
+| baseRefName | main |
+| headRefName | feat/akg-m5-l3-s1-generic-det-integration |
+| headRefOid | `de1fa7aefa0cc08c0afb6e2fbc307287f305427d` |
+| Changed files | **1** — oracle ADDED (+734) |
+| Protected / Product files | **none** |
+| Existing PR duplicate check | none before create |
+| Merge / undraft | **NOT DONE** |
 
-`projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts`
+### CI GitHub
 
-- sha256: `6372ddf8af1a9adb0c8b0fcf62e33efd8c57613fefbd8350b94147189ed9f316`
-- sha256_16: `6372ddf8af1a9adb`
-- Product code: none
-- Other tests: none
+`statusCheckRollup` at verification time: **[]** → **CI NOT RUN / PENDING** (no checks observed yet).
 
-### Review Pack (local temp, not staged)
-
-`.tmp-sfia-review/chatgpt-review.md` — this file (reset for Correction Pass 01).
+**CI PENDING ≠ CI PASS.** Not claimed as PASS.
 
 ---
 
-## 8. Contenu complet — oracle L3-S1 (créé depuis main)
+## 9. Contenu complet — fichier intégré (créé depuis main)
 
 Path: `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts`
+
+sha256: `6372ddf8af1a9adb0c8b0fcf62e33efd8c57613fefbd8350b94147189ed9f316`
 
 ~~~typescript
 /**
@@ -876,198 +878,102 @@ describe("AKG-M5 L3-S1 — Generic Execution Deterministic Integration", () => {
 
 ---
 
-## 9. Diff utile
+## 10. EP01–EP10 (inchangés vs Correction Pass 01 CR)
 
-`git diff` ne montre pas les untracked. Contenu intégral ci-dessus = vérité du fichier créé.
+| EP | Verdict |
+|----|---------|
+| EP01–EP05, EP08–EP09 | PASS |
+| EP06 | PASS — technical Evidence |
+| EP07 | PASS — RB frozen; CE not_proven; Product UNCLAIMED |
+| EP10 | NON-CLAIM |
 
-Aucun diff Product runtime.
-
-Review Pack local: `.tmp-sfia-review/chatgpt-review.md` (ce document).
-
----
-
-## 10. Résultats des tests et validations
-
-### L3-S1 oracle (Correction Pass 01)
-
-```
-npx vitest run __tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts
-→ Test Files 1 passed | Tests 7 passed
-```
-
-Observed on nominal path: Evidence ingest `ev:w3b:*`, RB create+freeze `rb:w3b:*`, ClaimEvaluation `clm:w3b:*` with status `not_proven`, Product outcome `UNCLAIMED`.
-
-### Régressions prioritaires
-
-| Suite | Result |
-|-------|--------|
-| p6.she.singleHumanExecute.d0.test.ts | PASS |
-| p6.projectScopedCursorSelection.d0.test.ts | PASS |
-| p5.s03.pilotExecutionPresentation.d0.test.ts (`__tests__/pre-m6-product-ui/`) | PASS |
-| genericExecutionReviewResultConvergence01.d0.test.ts | PASS |
-| genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts | PASS |
-| productMissionEvidenceChain.e2e.d0.test.ts | PASS |
-| gitTargetIdentityRemoteFidelity.d0.test.ts (`__tests__/oa/execution-attempt/`) | PASS |
-| missionResultContractResultSemantic.generic.d0.test.ts (`__tests__/oa/evidence-review/`) | PASS |
-
-### Quality gates
-
-| Gate | Result |
-|------|--------|
-| `npm run typecheck` | PASS |
-| `npm run build` | PASS (pre-existing unused-var warnings only) |
-| `npm run lint` | PASS (same pre-existing warnings) |
-| `CI=true npm test` | **PASS** — 555 files passed / 22 skipped; **6020 tests passed** / 142 skipped; duration ~134s |
-
-R6: full CI suite **RUN** this pass (not extrapolated from targeted only).
+Ce cycle n'élève pas le niveau de preuve fonctionnel — **PROJECT GIT-INTEGRATED TEST CANDIDATE** seulement.
 
 ---
 
-## 11. Evidence / ReviewBundle / ClaimEvaluation (R1)
+## 11. NON-CLAIMS
 
-On Generic PREPARE + SHE + Select/Start + Fake settle + `materializeW3bProductTerminal`:
-
-| Artifact | Proven |
-|----------|--------|
-| Technical Evidence `ev:w3b:*` ingested | YES |
-| Evidence.bindings.executionAttemptId = Attempt | YES |
-| ReviewBundle `rb:w3b:*` created + frozenAt | YES |
-| Frozen snapshot includes tech Evidence | YES |
-| ClaimEvaluation `clm:w3b:*` status `not_proven` | YES |
-| Product outcome `UNCLAIMED`, claimAllowed false | YES |
-| Technical SUCCESS ≠ Product PROVEN | YES |
-| Mission Evidence métier | ABSENT / NOT_PROVEN (honest) |
-| FS→SHA / VerifiedChangeSet | NON-CLAIM |
+- DET only / Fake Cursor
+- technical Evidence only; no Mission Evidence
+- no real file mutation observed
+- no generic FS→SHA / no full FS→Git→Review
+- no integrated Nora post-Evidence
+- no E2E COMPLET / no REAL / G-REAL NOT GRANTED
+- runtime v3 NON ADOPTED
+- L3-S2 NOT STARTED
+- READY TO MERGE / L3 PRODUCT COMPLETE — **NOT CLAIMED**
+- CI globale GitHub PASS — **NOT CLAIMED** (PENDING/NOT RUN at verification)
 
 ---
 
-## 12. Mission / effect fidelity (R2)
+## 12. R23 / R24
 
-- Declared: `repositoryMutationDeclared = "write"`
-- `executionIntent.intentKind = "other"` (not `read_only`)
-- `scopeIn = ["projects/demo/notes/project-notes.md"]`
-- EC constraints do **not** contain `MISSION_EFFECT:NO_REPOSITORY_MUTATION_DECLARED`
-- `inputs.boundedNonMutatingAnalysis === false`
-- Product admitted PREPARE (no structural gate change; no bypass)
+**R23:** Product comportement inchangé. KEEP Generic PREPARE / SHE / governedExecute / materializeW3bProductTerminal / Evidence Review OA. ADAPT = oracle déjà validé, maintenant Git-intégré.
+
+**R24: NO PRODUCT SEMANTIC IMPACT.** PRR READ-ONLY. Pas de nouveau digest PRR. Pas de sync documentaire.
 
 ---
 
-## 13. Idempotence (R4)
+## 13. Fake / Real
 
-Sequence tested: INSPECT facts → SHE Exécuter (×2, no Attempt) → Select → Start → settle → Select → Start.
-
-| Check | Result |
-|-------|--------|
-| SHE never creates Attempt | PASS |
-| First Start: launchCallCount = 1 | PASS |
-| Attempts for EC after settle: length = 1 | PASS |
-| Second Select: `reusedExistingAttempt === true` | PASS |
-| Second Start: `reusedExistingAttempt === true` | PASS |
-| launchCallCount stays 1 | PASS |
+| | |
+|--|--|
+| Max prior proof | DETERMINISTIC PROVEN AT TESTED SCOPE |
+| This cycle proof | PROJECT GIT-INTEGRATED TEST CANDIDATE |
+| Fake | TestOnlyRealExecutionLaunchPort |
+| REAL / E2E REAL / G-REAL | NOT PROVEN / NOT GRANTED |
 
 ---
 
-## 14. Fake / Real qualification
+## 14. Gaps L3-S2 / réserves
 
-| Boundary | Mode |
-|----------|------|
-| Cursor agent | Fake DET — TestOnlyRealExecutionLaunchPort |
-| OpenAI / Nora LIVE | NOT PROVEN / not invoked by this oracle |
-| Git FS→SHA Product materialization | NON-CLAIM |
-| SQLite Product temp | Real durable transitions in test DB |
-| Max proof level | DETERMINISTIC PROVEN AT TESTED SCOPE |
-| REAL BOUNDARY / E2E REAL / G-REAL | NOT PROVEN / NOT GRANTED |
+- Generic Materialization Evidence / FS→SHA closure — **PROPOSÉ / PAS AUTORISÉ**
+- Nora post-Evidence; Confirm UX runtime; rich mission stamp continuity
+- CI GitHub checks: gate ouvert (PENDING/NOT RUN)
 
 ---
 
-## 15. R24 — Impact documentaire
+## 15. Next Gate
 
-**NO PRODUCT SEMANTIC IMPACT.**
-Test-only correction. PRR remains READ-ONLY. No doctrine/roadmap/C1 edit. Digest ≠ semantic proof claim beyond tested DET scope.
-
----
-
-## 16. EP01–EP10 (requalified Correction Pass 01)
-
-| EP | Verdict | Scope note |
-|----|---------|------------|
-| EP01 Project OA contextualisé | **PASS** | projectWorkspaceKey; Binding absent |
-| EP02 Generic PREPARE | **PASS** | solicit + mutating analysis admitted |
-| EP03 EC inspectable | **PASS** | required facts; PRODUCT_GOVERNED |
-| EP04 SHE / Exécuter | **PASS** | authorize; Attempt not created by SHE |
-| EP05 Cursor generalist Attempt DET | **PASS** | Select/Start/settle succeeded + resultRef |
-| EP06 Evidence vérifiable admise | **PASS** | technical Evidence ingested + bound (NOT Mission / FS→SHA) |
-| EP07 ReviewBundle / Result honnêtes | **PASS** | RB frozen; CE not_proven; Product UNCLAIMED |
-| EP08 Fail-closed | **PASS** | fingerprint/project/empty-facts + Select/Start idempotence |
-| EP09 No docs_write admission | **PASS** | no docs_write constraint |
-| EP10 FS→Git→Review complète | **NON-CLAIM** | accepted for L3-S1 |
+1. ChatGPT Critical PR Review (handoff + PR #621 diff + checks).
+2. Morris GO distinct pour undraft/merge **iff** CR accepte.
+3. Ne pas start L3-S2.
 
 ---
 
-## 17. NON-CLAIMS
+## 16. Verdict (Cursor)
 
-- GENERIC FS→SHA MATERIALIZATION — NOT PROVEN
-- GENERIC FS→Git→Review COMPLETE — NOT PROVEN
-- Mission Evidence métier / VerifiedChangeSet — NOT PROVEN
-- PRODUCT_MISSION_FROM_DURABLE_CONTEXT stamped on Generic PREPARE — NOT DONE / NON-CLAIM
-- Nora LIVE / Nora post-Evidence restitution by this integrated oracle — NOT PROVEN
-- E2E COMPLET / REAL READY / PR READY / runtime v3 ADOPTED / L3-S2 STARTED — NOT CLAIMED
-- Confirm CTA full UX beyond presentation — REACHABILITY NOT FULLY PROVEN
+**DRAFT PR CREATED — READY FOR CHATGPT CRITICAL PR REVIEW**
 
 ---
 
-## 18. Réserves restantes / dette
+## 17. Instruction ChatGPT obligatoire
 
-| Item | Status |
-|------|--------|
-| Rich mission continuity (stamp + CycleInstance + finalizeGenericExecutionReview) | L3-S2 debt — NON-CLAIM |
-| Generic FS→SHA / VerifiedChangeSet producer | L3-S2 debt — EP10 NON-CLAIM |
-| Nora post-Evidence integrated | NOT PROVEN by L3-S1 oracle |
-| Confirm residual static ExecutionSurface | Residual reachability |
-| Project Git Integration (commit/push/PR) | Requires Morris GO after ChatGPT CR |
+Avant Critical PR Review: lire `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`; vérifier SHA/blob; Draft PR #621 base/head/files/CI; EP/NON-CLAIMS; R23/R24.
 
-**Blocking reserves R1–R6 from prior CR:** addressed at DET tested scope as above. Remaining items are explicit NON-CLAIM / L3-S2 — not silent gaps masquerading as PASS.
+Merge NOT GRANTED sans nouvelle décision Morris.
 
 ---
 
-## 19. Next Gate Contract
+## 18. Git Review Index
 
-1. ChatGPT Critical Review against this handoff (remote canonical).
-2. Morris decision: Git Integration of untracked oracle (project commit) **iff** CR accepts.
-3. Do **not** start L3-S2 without distinct Morris GO.
-4. Do **not** claim E2E COMPLET / G-REAL.
-
----
-
-## 20. Verdict (Cursor)
-
-**LOCAL L3-S1 CORRECTION READY FOR CHATGPT CRITICAL REVIEW**
-
----
-
-## 21. Instruction ChatGPT obligatoire
-
-Avant revue: lire depuis Git branche `sfia/review-handoff` le fichier
-`sfia-review-handoff/latest-chatgpt-review.md`.
-
-Contrôler: cycle/branche/HEAD; fichier test complet; validations; R1–R6; EP01–EP10; NON-CLAIMS; décisions Morris; SHA/blob handoff; publication distante.
-
-Le rapport Cursor seul ne remplace pas le handoff Git.
+| Item | Value |
+|------|-------|
+| base branch | main |
+| HEAD avant | `b20733c799aa4abef16a283dc2069fd61325367e` |
+| HEAD après | `de1fa7aefa0cc08c0afb6e2fbc307287f305427d` |
+| Fichier créé | oracle L3-S1 (FULL §9) |
+| Fichiers modifiés Product | none |
+| Commit projet | `de1fa7aefa0cc08c0afb6e2fbc307287f305427d` |
+| Push | origin/feat/akg-m5-l3-s1-generic-det-integration = HEAD |
+| Draft PR | #621 https://github.com/mcleland147/sfia-workspace/pull/621 |
+| PR files | oracle only |
+| CI GitHub | NOT RUN / PENDING (rollup empty) |
+| Décisions Morris | GO Git Integration + Draft PR 2026-10-26 |
+| Fake/Real | DET candidate; REAL NOT PROVEN |
+| Réserves | CI pending; L3-S2 not started; EP10 NON-CLAIM |
+| Verdict | DRAFT PR CREATED — READY FOR CHATGPT CRITICAL PR REVIEW |
 
 ---
 
-## 22. Git Review Index
-
-| Path | Status | Role |
-|------|--------|------|
-| `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S1.genericExecutionIntegrated.d0.test.ts` | **untracked (created from main)** | L3-S1 Correction Pass 01 oracle — FULL content §8 |
-| `.tmp-sfia-review/chatgpt-review.md` | local temp modified | This Review Pack (not project-committed) |
-| Product runtime sources | unchanged | ZERO mutation |
-
-**HEAD / base:** `b20733c799aa4abef16a283dc2069fd61325367e`
-**Oracle digest sha256_16:** `6372ddf8af1a9adb`
-**Oracle digest sha256:** `6372ddf8af1a9adb0c8b0fcf62e33efd8c57613fefbd8350b94147189ed9f316`
-
----
-
-END OF REVIEW PACK — AKG-M5 L3-S1 CRITICAL REVIEW CORRECTION PASS 01
+END OF REVIEW PACK — AKG-M5 L3-S1 PROJECT GIT INTEGRATION / DRAFT PR
