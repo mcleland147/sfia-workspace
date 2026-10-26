@@ -1,57 +1,65 @@
-# SFIA Review Pack — AKG-M5 P0 POST-MERGE TRUTH SYNC + TRAJECTORY REQUALIFICATION
-## FULL MONO-CYCLE — STANDARD — Cycle 14 Post-Merge — GO Morris P0 DOCUMENTARY ONLY
+# SFIA Review Pack — AKG-M5 P0 GROUPED DOCUMENTARY GIT INTEGRATION
+## FULL MONO-CYCLE — STANDARD — Cycle 13 PR READINESS — DOC
 
 ## A. Horodatage
-- UTC: 2026-10-26T06:43:28Z
-- Europe/Paris: 2026-10-26T07:43:28+0100
+- UTC: 2026-10-26T09:59:11Z
+- Europe/Paris: 2026-10-26T10:59:11+0100
 
-## B. GO Morris P0
-- AUTHORIZED: Local Documentary Post-Merge Truth Sync + Trajectory Requalification L2/L3 + Review Pack FULL + Handoff L3 borné
-- NOT AUTHORIZED / NOT CONSUMED: project commit · project branch push · PR create/edit · merge · branch delete · Delivery L2/L3 · G-ACTIVATION · G-REAL · H4 live · Cursor REAL · D1/OPS1 deletion · architecture pivot · runtime v3 ADOPTED · AKG-M5 global close
-- RECOMMENDATION ≠ DÉCISION: Options A/B soumis à Morris après Critical Review
+## B. GO Morris Git Integration P0
+- AUTHORIZED / CONSUMED: commit + push FF + create Draft PR + CI verification
+- NOT AUTHORIZED / NOT CONSUMED: undraft · merge · branch delete · force push · Product edits · Delivery L2/L3 · G-ACTIVATION · G-REAL · H4 live · REAL · runtime v3 · AKG-M5 close
+- Options A/B: still NOT ADOPTED
 
-## C. Git Truth
+## C. Git Truth avant / après
 
-| Item | Value |
-|---|---|
-| Worktree authoring | /Users/morris/Projects/sfia-workspace-docs-akg-m5-postmerge-convergence-p0 |
-| Branch locale (no push) | docs/akg-m5-postmerge-convergence-p0 |
-| Base | origin/main = fec4e65d1c8437f15fc6cf8ea81376d655c79394 |
-| PR #618 | MERGED 2026-10-26T05:01:23Z · mergeCommit = main tip |
-| Parents | 7db8afd7c27720712f08000274dbbc4e1a62d935 + ffc033a7b69bbf37b2834b999bb621d3c3465f7a |
-| Post-merge CI | 40272048259 SUCCESS on merge SHA |
-| Prior handoff | a7be7627f7c0efc4bbf7f225be093eaafc630e76 |
-| Feature WT historique | feat/akg-m5-remove-repository-binding-docs-write @ ffc033a7 non modifié pour ce P0 |
-| Staged | empty |
-| Scope | DOC-only (Roadmap + PRR + manifest digests) · aucun Product/source/test |
+| | Avant | Après |
+|---|---|---|
+| Worktree | docs/akg-m5-postmerge-convergence-p0 @ fec4e65d | same branch @ 3a6b5e8272be449de09ba85ab8ea2750020835a9 |
+| origin/main | fec4e65d1c8437f15fc6cf8ea81376d655c79394 | unchanged |
+| Remote P0 branch | ABSENT | 3a6b5e8272be449de09ba85ab8ea2750020835a9 |
+| PR P0 | none | Draft PR #619 OPEN |
+| Feature WT #618 | ffc033a7 intact | intact |
+| Working tree residual | Review Pack local only (excluded) | idem |
 
 ## D. Sources / Convergence Pre-check
-- Template / routing / operating model / guardrails / CKC Cycle 14
-- Build Doctrine · Roadmap · C1 · AKG README · M5-A blueprint 01 · L1 pack 02 · Formal Exit 03 · L2-D0 04
-- Doctrine v3 framing 32/33/34/35/37 (read-only)
-- Generic Execution architecture (read-only)
-- PRR README + vols 01–09 + manifest
-- Git proofs: PR #609/#611/#612/#614/#617/#618 + CI post-merge #40272048259
-- Code spot-check @ fec4e65d: CreateProject no repositoryBinding · has projectWorkspaceKey · exclusive default OFF (.env.example commented =0)
+- Template / routing / operating model / guardrails / CKC Cycle 13 synthetic
+- Build Doctrine · Roadmap · C1 · AKG · M5-A 01–03 · L2-D0 04 (read-only except Roadmap write)
+- Doctrine v3 32/33/34/35/37 · Generic Execution architecture · PRR corpus
+- Preuves: PR #609/#611/#612/#614/#617/#618 · CI #40272048259 · handoff P0 content 30dcb96c / blob 55e959bd · Critical Review PASS WITH GOVERNED RESERVES
+- Diff vs handoff §F: 11 files identical; digests exact; only trailing blank-line artifact in embedded fence after Review Pack WS-strip — QUALIFIED NON-BLOCKING
 
-Convergence: AKG-M5 OPEN · O-01 · Milestone = Post-merge Structural Removal #618 · M5-A CLOSED · L1–L2 Delivery on main · L2 ops NOT ACTIVATED · L3 Delivery NOT STARTED · runtime v3 NON ADOPTED · v2.6 process
+## E. Périmètre 11 fichiers
+Exact commit tree (name-status):
+```
+M projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
+M projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
+M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+M projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
+M projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+M projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+M projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M projects/sfia-studio/production-runtime-reference/README.md
+M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+```
+Volume 01 UNCHANGED. Review Pack EXCLUDED.
 
-## E. Inventaire fichiers effectivement modifiés
+## F. Diff complet du commit P0
+
+### Commit meta
 ```
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md
-M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-M	projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md
-M	projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
-M	projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-M	projects/sfia-studio/production-runtime-reference/README.md
-M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-```
-```
-.../convergence/sfia-studio-convergence-roadmap.md |  5 +-
+commit 3a6b5e8272be449de09ba85ab8ea2750020835a9
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Mon Oct 26 10:51:35 2026 +0100
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Mon Oct 26 10:51:35 2026 +0100
+
+    docs(studio): sync AKG-M5 postmerge truth and trajectory
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../convergence/sfia-studio-convergence-roadmap.md |  5 +-
  .../02-runtime-object-catalog.md                   | 20 +++----
  .../03-end-to-end-flow-catalog.md                  | 20 +++----
  .../04-dependency-impact-map.md                    |  8 +--
@@ -63,12 +71,10 @@ M	projects/sfia-studio/production-runtime-reference/production-runtime-reference
  .../production-runtime-reference/README.md         | 19 +++---
  .../production-runtime-reference.manifest.json     | 18 +++---
  11 files changed, 106 insertions(+), 117 deletions(-)
+
 ```
-- Volume 01 READ-ONLY (digest unchanged 8bfbcb286b053f04)
-- lastReviewedCommit / lastReviewedAt non modifiés (ne prétendent pas un audit corpus complet)
 
-## F. Diffs complets (tous fichiers modifiés)
-
+### Unified diff (fec4e65d..3a6b5e82)
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
 index 79a4d19a..b3d7512c 100644
@@ -655,28 +661,133 @@ index 1d27e568..8c284734 100644
 
 ```
 
-## G. Tableau CURRENT / HISTORICAL / GAP
+## G. Audit du staging
+- Explicit path staging of 11 files only (no git add -A / .)
+- Cached name-status = 11 M before commit
+- Review Pack never staged
+- git diff --cached --check clean
 
-| Claim | Class |
-|---|---|
-| PR #618 MERGED · merge fec4e65d · CI #40272048259 SUCCESS | CURRENT FACT |
-| RepositoryBinding RETIRED ON MAIN · docs_write Product admission RETIRED ON MAIN | CURRENT FACT / CODE VERIFIED |
-| projectWorkspaceKey + Generic Execution + Evidence/RB + sealed Git identity preserved | CURRENT FACT |
-| Pre-merge Draft / NOT ON MAIN / MERGE NOT GRANTED / Binding still on 7db8afd7 | HISTORICAL SNAPSHOT |
-| CI failures 40207375690 / 40215089725 | HISTORICAL |
-| Pre-merge CI SUCCESS 40258385791 on a75d0ed5 | HISTORICAL candidate fact |
-| CORR-01/02 DET suites · confinement/write-mode without Binding | DETERMINISTIC AT TESTED SCOPE · CURRENT ON MAIN |
-| L2 exclusive DEFAULT OFF · G-ACTIVATION NOT GRANTED | CURRENT FACT |
-| H4 / Q12 / R-CUT LIVE / Product E2E FS→Git→Review / FS→SHA generic | KNOWN GAP / NOT PROVEN |
-| REAL / G-REAL / runtime v3 / AKG-M5 CLOSED / P6 GLOBAL PASS | NOT PROVEN / NOT GRANTED / OPEN |
-| Option A or B as next Delivery | TARGET / NOT DECIDED |
+## H. Nouveau SHA et parent
+- Commit: 3a6b5e8272be449de09ba85ab8ea2750020835a9
+- Message: docs(studio): sync AKG-M5 postmerge truth and trajectory
+- Parent: fec4e65d1c8437f15fc6cf8ea81376d655c79394
+- 11 files · 106 insertions / 117 deletions · DOC-only
 
-## H. Manifest digests recalculés
+## I. Push / remote verification
+- git push -u origin docs/akg-m5-postmerge-convergence-p0 (FF / new branch)
+- ls-remote = 3a6b5e8272be449de09ba85ab8ea2750020835a9
+- No force · no main push · no #618 branch touch
 
+## J. Draft PR
+- Number: 619
+- URL: https://github.com/mcleland147/sfia-workspace/pull/619
+- state OPEN · isDraft true
+- headRefOid 3a6b5e8272be449de09ba85ab8ea2750020835a9
+- baseRefOid fec4e65d1c8437f15fc6cf8ea81376d655c79394 · base main
+- headRefName docs/akg-m5-postmerge-convergence-p0
+- Title: docs(studio): AKG-M5 P0 postmerge truth sync and L2/L3 trajectory
+- Body remote = prepared body (match True)
+- UNDRAFT / MERGE NOT GRANTED
+
+## K. PR body complète
+```markdown
+## A. CONTEXTE
+AKG-M5 P0 documentaire — post-merge truth-sync after [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) MERGED, plus L2/L3 trajectory requalification and Options A/B for a later Morris decision.
+
+## B. SOURCE
+- Base `main` = `fec4e65d1c8437f15fc6cf8ea81376d655c79394`
+- PR #618 MERGED `2026-10-26T05:01:23Z` (parents `7db8afd7…` + `ffc033a7…`)
+- Post-merge CI [#40272048259](https://github.com/mcleland147/sfia-workspace/actions/runs/40272048259) SUCCESS on merge SHA
+- Pre-integration Critical Review ChatGPT on handoff `30dcb96c` / blob `55e959bd…` — PASS WITH GOVERNED RESERVES
+
+## C. DOCUMENTARY CHANGES
+Exactly **11 files** (DOC-only):
+1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+2. `projects/sfia-studio/production-runtime-reference/README.md`
+3–10. PRR volumes `02`–`09`
+11. `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+
+PRR volume **01** unchanged. Review Pack excluded from commit.
+
+## D. R23 / R24
+- **NO PRODUCT SEMANTIC IMPACT**
+- No Product source / tests / Build Doctrine / C1 / doctrine v3 / architecture parallel refs modified
+- R24: documentary status sync to Git facts after #618 + trajectory matrices
+
+## E. CURRENT TRUTH
+- Product **RepositoryBinding RETIRED ON MAIN**
+- Product **docs_write admission RETIRED ON MAIN**
+- Preserved: `projectWorkspaceKey` · Generic PREPARE / ExecutionContract / Cursor generalist · Evidence / ReviewBundle · sealed Git identity (seal-only residual naming)
+
+## F. HISTORICAL
+Pre-merge statuses (Draft / NOT ON MAIN / MERGE NOT GRANTED / Binding still on `7db8afd7`) requalified as **HISTORICAL SNAPSHOTS**. Dated CI failures on candidate SHAs retained as history.
+
+## G. TRAJECTORY
+- L1 integrated
+- L2 Delivery on main · exclusive **DEFAULT OFF / NOT ACTIVATED**
+- L3 Generic Execution Completeness **OPEN** (Delivery not started)
+- L4–L6 future under distinct gates
+- **AKG-M5 GLOBAL OPEN** · runtime v3 **NON ADOPTED**
+
+## H. OPTIONS (NOT ADOPTED)
+- **Option A** — Finish L2 (H4 → G-ACTIVATION → R-CUT LIVE / Q12)
+- **Option B** — Advance L3 Generic Execution completeness (FS→Git→Review / FS→SHA / H2/H5/R-EXCL)
+- Conditional lean toward A before B is **recommendation only** — **≠ Morris decision**
+
+## I. KNOWN GAPS
+H4 · Q12 · R-CUT LIVE · FS→Git→Review E2E · FS→SHA generic Evidence source · REAL · H2/H5/R-EXCL · G-ACTIVATION / G-REAL · residual naming · MethodMode / D1 FREEZE RETIRE LATER
+
+## J. VALIDATIONS
+- Independent SHA-256/16 digests match expected set (01 unchanged `8bfbcb286b053f04`)
+- `lastReviewedCommit` / `lastReviewedAt` unchanged
+- PRR conformance Vitest **5/5 PASS**
+- `git diff --check` clean
+- This PR’s GitHub CI is the P0 proof (do **not** reuse #40272048259)
+
+### Expected digests
 | Volume | sha256_16 |
 |---|---|
-| README.md | 239b50320868c320 |
-| 01 (unchanged) | 8bfbcb286b053f04 |
+| README | `239b50320868c320` |
+| 02 | `2257a20206c6a69d` |
+| 03 | `cf5793d50ce88663` |
+| 04 | `a2515300ecf7962a` |
+| 05 | `5190232c2ad6f741` |
+| 06 | `478e066769082203` |
+| 07 | `8265b1af9b9dcf2a` |
+| 08 | `f7f8e9e1bc07da26` |
+| 09 | `d4f8c546633fff31` |
+| 01 | `8bfbcb286b053f04` UNCHANGED |
+
+## K. GATES
+- **MERGE NOT GRANTED**
+- **UNDRAFT NOT GRANTED**
+- L2/L3 Delivery **NOT GRANTED**
+- REAL / G-ACTIVATION / G-REAL **NOT GRANTED**
+- runtime v3 **NON ADOPTED**
+- AKG-M5 global close **NOT GRANTED**
+
+## L. NEXT
+ChatGPT Critical PR Review → possible Morris merge GO → post-merge verification → then Morris Option A/B arbitration.
+Do **not** auto-start L2/L3 Delivery.
+
+```
+
+## L. CI nouvelle sur SHA exact
+- Run ID: 40302912172
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/40302912172
+- Workflow: SFIA Studio CI
+- Event: pull_request
+- Branch: docs/akg-m5-postmerge-convergence-p0
+- head_sha: 3a6b5e8272be449de09ba85ab8ea2750020835a9
+- Status: completed · Conclusion: success
+- Jobs: Detect SUCCESS · Build and validate SUCCESS (~5m18s) · Required Gate SUCCESS
+- Distinct from post-merge #618 run 40272048259 on fec4e65d
+
+## M. Digests et manifest
+| Volume | sha256_16 |
+|---|---|
+| README | 239b50320868c320 |
+| 01 UNCHANGED | 8bfbcb286b053f04 |
 | 02 | 2257a20206c6a69d |
 | 03 | cf5793d50ce88663 |
 | 04 | a2515300ecf7962a |
@@ -685,110 +796,34 @@ index 1d27e568..8c284734 100644
 | 07 | 8265b1af9b9dcf2a |
 | 08 | f7f8e9e1bc07da26 |
 | 09 | d4f8c546633fff31 |
+lastReviewedCommit / lastReviewedAt unchanged (928ab15b… / 2026-10-15T22:51:00+02:00).
 
-lastReviewedCommit=928ab15b032c392dafee74a916f2faad3ed524de · lastReviewedAt=2026-10-15T22:51:00+02:00 — unchanged (digest sync ≠ full corpus audit).
+## N. Conformance 5/5
+npx vitest run __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts → PASS (5 tests).
 
-## I. Conformance et validations
-- npx vitest run __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts → 5/5 PASS
-- git diff --check → clean
-- staged empty · DOC-only scope · no Product/source/test edits
-- Digest match ≠ semantic exhaustiveness
+## O. R23 / R24
+- R23: Product/code read-only · no new architecture/store/migration/runtime
+- R24: docs aligned to Git after #618 · NO PRODUCT SEMANTIC IMPACT
+- KEEP OA/workspace key/Generic/Evidence/sealed identity · RETIRE DONE Binding+docs_write admission · COMPLETE LATER L2 activation / L3 E2E · RETIRE LATER D1/OPS1
 
-## J. Matrice L2 actuelle
+## P. L2/L3 options non adoptées
+- Option A finish L2 · Option B advance L3 · neither adopted · conditional lean ≠ decision
+- AKG-M5 GLOBAL OPEN
 
-| CAPACITÉ | MILESTONE | CURRENT AS IMPLEMENTED | PREUVES | KNOWN GAPS | DÉPENDANCES | DET/REAL | DETTE+EXIT | MORRIS GATE | EXIT PROOF | NEXT |
-|---|---|---|---|---|---|---|---|---|---|---|
-| L2-D1 OA create/audit | #612 | Product OA create + D5 UnitOfWork on main | CI #40082088441 · Q5.x DET | Dual UX until activation | L1 A09 | DET yes / LIVE E2E COMPLETE NOT PROVEN | Dual UX → exit via activation | G-ACTIVATION distinct | No D1 writers on activated env | Arm after H4 |
-| L2-D2 OA-exclusive readiness | #614/#617 | Marker + freeze + D4 DET + S1–S4 prep DEFAULT OFF | 31/7 · 52/10 DET · CI #40130977607/#40169014052 | LIVE cutover | D1 + H4 | DET ≠ LIVE | Archive RO needs owner | G-ACTIVATION | Q8/Q9 on named env | Not global cutover |
-| H4 env coverage | Gate | Local/fixture ≠ prod | DOCUMENTED R-VOL-01 | Prod UNKNOWN | Policy owner | N/A | R-VOL-01 OPEN | H4 per env | Checklist green | Block G-ACTIVATION without H4 |
-| Snapshot/restore | #617 S1 | VACUUM INTO DET | S1 DET | LIVE App Support restore NOT PROVEN | Before freeze | DET / LIVE gap | R-L2D2-SQLITE-SNAPSHOT | Part of activation | Backup+checksum | Target env |
-| Q12 / R-CUT | #614/#617 S4 | R-CUT DET PASS | S4 DET | Q12 OPEN · R-CUT LIVE NOT PROVEN | H4 + D4 | DET / LIVE no | Unfreeze write forbidden | G-ACTIVATION then LIVE | No writer leak | Product RO oracle |
-| D3 migration | Conditional | Not default-required | — | Need-based only | Real need | — | — | Distinct GO if needed | — | Prefer activation first |
-| D4/D6/D7/H1 | L2 residual | D4 DET redirect; MethodMode hold ACTIVE; D6 UNASSIGNED | D4 DET | D4 HTTP LIVE NOT PROVEN; H1 OPEN | H4 | DET / LIVE gaps | MethodMode RETIRE LATER | Formal H1; D6 owner | Q6/Q7/Q10/Q11 | Freeze ≠ delete |
+## Q. Fake / Real
+- DOC-only Git Integration · CI SUCCESS on exact SHA · Draft PR
+- ≠ Studio Cursor REAL · ≠ H4 PASS · ≠ G-ACTIVATION · ≠ G-REAL · ≠ E2E REAL · ≠ P6 · ≠ v3 ADOPTED · ≠ AKG-M5 CLOSED
 
-L2 aggregate: Delivery on main · exclusive DEFAULT OFF / NOT ACTIVATED · G-ACTIVATION / G-REAL NOT GRANTED · H4 OPEN.
+## R. Réserves et gates ouverts
+H4 · Q12 · R-CUT LIVE · FS→Git→Review · FS→SHA generic · REAL · H2/H5/R-EXCL · G-ACTIVATION/G-REAL · MethodMode/D1 FREEZE RETIRE LATER · MERGE/UNDRAFT NOT GRANTED · Option A/B undecided
 
-## K. Matrice L3 actuelle
+## S. PR readiness finale
+PR READINESS TECHNICAL PASS — Required Gate SUCCESS on 3a6b5e82 · Draft · MERGE NOT GRANTED
 
-| CAPACITÉ | MILESTONE | CURRENT AS IMPLEMENTED | PREUVES | KNOWN GAPS | DÉPENDANCES | DET/REAL | DETTE+EXIT | MORRIS GATE | EXIT PROOF | NEXT |
-|---|---|---|---|---|---|---|---|---|---|---|
-| Generic PREPARE / EC | Pre-M5 + #618 | Socle intégrés; docs_write ≠ intentKind | PR #588/#590 · #618 CI | Pending offer process-local (H3/L4) | Cap matrix · sealed identity | DET / REAL NOT PROVEN | Carrier restart-unsafe | Distinct L3/L4 | Inspectable EC | Reuse; no re-admit docs_write |
-| AuthorizedSlice / Cursor | A04/A12 target | Fake DET; Real gateway; OPS1 ≠ Product exclusive | DET Fake | R-EXCL NOT PROVEN | H2/H5 | DET ≠ REAL | Flag rename after exclusivity | H2; H5; R-EXCL; G-REAL | Exclusive Product REAL | Do not claim REAL from #618 |
-| Evidence / ReviewBundle | Continuity | Preserved; historical docs_write allowlist | DET continuity · CORR-02 | Generic materialization Evidence source not proven | FS allowlist | DET / REAL gap | Keep historical ≠ admission | — | Evidence without false admission | Define generic FS Evidence |
-| FS→Git→Review | L3 critical | Front-door généraliste not re-proven E2E | Partial fixture-safe | KNOWN GAP OPEN | Workspace key + sealed identity | NOT PROVEN E2E | Restore generalist E2E oracle | GO L3 proof | Product E2E PASS | Priority if Option B |
-| FS→SHA | CORR-02 | Historical-only allowlist | CODE VERIFIED | No new generic source | #618 retirement | DET historical / generic GAP | Tighten ≠ invent | — | Named generic source + tests | Pair with FS→Git |
-| H2/H5/R-EXCL/REAL | L3 gates | Tool-First R1/R2 DET; TOOL-FIRST-REAL-NOWRITE OPEN | PRR 07/09 | H2/H5/R-EXCL OPEN | Cap matrix | DET / REAL NOT PROVEN | Don't retire OPS1 early | H2; H5; R-EXCL; G-REAL | Exclusive REAL proved | Block premature REAL |
-| Nora→Result→Pilot | L3/L4 | Nora DET; Pilot authority | Nora/P6 DET | LIVE HQA NOT PROVEN | L4 ownership | DET / REAL gap | Continuity carriers H3 | — | Honest result | L4 after L2/L3 |
-
-#618 effect on L3: structural precondition — ≠ L3 started / ≠ R-EXCL / ≠ REAL.
-
-## L. Dépendances et trajectoire L1–L6
-
-| Lot | Status after #618 | Proof ceiling | Next |
-|---|---|---|---|
-| L1 A09 | DONE on main (#609) | BEHAVIOR PROVEN AT TESTED SCOPE | D1 adapter transitional |
-| L2 Intake/cutover | Code on main; ops NOT ACTIVATED | DET proven; LIVE NOT PROVEN | H4 → G-ACTIVATION → R-CUT LIVE → Q12 |
-| L3 Generic Execution Completeness | Delivery NOT STARTED; #618 clears specialization debt | Generic DET prior; E2E/FS→SHA gaps OPEN | Distinct GO L3 |
-| L4 PA/carriers | NOT STARTED | DOCUMENTED | Needs coherent L2+L3 exclusive Product |
-| L5 studio UX | NOT STARTED | DOCUMENTED | After L4 |
-| L6 Freeze/retire | PARTIAL prep (FREEZE gated / RETIRE LATER) | NOT PROVEN as retire | After L2/L3 proofs |
-
-## M. Options A / B et challenge
-
-### OPTION A — Finir L2
-- Pourquoi: code L2 mergé mais exclusive OFF; dual UX + D1 writers restent default
-- Réutiliser: #614/#617 marker/snapshot/allowlist/D4/R-CUT DET · D5 · O-01 DET · #618 workspace-key
-- Gaps fermés: H4 · Q12 · R-CUT LIVE · D4 HTTP LIVE · path FREEZE/RETIRE LATER
-- Exit proof: Named-env GO → backup → freeze → exclusive ON → Q8/Q9/Q12 → no dual-write
-- Risque: activer sans H4; DET=LIVE; unfreeze write; prod UNKNOWN as empty
-- Gates: H4 → G-ACTIVATION → LIVE verify
-- Entry/STOP: Entry=H4 green; STOP=writer leak / dual-write / snapshot fail
-- 1er résultat user: create/list/open Project only via Studio/OA on activated env
-- L4–L6: unlocks exclusive Product input for L4; L6 retire D1 after consumers=0
-
-### OPTION B — Avancer L3
-- Pourquoi: #618 a retiré les spécialités; Generic PREPARE/EC existent; L3 = Attempt/Evidence completeness
-- Réutiliser: Attempt stack · Fake Cursor · sealed identity · Evidence/RB · Tool-First · KEEP helpers
-- Gaps fermés: FS→Git→Review E2E · generic FS→SHA · H2/H5 toward R-EXCL
-- Exit proof: Exclusive Product Attempt DET→bounded REAL with R-EXCL oracles
-- Risque: REAL from DET; dual intake unresolved; re-admit docs_write
-- Gates: GO L3 · H2 · H5 · R-EXCL · G-REAL (≠ G-ACTIVATION)
-- Entry/STOP: Entry=L3 GO; STOP=REAL without exclusivity / Evidence invention
-- 1er résultat user: Pilote Exécute generic governed Attempt with inspectable EC+Evidence (DET first)
-- L4–L6: feeds L4; OPS1 retire only after R-EXCL
-
-Séquencement: ne pas lancer A∥B automatiques. Parallel tracks only with separate GOs and explicit non-claims.
-
-## N. Recommandation conditionnelle (≠ décision)
-Conditional lean: Option A (finish L2 operational closure) before L3 Delivery, treating #618 as landed structural prep that L3 will reuse—not as L3 progress.
-Grounding: (1) L2 remaining gap is governance/LIVE not CreateProject wiring; (2) L4 needs both L2+L3 coherent; (3) #618 opened Evidence E2E gaps that belong under L3 GO, not reasons to skip L2 activation proof.
-
-## O. Exit proofs et dettes/exit
-- P0 exit (this cycle): Roadmap CURRENT MERGED · PRR CURRENT ON MAIN · digests · conformance PASS · L2/L3 matrices · Options · handoff L3 — local authoring; project GI NOT this GO
-- Open debts: H4 · Q12 · R-CUT LIVE · FS→Git→Review · FS→SHA generic · residual naming · exclusive OFF · REAL/H4/G-ACTIVATION · MethodMode hold · D1 FREEZE/RETIRE LATER · documentary GI of this P0
-
-## P. R23 / R24
-- R23: Comprehension only of CreateProject / OA / exclusive / Generic PREPARE / AES / Cursor / Evidence / sealed Git — no Product code edits
-- R24: Documentary status sync only · NO PRODUCT SEMANTIC IMPACT
-- Classifications: Binding/docs_write Product admission = RETIRE (done on main) · KEEP workspace key / Generic / Evidence / sealed identity · COMPLETE L2 LIVE / L3 E2E under future GOs · RETIRE LATER D1/OPS1 ≠ delete permission
-
-## Q. Fake / Real Qualification
-- Applicable: qualification of existing proofs only
-- Fake/DET: CI SUCCESS on exact SHAs · DET suites cited · ≠ new REAL campaign
-- Claims allowed: Git integrated · CI SUCCESS · DET at tested scope · Product Code Verified · gaps OPEN
-- Claims forbidden: runtime v3 ADOPTED · H4 PASS · REAL E2E PROVEN · G-ACTIVATION GRANTED · P6 GLOBAL PASS · AKG-M5 GLOBAL CLOSED
-
-## R. Gates Morris non consommés
-1. ChatGPT Critical Review of this P0
-2. GO project Git Integration documentaire P0 (commit/push/PR) — distinct
-3. Arbitrage Option A vs B (or sequenced plan)
-4. H4 / G-ACTIVATION / G-REAL / H2 / H5 / R-EXCL / REAL / runtime v3 / AKG-M5 close — all distinct
-
-## S. Verdict
-**P0 CONSOLIDATED — DOCUMENTARY TRUTH VERIFIED — READY FOR CHATGPT CRITICAL REVIEW**
+## T. Verdict
+**P0 GIT INTEGRATED — CI SUCCESS — READY FOR CHATGPT CRITICAL PR REVIEW**
 
 ## Instruction ChatGPT
 Lire sfia/review-handoff → sfia-review-handoff/latest-chatgpt-review.md.
-Confronter diffs complets (§F) aux sources Git @ fec4e65d + worktree docs/akg-m5-postmerge-convergence-p0.
-Vérifier Roadmap CURRENT · PRR README/02–09 · digests · conformance · matrices L2/L3 · Options A/B · non-claims.
-Une Critical Review complète. Si conforme: proposer à Morris (A) GO intégration Git documentaire P0 ou (B) correction bloquante précise. Puis seulement: arbitrage capacité AKG-M5 suivante. Ne pas démarrer L2/L3 automatiquement.
+Vérifier commit 3a6b5e8272be449de09ba85ab8ea2750020835a9 · 11 fichiers · Draft PR #619 · HEAD/base · CI 40302912172 SUCCESS · Roadmap/PRR/manifest · réserves · options non adoptées.
+Une Critical PR Review. Si conforme: préparer GO Morris merge éventuel. Après merge+post-merge CI: arbitrage Option A/B. Ne pas démarrer L2/L3 automatiquement.
