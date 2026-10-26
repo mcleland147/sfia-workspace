@@ -6,7 +6,7 @@
 | **Titre** | Generic Execution / Execution Review / Evidence / Nora / Result / Pilot — Architecture de référence |
 | **Rôle documentaire** | **CURRENT ARCHITECTURE REFERENCE** (cible adoptée + cartographie factuelle du code) |
 | **Chaîne couverte** | `GENERIC EXECUTION → EXECUTION REVIEW → EVIDENCE → NORA → RESULT → PILOT` |
-| **Statut** | **ADOPTED TARGET ARCHITECTURE BY MORRIS** — **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
+| **Statut** | **BASE ARCHITECTURE REFERENCE — INTEGRATED ON MAIN** · **D-ER-01…19 / D-P6-SHE-01 — TARGET ARCHITECTURE ADOPTED BY MORRIS** · **AKG-M5 documentary amendment (2026-10-26 overlay + status clarification) — LOCAL CANDIDATE PENDING GIT INTEGRATION** · **CURRENT CODE ≠ TARGET COMPLETE** · **runtime v3 NON ADOPTED** |
 | **Décisions datées** | **2026-09-29** (D-ER-01…15) · **Amendement 2026-10-16** (D-ER-16…19 — Nora Tool Invocation) · **Amendement 2026-10-18** (**D-P6-SHE-01** — SINGLE HUMAN EXECUTE / Option A — amende le séquencement d’autorité de D-ER-18) |
 | **Base main auditée** | `6f47f74dc9b515c4c79624b21772223ba02c76cd` (D-ER-01…15) · amendement ancré sur `896ff59c704bfa76df1da1a51705aaf948c1cf0c` (2026-10-16) |
 | **Qualification épistémique** | Assertions étiquetées : `CURRENT IMPLEMENTED FACT` · `REAL OBSERVATION` · `AUDIT INFERENCE` · `TARGET ARCHITECTURE — ADOPTED BY MORRIS` · `TRANSITIONAL DEBT` · `OPEN DESIGN DETAIL` · `FUTURE PROOF` |
@@ -29,6 +29,19 @@
 | **TRANSITIONAL DEBT** | Pont / legacy vivant à retirer ou généraliser sous conditions |
 | **OPEN DESIGN DETAIL** | Décision d’architecture encore ouverte |
 | **FUTURE PROOF** | Preuve de sortie / critère d’exit futur — non réalisé |
+
+### Overlay épistémique 2026-10-26 — post-#618 / #619 (AKG-M5)
+
+| Claim | Status |
+|---|---|
+| Base architecture reference on `main` | **INTEGRATED ON MAIN** (canonical) — header/status now state base INTEGRATED; do not confuse with AKG-M5 amendment LOCAL CANDIDATE |
+| **D-ER-01…19** / **D-P6-SHE-01** | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** — **unchanged** by this overlay · **≠** redecision |
+| Product `docs_write` admission / Product `RepositoryBinding` | **RETIRED ON MAIN** via PR **#618** (`fec4e65d`) — sentences below that still label Product `docs_write` specialization or Project Binding as **CURRENT IMPLEMENTED FACT** are **HISTORICAL / TRANSITIONAL DEBT snapshots** unless re-verified against Git |
+| Historical Evidence `execution_attempt:docs_write` allowlist | **KEEP** as historical durable-read · **≠** Product admission · **KNOWN GAP** for generic FS materialization Evidence source |
+| SHE CURRENT vs TARGET | **CURRENT ON MAIN** via PR #590 — DET at tested scope · TARGET ADOPTED unchanged · **Delivery COMPLETE / E2E / REAL / v3 / P6** remain **NOT CLAIMED** · §1.2 historical « Delivery NON AUTORISÉ » corrected 2026-10-26 |
+| AKG-M5 trajectory re-sequencing | See Decision Pack `05-…requalification.md` — **T-C ADOPTED** (AKG-M5-TC-2026-10-26) · **L3-S1 ADOPTED** · **≠** L3 Delivery GO · **≠** REAL |
+| AKG-M5 documentary amendment (C1–C5 / this overlay) | **LOCAL CANDIDATE PENDING GIT INTEGRATION** · D-ER decisions unchanged · CURRENT CODE ≠ TARGET COMPLETE · runtime v3 NON ADOPTED |
+
 
 **Règle éditoriale :** ne jamais présenter une assertion **TARGET** comme **IMPLEMENTED**. Ne jamais inventer de preuve REAL au-delà des faits NoteLite bornés ci-dessous.
 
@@ -58,8 +71,10 @@ Ce document fixe la **référence d’architecture Product** pour le circuit gé
 | Cible architecturale D-ER-01…15 | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-09-29) — **inchangée** |
 | Amendement Nora Tool Invocation D-ER-16…19 | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-10-16) — **complète** D-ER-01…15 ; **≠** réécriture historique |
 | Amendement **D-P6-SHE-01** (SINGLE HUMAN EXECUTE / Option A) | **TARGET ARCHITECTURE — ADOPTED BY MORRIS** (2026-10-18) — amende le **séquencement d’autorité** de D-ER-18 ; **≠** réécriture de D-ER-18 historique 2026-10-16 ; **≠** runtime implémenté |
-| Intégration Git de ce document | **DOCUMENTARY CANDIDATE PENDING GIT INTEGRATION** |
-| Implémentation de l’amendement | **EN COURS (Delivery local, non fusionné)** — D-ER-16…19 partiellement implémentés sous Delivery GO ; **NON** pour la cible complète (E8–E11 non prouvés bout-en-bout ; S8 persistence/recovery OPEN ; sortie legacy D-ER-19 partielle) ; **D-P6-SHE-01 Delivery NON AUTORISÉ** — CURRENT ≠ TARGET |
+| Intégration Git de la référence de base | **INTEGRATED ON MAIN** (living reference on `main`; base D-ER corpus already published) |
+| Amendement documentaire AKG-M5 (overlay 2026-10-26 / status C5) | **LOCAL CANDIDATE PENDING GIT INTEGRATION** — **≠** redecision D-ER · **≠** new architecture |
+| Implémentation de l’amendement | **EN COURS / PARTIEL** — D-ER-16…19 partiellement implémentés ; **NON** pour la cible complète (E8–E11 non prouvés bout-en-bout ; S8 persistence/recovery OPEN ; sortie legacy D-ER-19 partielle) · **CURRENT CODE ≠ TARGET COMPLETE** |
+| **D-P6-SHE-01 Delivery — epistemic correction 2026-10-26** | **HISTORICAL AT ORIGINAL DECISION TIME** (2026-10-18): Delivery not yet authorized · **CURRENT ON MAIN**: SHE integrated via PR **#590** — deterministic proof at tested scope (DET) · **NOT CLAIMED**: full generic E2E completion · REAL · runtime v3 adoption · P6 GLOBAL PASS · **≠** redecision of D-P6-SHE-01 TARGET |
 | runtime v3 | **NON ADOPTED** |
 | READY FOR REAL (boucle générique cible) | **NO** |
 | Delivery slicing (lots) | **TBD** — **D-ER-15** |
