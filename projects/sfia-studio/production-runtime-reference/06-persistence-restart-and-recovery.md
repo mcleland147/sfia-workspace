@@ -2,13 +2,13 @@
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
 
-## Overlay — CORR-01 (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+## Overlay — CORR-01 (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
-**CORR-01 NO SEMANTIC IMPACT** on persistence / restart / recovery. Generic continuity wording is **DETERMINISTIC AT TESTED SCOPE** only (`postExecutionProductContinuity.generic.d0.test.ts`); restart continuity remains covered by existing suites. **≠** REAL. **NOT MERGED**.
+**CORR-01 NO SEMANTIC IMPACT** on persistence / restart / recovery. Generic continuity wording is **DETERMINISTIC AT TESTED SCOPE** only (`postExecutionProductContinuity.generic.d0.test.ts`); restart continuity remains covered by existing suites. **≠** REAL. Pre-merge NOT MERGED claim = **HISTORICAL**.
 
-## Overlay — CORR-02 (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+## Overlay — CORR-02 (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
-**CORR-02 NO SEMANTIC IMPACT** on persistence stores, restart, or recovery tables. Identity↔remote↔checkout checks are in-process seal and filesystem metadata reads (no new table, migration, or clone). Evidence FS→SHA supersession reads already-persisted Evidence and is **historical-only** for allowlisted sources `execution_attempt:docs_write` (+ dotted suffix). No new Product materialization Evidence source is persisted after the docs_write retirement. **≠** REAL. **NOT MERGED**.
+**CORR-02 NO SEMANTIC IMPACT** on persistence stores, restart, or recovery tables. Identity↔remote↔checkout checks are in-process seal and filesystem metadata reads (no new table, migration, or clone). Evidence FS→SHA supersession reads already-persisted Evidence and is **historical-only** for allowlisted sources `execution_attempt:docs_write` (+ dotted suffix). No new Product materialization Evidence source is persisted after the docs_write retirement. **≠** REAL. Pre-merge NOT MERGED claim = **HISTORICAL**.
 
 ## Store topology
 

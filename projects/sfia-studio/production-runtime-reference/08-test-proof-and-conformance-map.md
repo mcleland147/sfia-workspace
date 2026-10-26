@@ -9,17 +9,20 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
-## Overlay — PR #618 CI Reconciliation proof map (LOCAL CANDIDATE — 2026-10-25)
+## Overlay — PR #618 proof map (CURRENT ON MAIN — MERGED + post-merge CI — 2026-10-26)
 
 | Suite / scope | Result | Epistemic |
 |---|---|---|
-| Baseline CI Vitest (workflow `40207375690`) | 301 FAIL / 65 files / 5721 PASS | **CI FACT** on HEAD `15d3bd39` |
-| `gcecMutatingCursorConfinementEnv.d0.test.ts` | PASS | **DET** P0 confinement |
+| Post-merge CI `40272048259` on merge `fec4e65d` | Detect / Build / **Required Gate SUCCESS** | **CI FACT CURRENT ON MAIN** · event=`push` |
+| Pre-merge CI `40258385791` on `a75d0ed5` | Detect / Build / Required Gate SUCCESS | **HISTORICAL** candidate CI · pull_request |
+| Baseline CI Vitest (`40207375690`) | 301 FAIL / 65 files | **HISTORICAL CI FAILURE** (superseded) |
+| Corrective CI on `ff653b58` (`40215089725`) | 160 FAIL / 44 suites | **HISTORICAL CI FAILURE** (superseded) |
+| `gcecMutatingCursorConfinementEnv.d0.test.ts` | PASS | **DET** confinement · on main via #618 |
 | `gcecCursorFullCapabilityParity.d0.test.ts` | PASS (docs_write parity retired) | **DET** |
-| `nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts` | PASS (docs_write overlay its retired; git/RO/generalist kept) | **DET** |
-| `productWorkspaceArtifactRouting*.d0.test.ts` + natural materialization | PASS | **DET** P1 routing / O-01 without Binding |
-| Original 65 CI-fail files (local re-run after corrective) | 21 PASS / 44 FAIL · 828 PASS / 160 FAIL tests | **LOCAL RECONCILIATION** · residuals explicit · **≠** full CI PASS until post-push |
-| typecheck / lint / build | PASS | **LOCAL** |
+| `nativeExecutionLoopConvergence01.gatewayMission.d0.test.ts` | PASS (docs_write overlay retired; git/RO/generalist kept) | **DET** |
+| `productWorkspaceArtifactRouting*.d0.test.ts` + natural materialization | PASS | **DET** O-01 without Binding |
+| `gitTargetIdentityRemoteFidelity.d0.test.ts` | PASS | **DET** CORR-02 |
+| Deterministic proof ceiling | DET / CI SUCCESS | **≠** REAL · **≠** H4 · **≠** G-ACTIVATION |
 
 ## Overlay — AKG-M5 L2-D2 proof map (CURRENT ON MAIN — PR #614; DET — 2026-10-24)
 
@@ -46,9 +49,9 @@
 
 **Integrated DET batch (pre-commit revalidation):** S1–S4 + freeze + injected + D4 + O-01 + D5 + M1 — **52 PASS / 10 files** (includes CR-S2-02 suite growth). **Anti-claims:** DET ≠ LIVE · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · exclusive **DEFAULT OFF**.
 
-## Overlay — CORR-01 restored generic proofs (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+## Overlay — CORR-01 restored generic proofs (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
-docs_write suites retired with the Product specialization are not restored. These rows are the generic mission / wording proofs re-ported on the generalist contract. **NOT MERGED**. **≠** GI. **≠** REAL.
+docs_write suites retired with the Product specialization are not restored. These rows are the generic mission / wording proofs re-ported on the generalist contract. Pre-merge NOT ON MAIN = **HISTORICAL**. **≠** REAL.
 
 | Suite file | What it proves | Class |
 |---|---|---|
@@ -57,9 +60,9 @@ docs_write suites retired with the Product specialization are not restored. Thes
 | `postExecutionProductContinuity.generic.d0.test.ts` | FAIL / STOP / UNCLAIMED trajectory wording only | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
 | `contractResultCriteria.generic.d0.test.ts` | Project-specific EO without a criterion → NOT_PROVEN; `mission_diagnostic` bound to that EO → PASS; `manual_review` → NOT_PROVEN; criterion bound to a different EO does not leak PASS | **DETERMINISTIC AT TESTED SCOPE** · **≠** REAL |
 
-## Overlay — CORR-02 Git target fidelity (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+## Overlay — CORR-02 Git target fidelity (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
-Identity↔remote↔checkout and the tightened FS-anchor allowlist. Docs_write Product suites are **not** restored. **NOT MERGED**. **≠** REAL. **≠** GI.
+Identity↔remote↔checkout and the tightened FS-anchor allowlist. Docs_write Product suites are **not** restored. Pre-merge NOT ON MAIN = **HISTORICAL**. **≠** REAL.
 
 | Suite file | What it proves | Class |
 |---|---|---|
@@ -120,7 +123,7 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That 
 | Reason | `incompatible_execution_intent` | `no_compatible_artifact_effect` |
 
 - Scenario: natural materialization signal **without** a `docs_write`-compatible effect under an active cycle with REQUIRE_ARTIFACT.
-- **Epistemic split 2026-10-25:** this oracle wording is **CURRENT ON MAIN** (`7db8afd7`), where a docs_write-compatible effect can still be admitted. **LOCAL DELIVERY CANDIDATE / NOT ON MAIN:** docs_write Product admission is **RETIRED**, so that specialized effect is not a Product admission path. The historical oracle is superseded history for the local candidate. **NOT MERGED**.
+- **Epistemic split (post-merge 2026-10-26):** **CURRENT ON MAIN after #618:** docs_write Product admission is **RETIRED**, so that specialized effect is not a Product admission path. Oracle wording that assumed admission on `7db8afd7` is **HISTORICAL**.
 - **Does not prove** that a new CycleInstance was created — the same case asserts `countCycles === 1` (resolution alone never invents a cycle).
 - Mode name `NEW_CYCLE_FORMALIZATION` here is a resolution **routing** outcome (D-ER-17: not a dead-end; Generic PREPARE may remain eligible on project/active-cycle context) — **≠** Artifact governed continuation, **≠** CREATE_CYCLE proof.
 - Ceiling: DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). NOT E2E REAL. NOT READY FOR REAL.
@@ -130,7 +133,7 @@ Parent handoff `eae8dbe2` listed these under `NO_SEMANTIC_IMPACT` (tests). That 
 Candidate assertions distinguish:
 
 1. **Generic PREPARE eligible** on same active-cycle / project context (no dead-end force-unbind).
-2. **Artifact governed materialization not authorized** for the natural signal that, **on main**, is non-`docs_write`. **LOCAL DELIVERY CANDIDATE:** docs_write is not a Product admission effect; this bullet stays the historical / main oracle. **NOT MERGED**.
+2. **Artifact governed materialization not authorized** for natural signals that are non-documentary under Generic PREPARE. **CURRENT after #618:** docs_write is not a Product admission effect; pre-merge « on main docs_write still admitted » oracle = **HISTORICAL**.
 3. **No artificial new CycleInstance** (`countCycles` stable; `createCycle` not required by this path).
 4. **No misleading Artifact materialization Proposal** bound as active-cycle governed continuation.
 

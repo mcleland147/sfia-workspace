@@ -17,13 +17,13 @@ Given changed paths:
 9. Collect `testPaths` as mandatory regression set.
 10. List doc volumes requiring review; after content review only, refresh digests.
 
-## Overlay — CORR-01 (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+## Overlay — CORR-01 (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
-**CORR-01 NO SEMANTIC IMPACT** on this dependency map beyond the RepositoryBinding / docs_write Product specialization retirement already documented in the LOCAL DELIVERY overlays (README and volumes 02, 03, 05, 09). Restored generic proofs add no dependency edges. **NOT MERGED**.
+**CORR-01 NO SEMANTIC IMPACT** on this dependency map beyond the RepositoryBinding / docs_write Product specialization retirement documented in README and volumes 02, 03, 05, 09 (**CURRENT ON MAIN** via #618). Restored generic proofs add no dependency edges. Pre-merge LOCAL DELIVERY / NOT ON MAIN = **HISTORICAL**.
 
-## Overlay — CORR-02 (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+## Overlay — CORR-02 (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
-**BOUNDED DEPENDENCY IMPACT.** Protected managed-checkout resolution now requires an origin match: `resolveIdentityMatchedLocalRepo` (`ManagedProjectRepositoryResolver`) accepts a candidate under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` only when checkout `origin` matches the sealed git-target identity. `.git` existence is not that dependency. No new curated `manifest.dependencies[]` edge (the nine indexed edges are unchanged). Callers on the protected Git start path (`startExecution` seal + guarded managed root) fail closed on mismatch. **NOT MERGED**. **≠** REAL.
+**BOUNDED DEPENDENCY IMPACT.** Protected managed-checkout resolution now requires an origin match: `resolveIdentityMatchedLocalRepo` (`ManagedProjectRepositoryResolver`) accepts a candidate under `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` only when checkout `origin` matches the sealed git-target identity. `.git` existence is not that dependency. No new curated `manifest.dependencies[]` edge (the nine indexed edges are unchanged). Callers on the protected Git start path (`startExecution` seal + guarded managed root) fail closed on mismatch. Pre-merge NOT MERGED = **HISTORICAL**. **≠** REAL.
 
 ## Core dependency edges (harvested)
 
