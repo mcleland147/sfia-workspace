@@ -1290,11 +1290,13 @@ UPDATE REQUIRED for future DOC GI (not this cycle):
 | Delivery branch (local only) | `feat/akg-m5-l3-s2-generic-proof-continuity` |
 | Project commits | **0** |
 | Qualification handoff | `b712c600…` / `e5123621…` |
-| This cycle handoff | see publisher tip |
+| This cycle handoff | `9d313bac69f9ce001da0d9dde4b981ff5732360b` / blob `def6d044977f7ffc1c9a7b0422cef5d5cea16856` |
 
 ## 20. Verdict
 
 **LOCAL DET DELIVERY CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW — R24 SYNC PENDING**
+
+Handoff Git **REMOTE VERIFIED**: `9d313bac…` / `def6d044…`.
 
 with explicit residual:
 
