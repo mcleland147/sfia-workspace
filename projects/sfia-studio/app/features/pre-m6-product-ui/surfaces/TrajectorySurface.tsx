@@ -466,11 +466,8 @@ export function TrajectorySurface({
       recoveryDecisionId,
       attemptPresent: Boolean(attempt?.attemptId),
     });
-  const showRecoveryDocsWritePrepare = Boolean(
-    recoveryDocsWritePrepareReady &&
-      recoveryBinding &&
-      (!contract || wrongGenericReplaceableByRecoveryPrepare),
-  );
+  // AKG-M5 — bounded docs_write recovery PREPARE retired (action fail-closed).
+  const showRecoveryDocsWritePrepare = false;
   const rematerializeDecisionId =
     decision?.decisionId ?? continuityDecisionRef ?? null;
   const legacyDocsWriteRematerializeReady = Boolean(
@@ -1418,7 +1415,35 @@ export function TrajectorySurface({
       );
       return;
     }
-
+    const prepared = result.contract;
+    setContract({
+      executionContractId: prepared.executionContractId,
+      version: prepared.version,
+      status: prepared.status,
+      action: prepared.action,
+      target: prepared.target,
+      scope: prepared.scope,
+      requiredAuthority: prepared.requiredAuthority,
+      constraints: [...prepared.constraints],
+      stopConditions: [...prepared.stopConditions],
+      requiredCapabilities: [...prepared.requiredCapabilities],
+      reversibility: prepared.reversibility,
+      semanticFingerprint: prepared.semanticFingerprint,
+      effectConfirmationRequired: prepared.effectConfirmationRequired,
+      effectConfirmationLevel: prepared.effectConfirmationLevel ?? null,
+      inspectionDisclosure: toInspectionDisclosureView(
+        prepared.inspectionDisclosure,
+      ),
+    });
+    setInspection(null);
+    setAuthorization(null);
+    setAmendmentDraft("");
+    setAmendmentNotice(null);
+    setAttempt(null);
+    setAttemptPhase(null);
+    setAttemptStatusLabel(null);
+    onDurableFactsChanged?.();
+    closeInspectionExam();
   }, [
     continuityMutationBlocked,
     decision,
@@ -2964,7 +2989,7 @@ export function TrajectorySurface({
               >
                 Prochaine action :{" "}
                 {wrongGenericReplaceableByRecoveryPrepare
-                  ? "Préparer le contrat recovery docs_write (explicite)"
+                  ? "Reprendre la préparation (contrat générique remplaçable)"
                   : pilotContractView.simplifiedExecutePath &&
                       inspection?.inspectionSufficient
                     ? "Exécuter"
@@ -2978,7 +3003,7 @@ export function TrajectorySurface({
           ) : null}
           <p className={styles.blockNote}>
             {wrongGenericReplaceableByRecoveryPrepare
-              ? "Contrat générique pré-exécution visible pour cette décision. La prochaine action utile est de préparer le contrat recovery docs_write — pas d'inspection de ce dead-end."
+              ? "Contrat générique pré-exécution visible pour cette décision. Reprenez la préparation gouvernée — pas d'inspection de ce dead-end."
               : pilotContractView?.simplifiedExecutePath
                 ? "Le contrat est préparé et inspecté. Un clic Exécuter lance la gouvernance interne (confirmation si requise, autorisation, tentative) — sans micro-étapes visibles."
                 : "Relisez d'abord ce qui sera tenté. Inspectez le détail avant toute confirmation. Confirmer n'exécute pas."}

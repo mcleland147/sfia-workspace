@@ -1,19 +1,3 @@
-type FakeDocsWriteLaunchPort = any;
-const FakeDocsWriteLaunchPort: any = class {
-  gatewayId = "fake";
-  externalEffects = false;
-  boundaryProofMode = "deterministic";
-  calls: any[] = [];
-  lastReport: any = null;
-  touchedFiles: any[] = [];
-  lastDigest: any = null;
-  constructor(..._a: any[]) {}
-  async launch(..._a: any[]) {
-    this.calls.push(_a);
-    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
-  }
-  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
-};
 const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
 
 /**
@@ -103,9 +87,11 @@ import {
   FakeCursorGitExternalState,
   MemoryLaunchSafetyJournal,
   isStudioCursorRealEnabled,
+  FakeDocsWriteLaunchPort,
 } from "@/lib/oa/execution-attempt";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
 import {
+  composeProjectWorkspacePathRoot,
   ensureManagedRepoCloneSkeleton,
   listManagedRepoPathsUnderRoot,
 } from "@/lib/oa/project";
@@ -279,10 +265,9 @@ describe("PRODUCT-PWR-01 deterministic workspace routing journey", () => {
     expect(created.project.projectWorkspaceKey).toBe(
       "mini-cadrage-suivi-de-taches",
     );
-    // Product RepositoryBinding retired — workspace identity is projectWorkspaceKey.
-    expect(`projects/${created.project.projectWorkspaceKey}`).toBe(
-      EXPECTED_PROJECT_ROOT,
-    );
+    expect(
+      composeProjectWorkspacePathRoot(created.project.projectWorkspaceKey ?? ""),
+    ).toBe(EXPECTED_PROJECT_ROOT);
 
     const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,

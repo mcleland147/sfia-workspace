@@ -74,7 +74,8 @@ describe("R10 — wrong generic replaceable by recovery PREPARE (pure)", () => {
     ).toBe(true);
   });
 
-  it("T9 — current already docs_write → not replaceable", () => {
+  it("T9 — recovery-aligned current contract → replaceable when pre-exec (AKG-M5)", () => {
+    // Specialized docs_write non-replacement gate retired; continuity ref match suffices.
     expect(
       isWrongGenericPreExecReplaceableByRecoveryPrepare({
         recoveryBinding: SAMPLE_BINDING,
@@ -87,7 +88,7 @@ describe("R10 — wrong generic replaceable by recovery PREPARE (pure)", () => {
         recoveryDecisionId: RECOVERY_HD,
         attemptPresent: false,
       }),
-    ).toBe(false);
+    ).toBe(true);
   });
 
   it("T10 — different decisionRef → not replaceable", () => {

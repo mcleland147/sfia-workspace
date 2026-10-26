@@ -10,9 +10,11 @@ import os from "node:os";
 import path from "node:path";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project";
 import {
   getRuntimeApplicationService,
   resetRuntimeApplicationServiceForTests,
+  SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV,
 } from "@/lib/vertical-slice-runtime";
 import {
   orchestrateAssistantSend,
@@ -36,7 +38,6 @@ import {
 import {
   enrichExecutionIntentFromBinding,
   F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
-  F2_ARTIFACT_MATERIALIZATION_OPERATION,
   hasCompatibleDocsWriteMaterializationEffect,
   hasCurrentRequireArtifactObligation,
   hasExplicitArtifactContinuationKind,
@@ -48,6 +49,9 @@ import {
   preferActiveCycleOverParasite,
   resolveActiveCycleGovernedContinuation,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
+import {
+  F2_ARTIFACT_MATERIALIZATION_OPERATION,
+} from "@/features/project-assistant/f2/f2CanonicalOperations";
 import {
   validateIntentAnalysisPayload,
 } from "@/features/project-assistant/f2/intentAnalysis";
@@ -108,14 +112,12 @@ function materializationAnalysis(overrides?: {
   const artifactMaterializationOperation =
     overrides && "artifactMaterializationOperation" in overrides
       ? overrides.artifactMaterializationOperation
-      : continuationKind === "active_cycle_artifact_materialization"
-        ? "cursor.docs_write.apply"
-        : null;
+      : null;
   const executionIntent =
     overrides && "executionIntent" in overrides
       ? overrides.executionIntent
       : {
-          intentKind: "docs_write",
+          intentKind: "other",
           artifactType: null,
           targetRepositoryRef: null,
           targetPath: "docs/x.md",
@@ -211,8 +213,27 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
   const tempDirs: string[] = [];
   let projectId = "";
   let activeCycleId = "";
+  let managedBase = "";
+  let previousIdentity: string | undefined;
+  let previousRemote: string | undefined;
+  let previousBranch: string | undefined;
+  let previousManaged: string | undefined;
 
   beforeEach(async () => {
+    previousIdentity = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY;
+    previousRemote = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL;
+    previousBranch = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH;
+    previousManaged = process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = "acme/gestion-taches";
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+      "https://github.com/acme/gestion-taches.git";
+    process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
+    managedBase = fs.mkdtempSync(path.join(os.tmpdir(), "corr07-managed-"));
+    process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = managedBase;
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: managedBase,
+      identity: "acme/gestion-taches",
+    });
     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
     process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
     process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
@@ -333,6 +354,21 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     }
     if (previousFake === undefined) delete process.env.OPS1_CONVERSATION_PROVIDER;
     else process.env.OPS1_CONVERSATION_PROVIDER = previousFake;
+    if (previousIdentity === undefined) {
+      delete process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY;
+    } else process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = previousIdentity;
+    if (previousRemote === undefined) {
+      delete process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL;
+    } else process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL = previousRemote;
+    if (previousBranch === undefined) {
+      delete process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH;
+    } else {
+      process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = previousBranch;
+    }
+    if (previousManaged === undefined) {
+      delete process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV];
+    } else process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV] = previousManaged;
+    if (managedBase) fs.rmSync(managedBase, { recursive: true, force: true });
   });
 
   async function countCycles(): Promise<number> {
@@ -347,7 +383,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
   ) {
     return orchestrateAssistantSend({
       projectId,
-      content: `${phrasing} __F2_ARTIFACT_MATERIALIZE__`,
+      content: `${phrasing}\nMatérialise la note de cadrage de ce cycle. N'exécute rien : prépare la proposition pour ma décision.`,
       reinstructionOfProposalId: opts?.reinstructionOfProposalId,
     });
   }
@@ -433,8 +469,10 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     expect(proposal).toBeTruthy();
     if (!proposal) return;
 
-    expect(proposal.executionIntent?.intentKind).toBe("docs_write");
-    expect(proposal.executionIntent?.targetRepositoryRef).toBe("acme/gestion-taches");
+    expect(proposal.executionIntent?.intentKind).toBe("other");
+    expect(proposal.executionIntent?.targetPath).toBe(
+      "projects/gestion-de-taches/01-cadrage/note-de-cadrage.md",
+    );
     // Fake materialize marker sets null — DecisionBasis must not invent "reversible".
     const proposalRev = proposal.executionIntent?.reversibilityExpectation;
     expect(proposalRev === null || proposalRev === undefined || proposalRev === "unknown").toBe(
@@ -464,11 +502,10 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     if (!durable.ok) return;
     expect(durable.decision.decisionBasis?.cycleInstanceId).toBe(activeCycleId);
     expect(durable.decision.decisionBasis?.executionBasis?.intentKind).toBe(
-      "docs_write",
+      "other",
     );
-    // Non-authoritative intent carried; no implicit REAL authority.
-    expect(durable.decision.decisionBasis?.executionBasis?.requestedOperation).toMatch(
-      /docs_write/,
+    expect(durable.decision.decisionBasis?.executionBasis?.requestedOperation).toBe(
+      "Matérialisation gouvernée du livrable requis",
     );
     const basisRev =
       durable.decision.decisionBasis?.executionBasis?.reversibilityExpectation;
@@ -491,7 +528,10 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     });
     expect(prepared.ok).toBe(true);
     if (!prepared.ok) return;
-    expect(prepared.payload.contract.action).toBe("cursor.docs_write.apply");
+    // AKG-M5 — sealed EC action is generalist PREPARE surface (not a prose label).
+    expect(prepared.payload.contract.action).toBe(
+      F2_ARTIFACT_MATERIALIZATION_OPERATION,
+    );
     expect(prepared.payload.attemptCreated).toBe(false);
     expect(prepared.payload.cursorReal).toBe(false);
     expect(prepared.payload.executionPerformed).toBe(false);
@@ -787,8 +827,8 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     expect(await countCycles()).toBe(before);
   });
 
-  it("T17 — incomplete repository binding → no invented target; clarify in same cycle", async () => {
-    // New project with REQUIRE_ARTIFACT but NO binding
+  it("T17 — no repository binding → workspace-composed target; propose in same cycle", async () => {
+    // AKG-M5 — REQUIRE_ARTIFACT without Binding: ProjectWorkspace composes target.
     const runtime = getRuntimeApplicationService();
     const created = await runtime.createProject({
       name: "Sans binding",
@@ -873,11 +913,15 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     });
     expect(result.ok).toBe(true);
     if (!result.ok) return;
-    expect(result.f2?.proposal).toBeNull();
-    expect(result.f2?.turnKind).toBe("f2_clarification");
-    expect(result.text).toMatch(/binding|cible|targetPath|Repository/i);
+    // AKG-M5 / D-PC-09 amended — Project without Binding still routes via
+    // projectWorkspaceKey. No invented remote identity; target under projects/<key>.
+    expect(result.f2?.turnKind).toBe("f2_proposal");
+    expect(result.f2?.proposal).toBeTruthy();
+    const intent = result.f2!.proposal!.executionIntent;
+    expect(intent?.targetRepositoryRef ?? null).toBeNull();
+    expect(intent?.targetPath).toMatch(/^projects\/[^/]+\//);
+    expect(intent?.intentKind).toBe("other");
     expect(result.text).not.toMatch(/github\.com\/invented/i);
-    expect(result.f2?.proposal?.executionIntent?.targetRepositoryRef).toBeFalsy();
     expect(result.f2?.qualification?.cycleInstanceId).toBe(cycId);
     expect(
       (await oa.cycleServices.cycles.listByProject(created.projectId)).length,
@@ -893,7 +937,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     expect(result.text).toMatch(/Décision Pilote|DÉCISION PILOTE/i);
   });
 
-  it("intent helper — docs_write alone / kind alone not qualified; both qualified", () => {
+  it("intent helper — retired docs_write kind is not admitted; explicit kind + generic leaf is", () => {
     const docsWriteAlone = validateIntentAnalysisPayload({
       intentClass: "execution_request",
       candidateCycleTypeId: "cyc:framing",
@@ -970,7 +1014,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     });
     const both = materializationAnalysis();
 
-    expect(hasCompatibleDocsWriteMaterializationEffect(docsWriteAlone)).toBe(true);
+    expect(hasCompatibleDocsWriteMaterializationEffect(docsWriteAlone)).toBe(false);
     expect(hasExplicitArtifactContinuationKind(docsWriteAlone)).toBe(false);
     expect(isQualifiedArtifactMaterializationContinuation(docsWriteAlone)).toBe(false);
     expect(isGovernedArtifactMaterializationIntent(docsWriteAlone)).toBe(false);
@@ -1171,23 +1215,15 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     expect(result.ok).toBe(true);
     if (!result.ok) return;
 
-    // D-ER-17 — natural docs signal without docs_write discriminants is no longer
-    // a dead-end: Generic PREPARE may keep the SAME active cycle as context.
-    // It must NEVER be Artifact governed materialization continuation.
+    // Generic documentary write (intentKind other, no specialized kind) may
+    // propose on the SAME active cycle. It must not open a new cycle.
     const qid = result.f2?.qualification?.cycleInstanceId ?? null;
     expect(await countCycles()).toBe(before);
     const proposal = result.f2?.proposal;
-    if (
-      proposal?.status === "DECISION_REQUIRED" &&
-      proposal.contextSnapshot.activeCycleInstanceId === activeCycleId
-    ) {
-      // If a proposal exists on the LPS active id, it must not be pilot materialization wording.
-      expect(proposal.objective ?? "").not.toMatch(/matérialisation du livrable requis/i);
-    }
-    // No Artifact materialization Proposal on the active cycle.
-    expect(proposal?.status === "DECISION_REQUIRED" && qid === activeCycleId).toBe(
-      false,
-    );
+    expect(proposal?.status).toBe("DECISION_REQUIRED");
+    expect(qid).toBe(activeCycleId);
+    expect(proposal?.executionIntent?.intentKind).toBe("other");
+    expect(proposal?.contextSnapshot.activeCycleInstanceId).toBe(activeCycleId);
   });
 
   it("CR04-B — continuationKind without docs_write → BLOCKED incompatible_execution_intent", async () => {
@@ -1216,7 +1252,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     }
   });
 
-  it("CR04-C — kind + docs_write + durable → ACTIVE_CYCLE_GOVERNED_CONTINUATION", async () => {
+  it("CR04-C — kind + generic documentary leaf + durable → ACTIVE_CYCLE_GOVERNED_CONTINUATION", async () => {
     const overview = await getRuntimeApplicationService().getProject(projectId);
     expect(overview.ok).toBe(true);
     if (!overview.ok) return;
@@ -1484,8 +1520,25 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     expect(isBlankOrCanonicalDocsWriteOperation("github.pr.merge")).toBe(false);
     const hostile = materializationAnalysis({
       requestedOperation: "github.pr.merge",
+      executionIntent: {
+        intentKind: "other",
+        artifactType: null,
+        targetRepositoryRef: null,
+        targetPath: "docs/x.md",
+        scopeIn: [],
+        scopeOut: [],
+        expectedOutputs: [],
+        requiredCapabilities: ["cap:github.pr.merge"],
+        validationExpectations: [],
+        evidenceRequirements: [],
+        requestedOperation: "github.pr.merge",
+        reversibilityExpectation: null,
+        artifactBrief: null,
+        contentRequirements: [],
+        exitRequirementKinds: [],
+      },
     });
-    expect(hostile.executionIntent?.intentKind).toBe("docs_write");
+    expect(hostile.executionIntent?.intentKind).toBe("other");
     expect(hostile.executionIntent?.requestedOperation).toBe("github.pr.merge");
     expect(hasCompatibleDocsWriteMaterializationEffect(hostile)).toBe(false);
     expect(isQualifiedArtifactMaterializationContinuation(hostile)).toBe(false);
@@ -1550,15 +1603,13 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     });
     expect(resolved.mode).toBe("ACTIVE_CYCLE_GOVERNED_CONTINUATION");
     if (resolved.mode !== "ACTIVE_CYCLE_GOVERNED_CONTINUATION") return;
-    expect(resolved.enrichedExecutionIntent?.requestedOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    );
+    expect(resolved.enrichedExecutionIntent?.requestedOperation ?? null).toBeNull();
     expect(resolved.enrichedExecutionIntent?.requiredCapabilities).toEqual([
       ...F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
     ]);
   });
 
-  it("CR06-C — canonical cursor.docs_write.apply accepted unchanged as effective action", async () => {
+  it("CR06-C — retired cursor.docs_write.apply is stripped to generalist caps", async () => {
     const overview = await getRuntimeApplicationService().getProject(projectId);
     expect(overview.ok).toBe(true);
     if (!overview.ok) return;
@@ -1578,11 +1629,9 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     });
     expect(resolved.mode).toBe("ACTIVE_CYCLE_GOVERNED_CONTINUATION");
     if (resolved.mode !== "ACTIVE_CYCLE_GOVERNED_CONTINUATION") return;
-    expect(resolved.enrichedExecutionIntent?.requestedOperation).toBe(
-      "cursor.docs_write.apply",
-    );
+    expect(resolved.enrichedExecutionIntent?.requestedOperation ?? null).toBeNull();
     expect(resolved.enrichedExecutionIntent?.requiredCapabilities).toEqual([
-      "cap:cursor.docs_write",
+      ...F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
     ]);
   });
 
@@ -1609,7 +1658,7 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     });
     expect(enriched.needsTargetClarification).toBe(false);
     expect(enriched.executionIntent?.requiredCapabilities).toEqual([
-      "cap:cursor.docs_write",
+      ...F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
     ]);
     expect(enriched.executionIntent?.requiredCapabilities).not.toContain(
       "cap:github.pr.merge",
@@ -1617,8 +1666,6 @@ describe("CORR-PROOF-07 — Active-cycle artifact materialization continuation",
     expect(enriched.executionIntent?.requiredCapabilities).not.toContain(
       "cap:shell.exec",
     );
-    expect(enriched.executionIntent?.requestedOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    );
+    expect(enriched.executionIntent?.requestedOperation ?? null).toBeNull();
   });
 });

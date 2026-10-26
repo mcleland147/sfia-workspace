@@ -1,4 +1,3 @@
-const createM4BoundedDocsWriteCursorAgentDescriptor: any = null;
 const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
 const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
 const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
@@ -33,6 +32,7 @@ import {
   SqliteRealLaunchSafetyJournal,
   TestExecutionAdapter,
   type ExecutionAttempt,
+  createStudioCursorGeneralistAgentDescriptor,
 } from "@/lib/oa/execution-attempt";
 import {
   FakeRepositoryReadPorts,
@@ -367,7 +367,7 @@ async function startAttemptD(input: {
   });
   const launchPort = new TestOnlyRealExecutionLaunchPort();
   const agents = [
-    createM4BoundedDocsWriteCursorAgentDescriptor(NOW),
+    createStudioCursorGeneralistAgentDescriptor(NOW),
     createM4BoundedLocalCommitCursorAgentDescriptor(NOW),
     createM4BoundedRemotePushCursorAgentDescriptor(NOW),
     createM4BoundedPrCreateCursorAgentDescriptor(NOW),

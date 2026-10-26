@@ -288,6 +288,18 @@ export function canQualifyGenericLocalWriteFromDurableFacts(input: {
         "retired specialized intent — not a Product local-write admission",
     };
   }
+  const requestedOp = eb.requestedOperation?.trim() ?? "";
+  if (
+    requestedOp.length > 0 &&
+    (requestedOp.includes("docs_write") ||
+      requestedOp === "cursor.docs_write.apply")
+  ) {
+    return {
+      ok: false,
+      reason:
+        "retired docs_write operation — not Product local-write admission",
+    };
+  }
   if (eb.reversibilityExpectation === "irreversible") {
     return {
       ok: false,

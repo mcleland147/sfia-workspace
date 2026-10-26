@@ -52,6 +52,7 @@ import {
   bootW2Runtime,
   cleanupW2TempDirs,
   tempProductDbPath,
+  W2_DEMO_WORKSPACE_PROJECT_TITLE,
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
 import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
@@ -101,7 +102,7 @@ describe("P6 Product Continuity Closure — integrated Product path", () => {
   async function seedProject(suffix: string) {
     const oa = runtime.oa!;
     const created = await runtime.createProject({
-      name: `PCC ${suffix}`,
+      name: W2_DEMO_WORKSPACE_PROJECT_TITLE,
       objective: "Product continuity closure",
       context: "det integrated",
       criticality: "STANDARD",

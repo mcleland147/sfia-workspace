@@ -27,7 +27,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-      "sha256_16": "212ce15d79c0141a"
+      "sha256_16": "a861c7e12a6eabb2"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
@@ -35,15 +35,15 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "c94404621eb849e3"
+      "sha256_16": "3950105c0c28fdf6"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "ee58d273c118ec64"
+      "sha256_16": "457b71e0dc906d9c"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "19a5e08fe8ad6f86"
+      "sha256_16": "04f62b733009c944"
     }
   ],
   "components": [
@@ -625,7 +625,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/activeCycleGovernedContinuation.ts",
-      "sha256_16": "965b816859f937ed"
+      "sha256_16": "f2ff457fcb36f34f"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/proposalStore.ts",
@@ -697,7 +697,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "8a0c920aa8a7a168"
+      "sha256_16": "ffe7a7dad6953259"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
@@ -719,15 +719,15 @@
   "trackedTests": [
     {
       "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactMaterializationContinuityCorr01.d0.test.ts",
-      "sha256_16": "1b3ecc831995dc27"
+      "sha256_16": "8871dab1d52fbdd6"
     },
     {
       "path": "projects/sfia-studio/app/__tests__/project-assistant/activeCycleArtifactApplicabilityContinuationBridgeCorr01.d0.test.ts",
-      "sha256_16": "ac58d8833ed9ed4a"
+      "sha256_16": "348e699ed469e801"
     },
     {
       "path": "projects/sfia-studio/app/__tests__/project-assistant/corrProof07.artifactMaterialization.d0.test.ts",
-      "sha256_16": "5ac9db4c61b76c55"
+      "sha256_16": "7347c369532986f7"
     },
     {
       "path": "projects/sfia-studio/app/__tests__/oa/cycle/corrProof06.artifactObligation.d0.test.ts",
@@ -735,7 +735,7 @@
     },
     {
       "path": "projects/sfia-studio/app/__tests__/platform/fakeProvider.userValidArtifactMaterialization.d0.test.ts",
-      "sha256_16": "8995d4d266fa3cd6"
+      "sha256_16": "6ea6dc013fa186a2"
     },
     {
       "path": "projects/sfia-studio/app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts",
@@ -743,7 +743,7 @@
     },
     {
       "path": "projects/sfia-studio/app/__tests__/project-assistant/productCycleE2eStabilization.frontDoor.d0.test.ts",
-      "sha256_16": "d43a9e6a9f07ed6a"
+      "sha256_16": "cbdf281e9a5adcd7"
     }
   ],
   "maintenance": {

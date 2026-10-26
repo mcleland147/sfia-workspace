@@ -23,6 +23,7 @@ import type {
 import {
   F2_ARTIFACT_MATERIALIZATION_OPERATION,
 } from "@/features/project-assistant/f2/f2CanonicalOperations";
+import { projectWorkspacePathRootFromKey } from "@/lib/oa/project/domain/projectWorkspaceKey";
 import {
   assessChatFirstWorkEligibility,
 } from "@/features/project-assistant/w2/assessChatFirstWorkEligibility";
@@ -111,7 +112,7 @@ function docsWriteProposal(input: {
     agentBinding: "NOT_AVAILABLE",
     requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: null,
       targetPath: TARGET_PATH,
       scopeIn: ["sandbox"],
@@ -203,7 +204,10 @@ async function expectedPathRoot(
   const project = await oa.projectServices.getProject.execute({ projectId });
   expect(project.ok).toBe(true);
   if (!project.ok) throw new Error("project read failed");
-  const pathRoot = (project.project as any).repositoryBinding?.pathRoot?.trim() ?? "";
+  const pathRoot =
+    projectWorkspacePathRootFromKey(
+      project.project.projectWorkspaceKey?.trim() ?? "",
+    )?.trim() ?? "";
   expect(pathRoot.length).toBeGreaterThan(0);
   return pathRoot;
 }
@@ -791,13 +795,12 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 CP01", () =
     expect(await hdCount(oa, seeded.projectId)).toBe(before);
   });
 
-  it("CP-EB-03 / CP-PO-02 — pathRoot absent → HD recorded, PREPARE blocked honestly, EC 0", async () => {
+  it("CP-EB-03 / CP-PO-02 — automatic workspace key → HD + generic PREPARE (AKG-M5)", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Standard",
       suffix: "nopath",
     });
-    // Overwrite binding without pathRoot (Product durable fact absent).
 
     await proposePt(oa, seeded.projectId);
     const resolved = await resolveChatFirstPilotDecision({
@@ -811,29 +814,15 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 CP01", () =
     expect(resolved.kind).toBe("decision_recorded");
     if (resolved.kind !== "decision_recorded") return;
     expect(resolved.selectedOptionRef).toBe(BOUNDED_OPTION_REF);
-    expect(resolved.prepareOutcome.kind).toBe("blocked");
-    if (resolved.prepareOutcome.kind === "blocked") {
-      expect(resolved.prepareOutcome.code).toMatch(/EFFECTS_UNRESOLVED|PATH|SCOPE|MISSION|BASIS/i);
-      expect(resolved.prepareOutcome.message.length).toBeGreaterThan(0);
-    }
-    expect(resolved.executionContractPrepared).toBe(false);
-    expect(resolved.executionContractId).toBeNull();
-    expect(resolved.readyForNextGatedStep).toBe(false);
+    expect(resolved.prepareOutcome.kind).toBe("prepared");
+    expect(resolved.executionContractPrepared).toBe(true);
+    expect(resolved.executionContractId).toBeTruthy();
+    expect(resolved.readyForNextGatedStep).toBe(true);
     expect(await hdCount(oa, seeded.projectId)).toBe(1);
-    expect(await contractCount(oa, seeded.projectId)).toBe(0);
-
-    const durable = await oa.decisionServices.getHumanDecision.execute({
-      decisionId: resolved.decisionId,
-    });
-    expect(durable.ok).toBe(true);
-    if (!durable.ok) return;
-    // No durable seal when pathRoot absent
-    const scopeIn =
-      durable.decision.decisionBasis?.executionBasis?.scopeIn ?? [];
-    expect(scopeIn.some((s) => s.startsWith("projects/"))).toBe(false);
+    expect(await contractCount(oa, seeded.projectId)).toBe(1);
   });
 
-  it("CP-EB-04 — protected pathRoot → no local-write seal authority; PREPARE blocked", async () => {
+  it("CP-EB-04 — standard workspace → generic PREPARE allowed (AKG-M5)", async () => {
     const oa = runtime.oa!;
     const seeded = await seedQualifiedProject(runtime, {
       profile: "Standard",
@@ -850,10 +839,9 @@ describe("HABITFLOW-CHAT-FIRST-PROJECTTRAJECTORY-HD-EC-CONTINUITY-01 CP01", () =
     });
     expect(resolved.kind).toBe("decision_recorded");
     if (resolved.kind !== "decision_recorded") return;
-    expect(resolved.executionContractPrepared).toBe(false);
-    expect(resolved.executionContractId).toBeNull();
-    expect(resolved.prepareOutcome.kind).toBe("blocked");
-    expect(await contractCount(oa, seeded.projectId)).toBe(0);
+    expect(resolved.prepareOutcome.kind).toBe("prepared");
+    expect(resolved.executionContractPrepared).toBe(true);
+    expect(await contractCount(oa, seeded.projectId)).toBe(1);
   });
 
   it("sealRequired eligibility when TDS PRESENT without sealed OptionSet yet", async () => {

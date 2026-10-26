@@ -64,6 +64,7 @@ import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-run
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
+  pathUnderProjectWorkspace,
   tempProductDbPath,
   W2_REGISTRY_ROOT,
   W2_TEST_PINNED_BASE_HEAD_SHA,
@@ -247,7 +248,7 @@ function baseAnalysis(): IntentAnalysisDto {
     contradictionCandidate: null,
     challengeResponseAssessment: "sufficient",
     objective: "Inspecter le dépôt",
-    scope: "projects/ateliernova",
+    scope: "État des lieux du dépôt — lecture seule",
     rephrasedRequest: "mission lecture seule",
     outOfScope: [],
     risks: [],
@@ -420,7 +421,8 @@ describe("P6 arch — Generic PREPARE same-turn currentness", () => {
                   "Inspecter le dépôt AtelierNova pour établir son état de départ et proposer une première mission d'implémentation minimale de la V1",
                 expectedOutcome:
                   "Un bref état des lieux fondé sur le dépôt. Ne modifier aucun fichier.",
-                scope: "projects/ateliernova",
+                scope:
+                  "État des lieux du dépôt — lecture seule, sans modification de fichiers",
                 repositoryMutation: "none",
               }),
             },

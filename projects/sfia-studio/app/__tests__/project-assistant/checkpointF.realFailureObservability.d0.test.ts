@@ -1,4 +1,3 @@
-const createM4BoundedDocsWriteCursorAgentDescriptor: any = null;
 
 /**
  * Checkpoint F / R6 — REAL failure observability + provenance truth.
@@ -8,6 +7,7 @@ const createM4BoundedDocsWriteCursorAgentDescriptor: any = null;
 import { describe, expect, it } from "vitest";
 import {
   M4_REAL_GATEWAY_ADAPTER_ID,
+  createStudioCursorGeneralistAgentDescriptor,
 } from "@/lib/oa/execution-attempt";
 import {
   buildProcessFailureDiagnostic,
@@ -140,7 +140,7 @@ describe("Checkpoint F R6 — process failure diagnostic (G1)", () => {
 });
 
 describe("Checkpoint F R6 — Nora provenance (G2)", () => {
-  const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+  const agent = createStudioCursorGeneralistAgentDescriptor(NOW);
 
   it("T4 — cursor_real + launched + failed → realProcessInvoked true, no business success", () => {
     const prov = deriveAttemptProvenance({

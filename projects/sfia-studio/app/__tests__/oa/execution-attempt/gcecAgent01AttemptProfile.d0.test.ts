@@ -126,7 +126,7 @@ function commitEv(attemptId: string): Evidence {
 }
 
 describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
-  it("AP-01 initial docs-write state → docs-write profile", () => {
+  it("AP-01 initial FS+commit lifecycle outstanding → generalist filesystem materialization profile", () => {
     const r = resolveAttemptExecutionProfile({
       contract: contract(),
       attempts: [],
@@ -134,12 +134,16 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
     });
     expect(r.ok).toBe(true);
     if (!r.ok) return;
-    expect(r.profile.kind).toBe("docs_write");
+    // AKG-M5: docs_write AttemptExecutionProfileKind retired; FS slice uses
+    // contract_legacy + generalist criteria with effectClass filesystem.
+    expect(r.profile.kind).toBe("contract_legacy");
+    expect(r.profile.effectClass).toBe("filesystem");
+    expect(r.profile.reason).toMatch(/progressive_fs_outstanding|fs_only/);
     expect(r.profile.criteria).toEqual({
-      requiredCapabilities: [M4_BOUNDED_DOCS_WRITE_CAPABILITY],
-      action: M4_BOUNDED_DOCS_WRITE_ACTION,
-      target: M4_BOUNDED_DOCS_WRITE_TARGET,
-      scope: M4_BOUNDED_DOCS_WRITE_SCOPE,
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
     });
   });
 
@@ -215,7 +219,9 @@ describe("D-GCEC-AGENT-01 AttemptExecutionProfile AP", () => {
     });
     expect(r.ok).toBe(true);
     if (!r.ok) return;
-    expect(r.profile.kind).toBe("docs_write");
+    expect(r.profile.kind).toBe("contract_legacy");
+    expect(r.profile.effectClass).toBe("filesystem");
+    expect(r.profile.criteria.action).toBe(STUDIO_CURSOR_GENERALIST_ACTION);
   });
 
   it("AP-09 restart recomputation yields same local-commit profile", () => {

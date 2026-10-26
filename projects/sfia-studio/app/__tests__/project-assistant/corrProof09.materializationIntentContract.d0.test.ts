@@ -17,9 +17,8 @@ import {
   F2_EXECUTION_INTENT_JSON_SCHEMA,
   validateExecutionIntentPayload,
 } from "@/features/project-assistant/f2/executionIntentSchema";
-import {
-  F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM,
-} from "@/features/project-assistant/f2/f2CanonicalOperations";
+import { F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM } from "@/features/project-assistant/f2/f2CanonicalOperations";
+import { STUDIO_CURSOR_GENERALIST_ACTION } from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
 import {
   F2_INTENT_JSON_SCHEMA,
   validateIntentAnalysisPayload,
@@ -41,15 +40,15 @@ function baseSignals() {
 
 function ei(overrides?: Record<string, unknown>) {
   return {
-    intentKind: "docs_write",
+    intentKind: "other",
     artifactType: null,
     targetRepositoryRef: null,
-    targetPath: null,
+    targetPath: "docs/x.md",
     artifactFileName: null,
     scopeIn: [],
     scopeOut: [],
     expectedOutputs: [],
-    requiredCapabilities: ["cap:cursor.docs_write"],
+    requiredCapabilities: [...F2_ARTIFACT_MATERIALIZATION_CAPABILITIES],
     validationExpectations: [],
     evidenceRequirements: [],
     requestedOperation: null,
@@ -70,7 +69,7 @@ function analysis(overrides?: Record<string, unknown>): IntentAnalysisDto {
     contradictionCandidate: null,
     challengeResponseAssessment: null,
     continuationKind: "active_cycle_artifact_materialization",
-    artifactMaterializationOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
+    artifactMaterializationOperation: null,
     objective: "matérialiser",
     scope: "docs",
     rephrasedRequest: "Matérialise ce livrable.",
@@ -158,12 +157,10 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
     expect(isQualifiedArtifactMaterializationContinuation(dto)).toBe(false);
   });
 
-  it("T04/T05 — dedicated producer schema enum is only cursor.docs_write.apply | null", () => {
-    expect(F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM).toEqual([
-      "cursor.docs_write.apply",
-    ]);
-    expect(F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM).not.toContain(
-      "github.pr.merge",
+  it("T04/T05 — dedicated producer schema enum admits null only (AKG-M5)", () => {
+    expect(F2_ARTIFACT_MATERIALIZATION_OPERATION_SCHEMA_ENUM).toEqual([]);
+    expect(F2_ARTIFACT_MATERIALIZATION_OPERATION).toBe(
+      STUDIO_CURSOR_GENERALIST_ACTION,
     );
 
     const ajv = new Ajv({ allErrors: true });
@@ -191,14 +188,14 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
       pilotDecisionCandidate: null,
     };
     expect(
+      validateIntent({ ...base, artifactMaterializationOperation: null }),
+    ).toBe(true);
+    expect(
       validateIntent({
         ...base,
         artifactMaterializationOperation: "cursor.docs_write.apply",
       }),
-    ).toBe(true);
-    expect(
-      validateIntent({ ...base, artifactMaterializationOperation: null }),
-    ).toBe(true);
+    ).toBe(false);
     expect(
       validateIntent({
         ...base,
@@ -242,17 +239,17 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
   it("T08 — canonical continuation passes compatibility", () => {
     const dto = analysis();
     expect(dto.parseOk).toBe(true);
-    expect(dto.artifactMaterializationOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    );
+    expect(dto.artifactMaterializationOperation).toBeNull();
     expect(hasCompatibleDocsWriteMaterializationEffect(dto)).toBe(true);
     expect(isQualifiedArtifactMaterializationContinuation(dto)).toBe(true);
   });
 
-  it("T09 — docs_write alone without dedicated field does not unlock", () => {
+  it("T09 — pathless intent without dedicated field does not unlock", () => {
     const dto = analysis({
       artifactMaterializationOperation: null,
       executionIntent: ei({
+        targetPath: null,
+        artifactFileName: null,
         requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
       }),
       requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
@@ -263,7 +260,7 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
   it("T10 — targetPath null → clarification, no invented path", () => {
     const enriched = enrichExecutionIntentFromBinding({
       analysisIntent: {
-        intentKind: "docs_write",
+        intentKind: "other",
         requestedOperation: null,
         requiredCapabilities: [],
         targetPath: null,
@@ -279,15 +276,14 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
     });
     expect(enriched.needsTargetClarification).toBe(true);
     expect(enriched.executionIntent?.targetPath).toBeNull();
-    expect(enriched.executionIntent?.requestedOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    );
+    // AKG-M5: enrich no longer injects a specialized operation admission.
+    expect(enriched.executionIntent?.requestedOperation).toBeNull();
   });
 
   it("T11 — traversal rejected", () => {
     const enriched = enrichExecutionIntentFromBinding({
       analysisIntent: {
-        intentKind: "docs_write",
+        intentKind: "other",
         requestedOperation: null,
         requiredCapabilities: [],
         targetPath: "../secrets/x.md",
@@ -315,7 +311,7 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
     };
     const stripped = enrichExecutionIntentFromBinding({
       analysisIntent: {
-        intentKind: "docs_write",
+        intentKind: "other",
         requestedOperation: null,
         requiredCapabilities: [],
         targetPath: "docs/x.md",
@@ -327,7 +323,7 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
 
     const unknown = enrichExecutionIntentFromBinding({
       analysisIntent: {
-        intentKind: "docs_write",
+        intentKind: "other",
         requestedOperation: null,
         requiredCapabilities: [],
         targetPath: "docs/x.md",
@@ -341,7 +337,7 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
   it("T19/T20 — enrich canonicalizes action + capability", () => {
     const enriched = enrichExecutionIntentFromBinding({
       analysisIntent: {
-        intentKind: "docs_write",
+        intentKind: "other",
         requestedOperation: null,
         requiredCapabilities: ["docs_write", "cap:github.pr.merge"],
         targetPath: "docs/x.md",
@@ -355,9 +351,7 @@ describe("CORR-PROOF-09 remediation — CR-09-01 / CR-09-02", () => {
         pathRoot: "docs/",
       },
     });
-    expect(enriched.executionIntent?.requestedOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
-    );
+    expect(enriched.executionIntent?.requestedOperation).toBeNull();
     expect(enriched.executionIntent?.requiredCapabilities).toEqual([
       ...F2_ARTIFACT_MATERIALIZATION_CAPABILITIES,
     ]);

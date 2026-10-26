@@ -359,7 +359,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       isDocumentaryWriteMission: false,
     });
     expect(disguised.ok).toBe(false);
-    expect(disguised.basis).toBe("intent_kind_docs_write");
+    expect(disguised.basis).toBe("intent_kind_not_admitted");
   });
 
   // ---------------------------------------------------------------------------

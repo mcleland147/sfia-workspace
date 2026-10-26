@@ -1307,8 +1307,15 @@ export class StartExecution {
         contract.inputs && typeof contract.inputs === "object"
           ? (contract.inputs as Record<string, unknown>)
           : {};
+      // AKG-M5: prefer explicit commitMessage; fall back to inputs.artifactBrief
+      // (historical docsWriteSpec.artifactBrief path retired with Product DocWrite).
+      const artifactBriefFromInputs =
+        typeof contractInputs.artifactBrief === "string"
+          ? contractInputs.artifactBrief
+          : undefined;
       const message = deriveTrustedCommitMessage({
         contractInputs,
+        docsWriteArtifactBrief: artifactBriefFromInputs,
       });
       if (!message.ok) {
         return fail("ATTEMPT_INVALID", message.reason, {

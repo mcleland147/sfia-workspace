@@ -418,7 +418,7 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(evaluated.ok).toBe(false);
     if (evaluated.ok) return;
     expect(evaluated.error.internalCauseRef).toBe(
-      "evidence_not_selected_by_semantic",
+      "evidence_not_in_frozen_snapshot",
     );
   });
 
@@ -426,16 +426,28 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     const services = createInMemoryEvidenceReviewServices({
       clock: new FixedClock(NOW),
     });
-    const c = docsWriteContract();
-    const evidence = makeDocsWriteEvidence();
+    const c = tempContract({
+      executionContractId: "xct:reg:sup-gen",
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      evidenceRequirements: [W3B_TEMP_ARTIFACT_ER_KEY],
+      expectedOutputs: [W3B_TEMP_ARTIFACT_EO_TEMPLATE],
+      idempotencyKey: "idem:ec:reg:sup-gen",
+      correlationId: "cor:ec:reg:sup-gen",
+    });
+    const evidence = makeTempEvidence("xat:reg:sup-gen");
+    evidence.bindings.executionContractId = c.executionContractId;
+    evidence.technicalResultRef = "res:w3a:abc123";
     await services.repository.create(evidence, {
       evidenceId: evidence.evidenceId,
-      fingerprint: "fp:docs",
+      fingerprint: "fp:sup-gen",
       operation: "register",
     });
     const created = await services.createReviewBundle.execute({
-      reviewBundleId: "rb:reg:sup",
-      idempotencyKey: "idem:rb:reg:sup",
+      reviewBundleId: "rb:reg:sup-gen",
+      idempotencyKey: "idem:rb:reg:sup-gen",
       actor: ACTOR,
       projectId: c.projectId,
       executionContractId: c.executionContractId,
@@ -444,21 +456,22 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(created.ok).toBe(true);
     if (!created.ok) return;
     const frozen = await services.freezeReviewBundle.execute({
-      reviewBundleId: "rb:reg:sup",
+      reviewBundleId: "rb:reg:sup-gen",
       expectedVersion: created.reviewBundle.version,
-      idempotencyKey: "idem:rb-freeze:reg:sup",
+      idempotencyKey: "idem:rb-freeze:reg:sup-gen",
       actor: ACTOR,
     });
     expect(frozen.ok).toBe(true);
     if (!frozen.ok) return;
     const snap = captureBoundExecutionContractSnapshot(c);
     const attemptSnap = {
-      attemptId: "xat:reg:docs",
+      attemptId: "xat:reg:sup-gen",
       executionContractId: c.executionContractId,
       executionContractVersion: 1,
       executionContractSemanticFingerprint: snap.semanticFingerprint,
       boundExecutionContract: snap,
       status: "succeeded" as const,
+      resultRef: "res:w3a:abc123",
     };
 
     const prior = await services.evaluateContractResult!.execute({
@@ -467,17 +480,19 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
       actor: ACTOR,
       contract: c,
       attempt: attemptSnap,
+      evidence,
       reviewBundle: frozen.reviewBundle,
     });
     expect(prior.ok).toBe(true);
     if (!prior.ok) return;
 
     const successor = await services.evaluateContractResult!.execute({
-      claimEvaluationId: "clm:docs-write:xat:reg:docs",
-      idempotencyKey: "idem:clm:docs-write:sup",
+      claimEvaluationId: "clm:reg:sup-gen-successor",
+      idempotencyKey: "idem:clm:reg:sup-gen-successor",
       actor: ACTOR,
       contract: c,
       attempt: attemptSnap,
+      evidence,
       reviewBundle: frozen.reviewBundle,
       supersedesClaimEvaluationId: prior.claimEvaluation.claimEvaluationId,
     });
@@ -490,8 +505,8 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
 
     // T14 — supersedes missing → fail
     const missing = await services.evaluateContractResult!.execute({
-      claimEvaluationId: "clm:docs-write:missing-prior",
-      idempotencyKey: "idem:clm:docs-write:missing",
+      claimEvaluationId: "clm:reg:sup-gen-missing",
+      idempotencyKey: "idem:clm:reg:sup-gen-missing",
       actor: ACTOR,
       contract: c,
       attempt: attemptSnap,
@@ -504,12 +519,12 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     const current = await resolveCurrentContractResultClaimEvaluation({
       repo: services.claimEvaluationRepository,
       projectId: c.projectId,
-      executionAttemptId: "xat:reg:docs",
+      executionAttemptId: "xat:reg:sup-gen",
     });
     expect(current.status).toBe("one");
     if (current.status === "one") {
       expect(current.claimEvaluation.claimEvaluationId).toBe(
-        "clm:docs-write:xat:reg:docs",
+        "clm:reg:sup-gen-successor",
       );
     }
   });
@@ -808,13 +823,10 @@ describe("Contract Result Semantics Registry (T1–T20)", () => {
     expect(evaluated.error.internalCauseRef).toBe("supersedes_self_forbidden");
   });
 
-  it("T17 — docsWriteContractResultIdentity mirrors ingest conventions", () => {
-    const ids = docsWriteContractResultIdentity("xat:w3a:c4c5670edb4658cc");
-    expect(ids.evidenceId).toBe("ev:docs-write:xat:w3a:c4c5670edb4658cc");
-    expect(ids.reviewBundleId).toBe("rb:docs-write:xat:w3a:c4c5670edb4658cc");
-    expect(ids.claimEvaluationId).toBe(
-      "clm:docs-write:xat:w3a:c4c5670edb4658cc",
-    );
+  it("T17 — docs_write contract-result identity retired (generic quartet only)", () => {
+    expect(docsWriteContractResultIdentity).toBeNull();
+    expect(DOCS_WRITE_CONTRACT_RESULT_ER_KEY).toBeNull();
+    expect(BOUNDED_DOCS_WRITE_EO_TEMPLATE).toBeNull();
   });
 
   it("T18 — listByProject returns contract-result claims for project", async () => {

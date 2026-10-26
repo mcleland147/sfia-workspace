@@ -100,7 +100,7 @@ describe("GCEC git.commit gateway profile GC-01..12", () => {
     return { gw, runner, workspace };
   }
 
-  it("GC-01 docs-write profile remains unchanged (no Shell, Write tools)", async () => {
+  it("GC-01 filesystem materialization profile (no Shell, Write tools)", async () => {
     const { gw, runner, workspace } = gateway();
     const result = await gw.launch(
       baseRequest({

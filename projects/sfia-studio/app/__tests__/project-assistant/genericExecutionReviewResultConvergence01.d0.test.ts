@@ -610,7 +610,7 @@ describe("CP2-01 — durable-fact local-write qualification (no docs_write taxon
       recoveryContext: null,
     });
     expect(docs.ok).toBe(false);
-    if (!docs.ok) expect(docs.code).toBe("PREPARE_ROUTE_DOCS_WRITE");
+    if (!docs.ok) expect(docs.code).toBe("INTENT_KIND_NOT_ADMITTED");
 
     const hostile = deriveActualExecutionWorkFromProductContext({
       projectId: "prj:cp2",

@@ -331,7 +331,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
     const withBadPath = {
       ...analysis,
       executionIntent: {
-        intentKind: "docs_write" as const,
+        intentKind: "other" as const,
         targetPath: "../secret.md",
         scopeIn: [],
         scopeOut: [],
@@ -428,7 +428,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
     const analysis = {
       ...base,
       executionIntent: {
-        intentKind: "docs_write" as const,
+        intentKind: "other" as const,
         targetPath: "note-de-cadrage.md",
         scopeIn: [] as string[],
         scopeOut: [] as string[],
@@ -499,7 +499,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
     const analysis = {
       ...buildIntentAnalysisFromSolicitedMission(pathlessFramingMission),
       executionIntent: {
-        intentKind: "docs_write" as const,
+        intentKind: "other" as const,
         targetPath: "../secret.md",
         scopeIn: [] as string[],
         scopeOut: [] as string[],

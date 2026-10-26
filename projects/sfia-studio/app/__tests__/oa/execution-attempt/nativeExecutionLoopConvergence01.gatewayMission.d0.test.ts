@@ -206,7 +206,9 @@ describe("NELC-01 gateway — EC mission is not replaced by a competing brief", 
   it("generalist uses the EC mission and ignores a retired docs-write spec", async () => {
     const { gw, runner } = gateway();
     const hostile = "docs/../../etc/passwd";
-    const result = await gw.launch(
+    // AKG-M5 — docsWriteSpec is FS materialization seal (not Product admission).
+    // Hostile sealed path must fail closed before spawn (not silently ignored).
+    const hostileResult = await gw.launch(
       generalistRequest({
         docsWriteSpec: {
           repositoryRef: "acme/widget",
@@ -226,6 +228,11 @@ describe("NELC-01 gateway — EC mission is not replaced by a competing brief", 
         },
       }),
     );
+    expect(hostileResult.outcome).toBe("reject");
+    expect(hostileResult.realProcessInvoked).toBe(false);
+
+    // Without hostile seal, generalist mission prompt is the instruction source.
+    const result = await gw.launch(generalistRequest());
     expect(result.outcome).toBe("ack");
     const instruction = instructionOf(runner);
     expect(instruction).toContain("Documenter la conception fonctionnelle");

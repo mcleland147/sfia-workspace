@@ -31,6 +31,14 @@ import {
 } from "../w2/proposalSubjectOptions";
 import { probeManagedRepoRelativePathExists } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
 import { assertSealedArtifactWriteModeAgainstExistence } from "@/lib/oa/project/domain/artifactTargetRouting";
+import { STUDIO_CURSOR_GENERALIST_ACTION } from "@/lib/oa/execution-contract/domain/generalistExecutionSurface";
+
+function isTechnicalExecutionActionRef(value: string): boolean {
+  const v = value.trim();
+  // Prose objectives (e.g. French materialization titles) contain whitespace.
+  // Technical action refs are compact tokens (dotted, kebab, or colon ids).
+  return Boolean(v) && !/\s/.test(v);
+}
 
 /**
  * CR-PWR-02 TOCTOU (PREPARE) — sealed CREATE must not overwrite a file that appeared;
@@ -236,8 +244,10 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     action = "UNRESOLVED_ACTION";
     stopConditions.push("ACTION_UNRESOLVED");
     stopConditions.push("SPECIALIZED_INTENT_NOT_ADMITTED");
-  } else if (requested) {
+  } else if (requested && isTechnicalExecutionActionRef(requested)) {
     action = requested;
+  } else if (requested || eb.targetPath?.trim()) {
+    action = STUDIO_CURSOR_GENERALIST_ACTION;
   } else {
     action = "UNRESOLVED_ACTION";
     stopConditions.push("ACTION_UNRESOLVED");
@@ -251,6 +261,47 @@ function fieldsFromBasis(basis: DecisionBasis, decisionId: string) {
     sourceRef: basis.sourceRef,
     sourceDigest: basis.sourceDigest,
   };
+  const targetPath = eb.targetPath?.trim();
+  if (targetPath) {
+    inputs.targetPath = targetPath;
+  }
+  const targetRepositoryRef = eb.targetRepositoryRef?.trim();
+  if (targetRepositoryRef) {
+    inputs.targetRepositoryRef = targetRepositoryRef;
+    inputs.repositoryRef = targetRepositoryRef;
+    inputs.repositoryIdentity = targetRepositoryRef;
+  }
+  if (eb.scopeIn?.length) {
+    inputs.scopeIn = [...eb.scopeIn];
+  }
+  if (eb.scopeOut?.length) {
+    inputs.scopeOut = [...eb.scopeOut];
+  }
+  if (eb.artifactBrief?.trim()) {
+    inputs.artifactBrief = eb.artifactBrief.trim();
+  }
+  if (eb.artifactType?.trim()) {
+    inputs.artifactType = eb.artifactType.trim();
+  }
+  if (eb.contentRequirements?.length) {
+    inputs.contentRequirements = [...eb.contentRequirements];
+  }
+  if (eb.validationExpectations?.length) {
+    inputs.validationExpectations = [...eb.validationExpectations];
+  }
+  if (eb.evidenceRequirements?.length) {
+    inputs.evidenceRequirements = [...eb.evidenceRequirements];
+  }
+  if (eb.artifactWriteMode != null) {
+    inputs.artifactWriteMode = eb.artifactWriteMode;
+  }
+  if (eb.artifactFileName?.trim()) {
+    inputs.artifactFileName = eb.artifactFileName.trim();
+  }
+  if (targetPath || targetRepositoryRef) {
+    inputs.createOrModify = true;
+    inputs.noDelete = true;
+  }
 
   // Specialized document-write PREPARE is not a Product admission.
   // Target and capability stay unresolved; generic PREPARE owns documentary work.

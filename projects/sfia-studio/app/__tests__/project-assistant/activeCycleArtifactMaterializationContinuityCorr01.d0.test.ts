@@ -396,8 +396,10 @@ describe("ACTIVE-CYCLE ARTIFACT MATERIALIZATION CONTINUITY CORR-01", () => {
     expect(send.f2?.proposal?.contextSnapshot?.activeCycleInstanceId).toBe(
       cycleInstanceId,
     );
-    expect(send.f2?.proposal?.requestedOperation).toBe(
-      F2_ARTIFACT_MATERIALIZATION_OPERATION,
+    // AKG-M5: operation admission is null on Proposal; generalist caps live on executionIntent.
+    expect(send.f2?.proposal?.requestedOperation).toBeNull();
+    expect(send.f2?.proposal?.executionIntent?.requiredCapabilities).toContain(
+      "cap:studio.cursor.generalist",
     );
     expect(send.f2?.decision).toBeNull();
     expect(send.f2?.proposal?.executionIntent?.targetPath).toMatch(

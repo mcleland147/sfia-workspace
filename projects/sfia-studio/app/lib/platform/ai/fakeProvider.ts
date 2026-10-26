@@ -354,10 +354,12 @@ function buildArtifactMaterializationAnalysis(input: {
     contradictionCandidate: null,
     // Do not pre-satisfy MW5 — product Fake must not mask structural challenge.
     challengeResponseAssessment: input.challengeResponseAssessment ?? null,
-    // AKG-M5: do not stamp retired specialized continuationKind — natural
-    // documentary signal routes to Generic PREPARE / generalist (D-ER-16…19).
-    // Explicit kind without admitted effect fail-closes incompatible_execution_intent.
-    continuationKind: null,
+    // Explicit continuation when a concrete leaf/path is present (sentinel + natural compose).
+    // Pathless analysis stays null and routes via natural-signal gates only.
+    continuationKind:
+      targetPath || artifactFileName
+        ? "active_cycle_artifact_materialization"
+        : null,
     artifactMaterializationOperation: null,
     objective: "Matérialiser le livrable requis du cycle actif",
     scope: "documentary generalist — cycle actif — aucune exécution automatique",
@@ -879,6 +881,22 @@ export class FakeConversationProvider implements ConversationProvider {
           providerResponseId: `fake-resp-${this.callCount}`,
         },
       };
+    }
+
+    if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
+      const content = markerProbe;
+      let challengeResponseAssessment: FakeChallengeAssessment = "sufficient";
+      if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
+        challengeResponseAssessment = "insufficient";
+      }
+      return fakeF2JsonResult(
+        this.callCount,
+        buildArtifactMaterializationAnalysis({
+          targetPath: null,
+          artifactFileName: "livrable-cycle.md",
+          challengeResponseAssessment,
+        }),
+      );
     }
 
     // Natural active-cycle materialization (pathless / leaf candidate) — before other markers.
@@ -1531,21 +1549,6 @@ export class FakeConversationProvider implements ConversationProvider {
           providerResponseId: `fake-resp-${this.callCount}`,
         },
       };
-    }
-    if (markerProbe.includes("__F2_ARTIFACT_MATERIALIZE__")) {
-      // Historical sentinel fixture — same builder as natural Pilot contract.
-      const content = markerProbe;
-      let challengeResponseAssessment: FakeChallengeAssessment = "sufficient";
-      if (content.includes("__MW5_SATISFACTION_INSUFFICIENT__")) {
-        challengeResponseAssessment = "insufficient";
-      }
-      return fakeF2JsonResult(
-        this.callCount,
-        buildArtifactMaterializationAnalysis({
-          targetPath: "docs/livrable-cycle.md",
-          challengeResponseAssessment,
-        }),
-      );
     }
     if (markerProbe.includes("__F2_DOCS_WRITE_GENERIC__")) {
       return {

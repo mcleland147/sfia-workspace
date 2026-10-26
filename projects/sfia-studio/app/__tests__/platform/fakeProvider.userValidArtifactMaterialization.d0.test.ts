@@ -38,8 +38,9 @@ describe("FakeConversationProvider — user-valid artifact materialization", () 
   it("P1 — canonical natural FR request WITHOUT sentinel → materialization F2", async () => {
     const obj = await analyze(CANONICAL_NATURAL);
     expect(obj.intentClass).toBe("execution_request");
-    expect(obj.continuationKind).toBeNull(); // AKG-M5: natural → Generic PREPARE, not specialized continuation
-    // Product specialization retired — FakeProvider no longer stamps docs_write.
+    // AKG-M5 — path-qualified natural materialization uses generic active-cycle
+    // continuation (not docs_write Product admission).
+    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
     expect(obj.artifactMaterializationOperation).toBeNull();
     expect(obj.executionIntent).toBeTruthy();
     const ei = obj.executionIntent as Record<string, unknown>;
@@ -86,7 +87,8 @@ N'exécute rien : prépare la proposition pour ma décision.`;
       "Matérialise cette spécification fonctionnelle comme livrable de référence du cycle, sans élargir le périmètre ni ajouter de choix techniques.",
     );
     expect(obj.intentClass).toBe("execution_request");
-    expect(obj.continuationKind).toBeNull(); // AKG-M5: natural → Generic PREPARE, not specialized continuation
+    // Pathless but leaf-named deliverable → generic active-cycle continuation.
+    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
     expect(obj.artifactMaterializationOperation).toBeNull();
     const ei = obj.executionIntent as Record<string, unknown>;
     expect(ei.targetPath ?? null).toBeNull();
@@ -135,10 +137,11 @@ N'exécute rien : prépare la proposition pour ma décision.`,
       "Matérialise ce livrable __F2_ARTIFACT_MATERIALIZE__",
     );
     expect(obj.intentClass).toBe("execution_request");
-    expect(obj.continuationKind).toBeNull(); // AKG-M5: natural → Generic PREPARE, not specialized continuation
+    expect(obj.continuationKind).toBe("active_cycle_artifact_materialization");
     expect(obj.artifactMaterializationOperation).toBeNull();
     const ei = obj.executionIntent as Record<string, unknown>;
-    expect(ei.targetPath).toBe("docs/livrable-cycle.md");
+    expect(ei.targetPath ?? null).toBeNull();
+    expect(ei.artifactFileName).toBe("livrable-cycle.md");
   });
 
   it("P10 — hostile merge fixture remains green and distinct", async () => {

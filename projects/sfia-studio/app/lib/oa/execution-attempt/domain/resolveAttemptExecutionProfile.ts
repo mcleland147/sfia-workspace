@@ -1,7 +1,9 @@
 /**
  * D-GCEC-AGENT-01 — AttemptExecutionProfile (non-persistent).
- * CORR-D-GCEC-AGENT-01 / GCEC-GIT-LIFECYCLE-E2E-01 PATH B:
- * progressive docs-write → local-commit → remote_push → pr_create → pr_merge.
+ * CORR-D-GCEC-AGENT-01 / GCEC-GIT-LIFECYCLE-E2E-01 PATH B / AKG-M5:
+ * progressive filesystem materialization → local-commit → remote_push →
+ * pr_create → pr_merge, gated on executable/authorized effects (not on a
+ * Product docs_write action or specialized DocWrite agent).
  *
  * Server-derived executor sufficiency for THIS Attempt's current eligible slice.
  * NOT an authority source, NOT client-authoritative, NOT persisted.
@@ -61,6 +63,10 @@ import {
 } from "./resolveVerifiedRemotePushPriorAttempt";
 import { resolveVerifiedRemotePushPriorForPrCreate } from "./resolveCrossEcVerifiedRemotePushPrior";
 import { resolveVerifiedPullRequestNumber } from "./resolveGitEffectTarget";
+import {
+  resolveVerifiedFilesystemMaterializationPriorAttempt,
+  type VerifiedFilesystemMaterializationPriorAttempt,
+} from "./resolveVerifiedFilesystemMaterializationPriorAttempt";
 
 export type AttemptExecutionProfileKind =
   | "local_commit"
@@ -145,6 +151,50 @@ export type ResolveAttemptExecutionProfileResult =
 const UNSUPPORTED_M4_PROTECTED: ReadonlySet<CursorAuthorizedEffectId> = new Set([
   "github.pr.update",
 ]);
+
+/**
+ * Filesystem materialization slice — Product generalist technical quartet.
+ * effectClass remains filesystem for audit; kind is contract_legacy (docs_write
+ * AttemptExecutionProfileKind retired with Product DocWrite specialization).
+ */
+function filesystemMaterializationProfile(
+  reason: string,
+): AttemptExecutionProfile {
+  return {
+    kind: "contract_legacy",
+    effectClass: "filesystem",
+    reason,
+    criteria: {
+      requiredCapabilities: [STUDIO_CURSOR_GENERALIST_CAPABILITY],
+      action: STUDIO_CURSOR_GENERALIST_ACTION,
+      target: STUDIO_CURSOR_GENERALIST_TARGET,
+      scope: STUDIO_CURSOR_GENERALIST_SCOPE,
+    },
+  };
+}
+
+function localCommitProfile(
+  reason: string,
+  prior: VerifiedFilesystemMaterializationPriorAttempt,
+): AttemptExecutionProfile {
+  return {
+    kind: "local_commit",
+    effectClass: "git.commit",
+    reason,
+    lineage: {
+      priorAttemptId: prior.priorAttemptId,
+      evidenceId: prior.evidenceId,
+      artifactPath: prior.artifactPath,
+      artifactDigest: prior.artifactDigest,
+    },
+    criteria: {
+      requiredCapabilities: [M4_BOUNDED_LOCAL_COMMIT_CAPABILITY],
+      action: M4_BOUNDED_LOCAL_COMMIT_ACTION,
+      target: M4_BOUNDED_LOCAL_COMMIT_TARGET,
+      scope: M4_BOUNDED_LOCAL_COMMIT_SCOPE,
+    },
+  };
+}
 
 function remotePushProfile(
   reason: string,
@@ -342,6 +392,41 @@ function requireEvidenceReader(
     return { ok: false, reason: "attempt_profile_evidence_reader_unavailable" };
   }
   return null;
+}
+
+function resolveLocalCommitOrFail(
+  input: ResolveAttemptExecutionProfileInput,
+  reason: string,
+): ResolveAttemptExecutionProfileResult {
+  const reader = requireEvidenceReader(input);
+  if (reader) return reader;
+  const prior = resolveVerifiedFilesystemMaterializationPriorAttempt({
+    contract: input.contract,
+    attempts: input.attempts ?? [],
+    evidence: input.evidence ?? [],
+  });
+  if (!prior.ok) {
+    if (prior.reason === "docs_write_prior_none") {
+      return {
+        ok: false,
+        reason: "attempt_profile_commit_without_verified_fs_lineage",
+      };
+    }
+    if (prior.reason === "docs_write_prior_ambiguous") {
+      return {
+        ok: false,
+        reason: "attempt_profile_docs_write_prior_ambiguous",
+      };
+    }
+    return {
+      ok: false,
+      reason: "attempt_profile_docs_write_prior_incomplete",
+    };
+  }
+  return {
+    ok: true,
+    profile: localCommitProfile(reason, prior.prior),
+  };
 }
 
 function resolveRemotePushOrFail(
@@ -572,7 +657,9 @@ export function resolveAttemptExecutionProfile(
     UNSUPPORTED_M4_PROTECTED.has(e as CursorAuthorizedEffectId),
   );
 
-  // Sealed historical M4 RO GCEC — exact specialized criteria (not generalist).
+  // Sealed historical profiles BEFORE effect-gated progressive (AKG-M5).
+  // F3 fixture / RO / standalone specialized actions must not be captured by
+  // progressive Git lifecycle merely because evidenceRequirements list git:*.
   const isM4RoContract =
     contract.action === M4_BOUNDED_RO_ACTION &&
     (contract.requiredCapabilities ?? []).includes(M4_BOUNDED_RO_CAPABILITY);
@@ -583,7 +670,6 @@ export function resolveAttemptExecutionProfile(
     };
   }
 
-  // Sealed historical F3 fixture — exact specialized criteria (not generalist).
   const isF3FixtureContract =
     contract.action === F3_FIXTURE_ACTION &&
     (contract.requiredCapabilities ?? []).includes(F3_FIXTURE_CAPABILITY);
@@ -594,10 +680,6 @@ export function resolveAttemptExecutionProfile(
     };
   }
 
-  // Sealed standalone GCEC specialized contracts (phase-scoped / non-progressive
-  // parent). Criteria-only seal for Select; Start re-resolves prior lineage and
-  // remains fail-closed on missing cross-EC binding / Evidence.
-  // Must NOT fall through to Product generalist matching.
   const caps = contract.requiredCapabilities ?? [];
   if (
     contract.action === M4_BOUNDED_PR_CREATE_ACTION &&
@@ -675,7 +757,202 @@ export function resolveAttemptExecutionProfile(
       },
     };
   }
-  // Non-M4 / W3A / other → contract_legacy binds the ONE Product
+
+  const hasProgressiveGitLifecycle =
+    hasCommit || hasPush || hasPr || hasMerge || hasUnsupportedProtected;
+
+  /**
+   * Progressive Git lifecycle — effect-gated (AKG-M5).
+   * Independent of Product docs_write action / DocWrite agent specialization.
+   * FS-only contracts (no git lifecycle) stay on generalist contract_legacy.
+   * Sealed historical profiles above take precedence.
+   */
+  const progressiveLifecycleEligible =
+    hasProgressiveGitLifecycle ||
+    (hasFs && (hasCommit || hasPush || hasPr || hasMerge));
+
+  // When Start provides server-derived authorizedEffects, use them to confirm
+  // the unique slice — still require exact prior lineage for progressive steps.
+  if (
+    input.authorizedEffects &&
+    (progressiveLifecycleEligible ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "filesystem" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "git.commit" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "git.push" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) ===
+        "github.pr.create" ||
+      uniqueAuthorizedEffectClass(input.authorizedEffects) === "github.pr.merge")
+  ) {
+    const cls = uniqueAuthorizedEffectClass(input.authorizedEffects);
+    if (cls === "empty") {
+      return { ok: false, reason: "attempt_profile_zero_eligible" };
+    }
+    if (cls === "mixed") {
+      return { ok: false, reason: "attempt_profile_ambiguous_slice" };
+    }
+    if (cls === "unsupported_protected") {
+      return { ok: false, reason: "attempt_profile_effect_not_supported" };
+    }
+    if (cls === "filesystem") {
+      return {
+        ok: true,
+        profile: filesystemMaterializationProfile("authorized_slice_filesystem"),
+      };
+    }
+    if (cls === "git.commit") {
+      return resolveLocalCommitOrFail(input, "authorized_slice_git_commit");
+    }
+    if (cls === "git.push") {
+      return resolveRemotePushOrFail(input, "authorized_slice_git_push");
+    }
+    if (cls === "github.pr.create") {
+      return resolvePrCreateOrFail(input, "authorized_slice_pr_create");
+    }
+    if (cls === "github.pr.merge") {
+      return resolvePrMergeOrFail(input, "authorized_slice_pr_merge");
+    }
+    if (progressiveLifecycleEligible) {
+      // validation-only / unknown under progressive lifecycle — fail closed.
+      return { ok: false, reason: "attempt_profile_effect_not_supported" };
+    }
+    // Non-progressive + unrecognized authorized class → fall through.
+  }
+
+  // Selection-time / restart: durable Evidence only.
+  if (progressiveLifecycleEligible) {
+    // Progressive path — never fall back to contract_legacy for later effects.
+    if (
+      hasUnsupportedProtected &&
+      !hasFs &&
+      !hasCommit &&
+      !hasPush &&
+      !hasPr &&
+      !hasMerge
+    ) {
+      return { ok: false, reason: "attempt_profile_effect_not_supported" };
+    }
+
+    if (hasFs && (hasCommit || hasPush || hasPr || hasMerge)) {
+      if (input.evidenceReaderAvailable === false) {
+        return {
+          ok: false,
+          reason: "attempt_profile_evidence_reader_unavailable",
+        };
+      }
+      const prior = resolveVerifiedFilesystemMaterializationPriorAttempt({
+        contract,
+        attempts: input.attempts ?? [],
+        evidence,
+      });
+      if (!prior.ok) {
+        if (prior.reason === "docs_write_prior_none") {
+          // No qualified A yet → still on filesystem materialization slice.
+          return {
+            ok: true,
+            profile: filesystemMaterializationProfile(
+              "progressive_fs_outstanding",
+            ),
+          };
+        }
+        if (prior.reason === "docs_write_prior_ambiguous") {
+          return {
+            ok: false,
+            reason: "attempt_profile_docs_write_prior_ambiguous",
+          };
+        }
+        return {
+          ok: false,
+          reason: "attempt_profile_docs_write_prior_incomplete",
+        };
+      }
+
+      const commitVerified = evidenceVerifiedForSource(
+        evidence,
+        contract,
+        "git:local_commit",
+      );
+      if (hasCommit && !commitVerified) {
+        return {
+          ok: true,
+          profile: localCommitProfile(
+            "progressive_commit_outstanding",
+            prior.prior,
+          ),
+        };
+      }
+
+      // After commitVerified (or commit not required): progressive C→D→E.
+      if (hasPush) {
+        const pushVerified = evidenceVerifiedForSource(
+          evidence,
+          contract,
+          "git:remote_push",
+        );
+        if (!pushVerified) {
+          return resolveRemotePushOrFail(
+            input,
+            "progressive_push_outstanding",
+          );
+        }
+      }
+      if (hasPr) {
+        const prVerified = evidenceVerifiedForSource(
+          evidence,
+          contract,
+          "git:pull_request",
+        );
+        if (!prVerified) {
+          return resolvePrCreateOrFail(
+            input,
+            "progressive_pr_create_outstanding",
+          );
+        }
+      }
+      if (hasMerge) {
+        const mergeVerified = evidenceVerifiedForSource(
+          evidence,
+          contract,
+          "git:merge",
+        );
+        if (!mergeVerified) {
+          return resolvePrMergeOrFail(
+            input,
+            "progressive_pr_merge_outstanding",
+          );
+        }
+      }
+
+      // All required progressive Cursor effects satisfied for this EC.
+      return {
+        ok: false,
+        reason: "attempt_profile_lifecycle_slice_exhausted",
+      };
+    }
+
+    if (hasFs && !hasCommit && !hasPush && !hasPr && !hasMerge) {
+      return {
+        ok: true,
+        profile: filesystemMaterializationProfile("fs_only_contract"),
+      };
+    }
+
+    if (hasCommit && !hasFs) {
+      return resolveLocalCommitOrFail(input, "commit_only_contract");
+    }
+    if (hasPush && !hasFs && !hasCommit) {
+      return resolveRemotePushOrFail(input, "push_only_contract");
+    }
+    if (hasPr && !hasFs && !hasCommit && !hasPush) {
+      return resolvePrCreateOrFail(input, "pr_create_only_contract");
+    }
+    if (hasMerge && !hasFs && !hasCommit && !hasPush && !hasPr) {
+      return resolvePrMergeOrFail(input, "pr_merge_only_contract");
+    }
+
+    return { ok: false, reason: "attempt_profile_effect_not_supported" };
+  }
+
+  // Non-progressive / non-sealed → contract_legacy binds the ONE Product
   // generalist technical quartet (normal matching). Functional mission stays
   // on ExecutionContract / cursorMissionPrompt — never agent types.
   if (

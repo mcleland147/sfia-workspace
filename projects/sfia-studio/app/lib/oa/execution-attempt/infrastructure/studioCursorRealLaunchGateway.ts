@@ -6,8 +6,13 @@
  * Requires ProcessRunner + RealExecutionWorkspacePort (no Fake defaults).
  * Order: enablement → bin resolve → prepareWorkspace → runner.invoke.
  */
-import { accessSync, constants } from "node:fs";
+import { accessSync, constants, existsSync } from "node:fs";
 import path from "node:path";
+import {
+  assertArtifactWriteModeAtExecution,
+  isAutomaticProductDocsWriteTargetPath,
+} from "@/lib/oa/project/domain/artifactTargetRouting";
+import { resolveSealedDocsWriteWorktreePaths } from "../application/resolveSealedDocsWriteWorktreePaths";
 import {
   isStudioCursorRealEnabled,
   M4_BOUNDED_PR_CREATE_CURSOR_AGENT_ID,
@@ -864,6 +869,77 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
         `fingerprint=${request.semanticFingerprint}`,
         "Aucune mutation, aucun git remote/commit/push/PR/merge.",
       ].join("\n");
+    } else if (request.docsWriteSpec) {
+      // AKG-M5: filesystem materialization enforcement from sealed docsWriteSpec
+      // (historical field name). Not Product docs_write action admission.
+      const spec = request.docsWriteSpec;
+      const resolvedPaths = resolveSealedDocsWriteWorktreePaths({
+        worktreeRoot: workspacePath,
+        targetPath: spec.targetPath,
+        pathAllowlist: spec.pathAllowlist,
+      });
+      if (!resolvedPaths.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: resolvedPaths.reason,
+          realProcessInvoked: false,
+          detailCode: "REAL_WORKSPACE_INVALID",
+        };
+      }
+      let targetExists: boolean | null = null;
+      try {
+        if (!existsSync(workspacePath)) {
+          targetExists = null;
+        } else {
+          targetExists = existsSync(resolvedPaths.absoluteTargetPath);
+        }
+      } catch {
+        targetExists = null;
+      }
+      const writeGuard = assertArtifactWriteModeAtExecution({
+        artifactWriteMode: spec.artifactWriteMode,
+        targetExists,
+        requireResolvedWriteMode: isAutomaticProductDocsWriteTargetPath(
+          resolvedPaths.sealedTargetPath,
+        ),
+      });
+      if (!writeGuard.ok) {
+        return {
+          outcome: "reject",
+          gatewayId: this.gatewayId,
+          attemptId: request.attemptId,
+          reason: writeGuard.code,
+          realProcessInvoked: false,
+          detailCode: "REAL_WORKSPACE_INVALID",
+        };
+      }
+      const fsMaterializationEnforcement = [
+        "TÂCHE UNIQUE — bounded filesystem materialization déterministe (GCEC).",
+        `EXACT AUTHORIZED FILE (absolute path inside prepared worktree — modify exactly this file and no other): ${resolvedPaths.absoluteTargetPath}`,
+        `Canonical sealed targetPath (repo-relative, do not reinterpret): ${resolvedPaths.sealedTargetPath}`,
+        `AUTHORIZED ROOT(S) (absolute under prepared worktree): ${resolvedPaths.absolutePathAllowlist.join(", ")}`,
+        `Canonical sealed pathAllowlist (repo-relative): ${resolvedPaths.sealedPathAllowlist.join(", ")}`,
+        "Do not reinterpret relative paths against a nested subproject or editor root.",
+        `Repository: ${spec.repositoryRef}`,
+        `Validations techniques: ${spec.validationExpectations.join(", ") || "path_allowlist; no_delete"}`,
+        "Ne créer/modifier AUCUN autre fichier.",
+        "Ne supprimer AUCUN fichier (noDelete=true).",
+        "Ne pas commit, push, PR, merge, ni remote git.",
+        "Ne lancer aucune commande Shell.",
+        "Utiliser uniquement les outils d'édition de fichiers (Write/StrReplace).",
+        "Ne pas modifier README.md.",
+        "En cas d'ambiguïté ou de chemin hors allowlist: STOP immédiatement.",
+        `target=${request.target ?? ""}`,
+        `action=${request.action ?? ""}`,
+        `scope=${request.scope ?? ""}`,
+        `fingerprint=${request.semanticFingerprint}`,
+      ];
+      instruction = composeBoundedInstruction({
+        missionPrompt,
+        enforcement: fsMaterializationEnforcement,
+      });
     } else if (missionPrompt) {
       // PJ-REPROOF-04 — generalist Cursor mission = authorized EC projection.
       // Cursor determines HOW inside the contract; no mandatory step sequence.
@@ -894,13 +970,18 @@ export class StudioCursorRealLaunchGateway implements RealExecutionLaunchPort {
     }
 
     // Full-capability native mode: --sandbox disabled --force (parity with Cursor CLI).
-    // Docs-write + git mutation profiles + generalist mission prompt: agent mode.
+    // Filesystem mutation + git mutation profiles + generalist mission prompt: agent mode.
+    // AKG-M5: no longer keyed on Product docs_write action — effect-based.
     const hasMissionPrompt = missionPrompt !== null;
+    const hasFilesystemMutation = (request.authorizedEffects ?? []).some(
+      (e) => e === "filesystem.create" || e === "filesystem.modify",
+    );
     const usesAgentMode =
       isLocalCommitProfile ||
       isRemotePushProfile ||
       isPrCreateProfile ||
       isPrMergeProfile ||
+      hasFilesystemMutation ||
       hasMissionPrompt;
     const argv = usesAgentMode
       ? [

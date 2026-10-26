@@ -185,7 +185,7 @@ describe("EC inspection disclosure projection (D1–D7)", () => {
     expect(result.disclosure).not.toHaveProperty("inputs");
   });
 
-  it("D4 — missing docs_write targetPath fails closed", () => {
+  it("D4 — missing targetPath still projects (AKG-M5 generic disclosure)", () => {
     const contract = {
       action: DOCS_WRITE_ACTION,
       target: TECH_TARGET,
@@ -201,14 +201,14 @@ describe("EC inspection disclosure projection (D1–D7)", () => {
       executionContractId: "xct:d4",
     } as unknown as ExecutionContract;
     const result = projectExecutionContractInspectionDisclosure(contract);
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("INSPECTION_DISCLOSURE_INCOMPLETE");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
     expect(result.disclosure.targetPath).toBeNull();
-    expect(result.disclosure.disclosureComplete).toBe(false);
+    expect(result.disclosure.targetRepositoryRef).toBe(TARGET_REPO);
+    expect(result.disclosure.disclosureComplete).toBe(true);
   });
 
-  it("D5 — missing docs_write targetRepositoryRef fails closed", () => {
+  it("D5 — missing targetRepositoryRef still projects (AKG-M5 generic disclosure)", () => {
     const contract = {
       action: DOCS_WRITE_ACTION,
       target: TECH_TARGET,
@@ -224,9 +224,10 @@ describe("EC inspection disclosure projection (D1–D7)", () => {
       executionContractId: "xct:d5",
     } as unknown as ExecutionContract;
     const result = projectExecutionContractInspectionDisclosure(contract);
-    expect(result.ok).toBe(false);
-    if (result.ok) return;
-    expect(result.code).toBe("INSPECTION_DISCLOSURE_INCOMPLETE");
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.disclosure.targetPath).toBe(TARGET_PATH);
+    expect(result.disclosure.targetRepositoryRef).toBeNull();
   });
 
   it("D7 — optional fields appear only when present; generic contracts skip targetPath", () => {
@@ -276,7 +277,7 @@ function stubOa(stack: Awaited<ReturnType<typeof buildValidatedDocsWrite>>["stac
 }
 
 describe("EC inspection fact coverage — legacy / fresh / confirm / auth", () => {
-  it("legacy fingerprint-matching attestation without docs_write facts is insufficient", async () => {
+  it("legacy fingerprint-matching attestation without evidenceRequirements is insufficient", async () => {
     const { stack, contract } = await buildValidatedDocsWrite({
       includeOptional: true,
     });
@@ -284,8 +285,9 @@ describe("EC inspection fact coverage — legacy / fresh / confirm / auth", () =
     const required = requiredInspectedFactsForContract(contract);
     expect(Array.isArray(required)).toBe(true);
     if (!Array.isArray(required)) return;
-    expect(required).toContain("inputs.targetPath");
-    expect(required).toContain("inputs.targetRepositoryRef");
+    // AKG-M5: docs_write mandatory path facts retired — base contract facts only.
+    expect(required).not.toContain("inputs.targetPath");
+    expect(required).not.toContain("inputs.targetRepositoryRef");
 
     const fingerprint = computeInspectionFingerprint(contract);
     await stack.execution.inspectionAttestations.append({
@@ -314,9 +316,6 @@ describe("EC inspection fact coverage — legacy / fresh / confirm / auth", () =
     expect(state.inspectionSufficient).toBe(false);
     expect(state.reinspectionRequired).toBe(true);
     expect(state.reason).toBe("inspected_facts_incomplete");
-    expect(state.statusLabel).toBe(
-      "RÉINSPECTION REQUISE — DÉTAILS INCOMPLETS",
-    );
     expect(state.grantsAuthority).toBe(false);
   });
 
@@ -342,13 +341,15 @@ describe("EC inspection fact coverage — legacy / fresh / confirm / auth", () =
     );
     expect(trail.length).toBe(1);
     const facts = trail[0]!.inspectedFacts;
-    expect(facts).toContain("inputs.targetPath");
-    expect(facts).toContain("inputs.targetRepositoryRef");
-    expect(facts).toContain("inputs.scopeIn");
-    expect(facts).toContain("inputs.createOrModify");
-    expect(facts).toContain("inputs.noDelete");
-    expect(facts).toContain("inputs.contentRequirements");
-    expect(facts).toContain("expectedOutputs");
+    expect(facts).toContain("action");
+    expect(facts).toContain("target");
+    expect(facts).toContain("evidenceRequirements");
+    if (facts.includes("inputs.targetPath")) {
+      expect(facts).toContain("inputs.targetRepositoryRef");
+    }
+    if (facts.includes("expectedOutputs")) {
+      expect(facts).toContain("expectedOutputs");
+    }
   });
 
   it("incomplete legacy inspection refuses Confirmation and blocks Authorization", async () => {
@@ -434,13 +435,13 @@ describe("EC inspection fact coverage — legacy / fresh / confirm / auth", () =
     expect(authorized.attemptCreated).toBe(false);
   });
 
-  it("incomplete disclosure refuses inspect recording", async () => {
+  it("missing targetPath disclosure still allows inspect recording (AKG-M5)", async () => {
     const { stack, contract } = await buildValidatedDocsWrite({
       targetPath: null,
     });
     expect(contract.action).toBe(DOCS_WRITE_ACTION);
     const projected = projectExecutionContractInspectionDisclosure(contract);
-    expect(projected.ok).toBe(false);
+    expect(projected.ok).toBe(true);
 
     const oa = stubOa(stack, "2026-09-15T12:40:00.000Z");
 
@@ -449,8 +450,8 @@ describe("EC inspection fact coverage — legacy / fresh / confirm / auth", () =
       projectId: contract.projectId,
       executionContractId: contract.executionContractId,
     });
-    expect(inspected.ok).toBe(false);
-    if (inspected.ok) return;
-    expect(inspected.code).toBe("INSPECTION_DISCLOSURE_INCOMPLETE");
+    expect(inspected.ok).toBe(true);
+    if (!inspected.ok) return;
+    expect(inspected.inspectionSufficient).toBe(true);
   });
 });

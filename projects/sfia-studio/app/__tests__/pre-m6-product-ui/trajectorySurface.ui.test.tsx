@@ -545,15 +545,9 @@ describe("W2 TrajectorySurface", () => {
       screen.getByTestId("w2-decide-opt:trajectory:governed-gated"),
     );
     expect(await screen.findByTestId("w2-decision")).toBeVisible();
-    expect(
-      await screen.findByTestId("w2-recovery-docs-write-prepare"),
-    ).toBeVisible();
-    expect(screen.getByTestId("w2-recovery-docs-write-path")).toHaveTextContent(
-      TARGET,
-    );
+    expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
     expect(screen.queryByTestId("w3a-operation-kind")).toBeNull();
     expect(screen.queryByTestId("w3a-qualify-execution-work")).toBeNull();
-    expect(screen.getByTestId("w2-prepare-recovery-docs-write")).toBeEnabled();
     expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
     expect(prepareContractMock).not.toHaveBeenCalled();
   });
@@ -971,10 +965,8 @@ describe("W2 TrajectorySurface", () => {
     );
 
     render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:w2-ui" />);
-    expect(
-      await screen.findByTestId("w2-recovery-docs-write-prepare"),
-    ).toBeVisible();
     expect(await screen.findByTestId("w2-decision")).toBeVisible();
+    expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
     expect(screen.queryByTestId("w2-options")).toBeNull();
     expect(prepareContractMock).not.toHaveBeenCalled();
     expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
@@ -991,7 +983,7 @@ describe("W2 TrajectorySurface", () => {
 
     // Additional React settle — call count must remain stable (no loop).
     await waitFor(() => {
-      expect(screen.getByTestId("w2-recovery-docs-write-prepare")).toBeVisible();
+      expect(screen.getByTestId("w2-decision")).toBeVisible();
     });
     await new Promise((r) => setTimeout(r, 0));
     await new Promise((r) => setTimeout(r, 0));
@@ -1456,83 +1448,20 @@ describe("W2 TrajectorySurface", () => {
       });
     });
 
-    // T2/T4 — recovery CTA visible as primary; wrong EC still visible; Inspect demoted
-    expect(
-      await screen.findByTestId("w2-recovery-docs-write-prepare"),
-    ).toBeVisible();
-    expect(screen.getByTestId("w2-recovery-docs-write-path")).toHaveTextContent(
-      TARGET,
-    );
-    expect(screen.getByTestId("w2-recovery-replaceable-generic-note")).toBeVisible();
+    // AKG-M5 — docs_write recovery PREPARE retired; wrong generic EC + replaceable note remain.
+    expect(screen.queryByTestId("w2-recovery-docs-write-prepare")).toBeNull();
     expect(screen.getByTestId("w2-contract")).toBeVisible();
     expect(screen.getByTestId("w2-contract-action")).toHaveTextContent(
       "product:generate-temporary-artifact",
     );
     expect(screen.getByTestId("w2-contract-next-action")).toHaveTextContent(
-      /Préparer le contrat recovery/i,
+      /Reprendre la préparation/i,
     );
-    expect(screen.getByTestId("w2-prepare-recovery-docs-write")).toBeEnabled();
-    expect(screen.getByTestId("w2-inspect-contract").className).not.toMatch(
-      /primaryAction/,
-    );
-    expect(screen.queryByTestId("w2-confirm-contract")).toBeNull();
-    expect(screen.getByTestId("w2-authorize-contract")).toBeDisabled();
+    expect(screen.getByTestId("w2-inspect-contract")).toBeVisible();
 
     // T3 — no mutation on reload (no prepare/cancel called)
     expect(prepareRecoveryDocsWriteMock).not.toHaveBeenCalled();
     expect(prepareContractMock).not.toHaveBeenCalled();
-
-    // T5 — explicit PREPARE click routes to R8 action
-    prepareRecoveryDocsWriteMock.mockResolvedValue({
-      ok: true,
-      contract: {
-        executionContractId: "xct:m3-res:recovery-successor",
-        version: 2,
-        status: "confirmation_required",
-        action: "cursor.docs_write.apply",
-        target: "workspace.isolated.docs_write",
-        scope: "studio.gcec.docs_write",
-        requiredAuthority: "MORRIS",
-        constraints: ["NO_COMMIT", "NO_PUSH", "NO_PR", "NO_MERGE"],
-        stopConditions: [],
-        requiredCapabilities: ["cap:cursor.docs_write"],
-        reversibility: "reversible",
-        semanticFingerprint: "fp:successor",
-        supersedesExecutionContractId: null,
-        supersessionReason: null,
-        inspectionDisclosure: {
-          action: "cursor.docs_write.apply",
-          target: "workspace.isolated.docs_write",
-          targetPath: TARGET,
-          scope: "studio.gcec.docs_write",
-          constraints: ["NO_COMMIT"],
-          stopConditions: [],
-          requiredCapabilities: ["cap:cursor.docs_write"],
-          requiredAuthority: "MORRIS",
-          reversibility: "reversible",
-          evidenceRequirements: ["evreq:docs_write_artifact"],
-          expectedOutputs: [],
-        },
-      },
-      decisionId: recoveryHd,
-      cancelledWrongGenericContractId: wrongEcId,
-      reusedFromIdempotency: false,
-      f3SemanticOverwrite: false,
-      executionPerformed: false,
-      attemptCreated: false,
-      binding: {},
-    });
-
-    fireEvent.click(screen.getByTestId("w2-prepare-recovery-docs-write"));
-    await waitFor(() => {
-      expect(prepareRecoveryDocsWriteMock).toHaveBeenCalledWith({
-        projectId: "prj:w2-ui",
-        decisionId: recoveryHd,
-      });
-    });
-    expect(await screen.findByTestId("w2-contract-action")).toHaveTextContent(
-      "cursor.docs_write.apply",
-    );
   });
 
   it("labels Options and Recommendation distinctly and never auto-decides", async () => {
@@ -3183,7 +3112,7 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
     expect(inspectMock).not.toHaveBeenCalled();
   });
 
-  it("D01 — legacy PREPARE_ONLY EC shows Actualiser CTA; hides generic PREPARE; rematerialize projects successor", async () => {
+  it("D01 — AKG-M5: legacy PREPARE_ONLY EC visible; rematerialize CTA retired", async () => {
     const decisionId = "dec:w2-prop:ca889356-2907-4c2a-ac29-003a19e37411";
     const originalId = `xct:m3:${decisionId}`;
     readGovernedExecutionContinuityMock.mockResolvedValue({
@@ -3254,105 +3183,14 @@ describe("JOURNEY-INTEGRITY — Proposal-backed PREPARE (sealed operation)", () 
       },
     });
 
-    resolveLegacyMock.mockResolvedValue({
-      ok: true,
-      status: "ok",
-      mode: "m3_legacy_docs_write_resolved",
-      presentation: "unconfirmed",
-      text: "ok",
-      project: { projectId: "prj:legacy" },
-      ephemeralNotice: "notice",
-      f3: {
-        turnKind: "f3_m3_legacy_docs_write_resolved",
-        mode: "M3_RESOLVED_BOUNDED_DOCS_WRITE",
-        decisionId,
-        projectId: "prj:legacy",
-        original: {
-          executionContractId: originalId,
-          version: 3,
-          status: "superseded",
-        },
-        successor: {
-          executionContractId: `xct:m3-res:${decisionId}`,
-          version: 1,
-          status: "confirmation_required",
-          action: "cursor.docs_write.apply",
-          target: "workspace.isolated.docs_write",
-          scope: "studio.gcec.docs_write",
-          requiredAuthority: "MORRIS",
-          constraints: ["BOUNDED DOCS-WRITE", "GATE D REQUIRED"],
-          stopConditions: ["GATE_D_REQUIRED"],
-          requiredCapabilities: ["cap:cursor.docs_write"],
-          reversibility: "reversible",
-          supersedesExecutionContractId: originalId,
-          supersessionReason: "bounded docs-write",
-          semanticFingerprint: "fp-successor",
-          evidenceRequirements: [],
-          inspectionDisclosure: {
-            action: "cursor.docs_write.apply",
-            technicalTarget: "workspace.isolated.docs_write",
-            scope: "studio.gcec.docs_write",
-            targetRepositoryRef: "mcleland147/sfia-workspace",
-            targetPath: "projects/sfia-studio/.sandbox/gestion-de-taches.md",
-            scopeIn: ["projects/sfia-studio/.sandbox"],
-            scopeOut: [],
-            createOrModify: true,
-            noDelete: true,
-            objective: null,
-            artifactType: null,
-            artifactBrief: null,
-            contentRequirements: null,
-            validationExpectations: null,
-            expectedOutputs: null,
-            evidenceRequirements: [],
-            requiredAuthority: "MORRIS",
-            requiredCapabilities: ["cap:cursor.docs_write"],
-            constraints: ["BOUNDED DOCS-WRITE"],
-            stopConditions: ["GATE_D_REQUIRED"],
-            reversibility: "reversible",
-            contractVersion: 1,
-            executionContractId: `xct:m3-res:${decisionId}`,
-            semanticFingerprint: "fp-successor",
-            disclosureComplete: true,
-            incompletenessCode: null,
-          },
-        },
-        reusedFromIdempotency: false,
-        executionPerformed: false,
-        attemptCreated: false,
-        confirmationRequired: true,
-        realExecution: false,
-        disclosures: [],
-      },
-    });
-
     render(<TrajectorySurface decisionWorkflowMode="legacy_cta" projectId="prj:legacy-remat" />);
     expect(await screen.findByTestId("w2-contract")).toBeVisible();
     expect(screen.queryByTestId("w2-prepare-contract")).toBeNull();
     expect(screen.queryByTestId("w2-proposal-backed-prepare")).toBeNull();
-    expect(
-      await screen.findByTestId("w2-legacy-docs-write-rematerialize"),
-    ).toBeVisible();
-    expect(
-      screen.getByTestId("w2-rematerialize-legacy-docs-write"),
-    ).toBeVisible();
-
-    fireEvent.click(screen.getByTestId("w2-rematerialize-legacy-docs-write"));
-    expect(await screen.findByTestId("w2-amendment-notice")).toBeVisible();
-    expect(screen.getByTestId("w2-amendment-status")).toHaveTextContent(
-      /CONTRAT ACTUALISÉ/i,
-    );
-    expect(screen.getByTestId("w2-contract-scope")).toHaveTextContent(
-      "studio.gcec.docs_write",
-    );
-    expect(screen.getByTestId("w2-contract-id-tech")).toHaveTextContent(
-      `xct:m3-res:${decisionId}`,
-    );
     expect(screen.queryByTestId("w2-legacy-docs-write-rematerialize")).toBeNull();
-    expect(resolveLegacyMock).toHaveBeenCalledWith({
-      projectId: "prj:legacy-remat",
-      decisionId,
-    });
+    expect(screen.queryByTestId("w2-rematerialize-legacy-docs-write")).toBeNull();
+    expect(screen.getByTestId("w2-inspect-contract")).toBeVisible();
+    expect(resolveLegacyMock).not.toHaveBeenCalled();
     expect(prepareM3Mock).not.toHaveBeenCalled();
   });
 

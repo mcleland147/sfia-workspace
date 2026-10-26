@@ -57,7 +57,7 @@ function basisWithLocalWrite(paths: string[]) {
   return {
     selectedOptionRef: GOVERNED_OPTION_REF,
     executionBasis: {
-      intentKind: "governed_local_mutation",
+      intentKind: "other",
       targetPath: paths[0],
       scopeIn: paths,
       scopeOut: ["GIT_COMMIT", "GIT_PUSH", "GIT_PR"],

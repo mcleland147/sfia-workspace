@@ -1,19 +1,3 @@
-type FakeDocsWriteLaunchPort = any;
-const FakeDocsWriteLaunchPort: any = class {
-  gatewayId = "fake";
-  externalEffects = false;
-  boundaryProofMode = "deterministic";
-  calls: any[] = [];
-  lastReport: any = null;
-  touchedFiles: any[] = [];
-  lastDigest: any = null;
-  constructor(..._a: any[]) {}
-  async launch(..._a: any[]) {
-    this.calls.push(_a);
-    return { outcome: "reject", reason: "removed", processRef: "x", exitCode: 0, stderr: "" };
-  }
-  observe(..._a: any[]) { return { exitCode: 0, stderr: "", processRef: "x" }; }
-};
 
 /**
  * CHAT-FIRST-GOVERNED-DECISION-LOOP-01 — deterministic PRODUCT front-door oracle.
@@ -65,6 +49,7 @@ import {
   FakeCursorGitExternalState,
   MemoryLaunchSafetyJournal,
   isStudioCursorRealEnabled,
+  FakeDocsWriteLaunchPort,
 } from "@/lib/oa/execution-attempt";
 import { setConversationProviderForTests } from "@/lib/platform/ai";
 import {

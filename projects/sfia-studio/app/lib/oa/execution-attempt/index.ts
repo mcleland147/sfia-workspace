@@ -245,6 +245,15 @@ export {
   type FakeCursorCiConclusion,
   type FakeCursorReviewState,
 } from "./infrastructure/fakeCursorGitExternalState";
+export {
+  FakeDocsWriteLaunchPort,
+  listRelativeFiles,
+  sha256File,
+  type FakeDocsWriteLaunchPortOptions,
+} from "./infrastructure/fakeCursorDeterministicLaunchPort";
+/** @deprecated Alias — DET fake is effect-based, not Product docs_write. */
+export { FakeDocsWriteLaunchPort as FakeCursorDeterministicLaunchPort } from "./infrastructure/fakeCursorDeterministicLaunchPort";
+export type { FakeDocsWriteLaunchPortOptions as FakeCursorDeterministicLaunchPortOptions } from "./infrastructure/fakeCursorDeterministicLaunchPort";
 export { qualifyExecutionContractCompletion } from "./domain/qualifyExecutionContractCompletion";
 export type { ExecutionContractCompletionQualification } from "./domain/qualifyExecutionContractCompletion";
 export { advanceExecutionContractCompletion } from "./application/advanceExecutionContractCompletion";
@@ -256,6 +265,22 @@ export type { ManagedRepoBindingIdentity } from "./infrastructure/managedProject
 export {
   resolveAttemptExecutionProfile,
 } from "./domain/resolveAttemptExecutionProfile";
+export {
+  resolveSealedDocsWriteWorktreePaths,
+} from "./application/resolveSealedDocsWriteWorktreePaths";
+export type {
+  ResolveSealedDocsWriteWorktreePathsResult,
+} from "./application/resolveSealedDocsWriteWorktreePaths";
+export {
+  resolveVerifiedFilesystemMaterializationPriorAttempt,
+  resolveVerifiedDocsWritePriorAttempt,
+} from "./domain/resolveVerifiedFilesystemMaterializationPriorAttempt";
+export type {
+  VerifiedFilesystemMaterializationPriorAttempt,
+  VerifiedDocsWritePriorAttempt,
+  ResolveVerifiedFilesystemMaterializationPriorAttemptInput,
+  ResolveVerifiedFilesystemMaterializationPriorAttemptResult,
+} from "./domain/resolveVerifiedFilesystemMaterializationPriorAttempt";
 export {
   resolveVerifiedLocalCommitPriorAttempt,
   parseLocalCommitShaFromEvidenceLocation,

@@ -121,7 +121,7 @@ function docsWriteProposal(input: {
     agentBinding: "NOT_AVAILABLE",
     requestedOperation: F2_ARTIFACT_MATERIALIZATION_OPERATION,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: null,
       targetPath: TARGET_PATH,
       scopeIn: ["sandbox"],

@@ -1573,10 +1573,15 @@ export class PilotLifecycleTransitions {
       : [];
 
     // Product path: always derive from durable facts (ignore static applicabilityRules).
+    // Sealed git-target identity is server env only — never Project.repositoryBinding.
     const projectResult = await this.deps.projectServices.getProject.execute({
       projectId: input.projectId,
     });
-    const repositoryBinding = null;
+    const sealedIdentity =
+      process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY?.trim() ?? "";
+    const repositoryBinding = sealedIdentity
+      ? { identity: sealedIdentity }
+      : null;
 
     const applicability = deriveFinalizationApplicability({
       cycleInstanceId: input.cycle.cycleInstanceId,

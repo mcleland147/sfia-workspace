@@ -1,7 +1,5 @@
-const createM4BoundedDocsWriteCursorAgentDescriptor: any = null;
 const M4_BOUNDED_DOCS_WRITE_ACTION = "cursor.docs_write.apply" as const;
 const M4_BOUNDED_DOCS_WRITE_CAPABILITY = "cap:cursor.docs_write" as const;
-const M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID = "agt:m4.cursor.bounded_docs_write" as const;
 const M4_BOUNDED_DOCS_WRITE_SCOPE = "studio.gcec.docs_write" as const;
 const M4_BOUNDED_DOCS_WRITE_TARGET = "workspace.isolated.docs_write" as const;
 
@@ -31,6 +29,8 @@ import {
   TestExecutionAdapter,
   workspacePathForAttempt,
   type ExecutionAttempt,
+  createStudioCursorGeneralistAgentDescriptor,
+  STUDIO_CURSOR_GENERALIST_AGENT_ID,
 } from "@/lib/oa/execution-attempt";
 import {
   MORRIS_ACTOR,
@@ -136,7 +136,7 @@ function succeededAttempt(input: {
     attemptId: input.attemptId,
     executionContractId: input.executionContractId,
     executionContractVersion: input.executionContractVersion,
-    selectedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+    selectedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
     status: "succeeded",
     idempotencyKey: `idem:${input.attemptId}`,
     correlationId: `cor:${input.attemptId}`,
@@ -251,7 +251,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
       databasePath: tempJournalPath("gcec-cont-ab-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const docs = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const docs = createStudioCursorGeneralistAgentDescriptor(NOW);
     const commit = createM4BoundedLocalCommitCursorAgentDescriptor(NOW);
     const fixtureAdapter = new TestExecutionAdapter();
     const evidenceBag: Evidence[] = [];
@@ -420,7 +420,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
       databasePath: tempJournalPath("gcec-cont-none-"),
     });
     const launchPort = new TestOnlyRealExecutionLaunchPort();
-    const agent = createM4BoundedDocsWriteCursorAgentDescriptor(NOW);
+    const agent = createStudioCursorGeneralistAgentDescriptor(NOW);
     const fixtureAdapter = new TestExecutionAdapter();
     const stack = buildStack({ agents: [agent], adapter: fixtureAdapter });
     stack.attempts = createTestExecutionAttemptServices({
@@ -451,7 +451,7 @@ describe("D-GCEC-CONT-01 same-EC A→B + restart", () => {
     await selectStandardAgent(stack, {
       attemptId: attemptB,
       executionContractId: seeded.contractId,
-      requestedAgentRef: M4_BOUNDED_DOCS_WRITE_CURSOR_AGENT_ID,
+      requestedAgentRef: STUDIO_CURSOR_GENERALIST_AGENT_ID,
       idempotencyKey: "idem-cont-none-b",
     });
     await stack.attempts.grantRealExecutionGate!.execute({

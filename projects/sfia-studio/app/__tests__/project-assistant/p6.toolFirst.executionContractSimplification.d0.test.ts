@@ -46,6 +46,7 @@ import { settleDeterministicProductCursorSuccess } from "./w2Harness";
 import {
   bootW2Runtime,
   cleanupW2TempDirs,
+  pathUnderProjectWorkspace,
   tempProductDbPath,
   W2_TEST_PINNED_BASE_HEAD_SHA,
 } from "./w2Harness";
@@ -149,6 +150,7 @@ describe("P6 tool-first Generic Execution contract simplification A–J", () => 
     });
     if (!created.ok) throw new Error("createProject");
     const projectId = created.project.projectId;
+    const workspaceKey = created.project.projectWorkspaceKey ?? "project";
     const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
     });
@@ -214,7 +216,7 @@ describe("P6 tool-first Generic Execution contract simplification A–J", () => 
       managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
       identity,
     });
-    return { projectId, cycleInstanceId, oa };
+    return { projectId, cycleInstanceId, oa, workspaceKey };
   }
 
   async function countAttempts(
@@ -489,19 +491,21 @@ describe("P6 tool-first Generic Execution contract simplification A–J", () => 
     expect(lps.livingProjectState.activeCycleInstanceId).toBe(cycleInstanceId);
   });
 
-  it("CAS D — git read of existing path keeps repositoryBinding / pathRoot", async () => {
-    const { projectId, oa } = await seedProject({
+  it("CAS D — git read of existing path keeps project workspace pathRoot", async () => {
+    const { projectId, oa, workspaceKey } = await seedProject({
       suffix: "d",
       withCycle: false,
     });
+    const schedulePath = pathUnderProjectWorkspace(workspaceKey, "src", "schedule.ts");
+    const pathRoot = pathUnderProjectWorkspace(workspaceKey);
     const prep = await prepareGenericExecutionContractDraft({
       oa,
       projectId,
       cycleInstanceId: null,
       analysis: buildIntentAnalysisFromSolicitedMission({
-        objective: "Analyser projects/demo/src/schedule.ts",
+        objective: `Analyser ${schedulePath}`,
         expectedOutcome: "Résumé des dépendances du fichier",
-        scope: "projects/demo/src/schedule.ts",
+        scope: schedulePath,
         repositoryMutation: "read",
       }),
       forceLocalAuthority: true,
@@ -510,14 +514,14 @@ describe("P6 tool-first Generic Execution contract simplification A–J", () => 
     // With concrete path, path-bound materiality applies (may need scopeIn on analysis).
     const analysisWithPath = {
       ...buildIntentAnalysisFromSolicitedMission({
-        objective: "Analyser projects/demo/src/schedule.ts",
+        objective: `Analyser ${schedulePath}`,
         expectedOutcome: "Résumé des dépendances du fichier",
-        scope: "projects/demo/src/schedule.ts",
+        scope: schedulePath,
         repositoryMutation: "read",
       }),
       executionIntent: {
         intentKind: "read_only" as const,
-        scopeIn: ["projects/demo/src/schedule.ts"],
+        scopeIn: [schedulePath],
         scopeOut: [],
         expectedOutputs: ["Résumé des dépendances du fichier"],
         requiredCapabilities: [],
@@ -535,8 +539,8 @@ describe("P6 tool-first Generic Execution contract simplification A–J", () => 
     if (!prep2.ok) throw new Error(prep2.message);
     expect(prep2.materiality.materiality).toBe("non_structural");
     const inputs = prep2.contract.inputs as Record<string, unknown>;
-    expect(inputs.pathRoot).toBe("projects/demo");
-    expect(inputs.scopeIn).toEqual(["projects/demo/src/schedule.ts"]);
+    expect(inputs.pathRoot).toBe(pathRoot);
+    expect(inputs.scopeIn).toEqual([schedulePath]);
     void prep;
   });
 

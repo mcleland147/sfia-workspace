@@ -21,9 +21,6 @@ import {
   resolveActiveCycleGovernedContinuation,
 } from "@/features/project-assistant/f2/activeCycleGovernedContinuation";
 import {
-  F2_ARTIFACT_MATERIALIZATION_OPERATION,
-} from "@/features/project-assistant/f2/f2CanonicalOperations";
-import {
   validateIntentAnalysisPayload,
 } from "@/features/project-assistant/f2/intentAnalysis";
 import {
@@ -95,7 +92,7 @@ function materializationAnalysis(
       overrides.continuationKind === undefined
         ? "active_cycle_artifact_materialization"
         : overrides.continuationKind,
-    artifactMaterializationOperation: "cursor.docs_write.apply",
+    artifactMaterializationOperation: null,
     objective: overrides.objective ?? "Matérialiser le livrable requis du cycle actif",
     scope: "docs_write borné — cycle actif",
     rephrasedRequest:
@@ -110,10 +107,11 @@ function materializationAnalysis(
     criticalJustification: null,
     requestedOperation: null,
     executionIntent: {
-      intentKind: "docs_write",
+      intentKind: "other",
       artifactType: null,
       targetRepositoryRef: null,
       targetPath: null,
+      artifactFileName: "specification-fonctionnelle.md",
       scopeIn: [],
       scopeOut: [],
       expectedOutputs: [],
@@ -171,10 +169,16 @@ describe("ACTIVE-CYCLE ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORR-01", () =
   let dbPath: string;
   let previousProvider: string | undefined;
   let previousMorrisAuthority: string | undefined;
+  let previousIdentity: string | undefined;
+  let previousRemote: string | undefined;
+  let previousBranch: string | undefined;
 
   beforeEach(() => {
     previousProvider = process.env.OPS1_CONVERSATION_PROVIDER;
     previousMorrisAuthority = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    previousIdentity = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY;
+    previousRemote = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL;
+    previousBranch = process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH;
     process.env.OPS1_CONVERSATION_PROVIDER = "fake";
     process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
     setConversationProviderForTests(null);
@@ -191,6 +195,12 @@ describe("ACTIVE-CYCLE ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORR-01", () =
     restoreEnvVar(
       "SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY",
       previousMorrisAuthority,
+    );
+    restoreEnvVar("SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY", previousIdentity);
+    restoreEnvVar("SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL", previousRemote);
+    restoreEnvVar(
+      "SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH",
+      previousBranch,
     );
   });
 
@@ -214,6 +224,17 @@ describe("ACTIVE-CYCLE ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORR-01", () =
     expect(created.ok).toBe(true);
     if (!created.ok) throw new Error("createProject");
     const projectId = created.project.projectId;
+
+    if (input.withRepoBinding) {
+      process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY = "acme/widget";
+      process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL =
+        "https://github.com/acme/widget.git";
+      process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH = "main";
+    } else {
+      delete process.env.SFIA_STUDIO_PROJECT_REPOSITORY_IDENTITY;
+      delete process.env.SFIA_STUDIO_PROJECT_REPOSITORY_REMOTE_URL;
+      delete process.env.SFIA_STUDIO_PROJECT_REPOSITORY_DEFAULT_BRANCH;
+    }
 
     const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
@@ -437,9 +458,8 @@ describe("ACTIVE-CYCLE ARTIFACT APPLICABILITY CONTINUATION BRIDGE CORR-01", () =
       expect(send.f2?.turnKind).toBe("f2_proposal");
       expect(send.f2?.proposal?.status).toBe("DECISION_REQUIRED");
       expect(send.f2?.qualification?.cycleInstanceId).toBe(cycleInstanceId);
-      expect(send.f2?.proposal?.requestedOperation).toBe(
-        F2_ARTIFACT_MATERIALIZATION_OPERATION,
-      );
+      expect(send.f2?.proposal?.requestedOperation ?? null).toBeNull();
+      expect(send.f2?.proposal?.executionIntent?.intentKind).toBe("other");
     }
   });
 
