@@ -5,30 +5,38 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## Overlay — Product RepositoryBinding + docs_write Product specialization (LOCAL DELIVERY CANDIDATE / NOT ON MAIN — 2026-10-25)
+## Overlay — Product RepositoryBinding + docs_write Product specialization (GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN — 2026-10-26)
 
 | Item | Status |
 |---|---|
-| Decision | **DECIDED BY MORRIS 2026-10-25** |
-| Branch | `feat/akg-m5-remove-repository-binding-docs-write` — **LOCAL IMPLEMENTED** · Draft [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) · **CI RECONCILIATION corrective** in-cycle · **NOT MERGED** |
-| **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617 activation prep) still has server-owned RepositoryBinding, `SFIA_STUDIO_PROJECT_REPOSITORY_*`, and docs_write Product admission. PR #614 / #616 / #617 facts above and below stay main facts. |
-| RepositoryBinding | **RETIRED IN LOCAL DELIVERY** — CreateProject has no `repositoryBinding`; preflight / `.env.example` no longer require `PROJECT_REPOSITORY_*` |
-| docs_write Product specialization | **RETIRED IN LOCAL DELIVERY** — Product admission (`intentKind` / cap / action) removed from active lib+features. Historical docs_write rows later in this volume remain the **CURRENT ON MAIN** record (superseded history for the local candidate). |
-| Preserved | `projectWorkspaceKey` / `projects/<key>` routing |
-| Proof | O-01 DET **PASS** · typecheck **PASS** · **known regressions accepted** |
-| PR #618 CI Reconciliation (2026-10-25) | Baseline CI Vitest **301 FAIL / 65 files** (run `40207375690`). Corrective CI on HEAD `ff653b58` (run `40215089725`): **160 FAIL / 44 suites**. **Cycle 8 LOCAL** (no project commit): P0 effect-gated Attempt profiles + FakeDocsWrite DET port restored under AKG-M5 naming; adversarial Git Start suites rewritten on generalist+sealed identity; obsolete Binding/docs_write oracles ADAPTED/RETIRED. Local re-run of the 44: **target = all PASS** after Cycle 8 (DET only). **≠** GitHub CI PASS until a new workflow run on a pushed commit. |
-| KNOWN GAP — M3 bounded docs_write Execute | Historical `reachAuthorizedDocsWrite` / Fake docs_write launch path **RETIRED** with specialization. Deterministic Fake Execute via generalist for TOCTOU E2E is **not** re-proven in PWR application-path suite (routing→Authorize remains). |
+| Decision | **DECIDED BY MORRIS 2026-10-25** (structural removal) · **GO Morris Git Integration consommé** 2026-10-26 |
+| Branch / HEAD | `feat/akg-m5-remove-repository-binding-docs-write` @ **`a75d0ed5785861dd198894ea1c5d7436b6d1840c`** — Draft [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) **OPEN / DRAFT / NOT MERGED** |
+| Git Integration | Commit `refactor(studio): retire Product repository binding and docs_write admission` · **63 files** (60 M + 3 A KEEP helpers) · four orphan docs_write helpers **absent** · Review Pack **excluded** from project commit |
+| GitHub CI | [run `40258385791`](https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791) **COMPLETED / SUCCESS** · event=`pull_request` · HEAD=`a75d0ed5` · Detect **SUCCESS** · Build and validate **SUCCESS** · **SFIA Studio Required Gate SUCCESS** |
+| Local attestations (pre-push) | typecheck/lint/build **PASS** · CI-44 **639 PASS** · `CI=true npm test` **6013 PASS / 142 skipped** (skipped ≠ PASS) |
+| **CURRENT ON MAIN** | `origin/main` `7db8afd7` ([PR #617](https://github.com/mcleland147/sfia-workspace/pull/617) activation prep) **still has** server-owned RepositoryBinding, `SFIA_STUDIO_PROJECT_REPOSITORY_*`, and docs_write Product admission. PR #614 / #616 / #617 facts below stay **main** facts. **#618 code is a pushed Git candidate, not merged.** |
+| RepositoryBinding | **RETIRED ON BRANCH CANDIDATE ONLY** — CreateProject has no `repositoryBinding`; preflight / `.env.example` no longer require `PROJECT_REPOSITORY_*`. **Main retains prior behaviour until #618 merges.** |
+| docs_write Product specialization | **RETIRED ON BRANCH CANDIDATE ONLY** — Product admission (`intentKind` / cap / action) removed from active lib+features. Historical docs_write rows later in this volume remain the **CURRENT ON MAIN** record. Historical Evidence durable-read `execution_attempt:docs_write` **≠** Product docs_write action admission. |
+| Preserved | `projectWorkspaceKey` / `projects/<key>` routing · Generic PREPARE / EC / AES / Cursor generalist / Evidence / ReviewBundle |
+| KEEP helpers (in commit) | `resolveSealedDocsWriteWorktreePaths.ts` · `resolveVerifiedFilesystemMaterializationPriorAttempt.ts` · `fakeCursorDeterministicLaunchPort.ts` |
+| Orphans RETIRE (absent) | `completeBoundedDocsWriteLaunch` · `ingestDocsWriteArtifactEvidence` · `persistDocsWriteArtifactReviewMaterial` · `resolveDocsWriteArtifactAbsolutePath` |
+| Historical CI (superseded) | Baseline Vitest **301 FAIL / 65 files** (`40207375690`) · Corrective on `ff653b58` **160 FAIL / 44 suites** (`40215089725`) — **dated FAILURE facts**; superseded as CI status by **`40258385791` SUCCESS** on `a75d0ed5` |
+| Cycle 8 LOCAL (historical) | Pre-push Cycle 8 on `ff653b58` (no project commit *then*): P0 effect-gated profiles + FakeDocsWrite DET + adversarial Git Start rewrite — **HISTORICAL stage** before Git Integration |
+| Epistemic supersession | PRR **README** canonical block corrected 2026-10-26 (no longer CURRENT **PENDING GIT INTEGRATION**). PRR 03 / 07 / 08 overlays dated 2026-10-25 that still say **PENDING GIT INTEGRATION** or pre-push-only **LOCAL DELIVERY** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status — **superseded by this overlay + README**. Code remains **NOT ON MAIN** until merge. Residual dated wording in vols 03/07/08 is not rewritten in this R24 cycle. |
+| KNOWN GAP — Product E2E FS→Git→Review | Front-door généraliste Product E2E physique FS→Git→Review **not re-proven** end-to-end (partially fixture-safe). **OPEN** |
+| KNOWN GAP — FS→SHA Evidence source | Allowlist **historical-only** `execution_attempt:docs_write` (+ dotted suffix). **No new generic Product materialization Evidence source** proven after retirement. **OPEN** |
+| KNOWN GAP — worktree layouts | Checkout origin read: one `.git` gitfile `gitdir` hop (+ `commondir`). Layouts beyond tested hops **fail-closed**. **OPEN** |
+| KNOWN GAP — residual naming | `repositoryBindingIdentity` seal-only field name **KEEP**; env keys `SFIA_STUDIO_PROJECT_REPOSITORY_*` — rename debt. **NOT** `Project.repositoryBinding` SoT. **OPEN** |
+| KNOWN GAP — REAL / H4 / G-ACTIVATION | **NOT QUALIFIED / NOT GRANTED**. **OPEN** — no automatic CLOSED |
+| KNOWN GAP — M3 bounded docs_write Execute | Historical `reachAuthorizedDocsWrite` / Fake docs_write launch path **RETIRED**. Deterministic Fake Execute via generalist for TOCTOU E2E **not** re-proven in PWR application-path suite (routing→Authorize remains). |
 | KNOWN GAP — import deep paths | Prefer `@/lib/vertical-slice-runtime` barrel for managed-repo helpers (importBoundaries allowlist). |
-| Not granted | **H4 / G-REAL / G-ACTIVATION NOT GRANTED** · **AKG-M5 OPEN** · runtime v3 **NON ADOPTED** |
-| Anti-claim | ≠ **MERGED ON MAIN** |
+| Not granted | **H4 / G-REAL / G-ACTIVATION NOT GRANTED** · **AKG-M5 OPEN** · runtime v3 **NON ADOPTED** · merge **NOT GRANTED** · undraft **NOT GRANTED** |
+| Anti-claim | ≠ **MERGED ON MAIN** · ≠ **CI SUCCESS on future R24 SHA** · ≠ **runtime v3 ADOPTED** · ≠ **REAL PROVEN** |
 | CORR-01 — KNOWN GAP | `sameMacroClosure` helpers (`repositorySourcesFromProductFacts` / `normalize*Outcome`) lack a dedicated test after the docs_write suite retirement |
 | CORR-01 — KNOWN GAP | `replan` / `w3cPayloadMatchesCurrentProduct` / `isEvidenceBackedNotProvenUnclaimed` not re-ported |
 | CORR-01 — `repositoryBindingIdentity` | **KEEP** residual field name — sealed **git-target** identity string on ExecutionContract `inputs` / subject; source = server env (`SFIA_STUDIO_PROJECT_REPOSITORY_*`) when canonical via `resolveTrustedProductLaunchContext`; absent / non-canonical → `null` → **Select** fail-closed. **NOT** `Project.repositoryBinding` SoT (no `NewRepositoryBinding`; not written onto Project). `identity: null` in `activeCycleGovernedContinuation` local `WorkspacePathRoot` variable |
-| CORR-01 — restored proofs | Generic ambiguity / mission / criteria / continuity wording proofs restored (`*.generic.d0.test.ts`). **DET at tested scope** · **≠** REAL · **≠** GI |
-| CORR-02 — Git target fidelity | **LOCAL CORRECTION** on the structural removal. Identity↔remote↔checkout **DETERMINISTIC VERIFIED** (`gitTargetIdentityRemoteFidelity.d0.test.ts`). Evidence FS-anchor allowlist tightened; residual stubs removed. **NOT MERGED**. **≠** REAL |
-| CORR-02 — KNOWN GAP — FS supersession sources | FS→SHA supersession allowlist is **historical-only** `execution_attempt:docs_write` (+ dotted suffix). **No new Product materialization Evidence source** after docs_write retirement. Prose attempt labels and `execution_attempt:mission_result` do not supersede |
-| CORR-02 — KNOWN GAP — worktree layout | Checkout origin read follows **one** `.git` gitfile `gitdir` hop, then `commondir` when that gitdir has no origin url. Not a worktree engine: no `git` invocation, no `core.worktree`, no submodules, no further commondir hops. Layouts beyond that hop fail closed |
-| CORR-02 — KNOWN GAP — residual naming | `repositoryBindingIdentity` field name **KEEP** (same residual as CORR-01). Env keys remain `SFIA_STUDIO_PROJECT_REPOSITORY_*` — **env key rename debt**. Seal-only; not `Project.repositoryBinding` SoT |
+| CORR-01 — restored proofs | Generic ambiguity / mission / criteria / continuity wording proofs restored (`*.generic.d0.test.ts`). **DET at tested scope** · **≠** REAL |
+| CORR-02 — Git target fidelity | Identity↔remote↔checkout **DETERMINISTIC VERIFIED** (`gitTargetIdentityRemoteFidelity.d0.test.ts`). Evidence FS-anchor allowlist tightened. On branch candidate `a75d0ed5` · **NOT MERGED**. **≠** REAL |
 | CORR-02 — D-PC-09 | **NO SEMANTIC IMPACT** on D-PC-09 workspace routing. Historical C1 text is not rewritten. Qualification lives in this volume and volumes 03 / 05 |
 
 ## Overlay — AKG-M5 L2-D2 local OA cutover readiness (CURRENT ON MAIN — PR #614; Cycle 14 truth-sync — 2026-10-24)

@@ -50,19 +50,19 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
 
 **G-ACTIVATION PREPARATION S1–S4 + CORR-01 + CR-S2-02 (IMPLEMENTED — DET scope — CURRENT ON MAIN via PR #617 — 2026-10-25):** Product `VACUUM INTO` snapshot/restore (closed_copy unavailable; RO integrity) · `openD1Db` native **allowlist** Proxy (closes `setAuthorizer`/`createTagStore`/`deserialize`/deferred `iterate` escapes — **CR-S2-01/02**) · D4 DET harness · R-CUT DET rehearsal (exclusive held; disposable RO D1 oracle ≠ Q12). Volumes 05–09 describe this behaviour. **Operational anti-claims (unchanged by Git Integration):** exclusive **DEFAULT OFF / NOT ACTIVATED** · G-ACTIVATION / G-REAL **NOT GRANTED** · H4 real instance **NOT QUALIFIED** · D4 HTTP LIVE / R-CUT LIVE **NOT PROVEN** · raw `new DatabaseSync` outside `openD1Db` **KNOWN GAP** · Q12 **OPEN** · runtime v3 **NON ADOPTED**.
 
-**Product RepositoryBinding + docs_write Product specialization — LOCAL DELIVERY CANDIDATE / NOT ON MAIN (Morris GO 2026-10-25):**
+**Product RepositoryBinding + docs_write Product specialization — GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN (2026-10-26):**
 
 | Epistemic class | Element |
 |---|---|
-| **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617) still has server-owned RepositoryBinding on CreateProject, `SFIA_STUDIO_PROJECT_REPOSITORY_*` in preflight / `.env.example`, and docs_write Product admission (`intentKind` / cap / action) in active lib+features. That is historical presence on main, not this retirement. |
-| **LOCAL DELIVERY CANDIDATE / NOT ON MAIN** | Branch `feat/akg-m5-remove-repository-binding-docs-write`. **DECIDED BY MORRIS 2026-10-25**. **LOCAL IMPLEMENTED**. **RepositoryBinding RETIRED IN LOCAL DELIVERY** (CreateProject has no `repositoryBinding`; `PROJECT_REPOSITORY_*` removed from preflight and `.env.example`). **docs_write Product specialization RETIRED IN LOCAL DELIVERY** (Product admission of `intentKind` / cap / action removed from active lib+features). `projectWorkspaceKey` / `projects/<key>` routing **PRESERVED**. O-01 DET **PASS**. Typecheck **PASS**. **Known regressions accepted**. |
-| **Gates** | **PENDING REVIEW** · **PENDING GIT INTEGRATION** · **NOT MERGED**. **H4 / G-REAL / G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**. |
-| **Anti-claims** | ≠ **MERGED ON MAIN** · ≠ exclusive ACTIVATED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS · historical D-PC-09 / docs_write sentences in volumes 02–09 stay the main record until merge |
+| **CURRENT ON MAIN** | `origin/main` `7db8afd7` (PR #617) still has server-owned RepositoryBinding on CreateProject, `SFIA_STUDIO_PROJECT_REPOSITORY_*` in preflight / `.env.example`, and docs_write Product admission (`intentKind` / cap / action) in active lib+features. Main retains that behaviour until [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) merges. |
+| **GIT-INTEGRATED PR CANDIDATE / NOT ON MAIN** | Branch `feat/akg-m5-remove-repository-binding-docs-write` @ HEAD **`a75d0ed5785861dd198894ea1c5d7436b6d1840c`**. **DECIDED BY MORRIS 2026-10-25**. **GO Morris Git Integration CONSUMED** 2026-10-26. Commit `refactor(studio): retire Product repository binding and docs_write admission` (63 files). **RepositoryBinding RETIRED ON BRANCH CANDIDATE ONLY**. **docs_write Product admission RETIRED ON BRANCH CANDIDATE ONLY**. Preserved: `projectWorkspaceKey` / `projects/<key>` · Generic Execution · sealed Git identity · Evidence / ReviewBundle · transitional historical durable-read `execution_attempt:docs_write` (≠ Product admission). |
+| **CI / Review** | [CI #40258385791](https://github.com/mcleland147/sfia-workspace/actions/runs/40258385791) **COMPLETED / SUCCESS** (Detect · Build and validate · **Required Gate** · event=`pull_request` · HEAD=`a75d0ed5`). Critical Review post-push **PASS WITH RESERVES**. |
+| **PR / Gates** | Draft [PR #618](https://github.com/mcleland147/sfia-workspace/pull/618) **OPEN / DRAFT / NOT MERGED**. Merge **NOT GRANTED**. **H4 NOT QUALIFIED** · **G-REAL NOT GRANTED** · **G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**. REAL **NOT PROVEN**. |
+| **Anti-claims** | ≠ **INTEGRATED ON MAIN** · ≠ **MERGED ON MAIN** · ≠ exclusive ACTIVATED · ≠ REAL PROVEN · ≠ P6 GLOBAL PASS · ≠ CI SUCCESS on a future R24 documentary SHA · historical D-PC-09 / docs_write sentences in volumes 02–09 stay the **main** record until merge |
 
-- **CORR-01 (LOCAL DELIVERY CANDIDATE):** Review Pack completeness + generic invariant coverage restored (ambiguity / mission / criteria / continuity wording). **Not GI**. **NOT MERGED**. **≠** REAL.
-- **CORR-02 (LOCAL DELIVERY CANDIDATE):** Git target fidelity on the structural removal — identity↔remote↔checkout **DETERMINISTIC VERIFIED** at tested scope. Evidence FS-anchor allowlist tightened to historical `execution_attempt:docs_write` (+ dotted suffix); residual stubs removed. **NOT MERGED**. **≠** REAL.
+- **CORR-01 / CORR-02 (HISTORICAL STAGES → `a75d0ed5`):** Local Delivery corrections (generic invariant coverage + Git target fidelity DET; FS-anchor allowlist historical `execution_attempt:docs_write`) led to the Git-integrated candidate commit. They are **not** a separate pending GI status. Detail: volume 09 overlay. **NOT MERGED**. **≠** REAL.
 
-Checked-out tree may already contain this uncommitted retirement. That working-tree fact is **not** integration on main. Volumes below that still describe binding or docs_write as as-implemented behaviour describe **CURRENT ON MAIN** unless they are explicitly marked **LOCAL DELIVERY CANDIDATE**.
+Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
 
 ## What this corpus is
 
@@ -77,7 +77,7 @@ This corpus describes **how SFIA Studio actually works** in Git:
 - tests and proof oracles;
 - impact-analysis procedure for future changes.
 
-For RepositoryBinding and docs_write Product admission, **CURRENT ON MAIN** (`origin/main` `7db8afd7`) wins over the uncommitted local retirement until merge.
+For RepositoryBinding and docs_write Product admission, **CURRENT ON MAIN** (`origin/main` `7db8afd7`) wins over the Git-integrated PR candidate (`a75d0ed5` / Draft PR #618) until merge.
 
 It is the primary **impact-analysis substrate** for future Studio corrections.
 
