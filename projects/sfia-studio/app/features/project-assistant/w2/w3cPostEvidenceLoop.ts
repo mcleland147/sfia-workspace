@@ -254,28 +254,31 @@ export function projectW3cExecutionReportSurfaceFromDurable(input: {
 }
 
 /**
- * Nora initial cognitive facts (Tool-First Deep Review / CP2-10):
+ * Nora initial cognitive facts (Tool-First Deep Review / CP2-10 / R-CI-623-02):
  * durable GERM may record `CLAIM_FACT_MISMATCH unclaimed=<paths>`, but path-level
  * Claim≠Fact detail must be acquired via `execution_review_get_manifest` — not
  * pre-disclosed in the first provider prompt. Pilot / Product / rehydrate keep
  * the full durable projection from {@link projectW3cExecutionReportSurfaceFromDurable}.
  *
+ * Producer format (finalizeGenericExecutionReview):
+ *   `CLAIM_FACT_MISMATCH unclaimed=${unclaimedObservedPaths.join(",")}`
+ * Path lists are comma-joined **without** spaces. Blocker tokens are separated by
+ * whitespace / ` · ` / `|` / `;`. Consuming `\S*` after `unclaimed=` therefore
+ * covers the full multi-path list without stopping at `,` (R-CI-623-01 defect)
+ * and without swallowing independent blockers after a whitespace delimiter.
+ *
  * This redacts the structured `unclaimed=…` suffix class — it does not
  * filename-filter a single path string in isolation.
  */
-function redactClaimFactUnclaimedPathsForNoraInitialContext(
+export function redactClaimFactUnclaimedPathsForNoraInitialContext(
   summary: string | undefined,
 ): string | undefined {
   if (summary === undefined) return undefined;
-  return summary
-    .replace(
-      /\bCLAIM_FACT_MISMATCH(?:\s+unclaimed=[^\s·|;,]*)?/gi,
-      "CLAIM_FACT_MISMATCH",
-    )
-    .replace(
-      /\bclaim_fact_mismatch(?:\s+unclaimed=[^\s·|;,]*)?/gi,
-      "CLAIM_FACT_MISMATCH",
-    );
+  // Case-insensitive: durable may emit CLAIM_FACT_MISMATCH or claim_fact_mismatch.
+  return summary.replace(
+    /\bCLAIM_FACT_MISMATCH(?:\s+unclaimed=\S*)?/gi,
+    "CLAIM_FACT_MISMATCH",
+  );
 }
 
 function omitUnclaimedPathsFromStudioObservedWorkSummary(

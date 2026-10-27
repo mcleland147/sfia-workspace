@@ -65,6 +65,7 @@ import {
   classifyProtectedRepositoryPath,
 } from "@/features/project-assistant/w2/deriveActualExecutionWorkFromProductContext";
 import { applyVerifiedChangeSetProductHonesty } from "@/features/project-assistant/w2/applyVerifiedChangeSetProductHonesty";
+import { redactClaimFactUnclaimedPathsForNoraInitialContext } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
 import {
   w2ReadExecutionReviewItemAction,
 } from "@/features/project-assistant/w2/actions";
@@ -154,6 +155,16 @@ function fakeCursorMutatesWorktree(repo: string): void {
   fs.writeFileSync(path.join(repo, "a.md"), "A-content\n");
   fs.appendFileSync(path.join(repo, "baseline.txt"), "modified by cursor\n");
   fs.writeFileSync(path.join(repo, "b.md"), "B-unclaimed\n");
+}
+
+/**
+ * R-CI-623-02 — multi-path Claim≠Fact: CLAIM lists a.md + baseline.txt only;
+ * FACTS also observe b.md / c.md / d.md (comma-joined in durable blockers).
+ */
+function fakeCursorMutatesWorktreeMultiUnclaimed(repo: string): void {
+  fakeCursorMutatesWorktree(repo);
+  fs.writeFileSync(path.join(repo, "c.md"), "C-unclaimed\n");
+  fs.writeFileSync(path.join(repo, "d.md"), "D-unclaimed\n");
 }
 
 /* -------------------------------------------------------------------------- */
@@ -683,6 +694,69 @@ class ReviewManifestToolProvider extends FakeConversationProvider {
 /* Tests                                                                       */
 /* ========================================================================== */
 
+describe("R-CI-623-02 Nora-initial CLAIM_FACT_MISMATCH unclaimed redaction (structured)", () => {
+  it("T1 single unclaimed path ⇒ CLAIM_FACT_MISMATCH only", () => {
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(
+        "CLAIM_FACT_MISMATCH unclaimed=b.md",
+      ),
+    ).toBe("CLAIM_FACT_MISMATCH");
+  });
+
+  it("T2 two comma-joined unclaimed paths ⇒ no residual ,c.md leak", () => {
+    // Pre-fix (R-CI-623-01) wrongly yielded "CLAIM_FACT_MISMATCH,c.md".
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(
+        "CLAIM_FACT_MISMATCH unclaimed=b.md,c.md",
+      ),
+    ).toBe("CLAIM_FACT_MISMATCH");
+  });
+
+  it("T3 three unclaimed paths ⇒ full list consumed", () => {
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(
+        "CLAIM_FACT_MISMATCH unclaimed=b.md,c.md,d.md",
+      ),
+    ).toBe("CLAIM_FACT_MISMATCH");
+  });
+
+  it("T4 independent blockers preserved after / before mismatch token", () => {
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(
+        "CLAIM_FACT_MISMATCH unclaimed=b.md,c.md · VERIFICATION_UNAVAILABLE — worktree observation not performed",
+      ),
+    ).toBe(
+      "CLAIM_FACT_MISMATCH · VERIFICATION_UNAVAILABLE — worktree observation not performed",
+    );
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(
+        "OTHER_BLOCKER · CLAIM_FACT_MISMATCH unclaimed=b.md,c.md",
+      ),
+    ).toBe("OTHER_BLOCKER · CLAIM_FACT_MISMATCH");
+  });
+
+  it("T9 no-mismatch summaries are not censored", () => {
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(
+        "VERIFICATION_UNAVAILABLE — worktree observation not performed",
+      ),
+    ).toBe("VERIFICATION_UNAVAILABLE — worktree observation not performed");
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(undefined),
+    ).toBeUndefined();
+  });
+
+  it("cursorReportSummary embedding preserves work= while stripping multi-path unclaimed", () => {
+    expect(
+      redactClaimFactUnclaimedPathsForNoraInitialContext(
+        "status=succeeded · work=created a.md; modified baseline.txt · blockers=CLAIM_FACT_MISMATCH unclaimed=b.md,c.md",
+      ),
+    ).toBe(
+      "status=succeeded · work=created a.md; modified baseline.txt · blockers=CLAIM_FACT_MISMATCH",
+    );
+  });
+});
+
 describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP4 front-door", () => {
   it("CP4-01/10 prepare — Proposal pursue sealed facts ⇒ generic quartet, EFFECT_CLASS:local-write, Confirmation N2, NOT docs_write", async () => {
     const fx = createGitWorktree("prep");
@@ -1156,6 +1230,131 @@ describe("GENERIC-EXECUTION-REVIEW-RESULT-CONVERGENCE-01 CP4 front-door", () => 
     if (stable.ok) {
       expect(stable.projection.attemptId).toBe(attemptId);
     }
+  }, 90_000);
+
+  it("CP2-10-MULTI / R-CI-623-02 — real Git worktree: CLAIM omits b.md,c.md,d.md ⇒ Nora first prompt leaks none; tool + GERM + Pilot keep all; Product not PASS", async () => {
+    const fx = createGitWorktree("multi");
+    const ctx = await authorizeGovernedLocalWrite("multi", fx);
+    const unclaimed = ["b.md", "c.md", "d.md"] as const;
+    const run = await runAttemptToTerminal(ctx, {
+      worktreeRef: fx.repo,
+      mutate: () => fakeCursorMutatesWorktreeMultiUnclaimed(fx.repo),
+      created: ["a.md"],
+      modified: ["baseline.txt"], // CLAIM omits b.md,c.md,d.md
+      withReviewEndOf: true,
+    });
+    const { loaded, attemptId } = run;
+
+    expect(loaded.manifest.verifiedEffects.verificationStatus).toBe("OBSERVED");
+    const vcs = loaded.verifiedChangeSet!;
+    expect(vcs.claimFactMismatch).toBe(true);
+    expect([...vcs.unclaimedObservedPaths].sort()).toEqual([...unclaimed]);
+    expect(vcs.all.map((e) => e.path).sort()).toEqual([
+      "a.md",
+      "b.md",
+      "baseline.txt",
+      "c.md",
+      "d.md",
+    ]);
+    // Durable GERM blockers retain the full comma-joined producer form.
+    const mismatchBlocker = loaded.manifest.blockers.find((b) =>
+      b.includes("CLAIM_FACT_MISMATCH"),
+    );
+    expect(mismatchBlocker).toBeDefined();
+    expect(mismatchBlocker!).toMatch(/unclaimed=/);
+    for (const p of unclaimed) {
+      expect(mismatchBlocker!).toContain(p);
+    }
+    expect([...run.verificationPayload.unclaimedObservedPaths].sort()).toEqual([
+      ...unclaimed,
+    ]);
+
+    const provider = new ReviewManifestToolProvider();
+    setConversationProviderForTests(provider);
+    const { product, context } = await productVerdictOf(ctx, attemptId);
+
+    // T7 Product honesty
+    expect(context.claimEvaluation.contractResultVerdict).not.toBe("PASS");
+    expect(product.contractResultVerdict).not.toBe("PASS");
+    expect(product.outcome).not.toBe("SUCCESS");
+    expect(product.claimAllowed).toBe(false);
+    expect(context.attempt?.status).toBe("succeeded");
+    expect(context.executionReview.claimFactMismatch).toBe(true);
+
+    // T2/T3/T5/T10 — Nora first prompt Tool-First (no path pre-disclosure).
+    expect(provider.rounds.length).toBeGreaterThanOrEqual(2);
+    const promptText = provider.rounds[0]!
+      .filter((i) => i.type === "message")
+      .map((i) => (i.type === "message" ? i.content : ""))
+      .join("\n");
+    expect(promptText).toMatch(/CLAIM_FACT_MISMATCH/);
+    for (const p of unclaimed) {
+      expect(promptText).not.toMatch(new RegExp(`\\b${p.replace(".", "\\.")}\\b`));
+    }
+    // Residual comma-leak shape from R-CI-623-01 must not reappear.
+    expect(promptText).not.toMatch(/CLAIM_FACT_MISMATCH\s*,/);
+
+    const secondRound = provider.rounds[1]!;
+    const toolCall = secondRound.find(
+      (i) => i.type === "function_call" && i.name === "execution_review_get_manifest",
+    );
+    expect(toolCall).toBeDefined();
+    const toolOut = secondRound.find((i) => i.type === "function_call_output");
+    expect(toolOut && toolOut.type === "function_call_output").toBe(true);
+    if (toolOut && toolOut.type === "function_call_output") {
+      const envelope = JSON.parse(toolOut.output) as { text?: string };
+      const rawJson =
+        typeof envelope.text === "string" ? envelope.text : toolOut.output;
+      const parsed = JSON.parse(rawJson) as {
+        ok: boolean;
+        blockers?: string[];
+        verifiedEffects: {
+          claimFactMismatch: boolean;
+          unclaimedObservedPaths: string[];
+        };
+      };
+      expect(parsed.ok).toBe(true);
+      expect(parsed.verifiedEffects.claimFactMismatch).toBe(true);
+      expect([...parsed.verifiedEffects.unclaimedObservedPaths].sort()).toEqual([
+        ...unclaimed,
+      ]);
+      const toolBlocker = (parsed.blockers ?? []).find((b) =>
+        b.includes("CLAIM_FACT_MISMATCH"),
+      );
+      expect(toolBlocker).toBeDefined();
+      for (const p of unclaimed) {
+        expect(toolBlocker!).toContain(p);
+      }
+    }
+
+    // T6 Pilot reader — each unclaimed item remains readable.
+    for (const logicalPath of unclaimed) {
+      const item = loaded.manifest.reviewItems.find(
+        (i) => i.logicalPath === logicalPath,
+      );
+      expect(item).toBeDefined();
+      const okRead = await w2ReadExecutionReviewItemAction({
+        projectId: ctx.projectId,
+        attemptId,
+        itemId: item!.itemId,
+      });
+      expect(okRead.ok).toBe(true);
+      if (okRead.ok) {
+        expect(okRead.logicalPath).toBe(logicalPath);
+        expect(okRead.claimFactMismatch).toBe(true);
+      }
+    }
+
+    // T8 rehydration
+    fs.rmSync(fx.repo, { recursive: true, force: true });
+    const reloaded = loadGenericExecutionReviewMaterial({
+      refsRoot: ctx.refsRoot,
+      attemptId,
+    });
+    expect(
+      reloaded.ok &&
+        [...(reloaded.verifiedChangeSet?.unclaimedObservedPaths ?? [])].sort(),
+    ).toEqual([...unclaimed]);
   }, 90_000);
 
   it("CP2-03 missing REO — Cursor omits Review End Of ⇒ PARTIAL + CURSOR_REVIEW_END_OF_MISSING, NEVER synthesized", async () => {
