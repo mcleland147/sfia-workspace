@@ -253,6 +253,104 @@ export function projectW3cExecutionReportSurfaceFromDurable(input: {
   };
 }
 
+/**
+ * Nora initial cognitive facts (Tool-First Deep Review / CP2-10):
+ * durable GERM may record `CLAIM_FACT_MISMATCH unclaimed=<paths>`, but path-level
+ * Claim≠Fact detail must be acquired via `execution_review_get_manifest` — not
+ * pre-disclosed in the first provider prompt. Pilot / Product / rehydrate keep
+ * the full durable projection from {@link projectW3cExecutionReportSurfaceFromDurable}.
+ *
+ * This redacts the structured `unclaimed=…` suffix class — it does not
+ * filename-filter a single path string in isolation.
+ */
+function redactClaimFactUnclaimedPathsForNoraInitialContext(
+  summary: string | undefined,
+): string | undefined {
+  if (summary === undefined) return undefined;
+  return summary
+    .replace(
+      /\bCLAIM_FACT_MISMATCH(?:\s+unclaimed=[^\s·|;,]*)?/gi,
+      "CLAIM_FACT_MISMATCH",
+    )
+    .replace(
+      /\bclaim_fact_mismatch(?:\s+unclaimed=[^\s·|;,]*)?/gi,
+      "CLAIM_FACT_MISMATCH",
+    );
+}
+
+function omitUnclaimedPathsFromStudioObservedWorkSummary(
+  summary: string | undefined,
+  unclaimedPaths: readonly string[],
+): string | undefined {
+  if (summary === undefined || unclaimedPaths.length === 0) return summary;
+  if (!summary.startsWith("Studio observed:")) return summary;
+  const unclaimed = new Set(unclaimedPaths);
+  const entries = summary
+    .slice("Studio observed:".length)
+    .split(";")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((entry) => {
+      const pathPart = entry.includes(":")
+        ? entry.slice(entry.indexOf(":") + 1).trim()
+        : entry;
+      return !unclaimed.has(pathPart);
+    });
+  if (entries.length === 0) {
+    return "Studio observed: (path-level Claim≠Fact detail via execution_review_get_manifest)";
+  }
+  return `Studio observed: ${entries.join("; ")}`;
+}
+
+/**
+ * Assemble Nora-bound post-Evidence facts from the durable surface without
+ * short-circuiting Tool-First Claim≠Fact path disclosure.
+ */
+function projectNoraInitialPostEvidenceSurface(input: {
+  readonly durable: ReturnType<typeof projectW3cExecutionReportSurfaceFromDurable>;
+  readonly unclaimedObservedPaths: readonly string[];
+  readonly artifactLogicalPath: string | null | undefined;
+}): {
+  readonly workPerformedSummary: string | undefined;
+  readonly blockersSummary: string | undefined;
+  readonly stopReason: string | undefined;
+  readonly artifactReviewMaterial: string | undefined;
+  readonly artifactReviewCompleteness: "FULL" | "PARTIAL" | undefined;
+  readonly cursorReportSummary: string | undefined;
+} {
+  const unclaimed = input.unclaimedObservedPaths;
+  const workPerformedSummary = omitUnclaimedPathsFromStudioObservedWorkSummary(
+    input.durable.workPerformedSummary,
+    unclaimed,
+  );
+  const blockersSummary = redactClaimFactUnclaimedPathsForNoraInitialContext(
+    input.durable.blockersSummary,
+  );
+  // Rebuild compact Cursor summary from redacted blockers so path lists cannot
+  // re-enter via the pre-built durable cursorReportSummary.
+  const cursorReportSummary = input.durable.cursorReportSummary
+    ? redactClaimFactUnclaimedPathsForNoraInitialContext(
+        input.durable.cursorReportSummary,
+      )
+    : undefined;
+  const artifactIsUnclaimed =
+    typeof input.artifactLogicalPath === "string" &&
+    input.artifactLogicalPath.length > 0 &&
+    unclaimed.includes(input.artifactLogicalPath);
+  return {
+    workPerformedSummary,
+    blockersSummary,
+    stopReason: input.durable.stopReason,
+    artifactReviewMaterial: artifactIsUnclaimed
+      ? undefined
+      : input.durable.artifactReviewMaterial,
+    artifactReviewCompleteness: artifactIsUnclaimed
+      ? undefined
+      : input.durable.artifactReviewCompleteness,
+    cursorReportSummary,
+  };
+}
+
 async function resolveDocsWriteTargetPathForProduct(input: {
   readonly oa: RuntimeOaStack;
   readonly executionContractId: string;
@@ -1600,17 +1698,12 @@ export async function runW3cPostEvidenceLoop(input: {
 
   // Durable Cursor report + artifact review material (no Pilot paste / PATH widen).
   // Shared projection with rehydrate — never invent a report when claim file absent.
+  // Pilot / Product keep the FULL durable surface; Nora initial facts are Tool-First
+  // redacted below (CP2-10) so unclaimed paths are not pre-disclosed.
   const durableProjection = projectW3cExecutionReportSurfaceFromDurable({
     attemptId,
     targetPath: docsWriteTargetPath,
   });
-  const workPerformedSummary = durableProjection.workPerformedSummary;
-  const blockersSummary = durableProjection.blockersSummary;
-  const stopReason = durableProjection.stopReason;
-  const artifactReviewMaterial = durableProjection.artifactReviewMaterial;
-  const artifactReviewCompleteness =
-    durableProjection.artifactReviewCompleteness;
-  const cursorReportSummary = durableProjection.cursorReportSummary;
   const executionReport = durableProjection.executionReport;
 
   noraInvoked = true;
@@ -1626,6 +1719,21 @@ export async function runW3cPostEvidenceLoop(input: {
     reviewMaterialLoaded.ok &&
     reviewMaterialLoaded.manifest.projectId === projectId &&
     reviewMaterialLoaded.manifest.attemptId === attemptId;
+
+  const unclaimedObservedPaths = reviewMaterialLoaded.ok
+    ? (reviewMaterialLoaded.verifiedChangeSet?.unclaimedObservedPaths ?? [])
+    : [];
+  const noraInitial = projectNoraInitialPostEvidenceSurface({
+    durable: durableProjection,
+    unclaimedObservedPaths,
+    artifactLogicalPath: docsWriteTargetPath,
+  });
+  const workPerformedSummary = noraInitial.workPerformedSummary;
+  const blockersSummary = noraInitial.blockersSummary;
+  const stopReason = noraInitial.stopReason;
+  const artifactReviewMaterial = noraInitial.artifactReviewMaterial;
+  const artifactReviewCompleteness = noraInitial.artifactReviewCompleteness;
+  const cursorReportSummary = noraInitial.cursorReportSummary;
 
   const analysis = await analyzePostEvidenceWithProvider(
     {
