@@ -1,159 +1,300 @@
-# SFIA Review Pack FULL — AKG-M5 / L3-S2 OPTION B — S8 PROJECT-FIRST INTEGRATED DELIVERY
+# SFIA Studio — ChatGPT Review Pack (FULL)
 
 ## 1. Date / heure
+- Generated (UTC): 2026-10-27T07:49:58Z
+- Local delivery worktree: `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity`
 
-- **Wall clock (UTC):** 2026-10-27T07:17:53Z
-- **Cycle:** AKG-M5 / L3-S2 OPTION B — S8 PROJECT-FIRST INTEGRATED LOCAL DET DELIVERY
+## 2. GO Morris exact et limites
+**GO:** 2026-10-27 — GO CONSOLIDATED S8 EVIDENCE CLOSURE (PASS 04).
 
-## 2. GO Morris et limites
+**Cycle:** AKG-M5 / L3-S2 OPTION B / S8 PROJECT-FIRST — CONSOLIDATED CORRECTION & INTEGRATED EVIDENCE CLOSURE — LOCAL DETERMINISTIC DELIVERY — PASS 04.
 
-**Décision Morris:** 2026-10-27 — S8 PROJECT-FIRST VALIDÉ. GO DELIVERY LOCALE.
+**Autorisé:** R-S8-01 Evidence ownership before RB admit; R-S8-02 late Evidence / OA idempotence qualification (fail-closed, no new lifecycle); S8 oracle OBSERVED FS integrated; negatives; non-regs; FULL Review Pack; L3 handoff publish-in-cycle.
 
-**Construction:** Project obligatoire; CycleInstance facultatif; pas de cycle fictif; mêmes mécanismes Generic Execution / preuves / résultat; parcours cycle-bound conservé; D-ER-17 non rouvert.
+**Non autorisé:** nouvel agrégat; migration SQLite; lifecycle OA structurant; nouveau moteur Evidence/RB/CE; Result Semantic universel; Product docs_write; cycleInstanceId fictif; SHE assoupli; Nora Deep / L4; Cursor REAL / OpenAI LIVE; OA-exclusive ON; PRR/Roadmap write; commit/push/PR/merge projet; runtime v3.
 
-**Autorisé:** ADAPT minimal S8; Option B conservé; oracle DET; Review Pack FULL; handoff L3.
+**Ne pas rouvrir:** D-ER-17.
 
-**Non autorisé:** nouveau modèle métier structurant; migration SQLite; nouveau moteur Evidence/Result; nouveau Result Semantic; docs_write; cycle artificiel; SHE authority change; L4/Nora Deep; REAL/LIVE; OA-exclusive; PRR/Roadmap write; project commit/push/PR/merge; runtime v3.
+## 3. Qualification cycle
+- Projet: SFIA Studio
+- Chantier: AKG-M5 Product Transformation
+- Capacité: V3-F05 Generic Execution
+- Milestone: L3-S2 Option B / S8
+- Type: 8 Delivery / CRITICAL / EVOL-CORRECTION
+- CKC: Cycle 8 cognitive guidance only
 
-## 3. Cycle 8 / CRITICAL / EVOL
+## 4. Git Truth (initial = final Product; no project commit)
 
-| Field | Value |
-|-------|-------|
-| Capacity | V3-F05 Generic Execution |
-| Milestone | L3-S2 Option B + S8 closing |
-| Profile | CRITICAL |
-| Typologie | EVOL |
-| Process | SFIA v2.6 ChatGPT ↔ Cursor |
-| CKC | Candidate guidance only |
+| Champ | Valeur |
+|-------|--------|
+| Repo path | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity` |
+| Remote | `origin` → `mcleland147/sfia-workspace` |
+| Branch | `feat/akg-m5-l3-s2-generic-proof-continuity` |
+| HEAD | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
+| origin/main (local) | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
+| origin/main (ls-remote) | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
+| Dirty | YES — expected Option B + S8 + Pass 04 candidate |
+| Reset/clean/stash/rebase | NOT performed |
+| Project commit/push | NOT performed |
 
-## 4. Git Truth — initial / final
+### Dirty inventory (Pass 04 + prior Option B / S8)
 
-- Repo: `mcleland147/sfia-workspace`
-- Worktree: `…/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity`
-- Branch: `feat/akg-m5-l3-s2-generic-proof-continuity`
-- HEAD / origin/main: `6e957ecbf50b009b692cf1fcba2748ee1aa9c862`
-- Prior handoff tip: `59a61254` / blob `47e52720`
-- Project commits this cycle: **0**
+**Modified (tracked):**
+- `materializeW3bProductTerminal.ts` — R-S8-01 ownership + R-S8-02 IDEMPOTENCY_CONFLICT messaging
+- `governedExecuteAuthorizedContract.ts` — S8 Project-first ungated GERM/Verification/FS; Mission gated
+- `ingestExecutionReviewVerificationEvidence.ts` / `ingestMissionResultEvidence.ts` — optional cycle
+- `w3cPostEvidenceLoop.ts` — Project-first compatible
+- `resolvePreCommitWorkspaceContinuation.ts` / `resolveVerifiedFilesystemMaterializationPriorAttempt.ts` — CORR/R-S2
+- `gcecCont01ContinuationResolver.d0.test.ts` — non-reg
 
-```
-M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
- M projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts
- M projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts
- M projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
- M projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
- M projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
- M projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.optionB.lotsAC.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts
-?? projects/sfia-studio/app/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts
-?? projects/sfia-studio/app/lib/oa/execution-attempt/domain/fsAnchorArtifactMaterializationEvidenceSources.ts
-```
+**Untracked (candidate):**
+- `akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` — S8 + Pass 04 oracle
+- `akgM5L3S2.optionB.lotsAC.d0.test.ts` — Lots A/B/C
+- `ingestGenericFilesystemMaterializationArtifactEvidence.ts`
+- `fsAnchorArtifactMaterializationEvidenceSources.ts`
 
-Option B + CORR + R-S2-04/05 + S8 ADAPT preserved (dirty intentional).
+### Prior handoff (pre-Pass 04)
+- Branch tip: `dc86b3c59440fa65d8d69262731c84e15c0c089b`
+- Canonical blob: `9d8ca8d2d1a558bad464e3cd0013385f53cd98ea`
 
-## 5. Sources consultées
-
-Method templates/routing/guardrails/CKC; Build Doctrine; Roadmap (RO); product-completion; M5 trajectory; Generic Execution architecture (D-ER-17/18, E8–E11); doctrine v3 33/34/35 (NON ADOPTED); PRR 02/03/06/07/08/09 (RO); handoffs Qualification→Pass03; **Git + code primary**.
+## 5. Références Git et sources lues
+Méthode (template, routing, operating model, guardrails, CKC map), Build Doctrine, Roadmap (read-only), Product Completion, M5 trajectory § L3-S2, Generic Execution architecture D-ER-17/18, doctrine v3 33/34/35, PRR 02/03/06/07/08/09 (read-only), prior FULL handoff tip dc86b3c5.
 
 ## 6. Convergence Pre-check
-
 | Item | Status |
 |------|--------|
+| Build Doctrine | VALIDATED ON MAIN |
+| Roadmap | ACTIVE LIVING (no write this cycle) |
 | T-C | ADOPTED |
 | L3-S1 | INTEGRATED DET ON MAIN |
-| L3-S2 Option B | LOCAL CANDIDATE + CORR/R-S2 accepted DET |
-| S8 | **PROJECT-FIRST DECIDED — Delivery this cycle** |
-| L3 GLOBAL | OPEN |
-| L2 exclusive | DEFAULT OFF |
+| L3-S2 Option B | LOCAL CANDIDATE (dirty) |
+| S8 Project-first | DECIDED + DET; Critical Review reserves R-S8-01/02 closed this Pass |
+| CORR-S2-01/02/03, R-S2-04/05 | ACCEPTED LOCAL DET (preserved) |
 | R24 | SYNC PENDING |
-| G-REAL | NOT GRANTED |
-| Runtime v3 | NON ADOPTED |
+| L3 GLOBAL | OPEN |
+| G-REAL / OA-exclusive / Runtime v3 | NOT GRANTED / OFF / NON ADOPTED |
 
-## 7. R23 — architecture et flux
+## 7. R23 — Architecture-informed (investigation)
 
-### Avant S8 Delivery (gap)
+### W3-B (ADAPT ciblé) — BEHAVIOR PROVEN after Pass 04
+- `loadAttemptAndContract` → ownershipCtx from Project + EC + Attempt + optional cycle
+- Evidence IDs remain Attempt-derived for lookup
+- **NEW:** `evidenceAdmissibleForW3bExecutionContext` before RB admit
+- createReviewBundle fingerprint includes evidenceIds → late Evidence ⇒ IDEMPOTENCY_CONFLICT
+- freeze skips if already frozen; CE evaluates frozen snapshots only
+- Product projection: Technical SUCCESS ≠ Product PASS; Generic → UNCLAIMED
 
-Post-success GERM / Verification / generic FS / Mission ingest in `governedExecuteRecordResult` was gated by:
+### OA RB/CE — KEEP
+- create fingerprint embeds evidence list
+- freeze snapshots: evidenceId/version/status/availability (no bindings in snapshot; ownership checked pre-admit)
+- No supersession path that rewrites frozen RB with new Evidence set under same idempotency key
+- Classification R-S8-02: **fail-closed under existing OA** — no structural lifecycle invent
 
-`contract.cycleInstanceId && PRODUCT_MISSION_FROM_DURABLE_CONTEXT`
+### Product FS Evidence / Mission — KEEP
+- generic_mat from Product path when OBSERVED
+- Mission Evidence only when PRODUCT_MISSION stamped
+- Cycle-bound Mission path unchanged for filiation
 
-⇒ Project-only Generic PREPARE could succeed technically but skipped Studio Evidence continuity (L3-S1 debt).
+Coverage labels:
+| Area | DOCUMENTED | COVERAGE VERIFIED | BEHAVIOR PROVEN | KNOWN GAP |
+|------|------------|-------------------|-----------------|-----------|
+| W3-B ownership | Y | Y | Y | — |
+| Late Evidence | Y | Y | Y (IDEMPOTENCY_CONFLICT) | No OA supersession for late Evidence under same key (debt documented) |
+| OBSERVED Project-only | Y | Y | Y | REAL Cursor not exercised |
+| Mission Project-only Mission Evidence | Y | Y (absent honest) | — | EP-S2-05 not promoted |
 
-OA Evidence/RB bindings already optional for cycle; PREPARE/SHE already Project-first.
+## 8. R-S8-01 — avant / après
 
-### Flux CURRENT after ADAPT
+**Avant:** W3-B admitted Verification/generic_mat by deterministic ID + `status===verified` only.
 
-```
-Project (required) [CycleInstance optional]
-  → Generic PREPARE (null cycle OK; no fake cycle)
-  → SHE
-  → Select/Start Fake Cursor
-  → RecordResult: if Cursor report → GERM + Verification Evidence
-       (+ generic FS when OBSERVED)
-       (+ Mission Evidence ONLY if PRODUCT_MISSION already on EC)
-  → W3-B: tech Evidence + verified Verification/generic_mat when present
-  → CE / Product Result honest (UNCLAIMED without applicable semantic)
-  → W3-C / GERM rehydrate
-```
+**Après:** `evidenceAdmissibleForW3bExecutionContext`:
+1. status verified
+2. bindings.projectId == Project
+3. bindings.executionContractId == EC
+4. bindings.executionAttemptId == Attempt
+5. cycle: if EC has cycle → Evidence cycle must match; if Project-only → refuse Evidence with foreign cycle
+6. role checks: verification → sourceKind execution_attempt + provenance.source execution_adapter; generic_mat → sourceKind external + GENERIC_FILESYSTEM source string; mission → sourceKind execution_attempt
 
-## 8. Invariants Project-first (honored)
+Incoherent Evidence: not admitted (null via admitIfOwned); absent vs incoherent distinguished in unit reasons; no silent false PASS; Product stays UNCLAIMED / fail path for IDEMPOTENCY.
 
-1–5 Project required; cycle optional; no fake id; cycle if present must match Project/EC/lifecycle.
-6 Same Product engine for both contexts.
-7 Durable reconstitution: Project/EC/Attempt/Evidence/RB/CE/Result.
-8–12 Authority/proofs not optional; fail-closed; no invented HD/Attempt/cycle; stale context invalidates.
+Mission path: same admitIfOwned for mission_result role (filiation bindings + sourceKind).
 
-## 9. Analyse du besoin de modification
+## 9. R-S8-02 — reproduction et conclusion
 
-| Need | Decision |
-|------|----------|
-| Schema / new table | **Not required** — OA bindings already optional |
-| New Result Semantic | **Not introduced** — mutating Generic stays UNCLAIMED without PRODUCT_MISSION |
-| Artificial PRODUCT_MISSION stamp | **Refused** (GO) |
-| Ungate GERM/Verification/FS from cycle | **ADAPT** |
-| Optional cycle on F3 ingest inputs | **ADAPT** |
-| W3-B include verified Studio Evidence for non-mission Generic | **ADAPT** |
+**Scenario proven (O10):**
+1. Succeeded Attempt without Verification Evidence
+2. W3-B creates tech RB (attempt Evidence only) → freeze → CE → Product ok UNCLAIMED
+3. Verification Evidence ingested later (verified)
+4. W3-B rematerialize same Attempt → `createReviewBundle` returns `IDEMPOTENCY_CONFLICT`
+5. Product path returns ok:false with detailCode IDEMPOTENCY_CONFLICT + late Evidence hint
+6. Frozen RB not mutated; prior CE not reinterpreted as evaluation of new Evidence
 
-## 10. Classification des composants
+**Conclusion:** Existing OA fingerprint+idempotency is the admissible fail-closed contract. No silent rewrite. No new RB lifecycle invented. Debt: operator/recovery path for late Evidence after freeze remains a documented exit (not silently “fixed”).
 
-| Component | Class |
-|-----------|-------|
-| prepareGeneric / SHE / authorize | KEEP |
-| governedExecuteAuthorizedContract post-success | **ADAPT** |
-| ingestMission / Verification / generic materialization | **ADAPT** (optional cycle) |
-| materializeW3bProductTerminal | **ADAPT** |
-| w3cPostEvidenceLoop / CORR/R-S2 | KEEP |
-| Mission Result Semantic | KEEP / FREEZE applicability |
-| resolvePostEvidenceRecoveryContext | KEEP |
-| OA Evidence bindings | KEEP |
-| L4 / Nora Deep | N/A |
+**STOP R-S8-02 OA LIFECYCLE DECISION:** NOT required for Pass 04 closure — behavior is fail-closed and tested. Optional future Morris decision only if supersession/reopen under new key is desired.
 
-**R22:** N/A — no provider/cognitive change.
+## 10. Filiation Evidence exacte (OBSERVED O2)
+Product path: Project (activeCycleInstanceId=null) → Generic PREPARE → SHE Select/Start → temp Git worktree (HEAD==EC baseSha) → FS mutate allowed path → TestOnlyRealExecutionLaunchPort report with real worktreeRef → governedExecuteRecordResult → GERM OBSERVED + VerifiedChangeSet + digest from bytes → generic_mat Evidence → W3-B RB contains verification + generic_mat + tech Evidence with matching Project/EC/Attempt and no cycle → CE → Product UNCLAIMED → W3-C/GERM rehydrate. Studio OBSERVED ≠ Cursor CLAIM.
 
-## 11. Fichiers modifiés / créés (this cycle + cumulative Option B)
+## 11. Fichiers modifiés / créés
+See §4 dirty inventory + SHA-256 below.
 
-### S8 ADAPT (this cycle)
+| Path | Role | sha256 |
+|------|------|--------|
+| `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts` | w3b | `37d8945875556d8373bd396d215cdefca8a80645f2cc18a4bf4ec63568bb3a45` |
+| `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts` | gcec | `abd35a41971b6ca4e9d22d45e13bc4734f48c914efa4a95804516bf75cf9310e` |
+| `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` | s8test | `08246bf0a6cf5c5a0835ce2915c8abf52b45872dfcfbb0bbc70fa18bc949ae25` |
+| `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.optionB.lotsAC.d0.test.ts` | lots | `9b1823041bdd72ea5297ad36d37e7caf6cba1faa5d1214dc0060003e8ac0b851` |
+| `projects/sfia-studio/app/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts` | generic | `4d1e32546bda1a7428359177c74d89d8251ee358df4ad8229a53f2cb26e8015f` |
+| `projects/sfia-studio/app/lib/oa/execution-attempt/domain/fsAnchorArtifactMaterializationEvidenceSources.ts` | fsanchor | `85632997028436e75ee60ddccb74b214255d59a71468c3984d33b5cf3d945f79` |
+| `projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts` | verif | `a3a40624537fac8b43483447aa5d82105e1f86adb1ce4a868156ff1d6f4e9716` |
+| `projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts` | mission | `5f7bfdf71c5d95a43f193c3578060e2093ad89819624b6530013f6aaa1dca71c` |
+| `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` | w3c | `adbeade98c9264ce4e396554e2b54d7ffcd633569fa33b6a7dcd0acfc5ed0792` |
+| `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts` | precommit | `bd04172901c3b330b729ffb0a9f9580253715863f5e69852362161c8b9869872` |
+| `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts` | verified | `3c9e80b1b0786fec678f73b4aa2742bdfd071981409d355e880b39bd6e1c4005` |
+| `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts` | gcec_test | `3a9d3b04d820e889f435ec44125b2c88706bd777f0a86fc94318ae67e5a0f18f` |
 
-| Path | Change |
-|------|--------|
-| `w2/governedExecuteAuthorizedContract.ts` | Drop cycle∧PRODUCT_MISSION gate for GERM/Verification/FS; Mission only if constraint present; optional cycle |
-| `w2/materializeW3bProductTerminal.ts` | Non-mission: include verified Verification + generic_materialization in RB |
-| `f3/ingestMissionResultEvidence.ts` | `cycleInstanceId?`; omit binding when absent |
-| `f3/ingestExecutionReviewVerificationEvidence.ts` | same |
-| `f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts` | same (untracked Product file) |
-| `__tests__/…/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` | **NEW** oracle + negatives |
+## 12–13. Diffs tracked + full contents untracked
 
-### Cumulative Option B (preserved)
-
-ingestGeneric… (NEW), fsAnchor… (NEW), lotsAC tests (NEW), Cont01/resolvers, w3c CORR/R-S2-04, governedExecute Lot A wire.
-
-## 12. Diffs utiles vs origin/main
-
-### Diff — governedExecuteAuthorizedContract.ts (Lot A + S8)
-
+### Diff tracked vs origin/main (complete)
 ```diff
+diff --git a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
+index 2dae7536..e485e3a3 100644
+--- a/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
++++ b/projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts
+@@ -1145,6 +1145,7 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
+   function lineageSupersession(input: {
+     artifactSource: string;
+     artifactAttemptId?: string;
++    artifactLocation?: string;
+     extraArtifacts?: Evidence[];
+   }) {
+     const artifactAttemptId = input.artifactAttemptId ?? "xat:a";
+@@ -1170,6 +1171,7 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
+         evidence({
+           evidenceId: "ev:a",
+           source: input.artifactSource,
++          location: input.artifactLocation ?? PATH,
+           bindings: {
+             projectId: PROJECT,
+             cycleInstanceId: CYCLE,
+@@ -1209,6 +1211,64 @@ describe("D-GCEC-CONT-01 continuation resolver", () => {
+     ).toBe(true);
+   });
+
++  it("L3-S2 generic_materialization (+ dotted suffix) supersedes FS anchor", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:generic_materialization",
++        }),
++      ),
++    ).toBe(true);
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:generic_materialization.v1",
++        }),
++      ),
++    ).toBe(true);
++  });
++
++  it("L3-S2 absolute durable generic_materialization location matches logical requiredPath", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:generic_materialization",
++          artifactLocation: `/tmp/mission-result-refs/refs/attempts/xat:a/generic-materialization/${PATH}`,
++        }),
++      ),
++    ).toBe(true);
++  });
++
++  it("CORR-S2-01 prefix collision xdocs/… must NOT supersede required logical path", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:generic_materialization",
++          artifactLocation: `/tmp/mission-result-refs/refs/attempts/xat:a/generic-materialization/x${PATH}`,
++        }),
++      ),
++    ).toBe(false);
++  });
++
++  it("CORR-S2-01 autres… prefix and .bak suffix must NOT supersede required logical path", () => {
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:generic_materialization",
++          artifactLocation: `/tmp/mission-result-refs/refs/attempts/xat:a/generic-materialization/autres${PATH}`,
++        }),
++      ),
++    ).toBe(false);
++    expect(
++      isFsAnchorSupersededByVerifiedLocalCommit(
++        lineageSupersession({
++          artifactSource: "execution_attempt:generic_materialization",
++          artifactLocation: `/tmp/mission-result-refs/refs/attempts/xat:a/generic-materialization/${PATH}.bak`,
++        }),
++      ),
++    ).toBe(false);
++  });
++
+   it("T11 irrelevant Attempt Evidence (wrong source / wrong attempt) → no supersession", () => {
+     expect(
+       isFsAnchorSupersededByVerifiedLocalCommit(
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts b/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts
+index ddfb45b3..c9b63fbc 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts
+@@ -121,7 +121,8 @@ export function persistExecutionReviewVerificationPayload(input: {
+ export type IngestExecutionReviewVerificationEvidenceInput = {
+   evidenceReviewServices: EvidenceReviewServices;
+   projectId: string;
+-  cycleInstanceId: string;
++  /** Optional — omit for S8 Project-first (never invent a fake cycle id). */
++  cycleInstanceId?: string | null;
+   executionContractId: string;
+   executionAttemptId: string;
+   payload: ExecutionReviewVerificationPayload;
+@@ -170,8 +171,10 @@ export async function ingestExecutionReviewVerificationEvidence(
+       digest: persisted.digest as never,
+       bindings: {
+         projectId: input.projectId,
+-        cycleInstanceId: input.cycleInstanceId,
+         executionContractId: input.executionContractId,
++        ...(input.cycleInstanceId?.trim()
++          ? { cycleInstanceId: input.cycleInstanceId.trim() }
++          : {}),
+       },
+       correlationId:
+         input.correlationId ?? `cor:execution-review-verification:${evidenceId}`,
+diff --git a/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts b/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts
+index 10c59eea..b71f602e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts
++++ b/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts
+@@ -29,7 +29,8 @@ export function isMissionResultEvidenceId(evidenceId: string): boolean {
+ export type IngestMissionResultEvidenceInput = {
+   evidenceReviewServices: EvidenceReviewServices;
+   projectId: string;
+-  cycleInstanceId: string;
++  /** Optional — omit for S8 Project-first (never invent a fake cycle id). */
++  cycleInstanceId?: string | null;
+   executionContractId: string;
+   executionAttemptId: string;
+   payload: MissionResultPayload;
+@@ -104,8 +105,10 @@ export async function ingestMissionResultEvidence(
+       digest: persisted.digest as never,
+       bindings: {
+         projectId: input.projectId,
+-        cycleInstanceId: input.cycleInstanceId,
+         executionContractId: input.executionContractId,
++        ...(input.cycleInstanceId?.trim()
++          ? { cycleInstanceId: input.cycleInstanceId.trim() }
++          : {}),
+       },
+       correlationId:
+         input.correlationId ?? `cor:mission-result:${evidenceId}`,
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
 index 5864cc82..463ab693 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
@@ -386,112 +527,226 @@ index 5864cc82..463ab693 100644
        }
      }
 
-```
-
-### Diff — materializeW3bProductTerminal.ts (S8 RB Evidence)
-
-```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index cfd2ce0c..67a919e0 100644
+index cfd2ce0c..08257084 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-@@ -16,6 +16,8 @@ import {
+@@ -16,6 +16,11 @@ import {
    isMissionResultEvidenceId,
    missionResultEvidenceIdForAttempt,
  } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
 +import { executionReviewVerificationEvidenceIdForAttempt } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
-+import { genericMaterializationEvidenceIdForAttempt } from "@/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence";
++import {
++  GENERIC_FILESYSTEM_MATERIALIZATION_EVIDENCE_SOURCE_EXPORT,
++  genericMaterializationEvidenceIdForAttempt,
++} from "@/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence";
  import {
    projectW3bProductTerminal,
    productReservationsForAttempt,
-@@ -323,6 +325,25 @@ export async function materializeW3bProductTerminal(input: {
+@@ -31,6 +36,89 @@ import {
+ import { maybeMaterializeProductSynthesisAfterW3c } from "./maybeMaterializeProductSynthesisAfterW3c";
+ import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+
++/**
++ * R-S8-01 — Admit Evidence into W3-B RB only when ownership bindings match the
++ * execution context. Deterministic Attempt-derived IDs alone are insufficient.
++ */
++export type W3bEvidenceAdmissionRole =
++  | "mission_result"
++  | "verification"
++  | "generic_materialization";
++
++export function evidenceAdmissibleForW3bExecutionContext(input: {
++  readonly evidence: Evidence;
++  readonly projectId: string;
++  readonly executionContractId: string;
++  readonly executionAttemptId: string;
++  readonly cycleInstanceId: string | null;
++  readonly role: W3bEvidenceAdmissionRole;
++}): { ok: true } | { ok: false; reason: string } {
++  const e = input.evidence;
++  if (e.status !== "verified") {
++    return { ok: false, reason: "evidence_not_verified" };
++  }
++  const b = e.bindings ?? {};
++  if ((b.projectId ?? null) !== input.projectId) {
++    return { ok: false, reason: "evidence_project_mismatch" };
++  }
++  if ((b.executionContractId ?? null) !== input.executionContractId) {
++    return { ok: false, reason: "evidence_execution_contract_mismatch" };
++  }
++  if ((b.executionAttemptId ?? null) !== input.executionAttemptId) {
++    return { ok: false, reason: "evidence_execution_attempt_mismatch" };
++  }
++  const evidenceCycle = b.cycleInstanceId?.trim() || null;
++  const contractCycle = input.cycleInstanceId?.trim() || null;
++  if (contractCycle) {
++    if (evidenceCycle !== contractCycle) {
++      return { ok: false, reason: "evidence_cycle_mismatch" };
++    }
++  } else if (evidenceCycle) {
++    // Project-only EC: refuse foreign / leftover cycle binding.
++    return { ok: false, reason: "evidence_foreign_cycle_on_project_only" };
++  }
++
++  if (input.role === "verification") {
++    if (e.sourceKind !== "execution_attempt") {
++      return { ok: false, reason: "verification_source_kind_mismatch" };
++    }
++    if (e.provenance?.source !== "execution_adapter") {
++      return { ok: false, reason: "verification_provenance_mismatch" };
++    }
++  } else if (input.role === "generic_materialization") {
++    if (e.sourceKind !== "external") {
++      return { ok: false, reason: "generic_mat_source_kind_mismatch" };
++    }
++    if (e.source !== GENERIC_FILESYSTEM_MATERIALIZATION_EVIDENCE_SOURCE_EXPORT) {
++      return { ok: false, reason: "generic_mat_source_mismatch" };
++    }
++  } else if (input.role === "mission_result") {
++    if (e.sourceKind !== "execution_attempt") {
++      return { ok: false, reason: "mission_source_kind_mismatch" };
++    }
++  }
++
++  return { ok: true };
++}
++
++function admitIfOwned(
++  evidence: Evidence | null | undefined,
++  ctx: {
++    readonly projectId: string;
++    readonly executionContractId: string;
++    readonly executionAttemptId: string;
++    readonly cycleInstanceId: string | null;
++    readonly role: W3bEvidenceAdmissionRole;
++  },
++): Evidence | null {
++  if (!evidence) return null;
++  const check = evidenceAdmissibleForW3bExecutionContext({
++    evidence,
++    ...ctx,
++  });
++  return check.ok ? evidence : null;
++}
++
+ function w3cUnavailableFailure(
+   cause: unknown,
+ ): Extract<W3cPostEvidenceLoopResult, { ok: false }> {
+@@ -275,22 +363,28 @@ export async function materializeW3bProductTerminal(input: {
+   const isMissionProduct = contract.constraints.includes(
+     PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
+   );
++  const ownershipCtx = {
++    projectId: input.projectId,
++    executionContractId: contract.executionContractId,
++    executionAttemptId: attempt.attemptId,
++    cycleInstanceId: contract.cycleInstanceId?.trim() || null,
++  };
+   let evidenceIdsForBundle: string[] = [ingested.evidence.evidenceId];
+   let primaryEvidence = ingested.evidence;
+   if (isMissionProduct) {
+     const missionEvidenceId = missionResultEvidenceIdForAttempt(attempt.attemptId);
+-    const missionEvidence =
+-      await services.evidenceReader.findById(missionEvidenceId);
+-      if (missionEvidence && missionEvidence.status === "verified") {
++    const missionRaw = await services.evidenceReader.findById(missionEvidenceId);
++    const missionEvidence = admitIfOwned(missionRaw, {
++      ...ownershipCtx,
++      role: "mission_result",
++    });
++    if (missionEvidence) {
+       evidenceIdsForBundle = [missionEvidence.evidenceId];
+       primaryEvidence = missionEvidence;
+       // CP2-04 — include Verification Evidence in same ReviewBundle only when
+       // the EC requires studio-verified-changeset (generic local-write path).
+       // Historical clarify/read missions must keep a mission-only RB so CE
+       // bindings.evidenceRefs match reviewBundle.evidenceRefs.
+-      const { executionReviewVerificationEvidenceIdForAttempt } = await import(
+-        "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence"
+-      );
+       const { missionRequiresStudioVerification } = await import(
+         "@/lib/oa/evidence-review/application/missionResultContractResultSemantic"
+       );
+@@ -311,9 +405,13 @@ export async function materializeW3bProductTerminal(input: {
+       if (requiresVerification) {
+         const verificationEvidenceId =
+           executionReviewVerificationEvidenceIdForAttempt(attempt.attemptId);
+-        const verificationEvidence =
++        const verificationRaw =
+           await services.evidenceReader.findById(verificationEvidenceId);
+-        if (verificationEvidence && verificationEvidence.status === "verified") {
++        const verificationEvidence = admitIfOwned(verificationRaw, {
++          ...ownershipCtx,
++          role: "verification",
++        });
++        if (verificationEvidence) {
+           evidenceIdsForBundle = [
+             missionEvidence.evidenceId,
+             verificationEvidence.evidenceId,
+@@ -321,8 +419,35 @@ export async function materializeW3bProductTerminal(input: {
+         }
+       }
      }
-     // Missing / unverified Mission Evidence → tech-only RB; mission semantic
-     // yields NOT_PROVEN / Product UNCLAIMED (honest).
+-    // Missing / unverified Mission Evidence → tech-only RB; mission semantic
+-    // yields NOT_PROVEN / Product UNCLAIMED (honest).
++    // Missing / unverified / ownership-failed Mission Evidence → tech-only RB;
++    // mission semantic yields NOT_PROVEN / Product UNCLAIMED (honest).
 +  } else {
-+    // S8 Project-first Generic (no PRODUCT_MISSION stamp): include verified
++    // S8 Project-first Generic (no PRODUCT_MISSION stamp): include owned verified
 +    // Studio Verification + generic_materialization Evidence when present.
 +    // Does NOT invent a PASS semantic — CE stays not_proven / Product UNCLAIMED
 +    // unless an applicable Contract Result Semantic already exists.
 +    const verificationEvidenceId =
 +      executionReviewVerificationEvidenceIdForAttempt(attempt.attemptId);
-+    const verificationEvidence =
++    const verificationRaw =
 +      await services.evidenceReader.findById(verificationEvidenceId);
-+    if (verificationEvidence && verificationEvidence.status === "verified") {
++    const verificationEvidence = admitIfOwned(verificationRaw, {
++      ...ownershipCtx,
++      role: "verification",
++    });
++    if (verificationEvidence) {
 +      evidenceIdsForBundle.push(verificationEvidence.evidenceId);
 +    }
 +    const genericMatId = genericMaterializationEvidenceIdForAttempt(
 +      attempt.attemptId,
 +    );
-+    const genericMat = await services.evidenceReader.findById(genericMatId);
-+    if (genericMat && genericMat.status === "verified") {
++    const genericMatRaw = await services.evidenceReader.findById(genericMatId);
++    const genericMat = admitIfOwned(genericMatRaw, {
++      ...ownershipCtx,
++      role: "generic_materialization",
++    });
++    if (genericMat) {
 +      evidenceIdsForBundle.push(genericMat.evidenceId);
 +    }
    }
 
    const bundle = await services.createReviewBundle.execute({
-```
+@@ -337,10 +462,23 @@ export async function materializeW3bProductTerminal(input: {
+   });
 
-### Diff — ingestMission + ingestVerification (optional cycle)
+   if (!bundle.ok) {
++    // R-S8-02 — fingerprint mismatch (e.g. late Evidence after prior create) must
++    // not be projected as Product success; OA fail-closed IDEMPOTENCY_CONFLICT.
++    const lateHint =
++      bundle.error.detailCode === "IDEMPOTENCY_CONFLICT"
++        ? ` — late or divergent Evidence set cannot rewrite frozen/idempotent ReviewBundle for Attempt ${attempt.attemptId}`
++        : "";
+     return {
+       ok: false,
+       code: bundle.error.detailCode,
+-      message: bundle.error.message,
++      message: `${bundle.error.message}${lateHint}`,
++      product: projectFromFacts({
++        attempt,
++        contract,
++        evidence: primaryEvidence,
++        reviewBundle: bundle.reviewBundle ?? null,
++        claimEvaluation: null,
++      }),
+     };
+   }
 
-```diff
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts b/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts
-index ddfb45b3..c9b63fbc 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts
-@@ -121,7 +121,8 @@ export function persistExecutionReviewVerificationPayload(input: {
- export type IngestExecutionReviewVerificationEvidenceInput = {
-   evidenceReviewServices: EvidenceReviewServices;
-   projectId: string;
--  cycleInstanceId: string;
-+  /** Optional — omit for S8 Project-first (never invent a fake cycle id). */
-+  cycleInstanceId?: string | null;
-   executionContractId: string;
-   executionAttemptId: string;
-   payload: ExecutionReviewVerificationPayload;
-@@ -170,8 +171,10 @@ export async function ingestExecutionReviewVerificationEvidence(
-       digest: persisted.digest as never,
-       bindings: {
-         projectId: input.projectId,
--        cycleInstanceId: input.cycleInstanceId,
-         executionContractId: input.executionContractId,
-+        ...(input.cycleInstanceId?.trim()
-+          ? { cycleInstanceId: input.cycleInstanceId.trim() }
-+          : {}),
-       },
-       correlationId:
-         input.correlationId ?? `cor:execution-review-verification:${evidenceId}`,
-diff --git a/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts b/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts
-index 10c59eea..b71f602e 100644
---- a/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts
-@@ -29,7 +29,8 @@ export function isMissionResultEvidenceId(evidenceId: string): boolean {
- export type IngestMissionResultEvidenceInput = {
-   evidenceReviewServices: EvidenceReviewServices;
-   projectId: string;
--  cycleInstanceId: string;
-+  /** Optional — omit for S8 Project-first (never invent a fake cycle id). */
-+  cycleInstanceId?: string | null;
-   executionContractId: string;
-   executionAttemptId: string;
-   payload: MissionResultPayload;
-@@ -104,8 +105,10 @@ export async function ingestMissionResultEvidence(
-       digest: persisted.digest as never,
-       bindings: {
-         projectId: input.projectId,
--        cycleInstanceId: input.cycleInstanceId,
-         executionContractId: input.executionContractId,
-+        ...(input.cycleInstanceId?.trim()
-+          ? { cycleInstanceId: input.cycleInstanceId.trim() }
-+          : {}),
-       },
-       correlationId:
-         input.correlationId ?? `cor:mission-result:${evidenceId}`,
-```
-
-### Diff — w3cPostEvidenceLoop.ts (Lot C + CORR-03 + R-S2-04)
-
-```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 index dd6e6672..9c18acd8 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
@@ -688,534 +943,196 @@ index dd6e6672..9c18acd8 100644
    };
  }
 
-```
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
+index cbe42113..c2a18b59 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts
+@@ -14,6 +14,18 @@ import {
+   M4_BOUNDED_LOCAL_COMMIT_CURSOR_AGENT_ID,
+   STUDIO_CURSOR_GENERALIST_AGENT_ID,
+ } from "./realLaunchSafety";
++import {
++  evidenceLocationMatchesLogicalPath,
++  isAllowlistedArtifactMaterializationSource,
++  logicalPathFromDurableArtifactLocation,
++} from "./fsAnchorArtifactMaterializationEvidenceSources";
++
++export {
++  FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES,
++  GENERIC_FILESYSTEM_MATERIALIZATION_EVIDENCE_SOURCE,
++  isAllowlistedArtifactMaterializationSource,
++  type FsAnchorArtifactMaterializationEvidenceSource,
++} from "./fsAnchorArtifactMaterializationEvidenceSources";
 
-## 13. Contenu complet — nouveaux fichiers untracked
+ const FS_EFFECTS = new Set<CursorAuthorizedEffectId>([
+   "filesystem.create",
+@@ -28,28 +40,6 @@ const PROTECTED_GIT_EFFECTS = new Set<CursorAuthorizedEffectId>([
+   "github.pr.merge",
+ ]);
 
-### NEW FILE — `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts`
+-/**
+- * Artifact-materialization Evidence sources that may supersede an FS anchor.
+- *
+- * HISTORICAL durable reading only — not Product admission of docs_write.
+- * Origin/main stamped file artifacts as `execution_attempt:docs_write`
+- * (retired `DOCS_WRITE_ARTIFACT_EVIDENCE_SOURCE`), including dotted suffixes
+- * such as `execution_attempt:docs_write.v2`. That producer is gone.
+- *
+- * Product generalist materialization does not stamp a replacement
+- * `execution_attempt:*` artifact source. `IngestExecutionAttemptEvidence`
+- * writes a prose source (`execution attempt <id> (succeeded)`), which is a
+- * terminal-attempt label shared with non-artifact rows and is excluded.
+- * `execution_attempt:mission_result` and every other non-allowlisted source
+- * cannot supersede (false / NOT_PROVEN).
+- */
+-export const FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES = [
+-  "execution_attempt:docs_write",
+-] as const;
+-
+-export type FsAnchorArtifactMaterializationEvidenceSource =
+-  (typeof FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES)[number];
+-
+ /**
+  * HISTORICAL Attempt agent recorded by the retired bounded docs-write executor.
+  * Durable reading only — not Product admission of a docs_write launch path.
+@@ -67,13 +57,6 @@ function isDurableArtifactMaterializationAttemptAgent(
+   );
+ }
 
-```typescript
-/**
- * AKG-M5 L3-S2 Option B — S8 PROJECT-FIRST integrated DET oracle.
- *
- * Product path (ZERO REAL / ZERO LIVE):
- *   Project (no CycleInstance) → Generic PREPARE → SHE → Select/Start Fake Cursor
- *   → governedExecuteRecordResult (GERM + Verification Evidence)
- *   → W3-B RB/CE → honest Product Result → W3-C surface / rehydrate.
- *
- * NON-CLAIMS:
- * - PRODUCT_MISSION_FROM_DURABLE_CONTEXT is NOT invented for Generic PREPARE
- * - Product PASS for mutating Generic without applicable Result Semantic
- * - Cursor REAL / OpenAI LIVE / OA-exclusive / fake cycle
- *
- * @vitest-environment node
- */
-import fs from "node:fs";
-import os from "node:os";
-import path from "node:path";
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { setConversationProviderForTests } from "@/lib/platform/ai";
-import {
-  buildIntentAnalysisFromSolicitedMission,
-  solicitGenericExecutionPrepare,
-} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
-import { requiredInspectedFactsForContract } from "@/lib/oa/execution-contract";
-import {
-  governedExecuteRecordResult,
-  governedExecuteSelectAgent,
-  governedExecuteStart,
-} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { materializeW3bProductTerminal } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-import { projectW3cExecutionReportSurfaceFromDurable } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
-import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
-import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
-import { PRODUCT_MISSION_FROM_DURABLE_CONTEXT } from "@/lib/oa/evidence-review/application/missionResultPayload";
-import { executionReviewVerificationEvidenceIdForAttempt } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
-import { missionResultEvidenceIdForAttempt } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
-import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
-import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  tempProductDbPath,
-  W2_TEST_PINNED_BASE_HEAD_SHA,
-} from "./w2Harness";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+-function isAllowlistedArtifactMaterializationSource(source: string): boolean {
+-  for (const allowed of FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES) {
+-    if (source === allowed || source.startsWith(`${allowed}.`)) return true;
+-  }
+-  return false;
+-}
+-
+ export type WorkspaceContinuationDescriptor = {
+   readonly priorAttemptId: string;
+   readonly expectedHeadSha: string;
+@@ -218,7 +201,12 @@ export function isFsAnchorSupersededByVerifiedLocalCommit(
+       return false;
+     }
+     const loc = String(ev.location ?? "").trim();
+-    if (!loc || !requiredPaths.includes(loc)) return false;
++    if (
++      !loc ||
++      !requiredPaths.some((p) => evidenceLocationMatchesLogicalPath(loc, p))
++    ) {
++      return false;
++    }
+     const digest = String(ev.digest ?? "").trim().toLowerCase();
+     if (!digest.startsWith("sha256:") || digest.length < "sha256:".length + 64) {
+       return false;
+@@ -348,10 +336,13 @@ function resolvePriorArtifactMaterializationAttempt(input: {
+       };
+     }
+     const ev = matching[0]!;
++    const artifactPath = logicalPathFromDurableArtifactLocation(
++      String(ev.location ?? ""),
++    );
+     candidates.push({
+       priorAttemptId: attempt.attemptId,
+       evidenceId: ev.evidenceId,
+-      artifactPath: String(ev.location).trim(),
++      artifactPath,
+       artifactDigest: String(ev.digest).trim().toLowerCase(),
+     });
+   }
+diff --git a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts
+index 3705caa3..30740124 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts
+@@ -4,10 +4,10 @@
+  * Pure Product-truth: Attempt history + VERIFIED Artifact Evidence bindings.
+  * Zero / multiple eligible candidates → fail closed (no latest/first heuristic).
+  *
+- * HISTORICAL durable reading: Evidence source `execution_attempt:docs_write`
+- * and agent `agt:m4.cursor.bounded_docs_write` remain recognizable. That is not
+- * Product admission of a docs_write launch path. Current materialization
+- * Attempts use the Studio Cursor generalist agent id.
++ * Allowlist: {@link FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES}
++ * (historical docs_write + CURRENT generic_materialization). Not Product
++ * admission of docs_write. Current materialization Attempts use the Studio
++ * Cursor generalist agent id.
+  */
+ import type { Evidence } from "@/lib/oa/evidence-review";
+ import type { ExecutionContract } from "@/lib/oa/execution-contract";
+@@ -17,15 +17,12 @@ import {
+   expectedEvidenceIdentity,
+ } from "./qualifyExecutionContractCompletion";
+ import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "./realLaunchSafety";
+-
+-/**
+- * HISTORICAL durable Evidence source allowlist — not Product admission of
+- * docs_write. Must stay aligned with
+- * {@link FS_ANCHOR_ARTIFACT_MATERIALIZATION_EVIDENCE_SOURCES}.
+- */
+-const FS_MATERIALIZATION_EVIDENCE_SOURCES = [
+-  "execution_attempt:docs_write",
+-] as const;
++import {
++  evidenceLocationMatchesLogicalPath,
++  isAllowlistedArtifactMaterializationSource,
++  logicalPathFromDurableArtifactLocation,
++  resolveLogicalPathFromEvidenceLocation,
++} from "./fsAnchorArtifactMaterializationEvidenceSources";
 
-const NOTES_PATH = "projects/demo/notes/project-notes.md";
+ /** Historical Attempt agent — durable Evidence reading only. */
+ const HISTORICAL_BOUNDED_DOCS_WRITE_AGENT_ID =
+@@ -93,13 +90,6 @@ function expectedArtifactPaths(
+   return [...paths];
+ }
 
-function restoreEnvVar(name: string, previous: string | undefined): void {
-  if (previous === undefined) delete process.env[name];
-  else process.env[name] = previous;
-}
-
-function requiredFactsOrThrow(
-  contract: Parameters<typeof requiredInspectedFactsForContract>[0],
-): readonly string[] {
-  const facts = requiredInspectedFactsForContract(contract);
-  if (Array.isArray(facts)) return facts;
-  throw new Error(
-    `inspection disclosure incomplete: ${(facts as { code: string }).code}`,
-  );
-}
-
-function launchPortOf(oa: {
-  executionAttemptServices?: {
-    realBoundary?: { launchPort?: unknown };
-  } | null;
-}): TestOnlyRealExecutionLaunchPort {
-  const port = oa.executionAttemptServices?.realBoundary?.launchPort;
-  if (!(port instanceof TestOnlyRealExecutionLaunchPort)) {
-    throw new Error("TestOnlyRealExecutionLaunchPort required");
-  }
-  return port;
-}
-
-function notesEditAnalysis(): IntentAnalysisDto {
-  const base = buildIntentAnalysisFromSolicitedMission({
-    objective: "modifier notes projet (S8 Project-first DET)",
-    expectedOutcome: "Notes mises à jour; résultat Product honnête",
-    scope: NOTES_PATH,
-    repositoryMutation: "write",
-    impactSignals: { structuralChange: false, architectureImpact: false },
-  });
-  return {
-    ...base,
-    executionIntent: {
-      intentKind: "other",
-      scopeIn: [NOTES_PATH],
-      requiredCapabilities: [],
-    },
-  };
-}
-
-function cursorReportStdout(input: {
-  attemptId: string;
-  executionContractId: string;
-  repositoryRef: string;
-  baseSha: string;
-}): string {
-  const body = {
-    schemaVersion: "oa.cursor-execution-report.1",
-    reportId: `rpt:s8:${input.attemptId}`.slice(0, 128),
-    attemptId: input.attemptId,
-    executionContractId: input.executionContractId,
-    repositoryRef: input.repositoryRef,
-    baseSha: input.baseSha,
-    status: "succeeded",
-    authorizedEffectsExecuted: ["filesystem.modify"],
-    workPerformed: [`modified ${NOTES_PATH}`],
-    fileEffects: {
-      created: [],
-      modified: [NOTES_PATH],
-      deleted: [],
-    },
-  };
-  return `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(body)}`;
-}
-
-describe("AKG-M5 L3-S2 S8 — Project-first integrated DET oracle", () => {
-  let runtime: RuntimeApplicationService;
-  let previousMorris: string | undefined;
-  let previousDetPin: string | undefined;
-  let previousPilot: string | undefined;
-  let previousExclusive: string | undefined;
-  let refsRoot: string;
-
-  beforeEach(() => {
-    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
-    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
-    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
-    previousExclusive = process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE;
-    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
-    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
-    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
-    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
-    delete process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE;
-    setConversationProviderForTests(null);
-    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
-    refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "s8-refs-"));
-    runtime = bootW2Runtime({
-      productDbPath: tempProductDbPath("akg-m5-l3s2-s8.sqlite"),
-      idPrefix: "l3s2s8",
-    });
-  });
-
-  afterEach(() => {
-    cleanupW2TempDirs();
-    try {
-      fs.rmSync(refsRoot, { recursive: true, force: true });
-    } catch {
-      /* ignore */
-    }
-    restoreEnvVar("SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY", previousMorris);
-    restoreEnvVar("SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA", previousDetPin);
-    restoreEnvVar("SFIA_STUDIO_LOCAL_PILOT_AUTHORITY", previousPilot);
-    restoreEnvVar("SFIA_STUDIO_LOCAL_OA_EXCLUSIVE", previousExclusive);
-  });
-
-  async function seedProject(suffix: string) {
-    const oa = runtime.oa!;
-    const created = await runtime.createProject({
-      name: "demo",
-      objective: "L3-S2 S8 Project-first DET",
-      context: "akg-m5 l3-s2 s8",
-      criticality: "STANDARD",
-      constraints: ["ZERO REAL", "S8 DET ONLY"],
-      shortReference: `S8${suffix.toUpperCase().slice(0, 6)}`,
-      idempotencyKey: `idem:l3s2-s8-${suffix}`,
-    });
-    if (!created.ok) {
-      throw new Error(`createProject: ${created.error?.message ?? "fail"}`);
-    }
-    const projectId = created.project.projectId;
-    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    if (!lps0.ok) throw new Error("lps0");
-    await oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
-      status: "active",
-      expectedLpsVersion: lps0.livingProjectState.version,
-      createdBy: {
-        actorId: "actor:morris",
-        role: "project_owner",
-        displayName: "Morris",
-        authorityLevel: "N3",
-      },
-    });
-    const identity = `acme/l3s2-s8-${suffix}`;
-    ensureManagedRepoCloneSkeleton({
-      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-      identity,
-    });
-    // Confirm no active CycleInstance (trajectory ≠ cycle).
-    const live = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    if (!live.ok) throw new Error("live");
-    expect(live.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
-    return { projectId, oa };
-  }
-
-  it("nominal — Project-only Generic PREPARE → SHE → Evidence bindings → UNCLAIMED → rehydrate", async () => {
-    const { projectId, oa } = await seedProject("nom");
-    const analysis = notesEditAnalysis();
-
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      analysis,
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error(`prepare: ${prep.message}`);
-    expect(prep.projectContextOnly).toBe(true);
-    expect(prep.cycleInstanceId).toBeNull();
-
-    const live = await oa.executionContractServices!.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    expect(live.ok).toBe(true);
-    if (!live.ok) throw new Error("get EC");
-    expect(live.contract.cycleInstanceId ?? null).toBeNull();
-    expect(live.contract.constraints).not.toContain(
-      PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
-    );
-    expect(live.contract.constraints.some((c) => /docs_write/i.test(c))).toBe(
-      false,
-    );
-    const facts = requiredFactsOrThrow(live.contract);
-    const inputs = live.contract.inputs as Record<string, unknown>;
-    const repositoryRef = String(inputs.repositoryBindingIdentity ?? "");
-    const baseSha = String(inputs.baseHeadSha ?? W2_TEST_PINNED_BASE_HEAD_SHA);
-    expect(repositoryRef.length).toBeGreaterThan(0);
-
-    const she = await singleHumanExecutePreparedContract({
-      oa,
-      projectId,
-      executionContractId: live.contract.executionContractId,
-      expectedVersion: live.contract.version,
-      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
-      presentedFactIds: facts,
-      forceLocalAuthority: true,
-    });
-    expect(she.ok).toBe(true);
-    if (!she.ok) throw new Error(`she: ${she.code}`);
-    expect(she.executionAttemptCreated).toBe(false);
-    expect(she.authorization.outcome).toBe("AUTHORIZED");
-
-    const port = launchPortOf(oa);
-    const selected = await governedExecuteSelectAgent({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) throw new Error(`select: ${selected.message}`);
-    expect(selected.attempt!.selectedAgentRef).toBe(
-      STUDIO_CURSOR_GENERALIST_AGENT_ID,
-    );
-    const attemptId = selected.attempt!.attemptId;
-
-    const started = await governedExecuteStart({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) throw new Error(`start: ${started.message}`);
-
-    setTimeout(() => {
-      port.resolveSimulatedCompletion(`proc:sim:${attemptId}`, {
-        exitCode: 0,
-        timedOut: false,
-        stdout: cursorReportStdout({
-          attemptId,
-          executionContractId: she.executionContractId,
-          repositoryRef,
-          baseSha,
-        }),
-        stderr: "",
-        durationMs: 5,
-        // No worktreeRef → verification UNAVAILABLE (honest); Evidence still stamped.
-      });
-    }, 15);
-
-    const terminal = await governedExecuteRecordResult({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      attemptId,
-      forceLocalAuthority: true,
-      awaitIfPending: true,
-      missionResultRefsRoot: refsRoot,
-    });
-    expect(terminal.ok).toBe(true);
-    if (!terminal.ok) throw new Error(`record: ${terminal.code}`);
-    expect(terminal.attemptStatus).toBe("succeeded");
-    expect(terminal.productSuccessSemantics).toBe(false);
-
-    // GERM persisted (Attempt-bound).
-    const germ = loadGenericExecutionReviewMaterial({
-      refsRoot,
-      attemptId,
-    });
-    expect(germ.ok).toBe(true);
-
-    // Verification Evidence — Project/EC/Attempt bound; no cycle invented.
-    const verificationId =
-      executionReviewVerificationEvidenceIdForAttempt(attemptId);
-    const verification =
-      await oa.evidenceReviewServices!.evidenceReader.findById(verificationId);
-    expect(verification).toBeTruthy();
-    expect(verification!.status).toBe("verified");
-    expect(verification!.bindings.projectId).toBe(projectId);
-    expect(verification!.bindings.executionContractId).toBe(
-      she.executionContractId,
-    );
-    expect(verification!.bindings.executionAttemptId).toBe(attemptId);
-    expect(verification!.bindings.cycleInstanceId).toBeUndefined();
-
-    // Mission Evidence NOT invented (no PRODUCT_MISSION stamp).
-    const mission = await oa.evidenceReviewServices!.evidenceReader.findById(
-      missionResultEvidenceIdForAttempt(attemptId),
-    );
-    expect(mission).toBeNull();
-
-    const materialized = await materializeW3bProductTerminal({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(materialized.ok).toBe(true);
-    if (!materialized.ok) throw new Error(`materialize: ${materialized.code}`);
-    expect(materialized.product.outcome).toBe("UNCLAIMED");
-    expect(materialized.product.claimEvaluationStatus).toBe("not_proven");
-    expect(materialized.product.outcome).not.toBe("SUCCESS");
-    expect(materialized.product.claimAllowed).toBe(false);
-
-    const rb = await oa.evidenceReviewServices!.reviewBundleReader.findById(
-      materialized.product.reviewBundleId!,
-    );
-    expect(rb).toBeTruthy();
-    expect(rb!.cycleInstanceId).toBeUndefined();
-    expect(
-      rb!.frozenEvidenceSnapshots?.some((s) => s.evidenceId === verificationId),
-    ).toBe(true);
-
-    // Durable reload — same identities; no cycle created.
-    const liveAfter = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    expect(liveAfter.ok).toBe(true);
-    if (liveAfter.ok) {
-      expect(liveAfter.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
-    }
-    const verificationReload =
-      await oa.evidenceReviewServices!.evidenceReader.findById(verificationId);
-    expect(verificationReload?.bindings.projectId).toBe(projectId);
-    expect(verificationReload?.bindings.cycleInstanceId).toBeUndefined();
-
-    // GERM projection / rehydrate honesty (same durable facts).
-    const surfaceA = projectW3cExecutionReportSurfaceFromDurable({
-      attemptId,
-      refsRoot,
-      targetPath: NOTES_PATH,
-    });
-    const surfaceB = projectW3cExecutionReportSurfaceFromDurable({
-      attemptId,
-      refsRoot,
-      targetPath: NOTES_PATH,
-    });
-    expect(surfaceB).toEqual(surfaceA);
-    expect(surfaceA.executionReport).not.toBeNull();
-  }, 60_000);
-
-  it("N1 — Project absent → Generic PREPARE refused", async () => {
-    const oa = runtime.oa!;
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId: "",
-      cycleInstanceId: null,
-      analysis: notesEditAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(false);
-    if (!prep.ok) {
-      expect(prep.code).toMatch(/PROJECT|REQUIRED/i);
-    }
-  });
-
-  it("N3 — Contract of another Project cannot be SHE'd on this Project", async () => {
-    const a = await seedProject("n3a");
-    const b = await seedProject("n3b");
-    const prep = await solicitGenericExecutionPrepare({
-      oa: a.oa,
-      projectId: a.projectId,
-      cycleInstanceId: null,
-      analysis: notesEditAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error("prep");
-    const live = await a.oa.executionContractServices!.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    if (!live.ok) throw new Error("ec");
-    const facts = requiredFactsOrThrow(live.contract);
-    const she = await singleHumanExecutePreparedContract({
-      oa: b.oa,
-      projectId: b.projectId,
-      executionContractId: live.contract.executionContractId,
-      expectedVersion: live.contract.version,
-      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
-      presentedFactIds: facts,
-      forceLocalAuthority: true,
-    });
-    expect(she.ok).toBe(false);
-  });
-
-  it("N14/N15 — Cursor report absent / no Mission semantic → no invented PASS", async () => {
-    const { projectId, oa } = await seedProject("n14");
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      analysis: notesEditAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error("prep");
-    const live = await oa.executionContractServices!.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    if (!live.ok) throw new Error("ec");
-    const facts = requiredFactsOrThrow(live.contract);
-    const she = await singleHumanExecutePreparedContract({
-      oa,
-      projectId,
-      executionContractId: live.contract.executionContractId,
-      expectedVersion: live.contract.version,
-      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
-      presentedFactIds: facts,
-      forceLocalAuthority: true,
-    });
-    expect(she.ok).toBe(true);
-    if (!she.ok) throw new Error("she");
-    const port = launchPortOf(oa);
-    const selected = await governedExecuteSelectAgent({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      forceLocalAuthority: true,
-    });
-    if (!selected.ok) throw new Error("select");
-    const attemptId = selected.attempt!.attemptId;
-    await governedExecuteStart({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      attemptId,
-      forceLocalAuthority: true,
-    });
-    setTimeout(() => {
-      port.resolveSimulatedCompletion(`proc:sim:${attemptId}`, {
-        exitCode: 0,
-        timedOut: false,
-        stdout: "SIMULATED_NO_CURSOR_REPORT",
-        stderr: "",
-        durationMs: 1,
-      });
-    }, 15);
-    const terminal = await governedExecuteRecordResult({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      attemptId,
-      forceLocalAuthority: true,
-      awaitIfPending: true,
-      missionResultRefsRoot: refsRoot,
-    });
-    expect(terminal.ok).toBe(true);
-    if (!terminal.ok) return;
-    expect(terminal.attemptStatus).toBe("succeeded");
-    // Without parseable Cursor report: no GERM finalize / Mission Evidence invent.
-    const germ = loadGenericExecutionReviewMaterial({ refsRoot, attemptId });
-    expect(germ.ok).toBe(false);
-    const mission = await oa.evidenceReviewServices!.evidenceReader.findById(
-      missionResultEvidenceIdForAttempt(attemptId),
-    );
-    expect(mission).toBeNull();
-    const materialized = await materializeW3bProductTerminal({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(materialized.ok).toBe(true);
-    if (!materialized.ok) return;
-    expect(materialized.product.outcome).toBe("UNCLAIMED");
-    expect(materialized.product.outcome).not.toBe("SUCCESS");
-  }, 60_000);
-});
+-function isAllowlistedFsMaterializationSource(source: string): boolean {
+-  for (const allowed of FS_MATERIALIZATION_EVIDENCE_SOURCES) {
+-    if (source === allowed || source.startsWith(`${allowed}.`)) return true;
+-  }
+-  return false;
+-}
+-
+ function isDurableFsMaterializationAttemptAgent(
+   selectedAgentRef: string | undefined,
+ ): boolean {
+@@ -123,12 +113,17 @@ function isEligibleArtifact(
+   if (ev.type !== "artifact") return false;
+   if (!evidenceMatchesContractLineage(ev, expected)) return false;
+   if (ev.bindings.executionAttemptId !== attemptId) return false;
+-  if (!isAllowlistedFsMaterializationSource(String(ev.source ?? ""))) {
++  if (!isAllowlistedArtifactMaterializationSource(String(ev.source ?? ""))) {
+     return false;
+   }
+   const loc = String(ev.location ?? "").trim();
+   if (!loc) return false;
+-  if (allowedPaths.length > 0 && !allowedPaths.includes(loc)) return false;
++  if (
++    allowedPaths.length > 0 &&
++    !allowedPaths.some((p) => evidenceLocationMatchesLogicalPath(loc, p))
++  ) {
++    return false;
++  }
+   const digest = String(ev.digest ?? "").trim().toLowerCase();
+   if (!digest.startsWith("sha256:") || digest.length < "sha256:".length + 64) {
+     return false;
+@@ -176,10 +171,14 @@ export function resolveVerifiedFilesystemMaterializationPriorAttempt(
+       };
+     }
+     const ev = matching[0]!;
++    const rawLoc = String(ev.location).trim();
++    const logical =
++      resolveLogicalPathFromEvidenceLocation(rawLoc, allowedPaths) ??
++      logicalPathFromDurableArtifactLocation(rawLoc);
+     candidates.push({
+       priorAttemptId: attempt.attemptId,
+       evidenceId: ev.evidenceId,
+-      artifactPath: String(ev.location).trim(),
++      artifactPath: logical,
+       artifactDigest: String(ev.digest).trim().toLowerCase(),
+     });
+   }
 
 ```
 
-### NEW FILE — `projects/sfia-studio/app/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts`
-
+### Untracked file: ingestGenericFilesystemMaterializationArtifactEvidence.ts (FULL)
 ```typescript
 /**
  * L3-S2 Option B — stamp VERIFIED artifact Evidence for Studio-observed
@@ -1476,8 +1393,7 @@ export function selectPrimaryGenericMaterializationPath(input: {
 
 ```
 
-### NEW FILE — `projects/sfia-studio/app/lib/oa/execution-attempt/domain/fsAnchorArtifactMaterializationEvidenceSources.ts`
-
+### Untracked file: fsAnchorArtifactMaterializationEvidenceSources.ts (FULL)
 ```typescript
 /**
  * Artifact-materialization Evidence sources that may supersede an FS anchor
@@ -1588,8 +1504,7 @@ export function logicalPathFromDurableArtifactLocation(location: string): string
 
 ```
 
-### NEW FILE — `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.optionB.lotsAC.d0.test.ts`
-
+### Untracked file: akgM5L3S2.optionB.lotsAC.d0.test.ts (FULL)
 ```typescript
 /**
  * AKG-M5 L3-S2 Option B — Lot A (generic FS materialization) + Lot C (report surface)
@@ -2506,140 +2421,1372 @@ describe("AKG-M5 L3-S2 Option B — Lot A ingest + FS→SHA supersession", () =>
 
 ```
 
-## 14. Oracle intégré exact
+### Untracked file: akgM5L3S2.s8.projectFirst.integrated.d0.test.ts (FULL — S8 + Pass 04)
+```typescript
+/**
+ * AKG-M5 L3-S2 Option B — S8 PROJECT-FIRST integrated DET oracle
+ * (+ Pass 04: R-S8-01 ownership, R-S8-02 late Evidence, OBSERVED FS).
+ *
+ * Product path (ZERO REAL / ZERO LIVE):
+ *   Project (no CycleInstance) → Generic PREPARE → SHE → Select/Start Fake Cursor
+ *   → governedExecuteRecordResult (GERM + Verification Evidence [+ OBSERVED FS])
+ *   → W3-B RB/CE → honest Product Result → W3-C surface / rehydrate.
+ *
+ * NON-CLAIMS:
+ * - PRODUCT_MISSION_FROM_DURABLE_CONTEXT is NOT invented for Generic PREPARE
+ * - Product PASS for mutating Generic without applicable Result Semantic
+ * - Cursor REAL / OpenAI LIVE / OA-exclusive / fake cycle
+ *
+ * @vitest-environment node
+ */
+import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { setConversationProviderForTests } from "@/lib/platform/ai";
+import {
+  buildIntentAnalysisFromSolicitedMission,
+  solicitGenericExecutionPrepare,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
+import { requiredInspectedFactsForContract } from "@/lib/oa/execution-contract";
+import {
+  governedExecuteRecordResult,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import {
+  evidenceAdmissibleForW3bExecutionContext,
+  materializeW3bProductTerminal,
+} from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import { projectW3cExecutionReportSurfaceFromDurable } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
+import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+import { PRODUCT_MISSION_FROM_DURABLE_CONTEXT } from "@/lib/oa/evidence-review/application/missionResultPayload";
+import { LOCAL_PILOTE_ACTOR } from "@/lib/oa/decision";
+import type { Evidence } from "@/lib/oa/evidence-review";
+import {
+  executionReviewVerificationEvidenceIdForAttempt,
+  ingestExecutionReviewVerificationEvidence,
+} from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
+import {
+  GENERIC_FILESYSTEM_MATERIALIZATION_EVIDENCE_SOURCE_EXPORT,
+  genericMaterializationEvidenceIdForAttempt,
+} from "@/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence";
+import { missionResultEvidenceIdForAttempt } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  settleDeterministicProductCursorSuccess,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "./w2Harness";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
 
-**File:** `akgM5L3S2.s8.projectFirst.integrated.d0.test.ts`
+const NOTES_PATH = "projects/demo/notes/project-notes.md";
 
-**Nominal path:**
-1. createProject; assert `activeCycleInstanceId === null`
-2. solicitGenericExecutionPrepare(`cycleInstanceId: null`) → `projectContextOnly`
-3. assert EC.cycleInstanceId null; no PRODUCT_MISSION; no docs_write
-4. SHE → AUTHORIZED; no Attempt from SHE
-5. Select/Start Fake Cursor
-6. resolveSimulatedCompletion with Cursor report JSON (no worktree → verification UNAVAILABLE honest)
-7. governedExecuteRecordResult(awaitIfPending) → GERM + Verification Evidence
-8. Verification bindings: project/EC/Attempt; **cycleInstanceId undefined**
-9. Mission Evidence absent (constraint not stamped)
-10. materializeW3b → Product **UNCLAIMED** / CE **not_proven** (honest; Technical SUCCESS ≠ PASS)
-11. RB includes Verification Evidence; no cycle on RB
-12. LPS reload: still no active cycle
-13. GERM projection A == B (rehydrate)
+function restoreEnvVar(name: string, previous: string | undefined): void {
+  if (previous === undefined) delete process.env[name];
+  else process.env[name] = previous;
+}
 
-**Mode:** DET / TestOnly Fake Cursor boundary. Not REAL.
+function requiredFactsOrThrow(
+  contract: Parameters<typeof requiredInspectedFactsForContract>[0],
+): readonly string[] {
+  const facts = requiredInspectedFactsForContract(contract);
+  if (Array.isArray(facts)) return facts;
+  throw new Error(
+    `inspection disclosure incomplete: ${(facts as { code: string }).code}`,
+  );
+}
 
-## 15. Tests positifs / négatifs
+function launchPortOf(oa: {
+  executionAttemptServices?: {
+    realBoundary?: { launchPort?: unknown };
+  } | null;
+}): TestOnlyRealExecutionLaunchPort {
+  const port = oa.executionAttemptServices?.realBoundary?.launchPort;
+  if (!(port instanceof TestOnlyRealExecutionLaunchPort)) {
+    throw new Error("TestOnlyRealExecutionLaunchPort required");
+  }
+  return port;
+}
 
-| ID | Case | Result |
-|----|------|--------|
-| Nominal | Project-first integrated | PASS |
-| N1 | Project absent PREPARE | PASS (refused) |
-| N3 | EC of other Project on SHE | PASS (refused) |
-| N14/N15 | No Cursor report → no invented PASS / no Mission | PASS |
+function notesEditAnalysis(): IntentAnalysisDto {
+  const base = buildIntentAnalysisFromSolicitedMission({
+    objective: "modifier notes projet (S8 Project-first DET)",
+    expectedOutcome: "Notes mises à jour; résultat Product honnête",
+    scope: NOTES_PATH,
+    repositoryMutation: "write",
+    impactSignals: { structuralChange: false, architectureImpact: false },
+  });
+  return {
+    ...base,
+    executionIntent: {
+      intentKind: "other",
+      scopeIn: [NOTES_PATH],
+      requiredCapabilities: [],
+    },
+  };
+}
 
-**Additional negatives covered by existing suites (not re-invented):** N2 archived (project lifecycle), N4–N8 Mission/Cont01/L3-S1, N9 digest (lotsAC), N10–N13 Mission E2E / semantic, N16 GERM (R-S2-04), N17 rehydrate (oracle), N18 Cont01/L3-S1 idempotence.
+function cursorReportStdout(input: {
+  attemptId: string;
+  executionContractId: string;
+  repositoryRef: string;
+  baseSha: string;
+}): string {
+  const body = {
+    schemaVersion: "oa.cursor-execution-report.1",
+    reportId: `rpt:s8:${input.attemptId}`.slice(0, 128),
+    attemptId: input.attemptId,
+    executionContractId: input.executionContractId,
+    repositoryRef: input.repositoryRef,
+    baseSha: input.baseSha,
+    status: "succeeded",
+    authorizedEffectsExecuted: ["filesystem.modify"],
+    workPerformed: [`modified ${NOTES_PATH}`],
+    fileEffects: {
+      created: [],
+      modified: [NOTES_PATH],
+      deleted: [],
+    },
+  };
+  return `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(body)}`;
+}
 
-## 16. Validations consolidées
+describe("AKG-M5 L3-S2 S8 — Project-first integrated DET oracle", () => {
+  let runtime: RuntimeApplicationService;
+  let previousMorris: string | undefined;
+  let previousDetPin: string | undefined;
+  let previousPilot: string | undefined;
+  let previousExclusive: string | undefined;
+  let refsRoot: string;
 
-| Command | Tests | Result |
-|---------|-------|--------|
-| S8 oracle suite | 4 | **PASS** |
-| lotsAC + L3-S1 + Mission E2E + Cont01 + W3-C×2 | 105 | **PASS** |
-| `npm run typecheck` | — | **PASS** |
-| `npm run lint` | — | **PASS** (2 pre-existing unused-var warnings) |
+  beforeEach(() => {
+    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
+    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
+    previousExclusive = process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE;
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
+    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+    delete process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE;
+    setConversationProviderForTests(null);
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "s8-refs-"));
+    runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("akg-m5-l3s2-s8.sqlite"),
+      idPrefix: "l3s2s8",
+    });
+  });
 
-New regressions: none.
+  afterEach(() => {
+    cleanupW2TempDirs();
+    try {
+      fs.rmSync(refsRoot, { recursive: true, force: true });
+    } catch {
+      /* ignore */
+    }
+    restoreEnvVar("SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY", previousMorris);
+    restoreEnvVar("SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA", previousDetPin);
+    restoreEnvVar("SFIA_STUDIO_LOCAL_PILOT_AUTHORITY", previousPilot);
+    restoreEnvVar("SFIA_STUDIO_LOCAL_OA_EXCLUSIVE", previousExclusive);
+  });
 
-## 17. EP-S2 originaux (Qualification b712c600 §18)
+  async function seedProject(suffix: string) {
+    const oa = runtime.oa!;
+    const created = await runtime.createProject({
+      name: "demo",
+      objective: "L3-S2 S8 Project-first DET",
+      context: "akg-m5 l3-s2 s8",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL", "S8 DET ONLY"],
+      shortReference: `S8${suffix.toUpperCase().slice(0, 6)}`,
+      idempotencyKey: `idem:l3s2-s8-${suffix}`,
+    });
+    if (!created.ok) {
+      throw new Error(`createProject: ${created.error?.message ?? "fail"}`);
+    }
+    const projectId = created.project.projectId;
+    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps0.ok) throw new Error("lps0");
+    await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
+      status: "active",
+      expectedLpsVersion: lps0.livingProjectState.version,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+    const identity = `acme/l3s2-s8-${suffix}`;
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+      identity,
+    });
+    // Confirm no active CycleInstance (trajectory ≠ cycle).
+    const live = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!live.ok) throw new Error("live");
+    expect(live.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+    return { projectId, oa };
+  }
 
-| EP | Sens original | Preuve | Verdict | Limite |
-|----|---------------|--------|---------|--------|
-| EP-S2-01 | Mission/EC/Project/Attempt | S8 oracle + L3-S1 | **PASS** (DET Project-first) | Chat UI surface ≠ claimed |
-| EP-S2-02 | SHE single gesture | S8 + L3-S1 | **PASS** | |
-| EP-S2-03 | FS Studio-verified ≠ CLAIM | GERM/Verification path; OBSERVED needs worktree | **PARTIAL** | Oracle used UNAVAILABLE worktree; OBSERVED+bytes covered by Option B/frontDoor suites |
-| EP-S2-04 | Generic Evidence path/digest | Lot A + optional cycle bindings | **PASS** (DET) | |
-| EP-S2-05 | Mission Evidence ingested & bound | Cycle-bound Mission E2E KEEP; Project-only Generic does **not** invent PRODUCT_MISSION | **PARTIAL** | Project-only Mission PASS semantic **NOT PROVEN** (by design — no artificial stamp) |
-| EP-S2-06 | RB/CE consume admissible proofs | S8 RB includes Verification; Mission E2E | **PASS** (DET at tested scope) | |
-| EP-S2-07 | Product Result honest | UNCLAIMED without semantic | **PASS** | |
-| EP-S2-08 | Post-Evidence + rehydrate | GERM surface equality + W3-C non-reg | **PARTIAL** | Nora/Pilote UX E2E NOT PROVEN |
-| EP-S2-09 | Fail-closed | N1/N3 + historical | **PARTIAL** | Full N-matrix not all re-run in this file |
-| EP-S2-10 | No docs_write / no parallel engine | asserts | **PASS** | |
-| EP-S2-11 | L3-S1 / SHE non-reg | suite PASS | **PASS** | |
-| EP-S2-12 | Fake/Real | TestOnly; REAL not run | **PASS** | REAL NOT GRANTED |
+  it("nominal — Project-only Generic PREPARE → SHE → Evidence bindings → UNCLAIMED → rehydrate", async () => {
+    const { projectId, oa } = await seedProject("nom");
+    const analysis = notesEditAnalysis();
 
-## 18. Résultat Product prouvé ou non
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(`prepare: ${prep.message}`);
+    expect(prep.projectContextOnly).toBe(true);
+    expect(prep.cycleInstanceId).toBeNull();
 
-- **Technical Attempt succeeded:** PROVEN (DET)
-- **Verification Evidence Project-first (no cycle):** PROVEN (DET)
-- **Product PASS (mutating Generic PREPARE):** **NOT PROVEN / UNCLAIMED** — honest; no applicable Result Semantic without inventing PRODUCT_MISSION
-- **Mission Evidence Project-only Generic:** **NOT PROVEN** (constraint absent; correctly not invented)
-- **Cycle-bound Mission PASS path:** preserved (Mission E2E non-reg PASS)
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get EC");
+    expect(live.contract.cycleInstanceId ?? null).toBeNull();
+    expect(live.contract.constraints).not.toContain(
+      PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
+    );
+    expect(live.contract.constraints.some((c) => /docs_write/i.test(c))).toBe(
+      false,
+    );
+    const facts = requiredFactsOrThrow(live.contract);
+    const inputs = live.contract.inputs as Record<string, unknown>;
+    const repositoryRef = String(inputs.repositoryBindingIdentity ?? "");
+    const baseSha = String(inputs.baseHeadSha ?? W2_TEST_PINNED_BASE_HEAD_SHA);
+    expect(repositoryRef.length).toBeGreaterThan(0);
 
-## 19. Recovery / rehydration
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(true);
+    if (!she.ok) throw new Error(`she: ${she.code}`);
+    expect(she.executionAttemptCreated).toBe(false);
+    expect(she.authorization.outcome).toBe("AUTHORIZED");
 
-- GERM load + `projectW3cExecutionReportSurfaceFromDurable` equal on re-read
-- No CycleInstance created on reload
-- Evidence bindings stable without cycle field
+    const port = launchPortOf(oa);
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error(`select: ${selected.message}`);
+    expect(selected.attempt!.selectedAgentRef).toBe(
+      STUDIO_CURSOR_GENERALIST_AGENT_ID,
+    );
+    const attemptId = selected.attempt!.attemptId;
 
-## 20. Fake / Real Matrix
+    const started = await governedExecuteStart({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) throw new Error(`start: ${started.message}`);
 
-| Area | Mode | Status |
-|------|------|--------|
-| Cursor launch | TestOnly Fake | Exercised |
-| FS observation | UNAVAILABLE in oracle (no worktreeRef) | Honest |
-| OpenAI | Fake provider | |
-| Cursor REAL / LIVE / exclusive | NOT run | NOT GRANTED |
+    setTimeout(() => {
+      port.resolveSimulatedCompletion(`proc:sim:${attemptId}`, {
+        exitCode: 0,
+        timedOut: false,
+        stdout: cursorReportStdout({
+          attemptId,
+          executionContractId: she.executionContractId,
+          repositoryRef,
+          baseSha,
+        }),
+        stderr: "",
+        durationMs: 5,
+        // No worktreeRef → verification UNAVAILABLE (honest); Evidence still stamped.
+      });
+    }, 15);
 
-DETERMINISTIC PASS ≠ READY FOR REAL.
+    const terminal = await governedExecuteRecordResult({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+      awaitIfPending: true,
+      missionResultRefsRoot: refsRoot,
+    });
+    expect(terminal.ok).toBe(true);
+    if (!terminal.ok) throw new Error(`record: ${terminal.code}`);
+    expect(terminal.attemptStatus).toBe("succeeded");
+    expect(terminal.productSuccessSemantics).toBe(false);
 
-## 21. R24 impacts (SYNC PENDING)
+    // GERM persisted (Attempt-bound).
+    const germ = loadGenericExecutionReviewMaterial({
+      refsRoot,
+      attemptId,
+    });
+    expect(germ.ok).toBe(true);
 
-| Topic | Before | After | PRR volumes |
-|-------|--------|-------|-------------|
-| Post-success Evidence gate | Required cycle + PRODUCT_MISSION | GERM/Verification/FS without cycle; Mission only if constraint | 02, 03, 06, 07, 08, 09 |
-| Evidence bindings | Often required cycle at Product ingest types | Optional; omit when absent | 02, 06 |
-| W3-B RB | Mission-only enrichment | Also Verification/generic_mat for Generic non-mission | 03, 08 |
-| Product PASS | Unchanged semantic set | Still no universal PASS | 07, 09 |
+    // Verification Evidence — Project/EC/Attempt bound; no cycle invented.
+    const verificationId =
+      executionReviewVerificationEvidenceIdForAttempt(attemptId);
+    const verification =
+      await oa.evidenceReviewServices!.evidenceReader.findById(verificationId);
+    expect(verification).toBeTruthy();
+    expect(verification!.status).toBe("verified");
+    expect(verification!.bindings.projectId).toBe(projectId);
+    expect(verification!.bindings.executionContractId).toBe(
+      she.executionContractId,
+    );
+    expect(verification!.bindings.executionAttemptId).toBe(attemptId);
+    expect(verification!.bindings.cycleInstanceId).toBeUndefined();
 
-PRR/Roadmap **not** edited. LOCAL CANDIDATE ≠ CURRENT ON MAIN.
+    // Mission Evidence NOT invented (no PRODUCT_MISSION stamp).
+    const mission = await oa.evidenceReviewServices!.evidenceReader.findById(
+      missionResultEvidenceIdForAttempt(attemptId),
+    );
+    expect(mission).toBeNull();
 
-## 22. Dette / owner / exit
+    const materialized = await materializeW3bProductTerminal({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) throw new Error(`materialize: ${materialized.code}`);
+    expect(materialized.product.outcome).toBe("UNCLAIMED");
+    expect(materialized.product.claimEvaluationStatus).toBe("not_proven");
+    expect(materialized.product.outcome).not.toBe("SUCCESS");
+    expect(materialized.product.claimAllowed).toBe(false);
 
-| Item | Owner | Exit |
+    const rb = await oa.evidenceReviewServices!.reviewBundleReader.findById(
+      materialized.product.reviewBundleId!,
+    );
+    expect(rb).toBeTruthy();
+    expect(rb!.cycleInstanceId).toBeUndefined();
+    expect(
+      rb!.frozenEvidenceSnapshots?.some((s) => s.evidenceId === verificationId),
+    ).toBe(true);
+
+    // Durable reload — same identities; no cycle created.
+    const liveAfter = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(liveAfter.ok).toBe(true);
+    if (liveAfter.ok) {
+      expect(liveAfter.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+    }
+    const verificationReload =
+      await oa.evidenceReviewServices!.evidenceReader.findById(verificationId);
+    expect(verificationReload?.bindings.projectId).toBe(projectId);
+    expect(verificationReload?.bindings.cycleInstanceId).toBeUndefined();
+
+    // GERM projection / rehydrate honesty (same durable facts).
+    const surfaceA = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: NOTES_PATH,
+    });
+    const surfaceB = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: NOTES_PATH,
+    });
+    expect(surfaceB).toEqual(surfaceA);
+    expect(surfaceA.executionReport).not.toBeNull();
+  }, 60_000);
+
+  it("N1 — Project absent → Generic PREPARE refused", async () => {
+    const oa = runtime.oa!;
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId: "",
+      cycleInstanceId: null,
+      analysis: notesEditAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(false);
+    if (!prep.ok) {
+      expect(prep.code).toMatch(/PROJECT|REQUIRED/i);
+    }
+  });
+
+  it("N3 — Contract of another Project cannot be SHE'd on this Project", async () => {
+    const a = await seedProject("n3a");
+    const b = await seedProject("n3b");
+    const prep = await solicitGenericExecutionPrepare({
+      oa: a.oa,
+      projectId: a.projectId,
+      cycleInstanceId: null,
+      analysis: notesEditAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error("prep");
+    const live = await a.oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    if (!live.ok) throw new Error("ec");
+    const facts = requiredFactsOrThrow(live.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa: b.oa,
+      projectId: b.projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(false);
+  });
+
+  it("N14/N15 — Cursor report absent / no Mission semantic → no invented PASS", async () => {
+    const { projectId, oa } = await seedProject("n14");
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: notesEditAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error("prep");
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    if (!live.ok) throw new Error("ec");
+    const facts = requiredFactsOrThrow(live.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(true);
+    if (!she.ok) throw new Error("she");
+    const port = launchPortOf(oa);
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      forceLocalAuthority: true,
+    });
+    if (!selected.ok) throw new Error("select");
+    const attemptId = selected.attempt!.attemptId;
+    await governedExecuteStart({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+    });
+    setTimeout(() => {
+      port.resolveSimulatedCompletion(`proc:sim:${attemptId}`, {
+        exitCode: 0,
+        timedOut: false,
+        stdout: "SIMULATED_NO_CURSOR_REPORT",
+        stderr: "",
+        durationMs: 1,
+      });
+    }, 15);
+    const terminal = await governedExecuteRecordResult({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+      awaitIfPending: true,
+      missionResultRefsRoot: refsRoot,
+    });
+    expect(terminal.ok).toBe(true);
+    if (!terminal.ok) return;
+    expect(terminal.attemptStatus).toBe("succeeded");
+    // Without parseable Cursor report: no GERM finalize / Mission Evidence invent.
+    const germ = loadGenericExecutionReviewMaterial({ refsRoot, attemptId });
+    expect(germ.ok).toBe(false);
+    const mission = await oa.evidenceReviewServices!.evidenceReader.findById(
+      missionResultEvidenceIdForAttempt(attemptId),
+    );
+    expect(mission).toBeNull();
+    const materialized = await materializeW3bProductTerminal({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) return;
+    expect(materialized.product.outcome).toBe("UNCLAIMED");
+    expect(materialized.product.outcome).not.toBe("SUCCESS");
+  }, 60_000);
+});
+
+describe("AKG-M5 L3-S2 S8 Pass 04 — R-S8-01 Evidence ownership", () => {
+  function baseEvidence(overrides: Partial<Evidence> & { evidenceId: string }): Evidence {
+    const { evidenceId, bindings, provenance, type, source, sourceKind, status, ...rest } =
+      overrides;
+    return {
+      schemaVersion: "0.2.0-oa",
+      evidenceId,
+      type: type ?? "attestation",
+      source: source ?? "execution attempt xat:a (succeeded)",
+      sourceKind: sourceKind ?? "execution_attempt",
+      status: status ?? "verified",
+      classification: "internal",
+      storageMode: "external_payload_ref",
+      availability: "available",
+      producedAt: "2026-08-23T04:30:00.000Z",
+      createdAt: "2026-08-23T04:30:00.000Z",
+      version: 2,
+      containsSecrets: false,
+      bindings: bindings ?? {
+        projectId: "prj:ok",
+        executionContractId: "xct:ok",
+        executionAttemptId: "xat:ok",
+      },
+      provenance: provenance ?? {
+        schemaVersion: "0.1.0-oa",
+        provenanceRecordId: "prov:1",
+        actor: LOCAL_PILOTE_ACTOR,
+        source: "execution_adapter",
+        timestamp: "2026-08-23T04:30:00.000Z",
+        correlationId: "cor:1",
+      },
+      ...rest,
+    } as Evidence;
+  }
+
+  const ctx = {
+    projectId: "prj:ok",
+    executionContractId: "xct:ok",
+    executionAttemptId: "xat:ok",
+    cycleInstanceId: null as string | null,
+  };
+
+  it("E1: coherent verification → admit", () => {
+    const e = baseEvidence({ evidenceId: "ev:execution-review:xat:ok" });
+    expect(
+      evidenceAdmissibleForW3bExecutionContext({
+        evidence: e,
+        ...ctx,
+        role: "verification",
+      }),
+    ).toEqual({ ok: true });
+  });
+
+  it("E2: coherent generic_mat → admit", () => {
+    const e = baseEvidence({
+      evidenceId: "ev:generic-materialization:xat:ok",
+      type: "artifact",
+      source: GENERIC_FILESYSTEM_MATERIALIZATION_EVIDENCE_SOURCE_EXPORT,
+      sourceKind: "external",
+      provenance: {
+        schemaVersion: "0.1.0-oa",
+        provenanceRecordId: "prov:1",
+        actor: LOCAL_PILOTE_ACTOR,
+        source: "system",
+        timestamp: "2026-08-23T04:30:00.000Z",
+        correlationId: "cor:1",
+      },
+    });
+    expect(
+      evidenceAdmissibleForW3bExecutionContext({
+        evidence: e,
+        ...ctx,
+        role: "generic_materialization",
+      }),
+    ).toEqual({ ok: true });
+  });
+
+  it("E3: wrong Project → refuse", () => {
+    const e = baseEvidence({
+      evidenceId: "ev:x",
+      bindings: {
+        projectId: "prj:other",
+        executionContractId: "xct:ok",
+        executionAttemptId: "xat:ok",
+      },
+    });
+    const r = evidenceAdmissibleForW3bExecutionContext({
+      evidence: e,
+      ...ctx,
+      role: "verification",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("evidence_project_mismatch");
+  });
+
+  it("E4: wrong EC → refuse", () => {
+    const e = baseEvidence({
+      evidenceId: "ev:x",
+      bindings: {
+        projectId: "prj:ok",
+        executionContractId: "xct:other",
+        executionAttemptId: "xat:ok",
+      },
+    });
+    const r = evidenceAdmissibleForW3bExecutionContext({
+      evidence: e,
+      ...ctx,
+      role: "verification",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("evidence_execution_contract_mismatch");
+  });
+
+  it("E5: wrong Attempt → refuse", () => {
+    const e = baseEvidence({
+      evidenceId: "ev:x",
+      bindings: {
+        projectId: "prj:ok",
+        executionContractId: "xct:ok",
+        executionAttemptId: "xat:other",
+      },
+    });
+    const r = evidenceAdmissibleForW3bExecutionContext({
+      evidence: e,
+      ...ctx,
+      role: "verification",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("evidence_execution_attempt_mismatch");
+  });
+
+  it("E6/E7: cycle mismatch / foreign cycle on Project-only → refuse", () => {
+    const withCycle = baseEvidence({
+      evidenceId: "ev:x",
+      bindings: {
+        projectId: "prj:ok",
+        executionContractId: "xct:ok",
+        executionAttemptId: "xat:ok",
+        cycleInstanceId: "cyc:foreign",
+      },
+    });
+    const foreign = evidenceAdmissibleForW3bExecutionContext({
+      evidence: withCycle,
+      ...ctx,
+      cycleInstanceId: null,
+      role: "verification",
+    });
+    expect(foreign.ok).toBe(false);
+    if (!foreign.ok) expect(foreign.reason).toBe("evidence_foreign_cycle_on_project_only");
+
+    const mismatch = evidenceAdmissibleForW3bExecutionContext({
+      evidence: withCycle,
+      ...ctx,
+      cycleInstanceId: "cyc:expected",
+      role: "verification",
+    });
+    expect(mismatch.ok).toBe(false);
+    if (!mismatch.ok) expect(mismatch.reason).toBe("evidence_cycle_mismatch");
+  });
+
+  it("E8: available (not verified) → refuse", () => {
+    const e = baseEvidence({ evidenceId: "ev:x", status: "available" });
+    const r = evidenceAdmissibleForW3bExecutionContext({
+      evidence: e,
+      ...ctx,
+      role: "verification",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("evidence_not_verified");
+  });
+
+  it("E9: provenance/sourceKind incoherent → refuse", () => {
+    const e = baseEvidence({
+      evidenceId: "ev:x",
+      sourceKind: "manual",
+    });
+    const r = evidenceAdmissibleForW3bExecutionContext({
+      evidence: e,
+      ...ctx,
+      role: "verification",
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.reason).toBe("verification_source_kind_mismatch");
+  });
+});
+
+describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
+  let runtime: RuntimeApplicationService;
+  let previousMorris: string | undefined;
+  let previousDetPin: string | undefined;
+  let previousPilot: string | undefined;
+  let refsRoot: string;
+  const extraTemp: string[] = [];
+
+  function git(cwd: string, ...args: string[]): string {
+    return execFileSync("git", args, { cwd, encoding: "utf8" }).trim();
+  }
+
+  function createGitWorktree(label: string): { repo: string; h0: string } {
+    const repo = fs.mkdtempSync(path.join(os.tmpdir(), `s8-obs-${label}-`));
+    extraTemp.push(repo);
+    git(repo, "init", "-q");
+    git(repo, "config", "user.email", "s8@example.test");
+    git(repo, "config", "user.name", "s8");
+    git(repo, "config", "commit.gpgsign", "false");
+    fs.mkdirSync(path.join(repo, path.dirname(NOTES_PATH)), { recursive: true });
+    fs.writeFileSync(path.join(repo, NOTES_PATH), "notes-h0\n");
+    fs.writeFileSync(path.join(repo, "untouched.txt"), "keep\n");
+    git(repo, "add", "-A");
+    git(repo, "commit", "-q", "-m", "H0");
+    return { repo, h0: git(repo, "rev-parse", "HEAD").toLowerCase() };
+  }
+
+  function restoreEnvVar(name: string, previous: string | undefined): void {
+    if (previous === undefined) delete process.env[name];
+    else process.env[name] = previous;
+  }
+
+  beforeEach(() => {
+    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
+    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+    delete process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE;
+    setConversationProviderForTests(null);
+    process.env.OPS1_CONVERSATION_PROVIDER = "fake";
+    refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "s8-obs-refs-"));
+    extraTemp.push(refsRoot);
+    runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("akg-m5-l3s2-s8-obs.sqlite"),
+      idPrefix: "l3s2ob",
+    });
+  });
+
+  afterEach(() => {
+    cleanupW2TempDirs();
+    for (const d of extraTemp.splice(0)) {
+      try {
+        fs.rmSync(d, { recursive: true, force: true });
+      } catch {
+        /* ignore */
+      }
+    }
+    restoreEnvVar("SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY", previousMorris);
+    restoreEnvVar("SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA", previousDetPin);
+    restoreEnvVar("SFIA_STUDIO_LOCAL_PILOT_AUTHORITY", previousPilot);
+  });
+
+  async function seedProject(suffix: string) {
+    const oa = runtime.oa!;
+    const created = await runtime.createProject({
+      name: "demo",
+      objective: "S8 OBSERVED",
+      context: "s8 obs",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL"],
+      shortReference: `OB${suffix.toUpperCase().slice(0, 6)}`,
+      idempotencyKey: `idem:s8-obs-${suffix}`,
+    });
+    if (!created.ok) throw new Error("createProject");
+    const projectId = created.project.projectId;
+    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps0.ok) throw new Error("lps0");
+    await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
+      status: "active",
+      expectedLpsVersion: lps0.livingProjectState.version,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+      identity: `acme/l3s2-s8-obs-${suffix}`,
+    });
+    return { projectId, oa };
+  }
+
+  function notesEditAnalysis(): IntentAnalysisDto {
+    const base = buildIntentAnalysisFromSolicitedMission({
+      objective: "modifier notes (OBSERVED)",
+      expectedOutcome: "notes updated",
+      scope: NOTES_PATH,
+      repositoryMutation: "write",
+      impactSignals: { structuralChange: false, architectureImpact: false },
+    });
+    return {
+      ...base,
+      executionIntent: {
+        intentKind: "other",
+        scopeIn: [NOTES_PATH],
+        requiredCapabilities: [],
+      },
+    };
+  }
+
+  function requiredFactsOrThrow(
+    contract: Parameters<typeof requiredInspectedFactsForContract>[0],
+  ): readonly string[] {
+    const facts = requiredInspectedFactsForContract(contract);
+    if (Array.isArray(facts)) return facts;
+    throw new Error("facts incomplete");
+  }
+
+  function launchPortOf(oa: {
+    executionAttemptServices?: {
+      realBoundary?: { launchPort?: unknown };
+    } | null;
+  }): TestOnlyRealExecutionLaunchPort {
+    const port = oa.executionAttemptServices?.realBoundary?.launchPort;
+    if (!(port instanceof TestOnlyRealExecutionLaunchPort)) {
+      throw new Error("TestOnlyRealExecutionLaunchPort required");
+    }
+    return port;
+  }
+
+  it("O2 — Project-only OBSERVED worktree → VerifiedChangeSet + generic_mat + RB ownership", async () => {
+    const fx = createGitWorktree("obs");
+    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = fx.h0;
+    const { projectId, oa } = await seedProject("obs");
+
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: notesEditAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: fx.h0,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.cycleInstanceId).toBeNull();
+
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    if (!live.ok) throw new Error("ec");
+    expect(live.contract.cycleInstanceId ?? null).toBeNull();
+    const facts = requiredFactsOrThrow(live.contract);
+    const inputs = live.contract.inputs as Record<string, unknown>;
+    const repositoryRef = String(inputs.repositoryBindingIdentity ?? "");
+    const baseSha = String(inputs.baseHeadSha ?? fx.h0);
+    expect(baseSha.toLowerCase()).toBe(fx.h0);
+
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(true);
+    if (!she.ok) throw new Error(she.code);
+
+    const port = launchPortOf(oa);
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      forceLocalAuthority: true,
+    });
+    if (!selected.ok) throw new Error("select");
+    const attemptId = selected.attempt!.attemptId;
+    await governedExecuteStart({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+    });
+
+    // Real FS mutation in isolated worktree (Studio will observe).
+    const notesAbs = path.join(fx.repo, NOTES_PATH);
+    fs.writeFileSync(notesAbs, "notes-after-cursor\n");
+    const expectedDigest = `sha256:${createHash("sha256")
+      .update(fs.readFileSync(notesAbs))
+      .digest("hex")}`;
+
+    setTimeout(() => {
+      port.resolveSimulatedCompletion(`proc:sim:${attemptId}`, {
+        exitCode: 0,
+        timedOut: false,
+        stdout: `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify({
+          schemaVersion: "oa.cursor-execution-report.1",
+          reportId: `rpt:obs:${attemptId}`.slice(0, 128),
+          attemptId,
+          executionContractId: she.executionContractId,
+          repositoryRef,
+          baseSha,
+          status: "succeeded",
+          authorizedEffectsExecuted: ["filesystem.modify"],
+          workPerformed: [`modified ${NOTES_PATH}`],
+          fileEffects: {
+            created: [],
+            modified: [NOTES_PATH],
+            deleted: [],
+          },
+        })}`,
+        stderr: "",
+        durationMs: 5,
+        worktreeRef: fx.repo,
+      });
+    }, 15);
+
+    const terminal = await governedExecuteRecordResult({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+      awaitIfPending: true,
+      missionResultRefsRoot: refsRoot,
+    });
+    expect(terminal.ok).toBe(true);
+    if (!terminal.ok) throw new Error(String(terminal.code));
+
+    const germ = loadGenericExecutionReviewMaterial({ refsRoot, attemptId });
+    expect(germ.ok).toBe(true);
+    if (!germ.ok) throw new Error("germ");
+    expect(germ.manifest.verifiedEffects.verificationStatus).toBe("OBSERVED");
+    expect(germ.verifiedChangeSet).toBeTruthy();
+    const entry = germ.verifiedChangeSet!.all.find((e) => e.path === NOTES_PATH);
+    expect(entry).toBeTruthy();
+    expect(entry!.afterDigest).toBe(expectedDigest);
+
+    const verificationId =
+      executionReviewVerificationEvidenceIdForAttempt(attemptId);
+    const verification =
+      await oa.evidenceReviewServices!.evidenceReader.findById(verificationId);
+    expect(verification?.status).toBe("verified");
+    expect(verification?.bindings.cycleInstanceId).toBeUndefined();
+    expect(verification?.bindings.projectId).toBe(projectId);
+
+    const genericMatId = genericMaterializationEvidenceIdForAttempt(attemptId);
+    const genericMat =
+      await oa.evidenceReviewServices!.evidenceReader.findById(genericMatId);
+    expect(genericMat?.status).toBe("verified");
+    expect(genericMat?.digest).toBe(expectedDigest);
+    expect(genericMat?.bindings.cycleInstanceId).toBeUndefined();
+
+    const materialized = await materializeW3bProductTerminal({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (!materialized.ok) throw new Error(materialized.code);
+    expect(materialized.product.outcome).toBe("UNCLAIMED");
+    expect(materialized.product.outcome).not.toBe("SUCCESS");
+
+    const rb = await oa.evidenceReviewServices!.reviewBundleReader.findById(
+      materialized.product.reviewBundleId!,
+    );
+    expect(rb?.frozenAt).toBeTruthy();
+    const snapIds = (rb?.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId);
+    expect(snapIds).toContain(verificationId);
+    expect(snapIds).toContain(genericMatId);
+    for (const snap of rb?.frozenEvidenceSnapshots ?? []) {
+      expect(snap.evidenceId).toBeTruthy();
+      expect(snap.status).toBeTruthy();
+      const liveEv = await oa.evidenceReviewServices!.evidenceReader.findById(
+        snap.evidenceId,
+      );
+      expect(liveEv?.bindings.projectId).toBe(projectId);
+      expect(liveEv?.bindings.executionAttemptId).toBe(attemptId);
+      expect(liveEv?.bindings.cycleInstanceId).toBeUndefined();
+    }
+
+    const liveAfter = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(liveAfter.ok && liveAfter.livingProjectState.activeCycleInstanceId == null).toBe(
+      true,
+    );
+
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: NOTES_PATH,
+    });
+    expect(surface.executionReport).not.toBeNull();
+  }, 90_000);
+
+  it("O8 — Product path refuses foreign-project Verification Evidence in RB", async () => {
+    const { projectId, oa } = await seedProject("own");
+    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: notesEditAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error("prep");
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    if (!live.ok) throw new Error("ec");
+    const facts = requiredFactsOrThrow(live.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    if (!she.ok) throw new Error("she");
+    const port = launchPortOf(oa);
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      forceLocalAuthority: true,
+    });
+    if (!selected.ok) throw new Error("select");
+    const attemptId = selected.attempt!.attemptId;
+    await governedExecuteStart({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+    });
+    const settled = await settleDeterministicProductCursorSuccess({
+      oa,
+      attemptId,
+    });
+    expect(settled.ok).toBe(true);
+
+    // Plant Verification Evidence with WRONG project binding under the Attempt id.
+    const planted = await ingestExecutionReviewVerificationEvidence({
+      evidenceReviewServices: oa.evidenceReviewServices!,
+      projectId: "prj:foreign-owner",
+      cycleInstanceId: null,
+      executionContractId: she.executionContractId,
+      executionAttemptId: attemptId,
+      refsRoot,
+      payload: {
+        schemaVersion: "oa.execution-review-verification.1",
+        attemptId,
+        executionContractId: she.executionContractId,
+        projectId: "prj:foreign-owner",
+        repositoryRef: "repo:x",
+        baseSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        reviewMaterialId: "erm:x",
+        verificationStatus: "UNAVAILABLE",
+        verifiedChangeSetDigest: null,
+        verifiedChangeSetRef: null,
+        claimFactMismatch: false,
+        unclaimedObservedPaths: [],
+        claimedMissingPaths: [],
+        observedPathCount: 0,
+        completeness: "PARTIAL",
+        reviewEndOfPresent: false,
+      },
+    });
+    // May fail attempt-binding overwrite — if ingest forces attempt EC, project can still be foreign.
+    if (planted.ok) {
+      const verificationId =
+        executionReviewVerificationEvidenceIdForAttempt(attemptId);
+      const ev = await oa.evidenceReviewServices!.evidenceReader.findById(
+        verificationId,
+      );
+      expect(ev?.bindings.projectId).toBe("prj:foreign-owner");
+      const materialized = await materializeW3bProductTerminal({
+        oa,
+        projectId,
+        attemptId,
+      });
+      expect(materialized.ok).toBe(true);
+      if (!materialized.ok) return;
+      const rb = await oa.evidenceReviewServices!.reviewBundleReader.findById(
+        materialized.product.reviewBundleId!,
+      );
+      const snapIds = (rb?.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId);
+      expect(snapIds).not.toContain(verificationId);
+    }
+  }, 60_000);
+
+  it("O10 / R-S8-02 — late Verification after frozen tech RB → IDEMPOTENCY_CONFLICT fail-closed", async () => {
+    const { projectId, oa } = await seedProject("late");
+    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: notesEditAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    if (!prep.ok) throw new Error("prep");
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    if (!live.ok) throw new Error("ec");
+    const facts = requiredFactsOrThrow(live.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    if (!she.ok) throw new Error("she");
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      forceLocalAuthority: true,
+    });
+    if (!selected.ok) throw new Error("select");
+    const attemptId = selected.attempt!.attemptId;
+    await governedExecuteStart({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+    });
+    const settled = await settleDeterministicProductCursorSuccess({
+      oa,
+      attemptId,
+    });
+    expect(settled.ok).toBe(true);
+
+    const first = await materializeW3bProductTerminal({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(first.ok).toBe(true);
+    if (!first.ok) return;
+    const rbId = first.product.reviewBundleId!;
+    const rb1 = await oa.evidenceReviewServices!.reviewBundleReader.findById(rbId);
+    expect(rb1?.frozenAt).toBeTruthy();
+    const firstSnap = new Set(
+      (rb1?.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId),
+    );
+
+    // Late Verification Evidence arrives after freeze.
+    const late = await ingestExecutionReviewVerificationEvidence({
+      evidenceReviewServices: oa.evidenceReviewServices!,
+      projectId,
+      cycleInstanceId: null,
+      executionContractId: she.executionContractId,
+      executionAttemptId: attemptId,
+      refsRoot,
+      payload: {
+        schemaVersion: "oa.execution-review-verification.1",
+        attemptId,
+        executionContractId: she.executionContractId,
+        projectId,
+        repositoryRef: "repo:late",
+        baseSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        reviewMaterialId: "erm:late",
+        verificationStatus: "UNAVAILABLE",
+        verifiedChangeSetDigest: null,
+        verifiedChangeSetRef: null,
+        claimFactMismatch: false,
+        unclaimedObservedPaths: [],
+        claimedMissingPaths: [],
+        observedPathCount: 0,
+        completeness: "PARTIAL",
+        reviewEndOfPresent: false,
+      },
+    });
+    expect(late.ok).toBe(true);
+
+    const second = await materializeW3bProductTerminal({
+      oa,
+      projectId,
+      attemptId,
+    });
+    // OA createReviewBundle fingerprint includes evidenceIds → conflict, not silent rewrite.
+    expect(second.ok).toBe(false);
+    if (!second.ok) {
+      expect(second.code).toBe("IDEMPOTENCY_CONFLICT");
+      expect(second.message).toMatch(/late|divergent|idempotency/i);
+    }
+    const rb2 = await oa.evidenceReviewServices!.reviewBundleReader.findById(rbId);
+    const secondSnap = new Set(
+      (rb2?.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId),
+    );
+    expect([...secondSnap].sort()).toEqual([...firstSnap].sort());
+    expect(secondSnap.has(executionReviewVerificationEvidenceIdForAttempt(attemptId))).toBe(
+      false,
+    );
+  }, 60_000);
+});
+
+```
+
+## 14. Oracle OBSERVED intégré
+Test: `O2 — Project-only OBSERVED worktree → VerifiedChangeSet + generic_mat + RB ownership`
+PASS — uses createGitWorktree + pinned HEAD==baseSha + real FS bytes + TestOnlyRealExecutionLaunchPort only at Cursor boundary.
+
+## 15. Worktree Git de test / preuve HEAD
+Isolated temp git repo under test tmp; HEAD pinned to EC baseSha before observation; mutation on authorized NOTES path; not the developer worktree.
+
+## 16. Digests
+Studio computes sha256 from observed bytes; Cursor-supplied digest never treated as Studio observation. Exact path/digest/repo/baseSha/Attempt/EC/Project asserted in O2.
+
+## 17. Scénarios négatifs
+| ID | Result |
+|----|--------|
+| E1–E2 coherent admit | PASS |
+| E3 wrong Project | refuse |
+| E4 wrong EC | refuse |
+| E5 wrong Attempt | refuse |
+| E6 wrong Cycle | refuse |
+| E7 Project-only + foreign cycle | refuse |
+| E8 not verified | refuse |
+| E9 sourceKind mismatch | refuse |
+| O1 UNAVAILABLE (prior nominal) | PASS |
+| O2 OBSERVED | PASS |
+| O8 foreign-project Verification excluded from RB | PASS |
+| O10 late Evidence IDEMPOTENCY_CONFLICT | PASS |
+| O11 no fictive cycle on rehydrate | covered in O2/nominal |
+| O12 Mission cycle-bound non-reg | productMissionEvidenceChain PASS |
+
+## 18. Idempotence / late Evidence
+Identical rematerialize after successful create+freeze reuses frozen RB (skip freeze). Divergent Evidence set → IDEMPOTENCY_CONFLICT fail-closed (O10).
+
+## 19. RB frozen snapshots / CE
+Snapshots carry evidenceId/version/status/availability. Ownership enforced pre-admit. CE evaluates frozen set only; late Evidence not silently attached.
+
+## 20. Product Result honnête
+Generic Project-only → Technical SUCCESS possible; Product outcome UNCLAIMED / NOT_PROVEN. No new Result Semantic. No artificial PASS.
+
+## 21. Non-régressions et commandes
+
+```text
+cd projects/sfia-studio/app
+npm run typecheck          # PASS (tsc --noEmit)
+npm run lint               # PASS with pre-existing unused-var warnings in pilotLifecycleTransitions.ts / startExecution.ts (unchanged)
+npx vitest run __tests__/project-assistant/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts
+  → 15 passed
+npx vitest run (S8 + lotsAC + L3-S1 + productMissionEvidenceChain)
+  → 4 files / 56 passed
+Prior batch (lotsAC, L3-S1, Mission, gcecCont01, w3c loop, w3c correction): 105 passed
+```
+No new regressions. No unrun suite announced as PASS.
+
+## 22. EP-S2-01…12 (original senses — Qualification b712c600 §18)
+
+| EP | Definition (original) | Components | Primary tests | Observed | Proof level | Verdict | Reserve / exit |
+|----|----------------------|------------|---------------|----------|-------------|---------|----------------|
+| EP-S2-01 | Mission/EC/Project/Attempt identity | OA EC/Attempt + Product PREPARE | S8 nominal, O2 | Bindings exact; cycle null Project-only | DET BEHAVIOR PROVEN | PASS | — |
+| EP-S2-02 | SHE reused | Select/Start Product | S8, O2 | Same SHE path | DET | PASS | — |
+| EP-S2-03 | FS effects independent | GERM + git ports | O2 | OBSERVED VerifiedChangeSet | DET | PASS | REAL not exercised |
+| EP-S2-04 | Generic Evidence path→digest | generic_mat ingest | O2 | digest from bytes | DET | PASS | — |
+| EP-S2-05 | Mission Evidence ingested+linked | Mission stamp path | S8 nominal (absent); Mission e2e | Project-only: no Mission Evidence invented | DET at scope | NOT PROVEN for Project-only Mission semantic | Keep Mission-gated; do not promote on FS Evidence |
+| EP-S2-06 | RB/CE consume admissible Evidence | W3-B + ownership | O2, O8, E1–E9 | Ownership + CE | DET | PASS | — |
+| EP-S2-07 | Product Result honest | W3-B projection | O2, nominal | UNCLAIMED | DET | PASS | — |
+| EP-S2-08 | Post-Evidence / rehydration minimale | W3-C / GERM surface | O2 surface | Durable rehydrate | DET | PARTIAL | Nora/Pilote UX E2E not claimed |
+| EP-S2-09 | Fail-closed incoherences | ownership + O10 | E3–E9, O8, O10 | refuse / IDEMPOTENCY_CONFLICT | DET | PASS | Late Evidence recovery UX debt |
+| EP-S2-10 | No Product docs_write; no parallel engine | code review | — | Kept | DOC+tests | PASS | — |
+| EP-S2-11 | L3-S1 / SHE non-reg | L3-S1 suite | L3-S1 integrated | PASS | DET | PASS | — |
+| EP-S2-12 | Fake/Real qualification | TestOnly port | O2 | Fake Cursor / Real FS observation | DET | PASS | REAL BOUNDARY NOT PROVEN |
+
+## 23. Fake/Real Matrix
+| Boundary | Mode | Notes |
+|----------|------|-------|
+| Cursor adapter | FAKE (TestOnlyRealExecutionLaunchPort) | Explicit |
+| FS observation | REAL local test worktree | Bytes + digest Studio-owned |
+| Git | Local temp only | Isolated |
+| Nora | Not LIVE | — |
+| Parity | Same Product services path | — |
+| Level | DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE | |
+| Forbidden claim | REAL BOUNDARY PROVEN | Not claimed |
+| G-REAL | NOT GRANTED | |
+
+## 24. R24 Documentary Impact (SYNC PENDING — no protected write)
+
+Prepare deltas (future gate) for PRR:
+- 02 catalog: W3-B Evidence admission ownership rules
+- 03 flows: Project-first OBSERVED + late Evidence fail-closed
+- 06 recovery: IDEMPOTENCY_CONFLICT after freeze when Evidence set diverges
+- 07 invariants: bindings Project/EC/Attempt/Cycle; no foreign Evidence in RB
+- 08 proof map: S8 Pass 04 tests
+- 09 gaps: late Evidence supersession not offered; EP-S2-05/08 reserves; REAL not granted
+Roadmap truth-sync L3-S2: future under distinct GO.
+**No PRR/Roadmap modified this cycle.**
+
+## 25. Dettes / owner / exit
+| Debt | Owner | Exit |
 |------|-------|------|
-| ChatGPT Critical S8 Review | ChatGPT | Verdict |
-| OBSERVED FS + digest in same Generic PREPARE oracle | Delivery | Optional extension (frontDoor already proves OBSERVED) |
-| Project-only Mission PASS | Morris | Only if new Result Semantic / legitimate PRODUCT_MISSION path authorized |
-| R24 sync | Docs | Separate GO |
-| Git Integration | Morris | Separate GO — **not authorized** |
-| REAL | Morris | Explicit grant |
+| Late Evidence after frozen RB (no supersession under same key) | Morris / OA product | Decide reopen/supersede policy OR operational rematerialize under new Attempt/key |
+| EP-S2-05 Project-only Mission Evidence | Product | Only if Mission semantic stamped Project-first |
+| EP-S2-08 full Nora/Pilote UX | L4 path | Separate GO |
+| R24 sync | Docs gate | After Critical Review accept |
+| Git Integration | Distinct GO | After local closure qualification |
+| REAL / G-REAL | Morris | Not this cycle |
 
-## 23. Risques / réserves
+## 26. Stops et décisions
+- No STOP — GIT TRUTH INCONSISTENT
+- No STOP — R-S8-02 OA LIFECYCLE DECISION REQUIRED (fail-closed OA reused)
+- No protected file writes
+- No project commit/push
 
-1. Mutating Generic Product PASS still requires future semantic decision — correctly UNCLAIMED today.
-2. Oracle did not exercise OBSERVED worktree in the same file (UNAVAILABLE honesty); Option B/frontDoor cover OBSERVED separately — do not sum into false E2E COMPLETE.
-3. GCEC artifactCompleteness strict still requires cycle for historical GCEC functional-design evaluator — not used as Product PASS gate for generic_materialization here.
-4. Dirty local candidate only.
+## 27. Git Review Index cumulatif Option B
+Prior Lots A/B/C + CORR-S2-01/02/03 + R-S2-04/05 + S8 Project-first Delivery + **Pass 04 R-S8-01/02 + OBSERVED oracle** all remain on dirty local candidate at HEAD=main tip `6e957ecb` without project commit.
 
-## 24. Décisions supplémentaires requises
+SHA-256 index (Pass 04 tip files): see §11.
 
-- None structural for this Delivery (OA schema OK).
-- Future: Result Semantic for mutating Generic Project-first PASS — **STOP** until Morris GO (not invented here).
-- R24 / Git Integration: distinct gates.
+## 28. Verdict unique
 
-## 25. Git Review Index cumulatif Option B
+**S8 PROJECT-FIRST — CONSOLIDATED EVIDENCE CLOSURE LOCAL DET CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW — R24 SYNC PENDING — GIT INTEGRATION NOT AUTHORIZED**
 
-| Ref | Value |
-|-----|-------|
-| Branch | `feat/akg-m5-l3-s2-generic-proof-continuity` |
-| HEAD | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
-| Project commits | 0 |
-| Prior handoff | `59a61254` / `47e52720` |
-| Handoff branch | `sfia/review-handoff` |
-| SHA-256 S8 oracle | `33eaefd9b4f6a8f119f41d47762f77ac9ee7863391fef32643f8832a12cddf86` |
-| SHA-256 ingestGeneric | `4d1e32546bda1a7428359177c74d89d8251ee358df4ad8229a53f2cb26e8015f` |
-
-## 26. Verdict unique
-
-**S8 PROJECT-FIRST — INTEGRATED LOCAL DET DELIVERY CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW — R24 SYNC PENDING — GIT INTEGRATION NOT AUTHORIZED**
-
-Does **not** mean L3-S2 GLOBAL COMPLETE, REAL PROVEN, or Product PASS for mutating Generic PREPARE.
+Non-claims preserved:
+- L3-S2 GLOBAL COMPLETE — NO
+- Product PASS mutating Generic PROVEN — NO
+- Mission Evidence Project-only PROVEN — NO
+- Nora/Pilote UX E2E COMPLETE — NO
+- FS→Git→Review REAL — NO
+- L3 GLOBAL CLOSED — NO
+- runtime v3 ADOPTED — NO
