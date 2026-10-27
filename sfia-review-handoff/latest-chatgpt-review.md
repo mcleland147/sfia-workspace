@@ -1,498 +1,379 @@
-# SFIA Review Pack FULL — AKG-M5 L3-S2 OPTION B — FINAL DOCUMENTARY DELTA READINESS
+# SFIA Review Pack FULL — AKG-M5 L3-S2 OPTION B — R24-CR-02 BOUNDED CURRENTNESS STABILIZATION
 
-**Cycle:** 13 — PR Readiness (CKC Cycle 13; experimental cognitive guidance; no execution authority)
+**Cycle:** 8 — Bounded Documentary Delivery (+ Cycle 9 QA in mono-cycle)
 **Profile:** CRITICAL
-**Typologie:** DOC / QA / PR READINESS
-**Horodatage UTC:** 2026-10-27T19:00:07Z
-**Mode:** READ-ONLY project review (no project edit / stage / commit / push / PR / merge)
+**Typologie:** DOC / QA
+**Horodatage UTC:** 2026-10-27T19:18:44Z
+**Mode:** LOCAL AUTHORING ONLY — three documents · no manifest write · no project Git
 **Review Handoff:** L3 REQUIRED (publish-in-cycle)
 
 ---
 
-## 1. GO Morris exact
+## 1. Morris GO
 
-**Décision Morris — 2026-10-27 — GO FINAL DOCUMENTARY DELTA READINESS.**
+**Morris GO — 2026-10-27 — R24-CR-02 BOUNDED CURRENTNESS STABILIZATION.**
 
-Portée: revue finale cumulative du candidat R24 (dix fichiers) après R24-CR-01 + Two-Digest Manifest Gate.
-Point de contrôle principal: **CURRENTNESS RESIDUAL AFTER TWO-DIGEST MANIFEST GATE**.
+Source prior: Final Documentary Delta Readiness **RESERVED** — handoff tip `db51d58df0602016bb94f221383c717870d62720` / blob `a344626cef9c7ec9b552651b6e118be0734df54f`.
 
-INTERDIT (respecté): modification projet; réécriture documentaire; manifeste; `--write-digests`; stage/commit/push/PR projet; merge; cleanup; L4; promotions maturité.
-AUTORISÉ (exécuté): Git Truth; lecture; audit currentness; SHA-256; checker/Vitest RO; Review Pack FULL; handoff L3 borné.
+Mission: correct false ACTIVE CURRENT claims in exactly three files; remove structural cause of repeated currentness loops via durable temporal classification (CURRENT IMPLEMENTED / CONSUMED GATE SNAPSHOT / PRE-INTEGRATION SNAPSHOT / CONDITIONAL FUTURE REQUIREMENT) stable across T0→T1→T2.
 
 ---
 
-## 2. Git Truth initial / final
+## 2. SFIA qualification
 
-| Check | Résultat |
-|-------|----------|
-| Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s2-postmerge-r24-current` |
-| Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
-| Branch | `docs/akg-m5-l3-s2-postmerge-r24-current` |
-| HEAD | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` |
-| `origin/main` (fetch) | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` |
-| `ls-remote main` | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` |
-| merge-base HEAD/origin/main | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` |
-| Base attendue | MATCH |
-| Handoff tip pré-cycle | `daf6ed0bf9a566adaa564a18bde075d3f483a4f8` (Two-Digest Gate) |
-| Handoff blob pré-cycle | `14a12e412df7384aa1b39ff5c82016668808fa6f` |
-| Staged projet | VIDE |
-| Project commits/push/PR this cycle | AUCUN |
-| `git diff --check` | PASS |
-| main avancé | NON |
-
-**Dirty projet (exactement 10):** Roadmap + README + PRR 02/03/04/06/07/08/09 + manifeste.
-**Aussi dirty (hors candidat):** `.tmp-sfia-review/chatgpt-review.md` (Review Pack local — non candidat).
-**01/05:** non modifiés.
-**Verdict Git Truth:** PASS — no STOP.
+| Item | Value |
+|------|-------|
+| Project | SFIA Studio |
+| Workstream | AKG-M5 Product Transformation |
+| Capacity | V3-F05 Generic Execution |
+| Milestone | L3-S2 Option B |
+| Trajectory | T-C ADOPTED |
+| Primary cycle | 8 Documentary Correction |
+| QA block | Cycle 9 (same mono-cycle) |
+| Profile | CRITICAL (epistemic/governance risk) |
+| CKC | Cycle 8/9 candidate guidance; no execution authority |
 
 ---
 
-## 3. Sources canoniques consultées
+## 3. Git Truth before / after
 
-- `prompts/templates/sfia-cycle-execution-template.md` (méthode)
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
-- Convergence Build Doctrine / Roadmap / Product Completion cadrage / Trajectoire T-C / GER architecture
-- PRR README + volumes 02/03/04/06/07/08/09 + manifeste + checker + Vitest conformance
-- Handoffs immutables:
-  - R24-CR-01: tip `f8e16328e91bed79f3612b3e6c3eb04956602025`
-  - Two-Digest Manifest Gate: tip `daf6ed0bf9a566adaa564a18bde075d3f483a4f8` / blob `14a12e412df7384aa1b39ff5c82016668808fa6f`
-- Git / octets worktree priment sur déclarations documentaires.
+| Check | Before | After |
+|-------|--------|-------|
+| Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s2-postmerge-r24-current` | same |
+| Branch | `docs/akg-m5-l3-s2-postmerge-r24-current` | same |
+| HEAD | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` | same |
+| origin/main / ls-remote | `6c8b661c…` | same (no advance) |
+| merge-base | `6c8b661c…` | same |
+| Prior handoff tip/blob | `db51d58d…` / `a344626c…` | verified |
+| Staged project | empty | empty |
+| Project commit/push/PR | none | none |
+| Dirty project files | 10 | 10 (same inventory; 3 of 10 edited this cycle) |
+| `git diff --check` | PASS | PASS |
 
----
-
-## 4. Convergence Pre-check
-
-| Item | État |
-|------|------|
-| Build Doctrine | VALIDATED ON MAIN |
-| Roadmap | ACTIVE LIVING ROADMAP |
-| C1 | VALIDATED |
-| T-C | ADOPTED |
-| L3-S1 | INTEGRATED ON MAIN |
-| L3-S2 Option B Product | MERGED ON MAIN (PR #623) |
-| Merge SHA | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` |
-| Post-merge CI | `#40526990871` SUCCESS |
-| Required Gate | PASS |
-| R24-CR-01 | DELTA SEMANTIC REVIEW PASS (prior) |
-| Two-Digest Manifest Gate | PASS LOCAL (prior; tip `daf6ed0b…`) |
-| Conformance locale | PASS LOCAL (revalidated this cycle) |
-| EP-S2-05 | NOT PROVEN |
-| EP-S2-08 | PARTIAL |
-| Late Evidence supersession | OPEN |
-| L3 GLOBAL | OPEN |
-| REAL / G-REAL | NOT PROVEN / NOT GRANTED |
-| OA-exclusive | DEFAULT OFF |
-| Runtime v3 | NON ADOPTED |
-| Next construction gated | Documentary Git Integration (Morris GO distinct) — **eligibility under review this cycle** |
+**STOP conditions Git:** none.
 
 ---
 
-## 5. Trajectoire L3-S2 / R23 / R24
+## 4. Canonical sources
 
-**R23 Product:** aucun changement Product dans ce candidat. Chaîne Option B / S8 inchangée (PREPARE → ExecutionContract → SHE → Attempt → VCS → Evidence → W3-B → RB/CE → W3-C/GERM → Nora). Qualifications: DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN DET AT TESTED SCOPE · KNOWN GAP. Preuves: PR #623.
-
-**R24 Documentary:** synchronisation architecture as-implemented. NO PRODUCT SEMANTIC IMPACT. Neuf documents + manifeste. Manifeste ≠ nouvelle preuve métier.
+Method templates + routing + operating model + guardrails; Convergence Build Doctrine / Roadmap; C1; Trajectory 05; GER architecture; V3 framing 33–35; PRR README/09 (+ 02–08 identity); manifest (RO); checker; Vitest conformance (not required PASS under intentional drift); immutable handoffs R24-CR-01 `f8e16328…`, Two-Digest `daf6ed0b…`, Final Delta `db51d58d…` (OCC-01..11).
 
 ---
 
-## 6. Candidat dix fichiers — index cumulatif
+## 5. Convergence Pre-check
 
-| # | Path | numstat +/− vs HEAD |
-|---|------|---------------------|
-| 1 | `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | 4/3 |
-| 2 | `projects/sfia-studio/production-runtime-reference/README.md` | 6/6 |
-| 3 | `…/02-runtime-object-catalog.md` | 10/10 |
-| 4 | `…/03-end-to-end-flow-catalog.md` | 4/4 |
-| 5 | `…/04-dependency-impact-map.md` | 4/4 |
-| 6 | `…/06-persistence-restart-and-recovery.md` | 4/4 |
-| 7 | `…/07-authority-invariants-and-failure-modes.md` | 9/9 |
-| 8 | `…/08-test-proof-and-conformance-map.md` | 10/9 |
-| 9 | `…/09-known-gaps-reserves-and-current-boundaries.md` | 10/10 |
-| 10 | `…/production-runtime-reference.manifest.json` | 8/8 |
+Build Doctrine VALIDATED · Roadmap ACTIVE · C1 VALIDATED · T-C ADOPTED · L3-S1 INTEGRATED · L3-S2 Option B MERGED (#623 / `6c8b661c…` / CI `#40526990871` SUCCESS / Required Gate PASS) · R24 Semantic PASS · R24-CR-01 Delta PASS · Two-Digest PASS LOCAL · Final Delta RESERVED → **this cycle R24-CR-02** · EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · Late Evidence OPEN · L3 GLOBAL OPEN · REAL/G-REAL NOT · OA-exclusive DEFAULT OFF · runtime v3 NON ADOPTED · no automatic L4.
 
-**Total:** 10 files, 69 insertions / 67 deletions (candidat seul).
-**Onzième fichier projet:** AUCUN.
-**Product/tests:** non touchés.
-**PRR 01/05:** non-impact.
-**Diff sémantique Product:** N/A — docs only. Contenu détaillé indexé aux handoffs FULL R24 / R24-CR-01 / Two-Digest avec preuve SHA-256 ci-dessous (synthesis-only interdit pour analyses nouvelles; diffs documentaires référencés par identité octet).
+Execution plan (pack only — not fragile PRR ACTIVE NEXT): CR-02 local → Critical Delta Semantic Review → targeted digest refresh (distinct Morris GO) → Final Documentary Readiness → DOC GI decision → Draft PR/CI → merge gate → post-merge truth.
 
 ---
 
-## 7. SHA-256 des dix fichiers (recalcul worktree)
+## 6. Target v3 / M5 / R23 / R24
 
-| Path | SHA-256 | Match attendu |
-|------|---------|---------------|
-| Roadmap | `305c285124d1d227fca387eeaade45b89dc213c265b08244439f7c6112449d65` | R24-CR-01 OK |
-| README | `d6b3f0732e9cbd5a2fe5f451034d943245243d2c6d7c770a510eceaa76a96b55` | Two-Digest OK |
-| 02 | `4d3d3fa937f2f5ddff07a8c8e4d1feb1e0d5ec7b674581ee61d698d182b52eb2` | Two-Digest OK |
-| 03 | `d13787c0f629efe49ae753333154f1c11b04a86ac8e0dd672332259f740e1424` | Two-Digest OK |
-| 04 | `8dd446ddad8cf26cf305b80c3f70db5ee176cf7610a1ab7e20ed115355d4303f` | Two-Digest OK |
-| 06 | `21c9328c91f86984dc5991b9ff0d8b4c77fd1b38d36be68a37c29234287cf997` | Two-Digest OK |
-| 07 | `94aa75b2dcaa90c2527322e11b6444d454883ce03b66d1caf5587f21d78fb46c` | Two-Digest OK |
-| 08 | `7a1bc607f6f282306c3afcef9a31f03b7cc215c6770714f54ff8dbbca5a316b2` | Two-Digest OK |
-| 09 | `ce0e37604698e0c56d7f369f057b9d898c3bef43eef54a5561a61f10b21735a2` | Two-Digest OK |
-| Manifest | `daa6a98d44636891475f5873f5016ee166bcfa2111e329eea565552b9c56847c` | Two-Digest OK |
+**R23:** Product #623 evidence reused. Project-first Generic · CycleInstance optional · SHE · `generic_materialization` · OBSERVED FS DET · W3-B ABSENT/ADMISSIBLE/REJECTED · RB/CE · W3-C/GERM/Nora Tool-First. DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN DET AT TESTED SCOPE · KNOWN GAPS. **No Product/test change.**
 
-**Content identity:** PASS — no CANDIDATE CONTENT DRIFT.
+**R24:** Documentary continuity only. Temporal interpretation fix. No architectural pivot / second PRR / new HumanDecision / new Product semantic claim.
 
 ---
 
-## 8. Manifest digests / meta
+## 7. Initial ten-file identity (pre-edit baseline)
 
-| Volume | sha256_16 manifest | octets courants | Attendu |
-|--------|--------------------|-----------------|---------|
-| README | `d6b3f0732e9cbd5a` | `d6b3f0732e9cbd5a` | MATCH |
-| 01 | `8bfbcb286b053f04` | unchanged | MATCH |
-| 02 | `4d3d3fa937f2f5dd` | `4d3d3fa937f2f5dd` | MATCH |
-| 03 | `d13787c0f629efe4` | `d13787c0f629efe4` | MATCH |
-| 04 | `8dd446ddad8cf26c` | `8dd446ddad8cf26c` | MATCH |
-| 05 | `5190232c2ad6f741` | unchanged | MATCH |
-| 06 | `21c9328c91f86984` | `21c9328c91f86984` | MATCH |
-| 07 | `94aa75b2dcaa90c2` | `94aa75b2dcaa90c2` | MATCH |
-| 08 | `7a1bc607f6f28230` | `7a1bc607f6f28230` | MATCH |
-| 09 | `ce0e37604698e0c5` | `ce0e37604698e0c5` | MATCH |
+| Path | SHA-256 | Status |
+|------|---------|--------|
+| Roadmap | `305c285124d1d227fca387eeaade45b89dc213c265b08244439f7c6112449d65` | MATCH expected |
+| README | `d6b3f0732e9cbd5a2fe5f451034d943245243d2c6d7c770a510eceaa76a96b55` | MATCH |
+| 02 | `4d3d3fa937f2f5ddff07a8c8e4d1feb1e0d5ec7b674581ee61d698d182b52eb2` | MATCH |
+| 03 | `d13787c0f629efe49ae753333154f1c11b04a86ac8e0dd672332259f740e1424` | MATCH |
+| 04 | `8dd446ddad8cf26cf305b80c3f70db5ee176cf7610a1ab7e20ed115355d4303f` | MATCH |
+| 06 | `21c9328c91f86984dc5991b9ff0d8b4c77fd1b38d36be68a37c29234287cf997` | MATCH |
+| 07 | `94aa75b2dcaa90c2527322e11b6444d454883ce03b66d1caf5587f21d78fb46c` | MATCH |
+| 08 | `7a1bc607f6f282306c3afcef9a31f03b7cc215c6770714f54ff8dbbca5a316b2` | MATCH |
+| 09 | `ce0e37604698e0c56d7f369f057b9d898c3bef43eef54a5561a61f10b21735a2` | MATCH |
+| Manifest | `daa6a98d44636891475f5873f5016ee166bcfa2111e329eea565552b9c56847c` | MATCH |
 
-| Meta | Valeur | Attendu |
-|------|--------|---------|
-| trackedSources | 27 | 27 |
-| trackedTests | 7 | 7 |
-| lastReviewedCommit | `928ab15b032c392dafee74a916f2faad3ed524de` | inchangé |
-| lastReviewedAt | `2026-10-15T22:51:00+02:00` | inchangé |
-| JSON parse | OK | OK |
-
-**`--write-digests`:** NON exécuté. Manifeste: NON modifié ce cycle.
+**BASELINE_PASS True.** Staged empty. No concurrent drift.
 
 ---
 
-## 9. Conformance / Vitest / diff --check
+## 8. Prior readiness reserve + OCC disposition
 
-| Gate | Résultat |
-|------|----------|
-| `node scripts/check-production-runtime-reference.mjs` | `RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK` (exit 0) |
-| Vitest `productionRuntimeReference.conformance.d0.test.ts` | **5/5 PASS** (31ms) |
-| `git diff --check` | PASS |
-| Secrets scan (10 fichiers) | NO FINDING |
+Final Delta Readiness RESERVED — DOC GI NOT ELIGIBLE. Blocking OCC-01..04, OCC-07..10.
 
----
-
-## 10. Roadmap audit
-
-| Critère | Verdict |
-|---------|---------|
-| CURRENT TIP unique | OUI (L7) |
-| Product #623 MERGED / L3-S2 CURRENT ON MAIN | OUI — exact |
-| L3-S1 / anciens tips | Conservés HISTORICAL |
-| T-C ADOPTED | Préservé (contexte) |
-| L3 GLOBAL OPEN | OUI |
-| EP-S2 distincts | OUI (05 NOT PROVEN / 08 PARTIAL) |
-| Documentation encore locale | OUI — LOCAL AUTHORING ONLY |
-| Eight-Digest Gate | Correctement CONSUMED |
-| Gate manifeste Two-Digest | **MAL QUALIFIÉ dans CURRENT TIP** — encore présenté comme futur / drift attendu |
-| Trajectoire ACTIVE NEXT | **STALE** — re-exige Critical Delta + Two-Digest déjà PASS |
-
-**Roadmap CURRENT TIP documentary layer:** contient des claims ACTIVE désormais faux → voir §12.
+| OCC | Disposition in R24-CR-02 |
+|-----|--------------------------|
+| OCC-01 CR-01 IN PROGRESS | → CONSUMED: R24-CR-01 **DELIVERED** dated + tip |
+| OCC-02 EXPECTED TWO-DIGEST DRIFT | → CONSUMED: Two-Digest **PASS LOCAL** dated + octet digests |
+| OCC-03 ≠ CONFORMANCE until Two-Digest | → octet-scoped consumed result; ≠ permanent CONFORMANCE for later bytes |
+| OCC-04 ACTIVE NEXT consumed gates | → removed; CONDITIONAL FUTURE REQUIREMENTS durable |
+| OCC-05 valid Product/EP/local clauses | PRESERVED as CURRENT IMPLEMENTED / PRE-INTEGRATION |
+| OCC-06 HISTORICAL TIP L9 | **UNEDITED** — VALID WITH HISTORICAL CONTEXT |
+| OCC-07 README expected digest drift | → CONSUMED snapshots + PRE-INTEGRATION + ≠ permanent CONFORMANCE |
+| OCC-08 Gates NEXT queue | → CONSUMED dated + DURABLE RULES (no transient NEXT queue) |
+| OCC-09 PRR 09 drift/pending | → same durable pattern + DURABLE EXIT CONDITIONS |
+| OCC-10 anti-claim false CONFORMANCE | → removed; replaced with octet-scoped / as-of snapshot anti-claims |
+| OCC-11 other volumes | N/A — unchanged |
 
 ---
 
-## 11. PRR audit
+## 9. Correction A — Roadmap (CURRENT TIP documentary layer only)
 
-| Surface | Verdict |
-|---------|---------|
-| README — Product CURRENT ON MAIN | Exact |
-| README — docs locales / NOT AUTHORIZED | Exact |
-| README — Eight-Digest consumed | Exact |
-| README — EXPECTED DIGEST DRIFT until Two-Digest | **STALE ACTIVE** (Two-Digest déjà PASS; digests alignés) |
-| README Gates NEXT | **STALE ACTIVE** (Critical Delta + Two-Digest consommés) |
-| PRR 09 known gaps / anti-claims EP/REAL | Conservés exacts |
-| PRR 09 EXPECTED LOCAL TWO-DIGEST DRIFT | **STALE ACTIVE** |
-| PRR 09 ≠ CONFORMANCE OK until Two-Digest | **STALE ACTIVE** (conformance locale désormais OK) |
-| PRR 02/03/04/06/07/08 identité | PASS; 0 hit focus residual |
-| PRR 01/05 | Non-impact |
-| Git Integration autorisée | NON — encore correct |
+**File:** `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+**HISTORICAL TIP L9:** untouched.
 
----
+### OLD (pre-CR-02 documentary layer — excerpt)
 
-## 12. CURRENTNESS — liste exhaustive des occurrences pertinentes
+```
+| **CURRENT TIP 2026-10-27 — … / CYCLE 14 R24 LOCAL AUTHORING** | … · **THIS TIP'S DOCUMENTARY LAYER (updated R24-CR-01 2026-10-27):** R24 CURRENT Truth-Sync remains **LOCAL AUTHORING ONLY** on branch `docs/akg-m5-l3-s2-postmerge-r24-current` @ base merge SHA `6c8b661c…` · **≠** documentary Git integrated / ON MAIN · **PREVIOUS EIGHT-DIGEST MANIFEST GATE (2026-10-27):** **PASS LOCAL** … CONSUMED · **R24-CR-01 CURRENTNESS CORRECTION IN PROGRESS** on Roadmap + PRR README + PRR 09 only · edits to README/09 **may create EXPECTED LOCAL TWO-DIGEST DRIFT** vs the previously regularized manifest · **≠** new CONFORMANCE OK claimed on post-correction octets until a distinct Two-Digest Manifest Gate · **DOC COMMIT/PUSH/PR NOT AUTHORIZED** this cycle · **ACTIVE NEXT:** ChatGPT Critical Delta Semantic Review → Morris GO **TWO-DIGEST MANIFEST GATE** … → Final Documentary Delta Readiness → Morris GO distinct commit/push/Draft PR … → …
+```
 
-Méthode: recherche focus sur Roadmap CURRENT TIP, README R24/Gates, PRR 09 R24/Manifest + Anti-claims. Autres volumes candidats: 0 hit. Anti-boucle: HISTORICAL TIP L9 évalué séparément; procédure digest-mismatch conservée.
+### NEW (full CURRENT TIP cell after CR-02)
 
-### OCC-01 — Roadmap CURRENT TIP L7 — clause « R24-CR-01 CURRENTNESS CORRECTION IN PROGRESS »
+```
+| **CURRENT TIP 2026-10-27 — AKG-M5 L3-S2 OPTION B — MERGED ON MAIN (PR #623) / POST-MERGE CI SUCCESS / R24 DOCUMENTARY LAYER (CR-02)** | **Morris GO 2026-10-27** · **CYCLE 14 POST-MERGE VERIFICATION + R24 CURRENT TRUTH-SYNC** · [PR #623](https://github.com/mcleland147/sfia-workspace/pull/623) **MERGED** `2026-10-27T15:02:16Z` · merge **`6c8b661c50a5c1d9bd04793192b9294b63349bb1`** · parents **`6e957ecbf50b009b692cf1fcba2748ee1aa9c862`** + **`73f0166c6a71c301a7b2a9c2471beb30ad068221`** · source branch `feat/akg-m5-l3-s2-generic-proof-continuity` · 4 commits preserved (`0577ca5c` · `90bbf479` · `f7c9ba78` CORR-CI-623-01 · `73f0166c` CORR-CI-623-02) · **23 files** · [post-merge CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **SUCCESS** · **Required Gate PASS** · Construction **Option B / S8 Project-first** **CURRENT ON MAIN**: Project obligatoire · CycleInstance facultatif (D-ER-17) · aucun cycle fictif · Evidence `generic_materialization` · FS OBSERVED / digest-from-bytes DET · W3-B ABSENT/ADMISSIBLE/REJECTED · ReviewBundle / ClaimEvaluation · W3-C / GERM / Nora Tool-First (CI-623-01/02 closed DET) · SHE preserved · Preuve **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE** · EP-S2-01…04 **PASS DET** · EP-S2-05 **NOT PROVEN** · EP-S2-06/07 **PASS DET** · EP-S2-08 **PARTIAL** · EP-S2-09…12 **PASS at tested scope** · **L3 GLOBAL OPEN / NOT COMPLETE** · exclusive **DEFAULT OFF** · G-REAL **NOT GRANTED** · REAL **NOT PROVEN** · runtime v3 **NON ADOPTED** · mutating Generic Product PASS **NOT PROVEN** · late Evidence supersession policy **OPEN** (fail-closed `IDEMPOTENCY_CONFLICT`) · Prior tip **LOCAL CANDIDATE / dirty / PROJECT GIT INTEGRATION NOT AUTHORIZED** = **HISTORICAL AS TIP** (true pre-merge) · Prior L3-S1 oracle tip remains historically true and is **HISTORICAL AS TIP** under this CURRENT · **THIS TIP'S DOCUMENTARY LAYER (updated R24-CR-02 2026-10-27):** Product facts above remain **CURRENT IMPLEMENTED** · R24 documentary Truth-Sync is a **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27, before documentary Git Integration):** authored on branch `docs/akg-m5-l3-s2-postmerge-r24-current` @ base merge SHA `6c8b661c…` · **≠** documentary Git integrated / ON MAIN **as of this snapshot** · **CONSUMED GATE SNAPSHOTS (dated):** Eight-Digest Manifest Gate **PASS LOCAL** 2026-10-27 (handoff tip `e0c9f298…`) · R24-CR-01 currentness correction **DELIVERED** 2026-10-27 on Roadmap + PRR README + PRR 09 (handoff `f8e16328…`) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** 2026-10-27 for the then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` (handoff tip `daf6ed0b…` / blob `14a12e41…`) — that result is **octet-scoped**, not a permanent claim on later bytes · Final Documentary Delta Readiness **RESERVED** 2026-10-27 (handoff `db51d58d…` / blob `a344626c…`) on residual ACTIVE currentness · R24-CR-02 applies durable temporal classification (this update) · **CONDITIONAL FUTURE REQUIREMENTS (durable):** any subsequent README/09 byte change requires applicable Critical Semantic Review and Morris-authorized digest refresh before claiming local PRR conformance · digest mismatch ⇒ REFERENCE REVIEW REQUIRED · documentary commit/push/Draft PR and documentary merge each require a **distinct Morris GO** · post-merge documentary truth-sync and EP requalification remain governed · living currentness follows Git/preuves and future governed Roadmap updates · **≠** automatic L4 · **≠** L3 GLOBAL CLOSED · **≠** REAL / G-REAL · **≠** runtime v3 ADOPTED · **≠** R24 CURRENT documents integrated by this tip alone. |
+```
 
-**Fichier:** `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-**Ligne:** 7 (CURRENT TIP)
-**Phrase exacte (extrait):** `**R24-CR-01 CURRENTNESS CORRECTION IN PROGRESS** on Roadmap + PRR README + PRR 09 only`
-**Contexte:** couche documentaire ACTIVE du tip CURRENT daté 2026-10-27.
-**Vérité temporelle:** R24-CR-01 est **livré** (handoff `f8e16328…`); Critical Delta Semantic Review **PASS**; Two-Digest Gate **PASS**. « IN PROGRESS » n'est plus exact.
-**Preuve:** handoffs R24-CR-01 + Two-Digest; octets README/09/manifeste alignés; checker OK.
-**Classe:** STALE ACTIVE CLAIM
-**Validité:** INVALID ACTIVE
-**Impact:** BLOCKING FOR DOC GI
-**Correctif minimal (non appliqué):** remplacer par « R24-CR-01 CURRENTNESS CORRECTION **DELIVERED** (2026-10-27; handoff `f8e16328…`) ».
+**Temporal classes used:** CURRENT IMPLEMENTED (Product #623/EP) · PRE-INTEGRATION SNAPSHOT (docs as-of) · CONSUMED GATE SNAPSHOTS (Eight-Digest/CR-01/Critical Delta/Two-Digest/Final Delta RESERVED) · CONDITIONAL FUTURE REQUIREMENTS (digest rule + Morris GOs).
 
-### OCC-02 — Roadmap CURRENT TIP L7 — « EXPECTED LOCAL TWO-DIGEST DRIFT »
-
-**Phrase exacte (extrait):** `edits to README/09 **may create EXPECTED LOCAL TWO-DIGEST DRIFT** vs the previously regularized manifest`
-**Vérité:** drift **consommé** — digests README/09 régularisés; manifeste `daa6a98d…`; CONFORMANCE OK.
-**Classe:** STALE ACTIVE CLAIM
-**Validité:** INVALID ACTIVE
-**Impact:** BLOCKING FOR DOC GI
-**Correctif:** qualifier « Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…`) — digests README+09 regularized; CONFORMANCE OK LOCAL ».
-
-### OCC-03 — Roadmap CURRENT TIP L7 — « ≠ new CONFORMANCE OK … until Two-Digest »
-
-**Phrase exacte (extrait):** `**≠** new CONFORMANCE OK claimed on post-correction octets until a distinct Two-Digest Manifest Gate`
-**Vérité:** après Two-Digest, CONFORMANCE OK locale **est** le fait courant. La négation ACTIVE publie un faux.
-**Classe:** STALE ACTIVE CLAIM
-**Validité:** INVALID ACTIVE
-**Impact:** BLOCKING FOR DOC GI
-**Correctif:** `CONFORMANCE OK LOCAL` (Two-Digest consumed) · `≠` digests/docs ON MAIN · `≠` DOC GI authorized.
-
-### OCC-04 — Roadmap CURRENT TIP L7 — ACTIVE NEXT queue
-
-**Phrase exacte (extrait):** `**ACTIVE NEXT:** ChatGPT Critical Delta Semantic Review → Morris GO **TWO-DIGEST MANIFEST GATE** (README+09 only, if drift confirmed) → Final Documentary Delta Readiness → Morris GO distinct commit/push/Draft PR documentaire → …`
-**Décomposition:**
-| Segment | État réel | Classe |
-|---------|-----------|--------|
-| Critical Delta Semantic Review | PASS (consommé) | CONSUMED GATE présenté comme futur → STALE |
-| TWO-DIGEST MANIFEST GATE | PASS LOCAL (consommé) | STALE |
-| Final Documentary Delta Readiness | ce cycle | FUTURE/CURRENT EXIT — durable si seul NEXT |
-| DOC GI commit/push/Draft PR | non autorisé | FUTURE EXIT CONDITION — VALID |
-| Merge doc / post-merge truth-sync | futur | FUTURE EXIT — VALID |
-
-**Validité globale ACTIVE NEXT:** INVALID ACTIVE (tête de file périmée)
-**Impact:** BLOCKING FOR DOC GI
-**Correctif:** ACTIVE NEXT = Final Documentary Delta Readiness (outcome) → Morris GO distinct DOC PROJECT GIT INTEGRATION (commit/push/Draft PR) → … ; gates Critical Delta + Two-Digest = **PREVIOUS / CONSUMED** avec dates+tips.
-
-### OCC-05 — Roadmap CURRENT TIP L7 — clauses encore VALIDES (même ligne)
-
-| Extrait | Classe | Validité | Impact |
-|---------|--------|----------|--------|
-| Product #623 MERGED / CI SUCCESS / Option B CURRENT ON MAIN | CURRENT FACT | VALID | NO IMPACT |
-| EP-S2-05 NOT PROVEN / 08 PARTIAL / L3 GLOBAL OPEN / REAL NOT PROVEN | CURRENT FACT | VALID | NO IMPACT |
-| R24 LOCAL AUTHORING ONLY / ≠ ON MAIN / DOC COMMIT NOT AUTHORIZED | PRE-INTEGRATION GATE | VALID | NO IMPACT |
-| PREVIOUS EIGHT-DIGEST … PASS LOCAL … CONSUMED | CONSUMED GATE | VALID | NO IMPACT |
-| ≠ automatic L4 / ≠ runtime v3 ADOPTED | CURRENT FACT | VALID | NO IMPACT |
-
-**Note anti-boucle:** la présence de « HISTORICAL AS TIP » pour les *prior* tips dans la même cellule ne convertit PAS le CURRENT TIP en snapshot historique.
-
-### OCC-06 — Roadmap HISTORICAL TIP L9 — ACTIVE NEXT pré-merge
-
-**Fichier:** même Roadmap L9
-**Contexte:** explicitement `**HISTORICAL AS TIP** (superseded as CURRENT by CURRENT TIP 2026-10-27 — PR #623 MERGED)`
-**Phrase:** ACTIVE NEXT vers R24-SR / Manifest Digest Gate / Project GI — vraie **au moment** du tip pré-merge.
-**Classe:** HISTORICAL SNAPSHOT
-**Validité:** VALID WITH HISTORICAL CONTEXT
-**Impact:** NON-BLOCKING WITH EXIT (aucune correction requise; ne pas « actualiser » l'historique)
-
-### OCC-07 — README L75 — R24 Cycle 14 + R24-CR-01 row
-
-**Fichier:** `production-runtime-reference/README.md` L75
-**Phrase exacte (extrait):** `this README edit implies **EXPECTED LOCAL DIGEST DRIFT for README** until a distinct Two-Digest Gate · documentary commit/push/PR **NOT AUTHORIZED** this cycle`
-**Parties VALIDES:** LOCAL AUTHORING ONLY; PREVIOUS EIGHT-DIGEST PASS LOCAL consumed; NOT AUTHORIZED.
-**Partie INVALIDE:** EXPECTED LOCAL DIGEST DRIFT until Two-Digest — gate déjà PASS; digest README = `d6b3f0732e9cbd5a`.
-**Classe (claim drift):** STALE ACTIVE CLAIM
-**Validité:** INVALID ACTIVE
-**Impact:** BLOCKING FOR DOC GI
-**Correctif:** remplacer drift-pending par « Two-Digest Manifest Gate PASS LOCAL (2026-10-27); README digest regularized; CONFORMANCE OK LOCAL ».
-
-### OCC-08 — README L76 — Gates NEXT
-
-**Phrase exacte (extrait):** `**NEXT:** Critical Delta Semantic Review → Two-Digest Manifest Gate (README+09 only if drifted) → Final Documentary Delta Readiness → documentary Git Integration under distinct Morris GO`
-**Classe:** STALE ACTIVE CLAIM (tête de file) + FUTURE EXIT CONDITION (DOC GI)
-**Validité:** INVALID ACTIVE pour Critical Delta / Two-Digest comme NEXT
-**Impact:** BLOCKING FOR DOC GI
-**Correctif:** PREVIOUS += Critical Delta PASS + Two-Digest PASS LOCAL; NEXT = Final Documentary Delta Readiness outcome → DOC GI under distinct Morris GO. Conserver règle procédurale digest mismatch ⇒ REFERENCE REVIEW REQUIRED (CURRENT FACT procédural — VALID).
-
-### OCC-09 — PRR 09 L26 — R24 / Manifest row
-
-**Fichier:** `09-known-gaps-reserves-and-current-boundaries.md` L26
-**Status cell (extrait):** `**EXPECTED LOCAL TWO-DIGEST DRIFT** for README+09 until distinct Two-Digest Gate · documentary Git Integration **NOT AUTHORIZED**`
-**Exit cell:** `Critical Delta Semantic Review → Two-Digest Manifest Gate → Final Documentary Delta Readiness → distinct doc GI GOs`
-**Classe:** STALE ACTIVE CLAIM (drift + exit queue tête) ; PRE-INTEGRATION (NOT AUTHORIZED) VALID
-**Validité:** INVALID ACTIVE
-**Impact:** BLOCKING FOR DOC GI
-
-### OCC-10 — PRR 09 L28 — Anti-claims
-
-**Phrase exacte (extrait):** `≠ post-R24-CR-01 CONFORMANCE OK until Two-Digest Gate`
-**Vérité:** CONFORMANCE OK locale **après** Two-Digest — anti-claim ACTIVE faux. Autres anti-claims (L3 GLOBAL, EP, REAL, ON MAIN, digests on main) restent VALID.
-**Classe:** STALE ACTIVE CLAIM (clause conformité)
-**Validité:** INVALID ACTIVE
-**Impact:** BLOCKING FOR DOC GI
-**Correctif:** retirer/remplacer par `≠ CONFORMANCE/digests published on main` · conserver `previous eight-digest local regularization ≠ documentary Git Integration`.
-
-### OCC-11 — Autres volumes / manifeste
-
-Aucun hit focus residual dans 02/03/04/06/07/08 ni manifeste JSON.
-**Impact:** NO IMPACT.
+**Post-edit Roadmap SHA-256:** `3e9c9d7256055101495eaa53362314db7778e3dde95fb86a7676ab5a429e698e`
 
 ---
 
-## 13. Classification synthèse / anti-boucle / durabilité
+## 10. Correction B — PRR README (R24 + Gates rows)
 
-| ID | Classe | Validité | Blocking? |
-|----|--------|----------|-----------|
-| OCC-01 | STALE ACTIVE | INVALID ACTIVE | OUI |
-| OCC-02 | STALE ACTIVE | INVALID ACTIVE | OUI |
-| OCC-03 | STALE ACTIVE | INVALID ACTIVE | OUI |
-| OCC-04 | STALE ACTIVE (+ futures OK) | INVALID ACTIVE | OUI |
-| OCC-05 | CURRENT / CONSUMED / PRE-INT | VALID | NON |
-| OCC-06 | HISTORICAL SNAPSHOT | VALID WITH HISTORICAL CONTEXT | NON |
-| OCC-07 | STALE ACTIVE (partiel) | INVALID ACTIVE | OUI |
-| OCC-08 | STALE ACTIVE (partiel) | INVALID ACTIVE | OUI |
-| OCC-09 | STALE ACTIVE (partiel) | INVALID ACTIVE | OUI |
-| OCC-10 | STALE ACTIVE (partiel) | INVALID ACTIVE | OUI |
-| OCC-11 | N/A | N/A | NON |
+**File:** `projects/sfia-studio/production-runtime-reference/README.md`
 
-**Anti-boucle:** pas de nouveau chantier pour chaque mention de gate; HISTORICAL L9 non touché; règle procédurale digest mismatch conservée; UNIQUE correctif borné proposé (§18) — non exécuté.
-**Test lecteur post-merge docs:** un lecteur croyant le CURRENT TIP / README Gates / PRR 09 Status croirait encore un drift manifeste et des gates Critical Delta / Two-Digest **pending**, alors que le candidat local est **conforme** — **état faux ACTIVE**.
-**CURRENTNESS residual verdict:** **RESERVED** (pas FAIL structurel Product; pas PASS).
+### OLD
 
----
+```
+| **R24 Cycle 14 + R24-CR-01** | Volumes 02/03/04/06/07/08/09 + this README synchronized to Product CURRENT ON MAIN facts · documentary edits remain **LOCAL AUTHORING ONLY** on `docs/akg-m5-l3-s2-postmerge-r24-current` · **PREVIOUS EIGHT-DIGEST MANIFEST GATE PASS LOCAL** (2026-10-27; consumed) · **R24-CR-01** corrects stale ACTIVE digest-pending wording · this README edit implies **EXPECTED LOCAL DIGEST DRIFT for README** until a distinct Two-Digest Gate · documentary commit/push/PR **NOT AUTHORIZED** this cycle |
+| **Gates** | **PREVIOUS:** Eight-digest Manifest Gate **PASS LOCAL** (2026-10-27) · **CURRENT DELTA:** R24-CR-01 currentness correction (Roadmap/README/09) · **NEXT:** Critical Delta Semantic Review → Two-Digest Manifest Gate (README+09 only if drifted) → Final Documentary Delta Readiness → documentary Git Integration under distinct Morris GO · **≠** docs ON MAIN · procedural rule unchanged: digest mismatch ⇒ REFERENCE REVIEW REQUIRED |
+```
 
-## 14. EP / non-claims / gaps (préservés)
+### NEW
 
-| Claim | État exigé | Observé |
-|-------|------------|---------|
-| EP-S2-05 | NOT PROVEN | Préservé |
-| EP-S2-08 | PARTIAL | Préservé |
-| Late Evidence supersession | OPEN | Préservé |
-| REAL | NOT PROVEN | Préservé |
-| G-REAL | NOT GRANTED | Préservé |
-| L3 GLOBAL | OPEN | Préservé |
-| OA-exclusive | DEFAULT OFF | Préservé |
-| Runtime v3 | NON ADOPTED | Préservé |
-| L3 COMPLETE / STUDIO v3 ADOPTED / DOCS ON MAIN / READY TO MERGE | INTERDIT | Non déclaré |
+```
+| **R24 Cycle 14 + R24-CR-01/CR-02** | Volumes 02/03/04/06/07/08/09 + this README synchronized to Product CURRENT ON MAIN facts · **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27, before documentary Git Integration):** authored on `docs/akg-m5-l3-s2-postmerge-r24-current` · **CONSUMED GATE SNAPSHOTS (dated):** Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; handoff `e0c9f298…`) · R24-CR-01 **DELIVERED** (handoff `f8e16328…`; Roadmap/README/09) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…` / blob `14a12e41…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes |
+| **Gates** | **CONSUMED (dated):** Eight-Digest · R24-CR-01 · Critical Delta · Two-Digest (as above) · **DURABLE RULES:** digest mismatch ⇒ REFERENCE REVIEW REQUIRED · subsequent publication requires applicable Critical Semantic Review and Morris-authorized digest refresh when digests drift · documentary Git Integration and merge each under distinct Morris GO · post-merge documentary verification governed · **≠** docs ON MAIN **as of the pre-integration snapshot** |
+```
 
-Technical SUCCESS ≠ Product PASS — respecté.
+**Preserved:** CURRENT ON MAIN Product row · HISTORICAL AS TIP pre-merge · Anti-claims EP/REAL · procedural digest mismatch rule.
+
+**Post-edit README SHA-256:** `53adf66d7dc4f6409824fce1b90510abbb95c87772d51398a143160e8521fc34`
+**digest16 (not written to manifest):** `53adf66d7dc4f640`
 
 ---
 
-## 15. Security / scope
+## 11. Correction C — PRR 09 (R24/Manifest + Anti-claims)
 
-| Check | Résultat |
-|-------|----------|
-| Secrets (ghp_/pat/AKIA/PEM/xox) sur 10 fichiers | 0 |
-| Fichiers parasites projet | aucun (hors Review Pack `.tmp`) |
-| Suppressions / renommages | aucun |
-| Product/tests modifiés | aucun |
-| Staged inattendu | aucun |
-| Doctrine / promotions | non modifiées ce cycle |
+**File:** `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
 
----
+### OLD
 
-## 16. Readiness matrix A–J
+```
+| R24 / Manifest (Cycle 14 + R24-CR-01) | CURRENT Truth-Sync **LOCAL AUTHORING** (≠ ON MAIN) · **PREVIOUS EIGHT-DIGEST MANIFEST GATE PASS LOCAL** (2026-10-27; consumed; eight volume digests regularized in local candidate) · **R24-CR-01** currentness correction on Roadmap/README/09 · **EXPECTED LOCAL TWO-DIGEST DRIFT** for README+09 until distinct Two-Digest Gate · documentary Git Integration **NOT AUTHORIZED** | Critical Delta Semantic Review → Two-Digest Manifest Gate → Final Documentary Delta Readiness → distinct doc GI GOs |
 
-| Axe | Verdict | Preuve | Effet | Réserve / gate |
-|-----|---------|--------|-------|----------------|
-| A. Git Truth | **PASS** | HEAD=main=`6c8b661c…`; branch docs; staged vide | Continue | — |
-| B. Branche/base | **PASS** | `docs/akg-m5-l3-s2-postmerge-r24-current` @ merge SHA | Continue | — |
-| C. Scope dix fichiers | **PASS** | porcelain exact 10 candidats | Continue | `.tmp` hors scope |
-| D. Content identity | **PASS** | 10/10 SHA match Two-Digest/CR-01 | Continue | — |
-| E. Manifest conformance | **PASS** | checker OK; digests 10/10; meta frozen | Continue | no write |
-| F. Semantic integrity | **PASS** | R24 NO PRODUCT SEMANTIC IMPACT; 02–08 frozen | Continue | — |
-| G. CURRENT/HISTORICAL stability | **RESERVED** | OCC-01..04,07..10 INVALID ACTIVE | **Bloque DOC GI** | Correctif borné §18 |
-| H. Security and validation | **PASS** | secrets 0; Vitest 5/5; diff --check | Continue | — |
-| I. EP/non-claims/gaps | **PASS** | non-claims préservés | Continue | — |
-| J. Documentary Git Integration eligibility | **RESERVED** | G RESERVED | **DOC GI NOT ELIGIBLE** | Morris GO correctif distinct |
+**Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL PROVEN · ≠ G-REAL GRANTED · ≠ runtime v3 ADOPTED · ≠ R24 CURRENT docs integrated / ON MAIN · ≠ Manifest digests published on main · ≠ post-R24-CR-01 CONFORMANCE OK until Two-Digest Gate · previous eight-digest local regularization ≠ documentary Git Integration.
+```
 
-### Levels
+### NEW
 
-| Level | Verdict | Note |
-|-------|---------|------|
-| LEVEL 1 — CONTENT READINESS | **RESERVED** | Identité/conformance OK; currentness ACTIVE stale |
-| LEVEL 2 — ELIGIBILITY FOR MORRIS DOC GI DECISION | **RESERVED / NOT ELIGIBLE** | Ne pas ouvrir GO DOC GI |
-| LEVEL 3 — ACTUAL GIT/PR STATE | **LOCAL DIRTY · NO COMMIT · NO PUSH · NO PR** | Attendu; ≠ PR CREATED |
+```
+| R24 / Manifest (Cycle 14 + R24-CR-01/CR-02) | **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27):** Truth-Sync authored locally (**≠** ON MAIN **as of this snapshot**) · **CONSUMED GATE SNAPSHOTS (dated):** Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; eight volume digests regularized for that candidate) · R24-CR-01 **DELIVERED** (Roadmap/README/09; handoff `f8e16328…`) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes | **DURABLE EXIT CONDITIONS:** applicable Critical Semantic Review for documentary deltas · manifest digests must match actual bytes (mismatch ⇒ REFERENCE REVIEW REQUIRED) · Morris-authorized digest refresh when drifted · distinct Morris GO for documentary Git Integration · distinct merge gate · post-merge documentary currentness verification |
+
+**Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL PROVEN · ≠ G-REAL GRANTED · ≠ runtime v3 ADOPTED · local digest PASS ≠ documentary Git Integration · local documentary candidate ≠ ON MAIN **as of the pre-integration snapshot** · prior Two-Digest PASS scoped to reviewed octets ≠ permanent CONFORMANCE OK for later bytes · ≠ Manifest digests published on main **as of the pre-integration snapshot**.
+```
+
+**Post-edit PRR 09 SHA-256:** `5d39a296a14d4ed7a9fc14a5b8ed711972271e8a47ce6854c3159478dff90288`
+**digest16 (not written):** `5d39a296a14d4ed7`
 
 ---
 
-## 17. Risques / réserves
+## 12. Useful unified diffs (cycle semantic surfaces)
 
-1. **R-CUR-01 (BLOCKING):** CURRENT TIP + README Gates + PRR 09 publient encore drift/Two-Digest pending / CR-01 IN PROGRESS — faux après gate PASS.
-2. **R-CUR-02:** Si DOC GI mergeait sans correctif, main publierait un registre ACTIVE faux (gouvernance documentaire).
-3. **R-LOOP:** éviter micro-corrections multiples; un seul correctif stable (trois surfaces).
-4. **Non-risque:** HISTORICAL TIP L9; Product #623; digests octets; EP gaps.
+CR-02 edits are confined to the clauses above. Cumulative `git diff` vs HEAD also includes prior R24/CR-01 authoring already present at baseline (identity gate). CR-02-only semantic delta = OLD→NEW in §§9–11.
 
----
-
-## 18. Recommandation Morris + correction minimale (NON APPLIQUÉE)
-
-### Verdict cycle
-
-**AKG-M5 L3-S2 OPTION B — FINAL DOCUMENTARY DELTA READINESS RESERVED — ACTIVE CURRENTNESS CLAIMS REQUIRE BOUNDED CORRECTION — DOC GI NOT ELIGIBLE.**
-
-### Ne PAS ouvrir
-
-GO DOC PROJECT GIT INTEGRATION COMMIT + PUSH + DRAFT PR.
-
-### Ouvrir (GO distinct recommandé)
-
-**GO R24-CR-02 — BOUNDED CURRENTNESS TRUTH-SYNC (POST TWO-DIGEST)**
-Profil CRITICAL · DOC only · no Product.
-
-**Fichiers exacts (3):**
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — CURRENT TIP documentary layer only (ne pas réécrire HISTORICAL tips).
-2. `projects/sfia-studio/production-runtime-reference/README.md` — rows R24 + Gates.
-3. `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` — R24/Manifest status+exit + Anti-claims clause conformité.
-
-**Contenu cible durable (intent — pas de patch appliqué ici):**
-- CR-01 = DELIVERED / consumed (date + tip).
-- Critical Delta Semantic Review = PASS / consumed.
-- Two-Digest Manifest Gate = PASS LOCAL / consumed (tip `daf6ed0b…`, blob `14a12e41…`); digests README=`d6b3f0732e9cbd5a`, 09=`ce0e37604698e0c5`; CONFORMANCE OK LOCAL.
-- Docs remain LOCAL AUTHORING · ≠ ON MAIN · DOC GI NOT AUTHORIZED until distinct Morris GO.
-- ACTIVE NEXT / Exit = Final Documentary Delta Readiness (re-run after CR-02) → Morris GO DOC GI (commit/push/Draft PR) → merge GO → post-merge truth-sync.
-- Éviter « IN PROGRESS » non borné et chaînes ACTIVE NEXT qui citent des gates déjà PASS.
-
-**Manifeste / digest impact:** Roadmap hors manifeste. README+09 changeront → **digest write gate distinct** (Two-Digest ou equivalent) **après** CR-02, avant nouvelle Final Delta Readiness. Ne pas prétendre le correctif déjà validé.
-
-**Preuves à revalider après CR-02:** SHA-256 3 docs; checker; Vitest 5/5; currentness re-audit; Review Pack + handoff.
-
-**PR body:** N/A ce cycle (READINESS RESERVED — pas de Draft PR).
+Roadmap HISTORICAL TIP L9 byte-content for the historical pre-merge tip row: **preserved** (still present; not rewritten by CR-02).
 
 ---
 
-## 19. Git Review Index
+## 13. T0 / T1 / T2 proof matrix
 
-| Ref | Rôle |
+Definitions:
+**T0** = after CR-02 edit, manifest still has pre-CR-02 digests `d6b3f0732e9cbd5a` / `ce0e37604698e0c5` (checker drifts).
+**T1** = after future authorized README/09 digest refresh aligning to new digests `53adf66d7dc4f640` / `5d39a296a14d4ed7`.
+**T2** = after future authorized documentary PR merge to main.
+
+| Assertion class / statement | T0 | T1 | T2 | Form | False ACTIVE? |
+|----------------------------|----|----|----|------|---------------|
+| Product #623 MERGED / CI SUCCESS / Option B CURRENT ON MAIN | Y | Y | Y | CURRENT IMPLEMENTED | No |
+| EP-S2-05 NOT PROVEN / 08 PARTIAL / L3 GLOBAL OPEN / REAL NOT / runtime v3 NON ADOPTED | Y | Y | Y | CURRENT IMPLEMENTED | No |
+| PRE-INTEGRATION SNAPSHOT as-of 2026-10-27: authored on docs branch; ≠ ON MAIN **as of snapshot** | Y | Y | Y (dated) | PRE-INTEGRATION SNAPSHOT | No |
+| Eight-Digest / CR-01 DELIVERED / Critical Delta PASS / Two-Digest PASS LOCAL on digests d6b3…/ce0e… | Y | Y | Y | CONSUMED GATE SNAPSHOT | No |
+| Two-Digest result octet-scoped ≠ permanent CONFORMANCE for later bytes | Y | Y | Y | CONSUMED + conditional | No |
+| Final Delta RESERVED (db51d58d…) dated fact | Y | Y | Y | CONSUMED/historical event | No |
+| R24-CR-02 durable classification applied (this update) | Y | Y | Y | dated delivery fact | No |
+| digest mismatch ⇒ REFERENCE REVIEW REQUIRED | Y | Y | Y | CONDITIONAL FUTURE | No |
+| Subsequent byte change needs semantic review + Morris digest refresh before claiming local conformance | Y | Y | Y | CONDITIONAL FUTURE | No |
+| DOC GI / merge each need distinct Morris GO | Y | Y | Y* | CONDITIONAL FUTURE | No |
+| ≠ permanent CONFORMANCE OK for later bytes | Y | Y | Y | durable negation | No |
+| local digest PASS ≠ documentary Git Integration | Y | Y | Y | durable | No |
+| ≠ Manifest digests published on main **as of pre-integration snapshot** | Y | Y | Y (dated) | PRE-INTEGRATION | No |
+| Checker REPORTS README+09 drift at T0 | Y | N | N | observed T0 fact | Expected |
+| Claim « CONFORMANCE OK » for current CR-02 bytes | N (not claimed) | would be true only after refresh+check — not asserted now | — | avoided | No |
+| Claim « Two-Digest pending / EXPECTED DRIFT / CR-01 IN PROGRESS / ACTIVE NEXT queue » | absent | absent | absent | removed | No |
+| Claim « docs ONLY local » as undated CURRENT forever | absent (as-of snapshot used) | absent | absent | avoided | No |
+
+\* After T2 merge GO consumed, the *requirement* remains historically true for how integration was governed; living tip may later record merge as CURRENT IMPLEMENTED under a distinct Roadmap update.
+
+**Matrix verdict:** PASS — no new INVALID ACTIVE across T0/T1/T2 at authoring scope.
+
+---
+
+## 14. Historical integrity
+
+| Item | Status |
+|------|--------|
+| HISTORICAL TIP L9 pre-merge | PRESERVED / UNEDITED |
+| Earlier HISTORICAL tips | PRESERVED |
+| Product #623 / CI / parents / EP facts | PRESERVED |
+| Prior handoff refs | PRESERVED / extended with CR-02 |
+| No rewrite of historical PENDING→PASS outside CURRENT surfaces | OK |
+
+---
+
+## 15. EP / non-claims
+
+Preserved: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · Late Evidence OPEN · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · OA-exclusive DEFAULT OFF · runtime v3 NON ADOPTED.
+Not declared: FINAL READINESS PASS · current CONFORMANCE OK on modified README/09 · PR created · docs ON MAIN · L3 COMPLETE · EP promotions.
+
+---
+
+## 16. Other docs + manifest identity (post-edit)
+
+| Path | SHA-256 | vs baseline |
+|------|---------|-------------|
+| 02 | `4d3d3fa9…182b52eb2` | SAME |
+| 03 | `d13787c0…740e1424` | SAME |
+| 04 | `8dd446dd…55d4303f` | SAME |
+| 06 | `21c9328c…287cf997` | SAME |
+| 07 | `94aa75b2…d78fb46c` | SAME |
+| 08 | `7a1bc607…ca5a316b2` | SAME |
+| Manifest | `daa6a98d44636891475f5873f5016ee166bcfa2111e329eea565552b9c56847c` | **BYTE-IDENTICAL** |
+| 01 / 05 | not dirty | NON-IMPACT |
+
+**Exactly three documents edited this cycle.** Cumulative dirty inventory remains **ten** project files.
+
+---
+
+## 17. README/09 new digests (calculated, NOT written)
+
+| Volume | Old digest16 (manifest) | New digest16 (bytes) | Written? |
+|--------|-------------------------|----------------------|----------|
+| README | `d6b3f0732e9cbd5a` | `53adf66d7dc4f640` | **NO** |
+| 09 | `ce0e37604698e0c5` | `5d39a296a14d4ed7` | **NO** |
+
+`--write-digests`: **NOT run.** Manifest: **unchanged.**
+
+---
+
+## 18. Read-only checker
+
+```
+FAIL: volume digest drift for …/README.md: manifest=d6b3f0732e9cbd5a current=53adf66d7dc4f640 ⇒ REFERENCE REVIEW REQUIRED
+FAIL: volume digest drift for …/09-known-gaps-reserves-and-current-boundaries.md: manifest=ce0e37604698e0c5 current=5d39a296a14d4ed7 ⇒ REFERENCE REVIEW REQUIRED
+RESULT: REFERENCE REVIEW REQUIRED / CONFORMANCE FAILED
+```
+
+**Expected drift only:** README + 09. No other volume drift. No trackedSources/Tests change.
+**≠** claiming CONFORMANCE OK for new bytes.
+Vitest: not asserted PASS (intentional outdated manifest); not required for CR-02 exit.
+
+---
+
+## 19. Validations A–T
+
+| # | Check | Result |
+|---|-------|--------|
+| A | Exactly 3 docs edited | PASS |
+| B | Cumulative dirty = 10 | PASS |
+| C | Manifest byte-identical | PASS |
+| D | Six other PRR docs identical | PASS |
+| E | 01/05 unaffected | PASS |
+| F | Product/tests unchanged | PASS |
+| G | No schema/architecture change | PASS |
+| H | No new HumanDecision | PASS |
+| I | No new maturity claim | PASS |
+| J | Historical tips preserved | PASS |
+| K | T0/T1/T2 matrix | PASS |
+| L | No INVALID ACTIVE in edited scope | PASS |
+| M | Markdown tables | PASS |
+| N | Internal links | PASS (relative PRR links intact) |
+| O | git diff --check | PASS |
+| P | Sensitive scan | NO FINDING |
+| Q | New digests calculated not written | PASS |
+| R | Checker drift exact scope | PASS |
+| S | Staged project empty | PASS |
+| T | No project commit/push/PR | PASS |
+
+---
+
+## 20. Residual risks
+
+1. **R-DIG-01:** README/09 intentionally out of manifest sync until distinct Morris digest-refresh GO.
+2. **R-ROW-01 (non-blocking / out of CR-02 tip scope):** AKG-M5 matrix row elsewhere in Roadmap still narrates R24 LOCAL trajectory in compressed form from prior R24 authoring — not in OCC-01..10; living currentness still governed by CURRENT TIP + Git. Do not reopen correction unless a demonstrably false ACTIVE claim is proven.
+3. **R-GI:** DOC GI still NOT AUTHORIZED.
+
+---
+
+## 21. Exit proof for R24-CR-02
+
+- Three-document semantic delta delivered locally.
+- OCC-01..04, 07..10 closed by durable classification.
+- T0/T1/T2 stability verified at authoring scope.
+- Manifest unchanged; expected README/09 drift only.
+- Ready for ChatGPT Critical Semantic Delta Review.
+- Documentary Git Integration **NOT AUTHORIZED**.
+
+---
+
+## 22. Next gate / Morris requirements
+
+1. ChatGPT Critical R24-CR-02 Semantic Delta Review (this handoff).
+2. If PASS → separate Morris GO: bounded manifest refresh README+09 digests only.
+3. Revalidate currentness (no automatic rewrite unless false ACTIVE remains).
+4. Final Documentary Readiness.
+5. Only after readiness PASS → separate Morris GO DOC GI commit/push/Draft PR.
+6. Merge + post-merge truth = further distinct GOs.
+
+---
+
+## 23. Git Review Index
+
+| Ref | Role |
 |-----|------|
-| `6c8b661c50a5c1d9bd04793192b9294b63349bb1` | Product merge / docs branch HEAD / origin/main |
-| PR #623 | Product MERGED |
-| CI `#40526990871` | Post-merge SUCCESS |
-| Handoff `f8e16328…` | R24-CR-01 |
-| Handoff `e0c9f298…` | Eight-Digest Gate |
-| Handoff `daf6ed0b…` / blob `14a12e41…` | Two-Digest Gate (pré-cycle) |
-| Manifest `daa6a98d…` | Post Two-Digest |
-| Branch docs | `docs/akg-m5-l3-s2-postmerge-r24-current` |
+| `6c8b661c…` | Product merge / docs HEAD / main |
+| PR #623 / CI `#40526990871` | Product evidence |
+| `f8e16328…` | R24-CR-01 |
+| `daf6ed0b…` / `14a12e41…` | Two-Digest |
+| `db51d58d…` / `a344626c…` | Final Delta RESERVED |
+| Roadmap new | `3e9c9d7256055101495eaa53362314db7778e3dde95fb86a7676ab5a429e698e` |
+| README new | `53adf66d7dc4f6409824fce1b90510abbb95c87772d51398a143160e8521fc34` |
+| 09 new | `5d39a296a14d4ed7a9fc14a5b8ed711972271e8a47ce6854c3159478dff90288` |
+| Manifest | `daa6a98d…` unchanged |
 
 ---
 
-## 20. Handoff audit (ce cycle)
-
-Publisher: `scripts/sfia/publish-review-handoff.sh`
-Source: `.tmp-sfia-review/chatgpt-review.md`
-Destination branch: `sfia/review-handoff`
-Destination file: `sfia-review-handoff/latest-chatgpt-review.md`
-Push handoff: OUI — L3 borné only.
-Après publish: vérifier tip+blob distants; revenir branche docs; confirmer 10 fichiers projet inchangés; staged projet vide; aucun projet commit/push/PR.
-
----
-
-## 21. Verdict unique
+## 24. Unique verdict
 
 ```
 AKG-M5 L3-S2 OPTION B —
-FINAL DOCUMENTARY DELTA READINESS RESERVED —
-ACTIVE CURRENTNESS CLAIMS REQUIRE BOUNDED CORRECTION —
-DOC GI NOT ELIGIBLE.
+R24-CR-02 BOUNDED CURRENTNESS STABILIZATION DELIVERED LOCAL —
+THREE-DOCUMENT SEMANTIC DELTA PREPARED —
+T0/T1/T2 STABILITY VERIFIED AT AUTHORING SCOPE —
+MANIFEST UNCHANGED —
+EXPECTED README/09 DIGEST DRIFT —
+READY FOR CHATGPT CRITICAL SEMANTIC DELTA REVIEW —
+DOCUMENTARY GIT INTEGRATION NOT AUTHORIZED.
 ```
 
-**CAS B.**
-LEVEL 1 RESERVED · LEVEL 2 NOT ELIGIBLE · LEVEL 3 LOCAL DIRTY / NO COMMIT / NO PUSH / NO PR.
-Project Git operations: NOT AUTHORIZED.
-Next: ChatGPT Final Critical Documentary Delta Review of this handoff → si confirme RESERVED → Morris GO R24-CR-02 borné (non auto).
-
----
-
-FIN REVIEW PACK FULL — FINAL DOCUMENTARY DELTA READINESS — 2026-10-27T19:00:07Z
+FIN REVIEW PACK FULL — R24-CR-02 — 2026-10-27T19:18:44Z
