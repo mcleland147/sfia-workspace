@@ -229,3 +229,22 @@ Nominal Product path (architecture D-ER; **CURRENT ON MAIN** at deterministic te
 HumanDecision (durable DecisionBasis + local-write seal) → Generic EC `studio.cursor.generalist.execute` (authorized `EFFECT_CLASS:local-write` / filesystem.create|modify — **≠** Product write taxonomy) → Cursor Generalist → isolated Git worktree → CursorExecutionReport [CLAIM] + native Cursor Review End Of [CLAIM executor-only; missing ⇒ PARTIAL / no Studio synthesis] → Studio `NodeLocalGitStatusDiffPort` / `observeVerifiedChangeSet` [FACTS] (Git delta only; OBSERVED vs UNAVAILABLE — never invent empty FACTS; never full-repo scan in Git mode) → Generic Execution Review Material → Verification Evidence `ev:execution-review:*` + Mission Evidence → same ReviewBundle / ClaimEvaluation / ContractResult (mismatch ⇒ ≠ PASS) → Product Resolution (`executionReview`) → scheduled UI continue (no abandonment counter) + remount auto-resume → Nora Deep Review (shared Agents core; actual `execution_review_*` tool calls) → Result Surface (real fields + Pilot `w2ReadExecutionReviewItemAction` by itemId).
 
 **CURRENT ON MAIN after #618:** docs_write Product specialization is **RETIRED**. Dual-write bridge sentences that assumed admission are **HISTORICAL** (true on `7db8afd7`). Anti-stall: mounted schedule + remount from durable projection; Reconciler remains owner of transitions. Proof ceiling for generic paths: **DETERMINISTIC AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
+
+
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+
+> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+
+### Flow — Project-first Generic → Evidence → W3-B → Product Result (LOCAL DET)
+
+**Project-only path (S8):**
+
+Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) → SHE Select/Start → ExecutionAttempt → Cursor boundary (**TestOnlyRealExecutionLaunchPort** in DET) → Studio GERM / VerifiedChangeSet (**OBSERVED** when worktreeRef+HEAD/base coherent; else honest **UNAVAILABLE**) → Verification Evidence ± **generic_materialization** Evidence → W3-B ReviewBundle / ClaimEvaluation → Product Result honest (**UNCLAIMED** / **NOT_PROVEN** without applicable Result Semantic) → W3-C / GERM surface rehydrate.
+
+**Cycle-bound Mission path:** KEEP — Mission Evidence + cycle bindings when Product Mission stamped; non-regression suites preserved.
+
+**Admission (W3-B):** ABSENT (optional skip / incomplete honest) ≠ ADMISSIBLE (enter RB) ≠ REJECTED (Product fail-closed; codes `EVIDENCE_PROJECT_MISMATCH` / `EVIDENCE_CONTRACT_MISMATCH` / `EVIDENCE_ATTEMPT_MISMATCH` / `EVIDENCE_CYCLE_MISMATCH` / `W3B_EVIDENCE_ADMISSION_REJECTED`).
+
+**Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
+
+**Anti-claims:** ≠ CURRENT ON MAIN · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance.

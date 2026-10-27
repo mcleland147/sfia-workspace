@@ -145,3 +145,20 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 | D1 sqlite | D1 projects/assignments | Isolated parallel surface |
 | ExecutionRun memory store | Parallel BC | Not Product SQLite |
 | MaturityAssessment memory | Out of minimal M5 product path | Memory-primary |
+
+
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+
+> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+
+### Persistence / recovery notes (LOCAL)
+
+| Topic | LOCAL fact | Limit |
+|---|---|---|
+| GERM / Verification / generic_mat | Durable OA Evidence + refs under Attempt; Project-only may omit `cycleInstanceId` | No new SQLite table/migration in Option B |
+| Frozen ReviewBundle | Snapshots `evidenceId/version/status/availability` immutable after freeze | Ownership checked **pre-admit** (not rewritten into snapshot bindings) |
+| Late Evidence | Same Attempt idempotency key + divergent evidenceIds → **IDEMPOTENCY_CONFLICT** | **No** OA supersession/reopen under same key invented; recovery UX debt OPEN |
+| Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
+| Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
+
+**≠** invent recovery E2E beyond DET proofs.
