@@ -1,246 +1,371 @@
-# SFIA Review Pack FULL — AKG-M5 L3-S2 OPTION B — R-ROW-01 ROADMAP MATRIX TRUTH-SYNC
+# SFIA Review Pack FULL — AKG-M5 L3-S2 OPTION B — FINAL DOCUMENTARY READINESS
 
-**Cycle:** 8 — Bounded Documentary Correction (+ Cycle 9 QA in mono-cycle)
+**Cycle:** 13 — PR Readiness
 **Profile:** CRITICAL
-**Typologie:** DOC / QA
-**Horodatage UTC:** 2026-10-27T20:01:01Z
-**Mode:** LOCAL AUTHORING ONLY — single AKG-M5 matrix row · no CURRENT TIP / HISTORICAL TIP / PRR / manifest edit · no project Git
+**Typologie:** DOC / QA / PR READINESS
+**Horodatage UTC:** 2026-10-27T20:13:10Z
+**Mode:** PROJECT READ-ONLY — cumulative ten-file review · no project edit/stage/commit/push/PR
 **Review Handoff:** L3 REQUIRED (publish-in-cycle)
 
 ---
 
-## 1. Morris GO exact
+## 1. Morris GO / mission
 
-**GO Morris — R-ROW-01 — BOUNDED ROADMAP MATRIX TRUTH-SYNC, LOCAL ONLY, BEFORE DOCUMENTARY GIT INTEGRATION.**
+**GO Morris — 2026-10-27 — FINAL DOCUMENTARY READINESS AKG-M5 L3-S2 OPTION B.**
 
-Close CURRENT inconsistency in the Convergence Roadmap AKG-M5 matrix row relative to Product PR #623 MERGED / L3-S2 Option B DET integrated.
-**≠** Product evolution · **≠** DOC GI · **≠** PRR/manifest write.
+Cumulative readiness of the R24 ten-file documentary candidate before Git integration.
+Prior conditional Morris “OK GO COMMIT PUSH PR” is **carried forward as eligibility outcome only** — **this cycle does not execute** project commit/push/PR.
 
-Prior gates: R24-CR-02 Semantic PASS (`eb7d90bb…`) · Final Two-Digest PASS LOCAL (`596be186…` / `86239dc2…`).
+Prior handoffs: R24-CR-02 Semantic `eb7d90bb…` · Two-Digest `596be186…`/`86239dc2…` · R-ROW-01 `34c36cff…`/`94ffd30b…`.
 
 ---
 
-## 2. Cycle / profil / SFIA
+## 2. SFIA qualification
 
 | Item | Value |
 |------|-------|
 | Project | SFIA Studio |
 | Workstream | AKG-M5 Product Transformation |
 | Capacity | V3-F05 Generic Execution |
-| Milestone | L3-S2 Option B post-merge documentary |
+| Milestone | L3-S2 Option B post-merge documentary truth-sync |
 | Trajectory | T-C ADOPTED |
-| Cycle | 8 Delivery documentary + Cycle 9 QA |
+| Cycle | 13 PR Readiness |
 | Profile | CRITICAL |
-| CKC | Cycle 8/9 candidate; no execution authority |
+| CKC | Cycle 13 candidate; experimental; no execution authority |
 
 ---
 
-## 3. Git Truth initial / final
+## 3. Git Truth before / after
 
 | Check | Result |
 |-------|--------|
 | Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s2-postmerge-r24-current` |
 | Branch | `docs/akg-m5-l3-s2-postmerge-r24-current` |
 | HEAD / origin/main / merge-base | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` |
-| Prior handoff tip/blob | `596be186fd9077f3e9feb1b06e68569867378efd` / `86239dc2d9b783d70461ecfbc204e7839c17704b` |
-| Staged | empty (before/after) |
-| Project commit/push/PR | none |
-| Dirty inventory | 10 project files (unchanged set) |
+| main advanced | NO |
+| Prior handoff tip/blob | `34c36cffbd383441cea9eae45e6dc9f51062d4f9` / `94ffd30b89e06fe8841da926916cdc629a963e34` |
+| Staged project | EMPTY |
+| Project commit/push/PR this cycle | NONE |
+| Dirty project files | exactly **10** candidates (+ `.tmp` review pack) |
 | `git diff --check` | PASS |
+
+**Git Truth:** PASS. Unchanged after review (read-only).
 
 ---
 
-## 4. Sources Git
+## 4. Sources consulted
 
-Method templates + routing + operating model + guardrails; Convergence Build Doctrine / Roadmap; C1; Trajectory 05; GER architecture; V3 framing 33–35; PRR README + 02–09 (RO); manifest RO; handoffs `eb7d90bb…`, `596be186…`. Git/code/tests primary.
+Method templates + routing + operating model + guardrails + CKC 13 + PR readiness validate template / validation checklist (as available); Convergence Build Doctrine / Roadmap; C1; Trajectory 05; GER architecture; V3 framing 33–35; PRR README + vols 02–09; 01/05 non-impact; manifest; checker; Vitest; handoffs R24-CR-02 / Two-Digest / R-ROW-01 FULL. Git/octets primary.
 
 ---
 
 ## 5. Convergence Pre-check
 
-Build Doctrine VALIDATED · Roadmap ACTIVE · C1 VALIDATED · T-C ADOPTED · L3-S1 INTEGRATED · L3-S2 Option B MERGED (#623 / `6c8b661c…` / CI `#40526990871` SUCCESS / Required Gate PASS) · R24-CR-02 Critical Semantic PASS · Two-Digest PASS LOCAL · PRR Conformance PASS LOCAL · EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · Late Evidence OPEN · L3 GLOBAL OPEN · REAL/G-REAL NOT · OA-exclusive DEFAULT OFF · L2 activation NOT · runtime v3 NON ADOPTED.
-
-Path after this cycle: Critical R-ROW-01 Review → Final Documentary Readiness → DOC GI (distinct) → … · next Product capacity **not** authorized by this GO.
+Build Doctrine VALIDATED · Roadmap ACTIVE · C1 VALIDATED · T-C ADOPTED · L3-S1 INTEGRATED · L3-S2 Option B MERGED (#623 / `6c8b661c…` / CI `#40526990871` SUCCESS / Required Gate PASS) · R24-CR-01/CR-02 Semantic PASS · Two-Digest PASS LOCAL · R-ROW-01 Critical Roadmap Delta PASS · candidate LOCAL · EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · Late Evidence OPEN · L3 GLOBAL OPEN · REAL/G-REAL NOT · H4 NOT QUALIFIED · G-ACTIVATION NOT · OA-exclusive DEFAULT OFF · runtime v3 NON ADOPTED · no automatic L4.
 
 ---
 
-## 6. Capacité / trajectoire / R23 / R24
+## 6. R23 / R24
 
-**R23:** Product #623 evidence — Project-first Generic · CycleInstance optional · SHE · `generic_materialization` · OBSERVED FS DET · W3-B ABSENT/ADMISSIBLE/REJECTED · RB/CE · W3-C/GERM/Nora Tool-First. DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN DET AT TESTED SCOPE · KNOWN GAPS. Technical SUCCESS ≠ Product PASS.
+**R23:** Product #623 chain — Project-first Generic PREPARE → EC → SHE → Attempt → `generic_materialization` → W3-B ABSENT/ADMISSIBLE/REJECTED → RB/CE → W3-C/GERM → Nora. DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN DET AT TESTED SCOPE · KNOWN GAP. DET ≠ REAL.
 
-**R24:** Roadmap matrix currentness only. **NO PRODUCT SEMANTIC IMPACT.** PRR/manifest untouched.
-
----
-
-## 7. Identité baseline dix fichiers (pre-edit)
-
-| Path | SHA-256 | Post-edit |
-|------|---------|-----------|
-| Roadmap | `3e9c9d7256055101495eaa53362314db7778e3dde95fb86a7676ab5a429e698e` | **CHANGED** (this cycle) |
-| README | `53adf66d7dc4f6409824fce1b90510abbb95c87772d51398a143160e8521fc34` | UNCHANGED |
-| 02 | `4d3d3fa937f2f5ddff07a8c8e4d1feb1e0d5ec7b674581ee61d698d182b52eb2` | UNCHANGED |
-| 03 | `d13787c0f629efe49ae753333154f1c11b04a86ac8e0dd672332259f740e1424` | UNCHANGED |
-| 04 | `8dd446ddad8cf26cf305b80c3f70db5ee176cf7610a1ab7e20ed115355d4303f` | UNCHANGED |
-| 06 | `21c9328c91f86984dc5991b9ff0d8b4c77fd1b38d36be68a37c29234287cf997` | UNCHANGED |
-| 07 | `94aa75b2dcaa90c2527322e11b6444d454883ce03b66d1caf5587f21d78fb46c` | UNCHANGED |
-| 08 | `7a1bc607f6f282306c3afcef9a31f03b7cc215c6770714f54ff8dbbca5a316b2` | UNCHANGED |
-| 09 | `5d39a296a14d4ed7a9fc14a5b8ed711972271e8a47ce6854c3159478dff90288` | UNCHANGED |
-| Manifest | `46913b3df16c714547b3a6721a819859908491f7cebc1a080729495061668821` | **UNCHANGED** |
-
-Baseline gate PASS before edit. Nine non-Roadmap files remain byte-identical after edit.
+**R24:** Documentary continuity only. NO PRODUCT SEMANTIC IMPACT. Digest match ≠ behavioral proof; used with prior semantic reviews.
 
 ---
 
-## 8. Ligne AKG-M5 — OLD complète (pre R-ROW-01 local)
+## 7. Ten-file inventory + SHA-256 (recalculated)
 
-Localisation: Jalons AKG table · L319 worktree (L318 on main/HEAD). Identified by `| **AKG-M5** Product Transformation |`.
+| # | Path | SHA-256 | Match |
+|---|------|---------|-------|
+| 1 | Roadmap | `b3c909d70259aea0ddbe88364ece3aa16f5fc4c79fae544137619064656f0e10` | OK |
+| 2 | README | `53adf66d7dc4f6409824fce1b90510abbb95c87772d51398a143160e8521fc34` | OK |
+| 3 | 02 | `4d3d3fa937f2f5ddff07a8c8e4d1feb1e0d5ec7b674581ee61d698d182b52eb2` | OK |
+| 4 | 03 | `d13787c0f629efe49ae753333154f1c11b04a86ac8e0dd672332259f740e1424` | OK |
+| 5 | 04 | `8dd446ddad8cf26cf305b80c3f70db5ee176cf7610a1ab7e20ed115355d4303f` | OK |
+| 6 | 06 | `21c9328c91f86984dc5991b9ff0d8b4c77fd1b38d36be68a37c29234287cf997` | OK |
+| 7 | 07 | `94aa75b2dcaa90c2527322e11b6444d454883ce03b66d1caf5587f21d78fb46c` | OK |
+| 8 | 08 | `7a1bc607f6f282306c3afcef9a31f03b7cc215c6770714f54ff8dbbca5a316b2` | OK |
+| 9 | 09 | `5d39a296a14d4ed7a9fc14a5b8ed711972271e8a47ce6854c3159478dff90288` | OK |
+| 10 | Manifest | `46913b3df16c714547b3a6721a819859908491f7cebc1a080729495061668821` | OK |
 
-```
-| **AKG-M5** Product Transformation | Product Architecture Convergence **M5-A CLOSED** ; L1/A09 · L2-D0 · L2-D1 · L2-D2 readiness · G-ACTIVATION prep S1–S4 **MERGED** ; **#618 Structural Removal CURRENT ON MAIN** (`fec4e65d` · CI #40272048259 SUCCESS) — Binding + docs_write Product admission **RETIRED** ; `projectWorkspaceKey` + Generic Execution **PRESERVED** ; **#619 P0 docs MERGED** ; **#620 Decision Pack 05 INTEGRATED ON MAIN** (`b20733c7`) ; **#621 L3-S1 DET oracle MERGED ON MAIN** (`592226cd` · CI #40381306724 SUCCESS) — Product runtime **UNCHANGED** ; L2 **PARTIAL** / ops **NOT ACTIVATED** ; L3-S1 **first slice INTEGRATED** · **L3-S2 Option B MERGED ON MAIN (PR #623 / `6c8b661c` / CI #40526990871 SUCCESS)** · **L3 GLOBAL OPEN / NOT COMPLETE** ; L4–L6 **NOT STARTED** ; transformation Product globale **OPEN** | V3-F05+ / O-01 | AKG-M4 GLOBAL CLOSED ; M5-A Formal Exit ; H0-L1 ; L2-D0→D2 ; #617 prep ; #618/#619/#620/#621 merges | Blueprint 01–04 ; L1–L2 on main ; #618 Product+R24 ; #620 Decision Pack 05 ; #621 oracle DET ; PRR CURRENT (READ-ONLY this sync) | Structural removal + Decision Pack + L3-S1 oracle **CURRENT ON MAIN** · EP01–EP09 PASS DET · EP10 **NON-CLAIM** · exclusive DEFAULT OFF · H4/Q12/R-CUT / G-ACTIVATION **OPEN** · Generic E2E FS→Git→Review **KNOWN GAP** · generic_materialization Evidence **CURRENT ON MAIN DET** · EP-S2-05 Mission Project-only **NOT PROVEN** · EP-S2-08 Nora/Pilote UX **PARTIAL** | PR #609/#611/#612/#614/#617/#618/#619/#620/#621/#623 · merge `6c8b661c` · CI #40526990871 SUCCESS · DET L3-S2 Option B · DET L3-S1 oracle · DET L2 suites | Confusion MERGED≠ACTIVATED · DET≠REAL · Technical SUCCESS≠Product PROVEN · #621≠L3 global complete · #623≠L3 global complete · #623≠EP-S2-05/08 closed · M5-A CLOSED≠AKG-M5 CLOSED · L3-S1≠L3-S2 | **AKG-M5 GLOBAL OPEN** · **T-C ADOPTED** · **L3-S1 ADOPTED** · **D-P6-SHE-01** · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · runtime v3 **NON ADOPTED** · REAL **NOT PROVEN** · P6 **NOT PASSED** · L2 exclusive **DEFAULT OFF** · L3-S2 Product **MERGED** · R24 CURRENT docs **LOCAL ONLY** · L3 GLOBAL **OPEN** | **R24 CURRENT Truth-Sync LOCAL AUTHORING** (this cycle) → Semantic Review → Manifest Gate → Documentary Git Integration (distinct Morris GOs) → requalify EP-S2-05 / EP-S2-08 · **≠** L3 GLOBAL CLOSED · **≠** L4 auto-start |
-```
-
-**Defects addressed:** Dépendances missing #623 · Livrables still « PRR READ-ONLY this sync » · Critères conflating L3-S1 EP01–EP09 as undifferentiated · Gates « R24 docs LOCAL ONLY » undated · Suivant fragile ACTIVE queue (Semantic Review → Manifest Gate already consumed) / « this cycle » / LOCAL AUTHORING.
-
-Note: Finalité already stated L3-S2 MERGED (prior R24 partial sync); R-ROW-01 completes remaining stale cells + durability. HEAD/main Finalité still had L3-S2 as future (« Delivery NOT AUTHORIZED ») — cumulative candidate already ahead; this cycle hardens local matrix CURRENTNESS.
-
----
-
-## 9. Ligne AKG-M5 — NEW complète
-
-```
-| **AKG-M5** Product Transformation | Product Architecture Convergence **M5-A CLOSED** ; L1/A09 · L2-D0 · L2-D1 · L2-D2 readiness · G-ACTIVATION prep S1–S4 **MERGED** ; **#618 Structural Removal CURRENT ON MAIN** (`fec4e65d` · CI #40272048259 SUCCESS) — Binding + docs_write Product admission **RETIRED** ; `projectWorkspaceKey` + Generic Execution **PRESERVED** ; **#619 P0 docs MERGED** ; **#620 Decision Pack 05 INTEGRATED ON MAIN** (`b20733c7`) ; **#621 L3-S1 DET oracle MERGED ON MAIN** (`592226cd` · CI #40381306724 SUCCESS) — Product runtime **UNCHANGED** ; L2 **PARTIAL** / ops **NOT ACTIVATED** ; L3-S1 **first slice INTEGRATED** · **L3-S2 Option B MERGED ON MAIN (PR #623 / `6c8b661c` / CI #40526990871 SUCCESS)** — **DET at tested scope** · **L3 GLOBAL OPEN / NOT COMPLETE** ; L4–L6 **NOT STARTED** ; transformation Product globale **OPEN** | V3-F05+ / O-01 | AKG-M4 GLOBAL CLOSED ; M5-A Formal Exit ; H0-L1 ; L2-D0→D2 ; #617 prep ; #618/#619/#620/#621/#623 merges | Blueprint 01–04 ; L1–L2 on main ; #618 Product+R24 ; #620 Decision Pack 05 ; #621 L3-S1 oracle DET ; **#623 L3-S2 Option B / S8 Project-first** (Project required · CycleInstance optional · no fictitious cycle · `generic_materialization` Evidence · W3-B ABSENT/ADMISSIBLE/REJECTED · W3-C/GERM/Nora Tool-First · SHE reused) **DET ON MAIN** | **CONSUMED DET (scoped):** Structural removal + Decision Pack + L3-S1 oracle **CURRENT ON MAIN** (EP01–EP09 PASS DET · EP10 **NON-CLAIM** — L3-S1 scope only) · L3-S2 Option B **BEHAVIOR PROVEN DET AT TESTED SCOPE ON MAIN** (S8 Project-first · SHE · OBSERVED FS Evidence · W3-B · RB/CE · W3-C/GERM) · Technical SUCCESS **≠** Product PASS · exclusive **DEFAULT OFF** · H4/Q12/R-CUT / G-ACTIVATION **OPEN** · Generic E2E FS→Git→Review REAL **KNOWN GAP** · **OPEN EXITS (distinct):** EP-S2-05 Mission Evidence Project-only **NOT PROVEN** · EP-S2-08 Nora/Pilote post-Evidence **PARTIAL** · late Evidence supersession policy **OPEN** · **L3 GLOBAL OPEN / NOT COMPLETE** | PR #609/#611/#612/#614/#617/#618/#619/#620/#621/#623 · merge **`6c8b661c50a5c1d9bd04793192b9294b63349bb1`** · [CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **SUCCESS** · Required Gate **PASS** · DET L3-S2 Option B · DET L3-S1 oracle · DET L2 suites | Confusion MERGED≠ACTIVATED · DET≠REAL · Technical SUCCESS≠Product PROVEN · #623≠L3 GLOBAL CLOSED · #623≠EP-S2-05/08 closed · `generic_materialization` ≠ Mission Evidence PROVEN · GERM DET ≠ Nora/Pilote continuity COMPLETE · no false FULL E2E/REAL claim · M5-A CLOSED≠AKG-M5 CLOSED · L3-S1≠L3-S2 | **AKG-M5 GLOBAL OPEN** · **T-C ADOPTED** · **L3-S1 ADOPTED** · **D-P6-SHE-01** · H4 **NOT QUALIFIED** · G-ACTIVATION / G-REAL **NOT GRANTED** · runtime v3 **NON ADOPTED** · REAL **NOT PROVEN** · P6 **NOT PASSED** · L2 exclusive **DEFAULT OFF** · L3-S2 Option B Product Delivery **CONSUMED / MERGED ON MAIN** · L3 GLOBAL **OPEN** · future Product capacity / activation / maturity promotions require **distinct Morris GO** | **OPEN EXIT QUALIFICATION (before next Product capacity):** EP-S2-05 Mission Evidence Project-only **NOT PROVEN** · EP-S2-08 Nora/Pilote post-Evidence **PARTIAL** · late Evidence supersession **OPEN** · REAL / activation conditions · L4 is a Roadmap **candidate** only (**≠** ADOPTED / STARTED / Delivery GO) · R24 documentary publication under **distinct Morris DOC GI GOs** when authorized · **≠** L3 GLOBAL CLOSED · **≠** L4 auto-start · **≠** new Delivery GO by this row |
-```
+**Content identity:** PASS. No 11th file. No rename/delete. 01/05 clean vs HEAD. Product/tests untouched.
 
 ---
 
-## 10. Diff incrémental utile (colonnes)
+## 8. Cumulative diff index (vs HEAD)
 
-| Column | Change |
-|--------|--------|
-| Jalon | unchanged |
-| Finalité | clarify « DET at tested scope »; keep MERGED #623 / L3 GLOBAL OPEN / L4–L6 NOT STARTED |
-| Capacité | unchanged |
-| Dépendances | add `#623` to merges |
-| Livrables | replace « PRR READ-ONLY this sync » with #623 Option B / S8 DET ON MAIN deliverables |
-| Critères | split CONSUMED DET (L3-S1 scoped + L3-S2 DET) vs OPEN EXITS EP-S2-05/08/late Evidence |
-| Preuves | full merge SHA + Required Gate PASS + CI link |
-| Risques | add Mission Evidence / GERM≠UX / no false REAL E2E |
-| Gates Morris | remove undated « R24 LOCAL ONLY »; L3-S2 Delivery **CONSUMED/MERGED**; future GOs distinct |
-| Suivant | remove fragile R24 Semantic→Manifest queue; OPEN EXIT QUALIFICATION; L4 candidate ≠ ADOPTED; DOC GI when authorized |
+| Path | numstat ± | Role | Prior reviews | Validation |
+|------|-----------|------|---------------|------------|
+| Roadmap | 4/3* | CURRENT TIP + R24 layer + R-ROW-01 AKG-M5 matrix | R24 / CR-01 / CR-02 / R-ROW-01 | CURRENTNESS PASS |
+| README | 6/6 | Product CURRENT + R24 durable gates | R24 / CR-01 / CR-02 | PASS |
+| 02 | 10/10 | Object catalog as-implemented | R24 Semantic | PASS (identity frozen) |
+| 03 | 4/4 | E2E flow catalog | R24 | PASS |
+| 04 | 4/4 | Dependency/impact | R24 | PASS |
+| 06 | 4/4 | Persistence/recovery | R24 | PASS |
+| 07 | 9/9 | Authority/failures | R24 | PASS |
+| 08 | 10/9 | Test/proof map | R24 | PASS |
+| 09 | 10/10 | Gaps/boundaries + CR-02 durable | R24 / CR-01 / CR-02 | PASS |
+| Manifest | 8/8 | Eight digests cumulative | Eight-Digest + Two-Digest | CONFORMANCE OK |
 
-Markdown table: **10 columns preserved**.
+\*Cumulative vs HEAD includes tip + matrix; R-ROW-01 is the latest Roadmap delta on AKG-M5 row only after CR-02 tip. Full useful diffs recorded in immutable handoffs `eb7d90bb…`, `596be186…`, `34c36cff…`.
 
----
-
-## 11. Preuves #623 / T-C / L3 / EP
-
-| Fact | Reflected |
-|------|-----------|
-| PR #623 MERGED | YES |
-| Merge `6c8b661c50a5c1d9bd04793192b9294b63349bb1` | YES |
-| CI `#40526990871` SUCCESS / Required Gate PASS | YES |
-| T-C ADOPTED / L3-S1 ADOPTED | PRESERVED |
-| EP-S2-05 NOT PROVEN | YES |
-| EP-S2-08 PARTIAL | YES |
-| Late Evidence OPEN | YES |
-| L3 GLOBAL OPEN / NOT COMPLETE | YES |
-| L4 NOT STARTED / ≠ ADOPTED | YES |
-| REAL / G-REAL / H4 / G-ACTIVATION / runtime v3 | NOT granted / NON ADOPTED |
+Total: **10 files, 69 insertions / 67 deletions.**
 
 ---
 
-## 12. Temporal durability T0/T1/T2
+## 9. Previously accepted reviews (immutable)
 
-| Assertion class | T0 local | T1 after Final Readiness | T2 after doc merge | Form |
-|-----------------|----------|--------------------------|--------------------|------|
-| #623 MERGED / DET at tested scope | Y | Y | Y | CURRENT PRODUCT |
-| L3-S2 Delivery CONSUMED/MERGED | Y | Y | Y | CONSUMED MILESTONE |
-| EP-S2-05/08/late Evidence OPEN | Y | Y | Y* | OPEN EXIT |
-| L4 candidate ≠ ADOPTED | Y | Y | Y | FUTURE CAPACITY |
-| DOC GI under distinct Morris GO when authorized | Y | Y | Y† | CONDITIONAL FUTURE |
-| Fragile Semantic→Manifest ACTIVE queue | absent | absent | absent | removed |
-
-\* Until closed by distinct proof/GO.
-† After T2 DOC GI consumed, living tip/matrix may later record docs ON MAIN under governed update — row does not claim eternal LOCAL ONLY.
-
-**No IN PROGRESS · no undated LOCAL ONLY · no consumed-gate ACTIVE NEXT.**
+| Gate | Tip / blob | Outcome |
+|------|------------|---------|
+| R24-CR-02 Semantic Delta | `eb7d90bb…` | PASS — durable currentness T0/T1/T2 |
+| Final Two-Digest | `596be186…` / `86239dc2…` | PASS — README/09 digests regularized |
+| R-ROW-01 Roadmap Delta | `34c36cff…` / `94ffd30b…` | PASS — AKG-M5 matrix #623 CURRENT |
 
 ---
 
-## 13. Historical integrity
+## 10. Product #623 proof
 
-| Surface | Status |
-|---------|--------|
-| CURRENT TIP (CR-02 durable layer) | **UNEDITED** (header + markers verified) |
-| HISTORICAL TIP pre-merge L3-S2 | **PRESENT / UNEDITED** |
-| Other HISTORICAL tips / AKG-M4 row | **UNEDITED** |
-| M5-A / #618–#621 history in Finalité | **PRESERVED** |
+| Fact | Evidence |
+|------|----------|
+| MERGED | PR #623 · `2026-10-27T15:02:16Z` |
+| Merge SHA | `6c8b661c50a5c1d9bd04793192b9294b63349bb1` |
+| Parents | `6e957ecb…` + `73f0166c…` |
+| Post-merge CI | `#40526990871` SUCCESS |
+| Required Gate | PASS |
+| Scope | Option B / S8 Project-first DET at tested scope |
 
----
-
-## 14. PRR / checker / Vitest / manifest
-
-| Gate | Result |
-|------|--------|
-| Manifest SHA | `46913b3df16c714547b3a6721a819859908491f7cebc1a080729495061668821` **UNCHANGED** |
-| Checker | `PRODUCTION RUNTIME REFERENCE CONFORMANCE OK` |
-| Vitest | **5/5 PASS** |
-| `--write-digests` | NOT run |
-| PRR docs | NOT modified |
-| Roadmap in PRR manifest | N/A (not a volume) |
+Reflected in CURRENT TIP L7 and AKG-M5 matrix L319.
 
 ---
 
-## 15. SHA-256 Roadmap nouveau + scope
+## 11. Roadmap currentness + R-ROW-01
+
+### CURRENT TIP (L7)
+
+Checks ALL PASS: #623 MERGED · merge SHA · CI · EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · PRE-INTEGRATION SNAPSHOT · R24-CR-02 durable · CONSUMED GATE SNAPSHOTS · no ACTIVE NEXT · no IN PROGRESS · no EXPECTED DRIFT.
+
+### R-ROW-01 AKG-M5 matrix (L319)
+
+| Check | Result |
+|-------|--------|
+| 10 columns | PASS |
+| L3-S2 Option B MERGED #623 | PASS |
+| EP-S2-05 / 08 / late Evidence open | PASS |
+| No LOCAL AUTHORING / fragile Semantic→Manifest NEXT | PASS |
+| OPEN EXIT QUALIFICATION + L4 candidate ≠ ADOPTED | PASS |
+| AKG-M5 GLOBAL OPEN · Delivery CONSUMED/MERGED | PASS |
+| Consistent with CURRENT TIP Product facts | PASS |
+
+### HISTORICAL TIPs
+
+Preserved; pre-merge L3-S2 tip remains HISTORICAL AS TIP. Not rewritten this readiness cycle.
+
+---
+
+## 12. PRR cross-volume review
+
+| Volume | Verdict |
+|--------|---------|
+| README | Product CURRENT ON MAIN · PRE-INTEGRATION / CONSUMED / DURABLE RULES · octet-scoped · no EXPECTED DRIFT / IN PROGRESS |
+| 02–04, 06–08 | Identity frozen post-R24; no new semantic delta this readiness; aligned to #623 as previously reviewed |
+| 09 | Known gaps honest · EP/REAL/runtime anti-claims · PRE-INTEGRATION + CONSUMED + DURABLE EXITS |
+| 01/05 | NON-IMPACT / clean |
+
+No volume asserts L3 COMPLETE · REAL proven · G-REAL · runtime v3 ADOPTED · EP-S2-05 closed · EP-S2-08 full PASS.
+
+---
+
+## 13. Temporal T0 / T1 / T2 matrix
+
+| Claim class | T0 local | T1 commit/push/Draft | T2 merged docs | Form | False ACTIVE? |
+|-------------|----------|----------------------|----------------|------|---------------|
+| Product #623 MERGED / DET tested scope | Y | Y | Y | CURRENT IMPLEMENTED | No |
+| EP-S2-05/08/late Evidence / L3 GLOBAL OPEN | Y | Y | Y* | CURRENT / OPEN EXIT | No |
+| PRE-INTEGRATION SNAPSHOT as-of 2026-10-27 | Y | Y | Y (dated) | PRE-INTEGRATION | No |
+| Consumed Eight-Digest / CR-01 / Critical Delta / Two-Digest / CR-02 / R-ROW-01 | Y | Y | Y | CONSUMED GATE | No |
+| Octet-scoped digests ≠ permanent CONFORMANCE for later bytes | Y | Y | Y | CONDITIONAL | No |
+| digest mismatch ⇒ REFERENCE REVIEW REQUIRED | Y | Y | Y | DURABLE RULE | No |
+| DOC GI / merge under distinct Morris GO | Y | Y† | Y‡ | CONDITIONAL FUTURE | No |
+| Undated LOCAL ONLY / EXPECTED DRIFT / IN PROGRESS / ACTIVE NEXT to consumed gates | absent | absent | absent | removed by CR-02/R-ROW-01 | No |
+
+\* Until closed by distinct proof.
+† At T1 Draft exists but merge not done — conditional still holds.
+‡ After T2, living tip may later record docs ON MAIN under governed update; snapshot wording remains historically true.
+
+**Temporal durability:** PASS at reviewed scope. BLOCKING stale ACTIVE count: **0**.
+
+---
+
+## 14. Manifest conformance
 
 | Item | Value |
 |------|-------|
-| Roadmap NEW SHA-256 | `b3c909d70259aea0ddbe88364ece3aa16f5fc4c79fae544137619064656f0e10` |
-| Files edited this cycle | **1** (Roadmap only) |
-| Candidate inventory | still **10** dirty project files |
-| 11th project file | none |
-| Staged / commit / push / PR | none |
-| Secrets | 0 |
+| Manifest SHA-256 | `46913b3df16c714547b3a6721a819859908491f7cebc1a080729495061668821` |
+| README digest | `53adf66d7dc4f640` |
+| 09 digest | `5d39a296a14d4ed7` |
+| 02–08 + 01/05 | MATCH expected |
+| trackedSources / Tests | 27 / 7 |
+| lastReviewedCommit / At | `928ab15b…` / `2026-10-15T22:51:00+02:00` preserved |
+| Checker | `RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK` |
+| `--write-digests` | NOT run |
 
 ---
 
-## 16. Risk / reserves
+## 15. Vitest / diff --check / Markdown / security
 
-- Residual: living currentness still follows Git + CURRENT TIP; matrix is Product-trajectory summary.
-- Documentary R24 still local until DOC GI (stated as conditional, not eternal LOCAL ONLY).
-- No automatic Final Readiness / DOC GI from this cycle.
+| Gate | Result |
+|------|--------|
+| Vitest conformance | **5/5 PASS** |
+| git diff --check | PASS |
+| JSON parse | OK |
+| Markdown tables (tip + AKG-M5 10 cols) | PASS |
+| Secrets scan (10 files) | NO FINDING |
+| Staged / HEAD | empty / unchanged |
 
 ---
 
-## 17. Next Final Readiness
+## 16. EP / gaps / anti-claims (preserved)
 
-After ChatGPT Critical R-ROW-01 Roadmap Delta Review PASS → Final Documentary Readiness cumulative on ten files (proportionate) → if PASS, re-qualify Morris GO for project commit/push/Draft PR (not executed here).
+EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · Late Evidence OPEN · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · H4 NOT QUALIFIED · G-ACTIVATION NOT GRANTED · OA-exclusive DEFAULT OFF · runtime v3 NON ADOPTED · no automatic L4 · no L3 closure · Technical SUCCESS ≠ Product PASS.
+
+Next Product capacity: qualify remaining exits/owners/evidence after documentary integration — **trajectory info, not a Product GO**.
 
 ---
 
-## 18. Git Review Index
+## 17. Readiness matrix A–L
+
+| Axe | Verdict | Evidence |
+|-----|---------|----------|
+| A. Git Truth | **PASS** | HEAD=main=`6c8b661c…`; branch docs; staged empty |
+| B. HEAD/base/worktree | **PASS** | match expected |
+| C. Ten-file scope | **PASS** | exact 10; 01/05 clean |
+| D. SHA-256 identities | **PASS** | 10/10 match |
+| E. Cumulative diff integrity | **PASS** | name-status/stat/check; prior FULL handoffs |
+| F. Product #623 correspondence | **PASS** | tip + matrix + PRR |
+| G. R-ROW-01 / Roadmap CURRENT | **PASS** | L319 + tip coherent |
+| H. PRR cross-document semantics | **PASS** | README/09 durable; 02–08 frozen |
+| I. CURRENT/HISTORICAL durability | **PASS** | T0/T1/T2; 0 blocking stale |
+| J. Manifest + tests + security | **PASS** | checker OK; Vitest 5/5; secrets 0 |
+| K. Exit proofs / non-claims | **PASS** | gaps preserved |
+| L. DOC GI eligibility | **PASS** | content ready; execution deferred |
+
+### Levels
+
+| Level | Verdict |
+|-------|---------|
+| LEVEL 1 — CONTENT READINESS | **PASS** |
+| LEVEL 2 — ELIGIBILITY FOR PROJECT GIT INTEGRATION | **PASS** (under prior Morris conditional GO + Critical Review of this handoff) |
+| LEVEL 3 — ACTUAL GIT/PR STATE | **LOCAL DIRTY · NO PROJECT COMMIT · NO PROJECT PUSH · NO PROJECT PR** |
+
+---
+
+## 18. Residual reservations
+
+- None **blocking** for DOC GI eligibility.
+- Open Product exits remain (EP-S2-05/08, late Evidence, REAL) — correctly documented, not blockers for documentary publication.
+- Post-merge documentary verification still mandatory after future merge GO.
+
+---
+
+## 19. DOC GI eligibility + prior Morris GO handling
+
+**Eligible** for bounded documentary Git Integration under the previously expressed Morris GO (commit + push + Draft PR), **after** ChatGPT Final Critical Documentary Readiness Review of this handoff confirms PASS.
+
+**This cycle did not execute** commit/push/PR. Prior GO is **conditional / carried forward**, not auto-executed here.
+
+Merge remains a **separate Morris GO**. Post-merge truth-sync remains distinct.
+
+---
+
+## 20. Draft PR body (PREPARED — NOT EXECUTED)
+
+**Recommended commit message:**
+```
+docs(studio): sync L3-S2 post-merge architecture and roadmap
+```
+
+**Recommended Draft PR title:**
+```
+docs(studio): R24 L3-S2 Option B post-merge truth sync
+```
+
+**Draft PR body:**
+
+```markdown
+## Summary
+- Documentary truth-sync (10 files) for AKG-M5 L3-S2 Option B after Product PR #623 MERGED (`6c8b661c…`, CI #40526990871 SUCCESS).
+- Roadmap CURRENT TIP + R-ROW-01 AKG-M5 matrix reflect Product CURRENT ON MAIN (DET at tested scope) with durable PRE-INTEGRATION / CONSUMED GATE / CONDITIONAL FUTURE classification (R24-CR-01/CR-02).
+- PRR volumes 02/03/04/06/07/08/09 + README synchronized; manifest digests regularized (Eight-Digest + Two-Digest gates); conformance OK local.
+- No Product/code/test changes.
+
+## Scope
+Exactly 10 files: Roadmap, PRR README, PRR 02/03/04/06/07/08/09, PRR manifest. PRR 01/05 untouched.
+
+## Proof ceiling / open gaps
+- DET BEHAVIOR PROVEN AT TESTED SCOPE (Option B / S8).
+- EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · late Evidence supersession OPEN.
+- L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · runtime v3 NON ADOPTED · no automatic L4.
+
+## Anti-claims
+≠ L3 COMPLETE · ≠ docs maturity promotion · ≠ REAL/G-REAL · ≠ runtime v3 ADOPTED · ≠ EP-S2-05/08 closed by this PR.
+
+## Validation
+- `check-production-runtime-reference.mjs` → CONFORMANCE OK
+- Vitest `productionRuntimeReference.conformance.d0.test.ts` → 5/5
+- `git diff --check` PASS · secrets scan no finding
+
+## Review handoffs
+- R24-CR-02 Semantic: `eb7d90bb…`
+- Two-Digest: `596be186…` / `86239dc2…`
+- R-ROW-01: `34c36cff…` / `94ffd30b…`
+- Final Documentary Readiness: (this handoff tip/blob)
+
+## Post-merge
+- Verify CI Required Gate on documentary PR.
+- Separate Morris Merge GO.
+- Post-merge documentary verification + trajectory requalification of remaining exits under distinct GOs.
+```
+
+**Git Integration plan (subsequent authorized cycle only):** confirm HEAD/base → stage exactly 10 files → cached diff/check → commit → FF push → Draft PR → verify remote → CI → Critical PR Review → separate Merge GO.
+
+---
+
+## 21. Git Review Index
 
 | Ref | Role |
 |-----|------|
-| `6c8b661c…` | Product merge / docs HEAD |
-| Handoff `596be186…` / `86239dc2…` | Two-Digest PASS prior |
-| Handoff `eb7d90bb…` | R24-CR-02 semantic |
-| Roadmap OLD | `3e9c9d7256055101…` |
-| Roadmap NEW | `b3c909d70259aea0ddbe88364ece3aa16f5fc4c79fae544137619064656f0e10` |
-| Manifest | `46913b3d…` unchanged |
+| `6c8b661c…` | Product merge / docs HEAD / main |
+| PR #623 / CI `#40526990871` | Product evidence |
+| `eb7d90bb…` | R24-CR-02 Semantic |
+| `596be186…` / `86239dc2…` | Two-Digest |
+| `34c36cff…` / `94ffd30b…` | R-ROW-01 |
+| Roadmap | `b3c909d7…` |
+| Manifest | `46913b3d…` |
 
 ---
 
-## 19. Unique verdict
+## 22. Handoff proof (this cycle)
+
+Publisher: `scripts/sfia/publish-review-handoff.sh`
+Source: `.tmp-sfia-review/chatgpt-review.md`
+Destination: `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md`
+After publish: verify tip+blob; return to docs branch; confirm 10-file SHAs unchanged; staged empty; no project Git.
+
+---
+
+## 23. Unique verdict
 
 ```
 AKG-M5 L3-S2 OPTION B —
-R-ROW-01 BOUNDED ROADMAP MATRIX TRUTH-SYNC DELIVERED LOCAL —
-PRODUCT #623 CURRENT REFLECTED IN AKG-M5 MATRIX —
-L3 GLOBAL AND GAPS PRESERVED —
-PRR MANIFEST UNCHANGED —
-READY FOR CHATGPT CRITICAL ROADMAP DELTA REVIEW —
-DOCUMENTARY GIT INTEGRATION NOT YET EXECUTED.
+FINAL DOCUMENTARY READINESS PASS —
+TEN-FILE R24 CANDIDATE IDENTITY VERIFIED —
+ROADMAP / PRR CURRENTNESS STABLE —
+PRR CONFORMANCE PASS LOCAL —
+ELIGIBLE FOR BOUNDED DOCUMENTARY GIT INTEGRATION
+UNDER PREVIOUS MORRIS GO —
+PROJECT GIT INTEGRATION NOT YET EXECUTED.
 ```
 
-FIN REVIEW PACK FULL — R-ROW-01 — 2026-10-27T20:01:01Z
+**CASE A.** LEVEL 1 PASS · LEVEL 2 PASS · LEVEL 3 LOCAL DIRTY / NO COMMIT / NO PUSH / NO PR.
+
+FIN REVIEW PACK FULL — FINAL DOCUMENTARY READINESS — 2026-10-27T20:13:10Z
