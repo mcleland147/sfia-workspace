@@ -1,255 +1,258 @@
 # SFIA REVIEW PACK — FULL / CRITICAL / MONO-CYCLE
 
 ## 1. Horodatage
-- Local write: 2026-10-27 ~13:35 Europe/Paris
-- Cycle executed: 2026-10-27
-- Corrective ID: CORR-CI-623-01
+- Local write: 2026-10-27 ~15:25 Europe/Paris
+- Cycle: AKG-M5 / L3-S2 OPTION B — R-CI-623-02 MULTI-PATH CLOSURE
+- Corrective ID: CORR-CI-623-02 / R-CI-623-02
 
-## 2. GO Morris
-**GO Morris : 2026-10-27 — CORR-CI-623-01.**
+## 2. GO Morris exact
+**GO Morris : 2026-10-27 — CORR-CI-623-02.**
 
-Authorized: targeted CI failure investigation · minimal W3-C cognitive-boundary correction · targeted + CI-compatible tests · single corrective commit · FF push on same branch · Draft PR #623 update · Review Pack FULL · Review Handoff publish-in-cycle.
+Authorized: targeted investigation · minimal W3-C fix · adversarial multi-path tests · non-regressions · one corrective commit · FF push · Draft PR #623 update · Review Pack FULL · Review Handoff L3.
 
-**NOT authorized:** undraft · merge · auto-merge · new PR/branch · doctrinal change · architecture pivot · Pilote/Nora authority change · Product Completion expansion · REAL/L4 · runtime v3 promotion.
+**NOT authorized:** new branch/PR · undraft · merge · auto-merge · force push · OA/persistence change · architecture pivot · doctrine change · L4 · G-REAL · OA-exclusive · runtime v3 promotion.
 
 ## 3. Git Truth — initial / final
 ### Initial
 - pwd: `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity`
 - branch: `feat/akg-m5-l3-s2-generic-proof-continuity`
-- HEAD: `90bbf479a31a08d70e8d498825bfd49f0ba49314` (= remote feat)
+- HEAD: `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f` (= remote)
 - origin/main: `6e957ecbf50b009b692cf1fcba2748ee1aa9c862`
 - staged: empty
-- dirty: only `.tmp-sfia-review/chatgpt-review.md`
-- PR #623: OPEN / DRAFT / Required Gate FAIL on run `40500124340`
+- dirty residual: `.tmp-sfia-review/chatgpt-review.md` only
+- PR #623: OPEN / DRAFT / 3 commits / Required Gate SUCCESS on f7c9ba78
 
-### Final (project)
-- HEAD / remote feat: `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f`
+### Final
+- HEAD / remote feat: `73f0166c6a71c301a7b2a9c2471beb30ad068221`
 - origin/main unchanged: `6e957ecbf50b009b692cf1fcba2748ee1aa9c862`
-- PR #623: OPEN / **isDraft=true** / mergedAt=null / headRefOid=`f7c9ba78…` / 3 commits
+- PR #623: OPEN / **isDraft=true** / 4 commits / headRefOid=`73f0166c…`
 - dirty residual: `.tmp-sfia-review/chatgpt-review.md` only
 
 **Git Truth: PASS**
 
-## 4. Source Routing
-- Prior handoff tip `4a923966291c9a9503b723547f50f1284daf41d5` / blob `be8b4f572b6ff375d40a0449fec83b8e7b4c3d6b`
-- Product commits on PR: `0577ca5c…` (Product+tests) · `90bbf479…` (R24/manifest) · **`f7c9ba78…` (this fix)**
-- Primary evidence: GitHub Actions logs run `40500124340` + local reproduction + code inspection
+## 4. Sources canoniques
+- Method / Build Doctrine / Roadmap / C1 / M5 trajectory / Generic Architecture / Doctrine v3 / PRR (read for context; no doc mutation)
+- Code: `w3cPostEvidenceLoop.ts`, `finalizeGenericExecutionReview.ts` (producer `join(",")`), prior CORR-CI-623-01 handoff tip `2c23cc08…`
+- Test: `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts`
+- Prior handoff blob `9b318c77…`
 
 ## 5. Convergence Pre-check
-- Build Doctrine VALIDATED ON MAIN · Roadmap ACTIVE · T-C ADOPTED · L3-S1 ON MAIN
-- L3-S2: Draft PR #623 / NOT ON MAIN
-- S8 TECHNICAL RELIABILITY ACCEPTED DET · R24 SEMANTIC REVIEW PASS
-- Required CI was FAILED (CI-623-01) → corrected candidate on new HEAD
-- MERGE NOT AUTHORIZED · L3 GLOBAL OPEN · EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL
-- G-REAL NOT GRANTED · runtime v3 NON ADOPTED
+- T-C ADOPTED · L3-S1 ON MAIN · L3-S2 Draft PR #623 / NOT ON MAIN
+- S8 ACCEPTED LOCAL DET · R24 SEMANTIC REVIEW PASS · Manifest CONFORMANCE VERIFIED
+- R-CI-623-01 INITIAL CP2-10 FIX PASS · **R-CI-623-02 MULTI-PATH GAP → CLOSED this cycle**
+- L3 GLOBAL OPEN · EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · G-REAL NOT GRANTED · runtime v3 NON ADOPTED
 
-## 6. R23 architecture (proportional)
-Chain unchanged: Project → Generic PREPARE → SHE → EC → Attempt → Cursor → VerifiedChangeSet → Verification Evidence → GERM → W3-B → RB/CE → Product Result → **W3-C / Nora Deep Review**.
+## 6. R23 source producer / consumer
+| Role | Component | Classification |
+|---|---|---|
+| Producer | `finalizeGenericExecutionReview` → `CLAIM_FACT_MISMATCH unclaimed=${paths.join(",")}` | KEEP |
+| Durable store | GERM / VerifiedChangeSet / Verification Evidence | KEEP |
+| Pilot surface | `projectW3cExecutionReportSurfaceFromDurable` full | KEEP |
+| Tool | `execution_review_get_manifest` | KEEP |
+| Nora-initial | `redactClaimFactUnclaimedPathsForNoraInitialContext` | **ADAPT** |
+| CP2-10 tests | front-door + structured unit | **COMPLETE** |
 
-This cycle touches only the **Nora initial cognitive assembly** inside W3-C (`runW3cPostEvidenceLoop`), not OA aggregates, Evidence admission, or SHE authority.
-
-## 7. Cause du FAIL CI
-### Symptom
-Workflow `SFIA Studio CI` run **40500124340** @ HEAD `90bbf479…`:
-- Typecheck PASS · Lint PASS · Build PASS · Vitest FAIL · Required Gate FAIL
-- 1 failed / 556 passed / 22 skipped (files); 1 failed / 6067 passed / 142 skipped (tests)
-- Exact test: `__tests__/project-assistant/genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts` · **CP2-10 MAIN**
-- Assertion: `expect(promptText).not.toMatch(/\bb\.md\b/)` FAILED
-
-### Observed first-prompt leak
-Nora round-0 facts JSON contained:
-- `blockersSummary`: `CLAIM_FACT_MISMATCH unclaimed=b.md`
-- `cursorReportSummary`: `… blockers=CLAIM_FACT_MISMATCH unclaimed=b.md`
-
-### Root cause (R23)
-Option B commit `0577ca5c…` filled `projectW3cExecutionReportSurfaceFromDurable` (was a stub returning empty on main). That correctly projects durable GERM blockers including path-level `CLAIM_FACT_MISMATCH unclaimed=<paths>`.
-
-`runW3cPostEvidenceLoop` then passed that **full** durable surface into `analyzePostEvidenceWithProvider` as Nora's **initial** cognitive facts, short-circuiting the CP2-10 Tool-First contract: path-level Claim≠Fact detail must arrive via `execution_review_get_manifest`, not the first prompt.
-
-Not a semantic Product Result change; a cognitive presentation sequencing regression introduced by restoring the durable surface for Pilot/completeness honesty (CORR-S2-03 / R-S2-04) without separating Nora-initial assembly.
-
-Leak paths identified:
-1. `blockersSummary` ← `manifest.blockers` (`finalizeGenericExecutionReview` writes `CLAIM_FACT_MISMATCH unclaimed=…`)
-2. `cursorReportSummary` embeds blockersSummary
-3. Potential (guarded): `Studio observed:` workPerformed fallback with VCS paths; artifact material if preferred path is unclaimed
-
-Durable GERM / Pilot `executionReport` / rehydrate / tool output correctly retained `b.md` — those must stay.
-
-## 8. Logs GitHub exacts
-- Failed run: https://github.com/mcleland147/sfia-workspace/actions/runs/40500124340
-- Job: Build and validate SFIA Studio — conclusion FAILURE (completed 2026-10-27T12:05:35Z)
-- Required Gate: FAILURE
-- Detect: SUCCESS
-
-## 9. Reproduction locale
-Before fix @ `90bbf479…`:
+## 7. Cause racine
+R-CI-623-01 regex:
 ```
-npx vitest run …genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts -t "CP2-10"
-→ FAIL — promptText matches /\bb\.md\b/
+/\bCLAIM_FACT_MISMATCH(?:\s+unclaimed=[^\s·|;,]*)?/gi
 ```
-After fix: same command → **PASS** (1189ms).
+Character class **excluded `,`**, so comma-joined multi-path lists stopped after the first path.
 
-## 10. Contrat cognitif applicable (preserved)
-- A Claim ≠ Fact · B VerifiedChangeSet = observed effects · C mismatch durable · D tool can obtain mismatch · E first prompt must not short-circuit Tool-First · F no b.md in first prompt ≠ reserve gone from Product · G Technical SUCCESS ≠ Product PASS · H Nora invents no HD/Confirm · I Pilot/rehydrate honesty · J PARTIAL ≠ FULL artificial
+Confirmed counter-example:
+- INPUT: `CLAIM_FACT_MISMATCH unclaimed=b.md,c.md`
+- ACTUAL (pre-fix): `CLAIM_FACT_MISMATCH,c.md`
+- EXPECTED: `CLAIM_FACT_MISMATCH`
 
-Correction does **not** filename-filter `b.md` alone; it redacts the structured `unclaimed=…` class at Nora-initial assembly only.
+Same leak via `cursorReportSummary` embedding `blockers=…`.
 
-## 11. Options considérées
-1. Weaken CP2-10 assertion — **REJECTED** (GO forbids)
-2. Strip mismatch entirely from Nora facts — **REJECTED** (loses CLAIM_FACT_MISMATCH signal)
-3. Redact inside durable shared projection — **REJECTED** (would starve Pilot/rehydrate)
-4. **Nora-initial assembly boundary in W3-C** — **RETAINED**
+Producer format verified: paths joined with `,` **without spaces**; blocker tokens separated by whitespace / ` · `.
 
-## 12. Correction retenue
-File: `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` only.
+## 8. Reproduction avant correction
+Node reproduction of pre-fix redactor yielded:
+- `…unclaimed=b.md,c.md` → `CLAIM_FACT_MISMATCH,c.md`
+- `…unclaimed=b.md,c.md,d.md` → `CLAIM_FACT_MISMATCH,c.md,d.md`
+- with other blocker: residual `,c.md` before ` · VERIFICATION_…`
 
-- Keep `projectW3cExecutionReportSurfaceFromDurable` full for Pilot/`executionReport`.
-- Add `redactClaimFactUnclaimedPathsForNoraInitialContext` · `omitUnclaimedPathsFromStudioObservedWorkSummary` · `projectNoraInitialPostEvidenceSurface`.
-- Wire Nora facts through `projectNoraInitialPostEvidenceSurface` before `analyzePostEvidenceWithProvider`.
-- No change to `postEvidenceNoraAnalysis.ts`, GERM persistence, Evidence/RB/CE, or tests requirements.
+## 9. Options et choix minimal
+1. Broad path sanitizer / filename filter — REJECTED (GO forbids; over-censors)
+2. Redact inside durable shared projection — REJECTED (starves Pilot/GERM)
+3. Change producer to space-separated paths — REJECTED (unnecessary OA/surface churn)
+4. **Consume full `unclaimed=\S*` token; keep whitespace-delimited other blockers** — RETAINED
 
-## 13. Diff complet du correctif
-Commit `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f` — 1 file · +115 / −7.
+## 10. Diff Product complet utile
+Commit `73f0166c6a71c301a7b2a9c2471beb30ad068221` — file `w3cPostEvidenceLoop.ts` only for Product.
 
 ```diff
-+function redactClaimFactUnclaimedPathsForNoraInitialContext(...)
-+function omitUnclaimedPathsFromStudioObservedWorkSummary(...)
-+function projectNoraInitialPostEvidenceSurface(...)
-…
--  const workPerformedSummary = durableProjection.workPerformedSummary;
--  const blockersSummary = durableProjection.blockersSummary;
--  …
-+  const executionReport = durableProjection.executionReport; // FULL for Pilot
-+  const noraInitial = projectNoraInitialPostEvidenceSurface({ durable, unclaimedObservedPaths, artifactLogicalPath });
-+  // Nora facts from noraInitial only
+- * Nora initial cognitive facts (Tool-First Deep Review / CP2-10):
++ * Nora initial cognitive facts (Tool-First Deep Review / CP2-10 / R-CI-623-02):
++ * Producer format: CLAIM_FACT_MISMATCH unclaimed=${join(",")}
++ * Consuming \S* after unclaimed= covers full multi-path list without stopping at ,
+-function redactClaimFactUnclaimedPathsForNoraInitialContext(
++export function redactClaimFactUnclaimedPathsForNoraInitialContext(
+-  return summary
+-    .replace(/\bCLAIM_FACT_MISMATCH(?:\s+unclaimed=[^\s·|;,]*)?/gi, "CLAIM_FACT_MISMATCH")
+-    .replace(/\bclaim_fact_mismatch(?:\s+unclaimed=[^\s·|;,]*)?/gi, "CLAIM_FACT_MISMATCH");
++  return summary.replace(
++    /\bCLAIM_FACT_MISMATCH(?:\s+unclaimed=\S*)?/gi,
++    "CLAIM_FACT_MISMATCH",
++  );
 ```
 
-Full patch auditable at: `git show f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f`
+Full patch: `git show 73f0166c6a71c301a7b2a9c2471beb30ad068221 -- w3cPostEvidenceLoop.ts`
 
-## 14. Tests ajoutés/modifiés
-- **None weakened.** Existing CP2-10 remains the substantive oracle.
-- No new test file required; CP2-10 already asserts tool call + tool output `unclaimedObservedPaths=["b.md"]` + Product honesty + Pilot reader + remount.
+Pilot/`executionReport` path unchanged (still full durable projection). Tool/GERM/RB/CE/Product Result unchanged.
 
-## 15. Oracle CP2-10 avant/après
-| Step | Before | After |
+## 11. Tests créés/modifiés complets
+File: `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts` (+199 / −0 net with helpers).
+
+Added:
+1. Import + export usage of `redactClaimFactUnclaimedPathsForNoraInitialContext`
+2. Helper `fakeCursorMutatesWorktreeMultiUnclaimed` (b.md + c.md + d.md)
+3. Describe `R-CI-623-02 Nora-initial CLAIM_FACT_MISMATCH unclaimed redaction (structured)` — 6 unit cases (T1/T2/T3/T4/T9 + cursorSummary)
+4. Front-door `CP2-10-MULTI / R-CI-623-02` — real DET worktree, W3-C Nora Tool-First, tool/GERM/Pilot/Product/rehydrate oracles
+
+**Existing CP2-10 assertions not weakened.**
+
+Auditable: `git show 73f0166c… -- …frontDoor.d0.test.ts`
+
+## 12. Oracles T1–T10
+| ID | Coverage | Result |
 |---|---|---|
-| First prompt contains `b.md` | YES (FAIL) | NO (PASS) |
-| Tool `execution_review_get_manifest` called | (not reached / asserted after) | YES |
-| Tool output claimFactMismatch / unclaimed=["b.md"] | durable present | YES asserted |
-| Product PASS | no | no |
-| ContractResult PASS | no | no |
-| Pilot read b.md | yes | yes |
-| Remount VerifiedChangeSet unclaimed | ["b.md"] | ["b.md"] |
+| T1 single | unit + CP2-10 MAIN | PASS |
+| T2 two paths | unit (`b.md,c.md` → no `,c.md`) + MULTI | PASS |
+| T3 three paths | unit + MULTI (`b.md,c.md,d.md`) | PASS |
+| T4 other blockers | unit preserves `VERIFICATION_UNAVAILABLE` / `OTHER_BLOCKER` | PASS |
+| T5 Tool-First | MULTI: `execution_review_get_manifest` + full unclaimed list | PASS |
+| T6 GERM/Pilot | MULTI: durable blocker + Pilot read each path | PASS |
+| T7 Product honesty | MULTI: not PASS / not SUCCESS; Attempt succeeded | PASS |
+| T8 rehydration | MULTI: reload unclaimed paths intact | PASS |
+| T9 no mismatch | unit: non-mismatch summaries unchanged | PASS |
+| T10 boundary | MULTI first prompt: no b/c/d.md; no `CLAIM_FACT_MISMATCH,` residual | PASS |
 
-## 16. Tool output b.md
-CP2-10 continues to require tool output:
-- `verifiedEffects.claimFactMismatch === true`
-- `unclaimedObservedPaths === ["b.md"]`
-Provenance: Studio ReviewManifest / VerifiedChangeSet (not Cursor CLAIM reinterpreted as FACT).
+## 13. Preuve Nora first prompt
+MULTI: first provider round contains `CLAIM_FACT_MISMATCH` and does **not** match `\bb\.md\b`, `\bc\.md\b`, `\bd\.md\b`, nor `CLAIM_FACT_MISMATCH\s*,`.
 
-## 17. Conservation GERM / Evidence
-- Durable blockers still store full `CLAIM_FACT_MISMATCH unclaimed=…`
-- Verification Evidence / RB bindings / CE snapshots untouched by this commit
-- `executionReport` on W3-C success remains full durable projection
+## 14. Preuve Tool-First manifest
+MULTI: tool call present; tool output `claimFactMismatch=true`; `unclaimedObservedPaths` sorted equals `["b.md","c.md","d.md"]`; tool blockers retain full unclaimed list.
 
-## 18. Product Result inchangé
-No Product PASS invented. Technical Attempt success preserved. UNCLAIMED / FAIL honesty retained (CP2-10 path).
+## 15. Preuve GERM durable
+MULTI: manifest blocker includes `unclaimed=` and each of b/c/d.md; VCS `unclaimedObservedPaths` complete; Verification Evidence payload matches.
 
-## 19. Non-régressions (local)
-Targeted matrix (9 files): **139/139 PASS** including front-door 12, S8 17, LotsAC 27, L3-S1, Mission, W3-C loop/correction, continuation, PRR conformance 5.
+## 16. Preuve Pilot
+MULTI: `w2ReadExecutionReviewItemAction` succeeds for each unclaimed logicalPath with `claimFactMismatch=true`.
 
-Full CI-equivalent `npm test` (retry after one flaky trajectorySurface isolation pass):
-- **Test Files 557 passed | 22 skipped**
-- **Tests 6068 passed | 142 skipped**
-(Baseline failed CI: 6067 pass + 1 fail → fix restores the missing pass.)
+## 17. Preuve Product honesty
+MULTI: ContractResult ≠ PASS; product outcome ≠ SUCCESS; claimAllowed=false; Attempt status `succeeded` preserved.
 
-Note: first full local run showed 3 flaky failures in `…trajectorySurface.d0.test.ts` under suite load; same file **6/6 PASS** in isolation and **green on full retry**. Not introduced by the Nora-initial redaction path (UI scheduler mocks). Reported for honesty.
+## 18. Preuve rehydration
+MULTI: after rm worktree, `loadGenericExecutionReviewMaterial` still returns full unclaimed list.
 
-## 20. Typecheck / lint
-- `npm run typecheck` → PASS (after removing invalid `verifiedEffects.unclaimedObservedPaths` access)
-- `npm run lint` → PASS (2 pre-existing unused-var warnings unchanged)
+## 19. Régressions ciblées
+Command (app dir):
+```
+npx vitest run frontDoor + w3c + S8 + LotsAC + L3-S1 + Mission + continuation + PRR conformance
+```
+Result: **Test Files 9 passed / Tests 146 passed** (includes +6 unit +1 MULTI vs prior 139).
+
+## 20. Suite CI-compatible
+```
+CI=true npm test
+```
+- Test Files: **557 passed | 22 skipped**
+- Tests: **6075 passed | 142 skipped** (6217 total)
+- Duration ~635s
+- Prior green baseline after 623-01 was 6068 pass; +7 adversarial tests → 6075.
+
+## 21. Typecheck / lint
+- `npm run typecheck` → PASS (fixed readonly `.sort()` via spread copy)
+- `npm run lint` → PASS (2 pre-existing unused-var warnings)
 - PRR checker → CONFORMANCE OK (no manifest change)
+- `git diff --check` → clean
 
-## 21. Suite CI complète
-Local full `npm test` PASS on retry (see §19). GitHub Actions on new HEAD: see §27.
+## 22. R24
+**NO SEMANTIC IMPACT** demonstrated:
+- same Product Result policy
+- same durable Evidence / GERM / VerifiedChangeSet
+- same RB/CE
+- same review tool payload
+- same DET/REAL limits
+- no new authority / no v3 capacity
+- Roadmap / PRR / manifest **not modified**
 
-## 22. R24 impact
-**NO SEMANTIC IMPACT** — restores already-decided Tool-First cognitive sequencing; does not change Product Result policy, GERM schema, Roadmap, or PRR overlays. Roadmap/PRR/manifest **not modified** this cycle.
+## 23. Security scan
+Scoped scan of the two modified project files: **NO FINDING IN SCANNED SCOPE** (≠ full audit).
 
-## 23. Security check
-Scoped scan of modified Product file: **NO FINDING IN SCANNED SCOPE** (≠ full audit claim).
+## 24. Staging
+Explicit paths only (no `git add .` / `-A`):
+1. `w3cPostEvidenceLoop.ts`
+2. `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts`
 
-## 24. Staging / commit SHA
-- Staged explicitly: only `w3cPostEvidenceLoop.ts` (no `git add .`)
-- Commit: `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f`
-- Message: `fix(studio): restore W3-C Nora review tool-first boundary`
+## 25. Commit SHA / parent
+- Commit: `73f0166c6a71c301a7b2a9c2471beb30ad068221`
+- Parent: `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f`
+- Message: `fix(studio): close W3-C tool-first multi-path disclosure`
+- 2 files · +213 / −11
 
-## 25. Push / remote SHA
-- Fast-forward push to `origin/feat/akg-m5-l3-s2-generic-proof-continuity`
-- Remote == local: `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f`
+## 26. Push distant / SHA
+- Fast-forward `f7c9ba78..73f0166c` on `feat/akg-m5-l3-s2-generic-proof-continuity`
+- Remote == local: `73f0166c6a71c301a7b2a9c2471beb30ad068221`
 - main unchanged
 
-## 26. État Draft PR #623
+## 27. Draft PR #623
 - URL: https://github.com/mcleland147/sfia-workspace/pull/623
-- OPEN · **draft=true** · base=main · head SHA `f7c9ba78…`
-- commits: 3 · changed files (PR aggregate): 22 Product/docs paths from Option B + this one-file fix within that set
+- OPEN · **draft=true** · base=main · head `73f0166c…` · **4 commits**
 - Not undrafted · Not merged
 
-## 27. Nouvelle CI
-- New workflow run: **40504093149** @ head `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f`
-- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/40504093149
-- Detect SFIA Studio changes: **pass** (7s)
-- Build and validate SFIA Studio: **pass** (8m51s)
-- SFIA Studio Required Gate: **pass** (2s)
+## 28. Nouvelle CI / Required Gate
+- Run **40519630827** @ `73f0166c6a71c301a7b2a9c2471beb30ad068221`
+- https://github.com/mcleland147/sfia-workspace/actions/runs/40519630827
+- Detect: **pass** (10s)
+- Build and validate: **pass** (4m57s)
+- SFIA Studio Required Gate: **pass** (4s)
 - Workflow conclusion: **success**
 
-**Sub-status: CI GREEN VERIFIED ON NEW HEAD.**
-Do not reuse CI of `90bbf479`. Merge still NOT authorized without distinct Morris GO after Critical PR Re-Review.
+**CI GREEN VERIFIED ON NEW HEAD.**
 
-## 28. EP-S2 inchangés
-01–04 PASS DET · **05 NOT PROVEN** · 06–07 PASS DET · **08 PARTIAL** · 09–12 PASS at tested scope. No promotion.
+## 29. EP et non-claims
+EP-S2 unchanged: 01–04 PASS DET · **05 NOT PROVEN** · 06–07 PASS DET · **08 PARTIAL** · 09–12 PASS at tested scope.
 
-## 29. Fake/Real
-Unchanged: TestOnlyRealExecutionLaunchPort · DET FS worktree · REAL Cursor NOT PROVEN · G-REAL NOT GRANTED · OA-exclusive DEFAULT OFF · DETERMINISTIC AT TESTED SCOPE.
+Non-claims: ≠ READY TO MERGE · ≠ L3-S2 CURRENT ON MAIN · ≠ L3 GLOBAL CLOSED · ≠ REAL PROVEN · ≠ RUNTIME V3 ADOPTED.
 
-## 30. Dettes / réserves
-- CI run `40504093149` **GREEN** on `f7c9ba78…` (Detect + Build/validate + Required Gate)
-- Local trajectorySurface flake observed once under first full-suite load (green on retry + green on GitHub CI)
-- EP-S2-05/08 · late Evidence supersession · Generic Product PASS · REAL · post-merge R24 — unchanged open debts
-- MERGE still requires distinct Morris GO after Critical PR Re-Review
+## 30. Fake/Real
+Fake Nora provider / scripted tool · real temp Git DET worktree · REAL Cursor NOT EXERCISED · OpenAI LIVE NOT EXERCISED · DETERMINISTIC AT TESTED SCOPE · G-REAL NOT GRANTED · OA-exclusive DEFAULT OFF.
 
-## 31. Git Review Index
-| Ref | SHA / ID |
+## 31. Dettes et réserves
+- EP-S2-05/08 · late Evidence supersession · Generic Product PASS · REAL · post-merge R24 — unchanged
+- MERGE / undraft still require **distinct Morris GO** after ChatGPT Critical PR Re-Review
+
+## 32. Git Review Index
+| Ref | Value |
 |---|---|
 | origin/main | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
-| Prior PR HEAD (failed CI) | `90bbf479a31a08d70e8d498825bfd49f0ba49314` |
-| Corrective commit / new HEAD | `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f` |
-| Failed CI run | `40500124340` |
-| New CI run | `40504093149` |
+| Prior HEAD (623-01) | `f7c9ba78dafe0ee1bc0ff3f5b878022c1bbabe6f` |
+| This corrective / new HEAD | `73f0166c6a71c301a7b2a9c2471beb30ad068221` |
+| New CI | `40519630827` (success) |
 | Draft PR | #623 |
-| Prior handoff tip | `4a923966291c9a9503b723547f50f1284daf41d5` |
+| Prior handoff tip | `2c23cc08defc4a1c2348510d26daf52828033c96` |
 
-## 32. Verdict unique
-**AKG-M5 L3-S2 OPTION B — CORR-CI-623-01 DELIVERED ON DRAFT PR #623 — READY FOR CHATGPT CRITICAL PR RE-REVIEW — MERGE NOT AUTHORIZED.**
+## 33. Verdict unique
+**AKG-M5 L3-S2 OPTION B — R-CI-623-02 MULTI-PATH TOOL-FIRST CLOSURE DELIVERED — DRAFT PR #623 UPDATED — READY FOR CHATGPT CRITICAL PR RE-REVIEW — MERGE NOT AUTHORIZED.**
 
 Sous-statut: **CI GREEN VERIFIED ON NEW HEAD.**
 
-Non-claims: ≠ MERGE AUTHORIZED · ≠ L3-S2 CURRENT ON MAIN · ≠ L3 GLOBAL CLOSED · ≠ REAL PROVEN · ≠ runtime v3 ADOPTED.
-
 ---
 ## Appendix A — Instruction ChatGPT obligatoire
-Avant toute réponse sur ce rapport Cursor, consulter Git distant:
+Avant toute réponse, lire Git distant:
 
 - Branch: `sfia/review-handoff`
 - Path: `sfia-review-handoff/latest-chatgpt-review.md`
 
-Vérifier cycle CORR-CI-623-01, profil CRITICAL, branche projet, HEAD `f7c9ba78…`, base `6e957ecb…`, fichier modifié, commit/push, Draft PR #623, CI run `40504093149` (success / Required Gate pass), réserves, et verification distante. Produire ensuite une synthèse globale et un verdict motivé. Merge remains a distinct Morris GO.
+Vérifier cycle R-CI-623-02, profil CRITICAL, HEAD `73f0166c…`, patch exact, multi-path oracles, GERM/Pilot/tool conservation, Product honesty, Draft PR #623, CI `40519630827` / Required Gate, R24 NO SEMANTIC IMPACT, réserves. Produire synthèse + verdict motivé. **Ne pas exécuter le merge.**
 
-## Appendix B — Cognitive boundary summary
-| Surface | b.md / unclaimed paths |
-|---|---|
-| Durable GERM / manifest blockers | PRESENT (full) |
-| Pilot executionReport / Product Resolution | PRESENT (full) |
-| Nora first prompt | REDACTED (`CLAIM_FACT_MISMATCH` without `unclaimed=…`) |
-| `execution_review_get_manifest` tool | PRESENT (full) |
-| Product PASS | still refused |
+## Appendix B — Before/after redaction matrix
+| Input | Pre-fix | Post-fix |
+|---|---|---|
+| `…unclaimed=b.md` | `CLAIM_FACT_MISMATCH` | `CLAIM_FACT_MISMATCH` |
+| `…unclaimed=b.md,c.md` | `CLAIM_FACT_MISMATCH,c.md` | `CLAIM_FACT_MISMATCH` |
+| `…unclaimed=b.md,c.md · VERIF…` | leak `,c.md` | `CLAIM_FACT_MISMATCH · VERIF…` |
