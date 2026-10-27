@@ -1,160 +1,88 @@
 # SFIA Studio — ChatGPT Review Pack (FULL)
 
 ## 1. Date / heure
-- Generated (UTC): 2026-10-27T07:49:58Z
+- Generated (UTC): 2026-10-27T10:03:50Z
 - Local delivery worktree: `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity`
 
-## 2. GO Morris exact et limites
-**GO:** 2026-10-27 — GO CONSOLIDATED S8 EVIDENCE CLOSURE (PASS 04).
+## 2. GO Morris et limites
+**GO:** 2026-10-27 — GO R-S8-03/04 CONSOLIDATED CLOSURE (PASS 05).
 
-**Cycle:** AKG-M5 / L3-S2 OPTION B / S8 PROJECT-FIRST — CONSOLIDATED CORRECTION & INTEGRATED EVIDENCE CLOSURE — LOCAL DETERMINISTIC DELIVERY — PASS 04.
+**Cycle:** AKG-M5 / L3-S2 OPTION B / S8 PROJECT-FIRST — EVIDENCE REJECTION CLOSURE — CONSOLIDATED CORRECTION PASS 05.
 
-**Autorisé:** R-S8-01 Evidence ownership before RB admit; R-S8-02 late Evidence / OA idempotence qualification (fail-closed, no new lifecycle); S8 oracle OBSERVED FS integrated; negatives; non-regs; FULL Review Pack; L3 handoff publish-in-cycle.
+**Autorisé:** R-S8-03 ABSENT≠REJECTED admission; R-S8-04 O8 Product oracle unconditional; tests; non-regs; FULL pack; L3 handoff.
 
-**Non autorisé:** nouvel agrégat; migration SQLite; lifecycle OA structurant; nouveau moteur Evidence/RB/CE; Result Semantic universel; Product docs_write; cycleInstanceId fictif; SHE assoupli; Nora Deep / L4; Cursor REAL / OpenAI LIVE; OA-exclusive ON; PRR/Roadmap write; commit/push/PR/merge projet; runtime v3.
+**Non autorisé:** nouvelle architecture Evidence; agrégat/migration; lifecycle RB; Result Semantic; Product PASS générique; SHE assoupli; cycle fictif; L4/REAL/LIVE; OA-exclusive; PRR/Roadmap write; commit/push/PR/merge projet; runtime v3.
 
-**Ne pas rouvrir:** D-ER-17.
+## 3. Cycle 8 / CRITICAL / EVOL-CORRECTION
+SFIA Studio · AKG-M5 · V3-F05 Generic Execution · L3-S2 Option B / S8 · CRITICAL — Evidence admission/rejection integrity.
 
-## 3. Qualification cycle
-- Projet: SFIA Studio
-- Chantier: AKG-M5 Product Transformation
-- Capacité: V3-F05 Generic Execution
-- Milestone: L3-S2 Option B / S8
-- Type: 8 Delivery / CRITICAL / EVOL-CORRECTION
-- CKC: Cycle 8 cognitive guidance only
-
-## 4. Git Truth (initial = final Product; no project commit)
+## 4. Git Truth (initial = final Product)
 
 | Champ | Valeur |
 |-------|--------|
-| Repo path | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity` |
-| Remote | `origin` → `mcleland147/sfia-workspace` |
 | Branch | `feat/akg-m5-l3-s2-generic-proof-continuity` |
 | HEAD | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
-| origin/main (local) | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
-| origin/main (ls-remote) | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
-| Dirty | YES — expected Option B + S8 + Pass 04 candidate |
-| Reset/clean/stash/rebase | NOT performed |
+| origin/main | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
+| Dirty | YES — Option B + S8 + Pass 04/05 candidate preserved |
 | Project commit/push | NOT performed |
+| Prior handoff tip | `d8c68b06af9b12a840525845a04b42f69244fe0b` |
+| Prior handoff blob | `0a42839fbe39485683222a0e10a51adf2d5807d4` |
 
-### Dirty inventory (Pass 04 + prior Option B / S8)
+### Dirty inventory
+**Modified:** materializeW3bProductTerminal.ts (Pass 05 R-S8-03); governedExecute…; ingestVerification/Mission; w3cPostEvidenceLoop; resolvePreCommit/VerifiedFS; gcecCont01 test; chatgpt-review.md
+**Untracked:** S8 oracle test; lotsAC test; ingestGeneric…; fsAnchor…
 
-**Modified (tracked):**
-- `materializeW3bProductTerminal.ts` — R-S8-01 ownership + R-S8-02 IDEMPOTENCY_CONFLICT messaging
-- `governedExecuteAuthorizedContract.ts` — S8 Project-first ungated GERM/Verification/FS; Mission gated
-- `ingestExecutionReviewVerificationEvidence.ts` / `ingestMissionResultEvidence.ts` — optional cycle
-- `w3cPostEvidenceLoop.ts` — Project-first compatible
-- `resolvePreCommitWorkspaceContinuation.ts` / `resolveVerifiedFilesystemMaterializationPriorAttempt.ts` — CORR/R-S2
-- `gcecCont01ContinuationResolver.d0.test.ts` — non-reg
-
-**Untracked (candidate):**
-- `akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` — S8 + Pass 04 oracle
-- `akgM5L3S2.optionB.lotsAC.d0.test.ts` — Lots A/B/C
-- `ingestGenericFilesystemMaterializationArtifactEvidence.ts`
-- `fsAnchorArtifactMaterializationEvidenceSources.ts`
-
-### Prior handoff (pre-Pass 04)
-- Branch tip: `dc86b3c59440fa65d8d69262731c84e15c0c089b`
-- Canonical blob: `9d8ca8d2d1a558bad464e3cd0013385f53cd98ea`
-
-## 5. Références Git et sources lues
-Méthode (template, routing, operating model, guardrails, CKC map), Build Doctrine, Roadmap (read-only), Product Completion, M5 trajectory § L3-S2, Generic Execution architecture D-ER-17/18, doctrine v3 33/34/35, PRR 02/03/06/07/08/09 (read-only), prior FULL handoff tip dc86b3c5.
+## 5. Sources Git exactes
+Méthode (template/routing/operating model/guardrails/CKC), Build Doctrine, Roadmap RO, Product Completion, M5 trajectory, Generic architecture D-ER-17/18, doctrine v3 33–35, PRR 02/03/06/07/08/09 RO, prior FULL handoff d8c68b06.
 
 ## 6. Convergence Pre-check
-| Item | Status |
-|------|--------|
-| Build Doctrine | VALIDATED ON MAIN |
-| Roadmap | ACTIVE LIVING (no write this cycle) |
-| T-C | ADOPTED |
-| L3-S1 | INTEGRATED DET ON MAIN |
-| L3-S2 Option B | LOCAL CANDIDATE (dirty) |
-| S8 Project-first | DECIDED + DET; Critical Review reserves R-S8-01/02 closed this Pass |
-| CORR-S2-01/02/03, R-S2-04/05 | ACCEPTED LOCAL DET (preserved) |
-| R24 | SYNC PENDING |
-| L3 GLOBAL | OPEN |
-| G-REAL / OA-exclusive / Runtime v3 | NOT GRANTED / OFF / NON ADOPTED |
+Build Doctrine VALIDATED · Roadmap ACTIVE · T-C ADOPTED · L3-S1 ON MAIN · L3-S2 Option B LOCAL · S8 DECIDED · R-S8-01/02 DET · **R-S8-03/04 closed this Pass** · R24 SYNC PENDING · L3 GLOBAL OPEN · G-REAL NOT GRANTED · runtime v3 NON ADOPTED.
 
-## 7. R23 — Architecture-informed (investigation)
+## 7. R23 composants / invariants
+W3-B admission: **ADAPT** — `resolveW3bEvidenceAdmission` discriminated ABSENT / ADMISSIBLE / REJECTED.
+Predicate `evidenceAdmissibleForW3bExecutionContext`: KEEP.
+OA RB/CE: KEEP (rejected path returns before createReviewBundle).
+S8 oracle: COMPLETE (O8 unconditional).
+Mission cycle-bound / GERM / W3-C: KEEP.
+R22: N/A — no new cognitive provider.
 
-### W3-B (ADAPT ciblé) — BEHAVIOR PROVEN after Pass 04
-- `loadAttemptAndContract` → ownershipCtx from Project + EC + Attempt + optional cycle
-- Evidence IDs remain Attempt-derived for lookup
-- **NEW:** `evidenceAdmissibleForW3bExecutionContext` before RB admit
-- createReviewBundle fingerprint includes evidenceIds → late Evidence ⇒ IDEMPOTENCY_CONFLICT
-- freeze skips if already frozen; CE evaluates frozen snapshots only
-- Product projection: Technical SUCCESS ≠ Product PASS; Generic → UNCLAIMED
-
-### OA RB/CE — KEEP
-- create fingerprint embeds evidence list
-- freeze snapshots: evidenceId/version/status/availability (no bindings in snapshot; ownership checked pre-admit)
-- No supersession path that rewrites frozen RB with new Evidence set under same idempotency key
-- Classification R-S8-02: **fail-closed under existing OA** — no structural lifecycle invent
-
-### Product FS Evidence / Mission — KEEP
-- generic_mat from Product path when OBSERVED
-- Mission Evidence only when PRODUCT_MISSION stamped
-- Cycle-bound Mission path unchanged for filiation
-
-Coverage labels:
+Coverage:
 | Area | DOCUMENTED | COVERAGE VERIFIED | BEHAVIOR PROVEN | KNOWN GAP |
 |------|------------|-------------------|-----------------|-----------|
-| W3-B ownership | Y | Y | Y | — |
-| Late Evidence | Y | Y | Y (IDEMPOTENCY_CONFLICT) | No OA supersession for late Evidence under same key (debt documented) |
-| OBSERVED Project-only | Y | Y | Y | REAL Cursor not exercised |
-| Mission Project-only Mission Evidence | Y | Y (absent honest) | — | EP-S2-05 not promoted |
+| ABSENT vs REJECTED | Y | Y | Y | — |
+| O8 Product W3-B rejection | Y | Y | Y (reader stub boundary) | OA ingest may also refuse foreign project — not used as O8 PASS |
+| OBSERVED / late Evidence | Y | Y | Y (revalidated) | REAL not granted |
 
-## 8. R-S8-01 — avant / après
+## 8. R-S8-03 avant / après
 
-**Avant:** W3-B admitted Verification/generic_mat by deterministic ID + `status===verified` only.
+**Avant:** `admitIfOwned` → `Evidence | null` — present-but-incoherent collapsed to null (= absent).
 
-**Après:** `evidenceAdmissibleForW3bExecutionContext`:
-1. status verified
-2. bindings.projectId == Project
-3. bindings.executionContractId == EC
-4. bindings.executionAttemptId == Attempt
-5. cycle: if EC has cycle → Evidence cycle must match; if Project-only → refuse Evidence with foreign cycle
-6. role checks: verification → sourceKind execution_attempt + provenance.source execution_adapter; generic_mat → sourceKind external + GENERIC_FILESYSTEM source string; mission → sourceKind execution_attempt
+**Après:** `resolveW3bEvidenceAdmission`:
+- `absent` — findById null → optional skip / honest incomplete (Mission → tech-only NOT_PROVEN)
+- `admissible` — admit to RB
+- `rejected` — fail-closed Product **before** createReviewBundle; code mapped:
+  - evidence_project_mismatch → `EVIDENCE_PROJECT_MISMATCH`
+  - evidence_execution_contract_mismatch → `EVIDENCE_CONTRACT_MISMATCH`
+  - evidence_execution_attempt_mismatch → `EVIDENCE_ATTEMPT_MISMATCH`
+  - cycle mismatches → `EVIDENCE_CYCLE_MISMATCH`
+  - other role/status → `W3B_EVIDENCE_ADMISSION_REJECTED`
+- message includes role + reason + evidenceId
+- product projection: reviewBundle=null, claimEvaluation=null
+- Attempt durable status unchanged (Technical SUCCESS ≠ Product PASS)
 
-Incoherent Evidence: not admitted (null via admitIfOwned); absent vs incoherent distinguished in unit reasons; no silent false PASS; Product stays UNCLAIMED / fail path for IDEMPOTENCY.
+## 9. R-S8-04 test corrigé
+O8 no longer gates assertions on `if (planted.ok)`.
+Strategy: bounded `EvidenceReader` substitution for verificationId only → foreign verified Evidence presented to real `materializeW3bProductTerminal`.
+Admission predicate / rejection / Product result **not mocked**.
+Unconditional expects: `ok:false`, `EVIDENCE_PROJECT_MISMATCH`, message contains reason+id, no reviewBundleId/claimEvaluationId on product, frozen snaps (if any) exclude foreign id.
 
-Mission path: same admitIfOwned for mission_result role (filiation bindings + sourceKind).
+## 10. Règle ABSENT / REJECTED
+ABSENT ≠ REJECTED semantically and in Product control flow. Rejected Evidence never admitted; never silent-as-missing.
 
-## 9. R-S8-02 — reproduction et conclusion
+## 11. Motifs de refus Product
+See §8 code map. Observable via `materialize.ok===false`, `code`, `message`.
 
-**Scenario proven (O10):**
-1. Succeeded Attempt without Verification Evidence
-2. W3-B creates tech RB (attempt Evidence only) → freeze → CE → Product ok UNCLAIMED
-3. Verification Evidence ingested later (verified)
-4. W3-B rematerialize same Attempt → `createReviewBundle` returns `IDEMPOTENCY_CONFLICT`
-5. Product path returns ok:false with detailCode IDEMPOTENCY_CONFLICT + late Evidence hint
-6. Frozen RB not mutated; prior CE not reinterpreted as evaluation of new Evidence
-
-**Conclusion:** Existing OA fingerprint+idempotency is the admissible fail-closed contract. No silent rewrite. No new RB lifecycle invented. Debt: operator/recovery path for late Evidence after freeze remains a documented exit (not silently “fixed”).
-
-**STOP R-S8-02 OA LIFECYCLE DECISION:** NOT required for Pass 04 closure — behavior is fail-closed and tested. Optional future Morris decision only if supersession/reopen under new key is desired.
-
-## 10. Filiation Evidence exacte (OBSERVED O2)
-Product path: Project (activeCycleInstanceId=null) → Generic PREPARE → SHE Select/Start → temp Git worktree (HEAD==EC baseSha) → FS mutate allowed path → TestOnlyRealExecutionLaunchPort report with real worktreeRef → governedExecuteRecordResult → GERM OBSERVED + VerifiedChangeSet + digest from bytes → generic_mat Evidence → W3-B RB contains verification + generic_mat + tech Evidence with matching Project/EC/Attempt and no cycle → CE → Product UNCLAIMED → W3-C/GERM rehydrate. Studio OBSERVED ≠ Cursor CLAIM.
-
-## 11. Fichiers modifiés / créés
-See §4 dirty inventory + SHA-256 below.
-
-| Path | Role | sha256 |
-|------|------|--------|
-| `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts` | w3b | `37d8945875556d8373bd396d215cdefca8a80645f2cc18a4bf4ec63568bb3a45` |
-| `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts` | gcec | `abd35a41971b6ca4e9d22d45e13bc4734f48c914efa4a95804516bf75cf9310e` |
-| `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` | s8test | `08246bf0a6cf5c5a0835ce2915c8abf52b45872dfcfbb0bbc70fa18bc949ae25` |
-| `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.optionB.lotsAC.d0.test.ts` | lots | `9b1823041bdd72ea5297ad36d37e7caf6cba1faa5d1214dc0060003e8ac0b851` |
-| `projects/sfia-studio/app/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts` | generic | `4d1e32546bda1a7428359177c74d89d8251ee358df4ad8229a53f2cb26e8015f` |
-| `projects/sfia-studio/app/lib/oa/execution-attempt/domain/fsAnchorArtifactMaterializationEvidenceSources.ts` | fsanchor | `85632997028436e75ee60ddccb74b214255d59a71468c3984d33b5cf3d945f79` |
-| `projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts` | verif | `a3a40624537fac8b43483447aa5d82105e1f86adb1ce4a868156ff1d6f4e9716` |
-| `projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts` | mission | `5f7bfdf71c5d95a43f193c3578060e2093ad89819624b6530013f6aaa1dca71c` |
-| `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` | w3c | `adbeade98c9264ce4e396554e2b54d7ffcd633569fa33b6a7dcd0acfc5ed0792` |
-| `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts` | precommit | `bd04172901c3b330b729ffb0a9f9580253715863f5e69852362161c8b9869872` |
-| `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts` | verified | `3c9e80b1b0786fec678f73b4aa2742bdfd071981409d355e880b39bd6e1c4005` |
-| `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts` | gcec_test | `3a9d3b04d820e889f435ec44125b2c88706bd777f0a86fc94318ae67e5a0f18f` |
-
-## 12–13. Diffs tracked + full contents untracked
+## 12–13. Diffs tracked + untracked full contents
 
 ### Diff tracked vs origin/main (complete)
 ```diff
@@ -528,7 +456,7 @@ index 5864cc82..463ab693 100644
      }
 
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
-index cfd2ce0c..08257084 100644
+index cfd2ce0c..ae2f681e 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts
 @@ -16,6 +16,11 @@ import {
@@ -543,7 +471,7 @@ index cfd2ce0c..08257084 100644
  import {
    projectW3bProductTerminal,
    productReservationsForAttempt,
-@@ -31,6 +36,89 @@ import {
+@@ -31,6 +36,131 @@ import {
  import { maybeMaterializeProductSynthesisAfterW3c } from "./maybeMaterializeProductSynthesisAfterW3c";
  import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
 
@@ -555,6 +483,24 @@ index cfd2ce0c..08257084 100644
 +  | "mission_result"
 +  | "verification"
 +  | "generic_materialization";
++
++/** Product-local refusal when present Evidence fails W3-B ownership / role checks. */
++export const W3B_EVIDENCE_ADMISSION_REJECTED =
++  "W3B_EVIDENCE_ADMISSION_REJECTED" as const;
++
++/**
++ * R-S8-03 — Discriminated lookup: ABSENT ≠ REJECTED.
++ * Present-but-incoherent Evidence must never be interpreted as mere absence.
++ */
++export type W3bEvidenceAdmissionResolution =
++  | { readonly kind: "absent" }
++  | { readonly kind: "admissible"; readonly evidence: Evidence }
++  | {
++      readonly kind: "rejected";
++      readonly evidence: Evidence;
++      readonly role: W3bEvidenceAdmissionRole;
++      readonly reason: string;
++    };
 +
 +export function evidenceAdmissibleForW3bExecutionContext(input: {
 +  readonly evidence: Evidence;
@@ -612,7 +558,7 @@ index cfd2ce0c..08257084 100644
 +  return { ok: true };
 +}
 +
-+function admitIfOwned(
++export function resolveW3bEvidenceAdmission(
 +  evidence: Evidence | null | undefined,
 +  ctx: {
 +    readonly projectId: string;
@@ -621,19 +567,71 @@ index cfd2ce0c..08257084 100644
 +    readonly cycleInstanceId: string | null;
 +    readonly role: W3bEvidenceAdmissionRole;
 +  },
-+): Evidence | null {
-+  if (!evidence) return null;
++): W3bEvidenceAdmissionResolution {
++  if (!evidence) return { kind: "absent" };
 +  const check = evidenceAdmissibleForW3bExecutionContext({
 +    evidence,
 +    ...ctx,
 +  });
-+  return check.ok ? evidence : null;
++  if (check.ok) {
++    return { kind: "admissible", evidence };
++  }
++  return {
++    kind: "rejected",
++    evidence,
++    role: ctx.role,
++    reason: check.reason,
++  };
++}
++
++function productCodeForW3bEvidenceRejection(reason: string): string {
++  switch (reason) {
++    case "evidence_project_mismatch":
++      return "EVIDENCE_PROJECT_MISMATCH";
++    case "evidence_execution_contract_mismatch":
++      return "EVIDENCE_CONTRACT_MISMATCH";
++    case "evidence_execution_attempt_mismatch":
++      return "EVIDENCE_ATTEMPT_MISMATCH";
++    case "evidence_cycle_mismatch":
++    case "evidence_foreign_cycle_on_project_only":
++      return "EVIDENCE_CYCLE_MISMATCH";
++    default:
++      return W3B_EVIDENCE_ADMISSION_REJECTED;
++  }
 +}
 +
  function w3cUnavailableFailure(
    cause: unknown,
  ): Extract<W3cPostEvidenceLoopResult, { ok: false }> {
-@@ -275,22 +363,28 @@ export async function materializeW3bProductTerminal(input: {
+@@ -203,6 +333,27 @@ function projectFromFacts(input: {
+   return projectW3bProductTerminal(input);
+ }
+
++function w3bEvidenceRejectionFailure(input: {
++  readonly attempt: ExecutionAttempt;
++  readonly contract: ExecutionContract;
++  readonly primaryEvidence: Evidence | null;
++  readonly rejection: Extract<W3bEvidenceAdmissionResolution, { kind: "rejected" }>;
++}): Extract<MaterializeW3bProductTerminalResult, { ok: false }> {
++  const { rejection } = input;
++  return {
++    ok: false,
++    code: productCodeForW3bEvidenceRejection(rejection.reason),
++    message: `W3-B Evidence admission rejected (${rejection.role}): ${rejection.reason} for ${rejection.evidence.evidenceId}`,
++    product: projectFromFacts({
++      attempt: input.attempt,
++      contract: input.contract,
++      evidence: input.primaryEvidence,
++      reviewBundle: null,
++      claimEvaluation: null,
++    }),
++  };
++}
++
+ function boundActionOf(
+   attempt: ExecutionAttempt,
+   contract: ExecutionContract,
+@@ -275,22 +426,36 @@ export async function materializeW3bProductTerminal(input: {
    const isMissionProduct = contract.constraints.includes(
      PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
    );
@@ -650,14 +648,24 @@ index cfd2ce0c..08257084 100644
 -    const missionEvidence =
 -      await services.evidenceReader.findById(missionEvidenceId);
 -      if (missionEvidence && missionEvidence.status === "verified") {
+-      evidenceIdsForBundle = [missionEvidence.evidenceId];
+-      primaryEvidence = missionEvidence;
 +    const missionRaw = await services.evidenceReader.findById(missionEvidenceId);
-+    const missionEvidence = admitIfOwned(missionRaw, {
++    const missionAdmission = resolveW3bEvidenceAdmission(missionRaw, {
 +      ...ownershipCtx,
 +      role: "mission_result",
 +    });
-+    if (missionEvidence) {
-       evidenceIdsForBundle = [missionEvidence.evidenceId];
-       primaryEvidence = missionEvidence;
++    if (missionAdmission.kind === "rejected") {
++      return w3bEvidenceRejectionFailure({
++        attempt,
++        contract,
++        primaryEvidence,
++        rejection: missionAdmission,
++      });
++    }
++    if (missionAdmission.kind === "admissible") {
++      evidenceIdsForBundle = [missionAdmission.evidence.evidenceId];
++      primaryEvidence = missionAdmission.evidence;
        // CP2-04 — include Verification Evidence in same ReviewBundle only when
        // the EC requires studio-verified-changeset (generic local-write path).
        // Historical clarify/read missions must keep a mission-only RB so CE
@@ -668,7 +676,7 @@ index cfd2ce0c..08257084 100644
        const { missionRequiresStudioVerification } = await import(
          "@/lib/oa/evidence-review/application/missionResultContractResultSemantic"
        );
-@@ -311,9 +405,13 @@ export async function materializeW3bProductTerminal(input: {
+@@ -311,18 +476,77 @@ export async function materializeW3bProductTerminal(input: {
        if (requiresVerification) {
          const verificationEvidenceId =
            executionReviewVerificationEvidenceIdForAttempt(attempt.attemptId);
@@ -676,53 +684,83 @@ index cfd2ce0c..08257084 100644
 +        const verificationRaw =
            await services.evidenceReader.findById(verificationEvidenceId);
 -        if (verificationEvidence && verificationEvidence.status === "verified") {
-+        const verificationEvidence = admitIfOwned(verificationRaw, {
-+          ...ownershipCtx,
-+          role: "verification",
-+        });
-+        if (verificationEvidence) {
++        const verificationAdmission = resolveW3bEvidenceAdmission(
++          verificationRaw,
++          {
++            ...ownershipCtx,
++            role: "verification",
++          },
++        );
++        if (verificationAdmission.kind === "rejected") {
++          return w3bEvidenceRejectionFailure({
++            attempt,
++            contract,
++            primaryEvidence,
++            rejection: verificationAdmission,
++          });
++        }
++        if (verificationAdmission.kind === "admissible") {
            evidenceIdsForBundle = [
-             missionEvidence.evidenceId,
-             verificationEvidence.evidenceId,
-@@ -321,8 +419,35 @@ export async function materializeW3bProductTerminal(input: {
+-            missionEvidence.evidenceId,
+-            verificationEvidence.evidenceId,
++            missionAdmission.evidence.evidenceId,
++            verificationAdmission.evidence.evidenceId,
+           ];
          }
++        // ABSENT verification → mission-only RB (honest incomplete / NOT_PROVEN).
        }
      }
 -    // Missing / unverified Mission Evidence → tech-only RB; mission semantic
 -    // yields NOT_PROVEN / Product UNCLAIMED (honest).
-+    // Missing / unverified / ownership-failed Mission Evidence → tech-only RB;
-+    // mission semantic yields NOT_PROVEN / Product UNCLAIMED (honest).
++    // ABSENT Mission Evidence → tech-only RB; mission semantic NOT_PROVEN / UNCLAIMED.
++    // REJECTED Mission Evidence never falls through as absence (R-S8-03).
 +  } else {
 +    // S8 Project-first Generic (no PRODUCT_MISSION stamp): include owned verified
-+    // Studio Verification + generic_materialization Evidence when present.
-+    // Does NOT invent a PASS semantic — CE stays not_proven / Product UNCLAIMED
-+    // unless an applicable Contract Result Semantic already exists.
++    // Studio Verification + generic_materialization Evidence when ADMISSIBLE.
++    // ABSENT → continue without that Evidence (honest).
++    // REJECTED → fail-closed Product (never silent-as-absent).
 +    const verificationEvidenceId =
 +      executionReviewVerificationEvidenceIdForAttempt(attempt.attemptId);
 +    const verificationRaw =
 +      await services.evidenceReader.findById(verificationEvidenceId);
-+    const verificationEvidence = admitIfOwned(verificationRaw, {
++    const verificationAdmission = resolveW3bEvidenceAdmission(verificationRaw, {
 +      ...ownershipCtx,
 +      role: "verification",
 +    });
-+    if (verificationEvidence) {
-+      evidenceIdsForBundle.push(verificationEvidence.evidenceId);
++    if (verificationAdmission.kind === "rejected") {
++      return w3bEvidenceRejectionFailure({
++        attempt,
++        contract,
++        primaryEvidence,
++        rejection: verificationAdmission,
++      });
++    }
++    if (verificationAdmission.kind === "admissible") {
++      evidenceIdsForBundle.push(verificationAdmission.evidence.evidenceId);
 +    }
 +    const genericMatId = genericMaterializationEvidenceIdForAttempt(
 +      attempt.attemptId,
 +    );
 +    const genericMatRaw = await services.evidenceReader.findById(genericMatId);
-+    const genericMat = admitIfOwned(genericMatRaw, {
++    const genericMatAdmission = resolveW3bEvidenceAdmission(genericMatRaw, {
 +      ...ownershipCtx,
 +      role: "generic_materialization",
 +    });
-+    if (genericMat) {
-+      evidenceIdsForBundle.push(genericMat.evidenceId);
++    if (genericMatAdmission.kind === "rejected") {
++      return w3bEvidenceRejectionFailure({
++        attempt,
++        contract,
++        primaryEvidence,
++        rejection: genericMatAdmission,
++      });
++    }
++    if (genericMatAdmission.kind === "admissible") {
++      evidenceIdsForBundle.push(genericMatAdmission.evidence.evidenceId);
 +    }
    }
 
    const bundle = await services.createReviewBundle.execute({
-@@ -337,10 +462,23 @@ export async function materializeW3bProductTerminal(input: {
+@@ -337,10 +561,23 @@ export async function materializeW3bProductTerminal(input: {
    });
 
    if (!bundle.ok) {
@@ -1132,7 +1170,7 @@ index 3705caa3..30740124 100644
 
 ```
 
-### Untracked file: ingestGenericFilesystemMaterializationArtifactEvidence.ts (FULL)
+### Untracked: ingestGenericFilesystemMaterializationArtifactEvidence.ts (FULL)
 ```typescript
 /**
  * L3-S2 Option B — stamp VERIFIED artifact Evidence for Studio-observed
@@ -1393,7 +1431,7 @@ export function selectPrimaryGenericMaterializationPath(input: {
 
 ```
 
-### Untracked file: fsAnchorArtifactMaterializationEvidenceSources.ts (FULL)
+### Untracked: fsAnchorArtifactMaterializationEvidenceSources.ts (FULL)
 ```typescript
 /**
  * Artifact-materialization Evidence sources that may supersede an FS anchor
@@ -1504,7 +1542,7 @@ export function logicalPathFromDurableArtifactLocation(location: string): string
 
 ```
 
-### Untracked file: akgM5L3S2.optionB.lotsAC.d0.test.ts (FULL)
+### Untracked: akgM5L3S2.optionB.lotsAC.d0.test.ts (FULL)
 ```typescript
 /**
  * AKG-M5 L3-S2 Option B — Lot A (generic FS materialization) + Lot C (report surface)
@@ -2421,11 +2459,11 @@ describe("AKG-M5 L3-S2 Option B — Lot A ingest + FS→SHA supersession", () =>
 
 ```
 
-### Untracked file: akgM5L3S2.s8.projectFirst.integrated.d0.test.ts (FULL — S8 + Pass 04)
+### Untracked: akgM5L3S2.s8.projectFirst.integrated.d0.test.ts (FULL — S8 + Pass 04/05)
 ```typescript
 /**
  * AKG-M5 L3-S2 Option B — S8 PROJECT-FIRST integrated DET oracle
- * (+ Pass 04: R-S8-01 ownership, R-S8-02 late Evidence, OBSERVED FS).
+ * (+ Pass 04: R-S8-01/02; Pass 05: R-S8-03 ABSENT≠REJECTED, R-S8-04 O8 Product path).
  *
  * Product path (ZERO REAL / ZERO LIVE):
  *   Project (no CycleInstance) → Generic PREPARE → SHE → Select/Start Fake Cursor
@@ -2460,6 +2498,7 @@ import {
 import {
   evidenceAdmissibleForW3bExecutionContext,
   materializeW3bProductTerminal,
+  resolveW3bEvidenceAdmission,
 } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
 import { projectW3cExecutionReportSurfaceFromDurable } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
 import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
@@ -3140,6 +3179,34 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — R-S8-01 Evidence ownership", () => {
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.reason).toBe("verification_source_kind_mismatch");
   });
+
+  it("T1/R-S8-03: null Evidence → ABSENT (not REJECTED)", () => {
+    const r = resolveW3bEvidenceAdmission(null, {
+      ...ctx,
+      role: "verification",
+    });
+    expect(r.kind).toBe("absent");
+  });
+
+  it("T3/R-S8-03: present foreign Project → REJECTED with reason (≠ absent)", () => {
+    const e = baseEvidence({
+      evidenceId: "ev:execution-review:xat:ok",
+      bindings: {
+        projectId: "prj:foreign",
+        executionContractId: "xct:ok",
+        executionAttemptId: "xat:ok",
+      },
+    });
+    const r = resolveW3bEvidenceAdmission(e, {
+      ...ctx,
+      role: "verification",
+    });
+    expect(r.kind).toBe("rejected");
+    if (r.kind === "rejected") {
+      expect(r.reason).toBe("evidence_project_mismatch");
+      expect(r.evidence.evidenceId).toBe(e.evidenceId);
+    }
+  });
 });
 
 describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
@@ -3450,7 +3517,7 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
     expect(surface.executionReport).not.toBeNull();
   }, 90_000);
 
-  it("O8 — Product path refuses foreign-project Verification Evidence in RB", async () => {
+  it("O8 / R-S8-04 — W3-B Product path REJECTS foreign-project Verification (unconditional)", async () => {
     const { projectId, oa } = await seedProject("own");
     process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
     const prep = await solicitGenericExecutionPrepare({
@@ -3478,7 +3545,7 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
       forceLocalAuthority: true,
     });
     if (!she.ok) throw new Error("she");
-    const port = launchPortOf(oa);
+    launchPortOf(oa);
     const selected = await governedExecuteSelectAgent({
       oa,
       projectId,
@@ -3500,52 +3567,82 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
     });
     expect(settled.ok).toBe(true);
 
-    // Plant Verification Evidence with WRONG project binding under the Attempt id.
-    const planted = await ingestExecutionReviewVerificationEvidence({
-      evidenceReviewServices: oa.evidenceReviewServices!,
-      projectId: "prj:foreign-owner",
-      cycleInstanceId: null,
-      executionContractId: she.executionContractId,
-      executionAttemptId: attemptId,
-      refsRoot,
-      payload: {
-        schemaVersion: "oa.execution-review-verification.1",
-        attemptId,
-        executionContractId: she.executionContractId,
+    // R-S8-04 — Bounded EvidenceReader substitution so W3-B itself is exercised.
+    // Does NOT mock admission predicate, rejection decision, or Product result.
+    // Foreign Evidence is verified + role-coherent except projectId binding.
+    const verificationId =
+      executionReviewVerificationEvidenceIdForAttempt(attemptId);
+    const foreignEvidence = {
+      schemaVersion: "0.2.0-oa",
+      evidenceId: verificationId,
+      type: "attestation",
+      source: `execution attempt ${attemptId} (succeeded)`,
+      sourceKind: "execution_attempt",
+      status: "verified",
+      classification: "internal",
+      storageMode: "external_payload_ref",
+      availability: "available",
+      producedAt: "2026-08-23T04:30:00.000Z",
+      createdAt: "2026-08-23T04:30:00.000Z",
+      version: 2,
+      containsSecrets: false,
+      bindings: {
         projectId: "prj:foreign-owner",
-        repositoryRef: "repo:x",
-        baseSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-        reviewMaterialId: "erm:x",
-        verificationStatus: "UNAVAILABLE",
-        verifiedChangeSetDigest: null,
-        verifiedChangeSetRef: null,
-        claimFactMismatch: false,
-        unclaimedObservedPaths: [],
-        claimedMissingPaths: [],
-        observedPathCount: 0,
-        completeness: "PARTIAL",
-        reviewEndOfPresent: false,
+        executionContractId: she.executionContractId,
+        executionAttemptId: attemptId,
       },
-    });
-    // May fail attempt-binding overwrite — if ingest forces attempt EC, project can still be foreign.
-    if (planted.ok) {
-      const verificationId =
-        executionReviewVerificationEvidenceIdForAttempt(attemptId);
-      const ev = await oa.evidenceReviewServices!.evidenceReader.findById(
-        verificationId,
-      );
-      expect(ev?.bindings.projectId).toBe("prj:foreign-owner");
-      const materialized = await materializeW3bProductTerminal({
+      provenance: {
+        schemaVersion: "0.1.0-oa",
+        provenanceRecordId: "prov:foreign-o8",
+        actor: LOCAL_PILOTE_ACTOR,
+        source: "execution_adapter",
+        timestamp: "2026-08-23T04:30:00.000Z",
+        correlationId: "cor:foreign-o8",
+      },
+    } as Evidence;
+
+    const services = oa.evidenceReviewServices!;
+    const realReader = services.evidenceReader;
+    services.evidenceReader = {
+      findById: async (id: string) => {
+        if (id === verificationId) return foreignEvidence;
+        return realReader.findById(id);
+      },
+    };
+
+    let materialized: Awaited<ReturnType<typeof materializeW3bProductTerminal>>;
+    try {
+      // Prove the foreign Evidence is what W3-B's reader returns.
+      const presented = await services.evidenceReader.findById(verificationId);
+      expect(presented).not.toBeNull();
+      expect(presented!.bindings.projectId).toBe("prj:foreign-owner");
+      expect(presented!.status).toBe("verified");
+
+      materialized = await materializeW3bProductTerminal({
         oa,
         projectId,
         attemptId,
       });
-      expect(materialized.ok).toBe(true);
-      if (!materialized.ok) return;
-      const rb = await oa.evidenceReviewServices!.reviewBundleReader.findById(
-        materialized.product.reviewBundleId!,
-      );
-      const snapIds = (rb?.frozenEvidenceSnapshots ?? []).map((s) => s.evidenceId);
+    } finally {
+      services.evidenceReader = realReader;
+    }
+
+    // Unconditional W3-B Product assertions (cannot PASS without exercising rejection).
+    expect(materialized.ok).toBe(false);
+    if (materialized.ok) {
+      throw new Error("O8 expected W3-B ownership rejection, got ok:true");
+    }
+    expect(materialized.code).toBe("EVIDENCE_PROJECT_MISMATCH");
+    expect(materialized.message).toContain("evidence_project_mismatch");
+    expect(materialized.message).toContain(verificationId);
+    expect(materialized.product?.reviewBundleId ?? null).toBeNull();
+    expect(materialized.product?.claimEvaluationId ?? null).toBeNull();
+
+    const rb = await services.reviewBundleReader.findById(
+      `rb:w3b:${createHash("sha256").update(attemptId).digest("hex").slice(0, 16)}`,
+    );
+    if (rb?.frozenEvidenceSnapshots) {
+      const snapIds = rb.frozenEvidenceSnapshots.map((s) => s.evidenceId);
       expect(snapIds).not.toContain(verificationId);
     }
   }, 60_000);
@@ -3665,128 +3762,101 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
 
 ```
 
-## 14. Oracle OBSERVED intégré
-Test: `O2 — Project-only OBSERVED worktree → VerifiedChangeSet + generic_mat + RB ownership`
-PASS — uses createGitWorktree + pinned HEAD==baseSha + real FS bytes + TestOnlyRealExecutionLaunchPort only at Cursor boundary.
+## 14. Tests négatifs intégrés
+| ID | Layer | Result |
+|----|-------|--------|
+| T1 ABSENT via resolve | predicate | PASS |
+| T2 coherent admit E1/E2 | predicate | PASS |
+| T3 foreign Project REJECTED | predicate | PASS |
+| T4–T8 EC/Attempt/Cycle/source | predicate E4–E9 | PASS |
+| T9 not verified | predicate E8 | PASS |
+| T10 O8 W3-B integrated | Product W3-B | PASS unconditional |
+| T11–T12 RB/CE | Product O8 | no foreign in RB; no positive CE |
+| T13 Mission | non-reg productMissionEvidenceChain | PASS |
+| T14–T18 Generic/OBSERVED/late/idempotence/UNCLAIMED | S8 oracle | PASS |
 
-## 15. Worktree Git de test / preuve HEAD
-Isolated temp git repo under test tmp; HEAD pinned to EC baseSha before observation; mutation on authorized NOTES path; not the developer worktree.
+## 15. Preuve de non-contournement O8
+Reader stub only at EvidenceReader boundary; asserts `presented.bindings.projectId === prj:foreign-owner` before materialize; expects fail-closed — cannot PASS if W3-B not exercised or if rejection collapsed to absent success.
 
-## 16. Digests
-Studio computes sha256 from observed bytes; Cursor-supplied digest never treated as Studio observation. Exact path/digest/repo/baseSha/Attempt/EC/Project asserted in O2.
+## 16. RB et CE après refus
+Rejection returns before createReviewBundle → no new RB freeze with foreign Evidence; product.reviewBundleId/claimEvaluationId null.
 
-## 17. Scénarios négatifs
-| ID | Result |
-|----|--------|
-| E1–E2 coherent admit | PASS |
-| E3 wrong Project | refuse |
-| E4 wrong EC | refuse |
-| E5 wrong Attempt | refuse |
-| E6 wrong Cycle | refuse |
-| E7 Project-only + foreign cycle | refuse |
-| E8 not verified | refuse |
-| E9 sourceKind mismatch | refuse |
-| O1 UNAVAILABLE (prior nominal) | PASS |
-| O2 OBSERVED | PASS |
-| O8 foreign-project Verification excluded from RB | PASS |
-| O10 late Evidence IDEMPOTENCY_CONFLICT | PASS |
-| O11 no fictive cycle on rehydrate | covered in O2/nominal |
-| O12 Mission cycle-bound non-reg | productMissionEvidenceChain PASS |
-
-## 18. Idempotence / late Evidence
-Identical rematerialize after successful create+freeze reuses frozen RB (skip freeze). Divergent Evidence set → IDEMPOTENCY_CONFLICT fail-closed (O10).
-
-## 19. RB frozen snapshots / CE
-Snapshots carry evidenceId/version/status/availability. Ownership enforced pre-admit. CE evaluates frozen set only; late Evidence not silently attached.
-
-## 20. Product Result honnête
-Generic Project-only → Technical SUCCESS possible; Product outcome UNCLAIMED / NOT_PROVEN. No new Result Semantic. No artificial PASS.
-
-## 21. Non-régressions et commandes
-
+## 17. Non-régressions S8
 ```text
 cd projects/sfia-studio/app
-npm run typecheck          # PASS (tsc --noEmit)
-npm run lint               # PASS with pre-existing unused-var warnings in pilotLifecycleTransitions.ts / startExecution.ts (unchanged)
+npm run typecheck  # PASS
+npm run lint       # PASS (2 pre-existing unused-var warnings)
 npx vitest run __tests__/project-assistant/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts
-  → 15 passed
-npx vitest run (S8 + lotsAC + L3-S1 + productMissionEvidenceChain)
-  → 4 files / 56 passed
-Prior batch (lotsAC, L3-S1, Mission, gcecCont01, w3c loop, w3c correction): 105 passed
+  → 17 passed
+npx vitest run lotsAC + L3-S1 + Mission + gcecCont01 + w3c loop + w3c correction
+  → 6 files / 105 passed
 ```
-No new regressions. No unrun suite announced as PASS.
 
-## 22. EP-S2-01…12 (original senses — Qualification b712c600 §18)
+## 18. OBSERVED + digest revalidated
+O2 PASS (VerifiedChangeSet + generic_mat + RB ownership).
 
-| EP | Definition (original) | Components | Primary tests | Observed | Proof level | Verdict | Reserve / exit |
-|----|----------------------|------------|---------------|----------|-------------|---------|----------------|
-| EP-S2-01 | Mission/EC/Project/Attempt identity | OA EC/Attempt + Product PREPARE | S8 nominal, O2 | Bindings exact; cycle null Project-only | DET BEHAVIOR PROVEN | PASS | — |
-| EP-S2-02 | SHE reused | Select/Start Product | S8, O2 | Same SHE path | DET | PASS | — |
-| EP-S2-03 | FS effects independent | GERM + git ports | O2 | OBSERVED VerifiedChangeSet | DET | PASS | REAL not exercised |
-| EP-S2-04 | Generic Evidence path→digest | generic_mat ingest | O2 | digest from bytes | DET | PASS | — |
-| EP-S2-05 | Mission Evidence ingested+linked | Mission stamp path | S8 nominal (absent); Mission e2e | Project-only: no Mission Evidence invented | DET at scope | NOT PROVEN for Project-only Mission semantic | Keep Mission-gated; do not promote on FS Evidence |
-| EP-S2-06 | RB/CE consume admissible Evidence | W3-B + ownership | O2, O8, E1–E9 | Ownership + CE | DET | PASS | — |
-| EP-S2-07 | Product Result honest | W3-B projection | O2, nominal | UNCLAIMED | DET | PASS | — |
-| EP-S2-08 | Post-Evidence / rehydration minimale | W3-C / GERM surface | O2 surface | Durable rehydrate | DET | PARTIAL | Nora/Pilote UX E2E not claimed |
-| EP-S2-09 | Fail-closed incoherences | ownership + O10 | E3–E9, O8, O10 | refuse / IDEMPOTENCY_CONFLICT | DET | PASS | Late Evidence recovery UX debt |
-| EP-S2-10 | No Product docs_write; no parallel engine | code review | — | Kept | DOC+tests | PASS | — |
-| EP-S2-11 | L3-S1 / SHE non-reg | L3-S1 suite | L3-S1 integrated | PASS | DET | PASS | — |
-| EP-S2-12 | Fake/Real qualification | TestOnly port | O2 | Fake Cursor / Real FS observation | DET | PASS | REAL BOUNDARY NOT PROVEN |
+## 19. Late Evidence revalidated
+O10 PASS — IDEMPOTENCY_CONFLICT fail-closed preserved.
 
-## 23. Fake/Real Matrix
-| Boundary | Mode | Notes |
-|----------|------|-------|
-| Cursor adapter | FAKE (TestOnlyRealExecutionLaunchPort) | Explicit |
-| FS observation | REAL local test worktree | Bytes + digest Studio-owned |
-| Git | Local temp only | Isolated |
-| Nora | Not LIVE | — |
-| Parity | Same Product services path | — |
-| Level | DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE | |
-| Forbidden claim | REAL BOUNDARY PROVEN | Not claimed |
-| G-REAL | NOT GRANTED | |
+## 20. Matrice EP-S2 originale (b712c600 §18)
 
-## 24. R24 Documentary Impact (SYNC PENDING — no protected write)
+| EP | Verdict | Note Pass 05 |
+|----|---------|--------------|
+| EP-S2-01 | PASS | identity |
+| EP-S2-02 | PASS | SHE |
+| EP-S2-03 | PASS | OBSERVED DET |
+| EP-S2-04 | PASS | path/digest |
+| EP-S2-05 | NOT PROVEN | Project-only Mission semantic |
+| EP-S2-06 | PASS | strengthened — REJECTED observable |
+| EP-S2-07 | PASS | UNCLAIMED / fail-closed rejection |
+| EP-S2-08 | PARTIAL | Nora UX E2E not claimed |
+| EP-S2-09 | PASS | ABSENT≠REJECTED + late Evidence |
+| EP-S2-10 | PASS | no docs_write / parallel engine |
+| EP-S2-11 | PASS | L3-S1 / Mission non-reg |
+| EP-S2-12 | PASS | Fake Cursor / Real FS DET; reader stub = Fake boundary |
 
-Prepare deltas (future gate) for PRR:
-- 02 catalog: W3-B Evidence admission ownership rules
-- 03 flows: Project-first OBSERVED + late Evidence fail-closed
-- 06 recovery: IDEMPOTENCY_CONFLICT after freeze when Evidence set diverges
-- 07 invariants: bindings Project/EC/Attempt/Cycle; no foreign Evidence in RB
-- 08 proof map: S8 Pass 04 tests
-- 09 gaps: late Evidence supersession not offered; EP-S2-05/08 reserves; REAL not granted
-Roadmap truth-sync L3-S2: future under distinct GO.
-**No PRR/Roadmap modified this cycle.**
+## 21. Fake/Real Matrix
+Cursor: TestOnlyRealExecutionLaunchPort (FAKE).
+FS OBSERVED: real temp worktree (DET).
+EvidenceReader O8: DET substitution bounded (FAKE boundary for foreign plant).
+Nora: Fake. REAL/LIVE: NOT. OA-exclusive OFF.
+Level: DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE. REAL BOUNDARY PROVEN: NO. G-REAL: NOT GRANTED.
 
-## 25. Dettes / owner / exit
+## 22. R24 impacts (SYNC PENDING — no protected write)
+PRR candidates: 02 admission ABSENT/REJECTED; 03 W3-B reject flow; 06 recovery messaging; 07 ownership fail-closed; 08 S8 Pass 05 tests; 09 late Evidence debt + EP-S2-05/08 reserves.
+Roadmap truth-sync L3-S2: future GO. **No PRR/Roadmap modified.**
+
+## 23. Dettes / owner / exit
 | Debt | Owner | Exit |
 |------|-------|------|
-| Late Evidence after frozen RB (no supersession under same key) | Morris / OA product | Decide reopen/supersede policy OR operational rematerialize under new Attempt/key |
-| EP-S2-05 Project-only Mission Evidence | Product | Only if Mission semantic stamped Project-first |
-| EP-S2-08 full Nora/Pilote UX | L4 path | Separate GO |
-| R24 sync | Docs gate | After Critical Review accept |
-| Git Integration | Distinct GO | After local closure qualification |
-| REAL / G-REAL | Morris | Not this cycle |
+| Late Evidence after frozen RB (no supersession same key) | Morris/OA | reopen/supersede policy or new Attempt |
+| EP-S2-05 Project-only Mission | Product | Mission stamp path only |
+| EP-S2-08 Nora/Pilote UX | L4 | separate GO |
+| R24 sync | Docs | after Critical Review |
+| Git Integration | Distinct GO | after local closure |
 
-## 26. Stops et décisions
-- No STOP — GIT TRUTH INCONSISTENT
-- No STOP — R-S8-02 OA LIFECYCLE DECISION REQUIRED (fail-closed OA reused)
-- No protected file writes
-- No project commit/push
+## 24. Risques / réserves
+Present-not-verified at expected ID now REJECTED (fail-closed) — intentional ABSENT≠REJECTED. Attempt technical status not rewritten by review refusal.
 
-## 27. Git Review Index cumulatif Option B
-Prior Lots A/B/C + CORR-S2-01/02/03 + R-S2-04/05 + S8 Project-first Delivery + **Pass 04 R-S8-01/02 + OBSERVED oracle** all remain on dirty local candidate at HEAD=main tip `6e957ecb` without project commit.
+## 25. Git Review Index cumulatif Option B
+Lots A/B/C + CORR-S2-01/02/03 + R-S2-04/05 + S8 + R-S8-01/02 + **Pass 05 R-S8-03/04** on dirty candidate HEAD=`6e957ecb`.
 
-SHA-256 index (Pass 04 tip files): see §11.
+SHA-256:
+- `projects/sfia-studio/app/features/project-assistant/w2/materializeW3bProductTerminal.ts` → `fcdb11236d157d832c0a3b174afbd6b3a25740986fe81a3e74957e7bef21093c`
+- `projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts` → `abd35a41971b6ca4e9d22d45e13bc4734f48c914efa4a95804516bf75cf9310e`
+- `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` → `9ccf515e7d8f8e94e7d27e53353b35863a814c5c40f8e9380b6ad4dab3321185`
+- `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.optionB.lotsAC.d0.test.ts` → `9b1823041bdd72ea5297ad36d37e7caf6cba1faa5d1214dc0060003e8ac0b851`
+- `projects/sfia-studio/app/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts` → `4d1e32546bda1a7428359177c74d89d8251ee358df4ad8229a53f2cb26e8015f`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/fsAnchorArtifactMaterializationEvidenceSources.ts` → `85632997028436e75ee60ddccb74b214255d59a71468c3984d33b5cf3d945f79`
+- `projects/sfia-studio/app/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence.ts` → `a3a40624537fac8b43483447aa5d82105e1f86adb1ce4a868156ff1d6f4e9716`
+- `projects/sfia-studio/app/features/project-assistant/f3/ingestMissionResultEvidence.ts` → `5f7bfdf71c5d95a43f193c3578060e2093ad89819624b6530013f6aaa1dca71c`
+- `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` → `adbeade98c9264ce4e396554e2b54d7ffcd633569fa33b6a7dcd0acfc5ed0792`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation.ts` → `bd04172901c3b330b729ffb0a9f9580253715863f5e69852362161c8b9869872`
+- `projects/sfia-studio/app/lib/oa/execution-attempt/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts` → `3c9e80b1b0786fec678f73b4aa2742bdfd071981409d355e880b39bd6e1c4005`
+- `projects/sfia-studio/app/__tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts` → `3a9d3b04d820e889f435ec44125b2c88706bd777f0a86fc94318ae67e5a0f18f`
 
-## 28. Verdict unique
+## 26. Verdict unique
 
-**S8 PROJECT-FIRST — CONSOLIDATED EVIDENCE CLOSURE LOCAL DET CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW — R24 SYNC PENDING — GIT INTEGRATION NOT AUTHORIZED**
+**S8 PROJECT-FIRST — EVIDENCE REJECTION CLOSURE LOCAL DET PASS — READY FOR CHATGPT CRITICAL CONSOLIDATED REVIEW — R24 SYNC PENDING — GIT INTEGRATION NOT AUTHORIZED**
 
-Non-claims preserved:
-- L3-S2 GLOBAL COMPLETE — NO
-- Product PASS mutating Generic PROVEN — NO
-- Mission Evidence Project-only PROVEN — NO
-- Nora/Pilote UX E2E COMPLETE — NO
-- FS→Git→Review REAL — NO
-- L3 GLOBAL CLOSED — NO
-- runtime v3 ADOPTED — NO
+Non-claims: L3-S2 GLOBAL COMPLETE NO · L3 GLOBAL CLOSED NO · mutating Generic Product PASS NO · Mission Project-only PROVEN NO · Nora UX E2E COMPLETE NO · REAL PROVEN NO · runtime v3 ADOPTED NO.
