@@ -1,39 +1,46 @@
-# SFIA Review Pack FULL — AKG-M5 / L3-S2 CONSOLIDATED CORRECTION PASS 02
+# SFIA Review Pack FULL — AKG-M5 / L3-S2 TECHNICAL CLOSURE PASS 03
 
-## 1. Date / GO Morris
+## 1. Date / heure
 
-- **Wall clock (UTC):** 2026-10-27T06:30:57Z
-- **GO Morris:** 2026-10-27 — GO CONSOLIDATED CORRECTION PASS
-- **Intention:** Correct CORR-S2-02 + CORR-S2-03 in one consolidated cycle; preserve CORR-S2-01; produce one FULL Review Pack + L3 handoff.
-- **Not authorized:** S8 arbitration; Mission Evidence architecture; L4; Cursor REAL / OpenAI LIVE; OA-exclusive activation; PRR/Roadmap edits; project commit/push/PR/merge; doctrine/runtime v3 promotion.
+- **Wall clock (UTC):** 2026-10-27T06:44:50Z
+- **Cycle:** AKG-M5 / L3-S2 TECHNICAL CLOSURE PASS 03 (R-S2-04 + R-S2-05)
 
-## 2. Cycle / profil / typologie
+## 2. GO Morris exact et limites
+
+**GO Morris:** 2026-10-27 — GO TECHNICAL CLOSURE R-S2-04/05.
+
+**Autorisé:** Product ADAPT for R-S2-04; negative tests; EP matrix restoration in Review Pack (R-S2-05); DET validations; L3 handoff publish.
+
+**Non autorisé:** S8 arbitration; Mission Evidence expansion; new architecture/persistence; new Option B feature; L4 / Nora Deep Review; REAL / OpenAI LIVE; OA-exclusive; PRR/Roadmap edits; project commit/push/PR/merge; v3 promotion.
+
+## 3. Cycle 8 / CRITICAL / EVOL
 
 | Field | Value |
 |-------|-------|
 | Project | SFIA Studio |
 | Chantier | AKG-M5 — Product Transformation |
-| Milestone | L3-S2 — Generic Execution Option B |
 | Capacity | V3-F05 — Generic Execution |
-| Cycle | 8 — Delivery / implémentation |
+| Milestone | L3-S2 — Option B closing lot |
+| Trajectory | T-C ADOPTED |
+| Cycle type | 8 — Delivery / implémentation |
 | Profile | CRITICAL |
 | Typologie | EVOL / CORRECTION |
 | Process | SFIA v2.6 ChatGPT ↔ Cursor |
-| CKC | Candidate / guidance only |
-| Scope | CORR-S2-02 (path selection dedupe) + CORR-S2-03 (FULL/PARTIAL honesty) |
+| CKC | Candidate guidance only |
+| Review | FULL + Review Handoff REQUIRED |
 
-## 3. Git Truth — initial / final
+## 4. Git Truth — initial / final
 
 ### Repository
 
 - Remote: `https://github.com/mcleland147/sfia-workspace.git`
 - Worktree: `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3-s2-generic-proof-continuity`
 - Branch: `feat/akg-m5-l3-s2-generic-proof-continuity`
-- HEAD: `6e957ecbf50b009b692cf1fcba2748ee1aa9c862`
-- origin/main: `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (equal — no project commits this cycle)
-- Prior handoff tip (pre-publish this cycle): `2f26618b2de642df52e563baa6d2ffc58ba9410e` / blob `3ca668d6c4fd2ae8a22eb590fb8c4ce0c4464dab`
+- HEAD: `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= origin/main; no project commits this cycle)
+- Prior handoff tip (pre-publish): `b5935c8f46cfc411aa07c7ef0753281a0222a933`
+- Prior handoff blob: `6d151073d014aff5bfe743957dbda2a958bedbc3`
 
-### Working tree (Product candidate — intentionally dirty)
+### Working tree (expected dirty — Option B + CORR + R-S2-04)
 
 ```
 M .tmp-sfia-review/chatgpt-review.md
@@ -47,148 +54,110 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/lib/oa/execution-attempt/domain/fsAnchorArtifactMaterializationEvidenceSources.ts
 ```
 
-**Note:** Dirty worktree is EXPECTED (Option B Delivery + CORR-S2-01/02/03 local DET). No reset/stash/clean. No second worktree. No project Git mutation.
+No reset/stash/clean. No second worktree. No project Git mutation.
 
-### Worktree list (relevant)
+## 5. Sources exactes / Git refs
 
-- Delivery: `…-feat-akg-m5-l3-s2-generic-proof-continuity` @ `6e957ecb` [`feat/akg-m5-l3-s2-generic-proof-continuity`]
-- Handoff: `…/sfia-review-handoff-m5a-gi-20261023` @ `2f26618b` [`sfia/review-handoff`] (pre-publish)
-
-## 4. Sources Git + refs
-
-### Method (READ)
+### Process / method (READ)
 
 - `prompts/templates/sfia-cycle-execution-template.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
 - `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
 - `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
 - `method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md`
+- `docs/architecture/sfia-delivery-pipeline.md`
+- `docs/architecture/2026-06-27-sfia-decision-engine.md`
 
 ### Convergence / Product (READ)
 
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` (READ-ONLY this cycle)
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/05-m5-target-journey-and-trajectory-requalification.md`
-- `projects/sfia-studio/convergence/sfia-studio-generic-execution-review-result-architecture.md`
-- Doctrine v3 framing 33/34/35 (paths on Git; NON ADOPTED runtime)
-- PRR README + volumes 02/03/07/08/09 (READ-ONLY; R24 SYNC PENDING)
+- Build Doctrine, Roadmap (RO), product-completion cadrage
+- `05-m5-target-journey-and-trajectory-requalification.md`
+- `sfia-studio-generic-execution-review-result-architecture.md`
+- Doctrine v3 framing 33/34/35 (NON ADOPTED runtime)
+- PRR README + volumes 02/03/07/08/09 (RO; R24 SYNC PENDING)
 
-### Prior handoffs (historical)
+### Handoffs
 
-- L3-S2 Qualification Option B; Delivery Pass 01; CORR-S2-01 — used for context only.
-- Primary truth: local Product files + DET tests in this worktree.
+| Role | Commit | Blob |
+|------|--------|------|
+| Qualification L3-S2 (EP originals §18) | `b712c600` | `e5123621…` (historical) |
+| Delivery Option B Pass 01 | `cd09b2c6` | — |
+| CORR-S2-01 | `2f26618b` | — |
+| Consolidated Correction Pass 02 | `b5935c8f` | `6d151073` |
+| This cycle | (publish) | (verify) |
 
-## 5. Convergence Pre-check
+Primary truth: local Product + DET tests.
+
+## 6. Convergence Pre-check
 
 | Item | Status |
 |------|--------|
 | T-C | ADOPTED |
 | L3-S1 | INTEGRATED ON MAIN — DET |
-| L3-S2 | OPTION B ADOPTED for construction — Local Delivery candidate |
-| CORR-S2-01 | ACCEPTED LOCAL DET — preserved this cycle |
-| CORR-S2-02 | Corrected this cycle (LOCAL DET) |
-| CORR-S2-03 | Corrected this cycle (LOCAL DET) |
-| S8 | DECISION REQUIRED (unchanged) |
-| R24 | SYNC PENDING (dossier prepared; PRR/Roadmap untouched) |
+| L3-S2 | OPTION B ADOPTED — Local Delivery candidate |
+| CORR-S2-01 | ACCEPTED LOCAL DET — KEEP |
+| CORR-S2-02 | ACCEPTED LOCAL DET at tested scope — KEEP |
+| CORR-S2-03 | Truncation accepted — KEEP; missing-content closed by R-S2-04 |
+| R-S2-04 | THIS CYCLE — ADAPT projection |
+| R-S2-05 | THIS CYCLE — EP matrix restored in pack (no Product code) |
+| S8 | DECISION REQUIRED |
 | L3 GLOBAL | OPEN |
-| L2 | PARTIAL, exclusive DEFAULT OFF |
-| REAL | NOT GRANTED |
+| L2 | PARTIAL / exclusive DEFAULT OFF |
+| R24 | SYNC PENDING |
+| G-REAL | NOT GRANTED |
 | Runtime v3 | NON ADOPTED |
 
-Build Doctrine R2/R3/R6/R8/R18 respected: coherent capacity closure candidate; reuse existing GERM/W3-C/FS-anchor; no parallel engine; no free POC; no L4 extension.
+## 7. R23 — composants / invariants
 
-## 6. R23 — Architecture / invariants
+| Asset | Class | Notes |
+|-------|-------|-------|
+| `projectW3cExecutionReportSurfaceFromDurable` | **ADAPT** | R-S2-04 |
+| `readExecutionReviewItemBytes` / GERM persist | **KEEP** | Reader unchanged; try/catch guard at consumer |
+| CORR-S2-01 matcher | **KEEP** | |
+| CORR-S2-02 selector | **KEEP** | |
+| Mission Evidence | **FREEZE** | hors scope |
+| RB/CE | **KEEP** | |
+| L4 / Nora Deep | N/A | |
 
-### Classification (this cycle)
+### Invariants
 
-| Asset | Class | Role |
-|-------|-------|------|
-| `selectPrimaryGenericMaterializationPath` | ADAPT | CORR-S2-02 — dedupe preferred paths |
-| `projectW3cExecutionReportSurfaceFromDurable` | ADAPT | CORR-S2-03 — honor byteCap PARTIAL |
-| `evidenceLocationMatchesLogicalPath` | KEEP | CORR-S2-01 — unchanged |
-| `ingestGenericFilesystemMaterializationArtifactEvidence` | KEEP | generic_materialization producer |
-| `fsAnchorArtifactMaterializationEvidenceSources` | KEEP | allowlist + matcher |
-| GERM persist/load / `readExecutionReviewItemBytes` | KEEP | reused |
-| Mission Evidence / F19 / Nora Deep Review | FREEZE | out of scope |
+1. Never PARTIAL→FULL.
+2. Truncation of presented bytes ⇒ PARTIAL (CORR-S2-03).
+3. Expected `contentRef` unreadable ⇒ PARTIAL + honest unavailability note (R-S2-04).
+4. No contentRef required ⇒ do not invent artifact gap from missing material.
+5. Never invent Cursor CLAIM / material.
+6. Fresh projection and rehydrate share the same durable facts / function.
+7. No fabricated cycleInstanceId / Mission Evidence for S8.
 
-### Invariants preserved
+**R22:** N/A — no new cognitive need / provider change.
 
-1. Fail-closed ambiguity (distinct files) — never first-path heuristic.
-2. Evidence.location absolute durable path; logical identity via segment-exact matcher (CORR-S2-01).
-3. Source stamp `execution_attempt:generic_materialization` (not docs_write Product admission).
-4. FULL requires demonstrated completeness of **presented** content (CORR-S2-03).
-5. Never invent Cursor CLAIM / executionReport when claim file absent.
-6. Never promote PARTIAL → FULL.
-7. No fabricated cycleInstanceId / Mission Evidence for fake E2E.
+## 8. R-S2-04 — avant / après
 
-### Consumers
+### Avant (post CORR-S2-03)
 
-- Path selector → ingest stamp → FS-anchor supersession resolvers.
-- Projection → W3-C fresh + rehydrate surfaces (same function).
+Truncation ⇒ PARTIAL. But on `bytes.ok === false` (MISSING / REF_DENIED / throw):
+comment kept manifest completeness → possible **FULL** with `artifactReviewMaterial=undefined`.
 
-## 7. CORR-S2-01 — statut préservé
+### Après
 
-**Status:** ACCEPTED LOCAL DET — **not modified** this cycle.
+When selected item has `contentRef`:
+- ok + FULL bytes ⇒ keep/manifest FULL if justified;
+- ok + PARTIAL bytes ⇒ PARTIAL;
+- !ok ⇒ **PARTIAL**, no invented material, append
+  `Review item content unavailable (<code>)` to blockers/reservations surfaces;
+- try/catch around reader → `EXECUTION_REVIEW_ITEM_READ_THREW` treated as unreadable.
 
-- Matcher: `evidenceLocationMatchesLogicalPath` in `fsAnchorArtifactMaterializationEvidenceSources.ts`
-- Rule: exact logical equality OR durable marker extract OR `endsWith("/"+req)` — never bare `endsWith(req)`.
-- Tests in `akgM5L3S2.optionB.lotsAC.d0.test.ts` (CORR-S2-01 describe) still PASS.
+`artifactReviewCompleteness` and `executionReport.artifactReviewCompleteness` stay aligned.
 
-## 8. CORR-S2-02 — before / after
+No new status model, no GERM schema change, no F19 rebuild.
 
-### Before
+## 9. Diffs utiles vs origin/main
 
-`preferred.filter(p => observed.includes(p))` without Set-dedupe of preferred.
-
-Example defect:
-- observed: `["docs/note.md"]`
-- preferred: `["docs/note.md", "docs/note.md"]` (targetPath ∩ expectedOutputs)
-- hit.length === 2 → false **AMBIGUOUS**
-
-### After
-
-1. Normalize via `normalizeGenericMaterializationLogicalPath` (reject `..`, `//`, trailing `/`, NUL).
-2. Dedupe observed and preferred with `Set`.
-3. Count **distinct** preferred∩observed hits.
-4. Unique → select; >1 distinct → AMBIGUOUS; 0 preferred hits + 1 observed → select; else AMBIGUOUS/NONE.
-
-### Tests A–E
-
-All PASS in `CORR-S2-02` describe block (see §13).
-
-## 9. CORR-S2-03 — before / after
-
-### Before
-
-`completeness = manifest.completeness` only — ignored `readExecutionReviewItemBytes(...).completeness`.
-
-Manifest FULL + byteCap 12_000 truncation → surface still claimed **FULL**.
-
-### After
-
-```
-let completeness = manifest.completeness === "FULL" ? "FULL" : "PARTIAL";
-// after successful read:
-if (bytes.completeness === "PARTIAL") completeness = "PARTIAL";
-```
-
-- Never promote PARTIAL→FULL.
-- Truncation of presented bytes forces PARTIAL on both `artifactReviewCompleteness` and `executionReport.artifactReviewCompleteness`.
-- Missing GERM → null report; missing CLAIM → executionReport null; blockers/reservations preserved from manifest/claim.
-
-### Tests A/B/C/E (+ existing D missing GERM)
-
-All PASS (see §13).
-
-## 10. Diffs utiles (modified vs origin/main)
-
-
-### Diff — w3cPostEvidenceLoop.ts (Lot C + CORR-S2-03)
+### Diff — w3cPostEvidenceLoop.ts (Lot C + CORR-S2-03 + R-S2-04)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
-index dd6e6672..56d2d0f1 100644
+index dd6e6672..9c18acd8 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 @@ -27,7 +27,10 @@ import {
@@ -203,7 +172,7 @@ index dd6e6672..56d2d0f1 100644
  import {
    buildCkcCognitivePromptSection,
    loadProductCkcCognitiveContent,
-@@ -77,8 +80,9 @@ export type W3cExecutionReportSurface = {
+@@ -77,8 +80,14 @@ export type W3cExecutionReportSurface = {
 
  /**
   * Rebuild business-first execution report from durable server-owned refs
@@ -211,11 +180,16 @@ index dd6e6672..56d2d0f1 100644
 - * a Cursor report when the claim file is absent.
 + * (mission-result-refs / Generic Execution Review Material). Shared by fresh
 + * W3-C and rehydrate — never invent a Cursor report when the claim file is absent.
-+ * Completeness mirrors the durable manifest (never upgrades PARTIAL → FULL).
++ *
++ * Completeness honesty (CORR-S2-03 / R-S2-04):
++ * - never upgrade PARTIAL → FULL;
++ * - truncation of presented bytes ⇒ PARTIAL;
++ * - expected contentRef present but unreadable ⇒ PARTIAL (never FULL of missing content);
++ * - no contentRef required ⇒ keep manifest completeness (do not invent an artifact gap).
   */
  export function projectW3cExecutionReportSurfaceFromDurable(input: {
    readonly attemptId: string;
-@@ -93,15 +97,126 @@ export function projectW3cExecutionReportSurfaceFromDurable(input: {
+@@ -93,15 +102,154 @@ export function projectW3cExecutionReportSurfaceFromDurable(input: {
    readonly stopReason: string | undefined;
    readonly cursorReportSummary: string | undefined;
  } {
@@ -239,11 +213,12 @@ index dd6e6672..56d2d0f1 100644
 +  }
 +
 +  const { manifest, cursorReport, verifiedChangeSet } = loaded;
-+  // CORR-S2-03 — never promote PARTIAL→FULL; truncate of presented bytes ⇒ PARTIAL.
++  // Start from durable manifest; never promote PARTIAL → FULL.
 +  let completeness: "FULL" | "PARTIAL" =
 +    manifest.completeness === "FULL" ? "FULL" : "PARTIAL";
 +
 +  let artifactReviewMaterial: string | undefined;
++  let contentUnavailableNote: string | undefined;
 +  const preferred =
 +    typeof input.targetPath === "string" && input.targetPath.trim()
 +      ? input.targetPath.trim()
@@ -256,18 +231,33 @@ index dd6e6672..56d2d0f1 100644
 +      ? itemCandidates.find((i) => i.logicalPath === preferred)
 +      : undefined) ?? itemCandidates[0];
 +  if (preferredItem?.contentRef) {
-+    const bytes = readExecutionReviewItemBytes({
-+      refsRoot,
-+      contentRef: preferredItem.contentRef,
-+      byteCap: 12_000,
-+    });
++    // Expected durable bytes — presentation completeness must reflect actual read.
++    let bytes: ReturnType<typeof readExecutionReviewItemBytes>;
++    try {
++      bytes = readExecutionReviewItemBytes({
++        refsRoot,
++        contentRef: preferredItem.contentRef,
++        byteCap: 12_000,
++      });
++    } catch (err) {
++      // Minimal guard: normal unavailability must not throw through the surface.
++      bytes = {
++        ok: false,
++        code: "EXECUTION_REVIEW_ITEM_READ_THREW",
++        message: err instanceof Error ? err.message : String(err),
++      };
++    }
 +    if (bytes.ok) {
 +      artifactReviewMaterial = bytes.text;
 +      if (bytes.completeness === "PARTIAL") {
 +        completeness = "PARTIAL";
 +      }
++    } else {
++      // R-S2-04 — contentRef expected but unreadable: never claim FULL of presented content.
++      completeness = "PARTIAL";
++      contentUnavailableNote = `Review item content unavailable (${bytes.code})`;
++      // Do not invent material or Cursor CLAIM.
 +    }
-+    // Read failure: keep manifest completeness; do not invent material or upgrade FULL.
 +  }
 +
 +  const pathSummary =
@@ -285,19 +275,31 @@ index dd6e6672..56d2d0f1 100644
 +      : undefined) ||
 +    (pathSummary ? `Studio observed: ${pathSummary}` : undefined);
 +
-+  const blockersSummary =
++  const baseBlockersSummary =
 +    manifest.blockers.length > 0
 +      ? manifest.blockers.join(" · ")
 +      : cursorReport?.blockers?.length
 +        ? cursorReport.blockers.join(" · ")
 +        : undefined;
 +
-+  const reservationsSummary =
++  const blockersSummary = contentUnavailableNote
++    ? baseBlockersSummary
++      ? `${baseBlockersSummary} · ${contentUnavailableNote}`
++      : contentUnavailableNote
++    : baseBlockersSummary;
++
++  const baseReservationsSummary =
 +    manifest.reservations.length > 0
 +      ? manifest.reservations.join(" · ")
 +      : cursorReport?.reservations?.length
 +        ? cursorReport.reservations.join(" · ")
 +        : null;
++
++  const reservationsSummary = contentUnavailableNote
++    ? baseReservationsSummary
++      ? `${baseReservationsSummary} · ${contentUnavailableNote}`
++      : contentUnavailableNote
++    : baseReservationsSummary;
 +
 +  const stopReason =
 +    (typeof cursorReport?.stopConditionTriggered === "string" &&
@@ -352,7 +354,7 @@ index dd6e6672..56d2d0f1 100644
 
 ```
 
-### Diff — governedExecuteAuthorizedContract.ts (Lot A wire)
+### Diff — governedExecuteAuthorizedContract.ts
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts b/projects/sfia-studio/app/features/project-assistant/w2/governedExecuteAuthorizedContract.ts
@@ -733,28 +735,120 @@ index 2dae7536..e485e3a3 100644
        isFsAnchorSupersededByVerifiedLocalCommit(
 ```
 
-## 11. Index cumulatif — TOUS changements locaux Option B vs origin/main
+## 10. Tests négatifs lecture manquante (R-S2-04)
 
-| Path | Status vs main | Role |
-|------|----------------|------|
-| `…/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts` | **UNTRACKED NEW** | Lot A producer + CORR-S2-02 selector |
-| `…/domain/fsAnchorArtifactMaterializationEvidenceSources.ts` | **UNTRACKED NEW** | Allowlist + CORR-S2-01 matcher |
-| `…/w2/governedExecuteAuthorizedContract.ts` | MODIFIED | Wire generic stamp |
-| `…/w2/w3cPostEvidenceLoop.ts` | MODIFIED | GERM projection + CORR-S2-03 |
-| `…/domain/resolvePreCommitWorkspaceContinuation.ts` | MODIFIED | Allowlist consume |
-| `…/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts` | MODIFIED | Allowlist consume |
-| `…/__tests__/oa/…/gcecCont01ContinuationResolver.d0.test.ts` | MODIFIED | Continuation non-reg |
-| `…/__tests__/project-assistant/akgM5L3S2.optionB.lotsAC.d0.test.ts` | **UNTRACKED NEW** | Lots A/C + CORR-01/02/03 |
-| `.tmp-sfia-review/chatgpt-review.md` | MODIFIED | This Review Pack (local only) |
+Suite: `akgM5L3S2.optionB.lotsAC.d0.test.ts` describe `R-S2-04`.
 
-**SHA-256 of new Product/test files:**
+| ID | Assertion | Result |
+|----|-----------|--------|
+| T1 | FULL + short complete → FULL | PASS |
+| T2 | FULL + >12k → PARTIAL | PASS |
+| T3 | PARTIAL + short → PARTIAL | PASS |
+| T4 | FULL + contentRef + deleted file → PARTIAL + MISSING note; never FULL | PASS |
+| T5 | FULL + invalid contentRef (`../evil`) → PARTIAL + REF_DENIED | PASS |
+| T6 | GERM absent → null report | PASS |
+| T7 | CLAIM absent → executionReport null | PASS |
+| T8 | blockers/reservations/workPerformed preserved | PASS |
+| T9 | fresh == re-read equal durable facts | PASS |
+| T10 | projection pure (no durable mutation) | PASS |
 
-- ingest…ts: `56fc26c42d6e4f05b563e2cc8d597369f8e91e6cbca1ad11b3b55407a8fff0ec`
-- fsAnchor…ts: `85632997028436e75ee60ddccb74b214255d59a71468c3984d33b5cf3d945f79`
-- lotsAC.d0.test.ts: `00155248f9eadfd34b957e6b9588632b61a0c952bc908ae6d10f6be492e9b61e`
+## 11. R-S2-05 — matrice EP originale restaurée
 
-## 12. Contenu des nouveaux fichiers non versionnés
+Source historique: handoff Qualification `b712c600` §18 (verbatim sense restored — not redefined to match available tests).
 
+### Original definitions (Qualification §18)
+
+
+```
+## 18. Exit proofs candidats (EP-L3S2)
+
+| ID | Candidate statement | Notes |
+|----|---------------------|-------|
+| EP-S2-01 | Mission/EC linked to Project/Attempt | Wire + assert |
+| EP-S2-02 | SHE reused; no gratuitous second human gesture | Non-regression L3-S1 |
+| EP-S2-03 | FS effects Studio-verified ≠ Cursor CLAIM | VCS observe |
+| EP-S2-04 | Generic Evidence source with verifiable path→digest lineage (semantic as proven) | Gap A core |
+| EP-S2-05 | Mission Evidence ingested & bound | Gap B |
+| EP-S2-06 | RB/CE consume admissible proofs | materialize + evaluate |
+| EP-S2-07 | Product Result honest (PASS only if proven; else NOT_PROVEN/UNCLAIMED) | KEEP honesty |
+| EP-S2-08 | **Minimal** post-Evidence continuity + rehydrate | Bounded; ≠ L4 |
+| EP-S2-09 | Fail-closed: wrong Project/Attempt/stale EC/SHA mismatch/missing verifier | Negatives |
+| EP-S2-10 | No Product docs_write admission / no parallel engine | |
+| EP-S2-11 | Non-regression L3-S1 + SHE authority | |
+| EP-S2-12 | Fake/Real boundaries explicit; no false REAL | TestOnly ≠ REAL |
+
+**None of these are PASS from this cadrage alone.**
+
+EP-S2-08: **in scope as minimal**; if Morris rejects, Option A + debt — do not silently import full L4.
+```
+
+### Exact restored meanings (this pack)
+
+| EP | Définition originale | Couverture locale | Verdict | Réserve / exit |
+|----|----------------------|-------------------|---------|----------------|
+| EP-S2-01 | Mission/EC linked to Project/Attempt | L3-S1 + mission chain non-reg; Option B uses existing W2 cycle-bound path | **PARTIAL** | Chat-first Generic PREPARE null-cycle **NOT PROVEN** (S8) |
+| EP-S2-02 | SHE reused; no gratuitous second human gesture | L3-S1 EP08/SHE non-reg | **PASS** (DET non-reg) | REAL SHE not claimed |
+| EP-S2-03 | FS effects Studio-verified ≠ Cursor CLAIM | Lot A VerifiedChangeSet + Cont01 allowlist | **PASS** (DET component) | Not full FS→Git→Review E2E |
+| EP-S2-04 | Generic Evidence source with verifiable path→digest lineage | ingest + CORR-S2-01/02 + supersession stamp | **PASS** (DET) | Local candidate ≠ ON MAIN |
+| EP-S2-05 | Mission Evidence ingested & bound | productMissionEvidenceChain E2E (existing W2 path) | **PARTIAL** | S8 chat-first Mission **NOT PROVEN**; KEEP Lot B only |
+| EP-S2-06 | RB/CE consume admissible proofs | Mission E2E + L3-S1 RB/CE | **PASS** (DET non-reg on exercised paths) | Generic chat-first Mission→RB path under S8 |
+| EP-S2-07 | Product Result honest (PASS only if proven; else NOT_PROVEN/UNCLAIMED) | L3-S1 / mission honesty outcomes | **PASS** (DET non-reg) | No new Generic Product Result oracle E2E |
+| EP-S2-08 | Minimal post-Evidence continuity + rehydrate | GERM projection + T9 re-read; W3-C non-reg | **PARTIAL** | Projection/rehydrate DET proven; Nora/Pilote UX E2E **NOT PROVEN**; ≠ L4 |
+| EP-S2-09 | Fail-closed: wrong Project/Attempt/stale EC/SHA/missing verifier | Path ambiguity + CORR-01 negatives + Cont01; L3-S1 negatives partial | **PARTIAL** | Multi-path AMBIGUOUS alone ≠ full EP-S2-09; Project/Attempt/SHA verifier matrix not fully re-proven here |
+| EP-S2-10 | No Product docs_write admission / no parallel engine | Source token + allowlist historical-only docs_write | **PASS** (DET) | — |
+| EP-S2-11 | Non-regression L3-S1 + SHE authority | akgM5L3S1 suite | **PASS** (DET) | — |
+| EP-S2-12 | Fake/Real boundaries explicit; no false REAL | TestOnly / DET; REAL not run | **PASS** (qualification) | REAL NOT GRANTED |
+
+**R-S2-05 closed when:** original definitions restored and honest qualification applied — **not** when all twelve become artificial PASS.
+
+## 12. Correspondance EP ↔ preuves / corrections
+
+| Correction / Lot | Maps to original EP(s) | Notes |
+|------------------|------------------------|-------|
+| Lot A materialization + digest + allowlist | EP-S2-03, EP-S2-04, EP-S2-10 | Component DET |
+| Lot B Mission KEEP | EP-S2-01, EP-S2-05 | Residual S8 |
+| Lot C GERM projection | EP-S2-08 (partial) | Not Nora UX complete |
+| CORR-S2-01 path identity | EP-S2-04 lineage + EP-S2-09 segment of fail-closed | |
+| CORR-S2-02 path dedupe | EP-S2-04 selection honesty | |
+| CORR-S2-03 truncation | EP-S2-07 / EP-S2-08 honesty of presented completeness | |
+| R-S2-04 missing content | EP-S2-07 / EP-S2-08 honesty | Never FULL of unread bytes |
+| Cont01 / L3-S1 / Mission E2E / W3-C | EP-S2-02/06/11 + partial 01/05/09 | Non-regression layers |
+
+## 13. Bilan cumulatif Option B
+
+| Lot / Correction | Status |
+|------------------|--------|
+| Lot A Generic FS Evidence | LOCAL DET candidate |
+| Lot B Mission Evidence W2 path | KEEP; S8 residual |
+| Lot C GERM projection | LOCAL DET + R-S2-04 honesty |
+| CORR-S2-01 | ACCEPTED LOCAL DET |
+| CORR-S2-02 | ACCEPTED LOCAL DET |
+| CORR-S2-03 | Truncation ACCEPTED |
+| R-S2-04 | Corrected this cycle |
+| R-S2-05 | Traceability restored this cycle |
+
+**Explicit NON-CLAIMS:** Generic E2E COMPLETE; FS→Git→Review COMPLETE; Mission chat-first PROVEN; Nora/Pilote UX COMPLETE; L3 GLOBAL COMPLETE; REAL PROVEN.
+
+## 14. Index fichiers locaux vs origin/main
+
+| Path | Status | Role |
+|------|--------|------|
+| `…/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts` | UNTRACKED NEW | Lot A + CORR-S2-02 |
+| `…/domain/fsAnchorArtifactMaterializationEvidenceSources.ts` | UNTRACKED NEW | Allowlist + CORR-S2-01 |
+| `…/w2/governedExecuteAuthorizedContract.ts` | MODIFIED | Wire stamp |
+| `…/w2/w3cPostEvidenceLoop.ts` | MODIFIED | Lot C + CORR-03 + **R-S2-04** |
+| `…/domain/resolvePreCommitWorkspaceContinuation.ts` | MODIFIED | Allowlist |
+| `…/domain/resolveVerifiedFilesystemMaterializationPriorAttempt.ts` | MODIFIED | Allowlist |
+| `…/gcecCont01ContinuationResolver.d0.test.ts` | MODIFIED | Cont non-reg |
+| `…/akgM5L3S2.optionB.lotsAC.d0.test.ts` | UNTRACKED NEW | Lots + CORR + **R-S2-04 T1–T10** |
+| `.tmp-sfia-review/chatgpt-review.md` | MODIFIED | This pack |
+
+**SHA-256:**
+- ingest: `56fc26c42d6e4f05b563e2cc8d597369f8e91e6cbca1ad11b3b55407a8fff0ec`
+- fsAnchor: `85632997028436e75ee60ddccb74b214255d59a71468c3984d33b5cf3d945f79`
+- lotsAC: `9b1823041bdd72ea5297ad36d37e7caf6cba1faa5d1214dc0060003e8ac0b851`
+
+## 15. Contenu complet — fichiers untracked nécessaires
 
 ### NEW FILE — `projects/sfia-studio/app/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence.ts`
 
@@ -1151,7 +1245,10 @@ import {
   ingestGenericFilesystemMaterializationArtifactEvidence,
   selectPrimaryGenericMaterializationPath,
 } from "@/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence";
-import { persistGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import {
+  genericExecutionReviewMaterialRefsRelative,
+  persistGenericExecutionReviewMaterial,
+} from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import { projectW3cExecutionReportSurfaceFromDurable } from "@/features/project-assistant/w2/w3cPostEvidenceLoop";
 import { isFsAnchorSupersededByVerifiedLocalCommit } from "@/lib/oa/execution-attempt/domain/resolvePreCommitWorkspaceContinuation";
 import {
@@ -1615,6 +1712,312 @@ describe("AKG-M5 L3-S2 CORR-S2-03 — FULL/PARTIAL honesty on truncated bytes", 
   });
 });
 
+describe("AKG-M5 L3-S2 R-S2-04 — missing/unreadable expected content honesty", () => {
+  const baseReport = (attemptId: string) => ({
+    schemaVersion: "oa.cursor-execution-report.1" as const,
+    reportId: "rpt:l3s2-rs204",
+    attemptId,
+    executionContractId: "xct:l3s2",
+    repositoryRef: "repo:test",
+    baseSha: "abc123",
+    status: "succeeded" as const,
+    workPerformed: ["edited docs/note.md"],
+    authorizedEffectsExecuted: ["filesystem.modify" as const],
+    blockers: ["keep-blocker"],
+    reservations: ["keep-reservation"],
+  });
+
+  function persistFullWithItem(input: {
+    refsRoot: string;
+    attemptId: string;
+    text: string;
+  }) {
+    return persistGenericExecutionReviewMaterial({
+      refsRoot: input.refsRoot,
+      projectId: "prj:l3s2",
+      cycleInstanceId: "cyc:l3s2",
+      executionContractId: "xct:l3s2",
+      attemptId: input.attemptId,
+      repositoryRef: "repo:test",
+      baseSha: "abc123",
+      cursorReport: baseReport(input.attemptId),
+      reviewEndOf: null,
+      verifiedChangeSet: {
+        schemaVersion: "oa.studio-verified-changeset.1",
+        worktreePath: "<disposed-or-ephemeral>",
+        claimFactMismatch: false,
+        unclaimedObservedPaths: [],
+        claimedMissingPaths: [],
+        all: [
+          {
+            path: "docs/note.md",
+            status: "modified",
+            afterDigest: "sha256:abc",
+          },
+        ],
+        created: [],
+        modified: [
+          {
+            path: "docs/note.md",
+            status: "modified",
+            afterDigest: "sha256:abc",
+          },
+        ],
+        deleted: [],
+        renamed: [],
+      } as never,
+      verificationStatus: "OBSERVED",
+      reviewItems: [
+        {
+          kind: "file",
+          logicalPath: "docs/note.md",
+          label: "file",
+          text: input.text,
+        },
+      ],
+      completeness: "FULL",
+      blockers: ["keep-blocker"],
+      reservations: ["keep-reservation"],
+    });
+  }
+
+  it("T1: manifest FULL + complete short content → FULL", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t1-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t1";
+    expect(persistFullWithItem({ refsRoot, attemptId, text: "complete" }).ok).toBe(
+      true,
+    );
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(surface.artifactReviewMaterial).toBe("complete");
+    expect(surface.artifactReviewCompleteness).toBe("FULL");
+    expect(surface.executionReport?.artifactReviewCompleteness).toBe("FULL");
+  });
+
+  it("T2: manifest FULL + content > 12_000 bytes → PARTIAL", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t2-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t2";
+    expect(
+      persistFullWithItem({
+        refsRoot,
+        attemptId,
+        text: "Y".repeat(13_000),
+      }).ok,
+    ).toBe(true);
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(surface.artifactReviewCompleteness).toBe("PARTIAL");
+    expect(surface.executionReport?.artifactReviewCompleteness).toBe("PARTIAL");
+  });
+
+  it("T3: manifest PARTIAL + short content → PARTIAL", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t3-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t3";
+    const persisted = persistGenericExecutionReviewMaterial({
+      refsRoot,
+      projectId: "prj:l3s2",
+      cycleInstanceId: "cyc:l3s2",
+      executionContractId: "xct:l3s2",
+      attemptId,
+      repositoryRef: "repo:test",
+      baseSha: "abc123",
+      cursorReport: baseReport(attemptId),
+      reviewEndOf: null,
+      verifiedChangeSet: null,
+      verificationStatus: "UNAVAILABLE",
+      reviewItems: [
+        { kind: "file", logicalPath: "docs/note.md", label: "file", text: "short" },
+      ],
+      completeness: "PARTIAL",
+      blockers: ["keep-blocker"],
+      reservations: ["keep-reservation"],
+    });
+    expect(persisted.ok).toBe(true);
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(surface.artifactReviewCompleteness).toBe("PARTIAL");
+  });
+
+  it("T4: manifest FULL + contentRef + missing file → never FULL", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t4-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t4";
+    expect(persistFullWithItem({ refsRoot, attemptId, text: "will-delete" }).ok).toBe(
+      true,
+    );
+    const rel = genericExecutionReviewMaterialRefsRelative(attemptId);
+    const itemPath = path.join(refsRoot, rel.itemsDir, "ri:001.bin");
+    expect(fs.existsSync(itemPath)).toBe(true);
+    fs.unlinkSync(itemPath);
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(surface.artifactReviewMaterial).toBeUndefined();
+    expect(surface.artifactReviewCompleteness).toBe("PARTIAL");
+    expect(surface.executionReport?.artifactReviewCompleteness).toBe("PARTIAL");
+    expect(surface.blockersSummary).toContain("EXECUTION_REVIEW_ITEM_MISSING");
+    expect(surface.blockersSummary).toContain("keep-blocker");
+    expect(surface.executionReport?.reservationsSummary).toContain(
+      "keep-reservation",
+    );
+    expect(surface.executionReport?.reservationsSummary).toContain(
+      "EXECUTION_REVIEW_ITEM_MISSING",
+    );
+  });
+
+  it("T5: manifest FULL + invalid contentRef → fail-closed never fictional FULL", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t5-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t5";
+    expect(persistFullWithItem({ refsRoot, attemptId, text: "ok" }).ok).toBe(true);
+    const rel = genericExecutionReviewMaterialRefsRelative(attemptId);
+    const manifestAbs = path.join(refsRoot, rel.manifest);
+    const manifest = JSON.parse(fs.readFileSync(manifestAbs, "utf8")) as {
+      reviewItems: Array<{ contentRef?: string }>;
+      completeness: string;
+    };
+    expect(manifest.completeness).toBe("FULL");
+    manifest.reviewItems[0]!.contentRef = "../evil.bin";
+    fs.writeFileSync(manifestAbs, `${JSON.stringify(manifest)}\n`, "utf8");
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(surface.artifactReviewMaterial).toBeUndefined();
+    expect(surface.artifactReviewCompleteness).toBe("PARTIAL");
+    expect(surface.executionReport?.artifactReviewCompleteness).toBe("PARTIAL");
+    expect(surface.blockersSummary).toContain("EXECUTION_REVIEW_ITEM_REF_DENIED");
+  });
+
+  it("T6: GERM absent → no invented report", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t6-"));
+    tmpRoots.push(refsRoot);
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId: "xat:rs204-missing",
+      refsRoot,
+    });
+    expect(surface.executionReport).toBeNull();
+    expect(surface.artifactReviewCompleteness).toBeUndefined();
+    expect(surface.artifactReviewMaterial).toBeUndefined();
+  });
+
+  it("T7: Cursor CLAIM absent → executionReport null", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t7-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t7";
+    const persisted = persistGenericExecutionReviewMaterial({
+      refsRoot,
+      projectId: "prj:l3s2",
+      cycleInstanceId: "cyc:l3s2",
+      executionContractId: "xct:l3s2",
+      attemptId,
+      repositoryRef: "repo:test",
+      baseSha: "abc123",
+      cursorReport: null,
+      reviewEndOf: null,
+      verifiedChangeSet: null,
+      verificationStatus: "UNAVAILABLE",
+      reviewItems: [
+        { kind: "file", logicalPath: "docs/note.md", label: "file", text: "x" },
+      ],
+      completeness: "PARTIAL",
+      blockers: [],
+      reservations: [],
+    });
+    expect(persisted.ok).toBe(true);
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(surface.executionReport).toBeNull();
+    expect(surface.artifactReviewCompleteness).toBe("PARTIAL");
+  });
+
+  it("T8: blockers / reservations / workPerformed preserved when present", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t8-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t8";
+    expect(persistFullWithItem({ refsRoot, attemptId, text: "body" }).ok).toBe(true);
+    const surface = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(surface.blockersSummary).toContain("keep-blocker");
+    expect(surface.executionReport?.reservationsSummary).toContain(
+      "keep-reservation",
+    );
+    expect(surface.workPerformedSummary).toContain("edited docs/note.md");
+  });
+
+  it("T9: fresh projection == re-read at equal durable facts", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t9-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t9";
+    expect(persistFullWithItem({ refsRoot, attemptId, text: "stable" }).ok).toBe(
+      true,
+    );
+    const a = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    const b = projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    expect(b).toEqual(a);
+  });
+
+  it("T10: projection is pure — no HumanDecision / new execution side effects", () => {
+    const refsRoot = fs.mkdtempSync(path.join(os.tmpdir(), "l3s2-rs204-t10-"));
+    tmpRoots.push(refsRoot);
+    const attemptId = "xat:rs204-t10";
+    expect(persistFullWithItem({ refsRoot, attemptId, text: "pure" }).ok).toBe(true);
+    const before = walkSnapshot(refsRoot);
+    projectW3cExecutionReportSurfaceFromDurable({
+      attemptId,
+      refsRoot,
+      targetPath: "docs/note.md",
+    });
+    const after = walkSnapshot(refsRoot);
+    expect(after).toEqual(before);
+  });
+});
+
+function walkSnapshot(root: string): string[] {
+  const out: string[] = [];
+  const walk = (dir: string) => {
+    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+      const abs = path.join(dir, ent.name);
+      if (ent.isDirectory()) walk(abs);
+      else {
+        const st = fs.statSync(abs);
+        out.push(`${path.relative(root, abs)}:${st.size}:${st.mtimeMs}`);
+      }
+    }
+  };
+  walk(root);
+  return out.sort();
+}
+
 describe("AKG-M5 L3-S2 Option B — Lot A ingest + FS→SHA supersession", () => {
   it("EP-S2-03/04 stamps verified generic_materialization Evidence for supersession", async () => {
     const db = tempProductDbPath("l3s2-mat.sqlite");
@@ -1736,145 +2139,88 @@ describe("AKG-M5 L3-S2 Option B — Lot A ingest + FS→SHA supersession", () =>
 
 ```
 
-## 13. Preuves et tests consolidés
+## 16. Tests et validations consolidés
 
 ### Environment
-
 - CWD: `projects/sfia-studio/app`
-- Package: `sfia-studio@0.1.0`
-- Runner: vitest v3.2.7
-- Mode: DET / Fake (TestOnlyRealExecutionLaunchPort) — **no Cursor REAL, no OpenAI LIVE**
+- vitest v3.2.7; DET / Fake / TestOnly
+- No Cursor REAL; no OpenAI LIVE
 
-### Results (exact)
+### Results
 
-| Command | Scope | Tests | Result |
-|---------|-------|-------|--------|
-| `npx vitest run __tests__/project-assistant/akgM5L3S2.optionB.lotsAC.d0.test.ts` | CORR-01/02/03 + Lots A/C | 17 | **PASS** |
-| `npx vitest run __tests__/oa/execution-attempt/gcecCont01ContinuationResolver.d0.test.ts` | Continuation / FS-anchor | 34 | **PASS** (41 total with L3-S1 below in combo run; Cont01 alone with L3-S1 = 41) |
-| `npx vitest run …/gcecCont01… + …/akgM5L3S1…` | Cont01 + L3-S1 | 41 | **PASS** |
-| `npx vitest run …/akgM5L3S1.genericExecutionIntegrated.d0.test.ts` | L3-S1 non-reg | 7 | **PASS** |
-| `npx vitest run …/productMissionEvidenceChain.e2e.d0.test.ts` | Mission Evidence chain | 7 | **PASS** |
-| `npx vitest run …/w3cPostEvidenceLoop.test.ts + …/w3cPostEvidenceCorrection.test.ts` | W3-C | 30 | **PASS** |
-| `npm run typecheck` | `tsc --noEmit` | — | **PASS** (exit 0) |
-| `npm run lint` | `next lint` | — | **PASS** (exit 0; 2 pre-existing unused-var warnings in unrelated OA files) |
+| Command | Tests | Result |
+|---------|-------|--------|
+| `npx vitest run …/akgM5L3S2.optionB.lotsAC.d0.test.ts` | 27 | **PASS** |
+| Cont01 + L3-S1 + Mission E2E + W3-C loop + W3-C correction (combined) | 78 | **PASS** |
+| `npm run typecheck` | — | **PASS** |
+| `npm run lint` | — | **PASS** (2 pre-existing unused-var warnings unrelated) |
 
-**New regressions:** none observed.
-**Pre-existing lint warnings (unchanged):** `pilotLifecycleTransitions.ts` unused `projectResult`; `startExecution.ts` unused `asStringList`.
+**New regressions:** none.
+**Proof level:** component + integrated DET; not Product E2E COMPLETE.
 
-### Proof class
+## 17. Fake / Real Matrix
 
-| Area | Class |
-|------|-------|
-| CORR-S2-01/02/03 unit + ingest stamp | Unit / integrated DET |
-| GERM projection FULL/PARTIAL | Unit DET |
-| FS-anchor / Cont01 | Non-regression DET |
-| L3-S1 / Mission E2E / W3-C | Non-regression DET |
-| S8 chat-first Generic PREPARE Mission | **NOT PROVEN** |
-| FS→Git→Review Product E2E | **NON-CLAIM** (no integrated oracle) |
-| Nora/Pilote continuity beyond GERM rehydrate | **NOT PROVEN** as product UI continuity |
+| Area | Mode | Status |
+|------|------|--------|
+| Projection / GERM bytes | DET Fake FS | Exercised |
+| Evidence / Cont01 / L3-S1 | TestOnly DET | Exercised |
+| Cursor REAL | REAL | **NOT GRANTED / not run** |
+| OpenAI LIVE | LIVE | **not run** |
+| OA-exclusive | OFF | Unchanged |
 
-## 14. EP-S2-01…12 qualificés
+DETERMINISTIC PROVEN ≠ READY FOR REAL.
 
-| EP | Portée | Test primaire | Observé | Verdict | Réserve / exit |
-|----|--------|---------------|---------|---------|----------------|
-| EP-S2-01 | Generic materialization Evidence stamp | lotsAC ingest | VERIFIED artifact + source token | **PASS** (DET) | Not ON MAIN |
-| EP-S2-02 | Digest/bytes independent | ingest digest mismatch path | Mismatch fail-closed | **PASS** | — |
-| EP-S2-03 | FS→SHA supersession allowlist | Cont01 + lotsAC | generic_materialization allowlisted | **PASS** | Historical docs_write read-only |
-| EP-S2-04 | Primary path selection | CORR-S2-02 A–E | Unique distinct path; false AMBIGUOUS fixed | **PASS** | — |
-| EP-S2-05 | Path identity CORR-S2-01 | CORR-S2-01 tests | Segment-exact; no xdocs collision | **PASS** | — |
-| EP-S2-06 | Source allowlist exclusivity | EP-S2-10 token test | Not docs_write Product | **PASS** | — |
-| EP-S2-07 | GERM persist/load | lotsAC Lot C | Persist + project surface | **PASS** | — |
-| EP-S2-08 | W3-C report projection | Lot C + CORR-S2-03 | Projection + truncation honesty | **PASS** (projection/rehydrate fn) | Nora/Pilote UI continuity **NOT PROVEN** |
-| EP-S2-09 | Ambiguity fail-closed | path selection B/E | Distinct multi → AMBIGUOUS | **PASS** | — |
-| EP-S2-10 | Source naming | token assert | `execution_attempt:generic_materialization` | **PASS** | — |
-| EP-S2-11 | Mission Evidence existing chain | productMissionEvidenceChain | Non-reg PASS | **PASS** (non-reg) | S8 null-cycle PREPARE still STOP |
-| EP-S2-12 | SHE / L3-S1 / RB / CE honest | L3-S1 + mission | Non-reg PASS | **PASS** (non-reg) | Chat-first Generic PREPARE **NOT PROVEN** |
+## 18. R24 impacts
 
-**Interdiction respectée:** no summing of separate component tests into a single Product E2E COMPLETE claim.
+**R24: SEMANTIC UPDATE REQUIRED — SYNC PENDING.**
 
-## 15. Fake / Real Matrix
+| Topic | Old | New | Docs |
+|-------|-----|-----|------|
+| Presented completeness | Manifest FULL could remain with unread contentRef | Unreadable expected content ⇒ PARTIAL + note | PRR 03/07/08/09 |
+| EP matrix | Pass 02 pack used remapped meanings | Original Qualification EP senses restored | Review Pack; PRR 08 when synced |
+| Path/Evidence Option B | Local candidate | Still local (not CURRENT ON MAIN) | PRR 02/09 |
 
-| Capability | Mode | Status |
-|------------|------|--------|
-| Unit path/matcher/completeness | Fake/DET | Exercised |
-| Product OA boot + Evidence services | Fake/DET | Exercised |
-| Cursor adapter launch | TestOnly / DET | Exercised in L3-S1/W3-C |
-| Cursor REAL CLI | REAL | **NOT GRANTED / not run** |
-| OpenAI LIVE | LIVE | **NOT run** |
-| Exclusive OA | DEFAULT OFF | Unchanged |
+PRR/Roadmap **not** edited this cycle.
 
-## 16. R24 — Documentation impacts (SYNC PENDING)
+## 19. S8 non-résolu
 
-**R24: SEMANTIC UPDATE REQUIRED** — Product behaviors changed; PRR/Roadmap **not** edited this cycle.
+**S8 DECISION REQUIRED** — chat-first Generic PREPARE without fabricating Mission Evidence / cycleInstanceId remains NOT PROVEN. Not arbitrated here.
 
-### Sync dossier (for future gate)
-
-1. **PRR 02** — object catalog: `execution_attempt:generic_materialization` Evidence source; durable `/generic-materialization/` layout.
-2. **PRR 03** — E2E flow: FS materialization → Evidence stamp → FS-anchor supersession; W3-C GERM projection.
-3. **PRR 08** — test/proof map: lotsAC + Cont01 + CORR-01/02/03 DET proofs.
-4. **PRR 09** — gaps: S8 OPEN; FS→Git→Review NON-CLAIM; REAL NOT GRANTED; local candidate ≠ CURRENT ON MAIN.
-5. **CORR-S2-01** path identity segment-exact rule.
-6. **CORR-S2-02** distinct preferred path selection.
-7. **CORR-S2-03** FULL requires presented-bytes completeness.
-8. Manifest/digest needs: no new digest schema discovered this cycle.
-9. After Git Integration only: announce CURRENT change.
-
-**R24 SYNC PENDING** until verified document sync under separate GO.
-
-## 17. S8 et autres réserves
-
-1. **S8 DECISION REQUIRED** — chat-first Generic PREPARE without fabricating Mission Evidence remains blocked / NOT PROVEN.
-2. **FS→Git→Review** complete Product filiation — NON-CLAIM.
-3. **REAL** — NOT GRANTED.
-4. **L3 GLOBAL** — OPEN.
-5. **R24** — SYNC PENDING.
-6. Local Option B candidate — **not** CURRENT ON MAIN; no project commit this cycle.
-7. EP-S2-08 Nora/Pilote continuity beyond shared projection function — NOT PROVEN as UI continuity.
-8. No Binding / docs_write Product restore.
-
-## 18. Dette / owner / exit
+## 20. Dettes / owner / exit
 
 | Item | Owner | Exit |
 |------|-------|------|
-| ChatGPT Critical Consolidated Review of this pack | ChatGPT | Review verdict |
-| Morris S8 arbitration | Morris | Explicit GO |
-| R24 PRR/Roadmap sync | Docs cycle | Separate GO after GI decision |
-| Project Git Integration of Option B | Morris | Separate GO — not implied |
+| ChatGPT Critical Technical Closure Review | ChatGPT | Verdict |
+| Morris S8 decision | Morris | Explicit GO |
+| EP-S2-01/05/08/09 residual proofs | Delivery / Morris | Separate scopes |
+| R24 PRR sync | Docs | Separate GO |
+| Project Git Integration | Morris | Separate GO — not implied |
 | REAL grant | Morris | Explicit |
-| L3 close | Morris | After S8 + docs + proofs |
 
-## 19. Git Review Index
+## 21. Risques et réserves
+
+1. Local dirty candidate only — not ON MAIN.
+2. EP-S2-08/09 PARTIAL — do not inflate from component tests.
+3. S8 still blocks honest chat-first Mission claim.
+4. R24 still pending.
+5. No REAL / L4 / exclusive activation.
+6. Reader GERM KEEP — only consumer try/catch added.
+
+## 22. Git Review Index
 
 | Ref | Value |
 |-----|-------|
 | Project branch | `feat/akg-m5-l3-s2-generic-proof-continuity` |
 | Project HEAD | `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` |
-| origin/main | same |
 | Project commits this cycle | **0** |
 | Handoff branch | `sfia/review-handoff` |
-| Handoff canonical file | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Publisher | `scripts/sfia/publish-review-handoff.sh` (L3 borné) |
-| Prior handoff tip | `2f26618b` / blob `3ca668d6` |
+| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Prior tip/blob | `b5935c8f` / `6d151073` |
+| Publisher | `scripts/sfia/publish-review-handoff.sh` L3 |
 
-*(Post-publish tip/blob filled by publisher verification — see appendix if present.)*
+## 23. Verdict unique
 
-## 20. Verdict unique
+**L3-S2 OPTION B — TECHNICAL CLOSURE PASS LOCAL DET — READY FOR CHATGPT CRITICAL REVIEW — S8 DECISION REQUIRED — R24 SYNC PENDING**
 
-**L3-S2 OPTION B — CONSOLIDATED LOCAL DET CORRECTIONS PASS — READY FOR CHATGPT CRITICAL REVIEW — S8 DECISION REQUIRED — R24 SYNC PENDING**
-
-Explicit non-claims:
-- NOT L3-S2 E2E COMPLETE
-- NOT FS→Git→Review REAL
-- NOT L3 global CLOSED
-- NOT runtime v3 ADOPTED
-- NOT Git Integration authorized
-
----
-
-## Appendix A — CORR-S2-02 / CORR-S2-03 code excerpts (already in §10 / §12)
-
-Primary selectors/projection included in full new files and w3c diff above.
-
-## Appendix B — R22 OpenAI-native-first
-
-**N/A motivated:** no new cognitive need; no provider change in this correction lot.
+Means: technical corrections consolidated at tested DET scope.
+Does **not** mean: L3-S2 GLOBAL COMPLETE.
