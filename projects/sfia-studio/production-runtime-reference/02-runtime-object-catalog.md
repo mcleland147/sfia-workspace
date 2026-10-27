@@ -187,6 +187,25 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 - **Persistence:** `oa_claim_evaluations` (+ idempotency).
 - **Invariant:** Technical SUCCESS ≠ READY.
 
+
+
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+
+> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+
+### Objects impacted (LOCAL)
+
+| Object | LOCAL behaviour | Paths (candidate) | Status |
+|---|---|---|---|
+| **OBJ-PROJECT / OBJ-CYCLE** | Project-first Generic PREPARE: `activeCycleInstanceId` may be **null**; **no invented CycleInstance** | `prepareGenericExecutionContractDraft` / SHE / S8 oracle | LOCAL DET · KEEP D-ER-17 |
+| **OBJ-EC / OBJ-ATTEMPT** | Same Generic Execution + SHE path as L3-S1; Attempt durable status unchanged by W3-B review refusal | `governedExecuteAuthorizedContract.ts` | LOCAL DET |
+| **OBJ-EVIDENCE — Verification** | Studio Verification Evidence `ev:execution-review:*` with Project/EC/Attempt bindings; Cycle optional | `ingestExecutionReviewVerificationEvidence.ts` | LOCAL DET |
+| **OBJ-EVIDENCE — generic_materialization** | Product Evidence for OBSERVED FS path→digest (`sourceKind=external`, GENERIC_FILESYSTEM source string) | `ingestGenericFilesystemMaterializationArtifactEvidence.ts` · `fsAnchorArtifactMaterializationEvidenceSources.ts` | **LOCAL CANDIDATE** · closes CURRENT ON MAIN gap « no new generic materialization Evidence » **only at local DET scope** |
+| **OBJ-EVIDENCE — Mission** | Mission Evidence admitted **only** when `PRODUCT_MISSION_FROM_DURABLE_CONTEXT` stamped — Project-only Generic does **not** invent Mission Evidence | `ingestMissionResultEvidence.ts` · W3-B | EP-S2-05 **NOT PROVEN** Project-only |
+| **OBJ-RB / OBJ-CLAIM** | W3-B admits Evidence only via ownership resolution **ABSENT / ADMISSIBLE / REJECTED**; REJECTED fail-closes **before** `createReviewBundle`; late divergent Evidence → OA `IDEMPOTENCY_CONFLICT` | `materializeW3bProductTerminal.ts` (`resolveW3bEvidenceAdmission`) | LOCAL DET · R-S8-01…04 |
+
+**CURRENT ON MAIN unchanged:** FS-anchor historical allowlist `execution_attempt:docs_write*` remains as documented above until Option B is integrated. Do **not** read LOCAL generic_materialization as CURRENT ON MAIN.
+
 ## OBJ-EPISTEMIC — EpistemicItem
 
 - **Purpose:** Durable epistemic markers (observation / decision-subject continuity aids).

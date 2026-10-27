@@ -16,6 +16,11 @@ import {
   isMissionResultEvidenceId,
   missionResultEvidenceIdForAttempt,
 } from "@/features/project-assistant/f3/ingestMissionResultEvidence";
+import { executionReviewVerificationEvidenceIdForAttempt } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
+import {
+  GENERIC_FILESYSTEM_MATERIALIZATION_EVIDENCE_SOURCE_EXPORT,
+  genericMaterializationEvidenceIdForAttempt,
+} from "@/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence";
 import {
   projectW3bProductTerminal,
   productReservationsForAttempt,
@@ -30,6 +35,131 @@ import {
 } from "./w3cPostEvidenceLoop";
 import { maybeMaterializeProductSynthesisAfterW3c } from "./maybeMaterializeProductSynthesisAfterW3c";
 import { resolveManagedRepoRootBaseFromEnv } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+
+/**
+ * R-S8-01 — Admit Evidence into W3-B RB only when ownership bindings match the
+ * execution context. Deterministic Attempt-derived IDs alone are insufficient.
+ */
+export type W3bEvidenceAdmissionRole =
+  | "mission_result"
+  | "verification"
+  | "generic_materialization";
+
+/** Product-local refusal when present Evidence fails W3-B ownership / role checks. */
+export const W3B_EVIDENCE_ADMISSION_REJECTED =
+  "W3B_EVIDENCE_ADMISSION_REJECTED" as const;
+
+/**
+ * R-S8-03 — Discriminated lookup: ABSENT ≠ REJECTED.
+ * Present-but-incoherent Evidence must never be interpreted as mere absence.
+ */
+export type W3bEvidenceAdmissionResolution =
+  | { readonly kind: "absent" }
+  | { readonly kind: "admissible"; readonly evidence: Evidence }
+  | {
+      readonly kind: "rejected";
+      readonly evidence: Evidence;
+      readonly role: W3bEvidenceAdmissionRole;
+      readonly reason: string;
+    };
+
+export function evidenceAdmissibleForW3bExecutionContext(input: {
+  readonly evidence: Evidence;
+  readonly projectId: string;
+  readonly executionContractId: string;
+  readonly executionAttemptId: string;
+  readonly cycleInstanceId: string | null;
+  readonly role: W3bEvidenceAdmissionRole;
+}): { ok: true } | { ok: false; reason: string } {
+  const e = input.evidence;
+  if (e.status !== "verified") {
+    return { ok: false, reason: "evidence_not_verified" };
+  }
+  const b = e.bindings ?? {};
+  if ((b.projectId ?? null) !== input.projectId) {
+    return { ok: false, reason: "evidence_project_mismatch" };
+  }
+  if ((b.executionContractId ?? null) !== input.executionContractId) {
+    return { ok: false, reason: "evidence_execution_contract_mismatch" };
+  }
+  if ((b.executionAttemptId ?? null) !== input.executionAttemptId) {
+    return { ok: false, reason: "evidence_execution_attempt_mismatch" };
+  }
+  const evidenceCycle = b.cycleInstanceId?.trim() || null;
+  const contractCycle = input.cycleInstanceId?.trim() || null;
+  if (contractCycle) {
+    if (evidenceCycle !== contractCycle) {
+      return { ok: false, reason: "evidence_cycle_mismatch" };
+    }
+  } else if (evidenceCycle) {
+    // Project-only EC: refuse foreign / leftover cycle binding.
+    return { ok: false, reason: "evidence_foreign_cycle_on_project_only" };
+  }
+
+  if (input.role === "verification") {
+    if (e.sourceKind !== "execution_attempt") {
+      return { ok: false, reason: "verification_source_kind_mismatch" };
+    }
+    if (e.provenance?.source !== "execution_adapter") {
+      return { ok: false, reason: "verification_provenance_mismatch" };
+    }
+  } else if (input.role === "generic_materialization") {
+    if (e.sourceKind !== "external") {
+      return { ok: false, reason: "generic_mat_source_kind_mismatch" };
+    }
+    if (e.source !== GENERIC_FILESYSTEM_MATERIALIZATION_EVIDENCE_SOURCE_EXPORT) {
+      return { ok: false, reason: "generic_mat_source_mismatch" };
+    }
+  } else if (input.role === "mission_result") {
+    if (e.sourceKind !== "execution_attempt") {
+      return { ok: false, reason: "mission_source_kind_mismatch" };
+    }
+  }
+
+  return { ok: true };
+}
+
+export function resolveW3bEvidenceAdmission(
+  evidence: Evidence | null | undefined,
+  ctx: {
+    readonly projectId: string;
+    readonly executionContractId: string;
+    readonly executionAttemptId: string;
+    readonly cycleInstanceId: string | null;
+    readonly role: W3bEvidenceAdmissionRole;
+  },
+): W3bEvidenceAdmissionResolution {
+  if (!evidence) return { kind: "absent" };
+  const check = evidenceAdmissibleForW3bExecutionContext({
+    evidence,
+    ...ctx,
+  });
+  if (check.ok) {
+    return { kind: "admissible", evidence };
+  }
+  return {
+    kind: "rejected",
+    evidence,
+    role: ctx.role,
+    reason: check.reason,
+  };
+}
+
+function productCodeForW3bEvidenceRejection(reason: string): string {
+  switch (reason) {
+    case "evidence_project_mismatch":
+      return "EVIDENCE_PROJECT_MISMATCH";
+    case "evidence_execution_contract_mismatch":
+      return "EVIDENCE_CONTRACT_MISMATCH";
+    case "evidence_execution_attempt_mismatch":
+      return "EVIDENCE_ATTEMPT_MISMATCH";
+    case "evidence_cycle_mismatch":
+    case "evidence_foreign_cycle_on_project_only":
+      return "EVIDENCE_CYCLE_MISMATCH";
+    default:
+      return W3B_EVIDENCE_ADMISSION_REJECTED;
+  }
+}
 
 function w3cUnavailableFailure(
   cause: unknown,
@@ -203,6 +333,27 @@ function projectFromFacts(input: {
   return projectW3bProductTerminal(input);
 }
 
+function w3bEvidenceRejectionFailure(input: {
+  readonly attempt: ExecutionAttempt;
+  readonly contract: ExecutionContract;
+  readonly primaryEvidence: Evidence | null;
+  readonly rejection: Extract<W3bEvidenceAdmissionResolution, { kind: "rejected" }>;
+}): Extract<MaterializeW3bProductTerminalResult, { ok: false }> {
+  const { rejection } = input;
+  return {
+    ok: false,
+    code: productCodeForW3bEvidenceRejection(rejection.reason),
+    message: `W3-B Evidence admission rejected (${rejection.role}): ${rejection.reason} for ${rejection.evidence.evidenceId}`,
+    product: projectFromFacts({
+      attempt: input.attempt,
+      contract: input.contract,
+      evidence: input.primaryEvidence,
+      reviewBundle: null,
+      claimEvaluation: null,
+    }),
+  };
+}
+
 function boundActionOf(
   attempt: ExecutionAttempt,
   contract: ExecutionContract,
@@ -275,22 +426,36 @@ export async function materializeW3bProductTerminal(input: {
   const isMissionProduct = contract.constraints.includes(
     PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
   );
+  const ownershipCtx = {
+    projectId: input.projectId,
+    executionContractId: contract.executionContractId,
+    executionAttemptId: attempt.attemptId,
+    cycleInstanceId: contract.cycleInstanceId?.trim() || null,
+  };
   let evidenceIdsForBundle: string[] = [ingested.evidence.evidenceId];
   let primaryEvidence = ingested.evidence;
   if (isMissionProduct) {
     const missionEvidenceId = missionResultEvidenceIdForAttempt(attempt.attemptId);
-    const missionEvidence =
-      await services.evidenceReader.findById(missionEvidenceId);
-      if (missionEvidence && missionEvidence.status === "verified") {
-      evidenceIdsForBundle = [missionEvidence.evidenceId];
-      primaryEvidence = missionEvidence;
+    const missionRaw = await services.evidenceReader.findById(missionEvidenceId);
+    const missionAdmission = resolveW3bEvidenceAdmission(missionRaw, {
+      ...ownershipCtx,
+      role: "mission_result",
+    });
+    if (missionAdmission.kind === "rejected") {
+      return w3bEvidenceRejectionFailure({
+        attempt,
+        contract,
+        primaryEvidence,
+        rejection: missionAdmission,
+      });
+    }
+    if (missionAdmission.kind === "admissible") {
+      evidenceIdsForBundle = [missionAdmission.evidence.evidenceId];
+      primaryEvidence = missionAdmission.evidence;
       // CP2-04 — include Verification Evidence in same ReviewBundle only when
       // the EC requires studio-verified-changeset (generic local-write path).
       // Historical clarify/read missions must keep a mission-only RB so CE
       // bindings.evidenceRefs match reviewBundle.evidenceRefs.
-      const { executionReviewVerificationEvidenceIdForAttempt } = await import(
-        "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence"
-      );
       const { missionRequiresStudioVerification } = await import(
         "@/lib/oa/evidence-review/application/missionResultContractResultSemantic"
       );
@@ -311,18 +476,77 @@ export async function materializeW3bProductTerminal(input: {
       if (requiresVerification) {
         const verificationEvidenceId =
           executionReviewVerificationEvidenceIdForAttempt(attempt.attemptId);
-        const verificationEvidence =
+        const verificationRaw =
           await services.evidenceReader.findById(verificationEvidenceId);
-        if (verificationEvidence && verificationEvidence.status === "verified") {
+        const verificationAdmission = resolveW3bEvidenceAdmission(
+          verificationRaw,
+          {
+            ...ownershipCtx,
+            role: "verification",
+          },
+        );
+        if (verificationAdmission.kind === "rejected") {
+          return w3bEvidenceRejectionFailure({
+            attempt,
+            contract,
+            primaryEvidence,
+            rejection: verificationAdmission,
+          });
+        }
+        if (verificationAdmission.kind === "admissible") {
           evidenceIdsForBundle = [
-            missionEvidence.evidenceId,
-            verificationEvidence.evidenceId,
+            missionAdmission.evidence.evidenceId,
+            verificationAdmission.evidence.evidenceId,
           ];
         }
+        // ABSENT verification → mission-only RB (honest incomplete / NOT_PROVEN).
       }
     }
-    // Missing / unverified Mission Evidence → tech-only RB; mission semantic
-    // yields NOT_PROVEN / Product UNCLAIMED (honest).
+    // ABSENT Mission Evidence → tech-only RB; mission semantic NOT_PROVEN / UNCLAIMED.
+    // REJECTED Mission Evidence never falls through as absence (R-S8-03).
+  } else {
+    // S8 Project-first Generic (no PRODUCT_MISSION stamp): include owned verified
+    // Studio Verification + generic_materialization Evidence when ADMISSIBLE.
+    // ABSENT → continue without that Evidence (honest).
+    // REJECTED → fail-closed Product (never silent-as-absent).
+    const verificationEvidenceId =
+      executionReviewVerificationEvidenceIdForAttempt(attempt.attemptId);
+    const verificationRaw =
+      await services.evidenceReader.findById(verificationEvidenceId);
+    const verificationAdmission = resolveW3bEvidenceAdmission(verificationRaw, {
+      ...ownershipCtx,
+      role: "verification",
+    });
+    if (verificationAdmission.kind === "rejected") {
+      return w3bEvidenceRejectionFailure({
+        attempt,
+        contract,
+        primaryEvidence,
+        rejection: verificationAdmission,
+      });
+    }
+    if (verificationAdmission.kind === "admissible") {
+      evidenceIdsForBundle.push(verificationAdmission.evidence.evidenceId);
+    }
+    const genericMatId = genericMaterializationEvidenceIdForAttempt(
+      attempt.attemptId,
+    );
+    const genericMatRaw = await services.evidenceReader.findById(genericMatId);
+    const genericMatAdmission = resolveW3bEvidenceAdmission(genericMatRaw, {
+      ...ownershipCtx,
+      role: "generic_materialization",
+    });
+    if (genericMatAdmission.kind === "rejected") {
+      return w3bEvidenceRejectionFailure({
+        attempt,
+        contract,
+        primaryEvidence,
+        rejection: genericMatAdmission,
+      });
+    }
+    if (genericMatAdmission.kind === "admissible") {
+      evidenceIdsForBundle.push(genericMatAdmission.evidence.evidenceId);
+    }
   }
 
   const bundle = await services.createReviewBundle.execute({
@@ -337,10 +561,23 @@ export async function materializeW3bProductTerminal(input: {
   });
 
   if (!bundle.ok) {
+    // R-S8-02 — fingerprint mismatch (e.g. late Evidence after prior create) must
+    // not be projected as Product success; OA fail-closed IDEMPOTENCY_CONFLICT.
+    const lateHint =
+      bundle.error.detailCode === "IDEMPOTENCY_CONFLICT"
+        ? ` — late or divergent Evidence set cannot rewrite frozen/idempotent ReviewBundle for Attempt ${attempt.attemptId}`
+        : "";
     return {
       ok: false,
       code: bundle.error.detailCode,
-      message: bundle.error.message,
+      message: `${bundle.error.message}${lateHint}`,
+      product: projectFromFacts({
+        attempt,
+        contract,
+        evidence: primaryEvidence,
+        reviewBundle: bundle.reviewBundle ?? null,
+        claimEvaluation: null,
+      }),
     };
   }
 

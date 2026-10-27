@@ -45,6 +45,10 @@ import { ingestMissionResultEvidence } from "@/features/project-assistant/f3/ing
 import { finalizeGenericExecutionReview } from "@/features/project-assistant/f3/finalizeGenericExecutionReview";
 import { ingestExecutionReviewVerificationEvidence } from "@/features/project-assistant/f3/ingestExecutionReviewVerificationEvidence";
 import {
+  ingestGenericFilesystemMaterializationArtifactEvidence,
+  selectPrimaryGenericMaterializationPath,
+} from "@/features/project-assistant/f3/ingestGenericFilesystemMaterializationArtifactEvidence";
+import {
   buildMissionResultPayloadFromReport,
   type CursorExecutionReportWithMission,
 } from "@/features/project-assistant/f3/buildMissionResultPayloadFromReport";
@@ -1254,12 +1258,15 @@ export async function governedExecuteRecordResult(
       }
       attempt = completed.attempt;
 
-      if (
-        completed.status === "succeeded" &&
-        completed.facts &&
-        contract.cycleInstanceId &&
-        contract.constraints.includes(PRODUCT_MISSION_FROM_DURABLE_CONTEXT)
-      ) {
+      // S8 Project-first: CycleInstance optional. Same Evidence mechanisms;
+      // never invent a cycle id. Mission Result ingest only when the durable
+      // PRODUCT_MISSION_FROM_DURABLE_CONTEXT constraint is already present
+      // (do not stamp it artificially for Generic PREPARE).
+      if (completed.status === "succeeded" && completed.facts) {
+        const cycleInstanceId = contract.cycleInstanceId?.trim() || null;
+        const isMissionProduct = contract.constraints.includes(
+          PRODUCT_MISSION_FROM_DURABLE_CONTEXT,
+        );
         const stdout = completed.observation?.stdout ?? "";
         const report = tryParseReportFromStdout(stdout);
         const expectedRepo =
@@ -1308,14 +1315,14 @@ export async function governedExecuteRecordResult(
 
         // CR-01 — Generic Product nominal: observe worktree → VerifiedChangeSet →
         // finalize Generic Review Material BEFORE Evidence/mission ingest.
-        // worktreeRef is server-owned (RealProcessObservation / LaunchAck).
+        // Runs for Project-only and cycle-bound when a Cursor report is present.
         if (report) {
           const worktreeRef =
             completed.observation?.worktreeRef?.trim() || null;
           const finalized = await finalizeGenericExecutionReview({
             refsRoot,
             projectId: input.projectId,
-            cycleInstanceId: contract.cycleInstanceId,
+            ...(cycleInstanceId ? { cycleInstanceId } : {}),
             executionContractId: contract.executionContractId,
             attemptId: attempt.attemptId,
             repositoryRef:
@@ -1364,7 +1371,7 @@ export async function governedExecuteRecordResult(
             await ingestExecutionReviewVerificationEvidence({
               evidenceReviewServices: input.oa.evidenceReviewServices,
               projectId: input.projectId,
-              cycleInstanceId: contract.cycleInstanceId,
+              cycleInstanceId,
               executionContractId: contract.executionContractId,
               executionAttemptId: attempt.attemptId,
               payload: verificationPayload,
@@ -1379,53 +1386,125 @@ export async function governedExecuteRecordResult(
               attempt: projectAttempt(attempt, adapterId),
             };
           }
+
+          // L3-S2 Lot A — generic FS materialization Evidence (FS→SHA source).
+          // Fail-closed skip on ambiguous multi-path (no invented primary).
+          // Digest of content ≠ Git commit SHA — commit Evidence stays separate.
+          if (
+            finalized.verificationStatus === "OBSERVED" &&
+            finalized.verifiedChangeSet
+          ) {
+            const observed = finalized.verifiedChangeSet.all
+              .filter((e) => e.status === "created" || e.status === "modified")
+              .map((e) => e.path);
+            const preferred: string[] = [];
+            const targetPath =
+              typeof contract.inputs?.targetPath === "string"
+                ? contract.inputs.targetPath.trim()
+                : "";
+            if (targetPath) preferred.push(targetPath);
+            if (Array.isArray(contract.expectedOutputs)) {
+              for (const o of contract.expectedOutputs) {
+                const s = String(o).trim();
+                if (s && s.includes("/") && !s.includes(":")) preferred.push(s);
+              }
+            }
+            const selected = selectPrimaryGenericMaterializationPath({
+              observedPaths: observed,
+              preferredPaths: preferred,
+            });
+            if (selected.ok) {
+              const entry = finalized.verifiedChangeSet.all.find(
+                (e) => e.path === selected.logicalPath,
+              );
+              const digest = entry?.afterDigest?.trim() ?? "";
+              let bytes: Buffer | null = null;
+              if (entry?.contentAbsolutePath) {
+                try {
+                  if (fs.existsSync(entry.contentAbsolutePath)) {
+                    bytes = fs.readFileSync(entry.contentAbsolutePath);
+                  }
+                } catch {
+                  bytes = null;
+                }
+              }
+              if (bytes && digest.startsWith("sha256:")) {
+                const stamped =
+                  await ingestGenericFilesystemMaterializationArtifactEvidence({
+                    evidenceReviewServices: input.oa.evidenceReviewServices,
+                    projectId: input.projectId,
+                    cycleInstanceId,
+                    executionContractId: contract.executionContractId,
+                    executionAttemptId: attempt.attemptId,
+                    logicalPath: selected.logicalPath,
+                    artifactBytes: bytes,
+                    digest,
+                    refsRoot,
+                  });
+                if (!stamped.ok) {
+                  return {
+                    ok: false,
+                    code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+                    message: `Attempt succeeded durable — Generic materialization Evidence échoué (${stamped.code}): ${stamped.message}`,
+                    attempt: projectAttempt(attempt, adapterId),
+                  };
+                }
+              }
+              // Missing bytes/digest → honest skip (verification Evidence still holds FACTS).
+            }
+            // AMBIGUOUS / NONE → honest skip (no invented primary path).
+          }
         }
 
-        const built = report
-          ? buildMissionResultPayloadFromReport({ report })
-          : ({
-              ok: false as const,
-              code: "MISSION_RESULT_REPORT_REQUIRED",
-              message:
-                "Mission Result Evidence requires a structured CursorExecutionReport with missionResult fields.",
-            } as const);
-        if (built.ok) {
-          const ingested = await ingestMissionResultEvidence({
-            evidenceReviewServices: input.oa.evidenceReviewServices,
-            projectId: input.projectId,
-            cycleInstanceId: contract.cycleInstanceId,
-            executionContractId: contract.executionContractId,
-            executionAttemptId: attempt.attemptId,
-            payload: built.payload,
-            refsRoot,
-            technicalResultRef: attempt.resultRef,
-          });
-          if (!ingested.ok) {
-            return {
-              ok: false,
-              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
-              message: `Attempt succeeded durable — ingest Mission Evidence échoué (${ingested.code}): ${ingested.message}`,
-              attempt: projectAttempt(attempt, adapterId),
-            };
+        // Mission Result Evidence — KEEP applicability gate (constraint must already
+        // exist on the EC). Do not invent PRODUCT_MISSION for Generic PREPARE.
+        if (isMissionProduct) {
+          const built = report
+            ? buildMissionResultPayloadFromReport({ report })
+            : ({
+                ok: false as const,
+                code: "MISSION_RESULT_REPORT_REQUIRED",
+                message:
+                  "Mission Result Evidence requires a structured CursorExecutionReport with missionResult fields.",
+              } as const);
+          if (built.ok) {
+            const ingested = await ingestMissionResultEvidence({
+              evidenceReviewServices: input.oa.evidenceReviewServices,
+              projectId: input.projectId,
+              cycleInstanceId,
+              executionContractId: contract.executionContractId,
+              executionAttemptId: attempt.attemptId,
+              payload: built.payload,
+              refsRoot,
+              technicalResultRef: attempt.resultRef,
+            });
+            if (!ingested.ok) {
+              return {
+                ok: false,
+                code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+                message: `Attempt succeeded durable — ingest Mission Evidence échoué (${ingested.code}): ${ingested.message}`,
+                attempt: projectAttempt(attempt, adapterId),
+              };
+            }
+            const advanced = await advanceProductExecutionContractAfterEvidence({
+              oa: input.oa,
+              projectId: input.projectId,
+              executionContractId: contract.executionContractId,
+              cycleInstanceId,
+              freshlyIngestedEvidenceId: ingested.evidenceId,
+            });
+            if (!advanced.ok) {
+              return {
+                ok: false,
+                code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
+                message: `Attempt succeeded durable — avancement EC post-Evidence échoué (${advanced.reason}).`,
+                attempt: projectAttempt(attempt, adapterId),
+              };
+            }
           }
-          const advanced = await advanceProductExecutionContractAfterEvidence({
-            oa: input.oa,
-            projectId: input.projectId,
-            executionContractId: contract.executionContractId,
-            cycleInstanceId: contract.cycleInstanceId,
-            freshlyIngestedEvidenceId: ingested.evidenceId,
-          });
-          if (!advanced.ok) {
-            return {
-              ok: false,
-              code: "POST_EXECUTION_CONTINUITY_ADVANCE_FAILED",
-              message: `Attempt succeeded durable — avancement EC post-Evidence échoué (${advanced.reason}).`,
-              attempt: projectAttempt(attempt, adapterId),
-            };
-          }
+          // Technical succeed without mission payload → Attempt remains succeeded;
+          // ContractResult stays not_proven (honest). Do not invent Evidence.
         }
-        // Technical succeed without mission payload → Attempt remains succeeded;
-        // ContractResult stays not_proven (honest). Do not invent Evidence.
       }
     }
 

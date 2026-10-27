@@ -317,3 +317,21 @@ Untracked (documented, digests not expanded): `cognitiveExecutionReceipt.ts`, `t
 | OBJ-PROPOSAL | F06, F07, F17 |
 | OBJ-EC | F08–F11, F18 |
 | OBJ-MEMORY-B | F02, F04, F19 |
+
+
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+
+> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+
+### Dependency impact (LOCAL CANDIDATE)
+
+**SEMANTIC IMPACT = YES (bounded Product Evidence→RB admission)** on OBJ-EVIDENCE / OBJ-RB / OBJ-CLAIM consumers of W3-B — **no** new OA aggregate, **no** new persistence dependency, **no** change to SHE authority graph.
+
+| Edge | Impact |
+|---|---|
+| Attempt → Evidence (Verification / generic_mat / Mission) | LOCAL Product ingest paths; Cycle binding optional |
+| Evidence → ReviewBundle | Ownership gate before create; REJECTED blocks edge |
+| ReviewBundle → ClaimEvaluation | Unchanged OA; only admissible Evidence set |
+| Product Result projection | Fail-closed on REJECTED / IDEMPOTENCY_CONFLICT |
+
+**Volumes with UPDATE REQUIRED:** 02, 03, 06, 07, 08, 09, README. **01 / 05:** NO SEMANTIC IMPACT (not edited).

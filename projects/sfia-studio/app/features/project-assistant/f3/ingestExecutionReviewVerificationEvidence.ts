@@ -121,7 +121,8 @@ export function persistExecutionReviewVerificationPayload(input: {
 export type IngestExecutionReviewVerificationEvidenceInput = {
   evidenceReviewServices: EvidenceReviewServices;
   projectId: string;
-  cycleInstanceId: string;
+  /** Optional — omit for S8 Project-first (never invent a fake cycle id). */
+  cycleInstanceId?: string | null;
   executionContractId: string;
   executionAttemptId: string;
   payload: ExecutionReviewVerificationPayload;
@@ -170,8 +171,10 @@ export async function ingestExecutionReviewVerificationEvidence(
       digest: persisted.digest as never,
       bindings: {
         projectId: input.projectId,
-        cycleInstanceId: input.cycleInstanceId,
         executionContractId: input.executionContractId,
+        ...(input.cycleInstanceId?.trim()
+          ? { cycleInstanceId: input.cycleInstanceId.trim() }
+          : {}),
       },
       correlationId:
         input.correlationId ?? `cor:execution-review-verification:${evidenceId}`,

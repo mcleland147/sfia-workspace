@@ -27,7 +27,10 @@ import {
   lastW3cEvidenceIdInLpsContext,
 } from "@/features/project-assistant/f3/postEvidenceNoraAnalysis";
 import { resolveProductEvidenceRefsRoot } from "@/features/project-assistant/f3/productEvidenceRefsRoot";
-import { loadGenericExecutionReviewMaterial } from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
+import {
+  loadGenericExecutionReviewMaterial,
+  readExecutionReviewItemBytes,
+} from "@/features/project-assistant/f3/persistGenericExecutionReviewMaterial";
 import {
   buildCkcCognitivePromptSection,
   loadProductCkcCognitiveContent,
@@ -77,8 +80,14 @@ export type W3cExecutionReportSurface = {
 
 /**
  * Rebuild business-first execution report from durable server-owned refs
- * (mission-result-refs). Shared by fresh W3-C and rehydrate — never invent
- * a Cursor report when the claim file is absent.
+ * (mission-result-refs / Generic Execution Review Material). Shared by fresh
+ * W3-C and rehydrate — never invent a Cursor report when the claim file is absent.
+ *
+ * Completeness honesty (CORR-S2-03 / R-S2-04):
+ * - never upgrade PARTIAL → FULL;
+ * - truncation of presented bytes ⇒ PARTIAL;
+ * - expected contentRef present but unreadable ⇒ PARTIAL (never FULL of missing content);
+ * - no contentRef required ⇒ keep manifest completeness (do not invent an artifact gap).
  */
 export function projectW3cExecutionReportSurfaceFromDurable(input: {
   readonly attemptId: string;
@@ -93,15 +102,255 @@ export function projectW3cExecutionReportSurfaceFromDurable(input: {
   readonly stopReason: string | undefined;
   readonly cursorReportSummary: string | undefined;
 } {
-  void input;
+  const refsRoot = resolveProductEvidenceRefsRoot(input.refsRoot);
+  const loaded = loadGenericExecutionReviewMaterial({
+    refsRoot,
+    attemptId: input.attemptId,
+  });
+  if (!loaded.ok) {
+    // No durable GERM — honest empty surface (do not invent Cursor report).
+    return {
+      executionReport: null,
+      artifactReviewMaterial: undefined,
+      artifactReviewCompleteness: undefined,
+      workPerformedSummary: undefined,
+      blockersSummary: undefined,
+      stopReason: undefined,
+      cursorReportSummary: undefined,
+    };
+  }
+
+  const { manifest, cursorReport, verifiedChangeSet } = loaded;
+  // Start from durable manifest; never promote PARTIAL → FULL.
+  let completeness: "FULL" | "PARTIAL" =
+    manifest.completeness === "FULL" ? "FULL" : "PARTIAL";
+
+  let artifactReviewMaterial: string | undefined;
+  let contentUnavailableNote: string | undefined;
+  const preferred =
+    typeof input.targetPath === "string" && input.targetPath.trim()
+      ? input.targetPath.trim()
+      : null;
+  const itemCandidates = manifest.reviewItems.filter(
+    (i) => i.kind === "artifact" || i.kind === "file",
+  );
+  const preferredItem =
+    (preferred
+      ? itemCandidates.find((i) => i.logicalPath === preferred)
+      : undefined) ?? itemCandidates[0];
+  if (preferredItem?.contentRef) {
+    // Expected durable bytes — presentation completeness must reflect actual read.
+    let bytes: ReturnType<typeof readExecutionReviewItemBytes>;
+    try {
+      bytes = readExecutionReviewItemBytes({
+        refsRoot,
+        contentRef: preferredItem.contentRef,
+        byteCap: 12_000,
+      });
+    } catch (err) {
+      // Minimal guard: normal unavailability must not throw through the surface.
+      bytes = {
+        ok: false,
+        code: "EXECUTION_REVIEW_ITEM_READ_THREW",
+        message: err instanceof Error ? err.message : String(err),
+      };
+    }
+    if (bytes.ok) {
+      artifactReviewMaterial = bytes.text;
+      if (bytes.completeness === "PARTIAL") {
+        completeness = "PARTIAL";
+      }
+    } else {
+      // R-S2-04 — contentRef expected but unreadable: never claim FULL of presented content.
+      completeness = "PARTIAL";
+      contentUnavailableNote = `Review item content unavailable (${bytes.code})`;
+      // Do not invent material or Cursor CLAIM.
+    }
+  }
+
+  const pathSummary =
+    verifiedChangeSet &&
+    manifest.verifiedEffects.verificationStatus === "OBSERVED"
+      ? verifiedChangeSet.all
+          .map((e) => `${e.status}:${e.path}`)
+          .slice(0, 12)
+          .join("; ")
+      : null;
+
+  const workPerformedSummary =
+    (cursorReport?.workPerformed?.length
+      ? cursorReport.workPerformed.join("; ")
+      : undefined) ||
+    (pathSummary ? `Studio observed: ${pathSummary}` : undefined);
+
+  const baseBlockersSummary =
+    manifest.blockers.length > 0
+      ? manifest.blockers.join(" · ")
+      : cursorReport?.blockers?.length
+        ? cursorReport.blockers.join(" · ")
+        : undefined;
+
+  const blockersSummary = contentUnavailableNote
+    ? baseBlockersSummary
+      ? `${baseBlockersSummary} · ${contentUnavailableNote}`
+      : contentUnavailableNote
+    : baseBlockersSummary;
+
+  const baseReservationsSummary =
+    manifest.reservations.length > 0
+      ? manifest.reservations.join(" · ")
+      : cursorReport?.reservations?.length
+        ? cursorReport.reservations.join(" · ")
+        : null;
+
+  const reservationsSummary = contentUnavailableNote
+    ? baseReservationsSummary
+      ? `${baseReservationsSummary} · ${contentUnavailableNote}`
+      : contentUnavailableNote
+    : baseReservationsSummary;
+
+  const stopReason =
+    (typeof cursorReport?.stopConditionTriggered === "string" &&
+    cursorReport.stopConditionTriggered.trim()
+      ? cursorReport.stopConditionTriggered.trim()
+      : undefined) || undefined;
+
+  const cursorReportSummary = cursorReport
+    ? [
+        cursorReport.status ? `status=${cursorReport.status}` : null,
+        workPerformedSummary ? `work=${workPerformedSummary.slice(0, 240)}` : null,
+        blockersSummary ? `blockers=${blockersSummary.slice(0, 160)}` : null,
+      ]
+        .filter(Boolean)
+        .join(" · ") || undefined
+    : undefined;
+
+  // CLAIM absent → executionReport null (may still expose PARTIAL material).
+  const executionReport: W3cExecutionReportSurface | null = cursorReport
+    ? {
+        cursorStatus: cursorReport.status ?? null,
+        workPerformedSummary: workPerformedSummary ?? null,
+        artifactsSummary: pathSummary,
+        validationsSummary:
+          cursorReport.validationEffects
+            ?.map((v) => `${v.identity}:${v.result}`)
+            .slice(0, 8)
+            .join("; ") ?? null,
+        blockersSummary: blockersSummary ?? null,
+        reservationsSummary,
+        artifactReviewCompleteness: completeness,
+      }
+    : null;
+
   return {
-    executionReport: null,
-    artifactReviewMaterial: undefined,
-    artifactReviewCompleteness: undefined,
-    workPerformedSummary: undefined,
-    blockersSummary: undefined,
-    stopReason: undefined,
-    cursorReportSummary: undefined,
+    executionReport,
+    artifactReviewMaterial,
+    artifactReviewCompleteness: completeness,
+    workPerformedSummary,
+    blockersSummary,
+    stopReason,
+    cursorReportSummary,
+  };
+}
+
+/**
+ * Nora initial cognitive facts (Tool-First Deep Review / CP2-10 / R-CI-623-02):
+ * durable GERM may record `CLAIM_FACT_MISMATCH unclaimed=<paths>`, but path-level
+ * Claim≠Fact detail must be acquired via `execution_review_get_manifest` — not
+ * pre-disclosed in the first provider prompt. Pilot / Product / rehydrate keep
+ * the full durable projection from {@link projectW3cExecutionReportSurfaceFromDurable}.
+ *
+ * Producer format (finalizeGenericExecutionReview):
+ *   `CLAIM_FACT_MISMATCH unclaimed=${unclaimedObservedPaths.join(",")}`
+ * Path lists are comma-joined **without** spaces. Blocker tokens are separated by
+ * whitespace / ` · ` / `|` / `;`. Consuming `\S*` after `unclaimed=` therefore
+ * covers the full multi-path list without stopping at `,` (R-CI-623-01 defect)
+ * and without swallowing independent blockers after a whitespace delimiter.
+ *
+ * This redacts the structured `unclaimed=…` suffix class — it does not
+ * filename-filter a single path string in isolation.
+ */
+export function redactClaimFactUnclaimedPathsForNoraInitialContext(
+  summary: string | undefined,
+): string | undefined {
+  if (summary === undefined) return undefined;
+  // Case-insensitive: durable may emit CLAIM_FACT_MISMATCH or claim_fact_mismatch.
+  return summary.replace(
+    /\bCLAIM_FACT_MISMATCH(?:\s+unclaimed=\S*)?/gi,
+    "CLAIM_FACT_MISMATCH",
+  );
+}
+
+function omitUnclaimedPathsFromStudioObservedWorkSummary(
+  summary: string | undefined,
+  unclaimedPaths: readonly string[],
+): string | undefined {
+  if (summary === undefined || unclaimedPaths.length === 0) return summary;
+  if (!summary.startsWith("Studio observed:")) return summary;
+  const unclaimed = new Set(unclaimedPaths);
+  const entries = summary
+    .slice("Studio observed:".length)
+    .split(";")
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .filter((entry) => {
+      const pathPart = entry.includes(":")
+        ? entry.slice(entry.indexOf(":") + 1).trim()
+        : entry;
+      return !unclaimed.has(pathPart);
+    });
+  if (entries.length === 0) {
+    return "Studio observed: (path-level Claim≠Fact detail via execution_review_get_manifest)";
+  }
+  return `Studio observed: ${entries.join("; ")}`;
+}
+
+/**
+ * Assemble Nora-bound post-Evidence facts from the durable surface without
+ * short-circuiting Tool-First Claim≠Fact path disclosure.
+ */
+function projectNoraInitialPostEvidenceSurface(input: {
+  readonly durable: ReturnType<typeof projectW3cExecutionReportSurfaceFromDurable>;
+  readonly unclaimedObservedPaths: readonly string[];
+  readonly artifactLogicalPath: string | null | undefined;
+}): {
+  readonly workPerformedSummary: string | undefined;
+  readonly blockersSummary: string | undefined;
+  readonly stopReason: string | undefined;
+  readonly artifactReviewMaterial: string | undefined;
+  readonly artifactReviewCompleteness: "FULL" | "PARTIAL" | undefined;
+  readonly cursorReportSummary: string | undefined;
+} {
+  const unclaimed = input.unclaimedObservedPaths;
+  const workPerformedSummary = omitUnclaimedPathsFromStudioObservedWorkSummary(
+    input.durable.workPerformedSummary,
+    unclaimed,
+  );
+  const blockersSummary = redactClaimFactUnclaimedPathsForNoraInitialContext(
+    input.durable.blockersSummary,
+  );
+  // Rebuild compact Cursor summary from redacted blockers so path lists cannot
+  // re-enter via the pre-built durable cursorReportSummary.
+  const cursorReportSummary = input.durable.cursorReportSummary
+    ? redactClaimFactUnclaimedPathsForNoraInitialContext(
+        input.durable.cursorReportSummary,
+      )
+    : undefined;
+  const artifactIsUnclaimed =
+    typeof input.artifactLogicalPath === "string" &&
+    input.artifactLogicalPath.length > 0 &&
+    unclaimed.includes(input.artifactLogicalPath);
+  return {
+    workPerformedSummary,
+    blockersSummary,
+    stopReason: input.durable.stopReason,
+    artifactReviewMaterial: artifactIsUnclaimed
+      ? undefined
+      : input.durable.artifactReviewMaterial,
+    artifactReviewCompleteness: artifactIsUnclaimed
+      ? undefined
+      : input.durable.artifactReviewCompleteness,
+    cursorReportSummary,
   };
 }
 
@@ -1452,17 +1701,12 @@ export async function runW3cPostEvidenceLoop(input: {
 
   // Durable Cursor report + artifact review material (no Pilot paste / PATH widen).
   // Shared projection with rehydrate — never invent a report when claim file absent.
+  // Pilot / Product keep the FULL durable surface; Nora initial facts are Tool-First
+  // redacted below (CP2-10) so unclaimed paths are not pre-disclosed.
   const durableProjection = projectW3cExecutionReportSurfaceFromDurable({
     attemptId,
     targetPath: docsWriteTargetPath,
   });
-  const workPerformedSummary = durableProjection.workPerformedSummary;
-  const blockersSummary = durableProjection.blockersSummary;
-  const stopReason = durableProjection.stopReason;
-  const artifactReviewMaterial = durableProjection.artifactReviewMaterial;
-  const artifactReviewCompleteness =
-    durableProjection.artifactReviewCompleteness;
-  const cursorReportSummary = durableProjection.cursorReportSummary;
   const executionReport = durableProjection.executionReport;
 
   noraInvoked = true;
@@ -1478,6 +1722,21 @@ export async function runW3cPostEvidenceLoop(input: {
     reviewMaterialLoaded.ok &&
     reviewMaterialLoaded.manifest.projectId === projectId &&
     reviewMaterialLoaded.manifest.attemptId === attemptId;
+
+  const unclaimedObservedPaths = reviewMaterialLoaded.ok
+    ? (reviewMaterialLoaded.verifiedChangeSet?.unclaimedObservedPaths ?? [])
+    : [];
+  const noraInitial = projectNoraInitialPostEvidenceSurface({
+    durable: durableProjection,
+    unclaimedObservedPaths,
+    artifactLogicalPath: docsWriteTargetPath,
+  });
+  const workPerformedSummary = noraInitial.workPerformedSummary;
+  const blockersSummary = noraInitial.blockersSummary;
+  const stopReason = noraInitial.stopReason;
+  const artifactReviewMaterial = noraInitial.artifactReviewMaterial;
+  const artifactReviewCompleteness = noraInitial.artifactReviewCompleteness;
+  const cursorReportSummary = noraInitial.cursorReportSummary;
 
   const analysis = await analyzePostEvidenceWithProvider(
     {

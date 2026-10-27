@@ -202,3 +202,22 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
 - Nominal Git HEAD binding; durable VerifiedChangeSet digest; REO binding; missing REO blocks ContractResult PASS.
 - W3-C nominally enables execution_review_* tools; ReviewItem integrity checked.
 - Proof ceiling claimed when EP/T green: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
+
+
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+
+> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+
+### Proof index — Option B / S8 (LOCAL DET — reported from Pass 04/05 handoffs; not re-executed in R24 cycle)
+
+| Suite / oracle | Result (Pass 05) | Proof level |
+|---|---|---|
+| `akgM5L3S2.optionB.lotsAC.d0.test.ts` | Lots A/B/C + CORR-S2 / R-S2 coverage | DET |
+| `akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` | **17 PASS** (nominal · O2 OBSERVED · O8 REJECTED unconditional · O10 late Evidence · ownership E1–E9 · ABSENT≠REJECTED) | DET |
+| `akgM5L3S1.genericExecutionIntegrated.d0.test.ts` | Non-reg L3-S1 | DET |
+| `productMissionEvidenceChain.e2e.d0.test.ts` | Mission cycle-bound non-reg | DET |
+| `gcecCont01ContinuationResolver.d0.test.ts` + W3-C suites | Continuation / FS-anchor / W3-C | DET |
+| Consolidated non-reg batch (Pass 05) | **6 files / 105 PASS** | DET |
+| `npm run typecheck` / `npm run lint` | PASS (2 pre-existing unused-var warnings) | tooling |
+
+**Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**.

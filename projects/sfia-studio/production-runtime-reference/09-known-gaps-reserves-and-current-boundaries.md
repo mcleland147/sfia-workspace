@@ -5,6 +5,28 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
+
+## Overlay — AKG-M5 L3-S2 Option B / S8 (LOCAL CANDIDATE — 2026-10-27)
+
+> **LOCAL CANDIDATE** · branch `feat/akg-m5-l3-s2-generic-proof-continuity` · HEAD `6e957ecb` (= main) dirty · handoff Pass 05 `91a1dbaa` / `c5ccaee4` · **≠ CURRENT ON MAIN** · Git Integration **NOT AUTHORIZED**.
+
+| Item | Status | Owner / exit |
+|---|---|---|
+| Option B Product + S8 + R-S8-01…04 | **LOCAL DET ACCEPTED** (Critical Reviews) | Morris Git Integration GO (distinct) |
+| EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
+| EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
+| Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession | Morris/OA — reopen policy or new Attempt |
+| Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
+| CURRENT ON MAIN gap « no new generic materialization Evidence » (#618) | Still **OPEN ON MAIN**; **LOCAL CANDIDATE** introduces `generic_materialization` at DET | Integration under Git GO |
+| Cursor REAL / G-REAL | **NOT GRANTED / NOT PROVEN** | distinct GO |
+| OA-exclusive | **DEFAULT OFF** | unchanged |
+| Runtime v3 | **NON ADOPTED** | unchanged |
+| L3 GLOBAL | **OPEN** | after L3-S2 integration + remaining exits |
+| R24 / Manifest | Documentary LOCAL prepared · **DIGEST REFRESH PENDING** after semantic review | ChatGPT/Morris gates |
+
+**Anti-claims:** ≠ L3-S2 CURRENT ON MAIN · ≠ L3 GLOBAL CLOSED · ≠ READY TO MERGE · ≠ REAL PROVEN · ≠ runtime v3 ADOPTED.
+
 ## Overlay — Product RepositoryBinding + docs_write Product specialization (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
 | Item | Status |

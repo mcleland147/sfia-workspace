@@ -7,7 +7,7 @@
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "239b50320868c320"
+      "sha256_16": "64522c0c8e2c3b11"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -15,15 +15,15 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/02-runtime-object-catalog.md",
-      "sha256_16": "2257a20206c6a69d"
+      "sha256_16": "8ed921c0d378a5ff"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "cf5793d50ce88663"
+      "sha256_16": "9ea28c2360aad9fa"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-      "sha256_16": "a2515300ecf7962a"
+      "sha256_16": "c1c389ce1f9d3b24"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
@@ -31,19 +31,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "478e066769082203"
+      "sha256_16": "8737896408c0282b"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "8265b1af9b9dcf2a"
+      "sha256_16": "8e91bc3207350fdd"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "f7f8e9e1bc07da26"
+      "sha256_16": "e36b82f26a47efc2"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "d4f8c546633fff31"
+      "sha256_16": "71471750e8571707"
     }
   ],
   "components": [

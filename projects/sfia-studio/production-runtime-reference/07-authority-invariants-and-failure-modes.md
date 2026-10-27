@@ -153,3 +153,22 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
 Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is **expected**.
 
 **Note SHE CURRENT :** sous D-P6-SHE-01 (**CURRENT ON MAIN**), STRUCTURAL sans HD préalable peut PREPARE inspectable ; les refus d’autorité portent sur **Exécuter** (HD/Confirm/Authorize/currentness). REAL/HQA / P6 GLOBAL PASS restent des gates Morris distincts (non acquis).
+
+
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+
+> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+
+### Invariants / failure modes (LOCAL DET — Option B)
+
+| ID | Statement | Status |
+|---|---|---|
+| INV-L3S2-PROJECT-FIRST | Project required; CycleInstance optional; **no fictive cycle** for Generic PREPARE | LOCAL DET · ADAPT Product path |
+| INV-L3S2-EVIDENCE-OWNERSHIP | W3-B admits Evidence only when Project/EC/Attempt/(Cycle) bindings + role/sourceKind/provenance match | LOCAL DET · R-S8-01 |
+| INV-L3S2-ABSENT-NE-REJECTED | Present incoherent Evidence is **REJECTED** (observable Product code/message), never silent-as-ABSENT | LOCAL DET · R-S8-03 |
+| INV-L3S2-REJECT-BEFORE-RB | REJECTED path returns **before** `createReviewBundle` / freeze / positive CE | LOCAL DET |
+| INV-L3S2-LATE-EVIDENCE-FC | Late Evidence after frozen RB under same idempotency → `IDEMPOTENCY_CONFLICT` fail-closed | LOCAL DET · R-S8-02 |
+| INV-L3S2-TECH-NE-PRODUCT | Attempt Technical SUCCESS ≠ Product PASS; Generic without applicable Result Semantic → **UNCLAIMED** | LOCAL DET · KEEP |
+| INV-L3S2-SHE-AUTHORITY | SHE authority unchanged; review refusal ≠ Cursor process failure | LOCAL DET · KEEP |
+
+Refusal codes (Product-local mapping): `EVIDENCE_PROJECT_MISMATCH`, `EVIDENCE_CONTRACT_MISMATCH`, `EVIDENCE_ATTEMPT_MISMATCH`, `EVIDENCE_CYCLE_MISMATCH`, `W3B_EVIDENCE_ADMISSION_REJECTED`.

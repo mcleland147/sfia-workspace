@@ -65,6 +65,18 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
 
 Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
 
+
+**AKG-M5 L3-S2 Option B / S8 Project-first — LOCAL CANDIDATE (R24 documentary 2026-10-27):**
+
+| Epistemic class | Element |
+|---|---|
+| **CURRENT ON MAIN** | L3-S1 oracle integrated (PR #621) · SHE · Generic PREPARE D-ER-17 · Binding/docs_write retired (#618) |
+| **LOCAL CANDIDATE** | Option B Product dirty on `feat/akg-m5-l3-s2-generic-proof-continuity` @ `6e957ecb` · S8 Project-first · generic_materialization Evidence · W3-B ABSENT/ADMISSIBLE/REJECTED · OBSERVED FS DET · late Evidence IDEMPOTENCY_CONFLICT · R-S8-01…04 |
+| **R24** | Volumes 02/03/06/07/08/09 + this README updated for LOCAL truth · **manifest digests NOT refreshed** this cycle |
+| **Gates** | **REFERENCE REVIEW REQUIRED — MANIFEST DIGEST REFRESH PENDING** · **PROJECT GIT INTEGRATION NOT AUTHORIZED** |
+| **Anti-claims** | ≠ L3-S2 CURRENT ON MAIN · ≠ L3 GLOBAL CLOSED · ≠ REAL / G-REAL · ≠ runtime v3 ADOPTED · digest match ≠ semantic exhaustiveness |
+
+
 ## What this corpus is
 
 This corpus describes **how SFIA Studio actually works** in Git:
