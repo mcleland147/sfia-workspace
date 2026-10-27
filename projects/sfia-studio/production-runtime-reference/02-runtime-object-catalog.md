@@ -189,22 +189,22 @@ Convention: each card lists **SoT**, **persistence**, **key paths**, **tests**. 
 
 
 
-## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (CURRENT ON MAIN — PR #623 MERGED — 2026-10-27)
 
-> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+> **Epistemic class:** **CURRENT ON MAIN** via [PR #623](https://github.com/mcleland147/sfia-workspace/pull/623) **MERGED** `2026-10-27T15:02:16Z` · merge **`6c8b661c50a5c1d9bd04793192b9294b63349bb1`** · parents **`6e957ecbf50b009b692cf1fcba2748ee1aa9c862`** + **`73f0166c6a71c301a7b2a9c2471beb30ad068221`** · [post-merge CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **COMPLETED / SUCCESS** (Detect · Typecheck · Lint · Build · Vitest · Modeled Governance · Secret Pattern Scan · Trailing Whitespace · **SFIA Studio Required Gate PASS**) · event=`push` · branch=`main` · HEAD=merge. Integrated Product commits: `0577ca5c…` (feat) · `90bbf479…` (pre-merge R24 LOCAL docs+manifest) · `f7c9ba78…` (**CORR-CI-623-01** Tool-First first-prompt) · `73f0166c…` (**CORR-CI-623-02** multi-path unclaimed redaction). Pre-merge CI [run #40519630827](https://github.com/mcleland147/sfia-workspace/actions/runs/40519630827) SUCCESS on `73f0166c…`. Prior overlay wording **LOCAL CANDIDATE / dirty Product / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN** = **HISTORICAL AS TIP** (true at 2026-10-27 pre-merge authoring). Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive activation / runtime v3 **NOT** claimed. **L3 GLOBAL OPEN**. EP-S2-05 **NOT PROVEN**. EP-S2-08 **PARTIAL**. ≠ Product PASS invented · ≠ L3 GLOBAL CLOSED.
 
-### Objects impacted (LOCAL)
+### Objects impacted (CURRENT ON MAIN)
 
-| Object | LOCAL behaviour | Paths (candidate) | Status |
+| Object | CURRENT behaviour | Paths | Status |
 |---|---|---|---|
-| **OBJ-PROJECT / OBJ-CYCLE** | Project-first Generic PREPARE: `activeCycleInstanceId` may be **null**; **no invented CycleInstance** | `prepareGenericExecutionContractDraft` / SHE / S8 oracle | LOCAL DET · KEEP D-ER-17 |
-| **OBJ-EC / OBJ-ATTEMPT** | Same Generic Execution + SHE path as L3-S1; Attempt durable status unchanged by W3-B review refusal | `governedExecuteAuthorizedContract.ts` | LOCAL DET |
-| **OBJ-EVIDENCE — Verification** | Studio Verification Evidence `ev:execution-review:*` with Project/EC/Attempt bindings; Cycle optional | `ingestExecutionReviewVerificationEvidence.ts` | LOCAL DET |
-| **OBJ-EVIDENCE — generic_materialization** | Product Evidence for OBSERVED FS path→digest (`sourceKind=external`, GENERIC_FILESYSTEM source string) | `ingestGenericFilesystemMaterializationArtifactEvidence.ts` · `fsAnchorArtifactMaterializationEvidenceSources.ts` | **LOCAL CANDIDATE** · closes CURRENT ON MAIN gap « no new generic materialization Evidence » **only at local DET scope** |
+| **OBJ-PROJECT / OBJ-CYCLE** | Project-first Generic PREPARE: `activeCycleInstanceId` may be **null**; **no invented CycleInstance** | `prepareGenericExecutionContractDraft` / SHE / S8 oracle | CURRENT ON MAIN DET · KEEP D-ER-17 |
+| **OBJ-EC / OBJ-ATTEMPT** | Same Generic Execution + SHE path as L3-S1; Attempt durable status unchanged by W3-B review refusal | `governedExecuteAuthorizedContract.ts` | CURRENT ON MAIN DET |
+| **OBJ-EVIDENCE — Verification** | Studio Verification Evidence `ev:execution-review:*` with Project/EC/Attempt bindings; Cycle optional | `ingestExecutionReviewVerificationEvidence.ts` | CURRENT ON MAIN DET |
+| **OBJ-EVIDENCE — generic_materialization** | Product Evidence for OBSERVED FS path→digest (`sourceKind=external`, GENERIC_FILESYSTEM source string) | `ingestGenericFilesystemMaterializationArtifactEvidence.ts` · `fsAnchorArtifactMaterializationEvidenceSources.ts` | **CURRENT ON MAIN DET** · closes prior #618 gap « no new generic materialization Evidence » at DET tested scope (**≠** REAL E2E FS→Git→Review) |
 | **OBJ-EVIDENCE — Mission** | Mission Evidence admitted **only** when `PRODUCT_MISSION_FROM_DURABLE_CONTEXT` stamped — Project-only Generic does **not** invent Mission Evidence | `ingestMissionResultEvidence.ts` · W3-B | EP-S2-05 **NOT PROVEN** Project-only |
-| **OBJ-RB / OBJ-CLAIM** | W3-B admits Evidence only via ownership resolution **ABSENT / ADMISSIBLE / REJECTED**; REJECTED fail-closes **before** `createReviewBundle`; late divergent Evidence → OA `IDEMPOTENCY_CONFLICT` | `materializeW3bProductTerminal.ts` (`resolveW3bEvidenceAdmission`) | LOCAL DET · R-S8-01…04 |
+| **OBJ-RB / OBJ-CLAIM** | W3-B admits Evidence only via ownership resolution **ABSENT / ADMISSIBLE / REJECTED**; REJECTED fail-closes **before** `createReviewBundle`; late divergent Evidence → OA `IDEMPOTENCY_CONFLICT` | `materializeW3bProductTerminal.ts` (`resolveW3bEvidenceAdmission`) | CURRENT ON MAIN DET · R-S8-01…04 |
 
-**CURRENT ON MAIN unchanged:** FS-anchor historical allowlist `execution_attempt:docs_write*` remains as documented above until Option B is integrated. Do **not** read LOCAL generic_materialization as CURRENT ON MAIN.
+**CURRENT ON MAIN after #623:** Product Evidence `generic_materialization` is integrated at DET tested scope (ingest path + W3-B ownership). Historical FS-anchor allowlist narrative for retired `execution_attempt:docs_write*` remains **HISTORICAL** where it described pre-#618/pre-#623 state. Do **not** promote DET generic_materialization to REAL E2E FS→Git→Review or to Mission Evidence (EP-S2-05 **NOT PROVEN**).
 
 ## OBJ-EPISTEMIC — EpistemicItem
 

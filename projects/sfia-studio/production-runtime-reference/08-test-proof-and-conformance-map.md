@@ -204,20 +204,21 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
 - Proof ceiling claimed when EP/T green: **DETERMINISTIC PRODUCT E2E PROVEN AT TESTED SCOPE** · ZERO REAL · READY FOR REAL **NO**.
 
 
-## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (CURRENT ON MAIN — PR #623 MERGED — 2026-10-27)
 
-> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+> **Epistemic class:** **CURRENT ON MAIN** via [PR #623](https://github.com/mcleland147/sfia-workspace/pull/623) **MERGED** `2026-10-27T15:02:16Z` · merge **`6c8b661c50a5c1d9bd04793192b9294b63349bb1`** · parents **`6e957ecbf50b009b692cf1fcba2748ee1aa9c862`** + **`73f0166c6a71c301a7b2a9c2471beb30ad068221`** · [post-merge CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **COMPLETED / SUCCESS** (Detect · Typecheck · Lint · Build · Vitest · Modeled Governance · Secret Pattern Scan · Trailing Whitespace · **SFIA Studio Required Gate PASS**) · event=`push` · branch=`main` · HEAD=merge. Integrated Product commits: `0577ca5c…` (feat) · `90bbf479…` (pre-merge R24 LOCAL docs+manifest) · `f7c9ba78…` (**CORR-CI-623-01** Tool-First first-prompt) · `73f0166c…` (**CORR-CI-623-02** multi-path unclaimed redaction). Pre-merge CI [run #40519630827](https://github.com/mcleland147/sfia-workspace/actions/runs/40519630827) SUCCESS on `73f0166c…`. Prior overlay wording **LOCAL CANDIDATE / dirty Product / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN** = **HISTORICAL AS TIP** (true at 2026-10-27 pre-merge authoring). Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive activation / runtime v3 **NOT** claimed. **L3 GLOBAL OPEN**. EP-S2-05 **NOT PROVEN**. EP-S2-08 **PARTIAL**. ≠ Product PASS invented · ≠ L3 GLOBAL CLOSED.
 
-### Proof index — Option B / S8 (LOCAL DET — reported from Pass 04/05 handoffs; not re-executed in R24 cycle)
+### Proof index — Option B / S8 (CURRENT ON MAIN DET)
 
-| Suite / oracle | Result (Pass 05) | Proof level |
+| Suite / oracle | Result | Proof level |
 |---|---|---|
-| `akgM5L3S2.optionB.lotsAC.d0.test.ts` | Lots A/B/C + CORR-S2 / R-S2 coverage | DET |
-| `akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` | **17 PASS** (nominal · O2 OBSERVED · O8 REJECTED unconditional · O10 late Evidence · ownership E1–E9 · ABSENT≠REJECTED) | DET |
+| `akgM5L3S2.optionB.lotsAC.d0.test.ts` | Lots A/B/C + CORR-S2 / R-S2 coverage — integrated on main | DET |
+| `akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` | S8 Project-first integrated oracles (nominal · O2 OBSERVED · O8 REJECTED · O10 late Evidence · ownership · ABSENT≠REJECTED) | DET |
+| `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts` | W3-C Tool-First / CP2-10 + CP2-10-MULTI · CORR-CI-623-01/02 | DET |
 | `akgM5L3S1.genericExecutionIntegrated.d0.test.ts` | Non-reg L3-S1 | DET |
 | `productMissionEvidenceChain.e2e.d0.test.ts` | Mission cycle-bound non-reg | DET |
 | `gcecCont01ContinuationResolver.d0.test.ts` + W3-C suites | Continuation / FS-anchor / W3-C | DET |
-| Consolidated non-reg batch (Pass 05) | **6 files / 105 PASS** | DET |
-| `npm run typecheck` / `npm run lint` | PASS (2 pre-existing unused-var warnings) | tooling |
+| Pre-merge CI `#40519630827` @ `73f0166c…` | Detect / Build / **Required Gate SUCCESS** | CI FACT |
+| Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
 
-**Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**.
+**Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.

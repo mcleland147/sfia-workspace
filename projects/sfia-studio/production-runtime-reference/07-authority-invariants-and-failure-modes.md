@@ -155,20 +155,20 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
 **Note SHE CURRENT :** sous D-P6-SHE-01 (**CURRENT ON MAIN**), STRUCTURAL sans HD préalable peut PREPARE inspectable ; les refus d’autorité portent sur **Exécuter** (HD/Confirm/Authorize/currentness). REAL/HQA / P6 GLOBAL PASS restent des gates Morris distincts (non acquis).
 
 
-## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (LOCAL CANDIDATE — 2026-10-27)
+## Overlay — AKG-M5 L3-S2 Option B / S8 Project-first (CURRENT ON MAIN — PR #623 MERGED — 2026-10-27)
 
-> **Epistemic class:** **LOCAL CANDIDATE** on branch `feat/akg-m5-l3-s2-generic-proof-continuity` @ Product HEAD `6e957ecbf50b009b692cf1fcba2748ee1aa9c862` (= `origin/main`) with **dirty** Product/tests. Review Handoff Pass 05 tip `91a1dbaa…` / blob `c5ccaee4…`. **≠ CURRENT ON MAIN** · **≠** project Git integrated · **PROJECT GIT INTEGRATION NOT AUTHORIZED**. Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive / runtime v3 **NOT** claimed.
+> **Epistemic class:** **CURRENT ON MAIN** via [PR #623](https://github.com/mcleland147/sfia-workspace/pull/623) **MERGED** `2026-10-27T15:02:16Z` · merge **`6c8b661c50a5c1d9bd04793192b9294b63349bb1`** · parents **`6e957ecbf50b009b692cf1fcba2748ee1aa9c862`** + **`73f0166c6a71c301a7b2a9c2471beb30ad068221`** · [post-merge CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **COMPLETED / SUCCESS** (Detect · Typecheck · Lint · Build · Vitest · Modeled Governance · Secret Pattern Scan · Trailing Whitespace · **SFIA Studio Required Gate PASS**) · event=`push` · branch=`main` · HEAD=merge. Integrated Product commits: `0577ca5c…` (feat) · `90bbf479…` (pre-merge R24 LOCAL docs+manifest) · `f7c9ba78…` (**CORR-CI-623-01** Tool-First first-prompt) · `73f0166c…` (**CORR-CI-623-02** multi-path unclaimed redaction). Pre-merge CI [run #40519630827](https://github.com/mcleland147/sfia-workspace/actions/runs/40519630827) SUCCESS on `73f0166c…`. Prior overlay wording **LOCAL CANDIDATE / dirty Product / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN** = **HISTORICAL AS TIP** (true at 2026-10-27 pre-merge authoring). Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive activation / runtime v3 **NOT** claimed. **L3 GLOBAL OPEN**. EP-S2-05 **NOT PROVEN**. EP-S2-08 **PARTIAL**. ≠ Product PASS invented · ≠ L3 GLOBAL CLOSED.
 
-### Invariants / failure modes (LOCAL DET — Option B)
+### Invariants / failure modes (CURRENT ON MAIN DET — Option B)
 
 | ID | Statement | Status |
 |---|---|---|
-| INV-L3S2-PROJECT-FIRST | Project required; CycleInstance optional; **no fictive cycle** for Generic PREPARE | LOCAL DET · ADAPT Product path |
-| INV-L3S2-EVIDENCE-OWNERSHIP | W3-B admits Evidence only when Project/EC/Attempt/(Cycle) bindings + role/sourceKind/provenance match | LOCAL DET · R-S8-01 |
-| INV-L3S2-ABSENT-NE-REJECTED | Present incoherent Evidence is **REJECTED** (observable Product code/message), never silent-as-ABSENT | LOCAL DET · R-S8-03 |
+| INV-L3S2-PROJECT-FIRST | Project required; CycleInstance optional; **no fictive cycle** for Generic PREPARE | CURRENT ON MAIN DET · ADAPT Product path |
+| INV-L3S2-EVIDENCE-OWNERSHIP | W3-B admits Evidence only when Project/EC/Attempt/(Cycle) bindings + role/sourceKind/provenance match | CURRENT ON MAIN DET · R-S8-01 |
+| INV-L3S2-ABSENT-NE-REJECTED | Present incoherent Evidence is **REJECTED** (observable Product code/message), never silent-as-ABSENT | CURRENT ON MAIN DET · R-S8-03 |
 | INV-L3S2-REJECT-BEFORE-RB | REJECTED path returns **before** `createReviewBundle` / freeze / positive CE | LOCAL DET |
-| INV-L3S2-LATE-EVIDENCE-FC | Late Evidence after frozen RB under same idempotency → `IDEMPOTENCY_CONFLICT` fail-closed | LOCAL DET · R-S8-02 |
-| INV-L3S2-TECH-NE-PRODUCT | Attempt Technical SUCCESS ≠ Product PASS; Generic without applicable Result Semantic → **UNCLAIMED** | LOCAL DET · KEEP |
-| INV-L3S2-SHE-AUTHORITY | SHE authority unchanged; review refusal ≠ Cursor process failure | LOCAL DET · KEEP |
+| INV-L3S2-LATE-EVIDENCE-FC | Late Evidence after frozen RB under same idempotency → `IDEMPOTENCY_CONFLICT` fail-closed | CURRENT ON MAIN DET · R-S8-02 |
+| INV-L3S2-TECH-NE-PRODUCT | Attempt Technical SUCCESS ≠ Product PASS; Generic without applicable Result Semantic → **UNCLAIMED** | CURRENT ON MAIN DET · KEEP |
+| INV-L3S2-SHE-AUTHORITY | SHE authority unchanged; review refusal ≠ Cursor process failure | CURRENT ON MAIN DET · KEEP |
 
 Refusal codes (Product-local mapping): `EVIDENCE_PROJECT_MISMATCH`, `EVIDENCE_CONTRACT_MISMATCH`, `EVIDENCE_ATTEMPT_MISMATCH`, `EVIDENCE_CYCLE_MISMATCH`, `W3B_EVIDENCE_ADMISSION_REJECTED`.
