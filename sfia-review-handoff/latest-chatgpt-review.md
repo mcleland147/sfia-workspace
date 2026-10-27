@@ -393,11 +393,13 @@ PRR 02/03/09 / test map: document that FS-anchor path identity is **segment-exac
 | Delivery branch local | `feat/akg-m5-l3-s2-generic-proof-continuity` @ `6e957ecb…` |
 | Project commits this cycle | **0** |
 | Prior Option B handoff | `cd09b2c6…` |
-| This CORR handoff | see publisher tip |
+| This CORR handoff | `4598e8e80852490d17795748dc883eb47f09fea9` / blob `9a02d5322753b97e04c8bf1fda1c6432f6971bb2` |
 
 ## Verdict
 
 **CORR-S2-01 LOCAL CORRECTION PASS — READY FOR CHATGPT CRITICAL REVIEW**
+
+Handoff Git **REMOTE VERIFIED**: `4598e8e8…` / `9a02d532…`.
 
 CORR-S2-02 OPEN · CORR-S2-03 OPEN · S8 DECISION REQUIRED · R24 SYNC PENDING · L3-S2 GLOBAL NOT COMPLETE · G-REAL NOT GRANTED · RUNTIME V3 NON ADOPTED.
 
