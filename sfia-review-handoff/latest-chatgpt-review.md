@@ -1,302 +1,307 @@
-# SFIA Review Pack — EP-S2-08-PROOF-01 PRE-GI READINESS
+# EP-S2-08-PROOF-01 — PRODUCT LOCAL COMMIT — FULL REVIEW PACK
 
-**UTC:** 2026-10-28T11:46:10Z  
-**Phase:** PRE-GIT-INTEGRATION READINESS · Cycle 13 — PR READINESS (PREPARATORY)  
-**Profile:** CRITICAL · Typology EVOL — VALIDATION / INTEGRATION PREPARATION  
-**Mode:** LOCAL PRE-GI AUDIT · Review FULL · Handoff PUBLISH-IN-CYCLE  
+**UTC:** 2026-10-28T12:08:17Z
+**Cycle:** 7 — INTÉGRATION / DEVOPS · CRITICAL · EVOL — BOUNDED PRODUCT GIT INTEGRATION
+**Mode:** LOCAL COMMIT ONLY
+**Verdict (this pack):** PRODUCT LOCAL COMMIT COMPLETE — READY FOR CRITICAL COMMIT REVIEW
 
 ---
 
-## 1 — Git Truth
+## 1. UTC and Git Truth
 
 | Fact | Value |
 |---|---|
-| Remote | `https://github.com/mcleland147/sfia-workspace.git` |
-| Worktree | `sfia-workspace-feat-akg-m5-ep-s2-08-proof-01` |
-| Branch | `feat/akg-m5-ep-s2-08-proof-01` |
-| HEAD | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| origin/main | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| ahead/behind (main...HEAD) | `0	0` (= 0 0 — **no Product commits**) |
-| Prior handoff tip | `12ae4864836dcafbd16827bb37ae636c76a59805` |
-| Prior handoff blob | `742567b4b7b22fc9a67d50aba9b9dc97514106d1` |
+| UTC | 2026-10-28T12:08:17Z |
+| Repo | mcleland147/sfia-workspace (origin https://github.com/mcleland147/sfia-workspace.git) |
+| Worktree | /Users/morris/Projects/sfia-workspace-feat-akg-m5-ep-s2-08-proof-01 |
+| Branch | feat/akg-m5-ep-s2-08-proof-01 |
+| Pre-commit HEAD / base / origin/main | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
+| Post-commit HEAD | `e78db159d04a086197f9c094154e1adeb7129538` |
+| Parent | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
+| Tree | `96e63297d48b5ca5f6a86513d4cabe7fa8a9f9e3` |
+| ahead/behind vs origin/main | **1 / 0** |
+| Product push | **NOT DONE** |
+| Product PR | **NOT CREATED** |
+| Merge | **NOT DONE** |
 
-### Porcelain `git status --porcelain=v1`
+`git fetch origin main` confirmed origin/main unchanged at `3fb84630efb9e0d2acaaf81b342da0358107db10` before commit.
+
+---
+
+## 2. Morris Product Commit GO
+
+**MORRIS GO — 2026-10-28:** PRODUCT LOCAL COMMIT AUTHORIZED for EP-S2-08-PROOF-01, **exactly 18** previously reviewed files.
+
+Authorized: local Git verification; explicit staging of 18 paths; pre-commit validation; one local Product commit; post-commit identity verification; FULL Critical Review Pack; L3 bounded remote Review Handoff.
+
+**Excluded / not performed:** Product push; Draft/regular PR; merge; rebase; force push; branch deletion; Product source modifications; architecture/doctrine changes; Roadmap CURRENT promotion; REAL/L4.
+
+Product commit authorization **does not** imply Product publication.
+
+---
+
+## 3. Convergence pre-check
+
+Consulted (actual Git paths present):
+
+- prompts/templates/sfia-cycle-execution-template.md
+- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
+- method/sfia-fast-track/checklists/sfia-validation-checklist.md
+- method/sfia-fast-track/documentation/capitalization/cycle-knowledge-contracts/02-fifteen-cycles-synthetic-map.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
+- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md (EP-S2-08 **PARTIAL**; L3 GLOBAL OPEN; ≠ this candidate CURRENT ON MAIN)
+- projects/sfia-studio/product-completion/01-product-completion-cadrage.md
+- projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/05-m5-target-journey-and-trajectory-requalification.md
+- projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md
+- projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md
+- projects/sfia-studio/production-runtime-reference/README.md + volumes 02/03/04/06/07/08/09
+- Latest PRE-GI handoff tip `585bb7a9c75c065a62d849fe66f9c9cb28e47b25` / blob `2fd465f31149db6757fb912cba00ba64354619e0`
+
+Cycle 7 CKC: synthetic candidate guidance only. v2.6 = external process; Studio v3 = Product target (NON ADOPTED). R23/R24 applied. Local feature-branch commit ≠ CURRENT ON MAIN.
+
+---
+
+## 4. Exact initial status / index (pre-staging)
+
+Porcelain (raw leading-space preserved in investigation):
 
 ```
-M .tmp-sfia-review/chatgpt-review.md
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
- M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
- M projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
- M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
- M projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
- M projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
- M projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
- M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
- M projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
- M projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
- M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
- M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
- M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx
-?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx
-?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
-?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts
+ M .tmp-sfia-review/chatgpt-review.md
+ M <13 tracked Product/PRR paths>
+?? <5 new test paths>
 ```
 
-**Interpretation:** first column blank + second `M` = **unstaged** working-tree modification. `??` = untracked.  
-**Committed delta vs base:** **NONE** (ahead 0). Candidate is **uncommitted local only**.
+- `git diff --cached` **empty** before staging (INDEX CLEAN).
+- Temporary review file: porcelain ` M` (unstaged only). od confirmed leading spaces before `M`.
+- `git ls-files --stage -- .tmp-sfia-review/chatgpt-review.md` → mode 100644 blob `92f0f7d9…` stage 0 (tracked historically on main; not newly staged).
+- No unauthorized staged Product content.
 
 ---
 
-## 2 — Morris GO / scope
+## 5. Exact authorized 18-file inventory (committed)
 
-AUTHORIZED: Local Git Truth; index hygiene; inventory; critical review; validations; branch/mergeability analysis; draft PR scope/description; FULL pack; L3 handoff; Morris recommendation.
+| # | Kind | Status | Path | Blob | sha256_16 | bytes |
+|---|---|---|---|---|---|---|
+| 1 | PRODUCT CODE | M | `projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts` | `4b370302db6305bbd3348b1682ae2c3ca47198ce` | `319e9577aa47a45c` | 57832 |
+| 2 | PRODUCT CODE | M | `projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts` | `8e2955fb9ed1d9181a7693487a25c59bd4c44e61` | `9703e3255cf8e510` | 19164 |
+| 3 | PRODUCT CODE | M | `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` | `6063a05e6df4d48ad76f681ae3113625c34bcb47` | `1fbf3d4dde9fbcd4` | 69582 |
+| 4 | PRODUCT CODE | M | `projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts` | `1b3dda6e242e6838085a4edc744f0057a86b815f` | `f7962366f87624ef` | 43910 |
+| 5 | PRODUCT CODE | M | `projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts` | `cfa81aa9e56917a07e6a60fdf175ae4d59e31a33` | `114da78ebba9d4e8` | 9405 |
+| 6 | PRODUCT CODE | M | `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts` | `3876fbd617513ef2816ec1eabb35fd70f3b11fa8` | `13266f891a6c6183` | 28437 |
+| 7 | PRODUCT CODE | M | `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx` | `5fa978afee993f1bc8451ce285b97c11c84d3039` | `4c6c5861be4d17e4` | 153126 |
+| 8 | PRODUCT TEST | A | `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | `1306eca9f4f73ce0910f849fd57d1c9475309da0` | `3f7bb284e268aeba` | 31156 |
+| 9 | PRODUCT TEST | A | `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | `ef0fb2e38870b8a055eaf9ea880fad82c148fb4f` | `4449cd552171673e` | 37072 |
+| 10 | PRODUCT TEST | A | `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | `aa155bf33f54f0af9d71eb234b21dd49cf6e1fa1` | `a4320f49d50b5907` | 23493 |
+| 11 | PRODUCT TEST | A | `projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | `90c40b931ef76b490dd3eeed2d1acbf2d3e59284` | `7a41733bbffd7283` | 4186 |
+| 12 | PRODUCT TEST | A | `projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | `eb6827108a8ef585673e2efda1d776cf6ef40b6d` | `3088702c685fd988` | 17828 |
+| 13 | PRR | M | `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md` | `b6295932359df805f2a96be124fe4711c3efba31` | `c5c9ff056f563c38` | 49636 |
+| 14 | PRR | M | `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md` | `933d3958418f5fac8dcd55768fabff4e75c57bc4` | `b019c92a3e457b38` | 16090 |
+| 15 | PRR | M | `projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md` | `115912a78cf337f55c78bc5a76c35d3c96ebfa44` | `975aafc80c713797` | 23816 |
+| 16 | PRR | M | `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md` | `9ae1302f9d76cc3b073d4f6dae045b7a01f5b067` | `5bfd9515997c4045` | 27931 |
+| 17 | PRR | M | `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` | `cb1a225f6f00445139c584ca15ccb8f5254bbfff` | `ae2b7a00e45b27ed` | 57738 |
+| 18 | PRR MANIFEST | M | `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` | `29c598dd11b96e9453cd9416a3477f645be1e447` | `bc32d628583e23f6` | 22975 |
 
-NOT AUTHORIZED / NOT DONE: Product commit/push/PR/merge; code correction; Roadmap promotion; REAL/L4.
+**TOTAL COMMITTED: 18.** Temporary review **EXCLUDED**.
 
-Formal PR-readiness template consulted: **committed-branch prerequisite NOT met** — this is **PRE-GI**, not traditional READY FOR PR.
+name-status from commit:
 
----
-
-## 3 — Convergence pre-check
-
-Read: cycle execution template; validate-pr-readiness; routing guide; validation checklist; delivery pipeline; decision engine; CKC synthetic map; Build Doctrine; Roadmap; C1; M5 trajectory; HumanDecision doctrine; agent capabilities framing; PRR README + vols 02/03/04/06/07/08/09; latest handoff R-HD-01.
-
-Cycle 13 CKC = synthetic guidance only. Local candidate ≠ CURRENT ON MAIN.
-
-Anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL/G-REAL/L4/runtime v3 unchanged.
-
----
-
-## 4 — Git index hygiene
-
-### Analysis
-
-| Check | Result |
-|---|---|
-| `git diff --cached` | **empty** — staged_count=0 |
-| Porcelain first column | blank for all `M` files |
-| `.tmp-sfia-review/chatgpt-review.md` | **Tracked in HEAD and origin/main** (historical since `7044e1a6`) · working-tree **unstaged** `M` · **NOT staged** |
-| Other staged Product files | **none** |
-
-Previous handoff suggestion of staged `M` was **historical/incorrect for current truth**. Current first column is blank (unstaged).
-
-**Action taken:** none required for unstaging (`git restore --staged` N/A — nothing staged). Working-tree temp report **preserved**. No `.gitignore` change. No deletion.
-
-### Classification
-
-**INDEX CLEAN**
-
-Governance note: `.tmp-sfia-review/chatgpt-review.md` is historically tracked on main → **MUST NEVER be included** in Product GI commit for this candidate (exclude explicitly). Local modifications to it are temporary review artifacts only.
-
----
-
-## 5 — Exact candidate inventory (19 paths)
-
-All paths under `projects/sfia-studio/` unless noted.
-
-### PRODUCT CODE (7) — unstaged M — INCLUDE in proposed GI
-
-| Path | Purpose | Capability | Validation |
-|---|---|---|---|
-| `app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts` | Option 1 preserve mutation; HD_MUTATION_DECLARATION_CONFLICT | EP-S2-08 | unit+integrated |
-| `app/features/project-assistant/w2/qualificationInputs.ts` | Option A Delivery CKC eligibility | EP-S2-08 | R1 |
-| `app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` | Post-Evidence consumption (Option A) | EP-S2-08 | B2/B5/B6 |
-| `app/features/project-assistant/w2/genericMissionSubject.ts` | A5 mutation vs read_only consistency | R-INSPECT/R-HD | unit+HD |
-| `app/lib/oa/execution-contract/projection/inspectionDisclosure.ts` | Disclose + require mutation fact | R-INSPECT | domain+UI |
-| `app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts` | Pilote exam rows for mutation | R-INSPECT | jsdom |
-| `app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx` | Inline declared opération dépôt | R-INSPECT | jsdom |
-
-### PRODUCT TEST (5) — untracked ?? — INCLUDE
-
-| Path | Purpose |
-|---|---|
-| `app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 Option A |
-| `app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | R-INSPECT + R-HD-01 |
-| `app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2/B5/B6 |
-| `app/__tests__/pre-m6-product-ui/epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | Inspection panel jsdom |
-| `app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | TrajectorySurface B5/B6 |
-
-### PRR / MANIFEST (6) — unstaged M — INCLUDE (LOCAL CANDIDATE docs)
-
-| Path |
-|---|
-| `production-runtime-reference/03-end-to-end-flow-catalog.md` |
-| `production-runtime-reference/06-persistence-restart-and-recovery.md` |
-| `production-runtime-reference/07-authority-invariants-and-failure-modes.md` |
-| `production-runtime-reference/08-test-proof-and-conformance-map.md` |
-| `production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` |
-| `production-runtime-reference/production-runtime-reference.manifest.json` |
-
-### TEMPORARY REVIEW (1) — unstaged M — **EXCLUDE from GI**
-
-| Path | Note |
-|---|---|
-| `.tmp-sfia-review/chatgpt-review.md` (repo root) | Historically tracked; local rewrite for handoff source only — **do not commit** |
-
-### Counts
-- Product code: **7**
-- Product tests: **5**
-- PRR/manifest: **6**
-- Exclude: **1** (tmp review)
-- Unrelated: **0**
-- Protected needing separate gate: **0** in candidate (tmp is exclude)
-
-**Proposed GI file count: 18** (7+5+6).
-
----
-
-## 6 — Critical semantic review
-
-| Theme | Verdict |
-|---|---|
-| Option A Project-only CKC | KEEP — positive eligibility only |
-| Option 1 field preservation | COMPLETE at DET — no invent write |
-| R1 defenses | KEEP — scopeIn≠WHAT; exact EFFECT_CLASS; lineage |
-| R-INSPECT-01 | COMPLETE DET — disclosure + required fact + Pilote rows |
-| R-HD-01 | COMPLETE DET — real OA HD; first gate `HD_MUTATION_DECLARATION_CONFLICT` |
-| No universal Delivery fallback | PASS |
-| No fabricated CycleInstance/HD/replan | PASS |
-| W2 Options still cycle-gated | PASS |
-| No parallel CKC / new persistence | PASS |
-| Code/tests/PRR equivalence | PASS (LOCAL CANDIDATE) |
-| Architecture | ADAPT PREPARE/inspection · KEEP SHE/HD authority |
-
-**No blocking Product regression found under this audit.** No production code modified this PRE-GI cycle.
-
----
-
-## 7 — Validation matrix (requalified)
-
-| # | Check | Result | Evidence |
-|---|---|---|---|
-| 1 | R1 semantic | **PASS 22/22** | vitest r1CkcSemantic |
-| 2 | R-INSPECT+R-HD | **PASS 14/14** | rInspect01.d0 |
-| 3 | Inspection UI jsdom | **PASS 2/2** | rInspect01.inspectionSurface |
-| 4 | B2/B5/B6 + UI | **PASS 3+3** | piloteResume + piloteSurface |
-| 5 | M-HD-01 | **PASS** | in 89-test batch |
-| 6–8 | L3-S1 + S8 Generic/SHE | **PASS** | in 89-test batch |
-| 9 | TrajectorySurface + ecInspection | **PASS 64** | extra run |
-| 10 | Late Evidence (S8) | **PASS** | IDEMPOTENCY_CONFLICT preserved |
-| Core batch 8 files | **PASS 89/89** | `/tmp/ep08-pregi-vitest.txt` |
-| 11 | `npm run typecheck` | **PASS** exit 0 | |
-| 12 | ESLint domain files | **PASS** exit 0 | prepare/qual/w3c/generic/disclosure |
-| 12b | ESLint + pilotExecutionPresentation | **FAIL** max-warnings 0 | pre-existing `_contractPresentation` unused **on HEAD** — not introduced as new logic defect; **not fixed** (no code correction authorized) |
-| 13 | `npm run build` | **PASS** exit 0 | Next build ~162s |
-| 14 | PRR digests | **DIGEST PASS** | 03/06/07/08/09 match manifest |
-| 14b | PRR semantic | **SEMANTIC REVIEW PASS** | LOCAL CANDIDATE; EP-S2-08 PARTIAL retained |
-| 15 | `git diff --check` | **PASS** exit 0 | |
-| 16 | Secret-pattern sample | **PASS** no hits | sampled candidate paths |
-| CI Required Gate | **NOT RUN** | historical #623/#624 ≠ this candidate |
-
-Fake/Real: DET Product integration · Cursor/Nora substitutes · ≠ browser remount · ≠ REAL · ≠ live Pilot.
-
----
-
-## 8 — Conflict / drift
-
-- origin/main == HEAD == merge-base · **no intervening commits**
-- Feature branch **0 ahead** · mergeability of *committed* tip is N/A until GI commit
-- Uncommitted local candidate applies cleanly on current main tip (identity)
-
----
-
-## 9 — Proposed Git Integration Plan (NOT EXECUTED)
-
-### A. Manifest (18 files)
-7 code + 5 tests + 6 PRR as inventoried.  
-**Exclude:** `.tmp-sfia-review/chatgpt-review.md`
-
-### B. Commit granularity
-**One coherent Product increment** recommended:
-
-`feat(sfia-studio): EP-S2-08-PROOF-01 post-Evidence Delivery CKC continuity`
-
-Rationale: Option A+1+R-INSPECT+R-HD form one capability proof; SFIA prefers coherent DET increments.
-
-Optional micro-follow-up (separate Morris if desired): silence pre-existing `_contractPresentation` unused warning.
-
-### C. Never commit
-- `.tmp-sfia-review/chatgpt-review.md` (local rewrite)
-- Any secrets / env / real Cursor credentials
-
-### D. Protected / gates
-- No doctrine/roadmap CURRENT TIP in this GI
-- Post-push CI Required Gate must run on new SHA
-
-### E–G. Base / sequence
-1. Morris GO: Product commit on `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…`
-2. Push `-u` fast-forward
-3. Morris GO: Draft PR → main
-4. CI green
-5. Separate Morris GO: merge
-
-### H–I. Draft PR (proposal only)
-
-**Title:** `feat(sfia-studio): EP-S2-08-PROOF-01 post-Evidence continuity (Option A/1 + inspect/HD)`
-
-**Body draft:**
-
-```markdown
-## Summary
-- Restore Project-only post-Evidence Delivery CKC orientation when Generic PREPARE preserves a Product-declared `repositoryMutationDeclared=write` (Option A + Option 1).
-- Disclose and attest the declaration via canonical inspection + Pilote exam rows (R-INSPECT-01).
-- Prove real OA HumanDecision provenance / contradiction fail-closed `HD_MUTATION_DECLARATION_CONFLICT` (R-HD-01).
-- Local PRR 03/06/07/08/09 + manifest digests synchronized as LOCAL CANDIDATE (≠ CURRENT ON MAIN until merge).
-
-## Morris decisions retained
-- Option A bounded Delivery CKC eligibility
-- Option 1 field preservation (no invented write / no EFFECT_CLASS invent)
-- R-INSPECT-01 / R-HD-01 DET closures
-
-## Validations (local PRE-GI)
-- Vitest candidate suites 89 PASS (+ TrajectorySurface/ecInspection 64 PASS)
-- typecheck PASS · build PASS · PRR digests PASS
-- CI Required Gate: pending post-push
-
-## Evidence level
-DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE
-≠ browser /studio remount E2E · ≠ REAL · ≠ G-REAL · ≠ L4
-
-## Reserves (do not close by this PR)
-- EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN
-- browser remount E2E · dual F3/W3-C live UX
-- mutating Generic Product PASS NOT PROVEN · Late Evidence supersession OPEN
-
-## Anti-claims
-EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED
+```
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx
+A	projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx
+A	projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
+A	projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
+M	projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+M	projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
+M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+M	projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ```
 
-### J. Post-publication CI
-Required Gate + typecheck/lint/build/vitest per workspace workflows.
+stat:
 
-### K. Separate Morris authorizations required for
-1. Product `git add` (18 files) + commit  
-2. Product push  
-3. Draft/regular PR create  
-4. Merge  
+```
+.../epS208.proof01.piloteSurface.b5b6.ui.test.tsx  |  529 ++++++++++
+ ...roof01.rInspect01.inspectionSurface.ui.test.tsx |  125 +++
+ ...S208.proof01.piloteResume.integrated.d0.test.ts |  624 ++++++++++++
+ ...gM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts |  886 +++++++++++++++++
+ .../akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts | 1006 ++++++++++++++++++++
+ .../surfaces/TrajectorySurface.tsx                 |   31 +
+ .../surfaces/pilotExecutionPresentation.ts         |   15 +
+ .../project-assistant/w2/genericMissionSubject.ts  |   26 +
+ .../w2/prepareGenericExecutionContractDraft.ts     |   48 +-
+ .../project-assistant/w2/qualificationInputs.ts    |  460 +++++++++
+ .../project-assistant/w2/w3cPostEvidenceLoop.ts    |   18 +-
+ .../projection/inspectionDisclosure.ts             |   29 +
+ .../03-end-to-end-flow-catalog.md                  |    4 +
+ .../06-persistence-restart-and-recovery.md         |    2 +
+ .../07-authority-invariants-and-failure-modes.md   |    3 +
+ .../08-test-proof-and-conformance-map.md           |   13 +
+ ...9-known-gaps-reserves-and-current-boundaries.md |    2 +-
+ .../production-runtime-reference.manifest.json     |   10 +-
+ 18 files changed, 3818 insertions(+), 13 deletions(-)
+```
 
 ---
 
-## 10 — Residual reserves
+## 6. Initial staged/unstaged facts → final staging
 
-| Reserve | Blocks this GI? | Blocks later exit? | Distinct Morris GO? |
+- Staging via **exact allowlist pathspecs** only (`git add -- <18 paths>`).
+- Never used `git add .` / `-A` / `-u` / `commit -a`.
+- Post-stage: staged_count=18 · allowlist MATCH · `git diff --cached --check` PASS · tmp not in cached set.
+- After commit: staged empty; working tree retains only ` M .tmp-sfia-review/chatgpt-review.md`.
+
+---
+
+## 7. Pre-commit validation evidence
+
+| Gate | Command / scope | Exit | Result |
 |---|---|---|---|
-| browser /studio remount E2E | NO | YES (EP-S2-08 exit) | YES if closing UX |
-| dual F3/W3-C live UX | NO | YES | YES |
-| EP-S2-08 PARTIAL | NO (expected) | YES | exit GO |
-| EP-S2-05 NOT PROVEN | NO | YES | YES |
-| L3 GLOBAL OPEN | NO | YES | trajectory |
-| mutating Generic PASS | NO | YES | Result Semantic |
-| Late Evidence supersession | NO | policy | YES |
-| REAL / G-REAL / L4 / v3 | NO | YES | YES |
-| Pre-existing eslint unused var | NO (domain lint PASS) | optional hygiene | optional micro-fix |
+| EP-S2-08 core DET | vitest 5 files (r1 + rInspect + piloteResume + inspection UI + B5/B6 UI) | 0 | **44/44 PASS** (2026-10-28T13:01Z) |
+| M-HD-01 + Trajectory regressions | p6.mHd01.genericMissionHumanDecision + ecHdEffectsBinding + trajectorySurface + postExecutionTrajectorySurface | 0 | **105/105 PASS** |
+| Typecheck | `npm run typecheck` (app/) | 0 | **PASS** |
+| ESLint domain (5 code files excl. TrajectorySurface) | npx eslint … | 0 | **0 problems** |
+| ESLint TrajectorySurface | WT vs HEAD baseline | 0 | **13 warnings / 0 errors — baseline equal** (line offsets only from +31 inserts) |
+| ESLint pilotExecutionPresentation | npx eslint | 0 | 1 warning `_contractPresentation` — **present on HEAD**; not silenced |
+| CI lint contract | `npm run lint` (next lint) | 0 | **PASS** (2 pre-existing unrelated warnings outside allowlist) |
+| Build | `npm run build` | 0 | **PASS** |
+| PRR digests | sha256_16 all 10 volumes vs manifest (working + committed tree) | 0 | **DIGEST PASS** fail=0 |
+| Whitespace | `git diff --check` (pre) / `git diff --cached --check` (staged) | 0 | **PASS** |
+| Secret pattern | rg on 18 paths | 0 | **PASS** (documentary hits only: “secret”/redaction language in PRR; no credentials) |
+| CI Required Gate | — | — | **NOT RUN** (local unpublished commit) |
+
+Core vitest tail:
+
+```
+stdout | __tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts > EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B6 — Nora unavailable: durable reserve survives remount; no false SUCCESS / HD
+{"event":"oa.evidence.execution_attempt_ingested","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:48442b3cc10a2956","evidenceId":"ev:w3b:b7829f3d8adbd0e5","executionAttemptId":"xat:w3a:77381e8a926940f5","actorId":"actor:local-pilote","newStatus":"available","version":1,"result":"ok","durationMs":3}
+
+stdout | __tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts > EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B6 — Nora unavailable: durable reserve survives remount; no false SUCCESS / HD
+{"event":"oa.review_bundle.created","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:46b5ee1271270fce","reviewBundleId":"rb:w3b:b7829f3d8adbd0e5","evidenceIds":["ev:execution-review:xat:w3a:77381e8a926940f5","ev:w3b:b7829f3d8adbd0e5"],"actorId":"actor:local-pilote","newStatus":"draft","version":1,"result":"ok","durationMs":6}
+
+stdout | __tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts > EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B6 — Nora unavailable: durable reserve survives remount; no false SUCCESS / HD
+{"event":"oa.review_bundle.frozen","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f180f054fa43cbad","reviewBundleId":"rb:w3b:b7829f3d8adbd0e5","evidenceIds":["ev:execution-review:xat:w3a:77381e8a926940f5","ev:w3b:b7829f3d8adbd0e5"],"actorId":"actor:local-pilote","previousStatus":"draft","newStatus":"ready_for_review","version":2,"expectedVersion":1,"result":"ok","durationMs":3}
+
+stdout | __tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts > EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B6 — Nora unavailable: durable reserve survives remount; no false SUCCESS / HD
+{"event":"oa.claim_evaluation.evaluated","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:8916c7e5d94ca462","claimEvaluationId":"clm:w3b:b7829f3d8adbd0e5","reviewBundleId":"rb:w3b:b7829f3d8adbd0e5","actorId":"actor:local-pilote","result":"ok","durationMs":4}
+
+stdout | __tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts > EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B6 — Nora unavailable: durable reserve survives remount; no false SUCCESS / HD
+{"event":"oa.coordination.next_action_recommended","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:w3c-reco:xat:w3a:77381e8a926940f5","actorId":"actor:sfia-studio-system-factual-writer","result":"ok","detailCode":"not_recommended","durationMs":1}
+
+ ✓ __tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts (3 tests) 1504ms
+   ✓ EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B2 — durable remount preserves Project/EC/Attempt + Evidence/RB/CE + W3-C  753ms
+   ✓ EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B5 — post-Evidence recommendation visible; no auto HD / no false replan; propose≠decide  381ms
+   ✓ EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable (DET) > B6 — Nora unavailable: durable reserve survives remount; no false SUCCESS / HD  368ms
+
+ Test Files  5 passed (5)
+      Tests  44 passed (44)
+   Start at  13:01:39
+   Duration  13.85s (transform 8.48s, setup 1.09s, collect 34.97s, tests 5.26s, environment 2.65s, prepare 995ms)
+
+```
+
+Regression tail:
+
+```
+
+ RUN  v3.2.7 /Users/morris/Projects/sfia-workspace-feat-akg-m5-ep-s2-08-proof-01/projects/sfia-studio/app
+
+ ✓ __tests__/pre-m6-product-ui/postExecutionTrajectorySurface.ui.test.tsx (2 tests) 1404ms
+   ✓ CR-PCONT-05 TrajectorySurface post-execution recovery > preserves Attempt/ProductOutcome/postEvidence after project_trajectory proposeOptions; no false Proposal conflict  1275ms
+ ✓ __tests__/pre-m6-product-ui/trajectorySurface.ui.test.tsx (55 tests) 3857ms
+   ✓ W2 TrajectorySurface > CORR-PROOF-11 — amend decision hides prepare; shows next-action  655ms
+   ✓ W2 TrajectorySurface > records an explicit Pilote decision and shows STOP BEFORE EXECUTE on the verdict  531ms
+stdout | __tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts > P6 M-HD-01 Generic Mission HumanDecision > E1 — structural + verified HD can Select (Fake)
+{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:b4412cb6efc8720d","attemptId":"xat:w3a:c3bdfccd9c8eb06e","executionContractId":"xct:gen-prep:0888fe9b629f479458ee2f8e","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":11}
+{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:b4412cb6efc8720d","attemptId":"xat:w3a:c3bdfccd9c8eb06e","executionContractId":"xct:gen-prep:0888fe9b629f479458ee2f8e","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":11}
+
+ ✓ __tests__/project-assistant/p6.mHd01.genericMissionHumanDecision.d0.test.ts (21 tests) 3166ms
+   ✓ P6 M-HD-01 Generic Mission HumanDecision > HD01 — non-structural PREPARE without systematic HD; decisionRefs empty  306ms
+ ✓ __tests__/project-assistant/p6.mHd01.ecHdEffectsBinding.d0.test.ts (27 tests) 4107ms
+   ✓ P6 M-HD-01 EC ↔ HD Effects Binding > EC01–EC10 — Confirm/Authorize + adversarial EC fixture > EC01 — EC inchangé + HD valide → Confirm/Authorize OK  443ms
+
+ Test Files  4 passed (4)
+      Tests  105 passed (105)
+   Start at  13:04:47
+   Duration  16.87s (transform 8.49s, setup 891ms, collect 25.18s, tests 12.53s, environment 2.51s, prepare 1.33s)
+
+```
+
+Build tail:
+
+```
+┌ ○ /                                                  139 B         103 kB
+├ ○ /_not-found                                        139 B         103 kB
+├ ƒ /api/auth/[...all]                                 139 B         103 kB
+├ ƒ /api/auth/github-start                             139 B         103 kB
+├ ƒ /api/e2e/option-a-qa-scenario                      139 B         103 kB
+├ ƒ /api/e2e/w3b-boundary                              139 B         103 kB
+├ ƒ /api/studio/projects/[projectId]/assistant/send    922 B         107 kB
+├ ○ /cycle-actif                                     3.83 kB         130 kB
+├ ○ /decision                                        5.54 kB         132 kB
+├ ƒ /login                                           2.15 kB         105 kB
+├ ƒ /nouvelle-demande                                10.2 kB         116 kB
+├ ○ /ops1/nouvelle-demande                             19 kB         145 kB
+├ ƒ /projects/[id]                                   2.66 kB         109 kB
+├ ○ /projects/new                                    2.63 kB         109 kB
+├ ○ /studio                                            220 B         228 kB
+├ ƒ /studio/projects/[id]                              994 B         228 kB
+├ ○ /studio/projects/new                               220 B         228 kB
+├ ○ /synthese                                        4.84 kB         131 kB
+└ ƒ /workspace                                         571 B         106 kB
++ First Load JS shared by all                         102 kB
+  ├ chunks/618-4ed0bf222ac79a11.js                   46.2 kB
+  ├ chunks/ee41e18b-66ebfbf37efaba52.js              54.2 kB
+  └ other shared chunks (total)                      2.07 kB
+
+
+ƒ Middleware                                          234 kB
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+```
+
+Lint tail:
+
+```
+
+> sfia-studio@0.1.0 lint
+> next lint
+
+`next lint` is deprecated and will be removed in Next.js 16.
+For new projects, use create-next-app to choose your preferred linter.
+For existing projects, migrate to the ESLint CLI:
+npx @next/codemod@canary next-lint-to-eslint-cli .
+
+
+./lib/oa/cycle/application/pilotLifecycleTransitions.ts
+1577:11  Warning: 'projectResult' is assigned a value but never used.  @typescript-eslint/no-unused-vars
+
+./lib/oa/execution-attempt/application/startExecution.ts
+147:10  Warning: 'asStringList' is defined but never used.  @typescript-eslint/no-unused-vars
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules
+```
 
 ---
 
-## 11 — Full Product candidate diffs
+## 8. Staged 18-file verification (pre-commit)
+
+Confirmed programmatically: staged set == allowlist; extra=[]; missing=[]; MATCH.
+`git diff --cached --stat`: 18 files, +3818 / −13.
+
+---
+
+## 9–10. Complete Product code diffs (committed)
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
@@ -395,7 +400,7 @@ index 16e63e51..1b3dda6e 100644
 @@ -672,6 +672,32 @@ export function assertExecutionContractInternalConsistency(input: {
      }
    }
- 
+
 +  // A5 — repositoryMutationDeclared vs sealed intent / non-mutating stamps.
 +  // Descriptive declaration must not contradict read_only / bounded non-mutating.
 +  const mutationDeclared = inputs.repositoryMutationDeclared;
@@ -424,7 +429,7 @@ index 16e63e51..1b3dda6e 100644
 +
    return { ok: true };
  }
- 
+
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 index fe01dd88..4b370302 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
@@ -432,7 +437,7 @@ index fe01dd88..4b370302 100644
 @@ -257,6 +257,29 @@ function missionImpliesRepositoryWork(analysis: IntentAnalysisDto): boolean {
    return false;
  }
- 
+
 +/**
 + * EP-S2-08-PROOF-01 Option 1 — preserve an already-declared mutation claim as an
 + * inspectable EC input. Does NOT invent "write", does NOT authorize execution,
@@ -509,7 +514,7 @@ index 370ba80d..8e2955fb 100644
 +import { PRODUCT_GOVERNED_CONSTRAINT } from "@/lib/oa/execution-contract";
 +import { PRODUCT_CANONICAL_EXECUTION_ACTION } from "./w3aProductExecutionSemantics";
  import type { TrajectoryOptionInputs } from "./trajectoryOptions";
- 
+
  export type ResolvedW2Qualification = {
 @@ -106,3 +108,461 @@ export async function resolveW2QualificationInputs(input: {
      },
@@ -983,12 +988,12 @@ index dba328ce..6063a05e 100644
  import type { W3BProductTerminalProjection } from "./w3bProductTerminalProjection";
 -import { resolveW2QualificationInputs } from "./qualificationInputs";
 +import { resolvePostEvidenceCkcContext } from "./qualificationInputs";
- 
+
  export type W3cRecommendationKind =
    | "continue"
 @@ -1668,8 +1668,14 @@ export async function runW3cPostEvidenceLoop(input: {
    }
- 
+
    // W3-D / US-P1-14 — full CKC Phase B on post-Evidence Nora path.
 -  // Same product-native load + prompt seam as W2 Options (no parallel resolver).
 -  const qualification = await resolveW2QualificationInputs({ oa, projectId });
@@ -1072,7 +1077,7 @@ index e831f481..cfa81aa9 100644
 @@ -227,6 +251,11 @@ export function requiredInspectedFactsForContract(
      facts.push(`inputs.${CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY}`);
    }
- 
+
 +  // Declared repository mutation is inspectable WHAT when present on the EC.
 +  if (d.repositoryMutationDeclared != null) {
 +    facts.push("inputs.repositoryMutationDeclared");
@@ -1080,280 +1085,251 @@ index e831f481..cfa81aa9 100644
 +
    return Object.freeze([...facts]);
  }
- 
-diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 77ee95a6..b6295932 100644
---- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-+++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-@@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
- **Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
- 
- **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
-+
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 + R-INSPECT-01)
-+
-+> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** + **Option 1** + **R-INSPECT-01** (inspection disclosure coherence). Defensive gates retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write`. **Option 1:** Generic PREPARE preserves declared mutation enum onto durable EC (no invention; no EFFECT_CLASS stamp; declaration ≠ SHE authority). **R-INSPECT-01:** canonical `projectExecutionContractInspectionDisclosure` exposes `repositoryMutationDeclared`; `requiredInspectedFactsForContract` requires `inputs.repositoryMutationDeclared` when present; Pilote exam rows (`buildInspectionFactRowsFromDisclosure` / `ContractInspectionExamPanel`) and TrajectorySurface render neutral label « Opération déclarée sur le dépôt »; HD/sealed `read_only` vs analysis `write` fail-closed (`HD_MUTATION_DECLARATION_CONFLICT` / internal consistency A5). Fingerprint alone ≠ visual disclosure. POS-01 + B2/B5/B6 + R-INSPECT oracles DET. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
-diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index 8fd457ad..933d3958 100644
---- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-+++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-@@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
- | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
- | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
- 
-+**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6 **PASS** after Option 1). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps (including preserved `repositoryMutationDeclared`) decide Delivery vs refuse — remount does not invent CycleInstance, invent `"write"`, or widen SHE authority. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
-+
- **≠** invent recovery E2E beyond DET proofs.
-diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 641e4ebd..115912a7 100644
---- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-+++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-@@ -144,6 +144,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
- | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
- | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
- | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
-+| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
-+| `HD_MUTATION_DECLARATION_CONFLICT` / `mutation_write_vs_read_only_intent` | Generic PREPARE / EC internal consistency (R-INSPECT-01) | Sealed HD `intentKind=read_only` (or bounded non-mutating / NO_REPOSITORY_MUTATION stamp) contradicts analysis/`inputs.repositoryMutationDeclared=write` | PREPARE refuse or SHE consistency refuse — no silent override; declaration ≠ authorization; fingerprint alone ≠ visual disclosure | none unauthorized | yes — **LOCAL CANDIDATE** R-INSPECT-01 · ≠ ON MAIN |
-+| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
- | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
- | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
- | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
-diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index db5716f1..9ae1302f 100644
---- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-+++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -222,3 +222,16 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
- | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
- 
- **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
-+
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 + R1 Option A/1 + R-INSPECT-01
-+
-+| Suite / oracle | Result | Proof level |
-+|---|---|---|
-+| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
-+| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
-+| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · unit HD coherence — **10 PASS**; **R-HD-01** integrated PATH A/B/C — HD-N1 `HD_MUTATION_DECLARATION_CONFLICT` via real ACCEPT_PREPARE OA · HD-P1 coherent decisionRefs · HD-N2 absent mutation ≠ HD write · SHE cross-check mutation preserved — **+4 PASS (14 total)** | **LOCAL DET** · R-INSPECT-01 + R-HD-01 |
-+| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
-+| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
-+| `p6.mHd01.genericMissionHumanDecision.d0.test.ts` | M-HD-01 harness reused by R-HD-01 — non-regression **PASS** | **LOCAL DET** |
-+
-+Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit.
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0aaab505..cb1a225f 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -15,7 +15,7 @@
- | Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
- | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
- | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
--| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + R-INSPECT-01 + **R-HD-01 INTEGRATED DET** — real OA seal/record/verify ACCEPT_PREPARE; first gate `HD_MUTATION_DECLARATION_CONFLICT` BEHAVIOR PROVEN; coherent HD-P1 decisionRefs; HD-N2 absence ≠ invented write; SHE deferred structural preserves mutation without ACCEPT_PREPARE. No production HD-model change this pass (tests-only). **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Readiness / GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
- | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
- | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
- | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..29c598dd 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -19,7 +19,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "c5c9ff056f563c38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,19 +31,19 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "21c9328c91f86984"
-+      "sha256_16": "b019c92a3e457b38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
--      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "975aafc80c713797"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "5bfd9515997c4045"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "ae2b7a00e45b27ed"
-     }
-   ],
-   "components": [
 
-```
-
-### Manifest JSON diff
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..29c598dd 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -19,7 +19,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "c5c9ff056f563c38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,19 +31,19 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "21c9328c91f86984"
-+      "sha256_16": "b019c92a3e457b38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
--      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "975aafc80c713797"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "5bfd9515997c4045"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "ae2b7a00e45b27ed"
-     }
-   ],
-   "components": [
-
-```
-
-### PRR volume diffs
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 77ee95a6..b6295932 100644
---- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-+++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-@@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
- **Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
- 
- **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
-+
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 + R-INSPECT-01)
-+
-+> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** + **Option 1** + **R-INSPECT-01** (inspection disclosure coherence). Defensive gates retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write`. **Option 1:** Generic PREPARE preserves declared mutation enum onto durable EC (no invention; no EFFECT_CLASS stamp; declaration ≠ SHE authority). **R-INSPECT-01:** canonical `projectExecutionContractInspectionDisclosure` exposes `repositoryMutationDeclared`; `requiredInspectedFactsForContract` requires `inputs.repositoryMutationDeclared` when present; Pilote exam rows (`buildInspectionFactRowsFromDisclosure` / `ContractInspectionExamPanel`) and TrajectorySurface render neutral label « Opération déclarée sur le dépôt »; HD/sealed `read_only` vs analysis `write` fail-closed (`HD_MUTATION_DECLARATION_CONFLICT` / internal consistency A5). Fingerprint alone ≠ visual disclosure. POS-01 + B2/B5/B6 + R-INSPECT oracles DET. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
-diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index 8fd457ad..933d3958 100644
---- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-+++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-@@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
- | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
- | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
- 
-+**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6 **PASS** after Option 1). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps (including preserved `repositoryMutationDeclared`) decide Delivery vs refuse — remount does not invent CycleInstance, invent `"write"`, or widen SHE authority. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
-+
- **≠** invent recovery E2E beyond DET proofs.
-diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 641e4ebd..115912a7 100644
---- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-+++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-@@ -144,6 +144,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
- | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
- | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
- | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
-+| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
-+| `HD_MUTATION_DECLARATION_CONFLICT` / `mutation_write_vs_read_only_intent` | Generic PREPARE / EC internal consistency (R-INSPECT-01) | Sealed HD `intentKind=read_only` (or bounded non-mutating / NO_REPOSITORY_MUTATION stamp) contradicts analysis/`inputs.repositoryMutationDeclared=write` | PREPARE refuse or SHE consistency refuse — no silent override; declaration ≠ authorization; fingerprint alone ≠ visual disclosure | none unauthorized | yes — **LOCAL CANDIDATE** R-INSPECT-01 · ≠ ON MAIN |
-+| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
- | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
- | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
- | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
-diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index db5716f1..9ae1302f 100644
---- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-+++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -222,3 +222,16 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
- | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
- 
- **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
-+
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 + R1 Option A/1 + R-INSPECT-01
-+
-+| Suite / oracle | Result | Proof level |
-+|---|---|---|
-+| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
-+| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
-+| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · unit HD coherence — **10 PASS**; **R-HD-01** integrated PATH A/B/C — HD-N1 `HD_MUTATION_DECLARATION_CONFLICT` via real ACCEPT_PREPARE OA · HD-P1 coherent decisionRefs · HD-N2 absent mutation ≠ HD write · SHE cross-check mutation preserved — **+4 PASS (14 total)** | **LOCAL DET** · R-INSPECT-01 + R-HD-01 |
-+| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
-+| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
-+| `p6.mHd01.genericMissionHumanDecision.d0.test.ts` | M-HD-01 harness reused by R-HD-01 — non-regression **PASS** | **LOCAL DET** |
-+
-+Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit.
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0aaab505..cb1a225f 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -15,7 +15,7 @@
- | Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
- | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
- | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
--| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + R-INSPECT-01 + **R-HD-01 INTEGRATED DET** — real OA seal/record/verify ACCEPT_PREPARE; first gate `HD_MUTATION_DECLARATION_CONFLICT` BEHAVIOR PROVEN; coherent HD-P1 decisionRefs; HD-N2 absence ≠ invented write; SHE deferred structural preserves mutation without ACCEPT_PREPARE. No production HD-model change this pass (tests-only). **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Readiness / GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
- | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
- | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
- | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..29c598dd 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -19,7 +19,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "c5c9ff056f563c38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,19 +31,19 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "21c9328c91f86984"
-+      "sha256_16": "b019c92a3e457b38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
--      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "975aafc80c713797"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "5bfd9515997c4045"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "ae2b7a00e45b27ed"
-     }
-   ],
-   "components": [
 
 ```
 
 ---
 
-## 12 — Full new/untracked test sources
+## 11. PRR and manifest change review
 
-### r1CkcSemantic
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+index 77ee95a6..b6295932 100644
+--- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
++++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+@@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle)
+ **Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
+
+ **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 + R-INSPECT-01)
++
++> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** + **Option 1** + **R-INSPECT-01** (inspection disclosure coherence). Defensive gates retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write`. **Option 1:** Generic PREPARE preserves declared mutation enum onto durable EC (no invention; no EFFECT_CLASS stamp; declaration ≠ SHE authority). **R-INSPECT-01:** canonical `projectExecutionContractInspectionDisclosure` exposes `repositoryMutationDeclared`; `requiredInspectedFactsForContract` requires `inputs.repositoryMutationDeclared` when present; Pilote exam rows (`buildInspectionFactRowsFromDisclosure` / `ContractInspectionExamPanel`) and TrajectorySurface render neutral label « Opération déclarée sur le dépôt »; HD/sealed `read_only` vs analysis `write` fail-closed (`HD_MUTATION_DECLARATION_CONFLICT` / internal consistency A5). Fingerprint alone ≠ visual disclosure. POS-01 + B2/B5/B6 + R-INSPECT oracles DET. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
+diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+index 8fd457ad..933d3958 100644
+--- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
++++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+@@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
+ | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
+ | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
+
++**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6 **PASS** after Option 1). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps (including preserved `repositoryMutationDeclared`) decide Delivery vs refuse — remount does not invent CycleInstance, invent `"write"`, or widen SHE authority. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
++
+ **≠** invent recovery E2E beyond DET proofs.
+diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+index 641e4ebd..115912a7 100644
+--- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
++++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+@@ -144,6 +144,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
+ | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
++| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
++| `HD_MUTATION_DECLARATION_CONFLICT` / `mutation_write_vs_read_only_intent` | Generic PREPARE / EC internal consistency (R-INSPECT-01) | Sealed HD `intentKind=read_only` (or bounded non-mutating / NO_REPOSITORY_MUTATION stamp) contradicts analysis/`inputs.repositoryMutationDeclared=write` | PREPARE refuse or SHE consistency refuse — no silent override; declaration ≠ authorization; fingerprint alone ≠ visual disclosure | none unauthorized | yes — **LOCAL CANDIDATE** R-INSPECT-01 · ≠ ON MAIN |
++| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
+ | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
+ | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
+ | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
+diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+index db5716f1..9ae1302f 100644
+--- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
++++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+@@ -222,3 +222,16 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
+ | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
+
+ **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 + R1 Option A/1 + R-INSPECT-01
++
++| Suite / oracle | Result | Proof level |
++|---|---|---|
++| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
++| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · unit HD coherence — **10 PASS**; **R-HD-01** integrated PATH A/B/C — HD-N1 `HD_MUTATION_DECLARATION_CONFLICT` via real ACCEPT_PREPARE OA · HD-P1 coherent decisionRefs · HD-N2 absent mutation ≠ HD write · SHE cross-check mutation preserved — **+4 PASS (14 total)** | **LOCAL DET** · R-INSPECT-01 + R-HD-01 |
++| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `p6.mHd01.genericMissionHumanDecision.d0.test.ts` | M-HD-01 harness reused by R-HD-01 — non-regression **PASS** | **LOCAL DET** |
++
++Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit.
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index 0aaab505..cb1a225f 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -15,7 +15,7 @@
+ | Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
+ | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
+ | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
+-| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + R-INSPECT-01 + **R-HD-01 INTEGRATED DET** — real OA seal/record/verify ACCEPT_PREPARE; first gate `HD_MUTATION_DECLARATION_CONFLICT` BEHAVIOR PROVEN; coherent HD-P1 decisionRefs; HD-N2 absence ≠ invented write; SHE deferred structural preserves mutation without ACCEPT_PREPARE. No production HD-model change this pass (tests-only). **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Readiness / GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
+ | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
+ | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
+ | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 788ea0f2..29c598dd 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+-      "sha256_16": "d13787c0f629efe4"
++      "sha256_16": "c5c9ff056f563c38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+@@ -31,19 +31,19 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+-      "sha256_16": "21c9328c91f86984"
++      "sha256_16": "b019c92a3e457b38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+-      "sha256_16": "94aa75b2dcaa90c2"
++      "sha256_16": "975aafc80c713797"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "7a1bc607f6f28230"
++      "sha256_16": "5bfd9515997c4045"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "700ee3ee207a5434"
++      "sha256_16": "ae2b7a00e45b27ed"
+     }
+   ],
+   "components": [
+
+```
+
+**DIGEST:** PASS on committed tree (all volumes).
+**SEMANTIC:** LOCAL CANDIDATE documentary overlay on feature branch — Option A / Option 1 / R-INSPECT / R-HD documented; **≠ CURRENT ON MAIN**; **≠ EP-S2-08 PASS promotion**; digests not refreshed opportunistically beyond reviewed candidate bytes.
+
+---
+
+## 12. Commit identity
+
+```
+commit e78db159d04a086197f9c094154e1adeb7129538
+Author:     Morris Cleland <morris@macbook-air.home>
+AuthorDate: Wed Oct 28 13:06:07 2026 +0100
+Commit:     Morris Cleland <morris@macbook-air.home>
+CommitDate: Wed Oct 28 13:06:07 2026 +0100
+
+    feat(sfia-studio): EP-S2-08-PROOF-01 post-Evidence Delivery CKC continuity
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+```
+
+- SHA: `e78db159d04a086197f9c094154e1adeb7129538`
+- Parent: `3fb84630efb9e0d2acaaf81b342da0358107db10` (approved base; one-parent lineage)
+- Tree: `96e63297d48b5ca5f6a86513d4cabe7fa8a9f9e3`
+- Message: `feat(sfia-studio): EP-S2-08-PROOF-01 post-Evidence Delivery CKC continuity`
+- Files: **exactly 18**
+
+---
+
+## 13. Exact files in commit
+
+See §5. `git diff-tree` confirms 5×A + 13×M = 18.
+
+---
+
+## 14. Proof temporary report excluded
+
+- `git show --name-only HEAD` contains **no** `.tmp-sfia-review/chatgpt-review.md`
+- Post-commit porcelain: only ` M .tmp-sfia-review/chatgpt-review.md` (this pack rewrite; unstaged)
+- Historically tracked on main → governance: exclude from Product GI; do not silently untrack
+
+---
+
+## 15. Post-commit Product state
+
+```
+branch: feat/akg-m5-ep-s2-08-proof-01
+HEAD: e78db159d04a086197f9c094154e1adeb7129538
+origin/main: 3fb84630efb9e0d2acaaf81b342da0358107db10
+ahead: 1
+porcelain: M .tmp-sfia-review/chatgpt-review.md
+cached: empty
+```
+
+Upstream of feature branch still at `3fb84630efb9e0d2acaaf81b342da0358107db10` (no Product remote update). Feature branch tracking (if any) remains unpublished relative to this new commit.
+
+---
+
+## 16. Confirm no Product push / PR / merge
+
+- No `git push origin` for Product branch
+- No `gh pr create`
+- No merge/rebase/force-push/branch delete
+- Local ahead=1 only
+
+---
+
+## 17. R23 / R24 classification
+
+**R23 (Product semantics in commit):**
+- Option 1: `preserveDeclaredRepositoryMutation` — affirmative write preserved; no invented EFFECT_CLASS; read_only HD vs write → `HD_MUTATION_DECLARATION_CONFLICT` fail-closed
+- Option A: Project-only Delivery CKC only with positive WHAT; no universal `cyc:delivery` fallback; scopeIn ≠ Delivery
+- R-INSPECT-01: `inputs.repositoryMutationDeclared` disclosed/attestable
+- R-HD-01: real OA HD provenance + contradiction guards
+- No fabricated CycleInstance / invented HD / W2 Options ungating / auto replan / unauthorized execution / parallel CKC engine / new persistence
+
+**R24:** PRR volumes + manifest committed on **feature branch** as LOCAL CANDIDATE documentary overlay. **Still NOT CURRENT ON MAIN.** Roadmap not modified. No EP-S2-08 PASS promotion.
+
+---
+
+## 18. Fake / Real qualification
+
+Applicable: YES.
+Authorized claim: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE.**
+Real internal Product at DET: OA, SQLite, EC, HD, Attempt, inspection, W3-C, persistence.
+Controlled substitutes: Cursor/Nora test ports.
+Forbidden: READY FOR REAL / REAL PROVEN.
+G-REAL NOT GRANTED. Bounded REAL = separate future gate.
+
+---
+
+## 19. Reservations
+
+| Reserve | Blocks this GI push/PR? | Blocks later Product exit? | Distinct Morris GO? |
+|---|---|---|---|
+| browser /studio remount E2E OPEN | No | Yes (EP-S2-08 exit) | Yes |
+| dual F3/W3-C live UX OPEN | No | Yes | Yes |
+| EP-S2-08 PARTIAL | No | Yes | Yes |
+| EP-S2-05 NOT PROVEN | No | Yes | Yes |
+| L3 GLOBAL OPEN | No | Yes | Yes |
+| mutating Generic Product PASS NOT PROVEN | No | Yes | Yes |
+| Late Evidence supersession OPEN | No | Yes | Yes |
+| REAL NOT PROVEN / G-REAL NOT GRANTED | No | Yes | Yes |
+| L4 NOT AUTHORIZED | No | N/A | Yes |
+| runtime v3 NON ADOPTED | No | N/A | Yes |
+
+---
+
+## 20. Next Morris authorization
+
+**NEXT: MORRIS PRODUCT PUSH GO** (distinct).
+Then separate: Draft PR GO → CI Required Gate → Merge GO.
+This cycle stops Product Git writes after the local commit.
+
+---
+
+## 21. Unique verdict
+
+# PRODUCT LOCAL COMMIT COMPLETE — READY FOR CRITICAL COMMIT REVIEW
+
+≠ READY TO MERGE · ≠ CI Required Gate PASS · ≠ EP-S2-08 COMPLETE · ≠ Product push/PR implied · ≠ CURRENT ON MAIN · ≠ REAL / G-REAL / L4 / runtime v3 ADOPTED.
+
+---
+
+## Appendix A — Full new test sources (committed content)
+
+### `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts`
 
 ```typescript
 /**
@@ -2245,7 +2221,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
 
 ```
 
-### rInspect01 (incl. R-HD-01)
+### `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts`
 
 ```typescript
 /**
@@ -3257,7 +3233,7 @@ describe("EP-S2-08-PROOF-01 R-HD-01 — integrated HD provenance (DET)", () => {
 
 ```
 
-### piloteResume integrated
+### `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts`
 
 ```typescript
 /**
@@ -3887,9 +3863,9 @@ describe("EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable 
 
 ```
 
-### inspectionSurface UI
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx`
 
-```tsx
+```typescript
 /**
  * EP-S2-08-PROOF-01 R-INSPECT-01 — Pilote inspection surface renders declared
  * repository mutation (jsdom DET). Not browser /studio remount E2E.
@@ -4018,9 +3994,9 @@ describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection surface (jsdom)", () => 
 
 ```
 
-### piloteSurface B5/B6 UI
+### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx`
 
-```tsx
+```typescript
 /**
  * EP-S2-08-PROOF-01 — R2 Pilote-facing TrajectorySurface B5/B6 (jsdom).
  *
@@ -4553,27 +4529,30 @@ describe("EP-S2-08-PROOF-01 R2 — Pilote TrajectorySurface B5/B6 (jsdom)", () =
 
 ```
 
----
-
-## 13 — Unique readiness verdict
-
-**PRE-GI READINESS PASS — READY FOR MORRIS PRODUCT GI DECISION**
-
-Meaning: local candidate is coherent, validated at DET, index clean, digests match, build green, and is ready for a **separate** Morris authorization to commit/push/open Draft PR.  
-
-Does **NOT** mean READY TO MERGE · Does **NOT** execute GI · Does **NOT** claim CI Required Gate · Does **NOT** claim EP-S2-08 COMPLETE · Does **NOT** claim traditional READY FOR PR (no committed feature delta yet).
-
-Permanent anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED · No Product GI implied.
 
 ---
 
-## MANDATORY CHATGPT PRE-GI REVIEW
+## Appendix B — Permanent anti-claims
 
-Read Git:
+EP-S2-05 NOT PROVEN.
+EP-S2-08 PARTIAL.
+L3 GLOBAL OPEN.
+REAL NOT PROVEN.
+G-REAL NOT GRANTED.
+L4 NOT AUTHORIZED.
+Runtime v3 NON ADOPTED.
+
+---
+
+## Mandatory ChatGPT instruction
+
+Before reviewing the Cursor report, read from Git:
 
 - branch: `sfia/review-handoff`
 - file: `sfia-review-handoff/latest-chatgpt-review.md`
 
-Verify: complete Product scope; staged/unstaged/untracked; INDEX CLEAN; test/build results; PRR digests; proposed integration; reserves; remote tip/blob; Morris permissions/prohibitions.
+Verify: commit SHA/parent/tree; exact 18-file commit; exclusion of temporary review; staging/index controls; validation evidence; R23/R24 and manifest; no Product push/PR/merge; current remote handoff tip/blob; remaining reservations; unique verdict.
 
-Then independent Critical Pre-GI Readiness Review.
+Then produce an independent Critical Product Commit Review.
+
+No Product push GO implied.
