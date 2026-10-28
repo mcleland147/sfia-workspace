@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "64dea36a9dd75521"
+      "sha256_16": "f68f7167f71016f9"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -31,19 +31,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "b019c92a3e457b38"
+      "sha256_16": "6fc1d9a4b224a2a2"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "975aafc80c713797"
+      "sha256_16": "0ca1dac948748e96"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "5bfd9515997c4045"
+      "sha256_16": "357fb5ba5b423903"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "9ae9375fe27c79b2"
+      "sha256_16": "66e1ef8ee74259af"
     }
   ],
   "components": [
