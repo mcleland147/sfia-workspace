@@ -31,6 +31,17 @@ export type ExecutionContractInspectionDisclosure = {
   readonly scopeOut: readonly string[] | null;
   readonly createOrModify: boolean | null;
   readonly noDelete: boolean | null;
+  /**
+   * Declared repository mutation from durable EC inputs (inspectable WHAT).
+   * Enum only — never invents "write". Null = absent declaration.
+   * Disclosure ≠ authorization.
+   */
+  readonly repositoryMutationDeclared?:
+    | "none"
+    | "read"
+    | "write"
+    | "unknown"
+    | null;
   readonly objective: string | null;
   readonly artifactType: string | null;
   readonly artifactBrief: string | null;
@@ -115,6 +126,18 @@ export function projectExecutionContractInspectionDisclosure(
   const artifactBrief = asNonEmptyString(inputs.artifactBrief);
   const createOrModify = asBoolean(inputs.createOrModify);
   const noDelete = asBoolean(inputs.noDelete);
+  const repositoryMutationDeclared = (() => {
+    const raw = inputs.repositoryMutationDeclared;
+    if (
+      raw === "none" ||
+      raw === "read" ||
+      raw === "write" ||
+      raw === "unknown"
+    ) {
+      return raw;
+    }
+    return null;
+  })();
   const sourceGrounding = parseContractSourceGrounding(
     inputs[CONTRACT_SOURCE_GROUNDING_INPUT_KEY],
   );
@@ -145,6 +168,7 @@ export function projectExecutionContractInspectionDisclosure(
     scopeOut,
     createOrModify,
     noDelete,
+    repositoryMutationDeclared,
     objective,
     artifactType,
     artifactBrief,
@@ -225,6 +249,11 @@ export function requiredInspectedFactsForContract(
   }
   if (d.reportRequirements) {
     facts.push(`inputs.${CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY}`);
+  }
+
+  // Declared repository mutation is inspectable WHAT when present on the EC.
+  if (d.repositoryMutationDeclared != null) {
+    facts.push("inputs.repositoryMutationDeclared");
   }
 
   return Object.freeze([...facts]);

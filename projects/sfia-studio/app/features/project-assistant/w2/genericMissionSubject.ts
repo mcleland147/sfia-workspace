@@ -672,6 +672,32 @@ export function assertExecutionContractInternalConsistency(input: {
     }
   }
 
+  // A5 — repositoryMutationDeclared vs sealed intent / non-mutating stamps.
+  // Descriptive declaration must not contradict read_only / bounded non-mutating.
+  const mutationDeclared = inputs.repositoryMutationDeclared;
+  if (mutationDeclared === "write") {
+    const intentKind =
+      typeof inputs.intentKind === "string" ? inputs.intentKind.trim() : null;
+    if (intentKind === "read_only") {
+      return {
+        ok: false,
+        reason: "mutation_write_vs_read_only_intent",
+      };
+    }
+    if (inputs.boundedNonMutatingAnalysis === true) {
+      return {
+        ok: false,
+        reason: "mutation_write_vs_bounded_non_mutating",
+      };
+    }
+    if (constraints.includes("MISSION_EFFECT:NO_REPOSITORY_MUTATION_DECLARED")) {
+      return {
+        ok: false,
+        reason: "mutation_write_vs_no_mutation_constraint",
+      };
+    }
+  }
+
   return { ok: true };
 }
 
