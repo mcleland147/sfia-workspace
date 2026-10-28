@@ -1,10 +1,9 @@
-# SFIA Review Pack — EP-S2-08-PROOF-01 R-HD-01 integrated proof
+# SFIA Review Pack — EP-S2-08-PROOF-01 PRE-GI READINESS
 
-**UTC:** 2026-10-28T11:00:50Z  
-**Cycle:** 8 — DELIVERY / IMPLÉMENTATION · Profile CRITICAL · Typology EVOL/CORRECTIVE — PROOF CLOSURE  
-**Corrective:** R-HD-01  
-**Mode:** SAME CYCLE — TEST/PROOF ONLY  
-**Review:** FULL · Handoff: REQUIRED / PUBLISH-IN-CYCLE  
+**UTC:** 2026-10-28T11:46:10Z  
+**Phase:** PRE-GIT-INTEGRATION READINESS · Cycle 13 — PR READINESS (PREPARATORY)  
+**Profile:** CRITICAL · Typology EVOL — VALIDATION / INTEGRATION PREPARATION  
+**Mode:** LOCAL PRE-GI AUDIT · Review FULL · Handoff PUBLISH-IN-CYCLE  
 
 ---
 
@@ -17,11 +16,12 @@
 | Branch | `feat/akg-m5-ep-s2-08-proof-01` |
 | HEAD | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
 | origin/main | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` (main did not advance) |
-| Prior handoff tip (pre-publish) | `8acbc2539b934af3a3176ed420f5910842700413` |
-| Prior handoff blob | `cf9e8673ec97287085c4a96087ca659f6a08fb73` |
+| merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
+| ahead/behind (main...HEAD) | `0	0` (= 0 0 — **no Product commits**) |
+| Prior handoff tip | `12ae4864836dcafbd16827bb37ae636c76a59805` |
+| Prior handoff blob | `742567b4b7b22fc9a67d50aba9b9dc97514106d1` |
 
-### `git status --short`
+### Porcelain `git status --porcelain=v1`
 
 ```
 M .tmp-sfia-review/chatgpt-review.md
@@ -45,109 +45,258 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts
 ```
 
-All prior Product local candidate preserved. **This R-HD-01 pass: production files READ-ONLY** (tests + PRR 08/09 proof map only).
+**Interpretation:** first column blank + second `M` = **unstaged** working-tree modification. `??` = untracked.  
+**Committed delta vs base:** **NONE** (ahead 0). Candidate is **uncommitted local only**.
 
 ---
 
 ## 2 — Morris GO / scope
 
-**R-HD-01 INTEGRATED PROOF CLOSURE AUTHORIZED (2026-10-28).**
+AUTHORIZED: Local Git Truth; index hygiene; inventory; critical review; validations; branch/mergeability analysis; draft PR scope/description; FULL pack; L3 handoff; Morris recommendation.
 
-Retained: Option A VALIDATED · Option 1 LOCAL · R-INSPECT-01 ACCEPTED AT DET.
+NOT AUTHORIZED / NOT DONE: Product commit/push/PR/merge; code correction; Roadmap promotion; REAL/L4.
 
-Authorized: investigate HD paths; reuse Product OA; add integrated oracles; regressions; FULL pack; PRR test-proof sync; L3 handoff.
-
-**Not authorized / not done:** HD model evolution; PREPARE/SHE authority changes; new HD semantics/persistence; CKC changes; new EC fields; Product commit/push/PR; REAL/L4/v3.
-
-No Product defect found → no STOP for corrective GO.
+Formal PR-readiness template consulted: **committed-branch prerequisite NOT met** — this is **PRE-GI**, not traditional READY FOR PR.
 
 ---
 
-## 3 — Convergence
+## 3 — Convergence pre-check
 
-Sources read (template, routing, CKC synthetic map, Build Doctrine, Roadmap, C1, M5 trajectory, HumanDecision doctrine, PRR + vols 02–09). Latest handoff `8acbc2539b934af3a3176ed420f5910842700413` coverage assumed as prior Option 1 + R-INSPECT candidate.
+Read: cycle execution template; validate-pr-readiness; routing guide; validation checklist; delivery pipeline; decision engine; CKC synthetic map; Build Doctrine; Roadmap; C1; M5 trajectory; HumanDecision doctrine; agent capabilities framing; PRR README + vols 02/03/04/06/07/08/09; latest handoff R-HD-01.
+
+Cycle 13 CKC = synthetic guidance only. Local candidate ≠ CURRENT ON MAIN.
 
 Anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL/G-REAL/L4/runtime v3 unchanged.
 
 ---
 
-## 4 — R23 HD path reconstruction
+## 4 — Git index hygiene
 
-### PATH A — Historical pre-bound ACCEPT_PREPARE
-- Entry: `sealGenericMissionForPresentation` → `recordGenericMissionHumanDecision(ACCEPT_PREPARE)` → durable OA DecisionBasis  
-- Consumption: `prepareGeneric…` only when `hdRequired && decisionId` → `verifyGenericMissionHumanDecisionForPrepare` → stamp sealed effects  
-- `hdRequired` = structuralBlocked OR materiality.humanDecisionRequired  
-- **Used for HD-N1 / HD-P1 / HD-N2**
+### Analysis
 
-### PATH B — SHE AUTHORIZE_INSPECTED_EXECUTE
-- Entry: PREPARE without decisionId (SHE-deferred structural) → inspect → `singleHumanExecutePreparedContract` may create SHE HD + effect-preserving supersede  
-- Distinct option from ACCEPT_PREPARE  
-- **Used for SHE cross-check**
-
-### PATH C — NON_STRUCTURAL no systematic HD
-- PREPARE with empty decisionRefs; no HD required  
-- Covered by prior Option 1 / R-INSPECT POS-01 (not re-forced here)
-
-### Critical semantics verified
-1. PREPARE without prior HD admissible (SHE deferred).  
-2. Pre-bound HD verified via `verifyGenericMissionHumanDecisionForPrepare`.  
-3. decisionId consumed only when `hdRequired`.  
-4. SHE HD after inspection is AUTHORIZE_INSPECTED_EXECUTE, not ACCEPT_PREPARE.  
-5. HD Mission Context seals `intentKind` etc.; **`repositoryMutationDeclared` is NOT a canonical HD-sealed field**.  
-6. R-INSPECT guards: `HD_MUTATION_DECLARATION_CONFLICT` + A5 consistency — **not modified this pass**.
-
-### Execution matrix (qualification gate)
-
-| Element | Real Product service |
+| Check | Result |
 |---|---|
-| HD creation | `sealGenericMissionForPresentation` + `recordGenericMissionHumanDecision` |
-| Sealed subject | `genericMissionContext` + presentationDigest |
-| Selection | `GENERIC_MISSION_OPTION_ACCEPT_PREPARE` |
-| DecisionBasis | OA SQLite via decisionServices |
-| Verification | `verifyGenericMissionHumanDecisionForPrepare` |
-| Materiality | `resolveAuthoritativeProductMateriality` |
-| EC | `prepareGenericExecutionContractDraft` / solicit |
-| Attempt | none unauthorized in oracles |
-| Forged DecisionBasis / injected decisionRefs | **NOT used** |
+| `git diff --cached` | **empty** — staged_count=0 |
+| Porcelain first column | blank for all `M` files |
+| `.tmp-sfia-review/chatgpt-review.md` | **Tracked in HEAD and origin/main** (historical since `7044e1a6`) · working-tree **unstaged** `M` · **NOT staged** |
+| Other staged Product files | **none** |
+
+Previous handoff suggestion of staged `M` was **historical/incorrect for current truth**. Current first column is blank (unstaged).
+
+**Action taken:** none required for unstaging (`git restore --staged` N/A — nothing staged). Working-tree temp report **preserved**. No `.gitignore` change. No deletion.
+
+### Classification
+
+**INDEX CLEAN**
+
+Governance note: `.tmp-sfia-review/chatgpt-review.md` is historically tracked on main → **MUST NEVER be included** in Product GI commit for this candidate (exclude explicitly). Local modifications to it are temporary review artifacts only.
 
 ---
 
-## 5 — Oracle results
+## 5 — Exact candidate inventory (19 paths)
 
-### HD-N1 — BEHAVIOR PROVEN
-- Real Decision ID (`dec:…`), durable DecisionBasis (`validateDecisionBasis` → null = OK), sealed digest, ACCEPT_PREPARE option, Project-only cycle null.  
-- Sealed: structural + `intentKind=read_only` + mutation `none`.  
-- PREPARE analysis: same sealed facts + `repositoryMutationDeclared=write` (intentKind still `read_only`).  
-- Verifier passes (does not compare mutation declaration).  
-- **First fail-closed gate: `HD_MUTATION_DECLARATION_CONFLICT`** (dedicated R-INSPECT guard exercised).  
-- No extra HD; Attempt not created.
+All paths under `projects/sfia-studio/` unless noted.
 
-Coverage class: **BEHAVIOR PROVEN** for dedicated guard via legitimate PATH A.
+### PRODUCT CODE (7) — unstaged M — INCLUDE in proposed GI
 
-### HD-P1 — BEHAVIOR PROVEN
-- Coherent structural + `intentKind=other` + write declaration.  
-- Real HD → PREPARE binds `decisionRefs=[decisionId]`.  
-- EC STRUCTURAL; presentationDigest bound; inspection coherent when write preserved.  
-- Project-only Delivery CKC **not** eligible (structural ≠ Delivery CKC question).
+| Path | Purpose | Capability | Validation |
+|---|---|---|---|
+| `app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts` | Option 1 preserve mutation; HD_MUTATION_DECLARATION_CONFLICT | EP-S2-08 | unit+integrated |
+| `app/features/project-assistant/w2/qualificationInputs.ts` | Option A Delivery CKC eligibility | EP-S2-08 | R1 |
+| `app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` | Post-Evidence consumption (Option A) | EP-S2-08 | B2/B5/B6 |
+| `app/features/project-assistant/w2/genericMissionSubject.ts` | A5 mutation vs read_only consistency | R-INSPECT/R-HD | unit+HD |
+| `app/lib/oa/execution-contract/projection/inspectionDisclosure.ts` | Disclose + require mutation fact | R-INSPECT | domain+UI |
+| `app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts` | Pilote exam rows for mutation | R-INSPECT | jsdom |
+| `app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx` | Inline declared opération dépôt | R-INSPECT | jsdom |
 
-### HD-N2 — BEHAVIOR PROVEN
-- Real HD without `repositoryMutationDeclared` on sealed context.  
-- PREPARE with absent mutation → EC `repositoryMutationDeclared=null` (not invented).  
-- HD existence alone ≠ Delivery positive WHAT / `cyc:delivery`.
+### PRODUCT TEST (5) — untracked ?? — INCLUDE
 
-### SHE cross-check — BEHAVIOR PROVEN
-- Deferred structural PREPARE: empty decisionRefs, `sheDeferredStructuralAuthority=true`, mutation `write` preserved.  
-- No ACCEPT_PREPARE HD at PREPARE.  
-- SHE succeeds without Attempt; if HD created, option ≠ ACCEPT_PREPARE.  
-- Successor/live EC still has `repositoryMutationDeclared=write`.
+| Path | Purpose |
+|---|---|
+| `app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 Option A |
+| `app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | R-INSPECT + R-HD-01 |
+| `app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2/B5/B6 |
+| `app/__tests__/pre-m6-product-ui/epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | Inspection panel jsdom |
+| `app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | TrajectorySurface B5/B6 |
+
+### PRR / MANIFEST (6) — unstaged M — INCLUDE (LOCAL CANDIDATE docs)
+
+| Path |
+|---|
+| `production-runtime-reference/03-end-to-end-flow-catalog.md` |
+| `production-runtime-reference/06-persistence-restart-and-recovery.md` |
+| `production-runtime-reference/07-authority-invariants-and-failure-modes.md` |
+| `production-runtime-reference/08-test-proof-and-conformance-map.md` |
+| `production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` |
+| `production-runtime-reference/production-runtime-reference.manifest.json` |
+
+### TEMPORARY REVIEW (1) — unstaged M — **EXCLUDE from GI**
+
+| Path | Note |
+|---|---|
+| `.tmp-sfia-review/chatgpt-review.md` (repo root) | Historically tracked; local rewrite for handoff source only — **do not commit** |
+
+### Counts
+- Product code: **7**
+- Product tests: **5**
+- PRR/manifest: **6**
+- Exclude: **1** (tmp review)
+- Unrelated: **0**
+- Protected needing separate gate: **0** in candidate (tmp is exclude)
+
+**Proposed GI file count: 18** (7+5+6).
 
 ---
 
-## 6 — Production diff this pass
+## 6 — Critical semantic review
 
-**NONE** (tests + PRR 08/09 documentary proof map only).
+| Theme | Verdict |
+|---|---|
+| Option A Project-only CKC | KEEP — positive eligibility only |
+| Option 1 field preservation | COMPLETE at DET — no invent write |
+| R1 defenses | KEEP — scopeIn≠WHAT; exact EFFECT_CLASS; lineage |
+| R-INSPECT-01 | COMPLETE DET — disclosure + required fact + Pilote rows |
+| R-HD-01 | COMPLETE DET — real OA HD; first gate `HD_MUTATION_DECLARATION_CONFLICT` |
+| No universal Delivery fallback | PASS |
+| No fabricated CycleInstance/HD/replan | PASS |
+| W2 Options still cycle-gated | PASS |
+| No parallel CKC / new persistence | PASS |
+| Code/tests/PRR equivalence | PASS (LOCAL CANDIDATE) |
+| Architecture | ADAPT PREPARE/inspection · KEEP SHE/HD authority |
 
-Cumulative Product candidate from Option 1 + R-INSPECT remains local (unchanged this pass):
+**No blocking Product regression found under this audit.** No production code modified this PRE-GI cycle.
+
+---
+
+## 7 — Validation matrix (requalified)
+
+| # | Check | Result | Evidence |
+|---|---|---|---|
+| 1 | R1 semantic | **PASS 22/22** | vitest r1CkcSemantic |
+| 2 | R-INSPECT+R-HD | **PASS 14/14** | rInspect01.d0 |
+| 3 | Inspection UI jsdom | **PASS 2/2** | rInspect01.inspectionSurface |
+| 4 | B2/B5/B6 + UI | **PASS 3+3** | piloteResume + piloteSurface |
+| 5 | M-HD-01 | **PASS** | in 89-test batch |
+| 6–8 | L3-S1 + S8 Generic/SHE | **PASS** | in 89-test batch |
+| 9 | TrajectorySurface + ecInspection | **PASS 64** | extra run |
+| 10 | Late Evidence (S8) | **PASS** | IDEMPOTENCY_CONFLICT preserved |
+| Core batch 8 files | **PASS 89/89** | `/tmp/ep08-pregi-vitest.txt` |
+| 11 | `npm run typecheck` | **PASS** exit 0 | |
+| 12 | ESLint domain files | **PASS** exit 0 | prepare/qual/w3c/generic/disclosure |
+| 12b | ESLint + pilotExecutionPresentation | **FAIL** max-warnings 0 | pre-existing `_contractPresentation` unused **on HEAD** — not introduced as new logic defect; **not fixed** (no code correction authorized) |
+| 13 | `npm run build` | **PASS** exit 0 | Next build ~162s |
+| 14 | PRR digests | **DIGEST PASS** | 03/06/07/08/09 match manifest |
+| 14b | PRR semantic | **SEMANTIC REVIEW PASS** | LOCAL CANDIDATE; EP-S2-08 PARTIAL retained |
+| 15 | `git diff --check` | **PASS** exit 0 | |
+| 16 | Secret-pattern sample | **PASS** no hits | sampled candidate paths |
+| CI Required Gate | **NOT RUN** | historical #623/#624 ≠ this candidate |
+
+Fake/Real: DET Product integration · Cursor/Nora substitutes · ≠ browser remount · ≠ REAL · ≠ live Pilot.
+
+---
+
+## 8 — Conflict / drift
+
+- origin/main == HEAD == merge-base · **no intervening commits**
+- Feature branch **0 ahead** · mergeability of *committed* tip is N/A until GI commit
+- Uncommitted local candidate applies cleanly on current main tip (identity)
+
+---
+
+## 9 — Proposed Git Integration Plan (NOT EXECUTED)
+
+### A. Manifest (18 files)
+7 code + 5 tests + 6 PRR as inventoried.  
+**Exclude:** `.tmp-sfia-review/chatgpt-review.md`
+
+### B. Commit granularity
+**One coherent Product increment** recommended:
+
+`feat(sfia-studio): EP-S2-08-PROOF-01 post-Evidence Delivery CKC continuity`
+
+Rationale: Option A+1+R-INSPECT+R-HD form one capability proof; SFIA prefers coherent DET increments.
+
+Optional micro-follow-up (separate Morris if desired): silence pre-existing `_contractPresentation` unused warning.
+
+### C. Never commit
+- `.tmp-sfia-review/chatgpt-review.md` (local rewrite)
+- Any secrets / env / real Cursor credentials
+
+### D. Protected / gates
+- No doctrine/roadmap CURRENT TIP in this GI
+- Post-push CI Required Gate must run on new SHA
+
+### E–G. Base / sequence
+1. Morris GO: Product commit on `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…`
+2. Push `-u` fast-forward
+3. Morris GO: Draft PR → main
+4. CI green
+5. Separate Morris GO: merge
+
+### H–I. Draft PR (proposal only)
+
+**Title:** `feat(sfia-studio): EP-S2-08-PROOF-01 post-Evidence continuity (Option A/1 + inspect/HD)`
+
+**Body draft:**
+
+```markdown
+## Summary
+- Restore Project-only post-Evidence Delivery CKC orientation when Generic PREPARE preserves a Product-declared `repositoryMutationDeclared=write` (Option A + Option 1).
+- Disclose and attest the declaration via canonical inspection + Pilote exam rows (R-INSPECT-01).
+- Prove real OA HumanDecision provenance / contradiction fail-closed `HD_MUTATION_DECLARATION_CONFLICT` (R-HD-01).
+- Local PRR 03/06/07/08/09 + manifest digests synchronized as LOCAL CANDIDATE (≠ CURRENT ON MAIN until merge).
+
+## Morris decisions retained
+- Option A bounded Delivery CKC eligibility
+- Option 1 field preservation (no invented write / no EFFECT_CLASS invent)
+- R-INSPECT-01 / R-HD-01 DET closures
+
+## Validations (local PRE-GI)
+- Vitest candidate suites 89 PASS (+ TrajectorySurface/ecInspection 64 PASS)
+- typecheck PASS · build PASS · PRR digests PASS
+- CI Required Gate: pending post-push
+
+## Evidence level
+DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE
+≠ browser /studio remount E2E · ≠ REAL · ≠ G-REAL · ≠ L4
+
+## Reserves (do not close by this PR)
+- EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN
+- browser remount E2E · dual F3/W3-C live UX
+- mutating Generic Product PASS NOT PROVEN · Late Evidence supersession OPEN
+
+## Anti-claims
+EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED
+```
+
+### J. Post-publication CI
+Required Gate + typecheck/lint/build/vitest per workspace workflows.
+
+### K. Separate Morris authorizations required for
+1. Product `git add` (18 files) + commit  
+2. Product push  
+3. Draft/regular PR create  
+4. Merge  
+
+---
+
+## 10 — Residual reserves
+
+| Reserve | Blocks this GI? | Blocks later exit? | Distinct Morris GO? |
+|---|---|---|---|
+| browser /studio remount E2E | NO | YES (EP-S2-08 exit) | YES if closing UX |
+| dual F3/W3-C live UX | NO | YES | YES |
+| EP-S2-08 PARTIAL | NO (expected) | YES | exit GO |
+| EP-S2-05 NOT PROVEN | NO | YES | YES |
+| L3 GLOBAL OPEN | NO | YES | trajectory |
+| mutating Generic PASS | NO | YES | Result Semantic |
+| Late Evidence supersession | NO | policy | YES |
+| REAL / G-REAL / L4 / v3 | NO | YES | YES |
+| Pre-existing eslint unused var | NO (domain lint PASS) | optional hygiene | optional micro-fix |
+
+---
+
+## 11 — Full Product candidate diffs
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
@@ -932,14 +1081,1171 @@ index e831f481..cfa81aa9 100644
    return Object.freeze([...facts]);
  }
  
+diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+index 77ee95a6..b6295932 100644
+--- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
++++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+@@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
+ **Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
+ 
+ **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 + R-INSPECT-01)
++
++> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** + **Option 1** + **R-INSPECT-01** (inspection disclosure coherence). Defensive gates retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write`. **Option 1:** Generic PREPARE preserves declared mutation enum onto durable EC (no invention; no EFFECT_CLASS stamp; declaration ≠ SHE authority). **R-INSPECT-01:** canonical `projectExecutionContractInspectionDisclosure` exposes `repositoryMutationDeclared`; `requiredInspectedFactsForContract` requires `inputs.repositoryMutationDeclared` when present; Pilote exam rows (`buildInspectionFactRowsFromDisclosure` / `ContractInspectionExamPanel`) and TrajectorySurface render neutral label « Opération déclarée sur le dépôt »; HD/sealed `read_only` vs analysis `write` fail-closed (`HD_MUTATION_DECLARATION_CONFLICT` / internal consistency A5). Fingerprint alone ≠ visual disclosure. POS-01 + B2/B5/B6 + R-INSPECT oracles DET. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
+diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+index 8fd457ad..933d3958 100644
+--- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
++++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+@@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
+ | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
+ | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
+ 
++**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6 **PASS** after Option 1). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps (including preserved `repositoryMutationDeclared`) decide Delivery vs refuse — remount does not invent CycleInstance, invent `"write"`, or widen SHE authority. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
++
+ **≠** invent recovery E2E beyond DET proofs.
+diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+index 641e4ebd..115912a7 100644
+--- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
++++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+@@ -144,6 +144,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
+ | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
++| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
++| `HD_MUTATION_DECLARATION_CONFLICT` / `mutation_write_vs_read_only_intent` | Generic PREPARE / EC internal consistency (R-INSPECT-01) | Sealed HD `intentKind=read_only` (or bounded non-mutating / NO_REPOSITORY_MUTATION stamp) contradicts analysis/`inputs.repositoryMutationDeclared=write` | PREPARE refuse or SHE consistency refuse — no silent override; declaration ≠ authorization; fingerprint alone ≠ visual disclosure | none unauthorized | yes — **LOCAL CANDIDATE** R-INSPECT-01 · ≠ ON MAIN |
++| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
+ | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
+ | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
+ | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
+diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+index db5716f1..9ae1302f 100644
+--- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
++++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+@@ -222,3 +222,16 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
+ | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
+ 
+ **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 + R1 Option A/1 + R-INSPECT-01
++
++| Suite / oracle | Result | Proof level |
++|---|---|---|
++| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
++| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · unit HD coherence — **10 PASS**; **R-HD-01** integrated PATH A/B/C — HD-N1 `HD_MUTATION_DECLARATION_CONFLICT` via real ACCEPT_PREPARE OA · HD-P1 coherent decisionRefs · HD-N2 absent mutation ≠ HD write · SHE cross-check mutation preserved — **+4 PASS (14 total)** | **LOCAL DET** · R-INSPECT-01 + R-HD-01 |
++| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `p6.mHd01.genericMissionHumanDecision.d0.test.ts` | M-HD-01 harness reused by R-HD-01 — non-regression **PASS** | **LOCAL DET** |
++
++Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit.
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index 0aaab505..cb1a225f 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -15,7 +15,7 @@
+ | Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
+ | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
+ | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
+-| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + R-INSPECT-01 + **R-HD-01 INTEGRATED DET** — real OA seal/record/verify ACCEPT_PREPARE; first gate `HD_MUTATION_DECLARATION_CONFLICT` BEHAVIOR PROVEN; coherent HD-P1 decisionRefs; HD-N2 absence ≠ invented write; SHE deferred structural preserves mutation without ACCEPT_PREPARE. No production HD-model change this pass (tests-only). **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Readiness / GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
+ | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
+ | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
+ | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 788ea0f2..29c598dd 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+-      "sha256_16": "d13787c0f629efe4"
++      "sha256_16": "c5c9ff056f563c38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+@@ -31,19 +31,19 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+-      "sha256_16": "21c9328c91f86984"
++      "sha256_16": "b019c92a3e457b38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+-      "sha256_16": "94aa75b2dcaa90c2"
++      "sha256_16": "975aafc80c713797"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "7a1bc607f6f28230"
++      "sha256_16": "5bfd9515997c4045"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "700ee3ee207a5434"
++      "sha256_16": "ae2b7a00e45b27ed"
+     }
+   ],
+   "components": [
+
+```
+
+### Manifest JSON diff
+
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 788ea0f2..29c598dd 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+-      "sha256_16": "d13787c0f629efe4"
++      "sha256_16": "c5c9ff056f563c38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+@@ -31,19 +31,19 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+-      "sha256_16": "21c9328c91f86984"
++      "sha256_16": "b019c92a3e457b38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+-      "sha256_16": "94aa75b2dcaa90c2"
++      "sha256_16": "975aafc80c713797"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "7a1bc607f6f28230"
++      "sha256_16": "5bfd9515997c4045"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "700ee3ee207a5434"
++      "sha256_16": "ae2b7a00e45b27ed"
+     }
+   ],
+   "components": [
+
+```
+
+### PRR volume diffs
+
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+index 77ee95a6..b6295932 100644
+--- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
++++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+@@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
+ **Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
+ 
+ **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 + R-INSPECT-01)
++
++> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** + **Option 1** + **R-INSPECT-01** (inspection disclosure coherence). Defensive gates retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write`. **Option 1:** Generic PREPARE preserves declared mutation enum onto durable EC (no invention; no EFFECT_CLASS stamp; declaration ≠ SHE authority). **R-INSPECT-01:** canonical `projectExecutionContractInspectionDisclosure` exposes `repositoryMutationDeclared`; `requiredInspectedFactsForContract` requires `inputs.repositoryMutationDeclared` when present; Pilote exam rows (`buildInspectionFactRowsFromDisclosure` / `ContractInspectionExamPanel`) and TrajectorySurface render neutral label « Opération déclarée sur le dépôt »; HD/sealed `read_only` vs analysis `write` fail-closed (`HD_MUTATION_DECLARATION_CONFLICT` / internal consistency A5). Fingerprint alone ≠ visual disclosure. POS-01 + B2/B5/B6 + R-INSPECT oracles DET. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
+diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+index 8fd457ad..933d3958 100644
+--- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
++++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+@@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
+ | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
+ | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
+ 
++**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6 **PASS** after Option 1). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps (including preserved `repositoryMutationDeclared`) decide Delivery vs refuse — remount does not invent CycleInstance, invent `"write"`, or widen SHE authority. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
++
+ **≠** invent recovery E2E beyond DET proofs.
+diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+index 641e4ebd..115912a7 100644
+--- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
++++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+@@ -144,6 +144,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
+ | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
++| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
++| `HD_MUTATION_DECLARATION_CONFLICT` / `mutation_write_vs_read_only_intent` | Generic PREPARE / EC internal consistency (R-INSPECT-01) | Sealed HD `intentKind=read_only` (or bounded non-mutating / NO_REPOSITORY_MUTATION stamp) contradicts analysis/`inputs.repositoryMutationDeclared=write` | PREPARE refuse or SHE consistency refuse — no silent override; declaration ≠ authorization; fingerprint alone ≠ visual disclosure | none unauthorized | yes — **LOCAL CANDIDATE** R-INSPECT-01 · ≠ ON MAIN |
++| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
+ | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
+ | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
+ | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
+diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+index db5716f1..9ae1302f 100644
+--- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
++++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+@@ -222,3 +222,16 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
+ | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
+ 
+ **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 + R1 Option A/1 + R-INSPECT-01
++
++| Suite / oracle | Result | Proof level |
++|---|---|---|
++| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
++| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · unit HD coherence — **10 PASS**; **R-HD-01** integrated PATH A/B/C — HD-N1 `HD_MUTATION_DECLARATION_CONFLICT` via real ACCEPT_PREPARE OA · HD-P1 coherent decisionRefs · HD-N2 absent mutation ≠ HD write · SHE cross-check mutation preserved — **+4 PASS (14 total)** | **LOCAL DET** · R-INSPECT-01 + R-HD-01 |
++| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `p6.mHd01.genericMissionHumanDecision.d0.test.ts` | M-HD-01 harness reused by R-HD-01 — non-regression **PASS** | **LOCAL DET** |
++
++Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit.
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index 0aaab505..cb1a225f 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -15,7 +15,7 @@
+ | Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
+ | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
+ | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
+-| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + R-INSPECT-01 + **R-HD-01 INTEGRATED DET** — real OA seal/record/verify ACCEPT_PREPARE; first gate `HD_MUTATION_DECLARATION_CONFLICT` BEHAVIOR PROVEN; coherent HD-P1 decisionRefs; HD-N2 absence ≠ invented write; SHE deferred structural preserves mutation without ACCEPT_PREPARE. No production HD-model change this pass (tests-only). **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Readiness / GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
+ | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
+ | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
+ | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 788ea0f2..29c598dd 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+-      "sha256_16": "d13787c0f629efe4"
++      "sha256_16": "c5c9ff056f563c38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+@@ -31,19 +31,19 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+-      "sha256_16": "21c9328c91f86984"
++      "sha256_16": "b019c92a3e457b38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+-      "sha256_16": "94aa75b2dcaa90c2"
++      "sha256_16": "975aafc80c713797"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "7a1bc607f6f28230"
++      "sha256_16": "5bfd9515997c4045"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "700ee3ee207a5434"
++      "sha256_16": "ae2b7a00e45b27ed"
+     }
+   ],
+   "components": [
 
 ```
 
 ---
 
-## 7 — Full test sources (untracked / extended)
+## 12 — Full new/untracked test sources
 
-### akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts (R-INSPECT + R-HD-01)
+### r1CkcSemantic
+
+```typescript
+/**
+ * EP-S2-08-PROOF-01 — R1 Option A bounded Delivery CKC eligibility (DET).
+ *
+ * Morris 2026-10-28: Option A — Delivery post-Evidence CKC only when Generic
+ * Project-only NON_STRUCTURAL Delivery eligibility is positively proven.
+ * Universal null-cycle → cyc:delivery is NOT authorized.
+ *
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  FakeConversationProvider,
+  setConversationProviderForTests,
+} from "@/lib/platform/ai";
+import {
+  buildIntentAnalysisFromSolicitedMission,
+  solicitGenericExecutionPrepare,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
+import { requiredInspectedFactsForContract } from "@/lib/oa/execution-contract";
+import {
+  governedExecuteRecordResult,
+  governedExecuteSelectAgent,
+  governedExecuteStart,
+} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
+import { materializeW3bProductTerminal } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
+import {
+  assessProjectOnlyDeliveryCkcEligibility,
+  POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
+  resolvePostEvidenceCkcContext,
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import { loadProductCkcCognitiveContent } from "@/features/project-assistant/f2/ckcCognitiveContext";
+import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+import { PRODUCT_CANONICAL_EXECUTION_ACTION } from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
+import { PRODUCT_GOVERNED_CONSTRAINT } from "@/lib/oa/execution-contract";
+import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  seedQualifiedProject,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "./w2Harness";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+
+const NOTES_PATH = "projects/demo/notes/project-notes.md";
+
+function restoreEnvVar(name: string, previous: string | undefined): void {
+  if (previous === undefined) delete process.env[name];
+  else process.env[name] = previous;
+}
+
+function requiredFactsOrThrow(
+  contract: Parameters<typeof requiredInspectedFactsForContract>[0],
+): readonly string[] {
+  const facts = requiredInspectedFactsForContract(contract);
+  if (Array.isArray(facts)) return facts;
+  throw new Error(
+    `inspection disclosure incomplete: ${(facts as { code: string }).code}`,
+  );
+}
+
+function launchPortOf(oa: {
+  executionAttemptServices?: {
+    realBoundary?: { launchPort?: unknown };
+  } | null;
+}): TestOnlyRealExecutionLaunchPort {
+  const port = oa.executionAttemptServices?.realBoundary?.launchPort;
+  if (!(port instanceof TestOnlyRealExecutionLaunchPort)) {
+    throw new Error("TestOnlyRealExecutionLaunchPort required");
+  }
+  return port;
+}
+
+function deliveryEligibleAnalysis(): IntentAnalysisDto {
+  const base = buildIntentAnalysisFromSolicitedMission({
+    objective: "EP-S2-08 R1-A Delivery-eligible notes edit",
+    expectedOutcome: "Bounded local-write Evidence",
+    scope: NOTES_PATH,
+    repositoryMutation: "write",
+    impactSignals: { structuralChange: false, architectureImpact: false },
+  });
+  return {
+    ...base,
+    executionIntent: {
+      intentKind: "other",
+      scopeIn: [NOTES_PATH],
+      requiredCapabilities: [],
+    },
+  };
+}
+
+function cursorReportStdout(input: {
+  attemptId: string;
+  executionContractId: string;
+  repositoryRef: string;
+  baseSha: string;
+}): string {
+  const body = {
+    schemaVersion: "oa.cursor-execution-report.1",
+    reportId: `rpt:r1:${input.attemptId}`.slice(0, 128),
+    attemptId: input.attemptId,
+    executionContractId: input.executionContractId,
+    repositoryRef: input.repositoryRef,
+    baseSha: input.baseSha,
+    status: "succeeded",
+    authorizedEffectsExecuted: ["filesystem.modify"],
+    workPerformed: [`modified ${NOTES_PATH}`],
+    fileEffects: {
+      created: [],
+      modified: [NOTES_PATH],
+      deleted: [],
+    },
+  };
+  return `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(body)}`;
+}
+
+describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () => {
+  let previousMorris: string | undefined;
+  let previousDetPin: string | undefined;
+  let previousPilot: string | undefined;
+  let previousExclusive: string | undefined;
+  let previousRefs: string | undefined;
+  let refsRoot: string;
+  let dbPath: string;
+
+  beforeEach(() => {
+    previousMorris = process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY;
+    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
+    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID;
+    previousExclusive = process.env.SFIA_STUDIO_OA_EXCLUSIVE;
+    previousRefs = process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT;
+    process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
+    process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID = "actor:local-pilote";
+    process.env.SFIA_STUDIO_OA_EXCLUSIVE = "0";
+    refsRoot = tempProductDbPath("ep08-r1-refs").replace(/\.sqlite$/, "-refs");
+    process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT = refsRoot;
+    dbPath = tempProductDbPath("ep08-r1-optA");
+    setConversationProviderForTests(new FakeConversationProvider());
+  });
+
+  afterEach(() => {
+    cleanupW2TempDirs();
+    restoreEnvVar("SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY", previousMorris);
+    restoreEnvVar("SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA", previousDetPin);
+    restoreEnvVar("SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID", previousPilot);
+    restoreEnvVar("SFIA_STUDIO_OA_EXCLUSIVE", previousExclusive);
+    restoreEnvVar("SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT", previousRefs);
+    setConversationProviderForTests(null);
+  });
+
+  describe("pure assessor matrix (R1 final)", () => {
+    const allClearSignals = {
+      structuralChange: false,
+      securityImpact: false,
+      architectureImpact: false,
+      dataImpact: false,
+      irreversible: false,
+    };
+    /** Positive WHAT requires exact EFFECT_CLASS:local-write or mutation=write — not scopeIn. */
+    const baseContract = {
+      projectId: "prj:r1",
+      cycleInstanceId: null as string | null,
+      action: PRODUCT_CANONICAL_EXECUTION_ACTION,
+      constraints: [
+        PRODUCT_GOVERNED_CONSTRAINT,
+        "MATERIALITY:NON_STRUCTURAL",
+        "EFFECT_CLASS:local-write",
+      ],
+      inputs: {
+        intentKind: "other",
+        scopeIn: [NOTES_PATH],
+        repositoryMutationDeclared: "write",
+        materialityFacts: { assessedMateriality: "non_structural" },
+        impactSignals: { ...allClearSignals },
+      },
+    };
+
+    it("R1-P1 — positive when exact local-write / mutation=write present", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: baseContract,
+      });
+      expect(r).toEqual({
+        eligible: true,
+        reasonCode: "GENERIC_NON_STRUCTURAL_DELIVERY",
+      });
+    });
+
+    it("R1-P1b — repositoryMutationDeclared=write alone (no EFFECT_CLASS) eligible", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+          ],
+        },
+      });
+      expect(r).toEqual({
+        eligible: true,
+        reasonCode: "GENERIC_NON_STRUCTURAL_DELIVERY",
+      });
+    });
+
+    it("NEG-01 — intentKind=other + scopeIn only (no positive WHAT) → refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          projectId: "prj:r1",
+          cycleInstanceId: null,
+          action: PRODUCT_CANONICAL_EXECUTION_ACTION,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+          ],
+          inputs: {
+            intentKind: "other",
+            scopeIn: [NOTES_PATH],
+            repositoryMutationDeclared: null,
+            materialityFacts: { assessedMateriality: "non_structural" },
+            impactSignals: { ...allClearSignals },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) {
+        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
+      }
+    });
+
+    it("NEG-04 — EFFECT_CLASS:local-write-extra prefix must not pass", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+            "EFFECT_CLASS:local-write-extra",
+          ],
+          inputs: {
+            ...baseContract.inputs,
+            repositoryMutationDeclared: null,
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) {
+        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
+      }
+    });
+
+    it("R1-N1 — read_only refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          inputs: { ...baseContract.inputs, intentKind: "read_only" },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("READ_ONLY_NOT_DELIVERY");
+    });
+
+    it("R1-N2 — absent intent refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          inputs: {
+            scopeIn: [NOTES_PATH],
+            materialityFacts: { assessedMateriality: "non_structural" },
+            impactSignals: { ...allClearSignals },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("INTENT_ABSENT_OR_UNKNOWN");
+    });
+
+    it("R1-N3 — other without positive Delivery facts refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          projectId: "prj:r1",
+          cycleInstanceId: null,
+          action: PRODUCT_CANONICAL_EXECUTION_ACTION,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+          ],
+          inputs: {
+            intentKind: "other",
+            materialityFacts: { assessedMateriality: "non_structural" },
+            impactSignals: { ...allClearSignals },
+            // no scopeIn, no write mutation, no EFFECT_CLASS
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) {
+        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
+      }
+    });
+
+    it("R1-N3b — unknown intentKind refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          inputs: { ...baseContract.inputs, intentKind: "implement" },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("INTENT_ABSENT_OR_UNKNOWN");
+    });
+
+    it("R1-N4 — dataImpact conflicts with NON_STRUCTURAL → refuse", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          inputs: {
+            ...baseContract.inputs,
+            impactSignals: { ...allClearSignals, dataImpact: true },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_CATEGORY_NON_DELIVERY");
+    });
+
+    it("R1-N4b — irreversible conflicts with NON_STRUCTURAL → refuse", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          inputs: {
+            ...baseContract.inputs,
+            impactSignals: { ...allClearSignals, irreversible: true },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_CATEGORY_NON_DELIVERY");
+    });
+
+    it("R1-N5 — absent impactSignals refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          inputs: {
+            intentKind: "other",
+            scopeIn: [NOTES_PATH],
+            materialityFacts: { assessedMateriality: "non_structural" },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_SIGNALS_ABSENT");
+    });
+
+    it("R1-N5b — malformed impactSignals refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          inputs: {
+            ...baseContract.inputs,
+            impactSignals: { structuralChange: false },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_SIGNALS_MALFORMED");
+    });
+
+    it("R1-N6 — materiality constraint vs assessedMateriality contradiction", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+          ],
+          inputs: {
+            ...baseContract.inputs,
+            materialityFacts: { assessedMateriality: "structural" },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("MATERIALITY_CONTRADICTION");
+    });
+
+    it("R1-N7 — UNKNOWN materiality not promoted to Delivery", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          constraints: [PRODUCT_GOVERNED_CONSTRAINT, "MATERIALITY:UNKNOWN"],
+          inputs: {
+            ...baseContract.inputs,
+            materialityFacts: { assessedMateriality: "unknown" },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) {
+        expect(r.reasonCode).toBe("MATERIALITY_NOT_NON_STRUCTURAL");
+      }
+    });
+
+    it("R1-N7b — STRUCTURAL materiality refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          constraints: [PRODUCT_GOVERNED_CONSTRAINT, "MATERIALITY:STRUCTURAL"],
+          inputs: {
+            ...baseContract.inputs,
+            materialityFacts: { assessedMateriality: "structural" },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) {
+        expect(r.reasonCode).toBe("MATERIALITY_NOT_NON_STRUCTURAL");
+      }
+    });
+
+    it("R1-N8 — Attempt/EC project mismatch refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:other",
+        contract: baseContract,
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("CONTRACT_PROJECT_MISMATCH");
+    });
+
+    it("null-cycle alone is insufficient — non-generic action refuses", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: { ...baseContract, action: "other.action" },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) expect(r.reasonCode).toBe("NOT_GENERIC_PRODUCT_EC");
+    });
+  });
+
+  async function seedProject(runtime: RuntimeApplicationService, suffix: string) {
+    const oa = runtime.oa!;
+    const created = await runtime.createProject({
+      name: "demo",
+      objective: "EP-S2-08 R1 Option A",
+      context: "r1 eligibility",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL", "R1 DET"],
+      shortReference: `R1${suffix.toUpperCase().slice(0, 4)}`,
+      idempotencyKey: `idem:ep08-r1-${suffix}`,
+    });
+    if (!created.ok) {
+      throw new Error(`createProject: ${created.error?.message ?? "fail"}`);
+    }
+    const projectId = created.project.projectId;
+    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps0.ok) throw new Error("lps0");
+    await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
+      status: "active",
+      expectedLpsVersion: lps0.livingProjectState.version,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+    const identity = `acme/ep08-r1-${suffix}`;
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+      identity,
+    });
+    return { projectId, oa };
+  }
+
+  it("POS-01 — real Generic PREPARE→SHE→Attempt preserves declared write → Delivery CKC", async () => {
+    /**
+     * Option 1 (2026-10-28): declared repositoryMutation=write is preserved on
+     * the durable EC (inspectable WHAT). No EFFECT_CLASS:local-write invented.
+     * SHE / materiality / confirmation remain the authority gates.
+     */
+    const runtime = bootW2Runtime({
+      productDbPath: dbPath,
+      idPrefix: "ep08r1a",
+    });
+    const { projectId, oa } = await seedProject(runtime, "a");
+
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: deliveryEligibleAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    expect(prep.projectContextOnly).toBe(true);
+
+    const liveEc = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(liveEc.ok).toBe(true);
+    if (!liveEc.ok) throw new Error("get EC");
+    const inputs = liveEc.contract.inputs as Record<string, unknown>;
+    // POS-01 / POS-02 — declared write preserved; WHERE still present; no invented EFFECT_CLASS.
+    expect(inputs.repositoryMutationDeclared).toBe("write");
+    expect(
+      liveEc.contract.constraints.includes("EFFECT_CLASS:local-write"),
+    ).toBe(false);
+    expect(Array.isArray(inputs.scopeIn) && (inputs.scopeIn as string[]).length).toBeGreaterThan(
+      0,
+    );
+    expect(inputs.boundedNonMutatingAnalysis).toBe(false);
+
+    const facts = requiredFactsOrThrow(liveEc.contract);
+    const repositoryRef = String(inputs.repositoryBindingIdentity ?? "");
+    const baseSha = String(inputs.baseHeadSha ?? W2_TEST_PINNED_BASE_HEAD_SHA);
+
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: liveEc.contract.executionContractId,
+      expectedVersion: liveEc.contract.version,
+      expectedSemanticFingerprint: liveEc.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(true);
+    if (!she.ok) throw new Error(`she: ${she.code}`);
+    // POS-03 — SHE does not widen: still AUTHORIZED on inspected EC only.
+    expect(she.authorization.outcome).toBe("AUTHORIZED");
+
+    const port = launchPortOf(oa);
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error(selected.message);
+    const attemptId = selected.attempt!.attemptId;
+
+    const started = await governedExecuteStart({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+    });
+    expect(started.ok).toBe(true);
+    if (!started.ok) throw new Error(started.message);
+
+    setTimeout(() => {
+      port.resolveSimulatedCompletion(`proc:sim:${attemptId}`, {
+        exitCode: 0,
+        timedOut: false,
+        stdout: cursorReportStdout({
+          attemptId,
+          executionContractId: she.executionContractId,
+          repositoryRef,
+          baseSha,
+        }),
+        stderr: "",
+        durationMs: 5,
+      });
+    }, 15);
+
+    const terminal = await governedExecuteRecordResult({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      attemptId,
+      forceLocalAuthority: true,
+      awaitIfPending: true,
+      missionResultRefsRoot: refsRoot,
+    });
+    expect(terminal.ok).toBe(true);
+    if (!terminal.ok) throw new Error(terminal.message);
+
+    const ckc = await resolvePostEvidenceCkcContext({
+      oa,
+      projectId,
+      attemptId,
+    });
+    // POS-05 — Project-only positive Delivery reaches W3-C with cyc:delivery.
+    expect(ckc.ok).toBe(true);
+    if (ckc.ok) {
+      expect(ckc.context.projectScoped).toBe(true);
+      expect(ckc.context.cycleTypeId).toBe(
+        POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
+      );
+      expect(ckc.context.cycleTypeId).toBe("cyc:delivery");
+      expect(ckc.context.eligibilityReasonCode).toBe(
+        "GENERIC_NON_STRUCTURAL_DELIVERY",
+      );
+      expect(ckc.context.activeCycleInstanceId).toBeNull();
+    }
+
+    // AUTH-03 — W2 Options still cycle-gated.
+    const qual = await resolveW2QualificationInputs({ oa, projectId });
+    expect(qual.ok).toBe(false);
+    if (!qual.ok) expect(qual.code).toBe("CYCLE_NOT_QUALIFIED");
+
+    // AUTH-01 — no CycleInstance invented.
+    const live = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(live.ok && (live.livingProjectState.activeCycleInstanceId ?? null)).toBe(
+      null,
+    );
+
+    // AUTH-02 — no automatic HD; Product UNCLAIMED remains honest.
+    const hdBefore = (
+      await oa.decisionServices!.decisions.listByProject(projectId)
+    ).length;
+    const materialized = await materializeW3bProductTerminal({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(materialized.ok).toBe(true);
+    if (materialized.ok) {
+      expect(materialized.product.outcome).toBe("UNCLAIMED");
+      expect(materialized.postEvidence?.ok).toBe(true);
+      if (materialized.postEvidence?.ok) {
+        expect(materialized.postEvidence.replanInvoked).toBe(false);
+        expect(materialized.postEvidence.recommendation.authority).toBe("none");
+        expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
+          false,
+        );
+        expect(
+          materialized.postEvidence.recommendation.attemptAutoLaunchNextCycle,
+        ).toBe(false);
+      }
+    }
+    const hdAfter = (
+      await oa.decisionServices!.decisions.listByProject(projectId)
+    ).length;
+    expect(hdAfter).toBe(hdBefore);
+  }, 90_000);
+
+  it("R1-P2 — cycle-bound Attempt→EC lineage uses real cycleTypeId (not forced Delivery)", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-r1d"),
+      idPrefix: "ep08r1d",
+    });
+    const { projectId, oa } = await seedProject(runtime, "r1d");
+    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps.ok) throw new Error("lps");
+    const cycleInstanceId = `cyc:inst:ep08-r1d-framing`;
+    const cycle = await oa.cycleServices.createCycle.execute({
+      cycleInstanceId,
+      cycleTypeId: "cyc:framing",
+      projectId,
+      signals: {},
+      objective: "R1-P2 framing lineage",
+      scope: "r1-p2",
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+      linkAsActiveCycle: true,
+      expectedLpsVersion: lps.livingProjectState.version,
+      ckcResolutionRef: "ckcres:ep08-r1d",
+    });
+    expect(cycle.ok).toBe(true);
+    if (!cycle.ok) throw new Error("createCycle");
+
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId,
+      analysis: deliveryEligibleAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+
+    const liveEc = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(liveEc.ok).toBe(true);
+    if (!liveEc.ok) throw new Error("get EC");
+    expect(liveEc.contract.cycleInstanceId).toBe(cycleInstanceId);
+    const facts = requiredFactsOrThrow(liveEc.contract);
+
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: liveEc.contract.executionContractId,
+      expectedVersion: liveEc.contract.version,
+      expectedSemanticFingerprint: liveEc.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(true);
+    if (!she.ok) throw new Error(`she: ${she.code} ${she.message ?? ""}`);
+
+    const selected = await governedExecuteSelectAgent({
+      oa,
+      projectId,
+      executionContractId: she.executionContractId,
+      forceLocalAuthority: true,
+    });
+    expect(selected.ok).toBe(true);
+    if (!selected.ok) throw new Error(selected.message);
+    const attemptId = selected.attempt!.attemptId;
+
+    const ckc = await resolvePostEvidenceCkcContext({
+      oa,
+      projectId,
+      attemptId,
+    });
+    expect(ckc.ok).toBe(true);
+    if (!ckc.ok) throw new Error(`${ckc.code}: ${ckc.message}`);
+    expect(ckc.context.projectScoped).toBe(false);
+    expect(ckc.context.activeCycleInstanceId).toBe(cycleInstanceId);
+    expect(ckc.context.cycleTypeId).toBe("cyc:framing");
+    expect(ckc.context.eligibilityReasonCode).toBe("ACTIVE_CYCLE_TYPE");
+    expect(ckc.context.cycleTypeId).not.toBe(
+      POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
+    );
+  }, 90_000);
+
+  it("R1-N9 — missing Attempt refused (no silent LPS-cycle CKC)", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-r1n9"),
+      idPrefix: "ep08r1n9",
+    });
+    const seeded = await seedQualifiedProject(runtime, {
+      suffix: "r1n9",
+      cycleTypeId: "cyc:framing",
+    });
+    const ckc = await resolvePostEvidenceCkcContext({
+      oa: runtime.oa!,
+      projectId: seeded.projectId,
+      attemptId: "xat:does-not-exist-r1n9",
+    });
+    expect(ckc.ok).toBe(false);
+    if (!ckc.ok) {
+      expect(ckc.code).not.toBe("ACTIVE_CYCLE_TYPE");
+    }
+  });
+
+  it("R1-C — Project-only ambiguous (no impactSignals) → POST_EVIDENCE_CKC_AMBIGUOUS", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-r1c"),
+      idPrefix: "ep08r1c",
+    });
+    const { projectId, oa } = await seedProject(runtime, "c");
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: deliveryEligibleAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+
+    const loaded = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) return;
+
+    // Simulate durable ambiguity: strip sealed impactSignals (no invented classifier).
+    const strippedInputs = { ...(loaded.contract.inputs as Record<string, unknown>) };
+    delete strippedInputs.impactSignals;
+    const ambiguous = assessProjectOnlyDeliveryCkcEligibility({
+      projectId,
+      contract: {
+        projectId: loaded.contract.projectId,
+        cycleInstanceId: loaded.contract.cycleInstanceId,
+        action: loaded.contract.action,
+        constraints: loaded.contract.constraints,
+        inputs: strippedInputs,
+      },
+    });
+    expect(ambiguous.eligible).toBe(false);
+    if (!ambiguous.eligible) {
+      expect(ambiguous.reasonCode).toBe("IMPACT_SIGNALS_ABSENT");
+    }
+  });
+
+  it("R1-B — Project-only securityImpact Generic → Delivery orientation refused", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-r1b"),
+      idPrefix: "ep08r1b",
+    });
+    const { projectId, oa } = await seedProject(runtime, "b");
+    const analysis = buildIntentAnalysisFromSolicitedMission({
+      objective: "Security-sensitive Generic mission",
+      expectedOutcome: "Must not get Delivery CKC",
+      scope: NOTES_PATH,
+      repositoryMutation: "write",
+      impactSignals: {
+        structuralChange: false,
+        securityImpact: true,
+        architectureImpact: false,
+      },
+    });
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: {
+        ...analysis,
+        executionIntent: {
+          intentKind: "other",
+          scopeIn: [NOTES_PATH],
+          requiredCapabilities: [],
+        },
+      },
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) return;
+
+    const loaded = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(loaded.ok).toBe(true);
+    if (!loaded.ok) return;
+
+    // Security signal on a Generic Project-only EC must not yield Delivery CKC.
+    // Materiality may already refuse (STRUCTURAL/UNKNOWN) before impact category —
+    // either refuse code is a valid Delivery denial (no usurpation).
+    const eligibility = assessProjectOnlyDeliveryCkcEligibility({
+      projectId,
+      contract: {
+        projectId: loaded.contract.projectId,
+        cycleInstanceId: loaded.contract.cycleInstanceId,
+        action: loaded.contract.action,
+        constraints: [
+          ...loaded.contract.constraints.filter(
+            (c) => !c.startsWith("MATERIALITY:"),
+          ),
+          "MATERIALITY:NON_STRUCTURAL",
+        ],
+        inputs: {
+          ...loaded.contract.inputs,
+          materialityFacts: { materiality: "non_structural" },
+        },
+      },
+    });
+    expect(eligibility.eligible).toBe(false);
+    if (!eligibility.eligible) {
+      expect(eligibility.reasonCode).toBe("IMPACT_CATEGORY_NON_DELIVERY");
+    }
+  });
+});
+
+```
+
+### rInspect01 (incl. R-HD-01)
 
 ```typescript
 /**
@@ -1951,1030 +3257,7 @@ describe("EP-S2-08-PROOF-01 R-HD-01 — integrated HD provenance (DET)", () => {
 
 ```
 
-### epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx
-
-```tsx
-/**
- * EP-S2-08-PROOF-01 R-INSPECT-01 — Pilote inspection surface renders declared
- * repository mutation (jsdom DET). Not browser /studio remount E2E.
- *
- * @vitest-environment jsdom
- */
-import { afterEach, describe, expect, it } from "vitest";
-import { cleanup, render, screen } from "@testing-library/react";
-import { ContractInspectionExamPanel } from "@/features/pre-m6-product-ui/surfaces/ContractInspectionExamPanel";
-import { buildInspectionFactRowsFromDisclosure } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
-import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
-
-function disclosureWithWrite(): ExecutionContractInspectionDisclosure {
-  return {
-    action: "studio.cursor.generalist.execute",
-    technicalTarget: "studio.cursor.generalist.workspace",
-    scope: "project",
-    targetRepositoryRef: "acme/demo",
-    targetPath: null,
-    scopeIn: ["projects/demo/notes/project-notes.md"],
-    scopeOut: null,
-    createOrModify: null,
-    noDelete: null,
-    repositoryMutationDeclared: "write",
-    objective: "notes edit",
-    artifactType: null,
-    artifactBrief: null,
-    contentRequirements: null,
-    validationExpectations: null,
-    expectedOutputs: null,
-    sourceGrounding: null,
-    acceptanceCriteria: null,
-    validationPlan: null,
-    reportRequirements: null,
-    evidenceRequirements: [],
-    requiredAuthority: "N3",
-    requiredCapabilities: [],
-    constraints: ["PRODUCT_GOVERNED", "MATERIALITY:NON_STRUCTURAL"],
-    stopConditions: [],
-    reversibility: "reversible",
-    contractVersion: 2,
-    executionContractId: "xct:ri-ui",
-    semanticFingerprint: "fp:ri-ui",
-    disclosureComplete: true,
-    incompletenessCode: null,
-  };
-}
-
-describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection surface (jsdom)", () => {
-  afterEach(() => {
-    cleanup();
-  });
-
-  it("INSPECT-P3 — ContractInspectionExamPanel renders declared write fact", () => {
-    const disclosure = disclosureWithWrite();
-    const required = [
-      "action",
-      "inputs.repositoryMutationDeclared",
-      "semanticFingerprint",
-    ];
-    const built = buildInspectionFactRowsFromDisclosure({
-      disclosure,
-      requiredInspectedFacts: required,
-    });
-    expect(built.missingRequired).toEqual([]);
-
-    render(
-      <ContractInspectionExamPanel
-        testIdPrefix="r-inspect"
-        snapshot={{
-          projectId: "prj:ri",
-          executionContractId: disclosure.executionContractId,
-          version: disclosure.contractVersion,
-          semanticFingerprint: disclosure.semanticFingerprint!,
-        }}
-        rows={built.rows}
-        missingRequired={built.missingRequired}
-        presentedFactIds={built.presentedFactIds}
-        busy={false}
-        onAttest={() => undefined}
-      />,
-    );
-
-    expect(
-      screen.getByTestId(
-        "r-inspect-inspection-fact-inputs.repositoryMutationDeclared",
-      ),
-    ).toBeTruthy();
-    expect(screen.getByText("Opération déclarée sur le dépôt")).toBeTruthy();
-    expect(
-      screen.getByText(/Écriture déclarée — soumise au périmètre/),
-    ).toBeTruthy();
-    expect(screen.getByTestId("r-inspect-attest")).not.toBeDisabled();
-  });
-
-  it("INSPECT-N1 — absent mutation does not render invented write row", () => {
-    const disclosure: ExecutionContractInspectionDisclosure = {
-      ...disclosureWithWrite(),
-      repositoryMutationDeclared: null,
-    };
-    const built = buildInspectionFactRowsFromDisclosure({
-      disclosure,
-      requiredInspectedFacts: ["action", "semanticFingerprint"],
-    });
-    render(
-      <ContractInspectionExamPanel
-        testIdPrefix="r-inspect-n1"
-        snapshot={{
-          projectId: "prj:ri",
-          executionContractId: disclosure.executionContractId,
-          version: disclosure.contractVersion,
-          semanticFingerprint: disclosure.semanticFingerprint!,
-        }}
-        rows={built.rows}
-        missingRequired={built.missingRequired}
-        presentedFactIds={built.presentedFactIds}
-        busy={false}
-        onAttest={() => undefined}
-      />,
-    );
-    expect(
-      screen.queryByText(/Écriture déclarée/),
-    ).toBeNull();
-  });
-});
-
-```
-
-### akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
-
-```typescript
-/**
- * EP-S2-08-PROOF-01 — R1 Option A bounded Delivery CKC eligibility (DET).
- *
- * Morris 2026-10-28: Option A — Delivery post-Evidence CKC only when Generic
- * Project-only NON_STRUCTURAL Delivery eligibility is positively proven.
- * Universal null-cycle → cyc:delivery is NOT authorized.
- *
- * @vitest-environment node
- */
-import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import {
-  FakeConversationProvider,
-  setConversationProviderForTests,
-} from "@/lib/platform/ai";
-import {
-  buildIntentAnalysisFromSolicitedMission,
-  solicitGenericExecutionPrepare,
-} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
-import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
-import { requiredInspectedFactsForContract } from "@/lib/oa/execution-contract";
-import {
-  governedExecuteRecordResult,
-  governedExecuteSelectAgent,
-  governedExecuteStart,
-} from "@/features/project-assistant/w2/governedExecuteAuthorizedContract";
-import { materializeW3bProductTerminal } from "@/features/project-assistant/w2/materializeW3bProductTerminal";
-import {
-  assessProjectOnlyDeliveryCkcEligibility,
-  POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
-  resolvePostEvidenceCkcContext,
-  resolveW2QualificationInputs,
-} from "@/features/project-assistant/w2/qualificationInputs";
-import { loadProductCkcCognitiveContent } from "@/features/project-assistant/f2/ckcCognitiveContext";
-import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
-import { PRODUCT_CANONICAL_EXECUTION_ACTION } from "@/features/project-assistant/w2/w3aProductExecutionSemantics";
-import { PRODUCT_GOVERNED_CONSTRAINT } from "@/lib/oa/execution-contract";
-import { STUDIO_CURSOR_GENERALIST_AGENT_ID } from "@/lib/oa/execution-attempt";
-import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
-import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
-import { TestOnlyRealExecutionLaunchPort } from "../oa/execution-attempt/support/testOnlyRealExecutionLaunchPort";
-import {
-  bootW2Runtime,
-  cleanupW2TempDirs,
-  seedQualifiedProject,
-  tempProductDbPath,
-  W2_TEST_PINNED_BASE_HEAD_SHA,
-} from "./w2Harness";
-import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
-import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
-
-const NOTES_PATH = "projects/demo/notes/project-notes.md";
-
-function restoreEnvVar(name: string, previous: string | undefined): void {
-  if (previous === undefined) delete process.env[name];
-  else process.env[name] = previous;
-}
-
-function requiredFactsOrThrow(
-  contract: Parameters<typeof requiredInspectedFactsForContract>[0],
-): readonly string[] {
-  const facts = requiredInspectedFactsForContract(contract);
-  if (Array.isArray(facts)) return facts;
-  throw new Error(
-    `inspection disclosure incomplete: ${(facts as { code: string }).code}`,
-  );
-}
-
-function launchPortOf(oa: {
-  executionAttemptServices?: {
-    realBoundary?: { launchPort?: unknown };
-  } | null;
-}): TestOnlyRealExecutionLaunchPort {
-  const port = oa.executionAttemptServices?.realBoundary?.launchPort;
-  if (!(port instanceof TestOnlyRealExecutionLaunchPort)) {
-    throw new Error("TestOnlyRealExecutionLaunchPort required");
-  }
-  return port;
-}
-
-function deliveryEligibleAnalysis(): IntentAnalysisDto {
-  const base = buildIntentAnalysisFromSolicitedMission({
-    objective: "EP-S2-08 R1-A Delivery-eligible notes edit",
-    expectedOutcome: "Bounded local-write Evidence",
-    scope: NOTES_PATH,
-    repositoryMutation: "write",
-    impactSignals: { structuralChange: false, architectureImpact: false },
-  });
-  return {
-    ...base,
-    executionIntent: {
-      intentKind: "other",
-      scopeIn: [NOTES_PATH],
-      requiredCapabilities: [],
-    },
-  };
-}
-
-function cursorReportStdout(input: {
-  attemptId: string;
-  executionContractId: string;
-  repositoryRef: string;
-  baseSha: string;
-}): string {
-  const body = {
-    schemaVersion: "oa.cursor-execution-report.1",
-    reportId: `rpt:r1:${input.attemptId}`.slice(0, 128),
-    attemptId: input.attemptId,
-    executionContractId: input.executionContractId,
-    repositoryRef: input.repositoryRef,
-    baseSha: input.baseSha,
-    status: "succeeded",
-    authorizedEffectsExecuted: ["filesystem.modify"],
-    workPerformed: [`modified ${NOTES_PATH}`],
-    fileEffects: {
-      created: [],
-      modified: [NOTES_PATH],
-      deleted: [],
-    },
-  };
-  return `CURSOR_EXECUTION_REPORT_JSON=${JSON.stringify(body)}`;
-}
-
-describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () => {
-  let previousMorris: string | undefined;
-  let previousDetPin: string | undefined;
-  let previousPilot: string | undefined;
-  let previousExclusive: string | undefined;
-  let previousRefs: string | undefined;
-  let refsRoot: string;
-  let dbPath: string;
-
-  beforeEach(() => {
-    previousMorris = process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY;
-    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
-    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID;
-    previousExclusive = process.env.SFIA_STUDIO_OA_EXCLUSIVE;
-    previousRefs = process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT;
-    process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY = "1";
-    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
-    process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID = "actor:local-pilote";
-    process.env.SFIA_STUDIO_OA_EXCLUSIVE = "0";
-    refsRoot = tempProductDbPath("ep08-r1-refs").replace(/\.sqlite$/, "-refs");
-    process.env.SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT = refsRoot;
-    dbPath = tempProductDbPath("ep08-r1-optA");
-    setConversationProviderForTests(new FakeConversationProvider());
-  });
-
-  afterEach(() => {
-    cleanupW2TempDirs();
-    restoreEnvVar("SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY", previousMorris);
-    restoreEnvVar("SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA", previousDetPin);
-    restoreEnvVar("SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID", previousPilot);
-    restoreEnvVar("SFIA_STUDIO_OA_EXCLUSIVE", previousExclusive);
-    restoreEnvVar("SFIA_STUDIO_PRODUCT_EVIDENCE_REFS_ROOT", previousRefs);
-    setConversationProviderForTests(null);
-  });
-
-  describe("pure assessor matrix (R1 final)", () => {
-    const allClearSignals = {
-      structuralChange: false,
-      securityImpact: false,
-      architectureImpact: false,
-      dataImpact: false,
-      irreversible: false,
-    };
-    /** Positive WHAT requires exact EFFECT_CLASS:local-write or mutation=write — not scopeIn. */
-    const baseContract = {
-      projectId: "prj:r1",
-      cycleInstanceId: null as string | null,
-      action: PRODUCT_CANONICAL_EXECUTION_ACTION,
-      constraints: [
-        PRODUCT_GOVERNED_CONSTRAINT,
-        "MATERIALITY:NON_STRUCTURAL",
-        "EFFECT_CLASS:local-write",
-      ],
-      inputs: {
-        intentKind: "other",
-        scopeIn: [NOTES_PATH],
-        repositoryMutationDeclared: "write",
-        materialityFacts: { assessedMateriality: "non_structural" },
-        impactSignals: { ...allClearSignals },
-      },
-    };
-
-    it("R1-P1 — positive when exact local-write / mutation=write present", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: baseContract,
-      });
-      expect(r).toEqual({
-        eligible: true,
-        reasonCode: "GENERIC_NON_STRUCTURAL_DELIVERY",
-      });
-    });
-
-    it("R1-P1b — repositoryMutationDeclared=write alone (no EFFECT_CLASS) eligible", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          constraints: [
-            PRODUCT_GOVERNED_CONSTRAINT,
-            "MATERIALITY:NON_STRUCTURAL",
-          ],
-        },
-      });
-      expect(r).toEqual({
-        eligible: true,
-        reasonCode: "GENERIC_NON_STRUCTURAL_DELIVERY",
-      });
-    });
-
-    it("NEG-01 — intentKind=other + scopeIn only (no positive WHAT) → refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          projectId: "prj:r1",
-          cycleInstanceId: null,
-          action: PRODUCT_CANONICAL_EXECUTION_ACTION,
-          constraints: [
-            PRODUCT_GOVERNED_CONSTRAINT,
-            "MATERIALITY:NON_STRUCTURAL",
-          ],
-          inputs: {
-            intentKind: "other",
-            scopeIn: [NOTES_PATH],
-            repositoryMutationDeclared: null,
-            materialityFacts: { assessedMateriality: "non_structural" },
-            impactSignals: { ...allClearSignals },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) {
-        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
-      }
-    });
-
-    it("NEG-04 — EFFECT_CLASS:local-write-extra prefix must not pass", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          constraints: [
-            PRODUCT_GOVERNED_CONSTRAINT,
-            "MATERIALITY:NON_STRUCTURAL",
-            "EFFECT_CLASS:local-write-extra",
-          ],
-          inputs: {
-            ...baseContract.inputs,
-            repositoryMutationDeclared: null,
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) {
-        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
-      }
-    });
-
-    it("R1-N1 — read_only refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          inputs: { ...baseContract.inputs, intentKind: "read_only" },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("READ_ONLY_NOT_DELIVERY");
-    });
-
-    it("R1-N2 — absent intent refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          inputs: {
-            scopeIn: [NOTES_PATH],
-            materialityFacts: { assessedMateriality: "non_structural" },
-            impactSignals: { ...allClearSignals },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("INTENT_ABSENT_OR_UNKNOWN");
-    });
-
-    it("R1-N3 — other without positive Delivery facts refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          projectId: "prj:r1",
-          cycleInstanceId: null,
-          action: PRODUCT_CANONICAL_EXECUTION_ACTION,
-          constraints: [
-            PRODUCT_GOVERNED_CONSTRAINT,
-            "MATERIALITY:NON_STRUCTURAL",
-          ],
-          inputs: {
-            intentKind: "other",
-            materialityFacts: { assessedMateriality: "non_structural" },
-            impactSignals: { ...allClearSignals },
-            // no scopeIn, no write mutation, no EFFECT_CLASS
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) {
-        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
-      }
-    });
-
-    it("R1-N3b — unknown intentKind refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          inputs: { ...baseContract.inputs, intentKind: "implement" },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("INTENT_ABSENT_OR_UNKNOWN");
-    });
-
-    it("R1-N4 — dataImpact conflicts with NON_STRUCTURAL → refuse", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          inputs: {
-            ...baseContract.inputs,
-            impactSignals: { ...allClearSignals, dataImpact: true },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_CATEGORY_NON_DELIVERY");
-    });
-
-    it("R1-N4b — irreversible conflicts with NON_STRUCTURAL → refuse", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          inputs: {
-            ...baseContract.inputs,
-            impactSignals: { ...allClearSignals, irreversible: true },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_CATEGORY_NON_DELIVERY");
-    });
-
-    it("R1-N5 — absent impactSignals refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          inputs: {
-            intentKind: "other",
-            scopeIn: [NOTES_PATH],
-            materialityFacts: { assessedMateriality: "non_structural" },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_SIGNALS_ABSENT");
-    });
-
-    it("R1-N5b — malformed impactSignals refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          inputs: {
-            ...baseContract.inputs,
-            impactSignals: { structuralChange: false },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("IMPACT_SIGNALS_MALFORMED");
-    });
-
-    it("R1-N6 — materiality constraint vs assessedMateriality contradiction", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          constraints: [
-            PRODUCT_GOVERNED_CONSTRAINT,
-            "MATERIALITY:NON_STRUCTURAL",
-          ],
-          inputs: {
-            ...baseContract.inputs,
-            materialityFacts: { assessedMateriality: "structural" },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("MATERIALITY_CONTRADICTION");
-    });
-
-    it("R1-N7 — UNKNOWN materiality not promoted to Delivery", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          constraints: [PRODUCT_GOVERNED_CONSTRAINT, "MATERIALITY:UNKNOWN"],
-          inputs: {
-            ...baseContract.inputs,
-            materialityFacts: { assessedMateriality: "unknown" },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) {
-        expect(r.reasonCode).toBe("MATERIALITY_NOT_NON_STRUCTURAL");
-      }
-    });
-
-    it("R1-N7b — STRUCTURAL materiality refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: {
-          ...baseContract,
-          constraints: [PRODUCT_GOVERNED_CONSTRAINT, "MATERIALITY:STRUCTURAL"],
-          inputs: {
-            ...baseContract.inputs,
-            materialityFacts: { assessedMateriality: "structural" },
-          },
-        },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) {
-        expect(r.reasonCode).toBe("MATERIALITY_NOT_NON_STRUCTURAL");
-      }
-    });
-
-    it("R1-N8 — Attempt/EC project mismatch refused", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:other",
-        contract: baseContract,
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("CONTRACT_PROJECT_MISMATCH");
-    });
-
-    it("null-cycle alone is insufficient — non-generic action refuses", () => {
-      const r = assessProjectOnlyDeliveryCkcEligibility({
-        projectId: "prj:r1",
-        contract: { ...baseContract, action: "other.action" },
-      });
-      expect(r.eligible).toBe(false);
-      if (!r.eligible) expect(r.reasonCode).toBe("NOT_GENERIC_PRODUCT_EC");
-    });
-  });
-
-  async function seedProject(runtime: RuntimeApplicationService, suffix: string) {
-    const oa = runtime.oa!;
-    const created = await runtime.createProject({
-      name: "demo",
-      objective: "EP-S2-08 R1 Option A",
-      context: "r1 eligibility",
-      criticality: "STANDARD",
-      constraints: ["ZERO REAL", "R1 DET"],
-      shortReference: `R1${suffix.toUpperCase().slice(0, 4)}`,
-      idempotencyKey: `idem:ep08-r1-${suffix}`,
-    });
-    if (!created.ok) {
-      throw new Error(`createProject: ${created.error?.message ?? "fail"}`);
-    }
-    const projectId = created.project.projectId;
-    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    if (!lps0.ok) throw new Error("lps0");
-    await oa.cycleServices.createInitialTrajectory.execute({
-      trajectoryId: `trj:${projectId}`,
-      projectId,
-      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
-      status: "active",
-      expectedLpsVersion: lps0.livingProjectState.version,
-      createdBy: {
-        actorId: "actor:morris",
-        role: "project_owner",
-        displayName: "Morris",
-        authorityLevel: "N3",
-      },
-    });
-    const identity = `acme/ep08-r1-${suffix}`;
-    ensureManagedRepoCloneSkeleton({
-      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
-      identity,
-    });
-    return { projectId, oa };
-  }
-
-  it("POS-01 — real Generic PREPARE→SHE→Attempt preserves declared write → Delivery CKC", async () => {
-    /**
-     * Option 1 (2026-10-28): declared repositoryMutation=write is preserved on
-     * the durable EC (inspectable WHAT). No EFFECT_CLASS:local-write invented.
-     * SHE / materiality / confirmation remain the authority gates.
-     */
-    const runtime = bootW2Runtime({
-      productDbPath: dbPath,
-      idPrefix: "ep08r1a",
-    });
-    const { projectId, oa } = await seedProject(runtime, "a");
-
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      analysis: deliveryEligibleAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error(prep.message);
-    expect(prep.projectContextOnly).toBe(true);
-
-    const liveEc = await oa.executionContractServices!.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    expect(liveEc.ok).toBe(true);
-    if (!liveEc.ok) throw new Error("get EC");
-    const inputs = liveEc.contract.inputs as Record<string, unknown>;
-    // POS-01 / POS-02 — declared write preserved; WHERE still present; no invented EFFECT_CLASS.
-    expect(inputs.repositoryMutationDeclared).toBe("write");
-    expect(
-      liveEc.contract.constraints.includes("EFFECT_CLASS:local-write"),
-    ).toBe(false);
-    expect(Array.isArray(inputs.scopeIn) && (inputs.scopeIn as string[]).length).toBeGreaterThan(
-      0,
-    );
-    expect(inputs.boundedNonMutatingAnalysis).toBe(false);
-
-    const facts = requiredFactsOrThrow(liveEc.contract);
-    const repositoryRef = String(inputs.repositoryBindingIdentity ?? "");
-    const baseSha = String(inputs.baseHeadSha ?? W2_TEST_PINNED_BASE_HEAD_SHA);
-
-    const she = await singleHumanExecutePreparedContract({
-      oa,
-      projectId,
-      executionContractId: liveEc.contract.executionContractId,
-      expectedVersion: liveEc.contract.version,
-      expectedSemanticFingerprint: liveEc.contract.semanticFingerprint!,
-      presentedFactIds: facts,
-      forceLocalAuthority: true,
-    });
-    expect(she.ok).toBe(true);
-    if (!she.ok) throw new Error(`she: ${she.code}`);
-    // POS-03 — SHE does not widen: still AUTHORIZED on inspected EC only.
-    expect(she.authorization.outcome).toBe("AUTHORIZED");
-
-    const port = launchPortOf(oa);
-    const selected = await governedExecuteSelectAgent({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) throw new Error(selected.message);
-    const attemptId = selected.attempt!.attemptId;
-
-    const started = await governedExecuteStart({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      attemptId,
-      forceLocalAuthority: true,
-    });
-    expect(started.ok).toBe(true);
-    if (!started.ok) throw new Error(started.message);
-
-    setTimeout(() => {
-      port.resolveSimulatedCompletion(`proc:sim:${attemptId}`, {
-        exitCode: 0,
-        timedOut: false,
-        stdout: cursorReportStdout({
-          attemptId,
-          executionContractId: she.executionContractId,
-          repositoryRef,
-          baseSha,
-        }),
-        stderr: "",
-        durationMs: 5,
-      });
-    }, 15);
-
-    const terminal = await governedExecuteRecordResult({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      attemptId,
-      forceLocalAuthority: true,
-      awaitIfPending: true,
-      missionResultRefsRoot: refsRoot,
-    });
-    expect(terminal.ok).toBe(true);
-    if (!terminal.ok) throw new Error(terminal.message);
-
-    const ckc = await resolvePostEvidenceCkcContext({
-      oa,
-      projectId,
-      attemptId,
-    });
-    // POS-05 — Project-only positive Delivery reaches W3-C with cyc:delivery.
-    expect(ckc.ok).toBe(true);
-    if (ckc.ok) {
-      expect(ckc.context.projectScoped).toBe(true);
-      expect(ckc.context.cycleTypeId).toBe(
-        POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
-      );
-      expect(ckc.context.cycleTypeId).toBe("cyc:delivery");
-      expect(ckc.context.eligibilityReasonCode).toBe(
-        "GENERIC_NON_STRUCTURAL_DELIVERY",
-      );
-      expect(ckc.context.activeCycleInstanceId).toBeNull();
-    }
-
-    // AUTH-03 — W2 Options still cycle-gated.
-    const qual = await resolveW2QualificationInputs({ oa, projectId });
-    expect(qual.ok).toBe(false);
-    if (!qual.ok) expect(qual.code).toBe("CYCLE_NOT_QUALIFIED");
-
-    // AUTH-01 — no CycleInstance invented.
-    const live = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    expect(live.ok && (live.livingProjectState.activeCycleInstanceId ?? null)).toBe(
-      null,
-    );
-
-    // AUTH-02 — no automatic HD; Product UNCLAIMED remains honest.
-    const hdBefore = (
-      await oa.decisionServices!.decisions.listByProject(projectId)
-    ).length;
-    const materialized = await materializeW3bProductTerminal({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(materialized.ok).toBe(true);
-    if (materialized.ok) {
-      expect(materialized.product.outcome).toBe("UNCLAIMED");
-      expect(materialized.postEvidence?.ok).toBe(true);
-      if (materialized.postEvidence?.ok) {
-        expect(materialized.postEvidence.replanInvoked).toBe(false);
-        expect(materialized.postEvidence.recommendation.authority).toBe("none");
-        expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
-          false,
-        );
-        expect(
-          materialized.postEvidence.recommendation.attemptAutoLaunchNextCycle,
-        ).toBe(false);
-      }
-    }
-    const hdAfter = (
-      await oa.decisionServices!.decisions.listByProject(projectId)
-    ).length;
-    expect(hdAfter).toBe(hdBefore);
-  }, 90_000);
-
-  it("R1-P2 — cycle-bound Attempt→EC lineage uses real cycleTypeId (not forced Delivery)", async () => {
-    const runtime = bootW2Runtime({
-      productDbPath: tempProductDbPath("ep08-r1d"),
-      idPrefix: "ep08r1d",
-    });
-    const { projectId, oa } = await seedProject(runtime, "r1d");
-    const lps = await oa.projectServices.getCurrentLivingProjectState.execute({
-      projectId,
-    });
-    if (!lps.ok) throw new Error("lps");
-    const cycleInstanceId = `cyc:inst:ep08-r1d-framing`;
-    const cycle = await oa.cycleServices.createCycle.execute({
-      cycleInstanceId,
-      cycleTypeId: "cyc:framing",
-      projectId,
-      signals: {},
-      objective: "R1-P2 framing lineage",
-      scope: "r1-p2",
-      createdBy: {
-        actorId: "actor:morris",
-        role: "project_owner",
-        displayName: "Morris",
-        authorityLevel: "N3",
-      },
-      linkAsActiveCycle: true,
-      expectedLpsVersion: lps.livingProjectState.version,
-      ckcResolutionRef: "ckcres:ep08-r1d",
-    });
-    expect(cycle.ok).toBe(true);
-    if (!cycle.ok) throw new Error("createCycle");
-
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId,
-      analysis: deliveryEligibleAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error(prep.message);
-
-    const liveEc = await oa.executionContractServices!.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    expect(liveEc.ok).toBe(true);
-    if (!liveEc.ok) throw new Error("get EC");
-    expect(liveEc.contract.cycleInstanceId).toBe(cycleInstanceId);
-    const facts = requiredFactsOrThrow(liveEc.contract);
-
-    const she = await singleHumanExecutePreparedContract({
-      oa,
-      projectId,
-      executionContractId: liveEc.contract.executionContractId,
-      expectedVersion: liveEc.contract.version,
-      expectedSemanticFingerprint: liveEc.contract.semanticFingerprint!,
-      presentedFactIds: facts,
-      forceLocalAuthority: true,
-    });
-    expect(she.ok).toBe(true);
-    if (!she.ok) throw new Error(`she: ${she.code} ${she.message ?? ""}`);
-
-    const selected = await governedExecuteSelectAgent({
-      oa,
-      projectId,
-      executionContractId: she.executionContractId,
-      forceLocalAuthority: true,
-    });
-    expect(selected.ok).toBe(true);
-    if (!selected.ok) throw new Error(selected.message);
-    const attemptId = selected.attempt!.attemptId;
-
-    const ckc = await resolvePostEvidenceCkcContext({
-      oa,
-      projectId,
-      attemptId,
-    });
-    expect(ckc.ok).toBe(true);
-    if (!ckc.ok) throw new Error(`${ckc.code}: ${ckc.message}`);
-    expect(ckc.context.projectScoped).toBe(false);
-    expect(ckc.context.activeCycleInstanceId).toBe(cycleInstanceId);
-    expect(ckc.context.cycleTypeId).toBe("cyc:framing");
-    expect(ckc.context.eligibilityReasonCode).toBe("ACTIVE_CYCLE_TYPE");
-    expect(ckc.context.cycleTypeId).not.toBe(
-      POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
-    );
-  }, 90_000);
-
-  it("R1-N9 — missing Attempt refused (no silent LPS-cycle CKC)", async () => {
-    const runtime = bootW2Runtime({
-      productDbPath: tempProductDbPath("ep08-r1n9"),
-      idPrefix: "ep08r1n9",
-    });
-    const seeded = await seedQualifiedProject(runtime, {
-      suffix: "r1n9",
-      cycleTypeId: "cyc:framing",
-    });
-    const ckc = await resolvePostEvidenceCkcContext({
-      oa: runtime.oa!,
-      projectId: seeded.projectId,
-      attemptId: "xat:does-not-exist-r1n9",
-    });
-    expect(ckc.ok).toBe(false);
-    if (!ckc.ok) {
-      expect(ckc.code).not.toBe("ACTIVE_CYCLE_TYPE");
-    }
-  });
-
-  it("R1-C — Project-only ambiguous (no impactSignals) → POST_EVIDENCE_CKC_AMBIGUOUS", async () => {
-    const runtime = bootW2Runtime({
-      productDbPath: tempProductDbPath("ep08-r1c"),
-      idPrefix: "ep08r1c",
-    });
-    const { projectId, oa } = await seedProject(runtime, "c");
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      analysis: deliveryEligibleAnalysis(),
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) throw new Error(prep.message);
-
-    const loaded = await oa.executionContractServices!.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    expect(loaded.ok).toBe(true);
-    if (!loaded.ok) return;
-
-    // Simulate durable ambiguity: strip sealed impactSignals (no invented classifier).
-    const strippedInputs = { ...(loaded.contract.inputs as Record<string, unknown>) };
-    delete strippedInputs.impactSignals;
-    const ambiguous = assessProjectOnlyDeliveryCkcEligibility({
-      projectId,
-      contract: {
-        projectId: loaded.contract.projectId,
-        cycleInstanceId: loaded.contract.cycleInstanceId,
-        action: loaded.contract.action,
-        constraints: loaded.contract.constraints,
-        inputs: strippedInputs,
-      },
-    });
-    expect(ambiguous.eligible).toBe(false);
-    if (!ambiguous.eligible) {
-      expect(ambiguous.reasonCode).toBe("IMPACT_SIGNALS_ABSENT");
-    }
-  });
-
-  it("R1-B — Project-only securityImpact Generic → Delivery orientation refused", async () => {
-    const runtime = bootW2Runtime({
-      productDbPath: tempProductDbPath("ep08-r1b"),
-      idPrefix: "ep08r1b",
-    });
-    const { projectId, oa } = await seedProject(runtime, "b");
-    const analysis = buildIntentAnalysisFromSolicitedMission({
-      objective: "Security-sensitive Generic mission",
-      expectedOutcome: "Must not get Delivery CKC",
-      scope: NOTES_PATH,
-      repositoryMutation: "write",
-      impactSignals: {
-        structuralChange: false,
-        securityImpact: true,
-        architectureImpact: false,
-      },
-    });
-    const prep = await solicitGenericExecutionPrepare({
-      oa,
-      projectId,
-      cycleInstanceId: null,
-      analysis: {
-        ...analysis,
-        executionIntent: {
-          intentKind: "other",
-          scopeIn: [NOTES_PATH],
-          requiredCapabilities: [],
-        },
-      },
-      forceLocalAuthority: true,
-      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
-    });
-    expect(prep.ok).toBe(true);
-    if (!prep.ok) return;
-
-    const loaded = await oa.executionContractServices!.getExecutionContract.execute({
-      executionContractId: prep.executionContractId,
-    });
-    expect(loaded.ok).toBe(true);
-    if (!loaded.ok) return;
-
-    // Security signal on a Generic Project-only EC must not yield Delivery CKC.
-    // Materiality may already refuse (STRUCTURAL/UNKNOWN) before impact category —
-    // either refuse code is a valid Delivery denial (no usurpation).
-    const eligibility = assessProjectOnlyDeliveryCkcEligibility({
-      projectId,
-      contract: {
-        projectId: loaded.contract.projectId,
-        cycleInstanceId: loaded.contract.cycleInstanceId,
-        action: loaded.contract.action,
-        constraints: [
-          ...loaded.contract.constraints.filter(
-            (c) => !c.startsWith("MATERIALITY:"),
-          ),
-          "MATERIALITY:NON_STRUCTURAL",
-        ],
-        inputs: {
-          ...loaded.contract.inputs,
-          materialityFacts: { materiality: "non_structural" },
-        },
-      },
-    });
-    expect(eligibility.eligible).toBe(false);
-    if (!eligibility.eligible) {
-      expect(eligibility.reasonCode).toBe("IMPACT_CATEGORY_NON_DELIVERY");
-    }
-  });
-});
-
-```
-
-### akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts
+### piloteResume integrated
 
 ```typescript
 /**
@@ -3604,7 +3887,138 @@ describe("EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable 
 
 ```
 
-### epS208.proof01.piloteSurface.b5b6.ui.test.tsx
+### inspectionSurface UI
+
+```tsx
+/**
+ * EP-S2-08-PROOF-01 R-INSPECT-01 — Pilote inspection surface renders declared
+ * repository mutation (jsdom DET). Not browser /studio remount E2E.
+ *
+ * @vitest-environment jsdom
+ */
+import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { ContractInspectionExamPanel } from "@/features/pre-m6-product-ui/surfaces/ContractInspectionExamPanel";
+import { buildInspectionFactRowsFromDisclosure } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
+import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
+
+function disclosureWithWrite(): ExecutionContractInspectionDisclosure {
+  return {
+    action: "studio.cursor.generalist.execute",
+    technicalTarget: "studio.cursor.generalist.workspace",
+    scope: "project",
+    targetRepositoryRef: "acme/demo",
+    targetPath: null,
+    scopeIn: ["projects/demo/notes/project-notes.md"],
+    scopeOut: null,
+    createOrModify: null,
+    noDelete: null,
+    repositoryMutationDeclared: "write",
+    objective: "notes edit",
+    artifactType: null,
+    artifactBrief: null,
+    contentRequirements: null,
+    validationExpectations: null,
+    expectedOutputs: null,
+    sourceGrounding: null,
+    acceptanceCriteria: null,
+    validationPlan: null,
+    reportRequirements: null,
+    evidenceRequirements: [],
+    requiredAuthority: "N3",
+    requiredCapabilities: [],
+    constraints: ["PRODUCT_GOVERNED", "MATERIALITY:NON_STRUCTURAL"],
+    stopConditions: [],
+    reversibility: "reversible",
+    contractVersion: 2,
+    executionContractId: "xct:ri-ui",
+    semanticFingerprint: "fp:ri-ui",
+    disclosureComplete: true,
+    incompletenessCode: null,
+  };
+}
+
+describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection surface (jsdom)", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  it("INSPECT-P3 — ContractInspectionExamPanel renders declared write fact", () => {
+    const disclosure = disclosureWithWrite();
+    const required = [
+      "action",
+      "inputs.repositoryMutationDeclared",
+      "semanticFingerprint",
+    ];
+    const built = buildInspectionFactRowsFromDisclosure({
+      disclosure,
+      requiredInspectedFacts: required,
+    });
+    expect(built.missingRequired).toEqual([]);
+
+    render(
+      <ContractInspectionExamPanel
+        testIdPrefix="r-inspect"
+        snapshot={{
+          projectId: "prj:ri",
+          executionContractId: disclosure.executionContractId,
+          version: disclosure.contractVersion,
+          semanticFingerprint: disclosure.semanticFingerprint!,
+        }}
+        rows={built.rows}
+        missingRequired={built.missingRequired}
+        presentedFactIds={built.presentedFactIds}
+        busy={false}
+        onAttest={() => undefined}
+      />,
+    );
+
+    expect(
+      screen.getByTestId(
+        "r-inspect-inspection-fact-inputs.repositoryMutationDeclared",
+      ),
+    ).toBeTruthy();
+    expect(screen.getByText("Opération déclarée sur le dépôt")).toBeTruthy();
+    expect(
+      screen.getByText(/Écriture déclarée — soumise au périmètre/),
+    ).toBeTruthy();
+    expect(screen.getByTestId("r-inspect-attest")).not.toBeDisabled();
+  });
+
+  it("INSPECT-N1 — absent mutation does not render invented write row", () => {
+    const disclosure: ExecutionContractInspectionDisclosure = {
+      ...disclosureWithWrite(),
+      repositoryMutationDeclared: null,
+    };
+    const built = buildInspectionFactRowsFromDisclosure({
+      disclosure,
+      requiredInspectedFacts: ["action", "semanticFingerprint"],
+    });
+    render(
+      <ContractInspectionExamPanel
+        testIdPrefix="r-inspect-n1"
+        snapshot={{
+          projectId: "prj:ri",
+          executionContractId: disclosure.executionContractId,
+          version: disclosure.contractVersion,
+          semanticFingerprint: disclosure.semanticFingerprint!,
+        }}
+        rows={built.rows}
+        missingRequired={built.missingRequired}
+        presentedFactIds={built.presentedFactIds}
+        busy={false}
+        onAttest={() => undefined}
+      />,
+    );
+    expect(
+      screen.queryByText(/Écriture déclarée/),
+    ).toBeNull();
+  });
+});
+
+```
+
+### piloteSurface B5/B6 UI
 
 ```tsx
 /**
@@ -4141,228 +4555,25 @@ describe("EP-S2-08-PROOF-01 R2 — Pilote TrajectorySurface B5/B6 (jsdom)", () =
 
 ---
 
-## 8 — R24
+## 13 — Unique readiness verdict
 
-| Volume | Impact |
-|---|---|
-| 08 | Updated — R-HD-01 integrated oracles |
-| 09 | Updated — R-HD-01 CLOSED at DET integrated |
-| 02/03/04/06/07 | **NO PRODUCT RUNTIME SEMANTIC IMPACT** this pass (tests-only; prior candidate overlays retained) |
+**PRE-GI READINESS PASS — READY FOR MORRIS PRODUCT GI DECISION**
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 77ee95a6..b6295932 100644
---- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-+++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-@@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
- **Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
- 
- **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
-+
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 + R-INSPECT-01)
-+
-+> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** + **Option 1** + **R-INSPECT-01** (inspection disclosure coherence). Defensive gates retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write`. **Option 1:** Generic PREPARE preserves declared mutation enum onto durable EC (no invention; no EFFECT_CLASS stamp; declaration ≠ SHE authority). **R-INSPECT-01:** canonical `projectExecutionContractInspectionDisclosure` exposes `repositoryMutationDeclared`; `requiredInspectedFactsForContract` requires `inputs.repositoryMutationDeclared` when present; Pilote exam rows (`buildInspectionFactRowsFromDisclosure` / `ContractInspectionExamPanel`) and TrajectorySurface render neutral label « Opération déclarée sur le dépôt »; HD/sealed `read_only` vs analysis `write` fail-closed (`HD_MUTATION_DECLARATION_CONFLICT` / internal consistency A5). Fingerprint alone ≠ visual disclosure. POS-01 + B2/B5/B6 + R-INSPECT oracles DET. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
-diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index 8fd457ad..933d3958 100644
---- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-+++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-@@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
- | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
- | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
- 
-+**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6 **PASS** after Option 1). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps (including preserved `repositoryMutationDeclared`) decide Delivery vs refuse — remount does not invent CycleInstance, invent `"write"`, or widen SHE authority. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
-+
- **≠** invent recovery E2E beyond DET proofs.
-diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 641e4ebd..115912a7 100644
---- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-+++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-@@ -144,6 +144,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
- | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
- | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
- | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
-+| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
-+| `HD_MUTATION_DECLARATION_CONFLICT` / `mutation_write_vs_read_only_intent` | Generic PREPARE / EC internal consistency (R-INSPECT-01) | Sealed HD `intentKind=read_only` (or bounded non-mutating / NO_REPOSITORY_MUTATION stamp) contradicts analysis/`inputs.repositoryMutationDeclared=write` | PREPARE refuse or SHE consistency refuse — no silent override; declaration ≠ authorization; fingerprint alone ≠ visual disclosure | none unauthorized | yes — **LOCAL CANDIDATE** R-INSPECT-01 · ≠ ON MAIN |
-+| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
- | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
- | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
- | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
-diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index db5716f1..9ae1302f 100644
---- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-+++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -222,3 +222,16 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
- | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
- 
- **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
-+
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 + R1 Option A/1 + R-INSPECT-01
-+
-+| Suite / oracle | Result | Proof level |
-+|---|---|---|
-+| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
-+| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
-+| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · unit HD coherence — **10 PASS**; **R-HD-01** integrated PATH A/B/C — HD-N1 `HD_MUTATION_DECLARATION_CONFLICT` via real ACCEPT_PREPARE OA · HD-P1 coherent decisionRefs · HD-N2 absent mutation ≠ HD write · SHE cross-check mutation preserved — **+4 PASS (14 total)** | **LOCAL DET** · R-INSPECT-01 + R-HD-01 |
-+| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
-+| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
-+| `p6.mHd01.genericMissionHumanDecision.d0.test.ts` | M-HD-01 harness reused by R-HD-01 — non-regression **PASS** | **LOCAL DET** |
-+
-+Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit.
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0aaab505..cb1a225f 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -15,7 +15,7 @@
- | Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
- | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
- | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
--| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + R-INSPECT-01 + **R-HD-01 INTEGRATED DET** — real OA seal/record/verify ACCEPT_PREPARE; first gate `HD_MUTATION_DECLARATION_CONFLICT` BEHAVIOR PROVEN; coherent HD-P1 decisionRefs; HD-N2 absence ≠ invented write; SHE deferred structural preserves mutation without ACCEPT_PREPARE. No production HD-model change this pass (tests-only). **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Readiness / GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
- | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
- | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
- | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..29c598dd 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -19,7 +19,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "c5c9ff056f563c38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,19 +31,19 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "21c9328c91f86984"
-+      "sha256_16": "b019c92a3e457b38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
--      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "975aafc80c713797"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "5bfd9515997c4045"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "ae2b7a00e45b27ed"
-     }
-   ],
-   "components": [
+Meaning: local candidate is coherent, validated at DET, index clean, digests match, build green, and is ready for a **separate** Morris authorization to commit/push/open Draft PR.  
 
-```
+Does **NOT** mean READY TO MERGE · Does **NOT** execute GI · Does **NOT** claim CI Required Gate · Does **NOT** claim EP-S2-08 COMPLETE · Does **NOT** claim traditional READY FOR PR (no committed feature delta yet).
 
-### Manifest
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..29c598dd 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -19,7 +19,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "c5c9ff056f563c38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,19 +31,19 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "21c9328c91f86984"
-+      "sha256_16": "b019c92a3e457b38"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
--      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "975aafc80c713797"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "5bfd9515997c4045"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "ae2b7a00e45b27ed"
-     }
-   ],
-   "components": [
-
-```
-
-No Roadmap CURRENT TIP promotion.
+Permanent anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED · No Product GI implied.
 
 ---
 
-## 9 — Validations (requalified this pass)
+## MANDATORY CHATGPT PRE-GI REVIEW
 
-| Check | Result |
-|---|---|
-| R-INSPECT + R-HD domain | **14/14 PASS** (10 inspect + 4 HD integrated) |
-| R-INSPECT UI | **2/2 PASS** |
-| R1 | **22/22 PASS** |
-| B2/B5/B6 integrated | **3/3 PASS** |
-| UI B5/B6 | **3/3 PASS** |
-| p6.mHd01 | **PASS** (in 65-test core batch) |
-| Core batch (6 files) | **65/65 PASS** |
-| L3-S1 + S8 | **24/24 PASS** |
-| tsc --noEmit | **PASS** exit 0 |
-| ESLint extended test | **PASS** exit 0 |
-| CI / Build | **NOT RUN** |
-| Browser E2E / live Pilot | **OUT OF SCOPE** |
+Read Git:
 
----
-
-## 10 — Fake/Real
-
-Proof level: **DETERMINISTIC PRODUCT INTEGRATION**.  
-Real: OA, SQLite, DecisionBasis, HD verify, EC, inspection, SHE.  
-Substitutes: Cursor/Nora DET ports; local authority harness.  
-≠ live Pilot action · ≠ browser remount · ≠ Cursor/OpenAI REAL · ≠ G-REAL · ≠ L4.  
-**DET ≠ READY FOR REAL.**
-
----
-
-## 11 — Exit assessment
-
-- **R-HD-01:** CLOSED AT INTEGRATED DET  
-- **R-INSPECT-01:** accepted DET scope (retained)  
-- **Option A/1:** preserved  
-- **EP-S2-08:** PARTIAL  
-- **EP-S2-05:** NOT PROVEN  
-- **Next gate:** Final Critical Readiness for Product GI consideration  
-
----
-
-## 12 — Unique verdict
-
-**R-HD-01 INTEGRATED DET PROOF COMPLETE — READY FOR FINAL CRITICAL READINESS REVIEW**
-
-Permanent anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED · No Product GI.
-
----
-
-## MANDATORY CHATGPT REVIEW
-
-Read Git handoff:
-
-- branch: `sfia/review-handoff`  
+- branch: `sfia/review-handoff`
 - file: `sfia-review-handoff/latest-chatgpt-review.md`
 
-Verify tip/blob, HEAD/base, full Product/test/PRR, real HD creation/verification, exact rejection gate `HD_MUTATION_DECLARATION_CONFLICT`, non-regressions, R23/R24, proof ceiling, publication SHA/blob.
+Verify: complete Product scope; staged/unstaged/untracked; INDEX CLEAN; test/build results; PRR digests; proposed integration; reserves; remote tip/blob; Morris permissions/prohibitions.
 
-Then independent Final Critical Readiness Review.
+Then independent Critical Pre-GI Readiness Review.
