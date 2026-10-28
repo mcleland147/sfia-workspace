@@ -1,8 +1,9 @@
-# SFIA Review Pack — EP-S2-08-PROOF-01 Option 1 (Generic PREPARE field preservation)
+# SFIA Review Pack — EP-S2-08-PROOF-01 R-INSPECT-01 closure
 
-**UTC:** 2026-10-28T09:58:51Z  
+**UTC:** 2026-10-28T10:49:08Z  
 **Cycle:** 8 — DELIVERY / IMPLÉMENTATION · Profile CRITICAL · Typology EVOL/CORRECTIVE  
-**Mode:** QUALIFY FIRST → BOUNDED LOCAL DELIVERY  
+**Corrective:** R-INSPECT-01  
+**Mode:** SAME-CYCLE BOUNDED LOCAL CORRECTIVE  
 **Review:** FULL · Handoff: REQUIRED / PUBLISH-IN-CYCLE  
 **Capability:** EP-S2-08 — POST-EVIDENCE CONTINUITY · Increment: EP-S2-08-PROOF-01  
 
@@ -12,22 +13,26 @@
 
 | Fact | Value |
 |---|---|
-| Remote | `https://github.com/mcleland147/sfia-workspace` |
+| Remote | `https://github.com/mcleland147/sfia-workspace.git` |
 | Worktree | `sfia-workspace-feat-akg-m5-ep-s2-08-proof-01` |
 | Branch | `feat/akg-m5-ep-s2-08-proof-01` |
 | HEAD | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
 | origin/main | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` (= HEAD = origin/main; main did not advance) |
-| Prior handoff tip (pre-publish) | `17fd71a909258c31bb630c177588de4e3cbe0ed1` |
-| Prior handoff blob | `b57db83780ae40ca969f3f48c9a4f8a68ae94bbd` |
+| merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` (main did not advance) |
+| Prior handoff tip (pre-publish this pass) | `058bc8b4134fc9cfd6f4e4edd771084653b43545` |
+| Prior handoff blob | `2973a4f5f06bad6545725386ddf3a42450670a5e` |
 
-### `git status --short` (Product local preserved)
+### `git status --short`
 
 ```
 M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+ M projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
  M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
  M projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
  M projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+ M projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
  M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
  M projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
  M projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
@@ -35,120 +40,260 @@ M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
  M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx
 ?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts
 ```
 
-No Product commit/push/PR. No reset/clean/stash. Handoff-only publish authorized.
+Product local candidate preserved. No Product commit/push/PR. No reset/clean/stash.
 
 ---
 
-## 2 — Convergence pre-check
+## 2 — Morris GO
 
-Read (Git canonical):
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- Build Doctrine / Roadmap / C1 cadrage / M5 trajectory requalification / v3 knowledge-context doctrine / PRR README + vols 02/03/04/06/07/08/09
+**MORRIS GO 2026-10-28 — R-INSPECT-01 only.**
 
-Confirmed anti-claims:
+Already decided: Option A VALIDATED · Option 1 IMPLEMENTED LOCALLY UNDER REVIEW.
+
+Objective: durable `repositoryMutationDeclared` must be faithful in actual Product inspection surface, covered by inspection/attestation contract, coherent with HD-sealed effects when present, unable to silently change between inspection and execution, and must not independently authorize modification/Cursor launch.
+
+---
+
+## 3 — Convergence pre-check
+
+Canonical sources read (template, routing, Build Doctrine, Roadmap, C1, M5 trajectory, v3 HumanDecision doctrine, PRR README + vols 02/03/04/06/07/08/09). Previous FULL handoff read (Option 1 tip `058bc8b4134fc9cfd6f4e4edd771084653b43545`).
+
+Anti-claims confirmed:
 - EP-S2-05 **NOT PROVEN**
-- EP-S2-08 **PARTIAL** (this pass restores Project-only Delivery CKC DET; exit proof still needs Critical Review)
+- EP-S2-08 **PARTIAL**
 - L3 GLOBAL **OPEN**
 - REAL **NOT PROVEN** · G-REAL **NOT GRANTED** · L4 **NOT AUTHORIZED** · Runtime v3 **NON ADOPTED**
 
-CKC candidate = cognitive guidance only (no execution authority).
+CKC = cognitive guidance only.
 
 ---
 
-## 3 — Morris decision
+## 4 — Phase A: actual inspection flow (DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN)
 
-**MORRIS GO 2026-10-28 — OPTION 1 BORNÉE VALIDÉE.**
+### Trace
 
-Investigate minimum Generic PREPARE evolution to preserve a Product-qualified Delivery operation already expressible in existing ExecutionContract fields. Implement ONLY if:
-- reuses existing Product facts/fields;
-- preserves domain semantics;
-- does not change execution authority;
-- no new persistence / mission model;
-- does not weaken PREPARE/SHE/currentness;
-- end-to-end DET reviewable.
+```
+Generic PREPARE (preserveDeclaredRepositoryMutation)
+  → ExecutionContract.inputs.repositoryMutationDeclared
+  → semanticFingerprint (includes inputs bag)
+  → projectExecutionContractInspectionDisclosure  [WAS GAP: field not projected]
+  → requiredInspectedFactsForContract             [WAS GAP: fact not required]
+  → buildInspectionFactRowsFromDisclosure         [WAS GAP: no Pilote row]
+  → ContractInspectionExamPanel / TrajectorySurface
+  → Pilot attestation (presentedFactIds)
+  → SingleHumanExecute (identity/version/fingerprint)
+  → Authorization / Attempt
+  → W3-C post-Evidence CKC (Option A eligibility)
+```
 
-Option A remains VALIDATED (Delivery CKC only with positive eligibility).
+### Actual consumers (repository search)
 
----
-
-## 4 — Phase A qualification (COMPLETE BEFORE CODE)
-
-### Provenance of the positive operation (10 questions)
-
-| # | Question | Answer (source) |
+| Consumer | Role | Classification |
 |---|---|---|
-| 1 | Who expresses the operation? | Tool/F2 analysis via `SolicitGenericPrepareMissionFields.repositoryMutation` → `buildIntentAnalysisFromSolicitedMission` stamps `analysis.repositoryMutationDeclared` (`prepareGenericExecutionContractDraft.ts` ~1278–1354). |
-| 2 | Provenance representation | Enum `"none"\|"read"\|"write"\|"unknown"` on IntentAnalysis / EC inputs — existing field, not free-text `requestedOperation`. |
-| 3 | Product admissibility | Materiality `qualifyBoundedNonMutatingAnalysisMission`: `"write"` **refuses** bounded path (`repository_mutation_declared_write`); write missions require concrete-path NON_STRUCTURAL Product gates (`resolveAuthoritativeProductMateriality.ts` ~199–216). |
-| 4 | Materiality | Existing `MATERIALITY:NON_STRUCTURAL` / STRUCTURAL / UNKNOWN — unchanged. |
-| 5 | Protected boundaries | Existing `collectProtectedPathHits` / Product protected-path gates — unchanged. |
-| 6 | EC inspectability | EC `inputs.repositoryMutationDeclared` already on contract inputs; previously forced `null` for non-bounded (`prepareGeneric…` stamp site). |
-| 7 | SHE validation | SHE does not re-author mutation; inspects EC version/fingerprint/facts/currentness (`singleHumanExecutePreparedContract`) — declaration ≠ authorize. |
-| 8 | Attempt binding | Existing Attempt→EC version binding via governed Select/Start — unchanged. |
-| 9 | W3-C consumption | `assessProjectOnlyDeliveryCkcEligibility` already accepts exact `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write` (Option A). No reinterpretation of authority. |
-| 10 | Absent/contradictory | Absence → null → `DELIVERY_POSITIVE_FACTS_ABSENT`; conflicting materiality/impact → fail-closed (existing R1 matrix). |
+| `inspectionDisclosure.ts` | Canonical allowlisted projection | **DOCUMENTED → adapted** |
+| `requiredInspectedFactsForContract` | Required fact IDs for attestation | **adapted** |
+| `inspectExecutionContract.ts` / `readCurrentGovernedExecutionContinuity.ts` | W2 DTO carriers | reuse |
+| `pilotExecutionPresentation.ts` `buildInspectionFactRowsFromDisclosure` | Fact rows for exam | **adapted** |
+| `ContractInspectionExamPanel.tsx` | Pilote exam UI | reuse (renders rows) |
+| `TrajectorySurface.tsx` | Inline contract disclosure | **adapted** |
+| `GovernedConfirmationCard` / `ExecutionSurface` | Pass requiredFacts + disclosure | reuse |
+| `projectExecutionContractEffects` | Mission effects projection | **no mutation field** (intentKind remains); consistency via A5 |
+| `semanticFingerprint` | Hashes full `inputs` | already covered |
+| SHE supersede | Copies `...contractInputs` | preserves mutation |
 
-### Qualification matrix (Cases A–H)
+### Finding verified
 
-| Case | Source fact | Product contract | Authority | Preserve? | Gate | Refusal | Refs |
-|---|---|---|---|---|---|---|---|
-| **A** Positive declared write + NON_STRUCTURAL + concrete scope | `repositoryMutation:"write"` + scopeIn path | Existing enum on analysis/EC; W3-C WHAT | Descriptive only | **YES** | Materiality + SHE | — | buildIntent…; preserveDeclared…; assessProjectOnly… |
-| **B** Read-only / non-mutating | `read_only` / mutation none\|read | Bounded stamps `"none"` | Descriptive | YES as none/read | Pathless positive claim | Delivery CKC refuse (intent/read) | qualifyBounded…; R1-N1 |
-| **C** Unknown/absent | null / unknown | Absence ≠ write | Fail-closed | Preserve null/unknown — **do not invent write** | — | `DELIVERY_POSITIVE_FACTS_ABSENT` / pathless refuse | NEG-01; R1-N2 |
-| **D** Write without admissible scope | mutation write + empty paths | Pathless write refuses NON_STRUCTURAL | Fail-closed | May preserve enum if EC exists; eligibility still refuse | Materiality UNKNOWN/STRUCTURAL | PREPARE refuse or W3-C refuse | qualifyBounded write refuse |
-| **E** Structural/security/… | impactSignals true | STRUCTURAL / impact gate | Fail-closed | May preserve declaration | Impact/materiality | `MATERIALITY_NOT_NON_STRUCTURAL` / impact reasons | R1-N4/N7b; R1-B |
-| **F** Conflicting mission/EC provenance | Attempt/EC/project mismatch | Lineage gates | Fail-closed | N/A | Provenance | `POST_EVIDENCE_CKC_*` | R1-N8/N9 |
-| **G** Stale/superseded inspected EC | version/fingerprint drift | SHE currentness | Fail-closed | N/A | SHE | SHE refuse | singleHumanExecute… |
-| **H** HD-sealed effects | sealedHdEffects path | Prefer sealed mission effects | Unchanged | Mutation still from analysis declaration; HD does not auto-authorize | Confirm/Authorize | — | prepareGeneric sealed path |
+Before: EC.inputs could hold `write`, fingerprint material included inputs, but disclosure did **not** expose the field, required facts did **not** require it, effects projection did **not** surface it, Pilote exam could not attest a non-displayed WHAT.
 
-### Phase A conclusion
+Fingerprint alone ≠ visual disclosure — **KNOWN GAP closed at DET**.
 
-**BOUNDED FIELD PRESERVATION QUALIFIED.**
+### Semantic distinctions retained
 
-Rationale: `repositoryMutationDeclared` already exists with existing Product semantics (materiality + W3-C eligibility). The defect was Generic PREPARE overwriting non-bounded declarations to `null`. Preservation reuses the field without redefining it, without adding `EFFECT_CLASS:local-write`, without new persistence/mission taxonomy, and without changing SHE/HD authority. Declaration ≠ Product authorization.
+A declaration ≠ B materiality ≠ C scope ≠ D inspection ≠ E HD effects ≠ F Confirm/Authorize ≠ G executed FS effects.
+
+### Phase A verdict
+
+**MINIMAL INSPECTION ADAPTATION QUALIFIED.**
+
+Reusable seams only; no new screen/workflow/HD model/authority change.
 
 ---
 
 ## 5 — Phase B implementation
 
-Preferred seam: `prepareGenericExecutionContractDraft.ts`.
+1. **inspectionDisclosure.ts** — project `repositoryMutationDeclared` enum or null; require fact `inputs.repositoryMutationDeclared` when present.
+2. **pilotExecutionPresentation.ts** — label « Opération déclarée sur le dépôt » with neutral values (write/read/none/unknown); never invents write when absent.
+3. **TrajectorySurface.tsx** — render same neutral declared-operation block when present.
+4. **genericMissionSubject.ts** A5 — write vs read_only / boundedNonMutating / NO_REPOSITORY_MUTATION_DECLARED → fail-closed.
+5. **prepareGenericExecutionContractDraft.ts** — PATH B: sealed HD `intentKind=read_only` + analysis `write` → `HD_MUTATION_DECLARATION_CONFLICT`.
 
-Added `preserveDeclaredRepositoryMutation`:
-- boundedNonMutating → `"none"` (existing)
-- analysis declared ∈ {none,read,write,unknown} → preserve
-- else → `null` (no invention)
+No SHE authority change. No auto HD. No new Confirmation policy. No EFFECT_CLASS invent. Option A eligibility unchanged.
 
-Stamp site now calls this helper instead of `boundedNonMutating ? "none" : null`.
+### Disclosure before / after
 
-**Not done:** EFFECT_CLASS:local-write; deriving write from scopeIn; Nora-as-authority; new SQLite; HD auto-create; CycleInstance invent; W2 Options ungating.
-
-Option A consumption in `qualificationInputs.ts` / `w3cPostEvidenceLoop.ts` retained (comments updated only on eligibility helper).
-
-### Effective EC before / after (declared write notes edit)
-
-| Field | Before (STOP probe) | After (Option 1) |
+| | Before | After |
 |---|---|---|
-| `inputs.repositoryMutationDeclared` | `null` | `"write"` |
-| `EFFECT_CLASS:local-write` | absent | still absent (not invented) |
-| `scopeIn` | concrete path (WHERE) | unchanged |
-| `boundedNonMutatingAnalysis` | false | false |
-| SHE authority | AUTHORIZED on inspect | unchanged |
-| W3-C Project-only | refuse `DELIVERY_POSITIVE_FACTS_ABSENT` | eligible → `cyc:delivery` projectScoped |
+| Canonical disclosure field | absent | `repositoryMutationDeclared` |
+| Required fact | not required | `inputs.repositoryMutationDeclared` when present |
+| Pilote exam row | none | label + neutral write/read/none/unknown text |
+| TrajectorySurface | createOrModify only (docs path) | + declared dépôt operation |
+| Absent declaration | — | null / not required / no invented write row |
+
+### Fact IDs / attestation
+
+- Present write → required includes `inputs.repositoryMutationDeclared` → row must render or `missingRequired` blocks attest (INSPECT-N5).
+- SHE uses expectedVersion + semanticFingerprint + presentedFactIds (INSPECT-P5 / N4 stale fingerprint refuse).
+
+### HD-sealed coherence
+
+| Path | Finding |
+|---|---|
+| PATH A no HD, NON_STRUCTURAL write | Analysis write preserved + disclosed + Delivery-eligible (Option 1) |
+| PATH B HD sealed read_only vs analysis write | PREPARE refuse `HD_MUTATION_DECLARATION_CONFLICT` |
+| EC internal write vs read_only / bounded / NO_MUTATION | A5 refuse |
+| Absent mutation | Not inferred as HD write approval (HD-N2) |
+| SHE supersede | Copies predecessor inputs including mutation — effect-preserving |
+| W3-C | Reads durable EC stamps only — not HD reinterpretation |
 
 ---
 
-## 6 — Product diffs
-
-### prepareGenericExecutionContractDraft.ts
+## 6 — Complete Product diffs (Option 1 + R-INSPECT-01 candidate)
 
 ```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+index 0ce447de..5fa978af 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
+@@ -141,6 +141,12 @@ function toInspectionDisclosureView(
+         readonly scopeOut: readonly string[] | null;
+         readonly createOrModify: boolean | null;
+         readonly noDelete: boolean | null;
++        readonly repositoryMutationDeclared?:
++          | "none"
++          | "read"
++          | "write"
++          | "unknown"
++          | null;
+         readonly contentRequirements: readonly string[] | null;
+         readonly validationExpectations: readonly string[] | null;
+         readonly expectedOutputs: readonly string[] | null;
+@@ -162,6 +168,7 @@ function toInspectionDisclosureView(
+     scopeOut: disclosure.scopeOut,
+     createOrModify: disclosure.createOrModify,
+     noDelete: disclosure.noDelete,
++    repositoryMutationDeclared: disclosure.repositoryMutationDeclared ?? null,
+     contentRequirements: disclosure.contentRequirements,
+     validationExpectations: disclosure.validationExpectations,
+     expectedOutputs: disclosure.expectedOutputs,
+@@ -180,6 +187,12 @@ type InspectionDisclosureView = {
+   readonly scopeOut: readonly string[] | null;
+   readonly createOrModify: boolean | null;
+   readonly noDelete: boolean | null;
++  readonly repositoryMutationDeclared:
++    | "none"
++    | "read"
++    | "write"
++    | "unknown"
++    | null;
+   readonly contentRequirements: readonly string[] | null;
+   readonly validationExpectations: readonly string[] | null;
+   readonly expectedOutputs: readonly string[] | null;
+@@ -3101,6 +3114,24 @@ export function TrajectorySurface({
+                   </dd>
+                 </div>
+               ) : null}
++              {contract.inspectionDisclosure?.repositoryMutationDeclared !=
++              null ? (
++                <div>
++                  <dt>Opération déclarée sur le dépôt</dt>
++                  <dd data-testid="w2-contract-repository-mutation-declared">
++                    {contract.inspectionDisclosure.repositoryMutationDeclared ===
++                    "write"
++                      ? "Écriture déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
++                      : contract.inspectionDisclosure
++                            .repositoryMutationDeclared === "read"
++                        ? "Lecture seule déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
++                        : contract.inspectionDisclosure
++                              .repositoryMutationDeclared === "none"
++                          ? "Aucune mutation déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
++                          : "Opération inconnue déclarée — non promue automatiquement ; soumise aux contrôles du contrat."}
++                  </dd>
++                </div>
++              ) : null}
+               {contract.inspectionDisclosure?.expectedOutputs ? (
+                 <div>
+                   <dt>Sorties attendues</dt>
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+index 93fade27..3876fbd6 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation.ts
+@@ -100,6 +100,21 @@ export function buildInspectionFactRowsFromDisclosure(input: {
+   if (d.noDelete !== null && d.noDelete !== undefined) {
+     put("inputs.noDelete", "Sans suppression", d.noDelete ? "oui" : "non");
+   }
++  if (d.repositoryMutationDeclared != null) {
++    const mutationValue =
++      d.repositoryMutationDeclared === "write"
++        ? "Écriture déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
++        : d.repositoryMutationDeclared === "read"
++          ? "Lecture seule déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
++          : d.repositoryMutationDeclared === "none"
++            ? "Aucune mutation déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
++            : "Opération inconnue déclarée — non promue automatiquement ; soumise aux contrôles du contrat.";
++    put(
++      "inputs.repositoryMutationDeclared",
++      "Opération déclarée sur le dépôt",
++      mutationValue,
++    );
++  }
+   put(
+     "inputs.contentRequirements",
+     "Exigences de contenu",
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts b/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
+index 16e63e51..1b3dda6e 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/genericMissionSubject.ts
+@@ -672,6 +672,32 @@ export function assertExecutionContractInternalConsistency(input: {
+     }
+   }
+ 
++  // A5 — repositoryMutationDeclared vs sealed intent / non-mutating stamps.
++  // Descriptive declaration must not contradict read_only / bounded non-mutating.
++  const mutationDeclared = inputs.repositoryMutationDeclared;
++  if (mutationDeclared === "write") {
++    const intentKind =
++      typeof inputs.intentKind === "string" ? inputs.intentKind.trim() : null;
++    if (intentKind === "read_only") {
++      return {
++        ok: false,
++        reason: "mutation_write_vs_read_only_intent",
++      };
++    }
++    if (inputs.boundedNonMutatingAnalysis === true) {
++      return {
++        ok: false,
++        reason: "mutation_write_vs_bounded_non_mutating",
++      };
++    }
++    if (constraints.includes("MISSION_EFFECT:NO_REPOSITORY_MUTATION_DECLARED")) {
++      return {
++        ok: false,
++        reason: "mutation_write_vs_no_mutation_constraint",
++      };
++    }
++  }
++
+   return { ok: true };
+ }
+ 
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-index fe01dd88..70ef5a27 100644
+index fe01dd88..4b370302 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 @@ -257,6 +257,29 @@ function missionImpliesRepositoryWork(analysis: IntentAnalysisDto): boolean {
@@ -181,7 +326,30 @@ index fe01dd88..70ef5a27 100644
  /**
   * @deprecated Prefer resolveAuthoritativeProductMateriality — sync helper kept
   * for unit oracles that only have analysis (forces UNKNOWN without Product).
-@@ -982,7 +1005,14 @@ export async function prepareGenericExecutionContractDraft(
+@@ -704,6 +727,22 @@ export async function prepareGenericExecutionContractDraft(
+       pathRoot: sealedCtx.pathRoot,
+       impactSignals: { ...sealedCtx.impactSignals },
+     };
++    // R-INSPECT-01 — sealed read_only / non-mutating intent cannot be silently
++    // overridden by an analysis write declaration (no invented HD write approval).
++    const analysisMutation = (
++      analysis as { repositoryMutationDeclared?: unknown }
++    ).repositoryMutationDeclared;
++    if (
++      sealedHdEffects.intentKind === "read_only" &&
++      analysisMutation === "write"
++    ) {
++      return {
++        ok: false,
++        code: "HD_MUTATION_DECLARATION_CONFLICT",
++        message:
++          "HumanDecision scellée read_only contradictoire avec repositoryMutationDeclared=write — PREPARE refusé (fail-closed).",
++      };
++    }
+   } else if (hdRequired) {
+     sheDeferredStructuralAuthority = true;
+     // decisionRefs stay []; honest MATERIALITY stamp remains on constraints.
+@@ -982,7 +1021,14 @@ export async function prepareGenericExecutionContractDraft(
        prepareStatus: "draft_inspectable",
        materialityFacts,
        boundedNonMutatingAnalysis: boundedNonMutating,
@@ -197,12 +365,6 @@ index fe01dd88..70ef5a27 100644
        // Intent fidelity — inspectable mission effects (Pass 02 / EC↔HD).
        intentKind: boundedNonMutating
          ? stampedIntentKind ?? "read_only"
-
-```
-
-### qualificationInputs.ts
-
-```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
 index 370ba80d..8e2955fb 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
@@ -678,12 +840,6 @@ index 370ba80d..8e2955fb 100644
 +    },
 +  };
 +}
-
-```
-
-### w3cPostEvidenceLoop.ts
-
-```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 index dba328ce..6063a05e 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
@@ -731,12 +887,761 @@ index dba328ce..6063a05e 100644
      );
    }
    const ckcPromptSection = buildCkcCognitivePromptSection(ckcContent);
+diff --git a/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts b/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
+index e831f481..cfa81aa9 100644
+--- a/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
++++ b/projects/sfia-studio/app/lib/oa/execution-contract/projection/inspectionDisclosure.ts
+@@ -31,6 +31,17 @@ export type ExecutionContractInspectionDisclosure = {
+   readonly scopeOut: readonly string[] | null;
+   readonly createOrModify: boolean | null;
+   readonly noDelete: boolean | null;
++  /**
++   * Declared repository mutation from durable EC inputs (inspectable WHAT).
++   * Enum only — never invents "write". Null = absent declaration.
++   * Disclosure ≠ authorization.
++   */
++  readonly repositoryMutationDeclared?:
++    | "none"
++    | "read"
++    | "write"
++    | "unknown"
++    | null;
+   readonly objective: string | null;
+   readonly artifactType: string | null;
+   readonly artifactBrief: string | null;
+@@ -115,6 +126,18 @@ export function projectExecutionContractInspectionDisclosure(
+   const artifactBrief = asNonEmptyString(inputs.artifactBrief);
+   const createOrModify = asBoolean(inputs.createOrModify);
+   const noDelete = asBoolean(inputs.noDelete);
++  const repositoryMutationDeclared = (() => {
++    const raw = inputs.repositoryMutationDeclared;
++    if (
++      raw === "none" ||
++      raw === "read" ||
++      raw === "write" ||
++      raw === "unknown"
++    ) {
++      return raw;
++    }
++    return null;
++  })();
+   const sourceGrounding = parseContractSourceGrounding(
+     inputs[CONTRACT_SOURCE_GROUNDING_INPUT_KEY],
+   );
+@@ -145,6 +168,7 @@ export function projectExecutionContractInspectionDisclosure(
+     scopeOut,
+     createOrModify,
+     noDelete,
++    repositoryMutationDeclared,
+     objective,
+     artifactType,
+     artifactBrief,
+@@ -227,6 +251,11 @@ export function requiredInspectedFactsForContract(
+     facts.push(`inputs.${CONTRACT_REPORT_REQUIREMENTS_INPUT_KEY}`);
+   }
+ 
++  // Declared repository mutation is inspectable WHAT when present on the EC.
++  if (d.repositoryMutationDeclared != null) {
++    facts.push("inputs.repositoryMutationDeclared");
++  }
++
+   return Object.freeze([...facts]);
+ }
+ 
 
 ```
 
 ---
 
 ## 7 — Full new / PROOF-01 test contents
+
+### akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts
+
+```typescript
+/**
+ * EP-S2-08-PROOF-01 — R-INSPECT-01 inspection disclosure + HD coherence (DET).
+ *
+ * Proves durable repositoryMutationDeclared is:
+ * - projected into canonical inspection disclosure;
+ * - required as an inspected fact when present;
+ * - rendered by the Product Pilote fact-row presentation;
+ * - coherent with HD-sealed read_only / non-mutating stamps;
+ * - not an independent authorization.
+ *
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  buildIntentAnalysisFromSolicitedMission,
+  solicitGenericExecutionPrepare,
+} from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
+import { assertExecutionContractInternalConsistency } from "@/features/project-assistant/w2/genericMissionSubject";
+import {
+  projectExecutionContractInspectionDisclosure,
+  requiredInspectedFactsForContract,
+} from "@/lib/oa/execution-contract";
+import { buildInspectionFactRowsFromDisclosure } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  tempProductDbPath,
+  W2_TEST_PINNED_BASE_HEAD_SHA,
+} from "./w2Harness";
+import { ensureManagedRepoCloneSkeleton } from "@/lib/oa/project/infrastructure/managedRepoPathFacts";
+import { SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV } from "@/lib/vertical-slice-runtime/managedRepoRootBaseConfig";
+import type { IntentAnalysisDto } from "@/features/project-assistant/f2/types";
+import type { RuntimeApplicationService } from "@/lib/vertical-slice-runtime";
+import type { ExecutionContract } from "@/lib/oa/execution-contract";
+
+const NOTES_PATH = "projects/demo/notes/project-notes.md";
+
+function restoreEnvVar(name: string, previous: string | undefined): void {
+  if (previous === undefined) delete process.env[name];
+  else process.env[name] = previous;
+}
+
+function requiredFactsOrThrow(
+  contract: ExecutionContract,
+): readonly string[] {
+  const facts = requiredInspectedFactsForContract(contract);
+  if (Array.isArray(facts)) return facts;
+  throw new Error(
+    `inspection disclosure incomplete: ${(facts as { code: string }).code}`,
+  );
+}
+
+function writeAnalysis(): IntentAnalysisDto {
+  const base = buildIntentAnalysisFromSolicitedMission({
+    objective: "R-INSPECT-01 declared write notes edit",
+    expectedOutcome: "Inspectable write declaration on EC",
+    scope: NOTES_PATH,
+    repositoryMutation: "write",
+    impactSignals: { structuralChange: false, architectureImpact: false },
+  });
+  return {
+    ...base,
+    executionIntent: {
+      intentKind: "other",
+      scopeIn: [NOTES_PATH],
+      requiredCapabilities: [],
+    },
+  };
+}
+
+function readOnlyAnalysis(): IntentAnalysisDto {
+  const base = buildIntentAnalysisFromSolicitedMission({
+    objective: "R-INSPECT-01 read-only notes review",
+    expectedOutcome: "Non-mutating inspection",
+    scope: NOTES_PATH,
+    repositoryMutation: "none",
+    impactSignals: { structuralChange: false, architectureImpact: false },
+  });
+  return {
+    ...base,
+    executionIntent: {
+      intentKind: "read_only",
+      scopeIn: [NOTES_PATH],
+      requiredCapabilities: [],
+    },
+  };
+}
+
+describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection + HD coherence (DET)", () => {
+  let previousMorris: string | undefined;
+  let previousDetPin: string | undefined;
+  let previousPilot: string | undefined;
+
+  beforeEach(() => {
+    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
+    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
+    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+    delete process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE;
+  });
+
+  afterEach(() => {
+    cleanupW2TempDirs();
+    restoreEnvVar("SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY", previousMorris);
+    restoreEnvVar("SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA", previousDetPin);
+    restoreEnvVar("SFIA_STUDIO_LOCAL_PILOT_AUTHORITY", previousPilot);
+  });
+
+  async function seed(
+    runtime: RuntimeApplicationService,
+    suffix: string,
+  ): Promise<{
+    projectId: string;
+    oa: NonNullable<RuntimeApplicationService["oa"]>;
+  }> {
+    const oa = runtime.oa!;
+    const created = await runtime.createProject({
+      name: "demo",
+      objective: "EP-S2-08 R-INSPECT-01",
+      context: "inspection disclosure",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL", "R-INSPECT DET"],
+      shortReference: `RI${suffix.toUpperCase().slice(0, 4)}`,
+      idempotencyKey: `idem:ep08-ri-${suffix}`,
+    });
+    if (!created.ok) {
+      throw new Error(`createProject: ${created.error?.message ?? "fail"}`);
+    }
+    const projectId = created.project.projectId;
+    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps0.ok) throw new Error("lps0");
+    await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
+      status: "active",
+      expectedLpsVersion: lps0.livingProjectState.version,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+    const identity = `acme/ep08-ri-${suffix}`;
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+      identity,
+    });
+    return { projectId, oa };
+  }
+
+  it("INSPECT-P1/P2/P4/P5 — declared write persists, discloses, requires fact, SHE does not widen", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-ri-p1"),
+      idPrefix: "ep08rip1",
+    });
+    const { projectId, oa } = await seed(runtime, "p1");
+
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: writeAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get EC");
+
+    // INSPECT-P1
+    const inputs = live.contract.inputs as Record<string, unknown>;
+    expect(inputs.repositoryMutationDeclared).toBe("write");
+
+    // INSPECT-P2
+    const projected = projectExecutionContractInspectionDisclosure(live.contract);
+    expect(projected.ok).toBe(true);
+    if (!projected.ok) throw new Error("disclosure incomplete");
+    expect(projected.disclosure.repositoryMutationDeclared).toBe("write");
+
+    // INSPECT-P4 — required fact covers displayed operation
+    const required = requiredFactsOrThrow(live.contract);
+    expect(required).toContain("inputs.repositoryMutationDeclared");
+    const rows = buildInspectionFactRowsFromDisclosure({
+      disclosure: projected.disclosure,
+      requiredInspectedFacts: required,
+    });
+    expect(rows.missingRequired).toEqual([]);
+    const mutationRow = rows.rows.find(
+      (r) => r.factId === "inputs.repositoryMutationDeclared",
+    );
+    expect(mutationRow).toBeTruthy();
+    expect(mutationRow!.label).toBe("Opération déclarée sur le dépôt");
+    expect(mutationRow!.value).toContain("Écriture déclarée");
+    expect(mutationRow!.value).toContain("autorisation du contrat");
+    expect(rows.presentedFactIds).toContain("inputs.repositoryMutationDeclared");
+
+    // INSPECT-P5 — SHE binds inspected identity; declaration ≠ extra authority
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: rows.presentedFactIds,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(true);
+    if (!she.ok) throw new Error(`${she.code} ${she.message}`);
+    expect(she.authorization.outcome).toBe("AUTHORIZED");
+    expect(she.executionAttemptCreated).toBe(false);
+  }, 90_000);
+
+  it("INSPECT-P3 — Pilote fact rows render declared write intelligibly (presentation DET)", () => {
+    const disclosure = {
+      action: "studio.cursor.generalist.execute",
+      technicalTarget: "studio.cursor.generalist.workspace",
+      scope: "project",
+      targetRepositoryRef: "acme/demo",
+      targetPath: null,
+      scopeIn: [NOTES_PATH] as readonly string[],
+      scopeOut: null,
+      createOrModify: null,
+      noDelete: null,
+      repositoryMutationDeclared: "write" as const,
+      objective: "notes edit",
+      artifactType: null,
+      artifactBrief: null,
+      contentRequirements: null,
+      validationExpectations: null,
+      expectedOutputs: null,
+      sourceGrounding: null,
+      acceptanceCriteria: null,
+      validationPlan: null,
+      reportRequirements: null,
+      evidenceRequirements: [] as readonly string[],
+      requiredAuthority: "N3",
+      requiredCapabilities: [] as readonly string[],
+      constraints: ["PRODUCT_GOVERNED", "MATERIALITY:NON_STRUCTURAL"],
+      stopConditions: [] as readonly string[],
+      reversibility: "reversible" as const,
+      contractVersion: 1,
+      executionContractId: "xct:inspect-p3",
+      semanticFingerprint: "fp:inspect-p3",
+      disclosureComplete: true,
+      incompletenessCode: null,
+    };
+    const required = [
+      "action",
+      "target",
+      "scope",
+      "inputs.repositoryMutationDeclared",
+      "semanticFingerprint",
+    ];
+    const rows = buildInspectionFactRowsFromDisclosure({
+      disclosure,
+      requiredInspectedFacts: required,
+    });
+    expect(rows.missingRequired).toEqual([]);
+    const row = rows.rows.find(
+      (r) => r.factId === "inputs.repositoryMutationDeclared",
+    );
+    expect(row?.value).toMatch(/Écriture déclarée/);
+    expect(row?.value).toContain("soumise");
+    expect(row?.value).toContain("autorisation du contrat");
+  });
+
+  it("INSPECT-N1 — absent declaration does not invent write in disclosure or rows", async () => {
+    // Pure disclosure path: inputs without repositoryMutationDeclared
+    const contract = {
+      executionContractId: "xct:n1",
+      projectId: "prj:n1",
+      version: 1,
+      status: "draft",
+      action: "studio.cursor.generalist.execute",
+      target: "studio.cursor.generalist.workspace",
+      scope: "project",
+      requiredAuthority: "N3",
+      requiredCapabilities: [],
+      constraints: ["PRODUCT_GOVERNED"],
+      stopConditions: [],
+      evidenceRequirements: [],
+      reversibility: "reversible",
+      expectedOutputs: [],
+      inputs: {
+        objective: "x",
+        intentKind: "other",
+        scopeIn: [NOTES_PATH],
+      },
+      semanticFingerprint: "fp:n1",
+    } as unknown as ExecutionContract;
+
+    const projected = projectExecutionContractInspectionDisclosure(contract);
+    expect(projected.ok).toBe(true);
+    if (!projected.ok) return;
+    expect(projected.disclosure.repositoryMutationDeclared).toBeNull();
+    const facts = requiredInspectedFactsForContract(contract);
+    expect(Array.isArray(facts) && facts.includes("inputs.repositoryMutationDeclared")).toBe(
+      false,
+    );
+    const rows = buildInspectionFactRowsFromDisclosure({
+      disclosure: projected.disclosure,
+      requiredInspectedFacts: Array.isArray(facts) ? facts : [],
+    });
+    expect(
+      rows.rows.some((r) => r.value.toLowerCase().includes("écriture déclarée")),
+    ).toBe(false);
+  });
+
+  it("INSPECT-N2 — read-only / none declaration remains non-Delivery and discloses neutrally", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-ri-n2"),
+      idPrefix: "ep08rin2",
+    });
+    const { projectId, oa } = await seed(runtime, "n2");
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: readOnlyAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    // Pathless/read_only may qualify or need concrete paths — either way mutation ≠ write.
+    if (!prep.ok) {
+      // Fail-closed PREPARE is acceptable for this oracle when Product refuses.
+      expect(prep.ok).toBe(false);
+      return;
+    }
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) return;
+    const mutation = (live.contract.inputs as Record<string, unknown>)
+      .repositoryMutationDeclared;
+    expect(mutation === "none" || mutation === "read").toBe(true);
+    expect(mutation).not.toBe("write");
+    const projected = projectExecutionContractInspectionDisclosure(live.contract);
+    expect(projected.ok && projected.disclosure.repositoryMutationDeclared).not.toBe(
+      "write",
+    );
+  }, 60_000);
+
+  it("INSPECT-N3 — unknown declaration discloses as ambiguous, not promoted to write", () => {
+    const contract = {
+      executionContractId: "xct:n3",
+      projectId: "prj:n3",
+      version: 1,
+      status: "draft",
+      action: "a",
+      target: "t",
+      scope: "s",
+      requiredAuthority: "N3",
+      requiredCapabilities: [],
+      constraints: [],
+      stopConditions: [],
+      evidenceRequirements: [],
+      reversibility: "reversible",
+      expectedOutputs: [],
+      inputs: { repositoryMutationDeclared: "unknown" },
+      semanticFingerprint: "fp:n3",
+    } as unknown as ExecutionContract;
+    const projected = projectExecutionContractInspectionDisclosure(contract);
+    expect(projected.ok).toBe(true);
+    if (!projected.ok) return;
+    expect(projected.disclosure.repositoryMutationDeclared).toBe("unknown");
+    const facts = requiredInspectedFactsForContract(contract);
+    expect(Array.isArray(facts) && facts.includes("inputs.repositoryMutationDeclared")).toBe(
+      true,
+    );
+    const rows = buildInspectionFactRowsFromDisclosure({
+      disclosure: projected.disclosure,
+      requiredInspectedFacts: ["inputs.repositoryMutationDeclared"],
+    });
+    expect(rows.rows[0]?.value).toMatch(/inconnue/i);
+    expect(rows.rows[0]?.value).not.toMatch(/^Écriture déclarée/);
+  });
+
+  it("INSPECT-N5 — required mutation fact without displayable value → missingRequired (no silent attest)", () => {
+    const disclosure = {
+      action: "a",
+      technicalTarget: "t",
+      scope: "s",
+      targetRepositoryRef: null,
+      targetPath: null,
+      scopeIn: null,
+      scopeOut: null,
+      createOrModify: null,
+      noDelete: null,
+      repositoryMutationDeclared: null,
+      objective: null,
+      artifactType: null,
+      artifactBrief: null,
+      contentRequirements: null,
+      validationExpectations: null,
+      expectedOutputs: null,
+      sourceGrounding: null,
+      acceptanceCriteria: null,
+      validationPlan: null,
+      reportRequirements: null,
+      evidenceRequirements: [] as readonly string[],
+      requiredAuthority: "N3",
+      requiredCapabilities: [] as readonly string[],
+      constraints: [] as readonly string[],
+      stopConditions: [] as readonly string[],
+      reversibility: "reversible" as const,
+      contractVersion: 1,
+      executionContractId: "xct:n5",
+      semanticFingerprint: "fp:n5",
+      disclosureComplete: true,
+      incompletenessCode: null,
+    };
+    const rows = buildInspectionFactRowsFromDisclosure({
+      disclosure,
+      requiredInspectedFacts: ["inputs.repositoryMutationDeclared"],
+    });
+    expect(rows.missingRequired).toContain("inputs.repositoryMutationDeclared");
+    expect(rows.presentedFactIds).not.toContain("inputs.repositoryMutationDeclared");
+  });
+
+  it("HD-N1 — write vs read_only intent on same EC fails internal consistency", () => {
+    const r = assertExecutionContractInternalConsistency({
+      constraints: [
+        "PRODUCT_GOVERNED",
+        "MATERIALITY:NON_STRUCTURAL",
+        "MISSION_EFFECT:NO_REPOSITORY_MUTATION_DECLARED",
+      ],
+      inputs: {
+        missionSubjectId: "ms:hd-n1",
+        presentationDigest: "pd:hd-n1",
+        materialityFacts: { assessedMateriality: "non_structural" },
+        intentKind: "read_only",
+        repositoryMutationDeclared: "write",
+        boundedNonMutatingAnalysis: true,
+        risks: [],
+        reservations: [],
+      },
+    });
+    expect(r.ok).toBe(false);
+    if (!r.ok) {
+      expect(
+        r.reason === "mutation_write_vs_read_only_intent" ||
+          r.reason === "mutation_write_vs_bounded_non_mutating" ||
+          r.reason === "mutation_write_vs_no_mutation_constraint",
+      ).toBe(true);
+    }
+  });
+
+  it("HD-P1 — coherent write + other intent passes internal consistency", () => {
+    const r = assertExecutionContractInternalConsistency({
+      constraints: ["PRODUCT_GOVERNED", "MATERIALITY:NON_STRUCTURAL"],
+      inputs: {
+        missionSubjectId: "ms:hd-p1",
+        presentationDigest: "pd:hd-p1",
+        materialityFacts: { assessedMateriality: "non_structural" },
+        intentKind: "other",
+        repositoryMutationDeclared: "write",
+        boundedNonMutatingAnalysis: false,
+        risks: [],
+        reservations: [],
+      },
+    });
+    expect(r.ok).toBe(true);
+  });
+
+  it("HD-N2 — absent mutation is not inferred as HD write approval", () => {
+    const r = assertExecutionContractInternalConsistency({
+      constraints: ["PRODUCT_GOVERNED", "MATERIALITY:NON_STRUCTURAL"],
+      inputs: {
+        missionSubjectId: "ms:hd-n2",
+        presentationDigest: "pd:hd-n2",
+        materialityFacts: { assessedMateriality: "non_structural" },
+        intentKind: "other",
+        // repositoryMutationDeclared intentionally absent
+        risks: [],
+        reservations: [],
+      },
+    });
+    expect(r.ok).toBe(true);
+    const contract = {
+      executionContractId: "xct:hd-n2",
+      projectId: "prj",
+      version: 1,
+      status: "draft",
+      action: "a",
+      target: "t",
+      scope: "s",
+      requiredAuthority: "N3",
+      requiredCapabilities: [],
+      constraints: ["PRODUCT_GOVERNED"],
+      stopConditions: [],
+      evidenceRequirements: [],
+      reversibility: "reversible",
+      expectedOutputs: [],
+      inputs: { intentKind: "other" },
+      semanticFingerprint: "fp",
+    } as unknown as ExecutionContract;
+    const d = projectExecutionContractInspectionDisclosure(contract);
+    expect(d.ok && d.disclosure.repositoryMutationDeclared).toBeNull();
+  });
+
+  it("INSPECT-N4 — fingerprint / version binding: presented facts must match live EC identity", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-ri-n4"),
+      idPrefix: "ep08rin4",
+    });
+    const { projectId, oa } = await seed(runtime, "n4");
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: writeAnalysis(),
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get EC");
+    const facts = requiredFactsOrThrow(live.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: "fp:stale-wrong-fingerprint",
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(false);
+    if (!she.ok) {
+      expect(she.code).toMatch(/FINGERPRINT|STALE|CURRENT|MISMATCH|INSPECT/i);
+    }
+  }, 60_000);
+});
+
+```
+
+### epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx
+
+```tsx
+/**
+ * EP-S2-08-PROOF-01 R-INSPECT-01 — Pilote inspection surface renders declared
+ * repository mutation (jsdom DET). Not browser /studio remount E2E.
+ *
+ * @vitest-environment jsdom
+ */
+import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
+import { ContractInspectionExamPanel } from "@/features/pre-m6-product-ui/surfaces/ContractInspectionExamPanel";
+import { buildInspectionFactRowsFromDisclosure } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
+import type { ExecutionContractInspectionDisclosure } from "@/lib/oa/execution-contract";
+
+function disclosureWithWrite(): ExecutionContractInspectionDisclosure {
+  return {
+    action: "studio.cursor.generalist.execute",
+    technicalTarget: "studio.cursor.generalist.workspace",
+    scope: "project",
+    targetRepositoryRef: "acme/demo",
+    targetPath: null,
+    scopeIn: ["projects/demo/notes/project-notes.md"],
+    scopeOut: null,
+    createOrModify: null,
+    noDelete: null,
+    repositoryMutationDeclared: "write",
+    objective: "notes edit",
+    artifactType: null,
+    artifactBrief: null,
+    contentRequirements: null,
+    validationExpectations: null,
+    expectedOutputs: null,
+    sourceGrounding: null,
+    acceptanceCriteria: null,
+    validationPlan: null,
+    reportRequirements: null,
+    evidenceRequirements: [],
+    requiredAuthority: "N3",
+    requiredCapabilities: [],
+    constraints: ["PRODUCT_GOVERNED", "MATERIALITY:NON_STRUCTURAL"],
+    stopConditions: [],
+    reversibility: "reversible",
+    contractVersion: 2,
+    executionContractId: "xct:ri-ui",
+    semanticFingerprint: "fp:ri-ui",
+    disclosureComplete: true,
+    incompletenessCode: null,
+  };
+}
+
+describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection surface (jsdom)", () => {
+  afterEach(() => {
+    cleanup();
+  });
+
+  it("INSPECT-P3 — ContractInspectionExamPanel renders declared write fact", () => {
+    const disclosure = disclosureWithWrite();
+    const required = [
+      "action",
+      "inputs.repositoryMutationDeclared",
+      "semanticFingerprint",
+    ];
+    const built = buildInspectionFactRowsFromDisclosure({
+      disclosure,
+      requiredInspectedFacts: required,
+    });
+    expect(built.missingRequired).toEqual([]);
+
+    render(
+      <ContractInspectionExamPanel
+        testIdPrefix="r-inspect"
+        snapshot={{
+          projectId: "prj:ri",
+          executionContractId: disclosure.executionContractId,
+          version: disclosure.contractVersion,
+          semanticFingerprint: disclosure.semanticFingerprint!,
+        }}
+        rows={built.rows}
+        missingRequired={built.missingRequired}
+        presentedFactIds={built.presentedFactIds}
+        busy={false}
+        onAttest={() => undefined}
+      />,
+    );
+
+    expect(
+      screen.getByTestId(
+        "r-inspect-inspection-fact-inputs.repositoryMutationDeclared",
+      ),
+    ).toBeTruthy();
+    expect(screen.getByText("Opération déclarée sur le dépôt")).toBeTruthy();
+    expect(
+      screen.getByText(/Écriture déclarée — soumise au périmètre/),
+    ).toBeTruthy();
+    expect(screen.getByTestId("r-inspect-attest")).not.toBeDisabled();
+  });
+
+  it("INSPECT-N1 — absent mutation does not render invented write row", () => {
+    const disclosure: ExecutionContractInspectionDisclosure = {
+      ...disclosureWithWrite(),
+      repositoryMutationDeclared: null,
+    };
+    const built = buildInspectionFactRowsFromDisclosure({
+      disclosure,
+      requiredInspectedFacts: ["action", "semanticFingerprint"],
+    });
+    render(
+      <ContractInspectionExamPanel
+        testIdPrefix="r-inspect-n1"
+        snapshot={{
+          projectId: "prj:ri",
+          executionContractId: disclosure.executionContractId,
+          version: disclosure.contractVersion,
+          semanticFingerprint: disclosure.semanticFingerprint!,
+        }}
+        rows={built.rows}
+        missingRequired={built.missingRequired}
+        presentedFactIds={built.presentedFactIds}
+        busy={false}
+        onAttest={() => undefined}
+      />,
+    );
+    expect(
+      screen.queryByText(/Écriture déclarée/),
+    ).toBeNull();
+  });
+});
+
+```
 
 ### akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
 
@@ -2797,13 +3702,14 @@ describe("EP-S2-08-PROOF-01 R2 — Pilote TrajectorySurface B5/B6 (jsdom)", () =
 
 ---
 
-## 8 — R24 PRR diffs + manifest
+## 8 — R24 PRR + manifest
 
-### PRR volume diff (03/06/07/08/09)
+Volumes updated: 03, 06 (prior Option 1), 07, 08, 09.  
+02 / 04: **NO SEMANTIC IMPACT** this pass (projection field documented in 03/07; object catalog already covers EC inputs generically).
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 77ee95a6..3626e265 100644
+index 77ee95a6..b6295932 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 @@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
@@ -2811,9 +3717,9 @@ index 77ee95a6..3626e265 100644
  
  **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
 +
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 field preservation)
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 + R-INSPECT-01)
 +
-+> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** (Delivery CKC only with positive eligibility) + **Option 1 bornée** (preserve already-declared mutation enum on Generic PREPARE EC) remain the local policy. Defensive gates (intent/impact/materiality/Attempt→EC provenance) retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Accepted affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact constraint `EFFECT_CLASS:local-write` (no prefix). **Option 1 (2026-10-28):** Generic PREPARE preserves `analysis.repositoryMutationDeclared ∈ {none,read,write,unknown}` onto durable EC inputs when already declared; bounded non-mutating still stamps `"none"`; **absence stays null** (fail-closed). Does **not** invent `"write"`, does **not** stamp `EFFECT_CLASS:local-write`, does **not** authorize SHE/Attempt. POS-01 proves real PREPARE→SHE→Attempt→Evidence→W3-C `cyc:delivery` when declared write is preserved. B2/B5/B6 integrated DET restored. Cycle-bound CKC via EC lineage unchanged. W2 Options still `CYCLE_NOT_QUALIFIED`. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
++> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** + **Option 1** + **R-INSPECT-01** (inspection disclosure coherence). Defensive gates retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write`. **Option 1:** Generic PREPARE preserves declared mutation enum onto durable EC (no invention; no EFFECT_CLASS stamp; declaration ≠ SHE authority). **R-INSPECT-01:** canonical `projectExecutionContractInspectionDisclosure` exposes `repositoryMutationDeclared`; `requiredInspectedFactsForContract` requires `inputs.repositoryMutationDeclared` when present; Pilote exam rows (`buildInspectionFactRowsFromDisclosure` / `ContractInspectionExamPanel`) and TrajectorySurface render neutral label « Opération déclarée sur le dépôt »; HD/sealed `read_only` vs analysis `write` fail-closed (`HD_MUTATION_DECLARATION_CONFLICT` / internal consistency A5). Fingerprint alone ≠ visual disclosure. POS-01 + B2/B5/B6 + R-INSPECT oracles DET. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 index 8fd457ad..933d3958 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
@@ -2826,38 +3732,41 @@ index 8fd457ad..933d3958 100644
 +
  **≠** invent recovery E2E beyond DET proofs.
 diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 641e4ebd..ff665d8e 100644
+index 641e4ebd..115912a7 100644
 --- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 +++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-@@ -144,6 +144,8 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
+@@ -144,6 +144,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
  | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
  | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
  | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
 +| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
++| `HD_MUTATION_DECLARATION_CONFLICT` / `mutation_write_vs_read_only_intent` | Generic PREPARE / EC internal consistency (R-INSPECT-01) | Sealed HD `intentKind=read_only` (or bounded non-mutating / NO_REPOSITORY_MUTATION stamp) contradicts analysis/`inputs.repositoryMutationDeclared=write` | PREPARE refuse or SHE consistency refuse — no silent override; declaration ≠ authorization; fingerprint alone ≠ visual disclosure | none unauthorized | yes — **LOCAL CANDIDATE** R-INSPECT-01 · ≠ ON MAIN |
 +| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
  | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
  | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
  | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index db5716f1..97c6d190 100644
+index db5716f1..b7dc3427 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -222,3 +222,13 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
+@@ -222,3 +222,15 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
  | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
  
  **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
 +
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 Pilote resume + R1 Option A + Option 1
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 + R1 Option A/1 + R-INSPECT-01
 +
 +| Suite / oracle | Result | Proof level |
 +|---|---|---|
-+| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** after Option 1 | **LOCAL DET** ≠ ON MAIN |
-+| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 real Generic PREPARE preserves declared `write` → Delivery CKC · R1-P1b write-alone · NEG-01 scopeIn-only refuse · NEG-04 no prefix EFFECT_CLASS · REG cycle/Options/HD — **22 PASS** | **LOCAL DET** · Option 1 field preservation |
-+| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote | **LOCAL jsdom** ≠ browser E2E |
++| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
++| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · HD-P1/N1/N2 — disclosure + required fact + Pilote rows + SHE fingerprint + HD coherence — **10 PASS** | **LOCAL DET** · R-INSPECT-01 |
++| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
 +
-+Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Critical Review exit.
++Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Review exit.
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0aaab505..cdc85fdd 100644
+index 0aaab505..08ff5e96 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -15,7 +15,7 @@
@@ -2865,12 +3774,12 @@ index 0aaab505..cdc85fdd 100644
  | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
  | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
 -| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 — Generic PREPARE preserves already-declared `repositoryMutationDeclared` (no invention; no `EFFECT_CLASS:local-write` stamp). POS-01 + B2/B5/B6 DET prove Project-only Delivery CKC (`cyc:delivery`) when write was declared. Defensive R1 gates retained; `scopeIn` alone rejected; absence remains fail-closed. **Still open:** browser E2E; dual F3/W3-C; Critical Review exit; GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + **R-INSPECT-01 CLOSED AT DET** — declared mutation preserved on EC, disclosed via canonical inspection + Pilote exam rows + TrajectorySurface; required fact `inputs.repositoryMutationDeclared` when present; HD/read_only vs write fail-closed. POS-01 + B2/B5/B6 + R-INSPECT DET. Defensive R1 gates retained; `scopeIn` alone rejected; absence fail-closed. **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Review exit; GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
  | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
  | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
  | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..5d159235 100644
+index 788ea0f2..62a5f4c6 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -19,7 +19,7 @@
@@ -2878,7 +3787,7 @@ index 788ea0f2..5d159235 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
 -      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "229681f9f1b5478b"
++      "sha256_16": "c5c9ff056f563c38"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -2892,28 +3801,28 @@ index 788ea0f2..5d159235 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
 -      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "ced80e78a39c75d3"
++      "sha256_16": "975aafc80c713797"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "d3c3ea8ba646b833"
++      "sha256_16": "4597d2a8f621ade0"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "427cadd7f1898f5d"
++      "sha256_16": "d13ea6315544301f"
      }
    ],
    "components": [
 
 ```
 
-### Manifest JSON diff
+### Manifest
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..5d159235 100644
+index 788ea0f2..62a5f4c6 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -19,7 +19,7 @@
@@ -2921,7 +3830,7 @@ index 788ea0f2..5d159235 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
 -      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "229681f9f1b5478b"
++      "sha256_16": "c5c9ff056f563c38"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -2935,126 +3844,113 @@ index 788ea0f2..5d159235 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
 -      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "ced80e78a39c75d3"
++      "sha256_16": "975aafc80c713797"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "d3c3ea8ba646b833"
++      "sha256_16": "4597d2a8f621ade0"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "427cadd7f1898f5d"
++      "sha256_16": "d13ea6315544301f"
      }
    ],
    "components": [
 
 ```
 
-Classification: **ADAPT** existing Generic PREPARE · **KEEP** SHE/OA/CKC Product · **COMPLETE** EP-S2-08 evidence (local DET). No Roadmap CURRENT TIP promotion. ≠ MAIN.
+Classification: **ADAPT** inspection · **KEEP** SHE/HD authority · **COMPLETE** R-INSPECT-01 proof. No Roadmap TIP promotion. ≠ MAIN.
 
 ---
 
-## 9 — Validations
+## 9 — Validations (requalified)
 
-| Check | Result | Command / notes |
+| Check | Result | Notes |
 |---|---|---|
-| R1 semantic | **PASS** 22/22 | `npx vitest run …r1CkcSemantic.d0.test.ts` (from `app/`) |
-| B2/B5/B6 integrated | **PASS** 3/3 | `…piloteResume.integrated.d0.test.ts` |
-| UI B5/B6 jsdom | **PASS** 3/3 | `…piloteSurface.b5b6.ui.test.tsx` |
-| Core trio | **PASS** 28/28 | combined run |
-| L3-S1 Generic integrated | **PASS** (in reg batch 30/30 with S8) | `…genericExecutionIntegrated…` + S8 |
-| S8 Project-first | **PASS** | includes Late Evidence IDEMPOTENCY_CONFLICT |
-| Typecheck | **PASS** exit 0 | `npx tsc --noEmit -p tsconfig.json` |
-| ESLint touched w2 | **PASS** exit 0 | prepare + qualificationInputs + w3cPostEvidenceLoop |
-| CI Required Gate | **NOT RUN** | cannot claim |
-| Build | **NOT RUN** | not required for this DET gate |
-| Browser /studio remount | **OUT OF SCOPE** | reserve |
-| REAL Cursor/OpenAI | **OUT OF SCOPE** | Fake/DET ports |
+| R-INSPECT-01 domain | **PASS 10/10** | `…rInspect01.d0.test.ts` |
+| R-INSPECT UI jsdom | **PASS 2/2** | ContractInspectionExamPanel |
+| R1 semantic | **PASS 22/22** | non-regression |
+| B2/B5/B6 integrated | **PASS 3/3** | non-regression |
+| UI B5/B6 | **PASS 3/3** | non-regression |
+| Core combined | **PASS 40/40** | final core run |
+| ecInspectionDisclosure + p6.r03 | **PASS** | earlier reg batch |
+| tsc --noEmit | **PASS** exit 0 | after optional field |
+| ESLint domain files | **PASS** exit 0 | disclosure + genericMissionSubject + prepare |
+| ESLint TrajectorySurface | pre-existing warnings | not introduced as errors |
+| CI Required Gate | **NOT RUN** | |
+| Build | **NOT RUN** | |
+| Browser /studio E2E | **OUT OF SCOPE** | jsdom ceiling |
 
-### R1 oracle matrix (this pass)
+### Oracle matrix
 
 | ID | Result |
 |---|---|
-| POS-01 declared write preserved → Delivery CKC | **PASS** |
-| POS-02 inspection exposes write + scope | **PASS** (POS-01 asserts) |
-| POS-03 SHE no silent widen | **PASS** (AUTHORIZED on inspected EC) |
-| POS-04 Attempt binds EC | **PASS** (Select/Start) |
-| POS-05 Project-only cyc:delivery | **PASS** |
-| POS-06 B2/B5/B6 restored | **PASS** 3/3 |
-| NEG-01 scopeIn-only | **PASS** |
-| NEG-02/N2 absent | **PASS** |
-| NEG-04 prefix EFFECT_CLASS | **PASS** |
-| NEG impact/materiality/lineage | **PASS** (R1-N*) |
-| AUTH-01 no CycleInstance | **PASS** |
-| AUTH-02 no auto HD | **PASS** |
-| AUTH-03 W2 Options cycle-gated | **PASS** |
-| AUTH-04 no unauthorized launch | **PASS** (DET port only) |
+| INSPECT-P1 persist write | **PASS** |
+| INSPECT-P2 disclosure contains write | **PASS** |
+| INSPECT-P3 Pilote presentation | **PASS** (fact rows + jsdom panel) |
+| INSPECT-P4 required fact covers display | **PASS** |
+| INSPECT-P5 SHE no widen | **PASS** |
+| INSPECT-N1 absent ≠ invent write | **PASS** |
+| INSPECT-N2 read-only not write | **PASS** |
+| INSPECT-N3 unknown not promoted | **PASS** |
+| INSPECT-N4 stale fingerprint refuse | **PASS** |
+| INSPECT-N5 missing display → missingRequired | **PASS** |
+| HD-P1 coherent write+other | **PASS** |
+| HD-N1 write vs read_only refuse | **PASS** |
+| HD-N2 no inferred HD write | **PASS** |
+| AUTH CycleInstance/HD/Options/launch | preserved via R1/B2/B5/B6 |
 
 ---
 
-## 10 — Fake/Real qualification
+## 10 — Fake/Real
 
-- External boundaries: Cursor execution + Nora provider → **test-only ports / FakeConversationProvider**
-- Product OA/EC/Attempt/Evidence persistence → **actual SQLite implementation**
-- Proof level: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**
-- Explicitly outside: browser remount E2E; dual F3/W3-C live UX; REAL; G-REAL; L4
-- **DETERMINISTIC PROVEN ≠ READY FOR REAL**
+- Cursor / Nora: DET substitutes
+- Disclosure, OA, EC, Attempt, inspection, persistence: **actual Product code**
+- Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**
+- Outside: browser remount E2E; dual F3/W3-C live UX; REAL; G-REAL; L4
+- **DET ≠ READY FOR REAL**
 
 ---
 
-## 11 — R23 architecture (source → consumer)
+## 11 — R23 architecture
 
-```
-Solicit/F2 analysis.repositoryMutationDeclared
-  → Generic PREPARE preserveDeclaredRepositoryMutation (inspectable EC input)
-    → Inspection / SHE currentness (authorize ≠ declare)
-      → Attempt binds EC version
-        → Evidence / ReviewBundle / CE
-          → W3-C resolvePostEvidenceCkcContext
-            → assessProjectOnlyDeliveryCkcEligibility (Option A)
-              → cyc:delivery cognitive load (projectScoped)
-                → Nora recommendation (authority:none)
-                  → Pilote resume B2/B5/B6
-```
-
-Invariants retained: PREPARE ≠ INSPECT ≠ AUTHORIZE ≠ EXECUTE; ABSENT ≠ REJECTED; Product UNCLAIMED honest; no invented CycleInstance/HD; W2 Options cycle-gated.
-
-Ownership: Product Generic PREPARE / W3-C eligibility — local ADAPT only.
+Ownership: OA inspection projection + W2 PREPARE consistency + F09 presentation adapters.  
+Impact: inspectability of Option 1 durable WHAT; no authority widening.  
+Invariant: PREPARE ≠ INSPECT ≠ AUTHORIZE ≠ EXECUTE; declaration ≠ authorization; fingerprint ≠ visual disclosure without projected fact rows.
 
 ---
 
 ## 12 — Reservations / next gate
 
 Open:
-- EP-S2-08 still **PARTIAL** until Critical Review exit + any remaining UX/E2E debts
 - browser `/studio` remount E2E
-- dual F3/W3-C live UX
+- dual F3/W3-C live UX closure
 - EP-S2-05 NOT PROVEN
-- REAL / G-REAL / L4 / runtime v3 unchanged
-- Product GI **not** authorized
-- CI Required Gate not run this cycle
+- EP-S2-08 still PARTIAL until Final Critical Review exit
+- Product GI not authorized
+- CI Required Gate not run
 
-**Next capability / gate:** Independent Critical Review of Generic PREPARE Option 1 semantic boundary → then Morris on EP-S2-08 exit / GI.
+**Next:** Final Critical Review of Option 1 + R-INSPECT-01 → Morris on EP-S2-08 exit / GI.
 
 ---
 
 ## 13 — Unique verdict
 
-**OPTION 1 BOUNDED DELIVERY COMPLETE — READY FOR CRITICAL REVIEW**
+**R-INSPECT-01 CLOSED AT DET SCOPE — READY FOR FINAL CRITICAL REVIEW**
 
-Anti-claims permanent: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED · No Product GI.
+Permanent anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED · No Product GI.
 
 ---
 
-## MANDATORY CHATGPT REVIEW INSTRUCTION
+## MANDATORY CHATGPT INSTRUCTION
 
-Before reviewing the Cursor result, read from Git:
+Before reviewing, read Git:
 
 - branch: `sfia/review-handoff`
 - file: `sfia-review-handoff/latest-chatgpt-review.md`
 
-Verify: cycle/profile/branch/HEAD/base; full created/modified contents; Phase A evidence; qualified operation provenance; positive/negative proofs; actual B2/B5/B6 outcomes; R24; validations; reservations; handoff publication tip/blob.
+Verify tip/blob, branch/HEAD/base, complete Product/test/PRR contents, Pilote disclosure proof, HD coherence, R1/B2/B5/B6, validations, reservations, verdict.
 
-Then produce independent Critical Review.
+Issue independent Final Critical Review.
