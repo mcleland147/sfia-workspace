@@ -1,11 +1,11 @@
-# SFIA Review Pack — EP-S2-08-PROOF-01 R1 FINAL CRITICAL REVIEW CORRECTIONS
+# SFIA Review Pack — EP-S2-08-PROOF-01 R1 POSITIVE ELIGIBILITY + R24
 
-**UTC:** 2026-10-28T09:13:58Z
-**Cycle continuity:** SAME EP-S2-08-PROOF-01 Product Delivery (no new feature branch)
-**Pass:** R1 FINAL CRITICAL REVIEW CORRECTIONS (Option A bounded preserved)
+**UTC:** 2026-10-28T09:33:05Z
+**Cycle continuity:** SAME EP-S2-08-PROOF-01 Product Delivery
+**Pass:** R1 POSITIVE ELIGIBILITY + R24 REVIEW CLOSURE
 **Profile:** CRITICAL
 **Typologie:** EVOL / CORRECTIVE
-**Review Pack:** FULL (complete Product diffs + complete untracked test file contents)
+**Review Pack:** FULL
 **Review Handoff:** REQUIRED / publish-in-cycle
 **Project GI:** NOT AUTHORIZED / NOT PERFORMED
 
@@ -18,86 +18,87 @@
 | Remote | origin → https://github.com/mcleland147/sfia-workspace.git |
 | Product WT | /Users/morris/Projects/sfia-workspace-feat-akg-m5-ep-s2-08-proof-01 |
 | Branch | feat/akg-m5-ep-s2-08-proof-01 |
-| HEAD | 3fb84630efb9e0d2acaaf81b342da0358107db10 |
-| origin/main | 3fb84630efb9e0d2acaaf81b342da0358107db10 (unchanged after fetch) |
-| Expected base | 3fb84630efb9e0d2acaaf81b342da0358107db10 |
-| Match | **YES** |
-| Merge-base | 3fb84630efb9e0d2acaaf81b342da0358107db10 |
-| Project GI | **NOT AUTHORIZED / NOT PERFORMED** |
+| HEAD / origin/main / base | 3fb84630efb9e0d2acaaf81b342da0358107db10 |
+| Match | YES |
+| Project GI | NOT PERFORMED |
 
-### Prior handoff (start of this final corrective)
+### PREVIOUS handoff (historical)
 
 | Field | Value |
 |---|---|
-| Tip | c9540be2e7ebf880a99e7ccd7fdac09f5f9a474f |
-| Blob | d25d0d1ef226b7d7cfd3d01a208c441b6abe82d2 |
+| Tip | a328966509eff1413bedb5b2f4dafd1b52c86acf |
+| Blob | 8a6fb5c1b34bd345165de03f9dd5ae8d81698f17 |
 
-Handoff metadata policy: Section 14 pre-publication only; post-push tip/blob in Cursor return only.
+Post-push tip/blob → Cursor return only.
 
 ---
 
-## 2. Convergence Pre-check (R23)
+## 2. Convergence / R23
 
-Sources instantiated: cycle execution template · routing guide · convergence doctrine/roadmap · product-completion · M5 journey · KHC/HD doctrine · PRR README + vols 02/03/04/06/07/08/09 · Product W2 eligibility/materiality/CKC loader.
-
-v2.6 = process · v3 = target NON ADOPTED · PRR = CURRENT as-implemented · Git/preuves primary.
+Sources consulted: cycle template · routing guide · convergence doctrine/roadmap · product-completion · M5 journey · KHC/HD · PRR README + 02/03/04/06/07/08/09 · prior handoff · Product W2 PREPARE/SHE/qualification/W3-C.
 
 Anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · runtime v3 NON ADOPTED.
 
 ---
 
-## 3. Morris decision consumed
+## 3. Morris decision / review findings consumed
 
-OPTION A BOUNDED — VALIDATED (not re-opened). Delivery CKC cognitive orientation only for positively eligible Generic Project-only post-Evidence. Does not create CycleInstance / qualify cycle / authorize W2 Options / create HD / change SHE / grant execute / prove Product PASS. Universal null → cyc:delivery forbidden.
+OPTION A BOUNDED remains VALIDATED (not re-opened).
 
----
-
-## 4. R1-CORR-01..04 verdicts
-
-### R1-CORR-01 Intent kind — CLOSED
-
-F2 admits intentKind read_only | other | null only. other is admitted catch-all, NOT positive Delivery alone. Positive: other PLUS independent durable facts (concrete scopeIn OR EFFECT_CLASS:local-write OR repositoryMutationDeclared=write) and not bounded-non-mutating. Refuse: read_only → READ_ONLY_NOT_DELIVERY; absent/unknown → INTENT_ABSENT_OR_UNKNOWN; other without positive facts → DELIVERY_POSITIVE_FACTS_ABSENT.
-
-### R1-CORR-02 Impact signals — CLOSED
-
-Align with authoritative materiality: any of structuralChange / architectureImpact / securityImpact / dataImpact / irreversible true ⇒ IMPACT_CATEGORY_NON_DELIVERY. Absent/malformed refused. Provenance: PREPARE analysis stamps (Boolean-coerced) or HD-sealed when decisionRefs — not always HD facts.
-
-### R1-CORR-03 Materiality consistency — CLOSED
-
-No first-value-wins. MATERIALITY:* must agree with materialityFacts.assessedMateriality. Conflict → MATERIALITY_CONTRADICTION. Absent → MATERIALITY_ABSENT. STRUCTURAL/UNKNOWN → MATERIALITY_NOT_NON_STRUCTURAL.
-
-### R1-CORR-04 Attempt/EC/cycle provenance — CLOSED
-
-Always Attempt→EC. Cycle from EC.cycleInstanceId. LPS≠EC cycle → POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH. Project-only EC + LPS active → POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT. Cross-project → POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH.
+Critical Review findings addressed in this pass only:
+- B: positive Delivery eligibility weak (scopeIn sufficient) → corrected by removal
+- D: prior handoff omitted PRR/manifest diffs → this pack includes full useful PRR+manifest diffs
 
 ---
 
-## 5. Eligibility matrix
+## 4. R1 positive Delivery investigation (probe)
 
-| Case | Orientation | Code |
-|---|---|---|
-| R1-P1 positive Delivery | ALLOW cyc:delivery | GENERIC_NON_STRUCTURAL_DELIVERY |
-| R1-N1 read_only | REFUSE | READ_ONLY_NOT_DELIVERY |
-| R1-N2 absent intent | REFUSE | INTENT_ABSENT_OR_UNKNOWN |
-| R1-N3 other w/o positive facts | REFUSE | DELIVERY_POSITIVE_FACTS_ABSENT |
-| R1-N4 dataImpact/irreversible | REFUSE | IMPACT_CATEGORY_NON_DELIVERY |
-| R1-N5 absent/malformed signals | REFUSE | IMPACT_SIGNALS_* |
-| R1-N6 materiality contradiction | REFUSE | MATERIALITY_CONTRADICTION |
-| R1-N7 UNKNOWN/STRUCTURAL | REFUSE | MATERIALITY_NOT_NON_STRUCTURAL |
-| R1-N8 project mismatch | REFUSE | CONTRACT_PROJECT_MISMATCH |
-| R1-N9 missing Attempt | REFUSE | ATTEMPT_NOT_FOUND |
-| R1-P2 cycle-bound framing | ALLOW cyc:framing | ACTIVE_CYCLE_TYPE |
-| R1-AUTH | no cycle/HD/Options | CYCLE_NOT_QUALIFIED |
+Real Generic PREPARE → SHE EC stamps (DET probe 2026-10-28):
 
-R1-N10 CKC unavailable: W3-C CKC_UNAVAILABLE fail-closed when loader null (existing path).
+| Field | Observed |
+|---|---|
+| repositoryMutationDeclared | **null** (PREPARE forces null for non-bounded) |
+| EFFECT_CLASS:local-write | **ABSENT** from constraints |
+| requestedOperation | null |
+| intentKind | other |
+| scopeIn | present (WHERE) |
+| boundedNonMutatingAnalysis | false |
+| MATERIALITY:NON_STRUCTURAL | present + assessedMateriality agree |
+| impactSignals | all false (Boolean-coerced analysis stamps) |
+
+Candidates evaluated:
+
+| Candidate | Origin | Persisted? | Distinguishes Delivery vs inspection? | Verdict |
+|---|---|---|---|---|
+| scopeIn / concreteMissionPaths | mission WHERE | yes | NO (WHERE ≠ WHAT) | **REJECTED as autonomous positive** |
+| EFFECT_CLASS:local-write exact | W3-A envelope | **not** on Generic PREPARE | yes when present | Accept when present; **absent on real Generic path** |
+| repositoryMutationDeclared=write | analysis solicit | PREPARE overwrites to null | yes when write | Accept when present; **null on real Generic path** |
+| structuralTruthBasis=live_lps_ok_concrete… | materiality | yes in materialityFacts | NO (path materiality pathway; inspection with paths can share) | NOT adopted without Morris |
+| invent new PREPARE stamp | — | would require domain change | — | **NOT AUTHORIZED** this pass |
+
+**Missing domain capability:** Generic PREPARE does not persist a positive Delivery/implementation WHAT marker for non-bounded Project-only missions.
 
 ---
 
-## 6. Product files modified
+## 5. Predicate correction implemented (minimal)
 
-- qualificationInputs.ts — eligibility + Attempt→EC provenance
-- w3cPostEvidenceLoop.ts — resolvePostEvidenceCkcContext call site
-- PRR 03/06/07/08/09 + manifest digests
+Removed `hasConcreteMissionScope()` as positive criterion.
+Removed EFFECT_CLASS prefix matching (exact `EFFECT_CLASS:local-write` only).
+Retained affirmative WHAT when durable stamps exist:
+- `repositoryMutationDeclared === "write"` OR
+- exact `EFFECT_CLASS:local-write`
+
+No synthetic marker added. No PREPARE/SHE/HD change.
+
+Consequence: real Generic Project-only path → `DELIVERY_POSITIVE_FACTS_ABSENT` → `POST_EVIDENCE_CKC_AMBIGUOUS`.
+
+---
+
+## 6. Morris options required (STOP)
+
+1. **PREPARE stamp evolution** — persist `repositoryMutationDeclared: "write"` (or exact EFFECT_CLASS:local-write) for non-bounded concrete-path Generic missions when Product qualifies mutating work.
+2. **Authorize alternate Product-owned criterion** (e.g. structuralTruthBasis conjunction) by explicit Morris decision — not inferred.
+3. **Keep Project-only Delivery CKC fail-closed** until (1) — Option A policy retained but Project-only applicability suspended.
 
 ---
 
@@ -105,7 +106,7 @@ R1-N10 CKC unavailable: W3-C CKC_UNAVAILABLE fail-closed when loader null (exist
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-index 370ba80d..498a60df 100644
+index 370ba80d..cfd018a6 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
 @@ -15,6 +15,8 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -117,7 +118,7 @@ index 370ba80d..498a60df 100644
  import type { TrajectoryOptionInputs } from "./trajectoryOptions";
  
  export type ResolvedW2Qualification = {
-@@ -106,3 +108,464 @@ export async function resolveW2QualificationInputs(input: {
+@@ -106,3 +108,462 @@ export async function resolveW2QualificationInputs(input: {
      },
    };
  }
@@ -286,23 +287,23 @@ index 370ba80d..498a60df 100644
 +  return { ok: true, materiality };
 +}
 +
-+function hasConcreteMissionScope(inputs: Record<string, unknown> | undefined): boolean {
-+  const scopeIn = inputs?.scopeIn;
-+  if (!Array.isArray(scopeIn)) return false;
-+  return scopeIn.some(
-+    (p) => typeof p === "string" && p.trim().length > 0 && !p.includes(" "),
-+  );
-+}
-+
-+function hasLocalWriteEffectClass(constraints: readonly string[]): boolean {
-+  return constraints.some(
-+    (c) => c === "EFFECT_CLASS:local-write" || c.startsWith("EFFECT_CLASS:local-write"),
-+  );
-+}
++/** Exact Product effect class only — never prefix (blocks local-write-extra). */
++const EXACT_LOCAL_WRITE_EFFECT_CLASS = "EFFECT_CLASS:local-write";
 +
 +/**
-+ * Independent positive Delivery facts beyond intentKind exclusion.
-+ * Aligns with authoritative materiality: dataImpact/irreversible ⇒ structural.
++ * Independent positive Delivery / implementation facts beyond intentKind exclusion.
++ *
++ * scopeIn / concreteMissionPaths prove WHERE only — NOT sufficient for Delivery WHAT.
++ *
++ * Affirmative durable WHAT accepted today (exact):
++ * - inputs.repositoryMutationDeclared === "write"
++ * - constraints includes exact EFFECT_CLASS:local-write
++ *
++ * Investigation note (2026-10-28): Generic PREPARE currently stamps
++ * repositoryMutationDeclared=null for non-bounded missions and does NOT stamp
++ * EFFECT_CLASS:local-write. Therefore the real Generic Project-only PREPARE→SHE
++ * path cannot positively prove Delivery WHAT without a PREPARE domain stamp
++ * evolution (Morris GO required). Do not invent markers here.
 + */
 +function hasPositiveDeliveryImplementationFacts(input: {
 +  readonly constraints: readonly string[];
@@ -318,10 +319,8 @@ index 370ba80d..498a60df 100644
 +  const mutation = inputs?.repositoryMutationDeclared;
 +  if (mutation === "none" || mutation === "read") return false;
 +
-+  // Positive: local-write effect class, explicit write mutation, or concrete WHERE.
 +  if (mutation === "write") return true;
-+  if (hasLocalWriteEffectClass(input.constraints)) return true;
-+  if (hasConcreteMissionScope(inputs)) return true;
++  if (input.constraints.includes(EXACT_LOCAL_WRITE_EFFECT_CLASS)) return true;
 +  return false;
 +}
 +
@@ -636,7 +635,7 @@ index dba328ce..6063a05e 100644
 
 ## 8. Complete untracked test file contents
 
-### 8.1 akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts (792 lines)
+### 8.1 akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts (850 lines)
 
 ```typescript
 /**
@@ -804,6 +803,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       dataImpact: false,
       irreversible: false,
     };
+    /** Positive WHAT requires exact EFFECT_CLASS:local-write or mutation=write — not scopeIn. */
     const baseContract = {
       projectId: "prj:r1",
       cycleInstanceId: null as string | null,
@@ -811,16 +811,18 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       constraints: [
         PRODUCT_GOVERNED_CONSTRAINT,
         "MATERIALITY:NON_STRUCTURAL",
+        "EFFECT_CLASS:local-write",
       ],
       inputs: {
         intentKind: "other",
         scopeIn: [NOTES_PATH],
+        repositoryMutationDeclared: "write",
         materialityFacts: { assessedMateriality: "non_structural" },
         impactSignals: { ...allClearSignals },
       },
     };
 
-    it("R1-P1 — positive Project-only Delivery with independent facts", () => {
+    it("R1-P1 — positive when exact local-write / mutation=write present", () => {
       const r = assessProjectOnlyDeliveryCkcEligibility({
         projectId: "prj:r1",
         contract: baseContract,
@@ -829,6 +831,54 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
         eligible: true,
         reasonCode: "GENERIC_NON_STRUCTURAL_DELIVERY",
       });
+    });
+
+    it("NEG-01 — intentKind=other + scopeIn only (no positive WHAT) → refused", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          projectId: "prj:r1",
+          cycleInstanceId: null,
+          action: PRODUCT_CANONICAL_EXECUTION_ACTION,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+          ],
+          inputs: {
+            intentKind: "other",
+            scopeIn: [NOTES_PATH],
+            repositoryMutationDeclared: null,
+            materialityFacts: { assessedMateriality: "non_structural" },
+            impactSignals: { ...allClearSignals },
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) {
+        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
+      }
+    });
+
+    it("NEG-04 — EFFECT_CLASS:local-write-extra prefix must not pass", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+            "EFFECT_CLASS:local-write-extra",
+          ],
+          inputs: {
+            ...baseContract.inputs,
+            repositoryMutationDeclared: null,
+          },
+        },
+      });
+      expect(r.eligible).toBe(false);
+      if (!r.eligible) {
+        expect(r.reasonCode).toBe("DELIVERY_POSITIVE_FACTS_ABSENT");
+      }
     });
 
     it("R1-N1 — read_only refused", () => {
@@ -863,7 +913,13 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       const r = assessProjectOnlyDeliveryCkcEligibility({
         projectId: "prj:r1",
         contract: {
-          ...baseContract,
+          projectId: "prj:r1",
+          cycleInstanceId: null,
+          action: PRODUCT_CANONICAL_EXECUTION_ACTION,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+          ],
           inputs: {
             intentKind: "other",
             materialityFacts: { assessedMateriality: "non_structural" },
@@ -1065,7 +1121,12 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     return { projectId, oa };
   }
 
-  it("R1-A/E/F — eligible Delivery Project-only → CKC Delivery; Options CYCLE_NOT_QUALIFIED; no cycle/HD", async () => {
+  it("POS-01 — real Generic PREPARE→SHE→Attempt: no durable Delivery WHAT → CKC refuse (eligibility gap)", async () => {
+    /**
+     * Probe (2026-10-28): Generic PREPARE stamps repositoryMutationDeclared=null
+     * and no EFFECT_CLASS:local-write. scopeIn alone is WHERE, not Delivery WHAT.
+     * This oracle proves the positive contract is NOT available on the real path.
+     */
     const runtime = bootW2Runtime({
       productDbPath: dbPath,
       idPrefix: "ep08r1a",
@@ -1089,8 +1150,17 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     });
     expect(liveEc.ok).toBe(true);
     if (!liveEc.ok) throw new Error("get EC");
-    const facts = requiredFactsOrThrow(liveEc.contract);
     const inputs = liveEc.contract.inputs as Record<string, unknown>;
+    // Real path stamps: no positive Delivery WHAT.
+    expect(inputs.repositoryMutationDeclared ?? null).toBeNull();
+    expect(
+      liveEc.contract.constraints.includes("EFFECT_CLASS:local-write"),
+    ).toBe(false);
+    expect(Array.isArray(inputs.scopeIn) && (inputs.scopeIn as string[]).length).toBeGreaterThan(
+      0,
+    );
+
+    const facts = requiredFactsOrThrow(liveEc.contract);
     const repositoryRef = String(inputs.repositoryBindingIdentity ?? "");
     const baseSha = String(inputs.baseHeadSha ?? W2_TEST_PINNED_BASE_HEAD_SHA);
 
@@ -1115,9 +1185,6 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     });
     expect(selected.ok).toBe(true);
     if (!selected.ok) throw new Error(selected.message);
-    expect(selected.attempt!.selectedAgentRef).toBe(
-      STUDIO_CURSOR_GENERALIST_AGENT_ID,
-    );
     const attemptId = selected.attempt!.attemptId;
 
     const started = await governedExecuteStart({
@@ -1162,29 +1229,19 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       projectId,
       attemptId,
     });
-    expect(ckc.ok).toBe(true);
-    if (!ckc.ok) throw new Error(`${ckc.code}: ${ckc.message}`);
-    expect(ckc.context.projectScoped).toBe(true);
-    expect(ckc.context.cycleTypeId).toBe(
-      POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
-    );
-    expect(ckc.context.eligibilityReasonCode).toBe(
-      "GENERIC_NON_STRUCTURAL_DELIVERY",
-    );
+    // STOP evidence: real Generic path cannot positively load Delivery CKC.
+    expect(ckc.ok).toBe(false);
+    if (!ckc.ok) {
+      expect(ckc.code).toBe("POST_EVIDENCE_CKC_AMBIGUOUS");
+      expect(ckc.message).toContain("DELIVERY_POSITIVE_FACTS_ABSENT");
+    }
 
-    const content = loadProductCkcCognitiveContent({
-      registryRoot: resolveProductDoctrineRegistryRoot(),
-      cycleTypeId: ckc.context.cycleTypeId,
-      packagePin: ckc.context.packagePin,
-    });
-    expect(content?.ckcId).toBe("ckc:studio:delivery");
-
-    // R1-E — W2 Options still cycle-gated.
+    // REG-03 — W2 Options still cycle-gated.
     const qual = await resolveW2QualificationInputs({ oa, projectId });
     expect(qual.ok).toBe(false);
     if (!qual.ok) expect(qual.code).toBe("CYCLE_NOT_QUALIFIED");
 
-    // R1-F — no CycleInstance invented; W3-C materialize does not create HD/replan.
+    // REG-02 — no CycleInstance invented.
     const live = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
     });
@@ -1192,6 +1249,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       null,
     );
 
+    // REG-04 — Product terminal may still materialize; W3-C post-Evidence fail-closed.
     const hdBefore = (
       await oa.decisionServices!.decisions.listByProject(projectId)
     ).length;
@@ -1202,10 +1260,9 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     });
     expect(materialized.ok).toBe(true);
     if (materialized.ok) {
-      expect(materialized.postEvidence?.ok).toBe(true);
-      if (materialized.postEvidence?.ok) {
-        expect(materialized.postEvidence.replanInvoked).toBe(false);
-      }
+      expect(materialized.product.outcome).toBe("UNCLAIMED");
+      // Post-Evidence CKC orientation unavailable — fail-closed, no replan/HD.
+      expect(materialized.postEvidence?.ok).toBe(false);
     }
     const hdAfter = (
       await oa.decisionServices!.decisions.listByProject(projectId)
@@ -2601,63 +2658,173 @@ describe("EP-S2-08-PROOF-01 R2 — Pilote TrajectorySurface B5/B6 (jsdom)", () =
 
 ---
 
-## 9. Validations (real)
+## 9. PRR + manifest diffs (complete useful) — R24 completeness
+
+All modified PRR volumes for this SAME Product candidate (including prior local overlays still dirty):
+
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+index 77ee95a6..088d20fc 100644
+--- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
++++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+@@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
+ **Late Evidence:** after frozen tech RB, rematerialize with expanded Evidence set → `IDEMPOTENCY_CONFLICT` (no silent frozen rewrite).
+ 
+ **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A; positive WHAT OPEN)
++
++> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A bounded remains validated** as policy. Defensive gates (intent/impact/materiality/Attempt→EC provenance) retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Accepted affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact constraint `EFFECT_CLASS:local-write` (no prefix). **Probe 2026-10-28:** real Generic PREPARE→SHE stamps `repositoryMutationDeclared=null` and **no** `EFFECT_CLASS:local-write` — therefore Project-only Delivery CKC **cannot** be positively proven without PREPARE domain stamp evolution. **R1 POSITIVE ELIGIBILITY OPEN — MORRIS DECISION REQUIRED.** Cycle-bound CKC via EC lineage still works. W2 Options still `CYCLE_NOT_QUALIFIED`. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
+diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+index 8fd457ad..a9cf54b9 100644
+--- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
++++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+@@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
+ | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
+ | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
+ 
++**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps decide Delivery vs refuse — remount does not invent CycleInstance or widen eligibility. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
++
+ **≠** invent recovery E2E beyond DET proofs.
+diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+index 641e4ebd..0d5750fc 100644
+--- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
++++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+@@ -144,6 +144,8 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
+ | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
+ | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
++| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 R1 Option A + final · ≠ ON MAIN |
++| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
+ | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
+ | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
+ | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
+diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+index db5716f1..e3fa7e82 100644
+--- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
++++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+@@ -222,3 +222,13 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
+ | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
+ 
+ **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
++
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 Pilote resume + R1 Option A
++
++| Suite / oracle | Result | Proof level |
++|---|---|---|
++| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable | **LOCAL DET** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 real Generic path proves **no** durable Delivery WHAT (CKC refuse) · NEG-01 scopeIn-only refuse · NEG-04 no prefix EFFECT_CLASS · REG cycle/Options/HD | **LOCAL DET** · **R1 POSITIVE ELIGIBILITY OPEN — MORRIS** |
++| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote | **LOCAL jsdom** ≠ browser E2E |
++
++Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ EP-S2-08 PASS · ≠ REAL.
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index 0aaab505..4cf80346 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -15,7 +15,7 @@
+ | Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
+ | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
+ | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
+-| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** B2/B5/B6 proofs exist but Project-only W3-C Delivery CKC is **blocked** pending positive WHAT stamp. Defensive R1 gates retained; `scopeIn` alone rejected. **R1 POSITIVE ELIGIBILITY OPEN — MORRIS:** Generic PREPARE does not persist `repositoryMutationDeclared=write` nor exact `EFFECT_CLASS:local-write`. Options: (1) PREPARE stamp evolution; (2) authorize alternate Product-owned criterion; (3) keep Project-only CKC fail-closed. **Still open:** browser E2E; dual F3/W3-C; GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
+ | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
+ | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
+ | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 788ea0f2..399135e1 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+-      "sha256_16": "d13787c0f629efe4"
++      "sha256_16": "e7606f881487035b"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+@@ -31,19 +31,19 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+-      "sha256_16": "21c9328c91f86984"
++      "sha256_16": "5a9c19b087a6248c"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+-      "sha256_16": "94aa75b2dcaa90c2"
++      "sha256_16": "4d05228e463cf7cf"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "7a1bc607f6f28230"
++      "sha256_16": "de7e8c98e0c7e462"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "700ee3ee207a5434"
++      "sha256_16": "f36abc620551b2d9"
+     }
+   ],
+   "components": [
+
+```
+
+Digests (post-update): see manifest JSON in diff. Classification: **LOCAL CANDIDATE** ≠ CURRENT ON MAIN.
+
+---
+
+## 10. Validations
 
 | Check | Result |
 |---|---|
-| R1 semantic (19) | **PASS** |
-| PROOF-01 B2/B5/B6 integrated (3) | **PASS** |
-| UI B5/B6 jsdom (3) | **PASS** |
-| S8 + lotsAC + W3-C + correction + frontDoor | **PASS** (99/99) |
-| TrajectorySurface isolated (6) | **PASS** |
-| npx tsc --noEmit | **PASS** (exit 0) |
-| ESLint touched Product files | **PASS** (empty) |
+| R1 semantic (21) | **PASS** (POS-01 proves real-path gap; NEG-01/04 pass) |
+| B2/B5/B6 integrated | **FAIL** — postEvidence.ok=false (expected under fail-closed; STOP impact) |
+| UI B5/B6 jsdom | **PASS** (mocked surface; ≠ proves W3-C CKC) |
+| S8 integrated | **PASS** (suite does not require Delivery CKC success for all cases — see STOP note) |
+| tsc --noEmit | **PASS** |
+| ESLint touched | **PASS** |
 | Build | **NOT RUN** |
 | CI Required Gate | **NOT RUN** |
 
-Fake/DET: Node DET + jsdom · Fake Nora/Cursor · ≠ browser /studio E2E · ≠ REAL.
+Fake/DET: Fake Cursor/Nora · real OA/EC/Attempt path · ≠ browser E2E · REAL NOT PROVEN.
 
 ---
 
-## 10. R23 / R24
+## 11. R23/R24
 
-R24 LOCAL digests: 03=5491a42a67c560ed · 06=5a9c19b087a6248c · 07=4d05228e463cf7cf · 08=0b65e8232c3bc19f · 09=7b8035eecfe9fe41. Roadmap CURRENT TIP not promoted.
-
----
-
-## 11. Reserves
-
-R1 CLOSED (Option A + final) locally · EP-S2-08 PARTIAL · browser remount E2E OPEN · dual F3/W3-C OPEN · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · REAL/G-REAL/L4/runtime v3 unchanged.
+R24 LOCAL updated for STOP / positive eligibility OPEN. Roadmap tip not promoted. R1 positive eligibility **OPEN — MORRIS**.
 
 ---
 
 ## 12. Verdict
 
-**R1 FINAL CORRECTIVE COMPLETE — READY FOR CRITICAL RE-REVIEW**
+**STOP — ELIGIBILITY CONTRACT NOT PROVEN**
+
+Option A policy remains Morris-validated; Project-only Delivery CKC positive applicability cannot be closed without a durable WHAT stamp or Morris-authorized alternate criterion.
 
 ---
 
 ## 13. Next gate
 
-Independent Critical Re-Review from handoff → separate Morris decision on GI or additional closure. No implied Product GI.
+Morris decision among options in §6. Then corrective implementation / re-review. No Product GI implied.
 
 ---
 
-## 14. Handoff publication plan (pre-publication)
+## 14. Handoff plan (pre-publication)
 
 | Field | Value |
 |---|---|
-| Commit | docs(review): EP-S2-08-PROOF-01 R1 final correction |
-| Prior tip | c9540be2e7ebf880a99e7ccd7fdac09f5f9a474f |
-| Prior blob | d25d0d1ef226b7d7cfd3d01a208c441b6abe82d2 |
-| Push | FF only · L3 handoff only |
+| Commit | docs(review): EP-S2-08-PROOF-01 eligibility and R24 closure |
+| PREVIOUS tip | a328966509eff1413bedb5b2f4dafd1b52c86acf |
+| PREVIOUS blob | 8a6fb5c1b34bd345165de03f9dd5ae8d81698f17 |
 
 ---
 
 ## 15. Instruction ChatGPT
 
-Before reviewing, read canonical Git handoff from sfia/review-handoff, verify complete file contents (including full test sources in §8), diff, validations, Morris decisions, tip/blob and status. Produce an independent review.
+Read sfia/review-handoff latest-chatgpt-review.md. Verify complete Product/tests/PRR/manifest content, POS-01 probe evidence, validations, STOP options, tip/blob. Independent Critical Review.
 
-Permanent anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED.
+Permanent anti-claims unchanged.
 
-## FIN DU PACK FULL — EP-S2-08-PROOF-01 R1 FINAL CORRECTION
+## FIN DU PACK FULL — EP-S2-08-PROOF-01 R1 ELIGIBILITY STOP
