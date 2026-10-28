@@ -1,11 +1,10 @@
-# SFIA Review Pack — EP-S2-08-PROOF-01 R-INSPECT-01 closure
+# SFIA Review Pack — EP-S2-08-PROOF-01 R-HD-01 integrated proof
 
-**UTC:** 2026-10-28T10:49:08Z  
-**Cycle:** 8 — DELIVERY / IMPLÉMENTATION · Profile CRITICAL · Typology EVOL/CORRECTIVE  
-**Corrective:** R-INSPECT-01  
-**Mode:** SAME-CYCLE BOUNDED LOCAL CORRECTIVE  
+**UTC:** 2026-10-28T11:00:50Z  
+**Cycle:** 8 — DELIVERY / IMPLÉMENTATION · Profile CRITICAL · Typology EVOL/CORRECTIVE — PROOF CLOSURE  
+**Corrective:** R-HD-01  
+**Mode:** SAME CYCLE — TEST/PROOF ONLY  
 **Review:** FULL · Handoff: REQUIRED / PUBLISH-IN-CYCLE  
-**Capability:** EP-S2-08 — POST-EVIDENCE CONTINUITY · Increment: EP-S2-08-PROOF-01  
 
 ---
 
@@ -19,8 +18,8 @@
 | HEAD | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
 | origin/main | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
 | merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` (main did not advance) |
-| Prior handoff tip (pre-publish this pass) | `058bc8b4134fc9cfd6f4e4edd771084653b43545` |
-| Prior handoff blob | `2973a4f5f06bad6545725386ddf3a42450670a5e` |
+| Prior handoff tip (pre-publish) | `8acbc2539b934af3a3176ed420f5910842700413` |
+| Prior handoff blob | `cf9e8673ec97287085c4a96087ca659f6a08fb73` |
 
 ### `git status --short`
 
@@ -46,124 +45,109 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts
 ```
 
-Product local candidate preserved. No Product commit/push/PR. No reset/clean/stash.
+All prior Product local candidate preserved. **This R-HD-01 pass: production files READ-ONLY** (tests + PRR 08/09 proof map only).
 
 ---
 
-## 2 — Morris GO
+## 2 — Morris GO / scope
 
-**MORRIS GO 2026-10-28 — R-INSPECT-01 only.**
+**R-HD-01 INTEGRATED PROOF CLOSURE AUTHORIZED (2026-10-28).**
 
-Already decided: Option A VALIDATED · Option 1 IMPLEMENTED LOCALLY UNDER REVIEW.
+Retained: Option A VALIDATED · Option 1 LOCAL · R-INSPECT-01 ACCEPTED AT DET.
 
-Objective: durable `repositoryMutationDeclared` must be faithful in actual Product inspection surface, covered by inspection/attestation contract, coherent with HD-sealed effects when present, unable to silently change between inspection and execution, and must not independently authorize modification/Cursor launch.
+Authorized: investigate HD paths; reuse Product OA; add integrated oracles; regressions; FULL pack; PRR test-proof sync; L3 handoff.
 
----
+**Not authorized / not done:** HD model evolution; PREPARE/SHE authority changes; new HD semantics/persistence; CKC changes; new EC fields; Product commit/push/PR; REAL/L4/v3.
 
-## 3 — Convergence pre-check
-
-Canonical sources read (template, routing, Build Doctrine, Roadmap, C1, M5 trajectory, v3 HumanDecision doctrine, PRR README + vols 02/03/04/06/07/08/09). Previous FULL handoff read (Option 1 tip `058bc8b4134fc9cfd6f4e4edd771084653b43545`).
-
-Anti-claims confirmed:
-- EP-S2-05 **NOT PROVEN**
-- EP-S2-08 **PARTIAL**
-- L3 GLOBAL **OPEN**
-- REAL **NOT PROVEN** · G-REAL **NOT GRANTED** · L4 **NOT AUTHORIZED** · Runtime v3 **NON ADOPTED**
-
-CKC = cognitive guidance only.
+No Product defect found → no STOP for corrective GO.
 
 ---
 
-## 4 — Phase A: actual inspection flow (DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN)
+## 3 — Convergence
 
-### Trace
+Sources read (template, routing, CKC synthetic map, Build Doctrine, Roadmap, C1, M5 trajectory, HumanDecision doctrine, PRR + vols 02–09). Latest handoff `8acbc2539b934af3a3176ed420f5910842700413` coverage assumed as prior Option 1 + R-INSPECT candidate.
 
-```
-Generic PREPARE (preserveDeclaredRepositoryMutation)
-  → ExecutionContract.inputs.repositoryMutationDeclared
-  → semanticFingerprint (includes inputs bag)
-  → projectExecutionContractInspectionDisclosure  [WAS GAP: field not projected]
-  → requiredInspectedFactsForContract             [WAS GAP: fact not required]
-  → buildInspectionFactRowsFromDisclosure         [WAS GAP: no Pilote row]
-  → ContractInspectionExamPanel / TrajectorySurface
-  → Pilot attestation (presentedFactIds)
-  → SingleHumanExecute (identity/version/fingerprint)
-  → Authorization / Attempt
-  → W3-C post-Evidence CKC (Option A eligibility)
-```
-
-### Actual consumers (repository search)
-
-| Consumer | Role | Classification |
-|---|---|---|
-| `inspectionDisclosure.ts` | Canonical allowlisted projection | **DOCUMENTED → adapted** |
-| `requiredInspectedFactsForContract` | Required fact IDs for attestation | **adapted** |
-| `inspectExecutionContract.ts` / `readCurrentGovernedExecutionContinuity.ts` | W2 DTO carriers | reuse |
-| `pilotExecutionPresentation.ts` `buildInspectionFactRowsFromDisclosure` | Fact rows for exam | **adapted** |
-| `ContractInspectionExamPanel.tsx` | Pilote exam UI | reuse (renders rows) |
-| `TrajectorySurface.tsx` | Inline contract disclosure | **adapted** |
-| `GovernedConfirmationCard` / `ExecutionSurface` | Pass requiredFacts + disclosure | reuse |
-| `projectExecutionContractEffects` | Mission effects projection | **no mutation field** (intentKind remains); consistency via A5 |
-| `semanticFingerprint` | Hashes full `inputs` | already covered |
-| SHE supersede | Copies `...contractInputs` | preserves mutation |
-
-### Finding verified
-
-Before: EC.inputs could hold `write`, fingerprint material included inputs, but disclosure did **not** expose the field, required facts did **not** require it, effects projection did **not** surface it, Pilote exam could not attest a non-displayed WHAT.
-
-Fingerprint alone ≠ visual disclosure — **KNOWN GAP closed at DET**.
-
-### Semantic distinctions retained
-
-A declaration ≠ B materiality ≠ C scope ≠ D inspection ≠ E HD effects ≠ F Confirm/Authorize ≠ G executed FS effects.
-
-### Phase A verdict
-
-**MINIMAL INSPECTION ADAPTATION QUALIFIED.**
-
-Reusable seams only; no new screen/workflow/HD model/authority change.
+Anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL/G-REAL/L4/runtime v3 unchanged.
 
 ---
 
-## 5 — Phase B implementation
+## 4 — R23 HD path reconstruction
 
-1. **inspectionDisclosure.ts** — project `repositoryMutationDeclared` enum or null; require fact `inputs.repositoryMutationDeclared` when present.
-2. **pilotExecutionPresentation.ts** — label « Opération déclarée sur le dépôt » with neutral values (write/read/none/unknown); never invents write when absent.
-3. **TrajectorySurface.tsx** — render same neutral declared-operation block when present.
-4. **genericMissionSubject.ts** A5 — write vs read_only / boundedNonMutating / NO_REPOSITORY_MUTATION_DECLARED → fail-closed.
-5. **prepareGenericExecutionContractDraft.ts** — PATH B: sealed HD `intentKind=read_only` + analysis `write` → `HD_MUTATION_DECLARATION_CONFLICT`.
+### PATH A — Historical pre-bound ACCEPT_PREPARE
+- Entry: `sealGenericMissionForPresentation` → `recordGenericMissionHumanDecision(ACCEPT_PREPARE)` → durable OA DecisionBasis  
+- Consumption: `prepareGeneric…` only when `hdRequired && decisionId` → `verifyGenericMissionHumanDecisionForPrepare` → stamp sealed effects  
+- `hdRequired` = structuralBlocked OR materiality.humanDecisionRequired  
+- **Used for HD-N1 / HD-P1 / HD-N2**
 
-No SHE authority change. No auto HD. No new Confirmation policy. No EFFECT_CLASS invent. Option A eligibility unchanged.
+### PATH B — SHE AUTHORIZE_INSPECTED_EXECUTE
+- Entry: PREPARE without decisionId (SHE-deferred structural) → inspect → `singleHumanExecutePreparedContract` may create SHE HD + effect-preserving supersede  
+- Distinct option from ACCEPT_PREPARE  
+- **Used for SHE cross-check**
 
-### Disclosure before / after
+### PATH C — NON_STRUCTURAL no systematic HD
+- PREPARE with empty decisionRefs; no HD required  
+- Covered by prior Option 1 / R-INSPECT POS-01 (not re-forced here)
 
-| | Before | After |
-|---|---|---|
-| Canonical disclosure field | absent | `repositoryMutationDeclared` |
-| Required fact | not required | `inputs.repositoryMutationDeclared` when present |
-| Pilote exam row | none | label + neutral write/read/none/unknown text |
-| TrajectorySurface | createOrModify only (docs path) | + declared dépôt operation |
-| Absent declaration | — | null / not required / no invented write row |
+### Critical semantics verified
+1. PREPARE without prior HD admissible (SHE deferred).  
+2. Pre-bound HD verified via `verifyGenericMissionHumanDecisionForPrepare`.  
+3. decisionId consumed only when `hdRequired`.  
+4. SHE HD after inspection is AUTHORIZE_INSPECTED_EXECUTE, not ACCEPT_PREPARE.  
+5. HD Mission Context seals `intentKind` etc.; **`repositoryMutationDeclared` is NOT a canonical HD-sealed field**.  
+6. R-INSPECT guards: `HD_MUTATION_DECLARATION_CONFLICT` + A5 consistency — **not modified this pass**.
 
-### Fact IDs / attestation
+### Execution matrix (qualification gate)
 
-- Present write → required includes `inputs.repositoryMutationDeclared` → row must render or `missingRequired` blocks attest (INSPECT-N5).
-- SHE uses expectedVersion + semanticFingerprint + presentedFactIds (INSPECT-P5 / N4 stale fingerprint refuse).
-
-### HD-sealed coherence
-
-| Path | Finding |
+| Element | Real Product service |
 |---|---|
-| PATH A no HD, NON_STRUCTURAL write | Analysis write preserved + disclosed + Delivery-eligible (Option 1) |
-| PATH B HD sealed read_only vs analysis write | PREPARE refuse `HD_MUTATION_DECLARATION_CONFLICT` |
-| EC internal write vs read_only / bounded / NO_MUTATION | A5 refuse |
-| Absent mutation | Not inferred as HD write approval (HD-N2) |
-| SHE supersede | Copies predecessor inputs including mutation — effect-preserving |
-| W3-C | Reads durable EC stamps only — not HD reinterpretation |
+| HD creation | `sealGenericMissionForPresentation` + `recordGenericMissionHumanDecision` |
+| Sealed subject | `genericMissionContext` + presentationDigest |
+| Selection | `GENERIC_MISSION_OPTION_ACCEPT_PREPARE` |
+| DecisionBasis | OA SQLite via decisionServices |
+| Verification | `verifyGenericMissionHumanDecisionForPrepare` |
+| Materiality | `resolveAuthoritativeProductMateriality` |
+| EC | `prepareGenericExecutionContractDraft` / solicit |
+| Attempt | none unauthorized in oracles |
+| Forged DecisionBasis / injected decisionRefs | **NOT used** |
 
 ---
 
-## 6 — Complete Product diffs (Option 1 + R-INSPECT-01 candidate)
+## 5 — Oracle results
+
+### HD-N1 — BEHAVIOR PROVEN
+- Real Decision ID (`dec:…`), durable DecisionBasis (`validateDecisionBasis` → null = OK), sealed digest, ACCEPT_PREPARE option, Project-only cycle null.  
+- Sealed: structural + `intentKind=read_only` + mutation `none`.  
+- PREPARE analysis: same sealed facts + `repositoryMutationDeclared=write` (intentKind still `read_only`).  
+- Verifier passes (does not compare mutation declaration).  
+- **First fail-closed gate: `HD_MUTATION_DECLARATION_CONFLICT`** (dedicated R-INSPECT guard exercised).  
+- No extra HD; Attempt not created.
+
+Coverage class: **BEHAVIOR PROVEN** for dedicated guard via legitimate PATH A.
+
+### HD-P1 — BEHAVIOR PROVEN
+- Coherent structural + `intentKind=other` + write declaration.  
+- Real HD → PREPARE binds `decisionRefs=[decisionId]`.  
+- EC STRUCTURAL; presentationDigest bound; inspection coherent when write preserved.  
+- Project-only Delivery CKC **not** eligible (structural ≠ Delivery CKC question).
+
+### HD-N2 — BEHAVIOR PROVEN
+- Real HD without `repositoryMutationDeclared` on sealed context.  
+- PREPARE with absent mutation → EC `repositoryMutationDeclared=null` (not invented).  
+- HD existence alone ≠ Delivery positive WHAT / `cyc:delivery`.
+
+### SHE cross-check — BEHAVIOR PROVEN
+- Deferred structural PREPARE: empty decisionRefs, `sheDeferredStructuralAuthority=true`, mutation `write` preserved.  
+- No ACCEPT_PREPARE HD at PREPARE.  
+- SHE succeeds without Attempt; if HD created, option ≠ ACCEPT_PREPARE.  
+- Successor/live EC still has `repositoryMutationDeclared=write`.
+
+---
+
+## 6 — Production diff this pass
+
+**NONE** (tests + PRR 08/09 documentary proof map only).
+
+Cumulative Product candidate from Option 1 + R-INSPECT remains local (unchanged this pass):
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/TrajectorySurface.tsx
@@ -953,9 +937,9 @@ index e831f481..cfa81aa9 100644
 
 ---
 
-## 7 — Full new / PROOF-01 test contents
+## 7 — Full test sources (untracked / extended)
 
-### akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts
+### akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts (R-INSPECT + R-HD-01)
 
 ```typescript
 /**
@@ -973,14 +957,24 @@ index e831f481..cfa81aa9 100644
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   buildIntentAnalysisFromSolicitedMission,
+  prepareGenericExecutionContractDraft,
   solicitGenericExecutionPrepare,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
 import { singleHumanExecutePreparedContract } from "@/features/project-assistant/w2/singleHumanExecutePreparedContract";
-import { assertExecutionContractInternalConsistency } from "@/features/project-assistant/w2/genericMissionSubject";
+import {
+  assertExecutionContractInternalConsistency,
+  GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+} from "@/features/project-assistant/w2/genericMissionSubject";
+import {
+  recordGenericMissionHumanDecision,
+  sealGenericMissionForPresentation,
+} from "@/features/project-assistant/w2/recordGenericMissionHumanDecision";
+import { assessProjectOnlyDeliveryCkcEligibility } from "@/features/project-assistant/w2/qualificationInputs";
 import {
   projectExecutionContractInspectionDisclosure,
   requiredInspectedFactsForContract,
 } from "@/lib/oa/execution-contract";
+import { validateDecisionBasis } from "@/lib/oa/decision";
 import { buildInspectionFactRowsFromDisclosure } from "@/features/pre-m6-product-ui/surfaces/pilotExecutionPresentation";
 import {
   bootW2Runtime,
@@ -1508,6 +1502,451 @@ describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection + HD coherence (DET)", (
       expect(she.code).toMatch(/FINGERPRINT|STALE|CURRENT|MISMATCH|INSPECT/i);
     }
   }, 60_000);
+});
+
+/**
+ * R-HD-01 — integrated Product OA HumanDecision provenance oracles.
+ *
+ * PATH A: historical pre-bound ACCEPT_PREPARE HD (hdRequired && decisionId).
+ * PATH B: PREPARE → INSPECT → SHE → AUTHORIZE_INSPECTED_EXECUTE (when applicable).
+ * PATH C: NON_STRUCTURAL PREPARE without systematic HD.
+ *
+ * Production code is READ-ONLY in this corrective. Tests only.
+ */
+describe("EP-S2-08-PROOF-01 R-HD-01 — integrated HD provenance (DET)", () => {
+  let previousMorris: string | undefined;
+  let previousDetPin: string | undefined;
+  let previousPilot: string | undefined;
+
+  beforeEach(() => {
+    previousMorris = process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY;
+    previousDetPin = process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA;
+    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
+    process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA = W2_TEST_PINNED_BASE_HEAD_SHA;
+    process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+    delete process.env.SFIA_STUDIO_LOCAL_OA_EXCLUSIVE;
+  });
+
+  afterEach(() => {
+    cleanupW2TempDirs();
+    restoreEnvVar("SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY", previousMorris);
+    restoreEnvVar("SFIA_STUDIO_DET_PINNED_BASE_HEAD_SHA", previousDetPin);
+    restoreEnvVar("SFIA_STUDIO_LOCAL_PILOT_AUTHORITY", previousPilot);
+  });
+
+  const STRUCT_SCOPE = "projects/demo/src/authority";
+
+  /**
+   * PATH A requires hdRequired=true. Structural impact forces HD consumption
+   * when decisionId is supplied. intentKind=read_only is sealed; mutation write
+   * is added only on the contradictory PREPARE analysis (verifier does not
+   * compare repositoryMutationDeclared — dedicated R-INSPECT guard does).
+   */
+  function structuralReadOnlyAnalysis(mutation?: "none" | "write" | null): IntentAnalysisDto {
+    const base = buildIntentAnalysisFromSolicitedMission({
+      objective: "R-HD-01 structural read_only mission",
+      expectedOutcome: "Inspectable structural resume after HD",
+      scope: STRUCT_SCOPE,
+      ...(mutation === "none" || mutation === "write"
+        ? { repositoryMutation: mutation }
+        : {}),
+      impactSignals: {
+        structuralChange: true,
+        architectureImpact: true,
+      },
+    });
+    return {
+      ...base,
+      executionIntent: {
+        intentKind: "read_only",
+        scopeIn: [STRUCT_SCOPE],
+        requiredCapabilities: [],
+      },
+    };
+  }
+
+  function structuralCoherentAnalysis(): IntentAnalysisDto {
+    const base = buildIntentAnalysisFromSolicitedMission({
+      objective: "R-HD-01 structural coherent mission",
+      expectedOutcome: "HD-bound PREPARE resume",
+      scope: STRUCT_SCOPE,
+      repositoryMutation: "write",
+      impactSignals: {
+        structuralChange: true,
+        architectureImpact: true,
+      },
+    });
+    return {
+      ...base,
+      executionIntent: {
+        intentKind: "other",
+        scopeIn: [STRUCT_SCOPE],
+        requiredCapabilities: [],
+      },
+    };
+  }
+
+  async function seedHd(
+    runtime: RuntimeApplicationService,
+    suffix: string,
+  ): Promise<{
+    projectId: string;
+    oa: NonNullable<RuntimeApplicationService["oa"]>;
+  }> {
+    const oa = runtime.oa!;
+    const created = await runtime.createProject({
+      name: "demo",
+      objective: "EP-S2-08 R-HD-01",
+      context: "integrated HD provenance",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL", "R-HD DET"],
+      shortReference: `RH${suffix.toUpperCase().slice(0, 4)}`,
+      idempotencyKey: `idem:ep08-rhd-${suffix}`,
+    });
+    if (!created.ok) {
+      throw new Error(`createProject: ${created.error?.message ?? "fail"}`);
+    }
+    const projectId = created.project.projectId;
+    const lps0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    if (!lps0.ok) throw new Error("lps0");
+    await oa.cycleServices.createInitialTrajectory.execute({
+      trajectoryId: `trj:${projectId}`,
+      projectId,
+      steps: [{ stepId: "stp:a", order: 1, label: "A", state: "done" }],
+      status: "active",
+      expectedLpsVersion: lps0.livingProjectState.version,
+      createdBy: {
+        actorId: "actor:morris",
+        role: "project_owner",
+        displayName: "Morris",
+        authorityLevel: "N3",
+      },
+    });
+    ensureManagedRepoCloneSkeleton({
+      managedRepoRootBase: process.env[SFIA_STUDIO_MANAGED_REPO_ROOT_BASE_ENV]!,
+      identity: `acme/ep08-rhd-${suffix}`,
+    });
+    return { projectId, oa };
+  }
+
+  async function sealAndAcceptPrepare(input: {
+    oa: NonNullable<RuntimeApplicationService["oa"]>;
+    projectId: string;
+    analysis: IntentAnalysisDto;
+  }) {
+    const sealed = await sealGenericMissionForPresentation({
+      oa: input.oa,
+      projectId: input.projectId,
+      cycleInstanceId: null,
+      analysis: input.analysis,
+    });
+    if (!sealed.ok) {
+      throw new Error(`seal: ${sealed.code} ${sealed.message}`);
+    }
+    const recorded = await recordGenericMissionHumanDecision({
+      oa: input.oa,
+      subject: sealed.subject,
+      selectedOptionId: GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+      analysis: input.analysis,
+      forceLocalAuthority: true,
+    });
+    if (!recorded.ok) {
+      throw new Error(`record: ${recorded.code} ${recorded.message}`);
+    }
+    return { subject: sealed.subject, decision: recorded.decision };
+  }
+
+  it("HD-N1 — real ACCEPT_PREPARE HD + contradictory write declaration → first fail-closed gate", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-rhd-n1"),
+      idPrefix: "ep08rhdn1",
+    });
+    const { projectId, oa } = await seedHd(runtime, "n1");
+
+    const sealedAnalysis = structuralReadOnlyAnalysis("none");
+    const { decision, subject } = await sealAndAcceptPrepare({
+      oa,
+      projectId,
+      analysis: sealedAnalysis,
+    });
+
+    // Real durable HD evidence
+    expect(decision.decisionId).toMatch(/^dec:/);
+    expect(decision.selectedOptionId).toBe(GENERIC_MISSION_OPTION_ACCEPT_PREPARE);
+    expect(decision.decisionBasis?.sourceType).toBe("generic_mission");
+    expect(decision.decisionBasis?.sourceDigest).toBe(subject.presentationDigest);
+    expect(decision.subject).toBe(subject.missionSubjectId);
+    // null = no invariant violation (durable DecisionBasis accepted)
+    expect(validateDecisionBasis(decision.decisionBasis!)).toBeNull();
+    expect(decision.decisionBasis?.genericMissionContext?.intentKind).toBe(
+      "read_only",
+    );
+    // repositoryMutationDeclared is NOT a canonical HD-sealed field
+    expect(
+      (decision.decisionBasis?.genericMissionContext as Record<string, unknown> | undefined)
+        ?.repositoryMutationDeclared,
+    ).toBeUndefined();
+
+    const hdCountAfterSeal = (
+      await oa.decisionServices!.decisions.listByProject(projectId)
+    ).length;
+    expect(hdCountAfterSeal).toBe(1);
+
+    // Same sealed mission facts for verifier; only mutation flips to write.
+    const contradictory = structuralReadOnlyAnalysis("write");
+    expect(
+      (contradictory as { repositoryMutationDeclared?: string })
+        .repositoryMutationDeclared,
+    ).toBe("write");
+    expect(contradictory.executionIntent?.intentKind).toBe("read_only");
+
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: contradictory,
+      decisionId: decision.decisionId,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+
+    expect(prep.ok).toBe(false);
+    if (!prep.ok) {
+      // Exact first fail-closed gate (recorded for Review Pack / R23 coverage class).
+      // Dedicated R-INSPECT guard is BEHAVIOR PROVEN only when this code matches.
+      expect(prep.code).toBe("HD_MUTATION_DECLARATION_CONFLICT");
+      expect(prep.message).toMatch(/read_only/i);
+      expect(prep.message).toMatch(/write/i);
+    }
+
+    // No unauthorized Attempt; HD count unchanged (no auto HD).
+    expect(
+      (await oa.decisionServices!.decisions.listByProject(projectId)).length,
+    ).toBe(hdCountAfterSeal);
+  }, 90_000);
+
+  it("HD-P1 — coherent structural ACCEPT_PREPARE HD → PREPARE binds real decisionRefs", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-rhd-p1"),
+      idPrefix: "ep08rhdp1",
+    });
+    const { projectId, oa } = await seedHd(runtime, "p1");
+    const analysis = structuralCoherentAnalysis();
+    const { decision, subject } = await sealAndAcceptPrepare({
+      oa,
+      projectId,
+      analysis,
+    });
+
+    expect(validateDecisionBasis(decision.decisionBasis!)).toBeNull();
+    expect(decision.decisionBasis?.sourceDigest).toBe(subject.presentationDigest);
+    expect(decision.selectedOptionId).toBe(GENERIC_MISSION_OPTION_ACCEPT_PREPARE);
+
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      decisionId: decision.decisionId,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(`${prep.code} ${prep.message}`);
+    expect(prep.contract.decisionRefs).toEqual([decision.decisionId]);
+    expect(prep.humanDecisionCreated).toBe(false);
+    expect(prep.executionAttemptCreated).toBe(false);
+
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.contract.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get EC");
+    expect(live.contract.decisionRefs).toEqual([decision.decisionId]);
+    expect(live.contract.constraints).toContain("MATERIALITY:STRUCTURAL");
+    // Analysis write may be preserved descriptively — not HD authority invention.
+    const mutation = (live.contract.inputs as Record<string, unknown>)
+      .repositoryMutationDeclared;
+    expect(mutation === "write" || mutation == null).toBe(true);
+    expect(live.contract.inputs?.intentKind).toBe("other");
+    expect(live.contract.inputs?.presentationDigest).toBe(
+      subject.presentationDigest,
+    );
+
+    // Inspection coherent with durable stamps
+    const disclosure = projectExecutionContractInspectionDisclosure(live.contract);
+    expect(disclosure.ok).toBe(true);
+    if (mutation === "write" && disclosure.ok) {
+      expect(disclosure.disclosure.repositoryMutationDeclared).toBe("write");
+      const required = requiredFactsOrThrow(live.contract);
+      expect(required).toContain("inputs.repositoryMutationDeclared");
+    }
+
+    // Structural HD-bound EC is NOT Project-only Delivery CKC-eligible
+    const elig = assessProjectOnlyDeliveryCkcEligibility({
+      projectId,
+      contract: {
+        projectId: live.contract.projectId,
+        cycleInstanceId: live.contract.cycleInstanceId,
+        action: live.contract.action,
+        constraints: live.contract.constraints,
+        inputs: live.contract.inputs,
+      },
+    });
+    expect(elig.eligible).toBe(false);
+  }, 90_000);
+
+  it("HD-N2 — HD without sealed mutation field does not invent write authorization", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-rhd-n2"),
+      idPrefix: "ep08rhdn2",
+    });
+    const { projectId, oa } = await seedHd(runtime, "n2");
+
+    // Structural mission WITHOUT repositoryMutation declaration
+    const absentMutation = buildIntentAnalysisFromSolicitedMission({
+      objective: "R-HD-01 HD without mutation stamp",
+      expectedOutcome: "No invented HD write",
+      scope: STRUCT_SCOPE,
+      impactSignals: {
+        structuralChange: true,
+        architectureImpact: true,
+      },
+    });
+    const sealedAnalysis: IntentAnalysisDto = {
+      ...absentMutation,
+      executionIntent: {
+        intentKind: "other",
+        scopeIn: [STRUCT_SCOPE],
+        requiredCapabilities: [],
+      },
+    };
+    expect(
+      (sealedAnalysis as { repositoryMutationDeclared?: unknown })
+        .repositoryMutationDeclared,
+    ).toBeUndefined();
+
+    const { decision, subject } = await sealAndAcceptPrepare({
+      oa,
+      projectId,
+      analysis: sealedAnalysis,
+    });
+    expect(
+      (decision.decisionBasis?.genericMissionContext as Record<string, unknown>)
+        ?.repositoryMutationDeclared,
+    ).toBeUndefined();
+
+    const prep = await prepareGenericExecutionContractDraft({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis: sealedAnalysis,
+      decisionId: decision.decisionId,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.contract.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get EC");
+    expect(
+      (live.contract.inputs as Record<string, unknown>).repositoryMutationDeclared ??
+        null,
+    ).toBeNull();
+    expect(live.contract.decisionRefs).toEqual([decision.decisionId]);
+    expect(live.contract.inputs?.presentationDigest).toBe(
+      subject.presentationDigest,
+    );
+
+    // HD existence alone ≠ Delivery positive WHAT / Project-only cyc:delivery
+    const elig = assessProjectOnlyDeliveryCkcEligibility({
+      projectId,
+      contract: {
+        projectId: live.contract.projectId,
+        cycleInstanceId: live.contract.cycleInstanceId,
+        action: live.contract.action,
+        constraints: live.contract.constraints,
+        inputs: live.contract.inputs,
+      },
+    });
+    expect(elig.eligible).toBe(false);
+  }, 90_000);
+
+  it("SHE cross-check — deferred structural PREPARE: no ACCEPT_PREPARE HD; mutation preserved on EC", async () => {
+    const runtime = bootW2Runtime({
+      productDbPath: tempProductDbPath("ep08-rhd-she"),
+      idPrefix: "ep08rhdshe",
+    });
+    const { projectId, oa } = await seedHd(runtime, "she");
+    const analysis = structuralCoherentAnalysis();
+    const hdBefore = (
+      await oa.decisionServices!.decisions.listByProject(projectId)
+    ).length;
+
+    const prep = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      analysis,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(prep.ok).toBe(true);
+    if (!prep.ok) throw new Error(prep.message);
+
+    const live = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: prep.executionContractId,
+    });
+    expect(live.ok).toBe(true);
+    if (!live.ok) throw new Error("get EC");
+    expect(live.contract.decisionRefs ?? []).toEqual([]);
+    expect(live.contract.inputs?.sheDeferredStructuralAuthority).toBe(true);
+    expect(
+      (live.contract.inputs as Record<string, unknown>).repositoryMutationDeclared,
+    ).toBe("write");
+    expect(
+      (await oa.decisionServices!.decisions.listByProject(projectId)).length,
+    ).toBe(hdBefore);
+
+    const facts = requiredFactsOrThrow(live.contract);
+    const she = await singleHumanExecutePreparedContract({
+      oa,
+      projectId,
+      executionContractId: live.contract.executionContractId,
+      expectedVersion: live.contract.version,
+      expectedSemanticFingerprint: live.contract.semanticFingerprint!,
+      presentedFactIds: facts,
+      forceLocalAuthority: true,
+    });
+    expect(she.ok).toBe(true);
+    if (!she.ok) throw new Error(`${she.code} ${she.message}`);
+    expect(she.executionAttemptCreated).toBe(false);
+    // SHE may create AUTHORIZE_INSPECTED_EXECUTE HD — not ACCEPT_PREPARE
+    if (she.humanDecisionCreated) {
+      expect(she.humanDecisionOptionId).not.toBe(
+        GENERIC_MISSION_OPTION_ACCEPT_PREPARE,
+      );
+    }
+    // Operative mutation must not silently disappear across SHE binding
+    const afterId =
+      she.executionContractId ?? live.contract.executionContractId;
+    const after = await oa.executionContractServices!.getExecutionContract.execute({
+      executionContractId: afterId,
+    });
+    expect(after.ok).toBe(true);
+    if (!after.ok) throw new Error("get after SHE");
+    expect(
+      (after.contract.inputs as Record<string, unknown>).repositoryMutationDeclared,
+    ).toBe("write");
+  }, 90_000);
 });
 
 ```
@@ -3702,10 +4141,13 @@ describe("EP-S2-08-PROOF-01 R2 — Pilote TrajectorySurface B5/B6 (jsdom)", () =
 
 ---
 
-## 8 — R24 PRR + manifest
+## 8 — R24
 
-Volumes updated: 03, 06 (prior Option 1), 07, 08, 09.  
-02 / 04: **NO SEMANTIC IMPACT** this pass (projection field documented in 03/07; object catalog already covers EC inputs generically).
+| Volume | Impact |
+|---|---|
+| 08 | Updated — R-HD-01 integrated oracles |
+| 09 | Updated — R-HD-01 CLOSED at DET integrated |
+| 02/03/04/06/07 | **NO PRODUCT RUNTIME SEMANTIC IMPACT** this pass (tests-only; prior candidate overlays retained) |
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
@@ -3746,10 +4188,10 @@ index 641e4ebd..115912a7 100644
  | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
  | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index db5716f1..b7dc3427 100644
+index db5716f1..9ae1302f 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -222,3 +222,15 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
+@@ -222,3 +222,16 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
  | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
  
  **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
@@ -3760,13 +4202,14 @@ index db5716f1..b7dc3427 100644
 +|---|---|---|
 +| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** | **LOCAL DET** ≠ ON MAIN |
 +| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 write preserved → Delivery CKC — **22 PASS** | **LOCAL DET** · Option 1 |
-+| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · HD-P1/N1/N2 — disclosure + required fact + Pilote rows + SHE fingerprint + HD coherence — **10 PASS** | **LOCAL DET** · R-INSPECT-01 |
++| `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` | INSPECT-P1…P5 / N1…N5 · unit HD coherence — **10 PASS**; **R-HD-01** integrated PATH A/B/C — HD-N1 `HD_MUTATION_DECLARATION_CONFLICT` via real ACCEPT_PREPARE OA · HD-P1 coherent decisionRefs · HD-N2 absent mutation ≠ HD write · SHE cross-check mutation preserved — **+4 PASS (14 total)** | **LOCAL DET** · R-INSPECT-01 + R-HD-01 |
 +| `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` | ContractInspectionExamPanel renders declared write; absent ≠ invented write — **2 PASS** | **LOCAL jsdom** ≠ browser E2E |
 +| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote — **3 PASS** | **LOCAL jsdom** ≠ browser E2E |
++| `p6.mHd01.genericMissionHumanDecision.d0.test.ts` | M-HD-01 harness reused by R-HD-01 — non-regression **PASS** | **LOCAL DET** |
 +
-+Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Review exit.
++Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit.
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0aaab505..08ff5e96 100644
+index 0aaab505..cb1a225f 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -15,7 +15,7 @@
@@ -3774,12 +4217,12 @@ index 0aaab505..08ff5e96 100644
  | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
  | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
 -| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + **R-INSPECT-01 CLOSED AT DET** — declared mutation preserved on EC, disclosed via canonical inspection + Pilote exam rows + TrajectorySurface; required fact `inputs.repositoryMutationDeclared` when present; HD/read_only vs write fail-closed. POS-01 + B2/B5/B6 + R-INSPECT DET. Defensive R1 gates retained; `scopeIn` alone rejected; absence fail-closed. **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Review exit; GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 + R-INSPECT-01 + **R-HD-01 INTEGRATED DET** — real OA seal/record/verify ACCEPT_PREPARE; first gate `HD_MUTATION_DECLARATION_CONFLICT` BEHAVIOR PROVEN; coherent HD-P1 decisionRefs; HD-N2 absence ≠ invented write; SHE deferred structural preserves mutation without ACCEPT_PREPARE. No production HD-model change this pass (tests-only). **Still open:** browser `/studio` remount E2E; dual F3/W3-C; Final Critical Readiness / GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
  | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
  | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
  | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..62a5f4c6 100644
+index 788ea0f2..29c598dd 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -19,7 +19,7 @@
@@ -3806,12 +4249,12 @@ index 788ea0f2..62a5f4c6 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "4597d2a8f621ade0"
++      "sha256_16": "5bfd9515997c4045"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "d13ea6315544301f"
++      "sha256_16": "ae2b7a00e45b27ed"
      }
    ],
    "components": [
@@ -3822,7 +4265,7 @@ index 788ea0f2..62a5f4c6 100644
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..62a5f4c6 100644
+index 788ea0f2..29c598dd 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -19,7 +19,7 @@
@@ -3849,108 +4292,77 @@ index 788ea0f2..62a5f4c6 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "4597d2a8f621ade0"
++      "sha256_16": "5bfd9515997c4045"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "d13ea6315544301f"
++      "sha256_16": "ae2b7a00e45b27ed"
      }
    ],
    "components": [
 
 ```
 
-Classification: **ADAPT** inspection · **KEEP** SHE/HD authority · **COMPLETE** R-INSPECT-01 proof. No Roadmap TIP promotion. ≠ MAIN.
+No Roadmap CURRENT TIP promotion.
 
 ---
 
-## 9 — Validations (requalified)
+## 9 — Validations (requalified this pass)
 
-| Check | Result | Notes |
-|---|---|---|
-| R-INSPECT-01 domain | **PASS 10/10** | `…rInspect01.d0.test.ts` |
-| R-INSPECT UI jsdom | **PASS 2/2** | ContractInspectionExamPanel |
-| R1 semantic | **PASS 22/22** | non-regression |
-| B2/B5/B6 integrated | **PASS 3/3** | non-regression |
-| UI B5/B6 | **PASS 3/3** | non-regression |
-| Core combined | **PASS 40/40** | final core run |
-| ecInspectionDisclosure + p6.r03 | **PASS** | earlier reg batch |
-| tsc --noEmit | **PASS** exit 0 | after optional field |
-| ESLint domain files | **PASS** exit 0 | disclosure + genericMissionSubject + prepare |
-| ESLint TrajectorySurface | pre-existing warnings | not introduced as errors |
-| CI Required Gate | **NOT RUN** | |
-| Build | **NOT RUN** | |
-| Browser /studio E2E | **OUT OF SCOPE** | jsdom ceiling |
-
-### Oracle matrix
-
-| ID | Result |
+| Check | Result |
 |---|---|
-| INSPECT-P1 persist write | **PASS** |
-| INSPECT-P2 disclosure contains write | **PASS** |
-| INSPECT-P3 Pilote presentation | **PASS** (fact rows + jsdom panel) |
-| INSPECT-P4 required fact covers display | **PASS** |
-| INSPECT-P5 SHE no widen | **PASS** |
-| INSPECT-N1 absent ≠ invent write | **PASS** |
-| INSPECT-N2 read-only not write | **PASS** |
-| INSPECT-N3 unknown not promoted | **PASS** |
-| INSPECT-N4 stale fingerprint refuse | **PASS** |
-| INSPECT-N5 missing display → missingRequired | **PASS** |
-| HD-P1 coherent write+other | **PASS** |
-| HD-N1 write vs read_only refuse | **PASS** |
-| HD-N2 no inferred HD write | **PASS** |
-| AUTH CycleInstance/HD/Options/launch | preserved via R1/B2/B5/B6 |
+| R-INSPECT + R-HD domain | **14/14 PASS** (10 inspect + 4 HD integrated) |
+| R-INSPECT UI | **2/2 PASS** |
+| R1 | **22/22 PASS** |
+| B2/B5/B6 integrated | **3/3 PASS** |
+| UI B5/B6 | **3/3 PASS** |
+| p6.mHd01 | **PASS** (in 65-test core batch) |
+| Core batch (6 files) | **65/65 PASS** |
+| L3-S1 + S8 | **24/24 PASS** |
+| tsc --noEmit | **PASS** exit 0 |
+| ESLint extended test | **PASS** exit 0 |
+| CI / Build | **NOT RUN** |
+| Browser E2E / live Pilot | **OUT OF SCOPE** |
 
 ---
 
 ## 10 — Fake/Real
 
-- Cursor / Nora: DET substitutes
-- Disclosure, OA, EC, Attempt, inspection, persistence: **actual Product code**
-- Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**
-- Outside: browser remount E2E; dual F3/W3-C live UX; REAL; G-REAL; L4
-- **DET ≠ READY FOR REAL**
+Proof level: **DETERMINISTIC PRODUCT INTEGRATION**.  
+Real: OA, SQLite, DecisionBasis, HD verify, EC, inspection, SHE.  
+Substitutes: Cursor/Nora DET ports; local authority harness.  
+≠ live Pilot action · ≠ browser remount · ≠ Cursor/OpenAI REAL · ≠ G-REAL · ≠ L4.  
+**DET ≠ READY FOR REAL.**
 
 ---
 
-## 11 — R23 architecture
+## 11 — Exit assessment
 
-Ownership: OA inspection projection + W2 PREPARE consistency + F09 presentation adapters.  
-Impact: inspectability of Option 1 durable WHAT; no authority widening.  
-Invariant: PREPARE ≠ INSPECT ≠ AUTHORIZE ≠ EXECUTE; declaration ≠ authorization; fingerprint ≠ visual disclosure without projected fact rows.
-
----
-
-## 12 — Reservations / next gate
-
-Open:
-- browser `/studio` remount E2E
-- dual F3/W3-C live UX closure
-- EP-S2-05 NOT PROVEN
-- EP-S2-08 still PARTIAL until Final Critical Review exit
-- Product GI not authorized
-- CI Required Gate not run
-
-**Next:** Final Critical Review of Option 1 + R-INSPECT-01 → Morris on EP-S2-08 exit / GI.
+- **R-HD-01:** CLOSED AT INTEGRATED DET  
+- **R-INSPECT-01:** accepted DET scope (retained)  
+- **Option A/1:** preserved  
+- **EP-S2-08:** PARTIAL  
+- **EP-S2-05:** NOT PROVEN  
+- **Next gate:** Final Critical Readiness for Product GI consideration  
 
 ---
 
-## 13 — Unique verdict
+## 12 — Unique verdict
 
-**R-INSPECT-01 CLOSED AT DET SCOPE — READY FOR FINAL CRITICAL REVIEW**
+**R-HD-01 INTEGRATED DET PROOF COMPLETE — READY FOR FINAL CRITICAL READINESS REVIEW**
 
 Permanent anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED · No Product GI.
 
 ---
 
-## MANDATORY CHATGPT INSTRUCTION
+## MANDATORY CHATGPT REVIEW
 
-Before reviewing, read Git:
+Read Git handoff:
 
-- branch: `sfia/review-handoff`
+- branch: `sfia/review-handoff`  
 - file: `sfia-review-handoff/latest-chatgpt-review.md`
 
-Verify tip/blob, branch/HEAD/base, complete Product/test/PRR contents, Pilote disclosure proof, HD coherence, R1/B2/B5/B6, validations, reservations, verdict.
+Verify tip/blob, HEAD/base, full Product/test/PRR, real HD creation/verification, exact rejection gate `HD_MUTATION_DECLARATION_CONFLICT`, non-regressions, R23/R24, proof ceiling, publication SHA/blob.
 
-Issue independent Final Critical Review.
+Then independent Final Critical Readiness Review.
