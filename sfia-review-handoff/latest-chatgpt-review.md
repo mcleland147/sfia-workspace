@@ -1,112 +1,210 @@
-# SFIA Review Pack — EP-S2-08-PROOF-01 R1 POSITIVE ELIGIBILITY + R24
+# SFIA Review Pack — EP-S2-08-PROOF-01 Option 1 (Generic PREPARE field preservation)
 
-**UTC:** 2026-10-28T09:33:05Z
-**Cycle continuity:** SAME EP-S2-08-PROOF-01 Product Delivery
-**Pass:** R1 POSITIVE ELIGIBILITY + R24 REVIEW CLOSURE
-**Profile:** CRITICAL
-**Typologie:** EVOL / CORRECTIVE
-**Review Pack:** FULL
-**Review Handoff:** REQUIRED / publish-in-cycle
-**Project GI:** NOT AUTHORIZED / NOT PERFORMED
+**UTC:** 2026-10-28T09:58:51Z  
+**Cycle:** 8 — DELIVERY / IMPLÉMENTATION · Profile CRITICAL · Typology EVOL/CORRECTIVE  
+**Mode:** QUALIFY FIRST → BOUNDED LOCAL DELIVERY  
+**Review:** FULL · Handoff: REQUIRED / PUBLISH-IN-CYCLE  
+**Capability:** EP-S2-08 — POST-EVIDENCE CONTINUITY · Increment: EP-S2-08-PROOF-01  
 
 ---
 
-## 1. Git Truth
+## 1 — Git Truth
 
 | Fact | Value |
 |---|---|
-| Remote | origin → https://github.com/mcleland147/sfia-workspace.git |
-| Product WT | /Users/morris/Projects/sfia-workspace-feat-akg-m5-ep-s2-08-proof-01 |
-| Branch | feat/akg-m5-ep-s2-08-proof-01 |
-| HEAD / origin/main / base | 3fb84630efb9e0d2acaaf81b342da0358107db10 |
-| Match | YES |
-| Project GI | NOT PERFORMED |
+| Remote | `https://github.com/mcleland147/sfia-workspace` |
+| Worktree | `sfia-workspace-feat-akg-m5-ep-s2-08-proof-01` |
+| Branch | `feat/akg-m5-ep-s2-08-proof-01` |
+| HEAD | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
+| origin/main | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
+| merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` (= HEAD = origin/main; main did not advance) |
+| Prior handoff tip (pre-publish) | `17fd71a909258c31bb630c177588de4e3cbe0ed1` |
+| Prior handoff blob | `b57db83780ae40ca969f3f48c9a4f8a68ae94bbd` |
 
-### PREVIOUS handoff (historical)
+### `git status --short` (Product local preserved)
 
-| Field | Value |
-|---|---|
-| Tip | a328966509eff1413bedb5b2f4dafd1b52c86acf |
-| Blob | 8a6fb5c1b34bd345165de03f9dd5ae8d81698f17 |
+```
+M .tmp-sfia-review/chatgpt-review.md
+ M projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
+ M projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
+ M projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
+ M projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
+ M projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
+ M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
+ M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+ M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx
+?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
+```
 
-Post-push tip/blob → Cursor return only.
-
----
-
-## 2. Convergence / R23
-
-Sources consulted: cycle template · routing guide · convergence doctrine/roadmap · product-completion · M5 journey · KHC/HD · PRR README + 02/03/04/06/07/08/09 · prior handoff · Product W2 PREPARE/SHE/qualification/W3-C.
-
-Anti-claims: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · runtime v3 NON ADOPTED.
-
----
-
-## 3. Morris decision / review findings consumed
-
-OPTION A BOUNDED remains VALIDATED (not re-opened).
-
-Critical Review findings addressed in this pass only:
-- B: positive Delivery eligibility weak (scopeIn sufficient) → corrected by removal
-- D: prior handoff omitted PRR/manifest diffs → this pack includes full useful PRR+manifest diffs
+No Product commit/push/PR. No reset/clean/stash. Handoff-only publish authorized.
 
 ---
 
-## 4. R1 positive Delivery investigation (probe)
+## 2 — Convergence pre-check
 
-Real Generic PREPARE → SHE EC stamps (DET probe 2026-10-28):
+Read (Git canonical):
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- Build Doctrine / Roadmap / C1 cadrage / M5 trajectory requalification / v3 knowledge-context doctrine / PRR README + vols 02/03/04/06/07/08/09
 
-| Field | Observed |
-|---|---|
-| repositoryMutationDeclared | **null** (PREPARE forces null for non-bounded) |
-| EFFECT_CLASS:local-write | **ABSENT** from constraints |
-| requestedOperation | null |
-| intentKind | other |
-| scopeIn | present (WHERE) |
-| boundedNonMutatingAnalysis | false |
-| MATERIALITY:NON_STRUCTURAL | present + assessedMateriality agree |
-| impactSignals | all false (Boolean-coerced analysis stamps) |
+Confirmed anti-claims:
+- EP-S2-05 **NOT PROVEN**
+- EP-S2-08 **PARTIAL** (this pass restores Project-only Delivery CKC DET; exit proof still needs Critical Review)
+- L3 GLOBAL **OPEN**
+- REAL **NOT PROVEN** · G-REAL **NOT GRANTED** · L4 **NOT AUTHORIZED** · Runtime v3 **NON ADOPTED**
 
-Candidates evaluated:
-
-| Candidate | Origin | Persisted? | Distinguishes Delivery vs inspection? | Verdict |
-|---|---|---|---|---|
-| scopeIn / concreteMissionPaths | mission WHERE | yes | NO (WHERE ≠ WHAT) | **REJECTED as autonomous positive** |
-| EFFECT_CLASS:local-write exact | W3-A envelope | **not** on Generic PREPARE | yes when present | Accept when present; **absent on real Generic path** |
-| repositoryMutationDeclared=write | analysis solicit | PREPARE overwrites to null | yes when write | Accept when present; **null on real Generic path** |
-| structuralTruthBasis=live_lps_ok_concrete… | materiality | yes in materialityFacts | NO (path materiality pathway; inspection with paths can share) | NOT adopted without Morris |
-| invent new PREPARE stamp | — | would require domain change | — | **NOT AUTHORIZED** this pass |
-
-**Missing domain capability:** Generic PREPARE does not persist a positive Delivery/implementation WHAT marker for non-bounded Project-only missions.
+CKC candidate = cognitive guidance only (no execution authority).
 
 ---
 
-## 5. Predicate correction implemented (minimal)
+## 3 — Morris decision
 
-Removed `hasConcreteMissionScope()` as positive criterion.
-Removed EFFECT_CLASS prefix matching (exact `EFFECT_CLASS:local-write` only).
-Retained affirmative WHAT when durable stamps exist:
-- `repositoryMutationDeclared === "write"` OR
-- exact `EFFECT_CLASS:local-write`
+**MORRIS GO 2026-10-28 — OPTION 1 BORNÉE VALIDÉE.**
 
-No synthetic marker added. No PREPARE/SHE/HD change.
+Investigate minimum Generic PREPARE evolution to preserve a Product-qualified Delivery operation already expressible in existing ExecutionContract fields. Implement ONLY if:
+- reuses existing Product facts/fields;
+- preserves domain semantics;
+- does not change execution authority;
+- no new persistence / mission model;
+- does not weaken PREPARE/SHE/currentness;
+- end-to-end DET reviewable.
 
-Consequence: real Generic Project-only path → `DELIVERY_POSITIVE_FACTS_ABSENT` → `POST_EVIDENCE_CKC_AMBIGUOUS`.
-
----
-
-## 6. Morris options required (STOP)
-
-1. **PREPARE stamp evolution** — persist `repositoryMutationDeclared: "write"` (or exact EFFECT_CLASS:local-write) for non-bounded concrete-path Generic missions when Product qualifies mutating work.
-2. **Authorize alternate Product-owned criterion** (e.g. structuralTruthBasis conjunction) by explicit Morris decision — not inferred.
-3. **Keep Project-only Delivery CKC fail-closed** until (1) — Option A policy retained but Project-only applicability suspended.
+Option A remains VALIDATED (Delivery CKC only with positive eligibility).
 
 ---
 
-## 7. Product diff (complete useful)
+## 4 — Phase A qualification (COMPLETE BEFORE CODE)
+
+### Provenance of the positive operation (10 questions)
+
+| # | Question | Answer (source) |
+|---|---|---|
+| 1 | Who expresses the operation? | Tool/F2 analysis via `SolicitGenericPrepareMissionFields.repositoryMutation` → `buildIntentAnalysisFromSolicitedMission` stamps `analysis.repositoryMutationDeclared` (`prepareGenericExecutionContractDraft.ts` ~1278–1354). |
+| 2 | Provenance representation | Enum `"none"\|"read"\|"write"\|"unknown"` on IntentAnalysis / EC inputs — existing field, not free-text `requestedOperation`. |
+| 3 | Product admissibility | Materiality `qualifyBoundedNonMutatingAnalysisMission`: `"write"` **refuses** bounded path (`repository_mutation_declared_write`); write missions require concrete-path NON_STRUCTURAL Product gates (`resolveAuthoritativeProductMateriality.ts` ~199–216). |
+| 4 | Materiality | Existing `MATERIALITY:NON_STRUCTURAL` / STRUCTURAL / UNKNOWN — unchanged. |
+| 5 | Protected boundaries | Existing `collectProtectedPathHits` / Product protected-path gates — unchanged. |
+| 6 | EC inspectability | EC `inputs.repositoryMutationDeclared` already on contract inputs; previously forced `null` for non-bounded (`prepareGeneric…` stamp site). |
+| 7 | SHE validation | SHE does not re-author mutation; inspects EC version/fingerprint/facts/currentness (`singleHumanExecutePreparedContract`) — declaration ≠ authorize. |
+| 8 | Attempt binding | Existing Attempt→EC version binding via governed Select/Start — unchanged. |
+| 9 | W3-C consumption | `assessProjectOnlyDeliveryCkcEligibility` already accepts exact `repositoryMutationDeclared==="write"` OR exact `EFFECT_CLASS:local-write` (Option A). No reinterpretation of authority. |
+| 10 | Absent/contradictory | Absence → null → `DELIVERY_POSITIVE_FACTS_ABSENT`; conflicting materiality/impact → fail-closed (existing R1 matrix). |
+
+### Qualification matrix (Cases A–H)
+
+| Case | Source fact | Product contract | Authority | Preserve? | Gate | Refusal | Refs |
+|---|---|---|---|---|---|---|---|
+| **A** Positive declared write + NON_STRUCTURAL + concrete scope | `repositoryMutation:"write"` + scopeIn path | Existing enum on analysis/EC; W3-C WHAT | Descriptive only | **YES** | Materiality + SHE | — | buildIntent…; preserveDeclared…; assessProjectOnly… |
+| **B** Read-only / non-mutating | `read_only` / mutation none\|read | Bounded stamps `"none"` | Descriptive | YES as none/read | Pathless positive claim | Delivery CKC refuse (intent/read) | qualifyBounded…; R1-N1 |
+| **C** Unknown/absent | null / unknown | Absence ≠ write | Fail-closed | Preserve null/unknown — **do not invent write** | — | `DELIVERY_POSITIVE_FACTS_ABSENT` / pathless refuse | NEG-01; R1-N2 |
+| **D** Write without admissible scope | mutation write + empty paths | Pathless write refuses NON_STRUCTURAL | Fail-closed | May preserve enum if EC exists; eligibility still refuse | Materiality UNKNOWN/STRUCTURAL | PREPARE refuse or W3-C refuse | qualifyBounded write refuse |
+| **E** Structural/security/… | impactSignals true | STRUCTURAL / impact gate | Fail-closed | May preserve declaration | Impact/materiality | `MATERIALITY_NOT_NON_STRUCTURAL` / impact reasons | R1-N4/N7b; R1-B |
+| **F** Conflicting mission/EC provenance | Attempt/EC/project mismatch | Lineage gates | Fail-closed | N/A | Provenance | `POST_EVIDENCE_CKC_*` | R1-N8/N9 |
+| **G** Stale/superseded inspected EC | version/fingerprint drift | SHE currentness | Fail-closed | N/A | SHE | SHE refuse | singleHumanExecute… |
+| **H** HD-sealed effects | sealedHdEffects path | Prefer sealed mission effects | Unchanged | Mutation still from analysis declaration; HD does not auto-authorize | Confirm/Authorize | — | prepareGeneric sealed path |
+
+### Phase A conclusion
+
+**BOUNDED FIELD PRESERVATION QUALIFIED.**
+
+Rationale: `repositoryMutationDeclared` already exists with existing Product semantics (materiality + W3-C eligibility). The defect was Generic PREPARE overwriting non-bounded declarations to `null`. Preservation reuses the field without redefining it, without adding `EFFECT_CLASS:local-write`, without new persistence/mission taxonomy, and without changing SHE/HD authority. Declaration ≠ Product authorization.
+
+---
+
+## 5 — Phase B implementation
+
+Preferred seam: `prepareGenericExecutionContractDraft.ts`.
+
+Added `preserveDeclaredRepositoryMutation`:
+- boundedNonMutating → `"none"` (existing)
+- analysis declared ∈ {none,read,write,unknown} → preserve
+- else → `null` (no invention)
+
+Stamp site now calls this helper instead of `boundedNonMutating ? "none" : null`.
+
+**Not done:** EFFECT_CLASS:local-write; deriving write from scopeIn; Nora-as-authority; new SQLite; HD auto-create; CycleInstance invent; W2 Options ungating.
+
+Option A consumption in `qualificationInputs.ts` / `w3cPostEvidenceLoop.ts` retained (comments updated only on eligibility helper).
+
+### Effective EC before / after (declared write notes edit)
+
+| Field | Before (STOP probe) | After (Option 1) |
+|---|---|---|
+| `inputs.repositoryMutationDeclared` | `null` | `"write"` |
+| `EFFECT_CLASS:local-write` | absent | still absent (not invented) |
+| `scopeIn` | concrete path (WHERE) | unchanged |
+| `boundedNonMutatingAnalysis` | false | false |
+| SHE authority | AUTHORIZED on inspect | unchanged |
+| W3-C Project-only | refuse `DELIVERY_POSITIVE_FACTS_ABSENT` | eligible → `cyc:delivery` projectScoped |
+
+---
+
+## 6 — Product diffs
+
+### prepareGenericExecutionContractDraft.ts
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+index fe01dd88..70ef5a27 100644
+--- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
++++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
+@@ -257,6 +257,29 @@ function missionImpliesRepositoryWork(analysis: IntentAnalysisDto): boolean {
+   return false;
+ }
+ 
++/**
++ * EP-S2-08-PROOF-01 Option 1 — preserve an already-declared mutation claim as an
++ * inspectable EC input. Does NOT invent "write", does NOT authorize execution,
++ * and does NOT add EFFECT_CLASS:local-write. Bounded non-mutating remains "none".
++ * Absence stays null (fail-closed for Delivery WHAT at W3-C).
++ */
++function preserveDeclaredRepositoryMutation(input: {
++  readonly boundedNonMutating: boolean;
++  readonly analysisDeclared: unknown;
++}): "none" | "read" | "write" | "unknown" | null {
++  if (input.boundedNonMutating) return "none";
++  const declared = input.analysisDeclared;
++  if (
++    declared === "none" ||
++    declared === "read" ||
++    declared === "write" ||
++    declared === "unknown"
++  ) {
++    return declared;
++  }
++  return null;
++}
++
+ /**
+  * @deprecated Prefer resolveAuthoritativeProductMateriality — sync helper kept
+  * for unit oracles that only have analysis (forces UNKNOWN without Product).
+@@ -982,7 +1005,14 @@ export async function prepareGenericExecutionContractDraft(
+       prepareStatus: "draft_inspectable",
+       materialityFacts,
+       boundedNonMutatingAnalysis: boundedNonMutating,
+-      repositoryMutationDeclared: boundedNonMutating ? "none" : null,
++      repositoryMutationDeclared: preserveDeclaredRepositoryMutation({
++        boundedNonMutating,
++        analysisDeclared: (
++          analysis as {
++            repositoryMutationDeclared?: unknown;
++          }
++        ).repositoryMutationDeclared,
++      }),
+       // Intent fidelity — inspectable mission effects (Pass 02 / EC↔HD).
+       intentKind: boundedNonMutating
+         ? stampedIntentKind ?? "read_only"
+
+```
+
+### qualificationInputs.ts
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-index 370ba80d..cfd018a6 100644
+index 370ba80d..8e2955fb 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
 @@ -15,6 +15,8 @@ import type { RuntimeOaStack } from "@/lib/vertical-slice-runtime";
@@ -118,7 +216,7 @@ index 370ba80d..cfd018a6 100644
  import type { TrajectoryOptionInputs } from "./trajectoryOptions";
  
  export type ResolvedW2Qualification = {
-@@ -106,3 +108,462 @@ export async function resolveW2QualificationInputs(input: {
+@@ -106,3 +108,461 @@ export async function resolveW2QualificationInputs(input: {
      },
    };
  }
@@ -299,11 +397,10 @@ index 370ba80d..cfd018a6 100644
 + * - inputs.repositoryMutationDeclared === "write"
 + * - constraints includes exact EFFECT_CLASS:local-write
 + *
-+ * Investigation note (2026-10-28): Generic PREPARE currently stamps
-+ * repositoryMutationDeclared=null for non-bounded missions and does NOT stamp
-+ * EFFECT_CLASS:local-write. Therefore the real Generic Project-only PREPARE→SHE
-+ * path cannot positively prove Delivery WHAT without a PREPARE domain stamp
-+ * evolution (Morris GO required). Do not invent markers here.
++ * EP-S2-08-PROOF-01 Option 1 (2026-10-28): Generic PREPARE preserves an
++ * already-declared analysis.repositoryMutationDeclared enum onto the EC
++ * (no invention; no EFFECT_CLASS:local-write stamp). Absence remains null
++ * and fails closed here. Declaration ≠ SHE authorization.
 + */
 +function hasPositiveDeliveryImplementationFacts(input: {
 +  readonly constraints: readonly string[];
@@ -581,6 +678,12 @@ index 370ba80d..cfd018a6 100644
 +    },
 +  };
 +}
+
+```
+
+### w3cPostEvidenceLoop.ts
+
+```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts b/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
 index dba328ce..6063a05e 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts
@@ -633,9 +736,9 @@ index dba328ce..6063a05e 100644
 
 ---
 
-## 8. Complete untracked test file contents
+## 7 — Full new / PROOF-01 test contents
 
-### 8.1 akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts (850 lines)
+### akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
 
 ```typescript
 /**
@@ -826,6 +929,23 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       const r = assessProjectOnlyDeliveryCkcEligibility({
         projectId: "prj:r1",
         contract: baseContract,
+      });
+      expect(r).toEqual({
+        eligible: true,
+        reasonCode: "GENERIC_NON_STRUCTURAL_DELIVERY",
+      });
+    });
+
+    it("R1-P1b — repositoryMutationDeclared=write alone (no EFFECT_CLASS) eligible", () => {
+      const r = assessProjectOnlyDeliveryCkcEligibility({
+        projectId: "prj:r1",
+        contract: {
+          ...baseContract,
+          constraints: [
+            PRODUCT_GOVERNED_CONSTRAINT,
+            "MATERIALITY:NON_STRUCTURAL",
+          ],
+        },
       });
       expect(r).toEqual({
         eligible: true,
@@ -1121,11 +1241,11 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     return { projectId, oa };
   }
 
-  it("POS-01 — real Generic PREPARE→SHE→Attempt: no durable Delivery WHAT → CKC refuse (eligibility gap)", async () => {
+  it("POS-01 — real Generic PREPARE→SHE→Attempt preserves declared write → Delivery CKC", async () => {
     /**
-     * Probe (2026-10-28): Generic PREPARE stamps repositoryMutationDeclared=null
-     * and no EFFECT_CLASS:local-write. scopeIn alone is WHERE, not Delivery WHAT.
-     * This oracle proves the positive contract is NOT available on the real path.
+     * Option 1 (2026-10-28): declared repositoryMutation=write is preserved on
+     * the durable EC (inspectable WHAT). No EFFECT_CLASS:local-write invented.
+     * SHE / materiality / confirmation remain the authority gates.
      */
     const runtime = bootW2Runtime({
       productDbPath: dbPath,
@@ -1151,14 +1271,15 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     expect(liveEc.ok).toBe(true);
     if (!liveEc.ok) throw new Error("get EC");
     const inputs = liveEc.contract.inputs as Record<string, unknown>;
-    // Real path stamps: no positive Delivery WHAT.
-    expect(inputs.repositoryMutationDeclared ?? null).toBeNull();
+    // POS-01 / POS-02 — declared write preserved; WHERE still present; no invented EFFECT_CLASS.
+    expect(inputs.repositoryMutationDeclared).toBe("write");
     expect(
       liveEc.contract.constraints.includes("EFFECT_CLASS:local-write"),
     ).toBe(false);
     expect(Array.isArray(inputs.scopeIn) && (inputs.scopeIn as string[]).length).toBeGreaterThan(
       0,
     );
+    expect(inputs.boundedNonMutatingAnalysis).toBe(false);
 
     const facts = requiredFactsOrThrow(liveEc.contract);
     const repositoryRef = String(inputs.repositoryBindingIdentity ?? "");
@@ -1175,6 +1296,8 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     });
     expect(she.ok).toBe(true);
     if (!she.ok) throw new Error(`she: ${she.code}`);
+    // POS-03 — SHE does not widen: still AUTHORIZED on inspected EC only.
+    expect(she.authorization.outcome).toBe("AUTHORIZED");
 
     const port = launchPortOf(oa);
     const selected = await governedExecuteSelectAgent({
@@ -1229,19 +1352,26 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       projectId,
       attemptId,
     });
-    // STOP evidence: real Generic path cannot positively load Delivery CKC.
-    expect(ckc.ok).toBe(false);
-    if (!ckc.ok) {
-      expect(ckc.code).toBe("POST_EVIDENCE_CKC_AMBIGUOUS");
-      expect(ckc.message).toContain("DELIVERY_POSITIVE_FACTS_ABSENT");
+    // POS-05 — Project-only positive Delivery reaches W3-C with cyc:delivery.
+    expect(ckc.ok).toBe(true);
+    if (ckc.ok) {
+      expect(ckc.context.projectScoped).toBe(true);
+      expect(ckc.context.cycleTypeId).toBe(
+        POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
+      );
+      expect(ckc.context.cycleTypeId).toBe("cyc:delivery");
+      expect(ckc.context.eligibilityReasonCode).toBe(
+        "GENERIC_NON_STRUCTURAL_DELIVERY",
+      );
+      expect(ckc.context.activeCycleInstanceId).toBeNull();
     }
 
-    // REG-03 — W2 Options still cycle-gated.
+    // AUTH-03 — W2 Options still cycle-gated.
     const qual = await resolveW2QualificationInputs({ oa, projectId });
     expect(qual.ok).toBe(false);
     if (!qual.ok) expect(qual.code).toBe("CYCLE_NOT_QUALIFIED");
 
-    // REG-02 — no CycleInstance invented.
+    // AUTH-01 — no CycleInstance invented.
     const live = await oa.projectServices.getCurrentLivingProjectState.execute({
       projectId,
     });
@@ -1249,7 +1379,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       null,
     );
 
-    // REG-04 — Product terminal may still materialize; W3-C post-Evidence fail-closed.
+    // AUTH-02 — no automatic HD; Product UNCLAIMED remains honest.
     const hdBefore = (
       await oa.decisionServices!.decisions.listByProject(projectId)
     ).length;
@@ -1261,8 +1391,17 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
     expect(materialized.ok).toBe(true);
     if (materialized.ok) {
       expect(materialized.product.outcome).toBe("UNCLAIMED");
-      // Post-Evidence CKC orientation unavailable — fail-closed, no replan/HD.
-      expect(materialized.postEvidence?.ok).toBe(false);
+      expect(materialized.postEvidence?.ok).toBe(true);
+      if (materialized.postEvidence?.ok) {
+        expect(materialized.postEvidence.replanInvoked).toBe(false);
+        expect(materialized.postEvidence.recommendation.authority).toBe("none");
+        expect(materialized.postEvidence.recommendation.decisionCreated).toBe(
+          false,
+        );
+        expect(
+          materialized.postEvidence.recommendation.attemptAutoLaunchNextCycle,
+        ).toBe(false);
+      }
     }
     const hdAfter = (
       await oa.decisionServices!.decisions.listByProject(projectId)
@@ -1491,7 +1630,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
 
 ```
 
-### 8.2 akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts (624 lines)
+### akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts
 
 ```typescript
 /**
@@ -2121,7 +2260,7 @@ describe("EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable 
 
 ```
 
-### 8.3 epS208.proof01.piloteSurface.b5b6.ui.test.tsx (529 lines)
+### epS208.proof01.piloteSurface.b5b6.ui.test.tsx
 
 ```tsx
 /**
@@ -2658,13 +2797,13 @@ describe("EP-S2-08-PROOF-01 R2 — Pilote TrajectorySurface B5/B6 (jsdom)", () =
 
 ---
 
-## 9. PRR + manifest diffs (complete useful) — R24 completeness
+## 8 — R24 PRR diffs + manifest
 
-All modified PRR volumes for this SAME Product candidate (including prior local overlays still dirty):
+### PRR volume diff (03/06/07/08/09)
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 77ee95a6..088d20fc 100644
+index 77ee95a6..3626e265 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 @@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
@@ -2672,35 +2811,35 @@ index 77ee95a6..088d20fc 100644
  
  **Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ REAL · ≠ mutating Generic Product PASS · ≠ invent CycleInstance · ≠ EP-S2-05/08 closed · Tool-First Nora first-prompt + multi-path unclaimed redaction closed DET (CORR-CI-623-01/02).
 +
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A; positive WHAT OPEN)
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC (R1 Option A + Option 1 field preservation)
 +
-+> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A bounded remains validated** as policy. Defensive gates (intent/impact/materiality/Attempt→EC provenance) retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Accepted affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact constraint `EFFECT_CLASS:local-write` (no prefix). **Probe 2026-10-28:** real Generic PREPARE→SHE stamps `repositoryMutationDeclared=null` and **no** `EFFECT_CLASS:local-write` — therefore Project-only Delivery CKC **cannot** be positively proven without PREPARE domain stamp evolution. **R1 POSITIVE ELIGIBILITY OPEN — MORRIS DECISION REQUIRED.** Cycle-bound CKC via EC lineage still works. W2 Options still `CYCLE_NOT_QUALIFIED`. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
++> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. **Morris Option A** (Delivery CKC only with positive eligibility) + **Option 1 bornée** (preserve already-declared mutation enum on Generic PREPARE EC) remain the local policy. Defensive gates (intent/impact/materiality/Attempt→EC provenance) retained. **Positive Delivery WHAT:** `scopeIn` alone is **NOT** sufficient (WHERE ≠ WHAT). Accepted affirmative stamps (exact): `repositoryMutationDeclared==="write"` OR exact constraint `EFFECT_CLASS:local-write` (no prefix). **Option 1 (2026-10-28):** Generic PREPARE preserves `analysis.repositoryMutationDeclared ∈ {none,read,write,unknown}` onto durable EC inputs when already declared; bounded non-mutating still stamps `"none"`; **absence stays null** (fail-closed). Does **not** invent `"write"`, does **not** stamp `EFFECT_CLASS:local-write`, does **not** authorize SHE/Attempt. POS-01 proves real PREPARE→SHE→Attempt→Evidence→W3-C `cyc:delivery` when declared write is preserved. B2/B5/B6 integrated DET restored. Cycle-bound CKC via EC lineage unchanged. W2 Options still `CYCLE_NOT_QUALIFIED`. EP-S2-08 **PARTIAL**. ≠ invent CycleInstance/HD · ≠ browser E2E · ≠ REAL · ≠ L4.
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index 8fd457ad..a9cf54b9 100644
+index 8fd457ad..933d3958 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 +++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 @@ -161,4 +161,6 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
  | Rehydration | W3-C / GERM surface from durable facts demonstrated DET (O2 / nominal) | Nora/Pilote UX E2E **NOT PROVEN** (EP-S2-08 PARTIAL) |
  | Fictive cycle | Rehydrate must not create CycleInstance | BEHAVIOR PROVEN at tested scope |
  
-+**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps decide Delivery vs refuse — remount does not invent CycleInstance or widen eligibility. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
++**LOCAL CANDIDATE (EP-S2-08-PROOF-01, 2026-10-28):** Process remount = new OA on same durable SQLite + refs → Project/EC/Attempt + Evidence/RB/CE + W3-C recommendation/reserve rehydrate DET (`akgM5L3S2.epS208.proof01…` B2/B6 **PASS** after Option 1). Post-Evidence CKC orientation on remount remains eligibility-gated (R1 Option A): Attempt EC durable stamps (including preserved `repositoryMutationDeclared`) decide Delivery vs refuse — remount does not invent CycleInstance, invent `"write"`, or widen SHE authority. **≠** browser `/studio` remount E2E · **≠** CURRENT ON MAIN · EP-S2-08 still **PARTIAL**.
 +
  **≠** invent recovery E2E beyond DET proofs.
 diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 641e4ebd..0d5750fc 100644
+index 641e4ebd..ff665d8e 100644
 --- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 +++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 @@ -144,6 +144,8 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
  | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Select) | F10 R2 | pathless non-mutating EC + REAL=1 at Select | **No new Attempt**; Select refused; no REAL launch | none | yes — Fake/DET still OK |
  | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (Start) | F10 R2 | same EC + REAL=1 at Start with prior `accepted` Attempt | Start refused; Attempt stays `accepted`; no launch-port call | none | yes — Fake/DET still OK |
  | `CKC_*` | CKC | incoherent/unavailable mapping | qualification fail | none unauthorized | yes |
-+| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 R1 Option A + final · ≠ ON MAIN |
++| `POST_EVIDENCE_CKC_NOT_ELIGIBLE` / `POST_EVIDENCE_CKC_AMBIGUOUS` | W3-C post-Evidence CKC | Project-only without positive Generic NON_STRUCTURAL Delivery eligibility on Attempt EC (absence of durable WHAT / impact / materiality gates) | W3-C fail-closed before Nora/LPS mutation; **no** universal `cyc:delivery`; Option 1 preserves declared mutation only — never invents `"write"` | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 Option A + Option 1 · ≠ ON MAIN |
 +| `POST_EVIDENCE_CKC_ATTEMPT_PROJECT_MISMATCH` / `POST_EVIDENCE_CKC_CYCLE_LINEAGE_MISMATCH` / `POST_EVIDENCE_CKC_PROVENANCE_INCOHERENT` | W3-C post-Evidence CKC | Attempt/EC/LPS cycle or project lineage incoherent | orientation refused — no silent LPS cycle substitution for old Attempt | none unauthorized | yes — **LOCAL CANDIDATE** EP-S2-08-PROOF-01 · ≠ ON MAIN |
  | `AUTHORITY_NOT_CONFIGURED` | authz | missing local Pilot gate | cannot decide | none | yes |
  | `MANAGED_REPO_ROOT_BASE_UNCONFIGURED` | **CURRENT ON MAIN after #618:** missing managed root still fail-closes; **not** a docs_write Product-admission gate (admission RETIRED). Historical « docs_write REAL » association = **HISTORICAL** | missing managed root | cannot REAL write | none | yes |
  | `repository_remote_identity_mismatch` | F10 seal (`sealRepositoryBindingFromExecutionInputs`) — **CORR-02 CURRENT ON MAIN (#618)** | provided remote does not match canonical git-target identity | REAL start refused (`REAL_WORKSPACE_INVALID`); no synthesized GitHub URL fallback | none | yes — DET · **≠** REAL |
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index db5716f1..e3fa7e82 100644
+index db5716f1..97c6d190 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 @@ -222,3 +222,13 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
@@ -2708,17 +2847,17 @@ index db5716f1..e3fa7e82 100644
  
  **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
 +
-+### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 Pilote resume + R1 Option A
++### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — B2/B5/B6 Pilote resume + R1 Option A + Option 1
 +
 +| Suite / oracle | Result | Proof level |
 +|---|---|---|
-+| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable | **LOCAL DET** ≠ ON MAIN |
-+| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 real Generic path proves **no** durable Delivery WHAT (CKC refuse) · NEG-01 scopeIn-only refuse · NEG-04 no prefix EFFECT_CLASS · REG cycle/Options/HD | **LOCAL DET** · **R1 POSITIVE ELIGIBILITY OPEN — MORRIS** |
++| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 continue/recover · B6 Nora unavailable — **3/3 PASS** after Option 1 | **LOCAL DET** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 matrix + POS-01 real Generic PREPARE preserves declared `write` → Delivery CKC · R1-P1b write-alone · NEG-01 scopeIn-only refuse · NEG-04 no prefix EFFECT_CLASS · REG cycle/Options/HD — **22 PASS** | **LOCAL DET** · Option 1 field preservation |
 +| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote | **LOCAL jsdom** ≠ browser E2E |
 +
-+Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ EP-S2-08 PASS · ≠ REAL.
++Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Critical Review exit.
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0aaab505..4cf80346 100644
+index 0aaab505..cdc85fdd 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -15,7 +15,7 @@
@@ -2726,12 +2865,12 @@ index 0aaab505..4cf80346 100644
  | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
  | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
 -| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** B2/B5/B6 proofs exist but Project-only W3-C Delivery CKC is **blocked** pending positive WHAT stamp. Defensive R1 gates retained; `scopeIn` alone rejected. **R1 POSITIVE ELIGIBILITY OPEN — MORRIS:** Generic PREPARE does not persist `repositoryMutationDeclared=write` nor exact `EFFECT_CLASS:local-write`. Options: (1) PREPARE stamp evolution; (2) authorize alternate Product-owned criterion; (3) keep Project-only CKC fail-closed. **Still open:** browser E2E; dual F3/W3-C; GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** Option A + Option 1 — Generic PREPARE preserves already-declared `repositoryMutationDeclared` (no invention; no `EFFECT_CLASS:local-write` stamp). POS-01 + B2/B5/B6 DET prove Project-only Delivery CKC (`cyc:delivery`) when write was declared. Defensive R1 gates retained; `scopeIn` alone rejected; absence remains fail-closed. **Still open:** browser E2E; dual F3/W3-C; Critical Review exit; GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
  | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
  | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
  | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..399135e1 100644
+index 788ea0f2..5d159235 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -19,7 +19,7 @@
@@ -2739,7 +2878,7 @@ index 788ea0f2..399135e1 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
 -      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "e7606f881487035b"
++      "sha256_16": "229681f9f1b5478b"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -2748,83 +2887,174 @@ index 788ea0f2..399135e1 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
 -      "sha256_16": "21c9328c91f86984"
-+      "sha256_16": "5a9c19b087a6248c"
++      "sha256_16": "b019c92a3e457b38"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
 -      "sha256_16": "94aa75b2dcaa90c2"
-+      "sha256_16": "4d05228e463cf7cf"
++      "sha256_16": "ced80e78a39c75d3"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "de7e8c98e0c7e462"
++      "sha256_16": "d3c3ea8ba646b833"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "f36abc620551b2d9"
++      "sha256_16": "427cadd7f1898f5d"
      }
    ],
    "components": [
 
 ```
 
-Digests (post-update): see manifest JSON in diff. Classification: **LOCAL CANDIDATE** ≠ CURRENT ON MAIN.
+### Manifest JSON diff
+
+```diff
+diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+index 788ea0f2..5d159235 100644
+--- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
++++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+@@ -19,7 +19,7 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
+-      "sha256_16": "d13787c0f629efe4"
++      "sha256_16": "229681f9f1b5478b"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
+@@ -31,19 +31,19 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
+-      "sha256_16": "21c9328c91f86984"
++      "sha256_16": "b019c92a3e457b38"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
+-      "sha256_16": "94aa75b2dcaa90c2"
++      "sha256_16": "ced80e78a39c75d3"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
+-      "sha256_16": "7a1bc607f6f28230"
++      "sha256_16": "d3c3ea8ba646b833"
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
+-      "sha256_16": "700ee3ee207a5434"
++      "sha256_16": "427cadd7f1898f5d"
+     }
+   ],
+   "components": [
+
+```
+
+Classification: **ADAPT** existing Generic PREPARE · **KEEP** SHE/OA/CKC Product · **COMPLETE** EP-S2-08 evidence (local DET). No Roadmap CURRENT TIP promotion. ≠ MAIN.
 
 ---
 
-## 10. Validations
+## 9 — Validations
 
-| Check | Result |
+| Check | Result | Command / notes |
+|---|---|---|
+| R1 semantic | **PASS** 22/22 | `npx vitest run …r1CkcSemantic.d0.test.ts` (from `app/`) |
+| B2/B5/B6 integrated | **PASS** 3/3 | `…piloteResume.integrated.d0.test.ts` |
+| UI B5/B6 jsdom | **PASS** 3/3 | `…piloteSurface.b5b6.ui.test.tsx` |
+| Core trio | **PASS** 28/28 | combined run |
+| L3-S1 Generic integrated | **PASS** (in reg batch 30/30 with S8) | `…genericExecutionIntegrated…` + S8 |
+| S8 Project-first | **PASS** | includes Late Evidence IDEMPOTENCY_CONFLICT |
+| Typecheck | **PASS** exit 0 | `npx tsc --noEmit -p tsconfig.json` |
+| ESLint touched w2 | **PASS** exit 0 | prepare + qualificationInputs + w3cPostEvidenceLoop |
+| CI Required Gate | **NOT RUN** | cannot claim |
+| Build | **NOT RUN** | not required for this DET gate |
+| Browser /studio remount | **OUT OF SCOPE** | reserve |
+| REAL Cursor/OpenAI | **OUT OF SCOPE** | Fake/DET ports |
+
+### R1 oracle matrix (this pass)
+
+| ID | Result |
 |---|---|
-| R1 semantic (21) | **PASS** (POS-01 proves real-path gap; NEG-01/04 pass) |
-| B2/B5/B6 integrated | **FAIL** — postEvidence.ok=false (expected under fail-closed; STOP impact) |
-| UI B5/B6 jsdom | **PASS** (mocked surface; ≠ proves W3-C CKC) |
-| S8 integrated | **PASS** (suite does not require Delivery CKC success for all cases — see STOP note) |
-| tsc --noEmit | **PASS** |
-| ESLint touched | **PASS** |
-| Build | **NOT RUN** |
-| CI Required Gate | **NOT RUN** |
-
-Fake/DET: Fake Cursor/Nora · real OA/EC/Attempt path · ≠ browser E2E · REAL NOT PROVEN.
-
----
-
-## 11. R23/R24
-
-R24 LOCAL updated for STOP / positive eligibility OPEN. Roadmap tip not promoted. R1 positive eligibility **OPEN — MORRIS**.
+| POS-01 declared write preserved → Delivery CKC | **PASS** |
+| POS-02 inspection exposes write + scope | **PASS** (POS-01 asserts) |
+| POS-03 SHE no silent widen | **PASS** (AUTHORIZED on inspected EC) |
+| POS-04 Attempt binds EC | **PASS** (Select/Start) |
+| POS-05 Project-only cyc:delivery | **PASS** |
+| POS-06 B2/B5/B6 restored | **PASS** 3/3 |
+| NEG-01 scopeIn-only | **PASS** |
+| NEG-02/N2 absent | **PASS** |
+| NEG-04 prefix EFFECT_CLASS | **PASS** |
+| NEG impact/materiality/lineage | **PASS** (R1-N*) |
+| AUTH-01 no CycleInstance | **PASS** |
+| AUTH-02 no auto HD | **PASS** |
+| AUTH-03 W2 Options cycle-gated | **PASS** |
+| AUTH-04 no unauthorized launch | **PASS** (DET port only) |
 
 ---
 
-## 12. Verdict
+## 10 — Fake/Real qualification
 
-**STOP — ELIGIBILITY CONTRACT NOT PROVEN**
-
-Option A policy remains Morris-validated; Project-only Delivery CKC positive applicability cannot be closed without a durable WHAT stamp or Morris-authorized alternate criterion.
-
----
-
-## 13. Next gate
-
-Morris decision among options in §6. Then corrective implementation / re-review. No Product GI implied.
+- External boundaries: Cursor execution + Nora provider → **test-only ports / FakeConversationProvider**
+- Product OA/EC/Attempt/Evidence persistence → **actual SQLite implementation**
+- Proof level: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**
+- Explicitly outside: browser remount E2E; dual F3/W3-C live UX; REAL; G-REAL; L4
+- **DETERMINISTIC PROVEN ≠ READY FOR REAL**
 
 ---
 
-## 14. Handoff plan (pre-publication)
+## 11 — R23 architecture (source → consumer)
 
-| Field | Value |
-|---|---|
-| Commit | docs(review): EP-S2-08-PROOF-01 eligibility and R24 closure |
-| PREVIOUS tip | a328966509eff1413bedb5b2f4dafd1b52c86acf |
-| PREVIOUS blob | 8a6fb5c1b34bd345165de03f9dd5ae8d81698f17 |
+```
+Solicit/F2 analysis.repositoryMutationDeclared
+  → Generic PREPARE preserveDeclaredRepositoryMutation (inspectable EC input)
+    → Inspection / SHE currentness (authorize ≠ declare)
+      → Attempt binds EC version
+        → Evidence / ReviewBundle / CE
+          → W3-C resolvePostEvidenceCkcContext
+            → assessProjectOnlyDeliveryCkcEligibility (Option A)
+              → cyc:delivery cognitive load (projectScoped)
+                → Nora recommendation (authority:none)
+                  → Pilote resume B2/B5/B6
+```
+
+Invariants retained: PREPARE ≠ INSPECT ≠ AUTHORIZE ≠ EXECUTE; ABSENT ≠ REJECTED; Product UNCLAIMED honest; no invented CycleInstance/HD; W2 Options cycle-gated.
+
+Ownership: Product Generic PREPARE / W3-C eligibility — local ADAPT only.
 
 ---
 
-## 15. Instruction ChatGPT
+## 12 — Reservations / next gate
 
-Read sfia/review-handoff latest-chatgpt-review.md. Verify complete Product/tests/PRR/manifest content, POS-01 probe evidence, validations, STOP options, tip/blob. Independent Critical Review.
+Open:
+- EP-S2-08 still **PARTIAL** until Critical Review exit + any remaining UX/E2E debts
+- browser `/studio` remount E2E
+- dual F3/W3-C live UX
+- EP-S2-05 NOT PROVEN
+- REAL / G-REAL / L4 / runtime v3 unchanged
+- Product GI **not** authorized
+- CI Required Gate not run this cycle
 
-Permanent anti-claims unchanged.
+**Next capability / gate:** Independent Critical Review of Generic PREPARE Option 1 semantic boundary → then Morris on EP-S2-08 exit / GI.
 
-## FIN DU PACK FULL — EP-S2-08-PROOF-01 R1 ELIGIBILITY STOP
+---
+
+## 13 — Unique verdict
+
+**OPTION 1 BOUNDED DELIVERY COMPLETE — READY FOR CRITICAL REVIEW**
+
+Anti-claims permanent: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · Runtime v3 NON ADOPTED · No Product GI.
+
+---
+
+## MANDATORY CHATGPT REVIEW INSTRUCTION
+
+Before reviewing the Cursor result, read from Git:
+
+- branch: `sfia/review-handoff`
+- file: `sfia-review-handoff/latest-chatgpt-review.md`
+
+Verify: cycle/profile/branch/HEAD/base; full created/modified contents; Phase A evidence; qualified operation provenance; positive/negative proofs; actual B2/B5/B6 outcomes; R24; validations; reservations; handoff publication tip/blob.
+
+Then produce independent Critical Review.
