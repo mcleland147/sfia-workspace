@@ -1,217 +1,125 @@
-# SFIA STUDIO — AKG-M5 — CYCLE 14 — R24 FOLLOW-UP LIVING TIP TRUTH-SYNC
+# SFIA STUDIO — AKG-M5 / L3-S2 OPTION B — CYCLE 13 — DOC GI
 
 **Profile:** CRITICAL
 **Type:** DOC / GOVERNANCE
-**Timestamp (UTC):** 2026-10-28T02:11:09Z
-**Authority:** Morris GO 2026-10-28 — DOCUMENTARY ONLY
-**Verdict:** **PASS — LOCAL DOCUMENTARY TRUTH-SYNC READY FOR CRITICAL REVIEW**
+**Timestamp (UTC):** 2026-10-28T03:12:01Z
+**Authority:** Morris GO 2026-10-28 — DOC GI COMMIT + PUSH + DRAFT PR ONLY
+**Verdict:** **PASS — DOC GI / DRAFT PR CREATED READY FOR CRITICAL PR REVIEW**
 
 ---
 
-## 1. Git Truth CURRENT
+## 1. Git Truth
 
+### Initial
 | Fact | Value |
 | --- | --- |
 | Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s2-postmerge-r24-current` |
 | Branch | `docs/akg-m5-l3-s2-postmerge-r24-current` |
-| HEAD (docs branch tip) | `603b43e2927ab420be172f6bd26d40ad676cae1a` |
-| `origin/main` | `1fea1e61df02a90cd42edfd7b987ad7982a8fd63` |
-| PR #623 Product | **MERGED** · merge `6c8b661c50a5c1d9bd04793192b9294b63349bb1` · CI `#40526990871` **SUCCESS** |
-| PR #624 R24 documentary | **MERGED** `2026-10-28T01:51:07Z` · merge `1fea1e61df02a90cd42edfd7b987ad7982a8fd63` · parents `6c8b661c…` + `603b43e2…` · documentary commit `603b43e2…` · **10 files** · CI `#40617482621` **SUCCESS** |
-| Prior handoff tip (pre this cycle) | `60aa8e83951dece8d6db9735fa5a6464cf04d3b2` / blob `fdb70ba28280122d53b5fb21a84bac09845697b4` |
-| Project commit/push/PR this cycle | **NOT PERFORMED** (contract) |
+| HEAD (pre-commit) | `603b43e2927ab420be172f6bd26d40ad676cae1a` |
+| `origin/main` | `1fea1e61df02a90cd42edfd7b987ad7982a8fd63` (= PR #624 merge) |
+| Ancestry | HEAD ancestor of main YES · main ancestor of HEAD NO (merge commit only ahead) |
+| Dirty candidate | 4 documentary files + local review pack |
+| Critical Review handoff | tip `3301fad68b542fc15b343a13783dbc6dc0afcf4f` / blob `691920b52e41d337828e36b833f2005e0416f09f` |
 
-**Constat initial:** After PR #624 ON MAIN, living Roadmap CURRENT TIP still presented R24 as **PRE-INTEGRATION SNAPSHOT** and README anti-claim asserted `≠ R24 CURRENT docs integrated` as ACTIVE — false relative to Git CURRENT. Product EP / L3 GLOBAL / REAL reserves unchanged on main.
+### Final
+| Fact | Value |
+| --- | --- |
+| Commit | `f884dda1d085ffb7c53e8a3029c7beaed26e645c` |
+| Parent | `603b43e2927ab420be172f6bd26d40ad676cae1a` |
+| Remote branch tip | `f884dda1d085ffb7c53e8a3029c7beaed26e645c` (FF push verified) |
+| Draft PR | [#625](https://github.com/mcleland147/sfia-workspace/pull/625) OPEN / draft TRUE / base main |
+| CI | Detect SFIA Studio changes **PENDING** (run `40625235782`) — **not claimed PASS** |
+| Undraft / merge | **NOT PERFORMED** |
+
+**Note:** Local historical HEAD `603b43e2…` was behind main after #624 merge; no rebase performed. PR head is one documentary commit on the pre-merge docs tip; GitHub PR file list = exactly the four living-tip files vs main.
 
 ---
 
 ## 2. Sources consulted
 
-- `prompts/templates/sfia-cycle-execution-template.md` (Review Handoff L3)
+- `prompts/templates/sfia-cycle-execution-template.md`
 - `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/05-m5-target-journey-and-trajectory-requalification.md`
-- `projects/sfia-studio/production-runtime-reference/README.md`
-- `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-- `production-runtime-reference.manifest.json` + `app/scripts/check-production-runtime-reference.mjs`
-- Git / `gh pr view 624` / post-merge CI `#40617482621`
-- Prior R23/R24 investigations (CR-01/CR-02, Two-Digest, Final Readiness, DOC GI #624) — reused; no global Product re-audit
+- Build Doctrine / Convergence Roadmap / Product Completion C1 / Decision Pack 05
+- PRR README + 09 + manifest
+- Review Handoff blob `691920b5…` (§13 exact diffs + §14 correction verdict)
+- Critical Review ChatGPT: PASS — ELIGIBLE FOR DISTINCT MORRIS DOC GI GO
+- Morris DOC GI GO 2026-10-28 (this conversation)
 
 ---
 
-## 3. GO Morris
+## 3. Candidate identity vs handoff §13
 
-Cycle 14 — R24 FOLLOW-UP LIVING TIP TRUTH-SYNC — documentary only.
-Authorized: Git Truth, source read, proportional R23/R24, strictly necessary local doc edits, validations, FULL pack, L3 handoff, propose DOC GI gate.
-Forbidden: Product/tests/runtime, doctrine/architecture evolution, historical erasure, project commit/push/PR/merge, L4 / G-REAL / G-ACTIVATION, L3 GLOBAL close, runtime v3 promotion.
-
----
-
-## 4. Files modified (exact scope)
-
-| Path | Change |
+| Path | Local diff vs handoff §13 |
 | --- | --- |
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | CURRENT TIP living update + AKG-M5 Suivant DOC GI #624 CONSUMED |
-| `projects/sfia-studio/production-runtime-reference/README.md` | R24 row / Gates / Anti-claims currentness (strict necessity) |
-| `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` | R24/Manifest row + Anti-claims currentness |
-| `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` | README + 09 `sha256_16` only |
-| `.tmp-sfia-review/chatgpt-review.md` | This FULL pack (reset to Cycle 14) |
+| Roadmap | **IDENTICAL** (22 lines) |
+| README | **IDENTICAL** (17 lines) |
+| PRR 09 | **IDENTICAL** (16 lines) |
+| Manifest | **IDENTICAL** (22 lines) |
 
-**Product / tests / runtime paths:** **NONE.**
+**NO REVIEWED CONTENT DRIFT.**
 
-### Local content digests (post-edit)
+Digests recalculated pre-commit:
+- README `81b778241ade4da8` MATCH
+- PRR 09 `700ee3ee207a5434` MATCH
+- Manifest fields MATCH local octets
 
-| File | sha256_16 |
-| --- | --- |
-| Roadmap | `13f168f11390911e` |
-| README | `81b778241ade4da8` |
-| PRR 09 | `700ee3ee207a5434` |
-| Manifest | `429ac7cd86101b66` |
+Tip checks: CURRENT TIP count=1 · #624 ON MAIN · PRE-INTEGRATION HISTORICAL/CONSUMED.
 
 ---
 
-## 5. Significant change summary
-
-### 5.1 Roadmap CURRENT TIP (single tip retained)
-
-- Title → `CURRENT TIP 2026-10-28 — … PRODUCT MERGED (#623) / R24 DOCUMENTARY MERGED (#624) / LIVING TIP TRUTH-SYNC`
-- Documentary layer: R24 **CURRENT ON MAIN** via PR #624 merge `1fea1e61…`, CI `#40617482621` SUCCESS, 10 files, PRR CONFORMANCE PASS at merge, **NO PRODUCT SEMANTIC IMPACT**
-- Prior **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27)** retained as **HISTORICAL AS TIP / CONSUMED** (≠ erasure)
-- Product EP facts unchanged: EP-S2-05 **NOT PROVEN**, EP-S2-08 **PARTIAL**, L3 GLOBAL **OPEN**, REAL / G-REAL / runtime v3 unchanged
-- AKG-M5 Suivant: DOC GI / PR #624 merge **CONSUMED**; living tip sync under distinct DOC GI when authorized
-
-### 5.2 PRR README / 09 (strict necessity)
-
-Demonstrated ACTIVE falsehood after #624: README anti-claim `≠ R24 CURRENT docs integrated`.
-Updated R24 rows to **CURRENT ON MAIN** with exact merge/CI facts; demoted PRE-INTEGRATION to dated HISTORICAL/CONSUMED; replaced false anti-claim with `R24 docs #624 ON MAIN ≠ Product proof`.
-Volumes 02–08: **NO CHANGE**.
-
-### 5.3 Manifest
-
-Targeted digest write: README `53adf66d7dc4f640` → `81b778241ade4da8`; 09 `5d39a296a14d4ed7` → `700ee3ee207a5434`.
-
----
-
-## 6. R23 / R24
-
-| Class | Disposition |
-| --- | --- |
-| **R23** | Relation docs ↔ Product (#623 ON MAIN) + available proofs **reused**. Product behavior **unchanged** by this cycle. Documentary claim of “docs not integrated” was **STALE ACTIVE**. |
-| Documented | **YES** (this truth-sync) |
-| Coverage verified | **YES** at documentary scope (Git + tip/PRR surfaces) |
-| Behavior proven | **N/A new** — no Product change; prior DET scope remains as on #623 |
-| Known gap | EP-S2-05 **NOT PROVEN** · EP-S2-08 **PARTIAL** · late Evidence **OPEN** · L3 GLOBAL **OPEN** — **preserved** |
-| **R24** | **COMPLETE — DOCUMENTARY CURRENT TIP** — living tip + minimal PRR anti-claim sync to Git CURRENT post-#624; history preserved; **no Product semantic change** |
-
----
-
-## 7. Validations executed
+## 4. Validations pre-commit
 
 | Check | Result |
 | --- | --- |
-| Git status initial / final | Dirty local doc candidate only (4 project docs + pack); HEAD=`603b43e2…`; main=`1fea1e61…` |
-| Exact changed-files scope | Roadmap + README + 09 + manifest (+ review pack) — no Product/tests |
-| Full diff review | Done — tip uniqueness OK; PRE-INTEGRATION preserved as dated history |
-| Historical non-regression | PRE-INTEGRATION as-of 2026-10-27 retained HISTORICAL/CONSUMED; no historical tip deleted |
-| No Product/tests changes | **PASS** |
-| No implicit promotion | EP/L3/REAL/G-REAL/runtime v3 anti-claims retained |
-| Roadmap ↔ PRR coherence | Both state #624 ON MAIN; Product gaps unchanged |
-| `git diff --check` | **PASS** (exit 0) |
-| PRR checker (pre-write) | Drift README+09 only → REFERENCE REVIEW REQUIRED (expected) |
-| PRR checker `--write-digests` | Wrote 2 digests |
-| PRR checker (post) | **CONFORMANCE OK** |
-| Vitest `productionRuntimeReference.conformance.d0.test.ts` | **5/5 PASS** |
+| Exact four files | PASS |
+| `git diff --check` | PASS exit 0 |
+| PRR checker | **CONFORMANCE OK** |
+| Vitest conformance | **5/5 PASS** |
+| No Product/tests | PASS |
+| No promotion claims | PASS |
 
 ---
 
-## 8. Documentary impacts
+## 5. Commit + push
 
-- Living CURRENT TIP now matches Git post-merge #624.
-- PRR README/09 no longer assert false ACTIVE “docs not integrated”.
-- Local candidate **≠** ON MAIN until distinct Morris DOC GI.
-- Digest match = deterministic conformance for edited octets; **≠** semantic exhaustiveness; **≠** Product proof.
-
----
-
-## 9. Réserves / Anti-claims
-
-- ≠ L3 GLOBAL CLOSED
-- ≠ EP-S2-05 PROVEN
-- ≠ EP-S2-08 PASS
-- ≠ REAL PROVEN / G-REAL GRANTED
-- ≠ runtime v3 ADOPTED
-- ≠ L4 authorized / started
-- ≠ Product Delivery / new behavior proof
-- ≠ automatic project Git Integration
-- Documentary ON MAIN (#624) ≠ new Product proof
-- Local living tip sync ≠ integrated until DOC GI
-- Prior Two-Digest / Eight-Digest results remain **octet-scoped** historical gate snapshots
+| Item | Value |
+| --- | --- |
+| Message | `docs(studio): sync AKG-M5 R24 living tip after PR 624` |
+| SHA | `f884dda1d085ffb7c53e8a3029c7beaed26e645c` |
+| Parent | `603b43e2927ab420be172f6bd26d40ad676cae1a` |
+| Files | 4 only (Roadmap, README, 09, manifest) |
+| Push | FF `603b43e2..f884dda1` → `origin/docs/akg-m5-l3-s2-postmerge-r24-current` |
+| Force push | **NOT USED** |
 
 ---
 
-## 10. Verdict
+## 6. Draft PR
 
-**PASS — LOCAL DOCUMENTARY TRUTH-SYNC READY FOR CRITICAL REVIEW**
+| Item | Value |
+| --- | --- |
+| URL | https://github.com/mcleland147/sfia-workspace/pull/625 |
+| Number | **625** |
+| State | OPEN |
+| Draft | **TRUE** |
+| Base | main |
+| Head | `docs/akg-m5-l3-s2-postmerge-r24-current` @ `f884dda1…` |
+| Changed files | **4** (exact scope) |
+| CI | Detect **PENDING** — do not claim PASS |
 
-Disposition R24: **COMPLETE — DOCUMENTARY CURRENT TIP** (local until DOC GI).
+Undraft / merge: **NOT AUTHORIZED** this cycle.
 
 ---
 
-## 11. Next Morris gate (distinct — DO NOT auto-integrate)
+## 7. R23 / R24
 
-**Recommended:** Critical Review → if PASS, distinct Morris **DOC GI** GO for commit/push/Draft PR of this living tip truth-sync lot (Roadmap + README + 09 + manifest), then distinct undraft/merge gate.
-
-**Not recommended / not authorized by this pack:** Product Delivery, EP closure GO, L3 GLOBAL close, G-REAL, L4, runtime v3, branch deletion.
+- **R23:** Product #623 already on main; **no new Product behavior** in this lot.
+- **R24:** COMPLETE — DOCUMENTARY CURRENT TIP at validated local scope; Draft PR ≠ ON MAIN until distinct merge GO.
 
 ---
 
-## 12. Review Handoff
+## 8. Exact modified content (commit diff = handoff §13)
 
-Mode: `publish-in-cycle` · Push: oui — L3 borné (`sfia/review-handoff` only).
-Publication technique du handoff ≠ GO push projet.
----
-
-## 13. CRITICAL REVIEW EVIDENCE — EXACT MODIFIED CONTENT
-
-**Correction timestamp (UTC):** 2026-10-28T02:32:06Z
-**GO Morris correction consumed:** GO MORRIS 2026-10-28 — CORRECTION DU REVIEW PACK ET REPUBLICATION DU HANDOFF L3 UNIQUEMENT.
-**Cause du blocage ChatGPT:** REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING (rapport antérieur: résumé sans diffs complets).
-**Périmètre correction:** `.tmp-sfia-review/chatgpt-review.md` + republication handoff L3 **uniquement**. Quatre fichiers projet = **READ-ONLY** (inchangés pendant cette correction).
-**Base Git des diffs:** `HEAD` = `603b43e2927ab420be172f6bd26d40ad676cae1a` (= tip branche docs). Blobs `HEAD` ≡ `origin/main` pour les quatre chemins (merge #624 `1fea1e61…` contient le même contenu documentaire que `603b43e2…`). Diff local = working tree vs cette base — **≠** confusion HEAD historique / main.
-**Divergence vs rapport précédent (handoff `6cfbdf20…` / blob `12d7aba6…`):** le pack précédent décrivait les changements mais **omettait** les diffs unifiés complets exigés pour Critical Review. Cette section **ajoute** les quatre diffs exacts sans altérer les faits Git/R23/R24/validations/réserves/verdict local.
-
-### Diff identity
-
-| Path | Base blob (HEAD=main content) | Working-tree change |
-| --- | --- | --- |
-| Roadmap | `77aa16273d4a48a1795999d9cae847f1d15bde84` | CURRENT TIP + AKG-M5 Suivant |
-| README | `f07039f950b80fe0b057b4169906e95a71f7fd85` | R24 / Gates / Anti-claims |
-| PRR 09 | `aa83e622bbbc9a54cd2778f506bbbf925e015ef0` | R24/Manifest + Anti-claims |
-| Manifest | `38045ecf4e4145b194fbe9289cc5bb79806767f2` | two sha256_16 fields |
-
-### Digest recalculation (local octets)
-
-| Volume | Expected | Local sha256_16 | Manifest field | Match |
-| --- | --- | --- | --- | --- |
-| README | `81b778241ade4da8` | `81b778241ade4da8` | `81b778241ade4da8` | YES |
-| PRR 09 | `700ee3ee207a5434` | `700ee3ee207a5434` | `700ee3ee207a5434` | YES |
-
-### Tip / anti-claim checks (read-only)
-
-- CURRENT TIP count = **1** (line 7)
-- Tip mentions PR #624 ON MAIN + merge `1fea1e61…` + CI `#40617482621`
-- PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27) = **HISTORICAL AS TIP / CONSUMED**
-- Prior DOC GI / PR #624 merge stated **CONSUMED** in tip + AKG-M5 Suivant
-- README anti-claim no longer ACTIVE `≠ R24 CURRENT docs integrated`; replaced by `R24 docs #624 ON MAIN ≠ Product proof`
-- PRR 09 anti-claims retain EP/L3/REAL/G-REAL/runtime non-claims; pre-integration clause marked HISTORICAL
-
-### 1. Roadmap
-
-**Path:** `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-
-**Command:** `git diff --no-ext-diff --unified=3 HEAD -- projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
+Command: `git show --no-ext-diff --unified=3 --format="" f884dda1d085ffb7c53e8a3029c7beaed26e645c`
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -236,15 +144,22 @@ index 77aa1627..fa66879c 100644
 
  ### Non-claims AKG
 
-```
+diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+index aa83e622..0aaab505 100644
+--- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
+@@ -23,9 +23,9 @@
+ | OA-exclusive | **DEFAULT OFF** | unchanged |
+ | Runtime v3 | **NON ADOPTED** | unchanged |
+ | L3 GLOBAL | **OPEN** | remaining EP exits + trajectory GO |
+-| R24 / Manifest (Cycle 14 + R24-CR-01/CR-02) | **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27):** Truth-Sync authored locally (**≠** ON MAIN **as of this snapshot**) · **CONSUMED GATE SNAPSHOTS (dated):** Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; eight volume digests regularized for that candidate) · R24-CR-01 **DELIVERED** (Roadmap/README/09; handoff `f8e16328…`) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes | **DURABLE EXIT CONDITIONS:** applicable Critical Semantic Review for documentary deltas · manifest digests must match actual bytes (mismatch ⇒ REFERENCE REVIEW REQUIRED) · Morris-authorized digest refresh when drifted · distinct Morris GO for documentary Git Integration · distinct merge gate · post-merge documentary currentness verification |
++| R24 / Manifest (Cycle 14 + R24-CR-01/CR-02 + living tip sync) | **CURRENT ON MAIN** via [PR #624](https://github.com/mcleland147/sfia-workspace/pull/624) **MERGED** `2026-10-28T01:51:07Z` · merge **`1fea1e61df02a90cd42edfd7b987ad7982a8fd63`** · documentary commit **`603b43e2927ab420be172f6bd26d40ad676cae1a`** · [post-merge CI #40617482621](https://github.com/mcleland147/sfia-workspace/actions/runs/40617482621) **SUCCESS** · **10 documentary files** · PRR CONFORMANCE **PASS** at merge · **NO PRODUCT SEMANTIC IMPACT** · Prior **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27)** = **HISTORICAL / CONSUMED** · **CONSUMED GATE SNAPSHOTS (dated):** Final Readiness PASS → DOC GI / PR #624 merge 2026-10-28 · Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; eight volume digests regularized for that candidate) · R24-CR-01 **DELIVERED** (Roadmap/README/09; handoff `f8e16328…`) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes | **DURABLE EXIT CONDITIONS:** applicable Critical Semantic Review for documentary deltas · manifest digests must match actual bytes (mismatch ⇒ REFERENCE REVIEW REQUIRED) · Morris-authorized digest refresh when drifted · distinct Morris GO for documentary Git Integration · distinct merge gate · post-merge documentary currentness verification |
 
-### 2. PRR README
+-**Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL PROVEN · ≠ G-REAL GRANTED · ≠ runtime v3 ADOPTED · local digest PASS ≠ documentary Git Integration · local documentary candidate ≠ ON MAIN **as of the pre-integration snapshot** · prior Two-Digest PASS scoped to reviewed octets ≠ permanent CONFORMANCE OK for later bytes · ≠ Manifest digests published on main **as of the pre-integration snapshot**.
++**Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL PROVEN · ≠ G-REAL GRANTED · ≠ runtime v3 ADOPTED · local digest PASS ≠ documentary Git Integration · prior local documentary candidate ≠ ON MAIN **as of the pre-integration snapshot** (HISTORICAL) · R24 docs now ON MAIN via #624 ≠ Product proof · prior Two-Digest PASS scoped to reviewed octets ≠ permanent CONFORMANCE OK for later bytes · ≠ Manifest digests published on main **as of the pre-integration snapshot**.
 
-**Path:** `projects/sfia-studio/production-runtime-reference/README.md`
+ ## Overlay — Product RepositoryBinding + docs_write Product specialization (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
-**Command:** `git diff --no-ext-diff --unified=3 HEAD -- projects/sfia-studio/production-runtime-reference/README.md`
-
-```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
 index f07039f9..b0752916 100644
 --- a/projects/sfia-studio/production-runtime-reference/README.md
@@ -262,40 +177,6 @@ index f07039f9..b0752916 100644
 
 
  ## What this corpus is
-```
-
-### 3. PRR 09
-
-**Path:** `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-
-**Command:** `git diff --no-ext-diff --unified=3 HEAD -- projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index aa83e622..0aaab505 100644
---- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-+++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -23,9 +23,9 @@
- | OA-exclusive | **DEFAULT OFF** | unchanged |
- | Runtime v3 | **NON ADOPTED** | unchanged |
- | L3 GLOBAL | **OPEN** | remaining EP exits + trajectory GO |
--| R24 / Manifest (Cycle 14 + R24-CR-01/CR-02) | **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27):** Truth-Sync authored locally (**≠** ON MAIN **as of this snapshot**) · **CONSUMED GATE SNAPSHOTS (dated):** Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; eight volume digests regularized for that candidate) · R24-CR-01 **DELIVERED** (Roadmap/README/09; handoff `f8e16328…`) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes | **DURABLE EXIT CONDITIONS:** applicable Critical Semantic Review for documentary deltas · manifest digests must match actual bytes (mismatch ⇒ REFERENCE REVIEW REQUIRED) · Morris-authorized digest refresh when drifted · distinct Morris GO for documentary Git Integration · distinct merge gate · post-merge documentary currentness verification |
-+| R24 / Manifest (Cycle 14 + R24-CR-01/CR-02 + living tip sync) | **CURRENT ON MAIN** via [PR #624](https://github.com/mcleland147/sfia-workspace/pull/624) **MERGED** `2026-10-28T01:51:07Z` · merge **`1fea1e61df02a90cd42edfd7b987ad7982a8fd63`** · documentary commit **`603b43e2927ab420be172f6bd26d40ad676cae1a`** · [post-merge CI #40617482621](https://github.com/mcleland147/sfia-workspace/actions/runs/40617482621) **SUCCESS** · **10 documentary files** · PRR CONFORMANCE **PASS** at merge · **NO PRODUCT SEMANTIC IMPACT** · Prior **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27)** = **HISTORICAL / CONSUMED** · **CONSUMED GATE SNAPSHOTS (dated):** Final Readiness PASS → DOC GI / PR #624 merge 2026-10-28 · Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; eight volume digests regularized for that candidate) · R24-CR-01 **DELIVERED** (Roadmap/README/09; handoff `f8e16328…`) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes | **DURABLE EXIT CONDITIONS:** applicable Critical Semantic Review for documentary deltas · manifest digests must match actual bytes (mismatch ⇒ REFERENCE REVIEW REQUIRED) · Morris-authorized digest refresh when drifted · distinct Morris GO for documentary Git Integration · distinct merge gate · post-merge documentary currentness verification |
-
--**Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL PROVEN · ≠ G-REAL GRANTED · ≠ runtime v3 ADOPTED · local digest PASS ≠ documentary Git Integration · local documentary candidate ≠ ON MAIN **as of the pre-integration snapshot** · prior Two-Digest PASS scoped to reviewed octets ≠ permanent CONFORMANCE OK for later bytes · ≠ Manifest digests published on main **as of the pre-integration snapshot**.
-+**Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL PROVEN · ≠ G-REAL GRANTED · ≠ runtime v3 ADOPTED · local digest PASS ≠ documentary Git Integration · prior local documentary candidate ≠ ON MAIN **as of the pre-integration snapshot** (HISTORICAL) · R24 docs now ON MAIN via #624 ≠ Product proof · prior Two-Digest PASS scoped to reviewed octets ≠ permanent CONFORMANCE OK for later bytes · ≠ Manifest digests published on main **as of the pre-integration snapshot**.
-
- ## Overlay — Product RepositoryBinding + docs_write Product specialization (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
-
-```
-
-### 4. Manifest
-
-**Path:** `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
-
-**Command:** `git diff --no-ext-diff --unified=3 HEAD -- projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
-
-```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 index 38045ecf..788ea0f2 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
@@ -320,36 +201,36 @@ index 38045ecf..788ea0f2 100644
    "components": [
 ```
 
-### Validations réexécutées (correction pass)
+---
 
-| Check | Result |
-| --- | --- |
-| Exact changed-files scope (projet) | Roadmap + README + 09 + manifest only |
-| Project files mutated during correction | **NONE** (READ-ONLY) |
-| `git diff --check` (4 files) | **PASS** exit 0 |
-| CURRENT TIP uniqueness | **1** |
-| Historical PRE-INTEGRATION retained | **YES** (HISTORICAL/CONSUMED) |
-| Product/tests path changes | **NONE** |
-| Digests README/09 vs expected vs manifest | **MATCH** |
-| PRR checker | **CONFORMANCE OK** |
-| Vitest conformance (prior cycle + checker confirm) | Prior **5/5 PASS**; checker reconfirmed OK this pass |
+## 9. Réserves / Anti-claims
 
-### Handoff status (this correction)
-
-| Item | Value |
-| --- | --- |
-| Prior incomplete handoff | tip `6cfbdf2058fcbf59d6ac7b14e48c57be5b1ca9b4` / blob `12d7aba6d98799ea52b90e9816c7c8b135df7506` |
-| Mode | REQUIRED / publish-in-cycle |
-| Branch | `sfia/review-handoff` |
-| Canonical path | `sfia-review-handoff/latest-chatgpt-review.md` |
-| Project push | **NOT PERFORMED** |
-| DOC GI | **NOT DECLARED READY / NOT AUTHORIZED** by this correction |
+- ≠ EP-S2-05 PROVEN
+- ≠ EP-S2-08 PASS
+- ≠ late Evidence CLOSED
+- ≠ L3 GLOBAL CLOSED
+- ≠ REAL PROVEN / G-REAL GRANTED
+- ≠ OA-exclusive ACTIVATED
+- ≠ L4 AUTHORIZED
+- ≠ runtime v3 ADOPTED
+- ≠ new correctif ON MAIN (Draft only)
+- ≠ undraft/merge authorized
+- CONFORMANCE OK ≠ Product semantic proof
 
 ---
 
-## 14. Correction verdict
+## 10. Decisions non autorisées (honored)
 
-**PASS — REVIEW HANDOFF COMPLETE READY FOR INDEPENDENT CRITICAL REVIEW**
+Undraft · merge · branch delete · rebase · force push · push main · Product/tests · architecture · G-REAL · L3 GLOBAL close · L4 · runtime v3.
 
-Local documentary candidate verdict (§10) remains: PASS — LOCAL DOCUMENTARY TRUTH-SYNC READY FOR CRITICAL REVIEW.
-This correction does **not** authorize DOC GI, EP-S2-05 PROVEN, EP-S2-08 PASS, L3 GLOBAL CLOSED, REAL, G-REAL, L4, or runtime v3 ADOPTED.
+---
+
+## 11. Next Morris gate
+
+**Critical PR Review ChatGPT** on Draft PR #625 → if PASS, distinct Morris GO for **UNDRAFT + MERGE** only.
+
+---
+
+## 12. Verdict
+
+**PASS — DOC GI / DRAFT PR CREATED READY FOR CRITICAL PR REVIEW**
