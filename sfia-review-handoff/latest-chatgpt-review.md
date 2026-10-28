@@ -1,12 +1,10 @@
-# SFIA Review Pack — EP-S2-08-PROOF-01
+# SFIA Review Pack — EP-S2-08-PROOF-01 CRITICAL CORRECTIVE PASS (R1/R2/R3)
 
-**UTC:** 2026-10-28T07:58:56Z
-**Cycle:** PRODUCT COMPLETION — BOUNDED DET DELIVERY
+**UTC:** 2026-10-28T08:16:10Z
+**Cycle continuity:** SAME EP-S2-08-PROOF-01 Product Delivery (no new feature branch)
+**Pass:** CRITICAL REVIEW CORRECTIONS R1/R2/R3
 **Profile:** CRITICAL
-**Mode:** LOCAL DELIVERY — TESTS FIRST
-**Capability:** EP-S2-08 — POST-EVIDENCE NORA/PILOTE
-**Increment:** EP-S2-08-PROOF-01
-**Morris GO:** 2026-10-28 — EP-S2-08-PROOF-01 BOUNDED DET PROOF DELIVERY
+**Morris GO:** 2026-10-28 — CRITICAL REVIEW CORRECTIVE PASS ONLY
 
 ---
 
@@ -15,20 +13,16 @@
 | Fact | Value |
 |---|---|
 | Remote | `origin` → `https://github.com/mcleland147/sfia-workspace.git` |
-| Product worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-ep-s2-08-proof-01` |
+| Product WT | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-ep-s2-08-proof-01` |
 | Branch | `feat/akg-m5-ep-s2-08-proof-01` |
 | HEAD | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
 | origin/main | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| Expected baseline | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| Match | **YES** (HEAD == origin/main == expected) |
-| Merge-base(HEAD, origin/main) | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
-| Project commit/push/PR | **NOT AUTHORIZED / NOT PERFORMED** |
+| Expected base | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
+| Match | **YES** |
+| Merge-base | `3fb84630efb9e0d2acaaf81b342da0358107db10` |
+| Project GI | **NOT AUTHORIZED / NOT PERFORMED** |
 
-### Isolation note (reconciled mid-cycle)
-
-Initial checkout of the Product path briefly carried branch `docs/akg-m5-l3-s2-postmerge-r24-current` @ `f884dda1…` (ancestor of main; Product target files identical to `3fb84630…`). Reconciled by `git checkout feat/akg-m5-ep-s2-08-proof-01` without disturbing docs WT (detached @ `f884dda1…`, dirty pack only). All validations below re-run on **`3fb84630…`**.
-
-### status --short (Product WT at pack time)
+### status --short
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -39,76 +33,153 @@ Initial checkout of the Product path briefly carried branch `docs/akg-m5-l3-s2-p
  M projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
  M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
  M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
+?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx
 ?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts
+?? projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts
 ```
 
-### Docs WT (preserved, not Product baseline)
+### diff --stat
 
-- Path: `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3-s2-postmerge-r24-current`
-- Detached HEAD `f884dda1…` · dirty: `.tmp-sfia-review/chatgpt-review.md` only
-- **Not used** as Product implementation baseline
+```
+ .tmp-sfia-review/chatgpt-review.md                 | 1171 +++++++++++++++++---
+ .../project-assistant/w2/qualificationInputs.ts    |   83 ++
+ .../project-assistant/w2/w3cPostEvidenceLoop.ts    |   14 +-
+ .../03-end-to-end-flow-catalog.md                  |    4 +
+ .../06-persistence-restart-and-recovery.md         |    2 +
+ .../08-test-proof-and-conformance-map.md           |   10 +
+ ...9-known-gaps-reserves-and-current-boundaries.md |    2 +-
+ .../production-runtime-reference.manifest.json     |    8 +-
+ 8 files changed, 1145 insertions(+), 149 deletions(-)
+```
 
----
+### Prior handoff (historical — start of this corrective pass)
 
-## 2. Sources read (Convergence Pre-check)
-
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
-- `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
-- `projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/05-m5-target-journey-and-trajectory-requalification.md`
-- `projects/sfia-studio/production-runtime-reference/README.md` + volumes **02, 03, 04, 06, 07, 08, 09** (R24 LOCAL sync on 03/06/08/09 + manifest digests)
-- Product: `w3cPostEvidenceLoop.ts`, `qualificationInputs.ts`, `materializeW3bProductTerminal.ts`, `reconcileGovernedExecution.ts`, Trajectory/Conversation surfaces (inspection), existing S8/lotsAC/frontDoor oracles
-
-### Confirmed gate truths (unchanged)
-
-| Gate | Status |
+| Field | Value |
 |---|---|
-| L3-S2 Option B | integrated ON MAIN (#623) |
-| EP-S2-05 | **NOT PROVEN** |
-| EP-S2-08 | **PARTIAL** (LOCAL candidate proofs; not PASS) |
-| L3 GLOBAL | **OPEN** |
-| REAL | **NOT PROVEN** |
-| G-REAL | **NOT GRANTED** |
-| L4 | **NOT AUTHORIZED** |
-| Runtime v3 | **NON ADOPTED** |
-| Process authority | **v2.6** (not target v3) |
+| Branch | `sfia/review-handoff` |
+| Tip | `4c1397dee3689a20e20d15225bfa88072ab73b61` |
+| Blob `latest-chatgpt-review.md` | `8faef48113c1414e551b31f51dcd575c57704f77` |
+
+### R3 metadata policy (this pack)
+
+Section 14 records **pre-publication** identifiers only.
+**Post-publication** tip/blob are verified after push and reported in the Cursor execution return — **not** rewritten into this file to embed a self-referential final hash.
 
 ---
 
-## 3. Objective / delivery summary
+## 2. Convergence / sources
 
-Prove Pilot can resume completed Generic Project-only execution after durable remount and take a governed next action, preserving identity + evidence. Minimal Product fix: Project-scoped CKC for W3-C only.
+SFIA v2.6 process · Studio v3 target NON ADOPTED · PRR 02–09 · prior FULL handoff @ tip above · Product W2/W3-C/UI code · CKC catalog/`ckc:studio:delivery` · D-ER-17/S8.
 
-**Not done:** new post-Evidence engine; UI redesign; EP-S2-05; Late Evidence policy; HumanDecision semantics; REAL; L4; project GI.
+Gates unchanged: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · runtime v3 NON ADOPTED.
 
 ---
 
-## 4. Changed files
+## 3. Scope R1 / R2 / R3
+
+| Res | Objective | Outcome |
+|---|---|---|
+| **R1** | `cyc:delivery` Project-scoped CKC applicability | **OPEN — MORRIS DECISION REQUIRED** (options A/B/C) |
+| **R2** | Strengthen B5/B6 Pilote-facing UI proof | **STRENGTHENED** (jsdom TrajectorySurface) · browser E2E remains KNOWN GAP |
+| **R3** | Handoff tip/blob coherence | **CLOSED** by non-self-referential pack + verified post-push return |
+
+---
+
+## 4. R1 — Project-scoped CKC (OPEN)
+
+### Evidence assembled
+
+| Source | Fact |
+|---|---|
+| `cycleTypeCatalog.ts` | `cyc:delivery` active catalog entry |
+| `ckc-index.json` + `ckc/08-delivery-implementation.md` | `ckc:studio:delivery` CONTENT VALIDATED BY MORRIS |
+| `loadProductCkcCognitiveContent` | **requires** `cycleTypeId` — no project-level CKC artifact |
+| D-ER-17 / S8 / PRR 02–03 | `activeCycleInstanceId` may be null; no invented CycleInstance |
+| `resolveW2QualificationInputs` | still `CYCLE_NOT_QUALIFIED` without cycle |
+| ON MAIN `w3cPostEvidenceLoop` | used `resolveW2QualificationInputs` → Project-only W3-C fail-closed |
+| Product Completion INT-07 | uses `cyc:delivery` **with** CycleInstance — ≠ Project-only contract |
+
+### Anti-claims proven (LOCAL oracle)
+
+`akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts`:
+- Project-only resolver returns `projectScoped=true`, `cycleTypeId=cyc:delivery`
+- CKC markdown loads (`ckc:studio:delivery`)
+- **No** CycleInstance created
+- Options remain `CYCLE_NOT_QUALIFIED`
+
+### Explicit gap
+
+**Successful CKC load ≠ doctrinal applicability closed** for Project-only Generic post-Evidence.
+
+### Options for Morris
+
+| Opt | Description | Impact |
+|---|---|---|
+| **A** | Adopt `cyc:delivery` as Project-scoped post-Evidence cognitive orientation (guidance only) | Keep current candidate; close R1 by Morris GO |
+| **B** | Restore fail-closed (`CYCLE_NOT_QUALIFIED` / no Project-scoped CKC) | W3-C Project-only soft/hard fail as ON MAIN; EP-S2-08 W3-C resume stays gap |
+| **C** | Allow W3-C with **null CKC** section when project-scoped (no cycleTypeId selection) | Removes invented orientation; uses existing null-CKC reasoning seam |
+
+**Local retention:** candidate code kept pending Morris; clearly marked OPEN in comments + PRR.
+
+---
+
+## 5. R2 — UI / Pilote B5/B6
+
+### Added
+
+`epS208.proof01.piloteSurface.b5b6.ui.test.tsx` — REAL `TrajectorySurface` (jsdom); actions mocked at boundary.
+
+| Case | Assertions |
+|---|---|
+| B5 continue | headline/nextStep/kind; `requiresHumanDecision=non`; authority Recommendation≠HD; **no** `w3c-propose-trajectory`; no decide |
+| B5 recover (no HD) | same-scope note; no propose CTA; server Options mock returns `CYCLE_NOT_QUALIFIED` |
+| B6 Nora unavailable | `w3c-nora-analysis` shows durable reason; UNCLAIMED; remount via reconcile preserves reason; no HD |
+
+### Limits (honest)
+
+- jsdom Pilote projection ≠ browser `/studio` remount E2E (**KNOWN GAP**)
+- Dual ConversationSurface F3 vs TrajectorySurface W3-C consistency still **OPEN**
+- B2 remains process remount DET (not widened to browser automation)
+
+Integrated OA B2/B5/B6 oracle still **PASS actual**.
+
+---
+
+## 6. R3 — Handoff traceability
+
+| Layer | Identifier |
+|---|---|
+| Historical prior handoff tip | `4c1397dee3689a20e20d15225bfa88072ab73b61` |
+| Historical prior handoff blob | `8faef48113c1414e551b31f51dcd575c57704f77` |
+| This pack content | sealed below **before** push |
+| New remote tip/blob | **verified after push → Cursor return only** |
+
+No contradictory “final tip equals content hash of itself” rewrite loop.
+
+---
+
+## 7. Changed files (corrective pass delta on same dirty Product WT)
 
 | Path | Kind |
 |---|---|
-| `projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts` | **BEHAVIOR** — add `resolvePostEvidenceCkcContext` + `POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID` |
-| `projects/sfia-studio/app/features/project-assistant/w2/w3cPostEvidenceLoop.ts` | **BEHAVIOR** — W3-C CKC load uses post-Evidence resolver (not cycle-gated W2 Options) |
-| `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | **NEW** — B2/B5/B6 integrated DET oracle |
-| `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md` | R24 LOCAL overlay |
-| `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md` | R24 LOCAL overlay |
-| `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md` | R24 LOCAL proof index |
-| `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` | R24 EP-S2-08 PARTIAL row update |
-| `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` | digest refresh (03/06/08/09) |
+| `w2/qualificationInputs.ts` | R1 OPEN documentation + retained candidate |
+| `w2/w3cPostEvidenceLoop.ts` | prior PROOF-01 behavior (unchanged this pass) |
+| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | prior B2/B5/B6 |
+| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | **NEW** R1 oracle |
+| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | **NEW** R2 UI |
+| PRR 03/06/08/09 + manifest | R24 LOCAL sync (R1 OPEN noted) |
 | `.tmp-sfia-review/chatgpt-review.md` | this pack |
 
 ---
 
-## 5. Complete Product diffs (W2)
+## 8. Complete Product W2 diffs
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-index 370ba80d..9a0d807a 100644
+index 370ba80d..c5449ffd 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/qualificationInputs.ts
-@@ -106,3 +106,77 @@ export async function resolveW2QualificationInputs(input: {
+@@ -106,3 +106,86 @@ export async function resolveW2QualificationInputs(input: {
      },
    };
  }
@@ -117,11 +188,20 @@ index 370ba80d..9a0d807a 100644
 + * EP-S2-08 / Option B — CKC orientation for W3-C post-Evidence Nora only.
 + *
 + * When an active CycleInstance exists, reuse its cycleTypeId (same as W2 Options).
-+ * When Project-only (no cycle — S8 / D-ER-17), load product-native CKC via the
-+ * Studio delivery orientation without inventing a CycleInstance or HumanDecision.
++ * When Project-only (no cycle — S8 / D-ER-17), LOCAL CANDIDATE uses catalog key
++ * `cyc:delivery` to load product-native CKC markdown via the existing
++ * `loadProductCkcCognitiveContent` seam (requires a cycleTypeId; no project-level CKC).
 + *
-+ * Does NOT authorize W2 propose/decide Options (those still require CYCLE_NOT_QUALIFIED
-+ * until a real cycle is active).
++ * R1 (CRITICAL REVIEW) — **OPEN / MORRIS DECISION REQUIRED**:
++ * Catalog + CKC bytes for `cyc:delivery` EXIST and CONTENT VALIDATED, but there is
++ * **no** explicit Product contract that Project-only Generic post-Evidence SHALL
++ * select delivery orientation. Successful CKC load ≠ doctrinal applicability closed.
++ * Anti-claims retained: ≠ invent CycleInstance · ≠ authorize W2 Options
++ * (`resolveW2QualificationInputs` still `CYCLE_NOT_QUALIFIED`) · ≠ HumanDecision.
++ *
++ * Options for Morris: (A) adopt delivery as Project-scoped post-Evidence cognitive
++ * orientation; (B) restore fail-closed `CYCLE_NOT_QUALIFIED` for W3-C CKC when no
++ * cycle; (C) allow W3-C with null CKC section when project-scoped (no cycleTypeId).
 + */
 +export const POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID = "cyc:delivery";
 +
@@ -234,11 +314,11 @@ index dba328ce..de7b7b1c 100644
 
 ---
 
-## 6. Complete R24 PRR diffs
+## 9. Complete R24 PRR diffs
 
 ```diff
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 77ee95a6..248e0b97 100644
+index 77ee95a6..944520fc 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 @@ -248,3 +248,7 @@ Project (`activeCycleInstanceId=null`) → Generic PREPARE (no fictive cycle) 
@@ -248,7 +328,7 @@ index 77ee95a6..248e0b97 100644
 +
 +### LOCAL CANDIDATE — EP-S2-08-PROOF-01 (2026-10-28) — Project-scoped W3-C CKC
 +
-+> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. Behavior delta (R24): `runW3cPostEvidenceLoop` loads CKC via `resolvePostEvidenceCkcContext` — when `activeCycleInstanceId=null`, uses delivery orientation `cyc:delivery` **without inventing CycleInstance / HumanDecision**. W2 Options/`resolveW2QualificationInputs` still refuse with `CYCLE_NOT_QUALIFIED`. F13/F19 remount + governed continue/recover + Nora-unavailable reserve proven DET by `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` (B2/B5/B6). EP-S2-08 remains **PARTIAL** until Critical Review + GI. ≠ EP-S2-08 PASS · ≠ REAL · ≠ L4.
++> **Epistemic class:** **LOCAL CANDIDATE** on Product branch `feat/akg-m5-ep-s2-08-proof-01` @ base `3fb84630…` · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN**. Behavior delta (R24): `runW3cPostEvidenceLoop` loads CKC via `resolvePostEvidenceCkcContext` — when `activeCycleInstanceId=null`, LOCAL candidate uses catalog key `cyc:delivery` for `loadProductCkcCognitiveContent` **without inventing CycleInstance / HumanDecision**. W2 Options/`resolveW2QualificationInputs` still refuse with `CYCLE_NOT_QUALIFIED`. **R1 OPEN — MORRIS DECISION REQUIRED:** catalog/CKC bytes exist (CONTENT VALIDATED) but no explicit Product contract that Project-only Generic post-Evidence SHALL select delivery; load success ≠ applicability closed. Options: (A) adopt delivery orientation; (B) restore fail-closed; (C) null CKC when project-scoped. B2 DET remount + B5/B6 jsdom Pilote surface proven locally. EP-S2-08 remains **PARTIAL**. ≠ EP-S2-08 PASS · ≠ REAL · ≠ L4 · ≠ browser `/studio` E2E.
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 index 8fd457ad..6acb120d 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
@@ -261,10 +341,10 @@ index 8fd457ad..6acb120d 100644
 +
  **≠** invent recovery E2E beyond DET proofs.
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index db5716f1..8ce704a8 100644
+index db5716f1..22611041 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -222,3 +222,11 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
+@@ -222,3 +222,13 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
  | Post-merge CI `#40526990871` @ `6c8b661c…` | Detect / Typecheck / Lint / Build / Vitest / Modeled Governance / Secret scan / Trailing whitespace / **Required Gate SUCCESS** | CI FACT CURRENT ON MAIN |
  
  **Fake/Real:** Cursor = TestOnlyRealExecutionLaunchPort · FS OBSERVED = real temp worktree · O8 EvidenceReader = DET substitution bounded · REAL Cursor / OpenAI LIVE **NOT PROVEN**. Historical Pass 05 « 17 PASS / 105 PASS / dirty LOCAL » counts remain valid as **pre-merge handoff facts**, not re-asserted as Cycle 14 local re-runs.
@@ -273,11 +353,13 @@ index db5716f1..8ce704a8 100644
 +
 +| Suite / oracle | Result | Proof level |
 +|---|---|---|
-+| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 governed continue/recover (propose≠decide; `CYCLE_NOT_QUALIFIED` without cycle) · B6 Nora unavailable reserve | **LOCAL DET CANDIDATE** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` | B2 remount · B5 governed continue/recover (propose≠decide; `CYCLE_NOT_QUALIFIED` without cycle) · B6 Nora unavailable | **LOCAL DET CANDIDATE** ≠ ON MAIN |
++| `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` | R1 anti-authority: CKC load + no CycleInstance + Options `CYCLE_NOT_QUALIFIED` · applicability **OPEN** | **LOCAL DET** · R1 OPEN |
++| `epS208.proof01.piloteSurface.b5b6.ui.test.tsx` | B5/B6 TrajectorySurface jsdom Pilote projection (reco/CTA/Nora unavailable) | **LOCAL jsdom** ≠ browser E2E |
 +
-+Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE** (Product/OA/GERM/LPS). ≠ browser `/studio` mount · ≠ EP-S2-08 PASS · ≠ REAL.
++Ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE** (Product/OA/GERM/LPS + jsdom Pilote). ≠ browser `/studio` remount · ≠ EP-S2-08 PASS · ≠ REAL · **R1 OPEN Morris**.
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index 0aaab505..0777ca28 100644
+index 0aaab505..20892ad3 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 @@ -15,7 +15,7 @@
@@ -285,12 +367,12 @@ index 0aaab505..0777ca28 100644
  | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
  | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
 -| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** B2 process remount preserves Project/EC/Attempt + Evidence/RB/CE + W3-C; B5 recommendation visible + continue/recover permitted, recommend≠HD, no auto replan, structural Options still cycle-gated; B6 Nora-unavailable reserve remount-stable via `withNoraUnavailableReserve`; Project-scoped CKC via `resolvePostEvidenceCkcContext` (`cyc:delivery`). **Still open for decided Product/UX exit:** true `/studio` browser remount E2E; dual F3/W3-C surface consistency; structural replan CTA only when cycle-qualified. **Exit (distinct):** durable resume + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable + Critical Review. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized). ≠ EP-S2-08 PASS until reviewed+integrated. |
++| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now (ON MAIN):** durable GERM/W3-C technical rehydrate DET. **LOCAL CANDIDATE (EP-S2-08-PROOF-01 @ `3fb84630…`, 2026-10-28 — ≠ ON MAIN / GI NOT AUTHORIZED):** B2 process remount DET; B5/B6 jsdom TrajectorySurface Pilote projection (`epS208.proof01.piloteSurface.b5b6.ui.test.tsx`) + integrated OA oracle; Project-scoped CKC candidate via `resolvePostEvidenceCkcContext`. **R1 OPEN — MORRIS:** `cyc:delivery` load success ≠ Project-only applicability closed (options A adopt / B fail-closed / C null CKC). **Still open:** browser `/studio` remount E2E; dual F3/W3-C surface consistency. **Exit:** Critical Review + Morris R1 + GI. ≠ EP-S2-08 PASS · L4 **not** auto-authorized. |
  | Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
  | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
  | generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 788ea0f2..33dca871 100644
+index 788ea0f2..59ca9e44 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -19,7 +19,7 @@
@@ -298,7 +380,7 @@ index 788ea0f2..33dca871 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
 -      "sha256_16": "d13787c0f629efe4"
-+      "sha256_16": "7fbccdf6879875a4"
++      "sha256_16": "bbbaf15d146fc63c"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -316,12 +398,12 @@ index 788ea0f2..33dca871 100644
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
 -      "sha256_16": "7a1bc607f6f28230"
-+      "sha256_16": "44b7174e02ba3f88"
++      "sha256_16": "b03b830d11e1780a"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
 -      "sha256_16": "700ee3ee207a5434"
-+      "sha256_16": "fd80aa73117b868c"
++      "sha256_16": "992efa8e4a1532f7"
      }
    ],
    "components": [
@@ -330,7 +412,9 @@ index 788ea0f2..33dca871 100644
 
 ---
 
-## 7. New oracle (full file)
+## 10. New / retained oracles (full files)
+
+### 10.a Integrated B2/B5/B6
 
 Path: `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts`
 
@@ -962,99 +1046,739 @@ describe("EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable 
 
 ```
 
+### 10.b R1 semantic
+
+Path: `projects/sfia-studio/app/__tests__/project-assistant/akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts`
+
+```typescript
+/**
+ * EP-S2-08-PROOF-01 — R1 Project-scoped CKC semantic oracle (DET).
+ *
+ * Proves anti-authority facts for resolvePostEvidenceCkcContext.
+ * Does NOT close doctrinal applicability of cyc:delivery for Project-only
+ * post-Evidence — that remains OPEN for Morris (see pack R1 options).
+ *
+ * Sources consulted (existence ≠ Project-only applicability closed):
+ * - cycleTypeCatalog cyc:delivery (active catalog entry)
+ * - pkg CKC index → ckc:studio:delivery / 08-delivery-implementation.md
+ * - loadProductCkcCognitiveContent requires cycleTypeId
+ * - D-ER-17 / S8: activeCycleInstanceId may be null; no invented CycleInstance
+ * - resolveW2QualificationInputs: CYCLE_NOT_QUALIFIED without cycle
+ * - ON MAIN w3cPostEvidenceLoop used resolveW2QualificationInputs (fail-closed)
+ *
+ * @vitest-environment node
+ */
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import {
+  POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
+  resolvePostEvidenceCkcContext,
+  resolveW2QualificationInputs,
+} from "@/features/project-assistant/w2/qualificationInputs";
+import { loadProductCkcCognitiveContent } from "@/features/project-assistant/f2/ckcCognitiveContext";
+import { resolveProductDoctrineRegistryRoot } from "@/lib/vertical-slice-runtime/paths";
+import {
+  bootW2Runtime,
+  cleanupW2TempDirs,
+  tempProductDbPath,
+} from "./w2Harness";
+
+describe("EP-S2-08-PROOF-01 R1 — Project-scoped CKC anti-authority (DET)", () => {
+  let previousMorris: string | undefined;
+  let previousPilot: string | undefined;
+  let previousExclusive: string | undefined;
+  let dbPath: string;
+
+  beforeEach(() => {
+    previousMorris = process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY;
+    previousPilot = process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID;
+    previousExclusive = process.env.SFIA_STUDIO_OA_EXCLUSIVE;
+    process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY = "1";
+    process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID = "actor:local-pilote";
+    process.env.SFIA_STUDIO_OA_EXCLUSIVE = "0";
+    dbPath = tempProductDbPath("ep08-r1");
+  });
+
+  afterEach(() => {
+    cleanupW2TempDirs();
+    if (previousMorris === undefined) delete process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY;
+    else process.env.SFIA_STUDIO_MORRIS_LOCAL_AUTHORITY = previousMorris;
+    if (previousPilot === undefined) delete process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID;
+    else process.env.SFIA_STUDIO_LOCAL_PILOT_ACTOR_ID = previousPilot;
+    if (previousExclusive === undefined) delete process.env.SFIA_STUDIO_OA_EXCLUSIVE;
+    else process.env.SFIA_STUDIO_OA_EXCLUSIVE = previousExclusive;
+  });
+
+  it("Project-only: candidate orientation loads CKC bytes; no CycleInstance; Options stay CYCLE_NOT_QUALIFIED", async () => {
+    const runtime = bootW2Runtime({ productDbPath: dbPath, idPrefix: "ep08r1" });
+    const oa = runtime.oa!;
+
+    const created = await runtime.createProject({
+      name: "demo",
+      objective: "EP-S2-08 R1 Project-only CKC",
+      context: "semantic anti-authority",
+      criticality: "STANDARD",
+      constraints: ["ZERO REAL", "R1 DET"],
+      shortReference: "P01R1",
+      idempotencyKey: "idem:ep08-p01-r1",
+    });
+    expect(created.ok).toBe(true);
+    if (!created.ok) return;
+    const projectId = created.project.projectId;
+
+    const live0 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(live0.ok).toBe(true);
+    if (!live0.ok) return;
+    expect(live0.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+
+    const ckcCtx = await resolvePostEvidenceCkcContext({ oa, projectId });
+    expect(ckcCtx.ok).toBe(true);
+    if (!ckcCtx.ok) return;
+    expect(ckcCtx.context.projectScoped).toBe(true);
+    expect(ckcCtx.context.activeCycleInstanceId).toBeNull();
+    expect(ckcCtx.context.cycleTypeId).toBe(
+      POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID,
+    );
+    expect(POST_EVIDENCE_PROJECT_SCOPED_CYCLE_TYPE_ID).toBe("cyc:delivery");
+
+    // Existence of catalog/CKC content (load success ≠ doctrinal Project-only closed).
+    const registryRoot = resolveProductDoctrineRegistryRoot();
+    const content = loadProductCkcCognitiveContent({
+      registryRoot,
+      cycleTypeId: ckcCtx.context.cycleTypeId,
+      packagePin: ckcCtx.context.packagePin,
+    });
+    expect(content).not.toBeNull();
+    expect(content!.ckcId).toBe("ckc:studio:delivery");
+    expect(content!.cycleTypeId).toBe("cyc:delivery");
+    expect(content!.markdown.length).toBeGreaterThan(0);
+
+    // W2 Options remain refuse — Project-scoped CKC ≠ cycle qualification.
+    const qual = await resolveW2QualificationInputs({ oa, projectId });
+    expect(qual.ok).toBe(false);
+    if (!qual.ok) {
+      expect(qual.code).toBe("CYCLE_NOT_QUALIFIED");
+    }
+
+    const live1 = await oa.projectServices.getCurrentLivingProjectState.execute({
+      projectId,
+    });
+    expect(live1.ok).toBe(true);
+    if (live1.ok) {
+      expect(live1.livingProjectState.activeCycleInstanceId ?? null).toBeNull();
+    }
+  });
+});
+
+```
+
+### 10.c R2 UI
+
+Path: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/epS208.proof01.piloteSurface.b5b6.ui.test.tsx`
+
+```tsx
+/**
+ * EP-S2-08-PROOF-01 — R2 Pilote-facing TrajectorySurface B5/B6 (jsdom).
+ *
+ * Mounts REAL TrajectorySurface. Server actions mocked at the boundary only.
+ * Ceiling: jsdom Pilote projection — ≠ browser /studio E2E remount.
+ *
+ * @vitest-environment jsdom
+ */
+import {
+  act,
+  cleanup,
+  render,
+  screen,
+} from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { TrajectorySurface } from "@/features/pre-m6-product-ui/surfaces/TrajectorySurface";
+import {
+  nextReconcileContinueDelayMs,
+  RECONCILE_CONTINUE_BACKOFF_MAX_MS,
+} from "@/features/project-assistant/w2/reconcileContinuePolicy";
+import { NORA_ANALYSIS_UNAVAILABLE_RESERVE } from "@/features/project-assistant/w2/w3bProductTerminalProjection";
+
+const {
+  proposeMock,
+  decideMock,
+  inspectMock,
+  authorizeMock,
+  prepareContractMock,
+  confirmMock,
+  executeSelectMock,
+  executeStartMock,
+  executeCompleteMock,
+  materializeMock,
+  reconcileMock,
+  deriveContinuityMock,
+  resolveContextMock,
+  readReviewItemMock,
+  readActiveDecisionSubjectMock,
+  readGovernedExecutionContinuityMock,
+  readRecoveryExecutionBindingMock,
+  readRecoveryOwnedDecisionContinuityMock,
+  readPreCycleMock,
+  readApprovalMock,
+  readPreparedCycleMock,
+} = vi.hoisted(() => ({
+  proposeMock: vi.fn(),
+  decideMock: vi.fn(),
+  inspectMock: vi.fn(),
+  authorizeMock: vi.fn(),
+  prepareContractMock: vi.fn(),
+  confirmMock: vi.fn(),
+  executeSelectMock: vi.fn(),
+  executeStartMock: vi.fn(),
+  executeCompleteMock: vi.fn(),
+  materializeMock: vi.fn(),
+  reconcileMock: vi.fn(),
+  deriveContinuityMock: vi.fn(),
+  resolveContextMock: vi.fn(),
+  readReviewItemMock: vi.fn(),
+  readActiveDecisionSubjectMock: vi.fn(),
+  readGovernedExecutionContinuityMock: vi.fn(),
+  readRecoveryExecutionBindingMock: vi.fn(),
+  readRecoveryOwnedDecisionContinuityMock: vi.fn(),
+  readPreCycleMock: vi.fn(),
+  readApprovalMock: vi.fn(),
+  readPreparedCycleMock: vi.fn(),
+}));
+
+vi.mock("@/features/project-assistant/actions", () => ({
+  projectAssistantConversationContinuityAction: vi.fn(async () => ({
+    ok: true,
+    transcriptAvailability: "empty",
+    messages: [],
+    journal: { cycleInstanceId: null, entries: [] },
+  })),
+  projectAssistantPrepareResolvedM3Action: vi.fn(),
+  projectAssistantResolveLegacyM3DocsWriteAction: vi.fn(),
+}));
+
+vi.mock("@/features/project-assistant/w2/actions", () => ({
+  w2ProposeTrajectoryOptionsAction: (...a: unknown[]) => proposeMock(...a),
+  w2DecideTrajectoryAction: (...a: unknown[]) => decideMock(...a),
+  w2InspectExecutionContractAction: (...a: unknown[]) => inspectMock(...a),
+  w2ConfirmExecutionContractAction: (...a: unknown[]) => confirmMock(...a),
+  w2AuthorizeExecutionContractAction: (...a: unknown[]) => authorizeMock(...a),
+  w2AmendExecutionContractAction: vi.fn(),
+  w2PrepareExecutionContractAction: (...a: unknown[]) =>
+    prepareContractMock(...a),
+  w2GovernedExecuteSelectAction: (...a: unknown[]) => executeSelectMock(...a),
+  w2GovernedExecuteStartAction: (...a: unknown[]) => executeStartMock(...a),
+  w2GovernedExecuteCompleteAction: (...a: unknown[]) =>
+    executeCompleteMock(...a),
+  w2GovernedExecuteCancelAction: vi.fn(),
+  w2MaterializeProductOutcomeAction: (...a: unknown[]) =>
+    materializeMock(...a),
+  w2ReconcileGovernedExecutionAction: (...a: unknown[]) => reconcileMock(...a),
+  w2DeriveGovernedExecutionContinuityAction: (...a: unknown[]) =>
+    deriveContinuityMock(...a),
+  w2ResolveProductExecutionContextAction: (...a: unknown[]) =>
+    resolveContextMock(...a),
+  w2ReadExecutionReviewItemAction: (...a: unknown[]) =>
+    readReviewItemMock(...a),
+  w2RehydrateProductOutcomeAction: vi.fn(),
+  w2RematerializeDocsWriteEvidenceAction: vi.fn(),
+  w2ReadActiveDecisionSubjectAction: (...a: unknown[]) =>
+    readActiveDecisionSubjectMock(...a),
+  w2ReadCurrentGovernedExecutionContinuityAction: (...a: unknown[]) =>
+    readGovernedExecutionContinuityMock(...a),
+  w2ReadRecoveryExecutionBindingAction: (...a: unknown[]) =>
+    readRecoveryExecutionBindingMock(...a),
+  w2ReadRecoveryOwnedDecisionContinuityAction: (...a: unknown[]) =>
+    readRecoveryOwnedDecisionContinuityMock(...a),
+  w2PrepareRecoveryDocsWriteAction: vi.fn(),
+  w2ReadProjectHistoryAction: vi.fn().mockResolvedValue({
+    ok: false,
+    code: "UNUSED",
+    message: "unused",
+  }),
+}));
+
+vi.mock("@/features/project-assistant/preCycleCandidateTrajectoryActions", () => ({
+  projectAssistantReadPreCycleCandidateTrajectoryAction: (...a: unknown[]) =>
+    readPreCycleMock(...a),
+  projectAssistantPrepareCandidateTrajectoryAction: vi.fn(),
+  projectAssistantReadCandidateTrajectoryApprovalPresentationAction: (
+    ...a: unknown[]
+  ) => readApprovalMock(...a),
+  projectAssistantApprovePreCycleCandidateTrajectoryAction: vi.fn(),
+  prepareCycleFromValidatedTrajectoryAction: vi.fn(),
+  readPreparedTrajectoryCycleAction: (...a: unknown[]) =>
+    readPreparedCycleMock(...a),
+  startPreparedTrajectoryCycleAction: vi.fn(),
+}));
+
+const PROJECT_ID = "prj:ep08-p01-ui";
+const EC_ID = "xct:w3a:dec:w2-trj:ep08-p01-ui";
+const ATTEMPT_ID = "xat:ep08-p01-ui";
+const UNAVAILABLE_REASON = "Nora provider controlled failure (DET)";
+
+function activeContinuity() {
+  return {
+    ok: true as const,
+    kind: "active" as const,
+    decisionRef: "dec:w2-trj:ep08-p01-ui",
+    contract: {
+      executionContractId: EC_ID,
+      version: 2,
+      status: "confirmed",
+      action: "studio.cursor.generalist.execute",
+      target: "studio.cursor.generalist.workspace",
+      scope: "studio.cursor.generalist.authorized_contract",
+      requiredAuthority: "N2",
+      constraints: ["PRODUCT_GOVERNED", "EFFECT_CLASS:local-write"],
+      stopConditions: [],
+      requiredCapabilities: ["cap:studio.cursor.generalist"],
+      reversibility: "reversible",
+      semanticFingerprint: "fp-ep08-p01-ui",
+      effectConfirmationRequired: true,
+      effectConfirmationLevel: "N2",
+      inspectionDisclosure: {
+        action: "studio.cursor.generalist.execute",
+        technicalTarget: "studio.cursor.generalist.workspace",
+        scope: "studio.cursor.generalist.authorized_contract",
+        targetRepositoryRef: "acme/w2-harness",
+        targetPath: null,
+        scopeIn: null,
+        scopeOut: null,
+        createOrModify: null,
+        noDelete: null,
+        objective: "EP-S2-08 UI proof",
+        artifactType: null,
+        artifactBrief: null,
+        contentRequirements: null,
+        validationExpectations: null,
+        expectedOutputs: ["Fichiers créés/modifiés dans le scope autorisé"],
+        evidenceRequirements: ["evreq:local-write"],
+        requiredAuthority: "N2",
+        requiredCapabilities: ["cap:studio.cursor.generalist"],
+        constraints: ["PRODUCT_GOVERNED"],
+        stopConditions: [],
+        reversibility: "reversible",
+        contractVersion: 2,
+        executionContractId: EC_ID,
+        semanticFingerprint: "fp-ep08-p01-ui",
+        disclosureComplete: true,
+        incompletenessCode: null,
+      },
+    },
+    inspection: {
+      executionContractId: EC_ID,
+      contractVersion: 2,
+      semanticFingerprint: "fp-ep08-p01-ui",
+      statusLabel: "INSPECTION SUFFISANTE",
+      inspectionSufficient: true,
+      attestationRef: "insp:ep08-p01-ui",
+      attestedVersion: 2,
+      staleAttestationRef: null,
+      reinspectionRequired: false,
+      reason: null,
+      grantsAuthority: false,
+    },
+    requiredInspectedFacts: ["action", "target", "scope"],
+  };
+}
+
+function productUnclaimed(reservations: readonly string[] = []) {
+  return {
+    outcome: "UNCLAIMED" as const,
+    businessHeadline: "Résultat technique non encore prouvé",
+    businessReason: "ClaimEvaluation NOT_PROVEN — Product PASS refused",
+    claimAllowed: false,
+    evidenceId: "ev:w3b:ep08-p01-ui",
+    reviewBundleId: "rb:w3b:ep08-p01-ui",
+    claimEvaluationId: "clm:w3b:ep08-p01-ui",
+    claimEvaluationStatus: "not_proven",
+    contractResultVerdict: "NOT_SATISFIED",
+    evidenceStatus: "available",
+    evidenceSummary: "Verification Evidence present",
+    reviewBundleCompleteness: "partial",
+    governedBoundary: "Fake Cursor boundary",
+    technicalDetail: {
+      attemptId: ATTEMPT_ID,
+      attemptStatus: "succeeded",
+      resultRef: "res:ep08-p01-ui",
+      errorRef: null,
+      stopReason: null,
+      executionContractId: EC_ID,
+      executionContractVersion: 2,
+    },
+    reservations: [...reservations],
+    antiClaims: {
+      ready: false,
+      w3Closed: false,
+      productCompletionComplete: false,
+      runtimeV3Adopted: false,
+      realProven: false,
+      cycleAutoClosed: false,
+      projectArchived: false,
+    },
+    cycleInstanceClosed: false,
+    projectArchived: false,
+    noraInvoked: true,
+    replanInvoked: false,
+    realExecution: false,
+  };
+}
+
+function postEvidence(input: {
+  kind: "continue" | "recover";
+  analysisText: string | null;
+  analysisUnavailableReason: string | null;
+  requiresHumanDecision?: boolean;
+}) {
+  return {
+    ok: true as const,
+    noraInvoked: true,
+    replanInvoked: false,
+    analysisText: input.analysisText,
+    analysisUnavailableReason: input.analysisUnavailableReason,
+    analysisProviderId: "fake-test",
+    recommendation: {
+      kind: input.kind,
+      headline:
+        input.kind === "continue"
+          ? "Continuer sur la lignée durable"
+          : "Reprise technique same-scope",
+      rationale: "Recommendation ≠ HumanDecision — DET Pilote surface",
+      nextStep:
+        input.kind === "continue"
+          ? "Continuer l'exécution gouvernée sans nouvelle décision structurelle"
+          : "Diagnostiquer puis reprendre same-scope si autorisé",
+      requiresHumanDecision: input.requiresHumanDecision ?? false,
+      authority: "none" as const,
+      gateConsumed: false,
+      decisionCreated: false,
+      attemptAutoLaunchNextCycle: false,
+      recommendNextGateStatus: null,
+      nextActionCode: input.kind,
+    },
+    lpsVersion: 3,
+    evidenceId: "ev:w3b:ep08-p01-ui",
+    reviewBundleId: "rb:w3b:ep08-p01-ui",
+    claimEvaluationId: "clm:w3b:ep08-p01-ui",
+    productOutcome: "UNCLAIMED",
+    executionReport: null,
+  };
+}
+
+function projection(stage: "RUNNING" | "POST_EVIDENCE_COMPLETE") {
+  return {
+    projectId: PROJECT_ID,
+    activeCycleInstanceId: null,
+    executionContractId: EC_ID,
+    executionContractVersion: 2,
+    executionContractStatus: "confirmed",
+    attemptId: ATTEMPT_ID,
+    attemptStatus: stage === "RUNNING" ? "running" : "succeeded",
+    stage,
+    productOutcome: stage === "POST_EVIDENCE_COMPLETE" ? "UNCLAIMED" : null,
+    evidenceId: stage === "POST_EVIDENCE_COMPLETE" ? "ev:w3b:ep08-p01-ui" : null,
+    reviewBundleId:
+      stage === "POST_EVIDENCE_COMPLETE" ? "rb:w3b:ep08-p01-ui" : null,
+    claimEvaluationId:
+      stage === "POST_EVIDENCE_COMPLETE" ? "clm:w3b:ep08-p01-ui" : null,
+    claimEvaluationStatus:
+      stage === "POST_EVIDENCE_COMPLETE" ? "not_proven" : null,
+    postEvidencePresent: stage === "POST_EVIDENCE_COMPLETE",
+    nextDeterministicAction:
+      stage === "RUNNING" ? ("AWAIT_EXTERNAL" as const) : ("NONE" as const),
+    humanDecisionRequired: false,
+    recoveryRequired: false,
+    reason: null,
+    blockingCode: null,
+    context: null,
+  };
+}
+
+async function flush(ms = 0): Promise<void> {
+  await act(async () => {
+    await vi.advanceTimersByTimeAsync(ms);
+  });
+}
+
+async function paintTerminal(extra: {
+  product: ReturnType<typeof productUnclaimed>;
+  postEvidence: ReturnType<typeof postEvidence>;
+}) {
+  reconcileMock.mockImplementation(async () => ({
+    ok: true as const,
+    intent: "continue" as const,
+    projection: projection("POST_EVIDENCE_COMPLETE"),
+    transitionsApplied: [] as string[],
+    stoppedReason: "stable",
+    product: extra.product,
+    postEvidence: extra.postEvidence,
+  }));
+  render(
+    <TrajectorySurface
+      decisionWorkflowMode="legacy_cta"
+      projectId={PROJECT_ID}
+    />,
+  );
+  await flush(0);
+  await flush(0);
+  await flush(nextReconcileContinueDelayMs(1));
+  await flush(RECONCILE_CONTINUE_BACKOFF_MAX_MS);
+}
+
+beforeEach(() => {
+  vi.useFakeTimers();
+  for (const m of [
+    proposeMock,
+    decideMock,
+    inspectMock,
+    authorizeMock,
+    prepareContractMock,
+    confirmMock,
+    executeSelectMock,
+    executeStartMock,
+    executeCompleteMock,
+    materializeMock,
+    reconcileMock,
+    deriveContinuityMock,
+    resolveContextMock,
+    readReviewItemMock,
+    readActiveDecisionSubjectMock,
+    readGovernedExecutionContinuityMock,
+    readRecoveryExecutionBindingMock,
+    readRecoveryOwnedDecisionContinuityMock,
+    readPreCycleMock,
+    readApprovalMock,
+    readPreparedCycleMock,
+  ]) {
+    m.mockReset();
+  }
+  readActiveDecisionSubjectMock.mockResolvedValue({ ok: true, kind: "none" });
+  readGovernedExecutionContinuityMock.mockResolvedValue(activeContinuity());
+  readRecoveryExecutionBindingMock.mockResolvedValue({
+    ok: true,
+    binding: null,
+    recoveryContextPresent: false,
+  });
+  readRecoveryOwnedDecisionContinuityMock.mockResolvedValue({
+    ok: true,
+    kind: "none",
+  });
+  readPreCycleMock.mockResolvedValue({
+    ok: true,
+    candidate: null,
+    activeCycleInstanceId: null,
+    hasCurrentNextCycleRecommendation: false,
+  });
+  readApprovalMock.mockResolvedValue({
+    ok: true,
+    presentation: null,
+    alreadyDecided: null,
+    activeCycleInstanceId: null,
+  });
+  readPreparedCycleMock.mockResolvedValue({ ok: true, prepared: null });
+  deriveContinuityMock.mockResolvedValue({
+    ok: true,
+    projection: projection("RUNNING"),
+  });
+  resolveContextMock.mockResolvedValue({
+    ok: false,
+    code: "UNUSED",
+    message: "",
+  });
+  proposeMock.mockResolvedValue({
+    ok: false,
+    code: "CYCLE_NOT_QUALIFIED",
+    message:
+      "Aucun cycle qualifié n'est actif — la qualification doit précéder les options.",
+  });
+});
+
+afterEach(() => {
+  cleanup();
+  vi.clearAllTimers();
+  vi.useRealTimers();
+});
+
+describe("EP-S2-08-PROOF-01 R2 — Pilote TrajectorySurface B5/B6 (jsdom)", () => {
+  it("B5 continue — recommendation visible; no HD; no structural Options CTA", async () => {
+    await paintTerminal({
+      product: productUnclaimed(),
+      postEvidence: postEvidence({
+        kind: "continue",
+        analysisText: "Analyse Nora DET continue",
+        analysisUnavailableReason: null,
+      }),
+    });
+
+    expect(screen.getByTestId("w3b-product-outcome")).toHaveAttribute(
+      "data-outcome",
+      "UNCLAIMED",
+    );
+    expect(screen.getByTestId("w3c-post-evidence")).toBeVisible();
+    expect(screen.getByTestId("w3c-recommendation-headline")).toHaveTextContent(
+      /Continuer sur la lignée durable/,
+    );
+    expect(screen.getByTestId("w3c-next-step")).toHaveTextContent(/Continuer/);
+    expect(screen.getByTestId("w3c-recommendation-kind")).toHaveTextContent(
+      "continue",
+    );
+    expect(screen.getByTestId("w3c-requires-human-decision")).toHaveTextContent(
+      "non",
+    );
+    expect(screen.getByTestId("w3c-recommendation-authority")).toHaveTextContent(
+      /Recommendation ≠ HumanDecision/,
+    );
+    // Project-only continue: no structural propose CTA invented.
+    expect(screen.queryByTestId("w3c-propose-trajectory")).toBeNull();
+    expect(proposeMock).not.toHaveBeenCalled();
+    expect(decideMock).not.toHaveBeenCalled();
+  });
+
+  it("B5 recover (no HD) — same-scope note; Options remain cycle-gated if proposed", async () => {
+    await paintTerminal({
+      product: productUnclaimed(),
+      postEvidence: postEvidence({
+        kind: "recover",
+        analysisText: "Analyse Nora DET recover",
+        analysisUnavailableReason: null,
+        requiresHumanDecision: false,
+      }),
+    });
+
+    expect(screen.getByTestId("w3c-recommendation-kind")).toHaveTextContent(
+      "recover",
+    );
+    expect(screen.getByTestId("w3c-requires-human-decision")).toHaveTextContent(
+      "non",
+    );
+    expect(screen.getByTestId("w3c-same-scope-recovery-note")).toBeVisible();
+    expect(screen.queryByTestId("w3c-propose-trajectory")).toBeNull();
+    // Honest Project-only Options refuse remains available at the server boundary.
+    const refused = await proposeMock({ projectId: PROJECT_ID });
+    expect(refused).toEqual(
+      expect.objectContaining({ ok: false, code: "CYCLE_NOT_QUALIFIED" }),
+    );
+  });
+
+  it("B6 Nora unavailable — reason intelligible; UNCLAIMED; remount preserve via reconcile", async () => {
+    const pe = postEvidence({
+      kind: "continue",
+      analysisText: null,
+      analysisUnavailableReason: UNAVAILABLE_REASON,
+    });
+    // When postEvidence.ok=true with unavailable analysis, Pilote sees reason on
+    // w3c-nora-analysis. withNoraUnavailableReserve applies when postEvidence fails.
+    await paintTerminal({
+      product: productUnclaimed([NORA_ANALYSIS_UNAVAILABLE_RESERVE]),
+      postEvidence: pe,
+    });
+
+    expect(screen.getByTestId("w3b-product-outcome")).toHaveAttribute(
+      "data-outcome",
+      "UNCLAIMED",
+    );
+    expect(screen.getByTestId("w3c-nora-analysis")).toHaveTextContent(
+      UNAVAILABLE_REASON,
+    );
+    expect(screen.getByTestId("w3c-requires-human-decision")).toHaveTextContent(
+      "non",
+    );
+    expect(screen.queryByTestId("w3c-propose-trajectory")).toBeNull();
+
+    cleanup();
+
+    // Remount: auto-resume from RUNNING → same durable terminal (process remount analog).
+    deriveContinuityMock.mockResolvedValue({
+      ok: true,
+      projection: projection("RUNNING"),
+    });
+    await paintTerminal({
+      product: productUnclaimed([NORA_ANALYSIS_UNAVAILABLE_RESERVE]),
+      postEvidence: pe,
+    });
+    expect(screen.getByTestId("w3c-nora-analysis")).toHaveTextContent(
+      UNAVAILABLE_REASON,
+    );
+    expect(screen.getByTestId("w3b-product-outcome")).toHaveAttribute(
+      "data-outcome",
+      "UNCLAIMED",
+    );
+    expect(decideMock).not.toHaveBeenCalled();
+  });
+});
+
+```
+
 ---
 
-## 8. Proof matrix B2 / B5 / B6
+## 11. Proof matrix
 
-| Proof | Classification | Oracle / assertions | Sources | Ceiling / limits |
-|---|---|---|---|---|
-| **B2** durable `/studio` remount (process) | **BEHAVIOR PROVEN** (DET) | `B2 — durable remount preserves Project/EC/Attempt + Evidence/RB/CE + W3-C` — new OA on same SQLite+refs; LPS/EC/Attempt ids; Evidence/RB/CE; W3-C reco kind+lpsVersion; no fictive cycle; HD count stable; idempotent rehydrate | OA Project/EC/Attempt/Evidence/RB/CE · GERM refs · `rehydrateProductOutcomeFromAttempt` · `reconcileGovernedExecution(continue)` | Process remount ≠ browser React remount E2E (**KNOWN GAP**) |
-| **B5** governed continuation | **BEHAVIOR PROVEN** (DET) at permitted paths | `B5 — post-Evidence recommendation visible…` — headline/nextStep; kind ∈ continue\|recover; `requiresHumanDecision=false`; `replanInvoked=false`; `decisionCreated=false`; W2 Options → `CYCLE_NOT_QUALIFIED`; no auto-resume on COMPLETE | W3-C reco · `resolveW2QualificationInputs` · `shouldAutoResumeReconcileOnRemount` | Structural Options CTA **not** reachable without cycle — **honest mismatch if UX suggests replan** (**KNOWN GAP** / qualify) |
-| **B6** Nora unavailable | **BEHAVIOR PROVEN** (DET) | `B6 — Nora unavailable…` — Fake provider fail; `analysisText=null` + unavailable reason; Product UNCLAIMED≠SUCCESS; remount preserves reason; no HD/replan; GERM intact; `NORA_ANALYSIS_UNAVAILABLE_RESERVE` label | FakeConversationProvider · `withNoraUnavailableReserve` · LPS rehydrate | ≠ invent separate persistence for reserve |
-
-### Dual-surface note
-
-TrajectorySurface uses `w2ReconcileGovernedExecutionAction`; ConversationSurface uses F3 LPS rehydrate — consistency review remains open (no UI redesign this cycle).
-
----
-
-## 9. B1 / B3 / B4 non-regression
-
-| Suite | Result |
-|---|---|
-| `akgM5L3S2.s8.projectFirst.integrated.d0.test.ts` | **PASS actual** (incl. late Evidence `IDEMPOTENCY_CONFLICT`) |
-| `akgM5L3S2.optionB.lotsAC.d0.test.ts` | **PASS actual** |
-| `w3cPostEvidenceLoop.test.ts` + `w3cPostEvidenceCorrection.test.ts` | **PASS actual** |
-| `genericExecutionReviewResultConvergence01.frontDoor.d0.test.ts` | **PASS actual** |
-| `genericExecutionReviewResultConvergence01.trajectorySurface.d0.test.ts` + `postExecutionTrajectorySurface.ui.test.tsx` | **PASS actual** (bundled in 5-file run, 57 tests) |
-
-Preserved: nominal Evidence; ABSENT≠REJECTED; honest UNCLAIMED; W3-B ownership; frozen RB; Tool-First; SHE; Late Evidence fail-closed; Mission Result applicability untouched; EP-S2-05 **NOT PROVEN**.
-
----
-
-## 10. Validation results
-
-| Check | Result | Command / notes |
+| Proof | Class | Notes |
 |---|---|---|
-| PROOF-01 B2/B5/B6 | **PASS actual** (3/3) | `npx vitest run __tests__/project-assistant/akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` (from `app/`) |
-| S8 + lotsAC + PROOF-01 | **PASS actual** (47/47) | combined vitest |
-| W3-C + frontDoor + trajectory UI | **PASS actual** (57/57) | combined vitest |
-| Typecheck (PROOF-01 clean) | **PASS actual** for changed oracle after typing fix; `npx tsc --noEmit` shows no `epS208` errors | Note: `npm run typecheck` historically exited 0 even when other errors present — scoped grep used |
-| Lint | **PASS actual** (warnings only pre-existing unused vars) | `npm run lint` |
-| Build | **NOT RUN** (time; not required for DET proof ceiling) | — |
-| Full Vitest | **NOT RUN** | targeted suites only |
-| SFIA Studio Required Gate (CI) | **NOT RUN** (no project push) | — |
+| B2 remount | BEHAVIOR PROVEN DET (process) | OA remount; ≠ browser E2E |
+| B5 continuation | BEHAVIOR PROVEN DET + jsdom Pilote | continue/recover; Options cycle-gated |
+| B6 Nora unavailable | BEHAVIOR PROVEN DET + jsdom Pilote | reason on `w3c-nora-analysis`; UNCLAIMED |
+| R1 CKC applicability | **OPEN** | anti-authority proven; selection undecided |
+
+B1/B3/B4 regressions: S8 + lotsAC + W3-C + frontDoor + trajectorySurface — **PASS actual** (82 tests in combined reg run).
 
 ---
 
-## 11. R23 / R24 qualification
+## 12. Validations
 
-- **R23:** Product mutation preceded by Convergence/PRR/code inspection; scope minimized to W3-C CKC Project-only defect + DET oracles.
-- **R24:** Behavior change documented in PRR 03/06/08/09 LOCAL overlays; manifest digests refreshed for those volumes. Roadmap tip **not** promoted. EP-S2-08 remains **PARTIAL**. No doctrine/L4 promotion.
-
-Digest deltas (sha256_16):
-- 03: `d13787c0f629efe4` → `7fbccdf6879875a4`
-- 06: `21c9328c91f86984` → `21f3dc86c0eb537e`
-- 08: `7a1bc607f6f28230` → `44b7174e02ba3f88`
-- 09: `700ee3ee207a5434` → `fd80aa73117b868c`
+| Check | Result |
+|---|---|
+| PROOF-01 + R1 + R2 UI | **PASS actual** (7/7) |
+| S8 / lotsAC / W3-C / frontDoor / traj surface | **PASS actual** (82/82) |
+| `npx tsc --noEmit` | **PASS actual** (exit 0, empty diagnostics) |
+| `npm run lint` | **PASS actual** (pre-existing unused-var warnings only) |
+| Build | **NOT RUN** |
+| Full Vitest | **NOT RUN** |
+| Required Gate CI | **NOT RUN** (no project push) |
+| PRR digests | refreshed locally for 03/08/09 (06 unchanged bytes) |
 
 ---
 
-## 12. Debts / reserves / STOPs
+## 13. R23 / R24
+
+- R23: investigation before further Product mutation; R1 not silently closed.
+- R24: PRR 03/08/09 LOCAL overlays updated for R1 OPEN + R2 UI oracles; digests refreshed. Roadmap tip **not** promoted.
+
+---
+
+## 14. Review Handoff (pre-publication)
+
+Status: **REQUIRED / PUBLISH-IN-CYCLE** after this pack write.
+
+| Field | Value |
+|---|---|
+| Branch | `sfia/review-handoff` |
+| Canonical | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Prior tip (historical) | `4c1397dee3689a20e20d15225bfa88072ab73b61` |
+| Prior blob (historical) | `8faef48113c1414e551b31f51dcd575c57704f77` |
+| This publication tip/blob | **see Cursor return after verified FF push** |
+
+Exception: single-file handoff only · no Product commit/push/PR.
+
+---
+
+## 15. Debts / decisions
 
 | Item | Status |
 |---|---|
-| Browser `/studio` remount E2E | **KNOWN GAP** (process remount DET used) |
-| Dual F3 / W3-C surface consistency | **OPEN** (no UI redesign) |
-| Structural replan CTA on Project-only | **honestly unavailable** (`CYCLE_NOT_QUALIFIED`) |
-| EP-S2-05 | **NOT PROVEN** |
-| EP-S2-08 PASS | **not claimed** — PARTIAL |
-| Project GI / PR | **NOT AUTHORIZED** |
-| REAL / G-REAL / L4 / runtime v3 | unchanged anti-claims |
-
-No STOP requiring Morris decision for HumanDecision / Late Evidence / architecture pivot.
+| R1 `cyc:delivery` Project-only applicability | **OPEN — MORRIS** (A/B/C) |
+| Browser `/studio` remount E2E | KNOWN GAP |
+| Dual F3/W3-C surface | OPEN |
+| EP-S2-05 / Late Evidence / HD semantics | unchanged |
+| Project GI | NOT AUTHORIZED |
 
 ---
 
-## 13. Gate impact / recommended verdict
+## 16. Suggested next gate / verdict
 
-**Suggested next gate:** Critical Review of this pack → Morris GO for Product GI (separate) if accepted · keep EP-S2-08 PARTIAL until merge+post-merge truth.
+Next: Morris decides R1 (A/B/C) → Critical re-review of residual → GI only under separate GO.
 
-**Recommended verdict:** `LOCAL DELIVERY COMPLETE — READY FOR CRITICAL REVIEW`
+**Recommended verdict:** `STOP — MORRIS DECISION REQUIRED` (R1 open).
 
-Anti-claims preserved: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN · REAL NOT PROVEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · runtime v3 NON ADOPTED.
-
----
-
-## 14. Review Handoff
-
-Status: **PUBLISHED IN-CYCLE**.
-Branch: `sfia/review-handoff`
-Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-Exception: single-file handoff only (no Product commit/push/PR).
-| Field | Value |
-|---|---|
-| Pre tip | `cab5e5847455fb59978c7dea98b8b859c341037b` |
-| Post / remote tip | `253e72636d646fd15cdecdf24cfe96928513836e` |
-| Remote blob (`latest-chatgpt-review.md`) | `4bcb62fd13f36fd8ba90e7a9e5285e1ce87689ae` |
-| Product branch restored / undisturbed | `feat/akg-m5-ep-s2-08-proof-01` @ `3fb84630…` (dirty local only; no project commit) |
+Anti-claims preserved.
