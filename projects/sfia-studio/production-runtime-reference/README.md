@@ -66,15 +66,15 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
 Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
 
 
-**AKG-M5 L3-S2 Option B / S8 Project-first — LOCAL CANDIDATE (R24 documentary 2026-10-27):**
+**AKG-M5 L3-S2 Option B / S8 Project-first — CURRENT ON MAIN (PR #623 MERGED — 2026-10-27) + Cycle 14 R24 LOCAL documentary sync:**
 
 | Epistemic class | Element |
 |---|---|
-| **CURRENT ON MAIN** | L3-S1 oracle integrated (PR #621) · SHE · Generic PREPARE D-ER-17 · Binding/docs_write retired (#618) |
-| **LOCAL CANDIDATE** | Option B Product dirty on `feat/akg-m5-l3-s2-generic-proof-continuity` @ `6e957ecb` · S8 Project-first · generic_materialization Evidence · W3-B ABSENT/ADMISSIBLE/REJECTED · OBSERVED FS DET · late Evidence IDEMPOTENCY_CONFLICT · R-S8-01…04 |
-| **R24** | Volumes 02/03/06/07/08/09 + this README updated for LOCAL truth · **manifest digests NOT refreshed** this cycle |
-| **Gates** | **REFERENCE REVIEW REQUIRED — MANIFEST DIGEST REFRESH PENDING** · **PROJECT GIT INTEGRATION NOT AUTHORIZED** |
-| **Anti-claims** | ≠ L3-S2 CURRENT ON MAIN · ≠ L3 GLOBAL CLOSED · ≠ REAL / G-REAL · ≠ runtime v3 ADOPTED · digest match ≠ semantic exhaustiveness |
+| **CURRENT ON MAIN** | [PR #623](https://github.com/mcleland147/sfia-workspace/pull/623) **MERGED** `2026-10-27T15:02:16Z` · merge `6c8b661c…` · parents `6e957ecb…` + `73f0166c…` · [post-merge CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **SUCCESS** · Required Gate **PASS** · Option B / S8 Project-first · CycleInstance optional (D-ER-17) · `generic_materialization` Evidence · W3-B ABSENT/ADMISSIBLE/REJECTED · RB/CE · W3-C/GERM/Nora Tool-First · CORR-CI-623-01/02 closed DET · L3-S1 oracle (#621) · SHE · Binding/docs_write retired (#618) |
+| **HISTORICAL AS TIP** | Pre-merge overlay « LOCAL CANDIDATE / dirty / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN » (true at 2026-10-27 authoring before merge) |
+| **R24 Cycle 14 + R24-CR-01/CR-02** | Volumes 02/03/04/06/07/08/09 + this README synchronized to Product CURRENT ON MAIN facts · **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27, before documentary Git Integration):** authored on `docs/akg-m5-l3-s2-postmerge-r24-current` · **CONSUMED GATE SNAPSHOTS (dated):** Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; handoff `e0c9f298…`) · R24-CR-01 **DELIVERED** (handoff `f8e16328…`; Roadmap/README/09) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…` / blob `14a12e41…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes |
+| **Gates** | **CONSUMED (dated):** Eight-Digest · R24-CR-01 · Critical Delta · Two-Digest (as above) · **DURABLE RULES:** digest mismatch ⇒ REFERENCE REVIEW REQUIRED · subsequent publication requires applicable Critical Semantic Review and Morris-authorized digest refresh when digests drift · documentary Git Integration and merge each under distinct Morris GO · post-merge documentary verification governed · **≠** docs ON MAIN **as of the pre-integration snapshot** |
+| **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL / G-REAL · ≠ runtime v3 ADOPTED · ≠ R24 CURRENT docs integrated · digest match ≠ semantic exhaustiveness |
 
 
 ## What this corpus is

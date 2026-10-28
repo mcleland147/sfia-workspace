@@ -6,26 +6,26 @@
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
 
-## Overlay — AKG-M5 L3-S2 Option B / S8 (LOCAL CANDIDATE — 2026-10-27)
+## Overlay — AKG-M5 L3-S2 Option B / S8 (CURRENT ON MAIN — PR #623 MERGED — 2026-10-27)
 
-> **LOCAL CANDIDATE** · branch `feat/akg-m5-l3-s2-generic-proof-continuity` · HEAD `6e957ecb` (= main) dirty · handoff Pass 05 `91a1dbaa` / `c5ccaee4` · **≠ CURRENT ON MAIN** · Git Integration **NOT AUTHORIZED**.
+> **Epistemic class:** **CURRENT ON MAIN** via [PR #623](https://github.com/mcleland147/sfia-workspace/pull/623) **MERGED** `2026-10-27T15:02:16Z` · merge **`6c8b661c50a5c1d9bd04793192b9294b63349bb1`** · parents **`6e957ecbf50b009b692cf1fcba2748ee1aa9c862`** + **`73f0166c6a71c301a7b2a9c2471beb30ad068221`** · [post-merge CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **COMPLETED / SUCCESS** (Detect · Typecheck · Lint · Build · Vitest · Modeled Governance · Secret Pattern Scan · Trailing Whitespace · **SFIA Studio Required Gate PASS**) · event=`push` · branch=`main` · HEAD=merge. Integrated Product commits: `0577ca5c…` (feat) · `90bbf479…` (pre-merge R24 LOCAL docs+manifest) · `f7c9ba78…` (**CORR-CI-623-01** Tool-First first-prompt) · `73f0166c…` (**CORR-CI-623-02** multi-path unclaimed redaction). Pre-merge CI [run #40519630827](https://github.com/mcleland147/sfia-workspace/actions/runs/40519630827) SUCCESS on `73f0166c…`. Prior overlay wording **LOCAL CANDIDATE / dirty Product / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN** = **HISTORICAL AS TIP** (true at 2026-10-27 pre-merge authoring). Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive activation / runtime v3 **NOT** claimed. **L3 GLOBAL OPEN**. EP-S2-05 **NOT PROVEN**. EP-S2-08 **PARTIAL**. ≠ Product PASS invented · ≠ L3 GLOBAL CLOSED.
 
 | Item | Status | Owner / exit |
 |---|---|---|
-| Option B Product + S8 + R-S8-01…04 | **LOCAL DET ACCEPTED** (Critical Reviews) | Morris Git Integration GO (distinct) |
+| Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
 | EP-S2-01…04, 06–07, 09–12 | **PASS** at tested DET scope | preserve senses |
 | EP-S2-05 Mission Evidence Project-only | **NOT PROVEN** | **Owner:** Product / construction Studio. **Exit (distinct):** Project-only context + Mission semantic **actually applicable** (no invented `PRODUCT_MISSION` stamp) + Mission Evidence ingested with Project/EC/Attempt identity + provenance + RB/CE consume it + Product Result honest; `generic_materialization` **≠** Mission Evidence. **Morris decision** only if semantic/model evolution required. **≠** automatic L4 assignment. |
-| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
-| Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession | Morris/OA — reopen policy or new Attempt |
+| EP-S2-08 Post-Evidence / rehydration (Nora/Pilote UX) | **PARTIAL** | **Owner:** Product / continuité Nora–Pilote. **Covered now:** durable GERM/W3-C technical rehydrate DET on main. **Exit (distinct):** durable resume with Project/EC/Attempt identity + Evidence/reserves preserved + Nora/Pilote restitution effective + governed continue/replan at decided scope + no invented HumanDecision; proofs Product/UX applicable. **Trajectory candidate:** L4 **or** next applicable capacity — **confirm via Roadmap + Morris GO** (L4 **not** automatically authorized / decided by this debt). |
+| Late Evidence after frozen RB | Fail-closed `IDEMPOTENCY_CONFLICT`; **no** same-key supersession (**OPEN** policy) | Morris/OA — reopen policy or new Attempt |
 | Mutating Generic Product PASS | **NOT PROVEN** (honest UNCLAIMED) | Result Semantic GO if ever required |
-| CURRENT ON MAIN gap « no new generic materialization Evidence » (#618) | Still **OPEN ON MAIN**; **LOCAL CANDIDATE** introduces `generic_materialization` at DET | Integration under Git GO |
+| generic_materialization Evidence (#618 gap) | **CLOSED AT DET SCOPE ON MAIN** via #623 · **≠** REAL E2E FS→Git→Review closure | REAL E2E remains KNOWN GAP / distinct proof |
 | Cursor REAL / G-REAL | **NOT GRANTED / NOT PROVEN** | distinct GO |
 | OA-exclusive | **DEFAULT OFF** | unchanged |
 | Runtime v3 | **NON ADOPTED** | unchanged |
-| L3 GLOBAL | **OPEN** | after L3-S2 integration + remaining exits |
-| R24 / Manifest | Documentary LOCAL prepared · **DIGEST REFRESH PENDING** after semantic review | ChatGPT/Morris gates |
+| L3 GLOBAL | **OPEN** | remaining EP exits + trajectory GO |
+| R24 / Manifest (Cycle 14 + R24-CR-01/CR-02) | **PRE-INTEGRATION SNAPSHOT (as-of 2026-10-27):** Truth-Sync authored locally (**≠** ON MAIN **as of this snapshot**) · **CONSUMED GATE SNAPSHOTS (dated):** Eight-Digest Manifest Gate **PASS LOCAL** (2026-10-27; eight volume digests regularized for that candidate) · R24-CR-01 **DELIVERED** (Roadmap/README/09; handoff `f8e16328…`) · Critical Delta Semantic Review **PASS** · Two-Digest Manifest Gate **PASS LOCAL** (2026-10-27; tip `daf6ed0b…`) on then-reviewed README digest `d6b3f0732e9cbd5a` + PRR 09 digest `ce0e37604698e0c5` — **octet-scoped** · Final Documentary Delta Readiness **RESERVED** (handoff `db51d58d…`) · R24-CR-02 durable currentness stabilization (this row) · **≠** permanent CONFORMANCE OK for later bytes | **DURABLE EXIT CONDITIONS:** applicable Critical Semantic Review for documentary deltas · manifest digests must match actual bytes (mismatch ⇒ REFERENCE REVIEW REQUIRED) · Morris-authorized digest refresh when drifted · distinct Morris GO for documentary Git Integration · distinct merge gate · post-merge documentary currentness verification |
 
-**Anti-claims:** ≠ L3-S2 CURRENT ON MAIN · ≠ L3 GLOBAL CLOSED · ≠ READY TO MERGE · ≠ REAL PROVEN · ≠ runtime v3 ADOPTED.
+**Anti-claims:** ≠ L3 GLOBAL CLOSED · ≠ EP-S2-05 PROVEN · ≠ EP-S2-08 PASS · ≠ REAL PROVEN · ≠ G-REAL GRANTED · ≠ runtime v3 ADOPTED · local digest PASS ≠ documentary Git Integration · local documentary candidate ≠ ON MAIN **as of the pre-integration snapshot** · prior Two-Digest PASS scoped to reviewed octets ≠ permanent CONFORMANCE OK for later bytes · ≠ Manifest digests published on main **as of the pre-integration snapshot**.
 
 ## Overlay — Product RepositoryBinding + docs_write Product specialization (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
@@ -42,7 +42,7 @@
 | HISTORICAL stages | LOCAL DELIVERY · Cycle 8 CI FAILURE · GIT-INTEGRATED PR CANDIDATE / Draft / NOT ON MAIN / MERGE NOT GRANTED — **true at their dates**; superseded as CURRENT by this overlay |
 | Epistemic supersession | README + this overlay are **CURRENT**. Volumes 02–08 overlays that still said LOCAL DELIVERY / NOT ON MAIN / PENDING GIT INTEGRATION for #618 are requalified in the same P0 pass to **CURRENT ON MAIN** (or marked HISTORICAL where they correctly describe pre-merge). |
 | KNOWN GAP — Product E2E FS→Git→Review | Front-door généraliste Product E2E physique FS→Git→Review **not re-proven** end-to-end (partially fixture-safe). **OPEN** |
-| KNOWN GAP — FS→SHA Evidence source | Allowlist **historical-only** `execution_attempt:docs_write` (+ dotted suffix). **No new generic Product materialization Evidence source** proven after retirement. **OPEN** |
+| KNOWN GAP — FS→SHA Evidence source | Allowlist **historical-only** `execution_attempt:docs_write` (+ dotted suffix) remains a historical FS-anchor narrative. **Superseded in part by PR #623:** Product Evidence `generic_materialization` is **CURRENT ON MAIN DET**. Residual **OPEN:** REAL / physical front-door E2E FS→Git→Review and Mission Evidence Project-only (EP-S2-05). |
 | KNOWN GAP — worktree layouts | Checkout origin read: one `.git` gitfile `gitdir` hop (+ `commondir`). Layouts beyond tested hops **fail-closed**. **OPEN** |
 | KNOWN GAP — residual naming | `repositoryBindingIdentity` seal-only field name **KEEP**; env keys `SFIA_STUDIO_PROJECT_REPOSITORY_*` — rename debt. **NOT** `Project.repositoryBinding` SoT. **OPEN** |
 | KNOWN GAP — REAL / H4 / G-ACTIVATION | **NOT QUALIFIED / NOT GRANTED**. **OPEN** |
