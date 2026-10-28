@@ -1048,7 +1048,13 @@ Anti-claims preserved: EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · L3 GLOBAL OPEN
 
 ## 14. Review Handoff
 
-Status: **REQUIRED / PUBLISH-IN-CYCLE** (executed after this pack write).
+Status: **PUBLISHED IN-CYCLE**.
 Branch: `sfia/review-handoff`
 Canonical: `sfia-review-handoff/latest-chatgpt-review.md`
-Exception: single-file handoff only (no Product commit).
+Exception: single-file handoff only (no Product commit/push/PR).
+| Field | Value |
+|---|---|
+| Pre tip | `cab5e5847455fb59978c7dea98b8b859c341037b` |
+| Post / remote tip | `253e72636d646fd15cdecdf24cfe96928513836e` |
+| Remote blob (`latest-chatgpt-review.md`) | `4bcb62fd13f36fd8ba90e7a9e5285e1ce87689ae` |
+| Product branch restored / undisturbed | `feat/akg-m5-ep-s2-08-proof-01` @ `3fb84630…` (dirty local only; no project commit) |
