@@ -100,6 +100,21 @@ export function buildInspectionFactRowsFromDisclosure(input: {
   if (d.noDelete !== null && d.noDelete !== undefined) {
     put("inputs.noDelete", "Sans suppression", d.noDelete ? "oui" : "non");
   }
+  if (d.repositoryMutationDeclared != null) {
+    const mutationValue =
+      d.repositoryMutationDeclared === "write"
+        ? "Écriture déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
+        : d.repositoryMutationDeclared === "read"
+          ? "Lecture seule déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
+          : d.repositoryMutationDeclared === "none"
+            ? "Aucune mutation déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
+            : "Opération inconnue déclarée — non promue automatiquement ; soumise aux contrôles du contrat.";
+    put(
+      "inputs.repositoryMutationDeclared",
+      "Opération déclarée sur le dépôt",
+      mutationValue,
+    );
+  }
   put(
     "inputs.contentRequirements",
     "Exigences de contenu",

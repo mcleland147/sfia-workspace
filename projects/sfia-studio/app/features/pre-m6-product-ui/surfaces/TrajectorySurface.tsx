@@ -141,6 +141,12 @@ function toInspectionDisclosureView(
         readonly scopeOut: readonly string[] | null;
         readonly createOrModify: boolean | null;
         readonly noDelete: boolean | null;
+        readonly repositoryMutationDeclared?:
+          | "none"
+          | "read"
+          | "write"
+          | "unknown"
+          | null;
         readonly contentRequirements: readonly string[] | null;
         readonly validationExpectations: readonly string[] | null;
         readonly expectedOutputs: readonly string[] | null;
@@ -162,6 +168,7 @@ function toInspectionDisclosureView(
     scopeOut: disclosure.scopeOut,
     createOrModify: disclosure.createOrModify,
     noDelete: disclosure.noDelete,
+    repositoryMutationDeclared: disclosure.repositoryMutationDeclared ?? null,
     contentRequirements: disclosure.contentRequirements,
     validationExpectations: disclosure.validationExpectations,
     expectedOutputs: disclosure.expectedOutputs,
@@ -180,6 +187,12 @@ type InspectionDisclosureView = {
   readonly scopeOut: readonly string[] | null;
   readonly createOrModify: boolean | null;
   readonly noDelete: boolean | null;
+  readonly repositoryMutationDeclared:
+    | "none"
+    | "read"
+    | "write"
+    | "unknown"
+    | null;
   readonly contentRequirements: readonly string[] | null;
   readonly validationExpectations: readonly string[] | null;
   readonly expectedOutputs: readonly string[] | null;
@@ -3098,6 +3111,24 @@ export function TrajectorySurface({
                     {contract.inspectionDisclosure.noDelete
                       ? " · aucune suppression"
                       : ""}
+                  </dd>
+                </div>
+              ) : null}
+              {contract.inspectionDisclosure?.repositoryMutationDeclared !=
+              null ? (
+                <div>
+                  <dt>Opération déclarée sur le dépôt</dt>
+                  <dd data-testid="w2-contract-repository-mutation-declared">
+                    {contract.inspectionDisclosure.repositoryMutationDeclared ===
+                    "write"
+                      ? "Écriture déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
+                      : contract.inspectionDisclosure
+                            .repositoryMutationDeclared === "read"
+                        ? "Lecture seule déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
+                        : contract.inspectionDisclosure
+                              .repositoryMutationDeclared === "none"
+                          ? "Aucune mutation déclarée — soumise au périmètre, aux contrôles et à l'autorisation du contrat."
+                          : "Opération inconnue déclarée — non promue automatiquement ; soumise aux contrôles du contrat."}
                   </dd>
                 </div>
               ) : null}

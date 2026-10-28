@@ -258,6 +258,29 @@ function missionImpliesRepositoryWork(analysis: IntentAnalysisDto): boolean {
 }
 
 /**
+ * EP-S2-08-PROOF-01 Option 1 — preserve an already-declared mutation claim as an
+ * inspectable EC input. Does NOT invent "write", does NOT authorize execution,
+ * and does NOT add EFFECT_CLASS:local-write. Bounded non-mutating remains "none".
+ * Absence stays null (fail-closed for Delivery WHAT at W3-C).
+ */
+function preserveDeclaredRepositoryMutation(input: {
+  readonly boundedNonMutating: boolean;
+  readonly analysisDeclared: unknown;
+}): "none" | "read" | "write" | "unknown" | null {
+  if (input.boundedNonMutating) return "none";
+  const declared = input.analysisDeclared;
+  if (
+    declared === "none" ||
+    declared === "read" ||
+    declared === "write" ||
+    declared === "unknown"
+  ) {
+    return declared;
+  }
+  return null;
+}
+
+/**
  * @deprecated Prefer resolveAuthoritativeProductMateriality — sync helper kept
  * for unit oracles that only have analysis (forces UNKNOWN without Product).
  */
@@ -704,6 +727,22 @@ export async function prepareGenericExecutionContractDraft(
       pathRoot: sealedCtx.pathRoot,
       impactSignals: { ...sealedCtx.impactSignals },
     };
+    // R-INSPECT-01 — sealed read_only / non-mutating intent cannot be silently
+    // overridden by an analysis write declaration (no invented HD write approval).
+    const analysisMutation = (
+      analysis as { repositoryMutationDeclared?: unknown }
+    ).repositoryMutationDeclared;
+    if (
+      sealedHdEffects.intentKind === "read_only" &&
+      analysisMutation === "write"
+    ) {
+      return {
+        ok: false,
+        code: "HD_MUTATION_DECLARATION_CONFLICT",
+        message:
+          "HumanDecision scellée read_only contradictoire avec repositoryMutationDeclared=write — PREPARE refusé (fail-closed).",
+      };
+    }
   } else if (hdRequired) {
     sheDeferredStructuralAuthority = true;
     // decisionRefs stay []; honest MATERIALITY stamp remains on constraints.
@@ -982,7 +1021,14 @@ export async function prepareGenericExecutionContractDraft(
       prepareStatus: "draft_inspectable",
       materialityFacts,
       boundedNonMutatingAnalysis: boundedNonMutating,
-      repositoryMutationDeclared: boundedNonMutating ? "none" : null,
+      repositoryMutationDeclared: preserveDeclaredRepositoryMutation({
+        boundedNonMutating,
+        analysisDeclared: (
+          analysis as {
+            repositoryMutationDeclared?: unknown;
+          }
+        ).repositoryMutationDeclared,
+      }),
       // Intent fidelity — inspectable mission effects (Pass 02 / EC↔HD).
       intentKind: boundedNonMutating
         ? stampedIntentKind ?? "read_only"
