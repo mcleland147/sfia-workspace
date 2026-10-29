@@ -1,110 +1,125 @@
 # ChatGPT Critical Review Pack — FULL
-## AKG-M5 L3-S2 LIVE-E2E-01 · CYCLE 9 — ISOLATED MANAGED ROOT PREPARATION
+## AKG-M5 L3-S2 LIVE-E2E-01 · CYCLE 9 — DEDICATED TEST REPOSITORY PREPARATION
 
-**UTC authored:** 2026-10-29T09:47:21Z
-**Morris GO consumed:** AKG-M5 / LIVE-E2E-01 ISOLATED MANAGED ROOT PREPARATION
-**Verdict (Cursor local):** ISOLATED MANAGED BASE READY — CHECKOUT / G-REAL PENDING
+**UTC authored:** 2026-10-29T10:20:46Z
+**Morris GO consumed:** DEDICATED TEST REPOSITORY PREPARATION — `mcleland147/sfia-studio-live-e2e` PRIVATE
+**Verdict (Cursor local):** DEDICATED PRIVATE TEST REPOSITORY READY — G-REAL SECURITY REVIEW PENDING
 
-**Anti-claims:** G-REAL NOT GRANTED · Cursor REAL NOT EXECUTED · No ExecutionAttempt · No clone/fetch/push · No EP-S2-08 promotion · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · Runtime v3 NON ADOPTED · No secrets disclosed
+**Anti-claims:** G-REAL NOT GRANTED · Cursor REAL NOT EXECUTED · No LIVE E2E proof · No ExecutionAttempt · No sfia-workspace project push/PR/merge · No extra commits/pushes to test repo after init · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · Runtime v3 NON ADOPTED · No secrets disclosed
 
 ---
 
 ## 1. UTC
-2026-10-29T09:47:21Z
+2026-10-29T10:20:46Z
 
 ## 2. Morris GO scope
-Authorized: create dedicated local managed-root BASE; path-safety; qualify checkout policy (without manufacturing fixture); update only `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` on target `.env.local`; non-launching preflight; FULL pack + L3 handoff.
+Authorized: Git truth · gh auth readiness · create exact PRIVATE repo · README init commit · clone into dedicated managed base · identity/origin verification · read-only Product resolver exercise · isolation assessment · FULL pack + L3 handoff.
 
-NOT authorized: Cursor REAL launch · ExecutionAttempt · mission · remote clone/fetch/push · Product/test edits · G-REAL · EP/L3/v3 promotion · historical WT deletion · REAL gate bypass.
+NOT authorized: Cursor REAL launch · ExecutionAttempt · LIVE mission · sfia-workspace mutation · extra pushes to new repo · other repos · visibility change · G-REAL · L4/v3 · safety-gate bypass · historical WT deletion.
 
-## 3. Git Truth
+## 3. Actual Git Truth
 | Field | Value |
 |---|---|
-| Repo / remote | `mcleland147/sfia-workspace` · `https://github.com/mcleland147/sfia-workspace.git` |
-| Target WT | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3s2-r24-postmerge-capitalization` |
+| Investigation WT | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3s2-r24-postmerge-capitalization` |
 | Branch | `docs/akg-m5-l3s2-r24-postmerge-capitalization` |
 | HEAD | `cf940d84ea9e78602131fe97f75cad0c5abddac9` |
-| origin/main (local + ls-remote) | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| Expected main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| origin/main (local+ls-remote) | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| Expected | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
 | MAIN_OK | YES |
-| HEAD vs main | HEAD is pre-merge tip of #627; main = merge commit only (`1 0` ahead on main). Runtime prep sources **ALIGN** with `origin/main`. |
-| Porcelain | only `.tmp-sfia-review/chatgpt-review.md` dirty (review pack) |
+| Porcelain | `M .tmp-sfia-review/chatgpt-review.md` only |
 | Staged | empty |
-| Historical WTs | preserved (no reset/stash/clean/checkout switch) |
+| Worktrees | preserved (count observed earlier; no reset/clean/delete) |
+| Runtime source ALIGN vs main | managedProjectRepositoryResolver · managedRepoRootBaseConfig · studioRuntimeProfilePreflight |
 
-**G1:** PASS (main identity match; runtime source alignment verified for managed-root prep files).
-
-## 4. Source routing
+## 4. Source routing and CKC status
 | Source | Status |
 |---|---|
-| `prompts/templates/sfia-cycle-execution-template.md` | ROUTED |
-| `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` | ROUTED |
-| `method/sfia-fast-track/checklists/sfia-validation-checklist.md` | ROUTED (v2.6 fallback) |
-| Cycle 9 CKC dedicated | **ABSENT** — candidate/absence reported; use validation checklist + contract |
-| Build Doctrine / Living Roadmap / M5 journey / Product Completion C1 | ROUTED (prior cycle + this prep) |
-| Studio v3 framing 30–37 | Target doctrine, **NON ADOPTED** |
-| PRR README + vols 02/03/04/06/07/08/09 | Applicable |
-| R23 | Code/primary evidence prevail |
-| R24 | Local configuration only — **NO SEMANTIC IMPACT** |
+| Cycle execution template / routing guide / validation checklist | ROUTED |
+| CKC pilot `…/pilots/04-qa-validation.md` | PRESENT — **CANDIDATE guidance only** · no execution authority |
+| Build Doctrine / Roadmap / M5 journey / Product Completion C1 | Applicable |
+| Studio v3 framing 30–37 | Target doctrine · **NON ADOPTED** |
+| PRR README + 02/03/04/06/07/08/09 | Applicable |
+| R23 | Implementation read before action |
+| R24 | Local/external test-repo only · **NO SEMANTIC IMPACT** on Product |
 
 ## 5. Convergence Pre-check
-ACTIVE: AKG-M5 / L3-S2 · EP-S2-08 PARTIAL · Prior Product #623/#626 · Docs #625/#627 on main · Local REAL config DONE · Prior handoff tip `36af5c15…` blob `2bdccfa3…` · Previous verdict PARTIAL isolation blocked · This cycle removes managed-base isolation blocker only.
+Prior handoff tip `66ceb4a7…` blob `be3674eb…` · verdict ISOLATED MANAGED BASE READY — CHECKOUT / G-REAL PENDING · This cycle materializes approved disposable identity under that base.
 
-## 6. R23 implementation mapping
-| Concern | Code |
-|---|---|
-| Env base parse | `managedRepoRootBaseConfig.ts` → absolute or undefined |
-| Identity → dirname | `sanitizeManagedRepoIdentity` → `managedRootBase / sanitized` |
-| Existence ≠ fidelity | `resolveLocalRepoRoot` checks `.git`; protected Git uses `resolveIdentityMatchedLocalRepo` (origin match) |
-| ZERO network resolver | no clone/fetch in resolver |
-| Preflight | base absolute + exists; does **not** construct REAL boundary in READY |
-| Pathless non-mutating REAL | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` refuse (gateway `--sandbox disabled --force`) |
+## 6. R23 actual implementation
+- `sanitizeManagedRepoIdentity("mcleland147/sfia-studio-live-e2e")` → `mcleland147__sfia-studio-live-e2e`
+- Checkout = `managedRootBase / sanitized`
+- `resolveIdentityMatchedLocalRepo` admits only when origin matches identity; absent → `managed_repo_absent`
+- ZERO network in resolver; clone performed via authorized `gh` outside Product
+- Preflight READY does not construct REAL boundary
+- Pathless non-mutating REAL still refused: `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` (`--sandbox disabled --force`)
 
-## 7. Base directory before / after
-| Path | Before | After |
-|---|---|---|
-| `/Users/morris/Projects/.sfia-exec` | ABSENT | CREATED mode `0o700` owner morris |
-| `…/live-e2e-01` | ABSENT | CREATED mode `0o700` |
-| `…/managed-repos` (AUTHORIZED BASE) | ABSENT | CREATED mode `0o700` · children=0 · not symlink |
-| Projects parent mode | `0o755` | **unchanged** |
-| Historical HQA managed-repos | intact (`mcleland147__capaction-greenfield` still present) | **untouched** |
-
-## 8. Path safety checks
+## 7. GitHub account / authorization status
 | Check | Result |
 |---|---|
-| Exact authorized target | `/Users/morris/Projects/.sfia-exec/live-e2e-01/managed-repos` |
-| Symlink redirection | REJECTED / none |
-| Ownership | morris (uid 501) |
-| Collision / overwrite | none — created empty |
-| Inside unrelated tracked git tree | NO (Projects / `.sfia-exec` not a git repo) |
-| Production repo modified | NO |
-| Fake `.git` / fixture clone | NOT created |
+| `gh` | 2.96.0 available |
+| Auth | Logged in as **mcleland147** (keyring) · Active |
+| Scopes (redacted token) | gist, read:org, **repo**, workflow |
+| Owner eligibility | login=`mcleland147` matches target owner |
+| Pre-existence | GraphQL NOT FOUND (not auth failure) |
+| Studio `.env.local` OAuth used for admin | **NO** |
 
-## 9. Directory permissions
-Created dirs: **0700**. Unrelated parent (`/Users/morris/Projects` 0755) not modified.
-
-## 10. Target env status (redacted)
-| Item | Status |
+## 8. New repository identity
+| Field | Value |
 |---|---|
-| File | `projects/sfia-studio/app/.env.local` |
-| Mode | **0600** (preserved) |
-| Symlink | NO |
-| Gitignored / untracked | YES |
-| Changed keys | **only** `SFIA_STUDIO_MANAGED_REPO_ROOT_BASE` |
-| New value | authorized LIVE-E2E base (absolute, single line) |
-| Old value | historical P6 HQA managed-repos (no longer active) |
-| Content fp16 | before `556aac830378be17` → after `6ad0cc4160ca520a` |
-| Credentials / Auth / Pilot / OpenAI | preserved (opaque equality) |
-| Staged/committed | NO |
+| nameWithOwner | `mcleland147/sfia-studio-live-e2e` |
+| owner | mcleland147 |
+| url | `https://github.com/mcleland147/sfia-studio-live-e2e` |
+| createdAt (API) | `2026-10-29T10:19:27Z` |
 
-## 11. Configured REAL mode
-| Flag | Value |
+## 9. Private visibility evidence
+GitHub API/CLI JSON: `visibility=PRIVATE` · `isPrivate=true` · `archived=false` · `defaultBranch=main`.
+
+## 10. Remote initialization details
+| Field | Value |
 |---|---|
-| `SFIA_STUDIO_CURSOR_REAL` | **`1`** (READY) |
-| `SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY` | ABSENT / OFF |
-| Mutual exclusion | PASS |
+| Init method | `gh repo create … --private --add-readme` |
+| Initial commit message | `Initial commit` |
+| Initial remote SHA | `b63983420823012912180d5880e51c96c2bd0821` |
+| Tracked content | README.md only |
+| Extra commits after init | **NONE** (API count=1) |
+| Actions / protections / integrations | NOT configured |
 
-## 12. Runtime preflight output
+## 11. Clone path and mode
+| Field | Value |
+|---|---|
+| Base | `/Users/morris/Projects/.sfia-exec/live-e2e-01/managed-repos` · exists · 0700 · morris · not symlink · was empty pre-clone |
+| Checkout | `/Users/morris/Projects/.sfia-exec/live-e2e-01/managed-repos/mcleland147__sfia-studio-live-e2e` |
+| Mode | 0700 · owner morris · not symlink |
+| Clone tool | `gh repo clone` to exact path |
+| Fake skeleton | NO |
+
+## 12. Origin URL verification (redacted)
+| Check | Result |
+|---|---|
+| `git remote get-url origin` | `https://github.com/mcleland147/sfia-studio-live-e2e.git` |
+| Host/path form | `github.com/mcleland147/sfia-studio-live-e2e` |
+| Identity match | **PASS** |
+
+## 13. Initial HEAD / base SHA
+| Side | SHA |
+|---|---|
+| Local HEAD | `b63983420823012912180d5880e51c96c2bd0821` |
+| Remote HEAD | `b63983420823012912180d5880e51c96c2bd0821` |
+| Equality | YES |
+| Branch | `main` |
+| Porcelain | clean (0) |
+
+## 14. Resolver check and behavior
+Read-only invocation of Product `resolveIdentityMatchedLocalRepo` via tsx import of current source (no fixture / parallel resolver / Product file write):
+
+| Case | Result |
+|---|---|
+| identity=`mcleland147/sfia-studio-live-e2e` | **ok=true** · repoRoot=expected checkout · origin host/path matches |
+| absent identity under same base | **ok=false** · `managed_repo_absent` (fail-closed) |
+
+**PRODUCT RESOLVER VERIFIED** for admit + absent fail-closed (read-only). Not a StartExecution Attempt; protected-Git start gate not launched.
+
+## 15. Runtime preflight result
 ```
 STUDIO RUNTIME PROFILE READY
 - authority: PASS
@@ -114,92 +129,69 @@ STUDIO RUNTIME PROFILE READY
 - deterministic⊕REAL: PASS
 - realBoundaryConstructed: false
 ```
-Exit **0**. Interpretation: configuration readiness only. `managedClone` echo equals base because preflight treats base existence — **not** identity checkout proof. `realBoundaryConstructed=false` intentional.
+Exit 0. `.env.local` **not rewritten** · REAL=1 · DET ABSENT · mode 0600 · gitignored/untracked · Auth/OAuth/OpenAI/Pilot keys PRESENT (redacted).
 
-## 13. Checkout identity qualification
-| Item | Status |
-|---|---|
-| Managed BASE | **READY** (empty dedicated dir) |
-| Identity-specific checkout under base | **ABSENT** |
-| Approved disposable identity | **NOT YET QUALIFIED** |
-| Historical HQA greenfield reuse | REJECTED for this mission |
-| Production repo as disposable target | REJECTED |
-| Unidentified remote clone | NOT AUTHORIZED this cycle |
+Preflight ≠ checkout proof (resolver separately verified) · ≠ REAL executed · ≠ G-REAL.
 
-**Minimal next Morris decision before checkout creation:**
-1. Approve exact disposable repository identity (`owner/repo`) that is **not** production Studio workspace and **not** historical HQA data reuse without separate GO.
-2. Authorize the **local clone** operation into `…/managed-repos/<sanitizedIdentity>` (network clone authority — currently NOT granted).
-3. Confirm expected origin URL fidelity policy and whether remotes may remain empty vs required matching origin for protected Git.
-
-## 14. Origin fidelity qualification
-**NOT PROVEN** — no checkout exists under the new base; no origin metadata to verify. Protected Git path will fail-closed until identity-matched checkout exists.
-
-## 15. Effective isolation assessment
+## 16. Confinement analysis
 | Layer | Assessment |
 |---|---|
-| Process user | morris / euid 501 |
-| Base FS perms | 0700 under `.sfia-exec` |
-| OS sandbox for Cursor REAL | **NOT PROVEN** — generalist uses `--sandbox disabled --force` |
-| Network restriction | **NOT PROVEN** |
-| Agent leave-root risk | **OPEN** — folder base ≠ confinement |
-| Unapproved writes | possible without OS isolation |
-| Rollback / audit | FS + git of checkout only after clone exists; no agent audit this cycle |
-| G12 SECURITY CONFINEMENT | **NOT PROVEN** |
+| Process identity | morris / euid 501 |
+| Checkout perms | 0700 |
+| OS sandbox for Cursor REAL generalist | **NOT present** (`--sandbox disabled --force`) |
+| Network restriction | NOT PROVEN |
+| Leave-root write risk | OPEN |
+| Credential exposure if agent launched | residual risk to unrelated files / secrets outside checkout |
+| Rollback | git of disposable repo only; no agent audit this cycle |
+| **G10** | **CONFINEMENT NOT PROVEN** |
 
-Bounded options for Morris arbitration: (A) G-REAL only for concrete-path missions inside disposable checkout + accept residual OS risk; (B) require enforceable sandbox/read-only capacity before any REAL; (C) stay on DET/Fake until confinement GO. Do **not** rebind M4 read-only to Product generalist silently. Pathless non-mutating REAL remains refused (`BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE`).
+Options for Morris (no implementation this cycle): (A) accept residual OS risk for concrete-path G-REAL inside disposable repo; (B) require enforceable sandbox/read-only capacity first; (C) remain DET until confinement GO. Do not silently rebind M4 read-only. Preserve pathless non-mutating refuse.
 
-## 16. Security gaps
-- Folder isolation ≠ production-safe sandbox.
-- No confinement proof without agent (and agent launch forbidden).
-- Checkout identity / origin fidelity still open.
-- Auth/Nora connectivity still unproven (config-only).
-- Gateway flags unchanged (preserved).
-
-## 17. Gate matrix G1–G13
-| Gate | Status | Evidence | Missing | Owner | Next | Morris |
+## 17. G1–G13 matrix
+| Gate | Status | Evidence | Missing | Risk | Owner | Next |
 |---|---|---|---|---|---|---|
-| G1 Git Truth / source align | PASS | main=`2cc63686…`; runtime files ALIGN | — | Cursor | — | — |
-| G2 Dedicated managed base | PASS | created empty 0700 | — | Cursor | — | GO consumed |
-| G3 Configured managed-root path | PASS | env → new base; HQA inactive | — | Cursor | — | — |
-| G4 Runtime preflight | PASS | exit 0 READY | — | Cursor | — | — |
-| G5 Cursor REAL configured | PASS | `=1` | — | Cursor | — | prior GO |
-| G6 Deterministic OFF | PASS | ABSENT | — | Cursor | — | — |
-| G7 Checkout identity readiness | BLOCKED | base empty | approved identity + clone GO | Morris | decide identity | **REQUIRED** |
-| G8 Git origin fidelity | NOT PROVEN | no checkout | origin-matched clone | Morris | after clone | REQUIRED |
-| G9 Historical workspace preserved | PASS | HQA + dirty WTs intact | — | Cursor | — | — |
-| G10 Physical confinement | NOT PROVEN | 0700 only; no OS sandbox | confinement GO / accept residual risk | Morris | arbitrate A/B/C | **REQUIRED** |
-| G11 No unauthorized effects | PASS | no agent/clone/product mutation | — | Cursor | — | — |
-| G12 No secret exposure | PASS | redacted pack; 0600; untracked | — | Cursor | — | — |
-| G13 Future bounded G-REAL | NOT PROVEN / PENDING | prerequisites incomplete | checkout + confinement + G-REAL text | Morris | after G7/G8/G10 | **REQUIRED** |
+| G1 Git Truth / align | PASS | main expected; sources ALIGN | — | low | Cursor | — |
+| G2 GitHub auth | PASS | mcleland147 · repo scope | — | low | Cursor | — |
+| G3 Exact private repo created | PASS | nameWithOwner exact | — | low | Cursor | — |
+| G4 Private visibility | PASS | API isPrivate/PRIVATE | — | low | Cursor | — |
+| G5 Initial branch/commit | PASS | main · `b63983420823012912180d5880e51c96c2bd0821` · README | — | low | Cursor | — |
+| G6 Local clone path | PASS | sanitized dirname exact · 0700 | — | low | Cursor | — |
+| G7 Managed resolver identity | PASS | Product resolver ok=true | StartExecution not run | low | Cursor | — |
+| G8 Origin fidelity | PASS | origin URL ↔ identity | — | low | Cursor | — |
+| G9 Local worktree clean | PASS | porcelain 0 on checkout | — | low | Cursor | — |
+| G10 Effective confinement | NOT PROVEN | folder≠OS sandbox | confinement arbitration | **high for REAL** | Morris | G-REAL security review |
+| G11 Runtime REAL config | PASS | REAL=1 · DET OFF · preflight | — | med | Cursor | — |
+| G12 No unauthorized effect | PASS | no agent · no project push · no extra test-repo push · HQA untouched | — | low | Cursor | — |
+| G13 Future G-REAL authority | NOT PROVEN / PENDING | checkout ready; confinement open | explicit G-REAL + confinement posture | high | Morris | **REQUIRED** |
 
-## 18. No unauthorized mutation proof
+## 18. No unauthorized changes proof
 | Action | Result |
 |---|---|
 | Cursor agent | NOT PERFORMED |
 | ExecutionAttempt | NOT CREATED |
-| Product/test source | unchanged |
-| Remote clone/fetch/push/PR/merge | NONE |
-| Historical HQA | untouched |
-| Fixture repo under new base | NONE (children=0) |
-| realBoundaryConstructed | false |
+| sfia-workspace Product/test edits | NONE |
+| sfia-workspace project push/PR/merge | NONE (handoff-only later) |
+| Extra commits/pushes to test repo | NONE after init |
+| Other repositories created | NONE |
+| Visibility changed after create | NO |
+| `.env.local` rewrite | NO |
+| Historical WTs deleted | NO |
 
 ## 19. R24 — NO SEMANTIC IMPACT
-Local directory + `.env.local` managed-root path only. No Product semantic / architecture change. Studio v3 NON ADOPTED.
+External PRIVATE test repository + local managed clone only. No Product semantic/architecture change. Studio v3 NON ADOPTED.
 
-## 20. Remaining readiness dependencies
-1. Morris: approve disposable checkout identity.
-2. Morris: authorize network clone into dedicated base (or supply pre-approved local materialization method).
-3. Verify origin fidelity after checkout.
-4. Auth bootstrap / OAuth when server up.
-5. Optional Nora LIVE connectivity smoke.
-6. Morris confinement arbitration (G10/G12).
-7. Bounded **G-REAL** text for first disposable concrete-path REAL launch.
+## 20. Remaining blockers and gates
+1. **G10 confinement** — Morris security arbitration before REAL launch.
+2. Explicit **bounded G-REAL** text (concrete-path mission inside disposable checkout).
+3. Auth bootstrap / interactive OAuth when server up (config present; connectivity unproven).
+4. Optional Nora LIVE connectivity smoke.
+5. LIVE E2E / Pilote UAT only after G-REAL.
 
-## 21. Proposed next Morris decision
-**Decide disposable repository identity + authorize clone into the READY managed base**, then (separately) confinement posture + bounded G-REAL. Do not treat preflight READY or REAL=1 as launch authority.
+## 21. Next Morris decision
+**G-REAL SECURITY REVIEW:** choose confinement posture (A/B/C) and, if accepting residual risk, issue bounded G-REAL for a disposable concrete-path mission against `mcleland147/sfia-studio-live-e2e` only. REAL=1 and preflight READY remain configuration — not launch authority.
 
 ## 22. Unique verdict
 
-**ISOLATED MANAGED BASE READY — CHECKOUT / G-REAL PENDING**
+**DEDICATED PRIVATE TEST REPOSITORY READY — G-REAL SECURITY REVIEW PENDING**
 
-Managed BASE ready and configured · preflight PASS · REAL=1 · DET OFF · checkout identity BLOCKED · origin fidelity NOT PROVEN · confinement NOT PROVEN · G-REAL NOT GRANTED · agent NOT launched.
+Private repo created · identity-matched checkout ready · Product resolver verified · origin fidelity PASS · runtime REAL config READY · confinement NOT PROVEN · G-REAL NOT GRANTED · agent NOT launched.
