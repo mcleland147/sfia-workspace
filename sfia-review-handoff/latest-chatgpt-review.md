@@ -3692,12 +3692,16 @@ index ac3ad90d..7215a08a 100644
 | Ancienne alerte ≠ masque tour courant | T18 |
 | Pas de nouveau modèle d'autorité | typed notices only; no Truth C / OA from renderer |
 
-## 12. Handoff publish (à compléter après publish)
+## 12. Handoff publish — REMOTE VERIFIED
 
 - Branche: `sfia/review-handoff`
 - Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
 - Message: `docs(review-handoff): publish CORR-NAP-02 reliability review`
-- Remote SHA/blob: *voir sortie publisher*
+- Remote tip SHA: `017add031ff1955b072fd0ef72fdc9c086ab7021`
+- Remote blob: `4ede3bf1d0d2e9be4e9c264f4fa59762fcaf2047`
+- Prior tip: `9cb5f213a8c5f3c5b5aea240eb5c052a0b4ff888` (CORR-NAP-01)
+- Relu distant: titre CORR-NAP-02 + verdict LOCAL CORRECTION COMPLETE
+- Delivery worktree restored; projet WIP intact; aucun commit projet
 
 ---
 **FIN REVIEW PACK CORR-NAP-02 — FULL**
