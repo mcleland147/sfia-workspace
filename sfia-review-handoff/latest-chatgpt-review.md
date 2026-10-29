@@ -1,11 +1,11 @@
 # ChatGPT Critical Review Pack — LIGHT
-## AKG-M5 L3-S2 · CYCLE 4 UX/UI — PILOTE EXPERIENCE CADRAGE (Nora ↔ Contrat ↔ Preuves)
+## AKG-M5 L3-S2 · CYCLE 6 ARCHITECTURE — Nora adaptive presentation path (A3/A4)
 
-**UTC authored:** 2026-10-29T17:48:38Z
-**Morris GO:** ANALYSE ET CADRAGE UNIQUEMENT — no build, no Product change
-**Verdict:** UX CADRAGE COMPLETE — READY FOR FIGMA REVIEW
+**UTC authored:** 2026-10-29T18:51:41Z
+**Morris GO:** CONCEPTION A3/A4 VALIDÉE — construction NON autorisée
+**Verdict:** ARCHITECTURE QUALIFIED — DELIVERY GO REQUIRED
 
-**Anti-claims:** No code/CSS/tests/config/data change · No LIVE/HQA write · No server restart · No BALISE execution · No TEST-15 fix · No Figma file creation · No PR/merge/project push · Runtime v3 NON ADOPTED · R24 NO SEMANTIC IMPACT (cadrage only) · EP-S2-08 PARTIAL · L3 GLOBAL OPEN
+**Anti-claims:** No Product/Figma/DB/config change · No new service built · No BALISE/Cursor REAL · No TEST-15 fix · No project push/PR/merge · Runtime v3 NON ADOPTED · R24 NO SEMANTIC IMPACT (diagnostic) · EP-S2-08 PARTIAL · L3 GLOBAL OPEN
 
 ---
 
@@ -15,126 +15,127 @@
 | Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3s2-r24-postmerge-capitalization` |
 | Branch | `docs/akg-m5-l3s2-r24-postmerge-capitalization` |
 | HEAD | `cf940d84ea9e78602131fe97f75cad0c5abddac9` |
-| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= expected `2cc63686…`) |
-| Porcelain | `M .tmp-sfia-review/chatgpt-review.md` only — preserved |
-| Prior handoff | `1e61d164…` (TEST-15 root cause) |
+| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= `2cc63686…`) |
+| Porcelain | `M .tmp-sfia-review/chatgpt-review.md` preserved |
+| Prior UX cadrage handoff | `9462c7e3…` |
 
-## 2. Convergence Pre-check
-| Item | Qualification |
+## 2. Figma refs (validated UX — not Product runtime proof)
+| Frame | nodeId | Name | Size |
+|---|---|---|---|
+| **A3** | `466:2` | Nora / adaptive presentation contract · CANDIDATE | 1440×1140 |
+| **A4** | `466:71` | Nora / composed response and reload continuity · CANDIDATE | 1440×1140 |
+| **A** | `446:3` | Nora / adaptive synthesis · workspace | 1440×1024 |
+| **A2** | `447:2` | Adaptive response catalogue / guardrails | 1440×880 |
+| File | `m4g8j0gNbEzfIuH6S9AZJF` | Pre-M6 | MCP session read **VERIFIED** |
+
+**A3 contract (metadata):** 4-step pipeline Intent→Blocks→Validation Studio→Rendu déterministe ; routing matrix (short Q / synthesis / comparison / recommendation / decision / evidence) ; constraints: no invented Product CTA · no HTML/JS · facts≠hypotheses≠recommendations≠decisions · reload-stable · plain fallback.
+
+**A4 contract:** composed blocks (established ✓ / open ? / recommendation ↗ + non-decision note) · **identical after reload** · fail-safe plain text if schema absent/invalid · no free CTA.
+
+## 3. AS-IS cartography
+| Component | Role today | Reco |
+|---|---|---|
+| `ConversationSurface.tsx` | Transcript bubbles; governed cards separate | **KEEP** shell · **ADAPT** message body → block renderer |
+| `formatNoraAssistantDisplayText` | Scrub jargon; strip markdown markers; string-only | **KEEP** as plain fallback / safety scrub |
+| `useProductConversation.ts` | Send/history; messages `{role,content}` | **KEEP** · **ADAPT** optional presentation payload on assistant messages |
+| `orchestrateTurn` / Agents Nora | Free-text (+ tools); Memory B session | **KEEP** cognition · **ADAPT** attach validated presentation DTO |
+| `OpenAIConversationProvider.completeStructured` | Already used (F2 IntentAnalysis strict json_schema) | **KEEP** · **REUSE** for presentation schema |
+| Governed* cards | Product HD / Confirmation / Recommendation CTAs | **KEEP** — never replace with free Nora CTAs |
+| `pilot_transcript_turns.content` | **string only** | **COMPLETE** durable presentation (see §5) — gap for A4 |
+| `--pm6-*` tokens | Visual system | **KEEP** |
+
+**No second Truth C / no second renderer authority.** Presentation is projection over Nora/Product outputs.
+
+## 4. OpenAI Capability Fit (R22)
+| Capability | Fit |
 |---|---|
-| v3 capability | Framing 30–37 / Option-A UX docs = **target doctrine, NON ADOPTED** for runtime |
-| Milestone | **AKG-M5 L3-S2** — EP-S2-08 post-evidence continuity PARTIAL; critical path includes Pilote comprehension of Nora reply ↔ EC inspection ↔ HD/Confirm |
-| Existing assets | Pre-M6 product UI cockpit (`ConversationSurface`, governed cards, `ExecutionSurface`, inspection panel, `--pm6-` tokens) · presentationLabels · PRR 03/06/07/09 · P3 Figma refs in Git |
-| UX gaps | Nora body ≈ scrubbed plain text (markdown neutralized, not structured UI) · EC inspection still fact-list / technical-leaning · weak visual bridge conversation→contract→evidence |
-| Dependencies | Product objects remain SoT (EC disclosure, HD, Confirmation) · no second renderer · TEST-15 lexical prepare bug remains open (out of scope) |
-| Exit proof (cadrage) | This pack + handoff · Morris Figma Review GO before any construction |
-| Next capability | Figma Review / visual contract confirmation on documented Pre-M6 file · then bounded UX delivery GO |
-| Debt exit | Prefer ADAPT Pre-M6 surfaces + shared presentation adapters; do not invent parallel cockpit |
+| Responses API `json_schema` strict (`completeStructured`) | **AVAILABLE** in Product provider; proven on F2 intent |
+| Free-text Agents turn | Current Nora primary path |
+| Structured Outputs for presentation blocks | **FEASIBLE** without new provider |
 
-## 3. AS-IS inventory (KEEP / ADAPT / COMPLETE / CONSOLIDATE)
+### Options
+| Opt | Approach | Pros | Cons |
+|---|---|---|---|
+| **A** Deterministic format of existing text | No model change; low cost | Heuristics brittle; fails A3 matrix & A4 identical reload | |
+| **B** Structured Nora-only (schema replaces prose) | Clean blocks | Risk losing conversational prose; Agents path change heavier | |
+| **C** **Minimal A+B** | Prose (or compact lead) + **validated** presentation DTO via `completeStructured` (same turn or post-pass) · Studio validates · renderer · plain fallback | Matches A3/A4; reuses existing structured path; CTAs stay Product | +latency/cost if second call; needs durable DTO for reload |
 
-| Asset | Role | Reco |
-|---|---|---|
-| `ConversationSurface.tsx` + CSS | Primary Nora cockpit, transcripts, live activity, source chips | **KEEP** shell · **ADAPT** message body rendering |
-| `presentationLabels.ts` (`formatNoraAssistantDisplayText`) | Scrub jargon; neutralize markdown markers; **no HTML** | **KEEP** safety · **ADAPT** toward typed presentation blocks |
-| `useProductConversation.ts` | Send/cancel/history controller | **KEEP** |
-| GovernedDecisionCard / GenericMission / Confirmation / FramingContinuity | Product-object CTAs (not free Nora CTAs) | **KEEP** · **CONSOLIDATE** visual rhythm |
-| `ExecutionSurface.tsx` + CSS | Continuity, confirm, execute, inspection open | **KEEP** authority path · **ADAPT** business-first hierarchy |
-| `pilotContractPresentation.ts` / `pilotExecutionPresentation.ts` | Business paraphrase + disclosure→rows | **KEEP** · **COMPLETE** “what/won’t/where/result/risk/proof/authorize” framing |
-| `ContractInspectionExamPanel.tsx` | Required facts exam + Attest | **KEEP** fail-closed attestation · **ADAPT** copy & grouping |
-| `product-tokens.css` (`--pm6-*`) | Warm paper / Nora vermilion; Geist | **KEEP** |
-| Trajectory / Lifecycle / Journal / Syntheses / Recovery | Secondary orientation surfaces | **KEEP**; do not absorb into chat |
-| v3 Figma Option-A frames | Design aspiration | **HARVEST** patterns only — **not** runtime SoT |
+**Recommendation (architecture, not decided Delivery):** **Option C** — structured presentation projection + deterministic Studio renderer + plain fallback. Prefer **single structured payload** carrying `plainText` + `blocks[]` when integrating with cognitive turn to limit extra calls; if Agents text remains SoT for conversation, a **bounded post-pass** `completeStructured` is acceptable with fail-closed to plain text.
 
-### Flow confirmed (code)
-Nora text → transcript persistence → `formatNoraAssistantDisplayText` → ConversationSurface bubble → reload-safe string.
-EC → disclosure → `buildInspectionFactRowsFromDisclosure` → exam panel → Attest ≠ Execute → Confirm/Exécuter via W2 actions.
-**Data ≠ presentation ≠ authority** already separated; CTA governed by Product cards/actions only.
+## 5. Render / data contract (proposed — not implemented)
+**Bounded block catalogue (align A2/A3/A4):**
+`plain` · `question` · `section` · `list` · `comparison_table` · `established_facts` · `open_questions` · `recommendation` (non-decision) · `evidence_reserves` · `trace_note`
 
-## 4. Nora conversation cadrage (TO-BE — not implemented)
-**Adaptive presentation kinds:** short reply · single question · structured explanation · synthesis · comparison · recommendation · pilot decision prompt · evidence/reserves restitution.
+**Selection rules:** server-side from DTO kind + content; invalid/unknown block → drop or collapse to plain; never invent HD/Confirm/Execute CTA.
 
-**Primitives (reuse `--pm6-`):** title · paragraph · list · optional icon · section · card (only for Product-governed interaction) · compact table · step list · status chips.
+**Composition:** ordered `blocks[]` inside one assistant message; optional eyebrow/title.
 
-**Rules:**
-- Reliable enriched text (safe markdown→structure or typed blocks from Product/Nora presentation DTO — **no** `dangerouslySetInnerHTML` / no executable content).
-- Bounded business components only for Product objects (Recommendation, HD, Confirmation, EC CTA).
-- Content-adaptive layout; **fallback plain text** for historical messages.
-- Deterministic after reload (derive from stored transcript + Product projections, not ephemeral model chrome).
-- A11y + responsive (desktop 1440 / 1280 · mobile ~390).
-- **No free-form Nora CTA** that authorizes or executes.
+**Epistemic labels:** facts / hypotheses / recommendations / decisions must be explicit block kinds or badges — no silent blend.
 
-## 5. Execution contract cadrage (TO-BE — not implemented)
-Pilote-first reading order:
-1. What will be done
-2. What will not
-3. Where / on what
-4. What may change
-5. Expected result
-6. Risks & limits
-7. Expected evidence
-8. What Confirm/Exécuter means
+**Provenance:** optional `trace` string (sources consulted) — presentation only.
 
-Technical details (IDs, fingerprint, raw action/target) behind progressive disclosure — **never hide** material effects/risks/requiredInspectedFacts/version/fingerprint/SHE controls. Simplified presentation must remain attestation-complete.
+**Safety:** no HTML/JS; no markdown execution; reuse scrubber on plain; schema allowlist only.
 
-## 6. Figma / visual contract
-| Source | fileKey (Git-documented) | Status this cycle |
-|---|---|---|
-| Pre-M6 / P3 Workspace (product path) | `m4g8j0gNbEzfIuH6S9AZJF` · nodes cited in code e.g. **46:2**, **46:98/107**, **190:44/306** | **DOCUMENTED IN GIT** |
-| Legacy tokens extract | `lrjA1WEyRpL05vKR8k29LO` | Historical |
-| v3 Option-A | `8xR5zSTfGtEVZSr6KK8Gww` | Target doctrine · **NON ADOPTED** |
-| D1 intake | `IS70XDnBMvZuJYmaI5eZT2` | Separate track |
+**Reload:** A4 requires durable validated DTO. Today transcript stores **content string only** → Delivery must add **minimal** persistence of presentation JSON beside the turn (extend transcript row or adjacent Memory-B table) **without** making presentation Truth C. Absent/invalid → plain `content` only.
 
-**FIGMA LIVE ACCESS NOT VERIFIED** this cycle (no MCP open / no frame fetch / no screenshot proof). Do not invent missing frames. Authoritative construction source = Pre-M6 file **after** Morris validates access + frames for A/B/C below.
+**A11y/responsive:** semantic headings/lists; reuse `--pm6-`; mobile stack blocks (catalogue A2).
 
-### Proposed frames (specs for Review — create only under later GO)
-| ID | Intent | Desktop | Mobile | States |
-|---|---|---|---|---|
-| **A** Nora structured dynamic reply | Adaptive sections/lists for synthesis & proposal | 1440×1024 content column | 390×844 | empty thread · streaming/loading · long content · error |
-| **B** Recommendation / métier decision | Governed card + Nora preface · Product CTAs only | same | same | pending · decided · reserves |
-| **C** Functional EC inspection | Business-first 8-point reading + details drawer + required facts exam | same | same | missing required · attest ready · post-attest |
+**Reuse:** ConversationSurface bubble host · pm6 chips/cards visual language · Governed cards untouched · `completeStructured` + server Zod/validate mirror of IntentAnalysis pattern.
 
-Reuse existing `--pm6-` tokens; harvest Option-A patterns only if compatible without runtime v3 adoption.
+**Minimal deltas (Delivery, later GO):**
+1. Presentation JSON Schema + server validator
+2. Emit/attach DTO on assistant turn
+3. Durable store for DTO with transcript
+4. `NoraAdaptiveMessage` renderer in ConversationSurface
+5. Tests: short Q · BALISE synthesis · malformed · reload · legacy plain
 
-## 7. AS-IS → TO-BE matrix (cadrage claim only)
-| Concern | AS-IS | TO-BE (proposed) |
-|---|---|---|
-| Nora body | Scrubbed plain / soft-markdown strip | Adaptive structured blocks + plain fallback |
-| Recommendation | Governed cards exist | Visual hierarchy + clearer “decide vs chat” |
-| EC inspection | Fact list + technical identity visible early | Business-first narrative; tech secondary; facts complete |
-| Evidence/reserves | Mixed in prose / chips | Dedicated restitution pattern linked to Product objects |
-| Bridge A↔B↔C | Weak (chat says “prepared contract”; inspection elsewhere) | Explicit continuity affordance without second authority |
+## 6. Validation scenarios & attainable proof
+| Scenario | Proof level attainable at Delivery |
+|---|---|
+| Short Q without superfluous card | UI unit + browser |
+| BALISE multi-block synthesis | UI + LIVE optional |
+| Comparison table | UI |
+| Recommendation without HD CTA | UI + invariant test |
+| Malformed/incomplete schema → plain | unit fail-closed |
+| Reload / process restart identical | integration on durable DTO |
+| Legacy plain history | unit |
+| Long + mobile | browser |
+| No Product action from free render | invariant (no action wiring in renderer) |
 
-## 8. PRR / impacts (future — not applied)
-Possible future documentary touch: PRR 03 presentation continuity · 09 First Framing UX residual · Roadmap UX lot — **only under separate DOC GO**. No semantic Product change required for visual ADAPT if presentation adapters stay non-authoritative.
+**Not claimed by this cycle:** runtime behavior proven · Figma pixel fidelity · LIVE campaign.
 
-## 9. Risks / anti-patterns
-- Rendering model HTML/markdown unsafely
-- Nora-invented authorize/execute buttons
-- Hiding effects behind “simple” UX
-- Parallel EC renderer bypassing disclosure
-- Treating v3 Figma as adopted runtime
-- Building before Figma live verification
-- Bundling TEST-15 fix into UX delivery without GO
+## 7. R23 / R24 / PRR
+- R23: code path + Figma MCP metadata primary evidence.
+- R24: **NO SEMANTIC IMPACT** this cycle. Future Delivery may need PRR 03 (conversation presentation continuity) + 09 UX residual update under **separate DOC GO** — not semantic Product authority change if presentation remains non-authoritative.
 
-## 10. Browser validation scenarios (later delivery)
-1. Short Nora reply · structured proposal · reload persistence
-2. Recommendation card CTAs only from Product
-3. EC inspect business-first · missing required blocks Attest
-4. Confirm/Exécuter unchanged authority
-5. Mobile long content · a11y focus/contrast
-6. Empty / loading / error states
+## 8. Risks / debt / exit
+| Risk | Mitigation |
+|---|---|
+| Second call latency/cost | Prefer single structured payload |
+| DTO treated as Truth C | Explicit: presentation-only; OA unchanged |
+| Nora invents CTAs | Schema forbids; renderer has no action hooks |
+| Persistence creep | Minimal column/table; no parallel project graph |
+| TEST-15 prepare false positive | **Out of band** — do not couple |
+| v3 Figma bleed | Pre-M6 file only |
 
-## 11. Minimal realization split (recommended, not authorized)
-1. **Figma Review** (Morris) on Pre-M6 file + frames A/B/C
-2. Presentation DTO / safe structured renderer for Nora (ADAPT ConversationSurface)
-3. EC inspection hierarchy ADAPT (pilotContract/Execution + panel)
-4. Visual regression + a11y checks · no authority change
+Exit: bounded Delivery lot closes adaptive Nora render; Figma fidelity gate separate.
 
-## 12. Morris decision required
-1. Confirm Pre-M6 Figma `m4g8j0gNbEzfIuH6S9AZJF` as construction source (or designate alternate).
-2. Authorize Figma frame production/update for A/B/C if gaps.
-3. Separate GO for UX construction; keep TEST-15 fix out of band unless explicitly combined.
+## 9. Minimal Delivery plan (unauthorized until GO)
+1. Schema + validator + unit tests
+2. Wire emit path (post-pass or integrated structured)
+3. Persist DTO with transcript
+4. Renderer ADAPT ConversationSurface
+5. Browser scenarios + reload proof
+6. Optional DOC PRR sync
+
+**Next capability:** UX Delivery — Nora adaptive presentation (Option C)
+**Exit proof:** deterministic render + reload identity + fail-closed plain + no Product CTA from free content + tests green
+
+## 10. Morris decisions required
+1. **Delivery GO** for Option C (or reject/alternate).
+2. Persistence choice: extend `pilot_transcript_turns` vs sibling presentation store.
+3. Emit strategy: integrated structured vs post-pass.
+4. Keep TEST-15 fix separate unless explicitly combined.
 
 ## Unique verdict
-**UX CADRAGE COMPLETE — READY FOR FIGMA REVIEW**
+**ARCHITECTURE QUALIFIED — DELIVERY GO REQUIRED**
