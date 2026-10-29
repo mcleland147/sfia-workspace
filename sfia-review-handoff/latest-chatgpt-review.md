@@ -1,27 +1,34 @@
-# ChatGPT Critical Review Pack — FULL
-## AKG-M5 L3-S2 · CYCLE 8 · CORR-NAP-01 — Nora Adaptive Presentation Reliability
+# CORR-NAP-02 — NORA ADAPTIVE PRESENTATION — FINAL RELIABILITY HARDENING
 
-**UTC authored:** 2026-10-29T19:47:35Z
-**Morris GO:** Correction locale de fiabilité — aucun GO intégration Git / REAL / DOC
-**Prior handoff CURRENT (superseded by this publish):** `200f0128085d9c28eaf0f5e0a61feff090631058`
-**Verdict:** LOCAL CORRECTION COMPLETE — DETERMINISTIC VERIFIED — CHATGPT REVIEW REQUIRED — R24 DOCUMENTARY SYNC PENDING
+**Cycle:** SFIA 8 — Delivery / implémentation
+**Typologie:** EVOL / corrective
+**Review pack:** FULL
+**Date/heure UTC:** 2026-10-29T20:04:28Z
+**Worktree:** `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation`
+**Branch:** `feat/akg-m5-nora-adaptive-presentation`
+**HEAD:** `2cc6368602197e18fe886c87c8ced0a1b434f5a2`
+**origin/main:** `2cc6368602197e18fe886c87c8ced0a1b434f5a2`
+**Merge-base HEAD/origin/main:** `2cc6368602197e18fe886c87c8ced0a1b434f5a2`
 
-**Anti-claims:** No project commit/push/PR/merge · No LIVE/HQA write · No OpenAI LIVE · No Cursor REAL · No TEST-15 · No Figma change · No PRR/Roadmap write · No L3/L4/v3 · No FIGMA TO RUNTIME ALIGNED · Architecture Option C preserved (not redesigned)
+## Verdict unique
 
----
+**LOCAL CORRECTION COMPLETE — DETERMINISTIC VERIFIED — CHATGPT FINAL REVIEW REQUIRED — R24 DOCUMENTARY SYNC PENDING**
+
+Aucun READY FOR PR / READY FOR REAL / FIGMA ALIGNED / ADOPTED.
 
 ## 1. Git Truth Check
-| Field | Value |
-|---|---|
-| Repo | `mcleland147/sfia-workspace` |
-| Delivery WT | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
-| Branch | `feat/akg-m5-nora-adaptive-presentation` |
-| HEAD | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` MATCH |
-| Delivery WIP | **UNCOMMITTED** (preserved; no stash/reset/clean to move work) |
-| Prior CURRENT handoff | `200f0128…` MATCH at cycle start |
 
-### git status --short
+| Check | Résultat |
+|-------|----------|
+| toplevel | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
+| branche | `feat/akg-m5-nora-adaptive-presentation` |
+| HEAD | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| merge-base | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= main; Delivery non commitée) |
+| WIP | Option C + CORR-NAP-01 + CORR-NAP-02 présents, non commités |
+| staged | vide |
+| autre worktree touché | NON |
+
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
@@ -42,100 +49,164 @@
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
+
 ```
 
-### diff --stat (app)
+### Diff name-status (app)
+
 ```
- .../hooks/useProductConversation.ts                |  8 +++
- .../surfaces/ConversationSurface.tsx               | 55 ++++++++++++++++--
- .../app/features/project-assistant/actions.ts      |  9 +++
- .../project-assistant/buildProjectSystemPrompt.ts  | 14 ++++-
- .../features/project-assistant/orchestrateTurn.ts  | 17 ++++++
- .../app/features/project-assistant/types.ts        |  5 ++
- .../nora-cognitive-runtime/cycleJournalStore.ts    | 22 +++++--
- .../nora-cognitive-runtime/cycleJournalTypes.ts    |  6 ++
- .../app/lib/nora-cognitive-runtime/index.ts        | 26 +++++++++
- .../noraProductTurnOutputType.ts                   | 67 ++++++++++++++++++++++
- .../nora-cognitive-runtime/productSqliteSession.ts | 16 ++++++
- .../nora-cognitive-runtime/providerAgentsModel.ts  |  4 ++
- .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  2 +
- 13 files changed, 240 insertions(+), 11 deletions(-)
-```
+M	projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+M	projects/sfia-studio/app/features/project-assistant/actions.ts
+M	projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
+M	projects/sfia-studio/app/features/project-assistant/types.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+M	projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 
-### Git Review Index
-| Path | Role |
-|---|---|
-| `noraAdaptivePresentation.ts` | CREATED+CORR — schema + Studio appendix resolve + honest labels |
-| `NoraAdaptivePresentationView.tsx` + CSS | CREATED+CORR — honest epistemic UI + studio appendix |
-| `*.d0.test.ts` / `*.ui.test.tsx` | CREATED+CORR — CORR-NAP-01 cases + true legacy migration |
-| `orchestrateTurn.ts` | MOD — durable `[Studio]` STOP/incomplete before persist |
-| `ConversationSurface.tsx` | MOD — resolveAdaptiveAssistantRender; suppress duplicate incomplete banner |
-| Product turn / SQLite / continuity | MOD — Delivery Option C base (unchanged architecture) |
-
----
-
-## 2. Sources
-Template v2.6 · routing · Build Doctrine · Roadmap · C1 · doctrine v3 30/32/34/35 · PRR 02–09 (R24 list only) · Figma A3/A4 validated · handoff CURRENT `200f0128…` (not sole reliance on `4f95db17`).
-
-R23: code + tests primary. R24: NO SEMANTIC DOC WRITE this cycle.
-
----
-
-## 3. Causes & corrections
-
-### P1 — Studio notices masked by adaptive DTO
-**Cause:** ConversationSurface rendered DTO instead of final `content`; post-model `[Studio]` / STOP / incomplete were hidden (or only ephemeral).
-**Fix:**
-1. `appendStudioControlNotices` — persist STOP + execution-limit into durable `content` as `[Studio] …` (deduped) before transcript write.
-2. `resolveAdaptiveAssistantRender` — if non-Studio body not covered by DTO → **plain full text**; if covered → adaptive + **studioAppendix** under DTO.
-3. Incomplete surface banner suppressed when durable Studio incomplete already in message (no duplicate).
-
-### P1 — Epistemic fidelity
-**Cause:** Labels like « Fait établi » / « Preuve observée » / « Décision Product » overstated Nora claims.
-**Fix:** `honestEpistemicLabel` / `honestBlockTitle` + honesty footer — formulation Nora ≠ Studio validation ≠ Evidence Product ≠ HumanDecision. No invented OA linkage. Schema kinds unchanged (non-structuring).
-
-### P2 — Legacy migration
-**Cause:** Prior test opened current schema then wrote null presentation (not true pre-column DB).
-**Fix:** Raw SQLite create historical `pilot_transcript_turns` **without** `presentation_json` → open via ProductSqliteSession → column added → legacy plain preserved → idempotent reopen → new DTO round-trip → malformed fallback.
-
----
-
-## 4. Architecture retained
-Nora Product turn → presentation DTO → Studio validate → `presentation_json` → View → reload → plain fallback. No second renderer / Truth C / table / authority model.
-
----
-
-## 5. Validations (exact)
-```
-npx vitest run \
-  __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts \
-  __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx \
-  __tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts \
-  __tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts \
-  __tests__/project-assistant/f2PilotTranscriptPersist.d0.test.ts \
-  __tests__/project-assistant/noraConversationalInitiative.d0.test.ts
-→ 6 files / 90 tests PASSED
-
-npx tsc --noEmit -p tsconfig.json → exit 0
-npx eslint (targeted CORR files) → exit 0
 ```
 
-### Fake/Real
-Applicable YES · boundary Agents/Structured Outputs · DETERMINISTIC PROVEN · REAL/E2E/G-REAL NOT authorized.
+### Untracked
 
-### Figma
-A3/A4 preserved; no cosmetic redesign. **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED** for strong pixel claim.
+```
+projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts
+projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
+projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx
+projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
 
----
+```
 
-## 6. R24
-PRR 03/06/09 still need DOC GO for adaptive presentation + Studio appendix durability + epistemic honesty. **R24 DOCUMENTARY SYNC PENDING — MORRIS DOC GO REQUIRED.**
+### Git Review Index (handoff courant avant publish)
 
----
+- Review Handoff tip (worktree `sfia-review-handoff-m5a-gi-20261023`): `9cb5f213a8c5f3c5b5aea240eb5c052a0b4ff888` (CORR-NAP-01)
+- Blob CORR-NAP-01: `65d44d9bb73543a03a2f31db41cc608b03796b53`
+- SoT pour ce cycle: ce pack CORR-NAP-02 (remplace le rapport local précédent)
 
-## 7. Created files — FULL CONTENT
+## 2. Sources consultées (R23)
 
-### `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`
+Méthode / convergence: cycle-execution-template, cycle-routing-guide, Build Doctrine / Roadmap / Product Completion C1 / doctrines 30,32,34,35 / PRR 02,03,04,06,07,08,09 (lecture qualification — aucune écriture).
+
+Code inspecté:
+- `noraAdaptivePresentation.ts` (coverage, typed notices, epistemic titles/disclaimers)
+- `NoraAdaptivePresentationView.tsx` (+ CSS)
+- `ConversationSurface.tsx` (render decision + incomplete banner last-assistant)
+- `orchestrateTurn.ts` / `actions.ts` / `useProductConversation.ts` / `types.ts`
+- `cycleJournalStore.ts` / `cycleJournalTypes.ts` / `productSqliteSession.ts` (`studio_control_json`)
+- `noraProductTurnOutputType.ts` / `index.ts`
+- Tests d0 + ui
+
+Figma A3 `466:2` / A4 `466:71` — pas de modification; runtime screenshot comparative non exécutée → **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED** pour alignement pixel.
+
+## 3. Quatre défauts — cause / correction / preuve
+
+### Défaut 1 — Couverture textuelle approximative (P1)
+
+**Cause:** `contentCoveredByPresentation` acceptait inclusion unilatérale / seuil ~75% tokens → informations déterminantes du content pouvaient disparaître derrière le DTO.
+
+**Correction:** `contentFullyCoveredByPresentation` — égalité normalisée stricte `body === lead` uniquement (après retrait des notices Studio authentifiées). Sinon mode `plain` (texte intégral).
+
+**Avant:** substitution possible avec perte.
+**Après:** T1–T5 plain sauf couverture stricte; T5/T6 adaptive + reload stable.
+
+### Défaut 2 — Provenance Studio forgée via `[Studio]` (P1)
+
+**Cause:** extraction appendix basée sur le marqueur littéral → Nora pouvait usurpater Studio.
+
+**Correction:** `studioControlNotices` typées serveur → `studio_control_json` SQLite; `resolveAdaptiveAssistantRender` n'authentifie que le tableau typé; marqueur seul = prose Nora.
+
+**Avant:** `[Studio] contrat approuvé` pouvait devenir notice Studio.
+**Après:** T7/T8/T11 forged non authentifié; T9/T10/T12 notices serveur visibles/persistées.
+
+### Défaut 3 — Titres / disclaimers épistémiques libres (P2)
+
+**Cause:** titres Nora + disclaimer libre pouvaient suggérer Evidence Product / HumanDecision / GO.
+
+**Correction:** `honestBlockTitle` Studio-owned pour kinds forts; `looksLikeAuthorityClaim` + `sanitizeProvenanceNote`; `parseNoraAdaptivePresentation` force disclaimer + `noGovernedActionNote` Studio; View utilise `studioOwnedRecommendationDisclaimer`.
+
+**Avant:** titres autorité possibles en UI.
+**Après:** T13–T17 + UI T13/T15.
+
+### Défaut 4 — Bandeau incomplétude masqué par historique (P2)
+
+**Cause:** `messages.some(...)` sur tout l'historique.
+
+**Correction:** `lastAssistantShowsExecutionIncomplete` — dernier tour assistant seulement; préférer notices typées; sans corrélation → conserver bandeau.
+
+**Avant:** ancienne notice masquait le tour courant.
+**Après:** T18 bandeau visible; T19 pas de doublon; T20/T22 fail-closed.
+
+## 4. Fake/Real Qualification
+
+- Applicable: OUI
+- Frontière: OpenAI Agents / Structured Outputs
+- Fake: providers déterministes / vitest
+- REAL: NON autorisé
+- Niveau: **DETERMINISTIC PROVEN** (périmètre testé)
+- REAL BOUNDARY PROVEN: NON
+- END-TO-END REAL PROVEN: NON
+- G-REAL: NON CONSOMMÉ
+- Realism gap: émission DTO LIVE + fidélité runtime visuelle ouvertes
+- FIGMA TO RUNTIME ALIGNED: NON (screenshot required)
+
+## 5. Tests exécutés
+
+### CORR-NAP-02 + CORR-NAP-01 (adaptés)
+
+```
+npx vitest run __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts \
+  __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
+```
+- exit 0 — **44 passed** (34 d0 + 10 ui)
+- T1–T17 (d0), T7/T13/T15/T18/T19/T20/T22 (ui); T6/T10 reload; T21 couvert par T6 + persist SQLite
+
+### Régressions
+
+```
+npx vitest run __tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts \
+  __tests__/nora-cognitive-runtime/pilotabilityJournalIntegrity.d0.test.ts \
+  __tests__/project-assistant/s08-4.seedFinalFidelity.d0.test.ts
+```
+- exit 0 — 24 passed | 2 skipped (s08-4)
+
+### Gates
+
+- `npx tsc --noEmit -p tsconfig.json` → exit 0
+- eslint ciblé (fichiers CORR-NAP-02 hors warning préexistant actions) → exit 0
+- build Next non exigé sous ce GO; non bloquant
+
+## 6. R23 / R24
+
+**R23 couverture:**
+- DOCUMENTED: flux Option C + typed notices
+- COVERAGE VERIFIED: tests T1–T22 applicables
+- BEHAVIOR PROVEN: deterministic unit/UI
+- KNOWN GAP: LIVE DTO emit; runtime screenshot A3/A4
+
+**R24 (qualification only — no doc write):**
+- PRR 03: rendu / contrôles conversation (titles, appendix, incomplete banner)
+- PRR 06: continuité transcript (`studio_control_json`)
+- PRR 09: réserves fidélité / non-usurpation
+- **R24 DOCUMENTARY SYNC PENDING — MORRIS DOC GO REQUIRED**
+
+## 7. Dette / trajectoire / gates ouverts
+
+- EP-S2-08 PARTIAL; EP-S2-05 NOT PROVEN; L3 GLOBAL OPEN; L4 NOT AUTHORIZED; Runtime v3 NON ADOPTED
+- TEST-15 OOS (non modifié)
+- QA visuelle/runtime distincte requise
+- Sync documentaire sous GO
+- Intégration projet sous GO (pas de commit/push projet ici)
+- ChatGPT final review required
+
+## 8. Contenu complet — fichiers créés
+
+### FILE CREATED: `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`
+
 ```typescript
 /**
  * Nora adaptive presentation — Option C projection (A3/A4).
@@ -528,12 +599,12 @@ function parseBlock(
     const title = nullableText(o.title, L.maxTitleChars);
     const statement = clampText(o.statement, L.maxStringChars);
     if (!statement) return null;
-    const rawDisclaimer = nullableText(o.disclaimer, L.maxStringChars);
+    // CORR-NAP-02 — governance disclaimer is Studio-owned (Nora cannot replace).
     return {
       kind: "recommendation",
       title,
       statement,
-      disclaimer: rawDisclaimer ?? NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
+      disclaimer: NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
     };
   }
   if (kind === "evidence_reserves") {
@@ -594,15 +665,20 @@ export function parseNoraAdaptivePresentation(
   const lead = nullableText(o.lead, L.maxLeadChars);
   if (blocks.length === 0 && !lead && !title) return null;
 
-  const provenanceNote = nullableText(o.provenanceNote, L.maxStringChars);
-  const noGoverned =
-    nullableText(o.noGovernedActionNote, L.maxStringChars) ??
-    NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE;
+  // CORR-NAP-02 — drop authority-claiming free labels; Studio owns governance notes.
+  const safeTitle =
+    title && !looksLikeAuthorityClaim(title) ? title : null;
+  const rawProvenance = nullableText(o.provenanceNote, L.maxStringChars);
+  const provenanceNote =
+    rawProvenance && !looksLikeAuthorityClaim(rawProvenance)
+      ? rawProvenance
+      : null;
+  const noGoverned = NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE;
 
   return Object.freeze({
     version: NORA_ADAPTIVE_PRESENTATION_VERSION,
     eyebrow,
-    title,
+    title: safeTitle,
     lead,
     blocks: Object.freeze([...blocks]),
     provenanceNote,
@@ -649,51 +725,126 @@ export function shouldRenderAdaptivePresentation(
   return Boolean(value.lead || value.title);
 }
 
-/** Durable Studio control marker — never Product CTA / never Truth C. */
+/** Durable Studio control marker — display only; NEVER a trust signal by itself. */
 export const STUDIO_CONTROL_MARKER = "[Studio]" as const;
 
 /**
- * Append server control notices into durable assistant text so reload preserves
- * them. Dedupes when already present. Does not invent Product authority.
+ * Normalize server-authored Studio control notices (typed provenance).
+ * Empty / non-string entries dropped. Never invents notices from prose.
+ */
+export function normalizeStudioControlNotices(
+  notices: readonly (string | null | undefined)[] | null | undefined,
+): readonly string[] {
+  if (!notices || notices.length === 0) return Object.freeze([]);
+  const out: string[] = [];
+  const seen = new Set<string>();
+  for (const notice of notices) {
+    if (typeof notice !== "string") continue;
+    const t = notice.trim();
+    if (!t || seen.has(t)) continue;
+    seen.add(t);
+    out.push(t);
+  }
+  return Object.freeze(out);
+}
+
+export function serializeStudioControlNotices(
+  notices: readonly string[],
+): string | null {
+  const normalized = normalizeStudioControlNotices(notices);
+  if (normalized.length === 0) return null;
+  return JSON.stringify(normalized);
+}
+
+export function deserializeStudioControlNotices(
+  raw: string | null | undefined,
+): readonly string[] {
+  if (raw == null) return Object.freeze([]);
+  const trimmed = String(raw).trim();
+  if (!trimmed) return Object.freeze([]);
+  try {
+    const parsed = JSON.parse(trimmed) as unknown;
+    if (!Array.isArray(parsed)) return Object.freeze([]);
+    return normalizeStudioControlNotices(
+      parsed.map((x) => (typeof x === "string" ? x : null)),
+    );
+  } catch {
+    return Object.freeze([]);
+  }
+}
+
+/**
+ * Append server-authored control notices into durable assistant text so plain
+ * fallback / reload keep them readable. Dedupes. Does not invent authority.
+ * Typed `studioControlNotices` remains the sole provenance for Studio styling.
  */
 export function appendStudioControlNotices(
   assistantText: string,
   notices: readonly (string | null | undefined)[],
 ): string {
   let out = assistantText.trimEnd();
-  for (const notice of notices) {
-    const t = typeof notice === "string" ? notice.trim() : "";
-    if (!t) continue;
-    if (out.includes(t)) continue;
-    out = `${out}\n\n${STUDIO_CONTROL_MARKER} ${t}`;
+  for (const notice of normalizeStudioControlNotices(notices)) {
+    if (out.includes(notice)) continue;
+    out = `${out}\n\n${STUDIO_CONTROL_MARKER} ${notice}`;
   }
   return out;
 }
 
-const STUDIO_APPENDIX_SPLIT_RE = /\n\n(?=\[Studio\])/;
+/**
+ * Strip only suffixes that match **authenticated** Studio notices.
+ * Forged `[Studio] …` prose from Nora is left in the body (never trusted).
+ */
+export function contentWithoutAuthenticatedStudioNotices(
+  content: string,
+  authenticatedNotices: readonly string[],
+): string {
+  let out = (content ?? "").trimEnd();
+  const notices = normalizeStudioControlNotices(authenticatedNotices);
+  if (notices.length === 0) return out;
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const n of notices) {
+      const suffix = `\n\n${STUDIO_CONTROL_MARKER} ${n}`;
+      if (out.endsWith(suffix)) {
+        out = out.slice(0, -suffix.length).trimEnd();
+        changed = true;
+        continue;
+      }
+      const only = `${STUDIO_CONTROL_MARKER} ${n}`;
+      if (out === only) {
+        out = "";
+        changed = true;
+      }
+    }
+  }
+  return out;
+}
 
-/** Extract durable `[Studio] …` control suffixes from final assistant content. */
+/**
+ * @deprecated CORR-NAP-02 — marker-based extraction is not Studio provenance.
+ * Prefer typed `studioControlNotices`. Kept for migration/tests of plain text.
+ */
 export function extractStudioControlAppendix(
   content: string,
 ): string | null {
   const raw = content ?? "";
   if (!raw.includes(STUDIO_CONTROL_MARKER)) return null;
-  if (raw.trimStart().startsWith(STUDIO_CONTROL_MARKER)) {
-    return raw.trim() || null;
+  const parts = raw.split(/\n\n(?=\[Studio\])/);
+  if (parts.length <= 1) {
+    return raw.trimStart().startsWith(STUDIO_CONTROL_MARKER)
+      ? raw.trim() || null
+      : null;
   }
-  const parts = raw.split(STUDIO_APPENDIX_SPLIT_RE);
-  if (parts.length <= 1) return null;
   const appendix = parts.slice(1).join("\n\n").trim();
   return appendix || null;
 }
 
-/** Body without durable Studio control appendix. */
+/** @deprecated Prefer contentWithoutAuthenticatedStudioNotices. */
 export function contentWithoutStudioAppendix(content: string): string {
-  const raw = content ?? "";
-  if (raw.trimStart().startsWith(STUDIO_CONTROL_MARKER)) return "";
-  const idx = raw.search(STUDIO_APPENDIX_SPLIT_RE);
-  if (idx < 0) return raw.trimEnd();
-  return raw.slice(0, idx).trimEnd();
+  // Fail-closed: without typed notices, do not strip any [Studio] text
+  // (forged markers must remain visible as Nora prose, not silently removed).
+  return (content ?? "").trimEnd();
 }
 
 function blockPlainTexts(block: NoraAdaptivePresentationBlock): string[] {
@@ -752,59 +903,79 @@ function normalizeCompare(text: string): string {
     .trim();
 }
 
-function contentCoveredByPresentation(
+/**
+ * CORR-NAP-02 — deterministic complete coverage only.
+ * No one-way inclusion, no token overlap threshold, no semantic guess.
+ * Body (after stripping authenticated Studio notices) must equal the lead
+ * exactly (normalized), or be empty. Uncertainty → not covered → plain.
+ */
+export function contentFullyCoveredByPresentation(
   body: string,
   presentation: NoraAdaptivePresentation,
 ): boolean {
   const nBody = normalizeCompare(body);
   if (!nBody) return true;
-  const nProj = normalizeCompare(presentationPlainProjection(presentation));
-  if (!nProj) return false;
-  if (nProj.includes(nBody) || nBody.includes(nProj)) return true;
-  const bodyTokens = new Set(nBody.split(" ").filter((w) => w.length > 2));
-  const projTokens = new Set(nProj.split(" ").filter((w) => w.length > 2));
-  if (bodyTokens.size === 0) return true;
-  let inter = 0;
-  for (const t of bodyTokens) if (projTokens.has(t)) inter += 1;
-  return inter / bodyTokens.size >= 0.75;
+  const nLead = normalizeCompare(presentation.lead ?? "");
+  if (!nLead) return false;
+  return nBody === nLead;
 }
 
 export type AdaptiveAssistantRenderDecision = {
   readonly mode: "adaptive" | "plain";
   readonly presentation: NoraAdaptivePresentation | null;
-  /** Durable Studio control suffix to show under adaptive (never CTA). */
+  /**
+   * Authenticated Studio control appendix only (typed notices).
+   * Never derived from forged `[Studio]` prose in Nora content.
+   */
   readonly studioAppendix: string | null;
   readonly plainText: string;
+  /** Server-authored notices used for appendix / strip (empty if none). */
+  readonly studioControlNotices: readonly string[];
 };
 
 /**
- * CORR-NAP-01 — server control > cognitive presentation.
- * Adaptive when DTO valid and non-Studio body is covered by the DTO;
- * otherwise full plain text (no loss). Studio `[Studio]` appendix always
- * projected when adaptive (never masked by DTO).
+ * CORR-NAP-02 — server control > cognitive presentation.
+ * Adaptive only when non-Studio body is strictly covered by presentation.lead;
+ * otherwise full plain text (no loss). Studio appendix uses typed notices only.
  */
 export function resolveAdaptiveAssistantRender(input: {
   content: string;
   presentation: NoraAdaptivePresentation | null | undefined;
+  /** Typed server provenance — sole source of Studio appendix trust. */
+  studioControlNotices?: readonly (string | null | undefined)[] | null;
 }): AdaptiveAssistantRenderDecision {
   const content = input.content ?? "";
-  const studioAppendix = extractStudioControlAppendix(content);
-  const body = contentWithoutStudioAppendix(content);
+  const authenticated = normalizeStudioControlNotices(
+    input.studioControlNotices,
+  );
+  const body = contentWithoutAuthenticatedStudioNotices(
+    content,
+    authenticated,
+  );
+  const studioAppendix =
+    authenticated.length > 0
+      ? authenticated
+          .map((n) => `${STUDIO_CONTROL_MARKER} ${n}`)
+          .join("\n\n")
+      : null;
+
   if (!shouldRenderAdaptivePresentation(input.presentation)) {
     return {
       mode: "plain",
       presentation: null,
       studioAppendix: null,
       plainText: content,
+      studioControlNotices: authenticated,
     };
   }
   const presentation = input.presentation;
-  if (!contentCoveredByPresentation(body, presentation)) {
+  if (!contentFullyCoveredByPresentation(body, presentation)) {
     return {
       mode: "plain",
       presentation: null,
       studioAppendix: null,
       plainText: content,
+      studioControlNotices: authenticated,
     };
   }
   return {
@@ -812,6 +983,7 @@ export function resolveAdaptiveAssistantRender(input: {
     presentation,
     studioAppendix,
     plainText: content,
+    studioControlNotices: authenticated,
   };
 }
 
@@ -840,36 +1012,85 @@ export function honestEpistemicLabel(
   }
 }
 
+/** Strong kinds — Studio-owned titles only (Nora free titles never become authority UI). */
+const STRONG_TITLE_KINDS = new Set<NoraAdaptiveBlockKind>([
+  "established_facts",
+  "open_questions",
+  "recommendation",
+  "evidence_reserves",
+  "list",
+]);
+
+/**
+ * Phrases that would imply Product/Studio authority if shown as a heading.
+ * Matched case-insensitively on free Nora titles / provenance notes.
+ */
+const AUTHORITY_CLAIM_RE =
+  /\b(preuves?\s+officiel\w*|officiellement\s+v[eé]rif\w*|evidence\s+product\b|d[eé]cision\s+approuv\w*|human\s*decision\b|go\s+confirm\w*|valid[eé]e?\s+par\s+(le\s+)?studio\b|contr[oô]le\s+serveur\b|approuv[eé]e?\s+par\s+le\s+pilote\b)/i;
+
+export function looksLikeAuthorityClaim(text: string | null | undefined): boolean {
+  if (!text || typeof text !== "string") return false;
+  return AUTHORITY_CLAIM_RE.test(text.trim());
+}
+
+/**
+ * Studio-safe block title. Strong kinds always use Studio defaults.
+ * Free Nora titles allowed only for weak kinds and only when not authority-claiming.
+ */
 export function honestBlockTitle(
   kind: NoraAdaptiveBlockKind,
   title: string | null | undefined,
 ): string {
-  if (title && title.trim()) return title.trim();
-  switch (kind) {
-    case "established_facts":
-      return "Éléments présentés comme établis (Nora)";
-    case "open_questions":
-      return "Points encore à clarifier";
-    case "recommendation":
-      return "Recommandation de Nora";
-    case "evidence_reserves":
-      return "Preuves et réserves mentionnées (Nora)";
-    case "comparison_table":
-      return "Comparaison";
-    case "list":
-      return "Liste";
-    case "section":
-      return "Section";
-    default:
-      return "Élément";
+  const safeDefaults: Record<NoraAdaptiveBlockKind, string> = {
+    plain: "Élément",
+    question: "Question",
+    section: "Section",
+    list: "Liste (Nora)",
+    comparison_table: "Comparaison (Nora)",
+    established_facts: "Éléments présentés comme établis (Nora)",
+    open_questions: "Points encore à clarifier",
+    recommendation: "Recommandation de Nora",
+    evidence_reserves: "Preuves et réserves mentionnées (Nora)",
+    trace_note: "Note",
+  };
+  if (STRONG_TITLE_KINDS.has(kind)) {
+    return safeDefaults[kind];
   }
+  const trimmed = typeof title === "string" ? title.trim() : "";
+  if (trimmed && !looksLikeAuthorityClaim(trimmed)) {
+    return trimmed;
+  }
+  return safeDefaults[kind];
+}
+
+/**
+ * Studio-owned governance disclaimer — Nora cannot replace it.
+ */
+export function studioOwnedRecommendationDisclaimer(
+  noraDisclaimer?: string | null,
+): string {
+  void noraDisclaimer;
+  return NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER;
+}
+
+/** Drop provenance notes that claim server/Product certification. */
+export function sanitizeProvenanceNote(
+  note: string | null | undefined,
+): string | null {
+  if (note == null) return null;
+  const t = String(note).trim();
+  if (!t) return null;
+  if (looksLikeAuthorityClaim(t)) return null;
+  return t;
 }
 
 export const NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE =
   "Les libellés ci-dessus sont une formulation Nora — pas une validation Studio, ni une Evidence Product, ni une HumanDecision." as const;
+
 ```
 
-### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx`
+### FILE CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx`
+
 ```typescript
 "use client";
 
@@ -881,9 +1102,10 @@ import type {
 import {
   NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
   NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE,
-  NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
   honestBlockTitle,
   honestEpistemicLabel,
+  sanitizeProvenanceNote,
+  studioOwnedRecommendationDisclaimer,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
 import styles from "./NoraAdaptivePresentationView.module.css";
 
@@ -931,9 +1153,10 @@ function renderBlock(
     );
   }
   if (block.kind === "section") {
+    const heading = honestBlockTitle("section", block.title);
     return (
-      <section key={key} className={styles.section} aria-label={block.title}>
-        <h4 className={styles.blockTitle}>{block.title}</h4>
+      <section key={key} className={styles.section} aria-label={heading}>
+        <h4 className={styles.blockTitle}>{heading}</h4>
         <p className={styles.blockBody}>{block.body}</p>
       </section>
     );
@@ -1058,7 +1281,7 @@ function renderBlock(
         </div>
         <p className={styles.recommendationStatement}>{block.statement}</p>
         <p className={styles.recommendationDisclaimer}>
-          {block.disclaimer ?? NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER}
+          {studioOwnedRecommendationDisclaimer(block.disclaimer)}
         </p>
       </section>
     );
@@ -1156,12 +1379,14 @@ export function NoraAdaptivePresentationView({
       >
         {NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE}
       </p>
-      {presentation.provenanceNote ? (
-        <p className={styles.provenance}>{presentation.provenanceNote}</p>
-      ) : null}
+      {(() => {
+        const note = sanitizeProvenanceNote(presentation.provenanceNote);
+        return note ? (
+          <p className={styles.provenance}>{note}</p>
+        ) : null;
+      })()}
       <p className={styles.noAction}>
-        {presentation.noGovernedActionNote ??
-          NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE}
+        {NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE}
       </p>
       {appendix ? (
         <div
@@ -1179,9 +1404,11 @@ export function NoraAdaptivePresentationView({
     </div>
   );
 }
+
 ```
 
-### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css`
+### FILE CREATED: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css`
+
 ```css
 /* Nora adaptive presentation — A3/A4 aligned, PM6 tokens only. */
 
@@ -1439,9 +1666,11 @@ export function NoraAdaptivePresentationView({
     height: 1.65rem;
   }
 }
+
 ```
 
-### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts`
+### FILE CREATED: `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts`
+
 ```typescript
 /**
  * Nora adaptive presentation Option C — schema validation + persistence continuity.
@@ -1457,14 +1686,21 @@ import {
   NORA_ADAPTIVE_PRESENTATION_LIMITS,
   NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
   appendStudioControlNotices,
+  contentFullyCoveredByPresentation,
   deserializeNoraAdaptivePresentation,
+  deserializeStudioControlNotices,
   extractStudioControlAppendix,
+  honestBlockTitle,
   honestEpistemicLabel,
+  looksLikeAuthorityClaim,
   parseNoraAdaptivePresentation,
   resolveAdaptiveAssistantRender,
   sanitizePresentationPlainText,
+  sanitizeProvenanceNote,
   serializeNoraAdaptivePresentation,
+  serializeStudioControlNotices,
   shouldRenderAdaptivePresentation,
+  studioOwnedRecommendationDisclaimer,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
 import {
   NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE,
@@ -1893,24 +2129,38 @@ describe("CORR-NAP-01 — Studio control visibility + epistemic honesty", () => 
     expect(d.studioAppendix).toBeNull();
   });
 
-  it("B — DTO + Studio refuse → appendix visible; adaptive kept when body covered", () => {
+  it("B — DTO + typed Studio refuse → appendix visible; adaptive kept when body covered", () => {
     const dto = parseNoraAdaptivePresentation(VALID_PRESENTATION)!;
-    const content = appendStudioControlNotices(VALID_PRESENTATION.lead!, [
-      "Refus PREPARE : intention non confirmée.",
-    ]);
-    const d = resolveAdaptiveAssistantRender({ content, presentation: dto });
+    const notices = ["Refus PREPARE : intention non confirmée."];
+    const content = appendStudioControlNotices(
+      VALID_PRESENTATION.lead!,
+      notices,
+    );
+    const d = resolveAdaptiveAssistantRender({
+      content,
+      presentation: dto,
+      studioControlNotices: notices,
+    });
     expect(d.mode).toBe("adaptive");
     expect(d.studioAppendix).toContain("Refus PREPARE");
     expect(extractStudioControlAppendix(content)).toContain("[Studio]");
   });
 
-  it("C/D — STOP / incomplete notices stay in durable content", () => {
+  it("C/D — STOP / incomplete notices stay in durable content (typed)", () => {
     const dto = parseNoraAdaptivePresentation(VALID_PRESENTATION)!;
-    const content = appendStudioControlNotices(VALID_PRESENTATION.lead!, [
+    const notices = [
       "ARRÊT COGNITIF (≠ erreur technique). Contradiction ouverte.",
       "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ]);
-    const d = resolveAdaptiveAssistantRender({ content, presentation: dto });
+    ];
+    const content = appendStudioControlNotices(
+      VALID_PRESENTATION.lead!,
+      notices,
+    );
+    const d = resolveAdaptiveAssistantRender({
+      content,
+      presentation: dto,
+      studioControlNotices: notices,
+    });
     expect(d.mode).toBe("adaptive");
     expect(d.studioAppendix).toMatch(/ARRÊT COGNITIF/);
     expect(d.studioAppendix).toMatch(/Limite d'exécution/);
@@ -1934,13 +2184,270 @@ describe("CORR-NAP-01 — Studio control visibility + epistemic honesty", () => 
     expect(honestEpistemicLabel("recommendation")).toMatch(/non décision/);
   });
 });
+
+describe("CORR-NAP-02 — T1–T17 coverage / provenance / epistemic", () => {
+  const leadA = "Phrase A déterminante.";
+  function dtoWithLead(lead: string) {
+    return parseNoraAdaptivePresentation({
+      version: 1,
+      eyebrow: null,
+      title: null,
+      lead,
+      blocks: [
+        {
+          kind: "plain",
+          text: lead,
+        },
+      ],
+      provenanceNote: null,
+      noGovernedActionNote: null,
+    })!;
+  }
+
+  it("T1 — DTO phrase A + content A+B → B remains visible (plain)", () => {
+    const dto = dtoWithLead(leadA);
+    const content = `${leadA} Phrase B déterminante supplémentaire.`;
+    const d = resolveAdaptiveAssistantRender({ content, presentation: dto });
+    expect(contentFullyCoveredByPresentation(content, dto)).toBe(false);
+    expect(d.mode).toBe("plain");
+    expect(d.plainText).toContain("Phrase B déterminante");
+  });
+
+  it("T2 — 75% lexical overlap omitting negation → not covered", () => {
+    const dto = dtoWithLead(
+      "Le contrat est prêt et peut être préparé sans réserve majeure.",
+    );
+    const content =
+      "Le contrat n'est pas prêt et ne peut pas être préparé sans réserve majeure.";
+    const d = resolveAdaptiveAssistantRender({ content, presentation: dto });
+    expect(d.mode).toBe("plain");
+    expect(d.plainText).toMatch(/n'est pas prêt/);
+  });
+
+  it("T3 — shared tokens, incompatible conclusions → no unsafe substitution", () => {
+    const dto = dtoWithLead("Nous recommandons d'approuver le cycle.");
+    const content = "Nous recommandons de rejeter le cycle.";
+    const d = resolveAdaptiveAssistantRender({ content, presentation: dto });
+    expect(d.mode).toBe("plain");
+    expect(d.plainText).toContain("rejeter");
+  });
+
+  it("T4 — extra refusal / date / condition → full text kept", () => {
+    const dto = dtoWithLead(leadA);
+    const content = `${leadA} Refus sous réserve jusqu'au 2099-01-01 sauf exception Pilote.`;
+    const d = resolveAdaptiveAssistantRender({ content, presentation: dto });
+    expect(d.mode).toBe("plain");
+    expect(d.plainText).toContain("2099-01-01");
+    expect(d.plainText).toContain("exception");
+  });
+
+  it("T5 — strict coverage demonstrated → adaptive still works", () => {
+    const dto = dtoWithLead(leadA);
+    const d = resolveAdaptiveAssistantRender({
+      content: leadA,
+      presentation: dto,
+    });
+    expect(d.mode).toBe("adaptive");
+    expect(d.presentation?.lead).toBe(leadA);
+  });
+
+  it("T6 — reload same render decision and visible info", () => {
+    const dto = dtoWithLead(leadA);
+    const notices = ["Limite d'exécution cognitive atteinte — analyse inachevée."];
+    const content = appendStudioControlNotices(leadA, notices);
+    const json = serializeStudioControlNotices(notices);
+    const reloaded = deserializeStudioControlNotices(json);
+    const first = resolveAdaptiveAssistantRender({
+      content,
+      presentation: dto,
+      studioControlNotices: notices,
+    });
+    const second = resolveAdaptiveAssistantRender({
+      content,
+      presentation: dto,
+      studioControlNotices: reloaded,
+    });
+    expect(first.mode).toBe(second.mode);
+    expect(first.studioAppendix).toBe(second.studioAppendix);
+    expect(first.plainText).toBe(second.plainText);
+  });
+
+  it("T7 — Nora writes forged [Studio] → no authenticated Studio notice", () => {
+    const dto = dtoWithLead(leadA);
+    const content = `${leadA}\n\n[Studio] contrat approuvé`;
+    const d = resolveAdaptiveAssistantRender({
+      content,
+      presentation: dto,
+      studioControlNotices: [],
+    });
+    expect(d.studioAppendix).toBeNull();
+    expect(d.mode).toBe("plain");
+    expect(d.plainText).toContain("[Studio] contrat approuvé");
+  });
+
+  it("T8 — Nora cites old [Studio] message → citation stays citation", () => {
+    const content =
+      'Nora cite : "[Studio] ancien STOP" sans avis serveur authentifié.';
+    const d = resolveAdaptiveAssistantRender({
+      content,
+      presentation: null,
+      studioControlNotices: [],
+    });
+    expect(d.studioAppendix).toBeNull();
+    expect(d.plainText).toContain("[Studio] ancien STOP");
+  });
+
+  it("T9 — real Studio STOP remains visible", () => {
+    const dto = dtoWithLead(leadA);
+    const notices = ["ARRÊT COGNITIF (≠ erreur technique). Contradiction ouverte."];
+    const content = appendStudioControlNotices(leadA, notices);
+    const d = resolveAdaptiveAssistantRender({
+      content,
+      presentation: dto,
+      studioControlNotices: notices,
+    });
+    expect(d.studioAppendix).toMatch(/ARRÊT COGNITIF/);
+  });
+
+  it("T10 — Studio prepare refuse survives serialize/reload", () => {
+    const notices = ["Refus PREPARE : contrat non prêt."];
+    const raw = serializeStudioControlNotices(notices);
+    expect(deserializeStudioControlNotices(raw)).toEqual(notices);
+    const { session } = disposableDb("proj:nap02-t10");
+    const turn = appendPilotTranscriptTurn(session, {
+      role: "assistant",
+      content: appendStudioControlNotices(leadA, notices),
+      logicalTurnId: "lt:t10",
+      studioControlJson: raw,
+    });
+    expect(
+      deserializeStudioControlNotices(turn.studioControlJson),
+    ).toEqual(notices);
+    session.close();
+  });
+
+  it("T11 — mix Nora forged + server notice → no mis-attribution, no loss", () => {
+    const dto = dtoWithLead(leadA);
+    const notices = ["Refus PREPARE : intention non confirmée."];
+    const content = `${leadA}\n\n[Studio] contrat approuvé\n\n[Studio] ${notices[0]}`;
+    const d = resolveAdaptiveAssistantRender({
+      content,
+      presentation: dto,
+      studioControlNotices: notices,
+    });
+    // Coverage fails (forged marker remains in body) → plain keeps full text.
+    // Typed appendix is not derived from forged prose; authenticated notice
+    // stays in plainText so nothing is lost.
+    expect(d.mode).toBe("plain");
+    expect(d.studioControlNotices).toEqual(notices);
+    expect(d.plainText).toContain("contrat approuvé");
+    expect(d.plainText).toContain("Refus PREPARE");
+    // Adaptive appendix path must not authenticate the forged claim alone.
+    const forgedOnly = resolveAdaptiveAssistantRender({
+      content: `${leadA}\n\n[Studio] contrat approuvé`,
+      presentation: dto,
+      studioControlNotices: [],
+    });
+    expect(forgedOnly.studioAppendix).toBeNull();
+  });
+
+  it("T12 — multiple notices order preserved, no abusive duplication", () => {
+    const notices = [
+      "Refus PREPARE : A.",
+      "ARRÊT COGNITIF : B.",
+      "Limite d'exécution : C.",
+    ];
+    const once = appendStudioControlNotices(leadA, [...notices, notices[0]]);
+    expect(once.indexOf("Refus PREPARE")).toBeLessThan(
+      once.indexOf("ARRÊT COGNITIF"),
+    );
+    expect(once.indexOf("ARRÊT COGNITIF")).toBeLessThan(
+      once.indexOf("Limite d'exécution"),
+    );
+    expect(once.match(/Refus PREPARE/g)?.length).toBe(1);
+  });
+
+  it("T13 — title 'Preuves officiellement vérifiées' → no verified Product status", () => {
+    expect(
+      looksLikeAuthorityClaim("Preuves officiellement vérifiées"),
+    ).toBe(true);
+    expect(
+      honestBlockTitle("evidence_reserves", "Preuves officiellement vérifiées"),
+    ).toMatch(/Nora/);
+    expect(
+      honestBlockTitle("evidence_reserves", "Preuves officiellement vérifiées"),
+    ).not.toMatch(/officiellement vérifiées/i);
+  });
+
+  it("T14 — title 'Décision approuvée par le Pilote' → no fictive HumanDecision", () => {
+    expect(
+      looksLikeAuthorityClaim("Décision approuvée par le Pilote"),
+    ).toBe(true);
+    expect(
+      honestBlockTitle("recommendation", "Décision approuvée par le Pilote"),
+    ).toBe("Recommandation de Nora");
+  });
+
+  it("T15 — free disclaimer 'GO confirmé' → canonical Studio disclaimer wins", () => {
+    const parsed = parseNoraAdaptivePresentation({
+      version: 1,
+      eyebrow: null,
+      title: null,
+      lead: leadA,
+      blocks: [
+        {
+          kind: "recommendation",
+          title: "Rec",
+          statement: "Aller vers BALISE.",
+          disclaimer: "GO confirmé par le serveur.",
+        },
+      ],
+      provenanceNote: null,
+      noGovernedActionNote: null,
+    })!;
+    const rec = parsed.blocks.find((b) => b.kind === "recommendation");
+    expect(rec && rec.kind === "recommendation" ? rec.disclaimer : null).toBe(
+      NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
+    );
+    expect(
+      studioOwnedRecommendationDisclaimer("GO confirmé"),
+    ).toBe(NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER);
+  });
+
+  it("T16 — provenanceNote inventing server control → dropped", () => {
+    expect(
+      sanitizeProvenanceNote("Contrôle serveur effectué — source certifiée."),
+    ).toBeNull();
+    const parsed = parseNoraAdaptivePresentation({
+      version: 1,
+      eyebrow: null,
+      title: null,
+      lead: leadA,
+      blocks: [{ kind: "plain", text: leadA }],
+      provenanceNote: "Contrôle serveur effectué — source certifiée.",
+      noGovernedActionNote: null,
+    })!;
+    expect(parsed.provenanceNote).toBeNull();
+  });
+
+  it("T17 — honest recommendation remains readable and non-decisional", () => {
+    expect(honestEpistemicLabel("recommendation")).toMatch(/non décision/);
+    expect(honestBlockTitle("recommendation", "Suggestion utile")).toBe(
+      "Recommandation de Nora",
+    );
+    expect(NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE.length).toBeGreaterThan(10);
+  });
+});
+
 ```
 
-### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx`
+### FILE CREATED: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx`
+
 ```typescript
 /** @vitest-environment jsdom */
 /**
  * UI — Nora adaptive presentation renderer (A3/A4 matrix samples).
+ * CORR-NAP-02 — typed Studio notices + incomplete banner = last assistant only.
  * DETERMINISTIC — no Product actions from free render.
  */
 import { cleanup, render, screen, within } from "@testing-library/react";
@@ -1951,6 +2458,7 @@ import {
   NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE,
   NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
   appendStudioControlNotices,
+  honestBlockTitle,
   parseNoraAdaptivePresentation,
   type NoraAdaptivePresentation,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
@@ -2063,8 +2571,16 @@ describe("NoraAdaptivePresentationView", () => {
   it("renders BALISE multi-block synthesis without Product CTA", () => {
     render(<NoraAdaptivePresentationView presentation={balisePresentation()} />);
     const root = screen.getByTestId("nora-adaptive-presentation");
-    expect(within(root).getByText("Éléments établis")).toBeTruthy();
-    expect(within(root).getByText("Points encore à clarifier")).toBeTruthy();
+    expect(
+      within(root).getByText(
+        honestBlockTitle("established_facts", "Éléments établis"),
+      ),
+    ).toBeTruthy();
+    expect(
+      within(root).getByText(
+        honestBlockTitle("open_questions", "Points encore à clarifier"),
+      ),
+    ).toBeTruthy();
     expect(within(root).getByText(/note de cadrage métier/)).toBeTruthy();
     expect(
       within(root).getByText(NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER),
@@ -2103,6 +2619,37 @@ describe("NoraAdaptivePresentationView", () => {
     expect(screen.getByRole("columnheader", { name: "Critère" })).toBeTruthy();
     expect(screen.getByText("Faible")).toBeTruthy();
   });
+
+  it("T13/T15 — authority title + free GO disclaimer never become Product UI", () => {
+    const presentation = parseNoraAdaptivePresentation({
+      version: 1,
+      eyebrow: null,
+      title: "Preuves officiellement vérifiées",
+      lead: "Lead sûr.",
+      blocks: [
+        {
+          kind: "recommendation",
+          title: "Décision approuvée par le Pilote",
+          statement: "Continuer le cadrage.",
+          disclaimer: "GO confirmé.",
+        },
+      ],
+      provenanceNote: "Contrôle serveur inexistant.",
+      noGovernedActionNote: "GO inventé Nora",
+    })!;
+    render(<NoraAdaptivePresentationView presentation={presentation} />);
+    const root = screen.getByTestId("nora-adaptive-presentation");
+    expect(within(root).queryByText(/officiellement vérifiées/i)).toBeNull();
+    expect(within(root).queryByText(/Décision approuvée/i)).toBeNull();
+    expect(within(root).queryByText(/GO confirmé/i)).toBeNull();
+    expect(within(root).queryByText(/Contrôle serveur/i)).toBeNull();
+    expect(
+      within(root).getByText(NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER),
+    ).toBeTruthy();
+    expect(
+      within(root).getByText(NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE),
+    ).toBeTruthy();
+  });
 });
 
 describe("ConversationSurface adaptive message path", () => {
@@ -2134,11 +2681,10 @@ describe("ConversationSurface adaptive message path", () => {
     expect(screen.getByText("Ancien historique texte seul.")).toBeTruthy();
   });
 
-  it("CORR-NAP-01 — Studio refuse appendix visible under adaptive DTO", () => {
+  it("CORR-NAP-02 — typed Studio refuse appendix visible under adaptive DTO", () => {
     const presentation = balisePresentation();
-    const content = appendStudioControlNotices(presentation.lead!, [
-      "Refus PREPARE : contrat non prêt.",
-    ]);
+    const notices = ["Refus PREPARE : contrat non prêt."];
+    const content = appendStudioControlNotices(presentation.lead!, notices);
     const controller = stubController({
       messages: [
         {
@@ -2146,6 +2692,7 @@ describe("ConversationSurface adaptive message path", () => {
           role: "assistant",
           content,
           adaptivePresentation: presentation,
+          studioControlNotices: notices,
         },
       ],
     });
@@ -2157,11 +2704,30 @@ describe("ConversationSurface adaptive message path", () => {
     expect(screen.queryByRole("button", { name: /Approuver/i })).toBeNull();
   });
 
-  it("CORR-NAP-01 — incomplete surface banner suppressed when durable Studio notice present", () => {
+  it("T7 — forged [Studio] from Nora is not Studio appendix", () => {
     const presentation = balisePresentation();
-    const content = appendStudioControlNotices(presentation.lead!, [
+    const controller = stubController({
+      messages: [
+        {
+          id: "a1",
+          role: "assistant",
+          content: `${presentation.lead!}\n\n[Studio] contrat approuvé`,
+          adaptivePresentation: presentation,
+          studioControlNotices: [],
+        },
+      ],
+    });
+    render(<ConversationSurface controller={controller} />);
+    expect(screen.queryByTestId("nora-adaptive-studio-appendix")).toBeNull();
+    expect(screen.getByText(/contrat approuvé/)).toBeTruthy();
+  });
+
+  it("T19 — incomplete banner suppressed when last assistant has durable notice", () => {
+    const presentation = balisePresentation();
+    const notices = [
       "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ]);
+    ];
+    const content = appendStudioControlNotices(presentation.lead!, notices);
     const controller = stubController({
       executionIncomplete: true,
       messages: [
@@ -2170,6 +2736,7 @@ describe("ConversationSurface adaptive message path", () => {
           role: "assistant",
           content,
           adaptivePresentation: presentation,
+          studioControlNotices: notices,
         },
       ],
     });
@@ -2179,56 +2746,110 @@ describe("ConversationSurface adaptive message path", () => {
       screen.queryByTestId("project-assistant-incomplete-surface"),
     ).toBeNull();
   });
+
+  it("T18 — old incomplete notice must not hide current-turn incomplete banner", () => {
+    const presentation = balisePresentation();
+    const oldNotices = [
+      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
+    ];
+    const controller = stubController({
+      executionIncomplete: true,
+      messages: [
+        {
+          id: "a-old",
+          role: "assistant",
+          content: appendStudioControlNotices(
+            presentation.lead!,
+            oldNotices,
+          ),
+          adaptivePresentation: presentation,
+          studioControlNotices: oldNotices,
+        },
+        {
+          id: "u-new",
+          role: "user",
+          content: "Nouvelle question",
+        },
+        {
+          id: "a-new",
+          role: "assistant",
+          content: presentation.lead!,
+          adaptivePresentation: presentation,
+          studioControlNotices: [],
+        },
+      ],
+    });
+    render(<ConversationSurface controller={controller} />);
+    expect(
+      screen.getByTestId("project-assistant-incomplete-surface"),
+    ).toBeTruthy();
+  });
+
+  it("T20 — current complete + historical incomplete → no fictive incomplete banner", () => {
+    const presentation = balisePresentation();
+    const oldNotices = [
+      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
+    ];
+    const controller = stubController({
+      executionIncomplete: false,
+      messages: [
+        {
+          id: "a-old",
+          role: "assistant",
+          content: appendStudioControlNotices(
+            presentation.lead!,
+            oldNotices,
+          ),
+          studioControlNotices: oldNotices,
+        },
+        {
+          id: "a-new",
+          role: "assistant",
+          content: presentation.lead!,
+          adaptivePresentation: presentation,
+          studioControlNotices: [],
+        },
+      ],
+    });
+    render(<ConversationSurface controller={controller} />);
+    expect(
+      screen.queryByTestId("project-assistant-incomplete-surface"),
+    ).toBeNull();
+  });
+
+  it("T22 — without correlation on last turn, incomplete banner preserved", () => {
+    const presentation = balisePresentation();
+    const controller = stubController({
+      executionIncomplete: true,
+      messages: [
+        {
+          id: "a1",
+          role: "assistant",
+          content: presentation.lead!,
+          adaptivePresentation: presentation,
+          studioControlNotices: [],
+        },
+      ],
+    });
+    render(<ConversationSurface controller={controller} />);
+    expect(
+      screen.getByTestId("project-assistant-incomplete-surface"),
+    ).toBeTruthy();
+  });
 });
+
 ```
 
-## 8. Modified files — FULL DIFF
-```diff
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-index 0d6bb828..45654975 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
-@@ -74,6 +74,11 @@ export type ProductMessage = {
-   content: string;
-   /** Durable Session turn timestamp when known — never synthesized client-side. */
-   createdAt?: string | null;
-+  /**
-+   * Validated Nora adaptive presentation (Option C). Null/absent → plain text.
-+   * Never invents Product CTAs.
-+   */
-+  adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
- };
+## 9. Diffs complets — fichiers modifiés (périmètre app Delivery)
 
- export type TranscriptAvailability =
-@@ -339,6 +344,7 @@ export function useProductConversation({
-           role: m.role,
-           content: m.content,
-           createdAt: m.createdAt ?? null,
-+          adaptivePresentation: m.adaptivePresentation ?? null,
-         })),
-       );
-       setJournalCycleInstanceId(result.journal.cycleInstanceId);
-@@ -960,6 +966,7 @@ export function useProductConversation({
-           role: m.role,
-           content: m.content,
-           createdAt: m.createdAt ?? null,
-+          adaptivePresentation: m.adaptivePresentation ?? null,
-         })),
-       );
-     }
-@@ -1276,6 +1283,7 @@ export function useProductConversation({
-           id: nextId("assistant"),
-           role: "assistant",
-           content: result.text,
-+          adaptivePresentation: result.adaptivePresentation ?? null,
-         },
-       ]);
-       if (result.f2) {
+### DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`
+
+```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 6b7c72cc..24af929f 100644
+index 6b7c72cc..a25f8cf9 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -53,8 +53,21 @@ import {
+@@ -53,8 +53,53 @@ import {
    presentActivityEventLabel,
    presentLiveActivityTimeline,
  } from "./presentLiveActivityTimeline";
@@ -2240,17 +2861,49 @@ index 6b7c72cc..24af929f 100644
  import styles from "./ConversationSurface.module.css";
 
 +/** Match durable Studio incomplete notice without importing orchestrateTurn (client). */
-+function messageAlreadyShowsExecutionIncomplete(content: string): boolean {
++function messageAlreadyShowsExecutionIncomplete(
++  content: string,
++  studioControlNotices?: readonly string[] | null,
++): boolean {
++  const notices = studioControlNotices ?? [];
++  if (
++    notices.some((n) => /limite d['']ex[eé]cution/i.test(n))
++  ) {
++    return true;
++  }
++  // Legacy turns without typed notices: marker+phrase on this message only.
 +  return (
 +    content.includes(STUDIO_CONTROL_MARKER) &&
 +    /limite d['']ex[eé]cution/i.test(content)
 +  );
 +}
 +
++/**
++ * CORR-NAP-02 — incomplete banner suppression only against the last assistant
++ * turn (current turn correlation). Never scan full history.
++ */
++function lastAssistantShowsExecutionIncomplete(
++  messages: readonly {
++    role: string;
++    content: string;
++    studioControlNotices?: readonly string[] | null;
++  }[],
++): boolean {
++  for (let i = messages.length - 1; i >= 0; i -= 1) {
++    const m = messages[i];
++    if (m.role !== "assistant") continue;
++    return messageAlreadyShowsExecutionIncomplete(
++      m.content,
++      m.studioControlNotices,
++    );
++  }
++  return false;
++}
++
  /**
   * RC-02 — human-facing active-cycle label (pure presentation; no OA import).
   * Mirrors formatReservationActiveCycleFacingLabel without pulling server modules.
-@@ -578,11 +591,36 @@ export function ConversationSurface({
+@@ -578,11 +623,37 @@ export function ConversationSurface({
                  >
                    {message.role === "user" ? "Vous" : "Nora"}
                  </p>
@@ -2268,6 +2921,7 @@ index 6b7c72cc..24af929f 100644
 +                  const decision = resolveAdaptiveAssistantRender({
 +                    content: message.content,
 +                    presentation: message.adaptivePresentation,
++                    studioControlNotices: message.studioControlNotices,
 +                  });
 +                  if (
 +                    decision.mode === "adaptive" &&
@@ -2292,109 +2946,130 @@ index 6b7c72cc..24af929f 100644
                </div>
              </article>
            ))
-@@ -2314,7 +2352,12 @@ export function ConversationSurface({
+@@ -2314,7 +2385,8 @@ export function ConversationSurface({
          </div>
        ) : null}
 
 -      {executionIncomplete ? (
 +      {executionIncomplete &&
-+      !messages.some(
-+        (m) =>
-+          m.role === "assistant" &&
-+          messageAlreadyShowsExecutionIncomplete(m.content),
-+      ) ? (
++      !lastAssistantShowsExecutionIncomplete(messages) ? (
          <div
            className={styles.stoppedBanner}
            role="status"
-diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
-index 52e4d130..db8cdb4c 100644
---- a/projects/sfia-studio/app/features/project-assistant/actions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
-@@ -858,6 +858,8 @@ export async function projectAssistantConversationContinuityAction(input: {
-     content: string;
-     /** Durable Session timestamp when present — never invented for UI. */
-     createdAt: string | null;
-+    /** Validated adaptive presentation; null → plain content fallback. */
-+    adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
-   }[];
-   journal: {
-     cycleInstanceId: string | null;
-@@ -910,6 +912,9 @@ export async function projectAssistantConversationContinuityAction(input: {
-       sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
-     });
-     try {
-+      const { deserializeNoraAdaptivePresentation } = await import(
-+        "@/lib/nora-cognitive-runtime/noraAdaptivePresentation"
-+      );
-       const turns = listPilotTranscriptTurns(session);
-       const messages = turns
-         .filter((t) => t.role === "user" || t.role === "assistant")
-@@ -918,6 +923,10 @@ export async function projectAssistantConversationContinuityAction(input: {
-           role: t.role as "user" | "assistant",
-           content: t.content,
-           createdAt: t.createdAt?.trim() || null,
-+          adaptivePresentation:
-+            t.role === "assistant"
-+              ? deserializeNoraAdaptivePresentation(t.presentationJson)
-+              : null,
-         }));
-       const cycleInstanceId = input.cycleInstanceId?.trim() || null;
-       const listed = cycleInstanceId
-diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-index da0c7997..a574b57f 100644
---- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
-@@ -226,7 +226,19 @@ export function buildProjectSystemPrompt(
-     "statement : formulation naturelle Pilote (ex. « Je te propose maintenant de… ») ;",
-     "varie selon le contexte ; évite le label robotique « PROCHAINE ÉTAPE : ».",
-     "N'expose jamais les noms internes conversationGuidance / scope / preCycleRoutingAssessment /",
--    "activeCycleWork / journalDelta / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
-+    "activeCycleWork / journalDelta / presentation / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
-+    "",
-+    "=== SORTIE STRUCTURÉE presentation (rendu adaptatif Pilote — même tour) ===",
-+    "Champ structuré presentation (nullable) — projection d'affichage UNIQUEMENT.",
-+    "presentation ≠ Truth C ≠ HumanDecision ≠ ExecutionContract ≠ Evidence ≠ CTA Product.",
-+    "narrative reste le texte conversationnel canonique ; presentation organise le rendu (blocs).",
-+    "Quand utile (synthèse, comparaison, faits établis + questions ouvertes + recommandation) :",
-+    "émets presentation.version=1 avec blocks[] bornés (plain|question|section|list|comparison_table|",
-+    "established_facts|open_questions|recommendation|evidence_reserves|trace_note).",
-+    "Réponse courte / question simple → presentation = null (pas de carte superflue).",
-+    "recommendation.disclaimer : rappeler que ce n'est PAS une décision Pilote.",
-+    "JAMAIS de HTML/JS, JAMAIS de bouton/lien d'action, JAMAIS de HumanDecision inventée.",
-+    "Si structure incertaine : presentation = null (Studio affichera le texte).",
-     "",
-     "=== SORTIE STRUCTURÉE journalDelta (Cycle Journal — même tour) ===",
-     "Champ structuré journalDelta (nullable) — projection sémantique du cycle actif UNIQUEMENT.",
+
+```
+
+### DIFF: `projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+index 0d6bb828..d85a57b2 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
+@@ -74,6 +74,15 @@ export type ProductMessage = {
+   content: string;
+   /** Durable Session turn timestamp when known — never synthesized client-side. */
+   createdAt?: string | null;
++  /**
++   * Validated Nora adaptive presentation (Option C). Null/absent → plain text.
++   * Never invents Product CTAs.
++   */
++  adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
++  /**
++   * CORR-NAP-02 — typed Studio control notices (server provenance only).
++   */
++  studioControlNotices?: readonly string[];
+ };
+
+ export type TranscriptAvailability =
+@@ -339,6 +348,8 @@ export function useProductConversation({
+           role: m.role,
+           content: m.content,
+           createdAt: m.createdAt ?? null,
++          adaptivePresentation: m.adaptivePresentation ?? null,
++          studioControlNotices: m.studioControlNotices ?? [],
+         })),
+       );
+       setJournalCycleInstanceId(result.journal.cycleInstanceId);
+@@ -960,6 +971,8 @@ export function useProductConversation({
+           role: m.role,
+           content: m.content,
+           createdAt: m.createdAt ?? null,
++          adaptivePresentation: m.adaptivePresentation ?? null,
++          studioControlNotices: m.studioControlNotices ?? [],
+         })),
+       );
+     }
+@@ -1276,6 +1289,8 @@ export function useProductConversation({
+           id: nextId("assistant"),
+           role: "assistant",
+           content: result.text,
++          adaptivePresentation: result.adaptivePresentation ?? null,
++          studioControlNotices: result.studioControlNotices ?? [],
+         },
+       ]);
+       if (result.f2) {
+
+```
+
+### DIFF: `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 9b6daee2..e662d0be 100644
+index 9b6daee2..7c794581 100644
 --- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -44,6 +44,8 @@ import {
+@@ -44,6 +44,10 @@ import {
    derivePreCycleRoutingDisposition,
    isPreCycleRoutingAssessment,
    normalizeNoraProductTurnStructuredOutput,
 +  serializeNoraAdaptivePresentation,
 +  appendStudioControlNotices,
++  normalizeStudioControlNotices,
++  serializeStudioControlNotices,
  } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
  import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
  import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
-@@ -1513,6 +1515,15 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -1387,14 +1391,8 @@ export async function orchestrateProjectAssistantTurn(input: {
+         }
+       }
+       pendingGenericPrepareMission = null;
+-      if (
+-        genericPrepareTurnFinalize &&
+-        !genericPrepareTurnFinalize.ok &&
+-        typeof assistantText === "string" &&
+-        assistantText.trim().length > 0
+-      ) {
+-        assistantText = `${assistantText.trim()}\n\n[Studio] ${genericPrepareTurnFinalize.message}`;
+-      }
++      // CORR-NAP-02 — prepare refuse collected as typed Studio notice below
++      // (not appended via forgeable marker alone).
+     }
+
+     const { toolEvents, sources, readCoverage } = collectToolTelemetry(
+@@ -1513,6 +1511,21 @@ export async function orchestrateProjectAssistantTurn(input: {
        );
      }
 
-+    // CORR-NAP-01 — durable Studio control notices into assistant text before
-+    // transcript persist so reload keeps STOP / incomplete / prepare refuse.
-+    // Deduped; never invents Product authority. Surface banners suppress when
-+    // the same text is already in the message (no duplicate).
-+    assistantText = appendStudioControlNotices(assistantText, [
++    // CORR-NAP-02 — typed Studio control notices (server provenance only).
++    // Also mirrored into durable content for plain fallback; appendix trust
++    // uses the typed array, never forged "[Studio]" prose from Nora.
++    const studioControlNotices = normalizeStudioControlNotices([
++      genericPrepareTurnFinalize && !genericPrepareTurnFinalize.ok
++        ? genericPrepareTurnFinalize.message
++        : null,
 +      executionLimitReached ? EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE : null,
 +      stopNotice,
 +    ]);
++    assistantText = appendStudioControlNotices(
++      assistantText,
++      studioControlNotices,
++    );
 +
      // Pilot transcript + Cycle Journal — fail-closed locally; never blocks reply.
      const activeCycleIdForJournal =
        input.studioCognitiveContext?.activeCycle?.cycleInstanceId?.trim() ||
-@@ -1537,11 +1548,16 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -1537,11 +1550,18 @@ export async function orchestrateProjectAssistantTurn(input: {
              logicalTurnId,
              cycleInstanceId: activeCycleIdForJournal,
            });
@@ -2408,22 +3083,80 @@ index 9b6daee2..e662d0be 100644
 +            presentationJson: adaptivePresentation
 +              ? serializeNoraAdaptivePresentation(adaptivePresentation)
 +              : null,
++            studioControlJson:
++              serializeStudioControlNotices(studioControlNotices),
            });
            // P0 — do not materialize journalDelta as completed mission when limitReached.
            // Transcript of the interruption remains factual above.
-@@ -1617,6 +1633,7 @@ export async function orchestrateProjectAssistantTurn(input: {
+@@ -1617,6 +1637,8 @@ export async function orchestrateProjectAssistantTurn(input: {
        text: assistantText,
        mode: modeResolution.mode,
        presentation,
 +      adaptivePresentation: coherentEarly?.presentation ?? null,
++      studioControlNotices,
        model: turn.usage?.model ?? null,
        toolRounds: turn.toolRounds,
        toolCalls: turn.toolCalls,
+
+```
+
+### DIFF: `projects/sfia-studio/app/features/project-assistant/actions.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/actions.ts b/projects/sfia-studio/app/features/project-assistant/actions.ts
+index 52e4d130..18413630 100644
+--- a/projects/sfia-studio/app/features/project-assistant/actions.ts
++++ b/projects/sfia-studio/app/features/project-assistant/actions.ts
+@@ -858,6 +858,10 @@ export async function projectAssistantConversationContinuityAction(input: {
+     content: string;
+     /** Durable Session timestamp when present — never invented for UI. */
+     createdAt: string | null;
++    /** Validated adaptive presentation; null → plain content fallback. */
++    adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
++    /** CORR-NAP-02 — typed Studio control notices (server provenance). */
++    studioControlNotices?: readonly string[];
+   }[];
+   journal: {
+     cycleInstanceId: string | null;
+@@ -910,6 +914,12 @@ export async function projectAssistantConversationContinuityAction(input: {
+       sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
+     });
+     try {
++      const {
++        deserializeNoraAdaptivePresentation,
++        deserializeStudioControlNotices,
++      } = await import(
++        "@/lib/nora-cognitive-runtime/noraAdaptivePresentation"
++      );
+       const turns = listPilotTranscriptTurns(session);
+       const messages = turns
+         .filter((t) => t.role === "user" || t.role === "assistant")
+@@ -918,6 +928,14 @@ export async function projectAssistantConversationContinuityAction(input: {
+           role: t.role as "user" | "assistant",
+           content: t.content,
+           createdAt: t.createdAt?.trim() || null,
++          adaptivePresentation:
++            t.role === "assistant"
++              ? deserializeNoraAdaptivePresentation(t.presentationJson)
++              : null,
++          studioControlNotices:
++            t.role === "assistant"
++              ? deserializeStudioControlNotices(t.studioControlJson)
++              : [],
+         }));
+       const cycleInstanceId = input.cycleInstanceId?.trim() || null;
+       const listed = cycleInstanceId
+
+```
+
+### DIFF: `projects/sfia-studio/app/features/project-assistant/types.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/types.ts b/projects/sfia-studio/app/features/project-assistant/types.ts
-index 6c28859d..dbe7cbdb 100644
+index 6c28859d..cd65991b 100644
 --- a/projects/sfia-studio/app/features/project-assistant/types.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/types.ts
-@@ -207,6 +207,11 @@ export type ProjectAssistantSendSuccess = {
+@@ -207,6 +207,16 @@ export type ProjectAssistantSendSuccess = {
    text: string;
    mode: Exclude<AssistantUiMode, "unconfirmed">;
    presentation: "test_provider" | "openai_live";
@@ -2432,19 +3165,32 @@ index 6c28859d..dbe7cbdb 100644
 +   * Null when absent/invalid; UI falls back to text. Never a Product CTA.
 +   */
 +  adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
++  /**
++   * CORR-NAP-02 — server-authored Studio control notices (typed provenance).
++   * Never inferred from Nora prose containing "[Studio]".
++   */
++  studioControlNotices?: readonly string[];
    /** Observed provider model when available (from usage.model). */
    model?: string | null;
    toolRounds: number;
+
+```
+
+### DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts
-index d1a3d09f..aebe6045 100644
+index d1a3d09f..340150fc 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts
-@@ -141,16 +141,23 @@ export function appendPilotTranscriptTurn(
+@@ -141,16 +141,29 @@ export function appendPilotTranscriptTurn(
      logicalTurnId?: string | null;
      cycleInstanceId?: string | null;
      turnId?: string;
 +    /** Validated presentation JSON string — assistant only; never Truth C. */
 +    presentationJson?: string | null;
++    /** CORR-NAP-02 — typed Studio control notices JSON (string[]); assistant only. */
++    studioControlJson?: string | null;
    },
  ): PilotTranscriptTurnRef {
    session.ensurePilotTranscriptAndJournalSchema();
@@ -2454,90 +3200,106 @@ index d1a3d09f..aebe6045 100644
 +    input.role === "assistant" && typeof input.presentationJson === "string"
 +      ? input.presentationJson.trim() || null
 +      : null;
++  const studioControlJson =
++    input.role === "assistant" && typeof input.studioControlJson === "string"
++      ? input.studioControlJson.trim() || null
++      : null;
    // Retry-safe: same logical turn + role → return existing row (no duplicate).
    if (logicalTurnId) {
      const prior = db
        .prepare(
 -        `SELECT turn_id, seq, role, content, created_at, logical_turn_id, cycle_instance_id
 +        `SELECT turn_id, seq, role, content, created_at, logical_turn_id,
-+                cycle_instance_id, presentation_json
++                cycle_instance_id, presentation_json, studio_control_json
           FROM pilot_transcript_turns
           WHERE project_id = ? AND session_key = ?
             AND logical_turn_id = ? AND role = ?
-@@ -171,6 +178,7 @@ export function appendPilotTranscriptTurn(
+@@ -171,6 +184,8 @@ export function appendPilotTranscriptTurn(
            created_at: string;
            logical_turn_id: string | null;
            cycle_instance_id: string | null;
 +          presentation_json: string | null;
++          studio_control_json: string | null;
          }
        | undefined;
      if (prior) {
-@@ -182,6 +190,7 @@ export function appendPilotTranscriptTurn(
+@@ -182,6 +197,8 @@ export function appendPilotTranscriptTurn(
          content: prior.content,
          logicalTurnId: prior.logical_turn_id,
          cycleInstanceId: prior.cycle_instance_id,
 +        presentationJson: prior.presentation_json ?? null,
++        studioControlJson: prior.studio_control_json ?? null,
        });
      }
    }
-@@ -197,8 +206,8 @@ export function appendPilotTranscriptTurn(
+@@ -197,8 +214,8 @@ export function appendPilotTranscriptTurn(
    db.prepare(
      `INSERT INTO pilot_transcript_turns(
         project_id, session_key, turn_id, seq, role, content, created_at,
 -       logical_turn_id, cycle_instance_id
 -     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-+       logical_turn_id, cycle_instance_id, presentation_json
-+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
++       logical_turn_id, cycle_instance_id, presentation_json, studio_control_json
++     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
    ).run(
      session.projectId,
      session.sessionKey,
-@@ -209,6 +218,7 @@ export function appendPilotTranscriptTurn(
+@@ -209,6 +226,8 @@ export function appendPilotTranscriptTurn(
      createdAt,
      logicalTurnId,
      input.cycleInstanceId?.trim() || null,
 +    presentationJson,
++    studioControlJson,
    );
    return Object.freeze({
      turnId,
-@@ -218,6 +228,7 @@ export function appendPilotTranscriptTurn(
+@@ -218,6 +237,8 @@ export function appendPilotTranscriptTurn(
      content: input.content,
      logicalTurnId,
      cycleInstanceId: input.cycleInstanceId?.trim() || null,
 +    presentationJson,
++    studioControlJson,
    });
  }
 
-@@ -228,7 +239,8 @@ export function listPilotTranscriptTurns(
+@@ -228,7 +249,8 @@ export function listPilotTranscriptTurns(
    const rows = session
      .getSqlite()
      .prepare(
 -      `SELECT turn_id, seq, role, content, created_at, logical_turn_id, cycle_instance_id
 +      `SELECT turn_id, seq, role, content, created_at, logical_turn_id,
-+              cycle_instance_id, presentation_json
++              cycle_instance_id, presentation_json, studio_control_json
         FROM pilot_transcript_turns
         WHERE project_id = ? AND session_key = ?
         ORDER BY seq ASC`,
-@@ -241,6 +253,7 @@ export function listPilotTranscriptTurns(
+@@ -241,6 +263,8 @@ export function listPilotTranscriptTurns(
      created_at: string;
      logical_turn_id: string | null;
      cycle_instance_id: string | null;
 +    presentation_json: string | null;
++    studio_control_json: string | null;
    }>;
    return rows.map((r) =>
      Object.freeze({
-@@ -251,6 +264,7 @@ export function listPilotTranscriptTurns(
+@@ -251,6 +275,8 @@ export function listPilotTranscriptTurns(
        content: r.content,
        logicalTurnId: r.logical_turn_id,
        cycleInstanceId: r.cycle_instance_id,
 +      presentationJson: r.presentation_json ?? null,
++      studioControlJson: r.studio_control_json ?? null,
      }),
    );
  }
+
+```
+
+### DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts
-index 08e8b0ae..8d65d835 100644
+index 08e8b0ae..a2e30fdc 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts
-@@ -20,6 +20,12 @@ export type PilotTranscriptTurnRef = {
+@@ -20,6 +20,17 @@ export type PilotTranscriptTurnRef = {
    readonly content: string;
    readonly logicalTurnId: string | null;
    readonly cycleInstanceId: string | null;
@@ -2547,51 +3309,74 @@ index 08e8b0ae..8d65d835 100644
 +   * Presentation-only — never Truth C.
 +   */
 +  readonly presentationJson: string | null;
++  /**
++   * CORR-NAP-02 — server-authored Studio control notices (JSON string[]).
++   * Typed provenance only — never inferred from Nora prose containing "[Studio]".
++   */
++  readonly studioControlJson: string | null;
  };
 
  export type CycleJournalEntry = {
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-index e812254f..a746945d 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
-@@ -447,6 +447,32 @@ export type {
-   NoraJournalDelta,
-   PilotTranscriptTurnRef,
- } from "./cycleJournalTypes";
-+export {
-+  NORA_ADAPTIVE_PRESENTATION_SCHEMA,
-+  NORA_ADAPTIVE_PRESENTATION_VERSION,
-+  NORA_ADAPTIVE_PRESENTATION_LIMITS,
-+  NORA_ADAPTIVE_BLOCK_KINDS,
-+  NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
-+  STUDIO_CONTROL_MARKER,
-+  parseNoraAdaptivePresentation,
-+  deserializeNoraAdaptivePresentation,
-+  serializeNoraAdaptivePresentation,
-+  shouldRenderAdaptivePresentation,
-+  sanitizePresentationPlainText,
-+  appendStudioControlNotices,
-+  extractStudioControlAppendix,
-+  contentWithoutStudioAppendix,
-+  resolveAdaptiveAssistantRender,
-+  honestEpistemicLabel,
-+  honestBlockTitle,
-+} from "./noraAdaptivePresentation";
-+export type {
-+  NoraAdaptivePresentation,
-+  NoraAdaptivePresentationBlock,
-+  NoraAdaptiveBlockKind,
-+  NoraAdaptiveEpistemicRole,
-+  AdaptiveAssistantRenderDecision,
-+} from "./noraAdaptivePresentation";
- export {
-   appendPilotTranscriptTurn,
-   listPilotTranscriptTurns,
+
+```
+
+### DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
+index fdc7b847..94067cd9 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
+@@ -169,6 +169,38 @@ export class ProductSqliteSession implements Session {
+       );
+     `);
+     this.ensureCycleJournalRichColumns();
++    this.ensurePilotTranscriptPresentationColumn();
++    this.ensurePilotTranscriptStudioControlColumn();
++  }
++
++  /**
++   * Nora adaptive presentation — nullable JSON on pilot_transcript_turns.
++   * Idempotent ALTER; legacy rows keep NULL → plain content fallback.
++   */
++  private ensurePilotTranscriptPresentationColumn(): void {
++    try {
++      this.db.exec(
++        `ALTER TABLE pilot_transcript_turns ADD COLUMN presentation_json TEXT`,
++      );
++    } catch (error) {
++      const msg = error instanceof Error ? error.message : String(error);
++      if (!/duplicate column/i.test(msg)) throw error;
++    }
++  }
++
++  /**
++   * CORR-NAP-02 — typed Studio control notices (JSON string[]).
++   * Provenance is server-authored — never inferred from forged `[Studio]` prose.
++   */
++  private ensurePilotTranscriptStudioControlColumn(): void {
++    try {
++      this.db.exec(
++        `ALTER TABLE pilot_transcript_turns ADD COLUMN studio_control_json TEXT`,
++      );
++    } catch (error) {
++      const msg = error instanceof Error ? error.message : String(error);
++      if (!/duplicate column/i.test(msg)) throw error;
++    }
+   }
+
+   /**
+
+```
+
+### DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-index 03581f3a..653c4b81 100644
+index 03581f3a..48b1d578 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-@@ -8,6 +8,40 @@ import {
+@@ -8,6 +8,48 @@ import {
    isNoraReservationDeltaStructured,
    type NoraReservationDeltaStructured,
  } from "./reservationDelta";
@@ -2618,9 +3403,17 @@ index 03581f3a..653c4b81 100644
 +  appendStudioControlNotices,
 +  extractStudioControlAppendix,
 +  contentWithoutStudioAppendix,
++  contentWithoutAuthenticatedStudioNotices,
++  normalizeStudioControlNotices,
++  serializeStudioControlNotices,
++  deserializeStudioControlNotices,
 +  resolveAdaptiveAssistantRender,
++  contentFullyCoveredByPresentation,
 +  honestEpistemicLabel,
 +  honestBlockTitle,
++  looksLikeAuthorityClaim,
++  sanitizeProvenanceNote,
++  studioOwnedRecommendationDisclaimer,
 +  STUDIO_CONTROL_MARKER,
 +  NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
 +  type NoraAdaptivePresentation,
@@ -2632,7 +3425,7 @@ index 03581f3a..653c4b81 100644
 
  export {
    NORA_RESERVATION_DELTA_SCHEMA,
-@@ -374,6 +408,7 @@ export const CONVERSATION_GUIDANCE_HOLD_BOUNDARY: ConversationGuidance =
+@@ -374,6 +416,7 @@ export const CONVERSATION_GUIDANCE_HOLD_BOUNDARY: ConversationGuidance =
   * - conversationGuidance (required; ephemeral continuation; non-authoritative)
   * - journalDelta (nullable; Cycle Journal projection — NEVER Truth C)
   * - reservationDelta (nullable; Reservation mutations — NEVER auto-RESOLVE / NEVER Truth C)
@@ -2640,7 +3433,7 @@ index 03581f3a..653c4b81 100644
   * Same Agents Runner — one model call — no prose parsing.
   */
  export const NORA_JOURNAL_DELTA_OPERATION_SCHEMA = {
-@@ -453,6 +488,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
+@@ -453,6 +496,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
        "conversationGuidance",
        "journalDelta",
        "reservationDelta",
@@ -2648,7 +3441,7 @@ index 03581f3a..653c4b81 100644
      ],
      properties: {
        narrative: { type: "string" as const },
-@@ -476,6 +512,13 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
+@@ -476,6 +520,13 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
        reservationDelta: {
          anyOf: [{ type: "null" as const }, NORA_RESERVATION_DELTA_SCHEMA],
        },
@@ -2662,7 +3455,7 @@ index 03581f3a..653c4b81 100644
      },
    },
  };
-@@ -505,6 +548,8 @@ export type NoraProductTurnWithOptionalLr = {
+@@ -505,6 +556,8 @@ export type NoraProductTurnWithOptionalLr = {
    journalDelta: NoraJournalDeltaStructured | null;
    /** Reservation delta — EpistemicItem mutations; null when none. Never RESOLVE. */
    reservationDelta: NoraReservationDeltaStructured | null;
@@ -2671,7 +3464,7 @@ index 03581f3a..653c4b81 100644
  };
 
  export function isPreCycleRoutingAssessment(
-@@ -728,6 +773,11 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
+@@ -728,6 +781,11 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
     * Invalid / missing → null. Never includes RESOLVE (Pilot confirmation).
     */
    reservationDelta: NoraReservationDeltaStructured | null;
@@ -2683,7 +3476,7 @@ index 03581f3a..653c4b81 100644
    /** True when a candidate LR was stripped by boundary coherence. */
    lifecycleRecommendationSuppressed: boolean;
    suppressReason: string | null;
-@@ -1260,6 +1310,8 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -1260,6 +1318,8 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
    journalDelta?: NoraJournalDeltaStructured | null;
    /** Invalid reservation delta coerced to null — never fails the Product turn. */
    reservationDelta?: NoraReservationDeltaStructured | null;
@@ -2692,7 +3485,7 @@ index 03581f3a..653c4b81 100644
    cognitiveStop?: boolean;
    /**
     * Server-derived from selectCurrentLifecycleRecommendations + applicability.
-@@ -1274,6 +1326,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -1274,6 +1334,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
    const activeCycleWork = input.activeCycleWork ?? null;
    const journalDelta = input.journalDelta ?? null;
    const reservationDelta = input.reservationDelta ?? null;
@@ -2700,7 +3493,7 @@ index 03581f3a..653c4b81 100644
    const rawGuidance = parseConversationGuidanceOrFailClosed(
      input.conversationGuidance ?? null,
    );
-@@ -1289,6 +1342,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -1289,6 +1350,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
        | "conversationGuidanceCoerceReason"
        | "journalDelta"
        | "reservationDelta"
@@ -2708,7 +3501,7 @@ index 03581f3a..653c4b81 100644
      >,
    ): PreCycleRoutingBoundaryCoherenceResult => {
      const guided = applyConversationGuidanceCoherence({
-@@ -1344,6 +1398,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
+@@ -1344,6 +1406,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
        ...partial,
        journalDelta,
        reservationDelta,
@@ -2716,7 +3509,7 @@ index 03581f3a..653c4b81 100644
        lifecycleRecommendation,
        lifecycleRecommendationSuppressed,
        suppressReason,
-@@ -1522,6 +1577,12 @@ export function normalizeNoraProductTurnStructuredOutput(
+@@ -1522,6 +1585,12 @@ export function normalizeNoraProductTurnStructuredOutput(
        : null;
    }
 
@@ -2729,7 +3522,7 @@ index 03581f3a..653c4b81 100644
    return applyPreCycleRoutingBoundaryCoherence({
      narrative: o.narrative,
      preCycleRoutingAssessment: assessment,
-@@ -1529,6 +1590,7 @@ export function normalizeNoraProductTurnStructuredOutput(
+@@ -1529,6 +1598,7 @@ export function normalizeNoraProductTurnStructuredOutput(
      activeCycleWork,
      journalDelta,
      reservationDelta,
@@ -2737,7 +3530,7 @@ index 03581f3a..653c4b81 100644
      conversationGuidance: parseConversationGuidanceOrFailClosed(
        o.conversationGuidance,
      ),
-@@ -1564,6 +1626,10 @@ export function isNoraProductTurnWithOptionalLr(
+@@ -1564,6 +1634,10 @@ export function isNoraProductTurnWithOptionalLr(
    ) {
      return false;
    }
@@ -2748,40 +3541,103 @@ index 03581f3a..653c4b81 100644
    if (o.lifecycleRecommendation === null) return true;
    return isNoraLifecycleRecommendationStructuredOutput(
      o.lifecycleRecommendation,
-@@ -1584,5 +1650,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
+@@ -1584,5 +1658,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
      conversationGuidance: { ...CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD },
      journalDelta: null,
      reservationDelta: null,
 +    presentation: null,
    });
  }
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
-index fdc7b847..eb8a4675 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
-@@ -169,6 +169,22 @@ export class ProductSqliteSession implements Session {
-       );
-     `);
-     this.ensureCycleJournalRichColumns();
-+    this.ensurePilotTranscriptPresentationColumn();
-+  }
-+
-+  /**
-+   * Nora adaptive presentation — nullable JSON on pilot_transcript_turns.
-+   * Idempotent ALTER; legacy rows keep NULL → plain content fallback.
-+   */
-+  private ensurePilotTranscriptPresentationColumn(): void {
-+    try {
-+      this.db.exec(
-+        `ALTER TABLE pilot_transcript_turns ADD COLUMN presentation_json TEXT`,
-+      );
-+    } catch (error) {
-+      const msg = error instanceof Error ? error.message : String(error);
-+      if (!/duplicate column/i.test(msg)) throw error;
-+    }
-   }
 
-   /**
+```
+
+### DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+index e812254f..ab18242b 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/index.ts
+@@ -447,6 +447,40 @@ export type {
+   NoraJournalDelta,
+   PilotTranscriptTurnRef,
+ } from "./cycleJournalTypes";
++export {
++  NORA_ADAPTIVE_PRESENTATION_SCHEMA,
++  NORA_ADAPTIVE_PRESENTATION_VERSION,
++  NORA_ADAPTIVE_PRESENTATION_LIMITS,
++  NORA_ADAPTIVE_BLOCK_KINDS,
++  NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
++  STUDIO_CONTROL_MARKER,
++  parseNoraAdaptivePresentation,
++  deserializeNoraAdaptivePresentation,
++  serializeNoraAdaptivePresentation,
++  shouldRenderAdaptivePresentation,
++  sanitizePresentationPlainText,
++  appendStudioControlNotices,
++  extractStudioControlAppendix,
++  contentWithoutStudioAppendix,
++  contentWithoutAuthenticatedStudioNotices,
++  normalizeStudioControlNotices,
++  serializeStudioControlNotices,
++  deserializeStudioControlNotices,
++  contentFullyCoveredByPresentation,
++  resolveAdaptiveAssistantRender,
++  honestEpistemicLabel,
++  honestBlockTitle,
++  looksLikeAuthorityClaim,
++  sanitizeProvenanceNote,
++  studioOwnedRecommendationDisclaimer,
++} from "./noraAdaptivePresentation";
++export type {
++  NoraAdaptivePresentation,
++  NoraAdaptivePresentationBlock,
++  NoraAdaptiveBlockKind,
++  NoraAdaptiveEpistemicRole,
++  AdaptiveAssistantRenderDecision,
++} from "./noraAdaptivePresentation";
+ export {
+   appendPilotTranscriptTurn,
+   listPilotTranscriptTurns,
+
+```
+
+## 10. Diffs Delivery Option C connexes (préservés, hors correction locale stricte CORR-NAP-02)
+
+### DIFF: `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts`
+
+```diff
+diff --git a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+index da0c7997..a574b57f 100644
+--- a/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
++++ b/projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts
+@@ -226,7 +226,19 @@ export function buildProjectSystemPrompt(
+     "statement : formulation naturelle Pilote (ex. « Je te propose maintenant de… ») ;",
+     "varie selon le contexte ; évite le label robotique « PROCHAINE ÉTAPE : ».",
+     "N'expose jamais les noms internes conversationGuidance / scope / preCycleRoutingAssessment /",
+-    "activeCycleWork / journalDelta / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
++    "activeCycleWork / journalDelta / presentation / LifecycleRecommendation / semanticKey / basisFingerprint / F1/F2/MW* dans le langage Pilote.",
++    "",
++    "=== SORTIE STRUCTURÉE presentation (rendu adaptatif Pilote — même tour) ===",
++    "Champ structuré presentation (nullable) — projection d'affichage UNIQUEMENT.",
++    "presentation ≠ Truth C ≠ HumanDecision ≠ ExecutionContract ≠ Evidence ≠ CTA Product.",
++    "narrative reste le texte conversationnel canonique ; presentation organise le rendu (blocs).",
++    "Quand utile (synthèse, comparaison, faits établis + questions ouvertes + recommandation) :",
++    "émets presentation.version=1 avec blocks[] bornés (plain|question|section|list|comparison_table|",
++    "established_facts|open_questions|recommendation|evidence_reserves|trace_note).",
++    "Réponse courte / question simple → presentation = null (pas de carte superflue).",
++    "recommendation.disclaimer : rappeler que ce n'est PAS une décision Pilote.",
++    "JAMAIS de HTML/JS, JAMAIS de bouton/lien d'action, JAMAIS de HumanDecision inventée.",
++    "Si structure incertaine : presentation = null (Studio affichera le texte).",
+     "",
+     "=== SORTIE STRUCTURÉE journalDelta (Cycle Journal — même tour) ===",
+     "Champ structuré journalDelta (nullable) — projection sémantique du cycle actif UNIQUEMENT.",
+
+```
+
+### DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
 index 352e55e3..9893638d 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
@@ -2804,6 +3660,12 @@ index 352e55e3..9893638d 100644
          });
        }
        return buildFailClosedProductTurnJson(String(o.narrative));
+
+```
+
+### DIFF: `projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts`
+
+```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 index ac3ad90d..7215a08a 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
@@ -2817,22 +3679,25 @@ index ac3ad90d..7215a08a 100644
              };
            }
          }
+
 ```
 
-## 9. Gaps / debt / exit
-| Item | Status |
-|---|---|
-| Runtime Figma screenshot | OPEN |
-| OpenAI LIVE presentation emit | NOT RUN |
-| Project commit/PR | PENDING distinct GO |
-| PRR sync | PENDING DOC GO |
-| TEST-15 | OOS |
+## 11. Preuves de non-perte / non-usurpation
 
-## 10. Morris decisions
-1. Project commit/push GO?
-2. DOC GO PRR 03/06/09?
-3. Runtime screenshot GO?
-4. Optional LIVE structured emit?
+| Invariant | Preuve |
+|-----------|--------|
+| Info déterminante non masquée par DTO | T1–T4 plain |
+| Nora ≠ Studio | T7/T8/T11 forged appendix null |
+| Présentation ≠ Evidence/HumanDecision | T13–T17 + honesty note UI |
+| Ancienne alerte ≠ masque tour courant | T18 |
+| Pas de nouveau modèle d'autorité | typed notices only; no Truth C / OA from renderer |
 
-## Unique verdict
-**LOCAL CORRECTION COMPLETE — DETERMINISTIC VERIFIED — CHATGPT REVIEW REQUIRED — R24 DOCUMENTARY SYNC PENDING**
+## 12. Handoff publish (à compléter après publish)
+
+- Branche: `sfia/review-handoff`
+- Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
+- Message: `docs(review-handoff): publish CORR-NAP-02 reliability review`
+- Remote SHA/blob: *voir sortie publisher*
+
+---
+**FIN REVIEW PACK CORR-NAP-02 — FULL**
