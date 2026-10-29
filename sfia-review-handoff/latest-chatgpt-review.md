@@ -1,26 +1,33 @@
 # ChatGPT Critical Review Pack — FULL
-## AKG-M5 L3-S2 · CYCLE 8 DELIVERY — Nora adaptive presentation (Option C)
+## AKG-M5 L3-S2 · CYCLE 8 DELIVERY — Nora Adaptive Presentation (Option C)
 
-**UTC authored:** 2026-10-29T19:29:57Z
-**Morris GO consumed:** Option C · JSON nullable on pilot_transcript_turns · integrated emit · TEST-15 out of scope
+**UTC authored:** 2026-10-29T19:37:27Z
+**Morris GO consumed:** Option C · presentation_json nullable · integrated emit · TEST-15 OOS · local bounded construction
 **Verdict:** LOCAL DELIVERY IMPLEMENTED — DETERMINISTIC VERIFIED — CHATGPT REVIEW REQUIRED — R24 DOCUMENTARY SYNC PENDING
 
-**Anti-claims:** No project commit/push/PR/merge · No LIVE/HQA DB write · No OpenAI LIVE · No Cursor REAL · No TEST-15 fix · No PRR/Roadmap/doctrine write · Runtime v3 NON ADOPTED · No L3/L4 promotion · EP-S2-08 PARTIAL unchanged · No FIGMA TO RUNTIME ALIGNED (pixel) · No READY FOR REAL/PR/ADOPTED
+**Anti-claims / reserves:**
+- No project commit/push/PR/merge · No main write · No LIVE/HQA DB · No OpenAI LIVE · No Cursor REAL · No TEST-15 fix
+- No L3/L4 promotion · Runtime v3 NON ADOPTED · EP-S2-08 PARTIAL · L3 GLOBAL OPEN
+- **FIGMA TO RUNTIME ALIGNED — NOT CLAIMED** (runtime Product screenshot unavailable this cycle) → *REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED* for strong visual conformity
+- **R24 DOCUMENTARY SYNC PENDING — MORRIS DOC GO REQUIRED** (PRR 03/06/09 impact listed; not edited)
+- Presentation is projection only — NEVER Truth C / HD / EC / Evidence / Product CTA
 
 ---
 
 ## 1. Git Truth Check
+
 | Field | Value |
 |---|---|
 | Repo | `mcleland147/sfia-workspace` |
 | Delivery worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
 | Branch | `feat/akg-m5-nora-adaptive-presentation` |
-| HEAD | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= origin/main `2cc6368602197e18fe886c87c8ced0a1b434f5a2`) |
-| Prior handoff tip | `ec8c0f66882f672db3267db9133102515da3eae4` |
-| Historical WTs | docs R24 / feat EP-S2-08 — not Delivery destinations |
-| Note | Cursor `move_agent_to_root` briefly swapped branch onto EP; restored via stash→checkout Delivery@main→stash pop (no hard reset/clean). EP WT restored to `feat/akg-m5-ep-s2-08-proof-01`. |
+| HEAD | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= `2cc63686…` MATCH) |
+| Base | Clean from `origin/main` (no campaign reuse) |
+| Prior handoff | `ec8c0f66…` (architecture cycle) |
+| Historical WTs (NOT used for Delivery) | docs capitalization · feat ep-s2-08-proof-01 |
 
-### git status --short
+### `git status --short` (Delivery WT)
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
@@ -35,6 +42,7 @@
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/providerAgentsModel.ts
+ M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
@@ -42,102 +50,169 @@
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
 ```
 
+### Diff stat (excl. review pack)
+```
+ .../hooks/useProductConversation.ts                |  8 +++
+ .../surfaces/ConversationSurface.tsx               | 22 ++++++--
+ .../app/features/project-assistant/actions.ts      |  9 ++++
+ .../project-assistant/buildProjectSystemPrompt.ts  | 14 +++++-
+ .../features/project-assistant/orchestrateTurn.ts  |  7 +++
+ .../app/features/project-assistant/types.ts        |  5 ++
+ .../nora-cognitive-runtime/cycleJournalStore.ts    | 22 ++++++--
+ .../nora-cognitive-runtime/cycleJournalTypes.ts    |  6 +++
+ .../app/lib/nora-cognitive-runtime/index.ts        | 17 +++++++
+ .../noraProductTurnOutputType.ts                   | 58 ++++++++++++++++++++++
+ .../nora-cognitive-runtime/productSqliteSession.ts | 16 ++++++
+ .../nora-cognitive-runtime/providerAgentsModel.ts  |  4 ++
+ .../nora-cognitive-runtime/runNoraAgentsTurn.ts    |  2 +
+ 13 files changed, 180 insertions(+), 10 deletions(-)
+```
+
 ### Git Review Index
-- Created: 5 files (full content §8)
-- Modified: 12 files (full diff §9)
-- Untracked method/PRR/secrets: none in Delivery scope
+| Path | Action |
+|---|---|
+| `noraAdaptivePresentation.ts` | CREATED — schema/validator/serialize |
+| `NoraAdaptivePresentationView.tsx` + `.module.css` | CREATED — bounded renderer |
+| `noraAdaptivePresentation.d0.test.ts` | CREATED — unit + disposable SQLite |
+| `noraAdaptivePresentation.ui.test.tsx` | CREATED — UI matrix / no CTA |
+| `noraProductTurnOutputType.ts` | MODIFIED — `presentation` nullable required field |
+| `runNoraAgentsTurn.ts` | MODIFIED — preserve `presentation` + `reservationDelta` on normalize rebuild |
+| `providerAgentsModel.ts` | MODIFIED — coerce passthrough |
+| `productSqliteSession.ts` | MODIFIED — idempotent `presentation_json` ALTER |
+| `cycleJournalStore.ts` / `cycleJournalTypes.ts` | MODIFIED — append/list presentation |
+| `orchestrateTurn.ts` | MODIFIED — persist + return `adaptivePresentation` |
+| `actions.ts` | MODIFIED — continuity deserialize |
+| `useProductConversation.ts` / `types.ts` | MODIFIED — message DTO |
+| `ConversationSurface.tsx` | MODIFIED — host renderer / plain fallback |
+| `buildProjectSystemPrompt.ts` | MODIFIED — presentation emit guidance |
+| `index.ts` | MODIFIED — exports |
 
 ---
 
 ## 2. Sources consulted (R22/R23/R24)
-Method: cycle template v2.6, routing guide, Build Doctrine, Roadmap tip, Product Completion C1, doctrine v3 30/32/34/35 (read-only).
-PRR README + 02/03/04/06/07/08/09 (impact list only — no write).
-Code AS-IS: Nora product turn schema, Agents Runner, ProductSqliteSession, cycleJournalStore, ConversationSurface, useProductConversation, orchestrateTurn, F1/F2 continuity actions.
-Figma Pre-M6 `m4g8j0gNbEzfIuH6S9AZJF` session `2954d49e-f4f4-4142-88a2-f1891b5b32d6` — A3 `466:2`, A4 `466:71`, A `446:3`, A2 `447:2`.
+- Template SFIA v2.6 · routing guide · Build Doctrine · Roadmap · C1 · doctrine v3 (30/32/34/35) — applicable read
+- PRR README + 02/03/04/06/07/08/09 — impact qualified, **not edited**
+- Figma Pre-M6 `m4g8j0gNbEzfIuH6S9AZJF` — A3 `466:2` · A4 `466:71` · A `446:3` · A2 `447:2` (MCP screenshot+metadata)
+- Code primary: Agents `NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE`, `orchestrateTurn`, `pilot_transcript_turns`, `ConversationSurface`
 
 ---
 
-## 3. Figma visual contract (before UI)
-| Frame | Size | Contract extracted |
-|---|---|---|
-| A3 | 1440×1140 | Pipeline Intent→Blocks→Validation→Deterministic render; routing matrix short/synthesis/comparison/recommendation/evidence/error; constraints no CTA / no HTML / epistemic labels / plain fallback / reload-stable |
-| A4 | 1440×1140 | Composed blocks established✓ / open? / recommendation↗ + non-decision disclaimer; identical after reload; provenance + no governed action note |
-| Tokens (from design_context) | | bg `#fffdf9` · ink `#1f1a16` · muted `#7a7066` · accent `#f06a4b` · forest `#2e8557` · tint established `#ecf9f1` · open `#faf6f1` · reco `#fff2ea` · border `#e3d9cf` · radii ~11–14 · Geist |
-| Reuse | | ConversationSurface shell · `--pm6-*` tokens · governed cards untouched |
+## 3. Figma visual contract (§6.6)
 
-**FIGMA CONTRACT:** COMPLETE for Delivery framing (MCP metadata + screenshots + design_context A4).
+| Frame | nodeId | Size | Status |
+|---|---|---|---|
+| A3 contract | 466:2 | 1440×1140 | MCP screenshot + metadata VERIFIED |
+| A4 reload continuity | 466:71 | 1440×1140 | MCP screenshot VERIFIED |
+| A workspace | 446:3 | 1440×1024 | prior cycle + file verified |
+| A2 catalogue | 447:2 | 1440×880 | prior cycle verified |
 
-**FIGMA / RUNTIME pixel:** Studio `/studio` live capture unavailable this cycle (browser sandbox cannot reach local Studio; no REAL). Structure proven via RTL/DOM. Fixture HTML prepared under `.tmp-sfia-review/runtime-captures/`. **REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED** for strong pixel alignment claim. Do NOT claim FIGMA TO RUNTIME ALIGNED.
+**A3 pipeline mirrored in code:** Intent → Blocks (`presentation.blocks`) → Studio validation (`parseNoraAdaptivePresentation`) → Deterministic render (`NoraAdaptivePresentationView`).
 
----
+**Constraints implemented:** no Product CTA in renderer · no HTML/JS · epistemic labels · plain fallback · reload via `presentation_json`.
 
-## 4. Architecture retained (KEEP / ADAPT / COMPLETE)
-| Asset | Class | Notes |
-|---|---|---|
-| Agents Runner + `NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE` | ADAPT | Added nullable `presentation` — same model call |
-| `normalizeNoraProductTurnStructuredOutput` | ADAPT | Fail-closed presentation→null |
-| `composePilotFacingAssistantText` / narrative | KEEP | content remains canonical prose |
-| `pilot_transcript_turns` | COMPLETE | `presentation_json` nullable ALTER |
-| ConversationSurface | ADAPT | Adaptive view OR plain scrubbed text |
-| Governed* cards | KEEP | Independent; renderer has zero action hooks |
-| Fake/REAL provider boundary | KEEP | Fake deterministic; REAL not authorized |
+**Primitives reused:** ConversationSurface shell · `--pm6-*` tokens · Governed* cards untouched.
 
-**Hard rule:** no second Nora engine, no second UI authority, presentation ≠ Truth C.
+**Runtime screenshot:** NOT produced (no Product browser session this cycle) → strong FIGMA TO RUNTIME ALIGNED **not** declared.
+
+Local Figma PNG evidence (ephemeral MCP assets downloaded): `/tmp/sfia-figma-adapt/a3.png`, `a4.png`.
 
 ---
 
-## 5. Behaviour implemented
-1. Schema `presentation` on Product turn (strict json_schema, required key, null\|object).
-2. Server `parseNoraAdaptivePresentation` — versioned, bounded catalogue, key allowlist, HTML/scriptish sanitize, recommendation disclaimer inject.
-3. Emit: coherent presentation persisted with assistant transcript turn; returned as `adaptivePresentation` on send success (distinct from provider `presentation` mode field).
-4. SQLite idempotent `ALTER TABLE … ADD COLUMN presentation_json TEXT`; legacy NULL → plain fallback.
-5. Continuity action deserializes DTO; UI reloads identical blocks.
-6. `NoraAdaptivePresentationView` renders A4 block kinds; no buttons/links/CTAs.
-7. Prompt: presentation guidance without inventing authority.
+## 4. Architecture retained (Option C)
+
+```
+Nora Agents (same turn, outputType)
+  → structuredOutput.presentation (nullable)
+  → Studio parseNoraAdaptivePresentation (fail-closed → null)
+  → content = composed narrative (canonical conversational text)
+  → pilot_transcript_turns.content + presentation_json
+  → continuity / send → ProductMessage.adaptivePresentation
+  → ConversationSurface → NoraAdaptivePresentationView | plain scrubbed text
+```
+
+KEEP: Runner/cognitive spine, Memory B, governed cards, content SoT for prose.
+ADAPT: schema, coerce/normalize, orchestrate persist/return, ConversationSurface.
+COMPLETE: presentation module, SQLite column, renderer, tests.
+
+**No second Nora engine · no second UI authority · no parallel Truth C.**
+
+---
+
+## 5. Fake/Real Qualification
+- Applicable: **YES**
+- Boundary: OpenAI Agents / Structured Outputs
+- Entry: AS-IS code + new capacity
+- Proof this cycle: **DETERMINISTIC PROVEN** (unit + UI + disposable SQLite + regressions)
+- REAL BOUNDARY / E2E REAL / G-REAL: **NOT authorized / NOT consumed**
+- Realism gap: Live model may omit/null presentation → plain fallback by design (acceptable)
 
 ---
 
 ## 6. Validations executed (exact)
-```
-npx vitest run \
-  __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts \
-  __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx \
-  __tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts \
-  __tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts
-→ 4 files / 51 tests PASSED
 
-npx vitest run (earlier sibling) noraConversationalInitiative + f2PilotTranscriptPersist PASSED (68 tests combined prior run)
-npx tsc --noEmit -p tsconfig.json → exit 0
+```
+npm test -- __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts \
+  __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
+→ 2 files / 13 tests PASSED
+
+npm test -- noraConversationalInitiative · activeCycleCognitiveWork ·
+  f2PilotTranscriptPersist · cycleJournalContinuity
+→ 4 files / 112 tests PASSED
+
+npm run typecheck → exit 0
+eslint (targeted changed files) → exit 0
 ```
 
-### Fake/Real Qualification
-- Applicable: YES
-- Boundary: OpenAI Agents / Structured Outputs
-- Entry: AS-IS code verified; new capability DETERMINISTIC PROVEN at unit/integration/UI DOM
-- REAL BOUNDARY: NOT AUTHORIZED
-- END-TO-END REAL: NOT AUTHORIZED
-- G-REAL: DISTINCT, NOT CONSUMED
-- Realism gaps: model may omit/null presentation (fallback plain); LIVE schema compliance not exercised; F2 proposal path does not emit adaptive DTO (F1 Nora Product turn path does)
+No OpenAI LIVE. Disposable SQLite only for migration/reload tests.
 
 ---
 
-## 7. R24 documentary impacts (PENDING — no write)
+## 7. R24 documentary impact (NOT applied)
 | Volume | Required change (future DOC GO) |
 |---|---|
-| PRR 03 | Conversation adaptive presentation projection + continuity |
-| PRR 06 | `presentation_json` on pilot_transcript_turns; reload semantics |
-| PRR 09 | UX residual: adaptive render NOW local-implemented; pixel/LIVE reserves |
-| Roadmap | Candidate capability note — not ADOPTED |
-| Manifest | Only if volumes rewrite under DOC GO |
+| PRR 03 | Conversation path: adaptive presentation projection + UI continuity |
+| PRR 06 | `pilot_transcript_turns.presentation_json` nullable; reload semantics |
+| PRR 09 | Residual: presentation ≠ authority; Figma runtime capture gate |
+| Roadmap / manifest | Candidate Delivery status only after ChatGPT + Morris gates |
 
-**R24 DOCUMENTARY SYNC PENDING — MORRIS DOC GO REQUIRED.**
-Do not claim PRR SYNCHRONIZED / READY FOR PROJECT INTEGRATION.
+**R24 DOCUMENTARY SYNC PENDING — MORRIS DOC GO REQUIRED**
 
 ---
 
-## 8. Created files — FULL CONTENT
+## 8. Gaps / debt / exit
+| Item | Status |
+|---|---|
+| Runtime Figma screenshot compare | OPEN — gate for strong visual claim |
+| LIVE structured emit quality | OPEN — Fake/Real REAL boundary separate GO |
+| PRR/Roadmap sync | OPEN — DOC GO |
+| Project commit/PR | OPEN — distinct GO |
+| TEST-15 | OOS (explicit) |
+| C2 frame | OOS (separate Delivery) |
+
+**Exit after gates:** ChatGPT review → Morris integration GO → DOC sync → optional REAL qualify.
+
+**Next capability:** ChatGPT review + Morris GO for project integration (and DOC GO for PRR).
+
+---
+
+## 9. Morris decisions still required
+1. ChatGPT review accept/reject
+2. Project commit/push/PR GO?
+3. DOC GO for PRR 03/06/09?
+4. Runtime screenshot / visual QA GO?
+5. Keep TEST-15 separate (already decided OOS)
+
+---
+
+## 10. Unique verdict
+**LOCAL DELIVERY IMPLEMENTED — DETERMINISTIC VERIFIED — CHATGPT REVIEW REQUIRED — R24 DOCUMENTARY SYNC PENDING**
+
+---
+
+## 11. CREATED FILES — FULL CONTENT
 
 ### `projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`
+
 ```typescript
 /**
  * Nora adaptive presentation — Option C projection (A3/A4).
@@ -650,9 +725,11 @@ export function shouldRenderAdaptivePresentation(
   if (value.blocks.length > 0) return true;
   return Boolean(value.lead || value.title);
 }
+
 ```
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx`
+
 ```typescript
 "use client";
 
@@ -952,10 +1029,12 @@ export function NoraAdaptivePresentationView({
     </div>
   );
 }
+
 ```
 
 ### `projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css`
-```typescript
+
+```css
 /* Nora adaptive presentation — A3/A4 aligned, PM6 tokens only. */
 
 .root {
@@ -1186,9 +1265,11 @@ export function NoraAdaptivePresentationView({
     height: 1.65rem;
   }
 }
+
 ```
 
 ### `projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts`
+
 ```typescript
 /**
  * Nora adaptive presentation Option C — schema validation + persistence continuity.
@@ -1510,9 +1591,11 @@ describe("noraAdaptivePresentation — SQLite persistence / reload", () => {
     session.close();
   });
 });
+
 ```
 
 ### `projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx`
+
 ```typescript
 /** @vitest-environment jsdom */
 /**
@@ -1705,9 +1788,13 @@ describe("ConversationSurface adaptive message path", () => {
     expect(screen.queryByText("fallback plain")).toBeNull();
   });
 });
+
 ```
 
-## 9. Modified files — FULL DIFF
+---
+
+## 12. MODIFIED FILES — FULL DIFF (excl. review pack)
+
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts b/projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts
 index 0d6bb828..45654975 100644
@@ -2252,29 +2339,18 @@ index 352e55e3..9893638d 100644
          });
        }
        return buildFailClosedProductTurnJson(String(o.narrative));
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+index ac3ad90d..7215a08a 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
+@@ -724,6 +724,8 @@ export async function runNoraAgentsTurn(
+               activeCycleWork: coherent.activeCycleWork ?? null,
+               conversationGuidance: coherent.conversationGuidance,
+               journalDelta: coherent.journalDelta ?? null,
++              reservationDelta: coherent.reservationDelta ?? null,
++              presentation: coherent.presentation ?? null,
+             };
+           }
+         }
+
 ```
-
-## 10. Gaps / reserves / debt-exit
-| Item | Status |
-|---|---|
-| Studio runtime screenshot vs Figma A4 | OPEN — RUNTIME SCREENSHOT REQUIRED |
-| OpenAI LIVE structured presentation emit | NOT RUN |
-| F2 proposal narrative adaptive DTO | OUT OF SCOPE (F1 Product turn path) |
-| TEST-15 prepare false positive | OUT OF SCOPE (Morris) |
-| PRR sync | PENDING DOC GO |
-| Project commit/PR | PENDING distinct GO |
-
-**Exit:** bounded Delivery lot closes adaptive Nora render path locally; Figma pixel + LIVE + PRR under separate GOs.
-
-## 11. Morris decisions still open
-1. Project commit/push GO for `feat/akg-m5-nora-adaptive-presentation`?
-2. DOC GO for PRR 03/06/09 (+ roadmap tip)?
-3. Runtime screenshot / browser QA GO for FIGMA TO RUNTIME?
-4. Optional LIVE Fake→Real presentation emit qualification (distinct)?
-5. Keep TEST-15 separate (confirmed)?
-
-## 12. Next capability
-UX/Product QA — runtime Figma compare + optional LIVE structured emit proof; then DOC R24 sync; then integration GO.
-
-## Unique verdict
-**LOCAL DELIVERY IMPLEMENTED — DETERMINISTIC VERIFIED — CHATGPT REVIEW REQUIRED — R24 DOCUMENTARY SYNC PENDING**
