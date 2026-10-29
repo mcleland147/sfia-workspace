@@ -191,5 +191,5 @@ Local env + host LIVE instance dirs/DBs only. No Product semantic/architecture c
 12. **G-REAL:** NOT GRANTED · candidate M1 = autonomous multi-file work on disposable test repo only · **NO remote push by default**
 13. **EP-S2-08 / L3:** EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN
 14. **Next operation:** start server → Morris OAuth → Studio Nora smoke → issue bounded G-REAL → REAL M1 under accepted G10-A risk
-15. **Canonical Review Handoff:** branch `sfia/review-handoff` · (tip/blob filled after publish) · file `sfia-review-handoff/latest-chatgpt-review.md`
+15. **Canonical Review Handoff:** branch `sfia/review-handoff` · tip `25b7bb720e67a5f1956c812eb32e3499d63824b4` · blob `32cf3043e1d2974f5a121399997020f12e21948e` · file `sfia-review-handoff/latest-chatgpt-review.md`
 16. **Anti-claims / debt:** no REAL executed · no G-REAL · no LIVE E2E completion · HQA data intentionally retained untouched · do not reuse HQA DBs · re-read Git + this handoff before action · Runtime v3 NON ADOPTED
