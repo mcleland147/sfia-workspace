@@ -1,33 +1,36 @@
-# CORR-NAP-03 — INCOMPLETE BANNER TRUST FIX
+# QA-NAP-01 — NORA ADAPTIVE PRESENTATION — RUNTIME / FIGMA VISUAL & CONTINUITY VALIDATION
 
-**Cycle:** SFIA 8 — Delivery / implémentation
-**Profil:** STANDARD — micro-correction
+**Cycle:** SFIA 9 — QA / validation
+**Profil:** STANDARD
+**Typologie:** QA / validation locale
 **Review pack:** FULL
-**Date/heure UTC:** 2026-10-29T20:19:08Z
+**Date/heure UTC:** 2026-10-29T20:40:15Z
 **Worktree:** `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation`
 **Branch:** `feat/akg-m5-nora-adaptive-presentation`
 **HEAD:** `2cc6368602197e18fe886c87c8ced0a1b434f5a2`
 **origin/main:** `2cc6368602197e18fe886c87c8ced0a1b434f5a2`
-**Merge-base:** `2cc6368602197e18fe886c87c8ced0a1b434f5a2`
+**Handoff CURRENT (avant publish):** `79c1f1a52f55b0c18eef6fa4b58133649b52f80e` / blob `775f81743315150dd9794c5a615975668d6aef89` (CORR-NAP-03)
 
 ## Verdict unique
 
-**LOCAL CORRECTION COMPLETE — DETERMINISTIC VERIFIED — CHATGPT FINAL REVIEW REQUIRED — R24 DOCUMENTARY SYNC PENDING**
+**REVIEW INCONCLUSIVE — RUNTIME SCREENSHOT REQUIRED**
 
-Aucun READY FOR PR / READY FOR REAL / FIGMA ALIGNED / ADOPTED.
+Sous-qualification (non exclusives) :
+1. **QA ENVIRONMENT NOT QUALIFIED** — Better Auth : cookie file PRESENT mais session expirée / injection cookies Playwright échouée ; `/studio` redirige vers `/login?error=NO_SESSION`.
+2. **QA TOOLING GAP — MORRIS DECISION REQUIRED** — même avec auth, `FakeConversationProvider` n'émet pas de DTO `presentation` adaptatif ; OpenAI LIVE non autorisé ; aucune modification Product sous ce GO QA.
+
+Aucun READY FOR PR / REAL / ADOPTED / FIGMA TO RUNTIME ALIGNED inventé.
 
 ## 1. Git Truth Check
 
 | Check | Résultat |
 |-------|----------|
-| toplevel | MATCH |
+| toplevel | MATCH Delivery worktree |
 | branche | `feat/akg-m5-nora-adaptive-presentation` |
-| HEAD | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| WIP Delivery Option C + CORR-NAP-01/02 | PRÉSERVÉ, non commité |
+| HEAD / origin/main / merge-base | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| WIP Option C + CORR-NAP-01/02/03 | PRÉSENT non commité |
 | staged | vide |
-| handoff distant avant publish | `185c13247abd40aa3ef7dee3d358c9172002df18` / blob `9f83f9cbb7bd142bdd8c6f7e6c7d99b20bddbda2` (CORR-NAP-02) |
-| autres worktrees | non touchés |
+| Product modifié sous QA | NON (seul ajout : scénario E2E QA) |
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
@@ -46,834 +49,393 @@ Aucun READY FOR PR / READY FOR REAL / FIGMA ALIGNED / ADOPTED.
  M projects/sfia-studio/app/lib/nora-cognitive-runtime/runNoraAgentsTurn.ts
 ?? projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts
 ?? projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
+?? projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
 ?? projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx
 ?? projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
 
 ```
 
-## 2. Git Review Index
+## 2. Sources consultées
 
-- SoT cycle précédent: handoff CORR-NAP-02 `185c13247abd40aa3ef7dee3d358c9172002df18` blob `9f83f9cbb7bd142bdd8c6f7e6c7d99b20bddbda2`
-- SoT ce cycle: ce pack CORR-NAP-03 (remplace le rapport local)
-- Mono-cycle: CORR-NAP-03 uniquement (pas de mélange de cycles dans le corps décisionnel)
+Méthode / convergence : cycle-execution-template, cycle-routing-guide, Operating Model v2.6, Build Doctrine / Roadmap / C1, doctrines 30/32/34/35, PRR 02/03/04/06/07/08/09 (qualification).
 
-## 3. Sources consultées
+Handoff CORR-NAP-03 relu (`79c1f1a52f55b0c18eef6fa4b58133649b52f80e`).
 
-- prompts/templates/sfia-cycle-execution-template.md
-- method/sfia-fast-track/core/sfia-cycle-routing-guide.md
-- Operating Model / règles SFIA v2.6 (référence cycle)
-- Build Doctrine, Convergence Roadmap, Product Completion C1
-- doctrines v3 30, 32, 34, 35 ; PRR README + 02/03/04/06/07/08/09 (qualification)
-- Handoff CORR-NAP-02 relu (tip/blob ci-dessus)
-- Code: ConversationSurface.tsx (helpers banner + render path)
-- Tests: noraAdaptivePresentation.ui.test.tsx
+Code : ConversationSurface, NoraAdaptivePresentationView(+css), noraAdaptivePresentation.ts, useProductConversation, actions/continuity, cycleJournalStore, ProductSqliteSession, tests NAP, playwright.config, authenticatedStudioSession, optionAQaScenarioControl, fakeProvider (absence d'émission presentation).
 
-Figma A3 466:2 / A4 466:71 — pas de modification design; pixel non démontré sans capture runtime.
+Figma MCP session : fileKey `m4g8j0gNbEzfIuH6S9AZJF` — A3 `466:2`, A4 `466:71`.
 
-## 4. Cause de l'anomalie
+## 3. Contrat Figma extrait (v2.6 §6.6)
 
-`messageAlreadyShowsExecutionIncomplete` (CORR-NAP-02) acceptait un repli:
+### A3 — contrat sémantique / comportemental (466:2) — 1440×1140
 
-`content.includes("[Studio]") && /limite d'exécution/i.test(content)`
+- **Rôle :** conception de routage de présentation (NON pixel conversation).
+- **Pipeline :** Réponse & faits → Typage sémantique → Contrôle Studio → Composition UI.
+- **Matrice :** Question simple / Explication longue / Synthèse / Comparaison / Recommandation / Décision-exécution-preuves — avec limites (pas de carte superflue ; labels épistémiques ; reco ≠ HumanDecision ; CTA jamais issus du texte libre).
+- **Garde-fous :** GOUVERNANCE / PROVENANCE / CONTINUITÉ / ACCESSIBILITÉ.
+- **Tokens observés :** fond `#fffdf9`, texte `#1f1a16`, muted `#7a7066`, accent `#f06a4b`, bordures `#e3d9cf`, Geist SemiBold/Regular.
+- **Typo :** titres ~28/16/13, labels 11–12.
+- **Responsive / a11y :** titres navigables, icônes libellées, mobile sans perte de sens (spécifié ; non prouvé runtime).
 
-Nora peut forger ou citer `[Studio]`. Ce marqueur n'est pas une provenance serveur.
-Conséquence: avec `executionIncomplete=true`, un faux marqueur pouvait masquer le bandeau.
+### A4 — composition visuelle + continuité (466:71) — 1440×1140
 
-Également, `lastAssistantShowsExecutionIncomplete` remontait le dernier assistant même si le message trailing était un **user** → une notice historique pouvait supprimer l'alerte du tour courant (T26).
+- **Contenu :** snapshot BALISE avant/après reload identiques.
+- **Blocs :** established (vert `#ecf9f1`) / open questions (`#faf6f1`) / recommendation (`#fff2ea`) + disclaimer « Proposition uniquement… ».
+- **Provenance :** Source transcript BALISE ; « Pas d'action gouvernée… ».
+- **Continuité :** mêmes informations après rechargement ; repli texte si structure inconnue.
+- **Comparabilité pixel :** A4 est une maquette de composition conversation ; le shell Product `/studio` est une surface différente → **DESIGN NON COMPARABLE** pour score pixel global shell↔frame ; comparaison blocs uniquement si état runtime adaptatif réellement affiché.
 
-## 5. Correction appliquée
+Références locales (Figma MCP downloads — pas des captures runtime Product) :
+- A3-466-2.png: 907122146fc30c7ccbb085a09457e73508c07fb9cfd36d5fe48a39101b35e662 size=93674
+- A4-466-71.png: f91ec73593e678937cc916da3561fb674a1546d15d631795a2badb8d9ab88e60 size=93068
 
-1. Suppression totale du repli textuel `[Studio]` pour masquer le bandeau.
-2. Seules les `studioControlNotices` typées (regex limite d'exécution) authentifient.
-3. Corrélation stricte: le message **trailing** doit être `assistant` avec notice typée; sinon conserver le bandeau.
-4. Aucune nouvelle persistance, aucun nouvel ID, aucun modèle d'autorité.
+## 4. Environnement QA réellement utilisé
 
-### Exact helpers (post-correction)
-
-```typescript
-/**
- * CORR-NAP-03 — typed Studio notices only. Content / "[Studio]" markers never
- * prove provenance and must not suppress an active incomplete control.
- */
-function messageHasAuthenticatedExecutionIncompleteNotice(
-  studioControlNotices?: readonly string[] | null,
-): boolean {
-  const notices = studioControlNotices ?? [];
-  return notices.some((n) => /limite d['']ex[eé]cution/i.test(n));
+```json
+{
+  "timestamp": "2026-10-29T20:38:49.724Z",
+  "cookieFilePresent": true,
+  "cookieStatus": "PRESENT",
+  "playwrightBaseURL": "http://localhost:3020",
+  "ops1ConversationProvider": "fake",
+  "openAiLiveAuthorized": false,
+  "cursorRealAuthorized": false,
+  "adaptiveDtoEmitViaFake": false,
+  "note": "FakeConversationProvider has no presentation DTO emit path; Better Auth session required for /studio."
 }
+```
 
-/**
- * CORR-NAP-03 — suppress incomplete banner only when the trailing message is
- * the current-turn assistant AND it already shows an authenticated incomplete
- * notice. If the last message is a user (or anything else), correlation to the
- * incomplete turn is uncertain → keep the banner. Never scan history.
- */
-function currentTurnAlreadyShowsAuthenticatedIncomplete(
-  messages: readonly {
-    role: string;
-    content: string;
-    studioControlNotices?: readonly string[] | null;
-  }[],
-): boolean {
-  if (messages.length === 0) return false;
-  const trailing = messages[messages.length - 1];
-  if (trailing.role !== "assistant") return false;
-  return messageHasAuthenticatedExecutionIncompleteNotice(
-    trailing.studioControlNotices,
-  );
-}
+- Port : `localhost:3020` (serveur existant réutilisé)
+- Auth cookie : PRESENT (copié depuis worktree principal) — **sessions Better Auth expirées** (expires_in négatif pour `better-auth.session_*`)
+- `OPS1_CONVERSATION_PROVIDER=fake`
+- OpenAI LIVE : NON · Cursor REAL : NON
+- SQLite jetable Product : **NON ATTEINT** (auth wall)
+
+## 5. Matrice scénarios QA-NAP-01…12
+
+| ID | Statut | Preuve |
+|----|--------|--------|
+| QA-NAP-01 réponse courte | NOT PROVEN | auth wall |
+| QA-NAP-02 synthèse composée | NOT PROVEN | auth + Fake sans DTO presentation |
+| QA-NAP-03 comparaison | NOT PROVEN | idem |
+| QA-NAP-04 recommandation | NOT PROVEN | idem |
+| QA-NAP-05 provenance/réserves | NOT PROVEN (runtime) ; PARTIAL unit/UI | tests T13–T17 d0/ui |
+| QA-NAP-06 STOP/incomplétude | NOT PROVEN (runtime) ; PARTIAL unit/UI | T18–T24 |
+| QA-NAP-07 marqueur forgé | NOT PROVEN (runtime) ; PASS unit/UI | T7/T23 |
+| QA-NAP-08 legacy/DTO invalide | NOT PROVEN (runtime) ; PASS d0 | persistence tests |
+| QA-NAP-09 reload navigateur | NOT PROVEN | auth wall |
+| QA-NAP-10 restart serveur | NOT PROVEN | non atteint |
+| QA-NAP-11 responsive | NOT PROVEN | non atteint |
+| QA-NAP-12 conformité A4 | CAPTURE / ÉTAT REQUIS | Figma lu ; runtime adaptatif absent |
+
+## 6. Captures / manifeste / empreintes
+
+### Manifeste runtime
+
+```
+{"id":"QA-NAP-AUTH-WALL-login-redirect","qaId":"ENV-AUTH","file":"QA-NAP-AUTH-WALL-login-redirect.png","timestamp":"2026-10-29T20:38:50.306Z","route":"http://localhost:3020/login?error=NO_SESSION&from=%2Fstudio","viewport":{"width":1440,"height":1024},"state":"NO_SESSION redirect to /login","dtoSource":"none","simulationLevel":"browser-runtime-auth-wall","sha256":"de55c6b47bdaf281c87aaa461f92136638519f80af3ca549bfa38be52674d9c8","overflow":{"scrollWidth":1440,"clientWidth":1440},"secretsPresent":false,"conformingProductScreen":false,"observation":"Unauthenticated /studio redirects to login — not a Nora Adaptive conforming capture","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — QA-NAP-01 NORA ADAPTIVE"}
+{"id":"QA-NAP-AUTH-EXPIRED-or-invalid","qaId":"ENV-AUTH","file":"QA-NAP-AUTH-EXPIRED-or-invalid.png","timestamp":"2026-10-29T20:38:50.456Z","route":"http://localhost:3020/login?error=NO_SESSION&from=%2Fstudio","viewport":{"width":1440,"height":1024},"state":"browserContext.addCookies: Cookie should have either url or path","dtoSource":"none","simulationLevel":"browser-runtime-auth-failure","sha256":"de55c6b47bdaf281c87aaa461f92136638519f80af3ca549bfa38be52674d9c8","overflow":{"scrollWidth":1440,"clientWidth":1440},"secretsPresent":false,"conformingProductScreen":false,"observation":"Better Auth cookie present on disk but session invalid/expired for /studio","provenance":"CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — QA-NAP-01 NORA ADAPTIVE"}
 
 ```
 
-### Exact call site
+### SHA-256 captures navigateur (auth wall — NON CONFORMES Product)
 
-```tsx
-  ) : null}
+- QA-NAP-AUTH-EXPIRED-or-invalid.png: de55c6b47bdaf281c87aaa461f92136638519f80af3ca549bfa38be52674d9c8 size=61495
+- QA-NAP-AUTH-WALL-login-redirect.png: de55c6b47bdaf281c87aaa461f92136638519f80af3ca549bfa38be52674d9c8 size=61495
 
-      {executionIncomplete &&
-      !currentTurnAlreadyShowsAuthenticatedIncomplete(messages) ? (
-        <div
-          className={styles.stoppedBanner}
-          role="status"
-          data-testid="project-assistant-incomple
-```
+**Explicit :** ces PNG montrent `/login?error=NO_SESSION` — **interdit** comme preuve d'écran Nora Adaptive conforme.
 
-### Diff conceptuel CORR-NAP-02 → CORR-NAP-03 (ConversationSurface banner trust)
+### Fichiers à transmettre à ChatGPT (pièces jointes)
 
-```diff
-- import { resolveAdaptiveAssistantRender, STUDIO_CONTROL_MARKER } from "...";
-+ import { resolveAdaptiveAssistantRender } from "...";
+1. `.tmp-sfia-review/runtime-captures/nora-adaptive/figma-refs/A3-466-2.png`
+2. `.tmp-sfia-review/runtime-captures/nora-adaptive/figma-refs/A4-466-71.png`
+3. `.tmp-sfia-review/runtime-captures/nora-adaptive/QA-NAP-AUTH-WALL-login-redirect.png` (preuve auth wall)
+4. `.tmp-sfia-review/runtime-captures/nora-adaptive/manifest.jsonl`
+5. `.tmp-sfia-review/runtime-captures/nora-adaptive/env-qualification.json`
 
-- function messageAlreadyShowsExecutionIncomplete(content, studioControlNotices) {
--   if (notices.some(...limite...)) return true;
--   // Legacy: marker+phrase on content
--   return content.includes(STUDIO_CONTROL_MARKER) && /limite.../.test(content);
-- }
-- function lastAssistantShowsExecutionIncomplete(messages) {
--   // scan backward to last assistant (even if trailing is user)
-- }
-+ function messageHasAuthenticatedExecutionIncompleteNotice(studioControlNotices) {
-+   return (studioControlNotices ?? []).some(n => /limite d['']ex[eé]cution/i.test(n));
-+ }
-+ function currentTurnAlreadyShowsAuthenticatedIncomplete(messages) {
-+   const trailing = messages[messages.length - 1];
-+   if (!trailing || trailing.role !== "assistant") return false;
-+   return messageHasAuthenticatedExecutionIncompleteNotice(trailing.studioControlNotices);
-+ }
+Sans (1)(2) le reviewer distant n'a pas les pixels Figma ; sans captures Product authentifiées, la comparaison A4 runtime est impossible.
 
-- {executionIncomplete && !lastAssistantShowsExecutionIncomplete(messages) ? (
-+ {executionIncomplete && !currentTurnAlreadyShowsAuthenticatedIncomplete(messages) ? (
-```
+## 7. Figma vs Runtime
 
-Périmètre fichiers: ConversationSurface.tsx + ui test uniquement. Aucun autre fichier modifié sous CORR-NAP-03.
+| Élément | Figma | Runtime | Statut | Preuve |
+|---------|-------|---------|--------|-------|
+| Structure globale A3 | pipeline + matrice | non observé /studio | CAPTURE / ÉTAT REQUIS | auth wall |
+| Composition A4 multi-blocs | established/open/reco | non observé | CAPTURE / ÉTAT REQUIS | tooling gap DTO |
+| Hiérarchie typo | Geist 11–28 | non observé | CAPTURE / ÉTAT REQUIS | — |
+| Couleurs tokens | #fffdf9 / #f06a4b / tints | CSS Delivery local non capturé /studio | CAPTURE / ÉTAT REQUIS | — |
+| Messages Studio typés | continuité A4 | non observé navigateur | CAPTURE / ÉTAT REQUIS | unit PASS |
+| Responsive | spécifié A3 | non observé | CAPTURE / ÉTAT REQUIS | — |
+| Continuité reload | A4 avant/après | non observé | CAPTURE / ÉTAT REQUIS | d0 persist PASS |
+| Pixel shell↔A4 | — | — | DESIGN NON COMPARABLE | natures différentes |
+| Auth wall login | — | capturé | NON CONFORME (attendu fail-closed) | PNG + manifest |
 
-## 6. Contenu complet — fichier test modifié (untracked Delivery / créé antérieurement, étendu T23–T29)
+Écarts classés : **BLOCKING** = absence auth valide + absence émission DTO Fake ; **NOT PROVEN** = toute conformité visuelle A4 runtime.
 
-### FILE: `projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx`
+## 8. Commandes et résultats
 
-```tsx
-/** @vitest-environment jsdom */
-/**
- * UI — Nora adaptive presentation renderer (A3/A4 matrix samples).
- * CORR-NAP-02 — typed Studio notices + incomplete banner = last assistant only.
- * DETERMINISTIC — no Product actions from free render.
- */
-import { cleanup, render, screen, within } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
-import { NoraAdaptivePresentationView } from "@/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView";
-import {
-  NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
-  NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE,
-  NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
-  appendStudioControlNotices,
-  honestBlockTitle,
-  parseNoraAdaptivePresentation,
-  type NoraAdaptivePresentation,
-} from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
-import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
-import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
-
-afterEach(() => {
-  cleanup();
-});
-
-function balisePresentation(): NoraAdaptivePresentation {
-  return parseNoraAdaptivePresentation({
-    version: 1,
-    eyebrow: "NORA / Cadrage BALISE",
-    title: null,
-    lead: "Nous avons clarifié le besoin initial.",
-    blocks: [
-      {
-        kind: "established_facts",
-        title: "Éléments établis",
-        items: ["Centraliser les demandes."],
-      },
-      {
-        kind: "open_questions",
-        title: "Points encore à clarifier",
-        items: ["Canaux de réception."],
-      },
-      {
-        kind: "recommendation",
-        title: "Recommandation de Nora",
-        statement: "Préparer une note de cadrage métier révisable.",
-        disclaimer: null,
-      },
-    ],
-    provenanceNote: "Source : transcript BALISE",
-    noGovernedActionNote: null,
-  })!;
-}
-
-function stubController(
-  overrides: Partial<ProductConversationController>,
-): ProductConversationController {
-  return {
-    listRef: { current: null },
-    messages: [],
-    draft: "",
-    setDraft: vi.fn(),
-    toolEvents: [],
-    liveActivityEvents: [],
-    uiState: "READY",
-    error: null,
-    executionIncomplete: false,
-    modeLabel: "fixture",
-    ephemeralNotice: "notice",
-    lrMaterializeNotice: null,
-    lrMaterializeCode: null,
-    f2: null,
-    activeProposal: null,
-    reservesText: "",
-    setReservesText: vi.fn(),
-    f3Prepare: null,
-    f3M3Resolved: null,
-    f3Execute: null,
-    durableEvidenceOutcome: null,
-    durableRehydrateError: null,
-    focusTurnId: null,
-    clearFocusTurn: vi.fn(),
-    busy: false,
-    blocked: false,
-    canSend: true,
-    stopAvailable: false,
-    stopCurrentResponse: vi.fn(),
-    gateOpen: false,
-    recommendationFreshness: "none",
-    qualificationFreshness: "none",
-    durableOutcomeFreshness: "none",
-    canPrepareResolvedM3: false,
-    canPrepareLegacyFixture: false,
-    canConfirmResolvedM3: false,
-    canConfirmLegacyFixture: false,
-    canRefreshResolvedM3Running: false,
-    sendMessage: vi.fn(),
-    decide: vi.fn(),
-    prepareResolvedM3: vi.fn(),
-    prepareLegacyFixture: vi.fn(),
-    confirmAndExecuteResolvedM3: vi.fn(),
-    confirmAndExecuteLegacyFixture: vi.fn(),
-    refreshResolvedM3RunningAttempt: vi.fn(),
-    retryLastUserMessage: vi.fn(),
-    reservationResolutionProposal: null,
-    transcriptAvailability: "available",
-    openContinuityPresentation: null,
-    journalEntries: [],
-    journalCycleInstanceId: null,
-    selectedJournalEntryId: null,
-    setSelectedJournalEntryId: vi.fn(),
-    focusJournalExchanges: vi.fn(),
-    focusTranscriptTurn: vi.fn(),
-    refreshConversationContinuity: vi.fn(),
-    armReinstructionOfProposalId: vi.fn(),
-    armedReinstructionOfProposalId: null,
-    armReservationInteractionContext: vi.fn(),
-    armedReservationInteractionContext: null,
-    clearReservationResolutionProposal: vi.fn(),
-    ...overrides,
-  } as ProductConversationController;
-}
-
-describe("NoraAdaptivePresentationView", () => {
-  it("renders BALISE multi-block synthesis without Product CTA", () => {
-    render(<NoraAdaptivePresentationView presentation={balisePresentation()} />);
-    const root = screen.getByTestId("nora-adaptive-presentation");
-    expect(
-      within(root).getByText(
-        honestBlockTitle("established_facts", "Éléments établis"),
-      ),
-    ).toBeTruthy();
-    expect(
-      within(root).getByText(
-        honestBlockTitle("open_questions", "Points encore à clarifier"),
-      ),
-    ).toBeTruthy();
-    expect(within(root).getByText(/note de cadrage métier/)).toBeTruthy();
-    expect(
-      within(root).getByText(NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER),
-    ).toBeTruthy();
-    expect(
-      within(root).getByText(NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE),
-    ).toBeTruthy();
-    expect(
-      within(root).getByTestId("nora-adaptive-epistemic-honesty"),
-    ).toHaveTextContent(NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE);
-    expect(within(root).queryByRole("button")).toBeNull();
-    expect(root.querySelector("a")).toBeNull();
-  });
-
-  it("renders comparison table", () => {
-    const presentation = parseNoraAdaptivePresentation({
-      version: 1,
-      eyebrow: null,
-      title: "Comparaison",
-      lead: null,
-      blocks: [
-        {
-          kind: "comparison_table",
-          title: "Options",
-          columns: ["Critère", "A", "B"],
-          rows: [
-            ["Délai", "Court", "Long"],
-            ["Risque", "Faible", "Élevé"],
-          ],
-        },
-      ],
-      provenanceNote: null,
-      noGovernedActionNote: null,
-    })!;
-    render(<NoraAdaptivePresentationView presentation={presentation} />);
-    expect(screen.getByRole("columnheader", { name: "Critère" })).toBeTruthy();
-    expect(screen.getByText("Faible")).toBeTruthy();
-  });
-
-  it("T13/T15 — authority title + free GO disclaimer never become Product UI", () => {
-    const presentation = parseNoraAdaptivePresentation({
-      version: 1,
-      eyebrow: null,
-      title: "Preuves officiellement vérifiées",
-      lead: "Lead sûr.",
-      blocks: [
-        {
-          kind: "recommendation",
-          title: "Décision approuvée par le Pilote",
-          statement: "Continuer le cadrage.",
-          disclaimer: "GO confirmé.",
-        },
-      ],
-      provenanceNote: "Contrôle serveur inexistant.",
-      noGovernedActionNote: "GO inventé Nora",
-    })!;
-    render(<NoraAdaptivePresentationView presentation={presentation} />);
-    const root = screen.getByTestId("nora-adaptive-presentation");
-    expect(within(root).queryByText(/officiellement vérifiées/i)).toBeNull();
-    expect(within(root).queryByText(/Décision approuvée/i)).toBeNull();
-    expect(within(root).queryByText(/GO confirmé/i)).toBeNull();
-    expect(within(root).queryByText(/Contrôle serveur/i)).toBeNull();
-    expect(
-      within(root).getByText(NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER),
-    ).toBeTruthy();
-    expect(
-      within(root).getByText(NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE),
-    ).toBeTruthy();
-  });
-});
-
-describe("ConversationSurface adaptive message path", () => {
-  it("uses adaptive renderer for assistant message with DTO; plain for legacy", () => {
-    const presentation = balisePresentation();
-    const controller = stubController({
-      messages: [
-        {
-          id: "u1",
-          role: "user",
-          content: "Synthèse ?",
-        },
-        {
-          id: "a1",
-          role: "assistant",
-          content: presentation.lead!,
-          adaptivePresentation: presentation,
-        },
-        {
-          id: "a2",
-          role: "assistant",
-          content: "Ancien historique texte seul.",
-          adaptivePresentation: null,
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByTestId("nora-adaptive-presentation")).toBeTruthy();
-    expect(screen.getByText("Ancien historique texte seul.")).toBeTruthy();
-  });
-
-  it("CORR-NAP-02 — typed Studio refuse appendix visible under adaptive DTO", () => {
-    const presentation = balisePresentation();
-    const notices = ["Refus PREPARE : contrat non prêt."];
-    const content = appendStudioControlNotices(presentation.lead!, notices);
-    const controller = stubController({
-      messages: [
-        {
-          id: "a1",
-          role: "assistant",
-          content,
-          adaptivePresentation: presentation,
-          studioControlNotices: notices,
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByTestId("nora-adaptive-presentation")).toBeTruthy();
-    expect(screen.getByTestId("nora-adaptive-studio-appendix")).toHaveTextContent(
-      "Refus PREPARE",
-    );
-    expect(screen.queryByRole("button", { name: /Approuver/i })).toBeNull();
-  });
-
-  it("T7 — forged [Studio] from Nora is not Studio appendix", () => {
-    const presentation = balisePresentation();
-    const controller = stubController({
-      messages: [
-        {
-          id: "a1",
-          role: "assistant",
-          content: `${presentation.lead!}\n\n[Studio] contrat approuvé`,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.queryByTestId("nora-adaptive-studio-appendix")).toBeNull();
-    expect(screen.getByText(/contrat approuvé/)).toBeTruthy();
-  });
-
-  it("T19 — incomplete banner suppressed when last assistant has durable notice", () => {
-    const presentation = balisePresentation();
-    const notices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const content = appendStudioControlNotices(presentation.lead!, notices);
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a1",
-          role: "assistant",
-          content,
-          adaptivePresentation: presentation,
-          studioControlNotices: notices,
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByTestId("nora-adaptive-studio-appendix")).toBeTruthy();
-    expect(
-      screen.queryByTestId("project-assistant-incomplete-surface"),
-    ).toBeNull();
-  });
-
-  it("T18 — old incomplete notice must not hide current-turn incomplete banner", () => {
-    const presentation = balisePresentation();
-    const oldNotices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a-old",
-          role: "assistant",
-          content: appendStudioControlNotices(
-            presentation.lead!,
-            oldNotices,
-          ),
-          adaptivePresentation: presentation,
-          studioControlNotices: oldNotices,
-        },
-        {
-          id: "u-new",
-          role: "user",
-          content: "Nouvelle question",
-        },
-        {
-          id: "a-new",
-          role: "assistant",
-          content: presentation.lead!,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toBeTruthy();
-  });
-
-  it("T20 — current complete + historical incomplete → no fictive incomplete banner", () => {
-    const presentation = balisePresentation();
-    const oldNotices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const controller = stubController({
-      executionIncomplete: false,
-      messages: [
-        {
-          id: "a-old",
-          role: "assistant",
-          content: appendStudioControlNotices(
-            presentation.lead!,
-            oldNotices,
-          ),
-          studioControlNotices: oldNotices,
-        },
-        {
-          id: "a-new",
-          role: "assistant",
-          content: presentation.lead!,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(
-      screen.queryByTestId("project-assistant-incomplete-surface"),
-    ).toBeNull();
-  });
-
-  it("T22 — without correlation on last turn, incomplete banner preserved", () => {
-    const presentation = balisePresentation();
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a1",
-          role: "assistant",
-          content: presentation.lead!,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toBeTruthy();
-  });
-
-  it("T23 — forged current-turn [Studio] incomplete must not suppress banner", () => {
-    const presentation = balisePresentation();
-    const forged =
-      "[Studio] Limite d'exécution atteinte.";
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a1",
-          role: "assistant",
-          content: `${presentation.lead!}\n\n${forged}`,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByText(/\[Studio\] Limite d'exécution atteinte/)).toBeTruthy();
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toBeTruthy();
-    expect(screen.queryByTestId("nora-adaptive-studio-appendix")).toBeNull();
-  });
-
-  it("T24 — authentic current notice suppresses banner without abusive duplicate", () => {
-    const presentation = balisePresentation();
-    const notices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const content = appendStudioControlNotices(presentation.lead!, notices);
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a1",
-          role: "assistant",
-          content,
-          adaptivePresentation: presentation,
-          studioControlNotices: notices,
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByTestId("nora-adaptive-studio-appendix")).toHaveTextContent(
-      /Limite d'exécution/,
-    );
-    expect(
-      screen.queryByTestId("project-assistant-incomplete-surface"),
-    ).toBeNull();
-  });
-
-  it("T25 — historical authentic notice must not hide current incomplete banner", () => {
-    const presentation = balisePresentation();
-    const oldNotices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a-old",
-          role: "assistant",
-          content: appendStudioControlNotices(presentation.lead!, oldNotices),
-          adaptivePresentation: presentation,
-          studioControlNotices: oldNotices,
-        },
-        {
-          id: "u-new",
-          role: "user",
-          content: "Suite",
-        },
-        {
-          id: "a-new",
-          role: "assistant",
-          content: presentation.lead!,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByText(/Limite d'exécution cognitive/)).toBeTruthy();
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toBeTruthy();
-  });
-
-  it("T26 — last message is user → historical assistant cannot suppress banner", () => {
-    const presentation = balisePresentation();
-    const oldNotices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a-old",
-          role: "assistant",
-          content: appendStudioControlNotices(presentation.lead!, oldNotices),
-          studioControlNotices: oldNotices,
-        },
-        {
-          id: "u-new",
-          role: "user",
-          content: "Nouvelle demande incomplète en cours",
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByText(/Limite d'exécution cognitive/)).toBeTruthy();
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toBeTruthy();
-  });
-
-  it("T27 — legacy text with [Studio] marker never authenticates or suppresses", () => {
-    const controller = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a-legacy",
-          role: "assistant",
-          content:
-            "Ancien texte.\n\n[Studio] Limite d'exécution cognitive atteinte — analyse inachevée.",
-          adaptivePresentation: null,
-          // Legacy reload without typed column / empty notices.
-        },
-        {
-          id: "a-current",
-          role: "assistant",
-          content: "Tour courant sans notice typée.",
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(screen.getByText(/Ancien texte/)).toBeTruthy();
-    expect(screen.getByText(/\[Studio\] Limite d'exécution/)).toBeTruthy();
-    expect(screen.queryByTestId("nora-adaptive-studio-appendix")).toBeNull();
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toBeTruthy();
-  });
-
-  it("T28 — complete turn never shows fictive incomplete banner", () => {
-    const presentation = balisePresentation();
-    const oldNotices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const controller = stubController({
-      executionIncomplete: false,
-      messages: [
-        {
-          id: "a-old",
-          role: "assistant",
-          content: appendStudioControlNotices(presentation.lead!, oldNotices),
-          studioControlNotices: oldNotices,
-        },
-        {
-          id: "a-new",
-          role: "assistant",
-          content: presentation.lead!,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={controller} />);
-    expect(
-      screen.queryByTestId("project-assistant-incomplete-surface"),
-    ).toBeNull();
-  });
-
-  it("T29 — continuity: typed notices suppress; forged marker alone does not", () => {
-    const presentation = balisePresentation();
-    const notices = [
-      "Limite d'exécution cognitive atteinte — l'analyse demandée n'est pas considérée comme achevée.",
-    ];
-    const reloaded = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a-reloaded",
-          role: "assistant",
-          content: appendStudioControlNotices(presentation.lead!, notices),
-          adaptivePresentation: presentation,
-          // Continuity path restores typed notices from studio_control_json.
-          studioControlNotices: notices,
-        },
-      ],
-    });
-    const { unmount } = render(<ConversationSurface controller={reloaded} />);
-    expect(screen.getByTestId("nora-adaptive-studio-appendix")).toBeTruthy();
-    expect(
-      screen.queryByTestId("project-assistant-incomplete-surface"),
-    ).toBeNull();
-    unmount();
-
-    const forgedReload = stubController({
-      executionIncomplete: true,
-      messages: [
-        {
-          id: "a-forged-reload",
-          role: "assistant",
-          content: `${presentation.lead!}\n\n[Studio] Limite d'exécution atteinte.`,
-          adaptivePresentation: presentation,
-          studioControlNotices: [],
-        },
-      ],
-    });
-    render(<ConversationSurface controller={forgedReload} />);
-    expect(screen.queryByTestId("nora-adaptive-studio-appendix")).toBeNull();
-    expect(
-      screen.getByTestId("project-assistant-incomplete-surface"),
-    ).toBeTruthy();
-  });
-});
+### Playwright QA-NAP-01
 
 ```
+npx playwright test e2e/studio-nora-adaptive-qa-nap01.spec.ts
+```
+- exit **1** (échec attendu : environnement non qualifié)
+- captures auth wall produites
+- **0** capture Product Nora Adaptive conforme
 
-## 7. Tests T23–T29 et régressions
-
-### Commande 1
+### NAP déterministe (complémentaire)
 
 ```
-npx vitest run __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx \
-  __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts
+npx vitest run __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts \
+  __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
 ```
-
-- exit **0**
-- **51 passed** (17 ui incl. T23–T29 + 34 d0)
-
-| ID | Résultat |
-|----|----------|
-| T23 forged current | PASS — texte visible, bandeau visible, pas d'appendix |
-| T24 authentic current | PASS — appendix, pas de bandeau doublon |
-| T25 historical authentic | PASS — ancien visible, bandeau courant visible |
-| T26 last is user | PASS — bandeau visible |
-| T27 legacy text | PASS — texte conservé, pas d'auth, bandeau visible |
-| T28 complete | PASS — pas de bandeau fictif |
-| T29 reload/continuity | PASS — typé suppress; forgé ne suppress pas |
-
-T19/T18/T20/T22 conservés et PASS.
-
-### Commande 2 — régressions
-
-```
-npx vitest run __tests__/nora-cognitive-runtime/cycleJournalContinuity.d0.test.ts \
-  __tests__/nora-cognitive-runtime/pilotabilityJournalIntegrity.d0.test.ts
-```
-
-- exit **0** — **24 passed**
+- exit **0** — **51 passed**
 
 ### Gates
 
-- `npx eslint …ConversationSurface.tsx …noraAdaptivePresentation.ui.test.tsx --max-warnings 0` → exit **0**
 - `npx tsc --noEmit -p tsconfig.json` → exit **0**
-- Build Next: non exécuté — micro-correction UI déterministe; tsc+eslint+vitest suffisent sous ce GO; absence explicite (pas de gate build requis par le contrat si applicable sinon expliquer).
-
-## 8. Preuves de non-usurpation
-
-| Invariant | Preuve |
-|-----------|--------|
-| Marqueur `[Studio]` n'authentifie pas | T23, T27, T29 forged |
-| Historique n'efface pas alerte active | T25, T26 |
-| Notice typée courante peut supprimer doublon | T24, T29 typed |
-| Tour complet ≠ bandeau fictif | T28 |
-| Texte libre Nora ne masque pas contrôle Studio | T23 |
+- eslint e2e QA spec → exit **0** après retrait import inutilisé
+- build Next : non exécuté — auth/runtime Product non atteint ; tsc suffit pour le scénario QA ajouté
 
 ## 9. Fake/Real Qualification
 
-- Applicable: OUI
-- Frontière: OpenAI Agents / Structured Outputs
-- Tests: déterministes uniquement
-- Niveau: **DETERMINISTIC PROVEN** (périmètre testé)
-- REAL BOUNDARY / E2E REAL / G-REAL / OpenAI LIVE / Cursor REAL: NON
-- READY FOR REAL / ADOPTED: NON
+- Applicable : OUI
+- Frontière : OpenAI Agents / Structured Outputs
+- Fake : OPS1 fake forcé dans Playwright webServer / env test
+- REAL / LIVE / G-REAL : NON
+- Niveau d'entrée : DETERMINISTIC PROVEN (Delivery unit/UI)
+- Preuve navigateur attendue : **NON ATTEINTE** pour adaptatif
+- Captures obtenues : browser auth-wall only → **pas** BROWSER RUNTIME OBSERVED sur Nora Adaptive
+- READY FOR REAL : NON
 
-## 10. R23 / R24
+## 10. Anomalies / dette
+
+1. **BLOCKING ENV** — bootstrap Better Auth requis (`e2e:auth:bootstrap` / cookie frais).
+2. **BLOCKING TOOLING** — décision Morris requise pour un emit Fake déterministe de `presentation` (ou autre harness E2E gouverné) **sans** créer un parcours Product parallèle.
+3. R24 PRR 03/06/09 DOC GO toujours ouvert (Delivery).
+4. EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 OPEN · L4 NOT · Runtime v3 NON ADOPTED.
+
+## 11. R23 / R24
 
 **R23**
-- Chemin rendu: ConversationSurface incomplete banner + adaptive resolve inchangé hors banner trust
-- Invariants provenance: typed notices only — **BEHAVIOR PROVEN** (T23–T29)
-- Historique ne peut pas supprimer alerte active — **BEHAVIOR PROVEN** (T25/T26)
-- DOCUMENTED: ce pack
-- COVERAGE VERIFIED: T23–T29
-- KNOWN GAP: runtime screenshot A3/A4; LIVE DTO; intégration projet
+- Parcours /studio compris (middleware Better Auth → workspace → ConversationSurface → resolveAdaptiveAssistantRender)
+- Invariants NAP : DOCUMENTED + COVERAGE VERIFIED (unit/UI) ; BEHAVIOR PROVEN navigateur adaptatif : **KNOWN GAP**
+- Figma A3/A4 : DOCUMENTED via MCP
 
-**R24** (qualification only — no write)
-- PRR 03: UI / contrôle conversation (banner trust)
-- PRR 06: continuité notices typées (comportement reload T29; pas de nouveau schéma)
-- PRR 09: limites / non-usurpation
-- **R24 DOCUMENTARY SYNC PENDING — MORRIS DOC GO REQUIRED**
+**R24**
+- QA seule → **NO SEMANTIC PRODUCT IMPACT** (ajout E2E test only)
+- Sync PRR : **PENDING — MORRIS DOC GO REQUIRED**
 
-## 11. Trajectoire / capacité / gates ouverts
+## 12. Contenu complet — fichier créé (E2E QA)
 
-- Capacité: présentation adaptative Nora — micro-fiabilité banner
-- Suivante: QA runtime/Figma sous GO, puis intégration gouvernée
-- EP-S2-08 PARTIAL; EP-S2-05 NOT PROVEN; L3 GLOBAL OPEN; L4 NOT AUTHORIZED; Runtime v3 NON ADOPTED
-- ChatGPT final review required
-- Pas de commit/push projet
+### FILE CREATED: `projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts`
 
-## 12. Handoff publish
+```typescript
+/**
+ * QA-NAP-01 — Nora Adaptive Presentation runtime / Figma visual validation.
+ *
+ * READ-ONLY Product. Captures go to
+ * .tmp-sfia-review/runtime-captures/nora-adaptive/
+ *
+ * Auth: Better Auth session via authorized cookie bootstrap only.
+ * Fake OpenAI boundary only — no LIVE / no Cursor REAL.
+ *
+ * Adaptive DTO emit: existing FakeConversationProvider does not emit
+ * `presentation` structured output. Without that (or LIVE), multi-block
+ * adaptive UI cannot be observed through the real /studio send path.
+ */
+import { test, expect, type Page } from "@playwright/test";
+import fs from "node:fs";
+import path from "node:path";
+import crypto from "node:crypto";
+import {
+  applyAuthenticatedStudioCookies,
+  gotoAuthenticatedStudio,
+  inspectAuthCookieFileStatus,
+  resolveAuthCookieFilePath,
+} from "./support/authenticatedStudioSession";
 
-- Branche: `sfia/review-handoff`
-- Fichier: `sfia-review-handoff/latest-chatgpt-review.md`
-- Message: `docs(review-handoff): publish CORR-NAP-03 banner trust review`
-- Remote tip/blob: *complété après publish*
+const CAPTURE_ROOT = path.resolve(
+  process.cwd(),
+  "../../../.tmp-sfia-review/runtime-captures/nora-adaptive",
+);
+const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
+
+async function capture(
+  page: Page,
+  id: string,
+  meta: {
+    qaId: string;
+    state: string;
+    viewport: { width: number; height: number };
+    dtoSource: string;
+    simulationLevel: string;
+    conformingProductScreen: boolean;
+    observation: string;
+  },
+): Promise<string> {
+  fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+  const file = path.join(CAPTURE_ROOT, `${id}.png`);
+  await page.screenshot({ path: file, fullPage: true });
+  const sha256 = crypto
+    .createHash("sha256")
+    .update(fs.readFileSync(file))
+    .digest("hex");
+  const overflow = await page.evaluate(() => {
+    const doc = document.documentElement;
+    return {
+      scrollWidth: doc.scrollWidth,
+      clientWidth: doc.clientWidth,
+    };
+  });
+  const row = {
+    id,
+    qaId: meta.qaId,
+    file: path.basename(file),
+    timestamp: new Date().toISOString(),
+    route: page.url(),
+    viewport: meta.viewport,
+    state: meta.state,
+    dtoSource: meta.dtoSource,
+    simulationLevel: meta.simulationLevel,
+    sha256,
+    overflow,
+    secretsPresent: false,
+    conformingProductScreen: meta.conformingProductScreen,
+    observation: meta.observation,
+    provenance:
+      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — QA-NAP-01 NORA ADAPTIVE",
+  };
+  fs.appendFileSync(MANIFEST, `${JSON.stringify(row)}\n`);
+  return sha256;
+}
+
+test.describe("QA-NAP-01 Nora Adaptive Presentation /studio", () => {
+  test.describe.configure({ timeout: 180_000 });
+
+  test.beforeAll(() => {
+    fs.mkdirSync(CAPTURE_ROOT, { recursive: true });
+    fs.writeFileSync(MANIFEST, "");
+  });
+
+  test("auth pre-check + adaptive DTO tooling gap qualification", async ({
+    page,
+    context,
+  }) => {
+    await page.setViewportSize({ width: 1440, height: 1024 });
+
+    const cookiePath = resolveAuthCookieFilePath();
+    const cookieStatus = inspectAuthCookieFileStatus(cookiePath);
+    fs.writeFileSync(
+      path.join(CAPTURE_ROOT, "env-qualification.json"),
+      JSON.stringify(
+        {
+          timestamp: new Date().toISOString(),
+          cookieFilePresent: Boolean(cookiePath),
+          cookieStatus,
+          playwrightBaseURL: process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3020",
+          ops1ConversationProvider:
+            process.env.OPS1_CONVERSATION_PROVIDER ?? "(webServer default fake)",
+          openAiLiveAuthorized: false,
+          cursorRealAuthorized: false,
+          adaptiveDtoEmitViaFake: false,
+          note:
+            "FakeConversationProvider has no presentation DTO emit path; Better Auth session required for /studio.",
+        },
+        null,
+        2,
+      ),
+    );
+
+    // Capture unauthenticated redirect (evidence of auth wall — NOT a conforming Product screen).
+    await page.goto("/studio", { waitUntil: "domcontentloaded" });
+    await expect(page).toHaveURL(/\/login/);
+    await capture(page, "QA-NAP-AUTH-WALL-login-redirect", {
+      qaId: "ENV-AUTH",
+      state: "NO_SESSION redirect to /login",
+      viewport: { width: 1440, height: 1024 },
+      dtoSource: "none",
+      simulationLevel: "browser-runtime-auth-wall",
+      conformingProductScreen: false,
+      observation:
+        "Unauthenticated /studio redirects to login — not a Nora Adaptive conforming capture",
+    });
+
+    if (cookieStatus !== "PRESENT") {
+      test.info().annotations.push({
+        type: "qa-environment",
+        description: `QA ENVIRONMENT NOT QUALIFIED — cookie status ${cookieStatus}`,
+      });
+      return;
+    }
+
+    try {
+      await applyAuthenticatedStudioCookies(context);
+      await gotoAuthenticatedStudio(page);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      await capture(page, "QA-NAP-AUTH-EXPIRED-or-invalid", {
+        qaId: "ENV-AUTH",
+        state: message,
+        viewport: { width: 1440, height: 1024 },
+        dtoSource: "none",
+        simulationLevel: "browser-runtime-auth-failure",
+        conformingProductScreen: false,
+        observation:
+          "Better Auth cookie present on disk but session invalid/expired for /studio",
+      });
+      test.info().annotations.push({
+        type: "qa-environment",
+        description: `QA ENVIRONMENT NOT QUALIFIED — ${message}`,
+      });
+      // Fail closed after evidence capture — adaptive matrix NOT PROVEN.
+      expect(
+        message,
+        "Authenticated /studio required for QA-NAP adaptive runtime matrix",
+      ).toBe("AUTH_OK");
+      return;
+    }
+
+    // If we reach here, auth works — still cannot force adaptive DTO without Fake emit.
+    await capture(page, "QA-NAP-01-studio-home-auth-ok", {
+      qaId: "QA-NAP-01",
+      state: "authenticated studio home",
+      viewport: { width: 1440, height: 1024 },
+      dtoSource: "none-yet",
+      simulationLevel: "browser-runtime + fake-openai-boundary",
+      conformingProductScreen: true,
+      observation: "Authenticated /studio reachable; adaptive DTO emit still tooling-gap",
+    });
+
+    // Tooling gap attestation — do not invent adaptive UI via DOM injection.
+    const adaptiveCount = await page
+      .getByTestId("nora-adaptive-presentation")
+      .count();
+    expect(adaptiveCount).toBe(0);
+    test.info().annotations.push({
+      type: "tooling-gap",
+      description:
+        "QA TOOLING GAP — Fake provider cannot emit Nora adaptive presentation DTO through /studio send path; LIVE unauthorized; no Product modification allowed in QA cycle.",
+    });
+  });
+});
+
+```
+
+Aucun fichier Product modifié.
+
+## 13. Handoff
+
+- Branche : `sfia/review-handoff`
+- Message : `docs(review-handoff): publish QA-NAP-01 runtime visual review`
+- Remote tip/blob : *après publish*
+
+## 14. Trajectoire / prochaine capacité
+
+1. Bootstrap auth Better Auth local (Morris / humain).
+2. GO distinct : emit Fake `presentation` ou harness E2E gouverné (architecture decision).
+3. Rejouer matrice QA-NAP-01…12 + captures A4.
+4. Puis R24 documentaire + intégration sous GO.
 
 ---
-**FIN REVIEW PACK CORR-NAP-03 — FULL**
+**FIN REVIEW PACK QA-NAP-01 — FULL**
