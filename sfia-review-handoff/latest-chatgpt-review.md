@@ -1,21 +1,21 @@
 # ChatGPT Critical Review Pack — FULL
-## AKG-M5 L3-S2 LIVE-E2E-01 · CYCLE 9 — LIVE RUNTIME / AUTH / NORA QUALIFICATION + G10-A
+## AKG-M5 L3-S2 LIVE-E2E-01 · CYCLE 9 — DEDICATED PRODUCT & NORA PERSISTENCE
 
-**UTC authored:** 2026-10-29T10:43:13Z
-**Morris decisions consumed:**
-- G10 POSTURE A — CURSOR REAL WITHOUT SANDBOX (RISK ACCEPTED BY MORRIS)
-- Prior: CHOICE-B · REAL=1 · isolated managed base · dedicated private test repo
+**UTC authored:** 2026-10-29T11:01:28Z
+**Morris GO:** DEDICATED PRODUCT & NORA PERSISTENCE (isolate from historical HQA)
+**Verdict (Cursor local):** LOCAL LIVE-E2E ENVIRONMENT PREPARED — AUTH / G-REAL CAMPAIGN PENDING
 
-**Verdict (Cursor local):** LIVE CONNECTIVITY PARTIAL — REMAINING BLOCKERS DOCUMENTED
-
-**Anti-claims:** Cursor REAL NOT EXECUTED · G-REAL NOT GRANTED · No LIVE E2E completion · No ExecutionAttempt · No test-repo mutation · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · Runtime v3 NON ADOPTED · G10 ≠ confinement proven · No secrets disclosed
+**Anti-claims:** Cursor REAL NOT EXECUTED · G-REAL NOT GRANTED · No ExecutionAttempt · No OAuth this cycle · No HQA copy/migrate/delete · No Product source change · No project PR · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · Runtime v3 NON ADOPTED · G10-A = RISK ACCEPTED (not confinement proven) · No secrets disclosed
 
 ---
 
 ## 1. UTC
-2026-10-29T10:43:13Z
+2026-10-29T11:01:28Z
 
-## 2. Git Truth
+## 2. Morris GO
+Isolate Product OA SQLite + Nora Session SQLite onto dedicated LIVE-E2E paths; preserve OpenAI/OAuth/REAL/managed clone; validate runtime; controlled stop; FULL pack + L3 handoff + next-chat transition. No architecture, no fixtures, no agent launch.
+
+## 3. Git Truth
 | Field | Value |
 |---|---|
 | Investigation WT | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3s2-r24-postmerge-capitalization` |
@@ -25,188 +25,171 @@
 | Expected | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
 | MAIN_OK | YES |
 | Porcelain | `M .tmp-sfia-review/chatgpt-review.md` |
-| Prior handoff | tip `98d0bd15…` blob `15393926…` |
-| Test repo HEAD | `b63983420823012912180d5880e51c96c2bd0821` (unchanged · no mutation) |
+| Prior handoff | tip `4a0ee29c…` blob `4149729a…` |
+| Runtime path resolvers vs main | ALIGN (`paths.ts`, `sessionPaths.ts`, preflight) |
 
-## 3. Convergence qualification
-ACTIVE AKG-M5 / L3-S2 · EP-S2-08 PARTIAL · CKC `04-qa-validation.md` CANDIDATE only · R23 code prevail · R24 config/ops only · Studio v3 NON ADOPTED · SFIA v2.6 external process.
+## 4. Convergence Pre-check
+CKC `04-qa-validation.md` CANDIDATE only · R23/R24 · Studio v3 NON ADOPTED · Prior verdict LIVE CONNECTIVITY PARTIAL with HQA DB path gap — this cycle closes that gap only.
 
-## 4. Morris G10 decision
-| Item | Record |
-|---|---|
-| Posture | **A — CURSOR REAL WITHOUT SANDBOX** |
-| Gateway | keep `--sandbox disabled --force` |
-| Classification | **G10 = RISK ACCEPTED BY MORRIS** |
-| NOT | G10 = TECHNICAL CONFINEMENT PROVEN |
-| Does not authorize | unrestricted ops · remote push · first agent launch · G-REAL |
+## 5. R23 implementation qualification
+| Store | Resolver | Precedence | Open/init |
+|---|---|---|---|
+| Product OA (Truth C) | `resolveProductSqlitePath` ← `SFIA_STUDIO_PRODUCT_DB_PATH` else default under studio `.sfia-exec/product` | Explicit env wins | `openProductSqlite` → schema_meta + OA tables + migrations |
+| Nora Session (Memory B) | `resolveNoraSessionSqlitePath` ← `SFIA_STUDIO_NORA_SESSION_DB_PATH` else sibling default | Explicit env wins | `ProductSqliteSession` ctor CREATE TABLE IF NOT EXISTS session/logical/journal tables |
+| Independence | Separate files/dirs — not merged | — | Preserved |
+| Preflight | Does not open these DBs | — | config readiness only |
 
-Residual risks accepted: host FS access beyond managed checkout · local secrets exposure · unintended writes · unrestricted process-identity capabilities.
+No higher-priority redirect observed for these two env keys.
 
-## 5. Current LIVE configuration (revalidated)
-| Item | Status |
-|---|---|
-| Private test repo `mcleland147/sfia-studio-live-e2e` | YES · private · HEAD `b63983420823012912180d5880e51c96c2bd0821` |
-| Managed clone identity-matched | YES · `…/mcleland147__sfia-studio-live-e2e` |
-| Product resolver (prior) | VERIFIED |
-| Managed root env | LIVE base configured |
-| `SFIA_STUDIO_CURSOR_REAL` | `1` |
-| Deterministic boundary | OFF / ABSENT |
-| OpenAI key+model | PRESENT · model `gpt-5.6-luna` |
-| Better Auth / GitHub OAuth config | PRESENT · URL `http://localhost:3020` |
-| OPS1_CONVERSATION_PROVIDER | ABSENT → live OpenAI path (not fake) |
-| **Product DB path** | still under **historical P6 HQA** `…/product-db/oa-product.sqlite` |
-| **Nora session DB path** | still under **historical P6 HQA** `…/nora-session/nora-session.sqlite` |
+## 6. Old / new DB path classification
+| Key | Before (HQA) | After (LIVE) |
+|---|---|---|
+| `SFIA_STUDIO_PRODUCT_DB_PATH` | `…/p6-she-gf-hqa-…/product-db/oa-product.sqlite` | `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` |
+| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | `…/p6-she-gf-hqa-…/nora-session/nora-session.sqlite` | `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite` |
+| Managed root | LIVE (unchanged) | LIVE |
+| REAL / DET / OpenAI / Auth / Pilot | unchanged | unchanged |
 
-## 6. Runtime startup evidence
-| Step | Result |
-|---|---|
-| `npm run preflight:runtime` | PASS · authority PASS · managedRoot LIVE base · cursorReal READY · DET⊕REAL PASS · `realBoundaryConstructed: false` |
-| `npm run build` | PASS (exit 0 · Next 15.5.20) |
-| `npm start` → `:3020` | PASS · Ready · listening |
-| `/studio` | **307** → `/login?error=NO_SESSION&from=%2Fstudio` |
-| `/login` | **200** |
-| `/api/auth/get-session` | **200** body `null` |
-| `/api/auth/github-start` | **307** → GitHub OAuth authorize (LIVE app redirect registered) |
-| Playwright fake webServer | **NOT used** as LIVE evidence |
+Env content fp16: `6ad0cc4160ca520a` → `0aa0634e1ba29e52` · mode **0600** · gitignored/untracked · **only two keys** changed · opaque equality on all other keys.
 
-## 7. Auth LIVE evidence
-| Check | Result |
-|---|---|
-| Authenticated session | **ABSENT** |
-| Browser | login page + GitHub OAuth sign-in challenge reached |
-| Interactive OAuth | **REQUIRES MORRIS** (no credential automation) |
-| Pilote identity | NOT OBSERVED |
-| `/studio` access | BLOCKED without session |
-| Assistant send without session | **307** → login NO_SESSION (no ExecutionAttempt) |
-| **Better Auth LIVE** | **PARTIAL** — endpoints live; session not established |
-
-## 8. Nora LIVE evidence
-| Layer | Result |
-|---|---|
-| Fake provider forced? | NO (`OPS1` ABSENT) |
-| Product `resolveConversationProvider()` | `providerId=openai` · model `gpt-5.6-luna` |
-| Bounded provider smoke | **PASS** · reply `LIVE_OK` · ~2.9s · usage present |
-| Authenticated Studio conversational path | **BLOCKED** (NO_SESSION) |
-| ExecutionAttempt created? | NO |
-| Classification | **Provider LIVE CONNECTIVITY PROVEN** · **Studio Nora UX path NOT PROVEN** |
-
-## 9. Cursor gateway configuration
+## 7. Server stop evidence (before path change)
 | Item | Evidence |
 |---|---|
-| REAL=1 | YES |
-| DET boundary | OFF |
-| Executable | `/Applications/Cursor.app/.../bin/cursor` v3.27.22 present+exec |
-| Gateway argv (source) | `agent --print --workspace … --trust --sandbox disabled --force` |
-| Gateway modified this cycle | **NO** |
-| R2 pathless guard | `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` preserved |
-| Agent launch | **NOT PERFORMED** |
+| Listener | PID **15458** `next-server (v15.5.20)` |
+| CWD | docs WT `…/projects/sfia-studio/app` |
+| Parent chain | `npm start` → `sh -c … next start --port 3020` |
+| Action | SIGTERM identified process only (no pkill/killall) |
+| Result | **PORT_3020_FREE** before env rewrite |
 
-## 10. Risks accepted and residual
-- G10-A residual host-access risk: **ACCEPTED BY MORRIS**.
-- OA/Nora SQLite still on HQA paths: **isolation gap** for LIVE campaign data (not rewritten this cycle — out of authorized scope).
-- Unauthenticated Studio path: blocks Pilote UX proof until OAuth.
-- Folder/repo isolation ≠ OS sandbox (unchanged).
-
-## 11. Proposed autonomous G-REAL mission (NOT AUTHORIZED / NOT LAUNCHED)
-
-### Mission title (candidate)
-**LIVE-E2E-01-M1 — Autonomous multi-file improvement of disposable test repo**
-
-### Authorized repository
-`mcleland147/sfia-studio-live-e2e` only
-Local checkout: `…/managed-repos/mcleland147__sfia-studio-live-e2e`
-
-### Pilote request (open-ended — do not pre-script agent file contents)
-> « Sur le dépôt de test LIVE E2E, prépare une petite amélioration autonome et inspectable : structure un README de validation (sections Objectif / Périmètre / Preuves), ajoute un fichier `docs/live-e2e-notes.md` avec des notes d’exécution réalistes, et un script shell local non destructif `scripts/smoke-status.sh` qui affiche branche + HEAD + statut working tree. Choisis librement l’organisation exacte des fichiers dans ce dépôt uniquement. Ne pousse rien en remote. »
-
-### Nature
-Genuine autonomous generalist work · multi-file · local commands allowed · meaningful implementation choices · NOT a one-file deterministic fixture.
-
-### Authorized effects (candidate)
-- `filesystem.create` / `filesystem.modify` **inside** the authorized checkout only
-- Local process/commands needed for inspection (e.g. `git status`, `git rev-parse`)
-- Local Evidence + ReviewBundle production via Product path after agent return
-
-### Prohibited external effects
-- Remote `git push` / force-push / delete remote branches
-- PR create/merge
-- Touching `sfia-workspace` or any other repo/worktree
-- Reading/writing unrelated user secrets (best-effort policy; **not OS-enforced** under G10-A)
-- Mutating HQA historical trees
-- Network clone of other remotes
-
-### Git policy
-- Local commits: **only if** Product/HumanConfirmation path authorizes (default first mission: prefer working-tree changes + Evidence; local commit optional under separate confirmation)
-- **NO REMOTE PUSH by default**
-- Any remote_git / GitHub effect requires additional Morris gate
-
-### Rollback
-- `git checkout -- .` / `git clean` within disposable checkout OR reset to `b63983420823012912180d5880e51c96c2bd0821`
-- Remote remains at init SHA if no push
-- Do not delete remote repository on failure
-
-### STOP conditions
-- Agent attempts remote push / other-repo paths
-- Identity mismatch / wrong workspace
-- Authority/HumanDecision refused
-- Unexpected production path writes detected
-- Pathless non-mutating REAL attempted under R2 refuse
-
-### Evidence / ReviewBundle
-- Capture filesystem+git diffs under checkout
-- Genuine Evidence artifact via Product
-- ReviewBundle for Pilote inspection
-- Resume Nora LIVE after Evidence (requires Auth LIVE)
-
-### HumanDecision / Confirmation
-- Explicit Pilote Confirm before StartExecution
-- Separate bounded **G-REAL** Morris text required before first REAL launch
-
-### Pilot UAT steps (after G-REAL)
-1. Morris interactive OAuth → authenticated `/studio`
-2. Open/create Project bound to test repo identity
-3. Issue Pilote request above via Nora LIVE
-4. Inspect ExecutionContract · Confirm
-5. Observe REAL agent (sandbox disabled) · Evidence · ReviewBundle
-6. Nora LIVE resume post-evidence
-7. Browser/process restart continuity check
-8. Verify no remote push; checkout changes inspectable
-
-## 12. Exact authorized effects candidate (summary)
-`filesystem.create`, `filesystem.modify` on disposable checkout · local inspect commands · Evidence/RB · **exclude** `remote_git.*` / push / PR unless later GO.
-
-## 13. Independent gates
-| Gate | Status |
+## 8. Directory safety
+| Path | Result |
 |---|---|
-| Git Truth | PASS |
-| Dedicated test repo | PASS |
-| Product managed resolver | PASS (prior + unchanged HEAD) |
-| Studio runtime startup | PASS |
-| Better Auth LIVE (session) | **BLOCKED** — Morris interactive OAuth required |
-| Nora/OpenAI provider LIVE | **PASS** (provider smoke) |
-| Nora Studio conversational path | **BLOCKED** (NO_SESSION) |
-| Cursor REAL configuration | PASS (READY=1 · gateway unchanged) |
-| G10 risk acceptance | **RECORDED** (not confinement proven) |
-| Existing authorization / R2 gates | PRESERVED |
-| G-REAL execution authorization | **NOT GRANTED** |
-| LIVE E2E completion | **NOT CLAIMED** |
-| OA/Nora DB isolation from HQA | **BLOCKED / NOT QUALIFIED** |
+| LIVE root `/Users/morris/Projects/.sfia-exec/live-e2e-01` | exists · 0700 · morris · not symlink |
+| Created `product-db/` · `nora-session/` | **0700** · empty before init · not symlink · outside HQA |
+| Fabricated empty sqlite placeholders | **NO** |
+| HQA overlap | NONE |
 
-## 14. No unauthorized changes proof
-No Product source edits · no gateway change · no test-repo commits/pushes · no Cursor agent · no ExecutionAttempt · no `.env.local` rewrite · server started for qualification only.
+## 9. Redacted config validation
+| Item | Status |
+|---|---|
+| REAL | `1` |
+| DET | ABSENT/OFF |
+| OPS1 fake | ABSENT (live OpenAI path) |
+| Managed base | LIVE managed-repos |
+| Product/Nora paths | LIVE targets exact |
+| Secrets/OAuth/Pilot | preserved |
+| `.env.local` committed | NO |
 
-## 15. R24 — NO SEMANTIC IMPACT
-Operational qualification + documentary pack only. No Product semantic change.
+## 10. Product SQLite results
+| Check | Result |
+|---|---|
+| A Configured path | `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` |
+| B Parent dir | 0700 prepared |
+| C File created | YES via `openProductSqlite` |
+| D Schema | initialized · 26 tables · `schema_meta` + `oa_projects` present |
+| E Runtime store use | opener exercised; Next process did not need campaign writes |
+| F HQA isolation | YES · HQA size/mtime unchanged |
+| G Restart/reopen | RO integrity **ok** after quiescence · mode **0600** |
+| Content | empty campaign data (`schema_meta` version row only · no Projects/HD/Evidence fixtures) |
 
-## 16. Remaining blockers / next Morris decisions
-1. **Interactive GitHub OAuth** by Morris on `http://localhost:3020` (server currently running).
-2. **Relocate** `SFIA_STUDIO_PRODUCT_DB_PATH` + `SFIA_STUDIO_NORA_SESSION_DB_PATH` to dedicated LIVE-E2E paths under `.sfia-exec/live-e2e-01/` (separate GO — do not keep writing LIVE state into HQA DBs).
-3. Authenticated Studio Nora conversational smoke (after OAuth).
-4. Issue **bounded G-REAL** text for mission LIVE-E2E-01-M1 (effects/git policy above).
-5. Then first REAL launch under G10-A residual risk acceptance.
+## 11. Nora SQLite results
+| Check | Result |
+|---|---|
+| A Configured path | `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite` |
+| B Parent dir | 0700 prepared |
+| C File created | YES via `ProductSqliteSession` |
+| D Schema | initialized · 6 tables incl. `session_items` |
+| E Runtime store use | opener exercised |
+| F HQA isolation | YES |
+| G Restart/reopen | RO integrity **ok** · mode **0600** · zero rows |
 
-## 17. Unique verdict
+## 12. Runtime startup results (post cutover)
+| Step | Result |
+|---|---|
+| `preflight:runtime` | PASS · managed LIVE · cursorReal READY · DET⊕REAL PASS |
+| `npm run build` | PASS |
+| `npm start` :3020 | PASS · PID 22164 · CWD docs app |
+| `/login` | 200 |
+| `/studio` | 307 → NO_SESSION (expected) |
+| `/api/auth/get-session` | 200 `null` |
+| `/api/auth/github-start` | 307 (OAuth start alive) |
+| Fake provider | NOT forced |
+| Managed clone HEAD | `b63983420823012912180d5880e51c96c2bd0821` · dirty=0 |
+| Agent launch | NONE |
 
-**LIVE CONNECTIVITY PARTIAL — REMAINING BLOCKERS DOCUMENTED**
+## 13. REAL / Nora / OAuth status
+| Item | Status |
+|---|---|
+| Cursor REAL config | READY=1 · gateway unchanged (`--sandbox disabled --force`) |
+| G10-A | RISK ACCEPTED (prior Morris) · not confinement proven |
+| OAuth interactive | **NOT completed this cycle** (deferred to campaign chat) |
+| Nora Studio LIVE path | **NOT PROVEN** (needs auth) |
+| OpenAI provider LIVE | previously proven; config preserved |
 
-Runtime build/start PASS · OpenAI provider LIVE PASS · Auth session BLOCKED · Studio Nora path BLOCKED · G10-A risk accepted · OA DBs still on HQA · G-REAL NOT GRANTED · agent NOT launched.
+## 14. No HQA mutation evidence
+| File | Before size/mtime | After | Match |
+|---|---|---|---|
+| HQA Product DB | 360448 / 1792424376.0228653 | same | YES |
+| HQA Nora DB | 61440 / 1792424375.8607087 | same | YES |
+| Copy/migrate/delete | NOT performed | — | — |
+
+## 15. Controlled shutdown evidence
+| Step | Result |
+|---|---|
+| SIGTERM this-cycle next-server 22164 | DONE |
+| Port 3020 | **FREE** |
+| Open handles on LIVE sqlite | NONE |
+| LIVE DBs / managed clone / env | **PRESERVED** |
+| Final runtime state | **STOPPED** |
+
+## 16. G1–G14 matrix
+| Gate | Status | Evidence |
+|---|---|---|
+| G1 Git/source identity | PASS | main expected; resolvers ALIGN |
+| G2 Server controlled stop | PASS | identified PID/CWD; graceful stop |
+| G3 LIVE directory separation | PASS | product-db + nora-session under live-e2e-01 |
+| G4 Exact two-key env update | PASS | only Product+Nora path keys |
+| G5 Secrets preserved | PASS | opaque equality |
+| G6 Product DB path resolution | PASS | resolver → LIVE path |
+| G7 Nora DB path resolution | PASS | resolver → LIVE path |
+| G8 Runtime build/preflight/start | PASS | all exit 0 / Ready |
+| G9 REAL=1 DET OFF | PASS | env |
+| G10 HQA isolation | PASS | metadata unchanged; no copy |
+| G11 SQLite init/readiness | PASS | real openers · integrity ok · schema present |
+| G12 No unauthorized Product effects | PASS | no agent/Attempt/PR/source edits |
+| G13 Controlled final shutdown | PASS | STOPPED · port free |
+| G14 Campaign transition readiness | PARTIAL→READY for next chat | Auth + G-REAL still pending |
+
+## 17. R24 — NO SEMANTIC IMPACT
+Local env + host LIVE instance dirs/DBs only. No Product semantic/architecture change. No Roadmap/PRR edit. No project PR.
+
+## 18. Remaining gaps
+1. Morris interactive GitHub OAuth on fresh `npm start`.
+2. Authenticated Studio Nora conversational proof.
+3. Bounded **G-REAL** for candidate M1 on `mcleland147/sfia-studio-live-e2e`.
+4. First REAL agent launch under G10-A residual risk.
+5. LIVE E2E / Pilote UAT / EP-S2-08 continuity proof.
+
+## 19. Unique verdict
+
+**LOCAL LIVE-E2E ENVIRONMENT PREPARED — AUTH / G-REAL CAMPAIGN PENDING**
+
+---
+
+## NEXT CHAT — AKG-M5 LIVE E2E CONTINUATION
+
+1. **Repo / main HEAD:** `mcleland147/sfia-workspace` · `2cc6368602197e18fe886c87c8ced0a1b434f5a2`
+2. **Target worktree / branch / HEAD:** `/Users/morris/Projects/sfia-workspace-docs-akg-m5-l3s2-r24-postmerge-capitalization` · `docs/akg-m5-l3s2-r24-postmerge-capitalization` · `cf940d84ea9e78602131fe97f75cad0c5abddac9` (pre-merge tip of #627; runtime ALIGN with main)
+3. **LIVE instance root:** `/Users/morris/Projects/.sfia-exec/live-e2e-01` (0700)
+4. **Managed repository:** identity `mcleland147/sfia-studio-live-e2e` · checkout `…/managed-repos/mcleland147__sfia-studio-live-e2e` · HEAD `b63983420823012912180d5880e51c96c2bd0821` · clean · private remote
+5. **Product DB path:** `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` · Nora DB path: `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite`
+6. **DB init:** Product schema initialized (26 tables, integrity ok, empty campaign) · Nora schema initialized (6 tables, empty) · modes 0600
+7. **Environment readiness:** REAL=1 · DET OFF · managed LIVE · OpenAI+Auth+OAuth+Pilot config present · Product/Nora paths LIVE · `.env.local` 0600 gitignored
+8. **Runtime process final status:** **STOPPED** · port 3020 free · next chat must start its own `npm start`
+9. **OAuth remaining:** interactive GitHub login as Pilote; session currently null
+10. **Nora Studio LIVE remaining:** conversational path via `/studio` after auth (provider LIVE previously proven)
+11. **G10:** Morris RISK ACCEPTED for `--sandbox disabled --force` · NOT technically proven confinement
+12. **G-REAL:** NOT GRANTED · candidate M1 = autonomous multi-file work on disposable test repo only · **NO remote push by default**
+13. **EP-S2-08 / L3:** EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN
+14. **Next operation:** start server → Morris OAuth → Studio Nora smoke → issue bounded G-REAL → REAL M1 under accepted G10-A risk
+15. **Canonical Review Handoff:** branch `sfia/review-handoff` · (tip/blob filled after publish) · file `sfia-review-handoff/latest-chatgpt-review.md`
+16. **Anti-claims / debt:** no REAL executed · no G-REAL · no LIVE E2E completion · HQA data intentionally retained untouched · do not reuse HQA DBs · re-read Git + this handoff before action · Runtime v3 NON ADOPTED
