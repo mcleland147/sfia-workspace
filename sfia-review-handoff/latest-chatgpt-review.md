@@ -1,66 +1,126 @@
-# ChatGPT Review Pack — CORR-NAP-TEST16-01 Option C Coverage Correction
+# ChatGPT Review Pack — CORR-NAP-TEST16-01 / CR-02
 
-**Date/heure UTC :** 2026-10-30T19:38:13Z
-**Cycle unique :** AKG-M5 / L3-S2 / CORR-NAP-TEST16-01 — Option C two-layer render correction
+**Date/heure UTC :** 2026-10-30T20:15:46Z
+**Cycle unique :** AKG-M5 / L3-S2 / CORR-NAP-TEST16-01 / CR-02
 **Campagne source :** LIVE-E2E-01 / BALISE (TEST-16 UX reserve)
 **Profil :** CRITICAL
-**Typologie :** EVOL / CORRECTION BORNÉE
-**GO Morris exact :** Correction ciblée de la composition et de la couverture Option C, avec conservation complète du contenu narratif et des garde-fous existants.
+**Typologie :** EVOL / CORRECTIVE MICRO-CYCLE
+**GO Morris exact :** Corriger R1 et R2 dans la candidate existante, sans élargir le scope.
 
-**Verdict unique :** `LOCAL DELIVERY CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW`
+**Verdict unique :** `LOCAL CORRECTION CR-02 — READY FOR CHATGPT CRITICAL REVIEW`
 
-**Anti-claims :** aucun commit/push/PR projet · aucun merge · main non modifié · runtime BALISE non redémarré · aucun appel OpenAI · G-REAL NOT GRANTED · TEST-17 non lancé · TEST-15 non corrigé · PRR non écrit · L3 COMPLETE NON déclaré · Option C LIVE PASS global NON déclaré.
+**Anti-claims :** aucun commit/push/PR projet · aucun merge · main non modifié · PRR non écrite · runtime BALISE non redémarré · aucun OpenAI · G-REAL NOT GRANTED · TEST-15/17 non touchés · TEST-16 PASS global NON déclaré · L3 COMPLETE NON déclaré.
+
+**Handoff candidate précédente :** commit `71315921ceda80165bd6c3cac112b4f95b64f9ec` · blob `a4848200cffee6d86ee2f73089a7fb5527d4844d` · verdict `LOCAL DELIVERY CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW` · Critical Review : `CORRECTION REQUIRED — OPTION C PRESENTATION TRUST HIERARCHY NOT YET SAFE` (R1, R2).
 
 ---
 
-## A. Date/heure UTC
+## 1. UTC
 
-2026-10-30T19:38:13Z
+2026-10-30T20:15:46Z
 
-## B. GO Morris consommé
+## 2. GO Morris consommé
 
-Correction ciblée de la composition et de la couverture Option C, avec conservation complète du contenu narratif et des garde-fous existants.
+Corriger R1 et R2 dans la candidate existante, sans élargir le scope.
 
-Autorisé consommé : investigation proportionnée · worktree isolé · modifications Product bornées · tests unitaires/UI déterministes · reproduction lecture seule forme TEST-16 · Review Pack FULL · Review Handoff L3 borné.
+Autorisé consommé : 6 fichiers Product · tests déterministes · Review Pack FULL · Handoff L3.
+Non consommé : commit/push projet · PR · merge · PRR/Roadmap · OpenAI · Cursor REAL · LIVE restart · SQLite · TEST-15/17.
 
-Non consommé / non autorisé : push projet · commit projet · PR · merge · modification main · bases LIVE · redémarrage BALISE · OpenAI · Cursor REAL · TEST-15/17 · chemins protégés PRR/manifest/roadmap.
-
-## C. Git Truth initial et final
-
-### Baseline vérifiée
+## 3. Git Truth initial / final
 
 | Ref | SHA |
 |-----|-----|
-| origin/main (local + ls-remote) | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| Repository | `mcleland147/sfia-workspace` |
-| PR #628 Option C | intégrée sur main |
-| PR #629 R24 documentaire | intégrée sur main |
+| origin/main local + ls-remote | `ca1c9869f905b394808c953649910d60fbfcb984` |
+| corr-01 HEAD (base) | `ca1c9869f905b394808c953649910d60fbfcb984` |
+| Branche | `feat/akg-m5-nap-test16-coverage-corr-01` |
+| Repo | `mcleland147/sfia-workspace` |
 
-STOP baseline : **non déclenché** — origin/main inchangé vs baseline ChatGPT.
+STOP baseline : non déclenché.
 
-### Worktree LIVE historique (non modifié par ce cycle)
+**Final :** même base ; 6 fichiers Product WIP non commités + `.tmp-sfia-review/chatgpt-review.md` local. Aucun commit projet.
 
-| Champ | Valeur |
-|-------|--------|
-| Path | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
-| HEAD | `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a` (detached) |
-| Port 3020 | **aucun LISTEN** au moment final (PID 58031 absent) — observation passive ; **aucun kill/restart/rebuild** effectué par ce cycle |
-| Scope Product chargé | Option C présente (ancêtre de main) ; pas de divergence Product vs Option C attendue |
+## 4. Worktree corr-01 et statut
 
-### Worktree de correction (isolé)
+Path : `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01`
 
-| Champ | Valeur |
-|-------|--------|
-| Path | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01` |
-| Branch | `feat/akg-m5-nap-test16-coverage-corr-01` (créée locale depuis main vérifié) |
-| HEAD base | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| État | modifications Product **non commités** (candidate locale) |
+Contrainte Cursor : **pas** de `move_agent_to_root` (branche `feat/akg-m5-nora-adaptive-presentation` déjà tenue par `…-nap-test16-coverage-corr`). Travail en chemins absolus corr-01 uniquement.
 
-Note isolation Cursor UI : `move_agent_to_root` vers corr-01 échoue car le chat tente un checkout de `feat/akg-m5-nora-adaptive-presentation`, branche déjà tenue par `…-nap-test16-coverage-corr`. Contournement conforme : travail en chemins absolus dans corr-01 **sans** checkout destructif ni move root.
+Worktrees LIVE / WIP parallèle : **non modifiés**.
 
-Worktree WIP préexistant `…-nap-test16-coverage-corr` (branche nora-adaptive @ 1c3a8d9e + diffs WIP) : **laissé intact**, non réutilisé comme base.
+## 5. Sources lues
 
-### Diff scope final (uniquement corr-01)
+Processus SFIA v2.6 (templates, routing, rules, operating model, validation) · CKC cycle 8 / carte synthétique (guidance) · Convergence build/roadmap/C1 · AKG-M5 trajectory · doctrine v3 30/32/34/35 · PRR README + volumes 03/05/06/07/08/09 (lecture) · handoff `71315921` · `presentationLabels.ts` (RO) · candidate Option C.
+
+## 6. Convergence Pre-check
+
+Trajectoire L3-S2 OPEN → micro-correctif CR-02 → Critical Review → décision Morris intégration → validation BALISE sous gate distinct. Method-candidate guidance only.
+
+## 7. R23 — composants / flux / invariants
+
+| Élément | Statut |
+|---------|--------|
+| Pipeline Nora → Memory B → resolve → ConversationSurface → View | DOCUMENTED |
+| DTO / persist / rehydration | KEEP / COVERAGE VERIFIED |
+| CORR-NAP-02 couverture stricte body≡lead | KEEP / BEHAVIOR PROVEN |
+| CORR-NAP-03 provenance Studio typed | KEEP / BEHAVIOR PROVEN |
+| Mode `adaptive_with_canonical` | KEEP + CR-02 hierarchy ADAPT |
+| View composition | ADAPT (canonical-first) |
+| ConversationSurface formatage display | ADAPT (R2) |
+| Serveur / schema / SQLite | NON TOUCHÉ |
+
+**KNOWN GAP :** validation navigateur LIVE BALISE hors scope.
+
+Invariants G01–G20 conservés ; couverture non floue.
+
+## 8. R24 — impact et dette
+
+**SEMANTIC IMPACT — RENDER COMPOSITION** (ordre + avertissement + formatage display).
+
+| Volume | Action candidate (GO doc distinct) |
+|--------|-------------------------------------|
+| PRR 03 | Ordre canonique → projection secondaire + warning |
+| PRR 08 | Oracles CR-02 UI contradiction / formatage |
+| PRR 09 | Réserve TEST-16 / limites browser |
+| README | Si index modes |
+| PRR 06 | NO PERSISTENCE SEMANTIC IMPACT |
+
+Claim `PRR SYNC COMPLETED` : **non déclaré**. Dette : sync PRR sous GO documentaire Morris.
+
+## 9. Réserves initiales R1 / R2
+
+**R1** — blocs structurés avant récit quand coverage=false → risque de promouvoir une recommandation contradictoire.
+
+**R2** — `canonicalNarrative` brut ≠ chemin `formatNoraAssistantDisplayText` du plain historique.
+
+## 10. Solution finale
+
+### R1 — hiérarchie
+
+Quand `adaptive_with_canonical` (`data-composition=canonical-first`) :
+
+1. Section **Réponse complète de Nora** en premier (visible par défaut, `h3`).
+2. Section **Projection structurée (Nora — non certifiée)** ensuite, avec avertissement explicite de non-certification / divergence possible.
+3. Recommendation blocks conservent disclaimer Studio-owned ; aucun CTA.
+4. Notices Studio authentifiées restent en appendix distinct.
+
+Quand coverage=true : composition `projection-only` inchangée (pas de couche redondante).
+
+Pas de détection sémantique de contradiction ; hiérarchie + warning déterministes.
+
+### R2 — formatage
+
+Qualification de `formatNoraAssistantDisplayText` (RO) :
+
+- Unescape `\n`/`\t`, soft markdown, jargon F2 ciblé.
+- **Ne supprime pas** négations / dates / refus / exceptions génériques.
+- Retire des footers jargon type `RECOMMANDATION — PAS UNE DÉCISION HUMAINE` (parity plain ; compensé par disclaimer Studio + honesty note dans la vue).
+- Ne touche pas `[Studio]` forgé ; notices authentifiées déjà hors body via strip typed.
+
+Application : ConversationSurface passe `formatNoraAssistantDisplayText(decision.canonicalNarrative)` en display-only. Transcript durable inchangé. Appendix Studio non dupliqué dans le récit.
+
+## 11–13. Diffs utiles (candidate complète depuis main = Delivery + CR-02)
+
+Scope final (6 fichiers Product) :
 
 ```
 M projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
@@ -71,145 +131,35 @@ M projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresenta
 M projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
 ```
 
-6 fichiers · +207 / −26 · **aucun** package.json / lock · **aucun** chemin protégé.
-
-## D. Convergence Pre-check
-
-Sources lues / appliquées comme guidance (method-candidate / doctrine) :
-
-- Processus SFIA v2.6 : templates cycle, routing, rules, operating model, validation checklist.
-- CKC cycle 8 : carte synthétique 02-fifteen-cycles si CKC détaillé absent — guidance uniquement.
-- Convergence Studio : build doctrine, roadmap, C1 product completion.
-- Trajectoire AKG-M5 M5 target journey.
-- Doctrine v3 : 30 / 32 / 34 / 35.
-- PRR CURRENT README + volumes 03, 05, 06, 07, 08, 09 (lecture ; **écriture PRR non autorisée** sans GO documentaire).
-
-Convergence opérationnelle : correction locale Option C sur trajectoire L3-S2 OPEN → Critical Review → éventuelle intégration sous GO distinct.
-
-## E. R23 — architecture-informed
-
-### Composants
-
-| Composant | Rôle | Classification validée |
-|-----------|------|------------------------|
-| `noraAdaptivePresentation.ts` | parse / coverage / resolve render | **ADAPT** (resolve only) |
-| `NoraAdaptivePresentationView.tsx` + CSS | renderer Option C | **ADAPT** |
-| `ConversationSurface.tsx` | branchement mode → view | **ADAPT** (strict besoin) |
-| DTO / schema / persist Memory B | Option C storage | **KEEP** |
-| Provenance Studio typed notices | CORR-NAP-02/03 | **KEEP** |
-| `orchestrateTurn` / actions / SQLite / routes | serveur | **NON TOUCHÉ** |
-
-### Flux
-
-1. Message assistant rehydraté avec `adaptivePresentation` + `studioControlNotices`.
-2. `resolveAdaptiveAssistantRender` décide : `plain` | `adaptive` | **`adaptive_with_canonical`** (nouveau).
-3. `ConversationSurface` rend `NoraAdaptivePresentationView` pour adaptive* ; plain sinon.
-4. View affiche projection structurée ; si `canonicalNarrative` → couche récit intégral visible par défaut ; appendix Studio authentifié distinct.
-
-### Invariants conservés
-
-G01–G20 (voir §R) · couverture **stricte** body≡lead inchangée (pas de fuzzy) · pas de second moteur · pas de CTA Product · pas d'HTML arbitraire.
-
-### Gaps
-
-- Validation navigateur LIVE BALISE : hors scope (runtime non relancé).
-- Sync PRR R24 : préparée, non appliquée.
-
-## F. R24 — impact documentaire
-
-**SEMANTIC IMPACT — RENDER COMPOSITION.**
-
-| Volume PRR | Impact | Action proposée (GO doc distinct) |
-|------------|--------|-----------------------------------|
-| 03 Flow F04 + Option C | Mode `adaptive_with_canonical` + couche récit | Synchroniser décision de rendu |
-| 08 tests/preuves | Oracles T1–T7/T11 + UI TEST16 | Mettre à jour matrice |
-| 09 réserve/sortie | UX réserve TEST-16 partiellement adressée en candidate | Noter limite : LIVE browser non validé |
-| README index | Si entrée Option C modes | Optionnel |
-| 06 persistence | **NO PERSISTENCE SEMANTIC IMPACT** | aucune |
-
-Claim interdit : `PRR SYNC COMPLETED` — **non déclaré**.
-
-Gate Morris restant : GO documentaire pour écrire PRR/manifest.
-
-## G. Diagnostic TEST-16 source
-
-Handoff diagnostic immuable :
-
-- Branche `sfia/review-handoff` commit `0b0c0cf574ab333bd3595db018a5828213bd6439`
-- Fichier `sfia-review-handoff/latest-chatgpt-review.md`
-- Blob attendu `e411eb12ece110475dc700a6440a7f3a388461aa`
-- Verdict : `TEST-16 OPTION C ROOT CAUSE QUALIFIED`
-- Cause : `coverage_false_body_ne_lead` (CORR-NAP-02 body≡lead strict)
-- Faits : seq20/21 · `ltu:8e7720d6895b2faaff2a7003210dfff5` · presentation VALID · 4 blocs · narrative 1996 · lead 176 · shouldRender=true · coverage=false · mode=plain
-
-Tip distant handoff **avant** ce publish : `6d17ec6d` (avancé depuis 0b0c0cf5 — diagnostic toujours lisible au commit immuable).
-
-## H. Problème avant correction
-
-Projection Option C valide persistée, mais `resolveAdaptiveAssistantRender` forçait `mode=plain` et **jetait** la présentation dès que `contentFullyCoveredByPresentation` était false. UX TEST-16 = texte classique malgré DTO structuré disponible.
-
-## I. Solution retenue
-
-Composition à **deux couches** dans le renderer existant :
-
-1. Si présentation invalide/absente → `plain` (inchangé).
-2. Si présentation valide + body≡lead → `adaptive`, `canonicalNarrative=null` (pas de redondance).
-3. Si présentation valide + body≠lead → `adaptive_with_canonical` : projection structurée **conservée** + récit canonique intégral (`body` hors notices Studio authentifiées) **visible par défaut**, clairement labellisé (`Réponse complète de Nora`).
-
-`contentFullyCoveredByPresentation` reste strict (aucune similarité token).
-
-## J. Alternatives rejetées
-
-| Alternative | Motif de rejet |
-|-------------|----------------|
-| Comparaison floue / overlap tokens pour « couverture » | Interdit (G03) ; risque de masquer négations |
-| Supprimer le récit et ne garder que les blocs | Perte informationnelle (G01/G02/G04) |
-| Second moteur de présentation | Interdit par contrat |
-| Changer DTO serveur / forcer lead=body côté modèle | Hors scope ; STOP serveur |
-| Masquer le récit derrière disclosure fermée par défaut | Risque de cacher réserves/conditions |
-
-## K. Inventaire fichiers créés/modifiés
-
-**Créés :** aucun (hors `.tmp-sfia-review/chatgpt-review.md` local non versionné projet).
-
-**Modifiés (corr-01, non commités projet) :** 6 fichiers listés §C.
-
-## L. Git Review Index
-
-| Path | Kind | Notes |
-|------|------|-------|
-| `…/noraAdaptivePresentation.ts` | MOD | resolve modes + fields |
-| `…/NoraAdaptivePresentationView.tsx` | MOD | canonical layer |
-| `…/NoraAdaptivePresentationView.module.css` | MOD | styles couche |
-| `…/ConversationSurface.tsx` | MOD | branche adaptive_with_canonical |
-| `…/noraAdaptivePresentation.d0.test.ts` | MOD | oracles documentés |
-| `…/noraAdaptivePresentation.ui.test.tsx` | MOD | UI TEST16 shape |
-
-## M. Contenu complet des nouveaux fichiers
-
-Aucun nouveau fichier Product. Constante ajoutée dans lib existante :
-
-`NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL = "Réponse complète de Nora"`
-
-## N. Diffs utiles (contenu modifié)
-
 ### noraAdaptivePresentation.ts
 
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
-index d6422018..ac5bb342 100644
+index d6422018..ecf2b0a3 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
-@@ -710,8 +710,20 @@ export function contentFullyCoveredByPresentation(
+@@ -710,8 +710,32 @@ export function contentFullyCoveredByPresentation(
    return nBody === nLead;
  }
 
 +/**
-+ * CORR-NAP-TEST16-01 — Pilot-facing label for the canonical narrative layer
-+ * when structured projection and body diverge (strict coverage false).
++ * CORR-NAP-TEST16-01 / CR-02 — Pilot-facing label for the canonical narrative
++ * layer when structured projection and body diverge (strict coverage false).
++ * Canonical is the conversational restitution reference (not HumanDecision /
++ * Evidence Product).
 + */
 +export const NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL =
 +  "Réponse complète de Nora" as const;
++
++/**
++ * CR-02 R1 — secondary structured projection when coverage is not demonstrated.
++ * Never presented as certified / GO / HumanDecision.
++ */
++export const NORA_ADAPTIVE_SECONDARY_PROJECTION_LABEL =
++  "Projection structurée (Nora — non certifiée)" as const;
++
++export const NORA_ADAPTIVE_SECONDARY_PROJECTION_WARNING =
++  "Cette projection est une reformulation Nora non certifiée et peut diverger du récit complet ci-dessus. Le récit complet fait référence pour la restitution conversationnelle." as const;
 +
 +export type AdaptiveAssistantRenderMode =
 +  | "adaptive"
@@ -222,7 +172,7 @@ index d6422018..ac5bb342 100644
    readonly presentation: NoraAdaptivePresentation | null;
    /**
     * Authenticated Studio control appendix only (typed notices).
-@@ -721,12 +733,26 @@ export type AdaptiveAssistantRenderDecision = {
+@@ -721,12 +745,26 @@ export type AdaptiveAssistantRenderDecision = {
    readonly plainText: string;
    /** Server-authored notices used for appendix / strip (empty if none). */
    readonly studioControlNotices: readonly string[];
@@ -252,7 +202,7 @@ index d6422018..ac5bb342 100644
   */
  export function resolveAdaptiveAssistantRender(input: {
    content: string;
-@@ -756,16 +782,24 @@ export function resolveAdaptiveAssistantRender(input: {
+@@ -756,16 +794,24 @@ export function resolveAdaptiveAssistantRender(input: {
        studioAppendix: null,
        plainText: content,
        studioControlNotices: authenticated,
@@ -281,7 +231,7 @@ index d6422018..ac5bb342 100644
      };
    }
    return {
-@@ -774,6 +808,8 @@ export function resolveAdaptiveAssistantRender(input: {
+@@ -774,6 +820,8 @@ export function resolveAdaptiveAssistantRender(input: {
      studioAppendix,
      plainText: content,
      studioControlNotices: authenticated,
@@ -297,35 +247,77 @@ index d6422018..ac5bb342 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx
-index 69111019..dd8c0b63 100644
+index 69111019..5192300f 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx
-@@ -6,6 +6,7 @@ import type {
+@@ -1,13 +1,16 @@
+ "use client";
+
+-import type { ReactElement } from "react";
++import type { ReactElement, ReactNode } from "react";
+ import type {
+   NoraAdaptivePresentation,
    NoraAdaptivePresentationBlock,
  } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
  import {
 +  NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL,
    NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
    NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE,
++  NORA_ADAPTIVE_SECONDARY_PROJECTION_LABEL,
++  NORA_ADAPTIVE_SECONDARY_PROJECTION_WARNING,
    honestBlockTitle,
-@@ -247,6 +248,12 @@ export type NoraAdaptivePresentationViewProps = {
+   honestEpistemicLabel,
+   sanitizeProvenanceNote,
+@@ -240,6 +243,29 @@ function renderBlock(
+   );
+ }
+
++function ProjectionChrome({
++  presentation,
++}: {
++  presentation: NoraAdaptivePresentation;
++}): ReactElement {
++  return (
++    <>
++      {presentation.eyebrow ? (
++        <p className={styles.eyebrow}>{presentation.eyebrow}</p>
++      ) : null}
++      {presentation.title ? (
++        <h3 className={styles.title}>{presentation.title}</h3>
++      ) : null}
++      {presentation.lead ? (
++        <p className={styles.lead}>{presentation.lead}</p>
++      ) : null}
++      <div className={styles.blocks}>
++        {presentation.blocks.map((block, index) => renderBlock(block, index))}
++      </div>
++    </>
++  );
++}
++
+ export type NoraAdaptivePresentationViewProps = {
+   presentation: NoraAdaptivePresentation;
+   /**
+@@ -247,6 +273,13 @@ export type NoraAdaptivePresentationViewProps = {
     * blocks so server notices are never masked by the DTO.
     */
    studioAppendix?: string | null;
 +  /**
-+   * CORR-NAP-TEST16-01 — full canonical Nora narrative when strict coverage
-+   * failed. Visible by default; never substituted by presentation.lead alone.
-+   * Null/empty when body ≡ lead (nominal adaptive, no redundancy).
++   * CORR-NAP-TEST16-01 / CR-02 — full canonical Nora narrative when strict
++   * coverage failed. Visible by default, rendered BEFORE the secondary
++   * projection. Caller should pass pilot-facing formatted text (same path as
++   * plain). Null/empty when body ≡ lead (nominal adaptive, no redundancy).
 +   */
 +  canonicalNarrative?: string | null;
    /** Scrubbed plain fallback when caller forces plain — unused in adaptive mode. */
    fallbackText?: string;
  };
-@@ -255,17 +262,21 @@ export type NoraAdaptivePresentationViewProps = {
+@@ -255,30 +288,63 @@ export type NoraAdaptivePresentationViewProps = {
   * Bounded adaptive renderer for Nora Option C presentation DTO.
   * No Product CTAs, no HTML injection, no governed action hooks.
   * CORR-NAP-01 — honest epistemic labels; Studio appendix never hidden.
-+ * CORR-NAP-TEST16-01 — optional canonical narrative layer when coverage fails.
++ * CORR-NAP-TEST16-01 / CR-02 — when coverage fails: canonical first, then
++ * secondary non-certified projection (never promote projection over narrative).
   */
  export function NoraAdaptivePresentationView({
    presentation,
@@ -334,31 +326,65 @@ index 69111019..dd8c0b63 100644
  }: NoraAdaptivePresentationViewProps): ReactElement {
    const appendix = (studioAppendix ?? "").trim();
 +  const narrative = (canonicalNarrative ?? "").trim();
++  const composition = narrative ? "canonical-first" : "projection-only";
++
++  let body: ReactNode;
++  if (narrative) {
++    body = (
++      <>
++        <section
++          className={styles.canonicalNarrative}
++          aria-label={NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL}
++          data-testid="nora-adaptive-canonical-narrative"
++        >
++          <h3 className={styles.canonicalNarrativeLabel}>
++            {NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL}
++          </h3>
++          <p className={styles.canonicalNarrativeBody}>{narrative}</p>
++        </section>
++        <section
++          className={styles.secondaryProjection}
++          aria-label={NORA_ADAPTIVE_SECONDARY_PROJECTION_LABEL}
++          data-testid="nora-adaptive-secondary-projection"
++        >
++          <h4 className={styles.secondaryProjectionLabel}>
++            {NORA_ADAPTIVE_SECONDARY_PROJECTION_LABEL}
++          </h4>
++          <p
++            className={styles.secondaryProjectionWarning}
++            data-testid="nora-adaptive-secondary-warning"
++          >
++            {NORA_ADAPTIVE_SECONDARY_PROJECTION_WARNING}
++          </p>
++          <ProjectionChrome presentation={presentation} />
++        </section>
++      </>
++    );
++  } else {
++    body = <ProjectionChrome presentation={presentation} />;
++  }
++
    return (
      <div
        className={styles.root}
        data-testid="nora-adaptive-presentation"
        data-presentation-version={presentation.version}
 +      data-canonical-layer={narrative ? "visible" : "none"}
++      data-composition={composition}
      >
-       {presentation.eyebrow ? (
-         <p className={styles.eyebrow}>{presentation.eyebrow}</p>
-@@ -279,6 +290,18 @@ export function NoraAdaptivePresentationView({
-       <div className={styles.blocks}>
-         {presentation.blocks.map((block, index) => renderBlock(block, index))}
-       </div>
-+      {narrative ? (
-+        <section
-+          className={styles.canonicalNarrative}
-+          aria-label={NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL}
-+          data-testid="nora-adaptive-canonical-narrative"
-+        >
-+          <h4 className={styles.canonicalNarrativeLabel}>
-+            {NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL}
-+          </h4>
-+          <p className={styles.canonicalNarrativeBody}>{narrative}</p>
-+        </section>
-+      ) : null}
+-      {presentation.eyebrow ? (
+-        <p className={styles.eyebrow}>{presentation.eyebrow}</p>
+-      ) : null}
+-      {presentation.title ? (
+-        <h3 className={styles.title}>{presentation.title}</h3>
+-      ) : null}
+-      {presentation.lead ? (
+-        <p className={styles.lead}>{presentation.lead}</p>
+-      ) : null}
+-      <div className={styles.blocks}>
+-        {presentation.blocks.map((block, index) => renderBlock(block, index))}
+-      </div>
++      {body}
        <p
          className={styles.epistemicHonesty}
          data-testid="nora-adaptive-epistemic-honesty"
@@ -369,13 +395,14 @@ index 69111019..dd8c0b63 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
-index 17250b3b..72490c99 100644
+index 17250b3b..a6a25993 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
-@@ -218,6 +218,37 @@
+@@ -218,6 +218,69 @@
    line-height: 1.4;
  }
 
++/* CR-02 R1 — canonical is primary restitution when coverage fails. */
 +.canonicalNarrative {
 +  display: flex;
 +  flex-direction: column;
@@ -383,18 +410,18 @@ index 17250b3b..72490c99 100644
 +  margin: 0;
 +  padding: var(--pm6-space-3);
 +  border-radius: var(--pm6-radius-md);
-+  border: 1px solid var(--pm6-border-soft);
-+  background: var(--pm6-surface-sunken);
++  border: 1px solid var(--pm6-border);
++  background: var(--pm6-surface);
 +  max-width: 100%;
 +  overflow-wrap: anywhere;
 +}
 +
 +.canonicalNarrativeLabel {
 +  margin: 0;
-+  font-size: var(--pm6-text-caption);
-+  font-weight: 600;
++  font-size: var(--pm6-text-body);
++  font-weight: 650;
 +  letter-spacing: 0.01em;
-+  color: var(--pm6-muted-strong);
++  color: var(--pm6-ink);
 +  line-height: 1.35;
 +}
 +
@@ -407,6 +434,37 @@ index 17250b3b..72490c99 100644
 +  overflow-wrap: anywhere;
 +}
 +
++/* CR-02 R1 — structured projection is secondary / non-certified. */
++.secondaryProjection {
++  display: flex;
++  flex-direction: column;
++  gap: var(--pm6-space-2);
++  margin: 0;
++  padding: var(--pm6-space-3);
++  border-radius: var(--pm6-radius-md);
++  border: 1px dashed var(--pm6-border-soft);
++  background: var(--pm6-surface-sunken);
++  max-width: 100%;
++  overflow-wrap: anywhere;
++  opacity: 0.96;
++}
++
++.secondaryProjectionLabel {
++  margin: 0;
++  font-size: var(--pm6-text-caption);
++  font-weight: 600;
++  letter-spacing: 0.01em;
++  color: var(--pm6-muted-strong);
++  line-height: 1.35;
++}
++
++.secondaryProjectionWarning {
++  margin: 0;
++  font-size: var(--pm6-text-caption);
++  color: var(--pm6-muted-strong);
++  line-height: 1.4;
++}
++
  .epistemicHonesty {
    margin: 0;
    font-size: var(--pm6-text-caption);
@@ -417,10 +475,10 @@ index 17250b3b..72490c99 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-index 00836627..a315d14b 100644
+index 00836627..521c5c68 100644
 --- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
 +++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
-@@ -624,13 +624,15 @@ export function ConversationSurface({
+@@ -624,13 +624,25 @@ export function ConversationSurface({
                      studioControlNotices: message.studioControlNotices,
                    });
                    if (
@@ -429,11 +487,21 @@ index 00836627..a315d14b 100644
 +                      decision.mode === "adaptive_with_canonical") &&
                      decision.presentation
                    ) {
++                    // CR-02 R2 — same pilot-facing formatter as plain path.
++                    // Display-only; durable content / Memory B unchanged.
++                    // Authenticated Studio notices stay in studioAppendix only.
++                    const canonicalDisplay =
++                      decision.canonicalNarrative != null &&
++                      decision.canonicalNarrative.trim() !== ""
++                        ? formatNoraAssistantDisplayText(
++                            decision.canonicalNarrative,
++                          )
++                        : null;
                      return (
                        <NoraAdaptivePresentationView
                          presentation={decision.presentation}
                          studioAppendix={decision.studioAppendix}
-+                        canonicalNarrative={decision.canonicalNarrative}
++                        canonicalNarrative={canonicalDisplay}
                          fallbackText={formatNoraAssistantDisplayText(
                            message.content,
                          )}
@@ -582,10 +650,10 @@ index a69367ec..1d1e007e 100644
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
-index a37f5eec..c1e26ed1 100644
+index a37f5eec..567b3288 100644
 --- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
 +++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
-@@ -8,6 +8,7 @@ import { cleanup, render, screen, within } from "@testing-library/react";
+@@ -8,14 +8,18 @@ import { cleanup, render, screen, within } from "@testing-library/react";
  import { afterEach, describe, expect, it, vi } from "vitest";
  import { NoraAdaptivePresentationView } from "@/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView";
  import {
@@ -593,7 +661,18 @@ index a37f5eec..c1e26ed1 100644
    NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
    NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE,
    NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
-@@ -273,7 +274,69 @@ describe("ConversationSurface adaptive message path", () => {
++  NORA_ADAPTIVE_SECONDARY_PROJECTION_LABEL,
++  NORA_ADAPTIVE_SECONDARY_PROJECTION_WARNING,
+   appendStudioControlNotices,
+   honestBlockTitle,
+   parseNoraAdaptivePresentation,
+   type NoraAdaptivePresentation,
+ } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
++import { formatNoraAssistantDisplayText } from "@/features/project-assistant/presentationLabels";
+ import { ConversationSurface } from "@/features/pre-m6-product-ui/surfaces/ConversationSurface";
+ import type { ProductConversationController } from "@/features/pre-m6-product-ui/hooks/useProductConversation";
+
+@@ -273,7 +277,194 @@ describe("ConversationSurface adaptive message path", () => {
      });
      render(<ConversationSurface controller={controller} />);
      expect(screen.queryByTestId("nora-adaptive-studio-appendix")).toBeNull();
@@ -605,7 +684,7 @@ index a37f5eec..c1e26ed1 100644
 +    ).toHaveTextContent(/contrat approuvé/);
 +  });
 +
-+  it("CORR-NAP-TEST16-01 — long narrative / short lead → blocks + full canonical visible", () => {
++  it("CORR-NAP-TEST16-01 / CR-02 — long narrative / short lead → canonical before secondary projection", () => {
 +    const presentation = balisePresentation();
 +    const shortLead = presentation.lead!;
 +    const longNarrative = [
@@ -628,18 +707,29 @@ index a37f5eec..c1e26ed1 100644
 +    render(<ConversationSurface controller={controller} />);
 +    const root = screen.getByTestId("nora-adaptive-presentation");
 +    expect(root.getAttribute("data-canonical-layer")).toBe("visible");
-+    expect(
-+      within(root).getByText(
-+        honestBlockTitle("established_facts", "Éléments établis"),
-+      ),
-+    ).toBeTruthy();
++    expect(root.getAttribute("data-composition")).toBe("canonical-first");
 +    const canonical = within(root).getByTestId(
 +      "nora-adaptive-canonical-narrative",
++    );
++    const secondary = within(root).getByTestId(
++      "nora-adaptive-secondary-projection",
++    );
++    expect(canonical.compareDocumentPosition(secondary)).toBe(
++      Node.DOCUMENT_POSITION_FOLLOWING,
 +    );
 +    expect(canonical).toHaveTextContent(NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL);
 +    expect(canonical).toHaveTextContent(/n'est pas prêt/);
 +    expect(canonical).toHaveTextContent(/2099-01-01/);
 +    expect(canonical).toHaveTextContent(/phrase critique/);
++    expect(secondary).toHaveTextContent(NORA_ADAPTIVE_SECONDARY_PROJECTION_LABEL);
++    expect(
++      within(root).getByTestId("nora-adaptive-secondary-warning"),
++    ).toHaveTextContent(NORA_ADAPTIVE_SECONDARY_PROJECTION_WARNING);
++    expect(
++      within(secondary).getByText(
++        honestBlockTitle("established_facts", "Éléments établis"),
++      ),
++    ).toBeTruthy();
 +    expect(within(root).queryByRole("button")).toBeNull();
 +  });
 +
@@ -658,137 +748,211 @@ index a37f5eec..c1e26ed1 100644
 +    render(<ConversationSurface controller={controller} />);
 +    const root = screen.getByTestId("nora-adaptive-presentation");
 +    expect(root.getAttribute("data-canonical-layer")).toBe("none");
++    expect(root.getAttribute("data-composition")).toBe("projection-only");
 +    expect(
 +      screen.queryByTestId("nora-adaptive-canonical-narrative"),
 +    ).toBeNull();
++    expect(
++      screen.queryByTestId("nora-adaptive-secondary-projection"),
++    ).toBeNull();
++  });
++
++  it("CR-02 R1-T05 — contradiction approuver/rejeter: canonical refusal before projected recommendation", () => {
++    const presentation = parseNoraAdaptivePresentation({
++      version: 1,
++      eyebrow: null,
++      title: null,
++      lead: "Nous recommandons d'approuver le cycle.",
++      blocks: [
++        {
++          kind: "recommendation",
++          title: null,
++          statement: "Nous recommandons d'approuver le cycle.",
++          disclaimer: null,
++        },
++      ],
++      provenanceNote: null,
++      noGovernedActionNote: null,
++    })!;
++    const content =
++      "Nous recommandons de rejeter le cycle. Refus jusqu'au 2099-01-01 sauf exception Pilote.";
++    const controller = stubController({
++      messages: [
++        {
++          id: "a1",
++          role: "assistant",
++          content,
++          adaptivePresentation: presentation,
++        },
++      ],
++    });
++    render(<ConversationSurface controller={controller} />);
++    const root = screen.getByTestId("nora-adaptive-presentation");
++    const canonical = within(root).getByTestId(
++      "nora-adaptive-canonical-narrative",
++    );
++    const secondary = within(root).getByTestId(
++      "nora-adaptive-secondary-projection",
++    );
++    expect(canonical).toHaveTextContent(/rejeter/);
++    expect(canonical).toHaveTextContent(/2099-01-01/);
++    expect(canonical.compareDocumentPosition(secondary)).toBe(
++      Node.DOCUMENT_POSITION_FOLLOWING,
++    );
++    expect(secondary).toHaveTextContent(/approuver/);
++    expect(within(root).queryByRole("button")).toBeNull();
++    // Recommendation stays non-decisionnal; honesty note may mention HumanDecision
++    // as a negation — that is not a promotion.
++    expect(secondary).toHaveTextContent(NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER);
++    expect(within(root).queryByText(/GO confirm/i)).toBeNull();
++  });
++
++  it("CR-02 R2 — canonical layer uses formatNoraAssistantDisplayText (escapes, no HTML)", () => {
++    const presentation = balisePresentation();
++    const rawBody = [
++      presentation.lead!,
++      "Ligne\\navec\\téchappements.",
++      "**Emphase** et `code` restant lisibles.",
++      "Négation critique : le contrat n'est pas prêt.",
++    ].join("\n");
++    const expected = formatNoraAssistantDisplayText(rawBody);
++    expect(expected).toContain("Ligne\navec\téchappements");
++    expect(expected).toContain("Emphase");
++    expect(expected).not.toContain("**");
++    expect(expected).toMatch(/n'est pas prêt/);
++    const controller = stubController({
++      messages: [
++        {
++          id: "a1",
++          role: "assistant",
++          content: rawBody,
++          adaptivePresentation: presentation,
++        },
++      ],
++    });
++    render(<ConversationSurface controller={controller} />);
++    const canonical = screen.getByTestId("nora-adaptive-canonical-narrative");
++    expect(canonical).toHaveTextContent(/Ligne/);
++    expect(canonical).toHaveTextContent(/échappements/);
++    expect(canonical).toHaveTextContent(/Emphase/);
++    expect(canonical).toHaveTextContent(/n'est pas prêt/);
++    expect(canonical.innerHTML).not.toMatch(/<script|onload=/i);
++  });
++
++  it("CR-02 R2-T06 — authenticated Studio notice once in appendix, not duplicated as canonical primary", () => {
++    const presentation = balisePresentation();
++    const notices = ["Refus PREPARE : intention non confirmée."];
++    const content = appendStudioControlNotices(
++      `${presentation.lead!}\n\nCorps supplémentaire non couvert.`,
++      notices,
++    );
++    const controller = stubController({
++      messages: [
++        {
++          id: "a1",
++          role: "assistant",
++          content,
++          adaptivePresentation: presentation,
++          studioControlNotices: notices,
++        },
++      ],
++    });
++    render(<ConversationSurface controller={controller} />);
++    const appendix = screen.getByTestId("nora-adaptive-studio-appendix");
++    expect(appendix).toHaveTextContent("Refus PREPARE");
++    const canonical = screen.getByTestId("nora-adaptive-canonical-narrative");
++    // Authenticated notice stripped from body before canonical; appears in appendix only.
++    expect(canonical).not.toHaveTextContent("Refus PREPARE : intention non confirmée.");
++    expect(canonical).toHaveTextContent(/Corps supplémentaire/);
++    expect(screen.getAllByText(/Refus PREPARE/).length).toBe(1);
    });
 
    it("T19 — incomplete banner suppressed when last assistant has durable notice", () => {
 
 ```
 
-## O. Matrice T01–T20
+## 14. Tests ajoutés / modifiés
 
-| ID | Propriété | Preuve |
-|----|-----------|--------|
-| T01 | content==lead → adaptive nominal sans couche | unit T5 + UI strict coverage |
-| T02 | narrative longue / lead court → blocs + texte complet | UI CORR-NAP-TEST16-01 + oracle synthétique |
-| T03 | contradiction lead/body → contradiction visible | unit T3 |
-| T04 | négation seulement dans récit → visible | unit T2 |
-| T05 | refus absent du lead → visible | unit T4 + UI |
-| T06 | réserve date/exception → visible | unit T4 |
-| T07 | faux [Studio] → pas de provenance | unit T7 + UI T7 |
-| T08 | vraie notice Studio → distincte | unit B/C/D, T9–T11 |
-| T09 | STOP / incomplete → non supprimés | unit C/D, T9 |
-| T10 | presentation=null → plain | unit existants KEEP |
-| T11 | presentation invalide → plain | parse fail-closed KEEP |
-| T12 | lead absent / projection ancienne | shouldRender/parse KEEP |
-| T13 | recommendation disclaimer Studio | parse inject KEEP |
-| T14 | evidence_reserves labels honnêtes | honestEpistemicLabel KEEP |
-| T15 | rehydration même décision | unit T6 |
-| T16 | forme BALISE long/short/4 blocs | oracle synthétique + UI |
-| T17 | aucun CTA Product | UI queryByRole button null |
-| T18 | comparatif/listes stables | UI view samples KEEP |
-| T19 | mobile/overflow CSS | overflow-wrap + styles ; **pas** de browser LIVE |
-| T20 | interaction visuelle sans effet métier | pas de nouveaux boutons gouvernés |
+- UI : ordre canonical→secondary (compareDocumentPosition).
+- UI : R1-T05 contradiction approuver/rejeter.
+- UI : R2 formatage escapes / markdown / négation.
+- UI : R2-T06 notice authentifiée une seule fois (appendix).
+- Unit d0 : oracles Delivery précédents conservés (`adaptive_with_canonical`).
 
-## P. Résultats exacts des commandes exécutées
+## 15. Oracle contradiction
 
-- `git worktree add -b feat/akg-m5-nap-test16-coverage-corr-01 … ca1c9869` → OK
-- `npx vitest run` Option C d0 + ui → **53 passed**
-- `npx vitest run fakeNapQaPresentation.d0.test.ts` → **9 passed**
-- `npx tsc --noEmit` → **exit 0**
-- Oracle synthétique TEST-16 shape → `mode=adaptive_with_canonical`, `canonicalLen=1996`, `contentFullyCovered=false`
-- `git diff --name-status` → 6 fichiers autorisés seulement
-- Dépendances : aucune ajoutée
-- `lsof :3020` final → no LISTEN (observation) ; LIVE HEAD inchangé `1c3a8d9e`
+Contenu « rejeter…2099-01-01 » vs lead/block « approuver » :
 
-## Q. Résultats des tests existants
+- mode `adaptive_with_canonical` ;
+- DOM : canonical contient `rejeter` **avant** secondary contenant `approuver` ;
+- disclaimer recommendation présent ; aucun bouton CTA ; pas de « GO confirm ».
 
-- CORR-NAP d0 : 34/34 PASS (oracles T1–T7/T11 mis à jour avec protection ≥ équivalente documentée)
-- UI Option C : 19/19 PASS (dont 2 nouveaux cas TEST16)
-- fakeNapQaPresentation : 9/9 PASS (non régression)
+## 16. Oracle formatage
 
-Tests négatifs **conservés** (forged Studio, authority titles, invalid parse).
+`Ligne\navec\t` + `**Emphase**` + négation → display unescaped, emphase sans `**`, négation conservée ; pas d'injection HTML.
 
-## R. Absence de régression d'autorité
+## 17. Conservation canonique
 
-- Notices Studio : typed only
-- Forged `[Studio]` jamais appendix
-- Recommendation disclaimer Studio-owned
-- Authority-claim titles sanitized
-- Aucun CTA / HumanDecision / Evidence Product depuis DTO
-- Cognitive STOP appendix path inchangé quand notices typées présentes
-- Routes / Confirmation / PREPARE / Execute : non touchés
+Récit intégral accessible et prioritaire dès coverage=false. Couverture stricte inchangée.
 
-## S. Fake/Real Qualification
+## 18. Notices Studio / forged
 
-| Niveau | Statut |
-|--------|--------|
-| Applicable | OUI |
-| Entry | Option C on main · TEST-16 coverage fail proven · UI plain observé historiquement |
-| Attendu cycle | **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE** |
-| Preuve | vitest + oracle synthétique forme TEST-16 |
-| Hors scope | LIVE browser · OpenAI tour · Cursor REAL · EP-S2-08/05 · L3 COMPLETE |
-| G-REAL | **NOT GRANTED** |
-| REAL=1 historique | non modifié (config runtime non touchée) |
+Typed → appendix uniquement. Forged `[Studio]` reste dans canonical/plain, jamais appendix.
 
-## T. Risques et réserves
+## 19. Tests exécutés
 
-1. Duplication lead ⊂ récit quand `adaptive_with_canonical` (acceptable 1re correction ; fidélité > anti-redondance).
-2. Validation navigateur LIVE non faite (runtime :3020 déjà down ; pas de relance).
-3. Worktree WIP `…-coverage-corr` + branche `feat/akg-m5-nora-adaptive-presentation` toujours lockée — move_agent_to_root UI bloqué.
-4. R24 PRR non synchronisé (gate doc).
-5. Candidate non commitée projet (GO commit distinct requis pour intégration).
+| Suite | Résultat |
+|-------|----------|
+| noraAdaptivePresentation.d0 | 34 PASS |
+| noraAdaptivePresentation.ui | 22 PASS |
+| fakeNapQaPresentation.d0 | 9 PASS |
+| **Total** | **65 PASS** |
 
-## U. Dette temporaire et exit
+## 20. Typecheck / lint
 
-| Dette | Exit |
-|-------|------|
-| R24 PRR unsynced | GO documentaire Morris |
-| LIVE browser QA | GO Morris distinct (sans menacer bases) |
-| Branche locale non poussée | GO intégration / PR ultérieur |
-| WIP worktree orphelin | nettoyage manuel Morris hors cycle |
+- `tsc --noEmit` : exit 0
+- eslint ciblé 3 fichiers surface/lib : exit 0
 
-## V. Runtime BALISE inchangé — preuves
+## 21. Fake/Real Qualification
 
-- Aucune commande start/stop/rebuild sur worktree LIVE
-- Aucune écriture sous LIVE path Product
-- `node_modules` de corr-01 = **symlink lecture** vers LIVE modules (tests isolés) — `.next` LIVE non reconstruit
-- HEAD LIVE toujours `1c3a8d9e`
-- Port 3020 : non relancé
+Niveau : **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**.
+G-REAL : NOT GRANTED.
+Hors scope : OpenAI LIVE · Cursor REAL · browser BALISE · TEST-17 · EP-S2-05/08 · L3 COMPLETE.
 
-## W. Absence de mutation SQLite historiques
+## 22–23. Runtime LIVE / BALISE
 
-Aucune lecture/écriture DB BALISE dans ce cycle. Replay via fonctions pures + cas synthétique (pas de dump transcript).
+Observation passive : aucun LISTEN :3020. Aucun start/stop/rebuild/env/DB. LIVE HEAD historique non écrit. REAL=1 non modifié.
 
-## X. Aucun changement serveur non autorisé
+## 24. Réserves
 
-Non touchés : orchestrateTurn, outputType/schema, SQLite, actions, Product state, AI providers, routes exécution.
+1. Browser LIVE non validé (gate distinct).
+2. Formateur retire certains footers jargon (parity plain) — disclaimers Studio dans la vue.
+3. Candidate non commitée projet.
+4. R24 PRR non écrite.
+5. Duplication partielle lead ⊂ récit possible dans secondary (fidélité > anti-redondance).
 
-## Y. Gates Morris restants
+## 25. Gates Morris restants
 
-1. Critical Review ChatGPT (ce handoff).
-2. GO documentaire R24 PRR sync si intégration.
-3. GO commit/PR projet (si acceptation).
-4. GO validation navigateur / reprise BALISE (si besoin TEST-16 UX close).
-5. Ne pas confondre avec TEST-17 / L3 COMPLETE / v3 ADOPTED.
+Critical Review ChatGPT → éventuel GO intégration/PR → GO R24 PRR → GO browser BALISE.
 
-## Z. Verdict unique et prochaine action
+## 26. Verdict unique
 
-**`LOCAL DELIVERY CANDIDATE — READY FOR CHATGPT CRITICAL REVIEW`**
+**`LOCAL CORRECTION CR-02 — READY FOR CHATGPT CRITICAL REVIEW`**
 
-Prochaine action : ChatGPT relit le handoff distant (commit/blob), vérifie diffs et invariants, puis Morris arbitre intégration / R24 / browser gate.
+## 27. Git Review Index
 
----
+| Path | Role CR-02 |
+|------|------------|
+| noraAdaptivePresentation.ts | Labels secondary + warning |
+| NoraAdaptivePresentationView.tsx | Composition canonical-first |
+| *.module.css | Styles primary/secondary |
+| ConversationSurface.tsx | formatNoraAssistantDisplayText sur canonical |
+| *.d0.test.ts | Oracles Delivery conservés |
+| *.ui.test.tsx | Oracles R1/R2 DOM |
 
-## Instruction ChatGPT obligatoire
+## 28. Instruction ChatGPT obligatoire
 
-Avant de répondre à Morris, relire le handoff distant :
+Relire distant `sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (SHA/blob de ce publish). Vérifier cycle/GO, Git Truth, 6 fichiers, diffs R1/R2, oracles UI hiérarchie/formatage, notices, tests, runtime, R23/R24, réserves, verdict.
 
-- Branche : `sfia/review-handoff`
-- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
-- Vérifier : commit + blob distants · cycle/GO · Git Truth · fichiers modifiés · contenu/diff · invariants · démonstration TEST-16 · T01–T20 · gouvernance · absence effet LIVE · Fake/Real · R23/R24 · réserves · verdict.
-
-Si synthesis-only → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
-Si remote non actualisé → `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
+Synthesis-only → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
+Remote non actualisé → `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
