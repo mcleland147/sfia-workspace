@@ -415,8 +415,10 @@ Preuves locales minimales pour contrôle ChatGPT :
 | Branche | `sfia/review-handoff` |
 | Canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Commit attendu | `docs(review-handoff): publish balise live e2e resume audit` |
-| SHA distant | *(rempli après publish)* |
-| Relecture distante | *(rempli après publish)* |
+| SHA distant tip | `17c933faf0a4ad1453fc1ec0b6b8b207cac8c8b4` |
+| Blob canonique | `0de8dcb936e16dbba495a1b331255429668afd8c` |
+| Verdict publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
+| Relecture distante | OK — verdict `BLOCKED — BALISE RESUME NOT QUALIFIED` ; BALISE `prj:d0c81c08…` ; EC `xct:gen-prep:8be90773…` ; CHECK-02 FAIL ; main `ca1c9869` |
 
 ---
 
