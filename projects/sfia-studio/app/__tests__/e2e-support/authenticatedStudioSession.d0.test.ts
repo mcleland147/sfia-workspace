@@ -1,5 +1,7 @@
 /**
- * GAP-14 unit — cookie header parse / status without leaking values.
+ * GAP-14 / QA-NAP-02 — cookie header parse / Playwright cookie-shape without leaking values.
+ * Deterministic Vitest oracle only — no Chromium launch (CI does not install browsers).
+ * BrowserContext.addCookies acceptance remains covered by E2E harness / QA-NAP-03.
  * @vitest-environment node
  */
 import { afterEach, describe, expect, it } from "vitest";
@@ -22,7 +24,7 @@ afterEach(() => {
 });
 
 describe("GAP-14 authenticatedStudioSession helper", () => {
-  it("parses Better Auth session cookie header bound to localhost", () => {
+  it("parses Better Auth session cookie header into url-only Playwright cookie shape", () => {
     const header =
       "better-auth.session_token=fake-test-token; other=1; Path=/";
     const cookies = parseCookieHeaderToPlaywrightCookies(
@@ -33,10 +35,17 @@ describe("GAP-14 authenticatedStudioSession helper", () => {
       true,
     );
     expect(cookies.every((c) => typeof c.value === "string")).toBe(true);
+    expect(cookies.every((c) => (c.value ?? "").length > 0)).toBe(true);
+    expect(cookies.every((c) => typeof c.url === "string")).toBe(true);
     expect(cookies.every((c) => c.url?.startsWith("http://localhost"))).toBe(
       true,
     );
+    // QA-NAP-02 — url XOR path (Playwright rejects url+path together).
+    expect(cookies.every((c) => c.path === undefined)).toBe(true);
+    expect(cookies.every((c) => c.domain === undefined)).toBe(true);
     expect(cookies.length).toBeGreaterThanOrEqual(1);
+    // Structural contract only — ≠ BrowserContext.addCookies acceptance
+    // (E2E: applyAuthenticatedStudioCookies / studio-nora-adaptive-qa-nap01).
   });
 
   it("rejects headers without Better Auth session marker", () => {
@@ -46,6 +55,17 @@ describe("GAP-14 authenticatedStudioSession helper", () => {
         "http://localhost:3020",
       ),
     ).toThrow(/AUTH_COOKIE_HEADER_MISSING_BETTER_AUTH_SESSION/);
+  });
+
+  it("filters third-party cookies and rejects empty header", () => {
+    expect(() =>
+      parseCookieHeaderToPlaywrightCookies("", "http://localhost:3020"),
+    ).toThrow(/AUTH_COOKIE_HEADER_EMPTY/);
+    const cookies = parseCookieHeaderToPlaywrightCookies(
+      "better-auth.session_token=abc; _gh_sess=x; logged_in=yes",
+      "http://localhost:3020",
+    );
+    expect(cookies.every((c) => c.name.startsWith("better-auth."))).toBe(true);
   });
 
   it("defaults visual base URL to localhost (not 127.0.0.1)", () => {

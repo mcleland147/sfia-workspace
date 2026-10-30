@@ -141,16 +141,29 @@ export function appendPilotTranscriptTurn(
     logicalTurnId?: string | null;
     cycleInstanceId?: string | null;
     turnId?: string;
+    /** Validated presentation JSON string — assistant only; never Truth C. */
+    presentationJson?: string | null;
+    /** CORR-NAP-02 — typed Studio control notices JSON (string[]); assistant only. */
+    studioControlJson?: string | null;
   },
 ): PilotTranscriptTurnRef {
   session.ensurePilotTranscriptAndJournalSchema();
   const db = session.getSqlite();
   const logicalTurnId = input.logicalTurnId?.trim() || null;
+  const presentationJson =
+    input.role === "assistant" && typeof input.presentationJson === "string"
+      ? input.presentationJson.trim() || null
+      : null;
+  const studioControlJson =
+    input.role === "assistant" && typeof input.studioControlJson === "string"
+      ? input.studioControlJson.trim() || null
+      : null;
   // Retry-safe: same logical turn + role → return existing row (no duplicate).
   if (logicalTurnId) {
     const prior = db
       .prepare(
-        `SELECT turn_id, seq, role, content, created_at, logical_turn_id, cycle_instance_id
+        `SELECT turn_id, seq, role, content, created_at, logical_turn_id,
+                cycle_instance_id, presentation_json, studio_control_json
          FROM pilot_transcript_turns
          WHERE project_id = ? AND session_key = ?
            AND logical_turn_id = ? AND role = ?
@@ -171,6 +184,8 @@ export function appendPilotTranscriptTurn(
           created_at: string;
           logical_turn_id: string | null;
           cycle_instance_id: string | null;
+          presentation_json: string | null;
+          studio_control_json: string | null;
         }
       | undefined;
     if (prior) {
@@ -182,6 +197,8 @@ export function appendPilotTranscriptTurn(
         content: prior.content,
         logicalTurnId: prior.logical_turn_id,
         cycleInstanceId: prior.cycle_instance_id,
+        presentationJson: prior.presentation_json ?? null,
+        studioControlJson: prior.studio_control_json ?? null,
       });
     }
   }
@@ -197,8 +214,8 @@ export function appendPilotTranscriptTurn(
   db.prepare(
     `INSERT INTO pilot_transcript_turns(
        project_id, session_key, turn_id, seq, role, content, created_at,
-       logical_turn_id, cycle_instance_id
-     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       logical_turn_id, cycle_instance_id, presentation_json, studio_control_json
+     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
   ).run(
     session.projectId,
     session.sessionKey,
@@ -209,6 +226,8 @@ export function appendPilotTranscriptTurn(
     createdAt,
     logicalTurnId,
     input.cycleInstanceId?.trim() || null,
+    presentationJson,
+    studioControlJson,
   );
   return Object.freeze({
     turnId,
@@ -218,6 +237,8 @@ export function appendPilotTranscriptTurn(
     content: input.content,
     logicalTurnId,
     cycleInstanceId: input.cycleInstanceId?.trim() || null,
+    presentationJson,
+    studioControlJson,
   });
 }
 
@@ -228,7 +249,8 @@ export function listPilotTranscriptTurns(
   const rows = session
     .getSqlite()
     .prepare(
-      `SELECT turn_id, seq, role, content, created_at, logical_turn_id, cycle_instance_id
+      `SELECT turn_id, seq, role, content, created_at, logical_turn_id,
+              cycle_instance_id, presentation_json, studio_control_json
        FROM pilot_transcript_turns
        WHERE project_id = ? AND session_key = ?
        ORDER BY seq ASC`,
@@ -241,6 +263,8 @@ export function listPilotTranscriptTurns(
     created_at: string;
     logical_turn_id: string | null;
     cycle_instance_id: string | null;
+    presentation_json: string | null;
+    studio_control_json: string | null;
   }>;
   return rows.map((r) =>
     Object.freeze({
@@ -251,6 +275,8 @@ export function listPilotTranscriptTurns(
       content: r.content,
       logicalTurnId: r.logical_turn_id,
       cycleInstanceId: r.cycle_instance_id,
+      presentationJson: r.presentation_json ?? null,
+      studioControlJson: r.studio_control_json ?? null,
     }),
   );
 }

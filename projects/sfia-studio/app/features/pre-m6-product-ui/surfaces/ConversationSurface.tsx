@@ -53,7 +53,41 @@ import {
   presentActivityEventLabel,
   presentLiveActivityTimeline,
 } from "./presentLiveActivityTimeline";
+import { NoraAdaptivePresentationView } from "./NoraAdaptivePresentationView";
+import { resolveAdaptiveAssistantRender } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
 import styles from "./ConversationSurface.module.css";
+
+/**
+ * CORR-NAP-03 — typed Studio notices only. Content / "[Studio]" markers never
+ * prove provenance and must not suppress an active incomplete control.
+ */
+function messageHasAuthenticatedExecutionIncompleteNotice(
+  studioControlNotices?: readonly string[] | null,
+): boolean {
+  const notices = studioControlNotices ?? [];
+  return notices.some((n) => /limite d['']ex[eé]cution/i.test(n));
+}
+
+/**
+ * CORR-NAP-03 — suppress incomplete banner only when the trailing message is
+ * the current-turn assistant AND it already shows an authenticated incomplete
+ * notice. If the last message is a user (or anything else), correlation to the
+ * incomplete turn is uncertain → keep the banner. Never scan history.
+ */
+function currentTurnAlreadyShowsAuthenticatedIncomplete(
+  messages: readonly {
+    role: string;
+    content: string;
+    studioControlNotices?: readonly string[] | null;
+  }[],
+): boolean {
+  if (messages.length === 0) return false;
+  const trailing = messages[messages.length - 1];
+  if (trailing.role !== "assistant") return false;
+  return messageHasAuthenticatedExecutionIncompleteNotice(
+    trailing.studioControlNotices,
+  );
+}
 
 /**
  * RC-02 — human-facing active-cycle label (pure presentation; no OA import).
@@ -578,11 +612,37 @@ export function ConversationSurface({
                 >
                   {message.role === "user" ? "Vous" : "Nora"}
                 </p>
-                <p className={styles.bubbleText}>
-                  {message.role === "assistant"
-                    ? formatNoraAssistantDisplayText(message.content)
-                    : message.content}
-                </p>
+                {(() => {
+                  if (message.role !== "assistant") {
+                    return (
+                      <p className={styles.bubbleText}>{message.content}</p>
+                    );
+                  }
+                  const decision = resolveAdaptiveAssistantRender({
+                    content: message.content,
+                    presentation: message.adaptivePresentation,
+                    studioControlNotices: message.studioControlNotices,
+                  });
+                  if (
+                    decision.mode === "adaptive" &&
+                    decision.presentation
+                  ) {
+                    return (
+                      <NoraAdaptivePresentationView
+                        presentation={decision.presentation}
+                        studioAppendix={decision.studioAppendix}
+                        fallbackText={formatNoraAssistantDisplayText(
+                          message.content,
+                        )}
+                      />
+                    );
+                  }
+                  return (
+                    <p className={styles.bubbleText}>
+                      {formatNoraAssistantDisplayText(message.content)}
+                    </p>
+                  );
+                })()}
               </div>
             </article>
           ))
@@ -2314,7 +2374,8 @@ export function ConversationSurface({
         </div>
       ) : null}
 
-      {executionIncomplete ? (
+      {executionIncomplete &&
+      !currentTurnAlreadyShowsAuthenticatedIncomplete(messages) ? (
         <div
           className={styles.stoppedBanner}
           role="status"

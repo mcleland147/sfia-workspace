@@ -724,6 +724,8 @@ export async function runNoraAgentsTurn(
               activeCycleWork: coherent.activeCycleWork ?? null,
               conversationGuidance: coherent.conversationGuidance,
               journalDelta: coherent.journalDelta ?? null,
+              reservationDelta: coherent.reservationDelta ?? null,
+              presentation: coherent.presentation ?? null,
             };
           }
         }

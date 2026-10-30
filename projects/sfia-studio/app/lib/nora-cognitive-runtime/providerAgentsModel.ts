@@ -224,6 +224,8 @@ export function coercePlainTextToProductTurnJson(text: string): string {
         activeCycleWork: o.activeCycleWork ?? null,
         conversationGuidance: o.conversationGuidance ?? null,
         journalDelta: o.journalDelta ?? null,
+        reservationDelta: o.reservationDelta ?? null,
+        presentation: o.presentation ?? null,
       });
       if (coherent) {
         return JSON.stringify({
@@ -233,6 +235,8 @@ export function coercePlainTextToProductTurnJson(text: string): string {
           activeCycleWork: coherent.activeCycleWork ?? null,
           conversationGuidance: coherent.conversationGuidance,
           journalDelta: coherent.journalDelta ?? null,
+          reservationDelta: coherent.reservationDelta ?? null,
+          presentation: coherent.presentation ?? null,
         });
       }
       return buildFailClosedProductTurnJson(String(o.narrative));

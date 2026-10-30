@@ -44,6 +44,10 @@ import {
   derivePreCycleRoutingDisposition,
   isPreCycleRoutingAssessment,
   normalizeNoraProductTurnStructuredOutput,
+  serializeNoraAdaptivePresentation,
+  appendStudioControlNotices,
+  normalizeStudioControlNotices,
+  serializeStudioControlNotices,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
@@ -1387,14 +1391,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         }
       }
       pendingGenericPrepareMission = null;
-      if (
-        genericPrepareTurnFinalize &&
-        !genericPrepareTurnFinalize.ok &&
-        typeof assistantText === "string" &&
-        assistantText.trim().length > 0
-      ) {
-        assistantText = `${assistantText.trim()}\n\n[Studio] ${genericPrepareTurnFinalize.message}`;
-      }
+      // Studio prepare-fail notice is typed below (CORR-NAP-02) — not inlined here.
     }
 
     const { toolEvents, sources, readCoverage } = collectToolTelemetry(
@@ -1513,6 +1510,21 @@ export async function orchestrateProjectAssistantTurn(input: {
       );
     }
 
+    // CORR-NAP-02 — typed Studio control notices (server provenance only).
+    // Mirrored into durable content for plain fallback; appendix trust uses
+    // the typed array, never forged "[Studio]" prose from Nora.
+    const studioControlNotices = normalizeStudioControlNotices([
+      genericPrepareTurnFinalize && !genericPrepareTurnFinalize.ok
+        ? genericPrepareTurnFinalize.message
+        : null,
+      executionLimitReached ? EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE : null,
+      stopNotice,
+    ]);
+    assistantText = appendStudioControlNotices(
+      assistantText,
+      studioControlNotices,
+    );
+
     // Pilot transcript + Cycle Journal — fail-closed locally; never blocks reply.
     const activeCycleIdForJournal =
       input.studioCognitiveContext?.activeCycle?.cycleInstanceId?.trim() ||
@@ -1537,11 +1549,18 @@ export async function orchestrateProjectAssistantTurn(input: {
             logicalTurnId,
             cycleInstanceId: activeCycleIdForJournal,
           });
+          const adaptivePresentation =
+            coherentEarly?.presentation ?? null;
           const assistantTurn = appendPilotTranscriptTurn(session, {
             role: "assistant",
             content: assistantText,
             logicalTurnId,
             cycleInstanceId: activeCycleIdForJournal,
+            presentationJson: adaptivePresentation
+              ? serializeNoraAdaptivePresentation(adaptivePresentation)
+              : null,
+            studioControlJson:
+              serializeStudioControlNotices(studioControlNotices),
           });
           // P0 — do not materialize journalDelta as completed mission when limitReached.
           // Transcript of the interruption remains factual above.
@@ -1617,6 +1636,8 @@ export async function orchestrateProjectAssistantTurn(input: {
       text: assistantText,
       mode: modeResolution.mode,
       presentation,
+      adaptivePresentation: coherentEarly?.presentation ?? null,
+      studioControlNotices,
       model: turn.usage?.model ?? null,
       toolRounds: turn.toolRounds,
       toolCalls: turn.toolCalls,

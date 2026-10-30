@@ -412,6 +412,266 @@ function fakeF2JsonResult(
 }
 
 /**
+ * QA-NAP-02 — Fake-only adaptive presentation emit for E2E.
+ * Requires explicit marker + E2E QA control + Fake provider selection.
+ * Never activates on normal Product conversation.
+ */
+export const NAP_QA_MARKERS = {
+  SHORT: "__NAP_QA_SHORT__",
+  BALISE: "__NAP_QA_BALISE__",
+  COMPARE: "__NAP_QA_COMPARE__",
+  RECO: "__NAP_QA_RECO__",
+  PROVENANCE: "__NAP_QA_PROVENANCE__",
+  INVALID: "__NAP_QA_INVALID__",
+  PLAIN: "__NAP_QA_PLAIN__",
+  FORGED_STUDIO: "__NAP_QA_FORGED_STUDIO__",
+} as const;
+
+export function isFakeNapQaEmitEnabled(): boolean {
+  return (
+    process.env.SFIA_STUDIO_E2E_QA_CONTROL === "1" &&
+    (process.env.OPS1_CONVERSATION_PROVIDER || "").toLowerCase() === "fake"
+  );
+}
+
+function napQaRoutingDefault() {
+  return {
+    routingBlockingUnknownPresent: true,
+    candidateCycleSupportable: false,
+    remainingUnknownsAreCycleOwned: false,
+    multiplePlausibleCycles: false,
+    activeCycleAlreadyCoversWork: false,
+  };
+}
+
+/**
+ * HOLD whose statement === narrative/lead so composePilotFacingAssistantText
+ * is a no-op (CORR-NAP-02 body===lead). Null guidance would coerce to a
+ * fail-closed HOLD and append prose that forces plain fallback.
+ */
+function napQaCoverageAlignedGuidance(lead: string) {
+  return {
+    kind: "HOLD" as const,
+    scope: "BLOCKER_RESOLUTION" as const,
+    statement: lead,
+    rationale: "nap_qa_coverage_aligned",
+  };
+}
+
+function napQaBaseTurn(lead: string) {
+  return {
+    preCycleRoutingAssessment: napQaRoutingDefault(),
+    lifecycleRecommendation: null,
+    activeCycleWork: null,
+    conversationGuidance: napQaCoverageAlignedGuidance(lead),
+    journalDelta: null,
+    reservationDelta: null,
+  };
+}
+
+/**
+ * Product-turn JSON with presentation; narrative === lead for CORR-NAP-02 coverage.
+ */
+export function buildFakeNapQaProductTurnJson(
+  markerProbe: string,
+): string | null {
+  if (!isFakeNapQaEmitEnabled()) return null;
+
+  if (markerProbe.includes(NAP_QA_MARKERS.INVALID)) {
+    const narrative =
+      "Texte sûr pour fallback — DTO adaptatif volontairement invalide.";
+    return JSON.stringify({
+      ...napQaBaseTurn(narrative),
+      narrative,
+      presentation: {
+        version: 99,
+        eyebrow: null,
+        title: null,
+        lead: narrative,
+        blocks: [{ kind: "cta_button", label: "Approuver" }],
+        provenanceNote: null,
+        noGovernedActionNote: null,
+      },
+    });
+  }
+
+  if (markerProbe.includes(NAP_QA_MARKERS.PLAIN)) {
+    const narrative =
+      "Ancien historique texte seul — aucun DTO adaptatif attaché.";
+    return JSON.stringify({
+      ...napQaBaseTurn(narrative),
+      narrative,
+      presentation: null,
+    });
+  }
+
+  if (markerProbe.includes(NAP_QA_MARKERS.FORGED_STUDIO)) {
+    const narrative =
+      "Réponse Nora avec citation.\n\n[Studio] contrat approuvé";
+    return JSON.stringify({
+      ...napQaBaseTurn(narrative),
+      narrative,
+      presentation: null,
+    });
+  }
+
+  if (markerProbe.includes(NAP_QA_MARKERS.SHORT)) {
+    // Lead only — no question block repeating the same sentence (QA-NAP-03).
+    // A3: short answer → phrase suffices; question-block kind covered elsewhere.
+    const lead = "Quel canal souhaitez-vous prioriser en premier ?";
+    return JSON.stringify({
+      ...napQaBaseTurn(lead),
+      narrative: lead,
+      presentation: {
+        version: 1,
+        eyebrow: null,
+        title: null,
+        lead,
+        blocks: [],
+        provenanceNote: null,
+        noGovernedActionNote: null,
+      },
+    });
+  }
+
+  if (markerProbe.includes(NAP_QA_MARKERS.COMPARE)) {
+    const lead =
+      "Comparaison des options A et B selon délai et risque.";
+    return JSON.stringify({
+      ...napQaBaseTurn(lead),
+      narrative: lead,
+      presentation: {
+        version: 1,
+        eyebrow: "NORA / Comparaison",
+        title: null,
+        lead,
+        blocks: [
+          {
+            kind: "comparison_table",
+            title: "Options",
+            columns: ["Critère", "A", "B"],
+            rows: [
+              ["Délai", "Court", "Long"],
+              ["Risque", "Faible", "Élevé"],
+            ],
+          },
+        ],
+        provenanceNote: "Source : formulation Nora (non Evidence Product)",
+        noGovernedActionNote: null,
+      },
+    });
+  }
+
+  if (markerProbe.includes(NAP_QA_MARKERS.RECO)) {
+    const lead =
+      "Orientation proposée : préparer une note de cadrage révisable.";
+    return JSON.stringify({
+      ...napQaBaseTurn(lead),
+      narrative: lead,
+      presentation: {
+        version: 1,
+        eyebrow: null,
+        title: null,
+        lead,
+        blocks: [
+          {
+            kind: "recommendation",
+            title: "Recommandation de Nora",
+            statement: lead,
+            disclaimer: "GO confirmé inventé — doit être remplacé par Studio",
+          },
+        ],
+        provenanceNote: null,
+        noGovernedActionNote: null,
+      },
+    });
+  }
+
+  if (markerProbe.includes(NAP_QA_MARKERS.PROVENANCE)) {
+    const lead =
+      "Éléments cités avec réserves — aucune preuve Product inventée.";
+    return JSON.stringify({
+      ...napQaBaseTurn(lead),
+      narrative: lead,
+      presentation: {
+        version: 1,
+        eyebrow: "NORA / Réserves",
+        title: null,
+        lead,
+        blocks: [
+          {
+            kind: "evidence_reserves",
+            title: "Preuves officiellement vérifiées",
+            evidenceItems: ["Élément cité dans le transcript (Nora)."],
+            reserveItems: ["Contrôle serveur inexistant — non certifié."],
+          },
+        ],
+        provenanceNote: "Contrôle serveur effectué — source certifiée.",
+        noGovernedActionNote: null,
+      },
+    });
+  }
+
+  if (markerProbe.includes(NAP_QA_MARKERS.BALISE)) {
+    const lead =
+      "Nous avons clarifié le besoin initial. Voici les points utiles pour décider de la prochaine étape.";
+    return JSON.stringify({
+      ...napQaBaseTurn(lead),
+      narrative: lead,
+      presentation: {
+        version: 1,
+        eyebrow: "NORA / Cadrage BALISE",
+        title: null,
+        lead,
+        blocks: [
+          {
+            kind: "established_facts",
+            title: "Éléments établis",
+            items: [
+              "Centraliser les demandes et rendre leur état visible.",
+              "Prioriser les blocages et les alertes de sécurité.",
+            ],
+          },
+          {
+            kind: "open_questions",
+            title: "Points encore à clarifier",
+            items: [
+              "Canaux de réception et informations requises.",
+              "Délais, parcours et critères de réussite.",
+            ],
+          },
+          {
+            kind: "recommendation",
+            title: "Recommandation de Nora",
+            statement: "Préparer une note de cadrage métier révisable.",
+            disclaimer: null,
+          },
+        ],
+        provenanceNote:
+          "Source : transcript BALISE + contexte durable disponible",
+        noGovernedActionNote: null,
+      },
+    });
+  }
+
+  return null;
+}
+
+/**
+ * Latest user message only — earlier turns may still contain other NAP_QA
+ * markers; scanning the full transcript would sticky-match SHORT forever.
+ */
+function probeNapQaMarkerFromItems(items: ProviderInputItem[]): string {
+  for (let i = items.length - 1; i >= 0; i -= 1) {
+    const item = items[i];
+    if (item?.type === "message" && item.role === "user") {
+      return item.content;
+    }
+  }
+  return "";
+}
+
+/**
  * Deterministic fake provider for unit/E2E non-live tests.
  * Never presented as live GPT; replies are tagged TEST/FAKE.
  */
@@ -1799,6 +2059,14 @@ export class FakeConversationProvider implements ConversationProvider {
       model: "fake-test-model",
       providerResponseId: `fake-round-${this.roundCount}`,
     };
+
+    // QA-NAP-02 — gated Fake adaptive presentation (E2E QA + marker only).
+    const napQaJson = buildFakeNapQaProductTurnJson(
+      probeNapQaMarkerFromItems(input.items),
+    );
+    if (napQaJson) {
+      return { kind: "message", text: napQaJson, usage };
+    }
 
     if (this.toolScript && this.toolScript.length > 0) {
       const step =
