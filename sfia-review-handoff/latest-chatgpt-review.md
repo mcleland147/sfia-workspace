@@ -318,9 +318,9 @@ TEST-16 ; message Nora ; Cursor Agent REAL ; OAuth interactif Morris ; confirm/r
 | Branche | `sfia/review-handoff` |
 | Canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Commit | `docs(review-handoff): publish balise live e2e runtime recovery` |
-| SHA distant tip |  |
-| Blob canonique |  |
-| Verdict publisher |  |
+| SHA distant tip | `a65bb1d574915b6c5365f26b521bf60743724a2e` |
+| Blob contenu FULL | `681a54defa296369dbaaafb9639b410753d9db74` |
+| Verdict publisher | `HANDOFF UPDATED — REMOTE VERIFIED` |
 | Relecture | OK — verdict READY FOR BALISE INTERACTIVE TEST-16 REVIEW ; PID 58031 ; LIVE paths ; EC confirmation_required v2 |
 
 ---
