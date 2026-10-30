@@ -29,11 +29,13 @@
 
 `session_items`, `logical_product_turns`, `logical_product_turn_retry_bindings`, `pilot_transcript_turns`, `cycle_journal_entries`, `cycle_journal_mutation_ledger`
 
-## Overlay — Nora Adaptive Presentation Option C (LOCAL CANDIDATE — PRE-INTEGRATION — 2026-10-30)
+## Overlay — Nora Adaptive Presentation Option C (CURRENT ON MAIN — PR #628 MERGED — 2026-10-30)
 
-> **Epistemic class:** **LOCAL CANDIDATE — PRE-INTEGRATION** · worktree `feat/akg-m5-nora-adaptive-presentation` · Git base / HEAD alignment `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= `origin/main` tip at authoring) · Product Delivery **UNCOMMITTED** · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN** · **≠** GLOBAL RESTART SAFE · **≠** LIVE SESSION RECOVERY PROVEN · **≠** FULL C1 LONG-HORIZON MEMORY · **≠** OpenAI LIVE structured emit.
+> **Epistemic class:** **CURRENT PRODUCT ON MAIN** via [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · Delivery **`c6b5ae3a…`** · CI correction **`1c3a8d9e…`** · Pre/post-merge CI **SUCCESS** · **≠** GLOBAL RESTART SAFE · **≠** LIVE SESSION RECOVERY PROVEN · **≠** FULL C1 LONG-HORIZON MEMORY · **≠** OpenAI LIVE structured emit.
 >
-> **Evidence refs:** QA-NAP-03 handoff `b11ef7c95d89327c5a4ea164de21a30b40b334b1` · CORR-NAP-04 `d36fddf12eae51b6f0900b9c2b510749a13dfe6b` · unit `noraAdaptivePresentation.d0.test.ts` (incl. CORR-NAP-01 P2 legacy migrate) · UI continuity suites · E2E `studio-nora-adaptive-qa-nap01.spec.ts`.
+> **HISTORICAL AS OF authoring (pre-merge):** prior overlay « LOCAL CANDIDATE — PRE-INTEGRATION / UNCOMMITTED / PROJECT GIT INTEGRATION NOT AUTHORIZED » — true before merge; preserve; superseded for Product lifecycle by this block.
+>
+> **Evidence refs:** QA-NAP-03 handoff `b11ef7c95d89327c5a4ea164de21a30b40b334b1` · CORR-NAP-04 `d36fddf12eae51b6f0900b9c2b510749a13dfe6b` · unit `noraAdaptivePresentation.d0.test.ts` (incl. CORR-NAP-01 P2 legacy migrate) · UI continuity suites · E2E `studio-nora-adaptive-qa-nap01.spec.ts` · post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551).
 
 ### Columns on `pilot_transcript_turns` (Memory B only)
 
@@ -42,11 +44,11 @@
 | `presentation_json` | TEXT NULL | Serialized validated Option C presentation DTO (UI projection); absent/null → plain `content` fallback |
 | `studio_control_json` | TEXT NULL | Serialized Studio-owned typed notices (server authority); forged Nora prose `[Studio]` ≠ this column |
 
-**Migration (local WIP):** idempotent `ALTER TABLE pilot_transcript_turns ADD COLUMN …` in `productSqliteSession.ts` when columns missing. Historical rows without columns → NULL → plain narrative. **No** new table · **no** second SoT · **≠** Truth C / OA.
+**Migration (ON MAIN via #628):** idempotent `ALTER TABLE pilot_transcript_turns ADD COLUMN …` in `productSqliteSession.ts` when columns missing. Historical rows without columns → NULL → plain narrative. **No** new table · **no** second SoT · **≠** Truth C / OA.
 
 ### Write / read / fallback
 
-| Path | Behavior (local) |
+| Path | Behavior (ON MAIN) |
 |---|---|
 | Write | After Product turn normalize: persist validated `presentation` + Studio notices via `appendPilotTranscriptTurn` INSERT on the assistant transcript row; retry-safe `logicalTurnId` lookup returns an existing row instead of creating a duplicate (**no** transcript UPDATE on that path) |
 | Read | Continuity / transcript load → `presentationJson` / `studioControlJson` → hook → ConversationSurface |

@@ -9,25 +9,29 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
-## Overlay — Nora Adaptive Presentation Option C proof index (LOCAL CANDIDATE — PRE-INTEGRATION — 2026-10-30)
+## Overlay — Nora Adaptive Presentation Option C proof index (CURRENT ON MAIN — PR #628 — 2026-10-30)
 
-> **Impact check R24-NAP-01:** **YES — documentary index only.** New NAP/Fake/Auth oracles, browser QA, and CORR-NAP-04 introduce proof rows that must stay traceable. **No** new CURRENT ON MAIN claim · Product suites remain **UNCOMMITTED WIP** · **≠** REAL · **≠** L3 closed.
+> **Impact check C14-NAP-01:** **YES — documentary index requalification.** Product suites + CI correction are **INTEGRATED ON MAIN** via [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628). Proof ceiling: **DETERMINISTIC AT TESTED SCOPE**. **≠** REAL · **≠** L3 closed.
 >
-> Evidence handoffs: QA-NAP-03 `b11ef7c9…` · CORR-NAP-04 `d36fddf1…`.
+> **HISTORICAL AS OF authoring:** prior index « LOCAL CANDIDATE — PRE-INTEGRATION / UNCOMMITTED WIP » — true before merge; preserve; superseded for Product lifecycle by this block.
+>
+> Evidence: Pre-merge CI [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) · Post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) · Vitest **6183 PASS / 142 SKIP / 0 FAIL** · Modeled governance **75 PASS** · QA-NAP-03 `b11ef7c9…` · CORR-NAP-04 `d36fddf1…` · CORR-NAP-CI-01 Vitest/Chromium boundary fix on `1c3a8d9e…`.
 
 | Suite / artifact | What it proves | Class |
 |---|---|---|
-| `noraAdaptivePresentation.d0.test.ts` | DTO parse/normalize fail-closed; block limits; legacy `presentation_json` migrate idempotent (CORR-NAP-01 P2); Memory B write/read | **DETERMINISTIC VERIFIED** · local WIP |
-| `noraAdaptivePresentation.ui.test.tsx` | Adaptive compose / fallback / Studio notices / incomplete banner trust / continuity restore | **DETERMINISTIC VERIFIED** · jsdom · local WIP |
-| `preCycleRoutingBoundary` / coherence suites (CORR-NAP-04) | Cognitive STOP → local LR neutralization **returned** (no silent LR revive drop) | **DETERMINISTIC VERIFIED** · local WIP |
+| `noraAdaptivePresentation.d0.test.ts` | DTO parse/normalize fail-closed; block limits; legacy `presentation_json` migrate idempotent (CORR-NAP-01 P2); Memory B write/read | **DETERMINISTIC VERIFIED** · ON MAIN |
+| `noraAdaptivePresentation.ui.test.tsx` | Adaptive compose / fallback / Studio notices / incomplete banner trust / continuity restore | **DETERMINISTIC VERIFIED** · jsdom · ON MAIN |
+| `preCycleRoutingBoundary` / coherence suites (CORR-NAP-04) | Cognitive STOP → local LR neutralization **returned** (no silent LR revive drop) | **DETERMINISTIC VERIFIED** · ON MAIN |
+| `authenticatedStudioSession.d0.test.ts` | Cookie header → url-only Playwright cookie **shape** (no Chromium launch) | **DETERMINISTIC COOKIE SHAPE VERIFIED** · ON MAIN · ≠ BrowserContext acceptance |
 | `fakeProvider` NAP QA markers (`__NAP_QA_*__`) | Deterministic Fake structured presentation emit — gated QA control | **DET Fake** · ≠ OpenAI LIVE |
-| `e2e/studio-nora-adaptive-qa-nap01.spec.ts` | Authenticated Better Auth Playwright + Fake NAP browser runtime; reload continuity; no free CTA | **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** · local WIP |
+| `e2e/studio-nora-adaptive-qa-nap01.spec.ts` | Authenticated Better Auth Playwright + Fake NAP browser runtime; reload continuity; no free CTA | **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** · historical E2E · code ON MAIN · **not** Required Gate job |
 | Captures `.tmp-sfia-review/runtime-captures/nora-adaptive/` | Structural A4 screenshots at reported QA scope | **STRUCTURAL ALIGNMENT** · ≠ PIXEL PERFECT |
+| Full Vitest GitHub CI (pre + post merge) | Suite green on `1c3a8d9e…` and `c848b98c…` | **CI DETERMINISTIC SUITE PASS** · 142 SKIP unchanged |
 | QA-NAP-06 STOP browser | — | **NOT PROVEN** |
 | QA-NAP-10 server restart | — | **NOT PROVEN** |
 | OpenAI LIVE structured `presentation` | — | **NOT PROVEN** |
 
-**PRR conformance note:** documentary volumes 03/06/08/09 touched under R24-NAP-01 ⇒ digest mismatch vs committed manifest **expected** until distinct digest regularization GO. Digest MATCH ≠ semantic validity.
+**PRR conformance note (C14-NAP-01 / R24-NAP-CR-01):** **As-of C14-NAP-01 local authoring**, the documentary changes to volumes 03/06/08/09 + README/Roadmap introduced expected digest drifts vs the committed manifest; the manifest was **not** refreshed in that cycle. R24-NAP-CR-01 corrects temporal currentness only and still does **not** refresh digests. Later conformance must be determined from the actual manifest/document bytes and the corresponding governed gate. Digest MATCH ≠ semantic correctness. Manifest remains unmodified until a distinct Morris digest regularization GO.
 
 ## Overlay — PR #618 proof map (CURRENT ON MAIN — MERGED + post-merge CI — 2026-10-26)
 
