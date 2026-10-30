@@ -1,408 +1,447 @@
-# C14-R24-NAP-POSTMERGE — DOCUMENTARY POST-MERGE CLOSURE — REVIEW PACK FULL
+# ChatGPT Review Pack — BALISE LIVE-E2E-01 Resume Qualification (pre-TEST-16)
 
-MONO-CYCLE: C14-R24-NAP-POSTMERGE
-PROFILE: STANDARD
-TYPOLOGY: DOC / R24 / POST-MERGE
-MODE: READ-ONLY PROJECT
-MILESTONE: AKG-M5 / L3-S2
+**Date/heure UTC :** 2026-10-30T17:25:00Z
+**Cycle unique :** AKG-M5 / L3-S2 / LIVE-E2E-01 — contrôle de reprise BALISE (READ-ONLY)
+**Profil :** CRITICAL
+**Typologie :** QA / AUDIT / READ-ONLY CONTINUITY
+**GO Morris exact :** Contrôle de reprise de BALISE, investigation locale en lecture seule, rapport de qualification et handoff L3 borné.
 
-## 1. Timestamp UTC
+**Verdict unique :** `BLOCKED — BALISE RESUME NOT QUALIFIED`
 
-2026-10-30T15:23:58Z
+**Ne pas exécuter TEST-16 dans ce cycle.** Attendre revue ChatGPT + gates Morris/Pilote.
 
-## 2. GO Morris consommé
+---
 
-C14-R24-NAP-POSTMERGE — DOCUMENTARY CLOSURE & TRAJECTORY CAPITALIZATION.
+## 1. GO / Scope / Non-autorisé
 
-Autorisé: lecture Git/GitHub/code/docs; contrôles RO; rapport temporaire; handoff L3 only.
+### Autorisé
+- Lecture seule Git / runtime / SQLite
+- Qualification de reprise BALISE sans recréation
+- Review Pack FULL + handoff L3 borné (`sfia/review-handoff`)
 
-Interdit (respecté): mutation projet; commit/push/PR/merge; digest refresh; branch delete; REAL; Formal Milestone Exit; v3 adopt; Notion/CMP.
+### Non autorisé (respecté)
+- TEST-16 ; nouvelle conversation Nora ; création/modification Project
+- Préparation/confirmation ExecutionContract ; Cursor REAL
+- Correction TEST-15 ; changement d’environnement ; migration ; redémarrage serveur
+- Mutation bases ; Delivery Product ; commit/push projet ; PR ; merge ; suppression ; promotion doctrinale
 
-## 3. Git Truth Check
+---
 
-| Item | Value |
-|------|-------|
-| Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync` |
-| Branch locale | `docs/akg-m5-nap-option-c-c14-r24-truth-sync` |
-| HEAD local | `6e60d839abd99f847e45e1797be9c98886d1b3aa` (docs commit — **expected**; ≠ CURRENT main) |
-| origin/main | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| Dirty | `.tmp-sfia-review` only |
-| Project mutation | **NONE** |
-| Docs remote | `6e60d839abd99f847e45e1797be9c98886d1b3aa	refs/heads/docs/akg-m5-nap-option-c-c14-r24-truth-sync` |
-| Feature remote | `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a	refs/heads/feat/akg-m5-nora-adaptive-presentation` |
+## 2. Git Truth — initial et final
 
-## 4. Sources canoniques lues
+| Élément | Valeur |
+|---|---|
+| Repository réel | `mcleland147/sfia-workspace` |
+| origin | `https://github.com/mcleland147/sfia-workspace.git` |
+| Baseline ChatGPT `main` | `ca1c9869f905b394808c953649910d60fbfcb984` |
+| `origin/main` local | `ca1c9869f905b394808c953649910d60fbfcb984` |
+| `git ls-remote origin refs/heads/main` | `ca1c9869f905b394808c953649910d60fbfcb984` |
+| Main distant vs baseline | **IDENTIQUE** — pas de STOP baseline |
+| Worktree d’investigation (docs) | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync` |
+| Branche docs | `docs/akg-m5-nap-option-c-c14-r24-truth-sync` @ `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
+| Status docs (porcelain) | `M .tmp-sfia-review/chatgpt-review.md` uniquement (pack de cycle) |
+| Worktree runtime Studio | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
+| Branche/HEAD runtime | `feat/akg-m5-nora-adaptive-presentation` @ `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a` |
+| Relation feat→main | feat HEAD est ancêtre de `ca1c9869` ; `git diff 1c3a8d9e ca1c9869 -- projects/sfia-studio/app` = **vide** (Product Option C code = main) |
+| Tip handoff distant (pré-publish) | `9ab3e8b786ec3a5eaff9f88290d7a57649401c7b` |
+| Worktree handoff | `/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023` — clean, branche `sfia/review-handoff` |
 
-Processus: cycle template; routing; guardrails; validation checklist; delivery pipeline; post-merge-status §13; repository execution engine.
-Studio: Build Doctrine; Roadmap; Product Completion 01; doctrine v3 30/32/34/35.
-PRR README/03/06/08/09 (+02/04/07 coherence); manifest; checker.
-Code RO: noraAdaptivePresentation / DTO / productSqliteSession / orchestrateTurn / ConversationSurface / fakeProvider.
-Handoffs: C14 · CR · DG · GI-01 · GI-02 (`99f25f85…` / `48c5645d…`).
+**Pas de reset / pull mutatif / rebase / checkout destructif / stash / clean.** Divergence docs = fichier review local attendu.
 
-## 5. Convergence Pre-check
+---
 
-Capacité: Nora Adaptive Presentation A3/A4 Option C · Milestone AKG-M5/L3-S2.
-Product INTEGRATED ON MAIN DET · Documentary R24 INTEGRATED ON MAIN · post-merge CI SUCCESS.
-KEEP Product/PRR/Roadmap/manifest · HARVEST merge/CI proofs · COMPLETE post-merge trace · NO PARALLEL REFERENCE.
-Exit: documentary closure at verified scope · ≠ L3 GLOBAL CLOSED · ≠ M5 Formal Exit.
+## 3. Convergence Pre-check
 
-## 6. Product PR #628
+| Item | Statut |
+|---|---|
+| Campagne | LIVE-E2E-01 — EXISTING |
+| Projet | BALISE — EXISTING (retrouvé en RO) |
+| Cycle externe | 9 — QA / validation |
+| CKC candidat | `ckc/09-qa-validation.md` — CONTENT VALIDATED, **aucune autorité runtime implicite** |
+| G-REAL | **NOT GRANTED** |
+| Hors scope explicite | REAL BOUNDARY PROVEN ; E2E REAL ; EP-S2-08 PASS ; EP-S2-05 PROVEN ; L3 GLOBAL CLOSED |
+| Niveau preuve attendu | READ-ONLY STATE VERIFIED / COVERAGE VERIFIED — **atteint pour l’état persistant BALISE** ; **non atteint pour la reprise runtime opérationnelle** |
 
-| Field | Value |
-|-------|-------|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/628 |
-| state | MERGED |
-| mergedAt | 2026-10-30T11:46:31Z |
-| mergeCommit | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` |
-| commits | 2 (`c6b5ae3a…` Delivery · `1c3a8d9e…` CI correction) |
-| files | 30 |
+---
 
-Parents of merge `c848b98c…`: `2cc63686…` + `1c3a8d9e…`. Delivery+correction ancestors of main: **YES**.
+## 4. Sources lues (Git courant)
 
-## 7. Documentary PR #629
+### Processus SFIA v2.6
+- `prompts/templates/sfia-cycle-execution-template.md`
+- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
+- `method/sfia-fast-track/core/sfia-rules-and-guardrails.md`
+- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
+- `method/sfia-fast-track/checklists/sfia-validation-checklist.md`
 
-| Field | Value |
-|-------|-------|
-| URL | https://github.com/mcleland147/sfia-workspace/pull/629 |
-| state | MERGED |
-| mergedAt | 2026-10-30T13:58:11Z |
-| mergeCommit | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| docs commit | `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
-| files | 7 (docs only) |
-
+### Studio / Doctrine / Trajectory
+- `projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md`
 - `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`
-- `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
-- `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
-- `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
-- `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
+- `projects/sfia-studio/product-completion/01-product-completion-cadrage.md`
+- `projects/sfia-studio/convergence/architectural-knowledge-governance/m5-product-transformation/05-m5-target-journey-and-trajectory-requalification.md`
+- `projects/sfia-studio/sfia-v3-framing/30-knowledge-context-human-decision-doctrine.md`
+- `projects/sfia-studio/sfia-v3-framing/32-living-project-state-and-dynamic-trajectory.md`
+- `projects/sfia-studio/sfia-v3-framing/34-agent-capabilities-reversibility-and-execution-governance.md`
+- `projects/sfia-studio/sfia-v3-framing/35-artifact-evidence-debt-and-controlled-learning.md`
+- `projects/sfia-studio/sfia-v3-framing/ckc/09-qa-validation.md`
+
+### PRR CURRENT
 - `projects/sfia-studio/production-runtime-reference/README.md`
-- `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json`
+- Volumes 03, 05, 06, 07, 08, 09 (présents)
 
-**No Product file in #629.**
+### Implémentation confrontée
+- `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/paths.ts`
+- `projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/sessionPaths.ts`
+- `projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts`
+- `projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts` (`hasExplicitPrepareContractIntent`)
+- UI continuité EC : `ConversationSurface.tsx` / `useProductConversation.ts` (exposition `confirmation_required`)
 
-## 8. Main et parents
+**R23 :** Git + SQLite primaires + code primés sur PRR.
+**R24 :** Aucun changement Product. **NO SEMANTIC IMPACT** sur le Product.
+**KNOWN GAP (non bloquant documentaire) :** LPS historique BALISE **sans** `presentation_json` / `studio_control_json` (Option C absente des payloads persistés pré-intégration runtime Option C) — baseline Option C = code ON MAIN, données campagne = pré-Option-C persistence.
 
-| Ref | SHA |
-|-----|-----|
-| origin/main | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| ^1 | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` (Product merge) |
-| ^2 | `6e60d839abd99f847e45e1797be9c98886d1b3aa` (Docs commit) |
+---
 
-Chain: pre-#628 → Product #628 → Documentary #629 = CURRENT main.
+## 5. R23 — Composants / flux / invariants (reprise)
 
-## 9. Commits ancêtres
+### Composants
+1. **Product Truth C** — OA SQLite campagne LIVE-E2E-01
+2. **Nora Memory B** — session SQLite campagne
+3. **Runtime Next.js** — `next dev` port 3020 (actif)
+4. **Frontière Fake/LIVE** — process actuel Fake ; historique campagne LIVE
+5. **Cursor REAL** — G-REAL NOT GRANTED ; flag fichier env ≠ process
+6. **ExecutionContract TEST-15** — préparé, `confirmation_required`, non confirmé, 0 Attempt
 
-- Delivery `c6b5ae3a…` ancestor of main: OK
-- Correction `1c3a8d9e…` ancestor of main: OK
-- Docs `6e60d839…` ancestor of main: OK
+### Flux de reprise attendu (qualifié, non exécuté)
+Pilote ouvre BALISE → Nora lit LPS/cycle/trajectoire/HD/journal → restitue continuité **sans** inventer HD/preuve/contrat/exécution.
 
-## 10. Scope Product / documentaire
+### Invariants
+- Pas d’écriture DB dans ce cycle (RO immutable)
+- Pas de confirmation/autorisation/exécution de l’EC TEST-15
+- Pas d’alignement env/runtime dans ce cycle
+- Prepared ≠ Confirmed ≠ Authorized ≠ Executed
 
-Product #628: 30 files Option C + tests + prior PRR sync in Delivery.
-Documentary #629: 7 files Roadmap+PRR+manifest only · **NO SEMANTIC PRODUCT IMPACT**.
+---
 
-## 11. Pre/post CI
+## 6. Inventaire runtime (sans mutation)
 
-| Run | Event | Head | Conclusion | Jobs |
-|-----|-------|------|------------|------|
-| 41043545435 | pull_request | `1c3a8d9e16e6…` | success | Detect SFIA Studio changes=success, Build and validate SFIA Studio=success, SFIA Studio Required Gate=success |
-| 41050498551 | push | `c848b98c5bdb…` | success | Detect SFIA Studio changes=success, Build and validate SFIA Studio=success, SFIA Studio Required Gate=success |
-| 41065363300 | pull_request | `6e60d839abd9…` | success | Detect SFIA Studio changes=success, Build and validate SFIA Studio=success, SFIA Studio Required Gate=success |
-| 41067692544 | push | `ca1c9869f905…` | success | Detect SFIA Studio changes=success, Build and validate SFIA Studio=success, SFIA Studio Required Gate=success |
-
-Post-merge docs Vitest (run 41067692544): **565 files PASS / 22 SKIP · 6183 tests PASS / 142 SKIP / 0 FAIL**. Conformance test `productionRuntimeReference.conformance.d0.test.ts` PASS in suite. Required Gate SUCCESS on both product and docs post-merge SHAs.
-
-## 12. Seven blobs (on origin/main)
-
-| Path | Blob |
-|------|------|
-| Roadmap | `fe967d0ea2ece43e8a47cb5ed3bc3af86048b4cc` |
-| README | `1a8a31419441590e2e2b9428cb36521a5fc5a77d` |
-| 03 | `2261507d65786ff5d3c8dffe56b55041e2bc9e06` |
-| 06 | `0458fde026cfc0c4428f4a03df3e3a3263e6e1af` |
-| 08 | `6a5cd93f175633849d7f9635379fc6d5b5a139d4` |
-| 09 | `eb8869e8b0bf9f0b82c74a8e7069e3934fdd4701` |
-| Manifest | `4c8735dae9aa99617c4792587918f55a77a2a278` |
-
-**BLOBS_PASS** vs GI-02 baseline.
-
-## 13. Manifest conformance
-
-Digests ON MAIN: README `fd9d3aadd64084b0` · 03 `4e8afd0560d3f660` · 06 `c79b001b5136a1be` · 08 `c3ea1874a2ba011c` · 09 `974279ccc64db86d`.
-Metadata unchanged (`lastReviewedCommit`/`lastReviewedAt`). R-MANIFEST-TOPO **OPEN**.
-
-Local RO checker (worktree docs ≡ main for PRR volumes):
-
-```
-OK: canonical README exists
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-```
-
-**PRODUCTION RUNTIME REFERENCE CONFORMANCE OK** · EXIT 0 · no `--write-digests`.
-
-## 14. Roadmap CURRENT
-
-CURRENT TIP **2026-10-30 — Nora Adaptive Presentation Option C — PR #628 MERGED**.
-Prior 2026-10-28 tip = **HISTORICAL AS TIP**.
-R24 layer = **HISTORICAL AUTHORING SNAPSHOT** with resolve-later-from-Git (R24-NAP-CR-01).
-
-Excerpt (tip cell start):
-
-```
-CURRENT TIP 2026-10-30 — AKG-M5 L3-S2 NORA ADAPTIVE PRESENTATION OPTION C — PR #628 MERGED ON MAIN** | **Morris GO 2026-10-30** · **CYCLE 14 — C14-NAP-01 POST-MERGE VERIFICATION + R24 TRUTH-SYNC** · [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · parents **`2cc6368602197e18fe886c87c8ced0a1b434f5a2`** + **`1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a`** · source `feat/akg-m5-nora-adaptive-presentation` · **2 commits** preserved: Delivery **`c6b5ae3a798070760587ac6605e6276458f375f6`** (`feat(studio): add Nora adaptive presentation with QA and PRR sync`) · CI correction **`1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a`** (`test(studio): keep auth cookie Vitest independent of Chromium`) · **30 files** (23 modified / 7 added / 0 deleted) · Pre-merge CI [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS** · Post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Detect / Build and validate / **SFIA Studio Required Gate PASS** · Vitest CI **565** files PASS / **22** SKIP · **6183** tests PASS / **142** SKIP / **0** FAIL · Modeled governance **75 PASS** · Product capability **INTEGRATED ON MAIN**: Nora Adaptive Presentation A3/A4 Option C · nullable `presentation` DTO · fail-closed normalize · typed Studio notices · Memory B `presentation_json` / `studio_control_json` · ConversationSurface adaptive renderer · narrative fallback · Cognitive STOP / CORR-NAP-01…04 · Fake NAP dual-gat
-```
-
-Classification:
-
-| Class | Fact |
-|-------|------|
-| CURRENT PRODUCT FACT | Option C ON MAIN via #628 · DET · CI SUCCESS |
-| HISTORICAL AUTHORING FACT | C14 local candidate / digest pending / DOC GI not yet authorized **as-of authoring** |
-| CURRENT DOCUMENTARY INTEGRATION FACT | **Git** PR #629 MERGED · merge `ca1c9869…` · CI #41067692544 SUCCESS |
-| OPEN PRODUCT GAP | STOP · restart · LIVE · EP-S2-08 PARTIAL · EP-S2-05 |
-
-**NOTE (non-blocking):** living tip text does not yet *name* PR #629 MERGED; CR-01 design + Git authority avoid eternal PENDING. Optional living-tip sync under **distinct DOC GO** — **≠ STOP — ROADMAP CURRENTNESS GAP**.
-
-## 15. PRR CURRENT / HISTORICAL
-
-README Option C block (main):
-
-```
-**Nora Adaptive Presentation Option C / AKG-M5 L3-S2 — CURRENT PRODUCT ON MAIN (PR #628 MERGED — 2026-10-30) + C14-NAP-01 / R24-NAP-CR-01 documentary truth-sync:**
-
-| Epistemic class | Element |
+| Champ | Observation |
 |---|---|
-| **CURRENT PRODUCT ON MAIN** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · parents **`2cc63686…`** + **`1c3a8d9e…`** · Delivery **`c6b5ae3a…`** + CI correction **`1c3a8d9e…`** (Vitest cookie-shape without Chromium) · **30 files** · Pre-merge CI [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS** · Post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Required Gate **PASS** · Vitest **6183 PASS / 142 SKIP / 0 FAIL** · Modeled governance **75 PASS** |
-| **Product facts ON MAIN** | Nullable Option C `presentation` DTO · fail-closed normalize · typed Studio notices (server provenance) · Memory B `presentation_json` / `studio_control_json` · ConversationSurface → `NoraAdaptivePresentationView` · narrative / plain fallback · Cognitive STOP / CORR-NAP-01…04 · Fake NAP dual-gate (`SFIA_STUDIO_E2E_QA_CONTROL` ∧ Fake provider) |
-| **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** · Fake Auth browser QA historical (QA-NAP-03) · **≠** OpenAI LIVE structured emit · **≠** STOP browser · **≠** server process restart |
-| **HISTORICAL AS OF authoring** | Pre-merge R24-NAP overlays « LOCAL CANDIDATE — PRE-INTEGRATION / PRODUCT UNCOMMITTED / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN » — **true before PR #628 merge**; preserve as dated snapshot · superseded for Product lifecycle by this block |
-| **R24 C14-NAP-01 / R24-NAP-CR-01 — HISTORICAL AUTHORING SNAPSHOT (2026-10-30)** | **As-of C14-NAP-01 local authoring (before semantic review and documentary Git Integration):** documentary candidate was local on branch `docs/akg-m5-nap-option-c-c14-r24-truth-sync` (volumes 03/06/08/09 + Roadmap + this README); digest regularization was pending (no `--write-digests` in that cycle); documentary publication was not yet authorized. These statements describe the dated authoring state, **not** a permanent post-publication lifecycle claim for this README. Subsequent documentary integration / digest / publication status must be resolved from Git, applicable gates and post-merge proofs. R24-NAP-CR-01 corrects temporal currentness only · **NO PRODUCT SEMANTIC IMPACT** |
-| **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ EP-S2-08 PASS · ≠ EP-S2-05 PROVEN · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ REAL PROVEN · digest MATCH ≠ semantic exhaustiveness · Product ON MAIN ≠ automatic documentary publication |
+| A. État | **ACTIF** |
+| B. PID / port | next bin **33681** ; next-server v15.5.20 **33692** ; **localhost:3020** |
+| C. CWD | `…/feat-akg-m5-nora-adaptive-presentation/projects/sfia-studio/app` |
+| D. Code servi | HEAD `1c3a8d9e` ; Product app **identique** à `main`/`ca1c9869` (diff app vide) ; intègre Product PR **#628** ; tip documentaire **#629** non requis pour Product runtime |
+| E. Auth | Better Auth secret **présent** dans `.env.local` (redacted). Session browser **non vérifiée** ce cycle (pas d’OAuth / pas de route mutative) → **INDETERMINATE** |
+| F. Vars (présence, pas de secrets) | Voir §7 |
+| G. Fake / OpenAI | Process : `OPS1_CONVERSATION_PROVIDER=fake`, `OPENAI_MODEL=fake-e2e-model`. Fichier `.env.local` : `OPENAI_MODEL=gpt-5.6-luna` + clé présente. **Runtime process ≠ LIVE** actuellement. |
+| H. Cursor REAL | Process : `SFIA_STUDIO_CURSOR_REAL` / `OPS1_CURSOR_REAL` **vides**. Fichier `.env.local` : `SFIA_STUDIO_CURSOR_REAL=1`. **Risque si reload sans override.** G-REAL NOT GRANTED. |
+| I. Autorité | `SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY=1` (process) ; EC `requiredAuthority=N2` ; 0 confirmations / 0 receipts |
+| J. Chemins DB **effectifs runtime** | **≠ LIVE-E2E-01** — voir §7 |
 
-Canonical Option C gap table: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)** (CURRENT overlay supersedes PRE-INTEGRATION table). Flow/persistence/proof detail: volumes **03 / 06 / 08**.
-```
+**STOP contractuel applicable :** le runtime actif **ne sert pas** BALISE (autre campagne). Alignement env/restart **non effectué** (non autorisé). → bloque TEST-16.
 
-PRR 09 overlay head (main):
+---
 
-```
-# 09 — Known Gaps, Reserves & Current Boundaries
+## 7. Configuration (sans secrets) et chemins DB
 
-## Hard boundaries
+### Fichier env résolu
+Symlink feat `app/.env.local` →
+`/Users/morris/Projects/sfia-workspace/projects/sfia-studio/app/.env.local`
 
-- Runtime v3 **NON ADOPTED**
-- This corpus does not change product behavior by itself (Living Reference is descriptive)
-
-## Overlay — Nora Adaptive Presentation Option C / AKG-M5 L3-S2 (CURRENT ON MAIN — PR #628 — 2026-10-30)
-
-| Field | Value |
+| Clé | Classification |
 |---|---|
-| Capability | Nora Adaptive Presentation A3/A4 — Option C |
-| Qualification date | 2026-10-30 (C14-NAP-01) |
-| Merge | **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` |
-| Commits | Delivery **`c6b5ae3a…`** · CI correction **`1c3a8d9e…`** (both ancestors of main) |
-| Status | **CURRENT PRODUCT ON MAIN** · proof **DETERMINISTIC AT TESTED SCOPE** |
-| CI | Pre [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS** · Post [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Required Gate **PASS** · Vitest **6183 PASS / 142 SKIP / 0 FAIL** |
-| Evidence refs | QA-NAP-03 `b11ef7c9…` · CORR-NAP-04 `d36fddf1…` · GI-NAP-03 `5c61edfc…` · CORR-NAP-CI-01 |
-| R24 C14-NAP-01 / R24-NAP-CR-01 | **HISTORICAL AUTHORING SNAPSHOT (2026-10-30, before semantic review and documentary Git Integration):** at that dated instant the documentary candidate was local (Roadmap + PRR README/03/06/08/09); digest regularization was pending; documentary publication was not yet authorized. These statements describe the dated authoring state, **not** a permanent post-publication lifecycle claim. Subsequent documentary status must be resolved from Git, applicable gates and post-merge proofs. R24-NAP-CR-01 = temporal currentness correction only · **≠** Product change |
+| `SFIA_STUDIO_PRODUCT_DB_PATH` | **PATH =** `…/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite` |
+| `SFIA_STUDIO_NORA_SESSION_DB_PATH` | **PATH =** `…/sfia-studio/.sfia-exec/new-project-campaign-01/product/nora-session.sqlite` |
+| `SFIA_STUDIO_CURSOR_REAL` | FLAG `1` (fichier) / vide (process) |
+| `OPENAI_API_KEY` | SET_REDACTED |
+| `BETTER_AUTH_SECRET` | SET_REDACTED |
+| `SFIA_STUDIO_E2E_QA_CONTROL` | process `1` |
+| `OPS1_CONVERSATION_PROVIDER` | process `fake` |
 
-| Élément | Statut | Preuve | Limite / exit |
-|---|---|---|---|
-| A. Option C Delivery | **CURRENT ON MAIN** | PR #628 · 30 files · CI SUCCESS | Product integrated; ≠ L3 closed |
-| B. CORR-NAP-01/02/03 | **DETERMINISTIC VERIFIED** at tested scope | Unit/UI CORR suites ON MAIN | Scope-bounded · ≠ LIVE |
-| C. CORR-NAP-04 Product Turn Coherence (LR return after STOP) | **DETERMINISTIC VERIFIED** | CORR-NAP-04 + coherence suites ON MAIN | ≠ browser STOP QA |
-| D. QA navigateur Fake/Auth | **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** | QA-NAP-03 + E2E code ON MAIN | Better Auth · Fake markers · **not** Required Gate job |
-| E. A4 structural | **STRUCTURAL ALIGNMENT** at QA scope | Captures / E2E assertions | **≠ PIXEL PERFECT** |
-| F. Browser reload | **DETERMINISTIC VERIFIED** at reported Fake scope | QA-NAP-03 `page.reload()` | Fake only |
-| G. Server restart | **NOT PROVEN** | — | QA-NAP-10 / R-SRV-RESTART open |
-| H. STOP navigateur | **NOT PROVEN** | — | QA-NAP-06 / R-STOP-BROWSER open |
-| I. OpenAI LIVE structured emit | **NOT PROVEN** | — | R-LIVE-EMIT · distinct REAL GO |
-| J. Fake/Real gap | Fake DET ≠ model REAL quality/latency/cost | — | keep ceiling |
-| K. Product Git Integration | **COMPLETED — PR #628 MERGED** | merge `c848b98c…` · two commits preserved | Feature cleanup may remain BLOCKED separately |
-| L. PRR semantic sync (C14 / R24-NAP-CR-01) | **HISTORICAL AUTHORING SNAPSHOT (2026-10-30)** — local candidate at that instant; later lifecycle resolve from Git | C14-NAP-01 volumes + Roadmap (+ R24-NAP-CR-01 temporal fix) | As-of C14 authoring: Semantic Review / digest gate / DOC GI were **not yet consumed**. Do **not** read as eternally PENDING after later gates. Resolve subsequent status from Git + applicable Morris GOs |
-| M. Full Vitest CI | **SUCCESS** on `1c3a8d9e…` and `c848b98c…` | GitHub CI logs | 142 SKIP not claimed as executed |
+### Handle fichier ouvert (preuve runtime)
+`lsof` PID 33692 :
+`…/new-project-campaign-01/product/oa-product.sqlite` (ouvert)
+**BALISE absent** de cette base (`OTHER_HAS_BALISE=0`, 34 projets FocusFlow/KidPlan/QA-NAP-… ).
 
-**Covered ON MAIN:** Option C DTO + normalize/fail-closed · Studio typed notices · adaptive UI · Memory B columns · Fake QA Auth browser (historical) · CORR-NAP-01…04 DET · Cognitive STOP LR coherence · Vitest cookie-shape without Chromium · CI Required Gate.
+### Chemins historiques LIVE-E2E-01 (BALISE)
+- Product : `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` (536576 B, **pas de WAL/SHM**)
+- Nora : `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite` (176128 B, **pas de WAL/SHM**)
+- Ouverture audit : `file:…?mode=ro&immutable=1`
+- SHA-256 (immutabilité cycle) :
+  - Product `fdb8ae8e5c16ff74b2e7badc3f0de41893cab5bc4e8e1e1349642034c520fa04`
+  - Nora `45846a91a37f18fabcfa369b735a616c2ec387f150b91bcb7c5d0271af1b50ac`
 
-**HISTORICAL PRE-INTEGRATION SNAPSHOT (as-of R24-NAP-01 authoring, before merge):** table that said **LOCAL IMPLEMENTED WIP / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN** — **true at that dated instant**; preserve; do not read as active Product status after PR #628.
+---
 
-**Preserved L3-S2 reserves (unchanged by NAP merge):** EP-S2-08 **PARTIAL** · EP-S2-05 **NOT PROVEN** · L3 GLOBAL **OPEN** · L4 **NOT AUTHORIZED** · runtime v3 **NON ADOPTED** · R-MANIFEST-TOPO **OPEN**. **QA-NAP ≠** closure of EP-S2-08 or EP-S2-05.
+## 8. État BALISE réellement retrouvé (Truth C + Memory B)
 
-**Exit / next (NEXT QUALIFIED PATH AT AUTHORING — subject to subsequent Morris gates):** (1) C14 R24 Semantic Review · (2) distinct manifest digest regularization GO if needed · (3) distinct documentary Git Integration · (4) open Product proofs (CURRENT gaps): STOP browser · server restart · OpenAI LIVE structured emit · EP-S2-08 remaining · EP-S2-05 — each under distinct Morris GO. Documentary gate consumption after authoring must be resolved from Git; do not assume they remain unconsumed forever.
+### Identité
+| Champ | Valeur |
+|---|---|
+| `projectId` | `prj:d0c81c08-349b-4109-aca7-72bd5d1bae85` |
+| `title` | `BALISE` |
+| `projectWorkspaceKey` | `balise` |
+| `status` | `active` |
+| Créé | `2026-10-29T13:05:53.812Z` |
+| Maj projet | `2026-10-29T16:06:46.496Z` |
+| Doctrine | `pkg:sfia-studio-doctrine-v3@1.0.0` |
 
-**Anti-claims:** ≠ REAL PROVEN · ≠ G-REAL · ≠ L3 CLOSED · ≠ L4 AUTHORIZED · ≠ runtime v3 ADOPTED · ≠ GLOBAL RESTART SAFE · Product ON MAIN ≠ automatic documentary publication · digest MATCH ≠ semantic validity · authoring-time local-candidate wording ≠ permanent post-publication lifecycle.
+### LPS / cycle
+| Champ | Valeur |
+|---|---|
+| LPS courant | `lps:e8e4adc5a4b95850` — **version 8** — `active` |
+| Objectif LPS | Cadrer progressivement une solution simple pour centraliser les demandes, suivre leur statut, clarifier les priorités et produire un bilan hebdomadaire. |
+| Cycle actif | `cyc:trj-13c49958061961c529bd4ec3` — `cyc:framing` — profile `Light` — **active** |
+| `presentation_json` / `studio_control_json` | **ABSENT CONFIRMED** dans LPS courant |
 
-**Gates Morris (as-of C14-NAP-01 / R24-NAP-CR-01 authoring — resolve later from Git):** documentary Semantic Review · digest gate · documentary commit/PR/merge were **not consumed at that snapshot**; subsequent consumption must be verified from Git and applicable GOs. **Product proof GOs still CURRENT OPEN:** LIVE/REAL · STOP-browser · server-restart · EP-S2-08 remaining · EP-S2-05.
+### Trajectoire / HD
+| Champ | Valeur |
+|---|---|
+| Trajectoire | `trj:lr-bridge-92fd6e6dcf5b` v1 — **validated** |
+| Step | `stp:cadrage-6e7014a3` — Cadrage — **active** |
+| HD | `dec:gf-trj:4cd07f50-82ba-40f9-bc2e-c98492ef3a83` — subject trajectory approval — **accepted** — authority **pilot** — reversible |
 
-## Overlay — AKG-M5 L3-S2 Option B / S8 (CURRENT ON MAIN — PR #623 MERGED — 2026-10-27)
+### Réserves / points ouverts (Memory B journal)
+Journal `cje:3cccab9976ef71ca` — *Besoin métier et priorisation des demandes BALISE* — status `active`
+Open points (extrait) :
+1. Canaux / infos pour enregistrer une demande
+2. Parcours / intervenants / délais suivi & 1ʳᵉ vérification
+3. Critères / niveaux de priorité vs urgences sécurité
+4. Contenu bilan hebdo + critères observables de réussite
 
-> **Epistemic class:** **CURRENT ON MAIN** via [PR #623](https://github.com/mcleland147/sfia-workspace/pull/623) **MERGED** `2026-10-27T15:02:16Z` · merge **`6c8b661c50a5c1d9bd04793192b9294b63349bb1`** · parents **`6e957ecbf50b009b692cf1fcba2748ee1aa9c862`** + **`73f0166c6a71c301a7b2a9c2471beb30ad068221`** · [post-merge CI #40526990871](https://github.com/mcleland147/sfia-workspace/actions/runs/40526990871) **COMPLETED / SUCCESS** (Detect · Typecheck · Lint · Build · Vitest · Modeled Governance · Secret Pattern Scan · Trailing Whitespace · **SFIA Studio Required Gate PASS**) · event=`push` · branch=`main` · HEAD=merge. Integrated Product commits: `0577ca5c…` (feat) · `90bbf479…` (pre-merge R24 LOCAL docs+manifest) · `f7c9ba78…` (**CORR-CI-623-01** Tool-First first-prompt) · `73f0166c…` (**CORR-CI-623-02** multi-path unclaimed redaction). Pre-merge CI [run #40519630827](https://github.com/mcleland147/sfia-workspace/actions/runs/40519630827) SUCCESS on `73f0166c…`. Prior overlay wording **LOCAL CANDIDATE / dirty Product / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN** = **HISTORICAL AS TIP** (true at 2026-10-27 pre-merge authoring). Proof ceiling: **DETERMINISTIC BEHAVIOR PROVEN AT TESTED SCOPE**. REAL / G-REAL / OA-exclusive activation / runtime v3 **NOT** claimed. **L3 GLOBAL OPEN**. EP-S2-05 **NOT PROVEN**. EP-S2-08 **PARTIAL**. ≠ Product PASS invented · ≠ L3 GLOBAL CLOSED.
+Stabilized (extrait) : intention suivi+bilan ; priorité si blocage ; suspicion crédible sécurité → vérification prioritaire ; indices crédibilité ; report formalisation règles détaillées.
 
-| Item | Status | Owner / exit |
+### Transcript / continuité
+- `pilot_transcript_turns` : 20 (tous corrélés `prj:d0c81c08…`, session `f1-default`)
+- `logical_product_turns` : 8 (`accepted`)
+- `session_items` : 17
+- Dernier tour user seq=18 = TEST-15 (interdiction explicite de préparer un EC)
+- Dernier tour assistant seq=19 = annonce de contrat préparé `xct:gen-prep:8be90773…` (`confirmation_required`)
+
+### Corrélations
+Project ↔ LPS v8 ↔ cycle framing actif ↔ trajectoire validée ↔ HD acceptée ↔ journal actif ↔ EC TEST-15 sur même `cycle_instance_id`.
+Truth C et Memory B **cohérents** (même `project_id` / cycle).
+
+### Evidence / ReviewBundles / Attempts / Confirmations
+| Table | Count |
+|---|---|
+| `oa_confirmations` | **0** |
+| `oa_execution_attempts` | **0** |
+| `oa_evidence` | **0** |
+| `oa_review_bundles` | **0** |
+| `oa_claim_evaluations` | **0** |
+| `oa_ec_inspection_attestations` | **0** |
+| `oa_authority_verification_receipts` | **0** |
+| `oa_audit_events` | 225 (derniers = `oa.project.list` 2026-10-29T21:02Z ; EC events 16:15Z) |
+
+---
+
+## 9. Situation TEST-15 (sécurité RO)
+
+| Dimension | État |
+|---|---|
+| EC id | `xct:gen-prep:8be90773214936e9e9857b94` |
+| Status DB / payload | **`confirmation_required`** |
+| Version | **2** |
+| Cycle lié | `cyc:trj-13c49958061961c529bd4ec3` |
+| Confirmation | **0 — ABSENT CONFIRMED** |
+| Authorization / receipts | **0 — ABSENT CONFIRMED** |
+| Attempt | **0 — ABSENT CONFIRMED** (`executionAttemptCreated=false`) |
+| decisionRefs | `[]` |
+| `prepareWithoutSystematicHumanDecision` | `true` |
+| Action | `studio.cursor.generalist.execute` |
+| requiredAuthority | `N2` |
+
+**Classification des états**
+- **A. Contrat préparé sans consentement :** OUI (anomalie ouverte)
+- **B. Confirmé :** NON
+- **C. Autorisé :** NON
+- **D. Exécution lancée :** NON
+- **E. Effets constatés :** aucun Attempt / Evidence / ReviewBundle
+
+**Cause historique (non corrigée ici) :**
+`hasExplicitPrepareContractIntent` matche la forme lexicale « prépare … contrat » **sans négation**. Phrase Pilote :
+« Ne crée aucun fichier, ne prépare aucun contrat d'exécution et ne démarre aucune exécution. »
+
+**Risque reprise UI :** code Product expose la continuité `confirmation_required` comme action courante (`ConversationSurface` / `useProductConversation`).
+**Ne pas cliquer / confirmer / rejeter automatiquement.**
+Neutralisation éventuelle = **gate humain** (Pilote/Morris) — options à documenter hors mutation : laisser pending + discipline UI ; rejet humain explicite ; fix lexical hors scope.
+
+**STOP Attempt :** non déclenché (0 Attempt).
+
+---
+
+## 10. Fake / Real Qualification
+
+| Item | Statut |
+|---|---|
+| Applicable | OUI |
+| Entrée historique | DETERMINISTIC PROVEN (scope testé) + LIVE observations partielles |
+| Runtime process actuel | **Fake** provider |
+| `.env.local` LIVE-capable | Oui (clé + model LIVE) — **non égal** process |
+| Cursor REAL process | OFF (vide) |
+| Cursor REAL fichier | ON (`1`) — **écart dangereux** |
+| G-REAL | NOT GRANTED |
+| Realism gaps | OpenAI LIVE structured emit NOT PROVEN ; server restart NOT PROVEN ; browser STOP NOT PROVEN ; EP-S2-08 PARTIAL ; EP-S2-05 NOT PROVEN |
+| Règle | DETERMINISTIC PROVEN ≠ READY FOR REAL |
+
+---
+
+## 11. Matrice CHECK-01 … CHECK-15
+
+| Check | Statut | Preuve | Impact | Action | Gate |
+|---|---|---|---|---|---|
+| CHECK-01 Git/main/version | **PASS** | `ls-remote` = `ca1c9869` = baseline ; Product app feat≡main | Non bloquant | Aucune | Aucun |
+| CHECK-02 Runtime/CWD/source | **FAIL** | Runtime actif sert `new-project-campaign-01`, pas LIVE-E2E-01 ; CWD feat @ `1c3a8d9e` | **Bloquant** | Réaligner env+runtime vers LIVE-E2E-01 (hors cycle) | **Morris** |
+| CHECK-03 Configuration sans secrets | **FAIL** | DB paths ≠ BALISE ; `CURSOR_REAL=1` fichier vs process vide ; Fake process vs LIVE historique | **Bloquant** | Requalification config avant TEST-16 | **Morris** |
+| CHECK-04 SQLite Product RO | **PASS** | immutable RO ; no WAL ; schéma + BALISE lus | Non bloquant | Aucune | Aucun |
+| CHECK-05 SQLite Nora RO | **PASS** | immutable RO ; no WAL ; transcript/journal lus | Non bloquant | Aucune | Aucun |
+| CHECK-06 Identité BALISE | **PASS** | `prj:d0c81c08-…` / title BALISE / workspace `balise` / active | Non bloquant | Aucune | Aucun |
+| CHECK-07 LPS/cycle | **PASS** | LPS v8 active ; cycle framing Light active | Non bloquant | Aucune | Aucun |
+| CHECK-08 Trajectoire/HD | **PASS** | traj validated ; HD accepted pilot | Non bloquant | Aucune | Aucun |
+| CHECK-09 Transcript/continuité | **PASS** | 20 turns ; journal open points ; corrélation cycle | Non bloquant | Aucune | Aucun |
+| CHECK-10 EC TEST-15 | **PASS** (état connu) / **risque ouvert** | EC présent `confirmation_required` v2 | **Bloquant pour UI interactive** | Ne pas confirmer ; gate avant interaction | **Pilote** (+ Morris si fix) |
+| CHECK-11 Confirmation/Attempt/Evidence | **PASS** | tous counts = 0 | Non bloquant | Aucune | Aucun |
+| CHECK-12 Risques/autorité | **FAIL** | EC exposable UI ; CURSOR_REAL fichier=1 ; G-REAL not granted ; lexical bug non corrigé | **Bloquant** | Discipline UI + éventuelle neutralisation humaine ; pas de REAL | **Morris/Pilote** |
+| CHECK-13 Baseline Option C | **PASS** (code) / **ABSENT CONFIRMED** (data) | app≡main Option C ; LPS sans presentation/studio_control | Non bloquant pour reprise lecture ; baseline data pré-Option-C | Évaluer Option C sur code ; ne pas inventer payloads | Aucun |
+| CHECK-14 Préconditions TEST-16 | **FAIL** | runtime≠BALISE ; config divergente ; EC risque non maîtrisé opérationnellement | **Bloquant** | Gates §15 avant tout TEST-16 | **Morris** |
+| CHECK-15 Absence de mutation | **PASS** | RO only ; SHA DB inchangés en fin de cycle ; pas de restart/env/commit projet | Non bloquant | Aucune | Aucun |
+
+---
+
+## 12. Préconditions & oracle TEST-16 (contrat seulement — NON EXÉCUTÉ)
+
+### Titre
+Continuité BALISE après intégration Option C.
+
+### Préconditions (état actuel vs requis)
+
+| Précondition | État maintenant |
+|---|---|
+| Identité BALISE retrouvée | **OUI** |
+| Bases historiques cohérentes | **OUI** (Product↔Nora) |
+| Runtime identifié | **OUI** mais **mal pointé** |
+| Version runtime qualifiée (Product #628) | **OUI** (code≡main) |
+| Cycle actif connu | **OUI** (framing) |
+| EC TEST-15 identifié + risque maîtrisé | Identifié ; **risque UI non maîtrisé** |
+| Autorité/frontières comprises | **OUI** (doc) ; REAL non accordé |
+| Aucune mutation accidentelle | **OUI** ce cycle |
+| Aucun blocage reprise | **BLOQUÉ** (env/runtime + EC UI + CURSOR_REAL fichier) |
+
+### Oracle attendu (quand autorisé)
+Nora restitue depuis Product réellement disponible :
+- objectif métier (LPS)
+- cycle de cadrage actif
+- trajectoire validée
+- décision HD trajectoire
+- réserves/open points journal
+- prochaine action cohérente **sans** inventer HD / preuve / contrat / exécution / clôture
+
+Option C évaluée sur baseline effective (code présent ; payloads presentation/studio_control **absents** historiquement).
+
+### Texte métier proposé pour ChatGPT (à ne pas envoyer auto)
+> Nora, sans rien créer ni lancer, rappelle-moi où en est BALISE : l’objectif retenu, le cycle de cadrage en cours, la trajectoire validée, les décisions déjà prises, les points encore ouverts, et la prochaine étape utile purement conversationnelle.
+
+*(Évite les lexèmes « prépare … contrat d’exécution » qui déclenchent le faux positif TEST-15.)*
+
+---
+
+## 13. Risques et réserves
+
+1. **Runtime pointe vers une autre campagne** — TEST-16 sur le process actuel ne toucherait pas BALISE.
+2. **EC `confirmation_required` toujours pending** — risque d’exposition comme action courante à la réouverture.
+3. **Bug lexical TEST-15 non corrigé** — reproduction possible.
+4. **`SFIA_STUDIO_CURSOR_REAL=1` dans `.env.local`** alors que G-REAL NOT GRANTED.
+5. **Process Fake ≠ historique LIVE** — frontière à requalifier avant tout claim LIVE.
+6. **Auth session browser INDETERMINATE.**
+7. **Option C data absente** des LPS historiques — ne pas traiter comme régression Product sans oracle adapté.
+8. **TEST-01…14** = observations historiques partielles — **non promues** PASS QA.
+
+---
+
+## 14. Absence de modification projet / contrôles / non-exécuté
+
+### Contrôles effectués
+- Git Truth (status, remotes, ls-remote, worktrees, feat vs main app diff)
+- Inventaire process/port/CWD/lsof SQLite
+- Classification env sans dump secrets
+- SQLite RO immutable Product + Nora LIVE-E2E-01
+- Contrôle absence BALISE dans DB runtime actuelle
+- Relecture code `hasExplicitPrepareContractIntent` + UI `confirmation_required`
+- SHA-256 DB début de fin de cycle (à reconfirmer post-pack)
+
+### Actions non exécutées
+- TEST-16 ; message Nora ; OAuth ; restart ; preflight mutatif
+- Confirm/reject EC ; Cursor REAL ; fix TEST-15
+- Changement env / migration / DB write
+- Commit/push projet ; PR ; merge ; Delivery
+
+### Mutations projet
+**Aucune.** Seul fichier touché : `.tmp-sfia-review/chatgpt-review.md` (review pack).
+
+---
+
+## 15. Gates restants
+
+| Gate | Décideur | Contenu |
 |---|---|---|
-| Option B Product + S8 + R-S8-01…04 + CORR-CI-623-01/02 | **CURRENT ON MAIN DET** (PR #623 MERGED · CI #40526990871 SUCCESS) | preserve; no Product mutation in Cycle 14 |
-```
+| Réaligner `SFIA_STUDIO_*_DB_PATH` vers LIVE-E2E-01 + restart contrôlé | **Morris** | Hors ce cycle |
+| Neutraliser / discipline UI autour EC TEST-15 | **Pilote** (+ Morris si fix code) | Ne pas confirmer par erreur |
+| Forcer `SFIA_STUDIO_CURSOR_REAL` OFF tant que G-REAL non granted | **Morris** | Avant toute reprise interactive |
+| Autoriser TEST-16 après revue | **Morris** puis exécution Pilote | Après Critical Review ChatGPT |
+| Correction `hasExplicitPrepareContractIntent` | **Morris** (cycle construction séparé) | Hors scope reprise |
 
-Product rows CURRENT · documentary authoring rows HISTORICAL · Git resolves DOC GI consumed · Product gaps remain OPEN. **No contradictory permanent PENDING.**
+---
 
-## 16. R23 architectural classification
+## 16. Git Review Index (extraits locaux non publiés ailleurs)
 
-| Component | Classification |
-|-----------|----------------|
-| presentation DTO nullable + fail-closed normalize | DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN DET |
-| Studio typed notices provenance | DOCUMENTED · BEHAVIOR PROVEN DET |
-| ConversationSurface adaptive renderer | DOCUMENTED · BEHAVIOR PROVEN DET (Fake scope) |
-| Memory B presentation_json / studio_control_json | DOCUMENTED · BEHAVIOR PROVEN DET |
-| Cognitive STOP / CORR-NAP-04 | DOCUMENTED · BEHAVIOR PROVEN DET · browser STOP = KNOWN GAP |
-| Fake/Auth QA | AUTHENTICATED FAKE BROWSER OBSERVED historical · ≠ LIVE |
+Preuves locales minimales pour contrôle ChatGPT :
+- Product open : `mode=ro&immutable=1`, no WAL
+- `oa_projects` 1 row BALISE `prj:d0c81c08-349b-4109-aca7-72bd5d1bae85`
+- EC 1 row `xct:gen-prep:8be90773214936e9e9857b94` status `confirmation_required` v2
+- Confirmations/Attempts/Evidence = 0
+- Runtime lsof → `new-project-campaign-01/.../oa-product.sqlite`
+- Process provider `fake` ; envfile CURSOR_REAL=1
+- DB SHA Product `fdb8ae8e…` / Nora `45846a91…`
 
-## 17. R24 documentary continuity
+---
 
-**PRR DOCUMENTARY INTEGRATION COMPLETE AT VERIFIED SCOPE.**
-Seven files + five digests ON MAIN · CI post-merge PASS · **NO NEW PRODUCT SEMANTIC IMPACT**.
-Digest PASS ≠ semantic exhaustiveness · R-MANIFEST-TOPO OPEN · **NO NEW R24 GAP OBSERVED** requiring correction this cycle.
+## 17. Handoff L3 (à compléter après publish)
 
-## 18. POST-MERGE DOCUMENTARY CLOSURE
+| Champ | Valeur |
+|---|---|
+| Mode | publish-in-cycle |
+| Source | `.tmp-sfia-review/chatgpt-review.md` |
+| Branche | `sfia/review-handoff` |
+| Canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
+| Commit attendu | `docs(review-handoff): publish balise live e2e resume audit` |
+| SHA distant | *(rempli après publish)* |
+| Relecture distante | *(rempli après publish)* |
 
-### Périmètre clôturé
-Documentary R24 Option C truth-sync + five-digest regularization **integrated and verified on main**.
+---
 
-### Product PR #628
-MERGED · `c848b98c…` · 30 files · DET Option C.
+## 18. Verdict
 
-### Documentary PR #629
-MERGED · `ca1c9869…` · 7 files · parents `c848b98c…`+`6e60d839…`.
+# BLOCKED — BALISE RESUME NOT QUALIFIED
 
-### CI
-Pre/post Product SUCCESS · Pre/post Docs SUCCESS · Required Gate PASS on both post-merge SHAs.
+**Motifs bloquants :** runtime/configuration ne pointent pas vers les bases LIVE-E2E-01 BALISE ; risque EC TEST-15 `confirmation_required` exposable ; flag Cursor REAL fichier=1 sous G-REAL NOT GRANTED.
 
-### Preuves validées
-Blobs · digests · checker RO CONFORMANCE OK · Vitest 6183/0 · governance suite green in CI.
+**Ce qui est prouvé positivement :** identité et continuité persistante BALISE récupérables en RO sans perte de contexte Product↔Nora ; EC non confirmé / non exécuté ; main baseline inchangé ; Product Option C code ON MAIN équivalent au runtime feat ; aucune mutation ce cycle.
 
-### Éléments conservés
-Option B/S8 · EP-S2-08-PROOF-01 DET · binding retired · exclusive DEFAULT OFF.
+**Prochaine action recommandée :** Critical Review ChatGPT du handoff → Morris décide réelignement env/runtime + discipline EC/REAL → seulement ensuite contrat TEST-16.
 
-### Réserves ouvertes
-R-STOP-BROWSER · R-SRV-RESTART · R-LIVE-EMIT · R-MANIFEST-TOPO · EP-S2-08 PARTIAL · EP-S2-05 · L3 GLOBAL OPEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · v3 NON ADOPTED.
+---
 
-### Niveau de clôture
-**Documentary R24 Option C — CLOSED AT VERIFIED SCOPE.**
-**≠** AKG-M5 GLOBAL CLOSED · **≠** L3 GLOBAL CLOSED · **≠** Product Completion CLOSED · **≠** runtime v3 ADOPTED.
+## 19. Instruction ChatGPT obligatoire
 
-Trace = this handoff (no new Roadmap/PRR project commit).
+Avant de répondre à Morris, relire dans Git :
 
-## 19. Capitalization / lessons
+- Branche : `sfia/review-handoff`
+- Fichier : `sfia-review-handoff/latest-chatgpt-review.md`
 
-| Element | Learning | Reuse | Risk avoided | Debt | Method change? |
-|---------|----------|-------|--------------|------|----------------|
-| A. Product #628 | Delivery + CI correction preserved | Two-commit merge pattern | Chromium in Vitest CI | Feature cleanup may remain | NO |
-| B. R24 CURRENT/HISTORICAL | Authoring vs permanent lifecycle | CR temporal framing | Eternal PENDING after publish | Optional living tip for #629 | NO |
-| C. Semantic before digest | Review before `--write-digests` | Digest gate sequence | Premature checksum claim | — | NO |
-| D. Digest governance | Exactly five volume subs | Independent audit | Scope expansion | R-MANIFEST-TOPO OPEN | NO |
-| E. Git Integration | One commit · Draft · CI · distinct merge GO | GI-01/02 | Implicit merge | Branches preserved | NO |
-| F. Post-merge | Main/blobs/Required Gate | This C14 | CLI-only merge claim | — | NO |
-| G. Debt | Topology debt survives digest PASS | Explicit OPEN | False zero-debt | R-MANIFEST-TOPO | NO |
-| H. Provenance | Handoff Git chain | Tip/blob immutability | Lost review trail | — | NO |
+Vérifier : cohérence cycle/profil ; Git Truth/baseline ; sources/preuves ; état BALISE ; TEST-15 ; validations réellement faites ; matrice ; absence de mutation ; réserves ; verdict ; SHA distant + relecture.
 
-**NO METHOD CHANGE PROPOSED.**
+Si handoff incomplet/obsolète/synthesis-only → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
+Si publication annoncée mais remote non à jour → `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
 
-## 20. Known gaps and debts
-
-R-STOP-BROWSER OPEN · R-SRV-RESTART OPEN · R-LIVE-EMIT OPEN · R-MANIFEST-TOPO OPEN · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · Late Evidence supersession OPEN · L3 GLOBAL OPEN.
-
-## 21. Fake/Real Qualification
-
-Acquired: Product Option C ON MAIN · DET · Fake Auth browser historical.
-Not acquired: LIVE emit · browser STOP · server restart · G-REAL · L4 · v3.
-This cycle: **no new REAL proof**. Claims: DOCUMENTARY R24 INTEGRATED · DET PRODUCT TESTED SCOPE. Forbidden: REAL PROVEN · L3 CLOSED · L4 · v3 ADOPTED.
-
-## 22. Next v3 Product capability (recommendation ≠ GO)
-
-### Axes
-| Axis | Status |
-|------|--------|
-| A. Option C presentation | INTEGRATED — DET TESTED SCOPE |
-| B. L3-S2 global | PARTIAL / OPEN |
-| C. Product Completion / runtime v3 | NON ADOPTED |
-
-### Candidate comparison (critical path)
-
-| Candidate | v3 capacity | Criticality for E2E L3-S2 | Exit proof | Gate |
-|-----------|-------------|---------------------------|------------|------|
-| **EP-S2-08 remaining** | Nora/Pilote post-Evidence continuity | **HIGH** — named PARTIAL exit | Browser `/studio` remount E2E + dual F3/W3-C live UX | Distinct Product GO |
-| EP-S2-05 | Mission Evidence Project-only | HIGH semantic | Mission Evidence without invented PRODUCT_MISSION | Distinct Product GO |
-| R-STOP-BROWSER | Cognitive STOP browser | MEDIUM (Option C adjacent) | Authenticated browser STOP QA | Distinct GO |
-| R-SRV-RESTART | Persistence/recovery | MEDIUM | Real process restart | Distinct GO |
-| R-LIVE-EMIT | Adaptive presentation REAL | HIGH for REAL ceiling · not DET L3 exit | OpenAI LIVE structured presentation | Distinct REAL GO |
-
-### Recommended next chantier (single)
-**EP-S2-08 remaining Product proofs** (browser remount E2E + dual F3/W3-C live UX continuity).
-
-Justification: closes the outstanding **PARTIAL** L3-S2 exit on the Nora/Pilote critical path already partially proven DET (#626); Option C remount/rehydrate benefits from the same continuity spine; does not require G-REAL; recommendation **≠** Morris GO.
-
-Secondary (after or parallel under distinct GOs): EP-S2-05 · then STOP/restart · LIVE under REAL governance.
-
-## 23. Critical path and dependencies
-
-Option C DET ON MAIN → Documentary R24 ON MAIN (**this closure**) → **EP-S2-08 remaining** → EP-S2-05 → continuity STOP/restart → LIVE/REAL under distinct GOs → Formal L3/M5 only under explicit Morris Formal Exit (not this cycle).
-
-## 24. Exit proof and future gates
-
-This cycle exit: PM matrix PASS · documentary closure at verified scope · handoff published.
-Future: Morris GO for EP-S2-08 remaining · optional DOC living-tip sync naming #629 · no branch cleanup without distinct GO.
-
-## 25. Gate matrix PM01–PM21
-
-| Gate | Status |
-|------|--------|
-| PM01 Repo/ref/main verified | PASS |
-| PM02 PR #628 merged | PASS |
-| PM03 Product merge ancestry | PASS |
-| PM04 PR #629 merged | PASS |
-| PM05 Documentary merge ancestry | PASS |
-| PM06 Seven blobs match | PASS |
-| PM07 Main tree coherent | PASS |
-| PM08 CI post #628 SUCCESS | PASS |
-| PM09 CI post #629 SUCCESS | PASS |
-| PM10 Required Gate SUCCESS | PASS |
-| PM11 PRR conformance verified | PASS |
-| PM12 Roadmap CURRENT coherent | PASS |
-| PM13 PRR CURRENT/HISTORICAL coherent | PASS |
-| PM14 No new Product mutation | PASS |
-| PM15 R23/R24 applied | PASS |
-| PM16 All open reserves preserved | PASS |
-| PM17 No new documentary gap (at verified scope) | PASS |
-| PM18 Next capability qualified | PASS |
-| PM19 No project file mutation | PASS |
-| PM20 Review Pack FULL complete | PASS (this document) |
-| PM21 Handoff remotely verified | PENDING publish |
-
-## 26. Git status initial/final
-
-Initial/final (project): dirty `.tmp-sfia-review` only · HEAD docs commit · main `ca1c9869…`.
-
-```
- M .tmp-sfia-review/chatgpt-review.md
-```
-
-## 27. Absence de project mutation
-
-Confirmed: no Roadmap/PRR/manifest/Product/test/CI edits this cycle. Handoff L3 only.
-
-## 28. Verdict unique
-
-**POST-MERGE COMPLETE WITH RESERVES — OPTION C PRODUCT ON MAIN — R24 DOCUMENTARY INTEGRATION VERIFIED — POST-MERGE CI PASS — DOCUMENTARY CLOSURE AT VERIFIED SCOPE — L3 GLOBAL OPEN — NEXT PRODUCT CAPABILITY QUALIFIED (EP-S2-08 remaining)**
-
-### Instruction ChatGPT
-
-1. Lire handoff canonique.
-2. Vérifier tip/blob.
-3. Contrôler preuves #628/#629.
-4. Vérifier CI.
-5. Vérifier Roadmap/PRR.
-6. Vérifier clôture R24.
-7. Vérifier réserves.
-8. Vérifier absence mutation projet.
-9. Challenger prochain chemin critique (EP-S2-08 remaining).
-10. Prononcer verdict Cycle 14.
-11. Préparer ensuite seulement la proposition de prochain cycle.
-12. Aucun GO Product implicite.
+Le rapport Cursor seul ne remplace pas le handoff Git.
