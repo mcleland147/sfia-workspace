@@ -261,7 +261,9 @@ Effets TEST-16 **préexistants** (hors investigation) : +2 turns ; LPS v9 ; audi
 | Branche | `sfia/review-handoff` |
 | Canonique | `sfia-review-handoff/latest-chatgpt-review.md` |
 | Commit | `docs(review-handoff): publish balise test16 option c diagnosis` |
-| SHA distant | *(après publish)* |
+| SHA distant tip |  |
+| Blob canonique |  |
+| Verdict publisher |  |
 
 ---
 
