@@ -1,58 +1,54 @@
-# GI-NAP-02 — NORA ADAPTIVE PRESENTATION — FEATURE BRANCH PUSH
+# PR-NAP-01 — NORA ADAPTIVE PRESENTATION — DRAFT PR + CONDITIONAL MERGE
 
 **Cycle:** SFIA 7 — Intégration / DevOps
-**Profil:** STANDARD — Git publication controls
-**Typologie:** GIT INTEGRATION
+**Profil:** STANDARD — Git/CI gates renforcés
+**Typologie:** PROJECT GIT INTEGRATION
 **Review Pack:** FULL
 **Review Handoff:** REQUIRED / publish-in-cycle
-**Timestamp UTC:** `2026-10-30T09:08:02Z` (Truth Check start; push verified immediately after)
+**Timestamp UTC:** `2026-10-30T09:36:34Z`
+**Product mutations this cycle:** **NONE**
 
 ---
 
 ## 1. Timestamp UTC
 
-Truth Check / pack authoring window: `2026-10-30T09:08:02Z` onward.
+`2026-10-30T09:36:34Z` (pack finalization after CI conclusion).
 
 ---
 
-## 2. GO Morris consommé
+## 2. Décision Morris Draft + Merge consommée
 
-GI-NAP-02: publish exact local tip
-`c6b5ae3a798070760587ac6605e6276458f375f6`
-to
-`refs/heads/feat/akg-m5-nora-adaptive-presentation`.
+- **GO 1 Draft PR:** EXECUTED → PR **#628** created (draft).
+- **GO 2 Conditional merge:** **NOT EXECUTED** — Required Gate CI FAILURE.
 
-**No** project commit/amend · **no** Product/PRR mutation · **no** Draft PR/PR/merge · **no** force push · **no** main push.
+No bypass · no Product fix · no undraft · no branch delete.
 
 ---
 
-## 3. Git Truth Check
+## 3. Local Git Truth Check
 
 | Check | Result |
 |---|---|
-| Root | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
-| Origin | `https://github.com/mcleland147/sfia-workspace.git` |
 | Branch | `feat/akg-m5-nora-adaptive-presentation` |
 | HEAD | `c6b5ae3a798070760587ac6605e6276458f375f6` |
 | Parent | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| `origin/main` (pre/post) | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| Delivery commits | **1** |
-| Staged | none |
-| Product WIP | none (only `.tmp-sfia-review/chatgpt-review.md`) |
-| Prior handoff C13-NAP-02 | tip `a594b98a1e57a8ff604e78ee839e9f39fd7489e1` · blob `bb45558c1654846d0b6021f4c62ecf0ceded5501` |
+| `origin/main` | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| Feature remote | `c6b5ae3a…` |
+| Delivery commits | 1 |
+| Product WIP | none (pack only) |
+| Prior handoff GI-NAP-02 | `555b59931df3e6d00ae93d402b466e3ccb62da9e` |
 
-**Git Truth:** COHERENT.
+**Git Truth:** COHERENT throughout cycle.
 
 ---
 
-## 4. Sources lues
+## 4. Sources consultées
 
-- Process/routing/guardrails/delivery pipeline posture.
-- Convergence boundaries (no writes).
-- Commit `c6b5ae3a` identity vs GI-NAP-01 / C13-NAP-02.
-- PRR checker RO on HEAD.
-- Handoffs: C13-NAP-02 `a594b98a` · GI-NAP-01 `1d91dc34` · prior NAP chain.
-- Publisher README for L3 handoff.
+- Workflow `.github/workflows/sfia-studio-ci.yml`
+- Commit/PR GitHub API · CI run `41033681362` logs
+- Test `authenticatedStudioSession.d0.test.ts` (failure locus)
+- Prior handoffs C13/GI; PRR checker RO EXIT 0 pre-draft
+- Temporary PR body `.tmp-sfia-review/pr-nap-01-body.md` (not committed)
 
 ---
 
@@ -62,194 +58,274 @@ to
 |---|---|
 | Capacité | Nora Adaptive Presentation A3/A4 Option C |
 | Milestone | AKG-M5 / L3-S2 |
-| Entry | LOCAL COMMITTED — READY FOR PR WITH RESERVES |
-| Action | PUBLISH exact commit only |
-| PRR epistemic | remains **LOCAL CANDIDATE — PRE-INTEGRATION** (≠ CURRENT ON MAIN) |
+| Entry | FEATURE PUBLISHED — READY FOR PR WITH RESERVES |
 | L3/EP/L4/G-REAL/v3 | OPEN / PARTIAL / NOT PROVEN / NOT AUTH / NOT GRANTED / NON ADOPTED |
 
----
-
-## 6. Capacité / état
-
-**État after this cycle:** FEATURE BRANCH PUBLISHED ON ORIGIN — SHA VERIFIED — NOT MERGED — NO PR.
-
-Next: Draft PR under distinct Morris GO → Required Gate CI.
+Next after STOP: **Morris CORRECTION GO** (CI Playwright/unit-test harness) then re-run Required Gate.
 
 ---
 
-## 7. Branche / commit / parent
+## 6. Capacité / trajectoire
+
+KEEP architecture. VERIFY PR+CI. Merge deferred. No new construction.
+
+---
+
+## 7–9. PR identity
 
 | Field | Value |
 |---|---|
-| Branch | `feat/akg-m5-nora-adaptive-presentation` |
-| Commit | `c6b5ae3a798070760587ac6605e6276458f375f6` |
-| Parent | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| Message | `feat(studio): add Nora adaptive presentation with QA and PRR sync` |
+| Number / URL | **#628** · https://github.com/mcleland147/sfia-workspace/pull/628 |
+| Title | `feat(studio): Nora Adaptive Presentation Option C — A3/A4` |
+| State | OPEN |
+| Draft | **true** (unchanged; undraft not attempted) |
+| Base | `main` @ `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| Head | `feat/akg-m5-nora-adaptive-presentation` @ `c6b5ae3a798070760587ac6605e6276458f375f6` |
+| mergeable API | MERGEABLE (policy still BLOCKED by failing checks) |
+| Files | **30** · +4373 / −37 |
+
+**HEAD SHA MATCH** · **BASE SHA MATCH**.
 
 ---
 
-## 8. Statut local pré-push
+## 10. PR body complet (as published)
 
-Clean Product tree; ahead of `origin/main` by 1; pack file dirty only.
+```markdown
+## Summary
 
----
+Nora Adaptive Presentation A3/A4 for SFIA Studio **AKG-M5 / L3-S2**.
 
-## 9. Inventaire 30 fichiers
+Atomic Delivery commit: `c6b5ae3a798070760587ac6605e6276458f375f6` (parent `2cc6368602197e18fe886c87c8ced0a1b434f5a2`) — **30 files** (23 modified / 7 added / 0 deleted).
 
-Attestation vs GI-NAP-01: `git diff --name-status HEAD^ HEAD` → **M=23 · A=7 · D=0 · N=30**. No `.tmp`/captures/secrets/workflows. Full path list unchanged from GI-NAP-01 / C13-NAP-02 allowlist (not recopied).
+### Product
 
----
+- Structured nullable `presentation` DTO (Option C)
+- Fail-closed validation / normalization
+- Typed Studio control notices (server provenance)
+- Memory B transcript persistence (`presentation_json` / `studio_control_json`)
+- ConversationSurface integration + adaptive renderer A3/A4
+- Narrative / plain fallback
+- Cognitive STOP / lifecycleRecommendation coherence (CORR-NAP-04 `withGuidance` local return)
+- CORR-NAP-01…03 (migrate/fallback, notices, incomplete safety)
 
-## 10. Sécurité
+### QA (local evidence on identical octets)
 
-Commit scope scan: no forbidden temp/secret paths in name-status. Prior C13/GI secret scans on these octets: 0 findings. No new Product bytes this cycle.
+- NAP suites: **91 PASS** (5 files)
+- Nora/runtime regress: **726 PASS / 2 SKIP** (63 files)
+- typecheck PASS · lint PASS · build PASS
+- Fake authenticated browser QA (QA-NAP-03) — AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED
+- Full Vitest suite: **CI Required Gate** (not claimed PASS from local-only)
 
----
+### R24
 
-## 11. PRR checker
+- PRR volumes 03 / 06 / 08 / 09 overlays
+- Manifest: 10 `sha256_16` digest updates (R24-NAP-02)
+- Epistemic class before merge: **LOCAL CANDIDATE — PRE-INTEGRATION**
+- Post-merge CURRENT truth-sync remains a distinct documentary gate
 
-```text
-node …/check-production-runtime-reference.mjs
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-EXIT:0
+### Security / authority
+
+- Fake NAP QA dual-locked (`SFIA_STUDIO_E2E_QA_CONTROL=1` ∧ Fake provider)
+- Presentation ≠ Truth C · Recommendation ≠ HumanDecision · evidence UI ≠ OA Evidence
+- No free Product CTA from DTO
+- No secrets identified in Delivery scope
+
+### Reserves (ACCEPTED OPEN — not closed)
+
+- STOP browser NOT PROVEN (QA-NAP-06)
+- Server restart NOT PROVEN (QA-NAP-10)
+- OpenAI LIVE structured emit NOT PROVEN
+- Full Vitest CI still required before merge
+- Manifest topology enrichment debt open (new NAP paths not in structuring lists)
+
+### Anti-claims
+
+- ≠ L3 GLOBAL CLOSED
+- ≠ EP-S2-08 PASS
+- ≠ EP-S2-05 PROVEN
+- ≠ G-REAL GRANTED
+- ≠ L4 AUTHORIZED
+- ≠ runtime v3 ADOPTED
+- ≠ REAL BEHAVIOR PROVEN
+- DETERMINISTIC PROVEN ≠ READY FOR REAL
+
+### Rollback
+
+Revert the merge under a separate operational decision if needed.
+
+### GO Morris
+
+Draft PR + **conditional** merge authorized, subject to Required Gate CI and pre-merge gates (M01–M16). No bypass. No branch deletion. No LIVE/REAL promotion.
 ```
 
-No `--write-digests`. Digests R24-NAP-02 intact on HEAD.
+---
+
+## 11–12. Diff / périmètre
+
+Attested vs GI-NAP-01: **30 paths · M23 · A7 · D0**. Product Option C + PRR 03/06/08/09 + manifest. No forbidden assets.
 
 ---
 
-## 12. Remote feature pre-check
+## 13. R23 / R24
 
-```text
-git ls-remote --heads origin refs/heads/feat/akg-m5-nora-adaptive-presentation
-→ (empty)
-```
-
-**CAS A — ABSENTE** → push eligible.
+- **R23:** No architecture change; merge blocked on CI harness issue in Delivery test.
+- **R24:** **NO NEW PRODUCT SEMANTIC CHANGE IN PR-NAP-01.** PRR remains LOCAL CANDIDATE (not merged).
 
 ---
 
-## 13. Push exact
+## 14. Security / authority
 
-```text
-git push --porcelain origin HEAD:refs/heads/feat/akg-m5-nora-adaptive-presentation
-* HEAD:refs/heads/feat/akg-m5-nora-adaptive-presentation [new branch]
-Done
-PUSH_EXIT:0
-```
-
-No `--force` / `--all` / main / tags.
+No secrets in commit. Fake dual-lock unchanged. Failure is CI environment (Playwright browser binary), not a secret/authority bypass finding.
 
 ---
 
-## 14. SHA distant observé
-
-```text
-git ls-remote --heads origin refs/heads/feat/akg-m5-nora-adaptive-presentation
-c6b5ae3a798070760587ac6605e6276458f375f6  refs/heads/feat/akg-m5-nora-adaptive-presentation
-```
-
-`origin/feat/akg-m5-nora-adaptive-presentation` after fetch = same SHA.
-
-**REMOTE_SHA_MATCH.**
-
----
-
-## 15. Preuve identité GitHub
-
-`gh api repos/mcleland147/sfia-workspace/commits/c6b5ae3a798070760587ac6605e6276458f375f6`:
+## 15–18. CI workflow / jobs / Required Gate / Vitest
 
 | Field | Value |
 |---|---|
-| sha | `c6b5ae3a798070760587ac6605e6276458f375f6` |
-| parents | `[2cc6368602197e18fe886c87c8ced0a1b434f5a2]` |
-| message | feat(studio): add Nora adaptive presentation with QA and PRR sync (+ Co-authored-by) |
-| files | **30** |
+| Workflow | `SFIA Studio CI` (`.github/workflows/sfia-studio-ci.yml`) |
+| Run ID | **41033681362** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/41033681362 |
+| Event | `pull_request` |
+| Head SHA | `c6b5ae3a798070760587ac6605e6276458f375f6` |
+| Conclusion | **failure** |
 
----
+| Job | Conclusion |
+|---|---|
+| Detect SFIA Studio changes | **SUCCESS** (`studio_changed=true`) |
+| Build and validate SFIA Studio | **FAILURE** |
+| SFIA Studio Required Gate | **FAILURE** |
 
-## 16. Main inchangé
+Validate steps: Typecheck ✓ · Lint ✓ · Build ✓ · **Unit tests (Vitest) ✗** · subsequent steps skipped (governance/secrets/whitespace not run after Vitest fail).
 
-`origin/main` after push/fetch: `2cc6368602197e18fe886c87c8ced0a1b434f5a2` — **MAIN_UNCHANGED**.
+### Vitest summary (CI)
 
----
+- Test Files: **1 failed** \| **564 passed** \| **22 skipped** (587)
+- Sole failing file: `__tests__/e2e-support/authenticatedStudioSession.d0.test.ts`
+- Sole failing test: `parses Better Auth session cookie header with url-only Playwright shape`
+- Error: `browserType.launch: Executable doesn't exist` … Playwright chromium_headless_shell not installed on runner (`npx playwright install` suggested)
 
-## 17. Pas de PR / merge
+**Classification:** **NEW Delivery-introduced CI failure** (this test launches Chromium inside Vitest unit suite; CI does not install Playwright browsers). Not a pre-existing unrelated suite failure. Local C13 run of this file passed because local Playwright browsers are present.
 
-```text
-gh pr list --head feat/akg-m5-nora-adaptive-presentation --state all → []
+### Required Gate aggregation
+
+```
+detect_result=success
+validate_result=failure
+studio_changed=true
+→ Required gate FAIL: Studio validation required but result=failure.
 ```
 
-No PR created this cycle. No merge. GitHub only suggested PR URL in push remote message (informational; unused).
+Not a false PASS via non-Studio skip path.
 
 ---
 
-## 18. R23 / R24
+## 19. Reviews / protections
 
-- **R23:** Published previously reviewed Option C commit only — no architecture change.
-- **R24:** **NO NEW SEMANTIC PRODUCT IMPACT.** PRR stays LOCAL CANDIDATE — PRE-INTEGRATION. Remote feature ≠ main.
+| Item | Status |
+|---|---|
+| Reviews | none |
+| reviewDecision | empty |
+| mergeStateStatus | **BLOCKED** (failing required checks) |
 
 ---
 
-## 19. Fake / Real Qualification
+## 20. Matrice M01–M16
+
+| Gate | Status | Evidence |
+|---|---|---|
+| M01 Draft PR correct | **PASS** | #628 draft, base/head OK |
+| M02 Head SHA exact | **PASS** | c6b5ae3a… |
+| M03 Base main coherent | **PASS** | 2cc63686… |
+| M04 30 paths | **PASS** | PR files=30 |
+| M05 PRR conformance | **PASS** | checker EXIT 0 pre-draft |
+| M06 Required Gate CI SUCCESS | **FAIL** | run 41033681362 |
+| M07 Full Vitest CI PASS | **FAIL** | 1 failed file |
+| M08 Modeled governance PASS | **NOT PROVEN** | skipped after Vitest fail |
+| M09 Secrets/whitespace PASS | **NOT PROVEN** | skipped after Vitest fail |
+| M10 Other required checks | **FAIL** | validate + Required Gate FAILURE |
+| M11 Reviews | **NOT APPLICABLE / empty** | none required observed; still blocked by CI |
+| M12 No conflict | **PASS** | MERGEABLE |
+| M13 No new security block | **PASS** | harness env issue |
+| M14 Accepted reserves open | **PASS** | preserved |
+| M15 No new Product change | **PASS** | HEAD intact |
+| M16 No protection bypass | **PASS** | no merge attempted |
+
+**MERGE GATE SATISFIED:** **NO**
+
+---
+
+## 21. Motif explicite STOP / no merge
+
+**MERGE NOT AUTHORIZED AT THIS SNAPSHOT** because M06/M07 FAIL (Required Gate + Vitest). Conditional Morris merge GO not executable. Draft left open for correction under new GO.
+
+**Correction candidate (NOT APPLIED — needs Morris GO):**
+1. Remove `chromium.launch` / `addCookies` browser round-trip from unit Vitest (keep pure parse assertions), **or**
+2. Gate browser assertion behind CI Playwright install / separate e2e job, **or**
+3. Add `npx playwright install --with-deps chromium` to Studio CI validate job (heavier).
+
+Preferred for unit purity: (1) — assert cookie shape without launching browser in `__tests__`.
+
+---
+
+## 22–26. Undraft / merge / main
+
+| Action | Result |
+|---|---|
+| Undraft | **NOT EXECUTED** |
+| Merge | **NOT EXECUTED** |
+| Merge SHA | n/a |
+| Main tip | still `2cc63686…` |
+| Branch deletion | **NOT EXECUTED** |
+
+---
+
+## 27. Fake / Real Qualification
 
 | Field | Value |
 |---|---|
-| This cycle level | **REMOTE SOURCE COMMIT PUBLISHED — SHA VERIFIED** |
-| Not claimed | REAL / LIVE emit / restart / STOP browser / L3 closed / L4 / v3 ADOPTED |
-| Prior | DET VERIFIED + AUTHENTICATED FAKE BROWSER OBSERVED |
+| This cycle | Draft PR published; CI FAIL on Fake/Auth **unit** harness Playwright dependency |
+| Entry proofs | DET VERIFIED + AUTH FAKE BROWSER OBSERVED (prior) |
+| Not claimed | MERGED ON MAIN · REAL · L3 closed · v3 ADOPTED |
 
 ---
 
-## 20. Réserves / dettes (preserved ACCEPTED OPEN)
+## 28. Réserves / sorties
 
-R-STOP-BROWSER · R-SRV-RESTART · R-LIVE-EMIT · R-FULL-VITEST (CI before merge) · R-MANIFEST-TOPO · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · L4 NOT AUTHORIZED · runtime v3 NON ADOPTED.
+Preserved ACCEPTED OPEN: R-STOP-BROWSER · R-SRV-RESTART · R-LIVE-EMIT · R-FULL-VITEST · R-MANIFEST-TOPO · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 OPEN · v3 NON ADOPTED.
 
-No re-arbitration; not closed.
-
----
-
-## 21. Conditions de sortie (this GO)
-
-| Exit | Status |
-|---|---|
-| Feature on origin | YES |
-| Remote HEAD = authorized SHA | YES |
-| Parent conformal | YES |
-| 30 files | YES (GitHub files=30) |
-| Main intact | YES |
-| No PR | YES |
-| No local Product mutation | YES |
-| Handoff publish | this pack |
+**New blocking debt:** CI Playwright unit-test failure on `authenticatedStudioSession.d0.test.ts` → requires **CORR / CI harness GO**.
 
 ---
 
-## 22. Gates Morris encore ouverts
+## 29. Gates Morris restants
 
-1. **GO DRAFT PR** (distinct)
-2. Required Gate CI observation
-3. Undraft / merge GO
-4. Post-merge PRR CURRENT requalification
-5. Optional later proofs (STOP browser / restart / LIVE / topology)
+1. **CORRECTION GO** for CI Vitest/Playwright failure
+2. Re-run Required Gate on corrected tip
+3. Conditional merge re-authorization if tip SHA changes
+4. Post-merge Cycle 14 / R24 CURRENT
+5. No branch delete until post-merge cleanup GO
 
 ---
 
-## 23. Verdict unique
+## 30. Verdict unique
 
-**FEATURE BRANCH PUSH COMPLETE — REMOTE SHA VERIFIED — MAIN UNCHANGED — NO PR CREATED — CHATGPT REVIEW REQUIRED — DRAFT PR GO PENDING**
+**DRAFT PR CREATED — REQUIRED GATE FAILED — MERGE BLOCKED — CORRECTION GO REQUIRED**
 
-Anti-claims: ≠ CI PASS · ≠ READY FOR MERGE · ≠ REAL PROVEN · ≠ L3 CLOSED · ≠ L4 · ≠ v3 ADOPTED · ≠ CURRENT ON MAIN.
+PR: https://github.com/mcleland147/sfia-workspace/pull/628 (still Draft/OPEN).
+CI: https://github.com/mcleland147/sfia-workspace/actions/runs/41033681362
+
+Anti-claims: ≠ MERGED · ≠ CI PASS · ≠ READY FOR MERGE · ≠ REAL · ≠ L3 CLOSED · ≠ L4 · ≠ v3 ADOPTED.
 
 ---
 
 ## ChatGPT instruction
 
-1. Vérifier handoff Git canonique.
-2. Vérifier feature branch GitHub tip = `c6b5ae3a…`.
-3. Vérifier parent et périmètre 30.
-4. Vérifier main intact.
-5. Vérifier aucune PR.
-6. Requalifier niveau publication.
-7. Préparer décision Morris suivante: **GO DRAFT PR** (distinct du push).
+1. Vérifier handoff tip/blob.
+2. Vérifier PR #628 draft + head `c6b5ae3a`.
+3. Vérifier Required Gate FAILURE run 41033681362.
+4. Confirmer merge non exécuté / main intact.
+5. Qualifier correction candidate Playwright-in-unit-test.
+6. Préparer prochain GO Morris correction (pas merge).
 
-FIN GI-NAP-02 REVIEW PACK FULL.
+FIN PR-NAP-01 REVIEW PACK FULL.
