@@ -1,115 +1,84 @@
-# GI-NAP-01 — NORA ADAPTIVE PRESENTATION — ATOMIC LOCAL PROJECT COMMIT
+# C13-NAP-02 — NORA ADAPTIVE PRESENTATION — POST-COMMIT PR READINESS
 
-**Cycle:** SFIA 7 — Intégration / DevOps (LOCAL COMMIT ONLY)
-**Profil:** STANDARD — contrôles Git renforcés
-**Typologie:** GIT INTEGRATION / LOCAL COMMIT
+**Cycle:** SFIA 13 — PR readiness (post-commit local)
+**Profil:** STANDARD
+**Typologie:** VALIDATION / PR READINESS
 **Review Pack:** FULL
 **Review Handoff:** REQUIRED / publish-in-cycle
-**Timestamp UTC:** `2026-10-30T08:23:03Z`
-**Morris GO:** D-C13-NAP-01 consumed
+**Timestamp UTC:** `2026-10-30T08:52:19Z`
+**Product mutations this cycle:** **NONE** (read-only)
 
 ---
 
 ## 1. Timestamp UTC
 
-`2026-10-30T08:23:03Z`
+`2026-10-30T08:52:19Z`
 
 ---
 
-## 2. Décision Morris consommée
-
-D-C13-NAP-01 authorizes:
-1. Bounded acceptance of C13 reserves (not closed).
-2. **One local atomic commit** of the 30 validated candidate files.
-3. Pre/post-commit controls.
-4. L3 handoff mono-file publish only.
-
-**NOT authorized:** project push · PR · merge · Product/PRR mutation · digest rewrite · LIVE/REAL.
-
----
-
-## 3. Git Truth Check
+## 2. Git Truth Check
 
 | Check | Result |
 |---|---|
 | Root | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
 | Origin | `https://github.com/mcleland147/sfia-workspace.git` |
 | Branch | `feat/akg-m5-nora-adaptive-presentation` |
-| HEAD **before** | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
+| **HEAD** | `c6b5ae3a798070760587ac6605e6276458f375f6` |
+| **Parent** | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
 | `origin/main` (fetched) | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
 | merge-base | `2cc63686…` |
-| Ahead before | **0** Delivery commits |
-| Staged before | **none** |
-| Prior handoff C13 | `ad67ad9c174b2f3f7b434a4266c45bb1715fbdca` / blob `ad193bad47221d38c6099a2e7950ef2b6365f4ef` |
-| WIP vs C13 allowlist | **exact match 30** (no missing/extra excl. `.tmp`) |
+| `origin/main..HEAD` count | **1** |
+| Staged | none |
+| Product WIP residual | **none** (only `.tmp-sfia-review/chatgpt-review.md`) |
+| Prior handoff GI-NAP-01 | tip `1d91dc34928c005f02a923c182a68ec7d5adc533` · blob `19db56ddc2078232f5e00353014b7d8bf194f0e8` |
 
-**Git Truth:** COHERENT → proceed.
-
----
-
-## 4. Git Review Index
-
-| Phase | Identity |
-|---|---|
-| Parent / base | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| **Local commit** | `c6b5ae3a798070760587ac6605e6276458f375f6` |
-| Message | `feat(studio): add Nora adaptive presentation with QA and PRR sync` |
-| Scope | **30 files** · 23 M · 7 A · 0 D · +4373 / −37 |
-| Project push | **NOT PERFORMED** |
-| Feature remote | unpublished tip (local ahead of `origin/main` by 1; no `origin/feat/...` push) |
-| Residual WT | only `.tmp-sfia-review/chatgpt-review.md` (pack) |
+**Git Truth:** COHERENT with GI-NAP-01. Base unchanged. Proceed.
 
 ---
 
-## 5. Sources consultées
+## 3. Sources réellement lues
 
-- C13-NAP-01 handoff `ad67ad9c` (inventory/gates).
-- R24-NAP-02 `1ee8dc8f` (manifest regularization).
-- R24-NAP-01 / CORR-NAP-04 / QA-NAP-03 (prior content proofs).
-- Local allowlist vs `git status` / disk.
-- PRR checker RO; typecheck re-run; secrets scan.
-- Publisher contract `scripts/sfia/README.md`.
+- PR readiness template / validation checklist posture.
+- Convergence boundaries (no writes).
+- Commit tree `c6b5ae3a…` (name-status, sensitive blobs, 7 new tree objects).
+- Handoffs: C13-NAP-01 `ad67ad9c` · GI-NAP-01 `1d91dc34` · R24-NAP-02 `1ee8dc8f` · QA-NAP-03 / CORR-NAP-04.
+- Checker + typecheck + lint on committed tip worktree (=HEAD).
 
 ---
 
-## 6. Convergence Pre-check
+## 4. Convergence Pre-check
 
 | Item | Status |
 |---|---|
 | Capacité | Nora Adaptive Presentation A3/A4 Option C |
 | Milestone | AKG-M5 / L3-S2 |
-| KEEP architecture | YES |
-| NO NEW SEMANTIC PRODUCT CHANGE this cycle | YES (Git commit only) |
-| PRR remains LOCAL CANDIDATE — PRE-INTEGRATION | YES (≠ CURRENT ON MAIN) |
-| L3 GLOBAL / EP-S2-08 / EP-S2-05 / L4 / v3 | OPEN / PARTIAL / NOT PROVEN / NOT AUTH / NON ADOPTED |
+| État | **LOCAL COMMITTED — NOT PUSHED** |
+| KEEP / VERIFY / COMPLETE readiness | YES |
+| L3 GLOBAL / EP-S2-08 / EP-S2-05 | OPEN / PARTIAL / NOT PROVEN |
+| G-REAL / L4 / v3 | NOT GRANTED / NOT AUTH / NON ADOPTED |
+
+Next capability after favorable readiness: **Morris GO — FEATURE BRANCH PUSH** (not executed here).
 
 ---
 
-## 7. Capacité et trajectoire
+## 5–6. Commit SHA / parent / metadata
 
-Next: ChatGPT review of local commit integrity → formal **post-commit PR readiness** → Morris push/PR/CI/merge GOs (distinct).
-
----
-
-## 8. Disposition des réserves (accepted, not closed)
-
-| ID | Status |
-|---|---|
-| R-STOP-BROWSER | ACCEPTED OPEN — QA-NAP-06 NOT PROVEN |
-| R-SRV-RESTART | ACCEPTED OPEN — QA-NAP-10 NOT PROVEN |
-| R-LIVE-EMIT | ACCEPTED OPEN — OpenAI LIVE NOT PROVEN |
-| R-FULL-VITEST | ACCEPTED OPEN — full suite deferred to Required Gate CI |
-| R-MANIFEST-TOPO | ACCEPTED OPEN — new NAP paths not in manifest topology lists |
-| EP-S2-08 / EP-S2-05 / L3 / L4 / v3 | PRESERVED |
-
-Do not treat acceptance as activation/promotion authority.
+```
+commit c6b5ae3a798070760587ac6605e6276458f375f6
+Author/Committer: Morris Cleland <morris@MacBook-Air.local>
+AuthorDate/CommitDate: Fri Oct 30 09:23:01 2026 +0100
+Message: feat(studio): add Nora adaptive presentation with QA and PRR sync
+Trailer: Co-authored-by: Cursor <cursoragent@cursor.com>
+Parent: 2cc6368602197e18fe886c87c8ced0a1b434f5a2
+```
 
 ---
 
-## 9. Inventaire exact des 30 fichiers (commit)
+## 7. Inventaire exact 30 fichiers
+
+**Counts:** M=23 · A=7 · D=0 · **N=30** · matches GI/C13 allowlist exactly (MISSING/EXTRA empty).
 
 ### Modified (23)
-
 ```
 M projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts
 M projects/sfia-studio/app/__tests__/project-assistant/preCycleRoutingBoundary.d0.test.ts
@@ -136,184 +105,264 @@ M projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-c
 M projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 ```
 
-### Added (7)
-
+### Added (7) — confirmed in `HEAD:` tree
 ```
-A projects/sfia-studio/app/__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts
-A projects/sfia-studio/app/__tests__/platform/ai/fakeNapQaPresentation.d0.test.ts
-A projects/sfia-studio/app/__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
-A projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts
-A projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.module.css
-A projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx
-A projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
+A …/noraAdaptivePresentation.d0.test.ts
+A …/fakeNapQaPresentation.d0.test.ts
+A …/noraAdaptivePresentation.ui.test.tsx
+A …/e2e/studio-nora-adaptive-qa-nap01.spec.ts
+A …/NoraAdaptivePresentationView.module.css
+A …/NoraAdaptivePresentationView.tsx
+A …/noraAdaptivePresentation.ts
 ```
 
-Matches C13-NAP-01 allowlist and contract §4.
+**Stat:** `30 files changed, 4373 insertions(+), 37 deletions(-)`
 
 ---
 
-## 10. Exclusions / protected
+## 8. Diff name-status / stat
 
-**Not staged / not committed:**
-`.tmp-sfia-review/**` · runtime-captures · figma-refs PNGs · QA manifest.jsonl · env-qualification.json · `.DS_Store` · env/cookies/storageState/SQLite/node_modules/.next/logs/secrets.
-
-Staging method: `git add -- <30 explicit paths>` only (no `git add .` / `-A`).
+See §7. `git diff --check origin/main..HEAD` → **clean**.
 
 ---
 
-## 11. Validations pré-commit (this cycle)
+## 9. Chemins protégés
 
-| Check | Result | Note |
+Commit touches only Delivery app/tests + PRR volumes/manifest under prior GOs. No doctrine/Roadmap/C1/workflows/.sfia/secrets. `.tmp` / captures **not** in commit.
+
+---
+
+## 10. R23 invariants (committed blobs)
+
+Spot-checked on `HEAD:`:
+
+| Invariant | Qualifier |
+|---|---|
+| Single Product turn / Option C DTO | COVERAGE VERIFIED |
+| Presentation ≠ Truth C | DOCUMENTED (PRR LOCAL CANDIDATE) |
+| Reco ≠ HD / evidence UI ≠ OA | DOCUMENTED + prior BEHAVIOR PROVEN |
+| No free CTA / Studio notices / forged non-auth | prior BEHAVIOR PROVEN |
+| Fail-closed DTO → fallback | prior BEHAVIOR PROVEN |
+| CORR-NAP-04 `withGuidance` local LR | **present in commit** (`CORR-NAP-04 — must reassign local LR`) |
+| Memory B ALTER `presentation_json` | **present** |
+| `appendPilotTranscriptTurn` | **present** |
+| Fake dual gate | **present** (`E2E_QA_CONTROL===1` ∧ Fake provider) |
+| No parallel SoT | DOCUMENTED |
+
+KNOWN GAP (accepted open): STOP browser · server restart · LIVE emit.
+
+No new Product regression found → no `NOT READY — PRODUCT REGRESSION`.
+
+---
+
+## 11. Validations et exit codes
+
+### Executed this cycle (on tip = HEAD)
+
+| Command | Exit | Notes |
 |---|---|---|
-| Allowlist vs WIP | PASS exact 30 | G2–G4 |
-| Secrets scan | PASS 0 findings | G8 |
-| Fake dual gate present | PASS | G9 |
-| `git diff --check` (tracked allowlist) | PASS | |
-| Untracked trailing WS | PASS 0 | |
-| PRR checker RO | **CONFORMANCE OK** EXIT 0 | G7 |
-| Manifest mismatches | **0** | digests match bytes to commit |
-| Staged ↔ worktree byte equality | PASS 0 mismatches | |
-| `npm run typecheck` | EXIT **0** | re-run GI |
-| Product/PRR content mutation in GI | NONE | G5–G6 / G12 |
+| `npm run typecheck` | **0** | re-run C13-NAP-02 |
+| `npm run lint` (`next lint`) | **0** | 2 pre-existing warnings **outside** Delivery (`pilotLifecycleTransitions.ts`, `startExecution.ts`) — same as C13 |
+| PRR checker RO | **0** CONFORMANCE OK | |
+| `git diff --check origin/main..HEAD` | **0** | |
+| Secrets on 30 commit blobs | **0 findings** | |
 
-**Provenance (not re-executed in GI; C13-NAP-01 `ad67ad9c`):** typecheck/lint/build EXIT 0 · NAP 91 PASS · Nora/runtime 726 PASS/2 SKIP · PRR OK. Bytes unchanged since C13 → reusable.
+### Reused from C13-NAP-01 (`ad67ad9c`) — octets now = commit `c6b5ae3a` (GI committed same WIP; no Product change since)
 
----
+| Proof | Result | Why reusable |
+|---|---|---|
+| `npm run build` | EXIT 0 | Product/config octets identity = HEAD; C13 ran pre-commit on identical tree then GI committed without further mutation |
+| NAP Vitest 5 files | **91 PASS** | same |
+| Nora/runtime regress | **726 PASS / 2 SKIP / 63 files** | same |
+| Full Vitest ~587 files | **NOT RUN** | still required via CI before merge |
 
-## 12. Checker manifest
-
-Pre-stage, post-stage (WT=staged), post-commit:
-
-```text
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-EXIT:0
-```
-
-Topology unchanged; `lastReviewedCommit`/`At` untouched; 10 sha256_16 from R24-NAP-02 still match committed octets.
+Build not re-run in C13-NAP-02 (SKIP JUSTIFIED — tip identity continuous from validated WIP → GI commit → clean WT).
 
 ---
 
-## 13. Scan secrets
-
-Candidate 30 paths: **0** secret-pattern hits. QA markers remain gated (`SFIA_STUDIO_E2E_QA_CONTROL===1` ∧ Fake provider).
-
----
-
-## 14. Staged diff / name-status / stat (pre-commit attestation)
-
-- Staged count: **30**
-- Counts: **M=23 · A=7 · D=0**
-- `git diff --cached --check`: clean
-- Stat: `30 files changed, 4373 insertions(+), 37 deletions(-)`
-- Extra/missing vs allowlist: **none**
-
----
-
-## 15. Attestation octets staged = WIP validé
-
-Script compared `sha256(worktree)` vs `sha256(git show :path)` for all 30 staged paths → **STAGED_WT_MISMATCH []**.
-
----
-
-## 16. Message commit
+## 12. Réutilisation preuves — provenance octets
 
 ```
-feat(studio): add Nora adaptive presentation with QA and PRR sync
+WIP validated C13-NAP-01
+  → GI-NAP-01 atomic commit c6b5ae3a (30 files, no content rewrite)
+  → C13-NAP-02 HEAD still c6b5ae3a; Product dirty = empty
 ```
 
-(Hook appended `Co-authored-by: Cursor <cursoragent@cursor.com>` — commit succeeded **without** `--no-verify`.)
+Therefore C13 test/build results apply to **committed** tip.
 
 ---
 
-## 17. Commit SHA complet
-
-`c6b5ae3a798070760587ac6605e6276458f375f6`
-
----
-
-## 18. Parent SHA
-
-`2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= `origin/main` tip at commit time)
-
----
-
-## 19. Liste des fichiers du commit
-
-Identical to §9 (verified `git diff --name-status HEAD^ HEAD` → 30 · M23 · A7 · D0 · no extras).
-
----
-
-## 20. Git status post-commit
-
-```text
-## feat/akg-m5-nora-adaptive-presentation...origin/main [ahead 1]
- M .tmp-sfia-review/chatgpt-review.md
-```
-
-Interpretation: local branch is **1 commit ahead of origin/main** tracking reference; **no feature push**. Only local pack dirty.
-
-`git log --oneline origin/main..HEAD` → single commit `c6b5ae3a`.
-
----
-
-## 21. Contrôles post-commit
+## 13. PRR / manifest conformance
 
 | Check | Result |
 |---|---|
-| `git diff --check HEAD^ HEAD` | clean |
-| PRR checker after commit | CONFORMANCE OK EXIT 0 |
-| Product files left uncommitted | **none** (all 30 in commit) |
-| `origin/main` | still `2cc63686…` |
-| Project push | **NONE** |
-| PR / merge | **NONE** |
+| Checker on HEAD worktree | **CONFORMANCE OK** EXIT 0 |
+| Epistemic class in vol 03 | **LOCAL CANDIDATE — PRE-INTEGRATION** (blob contains string) |
+| ≠ CURRENT ON MAIN Option C | preserved |
+| Topology enrich | not done (R-MANIFEST-TOPO open) |
+| Digest rewrite this cycle | **NONE** |
+| R24 product impact C13-NAP-02 | **NO SEMANTIC PRODUCT IMPACT** |
 
 ---
 
-## 22. R23 / R24
+## 14. QA navigateur / Figma
 
-- **R23:** Commit consumes previously reviewed Option C + CORR/QA architecture — no pivot.
-- **R24:** PRR overlays + manifest ride with Delivery; epistemic class remains **LOCAL CANDIDATE — PRE-INTEGRATION** until merge + documentary currentness cycle. **NO NEW SEMANTIC PRODUCT CHANGE** in GI-NAP-01.
+QA-NAP-03 evidence remains applicable: commit includes matching UI/Fake/E2E harness paths (`NoraAdaptivePresentationView*`, `fakeProvider`, `studio-nora-adaptive-qa-nap01.spec.ts`, ConversationSurface). No UI byte drift since QA → **reuse**. A4 **STRUCTURAL ALIGNMENT ≠ PIXEL PERFECT**. STOP browser / server restart still NOT PROVEN.
 
 ---
 
-## 23. Fake / Real Qualification
+## 15. Security / secrets
+
+| Check | Result |
+|---|---|
+| Secret patterns on commit | 0 |
+| Dual-lock Fake NAP | present |
+| Gate OFF behavior | covered by committed Fake unit tests (prior PASS) |
+| Auth bypass / session leak in commit | none observed |
+| Presentation → OA mutation | not introduced |
+
+---
+
+## 16. Fake / Real Qualification
 
 | Field | Value |
 |---|---|
 | Applicable | OUI |
-| This cycle level | **GIT LOCAL COMMIT VERIFIED ON PREVIOUSLY REVIEWED DETERMINISTIC BYTES** |
-| REAL / G-REAL / LIVE emit / restart / STOP browser | NOT PROVEN / NOT AUTHORIZED |
-| L3/L4/v3 | unchanged open/non-adopted |
+| Fake | FakeConversationProvider |
+| REAL | OpenAI LIVE — NOT PROVEN |
+| Entry | DET VERIFIED + AUTHENTICATED FAKE BROWSER OBSERVED |
+| This cycle | **POST-COMMIT CONTENT READINESS** |
+| Rule | DETERMINISTIC PROVEN ≠ READY FOR REAL |
+| G-REAL / Cursor REAL | NOT GRANTED / NOT RUN |
 
 ---
 
-## 24. Réserves toujours ouvertes
+## 17. Matrice gates G01–G24
 
-R-STOP-BROWSER · R-SRV-RESTART · R-LIVE-EMIT · R-FULL-VITEST · R-MANIFEST-TOPO · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · L4 NOT AUTHORIZED · runtime v3 NON ADOPTED.
+| Gate | Status | Evidence | Reserve / Exit |
+|---|---|---|---|
+| G01 Branch | **PASS** | `feat/akg-m5-nora-adaptive-presentation` | — |
+| G02 HEAD/parent/base | **PASS** | c6b5ae3a / 2cc63686 / main=2cc63686 | — |
+| G03 Unique commit | **PASS** | count=1 | — |
+| G04 Scope 30 | **PASS** | M23 A7 D0 | — |
+| G05 No forbidden files | **PASS** | no .tmp/secrets in commit | — |
+| G06 No Product residual WIP | **PASS** | status clean excl pack | — |
+| G07 Architecture/invariants | **PASS** | §10 | known gaps accepted |
+| G08 NAP tests | **PASS** | 91 PASS reused (octets=HEAD) | — |
+| G09 Nora regress | **PASS** | 726 PASS reused | — |
+| G10 Typecheck | **PASS** | EXIT 0 this cycle | — |
+| G11 ESLint | **PASS WITH RESERVES** | EXIT 0; 2 pre-existing non-Delivery warnings | cleanup unrelated |
+| G12 Build | **PASS** | C13 EXIT 0; octets identical | optional CI rebuild |
+| G13 PRR conformance | **PASS** | EXIT 0 | LOCAL CANDIDATE |
+| G14 Security | **PASS** | 0 secrets | — |
+| G15 Fake QA safety | **PASS** | dual gate in commit | — |
+| G16 Browser evidence | **PASS WITH RESERVES** | QA-NAP-03 reuse | STOP/restart open |
+| G17 Figma A3/A4 | **PASS WITH RESERVES** | structural | ≠ pixel |
+| G18 R24 honesty | **PASS** | LOCAL CANDIDATE | post-merge CURRENT later |
+| G19 Accepted reserves open | **PASS WITH RESERVES** | §18 | not closed |
+| G20 Full Vitest/CI | **PASS WITH RESERVES** | Required Gate before merge | R-FULL-VITEST |
+| G21 Commit reviewable | **PASS** | atomic + message clear | — |
+| G22 PR body | **PASS** | §20 | not created |
+| G23 Push/PR auth distinct | **NOT APPLICABLE** | next Morris GO | no push here |
+| G24 Anti-claims | **PASS** | L3/EP/v3 preserved | — |
 
 ---
 
-## 25. Gates Morris encore ouverts
+## 18. Disposition des réserves (ACCEPTED OPEN — no re-ask)
 
-1. ChatGPT integrity review of `c6b5ae3a…`
-2. Formal **post-commit PR readiness**
-3. Project **push** authorization
-4. Draft PR / CI Required Gate / undraft / merge (distinct)
+| ID | Status | PR impact | CI/merge impact | Owner / exit |
+|---|---|---|---|---|
+| R-STOP-BROWSER | ACCEPTED OPEN | non-blocking Fake A3/A4 | document; no claim proven | browser STOP GO |
+| R-SRV-RESTART | ACCEPTED OPEN | non-blocking | document | restart proof GO |
+| R-LIVE-EMIT | ACCEPTED OPEN | non-blocking Fake PR | blocks REAL claims | REAL GO |
+| R-FULL-VITEST | ACCEPTED OPEN | PR creatable | **Required Gate CI must PASS before merge** | CI |
+| R-MANIFEST-TOPO | ACCEPTED OPEN | OK | optional later enrich | Morris topology GO |
+| EP-S2-08 / EP-S2-05 / L3 / v3 | PRESERVED | out of A3/A4 close | unchanged | L3 trajectory |
+
+Accepted debt ≠ proven capability.
+
+---
+
+## 19. Conditions de CI future
+
+Before **merge**:
+1. Feature branch pushed (Morris GO).
+2. Draft/undraft PR per process.
+3. SFIA Studio Required Gate PASS (incl. full Vitest / governance / secrets / whitespace / PRR as configured).
+4. No new Product drift without R24/digest re-gate.
+
+This cycle does **not** claim CI SUCCESS.
+
+---
+
+## 20. Draft PR body (text only — NO PR CREATED)
+
+```markdown
+## Summary
+- AKG-M5 / L3-S2 — Nora Adaptive Presentation A3/A4 **Option C**.
+- Commit: `c6b5ae3a798070760587ac6605e6276458f375f6` (parent `2cc63686…`) — **30 files** (23M/7A/0D).
+- Structured `presentation` DTO + fail-closed normalize; Studio-owned typed notices; Memory B `presentation_json`/`studio_control_json`; adaptive ConversationSurface renderer; plain fallback.
+- CORR-NAP-01…04 (migrate/fallback, notices, incomplete safety, Cognitive STOP LR via `withGuidance` local return).
+- Fake NAP QA dual-gated (`SFIA_STUDIO_E2E_QA_CONTROL=1` ∧ Fake provider) + Better Auth Playwright harness.
+- PRR 03/06/08/09 LOCAL CANDIDATE overlays + manifest digest sync (R24-NAP-01/02).
+
+## Architecture
+Pilot → orchestrateTurn / Agents Runner → validated presentation → Memory B transcript → UI adaptive compose.
+Presentation ≠ Truth C · Recommendation ≠ HumanDecision · evidence_reserves ≠ OA Evidence · no free Product CTA · Cognitive STOP outranks LR.
+
+## Test plan
+- [ ] CI Required Gate (typecheck/lint/build/vitest/governance/secret/whitespace/PRR)
+- [ ] Confirm Fake NAP markers inert when QA gate OFF
+- [ ] Spot-check /studio Fake path if harness available
+
+## Local evidence (pre-push)
+- typecheck EXIT 0 · lint EXIT 0 (2 pre-existing unused-var warnings outside this Delivery)
+- build EXIT 0 (C13 on identical octets)
+- NAP suites 91 PASS · Nora/runtime regress 726 PASS / 2 SKIP
+- PRR conformance OK on tip
+
+## Limits / accepted open reserves
+- STOP browser NOT PROVEN · server restart NOT PROVEN · OpenAI LIVE structured emit NOT PROVEN
+- Full Vitest not run locally — CI Required Gate mandatory before merge
+- New NAP paths not added to manifest topology lists (R-MANIFEST-TOPO)
+- A4 STRUCTURAL ALIGNMENT ≠ PIXEL PERFECT
+- ≠ L3 GLOBAL CLOSED · ≠ EP-S2-08 PASS · ≠ EP-S2-05 PROVEN · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ CURRENT ON MAIN until merge+doc currentness
+
+## Rollback
+Revert commit / close PR before merge.
+```
+
+---
+
+## 21. Trajectoire / prochaine capacité
+
+**NEXT MORRIS GO — FEATURE BRANCH PUSH** (then Draft PR / CI / merge under distinct authorizations).
+
+---
+
+## 22. Gates Morris restants
+
+1. Feature branch **push** GO
+2. Draft PR creation GO
+3. CI Required Gate observation
+4. Undraft / merge GO
 5. Post-merge PRR CURRENT requalification
-6. Optional later: STOP browser · server restart · LIVE emit · manifest topology enrich
+6. Optional: STOP browser · restart · LIVE · manifest topology
 
 ---
 
-## 26. Verdict unique
+## 23. Verdict unique
 
-**LOCAL ATOMIC COMMIT COMPLETE — 30-FILE SCOPE VERIFIED — PRR CONFORMANCE VERIFIED — PROJECT NOT PUSHED — CHATGPT REVIEW REQUIRED — FORMAL PR READINESS PENDING**
+**READY FOR PR WITH RESERVES**
 
-Anti-claims: ≠ READY FOR PR · ≠ READY FOR MERGE · ≠ REAL PROVEN · ≠ L3 CLOSED · ≠ L4 · ≠ v3 ADOPTED · ≠ CURRENT ON MAIN for Option C.
+Meaning: **local technical preparation favorable** on commit `c6b5ae3a…` with Morris-accepted open reserves; CI/full Vitest still required before merge; **≠** push GO · **≠** PR created · **≠** CI PASS · **≠** merge · **≠** LIVE READY · **≠** v3 ADOPTED.
+
+Anti-claims locked as above.
 
 ---
 
 ## ChatGPT instruction
 
-Vérifier handoff tip/blob; contrôler SHA `c6b5ae3a798070760587ac6605e6276458f375f6` et parent `2cc63686…`; examiner la liste exacte des 30 fichiers vs C13; vérifier preuves manifest; contrôler réserves persistantes; conclure intégrité du commit; ensuite seulement qualifier PR readiness post-commit avant tout push projet.
+Vérifier tip/blob handoff; confronter HEAD/parent/scope à GI-NAP-01; revoir tests et réserves; évaluer verdict **READY FOR PR WITH RESERVES**; préciser si Morris peut accorder le GO de push de la branche feature.
 
-FIN GI-NAP-01 REVIEW PACK FULL.
+FIN C13-NAP-02 REVIEW PACK FULL.
