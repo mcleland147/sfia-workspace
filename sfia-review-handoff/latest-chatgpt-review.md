@@ -1,122 +1,98 @@
-# CORR-NAP-CI-01 — PLAYWRIGHT / VITEST BOUNDARY — REVIEW PACK FULL
+# GI-CORR-NAP-CI-01 — VITEST / PLAYWRIGHT BOUNDARY FIX — REVIEW PACK FULL
 
-MONO-CYCLE: CORR-NAP-CI-01
+MONO-CYCLE: GI-CORR-NAP-CI-01
 PROFILE: STANDARD
-TYPOLOGY: CORR / QA / CI READINESS
+TYPOLOGY: CORR / QA / GIT INTEGRATION
 MILESTONE: AKG-M5 / L3-S2
 
 ## 1. Timestamp UTC
 
-2026-10-30T10:37:56Z
+2026-10-30T10:58:41Z
 
 ## 2. GO Morris consommé
 
-CORR-NAP-CI-01 — CORRECTION APPROVED.
-Passage: CORRECTION LOCALE → VALIDATIONS → REVIEW PACK FULL → REVIEW HANDOFF → CHATGPT REVIEW.
-Aucun commit/push projet dans ce passage. Aucun merge. Aucun undraft.
+GO EXPLICITE: intégrer dans PR #628 le correctif CORR-NAP-CI-01 déjà réalisé localement et validé par ChatGPT.
 
-## 3. Git Truth Check
+Autorisé et exécuté: contrôle Git; vérification diff exact; preuves locales; validations pré-commit; UN commit correctif mono-fichier; push feature; vérification SHA distant; vérification PR #628; observation nouvelle CI; Review Pack FULL; Review Handoff L3.
+
+Interdit et respecté: pas de nouvelle modification Product; pas de workflow/dépendances/PRR; pas de 2e fichier projet; pas d'autre PR; pas d'undraft; pas de merge; pas de force push; pas de promotion L3/L4/REAL/v3.
+
+## 3. Local Git Truth Check
 
 | Check | Value |
 |-------|-------|
 | pwd -P | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
-| toplevel | same |
 | remote | `https://github.com/mcleland147/sfia-workspace.git` |
 | branch | `feat/akg-m5-nora-adaptive-presentation` |
-| HEAD local | `c6b5ae3a798070760587ac6605e6276458f375f6` |
-| origin/feat tip | `c6b5ae3a798070760587ac6605e6276458f375f6` (identical) |
-| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| ls-remote main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (unchanged) |
-| Product WIP préexistant | none (only this cycle's test WIP + review pack) |
-| staged | empty |
-| PR #628 | OPEN / DRAFT / NOT MERGED |
-| PR headRefOid | `c6b5ae3a798070760587ac6605e6276458f375f6` |
-| PR baseRefOid | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| Correctif commit déjà présent | NON — correction uncommitted only |
+| HEAD avant commit | `c6b5ae3a798070760587ac6605e6276458f375f6` |
+| origin/main | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (inchangé) |
+| origin/feature avant | `c6b5ae3a798070760587ac6605e6276458f375f6` |
+| PR #628 avant | OPEN / DRAFT / head `c6b5ae3a…` |
+| Handoff CORR | tip `caa94ff8…` / blob `e9eb0d60…` |
+| WIP projet | seul fichier test modifié (+ pack temporaire) |
+| staged inattendu | aucun |
+| commit correctif déjà présent | NON |
 
-**C01 Git Truth PASS.**
+**Git Truth PASS.**
 
 ## 4. Sources consultées
 
-PROCESSUS (Git courant / méthode): cycle routing, rules/guardrails, validation checklist, repository execution engine guidance (as applicable to CORR QA CI).
-CKC: Cycle 8 CORR-NAP-CI-01 (synthetic 15-cycle map as non-authoritative guidance).
-STUDIO: convergence doctrine/roadmap, product-completion cadrage, doctrine v3 applicable.
-PRR: production-runtime-reference README + conformance checker (RO).
-CODE:
-- `projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts` (MODIFIED)
-- `projects/sfia-studio/app/e2e/support/authenticatedStudioSession.ts` (RO)
-- `projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts` (RO)
-- `.github/workflows/sfia-studio-ci.yml` (RO)
-- `projects/sfia-studio/app/package.json` (RO)
-Preuves: QA-NAP-03 / C13-NAP-02 / GI-NAP-01 / PR-NAP-01 handoff chain.
-Git/code/preuves primaires priment.
+PROCESSUS v2.6 / cycle routing / rules / validation / repository execution engine / CKC Cycle 8 guidance.
+STUDIO convergence doctrine/roadmap / product-completion / doctrine v3 30/32/34/35.
+PRR README + volumes applicables + checker RO.
+CODE: test d0, helper E2E, nap01 spec, workflow CI, package.json (RO hors fichier test).
+PREUVES: PR-NAP-01 `d61a79fd`; CORR-NAP-CI-01 `caa94ff8` (lu via Git immuable §11).
+GitHub PR #628; CI run 41033681362 (FAILURE historique).
 
 ## 5. Convergence Pre-check
 
-Capacité v3: Nora Adaptive Presentation A3/A4 Option C.
-Milestone: AKG-M5 / L3-S2.
-État: Product feature published on PR #628 OPEN/DRAFT; Required Gate FAILURE (CI run 41033681362). Merge BLOCKED.
-Actifs réutilisés: `parseCookieHeaderToPlaywrightCookies`; Vitest existing; Playwright helper; E2E authenticated Studio; workflow CI existing.
-Classification: **ADAPT — test uniquement. KEEP — Product, E2E, CI.**
-Gap: Vitest used `chromium.launch` while CI does not install Chromium.
-Exit proof this passage: test corrected; no binary browser dependency in Vitest; deterministic assertions; E2E boundary preserved; validations PASS; mono-file diff.
-Aucune architecture parallèle.
-Aucune promotion: L3 GLOBAL OPEN; EP-S2-08 PARTIAL; EP-S2-05 NOT PROVEN; G-REAL NOT GRANTED; L4 NOT AUTHORIZED; Runtime v3 NON ADOPTED.
+Capacité: Nora Adaptive Presentation A3/A4 Option C.
+État entrée: FEATURE ON REMOTE; PR #628 OPEN/DRAFT; LOCAL CORRECTION REVIEW PASS; Required Gate previously FAILED; MERGE BLOCKED.
+CLASSIFICATION: KEEP Product/CI; ADAPT test Vitest existant.
+EXIT PROOF ce cycle: commit mono-fichier; diff = handoff; SHA distant vérifié; PR mise à jour; CI sur nouveau SHA; Required Gate SUCCESS; réserves préservées.
+Pas de GO merge consommé.
 
-## 6. PR #628 et CI initiale
+## 6. PR #628 avant
 
-- PR: https://github.com/mcleland147/sfia-workspace/pull/628
-- State: DRAFT / OPEN / NOT MERGED
+- URL: https://github.com/mcleland147/sfia-workspace/pull/628
+- State: OPEN / DRAFT / NOT MERGED
 - Head: `c6b5ae3a798070760587ac6605e6276458f375f6`
-- CI failed: https://github.com/mcleland147/sfia-workspace/actions/runs/41033681362
-- Failure locus: Vitest `authenticatedStudioSession.d0.test.ts` — `browserType.launch` / Chromium missing on runner.
-- Product Nora behavior: not implicated by this CI failure.
+- Base: `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (main)
+- Ancien CI: https://github.com/mcleland147/sfia-workspace/actions/runs/41033681362 — FAILURE
 
-## 7. Cause racine
+## 7. Handoff correctif source
 
-Fichier: `projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts`
-Test: « parses Better Auth session cookie header with url-only Playwright shape »
-Après assertions structurelles, le test appelait:
+- Commit: `caa94ff83ee032831877423fa2a15e4b6e6049e2`
+- Blob: `e9eb0d60782de8fa96d60442f138272876f20f75`
+- Section 11 DIFF COMPLET = référence normative
+- Comparaison locale: **DIFF_MATCH: EXACT** (rstrip-normalized, 49 lines)
 
-```ts
-const browser = await chromium.launch({ headless: true });
-const context = await browser.newContext();
-await expect(context.addCookies(cookies)).resolves.toBeUndefined();
-await browser.close();
-```
+## 8. Diff exact de référence / local pré-commit
 
-Dans GitHub Actions: `npm ci` PASS; aucun navigateur Playwright installé; Chromium launch FAIL → Vitest FAIL → Required Gate FAIL.
-Défaut de frontière Vitest/E2E — pas une régression Nora.
+name-status: `M projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts`
+numstat: `8 8`
+git diff --check: PASS
 
-## 8. Classification R23
+## 9. Diff staged exact
 
-| Item | Classification |
-|------|----------------|
-| Cause racine | dépendance `chromium.launch` dans Vitest |
-| Réutilisation | helper parsing existant + harness E2E Playwright existant |
-| Composants inchangés | Studio Auth, Nora, Product, Memory B, renderer, CI workflow |
-| Classification | **TEST HARNESS ADAPT** / **PRODUCT KEEP** |
+Après `git add --` du seul fichier:
+- cached name-status: `M` chemin exact
+- cached numstat: `8 8`
+- cached --check: PASS
+- staged == handoff §11
+- aucun temporaire staged
 
-## 9. Impact R24
+## 10. Commit SHA et parent
 
-| Impact | Verdict |
-|--------|---------|
-| Product | **NO SEMANTIC PRODUCT IMPACT** |
-| Tests | Correction du niveau d'oracle Vitest vs E2E |
-| PRR volume 08 | Pas d'écart sémantique nouveau — preuves QA historiques conservées avec plafond exact |
-| Manifest digests | Fichier de test hors topologie digests Product — **pas de refresh** |
-| Sync PRR | **NON REQUISE** |
+| Field | Value |
+|-------|-------|
+| CORR_COMMIT_SHA | `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a` |
+| Parent | `c6b5ae3a798070760587ac6605e6276458f375f6` |
+| Message | `test(studio): keep auth cookie Vitest independent of Chromium` |
+| Files | 1 |
+| Stat | 8 insertions(+), 8 deletions(-) |
 
-## 10. Fichier modifié
-
-**SEUL fichier projet modifié:**
-
-`projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts`
-
-Fichiers créés: AUCUN.
-Workflow / package / E2E / Product: NON MODIFIÉS.
-
-## 11. DIFF COMPLET de la correction
+## 11. DIFF commit mono-fichier COMPLET
 
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts b/projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts
@@ -170,70 +146,109 @@ index a166413e..2d10252a 100644
    it("rejects headers without Better Auth session marker", () => {
 ```
 
-Stat: `1 file changed, 8 insertions(+), 8 deletions(-)`
-name-status: `M projects/sfia-studio/app/__tests__/e2e-support/authenticatedStudioSession.d0.test.ts`
+## 12. Validations pré-commit
 
-## 12. Assertions conservées
+Exécutées dans GI-CORR-NAP-CI-01:
+- Diff strict vs handoff: MATCH
+- Targeted Vitest: **6/6 PASS**, EXIT 0 (~2ms tests; pas de browser)
+- PRR checker RO: **CONFORMANCE OK**, EXIT 0 (no --write-digests)
+- git diff --check: PASS
+- Secrets: PASS (fake-test-token only)
+- Scope: 1 fichier projet
 
-Conservées / renforcées:
-- parsing Better Auth session marker;
-- valeurs string non vides;
-- `url` défini (localhost);
-- `path` undefined;
-- `domain` undefined;
-- length ≥ 1;
-- rejet header sans Better Auth;
-- filtrage third-party / empty header;
-- visual base URL default localhost;
-- fail-closed BETTER_AUTH_URL mismatch;
-- inspectAuthCookieFileStatus MISSING;
-- restauration env `PLAYWRIGHT_BASE_URL` / `BETTER_AUTH_URL` via `afterEach`.
+Réutilisées (CORR-NAP-CI-01, octets identiques avant commit — non re-exécutées ici comme nouvelles preuves):
+- typecheck EXIT 0
+- lint EXIT 0
+- full Vitest local 6183 PASS / 142 SKIP / 0 FAIL
+- build Product inchangé
 
-Retiré:
-- import runtime `chromium`;
-- `chromium.launch` / `newContext` / `addCookies` / `browser.close`.
+## 13. PRR / manifest
 
-Nom du test ajusté pour exprimer le niveau de preuve réel (cookie **shape**, pas BrowserContext acceptance).
+Commit touche uniquement le fichier de test Vitest.
+Aucun fichier PRR / manifest dans `c6b5ae3a..1c3a8d9e`.
+Checker CONFORMANCE OK.
+Pas de digest refresh.
+NO SEMANTIC PRODUCT IMPACT — pas de requalification PRR.
 
-## 13. Contrat E2E conservé (lecture seule)
+## 14. Security
 
-`e2e/support/authenticatedStudioSession.ts`:
-- `applyAuthenticatedStudioCookies` → `context.addCookies(cookies)` inchangé;
-- `parseCookieHeaderToPlaywrightCookies` inchangé.
+Aucun secret; aucun cookie réel; aucun OAuth; aucune modification Auth/CI/packages; staged mono-fichier uniquement.
 
-`e2e/studio-nora-adaptive-qa-nap01.spec.ts`:
-- utilise `applyAuthenticatedStudioCookies` et/ou `context.addCookies` sous session Auth réelle lorsque disponible.
+## 15. Push et exit code
 
-**Distinction des niveaux de preuve:**
-| Niveau | Couverture | Statut |
-|--------|------------|--------|
-| Structural cookie shape | Vitest (ce correctif) | DET VERIFIED local |
-| BrowserContext.addCookies acceptance | E2E harness | Conservé dans code E2E |
-| Authenticated Studio /studio | E2E sous session | QA-NAP-03 historique (plafond exact) |
-| OpenAI LIVE | — | NOT PROVEN ici |
-
-Gap déclaré: le Vitest n'affirme plus l'acceptation Chromium (correct). La couverture navigateur réelle reste dans E2E / QA-NAP-03 — **non rejouée** dans ce passage (Auth env non requis ici). Pas de second harness. Pas de mock artificiel de `addCookies`.
-
-## 14. Tests et exit codes (ciblés)
-
-A. Targeted:
+Commande:
 ```
-npx vitest run __tests__/e2e-support/authenticatedStudioSession.d0.test.ts
+git push --porcelain origin HEAD:refs/heads/feat/akg-m5-nora-adaptive-presentation
 ```
-- Test Files: 1 passed
-- Tests: **6 passed (6)**
-- Duration: ~281ms (tests 2ms)
-- EXIT: **0**
-- Aucun navigateur lancé (pas d'import chromium; durée incompatible avec launch).
+Résultat: `c6b5ae3a..1c3a8d9e` Done
+PUSH_EXIT: **0**
+Pas de --force / --force-with-lease / push main / tags.
 
-B. Typecheck: `npm run typecheck` → EXIT **0**
-C. Lint: `npm run lint` → EXIT **0** (warnings préexistants OA non liés)
-E. Build: Product bytes inchangés — preuve build précédente réutilisable; typecheck OK sans doute Product.
+## 16. SHA distant après
 
-## 15. Full Vitest totals
+`git ls-remote origin refs/heads/feat/akg-m5-nora-adaptive-presentation`
+→ `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a`
 
-Commande: `npm test` (depuis `projects/sfia-studio/app`)
-EXIT: **0**
+Identique à CORR_COMMIT_SHA.
+
+## 17. Relecture GitHub du commit
+
+API commit `1c3a8d9e…`:
+- parents: [`c6b5ae3a…`]
+- message: `test(studio): keep auth cookie Vitest independent of Chromium`
+- files: 1 — `authenticatedStudioSession.d0.test.ts` — status modified — additions 8 — deletions 8
+
+**REMOTE CORRECTION VERIFIED.**
+
+## 18. PR #628 après
+
+| Field | Value |
+|-------|-------|
+| number | 628 |
+| base | main (`2cc63686…`) |
+| head branch | `feat/akg-m5-nora-adaptive-presentation` |
+| headSha | `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a` |
+| state | OPEN |
+| draft | TRUE |
+| merged | FALSE |
+| changedFiles | **30** (fichier déjà dans le set initial — pas 31) |
+| nouvelle PR correctif | NON |
+
+## 19. Nouvelle CI run ID / URL
+
+- Run ID: **41043545435**
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435
+- Workflow: SFIA Studio CI
+- event: pull_request
+- headSha: `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a`
+- studio_changed=**true**
+- Ancien run 41033681362: **non réutilisé** comme preuve de succès
+
+## 20. Job/step results
+
+| Job | Conclusion |
+|-----|------------|
+| Detect SFIA Studio changes | SUCCESS (8s) |
+| Build and validate SFIA Studio | SUCCESS (8m42s) |
+| SFIA Studio Required Gate | SUCCESS (3s) |
+
+Validate steps (tous SUCCESS):
+1. Install dependencies
+2. Typecheck
+3. Lint
+4. Build
+5. Unit tests (Vitest)
+6. Modeled governance tests
+7. Secret pattern scan (targeted)
+8. Trailing whitespace check
+
+Required Gate: Aggregate required gate SUCCESS.
+
+Run conclusion globale: **success**.
+
+## 21. Full Vitest totals CI
+
+Sur CORR_COMMIT_SHA (logs run 41043545435):
 
 | Metric | Value |
 |--------|-------|
@@ -243,112 +258,90 @@ EXIT: **0**
 | tests passed | **6183** |
 | tests skipped | **142** |
 | tests failed | **0** |
-| total files | 587 |
-| total tests | 6325 |
-| Duration | **74.58s** |
-| Start | 2026-10-30T11:36:35 local / suite logged |
+| Duration | **385.17s** |
 
-Réserve: une re-run intermédiaire sous charge a produit 4 timeouts flaky (5s) sur fichiers **non touchés** (`candidateTrajectoryCycleStart`, `gcecGitCommitObserve`); re-run propre EXIT 0 ci-dessus — **pas de masquage d'assertions**.
+R-FULL-VITEST: **réévalué SUCCESS** via nouvelle CI (pas le run 41033681362).
 
-## 16. Checker PRR
+## 22. Required Gate conclusion
 
-```
-node scripts/check-production-runtime-reference.mjs
-```
-(depuis `projects/sfia-studio/app`)
+Detect = SUCCESS.
+Validate = SUCCESS.
+Required Gate = SUCCESS.
 
-```
-OK: canonical README exists
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-EXIT: 0
-```
+## 23. R23/R24
 
-Aucun `--write-digests`.
+R23:
+- ADAPT: oracle Vitest cookie shape
+- KEEP: Product, Auth, E2E Playwright, CI workflow
+- Niveau: DETERMINISTIC COOKIE SHAPE VERIFIED
+- Aucun nouveau comportement Product
 
-## 17. Sécurité
+R24:
+- NO SEMANTIC PRODUCT IMPACT
+- PRR 08 / manifest: inchangés par ce commit
+- Checker PASS ≠ validité sémantique globale (doctrine préservée)
 
-- aucun secret;
-- aucun cookie réel (valeur fictive `fake-test-token` / `abc`);
-- aucun token OAuth;
-- aucun fixture sensible;
-- aucune modification Auth / CI / packages;
-- `git diff --check` PASS (CHECK:0).
-
-## 18. Fake/Real Qualification
+## 24. Fake/Real Qualification
 
 Applicable: OUI.
+Fixture: cookies fictifs Better Auth.
+Niveau atteint ce cycle: **CI DETERMINISTIC SUITE PASS** sur `1c3a8d9e…`.
+Conservé: QA-NAP-03 AUTHENTICATED FAKE BROWSER OBSERVED (historique).
+Hors scope: Browser STOP PROVEN; server restart PROVEN; OpenAI LIVE; G-REAL; L3 global closure; L4; v3 ADOPTED.
+Pas de REAL exécuté par ce cycle.
 
-| Frontière | Niveau |
-|-----------|--------|
-| Vitest cookie shape | **DETERMINISTIC COOKIE SHAPE VERIFIED** |
-| Fixture | cookie fictif Better Auth |
-| BrowserContext acceptance | E2E (code conservé) — non rejoué ici |
-| AUTHENTICATED FAKE BROWSER OBSERVED | QA-NAP-03 historique, plafond exact |
-| OpenAI LIVE / G-REAL / L4 / v3 ADOPTED | HORS SCOPE / NOT PROVEN |
+## 25. Réserves toujours ouvertes
 
-Ne transforme pas l'oracle structurel en preuve REAL Chromium.
+- R-STOP-BROWSER: ACCEPTED OPEN — NOT PROVEN
+- R-SRV-RESTART: ACCEPTED OPEN — NOT PROVEN
+- R-LIVE-EMIT: ACCEPTED OPEN — NOT PROVEN
+- R-FULL-VITEST: SUCCESS sur CORR_COMMIT_SHA (nouvelle CI) — réserve historique de preuve close pour ce SHA uniquement
+- R-MANIFEST-TOPO: ACCEPTED OPEN
+- EP-S2-08: PARTIAL
+- EP-S2-05: NOT PROVEN
+- L3 GLOBAL: OPEN
+- L4: NOT AUTHORIZED
+- Runtime v3: NON ADOPTED
 
-## 19. Gates C01–C16
+Les réserves produit ne sont pas closes par la publication du commit.
 
-| Gate | Result |
-|------|--------|
-| C01 Git Truth PASS | PASS |
-| C02 Fichier unique modifié (projet) | PASS |
-| C03 Aucun Product runtime change | PASS |
-| C04 Aucun workflow CI change | PASS |
-| C05 Aucun nouveau package | PASS |
-| C06 Pas de chromium.launch Vitest | PASS |
-| C07 Assertions cookies conservées | PASS |
-| C08 Couverture E2E identifiée | PASS |
-| C09 Test ciblé PASS | PASS |
-| C10 Typecheck PASS | PASS |
-| C11 Lint PASS | PASS |
-| C12 Vitest global PASS | PASS |
-| C13 PRR conformance PASS | PASS |
-| C14 Diff check PASS | PASS |
-| C15 Aucun secret | PASS |
-| C16 Réserves précédentes préservées | PASS |
+## 26. Gates Morris restants
 
-## 20. Réserves ouvertes
+- CHATGPT MERGE READINESS REVIEW REQUIRED sur SHA `1c3a8d9e…`
+- GO merge actualisé requis avant undraft/merge
+- AUCUN merge / undraft dans ce cycle
 
-- L3 GLOBAL OPEN
-- EP-S2-08 PARTIAL
-- EP-S2-05 NOT PROVEN
-- G-REAL NOT GRANTED
-- L4 NOT AUTHORIZED
-- Runtime v3 NON ADOPTED
-- OpenAI LIVE NOT PROVEN
-- Browser E2E authenticated non rejoué dans CORR-NAP-CI-01 (dépend Auth env)
-- Local Vitest PASS ≠ nouvelle GitHub CI Required Gate sur futur SHA
-- PR #628 reste DRAFT; merge blocked jusqu'à CI verte post-intégration
-- Digest MATCH ≠ semantic validity (PRR doctrine)
-- Fake NAP dual-gate / withGuidance LR réserves produit inchangées
+## 27. Git status final (feature WT)
 
-## 21. Prochain gate Git
+- Branche: `feat/akg-m5-nora-adaptive-presentation`
+- HEAD: `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a` (= remote)
+- Dirty: uniquement `.tmp-sfia-review/chatgpt-review.md` (artefact review — non projet)
+- Aucun WIP Product non commité
 
-Après revue ChatGPT indépendante:
-1. Intégration contrôlée du **même** diff mono-fichier dans PR #628 (commit/push feature).
-2. Nouvelle CI GitHub sur nouveau SHA.
-3. Réévaluation Required Gate / merge — **ne pas autoriser merge sur ancienne CI** (run 41033681362).
-Ce passage: **aucun** commit/push projet.
+## 28. Verdict unique
 
-## 22. Verdict unique
-
-**CORRECTION LOCAL READY FOR CHATGPT REVIEW**
+**CORRECTION COMMIT & PUSH COMPLETE**
+**— REMOTE SHA VERIFIED**
+**— PR #628 UPDATED**
+**— REQUIRED GATE CI SUCCESS**
+**— CHATGPT MERGE READINESS REVIEW REQUIRED**
+**— MERGE NOT EXECUTED**
 
 ---
 
 ## INSTRUCTION CHATGPT
 
 À réception:
-1. Vérifier handoff Git (tip + blob distant).
-2. Examiner diff complet (§11).
-3. Vérifier couverture déterministe (shape only).
-4. Vérifier maintien couverture E2E (helper + nap01 RO).
-5. Contrôler tests et PRR.
-6. Qualifier correction.
-7. Préparer l'intégration contrôlée dans la PR #628 existante.
-8. Ne pas autoriser merge sur ancienne CI.
-9. Préserver les réserves produit.
+1. Vérifier le handoff Git (tip + blob).
+2. Vérifier le nouveau commit distant `1c3a8d9e…`.
+3. Comparer le diff au correctif approuvé (caa94ff8 §11).
+4. Vérifier la PR #628 (DRAFT/OPEN/30 files/head SHA).
+5. Vérifier la nouvelle CI 41043545435 sur le SHA.
+6. Vérifier Required Gate SUCCESS.
+7. Requalifier les réserves.
+8. Préparer la revue pré-merge.
+9. Demander un GO merge actualisé sur le SHA correctif si tous les gates de merge sont satisfaits.
 
-FIN CORR-NAP-CI-01.
+INTERDIT: MERGE / UNDRAFT / DELETE BRANCH / FORCE PUSH / PRODUCT PROMOTION.
+
+FIN GI-CORR-NAP-CI-01.
