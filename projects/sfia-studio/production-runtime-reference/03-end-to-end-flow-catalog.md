@@ -23,7 +23,7 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **Reads:** Product DB Truth C + Nora session continuity action
 - **Paths:** `projectAssistantConversationContinuityAction` in `actions.ts`
 - **Status:** PARTIAL — transcript availability depends on session DB path colocation
-- **Overlay — Nora Adaptive Presentation Option C (LOCAL CANDIDATE — PRE-INTEGRATION):** continuity rehydrate may restore assistant `presentation_json` / `studio_control_json` when present (see dedicated overlay after F04). **≠ CURRENT ON MAIN** · **≠** server restart proven.
+- **Overlay — Nora Adaptive Presentation Option C (CURRENT ON MAIN — PR #628):** continuity rehydrate may restore assistant `presentation_json` / `studio_control_json` when present (see dedicated overlay after F04). **≠** server process restart proven.
 
 ## F03 — Cycle qualification / activation
 - **Trigger (legacy / Studio):** F2 qualification / Pilot lifecycle start controls
@@ -48,13 +48,15 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
 - **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope; REC-01 WR path DETERMINISTIC at tested scope (ZERO REAL claim)
 - **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`; REC-01 — `qualifyProspectiveWorkRecommendationMaterialization.d0`, `activeCycleCognitiveWork.d0` (Option A reload + historical replay), `p6.hqa.rec01.minimalStabilization.d0`, Option B context tests
-- **Overlay — Nora Adaptive Presentation Option C (LOCAL CANDIDATE — PRE-INTEGRATION):** when a coherent Product turn carries a validated `presentation` DTO, ConversationSurface may render `NoraAdaptivePresentationView` instead of plain prose (coverage + Studio notices). See dedicated overlay below. **≠ CURRENT ON MAIN** · OpenAI LIVE structured emit **NOT PROVEN**.
+- **Overlay — Nora Adaptive Presentation Option C (CURRENT ON MAIN — PR #628):** when a coherent Product turn carries a validated `presentation` DTO, ConversationSurface may render `NoraAdaptivePresentationView` instead of plain prose (coverage + Studio notices). See dedicated overlay below. OpenAI LIVE structured emit **NOT PROVEN**.
 
-## Overlay — Nora Adaptive Presentation Option C (LOCAL CANDIDATE — PRE-INTEGRATION — 2026-10-30)
+## Overlay — Nora Adaptive Presentation Option C (CURRENT ON MAIN — PR #628 MERGED — 2026-10-30)
 
-> **Epistemic class:** **LOCAL CANDIDATE — PRE-INTEGRATION** · source worktree `feat/akg-m5-nora-adaptive-presentation` · Git base / HEAD alignment `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= `origin/main` tip at authoring) · **Delivery Product bytes UNCOMMITTED** · **PROJECT GIT INTEGRATION NOT AUTHORIZED** · **≠ CURRENT ON MAIN** · **≠** L3 GLOBAL CLOSED · **≠** runtime v3 ADOPTED · **≠** OpenAI LIVE / Cursor REAL.
+> **Epistemic class:** **CURRENT PRODUCT ON MAIN** via [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · parents **`2cc63686…`** + **`1c3a8d9e…`** · Delivery **`c6b5ae3a…`** · CI correction **`1c3a8d9e…`** · Pre-merge CI [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS** · Post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Required Gate **PASS** · Proof: **DETERMINISTIC AT TESTED SCOPE** · **≠** L3 GLOBAL CLOSED · **≠** runtime v3 ADOPTED · **≠** OpenAI LIVE / Cursor REAL.
 >
-> **Evidence refs (Git handoffs):** QA-NAP-03 `b11ef7c95d89327c5a4ea164de21a30b40b334b1` / blob `006daf8f…` · CORR-NAP-04 `d36fddf12eae51b6f0900b9c2b510749a13dfe6b` / blob `b1972a63…` · prior CORR-NAP-01…03 / QA-NAP-01…02 as supporting chronology only.
+> **HISTORICAL AS OF authoring (2026-10-30 pre-merge):** prior overlay « LOCAL CANDIDATE — PRE-INTEGRATION / UNCOMMITTED / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN » — true before merge; preserve; superseded for Product lifecycle by this block.
+>
+> **Evidence refs (Git handoffs):** QA-NAP-03 `b11ef7c95d89327c5a4ea164de21a30b40b334b1` / blob `006daf8f…` · CORR-NAP-04 `d36fddf12eae51b6f0900b9c2b510749a13dfe6b` / blob `b1972a63…` · GI-NAP-03 `5c61edfc…` · prior CORR-NAP-01…03 / QA-NAP-01…02 as supporting chronology only.
 
 ### Flow — Pilot message → adaptive UI (F04 extension; F02 rehydrate)
 
@@ -68,27 +70,27 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 8. **Fallback:** absent/invalid DTO → plain content; forged `[Studio]` in Nora prose is **not** Studio provenance (CORR-NAP-02 typed notices only).
 9. **Reload:** `page.reload()` rehydrates transcript + DTO when columns present (QA-NAP-03 DET browser Fake). **Server process restart NOT PROVEN.**
 
-### Guardrails (as-implemented local)
+### Guardrails (as-implemented ON MAIN)
 
 | Rule | Status |
 |---|---|
-| presentation ≠ Truth C / OA object | DOCUMENTED local |
+| presentation ≠ Truth C / OA object | DOCUMENTED + DET |
 | recommendation block ≠ HumanDecision | DOCUMENTED + DET UI |
 | evidence_reserves ≠ validated Product Evidence | DOCUMENTED + DET UI |
-| no free Product CTA from adaptive blocks | DET browser QA-NAP-03 |
+| no free Product CTA from adaptive blocks | DET browser QA-NAP-03 (historical Fake) |
 | server Studio notices > forged Nora `[Studio]` | DET unit/UI CORR-NAP-02/03 |
 | Cognitive STOP outranks optimistic LR | DET CORR-NAP-04 |
 | F2 does not auto-gain Nora-generated adaptive DTO as authority | DOCUMENTED — projection only |
 
 ### Proof ceiling / anti-claims
 
-- **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** (Better Auth Playwright + Fake NAP QA markers gated `SFIA_STUDIO_E2E_QA_CONTROL=1`) — A4 **STRUCTURAL ALIGNMENT** at reported QA scope · **≠ PIXEL PERFECT** · **≠** shell↔Figma pixel score.
-- **DETERMINISTIC VERIFIED** unit/UI/Fake/coherence suites at tested paths.
+- **PRODUCT OPTION C INTEGRATED ON MAIN** · **DETERMINISTIC AT TESTED SCOPE** (CI Vitest + unit/UI).
+- **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** (Better Auth Playwright + Fake NAP QA markers gated `SFIA_STUDIO_E2E_QA_CONTROL=1`) — A4 **STRUCTURAL ALIGNMENT** at reported QA scope · **≠ PIXEL PERFECT** · **≠** shell↔Figma pixel score · E2E path **not** re-run as Required Gate job.
 - OpenAI LIVE structured `presentation` emit **NOT PROVEN**.
 - QA-NAP-06 STOP browser / QA-NAP-10 server restart **NOT PROVEN**.
 - Does **not** rewrite CURRENT ON MAIN F04 semantics for Binding/docs_write/Generic PREPARE.
 
-**Paths (local WIP):** `lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`, `lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`, `lib/nora-cognitive-runtime/cycleJournalStore.ts`, `lib/nora-cognitive-runtime/productSqliteSession.ts`, `features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx`, `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`, `features/project-assistant/orchestrateTurn.ts`, `features/project-assistant/actions.ts`, `features/pre-m6-product-ui/hooks/useProductConversation.ts`, `lib/platform/ai/fakeProvider.ts` (QA-only markers), `e2e/studio-nora-adaptive-qa-nap01.spec.ts` (all relative to `app/`).
+**Paths (ON MAIN via #628):** `lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`, `lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`, `lib/nora-cognitive-runtime/cycleJournalStore.ts`, `lib/nora-cognitive-runtime/productSqliteSession.ts`, `features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx`, `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`, `features/project-assistant/orchestrateTurn.ts`, `features/project-assistant/actions.ts`, `features/pre-m6-product-ui/hooks/useProductConversation.ts`, `lib/platform/ai/fakeProvider.ts` (QA-only markers), `e2e/studio-nora-adaptive-qa-nap01.spec.ts` (all relative to `app/`).
 
 ## F05 — Active-cycle Artifact materialization
 - **Trigger:** Natural Pilot request to materialize the active-cycle deliverable (conversation front door / `projectAssistantSendAction`) — pathless OK when semantic cues suffice

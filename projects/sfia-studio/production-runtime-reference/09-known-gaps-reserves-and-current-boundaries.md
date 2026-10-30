@@ -5,42 +5,46 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## Overlay — Nora Adaptive Presentation Option C / AKG-M5 L3-S2 (LOCAL CANDIDATE — PRE-INTEGRATION — 2026-10-30)
+## Overlay — Nora Adaptive Presentation Option C / AKG-M5 L3-S2 (CURRENT ON MAIN — PR #628 — 2026-10-30)
 
 | Field | Value |
 |---|---|
 | Capability | Nora Adaptive Presentation A3/A4 — Option C |
-| Authoring date | 2026-10-30 |
-| Git base / HEAD alignment | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` (= `origin/main` tip at authoring) |
-| Branch / worktree | `feat/akg-m5-nora-adaptive-presentation` |
-| Status | **LOCAL CANDIDATE — PRE-INTEGRATION** · Product Delivery **UNCOMMITTED** · **≠ CURRENT ON MAIN** · **PROJECT GIT INTEGRATION NOT AUTHORIZED** |
-| Evidence refs | QA-NAP-03 `b11ef7c95d89327c5a4ea164de21a30b40b334b1` / blob `006daf8f…` · CORR-NAP-04 `d36fddf12eae51b6f0900b9c2b510749a13dfe6b` / blob `b1972a63…` · CORR-NAP-01…03 / QA-NAP-01…02 supporting · local unit/UI/E2E WIP |
-| PRR sync cycle | R24-NAP-01 (this overlay) — **DOCUMENTARY DIGEST GATE PENDING** (manifest `--write-digests` **NOT** authorized here) |
+| Qualification date | 2026-10-30 (C14-NAP-01) |
+| Merge | **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` |
+| Commits | Delivery **`c6b5ae3a…`** · CI correction **`1c3a8d9e…`** (both ancestors of main) |
+| Status | **CURRENT PRODUCT ON MAIN** · proof **DETERMINISTIC AT TESTED SCOPE** |
+| CI | Pre [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS** · Post [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Required Gate **PASS** · Vitest **6183 PASS / 142 SKIP / 0 FAIL** |
+| Evidence refs | QA-NAP-03 `b11ef7c9…` · CORR-NAP-04 `d36fddf1…` · GI-NAP-03 `5c61edfc…` · CORR-NAP-CI-01 |
+| R24 C14-NAP-01 / R24-NAP-CR-01 | **HISTORICAL AUTHORING SNAPSHOT (2026-10-30, before semantic review and documentary Git Integration):** at that dated instant the documentary candidate was local (Roadmap + PRR README/03/06/08/09); digest regularization was pending; documentary publication was not yet authorized. These statements describe the dated authoring state, **not** a permanent post-publication lifecycle claim. Subsequent documentary status must be resolved from Git, applicable gates and post-merge proofs. R24-NAP-CR-01 = temporal currentness correction only · **≠** Product change |
 
 | Élément | Statut | Preuve | Limite / exit |
 |---|---|---|---|
-| A. Option C Delivery | **LOCAL IMPLEMENTED** (WIP) | Code paths + DET suites local | **≠** ON MAIN · distinct Morris GI GO |
-| B. CORR-NAP-01/02/03 | **DETERMINISTIC VERIFIED** at tested scope | Unit/UI CORR suites | Scope-bounded · ≠ LIVE |
-| C. CORR-NAP-04 Product Turn Coherence (LR return after STOP) | **DETERMINISTIC VERIFIED** | CORR-NAP-04 handoff + `applyPreCycleRoutingBoundaryCoherence` T1/T5/T9 | ≠ browser STOP QA |
-| D. QA navigateur Fake/Auth | **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** | QA-NAP-03 + `studio-nora-adaptive-qa-nap01.spec.ts` + captures | Better Auth Playwright · Fake NAP markers · gate `SFIA_STUDIO_E2E_QA_CONTROL` |
-| E. A4 structural | **STRUCTURAL ALIGNMENT** at QA scope | Captures / E2E assertions | **≠ PIXEL PERFECT** · ≠ shell↔Figma score |
-| F. Browser reload | **DETERMINISTIC VERIFIED** at reported scope | QA-NAP-03 `page.reload()` | Fake only |
-| G. Server restart | **NOT PROVEN** | — | QA-NAP-10 open |
-| H. STOP navigateur | **NOT PROVEN** | — | QA-NAP-06 open |
-| I. OpenAI LIVE structured emit | **NOT PROVEN** | — | distinct REAL GO |
+| A. Option C Delivery | **CURRENT ON MAIN** | PR #628 · 30 files · CI SUCCESS | Product integrated; ≠ L3 closed |
+| B. CORR-NAP-01/02/03 | **DETERMINISTIC VERIFIED** at tested scope | Unit/UI CORR suites ON MAIN | Scope-bounded · ≠ LIVE |
+| C. CORR-NAP-04 Product Turn Coherence (LR return after STOP) | **DETERMINISTIC VERIFIED** | CORR-NAP-04 + coherence suites ON MAIN | ≠ browser STOP QA |
+| D. QA navigateur Fake/Auth | **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** | QA-NAP-03 + E2E code ON MAIN | Better Auth · Fake markers · **not** Required Gate job |
+| E. A4 structural | **STRUCTURAL ALIGNMENT** at QA scope | Captures / E2E assertions | **≠ PIXEL PERFECT** |
+| F. Browser reload | **DETERMINISTIC VERIFIED** at reported Fake scope | QA-NAP-03 `page.reload()` | Fake only |
+| G. Server restart | **NOT PROVEN** | — | QA-NAP-10 / R-SRV-RESTART open |
+| H. STOP navigateur | **NOT PROVEN** | — | QA-NAP-06 / R-STOP-BROWSER open |
+| I. OpenAI LIVE structured emit | **NOT PROVEN** | — | R-LIVE-EMIT · distinct REAL GO |
 | J. Fake/Real gap | Fake DET ≠ model REAL quality/latency/cost | — | keep ceiling |
-| K. Product Git Integration | **NOT AUTHORIZED / NOT ON MAIN** | — | Morris GI + PR + merge gates |
-| L. PRR semantic sync | **LOCAL DOC CANDIDATE** | R24-NAP-01 volumes 03/06/09 (+08 index) | Manifest digest gate + semantic review **PENDING** |
+| K. Product Git Integration | **COMPLETED — PR #628 MERGED** | merge `c848b98c…` · two commits preserved | Feature cleanup may remain BLOCKED separately |
+| L. PRR semantic sync (C14 / R24-NAP-CR-01) | **HISTORICAL AUTHORING SNAPSHOT (2026-10-30)** — local candidate at that instant; later lifecycle resolve from Git | C14-NAP-01 volumes + Roadmap (+ R24-NAP-CR-01 temporal fix) | As-of C14 authoring: Semantic Review / digest gate / DOC GI were **not yet consumed**. Do **not** read as eternally PENDING after later gates. Resolve subsequent status from Git + applicable Morris GOs |
+| M. Full Vitest CI | **SUCCESS** on `1c3a8d9e…` and `c848b98c…` | GitHub CI logs | 142 SKIP not claimed as executed |
 
-**Covered (local, not ON MAIN):** Option C DTO + normalize/fail-closed · Studio typed notices · adaptive UI composition · Memory B columns · Fake QA Auth browser · CORR-NAP-01…04 DET · Cognitive STOP LR coherence unit.
+**Covered ON MAIN:** Option C DTO + normalize/fail-closed · Studio typed notices · adaptive UI · Memory B columns · Fake QA Auth browser (historical) · CORR-NAP-01…04 DET · Cognitive STOP LR coherence · Vitest cookie-shape without Chromium · CI Required Gate.
 
-**Preserved L3-S2 reserves (unchanged by NAP):** EP-S2-08 **PARTIAL** · EP-S2-05 **NOT PROVEN** · L3 GLOBAL **OPEN** · L4 **NOT AUTHORIZED** · runtime v3 **NON ADOPTED**. **QA-NAP ≠** closure of EP-S2-08 or EP-S2-05.
+**HISTORICAL PRE-INTEGRATION SNAPSHOT (as-of R24-NAP-01 authoring, before merge):** table that said **LOCAL IMPLEMENTED WIP / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN** — **true at that dated instant**; preserve; do not read as active Product status after PR #628.
 
-**Exit / next (documentary → integration):** (1) R24 semantic review PASS · (2) distinct manifest digest regularization GO · (3) distinct Morris Product GI / PR / merge · (4) post-merge requalify LOCAL CANDIDATE → CURRENT only after verified merge + proofs · (5) open Product proofs: STOP browser · server restart · OpenAI LIVE structured emit · build/CI on integrated bytes.
+**Preserved L3-S2 reserves (unchanged by NAP merge):** EP-S2-08 **PARTIAL** · EP-S2-05 **NOT PROVEN** · L3 GLOBAL **OPEN** · L4 **NOT AUTHORIZED** · runtime v3 **NON ADOPTED** · R-MANIFEST-TOPO **OPEN**. **QA-NAP ≠** closure of EP-S2-08 or EP-S2-05.
 
-**Anti-claims:** ≠ CURRENT ON MAIN · ≠ PR READY · ≠ REAL PROVEN · ≠ G-REAL · ≠ L3 CLOSED · ≠ L4 AUTHORIZED · ≠ runtime v3 ADOPTED · ≠ GLOBAL RESTART SAFE · digest MATCH ≠ semantic validity.
+**Exit / next (NEXT QUALIFIED PATH AT AUTHORING — subject to subsequent Morris gates):** (1) C14 R24 Semantic Review · (2) distinct manifest digest regularization GO if needed · (3) distinct documentary Git Integration · (4) open Product proofs (CURRENT gaps): STOP browser · server restart · OpenAI LIVE structured emit · EP-S2-08 remaining · EP-S2-05 — each under distinct Morris GO. Documentary gate consumption after authoring must be resolved from Git; do not assume they remain unconsumed forever.
 
-**Gates Morris still open:** semantic review of R24-NAP-01 · manifest digest gate · Product commit/PR/merge authorization · any LIVE/REAL/STOP-browser/server-restart proof GOs.
+**Anti-claims:** ≠ REAL PROVEN · ≠ G-REAL · ≠ L3 CLOSED · ≠ L4 AUTHORIZED · ≠ runtime v3 ADOPTED · ≠ GLOBAL RESTART SAFE · Product ON MAIN ≠ automatic documentary publication · digest MATCH ≠ semantic validity · authoring-time local-candidate wording ≠ permanent post-publication lifecycle.
+
+**Gates Morris (as-of C14-NAP-01 / R24-NAP-CR-01 authoring — resolve later from Git):** documentary Semantic Review · digest gate · documentary commit/PR/merge were **not consumed at that snapshot**; subsequent consumption must be verified from Git and applicable GOs. **Product proof GOs still CURRENT OPEN:** LIVE/REAL · STOP-browser · server-restart · EP-S2-08 remaining · EP-S2-05.
 
 ## Overlay — AKG-M5 L3-S2 Option B / S8 (CURRENT ON MAIN — PR #623 MERGED — 2026-10-27)
 
