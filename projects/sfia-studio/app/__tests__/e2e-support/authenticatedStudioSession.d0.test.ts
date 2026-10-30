@@ -1,9 +1,10 @@
 /**
- * GAP-14 / QA-NAP-02 — cookie header parse / Playwright shape without leaking values.
+ * GAP-14 / QA-NAP-02 — cookie header parse / Playwright cookie-shape without leaking values.
+ * Deterministic Vitest oracle only — no Chromium launch (CI does not install browsers).
+ * BrowserContext.addCookies acceptance remains covered by E2E harness / QA-NAP-03.
  * @vitest-environment node
  */
 import { afterEach, describe, expect, it } from "vitest";
-import { chromium } from "@playwright/test";
 import {
   assertBetterAuthUrlAlignedWithVisualBase,
   AUTH_VISUAL_BASE_URL_DEFAULT,
@@ -23,7 +24,7 @@ afterEach(() => {
 });
 
 describe("GAP-14 authenticatedStudioSession helper", () => {
-  it("parses Better Auth session cookie header with url-only Playwright shape", async () => {
+  it("parses Better Auth session cookie header into url-only Playwright cookie shape", () => {
     const header =
       "better-auth.session_token=fake-test-token; other=1; Path=/";
     const cookies = parseCookieHeaderToPlaywrightCookies(
@@ -34,6 +35,8 @@ describe("GAP-14 authenticatedStudioSession helper", () => {
       true,
     );
     expect(cookies.every((c) => typeof c.value === "string")).toBe(true);
+    expect(cookies.every((c) => (c.value ?? "").length > 0)).toBe(true);
+    expect(cookies.every((c) => typeof c.url === "string")).toBe(true);
     expect(cookies.every((c) => c.url?.startsWith("http://localhost"))).toBe(
       true,
     );
@@ -41,11 +44,8 @@ describe("GAP-14 authenticatedStudioSession helper", () => {
     expect(cookies.every((c) => c.path === undefined)).toBe(true);
     expect(cookies.every((c) => c.domain === undefined)).toBe(true);
     expect(cookies.length).toBeGreaterThanOrEqual(1);
-
-    const browser = await chromium.launch({ headless: true });
-    const context = await browser.newContext();
-    await expect(context.addCookies(cookies)).resolves.toBeUndefined();
-    await browser.close();
+    // Structural contract only — ≠ BrowserContext.addCookies acceptance
+    // (E2E: applyAuthenticatedStudioCookies / studio-nora-adaptive-qa-nap01).
   });
 
   it("rejects headers without Better Auth session marker", () => {
