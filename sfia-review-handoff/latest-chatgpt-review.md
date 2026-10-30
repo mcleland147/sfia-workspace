@@ -1,209 +1,91 @@
-# GI-R24-NAP-01 — DOCUMENTARY GIT INTEGRATION — REVIEW PACK FULL
+# GI-R24-NAP-02 — DOCUMENTARY CONTROLLED MERGE — REVIEW PACK FULL
 
-MONO-CYCLE: GI-R24-NAP-01
+MONO-CYCLE: GI-R24-NAP-02
 PROFILE: STANDARD
 TYPOLOGY: DOC / R24 / GIT INTEGRATION
 MILESTONE: AKG-M5 / L3-S2
-PARENT: C14-NAP-01 / R24-NAP-CR-01 / R24-NAP-DG-01
+PARENT: GI-R24-NAP-01 / PR #629
 
 ## 1. Timestamp UTC
 
-2026-10-30T13:49:03Z
+2026-10-30T14:08:24Z
 
-## 2. GO Morris consommé
+## 2. GO Morris
 
-GI-R24-NAP-01 — DOCUMENTARY COMMIT + PUSH + DRAFT PR.
+GO MORRIS — PR #629 UNDRAFT + MERGE (user: « ok go »).
 
-Autorisé: Git Truth; octet verification; PR readiness; validations pré-commit; UN commit documentaire 7 fichiers; push non forcé branche docs; UNE Draft PR vers main; observation CI; Review Pack FULL; handoff L3.
+Autorisé: Git Truth; PR verify; undraft; classic merge; main verification; post-merge CI observation; Review Pack FULL; handoff L3.
 
-Interdit (respecté): modifier docs/Product/manifest; refresh digests; doctrine/process; 8e fichier; push main; force push; undraft; merge; cleanup; REAL/LIVE; clôture L3; v3 adopt.
+Interdit (respecté): doc/Product edits; new project commit; push main; rebase/squash/force; admin bypass; branch delete; cleanup; REAL; L3 close; v3 adopt.
 
-## 3. Repo / ref / HEAD / base
+## 3. Git Truth Check
 
 | Item | Value |
 |------|-------|
-| Repo | mcleland147/sfia-workspace |
 | Worktree | `/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync` |
 | Branch | `docs/akg-m5-nap-option-c-c14-r24-truth-sync` |
-| HEAD before commit | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` |
-| HEAD after | `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
-| origin/main | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` |
-| Product PR | #628 MERGED |
+| HEAD (pre-merge local) | `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
+| Parent | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` |
+| origin/main before | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` |
+| docs remote | `6e60d839…` |
+| Dirty | `.tmp-sfia-review` only |
+| Product WIP | none |
 
-## 4. Local Git Truth Check
+## 4. Sources Git consultées
 
-- HEAD initial = main = `c848b98c…`
-- Docs remote branch **ABSENT** before push
-- No preexisting PR for head
-- Exactly 7 project files dirty (+ `.tmp-sfia-review` artefact)
-- No staged unexpected; no Product WIP
-- DG handoff tip `290d0904…` / blob `6ec03694…` verified
+Processus: cycle template; routing; guardrails; validation checklist; delivery pipeline; validate-pr-readiness; prepare-pr-summary; post-merge-status.
+Studio: Build Doctrine; Roadmap; Product Completion 01; doctrine v3 30/32/34/35.
+PRR README/03/06/08/09 (+02/04/07); manifest; checker.
+Preuves: PR #628 · CI #41050498551 · PR #629 · CI #41065363300 · handoffs C14/CR/DG/GI-01.
 
-## 5. Sources consultées
+## 5. Convergence Pre-check
 
-Processus: cycle template; routing; guardrails; validation checklist; repository execution engine; delivery pipeline; prepare-pr-summary.
-Studio: Build Doctrine + Roadmap; Product Completion 01; doctrine v3 30/32/34/35.
-PRR README/03/06/08/09 (+02/04/07 coherence); manifest; checker; CI workflow.
-Handoffs: C14 `687c060f…` · CR `4e46f546…` · DG `290d0904…`.
+Product Option C ON MAIN (PR #628). Documentary PR #629 Draft with semantic+digest PASS and Required Gate SUCCESS. Classification: KEEP Product/docs/manifest · INTEGRATE docs. No L3 closure.
 
-## 6. Convergence Pre-check
+## 6. Handoff GI-R24-NAP-01
 
-Product Option C CURRENT ON MAIN · DET · CI product SUCCESS.
-Docs candidate semantic PASS + five-digest local PASS.
-Gap: docs not on main → INTEGRATE via Draft PR.
-No new architecture. Reserves preserved.
+Tip `285c6673fe4f82ff6aff525a51a8a4dcc8de6a1e` · blob `a73f3691829d5e8a454b998898ac1fdfe8e0c6f8`.
 
-## 7. Handoffs C14 / CR / DG
+## 7. PR #629 pré-merge
 
-| Cycle | Tip | Blob |
-|-------|-----|------|
-| C14-NAP-01 | `687c060f67234bff920614b8887e88612f69019e` | `00bd8a58…` |
-| R24-NAP-CR-01 | `4e46f546132238f1ba52d632e953a673fa2c0837` | `20a029a233366df8624d3eb2156a30a1d9c3cc8b` |
-| R24-NAP-DG-01 | `290d0904ce51f1b239e2e0c9582b565fa2fff8af` | `6ec036941968e979fd88d52d2c22f4247f82b43f` |
+| Field | Value |
+|-------|-------|
+| URL | https://github.com/mcleland147/sfia-workspace/pull/629 |
+| state | OPEN |
+| isDraft | true (pre-undraft) |
+| base | main @ `c848b98c…` |
+| head | `6e60d839…` |
+| commits | 1 |
+| files | 7 |
+| mergeable | MERGEABLE / CLEAN |
+| reviews | 0 (required_approving_review_count=0) |
 
-## 8. Octets des six documents (git hash-object)
+## 8. Commit documentaire et parent
 
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | `fe967d0ea2ece43e8a47cb5ed3bc3af86048b4cc` |
-| `projects/sfia-studio/production-runtime-reference/README.md` | `1a8a31419441590e2e2b9428cb36521a5fc5a77d` |
-| `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md` | `2261507d65786ff5d3c8dffe56b55041e2bc9e06` |
-| `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md` | `0458fde026cfc0c4428f4a03df3e3a3263e6e1af` |
-| `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md` | `6a5cd93f175633849d7f9635379fc6d5b5a139d4` |
-| `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` | `eb8869e8b0bf9f0b82c74a8e7069e3934fdd4701` |
+Commit `6e60d839abd99f847e45e1797be9c98886d1b3aa` · parent `c848b98c…` · message `docs(studio): sync Nora adaptive presentation post-merge PRR`.
 
-All match DG-01 expected blobs. **NO DOCUMENTARY BYTE DRIFT.**
+## 9. Sept fichiers / blobs (pré + post main)
 
-## 9. Diff manifest vérifié (pre-commit; five substitutions)
+| Doc | Blob (HEAD and main post-merge) |
+|-----|----------------------------------|
+| Roadmap | `fe967d0ea2ece43e8a47cb5ed3bc3af86048b4cc` |
+| README | `1a8a31419441590e2e2b9428cb36521a5fc5a77d` |
+| 03 | `2261507d65786ff5d3c8dffe56b55041e2bc9e06` |
+| 06 | `0458fde026cfc0c4428f4a03df3e3a3263e6e1af` |
+| 08 | `6a5cd93f175633849d7f9635379fc6d5b5a139d4` |
+| 09 | `eb8869e8b0bf9f0b82c74a8e7069e3934fdd4701` |
+| manifest | `4c8735dae9aa99617c4792587918f55a77a2a278` |
 
-Manifest blob after DG write: `4c8735dae9aa99617c4792587918f55a77a2a278`
-Diff index prefix: `7c864568..4c8735da` (matches DG handoff).
+## 10. Manifest cinq digests
 
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 7c864568..4c8735da 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -7,7 +7,7 @@
-   "volumes": [
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/README.md",
--      "sha256_16": "81b778241ade4da8"
-+      "sha256_16": "fd9d3aadd64084b0"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
-@@ -19,7 +19,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "89c1b959740c308b"
-+      "sha256_16": "4e8afd0560d3f660"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,7 +31,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "2f4d2ab593a581b0"
-+      "sha256_16": "c79b001b5136a1be"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-@@ -39,11 +39,11 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "f6bc6f73585425dd"
-+      "sha256_16": "c3ea1874a2ba011c"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "6ebfc7c9f2163bcb"
-+      "sha256_16": "974279ccc64db86d"
-     }
-   ],
-   "components": [
-```
+README `fd9d3aadd64084b0` · 03 `4e8afd0560d3f660` · 06 `c79b001b5136a1be` · 08 `c3ea1874a2ba011c` · 09 `974279ccc64db86d`.
+Metadata/topology/trackedSources/trackedTests unchanged. R-MANIFEST-TOPO remains OPEN.
 
-## 10. Liste sept fichiers
+## 11. Diff documentaire intégré COMPLET
 
-1. Roadmap
-2. PRR README
-3. PRR 03
-4. PRR 06
-5. PRR 08
-6. PRR 09
-7. production-runtime-reference.manifest.json
-
-## 11. PRR checker local
+Stat:
 
 ```
-OK: canonical README exists
-RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK
-```
-
-EXIT 0 — **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK**
-
-## 12. Targeted conformance test
-
-Local Vitest: **NOT AVAILABLE** in this worktree (`node_modules/vitest` missing; `npx vitest` failed to resolve `vitest/config`).
-
-```
-vitest.config.ts (1:529) [33m[UNRESOLVED_IMPORT] [0mCould not resolve 'vitest/config' in vitest.config.ts
- - Module not found, treating it as an external dependency in vitest.config.ts at 529..544
-
-failed to load config from /Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync/projects/sfia-studio/app/vitest.config.ts
-
-⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
-Error: Cannot find module 'vitest/config'
-Require stack:
-- /Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync/projects/sfia-studio/app/vitest.config.ts
-- /Users/morris/.npm/_npx/69c381f8ad94b576/node_modules/vite/dist/node/chunks/node.js
-    at Module._resolveFilename (node:internal/modules/cjs/loader:1500:15)
-    at wrapResolveFilename (node:internal/modules/cjs/loader:1071:27)
-    at defaultResolveImplForCJSLoading (node:internal/modules/cjs/loader:1095:10)
-    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1116:12)
-    at Module._load (node:internal/modules/cjs/loader:1285:25)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
-    at Module.require (node:internal/modules/cjs/loader:1600:12)
-    at require (node:internal/modules/helpers:153:16)
-    at Object.<anonymous> (/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync/projects/sfia-studio/app/vitest.config.ts:23:21)
-    at Module._compile (node:internal/modules/cjs/loader:1854:14) {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: [
-    '/Users/morris/Projects/sfia-workspace-docs-akg-m5-nap-option-c-c14-r24-truth-sync/projects/sfia-studio/app/vitest.config.ts',
-    '/Users/morris/.npm/_npx/69c381f8ad94b576/node_modules/vite/dist/node/chunks/node.js'
-  ]
-}
-
-
-
-npm notice
-npm notice New major version of npm available! 11.13.0 -> 12.2.1
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.1
-npm notice To update run: npm install -g npm@12.2.1
-npm notice
-```
-
-Full Vitest + Required Gate qualified by Draft PR CI on HEAD `6e60d839abd99f847e45e1797be9c98886d1b3aa` (see §22–23).
-
-## 13. Staged diff exact COMPLET (equals commit diff)
-
-Seven files staged explicitly (no `git add -A`). Staged identity verified then committed.
-
-## 14. Commit SHA / parent / message
-
-```
-commit 6e60d839abd99f847e45e1797be9c98886d1b3aa
-Author:     Morris Cleland <morris@MacBook-Air.local>
-AuthorDate: Fri Oct 30 14:41:12 2026 +0100
-Commit:     Morris Cleland <morris@MacBook-Air.local>
-CommitDate: Fri Oct 30 14:41:12 2026 +0100
-
-    docs(studio): sync Nora adaptive presentation post-merge PRR
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
  .../convergence/sfia-studio-convergence-roadmap.md |  3 +-
  .../03-end-to-end-flow-catalog.md                  | 24 ++++++-----
  .../06-persistence-restart-and-recovery.md         | 12 +++---
@@ -213,27 +95,6 @@ CommitDate: Fri Oct 30 14:41:12 2026 +0100
  .../production-runtime-reference.manifest.json     | 10 ++---
  7 files changed, 79 insertions(+), 53 deletions(-)
 ```
-
-| Field | Value |
-|-------|-------|
-| COMMIT_SHA | `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
-| PARENT | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` (= `c848b98c…`) |
-| Message | `docs(studio): sync Nora adaptive presentation post-merge PRR` |
-| Files | 7 M |
-
-Name-status:
-
-```
-M	projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
-M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-M	projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-M	projects/sfia-studio/production-runtime-reference/README.md
-M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-```
-
-## 15. Commit diff COMPLET
 
 ```diff
 diff --git a/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md b/projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md
@@ -539,203 +400,159 @@ index 7c864568..4c8735da 100644
    "components": [
 ```
 
-## 16. Push command + EXIT
+## 12. CI pré-merge
 
-Command: `git push --porcelain origin HEAD:refs/heads/docs/akg-m5-nap-option-c-c14-r24-truth-sync`
-No `--force` / `--force-with-lease`.
+Run [41065363300](https://github.com/mcleland147/sfia-workspace/actions/runs/41065363300) · event=`pull_request` · head=`6e60d839abd99f847e45e1797be9c98886d1b3aa` · **success**
 
-```
-To https://github.com/mcleland147/sfia-workspace.git
-*	HEAD:refs/heads/docs/akg-m5-nap-option-c-c14-r24-truth-sync	[new branch]
-Done
-```
+| Job | Conclusion |
+|-----|------------|
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | success |
+| SFIA Studio Required Gate | success |
 
-## 17. Remote feature SHA
+## 13. Ruleset / reviews
 
-REMOTE_SHA = `6e60d839abd99f847e45e1797be9c98886d1b3aa` = COMMIT_SHA. **REMOTE VERIFIED.**
+Ruleset **SFIA Studio Main Required Gate — M1** active.
+- required_approving_review_count: **0**
+- required_status_checks: `SFIA Studio Required Gate` SUCCESS
+- merge methods allow merge commit
+- No blocking discussions
 
-## 18. Relecture commit GitHub
+## 14. Matrice G01–G20
 
-`gh api …/commits/6e60d839abd99f847e45e1797be9c98886d1b3aa`: parents=`c848b98c…`; file_count=7; exact allowlist paths; message matches.
+| Gate | Status |
+|------|--------|
+| G01 GO Morris | PASS |
+| G02 Repository | PASS |
+| G03 PR #629 | PASS |
+| G04 HEAD exact | PASS |
+| G05 Base main exact | PASS |
+| G06 One documentary commit | PASS |
+| G07 Seven paths | PASS |
+| G08 Seven blobs | PASS |
+| G09 Manifest five digests | PASS |
+| G10 PRR conformance | PASS (CI) |
+| G11 Required Gate SUCCESS | PASS |
+| G12 Typecheck/lint/build/Vitest | PASS (CI) |
+| G13 Secrets/whitespace | PASS |
+| G14 No Product mutation | PASS |
+| G15 Reviews/ruleset | PASS |
+| G16 No blocking discussion | PASS |
+| G17 Mergeability CLEAN | PASS |
+| G18 Reserves preserved | PASS |
+| G19 No new risk | PASS |
+| G20 No commit/base drift | PASS |
 
-## 19. PR numéro et URL
+## 15. Undraft et résultat
 
-| Field | Value |
-|-------|-------|
-| PR_NUMBER | **629** |
-| PR_URL | https://github.com/mcleland147/sfia-workspace/pull/629 |
-| Title | docs(studio): sync Nora adaptive presentation post-merge PRR |
+Command: `gh pr ready 629` · EXIT 0.
+Post-undraft: state=OPEN · **isDraft=false** · head/base unchanged · Required Gate still SUCCESS · mergeable CLEAN.
 
-## 20. Draft / head / base / files
+## 16. Re-gating après undraft
 
-| Field | Value |
-|-------|-------|
-| state | OPEN |
-| isDraft | **True** |
-| base | `main` |
-| head | `docs/akg-m5-nap-option-c-c14-r24-truth-sync` |
-| headRefOid | `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
-| commits | 1 |
+Main still `c848b98c…` · head still `6e60d839…` · no new required checks PENDING · review count still 0 required.
 
-Files:
-
-| Path | Type | Delta |
-|------|------|-------|
-| `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` | MODIFIED | +2/-1 |
-| `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md` | MODIFIED | +13/-11 |
-| `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md` | MODIFIED | +7/-5 |
-| `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md` | MODIFIED | +12/-8 |
-| `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md` | MODIFIED | +27/-23 |
-| `projects/sfia-studio/production-runtime-reference/README.md` | MODIFIED | +13/-0 |
-| `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` | MODIFIED | +5/-5 |
-
-## 21. PR body publié complet
-
-```markdown
-## Context
-
-- Milestone: **AKG-M5 / L3-S2**
-- Capability: **Nora Adaptive Presentation A3/A4 Option C**
-- Product [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **already MERGED** on `main` (`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`)
-- This PR is **documentary only** (R24 truth-sync + five-digest manifest regularization)
-
-## Scope
-
-Exactly **seven** documentary files:
-
-1. `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md` — living CURRENT TIP 2026-10-30
-2. `projects/sfia-studio/production-runtime-reference/README.md`
-3. `projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md`
-4. `projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md`
-5. `projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md`
-6. `projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md`
-7. `projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json` — **five** `sha256_16` substitutions only
-
-**No Product / tests / CI / scripts / packages / doctrine changes.**
-
-## Evidence
-
-- Product merge `c848b98c…` · parents `2cc63686…` + `1c3a8d9e…`
-- Product post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS**
-- Pre-merge CI [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS**
-- C14-NAP-01 post-merge verification handoff `687c060f…`
-- R24-NAP-CR-01 temporal currentness correction — Semantic Delta Review **PASS** (handoff `4e46f546…` / blob `20a029a2…`)
-- R24-NAP-DG-01 five-digest gate — local **PASS** / PRR CONFORMANCE OK (handoff `290d0904…` / blob `6ec03694…`)
-
-## Validation (local before Draft PR)
-
-- `node scripts/check-production-runtime-reference.mjs` → **PRODUCTION RUNTIME REFERENCE CONFORMANCE OK** (EXIT 0)
-- Six document git blobs match DG-01 reviewed octets
-- Manifest: exactly five volume digest replacements; metadata/topology/trackedSources/trackedTests unchanged
-- Seven-file commit parent = `c848b98c…`
-- **No Product mutation**
-
-## Historical / Current
-
-- **Product Option C** = **CURRENT ON MAIN** via PR #628
-- Pre-merge / authoring-time documentary statuses preserved as **HISTORICAL AUTHORING SNAPSHOTS** (R24-NAP-CR-01)
-- **This Draft PR is not integrated on main yet** — docs ≠ CURRENT ON MAIN until distinct Morris merge GO
-
-## Reserves (unchanged)
-
-- STOP browser **NOT PROVEN**
-- Server process restart **NOT PROVEN**
-- OpenAI LIVE structured emit **NOT PROVEN**
-- EP-S2-08 **PARTIAL**
-- EP-S2-05 **NOT PROVEN**
-- L3 GLOBAL **OPEN**
-- G-REAL **NOT GRANTED**
-- L4 **NOT AUTHORIZED**
-- Runtime v3 **NON ADOPTED**
-- R-MANIFEST-TOPO **OPEN**
-
-## Next gate
-
-1. Draft PR CI / Required Gate on this documentary HEAD
-2. ChatGPT PR readiness review
-3. **Distinct Morris GO** for undraft + merge
-4. Post-merge documentary verification
-
-**Anti-claims:** Draft ≠ merge · this PR ≠ REAL · ≠ L3 CLOSED · ≠ docs already ON MAIN · Product ON MAIN ≠ automatic documentary publication.
-```
-
-## 22. CI run et conclusion
-
-| Field | Value |
-|-------|-------|
-| Run ID | `41065363300` |
-| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/41065363300 |
-| Event | `pull_request` |
-| headSha | `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
-| status | `completed` |
-| conclusion | **`success`** |
-
-## 23. Jobs / steps / Required Gate
-
-| Job | Status | Conclusion |
-|-----|--------|------------|
-| Detect SFIA Studio changes | completed | success |
-| Build and validate SFIA Studio | completed | success |
-| SFIA Studio Required Gate | completed | success |
-
-PR checks:
+## 17. Commande merge et EXIT
 
 ```
-Build and validate SFIA Studio	pass	5m48s	https://github.com/mcleland147/sfia-workspace/actions/runs/41065363300/job/124095200029
-Detect SFIA Studio changes	pass	10s	https://github.com/mcleland147/sfia-workspace/actions/runs/41065363300/job/124095085954
-SFIA Studio Required Gate	pass	2s	https://github.com/mcleland147/sfia-workspace/actions/runs/41065363300/job/124098284553
+gh pr merge 629 --merge --match-head-commit 6e60d839abd99f847e45e1797be9c98886d1b3aa
 ```
 
-**SFIA Studio Required Gate: PASS** on documentary HEAD `6e60d839abd99f847e45e1797be9c98886d1b3aa`.
-Build steps observed SUCCESS: Detect · Typecheck · Lint · Build · Unit tests (Vitest) · Modeled governance · Secret pattern scan · Trailing whitespace · Required Gate.
+No squash/rebase/admin/delete-branch. CLI stdout: `(empty)`
+GitHub PR state after call: **MERGED**.
 
-## 24. R23 / R24
+## 18. Merge SHA réel
 
-R23: Product architecture already ON MAIN (Option C). Documents INTEGRATE. No parallel architecture.
-R24: DOCUMENTARY TRUTH-SYNC · **NO SEMANTIC PRODUCT IMPACT**. Manifest digest alignment already PASS local. Draft ≠ docs CURRENT ON MAIN.
+`ca1c9869f905b394808c953649910d60fbfcb984`
 
-## 25. Fake/Real Qualification
+## 19. PR merged_at
 
-Product ON MAIN · DET · Fake Auth browser historical. NOT PROVEN: LIVE emit · STOP browser · server restart · G-REAL · L4 · v3. This cycle: no REAL.
+`2026-10-30T13:58:11Z` · state=`MERGED` · mergeCommit=`ca1c9869f905b394808c953649910d60fbfcb984`
 
-## 26. Réserves
+## 20. Main avant / après
+
+| Moment | SHA |
+|--------|-----|
+| Before | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` |
+| After | `ca1c9869f905b394808c953649910d60fbfcb984` (= origin/main) |
+
+## 21. Parents et ancestor proof
+
+| Parent | SHA |
+|--------|-----|
+| ^1 | `c848b98c5bdb218322c8a2cf457568c8a75c1e3f` |
+| ^2 | `6e60d839abd99f847e45e1797be9c98886d1b3aa` |
+
+`git merge-base --is-ancestor 6e60d839… ca1c9869f905b394808c953649910d60fbfcb984` → **ANCESTOR_OK**. Documentary commit preserved.
+
+## 22. Sept blobs post-merge
+
+Verified on `origin/main` (`ca1c9869f905b394808c953649910d60fbfcb984`) — identical to §9. **MAIN_BLOBS_PASS**.
+
+## 23. PRR conformance status
+
+Pre-merge CI suite SUCCESS includes PRR conformance path. Post-merge CI Required Gate SUCCESS on merge SHA (suite includes same Studio validation). Local checker not re-run as a substitute for post-merge CI; **post-merge CI SUCCESS** is the conformance evidence for this cycle.
+
+## 24. CI post-merge status
+
+Run [41067692544](https://github.com/mcleland147/sfia-workspace/actions/runs/41067692544) · event=`push` · head=`ca1c9869f905b394808c953649910d60fbfcb984` · status=`completed` · conclusion=**`success`**
+
+| Job | Conclusion |
+|-----|------------|
+| Detect SFIA Studio changes | success |
+| Build and validate SFIA Studio | success |
+| SFIA Studio Required Gate | success |
+
+**POST-MERGE DOCUMENTARY CI PASS** · Required Gate PASS on merge SHA.
+
+## 25. R23 / R24
+
+R23: Product Option C already ON MAIN; docs INTEGRATE; DOCUMENTED/COVERAGE VERIFIED/DET/KNOWN GAPS preserved.
+R24: DOCUMENTARY GIT INTEGRATION · **NO SEMANTIC PRODUCT IMPACT**. Seven files + five digests **ON MAIN** at `ca1c9869f905b394808c953649910d60fbfcb984`. Digest PASS ≠ exhaustiveness. R-MANIFEST-TOPO OPEN.
+
+## 26. Fake/Real
+
+Product ON MAIN · DET · Fake Auth browser historical. NOT PROVEN: LIVE · STOP browser · server restart · G-REAL · L4 · v3. Merge executed no REAL path.
+
+## 27. Réserves
 
 R-STOP-BROWSER / R-SRV-RESTART / R-LIVE-EMIT OPEN · R-MANIFEST-TOPO OPEN · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN · G-REAL NOT GRANTED · L4 NOT AUTHORIZED · runtime v3 NON ADOPTED.
 
-## 27. Gates Morris restants
+## 28. Gates Morris suivants
 
-1. ChatGPT PR readiness review
-2. Distinct Morris GO undraft + merge
-3. Post-merge documentary verification
-4. Product continuity proofs under distinct GOs
+Cycle 14 documentary post-merge / living CURRENT verification (as needed) · L3-S2 trajectory qualification · distinct Product proof GOs. **No automatic M5/L3 close.** Feature cleanup **NOT** authorized.
 
-**MERGE NOT EXECUTED. UNDRAFT NOT EXECUTED.**
+## 29. Statut branche docs
 
-## 28. Git status final (pre-handoff)
+PRESERVED: `6e60d839abd99f847e45e1797be9c98886d1b3aa	refs/heads/docs/akg-m5-nap-option-c-c14-r24-truth-sync`
+Feature historical PRESERVED: `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a	refs/heads/feat/akg-m5-nora-adaptive-presentation`
+**No branch delete.**
 
-Branch `docs/akg-m5-nap-option-c-c14-r24-truth-sync` @ `6e60d839abd99f847e45e1797be9c98886d1b3aa`
-Dirty artefact only: `.tmp-sfia-review/**` (not committed).
+## 30. Git status final
+
+Local branch `docs/akg-m5-nap-option-c-c14-r24-truth-sync` still at documentary commit (worktree not reset to main). Dirty: `.tmp-sfia-review` only. origin/main=`ca1c9869f905b394808c953649910d60fbfcb984`.
 
 ```
  M .tmp-sfia-review/chatgpt-review.md
 ```
 
-## 29. Verdict unique
+Product mutation: **NONE**.
 
-**DOCUMENTARY COMMIT & PUSH COMPLETE — REMOTE SHA VERIFIED — DRAFT PR CREATED — REQUIRED GATE CI SUCCESS — CHATGPT PRE-MERGE REVIEW REQUIRED — MERGE NOT EXECUTED**
+## 31. Verdict unique
 
-## 30. Instruction ChatGPT
+**PR #629 MERGED ON MAIN — MERGE SHA VERIFIED — DOCUMENTARY COMMIT PRESERVED — SEVEN DOCUMENTS INTEGRATED — POST-MERGE DOCUMENTARY CI PASS — POST-MERGE CYCLE 14 REQUIRED**
 
-1. Vérifier handoff Git canonique.
-2. Vérifier commit documentaire distant `6e60d839abd99f847e45e1797be9c98886d1b3aa`.
-3. Vérifier parent + sept fichiers.
-4. Vérifier manifest cinq digests.
-5. Vérifier Draft PR #629.
-6. Vérifier CI run `41065363300` on HEAD exact.
-7. Vérifier Required Gate.
-8. Contrôler périmètre R24.
-9. Préserver réserves.
-10. Prononcer PR readiness.
-11. Si gates PASS, préparer GO Morris undraft + merge distinct.
-12. Ne pas nettoyer la feature branch.
-13. Ne pas annoncer docs CURRENT ON MAIN avant merge confirmé.
+### Instruction ChatGPT
+
+1. Vérifier handoff canonique.
+2. Vérifier PR #629 merged=true.
+3. Vérifier merge SHA `ca1c9869f905b394808c953649910d60fbfcb984` / parents.
+4. Vérifier main distant.
+5. Vérifier les sept blobs.
+6. Vérifier manifest et conformance.
+7. Vérifier CI post-merge `41067692544`.
+8. Requalifier Roadmap CURRENT.
+9. Préserver toutes les réserves.
+10. Qualifier Cycle 14 documentaire.
+11. Ne pas annoncer L3 CLOSED.
+12. Ne pas supprimer les branches sans GO distinct.
