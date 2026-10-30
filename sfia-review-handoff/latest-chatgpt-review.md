@@ -1,17 +1,17 @@
-# R24-NAP-02 — DOCUMENTARY RESERVES + PRR MANIFEST DIGEST REGULARIZATION
+# C13-NAP-01 — NORA ADAPTIVE PRESENTATION — PRE-COMMIT PR READINESS
 
-**Cycle:** SFIA 8 — Delivery / implémentation documentaire
-**Profil:** STANDARD — contrôle sémantique renforcé
-**Typologie:** DOC
+**Cycle:** SFIA 13 — PR readiness (adapted: **PRE-COMMIT** cumulative Delivery review)
+**Profil:** STANDARD — contrôles renforcés
+**Typologie:** VALIDATION / PRE-INTEGRATION
 **Review Pack:** FULL
 **Review Handoff:** REQUIRED / publish-in-cycle
-**Timestamp UTC:** `2026-10-30T07:18:18Z`
+**Timestamp UTC:** `2026-10-30T07:52:00Z`
 
 ---
 
 ## 1. Timestamp UTC
 
-`2026-10-30T07:18:18Z`
+`2026-10-30T07:52:00Z` (pack finalization after build + regression subset).
 
 ---
 
@@ -25,12 +25,13 @@
 | HEAD | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
 | `origin/main` | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
 | merge-base | `2cc6368602197e18fe886c87c8ced0a1b434f5a2` |
-| Prior handoff R24-NAP-01 | tip `e32647a66435fc89c33586c67f6f2d75e3d5ec33` · blob `6f2b1896c590899a3321719f5c1aba2fc35da7bb` |
+| `origin/main..HEAD` | **empty** (no Delivery commits) |
 | Staged | **none** |
-| Project commit this cycle | **NONE** |
+| Prior handoff R24-NAP-02 | tip `1ee8dc8f82d6035f8c48f49a132f143b1f5c575f` · blob `aa6f9d7d32544491a7b99d328fdb96c3cea90251` |
+| Project mutation this cycle | **NONE** (read-only review) |
 | Destructive git | **NOT USED** |
 
-**Compared to R24-NAP-01 handoff inventory:** same Product WIP set preserved (Option C + CORR-NAP-01…04 + QA-NAP-01…03 + harness + untracked NAP files). PRR 03/06/08/09 overlays from NAP-01 present; this cycle adds two documentary reserve fixes + manifest sha256_16 only.
+**Methodological adaptation:** template `2026-07-04-05-validate-pr-readiness.md` expects a branch with ≥1 PR commit. Here HEAD == main base → this is **PRE-COMMIT content quality assessment**, not formal Git PR readiness. Branch-ahead / Delivery commit history / PR CI = **NOT APPLICABLE / NOT PASS**.
 
 **Git Truth:** COHERENT.
 
@@ -38,427 +39,435 @@
 
 ## 3. Git Review Index
 
-### Modified this cycle (DOC / manifest)
+### Counts (excluding `.tmp-sfia-review`)
 
-| Path | Role |
+| Class | Count |
 |---|---|
-| `…/03-end-to-end-flow-catalog.md` | Reserve: expand abbreviated renderer path |
-| `…/06-persistence-restart-and-recovery.md` | Reserve: faithful `appendPilotTranscriptTurn` INSERT semantics |
-| `…/08-test-proof-and-conformance-map.md` | Unchanged content this cycle (KEEP) — digest refreshed for WIP octets |
-| `…/09-known-gaps-reserves-and-current-boundaries.md` | Unchanged content this cycle (KEEP) — digest refreshed |
-| `…/production-runtime-reference.manifest.json` | **sha256_16 only** (10 fields) |
+| Modified tracked | **23** |
+| Untracked | **7** |
+| **Total Delivery candidate paths** | **30** |
+| Project commits ahead of main | **0** |
 
-### Product WIP (preserved — **no mutation this cycle**)
+R24-NAP-02 “~25 app paths” ≈ 18 modified app + 7 untracked; +5 PRR/manifest = **30** total candidate.
 
-Same modified + untracked inventory as R24-NAP-01 (actions, orchestrateTurn, ConversationSurface, cycleJournalStore, productSqliteSession, fakeProvider, useProductConversation, noraAdaptivePresentation*, E2E, Auth helpers, CORR tests, etc.).
+`git diff --stat` (incl. pack reset noise on `.tmp`): ~890 insertions / 203 deletions across 24 tracked paths; untracked add ~113kB sources/tests/UI.
+
+`git diff --check`: **clean** (tracked). Untracked sources: **0** trailing-whitespace lines (manual scan).
 
 ---
 
-## 4. Sources réellement lues
+## 4. Sources réellement consultées
 
-- Process/routing posture (template / routing / guardrails).
-- Convergence boundaries (Build Doctrine / Roadmap / C1 / v3) — **no writes**.
-- PRR README + vols 03/06/08/09 + manifest + checker.
-- Code: `cycleJournalStore.ts` `appendPilotTranscriptTurn` · `productSqliteSession.ts` ALTER columns · `NoraAdaptivePresentationView.tsx` existence · ConversationSurface composition path.
-- Prior handoffs: R24-NAP-01 `e32647a6` · QA-NAP-03 `b11ef7c9` · CORR-NAP-04 `d36fddf1`.
-- Publisher: `scripts/sfia/README.md`.
+- Cycle routing / PR readiness template posture / validation checklist posture.
+- Convergence: Build Doctrine / Roadmap / C1 / v3 — **boundaries only, no writes**.
+- PRR 03/06/08/09 + manifest + checker.
+- Code path: `noraAdaptivePresentation.ts`, `noraProductTurnOutputType.ts` (`withGuidance` CORR-NAP-04), `fakeProvider.ts` NAP gate, `cycleJournalStore.appendPilotTranscriptTurn`, View/CSS, ConversationSurface, orchestrateTurn, actions, useProductConversation.
+- Handoffs: QA-NAP-03 `b11ef7c9` · CORR-NAP-04 `d36fddf1` · R24-NAP-01 `e32647a6` · R24-NAP-02 `1ee8dc8f`.
+- Captures: `.tmp-sfia-review/runtime-captures/nora-adaptive/` (manifest.jsonl + env-qualification.json + PNGs) — **not** PR candidates.
+- `app/package.json` scripts.
 
 ---
 
 ## 5. Convergence Pre-check
 
-| Gate | Result |
+| Item | Status |
 |---|---|
-| KEEP Product / architecture | YES |
-| ADAPT two documentary formulations only | YES |
-| No Roadmap / C1 / doctrine / lastReviewed* | YES |
-| No Product code/test mutation | YES |
-| No manifest topology change | YES |
-| L3 GLOBAL / EP-S2-08 / EP-S2-05 / L4 / v3 | OPEN / PARTIAL / NOT PROVEN / NOT AUTHORIZED / NON ADOPTED |
+| Capacité | Nora Adaptive Presentation A3/A4 Option C |
+| Milestone | AKG-M5 / L3-S2 |
+| Entry | LOCAL IMPLEMENTED — PRE-INTEGRATION |
+| KEEP Delivery / architecture | YES |
+| VERIFY / COMPLETE readiness evidence | THIS CYCLE |
+| No new construction | YES |
+| L3 GLOBAL | OPEN (unchanged) |
+| EP-S2-08 / EP-S2-05 | PARTIAL / NOT PROVEN |
+| G-REAL / L4 / v3 | NOT GRANTED / NOT AUTHORIZED / NON ADOPTED |
 
 ---
 
-## 6. Capacité / milestone / trajectoire
+## 6. Capacité et trajectoire
 
-| Field | Value |
-|---|---|
-| Capacité | Nora Adaptive Presentation A3/A4 — Option C |
-| Milestone | AKG-M5 / L3-S2 |
-| État | LOCAL IMPLEMENTED — PRE-INTEGRATION |
-| Classification | KEEP Product · ADAPT 2 doc formulations · VERIFY digests · COMPLETE local conformance |
-| Next | Cycle 13 PR readiness — **distinct GO** |
-| Runtime v3 | NON ADOPTED |
+Next capability after content PASS: **Morris GO for Project Commit / Git Integration**, then formal PR readiness on committed tip, then CI/merge under distinct gates.
 
 ---
 
 ## 7. Décision Morris consommée
 
-GO Morris R24-NAP-02: two PRR corrections + bounded digest regularization after R24-NAP-01 semantic acceptance with minor reserves (`R24 SEMANTIC REVIEW ACCEPTED WITH MINOR DOCUMENTARY RESERVES — DIGEST GATE PENDING`). Manifest write authorized **only** for justified `sha256_16`. Project GI / PR / merge **NOT** authorized.
+GO C13-NAP-01: cumulative **pre-commit** readiness review only. **No** Product/doc mutation · **no** project commit/push/PR/merge.
 
 ---
 
-## 8. Analyse R23
+## 8–9. Inventaire exhaustif WIP (+ untracked)
 
-**Transcript write path (confirmed in code):**
+### A. Product code modified (tracked)
 
-`appendPilotTranscriptTurn` (`cycleJournalStore.ts`):
-1. If `logicalTurnId` present → SELECT prior row by project/session/logical_turn_id/role.
-2. If prior found → **return frozen record** (includes `presentation_json` / `studio_control_json`) — **no UPDATE**.
-3. Else → **INSERT** new transcript row with presentation/studio_control JSON.
+| Path | Origin | Role | Risk | Future commit? |
+|---|---|---|---|---|
+| `…/noraProductTurnOutputType.ts` | Option C + CORR-NAP-04 | DTO + normalize + `withGuidance` LR return | Med | YES |
+| `…/cycleJournalStore.ts` | Option C | `appendPilotTranscriptTurn` presentation/studio_control | Med | YES |
+| `…/cycleJournalTypes.ts` | Option C | Types for JSON columns | Low | YES |
+| `…/productSqliteSession.ts` | CORR-NAP-01 | Idempotent ALTER columns | Med | YES |
+| `…/index.ts` | Option C | Exports | Low | YES |
+| `…/providerAgentsModel.ts` | Option C | Coherence wiring | Med | YES |
+| `…/runNoraAgentsTurn.ts` | Option C | Pass coherent presentation | Med | YES |
+| `…/orchestrateTurn.ts` | Option C | Persist/transport | Med | YES |
+| `…/actions.ts` | Option C | Continuity/send DTO fields | Med | YES |
+| `…/types.ts` | Option C | Action DTO types | Low | YES |
+| `…/buildProjectSystemPrompt.ts` | Option C | Prompt guidance | Low | YES |
+| `…/useProductConversation.ts` | Option C | Hook transport | Med | YES |
+| `…/ConversationSurface.tsx` | Option C | Compose adaptive view | Med | YES |
+| `…/fakeProvider.ts` | QA-NAP | NAP QA markers gated | Med | YES |
 
-**Renderer path (confirmed):** `app/features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx` exists; composed from ConversationSurface.
+### B. Product code created (untracked) — **integrate**
 
-**Coverage class:** DOCUMENTED + COVERAGE VERIFIED (local WIP) · BEHAVIOR PROVEN at prior DET/Fake scopes · KNOWN GAP: server restart / LIVE / STOP browser unchanged.
+| Path | Role |
+|---|---|
+| `…/noraAdaptivePresentation.ts` | DTO parse/normalize/fail-closed |
+| `…/NoraAdaptivePresentationView.tsx` | Adaptive renderer |
+| `…/NoraAdaptivePresentationView.module.css` | Styles |
 
-**NO NEW PRODUCT SEMANTIC IMPACT** this cycle.
+### C–D. Tests modified / created
 
----
-
-## 9. Corrections PRR 03 / 06
-
-### PRR 06 — Write semantics (reserve)
-
-**Before (imprecise):**
-`persist … on assistant transcript row (cycleJournalStore insert/update paths)`
-
-**After (code-faithful):**
-`persist validated presentation + Studio notices via appendPilotTranscriptTurn INSERT on the assistant transcript row; retry-safe logicalTurnId lookup returns an existing row instead of creating a duplicate (**no** transcript UPDATE on that path)`
-
-Preserved: migration/columns/idempotence/reload DET Fake / server restart NOT PROVEN / RunState NOT IMPLEMENTED.
-
-### PRR 03 — Path expansion (reserve)
-
-**Before:** `features/.../NoraAdaptivePresentationView.tsx` (+ other abbreviated siblings)
-
-**After (relative to `app/`):**
-`features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx`, plus expanded siblings:
-`lib/nora-cognitive-runtime/{noraAdaptivePresentation,noraProductTurnOutputType,cycleJournalStore,productSqliteSession}.ts`, `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`, `features/project-assistant/{orchestrateTurn,actions}.ts`, `features/pre-m6-product-ui/hooks/useProductConversation.ts`, `lib/platform/ai/fakeProvider.ts`, `e2e/studio-nora-adaptive-qa-nap01.spec.ts`.
-
-LOCAL CANDIDATE — PRE-INTEGRATION conserved. F02/F04 not rewritten beyond pointer text already present. No F03/F08/F09/F10 expansion.
-
----
-
-## 10. Qualification PRR 08 / 09
-
-**KEEP — NO ADDITIONAL SEMANTIC CHANGE.**
-
-- NAP proof index, Fake/Real ceilings, matrix A–L, uncommitted status, open reserves, distinct GI gates — coherent with corrections.
-- No contradiction requiring 08/09 rewrite.
-- Digests refreshed only because octets already changed under R24-NAP-01 and remain current after 03/06 reserve edits (08/09 file bytes unchanged this cycle vs post-NAP-01).
-
----
-
-## 11. Diffs complets des fichiers modifiés
-
-### 11.A — PRR 06 Write row (integral corrected cell)
-
-```
-| Write | After Product turn normalize: persist validated `presentation` + Studio notices via `appendPilotTranscriptTurn` INSERT on the assistant transcript row; retry-safe `logicalTurnId` lookup returns an existing row instead of creating a duplicate (**no** transcript UPDATE on that path) |
-```
-
-### 11.B — PRR 03 Paths line (integral corrected)
-
-```
-**Paths (local WIP):** `lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`, `lib/nora-cognitive-runtime/noraProductTurnOutputType.ts`, `lib/nora-cognitive-runtime/cycleJournalStore.ts`, `lib/nora-cognitive-runtime/productSqliteSession.ts`, `features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx`, `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx`, `features/project-assistant/orchestrateTurn.ts`, `features/project-assistant/actions.ts`, `features/pre-m6-product-ui/hooks/useProductConversation.ts`, `lib/platform/ai/fakeProvider.ts` (QA-only markers), `e2e/studio-nora-adaptive-qa-nap01.spec.ts` (all relative to `app/`).
-```
-
-### 11.C — Manifest (complete useful diff — sha256_16 only)
-
-```diff
-diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 2098d863..7c864568 100644
---- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-+++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-@@ -19,7 +19,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "f68f7167f71016f9"
-+      "sha256_16": "89c1b959740c308b"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,7 +31,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "6fc1d9a4b224a2a2"
-+      "sha256_16": "2f4d2ab593a581b0"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-@@ -39,11 +39,11 @@
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "357fb5ba5b423903"
-+      "sha256_16": "f6bc6f73585425dd"
-     },
-     {
-       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "66e1ef8ee74259af"
-+      "sha256_16": "6ebfc7c9f2163bcb"
-     }
-   ],
-   "components": [
-@@ -609,11 +609,11 @@
-   "trackedSources": [
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
--      "sha256_16": "80e4fbcf941890de"
-+      "sha256_16": "ceb368a82983939e"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
--      "sha256_16": "f20d8d4a2663d756"
-+      "sha256_16": "a37fc8b0f0adfd57"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-@@ -657,7 +657,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
--      "sha256_16": "37d79b9db14322c3"
-+      "sha256_16": "5807dea9a14a0307"
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/sessionPaths.ts",
-@@ -665,7 +665,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts",
--      "sha256_16": "f3780f7c36792984"
-+      "sha256_16": "060beae45f5570bb"
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts",
-@@ -697,7 +697,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
--      "sha256_16": "ffe7a7dad6953259"
-+      "sha256_16": "52abbdef13501059"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
-@@ -709,7 +709,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
--      "sha256_16": "7eb2fa5f7fb56ac0"
-+      "sha256_16": "7f967f41ab66fead"
-     },
-     {
-       "path": "projects/sfia-studio/app/.env.example",
-```
-
-**Topology untouched:** schemaVersion, kind, canonicalReadme, components, flows, invariants, dependencies, trackedSourcePaths lists, trackedTests entries, `lastReviewedCommit`=`928ab15b032c392dafee74a916f2faad3ed524de`, `lastReviewedAt`=`2026-10-15T22:51:00+02:00`.
-
-### 11.D — Full PRR 03/06/08/09 vs HEAD (includes NAP-01 overlays + NAP-02 fixes)
-
-Diff-stat vs HEAD:
-
-```
- 03-end-to-end-flow-catalog.md                  | 42 ++++++++++++++++++++++
- 06-persistence-restart-and-recovery.md         | 36 +++++++++++++++++++
- 08-test-proof-and-conformance-map.md           | 20 +++++++++++
- 09-known-gaps-reserves-and-current-boundaries.md | 36 +++++++++++++++++++
- production-runtime-reference.manifest.json     | 20 +++++------
- 5 files changed, 144 insertions(+), 10 deletions(-)
-```
-
-`git diff --check` on PRR: **clean**.
-
-Full overlay bodies for 03/06/08/09 were published in R24-NAP-01 handoff `e32647a6` §11. This pack focuses on the two reserve deltas + manifest. Overlay epistemic class remains **LOCAL CANDIDATE — PRE-INTEGRATION**.
-
----
-
-## 12. Manifest avant / après
-
-| Field | Before | After |
+| Path | Status | Role |
 |---|---|---|
-| Topology | unchanged | unchanged |
-| Digests drifted | 10 | 0 (matched to local WIP octets) |
-| `--write-digests` | not used | not used (surgical sha256_16 edit) |
-| lastReviewedCommit / At | unchanged | unchanged |
+| `…/preCycleRoutingBoundary.d0.test.ts` | M | CORR-NAP-04 T1/T5/T9 + prior |
+| `…/authenticatedStudioSession.d0.test.ts` | M | Better Auth cookie url-only |
+| `…/noraAdaptivePresentation.d0.test.ts` | ?? | DTO/migrate/Memory B |
+| `…/noraAdaptivePresentation.ui.test.tsx` | ?? | UI/fallback/notices |
+| `…/fakeNapQaPresentation.d0.test.ts` | ?? | Fake gate OFF/ON markers |
 
----
+### E. Auth / harness E2E
 
-## 13. Inventaire exhaustif des mismatches (pré-écriture RO)
+| Path | Status | Role |
+|---|---|---|
+| `…/e2e/support/authenticatedStudioSession.ts` | M | Playwright cookie shape |
+| `…/scripts/e2e-auth-bootstrap.ts` | M | Auth bootstrap |
+| `…/e2e/studio-nora-adaptive-qa-nap01.spec.ts` | ?? | Browser Fake NAP QA |
 
-Checker RO **before** refresh — **exactly 10** mismatches, **0** missing paths, **0** trackedTests drifts, **0** unknown drifts:
+### F. UI/CSS
 
-### A. Volumes
+Covered under B + ConversationSurface.
 
-| Path | Old | New (local) | Origin |
-|---|---|---|---|
-| 03-end-to-end-flow-catalog.md | `f68f7167f71016f9` | `89c1b959740c308b` | DOC R24-NAP-01 + NAP-02 path reserve |
-| 06-persistence-restart-and-recovery.md | `6fc1d9a4b224a2a2` | `2f4d2ab593a581b0` | DOC R24-NAP-01 + NAP-02 write-semantics reserve |
-| 08-test-proof-and-conformance-map.md | `357fb5ba5b423903` | `f6bc6f73585425dd` | DOC R24-NAP-01 proof index (bytes unchanged this cycle) |
-| 09-known-gaps-reserves-and-current-boundaries.md | `66e1ef8ee74259af` | `6ebfc7c9f2163bcb` | DOC R24-NAP-01 matrix (bytes unchanged this cycle) |
+### G–H. PRR + manifest
 
-### B. trackedSources (Product WIP Option C / CORR/QA — reviewed prior cycles; **not mutated this cycle**)
-
-| Path | Old | New | Origin |
-|---|---|---|---|
-| `…/actions.ts` | `80e4fbcf941890de` | `ceb368a82983939e` | Product Option C transport |
-| `…/orchestrateTurn.ts` | `f20d8d4a2663d756` | `a37fc8b0f0adfd57` | Product Option C orchestration |
-| `…/productSqliteSession.ts` | `37d79b9db14322c3` | `5807dea9a14a0307` | ALTER presentation/studio_control |
-| `…/cycleJournalStore.ts` | `f3780f7c36792984` | `060beae45f5570bb` | appendPilotTranscriptTurn columns |
-| `…/fakeProvider.ts` | `ffe7a7dad6953259` | `52abbdef13501059` | NAP QA Fake markers |
-| `…/useProductConversation.ts` | `7eb2fa5f7fb56ac0` | `7f967f41ab66fead` | adaptivePresentation hook transport |
-
-### C. trackedTests
-
-**NONE** drifted.
-
-### D. Missing paths
-
-**NONE**.
-
-### E. WIP present but absent from manifest inventory (NOT added — topology freeze)
-
-New local files (`noraAdaptivePresentation.ts`, View+CSS, unit/UI/E2E NAP tests, etc.) and other modified-but-untracked-in-manifest Product files remain **qualified in PRR 08/09 only**. **No** new components/flows/trackedSources/tests entries.
-
----
-
-## 14. Matrice vieux / nouveaux digests
-
-Same 10 pairs as §13 — all applied. Post-write rehash: **0 mismatches**.
-
----
-
-## 15. Justification de chaque digest actualisé
-
-| Digest update | Authorized because |
+| Path | Status |
 |---|---|
-| 03/06 | Documentary overlays + ChatGPT-accepted reserves fixed under this GO |
-| 08/09 | Documentary NAP-01 overlays already semantically reviewed; octets stable this cycle |
-| 6 trackedSources | Option C / CORR / QA Product WIP bytes already reviewed in prior Delivery/QA/CORR handoffs; G5 satisfied; **no Product edit this cycle** |
+| `03/06/08/09` volumes | M — R24-NAP-01/02 LOCAL CANDIDATE |
+| `production-runtime-reference.manifest.json` | M — 10 sha256_16 only (R24-NAP-02) |
 
-Method: surgical JSON `sha256_16` field edits after inventory. **`--write-digests` NOT used** (would be equivalent here since all drifts were qualified, but targeted edit preferred).
+### I. Exclusions (NOT for project commit)
 
----
-
-## 16. Preuve gate sémantique préalable (G1–G8)
-
-| Gate | Status |
+| Path | Reason |
 |---|---|
-| G1 Two PRR corrections done | PASS |
-| G2 Conform to local code | PASS (`appendPilotTranscriptTurn` INSERT+lookup; View path exists) |
-| G3 08/09 coherent | PASS — KEEP |
-| G4 Product WIP unmodified this cycle | PASS |
-| G5 trackedSources = known Option C/CORR/QA | PASS |
-| G6 trackedTests | N/A — no drifts |
-| G7 No unattributed path/change | PASS — inventory complete |
-| G8 No structuring topology change | PASS |
+| `.tmp-sfia-review/chatgpt-review.md` | Review pack local only |
+| `.tmp-sfia-review/runtime-captures/nora-adaptive/**` | QA evidence local (captures + figma-refs + manifest.jsonl) |
+| `.DS_Store` under captures | Noise |
 
-**SEMANTIC GATE ELIGIBLE — BOUNDED DIGEST REFRESH AUTHORIZED** → executed.
+**No** `.env.local`, cookies/storageState, SQLite DBs, `node_modules`, `.next`, secrets in candidate set.
 
 ---
 
-## 17. Commandes et exit codes
+## 10. Diff attribution summary
 
-```text
-# RO inventory
-node projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs
-→ RESULT: REFERENCE REVIEW REQUIRED / CONFORMANCE FAILED  EXIT:1
-→ exactly 10 drifts listed in §13
-
-# After surgical sha256_16 update
-node projects/sfia-studio/app/scripts/check-production-runtime-reference.mjs
-→ RESULT: PRODUCTION RUNTIME REFERENCE CONFORMANCE OK  EXIT:0
-
-# Vitest non-destructive intent (file has 5 tests; filter included digest-match)
-npx vitest run __tests__/architecture/productionRuntimeReference.conformance.d0.test.ts
-→ 5 passed  EXIT:0
-```
-
-**Probe note:** suite includes temporary mutation of `trackedSources[0]` (`actions.ts` — uncommitted WIP). Restoration confirmed post-run (`sha16` still `ceb368a82983939e`; no `PRR-DRIFT-PROBE` marker). Future Cycle 13 should prefer isolating the probe off WIP Product files.
-
-`git diff --check` PRR: clean.
+| Bucket | Approx delta |
+|---|---|
+| Product Option C + CORR | Dominant (DTO, persistence, UI, orchestration) |
+| Fake QA / Auth | `fakeProvider` +268 lines; auth helpers small |
+| Tests CORR-NAP-04 | +88 lines preCycleRoutingBoundary |
+| PRR | +134 overlay lines + 10 digest field flips |
 
 ---
 
-## 18. Conformance checker / oracle
+## 11. R23 — Architecture / invariants
+
+**Chain verified (code inspection + tests):**
+Pilot → `orchestrateTurn` / Agents Runner → structured Product turn (+ nullable `presentation`) → normalize fail-closed → `applyPreCycleRoutingBoundaryCoherence` / `withGuidance` → Memory B `appendPilotTranscriptTurn` INSERT (+ logicalTurnId retry return) → actions/hook transport → ConversationSurface → `NoraAdaptivePresentationView` → browser reload continuity (QA-NAP-03).
+
+| Invariant | Qualifier |
+|---|---|
+| Single Product turn canon | COVERAGE VERIFIED |
+| No second cognitive engine | DOCUMENTED |
+| DTO fail-closed | BEHAVIOR PROVEN (unit) |
+| Narrative/plain fallback | BEHAVIOR PROVEN |
+| Reco ≠ HumanDecision | BEHAVIOR PROVEN (UI) |
+| Presentation ≠ Truth C | DOCUMENTED |
+| evidence_reserves ≠ OA Evidence | DOCUMENTED + UI |
+| Studio notices server-owned | BEHAVIOR PROVEN (CORR-NAP-02/03) |
+| Forged `[Studio]` non-authoritative | BEHAVIOR PROVEN |
+| No free CTA from DTO | BEHAVIOR PROVEN (QA browser) |
+| Cognitive STOP > LR | BEHAVIOR PROVEN (CORR-NAP-04) |
+| Suppressed LR not revived | BEHAVIOR PROVEN (`withGuidance` reassigns local LR) |
+| No cycle-gate rewrite | DOCUMENTED |
+| No parallel SoT/store | DOCUMENTED (Memory B columns only) |
+
+KNOWN GAP: OpenAI LIVE structured emit · server restart · STOP browser.
+
+---
+
+## 12. Revue CORR-NAP-01…04 (WIP conserve)
+
+| Corr | Status in final WIP |
+|---|---|
+| CORR-NAP-01 migrate/fallback | Present — unit suite PASS |
+| CORR-NAP-02 typed Studio notices | Present — UI/unit PASS |
+| CORR-NAP-03 incomplete/safe fallback | Present — UI PASS |
+| QA-NAP-03 SHORT no Fake sticky dup | Present — Fake tests + prior E2E evidence |
+| CORR-NAP-04 `withGuidance` returns local LR | Code at `noraProductTurnOutputType.ts` ~1405–1420; tests T1 STOP→null/suppressed/NONE · T5 EMIT keeps LR · T9 presentation orthogonal — **PASS in suite** |
+
+No major écart → no `NOT READY — CORRECTION GO REQUIRED`.
+
+---
+
+## 13. Résultats tests ciblés
+
+| Suite | Result |
+|---|---|
+| `noraAdaptivePresentation.d0` | 34 PASS |
+| `noraAdaptivePresentation.ui` | 17 PASS |
+| `fakeNapQaPresentation.d0` | 9 PASS (incl. gate OFF) |
+| `preCycleRoutingBoundary.d0` | 25 PASS |
+| `authenticatedStudioSession.d0` | 6 PASS |
+| **NAP targeted total** | **5 files / 91 PASS** EXIT 0 |
+
+---
+
+## 14. Résultats tests globaux / régression
+
+| Scope | Result |
+|---|---|
+| `nora-cognitive-runtime/**` + `orchestrateTurn.test.ts` + preCycleRoutingBoundary | **63 files PASS / 2 skipped · 726 tests PASS / 2 skipped** EXIT 0 (~69s) |
+| Full Vitest (`__tests__` ~587 files) | **NOT EXECUTED** this cycle — `SKIP JUSTIFIED` (time/env); targeted + Nora regress strong signal ≠ global suite claim |
+
+Do **not** extrapolate CORR-NAP-04 or 726 to full 587-file suite.
+
+---
+
+## 15. Typecheck / lint / build
+
+| Command | Cwd | Exit | Notes |
+|---|---|---|---|
+| `npm run typecheck` | `app/` | **0** | clean |
+| `npm run lint` (`next lint`) | `app/` | **0** | 2 **pre-existing** unused-var warnings outside NAP WIP (`pilotLifecycleTransitions.ts`, `startExecution.ts`) |
+| `npm run build` | `app/` | **0** | compiled ~100s; Studio routes incl. `/studio`, send API |
+
+Logs: `/tmp/c13-typecheck.log`, `/tmp/c13-lint.log`, `/tmp/c13-build.log`, `/tmp/c13-vitest-nap.log`, `/tmp/c13-vitest-regress.log`.
+
+---
+
+## 16. QA navigateur / Figma
+
+**Reuse QA-NAP-03** (handoff `b11ef7c9`) — no UI invalidating delta detected since that campaign for A3/A4 Fake path (C13 made **no** Product edits).
+
+Local captures still present:
+
+- SHORT / BALISE / COMPARE / RECO / PROVENANCE / forged / invalid / reload before·after / mobile
+- Auth wall / studio home
+- Figma refs A3 `466:2` · A4 `466:71` under `figma-refs/`
+- `env-qualification.json`: Fake provider · `SFIA_STUDIO_E2E_QA_CONTROL=1` · LIVE/REAL unauthorized
+- Capture provenance: AUTHENTICATED FAKE BROWSER RUNTIME · **A4 STRUCTURAL ALIGNMENT ≠ PIXEL PERFECT**
+
+Reserves: QA-NAP-06 STOP browser **NOT PROVEN** · QA-NAP-10 server restart **NOT PROVEN** — **non-blocking** for Fake DET A3/A4 PR scope if Morris accepts as known debt (see §21).
+
+E2E **not re-run** this cycle (justified: bytes UI unchanged in C13; prior evidence retained).
+
+---
+
+## 17. Security / secrets
 
 | Check | Result |
 |---|---|
-| JSON valid | YES |
-| Checker RO post-refresh | **CONFORMANCE OK** EXIT 0 |
-| Vitest oracle | **5/5 PASS** |
-| Path existence | OK |
-| ID uniqueness/resolution | OK (oracle) |
-| Digest match local WIP | OK |
-| Unexplained drift | **NONE** |
+| Secret/token patterns on 30 candidates | **0 findings** |
+| Forbidden names (.env, storageState, sqlite, …) | **none in candidates** |
+| NAP markers | Gate = `SFIA_STUDIO_E2E_QA_CONTROL===1` **AND** `OPS1_CONVERSATION_PROVIDER=fake` |
+| Probe | Last **user** message content (`[...messages].reverse().find(role===user)`) |
+| Gate OFF | Unit-tested → emit null / disabled |
+| Captures | Local only; `secretsPresent:false` in sample manifest rows |
 
-**Status:** `CONFORMANCE PASS — LOCAL WIP SNAPSHOT`
-
-≠ remote CI · ≠ merge conformance · ≠ PR READY · digests = worktree octets only · Delivery still UNCOMMITTED.
+**No blocking security gap** for commit of candidate set (exclude `.tmp`).
 
 ---
 
-## 19. Confirmation Product WIP intact
+## 18. PRR / manifest conformance
 
-- No Product file edited this cycle.
-- Post-probe `actions.ts` hash unchanged vs pre-refresh expected digest.
-- Untracked NAP assets still present.
-- HEAD still `2cc63686…`.
+Baseline R24-NAP-02 preserved (C13 **no** doc/Product writes).
+
+| Check | Result |
+|---|---|
+| Checker RO | `PRODUCTION RUNTIME REFERENCE CONFORMANCE OK` EXIT 0 |
+| Digest mismatches | **0** |
+| Topology | 10 vols / 27 sources / 7 tests / 13 components / 20 flows — unchanged lists |
+| `lastReviewedCommit` | still historical `928ab15b…` (not invented from WIP) |
+| LOCAL CANDIDATE Option C | maintained in 03/06/08/09 |
+| New NAP paths absent from topology | explicit in PRR 08/09 — OK under prior GO |
+| Vitest PRR oracle | 4 PASS / 1 SKIP (mutation probe skipped — protects WIP `actions.ts`) |
+
+**NO SEMANTIC PRODUCT IMPACT** this cycle (R24).
 
 ---
 
-## 20. Fake / Real Qualification
+## 19. Fake / Real Qualification
 
 | Field | Value |
 |---|---|
-| Applicable | OUI (documentary context) |
+| Applicable | OUI |
 | Boundary | OpenAI Agents Structured Outputs |
 | Fake | FakeConversationProvider NAP QA |
-| REAL | OpenAI LIVE |
-| Entry | DET VERIFIED + AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED |
-| This cycle | **DOCUMENTARY SEMANTIC REVIEWED + LOCAL DIGEST CONFORMANCE VERIFIED** |
-| Out of scope | REAL BOUNDARY / E2E REAL / FULL SERVER RESTART / L3 CLOSED / L4 / v3 ADOPTED |
-| New LIVE | NONE |
+| REAL | OpenAI LIVE — **NOT PROVEN** / **NOT AUTHORIZED** this cycle |
+| Entry proof | DET VERIFIED + AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED |
+| This cycle | **LOCAL CUMULATIVE QUALITY ASSESSMENT** |
+| G-REAL | NOT GRANTED |
 
 ---
 
-## 21. Réserves, dette, exit
+## 20. Matrice gates G01–G24
 
-**Still open:**
-- QA-NAP-06 STOP browser NOT PROVEN
-- QA-NAP-10 server restart NOT PROVEN
-- OpenAI LIVE structured emit NOT PROVEN
-- Project uncommitted / not on main
-- New NAP sources absent from manifest topology (by design this GO)
-- Local conformance ≠ CI/merge
-- EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN
-
-**Exit for this cycle:** reserves corrected · digests justified · conformance local PASS · handoff published · ChatGPT final review.
-
-**Next:** Cycle 13 PR readiness under distinct qualification/GO — recheck digests before any Product commit.
+| Gate | Status | Evidence | Reserve |
+|---|---|---|---|
+| G01 Git identity/base | **PASS** | HEAD=main tip `2cc63686` | Branch unpublished |
+| G02 WIP inventory | **PASS** | 30 paths §8–9 | — |
+| G03 Scope/protected | **PASS** | Only Delivery+PRR under prior GOs | — |
+| G04 No accidental assets | **PASS** | `.tmp`/captures excluded | — |
+| G05 Architecture consistency | **PASS** | R23 §11 | — |
+| G06 STOP/authority | **PASS** | CORR-NAP-04 tests | STOP **browser** NOT PROVEN |
+| G07 Memory B migration | **PASS** | unit + code | Server restart NOT PROVEN |
+| G08 Adaptive UX/fallback | **PASS** | UI + QA-NAP-03 | ≠ PIXEL PERFECT |
+| G09 Fake QA safety | **PASS** | dual gate + OFF tests | — |
+| G10 Unit/UI tests | **PASS** | 91 targeted | — |
+| G11 Full Vitest | **SKIP JUSTIFIED** | Nora regress 726 PASS; full 587 files not run | CI must still run full suite |
+| G12 Typecheck | **PASS** | EXIT 0 | — |
+| G13 ESLint | **PASS WITH RESERVES** | EXIT 0; 2 pre-existing warnings outside WIP | — |
+| G14 Build | **PASS** | EXIT 0 | — |
+| G15 Auth browser evidence | **PASS** | QA-NAP-03 captures/handoff | Not re-executed C13 |
+| G16 Figma A3/A4 | **PASS WITH RESERVES** | Structural refs present | ≠ pixel score |
+| G17 PRR semantic | **PASS** | R24-NAP-01/02 accepted + reserves closed | ChatGPT final R24-NAP-02 assumed consumed by this GO chain |
+| G18 Manifest conformance | **PASS** | checker OK local WIP | Digests = worktree octets; invalidate if Product mutates |
+| G19 Security | **PASS** | 0 findings | — |
+| G20 Doc currentness | **PASS WITH RESERVES** | LOCAL CANDIDATE ≠ ON MAIN | Post-merge requalify |
+| G21 Open reserves triage | **PASS WITH RESERVES** | §21 | Morris disposition |
+| G22 Commit plan | **PASS** | §23 proposal only | Not executed |
+| G23 Draft PR body | **PASS** | §24 | No PR created |
+| G24 Human GI decision | **NOT APPLICABLE** | Requires Morris GO | Next |
 
 ---
 
-## 22. Gates Morris restants
+## 21. Matrice réserves / dettes
 
-1. ChatGPT **final documentary review** of R24-NAP-02
-2. Distinct **Product GI / PR / merge** authorization
-3. Optional later: LIVE / STOP browser / server restart proof GOs
-4. Any future **manifest topology enrichment** for new NAP paths → new Morris GO
+| ID | Description | Blocks commit? | Blocks PR? | Blocks merge? | Post-integ OK? | Owner / exit |
+|---|---|---|---|---|---|---|
+| R-STOP-BROWSER | QA-NAP-06 NOT PROVEN | **No*** | No* | No* | Yes as debt | Product; browser STOP scenario GO |
+| R-SRV-RESTART | QA-NAP-10 NOT PROVEN | **No*** | No* | No* | Yes as debt | Product; restart proof GO |
+| R-LIVE-EMIT | OpenAI LIVE structured presentation | **No*** | No* | Prefer yes for REAL claims | Yes | distinct REAL GO |
+| R-FULL-VITEST | Full suite not run locally | Soft | CI must PASS | Yes if CI fails | CI exit | CI Required Gate |
+| R-EP-S2-08 | PARTIAL | No (out of A3/A4 scope) | No | No | Yes | L3 trajectory |
+| R-EP-S2-05 | NOT PROVEN | No | No | No | Yes | L3 |
+| R-L3-GLOBAL | OPEN | No | No | No | Yes | milestone |
+| R-V3 | NON ADOPTED | No | No | No | Yes | doctrine |
+| R-MANIFEST-TOPO | New NAP files not in manifest lists | No | No | No | Optional enrich GO | Morris if topology needed |
+| R-NO-COMMITS | Zero Delivery commits | **Yes for formal PR** | **Yes** | Yes | N/A until commit | Morris Project Commit GO |
+| R-FORMAL-PR | Formal readiness after commits+CI | Yes now | Yes | Yes | After tip review | Cycle post-commit |
+
+\*Non-blocking for **Fake DET A3/A4** content integration if Morris explicitly accepts debt; still must not be claimed proven.
 
 ---
 
-## 23. Verdict unique
+## 22. Risques / exit proofs
 
-**R24-NAP-02 LOCAL REGULARIZATION COMPLETE — SEMANTICALLY REVIEWED — MANIFEST CONFORMANCE PASS AT LOCAL WIP — CHATGPT FINAL REVIEW REQUIRED — PROJECT GI NOT AUTHORIZED**
+| Risk | Mitigation / exit |
+|---|---|
+| Digest stale after any Product edit | Re-run checker; R24 digest GO if needed before commit |
+| Intermediate commit breaks PRR CI | Prefer **atomic** Product+PRR+manifest commit |
+| Full suite surprise fail | Let Required Gate CI decide; local Nora regress green |
+| Captures not in git | Keep as review evidence; optional attach in PR description links/handoff only |
 
-Anti-claims: ≠ CURRENT ON MAIN · ≠ PR READY · ≠ REAL PROVEN · ≠ L3 CLOSED · ≠ L4 AUTHORIZED · ≠ runtime v3 ADOPTED · digest MATCH ≠ permanent semantic validity beyond reviewed octets.
+---
+
+## 23. Proposition Git Integration (NOT EXECUTED)
+
+### Preferred: **single atomic commit**
+
+**Why:** Manifest currently encodes **both** new volume digests and new trackedSource digests. A Product-only intermediate tip would fail PRR conformance if CI checks every commit against committed manifest without matching volume bytes (or vice versa).
+
+**Files (30):** all §8 A–H paths (exclude `.tmp`).
+
+**Suggested message sketch:**
+`feat(studio): Nora Adaptive Presentation Option C + CORR/QA + PRR sync`
+
+**Order alternative (only if CI is tip-only):**
+1. Product+tests+harness (25 app paths) — **risky** if CI runs PRR on that SHA with old volume digests still on disk in commit tree.
+2. PRR 03/06/08/09 + manifest.
+
+**Recommendation:** **Lot unique atomique** → push feature branch → Draft PR → Required Gate → undraft/merge under later Morris GOs.
+
+**Rollback:** revert single commit / close PR.
+
+**Gates sequence after this review:**
+1. Morris reserve disposition (accept R-STOP/R-RESTART/R-LIVE as debt)
+2. Morris **Project Commit GO**
+3. Commit + push feature branch
+4. Formal PR readiness re-check on tip
+5. Draft PR + CI
+6. Merge GO
+
+---
+
+## 24. Draft PR body (NO PR CREATED)
+
+```markdown
+## Summary
+- AKG-M5 / L3-S2 — Nora Adaptive Presentation A3/A4 **Option C** (structured `presentation` DTO, Studio-owned notices, Memory B columns, adaptive ConversationSurface renderer).
+- Includes CORR-NAP-01…04 (migrate/fallback, typed notices, incomplete safety, Cognitive STOP LR coherence via `withGuidance` local return).
+- Includes QA-NAP Fake gated markers + Better Auth Playwright harness evidence (AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED).
+- PRR volumes 03/06/08/09 LOCAL CANDIDATE overlays + manifest digest regularization (R24-NAP-01/02).
+
+## Architecture
+Pilot → Product orchestrateTurn / Agents Runner → validated presentation (fail-closed) → Memory B `presentation_json`/`studio_control_json` → UI adaptive compose with plain fallback.
+Presentation ≠ Truth C · Recommendation ≠ HumanDecision · evidence_reserves ≠ OA Evidence · no free Product CTA from DTO · Cognitive STOP outranks LR.
+
+## Test plan
+- [ ] CI Required Gate (typecheck/lint/build/vitest/governance/secret/whitespace)
+- [ ] PRR conformance checker on tip
+- [ ] Spot-check Fake NAP markers only with QA gate ON + Fake provider
+- [ ] Confirm gate OFF does not emit NAP structured presentation
+
+## Limits / anti-claims
+- ≠ OpenAI LIVE structured emit proven
+- ≠ server process restart proven
+- ≠ STOP browser QA proven
+- ≠ PIXEL PERFECT Figma
+- ≠ L3 GLOBAL CLOSED · ≠ EP-S2-08 PASS · ≠ EP-S2-05 PROVEN
+- ≠ runtime v3 ADOPTED · ≠ G-REAL · ≠ L4
+
+## Rollback
+Revert merge commit / close PR before merge.
+```
+
+*(No invented PR numbers or Delivery SHAs.)*
+
+---
+
+## 25. Gates Morris restants
+
+1. **Reserve disposition** for R-STOP-BROWSER / R-SRV-RESTART / R-LIVE-EMIT / R-FULL-VITEST
+2. **Project Commit GO** (first Delivery commit(s))
+3. Post-commit **formal PR readiness** re-qualification
+4. Draft PR / CI / undraft / merge GOs (distinct)
+5. Optional manifest topology enrichment GO
+
+---
+
+## 26. Verdict unique
+
+**PRE-COMMIT QUALITY GATES PASS WITH RESERVES — MORRIS RESERVE DISPOSITION REQUIRED — PROJECT COMMIT GO PENDING — FORMAL PR READINESS NOT YET AVAILABLE**
+
+Levels:
+- **A. Contenu local:** PASS WITH RESERVES (build/typecheck/lint/NAP+Nora regress/PRR/security green; full Vitest suite not run; known Fake≠REAL / STOP / restart debts).
+- **B. Readiness Git formelle:** **NOT READY FOR PR** (zero Delivery commits; branch not published; no PR CI tip).
+
+Anti-claims: ≠ READY FOR PR · ≠ READY FOR MERGE · ≠ REAL PROVEN · ≠ L3 CLOSED · ≠ L4 · ≠ v3 ADOPTED.
 
 ---
 
 ## ChatGPT instruction
 
-À réception: vérifier publication Git; lire ce pack; revoir les deux corrections PRR; inspecter chaque changement de digest (§11.C / §13–15); vérifier qu'aucun drift inconnu n'a été absorbé; distinguer conformance locale vs intégration Git; rendre le verdict documentaire final; ensuite seulement qualifier Cycle 13 PR readiness.
+Vérifier tip/blob handoff; lire ce pack; examiner gates G01–G24 et validations; contrôler inventaire untracked (7) + exclusions `.tmp`; qualifier réserves; revoir stratégie commit atomique; rendre verdict contenu; identifier prochain GO Morris **Project Commit / Git Integration**.
 
-FIN R24-NAP-02 REVIEW PACK FULL.
+FIN C13-NAP-01 REVIEW PACK FULL.
