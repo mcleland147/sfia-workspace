@@ -74,6 +74,15 @@ export type ProductMessage = {
   content: string;
   /** Durable Session turn timestamp when known — never synthesized client-side. */
   createdAt?: string | null;
+  /**
+   * Validated Nora adaptive presentation (Option C). Null/absent → plain text.
+   * Never invents Product CTAs.
+   */
+  adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
+  /**
+   * CORR-NAP-02 — typed Studio control notices (server provenance only).
+   */
+  studioControlNotices?: readonly string[];
 };
 
 export type TranscriptAvailability =
@@ -339,6 +348,8 @@ export function useProductConversation({
           role: m.role,
           content: m.content,
           createdAt: m.createdAt ?? null,
+          adaptivePresentation: m.adaptivePresentation ?? null,
+          studioControlNotices: m.studioControlNotices ?? [],
         })),
       );
       setJournalCycleInstanceId(result.journal.cycleInstanceId);
@@ -960,6 +971,8 @@ export function useProductConversation({
           role: m.role,
           content: m.content,
           createdAt: m.createdAt ?? null,
+          adaptivePresentation: m.adaptivePresentation ?? null,
+          studioControlNotices: m.studioControlNotices ?? [],
         })),
       );
     }
@@ -1276,6 +1289,8 @@ export function useProductConversation({
           id: nextId("assistant"),
           role: "assistant",
           content: result.text,
+          adaptivePresentation: result.adaptivePresentation ?? null,
+          studioControlNotices: result.studioControlNotices ?? [],
         },
       ]);
       if (result.f2) {

@@ -169,6 +169,38 @@ export class ProductSqliteSession implements Session {
       );
     `);
     this.ensureCycleJournalRichColumns();
+    this.ensurePilotTranscriptPresentationColumn();
+    this.ensurePilotTranscriptStudioControlColumn();
+  }
+
+  /**
+   * Nora adaptive presentation — nullable JSON on pilot_transcript_turns.
+   * Idempotent ALTER; legacy rows keep NULL → plain content fallback.
+   */
+  private ensurePilotTranscriptPresentationColumn(): void {
+    try {
+      this.db.exec(
+        `ALTER TABLE pilot_transcript_turns ADD COLUMN presentation_json TEXT`,
+      );
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      if (!/duplicate column/i.test(msg)) throw error;
+    }
+  }
+
+  /**
+   * CORR-NAP-02 — typed Studio control notices (JSON string[]).
+   * Provenance is server-authored — never inferred from forged `[Studio]` prose.
+   */
+  private ensurePilotTranscriptStudioControlColumn(): void {
+    try {
+      this.db.exec(
+        `ALTER TABLE pilot_transcript_turns ADD COLUMN studio_control_json TEXT`,
+      );
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : String(error);
+      if (!/duplicate column/i.test(msg)) throw error;
+    }
   }
 
   /**

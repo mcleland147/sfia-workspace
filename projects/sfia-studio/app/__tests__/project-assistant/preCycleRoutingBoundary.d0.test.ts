@@ -1049,4 +1049,92 @@ describe("BAR-RB — pre-cycle routing boundary (deterministic)", () => {
     );
     expect(src).not.toMatch(/narrative\.includes|new RegExp|match\(\//);
   });
+
+  /**
+   * CORR-NAP-04 — withGuidance must return the *local* lifecycleRecommendation
+   * after Cognitive STOP neutralization (not ...partial's pre-stop candidate).
+   */
+  it("CORR-NAP-04 T1 — Cognitive STOP + LR candidate returns null LR", () => {
+    const lr = nextCycleLr("cyc:qualification", "Passer en qualification");
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Passer en qualification",
+      preCycleRoutingAssessment: PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
+      lifecycleRecommendation: lr,
+      conversationGuidance: {
+        kind: "RECOMMEND_NEXT_STEP",
+        scope: "LIFECYCLE_TRANSITION",
+        statement: "Passer en qualification",
+        rationale: "fixture",
+      },
+      cognitiveStop: true,
+      presentation: null,
+    });
+    expect(coherent.lifecycleRecommendation).toBeNull();
+    expect(coherent.lifecycleRecommendationSuppressed).toBe(true);
+    expect(coherent.suppressReason).toBe("cognitive_stop");
+    expect(coherent.lifecycleRecommendationContinuity).toBe("NONE");
+    expect(coherent.conversationGuidance.kind).toBe("HOLD");
+  });
+
+  it("CORR-NAP-04 T5 — EMIT valid preserves LR candidate", () => {
+    const lr = nextCycleLr("cyc:qualification", "Passer en qualification");
+    const coherent = applyPreCycleRoutingBoundaryCoherence({
+      narrative: "Passer en qualification",
+      preCycleRoutingAssessment: PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
+      lifecycleRecommendation: lr,
+      conversationGuidance: {
+        kind: "RECOMMEND_NEXT_STEP",
+        scope: "LIFECYCLE_TRANSITION",
+        statement: "Passer en qualification",
+        rationale: "fixture",
+      },
+      cognitiveStop: false,
+      presentation: null,
+    });
+    expect(coherent.lifecycleRecommendation).not.toBeNull();
+    expect(coherent.lifecycleRecommendation?.targetCycleTypeId).toBe(
+      "cyc:qualification",
+    );
+    expect(coherent.lifecycleRecommendationSuppressed).toBe(false);
+    expect(coherent.lifecycleRecommendationContinuity).toBe("NEW_CANDIDATE");
+  });
+
+  it("CORR-NAP-04 T9 — presentation orthogonal to STOP LR neutralization", () => {
+    const lr = nextCycleLr("cyc:qualification", "Passer en qualification");
+    const base = {
+      narrative: "Passer en qualification",
+      preCycleRoutingAssessment: PRE_CYCLE_ROUTING_ASSESSMENT_READY_TO_EMIT,
+      lifecycleRecommendation: lr,
+      conversationGuidance: {
+        kind: "RECOMMEND_NEXT_STEP" as const,
+        scope: "LIFECYCLE_TRANSITION" as const,
+        statement: "Passer en qualification",
+        rationale: "fixture",
+      },
+      cognitiveStop: true,
+    };
+    const a = applyPreCycleRoutingBoundaryCoherence({
+      ...base,
+      presentation: null,
+    });
+    const b = applyPreCycleRoutingBoundaryCoherence({
+      ...base,
+      presentation: {
+        version: 1,
+        eyebrow: null,
+        title: null,
+        lead: "Passer en qualification",
+        blocks: [],
+        provenanceNote: null,
+        noGovernedActionNote: null,
+      },
+    });
+    expect(a.lifecycleRecommendation).toBeNull();
+    expect(b.lifecycleRecommendation).toBeNull();
+    expect(a.lifecycleRecommendationSuppressed).toBe(true);
+    expect(b.lifecycleRecommendationSuppressed).toBe(true);
+    expect(a.disposition).toBe(b.disposition);
+    expect(a.presentation).toBeNull();
+    expect(b.presentation?.lead).toBe("Passer en qualification");
+  });
 });

@@ -207,6 +207,16 @@ export type ProjectAssistantSendSuccess = {
   text: string;
   mode: Exclude<AssistantUiMode, "unconfirmed">;
   presentation: "test_provider" | "openai_live";
+  /**
+   * Nora adaptive presentation DTO (Option C) — projection only.
+   * Null when absent/invalid; UI falls back to text. Never a Product CTA.
+   */
+  adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
+  /**
+   * CORR-NAP-02 — server-authored Studio control notices (typed provenance).
+   * Never inferred from Nora prose containing "[Studio]".
+   */
+  studioControlNotices?: readonly string[];
   /** Observed provider model when available (from usage.model). */
   model?: string | null;
   toolRounds: number;

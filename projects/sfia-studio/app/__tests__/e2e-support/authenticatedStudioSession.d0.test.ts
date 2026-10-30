@@ -1,8 +1,9 @@
 /**
- * GAP-14 unit — cookie header parse / status without leaking values.
+ * GAP-14 / QA-NAP-02 — cookie header parse / Playwright shape without leaking values.
  * @vitest-environment node
  */
 import { afterEach, describe, expect, it } from "vitest";
+import { chromium } from "@playwright/test";
 import {
   assertBetterAuthUrlAlignedWithVisualBase,
   AUTH_VISUAL_BASE_URL_DEFAULT,
@@ -22,7 +23,7 @@ afterEach(() => {
 });
 
 describe("GAP-14 authenticatedStudioSession helper", () => {
-  it("parses Better Auth session cookie header bound to localhost", () => {
+  it("parses Better Auth session cookie header with url-only Playwright shape", async () => {
     const header =
       "better-auth.session_token=fake-test-token; other=1; Path=/";
     const cookies = parseCookieHeaderToPlaywrightCookies(
@@ -36,7 +37,15 @@ describe("GAP-14 authenticatedStudioSession helper", () => {
     expect(cookies.every((c) => c.url?.startsWith("http://localhost"))).toBe(
       true,
     );
+    // QA-NAP-02 — url XOR path (Playwright rejects url+path together).
+    expect(cookies.every((c) => c.path === undefined)).toBe(true);
+    expect(cookies.every((c) => c.domain === undefined)).toBe(true);
     expect(cookies.length).toBeGreaterThanOrEqual(1);
+
+    const browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext();
+    await expect(context.addCookies(cookies)).resolves.toBeUndefined();
+    await browser.close();
   });
 
   it("rejects headers without Better Auth session marker", () => {
@@ -46,6 +55,17 @@ describe("GAP-14 authenticatedStudioSession helper", () => {
         "http://localhost:3020",
       ),
     ).toThrow(/AUTH_COOKIE_HEADER_MISSING_BETTER_AUTH_SESSION/);
+  });
+
+  it("filters third-party cookies and rejects empty header", () => {
+    expect(() =>
+      parseCookieHeaderToPlaywrightCookies("", "http://localhost:3020"),
+    ).toThrow(/AUTH_COOKIE_HEADER_EMPTY/);
+    const cookies = parseCookieHeaderToPlaywrightCookies(
+      "better-auth.session_token=abc; _gh_sess=x; logged_in=yes",
+      "http://localhost:3020",
+    );
+    expect(cookies.every((c) => c.name.startsWith("better-auth."))).toBe(true);
   });
 
   it("defaults visual base URL to localhost (not 127.0.0.1)", () => {

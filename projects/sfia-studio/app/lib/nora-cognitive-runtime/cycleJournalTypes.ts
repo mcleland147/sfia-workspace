@@ -20,6 +20,17 @@ export type PilotTranscriptTurnRef = {
   readonly content: string;
   readonly logicalTurnId: string | null;
   readonly cycleInstanceId: string | null;
+  /**
+   * Validated Nora adaptive presentation JSON (assistant turns only).
+   * Null when absent, legacy, or invalid — UI falls back to content text.
+   * Presentation-only — never Truth C.
+   */
+  readonly presentationJson: string | null;
+  /**
+   * CORR-NAP-02 — server-authored Studio control notices (JSON string[]).
+   * Typed provenance only — never inferred from Nora prose containing "[Studio]".
+   */
+  readonly studioControlJson: string | null;
 };
 
 export type CycleJournalEntry = {

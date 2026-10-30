@@ -9,6 +9,26 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
+## Overlay — Nora Adaptive Presentation Option C proof index (LOCAL CANDIDATE — PRE-INTEGRATION — 2026-10-30)
+
+> **Impact check R24-NAP-01:** **YES — documentary index only.** New NAP/Fake/Auth oracles, browser QA, and CORR-NAP-04 introduce proof rows that must stay traceable. **No** new CURRENT ON MAIN claim · Product suites remain **UNCOMMITTED WIP** · **≠** REAL · **≠** L3 closed.
+>
+> Evidence handoffs: QA-NAP-03 `b11ef7c9…` · CORR-NAP-04 `d36fddf1…`.
+
+| Suite / artifact | What it proves | Class |
+|---|---|---|
+| `noraAdaptivePresentation.d0.test.ts` | DTO parse/normalize fail-closed; block limits; legacy `presentation_json` migrate idempotent (CORR-NAP-01 P2); Memory B write/read | **DETERMINISTIC VERIFIED** · local WIP |
+| `noraAdaptivePresentation.ui.test.tsx` | Adaptive compose / fallback / Studio notices / incomplete banner trust / continuity restore | **DETERMINISTIC VERIFIED** · jsdom · local WIP |
+| `preCycleRoutingBoundary` / coherence suites (CORR-NAP-04) | Cognitive STOP → local LR neutralization **returned** (no silent LR revive drop) | **DETERMINISTIC VERIFIED** · local WIP |
+| `fakeProvider` NAP QA markers (`__NAP_QA_*__`) | Deterministic Fake structured presentation emit — gated QA control | **DET Fake** · ≠ OpenAI LIVE |
+| `e2e/studio-nora-adaptive-qa-nap01.spec.ts` | Authenticated Better Auth Playwright + Fake NAP browser runtime; reload continuity; no free CTA | **AUTHENTICATED FAKE BROWSER RUNTIME OBSERVED** · local WIP |
+| Captures `.tmp-sfia-review/runtime-captures/nora-adaptive/` | Structural A4 screenshots at reported QA scope | **STRUCTURAL ALIGNMENT** · ≠ PIXEL PERFECT |
+| QA-NAP-06 STOP browser | — | **NOT PROVEN** |
+| QA-NAP-10 server restart | — | **NOT PROVEN** |
+| OpenAI LIVE structured `presentation` | — | **NOT PROVEN** |
+
+**PRR conformance note:** documentary volumes 03/06/08/09 touched under R24-NAP-01 ⇒ digest mismatch vs committed manifest **expected** until distinct digest regularization GO. Digest MATCH ≠ semantic validity.
+
 ## Overlay — PR #618 proof map (CURRENT ON MAIN — MERGED + post-merge CI — 2026-10-26)
 
 | Suite / scope | Result | Epistemic |

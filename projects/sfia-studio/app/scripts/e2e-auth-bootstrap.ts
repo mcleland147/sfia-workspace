@@ -122,11 +122,27 @@ async function main() {
     let page = context.pages()[0];
     if (!page) {
       page = await context.newPage();
-      await page.goto(`${BASE}/login`, { waitUntil: "domcontentloaded" });
-    } else if (!page.url().includes("/login") && !page.url().includes("/studio")) {
+    }
+    // Browser may already be navigating to /login (spawn arg). Avoid racing
+    // a second goto — wait for login or studio, then only navigate if needed.
+    try {
+      await page.waitForURL(
+        (url) => {
+          const href = url.toString();
+          return href.includes("/login") || href.includes("/studio");
+        },
+        { timeout: 30_000 },
+      );
+    } catch {
+      /* fall through to explicit goto */
+    }
+    if (!page.url().includes("/login") && !page.url().includes("/studio")) {
       await page.goto(`${BASE}/login`, { waitUntil: "domcontentloaded" });
     }
 
+    console.log(
+      "Waiting up to 10 minutes for you to finish GitHub OAuth until /studio…",
+    );
     await page.waitForURL(
       (url) => {
         const href = url.toString();

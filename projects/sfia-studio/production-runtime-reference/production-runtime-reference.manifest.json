@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "f68f7167f71016f9"
+      "sha256_16": "89c1b959740c308b"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -31,7 +31,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "6fc1d9a4b224a2a2"
+      "sha256_16": "2f4d2ab593a581b0"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
@@ -39,11 +39,11 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "357fb5ba5b423903"
+      "sha256_16": "f6bc6f73585425dd"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "66e1ef8ee74259af"
+      "sha256_16": "6ebfc7c9f2163bcb"
     }
   ],
   "components": [
@@ -609,11 +609,11 @@
   "trackedSources": [
     {
       "path": "projects/sfia-studio/app/features/project-assistant/actions.ts",
-      "sha256_16": "80e4fbcf941890de"
+      "sha256_16": "ceb368a82983939e"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "f20d8d4a2663d756"
+      "sha256_16": "a37fc8b0f0adfd57"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
@@ -657,7 +657,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts",
-      "sha256_16": "37d79b9db14322c3"
+      "sha256_16": "5807dea9a14a0307"
     },
     {
       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/sessionPaths.ts",
@@ -665,7 +665,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalStore.ts",
-      "sha256_16": "f3780f7c36792984"
+      "sha256_16": "060beae45f5570bb"
     },
     {
       "path": "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts",
@@ -697,7 +697,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "ffe7a7dad6953259"
+      "sha256_16": "52abbdef13501059"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",
@@ -709,7 +709,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/hooks/useProductConversation.ts",
-      "sha256_16": "7eb2fa5f7fb56ac0"
+      "sha256_16": "7f967f41ab66fead"
     },
     {
       "path": "projects/sfia-studio/app/.env.example",

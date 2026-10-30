@@ -1,0 +1,256 @@
+/* Nora adaptive presentation — A3/A4 aligned, PM6 tokens only. */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+  max-width: 100%;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--pm6-accent);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--pm6-text-body-lg, 1.05rem);
+  font-weight: 600;
+  color: var(--pm6-ink);
+  line-height: 1.35;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--pm6-text-body);
+  color: var(--pm6-ink-soft);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.blocks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-3);
+}
+
+.plain,
+.question,
+.blockBody,
+.recommendationStatement {
+  margin: 0;
+  font-size: var(--pm6-text-body);
+  color: var(--pm6-ink);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.question {
+  font-weight: 500;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+}
+
+.blockTitle {
+  margin: 0;
+  font-size: var(--pm6-text-body);
+  font-weight: 600;
+  color: var(--pm6-ink);
+  line-height: 1.35;
+}
+
+.blockHead {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--pm6-space-3);
+}
+
+.glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: inherit;
+}
+
+.glyphChip {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: var(--pm6-radius-sm);
+  background: var(--pm6-surface);
+  color: var(--pm6-ink);
+  font-size: 1rem;
+}
+
+.tintBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  padding: var(--pm6-space-3);
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid transparent;
+}
+
+.tintEstablished {
+  background: var(--pm6-forest-tint);
+  border-color: color-mix(in srgb, var(--pm6-forest) 18%, transparent);
+}
+
+.tintEstablished .glyphChip {
+  color: var(--pm6-forest);
+}
+
+.tintOpen {
+  background: var(--pm6-surface-sunken);
+  border-color: var(--pm6-border-soft);
+}
+
+.tintOpen .glyphChip {
+  color: var(--pm6-muted);
+}
+
+.tintRecommendation {
+  background: var(--pm6-warn-tint);
+  border-color: color-mix(in srgb, var(--pm6-accent) 22%, transparent);
+}
+
+.tintRecommendation .glyphChip {
+  color: var(--pm6-accent);
+}
+
+.tintEvidence {
+  background: var(--pm6-surface-sunken);
+  border-color: var(--pm6-border-soft);
+}
+
+.itemList {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: var(--pm6-text-body);
+  color: var(--pm6-ink);
+  line-height: 1.45;
+}
+
+.epistemic {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  color: var(--pm6-muted-strong);
+}
+
+.recommendationStatement {
+  font-weight: 500;
+}
+
+.recommendationDisclaimer {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  color: var(--pm6-muted);
+  line-height: 1.4;
+}
+
+.listBlock,
+.tableBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+}
+
+.tableScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--pm6-text-caption);
+  color: var(--pm6-ink);
+}
+
+.table th,
+.table td {
+  border: 1px solid var(--pm6-border-soft);
+  padding: 0.45rem 0.55rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.table th {
+  background: var(--pm6-surface-sunken);
+  font-weight: 600;
+}
+
+.traceNote {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  color: var(--pm6-muted);
+  line-height: 1.4;
+}
+
+.provenance {
+  margin: var(--pm6-space-2) 0 0;
+  font-size: var(--pm6-text-caption);
+  color: var(--pm6-muted);
+  line-height: 1.4;
+}
+
+.noAction {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  font-weight: 500;
+  color: var(--pm6-muted);
+  line-height: 1.4;
+}
+
+.epistemicHonesty {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  color: var(--pm6-muted-strong);
+  line-height: 1.4;
+}
+
+.studioAppendix {
+  margin-top: var(--pm6-space-2);
+  padding: var(--pm6-space-3);
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid var(--pm6-border-soft);
+  background: var(--pm6-warn-tint);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+}
+
+.studioAppendixLine {
+  margin: 0;
+  font-size: var(--pm6-text-body);
+  color: var(--pm6-ink);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 640px) {
+  .tintBlock {
+    padding: var(--pm6-space-2) var(--pm6-space-3);
+  }
+
+  .glyphChip {
+    width: 1.65rem;
+    height: 1.65rem;
+  }
+}

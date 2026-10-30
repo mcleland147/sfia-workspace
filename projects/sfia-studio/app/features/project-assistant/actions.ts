@@ -858,6 +858,10 @@ export async function projectAssistantConversationContinuityAction(input: {
     content: string;
     /** Durable Session timestamp when present — never invented for UI. */
     createdAt: string | null;
+    /** Validated adaptive presentation; null → plain content fallback. */
+    adaptivePresentation?: import("@/lib/nora-cognitive-runtime/noraAdaptivePresentation").NoraAdaptivePresentation | null;
+    /** CORR-NAP-02 — typed Studio control notices (server provenance). */
+    studioControlNotices?: readonly string[];
   }[];
   journal: {
     cycleInstanceId: string | null;
@@ -910,6 +914,12 @@ export async function projectAssistantConversationContinuityAction(input: {
       sessionKey: CANONICAL_CONVERSATION_SESSION_KEY,
     });
     try {
+      const {
+        deserializeNoraAdaptivePresentation,
+        deserializeStudioControlNotices,
+      } = await import(
+        "@/lib/nora-cognitive-runtime/noraAdaptivePresentation"
+      );
       const turns = listPilotTranscriptTurns(session);
       const messages = turns
         .filter((t) => t.role === "user" || t.role === "assistant")
@@ -918,6 +928,14 @@ export async function projectAssistantConversationContinuityAction(input: {
           role: t.role as "user" | "assistant",
           content: t.content,
           createdAt: t.createdAt?.trim() || null,
+          adaptivePresentation:
+            t.role === "assistant"
+              ? deserializeNoraAdaptivePresentation(t.presentationJson)
+              : null,
+          studioControlNotices:
+            t.role === "assistant"
+              ? deserializeStudioControlNotices(t.studioControlJson)
+              : [],
         }));
       const cycleInstanceId = input.cycleInstanceId?.trim() || null;
       const listed = cycleInstanceId

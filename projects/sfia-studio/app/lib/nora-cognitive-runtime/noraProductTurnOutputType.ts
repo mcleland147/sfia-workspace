@@ -8,6 +8,48 @@ import {
   isNoraReservationDeltaStructured,
   type NoraReservationDeltaStructured,
 } from "./reservationDelta";
+import {
+  NORA_ADAPTIVE_PRESENTATION_SCHEMA,
+  parseNoraAdaptivePresentation,
+  type NoraAdaptivePresentation,
+} from "./noraAdaptivePresentation";
+
+export {
+  NORA_ADAPTIVE_PRESENTATION_SCHEMA,
+  NORA_ADAPTIVE_PRESENTATION_VERSION,
+  NORA_ADAPTIVE_PRESENTATION_LIMITS,
+  NORA_ADAPTIVE_BLOCK_KINDS,
+  NORA_ADAPTIVE_EPISTEMIC_ROLES,
+  NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER,
+  NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE,
+  parseNoraAdaptivePresentation,
+  isNoraAdaptivePresentation,
+  serializeNoraAdaptivePresentation,
+  deserializeNoraAdaptivePresentation,
+  shouldRenderAdaptivePresentation,
+  sanitizePresentationPlainText,
+  appendStudioControlNotices,
+  extractStudioControlAppendix,
+  contentWithoutStudioAppendix,
+  contentWithoutAuthenticatedStudioNotices,
+  normalizeStudioControlNotices,
+  serializeStudioControlNotices,
+  deserializeStudioControlNotices,
+  resolveAdaptiveAssistantRender,
+  contentFullyCoveredByPresentation,
+  honestEpistemicLabel,
+  honestBlockTitle,
+  looksLikeAuthorityClaim,
+  sanitizeProvenanceNote,
+  studioOwnedRecommendationDisclaimer,
+  STUDIO_CONTROL_MARKER,
+  NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
+  type NoraAdaptivePresentation,
+  type NoraAdaptivePresentationBlock,
+  type NoraAdaptiveBlockKind,
+  type NoraAdaptiveEpistemicRole,
+  type AdaptiveAssistantRenderDecision,
+} from "./noraAdaptivePresentation";
 
 export {
   NORA_RESERVATION_DELTA_SCHEMA,
@@ -453,6 +495,7 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
       "conversationGuidance",
       "journalDelta",
       "reservationDelta",
+      "presentation",
     ],
     properties: {
       narrative: { type: "string" as const },
@@ -475,6 +518,13 @@ export const NORA_PRODUCT_TURN_WITH_OPTIONAL_LR_OUTPUT_TYPE = {
       },
       reservationDelta: {
         anyOf: [{ type: "null" as const }, NORA_RESERVATION_DELTA_SCHEMA],
+      },
+      /** Adaptive UI projection — nullable; never authority / never Product CTA. */
+      presentation: {
+        anyOf: [
+          { type: "null" as const },
+          NORA_ADAPTIVE_PRESENTATION_SCHEMA,
+        ],
       },
     },
   },
@@ -505,6 +555,8 @@ export type NoraProductTurnWithOptionalLr = {
   journalDelta: NoraJournalDeltaStructured | null;
   /** Reservation delta — EpistemicItem mutations; null when none. Never RESOLVE. */
   reservationDelta: NoraReservationDeltaStructured | null;
+  /** Adaptive presentation projection — null when absent / invalid. Never CTA. */
+  presentation: NoraAdaptivePresentation | null;
 };
 
 export function isPreCycleRoutingAssessment(
@@ -728,6 +780,12 @@ export type PreCycleRoutingBoundaryCoherenceResult = {
    * Invalid / missing → null. Never includes RESOLVE (Pilot confirmation).
    */
   reservationDelta: NoraReservationDeltaStructured | null;
+  /** True when a candidate LR was stripped by boundary coherence. */
+  /**
+   * Adaptive presentation passthrough — UI projection only.
+   * Invalid / missing → null (fail-closed; narrative remains).
+   */
+  presentation: NoraAdaptivePresentation | null;
   /** True when a candidate LR was stripped by boundary coherence. */
   lifecycleRecommendationSuppressed: boolean;
   suppressReason: string | null;
@@ -1260,6 +1318,8 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
   journalDelta?: NoraJournalDeltaStructured | null;
   /** Invalid reservation delta coerced to null — never fails the Product turn. */
   reservationDelta?: NoraReservationDeltaStructured | null;
+  /** Invalid presentation coerced to null — never fails the Product turn. */
+  presentation?: NoraAdaptivePresentation | null;
   cognitiveStop?: boolean;
   /**
    * Server-derived from selectCurrentLifecycleRecommendations + applicability.
@@ -1274,6 +1334,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
   const activeCycleWork = input.activeCycleWork ?? null;
   const journalDelta = input.journalDelta ?? null;
   const reservationDelta = input.reservationDelta ?? null;
+  const presentation = input.presentation ?? null;
   const rawGuidance = parseConversationGuidanceOrFailClosed(
     input.conversationGuidance ?? null,
   );
@@ -1289,6 +1350,7 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       | "conversationGuidanceCoerceReason"
       | "journalDelta"
       | "reservationDelta"
+      | "presentation"
     >,
   ): PreCycleRoutingBoundaryCoherenceResult => {
     const guided = applyConversationGuidanceCoherence({
@@ -1344,6 +1406,9 @@ export function applyPreCycleRoutingBoundaryCoherence(input: {
       ...partial,
       journalDelta,
       reservationDelta,
+      presentation,
+      // CORR-NAP-04 — must reassign local LR (may be neutralized after partial,
+      // e.g. Cognitive STOP). Spreading partial alone would revive the input.
       lifecycleRecommendation,
       lifecycleRecommendationSuppressed,
       suppressReason,
@@ -1522,16 +1587,23 @@ export function normalizeNoraProductTurnStructuredOutput(
       : null;
   }
 
+  // Presentation fail-closed locally: invalid → null, narrative remains.
+  let presentation: NoraAdaptivePresentation | null = null;
+  if (o.presentation != null) {
+    presentation = parseNoraAdaptivePresentation(o.presentation);
+  }
+
   return applyPreCycleRoutingBoundaryCoherence({
     narrative: o.narrative,
     preCycleRoutingAssessment: assessment,
     lifecycleRecommendation: lr,
     activeCycleWork,
-    journalDelta,
-    reservationDelta,
     conversationGuidance: parseConversationGuidanceOrFailClosed(
       o.conversationGuidance,
     ),
+    journalDelta,
+    reservationDelta,
+    presentation,
     cognitiveStop: options?.cognitiveStop === true,
     currentLifecycleRecommendationSatisfiesTransition:
       options?.currentLifecycleRecommendationSatisfiesTransition === true,
@@ -1564,6 +1636,13 @@ export function isNoraProductTurnWithOptionalLr(
   ) {
     return false;
   }
+  // Backward compat: missing presentation treated as null; invalid non-null fails.
+  if (
+    o.presentation != null &&
+    parseNoraAdaptivePresentation(o.presentation) == null
+  ) {
+    return false;
+  }
   if (o.lifecycleRecommendation === null) return true;
   return isNoraLifecycleRecommendationStructuredOutput(
     o.lifecycleRecommendation,
@@ -1584,5 +1663,6 @@ export function buildFailClosedProductTurnJson(narrative: string): string {
     conversationGuidance: { ...CONVERSATION_GUIDANCE_FAIL_CLOSED_HOLD },
     journalDelta: null,
     reservationDelta: null,
+    presentation: null,
   });
 }

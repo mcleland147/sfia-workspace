@@ -150,12 +150,12 @@ export function parseCookieHeaderToPlaywrightCookies(
     ) {
       continue;
     }
-    // Prefer url over domain for localhost — Playwright rejects some domain forms.
+    // Playwright requires either `url` OR (`domain` + `path`) — never both.
+    // QA-NAP-01 failure: url+path → "Cookie should have either url or path".
     cookies.push({
       name,
       value,
       url: `${url.origin}/`,
-      path: "/",
       httpOnly: lowerName.includes("session"),
       secure,
       sameSite: "Lax",
