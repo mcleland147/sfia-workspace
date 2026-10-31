@@ -1,16 +1,16 @@
 # SFIA STUDIO — AKG-M5 / L3-S2
-# LUMEN — INTEGRATED CORRECTION A+B
-# CORR-A1B-01 SECURED + TEST-15 HARDENING
+# LUMEN — INTEGRATED A+B CONSOLIDATION
+# CORR-A1B-01 + TEST-15 (TEMPORAL + DIVERGENCE)
 # REVIEW PACK FULL
 
-**Horodatage (Europe/Paris):** 2026-10-31 20:58:23 +0200
-**Horodatage UTC:** 2026-10-31T18:58:23Z
-**GO Morris:** Correction locale intégrée A+B autorisée — 2026-10-31
+**Horodatage (Europe/Paris):** 2026-10-31 21:32:41 +0200
+**Horodatage UTC:** 2026-10-31T19:32:41Z
+**GO Morris:** Consolidation locale A+B autorisée
 **Milestone:** AKG-M5 / L3-S2 — OPEN
-**Cycle:** 8 Delivery + 9 QA intégré — CRITICAL — INC/EVOL
-**Review Pack:** FULL (autosuffisant, continuité mono-chantier)
-**Review Handoff:** REQUIRED — publish-in-cycle (L3)
-**move_agent_to_root:** NON UTILISÉ (chemins absolus delivery WT)
+**Cycle:** 8 Delivery + 9 QA — CRITICAL — INC/EVOL
+**Review Pack:** FULL (autosuffisant, mono-chantier)
+**Review Handoff:** REQUIRED — publish-in-cycle L3
+**move_agent_to_root:** NON UTILISÉ
 
 ---
 
@@ -22,235 +22,111 @@
 | Branch | `feat/akg-m5-lumen-cog-prepare-corr-01` |
 | HEAD | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
 | origin/main | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
-| Run WT :3020 | `/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020` @ `7dd49ecd` — **non modifié** |
-| Studio | UP HTTP 307 — **non redémarré** |
-| Handoff tip pré | `b9e3ddf3c2e1e15ec5c895ad437e81ca6a81670b` |
-| Handoff blob pré | `1e6a7871a3d90d7987e7a29bb25f403ee3c83d9f` |
-| Dirty | corrections A+B locales non commit projet |
+| Handoff tip pré | `a27fef8e842e2ab1e77b0fd1bdc3da50d706471e` |
+| Handoff blob pré | `ed20fb816b688f50b55fa5790248a394dfaa2e5e` |
+| Runtime :3020 | UP — non muté |
+| Dirty | corrections A+B cumulées locales (non commit projet) |
 
 ---
 
-## 2. GO Morris / Convergence
+## 2. GO / Convergence
 
-GO : correction Product locale A+B. Non accordés : push/PR/merge projet, chemins protégés, SQLite LIVE, REAL, doctrine, v3.
-
-Pre-check : template cycle, routing, operating model, CKC QA guidance, Build Doctrine, Roadmap, C1, M5 journey, v3 30–35, PRR 03/05–09, handoff `b9e3ddf3` (H2 PROVEN).
+Consolidation des réserves A1/A2 + B temporal sur le même chantier. Sources : template, routing, operating model, CKC QA guidance, Build Doctrine, Roadmap, C1, M5 journey, v3 30–35, PRR 03/05–09, handoff `a27fef8e` (H2 PROVEN, 168 PASS baseline).
 
 ---
 
-## 3. Trajectoire V3-F05 / L3-S2
+## 3. Trajectoire
 
-Capacité V3-F05. L3-S2 **OPEN**. G-REAL **NOT GRANTED**. Runtime v3 **NON ADOPTED**.
-
----
-
-## 4. Diagnostic H2 (établi — rappel)
-
-Quatre tours LUMEN même turnId : presentation A1-admissible riche + narrative courte → ancien resolve → B/plain masquant comparison_table. H2 **PROVEN**. T-B PREPARE cause distincte. RAW MODEL OUTPUT **NOT OBSERVABLE**.
+V3-F05 · L3-S2 **OPEN** · G-REAL **NOT GRANTED** · v3 **NON ADOPTED**.
 
 ---
 
-## 5. Architecture CORR-A1B-01 sécurisé
+## 4. Diagnostic H2 acquis
 
-### Choix retenu
-Classifier déterministe `classifyNarrativePresentationRelation` puis :
-
-| Cas | Relation | Durable / Render |
-|-----|----------|------------------|
-| A | `equivalent` / `presentation_only` | compose → A1 |
-| B | `complementary` | fold continuation en block question/plain → compose → A1 (1 surface) |
-| C | `divergent` | plain fail-closed avec **les deux** versions + notice Studio ; presentation non promue |
-| D | `narrative_only` / `empty` | plain honnête / fallback |
-
-Continuation détectée **structurellement** (question `?`, openers ORIENT FR, longueur relative bornée) — **pas** de réconciliation sémantique floue.
-
-Read-path : même classification répare l'affichage historique LUMEN-shaped **sans écrire** dans SQLite campagne.
-
-### Alternatives rejetées
-1. « Toujours remplacer narrative par compose si A1-admissible » — perte silencieuse d'info distincte / contradiction.
-2. Dual `adaptive_with_canonical` — interdit par single-response / GO.
-3. Prompt-only — insuffisant (H2 déjà avec presentation riche).
-4. Moteur sémantique parallèle — hors scope / non déterministe.
-
-### Point minimal
-`buildDurableAssistantContentForTurn` + `resolveAdaptiveAssistantRender` (+ helpers) dans `noraAdaptivePresentation.ts`. Orchestration existante déjà appelle buildDurable. Prompt ANSWER primacy **conservé** (complément génération, pas substitut Product).
+Quatre tours LUMEN : presentation riche masquée par B plain (H2 PROVEN). Ne pas réintroduire ce masquage.
 
 ---
 
-## 6. Contrat de restitution
+## 5. Causes des réserves
 
-- Une seule réponse visible.
-- Substance structurée non masquée (CAS B).
-- Continuation utile conservée une fois (fold / dedupe containment).
-- Divergence matérielle : notice + deux versions, pas de pick silencieux.
-- presentation ≠ Truth C / HD / Evidence.
-
----
-
-## 7. Correction A — détails
-
-Fichier : `lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`
-
-Ajouts : `NORA_ADAPTIVE_DIVERGENCE_NOTICE`, `classifyNarrativePresentationRelation`, `isContinuationShapedNarrative`, `narrativeAlreadyCoveredByCompose`, `withDistinctContinuationBlock`, `formatDivergentNarrativePresentationPlain` ; `buildDurable` retourne `relation` ; resolve A1/B aligné.
-
-Replay LUMEN après correctif (read-path, sans mutation DB) :
-
-```json
-[
-  {
-    "seq": 1,
-    "turn_id": "pt:06a8beb5a7fc577a",
-    "relation": "complementary",
-    "render_mode": "adaptive",
-    "render_usedA1": true,
-    "has_table": true,
-    "durable_usedA1": true,
-    "durable_relation": "complementary"
-  },
-  {
-    "seq": 3,
-    "turn_id": "pt:b796154ad8685d64",
-    "relation": "equivalent",
-    "render_mode": "adaptive",
-    "render_usedA1": true,
-    "has_table": true,
-    "durable_usedA1": true,
-    "durable_relation": "equivalent"
-  },
-  {
-    "seq": 5,
-    "turn_id": "pt:73bcbfb54b43dac7",
-    "relation": "complementary",
-    "render_mode": "adaptive",
-    "render_usedA1": true,
-    "has_table": true,
-    "durable_usedA1": true,
-    "durable_relation": "complementary"
-  },
-  {
-    "seq": 7,
-    "turn_id": "pt:01f15609efea28fe",
-    "relation": "complementary",
-    "render_mode": "adaptive",
-    "render_usedA1": true,
-    "has_table": true,
-    "durable_usedA1": true,
-    "durable_relation": "complementary"
-  },
-  {
-    "seq": 9,
-    "turn_id": "pt:6c1b7e274db42cab",
-    "relation": "narrative_only",
-    "render_mode": "plain",
-    "render_usedA1": false,
-    "has_table": false,
-    "durable_usedA1": false,
-    "durable_relation": "narrative_only"
-  }
-]
-```
-
-T-A1…T-A4 : **adaptive + comparison_table**. T-B : plain narrative_only (EC announce). Historique DB non réécrit — documenté.
+| ID | Cause |
+|----|-------|
+| A1 | `?` / ORIENT opener / longueur relative ⇒ complementary sans preuve d'absence de contradiction |
+| A2 | read-path divergent retournait `content` seul → structured invisible sur anciens tours |
+| B | `maintenant prépare` anywhere annulait tout refus, y compris refus **ultérieur** |
 
 ---
 
-## 8. Correction B — TEST-15 hardening
+## 6. Choix de correction
 
-Fichier : `w2/prepareGenericExecutionContractDraft.ts` (+ gates orchestrate/tool déjà présents).
+**A — complementary sécurisé :** continuation-shaped AND NOT `narrativeConflictsWithPresentationDeterministic` (opposition markers, préférence d'un format non endorsé, négation de tokens de recommendation). Incertitude → divergent.
 
-Élargissement refus : surtout pas, refuse que tu prépar*, ne prépare rien Cursor, ne crée aucun, analyse seulement sans lancer mission, mais ne crée… Override déterministe : refus historique + « maintenant/désormais… prépare le contrat » → plus refusal (positive GO possible).
+**A — read-path divergent :** si compose déjà dans body → garder content ; sinon `formatDivergentNarrativePresentationPlain` (notice + structurée + narrative) sans mutation SQLite.
 
-Conservé : intent/accept/resolve/solicit fail-closed, tool enqueue refuse, tool description.
+**A — UI :** `ConversationSurface` passe `studioAppendix` au fallback B et déduplique notices typées (canal authentifié).
+
+**B — temporalité :** `resolveLastExplicitPrepareSpeechAct` — dernier acte refuse|authorize gagne. « Maintenant prépare… Finalement ne prépare pas » → refuse / NO_GO.
 
 ---
 
-## 9–11. Tests
+## 7. R23
 
-### Commandes
+| Composant | Niveau |
+|-----------|--------|
+| classify + conflict gate | BEHAVIOR PROVEN |
+| resolve divergent expand | BEHAVIOR PROVEN |
+| last speech-act PREPARE | BEHAVIOR PROVEN |
+| ConversationSurface appendix | BEHAVIOR PROVEN (UI) |
+| LIVE | KNOWN GAP |
+
+---
+
+## 8–9. Modifications A / B
+
+Voir diffs §21. Fichiers : `noraAdaptivePresentation.ts`, `ConversationSurface.tsx`, `prepareGenericExecutionContractDraft.ts` (+ corrections A+B antérieures conservées).
+
+---
+
+## 10–11. Contrats
+
+Restitution : A/B/C/D sécurisés ; complementary seulement si non-conflit déterministe ; divergent = deux versions visibles une surface.
+
+PREPARE : dernière intention explicite ; Product admission fail-closed ; PREPARE≠EXECUTE.
+
+---
+
+## 12–16. Tests
+
 ```
 npx vitest run \
-  __tests__/nora-cognitive-runtime/corrA1b01.secured.d0.test.ts \
-  __tests__/project-assistant/lumenCogPrepareCorr01.d0.test.ts \
-  __tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts \
-  __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts
-npx vitest run __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
+  corrA1b01.secured.d0.test.ts \
+  lumenCogPrepareCorr01.d0.test.ts \
+  p6.gD4….d0.test.ts \
+  noraAdaptivePresentation.d0.test.ts \
+  noraAdaptivePresentation.ui.test.tsx
 ```
 
-### Résultats
-- corrA1b01 : **10 PASS**
-- lumenCogPrepareCorr01 : **6 PASS**
-- p6.gD4 : **11 PASS**
-- noraAdaptivePresentation.d0 : **108 PASS**
-- noraAdaptivePresentation.ui : **33 PASS**
-- **Total ciblé : 168 PASS / 0 FAIL**
+**Résultat cette exécution : 171 PASS / 0 FAIL** (5 files).
 
-QA-A : LUMEN-shaped complementary → A1 table+continuation ; equivalence ; absent ; divergent fail-closed ; SQLite isolée reload.
-QA-B : négatifs élargis + override positif historique ; solicit EXPLICIT_PREPARE_REFUSAL.
-QA-A+B : analyse comparative demandée + refus → no_go + durable A1 comparison.
+Baseline handoff précédent 168 ≠ cette validation (nouvelles assertions A conflict + B temporal + UI appendix).
+
+LUMEN replay DET : T-A1/A3/A4 complementary A1+table ; T-A2 equivalent A1 ; T-B narrative_only.
 
 ---
 
-## 12. Persistance / UI
+## 17. Fake/Real
 
-- Nouveaux tours : content ≡ compose (évent. fold) ; presentation_json cohérente ; resolve A1.
-- Anciens tours LUMEN : DB inchangée ; **read-path** affiche A1 si complementary (pas de migration silencieuse).
-- UI ConversationSurface inchangée (consomme resolve).
+DET AT TESTED SCOPE. LIVE/REAL NOT PROVEN. G-REAL NOT GRANTED.
 
 ---
 
-## 13. Fake/Real Qualification
+## 18. R24 — IMPACT QUALIFIED / SYNC GATE OPEN
 
-| Frontière | Ce cycle |
-|-----------|----------|
-| OpenAI LIVE | non exercé |
-| Cursor REAL | non exercé (G-REAL NOT GRANTED) |
-| Product SQLite campagne | RO only / non muté |
-| SQLite isolée test | BEHAVIOR PROVEN |
-| Fonctions pures A1/B + admission | BEHAVIOR PROVEN |
-| LIVE emit global | KNOWN GAP / NOT PROVEN |
-
-DET ≠ LIVE.
+PRR non modifié. Proposer sync 03/06/07/08/09 : conflict gate complementary ; divergent read expand ; last-intent PREPARE ; appendix fallback B.
 
 ---
 
-## 14. R23
-
-Composants touchés : noraAdaptivePresentation (BEHAVIOR PROVEN), prepareGeneric… (BEHAVIOR PROVEN), orchestrateTurn/tool/prompt (conservés COVERAGE VERIFIED). Invariants SHE / PREPARE≠EXECUTE préservés. Risque : fold continuation si maxBlocks → fail-closed divergent (prouvé).
-
----
-
-## 15. R24 — IMPACT QUALIFIED / SYNC GATE OPEN
-
-PRR **non édité** (chemin protégé sans GO).
-
-| Volume | Contenu proposé |
-|--------|-----------------|
-| 03 | Contrat A1/B CAS A–D ; complementary fold ; divergent notice |
-| 06 | durable content/presentation ; historique non migré ; read-path repair |
-| 07 | refusal Product ; override « maintenant prépare » ; cognition ≠ consent |
-| 08 | corrA1b01 + lumenCogPrepareCorr01 + G-D4 TEST-15 |
-| 09 | H2 CORRECTED LOCAL DET ; LIVE revalidation OPEN ; TEST-15 réserves citations complexes |
-
-Pas de digest refresh.
-
----
-
-## 16. Fichiers
-
-| Path | Status |
-|------|--------|
-| `noraAdaptivePresentation.ts` | M |
-| `prepareGenericExecutionContractDraft.ts` | M |
-| `orchestrateTurn.ts` | M (B préexistant) |
-| `buildProjectSystemPrompt.ts` | M (ANSWER préexistant) |
-| `productExecutionAgentsTools.ts` | M (B préexistant) |
-| `p6.gD4….d0.test.ts` | M |
-| `lumenCogPrepareCorr01.d0.test.ts` | A/M |
-| `corrA1b01.secured.d0.test.ts` | A |
-
----
-
-## 17. Contenu complet — fichiers créés
+## 19–20. Nouveaux fichiers (contenu complet)
 
 ### corrA1b01.secured.d0.test.ts
 ```typescript
@@ -358,6 +234,26 @@ describe("CORR-A1B-01 — relation classification", () => {
     expect(rel.kind).toBe("complementary");
   });
 
+  it("CAS B unsafe — opposing recommendation is divergent not complementary", () => {
+    const p = richComparisonPresentation();
+    const opposing =
+      "Je te propose au contraire l'atelier court, pas le parcours sur plusieurs séances.";
+    expect(
+      classifyNarrativePresentationRelation({
+        pilotFacingCore: opposing,
+        presentation: p,
+      }).kind,
+    ).toBe("divergent");
+    const built = buildDurableAssistantContentForTurn({
+      pilotFacingCore: opposing,
+      presentation: p,
+    });
+    expect(built.usedA1).toBe(false);
+    expect(built.contentCore).toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
+    expect(built.contentCore).toContain("atelier court");
+    expect(built.contentCore).toContain("Trois possibilités");
+  });
+
   it("CAS C — long distinct narrative → divergent", () => {
     const p = richComparisonPresentation();
     const narrative = [
@@ -372,6 +268,21 @@ describe("CORR-A1B-01 — relation classification", () => {
         presentation: p,
       }).kind,
     ).toBe("divergent");
+  });
+
+  it("CAS A8 — historical divergent read-path shows both versions", () => {
+    const p = richComparisonPresentation();
+    const shortOpposing =
+      "Je te propose au contraire l'atelier court.";
+    const d = resolveAdaptiveAssistantRender({
+      content: shortOpposing,
+      presentation: p,
+    });
+    expect(d.mode).toBe("plain");
+    expect(d.presentation).toBeNull();
+    expect(d.plainText).toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
+    expect(d.plainText).toContain("Trois possibilités");
+    expect(d.plainText).toContain("atelier court");
   });
 
   it("CAS D — invalid / absent presentation → narrative_only or empty", () => {
@@ -605,10 +516,17 @@ describe("LUMEN cog+prepare corr-01 — Axis B PREPARE consent hardened", () => 
     "Prépare le contrat d'exécution pour la fiche d'animation.",
     "OK, prépare le contrat pour cette mission.",
     "Tu avais dit ne prépare pas. Maintenant prépare le contrat d'exécution pour LUMEN.",
+    "Avant je ne voulais pas de contrat. Maintenant prépare le contrat.",
+    "J'avais dit ne prépare pas. Cette fois, prépare le contrat.",
+  ];
+
+  const temporalRefusals = [
+    "Maintenant prépare le contrat d'exécution. Finalement, ne prépare pas de contrat d'exécution.",
+    "Prépare le contrat. Non, finalement ne le prépare pas.",
   ];
 
   it("negations are refusal and not lexical prepare GO", () => {
-    for (const text of negatives) {
+    for (const text of [...negatives, ...temporalRefusals]) {
       expect(hasExplicitPrepareContractRefusal(text), text).toBe(true);
       expect(hasExplicitPrepareContractIntent(text), text).toBe(false);
       expect(
@@ -635,6 +553,19 @@ describe("LUMEN cog+prepare corr-01 — Axis B PREPARE consent hardened", () => 
         text,
       ).toBe("explicit_lexical_prepare");
     }
+  });
+
+  it("last explicit refuse wins over earlier maintenant prépare", () => {
+    const text =
+      "Maintenant prépare le contrat d'exécution. Finalement, ne prépare pas de contrat d'exécution.";
+    expect(hasExplicitPrepareContractRefusal(text)).toBe(true);
+    expect(
+      resolveChatFirstGenericPrepareGo({
+        projectId: "prj:x",
+        cycleInstanceId: "cyc:x",
+        text,
+      }),
+    ).toEqual({ kind: "no_go", reason: "explicit_prepare_refusal" });
   });
 
   it("A+B integrated utterance: framing ask + refusal → no_go", () => {
@@ -748,15 +679,15 @@ describe("LUMEN cog+prepare corr-01 — A+B product effects", () => {
 
 ```
 
-## 18. Diffs utiles COMPLETS
+## 21. Diffs COMPLETS cumulés vs baseline HEAD
 
 ### noraAdaptivePresentation.ts
 ```diff
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
-index 96621586..40d8d3fe 100644
+index 96621586..2386e89b 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
-@@ -981,29 +981,178 @@ export function canonicalTextsEquivalent(a: string, b: string): boolean {
+@@ -981,29 +981,278 @@ export function canonicalTextsEquivalent(a: string, b: string): boolean {
    return normalizeCanonicalCompare(a) === normalizeCanonicalCompare(b);
  }
 
@@ -790,9 +721,9 @@ index 96621586..40d8d3fe 100644
 +}
 +
 +/**
-+ * Continuation / ORIENT-shaped narrative that may complement a rich presentation
-+ * without material contradiction detection (no fuzzy keyword reconciliation).
-+ * Bounds are structural (length / question / fixed ORIENT openers) only.
++ * Continuation / ORIENT-shaped narrative candidate (structural only).
++ * NOT proof of non-contradiction — must be paired with
++ * `narrativeConflictsWithPresentationDeterministic` before complementary.
 + */
 +export function isContinuationShapedNarrative(
 +  core: string,
@@ -819,7 +750,97 @@ index 96621586..40d8d3fe 100644
 +}
 +
 +/**
-+ * CORR-A1B-01 — classify narrative vs presentation without semantic guessing.
++ * Deterministic opposition / alternative-choice signals vs structured
++ * recommendation or comparison labels. Fail-closed: any hit ⇒ not complementary.
++ * Not a general NLP contradiction engine.
++ */
++export function narrativeConflictsWithPresentationDeterministic(input: {
++  narrative: string;
++  presentation: NoraAdaptivePresentation;
++  composed: string;
++}): boolean {
++  const n = normalizeCanonicalCompare(input.narrative).toLowerCase();
++  if (!n) return false;
++
++  // Explicit opposition / reversal markers (FR).
++  if (
++    /\b(au contraire|en revanche|plut[oô]t l['']inverse|je (ne )?suis pas d['']accord|contredit|contredire)\b/u.test(
++      n,
++    )
++  ) {
++    return true;
++  }
++
++  const recommendationStatements: string[] = [];
++  const formatLabels: string[] = [];
++  for (const block of input.presentation.blocks) {
++    if (block.kind === "recommendation" && block.statement?.trim()) {
++      recommendationStatements.push(
++        normalizeCanonicalCompare(block.statement).toLowerCase(),
++      );
++    }
++    if (block.kind === "comparison_table") {
++      for (const row of block.rows) {
++        const label = (row[0] ?? "").trim();
++        if (label.length >= 4) {
++          formatLabels.push(normalizeCanonicalCompare(label).toLowerCase());
++        }
++      }
++    }
++  }
++
++  // Narrative prefers a format label that is not the one endorsed in recommendation.
++  const preference =
++    /\b(je te propose|je (te )?propose|je (privil[eé]gie|recommande|pr[eé]f[eè]re|choisis|reten(?:s|irais)?|opterais)|au contraire)\b/u.test(
++      n,
++    );
++  if (preference && formatLabels.length >= 2) {
++    const endorsed = new Set<string>();
++    for (const stmt of recommendationStatements) {
++      for (const label of formatLabels) {
++        if (stmt.includes(label)) endorsed.add(label);
++      }
++    }
++    const mentionedOther = formatLabels.some(
++      (label) => n.includes(label) && !endorsed.has(label),
++    );
++    const mentionsEndorsed = [...endorsed].some((label) => n.includes(label));
++    // Prefers another row label while not affirming the endorsed one → conflict.
++    if (mentionedOther && endorsed.size > 0 && !mentionsEndorsed) {
++      return true;
++    }
++    // "au contraire" + any other format already caught; also: propose X when rec is Y
++    if (mentionedOther && /\bau contraire\b/u.test(n)) {
++      return true;
++    }
++  }
++
++  // Negation aimed at recommendation key tokens (plusieurs séances / parcours…).
++  for (const stmt of recommendationStatements) {
++    const keyTokens = stmt
++      .split(/\s+/)
++      .map((w) => w.replace(/[^\p{L}\p{N}-]/gu, ""))
++      .filter((w) => w.length >= 5)
++      .slice(0, 8);
++    for (const token of keyTokens) {
++      if (
++        new RegExp(
++          String.raw`\b(pas|non|sans|jamais|aucun)\b[\s\S]{0,40}\b${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\b`,
++          "u",
++        ).test(n)
++      ) {
++        return true;
++      }
++    }
++  }
++
++  return false;
++}
++
++/**
++ * CORR-A1B-01 — classify narrative vs presentation.
++ * Complementary only when continuation-shaped AND no deterministic conflict.
++ * Uncertainty → divergent (fail-closed; both versions preserved downstream).
 + */
 +export function classifyNarrativePresentationRelation(input: {
 +  pilotFacingCore: string;
@@ -846,16 +867,26 @@ index 96621586..40d8d3fe 100644
 +
 +  if (
 +    isContinuationShapedNarrative(core, composed) &&
-+    !narrativeAlreadyCoveredByCompose(core, composed)
-+  ) {
-+    return { kind: "complementary", continuation: core };
-+  }
-+  if (
-+    isContinuationShapedNarrative(core, composed) &&
 +    narrativeAlreadyCoveredByCompose(core, composed)
 +  ) {
 +    // Continuation already inside blocks — equivalent for A1 purposes.
 +    return { kind: "equivalent" };
++  }
++
++  if (
++    isContinuationShapedNarrative(core, composed) &&
++    !narrativeAlreadyCoveredByCompose(core, composed)
++  ) {
++    if (
++      narrativeConflictsWithPresentationDeterministic({
++        narrative: core,
++        presentation: presentation!,
++        composed,
++      })
++    ) {
++      return { kind: "divergent", composed, narrative: core };
++    }
++    return { kind: "complementary", continuation: core };
 +  }
 +  return { kind: "divergent", composed, narrative: core };
 +}
@@ -947,7 +978,7 @@ index 96621586..40d8d3fe 100644
   */
  export function buildDurableAssistantContentForTurn(input: {
    pilotFacingCore: string;
-@@ -1012,28 +1161,78 @@ export function buildDurableAssistantContentForTurn(input: {
+@@ -1012,28 +1261,78 @@ export function buildDurableAssistantContentForTurn(input: {
    readonly contentCore: string;
    readonly usedA1: boolean;
    readonly presentation: NoraAdaptivePresentation | null;
@@ -968,8 +999,9 @@ index 96621586..40d8d3fe 100644
        usedA1: true,
        presentation,
 +      relation: relation.kind,
-+    };
-+  }
+     };
+   }
+-  if (!core && !shouldRenderAdaptivePresentation(presentation)) {
 +
 +  if (relation.kind === "complementary") {
 +    const folded = withDistinctContinuationBlock(
@@ -987,30 +1019,29 @@ index 96621586..40d8d3fe 100644
 +    }
 +    // Cannot fold safely → fail-closed preserve both (no silent drop).
 +    const composed = composeCanonicalFromPresentation(presentation!);
-+    return {
-+      contentCore: formatDivergentNarrativePresentationPlain({
-+        composed,
-+        narrative: relation.continuation,
-+      }),
-+      usedA1: false,
-+      presentation: null,
-+      relation: "divergent",
-     };
-   }
--  if (!core && !shouldRenderAdaptivePresentation(presentation)) {
-+
-+  if (relation.kind === "divergent") {
      return {
 -      contentCore: NORA_UNUSABLE_TURN_FALLBACK_TEXT,
 +      contentCore: formatDivergentNarrativePresentationPlain({
-+        composed: relation.composed,
-+        narrative: relation.narrative,
++        composed,
++        narrative: relation.continuation,
 +      }),
        usedA1: false,
        presentation: null,
 +      relation: "divergent",
      };
    }
++
++  if (relation.kind === "divergent") {
++    return {
++      contentCore: formatDivergentNarrativePresentationPlain({
++        composed: relation.composed,
++        narrative: relation.narrative,
++      }),
++      usedA1: false,
++      presentation: null,
++      relation: "divergent",
++    };
++  }
 +
 +  if (relation.kind === "narrative_only") {
 +    return {
@@ -1031,7 +1062,7 @@ index 96621586..40d8d3fe 100644
    };
  }
 
-@@ -1211,12 +1410,14 @@ export type AdaptiveAssistantRenderDecision = {
+@@ -1211,12 +1510,14 @@ export type AdaptiveAssistantRenderDecision = {
  };
 
  /**
@@ -1050,7 +1081,7 @@ index 96621586..40d8d3fe 100644
   * - Studio appendix: typed notices only.
   */
  export function resolveAdaptiveAssistantRender(input: {
-@@ -1244,6 +1445,21 @@ export function resolveAdaptiveAssistantRender(input: {
+@@ -1244,6 +1545,21 @@ export function resolveAdaptiveAssistantRender(input: {
    const structurallyAdmissibleForA1 =
      isPresentationStructurallyAdmissibleForA1(presentation);
 
@@ -1072,7 +1103,7 @@ index 96621586..40d8d3fe 100644
    if (!shouldRenderAdaptivePresentation(presentation)) {
      return {
        mode: "plain",
-@@ -1258,13 +1474,15 @@ export function resolveAdaptiveAssistantRender(input: {
+@@ -1258,13 +1574,15 @@ export function resolveAdaptiveAssistantRender(input: {
      };
    }
 
@@ -1094,7 +1125,7 @@ index 96621586..40d8d3fe 100644
      return {
        mode: "adaptive",
        presentation,
-@@ -1278,7 +1496,60 @@ export function resolveAdaptiveAssistantRender(input: {
+@@ -1278,7 +1596,76 @@ export function resolveAdaptiveAssistantRender(input: {
      };
    }
 
@@ -1135,15 +1166,31 @@ index 96621586..40d8d3fe 100644
 +  }
 +
 +  if (relation.kind === "divergent") {
-+    // Fail-closed B: never promote presentation alone.
-+    // Preserve Memory B `content` as-is on read (notices, forged markers, unique
-+    // narrative). Write-path already embeds both versions when durable was built
-+    // via formatDivergentNarrativePresentationPlain.
++    // Fail-closed single plain surface: never promote presentation alone as A1.
++    // If Memory B already embeds both versions (write-path) OR the composed
++    // substance is already inside body (e.g. forged markers on an otherwise
++    // covered lead), keep `content` as-is.
++    // Historical short narrative + rich presentation_json: expand both versions
++    // at read-time without mutating SQLite.
++    const alreadyBothVersions =
++      body.includes("— Version structurée —") &&
++      body.includes("— Version narrative —");
++    const composedAlreadyInBody = narrativeAlreadyCoveredByCompose(
++      relation.composed,
++      body,
++    );
++    const plainText =
++      alreadyBothVersions || composedAlreadyInBody
++        ? content.trim() || NORA_UNUSABLE_TURN_FALLBACK_TEXT
++        : formatDivergentNarrativePresentationPlain({
++            composed: relation.composed,
++            narrative: relation.narrative,
++          });
 +    return {
 +      mode: "plain",
 +      presentation: null,
 +      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
-+      plainText: content.trim() ? content : NORA_UNUSABLE_TURN_FALLBACK_TEXT,
++      plainText,
 +      studioControlNotices: authenticated,
 +      contentFullyCovered: false,
 +      canonicalNarrative: null,
@@ -1162,135 +1209,103 @@ index 96621586..40d8d3fe 100644
 ### prepareGenericExecutionContractDraft.ts
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-index 4b370302..154610e6 100644
+index 4b370302..3e2ea36c 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-@@ -87,13 +87,140 @@ export type GenericMissionPrepareReadiness = {
+@@ -87,13 +87,108 @@ export type GenericMissionPrepareReadiness = {
    readonly missingFields: readonly string[];
  };
 
++type PrepareSpeechAct = {
++  readonly kind: "refuse" | "authorize";
++  readonly index: number;
++};
++
++const PREPARE_REFUSAL_PATTERNS: readonly RegExp[] = [
++  /\b(ne|n[''])\s*(me\s+)?(prépare|prepare|préparer|preparer)\s+(surtout\s+)?pas\b[\s\S]{0,80}\b(contrat|executioncontract|execution contract|mission)\b/giu,
++  /\b(ne|n[''])\s*(me\s+)?(prépare|prepare|préparer|preparer)\s+rien\b[\s\S]{0,60}\b(cursor|contrat|mission|exécution|execution)\b/giu,
++  /\b(refuse|refus\w*)\b[\s\S]{0,60}\b(pr[ée]par\w*|cr[ée]er?|cr[ée]e)\b[\s\S]{0,50}\b(contrat|executioncontract|execution contract|mission)\b/giu,
++  /\b(ne\s+)?(cr[ée]e|creer|créer|crée)\s+(pas|aucun|aucune)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/giu,
++  /\bsans\s+(cr[ée]er?|créer|crée)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/giu,
++  /\b(pas|sans|aucune?|aucun)\s+(de\s+|d[''])?(contrat(\s+d['']exéc?cution)?|execution\s*contract)\b/giu,
++  /\bsans\s+(préparer|preparer|prepare)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/giu,
++  /\b(ne\s+)?(veux|veut|souhait\w*|lance|lancer)\s+pas\b[\s\S]{0,60}\b(contrat|mission(\s+(technique|d['']exécution|cursor))?|cursor)\b/giu,
++  /\b(analyse|cadrage|proposition)\s+seulement\b[\s\S]{0,80}\bsans\b[\s\S]{0,60}\b(contrat|mission|exécution|execution|cursor)\b/giu,
++  /\bsans\s+(lancer|préparer|preparer|prepare)\b[\s\S]{0,40}\b(mission|contrat|cursor|exécution|execution)\b/giu,
++  /\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,80}\bpas\s+(de\s+|un\s+|une\s+)?(contrat|executioncontract|execution contract)\b/giu,
++  /\bmais\s+(ne\s+)?(prépare|prepare|crée|creer|créer)\b[\s\S]{0,40}\b(pas|aucun|aucune)\b[\s\S]{0,40}\b(contrat|mission)\b/giu,
++  /\b(finalement|non)\s*[,:]?\s*(ne\s+)?(le\s+)?(prépare|prepare|préparer|preparer)\s+pas\b/giu,
++];
++
++/** Positive PREPARE authorize acts (not EXECUTE). Temporal last-act wins vs refuse. */
++const PREPARE_AUTHORIZE_PATTERNS: readonly RegExp[] = [
++  /\b(maintenant|désormais|cette\s+fois|finalement|plutôt)\b[\s\S]{0,60}\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,50}\b(contrat|executioncontract|execution contract|mission)\b/giu,
++  /\b(ok|oui|vas[- ]y|go|d['']accord)\b[\s\S]{0,40}\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract|mission)\b/giu,
++  /\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,40}\b(le\s+|un\s+|une\s+)?(contrat(\s+d['']exéc?cution)?|execution\s*contract)\b/giu,
++];
++
++function collectPrepareSpeechActs(text: string): PrepareSpeechAct[] {
++  const acts: PrepareSpeechAct[] = [];
++  for (const re of PREPARE_REFUSAL_PATTERNS) {
++    re.lastIndex = 0;
++    let m: RegExpExecArray | null;
++    while ((m = re.exec(text)) !== null) {
++      acts.push({ kind: "refuse", index: m.index });
++      if (m.index === re.lastIndex) re.lastIndex += 1;
++    }
++  }
++  for (const re of PREPARE_AUTHORIZE_PATTERNS) {
++    re.lastIndex = 0;
++    let m: RegExpExecArray | null;
++    while ((m = re.exec(text)) !== null) {
++      // Skip authorize matches that are actually refusals
++      // ("prépare … pas … contrat", "surtout pas le contrat", …).
++      const slice = text.slice(m.index, m.index + Math.max(m[0].length, 80));
++      if (
++        /\b(surtout\s+)?pas\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract|mission)\b/i.test(
++          slice,
++        ) ||
++        /\brien\b[\s\S]{0,40}\b(contrat|cursor|mission)\b/i.test(slice)
++      ) {
++        continue;
++      }
++      acts.push({ kind: "authorize", index: m.index });
++      if (m.index === re.lastIndex) re.lastIndex += 1;
++    }
++  }
++  acts.sort((a, b) => a.index - b.index);
++  return acts;
++}
++
 +/**
-+ * Historical refusal mentioned then clearly overridden by a CURRENT positive
-+ * PREPARE instruction ("maintenant prépare le contrat…"). Not a consent invent —
-+ * only suppresses a stale refusal match so positive lexical GO can apply.
++ * Last explicit PREPARE speech-act in the utterance (refuse | authorize).
++ * Chronology: later act wins. Ambiguous / empty → null (caller fail-closes).
 + */
-+function hasCurrentPositivePrepareOverridingHistoricalRefusal(
++export function resolveLastExplicitPrepareSpeechAct(
 +  text: string,
-+): boolean {
++): PrepareSpeechAct["kind"] | null {
 +  const t = text.trim().toLowerCase();
-+  if (!t) return false;
-+  const hasHistoricalRefusal =
-+    /\b(ne\s+(me\s+)?(prépare|prepare|préparer)\s+pas|je\s+refuse|pas\s+de\s+contrat)\b/.test(
-+      t,
-+    );
-+  if (!hasHistoricalRefusal) return false;
-+  return /\b(maintenant|désormais|cette\s+fois|finalement|plutôt)\b[\s\S]{0,60}\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,50}\b(contrat|executioncontract|execution contract|mission)\b/.test(
-+    t,
-+  );
++  if (!t) return null;
++  const acts = collectPrepareSpeechActs(t);
++  if (acts.length === 0) return null;
++  return acts[acts.length - 1]!.kind;
 +}
 +
 +/**
 + * Explicit Pilote refusal of ExecutionContract PREPARE (TEST-15 / LUMEN).
 + * Fail-closed at Product admission — cognition may solicit, but refusal
 + * is never an authorization to PREPARE.
++ *
++ * Temporal rule: the **last** explicit refuse/authorize act in the message
++ * is the current intention. Earlier "maintenant prépare" does not neutralize
++ * a later "ne prépare pas".
 + */
 +export function hasExplicitPrepareContractRefusal(text: string): boolean {
 +  const t = text.trim().toLowerCase();
 +  if (!t) return false;
-+  // Citation / stale refusal superseded by an explicit current positive PREPARE.
-+  if (hasCurrentPositivePrepareOverridingHistoricalRefusal(t)) return false;
-+
-+  // "Ne prépare pas / surtout pas … contrat|mission"
-+  if (
-+    /\b(ne|n[''])\s*(me\s+)?(prépare|prepare|préparer|preparer)\s+(surtout\s+)?pas\b[\s\S]{0,80}\b(contrat|executioncontract|execution contract|mission)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  // "Ne prépare rien pour Cursor / aucune mission"
-+  if (
-+    /\b(ne|n[''])\s*(me\s+)?(prépare|prepare|préparer|preparer)\s+rien\b[\s\S]{0,60}\b(cursor|contrat|mission|exécution|execution)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  // "Je refuse que tu prépares / prépare un contrat"
-+  if (
-+    /\b(refuse|refus\w*)\b[\s\S]{0,60}\b(pr[ée]par\w*|cr[ée]er?|cr[ée]e)\b[\s\S]{0,50}\b(contrat|executioncontract|execution contract|mission)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  // "ne crée aucun contrat" / "sans créer de contrat"
-+  if (
-+    /\b(ne\s+)?(cr[ée]e|creer|créer|crée)\s+(pas|aucun|aucune)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  if (
-+    /\bsans\s+(cr[ée]er?|créer|crée)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  // "pas de contrat d'exécution" / "pas de contrat" / "sans contrat"
-+  if (
-+    /\b(pas|sans|aucune?|aucun)\s+(de\s+|d[''])?(contrat(\s+d['']exéc?cution)?|execution\s*contract)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  if (
-+    /\bsans\s+(préparer|preparer|prepare)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  // "je ne veux pas de contrat" / "analyse seulement, sans lancer de mission"
-+  if (
-+    /\b(ne\s+)?(veux|veut|souhait\w*|lance|lancer)\s+pas\b[\s\S]{0,60}\b(contrat|mission(\s+(technique|d['']exécution|cursor))?|cursor)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  if (
-+    /\b(analyse|cadrage|proposition)\s+seulement\b[\s\S]{0,80}\bsans\b[\s\S]{0,60}\b(contrat|mission|exécution|execution|cursor)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  if (
-+    /\bsans\s+(lancer|préparer|preparer|prepare)\b[\s\S]{0,40}\b(mission|contrat|cursor|exécution|execution)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  // "prépare une analyse, pas un contrat" / "mais ne crée aucun contrat"
-+  if (
-+    /\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,80}\bpas\s+(de\s+|un\s+|une\s+)?(contrat|executioncontract|execution contract)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
-+  if (
-+    /\bmais\s+(ne\s+)?(prépare|prepare|crée|creer|créer)\b[\s\S]{0,40}\b(pas|aucun|aucune)\b[\s\S]{0,40}\b(contrat|mission)\b/.test(
-+      t,
-+    )
-+  ) {
-+    return true;
-+  }
++  const last = resolveLastExplicitPrepareSpeechAct(t);
++  if (last === "authorize") return false;
++  if (last === "refuse") return true;
 +  return false;
 +}
 +
@@ -1306,7 +1321,7 @@ index 4b370302..154610e6 100644
    if (
      /\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/.test(
        t,
-@@ -126,6 +253,7 @@ export function isChatFirstPrepareAcceptGo(input: {
+@@ -126,6 +221,7 @@ export function isChatFirstPrepareAcceptGo(input: {
    readonly text: string;
    readonly pilotDecisionCandidate?: PilotDecisionCandidate | null;
  }): boolean {
@@ -1314,7 +1329,7 @@ index 4b370302..154610e6 100644
    const candidate = input.pilotDecisionCandidate ?? null;
    if (
      candidate?.disposition === "accept" &&
-@@ -171,6 +299,10 @@ export function resolveChatFirstGenericPrepareGo(input: {
+@@ -171,6 +267,10 @@ export function resolveChatFirstGenericPrepareGo(input: {
    | { readonly kind: "prepare"; readonly offerFingerprint: string }
    | { readonly kind: "explicit_lexical_prepare" }
    | { readonly kind: "no_go"; readonly reason: string } {
@@ -1325,7 +1340,7 @@ index 4b370302..154610e6 100644
    if (hasExplicitPrepareContractIntent(input.text)) {
      return { kind: "explicit_lexical_prepare" };
    }
-@@ -1410,6 +1542,11 @@ export type SolicitGenericExecutionPrepareInput = {
+@@ -1410,6 +1510,11 @@ export type SolicitGenericExecutionPrepareInput = {
    /** Full analysis (F2) OR mission fields (Nora tool) — exactly one source. */
    readonly analysis?: IntentAnalysisDto;
    readonly mission?: SolicitGenericPrepareMissionFields;
@@ -1337,7 +1352,7 @@ index 4b370302..154610e6 100644
    /** M-HD-01 — verified OA HumanDecision for structural resume. */
    readonly decisionId?: string | null;
    readonly sessionKey?: string | null;
-@@ -1493,6 +1630,15 @@ export async function solicitGenericExecutionPrepare(
+@@ -1493,6 +1598,15 @@ export async function solicitGenericExecutionPrepare(
    if (!projectId) {
      return fail("PRODUCT_PROJECT_REQUIRED", "Project requis pour préparer.");
    }
@@ -1353,6 +1368,49 @@ index 4b370302..154610e6 100644
    const analysis =
      input.analysis ??
      buildIntentAnalysisFromSolicitedMission(input.mission ?? {});
+
+```
+
+### ConversationSurface.tsx
+```diff
+diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+index d0b9563a..d33d3d53 100644
+--- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
++++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/ConversationSurface.tsx
+@@ -58,6 +58,7 @@ import {
+   NoraCanonicalFallbackView,
+ } from "./NoraAdaptivePresentationView";
+ import {
++  contentWithoutAuthenticatedStudioNotices,
+   resolveAdaptiveAssistantRender,
+   resolveAdaptiveCanonicalDisplayText,
+ } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
+@@ -643,12 +644,23 @@ export function ConversationSurface({
+                   }
+                   // B — canonical fail-closed; CR-03 formatter fidelity guard.
+                   // CORR-NAP-LIVE-RENDER-01: GFM tables → HTML table (no A1 soften).
++                  // Typed appendix is the sole authenticated Studio surface —
++                  // strip the same notices from plain to avoid duplicate DOM.
++                  const plainSource = decision.studioAppendix
++                    ? contentWithoutAuthenticatedStudioNotices(
++                        decision.plainText || message.content,
++                        decision.studioControlNotices,
++                      )
++                    : decision.plainText || message.content;
+                   const plainDisplay = resolveAdaptiveCanonicalDisplayText(
+-                    decision.plainText || message.content,
++                    plainSource,
+                     formatNoraAssistantDisplayText,
+                   );
+                   return (
+-                    <NoraCanonicalFallbackView plainText={plainDisplay} />
++                    <NoraCanonicalFallbackView
++                      plainText={plainDisplay}
++                      studioAppendix={decision.studioAppendix}
++                    />
+                   );
+                 })()}
+               </div>
 
 ```
 
@@ -1454,7 +1512,7 @@ index e867cdfb..faf7a02c 100644
 ### p6.gD4….d0.test.ts
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
-index c0352f84..706b8f3c 100644
+index c0352f84..8c2a89d2 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
 @@ -17,6 +17,7 @@ import {
@@ -1465,7 +1523,7 @@ index c0352f84..706b8f3c 100644
    isChatFirstPrepareAcceptGo,
    prepareGenericExecutionContractDraft,
    rememberGenericPrepareRecommendation,
-@@ -262,6 +263,73 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
+@@ -262,6 +263,84 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
      ).toBe("no_go");
    });
 
@@ -1534,6 +1592,17 @@ index c0352f84..706b8f3c 100644
 +        "Tu avais dit ne prépare pas. Maintenant prépare le contrat d'exécution.",
 +      ),
 +    ).toBe(true);
++    // Later refuse beats earlier positive authorize in the same utterance.
++    expect(
++      hasExplicitPrepareContractRefusal(
++        "Maintenant prépare le contrat d'exécution. Finalement, ne prépare pas de contrat d'exécution.",
++      ),
++    ).toBe(true);
++    expect(
++      hasExplicitPrepareContractIntent(
++        "Maintenant prépare le contrat d'exécution. Finalement, ne prépare pas de contrat d'exécution.",
++      ),
++    ).toBe(false);
 +  });
 +
    it("Q02 — sync assess without Product context is UNKNOWN (never false-implicit)", () => {
@@ -1542,51 +1611,47 @@ index c0352f84..706b8f3c 100644
 
 ```
 
-## 19. Réserves
-
-- DET ≠ LIVE ; protocole LIVE requis sous GO Morris.
-- Historique LUMEN DB non réécrit (read-path only).
-- Citations / ironie / multi-intent très complexes : couverture partielle.
-- EC `xct:gen-prep:e45f631d…` préservé.
-- maxBlocks empêche fold → divergent fail-closed.
-
-## 20. Protocole LIVE conjoint A+B (GO ultérieur)
-
-1. Baseline corrigée sous gate (pas mutation campagne sans GO).
-2. Projet isolé ou LUMEN sous autorisation explicite.
-3. Demander comparaison 3 formats → table visible A1 + continuation utile.
-4. « Ne prépare pas de contrat » → zéro nouvel EC/Attempt/Auth.
-5. A+B utterance intégrée → analyse + zéro EC.
-6. Positif contrôle PREPARE explicite → confirmation_required sans Execute.
-7. STOP si REAL requis.
-
-## 21. Gates Morris restants
-
-1. Revue pack/handoff.
-2. GO Git Integration (commit/PR) — non ce cycle.
-3. GO R24 PRR.
-4. GO LIVE revalidation.
-5. Ne pas muter EC/DB :3020.
-
 ## 22. Git Review Index
 
-Voir §16. Aucun chemin protégé modifié. Aucun push projet.
+| Path | Status |
+|------|--------|
+| noraAdaptivePresentation.ts | M |
+| prepareGenericExecutionContractDraft.ts | M |
+| ConversationSurface.tsx | M |
+| orchestrateTurn.ts | M |
+| buildProjectSystemPrompt.ts | M |
+| productExecutionAgentsTools.ts | M |
+| p6.gD4….d0.test.ts | M |
+| corrA1b01.secured.d0.test.ts | A |
+| lumenCogPrepareCorr01.d0.test.ts | A |
 
-## 23. Verdict consolidé
+## 23. Réserves
 
-# INTEGRATED A+B LOCAL CORRECTION READY FOR MORRIS REVIEW
+- DET ≠ LIVE
+- Heuristique conflict bornée (pas NLP complet)
+- Citations ironiques complexes : fail-closed préféré
+- EC LUMEN historique préservé
+- Historique DB non migré (read-path only)
 
-- CORR-A1B-01 sécurisé implémenté (CAS A–D).
-- LUMEN T-A1–T-A4 → A1 + comparison_table (replay DET).
-- Continuation préservée ; divergence fail-closed ; une réponse.
-- TEST-15 renforcé ; admission Product ; A+B PASS.
-- 168 tests ciblés PASS ; R24 qualifié gate OPEN.
-- Handoff L3 à publier/vérifier dans ce cycle.
+## 24. Gates Morris
 
-**AXE A :** correction locale DET READY (LIVE réserve).
-**AXE B :** hardening DET READY (réserves citations).
-**INTÉGRATION :** READY FOR MORRIS REVIEW (pas Git Integration).
+Revue · Git Integration · R24 PRR · LIVE A+B · ne pas muter :3020/EC
 
-Anti-claims : local ≠ main · DET ≠ LIVE · structured ≠ Truth C · PREPARE ≠ EXECUTE · L3 OPEN · G-REAL NOT GRANTED · v3 NON ADOPTED · EC historique = preuve.
+## 25. Verdict
 
-**STOP après Review Handoff.** Pas de second chantier.
+# INTEGRATED A+B CORRECTION READY FOR MORRIS REVIEW
+
+- A complementary/divergence sécurisé
+- A read-path historique fidèle (deux versions)
+- B dernière intention explicite respectée
+- 171 PASS cette campagne
+- R24 gate OPEN
+- Handoff L3 à vérifier distant
+
+Anti-claims : local≠main · DET≠LIVE · 168≠cette run · PREPARE≠EXECUTE · L3 OPEN · G-REAL NOT GRANTED · v3 NON ADOPTED
+
+## 26. Protocole LIVE ultérieur
+
+Projet isolé sous GO · comparaison visible · refus final NO_GO zéro EC · utterance A+B · positif contrôle · STOP si REAL.
+
+**STOP après Review Handoff.**
