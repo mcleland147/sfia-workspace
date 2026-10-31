@@ -1,241 +1,177 @@
-# NEW-PROJECT-E2E-PREFLIGHT-01 — ChatGPT Critical Review Pack (FULL)
+# CONTROLLED-STUDIO-START-T0-REPREFLIGHT-01 — ChatGPT Critical Review Pack (FULL)
 
-**Date UTC:** 2026-10-31T14:00:00Z
-**Cycle:** 9 — QA / validation · Environment & Campaign Readiness · CRITICAL
-**Verdict:** `STOP — STUDIO 3020 NOT QUALIFIED` (`STUDIO 3020 NOT RUNNING`)
+**Date UTC:** 2026-10-31T14:35:00Z
+**Cycle:** 12 — Observabilité / RUN readiness · exit control Cycle 9 T0 · CRITICAL
+**GO Morris consumed:** AKG-M5 L3-S2 CONTROLLED STUDIO START + T0 RE-PREFLIGHT (2026-10-31)
+**Verdict:** `STUDIO 3020 ENVIRONMENT VERIFIED — READY FOR MORRIS T1 CAMPAIGN GATE`
 
-**Anti-claims:** ≠ READY FOR CURSOR REAL EXECUTION · ≠ G-REAL GRANTED · ≠ L3 COMPLETE · ≠ RUNTIME V3 ADOPTED · ≠ LIVE PROVEN · ≠ CAMPAIGN STARTED · ≠ PRODUCT REDELIVERED · ≠ LUMEN CREATED
+**Anti-claims:** ≠ T1 STARTED · ≠ LUMEN CREATED · ≠ G-REAL GRANTED · ≠ Cursor REAL EXECUTION TESTED · ≠ Nora LIVE EMIT PROVEN · ≠ R-SRV-RESTART PROVEN · ≠ L3-S2 CLOSED · ≠ L3 GLOBAL CLOSED · ≠ Runtime v3 ADOPTED · ≠ READY FOR CURSOR REAL EXECUTION
 
 ---
 
-## 1. Git Truth
+## 1. GO Morris (scope)
+
+Autorisé: préparation locale · backups campagne · start unique `:3020` · T0 non mutatif · Review Pack/Handoff.
+Interdit: LUMEN · Nora dialogue · Cursor REAL execute · EC · Product/PRR/Roadmap edits · project git commit/push · BALISE mutation · OA exclusive ON.
+
+## 2. Git Truth
 
 | Champ | Valeur |
 |---|---|
-| Repo | `mcleland147/sfia-workspace` |
-| Agent worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nora-adaptive-presentation` |
-| Agent HEAD | `1c3a8d9e16e69c5553fb0d52d847fdeeb2648a9a` (detached; **pre-#630** Product symbols) |
-| `origin/main` / `ls-remote` | **`7dd49ecd0699a3de9c03759a8fe4637baf31d149`** |
-| Baseline ChatGPT | `7dd49ecd…` |
-| Baseline check | **BASELINE_MATCH** |
-| Dirty agent | `.tmp-sfia-review/chatgpt-review.md` only (review pack; **≠ Product**) |
-| Prior handoff | tip `4b46c5c8…` / blob `fe34ccde…` — **VERIFIED CURRENT** (R24-NAP-UX-630-TRUTH-SYNC-01) |
+| `origin/main` / ls-remote | **`7dd49ecd0699a3de9c03759a8fe4637baf31d149`** — BASELINE_MATCH |
+| Prior handoff | `81bb7d2d…` / blob `850ef25b…` — VERIFIED |
+| Agent WT HEAD | `1c3a8d9e…` — **NOT USED** (obsolete pre-#630) |
+| Execution worktree | `/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020` |
+| Checkout | **detached HEAD `7dd49ecd…`** (created isolated; existing WTs unmodified) |
+| #630 / #631 on disk | symbols `splitPlainTextWithMarkdownTables` / Roadmap tip GI-NAP MERGED — **PRESENT** |
 
-**Worktrees pouvant héberger Studio (sélection):**
+## 3. Sources / Convergence
 
-| Worktree | HEAD | Note |
-|---|---|---|
-| `…-feat-akg-m5-nora-adaptive-presentation` | `1c3a8d9e` | **MISSING #630** NAP UX consolidations |
-| `…-feat-akg-m5-nap-test16-coverage-corr` | `1c3a8d9e` | même tip pré-#630 |
-| `…-feat-akg-m5-nap-test16-coverage-corr-01` | `e37d3969` | Product #630 ancestor of main |
-| `…-docs-akg-m5-nap-ux-630-postmerge-truth-sync` | `979a33ad` | docs tip; main tip = merge `7dd49ecd` |
-| main workspace `sfia-workspace` | `980064c0` | autre branche QA P6 |
+Processus SFIA v2.6 + CKC 04 candidate guidance · Convergence doctrine/roadmap · C1 · AKG-M5 trajectory · V3 30/32/33/34/35 · PRR README/03/05/06/07/08/09 · code CURRENT: package.json `dev`=`next dev --port 3020` · `@next/env` · provider · Cursor REAL gateway · Better Auth · Product/Nora SQLite · `studio-runtime-preflight.ts`.
 
-Aucun `reset` / `clean` / `stash` / `rebase` exécuté.
+**Convergence:** L3-S2 OPEN · G-REAL NOT GRANTED · G-ACTIVATION NOT GRANTED · runtime v3 NON ADOPTED · réserves TEST-15 / EP-S2-05 / EP-S2-08 / R-LIVE-EMIT / R-STOP-BROWSER / R-SRV-RESTART inchangées.
 
-## 2. GO / périmètre
+## 4. Worktree + configuration locale
 
-Préflight non destructif campagne E2E LUMEN. **Interdits respectés:** pas de CreateProject LUMEN · pas de message Nora · pas de Cursor REAL · pas d’arrêt/redémarrage Studio · pas de mutation Product/SQLite/PRR/Roadmap · pas de commit/push projet.
-
-## 3. Convergence Pre-check
-
-- Milestone **L3-S2 OPEN** · Roadmap CURRENT tip = GI-NAP #630 MERGED + R24 #631 docs sync on main `7dd49ecd`
-- Acquis: L3-S1 DET · Project-first/S8 · Generic DET · SHE · NAP · Single-response · R24 sync
-- Réserves inchangées: TEST-15 OPEN · EP-S2-05 NOT PROVEN · EP-S2-08 PARTIAL · Late Evidence OPEN · Mutating Generic Product E2E non prouvé · R-LIVE-EMIT / R-STOP-BROWSER / R-SRV-RESTART NOT PROVEN · **G-REAL NOT GRANTED** · L3 GLOBAL OPEN · runtime v3 NON ADOPTED
-
-## 4. Serveur :3020 — contrôle principal
-
-| Check | Résultat |
+| Item | Detail |
 |---|---|
-| `lsof -nP -iTCP:3020 -sTCP:LISTEN` | **aucun listener** |
-| Ports 3000/3001/3021/3030 | aucun listener Studio |
-| Processus `next dev` / node Studio | **aucun** processus Studio identifiable |
-| `curl http://localhost:3020/studio` / `/login` | **connection refused** |
-| PID / PPID / cwd / worktree / HEAD servi | **N/A — NOT RUNNING** |
+| Path | `…/sfia-workspace-run-akg-m5-l3s2-campaign-3020` |
+| HEAD | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
+| `.env.local` | **local copy** (mode `600`, gitignored `.env.*`) — **≠** same inode as shared source; shared source **untouched** |
+| Campaign Product DB | `…/new-project-campaign-01/product/oa-product.sqlite` |
+| Campaign Nora DB | `…/new-project-campaign-01/product/nora-session.sqlite` |
+| `SFIA_STUDIO_CURSOR_REAL` | `1` |
+| `OPS1_CONVERSATION_PROVIDER` | unset (≠ fake) |
+| `OPENAI_MODEL` | `gpt-5.6-luna` · API key PRESENT |
+| `BETTER_AUTH_URL` | `http://localhost:3020` |
+| Managed root | `…/sfia-studio/.sfia-exec/managed-repos` |
+| OA exclusive | unset/OFF |
+| Det boundary | unset |
 
-**STOP clause applicable:** `STOP — STUDIO 3020 NOT RUNNING` → agrégé en **`STOP — STUDIO 3020 NOT QUALIFIED`**.
+`npm ci` exécuté une fois dans le WT (lockfile inchangé) — dépendances disponibles.
 
-Historique (terminaux): instances Delivery/Fake QA-NAP-02 et campagne LIVE-E2E antérieures ont existé sur 3020; **processus courant absent** (arrêt préalable hors de ce cycle).
+## 5. Backups campagne (cohérents SQLite API)
 
-## 5. Nora LIVE — qualification (déclarée vs processus)
-
-| Élément | Observation | Niveau |
-|---|---|---|
-| Process env actif | **indisponible** (pas de serveur) | NOT QUALIFIED |
-| `.env.local` (main workspace; symlink dans agent WT) | `OPENAI_API_KEY=<PRESENT>` · `OPENAI_MODEL=gpt-5.6-luna` · **`OPS1_CONVERSATION_PROVIDER` ABSENT** | DOCUMENTED file-level |
-| Fake force | `OPS1_CONVERSATION_PROVIDER!==fake` ⇒ code CURRENT n’impose pas Fake (`isFakeConversationProviderForced`) | DOCUMENTED |
-| Provider path code | `resolveConversationProvider` → OpenAI si secrets + non-fake | DOCUMENTED on main |
-| Preuve LIVE runtime | aucun appel OpenAI ce cycle; pas de dialogue | **≠ LIVE PROVEN** |
-
-**Conclusion Nora:** configuration **fichier** compatible LIVE (clé+modèle; non-fake). **Configuration processus actif: NOT QUALIFIED.** Morris « Nora LIVE activé » = contrainte déclarée ≠ preuve technique courante.
-
-## 6. Cursor REAL — qualification
-
-| Élément | Observation |
+| Item | Valeur |
 |---|---|
-| `SFIA_STUDIO_CURSOR_REAL` (.env.local) | **`1`** (déclaré) |
-| `SFIA_STUDIO_E2E_DETERMINISTIC_CURSOR_BOUNDARY` | **unset** → exclusion mutuelle fichier OK |
-| Process env actif | **NOT QUALIFIED** (pas de serveur) |
-| Launch Gateway / Attempt | **non exercés** (interdit) |
-| `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE` | code CURRENT: gate Product pathless non-mutatif refuse Select/Start sans sandbox no-write — **DOCUMENTED** |
-| G-REAL | **NOT GRANTED** pour la nouvelle campagne |
+| Timestamp UTC | `20261031T141927Z` |
+| Dir | `…/new-project-campaign-01/backups/pre-start-20261031T141927Z/` |
+| Method | `sqlite3.Connection.backup` (mode=ro source → dest) — **≠** naive copy |
+| Files | `oa-product.sqlite` (9531392) · `nora-session.sqlite` (876544) |
+| Verify | backup Product `oa_projects` count **34** |
+| Writers pre-backup | NONE on campaign + BALISE |
+| Disk free | ~109 GB |
 
-**REAL ENABLED (fichier) ≠ G-REAL GRANTED ≠ READY FOR EXECUTION.**
+BALISE paths séparés (`…/.sfia-exec/live-e2e-01/…`) · `same_file_campaign_vs_balise=False` · non ciblés par `.env.local` campagne.
 
-### Conditions futures avant REAL Execute (liste)
+## 6. Controlled start — incidents + correction
 
-1. Studio `:3020` running · identity PID/worktree/HEAD = Git CURRENT (`7dd49ecd` or approved equivalent containing #630).
-2. GO Morris campagne + **G-REAL** explicite pour LUMEN.
-3. Auth Pilote session vivante contre ce serveur.
-4. EC explicitement PREPARE + Inspect + Select/Start sous SHE.
-5. Sealed git-target / managed repo root cohérents.
-6. Ne pas contourner `BOUNDED_NON_MUTATING_REAL_ENFORCEMENT_UNAVAILABLE`.
-7. Backup DB avant toute exécution mutative.
-8. Balise historique isolée / non écrasée.
+### Attempt 1 (INVALID — aborted)
+- `nohup npm run dev` puis shell tool start hérité de l’env agent Cursor.
+- Process env pollué: `SFIA_STUDIO_*_DB_PATH` → **live-e2e-01 (BALISE)** · `SFIA_STUDIO_CURSOR_REAL=0`.
+- Cause: Next/process env hérité **override** `.env.local`.
+- Action: **stop immédiat** des PID connus (20524/20506/20494/20474) avant ouverture SQLite observée.
+- BALISE/campaign: aucun writer résiduel après stop.
 
-## 7. Auth
+### Attempt 2 (CURRENT — ACTIVE)
+- Start: `env -i` (HOME/USER/PATH/TMPDIR/LANG/TERM only) + `npm run dev` depuis app WT.
+- Log: `Environments: .env.local` · Next 15.5.20 · **Ready in 3.5s**.
+- Log file: `…/runtime-logs/studio-3020-20261031T142600Z-cleanenv.log`.
 
-| Item | Status |
+## 7. T0 results
+
+### T0.1 Process identity — PASS
+| Field | Value |
 |---|---|
-| `BETTER_AUTH_URL` | `http://localhost:3020` (fichier) |
-| Secrets Auth / GitHub OAuth | PRESENT (non exposés) |
-| Allowlist GitHub user | set |
-| Storage state cookies (`better-auth.*`) | présents, **non expirés** (domain=localhost) — snapshots locaux |
-| Auth contre serveur courant | **NOT PROVEN** (serveur down) |
-| Session fabriquée ce cycle | **non** |
+| Listener | TCP `*:3020` (IPv6) — **1** instance |
+| PID | **23413** (`next-server v15.5.20`) |
+| Parent | 23401 `next dev --port 3020` |
+| cwd | `…/run-akg-m5-l3s2-campaign-3020/projects/sfia-studio/app` |
+| HEAD | `7dd49ecd…` |
+| #630 symbols | PRESENT on disk |
 
-## 8. Persistance / BALISE / isolation
-
-### Chemins déclarés (.env.local)
-
-- Product: `/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/new-project-campaign-01/product/oa-product.sqlite`
-- Nora: `…/new-project-campaign-01/product/nora-session.sqlite`
-- Contenu: 34 projets (FocusFlow… QA-NAP-02…) — **pas de projet BALISE**
-- WAL/SHM: absents · aucun writer `lsof` observé
-
-### Bases historiques LIVE-E2E (BALISE)
-
-- Product: `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` — contient **BALISE** (`prj:d0c81c08-…`, `prj:4890155c-…`) + autres
-- Nora: `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite`
-- Backups présents: `pre-recovery-20261030T174247Z`, `pre-test16-resume-20261031T094312Z`
-- WAL/SHM: absents · aucun writer observé · modes `rw-------`
-- `SFIA_STUDIO_LOCAL_OA_EXCLUSIVE`: **unset (OFF)**
-
-**ÉCART MAJEUR:** le `.env.local` courant **ne pointe pas** vers `live-e2e-01` où BALISE réside. Relancer Studio avec ce `.env` **sans correction** exposerait `new-project-campaign-01` (≠ BALISE), au risque de confusion d’isolation campagne.
-
-Aucune copie/migration/nettoyage DB ce cycle.
-
-## 9. Conformité code Git CURRENT vs worktrees
-
-| Ref | Symbols #630 (`splitPlainTextWithMarkdownTables`, `sanitizePresentationEyebrow`, `composeCanonicalFromPresentation`, `NoraCanonicalFallbackView`) |
+### T0.2 HTTP — PASS (Auth redirect expected)
+| URL | Result |
 |---|---|
-| `origin/main` `7dd49ecd` | **PRESENT** |
-| `e37d3969` (corr-01) | **PRESENT** (ancestor of main) |
-| Agent / `1c3a8d9e` | **MISSING** |
+| GET `/login` | **200** |
+| GET `/studio` | **307** → `/login?error=NO_SESSION&from=%2Fstudio` |
+| Mutative / fabricated session | **none** |
 
-Donc: servir depuis le worktree agent actuel = **RUNTIME BASELINE MISMATCH** potentiel si un redémarrage y était fait. **Non exécuté.**
+### T0.3 Nora — LIVE CONFIGURED / LIVE BEHAVIOR NOT TESTED
+- `.env.local` + `@next/env` `loadEnvConfig` (same as Next): OpenAI key+model present · provider ≠ fake · unset `OPS1_CONVERSATION_PROVIDER` ⇒ `resolveConversationProvider` selects OpenAI when secrets available (code CURRENT).
+- Clean `env -i` start ⇒ no process override toward Fake.
+- **No OpenAI call** this cycle.
 
-## 10. R23 — Architecture-informed (chemin campagne)
+### T0.4 Cursor — REAL CONFIGURED / REAL EXECUTION NOT TESTED
+- `.env.local` `SFIA_STUDIO_CURSOR_REAL=1` · det boundary unset.
+- `node --import tsx scripts/studio-runtime-preflight.ts` (loads `@next/env`): **STUDIO RUNTIME PROFILE READY** · `cursorReal: READY` · `deterministic⊕REAL: PASS` · authority PASS · managedRoot campaign path.
+- `realBoundaryConstructed=false` **by design** when READY (side-effect-free preflight).
+- **No Attempt / no Cursor launch.**
 
-| COMPONENT | RESPONSIBILITY | DEPENDENCIES | STATE OWNER | AUTHORITY | PERSISTENCE | IMPACT | PROOF LEVEL | KNOWN GAP |
-|---|---|---|---|---|---|---|---|---|
-| `/studio` UI + Auth | surface Pilote | Better Auth | browser+server | Pilote session | cookies | entry | DOCUMENTED; Auth live **NOT PROVEN** | server down |
-| CreateProject / Resume | project bootstrap | OA Product | Product OA | Pilote | `oa_projects` Truth C | new project | DOCUMENTED/DET prior | LUMEN not created |
-| LPS / ProjectTrajectory | living state | CreateProject | Product OA | system+Pilote | `oa_lps*` / trajectories | framing | DET prior | — |
-| Nora Cognitive / LIVE | dialogue | provider OpenAI/Fake | Memory B + Product | Pilote turns | nora-session sqlite | cognition | DET+targeted LIVE prior | R-LIVE-EMIT; process down |
-| F2 / Generic PREPARE | propose EC | Nora+OA | Product | fail-closed | EC rows | TEST-15 risk | DET + OPEN TEST-15 | unsolicited PREPARE |
-| ExecutionContract Inspect | human review | EC | Product | Pilote | attestations | gate | DET | — |
-| Single Human Execute | Select/Start | SHE + Attempt | Product | Pilote+Morris gates | attempts | REAL path | DET SHE | G-REAL open |
-| Cursor REAL Gateway | spawn agent | REAL flag+seal | Attempt | REAL enablement | managed repos | effects | DOCUMENTED; REAL exec **NOT** this cycle | no-write sandbox gap |
-| Evidence / ReviewBundle | materialize proof | Attempt result | Product | system | evidence tables | EP-S2-05/08 | PARTIAL | EP gaps |
-| Nora post-Evidence | continuity | Memory B | Nora+Product | Pilote | session | reload≠restart | PARTIAL | R-SRV-RESTART |
+### T0.5 Auth — PASS (config + endpoints)
+- Better Auth URL `http://localhost:3020` · secrets PRESENT · GitHub OAuth keys PRESENT · allowlist set.
+- `/login` 200 · `/studio` NO_SESSION redirect · `/api/auth/ok` 200.
+- No OAuth automation · no fabricated session.
 
-**Chemin cible:** `/studio` → CreateProject → OA/LPS/Trajectory → Nora LIVE → F2/PREPARE → EC → Inspect/SHE → Cursor REAL → Evidence/RB → Nora continuity → replanification.
+### T0.6 Persistence — PASS
+- Campaign DBs exist · absolute paths in `.env.local` · count Product projects **34** (unchanged intentional; not wiped).
+- Backups present/verified.
+- BALISE store separate · not in campaign env paths · no writer on BALISE after start.
+- Note: next-server OS environ (KERN_PROCARGS2) does **not** mirror dotenv keys (Next worker); effective server config evidenced by clean start + `.env.local` + `loadEnvConfig` equivalence + runtime preflight — **not** by ps-env dump of worker.
 
-## 11. R24
+### T0.7 Process durability — PASS
+- Server remains up after launcher returns (Shell background).
+- Re-check: PID 23413 listening · `/login` 200 · etime > 3 min at final snapshot.
+- **Not** stopped for handoff.
+- ≠ R-SRV-RESTART PROVEN.
 
-**NO SEMANTIC PRODUCT IMPACT.** Aucune modification Product/PRR/Roadmap/digest. Pack + handoff only.
+### T0.8 Audit — PASS
+- No LUMEN / no Nora turn / no Cursor REAL / no new EC intentional create.
+- No versioned Product/docs commit.
+- Local only: worktree · `.env.local` · `node_modules` · `.next` · backups · logs · this pack.
 
-## 12. Campagne LUMEN — plan T0–T7 (préparé, non exécuté)
+## 8. R23 (frontiers)
 
-**Projet candidat:** LUMEN — Atelier d’initiation numérique.
-**Livrable cible:** fiche animation Markdown (objectifs, déroulé, activités, critères).
-**TEST-15 script:** « Je veux continuer à définir l’atelier avec toi. Ne prépare pas de contrat d’exécution pour le moment. » — si EC non sollicité: constater, conserver preuve, ne pas confirmer/exécuter, aucun correctif auto.
+| Frontier | Config | Component | Risk | Proof | Gap |
+|---|---|---|---|---|---|
+| Next process | env -i + `.env.local` | next-server 23413 | env pollution | BEHAVIOR: clean start after abort | worker OS-env opacity |
+| Env loader | `@next/env` | loadEnvConfig | override by parent env | COVERAGE via script+file | — |
+| Auth | Better Auth @3020 | `/login` `/studio` | session | HTTP 200/307 NO_SESSION | login UX not exercised |
+| Nora provider | OpenAI LIVE cfg | resolveConversationProvider | accidental Fake | DOCUMENTED+configured | LIVE emit KNOWN GAP |
+| Cursor gateway | REAL=1 | StudioCursorRealLaunchGateway | premature REAL | CONFIGURED via preflight READY | G-REAL / exec KNOWN GAP |
+| Product OA | campaign sqlite | Truth C | wrong DB / BALISE | path+backup+isolation | writers idle until Product use |
+| Nora Memory B | campaign nora sqlite | session DB | cwd drift | absolute path set | — |
 
-| ID | Objectif | Action Pilote | Attendu | État durable | Preuve | PASS/FAIL/PARTIAL/NOT PROVEN | Réserve | Gate | STOP |
-|---|---|---|---|---|---|---|---|---|---|
-| T0 | Environment Preflight | inspect only | 3020 CURRENT + LIVE/REAL/Auth/DB | n/a | ce pack | **FAIL / NOT QUALIFIED** (3020 down + DB path mismatch) | — | GO start server | **STOP now** |
-| T1 | CreateProject | `/studio` create LUMEN | project Truth C | `oa_projects` | UI+DB | NOT STARTED | preserve BALISE | GO campagne | if wrong DB |
-| T2 | Nora LIVE / LPS / Trajectory | dialogue besoin | framing progresses; NAP A1/B | LPS+Memory B | transcript+UI | NOT STARTED | R-LIVE-EMIT | — | if Fake silently |
-| T3 | Negative PREPARE / TEST-15 | phrase TEST-15 | **pas** d’EC | no new EC | DB EC count | NOT STARTED | TEST-15 OPEN | — | if EC created→anomaly |
-| T4 | Explicit PREPARE / Inspect | demander préparation | EC inspectable | EC+attestation | UI+DB | NOT STARTED | — | — | — |
-| T5 | SHE / Cursor REAL | Select/Start | Attempt gated | attempt rows | logs+DB | NOT STARTED | G-REAL; no-write | **G-REAL GO** | without G-REAL |
-| T6 | Evidence / RB / Business Result | after attempt | evidence+RB | evidence tables | DB | NOT STARTED | EP-S2-05 | — | ≠ auto Mission Evidence |
-| T7 | Nora post-Evidence / reload | continue+reload browser | continuity | Memory B | UI reload | NOT STARTED | EP-S2-08; ≠ server restart | — | — |
+## 9. R24
 
-## 13. Fake / REAL matrix (ce cycle)
+**NO SEMANTIC PRODUCT IMPACT.** No PRR/Roadmap/code changes. No digest refresh.
 
-| Mode | Status |
-|---|---|
-| Fake conversation | non forcé dans `.env.local` |
-| OpenAI LIVE process | **NOT QUALIFIED** (no server) |
-| Cursor REAL file flag | `=1` |
-| Cursor REAL process | **NOT QUALIFIED** |
-| Deterministic Cursor boundary | unset (OK vs REAL file) |
-| G-REAL | **NOT GRANTED** |
+## 10. Local artifacts (non-git)
 
-## 14. Écarts / preuves / GO Morris requis
+- Worktree: `/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020`
+- `.env.local` (gitignored)
+- Backups: `…/backups/pre-start-20261031T141927Z/`
+- Logs: `…/runtime-logs/studio-3020-20261031T142600Z-cleanenv.log` (+ aborted prior logs)
+- Pack: `.tmp-sfia-review/chatgpt-review.md`
 
-### Écart A — Studio 3020 NOT RUNNING
-- Preuve: lsof vide · curl refused · no next process
-- Impact: impossible de qualifier process env, Auth live, UI `/studio`
-- Correction: redémarrage contrôlé sous **GO Morris dédié**
-- Avant restart: backup `live-e2e-01` (+ confirmer DB cible campagne)
+**Versioned project files modified:** none expected / none committed.
 
-### Écart B — DB path `.env.local` ≠ BALISE store
-- Preuve: BALISE only in `…/.sfia-exec/live-e2e-01/…`; env points `new-project-campaign-01`
-- Impact: risque d’instance sans BALISE / mauvaise isolation
-- Correction: aligner `SFIA_STUDIO_PRODUCT_DB_PATH` + `SFIA_STUDIO_NORA_SESSION_DB_PATH` sur `live-e2e-01` **ou** GO explicite pour autre isolation + conserver BALISE intact
-- **Ne pas** auto-modifier env ce cycle
+## 11. Gates remaining (Morris)
 
-### Écart C — Worktree agent HEAD pré-#630
-- Preuve: symbols #630 MISSING at `1c3a8d9e`
-- Impact: runtime obsolète si servi depuis cet WT
-- Correction: démarrer depuis checkout **`origin/main` `7dd49ecd`** (ou WT approuvé contenant #630, ex. corr-01 `e37d3969` / nouveau WT main)
+1. **T1 CreateProject LUMEN** — NOT AUTHORIZED by this GO.
+2. **G-REAL** — NOT GRANTED.
+3. Human Auth login for Pilote session on this instance.
+4. Functional reserves unchanged (TEST-15, EP-S2-05/08, R-LIVE-EMIT, etc.).
 
-### Plan de réalignement (PROPOSÉ — NON EXÉCUTÉ)
+## 12. Server status at handoff
 
-1. GO Morris: arrêt confirmé (déjà down) + autorisation start.
-2. Backup supplémentaire horodaté de `live-e2e-01` product+nora.
-3. Choisir worktree @ `7dd49ecd` (recommandé) + `projects/sfia-studio/app`.
-4. Confirmer/aligner env: DB→live-e2e-01 (si BALISE à préserver sur même instance), `BETTER_AUTH_URL=http://localhost:3020`, LIVE secrets, `SFIA_STUDIO_CURSOR_REAL` selon GO, **pas** de deterministic boundary si REAL.
-5. `npm run dev -- --hostname localhost --port 3020` (seul serveur).
-6. Re-preflight: lsof · PID cwd HEAD · GET `/login` `/studio` · process env dump names-only · DB paths resolved.
-7. Puis gate Morris ouverture campagne T1+.
+**ACTIVE** on `http://localhost:3020` · PID **23413** · cwd run WT · HEAD `7dd49ecd` · campaign `.env.local` · BALISE not targeted.
 
-## 15. Décisions Morris requises
+## 13. Instruction ChatGPT
 
-1. GO redémarrage Studio `:3020` (worktree+HEAD+DB paths explicites).
-2. Confirmer instance DB: **live-e2e-01 (BALISE)** vs campagne séparée.
-3. GO ouverture campagne LUMEN (après Environment VERIFIED).
-4. G-REAL distinct avant T5.
-5. Ne pas déclarer READY FOR CURSOR REAL EXECUTION sur ce preflight.
-
-## 16. Git Review Index
-
-| Artifact | Ref |
-|---|---|
-| main | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
-| Product #630 merge | `14fb0c33…` |
-| Docs R24 #631 merge | `7dd49ecd…` (merge commit) |
-| Prior handoff | `4b46c5c8…` / `fe34ccde…` |
-| Agent HEAD | `1c3a8d9e…` (not served) |
-
-## 17. Instruction ChatGPT
-
-1. Confirmer verdict **STOP — STUDIO 3020 NOT QUALIFIED** (NOT RUNNING).
-2. Traiter écart DB BALISE vs `.env.local` comme bloqueur d’ouverture campagne.
-3. Proposer gate Morris: restart contrôlé → re-preflight T0 → puis ouverture LUMEN.
-4. Ne pas lancer campagne ni REAL.
+1. Confirmer verdict VERIFIED + server ACTIVE.
+2. Confirmer incidente env pollution corrigée (attempt1 abort → attempt2 env -i).
+3. Proposer gate Morris **T1 only** (pas REAL).
+4. Rappeler REAL ENABLED ≠ G-REAL.
 
 **Handoff:** REQUIRED / publish-in-cycle.
