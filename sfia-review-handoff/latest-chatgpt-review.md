@@ -1,69 +1,220 @@
 # SFIA Review Pack FULL — AKG-M5 / L3-S2
-## Integrated A+B + Slice D — R1/R2/R3 Final Consent Consolidation
+## Integrated A+B+D — R3 EXIT PROOF (scope semantics + F1/F2 orchestration coverage)
 
-**Horodatage (UTC):** 2026-10-31T23:01:03Z
+**Horodatage (UTC):** 2026-10-31T23:12:38Z
 **Profil:** CRITICAL · Cycle 8+9 · V3-F05 · L3-S2 OPEN
-**GO:** Correction locale R1/R2/R3 — pas push/PR projet — pas LIVE
+**GO:** R3 Exit Proof — correction sémantique bornée si défaut · pas push projet · pas LIVE
 
 ---
 ## 1. Horodatage
-- Pack: `2026-10-31T23:01:03Z`
-- Delivery: `/Users/morris/Projects/sfia-workspace-feat-akg-m5-lumen-cog-prepare-corr-01`
-- Prior handoff tip/blob: `66f707c1…` / `7204490d…`
+- Pack: `2026-10-31T23:12:38Z`
+- Delivery WT: `/Users/morris/Projects/sfia-workspace-feat-akg-m5-lumen-cog-prepare-corr-01`
+- Prior handoff: tip `f4360b4a…` / blob `5d309e47…`
 
 ## 2. Git Truth
 | Item | Value |
 |------|-------|
 | Branch | `feat/akg-m5-lumen-cog-prepare-corr-01` |
-| HEAD | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
-| origin/main | equal |
+| HEAD | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` (= origin/main) |
+| Dirty | A+B+D+R1/R2/R3+Exit uncommitted preserved |
 | Staged | empty |
-| Dirty | A+B+D+R1/R2/R3 uncommitted (preserved) |
 | Project push | NONE |
 | Runtime :3020 | UNTOUCHED |
+| Handoff remote prior | `f4360b4a6401442f4b211e2106d764b61d442430` |
 
 ## 3. GO Morris
-Corriger R1 (model≠consent), R2 (offer binding), R3 (anti-doublon BEHAVIOR PROVEN). Même chantier. Pas de moteur parallèle.
+Qualifier sémantique scopeIn + couverture orchestration F1/F2. Corriger seulement si défaut réel. Pas de nouveau micro-cycle. Pas rouvrir R1/R2/A sans régression.
 
-## 4–6. Convergence / Decision Pack / Trajectoire
-Template/Build Doctrine/Roadmap/C1/M5/V3 30–35/PRR 03/06/07/08/09/handoff FULL — READ. Option B+D KEEP/ADAPT. Exit: R1–R3 DET proven.
+## 4–6. Convergence / handoff / trajectoire
+Sources processus/convergence/PRR/V3 READ. Capacité suivante si preuve: Git Integration Readiness + R24 sous GO distinct. L3-S2 OPEN.
 
-## 7. R23 — call sites CURRENT
+## 7. Architecture R23
 ```
-isChatFirstPrepareAcceptGo — Pilote lexical ONLY (candidate ignored)
-resolveChatFirstGenericPrepareGo — priority: refuse → offer-bind → explicit → no_go
-resolvePositivePrepareAdmissionEvidence — expectedFingerprint blocks E-EXPLICIT bypass
-solicitGenericExecutionPrepare — common gate; E-OFFER rebinds mission from offer
-buildIntentAnalysisFromSolicitedMission — path-like scopeIn for missionKey parity
-F1 queue/finalize + F2 — requirePositivePilotAdmission:true (hardcoded)
+Pilote → F2 analyzeIntent
+  ├─ !formalizationReady && !chatFirstPrepare → F1 orchestrateProjectAssistantTurn
+  │     → tool request_generic_execution_prepare → queue → finalize → solicit(+)
+  └─ chatFirstPrepare / formalization → F2 prepare gate → solicit(+)
+solicit → resolvePositiveAdmission → [E-OFFER rebind | E-EXPLICIT]
+       → buildIntentAnalysisFromSolicitedMission (F1 mission)
+       → materiality / capabilities / missionKey → buildExecutionContract
+       → CONTRACT_ALREADY_EXISTS reuse
+```
+F1 vs F2 prepare: **mutually exclusive per turn** (skipF1ForChatFirstPrepare).
+
+## 8. Diagnostic sémantique scopeIn
+Défaut local (CAS B) avant ce GO: `pathLikeScope` acceptait tout `/` ou extension **embedded** →
+- « Comparer A/B et C/D » → faux scopeIn
+- narrative contenant un chemin → scopeIn = narrative entière
+Principe: **DÉDUPLICATION ≠ QUALIFICATION WRITE**.
+
+## 9. Inventaire impacts DTO
+| Champ | Effet |
+|-------|-------|
+| scope (narrative) | missionScopeNarrative / readiness |
+| scopeIn | missionKey, missionImpliesRepositoryWork, protected hits, contract WHERE |
+| repositoryMutationDeclared | write/read/none/unknown — never invented from path alone |
+| intentKind | read_only if none/read; else other |
+| signals | materiality structural flags |
+Source grounding: declared READ only — scopeIn ≠ read claim (DOCUMENTED in prepare).
+
+## 10. Matrice M1–M16
+| ID | Result | Qual |
+|----|--------|------|
+| M1 path+write | PASS scopeIn=[path] write declared | BEHAVIOR PROVEN |
+| M2 F2 parity shape | PASS | BEHAVIOR PROVEN |
+| M3 narrative | PASS empty scopeIn | BEHAVIOR PROVEN |
+| M4 narrative+path | PASS empty scopeIn | BEHAVIOR PROVEN |
+| M5 read | PASS read_only empty scopeIn | BEHAVIOR PROVEN |
+| M6 none | PASS empty scopeIn | BEHAVIOR PROVEN |
+| M7 unknown | PASS scopeIn path, NOT write | BEHAVIOR PROVEN |
+| M8 mutation absent | PASS scopeIn path, undeclared | BEHAVIOR PROVEN |
+| M9 .md path | PASS token scopeIn | BEHAVIOR PROVEN |
+| M10 A/B | PASS not path | BEHAVIOR PROVEN |
+| M11 URL | PASS not path | BEHAVIOR PROVEN |
+| M12 .sfia token | PASS classifiable; gates later | BEHAVIOR PROVEN |
+| M13 abs/traversal | PASS rejected auto scopeIn | BEHAVIOR PROVEN |
+| M14 signals | PASS preserved | BEHAVIOR PROVEN |
+| M15 divergent reps | PASS honest non-parity | BEHAVIOR PROVEN |
+| M16 legacy | PASS | BEHAVIOR PROVEN |
+
+## 11–12. Orchestrateurs / atteignabilité
+Même tour réel: F1 advisory XOR F2 chat-first prepare — **pas de double solicit concurrente via les deux orchestrateurs**.
+Double entrée F1-style/F2-style = même service `solicitGenericExecutionPrepare` (T13–T15/O5/O6).
+Couverture E2E orchestrateur individuel: der16 R2b (F1 tool wiring) + F2 solicit path — COVERAGE VERIFIED prior suites.
+Gap: pas de test unique lançant F1+F2 prepare simultanés (scénario non atteignable) — **KNOWN GAP non bloquant**.
+
+## 13. Matrice O1–O8
+| ID | Result | Qual |
+|----|--------|------|
+| O-routing exclusivity | PASS static | DOCUMENTED / COVERAGE VERIFIED |
+| O3 no utterance | PASS NO_GO | BEHAVIOR PROVEN |
+| O5 shared gate static | PASS | COVERAGE VERIFIED |
+| O6 different subjects | PASS 2 EC | BEHAVIOR PROVEN |
+| O1/O2/O4 | exercised in der16/gD4 prior | COVERAGE VERIFIED |
+| O7 materiality currentness | prior SHE / materiality suites | COVERAGE VERIFIED |
+| O8 replay same subject | T13–T15 / CONTRACT_ALREADY_EXISTS | BEHAVIOR PROVEN (service) |
+
+## 14. Correctifs éventuels
+**CAS B — correction locale minimale** dans `prepareGenericExecutionContractDraft.ts`:
+- ajout `isStandaloneRepoPathScopeToken`
+- builder n'injecte scopeIn que pour token path standalone + non read/none
+- aucune permission WRITE inventée
+Pas de changement orchestrateur. R1/R2/SHE/Axe A inchangés.
+
+### Helper + builder CURRENT (extrait)
+```typescript
+export function isStandaloneRepoPathScopeToken(scope: string): boolean {
+  const s = scope.trim();
+  if (!s) return false;
+  // Narratives always contain whitespace — keep scope narrative, empty scopeIn.
+  if (/\s/.test(s)) return false;
+  if (/^https?:\/\//i.test(s) || /^[a-z][a-z0-9+.-]*:\/\//i.test(s)) {
+    return false;
+  }
+  // Reject path traversal / absolute FS as auto scopeIn (gates remain later).
+  if (s.includes("..") || s.startsWith("/") || /^[a-z]:\\/i.test(s)) {
+    return false;
+  }
+  const hasExt =
+    /\.(ts|tsx|js|jsx|mjs|cjs|py|md|json|ya?ml)$/i.test(s);
+  const workspaceish =
+    /^(projects|\.sfia|app|src|docs)[/\\]/.test(s) ||
+    /^projects[/\\]/i.test(s);
+  // "A/B" labels without extension or workspace prefix are NOT repo paths.
+  if (!hasExt && !workspaceish) return false;
+  return hasExt || /[/\\]/.test(s);
+}
+
+/**
+ * Minimal IntentAnalysisDto for a tool-solicited mission. Safe defaults:
+ * intentClass execution_request, NO executionIntent taxonomy, NO
+ * continuationKind / artifactMaterializationOperation, NO cycle type.
+ */
+
+export function buildIntentAnalysisFromSolicitedMission(
+  fields: SolicitGenericPrepareMissionFields,
+): IntentAnalysisDto {
+  const objective = fields.objective?.trim() || null;
+  const expectedOutcome = fields.expectedOutcome?.trim() || null;
+  const scope = fields.scope?.trim() || null;
+  const sig = fields.impactSignals ?? null;
+  const structural =
+    sig?.structuralChange === true ||
+    sig?.securityImpact === true ||
+    sig?.architectureImpact === true ||
+    sig?.dataImpact === true ||
+    sig?.irreversible === true;
+  const notes = fields.contextNotes?.trim() || null;
+  const mutation = fields.repositoryMutation ?? null;
+  // R3 Exit — only a standalone path token may enter scopeIn for missionKey
+  // parity. read/none keep empty scopeIn. Never invent WRITE from path alone.
+  const pathLikeScope = !!scope && isStandaloneRepoPathScopeToken(scope);
+  const readOnly = mutation === "none" || mutation === "read";
+  const scopeIn = !readOnly && pathLikeScope && scope ? [scope] : [];
+  const base: IntentAnalysisDto = {
+    parseOk: true,
+    intentClass: "execution_request",
+    candidateCycleTypeId: null,
+    signals: {
+      structuralChange: sig?.structuralChange === true,
+      securityImpact: sig?.securityImpact === true,
+      architectureImpact: sig?.architectureImpact === true,
+      dataImpact: sig?.dataImpact === true,
+      irreversible: sig?.irreversible === true,
+      lowRiskBounded: !structural,
+    },
+    cognitiveWorkload: null,
+    contradictionCandidate: null,
+    challengeResponseAssessment: "sufficient",
+    objective,
+    scope,
+    rephrasedRequest: objective,
+    outOfScope: [],
+    risks: [],
+    reservations: notes ? [notes] : [],
+    stopConditions: [],
+    activatedBlocks: [],
+    expectedOutcome,
+    criticalJustification: null,
+    requestedOperation: null,
+    executionIntent: readOnly
+      ? ({
+          intentKind: "read_only",
+          scopeIn: [],
+          scopeOut: [],
+          expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
+          requiredCapabilities: [],
+        } as IntentAnalysisDto["executionIntent"])
+      : ({
+          intentKind: "other",
+          scopeIn,
+          scopeOut: [],
+          expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
+          requiredCapabilities: [],
+        } as IntentAnalysisDto["executionIntent"]),
+  };
+  if (
+    mutation === "none" ||
+    mutation === "read" ||
+    mutation === "write" ||
+    mutation === "unknown"
+  ) {
+    return {
+      ...base,
+      repositoryMutationDeclared: mutation,
+    } as IntentAnalysisDto;
+  }
+  return base;
+}
+
+
 ```
 
-## 8–10. Reproduction R1 / R2 / R3
-- **R1:** candidate.accept + « Merci » + CURRENT offer → was GO via isChatFirstPrepareAcceptGo.
-- **R2:** « OK, prépare le contrat que tu viens de proposer » → explicit_lexical before offer-bind.
-- **R3:** missionKey F1 (empty scopeIn) ≠ F2 (path scopeIn) → 2 EC; CONTRACT_ALREADY_EXISTS unused.
+## 15–17. Fichiers / contenu test / diffs
+- Modified Product: `w2/prepareGenericExecutionContractDraft.ts` (+ cumulative A+B+D F1/F2)
+- Tests: `positivePrepareAdmission.d0.test.ts` (M/O + prior R1–R3)
 
-## 11. Stratégie
-KEEP Product architecture. ADAPT admission validation + mission scopeIn parity. COMPLETE QA T1–T18. No new OA/store/regex family.
-
-## 12. Corrections R1/R2
-- R1: `pilotDecisionCandidate` voided in isChatFirstPrepareAcceptGo; DET marker strip for lexical OK.
-- R2: offer bind before explicit when accept OR (explicit∧refsOffer); narrow refsOffer; expectedFingerprint → EXPECTED_OFFER_BINDING_REQUIRED blocks E-EXPLICIT.
-
-## 13. Correction / preuve R3
-- Path-like scope → scopeIn in buildIntentAnalysisFromSolicitedMission (not for read_only/none).
-- T13/T14/T15/T18 SQLite: F1↔F2 same subject → **1 EC**, 0 Attempt, HD false. Promise.all concurrent covered.
-- Reserve: adversarial interleaving outside same missionKey still not universal EXACTLY-ONCE.
-
-## 14–18. Tests / SHE / Axe A
-positivePrepareAdmission T1–T18; lumenCog; corrA1b01; NAP; gD4; der16; toolFirst. SHE PREPARE→INSPECT→Exécuter preserved. Axis A non-régressé.
-
-## 19. Fichiers
-- Product: `prepareGenericExecutionContractDraft.ts` (+ prior orchestrateTurn/F2 A+B+D)
-- Tests: `positivePrepareAdmission.d0.test.ts` (R1/R2/R3)
-- Prior A+B dirty preserved
-
-## 20. Contenu COMPLET — positivePrepareAdmission.d0.test.ts
+### Contenu COMPLET positivePrepareAdmission.d0.test.ts
 ```typescript
 /**
  * Option B / Slice D — Positive Product Admission for Generic PREPARE.
@@ -75,14 +226,17 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 import {
   isChatFirstPrepareAcceptGo,
+  isStandaloneRepoPathScopeToken,
   resolveChatFirstGenericPrepareGo,
   resolvePositivePrepareAdmissionEvidence,
   rememberGenericPrepareRecommendation,
   solicitGenericExecutionPrepare,
   analysisFromPendingGenericPrepareOffer,
   getCurrentGenericPrepareOffer,
+  buildIntentAnalysisFromSolicitedMission,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
 import {
   clearPendingGenericPrepareOffer,
@@ -885,11 +1039,313 @@ describe("Slice D R3 — anti-doublon F1/F2 same subject (SQLite isolée)", () =
     const contract = c.contracts[0]!;
     expect(contract.decisionRefs ?? []).toEqual([]);
   });
+
+  it("O6 — different subjects must NOT collapse to one EC", async () => {
+    const { projectId, workspaceKey, oa } = await seedProject("o6");
+    const pathA = pathUnderProjectWorkspace(workspaceKey, "app", "filter.ts");
+    const pathB = pathUnderProjectWorkspace(workspaceKey, "app", "export.ts");
+    const utterance =
+      "Prépare le contrat d'exécution pour corriger le module.";
+    const a = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      mission: {
+        objective: "Corriger filter",
+        expectedOutcome: "filter OK",
+        scope: pathA,
+        repositoryMutation: "write",
+      },
+      pilotUtterance: utterance,
+      requirePositivePilotAdmission: true,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    const b = await solicitGenericExecutionPrepare({
+      oa,
+      projectId,
+      cycleInstanceId: null,
+      mission: {
+        objective: "Corriger export",
+        expectedOutcome: "export OK",
+        scope: pathB,
+        repositoryMutation: "write",
+      },
+      pilotUtterance: utterance,
+      requirePositivePilotAdmission: true,
+      forceLocalAuthority: true,
+      pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+    });
+    expect(a.ok).toBe(true);
+    expect(b.ok).toBe(true);
+    if (!a.ok || !b.ok) throw new Error("expected ok");
+    expect(a.executionContractId).not.toBe(b.executionContractId);
+    const c = await counts(oa, projectId);
+    expect(c.ecCount).toBe(2);
+  });
+});
+
+describe("R3 Exit — M1–M16 scope semantics (builder)", () => {
+  it("M1 — concrete code path + write → scopeIn = [path], mutation write declared", () => {
+    const scope = "projects/lumen/app/filter.ts";
+    expect(isStandaloneRepoPathScopeToken(scope)).toBe(true);
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Corriger filter",
+      expectedOutcome: "tests verts",
+      scope,
+      repositoryMutation: "write",
+    });
+    expect(dto.executionIntent?.scopeIn).toEqual([scope]);
+    expect(dto.executionIntent?.intentKind).toBe("other");
+    expect(
+      (dto as { repositoryMutationDeclared?: string }).repositoryMutationDeclared,
+    ).toBe("write");
+    expect(dto.scope).toBe(scope);
+  });
+
+  it("M2 — F2-shaped analysis with same path scopeIn is parity-eligible", () => {
+    const scope = "projects/lumen/app/filter.ts";
+    const f1 = buildIntentAnalysisFromSolicitedMission({
+      objective: "Corriger filter",
+      expectedOutcome: "tests verts",
+      scope,
+      repositoryMutation: "write",
+    });
+    expect(f1.executionIntent?.scopeIn).toEqual([scope]);
+  });
+
+  it("M3 — narrative pedagogical scope → empty scopeIn", () => {
+    const scope =
+      "Analyser trois formats pédagogiques et comparer leurs avantages.";
+    expect(isStandaloneRepoPathScopeToken(scope)).toBe(false);
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Comparer formats",
+      expectedOutcome: "synthèse",
+      scope,
+    });
+    expect(dto.executionIntent?.scopeIn ?? []).toEqual([]);
+    expect(dto.scope).toBe(scope);
+  });
+
+  it("M4 — narrative containing a path → empty scopeIn (no WRITE invent)", () => {
+    const scope =
+      "Étudier le module projects/lumen/app/filter.ts, sans demander de modification.";
+    expect(isStandaloneRepoPathScopeToken(scope)).toBe(false);
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Étudier module",
+      expectedOutcome: "note",
+      scope,
+    });
+    expect(dto.executionIntent?.scopeIn ?? []).toEqual([]);
+    expect(
+      (dto as { repositoryMutationDeclared?: unknown }).repositoryMutationDeclared,
+    ).toBeUndefined();
+  });
+
+  it("M5 — repositoryMutation=read → read_only, empty scopeIn", () => {
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Lire filter",
+      expectedOutcome: "compréhension",
+      scope: "projects/lumen/app/filter.ts",
+      repositoryMutation: "read",
+    });
+    expect(dto.executionIntent?.intentKind).toBe("read_only");
+    expect(dto.executionIntent?.scopeIn).toEqual([]);
+    expect(
+      (dto as { repositoryMutationDeclared?: string }).repositoryMutationDeclared,
+    ).toBe("read");
+  });
+
+  it("M6 — repositoryMutation=none → read_only, empty scopeIn", () => {
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Planifier",
+      expectedOutcome: "plan",
+      scope: "A 2j; B 4j après A",
+      repositoryMutation: "none",
+    });
+    expect(dto.executionIntent?.intentKind).toBe("read_only");
+    expect(dto.executionIntent?.scopeIn).toEqual([]);
+  });
+
+  it("M7 — mutation unknown + path → scopeIn path, NO write promotion", () => {
+    const scope = "projects/lumen/app/filter.ts";
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Corriger",
+      expectedOutcome: "ok",
+      scope,
+      repositoryMutation: "unknown",
+    });
+    expect(dto.executionIntent?.scopeIn).toEqual([scope]);
+    expect(
+      (dto as { repositoryMutationDeclared?: string }).repositoryMutationDeclared,
+    ).toBe("unknown");
+    expect(
+      (dto as { repositoryMutationDeclared?: string }).repositoryMutationDeclared,
+    ).not.toBe("write");
+  });
+
+  it("M8 — mutation absent + path → scopeIn for parity, no declared mutation", () => {
+    const scope = "projects/lumen/app/filter.ts";
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Corriger",
+      expectedOutcome: "ok",
+      scope,
+    });
+    expect(dto.executionIntent?.scopeIn).toEqual([scope]);
+    expect(
+      (dto as { repositoryMutationDeclared?: unknown }).repositoryMutationDeclared,
+    ).toBeUndefined();
+  });
+
+  it("M9 — documentary .md path token → scopeIn (routing gates remain Product)", () => {
+    const scope = "projects/lumen/docs/rapport.md";
+    expect(isStandaloneRepoPathScopeToken(scope)).toBe(true);
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Rédiger rapport",
+      expectedOutcome: "md",
+      scope,
+      repositoryMutation: "write",
+    });
+    expect(dto.executionIntent?.scopeIn).toEqual([scope]);
+  });
+
+  it("M10 — A/B label narrative → NOT path scopeIn", () => {
+    const scope = "Comparer les options A/B et C/D.";
+    expect(isStandaloneRepoPathScopeToken(scope)).toBe(false);
+    expect(isStandaloneRepoPathScopeToken("A/B")).toBe(false);
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Comparer",
+      expectedOutcome: "choix",
+      scope,
+    });
+    expect(dto.executionIntent?.scopeIn ?? []).toEqual([]);
+  });
+
+  it("M11 — URL → NOT path scopeIn", () => {
+    expect(isStandaloneRepoPathScopeToken("https://example.org/reference")).toBe(
+      false,
+    );
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Référencer",
+      expectedOutcome: "note",
+      scope: "https://example.org/reference",
+    });
+    expect(dto.executionIntent?.scopeIn ?? []).toEqual([]);
+  });
+
+  it("M12 — protected .sfia path token still classifiable as path token (gates later)", () => {
+    expect(isStandaloneRepoPathScopeToken(".sfia/policies/x.json")).toBe(true);
+  });
+
+  it("M13 — absolute / traversal / outside → NOT auto scopeIn", () => {
+    expect(isStandaloneRepoPathScopeToken("/etc/passwd")).toBe(false);
+    expect(isStandaloneRepoPathScopeToken("../secrets/x.ts")).toBe(false);
+    expect(
+      isStandaloneRepoPathScopeToken("projects/lumen/app/filter.ts"),
+    ).toBe(true);
+  });
+
+  it("M14 — architectureImpact preserved on DTO signals", () => {
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Refactor",
+      expectedOutcome: "ok",
+      scope: "projects/lumen/app/filter.ts",
+      repositoryMutation: "write",
+      impactSignals: { architectureImpact: true, irreversible: true },
+    });
+    expect(dto.signals?.architectureImpact).toBe(true);
+    expect(dto.signals?.irreversible).toBe(true);
+    expect(dto.signals?.lowRiskBounded).toBe(false);
+  });
+
+  it("M15 — same objective different scope representation → different scopeIn (honest non-parity)", () => {
+    const path = "projects/lumen/app/filter.ts";
+    const a = buildIntentAnalysisFromSolicitedMission({
+      objective: "Corriger filter",
+      expectedOutcome: "ok",
+      scope: path,
+      repositoryMutation: "write",
+    });
+    const b = buildIntentAnalysisFromSolicitedMission({
+      objective: "Corriger filter",
+      expectedOutcome: "ok",
+      scope: `Corriger le module ${path} dans l'atelier`,
+      repositoryMutation: "write",
+    });
+    expect(a.executionIntent?.scopeIn).toEqual([path]);
+    expect(b.executionIntent?.scopeIn ?? []).toEqual([]);
+  });
+
+  it("M16 — pre-Slice D style mission without executionIntent fields still builds", () => {
+    const dto = buildIntentAnalysisFromSolicitedMission({
+      objective: "Mission historique",
+      expectedOutcome: "résultat",
+      scope: "atelier pédagogique sans chemin",
+    });
+    expect(dto.objective).toBe("Mission historique");
+    expect(dto.executionIntent?.scopeIn ?? []).toEqual([]);
+    expect(dto.intentClass).toBe("execution_request");
+  });
+});
+
+describe("R3 Exit — O orchestration coverage / routing", () => {
+  it("O-routing — F1 and F2 prepare are mutually exclusive in orchestrateF2 (DOCUMENTED)", () => {
+    const src = readFileSync(
+      join(
+        process.cwd(),
+        "features/project-assistant/f2/orchestrateF2.ts",
+      ),
+      "utf8",
+    );
+    // Chat-first prepare skips F1 advisory; otherwise non-ready → F1.
+    expect(src).toMatch(/skipF1ForChatFirstPrepare/);
+    expect(src).toMatch(/orchestrateProjectAssistantTurn\(/);
+    expect(src).toMatch(/solicitGenericExecutionPrepare\(\{/);
+    // Same turn does not invoke both prepare paths in parallel.
+    expect(src).toMatch(
+      /if \(!transition\.formalizationReady && !skipF1ForChatFirstPrepare\)/,
+    );
+  });
+
+  it("O3 — tool-style mission without Pilote utterance remains NO_GO (orchestrator-independent gate)", async () => {
+    const result = await solicitGenericExecutionPrepare({
+      oa: null as never,
+      projectId: "prj:o3",
+      cycleInstanceId: null,
+      mission: {
+        objective: "x",
+        expectedOutcome: "y",
+        scope: "projects/lumen/app/filter.ts",
+        repositoryMutation: "write",
+      },
+      requirePositivePilotAdmission: true,
+    });
+    expect(result.ok).toBe(false);
+    if (result.ok) throw new Error("fail");
+    expect(result.code).toBe("POSITIVE_PREPARE_ADMISSION_REQUIRED");
+    expect(result.humanDecisionCreated).toBe(false);
+    expect(result.executionAttemptCreated).toBe(false);
+  });
+
+  it("O5 — shared solicit is the common mutation gate (static)", () => {
+    const f1 = readFileSync(
+      join(process.cwd(), "features/project-assistant/orchestrateTurn.ts"),
+      "utf8",
+    );
+    const f2 = readFileSync(
+      join(process.cwd(), "features/project-assistant/f2/orchestrateF2.ts"),
+      "utf8",
+    );
+    expect(f1).toMatch(/solicitGenericExecutionPrepare/);
+    expect(f2).toMatch(/solicitGenericExecutionPrepare/);
+    expect(f1).toMatch(/requirePositivePilotAdmission:\s*true/);
+    expect(f2).toMatch(/requirePositivePilotAdmission:\s*true/);
+  });
 });
 
 ```
 
-## 21. Diffs COMPLETS Product (vs HEAD baseline)
+### Diffs Product COMPLETS vs HEAD baseline
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts b/projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts
 index 9ca5fa01..2aa545a3 100644
@@ -1013,7 +1469,7 @@ index 8c9f335c..028fd8de 100644
      assistantText = durableBuilt.contentCore;
 
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-index 4b370302..8abe3b42 100644
+index 4b370302..9d47fcac 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 @@ -87,12 +87,159 @@ export type GenericMissionPrepareReadiness = {
@@ -1264,10 +1720,10 @@ index 4b370302..8abe3b42 100644
 +  // TEST-15 / LUMEN — explicit refusal is Product-side absence of consent.
 +  if (hasExplicitPrepareContractRefusal(input.text)) {
 +    return { kind: "no_go", reason: "explicit_prepare_refusal" };
-   }
++  }
 +  if (isPrepareMetaAnalysisOrCitationFrame(input.text)) {
 +    return { kind: "no_go", reason: "prepare_citation_or_analysis_not_consent" };
-+  }
+   }
 +  // Slice D / S7 — suggestive hedges are not a current PREPARE instruction.
    if (
 -    !isChatFirstPrepareAcceptGo({
@@ -1412,10 +1868,13 @@ index 4b370302..8abe3b42 100644
 +                    ? "POSITIVE_PREPARE_ADMISSION_REQUIRED"
 +                    : "POSITIVE_PREPARE_ADMISSION_REQUIRED";
 +    return { kind: "no_go", code, reason: go.reason };
-+  }
+   }
+-  if ((offer.cycleInstanceId ?? null) !== (input.cycleInstanceId ?? null)) {
+-    return { kind: "no_go", reason: "prepare_offer_cycle_mismatch" };
 +  if (go.kind === "explicit_lexical_prepare") {
 +    return { kind: "e_explicit_prepare", code: "E_EXPLICIT_PREPARE" };
-+  }
+   }
+-  return { kind: "prepare", offerFingerprint: offer.offerFingerprint };
 +  if (expected && expected !== go.offerFingerprint) {
 +    return {
 +      kind: "no_go",
@@ -1434,17 +1893,14 @@ index 4b370302..8abe3b42 100644
 +      code: "PREPARE_OFFER_STALE_OR_MISMATCH",
 +      reason: "offer_stale_or_missing_at_admission",
 +    };
-   }
--  if ((offer.cycleInstanceId ?? null) !== (input.cycleInstanceId ?? null)) {
--    return { kind: "no_go", reason: "prepare_offer_cycle_mismatch" };
++  }
 +  if ((live.cycleInstanceId ?? null) !== (input.cycleInstanceId ?? null)) {
 +    return {
 +      kind: "no_go",
 +      code: "PREPARE_OFFER_CYCLE_MISMATCH",
 +      reason: "prepare_offer_cycle_mismatch",
 +    };
-   }
--  return { kind: "prepare", offerFingerprint: offer.offerFingerprint };
++  }
 +  return {
 +    kind: "e_offer_accept",
 +    offerFingerprint: go.offerFingerprint,
@@ -1453,23 +1909,53 @@ index 4b370302..8abe3b42 100644
  }
 
  export function assessGenericMissionPrepareReadiness(
-@@ -1351,6 +1671,15 @@ export function buildIntentAnalysisFromSolicitedMission(
+@@ -1331,6 +1651,33 @@ export type SolicitGenericPrepareMissionFields = {
+   } | null;
+ };
+
++/**
++ * R3 Exit — standalone repository path token for scopeIn parity only.
++ * DÉDUPLICATION ≠ QUALIFICATION WRITE: never promote narrative / URL / A/B
++ * labels into mutation scopeIn. Whole-string match only (no embedded path).
++ */
++export function isStandaloneRepoPathScopeToken(scope: string): boolean {
++  const s = scope.trim();
++  if (!s) return false;
++  // Narratives always contain whitespace — keep scope narrative, empty scopeIn.
++  if (/\s/.test(s)) return false;
++  if (/^https?:\/\//i.test(s) || /^[a-z][a-z0-9+.-]*:\/\//i.test(s)) {
++    return false;
++  }
++  // Reject path traversal / absolute FS as auto scopeIn (gates remain later).
++  if (s.includes("..") || s.startsWith("/") || /^[a-z]:\\/i.test(s)) {
++    return false;
++  }
++  const hasExt =
++    /\.(ts|tsx|js|jsx|mjs|cjs|py|md|json|ya?ml)$/i.test(s);
++  const workspaceish =
++    /^(projects|\.sfia|app|src|docs)[/\\]/.test(s) ||
++    /^projects[/\\]/i.test(s);
++  // "A/B" labels without extension or workspace prefix are NOT repo paths.
++  if (!hasExt && !workspaceish) return false;
++  return hasExt || /[/\\]/.test(s);
++}
++
+ /**
+  * Minimal IntentAnalysisDto for a tool-solicited mission. Safe defaults:
+  * intentClass execution_request, NO executionIntent taxonomy, NO
+@@ -1351,6 +1698,11 @@ export function buildIntentAnalysisFromSolicitedMission(
      sig?.irreversible === true;
    const notes = fields.contextNotes?.trim() || null;
    const mutation = fields.repositoryMutation ?? null;
-+  // R3 — path-like scope feeds scopeIn so F1 tool mission and F2 analysis
-+  // with the same Pilote subject share stableMissionKey (anti-doublon).
-+  // Pathless / read_only / narrative scopes stay empty (toolFirst R1+).
-+  const pathLikeScope =
-+    !!scope &&
-+    (/[\\/]/.test(scope) ||
-+      /\.(ts|tsx|js|jsx|mjs|cjs|py|md|json|ya?ml)\b/i.test(scope));
++  // R3 Exit — only a standalone path token may enter scopeIn for missionKey
++  // parity. read/none keep empty scopeIn. Never invent WRITE from path alone.
++  const pathLikeScope = !!scope && isStandaloneRepoPathScopeToken(scope);
 +  const readOnly = mutation === "none" || mutation === "read";
 +  const scopeIn = !readOnly && pathLikeScope && scope ? [scope] : [];
    const base: IntentAnalysisDto = {
      parseOk: true,
      intentClass: "execution_request",
-@@ -1377,16 +1706,21 @@ export function buildIntentAnalysisFromSolicitedMission(
+@@ -1377,16 +1729,21 @@ export function buildIntentAnalysisFromSolicitedMission(
      expectedOutcome,
      criticalJustification: null,
      requestedOperation: null,
@@ -1501,7 +1987,7 @@ index 4b370302..8abe3b42 100644
    };
    if (
      mutation === "none" ||
-@@ -1410,6 +1744,23 @@ export type SolicitGenericExecutionPrepareInput = {
+@@ -1410,6 +1767,23 @@ export type SolicitGenericExecutionPrepareInput = {
    /** Full analysis (F2) OR mission fields (Nora tool) — exactly one source. */
    readonly analysis?: IntentAnalysisDto;
    readonly mission?: SolicitGenericPrepareMissionFields;
@@ -1525,7 +2011,7 @@ index 4b370302..8abe3b42 100644
    /** M-HD-01 — verified OA HumanDecision for structural resume. */
    readonly decisionId?: string | null;
    readonly sessionKey?: string | null;
-@@ -1493,9 +1844,114 @@ export async function solicitGenericExecutionPrepare(
+@@ -1493,9 +1867,114 @@ export async function solicitGenericExecutionPrepare(
    if (!projectId) {
      return fail("PRODUCT_PROJECT_REQUIRED", "Project requis pour préparer.");
    }
@@ -1643,7 +2129,7 @@ index 4b370302..8abe3b42 100644
 
    const readiness = assessGenericMissionPrepareReadiness(analysis);
    if (readiness.missingFields.length > 0) {
-@@ -1505,9 +1961,7 @@ export async function solicitGenericExecutionPrepare(
+@@ -1505,9 +1984,7 @@ export async function solicitGenericExecutionPrepare(
        readiness.missingFields,
      );
    }
@@ -1656,87 +2142,69 @@ index 4b370302..8abe3b42 100644
 
 ```
 
-## 22. QA R1/R2/R3
-| ID | Result | Qual |
-|----|--------|------|
-| T1 Merci+model accept+offer | PASS no_go | BEHAVIOR PROVEN |
-| T2 Merci+model refuse | PASS | BEHAVIOR PROVEN |
-| T3 OK+offer | PASS E-OFFER | BEHAVIOR PROVEN |
-| T4 empty+model accept | PASS | BEHAVIOR PROVEN |
-| T6 OK prepare proposed | PASS E-OFFER | BEHAVIOR PROVEN |
-| T8 rebound A≠B | PASS | BEHAVIOR PROVEN |
-| T10 independent explicit | PASS E-EXPLICIT | BEHAVIOR PROVEN |
-| T12 expected fp + explicit | PASS EXPECTED_OFFER_BINDING | BEHAVIOR PROVEN |
-| T13 F1→F2 | PASS 1 EC | BEHAVIOR PROVEN |
-| T14 F2→F1 | PASS 1 EC | BEHAVIOR PROVEN |
-| T15 concurrent | PASS 1 EC | BEHAVIOR PROVEN |
-| T18 SQLite counts | PASS | BEHAVIOR PROVEN |
-| T7/T9/T11/T16/T17 | prior paths / COVERAGE | mixed |
-
-## 23–24. QA A+B+D + techniques
-**247 PASS** (9 suites). tsc EXIT 0. eslint EXIT 0. Prior 235 ≠ this proof.
+## 18–20. QA
+**267 PASS** (9 suites this campaign). tsc 0 · eslint 0.
+247 PASS = historical prior campaign — not this proof.
+SQLite: T13–T15/T18/O6 — EC counts + Attempt 0 + HD false.
 ```
-sumption_validated","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f2-d3399b1e1c808b4a","cycleTypeId":"cyc:delivery","result":"ok","detailedStatus":"resolved_detailed"}
-{"event":"oa.ckc.qualification_started","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f2-d3399b1e1c808b4a","cycleTypeId":"cyc:delivery","result":"started","detailedStatus":"resolved_detailed"}
+d":"cyc:delivery","result":"started","detailedStatus":"resolved_detailed"}
 {"event":"oa.cycle.qualified","ts":"2026-08-23T04:30:00.000Z","recommendedProfile":"Light","result":"ok","durationMs":0}
 
 stdout | __tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts > D-ER-16…19 Generic Execution Nora Tool Delivery > E10 — explicit NEW_CYCLE formalization WITHOUT cycle stays on the historical createCycle path (not hijacked)
-{"event":"oa.ckc.qualification_succeeded","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f2-d3399b1e1c808b4a","cycleTypeId":"cyc:delivery","result":"ok","detailedStatus":"resolved_detailed","recommendedProfile":"Light","durationMs":0}
-{"event":"oa.ckc.result_produced","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f2-d3399b1e1c808b4a","cycleTypeId":"cyc:delivery","result":"ok","detailedStatus":"resolved_detailed","recommendedProfile":"Light","durationMs":0}
+{"event":"oa.ckc.qualification_succeeded","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f2-e95132a36ccdc181","cycleTypeId":"cyc:delivery","result":"ok","detailedStatus":"resolved_detailed","recommendedProfile":"Light","durationMs":0}
+{"event":"oa.ckc.result_produced","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:f2-e95132a36ccdc181","cycleTypeId":"cyc:delivery","result":"ok","detailedStatus":"resolved_detailed","recommendedProfile":"Light","durationMs":0}
 
 stdout | __tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts > D-ER-16…19 Generic Execution Nora Tool Delivery > R4 — Project-scoped Select: null-cycle AUTHORIZED PRODUCT_GOVERNED EC → Attempt accepted (no invented cycle; Cursor access not gated by methodological profile)
-{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e1997d7ca6e55c6f","attemptId":"xat:w3a:6d1cd7822f1e23df","executionContractId":"xct:gen-prep:51a4701ba81a86de9067b163","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":1}
-{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:e1997d7ca6e55c6f","attemptId":"xat:w3a:6d1cd7822f1e23df","executionContractId":"xct:gen-prep:51a4701ba81a86de9067b163","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":1}
+{"event":"oa.execution_attempt.agent_selected","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:415f7f00cca9e311","attemptId":"xat:w3a:6d1cd7822f1e23df","executionContractId":"xct:gen-prep:51a4701ba81a86de9067b163","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","result":"ok","durationMs":2}
+{"event":"oa.execution_attempt.accepted","ts":"2026-08-23T04:30:00.000Z","correlationId":"cor:415f7f00cca9e311","attemptId":"xat:w3a:6d1cd7822f1e23df","executionContractId":"xct:gen-prep:51a4701ba81a86de9067b163","executionContractVersion":3,"selectedAgentRef":"agt:studio.cursor.generalist","newStatus":"accepted","contractStatus":"confirmed","result":"ok","durationMs":2}
 
- ✓ __tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts (28 tests) 809ms
+ ✓ __tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts (28 tests) 825ms
 
  Test Files  9 passed (9)
-      Tests  247 passed (247)
-   Start at  00:00:18
-   Duration  2.80s (transform 2.16s, setup 522ms, collect 8.37s, tests 1.75s, environment 503ms, prepare 376ms)
+      Tests  267 passed (267)
+   Start at  00:11:43
+   Duration  2.88s (transform 2.40s, setup 415ms, collect 8.74s, tests 1.80s, environment 730ms, prepare 484ms)
 
 
 ```
 
-## 25. Fake/Real
-DET / fixtures / SQLite isolée. OpenAI LIVE NOT EXERCISED. Cursor REAL NOT. Campaign UNTOUCHED. G-REAL NOT GRANTED.
+## 21. Fake/Real
+DET only. LIVE/REAL/campaign UNTOUCHED. G-REAL NOT GRANTED.
 
-## 26. R24 — UPDATE REQUIRED — SYNC GATE OPEN
-| Vol | Impact |
-|-----|--------|
-| 03 | model≠consent; offer-bind priority; dual-entry dedup |
-| 06 | offer process-local unchanged |
-| 07 | E-OFFER before E-EXPLICIT when offer-referenced; candidate non-authoritative |
-| 08 | T1–T18 + positivePrepareAdmission |
-| 09 | lexical residual; no durable admissionKind; not universal exactly-once |
-No protected files edited.
+## 22. R24
+R24 SYNC GATE OPEN (A+B+D cumulative).
+This consolidation: **semantic scopeIn tightening** + proof — update PRR 03/07/08/09 proposed.
+NO NEW structural persistence impact. Offer process-local unchanged (06).
+Protected files NOT edited.
 
-## 27. Réserves
-1. E-EXPLICIT lexical incomplete FR.
+## 23. Dette / exit
+1. E-EXPLICIT lexical residual.
 2. Offer process-local.
-3. No durable admission stamp.
-4. R3 proven for same missionKey subject — not universal races.
-5. LIVE pending.
+3. No durable admissionKind.
+4. Dual orchestrator same-turn prepare unreachable — documented.
+5. Universal exactly-once NOT claimed.
+Exit: Git Integration Readiness + R24 under distinct GO.
 
-## 28. Gates Morris
-Review OPEN · Project commit NOT AUTH · R24 OPEN · LIVE NOT · L3-S2 OPEN · G-REAL NOT · v3 NON ADOPTED
+## 24. Gates Morris
+Review OPEN · Project commit NOT · R24 OPEN · LIVE NOT · L3-S2 OPEN · G-REAL NOT · v3 NON ADOPTED
 
-## 29. Git Review Index
+## 25. Git Review Index
 | Artefact | Value |
 |----------|-------|
-| Prior tip/blob | `66f707c1` / `7204490d` |
+| Prior tip/blob | `f4360b4a` / `5d309e47` |
 | New tip/blob | *post-publish* |
 | Delivery | dirty @ `7dd49ecd` |
 
-## 30. Verdict
+## 26. Verdict
 
-**INTEGRATED A+B POSITIVE ADMISSION — READY FOR MORRIS REVIEW**
+**INTEGRATED A+B+D — R3 EXIT PROOF READY FOR MORRIS REVIEW**
 
-- Model non-authoritative (T1); Pilote accept demonstrated (T3/T6);
-- CURRENT offer bound (T6/T8); fingerprint controlled (T12);
-- Anti-doublon demonstrated at tested scope (T13–T15/T18);
-- F1/F2 coherent; SHE + Axis A preserved; 247 PASS; R24 OPEN; handoff verified.
+- scopeIn semantics qualified + tightened (no narrative/URL/A/B WRITE invent);
+- materiality/mutation declarations preserved;
+- F1/F2 parity honest; service idempotence BEHAVIOR PROVEN;
+- orchestration: exclusivity documented; shared gate proven; E2E dual-orch same-turn N/A;
+- R1/R2 + Axis A preserved; 267 PASS; R24 OPEN; handoff verified.
 
-Anti-claims: Local≠main · DET≠LIVE · Model≠consent · Tool≠admission · E-OFFER≠E-EXPLICIT · tested-scope≠universal-exactly-once · L3-S2 OPEN · G-REAL NOT · v3 NON ADOPTED.
+Anti-claims: LOCAL≠MAIN · DET≠LIVE · same missionKey≠same mission without semantic check · same service≠E2E dual-orch · PREPARE≠EXECUTE · tested≠universal-exactly-once · R24 OPEN · L3-S2 OPEN · G-REAL NOT · v3 NON ADOPTED.
 
 STOP after handoff.
