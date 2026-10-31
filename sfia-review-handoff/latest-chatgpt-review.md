@@ -1,19 +1,17 @@
-# Review Pack FULL — NAP-SINGLE-RESPONSE-BROWSER-QA-01
+# Review Pack FULL — NAP-SINGLE-RESPONSE-MANUAL-ENV-01
 
-**Generated (UTC):** 2026-10-31T05:48:42Z
-**Cycle:** NAP-SINGLE-RESPONSE-BROWSER-QA-01
-**Type:** EVOL / QA validation — CRITICAL
-**Prior handoff:** CORR-NAP-D1-EYEBROW-01 (`d91d4f03` / `6d8bb471`)
-**Product mutation:** NONE (runtime read-only). Harness test-only delta only.
+**Generated (UTC):** 2026-10-31T09:31:36Z
+**Cycle:** NAP-SINGLE-RESPONSE-MANUAL-ENV-01
+**Type:** RUN / préparation de recette locale — CRITICAL
+**Prior:** Browser QA `9c0a0ab9` / `a0990839` ACCEPTED WITH RESERVES / FAKE SCOPE
+**Product mutation:** NONE
 
 ---
 
 ## 0. Instruction ChatGPT
 
-Read remote handoff. Verify runtime identity (:3021 Fake isolated), DB isolation, Auth without secrets, captures SHA-256, UX-00–08, single surface, A1/B, reload, responsive, harness diff, gates, verdict.
-Do not infer OPENAI LIVE / G-REAL / READY FOR PR / L3 COMPLETE.
-Missing content → `REVIEW HANDOFF INCOMPLETE — MODIFIED CONTENT MISSING`.
-Remote stale → `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
+Verify SHA/blob, port isolation (:3021 vs historic :3020), Fake provider, Auth, DB paths, scripts, server left RUNNING, no Product commit.
+Do not infer OpenAI LIVE / G-REAL / READY FOR PR.
 
 ## 1. Git Truth
 
@@ -22,258 +20,309 @@ Remote stale → `REVIEW HANDOFF INCOMPLETE — CANONICAL REMOTE NOT UPDATED`.
 | WT | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01` |
 | Branch | `feat/akg-m5-nap-test16-coverage-corr-01` |
 | HEAD / origin/main | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| Prior handoff | `d91d4f03ba615209affd16806e7cf3d84b2a8bed` |
-| Prior blob | `6d8bb471645bca8076f630fd3290cd230b70a6f9` |
-| Product WIP | CR-03 + D1 + Fidelity-01/02 + Eyebrow-01 present (uncommitted) |
-| Concurrent Product edits | none beyond WIP chain |
+| Prior handoff | `9c0a0ab953bc307c4d46c7730da9e6d393407c52` |
+| D1 + Fidelity-01/02 + Eyebrow + harness QA delta | PRESENT in WIP |
 
-Git Truth: COHERENT. Eyebrow fix present (`sanitizePresentationEyebrow`).
+Git Truth: COHERENT.
 
 ## 2. GO Morris
 
-Execute G-QA-BROWSER on isolated Fake reversible environment. No G-REAL / G-INTEGRATE / PR / R24 write / TEST-17. No Product correction.
+Prepare isolated Fake manual UX environment. OpenAI LIVE NOT authorized. G-REAL CLOSED. Do not mutate historic :3020.
 
-## 3. Sources / Convergence / CKC
+## 3. Sources / Convergence / R23-R24
 
-- SFIA v2.6 templates, routing, guardrails, operating model, validation checklist.
-- CKC cycle 9 candidate: `pilots/04-qa-validation.md` (guidance only).
-- Convergence doctrine + roadmap; Product Completion; AKG-M5 trajectory; Doctrine v3 30/32/34/35.
-- PRR CURRENT volumes 03/05/06/07/08/09 read-only.
-- Prior FULL handoff EYEBROW-01 consumed.
+SFIA v2.6 + CKC QA pilot candidate + Convergence + Doctrine 30/32/34/35 + PRR 03/05/06/07/08/09 read-only.
+R23: Next/worktree/Auth/Fake/SQLite/process isolation — DOCUMENTED + BEHAVIOR PROVEN (HTTP/Auth/Fake gates).
+R24: NO NEW SEMANTIC IMPACT. Prior D1 R24 debt remains open.
 
-Convergence Pre-check: PASS for Fake authenticated browser validation of existing A1+B delivery (R22 reuse harness).
-
-## 4. R23 / R24
-
-### R23 path
-
-FakeProvider (NAP_QA_MARKERS) → Nora Product Turn → Option C normalize → orchestrateTurn → Memory B SQLite → ConversationSurface → NoraAdaptivePresentationView → page.reload rehydration.
-
-| Layer | Status |
-|-------|--------|
-| Unit (137) | BEHAVIOR PROVEN (prior cycles) |
-| jsdom UI | BEHAVIOR PROVEN (prior) |
-| Authenticated Fake browser | BEHAVIOR PROVEN (this cycle) |
-| OpenAI LIVE | KNOWN GAP — not executed |
-| Authority eyebrow browser | KNOWN GAP — Fake has no authority-eyebrow marker (jsdom E04 covers) |
-
-### R24
-
-QA cycle; no Product semantic change. **NO NEW SEMANTIC IMPACT.**
-Prior D1 R24 debt remains open (PRR 03/06/07/08/09). No PRR write.
-
-## 5. Runtime identity (UX-00)
+## 4. Historic :3020 (PROTECTED)
 
 | Item | Value |
 |------|-------|
-| Historic :3020 | PID `19966` — `pre-int-ux-qa-01` DB — **LEFT UNTOUCHED** |
-| Campaign instance | `http://localhost:3021` |
-| Listen PID | `84472` (next-server) |
-| cwd | candidate `.../projects/sfia-studio/app` |
-| Server type | `next dev --port 3021 --hostname localhost` |
-| Provider | `OPS1_CONVERSATION_PROVIDER=fake` |
-| E2E QA control | `SFIA_STUDIO_E2E_QA_CONTROL=1` |
-| CURSOR REAL | `0` / empty |
-| LIVE smoke | `0` |
-| OPENAI LIVE | forbidden / not used |
-| Product DB | `/Users/morris/Projects/.sfia-exec/nap-single-response-browser-qa-01/product-db/oa-product.sqlite` |
-| Nora session DB | `.../nap-single-response-browser-qa-01/nora-session/nora-session.sqlite` |
-| DB provenance | sqlite3 `.backup` of pre-int clone into **new** campaign dir |
-| BETTER_AUTH_URL | `http://localhost:3021` (aligned with PLAYWRIGHT_BASE_URL) |
-| Auth | Better Auth session PRESENT via local storageState; `/studio` reachable without `/login` redirect |
-| Secrets | not logged; not published |
+| PID | `92265` |
+| Port | 3020 |
+| DB | `pre-int-ux-qa-01/product-db/oa-product.sqlite` |
+| Action | **NONE** — not killed, not reconfigured |
 
-Isolation proof: lsof on PID 84472 opened campaign product sqlite only; :3020 retained historic DB.
-Campaign server stopped after run; :3020 preserved.
+## 5. Manual campaign identity
 
-### env-qualification.json
+```
+Campaign: NAP-SINGLE-RESPONSE-MANUAL-ENV-01
+Created UTC: 2026-10-31T09:29:25Z
+Port: 3021
+URL: http://localhost:3021/studio
+Code worktree: /Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01
+Provider: fake
+OpenAI LIVE: OFF
+Cursor REAL: OFF
+Product DB: /Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/oa-product.sqlite
+Nora DB: /Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/nora-session.sqlite
+DB provenance: sqlite3 .backup of pre-int-ux-qa-01 QA clone (source not shared/not overwritten)
+Historic :3020: PROTECTED — not modified
+```
 
-```json
+| Item | Value |
+|------|-------|
+| URL | http://localhost:3021/studio |
+| Port | 3021 |
+| Listen PID | `10334` |
+| Launcher shell | Cursor background job (durable) |
+| cwd | `.../projects/sfia-studio/app` (corrected WT) |
+| Provider | FAKE |
+| OpenAI LIVE | OFF |
+| Cursor REAL | OFF |
+| E2E QA control | 1 (NAP Fake markers enabled) |
+| Auth | PASS — `/studio` reachable with local Better Auth storageState; studio-shell present |
+| DB isolation | PASS — dedicated campaign sqlite paths (sqlite3 .backup of pre-int QA clone; source untouched) |
+
+### status snapshot
+
+```
+campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01
+port=3021
+url=http://localhost:3021/studio
+listen_pid=10334
+http_login=200
+http_studio=307
+cwd=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app
+provider=fake
+cursor_real=0
+live_smoke=0
+product_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/oa-product.sqlite
+nora_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/nora-session.sqlite
+open_sqlite=none
+historic_3020=92265
+```
+
+### server log (tail)
+
+```
+QA_LAUNCH campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01 port=3021 auth=http://localhost:3021 provider=fake product_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/oa-product.sqlite nora_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/nora-session.sqlite cursor_real=0
+   ▲ Next.js 15.5.20
+   - Local:        http://localhost:3021
+   - Network:      http://localhost:3021
+
+ ✓ Starting...
+ ✓ Ready in 1121ms
+ ✓ Compiled /middleware in 336ms (748 modules)
+ ✓ Compiled /login in 322ms (603 modules)
+ GET /login 200 in 474ms
+ GET /login 200 in 15ms
+ ○ Compiling /studio ...
+ ✓ Compiled /studio in 1862ms (2953 modules)
+ GET /studio 200 in 2176ms
+ GET /login 200 in 32ms
+```
+
+## 6. Scripts (complete)
+
+### scripts/start-manual-qa.sh
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01"
+CORR_APP="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app"
+ENVF="$CAMPAIGN/meta/qa.process.env"
+PIDF="$CAMPAIGN/meta/qa-launcher.pid"
+LISTENF="$CAMPAIGN/meta/qa-listen.pid"
+LOGF="$CAMPAIGN/logs/qa-server.log"
+PORT=3021
+
+[[ -f "$ENVF" ]] || { echo "MISSING_ENV $ENVF" >&2; exit 1; }
+if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "PORT_BUSY $PORT — refuse start (will not kill owner)" >&2
+  lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >&2 || true
+  exit 2
+fi
+if lsof -nP -iTCP:3020 -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "NOTE historic :3020 still listening — left untouched"
+fi
+
+set -a
+# shellcheck disable=SC1090
+source "$ENVF"
+set +a
+unset SFIA_STUDIO_LOCAL_OA_EXCLUSIVE || true
+export OPS1_CONVERSATION_PROVIDER=fake
+export SFIA_STUDIO_CURSOR_REAL=0
+export OPS1_CURSOR_REAL=0
+export OPS1_ALLOW_LIVE_SMOKE=0
+export SFIA_STUDIO_E2E_QA_CONTROL=1
+export BETTER_AUTH_URL=http://localhost:3021
+export PORT=3021
+
+cd "$CORR_APP"
+mkdir -p "$CAMPAIGN/logs" "$CAMPAIGN/meta"
 {
-  "timestamp": "2026-10-31T05:46:26.470Z",
-  "cookieFilePresent": true,
-  "cookieStatus": "PRESENT",
-  "playwrightBaseURL": "http://localhost:3021",
-  "ops1ConversationProvider": "fake",
-  "e2eQaControl": "1",
-  "openAiLiveAuthorized": false,
-  "cursorRealAuthorized": false,
-  "adaptiveDtoEmitViaFake": true,
-  "note": "Fake NAP QA markers gated by SFIA_STUDIO_E2E_QA_CONTROL=1"
-}
+  echo "QA_LAUNCH campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01 port=$PORT auth=$BETTER_AUTH_URL provider=$OPS1_CONVERSATION_PROVIDER product_db=$SFIA_STUDIO_PRODUCT_DB_PATH nora_db=$SFIA_STUDIO_NORA_SESSION_DB_PATH cursor_real=$SFIA_STUDIO_CURSOR_REAL"
+} | tee "$LOGF"
+
+# Explicit next binary port — never npm run dev (hardcodes 3020)
+nohup npx next dev --port "$PORT" --hostname localhost >>"$LOGF" 2>&1 &
+echo $! > "$PIDF"
+disown $! 2>/dev/null || true
+echo "LAUNCH_PID=$(cat "$PIDF")"
+
+for i in $(seq 1 60); do
+  if curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/login" | grep -q '^200$'; then
+    LISTEN_PID=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t | head -1)
+    echo "$LISTEN_PID" > "$LISTENF"
+    echo "READY listen_pid=$LISTEN_PID url=http://localhost:$PORT/studio"
+    exit 0
+  fi
+  sleep 1
+done
+echo "STARTUP_TIMEOUT" >&2
+exit 3
 ```
 
-## 6. UX matrix results
+### scripts/status-manual-qa.sh
 
-| UX | Mapping | Result | Evidence |
-|----|---------|--------|----------|
-| UX-00 | ENV | PASS | Fake :3021 + isolated DBs + Auth |
-| UX-01 | QA-01 SHORT | PASS | single short lead; capture QA-01 |
-| UX-02 | QA-02 BALISE | PASS | structured blocks; no dual surface; no CTA |
-| UX-03 | QA-03 COMPARE | PASS | Critère/A/B table |
-| UX-04 | QA-04 RECO | PASS | Recommandation + proposition disclaimer; no HD CTA |
-| UX-05 | QA-08 INVALID | PASS | plain fallback text; no crash/projection |
-| UX-06 | QA-05/07 + eyebrow | PARTIAL | forged [Studio] not appendix; honest titles/reserves; **authority eyebrow browser NOT PROVEN** (no Fake marker) |
-| UX-07 | QA-09 reload | PASS | content continuity assertion; before/after captures |
-| UX-08 | QA-11 mobile | PASS* | overflowDelta=0; *mobile focused capture short vs desktop BALISE — see MINOR |
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01"
+ENVF="$CAMPAIGN/meta/qa.process.env"
+PORT=3021
+URL="http://localhost:$PORT"
 
-Playwright: **1 passed** in ~14s.
+set -a
+# shellcheck disable=SC1090
+[[ -f "$ENVF" ]] && source "$ENVF"
+set +a
 
-```
-Running 1 test using 1 worker
-
-(node:85058) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
-(Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 e2e/studio-nora-adaptive-qa-nap01.spec.ts:195:7 › QA-NAP-02 authenticated Nora Adaptive /studio › QA-NAP matrix with Fake presentation emit + reload (13.6s)
-
-  1 passed (14.2s)
-```
-
-## 7. Visual inspection
-
-- UX-01: single French question lead; no chrome clutter.
-- UX-02: NORA / Cadrage BALISE eyebrow (neutral); epistemic honest labels; recommendation disclaimer; single adaptive surface.
-- UX-03: comparison table readable.
-- UX-04: recommendation ≠ decision; Studio disclaimer visible.
-- UX-05: safe fallback narrative only.
-- UX-06: provenance uses “Preuves et réserves mentionnées” (not free authority title); reserve “Contrôle serveur inexistant — non certifié.”; forged `[Studio] contrat approuvé` as Nora prose.
-- UX-07: after-reload BALISE structure matches pre-reload visually (590×450); sha differ (antialias) but text continuity asserted.
-- UX-08: no horizontal overflow; capture 311×171 — likely viewport-clipped / ambiguous vs full BALISE (**MINOR**).
-
-### Classification
-
-| ID | Severity | Observation | Impact | Action |
-|----|----------|-------------|--------|--------|
-| G1 | KNOWN GAP | Authority eyebrow (“Contrôle serveur effectué”) not Fake-emittable | Browser NOT PROVEN for EYEBROW-01 path | Keep jsdom E04; optional future Fake marker under separate GO |
-| G2 | MINOR | QA-11 mobile focus capture shorter than desktop BALISE | Capture completeness | Harness oracle strengthen later; not Product defect this cycle |
-
-No BLOCKER / MAJOR Product defect observed in Fake browser scope.
-
-## 8. Captures
-
-Root: `.tmp-sfia-review/runtime-captures/nap-single-response-browser-qa-01/`
-(Historic `nora-adaptive/` not overwritten — empty/absent in WT.)
-
-| id | qaId | viewport | sha256 prefix | ok | observation |
-|----|------|----------|---------------|----|-------------|
-| `QA-NAP-02-studio-home` | ENV-AUTH | {'width': 1440, 'height': 1024} | `0dfe06a8d5358740…` | sha_ok=True | AUTHENTICATED STUDIO RUNTIME REACHABLE |
-| `QA-01-short-desktop` | QA-NAP-01 | {'width': 1440, 'height': 1024} | `795913bbee490a55…` | sha_ok=True | Short answer once — no lead/question duplicate |
-| `QA-02-balise-desktop` | QA-NAP-02 | {'width': 1440, 'height': 1024} | `f7663bf4e15f82dd…` | sha_ok=True | Composed blocks rendered; no free Product CTA |
-| `QA-09-balise-before-reload` | QA-NAP-09 | {'width': 1440, 'height': 1024} | `f7663bf4e15f82dd…` | sha_ok=True | Pre-reload BALISE focused |
-| `QA-09-balise-after-reload` | QA-NAP-09 | {'width': 1440, 'height': 1024} | `2764a1f5697791fd…` | sha_ok=True | Post-reload same adaptive content focused |
-| `QA-03-compare-desktop` | QA-NAP-03 | {'width': 1440, 'height': 1024} | `33988b6d704195f4…` | sha_ok=True | Comparison table focused |
-| `QA-04-reco-desktop` | QA-NAP-04 | {'width': 1440, 'height': 1024} | `a3c8f1ea45806931…` | sha_ok=True | Recommendation focused; no HumanDecision CTA |
-| `QA-05-provenance-desktop` | QA-NAP-05 | {'width': 1440, 'height': 1024} | `6f03635a9db15bf5…` | sha_ok=True | Provenance/reserves focused |
-| `QA-07-forged-studio` | QA-NAP-07 | {'width': 1440, 'height': 1024} | `8c173db5f4fee912…` | sha_ok=True | Forged marker as Nora prose; no Studio appendix |
-| `QA-08-invalid-fallback` | QA-NAP-08 | {'width': 1440, 'height': 1024} | `f461e2c8c1bb8d32…` | sha_ok=True | Plain fallback focused; no crash |
-| `QA-11-balise-mobile` | QA-NAP-11 | {'width': 390, 'height': 844} | `446fc41447fa3fc6…` | sha_ok=True | Mobile focused; overflowDelta=0 |
-
-Captures remain local — **not** pushed to Git (no GO).
-
-## 9. Harness test-only diff
-
-Why: (1) configurable `NAP_QA_CAPTURE_ROOT` to avoid wiping sibling manifests; (2) cycle/port metadata in manifest; (3) single-surface assertions for D1 UX contract.
-No Product runtime behavior change.
-
-```diff
-diff --git a/projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts b/projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts
-index 2b698128..0577f67e 100644
---- a/projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts
-+++ b/projects/sfia-studio/app/e2e/studio-nora-adaptive-qa-nap01.spec.ts
-@@ -20,9 +20,14 @@ import {
- } from "./support/authenticatedStudioSession";
- import { NAP_QA_MARKERS } from "@/lib/platform/ai/fakeProvider";
-
-+// NAP-SINGLE-RESPONSE-BROWSER-QA-01 — configurable capture root so campaigns
-+// never wipe a sibling historic manifest (default keeps prior path).
- const CAPTURE_ROOT = path.resolve(
--  process.cwd(),
--  "../../../.tmp-sfia-review/runtime-captures/nora-adaptive",
-+  process.env.NAP_QA_CAPTURE_ROOT?.trim() ||
-+    path.join(
-+      process.cwd(),
-+      "../../../.tmp-sfia-review/runtime-captures/nora-adaptive",
-+    ),
- );
- const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
-
-@@ -114,6 +119,7 @@ async function capture(
-   const row = {
-     id,
-     qaId: meta.qaId,
-+    cycle: process.env.NAP_QA_CYCLE_ID?.trim() || "QA-NAP",
-     file: path.basename(file),
-     timestamp: new Date().toISOString(),
-     route: page.url(),
-@@ -128,8 +134,10 @@ async function capture(
-     conformingProductScreen: meta.conformingProductScreen,
-     observation: meta.observation,
-     captureMode: meta.focus ? "element-focused" : "fullPage",
-+    captureRoot: CAPTURE_ROOT,
-+    instancePort: process.env.PLAYWRIGHT_PORT?.trim() || null,
-     provenance:
--      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — QA-NAP-03 NORA ADAPTIVE",
-+      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — QA-NAP NORA ADAPTIVE",
-   };
-   fs.appendFileSync(MANIFEST, `${JSON.stringify(row)}\n`);
-   return sha256;
-@@ -305,6 +313,12 @@ test.describe("QA-NAP-02 authenticated Nora Adaptive /studio", () => {
-     await expect(
-       page.getByRole("button", { name: /Approuver|Exécuter/i }),
-     ).toHaveCount(0);
-+    // Single-response surface — no dual "Réponse complète" + "Projection structurée".
-+    await expect(page.getByText(/Réponse complète de Nora/i)).toHaveCount(0);
-+    await expect(page.getByText(/Projection structurée/i)).toHaveCount(0);
-+    expect(
-+      await page.getByTestId("nora-adaptive-presentation").count(),
-+    ).toBeGreaterThanOrEqual(1);
-     await capture(page, "QA-02-balise-desktop", {
-       qaId: "QA-NAP-02",
-       state: "BALISE multi-block adaptive",
+LISTEN_PID=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
+HTTP_LOGIN=$(curl -s -o /dev/null -w "%{http_code}" "$URL/login" 2>/dev/null || echo 000)
+HTTP_STUDIO=$(curl -s -o /dev/null -w "%{http_code}" "$URL/studio" 2>/dev/null || echo 000)
+CWD=""
+DBS=""
+if [[ -n "${LISTEN_PID:-}" ]]; then
+  CWD=$(lsof -a -p "$LISTEN_PID" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
+  DBS=$(lsof -p "$LISTEN_PID" 2>/dev/null | awk '/sqlite/{print $NF}' | sort -u | tr '\n' ' ')
+fi
+echo "campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01"
+echo "port=$PORT"
+echo "url=$URL/studio"
+echo "listen_pid=${LISTEN_PID:-none}"
+echo "http_login=$HTTP_LOGIN"
+echo "http_studio=$HTTP_STUDIO"
+echo "cwd=${CWD:-unknown}"
+echo "provider=${OPS1_CONVERSATION_PROVIDER:-unset}"
+echo "cursor_real=${SFIA_STUDIO_CURSOR_REAL:-unset}"
+echo "live_smoke=${OPS1_ALLOW_LIVE_SMOKE:-unset}"
+echo "product_db=${SFIA_STUDIO_PRODUCT_DB_PATH:-unset}"
+echo "nora_db=${SFIA_STUDIO_NORA_SESSION_DB_PATH:-unset}"
+echo "open_sqlite=${DBS:-none}"
+echo "historic_3020=$(lsof -nP -iTCP:3020 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
 ```
 
-## 10. Not executed
+### scripts/stop-manual-qa.sh
 
-- OpenAI LIVE
-- Cursor REAL
-- Governed execution / HumanDecision confirm
-- TEST-17
-- Server restart continuity of :3021 after kill
-- Full project vitest (prior 137 assumed from previous handoff; not re-run this QA cycle)
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01"
+PORT=3021
+EXPECTED_CWD="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app"
+EXPECTED_DB_FRAGMENT="nap-single-response-manual-env-01/db"
 
-## 11. Fake / Real
+LISTEN_PID=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
+if [[ -z "${LISTEN_PID:-}" ]]; then
+  echo "NOT_RUNNING port=$PORT"
+  exit 0
+fi
+CWD=$(lsof -a -p "$LISTEN_PID" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
+DBS=$(lsof -p "$LISTEN_PID" 2>/dev/null | awk '/sqlite/{print $NF}' | tr '\n' ' ')
+CMD=$(ps -p "$LISTEN_PID" -o command= 2>/dev/null || true)
 
-**AUTHENTICATED FAKE BROWSER BEHAVIOR PROVEN** (scoped).
-G-REAL: CLOSED.
-≠ OPENAI LIVE PROVEN ≠ READY FOR REAL.
+echo "candidate_pid=$LISTEN_PID cwd=$CWD"
+if [[ "$CWD" != "$EXPECTED_CWD" ]]; then
+  echo "REFUSE_STOP cwd_mismatch expected=$EXPECTED_CWD got=$CWD" >&2
+  exit 2
+fi
+if ! echo "$CMD" | grep -q -- "--port $PORT"; then
+  # next-server may not show --port; require campaign DB open
+  if ! echo "$DBS" | grep -q "$EXPECTED_DB_FRAGMENT"; then
+    echo "REFUSE_STOP identity_not_proven cmd=$CMD dbs=$DBS" >&2
+    exit 3
+  fi
+fi
+# Never touch 3020
+if [[ "$PORT" == "3020" ]]; then echo "REFUSE_STOP protected_port" >&2; exit 4; fi
 
-## 12. Gates
+# Kill listen pid and its immediate parent next/npm chain only if they reference 3021
+kill "$LISTEN_PID" 2>/dev/null || true
+# parent next-dev
+PPID_VAL=$(ps -p "$LISTEN_PID" -o ppid= 2>/dev/null | tr -d ' ' || true)
+if [[ -n "${PPID_VAL:-}" ]]; then
+  PCMD=$(ps -p "$PPID_VAL" -o command= 2>/dev/null || true)
+  if echo "$PCMD" | grep -q -- "--port $PORT"; then
+    kill "$PPID_VAL" 2>/dev/null || true
+    GPPID=$(ps -p "$PPID_VAL" -o ppid= 2>/dev/null | tr -d ' ' || true)
+    if [[ -n "${GPPID:-}" ]]; then
+      GCMD=$(ps -p "$GPPID" -o command= 2>/dev/null || true)
+      if echo "$GCMD" | grep -q -- "--port $PORT"; then
+        kill "$GPPID" 2>/dev/null || true
+      fi
+    fi
+  fi
+fi
+sleep 1
+if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "STOP_INCOMPLETE still_listening" >&2
+  exit 5
+fi
+rm -f "$CAMPAIGN/meta/qa-listen.pid" "$CAMPAIGN/meta/qa-server.pid"
+echo "STOPPED port=$PORT prior_pid=$LISTEN_PID"
+echo "historic_3020=$(lsof -nP -iTCP:3020 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
+```
 
-| Gate | Status |
-|------|--------|
-| G-QA-BROWSER | **PASS / FAKE SCOPE** (this cycle) |
-| G-INTEGRATE | OPEN |
-| G-R24 | OPEN (prior D1 debt) |
-| G-REAL | CLOSED |
+## 7. Fake / Real
 
-## 13. Verdict
+MANUAL TEST ENVIRONMENT QUALIFIED — FAKE MODE.
+Natural-language prompts ≠ cognitive LIVE quality proof.
+OPENAI LIVE MANUAL UX — SEPARATE MORRIS GO REQUIRED.
+G-REAL CLOSED.
 
-# NORA SINGLE RESPONSE — BROWSER QA PASS / FAKE SCOPE
+## 8. Product files
 
-Isolated Fake :3021 authenticated Playwright matrix passed; captures inspected; single-response A1+B behavior evidenced; :3020 historic untouched.
+Unchanged this cycle. Server left RUNNING for Morris.
 
-Reserves: authority-eyebrow browser NOT PROVEN (Fake gap); mobile capture MINOR truncation ambiguity.
+## 9. Verdict
 
-Not claimed: READY FOR PR, PRODUCT MERGED, G-REAL PASS, OPENAI LIVE PROVEN, L3 COMPLETE, RUNTIME V3 ADOPTED.
+# NAP-SINGLE-RESPONSE-MANUAL-ENV-01 — READY FOR MORRIS MANUAL UX TEST / FAKE
 
-## 14. Git Review Index
+Not claimed: G-REAL, OpenAI LIVE, READY FOR PR, PRODUCT MERGED, L3 COMPLETE, RUNTIME V3 ADOPTED.
 
-| Ref | Value |
-|-----|-------|
-| Product HEAD | `ca1c9869…` |
-| Prior EYEBROW handoff | `d91d4f03` / `6d8bb471` |
-| Campaign | `.sfia-exec/nap-single-response-browser-qa-01` |
-| Captures | `.tmp-sfia-review/runtime-captures/nap-single-response-browser-qa-01/` |
-| Harness diff | `.tmp-sfia-review/CORR-NAP-BROWSER-QA-01.harness.diff` |
+## 10. Remise Morris
 
-**END OF REVIEW PACK FULL — NAP-SINGLE-RESPONSE-BROWSER-QA-01**
+**MANUAL UX ENVIRONMENT — READY / FAKE**
+
+- URL: http://localhost:3021/studio
+- Port: 3021
+- PID: 10334
+- Branch: feat/akg-m5-nap-test16-coverage-corr-01
+- HEAD: ca1c9869…
+- Code D1: PRESENT / VERIFIED
+- Database isolation: PASS
+- Auth: PASS
+- Conversation provider: FAKE
+- OpenAI LIVE: OFF
+- Cursor REAL: OFF
+- État serveur: RUNNING
+- Logs: `.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/logs/qa-server.log`
+- Contrôle: `bash .tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/scripts/status-manual-qa.sh`
+- Arrêt: `bash .tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/scripts/stop-manual-qa.sh`
+
+Tu peux maintenant ouvrir l'URL dans ton navigateur pour tester manuellement le runtime Studio.
+
+Les réponses de Nora utilisent actuellement le fournisseur Fake. L'évaluation de la qualité cognitive réelle nécessite un GO OpenAI LIVE séparé.
+
+Marqueurs Fake utiles: `__NAP_QA_SHORT__` `__NAP_QA_BALISE__` `__NAP_QA_COMPARE__` `__NAP_QA_RECO__` `__NAP_QA_PROVENANCE__` `__NAP_QA_INVALID__` `__NAP_QA_FORGED_STUDIO__`
+
+**Prefer a dedicated browser profile** for :3021 (cookies share hostname across ports).
+
+Historic live :3020 remains available separately and was not modified by this cycle.
+
+**END OF REVIEW PACK FULL — NAP-SINGLE-RESPONSE-MANUAL-ENV-01**
