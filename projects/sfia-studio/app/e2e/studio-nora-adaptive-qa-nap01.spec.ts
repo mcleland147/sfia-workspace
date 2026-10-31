@@ -20,9 +20,14 @@ import {
 } from "./support/authenticatedStudioSession";
 import { NAP_QA_MARKERS } from "@/lib/platform/ai/fakeProvider";
 
+// NAP-SINGLE-RESPONSE-BROWSER-QA-01 — configurable capture root so campaigns
+// never wipe a sibling historic manifest (default keeps prior path).
 const CAPTURE_ROOT = path.resolve(
-  process.cwd(),
-  "../../../.tmp-sfia-review/runtime-captures/nora-adaptive",
+  process.env.NAP_QA_CAPTURE_ROOT?.trim() ||
+    path.join(
+      process.cwd(),
+      "../../../.tmp-sfia-review/runtime-captures/nora-adaptive",
+    ),
 );
 const MANIFEST = path.join(CAPTURE_ROOT, "manifest.jsonl");
 
@@ -114,6 +119,7 @@ async function capture(
   const row = {
     id,
     qaId: meta.qaId,
+    cycle: process.env.NAP_QA_CYCLE_ID?.trim() || "QA-NAP",
     file: path.basename(file),
     timestamp: new Date().toISOString(),
     route: page.url(),
@@ -128,8 +134,10 @@ async function capture(
     conformingProductScreen: meta.conformingProductScreen,
     observation: meta.observation,
     captureMode: meta.focus ? "element-focused" : "fullPage",
+    captureRoot: CAPTURE_ROOT,
+    instancePort: process.env.PLAYWRIGHT_PORT?.trim() || null,
     provenance:
-      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — QA-NAP-03 NORA ADAPTIVE",
+      "CURSOR-PRODUCED LOCAL RUNTIME SCREENSHOT — QA-NAP NORA ADAPTIVE",
   };
   fs.appendFileSync(MANIFEST, `${JSON.stringify(row)}\n`);
   return sha256;
@@ -305,6 +313,12 @@ test.describe("QA-NAP-02 authenticated Nora Adaptive /studio", () => {
     await expect(
       page.getByRole("button", { name: /Approuver|Exécuter/i }),
     ).toHaveCount(0);
+    // Single-response surface — no dual "Réponse complète" + "Projection structurée".
+    await expect(page.getByText(/Réponse complète de Nora/i)).toHaveCount(0);
+    await expect(page.getByText(/Projection structurée/i)).toHaveCount(0);
+    expect(
+      await page.getByTestId("nora-adaptive-presentation").count(),
+    ).toBeGreaterThanOrEqual(1);
     await capture(page, "QA-02-balise-desktop", {
       qaId: "QA-NAP-02",
       state: "BALISE multi-block adaptive",

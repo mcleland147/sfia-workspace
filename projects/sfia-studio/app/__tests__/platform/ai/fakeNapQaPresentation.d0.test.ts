@@ -15,6 +15,7 @@ import {
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { coercePlainTextToProductTurnJson } from "@/lib/nora-cognitive-runtime/providerAgentsModel";
 import {
+  composeCanonicalFromPresentation,
   parseNoraAdaptivePresentation,
   resolveAdaptiveAssistantRender,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
@@ -67,8 +68,11 @@ describe("Fake NAP QA presentation emit", () => {
     const parsed = JSON.parse(raw!);
     expect(parsed.narrative).toContain("clarifié le besoin");
     expect(parsed.presentation?.version).toBe(1);
-    expect(parsed.presentation?.blocks?.length).toBe(3);
-    expect(parsed.narrative).toBe(parsed.presentation.lead);
+    expect(parsed.presentation?.lead).toBeNull();
+    expect(parsed.presentation?.blocks?.length).toBe(4);
+    const dto = parseNoraAdaptivePresentation(parsed.presentation);
+    expect(dto).not.toBeNull();
+    expect(parsed.narrative).toBe(composeCanonicalFromPresentation(dto!));
   });
 
   it("coercePlainTextToProductTurnJson preserves presentation", () => {
@@ -79,9 +83,9 @@ describe("Fake NAP QA presentation emit", () => {
     const turn = JSON.parse(coerced);
     expect(turn.presentation).not.toBeNull();
     const dto = parseNoraAdaptivePresentation(turn.presentation);
-    expect(dto?.blocks.length).toBe(3);
+    expect(dto?.blocks.length).toBe(4);
     const normalized = normalizeNoraProductTurnStructuredOutput(turn);
-    expect(normalized?.presentation?.blocks.length).toBe(3);
+    expect(normalized?.presentation?.blocks.length).toBe(4);
   });
 
   it("invalid presentation coerces to null without failing narrative", () => {

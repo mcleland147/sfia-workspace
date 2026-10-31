@@ -1,16 +1,18 @@
 "use client";
 
-import type { ReactElement } from "react";
+import type { ReactElement, ReactNode } from "react";
 import type {
   NoraAdaptivePresentation,
   NoraAdaptivePresentationBlock,
+  NoraCanonicalFallbackSegment,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
 import {
-  NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE,
-  NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE,
   honestBlockTitle,
   honestEpistemicLabel,
+  sanitizePresentationEyebrow,
   sanitizeProvenanceNote,
+  shouldDisplayPresentationLead,
+  splitPlainTextWithMarkdownTables,
   studioOwnedRecommendationDisclaimer,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
 import styles from "./NoraAdaptivePresentationView.module.css";
@@ -240,6 +242,32 @@ function renderBlock(
   );
 }
 
+function ProjectionChrome({
+  presentation,
+}: {
+  presentation: NoraAdaptivePresentation;
+}): ReactElement {
+  const showLead = shouldDisplayPresentationLead(presentation);
+  // Defense-in-depth: sanitize even if a typed DTO skipped parse (EYEBROW-01).
+  const safeEyebrow = sanitizePresentationEyebrow(presentation.eyebrow);
+  return (
+    <>
+      {safeEyebrow ? (
+        <p className={styles.eyebrow}>{safeEyebrow}</p>
+      ) : null}
+      {presentation.title ? (
+        <h3 className={styles.title}>{presentation.title}</h3>
+      ) : null}
+      {showLead && presentation.lead ? (
+        <p className={styles.lead}>{presentation.lead}</p>
+      ) : null}
+      <div className={styles.blocks}>
+        {presentation.blocks.map((block, index) => renderBlock(block, index))}
+      </div>
+    </>
+  );
+}
+
 export type NoraAdaptivePresentationViewProps = {
   presentation: NoraAdaptivePresentation;
   /**
@@ -247,53 +275,41 @@ export type NoraAdaptivePresentationViewProps = {
    * blocks so server notices are never masked by the DTO.
    */
   studioAppendix?: string | null;
+  /**
+   * @deprecated Dual canonical layer removed (D1 single-response). Ignored.
+   */
+  canonicalNarrative?: string | null;
+  /**
+   * @deprecated Dual composition removed. Ignored — A1 is projection-only.
+   */
+  forceCanonicalFirst?: boolean;
   /** Scrubbed plain fallback when caller forces plain — unused in adaptive mode. */
   fallbackText?: string;
 };
 
 /**
- * Bounded adaptive renderer for Nora Option C presentation DTO.
+ * Bounded adaptive renderer for Nora Option C — A1 structured-first.
+ * Single surface: no "Réponse complète" + secondary projection dual.
  * No Product CTAs, no HTML injection, no governed action hooks.
- * CORR-NAP-01 — honest epistemic labels; Studio appendix never hidden.
  */
 export function NoraAdaptivePresentationView({
   presentation,
   studioAppendix = null,
 }: NoraAdaptivePresentationViewProps): ReactElement {
   const appendix = (studioAppendix ?? "").trim();
+  const body: ReactNode = <ProjectionChrome presentation={presentation} />;
+  const note = sanitizeProvenanceNote(presentation.provenanceNote);
+
   return (
     <div
       className={styles.root}
       data-testid="nora-adaptive-presentation"
       data-presentation-version={presentation.version}
+      data-canonical-layer="none"
+      data-composition="structured-first"
     >
-      {presentation.eyebrow ? (
-        <p className={styles.eyebrow}>{presentation.eyebrow}</p>
-      ) : null}
-      {presentation.title ? (
-        <h3 className={styles.title}>{presentation.title}</h3>
-      ) : null}
-      {presentation.lead ? (
-        <p className={styles.lead}>{presentation.lead}</p>
-      ) : null}
-      <div className={styles.blocks}>
-        {presentation.blocks.map((block, index) => renderBlock(block, index))}
-      </div>
-      <p
-        className={styles.epistemicHonesty}
-        data-testid="nora-adaptive-epistemic-honesty"
-      >
-        {NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE}
-      </p>
-      {(() => {
-        const note = sanitizeProvenanceNote(presentation.provenanceNote);
-        return note ? (
-          <p className={styles.provenance}>{note}</p>
-        ) : null;
-      })()}
-      <p className={styles.noAction}>
-        {NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE}
-      </p>
+      {body}
+      {note ? <p className={styles.provenance}>{note}</p> : null}
       {appendix ? (
         <div
           className={styles.studioAppendix}
@@ -302,6 +318,101 @@ export function NoraAdaptivePresentationView({
         >
           {appendix.split(/\n\n+/).map((para, i) => (
             <p key={`studio-${i}`} className={styles.studioAppendixLine}>
+              {para}
+            </p>
+          ))}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function FallbackTextSegment({ text }: { text: string }): ReactElement | null {
+  // Caller applies CR-03 / formatNoraAssistantDisplayText before plainText.
+  if (!text.trim()) return null;
+  return (
+    <>
+      {text.split(/\n\n+/).map((para, i) => (
+        <p key={`fb-p-${i}`} className={styles.plain}>
+          {para}
+        </p>
+      ))}
+    </>
+  );
+}
+
+function FallbackTableSegment({
+  segment,
+}: {
+  segment: Extract<NoraCanonicalFallbackSegment, { kind: "table" }>;
+}): ReactElement {
+  return (
+    <div className={styles.tableScroll}>
+      <table className={styles.table} data-testid="nora-canonical-fallback-table">
+        <thead>
+          <tr>
+            {segment.columns.map((col, i) => (
+              <th key={`fb-th-${i}`} scope="col">
+                {col}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {segment.rows.map((row, ri) => (
+            <tr key={`fb-tr-${ri}`}>
+              {row.map((cell, ci) => (
+                <td key={`fb-td-${ri}-${ci}`}>{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export type NoraCanonicalFallbackViewProps = {
+  plainText: string;
+  /** Durable Studio appendix under the single main surface. */
+  studioAppendix?: string | null;
+};
+
+/**
+ * CORR-NAP-LIVE-RENDER-01 — fallback B single surface.
+ * Readable GFM tables when present; otherwise plain paragraphs.
+ * No Option C invention, no recommendation dedupe, no Product CTA.
+ */
+export function NoraCanonicalFallbackView({
+  plainText,
+  studioAppendix = null,
+}: NoraCanonicalFallbackViewProps): ReactElement {
+  const segments = splitPlainTextWithMarkdownTables(plainText);
+  const appendix = (studioAppendix ?? "").trim();
+  const hasTable = segments.some((s) => s.kind === "table");
+
+  return (
+    <div
+      className={styles.root}
+      data-testid="nora-canonical-fallback"
+      data-composition="canonical-fallback"
+      data-fallback-tables={hasTable ? "true" : "false"}
+    >
+      {segments.map((seg, i) =>
+        seg.kind === "table" ? (
+          <FallbackTableSegment key={`fb-seg-${i}`} segment={seg} />
+        ) : (
+          <FallbackTextSegment key={`fb-seg-${i}`} text={seg.text} />
+        ),
+      )}
+      {appendix ? (
+        <div
+          className={styles.studioAppendix}
+          role="status"
+          data-testid="nora-canonical-fallback-studio-appendix"
+        >
+          {appendix.split(/\n\n+/).map((para, i) => (
+            <p key={`studio-fb-${i}`} className={styles.studioAppendixLine}>
               {para}
             </p>
           ))}

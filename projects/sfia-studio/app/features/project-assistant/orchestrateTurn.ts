@@ -46,6 +46,7 @@ import {
   normalizeNoraProductTurnStructuredOutput,
   serializeNoraAdaptivePresentation,
   appendStudioControlNotices,
+  buildDurableAssistantContentForTurn,
   normalizeStudioControlNotices,
   serializeStudioControlNotices,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
@@ -1509,6 +1510,15 @@ export async function orchestrateProjectAssistantTurn(input: {
         structuredRecommendation,
       );
     }
+
+    // NAP-SINGLE-RESPONSE-D1 — A1 durable core from presentation when T1 holds;
+    // otherwise keep pilot-facing narrative (B). Server guidance/rec already
+    // folded into assistantText; if they diverge from compose → B (no loss).
+    const durableBuilt = buildDurableAssistantContentForTurn({
+      pilotFacingCore: assistantText,
+      presentation: coherentEarly?.presentation ?? null,
+    });
+    assistantText = durableBuilt.contentCore;
 
     // CORR-NAP-02 — typed Studio control notices (server provenance only).
     // Mirrored into durable content for plain fallback; appendix trust uses

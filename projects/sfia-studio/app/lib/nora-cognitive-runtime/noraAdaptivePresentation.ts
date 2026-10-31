@@ -273,6 +273,11 @@ export function sanitizePresentationPlainText(input: string): string {
     .trim();
 }
 
+/**
+ * Bounded string for Option C parse — NAP-SINGLE-RESPONSE-D1.
+ * Rejects over-limit (no silent slice success). Exact max length is accepted
+ * by parse but flagged via presentationHitsLimitBoundary for A1 gating.
+ */
 function clampText(
   value: unknown,
   max: number,
@@ -280,7 +285,8 @@ function clampText(
   if (typeof value !== "string") return null;
   const cleaned = sanitizePresentationPlainText(value);
   if (!cleaned) return null;
-  return cleaned.length > max ? cleaned.slice(0, max) : cleaned;
+  if (cleaned.length > max) return null;
+  return cleaned;
 }
 
 function nullableText(
@@ -450,19 +456,18 @@ export function parseNoraAdaptivePresentation(
   }
 
   // Short plain-only with empty blocks is useless — treat as absent.
-  const eyebrow = nullableText(o.eyebrow, L.maxTitleChars);
+  const rawEyebrow = nullableText(o.eyebrow, L.maxTitleChars);
   const title = nullableText(o.title, L.maxTitleChars);
   const lead = nullableText(o.lead, L.maxLeadChars);
   if (blocks.length === 0 && !lead && !title) return null;
 
-  // CORR-NAP-02 — drop authority-claiming free labels; Studio owns governance notes.
+  // CORR-NAP-02 / CORR-NAP-D1-EYEBROW-01 — drop authority-claiming free labels;
+  // eyebrow is presentation chrome, never authenticated Product authority.
+  const eyebrow = sanitizePresentationEyebrow(rawEyebrow);
   const safeTitle =
     title && !looksLikeAuthorityClaim(title) ? title : null;
   const rawProvenance = nullableText(o.provenanceNote, L.maxStringChars);
-  const provenanceNote =
-    rawProvenance && !looksLikeAuthorityClaim(rawProvenance)
-      ? rawProvenance
-      : null;
+  const provenanceNote = sanitizeProvenanceNote(rawProvenance);
   const noGoverned = NORA_ADAPTIVE_NO_GOVERNED_ACTION_NOTE;
 
   return Object.freeze({
@@ -683,7 +688,11 @@ export function presentationPlainProjection(
   return chunks.filter(Boolean).join("\n");
 }
 
-function normalizeCompare(text: string): string {
+/**
+ * Legacy coverage normalize — strips punctuation (incl. operators).
+ * Kept for CORR-NAP-02 diagnostics only. Do NOT use for A1 T1/T2.
+ */
+export function normalizeCompare(text: string): string {
   return text
     .toLowerCase()
     .normalize("NFD")
@@ -694,10 +703,27 @@ function normalizeCompare(text: string): string {
 }
 
 /**
- * CORR-NAP-02 — deterministic complete coverage only.
- * No one-way inclusion, no token overlap threshold, no semantic guess.
- * Body (after stripping authenticated Studio notices) must equal the lead
- * exactly (normalized), or be empty. Uncertainty → not covered → plain.
+ * CORR-NAP-D1-FIDELITY-01 / -02 — conservative A1 compare.
+ * Preserves case (mW≠MW), relational operators, signs, %, numbers, units,
+ * negation, and meaningful punctuation.
+ * Safe transforms only: CRLF→LF, NFC, collapse horizontal whitespace, trim.
+ * Never case-fold. Never fuzzy / overlap / keyword.
+ */
+export function normalizeCanonicalCompare(text: string): string {
+  return text
+    .replace(/\r\n/g, "\n")
+    .replace(/\r/g, "\n")
+    .normalize("NFC")
+    .replace(/[^\S\n]+/g, " ")
+    .replace(/ *\n */g, "\n")
+    .replace(/ +\n/g, "\n")
+    .replace(/\n+/g, "\n")
+    .trim();
+}
+
+/**
+ * CORR-NAP-02 — legacy lead≡body gate (kept for tests / diagnostics).
+ * A1 Path uses body ≡ composeCanonicalFromPresentation instead.
  */
 export function contentFullyCoveredByPresentation(
   body: string,
@@ -710,8 +736,455 @@ export function contentFullyCoveredByPresentation(
   return nBody === nLead;
 }
 
+/** Honest non-empty fallback when narrative and presentation are both unusable. */
+export const NORA_UNUSABLE_TURN_FALLBACK_TEXT =
+  "Nora n'a pas pu produire une restitution exploitable pour ce tour. Aucune action gouvernée n'a été exécutée." as const;
+
+/**
+ * CORR-NAP-D1-FIDELITY-01 / R-D1-02 — durable category labels.
+ * Natural, non-authority-claiming. Never invent Evidence Product / HD.
+ */
+function durableCategoryLabel(block: NoraAdaptivePresentationBlock): string {
+  switch (block.kind) {
+    case "list":
+      return honestEpistemicLabel(block.epistemic);
+    case "established_facts":
+      return honestBlockTitle("established_facts", null);
+    case "open_questions":
+      return honestBlockTitle("open_questions", null);
+    case "recommendation":
+      return "Recommandation — non décision";
+    case "evidence_reserves":
+      return honestBlockTitle("evidence_reserves", null);
+    default:
+      return "";
+  }
+}
+
+/**
+ * CORR-NAP-D1-FIDELITY-02 / R-D1-02 — durable heading aligned with View.
+ * Reuses honestBlockTitle (strong kinds → Studio defaults; weak → free only
+ * if not authority-claiming). Never promotes Nora free titles to Product authority.
+ */
+function durableSafeHeading(
+  kind: NoraAdaptiveBlockKind,
+  title: string | null | undefined,
+): string {
+  return honestBlockTitle(kind, title);
+}
+
+function formatBlockCanonical(block: NoraAdaptivePresentationBlock): string {
+  switch (block.kind) {
+    case "plain":
+    case "question":
+    case "trace_note":
+      return block.text;
+    case "section":
+      return `${durableSafeHeading("section", block.title)}\n${block.body}`;
+    case "list": {
+      // Strong kind: Studio list label + epistemic role (never free "GO confirmé").
+      const head = `${durableSafeHeading("list", block.title)}\n${durableCategoryLabel(block)}`;
+      return `${head}\n${block.items.map((i) => `- ${i}`).join("\n")}`;
+    }
+    case "established_facts":
+    case "open_questions": {
+      const head = durableSafeHeading(block.kind, block.title);
+      return `${head}\n${block.items.map((i) => `- ${i}`).join("\n")}`;
+    }
+    case "comparison_table": {
+      const head = durableSafeHeading("comparison_table", block.title);
+      const header = block.columns.join(" | ");
+      const sep = block.columns.map(() => "---").join(" | ");
+      const rows = block.rows.map((r) => r.join(" | ")).join("\n");
+      return `${head}\n${header}\n${sep}\n${rows}`;
+    }
+    case "recommendation": {
+      const head = durableCategoryLabel(block);
+      const disc =
+        block.disclaimer?.trim() || NORA_ADAPTIVE_RECOMMENDATION_DISCLAIMER;
+      return `${head}\n${block.statement}\n${disc}`;
+    }
+    case "evidence_reserves": {
+      // Strong kind — never emit free Nora title into Memory B.
+      const parts: string[] = [];
+      if (block.evidenceItems.length > 0) {
+        parts.push("Éléments mentionnés comme preuves");
+        parts.push(...block.evidenceItems.map((i) => `- ${i}`));
+      }
+      if (block.reserveItems.length > 0) {
+        parts.push("Réserves et incertitudes");
+        parts.push(...block.reserveItems.map((i) => `- ${i}`));
+      }
+      return parts.join("\n");
+    }
+    default:
+      return "";
+  }
+}
+
+function composeBlocksOnly(presentation: NoraAdaptivePresentation): string {
+  return presentation.blocks
+    .map(formatBlockCanonical)
+    .filter((s) => s.trim().length > 0)
+    .join("\n\n");
+}
+
+/**
+ * Lead visibility for A1 chrome — never drop unique lead info blindly.
+ * Redundancy uses conservative A1 compare (R-D1-01) — operators preserved.
+ */
+export function shouldDisplayPresentationLead(
+  presentation: NoraAdaptivePresentation,
+): boolean {
+  const lead = (presentation.lead ?? "").trim();
+  if (!lead) return false;
+  const nLead = normalizeCanonicalCompare(lead);
+  if (!nLead) return false;
+  const blocksText = composeBlocksOnly(presentation);
+  if (blocksText && normalizeCanonicalCompare(blocksText) === nLead) {
+    return false;
+  }
+  for (const block of presentation.blocks) {
+    for (const t of blockPlainTexts(block)) {
+      if (t && normalizeCanonicalCompare(t) === nLead) return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * Deterministic conversational transcript from a validated presentation.
+ * Not Truth C. Not a cognitive summary. Preserves order, tables, reserves,
+ * recommendation-as-proposal. Omits redundant lead (see shouldDisplayPresentationLead).
+ */
+export function composeCanonicalFromPresentation(
+  presentation: NoraAdaptivePresentation,
+): string {
+  const chunks: string[] = [];
+  // CORR-NAP-D1-EYEBROW-01 — shared eyebrow sanitation (parse / compose / View).
+  const eyebrow = sanitizePresentationEyebrow(presentation.eyebrow);
+  if (eyebrow) {
+    chunks.push(eyebrow);
+  }
+  // presentation.title already null when authority-claiming (parse); belt-and-suspenders.
+  if (presentation.title?.trim() && !looksLikeAuthorityClaim(presentation.title)) {
+    chunks.push(presentation.title.trim());
+  }
+  if (shouldDisplayPresentationLead(presentation) && presentation.lead) {
+    chunks.push(presentation.lead.trim());
+  }
+  const blocks = composeBlocksOnly(presentation);
+  if (blocks) chunks.push(blocks);
+  const provenance = sanitizeProvenanceNote(presentation.provenanceNote);
+  if (provenance) chunks.push(provenance);
+  return chunks.join("\n\n").trim();
+}
+
+/**
+ * True when a string field sits exactly at its max — ambiguous truncation.
+ * NOT a proof of truncation; fail-closed for A1 admissibility only.
+ */
+export function presentationHitsLimitBoundary(
+  presentation: NoraAdaptivePresentation,
+): boolean {
+  const L = NORA_ADAPTIVE_PRESENTATION_LIMITS;
+  if (presentation.blocks.length >= L.maxBlocks) return true;
+  const check = (s: string | null | undefined, max: number) =>
+    typeof s === "string" && s.length >= max;
+  if (check(presentation.eyebrow, L.maxTitleChars)) return true;
+  if (check(presentation.title, L.maxTitleChars)) return true;
+  if (check(presentation.lead, L.maxLeadChars)) return true;
+  if (check(presentation.provenanceNote, L.maxStringChars)) return true;
+  for (const block of presentation.blocks) {
+    switch (block.kind) {
+      case "plain":
+      case "question":
+      case "trace_note":
+        if (check(block.text, L.maxStringChars)) return true;
+        break;
+      case "section":
+        if (check(block.title, L.maxTitleChars)) return true;
+        if (check(block.body, L.maxStringChars)) return true;
+        break;
+      case "list":
+      case "established_facts":
+      case "open_questions":
+        if (check(block.title, L.maxTitleChars)) return true;
+        if (block.items.length >= L.maxItems) return true;
+        if (block.items.some((i) => i.length >= L.maxStringChars)) return true;
+        break;
+      case "comparison_table":
+        if (check(block.title, L.maxTitleChars)) return true;
+        if (block.columns.length >= L.maxColumns) return true;
+        if (block.rows.length >= L.maxRows) return true;
+        if (block.columns.some((c) => c.length >= L.maxTitleChars)) return true;
+        if (
+          block.rows.some((r) =>
+            r.some((c) => c.length >= L.maxStringChars),
+          )
+        ) {
+          return true;
+        }
+        break;
+      case "recommendation":
+        if (check(block.title, L.maxTitleChars)) return true;
+        if (check(block.statement, L.maxStringChars)) return true;
+        break;
+      case "evidence_reserves":
+        if (check(block.title, L.maxTitleChars)) return true;
+        if (block.evidenceItems.length >= L.maxItems) return true;
+        if (block.reserveItems.length >= L.maxItems) return true;
+        if (
+          [...block.evidenceItems, ...block.reserveItems].some(
+            (i) => i.length >= L.maxStringChars,
+          )
+        ) {
+          return true;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+  return false;
+}
+
+/**
+ * CORR-NAP-D1-FIDELITY-01 / R-D1-03 — conversational substance for A1.
+ * Title / eyebrow / provenance alone are decorative metadata, not an answer.
+ */
+export function presentationHasConversationalSubstance(
+  presentation: NoraAdaptivePresentation,
+): boolean {
+  if ((presentation.lead ?? "").trim()) return true;
+  return composeBlocksOnly(presentation).trim().length > 0;
+}
+
+/**
+ * Deterministic A1 structural gate only.
+ * NEVER certifies semantic / cognitive completeness (R1).
+ * Requires conversational substance (R-D1-03) — not title-only.
+ */
+export function isPresentationStructurallyAdmissibleForA1(
+  presentation: NoraAdaptivePresentation | null | undefined,
+): boolean {
+  if (!shouldRenderAdaptivePresentation(presentation)) return false;
+  if (!presentationHasConversationalSubstance(presentation)) return false;
+  if (presentationHitsLimitBoundary(presentation)) return false;
+  const composed = composeCanonicalFromPresentation(presentation);
+  if (!composed.trim()) return false;
+  return true;
+}
+
+/** A1 T1/T2 equality — conservative (R-D1-01). */
+export function canonicalTextsEquivalent(a: string, b: string): boolean {
+  return normalizeCanonicalCompare(a) === normalizeCanonicalCompare(b);
+}
+
+/**
+ * T1/T2 — whether durable pilot-facing core (pre-notices) may use A1.
+ * Conservatively requires exact normalized equality with compose, or empty
+ * core with admissible structure. No fuzzy / overlap / keyword tricks.
+ */
+export function isA1TransitionAdmissible(input: {
+  pilotFacingCore: string;
+  presentation: NoraAdaptivePresentation | null | undefined;
+}): boolean {
+  if (!isPresentationStructurallyAdmissibleForA1(input.presentation)) {
+    return false;
+  }
+  const presentation = input.presentation!;
+  const composed = composeCanonicalFromPresentation(presentation);
+  const core = (input.pilotFacingCore ?? "").trim();
+  if (!core) return true; // empty narrative → derive from structure (A1-primary)
+  return canonicalTextsEquivalent(core, composed);
+}
+
+/**
+ * Build durable conversational content for a new turn (Memory B `content`).
+ * A1: composed (+ caller appends notices). B: pilotFacingCore as-is.
+ * Does not invent text. Empty+invalid → honest fallback.
+ */
+export function buildDurableAssistantContentForTurn(input: {
+  pilotFacingCore: string;
+  presentation: NoraAdaptivePresentation | null | undefined;
+}): {
+  readonly contentCore: string;
+  readonly usedA1: boolean;
+  readonly presentation: NoraAdaptivePresentation | null;
+} {
+  const core = (input.pilotFacingCore ?? "").trim();
+  const presentation = input.presentation ?? null;
+  if (isA1TransitionAdmissible({ pilotFacingCore: core, presentation })) {
+    const composed = composeCanonicalFromPresentation(presentation!);
+    return {
+      contentCore: composed,
+      usedA1: true,
+      presentation,
+    };
+  }
+  if (!core && !shouldRenderAdaptivePresentation(presentation)) {
+    return {
+      contentCore: NORA_UNUSABLE_TURN_FALLBACK_TEXT,
+      usedA1: false,
+      presentation: null,
+    };
+  }
+  return {
+    contentCore: core || NORA_UNUSABLE_TURN_FALLBACK_TEXT,
+    usedA1: false,
+    presentation,
+  };
+}
+
+/**
+ * CORR-NAP-TEST16-01 / CR-02 — Pilot-facing label for the canonical narrative
+ * layer when structured projection and body diverge (strict coverage false).
+ * Canonical is the conversational restitution reference (not HumanDecision /
+ * Evidence Product).
+ */
+export const NORA_ADAPTIVE_CANONICAL_NARRATIVE_LABEL =
+  "Réponse complète de Nora" as const;
+
+/**
+ * CR-02 R1 — secondary structured projection when coverage is not demonstrated.
+ * Never presented as certified / GO / HumanDecision.
+ */
+export const NORA_ADAPTIVE_SECONDARY_PROJECTION_LABEL =
+  "Projection structurée (Nora — non certifiée)" as const;
+
+export const NORA_ADAPTIVE_SECONDARY_PROJECTION_WARNING =
+  "Cette projection est une reformulation Nora non certifiée et peut diverger du récit complet ci-dessus. Le récit complet fait référence pour la restitution conversationnelle." as const;
+
+/**
+ * CR-03 — cosmetic-only normalize for fidelity compare / conservative display.
+ * Escapes + soft markdown markers only. Never deletes phrases or jargon.
+ */
+export function cosmeticCanonicalNormalize(text: string): string {
+  return text
+    .replace(/\\n/g, "\n")
+    .replace(/\\t/g, "\t")
+    .replace(/\\r/g, "")
+    .replace(/\\\*/g, "*")
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/__([^_]+)__/g, "$1")
+    .replace(/(^|\n)#{1,6}\s+/g, "$1")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/[^\S\n]{2,}/g, " ")
+    .replace(/ *\n */g, "\n")
+    .trim();
+}
+
+/**
+ * Presentation-only jargon that formatNoraAssistantDisplayText may soften.
+ * Stripped from BOTH sides of the CR-03 fidelity key so intentional UI scrub
+ * (READY_NO_GATE, F2 process footer, etc.) does not force an unscrubbed DOM.
+ * Never strips fidelity-bearing refusals such as "Nora n'émet pas de décision
+ * Pilote" — those remain in the key and keep fail-closed source when removed.
+ */
+function stripAllowlistedPresentationJargonForFidelityCompare(text: string): string {
+  return text
+    .replace(/\bREADY_NO_GATE\b/g, "")
+    .replace(/\bTEMPORARY WITH EXIT\b/gi, "")
+    .replace(/\bProduct SQLite\b/gi, "")
+    .replace(/\[Mode (?:réel|test)\]\s*/gi, "")
+    .replace(
+      /Qualification SFIA et proposition structurée générées\.?\s*/gi,
+      "",
+    )
+    .replace(
+      /RECOMMANDATION\s*[—–-]\s*PAS UNE DÉCISION HUMAINE\.?\s*/gi,
+      "",
+    )
+    .replace(
+      /Recommandation\s*≠\s*décision Pilote[^.]*\.\s*/gi,
+      "",
+    )
+    .replace(
+      /Pas de gate de construction supplémentaire[^.]*\.\s*/gi,
+      "",
+    )
+    .replace(
+      /CONTINUE\s*[—–-]\s*cognition propose-only[^.]*\.\s*/gi,
+      "",
+    )
+    .replace(
+      /\bAUCUNE EXÉCUTION\s*[—–-]\s*ZERO Attempt\s*[—–-]\s*ZERO Cursor REAL\b/gi,
+      "",
+    )
+    .replace(/\bZERO Attempt\b/gi, "")
+    .replace(/\bZERO Cursor REAL\b/gi, "")
+    .replace(
+      /\bAUCUNE EXÉCUTION\s*[—–-]\s*F2\s*S['’]ARRÊTE ICI\b/gi,
+      "",
+    )
+    .replace(/\bDECISION_REQUIRED\b/g, "")
+    .replace(/\bpending_reinstruction_required\b/g, "")
+    .replace(/\bdocs_write\b/g, "")
+    .replace(/\bopt:[a-z0-9:_-]+\b/gi, "")
+    .replace(/\bepi:[a-z0-9:_-]+\b/gi, "")
+    .replace(/\batt:[a-z0-9:_-]+\b/gi, "")
+    .replace(/\bevi:[a-z0-9:_-]+\b/gi, "")
+    .replace(/\[MW5[^\]]*\]/gi, "")
+    .replace(/\bcount=\d+\b/gi, "");
+}
+
+function fidelityCompareKey(text: string): string {
+  return stripAllowlistedPresentationJargonForFidelityCompare(
+    cosmeticCanonicalNormalize(text),
+  )
+    .replace(/\s+([?.!;,:])/g, "$1")
+    .replace(/([([{])\s+/g, "$1")
+    .replace(/\s+/g, " ")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .trim();
+}
+
+/**
+ * CR-03 — display text for adaptive_with_canonical primary layer.
+ *
+ * Uses the shared pilot formatter when the transform is presentation-pure
+ * (same fidelity key). If the formatter empties a non-empty source, or
+ * deletes/substitutes material (fidelity key diverges), fall back to a
+ * conservative cosmetic-only rendering of the source. Never returns empty
+ * when source is non-empty. Does not invent Studio provenance.
+ *
+ * `formatDisplay` is injected (typically formatNoraAssistantDisplayText) so
+ * this module does not depend on presentationLabels.
+ */
+export function resolveAdaptiveCanonicalDisplayText(
+  source: string,
+  formatDisplay: (text: string) => string,
+): string {
+  const raw = (source ?? "").trim();
+  if (!raw) return "";
+  const formatted = String(formatDisplay(raw) ?? "").trim();
+  if (!formatted) {
+    return cosmeticCanonicalNormalize(raw) || raw;
+  }
+  if (fidelityCompareKey(formatted) === fidelityCompareKey(raw)) {
+    return formatted;
+  }
+  // Destructive / substitutive scrub — keep source (cosmetic escapes only).
+  return cosmeticCanonicalNormalize(raw) || raw;
+}
+
+export type AdaptiveAssistantRenderMode =
+  | "adaptive"
+  | "plain";
+
+/**
+ * @deprecated Dual layer removed in NAP-SINGLE-RESPONSE-D1 (A1+B).
+ * Kept as type alias so older call sites compile during transition; never emitted.
+ */
+export type AdaptiveAssistantRenderModeLegacy =
+  | AdaptiveAssistantRenderMode
+  | "adaptive_with_canonical";
+
 export type AdaptiveAssistantRenderDecision = {
-  readonly mode: "adaptive" | "plain";
+  readonly mode: AdaptiveAssistantRenderMode;
   readonly presentation: NoraAdaptivePresentation | null;
   /**
    * Authenticated Studio control appendix only (typed notices).
@@ -721,12 +1194,30 @@ export type AdaptiveAssistantRenderDecision = {
   readonly plainText: string;
   /** Server-authored notices used for appendix / strip (empty if none). */
   readonly studioControlNotices: readonly string[];
+  /**
+   * A1: true when durable body (notices stripped) ≡ composeCanonical.
+   * Never a fuzzy claim. Never semantic-completeness certification.
+   */
+  readonly contentFullyCovered: boolean;
+  /**
+   * Always null under single-response contract (B uses plainText; no dual layer).
+   * Retained for API stability with prior CR-03 callers.
+   */
+  readonly canonicalNarrative: string | null;
+  /** Structural A1 gate only — NOT semantic completeness (R1). */
+  readonly structurallyAdmissibleForA1: boolean;
+  /** True when render mode is adaptive (structured-first single surface). */
+  readonly usedA1: boolean;
 };
 
 /**
- * CORR-NAP-02 — server control > cognitive presentation.
- * Adaptive only when non-Studio body is strictly covered by presentation.lead;
- * otherwise full plain text (no loss). Studio appendix uses typed notices only.
+ * NAP-SINGLE-RESPONSE-D1 — A1 structured-first OR B canonical plain.
+ *
+ * - Invalid / absent presentation → plain (B).
+ * - Structurally admissible + body ≡ composeCanonical → adaptive (A1), one surface.
+ * - Otherwise → plain (B) with full durable body; presentation not shown
+ *   (never dual canonical + projection; never hide unique narrative via CSS).
+ * - Studio appendix: typed notices only.
  */
 export function resolveAdaptiveAssistantRender(input: {
   content: string;
@@ -749,31 +1240,55 @@ export function resolveAdaptiveAssistantRender(input: {
           .join("\n\n")
       : null;
 
-  if (!shouldRenderAdaptivePresentation(input.presentation)) {
+  const presentation = input.presentation ?? null;
+  const structurallyAdmissibleForA1 =
+    isPresentationStructurallyAdmissibleForA1(presentation);
+
+  if (!shouldRenderAdaptivePresentation(presentation)) {
     return {
       mode: "plain",
       presentation: null,
-      studioAppendix: null,
-      plainText: content,
+      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
+      plainText: content.trim() ? content : NORA_UNUSABLE_TURN_FALLBACK_TEXT,
       studioControlNotices: authenticated,
+      contentFullyCovered: false,
+      canonicalNarrative: null,
+      structurallyAdmissibleForA1: false,
+      usedA1: false,
     };
   }
-  const presentation = input.presentation;
-  if (!contentFullyCoveredByPresentation(body, presentation)) {
+
+  const composed = composeCanonicalFromPresentation(presentation!);
+  const a1Match =
+    structurallyAdmissibleForA1 &&
+    (canonicalTextsEquivalent(body, composed) ||
+      (!body.trim() && Boolean(composed.trim())));
+
+  if (a1Match) {
     return {
-      mode: "plain",
-      presentation: null,
-      studioAppendix: null,
+      mode: "adaptive",
+      presentation,
+      studioAppendix,
       plainText: content,
       studioControlNotices: authenticated,
+      contentFullyCovered: true,
+      canonicalNarrative: null,
+      structurallyAdmissibleForA1: true,
+      usedA1: true,
     };
   }
+
+  // T2 / incomplete / non-equivalent — B only (single canonical surface).
   return {
-    mode: "adaptive",
-    presentation,
-    studioAppendix,
-    plainText: content,
+    mode: "plain",
+    presentation: null,
+    studioAppendix: authenticated.length > 0 ? studioAppendix : null,
+    plainText: content.trim() ? content : NORA_UNUSABLE_TURN_FALLBACK_TEXT,
     studioControlNotices: authenticated,
+    contentFullyCovered: false,
+    canonicalNarrative: null,
+    structurallyAdmissibleForA1,
+    usedA1: false,
   };
 }
 
@@ -786,19 +1301,19 @@ export function honestEpistemicLabel(
 ): string {
   switch (role) {
     case "established_fact":
-      return "Élément présenté comme établi (Nora)";
+      return "Présenté comme établi";
     case "hypothesis":
-      return "Hypothèse (Nora)";
+      return "Hypothèse";
     case "recommendation":
-      return "Recommandation (non décision)";
+      return "Recommandation — non décision";
     case "product_decision_ref":
       return "Référence de décision mentionnée (non vérifiée)";
     case "observed_evidence":
-      return "Élément cité comme preuve (Nora — non Evidence Product)";
+      return "Cité comme preuve observée (non Evidence Product)";
     case "reserve_uncertainty":
-      return "Réserve / incertitude (Nora)";
+      return "Réserve / incertitude";
     default:
-      return "Élément (Nora)";
+      return "Élément";
   }
 }
 
@@ -835,12 +1350,12 @@ export function honestBlockTitle(
     plain: "Élément",
     question: "Question",
     section: "Section",
-    list: "Liste (Nora)",
-    comparison_table: "Comparaison (Nora)",
-    established_facts: "Éléments présentés comme établis (Nora)",
+    list: "Liste",
+    comparison_table: "Comparaison",
+    established_facts: "Éléments présentés comme établis",
     open_questions: "Points encore à clarifier",
-    recommendation: "Recommandation de Nora",
-    evidence_reserves: "Preuves et réserves mentionnées (Nora)",
+    recommendation: "Recommandation",
+    evidence_reserves: "Preuves et réserves mentionnées",
     trace_note: "Note",
   };
   if (STRONG_TITLE_KINDS.has(kind)) {
@@ -874,5 +1389,127 @@ export function sanitizeProvenanceNote(
   return t;
 }
 
+/**
+ * CORR-NAP-D1-EYEBROW-01 — presentation eyebrow is chrome, never Product authority.
+ * Reuses looksLikeAuthorityClaim only (no parallel keyword policy).
+ */
+export function sanitizePresentationEyebrow(
+  eyebrow: string | null | undefined,
+): string | null {
+  if (eyebrow == null) return null;
+  const t = String(eyebrow).trim();
+  if (!t) return null;
+  if (looksLikeAuthorityClaim(t)) return null;
+  return t;
+}
+
 export const NORA_ADAPTIVE_EPISTEMIC_HONESTY_NOTE =
   "Les libellés ci-dessus sont une formulation Nora — pas une validation Studio, ni une Evidence Product, ni une HumanDecision." as const;
+
+/**
+ * CORR-NAP-LIVE-RENDER-01 — B-path segments for a readable GFM table without
+ * inventing Option C structure or altering cell text.
+ * Fail-closed: malformed / incomplete tables stay plain text.
+ */
+export type NoraCanonicalFallbackSegment =
+  | { kind: "text"; text: string }
+  | {
+      kind: "table";
+      columns: string[];
+      rows: string[][];
+      /** Exact source slice (header + sep + rows) — fidelity oracle. */
+      raw: string;
+    };
+
+const GFM_TABLE_ROW_RE = /^\|(.+)\|$/;
+const GFM_TABLE_SEP_RE = /^\|[\s|:\-]+\|$/;
+
+function splitGfmTableCells(line: string): string[] {
+  const trimmed = line.trim();
+  const inner =
+    trimmed.startsWith("|") && trimmed.endsWith("|")
+      ? trimmed.slice(1, -1)
+      : trimmed;
+  return inner.split("|").map((c) => c.trim());
+}
+
+function isGfmTableSeparatorLine(line: string): boolean {
+  const t = line.trim();
+  if (!GFM_TABLE_SEP_RE.test(t)) return false;
+  const cells = splitGfmTableCells(t);
+  if (cells.length === 0) return false;
+  return cells.every((c) => /^:?-{3,}:?$/.test(c));
+}
+
+function isGfmTableDataOrHeaderLine(line: string): boolean {
+  const t = line.trim();
+  if (!GFM_TABLE_ROW_RE.test(t)) return false;
+  if (isGfmTableSeparatorLine(t)) return false;
+  return splitGfmTableCells(t).length > 0;
+}
+
+/**
+ * Split canonical plain text into text / GFM-table segments for fallback B.
+ * Preserves every character of the source when flattened (join of segments).
+ * Does not dedupe recommendations or rewrite narrative.
+ */
+export function splitPlainTextWithMarkdownTables(
+  plainText: string,
+): NoraCanonicalFallbackSegment[] {
+  const source = String(plainText ?? "");
+  if (!source) return [{ kind: "text", text: "" }];
+
+  const lines = source.split("\n");
+  const segments: NoraCanonicalFallbackSegment[] = [];
+  let textBuf: string[] = [];
+
+  const flushText = () => {
+    if (textBuf.length === 0) return;
+    segments.push({ kind: "text", text: textBuf.join("\n") });
+    textBuf = [];
+  };
+
+  let i = 0;
+  while (i < lines.length) {
+    const headerLine = lines[i] ?? "";
+    const sepLine = lines[i + 1] ?? "";
+    if (
+      isGfmTableDataOrHeaderLine(headerLine) &&
+      isGfmTableSeparatorLine(sepLine)
+    ) {
+      const columns = splitGfmTableCells(headerLine);
+      const rows: string[][] = [];
+      let j = i + 2;
+      while (j < lines.length && isGfmTableDataOrHeaderLine(lines[j] ?? "")) {
+        const cells = splitGfmTableCells(lines[j] ?? "");
+        // Pad / trim to column count without inventing content beyond ""
+        const normalized =
+          cells.length === columns.length
+            ? cells
+            : columns.map((_, idx) => cells[idx] ?? "");
+        rows.push(normalized);
+        j += 1;
+      }
+      if (rows.length > 0) {
+        flushText();
+        const raw = lines.slice(i, j).join("\n");
+        segments.push({ kind: "table", columns, rows, raw });
+        i = j;
+        continue;
+      }
+    }
+    textBuf.push(headerLine);
+    i += 1;
+  }
+  flushText();
+  return segments.length > 0 ? segments : [{ kind: "text", text: source }];
+}
+
+/** Flatten segments back to source text (exact round-trip via raw slices). */
+export function flattenCanonicalFallbackSegments(
+  segments: NoraCanonicalFallbackSegment[],
+): string {
+  return segments
+    .map((seg) => (seg.kind === "text" ? seg.text : seg.raw))
+    .join("\n");
+}

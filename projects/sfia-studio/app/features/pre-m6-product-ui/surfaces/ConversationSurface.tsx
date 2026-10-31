@@ -53,8 +53,14 @@ import {
   presentActivityEventLabel,
   presentLiveActivityTimeline,
 } from "./presentLiveActivityTimeline";
-import { NoraAdaptivePresentationView } from "./NoraAdaptivePresentationView";
-import { resolveAdaptiveAssistantRender } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
+import {
+  NoraAdaptivePresentationView,
+  NoraCanonicalFallbackView,
+} from "./NoraAdaptivePresentationView";
+import {
+  resolveAdaptiveAssistantRender,
+  resolveAdaptiveCanonicalDisplayText,
+} from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
 import styles from "./ConversationSurface.module.css";
 
 /**
@@ -627,20 +633,22 @@ export function ConversationSurface({
                     decision.mode === "adaptive" &&
                     decision.presentation
                   ) {
+                    // A1 structured-first — single surface; no dual canonical layer.
                     return (
                       <NoraAdaptivePresentationView
                         presentation={decision.presentation}
                         studioAppendix={decision.studioAppendix}
-                        fallbackText={formatNoraAssistantDisplayText(
-                          message.content,
-                        )}
                       />
                     );
                   }
+                  // B — canonical fail-closed; CR-03 formatter fidelity guard.
+                  // CORR-NAP-LIVE-RENDER-01: GFM tables → HTML table (no A1 soften).
+                  const plainDisplay = resolveAdaptiveCanonicalDisplayText(
+                    decision.plainText || message.content,
+                    formatNoraAssistantDisplayText,
+                  );
                   return (
-                    <p className={styles.bubbleText}>
-                      {formatNoraAssistantDisplayText(message.content)}
-                    </p>
+                    <NoraCanonicalFallbackView plainText={plainDisplay} />
                   );
                 })()}
               </div>

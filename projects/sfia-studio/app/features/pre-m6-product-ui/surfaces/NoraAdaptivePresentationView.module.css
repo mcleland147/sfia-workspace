@@ -218,6 +218,69 @@
   line-height: 1.4;
 }
 
+/* CR-02 R1 — canonical is primary restitution when coverage fails. */
+.canonicalNarrative {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  margin: 0;
+  padding: var(--pm6-space-3);
+  border-radius: var(--pm6-radius-md);
+  border: 1px solid var(--pm6-border);
+  background: var(--pm6-surface);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.canonicalNarrativeLabel {
+  margin: 0;
+  font-size: var(--pm6-text-body);
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: var(--pm6-ink);
+  line-height: 1.35;
+}
+
+.canonicalNarrativeBody {
+  margin: 0;
+  font-size: var(--pm6-text-body);
+  color: var(--pm6-ink);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* CR-02 R1 — structured projection is secondary / non-certified. */
+.secondaryProjection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pm6-space-2);
+  margin: 0;
+  padding: var(--pm6-space-3);
+  border-radius: var(--pm6-radius-md);
+  border: 1px dashed var(--pm6-border-soft);
+  background: var(--pm6-surface-sunken);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  opacity: 0.96;
+}
+
+.secondaryProjectionLabel {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--pm6-muted-strong);
+  line-height: 1.35;
+}
+
+.secondaryProjectionWarning {
+  margin: 0;
+  font-size: var(--pm6-text-caption);
+  color: var(--pm6-muted-strong);
+  line-height: 1.4;
+}
+
 .epistemicHonesty {
   margin: 0;
   font-size: var(--pm6-text-caption);
