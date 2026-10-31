@@ -1,328 +1,289 @@
-# Review Pack FULL — NAP-SINGLE-RESPONSE-MANUAL-ENV-01
+# Review Pack FULL — TEST16-LIVE-RUNTIME-RESUME-01
 
-**Generated (UTC):** 2026-10-31T09:31:36Z
-**Cycle:** NAP-SINGLE-RESPONSE-MANUAL-ENV-01
-**Type:** RUN / préparation de recette locale — CRITICAL
-**Prior:** Browser QA `9c0a0ab9` / `a0990839` ACCEPTED WITH RESERVES / FAKE SCOPE
+**Generated (UTC):** 2026-10-31T09:45:42Z
+**Cycle:** TEST16-LIVE-RUNTIME-RESUME-01
+**Type:** RUN / reprise runtime historique — CRITICAL
+**Prior handoff:** MANUAL-ENV-01 `1134653b` / `7bceb56d` (Fake — not the target)
 **Product mutation:** NONE
 
----
-
 ## 0. Instruction ChatGPT
-
-Verify SHA/blob, port isolation (:3021 vs historic :3020), Fake provider, Auth, DB paths, scripts, server left RUNNING, no Product commit.
-Do not infer OpenAI LIVE / G-REAL / READY FOR PR.
+Verify LIVE-E2E-01 originals, BALISE/f1-default/seq20-21, OpenAI LIVE not Fake, Cursor REAL OFF, port 3022, Auth, backup, scripts, historic :3020 protected, Fake :3021 stopped.
+Do not infer G-REAL / quality of next LIVE turn / READY FOR PR.
 
 ## 1. Git Truth
-
-| Item | Value |
-|------|-------|
 | WT | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01` |
 | Branch | `feat/akg-m5-nap-test16-coverage-corr-01` |
-| HEAD / origin/main | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| Prior handoff | `9c0a0ab953bc307c4d46c7730da9e6d393407c52` |
-| D1 + Fidelity-01/02 + Eyebrow + harness QA delta | PRESENT in WIP |
+| HEAD | `ca1c9869f905b394808c953649910d60fbfcb984` |
+| D1 correctifs | PRESENT (`sanitizePresentationEyebrow`, `normalizeCanonicalCompare`, `durableSafeHeading`) |
+Git Truth: COHERENT. WIP preserved.
 
-Git Truth: COHERENT.
+## 2. GO
+Resume TEST-16 with original LIVE-E2E-01 data + D1 code + OpenAI LIVE. No Fake substitute. Cursor REAL execution OFF.
 
-## 2. GO Morris
+## 3. Data pre-check
+| Product DB | `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` |
+| Nora DB | `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite` |
+| Integrity | ok / ok |
+| Pre-start writers | none |
+| BALISE projectId | `prj:d0c81c08-349b-4109-aca7-72bd5d1bae85` |
+| Session | `f1-default` |
+| Turns | 22 total; seq20 user + seq21 assistant (TEST-16) with presentation_json on seq21 |
+| File SHA256 product | `c3fb06b7d8bae0e3ff33f386ef84105208ee133b15c0d2c26034cefc9095d297` |
+| File SHA256 nora | `bebacb2b3cb92ff672501f81cecfa806f0c92a5c3841eeac4f097d5172b028a7` |
+| Post-start max seq | still 21 (no new turns created by Cursor) |
 
-Prepare isolated Fake manual UX environment. OpenAI LIVE NOT authorized. G-REAL CLOSED. Do not mutate historic :3020.
+## 4. Safety backup
+Directory: `/Users/morris/Projects/.sfia-exec/live-e2e-01/backups/pre-test16-resume-20261031T094312Z` (sqlite3 .backup). Runtime uses ORIGINALS, not backup.
 
-## 3. Sources / Convergence / R23-R24
+## 5. Process topology
+| :3020 | PID 92265 pre-int-ux-qa-01 — PROTECTED / left running |
+| :3021 Fake MANUAL-ENV | identity-proven stopped |
+| :3022 TEST-16 resume | RUNNING |
 
-SFIA v2.6 + CKC QA pilot candidate + Convergence + Doctrine 30/32/34/35 + PRR 03/05/06/07/08/09 read-only.
-R23: Next/worktree/Auth/Fake/SQLite/process isolation — DOCUMENTED + BEHAVIOR PROVEN (HTTP/Auth/Fake gates).
-R24: NO NEW SEMANTIC IMPACT. Prior D1 R24 debt remains open.
-
-## 4. Historic :3020 (PROTECTED)
-
-| Item | Value |
-|------|-------|
-| PID | `92265` |
-| Port | 3020 |
-| DB | `pre-int-ux-qa-01/product-db/oa-product.sqlite` |
-| Action | **NONE** — not killed, not reconfigured |
-
-## 5. Manual campaign identity
-
+## 6. Runtime identity
 ```
-Campaign: NAP-SINGLE-RESPONSE-MANUAL-ENV-01
-Created UTC: 2026-10-31T09:29:25Z
-Port: 3021
-URL: http://localhost:3021/studio
-Code worktree: /Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01
-Provider: fake
-OpenAI LIVE: OFF
-Cursor REAL: OFF
-Product DB: /Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/oa-product.sqlite
-Nora DB: /Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/nora-session.sqlite
-DB provenance: sqlite3 .backup of pre-int-ux-qa-01 QA clone (source not shared/not overwritten)
-Historic :3020: PROTECTED — not modified
+Campaign: TEST16-LIVE-RUNTIME-RESUME-01
+Port: 3022
+URL: http://localhost:3022/studio
+Code: D1 corrected worktree
+Product DB ORIGINAL: /Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite
+Nora DB ORIGINAL: /Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite
+Provider: OpenAI LIVE (historical key/model; OPS1_CONVERSATION_PROVIDER unset)
+Cursor REAL: 0
+E2E QA Fake control: unset
+Safety backup: under /Users/morris/Projects/.sfia-exec/live-e2e-01/backups/pre-test16-resume-*
+BALISE project: prj:d0c81c08-349b-4109-aca7-72bd5d1bae85
+Session: f1-default
+TEST-16 turns: seq20 user / seq21 assistant
+Auth note: BETTER_AUTH_URL=http://localhost:3022 — new GitHub OAuth may require callback registered for 3022; existing localhost session cookies may work with same BETTER_AUTH_SECRET
+Protected: :3020 pre-int left running; Fake :3021 stopped
 ```
+Listen PID: `15355`
+Server process env (parent): OPENAI_MODEL=gpt-5.6-luna; BETTER_AUTH_URL=http://localhost:3022; OPS1_CONVERSATION_PROVIDER unset → openai-default-live; CURSOR_REAL=0.
+lsof: product sqlite opened by listen PID.
 
-| Item | Value |
-|------|-------|
-| URL | http://localhost:3021/studio |
-| Port | 3021 |
-| Listen PID | `10334` |
-| Launcher shell | Cursor background job (durable) |
-| cwd | `.../projects/sfia-studio/app` (corrected WT) |
-| Provider | FAKE |
-| OpenAI LIVE | OFF |
-| Cursor REAL | OFF |
-| E2E QA control | 1 (NAP Fake markers enabled) |
-| Auth | PASS — `/studio` reachable with local Better Auth storageState; studio-shell present |
-| DB isolation | PASS — dedicated campaign sqlite paths (sqlite3 .backup of pre-int QA clone; source untouched) |
-
-### status snapshot
-
+### status
 ```
-campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01
-port=3021
-url=http://localhost:3021/studio
-listen_pid=10334
+campaign=TEST16-LIVE-RUNTIME-RESUME-01
+port=3022
+url=http://localhost:3022/studio
+listen_pid=15355
 http_login=200
-http_studio=307
 cwd=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app
-provider=fake
+product_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite
+nora_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite
+open_live_paths=/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite
+provider=openai-default-live
 cursor_real=0
-live_smoke=0
-product_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/oa-product.sqlite
-nora_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/nora-session.sqlite
-open_sqlite=none
+e2e_qa=unset
 historic_3020=92265
+fake_3021=none
 ```
 
-### server log (tail)
-
+### log excerpt
 ```
-QA_LAUNCH campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01 port=3021 auth=http://localhost:3021 provider=fake product_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/oa-product.sqlite nora_db=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/db/nora-session.sqlite cursor_real=0
+QA_LAUNCH campaign=TEST16-LIVE-RUNTIME-RESUME-01 port=3022 auth=http://localhost:3022 product_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite nora_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite cursor_real=0 openai_model=gpt-5.6-luna provider=openai-default-live
    ▲ Next.js 15.5.20
-   - Local:        http://localhost:3021
-   - Network:      http://localhost:3021
+   - Local:        http://localhost:3022
+   - Network:      http://localhost:3022
 
  ✓ Starting...
- ✓ Ready in 1121ms
- ✓ Compiled /middleware in 336ms (748 modules)
- ✓ Compiled /login in 322ms (603 modules)
- GET /login 200 in 474ms
- GET /login 200 in 15ms
- ○ Compiling /studio ...
- ✓ Compiled /studio in 1862ms (2953 modules)
- GET /studio 200 in 2176ms
- GET /login 200 in 32ms
+ ✓ Ready in 1165ms
+ ✓ Compiled /middleware in 323ms (748 modules)
+...
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 10ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 10ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 5ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 8ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 11ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
+ POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
+ GET /login 200 in 40ms
 ```
 
-## 6. Scripts (complete)
+## 7. Auth
+PASS with existing localhost Better Auth storageState (stateless cookie auth). `/studio` + BALISE project route reachable without /login redirect.
+Reserve: new GitHub OAuth against :3022 may require callback registration historically tied to :3020.
 
-### scripts/start-manual-qa.sh
+## 8. Continuity oracles
+A BALISE present — PASS
+B f1-default — PASS
+C seq20/21 TEST-16 — PASS
+D Product objects present — PASS (projects/lps/contracts inspected read-only)
+E D1 code — PASS
+F OpenAI LIVE selected — PASS (not Fake; model gpt-5.6-luna)
+G Auth open BALISE — PASS
+H Adaptive view in build — PRESENT in code; historical seq21 may still render as persisted B/plain (expected non-rewrite)
+I No governed action — PASS (Cursor REAL OFF; no prompt sent)
+J No migration/reset — PASS
 
+## 9. Scripts (complete)
+### start-test16-live.sh
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01"
+CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/test16-live-resume"
 CORR_APP="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app"
 ENVF="$CAMPAIGN/meta/qa.process.env"
-PIDF="$CAMPAIGN/meta/qa-launcher.pid"
-LISTENF="$CAMPAIGN/meta/qa-listen.pid"
 LOGF="$CAMPAIGN/logs/qa-server.log"
-PORT=3021
+PORT=3022
+PROD="/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite"
+NORA="/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite"
 
-[[ -f "$ENVF" ]] || { echo "MISSING_ENV $ENVF" >&2; exit 1; }
+[[ -f "$ENVF" ]] || { echo "MISSING_ENV" >&2; exit 1; }
+[[ -f "$PROD" && -f "$NORA" ]] || { echo "MISSING_LIVE_DBS" >&2; exit 1; }
 if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
-  echo "PORT_BUSY $PORT — refuse start (will not kill owner)" >&2
-  lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >&2 || true
-  exit 2
+  echo "PORT_BUSY $PORT" >&2; exit 2
 fi
-if lsof -nP -iTCP:3020 -sTCP:LISTEN >/dev/null 2>&1; then
-  echo "NOTE historic :3020 still listening — left untouched"
+# Refuse if originals already held by another process
+if lsof "$PROD" 2>/dev/null | awk 'NR>1{exit 0} END{exit 1}'; then
+  echo "PRODUCT_DB_BUSY — refuse concurrent writer" >&2
+  lsof "$PROD" >&2 || true
+  exit 3
+fi
+if lsof "$NORA" 2>/dev/null | awk 'NR>1{exit 0} END{exit 1}'; then
+  echo "NORA_DB_BUSY — refuse concurrent writer" >&2
+  lsof "$NORA" >&2 || true
+  exit 3
 fi
 
 set -a
 # shellcheck disable=SC1090
 source "$ENVF"
 set +a
+unset OPS1_CONVERSATION_PROVIDER || true
+unset SFIA_STUDIO_E2E_QA_CONTROL || true
 unset SFIA_STUDIO_LOCAL_OA_EXCLUSIVE || true
-export OPS1_CONVERSATION_PROVIDER=fake
+unset D1_INTAKE_PROVIDER || true
 export SFIA_STUDIO_CURSOR_REAL=0
 export OPS1_CURSOR_REAL=0
 export OPS1_ALLOW_LIVE_SMOKE=0
-export SFIA_STUDIO_E2E_QA_CONTROL=1
-export BETTER_AUTH_URL=http://localhost:3021
-export PORT=3021
+export BETTER_AUTH_URL=http://localhost:3022
+export PORT=3022
+export SFIA_STUDIO_PRODUCT_DB_PATH="$PROD"
+export SFIA_STUDIO_NORA_SESSION_DB_PATH="$NORA"
 
 cd "$CORR_APP"
 mkdir -p "$CAMPAIGN/logs" "$CAMPAIGN/meta"
 {
-  echo "QA_LAUNCH campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01 port=$PORT auth=$BETTER_AUTH_URL provider=$OPS1_CONVERSATION_PROVIDER product_db=$SFIA_STUDIO_PRODUCT_DB_PATH nora_db=$SFIA_STUDIO_NORA_SESSION_DB_PATH cursor_real=$SFIA_STUDIO_CURSOR_REAL"
+  echo "QA_LAUNCH campaign=TEST16-LIVE-RUNTIME-RESUME-01 port=$PORT auth=$BETTER_AUTH_URL product_db=$SFIA_STUDIO_PRODUCT_DB_PATH nora_db=$SFIA_STUDIO_NORA_SESSION_DB_PATH cursor_real=$SFIA_STUDIO_CURSOR_REAL openai_model=${OPENAI_MODEL:-unset} provider=${OPS1_CONVERSATION_PROVIDER:-openai-default-live}"
 } | tee "$LOGF"
 
-# Explicit next binary port — never npm run dev (hardcodes 3020)
+echo "NOTE: start via durable agent/background shell recommended; this script uses nohup"
 nohup npx next dev --port "$PORT" --hostname localhost >>"$LOGF" 2>&1 &
-echo $! > "$PIDF"
+echo $! > "$CAMPAIGN/meta/qa-launcher.pid"
 disown $! 2>/dev/null || true
-echo "LAUNCH_PID=$(cat "$PIDF")"
-
 for i in $(seq 1 60); do
   if curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/login" | grep -q '^200$'; then
-    LISTEN_PID=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t | head -1)
-    echo "$LISTEN_PID" > "$LISTENF"
-    echo "READY listen_pid=$LISTEN_PID url=http://localhost:$PORT/studio"
+    LISTEN=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t | head -1)
+    echo "$LISTEN" > "$CAMPAIGN/meta/qa-listen.pid"
+    echo "READY listen_pid=$LISTEN url=http://localhost:$PORT/studio"
     exit 0
   fi
   sleep 1
 done
-echo "STARTUP_TIMEOUT" >&2
-exit 3
+echo "STARTUP_TIMEOUT" >&2; exit 4
 ```
-
-### scripts/status-manual-qa.sh
-
+### status-test16-live.sh
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01"
+CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/test16-live-resume"
 ENVF="$CAMPAIGN/meta/qa.process.env"
-PORT=3021
-URL="http://localhost:$PORT"
-
-set -a
-# shellcheck disable=SC1090
-[[ -f "$ENVF" ]] && source "$ENVF"
-set +a
-
-LISTEN_PID=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
-HTTP_LOGIN=$(curl -s -o /dev/null -w "%{http_code}" "$URL/login" 2>/dev/null || echo 000)
-HTTP_STUDIO=$(curl -s -o /dev/null -w "%{http_code}" "$URL/studio" 2>/dev/null || echo 000)
-CWD=""
-DBS=""
-if [[ -n "${LISTEN_PID:-}" ]]; then
-  CWD=$(lsof -a -p "$LISTEN_PID" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
-  DBS=$(lsof -p "$LISTEN_PID" 2>/dev/null | awk '/sqlite/{print $NF}' | sort -u | tr '\n' ' ')
+PORT=3022
+PROD="/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite"
+NORA="/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite"
+# Clear inherited Fake/QA pollution from parent shells before sourcing.
+unset OPS1_CONVERSATION_PROVIDER SFIA_STUDIO_E2E_QA_CONTROL D1_INTAKE_PROVIDER OPS1_ALLOW_LIVE_SMOKE || true
+set -a; [[ -f "$ENVF" ]] && source "$ENVF"; set +a
+unset OPS1_CONVERSATION_PROVIDER SFIA_STUDIO_E2E_QA_CONTROL D1_INTAKE_PROVIDER || true
+export OPS1_ALLOW_LIVE_SMOKE=0
+export SFIA_STUDIO_CURSOR_REAL=0
+export OPS1_CURSOR_REAL=0
+LISTEN=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
+HTTP=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/login" 2>/dev/null || echo 000)
+CWD=""; DBS=""
+if [[ -n "${LISTEN:-}" ]]; then
+  CWD=$(lsof -a -p "$LISTEN" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
+  DBS=$(lsof -p "$LISTEN" 2>/dev/null | awk '/live-e2e-01/ {print $NF}' | sort -u | tr '\n' ' ')
 fi
-echo "campaign=NAP-SINGLE-RESPONSE-MANUAL-ENV-01"
+echo "campaign=TEST16-LIVE-RUNTIME-RESUME-01"
 echo "port=$PORT"
-echo "url=$URL/studio"
-echo "listen_pid=${LISTEN_PID:-none}"
-echo "http_login=$HTTP_LOGIN"
-echo "http_studio=$HTTP_STUDIO"
+echo "url=http://localhost:$PORT/studio"
+echo "listen_pid=${LISTEN:-none}"
+echo "http_login=$HTTP"
 echo "cwd=${CWD:-unknown}"
-echo "provider=${OPS1_CONVERSATION_PROVIDER:-unset}"
-echo "cursor_real=${SFIA_STUDIO_CURSOR_REAL:-unset}"
-echo "live_smoke=${OPS1_ALLOW_LIVE_SMOKE:-unset}"
-echo "product_db=${SFIA_STUDIO_PRODUCT_DB_PATH:-unset}"
-echo "nora_db=${SFIA_STUDIO_NORA_SESSION_DB_PATH:-unset}"
-echo "open_sqlite=${DBS:-none}"
+echo "product_db=$PROD"
+echo "nora_db=$NORA"
+echo "open_live_paths=${DBS:-none-yet}"
+echo "provider=${OPS1_CONVERSATION_PROVIDER:-openai-default-live}"
+echo "cursor_real=${SFIA_STUDIO_CURSOR_REAL:-}"
+echo "e2e_qa=${SFIA_STUDIO_E2E_QA_CONTROL:-unset}"
 echo "historic_3020=$(lsof -nP -iTCP:3020 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
+echo "fake_3021=$(lsof -nP -iTCP:3021 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
 ```
-
-### scripts/stop-manual-qa.sh
-
+### stop-test16-live.sh
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
-CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01"
-PORT=3021
+PORT=3022
 EXPECTED_CWD="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app"
-EXPECTED_DB_FRAGMENT="nap-single-response-manual-env-01/db"
-
-LISTEN_PID=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
-if [[ -z "${LISTEN_PID:-}" ]]; then
-  echo "NOT_RUNNING port=$PORT"
-  exit 0
-fi
-CWD=$(lsof -a -p "$LISTEN_PID" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
-DBS=$(lsof -p "$LISTEN_PID" 2>/dev/null | awk '/sqlite/{print $NF}' | tr '\n' ' ')
-CMD=$(ps -p "$LISTEN_PID" -o command= 2>/dev/null || true)
-
-echo "candidate_pid=$LISTEN_PID cwd=$CWD"
-if [[ "$CWD" != "$EXPECTED_CWD" ]]; then
-  echo "REFUSE_STOP cwd_mismatch expected=$EXPECTED_CWD got=$CWD" >&2
-  exit 2
-fi
-if ! echo "$CMD" | grep -q -- "--port $PORT"; then
-  # next-server may not show --port; require campaign DB open
-  if ! echo "$DBS" | grep -q "$EXPECTED_DB_FRAGMENT"; then
-    echo "REFUSE_STOP identity_not_proven cmd=$CMD dbs=$DBS" >&2
-    exit 3
-  fi
-fi
-# Never touch 3020
-if [[ "$PORT" == "3020" ]]; then echo "REFUSE_STOP protected_port" >&2; exit 4; fi
-
-# Kill listen pid and its immediate parent next/npm chain only if they reference 3021
-kill "$LISTEN_PID" 2>/dev/null || true
-# parent next-dev
-PPID_VAL=$(ps -p "$LISTEN_PID" -o ppid= 2>/dev/null | tr -d ' ' || true)
-if [[ -n "${PPID_VAL:-}" ]]; then
-  PCMD=$(ps -p "$PPID_VAL" -o command= 2>/dev/null || true)
-  if echo "$PCMD" | grep -q -- "--port $PORT"; then
-    kill "$PPID_VAL" 2>/dev/null || true
-    GPPID=$(ps -p "$PPID_VAL" -o ppid= 2>/dev/null | tr -d ' ' || true)
-    if [[ -n "${GPPID:-}" ]]; then
-      GCMD=$(ps -p "$GPPID" -o command= 2>/dev/null || true)
-      if echo "$GCMD" | grep -q -- "--port $PORT"; then
-        kill "$GPPID" 2>/dev/null || true
-      fi
-    fi
-  fi
-fi
+EXPECTED_LOG_FRAGMENT="test16-live-resume/logs"
+LISTEN=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
+[[ -n "${LISTEN:-}" ]] || { echo "NOT_RUNNING"; exit 0; }
+CWD=$(lsof -a -p "$LISTEN" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
+LOGS=$(lsof -p "$LISTEN" 2>/dev/null | awk '/test16-live-resume\/logs/{print $NF}' | head -1 || true)
+DBS=$(lsof -p "$LISTEN" 2>/dev/null | awk '/live-e2e-01/{print $NF}' | tr '\n' ' ')
+echo "candidate_pid=$LISTEN cwd=$CWD logs=$LOGS"
+if [[ "$CWD" != "$EXPECTED_CWD" ]]; then echo "REFUSE cwd" >&2; exit 2; fi
+if [[ -z "$LOGS" && "$DBS" != *live-e2e-01* ]]; then echo "REFUSE identity" >&2; exit 3; fi
+PARENT=$(ps -p "$LISTEN" -o ppid= | tr -d ' ')
+GPARENT=$(ps -p "$PARENT" -o ppid= 2>/dev/null | tr -d ' ' || true)
+kill "$LISTEN" 2>/dev/null || true
+for p in $PARENT $GPARENT; do
+  cmd=$(ps -p "$p" -o command= 2>/dev/null || true)
+  if echo "$cmd" | rg -q -- "--port $PORT|next dev"; then kill "$p" 2>/dev/null || true; fi
+done
 sleep 1
-if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
-  echo "STOP_INCOMPLETE still_listening" >&2
-  exit 5
-fi
-rm -f "$CAMPAIGN/meta/qa-listen.pid" "$CAMPAIGN/meta/qa-server.pid"
-echo "STOPPED port=$PORT prior_pid=$LISTEN_PID"
+lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1 && { echo "STOP_INCOMPLETE" >&2; exit 5; }
+echo "STOPPED port=$PORT prior_pid=$LISTEN"
 echo "historic_3020=$(lsof -nP -iTCP:3020 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
 ```
 
-## 7. Fake / Real
+## 10. Fake/Real
+Cognitive frontier: OpenAI LIVE historical.
+Execution frontier: Cursor REAL OFF.
+Does NOT prove next-turn LIVE quality, G-REAL, Evidence REAL, runtime v3.
 
-MANUAL TEST ENVIRONMENT QUALIFIED — FAKE MODE.
-Natural-language prompts ≠ cognitive LIVE quality proof.
-OPENAI LIVE MANUAL UX — SEPARATE MORRIS GO REQUIRED.
-G-REAL CLOSED.
+## 11. R23/R24
+R23 BEHAVIOR PROVEN for resume/preflight. R24 NO NEW SEMANTIC IMPACT.
 
-## 8. Product files
+## 12. Verdict
+# TEST16 LIVE-E2E-01 — READY FOR MORRIS MANUAL CONTINUATION
 
-Unchanged this cycle. Server left RUNNING for Morris.
+URL: http://localhost:3022/studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85
+Port: 3022
+PID: 15355
+Branch/HEAD: feat/akg-m5-nap-test16-coverage-corr-01 / ca1c9869…
+Product DB original: CONFIRMED
+Nora DB original: CONFIRMED
+BALISE + f1-default + seq20/21: CONFIRMED
+Auth: PASS
+OpenAI LIVE: configured
+Cursor REAL: OFF
+Server: RUNNING
+Status: bash .tmp-sfia-review/test16-live-resume/scripts/status-test16-live.sh
+Stop: bash .tmp-sfia-review/test16-live-resume/scripts/stop-test16-live.sh
 
-## 9. Verdict
+Note: old TEST-16 answer may remain fallback B after reload; D1 applies to the NEXT Nora turn Morris sends.
 
-# NAP-SINGLE-RESPONSE-MANUAL-ENV-01 — READY FOR MORRIS MANUAL UX TEST / FAKE
+Not claimed: G-REAL, LIVE quality proven, READY FOR PR, L3 COMPLETE.
 
-Not claimed: G-REAL, OpenAI LIVE, READY FOR PR, PRODUCT MERGED, L3 COMPLETE, RUNTIME V3 ADOPTED.
-
-## 10. Remise Morris
-
-**MANUAL UX ENVIRONMENT — READY / FAKE**
-
-- URL: http://localhost:3021/studio
-- Port: 3021
-- PID: 10334
-- Branch: feat/akg-m5-nap-test16-coverage-corr-01
-- HEAD: ca1c9869…
-- Code D1: PRESENT / VERIFIED
-- Database isolation: PASS
-- Auth: PASS
-- Conversation provider: FAKE
-- OpenAI LIVE: OFF
-- Cursor REAL: OFF
-- État serveur: RUNNING
-- Logs: `.tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/logs/qa-server.log`
-- Contrôle: `bash .tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/scripts/status-manual-qa.sh`
-- Arrêt: `bash .tmp-sfia-review/manual-ux/nap-single-response-manual-env-01/scripts/stop-manual-qa.sh`
-
-Tu peux maintenant ouvrir l'URL dans ton navigateur pour tester manuellement le runtime Studio.
-
-Les réponses de Nora utilisent actuellement le fournisseur Fake. L'évaluation de la qualité cognitive réelle nécessite un GO OpenAI LIVE séparé.
-
-Marqueurs Fake utiles: `__NAP_QA_SHORT__` `__NAP_QA_BALISE__` `__NAP_QA_COMPARE__` `__NAP_QA_RECO__` `__NAP_QA_PROVENANCE__` `__NAP_QA_INVALID__` `__NAP_QA_FORGED_STUDIO__`
-
-**Prefer a dedicated browser profile** for :3021 (cookies share hostname across ports).
-
-Historic live :3020 remains available separately and was not modified by this cycle.
-
-**END OF REVIEW PACK FULL — NAP-SINGLE-RESPONSE-MANUAL-ENV-01**
+**END OF REVIEW PACK FULL — TEST16-LIVE-RUNTIME-RESUME-01**
