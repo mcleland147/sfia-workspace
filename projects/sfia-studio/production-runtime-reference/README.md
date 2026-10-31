@@ -66,18 +66,26 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
 Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
 
 
-**Nora Adaptive Presentation Option C / AKG-M5 L3-S2 — CURRENT PRODUCT ON MAIN (PR #628 MERGED — 2026-10-30) + C14-NAP-01 / R24-NAP-CR-01 documentary truth-sync:**
+**Nora Adaptive Presentation UX consolidated / AKG-M5 L3-S2 — GI-NAP-UX-CONSOLIDATED-01 (CANDIDATE IN THIS PR — 2026-10-31):**
 
 | Epistemic class | Element |
 |---|---|
-| **CURRENT PRODUCT ON MAIN** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · parents **`2cc63686…`** + **`1c3a8d9e…`** · Delivery **`c6b5ae3a…`** + CI correction **`1c3a8d9e…`** (Vitest cookie-shape without Chromium) · **30 files** · Pre-merge CI [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS** · Post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Required Gate **PASS** · Vitest **6183 PASS / 142 SKIP / 0 FAIL** · Modeled governance **75 PASS** |
-| **Product facts ON MAIN** | Nullable Option C `presentation` DTO · fail-closed normalize · typed Studio notices (server provenance) · Memory B `presentation_json` / `studio_control_json` · ConversationSurface → `NoraAdaptivePresentationView` · narrative / plain fallback · Cognitive STOP / CORR-NAP-01…04 · Fake NAP dual-gate (`SFIA_STUDIO_E2E_QA_CONTROL` ∧ Fake provider) |
-| **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** · Fake Auth browser QA historical (QA-NAP-03) · **≠** OpenAI LIVE structured emit · **≠** STOP browser · **≠** server process restart |
-| **HISTORICAL AS OF authoring** | Pre-merge R24-NAP overlays « LOCAL CANDIDATE — PRE-INTEGRATION / PRODUCT UNCOMMITTED / PROJECT GIT INTEGRATION NOT AUTHORIZED / ≠ CURRENT ON MAIN » — **true before PR #628 merge**; preserve as dated snapshot · superseded for Product lifecycle by this block |
-| **R24 C14-NAP-01 / R24-NAP-CR-01 — HISTORICAL AUTHORING SNAPSHOT (2026-10-30)** | **As-of C14-NAP-01 local authoring (before semantic review and documentary Git Integration):** documentary candidate was local on branch `docs/akg-m5-nap-option-c-c14-r24-truth-sync` (volumes 03/06/08/09 + Roadmap + this README); digest regularization was pending (no `--write-digests` in that cycle); documentary publication was not yet authorized. These statements describe the dated authoring state, **not** a permanent post-publication lifecycle claim for this README. Subsequent documentary integration / digest / publication status must be resolved from Git, applicable gates and post-merge proofs. R24-NAP-CR-01 corrects temporal currentness only · **NO PRODUCT SEMANTIC IMPACT** |
-| **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ EP-S2-08 PASS · ≠ EP-S2-05 PROVEN · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ REAL PROVEN · digest MATCH ≠ semantic exhaustiveness · Product ON MAIN ≠ automatic documentary publication |
+| **CANDIDATE (this PR)** | Branch `feat/akg-m5-nap-test16-coverage-corr-01` · base `origin/main` **`ca1c9869…`** · Morris GO GI-NAP-UX-CONSOLIDATED-01 · Product + R24 in **one** PR · Merge/CI status: **RESOLVE FROM GitHub after gates** · **≠ MERGED** until post-merge verified |
+| **Product facts in candidate** | Option C DTO retained · **single-response** A1 structured-first when `canonicalTextsEquivalent(body, compose)` · else **B fail-closed** · case-sensitive fidelity (mW≠MW, Mb≠MB) · eyebrow sanitation (no invented authority) · B-path **GFM→HTML table** (`NoraCanonicalFallbackView`) without inventing DTO · durable Memory B content via `buildDurableAssistantContentForTurn` when A1-admissible · Fake NAP fixtures narrative≡compose |
+| **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** (Vitest d0/UI) · Fake Auth browser QA (PASS WITH RESERVES) · OpenAI LIVE **targeted observation** (seq27 table B + visual Morris) · **≠** global LIVE emit parity · **≠** STOP browser · **≠** server restart |
+| **BASELINE ON MAIN (superseded as tip by this candidate when merged)** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** — Option C Delivery ON MAIN (`c848b98c…`) · facts below remain ancestors until this PR merges |
+| **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ UX LIVE PASS universal · model narrative recommendation duplication **OPEN reserve** · digest MATCH ≠ semantic exhaustiveness |
 
-Canonical Option C gap table: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)** (CURRENT overlay supersedes PRE-INTEGRATION table). Flow/persistence/proof detail: volumes **03 / 06 / 08**.
+**Nora Adaptive Presentation Option C / AKG-M5 L3-S2 — BASELINE PRODUCT ON MAIN (PR #628 MERGED — 2026-10-30) — HISTORICAL AS TIP under GI-NAP candidate:**
+
+| Epistemic class | Element |
+|---|---|
+| **PRODUCT ON MAIN (baseline)** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · Delivery **`c6b5ae3a…`** + CI **`1c3a8d9e…`** · Pre [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) · Post [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Vitest **6183 PASS / 142 SKIP** |
+| **Product facts ON MAIN (baseline)** | Nullable Option C `presentation` · fail-closed normalize · typed Studio notices · Memory B columns · adaptive View · narrative/plain fallback (pre single-response UX consolidation) · CORR-NAP-01…04 · Fake NAP dual-gate |
+| **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** · Fake Auth browser historical · **≠** OpenAI LIVE structured emit · **≠** STOP browser · **≠** server restart |
+| **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ G-REAL · ≠ runtime v3 ADOPTED |
+
+Canonical Option C + UX consolidation gap table: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Flow/persistence/proof: volumes **03 / 06 / 07 / 08**.
 
 **AKG-M5 L3-S2 Option B / S8 Project-first — CURRENT ON MAIN (PR #623 MERGED — 2026-10-27) + Cycle 14 R24 LOCAL documentary sync:**
 
