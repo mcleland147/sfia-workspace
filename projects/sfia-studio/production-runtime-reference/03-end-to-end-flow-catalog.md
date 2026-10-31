@@ -48,9 +48,38 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
 - **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope; REC-01 WR path DETERMINISTIC at tested scope (ZERO REAL claim)
 - **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`; REC-01 — `qualifyProspectiveWorkRecommendationMaterialization.d0`, `activeCycleCognitiveWork.d0` (Option A reload + historical replay), `p6.hqa.rec01.minimalStabilization.d0`, Option B context tests
-- **Overlay — Nora Adaptive Presentation Option C (CURRENT ON MAIN — PR #628):** when a coherent Product turn carries a validated `presentation` DTO, ConversationSurface may render `NoraAdaptivePresentationView` instead of plain prose (coverage + Studio notices). See dedicated overlay below. OpenAI LIVE structured emit **NOT PROVEN**.
+- **Overlay — Nora Adaptive Presentation Option C (BASELINE ON MAIN — PR #628) + GI-NAP-UX-CONSOLIDATED-01 candidate:** A1 structured-first when admissible; else B fail-closed (GFM tables may render as HTML on B). See overlays below. OpenAI LIVE structured emit **NOT PROVEN** globally.
 
-## Overlay — Nora Adaptive Presentation Option C (CURRENT ON MAIN — PR #628 MERGED — 2026-10-30)
+## Overlay — Nora UX consolidated A1/B (GI-NAP-UX-CONSOLIDATED-01 — CANDIDATE IN THIS PR — 2026-10-31)
+
+> **Epistemic class:** **CANDIDATE** on `feat/akg-m5-nap-test16-coverage-corr-01` · base **`ca1c9869…`** · Morris GO GI-NAP-UX-CONSOLIDATED-01 · **≠ MERGED** until Git/post-merge verified.
+>
+> **Delta vs #628 baseline:** single-response (no dual canonical+projection) · strict canonical compare (case-sensitive units) · eyebrow authority defense · B-path GFM table HTML · durable content composition when A1-admissible.
+
+### Flow — Pilot message → A1 or B (F04 extension; F02 rehydrate)
+
+1. **Pilot message** → `orchestrateTurn` / Agents Runner — authority path unchanged.
+2. Structured turn may include nullable `presentation` (Option C) + `narrative`.
+3. Normalize / coherence fail-closed (invalid DTO → null).
+4. **Durable core:** `buildDurableAssistantContentForTurn` — when presentation is A1-admissible, Memory B `content` may be compose-equivalent; else pilot-facing narrative preserved (no silent truncation).
+5. Persist Memory B: `content` + optional `presentation_json` / `studio_control_json`.
+6. UI: `resolveAdaptiveAssistantRender` → **A1** `NoraAdaptivePresentationView` iff structurally admissible **and** body ≡ compose; else **B** `NoraCanonicalFallbackView` (plain paragraphs + optional GFM→`<table>`).
+7. A1 refuse when narrative ≠ compose (incl. eyebrow chrome divergence) — **justified**; do not soften fidelity for prettier UI.
+8. Reload rehydrates same A1/B decision from Memory B fields. Server restart **NOT PROVEN**.
+
+### Guardrails (candidate)
+
+| Rule | Status |
+|---|---|
+| One primary restitution (A1 **or** B, never both) | DET UI |
+| A1 only when fidelity-equivalent | DET |
+| B preserves STOP / units / negations / reserves | DET |
+| GFM table on B → HTML without inventing DTO | DET + targeted LIVE observation |
+| Eyebrow ≠ Product authority | DET |
+| recommendation ≠ HumanDecision · no free CTA | DET |
+| Model-duplicated recommendation prose | **OPEN** — not fuzzy-deduped |
+
+## Overlay — Nora Adaptive Presentation Option C (BASELINE ON MAIN — PR #628 MERGED — 2026-10-30)
 
 > **Epistemic class:** **CURRENT PRODUCT ON MAIN** via [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · parents **`2cc63686…`** + **`1c3a8d9e…`** · Delivery **`c6b5ae3a…`** · CI correction **`1c3a8d9e…`** · Pre-merge CI [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) **SUCCESS** · Post-merge CI [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Required Gate **PASS** · Proof: **DETERMINISTIC AT TESTED SCOPE** · **≠** L3 GLOBAL CLOSED · **≠** runtime v3 ADOPTED · **≠** OpenAI LIVE / Cursor REAL.
 >

@@ -125,6 +125,9 @@ Code integrated on main. Invariants apply **when** exclusive is armed (trim=`"1"
 | INV-L2D2-SINGLETON-SEAL-ON-CUTOVER | `sealD1DbSingletonForLocalOaExclusiveCutover` closes process singleton before exclusive arming | `db.ts` / S2+S4 | CURRENT IMPLEMENTED · DET |
 | INV-L2D2-NO-PROJ-TO-PRJ-MAP | Legacy D1 deep links do not rewrite `proj-*` → `prj:*` | `legacyNavigation.ts` / D4 tests + S3 harness | CURRENT IMPLEMENTED · DET · LIVE HTTP NOT PROVEN |
 | INV-REC-NE-HD / INV-MEMB-NE-TRUTHC | Recommendation ≠ HD ; Memory B ≠ Truth C | existing catalog | CURRENT IMPLEMENTED |
+| INV-NAP-A1-FIDELITY | A1 adaptive render only when body ≡ compose (strict canonical compare); else B | `isA1TransitionAdmissible` / `resolveAdaptiveAssistantRender` | **CANDIDATE** GI-NAP-UX-CONSOLIDATED-01 · DET · ≠ soften for UI |
+| INV-NAP-EYEBROW-NE-AUTHORITY | Presentation eyebrow sanitized; authority-claim chrome suppressed | `sanitizePresentationEyebrow` / View | **CANDIDATE** · DET |
+| INV-NAP-SINGLE-RESPONSE | One primary restitution — A1 **or** B, never dual layers | ConversationSurface | **CANDIDATE** · DET |
 
 **Residual KNOWN GAP (R-03):** `new DatabaseSync(path)` constructed **outside** `openD1Db` is **not** wrapped — honest negative test retained. Applicative path DET-proven. Full close needs Morris architecture decision (not done). DET row oracles under exclusive use disposable `{ readOnly: true }` file opens — **≠** Q12 product fallback · **≠** exclusive OFF.
 

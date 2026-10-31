@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "928ab15b032c392dafee74a916f2faad3ed524de",
-  "lastReviewedAt": "2026-10-15T22:51:00+02:00",
+  "lastReviewedCommit": "ca1c9869f905b394808c953649910d60fbfcb984",
+  "lastReviewedAt": "2026-10-31T12:00:00+01:00",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "fd9d3aadd64084b0"
+      "sha256_16": "5d6690c1954b301b"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "4e8afd0560d3f660"
+      "sha256_16": "0e8d0638d68f541f"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -31,19 +31,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "c79b001b5136a1be"
+      "sha256_16": "a93e1a00b05b1197"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "0ca1dac948748e96"
+      "sha256_16": "2ec7122cf576cf13"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "c3ea1874a2ba011c"
+      "sha256_16": "c78e93980c78a615"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "974279ccc64db86d"
+      "sha256_16": "0a53602386e116a8"
     }
   ],
   "components": [
@@ -613,7 +613,7 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "a37fc8b0f0adfd57"
+      "sha256_16": "c8e879baee71175c"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
@@ -697,7 +697,7 @@
     },
     {
       "path": "projects/sfia-studio/app/lib/platform/ai/fakeProvider.ts",
-      "sha256_16": "52abbdef13501059"
+      "sha256_16": "a176d9d248d4754e"
     },
     {
       "path": "projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/LifecycleSurface.tsx",

@@ -9,7 +9,20 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
-## Overlay — Nora Adaptive Presentation Option C proof index (CURRENT ON MAIN — PR #628 — 2026-10-30)
+## Overlay — Nora UX consolidated proof index (GI-NAP-UX-CONSOLIDATED-01 — CANDIDATE — 2026-10-31)
+
+> **CANDIDATE** on branch `feat/akg-m5-nap-test16-coverage-corr-01` · **≠ MERGED** until verified. Extends #628 index.
+
+| Suite / artifact | What it proves | Class |
+|---|---|---|
+| `noraAdaptivePresentation.d0.test.ts` (+ D1 / Fidelity / Eyebrow / LIVE-RENDER) | A1 admission · case-sensitive compare · eyebrow sanitize · GFM split/flatten fidelity · CR-03 display | **DET** · candidate |
+| `noraAdaptivePresentation.ui.test.tsx` | Single-response · B HTML table · no CTA · rehydrate table DOM | **DET jsdom** · candidate |
+| `fakeNapQaPresentation.d0.test.ts` + `fakeProvider` NAP markers | Fake emit narrative ≡ compose · lead null | **DET Fake** · ≠ LIVE |
+| `e2e/studio-nora-adaptive-qa-nap01.spec.ts` | Fake Auth browser single-response asserts · capture root isolation | **Fake browser** · not Required Gate |
+| Targeted OpenAI LIVE seq27 / Morris visual table | B-path GFM→table observed at scoped campaign | **TARGETED LIVE OBSERVATION** · ≠ global LIVE PASS |
+| Model recommendation duplication | Present in narrative | **OPEN RESERVE** · not auto-deduped |
+
+## Overlay — Nora Adaptive Presentation Option C proof index (BASELINE ON MAIN — PR #628 — 2026-10-30)
 
 > **Impact check C14-NAP-01:** **YES — documentary index requalification.** Product suites + CI correction are **INTEGRATED ON MAIN** via [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628). Proof ceiling: **DETERMINISTIC AT TESTED SCOPE**. **≠** REAL · **≠** L3 closed.
 >

@@ -5,7 +5,26 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## Overlay — Nora Adaptive Presentation Option C / AKG-M5 L3-S2 (CURRENT ON MAIN — PR #628 — 2026-10-30)
+## Overlay — Nora UX consolidated / GI-NAP-UX-CONSOLIDATED-01 (CANDIDATE — 2026-10-31)
+
+| Field | Value |
+|---|---|
+| Capability | Nora single-response A1/B + fidelity + eyebrow + B GFM table |
+| Status | **CANDIDATE IN PR** · branch `feat/akg-m5-nap-test16-coverage-corr-01` · base `ca1c9869…` · **≠ MERGED** until verified |
+| Proof | DET Vitest/UI · Fake browser WITH RESERVES · targeted LIVE observation (table B) + Morris visual confirm |
+| Open reserves | R-LIVE-EMIT global · R-STOP-BROWSER · R-SRV-RESTART · **model narrative recommendation duplication** · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN |
+| Anti-claims | ≠ G-REAL · ≠ runtime v3 ADOPTED · ≠ L3 COMPLETE · ≠ universal UX LIVE PASS |
+
+| Élément | Statut | Limite |
+|---|---|---|
+| Single-response A1/B | CANDIDATE DET | A1 refused when body≠compose |
+| Fidelity case-sensitive | CANDIDATE DET | units/operators preserved |
+| Eyebrow authority defense | CANDIDATE DET | chrome ≠ Product authority |
+| B GFM→HTML table | CANDIDATE DET + targeted LIVE | malformed GFM stays plain |
+| OpenAI LIVE structured≡narrative | **NOT PROVEN** global | known gap |
+| Recommendation duplication (model) | **OPEN** | no fuzzy hide |
+
+## Overlay — Nora Adaptive Presentation Option C / AKG-M5 L3-S2 (BASELINE ON MAIN — PR #628 — 2026-10-30)
 
 | Field | Value |
 |---|---|

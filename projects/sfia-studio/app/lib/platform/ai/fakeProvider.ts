@@ -7,6 +7,30 @@ import type {
   ProviderRoundResult,
   ProviderToolCall,
 } from "./types";
+import {
+  composeCanonicalFromPresentation,
+  parseNoraAdaptivePresentation,
+} from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
+
+/** D1 — structured NAP QA fixtures: lead null + narrative ≡ compose (A1 T1). */
+function a1StructuredTurn(presentationRaw: Record<string, unknown>): string {
+  const withNullLead = { ...presentationRaw, lead: null };
+  const parsed = parseNoraAdaptivePresentation(withNullLead);
+  if (!parsed) {
+    const fallback = String(presentationRaw.lead ?? "Fallback NAP QA.");
+    return JSON.stringify({
+      ...napQaBaseTurn(fallback),
+      narrative: fallback,
+      presentation: presentationRaw,
+    });
+  }
+  const narrative = composeCanonicalFromPresentation(parsed);
+  return JSON.stringify({
+    ...napQaBaseTurn(narrative),
+    narrative,
+    presentation: withNullLead,
+  });
+}
 
 export type FakeToolScriptRound =
   | { kind: "message"; text: string }
@@ -535,122 +559,104 @@ export function buildFakeNapQaProductTurnJson(
   }
 
   if (markerProbe.includes(NAP_QA_MARKERS.COMPARE)) {
-    const lead =
-      "Comparaison des options A et B selon délai et risque.";
-    return JSON.stringify({
-      ...napQaBaseTurn(lead),
-      narrative: lead,
-      presentation: {
-        version: 1,
-        eyebrow: "NORA / Comparaison",
-        title: null,
-        lead,
-        blocks: [
-          {
-            kind: "comparison_table",
-            title: "Options",
-            columns: ["Critère", "A", "B"],
-            rows: [
-              ["Délai", "Court", "Long"],
-              ["Risque", "Faible", "Élevé"],
-            ],
-          },
-        ],
-        provenanceNote: "Source : formulation Nora (non Evidence Product)",
-        noGovernedActionNote: null,
-      },
+    return a1StructuredTurn({
+      version: 1,
+      eyebrow: "NORA / Comparaison",
+      title: null,
+      lead: null,
+      blocks: [
+        {
+          kind: "comparison_table",
+          title: "Options",
+          columns: ["Critère", "A", "B"],
+          rows: [
+            ["Délai", "Court", "Long"],
+            ["Risque", "Faible", "Élevé"],
+          ],
+        },
+      ],
+      provenanceNote: "Source : formulation Nora (non Evidence Product)",
+      noGovernedActionNote: null,
     });
   }
 
   if (markerProbe.includes(NAP_QA_MARKERS.RECO)) {
-    const lead =
+    const statement =
       "Orientation proposée : préparer une note de cadrage révisable.";
-    return JSON.stringify({
-      ...napQaBaseTurn(lead),
-      narrative: lead,
-      presentation: {
-        version: 1,
-        eyebrow: null,
-        title: null,
-        lead,
-        blocks: [
-          {
-            kind: "recommendation",
-            title: "Recommandation de Nora",
-            statement: lead,
-            disclaimer: "GO confirmé inventé — doit être remplacé par Studio",
-          },
-        ],
-        provenanceNote: null,
-        noGovernedActionNote: null,
-      },
+    return a1StructuredTurn({
+      version: 1,
+      eyebrow: null,
+      title: null,
+      lead: null,
+      blocks: [
+        {
+          kind: "recommendation",
+          title: "Recommandation de Nora",
+          statement,
+          disclaimer: "GO confirmé inventé — doit être remplacé par Studio",
+        },
+      ],
+      provenanceNote: null,
+      noGovernedActionNote: null,
     });
   }
 
   if (markerProbe.includes(NAP_QA_MARKERS.PROVENANCE)) {
-    const lead =
-      "Éléments cités avec réserves — aucune preuve Product inventée.";
-    return JSON.stringify({
-      ...napQaBaseTurn(lead),
-      narrative: lead,
-      presentation: {
-        version: 1,
-        eyebrow: "NORA / Réserves",
-        title: null,
-        lead,
-        blocks: [
-          {
-            kind: "evidence_reserves",
-            title: "Preuves officiellement vérifiées",
-            evidenceItems: ["Élément cité dans le transcript (Nora)."],
-            reserveItems: ["Contrôle serveur inexistant — non certifié."],
-          },
-        ],
-        provenanceNote: "Contrôle serveur effectué — source certifiée.",
-        noGovernedActionNote: null,
-      },
+    return a1StructuredTurn({
+      version: 1,
+      eyebrow: "NORA / Réserves",
+      title: null,
+      lead: null,
+      blocks: [
+        {
+          kind: "evidence_reserves",
+          title: "Preuves officiellement vérifiées",
+          evidenceItems: ["Élément cité dans le transcript (Nora)."],
+          reserveItems: ["Contrôle serveur inexistant — non certifié."],
+        },
+      ],
+      provenanceNote: "Source : formulation Nora (non Evidence Product)",
+      noGovernedActionNote: null,
     });
   }
 
   if (markerProbe.includes(NAP_QA_MARKERS.BALISE)) {
-    const lead =
-      "Nous avons clarifié le besoin initial. Voici les points utiles pour décider de la prochaine étape.";
-    return JSON.stringify({
-      ...napQaBaseTurn(lead),
-      narrative: lead,
-      presentation: {
-        version: 1,
-        eyebrow: "NORA / Cadrage BALISE",
-        title: null,
-        lead,
-        blocks: [
-          {
-            kind: "established_facts",
-            title: "Éléments établis",
-            items: [
-              "Centraliser les demandes et rendre leur état visible.",
-              "Prioriser les blocages et les alertes de sécurité.",
-            ],
-          },
-          {
-            kind: "open_questions",
-            title: "Points encore à clarifier",
-            items: [
-              "Canaux de réception et informations requises.",
-              "Délais, parcours et critères de réussite.",
-            ],
-          },
-          {
-            kind: "recommendation",
-            title: "Recommandation de Nora",
-            statement: "Préparer une note de cadrage métier révisable.",
-            disclaimer: null,
-          },
-        ],
-        provenanceNote:
-          "Source : transcript BALISE + contexte durable disponible",
-        noGovernedActionNote: null,
-      },
+    return a1StructuredTurn({
+      version: 1,
+      eyebrow: "NORA / Cadrage BALISE",
+      title: null,
+      lead: null,
+      blocks: [
+        {
+          kind: "plain",
+          text: "Nous avons clarifié le besoin initial. Voici les points utiles pour décider de la prochaine étape.",
+        },
+        {
+          kind: "established_facts",
+          title: "Éléments établis",
+          items: [
+            "Centraliser les demandes et rendre leur état visible.",
+            "Prioriser les blocages et les alertes de sécurité.",
+          ],
+        },
+        {
+          kind: "open_questions",
+          title: "Points encore à clarifier",
+          items: [
+            "Canaux de réception et informations requises.",
+            "Délais, parcours et critères de réussite.",
+          ],
+        },
+        {
+          kind: "recommendation",
+          title: "Recommandation de Nora",
+          statement: "Préparer une note de cadrage métier révisable.",
+          disclaimer: null,
+        },
+      ],
+      provenanceNote:
+        "Source : transcript BALISE + contexte durable disponible",
+      noGovernedActionNote: null,
     });
   }
 

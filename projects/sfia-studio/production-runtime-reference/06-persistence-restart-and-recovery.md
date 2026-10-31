@@ -29,7 +29,13 @@
 
 `session_items`, `logical_product_turns`, `logical_product_turn_retry_bindings`, `pilot_transcript_turns`, `cycle_journal_entries`, `cycle_journal_mutation_ledger`
 
-## Overlay — Nora Adaptive Presentation Option C (CURRENT ON MAIN — PR #628 MERGED — 2026-10-30)
+## Overlay — Nora UX consolidated (GI-NAP-UX-CONSOLIDATED-01 — CANDIDATE — 2026-10-31)
+
+> **CANDIDATE** · Memory B schema unchanged (`presentation_json` / `studio_control_json` / `content`).
+> **Behaviour delta:** when A1-admissible, durable `content` may equal compose from presentation; UI rehydrate must yield the same A1/B decision. GFM tables in `content` are render-only on B (no rewrite of stored bytes).
+> **Anti-claims:** ≠ server process restart proven · ≠ OpenAI LIVE emit global · ≠ transcript rewrite migration.
+
+## Overlay — Nora Adaptive Presentation Option C (BASELINE ON MAIN — PR #628 MERGED — 2026-10-30)
 
 > **Epistemic class:** **CURRENT PRODUCT ON MAIN** via [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · Delivery **`c6b5ae3a…`** · CI correction **`1c3a8d9e…`** · Pre/post-merge CI **SUCCESS** · **≠** GLOBAL RESTART SAFE · **≠** LIVE SESSION RECOVERY PROVEN · **≠** FULL C1 LONG-HORIZON MEMORY · **≠** OpenAI LIVE structured emit.
 >
