@@ -1,305 +1,143 @@
-# CORR-NAP-LIVE-RENDER-01 — ChatGPT Critical Review Pack (FULL)
+# GI-NAP-UX-CONSOLIDATED-01 — ChatGPT Critical Review Pack (FULL)
 
-**Cycle:** 8 — Delivery correctif (post QA cycle 9)
-**Chantier:** AKG-M5 / Product Completion — L3-S2 Nora/Pilote continuity
-**Capacité:** V3-F05 (deps V3-F06 / V3-F14)
-**Profil:** CRITICAL / INC
-**Date:** 2026-10-31
-**Verdict proposé:** `CORR-NAP-LIVE-RENDER-01 — DETERMINISTIC CORRECTION READY FOR CHATGPT CRITICAL REVIEW`
+**Date UTC:** 2026-10-31T12:25:00Z
+**Verdict:** `GI-NAP-UX-CONSOLIDATED-01 — MERGED ON MAIN / POST-MERGE CI VERIFIED`
 
-**Non-claims (explicit):** UX LIVE PASS · READY FOR PR · PRODUCT MERGED · L3 COMPLETE · G-REAL PASS · RUNTIME V3 ADOPTED
+**Anti-claims:** ≠ L3 COMPLETE · ≠ G-REAL PASS · ≠ RUNTIME V3 ADOPTED · ≠ L4 AUTHORIZED · ≠ universal OpenAI LIVE UX PASS
 
 ---
 
-## 1. Git Truth
+## 1. Git Truth (initial)
 
 | Champ | Valeur |
 |---|---|
 | Repo | `mcleland147/sfia-workspace` |
 | Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01` |
 | Branch | `feat/akg-m5-nap-test16-coverage-corr-01` |
-| HEAD | `ca1c9869f905b394808c953649910d60fbfcb984` (= `origin/main` observé) |
-| Product WIP | **non commité** (D1 + LIVE-RENDER) — **non réinitialisé** |
-| Product commit/push/PR | **AUCUN** (hors GO) |
-
-Fichiers touchés **ce cycle** (delta minimal vs snapshot pré-fix) :
-
-- `lib/nora-cognitive-runtime/noraAdaptivePresentation.ts` — `splitPlainTextWithMarkdownTables` + flatten
-- `features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx` — `NoraCanonicalFallbackView`
-- `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx` — B path → FallbackView
-- tests `__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts`
-- tests `__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx`
-
-`orchestrateTurn.ts` / `buildProjectSystemPrompt.ts` : **READ-ONLY** (inchangés ce cycle).
-
----
+| HEAD pré-GI | `ca1c9869f905b394808c953649910d60fbfcb984` (= `origin/main`) |
+| WIP | 12 Product/test files + docs dirty (D1…LIVE-RENDER) — attribuable au chantier |
+| Prior handoff | `1664c94a` / blob `6cb8c352` |
 
 ## 2. GO Morris
 
-Investigation du **dernier tour LIVE** BALISE (comparaison A/B/C) + correction locale minimale si cause démontrée et non structurante.
+GI-NAP-UX-CONSOLIDATED-01 — préflight → consolidation code+docs → validations → commit → push → PR → CI → merge conditionnel → CI post-merge → handoff. Une seule PR. Pas d'auto-merge GitHub. Pas de force push. Scope Nora UX only.
 
-**Autorisé:** diagnostic RO des DB LIVE ; correctif borné UI/runtime NAP ; tests synthétiques ; pack FULL ; handoff L3.
+## 3. Sources / Convergence
 
-**Interdit:** nouveau message Nora / OpenAI auto ; mutation DB ; Fake env ; recreate BALISE ; soft A1 ; inventer DTO depuis narrative ; push/PR Product ; Cursor REAL ; G-REAL.
+SFIA v2.6 cycle templates + PR readiness/post-merge templates · Convergence doctrine/roadmap · Product Completion cadrage · AKG-M5 trajectory · Doctrine v3 30/32/34/35 · PRR volumes 03/06/07/08/09 + README + manifest checker.
 
----
+**R23:** OpenAI LIVE → structured+narrative → normalize → coherence → Memory B → transport → A1/B resolver → UI. Classement: A1/B + B GFM **BEHAVIOR PROVEN** (DET + targeted LIVE) · LIVE emit global **KNOWN GAP**.
 
-## 3. Sources / convergence (lues / appliquées)
+**R24:** PRR + Roadmap tip candidate synchronisés dans la même PR; digests écrits après revue sémantique; tip Roadmap reste libellé CANDIDATE (truth post-merge tip sync = réserve documentaire, Product déjà MERGED).
 
-- Processus SFIA v2.6 (cycle template, routing, guardrails, operating model, validation checklist)
-- Convergence build doctrine + roadmap ; Product Completion cadrage ; AKG-M5 M5 trajectory
-- Doctrine v3 30/32/34/35 ; PRR CURRENT (read) — **Git/code/preuves > PRR**
-- Handoff TEST16 précédent : `0b554ae5` / blob `962ef6fd` (branche `sfia/review-handoff`)
+## 4. Inventaire fichiers intégrés (20)
 
----
+**Code/tests (12):**
+`noraAdaptivePresentation.ts` · `noraProductTurnOutputType.ts` · `ConversationSurface.tsx` · `NoraAdaptivePresentationView.tsx` · `NoraAdaptivePresentationView.module.css` · `buildProjectSystemPrompt.ts` · `orchestrateTurn.ts` · `fakeProvider.ts` · `noraAdaptivePresentation.d0.test.ts` · `noraAdaptivePresentation.ui.test.tsx` · `fakeNapQaPresentation.d0.test.ts` · `studio-nora-adaptive-qa-nap01.spec.ts`
 
-## 4. Identité runtime
+**Docs (8):**
+Roadmap · PRR README · 03 · 06 · 07 · 08 · 09 · manifest
 
-| Champ | Valeur |
+Hors scope exclu: `.tmp-sfia-review/**` (non commité).
+
+## 5. Diff utile (synthèse inspectée)
+
+- **D1:** single-response A1/B; `composeCanonicalFromPresentation`; `buildDurableAssistantContentForTurn`; prompt Option C single-response.
+- **Fidelity:** case-sensitive `normalizeCanonicalCompare`; CR-03 display resolve; presentation-jargon allowlist for fidelity key (UI-04 ↔ CR-03 coexistence).
+- **Eyebrow:** `sanitizePresentationEyebrow` parse/compose/View.
+- **LIVE-RENDER:** `splitPlainTextWithMarkdownTables` + `NoraCanonicalFallbackView` HTML table on B.
+- **Tests:** D1/Fidelity/Eyebrow/LIVE-RENDER/UI + Fake NAP compose-equivalent + E2E single-response asserts.
+
+## 6. Validations locales
+
+| Gate | Résultat |
 |---|---|
-| URL | `http://localhost:3020/studio` (LIVE-E2E-01 ; GO mentionnait :3022 historique — instance active = **:3020**) |
-| listen_pid | `12656` (shell agent durable `12630`) |
-| cwd | worktree D1 corrigé `…/feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app` |
-| Product DB | `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` (**RO** investigation) |
-| Nora Memory B | `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite` (**RO**) |
-| Projet | `prj:d0c81c08-349b-4109-aca7-72bd5d1bae85` |
-| Session | `f1-default` |
-| Provider | OpenAI LIVE (`gpt-5.6-luna` via env historique) |
-| Cursor REAL | OFF |
-| :3021 / :3022 | stopped |
+| `git diff --check` | PASS |
+| Vitest ciblé NAP/PRR | 155 PASS |
+| Vitest full clean env | **6273 PASS / 142 SKIP / 0 FAIL** (run clean3) |
+| tsc / eslint | PASS |
+| `next build` | PASS |
+| PRR conformance | **CONFORMANCE OK** after `--write-digests` |
 
-Redémarrage contrôlé après édition UI (HMR risk) — **mêmes DB / branche / env OpenAI**. Aucune migration.
+Note: un run full sous env LIVE pollué a produit des FAIL non attribuables (env); un flake isolé `pilotabilityJournalIntegrity` a passé 3× en isolation puis full green.
 
----
+## 7. Commit / Push / PR
 
-## 5. Dernière réponse cible (identité, pas transcript)
-
-| Champ | Valeur |
+| Item | SHA / URL |
 |---|---|
-| turn_id | `pt:83caaf5f9376b0d3` |
-| seq | 27 |
-| role | assistant |
-| created_at | `2026-10-31T10:14:32.486Z` |
-| user pair | seq 26 `pt:944112569efb7eb6` (demande comparaison) |
-| content_len | 2329 |
-| presentation | **VALID_JSON** (len 2762) |
-| studio_control | NULL |
-| blocks | `comparison_table \| recommendation \| section \| plain` |
-| pipes in content | oui (GFM) |
-| `recommand*` hits | **3** (dans narrative Memory B) |
+| feat commit | `4ba1d56057a45043a51a49035e42de14620eafe3` |
+| docs commit | `e37d39699db1e597df8a827058ac76b6176f6540` |
+| Push | FF `origin/feat/akg-m5-nap-test16-coverage-corr-01` |
+| PR | [#630](https://github.com/mcleland147/sfia-workspace/pull/630) |
 
-**Transcript intégral : non publié.**
+## 8. CI PR
 
----
-
-## 6. Matrice diagnostique (A–J)
-
-| # | Question | Constat |
-|---|---|---|
-| A | Narrative Markdown table ? | **Oui** — GFM `| … |` + séparateurs dans `content` |
-| B | Presentation | **VALID** |
-| C | Blocks | `comparison_table` **présent** + recommendation/section/plain |
-| D | Normalisation DTO | Conservé / persisté Memory B |
-| E | Coherence Product Turn | Présentation conservée en JSON ; narrative LIVE ≠ compose |
-| F | A1 admission | **Refusée** — `canonicalTextsEquivalent(body, compose)=false` ; compose démarre par chrome eyebrow ; branche fail-closed B |
-| G | Résolution UI (avant fix) | **plain** |
-| H | Persistance | DTO + content atteignent Memory B (`pilot_transcript_turns`) |
-| I | Transport View | content + presentation rehydratés ; resolver → plain |
-| J | Restitution (avant) | bubble `<p>` / `nora-canonical-fallback` — **pas** `NoraAdaptivePresentationView` |
-
-**Première étape où la structure « utile » disparaît pour l’UI :**
-`resolveAdaptiveAssistantRender` → `usedA1=false` → mode `plain`.
-Le DTO **n’est pas perdu** ; A1 le refuse à juste titre. Le renderer A1 n’est donc **pas** la cause du Markdown brut.
-
-Oracle déterministe (sans contenu privé) : `.tmp-sfia-review/live-render-01-oracle.json`
-
-```json
-{
-  "usedA1": false,
-  "mode": "plain",
-  "bodyEqCompose": false,
-  "tableSegments": 1,
-  "tableCols": 4,
-  "tableRows": 5,
-  "flattenEqualsContent": true,
-  "recommandHits": 3
-}
-```
-
----
-
-## 7. Origine de la recommandation répétée
-
-**A — toutes les deux (ici trois hits) viennent de la narrative Nora** dans `content`.
-
-Pas B (composition serveur), pas C (conversationGuidance), pas D (double bloc UI), pas E (juxtaposition A1+B).
-
-Le DTO contient **un** bloc `recommendation` ; la narrative LIVE répète des formulations « recommand* ».
-**Pas de déduplication floue** appliquée (interdit par contrat).
-
----
-
-## 8. Cause racine
-
-**CAS 2 (DTO présent mais A1 non admissible) + défaut de rendu B :**
-
-1. OpenAI LIVE a émis narrative GFM **et** un DTO Option C avec `comparison_table`.
-2. Memory B persiste les deux correctement.
-3. A1 refuse car narrative ≠ `composeCanonicalFromPresentation` (chrome eyebrow + écarts de formulation) — **refus justifié** ; ne pas assouplir.
-4. Fallback B affichait le canonique dans un seul `<p>` → pipes/`---` visibles.
-5. Répétition recommandation = **modèle**, pas double surface UI.
-
----
-
-## 9. Correction appliquée (bornée)
-
-**Stratégie :** CAS 2 — capacité de rendu sûre sur **chemin B** pour tableaux GFM, sans inventer de DTO, sans toucher A1, sans parser markdown général, sans nouvelle dépendance.
-
-1. `splitPlainTextWithMarkdownTables` / `flattenCanonicalFallbackSegments`
-   — segments text|table ; `raw` exact ; fail-closed si mal formé.
-2. `NoraCanonicalFallbackView`
-   — réutilise CSS `.table` / `.tableScroll` de la View A1 ; `data-testid="nora-canonical-fallback"` + `nora-canonical-fallback-table`.
-3. `ConversationSurface` B path
-   — remplace `<p>{plainDisplay}</p>` par `<NoraCanonicalFallbackView plainText={plainDisplay} />`
-   — conserve CR-03 `resolveAdaptiveCanonicalDisplayText` + `formatNoraAssistantDisplayText`.
-
-**Non modifié :** oracle A1, compose, orchestrateTurn, prompt, SQLite, routes, Auth.
-
-### Diff utile (résumé)
-
-- NAP : +~110 LOC splitter (voir `.tmp-sfia-review/CORR-NAP-LIVE-RENDER-01.nap.ts.diff`)
-- View : +`NoraCanonicalFallbackView` (`.tmp-sfia-review/CORR-NAP-LIVE-RENDER-01.view.tsx.diff`)
-- ConversationSurface : branche B → FallbackView (`.tmp-sfia-review/CORR-NAP-LIVE-RENDER-01.conv.tsx.diff`)
-
----
-
-## 10. Matrice avant / après
-
-| Aspect | Avant | Après |
-|---|---|---|
-| A1 sur seq27 | refused (justifié) | refused (inchangé) |
-| UI mode | plain `<p>` pipes visibles | plain + **HTML `<table>`** si GFM valide |
-| Texte canonique | inchangé | inchangé (`flatten === content`) |
-| Recommandations dupliquées modèle | visibles | **toujours visibles** (pas de hide) |
-| DTO inventé | non | non |
-| Anciens transcripts | n/a | **pas réécrits** (rendu seul) |
-
----
-
-## 11. R01–R16
-
-| ID | Résultat |
+| Item | Valeur |
 |---|---|
-| R01 | PASS — DTO admis → A1 View table (test UI) |
-| R02 | PASS — B GFM → HTML table, flatten fidèle |
-| R03 | PASS — une surface principale |
-| R04 | PASS — pas de double couche A1+B |
-| R05 | N/A source — canonique en a plusieurs ; **conservées** |
-| R06 | PASS — deux reco distinctes non fusionnées |
-| R07 | PASS — 4 cols / 5 rows / unités |
-| R08 | PASS — A1 refuse → B fidèle |
-| R09 | PASS — caractères spéciaux cellules |
-| R10 | PASS — STOP / négations / conditions |
-| R11 | PASS — pas d’autorité fictive inventée |
-| R12 | PASS — pas de CTA gouverné |
-| R13 | PASS — rehydrate même DOM table |
-| R14 | PASS — suite EYEBROW-01 inchangée (dans 141) |
-| R15 | PASS — fidelity CR-03 dans 141 |
-| R16 | PASS — pas de rewrite transcript (render-only) |
+| Run | [41199824723](https://github.com/mcleland147/sfia-workspace/actions/runs/41199824723) |
+| headSha | `e37d3969…` |
+| Detect / Build / **Required Gate** | **SUCCESS** |
+| Validations CI | typecheck · lint · build · Vitest · modeled governance · secret scan · whitespace |
 
----
+## 9. Pré-merge gate (14/14)
 
-## 12. Tests / logs
+1 Scope inspecté · 2 R24 sync · 3 Manifest conforme · 4 Tests locaux PASS · 5 CI PR SUCCESS · 6 No blocker · 7 MERGEABLE/CLEAN · 8 No blocking review · 9 Files = inventaire · 10 head = CI head · 11 base main `ca1c9869` · 12 No new structural arbitration · 13 Réserves explicites non bloquantes · 14 GO applicable — **PASS → MERGE DIRECT**
 
-```
-vitest: 141 passed (d0 108 + ui 33)
-tsc --noEmit: exit 0
-eslint (fichiers touchés): exit 0
-```
+## 10. Merge
 
-Logs :
-
-- `.tmp-sfia-review/live-render-01-vitest.log`
-- `.tmp-sfia-review/live-render-01-tsc.log`
-- `.tmp-sfia-review/live-render-01-eslint.log`
-- `.tmp-sfia-review/live-render-01-oracle.json`
-
----
-
-## 13. Code / DB préservés
-
-- Bases LIVE : **aucune mutation** (lecture `mode=ro` uniquement)
-- Port :3020 redémarré avec identité DB/historique
-- WIP D1 antérieur **conservé**
-- Aucun commit Product
-
----
-
-## 14. Fake / Real
-
-| Frontière | État |
+| Item | Valeur |
 |---|---|
-| Preuve défaut | OpenAI LIVE dernier tour — lecture locale |
-| Nouvelle émission LIVE | **NON** |
-| Cursor REAL | OFF |
-| Tests | fixtures synthétiques uniquement |
-| Niveau | **ROOT CAUSE PROVEN + DETERMINISTIC CORRECTION** |
+| Merge commit | **`14fb0c33786a69ac57d27a9cd9638cfddb84de48`** |
+| mergedAt | `2026-10-31T12:15:53Z` |
+| Parents | `ca1c9869…` + `e37d3969…` |
+| Strategy | merge commit (`gh pr merge --merge`) |
+| Branch delete | **false** (conservée) |
+| PR state | **MERGED** |
 
-**UX LIVE PASS : non déclaré** — requiert retest manuel Morris (refresh :3020, même tour seq27 → tableau HTML attendu).
+## 11. CI post-merge
 
----
-
-## 15. R23 / R24
-
-### R23 — chemin
-
-`OpenAI LIVE → sortie structurée+narrative → normalisation → coherence → Memory B → transport → A1/B resolver → rendu UI`
-
-| Étape | Classement |
+| Item | Valeur |
 |---|---|
-| Emission LIVE structurée | **KNOWN GAP** (non démontrée globalement ; ici DTO présent mais ≠ narrative) |
-| Normalisation / persist | **BEHAVIOR PROVEN** |
-| A1 oracle | **BEHAVIOR PROVEN** (refus justifié) |
-| B plain pipes | **BEHAVIOR PROVEN** (défaut) |
-| B GFM→table | **COVERAGE VERIFIED** (tests) + **BEHAVIOR PROVEN** (oracle split LIVE) — UX manuelle **pending Morris** |
+| Run | [41200321769](https://github.com/mcleland147/sfia-workspace/actions/runs/41200321769) |
+| event | `push` · branch `main` |
+| headSha | **`14fb0c33…`** (= merge) |
+| Detect / Build / **Required Gate** | **SUCCESS** |
 
-### R24
+## 12. Main vérifié
 
-Volumes PRR à synchroniser en cycle docs dédié si comportement runtime confirmé Morris : **05 / 06 / 07** (rendu conversationnel A1/B), éventuellement **08** notices.
-**Aucune écriture documentaire dans ce cycle.**
+- `origin/main` = `14fb0c33…`
+- Symbols présents: `splitPlainTextWithMarkdownTables`, `NoraCanonicalFallbackView`, `sanitizePresentationEyebrow`, `buildDurableAssistantContentForTurn`
+- Manifest + PRR volumes présents sur tip
 
-Milestone **L3-S2 : OPEN**.
-Dette : OpenAI LIVE structured emission non démontrée globalement.
+## 13. Fake / Real
 
-**NEXT :** Critical Review ChatGPT → test manuel Morris comparaison A/B/C → **pas** PR readiness avant validation défaut.
+| Preuve | Niveau |
+|---|---|
+| DET Vitest/UI | PROVEN |
+| Fake browser Auth | PASS WITH RESERVES |
+| OpenAI LIVE ciblé + Morris visual table | TARGETED OBSERVATION |
+| LIVE emit global / A1 always faithful | **NOT PROVEN** |
+| Recommendation duplication (modèle) | **OPEN RESERVE** |
 
----
+## 14. Réserves restantes
 
-## 16. Réserves / gates
+- Roadmap CURRENT tip encore libellé **CANDIDATE** (bytes PR) alors que Product **MERGED** — vérité tip post-merge = sync documentaire ultérieure sous GO distinct si requis
+- R-LIVE-EMIT · R-STOP-BROWSER · R-SRV-RESTART
+- EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN
+- CSS dual-layer legacy classes retained (unused in A1 path) — non bloquant
 
-- Retest manuel Morris **obligatoire** avant tout claim UX LIVE.
-- Emission structurée LIVE ≡ narrative : gap cognitif hors scope (ne pas forcer A1).
-- Parser GFM borné (header+sep+rows) — tableaux mal formés restent texte (fail-closed).
-- Cellules avec `|` interne non supportées (limite GFM simple) — documentée.
-- Status script historique peut mentir si env Fake hérité — identité via `lsof`+cwd+DB paths.
+## 15. Runtime / worktrees
 
-Gates : pas d’Auth change ; pas d’exécution gouvernée ; Cursor REAL OFF.
+- `:3020` TEST16 arrêté avant build (DB LIVE-E2E-01 préservées, non mutées)
+- Worktree feature conservé @ `e37d3969` (+ dirty `.tmp-sfia-review/chatgpt-review.md` only)
+- Handoff WT `sfia-review-handoff` utilisé
 
----
+## 16. Instruction ChatGPT
 
-## 17. Verdict
+1. Confirmer merge `14fb0c33` + post-merge CI #41200321769 SUCCESS.
+2. Vérifier anti-claims (pas L3/G-REAL/v3).
+3. Noter réserve tip Roadmap CANDIDATE vs Product MERGED.
+4. Valider que A1 n'a pas été assoupli; B GFM est render-only.
+5. NEXT optionnel: tip Roadmap post-merge truth-sync sous GO docs distinct.
 
-**CORR-NAP-LIVE-RENDER-01 — DETERMINISTIC CORRECTION READY FOR CHATGPT CRITICAL REVIEW**
-
----
-
-## 18. Instruction ChatGPT
-
-1. Vérifier que le refus A1 sur `pt:83caaf5f9376b0d3` est bien **fidélité** et non bug oracle.
-2. Valider que le correctif B (GFM→`<table>`) ne crée pas de seconde réponse ni n’assouplit A1.
-3. Confirmer l’absence de dédup recommandation floue.
-4. Pointer tout risque de régression CR-03 / EYEBROW / dual-surface.
-5. Ne pas accorder READY FOR PR / UX LIVE PASS / G-REAL.
-6. Si OK : recommander **uniquement** retest manuel Morris sur :3020 (tour seq27), puis décision Morris pour suite Product.
-
-**Handoff:** REQUIRED / publish-in-cycle — branche `sfia/review-handoff` — publisher canonique.
+**Handoff:** REQUIRED / publish-in-cycle.
