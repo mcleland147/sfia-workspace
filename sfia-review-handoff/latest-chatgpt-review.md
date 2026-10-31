@@ -1,14 +1,21 @@
 # SFIA STUDIO — AKG-M5 / L3-S2
-# NORA COGNITIVE QUALITY + PREPARE CONSENT
-# INTEGRATED INVESTIGATION / DELIVERY / QA — REVIEW PACK FULL
+# LUMEN COGNITIVE QUALITY + PREPARE CONSENT
+# CONTINUATION A+B — DIAGNOSTIC A1/B REGRESSION
+# REVIEW PACK FULL (mono-chantier)
 
-**Horodatage (Europe/Paris):** 2026-10-31 18:14:11 +0200
-**Horodatage UTC:** 2026-10-31T16:14:11Z
+**Horodatage (Europe/Paris):** 2026-10-31 20:27:46 +0200
+**Horodatage UTC:** 2026-10-31T18:27:46Z
+**GO Morris:** Investigation A1/B intégrée — 2026-10-31 — **investigation only** (pas de nouvelle correction Product sans arbitrage)
 **Milestone:** AKG-M5 / L3-S2 — OPEN
-**Cycle:** 8 Delivery + 9 QA intégré — CRITICAL — EVOL/INC
-**Profil:** CRITICAL
-**Review Pack:** FULL
-**Review Handoff:** REQUIRED — publish-in-cycle (L3 borné)
+**Cycle:** 8 Delivery + 9 QA (continuité) — CRITICAL
+**Review Pack:** FULL — continuité du même chantier A+B
+**Review Handoff:** REQUIRED — publish-in-cycle (L3)
+
+---
+
+## 0. Note opérationnelle Cursor
+
+`move_agent_to_root` **non utilisé** pour ce cycle (échec récurrent : tentative de `git checkout feat/akg-m5-nora-adaptive-presentation` déjà lié à un autre worktree). Travail en chemins absolus sur le delivery WT.
 
 ---
 
@@ -18,163 +25,406 @@
 |------|-------|
 | Delivery WT | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-lumen-cog-prepare-corr-01` |
 | Branch | `feat/akg-m5-lumen-cog-prepare-corr-01` |
-| HEAD (delivery) | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
-| origin/main | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` (aligné) |
-| Baseline | `7dd49ecd…` = known remote baseline |
-| Run WT LIVE | `/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020` @ `7dd49ecd` (DETACHED) — **NON MODIFIÉ** |
-| Studio :3020 | UP (HTTP 307) — **NON redémarré / NON muté** |
-| Dirty delivery | 5 M + 1 ?? (corrections A+B locales, non commit projet) |
-| Ancien agent WT | `feat/akg-m5-nora-adaptive-presentation` @ `1c3a8d9e` — **NON RÉUTILISÉ** |
-| Handoff tip pré-cycle | `39e93e17a82b9773ddb5cb7150975ce85ad83d2d` |
-| Handoff blob pré-cycle | `11ddfee5ce51cd57ee35767bf5bc8e42c15cc41a` |
+| HEAD | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
+| origin/main | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
+| Run WT | `/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020` @ `7dd49ecd` — **non modifié** |
+| Studio :3020 | UP (307) — **non redémarré** |
+| Campaign DBs (RO) | `…/new-project-campaign-01/product/{oa-product,nora-session}.sqlite` |
+| Dirty delivery | corrections A+B locales **conservées** (5 M code + 1 test ?? + pack) |
+| Handoff tip pré-investigation | `079a999218247d043ae0cf10dac9735d5f453dfe` |
+| Handoff blob pré | `e0d0aea3094dfe35d39810343b7ab0fd8f2c9a75` |
 
-**Anti-claims Git:** correctif local ≠ intégré sur main · aucun push projet · aucune PR · aucun merge.
+Aucun reset/clean/stash. Aucun push projet.
 
 ---
 
 ## 2. Convergence Pre-check
 
-Consultés depuis Git CURRENT (`7dd49ecd`) :
-
-- `prompts/templates/sfia-cycle-execution-template.md`
-- `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`
-- `method/sfia-fast-track/core/sfia-chatgpt-cursor-operating-model.md`
-- CKC QA pilot `04-qa-validation.md` (candidate / guidance)
-- Build Doctrine + Roadmap + C1 Product Completion + M5 target journey
-- Doctrine v3 framing 30–35
-- PRR README + 03, 05–09
-
-**Sources primaires (code + traces LUMEN) priment.** R23 avant correction · R24 qualifié ci-dessous.
+Relus / applicables : template cycle, routing, operating model, Build Doctrine, Roadmap, C1, M5 journey, v3 framing 30–35, PRR README+03/05–09, handoff `079a9992` contenu A+B antérieur **conservé et étendu**.
 
 ---
 
-## 3. Trajectoire L3-S2
+## 3. État des corrections locales A+B (préexistantes — NON RÉINITIALISÉES)
 
-- Capacité : V3-F05 conversation → exécution gouvernée
-- Jalon L3-S2 : **OPEN** (non promu)
-- Acquis : T-C ADOPTED · L3-S1 sous réserves · Option B/S8 · SHE · NAP · PR #630/#631
-- Gaps traités ici : **A** qualité cognitive · **B** TEST-15 négation FAIL
-- Runtime v3 : **NON ADOPTED** · G-REAL : **NOT GRANTED**
+| Fichier | Rôle |
+|---------|------|
+| `w2/prepareGenericExecutionContractDraft.ts` | `hasExplicitPrepareContractRefusal` + gates |
+| `orchestrateTurn.ts` | refuse tool enqueue + `pilotUtterance` |
+| `productExecutionAgentsTools.ts` | description anti-refus |
+| `buildProjectSystemPrompt.ts` | ANSWER primacy (local dirty) |
+| tests G-D4 + `lumenCogPrepareCorr01.d0.test.ts` | DET 16/16 PASS (scope précédent) |
+
+**DET A+B précédent :** 16/16 PASS — **conservé**. TEST-15 **non clôturé** (réserves négation non lexicales etc.).
+
+**Ce GO :** aucune nouvelle correction Product appliquée.
 
 ---
 
-## 4. Chronologie LUMEN (lecture seule)
+## 4. Chronologie LUMEN (rappel)
+
+| | |
+|--|--|
+| project | `prj:6d0696db-eff0-41c7-a081-3bc71611cc6c` |
+| cycle | `cyc:trj-4139782c77c92e3813a72084` |
+| EC litigieux | `xct:gen-prep:e45f631d000ff3986360e68d` confirmation_required — **préservé** |
+| SQLite | lecture seule `mode=ro` — zéro checkpoint/migration |
+
+---
+
+## 5. Matrice des tours (association MÊME turnId)
+
+### T-A1 — Demande cadrage + formats (première)
 
 | Champ | Valeur |
 |-------|--------|
-| Projet | LUMEN — Atelier d'initiation numérique |
-| project_id | `prj:6d0696db-eff0-41c7-a081-3bc71611cc6c` |
-| Cycle | Cadrage / C1 · `cyc:trj-4139782c77c92e3813a72084` |
-| EC suspect | `xct:gen-prep:e45f631d000ff3986360e68d` |
-| EC status | `confirmation_required` (préservé — non confirmé / non exécuté / non recyclé) |
-| created_at | `2026-10-31T15:49:44.339Z` |
-| objective (payload) | « Préparer une première proposition de cadrage pédagogique pour LUMEN… » |
-| action | `studio.cursor.generalist.execute` |
+| user turn_id / seq | `pt:b205e2a4c5ad4899` / 0 |
+| assistant turn_id / seq | `pt:06a8beb5a7fc577a` / 1 |
+| created_at (asst) | `2026-10-31T15:20:58.493Z` |
+| logical_turn_id | `ltu:42608e846fc6f0e7b164f8cab285844f` |
+| cycle | `None` |
+| content_len | 197 |
+| presentation_json | présent (5 blocks) |
+| title | 'Comparer les formats sans figer le choix' |
+| composed_len | 2986 |
+| structurallyAdmissibleForA1 | True |
+| content ≡ composed | False |
+| buildDurable usedA1 | False |
+| resolveAdaptive mode | **plain** |
+| render presentation null | True |
+| contentFullyCovered | False |
 
-**Utterance Pilote (refus) :**
-> Je souhaite examiner cette proposition avant de valider définitivement le cadrage. Ne prépare pas de contrat d'exécution et ne lance aucune action technique pour le moment.
+**Pilote (extrait):** Maintenant que le projet LUMEN est créé, j'aimerais qu'on avance ensemble sur son cadrage.  Concernant ta question, je n'ai pas encore de durée ni de nombre de séances définitiveme…
 
-**Réponse Nora observée :**
-> [Mode réel] J'ai préparé le contrat d'exécution correspondant à : Préparer une première proposition… Contrat inspectable : `xct:gen-prep:e45f631d…` (statut confirmation_required — non lancé).
+**Memory B content (intégral — court):**
+```
+Je te propose de poursuivre le cadrage en confrontant ces formats aux disponibilités du centre et aux besoins concrets des participants, puis de valider les grandes orientations au fur et à mesure.
+```
 
-Aucune exécution observée dans la capture. EC préservé comme preuve.
+**composed preview (depuis presentation_json du MÊME tour):**
+```
+LUMEN · premières pistes de cadrage
+
+Comparer les formats sans figer le choix
+
+Ces comparaisons sont des repères de travail, pas encore des choix arrêtés. Les apprentissages dépendront aussi du niveau
+```
+### T-A2 — Comparer explicitement 3 formats
+
+| Champ | Valeur |
+|-------|--------|
+| user turn_id / seq | `pt:37229bf92ce8b4a0` / 2 |
+| assistant turn_id / seq | `pt:b796154ad8685d64` / 3 |
+| created_at (asst) | `2026-10-31T15:28:56.176Z` |
+| logical_turn_id | `ltu:cde6c6caaeae38fe294ee3e1caab2c17` |
+| cycle | `cyc:trj-4139782c77c92e3813a72084` |
+| content_len | 186 |
+| presentation_json | présent (5 blocks) |
+| title | 'Comparer les formats et leurs effets possibles' |
+| composed_len | 4292 |
+| structurallyAdmissibleForA1 | True |
+| content ≡ composed | False |
+| buildDurable usedA1 | False |
+| resolveAdaptive mode | **plain** |
+| render presentation null | True |
+| contentFullyCovered | False |
+
+**Pilote (extrait):** Nora, maintenant que le cadrage du projet LUMEN est démarré, j'aimerais qu'on commence à construire concrètement notre projet.  Reprenons notre objectif : concevoir un atelier d'in…
+
+**Memory B content (intégral — court):**
+```
+Pour préciser le périmètre pédagogique, quels usages du quotidien voudrais-tu traiter en priorité — par exemple communiquer, chercher une information ou effectuer une démarche en ligne ?
+```
+
+**composed preview (depuis presentation_json du MÊME tour):**
+```
+LUMEN · cadrage
+
+Comparer les formats et leurs effets possibles
+
+Les éléments confirmés dans notre échange sont l’objectif d’initiation, le public adulte débutant, le contexte du centre social, quelqu
+```
+### T-A3 — Priorités usages + recommandation
+
+| Champ | Valeur |
+|-------|--------|
+| user turn_id / seq | `pt:55314451ea752dff` / 4 |
+| assistant turn_id / seq | `pt:73bcbfb54b43dac7` / 5 |
+| created_at (asst) | `2026-10-31T15:34:30.896Z` |
+| logical_turn_id | `ltu:6260690db1153ab9040a15a8d80d0c6c` |
+| cycle | `cyc:trj-4139782c77c92e3813a72084` |
+| content_len | 264 |
+| presentation_json | présent (5 blocks) |
+| title | 'Une progression par étapes paraît la plus adaptée' |
+| composed_len | 4074 |
+| structurallyAdmissibleForA1 | True |
+| content ≡ composed | False |
+| buildDurable usedA1 | False |
+| resolveAdaptive mode | **plain** |
+| render presentation null | True |
+| contentFullyCovered | False |
+
+**Pilote (extrait):** Pour LUMEN, je souhaiterais privilégier les usages qui permettent aux participants de gagner rapidement en autonomie dans leur quotidien.  Je vois trois grandes priorités :  1. **R…
+
+**Memory B content (intégral — court):**
+```
+Je te propose de vérifier ensuite si le centre peut garantir des créneaux récurrents, l’accès aux ordinateurs et un accompagnement entre les séances : ces éléments permettront de confirmer le parcours de plusieurs séances ou de préférer un format court plus ciblé.
+```
+
+**composed preview (depuis presentation_json du MÊME tour):**
+```
+LUMEN · comparaison des formats
+
+Une progression par étapes paraît la plus adaptée
+
+Les trois priorités — chercher de l’information, communiquer et effectuer des démarches — couvrent des gestes différ
+```
+### T-A4 — Cadrage structuré (objectifs/séances/…)
+
+| Champ | Valeur |
+|-------|--------|
+| user turn_id / seq | `pt:6f856bbcc17193ec` / 6 |
+| assistant turn_id / seq | `pt:01f15609efea28fe` / 7 |
+| created_at (asst) | `2026-10-31T15:41:17.744Z` |
+| logical_turn_id | `ltu:90edd79af52fbe05a1321207bec2ba15` |
+| cycle | `cyc:trj-4139782c77c92e3813a72084` |
+| content_len | 248 |
+| presentation_json | présent (6 blocks) |
+| title | 'Comparer les formats et choisir une progression réaliste' |
+| composed_len | 5367 |
+| structurallyAdmissibleForA1 | True |
+| content ≡ composed | False |
+| buildDurable usedA1 | False |
+| resolveAdaptive mode | **plain** |
+| render presentation null | True |
+| contentFullyCovered | False |
+
+**Pilote (extrait):** Je suis d'accord avec toi, Nora. Les créneaux disponibles, le matériel et l'accompagnement entre les séances seront des contraintes importantes à confirmer auprès du centre social.…
+
+**Memory B content (intégral — court):**
+```
+Je te propose de garder le parcours de plusieurs séances comme format privilégié à l’étude, puis de vérifier avec le centre les créneaux, le nombre de postes et l’encadrement avant d’arrêter le nombre de séances et les objectifs de chaque activité.
+```
+
+**composed preview (depuis presentation_json du MÊME tour):**
+```
+LUMEN · proposition de cadrage
+
+Comparer les formats et choisir une progression réaliste
+
+Je prends la séance hebdomadaire, le petit groupe et les quelques ordinateurs comme des hypothèses de travail,
+```
+### T-B — Orientation retenue + refus PREPARE
+
+| Champ | Valeur |
+|-------|--------|
+| user turn_id / seq | `pt:b165458a67bc5561` / 8 |
+| assistant turn_id / seq | `pt:6c1b7e274db42cab` / 9 |
+| created_at (asst) | `2026-10-31T15:49:44.350Z` |
+| logical_turn_id | `None` |
+| cycle | `cyc:trj-4139782c77c92e3813a72084` |
+| content_len | 501 |
+| presentation_json | NULL (0 blocks) |
+| title | None |
+| composed_len | 0 |
+| structurallyAdmissibleForA1 | False |
+| content ≡ composed | False |
+| buildDurable usedA1 | False |
+| resolveAdaptive mode | **plain** |
+| render presentation null | True |
+| contentFullyCovered | False |
+
+**Pilote (extrait):** D'accord Nora. Je retiens comme orientation de travail un parcours pédagogique structuré sur plusieurs séances, sous réserve de confirmer les moyens et disponibilités du centre soc…
+
+**Memory B content (intégral — court):**
+```
+[Mode réel] J'ai préparé le contrat d'exécution correspondant à : Préparer une première proposition de cadrage pédagogique pour LUMEN, en distinguant les éléments confirmés, les recommandations et les décisions restant à arbitrer.. Contrat inspectable : xct:gen-prep:e45f631d000ff3986360e68d (statut confirmation_required — non lancé). Tu peux le consulter dans la trajectoire et me demander de l'ajuster avant d'autoriser l'exécution. Préparer ≠ autoriser ≠ exécuter. Aucune exécution n'a été lancée.
+```
+
+**composed preview (depuis presentation_json du MÊME tour):**
+```
+
+```
+
+
+### Replay déterministe (hors LIVE)
+
+Source : modules Product CURRENT importés depuis delivery WT ; entrées = rangées Memory B.
+
+Fichier preuve : `/tmp/lumen-a1b/a1b-replay.json` (copie pack diffs).
 
 ---
 
-## 5. Constat A — réponses insuffisantes
+## 6. Diagnostic causal A1/B
 
-Sur des tours antérieurs du même projet LUMEN, des demandes explicites de comparaison / cadrage ont reçu des reformulations ou orientations courtes (guidance) au détriment d'une charge utile analytique.
+### Mécanisme PROVEN (même tour)
 
-**Preuve mixte :** un tour ultérieur contient une `comparison_table` substantielle (transcript Memory B / presentation) — donc le Runner *peut* produire du contenu ; le défaut A porte sur la **primauté ORIENT vs ANSWER** dans le prompt système et la composition, pas sur une absence totale de capacité.
+Sur **T-A1, T-A2, T-A3, T-A4** (assistant `pt:06a8beb5…`, `pt:b796154a…`, `pt:73bcbfb5…`, `pt:01f15609…`) :
 
----
+1. Le modèle a produit une **presentation** valide avec `comparison_table` (3 formats) ± recommendation/sections — `structurallyAdmissibleForA1 = true`, composed ≈ 3–5k chars.
+2. Memory B `content` du **même** `turn_id` est une **narrative courte** (186–264 chars), style ORIENT (« Je te propose… » / question de suite).
+3. `canonicalTextsEquivalent(content, composed) = false`.
+4. `buildDurableAssistantContentForTurn` → `usedA1=false`, conserve le core court.
+5. `resolveAdaptiveAssistantRender` → **`mode=plain`**, **`presentation=null`**, `contentFullyCovered=false`.
+6. `ConversationSurface` rend `NoraCanonicalFallbackView` avec ce plain court → **la comparison_table du même tour n'est pas affichée**.
 
-## 6. Constat B — PREPARE malgré négation
+**Donc :** ce n'est pas une absence de génération analytique sur ces tours ; c'est une **perte Pilot-facing A1/B** : présentation riche persistée + narrative courte non équivalente → fallback B qui **masque** la présentation.
 
-Le même message contenant « Ne prépare pas de contrat d'exécution » a déclenché un EC `confirmation_required` annoncé au Pilote.
+`RAW MODEL OUTPUT` hors schéma Product : **NOT OBSERVABLE** (pas de journal brut séparé). La preuve primaire est Memory B `content` + `presentation_json` du même turn — suffisante pour H2.
 
----
+### T-B
 
-## 7. Traces et preuves primaires
-
-Fichiers lecture seule (hors repo) :
-
-- `/tmp/lumen-inv/lumen-projects.json`
-- `/tmp/lumen-inv/lumen-ecs.json`
-- `/tmp/lumen-inv/lumen-ec-core.json` / `lumen-ec-payload.json`
-- `/tmp/lumen-inv/lumen-transcript.txt`
-
-Chaîne `explicit_lexical_prepare` → EC (call-sites non-test) :
-
-1. `hasExplicitPrepareContractIntent` → `explicit_lexical_prepare`
-2. `genericExecutionConversationCoordinator` chatFirstPrepareAccept
-3. `orchestrateF2` assess → `mayPrepare`
-4. `solicitGenericExecutionPrepare`
-5. `prepareGenericExecutionContractDraft`
-
-Effet collatéral : `skipF1ForChatFirstPrepare` quand lexical GO → intentionnalité F1 court-circuitée sur le tour final (lien A/B).
+Tour `pt:6c1b7e274db42cab` : annonce EC, `presentation_json=NULL`. Cause B (lexical PREPARE) **distincte** — déjà qualifiée. Lien avec A1/B : le skipF1 / mission path peut priver ce tour d'une presentation analytique, mais la perte A1/B sur T-A* est **indépendante** de TEST-15.
 
 ---
 
-## 8. Causes racines
+## 7. Comparaison historique PR #628 / #630
 
-### Axe A
-| Cause | Preuve | Composant | Niveau |
-|-------|--------|-----------|--------|
-| Prompt système ordonne ANSWER puis ORIENT mais section CONTINUATION poussait ORIENT comme charge dominante (« Ne termine pas sur un simple constat… ») sans garde « seulement après ANSWER » | lecture `buildProjectSystemPrompt.ts` pré-corr | `buildProjectSystemPrompt.ts` | BEHAVIOR PROVEN (instruction) |
-| Lexical false-positive PREPARE saute F1 → tour orienté mission/EC plutôt qu'analyse | skipF1 + EC LUMEN | `orchestrateF2` + `hasExplicitPrepareContractIntent` | BEHAVIOR PROVEN |
+| État | SHA | Faits |
+|------|-----|-------|
+| **E0** avant NAP | base `2cc63686…` | Pas de `noraAdaptivePresentation.ts` / View ; narrative seule |
+| **E1** après #628 | merge `c848b98c…` | presentation introduite ; A1 si body ≡ **lead** seulement (`contentFullyCoveredByPresentation`) ; sinon plain + presentation null ; prompt : « narrative reste canonique ; presentation organise le rendu » |
+| **E2** après #630 | merge `14fb0c33…` → main `7dd49ecd` | NAP-SINGLE-RESPONSE-D1 : A1 si body ≡ **composeCanonical(blocks…)** ; sinon B plain **presentation not shown** ; dual `adaptive_with_canonical` retiré ; `buildDurableAssistantContentForTurn` ; prompt : substance dans blocks, narrative vide ou exact compose |
 
-### Axe B
-| Cause | Preuve | Composant | Niveau |
-|-------|--------|-----------|--------|
-| `hasExplicitPrepareContractIntent` matchait « prépare … » + « contrat » **sans** exclure « ne prépare pas … contrat » | LUMEN utterance → intent true (repro DET) | `prepareGenericExecutionContractDraft.ts` | BEHAVIOR PROVEN |
-| Admission Product insuffisante sur refus (cognition/tool pouvait finaliser) | chemin tool `request_generic_execution_prepare` + finalize | `orchestrateTurn.ts` / `solicitGenericExecutionPrepare` | COVERAGE VERIFIED + fix BEHAVIOR PROVEN DET |
+**Attribution :**
 
-**Cause LUMEN EC (qualification) :** chemin lexical chat-first **prouvé** comme cause suffisante (false positive → explicit_lexical_prepare → solicit). Chemin outil Nora : possible en parallèle mais **non requis** pour expliquer l'EC ; les deux chemins sont désormais fail-closed sur refus.
+- **#628** introduit le split narrative/presentation et le fail-closed plain quand non couvert.
+- **#630** renforce single-response : masquage explicite de la presentation si non-équivalence avec compose (plus strict que lead-only), et instructions « toute la réponse dans blocks ».
+- Sur LUMEN CURRENT, le modèle remplit les blocks (conforme #630 intent) mais laisse une narrative ORIENT courte (non conforme au contrat « vide ou exact compose ») → **B masque les blocks**.
 
----
-
-## 9. Cause commune éventuelle
-
-**Partielle :** le faux GO lexical PREPARE court-circuite F1 et biaise le tour vers la préparation technique, au détriment de la restitution analytique.
-**Distincte :** même sans PREPARE, le prompt pouvait privilégier ORIENT. Deux correctifs bornés dans les composants existants (pas d'architecture parallèle).
+Ne pas attribuer à #630 seul un défaut génération ; ne pas attribuer au renderer une pauvreté qui n'existe pas dans presentation_json.
 
 ---
 
-## 10. Architecture R23
+## 8. Matrice des hypothèses
 
-| Composant | Rôle | Niveau |
-|-----------|------|--------|
-| `hasExplicitPrepareContractRefusal` | détection refus (Product) | BEHAVIOR PROVEN (DET) |
-| `hasExplicitPrepareContractIntent` | intent positif ; refusal outranks | BEHAVIOR PROVEN |
-| `resolveChatFirstGenericPrepareGo` | no_go `explicit_prepare_refusal` | BEHAVIOR PROVEN |
-| `isChatFirstPrepareAcceptGo` | refus → false | BEHAVIOR PROVEN |
-| `solicitGenericExecutionPrepare(+pilotUtterance)` | fail-closed mutation | BEHAVIOR PROVEN |
-| `orchestrateTurn` tool solicit + finalize | refuse enqueue / pass utterance | DOCUMENTED + COVERAGE VERIFIED |
-| `productExecutionAgentsTools` | description outil anti-refus | DOCUMENTED (prompt tool) |
-| `buildProjectSystemPrompt` ANSWER primacy | instruction cognitive | DOCUMENTED + DET prompt assert |
-| Runner / presentation / Memory B | inchangés structurellement | KNOWN GAP LIVE A oracle |
-
-Invariants préservés : PREPARE ≠ INSPECT ≠ AUTHORIZE ≠ EXECUTE ≠ EVIDENCE · SHE · cognition ≠ autorité de consentement.
+| ID | Statut | Certitude | Preuve |
+|----|--------|-----------|--------|
+| **H1 MODEL GENERATION DEFICIT** | **DISPROVEN** sur T-A1…T-A4 | haute | Même turn : comparison_table + recommendation substantiels |
+| **H2 A1/B PRESENTATION LOSS** | **PROVEN** | haute | Replay resolve → plain + presentation null ; content≪composed |
+| **H3 OUTPUT NORMALIZATION LOSS** | NOT PROVEN comme cause primaire | basse | Pas de raw pré-normalize ; content Memory B déjà court |
+| **H4 INSTRUCTION CONFLICT** | **LIKELY** contributeur | moyenne | Content = ORIENT ; prompt ORIENT + presentation ; guidance compose |
+| **H5 PREPARE BYPASS** | **PROVEN** sur T-B seulement | haute | Lexical false-positive (chantier B) |
+| **H6 COMBINED** | **LIKELY** global chantier | moyenne | H2 (A) + H5 (B) + H4 ; pas une seule cause unique A+B |
 
 ---
 
-## 11. Modifications effectuées
+## 9. Architecture R23 (chemin restitution)
 
-| Fichier | Défaut | Cible | Impact |
-|---------|--------|-------|--------|
-| `w2/prepareGenericExecutionContractDraft.ts` | refus lexical non détecté | `hasExplicitPrepareContractRefusal` + gates intent/accept/resolve/solicit | fail-closed PREPARE |
-| `orchestrateTurn.ts` | tool path pouvait enqueuer/finaliser malgré refus | gate enqueue + `pilotUtterance` | tool ≠ bypass |
-| `productExecutionAgentsTools.ts` | description sans refus | instruction Do NOT call on refusal | défensif (non autorité) |
-| `buildProjectSystemPrompt.ts` | ORIENT pouvait primer | bloc ANSWER priorité + lien refus | Axe A |
-| `p6.gD4….d0.test.ts` | pas de TEST-15 | cas LUMEN + négations | non-régression G-D4 |
-| `lumenCogPrepareCorr01.d0.test.ts` (**nouveau**) | — | A prompt + B nég/pos + A+B + solicit fail | QA intégrée |
+```
+Pilot → IntentAnalysis → F1 Runner → structured output
+  → narrative + presentation.blocks + conversationGuidance
+  → composePilotFacingAssistantText
+  → buildDurableAssistantContentForTurn
+  → Memory B (content + presentation_json)
+  → ConversationSurface → resolveAdaptiveAssistantRender
+  → A1 NoraAdaptivePresentationView | B NoraCanonicalFallbackView
+```
 
-Aucun commit projet. Aucune écriture campaign/live-e2e DB. EC LUMEN intact.
+| Composant | Niveau |
+|-----------|--------|
+| `noraAdaptivePresentation.resolveAdaptiveAssistantRender` | BEHAVIOR PROVEN (replay LUMEN) |
+| `buildDurableAssistantContentForTurn` | BEHAVIOR PROVEN |
+| `ConversationSurface` A1/B branch | COVERAGE VERIFIED + BEHAVIOR PROVEN |
+| Memory B `pilot_transcript_turns` | BEHAVIOR PROVEN (RO SQLite) |
+| Raw model pre-schema | KNOWN GAP / NOT OBSERVABLE |
+| Corrections B PREPARE | BEHAVIOR PROVEN DET (précédent) |
 
 ---
 
-## 12. Contenu complet — nouveau fichier test
+## 10. Impact axes
+
+### AXE A
+- Cause restitution principale sur LUMEN T-A* : **H2 PROVEN**.
+- Correction locale ANSWER primacy : **utile mais insuffisante** seule (présentation déjà riche).
+- Qualité LIVE affichée : **PARTIAL** jusqu'à correctif A1/B + revalidation.
+
+### AXE B
+- Correctif local DET conservé ; TEST-15 **non clôturé**.
+- T-B distinct ; réserves négation non lexicales inchangées.
+
+### INTÉGRATION A+B
+- **OPEN** avant revue consolidée / arbitrage correctif A1/B.
+- Pas READY FOR GIT INTEGRATION sur ce diagnostic seul.
+
+---
+
+## 11. Correction recommandée (NON APPLIQUÉE)
+
+**Cause :** single-response fail-closed B lorsque `presentation` admissible ≠ `content` court → masquage des blocks.
+
+**Correction minimale recommandée (arbitrage Morris) — CORR-A1B-01 :**
+
+Aligner l'écriture durable sur le contrat prompt #630 déjà documenté (« narrative vide **ou** exact compose ») :
+
+Dans `buildDurableAssistantContentForTurn` (et/ou point d'écriture `orchestrateTurn`) :
+
+- Si `isPresentationStructurallyAdmissibleForA1(presentation)` :
+  - **persister `contentCore = composeCanonicalFromPresentation(presentation)`** et `usedA1=true`,
+  - même si `pilotFacingCore` non vide et non équivalent (traiter la narrative divergente comme incohérence modèle / ORIENT parasite, non comme restitution canonique).
+- Conserver `presentation_json`.
+- Effet : Memory B content ≡ compose → `resolveAdaptiveAssistantRender` → **A1** → blocks visibles.
+- Ne pas réintroduire `adaptive_with_canonical`.
+- Ne pas choisir la projection « parce que plus longue » sans gate structurelle A1 déjà existante.
+- Ne pas toucher PREPARE / SHE / B gates.
+
+**Alternatives rejetées :**
+- Dual layer canonical+projection — contredit single-response #630 / GO.
+- Prompt-only sans gate Product — insuffisant (LUMEN montre non-conformité modèle).
+- Toujours plain en concaténant compose+narrative — risque double rendu / divergence.
+- Afficher presentation en B sans équivalence sans réécrire durable — UI/Memory divergents.
+
+**Fichiers impactés (si GO Delivery) :**
+- `noraAdaptivePresentation.ts` (`buildDurableAssistantContentForTurn`, éventuellement commentaires contrat)
+- `orchestrateTurn.ts` (si garde supplémentaire)
+- tests DET : fixtures LUMEN-shaped (short narrative + rich presentation → A1 durable)
+- non-régression : cas narrative longue sans presentation ; cas équivalents déjà A1 ; TEST-15
+
+**Compatibilité A+B :** orthogonale au refus PREPARE ; conserve corrections B.
+
+**Risque UX :** si presentation erronée et narrative longue correcte, on privilégierait presentation — mitigé par prompt « toute la réponse utile dans blocks » + admissibility ; documenter réserve.
+
+**R24 :** volumes 03/06/07/08/09 — sync gate OPEN (ci-dessous).
+
+**Preuve de sortie attendue :** rejouer T-A2 fixture → mode adaptive, comparison_table visible, zéro dual.
+
+---
+
+## 12. R24
+
+| Volume | Impact |
+|--------|--------|
+| 03 E2E | Single-response : durable content doit suivre compose quand presentation A1-admissible |
+| 06 Persistence | content + presentation_json ; cas non-équivalence |
+| 07 Authority | inchangé (presentation ≠ Truth C) ; consentement PREPARE inchangé |
+| 08 Test map | ajouter replay A1/B LUMEN-shaped + CORR-A1B-01 |
+| 09 Gaps | H2 PROVEN LOCAL DET/RO ; LIVE revalidation OPEN ; TEST-15 réserves |
+
+**R24 status :** `IMPACT QUALIFIED / SYNC GATE OPEN` — PRR **non modifié**. Contenu A+B précédent + A1/B à synchroniser sous GO Morris.
+
+---
+
+## 13. Tests exécutés (ce segment)
+
+| Test | Résultat |
+|------|----------|
+| SQLite RO export LUMEN turns | OK |
+| Replay `resolveAdaptiveAssistantRender` ×5 assistant turns | OK — 4× plain loss, 1× T-B null presentation |
+| Vitest A+B précédent 16/16 | **non re-run requis** ; artifacts conservés |
+| LIVE Nora / REAL / mutation | **NON** |
+
+---
+
+## 14. Fichiers créés/modifiés
+
+**Product (préexistants dirty — inchangés ce GO investigation) :** voir §3 + diffs §16.
+
+**Nouveaux Product :** aucun.
+
+**Preuves hors repo :** `/tmp/lumen-a1b/*`, `/tmp/lumen-inv/*`.
+
+---
+
+## 15. Contenu nouveau fichier test (préexistant A+B)
 ```typescript
 /**
  * LUMEN integrated A+B — cognitive ANSWER primacy + PREPARE consent (TEST-15).
@@ -296,7 +546,7 @@ describe("LUMEN cog+prepare corr-01 — Axis B PREPARE consent", () => {
 
 ```
 
-## 13. Diffs utiles des fichiers modifiés
+## 16. Diffs corrections A+B préexistantes
 
 ### prepareGenericExecutionContractDraft.ts
 ```diff
@@ -522,7 +772,7 @@ index e867cdfb..faf7a02c 100644
 
 ```
 
-### p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
+### p6.gD4….d0.test.ts
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
 index c0352f84..47cd3c0b 100644
@@ -589,142 +839,149 @@ index c0352f84..47cd3c0b 100644
 
 ```
 
-## 14. Tests et résultats par axe
-
-**Commande :**
+### a1b-replay.json (preuve)
+```json
+[
+  {
+    "turn_id": "pt:06a8beb5a7fc577a",
+    "seq": 1,
+    "content_len": 197,
+    "presentation_present": true,
+    "presentation_blocks": 5,
+    "presentation_title": "Comparer les formats sans figer le choix",
+    "composed_len": 2986,
+    "structurallyAdmissibleForA1": true,
+    "content_eq_composed": false,
+    "durable_usedA1": false,
+    "durable_content_len": 197,
+    "render_mode": "plain",
+    "render_usedA1": false,
+    "render_contentFullyCovered": false,
+    "render_presentation_null": true,
+    "plain_preview": "Je te propose de poursuivre le cadrage en confrontant ces formats aux disponibilités du centre et aux besoins concrets des participants, puis de valider les gra",
+    "composed_preview": "LUMEN · premières pistes de cadrage\n\nComparer les formats sans figer le choix\n\nCes comparaisons sont des repères de travail, pas encore des choix arrêtés. Les apprentissages dépendront aussi du niveau"
+  },
+  {
+    "turn_id": "pt:b796154ad8685d64",
+    "seq": 3,
+    "content_len": 186,
+    "presentation_present": true,
+    "presentation_blocks": 5,
+    "presentation_title": "Comparer les formats et leurs effets possibles",
+    "composed_len": 4292,
+    "structurallyAdmissibleForA1": true,
+    "content_eq_composed": false,
+    "durable_usedA1": false,
+    "durable_content_len": 186,
+    "render_mode": "plain",
+    "render_usedA1": false,
+    "render_contentFullyCovered": false,
+    "render_presentation_null": true,
+    "plain_preview": "Pour préciser le périmètre pédagogique, quels usages du quotidien voudrais-tu traiter en priorité — par exemple communiquer, chercher une information ou effectu",
+    "composed_preview": "LUMEN · cadrage\n\nComparer les formats et leurs effets possibles\n\nLes éléments confirmés dans notre échange sont l’objectif d’initiation, le public adulte débutant, le contexte du centre social, quelqu"
+  },
+  {
+    "turn_id": "pt:73bcbfb54b43dac7",
+    "seq": 5,
+    "content_len": 264,
+    "presentation_present": true,
+    "presentation_blocks": 5,
+    "presentation_title": "Une progression par étapes paraît la plus adaptée",
+    "composed_len": 4074,
+    "structurallyAdmissibleForA1": true,
+    "content_eq_composed": false,
+    "durable_usedA1": false,
+    "durable_content_len": 264,
+    "render_mode": "plain",
+    "render_usedA1": false,
+    "render_contentFullyCovered": false,
+    "render_presentation_null": true,
+    "plain_preview": "Je te propose de vérifier ensuite si le centre peut garantir des créneaux récurrents, l’accès aux ordinateurs et un accompagnement entre les séances : ces éléme",
+    "composed_preview": "LUMEN · comparaison des formats\n\nUne progression par étapes paraît la plus adaptée\n\nLes trois priorités — chercher de l’information, communiquer et effectuer des démarches — couvrent des gestes différ"
+  },
+  {
+    "turn_id": "pt:01f15609efea28fe",
+    "seq": 7,
+    "content_len": 248,
+    "presentation_present": true,
+    "presentation_blocks": 6,
+    "presentation_title": "Comparer les formats et choisir une progression réaliste",
+    "composed_len": 5367,
+    "structurallyAdmissibleForA1": true,
+    "content_eq_composed": false,
+    "durable_usedA1": false,
+    "durable_content_len": 248,
+    "render_mode": "plain",
+    "render_usedA1": false,
+    "render_contentFullyCovered": false,
+    "render_presentation_null": true,
+    "plain_preview": "Je te propose de garder le parcours de plusieurs séances comme format privilégié à l’étude, puis de vérifier avec le centre les créneaux, le nombre de postes et",
+    "composed_preview": "LUMEN · proposition de cadrage\n\nComparer les formats et choisir une progression réaliste\n\nJe prends la séance hebdomadaire, le petit groupe et les quelques ordinateurs comme des hypothèses de travail,"
+  },
+  {
+    "turn_id": "pt:6c1b7e274db42cab",
+    "seq": 9,
+    "content_len": 501,
+    "presentation_present": false,
+    "presentation_blocks": 0,
+    "presentation_title": null,
+    "composed_len": 0,
+    "structurallyAdmissibleForA1": false,
+    "content_eq_composed": false,
+    "durable_usedA1": false,
+    "durable_content_len": 501,
+    "render_mode": "plain",
+    "render_usedA1": false,
+    "render_contentFullyCovered": false,
+    "render_presentation_null": true,
+    "plain_preview": "[Mode réel] J'ai préparé le contrat d'exécution correspondant à : Préparer une première proposition de cadrage pédagogique pour LUMEN, en distinguant les élémen",
+    "composed_preview": ""
+  }
+]
 ```
-npx vitest run \
-  __tests__/project-assistant/lumenCogPrepareCorr01.d0.test.ts \
-  __tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
-```
 
-**Résultat :**
-```
- ✓ lumenCogPrepareCorr01.d0.test.ts (5 tests)
- ✓ p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts (11 tests)
- Test Files  2 passed (2)
- Tests  16 passed (16)
-```
+## 17. Gates restants
 
-| Axe | Scope DET | Résultat |
-|-----|-----------|----------|
-| **A** | Prompt contient ANSWER primacy + interdiction annonce PREPARE sur refus | **PASS** (scope prompt) |
-| **B** | Négations → refusal · intent false · resolve no_go · solicit EXPLICIT_PREPARE_REFUSAL · positifs restent GO · G-D4 non-régression | **PASS** |
-| **A+B** | « Prépare une analyse… Ne prépare pas de contrat » → no_go + refusal | **PASS** |
-
-**Environnement :** delivery WT isolé · Vitest node · ZERO OpenAI LIVE · ZERO Cursor REAL · ZERO écriture `new-project-campaign-01` / `live-e2e-01`.
+1. Arbitrage Morris **CORR-A1B-01** (appliquer ou variante).
+2. GO Delivery correctif A1/B + DET.
+3. GO LIVE revalidation LUMEN A+B (protocole handoff précédent §21).
+4. GO R24 PRR sync.
+5. GO Git Integration — **pas** sur diagnostic seul.
+6. TEST-15 couverture élargie.
+7. Ne pas muter EC LUMEN / DBs campagne / :3020.
 
 ---
 
-## 15. Tests d'intégration A+B
-
-Utterance intégrée DET :
-> Prépare une analyse comparative et une proposition de cadrage détaillée pour LUMEN. Ne prépare pas de contrat d'exécution.
-
-→ `hasExplicitPrepareContractRefusal` true · intent false · `resolveChatFirstGenericPrepareGo` = `{ kind: "no_go", reason: "explicit_prepare_refusal" }` · `solicit…` avec même refus → `EXPLICIT_PREPARE_REFUSAL` sans HD/Attempt.
-
-Contenu analytique LIVE : **NOT PROVEN** dans ce cycle (protocole §21).
-
----
-
-## 16. Non-régression
-
-- Suite G-D4 existante **11/11 PASS** (dont nouveau cas TEST-15).
-- Positifs « Prépare le contrat… » restent `explicit_lexical_prepare`.
-- SHE / Authorization / Execute : non touchés fonctionnellement (hors scope mutation).
-- EC LUMEN existant : préservé (preuve).
-
----
-
-## 17. R24 et impacts documentaires
-
-| Volume PRR | Impact sémantique | Action ce cycle |
-|------------|-------------------|-----------------|
-| 03 E2E flow | Admission PREPARE : refus explicite → no_go / EXPLICIT_PREPARE_REFUSAL | **Contenu préparé ci-dessous — PRR non modifié** (chemin protégé sans GO Morris PRR) |
-| 07 authority | Consentement PREPARE = Product fail-closed sur refus lexical/outil | idem |
-| 08 test map | Ajouter lumenCogPrepareCorr01 + TEST-15 G-D4 | idem |
-| 09 gaps | TEST-15 lexical false-positive → CORRECTED LOCAL DET ; LIVE revalidation OPEN | idem |
-| Roadmap tip | Non mis à jour (pas d'intégration main) | N/A |
-
-**R24 status :** `SEMANTIC IMPACT QUALIFIED — PRR SYNC GATE OPEN (Morris)` · **NOT COMPLETED** (pas de refresh manifest/digest).
-
-### Contenu R24 candidat (pour GO ultérieur)
-
-- Documenter `hasExplicitPrepareContractRefusal` comme gate Product obligatoire avant tout PREPARE chat-first ou tool-finalize.
-- Reason code `explicit_prepare_refusal` / `EXPLICIT_PREPARE_REFUSAL`.
-- Clarifier : match lexical positif ne bat jamais une négation explicite dans le même utterance.
-- ANSWER primacy : conversationGuidance ≠ substitut de réponse métier sur demande analytique.
-
----
-
-## 18. Réserves et limitations
-
-- DET ≠ LIVE.
-- Axis A oracle LIVE (comparaison complète persistée) : **NOT PROVEN** ce cycle.
-- EC LUMEN pré-existant reste en DB campagne (preuve) — non « corrigé » silencieusement.
-- G-REAL NOT GRANTED · Cursor REAL non exercé.
-- Runtime v3 NON ADOPTED · L3-S2 OPEN.
-- Correctif local ≠ sur main.
-
----
-
-## 19. Gates Morris restants
-
-1. **Review** de ce pack / handoff.
-2. **GO Git Integration** (commit/push/PR) — NON autorisé ce cycle.
-3. **GO R24 PRR** sync + digest — NON autorisé ce cycle.
-4. **GO LIVE revalidation LUMEN A+B** (§21) — distinct · instance 3020.
-5. Ne pas confirmer/exécuter/supprimer `xct:gen-prep:e45f631d…` hors protocole.
-
----
-
-## 20. Verdict consolidé
-
-# INTEGRATED CORRECTION READY FOR MORRIS REVIEW
-
-### Détail A
-- Cause identifiée (prompt ORIENT-dominant + biais lexical PREPARE/F1).
-- Correction locale `buildProjectSystemPrompt` ANSWER primacy.
-- DET prompt **PASS**.
-- Oracle LIVE analytique : **réserve** → protocole §21.
-
-### Détail B
-- Cause identifiée (false-positive lexical + admission insuffisante).
-- Correction Product fail-closed (refusal → intent/accept/resolve/solicit/tool).
-- DET B + non-régression G-D4 **PASS**.
-- Zéro nouvel EC sur refus au scope DET.
-
-### Intégration
-- A+B utterance DET **PASS** (analyse demandée + refus → no PREPARE).
-- Handoff FULL publish-in-cycle.
-- Aucune mutation LIVE non autorisée.
-
-**Anti-claims :** DET PASS ≠ LIVE PASS · PREPARE corrigé ≠ REAL autorisé · EC non exécuté ≠ PREPARE correctement admis (historique LUMEN) · L3-S2 OPEN · G-REAL NOT GRANTED · v3 NON ADOPTED.
-
----
-
-## 21. Protocole de revalidation LIVE (A+B) — GO Morris ultérieur
-
-**Prérequis :** baseline corrigée intégrée ou delivery WT servi sous gate · **ne pas** rejouer sur SQLite campagne actuelle sans backup/GO · EC suspect = preuve (ne pas recycler).
-
-1. Nouveau projet clone ou projet test isolé (pas `new-project-campaign-01` / `live-e2e-01` sans GO).
-2. **QA-A LIVE :** demander comparaison 3 formats + avantages/limites/moyens + recommandation + hypothèses + cadrage structuré → vérifier blocks/narrative substantiels (pas guidance seule) + persistance Memory B.
-3. **QA-B LIVE :** « Ne prépare pas de contrat… » après proposition → zéro nouvel EC / Attempt / Authorization ; pas d'annonce mensongère.
-4. **QA-AB LIVE :** « Prépare une analyse… Ne prépare pas de contrat » → analyse présente + zéro EC.
-5. Positif contrôle : demande explicite PREPARE → EC `confirmation_required` sous gates (sans Execute).
-6. STOP si REAL requis ou écriture campaign sans GO.
-
----
-
-## 22. Git Review Index
+## 18. Git Review Index
 
 | Path | Status |
 |------|--------|
-| `projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts` | M |
-| `projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts` | M |
-| `projects/sfia-studio/app/features/project-assistant/buildProjectSystemPrompt.ts` | M |
-| `projects/sfia-studio/app/lib/nora-cognitive-runtime/productExecutionAgentsTools.ts` | M |
-| `projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts` | M |
-| `projects/sfia-studio/app/__tests__/project-assistant/lumenCogPrepareCorr01.d0.test.ts` | A (nouveau) |
+| prepareGenericExecutionContractDraft.ts | M (local A+B) |
+| orchestrateTurn.ts | M |
+| buildProjectSystemPrompt.ts | M |
+| productExecutionAgentsTools.ts | M |
+| p6.gD4….d0.test.ts | M |
+| lumenCogPrepareCorr01.d0.test.ts | A |
+| noraAdaptivePresentation.ts | **non modifié** (reco seulement) |
+| ConversationSurface.tsx | **non modifié** |
 
-**Instruction ChatGPT :** restituer ce pack complet · diagnostics A+B · corrections · preuves DET · gates LIVE/R24/Git · **STOP** — ne pas ouvrir de second chantier pour l'autre axe · ne pas push/PR/merge projet.
+---
+
+## 19. Verdict consolidé
+
+### Diagnostic ciblé
+# A1/B REGRESSION CAUSE PROVEN
+
+Mécanisme H2 démontré sur **quatre tours LUMEN** avec association **même turnId** : presentation admissible riche + narrative courte → fallback B → presentation masquée.
+
+### Axes (chantier intégré)
+- **AXE A :** PARTIAL (cause restitution PROVEN ; correctif non appliqué ; LIVE non revalidé)
+- **AXE B :** correctif local DET ciblé conservé ; couverture à renforcer ; non clos
+- **INTÉGRATION A+B :** OPEN
+- **G-REAL :** NOT GRANTED
+- **L3-S2 :** OPEN
+- **Runtime v3 :** NON ADOPTED
+
+**Anti-claims :** diagnostic ≠ READY FOR GIT INTEGRATION · DET ≠ LIVE · presentation persistée ≠ visible Pilote · H2 ≠ H1 · PREPARE corrigé DET ≠ REAL.
+
+**STOP après Review Handoff.** Pas de second chantier. Pas de correction Product sans GO Morris.
