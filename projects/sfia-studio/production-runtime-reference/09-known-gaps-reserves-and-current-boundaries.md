@@ -5,22 +5,23 @@
 - Runtime v3 **NON ADOPTED**
 - This corpus does not change product behavior by itself (Living Reference is descriptive)
 
-## Overlay — Nora UX consolidated / GI-NAP-UX-CONSOLIDATED-01 (CANDIDATE — 2026-10-31)
+## Overlay — Nora UX consolidated / GI-NAP-UX-CONSOLIDATED-01 (CURRENT ON MAIN — PR #630 — 2026-10-31)
 
 | Field | Value |
 |---|---|
 | Capability | Nora single-response A1/B + fidelity + eyebrow + B GFM table |
-| Status | **CANDIDATE IN PR** · branch `feat/akg-m5-nap-test16-coverage-corr-01` · base `ca1c9869…` · **≠ MERGED** until verified |
-| Proof | DET Vitest/UI · Fake browser WITH RESERVES · targeted LIVE observation (table B) + Morris visual confirm |
+| Status | **CURRENT PRODUCT ON MAIN** · [PR #630](https://github.com/mcleland147/sfia-workspace/pull/630) **MERGED** · merge **`14fb0c33…`** · Pre [#41199824723](https://github.com/mcleland147/sfia-workspace/actions/runs/41199824723) · Post [#41200321769](https://github.com/mcleland147/sfia-workspace/actions/runs/41200321769) **SUCCESS** |
+| Proof | DET Vitest/UI · Fake browser WITH RESERVES · targeted LIVE observation (table B) + Morris visual confirm · CI Required Gate PASS |
 | Open reserves | R-LIVE-EMIT global · R-STOP-BROWSER · R-SRV-RESTART · **model narrative recommendation duplication** · EP-S2-08 PARTIAL · EP-S2-05 NOT PROVEN · L3 GLOBAL OPEN |
-| Anti-claims | ≠ G-REAL · ≠ runtime v3 ADOPTED · ≠ L3 COMPLETE · ≠ universal UX LIVE PASS |
+| Anti-claims | ≠ G-REAL · ≠ runtime v3 ADOPTED · ≠ L3 COMPLETE · ≠ universal UX LIVE PASS · CURRENT ON MAIN ≠ BEHAVIOR PROVEN GLOBAL |
+| HISTORICAL AS OF | Pre-merge « CANDIDATE IN PR / ≠ MERGED » — true before #630; preserve |
 
 | Élément | Statut | Limite |
 |---|---|---|
-| Single-response A1/B | CANDIDATE DET | A1 refused when body≠compose |
-| Fidelity case-sensitive | CANDIDATE DET | units/operators preserved |
-| Eyebrow authority defense | CANDIDATE DET | chrome ≠ Product authority |
-| B GFM→HTML table | CANDIDATE DET + targeted LIVE | malformed GFM stays plain |
+| Single-response A1/B | **CURRENT** DET at tested scope | A1 refused when body≠compose |
+| Fidelity case-sensitive | **CURRENT** DET at tested scope | units/operators preserved |
+| Eyebrow authority defense | **CURRENT** DET at tested scope | chrome ≠ Product authority |
+| B GFM→HTML table | **CURRENT** DET + targeted LIVE | malformed GFM stays plain |
 | OpenAI LIVE structured≡narrative | **NOT PROVEN** global | known gap |
 | Recommendation duplication (model) | **OPEN** | no fuzzy hide |
 

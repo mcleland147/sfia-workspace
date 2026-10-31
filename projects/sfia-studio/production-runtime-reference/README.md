@@ -66,21 +66,22 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
 Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
 
 
-**Nora Adaptive Presentation UX consolidated / AKG-M5 L3-S2 — GI-NAP-UX-CONSOLIDATED-01 (CANDIDATE IN THIS PR — 2026-10-31):**
+**Nora Adaptive Presentation UX consolidated / AKG-M5 L3-S2 — GI-NAP-UX-CONSOLIDATED-01 (CURRENT PRODUCT ON MAIN — PR #630 MERGED — 2026-10-31):**
 
 | Epistemic class | Element |
 |---|---|
-| **CANDIDATE (this PR)** | Branch `feat/akg-m5-nap-test16-coverage-corr-01` · base `origin/main` **`ca1c9869…`** · Morris GO GI-NAP-UX-CONSOLIDATED-01 · Product + R24 in **one** PR · Merge/CI status: **RESOLVE FROM GitHub after gates** · **≠ MERGED** until post-merge verified |
-| **Product facts in candidate** | Option C DTO retained · **single-response** A1 structured-first when `canonicalTextsEquivalent(body, compose)` · else **B fail-closed** · case-sensitive fidelity (mW≠MW, Mb≠MB) · eyebrow sanitation (no invented authority) · B-path **GFM→HTML table** (`NoraCanonicalFallbackView`) without inventing DTO · durable Memory B content via `buildDurableAssistantContentForTurn` when A1-admissible · Fake NAP fixtures narrative≡compose |
+| **CURRENT PRODUCT ON MAIN** | [PR #630](https://github.com/mcleland147/sfia-workspace/pull/630) **MERGED** `2026-10-31T12:15:53Z` · merge **`14fb0c33786a69ac57d27a9cd9638cfddb84de48`** · parents **`ca1c9869…`** + **`e37d3969…`** · Product **`4ba1d560…`** + Docs **`e37d3969…`** · **20 files** · Pre-merge CI [#41199824723](https://github.com/mcleland147/sfia-workspace/actions/runs/41199824723) **SUCCESS** · Post-merge CI [#41200321769](https://github.com/mcleland147/sfia-workspace/actions/runs/41200321769) **SUCCESS** · Required Gate **PASS** |
+| **Product facts ON MAIN** | Option C DTO retained · **single-response** A1 structured-first when `canonicalTextsEquivalent(body, compose)` · else **B fail-closed** · case-sensitive fidelity (mW≠MW, Mb≠MB) · eyebrow sanitation (no invented authority) · B-path **GFM→HTML table** (`NoraCanonicalFallbackView`) without inventing DTO · durable Memory B content via `buildDurableAssistantContentForTurn` when A1-admissible · Fake NAP fixtures narrative≡compose |
 | **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** (Vitest d0/UI) · Fake Auth browser QA (PASS WITH RESERVES) · OpenAI LIVE **targeted observation** (seq27 table B + visual Morris) · **≠** global LIVE emit parity · **≠** STOP browser · **≠** server restart |
-| **BASELINE ON MAIN (superseded as tip by this candidate when merged)** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** — Option C Delivery ON MAIN (`c848b98c…`) · facts below remain ancestors until this PR merges |
-| **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ UX LIVE PASS universal · model narrative recommendation duplication **OPEN reserve** · digest MATCH ≠ semantic exhaustiveness |
+| **HISTORICAL AS OF authoring** | Pre-merge GI overlays « CANDIDATE IN THIS PR / ≠ MERGED until verified » — **true before #630 merge**; preserve; superseded for Product lifecycle by this block |
+| **Prior Option C baseline** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** — Option C Delivery remains ancestor ON MAIN (`c848b98c…`) · UX consolidation #630 extends it |
+| **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ UX LIVE PASS universal · model narrative recommendation duplication **OPEN reserve** · digest MATCH ≠ semantic exhaustiveness · CURRENT ON MAIN ≠ BEHAVIOR PROVEN GLOBAL |
 
-**Nora Adaptive Presentation Option C / AKG-M5 L3-S2 — BASELINE PRODUCT ON MAIN (PR #628 MERGED — 2026-10-30) — HISTORICAL AS TIP under GI-NAP candidate:**
+**Nora Adaptive Presentation Option C / AKG-M5 L3-S2 — BASELINE PRODUCT ON MAIN (PR #628 MERGED — 2026-10-30) — HISTORICAL AS TIP under GI-NAP #630 CURRENT:**
 
 | Epistemic class | Element |
 |---|---|
-| **PRODUCT ON MAIN (baseline)** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · Delivery **`c6b5ae3a…`** + CI **`1c3a8d9e…`** · Pre [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) · Post [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Vitest **6183 PASS / 142 SKIP** |
+| **PRODUCT ON MAIN (baseline Option C)** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** `2026-10-30T11:46:31Z` · merge **`c848b98c5bdb218322c8a2cf457568c8a75c1e3f`** · Delivery **`c6b5ae3a…`** + CI **`1c3a8d9e…`** · Pre [#41043545435](https://github.com/mcleland147/sfia-workspace/actions/runs/41043545435) · Post [#41050498551](https://github.com/mcleland147/sfia-workspace/actions/runs/41050498551) **SUCCESS** · Vitest **6183 PASS / 142 SKIP** |
 | **Product facts ON MAIN (baseline)** | Nullable Option C `presentation` · fail-closed normalize · typed Studio notices · Memory B columns · adaptive View · narrative/plain fallback (pre single-response UX consolidation) · CORR-NAP-01…04 · Fake NAP dual-gate |
 | **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** · Fake Auth browser historical · **≠** OpenAI LIVE structured emit · **≠** STOP browser · **≠** server restart |
 | **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ G-REAL · ≠ runtime v3 ADOPTED |

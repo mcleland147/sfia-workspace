@@ -9,17 +9,20 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
-## Overlay — Nora UX consolidated proof index (GI-NAP-UX-CONSOLIDATED-01 — CANDIDATE — 2026-10-31)
+## Overlay — Nora UX consolidated proof index (GI-NAP-UX-CONSOLIDATED-01 — CURRENT ON MAIN — PR #630 — 2026-10-31)
 
-> **CANDIDATE** on branch `feat/akg-m5-nap-test16-coverage-corr-01` · **≠ MERGED** until verified. Extends #628 index.
+> **CURRENT ON MAIN** via [PR #630](https://github.com/mcleland147/sfia-workspace/pull/630) merge **`14fb0c33…`** · Pre CI [#41199824723](https://github.com/mcleland147/sfia-workspace/actions/runs/41199824723) · Post CI [#41200321769](https://github.com/mcleland147/sfia-workspace/actions/runs/41200321769) **SUCCESS**. Extends #628 index.
+>
+> **HISTORICAL AS OF authoring:** pre-merge « CANDIDATE / ≠ MERGED » — true before #630; preserve.
 
 | Suite / artifact | What it proves | Class |
 |---|---|---|
-| `noraAdaptivePresentation.d0.test.ts` (+ D1 / Fidelity / Eyebrow / LIVE-RENDER) | A1 admission · case-sensitive compare · eyebrow sanitize · GFM split/flatten fidelity · CR-03 display | **DET** · candidate |
-| `noraAdaptivePresentation.ui.test.tsx` | Single-response · B HTML table · no CTA · rehydrate table DOM | **DET jsdom** · candidate |
-| `fakeNapQaPresentation.d0.test.ts` + `fakeProvider` NAP markers | Fake emit narrative ≡ compose · lead null | **DET Fake** · ≠ LIVE |
-| `e2e/studio-nora-adaptive-qa-nap01.spec.ts` | Fake Auth browser single-response asserts · capture root isolation | **Fake browser** · not Required Gate |
+| `noraAdaptivePresentation.d0.test.ts` (+ D1 / Fidelity / Eyebrow / LIVE-RENDER) | A1 admission · case-sensitive compare · eyebrow sanitize · GFM split/flatten fidelity · CR-03 display | **DETERMINISTIC VERIFIED** · ON MAIN |
+| `noraAdaptivePresentation.ui.test.tsx` | Single-response · B HTML table · no CTA · rehydrate table DOM | **DETERMINISTIC VERIFIED** · jsdom · ON MAIN |
+| `fakeNapQaPresentation.d0.test.ts` + `fakeProvider` NAP markers | Fake emit narrative ≡ compose · lead null | **DET Fake** · ON MAIN · ≠ LIVE |
+| `e2e/studio-nora-adaptive-qa-nap01.spec.ts` | Fake Auth browser single-response asserts · capture root isolation | **Fake browser WITH RESERVES** · code ON MAIN · not Required Gate |
 | Targeted OpenAI LIVE seq27 / Morris visual table | B-path GFM→table observed at scoped campaign | **TARGETED LIVE OBSERVATION** · ≠ global LIVE PASS |
+| Full Vitest CI (PR #630 pre + post merge) | Suite green on `e37d3969…` / `14fb0c33…` | **CI DETERMINISTIC SUITE PASS** |
 | Model recommendation duplication | Present in narrative | **OPEN RESERVE** · not auto-deduped |
 
 ## Overlay — Nora Adaptive Presentation Option C proof index (BASELINE ON MAIN — PR #628 — 2026-10-30)
