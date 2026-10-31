@@ -1,289 +1,305 @@
-# Review Pack FULL — TEST16-LIVE-RUNTIME-RESUME-01
+# CORR-NAP-LIVE-RENDER-01 — ChatGPT Critical Review Pack (FULL)
 
-**Generated (UTC):** 2026-10-31T09:45:42Z
-**Cycle:** TEST16-LIVE-RUNTIME-RESUME-01
-**Type:** RUN / reprise runtime historique — CRITICAL
-**Prior handoff:** MANUAL-ENV-01 `1134653b` / `7bceb56d` (Fake — not the target)
-**Product mutation:** NONE
+**Cycle:** 8 — Delivery correctif (post QA cycle 9)
+**Chantier:** AKG-M5 / Product Completion — L3-S2 Nora/Pilote continuity
+**Capacité:** V3-F05 (deps V3-F06 / V3-F14)
+**Profil:** CRITICAL / INC
+**Date:** 2026-10-31
+**Verdict proposé:** `CORR-NAP-LIVE-RENDER-01 — DETERMINISTIC CORRECTION READY FOR CHATGPT CRITICAL REVIEW`
 
-## 0. Instruction ChatGPT
-Verify LIVE-E2E-01 originals, BALISE/f1-default/seq20-21, OpenAI LIVE not Fake, Cursor REAL OFF, port 3022, Auth, backup, scripts, historic :3020 protected, Fake :3021 stopped.
-Do not infer G-REAL / quality of next LIVE turn / READY FOR PR.
+**Non-claims (explicit):** UX LIVE PASS · READY FOR PR · PRODUCT MERGED · L3 COMPLETE · G-REAL PASS · RUNTIME V3 ADOPTED
+
+---
 
 ## 1. Git Truth
-| WT | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01` |
+
+| Champ | Valeur |
+|---|---|
+| Repo | `mcleland147/sfia-workspace` |
+| Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01` |
 | Branch | `feat/akg-m5-nap-test16-coverage-corr-01` |
-| HEAD | `ca1c9869f905b394808c953649910d60fbfcb984` |
-| D1 correctifs | PRESENT (`sanitizePresentationEyebrow`, `normalizeCanonicalCompare`, `durableSafeHeading`) |
-Git Truth: COHERENT. WIP preserved.
+| HEAD | `ca1c9869f905b394808c953649910d60fbfcb984` (= `origin/main` observé) |
+| Product WIP | **non commité** (D1 + LIVE-RENDER) — **non réinitialisé** |
+| Product commit/push/PR | **AUCUN** (hors GO) |
 
-## 2. GO
-Resume TEST-16 with original LIVE-E2E-01 data + D1 code + OpenAI LIVE. No Fake substitute. Cursor REAL execution OFF.
+Fichiers touchés **ce cycle** (delta minimal vs snapshot pré-fix) :
 
-## 3. Data pre-check
-| Product DB | `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` |
-| Nora DB | `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite` |
-| Integrity | ok / ok |
-| Pre-start writers | none |
-| BALISE projectId | `prj:d0c81c08-349b-4109-aca7-72bd5d1bae85` |
+- `lib/nora-cognitive-runtime/noraAdaptivePresentation.ts` — `splitPlainTextWithMarkdownTables` + flatten
+- `features/pre-m6-product-ui/surfaces/NoraAdaptivePresentationView.tsx` — `NoraCanonicalFallbackView`
+- `features/pre-m6-product-ui/surfaces/ConversationSurface.tsx` — B path → FallbackView
+- tests `__tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts`
+- tests `__tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx`
+
+`orchestrateTurn.ts` / `buildProjectSystemPrompt.ts` : **READ-ONLY** (inchangés ce cycle).
+
+---
+
+## 2. GO Morris
+
+Investigation du **dernier tour LIVE** BALISE (comparaison A/B/C) + correction locale minimale si cause démontrée et non structurante.
+
+**Autorisé:** diagnostic RO des DB LIVE ; correctif borné UI/runtime NAP ; tests synthétiques ; pack FULL ; handoff L3.
+
+**Interdit:** nouveau message Nora / OpenAI auto ; mutation DB ; Fake env ; recreate BALISE ; soft A1 ; inventer DTO depuis narrative ; push/PR Product ; Cursor REAL ; G-REAL.
+
+---
+
+## 3. Sources / convergence (lues / appliquées)
+
+- Processus SFIA v2.6 (cycle template, routing, guardrails, operating model, validation checklist)
+- Convergence build doctrine + roadmap ; Product Completion cadrage ; AKG-M5 M5 trajectory
+- Doctrine v3 30/32/34/35 ; PRR CURRENT (read) — **Git/code/preuves > PRR**
+- Handoff TEST16 précédent : `0b554ae5` / blob `962ef6fd` (branche `sfia/review-handoff`)
+
+---
+
+## 4. Identité runtime
+
+| Champ | Valeur |
+|---|---|
+| URL | `http://localhost:3020/studio` (LIVE-E2E-01 ; GO mentionnait :3022 historique — instance active = **:3020**) |
+| listen_pid | `12656` (shell agent durable `12630`) |
+| cwd | worktree D1 corrigé `…/feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app` |
+| Product DB | `/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite` (**RO** investigation) |
+| Nora Memory B | `/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite` (**RO**) |
+| Projet | `prj:d0c81c08-349b-4109-aca7-72bd5d1bae85` |
 | Session | `f1-default` |
-| Turns | 22 total; seq20 user + seq21 assistant (TEST-16) with presentation_json on seq21 |
-| File SHA256 product | `c3fb06b7d8bae0e3ff33f386ef84105208ee133b15c0d2c26034cefc9095d297` |
-| File SHA256 nora | `bebacb2b3cb92ff672501f81cecfa806f0c92a5c3841eeac4f097d5172b028a7` |
-| Post-start max seq | still 21 (no new turns created by Cursor) |
+| Provider | OpenAI LIVE (`gpt-5.6-luna` via env historique) |
+| Cursor REAL | OFF |
+| :3021 / :3022 | stopped |
 
-## 4. Safety backup
-Directory: `/Users/morris/Projects/.sfia-exec/live-e2e-01/backups/pre-test16-resume-20261031T094312Z` (sqlite3 .backup). Runtime uses ORIGINALS, not backup.
+Redémarrage contrôlé après édition UI (HMR risk) — **mêmes DB / branche / env OpenAI**. Aucune migration.
 
-## 5. Process topology
-| :3020 | PID 92265 pre-int-ux-qa-01 — PROTECTED / left running |
-| :3021 Fake MANUAL-ENV | identity-proven stopped |
-| :3022 TEST-16 resume | RUNNING |
+---
 
-## 6. Runtime identity
-```
-Campaign: TEST16-LIVE-RUNTIME-RESUME-01
-Port: 3022
-URL: http://localhost:3022/studio
-Code: D1 corrected worktree
-Product DB ORIGINAL: /Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite
-Nora DB ORIGINAL: /Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite
-Provider: OpenAI LIVE (historical key/model; OPS1_CONVERSATION_PROVIDER unset)
-Cursor REAL: 0
-E2E QA Fake control: unset
-Safety backup: under /Users/morris/Projects/.sfia-exec/live-e2e-01/backups/pre-test16-resume-*
-BALISE project: prj:d0c81c08-349b-4109-aca7-72bd5d1bae85
-Session: f1-default
-TEST-16 turns: seq20 user / seq21 assistant
-Auth note: BETTER_AUTH_URL=http://localhost:3022 — new GitHub OAuth may require callback registered for 3022; existing localhost session cookies may work with same BETTER_AUTH_SECRET
-Protected: :3020 pre-int left running; Fake :3021 stopped
-```
-Listen PID: `15355`
-Server process env (parent): OPENAI_MODEL=gpt-5.6-luna; BETTER_AUTH_URL=http://localhost:3022; OPS1_CONVERSATION_PROVIDER unset → openai-default-live; CURSOR_REAL=0.
-lsof: product sqlite opened by listen PID.
+## 5. Dernière réponse cible (identité, pas transcript)
 
-### status
-```
-campaign=TEST16-LIVE-RUNTIME-RESUME-01
-port=3022
-url=http://localhost:3022/studio
-listen_pid=15355
-http_login=200
-cwd=/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app
-product_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite
-nora_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite
-open_live_paths=/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite
-provider=openai-default-live
-cursor_real=0
-e2e_qa=unset
-historic_3020=92265
-fake_3021=none
-```
+| Champ | Valeur |
+|---|---|
+| turn_id | `pt:83caaf5f9376b0d3` |
+| seq | 27 |
+| role | assistant |
+| created_at | `2026-10-31T10:14:32.486Z` |
+| user pair | seq 26 `pt:944112569efb7eb6` (demande comparaison) |
+| content_len | 2329 |
+| presentation | **VALID_JSON** (len 2762) |
+| studio_control | NULL |
+| blocks | `comparison_table \| recommendation \| section \| plain` |
+| pipes in content | oui (GFM) |
+| `recommand*` hits | **3** (dans narrative Memory B) |
 
-### log excerpt
-```
-QA_LAUNCH campaign=TEST16-LIVE-RUNTIME-RESUME-01 port=3022 auth=http://localhost:3022 product_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite nora_db=/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite cursor_real=0 openai_model=gpt-5.6-luna provider=openai-default-live
-   ▲ Next.js 15.5.20
-   - Local:        http://localhost:3022
-   - Network:      http://localhost:3022
+**Transcript intégral : non publié.**
 
- ✓ Starting...
- ✓ Ready in 1165ms
- ✓ Compiled /middleware in 323ms (748 modules)
-...
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 10ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 10ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 5ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 8ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 11ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 7ms
- POST /studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85 200 in 6ms
- GET /login 200 in 40ms
-```
+---
 
-## 7. Auth
-PASS with existing localhost Better Auth storageState (stateless cookie auth). `/studio` + BALISE project route reachable without /login redirect.
-Reserve: new GitHub OAuth against :3022 may require callback registration historically tied to :3020.
+## 6. Matrice diagnostique (A–J)
 
-## 8. Continuity oracles
-A BALISE present — PASS
-B f1-default — PASS
-C seq20/21 TEST-16 — PASS
-D Product objects present — PASS (projects/lps/contracts inspected read-only)
-E D1 code — PASS
-F OpenAI LIVE selected — PASS (not Fake; model gpt-5.6-luna)
-G Auth open BALISE — PASS
-H Adaptive view in build — PRESENT in code; historical seq21 may still render as persisted B/plain (expected non-rewrite)
-I No governed action — PASS (Cursor REAL OFF; no prompt sent)
-J No migration/reset — PASS
+| # | Question | Constat |
+|---|---|---|
+| A | Narrative Markdown table ? | **Oui** — GFM `| … |` + séparateurs dans `content` |
+| B | Presentation | **VALID** |
+| C | Blocks | `comparison_table` **présent** + recommendation/section/plain |
+| D | Normalisation DTO | Conservé / persisté Memory B |
+| E | Coherence Product Turn | Présentation conservée en JSON ; narrative LIVE ≠ compose |
+| F | A1 admission | **Refusée** — `canonicalTextsEquivalent(body, compose)=false` ; compose démarre par chrome eyebrow ; branche fail-closed B |
+| G | Résolution UI (avant fix) | **plain** |
+| H | Persistance | DTO + content atteignent Memory B (`pilot_transcript_turns`) |
+| I | Transport View | content + presentation rehydratés ; resolver → plain |
+| J | Restitution (avant) | bubble `<p>` / `nora-canonical-fallback` — **pas** `NoraAdaptivePresentationView` |
 
-## 9. Scripts (complete)
-### start-test16-live.sh
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/test16-live-resume"
-CORR_APP="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app"
-ENVF="$CAMPAIGN/meta/qa.process.env"
-LOGF="$CAMPAIGN/logs/qa-server.log"
-PORT=3022
-PROD="/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite"
-NORA="/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite"
+**Première étape où la structure « utile » disparaît pour l’UI :**
+`resolveAdaptiveAssistantRender` → `usedA1=false` → mode `plain`.
+Le DTO **n’est pas perdu** ; A1 le refuse à juste titre. Le renderer A1 n’est donc **pas** la cause du Markdown brut.
 
-[[ -f "$ENVF" ]] || { echo "MISSING_ENV" >&2; exit 1; }
-[[ -f "$PROD" && -f "$NORA" ]] || { echo "MISSING_LIVE_DBS" >&2; exit 1; }
-if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
-  echo "PORT_BUSY $PORT" >&2; exit 2
-fi
-# Refuse if originals already held by another process
-if lsof "$PROD" 2>/dev/null | awk 'NR>1{exit 0} END{exit 1}'; then
-  echo "PRODUCT_DB_BUSY — refuse concurrent writer" >&2
-  lsof "$PROD" >&2 || true
-  exit 3
-fi
-if lsof "$NORA" 2>/dev/null | awk 'NR>1{exit 0} END{exit 1}'; then
-  echo "NORA_DB_BUSY — refuse concurrent writer" >&2
-  lsof "$NORA" >&2 || true
-  exit 3
-fi
+Oracle déterministe (sans contenu privé) : `.tmp-sfia-review/live-render-01-oracle.json`
 
-set -a
-# shellcheck disable=SC1090
-source "$ENVF"
-set +a
-unset OPS1_CONVERSATION_PROVIDER || true
-unset SFIA_STUDIO_E2E_QA_CONTROL || true
-unset SFIA_STUDIO_LOCAL_OA_EXCLUSIVE || true
-unset D1_INTAKE_PROVIDER || true
-export SFIA_STUDIO_CURSOR_REAL=0
-export OPS1_CURSOR_REAL=0
-export OPS1_ALLOW_LIVE_SMOKE=0
-export BETTER_AUTH_URL=http://localhost:3022
-export PORT=3022
-export SFIA_STUDIO_PRODUCT_DB_PATH="$PROD"
-export SFIA_STUDIO_NORA_SESSION_DB_PATH="$NORA"
-
-cd "$CORR_APP"
-mkdir -p "$CAMPAIGN/logs" "$CAMPAIGN/meta"
+```json
 {
-  echo "QA_LAUNCH campaign=TEST16-LIVE-RUNTIME-RESUME-01 port=$PORT auth=$BETTER_AUTH_URL product_db=$SFIA_STUDIO_PRODUCT_DB_PATH nora_db=$SFIA_STUDIO_NORA_SESSION_DB_PATH cursor_real=$SFIA_STUDIO_CURSOR_REAL openai_model=${OPENAI_MODEL:-unset} provider=${OPS1_CONVERSATION_PROVIDER:-openai-default-live}"
-} | tee "$LOGF"
-
-echo "NOTE: start via durable agent/background shell recommended; this script uses nohup"
-nohup npx next dev --port "$PORT" --hostname localhost >>"$LOGF" 2>&1 &
-echo $! > "$CAMPAIGN/meta/qa-launcher.pid"
-disown $! 2>/dev/null || true
-for i in $(seq 1 60); do
-  if curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/login" | grep -q '^200$'; then
-    LISTEN=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t | head -1)
-    echo "$LISTEN" > "$CAMPAIGN/meta/qa-listen.pid"
-    echo "READY listen_pid=$LISTEN url=http://localhost:$PORT/studio"
-    exit 0
-  fi
-  sleep 1
-done
-echo "STARTUP_TIMEOUT" >&2; exit 4
-```
-### status-test16-live.sh
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-CAMPAIGN="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/.tmp-sfia-review/test16-live-resume"
-ENVF="$CAMPAIGN/meta/qa.process.env"
-PORT=3022
-PROD="/Users/morris/Projects/.sfia-exec/live-e2e-01/product-db/oa-product.sqlite"
-NORA="/Users/morris/Projects/.sfia-exec/live-e2e-01/nora-session/nora-session.sqlite"
-# Clear inherited Fake/QA pollution from parent shells before sourcing.
-unset OPS1_CONVERSATION_PROVIDER SFIA_STUDIO_E2E_QA_CONTROL D1_INTAKE_PROVIDER OPS1_ALLOW_LIVE_SMOKE || true
-set -a; [[ -f "$ENVF" ]] && source "$ENVF"; set +a
-unset OPS1_CONVERSATION_PROVIDER SFIA_STUDIO_E2E_QA_CONTROL D1_INTAKE_PROVIDER || true
-export OPS1_ALLOW_LIVE_SMOKE=0
-export SFIA_STUDIO_CURSOR_REAL=0
-export OPS1_CURSOR_REAL=0
-LISTEN=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
-HTTP=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/login" 2>/dev/null || echo 000)
-CWD=""; DBS=""
-if [[ -n "${LISTEN:-}" ]]; then
-  CWD=$(lsof -a -p "$LISTEN" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
-  DBS=$(lsof -p "$LISTEN" 2>/dev/null | awk '/live-e2e-01/ {print $NF}' | sort -u | tr '\n' ' ')
-fi
-echo "campaign=TEST16-LIVE-RUNTIME-RESUME-01"
-echo "port=$PORT"
-echo "url=http://localhost:$PORT/studio"
-echo "listen_pid=${LISTEN:-none}"
-echo "http_login=$HTTP"
-echo "cwd=${CWD:-unknown}"
-echo "product_db=$PROD"
-echo "nora_db=$NORA"
-echo "open_live_paths=${DBS:-none-yet}"
-echo "provider=${OPS1_CONVERSATION_PROVIDER:-openai-default-live}"
-echo "cursor_real=${SFIA_STUDIO_CURSOR_REAL:-}"
-echo "e2e_qa=${SFIA_STUDIO_E2E_QA_CONTROL:-unset}"
-echo "historic_3020=$(lsof -nP -iTCP:3020 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
-echo "fake_3021=$(lsof -nP -iTCP:3021 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
-```
-### stop-test16-live.sh
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-PORT=3022
-EXPECTED_CWD="/Users/morris/Projects/sfia-workspace-feat-akg-m5-nap-test16-coverage-corr-01/projects/sfia-studio/app"
-EXPECTED_LOG_FRAGMENT="test16-live-resume/logs"
-LISTEN=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
-[[ -n "${LISTEN:-}" ]] || { echo "NOT_RUNNING"; exit 0; }
-CWD=$(lsof -a -p "$LISTEN" -d cwd 2>/dev/null | awk 'NR==2{print $NF}')
-LOGS=$(lsof -p "$LISTEN" 2>/dev/null | awk '/test16-live-resume\/logs/{print $NF}' | head -1 || true)
-DBS=$(lsof -p "$LISTEN" 2>/dev/null | awk '/live-e2e-01/{print $NF}' | tr '\n' ' ')
-echo "candidate_pid=$LISTEN cwd=$CWD logs=$LOGS"
-if [[ "$CWD" != "$EXPECTED_CWD" ]]; then echo "REFUSE cwd" >&2; exit 2; fi
-if [[ -z "$LOGS" && "$DBS" != *live-e2e-01* ]]; then echo "REFUSE identity" >&2; exit 3; fi
-PARENT=$(ps -p "$LISTEN" -o ppid= | tr -d ' ')
-GPARENT=$(ps -p "$PARENT" -o ppid= 2>/dev/null | tr -d ' ' || true)
-kill "$LISTEN" 2>/dev/null || true
-for p in $PARENT $GPARENT; do
-  cmd=$(ps -p "$p" -o command= 2>/dev/null || true)
-  if echo "$cmd" | rg -q -- "--port $PORT|next dev"; then kill "$p" 2>/dev/null || true; fi
-done
-sleep 1
-lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1 && { echo "STOP_INCOMPLETE" >&2; exit 5; }
-echo "STOPPED port=$PORT prior_pid=$LISTEN"
-echo "historic_3020=$(lsof -nP -iTCP:3020 -sTCP:LISTEN -t 2>/dev/null | head -1 || echo none)"
+  "usedA1": false,
+  "mode": "plain",
+  "bodyEqCompose": false,
+  "tableSegments": 1,
+  "tableCols": 4,
+  "tableRows": 5,
+  "flattenEqualsContent": true,
+  "recommandHits": 3
+}
 ```
 
-## 10. Fake/Real
-Cognitive frontier: OpenAI LIVE historical.
-Execution frontier: Cursor REAL OFF.
-Does NOT prove next-turn LIVE quality, G-REAL, Evidence REAL, runtime v3.
+---
 
-## 11. R23/R24
-R23 BEHAVIOR PROVEN for resume/preflight. R24 NO NEW SEMANTIC IMPACT.
+## 7. Origine de la recommandation répétée
 
-## 12. Verdict
-# TEST16 LIVE-E2E-01 — READY FOR MORRIS MANUAL CONTINUATION
+**A — toutes les deux (ici trois hits) viennent de la narrative Nora** dans `content`.
 
-URL: http://localhost:3022/studio/projects/prj%3Ad0c81c08-349b-4109-aca7-72bd5d1bae85
-Port: 3022
-PID: 15355
-Branch/HEAD: feat/akg-m5-nap-test16-coverage-corr-01 / ca1c9869…
-Product DB original: CONFIRMED
-Nora DB original: CONFIRMED
-BALISE + f1-default + seq20/21: CONFIRMED
-Auth: PASS
-OpenAI LIVE: configured
-Cursor REAL: OFF
-Server: RUNNING
-Status: bash .tmp-sfia-review/test16-live-resume/scripts/status-test16-live.sh
-Stop: bash .tmp-sfia-review/test16-live-resume/scripts/stop-test16-live.sh
+Pas B (composition serveur), pas C (conversationGuidance), pas D (double bloc UI), pas E (juxtaposition A1+B).
 
-Note: old TEST-16 answer may remain fallback B after reload; D1 applies to the NEXT Nora turn Morris sends.
+Le DTO contient **un** bloc `recommendation` ; la narrative LIVE répète des formulations « recommand* ».
+**Pas de déduplication floue** appliquée (interdit par contrat).
 
-Not claimed: G-REAL, LIVE quality proven, READY FOR PR, L3 COMPLETE.
+---
 
-**END OF REVIEW PACK FULL — TEST16-LIVE-RUNTIME-RESUME-01**
+## 8. Cause racine
+
+**CAS 2 (DTO présent mais A1 non admissible) + défaut de rendu B :**
+
+1. OpenAI LIVE a émis narrative GFM **et** un DTO Option C avec `comparison_table`.
+2. Memory B persiste les deux correctement.
+3. A1 refuse car narrative ≠ `composeCanonicalFromPresentation` (chrome eyebrow + écarts de formulation) — **refus justifié** ; ne pas assouplir.
+4. Fallback B affichait le canonique dans un seul `<p>` → pipes/`---` visibles.
+5. Répétition recommandation = **modèle**, pas double surface UI.
+
+---
+
+## 9. Correction appliquée (bornée)
+
+**Stratégie :** CAS 2 — capacité de rendu sûre sur **chemin B** pour tableaux GFM, sans inventer de DTO, sans toucher A1, sans parser markdown général, sans nouvelle dépendance.
+
+1. `splitPlainTextWithMarkdownTables` / `flattenCanonicalFallbackSegments`
+   — segments text|table ; `raw` exact ; fail-closed si mal formé.
+2. `NoraCanonicalFallbackView`
+   — réutilise CSS `.table` / `.tableScroll` de la View A1 ; `data-testid="nora-canonical-fallback"` + `nora-canonical-fallback-table`.
+3. `ConversationSurface` B path
+   — remplace `<p>{plainDisplay}</p>` par `<NoraCanonicalFallbackView plainText={plainDisplay} />`
+   — conserve CR-03 `resolveAdaptiveCanonicalDisplayText` + `formatNoraAssistantDisplayText`.
+
+**Non modifié :** oracle A1, compose, orchestrateTurn, prompt, SQLite, routes, Auth.
+
+### Diff utile (résumé)
+
+- NAP : +~110 LOC splitter (voir `.tmp-sfia-review/CORR-NAP-LIVE-RENDER-01.nap.ts.diff`)
+- View : +`NoraCanonicalFallbackView` (`.tmp-sfia-review/CORR-NAP-LIVE-RENDER-01.view.tsx.diff`)
+- ConversationSurface : branche B → FallbackView (`.tmp-sfia-review/CORR-NAP-LIVE-RENDER-01.conv.tsx.diff`)
+
+---
+
+## 10. Matrice avant / après
+
+| Aspect | Avant | Après |
+|---|---|---|
+| A1 sur seq27 | refused (justifié) | refused (inchangé) |
+| UI mode | plain `<p>` pipes visibles | plain + **HTML `<table>`** si GFM valide |
+| Texte canonique | inchangé | inchangé (`flatten === content`) |
+| Recommandations dupliquées modèle | visibles | **toujours visibles** (pas de hide) |
+| DTO inventé | non | non |
+| Anciens transcripts | n/a | **pas réécrits** (rendu seul) |
+
+---
+
+## 11. R01–R16
+
+| ID | Résultat |
+|---|---|
+| R01 | PASS — DTO admis → A1 View table (test UI) |
+| R02 | PASS — B GFM → HTML table, flatten fidèle |
+| R03 | PASS — une surface principale |
+| R04 | PASS — pas de double couche A1+B |
+| R05 | N/A source — canonique en a plusieurs ; **conservées** |
+| R06 | PASS — deux reco distinctes non fusionnées |
+| R07 | PASS — 4 cols / 5 rows / unités |
+| R08 | PASS — A1 refuse → B fidèle |
+| R09 | PASS — caractères spéciaux cellules |
+| R10 | PASS — STOP / négations / conditions |
+| R11 | PASS — pas d’autorité fictive inventée |
+| R12 | PASS — pas de CTA gouverné |
+| R13 | PASS — rehydrate même DOM table |
+| R14 | PASS — suite EYEBROW-01 inchangée (dans 141) |
+| R15 | PASS — fidelity CR-03 dans 141 |
+| R16 | PASS — pas de rewrite transcript (render-only) |
+
+---
+
+## 12. Tests / logs
+
+```
+vitest: 141 passed (d0 108 + ui 33)
+tsc --noEmit: exit 0
+eslint (fichiers touchés): exit 0
+```
+
+Logs :
+
+- `.tmp-sfia-review/live-render-01-vitest.log`
+- `.tmp-sfia-review/live-render-01-tsc.log`
+- `.tmp-sfia-review/live-render-01-eslint.log`
+- `.tmp-sfia-review/live-render-01-oracle.json`
+
+---
+
+## 13. Code / DB préservés
+
+- Bases LIVE : **aucune mutation** (lecture `mode=ro` uniquement)
+- Port :3020 redémarré avec identité DB/historique
+- WIP D1 antérieur **conservé**
+- Aucun commit Product
+
+---
+
+## 14. Fake / Real
+
+| Frontière | État |
+|---|---|
+| Preuve défaut | OpenAI LIVE dernier tour — lecture locale |
+| Nouvelle émission LIVE | **NON** |
+| Cursor REAL | OFF |
+| Tests | fixtures synthétiques uniquement |
+| Niveau | **ROOT CAUSE PROVEN + DETERMINISTIC CORRECTION** |
+
+**UX LIVE PASS : non déclaré** — requiert retest manuel Morris (refresh :3020, même tour seq27 → tableau HTML attendu).
+
+---
+
+## 15. R23 / R24
+
+### R23 — chemin
+
+`OpenAI LIVE → sortie structurée+narrative → normalisation → coherence → Memory B → transport → A1/B resolver → rendu UI`
+
+| Étape | Classement |
+|---|---|
+| Emission LIVE structurée | **KNOWN GAP** (non démontrée globalement ; ici DTO présent mais ≠ narrative) |
+| Normalisation / persist | **BEHAVIOR PROVEN** |
+| A1 oracle | **BEHAVIOR PROVEN** (refus justifié) |
+| B plain pipes | **BEHAVIOR PROVEN** (défaut) |
+| B GFM→table | **COVERAGE VERIFIED** (tests) + **BEHAVIOR PROVEN** (oracle split LIVE) — UX manuelle **pending Morris** |
+
+### R24
+
+Volumes PRR à synchroniser en cycle docs dédié si comportement runtime confirmé Morris : **05 / 06 / 07** (rendu conversationnel A1/B), éventuellement **08** notices.
+**Aucune écriture documentaire dans ce cycle.**
+
+Milestone **L3-S2 : OPEN**.
+Dette : OpenAI LIVE structured emission non démontrée globalement.
+
+**NEXT :** Critical Review ChatGPT → test manuel Morris comparaison A/B/C → **pas** PR readiness avant validation défaut.
+
+---
+
+## 16. Réserves / gates
+
+- Retest manuel Morris **obligatoire** avant tout claim UX LIVE.
+- Emission structurée LIVE ≡ narrative : gap cognitif hors scope (ne pas forcer A1).
+- Parser GFM borné (header+sep+rows) — tableaux mal formés restent texte (fail-closed).
+- Cellules avec `|` interne non supportées (limite GFM simple) — documentée.
+- Status script historique peut mentir si env Fake hérité — identité via `lsof`+cwd+DB paths.
+
+Gates : pas d’Auth change ; pas d’exécution gouvernée ; Cursor REAL OFF.
+
+---
+
+## 17. Verdict
+
+**CORR-NAP-LIVE-RENDER-01 — DETERMINISTIC CORRECTION READY FOR CHATGPT CRITICAL REVIEW**
+
+---
+
+## 18. Instruction ChatGPT
+
+1. Vérifier que le refus A1 sur `pt:83caaf5f9376b0d3` est bien **fidélité** et non bug oracle.
+2. Valider que le correctif B (GFM→`<table>`) ne crée pas de seconde réponse ni n’assouplit A1.
+3. Confirmer l’absence de dédup recommandation floue.
+4. Pointer tout risque de régression CR-03 / EYEBROW / dual-surface.
+5. Ne pas accorder READY FOR PR / UX LIVE PASS / G-REAL.
+6. Si OK : recommander **uniquement** retest manuel Morris sur :3020 (tour seq27), puis décision Morris pour suite Product.
+
+**Handoff:** REQUIRED / publish-in-cycle — branche `sfia/review-handoff` — publisher canonique.
