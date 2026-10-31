@@ -17,6 +17,7 @@ import {
   assessGenericMissionPrepareReadiness,
   assessMaterialityForGenericPrepare,
   hasExplicitPrepareContractIntent,
+  hasExplicitPrepareContractRefusal,
   isChatFirstPrepareAcceptGo,
   prepareGenericExecutionContractDraft,
   rememberGenericPrepareRecommendation,
@@ -260,6 +261,84 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
         text: "OK, vas-y",
       }).kind,
     ).toBe("no_go");
+  });
+
+  it("TEST-15 / LUMEN — explicit PREPARE refusal is never a prepare GO", () => {
+    const lumenRefusal =
+      "À partir de ce que nous avons défini ensemble, prépare une première proposition structurée comprenant :\n" +
+      "- Les objectifs pédagogiques.\n\n" +
+      "Je souhaite examiner cette proposition avant de valider définitivement le cadrage. " +
+      "Ne prépare pas de contrat d'exécution et ne lance aucune action technique pour le moment.";
+    expect(hasExplicitPrepareContractRefusal(lumenRefusal)).toBe(true);
+    expect(hasExplicitPrepareContractIntent(lumenRefusal)).toBe(false);
+    expect(
+      resolveChatFirstGenericPrepareGo({
+        projectId: "prj:lumen",
+        cycleInstanceId: "cyc:lumen",
+        text: lumenRefusal,
+      }),
+    ).toEqual({ kind: "no_go", reason: "explicit_prepare_refusal" });
+    expect(
+      hasExplicitPrepareContractRefusal(
+        "Ne prépare pas de contrat d'exécution.",
+      ),
+    ).toBe(true);
+    expect(
+      hasExplicitPrepareContractIntent(
+        "Ne prépare pas de contrat d'exécution.",
+      ),
+    ).toBe(false);
+    expect(
+      hasExplicitPrepareContractRefusal(
+        "Prépare une analyse, pas un contrat.",
+      ),
+    ).toBe(true);
+    expect(
+      hasExplicitPrepareContractIntent(
+        "Prépare une analyse, pas un contrat.",
+      ),
+    ).toBe(false);
+    expect(
+      hasExplicitPrepareContractIntent(
+        "Prépare le contrat d'exécution pour la mission LUMEN",
+      ),
+    ).toBe(true);
+    expect(isChatFirstPrepareAcceptGo({ text: lumenRefusal })).toBe(false);
+    expect(
+      hasExplicitPrepareContractRefusal(
+        "Je refuse que tu prépares un contrat.",
+      ),
+    ).toBe(true);
+    expect(
+      hasExplicitPrepareContractRefusal("Ne prépare rien pour Cursor."),
+    ).toBe(true);
+    expect(
+      hasExplicitPrepareContractRefusal(
+        "Analyse seulement, sans lancer de mission.",
+      ),
+    ).toBe(true);
+    // Historical refusal then clear current positive PREPARE.
+    expect(
+      hasExplicitPrepareContractRefusal(
+        "Tu avais dit ne prépare pas. Maintenant prépare le contrat d'exécution.",
+      ),
+    ).toBe(false);
+    expect(
+      hasExplicitPrepareContractIntent(
+        "Tu avais dit ne prépare pas. Maintenant prépare le contrat d'exécution.",
+      ),
+    ).toBe(true);
+    // Later refuse beats earlier positive authorize in the same utterance.
+    expect(
+      hasExplicitPrepareContractRefusal(
+        "Maintenant prépare le contrat d'exécution. Finalement, ne prépare pas de contrat d'exécution.",
+      ),
+    ).toBe(true);
+    expect(
+      hasExplicitPrepareContractIntent(
+        "Maintenant prépare le contrat d'exécution. Finalement, ne prépare pas de contrat d'exécution.",
+      ),
+    ).toBe(false);
   });
 
   it("Q02 — sync assess without Product context is UNKNOWN (never false-implicit)", () => {

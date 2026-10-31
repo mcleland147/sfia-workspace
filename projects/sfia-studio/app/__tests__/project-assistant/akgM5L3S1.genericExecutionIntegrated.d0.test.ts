@@ -219,6 +219,7 @@ describe("AKG-M5 L3-S1 — Generic Execution Deterministic Integration", () => {
       analysis,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(`prepare: ${prep.message}`);
@@ -368,6 +369,7 @@ describe("AKG-M5 L3-S1 — Generic Execution Deterministic Integration", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -400,6 +402,7 @@ describe("AKG-M5 L3-S1 — Generic Execution Deterministic Integration", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -432,6 +435,7 @@ describe("AKG-M5 L3-S1 — Generic Execution Deterministic Integration", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error(prep.message);
     const live = await oa.executionContractServices.getExecutionContract.execute({
@@ -549,6 +553,7 @@ describe("AKG-M5 L3-S1 — Generic Execution Deterministic Integration", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error(prep.message);
     const live = await oa.executionContractServices.getExecutionContract.execute({
@@ -707,6 +712,7 @@ describe("AKG-M5 L3-S1 — Generic Execution Deterministic Integration", () => {
       analysis,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);

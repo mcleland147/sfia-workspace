@@ -234,6 +234,7 @@ describe("AKG-M5 L3-S2 S8 — Project-first integrated DET oracle", () => {
       analysis,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(`prepare: ${prep.message}`);
@@ -411,6 +412,7 @@ describe("AKG-M5 L3-S2 S8 — Project-first integrated DET oracle", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(false);
     if (!prep.ok) {
@@ -428,6 +430,7 @@ describe("AKG-M5 L3-S2 S8 — Project-first integrated DET oracle", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error("prep");
@@ -457,6 +460,7 @@ describe("AKG-M5 L3-S2 S8 — Project-first integrated DET oracle", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error("prep");
@@ -897,6 +901,7 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: fx.h0,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -1064,6 +1069,7 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error("prep");
@@ -1194,6 +1200,7 @@ describe("AKG-M5 L3-S2 S8 Pass 04 — OBSERVED FS + late Evidence", () => {
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error("prep");
     const live = await oa.executionContractServices!.getExecutionContract.execute({

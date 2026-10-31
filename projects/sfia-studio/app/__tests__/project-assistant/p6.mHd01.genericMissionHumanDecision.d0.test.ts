@@ -221,6 +221,7 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -242,6 +243,7 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     // D-P6-SHE-01 — PREPARE no longer consumes structural HD.
     expect(prep.ok).toBe(true);
@@ -613,6 +615,7 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error(prep.message);
     const inspected = await inspectExecutionContract({
@@ -644,6 +647,7 @@ describe("P6 M-HD-01 Generic Mission HumanDecision", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(structural.ok).toBe(true);
     if (!structural.ok) throw new Error(structural.message);

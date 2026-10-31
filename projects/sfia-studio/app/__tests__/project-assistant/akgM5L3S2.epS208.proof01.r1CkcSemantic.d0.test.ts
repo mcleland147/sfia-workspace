@@ -517,6 +517,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       analysis: deliveryEligibleAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -704,6 +705,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       analysis: deliveryEligibleAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -787,6 +789,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       analysis: deliveryEligibleAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -847,6 +850,7 @@ describe("EP-S2-08-PROOF-01 R1 Option A — Delivery CKC eligibility (DET)", () 
       },
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) return;

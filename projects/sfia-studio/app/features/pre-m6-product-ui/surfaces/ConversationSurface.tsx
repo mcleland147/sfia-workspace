@@ -58,6 +58,7 @@ import {
   NoraCanonicalFallbackView,
 } from "./NoraAdaptivePresentationView";
 import {
+  contentWithoutAuthenticatedStudioNotices,
   resolveAdaptiveAssistantRender,
   resolveAdaptiveCanonicalDisplayText,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
@@ -643,12 +644,23 @@ export function ConversationSurface({
                   }
                   // B — canonical fail-closed; CR-03 formatter fidelity guard.
                   // CORR-NAP-LIVE-RENDER-01: GFM tables → HTML table (no A1 soften).
+                  // Typed appendix is the sole authenticated Studio surface —
+                  // strip the same notices from plain to avoid duplicate DOM.
+                  const plainSource = decision.studioAppendix
+                    ? contentWithoutAuthenticatedStudioNotices(
+                        decision.plainText || message.content,
+                        decision.studioControlNotices,
+                      )
+                    : decision.plainText || message.content;
                   const plainDisplay = resolveAdaptiveCanonicalDisplayText(
-                    decision.plainText || message.content,
+                    plainSource,
                     formatNoraAssistantDisplayText,
                   );
                   return (
-                    <NoraCanonicalFallbackView plainText={plainDisplay} />
+                    <NoraCanonicalFallbackView
+                      plainText={plainDisplay}
+                      studioAppendix={decision.studioAppendix}
+                    />
                   );
                 })()}
               </div>

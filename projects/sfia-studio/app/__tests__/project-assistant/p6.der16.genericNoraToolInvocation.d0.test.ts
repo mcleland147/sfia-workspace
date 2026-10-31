@@ -496,6 +496,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
           sessionDbPath,
           forceLocalAuthority: true,
           pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+          requirePositivePilotAdmission: false,
         }),
     });
   }
@@ -1020,6 +1021,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -1076,6 +1078,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
         sessionDbPath,
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        requirePositivePilotAdmission: false,
       });
       expect(prep.ok).toBe(true);
       if (!prep.ok) throw new Error(prep.message);
@@ -1202,6 +1205,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
           sessionDbPath,
           forceLocalAuthority: true,
           pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+          requirePositivePilotAdmission: false,
         }),
     };
   }
@@ -1479,7 +1483,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       const turn = await orchestrateProjectAssistantTurn({
         projectId,
         content:
-          "Je voudrais que Cursor refactore le module d'export. Prépare la mission.",
+          "Je voudrais que Cursor refactore le module d'export. Prépare le contrat d'exécution.",
         provider: new Der16Provider(scripted),
         sessionDbPath,
       });
@@ -1487,6 +1491,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       if (!turn.ok) throw new Error(turn.message);
 
       // Unique Product service reached from the real orchestrateTurn wiring.
+      // Slice D — Pilote E-EXPLICIT required before tool queue/finalize.
       expect(spy).toHaveBeenCalledTimes(1);
       const arg = spy.mock.calls[0]![0];
       expect(arg.projectId).toBe(projectId);
@@ -1559,6 +1564,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -1618,6 +1624,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error(prep.message);
     const inspected = await inspectExecutionContract({
@@ -1742,6 +1749,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
           sessionDbPath,
           forceLocalAuthority: true,
           pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+          requirePositivePilotAdmission: false,
         }),
     })[1]!;
 
@@ -1799,6 +1807,7 @@ describe("D-ER-16…19 Generic Execution Nora Tool Delivery", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(viaAnalysis.ok).toBe(true);
     if (!viaAnalysis.ok) throw new Error(viaAnalysis.message);

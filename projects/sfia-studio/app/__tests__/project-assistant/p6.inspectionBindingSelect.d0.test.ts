@@ -132,6 +132,7 @@ describe("P6 Select inspection binding (R1)", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error(`prep ${prep.code}`);
     const inspected = await inspectExecutionContract({
@@ -313,6 +314,7 @@ describe("P6 Select inspection binding (R1)", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error(prep.message);
     const selected = await governedExecuteSelectAgent({
@@ -369,6 +371,7 @@ describe("P6 Select inspection binding (R1)", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     if (!prep.ok) throw new Error(prep.message);
     const inspected = await inspectExecutionContract({

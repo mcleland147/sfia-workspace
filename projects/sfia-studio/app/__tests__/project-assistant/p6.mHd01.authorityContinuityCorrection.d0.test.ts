@@ -459,6 +459,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
         sessionDbPath,
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        requirePositivePilotAdmission: false,
       });
       if (!prep.ok) throw new Error(prep.message);
       const live = await oa.executionContractServices.getExecutionContract.execute({
@@ -488,6 +489,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
         sessionDbPath,
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        requirePositivePilotAdmission: false,
       });
       expect(structural.ok).toBe(true);
       if (!structural.ok) throw new Error(structural.message);
@@ -703,6 +705,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
         sessionDbPath,
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        requirePositivePilotAdmission: false,
       });
       expect(prep.ok).toBe(true);
       if (!prep.ok) throw new Error(prep.message);
@@ -724,6 +727,7 @@ describe("P6 M-HD-01 Authority Continuity Correction", () => {
         sessionDbPath,
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        requirePositivePilotAdmission: false,
       });
       expect(prep.ok).toBe(true);
       if (!prep.ok) throw new Error(prep.message);

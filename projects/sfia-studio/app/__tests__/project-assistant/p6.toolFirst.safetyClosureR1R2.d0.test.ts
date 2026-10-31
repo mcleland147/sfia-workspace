@@ -164,6 +164,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       },
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -198,6 +199,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       },
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -235,6 +237,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       },
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     // D-P6-SHE-01 — UNKNOWN/STRUCTURAL may PREPARE inspectably (not silent NON_STRUCTURAL).
     if (unk.ok) {
@@ -269,6 +272,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       },
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     // write may PREPARE as STRUCTURAL/UNKNOWN under SHE, or refuse on other gates —
     // never silent NON_STRUCTURAL pathless admission.
@@ -381,6 +385,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       },
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -439,6 +444,7 @@ describe("P6 tool-first safety closure R1/R2", () => {
       },
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);

@@ -982,58 +982,412 @@ export function canonicalTextsEquivalent(a: string, b: string): boolean {
 }
 
 /**
+ * CORR-A1B-01 — explicit Studio notice when narrative vs presentation diverge
+ * materially. Fail-closed plain preserves both versions; never silent pick.
+ */
+export const NORA_ADAPTIVE_DIVERGENCE_NOTICE =
+  "[Studio] Les versions structurée et narrative de cette réponse divergent. Les deux sont conservées ci-dessous — aucune n'est promue comme vérité Product / HumanDecision." as const;
+
+/** Deterministic relation between pilot-facing narrative and structured presentation. */
+export type NarrativePresentationRelation =
+  | { readonly kind: "empty" }
+  | { readonly kind: "narrative_only" }
+  | { readonly kind: "presentation_only" }
+  | { readonly kind: "equivalent" }
+  | { readonly kind: "complementary"; readonly continuation: string }
+  | { readonly kind: "divergent"; readonly composed: string; readonly narrative: string };
+
+/**
+ * True when `needle` is already present in composed text (normalized containment).
+ * Deterministic dedupe only — not semantic similarity.
+ */
+export function narrativeAlreadyCoveredByCompose(
+  needle: string,
+  composed: string,
+): boolean {
+  const n = normalizeCanonicalCompare(needle);
+  if (!n) return true;
+  return normalizeCanonicalCompare(composed).includes(n);
+}
+
+/**
+ * Continuation / ORIENT-shaped narrative candidate (structural only).
+ * NOT proof of complementarity — provenance + non-conflict required.
+ */
+export function isContinuationShapedNarrative(
+  core: string,
+  composed: string,
+): boolean {
+  const t = (core ?? "").trim();
+  if (!t) return false;
+  if (canonicalTextsEquivalent(t, composed)) return false;
+  if (/\?\s*$/u.test(t)) return true;
+  if (
+    /^(je te propose|pour préciser|souhaitez[- ]vous|veux[- ]tu|voudrais[- ]tu|on peut ensuite|nous pouvons ensuite)\b/iu.test(
+      t,
+    )
+  ) {
+    return true;
+  }
+  const nCore = normalizeCanonicalCompare(t).length;
+  const nComp = normalizeCanonicalCompare(composed).length;
+  if (nComp >= 800 && nCore > 0 && nCore <= 400 && nCore * 4 <= nComp) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * Positive provenance: narrative is (or ends with) the structured
+ * conversationGuidance.statement of the same turn — not a free-form guess.
+ * A non-empty prefix is allowed only when it is already covered by compose
+ * (ANSWER already in presentation; ORIENT guidance is the sole distinct add-on).
+ */
+export function isGuidanceBackedContinuation(input: {
+  narrative: string;
+  conversationGuidanceStatement?: string | null;
+  composed?: string | null;
+}): boolean {
+  const guidance = (input.conversationGuidanceStatement ?? "").trim();
+  if (!guidance) return false;
+  const core = (input.narrative ?? "").trim();
+  if (!core) return false;
+  if (canonicalTextsEquivalent(core, guidance)) return true;
+  const nCore = normalizeCanonicalCompare(core);
+  const nGuide = normalizeCanonicalCompare(guidance);
+  if (!nGuide) return false;
+  if (nCore === nGuide) return true;
+  if (nCore.endsWith(nGuide)) {
+    const prefix = nCore.slice(0, nCore.length - nGuide.length).trim();
+    if (!prefix) return true;
+    const composed = (input.composed ?? "").trim();
+    if (!composed) return false;
+    return narrativeAlreadyCoveredByCompose(prefix, composed);
+  }
+  return false;
+}
+
+/**
+ * Deterministic opposition signals vs structured recommendation / labels.
+ * Fail-closed gate only — never sufficient alone to prove complementarity.
+ */
+export function narrativeConflictsWithPresentationDeterministic(input: {
+  narrative: string;
+  presentation: NoraAdaptivePresentation;
+  composed: string;
+}): boolean {
+  const n = normalizeCanonicalCompare(input.narrative).toLowerCase();
+  if (!n) return false;
+
+  if (
+    /\b(au contraire|en revanche|plut[oô]t l['']inverse|je (ne )?suis pas d['']accord|contredit|contredire)\b/u.test(
+      n,
+    )
+  ) {
+    return true;
+  }
+  // Action verbs that reverse / discard a prior recommendation (not ORIENT).
+  if (
+    /\b(abandonn\w*|supprim\w*|écarter|ecarter|annul\w*|retir\w*|renonc\w*)\b/u.test(
+      n,
+    )
+  ) {
+    return true;
+  }
+  if (
+    /\b(reten(?:s|ir|irais)?|choisis|opterais)\s+uniquement\b/u.test(n) ||
+    /\buniquement\s+(le|la|l[''])?\s*(format|atelier|parcours)\b/u.test(n)
+  ) {
+    return true;
+  }
+
+  const recommendationStatements: string[] = [];
+  const formatLabels: string[] = [];
+  for (const block of input.presentation.blocks) {
+    if (block.kind === "recommendation" && block.statement?.trim()) {
+      recommendationStatements.push(
+        normalizeCanonicalCompare(block.statement).toLowerCase(),
+      );
+    }
+    if (block.kind === "comparison_table") {
+      for (const row of block.rows) {
+        const label = (row[0] ?? "").trim();
+        if (label.length >= 4) {
+          formatLabels.push(normalizeCanonicalCompare(label).toLowerCase());
+        }
+      }
+    }
+  }
+
+  const preference =
+    /\b(je te propose|je (te )?propose|je (privil[eé]gie|recommande|pr[eé]f[eè]re|choisis|reten(?:s|irais)?|opterais)|au contraire)\b/u.test(
+      n,
+    );
+  if (preference && formatLabels.length >= 2) {
+    const endorsed = new Set<string>();
+    for (const stmt of recommendationStatements) {
+      for (const label of formatLabels) {
+        if (stmt.includes(label)) endorsed.add(label);
+      }
+    }
+    const mentionedOther = formatLabels.some(
+      (label) => n.includes(label) && !endorsed.has(label),
+    );
+    const mentionsEndorsed = [...endorsed].some((label) => n.includes(label));
+    if (mentionedOther && endorsed.size > 0 && !mentionsEndorsed) {
+      return true;
+    }
+  }
+
+  for (const stmt of recommendationStatements) {
+    const keyTokens = stmt
+      .split(/\s+/)
+      .map((w) => w.replace(/[^\p{L}\p{N}-]/gu, ""))
+      .filter((w) => w.length >= 5)
+      .slice(0, 8);
+    for (const token of keyTokens) {
+      if (
+        new RegExp(
+          String.raw`\b(pas|non|sans|jamais|aucun)\b[\s\S]{0,40}\b${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\b`,
+          "u",
+        ).test(n)
+      ) {
+        return true;
+      }
+      if (
+        new RegExp(
+          String.raw`\b(abandonn\w*|supprim\w*|écarter|ecarter|retir\w*)\b[\s\S]{0,40}\b${token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\b`,
+          "u",
+        ).test(n)
+      ) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}
+
+/**
+ * CORR-A1B-01 — classify narrative vs presentation.
+ *
+ * Complementary requires **positive provenance** (conversationGuidance.statement
+ * of the same turn) AND no deterministic conflict. Absence of detected conflict
+ * alone is NEVER enough. Uncertainty → divergent (both versions preserved).
+ */
+export function classifyNarrativePresentationRelation(input: {
+  pilotFacingCore: string;
+  presentation: NoraAdaptivePresentation | null | undefined;
+  /** Same-turn structured ORIENT statement — required for complementary. */
+  conversationGuidanceStatement?: string | null;
+}): NarrativePresentationRelation {
+  const core = (input.pilotFacingCore ?? "").trim();
+  const presentation = input.presentation ?? null;
+  const admissible = isPresentationStructurallyAdmissibleForA1(presentation);
+
+  if (!core && !admissible) {
+    if (!shouldRenderAdaptivePresentation(presentation)) {
+      return { kind: "empty" };
+    }
+    return { kind: "empty" };
+  }
+  if (!admissible) {
+    return core ? { kind: "narrative_only" } : { kind: "empty" };
+  }
+
+  const composed = composeCanonicalFromPresentation(presentation!);
+  if (!core) return { kind: "presentation_only" };
+  if (canonicalTextsEquivalent(core, composed)) return { kind: "equivalent" };
+
+  if (narrativeAlreadyCoveredByCompose(core, composed)) {
+    // Narrative fully covered by compose — treat as equivalent for A1.
+    return { kind: "equivalent" };
+  }
+
+  const guidance = (input.conversationGuidanceStatement ?? "").trim();
+  const guidanceBacked = isGuidanceBackedContinuation({
+    narrative: core,
+    conversationGuidanceStatement: guidance,
+    composed,
+  });
+  const continuation = guidanceBacked ? guidance : core;
+
+  if (
+    guidanceBacked &&
+    isContinuationShapedNarrative(continuation, composed) &&
+    !narrativeAlreadyCoveredByCompose(continuation, composed)
+  ) {
+    if (
+      narrativeConflictsWithPresentationDeterministic({
+        narrative: continuation,
+        presentation: presentation!,
+        composed,
+      })
+    ) {
+      return { kind: "divergent", composed, narrative: core };
+    }
+    return { kind: "complementary", continuation };
+  }
+
+  // No proven provenance → never presume complementary (even if ORIENT-shaped).
+  return { kind: "divergent", composed, narrative: core };
+}
+
+/**
+ * Fold a distinct continuation into presentation as a trailing question/plain
+ * block so A1 View renders one complete surface. Returns null if limits block fold.
+ */
+export function withDistinctContinuationBlock(
+  presentation: NoraAdaptivePresentation,
+  continuation: string,
+): NoraAdaptivePresentation | null {
+  const text = sanitizePresentationPlainText(continuation);
+  if (!text) return presentation;
+  const composed = composeCanonicalFromPresentation(presentation);
+  if (narrativeAlreadyCoveredByCompose(text, composed)) return presentation;
+  if (
+    presentation.blocks.length >= NORA_ADAPTIVE_PRESENTATION_LIMITS.maxBlocks
+  ) {
+    return null;
+  }
+  if (text.length > NORA_ADAPTIVE_PRESENTATION_LIMITS.maxStringChars) {
+    return null;
+  }
+  const block = /\?\s*$/u.test(text)
+    ? ({ kind: "question" as const, text })
+    : ({ kind: "plain" as const, text });
+  return parseNoraAdaptivePresentation({
+    version: presentation.version,
+    eyebrow: presentation.eyebrow,
+    title: presentation.title,
+    lead: presentation.lead,
+    blocks: [...presentation.blocks, block],
+    provenanceNote: presentation.provenanceNote,
+    noGovernedActionNote: presentation.noGovernedActionNote,
+  });
+}
+
+export function formatDivergentNarrativePresentationPlain(input: {
+  composed: string;
+  narrative: string;
+}): string {
+  return [
+    NORA_ADAPTIVE_DIVERGENCE_NOTICE,
+    "",
+    "— Version structurée —",
+    input.composed.trim(),
+    "",
+    "— Version narrative —",
+    input.narrative.trim(),
+  ].join("\n");
+}
+
+/**
  * T1/T2 — whether durable pilot-facing core (pre-notices) may use A1.
- * Conservatively requires exact normalized equality with compose, or empty
- * core with admissible structure. No fuzzy / overlap / keyword tricks.
+ * CORR-A1B-01: equivalent, presentation-only, or complementary (after fold).
  */
 export function isA1TransitionAdmissible(input: {
   pilotFacingCore: string;
   presentation: NoraAdaptivePresentation | null | undefined;
+  conversationGuidanceStatement?: string | null;
 }): boolean {
-  if (!isPresentationStructurallyAdmissibleForA1(input.presentation)) {
-    return false;
-  }
-  const presentation = input.presentation!;
-  const composed = composeCanonicalFromPresentation(presentation);
-  const core = (input.pilotFacingCore ?? "").trim();
-  if (!core) return true; // empty narrative → derive from structure (A1-primary)
-  return canonicalTextsEquivalent(core, composed);
+  const rel = classifyNarrativePresentationRelation(input);
+  return (
+    rel.kind === "equivalent" ||
+    rel.kind === "presentation_only" ||
+    rel.kind === "complementary"
+  );
 }
 
 /**
  * Build durable conversational content for a new turn (Memory B `content`).
- * A1: composed (+ caller appends notices). B: pilotFacingCore as-is.
- * Does not invent text. Empty+invalid → honest fallback.
+ * CORR-A1B-01 secured:
+ * - equivalent / presentation_only → compose (A1)
+ * - complementary (guidance-backed only) → fold continuation, then compose (A1)
+ * - divergent / unproven relation → plain with both versions + notice
+ * - narrative_only / empty → narrative or honest fallback
  */
 export function buildDurableAssistantContentForTurn(input: {
   pilotFacingCore: string;
   presentation: NoraAdaptivePresentation | null | undefined;
+  conversationGuidanceStatement?: string | null;
 }): {
   readonly contentCore: string;
   readonly usedA1: boolean;
   readonly presentation: NoraAdaptivePresentation | null;
+  readonly relation: NarrativePresentationRelation["kind"];
 } {
   const core = (input.pilotFacingCore ?? "").trim();
   const presentation = input.presentation ?? null;
-  if (isA1TransitionAdmissible({ pilotFacingCore: core, presentation })) {
+  const relation = classifyNarrativePresentationRelation({
+    pilotFacingCore: core,
+    presentation,
+    conversationGuidanceStatement: input.conversationGuidanceStatement,
+  });
+
+  if (relation.kind === "equivalent" || relation.kind === "presentation_only") {
     const composed = composeCanonicalFromPresentation(presentation!);
     return {
       contentCore: composed,
       usedA1: true,
       presentation,
+      relation: relation.kind,
     };
   }
-  if (!core && !shouldRenderAdaptivePresentation(presentation)) {
+
+  if (relation.kind === "complementary") {
+    const folded = withDistinctContinuationBlock(
+      presentation!,
+      relation.continuation,
+    );
+    if (folded && isPresentationStructurallyAdmissibleForA1(folded)) {
+      const composed = composeCanonicalFromPresentation(folded);
+      return {
+        contentCore: composed,
+        usedA1: true,
+        presentation: folded,
+        relation: "complementary",
+      };
+    }
+    // Cannot fold safely → fail-closed preserve both (no silent drop).
+    const composed = composeCanonicalFromPresentation(presentation!);
     return {
-      contentCore: NORA_UNUSABLE_TURN_FALLBACK_TEXT,
+      contentCore: formatDivergentNarrativePresentationPlain({
+        composed,
+        narrative: relation.continuation,
+      }),
       usedA1: false,
       presentation: null,
+      relation: "divergent",
     };
   }
+
+  if (relation.kind === "divergent") {
+    return {
+      contentCore: formatDivergentNarrativePresentationPlain({
+        composed: relation.composed,
+        narrative: relation.narrative,
+      }),
+      usedA1: false,
+      presentation: null,
+      relation: "divergent",
+    };
+  }
+
+  if (relation.kind === "narrative_only") {
+    return {
+      contentCore: core || NORA_UNUSABLE_TURN_FALLBACK_TEXT,
+      usedA1: false,
+      presentation: null,
+      relation: "narrative_only",
+    };
+  }
+
   return {
-    contentCore: core || NORA_UNUSABLE_TURN_FALLBACK_TEXT,
+    contentCore: NORA_UNUSABLE_TURN_FALLBACK_TEXT,
     usedA1: false,
-    presentation,
+    presentation: null,
+    relation: "empty",
   };
 }
 
@@ -1211,12 +1565,14 @@ export type AdaptiveAssistantRenderDecision = {
 };
 
 /**
- * NAP-SINGLE-RESPONSE-D1 — A1 structured-first OR B canonical plain.
+ * NAP-SINGLE-RESPONSE-D1 + CORR-A1B-01 — A1 structured-first OR B canonical plain.
  *
  * - Invalid / absent presentation → plain (B).
- * - Structurally admissible + body ≡ composeCanonical → adaptive (A1), one surface.
- * - Otherwise → plain (B) with full durable body; presentation not shown
- *   (never dual canonical + projection; never hide unique narrative via CSS).
+ * - equivalent / presentation_only → adaptive (A1).
+ * - complementary → fold continuation into presentation for one A1 surface
+ *   (also repairs historical LUMEN-shaped turns at read time without DB write).
+ * - divergent → plain with both versions preserved (fail-closed; no silent pick).
+ * - Never dual canonical + projection layer.
  * - Studio appendix: typed notices only.
  */
 export function resolveAdaptiveAssistantRender(input: {
@@ -1244,6 +1600,21 @@ export function resolveAdaptiveAssistantRender(input: {
   const structurallyAdmissibleForA1 =
     isPresentationStructurallyAdmissibleForA1(presentation);
 
+  // Already materialised divergence plain (write-path fail-closed).
+  if (body.includes(NORA_ADAPTIVE_DIVERGENCE_NOTICE)) {
+    return {
+      mode: "plain",
+      presentation: null,
+      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
+      plainText: content.trim() ? content : NORA_UNUSABLE_TURN_FALLBACK_TEXT,
+      studioControlNotices: authenticated,
+      contentFullyCovered: false,
+      canonicalNarrative: null,
+      structurallyAdmissibleForA1: false,
+      usedA1: false,
+    };
+  }
+
   if (!shouldRenderAdaptivePresentation(presentation)) {
     return {
       mode: "plain",
@@ -1258,13 +1629,17 @@ export function resolveAdaptiveAssistantRender(input: {
     };
   }
 
-  const composed = composeCanonicalFromPresentation(presentation!);
-  const a1Match =
-    structurallyAdmissibleForA1 &&
-    (canonicalTextsEquivalent(body, composed) ||
-      (!body.trim() && Boolean(composed.trim())));
+  const relation = classifyNarrativePresentationRelation({
+    pilotFacingCore: body,
+    presentation,
+    // Read-path / Memory B has no durable guidance provenance — never invent it.
+    conversationGuidanceStatement: null,
+  });
 
-  if (a1Match) {
+  if (
+    relation.kind === "equivalent" ||
+    relation.kind === "presentation_only"
+  ) {
     return {
       mode: "adaptive",
       presentation,
@@ -1278,7 +1653,76 @@ export function resolveAdaptiveAssistantRender(input: {
     };
   }
 
-  // T2 / incomplete / non-equivalent — B only (single canonical surface).
+  if (relation.kind === "complementary") {
+    const folded = withDistinctContinuationBlock(
+      presentation!,
+      relation.continuation,
+    );
+    if (folded && isPresentationStructurallyAdmissibleForA1(folded)) {
+      return {
+        mode: "adaptive",
+        presentation: folded,
+        studioAppendix,
+        plainText: content,
+        studioControlNotices: authenticated,
+        contentFullyCovered: true,
+        canonicalNarrative: null,
+        structurallyAdmissibleForA1: true,
+        usedA1: true,
+      };
+    }
+    const composed = composeCanonicalFromPresentation(presentation!);
+    return {
+      mode: "plain",
+      presentation: null,
+      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
+      plainText: formatDivergentNarrativePresentationPlain({
+        composed,
+        narrative: relation.continuation,
+      }),
+      studioControlNotices: authenticated,
+      contentFullyCovered: false,
+      canonicalNarrative: null,
+      structurallyAdmissibleForA1,
+      usedA1: false,
+    };
+  }
+
+  if (relation.kind === "divergent") {
+    // Fail-closed single plain surface: never promote presentation alone as A1.
+    // If Memory B already embeds both versions (write-path) OR the composed
+    // substance is already inside body (e.g. forged markers on an otherwise
+    // covered lead), keep `content` as-is.
+    // Historical short narrative + rich presentation_json: expand both versions
+    // at read-time without mutating SQLite.
+    const alreadyBothVersions =
+      body.includes("— Version structurée —") &&
+      body.includes("— Version narrative —");
+    const composedAlreadyInBody = narrativeAlreadyCoveredByCompose(
+      relation.composed,
+      body,
+    );
+    const plainText =
+      alreadyBothVersions || composedAlreadyInBody
+        ? content.trim() || NORA_UNUSABLE_TURN_FALLBACK_TEXT
+        : formatDivergentNarrativePresentationPlain({
+            composed: relation.composed,
+            narrative: relation.narrative,
+          });
+    return {
+      mode: "plain",
+      presentation: null,
+      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
+      plainText,
+      studioControlNotices: authenticated,
+      contentFullyCovered: false,
+      canonicalNarrative: null,
+      structurallyAdmissibleForA1,
+      usedA1: false,
+    };
+  }
+
+  // narrative_only / empty / incomplete — B with durable body.
   return {
     mode: "plain",
     presentation: null,

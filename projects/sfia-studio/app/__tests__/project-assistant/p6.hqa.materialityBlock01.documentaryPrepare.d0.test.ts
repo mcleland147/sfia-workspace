@@ -218,6 +218,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -565,6 +566,7 @@ describe("MATERIALITY-BLOCK-01 documentary Generic PREPARE bind", () => {
       sessionDbPath,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
