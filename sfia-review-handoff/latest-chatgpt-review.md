@@ -1,21 +1,16 @@
 # SFIA STUDIO — AKG-M5 / L3-S2
-# LUMEN COGNITIVE QUALITY + PREPARE CONSENT
-# CONTINUATION A+B — DIAGNOSTIC A1/B REGRESSION
-# REVIEW PACK FULL (mono-chantier)
+# LUMEN — INTEGRATED CORRECTION A+B
+# CORR-A1B-01 SECURED + TEST-15 HARDENING
+# REVIEW PACK FULL
 
-**Horodatage (Europe/Paris):** 2026-10-31 20:27:46 +0200
-**Horodatage UTC:** 2026-10-31T18:27:46Z
-**GO Morris:** Investigation A1/B intégrée — 2026-10-31 — **investigation only** (pas de nouvelle correction Product sans arbitrage)
+**Horodatage (Europe/Paris):** 2026-10-31 20:58:23 +0200
+**Horodatage UTC:** 2026-10-31T18:58:23Z
+**GO Morris:** Correction locale intégrée A+B autorisée — 2026-10-31
 **Milestone:** AKG-M5 / L3-S2 — OPEN
-**Cycle:** 8 Delivery + 9 QA (continuité) — CRITICAL
-**Review Pack:** FULL — continuité du même chantier A+B
+**Cycle:** 8 Delivery + 9 QA intégré — CRITICAL — INC/EVOL
+**Review Pack:** FULL (autosuffisant, continuité mono-chantier)
 **Review Handoff:** REQUIRED — publish-in-cycle (L3)
-
----
-
-## 0. Note opérationnelle Cursor
-
-`move_agent_to_root` **non utilisé** pour ce cycle (échec récurrent : tentative de `git checkout feat/akg-m5-nora-adaptive-presentation` déjà lié à un autre worktree). Travail en chemins absolus sur le delivery WT.
+**move_agent_to_root:** NON UTILISÉ (chemins absolus delivery WT)
 
 ---
 
@@ -27,407 +22,529 @@
 | Branch | `feat/akg-m5-lumen-cog-prepare-corr-01` |
 | HEAD | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
 | origin/main | `7dd49ecd0699a3de9c03759a8fe4637baf31d149` |
-| Run WT | `/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020` @ `7dd49ecd` — **non modifié** |
-| Studio :3020 | UP (307) — **non redémarré** |
-| Campaign DBs (RO) | `…/new-project-campaign-01/product/{oa-product,nora-session}.sqlite` |
-| Dirty delivery | corrections A+B locales **conservées** (5 M code + 1 test ?? + pack) |
-| Handoff tip pré-investigation | `079a999218247d043ae0cf10dac9735d5f453dfe` |
-| Handoff blob pré | `e0d0aea3094dfe35d39810343b7ab0fd8f2c9a75` |
-
-Aucun reset/clean/stash. Aucun push projet.
+| Run WT :3020 | `/Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-campaign-3020` @ `7dd49ecd` — **non modifié** |
+| Studio | UP HTTP 307 — **non redémarré** |
+| Handoff tip pré | `b9e3ddf3c2e1e15ec5c895ad437e81ca6a81670b` |
+| Handoff blob pré | `1e6a7871a3d90d7987e7a29bb25f403ee3c83d9f` |
+| Dirty | corrections A+B locales non commit projet |
 
 ---
 
-## 2. Convergence Pre-check
+## 2. GO Morris / Convergence
 
-Relus / applicables : template cycle, routing, operating model, Build Doctrine, Roadmap, C1, M5 journey, v3 framing 30–35, PRR README+03/05–09, handoff `079a9992` contenu A+B antérieur **conservé et étendu**.
+GO : correction Product locale A+B. Non accordés : push/PR/merge projet, chemins protégés, SQLite LIVE, REAL, doctrine, v3.
 
----
-
-## 3. État des corrections locales A+B (préexistantes — NON RÉINITIALISÉES)
-
-| Fichier | Rôle |
-|---------|------|
-| `w2/prepareGenericExecutionContractDraft.ts` | `hasExplicitPrepareContractRefusal` + gates |
-| `orchestrateTurn.ts` | refuse tool enqueue + `pilotUtterance` |
-| `productExecutionAgentsTools.ts` | description anti-refus |
-| `buildProjectSystemPrompt.ts` | ANSWER primacy (local dirty) |
-| tests G-D4 + `lumenCogPrepareCorr01.d0.test.ts` | DET 16/16 PASS (scope précédent) |
-
-**DET A+B précédent :** 16/16 PASS — **conservé**. TEST-15 **non clôturé** (réserves négation non lexicales etc.).
-
-**Ce GO :** aucune nouvelle correction Product appliquée.
+Pre-check : template cycle, routing, operating model, CKC QA guidance, Build Doctrine, Roadmap, C1, M5 journey, v3 30–35, PRR 03/05–09, handoff `b9e3ddf3` (H2 PROVEN).
 
 ---
 
-## 4. Chronologie LUMEN (rappel)
+## 3. Trajectoire V3-F05 / L3-S2
 
-| | |
-|--|--|
-| project | `prj:6d0696db-eff0-41c7-a081-3bc71611cc6c` |
-| cycle | `cyc:trj-4139782c77c92e3813a72084` |
-| EC litigieux | `xct:gen-prep:e45f631d000ff3986360e68d` confirmation_required — **préservé** |
-| SQLite | lecture seule `mode=ro` — zéro checkpoint/migration |
+Capacité V3-F05. L3-S2 **OPEN**. G-REAL **NOT GRANTED**. Runtime v3 **NON ADOPTED**.
 
 ---
 
-## 5. Matrice des tours (association MÊME turnId)
+## 4. Diagnostic H2 (établi — rappel)
 
-### T-A1 — Demande cadrage + formats (première)
-
-| Champ | Valeur |
-|-------|--------|
-| user turn_id / seq | `pt:b205e2a4c5ad4899` / 0 |
-| assistant turn_id / seq | `pt:06a8beb5a7fc577a` / 1 |
-| created_at (asst) | `2026-10-31T15:20:58.493Z` |
-| logical_turn_id | `ltu:42608e846fc6f0e7b164f8cab285844f` |
-| cycle | `None` |
-| content_len | 197 |
-| presentation_json | présent (5 blocks) |
-| title | 'Comparer les formats sans figer le choix' |
-| composed_len | 2986 |
-| structurallyAdmissibleForA1 | True |
-| content ≡ composed | False |
-| buildDurable usedA1 | False |
-| resolveAdaptive mode | **plain** |
-| render presentation null | True |
-| contentFullyCovered | False |
-
-**Pilote (extrait):** Maintenant que le projet LUMEN est créé, j'aimerais qu'on avance ensemble sur son cadrage.  Concernant ta question, je n'ai pas encore de durée ni de nombre de séances définitiveme…
-
-**Memory B content (intégral — court):**
-```
-Je te propose de poursuivre le cadrage en confrontant ces formats aux disponibilités du centre et aux besoins concrets des participants, puis de valider les grandes orientations au fur et à mesure.
-```
-
-**composed preview (depuis presentation_json du MÊME tour):**
-```
-LUMEN · premières pistes de cadrage
-
-Comparer les formats sans figer le choix
-
-Ces comparaisons sont des repères de travail, pas encore des choix arrêtés. Les apprentissages dépendront aussi du niveau
-```
-### T-A2 — Comparer explicitement 3 formats
-
-| Champ | Valeur |
-|-------|--------|
-| user turn_id / seq | `pt:37229bf92ce8b4a0` / 2 |
-| assistant turn_id / seq | `pt:b796154ad8685d64` / 3 |
-| created_at (asst) | `2026-10-31T15:28:56.176Z` |
-| logical_turn_id | `ltu:cde6c6caaeae38fe294ee3e1caab2c17` |
-| cycle | `cyc:trj-4139782c77c92e3813a72084` |
-| content_len | 186 |
-| presentation_json | présent (5 blocks) |
-| title | 'Comparer les formats et leurs effets possibles' |
-| composed_len | 4292 |
-| structurallyAdmissibleForA1 | True |
-| content ≡ composed | False |
-| buildDurable usedA1 | False |
-| resolveAdaptive mode | **plain** |
-| render presentation null | True |
-| contentFullyCovered | False |
-
-**Pilote (extrait):** Nora, maintenant que le cadrage du projet LUMEN est démarré, j'aimerais qu'on commence à construire concrètement notre projet.  Reprenons notre objectif : concevoir un atelier d'in…
-
-**Memory B content (intégral — court):**
-```
-Pour préciser le périmètre pédagogique, quels usages du quotidien voudrais-tu traiter en priorité — par exemple communiquer, chercher une information ou effectuer une démarche en ligne ?
-```
-
-**composed preview (depuis presentation_json du MÊME tour):**
-```
-LUMEN · cadrage
-
-Comparer les formats et leurs effets possibles
-
-Les éléments confirmés dans notre échange sont l’objectif d’initiation, le public adulte débutant, le contexte du centre social, quelqu
-```
-### T-A3 — Priorités usages + recommandation
-
-| Champ | Valeur |
-|-------|--------|
-| user turn_id / seq | `pt:55314451ea752dff` / 4 |
-| assistant turn_id / seq | `pt:73bcbfb54b43dac7` / 5 |
-| created_at (asst) | `2026-10-31T15:34:30.896Z` |
-| logical_turn_id | `ltu:6260690db1153ab9040a15a8d80d0c6c` |
-| cycle | `cyc:trj-4139782c77c92e3813a72084` |
-| content_len | 264 |
-| presentation_json | présent (5 blocks) |
-| title | 'Une progression par étapes paraît la plus adaptée' |
-| composed_len | 4074 |
-| structurallyAdmissibleForA1 | True |
-| content ≡ composed | False |
-| buildDurable usedA1 | False |
-| resolveAdaptive mode | **plain** |
-| render presentation null | True |
-| contentFullyCovered | False |
-
-**Pilote (extrait):** Pour LUMEN, je souhaiterais privilégier les usages qui permettent aux participants de gagner rapidement en autonomie dans leur quotidien.  Je vois trois grandes priorités :  1. **R…
-
-**Memory B content (intégral — court):**
-```
-Je te propose de vérifier ensuite si le centre peut garantir des créneaux récurrents, l’accès aux ordinateurs et un accompagnement entre les séances : ces éléments permettront de confirmer le parcours de plusieurs séances ou de préférer un format court plus ciblé.
-```
-
-**composed preview (depuis presentation_json du MÊME tour):**
-```
-LUMEN · comparaison des formats
-
-Une progression par étapes paraît la plus adaptée
-
-Les trois priorités — chercher de l’information, communiquer et effectuer des démarches — couvrent des gestes différ
-```
-### T-A4 — Cadrage structuré (objectifs/séances/…)
-
-| Champ | Valeur |
-|-------|--------|
-| user turn_id / seq | `pt:6f856bbcc17193ec` / 6 |
-| assistant turn_id / seq | `pt:01f15609efea28fe` / 7 |
-| created_at (asst) | `2026-10-31T15:41:17.744Z` |
-| logical_turn_id | `ltu:90edd79af52fbe05a1321207bec2ba15` |
-| cycle | `cyc:trj-4139782c77c92e3813a72084` |
-| content_len | 248 |
-| presentation_json | présent (6 blocks) |
-| title | 'Comparer les formats et choisir une progression réaliste' |
-| composed_len | 5367 |
-| structurallyAdmissibleForA1 | True |
-| content ≡ composed | False |
-| buildDurable usedA1 | False |
-| resolveAdaptive mode | **plain** |
-| render presentation null | True |
-| contentFullyCovered | False |
-
-**Pilote (extrait):** Je suis d'accord avec toi, Nora. Les créneaux disponibles, le matériel et l'accompagnement entre les séances seront des contraintes importantes à confirmer auprès du centre social.…
-
-**Memory B content (intégral — court):**
-```
-Je te propose de garder le parcours de plusieurs séances comme format privilégié à l’étude, puis de vérifier avec le centre les créneaux, le nombre de postes et l’encadrement avant d’arrêter le nombre de séances et les objectifs de chaque activité.
-```
-
-**composed preview (depuis presentation_json du MÊME tour):**
-```
-LUMEN · proposition de cadrage
-
-Comparer les formats et choisir une progression réaliste
-
-Je prends la séance hebdomadaire, le petit groupe et les quelques ordinateurs comme des hypothèses de travail,
-```
-### T-B — Orientation retenue + refus PREPARE
-
-| Champ | Valeur |
-|-------|--------|
-| user turn_id / seq | `pt:b165458a67bc5561` / 8 |
-| assistant turn_id / seq | `pt:6c1b7e274db42cab` / 9 |
-| created_at (asst) | `2026-10-31T15:49:44.350Z` |
-| logical_turn_id | `None` |
-| cycle | `cyc:trj-4139782c77c92e3813a72084` |
-| content_len | 501 |
-| presentation_json | NULL (0 blocks) |
-| title | None |
-| composed_len | 0 |
-| structurallyAdmissibleForA1 | False |
-| content ≡ composed | False |
-| buildDurable usedA1 | False |
-| resolveAdaptive mode | **plain** |
-| render presentation null | True |
-| contentFullyCovered | False |
-
-**Pilote (extrait):** D'accord Nora. Je retiens comme orientation de travail un parcours pédagogique structuré sur plusieurs séances, sous réserve de confirmer les moyens et disponibilités du centre soc…
-
-**Memory B content (intégral — court):**
-```
-[Mode réel] J'ai préparé le contrat d'exécution correspondant à : Préparer une première proposition de cadrage pédagogique pour LUMEN, en distinguant les éléments confirmés, les recommandations et les décisions restant à arbitrer.. Contrat inspectable : xct:gen-prep:e45f631d000ff3986360e68d (statut confirmation_required — non lancé). Tu peux le consulter dans la trajectoire et me demander de l'ajuster avant d'autoriser l'exécution. Préparer ≠ autoriser ≠ exécuter. Aucune exécution n'a été lancée.
-```
-
-**composed preview (depuis presentation_json du MÊME tour):**
-```
-
-```
-
-
-### Replay déterministe (hors LIVE)
-
-Source : modules Product CURRENT importés depuis delivery WT ; entrées = rangées Memory B.
-
-Fichier preuve : `/tmp/lumen-a1b/a1b-replay.json` (copie pack diffs).
+Quatre tours LUMEN même turnId : presentation A1-admissible riche + narrative courte → ancien resolve → B/plain masquant comparison_table. H2 **PROVEN**. T-B PREPARE cause distincte. RAW MODEL OUTPUT **NOT OBSERVABLE**.
 
 ---
 
-## 6. Diagnostic causal A1/B
+## 5. Architecture CORR-A1B-01 sécurisé
 
-### Mécanisme PROVEN (même tour)
+### Choix retenu
+Classifier déterministe `classifyNarrativePresentationRelation` puis :
 
-Sur **T-A1, T-A2, T-A3, T-A4** (assistant `pt:06a8beb5…`, `pt:b796154a…`, `pt:73bcbfb5…`, `pt:01f15609…`) :
+| Cas | Relation | Durable / Render |
+|-----|----------|------------------|
+| A | `equivalent` / `presentation_only` | compose → A1 |
+| B | `complementary` | fold continuation en block question/plain → compose → A1 (1 surface) |
+| C | `divergent` | plain fail-closed avec **les deux** versions + notice Studio ; presentation non promue |
+| D | `narrative_only` / `empty` | plain honnête / fallback |
 
-1. Le modèle a produit une **presentation** valide avec `comparison_table` (3 formats) ± recommendation/sections — `structurallyAdmissibleForA1 = true`, composed ≈ 3–5k chars.
-2. Memory B `content` du **même** `turn_id` est une **narrative courte** (186–264 chars), style ORIENT (« Je te propose… » / question de suite).
-3. `canonicalTextsEquivalent(content, composed) = false`.
-4. `buildDurableAssistantContentForTurn` → `usedA1=false`, conserve le core court.
-5. `resolveAdaptiveAssistantRender` → **`mode=plain`**, **`presentation=null`**, `contentFullyCovered=false`.
-6. `ConversationSurface` rend `NoraCanonicalFallbackView` avec ce plain court → **la comparison_table du même tour n'est pas affichée**.
+Continuation détectée **structurellement** (question `?`, openers ORIENT FR, longueur relative bornée) — **pas** de réconciliation sémantique floue.
 
-**Donc :** ce n'est pas une absence de génération analytique sur ces tours ; c'est une **perte Pilot-facing A1/B** : présentation riche persistée + narrative courte non équivalente → fallback B qui **masque** la présentation.
+Read-path : même classification répare l'affichage historique LUMEN-shaped **sans écrire** dans SQLite campagne.
 
-`RAW MODEL OUTPUT` hors schéma Product : **NOT OBSERVABLE** (pas de journal brut séparé). La preuve primaire est Memory B `content` + `presentation_json` du même turn — suffisante pour H2.
+### Alternatives rejetées
+1. « Toujours remplacer narrative par compose si A1-admissible » — perte silencieuse d'info distincte / contradiction.
+2. Dual `adaptive_with_canonical` — interdit par single-response / GO.
+3. Prompt-only — insuffisant (H2 déjà avec presentation riche).
+4. Moteur sémantique parallèle — hors scope / non déterministe.
 
-### T-B
-
-Tour `pt:6c1b7e274db42cab` : annonce EC, `presentation_json=NULL`. Cause B (lexical PREPARE) **distincte** — déjà qualifiée. Lien avec A1/B : le skipF1 / mission path peut priver ce tour d'une presentation analytique, mais la perte A1/B sur T-A* est **indépendante** de TEST-15.
-
----
-
-## 7. Comparaison historique PR #628 / #630
-
-| État | SHA | Faits |
-|------|-----|-------|
-| **E0** avant NAP | base `2cc63686…` | Pas de `noraAdaptivePresentation.ts` / View ; narrative seule |
-| **E1** après #628 | merge `c848b98c…` | presentation introduite ; A1 si body ≡ **lead** seulement (`contentFullyCoveredByPresentation`) ; sinon plain + presentation null ; prompt : « narrative reste canonique ; presentation organise le rendu » |
-| **E2** après #630 | merge `14fb0c33…` → main `7dd49ecd` | NAP-SINGLE-RESPONSE-D1 : A1 si body ≡ **composeCanonical(blocks…)** ; sinon B plain **presentation not shown** ; dual `adaptive_with_canonical` retiré ; `buildDurableAssistantContentForTurn` ; prompt : substance dans blocks, narrative vide ou exact compose |
-
-**Attribution :**
-
-- **#628** introduit le split narrative/presentation et le fail-closed plain quand non couvert.
-- **#630** renforce single-response : masquage explicite de la presentation si non-équivalence avec compose (plus strict que lead-only), et instructions « toute la réponse dans blocks ».
-- Sur LUMEN CURRENT, le modèle remplit les blocks (conforme #630 intent) mais laisse une narrative ORIENT courte (non conforme au contrat « vide ou exact compose ») → **B masque les blocks**.
-
-Ne pas attribuer à #630 seul un défaut génération ; ne pas attribuer au renderer une pauvreté qui n'existe pas dans presentation_json.
+### Point minimal
+`buildDurableAssistantContentForTurn` + `resolveAdaptiveAssistantRender` (+ helpers) dans `noraAdaptivePresentation.ts`. Orchestration existante déjà appelle buildDurable. Prompt ANSWER primacy **conservé** (complément génération, pas substitut Product).
 
 ---
 
-## 8. Matrice des hypothèses
+## 6. Contrat de restitution
 
-| ID | Statut | Certitude | Preuve |
-|----|--------|-----------|--------|
-| **H1 MODEL GENERATION DEFICIT** | **DISPROVEN** sur T-A1…T-A4 | haute | Même turn : comparison_table + recommendation substantiels |
-| **H2 A1/B PRESENTATION LOSS** | **PROVEN** | haute | Replay resolve → plain + presentation null ; content≪composed |
-| **H3 OUTPUT NORMALIZATION LOSS** | NOT PROVEN comme cause primaire | basse | Pas de raw pré-normalize ; content Memory B déjà court |
-| **H4 INSTRUCTION CONFLICT** | **LIKELY** contributeur | moyenne | Content = ORIENT ; prompt ORIENT + presentation ; guidance compose |
-| **H5 PREPARE BYPASS** | **PROVEN** sur T-B seulement | haute | Lexical false-positive (chantier B) |
-| **H6 COMBINED** | **LIKELY** global chantier | moyenne | H2 (A) + H5 (B) + H4 ; pas une seule cause unique A+B |
+- Une seule réponse visible.
+- Substance structurée non masquée (CAS B).
+- Continuation utile conservée une fois (fold / dedupe containment).
+- Divergence matérielle : notice + deux versions, pas de pick silencieux.
+- presentation ≠ Truth C / HD / Evidence.
 
 ---
 
-## 9. Architecture R23 (chemin restitution)
+## 7. Correction A — détails
 
+Fichier : `lib/nora-cognitive-runtime/noraAdaptivePresentation.ts`
+
+Ajouts : `NORA_ADAPTIVE_DIVERGENCE_NOTICE`, `classifyNarrativePresentationRelation`, `isContinuationShapedNarrative`, `narrativeAlreadyCoveredByCompose`, `withDistinctContinuationBlock`, `formatDivergentNarrativePresentationPlain` ; `buildDurable` retourne `relation` ; resolve A1/B aligné.
+
+Replay LUMEN après correctif (read-path, sans mutation DB) :
+
+```json
+[
+  {
+    "seq": 1,
+    "turn_id": "pt:06a8beb5a7fc577a",
+    "relation": "complementary",
+    "render_mode": "adaptive",
+    "render_usedA1": true,
+    "has_table": true,
+    "durable_usedA1": true,
+    "durable_relation": "complementary"
+  },
+  {
+    "seq": 3,
+    "turn_id": "pt:b796154ad8685d64",
+    "relation": "equivalent",
+    "render_mode": "adaptive",
+    "render_usedA1": true,
+    "has_table": true,
+    "durable_usedA1": true,
+    "durable_relation": "equivalent"
+  },
+  {
+    "seq": 5,
+    "turn_id": "pt:73bcbfb54b43dac7",
+    "relation": "complementary",
+    "render_mode": "adaptive",
+    "render_usedA1": true,
+    "has_table": true,
+    "durable_usedA1": true,
+    "durable_relation": "complementary"
+  },
+  {
+    "seq": 7,
+    "turn_id": "pt:01f15609efea28fe",
+    "relation": "complementary",
+    "render_mode": "adaptive",
+    "render_usedA1": true,
+    "has_table": true,
+    "durable_usedA1": true,
+    "durable_relation": "complementary"
+  },
+  {
+    "seq": 9,
+    "turn_id": "pt:6c1b7e274db42cab",
+    "relation": "narrative_only",
+    "render_mode": "plain",
+    "render_usedA1": false,
+    "has_table": false,
+    "durable_usedA1": false,
+    "durable_relation": "narrative_only"
+  }
+]
 ```
-Pilot → IntentAnalysis → F1 Runner → structured output
-  → narrative + presentation.blocks + conversationGuidance
-  → composePilotFacingAssistantText
-  → buildDurableAssistantContentForTurn
-  → Memory B (content + presentation_json)
-  → ConversationSurface → resolveAdaptiveAssistantRender
-  → A1 NoraAdaptivePresentationView | B NoraCanonicalFallbackView
+
+T-A1…T-A4 : **adaptive + comparison_table**. T-B : plain narrative_only (EC announce). Historique DB non réécrit — documenté.
+
+---
+
+## 8. Correction B — TEST-15 hardening
+
+Fichier : `w2/prepareGenericExecutionContractDraft.ts` (+ gates orchestrate/tool déjà présents).
+
+Élargissement refus : surtout pas, refuse que tu prépar*, ne prépare rien Cursor, ne crée aucun, analyse seulement sans lancer mission, mais ne crée… Override déterministe : refus historique + « maintenant/désormais… prépare le contrat » → plus refusal (positive GO possible).
+
+Conservé : intent/accept/resolve/solicit fail-closed, tool enqueue refuse, tool description.
+
+---
+
+## 9–11. Tests
+
+### Commandes
+```
+npx vitest run \
+  __tests__/nora-cognitive-runtime/corrA1b01.secured.d0.test.ts \
+  __tests__/project-assistant/lumenCogPrepareCorr01.d0.test.ts \
+  __tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts \
+  __tests__/nora-cognitive-runtime/noraAdaptivePresentation.d0.test.ts
+npx vitest run __tests__/pre-m6-product-ui/noraAdaptivePresentation.ui.test.tsx
 ```
 
-| Composant | Niveau |
-|-----------|--------|
-| `noraAdaptivePresentation.resolveAdaptiveAssistantRender` | BEHAVIOR PROVEN (replay LUMEN) |
-| `buildDurableAssistantContentForTurn` | BEHAVIOR PROVEN |
-| `ConversationSurface` A1/B branch | COVERAGE VERIFIED + BEHAVIOR PROVEN |
-| Memory B `pilot_transcript_turns` | BEHAVIOR PROVEN (RO SQLite) |
-| Raw model pre-schema | KNOWN GAP / NOT OBSERVABLE |
-| Corrections B PREPARE | BEHAVIOR PROVEN DET (précédent) |
+### Résultats
+- corrA1b01 : **10 PASS**
+- lumenCogPrepareCorr01 : **6 PASS**
+- p6.gD4 : **11 PASS**
+- noraAdaptivePresentation.d0 : **108 PASS**
+- noraAdaptivePresentation.ui : **33 PASS**
+- **Total ciblé : 168 PASS / 0 FAIL**
+
+QA-A : LUMEN-shaped complementary → A1 table+continuation ; equivalence ; absent ; divergent fail-closed ; SQLite isolée reload.
+QA-B : négatifs élargis + override positif historique ; solicit EXPLICIT_PREPARE_REFUSAL.
+QA-A+B : analyse comparative demandée + refus → no_go + durable A1 comparison.
 
 ---
 
-## 10. Impact axes
+## 12. Persistance / UI
 
-### AXE A
-- Cause restitution principale sur LUMEN T-A* : **H2 PROVEN**.
-- Correction locale ANSWER primacy : **utile mais insuffisante** seule (présentation déjà riche).
-- Qualité LIVE affichée : **PARTIAL** jusqu'à correctif A1/B + revalidation.
-
-### AXE B
-- Correctif local DET conservé ; TEST-15 **non clôturé**.
-- T-B distinct ; réserves négation non lexicales inchangées.
-
-### INTÉGRATION A+B
-- **OPEN** avant revue consolidée / arbitrage correctif A1/B.
-- Pas READY FOR GIT INTEGRATION sur ce diagnostic seul.
+- Nouveaux tours : content ≡ compose (évent. fold) ; presentation_json cohérente ; resolve A1.
+- Anciens tours LUMEN : DB inchangée ; **read-path** affiche A1 si complementary (pas de migration silencieuse).
+- UI ConversationSurface inchangée (consomme resolve).
 
 ---
 
-## 11. Correction recommandée (NON APPLIQUÉE)
+## 13. Fake/Real Qualification
 
-**Cause :** single-response fail-closed B lorsque `presentation` admissible ≠ `content` court → masquage des blocks.
+| Frontière | Ce cycle |
+|-----------|----------|
+| OpenAI LIVE | non exercé |
+| Cursor REAL | non exercé (G-REAL NOT GRANTED) |
+| Product SQLite campagne | RO only / non muté |
+| SQLite isolée test | BEHAVIOR PROVEN |
+| Fonctions pures A1/B + admission | BEHAVIOR PROVEN |
+| LIVE emit global | KNOWN GAP / NOT PROVEN |
 
-**Correction minimale recommandée (arbitrage Morris) — CORR-A1B-01 :**
-
-Aligner l'écriture durable sur le contrat prompt #630 déjà documenté (« narrative vide **ou** exact compose ») :
-
-Dans `buildDurableAssistantContentForTurn` (et/ou point d'écriture `orchestrateTurn`) :
-
-- Si `isPresentationStructurallyAdmissibleForA1(presentation)` :
-  - **persister `contentCore = composeCanonicalFromPresentation(presentation)`** et `usedA1=true`,
-  - même si `pilotFacingCore` non vide et non équivalent (traiter la narrative divergente comme incohérence modèle / ORIENT parasite, non comme restitution canonique).
-- Conserver `presentation_json`.
-- Effet : Memory B content ≡ compose → `resolveAdaptiveAssistantRender` → **A1** → blocks visibles.
-- Ne pas réintroduire `adaptive_with_canonical`.
-- Ne pas choisir la projection « parce que plus longue » sans gate structurelle A1 déjà existante.
-- Ne pas toucher PREPARE / SHE / B gates.
-
-**Alternatives rejetées :**
-- Dual layer canonical+projection — contredit single-response #630 / GO.
-- Prompt-only sans gate Product — insuffisant (LUMEN montre non-conformité modèle).
-- Toujours plain en concaténant compose+narrative — risque double rendu / divergence.
-- Afficher presentation en B sans équivalence sans réécrire durable — UI/Memory divergents.
-
-**Fichiers impactés (si GO Delivery) :**
-- `noraAdaptivePresentation.ts` (`buildDurableAssistantContentForTurn`, éventuellement commentaires contrat)
-- `orchestrateTurn.ts` (si garde supplémentaire)
-- tests DET : fixtures LUMEN-shaped (short narrative + rich presentation → A1 durable)
-- non-régression : cas narrative longue sans presentation ; cas équivalents déjà A1 ; TEST-15
-
-**Compatibilité A+B :** orthogonale au refus PREPARE ; conserve corrections B.
-
-**Risque UX :** si presentation erronée et narrative longue correcte, on privilégierait presentation — mitigé par prompt « toute la réponse utile dans blocks » + admissibility ; documenter réserve.
-
-**R24 :** volumes 03/06/07/08/09 — sync gate OPEN (ci-dessous).
-
-**Preuve de sortie attendue :** rejouer T-A2 fixture → mode adaptive, comparison_table visible, zéro dual.
+DET ≠ LIVE.
 
 ---
 
-## 12. R24
+## 14. R23
 
-| Volume | Impact |
-|--------|--------|
-| 03 E2E | Single-response : durable content doit suivre compose quand presentation A1-admissible |
-| 06 Persistence | content + presentation_json ; cas non-équivalence |
-| 07 Authority | inchangé (presentation ≠ Truth C) ; consentement PREPARE inchangé |
-| 08 Test map | ajouter replay A1/B LUMEN-shaped + CORR-A1B-01 |
-| 09 Gaps | H2 PROVEN LOCAL DET/RO ; LIVE revalidation OPEN ; TEST-15 réserves |
-
-**R24 status :** `IMPACT QUALIFIED / SYNC GATE OPEN` — PRR **non modifié**. Contenu A+B précédent + A1/B à synchroniser sous GO Morris.
+Composants touchés : noraAdaptivePresentation (BEHAVIOR PROVEN), prepareGeneric… (BEHAVIOR PROVEN), orchestrateTurn/tool/prompt (conservés COVERAGE VERIFIED). Invariants SHE / PREPARE≠EXECUTE préservés. Risque : fold continuation si maxBlocks → fail-closed divergent (prouvé).
 
 ---
 
-## 13. Tests exécutés (ce segment)
+## 15. R24 — IMPACT QUALIFIED / SYNC GATE OPEN
 
-| Test | Résultat |
-|------|----------|
-| SQLite RO export LUMEN turns | OK |
-| Replay `resolveAdaptiveAssistantRender` ×5 assistant turns | OK — 4× plain loss, 1× T-B null presentation |
-| Vitest A+B précédent 16/16 | **non re-run requis** ; artifacts conservés |
-| LIVE Nora / REAL / mutation | **NON** |
+PRR **non édité** (chemin protégé sans GO).
 
----
+| Volume | Contenu proposé |
+|--------|-----------------|
+| 03 | Contrat A1/B CAS A–D ; complementary fold ; divergent notice |
+| 06 | durable content/presentation ; historique non migré ; read-path repair |
+| 07 | refusal Product ; override « maintenant prépare » ; cognition ≠ consent |
+| 08 | corrA1b01 + lumenCogPrepareCorr01 + G-D4 TEST-15 |
+| 09 | H2 CORRECTED LOCAL DET ; LIVE revalidation OPEN ; TEST-15 réserves citations complexes |
 
-## 14. Fichiers créés/modifiés
-
-**Product (préexistants dirty — inchangés ce GO investigation) :** voir §3 + diffs §16.
-
-**Nouveaux Product :** aucun.
-
-**Preuves hors repo :** `/tmp/lumen-a1b/*`, `/tmp/lumen-inv/*`.
+Pas de digest refresh.
 
 ---
 
-## 15. Contenu nouveau fichier test (préexistant A+B)
+## 16. Fichiers
+
+| Path | Status |
+|------|--------|
+| `noraAdaptivePresentation.ts` | M |
+| `prepareGenericExecutionContractDraft.ts` | M |
+| `orchestrateTurn.ts` | M (B préexistant) |
+| `buildProjectSystemPrompt.ts` | M (ANSWER préexistant) |
+| `productExecutionAgentsTools.ts` | M (B préexistant) |
+| `p6.gD4….d0.test.ts` | M |
+| `lumenCogPrepareCorr01.d0.test.ts` | A/M |
+| `corrA1b01.secured.d0.test.ts` | A |
+
+---
+
+## 17. Contenu complet — fichiers créés
+
+### corrA1b01.secured.d0.test.ts
 ```typescript
 /**
- * LUMEN integrated A+B — cognitive ANSWER primacy + PREPARE consent (TEST-15).
+ * CORR-A1B-01 secured — A1/B narrative vs presentation contract.
+ * DETERMINISTIC only — ZERO OpenAI LIVE — ZERO campaign DB writes.
+ *
+ * @vitest-environment node
+ */
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { afterEach, describe, expect, it } from "vitest";
+import {
+  NORA_ADAPTIVE_DIVERGENCE_NOTICE,
+  buildDurableAssistantContentForTurn,
+  classifyNarrativePresentationRelation,
+  composeCanonicalFromPresentation,
+  deserializeNoraAdaptivePresentation,
+  parseNoraAdaptivePresentation,
+  resolveAdaptiveAssistantRender,
+} from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
+import { ProductSqliteSession } from "@/lib/nora-cognitive-runtime/productSqliteSession";
+import {
+  appendPilotTranscriptTurn,
+  listPilotTranscriptTurns,
+} from "@/lib/nora-cognitive-runtime/cycleJournalStore";
+
+const tmpDirs: string[] = [];
+afterEach(() => {
+  while (tmpDirs.length > 0) {
+    const d = tmpDirs.pop();
+    if (d) rmSync(d, { recursive: true, force: true });
+  }
+});
+
+function richComparisonPresentation() {
+  return parseNoraAdaptivePresentation({
+    version: 1,
+    eyebrow: "LUMEN · cadrage",
+    title: "Comparer les formats et leurs effets possibles",
+    lead: null,
+    blocks: [
+      {
+        kind: "plain",
+        text: "Les éléments confirmés sont l'objectif d'initiation et le public adulte débutant.",
+      },
+      {
+        kind: "comparison_table",
+        title: "Trois possibilités",
+        columns: ["Format", "Avantages", "Limites", "Effets"],
+        rows: [
+          [
+            "Atelier court",
+            "Simple à organiser",
+            "Peu de répétition",
+            "Première prise en main",
+          ],
+          [
+            "Parcours plusieurs séances",
+            "Progression par étapes",
+            "Créneaux récurrents",
+            "Autonomie progressive",
+          ],
+          [
+            "Accompagnement long",
+            "Personnalisation",
+            "Organisation lourde",
+            "Suivi individualisé",
+          ],
+        ],
+      },
+      {
+        kind: "recommendation",
+        title: "Piste privilégiée",
+        statement:
+          "Je privilégierais un parcours structuré sur plusieurs séances, sous réserve des moyens du centre.",
+        disclaimer: null,
+      },
+    ],
+    provenanceNote: null,
+    noGovernedActionNote: null,
+  })!;
+}
+
+describe("CORR-A1B-01 — relation classification", () => {
+  it("CAS A — equivalence → equivalent", () => {
+    const p = richComparisonPresentation();
+    const composed = composeCanonicalFromPresentation(p);
+    expect(
+      classifyNarrativePresentationRelation({
+        pilotFacingCore: composed,
+        presentation: p,
+      }).kind,
+    ).toBe("equivalent");
+  });
+
+  it("CAS B — short ORIENT + rich presentation → complementary", () => {
+    const p = richComparisonPresentation();
+    const rel = classifyNarrativePresentationRelation({
+      pilotFacingCore:
+        "Pour préciser le périmètre pédagogique, quels usages du quotidien voudrais-tu traiter en priorité ?",
+      presentation: p,
+    });
+    expect(rel.kind).toBe("complementary");
+  });
+
+  it("CAS C — long distinct narrative → divergent", () => {
+    const p = richComparisonPresentation();
+    const narrative = [
+      "Voici une autre analyse complètement distincte et longue.",
+      "Le format court est en réalité le seul viable pour ce centre.",
+      "Le parcours multi-séances est trop coûteux et doit être abandonné d'emblée.",
+      "Aucune hypothèse alternative n'est digne d'examen dans ce contexte.",
+    ].join(" ");
+    expect(
+      classifyNarrativePresentationRelation({
+        pilotFacingCore: narrative,
+        presentation: p,
+      }).kind,
+    ).toBe("divergent");
+  });
+
+  it("CAS D — invalid / absent presentation → narrative_only or empty", () => {
+    expect(
+      classifyNarrativePresentationRelation({
+        pilotFacingCore: "Texte seul.",
+        presentation: null,
+      }).kind,
+    ).toBe("narrative_only");
+    expect(
+      classifyNarrativePresentationRelation({
+        pilotFacingCore: "",
+        presentation: null,
+      }).kind,
+    ).toBe("empty");
+  });
+});
+
+describe("CORR-A1B-01 — durable + render", () => {
+  it("CAS A — durable A1 compose; render adaptive", () => {
+    const p = richComparisonPresentation();
+    const composed = composeCanonicalFromPresentation(p);
+    const built = buildDurableAssistantContentForTurn({
+      pilotFacingCore: composed,
+      presentation: p,
+    });
+    expect(built.usedA1).toBe(true);
+    expect(built.contentCore).toBe(composed);
+    const d = resolveAdaptiveAssistantRender({
+      content: built.contentCore,
+      presentation: built.presentation,
+    });
+    expect(d.mode).toBe("adaptive");
+    expect(d.presentation?.blocks.some((b) => b.kind === "comparison_table")).toBe(
+      true,
+    );
+  });
+
+  it("CAS B LUMEN-shaped — comparison visible + continuation preserved once", () => {
+    const p = richComparisonPresentation();
+    const continuation =
+      "Pour préciser le périmètre pédagogique, quels usages du quotidien voudrais-tu traiter en priorité ?";
+    const built = buildDurableAssistantContentForTurn({
+      pilotFacingCore: continuation,
+      presentation: p,
+    });
+    expect(built.usedA1).toBe(true);
+    expect(built.relation).toBe("complementary");
+    expect(built.contentCore).toContain("Trois possibilités");
+    expect(built.contentCore).toContain("usages du quotidien");
+    // No naive duplication of the continuation beyond the folded block.
+    const matches = built.contentCore.match(/usages du quotidien/g) ?? [];
+    expect(matches.length).toBe(1);
+
+    const d = resolveAdaptiveAssistantRender({
+      content: built.contentCore,
+      presentation: built.presentation,
+    });
+    expect(d.mode).toBe("adaptive");
+    expect(d.presentation?.blocks.some((b) => b.kind === "comparison_table")).toBe(
+      true,
+    );
+    expect(
+      d.presentation?.blocks.some(
+        (b) =>
+          (b.kind === "question" || b.kind === "plain") &&
+          b.text.includes("usages du quotidien"),
+      ),
+    ).toBe(true);
+  });
+
+  it("CAS B historical read-path — short Memory B content still yields A1", () => {
+    const p = richComparisonPresentation();
+    const short =
+      "Je te propose de poursuivre le cadrage en confrontant ces formats aux disponibilités du centre.";
+    const d = resolveAdaptiveAssistantRender({
+      content: short,
+      presentation: p,
+    });
+    expect(d.mode).toBe("adaptive");
+    expect(d.presentation?.blocks.some((b) => b.kind === "comparison_table")).toBe(
+      true,
+    );
+  });
+
+  it("CAS C — divergent fail-closed preserves both versions; no A1 promotion", () => {
+    const p = richComparisonPresentation();
+    const narrative = [
+      "Analyse narrative alternative longue et distincte.",
+      "Je conclus que seul l'atelier court est acceptable.",
+      "Le parcours multi-séances doit être écarté sans discussion.",
+      "Cette conclusion remplace toute comparaison structurée antérieure.",
+    ].join(" ");
+    const built = buildDurableAssistantContentForTurn({
+      pilotFacingCore: narrative,
+      presentation: p,
+    });
+    expect(built.usedA1).toBe(false);
+    expect(built.presentation).toBeNull();
+    expect(built.contentCore).toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
+    expect(built.contentCore).toContain("Trois possibilités");
+    expect(built.contentCore).toContain("atelier court est acceptable");
+    const d = resolveAdaptiveAssistantRender({
+      content: built.contentCore,
+      presentation: built.presentation,
+    });
+    expect(d.mode).toBe("plain");
+    expect(d.presentation).toBeNull();
+    expect(d.plainText).toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
+  });
+
+  it("CAS D — absent presentation keeps narrative plain", () => {
+    const built = buildDurableAssistantContentForTurn({
+      pilotFacingCore: "Réponse courte seule.",
+      presentation: null,
+    });
+    expect(built.usedA1).toBe(false);
+    expect(built.contentCore).toBe("Réponse courte seule.");
+    const d = resolveAdaptiveAssistantRender({
+      content: built.contentCore,
+      presentation: null,
+    });
+    expect(d.mode).toBe("plain");
+    expect(d.plainText).toBe("Réponse courte seule.");
+  });
+
+  it("persistence isolated SQLite — complementary durable reloads as A1", () => {
+    const dir = mkdtempSync(join(tmpdir(), "sfia-a1b-"));
+    tmpDirs.push(dir);
+    const dbPath = join(dir, "session.sqlite");
+    const session = new ProductSqliteSession({
+      projectId: "prj:a1b",
+      dbPath,
+      sessionKey: "default",
+    });
+    try {
+      const p = richComparisonPresentation();
+      const built = buildDurableAssistantContentForTurn({
+        pilotFacingCore:
+          "Je te propose de vérifier ensuite les créneaux disponibles au centre.",
+        presentation: p,
+      });
+      expect(built.usedA1).toBe(true);
+      appendPilotTranscriptTurn(session, {
+        role: "assistant",
+        content: built.contentCore,
+        presentationJson: JSON.stringify(built.presentation),
+      });
+      const listed = listPilotTranscriptTurns(session);
+      expect(listed).toHaveLength(1);
+      const restored = deserializeNoraAdaptivePresentation(
+        listed[0]!.presentationJson,
+      );
+      const d = resolveAdaptiveAssistantRender({
+        content: listed[0]!.content,
+        presentation: restored,
+      });
+      expect(d.mode).toBe("adaptive");
+      expect(
+        d.presentation?.blocks.some((b) => b.kind === "comparison_table"),
+      ).toBe(true);
+    } finally {
+      session.close();
+    }
+  });
+});
+
+```
+
+### lumenCogPrepareCorr01.d0.test.ts
+```typescript
+/**
+ * LUMEN integrated A+B — CORR-A1B-01 + PREPARE consent (TEST-15 hardening).
  * Deterministic only — ZERO OpenAI LIVE — ZERO Cursor REAL — ZERO campaign DB writes.
  *
  * @vitest-environment node
@@ -441,6 +558,12 @@ import {
   resolveChatFirstGenericPrepareGo,
   solicitGenericExecutionPrepare,
 } from "@/features/project-assistant/w2/prepareGenericExecutionContractDraft";
+import {
+  buildDurableAssistantContentForTurn,
+  classifyNarrativePresentationRelation,
+  parseNoraAdaptivePresentation,
+  resolveAdaptiveAssistantRender,
+} from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
 
 const baseProject = (): ProjectAssistantContextDto =>
   ({
@@ -464,18 +587,24 @@ describe("LUMEN cog+prepare corr-01 — Axis A prompt primacy", () => {
   });
 });
 
-describe("LUMEN cog+prepare corr-01 — Axis B PREPARE consent", () => {
+describe("LUMEN cog+prepare corr-01 — Axis B PREPARE consent hardened", () => {
   const negatives = [
     "Ne prépare pas de contrat d'exécution.",
-    "Je ne veux pas de contrat pour le moment.",
-    "Analyse seulement, sans préparer de mission.",
+    "Ne prépare surtout pas le contrat d'exécution.",
+    "Je refuse que tu prépares un contrat.",
+    "Prépare l'analyse, mais ne crée aucun contrat d'exécution.",
+    "Je ne veux pas de contrat.",
+    "Analyse seulement, sans lancer de mission.",
+    "Ne prépare rien pour Cursor.",
     "Nous verrons l'exécution plus tard. Pas de contrat d'exécution.",
     "Prépare une analyse, pas un contrat.",
     "Je souhaite examiner cette proposition. Ne prépare pas de contrat d'exécution et ne lance aucune action technique pour le moment.",
+    "Prépare une analyse comparative et une proposition de cadrage détaillée pour LUMEN. Ne prépare pas de contrat d'exécution.",
   ];
   const positives = [
     "Prépare le contrat d'exécution pour la fiche d'animation.",
     "OK, prépare le contrat pour cette mission.",
+    "Tu avais dit ne prépare pas. Maintenant prépare le contrat d'exécution pour LUMEN.",
   ];
 
   it("negations are refusal and not lexical prepare GO", () => {
@@ -525,7 +654,6 @@ describe("LUMEN cog+prepare corr-01 — Axis B PREPARE consent", () => {
 
   it("solicitGenericExecutionPrepare fail-closes on pilotUtterance refusal without OA", async () => {
     const result = await solicitGenericExecutionPrepare({
-      // Minimal stub — refusal must short-circuit before OA/draft use.
       oa: null as never,
       projectId: "prj:lumen",
       cycleInstanceId: null,
@@ -544,20 +672,523 @@ describe("LUMEN cog+prepare corr-01 — Axis B PREPARE consent", () => {
   });
 });
 
+describe("LUMEN cog+prepare corr-01 — A+B product effects", () => {
+  it("analytical ask + PREPARE refusal: comparison durable A1 and no prepare GO", () => {
+    const utterance =
+      "Prépare une analyse comparative détaillée des trois formats pédagogiques de LUMEN. " +
+      "Je veux les avantages, limites, ressources et ta recommandation. " +
+      "Ne prépare pas de contrat d'exécution.";
+    expect(hasExplicitPrepareContractRefusal(utterance)).toBe(true);
+    expect(
+      resolveChatFirstGenericPrepareGo({
+        projectId: "prj:lumen",
+        cycleInstanceId: "cyc:lumen",
+        text: utterance,
+      }).kind,
+    ).toBe("no_go");
+
+    const presentation = parseNoraAdaptivePresentation({
+      version: 1,
+      eyebrow: "LUMEN",
+      title: "Comparaison des trois formats",
+      lead: null,
+      blocks: [
+        {
+          kind: "comparison_table",
+          title: "Formats",
+          columns: ["Format", "Avantages", "Limites", "Ressources"],
+          rows: [
+            ["Atelier court", "Rapide", "Peu de reprise", "1 salle"],
+            ["Parcours multi-séances", "Progression", "Créneaux", "Postes"],
+            ["Accompagnement long", "Sur-mesure", "Charge", "Tuteur"],
+          ],
+        },
+        {
+          kind: "recommendation",
+          title: "Orientation",
+          statement:
+            "Sous l'hypothèse de créneaux hebdomadaires, je recommande le parcours multi-séances.",
+          disclaimer: null,
+        },
+        {
+          kind: "plain",
+          text: "Hypothèse non confirmée : disponibilité réelle du centre.",
+        },
+      ],
+      provenanceNote: null,
+      noGovernedActionNote: null,
+    });
+    expect(presentation).not.toBeNull();
+    const shortOrient =
+      "Je te propose de valider ensuite les moyens du centre avant d'arrêter le format.";
+    expect(
+      classifyNarrativePresentationRelation({
+        pilotFacingCore: shortOrient,
+        presentation,
+      }).kind,
+    ).toBe("complementary");
+    const built = buildDurableAssistantContentForTurn({
+      pilotFacingCore: shortOrient,
+      presentation,
+    });
+    expect(built.usedA1).toBe(true);
+    expect(built.contentCore).toMatch(/Atelier court/);
+    expect(built.contentCore).toMatch(/recommande le parcours multi-séances/);
+    expect(built.contentCore).toMatch(/Hypothèse non confirmée/);
+    const d = resolveAdaptiveAssistantRender({
+      content: built.contentCore,
+      presentation: built.presentation,
+    });
+    expect(d.mode).toBe("adaptive");
+    expect(d.presentation?.blocks.some((b) => b.kind === "comparison_table")).toBe(
+      true,
+    );
+  });
+});
+
 ```
 
-## 16. Diffs corrections A+B préexistantes
+## 18. Diffs utiles COMPLETS
+
+### noraAdaptivePresentation.ts
+```diff
+diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
+index 96621586..40d8d3fe 100644
+--- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
++++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
+@@ -981,29 +981,178 @@ export function canonicalTextsEquivalent(a: string, b: string): boolean {
+   return normalizeCanonicalCompare(a) === normalizeCanonicalCompare(b);
+ }
+
++/**
++ * CORR-A1B-01 — explicit Studio notice when narrative vs presentation diverge
++ * materially. Fail-closed plain preserves both versions; never silent pick.
++ */
++export const NORA_ADAPTIVE_DIVERGENCE_NOTICE =
++  "[Studio] Les versions structurée et narrative de cette réponse divergent. Les deux sont conservées ci-dessous — aucune n'est promue comme vérité Product / HumanDecision." as const;
++
++/** Deterministic relation between pilot-facing narrative and structured presentation. */
++export type NarrativePresentationRelation =
++  | { readonly kind: "empty" }
++  | { readonly kind: "narrative_only" }
++  | { readonly kind: "presentation_only" }
++  | { readonly kind: "equivalent" }
++  | { readonly kind: "complementary"; readonly continuation: string }
++  | { readonly kind: "divergent"; readonly composed: string; readonly narrative: string };
++
++/**
++ * True when `needle` is already present in composed text (normalized containment).
++ * Deterministic dedupe only — not semantic similarity.
++ */
++export function narrativeAlreadyCoveredByCompose(
++  needle: string,
++  composed: string,
++): boolean {
++  const n = normalizeCanonicalCompare(needle);
++  if (!n) return true;
++  return normalizeCanonicalCompare(composed).includes(n);
++}
++
++/**
++ * Continuation / ORIENT-shaped narrative that may complement a rich presentation
++ * without material contradiction detection (no fuzzy keyword reconciliation).
++ * Bounds are structural (length / question / fixed ORIENT openers) only.
++ */
++export function isContinuationShapedNarrative(
++  core: string,
++  composed: string,
++): boolean {
++  const t = (core ?? "").trim();
++  if (!t) return false;
++  if (canonicalTextsEquivalent(t, composed)) return false;
++  if (/\?\s*$/u.test(t)) return true;
++  if (
++    /^(je te propose|pour préciser|souhaitez[- ]vous|veux[- ]tu|voudrais[- ]tu|on peut ensuite|nous pouvons ensuite)\b/iu.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  const nCore = normalizeCanonicalCompare(t).length;
++  const nComp = normalizeCanonicalCompare(composed).length;
++  // Short relative ORIENT vs substantial structured body (LUMEN-shaped).
++  if (nComp >= 800 && nCore > 0 && nCore <= 400 && nCore * 4 <= nComp) {
++    return true;
++  }
++  return false;
++}
++
++/**
++ * CORR-A1B-01 — classify narrative vs presentation without semantic guessing.
++ */
++export function classifyNarrativePresentationRelation(input: {
++  pilotFacingCore: string;
++  presentation: NoraAdaptivePresentation | null | undefined;
++}): NarrativePresentationRelation {
++  const core = (input.pilotFacingCore ?? "").trim();
++  const presentation = input.presentation ?? null;
++  const admissible = isPresentationStructurallyAdmissibleForA1(presentation);
++
++  if (!core && !admissible) {
++    if (!shouldRenderAdaptivePresentation(presentation)) {
++      return { kind: "empty" };
++    }
++    // Invalid / incomplete structure — treat as narrative absence.
++    return { kind: "empty" };
++  }
++  if (!admissible) {
++    return core ? { kind: "narrative_only" } : { kind: "empty" };
++  }
++
++  const composed = composeCanonicalFromPresentation(presentation!);
++  if (!core) return { kind: "presentation_only" };
++  if (canonicalTextsEquivalent(core, composed)) return { kind: "equivalent" };
++
++  if (
++    isContinuationShapedNarrative(core, composed) &&
++    !narrativeAlreadyCoveredByCompose(core, composed)
++  ) {
++    return { kind: "complementary", continuation: core };
++  }
++  if (
++    isContinuationShapedNarrative(core, composed) &&
++    narrativeAlreadyCoveredByCompose(core, composed)
++  ) {
++    // Continuation already inside blocks — equivalent for A1 purposes.
++    return { kind: "equivalent" };
++  }
++  return { kind: "divergent", composed, narrative: core };
++}
++
++/**
++ * Fold a distinct continuation into presentation as a trailing question/plain
++ * block so A1 View renders one complete surface. Returns null if limits block fold.
++ */
++export function withDistinctContinuationBlock(
++  presentation: NoraAdaptivePresentation,
++  continuation: string,
++): NoraAdaptivePresentation | null {
++  const text = sanitizePresentationPlainText(continuation);
++  if (!text) return presentation;
++  const composed = composeCanonicalFromPresentation(presentation);
++  if (narrativeAlreadyCoveredByCompose(text, composed)) return presentation;
++  if (
++    presentation.blocks.length >= NORA_ADAPTIVE_PRESENTATION_LIMITS.maxBlocks
++  ) {
++    return null;
++  }
++  if (text.length > NORA_ADAPTIVE_PRESENTATION_LIMITS.maxStringChars) {
++    return null;
++  }
++  const block = /\?\s*$/u.test(text)
++    ? ({ kind: "question" as const, text })
++    : ({ kind: "plain" as const, text });
++  return parseNoraAdaptivePresentation({
++    version: presentation.version,
++    eyebrow: presentation.eyebrow,
++    title: presentation.title,
++    lead: presentation.lead,
++    blocks: [...presentation.blocks, block],
++    provenanceNote: presentation.provenanceNote,
++    noGovernedActionNote: presentation.noGovernedActionNote,
++  });
++}
++
++export function formatDivergentNarrativePresentationPlain(input: {
++  composed: string;
++  narrative: string;
++}): string {
++  return [
++    NORA_ADAPTIVE_DIVERGENCE_NOTICE,
++    "",
++    "— Version structurée —",
++    input.composed.trim(),
++    "",
++    "— Version narrative —",
++    input.narrative.trim(),
++  ].join("\n");
++}
++
+ /**
+  * T1/T2 — whether durable pilot-facing core (pre-notices) may use A1.
+- * Conservatively requires exact normalized equality with compose, or empty
+- * core with admissible structure. No fuzzy / overlap / keyword tricks.
++ * CORR-A1B-01: equivalent, presentation-only, or complementary (after fold).
+  */
+ export function isA1TransitionAdmissible(input: {
+   pilotFacingCore: string;
+   presentation: NoraAdaptivePresentation | null | undefined;
+ }): boolean {
+-  if (!isPresentationStructurallyAdmissibleForA1(input.presentation)) {
+-    return false;
+-  }
+-  const presentation = input.presentation!;
+-  const composed = composeCanonicalFromPresentation(presentation);
+-  const core = (input.pilotFacingCore ?? "").trim();
+-  if (!core) return true; // empty narrative → derive from structure (A1-primary)
+-  return canonicalTextsEquivalent(core, composed);
++  const rel = classifyNarrativePresentationRelation(input);
++  return (
++    rel.kind === "equivalent" ||
++    rel.kind === "presentation_only" ||
++    rel.kind === "complementary"
++  );
+ }
+
+ /**
+  * Build durable conversational content for a new turn (Memory B `content`).
+- * A1: composed (+ caller appends notices). B: pilotFacingCore as-is.
+- * Does not invent text. Empty+invalid → honest fallback.
++ * CORR-A1B-01 secured:
++ * - equivalent / presentation_only → compose (A1)
++ * - complementary → fold continuation into presentation, then compose (A1)
++ * - divergent → plain with both versions + notice (fail-closed, no silent pick)
++ * - narrative_only / empty → narrative or honest fallback
+  */
+ export function buildDurableAssistantContentForTurn(input: {
+   pilotFacingCore: string;
+@@ -1012,28 +1161,78 @@ export function buildDurableAssistantContentForTurn(input: {
+   readonly contentCore: string;
+   readonly usedA1: boolean;
+   readonly presentation: NoraAdaptivePresentation | null;
++  readonly relation: NarrativePresentationRelation["kind"];
+ } {
+   const core = (input.pilotFacingCore ?? "").trim();
+   const presentation = input.presentation ?? null;
+-  if (isA1TransitionAdmissible({ pilotFacingCore: core, presentation })) {
++  const relation = classifyNarrativePresentationRelation({
++    pilotFacingCore: core,
++    presentation,
++  });
++
++  if (relation.kind === "equivalent" || relation.kind === "presentation_only") {
+     const composed = composeCanonicalFromPresentation(presentation!);
+     return {
+       contentCore: composed,
+       usedA1: true,
+       presentation,
++      relation: relation.kind,
++    };
++  }
++
++  if (relation.kind === "complementary") {
++    const folded = withDistinctContinuationBlock(
++      presentation!,
++      relation.continuation,
++    );
++    if (folded && isPresentationStructurallyAdmissibleForA1(folded)) {
++      const composed = composeCanonicalFromPresentation(folded);
++      return {
++        contentCore: composed,
++        usedA1: true,
++        presentation: folded,
++        relation: "complementary",
++      };
++    }
++    // Cannot fold safely → fail-closed preserve both (no silent drop).
++    const composed = composeCanonicalFromPresentation(presentation!);
++    return {
++      contentCore: formatDivergentNarrativePresentationPlain({
++        composed,
++        narrative: relation.continuation,
++      }),
++      usedA1: false,
++      presentation: null,
++      relation: "divergent",
+     };
+   }
+-  if (!core && !shouldRenderAdaptivePresentation(presentation)) {
++
++  if (relation.kind === "divergent") {
+     return {
+-      contentCore: NORA_UNUSABLE_TURN_FALLBACK_TEXT,
++      contentCore: formatDivergentNarrativePresentationPlain({
++        composed: relation.composed,
++        narrative: relation.narrative,
++      }),
+       usedA1: false,
+       presentation: null,
++      relation: "divergent",
+     };
+   }
++
++  if (relation.kind === "narrative_only") {
++    return {
++      contentCore: core || NORA_UNUSABLE_TURN_FALLBACK_TEXT,
++      usedA1: false,
++      presentation: null,
++      relation: "narrative_only",
++    };
++  }
++
+   return {
+-    contentCore: core || NORA_UNUSABLE_TURN_FALLBACK_TEXT,
++    contentCore: NORA_UNUSABLE_TURN_FALLBACK_TEXT,
+     usedA1: false,
+-    presentation,
++    presentation: null,
++    relation: "empty",
+   };
+ }
+
+@@ -1211,12 +1410,14 @@ export type AdaptiveAssistantRenderDecision = {
+ };
+
+ /**
+- * NAP-SINGLE-RESPONSE-D1 — A1 structured-first OR B canonical plain.
++ * NAP-SINGLE-RESPONSE-D1 + CORR-A1B-01 — A1 structured-first OR B canonical plain.
+  *
+  * - Invalid / absent presentation → plain (B).
+- * - Structurally admissible + body ≡ composeCanonical → adaptive (A1), one surface.
+- * - Otherwise → plain (B) with full durable body; presentation not shown
+- *   (never dual canonical + projection; never hide unique narrative via CSS).
++ * - equivalent / presentation_only → adaptive (A1).
++ * - complementary → fold continuation into presentation for one A1 surface
++ *   (also repairs historical LUMEN-shaped turns at read time without DB write).
++ * - divergent → plain with both versions preserved (fail-closed; no silent pick).
++ * - Never dual canonical + projection layer.
+  * - Studio appendix: typed notices only.
+  */
+ export function resolveAdaptiveAssistantRender(input: {
+@@ -1244,6 +1445,21 @@ export function resolveAdaptiveAssistantRender(input: {
+   const structurallyAdmissibleForA1 =
+     isPresentationStructurallyAdmissibleForA1(presentation);
+
++  // Already materialised divergence plain (write-path fail-closed).
++  if (body.includes(NORA_ADAPTIVE_DIVERGENCE_NOTICE)) {
++    return {
++      mode: "plain",
++      presentation: null,
++      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
++      plainText: content.trim() ? content : NORA_UNUSABLE_TURN_FALLBACK_TEXT,
++      studioControlNotices: authenticated,
++      contentFullyCovered: false,
++      canonicalNarrative: null,
++      structurallyAdmissibleForA1: false,
++      usedA1: false,
++    };
++  }
++
+   if (!shouldRenderAdaptivePresentation(presentation)) {
+     return {
+       mode: "plain",
+@@ -1258,13 +1474,15 @@ export function resolveAdaptiveAssistantRender(input: {
+     };
+   }
+
+-  const composed = composeCanonicalFromPresentation(presentation!);
+-  const a1Match =
+-    structurallyAdmissibleForA1 &&
+-    (canonicalTextsEquivalent(body, composed) ||
+-      (!body.trim() && Boolean(composed.trim())));
++  const relation = classifyNarrativePresentationRelation({
++    pilotFacingCore: body,
++    presentation,
++  });
+
+-  if (a1Match) {
++  if (
++    relation.kind === "equivalent" ||
++    relation.kind === "presentation_only"
++  ) {
+     return {
+       mode: "adaptive",
+       presentation,
+@@ -1278,7 +1496,60 @@ export function resolveAdaptiveAssistantRender(input: {
+     };
+   }
+
+-  // T2 / incomplete / non-equivalent — B only (single canonical surface).
++  if (relation.kind === "complementary") {
++    const folded = withDistinctContinuationBlock(
++      presentation!,
++      relation.continuation,
++    );
++    if (folded && isPresentationStructurallyAdmissibleForA1(folded)) {
++      return {
++        mode: "adaptive",
++        presentation: folded,
++        studioAppendix,
++        plainText: content,
++        studioControlNotices: authenticated,
++        contentFullyCovered: true,
++        canonicalNarrative: null,
++        structurallyAdmissibleForA1: true,
++        usedA1: true,
++      };
++    }
++    const composed = composeCanonicalFromPresentation(presentation!);
++    return {
++      mode: "plain",
++      presentation: null,
++      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
++      plainText: formatDivergentNarrativePresentationPlain({
++        composed,
++        narrative: relation.continuation,
++      }),
++      studioControlNotices: authenticated,
++      contentFullyCovered: false,
++      canonicalNarrative: null,
++      structurallyAdmissibleForA1,
++      usedA1: false,
++    };
++  }
++
++  if (relation.kind === "divergent") {
++    // Fail-closed B: never promote presentation alone.
++    // Preserve Memory B `content` as-is on read (notices, forged markers, unique
++    // narrative). Write-path already embeds both versions when durable was built
++    // via formatDivergentNarrativePresentationPlain.
++    return {
++      mode: "plain",
++      presentation: null,
++      studioAppendix: authenticated.length > 0 ? studioAppendix : null,
++      plainText: content.trim() ? content : NORA_UNUSABLE_TURN_FALLBACK_TEXT,
++      studioControlNotices: authenticated,
++      contentFullyCovered: false,
++      canonicalNarrative: null,
++      structurallyAdmissibleForA1,
++      usedA1: false,
++    };
++  }
++
++  // narrative_only / empty / incomplete — B with durable body.
+   return {
+     mode: "plain",
+     presentation: null,
+
+```
 
 ### prepareGenericExecutionContractDraft.ts
 ```diff
 diff --git a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-index 4b370302..f1b28249 100644
+index 4b370302..154610e6 100644
 --- a/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
 +++ b/projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts
-@@ -87,13 +87,72 @@ export type GenericMissionPrepareReadiness = {
+@@ -87,13 +87,140 @@ export type GenericMissionPrepareReadiness = {
    readonly missingFields: readonly string[];
  };
 
++/**
++ * Historical refusal mentioned then clearly overridden by a CURRENT positive
++ * PREPARE instruction ("maintenant prépare le contrat…"). Not a consent invent —
++ * only suppresses a stale refusal match so positive lexical GO can apply.
++ */
++function hasCurrentPositivePrepareOverridingHistoricalRefusal(
++  text: string,
++): boolean {
++  const t = text.trim().toLowerCase();
++  if (!t) return false;
++  const hasHistoricalRefusal =
++    /\b(ne\s+(me\s+)?(prépare|prepare|préparer)\s+pas|je\s+refuse|pas\s+de\s+contrat)\b/.test(
++      t,
++    );
++  if (!hasHistoricalRefusal) return false;
++  return /\b(maintenant|désormais|cette\s+fois|finalement|plutôt)\b[\s\S]{0,60}\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,50}\b(contrat|executioncontract|execution contract|mission)\b/.test(
++    t,
++  );
++}
++
 +/**
 + * Explicit Pilote refusal of ExecutionContract PREPARE (TEST-15 / LUMEN).
 + * Fail-closed at Product admission — cognition may solicit, but refusal
@@ -566,9 +1197,43 @@ index 4b370302..f1b28249 100644
 +export function hasExplicitPrepareContractRefusal(text: string): boolean {
 +  const t = text.trim().toLowerCase();
 +  if (!t) return false;
-+  // "Ne prépare pas de contrat d'exécution…"
++  // Citation / stale refusal superseded by an explicit current positive PREPARE.
++  if (hasCurrentPositivePrepareOverridingHistoricalRefusal(t)) return false;
++
++  // "Ne prépare pas / surtout pas … contrat|mission"
 +  if (
-+    /\b(ne|n[''])\s*(me\s+)?(prépare|prepare|préparer|preparer)\s+pas\b[\s\S]{0,80}\b(contrat|executioncontract|execution contract|mission)\b/.test(
++    /\b(ne|n[''])\s*(me\s+)?(prépare|prepare|préparer|preparer)\s+(surtout\s+)?pas\b[\s\S]{0,80}\b(contrat|executioncontract|execution contract|mission)\b/.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  // "Ne prépare rien pour Cursor / aucune mission"
++  if (
++    /\b(ne|n[''])\s*(me\s+)?(prépare|prepare|préparer|preparer)\s+rien\b[\s\S]{0,60}\b(cursor|contrat|mission|exécution|execution)\b/.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  // "Je refuse que tu prépares / prépare un contrat"
++  if (
++    /\b(refuse|refus\w*)\b[\s\S]{0,60}\b(pr[ée]par\w*|cr[ée]er?|cr[ée]e)\b[\s\S]{0,50}\b(contrat|executioncontract|execution contract|mission)\b/.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  // "ne crée aucun contrat" / "sans créer de contrat"
++  if (
++    /\b(ne\s+)?(cr[ée]e|creer|créer|crée)\s+(pas|aucun|aucune)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  if (
++    /\bsans\s+(cr[ée]er?|créer|crée)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/.test(
 +      t,
 +    )
 +  ) {
@@ -589,24 +1254,38 @@ index 4b370302..f1b28249 100644
 +  ) {
 +    return true;
 +  }
-+  // "analyse seulement, sans préparer de mission" / "pas de mission pour le moment"
++  // "je ne veux pas de contrat" / "analyse seulement, sans lancer de mission"
 +  if (
-+    /\b(ne\s+)?(veux|veut|souhait\w*|lance)\s+pas\b[\s\S]{0,60}\b(contrat|mission\s+(technique|d['']exécution|cursor))\b/.test(
++    /\b(ne\s+)?(veux|veut|souhait\w*|lance|lancer)\s+pas\b[\s\S]{0,60}\b(contrat|mission(\s+(technique|d['']exécution|cursor))?|cursor)\b/.test(
 +      t,
 +    )
 +  ) {
 +    return true;
 +  }
 +  if (
-+    /\b(analyse|cadrage|proposition)\s+seulement\b[\s\S]{0,60}\bsans\b[\s\S]{0,40}\b(contrat|mission|exécution|execution)\b/.test(
++    /\b(analyse|cadrage|proposition)\s+seulement\b[\s\S]{0,80}\bsans\b[\s\S]{0,60}\b(contrat|mission|exécution|execution|cursor)\b/.test(
 +      t,
 +    )
 +  ) {
 +    return true;
 +  }
-+  // "prépare une analyse, pas un contrat"
++  if (
++    /\bsans\s+(lancer|préparer|preparer|prepare)\b[\s\S]{0,40}\b(mission|contrat|cursor|exécution|execution)\b/.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  // "prépare une analyse, pas un contrat" / "mais ne crée aucun contrat"
 +  if (
 +    /\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,80}\bpas\s+(de\s+|un\s+|une\s+)?(contrat|executioncontract|execution contract)\b/.test(
++      t,
++    )
++  ) {
++    return true;
++  }
++  if (
++    /\bmais\s+(ne\s+)?(prépare|prepare|crée|creer|créer)\b[\s\S]{0,40}\b(pas|aucun|aucune)\b[\s\S]{0,40}\b(contrat|mission)\b/.test(
 +      t,
 +    )
 +  ) {
@@ -627,7 +1306,7 @@ index 4b370302..f1b28249 100644
    if (
      /\b(prépare|prepare|préparer|preparer)\b[\s\S]{0,40}\b(contrat|executioncontract|execution contract)\b/.test(
        t,
-@@ -126,6 +185,7 @@ export function isChatFirstPrepareAcceptGo(input: {
+@@ -126,6 +253,7 @@ export function isChatFirstPrepareAcceptGo(input: {
    readonly text: string;
    readonly pilotDecisionCandidate?: PilotDecisionCandidate | null;
  }): boolean {
@@ -635,7 +1314,7 @@ index 4b370302..f1b28249 100644
    const candidate = input.pilotDecisionCandidate ?? null;
    if (
      candidate?.disposition === "accept" &&
-@@ -171,6 +231,10 @@ export function resolveChatFirstGenericPrepareGo(input: {
+@@ -171,6 +299,10 @@ export function resolveChatFirstGenericPrepareGo(input: {
    | { readonly kind: "prepare"; readonly offerFingerprint: string }
    | { readonly kind: "explicit_lexical_prepare" }
    | { readonly kind: "no_go"; readonly reason: string } {
@@ -646,7 +1325,7 @@ index 4b370302..f1b28249 100644
    if (hasExplicitPrepareContractIntent(input.text)) {
      return { kind: "explicit_lexical_prepare" };
    }
-@@ -1410,6 +1474,11 @@ export type SolicitGenericExecutionPrepareInput = {
+@@ -1410,6 +1542,11 @@ export type SolicitGenericExecutionPrepareInput = {
    /** Full analysis (F2) OR mission fields (Nora tool) — exactly one source. */
    readonly analysis?: IntentAnalysisDto;
    readonly mission?: SolicitGenericPrepareMissionFields;
@@ -658,7 +1337,7 @@ index 4b370302..f1b28249 100644
    /** M-HD-01 — verified OA HumanDecision for structural resume. */
    readonly decisionId?: string | null;
    readonly sessionKey?: string | null;
-@@ -1493,6 +1562,15 @@ export async function solicitGenericExecutionPrepare(
+@@ -1493,6 +1630,15 @@ export async function solicitGenericExecutionPrepare(
    if (!projectId) {
      return fail("PRODUCT_PROJECT_REQUIRED", "Project requis pour préparer.");
    }
@@ -775,7 +1454,7 @@ index e867cdfb..faf7a02c 100644
 ### p6.gD4….d0.test.ts
 ```diff
 diff --git a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
-index c0352f84..47cd3c0b 100644
+index c0352f84..706b8f3c 100644
 --- a/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
 +++ b/projects/sfia-studio/app/__tests__/project-assistant/p6.gD4.genericPrepareWithoutSystematicHd.d0.test.ts
 @@ -17,6 +17,7 @@ import {
@@ -786,7 +1465,7 @@ index c0352f84..47cd3c0b 100644
    isChatFirstPrepareAcceptGo,
    prepareGenericExecutionContractDraft,
    rememberGenericPrepareRecommendation,
-@@ -262,6 +263,49 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
+@@ -262,6 +263,73 @@ describe("P6 G-D4/T-A4 generic PREPARE → authorize", () => {
      ).toBe("no_go");
    });
 
@@ -831,6 +1510,30 @@ index c0352f84..47cd3c0b 100644
 +      ),
 +    ).toBe(true);
 +    expect(isChatFirstPrepareAcceptGo({ text: lumenRefusal })).toBe(false);
++    expect(
++      hasExplicitPrepareContractRefusal(
++        "Je refuse que tu prépares un contrat.",
++      ),
++    ).toBe(true);
++    expect(
++      hasExplicitPrepareContractRefusal("Ne prépare rien pour Cursor."),
++    ).toBe(true);
++    expect(
++      hasExplicitPrepareContractRefusal(
++        "Analyse seulement, sans lancer de mission.",
++      ),
++    ).toBe(true);
++    // Historical refusal then clear current positive PREPARE.
++    expect(
++      hasExplicitPrepareContractRefusal(
++        "Tu avais dit ne prépare pas. Maintenant prépare le contrat d'exécution.",
++      ),
++    ).toBe(false);
++    expect(
++      hasExplicitPrepareContractIntent(
++        "Tu avais dit ne prépare pas. Maintenant prépare le contrat d'exécution.",
++      ),
++    ).toBe(true);
 +  });
 +
    it("Q02 — sync assess without Product context is UNKNOWN (never false-implicit)", () => {
@@ -839,149 +1542,51 @@ index c0352f84..47cd3c0b 100644
 
 ```
 
-### a1b-replay.json (preuve)
-```json
-[
-  {
-    "turn_id": "pt:06a8beb5a7fc577a",
-    "seq": 1,
-    "content_len": 197,
-    "presentation_present": true,
-    "presentation_blocks": 5,
-    "presentation_title": "Comparer les formats sans figer le choix",
-    "composed_len": 2986,
-    "structurallyAdmissibleForA1": true,
-    "content_eq_composed": false,
-    "durable_usedA1": false,
-    "durable_content_len": 197,
-    "render_mode": "plain",
-    "render_usedA1": false,
-    "render_contentFullyCovered": false,
-    "render_presentation_null": true,
-    "plain_preview": "Je te propose de poursuivre le cadrage en confrontant ces formats aux disponibilités du centre et aux besoins concrets des participants, puis de valider les gra",
-    "composed_preview": "LUMEN · premières pistes de cadrage\n\nComparer les formats sans figer le choix\n\nCes comparaisons sont des repères de travail, pas encore des choix arrêtés. Les apprentissages dépendront aussi du niveau"
-  },
-  {
-    "turn_id": "pt:b796154ad8685d64",
-    "seq": 3,
-    "content_len": 186,
-    "presentation_present": true,
-    "presentation_blocks": 5,
-    "presentation_title": "Comparer les formats et leurs effets possibles",
-    "composed_len": 4292,
-    "structurallyAdmissibleForA1": true,
-    "content_eq_composed": false,
-    "durable_usedA1": false,
-    "durable_content_len": 186,
-    "render_mode": "plain",
-    "render_usedA1": false,
-    "render_contentFullyCovered": false,
-    "render_presentation_null": true,
-    "plain_preview": "Pour préciser le périmètre pédagogique, quels usages du quotidien voudrais-tu traiter en priorité — par exemple communiquer, chercher une information ou effectu",
-    "composed_preview": "LUMEN · cadrage\n\nComparer les formats et leurs effets possibles\n\nLes éléments confirmés dans notre échange sont l’objectif d’initiation, le public adulte débutant, le contexte du centre social, quelqu"
-  },
-  {
-    "turn_id": "pt:73bcbfb54b43dac7",
-    "seq": 5,
-    "content_len": 264,
-    "presentation_present": true,
-    "presentation_blocks": 5,
-    "presentation_title": "Une progression par étapes paraît la plus adaptée",
-    "composed_len": 4074,
-    "structurallyAdmissibleForA1": true,
-    "content_eq_composed": false,
-    "durable_usedA1": false,
-    "durable_content_len": 264,
-    "render_mode": "plain",
-    "render_usedA1": false,
-    "render_contentFullyCovered": false,
-    "render_presentation_null": true,
-    "plain_preview": "Je te propose de vérifier ensuite si le centre peut garantir des créneaux récurrents, l’accès aux ordinateurs et un accompagnement entre les séances : ces éléme",
-    "composed_preview": "LUMEN · comparaison des formats\n\nUne progression par étapes paraît la plus adaptée\n\nLes trois priorités — chercher de l’information, communiquer et effectuer des démarches — couvrent des gestes différ"
-  },
-  {
-    "turn_id": "pt:01f15609efea28fe",
-    "seq": 7,
-    "content_len": 248,
-    "presentation_present": true,
-    "presentation_blocks": 6,
-    "presentation_title": "Comparer les formats et choisir une progression réaliste",
-    "composed_len": 5367,
-    "structurallyAdmissibleForA1": true,
-    "content_eq_composed": false,
-    "durable_usedA1": false,
-    "durable_content_len": 248,
-    "render_mode": "plain",
-    "render_usedA1": false,
-    "render_contentFullyCovered": false,
-    "render_presentation_null": true,
-    "plain_preview": "Je te propose de garder le parcours de plusieurs séances comme format privilégié à l’étude, puis de vérifier avec le centre les créneaux, le nombre de postes et",
-    "composed_preview": "LUMEN · proposition de cadrage\n\nComparer les formats et choisir une progression réaliste\n\nJe prends la séance hebdomadaire, le petit groupe et les quelques ordinateurs comme des hypothèses de travail,"
-  },
-  {
-    "turn_id": "pt:6c1b7e274db42cab",
-    "seq": 9,
-    "content_len": 501,
-    "presentation_present": false,
-    "presentation_blocks": 0,
-    "presentation_title": null,
-    "composed_len": 0,
-    "structurallyAdmissibleForA1": false,
-    "content_eq_composed": false,
-    "durable_usedA1": false,
-    "durable_content_len": 501,
-    "render_mode": "plain",
-    "render_usedA1": false,
-    "render_contentFullyCovered": false,
-    "render_presentation_null": true,
-    "plain_preview": "[Mode réel] J'ai préparé le contrat d'exécution correspondant à : Préparer une première proposition de cadrage pédagogique pour LUMEN, en distinguant les élémen",
-    "composed_preview": ""
-  }
-]
-```
+## 19. Réserves
 
-## 17. Gates restants
+- DET ≠ LIVE ; protocole LIVE requis sous GO Morris.
+- Historique LUMEN DB non réécrit (read-path only).
+- Citations / ironie / multi-intent très complexes : couverture partielle.
+- EC `xct:gen-prep:e45f631d…` préservé.
+- maxBlocks empêche fold → divergent fail-closed.
 
-1. Arbitrage Morris **CORR-A1B-01** (appliquer ou variante).
-2. GO Delivery correctif A1/B + DET.
-3. GO LIVE revalidation LUMEN A+B (protocole handoff précédent §21).
-4. GO R24 PRR sync.
-5. GO Git Integration — **pas** sur diagnostic seul.
-6. TEST-15 couverture élargie.
-7. Ne pas muter EC LUMEN / DBs campagne / :3020.
+## 20. Protocole LIVE conjoint A+B (GO ultérieur)
 
----
+1. Baseline corrigée sous gate (pas mutation campagne sans GO).
+2. Projet isolé ou LUMEN sous autorisation explicite.
+3. Demander comparaison 3 formats → table visible A1 + continuation utile.
+4. « Ne prépare pas de contrat » → zéro nouvel EC/Attempt/Auth.
+5. A+B utterance intégrée → analyse + zéro EC.
+6. Positif contrôle PREPARE explicite → confirmation_required sans Execute.
+7. STOP si REAL requis.
 
-## 18. Git Review Index
+## 21. Gates Morris restants
 
-| Path | Status |
-|------|--------|
-| prepareGenericExecutionContractDraft.ts | M (local A+B) |
-| orchestrateTurn.ts | M |
-| buildProjectSystemPrompt.ts | M |
-| productExecutionAgentsTools.ts | M |
-| p6.gD4….d0.test.ts | M |
-| lumenCogPrepareCorr01.d0.test.ts | A |
-| noraAdaptivePresentation.ts | **non modifié** (reco seulement) |
-| ConversationSurface.tsx | **non modifié** |
+1. Revue pack/handoff.
+2. GO Git Integration (commit/PR) — non ce cycle.
+3. GO R24 PRR.
+4. GO LIVE revalidation.
+5. Ne pas muter EC/DB :3020.
 
----
+## 22. Git Review Index
 
-## 19. Verdict consolidé
+Voir §16. Aucun chemin protégé modifié. Aucun push projet.
 
-### Diagnostic ciblé
-# A1/B REGRESSION CAUSE PROVEN
+## 23. Verdict consolidé
 
-Mécanisme H2 démontré sur **quatre tours LUMEN** avec association **même turnId** : presentation admissible riche + narrative courte → fallback B → presentation masquée.
+# INTEGRATED A+B LOCAL CORRECTION READY FOR MORRIS REVIEW
 
-### Axes (chantier intégré)
-- **AXE A :** PARTIAL (cause restitution PROVEN ; correctif non appliqué ; LIVE non revalidé)
-- **AXE B :** correctif local DET ciblé conservé ; couverture à renforcer ; non clos
-- **INTÉGRATION A+B :** OPEN
-- **G-REAL :** NOT GRANTED
-- **L3-S2 :** OPEN
-- **Runtime v3 :** NON ADOPTED
+- CORR-A1B-01 sécurisé implémenté (CAS A–D).
+- LUMEN T-A1–T-A4 → A1 + comparison_table (replay DET).
+- Continuation préservée ; divergence fail-closed ; une réponse.
+- TEST-15 renforcé ; admission Product ; A+B PASS.
+- 168 tests ciblés PASS ; R24 qualifié gate OPEN.
+- Handoff L3 à publier/vérifier dans ce cycle.
 
-**Anti-claims :** diagnostic ≠ READY FOR GIT INTEGRATION · DET ≠ LIVE · presentation persistée ≠ visible Pilote · H2 ≠ H1 · PREPARE corrigé DET ≠ REAL.
+**AXE A :** correction locale DET READY (LIVE réserve).
+**AXE B :** hardening DET READY (réserves citations).
+**INTÉGRATION :** READY FOR MORRIS REVIEW (pas Git Integration).
 
-**STOP après Review Handoff.** Pas de second chantier. Pas de correction Product sans GO Morris.
+Anti-claims : local ≠ main · DET ≠ LIVE · structured ≠ Truth C · PREPARE ≠ EXECUTE · L3 OPEN · G-REAL NOT GRANTED · v3 NON ADOPTED · EC historique = preuve.
+
+**STOP après Review Handoff.** Pas de second chantier.
