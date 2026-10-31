@@ -77,6 +77,20 @@ Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — 
 | **Prior Option C baseline** | [PR #628](https://github.com/mcleland147/sfia-workspace/pull/628) **MERGED** — Option C Delivery remains ancestor ON MAIN (`c848b98c…`) · UX consolidation #630 extends it |
 | **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ UX LIVE PASS universal · model narrative recommendation duplication **OPEN reserve** · digest MATCH ≠ semantic exhaustiveness · CURRENT ON MAIN ≠ BEHAVIOR PROVEN GLOBAL |
 
+
+**GI-AKG-M5-A+B+D-01 — Positive Product Admission A+B+D (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01):**
+
+| Epistemic class | Element |
+|---|---|
+| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | [PR #632](https://github.com/mcleland147/sfia-workspace/pull/632) **OPEN** · head `a55181c638dcfd697ece689f809bcafafad580f2` · branch `feat/akg-m5-lumen-cog-prepare-corr-01` · **≠ CURRENT ON MAIN** until merge + post-merge truth-sync |
+| **Product facts (candidate)** | Cognitive Fidelity A · TEST-15 citation/refuse ≠ consent · Option B/Slice D positive admission (E-OFFER-ACCEPT / E-EXPLICIT-PREPARE) shared F1/F2 · R1 model candidate ≠ consent · R2 CURRENT offer fingerprint bind · R3 anti-doublon + standalone path scopeIn (no narrative/URL/A/B WRITE invent) |
+| **SHE** | PREPARE → INSPECT → Exécuter **PRESERVED** · no HD-before-PREPARE regression · PREPARE ≠ Attempt/Authorization |
+| **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** — 267 PASS (9 suites) · tsc/eslint OK · OpenAI LIVE / Cursor REAL **NOT EXERCISED** · G-REAL **NOT GRANTED** |
+| **Reserves (ACCEPT/DEFER)** | E-EXPLICIT lexical conservative · offer process-local · no durable admissionKind · dedup ≠ universal exactly-once · same-turn dual F1+F2 prepare unreachable |
+| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 CLOSED · ≠ runtime v3 ADOPTED · ≠ LIVE PASS · digest MATCH ≠ semantic exhaustiveness |
+
+Volumes touched by this R24 candidate: **03 / 06 / 07 / 08 / 09** + README + manifest digests. Stacked R24 PR targets Product branch; status remains **candidate** until Product merge + retarget/verify.
+
 **Nora Adaptive Presentation Option C / AKG-M5 L3-S2 — BASELINE PRODUCT ON MAIN (PR #628 MERGED — 2026-10-30) — HISTORICAL AS TIP under GI-NAP #630 CURRENT:**
 
 | Epistemic class | Element |

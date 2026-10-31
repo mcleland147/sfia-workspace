@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "14fb0c33786a69ac57d27a9cd9638cfddb84de48",
-  "lastReviewedAt": "2026-10-31T13:45:00+01:00",
+  "lastReviewedCommit": "a55181c638dcfd697ece689f809bcafafad580f2",
+  "lastReviewedAt": "2026-10-31T23:29:11Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "0e6437ec275e841f"
+      "sha256_16": "d52e3698ce5edcd2"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "370a559b19e5dad3"
+      "sha256_16": "2aa360fecd31ad55"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -31,19 +31,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "d6d5fc56f2490688"
+      "sha256_16": "791140a82eb1337f"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "d1334b8ef9544abd"
+      "sha256_16": "79c693df80f060c2"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "1f76f4880ba1a11c"
+      "sha256_16": "4c9fa7d175eb4735"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "859671290e2ddb36"
+      "sha256_16": "26d53da6d0c1c768"
     }
   ],
   "components": [
@@ -294,7 +294,10 @@
       "title": "ExecutionContract aggregate",
       "docSection": "02-runtime-object-catalog.md",
       "trackedSourcePaths": [
-        "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts"
+        "projects/sfia-studio/app/lib/oa/project/infrastructure/sqlite/db.ts",
+        "projects/sfia-studio/app/features/project-assistant/w2/prepareGenericExecutionContractDraft.ts",
+        "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
+        "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts"
       ],
       "flowIds": [
         "F08",
@@ -306,7 +309,11 @@
         "INV-EC-NO-EXPAND-WHAT",
         "INV-NO-EXEC-BEFORE-AUTH"
       ],
-      "testPaths": [],
+      "testPaths": [
+        "projects/sfia-studio/app/__tests__/project-assistant/positivePrepareAdmission.d0.test.ts",
+        "projects/sfia-studio/app/__tests__/project-assistant/lumenCogPrepareCorr01.d0.test.ts",
+        "projects/sfia-studio/app/__tests__/project-assistant/p6.der16.genericNoraToolInvocation.d0.test.ts"
+      ],
       "dependsOn": [
         "OBJ-HD"
       ],
@@ -613,11 +620,11 @@
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
-      "sha256_16": "c8e879baee71175c"
+      "sha256_16": "21a836cb98ed444d"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-      "sha256_16": "c8f491d05217ffc4"
+      "sha256_16": "3352bef3d153c9ac"
     },
     {
       "path": "projects/sfia-studio/app/features/project-assistant/f2/intentAnalysis.ts",
