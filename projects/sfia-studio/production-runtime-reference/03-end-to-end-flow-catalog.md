@@ -48,11 +48,13 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 - **First Framing continuity (presentation):** conversation surface may project a Framing Continuity Card from server-owned snapshot (`projectAssistantReadFramingContinuityAction`) — examinable trajectory facts before HD; « Ouvrir » ≠ composer auto-send; recommendation details stay Recommendation≠Decision (P2-D-01; no presumed operational materiality)
 - **Status:** PARTIAL REAL linguistic; COMPLETE deterministic Fake scripts; Framing continuity UI DETERMINISTIC at tested scope; REC-01 WR path DETERMINISTIC at tested scope (ZERO REAL claim)
 - **Proof at tested scope:** `productChatFirstGovernedDecisionLoop.frontDoor.d0.test.ts` case A; `framingContinuityCard.ui.test.tsx`, `framingContinuityRehydrate.ui.test.tsx`, `p6.ux.recommendationContinuity.ui.test.tsx`; REC-01 — `qualifyProspectiveWorkRecommendationMaterialization.d0`, `activeCycleCognitiveWork.d0` (Option A reload + historical replay), `p6.hqa.rec01.minimalStabilization.d0`, Option B context tests
-- **Overlay — Nora Adaptive Presentation Option C (BASELINE ON MAIN — PR #628) + GI-NAP-UX-CONSOLIDATED-01 candidate:** A1 structured-first when admissible; else B fail-closed (GFM tables may render as HTML on B). See overlays below. OpenAI LIVE structured emit **NOT PROVEN** globally.
+- **Overlay — Nora Adaptive Presentation UX consolidated (CURRENT ON MAIN — PR #630):** A1 structured-first when admissible; else B fail-closed (GFM tables may render as HTML on B). See overlays below. OpenAI LIVE structured emit **NOT PROVEN** globally.
 
-## Overlay — Nora UX consolidated A1/B (GI-NAP-UX-CONSOLIDATED-01 — CANDIDATE IN THIS PR — 2026-10-31)
+## Overlay — Nora UX consolidated A1/B (GI-NAP-UX-CONSOLIDATED-01 — CURRENT AS IMPLEMENTED ON MAIN — PR #630 — 2026-10-31)
 
-> **Epistemic class:** **CANDIDATE** on `feat/akg-m5-nap-test16-coverage-corr-01` · base **`ca1c9869…`** · Morris GO GI-NAP-UX-CONSOLIDATED-01 · **≠ MERGED** until Git/post-merge verified.
+> **Epistemic class:** **CURRENT PRODUCT ON MAIN** via [PR #630](https://github.com/mcleland147/sfia-workspace/pull/630) **MERGED** `2026-10-31T12:15:53Z` · merge **`14fb0c33786a69ac57d27a9cd9638cfddb84de48`** · Pre [#41199824723](https://github.com/mcleland147/sfia-workspace/actions/runs/41199824723) · Post [#41200321769](https://github.com/mcleland147/sfia-workspace/actions/runs/41200321769) **SUCCESS** · Required Gate **PASS** · Proof **DETERMINISTIC AT TESTED SCOPE** · **≠** L3 closed · **≠** LIVE emit global.
+>
+> **HISTORICAL AS OF authoring (pre-merge):** « CANDIDATE IN THIS PR / ≠ MERGED » — true before #630; preserve; superseded for Product lifecycle by this block.
 >
 > **Delta vs #628 baseline:** single-response (no dual canonical+projection) · strict canonical compare (case-sensitive units) · eyebrow authority defense · B-path GFM table HTML · durable content composition when A1-admissible.
 
@@ -67,16 +69,16 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 7. A1 refuse when narrative ≠ compose (incl. eyebrow chrome divergence) — **justified**; do not soften fidelity for prettier UI.
 8. Reload rehydrates same A1/B decision from Memory B fields. Server restart **NOT PROVEN**.
 
-### Guardrails (candidate)
+### Guardrails (CURRENT AS IMPLEMENTED)
 
 | Rule | Status |
 |---|---|
-| One primary restitution (A1 **or** B, never both) | DET UI |
-| A1 only when fidelity-equivalent | DET |
-| B preserves STOP / units / negations / reserves | DET |
-| GFM table on B → HTML without inventing DTO | DET + targeted LIVE observation |
-| Eyebrow ≠ Product authority | DET |
-| recommendation ≠ HumanDecision · no free CTA | DET |
+| One primary restitution (A1 **or** B, never both) | DET UI · ON MAIN |
+| A1 only when fidelity-equivalent | DET · ON MAIN |
+| B preserves STOP / units / negations / reserves | DET · ON MAIN |
+| GFM table on B → HTML without inventing DTO | DET + targeted LIVE observation · ON MAIN |
+| Eyebrow ≠ Product authority | DET · ON MAIN |
+| recommendation ≠ HumanDecision · no free CTA | DET · ON MAIN |
 | Model-duplicated recommendation prose | **OPEN** — not fuzzy-deduped |
 
 ## Overlay — Nora Adaptive Presentation Option C (BASELINE ON MAIN — PR #628 MERGED — 2026-10-30)
