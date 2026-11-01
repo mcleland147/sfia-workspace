@@ -17,10 +17,11 @@
 
 ## Chemin critique
 
-1. Clore proprement l'intégration documentaire R0-B sur Git, sous GO Git approprié.
-2. Intégrer les **trois images sources** de vision lorsque le transport binaire est disponible et valider les références ; les résumés et empreintes sont déjà indexés.
-3. Qualifier le routage du template externe SFIA v2.6 pour que le pre-check historique Studio ne s'applique pas comme gouvernance Next ; **pas de prompt Cursor Next avant qualification de ce routage**.
-4. Soumettre en une revue consolidée la nomenclature proposée, puis préparer R1 sous gate Morris.
+1. **Routage SFIA v2.6 Next : CANDIDATE ON R0-B BRANCH** — guide partagé `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §4.3.0b et template partagé `prompts/templates/sfia-cycle-execution-template.md` §2.0.H modifiés sur branche, testés par contrôles statiques (présence sources, frontières, arrêt et absence de suppression du routage historique). **Pas actif sur `main`** ; la couche 1 Instructions projet ChatGPT externe reste à aligner après intégration Git.
+2. **Intégration binaire trois schémas : PENDING** — trois PNG originaux présents dans les sources conversation, empaquetés avec les noms cibles et SHA-256 vérifiés. Le canal de modification Git actuellement disponible ne sait pas lire directement les octets binaires locaux : `assets/*.png` **absents du repo**. Un pack source prêt pour une importation Git contrôlée a été constitué ; ne jamais le déclarer intégré avant relecture distante par chemin et empreinte.
+3. **R0-B Git integration : PENDING** — revue consolidée du macro-lot (six documents Next + deux fichiers routing/template partagés), puis gate Morris spécifique avant toute PR/merge ; aucun changement dans `projects/sfia-studio/`.
+4. **Nomenclature : CANDIDATE** — principe de cohérence métier demandé par Morris ; revue des règles précises avec R0-B/R1, pas de cycle documentaire isolé.
+5. **R1 : NON AUTORISÉ EN DELIVERY** — cadrage produit conditionné par les gates de sortie R0-B et la validation de sa trajectoire.
 
 **Dépendance structurante :** décisions historiques H7/H8 et G0-A/B conservées en tant qu'historique ; leur portée pour la nouvelle architecture reste à arbitrer, sans supersession implicite. Ancien runtime v3 **NON ADOPTED**.
 
