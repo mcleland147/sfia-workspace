@@ -70,13 +70,14 @@ Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — 
 
 | Epistemic class | Element |
 |---|---|
-| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | Branch `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` · Product code **`9bd22f875d01404989a03de5db2c96e396e6d89c`** · **≠ CURRENT ON MAIN** until Morris merge |
+| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | Branch `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` · PR [#635](https://github.com/mcleland147/sfia-workspace/pull/635) · corrective Product **`998386023e05de338b6dd172671a4a1ac571144f`** (prior Product `9bd22f87…`) · **≠ CURRENT ON MAIN** until Morris merge |
 | **Incident (ORION / FRESH-LIVE-QA-01)** | Pilot clarification Cadrage vs Conception · Nora prose Conception · Product CURRENT `cyc:functional-design` · Framing card showed « Cadrage exploratoire » · dual structured/narrative + technical `CONTRADICTION CANDIDATE` footer |
 | **Root cause A** | `recommendation_ready` without candidate/approval left `catalogLabel` null → UI default « Cadrage » + universal « exploratoire » |
 | **Root cause B** | Empty structured `narrative` retained contaminated `turn.text` (disposition footer) → false CORR-A1B divergent |
-| **Candidate Product facts** | CURRENT Rec hydrates Framing snapshot · « exploratoire » only for Framing/`cyc:framing` · disposition footers stripped before NAP classify · typed Studio coherence notice · A1 when complementary/admissible · historical Memory B turns not rewritten |
-| **Proof ceiling** | DET T01–T12 + NAP/Framing/lifecycle suites · bounded OpenAI LIVE Product seam (`ORION_COHERENCE_LIVE=1`) · browser authenticated screenshot **NOT PROVEN** · Cursor REAL **OFF** |
-| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 COMPLETE · ≠ R-LIVE-EMIT GLOBAL PASS · ≠ G-REAL · ≠ runtime v3 ADOPTED |
+| **Review correction (FINAL-REVIEW-CORR-635)** | (1) Footer extraction is **terminal / Studio-format only** — ordinary paragraphs after mid-answer markers are **preserved** (fail-closed). (2) LIVE harness is **opt-in**, explicit project/DB targets, **no** hardcoded ORION id/paths, **no** `.env.local` force, **no** Pilot/Morris authority or `ALLOW_RESET` escalation; redundant ORION-only script **removed**. |
+| **Candidate Product facts** | CURRENT Rec hydrates Framing snapshot · « exploratoire » only for Framing/`cyc:framing` · **bounded** disposition footer peel before NAP classify · typed Studio coherence notice · A1 when complementary/admissible · historical Memory B turns not rewritten · true divergence remains fail-closed |
+| **Proof ceiling** | DET T01–T12 + A01–A14 footer safety + B01–B10 LIVE boundary · NAP/Framing suites · prior bounded LIVE seam = **historical evidence only** (this correction does **not** re-run LIVE) · browser authenticated screenshot **NOT PROVEN** · Cursor REAL **OFF** |
+| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 COMPLETE · ≠ R-LIVE-EMIT GLOBAL PASS · ≠ G-REAL · ≠ runtime v3 ADOPTED · digest MATCH ≠ semantic exhaustiveness |
 
 **Nora Adaptive Presentation UX consolidated / AKG-M5 L3-S2 — GI-NAP-UX-CONSOLIDATED-01 (CURRENT PRODUCT ON MAIN — PR #630 MERGED — 2026-10-31):**
 

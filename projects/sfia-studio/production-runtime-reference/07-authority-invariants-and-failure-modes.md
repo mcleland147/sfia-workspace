@@ -8,11 +8,12 @@
 
 | ID / theme | Statement (candidate) | Status |
 |---|---|---|
-| INV-REC-NE-HD | Framing Continuity Card projects Product Recommendation CURRENT; never invents HumanDecision / START | **CANDIDATE** · DET + LIVE seam · ≠ MERGED |
+| INV-REC-NE-HD | Framing Continuity Card projects Product Recommendation CURRENT; never invents HumanDecision / START | **CANDIDATE** · DET + historical LIVE seam · ≠ MERGED |
 | INV-CURRENT-FROM-PRODUCT | Card `catalogLabel` / `targetCycleTypeId` come from Product CURRENT (or later candidate/approval), never from Nora prose alone | **CANDIDATE** |
-| INV-NAP-DISPOSITION-NE-NARRATIVE | Cognitive disposition footers are not narrative substance for A1/B classify; typed Studio notice may disclose candidate contradiction without authority | **CANDIDATE** |
+| INV-NAP-DISPOSITION-NE-NARRATIVE | Only **trusted terminal** Studio disposition footers are peeled from narrative for A1/B classify; mid-answer / quoted / fenced / ambiguous markers are preserved; typed Studio notice may disclose candidate contradiction without authority | **CANDIDATE** · FINAL-REVIEW-CORR-635 |
 | INV-TRUE-DIVERGENCE-FAIL-CLOSED | Material narrative↔presentation conflict still dual+notice; no silent pick | **PRESERVED** (CORR-A1B) |
-| Anti-claims | ≠ CURRENT ON MAIN · ≠ G-REAL · ≠ Cursor REAL · ≠ auto-START | — |
+| INV-LIVE-PROOF-NO-IMPLICIT-AUTH | Opt-in LIVE proof boundary refuses Pilot/Morris local authority flags and `SFIA_V2_RUNTIME_ALLOW_RESET`; Cursor REAL forced OFF; no hardcoded project authority | **CANDIDATE** · B01–B10 |
+| Anti-claims | ≠ CURRENT ON MAIN · ≠ G-REAL · ≠ Cursor REAL · ≠ auto-START · ≠ contradiction → HumanDecision | — |
 
 ## Overlay — PR #618 effect-based confinement + write-mode without Product Binding (CURRENT ON MAIN — PR #618 MERGED — DET scope — 2026-10-26)
 

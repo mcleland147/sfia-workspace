@@ -11,6 +11,19 @@
 | Capability | What an agent *can* do technically |
 | Authority | What a Pilot/Morris *may* authorize |
 
+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 LIVE proof boundary (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+| Item | Status |
+|---|---|
+| Default | LIVE proof **disabled** — CI never calls OpenAI for this harness |
+| Opt-in | `LIVE_PROVIDER_OPT_IN=1` or legacy `ORION_COHERENCE_LIVE=1` |
+| Required targets | `TEST_PROJECT_ID` · `TEST_PRODUCT_DB_PATH` / `SFIA_STUDIO_PRODUCT_DB_PATH` · `TEST_NORA_DB_PATH` / `SFIA_STUDIO_NORA_SESSION_DB_PATH` · existing files only · `OPENAI_API_KEY` already in process env |
+| Optional | `TEST_PROOF_DIR` (created only if LIVE body runs and path set) |
+| Forbidden on opt-in | `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY=1` · `SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY=1` · `SFIA_V2_RUNTIME_ALLOW_RESET=1` · `SFIA_STUDIO_CURSOR_REAL=1` |
+| Code | `orionCoherenceLiveProofBoundary.ts` · gated `orionNoraCoherenceCorr01.live.test.ts` |
+| Removed | ORION-only helper `scripts/orion-coherence-corr-01-live-proof.ts` (redundant; hardcoded paths/authority) |
+| Anti-claims | ≠ new LIVE run in FINAL-REVIEW-CORR-635 · ≠ browser E2E · ≠ G-REAL · ≠ CURRENT ON MAIN |
+
 ## Overlay — PR #618 mutating Cursor confinement (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
 | Item | Status |

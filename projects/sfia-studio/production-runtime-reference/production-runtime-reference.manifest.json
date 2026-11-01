@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "9bd22f875d01404989a03de5db2c96e396e6d89c",
-  "lastReviewedAt": "2026-11-01T09:30:00Z",
+  "lastReviewedCommit": "998386023e05de338b6dd172671a4a1ac571144f",
+  "lastReviewedAt": "2026-11-01T11:05:00Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "4f9aec3513102660"
+      "sha256_16": "5e94c006db3d11bc"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "e7f057088f1609eb"
+      "sha256_16": "9428e9267f96dcb5"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -27,23 +27,23 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
-      "sha256_16": "5190232c2ad6f741"
+      "sha256_16": "732a98c482eb0b25"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "7c919f5ef3d05389"
+      "sha256_16": "b6696419717db23d"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "73a7c5037da358b7"
+      "sha256_16": "92f15b965f397a6a"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "d85a16b32269a1ed"
+      "sha256_16": "7130ef7f4ac0a653"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "48be473a592c2e6a"
+      "sha256_16": "96910ae77e6802e5"
     }
   ],
   "components": [

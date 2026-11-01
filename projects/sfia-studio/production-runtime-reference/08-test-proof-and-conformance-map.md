@@ -11,14 +11,16 @@
 
 ## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 proof index (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
 
-> Product code **`9bd22f87…`**. CI default skips LIVE (`ORION_COHERENCE_LIVE` unset → `describe.skip`).
+> Product code = manifest `lastReviewedCommit` (FINAL-REVIEW-CORR-635 corrective Product). CI default skips LIVE (opt-in unset → `describe.skip`). Prior LIVE counter-proof remains **historical evidence only** — not re-executed in this correction.
 
 | Suite / artifact | What it proves | Class |
 |---|---|---|
-| `orionNoraCoherenceCorr01.d0.test.ts` | T01–T12 + ORION: A1 equivalence/complementary · true divergent preserved · footer strip · Conception card title · no invent Cadrage | **DETERMINISTIC VERIFIED** · CANDIDATE |
+| `orionNoraCoherenceCorr01.d0.test.ts` | T01–T12 + ORION: A1 equivalence/complementary · true divergent preserved · terminal footer peel · Conception card title · no invent Cadrage | **DETERMINISTIC VERIFIED** · CANDIDATE |
+| `orionNoraCoherenceCorr01.footerSafety.d0.test.ts` | A01–A14: no silent métier loss · mid/quote/code/inline preserve · multiline STOP bound · true divergent · Memory B plain preserve · Conception aligned | **DETERMINISTIC VERIFIED** · CANDIDATE |
+| `orionNoraCoherenceLiveProofBoundary.d0.test.ts` | B01–B10: default skip · fail-closed missing params · no DB create · no authority/reset · no hardcoded ORION/paths · Cursor REAL OFF · script removed | **DETERMINISTIC VERIFIED** · CANDIDATE |
 | `framingContinuityCard.ui.test.tsx` (+ ORION case) | Cadrage keeps exploratoire; Conception does not | **DETERMINISTIC VERIFIED** · jsdom · CANDIDATE |
 | `corrA1b01.secured.d0` / `noraAdaptivePresentation.*` / Framing continuity / LR suites | Non-regression NAP + lifecycle | **DETERMINISTIC VERIFIED** · re-run on candidate |
-| `orionNoraCoherenceCorr01.live.test.ts` | Bounded OpenAI LIVE Product seam on campaign ORION | **OPT-IN LIVE** · requires `ORION_COHERENCE_LIVE=1` · ≠ CI default · ≠ browser screenshot |
+| `orionNoraCoherenceCorr01.live.test.ts` | Bounded OpenAI LIVE Product seam | **OPT-IN LIVE** · `LIVE_PROVIDER_OPT_IN=1` or `ORION_COHERENCE_LIVE=1` + `TEST_PROJECT_ID` + existing DB paths · ≠ CI default · ≠ browser screenshot · ≠ implicit authority |
 | Browser authenticated UI capture | — | **NOT PROVEN** |
 
 ## Overlay — Nora UX consolidated proof index (GI-NAP-UX-CONSOLIDATED-01 — CURRENT ON MAIN — PR #630 — 2026-10-31)

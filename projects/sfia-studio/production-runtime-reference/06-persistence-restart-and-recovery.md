@@ -6,9 +6,11 @@
 
 > **NO schema change.** Memory B columns (`content` / `presentation_json` / `studio_control_json`) unchanged.
 >
-> **Write behaviour (candidate @ `9bd22f87`):** durable `content` built after stripping disposition footers; when A1 admissible, prefer folded/durable presentation for `presentation_json`; contradiction candidate may append typed notice into `studio_control_json` (not raw marker in narrative body).
+> **Write behaviour (candidate — see manifest `lastReviewedCommit`):** durable `content` built after peeling **terminal trusted** disposition footers only; ordinary narrative paragraphs are preserved when markers are mid-answer or ambiguous; when A1 admissible, prefer folded/durable presentation for `presentation_json`; contradiction candidate may append typed notice into `studio_control_json` (not raw marker in narrative body).
 >
 > **Historical preservation:** existing divergent transcript rows (e.g. ORION seq 3) remain as stored; correction applies to **new** turns. Reload rehydrates from durable fields; server process restart **NOT PROVEN** by this cycle.
+>
+> **LIVE proof DB:** opt-in harness requires **existing** Product/Nora DB files (`TEST_*` / Studio path aliases) and never enables `SFIA_V2_RUNTIME_ALLOW_RESET` — no silent historical ORION rewrite via harness defaults.
 >
 > **Anti-claims:** ≠ CURRENT ON MAIN · ≠ R-SRV-RESTART closed · ≠ transcript rewrite migration.
 
