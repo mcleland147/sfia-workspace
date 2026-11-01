@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.3 — base vivante enrichie** ; stratégie libre sous contraintes et gestion proportionnée des évolutions / suspensions |
+| Version du document | **0.4 — base vivante enrichie** ; reprise sous autorité humaine, mémoire vivante transverse et formalisation proportionnée des décisions |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -89,6 +89,59 @@ En cas d'évolution ou de suspension, Nora rend intelligibles, lorsque utiles : 
 
 **Cible UX :** priorité à une restitution courte et décisionnelle, avec preuves, dépendances et historique détaillés consultables à la demande. Le niveau de détail suit la situation ; pas de rituel systématique de compte rendu.
 
+### 2.6. Suspension explicite du Pilote et reprise — orientation validée
+
+Une suspension **explicitement décidée par le Pilote** conserve sa portée même si Nora estime le blocage technique résolu. **Seule une instruction ou autorisation humaine applicable peut lever cette suspension** ; une analyse, une recommandation, le passage du temps ou une reprise de conversation ne valent pas nouveau GO.
+
+Différencier :
+- **Pause opérationnelle décidée par Nora** pour cause technique : après vérification de l'état réel et des conditions de reprise, Nora peut reprendre dans le mandat toujours valide si aucun STOP humain ne s'y oppose.
+- **Suspension décidée par le Pilote** : Nora peut préparer une reprise et l'argumenter, jamais la déclencher seule. Le produit cible doit conserver cette interdiction de façon fiable, y compris lors d'une nouvelle session et face aux outils délégués.
+- **Arrêt non confirmé / état incertain** : ne pas présumer l'arrêt ou la reprise ; diagnostiquer, limiter les effets et solliciter si nécessaire.
+
+Cette frontière porte sur l'**autorité effective**, pas sur l'obligation de présenter une interface « HumanDecision » à chaque échange.
+
+### 2.7. Reconnaître une décision dans la conversation ≠ formaliser un acte d'autorité — orientation validée
+
+Le dialogue du Pilote peut exprimer une préférence, une hypothèse, une validation, un arbitrage, un mandat ou une interdiction. **Nora doit en interpréter le sens, la portée, l'objet, les conditions et les limites sans transformer chaque « oui / OK / GO » en rituel procédural.**
+
+Distinguer trois conséquences, proportionnelles aux effets :
+1. **Compréhension conversationnelle :** préférences, clarifications, accords de travail et recommandations utiles à la continuité cognitive ; leur interprétation ne crée pas automatiquement un droit d'exécuter.
+2. **Décision structurante du projet :** choix explicitement validé, durable et applicable à plusieurs échanges ou missions ; conserver source, portée, auteur et validité actuelle pour permettre reprise, contestation, évolution et audit adapté.
+3. **Autorisation / interdiction opérationnelle :** consentement à un contrat ou suspension/révocation qui commande les effets réels ; la validité de l'autorité, de son périmètre et de son état doit être **vérifiée et appliquée par Studio**. Une affirmation de Nora ou un résumé de conversation ne suffit pas à ouvrir un droit technique.
+
+Une reconnaissance cognitive ne promeut pas une recommandation en décision. Une ambiguïté qui change la portée d'un engagement ou d'une opération protégée appelle une clarification ciblée. **La conversation reste le mode naturel d'expression du Pilote ; la formalisation durable et l'enforcement suivent la portée réelle, pas la présence d'un mot-clé.** Il ne faut ni exiger une seconde confirmation systématique quand un acte clair et vérifié suffit, ni confondre compréhension du langage et preuve d'une autorisation.
+
+**Frontière R1/R2/R4 :** les mécanismes d'extraction, d'attribution, de currentness, de gouvernance et de stockage restent **À CONCEVOIR / NON VALIDÉS** ; pas de suppression anticipée de HumanDecision, ni d'adoption de son implémentation historique.
+
+### 2.8. Mémoire vivante transverse du projet — intention produit validée
+
+**Le journal du cycle historique exprimait un besoin toujours valide : une mémoire vivante qui s'enrichit et évolue naturellement avec les échanges**, accessible et utile au Pilote comme à Nora. Cette mémoire ne doit pas être prisonnière d'un seul cycle, d'une session ou d'un écran.
+
+Elle doit notamment permettre de :
+- **Capturer et retrouver** contexte, sujets, décisions, recommandations, réserves, exigences, questions, synthèses et liens vers leurs échanges ou sources ; distinguer leur statut et leur degré de fiabilité.
+- **Faire évoluer** l'état d'un sujet : points stabilisés, questions ouvertes, décisions amendées, remplacées ou révoquées, recommandations dépassées ; ne pas accumuler seulement des résumés figés.
+- **Rendre le contexte utile** à Nora de manière ciblée, lors d'une reprise, d'un autre cycle, d'une autre mission ou d'une autre conversation, sans injecter l'intégralité du transcript et sans inventer un fait manquant.
+- **Offrir au Pilote une consultation naturelle** : origine, validité courante, évolution et conséquences d'un point important, sans imposer quatre parcours distincts ou un journal comme écran principal.
+- **Respecter les frontières** : mémoire et provenance soutiennent la compréhension, mais ne constituent pas à elles seules une preuve d'exécution ou une autorisation d'agir. Les contrôles d'autorité appartiennent à la gouvernance des effets.
+
+**Un journal du projet peut être la présentation de cette mémoire**, et non un second moteur décisionnel. « Mémoire vivante », « journal » et « gouvernance des effets » désignent ici des responsabilités d'expérience ; **aucune séparation physique en bases, services, moteurs ou modèles de données n'est décidée**. Un concept doit conserver une dénomination cohérente lors des spécifications R2.
+
+### 2.9. Capitalisation historique et exigence de simplification — analyse, non choix d'architecture
+
+**Constats Git sur l'ancien Studio (capitalisation ciblée) :**
+- Le composant `JournalSurface.tsx` comportait les quatre vues **Sujets / Réserves / Recommandations / Décisions**. Le journal de sujets était une **projection sémantique**, distincte des HumanDecisions.
+- Les sujets avaient identifiants, résumés, points stabilisés/ouverts, références d'échanges, opérations d'évolution et stockage dans la session produit SQLite. Nora pouvait rechercher un sujet et relire des sources, principalement dans le cycle courant.
+- Les décisions, recommandations et réserves étaient représentées via d'autres responsabilités/projections métier. Le code possédait des vérifications d'autorité spécifiques.
+- Des tests déterministes existaient pour le journal et ses projections. **La lecture du code et de ces tests ne prouve pas une continuité de bout en bout en runtime LIVE/REAL**, ni la cause exhaustive des difficultés vécues.
+
+**Diagnostic de conception (hypothèse, pas preuve causale) :** l'évolution tardive de la vision conversationnelle sur des mécanismes et persistance déjà établis a pu accentuer la complexité d'intégration et de synchronisation. Le code neuf évite les héritages non justifiés, mais ne résout pas à lui seul les problèmes intrinsèques de désambiguïsation, provenance, validité, reprise et enforcement.
+
+**Orientation proposée, à qualifier :** partir des résultats utilisateur et de scénarios end-to-end de mémoire, décision et autorité ; minimiser les états/moteurs concurrents ; rendre la complexité interne proportionnée au risque, sans reconstituer les abstractions historiques par inertie.
+
+**Exemples de scénarios de qualification, NON ENCORE contrat d'acceptation R1 :** (a) préférence puis décision explicite sans promotion abusive ; (b) reprise dans une autre conversation avec contexte pertinent ; (c) décision remplacée, historique conservé et ancienne décision non applicable ; (d) suspension humaine opposable à tout exécuteur jusqu'à nouvelle instruction applicable ; (e) récupération d'un sujet au-delà du cycle d'origine avec références vérifiables.
+
+**Sources historiques consultées pour capitalisation :** [JournalSurface](../../sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx), [cycleJournalTypes](../../sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts), [cycleJournalPrompt](../../sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalPrompt.ts), [productSqliteSession](../../sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts), [RecordHumanDecision](../../sfia-studio/app/lib/oa/decision/application/recordHumanDecision.ts). Ces sources **ne sont pas des dépendances obligatoires de Next**.
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -137,13 +190,15 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 - Copie implicite du code ou des mécanismes du Studio historique.
 
 ### À challenger au fil des échanges — **NON VALIDÉ**
-1. **Initiative et autonomie dans un mandat : orientation validée.** À définir en R2/R4 : mécanismes d'exécution prolongée ou entre sessions, durée du mandat, suspension, reprise, révocation et observations disponibles.
+1. **Autonomie et reprise : orientation validée.** À définir en R2/R4 : exécution prolongée, conservation/revocation du mandat, suspension humaine opposable, reprise automatique seulement pour blocage technique et contrôle d'état réel.
 2. **Clarification proportionnée : orientation validée.** À préciser : critères de blocage, seuil de questionnement, réutilisation des réponses et cas d'incertitude non bloquante.
 3. Comment Nora rend-elle visibles **ses limites réelles**, le degré de confiance, ses sources et les contradictions sans polluer la conversation ?
 4. **Restitution proportionnée et notifications : orientation validée.** Reste à spécifier en R2/R3 les conditions de notification, la disponibilité des preuves consultables, le niveau d'urgence et le contenu UX sans rigidité.
 5. **Suspension partielle sous preuve d'indépendance : orientation validée.** Reste à spécifier la couverture des dépendances, les scénarios d'incertitude, le statut réel des outils et la reprise sans transcript exhaustif.
 6. Comment les capacités techniques sont-elles découvertes, sélectionnées, remplacées et réessayées sans engager d'effet non autorisé ?
 7. Comment soutenir une **digression hors projet** sans perdre l'intention centrale ni imposer de recadrage automatique ?
+8. **Mémoire vivante transverse : intention validée.** À préciser en R1/R2 : seuil de pertinence, reconnaissance de décision, vérification de provenance, évolution/supersession, recherche contextuelle, confidentialité, reprise inter-sessions et visibilité au Pilote.
+9. **Distinction conversation / autorité : orientation validée.** À concevoir et prouver : quand un échange devient une décision durable ou un acte d'autorité effectif, comment éviter confirmations redondantes et droits implicites, et comment établir les contrôles proportionnés.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -159,5 +214,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Complément de vision (2026-11-01) :** Morris a précisé l'initiative déclenchée par l'intention, la contradiction constructive, le dialogue adaptatif et la capacité à conduire une mission en autonomie dans un mandat déjà établi. Ces orientations sont intégrées aux sections 2.1 et 2.2 ; les mécanismes de disponibilité, persistance, autorisation et exécution restent à spécifier et prouver.
 
 **Précisions et validation du 2026-11-01 (v0.3) :** Morris valide l'adaptation stratégique tant qu'elle respecte le résultat et les étapes explicitement prescrites ; accepte la poursuite partielle **conditionnée à une identification fiable et vérifiable des impacts** ; valide la notification différée pour une suspension maîtrisée sans arbitrage et l'intervention immédiate lorsqu'une décision ou un risque l'exige. Ces orientations figurent en §2.3–2.5, sans validation de mécanismes de preuve ou d'architecture non conçus.
+
+**Précisions et validation du 2026-11-01 (v0.4) :** Morris confirme l'interdiction de lever automatiquement une suspension explicitement décidée par le Pilote ; valide la distinction entre **reconnaissance conversationnelle d'une décision** et **formalisation proportionnée à ses effets** ; confirme l'objectif historique d'une **mémoire vivante de projet**, transverse, évolutive et exploitable par le Pilote comme par Nora. Les §§2.6–2.8 portent ces orientations. Les choix de modèles, persistance, extraction et mécanismes d'autorité restent ouverts ; §2.9 capitalise les observations historiques et hypothèses sans les transformer en décisions techniques.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
