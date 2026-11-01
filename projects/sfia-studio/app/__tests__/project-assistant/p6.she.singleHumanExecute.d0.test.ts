@@ -225,6 +225,7 @@ describe("P6 SHE — Single Human Execute D-P6-SHE-01", () => {
         analysis,
         forceLocalAuthority: true,
         pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+        requirePositivePilotAdmission: false,
       });
       expect(prep.ok).toBe(true);
       if (!prep.ok) throw new Error(`${kind}: ${prep.message}`);

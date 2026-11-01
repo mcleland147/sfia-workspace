@@ -476,6 +476,7 @@ describe("P6 M-HD-02 Pilot Presentation & Record Binding", () => {
       analysis,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);

@@ -180,6 +180,7 @@ describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection + HD coherence (DET)", (
       analysis: writeAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -342,6 +343,7 @@ describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection + HD coherence (DET)", (
       analysis: readOnlyAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     // Pathless/read_only may qualify or need concrete paths — either way mutation ≠ write.
     if (!prep.ok) {
@@ -535,6 +537,7 @@ describe("EP-S2-08-PROOF-01 R-INSPECT-01 — inspection + HD coherence (DET)", (
       analysis: writeAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);
@@ -954,6 +957,7 @@ describe("EP-S2-08-PROOF-01 R-HD-01 — integrated HD provenance (DET)", () => {
       analysis,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(prep.message);

@@ -612,6 +612,7 @@ describe("P6 M-HD-02 mission identity / continuity / session / replay", () => {
       decisionId: recorded.decision.decisionId,
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     // PREPARE is separate — Record itself did not execute.
     expect(recorded.executionAttemptCreated).toBe(false);

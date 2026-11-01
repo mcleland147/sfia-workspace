@@ -267,6 +267,7 @@ describe("EP-S2-08-PROOF-01 — Pilote resume / continuation / Nora unavailable 
       analysis: notesEditAnalysis(),
       forceLocalAuthority: true,
       pinnedBaseHeadSha: W2_TEST_PINNED_BASE_HEAD_SHA,
+      requirePositivePilotAdmission: false,
     });
     expect(prep.ok).toBe(true);
     if (!prep.ok) throw new Error(`prepare: ${prep.message}`);

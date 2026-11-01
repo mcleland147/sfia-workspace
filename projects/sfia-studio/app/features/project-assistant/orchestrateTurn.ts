@@ -486,6 +486,16 @@ export async function orchestrateProjectAssistantTurn(input: {
       readonly irreversible?: boolean;
     };
   } | null = null;
+  /**
+   * Admission class captured at tool queue — revalidated at finalize (Slice D).
+   * Box avoids TS control-flow treating callback assignments as unreachable.
+   */
+  const pendingGenericPrepareAdmission: {
+    current: {
+      readonly kind: "e_offer_accept" | "e_explicit_prepare";
+      readonly offerFingerprint: string | null;
+    } | null;
+  } = { current: null };
   let genericPrepareTurnFinalize:
     | {
         readonly ok: boolean;
@@ -569,6 +579,30 @@ export async function orchestrateProjectAssistantTurn(input: {
               import("@/lib/vertical-slice-runtime"),
               import("./w2/prepareGenericExecutionContractDraft"),
             ]);
+          // Option B / Slice D — Nora tool may solicit, never admit.
+          // Positive E-OFFER / E-EXPLICIT required before queue (honest tool result).
+          const admission =
+            prepareMod.resolvePositivePrepareAdmissionEvidence({
+              projectId: project.projectId,
+              cycleInstanceId:
+                project.activeCycleInstanceId?.trim() || null,
+              text: content,
+              sessionDbPath: input.sessionDbPath,
+            });
+          if (admission.kind === "no_go") {
+            return {
+              ok: false as const,
+              code: admission.code,
+              message:
+                admission.code === "EXPLICIT_PREPARE_REFUSAL"
+                  ? "Le Pilote a refusé explicitement la préparation d'un contrat d'exécution. Aucun EC n'a été créé."
+                  : admission.code === "PREPARE_CITATION_OR_ANALYSIS_NOT_CONSENT"
+                    ? "La citation ou l'analyse d'une commande PREPARE n'est pas un consentement courant. Aucun EC n'a été créé."
+                    : "Sollicitation PREPARE refusée — aucune preuve positive Pilote (E-OFFER-ACCEPT / E-EXPLICIT-PREPARE). Nora ≠ consentement. Aucun EC n'a été créé.",
+              humanDecisionCreated: false as const,
+              executionAttemptCreated: false as const,
+            };
+          }
           const oa = getRuntimeApplicationService().oa;
           if (!oa) {
             return {
@@ -586,6 +620,13 @@ export async function orchestrateProjectAssistantTurn(input: {
             contextNotes: args.contextNotes,
             repositoryMutation: args.repositoryMutation,
             impactSignals: args.impactSignals,
+          };
+          pendingGenericPrepareAdmission.current = {
+            kind: admission.kind,
+            offerFingerprint:
+              admission.kind === "e_offer_accept"
+                ? admission.offerFingerprint
+                : null,
           };
           return prepareMod.queueGenericPrepareForTurnFinalization();
         },
@@ -1365,11 +1406,19 @@ export async function orchestrateProjectAssistantTurn(input: {
             message: "OA runtime indisponible pour finaliser Generic PREPARE.",
           };
         } else {
+          const queuedAdmission = pendingGenericPrepareAdmission.current;
           const finalized = await prepareMod.solicitGenericExecutionPrepare({
             oa: oaPrep,
             projectId: project.projectId,
             cycleInstanceId: project.activeCycleInstanceId?.trim() || null,
             mission: pendingGenericPrepareMission,
+            // Option B / Slice D — revalidate positive Pilote admission at write.
+            pilotUtterance: content,
+            requirePositivePilotAdmission: true,
+            expectedOfferFingerprint:
+              queuedAdmission && queuedAdmission.kind === "e_offer_accept"
+                ? queuedAdmission.offerFingerprint
+                : null,
             sessionDbPath: input.sessionDbPath,
             forceLocalAuthority:
               process.env.VITEST === "true" ||
@@ -1392,6 +1441,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         }
       }
       pendingGenericPrepareMission = null;
+      pendingGenericPrepareAdmission.current = null;
       // Studio prepare-fail notice is typed below (CORR-NAP-02) — not inlined here.
     }
 
@@ -1517,6 +1567,9 @@ export async function orchestrateProjectAssistantTurn(input: {
     const durableBuilt = buildDurableAssistantContentForTurn({
       pilotFacingCore: assistantText,
       presentation: coherentEarly?.presentation ?? null,
+      // Positive complementary provenance — never infer from narrative shape alone.
+      conversationGuidanceStatement:
+        coherentEarly?.conversationGuidance?.statement ?? null,
     });
     assistantText = durableBuilt.contentCore;
 

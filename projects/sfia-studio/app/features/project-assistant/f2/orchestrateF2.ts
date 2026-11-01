@@ -2436,6 +2436,12 @@ export async function orchestrateAssistantSend(input: {
         projectId: project.projectId,
         cycleInstanceId: activeId,
         analysis: prepareAnalysis,
+        // Option B / Slice D — same positive admission gate as Nora finalize.
+        pilotUtterance: content,
+        pilotDecisionCandidate: analysis.pilotDecisionCandidate,
+        requirePositivePilotAdmission: true,
+        expectedOfferFingerprint:
+          prepareGo.kind === "prepare" ? prepareGo.offerFingerprint : null,
         forceLocalAuthority:
           process.env.VITEST === "true" ||
           process.env.SFIA_STUDIO_M3_LOCAL_MORRIS_AUTHORITY === "1",

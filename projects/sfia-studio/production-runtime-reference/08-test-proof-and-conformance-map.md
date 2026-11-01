@@ -277,3 +277,19 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
 > **Post-merge proof qualifier (2026-10-28):** [PR #626](https://github.com/mcleland147/sfia-workspace/pull/626) introduced **five** EP-S2-08-specific test suites (`akgM5L3S2.epS208.proof01.piloteResume.integrated.d0.test.ts` · `akgM5L3S2.epS208.proof01.r1CkcSemantic.d0.test.ts` · `akgM5L3S2.epS208.proof01.rInspect01.d0.test.ts` · `epS208.proof01.rInspect01.inspectionSurface.ui.test.tsx` · `epS208.proof01.piloteSurface.b5b6.ui.test.tsx`) plus **seven** Product source files in reviewed scope · source/feature head **`485ec3cb370dca46691e3432255a0033b3502a4d`** · merge **`3064047258e54cfc9a1f24e21d322ad6ae18217d`** · [post-merge CI #40699255387](https://github.com/mcleland147/sfia-workspace/actions/runs/40699255387) **SUCCESS** · **SFIA Studio Required Gate PASS**. Pre-existing `p6.mHd01.genericMissionHumanDecision.d0.test.ts` was **reused** as R-HD-01 non-regression oracle — blob `c8d6649104475909a646d8ef78f744afc27683cc` identical before (`3fb84630…`) and after (`30640472…`) #626 · **not** introduced by #626 · ≠ new M-HD-01 test commit · ≠ fresh isolated M-HD-01 re-execution claimed here. Historical local DET/jsdom counts above are **authoring-time evidence** — **not** re-asserted as independently re-run in this documentary cycle. CI Required Gate SUCCESS on merge SHA ≠ inference of browser E2E · ≠ REAL · ≠ EP-S2-08 PASS. Separation: five EP-S2-08 suites + Product source = **CURRENT ON MAIN via #626** · M-HD-01 = pre-existing reused oracle · browser `/studio` remount E2E = **NOT PROVEN** · REAL execution = **NOT PROVEN** · EP-S2-08 remains **PARTIAL**.
 
 Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit · jsdom ≠ browser.
+
+## Overlay — GI-AKG-M5-A+B+D-01 proof map (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+
+| Flow / concern | Test path | Level |
+|---|---|---|
+| Positive admission R1/R2/R3 + M/O | `app/__tests__/project-assistant/positivePrepareAdmission.d0.test.ts` | DETERMINISTIC |
+| LUMEN consent + transverse A+B | `app/__tests__/project-assistant/lumenCogPrepareCorr01.d0.test.ts` | DETERMINISTIC |
+| Cognitive fidelity A | `app/__tests__/nora-cognitive-runtime/corrA1b01.secured.d0.test.ts` + NAP d0/UI | DETERMINISTIC |
+| F1 tool / F2 shared solicit | `p6.der16.genericNoraToolInvocation.d0.test.ts` | DETERMINISTIC |
+| SHE / materiality non-regression | `p6.gD4.*` · `p6.toolFirst.safetyClosureR1R2.d0.test.ts` | DETERMINISTIC |
+| Same-turn currentness (CORR-CI-632) | `p6.arch.genericPrepareSameTurnCurrentness.d0.test.ts` | DETERMINISTIC |
+| Documentary pathless materiality (CORR-CI-632) | `p6.hqa.materialityBlock01.documentaryPrepare.d0.test.ts` | DETERMINISTIC |
+| Inspection Confirm/Select binding (CORR-CI-632) | `p6.inspectionBindingSelect.d0.test.ts` | DETERMINISTIC |
+| PRR digests (CORR-CI-632 F1) | `architecture/productionRuntimeReference.conformance.d0.test.ts` | DETERMINISTIC |
+
+**Campaign QA (CORR-CI-632):** target suites PASS locally · OpenAI LIVE NOT EXERCISED · Cursor REAL NOT EXERCISED · G-REAL NOT GRANTED · GitHub Required Gate resolved from CI on atomic Product+R24 HEAD.
