@@ -13,6 +13,7 @@ import {
   readPreCycleCandidateTrajectory,
   selectCurrentLifecycleRecommendations,
 } from "@/lib/oa/cycle";
+import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
 import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
 import type { CandidateTrajectoryProvenanceStatus } from "@/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryProvenance";
 import {
@@ -141,6 +142,17 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
   activeCycleInstanceId?: string | null;
   /** Server-derived via selectCurrentLifecycleRecommendations (canonical basis). */
   hasCurrentNextCycleRecommendation?: boolean;
+  /**
+   * ORION-NORA-COHERENCE-CORR-01 — Product CURRENT NEXT_CYCLE facts for
+   * FramingContinuity when no candidate/approval presentation exists yet.
+   * Never invents catalog labels; null when CURRENT is absent.
+   */
+  currentNextCycleRecommendation?: {
+    readonly recommendationId: string;
+    readonly targetCycleTypeId: string | null;
+    readonly catalogLabel: string | null;
+    readonly statement: string | null;
+  } | null;
 }> {
   const runtime = getRuntimeApplicationService();
   if (!runtime.oa) {
@@ -179,6 +191,12 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
   }
 
   let hasCurrentNextCycleRecommendation = false;
+  let currentNextCycleRecommendation: {
+    readonly recommendationId: string;
+    readonly targetCycleTypeId: string | null;
+    readonly catalogLabel: string | null;
+    readonly statement: string | null;
+  } | null = null;
   try {
     const epistemicItems = await oa.cycleServices.epistemic.listByProject(
       input.projectId,
@@ -234,13 +252,27 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
       blockingReservationStatements: blockersSnap.statements,
       failedMaterialDimensions: failed,
     });
-    hasCurrentNextCycleRecommendation = current.some(
+    const nextCurrent = current.find(
       (r) =>
         r.intent === "NEXT_CYCLE" && r.derivedCurrentness === "CURRENT",
     );
+    hasCurrentNextCycleRecommendation = nextCurrent != null;
+    if (nextCurrent) {
+      const targetCycleTypeId =
+        (nextCurrent.targetCycleTypeId ?? "").trim() || null;
+      currentNextCycleRecommendation = {
+        recommendationId: nextCurrent.recommendationId,
+        targetCycleTypeId,
+        catalogLabel: targetCycleTypeId
+          ? (getCycleTypeById(targetCycleTypeId)?.label?.trim() || null)
+          : null,
+        statement: (nextCurrent.statement ?? "").trim() || null,
+      };
+    }
   } catch {
     // Fail closed for the flag — do not invent CURRENT.
     hasCurrentNextCycleRecommendation = false;
+    currentNextCycleRecommendation = null;
   }
 
   return {
@@ -248,6 +280,7 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
     candidate: result.candidate,
     activeCycleInstanceId,
     hasCurrentNextCycleRecommendation,
+    currentNextCycleRecommendation,
   };
 }
 
@@ -570,17 +603,20 @@ export async function projectAssistantReadFramingContinuityAction(input: {
     preparedCompletePresent: preparedCycle != null,
   });
 
+  const currentRec = pre.currentNextCycleRecommendation ?? null;
   const catalogLabel =
     presentation?.catalogLabel ??
     alreadyDecided?.catalogLabel ??
     preparedCycle?.catalogLabel ??
     candidate?.catalogLabel ??
+    currentRec?.catalogLabel ??
     null;
   const targetCycleTypeId =
     presentation?.targetCycleTypeId ??
     alreadyDecided?.targetCycleTypeId ??
     preparedCycle?.cycleTypeId ??
     candidate?.targetCycleTypeId ??
+    currentRec?.targetCycleTypeId ??
     null;
 
   // FIX-01 — LPS project objective is context only; load Recommendation statement
@@ -589,7 +625,10 @@ export async function projectAssistantReadFramingContinuityAction(input: {
   let recommendationStatement: string | null = null;
   const runtime = getRuntimeApplicationService();
   const recommendationIdForExam =
-    presentation?.recommendationId ?? candidate?.recommendationId ?? null;
+    presentation?.recommendationId ??
+    candidate?.recommendationId ??
+    currentRec?.recommendationId ??
+    null;
   if (runtime.oa) {
     const lps = await runtime.oa.projectServices.getCurrentLivingProjectState.execute(
       { projectId: input.projectId },
@@ -631,7 +670,10 @@ export async function projectAssistantReadFramingContinuityAction(input: {
       catalogLabel,
       targetCycleTypeId,
       recommendationId:
-        presentation?.recommendationId ?? candidate?.recommendationId ?? null,
+        presentation?.recommendationId ??
+        candidate?.recommendationId ??
+        currentRec?.recommendationId ??
+        null,
       semanticKey: presentation?.semanticKey ?? candidate?.semanticKey ?? null,
       trajectoryId:
         presentation?.trajectoryId ??
@@ -650,7 +692,11 @@ export async function projectAssistantReadFramingContinuityAction(input: {
       preparedCycleInstanceId: preparedCycle?.cycleInstanceId ?? null,
       activeCycleInstanceId: pre.activeCycleInstanceId ?? null,
       hasCurrentNextCycleRecommendation: hasCurrent,
-      message: framingContinuityPilotMessage(phase, catalogLabel),
+      message: framingContinuityPilotMessage(
+        phase,
+        catalogLabel,
+        targetCycleTypeId,
+      ),
       examination,
     },
   };

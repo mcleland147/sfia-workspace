@@ -58,7 +58,10 @@ export type FramingContinuitySnapshot = {
 export function framingTrajectoryValidationImplications(
   catalogLabel: string | null,
 ): string {
-  const cycle = (catalogLabel ?? "").trim() || "Cadrage";
+  const cycle = (catalogLabel ?? "").trim();
+  if (!cycle) {
+    return `Valider enregistre votre décision sur cette trajectoire et permet de préparer le cycle. Cela ne démarre pas le cycle et n'exécute rien.`;
+  }
   return `Valider enregistre votre décision sur cette trajectoire pour « ${cycle} » et permet de préparer le cycle. Cela ne démarre pas le cycle et n'exécute rien.`;
 }
 
@@ -144,24 +147,77 @@ export function buildFramingTrajectoryExamination(input: {
   };
 }
 
+/**
+ * ORION-NORA-COHERENCE-CORR-01 — « exploratoire » only for Framing/Cadrage.
+ * Never append it to Conception fonctionnelle or other catalog cycles.
+ */
+export function isFramingExploratoryCycleLabel(input: {
+  readonly catalogLabel: string | null | undefined;
+  readonly targetCycleTypeId?: string | null | undefined;
+}): boolean {
+  const typeId = (input.targetCycleTypeId ?? "").trim();
+  if (typeId === "cyc:framing") return true;
+  const label = normalizeCompare(input.catalogLabel ?? "");
+  return label === "cadrage";
+}
+
+/**
+ * Pilot-facing recommendation_ready title — Product catalog label only.
+ * Defaults to a neutral title when label is unknown (never invent « Cadrage »).
+ */
+export function framingContinuityRecommendationReadyTitle(input: {
+  readonly catalogLabel: string | null | undefined;
+  readonly targetCycleTypeId?: string | null | undefined;
+}): string {
+  const cycle = (input.catalogLabel ?? "").trim();
+  if (!cycle) {
+    return "Recommandation de prochain cycle disponible";
+  }
+  if (
+    isFramingExploratoryCycleLabel({
+      catalogLabel: cycle,
+      targetCycleTypeId: input.targetCycleTypeId,
+    })
+  ) {
+    return `Commencer par un « ${cycle} » exploratoire`;
+  }
+  return `Commencer par un « ${cycle} »`;
+}
+
 /** Pilot-facing copy — no internal governance jargon. */
 export function framingContinuityPilotMessage(
   phase: FramingContinuityPhase,
   catalogLabel: string | null,
+  targetCycleTypeId?: string | null,
 ): string {
-  const cycle = (catalogLabel ?? "").trim() || "Cadrage";
+  const cycle = (catalogLabel ?? "").trim();
+  const cyclePhrase = cycle ? `« ${cycle} »` : "ce cycle";
   switch (phase) {
-    case "recommendation_ready":
-      return `Je recommande de commencer par un « ${cycle} » exploratoire. Vous pouvez préparer cette direction, puis la valider avant tout démarrage.`;
+    case "recommendation_ready": {
+      if (!cycle) {
+        return `Une recommandation Product de prochain cycle est disponible. Vous pouvez préparer cette direction, puis la valider avant tout démarrage.`;
+      }
+      const exploratory = isFramingExploratoryCycleLabel({
+        catalogLabel: cycle,
+        targetCycleTypeId,
+      })
+        ? " exploratoire"
+        : "";
+      return `Je recommande de commencer par un « ${cycle} »${exploratory}. Vous pouvez préparer cette direction, puis la valider avant tout démarrage.`;
+    }
     case "awaiting_trajectory_decision":
-      return `La trajectoire proposée pour « ${cycle} » est prête à examiner. Validez cette direction pour continuer — un simple « ok » ne suffit pas.`;
+      return `La trajectoire proposée pour ${cyclePhrase} est prête à examiner. Validez cette direction pour continuer — un simple « ok » ne suffit pas.`;
     case "trajectory_decided_prepare_cycle":
-      return `La direction pour « ${cycle} » est validée. Préparez le cycle, puis démarrez-le quand vous serez prêt.`;
+      return `La direction pour ${cyclePhrase} est validée. Préparez le cycle, puis démarrez-le quand vous serez prêt.`;
     case "ready_to_start":
-      return `Le cycle « ${cycle} » est prêt. Vous pouvez le démarrer dans la conversation.`;
+      return cycle
+        ? `Le cycle « ${cycle} » est prêt. Vous pouvez le démarrer dans la conversation.`
+        : `Le cycle est prêt. Vous pouvez le démarrer dans la conversation.`;
     case "active":
       // UX-04 — pilot-facing; no technical cycle instance ids.
-      return `Le ${cycle} est maintenant actif.`;
+      return cycle
+        ? `Le ${cycle} est maintenant actif.`
+        : `Le cycle est maintenant actif.`;
     case "blocked_no_recommendation":
       return `Aucune recommandation courante n'est disponible pour préparer le premier cycle. Reformulez avec Nora.`;
     case "blocked_stale_or_incomplete":

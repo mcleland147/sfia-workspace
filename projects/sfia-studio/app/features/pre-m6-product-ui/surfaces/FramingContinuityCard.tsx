@@ -7,7 +7,10 @@
  * Pilot-facing copy only — no internal governance jargon.
  */
 
-import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
+import {
+  framingContinuityRecommendationReadyTitle,
+  type FramingContinuitySnapshot,
+} from "@/features/project-assistant/f2/chatFirstFramingContinuity";
 import styles from "./GovernedDecisionCard.module.css";
 
 export type FramingContinuityCardProps = {
@@ -31,7 +34,8 @@ export function FramingContinuityCard({
   onStartPrepared,
   onKeepExploring,
 }: FramingContinuityCardProps) {
-  const cycle = (continuity.catalogLabel ?? "").trim() || "Cadrage";
+  const cycle = (continuity.catalogLabel ?? "").trim();
+  const cyclePhrase = cycle ? `« ${cycle} »` : "ce cycle";
   const phase = continuity.phase;
   const examination = continuity.examination;
 
@@ -46,19 +50,27 @@ export function FramingContinuityCard({
 
   const title =
     phase === "recommendation_ready"
-      ? `Commencer par un « ${cycle} » exploratoire`
+      ? framingContinuityRecommendationReadyTitle({
+          catalogLabel: continuity.catalogLabel,
+          targetCycleTypeId: continuity.targetCycleTypeId,
+        })
       : phase === "awaiting_trajectory_decision"
-        ? `Examiner la trajectoire pour « ${cycle} »`
+        ? `Examiner la trajectoire pour ${cyclePhrase}`
         : phase === "trajectory_decided_prepare_cycle"
-          ? `Préparer le cycle « ${cycle} »`
+          ? cycle
+            ? `Préparer le cycle « ${cycle} »`
+            : "Préparer le cycle"
           : phase === "ready_to_start"
-            ? `Démarrer « ${cycle} »`
-            : continuity.message || `Continuer vers « ${cycle} »`;
+            ? cycle
+              ? `Démarrer « ${cycle} »`
+              : "Démarrer le cycle"
+            : continuity.message ||
+              (cycle ? `Continuer vers « ${cycle} »` : "Continuer");
 
   const optionBody =
     phase === "awaiting_trajectory_decision"
       ? continuity.approvalOptionLabel?.trim() ||
-        `Valider cette direction pour « ${cycle} ».`
+        `Valider cette direction pour ${cyclePhrase}.`
       : continuity.message;
 
   const primaryLabel =
@@ -77,7 +89,9 @@ export function FramingContinuityCard({
           : phase === "ready_to_start"
             ? busy
               ? "Démarrage…"
-              : `Démarrer le ${cycle}`
+              : cycle
+                ? `Démarrer le ${cycle}`
+                : "Démarrer le cycle"
             : null;
 
   const primaryDisabled =

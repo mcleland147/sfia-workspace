@@ -55,11 +55,37 @@ describe("FramingContinuityCard", () => {
     expect(screen.getByTestId("framing-continuity-authority").textContent).toMatch(
       /Vous décidez/,
     );
+    expect(screen.getByTestId("framing-continuity-title").textContent).toBe(
+      "Commencer par un « Cadrage » exploratoire",
+    );
     expect(
       screen.getByTestId("framing-continuity-card").textContent,
     ).not.toMatch(/HumanDecision|gate F01|Recommendation ≠/i);
     fireEvent.click(screen.getByTestId("framing-continuity-primary"));
     expect(onPrepare).toHaveBeenCalledTimes(1);
+  });
+
+  it("ORION — recommendation_ready for Conception does not invent Cadrage exploratoire", () => {
+    render(
+      <FramingContinuityCard
+        continuity={snap({
+          phase: "recommendation_ready",
+          catalogLabel: "Conception fonctionnelle",
+          targetCycleTypeId: "cyc:functional-design",
+          message:
+            "Je recommande de commencer par un « Conception fonctionnelle ». Vous pouvez préparer cette direction, puis la valider avant tout démarrage.",
+        })}
+        busy={false}
+        error={null}
+        onPrepareCandidate={vi.fn()}
+        onApproveCandidate={vi.fn()}
+        onPrepareCycle={vi.fn()}
+        onStartPrepared={vi.fn()}
+      />,
+    );
+    const title = screen.getByTestId("framing-continuity-title").textContent ?? "";
+    expect(title).toBe("Commencer par un « Conception fonctionnelle »");
+    expect(title).not.toMatch(/Cadrage|exploratoire/);
   });
 
   it("awaiting_trajectory_decision requires digest + examination; keep exploring is non-mutating", () => {

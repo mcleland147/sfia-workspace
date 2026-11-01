@@ -49,6 +49,7 @@ import {
   buildDurableAssistantContentForTurn,
   normalizeStudioControlNotices,
   serializeStudioControlNotices,
+  NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE,
 } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
 import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
 import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
@@ -860,9 +861,11 @@ export async function orchestrateProjectAssistantTurn(input: {
         lifecycleRecommendationContinuity =
           coherentEarly.lifecycleRecommendationContinuity;
       }
-      if (coherentEarly?.narrative) {
+      // ORION-NORA-COHERENCE-CORR-01 — prefer structured narrative even when empty
+      // so turn.text contradiction footers do not contaminate NAP classification.
+      if (coherentEarly && typeof coherentEarly.narrative === "string") {
         assistantText = coherentEarly.narrative;
-      } else if (extracted.narrative) {
+      } else if (typeof extracted.narrative === "string") {
         assistantText = extracted.narrative;
       }
       // Positive enforcement: EMIT without LR, or EMIT+LR with incompatible
@@ -1573,6 +1576,16 @@ export async function orchestrateProjectAssistantTurn(input: {
     });
     assistantText = durableBuilt.contentCore;
 
+    // ORION-NORA-COHERENCE-CORR-01 — contradiction candidate stays observable as
+    // typed Studio notice (Pilot-intelligible), never raw marker in métier body.
+    const contradictionCandidateNotice =
+      turn.contradictionDisposition?.disposition === "candidate" ||
+      durableBuilt.strippedDispositionMarkers.some((m) =>
+        /contradiction candidate/i.test(m),
+      )
+        ? NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE
+        : null;
+
     // CORR-NAP-02 — typed Studio control notices (server provenance only).
     // Mirrored into durable content for plain fallback; appendix trust uses
     // the typed array, never forged "[Studio]" prose from Nora.
@@ -1582,6 +1595,7 @@ export async function orchestrateProjectAssistantTurn(input: {
         : null,
       executionLimitReached ? EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE : null,
       stopNotice,
+      contradictionCandidateNotice,
     ]);
     assistantText = appendStudioControlNotices(
       assistantText,
@@ -1612,8 +1626,9 @@ export async function orchestrateProjectAssistantTurn(input: {
             logicalTurnId,
             cycleInstanceId: activeCycleIdForJournal,
           });
+          // Prefer durable A1 presentation (possibly folded continuation).
           const adaptivePresentation =
-            coherentEarly?.presentation ?? null;
+            durableBuilt.presentation ?? coherentEarly?.presentation ?? null;
           const assistantTurn = appendPilotTranscriptTurn(session, {
             role: "assistant",
             content: assistantText,
