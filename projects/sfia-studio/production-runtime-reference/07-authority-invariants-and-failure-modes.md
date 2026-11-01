@@ -178,3 +178,18 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
 | INV-L3S2-SHE-AUTHORITY | SHE authority unchanged; review refusal ≠ Cursor process failure | CURRENT ON MAIN DET · KEEP |
 
 Refusal codes (Product-local mapping): `EVIDENCE_PROJECT_MISMATCH`, `EVIDENCE_CONTRACT_MISMATCH`, `EVIDENCE_ATTEMPT_MISMATCH`, `EVIDENCE_CYCLE_MISMATCH`, `W3B_EVIDENCE_ADMISSION_REJECTED`.
+
+## Overlay — GI-AKG-M5-A+B+D-01 positive admission invariants (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+
+| ID | Statement | Status (candidate) |
+|---|---|---|
+| INV-MODEL-NE-CONSENT | PilotDecisionCandidate / model DTO never suffices for PREPARE admission | DET BEHAVIOR PROVEN |
+| INV-TOOL-NE-CONSENT | Nora `request_generic_execution_prepare` solicitation ≠ Pilote consent | DET BEHAVIOR PROVEN |
+| INV-E-OFFER-BIND | E-OFFER-ACCEPT rebinds mission from CURRENT offer; fingerprint mismatch → NO_GO | DET BEHAVIOR PROVEN |
+| INV-NO-EXPLICIT-DOWNGRADE | expectedOfferFingerprint blocks E-EXPLICIT bypass | DET BEHAVIOR PROVEN |
+| INV-SCOPEIN-STANDALONE | scopeIn only for file-like standalone path tokens (directory-only with explicit write); narrative/URL/A/B excluded; path ≠ WRITE invent | DET BEHAVIOR PROVEN |
+| INV-PATHLESS-INTENT-NULL | pathless / undeclared mutation keep `executionIntent=null` (no invented `other`) | DET BEHAVIOR PROVEN (CORR-CI-632) |
+| INV-SHE-PRESERVED | PREPARE inspectable without auto HD/Attempt/Authorization; Execute remains separate | PRESERVED |
+
+Product corrective candidate: `1b8de9b02f1cbc1d3163f44c34cb9ebe0bd91707` (PR #632; CORR-CI-632). **≠ CURRENT ON MAIN**.
+

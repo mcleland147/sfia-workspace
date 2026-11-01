@@ -195,6 +195,40 @@ Descriptive Product routing map for the same conversational front door. **Does n
 - **Proof:** SHE (`p6.she.singleHumanExecute*`, GAP continuity/HD/finalization) + G-D4 / materiality / M-HD / DER16 / Option1 / Tool-First — DETERMINISTICALLY_PROVEN_AT_TESTED_SCOPE (Fake). REAL NOT PROVEN.
 - **Status:** COMPLETE domain (legacy M3); Generic PREPARE + SHE Option A **CURRENT ON MAIN** (PR #590 `c9abdbc3`); Tool-First R1 **CURRENT ON MAIN** at tested scope (PR #588). DETERMINISTIC proof · ≠ REAL · ≠ P6 GLOBAL PASS
 
+
+
+## Overlay — GI-AKG-M5-A+B+D-01 Positive Product Admission (F04/F08 — AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+
+> **Epistemic class:** AS-IMPLEMENTED ON PRODUCT PR [#632](https://github.com/mcleland147/sfia-workspace/pull/632) Product corrective `1b8de9b02f1cbc1d3163f44c34cb9ebe0bd91707` (CORR-CI-632; delivery base `a55181c6…`) · R24 atomic in #632 · **≠ CURRENT ON MAIN** · DET proven · LIVE/REAL **NOT EXERCISED**.
+
+### Dual entry → one Product gate
+
+1. **F2 chat-first** — `resolveChatFirstGenericPrepareGo` → `solicitGenericExecutionPrepare` with `requirePositivePilotAdmission: true`, Pilote utterance, optional `expectedOfferFingerprint`.
+2. **F1 Nora tool** — `request_generic_execution_prepare` may **queue** only after positive admission evidence; finalize **revalidates** before write.
+3. **Common mutation point** — `resolvePositivePrepareAdmissionEvidence` then `prepareGenericExecutionContractDraft`. Tool solicitation / model DTO / absence of refuse **≠** admission.
+
+### Evidence classes
+
+| Class | Meaning |
+|---|---|
+| E-OFFER-ACCEPT | Pilote accept bound to unique CURRENT offer (project/session/cycle/fingerprint); mission rebound from offer |
+| E-EXPLICIT-PREPARE | Narrow direct prepare speech-act; independent of CURRENT offer when no offer reference |
+| no_go | refuse / citation / hedge / missing utterance / fingerprint mismatch / expected fingerprint with E-EXPLICIT bypass attempt |
+
+**Priority:** refuse/citation/hedge → CURRENT-offer bind (accept or prepare+offer-ref) → independent E-EXPLICIT → no_go. No silent E-OFFER→E-EXPLICIT downgrade.
+
+### ScopeIn (R3 Exit) + pathless materiality (CORR-CI-632)
+
+`buildIntentAnalysisFromSolicitedMission` may set `executionIntent.scopeIn` only for a **file-like standalone path token** (`isStandaloneRepoPathScopeToken`; directory-only workspace path allowed only when `repositoryMutation=write`). Narrative / URL / `A/B` labels / embedded paths stay narrative `scope`. `repositoryMutation` none/read → `read_only` empty scopeIn. Path alone **≠** WRITE invent. Pathless / undeclared mutation → `executionIntent=null` (historical documentary materiality; no invented `other`).
+
+### Routing note
+
+Same Product turn: F1 advisory XOR F2 chat-first prepare (`skipF1ForChatFirstPrepare`). Dual simultaneous orchestrator prepare is **not** a production scenario. Same-turn currentness harnesses use E-EXPLICIT **contrat** speech-acts (model/tool alone ≠ consent).
+
+### Proof
+
+`positivePrepareAdmission.d0.test.ts` · `lumenCogPrepareCorr01` · `p6.der16` · `p6.gD4` · `p6.toolFirst` · NAP/corrA1b01 · CORR-CI-632 suites (`genericPrepareSameTurnCurrentness` · `materialityBlock01.documentaryPrepare` · `inspectionBindingSelect`) — DET at tested scope. SHE unchanged.
+
 ## F09 — EC inspect / Confirmation / authority
 - **Objects:** InspectionAttestation, Confirmation, AuthorityVerificationReceipt
 - **Unified inspection (CURRENT):** Conversation / Execution / Trajectory share one exam contract (`ContractInspectionExamPanel` + `contractInspectionExam` helpers). Explicit open ≠ write; Attest requires presented facts; identity binding = `projectId` + `executionContractId` + `version` + `semanticFingerprint`. Contract change → reinspection. PREPARE must not auto-inspect. Trajectory does not invent inspection on PREPARE/Execute alone.

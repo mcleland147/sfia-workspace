@@ -612,3 +612,19 @@ E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FO
 | M2 debt register 38×20 | identities/statuses conserved | `df77b8a2…` immuable |
 
 **Anti-claims:** CORR-01 authoring ≠ Critical Re-Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project Git integrated ≠ AKG-M3 CLOSED ≠ P6/v3/REAL.
+
+## Overlay — GI-AKG-M5-A+B+D-01 known gaps (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+
+| Reserve | Class | Disposition |
+|---|---|---|
+| E-EXPLICIT lexical FR incomplete | KNOWN GAP | DEFER — conservative classifier |
+| CURRENT offer process-local | KNOWN GAP | DEFER — restart honesty already fail-closed |
+| No durable admissionKind on EC | ACCEPT | Avoid schema/persistence pivot |
+| Dedup = same missionKey scope | ACCEPT | ≠ universal exactly-once |
+| Same-turn F1+F2 prepare | N/A routing | DOCUMENTED exclusivity |
+| OpenAI LIVE / Cursor REAL | NOT EXERCISED | G-REAL NOT GRANTED |
+| L3-S2 | OPEN | No auto-close |
+| Runtime v3 | NON ADOPTED | — |
+
+Product PR #632 corrective candidate `1b8de9b0…` (CORR-CI-632; delivery base `a55181c6…`). R24 documentary layer is **consolidated atomically into #632**; stacked Draft PR #633 is **SUPERSEDED** when closed without merge after verified reuptake.
+
