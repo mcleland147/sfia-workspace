@@ -153,7 +153,7 @@ SFIA Studio Next Construction Pre-check (si scope `projects/sfia-studio-next/`) 
 - décision(s) Next applicable(s) : path / portée / GO
 - vision/cadrage et trois schémas si pertinents : chemins / consulted / N/A motivé
 - doctrine produit SFIA v3 applicable : documents 30–37 / ref / statut
-- nomenclature candidate applicable : oui / non / N/A ; statut non adopté
+- convention de nommage Next applicable : oui / non / N/A ; convention VALIDATED BY MORRIS (2026-11-01), exemples de modèles non adoptés
 - macro-lot/capacité, résultat utilisateur attendu et parcours end-to-end :
 - contrats/responsabilités/impacts ; développement en parallèle et conditions de recomposition :
 - dépendances/critical path, actifs historiques qualifiés, gaps et dette/exit :
@@ -291,7 +291,7 @@ Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; do
 4. `projects/sfia-studio-next/governance/decisions/` (décisions applicables au lot) ;
 5. `projects/sfia-studio-next/cadrage/vision-cible/README.md` + images originales si cadrage/produit/UX/architecture conceptuelle ; les trois schémas sont **des sources de vision, pas une implémentation ou une architecture approuvée** ;
 6. doctrine produit v3 **applicable** `projects/sfia-studio/sfia-v3-framing/30–37` (validée pour le **produit**, pas automatiquement pour le nouveau runtime) ;
-7. `projects/sfia-studio-next/governance/product-naming-conventions.md` si le nommage est concerné ; **CANDIDATE** jusqu'à approbation Morris ;
+7. `projects/sfia-studio-next/governance/product-naming-conventions.md` si le nommage est concerné ; convention **VALIDATED BY MORRIS (2026-11-01)**, sans adoption automatique des exemples de modèles ;
 8. source architecturale **Next** + Git/code/preuves Next si runtime Next existe. En R0-B sans runtime Next, **N/A justifié**. Si l'analyse porte sur le code historique, consulter **Git/code historique et PRR README/volumes applicables**, même read-only ; l'ancien PRR n'est pas la référence architecture courante de Next ;
 9. routing guide, template v2.6, operating model, guardrails, review pack/handoff et gates externes.
 
