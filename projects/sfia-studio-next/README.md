@@ -2,7 +2,7 @@
 
 **Produit commercial :** SFIA Studio (nom conservé). **Programme interne :** SFIA Studio Next.
 
-**Statut au 2026-11-01 :** R0-A méthode validée par Morris ; **R0-B CLOSED / ON MAIN** (PR #636–637) ; conventions de nommage validées, trois PNG originaux et routage SFIA v2.6 Next intégrés ; instructions ChatGPT Next-only documentées sur `main` (PR #638), activation des paramètres UI **non observée**. **R1 cadrage produit engagé au niveau vision : principes Pilote/Nora validés en conversation, document v0.1 sur branche R1 candidate, non encore publié sur `main`.** Aucun nouveau runtime implémenté ou adopté.
+**Statut au 2026-11-01 :** R0-A méthode validée par Morris ; **R0-B CLOSED / ON MAIN** (PR #636–637) ; conventions de nommage validées, trois PNG originaux et routage SFIA v2.6 Next intégrés ; instructions ChatGPT Next-only documentées sur `main` (PR #638), activation des paramètres UI **non observée**. **R1 cadrage produit engagé au niveau vision : principes Pilote/Nora validés en conversation, document v0.4 sur branche R1 candidate, non encore publié sur `main`.** Aucun nouveau runtime implémenté ou adopté.
 
 ## Périmètres Git
 
@@ -19,7 +19,7 @@
 | `governance/roadmap.md` | État vivant du programme : R0-B clos, R1 en cadrage vision sur branche candidate, réserves et gates |
 | `governance/decisions/` | Décisions humaines, portée et réserves |
 | `governance/product-naming-conventions.md` | Convention de nommage orientée produit — **VALIDATED BY MORRIS 2026-11-01** |
-| `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.3**, principes validés Morris et questions encore ouvertes (document vivant sur branche candidate) |
+| `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.4**, autonomie, autorité proportionnée et mémoire vivante transverse ; principes validés et questions ouvertes (document vivant sur branche candidate) |
 | `cadrage/vision-cible/README.md` | Trois schémas de vision fondateurs et PNG originaux intégrés sur `main` (R0-B) |
 | `governance/chatgpt-project-instructions-next.md` | Version Next-only validée, publiée sur `main` ; application effective aux réglages ChatGPT non observée |
 | `conception-fonctionnelle/` | Exigences, règles et contrats fonctionnels (futurs R2) |
@@ -41,6 +41,6 @@
 
 ## Première trajectoire
 
-R0-A validé → **R0-B clos sur `main`** → **R1 cadrage du produit en cours au niveau vision (v0.1 validée en conversation, Git sur branche candidate)** → R2 conception fonctionnelle → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
+R0-A validé → **R0-B clos sur `main`** → **R1 cadrage du produit en cours au niveau vision (v0.4 validée au niveau des orientations, Git sur branche candidate)** → R2 conception fonctionnelle → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
 
 Voir `governance/roadmap.md` pour la qualification vivante et les gates. Git et preuves primaires priment sur les résumés ; la documentation décrit honnêtement la portée prouvée.
