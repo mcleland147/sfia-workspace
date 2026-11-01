@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
   "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
-  "lastReviewedCommit": "1b8de9b02f1cbc1d3163f44c34cb9ebe0bd91707",
-  "lastReviewedAt": "2026-11-01T00:05:00Z",
+  "lastReviewedCommit": "32207a38313cdfc49b437027ed183b2302e613c1",
+  "lastReviewedAt": "2026-11-01T00:45:00Z",
   "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
   "volumes": [
     {
       "path": "projects/sfia-studio/production-runtime-reference/README.md",
-      "sha256_16": "edb1c2c16d326bfd"
+      "sha256_16": "8044d656b4adcf2f"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -19,7 +19,7 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
-      "sha256_16": "0e08ea16b587067d"
+      "sha256_16": "e3db62b5815c19d7"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
@@ -31,19 +31,19 @@
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
-      "sha256_16": "0f1bd0d018bddd77"
+      "sha256_16": "b07f13a99d5480bf"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
-      "sha256_16": "273ba3e4ea0bec50"
+      "sha256_16": "f7fa45008c468b24"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
-      "sha256_16": "828289647facd6cb"
+      "sha256_16": "69248811a06a518c"
     },
     {
       "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
-      "sha256_16": "9f89e1bb119ede6b"
+      "sha256_16": "da34da09424f283a"
     }
   ],
   "components": [

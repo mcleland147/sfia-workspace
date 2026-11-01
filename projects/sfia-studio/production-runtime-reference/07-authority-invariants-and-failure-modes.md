@@ -179,9 +179,9 @@ Governance STOP ≠ product defect: blocked continuation for UNKNOWN Artifact is
 
 Refusal codes (Product-local mapping): `EVIDENCE_PROJECT_MISMATCH`, `EVIDENCE_CONTRACT_MISMATCH`, `EVIDENCE_ATTEMPT_MISMATCH`, `EVIDENCE_CYCLE_MISMATCH`, `W3B_EVIDENCE_ADMISSION_REJECTED`.
 
-## Overlay — GI-AKG-M5-A+B+D-01 positive admission invariants (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+## Overlay — GI-AKG-M5-A+B+D-01 positive admission invariants (CURRENT ON MAIN — PR #632 MERGED — 2026-11-01)
 
-| ID | Statement | Status (candidate) |
+| ID | Statement | Status (ON MAIN) |
 |---|---|---|
 | INV-MODEL-NE-CONSENT | PilotDecisionCandidate / model DTO never suffices for PREPARE admission | DET BEHAVIOR PROVEN |
 | INV-TOOL-NE-CONSENT | Nora `request_generic_execution_prepare` solicitation ≠ Pilote consent | DET BEHAVIOR PROVEN |
@@ -191,4 +191,4 @@ Refusal codes (Product-local mapping): `EVIDENCE_PROJECT_MISMATCH`, `EVIDENCE_CO
 | INV-PATHLESS-INTENT-NULL | pathless / undeclared mutation keep `executionIntent=null` (no invented `other`) | DET BEHAVIOR PROVEN (CORR-CI-632) |
 | INV-SHE-PRESERVED | PREPARE inspectable without auto HD/Attempt/Authorization; Execute remains separate | PRESERVED |
 
-Product corrective candidate: `1b8de9b02f1cbc1d3163f44c34cb9ebe0bd91707` (PR #632; CORR-CI-632). **≠ CURRENT ON MAIN**.
+Merge: `32207a38313cdfc49b437027ed183b2302e613c1` (PR #632). Product corrective `1b8de9b0…` ON MAIN. **≠ L3-S2 COMPLETE · ≠ runtime v3 ADOPTED · ≠ G-REAL**.

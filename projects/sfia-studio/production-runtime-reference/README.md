@@ -78,18 +78,19 @@ Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — 
 | **Anti-claims** | ≠ L3 GLOBAL CLOSED · ≠ G-REAL · ≠ L4 · ≠ runtime v3 ADOPTED · ≠ UX LIVE PASS universal · model narrative recommendation duplication **OPEN reserve** · digest MATCH ≠ semantic exhaustiveness · CURRENT ON MAIN ≠ BEHAVIOR PROVEN GLOBAL |
 
 
-**GI-AKG-M5-A+B+D-01 — Positive Product Admission A+B+D + CORR-CI-632 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01):**
+**GI-AKG-M5-A+B+D-01 — Positive Product Admission A+B+D + CORR-CI-632 (CURRENT ON MAIN — PR #632 MERGED — 2026-11-01):**
 
 | Epistemic class | Element |
 |---|---|
-| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | [PR #632](https://github.com/mcleland147/sfia-workspace/pull/632) **OPEN** · Product corrective `1b8de9b02f1cbc1d3163f44c34cb9ebe0bd91707` (delivery base `a55181c6…`) · branch `feat/akg-m5-lumen-cog-prepare-corr-01` · R24 consolidated **atomically into #632** (PR #633 Draft **SUPERSEDED** when closed) · **≠ CURRENT ON MAIN** until merge + post-merge truth-sync |
-| **Product facts (candidate)** | Cognitive Fidelity A · TEST-15 citation/refuse ≠ consent · Option B/Slice D positive admission (E-OFFER-ACCEPT / E-EXPLICIT-PREPARE) shared F1/F2 · R1 model candidate ≠ consent · R2 CURRENT offer fingerprint bind · R3 anti-doublon + file-token scopeIn (directory-only only with explicit write; no narrative/URL/A/B WRITE invent) · CORR-CI-632: pathless/undeclared mutation → `executionIntent=null` (historical documentary materiality) |
+| **CURRENT ON MAIN** | [PR #632](https://github.com/mcleland147/sfia-workspace/pull/632) **MERGED** `2026-11-01T00:41:29Z` · merge **`32207a38313cdfc49b437027ed183b2302e613c1`** · parents **`7dd49ecd…`** + **`4d69b4da…`** · source `feat/akg-m5-lumen-cog-prepare-corr-01` · **4 commits** preserved: `a55181c6` (A+B+D delivery) · `1b8de9b0` (CORR-CI-632 Product) · `1325d120` (R24 atomic) · `4d69b4da` (whitespace/digests) · Pre-merge CI [#41255263412](https://github.com/mcleland147/sfia-workspace/actions/runs/41255263412) **SUCCESS** · Post-merge CI [#41257851718](https://github.com/mcleland147/sfia-workspace/actions/runs/41257851718) **SUCCESS** · Required Gate **PASS** · [PR #633](https://github.com/mcleland147/sfia-workspace/pull/633) **CLOSED / UNMERGED / SUPERSEDED** |
+| **HISTORICAL AS CANDIDATE** | Pre-merge overlay « AS-IMPLEMENTED ON PRODUCT PR CANDIDATE / ≠ CURRENT ON MAIN » (true at CORR-CI-632 authoring before #632 merge) |
+| **Product facts ON MAIN** | Cognitive Fidelity A · TEST-15 citation/refuse ≠ consent · Option B/Slice D positive admission (E-OFFER-ACCEPT / E-EXPLICIT-PREPARE) shared F1/F2 · R1 model candidate ≠ consent · R2 CURRENT offer fingerprint bind · R3 anti-doublon + file-token scopeIn (directory-only only with explicit write; no narrative/URL/A/B WRITE invent) · CORR-CI-632: pathless/undeclared mutation → `executionIntent=null` |
 | **SHE** | PREPARE → INSPECT → Exécuter **PRESERVED** · no HD-before-PREPARE regression · PREPARE ≠ Attempt/Authorization |
-| **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** — CORR-CI-632 target suites PASS · OpenAI LIVE / Cursor REAL **NOT EXERCISED** · G-REAL **NOT GRANTED** · GitHub Required Gate status resolved from CI on candidate HEAD |
+| **Proof ceiling** | **DETERMINISTIC AT TESTED SCOPE** · OpenAI LIVE / Cursor REAL **NOT EXERCISED** · G-REAL **NOT GRANTED** · merge Git ≠ Studio REAL BOUNDARY PROVEN |
 | **Reserves (ACCEPT/DEFER)** | E-EXPLICIT lexical conservative · offer process-local · no durable admissionKind · dedup ≠ universal exactly-once · same-turn dual F1+F2 prepare unreachable |
-| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 CLOSED · ≠ runtime v3 ADOPTED · ≠ LIVE PASS · digest MATCH ≠ semantic exhaustiveness · CI PASS ≠ Studio REAL BOUNDARY PROVEN |
+| **Anti-claims** | ≠ L3-S2 COMPLETE · ≠ L3 GLOBAL CLOSED · ≠ runtime v3 ADOPTED · ≠ LIVE PASS · ≠ G-REAL · digest MATCH ≠ semantic exhaustiveness · CURRENT ON MAIN ≠ BEHAVIOR PROVEN GLOBAL |
 
-Volumes touched by this R24 candidate: **03 / 06 / 07 / 08 / 09** + README + manifest digests. Documentary layer lives on Product PR #632 (atomic Product+R24). Status remains **candidate** until Product merge + post-merge truth-sync.
+Volumes: **03 / 06 / 07 / 08 / 09** + README + manifest. Post-merge documentary truth-sync (this overlay) is lifecycle-only — **NO PRODUCT SEMANTIC IMPACT**.
 
 **Nora Adaptive Presentation Option C / AKG-M5 L3-S2 — BASELINE PRODUCT ON MAIN (PR #628 MERGED — 2026-10-30) — HISTORICAL AS TIP under GI-NAP #630 CURRENT:**
 

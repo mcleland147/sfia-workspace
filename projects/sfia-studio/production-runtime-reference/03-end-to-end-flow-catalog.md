@@ -197,9 +197,9 @@ Descriptive Product routing map for the same conversational front door. **Does n
 
 
 
-## Overlay — GI-AKG-M5-A+B+D-01 Positive Product Admission (F04/F08 — AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+## Overlay — GI-AKG-M5-A+B+D-01 Positive Product Admission (F04/F08 — CURRENT ON MAIN — PR #632 MERGED — 2026-11-01)
 
-> **Epistemic class:** AS-IMPLEMENTED ON PRODUCT PR [#632](https://github.com/mcleland147/sfia-workspace/pull/632) Product corrective `1b8de9b02f1cbc1d3163f44c34cb9ebe0bd91707` (CORR-CI-632; delivery base `a55181c6…`) · R24 atomic in #632 · **≠ CURRENT ON MAIN** · DET proven · LIVE/REAL **NOT EXERCISED**.
+> **Epistemic class:** **CURRENT ON MAIN** via [PR #632](https://github.com/mcleland147/sfia-workspace/pull/632) **MERGED** `2026-11-01T00:41:29Z` · merge **`32207a38313cdfc49b437027ed183b2302e613c1`** · Product tip `4d69b4da…` (CORR-CI-632 corrective `1b8de9b0…` · delivery `a55181c6…`) · DET proven · LIVE/REAL **NOT EXERCISED**. **HISTORICAL CANDIDATE** wording (« AS-IMPLEMENTED ON PRODUCT PR CANDIDATE / ≠ CURRENT ON MAIN ») preserved as pre-merge authoring state.
 
 ### Dual entry → one Product gate
 
