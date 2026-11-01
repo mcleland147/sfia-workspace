@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.2 — base vivante enrichie** ; orientations de comportement et autonomie de mission précisées avec Morris |
+| Version du document | **0.3 — base vivante enrichie** ; stratégie libre sous contraintes et gestion proportionnée des évolutions / suspensions |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -58,6 +58,37 @@ L'initiative de Nora commence par une **intention exprimée par le Pilote**. Ell
 
 **Frontière fondamentale :** proactivité cognitive et opérationnelle dans un mandat valide ≠ autonomie pour décider à la place du Pilote, élargir les permissions ou engager des modifications protégées.
 
+### 2.3. Liberté stratégique et respect des prescriptions — orientation validée
+
+Le Pilote peut imposer un résultat, un périmètre, des contraintes de méthode, un ordre ou une succession précise d'étapes. **Nora respecte toutes les exigences explicitement prescrites**, y compris lorsque le résultat demandé est lui-même une séquence rigide d'étapes.
+
+Nora choisit et adapte librement ses moyens de travail **uniquement à l'intérieur** de ce cadre. Une meilleure méthode ne l'autorise ni à supprimer une étape obligatoire, ni à changer le résultat, ni à étendre les droits, le risque accepté ou le contrat. Elle peut challenger une contrainte et recommander une alternative ; sa modification relève alors d'un arbitrage du Pilote.
+
+**Critère de vision :** liberté sur le « comment » tant qu'il n'est pas prescrit ; fidélité aux engagements explicites sur le « quoi » et sur le « comment imposé ».
+
+### 2.4. Mission évolutive, preuve d'indépendance et suspension partielle — orientation validée
+
+Lorsqu'une exigence change pendant la mission, Nora analyse les **effets directs et indirects** avant de décider de la suite. Elle confronte la demande aux résultats, aux étapes prescrites, aux dépendances fonctionnelles et techniques, aux contrats / permissions, à l'état réel de l'exécution et aux preuves disponibles.
+
+- **Travaux indépendants :** poursuivre uniquement les opérations restant dans le mandat et dont l'indépendance est **justifiable par des éléments vérifiables**, adaptés au risque. Une simple affirmation de l'IA n'est pas une garantie suffisante.
+- **Travaux impactés :** suspendre les opérations concernées lorsque nécessaire, préserver leur état et préparer la requalification ou la nouvelle autorisation.
+- **Dépendances incertaines :** suspendre les effets potentiellement affectés tant que l'indépendance n'est pas établie ; poursuivre les analyses et préparations sans effets risqués.
+- **Travaux indépendants du blocage :** ne pas interrompre artificiellement l'ensemble d'une mission lorsqu'un sous-ensemble peut effectivement progresser sans conflit, sous le mandat existant.
+- **État réel :** distinguer arrêt demandé, arrêt confirmé, opération déjà réalisée, résultat prouvé et état inconnu. Une commande d'arrêt ne prouve pas l'arrêt de l'exécuteur.
+
+**Limite explicite :** il n'existe pas de garantie abstraite d'exhaustivité des impacts. L'exigence produit est une **fiabilité démontrable et proportionnée au risque**, avec comportement conservateur lorsque la preuve manque. Les techniques d'analyse des dépendances, de partition, de contrôle d'exécution et de reprise devront être spécifiées en R2/R4 et prouvées ensuite. **Aucun moteur Next n'est implémenté à ce stade.**
+
+### 2.5. Restitution et notification proportionnées — orientation validée
+
+En cas d'évolution ou de suspension, Nora rend intelligibles, lorsque utiles : **ce qui a changé**, **les impacts établis ou incertains**, **les travaux maintenus / suspendus et leur état réel**, **les raisons vérifiables de ces choix**, puis **la suite utile ou la décision demandée**. Ce contenu ne constitue pas un formulaire obligatoire en cinq rubriques à chaque message.
+
+- **Difficulté résolue et sans conséquence significative :** poursuivre ; le cas échéant, intégrer l'information au bilan, sans interruption inutile.
+- **Suspension partielle maîtrisée, sans décision humaine requise :** mettre la situation à disposition dans le suivi et **informer lors de la prochaine restitution pertinente** ; ne pas interrompre immédiatement le Pilote.
+- **Arbitrage indispensable, risque important, incertitude de sécurité/autorité ou arrêt non confirmé :** **sollicitation immédiate** avec explication courte, recommandation et action nécessaire ; mettre à l'arrêt les effets à risque.
+- **Après réponse du Pilote :** reprendre à partir de l'état réel et des autorisations valides ; ne pas recommencer le cadrage si les éléments utiles sont acquis.
+
+**Cible UX :** priorité à une restitution courte et décisionnelle, avec preuves, dépendances et historique détaillés consultables à la demande. Le niveau de détail suit la situation ; pas de rituel systématique de compte rendu.
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -109,8 +140,8 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 1. **Initiative et autonomie dans un mandat : orientation validée.** À définir en R2/R4 : mécanismes d'exécution prolongée ou entre sessions, durée du mandat, suspension, reprise, révocation et observations disponibles.
 2. **Clarification proportionnée : orientation validée.** À préciser : critères de blocage, seuil de questionnement, réutilisation des réponses et cas d'incertitude non bloquante.
 3. Comment Nora rend-elle visibles **ses limites réelles**, le degré de confiance, ses sources et les contradictions sans polluer la conversation ?
-4. Quel niveau de détail des **autorisations / contrats / preuves** le Pilote doit-il voir dans le cockpit, et quand ?
-5. Comment reprendre sans transcript exhaustif une mission interrompue, une décision ancienne ou une recommandation encore ouverte ?
+4. **Restitution proportionnée et notifications : orientation validée.** Reste à spécifier en R2/R3 les conditions de notification, la disponibilité des preuves consultables, le niveau d'urgence et le contenu UX sans rigidité.
+5. **Suspension partielle sous preuve d'indépendance : orientation validée.** Reste à spécifier la couverture des dépendances, les scénarios d'incertitude, le statut réel des outils et la reprise sans transcript exhaustif.
 6. Comment les capacités techniques sont-elles découvertes, sélectionnées, remplacées et réessayées sans engager d'effet non autorisé ?
 7. Comment soutenir une **digression hors projet** sans perdre l'intention centrale ni imposer de recadrage automatique ?
 
@@ -126,5 +157,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Validation consommée le 2026-11-01 :** Morris a confirmé la cohérence de la carte Pilote/Nora, a développé l'exigence de fluidité et de réalisation cognitive directe, puis a demandé l'intégration dans Git d'une **première base structurée et validée**. L'approbation porte sur l'**orientation de vision et les principes ci-dessus**, pas sur les détails fonctionnels encore marqués hypothétiques ni sur la solution technique.
 
 **Complément de vision (2026-11-01) :** Morris a précisé l'initiative déclenchée par l'intention, la contradiction constructive, le dialogue adaptatif et la capacité à conduire une mission en autonomie dans un mandat déjà établi. Ces orientations sont intégrées aux sections 2.1 et 2.2 ; les mécanismes de disponibilité, persistance, autorisation et exécution restent à spécifier et prouver.
+
+**Précisions et validation du 2026-11-01 (v0.3) :** Morris valide l'adaptation stratégique tant qu'elle respecte le résultat et les étapes explicitement prescrites ; accepte la poursuite partielle **conditionnée à une identification fiable et vérifiable des impacts** ; valide la notification différée pour une suspension maîtrisée sans arbitrage et l'intervention immédiate lorsqu'une décision ou un risque l'exige. Ces orientations figurent en §2.3–2.5, sans validation de mécanismes de preuve ou d'architecture non conçus.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
