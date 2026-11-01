@@ -219,13 +219,17 @@ Morris valide le profil si **Critical** ou changement de doctrine.
 - merge et clôture structurante ;
 - dette méthode ou projet importante.
 
-#### 4.3.0a SFIA STUDIO CONVERGENCE PRE-CHECK
+#### 4.3.0a SFIA STUDIO CONVERGENCE PRE-CHECK — HISTORICAL PRODUCT SCOPE
+
+> **Désambiguïsation 2026-11-01 / R0-B :** la présente section gouverne exclusivement les travaux du Studio historique sous `projects/sfia-studio/`. **Elle ne gouverne pas SFIA Studio Next** sous `projects/sfia-studio-next/`, qui relève du pré-check §4.3.0b. Le pré-check Next est choisi **en premier par le périmètre explicite du chantier et le chemin Git**, avant tout routage de sources. Les études Next peuvent consulter l'historique, sans activer automatiquement le pre-check historique.
+
+
 
 > **Portée :** uniquement les travaux dont l’objet est la **construction ou l’évolution de SFIA Studio**.
 > **Ne s’applique pas** aux autres projets SFIA sans rapport avec la construction de SFIA Studio.
 > **Ne transforme pas** le routing générique SFIA en processus exclusif Studio.
 
-**Trigger = oui** si la demande concerne analyse, cadrage, roadmap, architecture, conception, delivery, validation, PR readiness, post-merge, capitalisation, prompt Cursor, évolution méthode/template ou évolution runtime **de SFIA Studio**.
+**Trigger = oui** si la demande concerne analyse, cadrage, roadmap, architecture, conception, delivery, validation, PR readiness, post-merge, capitalisation, prompt Cursor, évolution méthode/template ou évolution runtime **de SFIA Studio historique** (scope `projects/sfia-studio/`). Pour Next, appliquer exclusivement §4.3.0b, sauf étude explicite du fonctionnement historique.
 
 **Sources obligatoires supplémentaires (ordre) :**
 
@@ -281,6 +285,44 @@ STOP — ARCHITECTURE CONTEXT NOT LOADED
 
 > Règle v2.4 : *réserver Morris aux arbitrages structurants — pas à chaque micro-alignement.*
 > Les gates Morris existants (promotion, REAL, suppression structurante, Git Integration) sont **préservés**.
+
+#### 4.3.0b SFIA STUDIO NEXT — CONSTRUCTION PRE-CHECK (R0-B, SCOPED)
+
+> **Nature :** extension de routage du **processus externe SFIA v2.6** ; n'adopte pas de nouveau template, ne transforme pas SEF en doctrine runtime et ne remplace pas la section historique §4.3.0a. **Source de décision :** GO Morris R0-B du 2026-11-01 ; SEF v0.2 validé. **État Git :** document candidat sur branche R0-B jusqu'à intégration autorisée sur `main`.
+
+**Déclenchement / priorité :** pour tout travail explicitement rattaché à **SFIA Studio Next** ou dont les fichiers cibles sont sous `projects/sfia-studio-next/`, choisir le **routage Next avant le routage historique**. La référence à l'ancien Studio comme source de capitalisation n'active pas à elle seule §4.3.0a. En cas de périmètre mixte, qualifier les deux séparément et soumettre tout changement historique ou partagé à son gate Morris spécifique.
+
+**Sources Next obligatoires (routage adapté au risque, pas lecture intégrale systématique) :**
+
+1. **Git Truth** : dépôt `mcleland147/sfia-workspace`, branche/HEAD/base, décision Morris, scope fichiers ; signaler tout état local non observé.
+2. **Construction Operating Model :** `projects/sfia-studio-next/governance/SEF.md` (v0.2 validé Morris).
+3. **Roadmap Next :** `projects/sfia-studio-next/governance/roadmap.md` (état/macro-lot/capacité suivante/exit proof/gates).
+4. **Décisions :** `projects/sfia-studio-next/governance/decisions/` (décisions applicables au lot).
+5. **Vision / cadrage :** `projects/sfia-studio-next/cadrage/vision-cible/README.md` et **trois schémas sources** quand le cycle concerne le besoin, le parcours, l'UX ou la conception ; regarder l'image réellement disponible, ne pas inventer son contenu.
+6. **Produit :** doctrine SFIA Studio v3 applicable `projects/sfia-studio/sfia-v3-framing/30–37` conservée comme **source doctrinale produit validée**, en attente d'éventuel transfert/versionnement gouverné ; **ne pas** importer automatiquement la Build Doctrine, la Roadmap historique ou l'ancien PRR comme gouvernance Next.
+7. **Nomenclature :** `projects/sfia-studio-next/governance/product-naming-conventions.md` si un travail nomme des capacités/composants/API ; document **CANDIDATE** tant que Morris n'a pas validé sa règle détaillée.
+8. **Fonctionnement/architecture :** source architecturale **Next** pertinente et Git/code/preuves **Next** lorsqu'ils existeront ; en R0 sans runtime Next : **N/A justifié — aucun comportement Next implémenté**, pas de faux CURRENT.
+9. **Capitalisation historique conditionnelle :** code Git historique + PRR README/volumes applicables si et seulement si le lot étudie une capacité ou un comportement historique. Dans ce cas appliquer les vérifications R23/R24 de l'ancien système sur l'objet étudié, et qualifier DOCUMENTED / COVERAGE VERIFIED / BEHAVIOR PROVEN / KNOWN GAP. L'ancien code n'est jamais une dépendance cible par défaut.
+10. **Processus d'exécution :** guide présent + `prompts/templates/sfia-cycle-execution-template.md` v2.6 + profils, review pack/handoff, gates et limitations Git applicables.
+
+**Contrat de qualification Next avant prompt Cursor ou recommandation structurante :** périmètre exact ; type et profil de cycle ; **macro-lot/capacité et résultat utilisateur attendu** ; documents lus et leurs refs ; responsabilités, contrats et impacts ; actifs capitalisés/écarts ; dépendances et chemin critique ; exit proof ; dette/exit ; gate Morris ; prochaine capacité. Construire un **lot dense cohérent**, sans découper artificiellement code/tests/documentation ; paralléliser uniquement sur frontières spécifiées, revue intégrée et même résultat utilisateur.
+
+**Gouvernance des écritures :** ChatGPT peut rédiger et intégrer directement des documents non structurants selon **SEF §10**, avec mandat Git et branche bornée ; aucun push/PR/merge/protected path/choix d'architecture structurant n'est implicite. Cursor reste l'exécutant technique sous template v2.6.
+
+**Arrêts Next :**
+
+```text
+Next identifié ET (SEF ou Roadmap Next non consultés
+  OU macro-lot/capacité et trajectoire non qualifiés
+  OU doctrine produit applicable ignorée
+  OU (fonctionnement Next concerné ET architecture Next existante non consultée, sans N/A justifié))
+→ PROMPT NOT GENERATED — SFIA STUDIO NEXT CONTEXT INCOMPLETE
+
+Intervention sur fonctionnement historique sans PRR applicable ni N/A justifié
+→ STOP — ARCHITECTURE CONTEXT NOT LOADED
+```
+
+La qualification d'un travail Next **ne remplace pas** le contrôle spécifique des fichiers partagés `method/`, `prompts/` ou de l'application historique. Les évolutions de ces chemins demandent un GO Morris explicite et des contrôles de non-régression du routage historique.
 
 #### 4.3.4 Séquence de routage cible v2.4
 
