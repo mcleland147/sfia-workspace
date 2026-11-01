@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.4 — base vivante enrichie** ; reprise sous autorité humaine, mémoire vivante transverse et formalisation proportionnée des décisions |
+| Version du document | **0.5 — base vivante enrichie** ; structuration hiérarchique autonome de la mémoire et vues distinctes Sujets / Réserves / Recommandations / Décisions |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -142,6 +142,39 @@ Elle doit notamment permettre de :
 
 **Sources historiques consultées pour capitalisation :** [JournalSurface](../../sfia-studio/app/features/pre-m6-product-ui/surfaces/JournalSurface.tsx), [cycleJournalTypes](../../sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalTypes.ts), [cycleJournalPrompt](../../sfia-studio/app/lib/nora-cognitive-runtime/cycleJournalPrompt.ts), [productSqliteSession](../../sfia-studio/app/lib/nora-cognitive-runtime/productSqliteSession.ts), [RecordHumanDecision](../../sfia-studio/app/lib/oa/decision/application/recordHumanDecision.ts). Ces sources **ne sont pas des dépendances obligatoires de Next**.
 
+### 2.10. Organisation autonome, hiérarchique et évolutive de la mémoire — orientation validée
+
+**Le Pilote valide une autonomie élevée de Nora dans l'entretien de la mémoire sémantique.** Nora doit pouvoir **identifier, créer, enrichir, renommer, déplacer, scinder, rapprocher, fusionner et reclasser** des sujets selon le développement naturel de la conversation, sans demander au Pilote d'administrer la mémoire ni obtenir une confirmation à chaque réorganisation. Le Pilote influe sur cette structure par ses échanges, arbitrages et rectifications, sans avoir à donner une consigne de classement.
+
+L'organisation cible doit concilier :
+- **Sujets et sous-sujets :** un thème général se développe progressivement en sous-sujets identifiables et consultables, plutôt que de devenir une fiche monolithique ; la profondeur et la granularité suivent les besoins réels, pas un quota de messages ni une taxonomie prédéfinie.
+- **Émergence progressive :** le premier sujet peut exister sans sous-section. Un axe approfondi peut devenir une entrée autonome dès que son intérêt est clair, ou être détaché plus tard quand plusieurs thèmes se différencient. Nora ne doit pas deviner une structure définitive dès le premier échange.
+- **Identité préservée :** la signification, l'historique et les références d'un sujet ne changent pas du seul fait de son renommage ou déplacement. Les fusions/scissions conservent leurs origines ; les liens entre sujets évitent la duplication et la perte de contexte.
+- **Hiérarchie et relations transverses :** chaque sujet peut être présenté sous un parent pertinent et relié à d'autres thèmes, décisions ou recommandations concernés, y compris au-delà d'une branche, mission, conversation ou cycle.
+- **Reclassement conservateur :** Nora peut ajuster une organisation provisoire si les échanges montrent une nouvelle frontière, sans transformer ses hypothèses de classement en faits certains ; elle garde les sources et explicite les incertitudes utiles.
+- **Restitution et récupération ciblées :** le Pilote explore du général vers le détail ; Nora retrouve rapidement le bon sujet et les informations applicables sans recharger systématiquement l'ensemble des conversations. Les parents synthétisent, ils ne recopient pas intégralement chaque enfant.
+
+**Invariant : réorganiser la connaissance n'est pas réécrire l'autorité.** Une opération sémantique (déplacement, fusion, scission, renommage) n'altère **ni le contenu ni la validité, la portée, l'auteur ou le statut** d'une décision humaine, d'une autorisation ou d'une réserve. Une recommandation ne devient pas une décision par changement de classement. L'historique et la provenance doivent rester accessibles.
+
+**Conséquence produit : la classification et la recherche sont deux exigences distinctes à qualifier ensemble.** Une bonne arborescence ne garantit pas une bonne récupération ; la structuration automatique a elle-même un coût de calcul. Les performances, la justesse de récupération et le coût total doivent être éprouvés avec des échanges longs, plusieurs sessions et des réorganisations multiples. **La solution technique, la structure de données et les algorithmes restent ouverts en R2/R4.**
+
+### 2.11. Quatre vues complémentaires du journal — intention produit validée
+
+Le Pilote souhaite **préserver la distinction fonctionnelle** du journal historique entre **Sujets, Réserves, Recommandations et Décisions**, car ces éléments peuvent être liés sans posséder la même identité, le même statut ou la même durée de vie.
+
+| Vue de consultation | Rôle attendu dans la mémoire |
+| --- | --- |
+| **Sujets** | Arborescence vivante des thèmes, sous-sujets, synthèses courantes, **points clarifiés / stabilisés**, **points ouverts**, questions encore à résoudre et échanges d'origine. |
+| **Réserves** | Incertitudes, contradictions, risques ou conditions restant à lever, reliés aux thèmes concernés ; leur statut ne découle pas mécaniquement du classement du sujet. |
+| **Recommandations** | Propositions de Nora, arguments, suites possibles et situation actuelle ; elles restent distinctes des décisions humaines et peuvent concerner plusieurs sujets. |
+| **Décisions** | Arbitrages **effectivement exprimés par le Pilote**, avec portée, provenance et état applicables ; consultables indépendamment des changements de place ou de structure des sujets auxquels ils se rapportent. |
+
+Ces quatre vues doivent être **liées et contextualisées**, pas transformées par défaut en quatre moteurs, stores, tables ou parcours de validation concurrents. Une décision peut être associée à un sujet, **sans dépendre du sujet pour exister ni pour conserver son autorité**. Déplacer ou fusionner le sujet n'altère pas la décision : seul un acte humain applicable peut la remplacer, modifier ou révoquer conformément à ses règles.
+
+Le **journal** est une présentation intelligible de connaissances et d'objets de gouvernance issus de leurs responsabilités respectives, **pas une source d'autorité supplémentaire**. Cette distinction conserve la valeur des quatre onglets historiques, tout en visant une expérience conversationnelle centrale et une gouvernance proportionnée.
+
+**Périmètre d'arbitrage :** Morris valide la logique des **quatre familles et de leurs liens**, ainsi que l'autonomie de Nora pour organiser la mémoire. Les intitulés définitifs, vues UX, modalités d'indexation, de versionnement, de consultation et de preuve des liens, ainsi que la séparation technique éventuelle, **ne sont pas spécifiés ni adoptés** à ce stade.
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -199,6 +232,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 7. Comment soutenir une **digression hors projet** sans perdre l'intention centrale ni imposer de recadrage automatique ?
 8. **Mémoire vivante transverse : intention validée.** À préciser en R1/R2 : seuil de pertinence, reconnaissance de décision, vérification de provenance, évolution/supersession, recherche contextuelle, confidentialité, reprise inter-sessions et visibilité au Pilote.
 9. **Distinction conversation / autorité : orientation validée.** À concevoir et prouver : quand un échange devient une décision durable ou un acte d'autorité effectif, comment éviter confirmations redondantes et droits implicites, et comment établir les contrôles proportionnés.
+10. **Hiérarchisation autonome et quatre vues : orientation validée.** À concevoir/tester : seuils d'émergence d'un sous-sujet, scission/fusion/déplacement, traçabilité et identité indépendantes du classement ; relations entre Sujets, Réserves, Recommandations et Décisions, récupération pertinente, coût et preuves de non-altération des décisions.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -216,5 +250,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Précisions et validation du 2026-11-01 (v0.3) :** Morris valide l'adaptation stratégique tant qu'elle respecte le résultat et les étapes explicitement prescrites ; accepte la poursuite partielle **conditionnée à une identification fiable et vérifiable des impacts** ; valide la notification différée pour une suspension maîtrisée sans arbitrage et l'intervention immédiate lorsqu'une décision ou un risque l'exige. Ces orientations figurent en §2.3–2.5, sans validation de mécanismes de preuve ou d'architecture non conçus.
 
 **Précisions et validation du 2026-11-01 (v0.4) :** Morris confirme l'interdiction de lever automatiquement une suspension explicitement décidée par le Pilote ; valide la distinction entre **reconnaissance conversationnelle d'une décision** et **formalisation proportionnée à ses effets** ; confirme l'objectif historique d'une **mémoire vivante de projet**, transverse, évolutive et exploitable par le Pilote comme par Nora. Les §§2.6–2.8 portent ces orientations. Les choix de modèles, persistance, extraction et mécanismes d'autorité restent ouverts ; §2.9 capitalise les observations historiques et hypothèses sans les transformer en décisions techniques.
+
+**Précisions et validation du 2026-11-01 (v0.5) :** Morris confirme l'autonomie de Nora dans la **création et la réorganisation hiérarchique de sujets et sous-sujets**, une mémoire pouvant évoluer et être restructurée au fil de la conversation, et la **conservation des quatre familles du journal** — Sujets, Réserves, Recommandations et Décisions — avec des relations explicites et sans soumission du cycle de vie d'une décision au classement d'un sujet. Les §§2.10–2.11 matérialisent cette orientation produit ; la classification, les vues, les contrats et les contrôles restent à concevoir et prouver.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
