@@ -19,7 +19,7 @@
 | `governance/roadmap.md` | État vivant du programme : R0-B clos, R1 en cadrage vision sur branche candidate, réserves et gates |
 | `governance/decisions/` | Décisions humaines, portée et réserves |
 | `governance/product-naming-conventions.md` | Convention de nommage orientée produit — **VALIDATED BY MORRIS 2026-11-01** |
-| `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.1**, principes validés Morris et questions encore ouvertes (document vivant sur branche candidate) |
+| `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.2**, principes validés Morris et questions encore ouvertes (document vivant sur branche candidate) |
 | `cadrage/vision-cible/README.md` | Trois schémas de vision fondateurs et PNG originaux intégrés sur `main` (R0-B) |
 | `governance/chatgpt-project-instructions-next.md` | Version Next-only validée, publiée sur `main` ; application effective aux réglages ChatGPT non observée |
 | `conception-fonctionnelle/` | Exigences, règles et contrats fonctionnels (futurs R2) |
