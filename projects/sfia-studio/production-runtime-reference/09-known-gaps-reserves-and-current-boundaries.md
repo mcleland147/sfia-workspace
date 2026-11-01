@@ -613,7 +613,7 @@ E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FO
 
 **Anti-claims:** CORR-01 authoring ≠ Critical Re-Review APPROVED ≠ Digest Sync AUTHORIZED ≠ GLOBAL CONFORMANCE PASS ≠ project Git integrated ≠ AKG-M3 CLOSED ≠ P6/v3/REAL.
 
-## Overlay — GI-AKG-M5-A+B+D-01 known gaps (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+## Overlay — GI-AKG-M5-A+B+D-01 known gaps (CURRENT ON MAIN — PR #632 MERGED — 2026-11-01)
 
 | Reserve | Class | Disposition |
 |---|---|---|
@@ -626,4 +626,4 @@ E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FO
 | L3-S2 | OPEN | No auto-close |
 | Runtime v3 | NON ADOPTED | — |
 
-Product PR #632 corrective candidate `1b8de9b0…` (CORR-CI-632; delivery base `a55181c6…`). R24 documentary layer is **consolidated atomically into #632**; stacked Draft PR #633 is **SUPERSEDED** when closed without merge after verified reuptake.
+**CURRENT ON MAIN** via PR #632 merge `32207a38…` · Product corrective `1b8de9b0…` · R24 atomic in #632 · [PR #633](https://github.com/mcleland147/sfia-workspace/pull/633) **CLOSED / UNMERGED / SUPERSEDED**. Pre-merge candidate wording = **HISTORICAL**. **≠ L3-S2 COMPLETE**.

@@ -210,7 +210,7 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 
 **≠** invent recovery E2E beyond DET proofs.
 
-## Overlay — GI-AKG-M5-A+B+D-01 pending offer / admission (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+## Overlay — GI-AKG-M5-A+B+D-01 pending offer / admission (CURRENT ON MAIN — PR #632 MERGED — 2026-11-01)
 
 | Artefact | Persistence | Restart behaviour |
 |---|---|---|

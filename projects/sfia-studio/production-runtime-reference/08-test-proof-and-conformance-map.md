@@ -278,7 +278,7 @@ Do **not** conflate Generic PREPARE eligibility with Artifact continuation. DETE
 
 Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/studio` remount · ≠ live Pilot HD · ≠ EP-S2-08 PASS · ≠ REAL · ≠ Final Critical Readiness exit · jsdom ≠ browser.
 
-## Overlay — GI-AKG-M5-A+B+D-01 proof map (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — NOT YET CURRENT ON MAIN — 2026-11-01)
+## Overlay — GI-AKG-M5-A+B+D-01 proof map (CURRENT ON MAIN — PR #632 MERGED — 2026-11-01)
 
 | Flow / concern | Test path | Level |
 |---|---|---|
@@ -292,4 +292,4 @@ Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/st
 | Inspection Confirm/Select binding (CORR-CI-632) | `p6.inspectionBindingSelect.d0.test.ts` | DETERMINISTIC |
 | PRR digests (CORR-CI-632 F1) | `architecture/productionRuntimeReference.conformance.d0.test.ts` | DETERMINISTIC |
 
-**Campaign QA (CORR-CI-632):** target suites PASS locally · OpenAI LIVE NOT EXERCISED · Cursor REAL NOT EXERCISED · G-REAL NOT GRANTED · GitHub Required Gate resolved from CI on atomic Product+R24 HEAD.
+**Campaign QA (CORR-CI-632 / post-merge):** Pre-merge Vitest **6347 PASS / 0 FAIL / 142 SKIP** · Pre-merge Required Gate [#41255263412](https://github.com/mcleland147/sfia-workspace/actions/runs/41255263412) **SUCCESS** @ `4d69b4da` · Post-merge CI [#41257851718](https://github.com/mcleland147/sfia-workspace/actions/runs/41257851718) **SUCCESS** @ merge `32207a38` · Required Gate **PASS** · OpenAI LIVE NOT EXERCISED · Cursor REAL NOT EXERCISED · G-REAL NOT GRANTED.
