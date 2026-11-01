@@ -1,696 +1,145 @@
-# GI-ORION-NORA-COHERENCE-CORR-01 — Review Pack FULL
+# SFIA STUDIO — FULL REVIEW PACK
+# GI-ORION-NORA-COHERENCE-CORR-01 / FINAL-REVIEW-CORR-635 / PR #635
 
-Timestamp: 2026-11-01T09:35:00Z (authoring)
-Cycle: GI-ORION-NORA-COHERENCE-CORR-01
-Mode: FULL mono-campaign
-Original corrective: ORION-NORA-COHERENCE-CORR-01
-Product QA campaign: AKG-M5-L3S2-FRESH-LIVE-QA-01
+## 1. Timestamp
+2026-11-01T11:10:00+01:00 (local generation during CI poll)
 
-## GO Morris (exact)
+## 2. GO Morris exact
+FINAL REVIEW CORRECTION — PR #635 — GO MORRIS — GRANTED
+Campaign: GI-ORION-NORA-COHERENCE-CORR-01 / FINAL-REVIEW-CORR-635
+ONE CURSOR CAMPAIGN · NO NEW PR · NO MERGE · NO NEW LIVE
 
-COMMIT PROJECT : AUTHORIZED
-PUSH PROJECT BRANCH : AUTHORIZED
-OPEN PRODUCT + R24 PR : AUTHORIZED
-SCOPED PRR R24 MODIFICATIONS : AUTHORIZED
-L3 REVIEW HANDOFF : AUTHORIZED
-MERGE : NOT AUTHORIZED
-BRANCH DELETION : NOT AUTHORIZED
-CURSOR REAL ACTIVATION : NOT AUTHORIZED
-G-REAL / V3 PROMOTION : NOT AUTHORIZED
+## 3. Git Truth initial
+- worktree: /Users/morris/Projects/sfia-workspace-feat-akg-m5-l3s2-orion-nora-coherence-corr-01
+- branch: feat/akg-m5-l3s2-orion-nora-coherence-corr-01
+- HEAD before correction: 9b51a51c107fc44f6c473e0e2e372f645ea212ca (= prior R24)
+- origin/main: cd2020c82ecdcdaa073debd6985ee9c113bfba3e
+- prior Product: 9bd22f875d01404989a03de5db2c96e396e6d89c
+- prior CI: 41293512880 SUCCESS (not reused for new HEAD)
+- dirty: .tmp-sfia-review/chatgpt-review.md only
 
-## 1–2. Initial / Final Git Truth
+## 4. Git Truth final
+- Product corrective: 998386023e05de338b6dd172671a4a1ac571144f
+- R24 corrective / remote HEAD: b0ce841367c441590ef1b6f0a41279e960401fbf
+- push FF: 9b51a51c..b0ce8413 origin/feat/akg-m5-l3s2-orion-nora-coherence-corr-01
+- PR: https://github.com/mcleland147/sfia-workspace/pull/635
 
-| Item | Value |
-|---|---|
-| Baseline main (start+final) | `cd2020c82ecdcdaa073debd6985ee9c113bfba3e` |
-| Branch | `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` |
-| Product commit (COMMIT 1) | `9bd22f875d01404989a03de5db2c96e396e6d89c` |
-| R24 commit (COMMIT 2) | `9b51a51c107fc44f6c473e0e2e372f645ea212ca` |
-| Final HEAD / remote tip | `9b51a51c107fc44f6c473e0e2e372f645ea212ca` |
-| Worktree | `/Users/morris/Projects/sfia-workspace-feat-akg-m5-l3s2-orion-nora-coherence-corr-01` |
-| Prior handoff tip (consumed) | `c4218edb` / blob `cdfcc8a3` |
-| Remote branch before push | absent → created FF |
-| Existing PR for branch | none → opened #635 |
+## 5. Convergence pre-check
+Read cycle template, routing guide, ChatGPT/Cursor operating model, Studio convergence doctrine/roadmap, product-completion cadrage, M5 trajectory requalification, Doctrine v3 §§33–35, PRR README/03/05/06/07/08/09 + manifest.
+Qualification: V3-F05 / L3-S2 OPEN. Source priority Git/code > decisions > PRR > handoff > assumptions. No new architectural reference.
 
-Verified: corrective commit exists locally; main unchanged; not already integrated; only `.tmp-sfia-review` dirty (not in PR).
+## 6. V3-F05 / L3-S2 trajectory
+Correction serves ORION QA-02 / R-LIVE-EMIT trajectory. Does **not** close L3-S2. G-REAL NOT GRANTED. Cursor REAL OFF. Runtime v3 NON ADOPTED.
 
-## 3. Convergence pre-check / V3-F05 / L3-S2
+## 7. R23 architecture
+Preserved: Product CURRENT recommendation identity; FramingContinuity catalog hydration; Conception≠Cadrage fallback; exploratoire Framing-only; NAP A1/B; true divergence fail-closed; Memory B persist/rehydrate; typed Studio notices; Recommendation≠HD; PREPARE≠EXECUTE; no silent START; no fabricated authority.
+Classes: DOCUMENTED · COVERAGE VERIFIED · BEHAVIOR PROVEN AT TESTED SCOPE · KNOWN GAP (browser UI NOT PROVEN; prior LIVE = historical only).
 
-Sources read: cycle execution template; routing guide; chatgpt-cursor operating model (PR readiness, Fake/Real, FULL pack, handoff); convergence doctrine/roadmap; product-completion cadrage; M5 trajectory requalification; PRR README/03/06/07/08/09 + manifest; doctrine 33/34/35; prior ORION handoff.
+## 8. Prior PR #635 HEAD
+9b51a51c107fc44f6c473e0e2e372f645ea212ca
 
-Trajectory: V3-F05; L3-S2 OPEN; supports QA-02 / R-LIVE-EMIT / EP-S2-08 / R-STOP-BROWSER / R-SRV-RESTART without closing them.
+## 9. Root risk A — content loss
+COGNITIVE_DISPOSITION_FOOTER_RE was over-broad: after a marker it consumed following lines until next marker/[Studio]. Mid-answer markers could erase ordinary métier paragraphs silently while still 'fixing' false ORION divergence.
 
-## 4. R23 architecture
+## 10. Reproduction and failing test
+Example: Texte principal + mid [CONTRADICTION CANDIDATE] + Paragraphe métier + Conclusion → old strip could return only Texte principal.
+Locked by A02/A06/A09 in orionNoraCoherenceCorr01.footerSafety.d0.test.ts (must fail on loss of one métier paragraph).
 
-Pilot → Nora structuredOutput → Product coherence → LifecycleRecommendation CURRENT → Memory B → FramingContinuity snapshot → ConversationSurface / FramingContinuityCard.
+## 11. Safe extraction correction
+TERMINAL_COGNITIVE_DISPOSITION_FOOTER_RE anchored at EOF; optional Evidence/Sources/Next/Suite continuations only; peel loop; fail-closed preserve otherwise.
 
-Coverage classification:
-- CURRENT identity / catalog label: **BEHAVIOR PROVEN AT TESTED SCOPE** (DET + LIVE seam)
-- candidate vs CURRENT: **COVERAGE VERIFIED**
-- narrative vs presentation / disposition footer: **BEHAVIOR PROVEN AT TESTED SCOPE**
-- typed Studio notices: **BEHAVIOR PROVEN AT TESTED SCOPE**
-- durable rehydrate: **COVERAGE VERIFIED** (DET); browser reload screenshot **KNOWN GAP**
-- CTA currentness: **COVERAGE VERIFIED**
-- INV-REC-NE-HD / no silent HD / no auto-START: **COVERAGE VERIFIED**
-- Cursor REAL OFF: **DOCUMENTED + OBSERVED**
+### COMPLETE DIFF — noraAdaptivePresentation.ts (footer section)
+commit 998386023e05de338b6dd172671a4a1ac571144f
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Sun Nov 1 11:06:32 2026 +0100
 
-## 5. Original ORION incident
+    fix(studio): prevent narrative loss and harden live QA harness
 
-Project ORION `prj:b0883ca8-2411-493d-94ff-e386d176956a`. CURRENT Rec `epi:lr:6b133252883a1013:20261101T073443162Z` → `cyc:functional-design`. Pilot asked Cadrage vs Conception; card showed Cadrage exploratoire; response dual+notice+`CONTRADICTION CANDIDATE`. HD=0. Historical seq 3 preserved after correction.
+    Bound disposition footer peel to trusted terminal Studio format so mid-answer
+    markers never erase métier content, and replace the unsafe ORION LIVE helper
+    with an explicit opt-in boundary that refuses authority/reset escalation.
 
-## 6. Root causes A/B (code-level)
+    Co-authored-by: Cursor <cursoragent@cursor.com>
 
-**A — Framing card:** `projectAssistantReadFramingContinuityAction` catalogLabel chain omitted CURRENT Rec; UI defaulted to Cadrage + exploratoire.
-
-**B — NAP:** empty narrative left contaminated `turn.text` with disposition footer; `buildDurableAssistantContentForTurn` false-divergent.
-
-## 7. Product implementation
-
-See complete patches below. Mechanisms reused: selectCurrentLifecycleRecommendations, CORR-A1B, NAP-SINGLE, FramingContinuity — no second recommendation store.
-
-## 8. Invariants preserved
-
-INV-REC-NE-HD; CURRENT from Product; prose ≠ CURRENT replace; disposition ≠ narrative; true divergence fail-closed; false divergence not manufactured; A1 full when admissible; no invent Cadrage; exploratoire Framing-only; no START from recommendation alone; Cursor REAL OFF.
-
-## 9–10. Complete Product modified patches + new files
-
-### name-status `origin/main...HEAD`
-
-A	projects/sfia-studio/app/__tests__/nora-cognitive-runtime/orionNoraCoherenceCorr01.d0.test.ts
-M	projects/sfia-studio/app/__tests__/pre-m6-product-ui/framingContinuityCard.ui.test.tsx
-A	projects/sfia-studio/app/__tests__/project-assistant/orionNoraCoherenceCorr01.live.test.ts
-M	projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/FramingContinuityCard.tsx
-M	projects/sfia-studio/app/features/project-assistant/f2/chatFirstFramingContinuity.ts
-M	projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-M	projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
-M	projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-A	projects/sfia-studio/app/scripts/orion-coherence-corr-01-live-proof.ts
-M	projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-M	projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-M	projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-M	projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-M	projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-M	projects/sfia-studio/production-runtime-reference/README.md
-M	projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-### Diffstat
- .../orionNoraCoherenceCorr01.d0.test.ts            | 314 +++++++++++++++++++++
- .../framingContinuityCard.ui.test.tsx              |  26 ++
- .../orionNoraCoherenceCorr01.live.test.ts          | 182 ++++++++++++
- .../surfaces/FramingContinuityCard.tsx             |  32 ++-
- .../f2/chatFirstFramingContinuity.ts               |  72 ++++-
- .../features/project-assistant/orchestrateTurn.ts  |  21 +-
- .../preCycleCandidateTrajectoryActions.ts          |  54 +++-
- .../noraAdaptivePresentation.ts                    |  56 +++-
- .../noraProductTurnOutputType.ts                   |   3 +
- .../scripts/orion-coherence-corr-01-live-proof.ts  | 186 ++++++++++++
- .../03-end-to-end-flow-catalog.md                  |  14 +
- .../06-persistence-restart-and-recovery.md         |  10 +
- .../07-authority-invariants-and-failure-modes.md   |  10 +
- .../08-test-proof-and-conformance-map.md           |  12 +
- ...9-known-gaps-reserves-and-current-boundaries.md |  14 +
- .../production-runtime-reference/README.md         |  12 +
- .../production-runtime-reference.manifest.json     |  18 +-
- 17 files changed, 1001 insertions(+), 35 deletions(-)
-### Complete useful Product MODIFIED patch (commit 9bd22f87)
-
-```diff
-diff --git a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/framingContinuityCard.ui.test.tsx b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/framingContinuityCard.ui.test.tsx
-index e93b4f93..02650761 100644
---- a/projects/sfia-studio/app/__tests__/pre-m6-product-ui/framingContinuityCard.ui.test.tsx
-+++ b/projects/sfia-studio/app/__tests__/pre-m6-product-ui/framingContinuityCard.ui.test.tsx
-@@ -55,6 +55,9 @@ describe("FramingContinuityCard", () => {
-     expect(screen.getByTestId("framing-continuity-authority").textContent).toMatch(
-       /Vous décidez/,
-     );
-+    expect(screen.getByTestId("framing-continuity-title").textContent).toBe(
-+      "Commencer par un « Cadrage » exploratoire",
-+    );
-     expect(
-       screen.getByTestId("framing-continuity-card").textContent,
-     ).not.toMatch(/HumanDecision|gate F01|Recommendation ≠/i);
-@@ -62,6 +65,29 @@ describe("FramingContinuityCard", () => {
-     expect(onPrepare).toHaveBeenCalledTimes(1);
-   });
-
-+  it("ORION — recommendation_ready for Conception does not invent Cadrage exploratoire", () => {
-+    render(
-+      <FramingContinuityCard
-+        continuity={snap({
-+          phase: "recommendation_ready",
-+          catalogLabel: "Conception fonctionnelle",
-+          targetCycleTypeId: "cyc:functional-design",
-+          message:
-+            "Je recommande de commencer par un « Conception fonctionnelle ». Vous pouvez préparer cette direction, puis la valider avant tout démarrage.",
-+        })}
-+        busy={false}
-+        error={null}
-+        onPrepareCandidate={vi.fn()}
-+        onApproveCandidate={vi.fn()}
-+        onPrepareCycle={vi.fn()}
-+        onStartPrepared={vi.fn()}
-+      />,
-+    );
-+    const title = screen.getByTestId("framing-continuity-title").textContent ?? "";
-+    expect(title).toBe("Commencer par un « Conception fonctionnelle »");
-+    expect(title).not.toMatch(/Cadrage|exploratoire/);
-+  });
-+
-   it("awaiting_trajectory_decision requires digest + examination; keep exploring is non-mutating", () => {
-     const onApprove = vi.fn();
-     const onKeep = vi.fn();
-diff --git a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/FramingContinuityCard.tsx b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/FramingContinuityCard.tsx
-index 93b8b3a1..f017a5d2 100644
---- a/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/FramingContinuityCard.tsx
-+++ b/projects/sfia-studio/app/features/pre-m6-product-ui/surfaces/FramingContinuityCard.tsx
-@@ -7,7 +7,10 @@
-  * Pilot-facing copy only — no internal governance jargon.
-  */
-
--import type { FramingContinuitySnapshot } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
-+import {
-+  framingContinuityRecommendationReadyTitle,
-+  type FramingContinuitySnapshot,
-+} from "@/features/project-assistant/f2/chatFirstFramingContinuity";
- import styles from "./GovernedDecisionCard.module.css";
-
- export type FramingContinuityCardProps = {
-@@ -31,7 +34,8 @@ export function FramingContinuityCard({
-   onStartPrepared,
-   onKeepExploring,
- }: FramingContinuityCardProps) {
--  const cycle = (continuity.catalogLabel ?? "").trim() || "Cadrage";
-+  const cycle = (continuity.catalogLabel ?? "").trim();
-+  const cyclePhrase = cycle ? `« ${cycle} »` : "ce cycle";
-   const phase = continuity.phase;
-   const examination = continuity.examination;
-
-@@ -46,19 +50,27 @@ export function FramingContinuityCard({
-
-   const title =
-     phase === "recommendation_ready"
--      ? `Commencer par un « ${cycle} » exploratoire`
-+      ? framingContinuityRecommendationReadyTitle({
-+          catalogLabel: continuity.catalogLabel,
-+          targetCycleTypeId: continuity.targetCycleTypeId,
-+        })
-       : phase === "awaiting_trajectory_decision"
--        ? `Examiner la trajectoire pour « ${cycle} »`
-+        ? `Examiner la trajectoire pour ${cyclePhrase}`
-         : phase === "trajectory_decided_prepare_cycle"
--          ? `Préparer le cycle « ${cycle} »`
-+          ? cycle
-+            ? `Préparer le cycle « ${cycle} »`
-+            : "Préparer le cycle"
-           : phase === "ready_to_start"
--            ? `Démarrer « ${cycle} »`
--            : continuity.message || `Continuer vers « ${cycle} »`;
-+            ? cycle
-+              ? `Démarrer « ${cycle} »`
-+              : "Démarrer le cycle"
-+            : continuity.message ||
-+              (cycle ? `Continuer vers « ${cycle} »` : "Continuer");
-
-   const optionBody =
-     phase === "awaiting_trajectory_decision"
-       ? continuity.approvalOptionLabel?.trim() ||
--        `Valider cette direction pour « ${cycle} ».`
-+        `Valider cette direction pour ${cyclePhrase}.`
-       : continuity.message;
-
-   const primaryLabel =
-@@ -77,7 +89,9 @@ export function FramingContinuityCard({
-           : phase === "ready_to_start"
-             ? busy
-               ? "Démarrage…"
--              : `Démarrer le ${cycle}`
-+              : cycle
-+                ? `Démarrer le ${cycle}`
-+                : "Démarrer le cycle"
-             : null;
-
-   const primaryDisabled =
-diff --git a/projects/sfia-studio/app/features/project-assistant/f2/chatFirstFramingContinuity.ts b/projects/sfia-studio/app/features/project-assistant/f2/chatFirstFramingContinuity.ts
-index f05a57dc..a3fb1100 100644
---- a/projects/sfia-studio/app/features/project-assistant/f2/chatFirstFramingContinuity.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/f2/chatFirstFramingContinuity.ts
-@@ -58,7 +58,10 @@ export type FramingContinuitySnapshot = {
- export function framingTrajectoryValidationImplications(
-   catalogLabel: string | null,
- ): string {
--  const cycle = (catalogLabel ?? "").trim() || "Cadrage";
-+  const cycle = (catalogLabel ?? "").trim();
-+  if (!cycle) {
-+    return `Valider enregistre votre décision sur cette trajectoire et permet de préparer le cycle. Cela ne démarre pas le cycle et n'exécute rien.`;
-+  }
-   return `Valider enregistre votre décision sur cette trajectoire pour « ${cycle} » et permet de préparer le cycle. Cela ne démarre pas le cycle et n'exécute rien.`;
- }
-
-@@ -144,24 +147,77 @@ export function buildFramingTrajectoryExamination(input: {
-   };
- }
-
-+/**
-+ * ORION-NORA-COHERENCE-CORR-01 — « exploratoire » only for Framing/Cadrage.
-+ * Never append it to Conception fonctionnelle or other catalog cycles.
-+ */
-+export function isFramingExploratoryCycleLabel(input: {
-+  readonly catalogLabel: string | null | undefined;
-+  readonly targetCycleTypeId?: string | null | undefined;
-+}): boolean {
-+  const typeId = (input.targetCycleTypeId ?? "").trim();
-+  if (typeId === "cyc:framing") return true;
-+  const label = normalizeCompare(input.catalogLabel ?? "");
-+  return label === "cadrage";
-+}
-+
-+/**
-+ * Pilot-facing recommendation_ready title — Product catalog label only.
-+ * Defaults to a neutral title when label is unknown (never invent « Cadrage »).
-+ */
-+export function framingContinuityRecommendationReadyTitle(input: {
-+  readonly catalogLabel: string | null | undefined;
-+  readonly targetCycleTypeId?: string | null | undefined;
-+}): string {
-+  const cycle = (input.catalogLabel ?? "").trim();
-+  if (!cycle) {
-+    return "Recommandation de prochain cycle disponible";
-+  }
-+  if (
-+    isFramingExploratoryCycleLabel({
-+      catalogLabel: cycle,
-+      targetCycleTypeId: input.targetCycleTypeId,
-+    })
-+  ) {
-+    return `Commencer par un « ${cycle} » exploratoire`;
-+  }
-+  return `Commencer par un « ${cycle} »`;
-+}
-+
- /** Pilot-facing copy — no internal governance jargon. */
- export function framingContinuityPilotMessage(
-   phase: FramingContinuityPhase,
-   catalogLabel: string | null,
-+  targetCycleTypeId?: string | null,
- ): string {
--  const cycle = (catalogLabel ?? "").trim() || "Cadrage";
-+  const cycle = (catalogLabel ?? "").trim();
-+  const cyclePhrase = cycle ? `« ${cycle} »` : "ce cycle";
-   switch (phase) {
--    case "recommendation_ready":
--      return `Je recommande de commencer par un « ${cycle} » exploratoire. Vous pouvez préparer cette direction, puis la valider avant tout démarrage.`;
-+    case "recommendation_ready": {
-+      if (!cycle) {
-+        return `Une recommandation Product de prochain cycle est disponible. Vous pouvez préparer cette direction, puis la valider avant tout démarrage.`;
-+      }
-+      const exploratory = isFramingExploratoryCycleLabel({
-+        catalogLabel: cycle,
-+        targetCycleTypeId,
-+      })
-+        ? " exploratoire"
-+        : "";
-+      return `Je recommande de commencer par un « ${cycle} »${exploratory}. Vous pouvez préparer cette direction, puis la valider avant tout démarrage.`;
-+    }
-     case "awaiting_trajectory_decision":
--      return `La trajectoire proposée pour « ${cycle} » est prête à examiner. Validez cette direction pour continuer — un simple « ok » ne suffit pas.`;
-+      return `La trajectoire proposée pour ${cyclePhrase} est prête à examiner. Validez cette direction pour continuer — un simple « ok » ne suffit pas.`;
-     case "trajectory_decided_prepare_cycle":
--      return `La direction pour « ${cycle} » est validée. Préparez le cycle, puis démarrez-le quand vous serez prêt.`;
-+      return `La direction pour ${cyclePhrase} est validée. Préparez le cycle, puis démarrez-le quand vous serez prêt.`;
-     case "ready_to_start":
--      return `Le cycle « ${cycle} » est prêt. Vous pouvez le démarrer dans la conversation.`;
-+      return cycle
-+        ? `Le cycle « ${cycle} » est prêt. Vous pouvez le démarrer dans la conversation.`
-+        : `Le cycle est prêt. Vous pouvez le démarrer dans la conversation.`;
-     case "active":
-       // UX-04 — pilot-facing; no technical cycle instance ids.
--      return `Le ${cycle} est maintenant actif.`;
-+      return cycle
-+        ? `Le ${cycle} est maintenant actif.`
-+        : `Le cycle est maintenant actif.`;
-     case "blocked_no_recommendation":
-       return `Aucune recommandation courante n'est disponible pour préparer le premier cycle. Reformulez avec Nora.`;
-     case "blocked_stale_or_incomplete":
-diff --git a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-index 028fd8de..ddfd8ec9 100644
---- a/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts
-@@ -49,6 +49,7 @@ import {
-   buildDurableAssistantContentForTurn,
-   normalizeStudioControlNotices,
-   serializeStudioControlNotices,
-+  NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE,
- } from "@/lib/nora-cognitive-runtime/noraProductTurnOutputType";
- import { materializeLifecycleRecommendationFromStructuredOutput } from "@/lib/oa/cycle/application/lifecycleRecommendation/materializeFromProductTurn";
- import { NORA_LIFECYCLE_RECOMMENDATION_ACTOR } from "@/lib/oa/cycle/application/lifecycleRecommendation/noraActor";
-@@ -860,9 +861,11 @@ export async function orchestrateProjectAssistantTurn(input: {
-         lifecycleRecommendationContinuity =
-           coherentEarly.lifecycleRecommendationContinuity;
-       }
--      if (coherentEarly?.narrative) {
-+      // ORION-NORA-COHERENCE-CORR-01 — prefer structured narrative even when empty
-+      // so turn.text contradiction footers do not contaminate NAP classification.
-+      if (coherentEarly && typeof coherentEarly.narrative === "string") {
-         assistantText = coherentEarly.narrative;
--      } else if (extracted.narrative) {
-+      } else if (typeof extracted.narrative === "string") {
-         assistantText = extracted.narrative;
-       }
-       // Positive enforcement: EMIT without LR, or EMIT+LR with incompatible
-@@ -1573,6 +1576,16 @@ export async function orchestrateProjectAssistantTurn(input: {
-     });
-     assistantText = durableBuilt.contentCore;
-
-+    // ORION-NORA-COHERENCE-CORR-01 — contradiction candidate stays observable as
-+    // typed Studio notice (Pilot-intelligible), never raw marker in métier body.
-+    const contradictionCandidateNotice =
-+      turn.contradictionDisposition?.disposition === "candidate" ||
-+      durableBuilt.strippedDispositionMarkers.some((m) =>
-+        /contradiction candidate/i.test(m),
-+      )
-+        ? NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE
-+        : null;
-+
-     // CORR-NAP-02 — typed Studio control notices (server provenance only).
-     // Mirrored into durable content for plain fallback; appendix trust uses
-     // the typed array, never forged "[Studio]" prose from Nora.
-@@ -1582,6 +1595,7 @@ export async function orchestrateProjectAssistantTurn(input: {
-         : null,
-       executionLimitReached ? EXECUTION_LIMIT_INCOMPLETE_PILOTE_NOTICE : null,
-       stopNotice,
-+      contradictionCandidateNotice,
-     ]);
-     assistantText = appendStudioControlNotices(
-       assistantText,
-@@ -1612,8 +1626,9 @@ export async function orchestrateProjectAssistantTurn(input: {
-             logicalTurnId,
-             cycleInstanceId: activeCycleIdForJournal,
-           });
-+          // Prefer durable A1 presentation (possibly folded continuation).
-           const adaptivePresentation =
--            coherentEarly?.presentation ?? null;
-+            durableBuilt.presentation ?? coherentEarly?.presentation ?? null;
-           const assistantTurn = appendPilotTranscriptTurn(session, {
-             role: "assistant",
-             content: assistantText,
-diff --git a/projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts b/projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts
-index bfe8860d..1f34e264 100644
---- a/projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts
-+++ b/projects/sfia-studio/app/features/project-assistant/preCycleCandidateTrajectoryActions.ts
-@@ -13,6 +13,7 @@ import {
-   readPreCycleCandidateTrajectory,
-   selectCurrentLifecycleRecommendations,
- } from "@/lib/oa/cycle";
-+import { getCycleTypeById } from "@/lib/oa/cycle/domain/cycleTypeCatalog";
- import type { LifecycleRecommendationMaterialDimension } from "@/lib/oa/cycle/application/lifecycleRecommendation/materialReaderContract";
- import type { CandidateTrajectoryProvenanceStatus } from "@/lib/oa/cycle/application/lifecycleRecommendation/candidateTrajectoryProvenance";
- import {
-@@ -141,6 +142,17 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
-   activeCycleInstanceId?: string | null;
-   /** Server-derived via selectCurrentLifecycleRecommendations (canonical basis). */
-   hasCurrentNextCycleRecommendation?: boolean;
-+  /**
-+   * ORION-NORA-COHERENCE-CORR-01 — Product CURRENT NEXT_CYCLE facts for
-+   * FramingContinuity when no candidate/approval presentation exists yet.
-+   * Never invents catalog labels; null when CURRENT is absent.
-+   */
-+  currentNextCycleRecommendation?: {
-+    readonly recommendationId: string;
-+    readonly targetCycleTypeId: string | null;
-+    readonly catalogLabel: string | null;
-+    readonly statement: string | null;
-+  } | null;
- }> {
-   const runtime = getRuntimeApplicationService();
-   if (!runtime.oa) {
-@@ -179,6 +191,12 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
-   }
-
-   let hasCurrentNextCycleRecommendation = false;
-+  let currentNextCycleRecommendation: {
-+    readonly recommendationId: string;
-+    readonly targetCycleTypeId: string | null;
-+    readonly catalogLabel: string | null;
-+    readonly statement: string | null;
-+  } | null = null;
-   try {
-     const epistemicItems = await oa.cycleServices.epistemic.listByProject(
-       input.projectId,
-@@ -234,13 +252,27 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
-       blockingReservationStatements: blockersSnap.statements,
-       failedMaterialDimensions: failed,
-     });
--    hasCurrentNextCycleRecommendation = current.some(
-+    const nextCurrent = current.find(
-       (r) =>
-         r.intent === "NEXT_CYCLE" && r.derivedCurrentness === "CURRENT",
-     );
-+    hasCurrentNextCycleRecommendation = nextCurrent != null;
-+    if (nextCurrent) {
-+      const targetCycleTypeId =
-+        (nextCurrent.targetCycleTypeId ?? "").trim() || null;
-+      currentNextCycleRecommendation = {
-+        recommendationId: nextCurrent.recommendationId,
-+        targetCycleTypeId,
-+        catalogLabel: targetCycleTypeId
-+          ? (getCycleTypeById(targetCycleTypeId)?.label?.trim() || null)
-+          : null,
-+        statement: (nextCurrent.statement ?? "").trim() || null,
-+      };
-+    }
-   } catch {
-     // Fail closed for the flag — do not invent CURRENT.
-     hasCurrentNextCycleRecommendation = false;
-+    currentNextCycleRecommendation = null;
-   }
-
-   return {
-@@ -248,6 +280,7 @@ export async function projectAssistantReadPreCycleCandidateTrajectoryAction(inpu
-     candidate: result.candidate,
-     activeCycleInstanceId,
-     hasCurrentNextCycleRecommendation,
-+    currentNextCycleRecommendation,
-   };
- }
-
-@@ -570,17 +603,20 @@ export async function projectAssistantReadFramingContinuityAction(input: {
-     preparedCompletePresent: preparedCycle != null,
-   });
-
-+  const currentRec = pre.currentNextCycleRecommendation ?? null;
-   const catalogLabel =
-     presentation?.catalogLabel ??
-     alreadyDecided?.catalogLabel ??
-     preparedCycle?.catalogLabel ??
-     candidate?.catalogLabel ??
-+    currentRec?.catalogLabel ??
-     null;
-   const targetCycleTypeId =
-     presentation?.targetCycleTypeId ??
-     alreadyDecided?.targetCycleTypeId ??
-     preparedCycle?.cycleTypeId ??
-     candidate?.targetCycleTypeId ??
-+    currentRec?.targetCycleTypeId ??
-     null;
-
-   // FIX-01 — LPS project objective is context only; load Recommendation statement
-@@ -589,7 +625,10 @@ export async function projectAssistantReadFramingContinuityAction(input: {
-   let recommendationStatement: string | null = null;
-   const runtime = getRuntimeApplicationService();
-   const recommendationIdForExam =
--    presentation?.recommendationId ?? candidate?.recommendationId ?? null;
-+    presentation?.recommendationId ??
-+    candidate?.recommendationId ??
-+    currentRec?.recommendationId ??
-+    null;
-   if (runtime.oa) {
-     const lps = await runtime.oa.projectServices.getCurrentLivingProjectState.execute(
-       { projectId: input.projectId },
-@@ -631,7 +670,10 @@ export async function projectAssistantReadFramingContinuityAction(input: {
-       catalogLabel,
-       targetCycleTypeId,
-       recommendationId:
--        presentation?.recommendationId ?? candidate?.recommendationId ?? null,
-+        presentation?.recommendationId ??
-+        candidate?.recommendationId ??
-+        currentRec?.recommendationId ??
-+        null,
-       semanticKey: presentation?.semanticKey ?? candidate?.semanticKey ?? null,
-       trajectoryId:
-         presentation?.trajectoryId ??
-@@ -650,7 +692,11 @@ export async function projectAssistantReadFramingContinuityAction(input: {
-       preparedCycleInstanceId: preparedCycle?.cycleInstanceId ?? null,
-       activeCycleInstanceId: pre.activeCycleInstanceId ?? null,
-       hasCurrentNextCycleRecommendation: hasCurrent,
--      message: framingContinuityPilotMessage(phase, catalogLabel),
-+      message: framingContinuityPilotMessage(
-+        phase,
-+        catalogLabel,
-+        targetCycleTypeId,
-+      ),
-       examination,
-     },
-   };
 diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
-index 63dab823..01159e42 100644
+index 01159e42..be7417fd 100644
 --- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
 +++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraAdaptivePresentation.ts
-@@ -988,6 +988,43 @@ export function canonicalTextsEquivalent(a: string, b: string): boolean {
- export const NORA_ADAPTIVE_DIVERGENCE_NOTICE =
-   "[Studio] Les versions structurée et narrative de cette réponse divergent. Les deux sont conservées ci-dessous — aucune n'est promue comme vérité Product / HumanDecision." as const;
+@@ -990,9 +990,14 @@ export const NORA_ADAPTIVE_DIVERGENCE_NOTICE =
 
+ /**
+  * ORION-NORA-COHERENCE-CORR-01 — cognitive disposition footers appended to
+- * turn.text BEFORE NAP durable composition. They must not poison
+- * narrative↔presentation relation classification (false divergent).
++ * turn.text BEFORE NAP durable composition (see runNoraCognitiveTurn).
++ * They must not poison narrative↔presentation classification (false divergent).
+  * Keep observable via Studio control notices — never as ordinary métier jargon.
++ *
++ * Extraction contract (fail-closed):
++ * - Only strip a *terminal* Studio footer matching the append format.
++ * - Never consume ordinary paragraphs after a mid-answer marker.
++ * - Preserve quotes, code fences, inline mentions, and ambiguous markers.
+  */
+ export const COGNITIVE_DISPOSITION_FOOTER_MARKERS = [
+   "CONTRADICTION CANDIDATE",
+@@ -1000,25 +1005,38 @@ export const COGNITIVE_DISPOSITION_FOOTER_MARKERS = [
+   "EVIDENCE-BACKED CONTRADICTION",
+ ] as const;
+
+-const COGNITIVE_DISPOSITION_FOOTER_RE =
+-  /\n*\s*\[(CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION)\][^\n]*(?:\n(?!\s*\[(?:CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION|Studio)\])[^\n]*)*/giu;
++const DISPOSITION_MARKER_ALT =
++  "CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION";
++
++/** Continuation lines Studio may append under a COGNITIVE STOP footer. */
++const STUDIO_DISPOSITION_CONTINUATION_ALT =
++  "Evidence:|Sources:|Next:|Suite:";
++
 +/**
-+ * ORION-NORA-COHERENCE-CORR-01 — cognitive disposition footers appended to
-+ * turn.text BEFORE NAP durable composition. They must not poison
-+ * narrative↔presentation relation classification (false divergent).
-+ * Keep observable via Studio control notices — never as ordinary métier jargon.
++ * Trusted terminal footer only — anchored at EOF.
++ * Shape: blank-line (or leading) + [MARKER] line + optional Evidence/Next lines.
++ * Does not match mid-narrative markers or arbitrary following métier lines.
 + */
-+export const COGNITIVE_DISPOSITION_FOOTER_MARKERS = [
-+  "CONTRADICTION CANDIDATE",
-+  "COGNITIVE STOP",
-+  "EVIDENCE-BACKED CONTRADICTION",
-+] as const;
-+
-+const COGNITIVE_DISPOSITION_FOOTER_RE =
-+  /\n*\s*\[(CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION)\][^\n]*(?:\n(?!\s*\[(?:CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION|Studio)\])[^\n]*)*/giu;
-+
-+export function stripCognitiveDispositionFooters(text: string): {
-+  readonly core: string;
-+  readonly strippedMarkers: readonly string[];
-+} {
-+  const source = text ?? "";
-+  const strippedMarkers: string[] = [];
-+  const core = source
-+    .replace(COGNITIVE_DISPOSITION_FOOTER_RE, (match) => {
-+      const marker = match.match(
-+        /\[(CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION)\]/i,
-+      )?.[1];
-+      if (marker) strippedMarkers.push(marker.toUpperCase());
-+      return "";
-+    })
-+    .trim();
-+  return { core, strippedMarkers };
-+}
-+
-+/** Pilot-intelligible Studio notice — not raw CONTRADICTION CANDIDATE jargon. */
-+export const NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE =
-+  "Signal de cohérence : une tension plausible a été repérée, sans preuve Product suffisante pour la trancher. Ce n'est ni une HumanDecision ni un changement de Recommendation Product." as const;
-+
- /** Deterministic relation between pilot-facing narrative and structured presentation. */
- export type NarrativePresentationRelation =
-   | { readonly kind: "empty" }
-@@ -1316,8 +1353,12 @@ export function buildDurableAssistantContentForTurn(input: {
-   readonly usedA1: boolean;
-   readonly presentation: NoraAdaptivePresentation | null;
-   readonly relation: NarrativePresentationRelation["kind"];
-+  /** Markers stripped before classification — for Studio notice mapping. */
-+  readonly strippedDispositionMarkers: readonly string[];
++const TERMINAL_COGNITIVE_DISPOSITION_FOOTER_RE = new RegExp(
++  String.raw`(?:^|(?:\r?\n){1,2})\[(${DISPOSITION_MARKER_ALT})\][^\n]*(?:\r?\n(?:${STUDIO_DISPOSITION_CONTINUATION_ALT})[^\n]*)*\s*$`,
++  "iu",
++);
+
+ export function stripCognitiveDispositionFooters(text: string): {
+   readonly core: string;
+   readonly strippedMarkers: readonly string[];
  } {
--  const core = (input.pilotFacingCore ?? "").trim();
-+  // ORION-NORA-COHERENCE-CORR-01 — classify on clean core only.
-+  const stripped = stripCognitiveDispositionFooters(input.pilotFacingCore ?? "");
-+  const core = stripped.core;
-   const presentation = input.presentation ?? null;
-   const relation = classifyNarrativePresentationRelation({
-     pilotFacingCore: core,
-@@ -1325,6 +1366,8 @@ export function buildDurableAssistantContentForTurn(input: {
-     conversationGuidanceStatement: input.conversationGuidanceStatement,
-   });
-
-+  const markers = stripped.strippedMarkers;
-+
-   if (relation.kind === "equivalent" || relation.kind === "presentation_only") {
-     const composed = composeCanonicalFromPresentation(presentation!);
-     return {
-@@ -1332,6 +1375,7 @@ export function buildDurableAssistantContentForTurn(input: {
-       usedA1: true,
-       presentation,
-       relation: relation.kind,
-+      strippedDispositionMarkers: markers,
-     };
-   }
-
-@@ -1347,6 +1391,7 @@ export function buildDurableAssistantContentForTurn(input: {
-         usedA1: true,
-         presentation: folded,
-         relation: "complementary",
-+        strippedDispositionMarkers: markers,
-       };
-     }
-     // Cannot fold safely → fail-closed preserve both (no silent drop).
-@@ -1359,6 +1404,7 @@ export function buildDurableAssistantContentForTurn(input: {
-       usedA1: false,
-       presentation: null,
-       relation: "divergent",
-+      strippedDispositionMarkers: markers,
-     };
-   }
-
-@@ -1371,6 +1417,7 @@ export function buildDurableAssistantContentForTurn(input: {
-       usedA1: false,
-       presentation: null,
-       relation: "divergent",
-+      strippedDispositionMarkers: markers,
-     };
-   }
-
-@@ -1380,6 +1427,7 @@ export function buildDurableAssistantContentForTurn(input: {
-       usedA1: false,
-       presentation: null,
-       relation: "narrative_only",
-+      strippedDispositionMarkers: markers,
-     };
-   }
-
-@@ -1388,6 +1436,7 @@ export function buildDurableAssistantContentForTurn(input: {
-     usedA1: false,
-     presentation: null,
-     relation: "empty",
-+    strippedDispositionMarkers: markers,
-   };
+-  const source = text ?? "";
++  let remaining = text ?? "";
+   const strippedMarkers: string[] = [];
+-  const core = source
+-    .replace(COGNITIVE_DISPOSITION_FOOTER_RE, (match) => {
+-      const marker = match.match(
+-        /\[(CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION)\]/i,
+-      )?.[1];
+-      if (marker) strippedMarkers.push(marker.toUpperCase());
+-      return "";
+-    })
+-    .trim();
+-  return { core, strippedMarkers };
++  // Peel one or more trusted terminal footers; leave all other text intact.
++  for (;;) {
++    const match = remaining.match(TERMINAL_COGNITIVE_DISPOSITION_FOOTER_RE);
++    if (!match || match.index === undefined) break;
++    const marker = match[1]?.toUpperCase();
++    if (marker) strippedMarkers.push(marker);
++    remaining = remaining.slice(0, match.index);
++  }
++  return { core: remaining.trim(), strippedMarkers };
  }
 
-@@ -1585,10 +1634,13 @@ export function resolveAdaptiveAssistantRender(input: {
-   const authenticated = normalizeStudioControlNotices(
-     input.studioControlNotices,
-   );
--  const body = contentWithoutAuthenticatedStudioNotices(
-+  const bodyRaw = contentWithoutAuthenticatedStudioNotices(
-     content,
-     authenticated,
-   );
-+  // ORION-NORA-COHERENCE-CORR-01 — disposition footers are Studio-controlled,
-+  // not part of narrative↔presentation substance.
-+  const { core: body } = stripCognitiveDispositionFooters(bodyRaw);
-   const studioAppendix =
-     authenticated.length > 0
-       ? authenticated
-diff --git a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-index 872cd67a..7ba2683b 100644
---- a/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-+++ b/projects/sfia-studio/app/lib/nora-cognitive-runtime/noraProductTurnOutputType.ts
-@@ -39,10 +39,13 @@ export {
-   contentFullyCoveredByPresentation,
-   composeCanonicalFromPresentation,
-   buildDurableAssistantContentForTurn,
-+  stripCognitiveDispositionFooters,
-   isPresentationStructurallyAdmissibleForA1,
-   isA1TransitionAdmissible,
-   shouldDisplayPresentationLead,
-   NORA_UNUSABLE_TURN_FALLBACK_TEXT,
-+  NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE,
-+  NORA_ADAPTIVE_DIVERGENCE_NOTICE,
-   honestEpistemicLabel,
-   honestBlockTitle,
-   looksLikeAuthorityClaim,
-```
+ /** Pilot-intelligible Studio notice — not raw CONTRADICTION CANDIDATE jargon. */
 
-### NEW FILE COMPLETE — orionNoraCoherenceCorr01.d0.test.ts
-
-```typescript
+## 12. Marker boundary tests
+### NEW FILE COMPLETE — orionNoraCoherenceCorr01.footerSafety.d0.test.ts
 /**
- * ORION-NORA-COHERENCE-CORR-01 — DET T01–T12 + ORION clarification case.
- * DETERMINISTIC only — ZERO OpenAI LIVE — ZERO campaign DB writes.
+ * FINAL-REVIEW-CORR-635 — Blocker A: no silent narrative loss.
+ * DETERMINISTIC — ZERO OpenAI LIVE.
  *
  * @vitest-environment node
  */
@@ -699,19 +148,26 @@ import {
   NORA_ADAPTIVE_DIVERGENCE_NOTICE,
   NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE,
   buildDurableAssistantContentForTurn,
-  classifyNarrativePresentationRelation,
-  composeCanonicalFromPresentation,
   parseNoraAdaptivePresentation,
   resolveAdaptiveAssistantRender,
   stripCognitiveDispositionFooters,
 } from "@/lib/nora-cognitive-runtime/noraAdaptivePresentation";
-import {
-  framingContinuityPilotMessage,
-  framingContinuityRecommendationReadyTitle,
-  isFramingExploratoryCycleLabel,
-} from "@/features/project-assistant/f2/chatFirstFramingContinuity";
+import { framingContinuityRecommendationReadyTitle } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
 
-function orionComparisonPresentation() {
+const METIER_P1 = "Texte principal du métier ORION.";
+const METIER_P2 = "Paragraphe métier important.";
+const METIER_P3 = "Conclusion importante.";
+const FOOTER_CANDIDATE =
+  "[CONTRADICTION CANDIDATE] Plausible conflict retained as contradiction candidate — insufficient Evidence pointers.";
+const FOOTER_STOP_MULTILINE = [
+  "[COGNITIVE STOP] Conflicting claims without decisive Evidence.",
+  "Evidence: ev:1, ev:2",
+  "Next: request_pilot_clarification",
+].join("\n");
+const FOOTER_EVIDENCE =
+  "[EVIDENCE-BACKED CONTRADICTION] Decisive conflict retained with Evidence pointers.";
+
+function orionPresentation() {
   return parseNoraAdaptivePresentation({
     version: 1,
     eyebrow: null,
@@ -758,826 +214,1383 @@ function orionComparisonPresentation() {
   })!;
 }
 
-function simplePresentation(statement: string) {
-  return parseNoraAdaptivePresentation({
-    version: 1,
-    eyebrow: null,
-    title: "Orientation",
-    lead: null,
-    blocks: [
-      {
-        kind: "recommendation",
-        title: "Recommandation",
-        statement,
-        disclaimer: "Proposition uniquement.",
-      },
-    ],
-    provenanceNote: null,
-    noGovernedActionNote: null,
-  })!;
-}
-
-describe("ORION-NORA-COHERENCE-CORR-01 — NAP T01–T04 / T09 / T12", () => {
-  it("T01 — structured ≡ narrative → A1 unique", () => {
-    const p = simplePresentation("Commencer par la Conception fonctionnelle.");
-    const composed = composeCanonicalFromPresentation(p);
-    const built = buildDurableAssistantContentForTurn({
-      pilotFacingCore: composed,
-      presentation: p,
-    });
-    expect(built.relation).toBe("equivalent");
-    expect(built.usedA1).toBe(true);
-    expect(built.contentCore).not.toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
-    expect(built.contentCore).toBe(composed);
+describe("FINAL-REVIEW-CORR-635 — footer extraction A01–A14", () => {
+  it("A01 — valid terminal footer removed; full métier retained", () => {
+    const source = `${METIER_P1}\n\n${METIER_P2}\n\n${METIER_P3}\n\n${FOOTER_CANDIDATE}`;
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+    expect(strippedMarkers).toEqual(["CONTRADICTION CANDIDATE"]);
+    expect(core).toBe(`${METIER_P1}\n\n${METIER_P2}\n\n${METIER_P3}`);
+    expect(core).toContain(METIER_P2);
+    expect(core).toContain(METIER_P3);
   });
 
-  it("T02 — structured complete, narrative empty → presentation_only A1", () => {
-    const p = orionComparisonPresentation();
+  it("A02 — marker in middle of answer: subsequent paragraphs preserved", () => {
+    const source = `${METIER_P1}\n\n${FOOTER_CANDIDATE}\n${METIER_P2}\n\n${METIER_P3}`;
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+    expect(strippedMarkers).toEqual([]);
+    expect(core).toBe(source.trim());
+    expect(core).toContain(METIER_P2);
+    expect(core).toContain(METIER_P3);
+    expect(core).toContain("CONTRADICTION CANDIDATE");
+  });
+
+  it("A03 — marker inside quoted text preserved with explanation", () => {
+    const source = [
+      METIER_P1,
+      "",
+      '> Exemple de diagnostic : "[CONTRADICTION CANDIDATE] Note technique."',
+      "Cette citation illustre le jargon ; elle n'est pas un footer Studio.",
+      METIER_P3,
+    ].join("\n");
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+    expect(strippedMarkers).toEqual([]);
+    expect(core).toBe(source);
+    expect(core).toContain("Cette citation illustre");
+    expect(core).toContain(METIER_P3);
+  });
+
+  it("A04 — marker inside fenced code preserved", () => {
+    const source = [
+      METIER_P1,
+      "",
+      "```text",
+      "[CONTRADICTION CANDIDATE] example footer line",
+      "```",
+      "",
+      "Explication du bloc de code pour le Pilote.",
+      METIER_P3,
+    ].join("\n");
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+    expect(strippedMarkers).toEqual([]);
+    expect(core).toContain("```text");
+    expect(core).toContain("[CONTRADICTION CANDIDATE] example footer line");
+    expect(core).toContain("Explication du bloc de code");
+    expect(core).toContain(METIER_P3);
+  });
+
+  it("A05 — inline marker within a sentence: no truncation", () => {
+    const source =
+      "Le jargon [CONTRADICTION CANDIDATE] ne doit pas tronquer cette phrase ni la suite.\n" +
+      METIER_P2;
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+    expect(strippedMarkers).toEqual([]);
+    expect(core).toBe(source);
+    expect(core).toContain("ni la suite.");
+    expect(core).toContain(METIER_P2);
+  });
+
+  it("A06 — multiple legitimate paragraphs after marker: no data loss", () => {
+    const source = [
+      METIER_P1,
+      "",
+      FOOTER_CANDIDATE,
+      METIER_P2,
+      "",
+      "Second paragraphe après le marqueur.",
+      "",
+      METIER_P3,
+    ].join("\n");
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+    expect(strippedMarkers).toEqual([]);
+    expect(core).toContain(METIER_P2);
+    expect(core).toContain("Second paragraphe après le marqueur.");
+    expect(core).toContain(METIER_P3);
+    expect(core.split("\n").filter((l) => l.includes("paragraphe") || l === METIER_P2 || l === METIER_P3).length).toBeGreaterThanOrEqual(2);
+  });
+
+  it("A07 — multiple disposition types as terminal footers", () => {
+    for (const footer of [
+      FOOTER_CANDIDATE,
+      "[COGNITIVE STOP] Stop reason only.",
+      FOOTER_EVIDENCE,
+    ]) {
+      const source = `${METIER_P1}\n\n${METIER_P2}\n\n${footer}`;
+      const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+      expect(core).toBe(`${METIER_P1}\n\n${METIER_P2}`);
+      expect(strippedMarkers.length).toBe(1);
+      expect(core).not.toMatch(
+        /CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION/,
+      );
+    }
+  });
+
+  it("A08 — valid trusted multiline COGNITIVE STOP footer: only documented boundary", () => {
+    const source = `${METIER_P1}\n\n${METIER_P2}\n\n${FOOTER_STOP_MULTILINE}`;
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(source);
+    expect(strippedMarkers).toEqual(["COGNITIVE STOP"]);
+    expect(core).toBe(`${METIER_P1}\n\n${METIER_P2}`);
+    expect(core).not.toContain("Evidence:");
+    expect(core).not.toContain("Next:");
+  });
+
+  it("A09 — untrusted/ambiguous marker: fail closed, preserve content", () => {
+    const ambiguous = [
+      METIER_P1,
+      "",
+      "[CONTRADICTION CANDIDATE] Note technique.",
+      "Paragraphe métier important.",
+      "Conclusion importante.",
+    ].join("\n");
+    const { core, strippedMarkers } = stripCognitiveDispositionFooters(ambiguous);
+    expect(strippedMarkers).toEqual([]);
+    expect(core).toBe(ambiguous);
+    expect(core).toContain("Paragraphe métier important.");
+    expect(core).toContain("Conclusion importante.");
+  });
+
+  it("A10 — empty narrative + trusted footer → presentation_only A1 eligible", () => {
+    const p = orionPresentation();
+    const contaminated = `\n\n${FOOTER_CANDIDATE}`;
     const built = buildDurableAssistantContentForTurn({
-      pilotFacingCore: "",
+      pilotFacingCore: contaminated,
       presentation: p,
     });
     expect(built.relation).toBe("presentation_only");
     expect(built.usedA1).toBe(true);
+    expect(built.strippedDispositionMarkers).toContain("CONTRADICTION CANDIDATE");
     expect(built.contentCore).toContain("Conception fonctionnelle");
-    expect(built.contentCore).not.toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
-  });
-
-  it("T03 — narrative complementary with guidance provenance → A1 complete", () => {
-    const p = orionComparisonPresentation();
-    const guidance =
-      "La direction que je recommande est donc la Conception fonctionnelle ; tu peux l’examiner avant toute décision de préparation ou de démarrage.";
-    const built = buildDurableAssistantContentForTurn({
-      pilotFacingCore: guidance,
-      presentation: p,
-      conversationGuidanceStatement: guidance,
-    });
-    expect(built.relation).toBe("complementary");
-    expect(built.usedA1).toBe(true);
-    expect(built.contentCore).toContain("La différence pour ORION");
-    expect(built.contentCore).toContain("Conception fonctionnelle");
-    expect(built.contentCore).not.toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
     expect(built.contentCore).not.toContain("CONTRADICTION CANDIDATE");
   });
 
-  it("T04 — real divergence → no arbitrary promotion", () => {
-    const p = simplePresentation("Commencer par la Conception fonctionnelle.");
+  it("A11 — actual narrative/presentation conflict remains divergent", () => {
+    const p = orionPresentation();
     const opposing =
-      "Au contraire, je retiens uniquement le Cadrage exploratoire et j'abandonne la Conception fonctionnelle.";
+      "Au contraire, je retiens uniquement le Cadrage exploratoire et j'abandonne la Conception fonctionnelle.\n\n" +
+      FOOTER_CANDIDATE;
     const built = buildDurableAssistantContentForTurn({
       pilotFacingCore: opposing,
       presentation: p,
-      conversationGuidanceStatement: opposing,
+      conversationGuidanceStatement:
+        "Au contraire, je retiens uniquement le Cadrage exploratoire et j'abandonne la Conception fonctionnelle.",
     });
     expect(built.relation).toBe("divergent");
     expect(built.usedA1).toBe(false);
     expect(built.contentCore).toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
-    expect(built.contentCore).toContain("— Version structurée —");
-    expect(built.contentCore).toContain("— Version narrative —");
-    expect(built.presentation).toBeNull();
-  });
-
-  it("T09 — long comparative response preserved without truncation", () => {
-    const p = orionComparisonPresentation();
-    const guidance =
-      "La direction que je recommande est donc la Conception fonctionnelle ; tu peux l’examiner avant toute décision de préparation ou de démarrage.";
-    const built = buildDurableAssistantContentForTurn({
-      pilotFacingCore: guidance,
-      presentation: p,
-      conversationGuidanceStatement: guidance,
-    });
-    expect(built.contentCore.length).toBeGreaterThan(400);
-    expect(built.contentCore).toContain("demandes de matériel");
-    expect(built.contentCore).toContain("incidents informatiques");
-  });
-
-  it("T12 — contradiction diagnosed: proof kept, UX non-technical", () => {
-    const p = orionComparisonPresentation();
-    const guidance =
-      "La direction que je recommande est donc la Conception fonctionnelle ; tu peux l’examiner avant toute décision de préparation ou de démarrage.";
-    const contaminated = `${guidance}\n\n[CONTRADICTION CANDIDATE] Plausible conflict retained as contradiction candidate — insufficient Evidence pointers.`;
-    const stripped = stripCognitiveDispositionFooters(contaminated);
-    expect(stripped.strippedMarkers).toContain("CONTRADICTION CANDIDATE");
-    expect(stripped.core).toBe(guidance);
-
-    const built = buildDurableAssistantContentForTurn({
-      pilotFacingCore: contaminated,
-      presentation: p,
-      conversationGuidanceStatement: guidance,
-    });
-    expect(built.relation).toBe("complementary");
-    expect(built.usedA1).toBe(true);
+    expect(built.contentCore).toContain("Cadrage exploratoire");
     expect(built.contentCore).not.toContain("CONTRADICTION CANDIDATE");
-    expect(built.strippedDispositionMarkers).toContain("CONTRADICTION CANDIDATE");
+  });
+
+  it("A12 — historical Memory B content not silently rewritten", () => {
+    const historical = [
+      METIER_P1,
+      "",
+      "[CONTRADICTION CANDIDATE] Note technique.",
+      "Paragraphe métier important.",
+      "Conclusion importante.",
+    ].join("\n");
+    const decision = resolveAdaptiveAssistantRender({
+      content: historical,
+      presentation: null,
+      studioControlNotices: [],
+    });
+    expect(decision.mode).toBe("plain");
+    expect(decision.plainText).toBe(historical);
+    expect(decision.plainText).toContain("Paragraphe métier important.");
+    expect(decision.plainText).toContain("Conclusion importante.");
+  });
+
+  it("A13 — authenticated typed Studio notice deduplicated and Pilot-intelligible", () => {
     expect(NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE).toMatch(/Signal de cohérence/);
     expect(NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE).not.toMatch(
       /CONTRADICTION CANDIDATE/,
     );
-  });
-});
-
-describe("ORION-NORA-COHERENCE-CORR-01 — Framing card / CURRENT T05–T08 / T10–T11", () => {
-  it("T05/T07 — CURRENT Conception label; never invent Cadrage exploratoire", () => {
-    expect(
-      framingContinuityRecommendationReadyTitle({
-        catalogLabel: "Conception fonctionnelle",
-        targetCycleTypeId: "cyc:functional-design",
-      }),
-    ).toBe("Commencer par un « Conception fonctionnelle »");
-    expect(
-      framingContinuityRecommendationReadyTitle({
-        catalogLabel: null,
-        targetCycleTypeId: null,
-      }),
-    ).not.toMatch(/Cadrage/);
-    expect(
-      isFramingExploratoryCycleLabel({
-        catalogLabel: "Conception fonctionnelle",
-        targetCycleTypeId: "cyc:functional-design",
-      }),
-    ).toBe(false);
-    expect(
-      framingContinuityPilotMessage(
-        "recommendation_ready",
-        "Conception fonctionnelle",
-        "cyc:functional-design",
-      ),
-    ).not.toMatch(/exploratoire/);
-  });
-
-  it("T06 — Framing/Cadrage still may use exploratoire qualifier", () => {
-    expect(
-      framingContinuityRecommendationReadyTitle({
-        catalogLabel: "Cadrage",
-        targetCycleTypeId: "cyc:framing",
-      }),
-    ).toBe("Commencer par un « Cadrage » exploratoire");
-    expect(
-      framingContinuityPilotMessage(
-        "recommendation_ready",
-        "Cadrage",
-        "cyc:framing",
-      ),
-    ).toMatch(/exploratoire/);
-  });
-
-  it("T08 — reload render: divergence notice keeps plain; no invented HD", () => {
-    const p = orionComparisonPresentation();
-    const plain = [
-      NORA_ADAPTIVE_DIVERGENCE_NOTICE,
-      "",
-      "— Version structurée —",
-      composeCanonicalFromPresentation(p),
-      "",
-      "— Version narrative —",
-      "Autre orientation.",
-    ].join("\n");
-    const decision = resolveAdaptiveAssistantRender({
-      content: plain,
-      presentation: p,
-      studioControlNotices: [],
-    });
-    expect(decision.mode).toBe("plain");
-    expect(decision.usedA1).toBe(false);
-    expect(decision.plainText).toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
-  });
-
-  it("T10 — HumanDecision/START never implied by recommendation_ready copy", () => {
-    const msg = framingContinuityPilotMessage(
-      "recommendation_ready",
-      "Conception fonctionnelle",
-      "cyc:functional-design",
-    );
-    expect(msg).not.toMatch(/HumanDecision|START|démarré automatiquement/i);
-    expect(msg).toMatch(/préparer cette direction/i);
-  });
-
-  it("T11 — NAP R1/R2/R3: complementary guidance still A1; conflict still divergent", () => {
-    const p = orionComparisonPresentation();
+    const p = orionPresentation();
     const guidance =
-      "La direction que je recommande est donc la Conception fonctionnelle ; tu peux l’examiner avant toute décision de préparation ou de démarrage.";
-    expect(
-      classifyNarrativePresentationRelation({
-        pilotFacingCore: guidance,
-        presentation: p,
-        conversationGuidanceStatement: guidance,
-      }).kind,
-    ).toBe("complementary");
-    expect(
-      classifyNarrativePresentationRelation({
-        pilotFacingCore:
-          "Au contraire, je choisis uniquement le Cadrage exploratoire.",
-        presentation: p,
-        conversationGuidanceStatement:
-          "Au contraire, je choisis uniquement le Cadrage exploratoire.",
-      }).kind,
-    ).toBe("divergent");
-  });
-});
-
-describe("ORION-NORA-COHERENCE-CORR-01 — ORION clarification incident", () => {
-  it("CURRENT=Conception, candidate guidance=Conception, contaminated footer → A1 aligned", () => {
-    const p = orionComparisonPresentation();
-    const guidance =
-      "La direction que je recommande est donc la Conception fonctionnelle ; tu peux l’examiner avant toute décision de préparation ou de démarrage.";
-    const core = `${guidance}\n\n[CONTRADICTION CANDIDATE] Plausible conflict retained as contradiction candidate — insufficient Evidence pointers.`;
+      "La direction que je recommande est donc la Conception fonctionnelle ; tu peux l’examiner avant toute décision.";
     const built = buildDurableAssistantContentForTurn({
-      pilotFacingCore: core,
+      pilotFacingCore: `${guidance}\n\n${FOOTER_CANDIDATE}`,
       presentation: p,
       conversationGuidanceStatement: guidance,
     });
-    expect(built.usedA1).toBe(true);
-    expect(built.relation).toBe("complementary");
-    expect(built.contentCore).toContain("Conception fonctionnelle");
-    expect(built.contentCore).not.toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
+    expect(built.strippedDispositionMarkers).toContain("CONTRADICTION CANDIDATE");
     expect(built.contentCore).not.toContain("CONTRADICTION CANDIDATE");
+    // Notice is typed separately — must not be duplicated into contentCore as jargon.
+    expect(built.contentCore).not.toContain(NORA_CONTRADICTION_CANDIDATE_PILOTE_NOTICE);
+  });
 
+  it("A14 — ORION Conception recommendation and card remain aligned", () => {
+    const p = orionPresentation();
+    const guidance =
+      "La direction que je recommande est donc la Conception fonctionnelle ; tu peux l’examiner avant toute décision de préparation ou de démarrage.";
+    const built = buildDurableAssistantContentForTurn({
+      pilotFacingCore: `${guidance}\n\n${FOOTER_CANDIDATE}`,
+      presentation: p,
+      conversationGuidanceStatement: guidance,
+    });
     const cardTitle = framingContinuityRecommendationReadyTitle({
       catalogLabel: "Conception fonctionnelle",
       targetCycleTypeId: "cyc:functional-design",
     });
-    expect(cardTitle).toContain("Conception fonctionnelle");
-    expect(cardTitle).not.toContain("Cadrage");
-    // Card and restitution both point at Conception — no unexplained Cadrage.
+    expect(built.usedA1).toBe(true);
     expect(built.contentCore).toContain("Conception fonctionnelle");
+    expect(cardTitle).toContain("Conception fonctionnelle");
+    expect(cardTitle).not.toMatch(/Cadrage/);
+    expect(built.contentCore).not.toContain(NORA_ADAPTIVE_DIVERGENCE_NOTICE);
   });
 });
-```
 
-### NEW FILE COMPLETE — orionNoraCoherenceCorr01.live.test.ts
+## 13. Root risk B — LIVE harness
+Hardcoded ORION projectId, absolute /Users/morris paths, campaign proof dir, direct SQLite writes, .env.local force, LOCAL_PILOT/MORRIS authority, SFIA_V2_RUNTIME_ALLOW_RESET=1, redundant script+test.
 
-```typescript
+## 14. Original privileged side effects
+See deleted scripts/orion-coherence-corr-01-live-proof.ts and prior live.test.ts before 998386023e05de338b6dd172671a4a1ac571144f.
+
+## 15. Harness correction / removal
+KEEP: single Vitest opt-in live.test.ts + orionCoherenceLiveProofBoundary.ts
+REMOVE: orion-coherence-corr-01-live-proof.ts (ORION-only redundant helper)
+
+### NEW FILE COMPLETE — orionCoherenceLiveProofBoundary.ts
 /**
- * ORION-NORA-COHERENCE-CORR-01 — bounded LIVE counter-proof (gated).
- * Requires ORION_COHERENCE_LIVE=1 + campaign DBs + OPENAI_API_KEY.
- * Does not rewrite historical turns; emits one new turn.
+ * ORION-NORA-COHERENCE-CORR-01 — opt-in LIVE proof boundary (FINAL-REVIEW-CORR-635).
+ *
+ * Disabled by default. No hardcoded project ids / machine paths.
+ * No .env.local parsing. No implicit Pilot/Morris authority. No DB reset flag.
+ * Cursor REAL forced OFF when resolving a live config.
+ *
+ * Accepts either LIVE_PROVIDER_OPT_IN=1 or legacy ORION_COHERENCE_LIVE=1.
+ */
+import fs from "node:fs";
+import path from "node:path";
+
+export const LIVE_PROVIDER_OPT_IN_ENV = "LIVE_PROVIDER_OPT_IN" as const;
+export const ORION_COHERENCE_LIVE_LEGACY_ENV = "ORION_COHERENCE_LIVE" as const;
+
+export const LIVE_PROOF_PROJECT_ID_ENV = "TEST_PROJECT_ID" as const;
+export const LIVE_PROOF_PRODUCT_DB_ENV = "TEST_PRODUCT_DB_PATH" as const;
+export const LIVE_PROOF_NORA_DB_ENV = "TEST_NORA_DB_PATH" as const;
+export const LIVE_PROOF_DIR_ENV = "TEST_PROOF_DIR" as const;
+
+/** Legacy aliases already used by Studio product composition. */
+export const LIVE_PROOF_PRODUCT_DB_ALIAS_ENV =
+  "SFIA_STUDIO_PRODUCT_DB_PATH" as const;
+export const LIVE_PROOF_NORA_DB_ALIAS_ENV =
+  "SFIA_STUDIO_NORA_SESSION_DB_PATH" as const;
+
+const FORBIDDEN_AUTHORITY_ENVS = [
+  "SFIA_STUDIO_LOCAL_PILOT_AUTHORITY",
+  "SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY",
+  "SFIA_V2_RUNTIME_ALLOW_RESET",
+] as const;
+
+export type LiveProofBoundaryFailure = {
+  readonly ok: false;
+  readonly reason: string;
+  readonly code:
+    | "opt_in_missing"
+    | "project_id_missing"
+    | "product_db_missing"
+    | "product_db_not_file"
+    | "nora_db_missing"
+    | "nora_db_not_file"
+    | "openai_key_missing"
+    | "authority_escalation_present"
+    | "cursor_real_forbidden";
+};
+
+export type LiveProofBoundaryConfig = {
+  readonly ok: true;
+  readonly projectId: string;
+  readonly productDbPath: string;
+  readonly noraDbPath: string;
+  readonly proofDir: string | null;
+  readonly cursorReal: "0";
+};
+
+export type LiveProofBoundaryResult =
+  | LiveProofBoundaryConfig
+  | LiveProofBoundaryFailure;
+
+/** Loose env map — tests may pass partial objects without ProcessEnv.NODE_ENV. */
+export type LiveProofEnv = Readonly<Record<string, string | undefined>>;
+
+function readTrimmed(env: LiveProofEnv, key: string): string | null {
+  const v = env[key];
+  if (typeof v !== "string") return null;
+  const t = v.trim();
+  return t.length > 0 ? t : null;
+}
+
+export function isLiveProviderOptIn(env: LiveProofEnv = process.env): boolean {
+  return (
+    readTrimmed(env, LIVE_PROVIDER_OPT_IN_ENV) === "1" ||
+    readTrimmed(env, ORION_COHERENCE_LIVE_LEGACY_ENV) === "1"
+  );
+}
+
+/**
+ * Resolve LIVE proof targets. Fail closed before any side effect.
+ * Does not create DB files, does not write proofs, does not mutate env.
+ */
+export function resolveOrionCoherenceLiveProofBoundary(
+  env: LiveProofEnv = process.env,
+): LiveProofBoundaryResult {
+  if (!isLiveProviderOptIn(env)) {
+    return {
+      ok: false,
+      code: "opt_in_missing",
+      reason:
+        "LIVE provider proof disabled — set LIVE_PROVIDER_OPT_IN=1 (or ORION_COHERENCE_LIVE=1) deliberately.",
+    };
+  }
+
+  for (const key of FORBIDDEN_AUTHORITY_ENVS) {
+    if (readTrimmed(env, key) === "1") {
+      return {
+        ok: false,
+        code: "authority_escalation_present",
+        reason: `${key}=1 is incompatible with the LIVE proof boundary — unset it before opt-in execution.`,
+      };
+    }
+  }
+
+  if (readTrimmed(env, "SFIA_STUDIO_CURSOR_REAL") === "1") {
+    return {
+      ok: false,
+      code: "cursor_real_forbidden",
+      reason:
+        "SFIA_STUDIO_CURSOR_REAL=1 is forbidden for this LIVE proof boundary.",
+    };
+  }
+
+  const projectId = readTrimmed(env, LIVE_PROOF_PROJECT_ID_ENV);
+  if (!projectId) {
+    return {
+      ok: false,
+      code: "project_id_missing",
+      reason: `${LIVE_PROOF_PROJECT_ID_ENV} is required when LIVE opt-in is set.`,
+    };
+  }
+
+  const productDbPath =
+    readTrimmed(env, LIVE_PROOF_PRODUCT_DB_ENV) ??
+    readTrimmed(env, LIVE_PROOF_PRODUCT_DB_ALIAS_ENV);
+  if (!productDbPath) {
+    return {
+      ok: false,
+      code: "product_db_missing",
+      reason: `${LIVE_PROOF_PRODUCT_DB_ENV} (or ${LIVE_PROOF_PRODUCT_DB_ALIAS_ENV}) is required.`,
+    };
+  }
+  if (!fs.existsSync(productDbPath) || !fs.statSync(productDbPath).isFile()) {
+    return {
+      ok: false,
+      code: "product_db_not_file",
+      reason: `Product DB path is not an existing file: ${productDbPath}`,
+    };
+  }
+
+  const noraDbPath =
+    readTrimmed(env, LIVE_PROOF_NORA_DB_ENV) ??
+    readTrimmed(env, LIVE_PROOF_NORA_DB_ALIAS_ENV);
+  if (!noraDbPath) {
+    return {
+      ok: false,
+      code: "nora_db_missing",
+      reason: `${LIVE_PROOF_NORA_DB_ENV} (or ${LIVE_PROOF_NORA_DB_ALIAS_ENV}) is required.`,
+    };
+  }
+  if (!fs.existsSync(noraDbPath) || !fs.statSync(noraDbPath).isFile()) {
+    return {
+      ok: false,
+      code: "nora_db_not_file",
+      reason: `Nora session DB path is not an existing file: ${noraDbPath}`,
+    };
+  }
+
+  if (!readTrimmed(env, "OPENAI_API_KEY")) {
+    return {
+      ok: false,
+      code: "openai_key_missing",
+      reason:
+        "OPENAI_API_KEY must already be present in the process environment (not loaded from .env.local by this harness).",
+    };
+  }
+
+  const proofDirRaw = readTrimmed(env, LIVE_PROOF_DIR_ENV);
+  const proofDir = proofDirRaw ? path.resolve(proofDirRaw) : null;
+
+  return {
+    ok: true,
+    projectId,
+    productDbPath: path.resolve(productDbPath),
+    noraDbPath: path.resolve(noraDbPath),
+    proofDir,
+    cursorReal: "0",
+  };
+}
+
+/**
+ * Environment mutations allowed when entering an opted-in LIVE Vitest suite.
+ * Never enables reset or local authority switches.
+ */
+export function applyLiveProofSafeRuntimeEnv(
+  config: LiveProofBoundaryConfig,
+  env: Record<string, string | undefined> = process.env,
+): void {
+  env.SFIA_STUDIO_CURSOR_REAL = "0";
+  env.SFIA_STUDIO_PRODUCT_DB_PATH = config.productDbPath;
+  env.SFIA_STUDIO_NORA_SESSION_DB_PATH = config.noraDbPath;
+  delete env.SFIA_STUDIO_FAKE_CONVERSATION_PROVIDER;
+  delete env.SFIA_STUDIO_FORCE_FAKE_PROVIDER;
+  // Explicitly refuse privileged escalation even if later code tries to rely on them.
+  delete env.SFIA_V2_RUNTIME_ALLOW_RESET;
+  delete env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY;
+  delete env.SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY;
+}
+
+### COMPLETE DIFF — orionNoraCoherenceCorr01.live.test.ts
+commit 998386023e05de338b6dd172671a4a1ac571144f
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Sun Nov 1 11:06:32 2026 +0100
+
+    fix(studio): prevent narrative loss and harden live QA harness
+
+    Bound disposition footer peel to trusted terminal Studio format so mid-answer
+    markers never erase métier content, and replace the unsafe ORION LIVE helper
+    with an explicit opt-in boundary that refuses authority/reset escalation.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/__tests__/project-assistant/orionNoraCoherenceCorr01.live.test.ts b/projects/sfia-studio/app/__tests__/project-assistant/orionNoraCoherenceCorr01.live.test.ts
+index a4cd8ea4..e96506e5 100644
+--- a/projects/sfia-studio/app/__tests__/project-assistant/orionNoraCoherenceCorr01.live.test.ts
++++ b/projects/sfia-studio/app/__tests__/project-assistant/orionNoraCoherenceCorr01.live.test.ts
+@@ -1,7 +1,16 @@
+ /**
+- * ORION-NORA-COHERENCE-CORR-01 — bounded LIVE counter-proof (gated).
+- * Requires ORION_COHERENCE_LIVE=1 + campaign DBs + OPENAI_API_KEY.
+- * Does not rewrite historical turns; emits one new turn.
++ * ORION-NORA-COHERENCE-CORR-01 — bounded LIVE counter-proof (opt-in only).
++ *
++ * Disabled by default. Default CI never calls OpenAI.
++ * Requires deliberate LIVE_PROVIDER_OPT_IN=1 (or ORION_COHERENCE_LIVE=1) plus:
++ *   TEST_PROJECT_ID, TEST_PRODUCT_DB_PATH, TEST_NORA_DB_PATH, OPENAI_API_KEY
++ * Optional: TEST_PROOF_DIR
++ *
++ * No hardcoded ORION id / machine paths.
++ * No .env.local parsing. No reset flag. No Pilot/Morris authority switches.
++ * Cursor REAL forced OFF. Does not create missing DB files.
++ *
++ * This campaign does NOT execute a new LIVE counter-proof.
+  *
+  * @vitest-environment node
+  */
+@@ -11,15 +20,20 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
+ import { framingContinuityRecommendationReadyTitle } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
+ import { projectAssistantReadFramingContinuityAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
+ import { sendProjectAssistantTurn } from "@/features/project-assistant/sendProjectAssistantTurn";
++import {
++  applyLiveProofSafeRuntimeEnv,
++  isLiveProviderOptIn,
++  resolveOrionCoherenceLiveProofBoundary,
++} from "@/lib/project-assistant-qa/orionCoherenceLiveProofBoundary";
+ import {
+   getRuntimeApplicationService,
+   resetRuntimeApplicationServiceForTests,
+ } from "@/lib/vertical-slice-runtime";
+
+-const LIVE = process.env.ORION_COHERENCE_LIVE === "1";
+-const ORION_PROJECT_ID = "prj:b0883ca8-2411-493d-94ff-e386d176956a";
+-const PROOF_DIR =
+-  "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/akg-m5-l3s2-fresh-live-qa-01/proofs/orion-nora-coherence-corr-01";
++const LIVE = isLiveProviderOptIn();
++const boundary = LIVE ? resolveOrionCoherenceLiveProofBoundary() : null;
++const RUN_LIVE = Boolean(LIVE && boundary?.ok);
++
+ const APP_ROOT = path.resolve(__dirname, "../..");
+ const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
+ const SCHEMAS = path.resolve(
+@@ -27,57 +41,25 @@ const SCHEMAS = path.resolve(
+   "../sfia-v3-modeled/v3-native-option-a/schemas",
+ );
+
+-function loadDotEnvLocal(forceKeys: readonly string[] = []): void {
+-  const envPath = path.join(APP_ROOT, ".env.local");
+-  if (!fs.existsSync(envPath)) return;
+-  const force = new Set(forceKeys);
+-  for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
+-    const t = line.trim();
+-    if (!t || t.startsWith("#")) continue;
+-    const i = t.indexOf("=");
+-    if (i <= 0) continue;
+-    const k = t.slice(0, i).trim();
+-    let v = t.slice(i + 1).trim();
+-    if (
+-      (v.startsWith('"') && v.endsWith('"')) ||
+-      (v.startsWith("'") && v.endsWith("'"))
+-    ) {
+-      v = v.slice(1, -1);
+-    }
+-    if (force.has(k) || process.env[k] == null || process.env[k] === "") {
+-      process.env[k] = v;
+-    }
+-  }
+-}
+-
+-(LIVE ? describe : describe.skip)(
+-  "ORION-NORA-COHERENCE-CORR-01 LIVE counter-proof",
++(RUN_LIVE ? describe : describe.skip)(
++  "ORION-NORA-COHERENCE-CORR-01 LIVE counter-proof (opt-in)",
+   () => {
++    const config = boundary && boundary.ok ? boundary : null;
++
+     beforeAll(() => {
+-      // Vitest setup.ts assigns a temp Nora session DB — force campaign pair.
+-      loadDotEnvLocal([
+-        "SFIA_STUDIO_PRODUCT_DB_PATH",
+-        "SFIA_STUDIO_NORA_SESSION_DB_PATH",
+-        "OPENAI_API_KEY",
+-        "OPENAI_MODEL",
+-      ]);
+-      delete process.env.SFIA_STUDIO_FAKE_CONVERSATION_PROVIDER;
+-      delete process.env.SFIA_STUDIO_FORCE_FAKE_PROVIDER;
+-      process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+-      process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+-      process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
+-      process.env.SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY = "1";
+-      fs.mkdirSync(PROOF_DIR, { recursive: true });
+-      resetRuntimeApplicationServiceForTests();
+-      const productDb = process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
+-      if (!productDb) throw new Error("SFIA_STUDIO_PRODUCT_DB_PATH missing");
+-      if (!process.env.OPENAI_API_KEY?.trim()) {
+-        throw new Error("OPENAI_API_KEY missing");
++      if (!config) {
++        throw new Error(
++          LIVE && boundary && !boundary.ok
++            ? `LIVE opt-in present but boundary failed: ${boundary.reason}`
++            : "LIVE boundary config missing",
++        );
+       }
++      applyLiveProofSafeRuntimeEnv(config);
++      resetRuntimeApplicationServiceForTests();
+       getRuntimeApplicationService({
+         registryRoot: FIXTURES,
+         schemasRoot: SCHEMAS,
+-        productDbPath: productDb,
++        productDbPath: config.productDbPath,
+         auditMode: "noop",
+       });
+     });
+@@ -87,38 +69,31 @@ function loadDotEnvLocal(forceKeys: readonly string[] = []): void {
+     });
+
+     it(
+-      "FramingContinuity shows Conception; new LIVE turn is A1 without jargon",
++      "FramingContinuity + one LIVE turn (explicit targets only)",
+       async () => {
+-        const sessionDb = process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
+-        expect(sessionDb).toBeTruthy();
++        if (!config) throw new Error("LIVE config missing");
+
+         const before = await projectAssistantReadFramingContinuityAction({
+-          projectId: ORION_PROJECT_ID,
++          projectId: config.projectId,
+         });
+         expect(before.ok).toBe(true);
+-        expect(before.continuity?.catalogLabel).toBe("Conception fonctionnelle");
+-        expect(before.continuity?.targetCycleTypeId).toBe(
+-          "cyc:functional-design",
+-        );
++        expect(before.continuity?.catalogLabel).toBeTruthy();
+         const beforeTitle = framingContinuityRecommendationReadyTitle({
+           catalogLabel: before.continuity?.catalogLabel ?? null,
+           targetCycleTypeId: before.continuity?.targetCycleTypeId ?? null,
+         });
+-        expect(beforeTitle).toBe(
+-          "Commencer par un « Conception fonctionnelle »",
+-        );
+         expect(beforeTitle).not.toMatch(/Cadrage/);
+
+         const prompt =
+-          "Contre-épreuve cohérence ORION (CORR-01) : confirme en une restitution " +
++          "Contre-épreuve cohérence (opt-in LIVE) : confirme en une restitution " +
+           "unique et structurée la différence entre Cadrage exploratoire et Conception " +
+-          "fonctionnelle pour ORION, et indique clairement quelle est la recommandation " +
++          "fonctionnelle, et indique clairement quelle est la recommandation " +
+           "Product courante versus toute nouvelle proposition. Ne démarre aucun cycle.";
+
+         const turn = await sendProjectAssistantTurn({
+-          projectId: ORION_PROJECT_ID,
++          projectId: config.projectId,
+           content: prompt,
+-          sessionDbPath: sessionDb!,
++          sessionDbPath: config.noraDbPath,
+         });
+
+         expect(turn.ok).toBe(true);
+@@ -126,57 +101,65 @@ function loadDotEnvLocal(forceKeys: readonly string[] = []): void {
+         expect(turn.presentation).toBe("openai_live");
+         expect(turn.text).not.toMatch(/Les versions structurée et narrative/);
+         expect(turn.text).not.toMatch(/CONTRADICTION CANDIDATE/);
+-        expect(turn.text).toMatch(/Conception fonctionnelle/i);
+         expect(turn.text.length).toBeGreaterThan(200);
+
+         const after = await projectAssistantReadFramingContinuityAction({
+-          projectId: ORION_PROJECT_ID,
++          projectId: config.projectId,
+         });
+         expect(after.ok).toBe(true);
+-        expect(after.continuity?.catalogLabel).toBe("Conception fonctionnelle");
+         const afterTitle = framingContinuityRecommendationReadyTitle({
+           catalogLabel: after.continuity?.catalogLabel ?? null,
+           targetCycleTypeId: after.continuity?.targetCycleTypeId ?? null,
+         });
+         expect(afterTitle).not.toMatch(/Cadrage/);
+
+-        const proof = {
+-          at: new Date().toISOString(),
+-          framingBefore: {
+-            catalogLabel: before.continuity?.catalogLabel,
+-            targetCycleTypeId: before.continuity?.targetCycleTypeId,
+-            recommendationId: before.continuity?.recommendationId,
+-            phase: before.continuity?.phase,
+-            title: beforeTitle,
+-          },
+-          turn: {
+-            ok: turn.ok,
+-            status: turn.status,
+-            presentation: turn.presentation,
+-            model: turn.model ?? null,
+-            contentLen: turn.text.length,
+-            contentHead: turn.text.slice(0, 600),
+-            usedAdaptive: Boolean(turn.adaptivePresentation),
+-            studioControlNotices: turn.studioControlNotices ?? [],
+-          },
+-          framingAfter: {
+-            catalogLabel: after.continuity?.catalogLabel,
+-            targetCycleTypeId: after.continuity?.targetCycleTypeId,
+-            recommendationId: after.continuity?.recommendationId,
+-            phase: after.continuity?.phase,
+-            title: afterTitle,
+-          },
+-        };
+-        fs.writeFileSync(
+-          path.join(PROOF_DIR, "live-counterproof.json"),
+-          JSON.stringify(proof, null, 2),
+-        );
+-        fs.writeFileSync(
+-          path.join(PROOF_DIR, "live-assistant-content.txt"),
+-          turn.text,
+-        );
++        if (config.proofDir) {
++          fs.mkdirSync(config.proofDir, { recursive: true });
++          const proof = {
++            at: new Date().toISOString(),
++            projectId: config.projectId,
++            framingBefore: {
++              catalogLabel: before.continuity?.catalogLabel,
++              targetCycleTypeId: before.continuity?.targetCycleTypeId,
++              title: beforeTitle,
++            },
++            turn: {
++              ok: turn.ok,
++              status: turn.status,
++              presentation: turn.presentation,
++              model: turn.model ?? null,
++              contentLen: turn.text.length,
++              contentHead: turn.text.slice(0, 600),
++              studioControlNotices: turn.studioControlNotices ?? [],
++            },
++            framingAfter: {
++              catalogLabel: after.continuity?.catalogLabel,
++              targetCycleTypeId: after.continuity?.targetCycleTypeId,
++              title: afterTitle,
++            },
++          };
++          fs.writeFileSync(
++            path.join(config.proofDir, "live-counterproof.json"),
++            JSON.stringify(proof, null, 2),
++          );
++        }
+       },
+       180_000,
+     );
+   },
+ );
++
++describe("ORION-NORA-COHERENCE-CORR-01 LIVE harness — default skip contract", () => {
++  it("skips LIVE body when opt-in is absent (CI-safe)", () => {
++    if (!LIVE) {
++      expect(RUN_LIVE).toBe(false);
++      return;
++    }
++    // Opt-in present in this process: boundary must still be explicit/ok to run.
++    expect(boundary).not.toBeNull();
++    if (boundary && !boundary.ok) {
++      expect(RUN_LIVE).toBe(false);
++      expect(boundary.reason.length).toBeGreaterThan(0);
++    }
++  });
++});
+
+### DELETE — orion-coherence-corr-01-live-proof.ts
+commit 998386023e05de338b6dd172671a4a1ac571144f
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Sun Nov 1 11:06:32 2026 +0100
+
+    fix(studio): prevent narrative loss and harden live QA harness
+
+    Bound disposition footer peel to trusted terminal Studio format so mid-answer
+    markers never erase métier content, and replace the unsafe ORION LIVE helper
+    with an explicit opt-in boundary that refuses authority/reset escalation.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio/app/scripts/orion-coherence-corr-01-live-proof.ts b/projects/sfia-studio/app/scripts/orion-coherence-corr-01-live-proof.ts
+deleted file mode 100644
+index 2d5ccd94..00000000
+--- a/projects/sfia-studio/app/scripts/orion-coherence-corr-01-live-proof.ts
++++ /dev/null
+@@ -1,186 +0,0 @@
+-/**
+- * ORION-NORA-COHERENCE-CORR-01 — bounded LIVE counter-proof.
+- * - Reads FramingContinuity against campaign Product DB.
+- * - Emits ONE new Nora turn (does not rewrite historical turns).
+- * - Cursor REAL remains OFF.
+- *
+- * Usage (from app/): npx tsx scripts/orion-coherence-corr-01-live-proof.ts
+- */
+-import fs from "node:fs";
+-import path from "node:path";
+-import { framingContinuityRecommendationReadyTitle } from "../features/project-assistant/f2/chatFirstFramingContinuity";
+-import { projectAssistantReadFramingContinuityAction } from "../features/project-assistant/preCycleCandidateTrajectoryActions";
+-import { sendProjectAssistantTurn } from "../features/project-assistant/sendProjectAssistantTurn";
+-import {
+-  getRuntimeApplicationService,
+-  resetRuntimeApplicationServiceForTests,
+-} from "../lib/vertical-slice-runtime";
+-
+-const ORION_PROJECT_ID = "prj:b0883ca8-2411-493d-94ff-e386d176956a";
+-const PROOF_DIR =
+-  "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/akg-m5-l3s2-fresh-live-qa-01/proofs/orion-nora-coherence-corr-01";
+-
+-function loadDotEnvLocal(): void {
+-  const envPath = path.join(process.cwd(), ".env.local");
+-  if (!fs.existsSync(envPath)) return;
+-  for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
+-    const t = line.trim();
+-    if (!t || t.startsWith("#")) continue;
+-    const i = t.indexOf("=");
+-    if (i <= 0) continue;
+-    const k = t.slice(0, i).trim();
+-    let v = t.slice(i + 1).trim();
+-    if (
+-      (v.startsWith('"') && v.endsWith('"')) ||
+-      (v.startsWith("'") && v.endsWith("'"))
+-    ) {
+-      v = v.slice(1, -1);
+-    }
+-    if (process.env[k] == null || process.env[k] === "") {
+-      process.env[k] = v;
+-    }
+-  }
+-}
+-
+-async function main(): Promise<void> {
+-  loadDotEnvLocal();
+-  delete process.env.SFIA_STUDIO_FAKE_CONVERSATION_PROVIDER;
+-  delete process.env.SFIA_STUDIO_FORCE_FAKE_PROVIDER;
+-  process.env.SFIA_STUDIO_CURSOR_REAL = "0";
+-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
+-
+-  const productDb = process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
+-  const sessionDb = process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
+-  if (!productDb || !sessionDb) {
+-    throw new Error("Campaign DB paths missing");
+-  }
+-  if (!process.env.OPENAI_API_KEY?.trim()) {
+-    throw new Error("OPENAI_API_KEY missing — LIVE Nora required");
+-  }
+-
+-  fs.mkdirSync(PROOF_DIR, { recursive: true });
+-
+-  const appRoot = process.cwd();
+-  const fixtures = path.join(appRoot, "lib/oa/doctrine/fixtures");
+-  const schemas = path.resolve(
+-    appRoot,
+-    "../sfia-v3-modeled/v3-native-option-a/schemas",
+-  );
+-
+-  resetRuntimeApplicationServiceForTests();
+-  const runtime = getRuntimeApplicationService({
+-    registryRoot: fixtures,
+-    schemasRoot: schemas,
+-    productDbPath: productDb,
+-    auditMode: "noop",
+-  });
+-  if (!runtime.oa) throw new Error("OA unavailable");
+-
+-  const before = await projectAssistantReadFramingContinuityAction({
+-    projectId: ORION_PROJECT_ID,
+-  });
+-  const beforeTitle = before.ok
+-    ? framingContinuityRecommendationReadyTitle({
+-        catalogLabel: before.continuity?.catalogLabel ?? null,
+-        targetCycleTypeId: before.continuity?.targetCycleTypeId ?? null,
+-      })
+-    : null;
+-
+-  const prompt =
+-    "Contre-épreuve cohérence ORION (CORR-01) : confirme en une restitution " +
+-    "unique et structurée la différence entre Cadrage exploratoire et Conception " +
+-    "fonctionnelle pour ORION, et indique clairement quelle est la recommandation " +
+-    "Product courante versus toute nouvelle proposition. Ne démarre aucun cycle.";
+-
+-  const turn = await sendProjectAssistantTurn({
+-    projectId: ORION_PROJECT_ID,
+-    content: prompt,
+-    sessionDbPath: sessionDb,
+-  });
+-
+-  const after = await projectAssistantReadFramingContinuityAction({
+-    projectId: ORION_PROJECT_ID,
+-  });
+-  const afterTitle = after.ok
+-    ? framingContinuityRecommendationReadyTitle({
+-        catalogLabel: after.continuity?.catalogLabel ?? null,
+-        targetCycleTypeId: after.continuity?.targetCycleTypeId ?? null,
+-      })
+-    : null;
+-
+-  const assistantText = turn.ok ? turn.text : "";
+-
+-  const proof = {
+-    cycle: "ORION-NORA-COHERENCE-CORR-01",
+-    at: new Date().toISOString(),
+-    cursorReal: process.env.SFIA_STUDIO_CURSOR_REAL,
+-    projectId: ORION_PROJECT_ID,
+-    framingBefore: {
+-      ok: before.ok,
+-      phase: before.continuity?.phase ?? null,
+-      catalogLabel: before.continuity?.catalogLabel ?? null,
+-      targetCycleTypeId: before.continuity?.targetCycleTypeId ?? null,
+-      recommendationId: before.continuity?.recommendationId ?? null,
+-      title: beforeTitle,
+-      message: before.continuity?.message ?? null,
+-    },
+-    turn: {
+-      ok: turn.ok,
+-      status: (turn as { status?: string }).status ?? null,
+-      code: (turn as { code?: string }).code ?? null,
+-      contentHead: assistantText.slice(0, 500),
+-      contentLen: assistantText.length,
+-      hasDivergenceNotice: assistantText.includes(
+-        "Les versions structurée et narrative",
+-      ),
+-      hasContradictionJargon: /CONTRADICTION CANDIDATE/i.test(assistantText),
+-      hasConception: /Conception fonctionnelle/i.test(assistantText),
+-      hasCadrageExploratoireTitleOnlyAsComparison:
+-        /Cadrage exploratoire/i.test(assistantText),
+-    },
+-    framingAfter: {
+-      ok: after.ok,
+-      phase: after.continuity?.phase ?? null,
+-      catalogLabel: after.continuity?.catalogLabel ?? null,
+-      targetCycleTypeId: after.continuity?.targetCycleTypeId ?? null,
+-      recommendationId: after.continuity?.recommendationId ?? null,
+-      title: afterTitle,
+-      message: after.continuity?.message ?? null,
+-    },
+-    checks: {
+-      cardNotFakeCadrage:
+-        beforeTitle != null &&
+-        !/Cadrage/i.test(beforeTitle) &&
+-        /Conception fonctionnelle/i.test(beforeTitle ?? ""),
+-      cardAlignedAfter:
+-        afterTitle != null &&
+-        !/Cadrage/i.test(afterTitle) &&
+-        /Conception fonctionnelle/i.test(afterTitle ?? ""),
+-      turnOk: turn.ok === true,
+-      noDivergenceNotice: !assistantText.includes(
+-        "Les versions structurée et narrative",
+-      ),
+-      noContradictionJargon: !/CONTRADICTION CANDIDATE/i.test(assistantText),
+-    },
+-  };
+-
+-  const out = path.join(PROOF_DIR, "live-counterproof.json");
+-  fs.writeFileSync(out, JSON.stringify(proof, null, 2));
+-  fs.writeFileSync(
+-    path.join(PROOF_DIR, "live-assistant-content.txt"),
+-    assistantText,
+-  );
+-  console.log(JSON.stringify(proof, null, 2));
+-  console.log("PROOF_DIR", PROOF_DIR);
+-
+-  const failed = Object.entries(proof.checks).filter(([, v]) => v !== true);
+-  if (failed.length > 0) {
+-    console.error("LIVE CHECKS FAILED", failed.map(([k]) => k));
+-    process.exitCode = 2;
+-  }
+-}
+-
+-main().catch((err) => {
+-  console.error(err);
+-  process.exitCode = 1;
+-});
+
+## 16. Safety regression tests
+### NEW FILE COMPLETE — orionNoraCoherenceLiveProofBoundary.d0.test.ts
+/**
+ * FINAL-REVIEW-CORR-635 — Blocker B: LIVE proof boundary safety (DET).
+ * ZERO OpenAI calls. ZERO DB writes.
  *
  * @vitest-environment node
  */
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
-import { framingContinuityRecommendationReadyTitle } from "@/features/project-assistant/f2/chatFirstFramingContinuity";
-import { projectAssistantReadFramingContinuityAction } from "@/features/project-assistant/preCycleCandidateTrajectoryActions";
-import { sendProjectAssistantTurn } from "@/features/project-assistant/sendProjectAssistantTurn";
+import { afterEach, describe, expect, it } from "vitest";
 import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "@/lib/vertical-slice-runtime";
+  LIVE_PROVIDER_OPT_IN_ENV,
+  ORION_COHERENCE_LIVE_LEGACY_ENV,
+  applyLiveProofSafeRuntimeEnv,
+  isLiveProviderOptIn,
+  resolveOrionCoherenceLiveProofBoundary,
+  type LiveProofEnv,
+} from "@/lib/project-assistant-qa/orionCoherenceLiveProofBoundary";
 
-const LIVE = process.env.ORION_COHERENCE_LIVE === "1";
-const ORION_PROJECT_ID = "prj:b0883ca8-2411-493d-94ff-e386d176956a";
-const PROOF_DIR =
-  "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/akg-m5-l3s2-fresh-live-qa-01/proofs/orion-nora-coherence-corr-01";
-const APP_ROOT = path.resolve(__dirname, "../..");
-const FIXTURES = path.join(APP_ROOT, "lib/oa/doctrine/fixtures");
-const SCHEMAS = path.resolve(
-  APP_ROOT,
-  "../sfia-v3-modeled/v3-native-option-a/schemas",
+const SOURCE_PATH = path.resolve(
+  __dirname,
+  "../../lib/project-assistant-qa/orionCoherenceLiveProofBoundary.ts",
+);
+const LIVE_TEST_PATH = path.resolve(
+  __dirname,
+  "orionNoraCoherenceCorr01.live.test.ts",
+);
+const REMOVED_SCRIPT = path.resolve(
+  __dirname,
+  "../../scripts/orion-coherence-corr-01-live-proof.ts",
 );
 
-function loadDotEnvLocal(forceKeys: readonly string[] = []): void {
-  const envPath = path.join(APP_ROOT, ".env.local");
-  if (!fs.existsSync(envPath)) return;
-  const force = new Set(forceKeys);
-  for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
-    const t = line.trim();
-    if (!t || t.startsWith("#")) continue;
-    const i = t.indexOf("=");
-    if (i <= 0) continue;
-    const k = t.slice(0, i).trim();
-    let v = t.slice(i + 1).trim();
-    if (
-      (v.startsWith('"') && v.endsWith('"')) ||
-      (v.startsWith("'") && v.endsWith("'"))
-    ) {
-      v = v.slice(1, -1);
-    }
-    if (force.has(k) || process.env[k] == null || process.env[k] === "") {
-      process.env[k] = v;
-    }
+const tmpDirs: string[] = [];
+
+afterEach(() => {
+  while (tmpDirs.length > 0) {
+    const d = tmpDirs.pop();
+    if (d) fs.rmSync(d, { recursive: true, force: true });
   }
-}
-
-(LIVE ? describe : describe.skip)(
-  "ORION-NORA-COHERENCE-CORR-01 LIVE counter-proof",
-  () => {
-    beforeAll(() => {
-      // Vitest setup.ts assigns a temp Nora session DB — force campaign pair.
-      loadDotEnvLocal([
-        "SFIA_STUDIO_PRODUCT_DB_PATH",
-        "SFIA_STUDIO_NORA_SESSION_DB_PATH",
-        "OPENAI_API_KEY",
-        "OPENAI_MODEL",
-      ]);
-      delete process.env.SFIA_STUDIO_FAKE_CONVERSATION_PROVIDER;
-      delete process.env.SFIA_STUDIO_FORCE_FAKE_PROVIDER;
-      process.env.SFIA_STUDIO_CURSOR_REAL = "0";
-      process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-      process.env.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY = "1";
-      process.env.SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY = "1";
-      fs.mkdirSync(PROOF_DIR, { recursive: true });
-      resetRuntimeApplicationServiceForTests();
-      const productDb = process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
-      if (!productDb) throw new Error("SFIA_STUDIO_PRODUCT_DB_PATH missing");
-      if (!process.env.OPENAI_API_KEY?.trim()) {
-        throw new Error("OPENAI_API_KEY missing");
-      }
-      getRuntimeApplicationService({
-        registryRoot: FIXTURES,
-        schemasRoot: SCHEMAS,
-        productDbPath: productDb,
-        auditMode: "noop",
-      });
-    });
-
-    afterAll(() => {
-      resetRuntimeApplicationServiceForTests();
-    });
-
-    it(
-      "FramingContinuity shows Conception; new LIVE turn is A1 without jargon",
-      async () => {
-        const sessionDb = process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
-        expect(sessionDb).toBeTruthy();
-
-        const before = await projectAssistantReadFramingContinuityAction({
-          projectId: ORION_PROJECT_ID,
-        });
-        expect(before.ok).toBe(true);
-        expect(before.continuity?.catalogLabel).toBe("Conception fonctionnelle");
-        expect(before.continuity?.targetCycleTypeId).toBe(
-          "cyc:functional-design",
-        );
-        const beforeTitle = framingContinuityRecommendationReadyTitle({
-          catalogLabel: before.continuity?.catalogLabel ?? null,
-          targetCycleTypeId: before.continuity?.targetCycleTypeId ?? null,
-        });
-        expect(beforeTitle).toBe(
-          "Commencer par un « Conception fonctionnelle »",
-        );
-        expect(beforeTitle).not.toMatch(/Cadrage/);
-
-        const prompt =
-          "Contre-épreuve cohérence ORION (CORR-01) : confirme en une restitution " +
-          "unique et structurée la différence entre Cadrage exploratoire et Conception " +
-          "fonctionnelle pour ORION, et indique clairement quelle est la recommandation " +
-          "Product courante versus toute nouvelle proposition. Ne démarre aucun cycle.";
-
-        const turn = await sendProjectAssistantTurn({
-          projectId: ORION_PROJECT_ID,
-          content: prompt,
-          sessionDbPath: sessionDb!,
-        });
-
-        expect(turn.ok).toBe(true);
-        if (!turn.ok) return;
-        expect(turn.presentation).toBe("openai_live");
-        expect(turn.text).not.toMatch(/Les versions structurée et narrative/);
-        expect(turn.text).not.toMatch(/CONTRADICTION CANDIDATE/);
-        expect(turn.text).toMatch(/Conception fonctionnelle/i);
-        expect(turn.text.length).toBeGreaterThan(200);
-
-        const after = await projectAssistantReadFramingContinuityAction({
-          projectId: ORION_PROJECT_ID,
-        });
-        expect(after.ok).toBe(true);
-        expect(after.continuity?.catalogLabel).toBe("Conception fonctionnelle");
-        const afterTitle = framingContinuityRecommendationReadyTitle({
-          catalogLabel: after.continuity?.catalogLabel ?? null,
-          targetCycleTypeId: after.continuity?.targetCycleTypeId ?? null,
-        });
-        expect(afterTitle).not.toMatch(/Cadrage/);
-
-        const proof = {
-          at: new Date().toISOString(),
-          framingBefore: {
-            catalogLabel: before.continuity?.catalogLabel,
-            targetCycleTypeId: before.continuity?.targetCycleTypeId,
-            recommendationId: before.continuity?.recommendationId,
-            phase: before.continuity?.phase,
-            title: beforeTitle,
-          },
-          turn: {
-            ok: turn.ok,
-            status: turn.status,
-            presentation: turn.presentation,
-            model: turn.model ?? null,
-            contentLen: turn.text.length,
-            contentHead: turn.text.slice(0, 600),
-            usedAdaptive: Boolean(turn.adaptivePresentation),
-            studioControlNotices: turn.studioControlNotices ?? [],
-          },
-          framingAfter: {
-            catalogLabel: after.continuity?.catalogLabel,
-            targetCycleTypeId: after.continuity?.targetCycleTypeId,
-            recommendationId: after.continuity?.recommendationId,
-            phase: after.continuity?.phase,
-            title: afterTitle,
-          },
-        };
-        fs.writeFileSync(
-          path.join(PROOF_DIR, "live-counterproof.json"),
-          JSON.stringify(proof, null, 2),
-        );
-        fs.writeFileSync(
-          path.join(PROOF_DIR, "live-assistant-content.txt"),
-          turn.text,
-        );
-      },
-      180_000,
-    );
-  },
-);
-```
-
-### NEW FILE COMPLETE — orion-coherence-corr-01-live-proof.ts
-
-```typescript
-/**
- * ORION-NORA-COHERENCE-CORR-01 — bounded LIVE counter-proof.
- * - Reads FramingContinuity against campaign Product DB.
- * - Emits ONE new Nora turn (does not rewrite historical turns).
- * - Cursor REAL remains OFF.
- *
- * Usage (from app/): npx tsx scripts/orion-coherence-corr-01-live-proof.ts
- */
-import fs from "node:fs";
-import path from "node:path";
-import { framingContinuityRecommendationReadyTitle } from "../features/project-assistant/f2/chatFirstFramingContinuity";
-import { projectAssistantReadFramingContinuityAction } from "../features/project-assistant/preCycleCandidateTrajectoryActions";
-import { sendProjectAssistantTurn } from "../features/project-assistant/sendProjectAssistantTurn";
-import {
-  getRuntimeApplicationService,
-  resetRuntimeApplicationServiceForTests,
-} from "../lib/vertical-slice-runtime";
-
-const ORION_PROJECT_ID = "prj:b0883ca8-2411-493d-94ff-e386d176956a";
-const PROOF_DIR =
-  "/Users/morris/Projects/sfia-workspace/projects/sfia-studio/.sfia-exec/akg-m5-l3s2-fresh-live-qa-01/proofs/orion-nora-coherence-corr-01";
-
-function loadDotEnvLocal(): void {
-  const envPath = path.join(process.cwd(), ".env.local");
-  if (!fs.existsSync(envPath)) return;
-  for (const line of fs.readFileSync(envPath, "utf8").split("\n")) {
-    const t = line.trim();
-    if (!t || t.startsWith("#")) continue;
-    const i = t.indexOf("=");
-    if (i <= 0) continue;
-    const k = t.slice(0, i).trim();
-    let v = t.slice(i + 1).trim();
-    if (
-      (v.startsWith('"') && v.endsWith('"')) ||
-      (v.startsWith("'") && v.endsWith("'"))
-    ) {
-      v = v.slice(1, -1);
-    }
-    if (process.env[k] == null || process.env[k] === "") {
-      process.env[k] = v;
-    }
-  }
-}
-
-async function main(): Promise<void> {
-  loadDotEnvLocal();
-  delete process.env.SFIA_STUDIO_FAKE_CONVERSATION_PROVIDER;
-  delete process.env.SFIA_STUDIO_FORCE_FAKE_PROVIDER;
-  process.env.SFIA_STUDIO_CURSOR_REAL = "0";
-  process.env.SFIA_V2_RUNTIME_ALLOW_RESET = "1";
-
-  const productDb = process.env.SFIA_STUDIO_PRODUCT_DB_PATH;
-  const sessionDb = process.env.SFIA_STUDIO_NORA_SESSION_DB_PATH;
-  if (!productDb || !sessionDb) {
-    throw new Error("Campaign DB paths missing");
-  }
-  if (!process.env.OPENAI_API_KEY?.trim()) {
-    throw new Error("OPENAI_API_KEY missing — LIVE Nora required");
-  }
-
-  fs.mkdirSync(PROOF_DIR, { recursive: true });
-
-  const appRoot = process.cwd();
-  const fixtures = path.join(appRoot, "lib/oa/doctrine/fixtures");
-  const schemas = path.resolve(
-    appRoot,
-    "../sfia-v3-modeled/v3-native-option-a/schemas",
-  );
-
-  resetRuntimeApplicationServiceForTests();
-  const runtime = getRuntimeApplicationService({
-    registryRoot: fixtures,
-    schemasRoot: schemas,
-    productDbPath: productDb,
-    auditMode: "noop",
-  });
-  if (!runtime.oa) throw new Error("OA unavailable");
-
-  const before = await projectAssistantReadFramingContinuityAction({
-    projectId: ORION_PROJECT_ID,
-  });
-  const beforeTitle = before.ok
-    ? framingContinuityRecommendationReadyTitle({
-        catalogLabel: before.continuity?.catalogLabel ?? null,
-        targetCycleTypeId: before.continuity?.targetCycleTypeId ?? null,
-      })
-    : null;
-
-  const prompt =
-    "Contre-épreuve cohérence ORION (CORR-01) : confirme en une restitution " +
-    "unique et structurée la différence entre Cadrage exploratoire et Conception " +
-    "fonctionnelle pour ORION, et indique clairement quelle est la recommandation " +
-    "Product courante versus toute nouvelle proposition. Ne démarre aucun cycle.";
-
-  const turn = await sendProjectAssistantTurn({
-    projectId: ORION_PROJECT_ID,
-    content: prompt,
-    sessionDbPath: sessionDb,
-  });
-
-  const after = await projectAssistantReadFramingContinuityAction({
-    projectId: ORION_PROJECT_ID,
-  });
-  const afterTitle = after.ok
-    ? framingContinuityRecommendationReadyTitle({
-        catalogLabel: after.continuity?.catalogLabel ?? null,
-        targetCycleTypeId: after.continuity?.targetCycleTypeId ?? null,
-      })
-    : null;
-
-  const assistantText = turn.ok ? turn.text : "";
-
-  const proof = {
-    cycle: "ORION-NORA-COHERENCE-CORR-01",
-    at: new Date().toISOString(),
-    cursorReal: process.env.SFIA_STUDIO_CURSOR_REAL,
-    projectId: ORION_PROJECT_ID,
-    framingBefore: {
-      ok: before.ok,
-      phase: before.continuity?.phase ?? null,
-      catalogLabel: before.continuity?.catalogLabel ?? null,
-      targetCycleTypeId: before.continuity?.targetCycleTypeId ?? null,
-      recommendationId: before.continuity?.recommendationId ?? null,
-      title: beforeTitle,
-      message: before.continuity?.message ?? null,
-    },
-    turn: {
-      ok: turn.ok,
-      status: (turn as { status?: string }).status ?? null,
-      code: (turn as { code?: string }).code ?? null,
-      contentHead: assistantText.slice(0, 500),
-      contentLen: assistantText.length,
-      hasDivergenceNotice: assistantText.includes(
-        "Les versions structurée et narrative",
-      ),
-      hasContradictionJargon: /CONTRADICTION CANDIDATE/i.test(assistantText),
-      hasConception: /Conception fonctionnelle/i.test(assistantText),
-      hasCadrageExploratoireTitleOnlyAsComparison:
-        /Cadrage exploratoire/i.test(assistantText),
-    },
-    framingAfter: {
-      ok: after.ok,
-      phase: after.continuity?.phase ?? null,
-      catalogLabel: after.continuity?.catalogLabel ?? null,
-      targetCycleTypeId: after.continuity?.targetCycleTypeId ?? null,
-      recommendationId: after.continuity?.recommendationId ?? null,
-      title: afterTitle,
-      message: after.continuity?.message ?? null,
-    },
-    checks: {
-      cardNotFakeCadrage:
-        beforeTitle != null &&
-        !/Cadrage/i.test(beforeTitle) &&
-        /Conception fonctionnelle/i.test(beforeTitle ?? ""),
-      cardAlignedAfter:
-        afterTitle != null &&
-        !/Cadrage/i.test(afterTitle) &&
-        /Conception fonctionnelle/i.test(afterTitle ?? ""),
-      turnOk: turn.ok === true,
-      noDivergenceNotice: !assistantText.includes(
-        "Les versions structurée et narrative",
-      ),
-      noContradictionJargon: !/CONTRADICTION CANDIDATE/i.test(assistantText),
-    },
-  };
-
-  const out = path.join(PROOF_DIR, "live-counterproof.json");
-  fs.writeFileSync(out, JSON.stringify(proof, null, 2));
-  fs.writeFileSync(
-    path.join(PROOF_DIR, "live-assistant-content.txt"),
-    assistantText,
-  );
-  console.log(JSON.stringify(proof, null, 2));
-  console.log("PROOF_DIR", PROOF_DIR);
-
-  const failed = Object.entries(proof.checks).filter(([, v]) => v !== true);
-  if (failed.length > 0) {
-    console.error("LIVE CHECKS FAILED", failed.map(([k]) => k));
-    process.exitCode = 2;
-  }
-}
-
-main().catch((err) => {
-  console.error(err);
-  process.exitCode = 1;
 });
-```
 
-## 11. QA commands / results
+function makeExistingDbPair(): { product: string; nora: string; dir: string } {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "orion-live-boundary-"));
+  tmpDirs.push(dir);
+  const product = path.join(dir, "product.sqlite");
+  const nora = path.join(dir, "nora.sqlite");
+  fs.writeFileSync(product, "");
+  fs.writeFileSync(nora, "");
+  return { product, nora, dir };
+}
 
-| Command | Result |
-|---|---|
-| Targeted DET (ORION T01–12 + NAP/Framing/LR) | **232 PASS / 10 files** |
-| LIVE default (no `ORION_COHERENCE_LIVE`) | **1 skipped** (explicit gate) |
-| `tsc --noEmit` / `npm run typecheck` | PASS |
-| eslint touched + `npm run lint` | PASS (pre-existing unrelated warnings) |
-| `npm run build` | PASS |
-| Modeled governance node --test | **75 PASS** |
-| Secret pattern scan | PASS |
-| `git diff --check origin/main...HEAD` | PASS |
-| PRR checker after digests | **CONFORMANCE OK** |
-| `CI=true npm test` (clean env) | **569 files / 6360 tests PASS / 143 skipped** |
-| Prior polluted-env full run | FAIL noise (local authority leakage) — not Product delta |
-| One parallel flake JPI under first CI=true | PASS alone on corrective+main; cleared on second CI=true full |
+describe("FINAL-REVIEW-CORR-635 — LIVE proof boundary B01–B10", () => {
+  it("B01/B02 — default CI: opt-in false; no OpenAI required", () => {
+    const env: LiveProofEnv = { ...process.env };
+    delete (env as Record<string, string | undefined>)[LIVE_PROVIDER_OPT_IN_ENV];
+    delete (env as Record<string, string | undefined>)[
+      ORION_COHERENCE_LIVE_LEGACY_ENV
+    ];
+    delete (env as Record<string, string | undefined>).OPENAI_API_KEY;
+    expect(isLiveProviderOptIn(env)).toBe(false);
+    const r = resolveOrionCoherenceLiveProofBoundary(env);
+    expect(r.ok).toBe(false);
+    if (r.ok) return;
+    expect(r.code).toBe("opt_in_missing");
+  });
 
-## 12. LIVE proof scope
+  it("B03 — missing required parameters fail closed before side effects", () => {
+    const env: LiveProofEnv = {
+      [LIVE_PROVIDER_OPT_IN_ENV]: "1",
+      OPENAI_API_KEY: "sk-test-not-used",
+    };
+    const r = resolveOrionCoherenceLiveProofBoundary(env);
+    expect(r.ok).toBe(false);
+    if (r.ok) return;
+    expect(r.code).toBe("project_id_missing");
+  });
 
-Bounded OpenAI LIVE Product seam (`sendProjectAssistantTurn`, `ORION_COHERENCE_LIVE=1`): Framing title Conception; A1; no false divergence; no CONTRADICTION jargon; HD=0; historical seq 3 untouched; Cursor REAL OFF. Browser authenticated screenshot **NOT PROVEN**. No new LIVE calls in GI (prior evidence retained).
+  it("B04 — invalid DB path: no file created or overwritten", () => {
+    const ghostDir = path.join(os.tmpdir(), `orion-live-ghost-${Date.now()}`);
+    const ghostProduct = path.join(ghostDir, "missing-product.sqlite");
+    const ghostNora = path.join(ghostDir, "missing-nora.sqlite");
+    expect(fs.existsSync(ghostDir)).toBe(false);
 
-## 13. Browser limitations
+    const env: LiveProofEnv = {
+      [LIVE_PROVIDER_OPT_IN_ENV]: "1",
+      TEST_PROJECT_ID: "prj:test-only",
+      TEST_PRODUCT_DB_PATH: ghostProduct,
+      TEST_NORA_DB_PATH: ghostNora,
+      OPENAI_API_KEY: "sk-test-not-used",
+    };
+    const r = resolveOrionCoherenceLiveProofBoundary(env);
+    expect(r.ok).toBe(false);
+    if (r.ok) return;
+    expect(r.code).toBe("product_db_not_file");
+    expect(fs.existsSync(ghostDir)).toBe(false);
+    expect(fs.existsSync(ghostProduct)).toBe(false);
+  });
 
-IDE browser auth + Computer Use Screen Recording blocked visual capture. Disclosed as merge-review reserve — not silent PASS/FAIL.
+  it("B05 — no authority overrides accepted on opt-in", () => {
+    const { product, nora } = makeExistingDbPair();
+    for (const flag of [
+      "SFIA_STUDIO_LOCAL_PILOT_AUTHORITY",
+      "SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY",
+      "SFIA_V2_RUNTIME_ALLOW_RESET",
+    ] as const) {
+      const env: LiveProofEnv = {
+        [LIVE_PROVIDER_OPT_IN_ENV]: "1",
+        TEST_PROJECT_ID: "prj:test-only",
+        TEST_PRODUCT_DB_PATH: product,
+        TEST_NORA_DB_PATH: nora,
+        OPENAI_API_KEY: "sk-test-not-used",
+        [flag]: "1",
+      };
+      const r = resolveOrionCoherenceLiveProofBoundary(env);
+      expect(r.ok).toBe(false);
+      if (r.ok) return;
+      expect(r.code).toBe("authority_escalation_present");
+      expect(r.reason).toContain(flag);
+    }
+  });
 
-## 14–15. R24 matrix + documentary diffs
+  it("B06 — safe runtime apply never enables reset or authority", () => {
+    const { product, nora } = makeExistingDbPair();
+    const env: LiveProofEnv = {
+      [LIVE_PROVIDER_OPT_IN_ENV]: "1",
+      TEST_PROJECT_ID: "prj:test-only",
+      TEST_PRODUCT_DB_PATH: product,
+      TEST_NORA_DB_PATH: nora,
+      OPENAI_API_KEY: "sk-test-not-used",
+      SFIA_V2_RUNTIME_ALLOW_RESET: "1",
+    };
+    // Boundary refuses while escalation present.
+    expect(resolveOrionCoherenceLiveProofBoundary(env).ok).toBe(false);
 
-| Volume | Change | Epistemic |
-|---|---|---|
-| README | Candidate overlay GI-ORION | AS-IMPLEMENTED ON PRODUCT PR CANDIDATE |
-| 03 | F03/F04 CURRENT hydration + NAP footer | same |
-| 06 | Memory B write/preserve | same |
-| 07 | INV table candidate | same |
-| 08 | proof index + LIVE opt-in | same |
-| 09 | gaps: browser/Cursor/L3-S2 OPEN | same |
-| manifest | lastReviewedCommit=`9bd22f87` + digests | candidate code ref |
+    const envClean: LiveProofEnv = {
+      [LIVE_PROVIDER_OPT_IN_ENV]: "1",
+      TEST_PROJECT_ID: "prj:test-only",
+      TEST_PRODUCT_DB_PATH: product,
+      TEST_NORA_DB_PATH: nora,
+      OPENAI_API_KEY: "sk-test-not-used",
+    };
+    const ok = resolveOrionCoherenceLiveProofBoundary(envClean);
+    expect(ok.ok).toBe(true);
+    if (!ok.ok) return;
 
-### Complete R24 patch (commit 9b51a51c)
+    const mutable: Record<string, string | undefined> = {
+      SFIA_V2_RUNTIME_ALLOW_RESET: "1",
+      SFIA_STUDIO_LOCAL_PILOT_AUTHORITY: "1",
+      SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY: "1",
+      SFIA_STUDIO_CURSOR_REAL: "1",
+    };
+    applyLiveProofSafeRuntimeEnv(ok, mutable);
+    expect(mutable.SFIA_V2_RUNTIME_ALLOW_RESET).toBeUndefined();
+    expect(mutable.SFIA_STUDIO_LOCAL_PILOT_AUTHORITY).toBeUndefined();
+    expect(mutable.SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY).toBeUndefined();
+    expect(mutable.SFIA_STUDIO_CURSOR_REAL).toBe("0");
+    expect(mutable.SFIA_STUDIO_PRODUCT_DB_PATH).toBe(ok.productDbPath);
+  });
 
-```diff
+  it("B07 — no personal absolute path or fixed ORION identifier in harness sources", () => {
+    const boundarySrc = fs.readFileSync(SOURCE_PATH, "utf8");
+    const liveSrc = fs.readFileSync(LIVE_TEST_PATH, "utf8");
+    for (const src of [boundarySrc, liveSrc]) {
+      expect(src).not.toMatch(/\/Users\/morris\//);
+      expect(src).not.toMatch(/prj:b0883ca8-2411-493d-94ff-e386d176956a/);
+      expect(src).not.toMatch(/loadDotEnvLocal/);
+      expect(src).not.toMatch(/SFIA_V2_RUNTIME_ALLOW_RESET\s*=\s*["']1["']/);
+      expect(src).not.toMatch(/SFIA_STUDIO_LOCAL_PILOT_AUTHORITY\s*=\s*["']1["']/);
+      expect(src).not.toMatch(
+        /SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY\s*=\s*["']1["']/,
+      );
+    }
+    expect(fs.existsSync(REMOVED_SCRIPT)).toBe(false);
+  });
+
+  it("B08 — secrets are not embedded in harness sources", () => {
+    const boundarySrc = fs.readFileSync(SOURCE_PATH, "utf8");
+    const liveSrc = fs.readFileSync(LIVE_TEST_PATH, "utf8");
+    for (const src of [boundarySrc, liveSrc]) {
+      expect(src).not.toMatch(/sk-[a-zA-Z0-9]{10,}/);
+      expect(src).not.toMatch(/OPENAI_API_KEY\s*=\s*["']sk-/);
+    }
+  });
+
+  it("B09 — Cursor REAL remains OFF in safe apply / forbidden when already 1", () => {
+    const { product, nora } = makeExistingDbPair();
+    const envReal: LiveProofEnv = {
+      [LIVE_PROVIDER_OPT_IN_ENV]: "1",
+      TEST_PROJECT_ID: "prj:test-only",
+      TEST_PRODUCT_DB_PATH: product,
+      TEST_NORA_DB_PATH: nora,
+      OPENAI_API_KEY: "sk-test-not-used",
+      SFIA_STUDIO_CURSOR_REAL: "1",
+    };
+    const denied = resolveOrionCoherenceLiveProofBoundary(envReal);
+    expect(denied.ok).toBe(false);
+    if (denied.ok) return;
+    expect(denied.code).toBe("cursor_real_forbidden");
+  });
+
+  it("B10 — successful resolve requires explicit targets; legacy opt-in alias works", () => {
+    const { product, nora } = makeExistingDbPair();
+    const proofDir = path.join(os.tmpdir(), "proof-out-not-created-by-resolve");
+    const env: LiveProofEnv = {
+      [ORION_COHERENCE_LIVE_LEGACY_ENV]: "1",
+      TEST_PROJECT_ID: "prj:explicit-test",
+      TEST_PRODUCT_DB_PATH: product,
+      TEST_NORA_DB_PATH: nora,
+      OPENAI_API_KEY: "sk-test-not-used",
+      TEST_PROOF_DIR: proofDir,
+    };
+    const r = resolveOrionCoherenceLiveProofBoundary(env);
+    expect(r.ok).toBe(true);
+    if (!r.ok) return;
+    expect(r.projectId).toBe("prj:explicit-test");
+    expect(r.cursorReal).toBe("0");
+    expect(r.productDbPath).toBe(path.resolve(product));
+    // resolve must not mkdir proof dir
+    expect(fs.existsSync(proofDir)).toBe(false);
+  });
+});
+
+## 17. Complete changed code diffs
+Covered in §§11/15. Full Product commit:
+commit 998386023e05de338b6dd172671a4a1ac571144f
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Sun Nov 1 11:06:32 2026 +0100
+
+    fix(studio): prevent narrative loss and harden live QA harness
+
+    Bound disposition footer peel to trusted terminal Studio format so mid-answer
+    markers never erase métier content, and replace the unsafe ORION LIVE helper
+    with an explicit opt-in boundary that refuses authority/reset escalation.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ ...rionNoraCoherenceCorr01.footerSafety.d0.test.ts | 291 +++++++++++++++++++++
+ .../orionNoraCoherenceCorr01.live.test.ts          | 193 +++++++-------
+ .../orionNoraCoherenceLiveProofBoundary.d0.test.ts | 221 ++++++++++++++++
+ .../noraAdaptivePresentation.ts                    |  48 ++--
+ .../orionCoherenceLiveProofBoundary.ts             | 197 ++++++++++++++
+ .../scripts/orion-coherence-corr-01-live-proof.ts  | 186 -------------
+ 6 files changed, 830 insertions(+), 306 deletions(-)
+
+## 18. Complete new test files
+Covered in §§12/16 (full file contents).
+
+## 19. R24 semantic changes/diffs
+commit b0ce841367c441590ef1b6f0a41279e960401fbf
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Sun Nov 1 11:07:05 2026 +0100
+
+    docs(studio): align ORION coherence R24 and proof boundaries
+
+    Document bounded terminal footer extraction, safer LIVE opt-in harness
+    constraints, and evidence ceiling after FINAL-REVIEW-CORR-635; refresh
+    canonical PRR digests against corrective Product commit 99838602.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+ .../03-end-to-end-flow-catalog.md                      |  8 ++++----
+ .../05-environments-configuration-and-boundaries.md    | 13 +++++++++++++
+ .../06-persistence-restart-and-recovery.md             |  4 +++-
+ .../07-authority-invariants-and-failure-modes.md       |  7 ++++---
+ .../08-test-proof-and-conformance-map.md               |  8 +++++---
+ .../09-known-gaps-reserves-and-current-boundaries.md   |  9 +++++----
+ .../sfia-studio/production-runtime-reference/README.md |  9 +++++----
+ .../production-runtime-reference.manifest.json         | 18 +++++++++---------
+ 8 files changed, 48 insertions(+), 28 deletions(-)
+
+commit b0ce841367c441590ef1b6f0a41279e960401fbf
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Sun Nov 1 11:07:05 2026 +0100
+
+    docs(studio): align ORION coherence R24 and proof boundaries
+
+    Document bounded terminal footer extraction, safer LIVE opt-in harness
+    constraints, and evidence ceiling after FINAL-REVIEW-CORR-635; refresh
+    canonical PRR digests against corrective Product commit 99838602.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
 diff --git a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-index 585d036b..3c2a228b 100644
+index 3c2a228b..3a4816d8 100644
 --- a/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
 +++ b/projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md
-@@ -4,6 +4,20 @@
+@@ -6,17 +6,17 @@ Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
 
- Status legend: COMPLETE | PARTIAL | NOT PROVEN | BREAK
+ ## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
 
-+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
-+
-+> **Product code ref:** `9bd22f875d01404989a03de5db2c96e396e6d89c` · **≠ CURRENT ON MAIN** until merge.
-+>
-+> **F03 / Framing Continuity Card:** phase `recommendation_ready` hydrates `catalogLabel` / `targetCycleTypeId` / `recommendationId` from Product CURRENT NEXT_CYCLE Recommendation when candidate/approval presentation is absent. Pilot title uses catalog label; suffix « exploratoire » only for Framing/`cyc:framing`. Unknown label → neutral title (never invent « Cadrage »).
-+>
-+> **F04 / NAP durable write:** `buildDurableAssistantContentForTurn` classifies on core **after** stripping cognitive disposition footers (`CONTRADICTION CANDIDATE` / `COGNITIVE STOP` / `EVIDENCE-BACKED CONTRADICTION`). Empty structured narrative prefers coherent narrative string (including empty) over contaminated `turn.text`. True divergence remains fail-closed dual+notice. Candidate contradiction surfaces as typed Studio notice (Pilot-intelligible), not métier jargon in body.
-+>
-+> **Memory B:** new turns may persist A1 compose; historical divergent rows are **not** rewritten.
-+>
-+> **Proof:** `orionNoraCoherenceCorr01.d0.test.ts` · framing/NAP suites · LIVE opt-in `ORION_COHERENCE_LIVE=1` · browser UI capture **NOT PROVEN**.
-+>
-+> **Anti-claims:** ≠ MERGED · ≠ auto-START · ≠ HD invent · ≠ Cursor REAL.
-+
+-> **Product code ref:** `9bd22f875d01404989a03de5db2c96e396e6d89c` · **≠ CURRENT ON MAIN** until merge.
++> **Product code ref:** corrective Product commit on PR [#635](https://github.com/mcleland147/sfia-workspace/pull/635) (see manifest `lastReviewedCommit`) · **≠ CURRENT ON MAIN** until merge.
+ >
+ > **F03 / Framing Continuity Card:** phase `recommendation_ready` hydrates `catalogLabel` / `targetCycleTypeId` / `recommendationId` from Product CURRENT NEXT_CYCLE Recommendation when candidate/approval presentation is absent. Pilot title uses catalog label; suffix « exploratoire » only for Framing/`cyc:framing`. Unknown label → neutral title (never invent « Cadrage »).
+ >
+-> **F04 / NAP durable write:** `buildDurableAssistantContentForTurn` classifies on core **after** stripping cognitive disposition footers (`CONTRADICTION CANDIDATE` / `COGNITIVE STOP` / `EVIDENCE-BACKED CONTRADICTION`). Empty structured narrative prefers coherent narrative string (including empty) over contaminated `turn.text`. True divergence remains fail-closed dual+notice. Candidate contradiction surfaces as typed Studio notice (Pilot-intelligible), not métier jargon in body.
++> **F04 / NAP durable write:** `buildDurableAssistantContentForTurn` classifies on core **after** peeling **trusted terminal** cognitive disposition footers only (`CONTRADICTION CANDIDATE` / `COGNITIVE STOP` / `EVIDENCE-BACKED CONTRADICTION` + documented `Evidence:`/`Next:` continuations). Mid-answer markers, quotes, code fences, and ambiguous markers are **preserved** (fail-closed — no silent métier loss). Empty structured narrative prefers coherent narrative string (including empty) over contaminated `turn.text`. True divergence remains fail-closed dual+notice. Candidate contradiction surfaces as typed Studio notice (Pilot-intelligible), not métier jargon in body.
+ >
+ > **Memory B:** new turns may persist A1 compose; historical divergent rows are **not** rewritten.
+ >
+-> **Proof:** `orionNoraCoherenceCorr01.d0.test.ts` · framing/NAP suites · LIVE opt-in `ORION_COHERENCE_LIVE=1` · browser UI capture **NOT PROVEN**.
++> **Proof:** `orionNoraCoherenceCorr01.d0.test.ts` · `orionNoraCoherenceCorr01.footerSafety.d0.test.ts` (A01–A14) · framing/NAP suites · LIVE opt-in via `LIVE_PROVIDER_OPT_IN=1` / `ORION_COHERENCE_LIVE=1` + explicit `TEST_PROJECT_ID` / DB paths (`orionCoherenceLiveProofBoundary`) · browser UI capture **NOT PROVEN**.
+ >
+-> **Anti-claims:** ≠ MERGED · ≠ auto-START · ≠ HD invent · ≠ Cursor REAL.
++> **Anti-claims:** ≠ MERGED · ≠ auto-START · ≠ HD invent · ≠ Cursor REAL · ≠ new LIVE run in FINAL-REVIEW-CORR-635.
+
  **Epistemic split (post-merge 2026-10-26) — RepositoryBinding + docs_write Product specialization:** **CURRENT ON MAIN** (`fec4e65d` / PR #618 MERGED): **RepositoryBinding RETIRED**; **docs_write Product admission RETIRED**. `projectWorkspaceKey` / `projects/<key>` routing **PRESERVED**. Sentences below that still describe Binding or docs_write Product admission as live Product behaviour are **HISTORICAL SNAPSHOTS** (true on `7db8afd7` before merge). **H4 / G-REAL / G-ACTIVATION NOT GRANTED**. **AKG-M5 OPEN**. Runtime v3 **NON ADOPTED**.
 
- ## Overlay — CORR-02 Git target fidelity (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
+diff --git a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+index b83fcf56..92f9648b 100644
+--- a/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
++++ b/projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md
+@@ -11,6 +11,19 @@
+ | Capability | What an agent *can* do technically |
+ | Authority | What a Pilot/Morris *may* authorize |
+
++## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 LIVE proof boundary (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
++
++| Item | Status |
++|---|---|
++| Default | LIVE proof **disabled** — CI never calls OpenAI for this harness |
++| Opt-in | `LIVE_PROVIDER_OPT_IN=1` or legacy `ORION_COHERENCE_LIVE=1` |
++| Required targets | `TEST_PROJECT_ID` · `TEST_PRODUCT_DB_PATH` / `SFIA_STUDIO_PRODUCT_DB_PATH` · `TEST_NORA_DB_PATH` / `SFIA_STUDIO_NORA_SESSION_DB_PATH` · existing files only · `OPENAI_API_KEY` already in process env |
++| Optional | `TEST_PROOF_DIR` (created only if LIVE body runs and path set) |
++| Forbidden on opt-in | `SFIA_STUDIO_LOCAL_PILOT_AUTHORITY=1` · `SFIA_STUDIO_LOCAL_MORRIS_GATE_AUTHORITY=1` · `SFIA_V2_RUNTIME_ALLOW_RESET=1` · `SFIA_STUDIO_CURSOR_REAL=1` |
++| Code | `orionCoherenceLiveProofBoundary.ts` · gated `orionNoraCoherenceCorr01.live.test.ts` |
++| Removed | ORION-only helper `scripts/orion-coherence-corr-01-live-proof.ts` (redundant; hardcoded paths/authority) |
++| Anti-claims | ≠ new LIVE run in FINAL-REVIEW-CORR-635 · ≠ browser E2E · ≠ G-REAL · ≠ CURRENT ON MAIN |
++
+ ## Overlay — PR #618 mutating Cursor confinement (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
+
+ | Item | Status |
 diff --git a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-index 1792ea23..3ec3b78a 100644
+index 3ec3b78a..f6056e0b 100644
 --- a/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
 +++ b/projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md
-@@ -2,6 +2,16 @@
+@@ -6,10 +6,12 @@
 
- **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
+ > **NO schema change.** Memory B columns (`content` / `presentation_json` / `studio_control_json`) unchanged.
+ >
+-> **Write behaviour (candidate @ `9bd22f87`):** durable `content` built after stripping disposition footers; when A1 admissible, prefer folded/durable presentation for `presentation_json`; contradiction candidate may append typed notice into `studio_control_json` (not raw marker in narrative body).
++> **Write behaviour (candidate — see manifest `lastReviewedCommit`):** durable `content` built after peeling **terminal trusted** disposition footers only; ordinary narrative paragraphs are preserved when markers are mid-answer or ambiguous; when A1 admissible, prefer folded/durable presentation for `presentation_json`; contradiction candidate may append typed notice into `studio_control_json` (not raw marker in narrative body).
+ >
+ > **Historical preservation:** existing divergent transcript rows (e.g. ORION seq 3) remain as stored; correction applies to **new** turns. Reload rehydrates from durable fields; server process restart **NOT PROVEN** by this cycle.
+ >
++> **LIVE proof DB:** opt-in harness requires **existing** Product/Nora DB files (`TEST_*` / Studio path aliases) and never enables `SFIA_V2_RUNTIME_ALLOW_RESET` — no silent historical ORION rewrite via harness defaults.
++>
+ > **Anti-claims:** ≠ CURRENT ON MAIN · ≠ R-SRV-RESTART closed · ≠ transcript rewrite migration.
 
-+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
-+
-+> **NO schema change.** Memory B columns (`content` / `presentation_json` / `studio_control_json`) unchanged.
-+>
-+> **Write behaviour (candidate @ `9bd22f87`):** durable `content` built after stripping disposition footers; when A1 admissible, prefer folded/durable presentation for `presentation_json`; contradiction candidate may append typed notice into `studio_control_json` (not raw marker in narrative body).
-+>
-+> **Historical preservation:** existing divergent transcript rows (e.g. ORION seq 3) remain as stored; correction applies to **new** turns. Reload rehydrates from durable fields; server process restart **NOT PROVEN** by this cycle.
-+>
-+> **Anti-claims:** ≠ CURRENT ON MAIN · ≠ R-SRV-RESTART closed · ≠ transcript rewrite migration.
-+
  ## Overlay — CORR-01 (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
-
- **CORR-01 NO SEMANTIC IMPACT** on persistence / restart / recovery. Generic continuity wording is **DETERMINISTIC AT TESTED SCOPE** only (`postExecutionProductContinuity.generic.d0.test.ts`); restart continuity remains covered by existing suites. **≠** REAL. Pre-merge NOT MERGED claim = **HISTORICAL**.
 diff --git a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-index 59d60b6f..4f69efb7 100644
+index 4f69efb7..25ff807d 100644
 --- a/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
 +++ b/projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md
-@@ -4,6 +4,16 @@
+@@ -8,11 +8,12 @@
 
- **Amendement documentaire D-P6-SHE-01 (requalifié AKG-M3 G6 — 2026-10-21) :** SINGLE HUMAN EXECUTE / Option A est **CURRENT ON MAIN** — Product integrated via **PR #590** merge `c9abdbc3` (ancestor of main tip `c2b3d00c…`). DETERMINISTIC at tested scope. Les invariants SHE ci-dessous restent CURRENT. Les invariants « STRUCTURAL PREPARE requires HD » restent **HISTORICAL / disposition-before-PREPARE** (chemin encore disponible) — ils ne bloquent plus l’inspectable PREPARE sous SHE. Prior wording « CURRENT on Delivery / PR DRAFT pending merge / NOT INTEGRATED ON MAIN » is **HISTORICAL**. ≠ REAL/HQA PROVEN · ≠ P6 GLOBAL PASS · runtime v3 NON ADOPTED.
+ | ID / theme | Statement (candidate) | Status |
+ |---|---|---|
+-| INV-REC-NE-HD | Framing Continuity Card projects Product Recommendation CURRENT; never invents HumanDecision / START | **CANDIDATE** · DET + LIVE seam · ≠ MERGED |
++| INV-REC-NE-HD | Framing Continuity Card projects Product Recommendation CURRENT; never invents HumanDecision / START | **CANDIDATE** · DET + historical LIVE seam · ≠ MERGED |
+ | INV-CURRENT-FROM-PRODUCT | Card `catalogLabel` / `targetCycleTypeId` come from Product CURRENT (or later candidate/approval), never from Nora prose alone | **CANDIDATE** |
+-| INV-NAP-DISPOSITION-NE-NARRATIVE | Cognitive disposition footers are not narrative substance for A1/B classify; typed Studio notice may disclose candidate contradiction without authority | **CANDIDATE** |
++| INV-NAP-DISPOSITION-NE-NARRATIVE | Only **trusted terminal** Studio disposition footers are peeled from narrative for A1/B classify; mid-answer / quoted / fenced / ambiguous markers are preserved; typed Studio notice may disclose candidate contradiction without authority | **CANDIDATE** · FINAL-REVIEW-CORR-635 |
+ | INV-TRUE-DIVERGENCE-FAIL-CLOSED | Material narrative↔presentation conflict still dual+notice; no silent pick | **PRESERVED** (CORR-A1B) |
+-| Anti-claims | ≠ CURRENT ON MAIN · ≠ G-REAL · ≠ Cursor REAL · ≠ auto-START | — |
++| INV-LIVE-PROOF-NO-IMPLICIT-AUTH | Opt-in LIVE proof boundary refuses Pilot/Morris local authority flags and `SFIA_V2_RUNTIME_ALLOW_RESET`; Cursor REAL forced OFF; no hardcoded project authority | **CANDIDATE** · B01–B10 |
++| Anti-claims | ≠ CURRENT ON MAIN · ≠ G-REAL · ≠ Cursor REAL · ≠ auto-START · ≠ contradiction → HumanDecision | — |
 
-+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
-+
-+| ID / theme | Statement (candidate) | Status |
-+|---|---|---|
-+| INV-REC-NE-HD | Framing Continuity Card projects Product Recommendation CURRENT; never invents HumanDecision / START | **CANDIDATE** · DET + LIVE seam · ≠ MERGED |
-+| INV-CURRENT-FROM-PRODUCT | Card `catalogLabel` / `targetCycleTypeId` come from Product CURRENT (or later candidate/approval), never from Nora prose alone | **CANDIDATE** |
-+| INV-NAP-DISPOSITION-NE-NARRATIVE | Cognitive disposition footers are not narrative substance for A1/B classify; typed Studio notice may disclose candidate contradiction without authority | **CANDIDATE** |
-+| INV-TRUE-DIVERGENCE-FAIL-CLOSED | Material narrative↔presentation conflict still dual+notice; no silent pick | **PRESERVED** (CORR-A1B) |
-+| Anti-claims | ≠ CURRENT ON MAIN · ≠ G-REAL · ≠ Cursor REAL · ≠ auto-START | — |
-+
  ## Overlay — PR #618 effect-based confinement + write-mode without Product Binding (CURRENT ON MAIN — PR #618 MERGED — DET scope — 2026-10-26)
 
- | ID | Statement | Status |
 diff --git a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-index 2ba5d93a..e3e61695 100644
+index e3e61695..8f2bd6f7 100644
 --- a/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
 +++ b/projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md
-@@ -9,6 +9,18 @@
- - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
- - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
+@@ -11,14 +11,16 @@
 
-+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 proof index (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
-+
-+> Product code **`9bd22f87…`**. CI default skips LIVE (`ORION_COHERENCE_LIVE` unset → `describe.skip`).
-+
-+| Suite / artifact | What it proves | Class |
-+|---|---|---|
-+| `orionNoraCoherenceCorr01.d0.test.ts` | T01–T12 + ORION: A1 equivalence/complementary · true divergent preserved · footer strip · Conception card title · no invent Cadrage | **DETERMINISTIC VERIFIED** · CANDIDATE |
-+| `framingContinuityCard.ui.test.tsx` (+ ORION case) | Cadrage keeps exploratoire; Conception does not | **DETERMINISTIC VERIFIED** · jsdom · CANDIDATE |
-+| `corrA1b01.secured.d0` / `noraAdaptivePresentation.*` / Framing continuity / LR suites | Non-regression NAP + lifecycle | **DETERMINISTIC VERIFIED** · re-run on candidate |
-+| `orionNoraCoherenceCorr01.live.test.ts` | Bounded OpenAI LIVE Product seam on campaign ORION | **OPT-IN LIVE** · requires `ORION_COHERENCE_LIVE=1` · ≠ CI default · ≠ browser screenshot |
-+| Browser authenticated UI capture | — | **NOT PROVEN** |
-+
+ ## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 proof index (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+-> Product code **`9bd22f87…`**. CI default skips LIVE (`ORION_COHERENCE_LIVE` unset → `describe.skip`).
++> Product code = manifest `lastReviewedCommit` (FINAL-REVIEW-CORR-635 corrective Product). CI default skips LIVE (opt-in unset → `describe.skip`). Prior LIVE counter-proof remains **historical evidence only** — not re-executed in this correction.
+
+ | Suite / artifact | What it proves | Class |
+ |---|---|---|
+-| `orionNoraCoherenceCorr01.d0.test.ts` | T01–T12 + ORION: A1 equivalence/complementary · true divergent preserved · footer strip · Conception card title · no invent Cadrage | **DETERMINISTIC VERIFIED** · CANDIDATE |
++| `orionNoraCoherenceCorr01.d0.test.ts` | T01–T12 + ORION: A1 equivalence/complementary · true divergent preserved · terminal footer peel · Conception card title · no invent Cadrage | **DETERMINISTIC VERIFIED** · CANDIDATE |
++| `orionNoraCoherenceCorr01.footerSafety.d0.test.ts` | A01–A14: no silent métier loss · mid/quote/code/inline preserve · multiline STOP bound · true divergent · Memory B plain preserve · Conception aligned | **DETERMINISTIC VERIFIED** · CANDIDATE |
++| `orionNoraCoherenceLiveProofBoundary.d0.test.ts` | B01–B10: default skip · fail-closed missing params · no DB create · no authority/reset · no hardcoded ORION/paths · Cursor REAL OFF · script removed | **DETERMINISTIC VERIFIED** · CANDIDATE |
+ | `framingContinuityCard.ui.test.tsx` (+ ORION case) | Cadrage keeps exploratoire; Conception does not | **DETERMINISTIC VERIFIED** · jsdom · CANDIDATE |
+ | `corrA1b01.secured.d0` / `noraAdaptivePresentation.*` / Framing continuity / LR suites | Non-regression NAP + lifecycle | **DETERMINISTIC VERIFIED** · re-run on candidate |
+-| `orionNoraCoherenceCorr01.live.test.ts` | Bounded OpenAI LIVE Product seam on campaign ORION | **OPT-IN LIVE** · requires `ORION_COHERENCE_LIVE=1` · ≠ CI default · ≠ browser screenshot |
++| `orionNoraCoherenceCorr01.live.test.ts` | Bounded OpenAI LIVE Product seam | **OPT-IN LIVE** · `LIVE_PROVIDER_OPT_IN=1` or `ORION_COHERENCE_LIVE=1` + `TEST_PROJECT_ID` + existing DB paths · ≠ CI default · ≠ browser screenshot · ≠ implicit authority |
+ | Browser authenticated UI capture | — | **NOT PROVEN** |
+
  ## Overlay — Nora UX consolidated proof index (GI-NAP-UX-CONSOLIDATED-01 — CURRENT ON MAIN — PR #630 — 2026-10-31)
-
- > **CURRENT ON MAIN** via [PR #630](https://github.com/mcleland147/sfia-workspace/pull/630) merge **`14fb0c33…`** · Pre CI [#41199824723](https://github.com/mcleland147/sfia-workspace/actions/runs/41199824723) · Post CI [#41200321769](https://github.com/mcleland147/sfia-workspace/actions/runs/41200321769) **SUCCESS**. Extends #628 index.
 diff --git a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-index a5b87ac9..846fa89a 100644
+index 846fa89a..6ec3ba03 100644
 --- a/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
 +++ b/projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md
-@@ -5,6 +5,20 @@
- - Runtime v3 **NON ADOPTED**
- - This corpus does not change product behavior by itself (Living Reference is descriptive)
+@@ -9,15 +9,16 @@
 
-+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
-+
-+| Élément | Statut | Limite |
-+|---|---|---|
-+| Framing CURRENT catalog hydration | **CANDIDATE** DET + LIVE seam | ≠ MERGED / ≠ CURRENT ON MAIN |
-+| NAP disposition footer isolation | **CANDIDATE** DET + LIVE seam | historical divergent rows preserved |
-+| Bounded OpenAI LIVE Product seam (ORION) | **OBSERVED** under campaign auth | ≠ R-LIVE-EMIT GLOBAL PASS |
-+| Authenticated browser screenshot ORION | **NOT PROVEN** | auth / Screen Recording gap |
-+| Cursor REAL | **OFF** | G-REAL NOT GRANTED |
-+| L3-S2 | **OPEN** | supports QA-02 / R-LIVE-EMIT trajectory; does not close |
-+| R-STOP-BROWSER / R-SRV-RESTART / EP-S2-08 | **OPEN** | unchanged by this correction |
-+
-+Anti-claims: ≠ L3-S2 COMPLETE · ≠ runtime v3 ADOPTED · ≠ G-REAL · digest MATCH ≠ semantic exhaustiveness.
-+
+ | Élément | Statut | Limite |
+ |---|---|---|
+-| Framing CURRENT catalog hydration | **CANDIDATE** DET + LIVE seam | ≠ MERGED / ≠ CURRENT ON MAIN |
+-| NAP disposition footer isolation | **CANDIDATE** DET + LIVE seam | historical divergent rows preserved |
+-| Bounded OpenAI LIVE Product seam (ORION) | **OBSERVED** under campaign auth | ≠ R-LIVE-EMIT GLOBAL PASS |
++| Framing CURRENT catalog hydration | **CANDIDATE** DET (+ historical LIVE seam) | ≠ MERGED / ≠ CURRENT ON MAIN |
++| NAP disposition footer isolation | **CANDIDATE** DET A01–A14 | terminal trusted only; mid-answer preserve; historical divergent rows preserved |
++| LIVE proof harness safety | **CANDIDATE** DET B01–B10 | opt-in + explicit targets; no reset/authority escalation; ORION-only script removed |
++| Bounded OpenAI LIVE Product seam (ORION) | **HISTORICAL OBSERVATION** (prior campaign) | ≠ re-proven in FINAL-REVIEW-CORR-635 · ≠ R-LIVE-EMIT GLOBAL PASS |
+ | Authenticated browser screenshot ORION | **NOT PROVEN** | auth / Screen Recording gap |
+ | Cursor REAL | **OFF** | G-REAL NOT GRANTED |
+ | L3-S2 | **OPEN** | supports QA-02 / R-LIVE-EMIT trajectory; does not close |
+ | R-STOP-BROWSER / R-SRV-RESTART / EP-S2-08 | **OPEN** | unchanged by this correction |
+
+-Anti-claims: ≠ L3-S2 COMPLETE · ≠ runtime v3 ADOPTED · ≠ G-REAL · digest MATCH ≠ semantic exhaustiveness.
++Anti-claims: ≠ L3-S2 COMPLETE · ≠ runtime v3 ADOPTED · ≠ G-REAL · digest MATCH ≠ semantic exhaustiveness · ≠ new LIVE execution under this Git correction.
+
  ## Overlay — Nora UX consolidated / GI-NAP-UX-CONSOLIDATED-01 (CURRENT ON MAIN — PR #630 — 2026-10-31)
 
- | Field | Value |
 diff --git a/projects/sfia-studio/production-runtime-reference/README.md b/projects/sfia-studio/production-runtime-reference/README.md
-index a7c6e28d..5569fdca 100644
+index 5569fdca..091a31b3 100644
 --- a/projects/sfia-studio/production-runtime-reference/README.md
 +++ b/projects/sfia-studio/production-runtime-reference/README.md
-@@ -66,6 +66,18 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
- Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
-
-
-+**GI-ORION-NORA-COHERENCE-CORR-01 — Framing CURRENT label + NAP disposition isolation (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — 2026-11-01):**
-+
-+| Epistemic class | Element |
-+|---|---|
-+| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | Branch `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` · Product code **`9bd22f875d01404989a03de5db2c96e396e6d89c`** · **≠ CURRENT ON MAIN** until Morris merge |
-+| **Incident (ORION / FRESH-LIVE-QA-01)** | Pilot clarification Cadrage vs Conception · Nora prose Conception · Product CURRENT `cyc:functional-design` · Framing card showed « Cadrage exploratoire » · dual structured/narrative + technical `CONTRADICTION CANDIDATE` footer |
-+| **Root cause A** | `recommendation_ready` without candidate/approval left `catalogLabel` null → UI default « Cadrage » + universal « exploratoire » |
-+| **Root cause B** | Empty structured `narrative` retained contaminated `turn.text` (disposition footer) → false CORR-A1B divergent |
-+| **Candidate Product facts** | CURRENT Rec hydrates Framing snapshot · « exploratoire » only for Framing/`cyc:framing` · disposition footers stripped before NAP classify · typed Studio coherence notice · A1 when complementary/admissible · historical Memory B turns not rewritten |
-+| **Proof ceiling** | DET T01–T12 + NAP/Framing/lifecycle suites · bounded OpenAI LIVE Product seam (`ORION_COHERENCE_LIVE=1`) · browser authenticated screenshot **NOT PROVEN** · Cursor REAL **OFF** |
-+| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 COMPLETE · ≠ R-LIVE-EMIT GLOBAL PASS · ≠ G-REAL · ≠ runtime v3 ADOPTED |
-+
- **Nora Adaptive Presentation UX consolidated / AKG-M5 L3-S2 — GI-NAP-UX-CONSOLIDATED-01 (CURRENT PRODUCT ON MAIN — PR #630 MERGED — 2026-10-31):**
+@@ -70,13 +70,14 @@ Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 —
 
  | Epistemic class | Element |
+ |---|---|
+-| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | Branch `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` · Product code **`9bd22f875d01404989a03de5db2c96e396e6d89c`** · **≠ CURRENT ON MAIN** until Morris merge |
++| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | Branch `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` · PR [#635](https://github.com/mcleland147/sfia-workspace/pull/635) · corrective Product **`998386023e05de338b6dd172671a4a1ac571144f`** (prior Product `9bd22f87…`) · **≠ CURRENT ON MAIN** until Morris merge |
+ | **Incident (ORION / FRESH-LIVE-QA-01)** | Pilot clarification Cadrage vs Conception · Nora prose Conception · Product CURRENT `cyc:functional-design` · Framing card showed « Cadrage exploratoire » · dual structured/narrative + technical `CONTRADICTION CANDIDATE` footer |
+ | **Root cause A** | `recommendation_ready` without candidate/approval left `catalogLabel` null → UI default « Cadrage » + universal « exploratoire » |
+ | **Root cause B** | Empty structured `narrative` retained contaminated `turn.text` (disposition footer) → false CORR-A1B divergent |
+-| **Candidate Product facts** | CURRENT Rec hydrates Framing snapshot · « exploratoire » only for Framing/`cyc:framing` · disposition footers stripped before NAP classify · typed Studio coherence notice · A1 when complementary/admissible · historical Memory B turns not rewritten |
+-| **Proof ceiling** | DET T01–T12 + NAP/Framing/lifecycle suites · bounded OpenAI LIVE Product seam (`ORION_COHERENCE_LIVE=1`) · browser authenticated screenshot **NOT PROVEN** · Cursor REAL **OFF** |
+-| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 COMPLETE · ≠ R-LIVE-EMIT GLOBAL PASS · ≠ G-REAL · ≠ runtime v3 ADOPTED |
++| **Review correction (FINAL-REVIEW-CORR-635)** | (1) Footer extraction is **terminal / Studio-format only** — ordinary paragraphs after mid-answer markers are **preserved** (fail-closed). (2) LIVE harness is **opt-in**, explicit project/DB targets, **no** hardcoded ORION id/paths, **no** `.env.local` force, **no** Pilot/Morris authority or `ALLOW_RESET` escalation; redundant ORION-only script **removed**. |
++| **Candidate Product facts** | CURRENT Rec hydrates Framing snapshot · « exploratoire » only for Framing/`cyc:framing` · **bounded** disposition footer peel before NAP classify · typed Studio coherence notice · A1 when complementary/admissible · historical Memory B turns not rewritten · true divergence remains fail-closed |
++| **Proof ceiling** | DET T01–T12 + A01–A14 footer safety + B01–B10 LIVE boundary · NAP/Framing suites · prior bounded LIVE seam = **historical evidence only** (this correction does **not** re-run LIVE) · browser authenticated screenshot **NOT PROVEN** · Cursor REAL **OFF** |
++| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 COMPLETE · ≠ R-LIVE-EMIT GLOBAL PASS · ≠ G-REAL · ≠ runtime v3 ADOPTED · digest MATCH ≠ semantic exhaustiveness |
+
+ **Nora Adaptive Presentation UX consolidated / AKG-M5 L3-S2 — GI-NAP-UX-CONSOLIDATED-01 (CURRENT PRODUCT ON MAIN — PR #630 MERGED — 2026-10-31):**
+
 diff --git a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
-index 10b79c16..e3acef7d 100644
+index e3acef7d..b6993477 100644
 --- a/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 +++ b/projects/sfia-studio/production-runtime-reference/production-runtime-reference.manifest.json
 @@ -1,13 +1,13 @@
  {
    "schemaVersion": 1,
    "kind": "SFIA_STUDIO_LIVING_PRODUCTION_RUNTIME_REFERENCE",
--  "lastReviewedCommit": "32207a38313cdfc49b437027ed183b2302e613c1",
--  "lastReviewedAt": "2026-11-01T00:45:00Z",
-+  "lastReviewedCommit": "9bd22f875d01404989a03de5db2c96e396e6d89c",
-+  "lastReviewedAt": "2026-11-01T09:30:00Z",
+-  "lastReviewedCommit": "9bd22f875d01404989a03de5db2c96e396e6d89c",
+-  "lastReviewedAt": "2026-11-01T09:30:00Z",
++  "lastReviewedCommit": "998386023e05de338b6dd172671a4a1ac571144f",
++  "lastReviewedAt": "2026-11-01T11:05:00Z",
    "canonicalReadme": "projects/sfia-studio/production-runtime-reference/README.md",
    "volumes": [
      {
        "path": "projects/sfia-studio/production-runtime-reference/README.md",
--      "sha256_16": "8044d656b4adcf2f"
-+      "sha256_16": "4f9aec3513102660"
+-      "sha256_16": "4f9aec3513102660"
++      "sha256_16": "5e94c006db3d11bc"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/01-system-runtime-overview.md",
@@ -1585,111 +1598,107 @@ index 10b79c16..e3acef7d 100644
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/03-end-to-end-flow-catalog.md",
--      "sha256_16": "e3db62b5815c19d7"
-+      "sha256_16": "e7f057088f1609eb"
+-      "sha256_16": "e7f057088f1609eb"
++      "sha256_16": "9428e9267f96dcb5"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/04-dependency-impact-map.md",
-@@ -31,19 +31,19 @@
+@@ -27,23 +27,23 @@
+     },
+     {
+       "path": "projects/sfia-studio/production-runtime-reference/05-environments-configuration-and-boundaries.md",
+-      "sha256_16": "5190232c2ad6f741"
++      "sha256_16": "732a98c482eb0b25"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/06-persistence-restart-and-recovery.md",
--      "sha256_16": "b07f13a99d5480bf"
-+      "sha256_16": "7c919f5ef3d05389"
+-      "sha256_16": "7c919f5ef3d05389"
++      "sha256_16": "b6696419717db23d"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/07-authority-invariants-and-failure-modes.md",
--      "sha256_16": "f7fa45008c468b24"
-+      "sha256_16": "73a7c5037da358b7"
+-      "sha256_16": "73a7c5037da358b7"
++      "sha256_16": "92f15b965f397a6a"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/08-test-proof-and-conformance-map.md",
--      "sha256_16": "69248811a06a518c"
-+      "sha256_16": "d85a16b32269a1ed"
+-      "sha256_16": "d85a16b32269a1ed"
++      "sha256_16": "7130ef7f4ac0a653"
      },
      {
        "path": "projects/sfia-studio/production-runtime-reference/09-known-gaps-reserves-and-current-boundaries.md",
--      "sha256_16": "da34da09424f283a"
-+      "sha256_16": "48be473a592c2e6a"
+-      "sha256_16": "48be473a592c2e6a"
++      "sha256_16": "96910ae77e6802e5"
      }
    ],
    "components": [
-@@ -620,7 +620,7 @@
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/orchestrateTurn.ts",
--      "sha256_16": "21a836cb98ed444d"
-+      "sha256_16": "cc83308bc00e63da"
-     },
-     {
-       "path": "projects/sfia-studio/app/features/project-assistant/f2/orchestrateF2.ts",
-```
 
-## 16. Manifest / digests
+## 20. Manifest verification
+lastReviewedCommit=998386023e05de338b6dd172671a4a1ac571144f
+check-production-runtime-reference.mjs --write-digests → CONFORMANCE OK
+Vitest productionRuntimeReference.conformance.d0 → 5 PASS
 
-- `node scripts/check-production-runtime-reference.mjs --write-digests` then check → **CONFORMANCE OK**
-- `lastReviewedCommit` = Product code `9bd22f87…` (explicit candidate reference, not future merge SHA)
-- Digest MATCH ≠ semantic exhaustiveness
+## 21. Full QA commands/results
+- Targeted A/B + ORION d0 + NAP d0/ui + framing Continuity/card: PASS
+- tsc --noEmit: PASS
+- eslint changed files: PASS
+- next build: PASS
+- Global Vitest (CI=true, campaign DB/authority unset): **6384 PASS / 143 SKIP** (LIVE skipped)
+- PRR checker: PASS
+- Note: shell had SFIA_STUDIO_PRODUCT_DB_PATH / LOCAL_*_AUTHORITY set; clean env required for global green (not product regression).
 
-## 17–20. Staged / commits / push / PR
+## 22. LIVE evidence limits
+No new OpenAI LIVE under this GO. Prior ORION LIVE counter-proof = historical observation only. Harness remains opt-in.
 
-| Field | Value |
-|---|---|
-| Product commit | `9bd22f875d01404989a03de5db2c96e396e6d89c` |
-| R24 commit | `9b51a51c107fc44f6c473e0e2e372f645ea212ca` |
-| Push | FF new remote branch; local HEAD = `origin/feat/akg-m5-l3s2-orion-nora-coherence-corr-01` |
-| PR | **#635** https://github.com/mcleland147/sfia-workspace/pull/635 |
-| Base / head | `main` ← `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` @ `9b51a51c` |
-| CI run | https://github.com/mcleland147/sfia-workspace/actions/runs/41293512880 |
-| CI status | see section 21 (filled at publish time) |
+## 23. Browser evidence limits
+Authenticated browser screenshot ORION: **NOT PROVEN**.
 
-## 21. GitHub CI actual state
+## 24. Fake/Real Qualification
+DET = Fake/deterministic. LIVE provider path opt-in only (not executed). Cursor REAL OFF. No G-REAL.
 
-**PASS** — Detect PASS · Build and validate PASS (9m33s) · Required Gate PASS · run [41293512880](https://github.com/mcleland147/sfia-workspace/actions/runs/41293512880) · HEAD `9b51a51c`
+## 25. Product commit SHA
+998386023e05de338b6dd172671a4a1ac571144f
 
-## 22. Fake/Real Qualification
+## 26. R24 commit SHA
+b0ce841367c441590ef1b6f0a41279e960401fbf
 
-| Layer | Class |
-|---|---|
-| DET suites | REAL deterministic |
-| LIVE Product seam | REAL OpenAI bounded |
-| Browser UI | NOT PROVEN |
-| Cursor REAL | OFF |
-| R24 | documentary candidate |
+## 27. Remote branch HEAD
+b0ce841367c441590ef1b6f0a41279e960401fbf (verified after FF push)
 
-## 23. Debts / exclusions
+## 28. PR #635 URL and new HEAD
+https://github.com/mcleland147/sfia-workspace/pull/635
+HEAD b0ce841367c441590ef1b6f0a41279e960401fbf
 
-- Browser screenshot ORION
-- R-LIVE-EMIT / R-STOP-BROWSER / R-SRV-RESTART / EP-S2-08 remain OPEN
-- L3-S2 OPEN
-- Parallel JPI flake under unclean env — not Product delta
-- `.tmp-sfia-review` not in PR
-- No DB/snapshots/secrets in PR
+## 29. CI run/result
+- Run ID: **41296246136**
+- URL: https://github.com/mcleland147/sfia-workspace/actions/runs/41296246136
+- headSha: **b0ce841367c441590ef1b6f0a41279e960401fbf**
+- Conclusion: **SUCCESS**
+- Jobs: Detect PASS · Build and validate PASS · **SFIA Studio Required Gate PASS**
+- Prior run 41293512880 is historical only — not reused for this HEAD.
+- Verdict: **READY FOR CHATGPT MERGE REVIEW** (no merge in this campaign).
 
-## 24. Git Review Index
+## 30. Git Review Index
+| Path | Change | Commit |
+|---|---|---|
+| noraAdaptivePresentation.ts | footer peel bounded | 998386023e05de338b6dd172671a4a1ac571144f |
+| orionCoherenceLiveProofBoundary.ts | NEW LIVE boundary | 998386023e05de338b6dd172671a4a1ac571144f |
+| orionNoraCoherenceCorr01.footerSafety.d0.test.ts | NEW A01–A14 | 998386023e05de338b6dd172671a4a1ac571144f |
+| orionNoraCoherenceLiveProofBoundary.d0.test.ts | NEW B01–B10 | 998386023e05de338b6dd172671a4a1ac571144f |
+| orionNoraCoherenceCorr01.live.test.ts | rewritten safe opt-in | 998386023e05de338b6dd172671a4a1ac571144f |
+| orion-coherence-corr-01-live-proof.ts | DELETED | 998386023e05de338b6dd172671a4a1ac571144f |
+| PRR README/03/05/06/07/08/09 + manifest | R24 sync | b0ce841367c441590ef1b6f0a41279e960401fbf |
 
-| File | Change | Root cause | Test | R24 | Commit |
-|---|---|---|---|---|---|
-| chatFirstFramingContinuity.ts | exploratoire Framing-only; neutral unknown | A | framing UI/d0 + ORION | 03/07 | 9bd22f87 |
-| preCycleCandidateTrajectoryActions.ts | CURRENT Rec hydrate | A | framing continuity | 03/07 | 9bd22f87 |
-| FramingContinuityCard.tsx | title from helper | A | framingContinuityCard.ui | 03 | 9bd22f87 |
-| noraAdaptivePresentation.ts | strip footers; markers | B | ORION d0 + corrA1b | 03/06/07/08 | 9bd22f87 |
-| noraProductTurnOutputType.ts | re-exports | B | — | 08 | 9bd22f87 |
-| orchestrateTurn.ts | empty narrative prefer; Studio notice; durable presentation | B | ORION d0/LIVE | 06/07 | 9bd22f87 |
-| orionNoraCoherenceCorr01.d0.test.ts | T01–12 | A+B | self | 08 | 9bd22f87 |
-| orionNoraCoherenceCorr01.live.test.ts | opt-in LIVE | A+B | gated | 08/09 | 9bd22f87 |
-| orion-coherence-corr-01-live-proof.ts | helper | — | manual | 08 | 9bd22f87 |
-| framingContinuityCard.ui.test.tsx | Conception case | A | self | 08 | 9bd22f87 |
-| PRR volumes+manifest | candidate sync | A+B docs | checker | R24 | 9b51a51c |
+## 31. Remaining debts
+- Browser UI ORION screenshot NOT PROVEN
+- L3-S2 OPEN; R-LIVE-EMIT / R-STOP-BROWSER / R-SRV-RESTART OPEN
+- Prior LIVE not re-executed this cycle
 
-## 25. Verdict / gates
+## 32. Morris merge gate
+NO AUTO-MERGE. ChatGPT reviews final #635; Morris decides merge.
 
-**GI-ORION-NORA-COHERENCE-CORR-01 PRODUCT + R24 PR OPEN · CI REQUIRED GATE PASS · READY FOR CHATGPT MERGE REVIEW · MORRIS MERGE GATE PENDING**
+## 33. Next ORION QA continuation
+After merge decision: resume ORION continuity QA (QA-02 / R-LIVE-EMIT trajectory) under separate GO. No merge in this campaign.
 
-Gates: MERGE NOT AUTHORIZED; no branch deletion; no G-REAL; no v3 ADOPTED; L3-S2 OPEN.
-
-## 26. Next L3-S2
-
-ChatGPT reviews PR #635 → Morris merge decision → continue FRESH ORION QA after integration. No automatic merge/LIVE campaign from this cycle.
-
-FIN PACK FULL — GI-ORION-NORA-COHERENCE-CORR-01
+---
+END OF FULL REVIEW PACK — GI-ORION-NORA-COHERENCE-CORR-01 FINAL-REVIEW-CORR-635
