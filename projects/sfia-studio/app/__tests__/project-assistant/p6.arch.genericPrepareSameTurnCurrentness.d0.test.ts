@@ -461,7 +461,9 @@ describe("P6 arch — Generic PREPARE same-turn currentness", () => {
       oa,
       withAcw: true,
       content:
-        "Pour la V1, autoriser les inscriptions au-delà de la capacité avec avertissement, sans liste d'attente. Prépare une mission Cursor de lecture seule.",
+        // Slice D — E-EXPLICIT must be a clear PREPARE speech-act (contrat),
+        // not a model/tool solicit alone (CORR-CI-632 same-turn harness).
+        "Pour la V1, autoriser les inscriptions au-delà de la capacité avec avertissement, sans liste d'attente. Prépare le contrat d'exécution pour une mission Cursor de lecture seule.",
     });
     expect(turn.ok).toBe(true);
     if (!turn.ok) throw new Error(turn.message);
@@ -540,7 +542,8 @@ describe("P6 arch — Generic PREPARE same-turn currentness", () => {
       projectId,
       oa,
       withAcw: false,
-      content: "Prépare une mission Cursor de lecture seule sur le dépôt.",
+      content:
+        "Prépare le contrat d'exécution pour une mission Cursor de lecture seule sur le dépôt.",
     });
     expect(turn.ok).toBe(true);
     expect(spy).toHaveBeenCalledTimes(1);
@@ -558,7 +561,8 @@ describe("P6 arch — Generic PREPARE same-turn currentness", () => {
       projectId,
       oa,
       withAcw: false,
-      content: "Prépare la mission lecture seule.",
+      content:
+        "Prépare le contrat d'exécution pour la mission lecture seule.",
     });
     expect(turn.ok).toBe(true);
 

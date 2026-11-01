@@ -1655,8 +1655,15 @@ export type SolicitGenericPrepareMissionFields = {
  * R3 Exit — standalone repository path token for scopeIn parity only.
  * DÉDUPLICATION ≠ QUALIFICATION WRITE: never promote narrative / URL / A/B
  * labels into mutation scopeIn. Whole-string match only (no embedded path).
+ *
+ * Default: file-like token with known extension (avoids directory-only strings
+ * flipping pathless materiality / STRUCTURAL stamps — CORR-CI-632 I11).
+ * `allowDirectory` — only when repositoryMutation is explicitly write.
  */
-export function isStandaloneRepoPathScopeToken(scope: string): boolean {
+export function isStandaloneRepoPathScopeToken(
+  scope: string,
+  opts?: { readonly allowDirectory?: boolean },
+): boolean {
   const s = scope.trim();
   if (!s) return false;
   // Narratives always contain whitespace — keep scope narrative, empty scopeIn.
@@ -1673,9 +1680,10 @@ export function isStandaloneRepoPathScopeToken(scope: string): boolean {
   const workspaceish =
     /^(projects|\.sfia|app|src|docs)[/\\]/.test(s) ||
     /^projects[/\\]/i.test(s);
-  // "A/B" labels without extension or workspace prefix are NOT repo paths.
-  if (!hasExt && !workspaceish) return false;
-  return hasExt || /[/\\]/.test(s);
+  if (hasExt) return workspaceish || /[/\\]/.test(s) || hasExt;
+  // Directory-only (e.g. projects/demo/src) — not auto scopeIn unless write.
+  if (opts?.allowDirectory && workspaceish && /[/\\]/.test(s)) return true;
+  return false;
 }
 
 /**
@@ -1698,11 +1706,41 @@ export function buildIntentAnalysisFromSolicitedMission(
     sig?.irreversible === true;
   const notes = fields.contextNotes?.trim() || null;
   const mutation = fields.repositoryMutation ?? null;
-  // R3 Exit — only a standalone path token may enter scopeIn for missionKey
-  // parity. read/none keep empty scopeIn. Never invent WRITE from path alone.
-  const pathLikeScope = !!scope && isStandaloneRepoPathScopeToken(scope);
+  // R3 Exit — file path tokens may enter scopeIn for missionKey parity.
+  // Pathless / undeclared mutation keep executionIntent=null (historical).
+  // read/none → read_only empty scopeIn. Never invent WRITE from path alone.
   const readOnly = mutation === "none" || mutation === "read";
+  const pathLikeScope =
+    !!scope &&
+    isStandaloneRepoPathScopeToken(scope, {
+      allowDirectory: mutation === "write",
+    });
   const scopeIn = !readOnly && pathLikeScope && scope ? [scope] : [];
+  const executionIntent: IntentAnalysisDto["executionIntent"] = readOnly
+    ? ({
+        intentKind: "read_only",
+        scopeIn: [],
+        scopeOut: [],
+        expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
+        requiredCapabilities: [],
+      } as IntentAnalysisDto["executionIntent"])
+    : pathLikeScope && scope
+      ? ({
+          intentKind: "other",
+          scopeIn,
+          scopeOut: [],
+          expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
+          requiredCapabilities: [],
+        } as IntentAnalysisDto["executionIntent"])
+      : mutation === "write" || mutation === "unknown"
+        ? ({
+            intentKind: "other",
+            scopeIn: [],
+            scopeOut: [],
+            expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
+            requiredCapabilities: [],
+          } as IntentAnalysisDto["executionIntent"])
+        : null;
   const base: IntentAnalysisDto = {
     parseOk: true,
     intentClass: "execution_request",
@@ -1729,21 +1767,7 @@ export function buildIntentAnalysisFromSolicitedMission(
     expectedOutcome,
     criticalJustification: null,
     requestedOperation: null,
-    executionIntent: readOnly
-      ? ({
-          intentKind: "read_only",
-          scopeIn: [],
-          scopeOut: [],
-          expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
-          requiredCapabilities: [],
-        } as IntentAnalysisDto["executionIntent"])
-      : ({
-          intentKind: "other",
-          scopeIn,
-          scopeOut: [],
-          expectedOutputs: expectedOutcome ? [expectedOutcome] : [],
-          requiredCapabilities: [],
-        } as IntentAnalysisDto["executionIntent"]),
+    executionIntent,
   };
   if (
     mutation === "none" ||
