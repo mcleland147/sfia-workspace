@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.7 — vision enrichie** ; Nora transverse à Studio, travail sans cycle obligatoire et spécialisation cognitive des cycles à qualifier |
+| Version du document | **0.8 — vision enrichie** ; cycles légers gouvernés par le Pilote, transitions conversationnelles matérialisées et CKC de conduite méthodologique |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -252,6 +252,44 @@ Les accès aux pièces jointes, leur conservation, éventuelle indexation, expos
 
 **Frontière de conception à instruire ensuite :** valeur utilisateur exacte d'un cycle et de son CKC, bénéfices par rapport à Nora hors cycle, comportement en changements de contexte, trajectoires, cycle actif/inactif, intégrité des rattachements, et coexistence avec les permissions et preuves. Les CKC observés dans le Studio historique ne valent **ni spécification cible, ni preuve LIVE/REAL de Next**.
 
+### 2.16. Cycle léger : ouverture, progression, transitions et traçabilité — principes validés
+
+**Le cycle reste une étape significative du pilotage, mais cesse d'être une condition préalable à tout travail de Nora ou une fabrique automatique de processus et livrables.** Il donne une finalité à une phase cohérente, situe sa progression dans une trajectoire, rattache les sujets et résultats utiles et permet de comprendre la transition vers la suite. Sa valeur ne se réduit pas au chargement d'un CKC.
+
+**Reconnaissance de l'intention avant toute formalisation :** Nora peut répondre, investiguer, concevoir ou recommander sans lancer d'abord un moteur de qualification de cycle. Elle propose d'ouvrir une étape structurée lorsqu'elle identifie un bénéfice réel de pilotage, sans convertir chaque demande en cycle. La création d'une trajectoire ou d'un cycle **ne résulte pas de la seule estimation cognitive de Nora**.
+
+**Ouverture et clôture : GO explicite du Pilote.** Nora peut qualifier et recommander ces transitions et préparer leurs éléments utiles ; le Pilote arbitre leur ouverture, leur clôture ou leur report. Un **GO clair et applicable formulé dans la conversation** peut constituer l'autorisation de transition : l'utilisateur n'a pas à cliquer de nouveau sur une carte par principe. Si l'intention, la portée, l'identité du cycle ou l'autorité sont ambiguës, Studio demande une clarification proportionnée. L'accord conversationnel ne vaut pas présomption de succès technique : **Studio vérifie et enregistre l'état effectif avant que Nora confirme la transition**.
+
+**Marquer le moment sans ajouter une validation inutile :** la proposition d'ouverture et la confirmation de son enregistrement doivent être **visuellement reconnaissables** dans l'expérience conversationnelle, car engager un cycle constitue une étape importante. Une carte ou autre présentation distinctive peut afficher finalité, proposition, CKC associé, portée, GO attendu et résultat effectif. **La forme UX, le niveau de détail et l'interaction ne sont pas décidés en R1** ; matérialisation visuelle ≠ clic obligatoire. Une présentation équivalente est envisageable pour la clôture.
+
+**Progression plutôt que workflow rigide :**
+- **Finalité identifiable :** résultat de la phase, sens de sa position dans la trajectoire et bénéfice attendu pour le Pilote.
+- **Exploration évolutive :** Nora et le Pilote peuvent faire émerger, compléter, reclasser ou écarter des sujets pertinents ; le cadrage initial ne présuppose pas une liste exhaustive de travaux.
+- **Appréciation de maturité :** Nora confronte la finalité aux acquis, points ouverts, risques et dépendances, puis recommande de poursuivre, réorienter ou proposer une sortie ; la méthode d'appréciation est à concevoir.
+- **Capitalisation proportionnée :** décisions, résultats, liens vers sources et documentation utile sont retracés ; le cycle ne fabrique pas un second moteur de décisions, de preuves ou de mémoire.
+- **Transitions honnêtes :** une clôture enregistrée décrit ce qui est effectivement achevé, différé ou ouvert ; elle ne certifie ni la levée de toutes les réserves, ni l'adoption de résultats non prouvés.
+
+**Pas de livrable ni gate imposé par l'existence d'un cycle.** Un CKC peut recommander de constituer ou consolider un dossier, un document de cadrage ou des preuves en fonction de la maturité et du contexte ; il ne crée pas à lui seul une obligation bloquante. Les véritables autorisations, critères de qualité, obligations de sécurité et gates Git/produit **restent applicables lorsqu'ils dérivent des travaux ou de la gouvernance**, qu'il y ait cycle ou non. Le GO de clôture ne les contourne pas. La trace minimale et les responsabilités de transition seront définies en R2.
+
+**Retour d'expérience historique, non architecture cible :** l'ancien Studio disposait de qualification, trajectoires préparées, décisions, transitions et règles de finalisation, avec tests déterministes ; aucun cycle fermé de bout en bout en conditions LIVE/REAL n'est ici revendiqué. L'UX Figma P3 comportait des cartes de décision et confirmation d'effet visibles, mais **ces maquettes ne démontrent pas une carte de clôture de cycle**. Ce sont des sources de capitalisation, pas des contrats à recopier.
+
+### 2.17. CKC rattaché au cycle : direction de conduite méthodologique de Nora — principes validés
+
+**Le CKC est une spécialisation de conduite de cycle, pas un mécanisme de formatage de chaque réponse.** Lorsqu'un cycle est actif, le CKC correspondant aide Nora à **orienter la démarche au fil du temps** : les objectifs qu'elle garde en vue, les questions qu'elle pose, les dimensions qu'elle examine, les angles morts qu'elle signale, les recommandations qu'elle formule, les éléments documentaires pertinents qu'elle propose et son appréciation progressive de la maturité.
+
+**Activation simple retenue au niveau de la vision : cycle actif → CKC associé à sa nature.** Ce rattachement évite de construire sans preuve de valeur un second moteur de sélection et de composition de CKC à chaque question. **Pas de déclenchement dynamique général des CKC hors cycle** dans le périmètre initial : Nora reste compétente et disponible sans cycle grâce à ses capacités générales. Ce principe d'activation ne présuppose ni registre, ni index, ni binding technique historique.
+
+**Guidance, pas nouvelle autorité :**
+- **Orientation méthodologique :** finalité, posture de travail, dimensions d'investigation, vigilance, stratégie de progression et questions utiles.
+- **Recommandations contextuelles :** livrables envisageables, qualité des acquis, maturité, réserves ou prochaines investigations ; à adapter au cas réel et à discuter avec le Pilote.
+- **Exigences opposables :** une recommandation du CKC ne devient pas un gate par elle-même. Seules les décisions humaines, règles de sécurité, contrats et obligations de gouvernance effectivement applicables déterminent ce qui est obligatoire.
+
+**Continuité et digressions :** Nora peut répondre à des demandes incidentes, analyser des PR ou intervenir ponctuellement sur un autre thème sans modifier automatiquement le CKC actif ni rabattre toute réponse sur le langage du cycle. Le CKC soutient **la direction durable du travail principal**, pas une contrainte sur chaque échange. Lorsqu'un nouveau sujet constitue un chantier autonome, Nora peut recommander une requalification ou une future transition, sous arbitrage du Pilote.
+
+**Format et efficacité à démontrer :** la matière historique CKC (finalité, posture, stratégies, dimensions d'analyse, attentes de preuve, maturité, risques) est une capitalisation utile, **pas un schéma ou runtime Next adopté**. R2 devra concevoir les comportements, contrats et limites ; R3 leur matérialisation UX ; R4 le chargement, l'application, la sécurité et les coûts ; R5/R6 éprouver l'effet réel sur la conduite des cycles, sans imposer l'injection exhaustive du CKC à chaque message.
+
+**Prochaine question R1, non encore arbitrée :** comment Nora apprécie-t-elle que le cycle est « suffisamment mûr » pour proposer la clôture, avec des critères évolutifs, des preuves proportionnées et des réserves explicites, **sans réintroduire une checklist bloquante ou une clôture automatique** ? Cette analyse n'est pas incluse comme spécification validée par la présente consolidation.
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -314,7 +352,9 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 12. **Investigation multi-sources et exploratoire : orientation validée.** À concevoir : accès, découvertes inter-sources, provenance/versions, limites de mandat, recherche documentaire, Git/PR, preuves, mémoire, pièces jointes et web ; coût, latence, restitution et arrêt de recherche.
 13. **Capitalisation documentaire : orientation validée.** À qualifier dans les macro-lots : synchronisation Git utile, sources primaires, rôles Pilote/Nora, risques de contradictions et conservation des permissions.
 14. **Nora transverse, cycles non obligatoires : orientation validée.** À spécifier : activité hors projet/cycle, contexte de navigation et accès, seuil de formalisation d'un travail, conditions de délégation hors cycle et articulation avec trajectoires et cycles.
-15. **Cycle et spécialisation cognitive CKC : orientation à approfondir.** Définir le bénéfice précis du cycle, les apports/limites des CKC, les parcours et les règles de rattachement avant tout choix d'architecture ou reprise de l'historique.
+15. **Cycle léger, ouverture et clôture : principes validés.** À concevoir : GO conversationnel sans confirmation redondante, traçabilité d'état, matérialisation UX des transitions, rattachement à la trajectoire et limites des gates réellement applicables (§2.16).
+16. **CKC de conduite méthodologique rattaché au cycle : principes validés.** À concevoir et éprouver : contribution sur la durée, contenu et format, pertinence des suggestions, gestion des digressions et absence de moteur de sélection CKC hors cycle par défaut (§2.17).
+17. **Maturité du cycle et recommandation de sortie : question ouverte R1.** Définir comment Nora évalue les acquis, les réserves, les dépendances et la suffisance pour recommander la clôture sans imposer une checklist documentaire ni clôturer automatiquement.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -338,5 +378,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Précisions et validation du 2026-11-01 (v0.6) :** Morris valide la **proactivité contextuelle de Nora pour suivre les questions ouvertes**, l'absence de dépriorisation par simple ancienneté et la **résolution sémantique autonome lorsqu'elle est factuellement étayée** sans substitution à un arbitrage humain. Il confirme la **recherche autonome, multi-sources et exploratoire** à partir de ses références initiales, libre de suivre les pistes utiles dans les permissions et le périmètre de mission ; la mémoire vivante reste complémentaire de Git, documentation, décisions et preuves. **Pièces jointes et recherche web** sont des capacités envisagées à cadrer ; les fonctions, contrôles et intégrations ne sont ni spécifiés ni implémentés. Morris rappelle sa responsabilité de Pilote pour le contexte et la gouvernance documentaire, avec contribution de Nora sous mandat. Ces orientations sont exposées en §§2.12–2.14 ; aucun mécanisme, index, outil, état ou choix d'architecture technique n'est adopté par cette validation.
 
 **Précisions et validation du 2026-11-01 (v0.7) :** Morris confirme que **Nora doit pouvoir être sollicitée dans tous les contextes de Studio** — hors projet, accueil/portefeuille, projet sans cycle et cycle actif — et reconnaître naturellement les travaux demandés sans exigence de « créer une mission » ou démarrer un cycle. Le cycle et la trajectoire gardent une valeur d'organisation et de **spécialisation cognitive**, notamment via les **CKC** cités par Morris ; leur contribution exacte et l'architecture Next sont encore à concevoir. Nora peut recommander ce cadre, sans décision métier ni autorisation implicite. Les modalités d'exécution hors projet/cycle et les règles de rattachement restent ouvertes (§2.15).
+
+**Précisions et validation du 2026-11-01 (v0.8) :** Morris valide **un cycle léger et significatif** pour conduire une phase, suivre sa progression et marquer ses transitions, sans mission/cycle préalable obligatoire pour tout travail de Nora ni artefacts/gates déclenchés automatiquement par le cycle. Nora peut recommander l'ouverture ou la clôture ; **le GO explicite du Pilote peut être conversationnel**, sans clic redondant, tandis que la transition doit être **visuellement identifiable** et effectivement enregistrée. Morris confirme le **CKC associé au cycle actif**, sans activation autonome générale hors cycle, comme **spécialisation de la conduite méthodologique de Nora dans la durée**, et non format de ses réponses ou autorité imposant des livrables. Les contrats de maturité, clôture, UX et architecture restent à concevoir ; l'appréciation de la sortie est le prochain sujet R1 (§§2.16–2.17).
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
