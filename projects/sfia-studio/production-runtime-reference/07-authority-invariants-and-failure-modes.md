@@ -192,4 +192,3 @@ Refusal codes (Product-local mapping): `EVIDENCE_PROJECT_MISMATCH`, `EVIDENCE_CO
 | INV-SHE-PRESERVED | PREPARE inspectable without auto HD/Attempt/Authorization; Execute remains separate | PRESERVED |
 
 Product corrective candidate: `1b8de9b02f1cbc1d3163f44c34cb9ebe0bd91707` (PR #632; CORR-CI-632). **≠ CURRENT ON MAIN**.
-

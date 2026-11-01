@@ -627,4 +627,3 @@ E1–E6 SATISFIED · E7 WITH GOVERNED RESERVE · E8 = DISPOSITIONS APPROVED / FO
 | Runtime v3 | NON ADOPTED | — |
 
 Product PR #632 corrective candidate `1b8de9b0…` (CORR-CI-632; delivery base `a55181c6…`). R24 documentary layer is **consolidated atomically into #632**; stacked Draft PR #633 is **SUPERSEDED** when closed without merge after verified reuptake.
-

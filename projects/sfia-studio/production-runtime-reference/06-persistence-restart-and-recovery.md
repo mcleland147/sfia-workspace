@@ -219,4 +219,3 @@ Four situations must stay distinct (S2 / M-HD-01 HD11):
 | Durable EC after admitted PREPARE | OA ExecutionContract tables | Survives restart; SHE Execute path unchanged |
 
 **Anti-claims:** offer process-local ≠ Authorization · no durable admissionKind stamp (accepted debt) · LIVE restart UX NOT PROVEN.
-

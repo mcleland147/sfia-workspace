@@ -293,4 +293,3 @@ Ceiling: **DETERMINISTIC PRODUCT INTEGRATION AT TESTED SCOPE**. ≠ browser `/st
 | PRR digests (CORR-CI-632 F1) | `architecture/productionRuntimeReference.conformance.d0.test.ts` | DETERMINISTIC |
 
 **Campaign QA (CORR-CI-632):** target suites PASS locally · OpenAI LIVE NOT EXERCISED · Cursor REAL NOT EXERCISED · G-REAL NOT GRANTED · GitHub Required Gate resolved from CI on atomic Product+R24 HEAD.
-
