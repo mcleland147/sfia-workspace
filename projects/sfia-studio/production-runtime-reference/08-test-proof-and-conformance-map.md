@@ -9,6 +9,18 @@
 - E2E: Playwright `app/e2e/**` (often harness/boundary routes)
 - Conformance (this macro): `app/__tests__/architecture/productionRuntimeReference.conformance.d0.test.ts`
 
+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 proof index (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+> Product code **`9bd22f87…`**. CI default skips LIVE (`ORION_COHERENCE_LIVE` unset → `describe.skip`).
+
+| Suite / artifact | What it proves | Class |
+|---|---|---|
+| `orionNoraCoherenceCorr01.d0.test.ts` | T01–T12 + ORION: A1 equivalence/complementary · true divergent preserved · footer strip · Conception card title · no invent Cadrage | **DETERMINISTIC VERIFIED** · CANDIDATE |
+| `framingContinuityCard.ui.test.tsx` (+ ORION case) | Cadrage keeps exploratoire; Conception does not | **DETERMINISTIC VERIFIED** · jsdom · CANDIDATE |
+| `corrA1b01.secured.d0` / `noraAdaptivePresentation.*` / Framing continuity / LR suites | Non-regression NAP + lifecycle | **DETERMINISTIC VERIFIED** · re-run on candidate |
+| `orionNoraCoherenceCorr01.live.test.ts` | Bounded OpenAI LIVE Product seam on campaign ORION | **OPT-IN LIVE** · requires `ORION_COHERENCE_LIVE=1` · ≠ CI default · ≠ browser screenshot |
+| Browser authenticated UI capture | — | **NOT PROVEN** |
+
 ## Overlay — Nora UX consolidated proof index (GI-NAP-UX-CONSOLIDATED-01 — CURRENT ON MAIN — PR #630 — 2026-10-31)
 
 > **CURRENT ON MAIN** via [PR #630](https://github.com/mcleland147/sfia-workspace/pull/630) merge **`14fb0c33…`** · Pre CI [#41199824723](https://github.com/mcleland147/sfia-workspace/actions/runs/41199824723) · Post CI [#41200321769](https://github.com/mcleland147/sfia-workspace/actions/runs/41200321769) **SUCCESS**. Extends #628 index.

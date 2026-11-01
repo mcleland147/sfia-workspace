@@ -66,6 +66,18 @@ Cycle 14 documentary truth-sync [PR #615](https://github.com/mcleland147/sfia-wo
 Canonical detail for lifecycle, known gaps, and main-vs-branch split: **[09 — Known Gaps](./09-known-gaps-reserves-and-current-boundaries.md)**. Volumes 03/07/08 dated 2026-10-25 overlays that still say pre-push **LOCAL DELIVERY** / **PENDING GIT INTEGRATION** are **HISTORICAL AS OF `a75d0ed5`** for lifecycle status (superseded by vol 09 + this README block). Behaviour marked **CURRENT ON MAIN** in those volumes remains main truth until merge.
 
 
+**GI-ORION-NORA-COHERENCE-CORR-01 — Framing CURRENT label + NAP disposition isolation (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — 2026-11-01):**
+
+| Epistemic class | Element |
+|---|---|
+| **AS-IMPLEMENTED ON PRODUCT PR CANDIDATE** | Branch `feat/akg-m5-l3s2-orion-nora-coherence-corr-01` · Product code **`9bd22f875d01404989a03de5db2c96e396e6d89c`** · **≠ CURRENT ON MAIN** until Morris merge |
+| **Incident (ORION / FRESH-LIVE-QA-01)** | Pilot clarification Cadrage vs Conception · Nora prose Conception · Product CURRENT `cyc:functional-design` · Framing card showed « Cadrage exploratoire » · dual structured/narrative + technical `CONTRADICTION CANDIDATE` footer |
+| **Root cause A** | `recommendation_ready` without candidate/approval left `catalogLabel` null → UI default « Cadrage » + universal « exploratoire » |
+| **Root cause B** | Empty structured `narrative` retained contaminated `turn.text` (disposition footer) → false CORR-A1B divergent |
+| **Candidate Product facts** | CURRENT Rec hydrates Framing snapshot · « exploratoire » only for Framing/`cyc:framing` · disposition footers stripped before NAP classify · typed Studio coherence notice · A1 when complementary/admissible · historical Memory B turns not rewritten |
+| **Proof ceiling** | DET T01–T12 + NAP/Framing/lifecycle suites · bounded OpenAI LIVE Product seam (`ORION_COHERENCE_LIVE=1`) · browser authenticated screenshot **NOT PROVEN** · Cursor REAL **OFF** |
+| **Anti-claims** | ≠ MERGED · ≠ CURRENT ON MAIN · ≠ L3-S2 COMPLETE · ≠ R-LIVE-EMIT GLOBAL PASS · ≠ G-REAL · ≠ runtime v3 ADOPTED |
+
 **Nora Adaptive Presentation UX consolidated / AKG-M5 L3-S2 — GI-NAP-UX-CONSOLIDATED-01 (CURRENT PRODUCT ON MAIN — PR #630 MERGED — 2026-10-31):**
 
 | Epistemic class | Element |

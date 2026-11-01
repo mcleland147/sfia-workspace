@@ -4,6 +4,16 @@
 
 **Amendement documentaire D-P6-SHE-01 (requalifié AKG-M3 G6 — 2026-10-21) :** SINGLE HUMAN EXECUTE / Option A est **CURRENT ON MAIN** — Product integrated via **PR #590** merge `c9abdbc3` (ancestor of main tip `c2b3d00c…`). DETERMINISTIC at tested scope. Les invariants SHE ci-dessous restent CURRENT. Les invariants « STRUCTURAL PREPARE requires HD » restent **HISTORICAL / disposition-before-PREPARE** (chemin encore disponible) — ils ne bloquent plus l’inspectable PREPARE sous SHE. Prior wording « CURRENT on Delivery / PR DRAFT pending merge / NOT INTEGRATED ON MAIN » is **HISTORICAL**. ≠ REAL/HQA PROVEN · ≠ P6 GLOBAL PASS · runtime v3 NON ADOPTED.
 
+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+| ID / theme | Statement (candidate) | Status |
+|---|---|---|
+| INV-REC-NE-HD | Framing Continuity Card projects Product Recommendation CURRENT; never invents HumanDecision / START | **CANDIDATE** · DET + LIVE seam · ≠ MERGED |
+| INV-CURRENT-FROM-PRODUCT | Card `catalogLabel` / `targetCycleTypeId` come from Product CURRENT (or later candidate/approval), never from Nora prose alone | **CANDIDATE** |
+| INV-NAP-DISPOSITION-NE-NARRATIVE | Cognitive disposition footers are not narrative substance for A1/B classify; typed Studio notice may disclose candidate contradiction without authority | **CANDIDATE** |
+| INV-TRUE-DIVERGENCE-FAIL-CLOSED | Material narrative↔presentation conflict still dual+notice; no silent pick | **PRESERVED** (CORR-A1B) |
+| Anti-claims | ≠ CURRENT ON MAIN · ≠ G-REAL · ≠ Cursor REAL · ≠ auto-START | — |
+
 ## Overlay — PR #618 effect-based confinement + write-mode without Product Binding (CURRENT ON MAIN — PR #618 MERGED — DET scope — 2026-10-26)
 
 | ID | Statement | Status |

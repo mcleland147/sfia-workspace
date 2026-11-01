@@ -2,6 +2,16 @@
 
 **As-implemented @ `b4aa09bdef29a635e624bb5c396711e75057df4d`**
 
+## Overlay — GI-ORION-NORA-COHERENCE-CORR-01 (AS-IMPLEMENTED ON PRODUCT PR CANDIDATE — ≠ CURRENT ON MAIN — 2026-11-01)
+
+> **NO schema change.** Memory B columns (`content` / `presentation_json` / `studio_control_json`) unchanged.
+>
+> **Write behaviour (candidate @ `9bd22f87`):** durable `content` built after stripping disposition footers; when A1 admissible, prefer folded/durable presentation for `presentation_json`; contradiction candidate may append typed notice into `studio_control_json` (not raw marker in narrative body).
+>
+> **Historical preservation:** existing divergent transcript rows (e.g. ORION seq 3) remain as stored; correction applies to **new** turns. Reload rehydrates from durable fields; server process restart **NOT PROVEN** by this cycle.
+>
+> **Anti-claims:** ≠ CURRENT ON MAIN · ≠ R-SRV-RESTART closed · ≠ transcript rewrite migration.
+
 ## Overlay — CORR-01 (CURRENT ON MAIN — PR #618 MERGED — 2026-10-26)
 
 **CORR-01 NO SEMANTIC IMPACT** on persistence / restart / recovery. Generic continuity wording is **DETERMINISTIC AT TESTED SCOPE** only (`postExecutionProductContinuity.generic.d0.test.ts`); restart continuity remains covered by existing suites. **≠** REAL. Pre-merge NOT MERGED claim = **HISTORICAL**.
