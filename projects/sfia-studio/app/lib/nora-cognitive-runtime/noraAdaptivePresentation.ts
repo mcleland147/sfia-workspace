@@ -990,9 +990,14 @@ export const NORA_ADAPTIVE_DIVERGENCE_NOTICE =
 
 /**
  * ORION-NORA-COHERENCE-CORR-01 — cognitive disposition footers appended to
- * turn.text BEFORE NAP durable composition. They must not poison
- * narrative↔presentation relation classification (false divergent).
+ * turn.text BEFORE NAP durable composition (see runNoraCognitiveTurn).
+ * They must not poison narrative↔presentation classification (false divergent).
  * Keep observable via Studio control notices — never as ordinary métier jargon.
+ *
+ * Extraction contract (fail-closed):
+ * - Only strip a *terminal* Studio footer matching the append format.
+ * - Never consume ordinary paragraphs after a mid-answer marker.
+ * - Preserve quotes, code fences, inline mentions, and ambiguous markers.
  */
 export const COGNITIVE_DISPOSITION_FOOTER_MARKERS = [
   "CONTRADICTION CANDIDATE",
@@ -1000,25 +1005,38 @@ export const COGNITIVE_DISPOSITION_FOOTER_MARKERS = [
   "EVIDENCE-BACKED CONTRADICTION",
 ] as const;
 
-const COGNITIVE_DISPOSITION_FOOTER_RE =
-  /\n*\s*\[(CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION)\][^\n]*(?:\n(?!\s*\[(?:CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION|Studio)\])[^\n]*)*/giu;
+const DISPOSITION_MARKER_ALT =
+  "CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION";
+
+/** Continuation lines Studio may append under a COGNITIVE STOP footer. */
+const STUDIO_DISPOSITION_CONTINUATION_ALT =
+  "Evidence:|Sources:|Next:|Suite:";
+
+/**
+ * Trusted terminal footer only — anchored at EOF.
+ * Shape: blank-line (or leading) + [MARKER] line + optional Evidence/Next lines.
+ * Does not match mid-narrative markers or arbitrary following métier lines.
+ */
+const TERMINAL_COGNITIVE_DISPOSITION_FOOTER_RE = new RegExp(
+  String.raw`(?:^|(?:\r?\n){1,2})\[(${DISPOSITION_MARKER_ALT})\][^\n]*(?:\r?\n(?:${STUDIO_DISPOSITION_CONTINUATION_ALT})[^\n]*)*\s*$`,
+  "iu",
+);
 
 export function stripCognitiveDispositionFooters(text: string): {
   readonly core: string;
   readonly strippedMarkers: readonly string[];
 } {
-  const source = text ?? "";
+  let remaining = text ?? "";
   const strippedMarkers: string[] = [];
-  const core = source
-    .replace(COGNITIVE_DISPOSITION_FOOTER_RE, (match) => {
-      const marker = match.match(
-        /\[(CONTRADICTION CANDIDATE|COGNITIVE STOP|EVIDENCE-BACKED CONTRADICTION)\]/i,
-      )?.[1];
-      if (marker) strippedMarkers.push(marker.toUpperCase());
-      return "";
-    })
-    .trim();
-  return { core, strippedMarkers };
+  // Peel one or more trusted terminal footers; leave all other text intact.
+  for (;;) {
+    const match = remaining.match(TERMINAL_COGNITIVE_DISPOSITION_FOOTER_RE);
+    if (!match || match.index === undefined) break;
+    const marker = match[1]?.toUpperCase();
+    if (marker) strippedMarkers.push(marker);
+    remaining = remaining.slice(0, match.index);
+  }
+  return { core: remaining.trim(), strippedMarkers };
 }
 
 /** Pilot-intelligible Studio notice — not raw CONTRADICTION CANDIDATE jargon. */
