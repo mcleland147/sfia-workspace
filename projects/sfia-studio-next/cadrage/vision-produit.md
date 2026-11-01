@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.5 — base vivante enrichie** ; structuration hiérarchique autonome de la mémoire et vues distinctes Sujets / Réserves / Recommandations / Décisions |
+| Version du document | **0.6 — vision enrichie** ; continuité des questions ouvertes, mobilisation multi-sources et investigation exploratoire gouvernée |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -175,6 +175,59 @@ Le **journal** est une présentation intelligible de connaissances et d'objets d
 
 **Périmètre d'arbitrage :** Morris valide la logique des **quatre familles et de leurs liens**, ainsi que l'autonomie de Nora pour organiser la mémoire. Les intitulés définitifs, vues UX, modalités d'indexation, de versionnement, de consultation et de preuve des liens, ainsi que la séparation technique éventuelle, **ne sont pas spécifiés ni adoptés** à ce stade.
 
+### 2.12. Suivi actif des questions ouvertes et résolution étayée — orientation validée
+
+**Une question ouverte n'est ni résolue, ni abandonnée, ni automatiquement dépriorisée parce qu'elle n'a pas été évoquée depuis longtemps.** Elle demeure identifiable et récupérable tant qu'une information fiable, une décision du Pilote ou un changement de contexte établi ne justifie une évolution de son état.
+
+Distinguer sans les confondre :
+- **État de connaissance :** question ouverte, point clarifié, hypothèse à confirmer, résolution étayée, contradiction ou obsolescence justifiée. Une absence de discussion n'est pas une preuve de résolution.
+- **Priorité recommandée :** Nora apprécie la pertinence actuelle, les dépendances, les risques et le bénéfice d'une reprise ; elle peut recommander de traiter maintenant ou plus tard.
+- **Arbitrage du Pilote :** report, abandon, maintien malgré une recommandation, choix de traiter sur un cycle ultérieur ou acceptation d'un risque demeurent de sa responsabilité lorsque leur portée est métier ou gouvernée.
+- **Visibilité contextuelle :** une question peut quitter la synthèse immédiate sans être supprimée de l'historique, réputée résolue ou perdue pour les reprises futures.
+
+**Proactivité de Nora :** Nora doit pouvoir réintroduire une question ou une réserve non résolue lorsque son contexte redevient pertinent : bilan d'avancement, préparation d'un cycle, nouvelle dépendance, risque, demande « que proposes-tu ? » ou occasion réelle de débloquer un sujet. Le Pilote peut également demander à tout moment la reprise de ces éléments. Les relances sont **opportunes et proportionnées**, pas répétitives ni imposées à chaque échange.
+
+**Résolution sémantique autonome validée :** si une réponse fiable et vérifiable apparaît ailleurs dans le projet, Nora peut marquer une question **factuellement résolue**, en reliant l'élément source, sa portée et la justification, sans demander une confirmation de classement au Pilote. Elle peut proposer une réouverture si de nouveaux faits montrent une contradiction. **Cela n'autorise pas Nora à valider, révoquer ou remplacer une décision humaine, un mandat, une suspension explicite ou une réserve dont la levée exige un arbitrage.** Lorsqu'une résolution dépend de cet arbitrage, la question reste ouverte pour décision.
+
+**Évolution, non effacement :** une question clarifiée, résolue ou devenue sans objet reste retraçable, ainsi que les changements de statut, les sources associées et les raisons de sa requalification. Les critères techniques de détermination, d'audit et de conservation relèvent de R2/R4 et des preuves R5/R6.
+
+### 2.13. Exploration contextuelle et multi-sources — orientation validée
+
+La **mémoire vivante est une source complémentaire, pas la vérité exclusive ni le centre de toutes les investigations**. Le Pilote reste responsable de formuler l'objectif, de préciser le contexte utile lorsque nécessaire et d'orienter les travaux ; Nora est responsable de la recherche pertinente et proactive dans les sources **effectivement accessibles et autorisées**.
+
+**Panorama de sources envisagé, selon les capacités et accès réels :**
+- **Git et documents du projet :** Roadmap, spécifications, décisions, ADR, code, branches, commits, PR, commentaires, historiques et versions applicables. Une branche candidate **n'est pas** automatiquement la baseline `main`.
+- **État produit, exécution et preuves :** état de mission/cycle, mandats, résultats de tests, traces et preuves observables ; une affirmation documentaire n'est pas une preuve de fonctionnement.
+- **Mémoire vivante et conversations :** contexte, sujets, synthèses, questions, relations, échanges anciens et motifs d'arbitrage, sans promouvoir une reformulation en décision.
+- **Pièces jointes au Studio — capacité cible envisagée :** documents, rapports, cahiers des charges, schémas ou autres supports fournis par le Pilote ; analyse, confrontation et réutilisation contrôlées, sous réserve des formats, permissions, confidentialité, provenance et règles de conservation à spécifier.
+- **Recherche web — capacité cible envisagée :** documentation éditeur, références publiques et informations externes utiles, avec date, provenance, fraîcheur et crédibilité qualifiées ; le contenu externe n'a pas d'autorité sur la gouvernance du projet.
+
+**Recherche exploratoire, progressive et non nécessairement linéaire :**
+1. **Point de départ :** l'intention du Pilote et les références qu'il fournit (par exemple plage de PR, document, date, sujet). Ces références sont normalement **des pistes prioritaires, pas une frontière d'exploration**, sauf restriction explicite.
+2. **Découverte :** Nora lit les éléments pertinents et identifie les références, dépendances, lacunes ou contradictions qui justifient d'autres consultations.
+3. **Approfondissement transversal :** elle suit les pistes utiles entre PR, code, Git documentaire, échanges, mémoire, preuves, pièces jointes et web, en adaptant sa stratégie, revenant aux premières sources si nécessaire, sans ordre d'outils imposé.
+4. **Validation contextuelle :** elle distingue faits, hypothèses, décisions applicables, observations techniques, dates et versions ; confronte les sources discordantes et vérifie les points déterminants.
+5. **Convergence et restitution :** elle conclut lorsque la compréhension est **suffisamment étayée pour l'objectif et le risque**, sans rechercher artificiellement l'exhaustivité ; elle fournit un résultat structuré, les références importantes et les limites ou incertitudes restantes. Une source introuvable ou une contradiction critique est signalée honnêtement.
+
+**Frontière fondamentale : liberté d'exploration ≠ élargissement du mandat.** Le périmètre des **lectures** peut s'étendre au fil des découvertes dans les accès autorisés, sauf restriction du Pilote ; le périmètre des **modifications, engagements et décisions** ne s'étend jamais par cette seule exploration. Consulter une ancienne PR ou une discussion n'autorise pas à modifier leurs artefacts ni à lancer un chantier connexe.
+
+**Proportionnalité :** une explication simple n'impose pas une enquête exhaustive ; une analyse structurante ou une opération à risque demande une vérification accrue. La récupération contextuelle doit rechercher la pertinence, la validité et la couverture nécessaires tout en maîtrisant coût API, tokens, latence et limites d'outils. Les mécanismes de recherche, indexation, sécurité, suivi de pistes et critères de convergence restent **À CONCEVOIR / NON IMPLÉMENTÉS**.
+
+**Scénario de référence à éprouver :** le Pilote demande une analyse d'une plage de PR ; une PR renvoie à une conversation ancienne, qui renvoie à une décision Git ; Nora reconstitue la justification et la version applicable, vérifie les preuves utiles, puis restitue une synthèse sourcée sans déborder sur une nouvelle exécution. Il s'agit d'un **scénario cible**, non d'une enquête réellement réalisée.
+
+### 2.14. Capitalisation documentaire, responsabilité du Pilote et rôle des sources — orientation validée
+
+**SFIA Studio est d'abord une plateforme de pilotage de projet, pas un produit centré sur la seule mémoire vivante.** Les cycles conduisent à des travaux, arbitrages, résultats et documents durables. Une documentation Git entretenue régulièrement reste attendue : la mémoire conversationnelle facilite la continuité mais **ne remplace ni la documentation formalisée, ni les décisions, ni les preuves**.
+
+- **Pilote :** fixe et explique l'intention, fournit les références et contraintes utiles lorsqu'il en dispose, oriente les travaux et conserve la responsabilité des arbitrages et de la gouvernance documentaire. Il ne délègue pas à Nora une obligation d'omniscience.
+- **Nora :** recherche et recoupe de façon autonome les sources pertinentes ; exploite d'abord les indices fournis, propose l'élargissement utile sans en faire une formalité systématique, signale les écarts entre travaux et documentation, **prépare ou effectue les mises à jour documentaires uniquement dans les permissions/mandats applicables**.
+- **Studio :** fournit les capacités et contrôles d'accès, de gouvernance des effets, de traçabilité, d'état et de continuité nécessaires, sans multiplier les parcours de validation ni laisser la mémoire créer une autorité parallèle.
+- **Documentation synchronisée :** capitaliser les connaissances et décisions significatives dans des documents pertinents **au sein du macro-lot cohérent**, plutôt que publier une micro-fiche ou un commit à chaque tour de conversation. L'absence de synchronisation peut être signalée par Nora, mais ne justifie ni une publication Git automatique non autorisée ni l'affirmation que la documentation est à jour.
+
+**Hiérarchie des assertions :** les données d'exécution et preuves observées établissent ce qui a réellement eu lieu ; Git courant et décisions applicables établissent les références formalisées selon leur branche, portée et état ; la documentation décrit ce qui a été conçu ; la mémoire et les échanges aident à comprendre l'histoire et les motivations ; les pièces jointes et le web apportent des informations à qualifier. En cas de conflit, Nora remonte aux sources primaires et **expose l'écart**, plutôt que fabriquer une vérité unifiée sans preuve.
+
+Les accès aux pièces jointes, leur conservation, éventuelle indexation, exposition à des services externes, ainsi que les outils de recherche web et leur UX restent **des capacités à spécifier et à gouverner**, non des fonctionnalités disponibles ou promises en runtime Next aujourd'hui.
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -233,6 +286,9 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 8. **Mémoire vivante transverse : intention validée.** À préciser en R1/R2 : seuil de pertinence, reconnaissance de décision, vérification de provenance, évolution/supersession, recherche contextuelle, confidentialité, reprise inter-sessions et visibilité au Pilote.
 9. **Distinction conversation / autorité : orientation validée.** À concevoir et prouver : quand un échange devient une décision durable ou un acte d'autorité effectif, comment éviter confirmations redondantes et droits implicites, et comment établir les contrôles proportionnés.
 10. **Hiérarchisation autonome et quatre vues : orientation validée.** À concevoir/tester : seuils d'émergence d'un sous-sujet, scission/fusion/déplacement, traçabilité et identité indépendantes du classement ; relations entre Sujets, Réserves, Recommandations et Décisions, récupération pertinente, coût et preuves de non-altération des décisions.
+11. **Questions ouvertes : orientation validée.** À éprouver : pertinence et priorité sans vieillissement arbitraire, relances contextuelles, résolution étayée sans usurper de décision, réouverture fondée et conservation du suivi.
+12. **Investigation multi-sources et exploratoire : orientation validée.** À concevoir : accès, découvertes inter-sources, provenance/versions, limites de mandat, recherche documentaire, Git/PR, preuves, mémoire, pièces jointes et web ; coût, latence, restitution et arrêt de recherche.
+13. **Capitalisation documentaire : orientation validée.** À qualifier dans les macro-lots : synchronisation Git utile, sources primaires, rôles Pilote/Nora, risques de contradictions et conservation des permissions.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -252,5 +308,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Précisions et validation du 2026-11-01 (v0.4) :** Morris confirme l'interdiction de lever automatiquement une suspension explicitement décidée par le Pilote ; valide la distinction entre **reconnaissance conversationnelle d'une décision** et **formalisation proportionnée à ses effets** ; confirme l'objectif historique d'une **mémoire vivante de projet**, transverse, évolutive et exploitable par le Pilote comme par Nora. Les §§2.6–2.8 portent ces orientations. Les choix de modèles, persistance, extraction et mécanismes d'autorité restent ouverts ; §2.9 capitalise les observations historiques et hypothèses sans les transformer en décisions techniques.
 
 **Précisions et validation du 2026-11-01 (v0.5) :** Morris confirme l'autonomie de Nora dans la **création et la réorganisation hiérarchique de sujets et sous-sujets**, une mémoire pouvant évoluer et être restructurée au fil de la conversation, et la **conservation des quatre familles du journal** — Sujets, Réserves, Recommandations et Décisions — avec des relations explicites et sans soumission du cycle de vie d'une décision au classement d'un sujet. Les §§2.10–2.11 matérialisent cette orientation produit ; la classification, les vues, les contrats et les contrôles restent à concevoir et prouver.
+
+**Précisions et validation du 2026-11-01 (v0.6) :** Morris valide la **proactivité contextuelle de Nora pour suivre les questions ouvertes**, l'absence de dépriorisation par simple ancienneté et la **résolution sémantique autonome lorsqu'elle est factuellement étayée** sans substitution à un arbitrage humain. Il confirme la **recherche autonome, multi-sources et exploratoire** à partir de ses références initiales, libre de suivre les pistes utiles dans les permissions et le périmètre de mission ; la mémoire vivante reste complémentaire de Git, documentation, décisions et preuves. **Pièces jointes et recherche web** sont des capacités envisagées à cadrer ; les fonctions, contrôles et intégrations ne sont ni spécifiés ni implémentés. Morris rappelle sa responsabilité de Pilote pour le contexte et la gouvernance documentaire, avec contribution de Nora sous mandat. Ces orientations sont exposées en §§2.12–2.14 ; aucun mécanisme, index, outil, état ou choix d'architecture technique n'est adopté par cette validation.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
