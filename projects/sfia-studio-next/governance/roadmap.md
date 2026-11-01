@@ -23,8 +23,8 @@
    - `02-cockpit-architecture-conceptuelle.png` → `1c12dedcca1ec1060636d9197b9e6039ef8aaa6edd99763a4cc74e710b139f50`
    - `03-mission-execution-restitution.png` → `b84363a0a3e70eb94013d998975f8646c83daf67013ffb5888e60d704d5fcede`
    Index navigable : `cadrage/vision-cible/README.md` (VISION FONDATRICE, non architecture validée / non REAL).
-3. **R0-B Git integration : READY FOR MORRIS PR/MERGE GATE** — documents Next + PNG + deux fichiers routing/template partagés déjà sur branche. Aucun changement dans `projects/sfia-studio/` pour ce lot. **GO PR/merge Morris distincts** toujours nécessaires. **R0-B NOT CLOSED**.
-4. **Nomenclature : VALIDATED BY MORRIS (2026-11-01)** — règles et principe fondateur adoptés pour la construction Next ; préciser le glossaire R1/R2 et les conventions techniques R4, sans micro-cycle documentaire dédié. *Réserve lecture seule :* guide/template partagés indiquent encore « CANDIDATE » pour le naming — écart documentaire non corrigé dans ce lot (chemins partagés hors allowlist).
+3. **R0-B Git integration : GO MORRIS PR (2026-11-01), merge non autorisé** — documents Next + PNG + deux fichiers routing/template partagés présents sur la branche ; aucun changement dans `projects/sfia-studio/`. **R0-B NOT CLOSED**. CI Next différenciée : ne pas exécuter la suite applicative historique comme critère Next ; vérifier la protection Git commune existante et traiter ses checks comme contrôles repo, jamais comme preuve de qualité Next.
+4. **Nomenclature : VALIDATED BY MORRIS (2026-11-01)** — règles et principe fondateur adoptés pour la construction Next ; préciser le glossaire R1/R2 et les conventions techniques R4, sans micro-cycle documentaire dédié. *Écart documentaire corrigé sur la branche R0-B :* le guide et le template partagés indiquent désormais **VALIDATED BY MORRIS** (modifications de libellé uniquement).
 5. **R1 : NON AUTORISÉ EN DELIVERY** — cadrage produit conditionné par les gates de sortie R0-B et la validation de sa trajectoire.
 
 **Dépendance structurante :** décisions historiques H7/H8 et G0-A/B conservées en tant qu'historique ; leur portée pour la nouvelle architecture reste à arbitrer, sans supersession implicite. Ancien runtime v3 **NON ADOPTED**.
@@ -36,11 +36,11 @@
 | Contrôle | État | Preuve / suite |
 | --- | --- | --- |
 | R0-A SEF v0.2 | **VALIDATED MORRIS**, présent sur branche | `governance/SEF.md` + décision du 2026-11-01 |
-| Convention nommage | **VALIDATED MORRIS**, présente sur branche | `governance/product-naming-conventions.md` + décision ; guide/template partagés encore libellés CANDIDATE (écart signalé, non modifié) |
+| Convention nommage | **VALIDATED MORRIS**, présente sur branche | `governance/product-naming-conventions.md` + décision ; guide/template partagés alignés sur **VALIDATED** |
 | Routage v2.6 Next | **MODIFIED ON BRANCH / STATIC CHECK PASS** | Guide §4.3.0b + template §2.0.H ; **pas encore sur `main`** ; effets LIVE/REAL Cursor non prouvés |
 | Trois schémas | **THREE ORIGINAL PNG INTEGRATED ON CANDIDATE BRANCH** | Branche `docs/sfia-studio-next-r0b-foundation-01` @ `3d3d09ec…` ; SHA-256 distants = pack |
 | Instructions ChatGPT Next | **DRAFT READY / NOT APPLIED** | `governance/chatgpt-project-instructions-next.md` à appliquer par Morris dans les réglages du projet |
-| CI/validation intégration | **NOT EXECUTED / NOT PROVEN** | Vérifier CI et impact des deux chemins de méthode partagés lors de l'intégration / PR |
-| PR / merge / main | **NOT AUTHORIZED / NOT DONE** | GO Morris séparé puis vérification post-merge |
+| CI/validation intégration | **PR GATE À QUALIFIER ; NEXT CI NOT IMPLEMENTED** | R0-B : validations documentaires et preuves Git proportionnées ; **ne pas réutiliser la suite de tests applicatifs historique**. Ruleset `main` actuel impose `SFIA Studio Required Gate`, mais son workflow ne lance les tests historiques que sur modifications `projects/sfia-studio/`. Vérifier les checks réellement exécutés sur la PR. Propre CI Next à concevoir avec R4/R5 et la stack/les contrats validés, sous GO technique distinct. |
+| PR / merge / main | **GO PR MORRIS (2026-11-01) / MERGE NON AUTORISÉ** | Ouverture PR R0-B vers main autorisée ; revue/contrôles avant tout nouveau GO merge ; vérifier post-merge si et seulement si merge autorisé |
 
-**Verdict : R0-B READY FOR MORRIS PR/MERGE GATE — NOT CLOSED — NOT ON MAIN.** Prochain gate : décision Morris distincte de PR/merge, puis CI/intégration et application éventuelle des instructions ChatGPT.
+**Verdict : R0-B GO MORRIS POUR OUVERTURE PR — MERGE NOT AUTHORIZED — NOT CLOSED — NOT ON MAIN.** Prochaine étape : qualification des checks réellement associés à la PR, review des deux sources partagées et gate Morris de merge séparé. Instructions ChatGPT Next : application aux paramètres non prouvée.
