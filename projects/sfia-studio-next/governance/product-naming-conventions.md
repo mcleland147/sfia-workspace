@@ -2,10 +2,10 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Statut | **CANDIDATE / NON VALIDATED** — demande Morris reçue le 2026-11-01 |
+| Statut | **VALIDATED BY MORRIS — 2026-11-01** — contenu de la convention candidate approuvé explicitement en conversation |
 | Périmètre | Capacités, domaines, modèles, composants, services, fichiers, tests, interfaces, documentation, UX |
 | Jalon | R0-B : principe de cohérence ; R1/R2 : vocabulaire métier ; R4 : conventions techniques/architecture |
-| Autorité de validation | Morris ; aucune adoption implicite par cette proposition |
+| Autorité de validation | **Morris — validation explicite consommée le 2026-11-01** |
 
 ## Principe fondateur
 
@@ -13,7 +13,7 @@
 
 La reconstruction est l'occasion de redéfinir le vocabulaire avant d'écrire le code. Les noms doivent rester intelligibles quand le chantier qui les a introduits est terminé.
 
-## Règles proposées
+## Règles validées
 
 1. **Ubiquitous language :** un concept = un nom canonique ; synonymes/alias documentés et évités dans les contrats publics.
 2. **Noms métier stables :** distinguer capacité, orchestration, décision, contrat, tentative et preuve par leur véritable fonction.
@@ -46,4 +46,4 @@ La reconstruction est l'occasion de redéfinir le vocabulaire avant d'écrire le
 - Une exception est enregistrée avec justification, portée et condition de sortie.
 - La convention est enrichie au besoin **dans le macro-lot de conception / delivery concerné**, pas sous micro-cycles de nomenclature.
 
-**Décision attendue :** adoption ou amendement consolidé de cette convention lors de R0-B / R1, sans modification automatique du SEF v0.2 validé.
+**Décision consommée (2026-11-01) :** Morris valide expressément la convention candidate présente sur la branche R0-B, **sans demander de modification de son contenu**. Les règles 1–12 et le principe fondateur deviennent la norme de nommage de construction **Studio Next**. Les noms de modèles cités sont des **exemples non contraignants**, et le vocabulaire d'amorçage reste à qualifier en R1/R2. La validation ne modifie pas le texte du SEF v0.2 ni la doctrine produit v3.
