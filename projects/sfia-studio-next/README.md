@@ -2,7 +2,7 @@
 
 **Produit commercial :** SFIA Studio (nom conservé). **Programme interne :** SFIA Studio Next.
 
-**Statut au 2026-11-01 :** R0-A méthode validée par Morris ; **R0-B CLOSED / ON MAIN** (PR #636–637) ; conventions de nommage validées, trois PNG originaux et routage SFIA v2.6 Next intégrés ; instructions ChatGPT Next-only documentées sur `main` (PR #638), activation des paramètres UI **non observée**. **R1 cadrage produit engagé au niveau vision : principes Pilote/Nora validés en conversation, document v0.11 sur branche R1 candidate, non encore publié sur `main`.** Aucun nouveau runtime implémenté ou adopté.
+**Statut au 2026-11-01 :** R0-A méthode validée par Morris ; **R0-B CLOSED / ON MAIN** (PR #636–637) ; conventions de nommage validées, trois PNG originaux et routage SFIA v2.6 Next intégrés ; instructions ChatGPT Next-only documentées sur `main` (PR #638), activation des paramètres UI **non observée**. **R1 cadrage produit engagé au niveau vision : principes Pilote/Nora validés en conversation, document v0.12 sur branche R1 candidate, non encore publié sur `main`.** Aucun nouveau runtime implémenté ou adopté.
 
 ## Périmètres Git
 
@@ -19,7 +19,7 @@
 | `governance/roadmap.md` | État vivant du programme : R0-B clos, R1 en cadrage vision sur branche candidate, réserves et gates |
 | `governance/decisions/` | Décisions humaines, portée et réserves |
 | `governance/product-naming-conventions.md` | Convention de nommage orientée produit — **VALIDATED BY MORRIS 2026-11-01** |
-| `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.11**, autonomie, mémoire vivante, cycles/CKC, trajectoire dynamique, sas de création et même fil ; boucle d'exécution Pilot-first, observation Cursor, revue Nora et contrat correctif proposé sous nouveau GO ; spécifications à qualifier (document vivant sur branche candidate) |
+| `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.12**, autonomie, mémoire vivante, cycles/CKC et trajectoire dynamique ; Nora dans le sas et le projet courant uniquement, cockpit sans Nora et lecture interprojets autorisée ; boucle d'exécution Pilot-first, observation Cursor, revue et correctif sous nouveau GO ; spécifications à qualifier (document vivant sur branche candidate) |
 | `cadrage/vision-cible/README.md` | Trois schémas de vision fondateurs et PNG originaux intégrés sur `main` (R0-B) |
 | `governance/chatgpt-project-instructions-next.md` | Version Next-only validée, publiée sur `main` ; application effective aux réglages ChatGPT non observée |
 | `conception-fonctionnelle/` | Exigences, règles et contrats fonctionnels (futurs R2) |
@@ -41,6 +41,6 @@
 
 ## Première trajectoire
 
-R0-A validé → **R0-B clos sur `main`** → **R1 cadrage du produit en cours au niveau vision (v0.11 validée au niveau des orientations, Git sur branche candidate)** → R2 conception fonctionnelle → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
+R0-A validé → **R0-B clos sur `main`** → **R1 cadrage du produit en cours au niveau vision (v0.12 validée au niveau des orientations, Git sur branche candidate)** → R2 conception fonctionnelle → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
 
 Voir `governance/roadmap.md` pour la qualification vivante et les gates. Git et preuves primaires priment sur les résumés ; la documentation décrit honnêtement la portée prouvée.
