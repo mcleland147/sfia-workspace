@@ -74,7 +74,7 @@ routing guide (sfia-cycle-routing-guide.md)
 → template d'exécution (prompts/templates/sfia-cycle-execution-template.md)
 → operating model (sfia-chatgpt-cursor-operating-model.md)
 → guardrails (sfia-rules-and-guardrails.md)
-→ si objet = construction/évolution SFIA Studio : Convergence Pre-check (§2.0.G)
+→ si objet = construction/évolution SFIA Studio : sélectionner le périmètre Git AVANT pre-check (historique §2.0.G / Next §2.0.H) ; ne jamais charger les deux automatiquement
 → contexte projet (documents projet concernés)
 → prompt Cursor généré (contrat d'exécution)
 ```
@@ -145,7 +145,24 @@ Fake / Real Qualification :
 - claims interdits :
 - règle dure : DETERMINISTIC PROVEN n'implique PAS READY FOR REAL
 
-SFIA Studio Convergence Pre-check :
+SFIA Studio Next Construction Pre-check (si scope `projects/sfia-studio-next/`) :
+- triggered : oui / non / N/A
+- Git : repository / branch / HEAD / base / local state known or UNKNOWN
+- SEF : projects/sfia-studio-next/governance/SEF.md — ref / statut / lu
+- Next Roadmap : projects/sfia-studio-next/governance/roadmap.md — ref / état / lu
+- décision(s) Next applicable(s) : path / portée / GO
+- vision/cadrage et trois schémas si pertinents : chemins / consulted / N/A motivé
+- doctrine produit SFIA v3 applicable : documents 30–37 / ref / statut
+- convention de nommage Next applicable : oui / non / N/A ; convention VALIDATED BY MORRIS (2026-11-01), exemples de modèles non adoptés
+- macro-lot/capacité, résultat utilisateur attendu et parcours end-to-end :
+- contrats/responsabilités/impacts ; développement en parallèle et conditions de recomposition :
+- dépendances/critical path, actifs historiques qualifiés, gaps et dette/exit :
+- architecture Next Git/code/preuves : sources consultées / N/A motivé si aucun runtime Next
+- ancien runtime étudié : oui / non ; PRR historique applicable si oui / N/A
+- exit proof + gate Morris + next capability :
+- verdict : NEXT CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO NEXT CONTEXT INCOMPLETE
+
+SFIA Studio Convergence Pre-check (historique uniquement) :
 - triggered : oui / non
 - Build Doctrine :
   - path : projects/sfia-studio/convergence/sfia-studio-convergence-build-doctrine.md
@@ -200,13 +217,14 @@ Cursor devra renforcer la découverte locale et stopper si divergence.
 | **2. Template Git** | Source canonique versionnée — procédure Repo-informed pre-check (+ Convergence Pre-check Studio) | Ce fichier sur Git `main` |
 | **3. Prompt Cursor généré** | Contrat d'exécution — vérifié localement par Local Git Truth Check | Prompt instancié par ChatGPT |
 
-#### G. SFIA Studio Convergence Pre-check (spécialisation bornée)
+#### G. SFIA Studio Convergence Pre-check (spécialisation bornée — Studio historique uniquement)
 
 > **Ne s’applique pas** aux projets SFIA sans rapport avec la construction de SFIA Studio.
+> **Distinction Next (R0-B 2026-11-01) :** §G s'applique exclusivement à `projects/sfia-studio/` et aux travaux de l'application historique. Tout travail sur `projects/sfia-studio-next/` relève de §H ; la lecture de l'historique comme référence ne déclenche pas sa gouvernance par défaut.
 > **Ne transforme pas** ce template en template Studio-only.
 > **Ne promeut pas** SFIA v2.6 comme doctrine runtime Studio.
 
-**Trigger Studio = oui** si l’objet est la construction, l’évolution, l’architecture, la roadmap, la validation ou le prompting de **SFIA Studio** (même trigger que routing guide §4.3.0a).
+**Trigger Studio historique = oui** si l’objet est la construction, l’évolution, l’architecture, la roadmap, la validation ou le prompting de **SFIA Studio historique** sous `projects/sfia-studio/` (routing guide §4.3.0a).
 
 Lorsque trigger = oui, ChatGPT **doit** lire depuis Git **avant** de générer le prompt :
 
@@ -258,6 +276,41 @@ Repo-informed pre-check
 ```
 
 Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; doctrine v3 = destination produit ; PRR = référence documentaire CURRENT (**subordonnée** à Git/preuves) ; v2.6 = baseline opérationnelle processus ; runtime v3 **non ADOPTED** par défaut.
+
+#### H. SFIA Studio Next — Construction Pre-check (extension externe v2.6)
+
+> **Source de qualification :** routing guide §4.3.0b et SEF v0.2 validé Morris 2026-11-01. **Cette extension sélectionne des sources et des contrôles pour les nouveaux travaux ; elle ne crée ni template concurrent, ni doctrine produit Next automatiquement validée.** Tant qu'elle n'est pas publiée sur `main`, elle reste une proposition de routage sur branche R0-B.
+
+**Sélection avant prompt :** commencer par identifier le **périmètre cible** (ancien `projects/sfia-studio/`, nouveau `projects/sfia-studio-next/`, ou travail transversal). Pour Next, la **mini-fiche Next** de §2.0.D remplace la mini-fiche Convergence historique et le pré-check §H remplace §G. Les travaux transversaux déclarent explicitement leurs deux périmètres et les protections applicables ; aucune requalification automatique d'une décision historique dans Next.
+
+**Sources Next à consulter depuis Git (proportionnées au cycle) :**
+
+1. dépôt/ref/HEAD/base et décisions Morris courantes ; ne jamais inventer le statut du worktree ;
+2. `projects/sfia-studio-next/governance/SEF.md` (**méthode de construction Next**) ;
+3. `projects/sfia-studio-next/governance/roadmap.md` (**état du programme et lien à la capacité suivante**) ;
+4. `projects/sfia-studio-next/governance/decisions/` (décisions applicables au lot) ;
+5. `projects/sfia-studio-next/cadrage/vision-cible/README.md` + images originales si cadrage/produit/UX/architecture conceptuelle ; les trois schémas sont **des sources de vision, pas une implémentation ou une architecture approuvée** ;
+6. doctrine produit v3 **applicable** `projects/sfia-studio/sfia-v3-framing/30–37` (validée pour le **produit**, pas automatiquement pour le nouveau runtime) ;
+7. `projects/sfia-studio-next/governance/product-naming-conventions.md` si le nommage est concerné ; convention **VALIDATED BY MORRIS (2026-11-01)**, sans adoption automatique des exemples de modèles ;
+8. source architecturale **Next** + Git/code/preuves Next si runtime Next existe. En R0-B sans runtime Next, **N/A justifié**. Si l'analyse porte sur le code historique, consulter **Git/code historique et PRR README/volumes applicables**, même read-only ; l'ancien PRR n'est pas la référence architecture courante de Next ;
+9. routing guide, template v2.6, operating model, guardrails, review pack/handoff et gates externes.
+
+**Qualification obligatoire :** type et profil de cycle (Critical si risque structurant justifié) ; macro-lot et résultat utilisateur ; sources ; contrats/responsabilités ; impacts; dépendances ; capacité suivante ; exit proof ; état de dette et trajectoire de sortie ; autonomie/autorité ; périmètre des fichiers ; gates Morris et STOP. Associer tests + docs + preuves à la même capacité dans le **macro-lot**, éviter les micro-cycles documentaires sans valeur. Paralléliser seulement des sous-travaux aux frontières explicites, avec propriétaire d'intégration et tests communs.
+
+**Règle dure Next :**
+
+```text
+scope = projects/sfia-studio-next/
+ET (SEF non consulté OU Roadmap Next non consultée
+     OU macro-lot / lien trajectoire / capacité suivante non qualifié
+     OU doctrine produit applicable non consultée
+     OU (architecture Next existante concernée ET non consultée ET N/A non justifié))
+→ PROMPT NOT GENERATED — SFIA STUDIO NEXT CONTEXT INCOMPLETE
+```
+
+Si un travail Next implique aussi une modification du **runtime historique**, appliquer en plus §G et les sources PRR/code pertinentes à ce changement. **Écriture dans des chemins partagés/protégés, push projet, PR, merge, pivot architectural ou promotion doctrine** : GO Morris explicite ; une simple lecture de l'ancien repo n'autorise rien. Le geste documentaire direct ChatGPT reste soumis au **SEF §10**, avec contrôle de périmètre et preuve Git, et ne transforme pas le processus Cursor en autorité autonome.
+
+**Séquence Next :** Git Truth → SEF + Roadmap Next + décisions → capacité/trajectoire + doctrine produit v3 → sources fonctionnelles/UX/architecture Next → évaluation des sources historiques si nécessaire → qualification SFIA v2.6 + mini-fiche Next → contrat Cursor.
 
 ### 2.1 Déclenchement
 
