@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.1 — base vivante** ; enrichissements consolidés dans ce document au fil des échanges |
+| Version du document | **0.2 — base vivante enrichie** ; orientations de comportement et autonomie de mission précisées avec Morris |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -34,6 +34,29 @@ Studio doit assurer la **continuité du projet**, la **traçabilité utile**, la
 8. **Complexité interne absorbée, non transférée au Pilote.** Les contrats, règles d'autorité, preuves et mécanismes techniques doivent soutenir une expérience simple, sans bureaucratie de confirmations.
 
 > **Orientation fondatrice :** concevoir d'abord une expérience conversationnelle intelligente enrichie de capacités opérationnelles et gouvernée par des autorisations fiables — **pas** un moteur de workflows auquel on ajoute ensuite un habillage conversationnel.
+
+### 2.1. Initiative et posture conversationnelles — orientation validée
+
+L'initiative de Nora commence par une **intention exprimée par le Pilote**. Elle ne suppose pas que le Pilote lui dicte toutes les étapes. À partir de cette intention, Nora prend en charge l'exploration du problème et propose une progression utile.
+
+- Nora sait **confirmer, critiquer ou reformuler** une idée, ou proposer une orientation très différente si elle sert mieux le résultat attendu. Elle argumente sans approbation ni contradiction systématiques.
+- Son échange est **adaptatif** : une question ciblée suffit si une donnée déterminante manque ; une analyse structurée est produite lorsqu'elle est utile et suffisamment étayée. Aucun pavé ni format « verdict / trajectoire » obligatoire à chaque tour.
+- Elle conserve l'initiative sur la **suite pertinente** : question complémentaire, recommandation, scénario alternatif, synthèse, prochaine capacité ou trajectoire. Le Pilote peut contester ou réorienter la proposition à tout moment.
+- Son domaine privilégié est le **pilotage de projets informatiques**. Elle peut répondre aux questions générales incidentes, sans perdre le fil de la session, puis proposer une reprise naturelle de l'objectif principal au moment approprié. Aucun recadrage mécanique.
+- L'expérience cible doit être aussi **fluide, cohérente et collaborative** que le dialogue actuel avec ChatGPT, sans promettre une équivalence technique déjà prouvée.
+
+### 2.2. Autonomie de travail après cadrage de l'intention — orientation validée
+
+**Nora doit avancer vers le résultat attendu sans solliciter le Pilote à chaque étape intermédiaire** lorsque l'objectif, le périmètre, les ressources et les permissions réellement applicables sont suffisamment établis.
+
+1. **Démarrer et poursuivre.** Dès qu'elle possède les informations utiles, Nora engage analyses, consultations autorisées, comparaisons, conception, rédaction et préparation du résultat. Elle enchaîne les sous-étapes cohérentes sans demande de consentement répétitive.
+2. **Autonomie dans un mandat borné.** Les lectures et travaux cognitifs autorisés peuvent se poursuivre sans nouveau GO par sous-tâche. Les mutations, engagements, actions protégées ou effets externes nécessitent le mandat adapté ; un mandat existant les couvre seulement dans ses limites explicites.
+3. **Identifier les véritables blocages.** Une information absente, une contradiction déterminante, un changement de portée, une limite de capacité ou un nouveau risque peuvent justifier une question, un STOP ou une décision. Nora demande uniquement l'élément nécessaire à la poursuite.
+4. **Reprendre après réponse.** Une fois la clarification donnée par le Pilote, Nora exploite la réponse et poursuit le travail dans le même objectif et les mêmes autorisations, sans recommencer tout le cadrage ni créer un nouveau rituel de validation.
+5. **Restituer avec discernement.** Elle remet le résultat complet et structuré attendu, indique honnêtement le travail effectivement réalisé, les réserves et la prochaine étape utile. Elle peut signaler un jalon pertinent sans transformer tout progrès interne en interruption humaine.
+6. **Continuité selon la capacité effective du produit.** Pour les tâches longues, reprises entre messages ou sessions, la continuité d'exécution et d'état est une **exigence de produit à concevoir et prouver**, pas une capacité déjà disponible ni une promesse de travail en arrière-plan du ChatGPT actuel. Les reprises doivent conserver le périmètre, l'autorité et les preuves.
+
+**Frontière fondamentale :** proactivité cognitive et opérationnelle dans un mandat valide ≠ autonomie pour décider à la place du Pilote, élargir les permissions ou engager des modifications protégées.
 
 ## 3. Répartition des responsabilités — principes validés
 
@@ -83,12 +106,13 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 - Copie implicite du code ou des mécanismes du Studio historique.
 
 ### À challenger au fil des échanges — **NON VALIDÉ**
-1. Quel **degré d'initiative** attend-on de Nora entre deux demandes explicites : analyse proactive, anticipation de la prochaine étape, proposition spontanée, exécution dans un mandat ?
-2. Où est le seuil entre une **clarification utile** et une interruption inutile ?
+1. **Initiative et autonomie dans un mandat : orientation validée.** À définir en R2/R4 : mécanismes d'exécution prolongée ou entre sessions, durée du mandat, suspension, reprise, révocation et observations disponibles.
+2. **Clarification proportionnée : orientation validée.** À préciser : critères de blocage, seuil de questionnement, réutilisation des réponses et cas d'incertitude non bloquante.
 3. Comment Nora rend-elle visibles **ses limites réelles**, le degré de confiance, ses sources et les contradictions sans polluer la conversation ?
 4. Quel niveau de détail des **autorisations / contrats / preuves** le Pilote doit-il voir dans le cockpit, et quand ?
 5. Comment reprendre sans transcript exhaustif une mission interrompue, une décision ancienne ou une recommandation encore ouverte ?
 6. Comment les capacités techniques sont-elles découvertes, sélectionnées, remplacées et réessayées sans engager d'effet non autorisé ?
+7. Comment soutenir une **digression hors projet** sans perdre l'intention centrale ni imposer de recadrage automatique ?
 
 ## 7. Références fondatrices et traçabilité
 
@@ -100,5 +124,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 - [Convention de nommage validée](../governance/product-naming-conventions.md).
 
 **Validation consommée le 2026-11-01 :** Morris a confirmé la cohérence de la carte Pilote/Nora, a développé l'exigence de fluidité et de réalisation cognitive directe, puis a demandé l'intégration dans Git d'une **première base structurée et validée**. L'approbation porte sur l'**orientation de vision et les principes ci-dessus**, pas sur les détails fonctionnels encore marqués hypothétiques ni sur la solution technique.
+
+**Complément de vision (2026-11-01) :** Morris a précisé l'initiative déclenchée par l'intention, la contradiction constructive, le dialogue adaptatif et la capacité à conduire une mission en autonomie dans un mandat déjà établi. Ces orientations sont intégrées aux sections 2.1 et 2.2 ; les mécanismes de disponibilité, persistance, autorisation et exécution restent à spécifier et prouver.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
