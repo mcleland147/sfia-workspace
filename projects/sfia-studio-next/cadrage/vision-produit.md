@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.6 — vision enrichie** ; continuité des questions ouvertes, mobilisation multi-sources et investigation exploratoire gouvernée |
+| Version du document | **0.7 — vision enrichie** ; Nora transverse à Studio, travail sans cycle obligatoire et spécialisation cognitive des cycles à qualifier |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -228,6 +228,30 @@ La **mémoire vivante est une source complémentaire, pas la vérité exclusive 
 
 Les accès aux pièces jointes, leur conservation, éventuelle indexation, exposition à des services externes, ainsi que les outils de recherche web et leur UX restent **des capacités à spécifier et à gouverner**, non des fonctionnalités disponibles ou promises en runtime Next aujourd'hui.
 
+### 2.15. Nora transverse à Studio : intention, travail, projet et cycle — orientation validée
+
+**Nora est accessible et utile dans toute l'expérience Studio, indépendamment de l'ouverture préalable d'un projet, d'un cycle ou d'une « mission » formalisée.** L'intention naturelle du Pilote peut porter sur une explication, une étude, une analyse de pièce jointe, une recherche, une conception, une préparation de projet, la consultation de plusieurs projets ou une opération techniquement déléguée. Le Pilote n'a pas à annoncer « je crée une mission », ni à choisir d'abord un type de travail.
+
+**Nora reconnaît le travail à prendre en charge** à partir de la demande, du contexte disponible et des capacités réellement accessibles ; elle adapte ses démarches et sa restitution à la difficulté, aux risques, aux impacts, au besoin de continuité et aux permissions applicables. **Tout travail confié n'implique pas la création d'un objet métier persistant « Mission »** : cette éventuelle formalisation est une question de conception fonctionnelle, non un préalable à l'aide conversationnelle ou cognitive.
+
+**Contextes d'expérience visés, non écrans UX définitivement arrêtés :**
+- **Hors projet / création d'un projet :** le Pilote échange avec Nora, réfléchit, analyse des sources, réalise des travaux cognitifs ou prépare la définition d'un projet.
+- **Vue globale Studio / portefeuille :** Nora répond à des demandes de synthèse, état, risques, priorités ou comparaison entre projets, avec les accès correspondants ; la vue globale ne confère aucun droit de modification transverse implicite.
+- **À l'intérieur d'un projet, sans cycle actif :** Nora demeure disponible pour comprendre, rechercher, cadrer, analyser, proposer, rédiger et, lorsque les mandats et contrôles le permettent, préparer ou conduire des actions autorisées. **Un cycle inactif ne rend pas Nora passive.**
+- **À l'intérieur d'un cycle actif :** Nora conserve ses capacités générales et peut bénéficier du contexte méthodologique et cognitif spécifique au cycle, de sa finalité, de ses attentes et de ses éléments de suivi, tout en respectant les mêmes frontières d'autorité.
+
+**Contexte de navigation ≠ périmètre du travail.** L'écran affiché donne un contexte utile, mais ne doit pas enfermer Nora : une demande depuis le tableau de bord peut viser un projet, une demande dans un projet peut nécessiter de comparer un autre projet. Nora qualifie le périmètre cognitif demandé et les ressources accessibles sans déduire du contexte de navigation un pouvoir opérationnel supplémentaire.
+
+**Valeur des trajectoires, cycles et CKC — orientation de vision, pas adoption du mécanisme historique :**
+- La logique de **trajectoires et de cycles demeure pertinente** comme cadre organisé pour des travaux cohérents, la progression méthodologique, les résultats attendus, la gouvernance et la continuité ; elle ne doit pas devenir une condition générale préalable à tout échange ou travail de Nora.
+- Le Pilote considère qu'un **cycle peut enrichir et spécialiser le contexte cognitif de Nora**, notamment via les **CKC** associés au type de cycle. Cela vise une meilleure pertinence sur le périmètre, **pas une affirmation de capacité intrinsèque du modèle supérieure**, ni une validation de l'intégration technique Next.
+- **Nora peut recommander** de créer ou modifier une trajectoire et de démarrer un cycle lorsque le travail gagnerait à être structuré. La recommandation n'active pas le cycle, ne vaut pas arbitrage métier et ne confère aucune autorisation d'effets.
+- **Travail hors cycle et exécution :** le souhait produit est de ne pas bloquer par principe les travaux ou délégations autorisés du seul fait de l'absence de cycle ou de projet actif. Les cas admissibles, rattachements, limites, contrats, capacités, preuves et responsabilités restent **À QUALIFIER en R2/R4** ; aucun mode d'exécution sans contrôle d'autorité n'est approuvé.
+
+**Niveau de formalisation proportionné :** expliquer un concept ne requiert pas le parcours d'une mission gouvernée ; analyser plusieurs sources peut demander un suivi cognitif ; toute modification ou délégation à effets réels demeure contrôlée par des mandats valides, les bonnes identités/périmètres et des preuves. **La qualification formelle est déterminée par les effets et la continuité nécessaires, et non par le seul mot « mission » dans le dialogue.**
+
+**Frontière de conception à instruire ensuite :** valeur utilisateur exacte d'un cycle et de son CKC, bénéfices par rapport à Nora hors cycle, comportement en changements de contexte, trajectoires, cycle actif/inactif, intégrité des rattachements, et coexistence avec les permissions et preuves. Les CKC observés dans le Studio historique ne valent **ni spécification cible, ni preuve LIVE/REAL de Next**.
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -252,7 +276,7 @@ Les accès aux pièces jointes, leur conservation, éventuelle indexation, expos
 5. **Restitution :** résultat, statut réel, décisions consommées ou demandées, preuves et réserves.
 6. **Continuité :** mise à jour ou reconstruction fiable du contexte utile et proposition de suite.
 
-Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, un écran, une suite de statuts implémentée ou une architecture adoptée.
+Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, un écran, une suite de statuts implémentée ou une architecture adoptée. Elle **n'impose ni création formelle d'une Mission ni présence de projet/cycle actif** pour lancer une activité cognitive ; la formalisation et les gates dépendent de la portée des effets et des besoins de continuité (voir §2.15).
 
 ## 5. Deux situations illustratives
 
@@ -289,6 +313,8 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 11. **Questions ouvertes : orientation validée.** À éprouver : pertinence et priorité sans vieillissement arbitraire, relances contextuelles, résolution étayée sans usurper de décision, réouverture fondée et conservation du suivi.
 12. **Investigation multi-sources et exploratoire : orientation validée.** À concevoir : accès, découvertes inter-sources, provenance/versions, limites de mandat, recherche documentaire, Git/PR, preuves, mémoire, pièces jointes et web ; coût, latence, restitution et arrêt de recherche.
 13. **Capitalisation documentaire : orientation validée.** À qualifier dans les macro-lots : synchronisation Git utile, sources primaires, rôles Pilote/Nora, risques de contradictions et conservation des permissions.
+14. **Nora transverse, cycles non obligatoires : orientation validée.** À spécifier : activité hors projet/cycle, contexte de navigation et accès, seuil de formalisation d'un travail, conditions de délégation hors cycle et articulation avec trajectoires et cycles.
+15. **Cycle et spécialisation cognitive CKC : orientation à approfondir.** Définir le bénéfice précis du cycle, les apports/limites des CKC, les parcours et les règles de rattachement avant tout choix d'architecture ou reprise de l'historique.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -310,5 +336,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Précisions et validation du 2026-11-01 (v0.5) :** Morris confirme l'autonomie de Nora dans la **création et la réorganisation hiérarchique de sujets et sous-sujets**, une mémoire pouvant évoluer et être restructurée au fil de la conversation, et la **conservation des quatre familles du journal** — Sujets, Réserves, Recommandations et Décisions — avec des relations explicites et sans soumission du cycle de vie d'une décision au classement d'un sujet. Les §§2.10–2.11 matérialisent cette orientation produit ; la classification, les vues, les contrats et les contrôles restent à concevoir et prouver.
 
 **Précisions et validation du 2026-11-01 (v0.6) :** Morris valide la **proactivité contextuelle de Nora pour suivre les questions ouvertes**, l'absence de dépriorisation par simple ancienneté et la **résolution sémantique autonome lorsqu'elle est factuellement étayée** sans substitution à un arbitrage humain. Il confirme la **recherche autonome, multi-sources et exploratoire** à partir de ses références initiales, libre de suivre les pistes utiles dans les permissions et le périmètre de mission ; la mémoire vivante reste complémentaire de Git, documentation, décisions et preuves. **Pièces jointes et recherche web** sont des capacités envisagées à cadrer ; les fonctions, contrôles et intégrations ne sont ni spécifiés ni implémentés. Morris rappelle sa responsabilité de Pilote pour le contexte et la gouvernance documentaire, avec contribution de Nora sous mandat. Ces orientations sont exposées en §§2.12–2.14 ; aucun mécanisme, index, outil, état ou choix d'architecture technique n'est adopté par cette validation.
+
+**Précisions et validation du 2026-11-01 (v0.7) :** Morris confirme que **Nora doit pouvoir être sollicitée dans tous les contextes de Studio** — hors projet, accueil/portefeuille, projet sans cycle et cycle actif — et reconnaître naturellement les travaux demandés sans exigence de « créer une mission » ou démarrer un cycle. Le cycle et la trajectoire gardent une valeur d'organisation et de **spécialisation cognitive**, notamment via les **CKC** cités par Morris ; leur contribution exacte et l'architecture Next sont encore à concevoir. Nora peut recommander ce cadre, sans décision métier ni autorisation implicite. Les modalités d'exécution hors projet/cycle et les règles de rattachement restent ouvertes (§2.15).
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
