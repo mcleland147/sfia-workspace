@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.8 — vision enrichie** ; cycles légers gouvernés par le Pilote, transitions conversationnelles matérialisées et CKC de conduite méthodologique |
+| Version du document | **0.9 — vision enrichie** ; appréciation proactive de maturité et trajectoire projet initiale, dynamique et réévaluable |
 | Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -288,7 +288,41 @@ Les accès aux pièces jointes, leur conservation, éventuelle indexation, expos
 
 **Format et efficacité à démontrer :** la matière historique CKC (finalité, posture, stratégies, dimensions d'analyse, attentes de preuve, maturité, risques) est une capitalisation utile, **pas un schéma ou runtime Next adopté**. R2 devra concevoir les comportements, contrats et limites ; R3 leur matérialisation UX ; R4 le chargement, l'application, la sécurité et les coûts ; R5/R6 éprouver l'effet réel sur la conduite des cycles, sans imposer l'injection exhaustive du CKC à chaque message.
 
-**Prochaine question R1, non encore arbitrée :** comment Nora apprécie-t-elle que le cycle est « suffisamment mûr » pour proposer la clôture, avec des critères évolutifs, des preuves proportionnées et des réserves explicites, **sans réintroduire une checklist bloquante ou une clôture automatique** ? Cette analyse n'est pas incluse comme spécification validée par la présente consolidation.
+**Point approfondi en §§2.18–2.19 :** l'appréciation proactive de maturité et l'évolution de la trajectoire sont validées comme principes de vision. Les critères opérationnels, les seuils, les déclencheurs, les règles d'enregistrement et les scénarios d'échec restent à spécifier en R2/R4 ; aucune checklist ou clôture automatique n'est instituée.
+
+### 2.18. Maturité proactive et recommandation de clôture — orientation validée
+
+**Nora apprécie de manière continue, contextuelle et proactive la maturité d'un cycle actif**, sans attendre une sollicitation explicite du Pilote du type « avons-nous terminé ? ». Elle sait recommander d'approfondir, de réorienter, de traiter un véritable blocage, ou de proposer une sortie lorsque les acquis deviennent suffisamment solides. **L'appréciation n'est pas une évaluation exhaustive à chaque message ni une notification répétitive** : elle se nourrit des évolutions significatives des échanges, des résultats, des sources et des dépendances.
+
+**Une appréciation argumentée plutôt qu'une checklist obligatoire :**
+- **Finalité et résultats :** les objectifs déterminants du cycle ont-ils été atteints à un niveau suffisant pour la prochaine étape ?
+- **Solidité des acquis :** quels faits, décisions, documents et résultats sont étayés ; quelles hypothèses ou contradictions demeurent ?
+- **Réserves et dépendances :** qu'est-ce qui bloque effectivement le passage à la suite, qu'est-ce qui peut être reporté explicitement et sous quelle responsabilité ?
+- **Continuité vers la suite :** la prochaine étape pourra-t-elle reprendre le contexte, les décisions applicables, les connaissances et les travaux nécessaires sans perdre les points ouverts ?
+
+Ces dimensions sont des **repères de raisonnement**, non quatre gates automatiques, et pourront évoluer à mesure que Nora découvre les besoins réels de la mission. Une question ouverte ne bloque **pas** automatiquement le cycle ; une contradiction structurante ou une obligation effectivement applicable peut en revanche empêcher de conclure honnêtement à une maturité suffisante.
+
+**Rôle unifié du CKC :** la même guidance méthodologique qui oriente les investigations, la conduite du travail et les éventuels livrables recommandés doit également orienter l'appréciation de maturité. **Aucun second moteur méthodologique concurrent** ne doit produire des critères de sortie incompatibles avec ceux du CKC. Le contenu, le format, les repères de maturité et la manière d'appliquer cette guidance constituent **des axes d'amélioration potentiels à étudier en R2/R4**, pas des contrats techniques adoptés.
+
+**Restitution et autonomie bornées :** Nora explique au Pilote pourquoi elle recommande une clôture ou un approfondissement, les preuves pertinentes, les réserves et le degré d'incertitude. **Elle ne clôture pas automatiquement** : la transition attend le GO explicite et applicable du Pilote, puis l'enregistrement réel par Studio. Un GO ne peut écarter silencieusement les obligations de sécurité, de publication Git ou les conditions d'autorité réellement applicables.
+
+**Illustration cible :** en cadrage, Nora peut juger la vision suffisamment claire pour préparer R2 malgré des questions techniques reportables à R4, mais pas si la responsabilité décisionnelle Pilote/Nora demeure contradictoire. L'exemple ne préjuge pas du verdict réel sur le R1 du programme Next, actuellement **IN PROGRESS**.
+
+### 2.19. Trajectoire de projet initiale, prévisionnelle et évolutive — orientation validée
+
+**Dès la qualification initiale de l'intention du projet, Nora propose avec le Pilote une trajectoire de travail cohérente** : les grandes étapes envisagées, leur finalité, leurs dépendances pertinentes et l'ordre initial. La trajectoire fournit au Pilote et à Nora **une ligne conductrice**, mais **les étapes futures restent des hypothèses réévaluables**, pas des cycles déjà autorisés, exécutés ou promis. Seul le cycle effectivement ouvert possède un état actif vérifié.
+
+**Règles de fonctionnement de vision :**
+- **Trajectoire vivante :** sa projection peut évoluer à partir des échanges, des acquis, des dépendances découvertes et des recommandations de Nora ; modification du plan ≠ modification rétroactive des faits et décisions déjà enregistrés.
+- **Prochaines étapes prévisionnelles :** changer leur ordre, ajouter, différer ou retirer une étape peut être proposé si cela améliore la capacité à atteindre la finalité du projet. Les arbitrages structurants restent du ressort du Pilote ; Nora n'affirme pas avoir révisé la trajectoire effective sans enregistrement.
+- **Avancer, approfondir ou revenir :** depuis un cycle de conception fonctionnelle, Nora peut recommander d'instruire un sujet d'architecture avant l'UX, ou d'approfondir un manque du cadrage. **Toute correction ne requiert pas la réouverture administrative d'un cycle achevé** ; la portée, les dépendances, les impacts et les gates applicables déterminent la nécessité d'une requalification.
+- **Transition dans la continuité :** en approchant de la sortie, Nora confronte la maturité du cycle actif à la trajectoire courante, recommande la meilleure suite et explicite ce qui est terminé, transmis, reporté ou encore incertain. Le Pilote autorise les transitions nécessaires.
+- **GO naturel et séquence contrôlée :** un même GO explicite peut viser à la fois la clôture du cycle courant et l'ouverture du suivant, sans confirmations redondantes. Studio vérifie **séparément et dans un ordre cohérent** les conditions applicables, enregistre chaque effet réellement accompli et restitue honnêtement un échec partiel ou un STOP ; un GO commun n'est ni une garantie d'atomicité, ni une dérogation aux gates.
+- **Visibilité dans Studio :** une vue de trajectoire accessible depuis l'expérience du projet, éventuellement inspirée du panneau latéral historique, présente étape active, progression, étapes envisagées et réorientations proposées. **Aucun écran, widget ou modèle d'état UX n'est validé** ; la matérialisation relève de R3.
+
+**Exemple fondateur du programme de construction Next :** R0 gouvernance → R1 cadrage en cours → R2 conception fonctionnelle → R3 UX → R4 architecture → R5 construction → R6 qualification. Cette trajectoire **appartient au SEF et à la Roadmap du chantier réel** et conserve ses décisions, gates Git et critères de sortie applicables ; elle illustre la valeur de visibilité et la possibilité de réévaluation, **sans autoriser un changement de la baseline ou de l'ordre effectif par simple hypothèse**. Le futur produit Next ne doit ni confondre ses cycles runtime avec ces jalons de construction, ni copier leur mécanisme par inertie.
+
+**Conception ultérieure, sans mécanisme supplémentaire prématuré :** qualification du projet, rattachement des cycles, évolution de trajectoire, droits de modification, prévention des incohérences d'état, reprise après échec, trace et modèles UX seront traités en R2–R4 avec scénarios vérifiables. Le besoin de trajectoire dynamique **ne justifie pas, à lui seul, un nouveau moteur d'orchestration**, une deuxième mémoire ou un système de gates parallèle.
 
 ## 3. Répartition des responsabilités — principes validés
 
@@ -354,7 +388,9 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 14. **Nora transverse, cycles non obligatoires : orientation validée.** À spécifier : activité hors projet/cycle, contexte de navigation et accès, seuil de formalisation d'un travail, conditions de délégation hors cycle et articulation avec trajectoires et cycles.
 15. **Cycle léger, ouverture et clôture : principes validés.** À concevoir : GO conversationnel sans confirmation redondante, traçabilité d'état, matérialisation UX des transitions, rattachement à la trajectoire et limites des gates réellement applicables (§2.16).
 16. **CKC de conduite méthodologique rattaché au cycle : principes validés.** À concevoir et éprouver : contribution sur la durée, contenu et format, pertinence des suggestions, gestion des digressions et absence de moteur de sélection CKC hors cycle par défaut (§2.17).
-17. **Maturité du cycle et recommandation de sortie : question ouverte R1.** Définir comment Nora évalue les acquis, les réserves, les dépendances et la suffisance pour recommander la clôture sans imposer une checklist documentaire ni clôturer automatiquement.
+17. **Maturité proactive du cycle : orientation validée.** R2/R4 : critères adaptés et évolutifs, signalement opportun et non répétitif, guidance CKC cohérente, réserves reportables, preuves et contrôles applicables (§2.18).
+18. **Trajectoire initiale et dynamique : orientation validée.** R2/R3/R4 : qualification initiale, étapes futures prévisionnelles, dépendances et révisions, panneau de trajectoire, transitions cohérentes et gestion des erreurs (§2.19).
+19. **Transition intercycles et GO unique : orientation validée.** Un GO explicite peut couvrir clôture et ouverture si leur portée est claire, avec contrôles et effets distincts ; définir l'enregistrement, le STOP et la reprise sans double validation artificielle.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -380,5 +416,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Précisions et validation du 2026-11-01 (v0.7) :** Morris confirme que **Nora doit pouvoir être sollicitée dans tous les contextes de Studio** — hors projet, accueil/portefeuille, projet sans cycle et cycle actif — et reconnaître naturellement les travaux demandés sans exigence de « créer une mission » ou démarrer un cycle. Le cycle et la trajectoire gardent une valeur d'organisation et de **spécialisation cognitive**, notamment via les **CKC** cités par Morris ; leur contribution exacte et l'architecture Next sont encore à concevoir. Nora peut recommander ce cadre, sans décision métier ni autorisation implicite. Les modalités d'exécution hors projet/cycle et les règles de rattachement restent ouvertes (§2.15).
 
 **Précisions et validation du 2026-11-01 (v0.8) :** Morris valide **un cycle léger et significatif** pour conduire une phase, suivre sa progression et marquer ses transitions, sans mission/cycle préalable obligatoire pour tout travail de Nora ni artefacts/gates déclenchés automatiquement par le cycle. Nora peut recommander l'ouverture ou la clôture ; **le GO explicite du Pilote peut être conversationnel**, sans clic redondant, tandis que la transition doit être **visuellement identifiable** et effectivement enregistrée. Morris confirme le **CKC associé au cycle actif**, sans activation autonome générale hors cycle, comme **spécialisation de la conduite méthodologique de Nora dans la durée**, et non format de ses réponses ou autorité imposant des livrables. Les contrats de maturité, clôture, UX et architecture restent à concevoir ; l'appréciation de la sortie est le prochain sujet R1 (§§2.16–2.17).
+
+**Précisions et validation du 2026-11-01 (v0.9) :** Morris confirme **l'approche proactive de Nora pour apprécier la maturité** du cycle et recommander la clôture sans en disposer seule ; le **CKC actif constitue la guidance méthodologique de cette appréciation**, sans moteur de sortie concurrent. Morris confirme la **trajectoire proposée dès la qualification du projet, prévisionnelle et évolutive** selon les découvertes ; cycles futurs révisables, cycle actif constaté, enrichissements ou réorientations possibles sans rouvrir artificiellement les étapes achevées. La transition conserve les gates réellement applicables et un **GO explicite peut couvrir les deux effets distincts** de clôture et d'ouverture si son périmètre est clair. Les §§2.18–2.19 sont des orientations R1, non des contrats de maturité, UX, état ou architecture validés.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
