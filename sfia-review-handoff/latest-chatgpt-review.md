@@ -469,3 +469,12 @@ N/A — lot documentaire/binaire vision fondatrice. Aucun runtime Next, aucun cl
 - Branche : sfia/review-handoff
 - Fichier : sfia-review-handoff/latest-chatgpt-review.md
 - Retour branche initiale : docs/sfia-studio-next-r0b-foundation-01
+
+### Handoff publication proof
+- handoff commit : `85db1aaa7b885dbfd5a7e1652f7ddb2c115cf765`
+- origin/sfia/review-handoff : `85db1aaa7b885dbfd5a7e1652f7ddb2c115cf765`
+- remote file SHA-256 : `6a5c23b67d91f6e1442d53845af011f800d8e280ee9e64d36f31af5444da1f95`
+- URL : https://github.com/mcleland147/sfia-workspace/blob/sfia/review-handoff/sfia-review-handoff/latest-chatgpt-review.md
+- returned workspace branch : docs/sfia-studio-next-r0b-foundation-01 @ `9ffd699acca9ed66d5235f025f6af3429fde6597`
+- note : publication via existing worktree (branch already checked out elsewhere)
+
