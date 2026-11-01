@@ -2,13 +2,13 @@
 
 **Nature :** feuille de route de construction Next ; distincte de `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`.
 
-**État au 2026-11-01, vérifié sur `main` @ `aeb4b81fd598f9440a23a6a7f1ce36da4de9a97c` :** R0-A **VALIDATED BY MORRIS** (SEF v0.2) ; R0-B **MERGED + POST-MERGE GIT VERIFIED** via PR **#636**, puis **GO Morris de formalisation de clôture** donné en conversation. La clôture est formalisée dans la présente Roadmap sur la base du merge et du contrôle Git ; sa publication dans la baseline passe par le gate Git de publication de cette synchronisation. **R1 cadrage de vision engagé en conversation ; vision produit v0.1 validée au niveau des principes, publication Git encore candidate ; R1 non clôturé.**
+**État au 2026-11-01, vérifié sur `main` @ `aeb4b81fd598f9440a23a6a7f1ce36da4de9a97c` :** R0-A **VALIDATED BY MORRIS** (SEF v0.2) ; R0-B **MERGED + POST-MERGE GIT VERIFIED** via PR **#636**, puis **GO Morris de formalisation de clôture** donné en conversation. La clôture est formalisée dans la présente Roadmap sur la base du merge et du contrôle Git ; sa publication dans la baseline passe par le gate Git de publication de cette synchronisation. **R1 cadrage de vision engagé en conversation ; vision produit v0.2 validée au niveau des principes, publication Git encore candidate ; R1 non clôturé.**
 
 | Jalon | Statut | Résultat/exit |
 | --- | --- | --- |
 | R0-A — méthode et rebaseline | **VALIDATED — ON MAIN via PR #636** | SEF v0.2 approuvé, frontières et périmètre Next décidés |
 | R0-B — bootstrap gouverné | **CLOSED BY MORRIS GO — POST-MERGE VERIFIED** | PR #636 merged sur `main` ; SEF, Roadmap et naming validés ; vision + 3 PNG originaux et routage Next présents ; preuves Git post-merge ; pas de preuve produit LIVE/REAL ni de CI Next revendiquée |
-| R1 — cadrage produit | **IN PROGRESS — VISION PRINCIPLES VALIDATED BY MORRIS ; SPEC / R1 EXIT NOT VALIDATED** | [Vision produit v0.1](../cadrage/vision-produit.md) : relation Pilote/Nora, autonomie cognitive et opérationnelle bornée, autorité humaine, réalisation directe / délégation ; trajectoire et capacités encore à cadrer |
+| R1 — cadrage produit | **IN PROGRESS — VISION PRINCIPLES VALIDATED BY MORRIS ; SPEC / R1 EXIT NOT VALIDATED** | [Vision produit v0.2](../cadrage/vision-produit.md) : relation Pilote/Nora, autonomie cognitive et opérationnelle bornée, autorité humaine, réalisation directe / délégation ; trajectoire et capacités encore à cadrer |
 | R2 — conception fonctionnelle | **NOT STARTED** | Règles, processus, décisions, contrats et exceptions |
 | R3 — UX/UI | **NOT STARTED** | Parcours, maquettes et contrats UX approuvés |
 | R4 — architecture technique | **NOT STARTED** | Architecture, ADR, contrats, responsabilités et choix de persistence |
@@ -25,7 +25,7 @@
    Index navigable : `cadrage/vision-cible/README.md` (VISION FONDATRICE, non architecture validée / non REAL).
 3. **R0-B Git integration : MERGED #636 / POST-MERGE VERIFIED — CLOSURE GO MORRIS (2026-11-01)** — documents Next, 3 PNG et deux fichiers partagés présents sur `main`; pas de modification du runtime historique `projects/sfia-studio/`. Merge GitHub autorisé par Morris et réalisé le 2026-11-01 ; post-merge Git vérifié. Le gate CI commun PR a réussi, la suite applicative historique a été SKIPPED ; **aucune CI Next ni test runtime Next n'est revendiqué**.
 4. **Nomenclature : VALIDATED BY MORRIS / ON MAIN** — règles de nommage de construction Next validées le 2026-11-01 ; guide et template partagés harmonisés et présents sur `main`. Le glossaire R1/R2 et les conventions techniques R4 restent à concevoir ; aucun exemple de classe automatiquement adopté.
-5. **R1 — cadrage produit ENGAGÉ AU NIVEAU VISION (2026-11-01)** — principes relationnels Pilote/Nora **VALIDATED BY MORRIS** ; document vivant [vision-produit.md](../cadrage/vision-produit.md) enregistré sur la branche de travail R1, non encore baseline main. Prochaine capacité à cadrer : **comportements observables de Nora**, initiative, questionnement, autonomie, délégation et continuité. Aucun GO de delivery technique ni de R1 exit implicite.
+5. **R1 — cadrage produit ENGAGÉ AU NIVEAU VISION (2026-11-01)** — principes relationnels Pilote/Nora **VALIDATED BY MORRIS** ; document vivant [vision-produit.md](../cadrage/vision-produit.md) enregistré sur la branche de travail R1, non encore baseline main. Comportements d'initiative et autonomie de mission précisés dans la vision v0.2 ; prochaine capacité à cadrer : **seuils de clarification, cas de mission, conditions de suspension / reprise et comportement observable**, sans choix technique anticipé. Aucun GO de delivery technique ni de R1 exit implicite.
 
 **Dépendance structurante :** décisions historiques H7/H8 et G0-A/B conservées en tant qu'historique ; leur portée pour la nouvelle architecture reste à arbitrer, sans supersession implicite. Ancien runtime v3 **NON ADOPTED**.
 
@@ -59,8 +59,8 @@
 
 ## R1 — amorçage progressif du cadrage produit (2026-11-01)
 
-- **Autorité / contenu validé :** Morris approuve comme première base de vision les principes relationnels Pilote ↔ Nora : conversation naturelle, travail cognitif direct lorsque réalisable, mobilisation pertinente des outils, gouvernance proportionnée des actions, décision métier humaine, preuve et continuité.
-- **Document vivant de référence :** [`cadrage/vision-produit.md`](../cadrage/vision-produit.md), v0.1. Un seul support évolutif pour consolider le brainstorming et les décisions significatives ; pas de nouvelle fiche ou PR par idée.
+- **Autorité / contenu validé :** Morris approuve les principes Pilote ↔ Nora : conversation naturelle, challenge constructif et adaptatif, travail cognitif direct, initiative sur la trajectoire, mobilisation pertinente des outils et **autonomie de travail continue dans un mandat déjà défini**, avec clarification ciblée, décisions métier humaines, preuve et continuité. La persistance ou l'exécution hors session restent à concevoir et prouver.
+- **Document vivant de référence :** [`cadrage/vision-produit.md`](../cadrage/vision-produit.md), v0.2. Un seul support évolutif pour consolider le brainstorming et les décisions significatives ; pas de nouvelle fiche ou PR par idée.
 - **Statut du contenu :** **VISION PRINCIPLES VALIDATED BY MORRIS / R1 IN PROGRESS**. Parcours détaillé, comportements, carte des capacités, périmètre exhaustif et contrat d'acceptation final : **À CONCEVOIR / NON VALIDÉS**. La validation d'une orientation ne vaut pas clôture R1.
 - **Git :** vision et cette mise à jour de Roadmap sur la branche documentaire `docs/sfia-studio-next-r1-vision-pilote-nora-01`, issue de `main@2f47d7e63663ed4a18aa1dad0409c12df2d7dfbe` ; **non intégrées à `main` avant gate Git distinct**. `main` reste vérité de baseline jusqu'à merge.
 - **IN immédiat :** définition qualitative des comportements entre le Pilote et Nora, niveau d'initiative, seuil de clarification, autorisations, continuité et résultats utilisateurs. **OUT :** code/runtime, CI Next, ADR, choix définitifs d'architecture, UX détaillée, adoption.
