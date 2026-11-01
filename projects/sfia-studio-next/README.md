@@ -2,7 +2,7 @@
 
 **Produit commercial :** SFIA Studio (nom conservé). **Programme interne :** SFIA Studio Next.
 
-**Statut :** R0-A méthode validée par Morris le 2026-11-01 ; R0-B initialisation documentaire engagée sur une branche dédiée, pas encore intégrée à main. Aucun nouveau runtime implémenté ou adopté.
+**Statut :** R0-A méthode validée par Morris le 2026-11-01 ; R0-B préparation de clôture engagée sur branche dédiée, pas encore intégrée à main. Naming validé ; trois images originales prêtes pour import Git, mais non publiées ; instructions ChatGPT prêtes, non appliquées. Aucun nouveau runtime implémenté ou adopté.
 
 ## Périmètres Git
 
@@ -16,10 +16,11 @@
 | Répertoire | Destination |
 | --- | --- |
 | `governance/SEF.md` | Studio Engineering Framework v0.2 validé (méthode de construction Next) |
-| `governance/roadmap.md` | État vivant du nouveau programme |
+| `governance/roadmap.md` | État vivant du nouveau programme, preuves et réserves R0-B |
 | `governance/decisions/` | Décisions humaines, portée et réserves |
-| `governance/product-naming-conventions.md` | Convention de nommage orientée produit — **CANDIDATE** |
-| `cadrage/vision-cible/README.md` | Les trois schémas de vision transmis par Morris : index et statut |
+| `governance/product-naming-conventions.md` | Convention de nommage orientée produit — **VALIDATED BY MORRIS 2026-11-01** |
+| `cadrage/vision-cible/README.md` | Trois schémas de vision transmis par Morris : index et statut ; PNG binaires non encore dans Git |
+| `governance/chatgpt-project-instructions-next.md` | Complément d'instructions Next prêt, non encore appliqué aux réglages ChatGPT |
 | `conception-fonctionnelle/` | Exigences, règles et contrats fonctionnels (futurs R2) |
 | `ux-ui/` | Contrats UX/UI et références visuelles (futurs R3) |
 | `architecture-technique/` | Architecture et ADR (futurs R4), référence CURRENT une fois le runtime développé |
