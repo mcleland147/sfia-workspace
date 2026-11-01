@@ -22,7 +22,7 @@
 
 - Introduire une **convention de nommage produit** : fonctions, composants, capacités et modèles portent des noms métiers stables, non les noms des chantiers ou expériences historiques.
 - Préserver comme références de vision **les trois schémas Pilote/Nora, cockpit, mission gouvernée** fournis par Morris ; ils sont des guides conceptuels à enrichir en R1–R4, pas une spécification technique approuvée.
-- **La convention précise est une proposition** ; elle demande encore une validation Morris sur son contenu. Les noms techniques concrets seront fixés dans R2/R4 selon les responsabilités réellement conçues.
+- **Historique R0-B :** la convention détaillée a d'abord été proposée, puis **explicitement VALIDATED BY MORRIS le 2026-11-01**. Les noms techniques concrets restent à qualifier dans R2/R4 selon les responsabilités réellement conçues.
 
 ## Limites conservées
 
@@ -44,3 +44,9 @@ Morris a explicitement autorisé :
 **Preuves R0-B :** les deux fichiers partagés ont été modifiés sur la branche. Contrôles statiques PASS : sources SEF/Roadmap Next, priorité de sélection par périmètre, maintien du pré-check historique, garde-fous d'autorité, version du template v2.6 inchangée. Aucun test Cursor LIVE/REAL n'a été effectué.
 
 **Réserve binaire :** les trois fichiers PNG ont été identifiés et vérifiés par SHA-256, mais **l'upload binaire direct dans GitHub n'a pas pu être réalisé avec le canal disponible** ; seul l'index documentaire est actuellement sur la branche, donc R0-B n'est **pas clos**. Un pack ZIP avec les images originales renommées permet leur intégration ultérieure sous gate approprié. Aucun résultat d'import distant n'est revendiqué.
+
+## Décision complémentaire — convention de nommage produit (2026-11-01)
+
+**Morris valide sans réserve de principe la version candidate de** `projects/sfia-studio-next/governance/product-naming-conventions.md` **telle que présentée sur la branche R0-B.** Cette décision transforme le contenu de la convention (principes et 12 règles) en **norme de nommage pour la construction de SFIA Studio Next**, sans imposer les exemples de classes comme choix définitifs d'architecture et sans préjuger le glossaire métier R1/R2.
+
+**GO complémentaire de session :** Morris autorise de poursuivre la **préparation de la clôture consolidée R0-B** : terminer les livrables déjà approuvés, vérifier le routage et les trois schémas, documenter les preuves, réserves et gates. Cette formulation n'est **pas** un GO autonome pour ouvrir une PR, merger, modifier `main`, ni modifier le runtime historique ou promouvoir la doctrine globale. La clôture R0-B reste conditionnée aux preuves Git et aux gates applicables.
