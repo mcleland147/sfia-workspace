@@ -676,6 +676,44 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Critères d'acceptation à préciser et prouver en R2–R6 :** reprise pertinente après plusieurs conversations/cycles ; trace d'origine ; décisions applicables et anciennes distinguées ; points ouverts inter-sujets accessibles ; réorganisation des sujets sans altérer les actes humains ; absence de promotion recommandation→décision ; respect des suspensions et frontières interprojets. **R2 :** contrats, currentness, résolution, consentements et erreurs ; **R3 :** accès aux deux vues et aux points ouverts ; **R4 :** récupération, identité, intégrité et autorité ; **R5/R6 :** essais E2E, multi-session, conflits et preuve de non-régression. **Studio Next : N/A — NON IMPLÉMENTÉ ; R1 IN PROGRESS.**
 
+### 2.34. Scénario end-to-end R1 — décision, autorisation et réalisation technique gouvernée (2026-11-02)
+
+**Statut : VALIDATED BY MORRIS — scénario E2E 05.** Le scénario confirme les principes déjà retenus aux §§2.7, 2.21, 2.25–2.27 et 2.23 ; il ne valide ni le format définitif du contrat d'exécution, ni le choix de Cursor CLI comme architecture, ni un état LIVE/REAL prouvé.
+
+**Résultat utilisateur :** le Pilote peut demander un travail technique ou une modification externe dans la conversation ; Nora **investigue et prépare un contrat technique borné et intelligible**, puis Studio n'engage l'exécution **qu'après l'acte explicite « Exécuter » du Pilote sur le contrat inspecté et applicable**. Cursor réalise le travail autorisé sans validations intermédiaires inutiles ; le Pilote conserve le contrôle des effets, de leurs limites et de l'arrêt éventuel.
+
+**Parcours nominal :**
+1. **Intention :** le Pilote formule le résultat souhaité (par exemple intégrer une fonctionnalité ou modifier des fichiers Git). **Ni cycle actif ni objet Mission préalable** ne sont requis pour qualifier la demande.
+2. **Investigation et préparation :** Nora consulte les sources et permissions disponibles, confronte les contraintes et prépare objectif, IN/OUT, dépendances, impacts et risques, ressources/branches visées, responsabilités, conditions de STOP, résultats attendus, preuves et instruction technique exacte.
+3. **Inspection Pilot-first :** Studio présente d'abord un résumé intelligible des effets envisagés et du périmètre ; le Pilote peut consulter **l'instruction exacte, complète, versionnée et liée au contrat**, par exemple dans un bloc repliable, sans divulgation de secrets. **Une approbation de la solution ou d'une architecture n'est pas encore l'autorisation de lancer Cursor.**
+4. **Autorisation :** le Pilote clique **« Exécuter »** pour le contrat inspecté. Studio vérifie son identité, la portée, les mandats, les accès, la validité de l'instruction et les restrictions applicables avant tout déclenchement. Le clic n'octroie aucun droit général hors contrat.
+5. **Exécution déléguée :** Cursor intervient dans le périmètre effectivement autorisé, applique ses tests et STOP ; Studio rattache les événements et retours réellement observables au projet, au Pilote, au contrat et à l'exécution. Pas de progression fictive, de surveillance cognitive permanente par Nora ni de disponibilité LIVE présumée.
+6. **Retour et passage au résultat :** Studio conserve les états et éléments effectivement reçus ; Nora peut exploiter le rapport et les références pour qualifier la suite avec les responsabilités du **scénario E2E 06** (résultat, preuves, réserves et éventuel nouveau contrat correctif, jamais exécuté automatiquement).
+
+**Frontières d'autorité à préserver :**
+
+| Expression ou action | Portée fonctionnelle |
+| --- | --- |
+| « Cette solution me convient » | Accord sur l'orientation ou la proposition ; **pas de lancement technique implicite**. |
+| « Je valide cette architecture » | Décision structurante avec portée et historique, selon les règles du domaine 6 ; **pas de délégation Cursor par cet acte seul**. |
+| **« Exécuter » sur le contrat applicable** | Autorisation de lancement bornée, après les contrôles Studio ; ni droit universel ni garantie de réalisation. |
+| « Stoppe les travaux » | Suspension humaine opposable ; **arrêt demandé ≠ arrêt confirmé** ni annulation des effets produits. |
+| « Reprends les travaux suspendus » | Nouvelle instruction humaine à qualifier selon la suspension, la validité du contrat, les conditions réelles et les permissions. |
+
+**Exceptions et invariants :**
+- Contrat ou instruction matériellement modifié(e) depuis inspection, portée ou risque nouveaux → requalification de l'autorisation et nouveau GO si applicable ; **pas de substitution silencieuse du contrat validé**.
+- Double clic, demande répétée, réponse réseau perdue → **pas de lancement en double injustifié** ; vérifier l'état réel avant de réessayer.
+- Droit Git insuffisant, identité Cursor incertaine ou session non disponible → pas de lancement présumé ; STOP ou clarification et restitution de la précondition manquante.
+- Changement de besoin, nouvelle dépendance, conflit Git ou dépassement du mandat pendant les travaux → suspendre les effets concernés, préserver les travaux indépendants dans leurs mandats et demander l'arbitrage nécessaire ; pas d'élargissement automatique.
+- Arrêt manuel demandé → distinguer demande, confirmation, état inconnu et effets déjà réalisés ; **aucun rollback automatique supposé**, capacité d'interruption à concevoir et prouver.
+- Exécution échouée, interrompue, partielle ou sans rapport suffisant → conserver les éléments observés sans annoncer le succès ni la conformité ; le rapport Cursor ne constitue pas à lui seul une preuve.
+- Suspension décidée par le Pilote → opposable à toutes les reprises jusqu'à levée humaine applicable, même si Nora estime le problème technique résolu.
+- Absence de cycle actif → n'empêche pas l'exécution technique gouvernée si ses préconditions propres sont satisfaites.
+
+**Responsabilités :** domaine **3** = qualification et préparation cognitive par Nora ; domaine **6** = décision, autorité, suspensions et enforcement par Studio ; domaine **7** = contrat, lancement et états observés ; domaine **9** = accès/ressources Git ; domaine **8** = examen des résultats, preuves et conformité ensuite. **Un contrat technique découle des effets réels, pas du seul fait qu'un cycle existe.**
+
+**Critères d'acceptation à spécifier et démontrer ultérieurement :** contrat consultable et cohérent avec l'instruction exécutée, contrôle de l'identité et des accès, **un lancement par autorisation applicable**, respect des limites/STOP, états réellement traçables, gestion des conflits/échecs et absence de double lancement. **R2 :** contrats et règles d'état ; **R3 :** inspection Pilot-first, autorisation et suivi ; **R4 :** isolation, intégrations et prévention des conflits ; **R5–R6 :** preuves d'exécution et d'échec/reprise en conditions réelles. **Studio Next : N/A — NON IMPLÉMENTÉ ; R1 IN PROGRESS.**
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -750,7 +788,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 à 04 VALIDATED BY MORRIS** (§§2.30–2.33) : sas récupérable, cycle actif unique, production cognitive structurée, et mémoire/décisions continues avec journal simplifié à deux vues + points ouverts transversaux (§2.11). Les autres parcours end-to-end, exceptions transverses, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
+27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 à 05 VALIDATED BY MORRIS** (§§2.30–2.34) : sas récupérable, cycle actif unique, production cognitive structurée, mémoire/décisions continues avec journal simplifié et **réalisation technique sous contrat inspectable et autorisation « Exécuter »**. Les scénarios suivants, notamment résultats/preuves, exceptions transverses, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -804,5 +842,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Validation du scénario E2E 03 le 2026-11-02 :** Morris valide l'**investigation et la production cognitive directe par Nora** ainsi que la capacité de **restitution cognitive structurée et adaptative**. Il demande que les résultats soient présentés de manière pertinente (titres, étapes, chronologies, tableaux, états, icônes, liens Git réels, preuves et arbitrages interactifs au moment utile), à l'image des captures de réponses ChatGPT partagées, sans formatage obligatoire, GO implicite ni système de composants figé. Scénario et critères en §2.32 ; domaines IN/OUT inchangés, R1 non clôturé.
 
 **Révision et validation E2E 04 du 2026-11-02 :** Morris confirme la continuité inter-conversations, la mémoire hiérarchique et la séparation effective entre connaissance, décision et autorisation. Il **remplace l'orientation historique à quatre vues du journal** : **Sujets et Décisions** demeurent les deux seules vues dédiées ; un **accès transversal aux points ouverts** regroupe les réserves significatives, blocages, questions et conditions non résolues, sans imposer un onglet permanent autonome. **Pas de vue Recommandations** : les recommandations utiles restent contextualisées dans les sujets/conversations. §§2.11 et 2.33 et carte du domaine 4 synchronisés ; mécanismes, UX et preuves R2–R6 ouverts, aucune sortie R1 ni architecture adoptée.
+
+**Validation du scénario E2E 05 le 2026-11-02 :** Morris confirme la séparation entre accord conversationnel, décision structurante et autorisation technique, avec contrat d'exécution Pilot-first inspectable, instruction exacte consultable, clic explicite « Exécuter », réalisation bornée par Cursor et restitution des seuls états réellement observés. Il valide le traitement des exceptions d'accès, de risque, de double lancement, de suspension et de reprise, sans présumer une interruption LIVE ni une conformité automatique. Détails en §2.34 ; E2E 06 reste à instruire, R1 non clôturé.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
