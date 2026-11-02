@@ -541,6 +541,60 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Suite du cadrage R1 :** confronter cette carte aux parcours nominaux et aux exceptions end-to-end, puis déterminer les dépendances, les risques, les preuves attendues et les véritables critères d'exit R1. **R1 IN PROGRESS ; R2–R6 non engagés ; Studio Next : N/A — NON IMPLÉMENTÉ.**
 
+### 2.30. Scénario end-to-end R1 — créer un projet et poursuivre la conversation (2026-11-02)
+
+**Statut : VALIDATED BY MORRIS — scénario E2E 01 et arbitrage de reprise du sas avant création.** Validation de l'expérience et de ses invariants ; aucun mécanisme de stockage, d'authentification, de déduplication ni parcours UX détaillé n'est adopté.
+
+**Résultat utilisateur :** le Pilote peut librement préparer une intention avec Nora, retrouver sa préparation même après avoir quitté Studio **sans avoir créé de projet**, puis créer explicitement son projet et continuer le **même fil conversationnel visible** dans l'espace durable, sans cycle ni dépôt Git imposés.
+
+**Parcours nominal :**
+1. **Portefeuille :** le Pilote authentifié par son identité GitHub accède à ses projets et à une entrée de création ; aucune conversation Nora globale dans ce cockpit.
+2. **Sas :** le Pilote expose librement son intention ; Nora questionne, analyse, propose des scénarios, consulte les sources effectivement autorisées, produit une première valeur cognitive sans qualification exhaustive ni projet créé.
+3. **Aperçu évolutif :** Nora propose un nom, la finalité, les contraintes et questions utiles, une trajectoire prévisionnelle et éventuellement un premier cycle. Ces propositions ne valent pas décisions ni créations.
+4. **Création autorisée :** lorsque le minimum utile est suffisant, le Pilote déclenche l'acte visible **« Créer le projet »**. Studio vérifie l'identité et réalise l'enregistrement avant d'annoncer la réussite. Aucun dépôt, répertoire, cycle, CKC actif ou mandat technique n'est créé/activé par ce clic.
+5. **Continuité sas → projet :** après succès réellement constaté, le Pilote arrive dans l'espace projet en retrouvant la **conversation initiale dans le même fil visuel**, avec l'intention, les informations utiles et leur statut/provenance ; la création peut être signalée sans imposer une réouverture par résumé.
+6. **Démarrage libre :** Nora poursuit immédiatement les travaux cognitifs et peut recommander le premier cycle. Le GO de démarrage est distinct et postérieur à la création ; le Pilote peut continuer sans cycle.
+
+**Arbitrage complémentaire explicitement validé — reprise pré-création (option A de ce scénario) :** le sas **doit être récupérable avant toute création effective**, y compris après fermeture du navigateur ou retour ultérieur du Pilote. Il préserve la conversation, les éléments utiles préparés, leurs limites et la possibilité de reprendre. Cet espace en préparation **n'est pas un projet Studio**, ne figure pas comme projet réellement créé et n'acquiert ni autorité de projet, ni cycle actif, ni mandat technique par persistance. Cette option A de reprise est distincte des autres arbitrages nommés « option A » au §§2.20/2.24.
+
+**Exceptions et invariants à couvrir :**
+- Quitter et revenir au sas avant création → préparation retrouvable dans la bonne identité, sans création implicite. Politique de conservation, navigation et traitement des abandons : **R2/R3/R4**.
+- Double clic, répétition de requête, réponse réseau perdue après création → **pas de doublon injustifié** ; réconciliation avec l'état réel et reprise sûre.
+- Échec d'enregistrement → pas de faux succès ; préparation préservée et tentative rejouable selon la situation, sans création silencieuse.
+- Expiration/session erronée ou changement de Pilote → pas de transfert de conversation, de brouillon ni de projet à un autre utilisateur ; réauthentification et accès contrôlés.
+- Reprise après création → le projet et le contexte sont retrouvables ; propositions de trajectoire et premier cycle **non promues silencieusement en décisions**.
+- Accès Git absent → n'empêche ni sas ni création du projet ; le besoin d'une ressource Git sera qualifié au moment approprié.
+
+**Critères d'acceptation R1 à décliner en R2–R6 :** le Pilote peut obtenir de la valeur cognitive avant création ; interrompre et reprendre le sas sans perte injustifiée ; créer **une fois** par acte explicite ; constater le succès réel ; continuer le même fil dans son propre projet ; travailler sans cycle et sans Git. **Preuves attendues ultérieurement :** parcours UX, tests de persistance/reprise, échecs/idempotence/identité, vérification du rattachement et essais E2E réels. **Next : N/A — NON IMPLÉMENTÉ.**
+
+### 2.31. Scénario end-to-end R1 — conduire un projet, sa trajectoire et ses cycles (2026-11-02)
+
+**Statut : VALIDATED BY MORRIS — scénario E2E 02 et arbitrage « un seul cycle actif par projet ».** La règle porte sur **l'état simultané des cycles**, non sur le nombre de sujets qu'explorent Nora et le Pilote ni sur les cycles futurs/terminés d'une trajectoire.
+
+**Résultat utilisateur :** le Pilote travaille naturellement avec Nora et comprend sa progression, la trajectoire envisagée, l'étape méthodologique effectivement active et les conditions d'une réorientation ou d'une transition, **sans que le cycle devienne un préalable à chaque travail**.
+
+**Parcours nominal :**
+1. **Projet ouvert, sans cycle :** Nora reprend l'intention, les acquis, les décisions et réserves utiles ; elle peut analyser, investiguer, concevoir, rédiger ou recommander sans CKC actif.
+2. **Trajectoire :** Nora propose ou ajuste avec le Pilote une progression macro, des dépendances et cycles possibles ; les étapes futures demeurent **prévisionnelles**, pas des ouvertures ou engagements enregistrés.
+3. **Ouverture d'un cycle :** Nora explicite l'intérêt, la finalité, le type de cycle et sa place ; le Pilote donne un **GO clair et applicable**, possiblement conversationnel, sans seconde confirmation rituelle. Studio vérifie qu'aucun autre cycle n'est actif, la portée et les conditions applicables, enregistre l'ouverture puis l'annonce.
+4. **Cycle actif et guidance CKC :** **un seul cycle effectivement actif par projet** ; son CKC oriente la conduite méthodologique et la maturité dans la durée. Nora garde la liberté de répondre à des digressions et de travailler sur des sujets connexes sans créer d'autres cycles ni changer automatiquement de CKC.
+5. **Progression et réorientation :** Nora enrichit l'analyse, distingue faits/hypothèses/risques/réserves et apprécie proactivement la maturité ; elle recommande poursuite, approfondissement ou évolution de trajectoire, sans mutation décisionnelle implicite.
+6. **Clôture et suite :** Nora confronte la maturité, les preuves, les dépendances et réserves à la finalité ; le Pilote autorise la clôture et éventuellement l'ouverture du cycle suivant. Un **même GO explicite** peut porter les deux effets, vérifiés et enregistrés **séparément** dans un ordre contrôlé, avec restitution de tout résultat partiel.
+
+**Arbitrage complémentaire explicitement validé — cycle actif unique (option A de ce scénario) :** **au plus un cycle actif par projet Studio**. Le Pilote peut disposer de plusieurs cycles **proposés, futurs ou terminés** et Nora peut conduire plusieurs analyses pertinentes dans l'unique contexte projet ; cela n'institue ni cycles actifs parallèles, ni CKC concurrents. Réorientation ou transition n'autorise pas Nora à ouvrir/fermer automatiquement un cycle. Une demande de deuxième ouverture alors qu'un cycle est actif doit respecter la frontière : clarifier, proposer une clôture/transition gouvernée ou refuser l'effet incompatible.
+
+**Exceptions et invariants à couvrir :**
+- GO imprécis → question proportionnée ; pas de cycle ouvert présumé. GO rejoué → pas de deuxième cycle par accident.
+- CKC absent/inaccessible → source manquante et limites signalées, sans invention, sans référence v2.6 réintroduite comme doctrine runtime et sans droit d'exécution supplémentaire ; comportement de dégradation à spécifier.
+- Nouvelle dépendance ou incohérence de trajectoire → recommandation de replanification, conservation des faits/actes existants ; pas de modification silencieuse.
+- Réserves à la clôture → distinguer blocantes, reportables et non vérifiées ; ni clôture automatique ni certification implicite.
+- Clôture du cycle réussie mais ouverture suivante échouée → rendre les **deux effets distincts** et l'état réel ; pas de « tout réussi », pas d'atomicité présumée.
+- Redémarrage, changement de session ou conflit concurrent → retrouver la trajectoire et l'unique cycle réellement actif sans créer, fermer ou autoriser d'effet par reconstruction fictive.
+
+**Frontières :** domaine 3 = conduite cognitive ; domaine 4 = mémoire/contextualisation ; domaine 5 = trajectoire, cycles et guidance ; domaine 6 = autorité des transitions ; domaine 8 = preuves et réserves ; domaine 7 si une véritable exécution technique est engagée avec autorisation. **Un cycle actif seul n'exige ni livrable ni gate supplémentaire** : les obligations proviennent des effets, contrats, politiques et décisions réellement applicables.
+
+**Critères d'acceptation R1 à décliner en R2–R6 :** valeur cognitive sans cycle ; trajectoire prévisionnelle et modifiable ; **unicité observable du cycle actif** ; ouverture/clôture sous GO effectif ; CKC associé seulement au cycle actif ; maturité proactive mais non décisionnelle ; transitions honnêtes et reprises sans faux état. **Preuves attendues ultérieurement :** scénarios de transitions et idempotence, cas de concurrence, vérification des CKC, reprise inter-session et tests E2E avec réserves. **Next : N/A — NON IMPLÉMENTÉ.**
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -615,7 +669,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. Les parcours end-to-end, exceptions, dépendances, critères d'exit et gates restent à qualifier ; la validation de la carte ne clôture ni R1 ni la conception R2.
+27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 et 02 VALIDATED BY MORRIS** (§§2.30–2.31) : sas récupérable avant création et un seul cycle actif par projet. Les autres parcours end-to-end, exceptions transverses, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -663,5 +717,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Arbitrage de carte R1 validé le 2026-11-02 (domaine 9) :** Morris confirme **l'Intégration Git gouvernée et facultative par projet**, sous six conditions : dépôt non obligatoire, identité GitHub individuelle, consultations limitées aux accès autorisés, écritures par contrats techniques gouvernés et Cursor, collaboration par dépôt commun sans fusion des projets Studio, isolation des interventions et prévention des conflits. Répartition distincte avec les domaines 6 (autorité), 7 (réalisation) et 8 (preuves). Détails et limites en §2.28. Ni protocole d'identité, ni solution Cursor CLI multi-utilisateur, ni arborescence, ni carte globale, ni sortie R1 n'est adopté par cet arbitrage.
 
 **Validation de la carte consolidée R1 du 2026-11-02 :** Morris valide le **périmètre IN/OUT des neuf domaines tel que présenté en conversation**, sans ajout de domaine. Il écarte explicitement les compléments fonctionnels envisagés à l'issue de la revue historique (PRR, Product Completion, ancienne UI), jugés non pertinents pour enrichir la vision R1 à ce stade. La carte consolidée figure en §2.29 ; scénarios end-to-end, critères de clôture, mécanismes et preuves restent ouverts. Cette validation **n'adopte ni les composants ni le DoctrinePackage de l'ancien Studio**.
+
+**Validation des scénarios E2E 01 et 02 le 2026-11-02 :** Morris approuve la création de projet depuis un sas conversationnel **récupérable avant création** (option A E2E 01), puis le même fil visible dans le projet créé, sans création implicite, Git obligatoire ou cycle automatique. Pour la conduite de projet, Morris confirme **au plus un cycle effectivement actif par projet** (option A E2E 02), sans limiter les travaux cognitifs connexes ou le nombre de cycles planifiés/terminés. Parcours, exceptions, frontières et critères en §§2.30–2.31. Les mécanismes, UX et preuves restent R2–R6 ; R1 non clôturé.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
