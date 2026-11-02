@@ -2,14 +2,14 @@
 
 **Nature :** feuille de route de construction Next ; distincte de `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`.
 
-**État courant au 2026-11-02 — décision Morris : R1 CLOSED WITH CARRIED RESERVES** ([Decision Record](decisions/2026-11-02-r1-cadrage-formal-exit.md)). **Neuf domaines IN/OUT et sept scénarios E2E validés**, revue transversale et quatre qualifications méthodologiques R2 tracées (§§2.29–2.39 de la vision). **Décision de sortie R1 acquise ; intégration Git sur `main` soumise à la PR, aux contrôles, au merge et à la relecture post-merge**. **R2 NOT STARTED tant que l'intégration n'est pas vérifiée** ; aucune architecture ni implémentation Next adoptée. Les passages R0-B et anciens statuts R1 restent historiques ; l'état vivant est celui-ci et la décision enregistrée.
+**État courant au 2026-11-02 : R1 CLOSED WITH CARRIED RESERVES / R2 CLOSED BY MORRIS WITH CARRIED RESERVES — GIT INTEGRATION PENDING.** [Décision R2](decisions/2026-11-02-r2-functional-exit.md) et [rapport de sortie](../conception-fonctionnelle/revue-formelle-sortie-r2.md) : 9 specs globalement approuvées, 300 RG, 241 PF documentés, 15 CKI/50 relations `VALIDATED CONTENT`. La PR R1 #639 reste mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839`. **La clôture R2 est décidée au niveau documentaire sur la branche candidate ; PR, CI, merge R2 et vérification post-merge restent à effectuer. R3 NOT STARTED.** Produit Next : N/A — NON IMPLÉMENTÉ.
 
 | Jalon | Statut | Résultat/exit |
 | --- | --- | --- |
 | R0-A — méthode et rebaseline | **VALIDATED — ON MAIN via PR #636** | SEF v0.2 approuvé, frontières et périmètre Next décidés |
 | R0-B — bootstrap gouverné | **CLOSED BY MORRIS GO — POST-MERGE VERIFIED** | PR #636 merged sur `main` ; SEF, Roadmap et naming validés ; vision + 3 PNG originaux et routage Next présents ; preuves Git post-merge ; pas de preuve produit LIVE/REAL ni de CI Next revendiquée |
-| R1 — cadrage produit | **CLOSED BY MORRIS — WITH CARRIED RESERVES (2026-11-02) ; GIT INTEGRATION TO BE VERIFIED** | [Vision produit](../cadrage/vision-produit.md) §§2.29–2.39, [décision](decisions/2026-11-02-r1-cadrage-formal-exit.md) : neuf domaines et sept parcours validés ; quatre qualifications méthodologiques R2 et risques transférés. L'exit R1 est prononcé **au niveau cadrage**, pas preuve produit ni intégration Git anticipée. |
-| R2 — conception fonctionnelle | **NOT STARTED — FOUR REQUIRED QUALIFICATIONS DOCUMENTED, NOT YET DESIGNED** | Règles, décisions, contrats, exceptions, continuité ; qualifier **(1) méthode applicable et option DoctrinePackage, (2) instructions opérationnelles Nora, (3) héritage SFIA v2.6 proportionné, (4) gouvernance de l'évolution méthodologique** (§2.38). Aucune architecture ou implémentation anticipée. |
+| R1 — cadrage produit | **CLOSED BY MORRIS WITH CARRIED RESERVES — PR #639 MERGED / POST-MERGE VERIFIED** | Vision R1, neuf domaines et sept E2E ; `main@8751775…` prouvé, runtime Next non implémenté. |
+| R2 — conception fonctionnelle | **CLOSED BY MORRIS — WITH CARRIED RESERVES ; GIT INTEGRATION PENDING** | [Décision de sortie R2](decisions/2026-11-02-r2-functional-exit.md) ; 9 specs, 300 RG, 241 PF, 15 CKI / 50 relations validés en contenu. Réserves R3–R6 tracées. PR/CI/merge/post-merge R2 distincts ; R3 NOT STARTED. |
 | R3 — UX/UI | **NOT STARTED** | Parcours, maquettes et contrats UX approuvés |
 | R4 — architecture technique | **NOT STARTED** | Architecture, ADR, contrats, responsabilités et choix de persistence |
 | R5 — reconstruction par macro-capacités | **NOT STARTED** | Code neuf, preuves verticales, documents synchronisés |
@@ -25,11 +25,18 @@
    Index navigable : `cadrage/vision-cible/README.md` (VISION FONDATRICE, non architecture validée / non REAL).
 3. **R0-B Git integration : MERGED #636 / POST-MERGE VERIFIED — CLOSURE GO MORRIS (2026-11-01)** — documents Next, 3 PNG et deux fichiers partagés présents sur `main`; pas de modification du runtime historique `projects/sfia-studio/`. Merge GitHub autorisé par Morris et réalisé le 2026-11-01 ; post-merge Git vérifié. Le gate CI commun PR a réussi, la suite applicative historique a été SKIPPED ; **aucune CI Next ni test runtime Next n'est revendiqué**.
 4. **Nomenclature : VALIDATED BY MORRIS / ON MAIN** — règles de nommage de construction Next validées le 2026-11-01 ; guide et template partagés harmonisés et présents sur `main`. Le glossaire R1/R2 et les conventions techniques R4 restent à concevoir ; aucun exemple de classe automatiquement adopté.
-5. **R1 — CLOSED BY MORRIS WITH CARRIED RESERVES (2026-11-02) ; INTEGRATION GIT PENDING EVIDENCE** — neuf domaines et sept E2E validés (§§2.29–2.36), revue des exceptions/risques (§2.37) et quatre qualifications méthodologiques à reprendre en R2 (§2.38). **Décision** : [R1 formal exit](decisions/2026-11-02-r1-cadrage-formal-exit.md), résumée §2.39. Trajectoire conservée : Nora dans le sas/projet, cycle actif unique avec CKC de guidance, production directe et mémoire vivante, journal Sujets/Décisions + points ouverts, décision Pilote et « Exécuter » sous contrat, preuve non assimilée au rapport Cursor, Git facultatif et partagé sous droits individuels. **Conditions restantes avant démarrage R2 :** PR R1, diff/CI, merge, vérification de `main` ; R2 démarre ensuite sur sa nouvelle baseline, sans adoption d'architecture ni de runtime.
+5. **R1 — CLOSED BY MORRIS / PR #639 MERGED ET POST-MERGE VÉRIFIÉ (2026-11-02)** — `main@8751775…` ; R2 en cours sur branche candidate, sans adoption d'architecture ni runtime.
 
 **Dépendance structurante :** décisions historiques H7/H8 et G0-A/B conservées en tant qu'historique ; leur portée pour la nouvelle architecture reste à arbitrer, sans supersession implicite. Ancien runtime v3 **NON ADOPTED**.
 
 **Règle de mise à jour :** un statut ne devient PASSED/READY/ADOPTED qu'après preuve et décision ; mettre à jour cette roadmap dans le même macro-lot que le changement, sans cycle documentaire artificiel.
+
+## R2 — consolidation documentaire (2026-11-02)
+
+- **Base R1 :** PR #639 mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 distincte.
+- **R2 :** 9 specs individuelles validées par Morris, 300 RG, 241 PF documentaires après les 4 PF D3 approuvés ; sept E2E R1 non exécutés.
+- **CKI :** 15 fiches et 50 relations `VALIDATED CONTENT v0.2` par Morris le 2026-11-02 ; preuve d'usage et de valeur cognitive à obtenir en R5/R6.
+- **Gates :** revue formelle R2 favorable et **clôture Morris enregistrée** ([décision](decisions/2026-11-02-r2-functional-exit.md)). Préparation/PR et checks autorisés ; merge, vérification post-merge et démarrage R3 sous gates distincts. La source reste candidate tant que non mergée.
 
 ## R0-B — critères de clôture et réserves factuelles (2026-11-01)
 
@@ -69,3 +76,8 @@
 - **Gates restants :** GO Morris de sortie R1 **accordé** ; autorisation de publication **commit/PR/merge avec contrôles** également accordée pour la branche R1 et son périmètre documentaire. **Restent à prouver :** PR, checks applicables, merge et relecture de `main`; puis lancer R2 sur la baseline intégrée. Pas de code Next, CI Next, UX/ADR adoptés ni preuve LIVE/REAL.
 
 **Frontière de cette décision :** R0-B reste historique ; **R1 est clos sur décision de Morris avec réserves**, mais l'intégration Git doit être constatée après merge. Les validations R2/R4 et l'adoption runtime restent indépendantes. **La Roadmap doit être requalifiée sur preuves après chaque gate et R2 n'est pas engagé par le seul commit R1.**
+
+
+## Décision R2 — clôture fonctionnelle confirmée (2026-11-02)
+
+Morris valide la [sortie R2 avec réserves](decisions/2026-11-02-r2-functional-exit.md) sur la base du rapport transverse et des quinze CKI approuvés. **`R2 CLOSED BY MORRIS — WITH CARRIED RESERVES`** au niveau conception ; intégration `main` non prouvée. Prochaine étape : PR et vérification des gates, puis GO merge distinct, relecture `main` et seulement alors entrée R3 UX. Aucun code Next ni comportement prouvé.
