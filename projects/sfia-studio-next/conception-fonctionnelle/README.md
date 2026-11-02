@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **R2 EN COURS** ; Nora v0.4, Connaissance v0.1, Trajectoire/Cycles/CKI v0.1, Décisions/Gouvernance v0.1, Réalisation opérationnelle v0.1 et Résultats/Preuves v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
+| Statut | **R2 EN COURS** ; Nora v0.4, Connaissance v0.1, Trajectoire/Cycles/CKI v0.1, Décisions/Gouvernance v0.1, Réalisation opérationnelle v0.1, Résultats/Preuves v0.1 et Intégration Git v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -26,6 +26,7 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 | [Décisions, mandats et gouvernance du Pilote](decisions-et-gouvernance-du-pilote.md) | **Domaine 6** : décisions du Pilote, validité/portée, mandats, suspensions, révocations, restrictions et acceptation, sans autorité concurrente | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-GOV, 28 PF-GOV ; interfaces réservées | Revue R1, Nora v0.4, Connaissance v0.1, Trajectoire/CKI v0.1 et CKI candidat v0.2 ; domaines 1–2 et 7–9 **NON ÉVALUÉS** |
 | [Réalisation opérationnelle gouvernée](realisation-operationnelle-gouvernee.md) | **Domaine 7** : contrat d'exécution inspectable et versionné, instruction correspondante, tentative, état réellement observé, interruption/reprise et nouveau contrat correctif sous autorisation | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-REAL, 30 PF-REAL, dix réserves `REAL-*` ; interfaces réservées | Revue R1, D3–D6 et CKI v0.2 ; interfaces D8/D9/D1–2 non encore qualifiées contre leurs futures specs |
 | [Résultats, preuves et qualification de conformité](resultats-et-preuves.md) | **Domaine 8** : déclaration/observation/conformité/acceptation distinctes, sources et preuves réellement vérifiées, réserves, bilans et limites | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-PRV, 32 PF-PRV, 12 réserves ; interfaces réservées | Revue R1, D3–D7 et CKI v0.2 ; interfaces D9 et D1–D2 **NON ÉVALUÉES** contre leurs futures specs |
+| [Intégration Git gouvernée et facultative par projet](integration-git-gouvernee.md) | **Domaine 9** : accès et rattachement Git facultatifs, consultation sous identité/droits actuels, provenance commit/ref, préconditions et conflits Git ; dépôt partagé ≠ projet Studio partagé | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 40 RG-GIT, 34 PF-GIT, 14 réserves suivies ; interfaces réservées | Confrontation R1, D3–D8 et CKI v0.2 candidat ; interfaces D1/D2 à confronter aux futures specs |
 
 **Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
 
@@ -135,3 +136,10 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Invariants :** déclaration Cursor ≠ observation ≠ conformité démontrée ≠ acceptation du Pilote ; preuve déterministe ≠ preuve navigateur ou LIVE/REAL ; une preuve inaccessible n'est pas certifiée ; un résultat conforme n'autorise ni merge, ni release, ni `ADOPTED`.
 - **Couverture :** 36 règles `RG-PRV-001..036`, 32 scénarios `PF-PRV-01..32` et 12 réserves `PRV-*` suivies. Les interfaces `REAL-06` et `D6-04` sont précisées fonctionnellement, non prouvées techniquement.
 - **Statut :** contenu `VALIDATED SPEC` par Morris le 2026-11-02, publié sur branche R2 uniquement. Réserves D9, D1–D2 à instruire ; aucune PR, merge, implémentation, preuve comportementale ou adoption implicite.
+
+## 15. Intégration Git gouvernée et facultative par projet — VALIDATED SPEC v0.1
+
+- **Propriétaire :** D9 assure ressources, accès, références et préconditions Git ; D6 les autorisations, D7 les effets/tentatives, D8 les preuves, D1 l'identité Studio et D2 le projet.
+- **Invariants :** Git facultatif ; connexion GitHub ≠ accès global ; lecture de Nora ≠ écriture de Cursor ; dépôt partagé ≠ projet Studio partagé ; branche candidate ≠ `main` vérifié ; push ≠ merge ≠ release ≠ adoption ; aucun CKI ou Kubernetes obligatoire.
+- **Couverture validée :** 40 règles `RG-GIT-001..040`, 34 scénarios `PF-GIT-01..34`, 14 réserves `GIT-01..14`, interfaces avec D6/D7/D8 qualifiées fonctionnellement sans preuve runtime.
+- **État :** contenu `VALIDATED SPEC` par Morris le 2026-11-02 ; branche R2 uniquement. D1–D2 non encore examinés contre leurs specs propriétaires, aucune PR, merge, implémentation ou adoption induite.
