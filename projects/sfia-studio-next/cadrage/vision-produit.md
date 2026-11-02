@@ -2,13 +2,15 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Jalon | **R1 — cadrage produit**, démarré au niveau vision |
-| Version du document | **0.14 — vision enrichie** ; projets Studio individuels validés, collaboration par dépôts Git et sources accessibles |
-| Statut du contenu | **VISION PRODUIT — PRINCIPES VALIDÉS PAR MORRIS EN CONVERSATION (2026-11-01 à 2026-11-02)** ; comportements détaillés, contrats et architecture **NON VALIDÉS** |
+| Jalon | **R1 — cadrage produit, CLOSED BY MORRIS WITH CARRIED RESERVES (2026-11-02)** |
+| Version du document | **0.15 — cadrage R1 clôturé** ; neuf domaines, sept scénarios E2E et quatre qualifications méthodologiques R2 |
+| Statut du contenu | **R1 CLOSED BY MORRIS — WITH CARRIED RESERVES** ; vision, 9 domaines, 7 E2E et frontières validés ; contrats R2, UX R3, architecture R4, code et preuve runtime **NON VALIDÉS / NON IMPLÉMENTÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
 | Produit | **SFIA Studio** ; **Studio Next** désigne le programme de reconstruction |
 | Références | SEF v0.2 ; Roadmap Next ; décision R0-A/R0-B ; convention de nommage validée ; trois schémas originaux de `vision-cible/` |
+
+**État courant :** décision humaine de sortie du cadrage R1 le **2026-11-02**, [Decision Record](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md). Les mentions historiques « R1 IN PROGRESS » ou « exit candidate » dans les sections antérieures documentent l'état lors de leur rédaction ; elles **ne remplacent pas cette décision actuelle**. L'intégration Git sur `main` reste un événement distinct, à prouver après PR/merge.
 
 ## 1. Vision produit validée — intention et résultat attendu
 
@@ -865,6 +867,16 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Impact sur l'exit R1 :** quatre exigences de reprise désormais tracées pour R2–R6 ; elles ne rouvrent pas les sept scénarios validés et **ne constituent pas le GO de clôture R1**. **R1 IN PROGRESS / R2 NOT STARTED / STUDIO NEXT N/A — NON IMPLÉMENTÉ.**
 
+### 2.39. Sortie formelle du cadrage R1 — décision Morris du 2026-11-02
+
+**Statut : R1 CLOSED BY MORRIS — WITH CARRIED RESERVES (niveau cadrage).** Morris a explicitement validé la sortie R1 avec réserves reportées après revue formelle des six critères proposés (§2.37), comprenant l'examen complémentaire des quatre axes méthodologiques (§2.38). Cette décision **supersède uniquement les états temporels « R1 IN PROGRESS / EXIT CANDIDATE »** figurant dans les comptes rendus historiques de ce document ; elle ne réécrit ni les arbitrages et preuves passés, ni les décisions techniques futures.
+
+**Décision canonique :** [`governance/decisions/2026-11-02-r1-cadrage-formal-exit.md`](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md). **Périmètre accepté :** neuf domaines IN/OUT, sept parcours E2E et leurs exceptions, rôles Pilote/Nora/Studio/Cursor, continuité et autorité, cartographie des risques et dépendances. La méthode/DoctrinePackage éventuel, les instructions opérationnelles Nora, les mécanismes v2.6 à adapter et l'évolution gouvernée sont **reportés comme qualifications R2 obligatoires** : leur architecture et leur implémentation ne sont **pas** validées par cette clôture.
+
+**Réserves reportées sans blocage R1 :** qualité et contexte de Nora, continuité et décisions, identification/isolement Cursor CLI, Git partagé/conflits, preuve/observabilité et restitution. **R2** doit définir les contrats fonctionnels et arbitrages ; **R3** l'UX ; **R4** l'architecture ; **R5/R6** les preuves et états applicables. Ces réserves restent visibles et leur levée future ne peut être inférée de la décision de cadrage.
+
+**Autorisation Git distincte également donnée par Morris :** commit documentaire de la décision et des synchronisations Next → PR candidate vers `main` → contrôle des changements et checks → merge sous gates satisfaits → relecture post-merge. **R1 clos au niveau décisionnel ≠ Git déjà mergé ≠ R2 engagé ≠ produit ADOPTED.** Les preuves Git d'intégration sont à vérifier, sans les anticiper dans cette section.
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -939,7 +951,7 @@ Cette chaîne est une **synthèse de l'expérience de vision validée au niveau 
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** La carte IN/OUT des neuf domaines et les sept E2E sont **VALIDATED BY MORRIS** (§§2.29–2.36). La revue transversale et les critères d'exit demeurent **candidats à arbitrage** (§2.37). **Quatre exigences de qualification pour R2 ont été validées comme reprise méthodologique** (§2.38) : option DoctrinePackage ; instructions opérationnelles Nora ; héritage v2.6 sélectif ; évolution contrôlée des règles. Leur inscription ne vaut pas adoption de mécanisme ancien ni validation des spécifications. **R1 IN PROGRESS ; clôture Morris, PR/merge et GO R2 non accordés.**
+27. **R1 clôturé par Morris avec réserves reportées (2026-11-02).** La carte des neuf domaines et les sept E2E restent **VALIDATED BY MORRIS** (§§2.29–2.36). La revue (§2.37) et les quatre qualifications méthodologiques à reprendre obligatoirement en R2 (§2.38) ont été consommées dans la décision de sortie (§2.39 et Decision Record). **La clôture documentaire R1 n'anticipe ni la preuve Git post-merge, ni la conception R2, ni l'architecture R4, ni l'adoption runtime.**
 
 ## 7. Références fondatrices et traçabilité
 
@@ -1003,5 +1015,7 @@ Cette chaîne est une **synthèse de l'expérience de vision validée au niveau 
 **Consolidation de revue R1 du 2026-11-02 :** sur GO Morris de préparation de la consolidation et de synchronisation factuelle de la Roadmap, revue candidate des **neuf domaines** et **sept scénarios validés** ; cinq familles d'exceptions, six groupes de risques/dépendances et six critères d'exit proposés en §2.37. **Ceci ne vaut pas GO de sortie R1, publication `main`, ouverture R2 ou preuve produit Next.**
 
 **Audit complémentaire pré-exit et GO de synchronisation du 2026-11-02 :** Morris valide l'inscription en §2.38 de quatre **axes de qualification pour R2** issus de la revue des héritages DoctrinePackage/CKC, des instructions Nora et de SFIA v2.6. La portée est une synchronisation documentaire de cadrage, **sans clôture R1, ouverture R2, PR/merge, adoption doctrinale ni implémentation Next**.
+
+**GO de sortie R1 du 2026-11-02 :** Morris valide **R1 CLOSED WITH CARRIED RESERVES** et autorise la séquence Git distincte commit → PR → contrôles → merge → relecture post-merge ; décision enregistrée dans `governance/decisions/2026-11-02-r1-cadrage-formal-exit.md` et synthétisée en §2.39. Le démarrage R2 sur baseline intégrée reste conditionné à la vérification du merge, non à la seule rédaction de cette mention.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
