@@ -514,6 +514,33 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Frontières R2–R6 :** R2 spécifiera parcours d'accès/retrait, conditions de contrats, erreurs et conflits ; R3 les choix d'emplacement et demandes d'accès ; R4 les protocoles d'authentification GitHub, l'isolation de Cursor CLI, les secrets, la gestion des branches et de la concurrence ; R5/R6 éprouveront les droits et cas REAL, notamment **deux Pilotes sur un dépôt partagé**. Les conventions historiques d'arborescence restent des sources à évaluer, **non adoptées**. **Studio Next : N/A — NON IMPLÉMENTÉ ; R1 reste IN PROGRESS.**
 
+### 2.29. Carte fonctionnelle consolidée R1 — neuf domaines et IN/OUT (2026-11-02)
+
+**Statut : VALIDATED BY MORRIS au niveau du périmètre et des frontières fonctionnelles de la carte entière.** Les domaines 1, 2, 4 et 5 ont été conservés lors de la revue ; les domaines 3, 6, 7, 8 et 9 ont fait l'objet d'arbitrages détaillés (§§2.25–2.28). La présente consolidation **n'est ni une spécification R2, ni une architecture, ni une preuve, ni un exit R1**.
+
+| Domaine | IN — responsabilité produit retenue | OUT — frontière explicite |
+| --- | --- | --- |
+| **1. Accès et portefeuille** | Identité du Pilote, accès à ses projets, cockpit de consultation et navigation. | Nora conversationnelle dans le cockpit, pilotage global multi-projets. |
+| **2. Création de projet** | Sas conversationnel Nora, qualification progressive, création explicite « Créer le projet », continuité visuelle du fil dans l'espace projet. | Projet créé automatiquement, dépôt Git obligatoire, premier cycle ouvert automatiquement. |
+| **3. Conduite Pilote–Nora** | Conversation, initiative, analyse, conception et production cognitive directe dans les capacités et droits applicables. | Délégation technique systématique ou autonomie de décision métier. |
+| **4. Connaissance et investigation** | Mémoire vivante du projet, Sujets / Réserves / Recommandations / Décisions, investigation multi-sources autorisée et reprise du contexte. | Mémoire comme vérité exclusive, autorité opérationnelle ou partage implicite entre projets. |
+| **5. Trajectoire et cycles** | Trajectoire révisable, cycles légers, CKC de guidance lié au cycle actif, appréciation de maturité et transitions gouvernées. | Cycle obligatoire avant toute aide de Nora, CKC comme gate autonome, clôture automatique. |
+| **6. Décisions et gouvernance** | Distinction préférence / décision / autorisation, décisions durables, mandats, suspensions et application effective des restrictions. | Décisions métier autonomes de Nora, droits implicites ou validation formelle de chaque message. |
+| **7. Réalisation opérationnelle gouvernée** | Contrat technique inspectable, GO « Exécuter », contrôles d'autorité, délégation à Cursor et états réellement observables. | Moteur de toutes les mutations internes Studio, boucle d'exécutions correctives autonomes. |
+| **8. Résultats et preuves** | Confrontation des retours et preuves, bilan de conformité, réserves, incertitudes et continuité des résultats établis. | Certificat automatique, acceptation métier ou ADOPTED inféré du succès technique. |
+| **9. Intégration Git** | Ressources Git accessibles et sourcées, rattachement facultatif, sélection d'emplacements, contraintes d'accès et collaboration sur dépôt partagé. | Dépôt obligatoire, droits universels, moteur d'exécution parallèle, projet Studio collectif natif. |
+
+**Trois invariants transverses, sans nouveau domaine :**
+- **Continuité :** retrouver les faits, les décisions applicables, les travaux, les réserves et les résultats utiles sans dépendance à un transcript unique.
+- **Autorité :** la lecture, la recommandation, la connaissance d'une capacité ou une permission d'outil ne constituent pas une autorisation opérationnelle ou métier.
+- **Vérité observable :** distinguer action annoncée, rapport de l'exécuteur, résultat effectivement observé et conformité suffisamment démontrée.
+
+**Réserves de maturité déjà identifiées, inchangées :** pièces jointes et recherche web envisagées mais non spécifiées/implémentées ; interruption manuelle Cursor conditionnée à faisabilité, états observables et preuves ; intégration Git/Cursor multi-utilisateur et comportement LIVE/REAL à concevoir et prouver. **Ne pas prétendre disponibles les capacités non démontrées.**
+
+**Capitalisation de l'ancien Studio :** la revue ciblée du PRR, du cadrage Product Completion, des fondations v3 et de surfaces historiques n'a pas conduit Morris à élargir le périmètre R1. Les compléments proposés lors de cette revue **ont été explicitement écartés par Morris pour la vision R1** ; aucune reprise doctrinale, technique ou fonctionnelle supplémentaire n'est déduite de la comparaison.
+
+**Suite du cadrage R1 :** confronter cette carte aux parcours nominaux et aux exceptions end-to-end, puis déterminer les dépendances, les risques, les preuves attendues et les véritables critères d'exit R1. **R1 IN PROGRESS ; R2–R6 non engagés ; Studio Next : N/A — NON IMPLÉMENTÉ.**
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -588,7 +615,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** Une carte de neuf capacités (accès/portefeuille, création, conduite Nora, connaissance, trajectoires/cycles, décisions, réalisation, résultats, Git) a été **proposée en conversation** ; les **domaines 3, 6, 7, 8 et 9 sont validés par Morris au niveau de leurs frontières fonctionnelles** (§§2.25–2.28), **sans validation de l'ensemble de la carte**. Consolider le statut des domaines conservés, l'IN/OUT global, les scénarios nominaux et exceptions, les critères d'exit et les dépendances R2–R6 avant tout GO de clôture (§2.22).
+27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. Les parcours end-to-end, exceptions, dépendances, critères d'exit et gates restent à qualifier ; la validation de la carte ne clôture ni R1 ni la conception R2.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -634,5 +661,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Arbitrage de carte R1 validé le 2026-11-02 (domaine 8) :** Morris approuve le périmètre **« Résultats et preuves »** : bilan vérifiable et intelligible, rattachement aux exécutions/contrats, vérification proportionnée des déclarations Cursor, distinction terminé / objectif atteint / conformité démontrée / preuve manquante, réserves et continuité. Domaine 8 distinct de la réalisation technique (7), de la cognition directe (3) et de la décision/acceptation humaine (6) ; pas de tests universels ni d'adoption automatique. Détails et limites en §2.27. Les modalités R2–R6, la carte globale et l'exit R1 restent ouverts.
 
 **Arbitrage de carte R1 validé le 2026-11-02 (domaine 9) :** Morris confirme **l'Intégration Git gouvernée et facultative par projet**, sous six conditions : dépôt non obligatoire, identité GitHub individuelle, consultations limitées aux accès autorisés, écritures par contrats techniques gouvernés et Cursor, collaboration par dépôt commun sans fusion des projets Studio, isolation des interventions et prévention des conflits. Répartition distincte avec les domaines 6 (autorité), 7 (réalisation) et 8 (preuves). Détails et limites en §2.28. Ni protocole d'identité, ni solution Cursor CLI multi-utilisateur, ni arborescence, ni carte globale, ni sortie R1 n'est adopté par cet arbitrage.
+
+**Validation de la carte consolidée R1 du 2026-11-02 :** Morris valide le **périmètre IN/OUT des neuf domaines tel que présenté en conversation**, sans ajout de domaine. Il écarte explicitement les compléments fonctionnels envisagés à l'issue de la revue historique (PRR, Product Completion, ancienne UI), jugés non pertinents pour enrichir la vision R1 à ce stade. La carte consolidée figure en §2.29 ; scénarios end-to-end, critères de clôture, mécanismes et preuves restent ouverts. Cette validation **n'adopte ni les composants ni le DoctrinePackage de l'ancien Studio**.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
