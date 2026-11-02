@@ -790,6 +790,57 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Critères d'acceptation à préciser et prouver en R2–R6 :** projet fonctionnel sans Git, autorisations minimales pour lecture/écriture, séparation réelle des trois identités, deux Pilotes aux permissions différentes sur un dépôt partagé, travail indépendant sans conflit artificiel, travail concurrent sur mêmes fichiers avec base obsolète correctement détectée, absence de transfert d'autorité et aucune fusion implicite des projets ou branches. **R2 :** parcours d'accès et contrats, risques et reprises ; **R3 :** sélection et permissions visibles ; **R4 :** identité, sessions Cursor, Git et isolation concurrente ; **R5–R6 :** démonstrations sur dépôt partagé en conditions réelles. **Studio Next : N/A — NON IMPLÉMENTÉ ; R1 IN PROGRESS.**
 
+### 2.37. Consolidation transversale des scénarios R1 — revue de sortie candidate (2026-11-02)
+
+**Statut : PREPARED FOR MORRIS R1 EXIT REVIEW — NON VALIDATED AS EXIT.** Cette consolidation est une analyse candidate de ChatGPT fondée sur les **neuf domaines IN/OUT validés** (§2.29) et les **sept scénarios E2E explicitement validés** (§§2.30–2.36). Le GO Morris du 2026-11-02 autorise la **préparation de la revue et la synchronisation documentaire factuelle**, **pas** la clôture de R1, le démarrage de R2, une PR, un merge ou l'adoption d'une architecture. L'état local Git est **NON OBSERVÉ** ; les vérifications portent sur les références distantes.
+
+**Résultat de la revue de cohérence :** **couverture de cadrage nominale 7/7 scénarios et 9/9 domaines** ; aucun domaine supplémentaire ni nouveau parcours primaire indispensable n'a été identifié dans les sources examinées. Ce résultat n'est **ni une preuve d'exhaustivité fonctionnelle**, ni un test de comportement runtime. **Aucune contradiction structurante entre les sept parcours et la carte courante n'est relevée** ; les invariants transverses et exceptions ci-dessous deviennent des entrées R2–R6 plutôt que des prétextes à rouvrir R1 sans bénéfice produit.
+
+| Parcours validé | Résultat utilisateur, frontière et domaines dominants |
+| --- | --- |
+| **E2E 01 — Sas → projet** (§2.30) | Sas récupérable, création explicite puis continuité du même fil ; **pas** de projet/cycle/Git implicite (1, 2, 3). |
+| **E2E 02 — Trajectoire/cycles** (§2.31) | Progression gouvernée, **au plus un cycle actif**, CKC seulement pour le cycle actif ; travail cognitif possible sans cycle (3, 5, 6). |
+| **E2E 03 — Cognition/restitution** (§2.32) | Nora investigue, conçoit et produit directement ; réponses structurées/interactives pertinentes ; pas de délégation Cursor systématique (3, 4). |
+| **E2E 04 — Continuité/gouvernance** (§2.33) | Mémoire et décisions applicables retrouvées ; journal avec **Sujets** et **Décisions** dédiés, points ouverts transversaux (4, 6). |
+| **E2E 05 — Réalisation gouvernée** (§2.34) | Contrat inspecté, « Exécuter » explicite, droits/STOP, observation réelle ; pas de mandat global (6, 7, 9). |
+| **E2E 06 — Résultats/preuves** (§2.35) | Retour Cursor confronté aux preuves ; correction préparée mais non lancée, acceptation humaine distincte (6, 7, 8). |
+| **E2E 07 — Accès Git/collaboration** (§2.36) | Git facultatif, identités individuelles, dépôt partagé sans fusion des projets ou droits, concurrence gouvernée (4, 6, 7, 9). |
+
+**Invariants communs vérifiés conceptuellement :**
+- **Continuité :** retrouver faits, conversations utiles, sujets, réserves et décisions applicables après changement de session, de cycle, ou de contexte autorisé, sans promotion d'une synthèse en autorité.
+- **Autorité :** compréhension conversationnelle ≠ décision durable ≠ autorisation d'exécution. « Créer le projet » et « Exécuter » gouvernent leurs effets respectifs ; GO explicites pour ouverture/clôture de cycle ; suspension humaine opposable.
+- **Vérité observable :** proposition ≠ effet réalisé ; rapport Cursor ≠ preuve indépendante ; réussite technique ≠ conformité ≠ acceptation ≠ ADOPTED.
+- **Frontières personnelles :** mémoire, décisions, trajectoires et autorisations par projet Studio/Pilote ; lecture interprojets ou dépôt Git partagé n'entraîne aucun transfert de droits.
+- **Sobriété :** Nora peut travailler sans cycle, choisir sa restitution sans gabarit obligatoire, capitaliser utilement sans quatre journaux ni moteur concurrent.
+
+**Exceptions significatives et trajectoire de qualification — pas de nouveaux arbitrages R1 :**
+
+| Famille transversale | Condition à traiter / comportement conservateur | Suite et preuves attendues |
+| --- | --- | --- |
+| **Reprise, identité et idempotence** | Sas récupérable, projet/cycle/exécution sans doublon après retry, perte de réponse ou changement de session ; état réel réconcilié. | **R2** scénarios/états/erreurs ; **R4** persistance/contrôles ; **R5–R6** tests de reprise et répétition. |
+| **Décisions, mandat et suspension** | Préférences/recommandations non promues ; validité/supersession des décisions vérifiable ; suspension humaine opposable à toute délégation et reprise. | **R2** contrats d'autorité ; **R4** enforcement ; **R5–R6** tests multi-session/STOP. |
+| **Mémoire et sources divergentes** | Réorganisations sans perte d'identité ni altération de décision ; version Git et provenance ; limites d'accès et contradictions exposées ; points ouverts récupérables. | **R2** règles de contexte ; **R3** consultation ; **R4** récupération et intégrité ; **R5–R6** vérifications longitudinales. |
+| **Exécution et chaîne de preuves** | Identité Cursor, état d'arrêt demandé/confirmé/inconnu ; rapport non assimilé aux faits ; pas de correction automatique ni conformité fictive. | **R2** statuts/contrats ; **R3** restitution ; **R4** observation/liaison ; **R5–R6** preuves LIVE/REAL. |
+| **Concurrence et Git partagé** | Deux Pilotes/contrats distincts, base Git contrôlée, fichiers communs et droits révoqués ; aucun écrasement/merge ou transfert de mandat implicite. | **R2** cas de conflit ; **R4** isolation Git/Cursor ; **R5–R6** essai deux Pilotes sur dépôt partagé. |
+
+**Dépendances et risques qualifiés (à ne pas masquer par un statut READY de réalisation) :**
+1. **Identité et isolation Cursor CLI en Studio multi-utilisateur : risque technique majeur, R4 puis preuve R5–R6.** Une session locale/navigateur du Pilote ne prouve pas l'authentification du CLI exécuté ailleurs. Prévoir une conception de responsabilité et STOP si association utilisateur/exécuteur non fiable ; le choix CLI reste candidat.
+2. **Continuité et autorité persistante : risque critique transverse, R2/R4.** La mémoire du projet doit retrouver la vérité sans acquérir le pouvoir de remplacer une décision, de lever un STOP ou d'inventer un droit. Contrats d'identité, portée, validité et reprise à établir.
+3. **Observabilité et preuves d'exécution : risque élevé, R2–R6.** Interruption manuelle non garantie, états partiels et inconnus, preuve vs déclaration de Cursor ; pas de verdict LIVE/REAL ni d'ADOPTED avant démonstration.
+4. **Écriture concurrente Git : risque élevé sous dépôt partagé, R2/R4 puis essais R5–R6.** Branches, base, droits, conflits et absence d'écrasement silencieux doivent être éprouvés sans créer un Studio collectif natif.
+5. **Restitution structurée et interactive : enjeu de qualité/UX et d'autorité, R2–R6.** Composants réellement opérants, sources et statuts authentiques, actions non trompeuses, sans moteur de gouvernance alternatif.
+6. **Sources web/pièces jointes et autres capacités envisagées : limites de périmètre à spécifier selon usage en R2–R4**, jamais revendiquées comme implantées, ni devenant un nouveau jalon R1 par défaut.
+
+**Critères candidats pour demander à Morris l'exit R1 (proposition à approuver, pas gate déjà passé) :**
+1. **Vision, acteurs et frontières IN/OUT : acquis documenté/VALIDATED BY MORRIS** dans le document vivant et la carte des neuf domaines.
+2. **Sept parcours E2E représentatifs avec exceptions et résultats utilisateur : acquis documenté/VALIDATED BY MORRIS** ; ils serviront d'entrées de conception et non de recette runtime anticipée.
+3. **Responsabilités Pilote/Nora/Studio/Cursor, autorité, continuité et preuve : suffisamment explicitées pour passer en R2**, sans contrat technique ni UX définitivement adoptés.
+4. **Dépendances, incertitudes, risques et responsabilités de qualification R2–R6 : consolidés dans cette revue candidate** ; leur résolution technique n'est pas une condition artificielle de l'exit de cadrage.
+5. **Cohérence documentaire :** vision, Roadmap et décisions applicables à relire sur la **même branche candidate**, avec écart vs baseline `main` explicitement indiqué ; corriger les mentions obsolètes de statut sans prétendre à une intégration Git.
+6. **Gate final :** **décision Morris explicite d'approbation des critères/contenu et de clôture R1**, puis **autorisation Git distincte** pour PR/merge et vérification post-merge ; **R2 reste NOT STARTED** jusqu'à son propre GO.
+
+**Limites de la revue :** examen documentaire Git (candidate, SEF, Roadmap, naming, décisions et vision), **pas** de lecture du runtime Next inexistant, de preuves E2E produit, d'ouverture de PR ou de promotion de baseline. Les trois PNG de vision fondatrice sont référencés dans `vision-cible/README.md` mais **aucune inspection visuelle de leur contenu binaire n'est revendiquée dans cette revue**. **Conclusion candidate : R1 CONTENT READY FOR MORRIS EXIT REVIEW — R1 IN PROGRESS ; R2 NOT STARTED ; STUDIO NEXT N/A — NON IMPLÉMENTÉ.**
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -802,7 +853,7 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Limite de compétence :** Nora ne prétend pas avoir exécuté une action, consulté une source ou obtenu une preuve sans capacité et observation réelles. Si l'outil, l'accès ou l'autorisation nécessaire fait défaut, elle explique la limite, prépare une option, sollicite la décision requise ou arrête proprement.
 
-## 4. Parcours de référence — hypothèse de cadrage à préciser en R1
+## 4. Parcours de référence — synthèse transversale de vision R1
 
 1. **Intention :** le Pilote formule librement une demande (question, analyse, cadrage, conception, action).
 2. **Compréhension :** Nora interprète l'objectif, retrouve le contexte fiable et demande des précisions seulement si elles changent réellement le résultat, le risque ou l'autorité.
@@ -814,7 +865,7 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 5. **Restitution :** Studio recueille le résultat réel et les déclarations de l'exécuteur ; Nora les analyse à l'aune du contrat et des preuves disponibles, puis restitue statut, écarts, réserves et verdict proportionné. Elle peut préparer un contrat correctif sans l'exécuter automatiquement.
 6. **Continuité :** mise à jour ou reconstruction fiable du contexte utile et proposition de suite.
 
-Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, un écran, une suite de statuts implémentée ou une architecture adoptée. Elle **n'impose ni création formelle d'une Mission ni présence de projet/cycle actif** pour lancer une activité cognitive ; la formalisation et les gates dépendent de la portée des effets et des besoins de continuité (voir §2.15).
+Cette chaîne est une **synthèse de l'expérience de vision validée au niveau R1**, détaillée par les sept scénarios de référence (§§2.30–2.36) et leur revue candidate (§2.37), **pas** un moteur, un écran, une suite de statuts implémentée ou une architecture adoptée. Elle **n'impose ni création formelle d'une Mission ni présence de projet/cycle actif** pour lancer une activité cognitive ; la formalisation et les gates dépendent de la portée des effets et des besoins de continuité (voir §2.15).
 
 ## 5. Deux situations illustratives
 
@@ -864,7 +915,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 à 07 VALIDATED BY MORRIS** (§§2.30–2.36) : sas récupérable, cycle actif unique, production cognitive structurée, mémoire/décisions continues, exécution sous « Exécuter », résultats et preuves distingués de l'acceptation, et **Git facultatif avec projets personnels et dépôts communs gouvernés**. La revue transversale des sept parcours, les exceptions résiduelles, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
+27. **Suite R1 : cadrage non clôturé.** La carte IN/OUT des neuf domaines et les scénarios E2E 01 à 07 sont **VALIDATED BY MORRIS** (§§2.29–2.36). **Revue transversale et critères de sortie candidats préparés** (§2.37), sans validation du gate : risques, dépendances et exceptions renvoyés de manière explicite à R2–R6 ; cohérence documentaire synchronisée sur branche candidate, sans adoption ni implémentation. **R1 reste IN PROGRESS ; clôture Morris, PR/merge et GO R2 non accordés.**
 
 ## 7. Références fondatrices et traçabilité
 
@@ -924,5 +975,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Validation du scénario E2E 06 le 2026-11-02 :** Morris confirme la chaîne **retours Cursor → investigation et vérification proportionnée par Nora → bilan Pilot-first → éventuel contrat correctif non exécuté → acceptation/arbitrage humain**, avec séparation entre exécution terminée, résultat atteint, conformité démontrée, preuve manquante, décision métier et adoption. Les réserves acceptées ou non résolues restent retrouvables transversalement ; rapports, tests et Git contradictoires ne sont pas certifiés par simple déclaration. §2.35 ; E2E 07 à instruire, R1 non clôturé.
 
 **Validation du scénario E2E 07 le 2026-11-02 :** Morris confirme le parcours Git individuel, facultatif et progressif, l'authentification GitHub propre à chaque Pilote, la consultation limitée aux accès réels, la réalisation via Cursor dans son propre contexte d'identité/permissions et sous contrat, ainsi que le partage de dépôts **sans fusion des projets, conversations, mémoires, décisions ou mandats Studio**. Les cas de concurrence et de base Git modifiée exigent contrôles/requalification/STOP, jamais écrasement silencieux ni merge implicite. Détails en §2.36 ; **sept scénarios R1 validés, revue transversale à mener, R1 non clôturé**.
+
+**Consolidation de revue R1 du 2026-11-02 :** sur GO Morris de préparation de la consolidation et de synchronisation factuelle de la Roadmap, revue candidate des **neuf domaines** et **sept scénarios validés** ; cinq familles d'exceptions, six groupes de risques/dépendances et six critères d'exit proposés en §2.37. **Ceci ne vaut pas GO de sortie R1, publication `main`, ouverture R2 ou preuve produit Next.**
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
