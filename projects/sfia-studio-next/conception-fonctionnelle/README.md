@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **R2 EN COURS** ; Nora v0.4, Connaissance v0.1, Trajectoire/Cycles/CKI v0.1, Décisions/Gouvernance v0.1 et Réalisation opérationnelle v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
+| Statut | **R2 EN COURS** ; Nora v0.4, Connaissance v0.1, Trajectoire/Cycles/CKI v0.1, Décisions/Gouvernance v0.1, Réalisation opérationnelle v0.1 et Résultats/Preuves v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -25,6 +25,7 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 | [Trajectoire du projet, cycles et guidance CKI](trajectoire-cycles-et-guidance-cki.md) | Domaine 5 : trajectoire prévisionnelle/effective, unique cycle actif, transitions gouvernées, CKI autonome et relations non contraignantes, méthode applicable et maturité | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 40 RG-TRJ, 30 PF-TRJ ; interfaces réservées | Revue R1, Nora v0.4, Connaissance v0.1 et CKI v0.2 candidat ; domaines 6–9 **NON ÉVALUÉS** |
 | [Décisions, mandats et gouvernance du Pilote](decisions-et-gouvernance-du-pilote.md) | **Domaine 6** : décisions du Pilote, validité/portée, mandats, suspensions, révocations, restrictions et acceptation, sans autorité concurrente | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-GOV, 28 PF-GOV ; interfaces réservées | Revue R1, Nora v0.4, Connaissance v0.1, Trajectoire/CKI v0.1 et CKI candidat v0.2 ; domaines 1–2 et 7–9 **NON ÉVALUÉS** |
 | [Réalisation opérationnelle gouvernée](realisation-operationnelle-gouvernee.md) | **Domaine 7** : contrat d'exécution inspectable et versionné, instruction correspondante, tentative, état réellement observé, interruption/reprise et nouveau contrat correctif sous autorisation | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-REAL, 30 PF-REAL, dix réserves `REAL-*` ; interfaces réservées | Revue R1, D3–D6 et CKI v0.2 ; interfaces D8/D9/D1–2 non encore qualifiées contre leurs futures specs |
+| [Résultats, preuves et qualification de conformité](resultats-et-preuves.md) | **Domaine 8** : déclaration/observation/conformité/acceptation distinctes, sources et preuves réellement vérifiées, réserves, bilans et limites | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-PRV, 32 PF-PRV, 12 réserves ; interfaces réservées | Revue R1, D3–D7 et CKI v0.2 ; interfaces D9 et D1–D2 **NON ÉVALUÉES** contre leurs futures specs |
 
 **Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
 
@@ -127,3 +128,10 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Contrat :** « Exécuter » sur la version réellement inspectée et applicable ; double clic sans lancement en double ; STOP demandé ≠ arrêt confirmé ; résultat technique ≠ conformité/acceptation ; nouveau contrat correctif sans auto-exécution.
 - **Couverture :** 36 règles `RG-REAL-001..036`, 30 scénarios `PF-REAL-01..30` et dix réserves `REAL-01..10`, avec propriétaire et jalon. D6-02/D6-03 précisées fonctionnellement, preuves R4–R6 ouvertes.
 - **État :** contenu **VALIDATED SPEC** par Morris le 2026-11-02 ; publié sur la branche candidate R2, sans PR/merge, implémentation, conformité prouvée ni adoption. À confronter aux futurs contrats D8, D9, D1–D2.
+
+## 14. Résultats, preuves et qualification de conformité — VALIDATED SPEC v0.1
+
+- **Propriétaire :** D8 établit la qualification des résultats et preuves ; D7 conserve la tentative et ses retours, D6 les décisions et acceptations, D4 la continuité des points ouverts, D9 les états Git, D3 l'analyse et la restitution cognitive.
+- **Invariants :** déclaration Cursor ≠ observation ≠ conformité démontrée ≠ acceptation du Pilote ; preuve déterministe ≠ preuve navigateur ou LIVE/REAL ; une preuve inaccessible n'est pas certifiée ; un résultat conforme n'autorise ni merge, ni release, ni `ADOPTED`.
+- **Couverture :** 36 règles `RG-PRV-001..036`, 32 scénarios `PF-PRV-01..32` et 12 réserves `PRV-*` suivies. Les interfaces `REAL-06` et `D6-04` sont précisées fonctionnellement, non prouvées techniquement.
+- **Statut :** contenu `VALIDATED SPEC` par Morris le 2026-11-02, publié sur branche R2 uniquement. Réserves D9, D1–D2 à instruire ; aucune PR, merge, implémentation, preuve comportementale ou adoption implicite.
