@@ -5,8 +5,8 @@
 | Nature | **Corpus de contenu spécialisé validé par Morris**, distinct des spécifications fonctionnelles obligatoires de R2 et des preuves de comportement |
 | Version | **0.2.0 — VALIDATED CONTENT** · Morris, 2026-11-02 |
 | Autorité | **Morris a validé le contenu des 15 CKI et de la matrice le 2026-11-02** ; aucun `IMPLEMENTED`/`BEHAVIOR PROVEN`/`ADOPTED` |
-| Base projet | `mcleland147/sfia-workspace` — `main@8751775edc314e8fc7f0855104e5000290be9839` |
-| Base documentaire R2 | `sfia/next-r2-functional-specs@de1ee3c5b954b3389d30f3ce4098423ec01c39d3` — Nora v0.4 et Connaissance v0.1 `VALIDATED SPEC` |
+| Base projet | `mcleland147/sfia-workspace` — **R2 intégré sur `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` via PR #640** |
+| Base documentaire R2 | [index fonctionnel R2](../conception-fonctionnelle/README.md) — neuf specs `VALIDATED SPEC`, clôture Morris avec réserves et intégration Git vérifiée |
 | Provenance historique | `projects/sfia-studio/sfia-v3-framing/ckc/` — 15 CKC dont le **contenu historique** est validé pour l'ancien Studio, pas pour Next |
 | Statut d'exécution | **N/A — NON IMPLÉMENTÉ** ; aucun effet cognitif Next prouvé |
 
@@ -16,9 +16,9 @@
 
 **Retenu en conversation :** Nora reste naturelle et générale ; un CKI doit enrichir la spécialité du cycle actif sans confisquer la conduite, la méthode choisie ou l'autorité du Pilote. On utilise désormais le nom **CKI Next** pour distinguer ce corpus des CKC historiques. Cette appellation ne décide pas d'un objet technique ni d'une migration.
 
-**Décisions de principe acquises :** un type de cycle correspond à un CKI spécialisé autonome ; un seul CKI principal est associé au cycle actif ; le catalogue initial compte quinze types/CKI sans plafond d’extension ; la matrice décrit uniquement des relations de valeur, non contraignantes. **Non décidé à ce stade :** modèle technique d’activation, référence/version, indisponibilité et transitions, qui relèvent de la future spécification du domaine 5.
+**Décisions de principe acquises :** un type de cycle correspond à un CKI spécialisé autonome ; un seul CKI principal est associé au cycle actif ; catalogue initial extensible de quinze contenus validés. La matrice reste un guide non contraignant. **Reste à concevoir en R4 / prouver en R5–R6 :** activation technique, versionnement, indisponibilité et sûreté ; les transitions fonctionnelles sont définies par D5 validé.
 
-**Publication du corpus sur la branche candidate R2 uniquement** ; aucune reprise automatique de l'ancienne doctrine, des `ckcId`, `cycleTypeId`, des digests, du DoctrinePackage ou de SFIA v2.6. Les noms des fichiers sont des identifiants éditoriaux de ce corpus, pas des classes de produit.
+**Publication du corpus sur `main` via PR #640 — post-merge vérifiée (`455bb706ecdb13cc046b65b531e72ce96f4a4455`).** Aucune reprise automatique de l'ancienne doctrine, des `ckcId`, `cycleTypeId`, digests, DoctrinePackage ou SFIA v2.6. Les noms de fichier sont des identifiants éditoriaux, pas des classes de produit.
 
 ## 2. Frontières canoniques
 
@@ -26,9 +26,9 @@
 | --- | --- | --- |
 | Nora — domaine 3 | Compréhension, dialogue, autonomie cognitive bornée et applicabilité contextuelle (RG-CONV, RG-CTX, RG-APP, RG-METH) | Persona, formulation générale, sélection globale de l'intention |
 | Connaissance — domaine 4 | Sujets, sources, points ouverts, mémoire utile, provenance et reprise (RG-KNOW) | Journal, historique durable, vérité des sources |
-| Trajectoire/Cycles — domaine 5 (à spécifier) | Cycle actif, correspondance de spécialité, appréciation de progression et transition | Ouverture/fermeture, second moteur de cycles |
-| Décisions/Gouvernance — domaine 6 (à spécifier) | Arbitrages, décisions applicables, permissions, suspensions, méthode retenue | Nouvelle autorité ou gate créé par le CKI |
-| Réalisation / Preuves / Git — domaines 7/8/9 (à spécifier) | Actions effectives, résultats vérifiés, droits Git, identités et concurrence | Exécution, preuve, verdict, merge ou adoption |
+| Trajectoire/Cycles — domaine 5 (spec R2 validée) | Cycle actif, correspondance de spécialité, appréciation de progression et transition | Ouverture/fermeture, second moteur de cycles |
+| Décisions/Gouvernance — domaine 6 (spec R2 validée) | Arbitrages, décisions applicables, permissions, suspensions, méthode retenue | Nouvelle autorité ou gate créé par le CKI |
+| Réalisation / Preuves / Git — domaines 7/8/9 (specs R2 validées) | Actions effectives, résultats vérifiés, droits Git, identités et concurrence | Exécution, preuve, verdict, merge ou adoption |
 
 ## 3. Contrat minimal de contenu d'une spécialisation
 
@@ -36,7 +36,7 @@ Chaque CKI décrit : résultat métier visé, situations pertinentes et contre-e
 
 **Un type de cycle = un CKI autonome associé ; un seul CKI principal par cycle effectivement actif**, selon le principe validé par Morris. La présence du CKI n'oblige jamais à ouvrir son cycle et son contenu ne confère aucune autorité. Les autres disciplines restent accessibles à Nora grâce à ses facultés générales, **sans activation d'un deuxième CKI** ; les conditions et états techniques de l'association seront définis au domaine 5.
 
-## 4. Catalogue candidat
+## 4. Catalogue validé en contenu
 
 | # | CKI Next | Problème auquel il apporte une spécialité | Relation au cycle |
 | --- | --- | --- | --- |
@@ -116,7 +116,7 @@ Chaque CKI reçoit une **casquette professionnelle détaillée**, avec cinq mét
 ## 11. Références
 
 - Vision R1 : `projects/sfia-studio-next/cadrage/vision-produit.md`, notamment §2.17 sur le CKC comme guide de cycle, sans rôle de gate, et §2.18 sur la maturité proactive.
-- Nora v0.4 : `projects/sfia-studio-next/conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md`, `VALIDATED SPEC`, 46 règles, 23 scénarios.
+- Nora v0.4 : `projects/sfia-studio-next/conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md`, `VALIDATED SPEC`, 46 règles et **27 scénarios**, dont quatre compléments R2 validés.
 - Connaissance v0.1 : `projects/sfia-studio-next/conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md`, `VALIDATED SPEC`, 15 règles, 10 scénarios.
 - CKC historiques : `projects/sfia-studio/sfia-v3-framing/ckc/` et son `README.md`, corpus 15/15 validé pour le contexte de l'ancien Studio, sans preuve de consommation runtime Nora.
 - SEF v0.2 : `projects/sfia-studio-next/governance/SEF.md` ; Roadmap : `projects/sfia-studio-next/governance/roadmap.md` ; décisions : `governance/decisions/`.
@@ -132,3 +132,8 @@ Chaque CKI reçoit une **casquette professionnelle détaillée**, avec cinq mét
 ## 13. Validation du contenu spécialisé — Morris, 2026-11-02
 
 Morris a relu et validé explicitement **les quinze fiches spécialisées CKI et la matrice de cinquante relations**. Leur statut passe à `VALIDATED CONTENT v0.2`. L'association reste sous D5, les décisions et permissions sous D6, les preuves sous D8. La valeur cognitive et les comportements seront éprouvés en R5/R6. Cette validation documentaire ne déclenche ni PR, ni merge, ni R3.
+
+
+## 14. Intégration Git de référence — PR #640 (2026-11-02)
+
+Le corpus **`VALIDATED CONTENT v0.2`** (quinze fiches + cinquante relations) est intégré dans la baseline R2 par [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640), merge `455bb706ecdb13cc046b65b531e72ce96f4a4455` vérifié sur `main`. Les états « branche candidate » figurant dans les revues préparatoires ne sont plus l'état courant ; ils restent l'historique du travail R2. L'autorité du Pilote, le CKI unique associé au cycle actif, la guidance non opposable et l'absence de preuve runtime restent inchangés. **R3 UX NOT STARTED.**
