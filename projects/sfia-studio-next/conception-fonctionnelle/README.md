@@ -1,0 +1,74 @@
+# SFIA Studio Next — R2 / Référentiel de conception fonctionnelle
+
+| Champ | Valeur |
+| --- | --- |
+| Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
+| Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
+| Statut | **DOCUMENTED — CANDIDATE (préparation locale)** ; aucune intégration Git, validation globale R2 ou adoption produit inférée |
+| Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
+| Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
+
+## 1. Finalité du référentiel
+
+R2 transforme les neuf domaines et sept scénarios E2E validés en **règles de gestion, états, responsabilités, contrats fonctionnels, scénarios nominaux/négatifs, exceptions et critères d'acceptation** exploitables par R3 (UX), R4 (architecture), R5 (construction) et R6 (qualification).
+
+Le référentiel évite la répétition des mêmes règles dans plusieurs documents. **Un comportement = une définition canonique et un propriétaire fonctionnel** ; les autres specs référencent cette règle et précisent uniquement leurs propres contraintes d'interface.
+
+La granularité suit les **capacités et résultats utilisateur cohérents**, pas une spec par bouton, écran, micro-règle ou sous-étape.
+
+## 2. Registre des spécifications
+
+| Spécification | Responsabilité principale | État du contenu | Dépendances / revue transverse |
+| --- | --- | --- | --- |
+| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance CKC et frontières de conduite | **CANDIDATE v0.2** — arbitrage Morris option A acté ; RG détaillées non encore approuvées comme `VALIDATED SPEC` | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
+
+**Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
+
+## 3. Contrat commun de rédaction (léger)
+
+Chaque spécification porte au minimum :
+
+- **Capacité / résultat Pilote**, périmètre IN/OUT, propriétaire fonctionnel et frontières de responsabilité.
+- **Concepts métier et informations nécessaires**, sans inventer les tables, API ou composants de R4.
+- **Règles de gestion identifiées et stables** (`RG-<domaine>-NNN`) ; une seule spécification canonique par règle.
+- **Scénarios nominaux, alternatifs, négatifs**, conditions de STOP/reprise et résultat attendu, rattachés aux E2E R1 pertinents.
+- **Contrats de décision / droits / preuves** applicables, sans assimiler mémoire, document, instruction, HumanDecision, autorisation et observation.
+- **Interfaces et impacts croisés**, dépendances, contradictions ouvertes, couverture à confirmer, trajectoire et critères d'acceptation testables.
+- **Statut** de maturité, source/branche et version, décision Morris si acquise, gaps et suite R3–R6.
+
+Ces rubriques ne prescrivent **pas un gabarit rigide ni une nouvelle couche de gouvernance produit**. La densité de la spécification est proportionnée au risque et à la complexité réelle.
+
+## 4. Revue de compatibilité obligatoire à chaque changement
+
+Avant de qualifier une spec comme cohérente, la comparer **à toutes les spécifications R2 déjà présentes dans le registre**, ainsi qu'aux invariants et parcours R1 concernés :
+
+| Contrôle | Questions concrètes | Action en cas d'écart |
+| --- | --- | --- |
+| **Propriétaire unique** | Une règle ou un état métier est-il défini à deux endroits ? | Garder une source canonique ; remplacer l'autre énoncé par un renvoi |
+| **Compatibilité des règles** | Une règle contredit-elle, annule-t-elle ou rend-elle inatteignable une règle voisine ? | Qualifier le conflit, l'exemple et la décision requise |
+| **Effets de bord** | Qu'est-ce qui change pour les autres domaines, leurs erreurs, leurs reprises et leurs droits ? | Mettre à jour les interfaces concernées dans le même macro-lot |
+| **Autorité et états** | Une recommandation peut-elle être assimilée à une décision ? Une reprise peut-elle contourner un STOP ? | Refus de la dérive ; contrat consolidé et arbitrage si nécessaire |
+| **Parcours E2E** | Le nominal **et** l'exception continuent-ils à traverser les responsabilités sans rupture ? | Compléter le scénario et ses critères d'acceptation |
+| **Nommage** | Un même concept possède-t-il deux noms ou deux propriétaires divergents ? | Harmoniser dans les specs impactées, avec décision si structurante |
+
+**Verdicts utilisables :** `COMPATIBLE`, `CONFLIT À ARBITRER`, `RÈGLE À CONSOLIDER`, `NON ÉVALUÉ`. `NON ÉVALUÉ` est nécessaire lorsque la spec voisine n'existe pas encore ; il ne signifie pas « compatible ».
+
+La revue est **bidirectionnelle** : une nouvelle spec est confrontée aux anciennes, et les anciennes sont réexaminées lorsqu'une nouvelle règle révèle une incompatibilité. Un conflit peut rester ouvert sur une candidate ; il ne disparaît pas sous une approbation implicite.
+
+## 5. Gates et état de référence
+
+1. **D0** — Rédaction et consolidation locale, sans effet Git.
+2. **Branche Git candidate sous mandat borné** — Historisation et partage ; le commit reste candidat et n'équivaut pas à `main`.
+3. **`VALIDATED SPEC`** — Validation explicite du contenu fonctionnel concerné par Morris, réserves documentées.
+4. **Intégration vers `main`** — PR, contrôles, merge et relecture sous GO distinct ; non présumés.
+5. **R3–R6** — Réutilisation des specs validées, puis qualification des comportements ; documentation ≠ implémentation ≠ preuve ≠ adoption.
+
+La sortie R2 est un **gate distinct** : elle exige une cohérence globale des contrats métier, décisions, états, incidents et continuité, pas seulement la présence de fichiers dans Git.
+
+## 6. État initial et limites
+
+- **R1** : clôturé par Morris avec réserves ; PR #639 mergée et `main@8751775edc314e8fc7f0855104e5000290be9839` vérifié.
+- **R2** : lancé en conception ; première spécification candidate rédigée. Choix **option A** (méthode contextualisée et versionnée) explicité par Morris ; pas de reprise automatique DoctrinePackage/v2.6.
+- **Source Next** : aucune architecture ni implémentation Next (`N/A — NON IMPLÉMENTÉ`).
+- **Git** : dans cette préparation locale, aucun commit/push, PR ou merge ; un mandat précis reste nécessaire pour synchronisation.
+- **Gouvernance** : la Roadmap et le README racine de `main` comportent encore des mentions pré-merge R1/R2 obsolètes. À synchroniser avec un mandat de rédaction/validation adapté, dans un lot documentaire utile ; ne pas créer de micro-PR autonome.
