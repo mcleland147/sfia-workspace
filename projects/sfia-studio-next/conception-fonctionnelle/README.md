@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **DOCUMENTED — CANDIDATE** ; première spec v0.3 synchronisée sur la branche R2 ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
+| Statut | **R2 EN COURS** ; Nora v0.4 `VALIDATED SPEC` par Morris en conversation, Connaissance v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -20,7 +20,9 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 
 | Spécification | Responsabilité principale | État du contenu | Dépendances / revue transverse |
 | --- | --- | --- | --- |
-| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance CKC et frontières de conduite | **CANDIDATE v0.3 SUR BRANCHE** — option A actée ; contrat d’applicabilité détaillé (RG-APP-001..008, PF-10..17), règles non encore `VALIDATED SPEC` | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
+| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance CKC et frontières de conduite | **VALIDATED SPEC v0.4 — MORRIS 2026-11-02** ; publiée sur branche R2. 46 RG, 23 PF ; interfaces à requalifier | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
+
+| [Connaissance, sujets et continuité du projet](connaissance-sujets-et-continuite-du-projet.md) | Domaine 4 : conservation sélective des acquis, organisation des sujets, points ouverts, provenance, historique et reprise inter-conversations | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 15 RG, 10 PF ; publiée sur branche R2 | Références aux règles Nora v0.4 ; interfaces futures domaines 6, 8, 9 **NON ÉVALUÉES** |
 
 **Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
 
@@ -68,14 +70,30 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 ## 6. État initial et limites
 
 - **R1** : clôturé par Morris avec réserves ; PR #639 mergée et `main@8751775edc314e8fc7f0855104e5000290be9839` vérifié.
-- **R2** : lancé en conception ; première spécification candidate rédigée. Choix **option A** (méthode contextualisée et versionnée) explicité par Morris ; pas de reprise automatique DoctrinePackage/v2.6.
+- **R2** : lancé en conception ; spécifications Nora v0.4 et Connaissance v0.1 approuvées, avec interfaces futures réservées. Choix **option A** (méthode contextualisée et versionnée) explicité par Morris ; pas de reprise automatique DoctrinePackage/v2.6.
 - **Source Next** : aucune architecture ni implémentation Next (`N/A — NON IMPLÉMENTÉ`).
-- **Git** : branche `sfia/next-r2-functional-specs@b83300cc9ea5b890fdf3689c0e2864530f8b16d9` vérifiée (README et spec v0.2 publiés) ; v0.3 synchronisée sur cette branche sous mandat borné ; aucune PR ni aucun merge.
+- **Git** : Nora v0.4, Connaissance v0.1 et cet index synchronisés sur branche `sfia/next-r2-functional-specs` sous GO documentaire borné ; aucune PR ni merge.
 - **Gouvernance** : la Roadmap et le README racine de `main` comportent encore des mentions pré-merge R1/R2 obsolètes. À synchroniser avec un mandat de rédaction/validation adapté, dans un lot documentaire utile ; ne pas créer de micro-PR autonome.
 
-## 7. Contrat d'applicabilité candidat — v0.3
+## 7. Contrat d'applicabilité — v0.3 ; sélection/évolution — v0.4 validées
 
 - **Responsabilité canonique conservée** : la spec « Contexte et conduite gouvernée de Nora » définit l'utilisation contextuelle par Nora, et non les décisions, la trajectoire, les permissions ou les preuves, qui relèvent de leurs domaines propriétaires.
 - **Évolution v0.3 proposée** : nature/applicabilité de huit catégories d'information, huit règles `RG-APP-001..008`, huit scénarios `PF-10..17`, revue d'interfaces et effets de bord. Aucun nouveau domaine ou E2E R1.
 - **Contrôle de compatibilité** : pas de contradiction identifiée entre la v0.3 et les 30 règles précédentes au stade documentaire ; six interfaces restent à requalifier lors des specs voisines. **`COMPATIBLE` interne ≠ `COMPATIBLE` avec des contrats encore inexistants.**
-- **État de publication** : **v0.3 publiée sur branche candidate** ; aucune intégration à `main` ni approbation `VALIDATED SPEC`.
+- **État de publication** : **v0.3 synchronisée sur la branche R2**, sans PR ni merge ; **v0.4 validée et synchronisée sur branche candidate**.
+
+## 8. Sélection et évolution de méthode — VALIDATED SPEC v0.4
+
+- **Nouvelle qualification, même propriétaire :** méthode sans choix imposé au sas/projet, choix durable par le Pilote en conversation naturelle, technique ponctuelle de Nora distincte, référence et version contextualisées, évolution sans upgrade silencieux.
+- **Couverture ajoutée :** huit règles `RG-METH-009..016`, six scénarios `PF-18..23`, matrice de situations et impacts E2E 01–07. Ces éléments ont été **validés fonctionnellement par Morris le 2026-11-02**, sans validation des interfaces futures.
+- **Contrats voisins :** le futur propriétaire Projet/Trajectoire/Cycles définira l'état durable de la méthode ; Décisions/Gouvernance établira la validité du choix et des modifications ; Exécution/Preuves contrôlera les impacts opérationnels. Aucune de ces responsabilités n'est dupliquée dans Nora.
+- **Revue de compatibilité :** pas de contradiction identifiée avec les 38 règles v0.3 ou les sept E2E R1 ; interfaces avec des spécifications futures **NON ÉVALUÉES**.
+- **Gate :** validation Morris acquise ; synchronisation sur branche R2 réalisée ; aucune PR, merge ni décision technique anticipés.
+
+
+## 9. Connaissance, sujets et continuité — VALIDATED SPEC v0.1
+
+- **Propriété distincte du domaine 4 :** conservation, organisation, fraîcheur et récupération des connaissances. La spécification Nora v0.4 reste propriétaire de l'usage conversationnel et de l'applicabilité contextuelle ; domaines 6 et 8 demeurent propriétaires de l'autorité et des preuves.
+- **Couverture validée :** 15 règles `RG-KNOW-001..015` et 10 scénarios `PF-KNOW-01..10` ; reprise, points ouverts transversaux, sources, histoire, sujets réorganisables, Git candidate vs `main`, isolement interprojets.
+- **Revue bilatérale initiale :** aucune incompatibilité manifeste avec les 46 règles validées de Nora v0.4 ou les sept E2E R1 ; les interfaces des specs non encore créées restent `NON ÉVALUÉES`.
+- **Statut :** `VALIDATED SPEC v0.1` par Morris le 2026-11-02, synchronisée sur la branche R2, interfaces futures réservées.
