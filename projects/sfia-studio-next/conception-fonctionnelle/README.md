@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **R2 EN COURS** ; Nora v0.4 `VALIDATED SPEC` par Morris en conversation, Connaissance v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
+| Statut | **R2 EN COURS** ; Nora v0.4, Connaissance v0.1 et Trajectoire/Cycles/CKI v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -22,6 +22,7 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 | --- | --- | --- | --- |
 | [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance de cycle (CKC historique → CKI Next candidat) et frontières de conduite | **VALIDATED SPEC v0.4 — MORRIS 2026-11-02** ; publiée sur branche R2. 46 RG, 23 PF ; interfaces à requalifier | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
 | [Connaissance, sujets et continuité du projet](connaissance-sujets-et-continuite-du-projet.md) | Domaine 4 : conservation sélective des acquis, organisation des sujets, points ouverts, provenance, historique et reprise inter-conversations | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 15 RG, 10 PF ; publiée sur branche R2 | Références aux règles Nora v0.4 ; interfaces futures domaines 6, 8, 9 **NON ÉVALUÉES** |
+| [Trajectoire du projet, cycles et guidance CKI](trajectoire-cycles-et-guidance-cki.md) | Domaine 5 : trajectoire prévisionnelle/effective, unique cycle actif, transitions gouvernées, CKI autonome et relations non contraignantes, méthode applicable et maturité | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 40 RG-TRJ, 30 PF-TRJ ; interfaces réservées | Revue R1, Nora v0.4, Connaissance v0.1 et CKI v0.2 candidat ; domaines 6–9 **NON ÉVALUÉS** |
 
 **Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
 
@@ -102,3 +103,11 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - [15 CKI autonomes et spécialisés](../cki/README.md) — un CKI par type de cycle, un seul CKI principal associé au cycle actif, catalogue extensible au-delà de 15.
 - [Matrice centrale des relations](../cki/relations-methodologiques-cki.md) — 50 relations orientées et conditionnelles (transmission, approfondissement, retour et éclairage transversal) ; **aucune activation d'un deuxième CKI, aucune transition automatique**.
 - **Statut :** principes de conception arbitrés par Morris ; fiches et matrice v0.2 **candidates publiées sur branche R2**, non `VALIDATED SPEC`, sans mécanisme d'autorité ni preuve produit. Le futur contrat propriétaire Domaine 5 — Trajectoire et cycles — est à concevoir et à vérifier contre les specs Nora/Connaissance.
+
+## 11. Trajectoire, cycles et guidance CKI — VALIDATED SPEC v0.1
+
+- **Propriétaire :** domaine 5. Un seul cycle actif par projet et un seul CKI principal associé ; catalogue initial de 15 spécialités extensible, sans interdépendance entre CKI. Aucun cycle imposé avant l'aide cognitive de Nora.
+- **Frontières :** le domaine 3 conduit le dialogue et apprécie la maturité ; le domaine 4 garde la connaissance ; le domaine 5 conserve trajectoire, état des cycles, association CKI et référence durable de méthode ; le domaine 6 valide les GO et décisions ; les domaines 7–9 restent responsables des opérations, preuves et droits Git.
+- **Traçabilité de la revue :** 40 règles, 30 scénarios ; 15 fiches CKI candidates et 50 relations orientées examinées, sans conflit documentaire normatif identifié. Aucune preuve runtime ni validation du contenu CKI v0.2 inférée.
+- **Écarts 5.1 sous suivi dans la spec** : (1) CKC/CKI : harmonisation en consolidation R2 ; (2) CKI indisponible : fonctionnellement qualifié, R4/R5–R6 ; (3) liens/matrice : non-contraignants, R5/R6 à éprouver ; (4) maturité/gates : revue D6 et D8 avant exit R2 ; (5) Roadmap `main` obsolète : `KNOWN GAP`, mise à jour de gouvernance sous décision et mandat D2 séparés.
+- **Limite :** publication sur branche R2 ≠ validation globale R2, PR, merge, implémentation, preuve comportementale ou adoption.
