@@ -2,7 +2,7 @@
 
 **Produit commercial :** SFIA Studio (nom conservé). **Programme interne :** SFIA Studio Next.
 
-**Statut :** R0-A méthode validée par Morris le 2026-11-01 ; R0-B préparation de clôture engagée sur branche dédiée, pas encore intégrée à main. Naming validé ; trois images originales prêtes pour import Git, mais non publiées ; instructions ChatGPT prêtes, non appliquées. Aucun nouveau runtime implémenté ou adopté.
+**Statut au 2026-11-02 :** R0-A SEF v0.2 validé ; R0-B intégré et clôturé ; **R1 CLOSED BY MORRIS WITH CARRIED RESERVES**, décision [R1 formal exit](governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) et [vision v0.15](cadrage/vision-produit.md) (§§2.29–2.39). **Intégration Git R1 à prouver par PR/merge/relecture de `main` ; R2 NOT STARTED avant vérification**. Neuf domaines et sept scénarios validés ; quatre qualifications méthodologiques R2 documentées. Aucun runtime Next implémenté/adopté.
 
 ## Périmètres Git
 
@@ -16,11 +16,12 @@
 | Répertoire | Destination |
 | --- | --- |
 | `governance/SEF.md` | Studio Engineering Framework v0.2 validé (méthode de construction Next) |
-| `governance/roadmap.md` | État vivant du nouveau programme, preuves et réserves R0-B |
+| `governance/roadmap.md` | État vivant du programme : R1 clôturé par Morris avec réserves ; intégration Git à vérifier, R2 ensuite |
 | `governance/decisions/` | Décisions humaines, portée et réserves |
 | `governance/product-naming-conventions.md` | Convention de nommage orientée produit — **VALIDATED BY MORRIS 2026-11-01** |
-| `cadrage/vision-cible/README.md` | Trois schémas de vision transmis par Morris : index et statut ; PNG binaires non encore dans Git |
-| `governance/chatgpt-project-instructions-next.md` | Complément d'instructions Next prêt, non encore appliqué aux réglages ChatGPT |
+| `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.15, CLOSED WITH CARRIED RESERVES** ; 9 domaines IN/OUT, 7 E2E et reprise méthodologique R2 ; décisions, mémoire vivante, cycles/CKC, Git facultatif et réalisation gouvernée |
+| `cadrage/vision-cible/README.md` | Trois schémas de vision fondateurs et PNG originaux intégrés sur `main` (R0-B) |
+| `governance/chatgpt-project-instructions-next.md` | Version Next-only validée, publiée sur `main` ; application effective aux réglages ChatGPT non observée |
 | `conception-fonctionnelle/` | Exigences, règles et contrats fonctionnels (futurs R2) |
 | `ux-ui/` | Contrats UX/UI et références visuelles (futurs R3) |
 | `architecture-technique/` | Architecture et ADR (futurs R4), référence CURRENT une fois le runtime développé |
@@ -36,10 +37,10 @@
 - **ChatGPT** : qualifier, challenger, rédiger/revoir, intégrer des documents sur branche **sous mandat explicite et borné**.
 - **Cursor** : interventions techniques sous contrat externe SFIA v2.6.
 - Les décisions structurantes restent des décisions humaines ; une recommandation ne devient pas automatiquement une décision.
-- Aucune PR, merge, modification d'ancien runtime ou promotion doctrine n'est impliquée par cette initialisation.
+- Toute PR, merge, modification du runtime historique ou promotion doctrinale exige son **GO Morris spécifique** ; la validation des principes de vision n'autorise pas l'implémentation.
 
 ## Première trajectoire
 
-R0-A validé → **R0-B initialisation en cours** → R1 cadrage du nouveau produit → R2 conception fonctionnelle → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
+R0-A validé → **R0-B clos sur `main`** → **R1 clos par Morris avec réserves à reporter**, intégration Git de R1 à vérifier → **R2 conception fonctionnelle après post-merge vérifié** → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
 
 Voir `governance/roadmap.md` pour la qualification vivante et les gates. Git et preuves primaires priment sur les résumés ; la documentation décrit honnêtement la portée prouvée.
