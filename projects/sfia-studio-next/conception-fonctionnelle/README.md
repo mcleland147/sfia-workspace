@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **R2 EN COURS** ; Nora v0.4, Connaissance v0.1, Trajectoire/Cycles/CKI v0.1, Décisions/Gouvernance v0.1, Réalisation opérationnelle v0.1, Résultats/Preuves v0.1 et Intégration Git v0.1 `VALIDATED SPEC` par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
+| Statut | **R2 EN COURS** ; les neuf domaines D1–D9 `VALIDATED SPEC` individuellement (D3 Nora v0.4 ; D1/D2 et D4–D9 v0.1) par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -27,6 +27,8 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 | [Réalisation opérationnelle gouvernée](realisation-operationnelle-gouvernee.md) | **Domaine 7** : contrat d'exécution inspectable et versionné, instruction correspondante, tentative, état réellement observé, interruption/reprise et nouveau contrat correctif sous autorisation | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-REAL, 30 PF-REAL, dix réserves `REAL-*` ; interfaces réservées | Revue R1, D3–D6 et CKI v0.2 ; interfaces D8/D9/D1–2 non encore qualifiées contre leurs futures specs |
 | [Résultats, preuves et qualification de conformité](resultats-et-preuves.md) | **Domaine 8** : déclaration/observation/conformité/acceptation distinctes, sources et preuves réellement vérifiées, réserves, bilans et limites | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-PRV, 32 PF-PRV, 12 réserves ; interfaces réservées | Revue R1, D3–D7 et CKI v0.2 ; interfaces D9 et D1–D2 **NON ÉVALUÉES** contre leurs futures specs |
 | [Intégration Git gouvernée et facultative par projet](integration-git-gouvernee.md) | **Domaine 9** : accès et rattachement Git facultatifs, consultation sous identité/droits actuels, provenance commit/ref, préconditions et conflits Git ; dépôt partagé ≠ projet Studio partagé | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 40 RG-GIT, 34 PF-GIT, 14 réserves suivies ; interfaces réservées | Confrontation R1, D3–D8 et CKI v0.2 candidat ; interfaces D1/D2 à confronter aux futures specs |
+| [Accès et portefeuille du Pilote](acces-et-portefeuille.md) | **Domaine 1** : identité personnelle Studio, session, portefeuille/cockpit non conversationnel et navigation ; pas de Nora globale | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 25 RG-ACC, 24 PF-ACC, huit réserves | R1 et D2–D9 revus ; isolation, session et états réels à concevoir/prouver en R4–R6 |
+| [Création de projet et continuité du sas](creation-de-projet-et-continuite-du-sas.md) | **Domaine 2** : sas conversationnel avec Nora, aperçu progressif, création explicite « Créer le projet », continuité visuelle du fil | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 26 RG-CRE, 26 PF-CRE, neuf réserves | R1 et D1/D3–D9 revus ; idempotence, persistance et transfert de contexte à concevoir/prouver en R4–R6 |
 
 **Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
 
@@ -143,3 +145,17 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Invariants :** Git facultatif ; connexion GitHub ≠ accès global ; lecture de Nora ≠ écriture de Cursor ; dépôt partagé ≠ projet Studio partagé ; branche candidate ≠ `main` vérifié ; push ≠ merge ≠ release ≠ adoption ; aucun CKI ou Kubernetes obligatoire.
 - **Couverture validée :** 40 règles `RG-GIT-001..040`, 34 scénarios `PF-GIT-01..34`, 14 réserves `GIT-01..14`, interfaces avec D6/D7/D8 qualifiées fonctionnellement sans preuve runtime.
 - **État :** contenu `VALIDATED SPEC` par Morris le 2026-11-02 ; branche R2 uniquement. D1–D2 non encore examinés contre leurs specs propriétaires, aucune PR, merge, implémentation ou adoption induite.
+
+## 16. Accès et portefeuille du Pilote — VALIDATED SPEC v0.1
+
+- **Propriétaire :** domaine 1 — session/identité du Pilote et navigation vers ses projets individuels ou le sas ; pas de Nora dans le cockpit, pas de chat global ni de projet collectif implicite.
+- **Contrats :** l'accès à Studio n'établit ni un droit Git universel (D9), ni un acte de gouvernance (D6), ni une autorisation d'exécution (D7). Aucun cycle, CKI, méthode ou dépôt préalable requis.
+- **Couverture :** 25 règles `RG-ACC-001..025`, 24 scénarios `PF-ACC-01..24`, huit réserves `ACC-*` suivies. Session et isolation à concevoir R4 puis prouver R5/R6.
+- **Statut :** `VALIDATED SPEC v0.1` par Morris le 2026-11-02 ; branche R2 seulement, sans PR/merge, implémentation, qualification ou adoption inférée.
+
+## 17. Création de projet et continuité du sas — VALIDATED SPEC v0.1
+
+- **Propriétaire :** domaine 2 — sas conversationnel Nora avant projet, préparation proportionnée et acte « Créer le projet » avec effet réel confirmé ; continuité visuelle du même fil dans l'espace personnel créé.
+- **Contrats :** aucun projet, cycle, CKI, méthode ou dépôt Git créé automatiquement ; un double acte ne crée pas de doublon ; mémoire initiale D4, décisions D6 et cycle D5 demeurent chacun chez leur propriétaire.
+- **Couverture :** 26 règles `RG-CRE-001..026`, 26 scénarios `PF-CRE-01..26`, neuf réserves `CRE-*` suivies. Idempotence, persistance et reprise à concevoir R4 puis prouver R5/R6.
+- **Statut :** `VALIDATED SPEC v0.1` par Morris le 2026-11-02 ; branche R2 uniquement. Revue de cohérence globale à préparer séparément, sans décision de sortie R2, PR/merge ou adoption.
