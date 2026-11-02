@@ -20,8 +20,7 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 
 | Spécification | Responsabilité principale | État du contenu | Dépendances / revue transverse |
 | --- | --- | --- | --- |
-| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance CKC et frontières de conduite | **VALIDATED SPEC v0.4 — MORRIS 2026-11-02** ; publiée sur branche R2. 46 RG, 23 PF ; interfaces à requalifier | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
-
+| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance de cycle (CKC historique → CKI Next candidat) et frontières de conduite | **VALIDATED SPEC v0.4 — MORRIS 2026-11-02** ; publiée sur branche R2. 46 RG, 23 PF ; interfaces à requalifier | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
 | [Connaissance, sujets et continuité du projet](connaissance-sujets-et-continuite-du-projet.md) | Domaine 4 : conservation sélective des acquis, organisation des sujets, points ouverts, provenance, historique et reprise inter-conversations | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 15 RG, 10 PF ; publiée sur branche R2 | Références aux règles Nora v0.4 ; interfaces futures domaines 6, 8, 9 **NON ÉVALUÉES** |
 
 **Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
@@ -97,3 +96,9 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Couverture validée :** 15 règles `RG-KNOW-001..015` et 10 scénarios `PF-KNOW-01..10` ; reprise, points ouverts transversaux, sources, histoire, sujets réorganisables, Git candidate vs `main`, isolement interprojets.
 - **Revue bilatérale initiale :** aucune incompatibilité manifeste avec les 46 règles validées de Nora v0.4 ou les sept E2E R1 ; les interfaces des specs non encore créées restent `NON ÉVALUÉES`.
 - **Statut :** `VALIDATED SPEC v0.1` par Morris le 2026-11-02, synchronisée sur la branche R2, interfaces futures réservées.
+
+## 10. Corpus CKI Next — publication candidate et liens canoniques
+
+- [15 CKI autonomes et spécialisés](../cki/README.md) — un CKI par type de cycle, un seul CKI principal associé au cycle actif, catalogue extensible au-delà de 15.
+- [Matrice centrale des relations](../cki/relations-methodologiques-cki.md) — 50 relations orientées et conditionnelles (transmission, approfondissement, retour et éclairage transversal) ; **aucune activation d'un deuxième CKI, aucune transition automatique**.
+- **Statut :** principes de conception arbitrés par Morris ; fiches et matrice v0.2 **candidates publiées sur branche R2**, non `VALIDATED SPEC`, sans mécanisme d'autorité ni preuve produit. Le futur contrat propriétaire Domaine 5 — Trajectoire et cycles — est à concevoir et à vérifier contre les specs Nora/Connaissance.
