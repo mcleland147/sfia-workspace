@@ -752,6 +752,44 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Critères à spécifier puis prouver en R2–R6 :** distinction systématique **déclaration / observation / conformité / acceptation** ; bilan intelligible avec liens réellement accessibles ; vérification proportionnée ; restitution honnête des échecs et inconnues ; conservation des réserves et décisions applicables ; proposition corrective sans exécution automatique ; reprise après interruption. **R2 :** règles de verdict, preuves et acceptation ; **R3 :** UX des bilans, sources et options ; **R4 :** chaîne de provenance, intégrité et reprise ; **R5–R6 :** essais E2E réalistes et vérifications LIVE/REAL. **Next : N/A — NON IMPLÉMENTÉ ; R1 IN PROGRESS.**
 
+### 2.36. Scénario end-to-end R1 — accès Git individuels et collaboration sur dépôt partagé (2026-11-02)
+
+**Statut : VALIDATED BY MORRIS — scénario E2E 07.** Le parcours concrétise les principes déjà validés aux §§2.13, 2.23–2.24, 2.28 et 2.34–2.35. Il ne constitue ni un choix d'architecture GitHub/Cursor, ni une preuve multi-utilisateur LIVE/REAL, ni l'autorisation de partager des décisions ou projets Studio.
+
+**Résultat utilisateur :** un Pilote peut conduire son projet **sans dépôt Git obligatoire**, découvrir et consulter des ressources Git autorisées, puis faire exécuter une modification ciblée sous contrat et permissions réelles. Plusieurs Pilotes peuvent collaborer sur **un même dépôt GitHub** tout en conservant **des projets Studio individuels**, des conversations Nora, mémoires, trajectoires, cycles, décisions et mandats propres.
+
+**Parcours nominal :**
+1. **Identité :** chaque Pilote s'authentifie auprès de Studio avec sa propre identité GitHub, sans en déduire un accès illimité aux dépôts ni une identité Cursor déjà utilisable.
+2. **Projet individuel sans obligation Git :** il crée ou ouvre son espace Studio et peut travailler avec Nora avant tout rattachement de dépôt.
+3. **Besoin Git contextualisé :** Nora identifie les ressources nécessaires pour lire/investiguer ou pour préparer une mutation ; elle peut proposer dépôt, répertoire, branche et base, mais respecte l'emplacement explicitement prescrit par le Pilote. Pas de structure Git créée par le seul acte « Créer le projet ».
+4. **Consultation autorisée :** Studio/Nora n'accèdent qu'aux dépôts, documents, commits, branches et PR réellement disponibles et autorisés, en conservant version, provenance et distinction **branche candidate ≠ baseline main**. Les sources du dépôt partagé sont consultables selon les droits de chaque utilisateur.
+5. **Préparation d'intervention :** si des effets Git sont requis, Nora définit contrat, dépôt, répertoire, branche, référence de base, fichiers visés, risques, permissions, dépendances, conditions de STOP et preuves attendues.
+6. **Autorisation et réalisation :** le Pilote inspecte et autorise via **« Exécuter »** ; Studio contrôle les droits et les accès Git **effectifs de l'environnement Cursor** pour ce Pilote. Cursor opère sous ce contrat, sans transfert tacite des jetons personnels Studio, session CLI partagée, droit universel ou merge implicite.
+7. **Retour et capitalisation :** Studio rattache les états, rapports et références Git effectivement observés ; Nora qualifie modifications/preuves et limites, sans promouvoir une décision d'un autre projet en autorité locale ni présumer une adoption.
+
+**Deux cas de collaboration à couvrir :**
+
+| Situation sur un dépôt commun | Règle produit cible |
+| --- | --- |
+| **Interventions sur des répertoires ou composants indépendants** | Conserver isolation, permissions, contrats, branches et traçabilité individuels ; ne pas bloquer artificiellement des travaux dont l'indépendance est étayée. |
+| **Interventions sur les mêmes fichiers/composants ou une base commune changeante** | Détecter/requalifier risque de concurrence, base périmée et portée des effets ; STOP si nécessaire, **aucun écrasement silencieux**, merge automatique ou validation transférée d'un Pilote à l'autre. |
+
+**Exceptions et invariants :**
+- Connexion Studio valide mais dépôt privé non autorisé → demande de permission utile ou restitution honnête de l'absence d'accès ; pas de mandat Git global.
+- Lecture permise à Nora mais écriture impossible depuis Cursor → la lecture reste possible ; aucune exécution d'écriture déclarée réussie.
+- Identité/session Cursor appartenant au mauvais utilisateur ou non établie → **STOP**, pas d'héritage de session locale du navigateur vers l'environnement hébergé présumé.
+- Branche ou référence de base modifiée après préparation → vérification de currentness, dépendances et validité du contrat avant effet, requalification si nécessaire.
+- Conflit entre Pilotes ou modification concurrente → qualification, reprise sous contrat applicable ou STOP ; pas d'écrasement ni merge implicite.
+- Permission Git révoquée pendant les travaux → appliquer les restrictions aux opérations encore contrôlables, établir l'état des effets déjà produits et signaler toute incertitude.
+- Décision du projet B publiée dans Git et lisible depuis A → **source exploitable** dans A, pas décision/mémoire/autorisation automatiquement partagée ou applicable dans A.
+- Reprise d'un projet par un autre Pilote → retrouver les artefacts Git effectivement publiés et accessibles, **sans accès implicite aux conversations privées, mandats et décisions non publiées**.
+
+**Trois responsabilités distinctes :** (a) identité et espace personnel **Studio**, (b) permissions de **lecture Git** de l'intégration Studio/Nora, (c) **identité et droits Git effectifs de Cursor** pour réaliser un contrat technique. La coïncidence de ces trois périmètres n'est **jamais présumée**. Les droits effectifs doivent être évalués selon l'opération et la ressource.
+
+**Contrats et frontières :** domaine **9** = ressources et accès Git, provenance, rattachement facultatif, emplacements et contraintes de collaboration ; domaine **7** = mutation/exécution sous contrat ; domaine **6** = autorisations et restrictions du Pilote ; domaine **4** = connaissances privées du projet et récupération de sources communes ; domaine **8** = bilan et preuves. **Aucun moteur de collaboration Studio partagé ni système Git d'exécution parallèle n'est introduit.**
+
+**Critères d'acceptation à préciser et prouver en R2–R6 :** projet fonctionnel sans Git, autorisations minimales pour lecture/écriture, séparation réelle des trois identités, deux Pilotes aux permissions différentes sur un dépôt partagé, travail indépendant sans conflit artificiel, travail concurrent sur mêmes fichiers avec base obsolète correctement détectée, absence de transfert d'autorité et aucune fusion implicite des projets ou branches. **R2 :** parcours d'accès et contrats, risques et reprises ; **R3 :** sélection et permissions visibles ; **R4 :** identité, sessions Cursor, Git et isolation concurrente ; **R5–R6 :** démonstrations sur dépôt partagé en conditions réelles. **Studio Next : N/A — NON IMPLÉMENTÉ ; R1 IN PROGRESS.**
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -826,7 +864,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 à 06 VALIDATED BY MORRIS** (§§2.30–2.35) : sas récupérable, cycle actif unique, production cognitive structurée, mémoire/décisions continues, **exécution bornée sous « Exécuter »**, et **résultats/preuves confrontés aux déclarations Cursor avec acceptation humaine distincte**. Le scénario Git partagé E2E 07, les exceptions transverses, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
+27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 à 07 VALIDATED BY MORRIS** (§§2.30–2.36) : sas récupérable, cycle actif unique, production cognitive structurée, mémoire/décisions continues, exécution sous « Exécuter », résultats et preuves distingués de l'acceptation, et **Git facultatif avec projets personnels et dépôts communs gouvernés**. La revue transversale des sept parcours, les exceptions résiduelles, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -884,5 +922,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Validation du scénario E2E 05 le 2026-11-02 :** Morris confirme la séparation entre accord conversationnel, décision structurante et autorisation technique, avec contrat d'exécution Pilot-first inspectable, instruction exacte consultable, clic explicite « Exécuter », réalisation bornée par Cursor et restitution des seuls états réellement observés. Il valide le traitement des exceptions d'accès, de risque, de double lancement, de suspension et de reprise, sans présumer une interruption LIVE ni une conformité automatique. Détails en §2.34 ; E2E 06 reste à instruire, R1 non clôturé.
 
 **Validation du scénario E2E 06 le 2026-11-02 :** Morris confirme la chaîne **retours Cursor → investigation et vérification proportionnée par Nora → bilan Pilot-first → éventuel contrat correctif non exécuté → acceptation/arbitrage humain**, avec séparation entre exécution terminée, résultat atteint, conformité démontrée, preuve manquante, décision métier et adoption. Les réserves acceptées ou non résolues restent retrouvables transversalement ; rapports, tests et Git contradictoires ne sont pas certifiés par simple déclaration. §2.35 ; E2E 07 à instruire, R1 non clôturé.
+
+**Validation du scénario E2E 07 le 2026-11-02 :** Morris confirme le parcours Git individuel, facultatif et progressif, l'authentification GitHub propre à chaque Pilote, la consultation limitée aux accès réels, la réalisation via Cursor dans son propre contexte d'identité/permissions et sous contrat, ainsi que le partage de dépôts **sans fusion des projets, conversations, mémoires, décisions ou mandats Studio**. Les cas de concurrence et de base Git modifiée exigent contrôles/requalification/STOP, jamais écrasement silencieux ni merge implicite. Détails en §2.36 ; **sept scénarios R1 validés, revue transversale à mener, R1 non clôturé**.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
