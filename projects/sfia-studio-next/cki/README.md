@@ -1,10 +1,10 @@
-# CKI Next — Corpus autonome de spécialisation cognitive (15 spécialités candidates)
+# CKI Next — Corpus autonome de spécialisation cognitive (15 spécialités validées en contenu)
 
 | Champ | Valeur |
 | --- | --- |
-| Nature | **Corpus de contenu candidat**, distinct des spécifications fonctionnelles obligatoires de R2 |
-| Version | **0.2.0-candidate** · 2026-11-02 |
-| Autorité | Morris décide ; **aucun des 15 CKI Next n'est encore validé** |
+| Nature | **Corpus de contenu spécialisé validé par Morris**, distinct des spécifications fonctionnelles obligatoires de R2 et des preuves de comportement |
+| Version | **0.2.0 — VALIDATED CONTENT** · Morris, 2026-11-02 |
+| Autorité | **Morris a validé le contenu des 15 CKI et de la matrice le 2026-11-02** ; aucun `IMPLEMENTED`/`BEHAVIOR PROVEN`/`ADOPTED` |
 | Base projet | `mcleland147/sfia-workspace` — `main@8751775edc314e8fc7f0855104e5000290be9839` |
 | Base documentaire R2 | `sfia/next-r2-functional-specs@de1ee3c5b954b3389d30f3ce4098423ec01c39d3` — Nora v0.4 et Connaissance v0.1 `VALIDATED SPEC` |
 | Provenance historique | `projects/sfia-studio/sfia-v3-framing/ckc/` — 15 CKC dont le **contenu historique** est validé pour l'ancien Studio, pas pour Next |
@@ -88,7 +88,7 @@ Les contenus individuels n'embarquent pas des copies de la matrice. Ils portent 
 9. **Non-spécialiste / autre type de projet :** ne pas imposer la taxonomie des 15 disciplines issues du développement logiciel à toute mission.
 10. **Évaluation empirique de Nora :** mesurer sur scénarios nominaux, ambigus et adversariaux le gain de pertinence, la détection des angles morts, les fausses interruptions et la surcharge conversationnelle.
 
-## 8. Arbitrages avant `VALIDATED SPEC` / adoption du corpus
+## 8. Arbitrages de contenu validés et limites d'adoption du corpus
 
 - **A1 — Correspondance VALIDÉE :** 15 types de cycle comme catalogue initial de travail et 15 CKI autonomes associés, extensibles. La pertinence ultérieure d’ajouter, retirer ou réviser un type relève d’une décision produit et ne change pas silencieusement le catalogue.
 - **A2 — Activation VALIDÉE au principe :** cycle actif → un seul CKI principal associé. Pas d’activation de CKI secondaire via la matrice ou une digression. Modalités, version et indisponibilité à spécifier domaine 5.
@@ -121,9 +121,14 @@ Chaque CKI reçoit une **casquette professionnelle détaillée**, avec cinq mét
 - CKC historiques : `projects/sfia-studio/sfia-v3-framing/ckc/` et son `README.md`, corpus 15/15 validé pour le contexte de l'ancien Studio, sans preuve de consommation runtime Nora.
 - SEF v0.2 : `projects/sfia-studio-next/governance/SEF.md` ; Roadmap : `projects/sfia-studio-next/governance/roadmap.md` ; décisions : `governance/decisions/`.
 
-**Statut final : 15 CKI Next v0.2 + matrice centrale — contenus candidats publiés sur branche R2 sous GO Git Morris.** Principes de correspondance et de relations validés ; fiches et matrice à revoir sans `VALIDATED SPEC` global ; aucune PR, aucun merge, aucune implémentation ni valeur cognitive prouvée.
+**Statut de contenu mis à jour : 15 CKI Next v0.2 + matrice centrale — `VALIDATED CONTENT` par Morris le 2026-11-02.** Cette validation porte sur la pertinence professionnelle des contenus ; ni `VALIDATED SPEC` propriétaire supplémentaire, ni implémentation, qualité cognitive prouvée, `ADOPTED`, PR ou merge ne sont induits.
 
 
 ## 12. Revue CKI R2 — 2026-11-02
 
-[Examen des quinze spécialités et cinquante relations](../conception-fonctionnelle/revue-de-coherence-des-cki.md) : pas de contradiction normative bloquante identifiée. **Statut des contenus inchangé : CANDIDATE v0.2**, distinct de D5 validé et sans preuve runtime ni ADOPTED.
+[Examen des quinze spécialités et cinquante relations](../conception-fonctionnelle/revue-de-coherence-des-cki.md) : pas de contradiction normative bloquante identifiée. **Statut de contenu actualisé après la revue : `VALIDATED CONTENT v0.2` par Morris (2026-11-02)** ; distinct de D5 `VALIDATED SPEC` et sans preuve runtime ni ADOPTED.
+
+
+## 13. Validation du contenu spécialisé — Morris, 2026-11-02
+
+Morris a relu et validé explicitement **les quinze fiches spécialisées CKI et la matrice de cinquante relations**. Leur statut passe à `VALIDATED CONTENT v0.2`. L'association reste sous D5, les décisions et permissions sous D6, les preuves sous D8. La valeur cognitive et les comportements seront éprouvés en R5/R6. Cette validation documentaire ne déclenche ni PR, ni merge, ni R3.

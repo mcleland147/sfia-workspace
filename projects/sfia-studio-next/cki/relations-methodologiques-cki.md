@@ -1,11 +1,11 @@
-# CKI Next — Matrice des relations méthodologiques (candidate v0.2)
+# CKI Next — Matrice des relations méthodologiques (contenu validé v0.2)
 
 | Champ | Qualification |
 | --- | --- |
 | Nature | **Carte d’opportunités de raisonnement**, non graphe de dépendances ni workflow |
-| Statut | **D0 CANDIDATE**, dérivée des arbitrages de Morris du 2026-11-02 ; pas une spécification propriétaire de cycles |
-| Corpus couvert | 15 CKI Next candidats `0.2.0-candidate` ; catalogue extensible, aucun plafond à 15 |
-| Rattachement fonctionnel proposé | Domaine 5 — Trajectoire et cycles, à confirmer dans sa future spécification ; contenu CKI distinct |
+| Statut | **VALIDATED CONTENT v0.2 — Morris, 2026-11-02** ; carte éditoriale, pas une spécification propriétaire de cycles |
+| Corpus couvert | 15 CKI Next `VALIDATED CONTENT` version `0.2.0` ; catalogue extensible, aucun plafond à 15 |
+| Rattachement fonctionnel | Domaine 5 — Trajectoire et cycles, spécification validée ; contenu CKI distinct |
 | État Git | **Publiée sur branche candidate R2** ; aucune PR ni merge `main` |
 
 ## 1. Sémantique de la matrice
@@ -31,7 +31,7 @@ La matrice explique **quand une spécialité peut enrichir le travail d’une au
 
 ## 2. Relations orientées et contextuelles
 
-Les suggestions ci-dessous sont **candidates** : elles indiquent un contexte de pertinence et un apport intellectuel, pas un passage requis vers le CKI cible.
+Les suggestions ci-dessous sont **validées comme contenus de conseil** : elles indiquent un contexte de pertinence et un apport intellectuel, pas un passage requis vers le CKI cible.
 
 ### Vue synthétique (liens potentiels, pas de dépendances)
 
@@ -145,4 +145,4 @@ En **Architecture technique**, Nora peut analyser coût, consommation et durabil
 
 **Sources :** vision R1 §§2.16–2.19, spécification Nora v0.4, Connaissance v0.1, corpus historique CKC (capitalisation non autorisante), arbitrages de Morris du 2026-11-02.
 
-**Verdict : `MATRICE DE RELATIONS CKI NEXT — D0 CANDIDATE`**. Ni contrat propriétaire de cycles validé, ni implémentation, ni preuve runtime.
+**Verdict : `MATRICE DE RELATIONS CKI NEXT — VALIDATED CONTENT v0.2 (Morris, 2026-11-02)`**. Contrat propriétaire des cycles validé distinctement dans D5 ; ni implémentation, ni preuve runtime, ni adoption.
