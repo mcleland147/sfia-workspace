@@ -17,6 +17,8 @@
 
 > **Règle de lecture :** les orientations R1 et le choix Morris « option A » ont une autorité décisionnelle propre. Les règles `RG-*` ci-dessous constituent leur **traduction fonctionnelle validée par Morris**, avec réserves d'interface explicites. Aucune implémentation Next n'est revendiquée.
 
+**Lexique cible Next :** CKI est l'unique guidance associée au cycle actif ; CKC demeure la dénomination historique des sources R1 inchangées. Le remplacement de terme ne crée ni second moteur, ni gate, ni validation automatique des contenus CKI candidats.
+
 ## 1. Finalité utilisateur et frontières
 
 ### 1.1 Résultat utilisateur
@@ -31,7 +33,7 @@ Nora exploite un contexte pertinent et riche, conserve les responsabilités, sai
 - Détermination d'une **méthode applicable contextualisée, versionnée et sourcée** ; règles d'évolution.
 - Contextualisation : sas ou projet courant, sources, mémoire, connaissances, points ouverts, décisions, restrictions et capacités disponibles.
 - Récupération sélective du contexte et continuité inter-conversations.
-- Guidage CKC lorsque le cycle est actif, fonctionnement complet sans cycle.
+- Guidage CKI lorsque le cycle est actif, fonctionnement complet sans cycle.
 - Traitement fonctionnel des contradictions, indisponibilités, instructions externes non fiables et restrictions.
 - Frontière explicite entre raisonnement/conception et actes à effets nécessitant un contrôle d'autorité.
 - Critères testables et obligations UX/architecture/QA futures.
@@ -51,7 +53,7 @@ Nora exploite un contexte pertinent et riche, conserve les responsabilités, sai
 | **Pilote** | Exprimer intention, choix structurants, décisions, mandats, risques acceptés, révocations et arbitrages | Configurer les mécanismes internes par défaut |
 | **Nora / conduite conversationnelle** | Comprendre, rechercher, raisonner, challenger, produire, qualifier et recommander ; maintenir le fil | Créer une autorité métier, inventer des preuves ou promettre un effet non réalisé |
 | **Connaissance et investigation** | Retrouver et contextualiser sources, mémoire, provenance, versions, contradictions et points ouverts | Déduire une permission d'une mémoire ou d'un document |
-| **Méthode et guidance du cycle** | Fournir la méthode applicable, ses repères et la guidance CKC conditionnelle | Créer un gate technique à partir d'une suggestion méthodologique |
+| **Méthode et guidance du cycle** | Fournir la méthode applicable, ses repères et la guidance CKI conditionnelle | Créer un gate technique à partir d'une suggestion méthodologique |
 | **Gouvernance Studio** | Établir et appliquer décisions, mandats, interdictions, permissions et suspensions | Déléguer l'enforcement à une affirmation textuelle de Nora |
 | **Capacités / réalisation opérationnelle** | Vérifier disponibilité, droits, portée et autorisations avant un effet | Exécuter sur une intention supposée ou un contexte périmé |
 | **Résultats / preuves** | Distinguer déclaration, observation, conformité et acceptation | Promouvoir automatiquement un résultat `ADOPTED` |
@@ -65,7 +67,7 @@ Ces éléments représentent des **informations fonctionnelles nécessaires**, p
 | **Travail courant** | Intention, résultat recherché, portée, contraintes prescrites, question/activité en cours | Une reformulation n'étend pas le mandat |
 | **Contexte de rattachement** | Identité du Pilote, sas ou projet courant, conversation, cycle actif éventuel | Le projet courant reste unique ; lecture d'un autre projet sans transfert de gouvernance |
 | **Méthode applicable** | Identité ou référence, version, provenance, portée, condition d'applicabilité et état de validité | Ne préjuge pas d'une structure `DoctrinePackage` |
-| **Guidance de cycle** | CKC associé à la nature du cycle actif, version/provenance, finalité et dimensions utiles | Conseils, pas autorité indépendante |
+| **Guidance de cycle** | CKI associé à la nature du cycle actif, version/provenance, finalité et dimensions utiles | Conseils, pas autorité indépendante |
 | **Information consultée** | Source, référence, périmètre, version/date pertinente, fiabilité et droits d'accès | Les données externes ne créent pas d'instructions gouvernantes |
 | **Décision humaine applicable** | Auteur habilité, objet, portée, conditions, applicabilité et historique des changements | Les décisions ne sont pas reconstruites depuis un résumé IA |
 | **Mandat ou interdiction** | Effets couverts, limites, validité, restrictions, révocation/suspension et autorité | Vérification effective avant action à effets |
@@ -83,7 +85,7 @@ Une information utile à Nora n'est **pas automatiquement une instruction applic
 | **Décision métier du Pilote** | Fixer un choix, une suspension, une restriction ou une trajectoire dans sa portée | Auteur habilité, expression réelle, projet/objet ciblés, état et validité courants ; conservation par la responsabilité gouvernance | Pas de transfert aux autres projets, pas d'autorisation universelle d'outils |
 | **Mandat d'effet / contrat d'exécution** | Autoriser une opération concrète et ses limites | Acte permis, ressource, identité, portée, état et permissions effectives au moment d'agir | Un GO métier général ou une ancienne confirmation ne suffit pas à tout effet |
 | **Méthode applicable** | Donner les repères méthodologiques effectivement retenus pour le travail/projet | Référence, version, provenance, champ et éventuelles dispositions non dérogeables établis | Pas de package historique implicite ; aucune règle n'est adoptée par simple présence dans Git |
-| **CKC de cycle actif** | Orienter l'investigation, les questions, la maturité et les suggestions | Cycle **effectivement actif**, CKC associé à sa nature et contexte pertinent | Pas de gate, d'obligation de livrable, de transition ni d'autorisation par lui-même |
+| **CKI de cycle actif** | Orienter l'investigation, les questions, la maturité et les suggestions | Cycle **effectivement actif**, CKI associé à sa nature et contexte pertinent | Pas de gate, d'obligation de livrable, de transition ni d'autorisation par lui-même |
 | **Demande conversationnelle courante** | Définir le sujet, la préférence de présentation, la tâche et l'intention de travail | Demande interprétable dans le projet/sas concerné, compatible avec les décisions et limites effectives | Pas de contournement d'interdictions ; pas de mutation irréversible déduite d'une phrase ambiguë |
 | **Connaissance / mémoire / source externe** | Apporter faits, hypothèses, historiques, options et éléments de raisonnement | Accès autorisé, pertinence, provenance, date/version et fiabilité adaptées à la conclusion | Pas de nouvelle décision, instruction gouvernante ou permission, même si la source contient un impératif |
 | **Preuve / état technique observé** | Établir un fait borné : commit présent sur telle branche, effet observé, test tracé | Référence exacte, condition d'observation et niveau de vérification | Pas de conformité, acceptation, adoption ou autorité humaine automatiquement déduite |
@@ -103,7 +105,7 @@ Une information utile à Nora n'est **pas automatiquement une instruction applic
 
 ### 2.3. Sélection et évolution de la méthode — contrat fonctionnel candidat v0.4
 
-La **méthode applicable** est le cadre de travail effectivement retenu pour une portée déterminée. Elle ne doit pas être confondue avec (a) la capacité générale de Nora à raisonner sans méthode de projet explicite, (b) un CKC attaché au cycle actif, (c) les règles de sécurité et droits non dérogeables, ou (d) la méthode externe utilisée pour construire SFIA Studio Next.
+La **méthode applicable** est le cadre de travail effectivement retenu pour une portée déterminée. Elle ne doit pas être confondue avec (a) la capacité générale de Nora à raisonner sans méthode de projet explicite, (b) un CKI attaché au cycle actif, (c) les règles de sécurité et droits non dérogeables, ou (d) la méthode externe utilisée pour construire SFIA Studio Next.
 
 **Parcours de détermination sans assistant de configuration obligatoire :**
 
@@ -111,14 +113,14 @@ La **méthode applicable** est le cadre de travail effectivement retenu pour une
 2. Elle identifie une méthode déjà retenue et applicable à cette portée, si une telle référence existe, sans réexaminer chaque fois un catalogue.
 3. **Sans méthode explicitement retenue**, elle continue à investiguer et produire dans ses capacités générales. Elle peut proposer une méthode si cela améliore effectivement le pilotage, sans l'imposer comme prérequis à la création du projet ou à la conversation.
 4. Lorsqu'un choix durable de méthode modifie le cadre du projet, **le Pilote le décide** par une expression suffisamment claire ; Studio conserve le choix avec sa portée et sa référence. Nora peut librement adopter une technique ponctuelle pour accomplir une tâche sans prétendre modifier la méthode du projet.
-5. Une méthode retenue n'est applicable que dans sa version et sa portée effectives. Le CKC guide, séparément, le cycle actif ; une nouvelle méthode ou version simplement découverte ne remplace pas la référence retenue.
+5. Une méthode retenue n'est applicable que dans sa version et sa portée effectives. Le CKI guide, séparément, le cycle actif ; une nouvelle méthode ou version simplement découverte ne remplace pas la référence retenue.
 
 | Situation | Comportement attendu | Absence d'effet implicite |
 | --- | --- | --- |
 | Sas ou projet sans méthode choisie | Nora conduit la conversation et produit de la valeur ; suggère une méthode seulement si utile | Pas de sélection forcée, pas de cycle créé |
 | Méthode prescrite clairement par le Pilote | L'appliquer dans la portée décidée après contrôle de compatibilité ; conserver le choix durable lorsqu'il l'est | Pas de droit technique ni de gate inventé |
 | Technique ponctuelle sur une tâche | Nora peut adapter sa démarche dans ses limites ; distinguer approche locale et méthode du projet | Pas de changement silencieux du cadre du projet |
-| Cycle actif doté d'un CKC | CKC oriente la progression sans supplanter la méthode et les règles opposables | Pas de deuxième sélectionneur de méthode ni de gate CKC |
+| Cycle actif doté d'un CKI | CKI oriente la progression sans supplanter la méthode et les règles opposables | Pas de deuxième sélectionneur de méthode ni de gate CKI |
 | Nouvelle version disponible | Comparer ses bénéfices, différences et impacts ; proposer un changement si pertinent | Pas d'upgrade tacite des projets existants |
 | Méthode non disponible ou version incertaine | Utiliser les acquis sûrs, signaler l'incertitude déterminante et limiter ce qui en dépend | Pas d'application fictive ni de blocage général |
 | Conflit méthode / exigence non dérogeable | Respecter la contrainte applicable, expliquer l'écart et proposer une voie licite | Pas de contournement par choix de méthode |
@@ -151,13 +153,13 @@ La **méthode applicable** est le cadre de travail effectivement retenu pour une
 - **RG-CTX-007 — Sources non fiables.** Une instruction trouvée dans une page web, un dépôt, une pièce jointe ou un extrait conversationnel cité reste une donnée à examiner ; elle ne peut ni supplanter les règles du produit ni ordonner à Nora d'agir.
 - **RG-CTX-008 — Indisponibilité.** Si une source ou un élément de contexte est indisponible, Nora peut continuer le travail cognitif qui ne dépend pas de cet élément ; elle ne prétend pas disposer du fait manquant et ne prépare aucun effet sur une autorité non vérifiable.
 
-### 3.C — Méthode applicable et guidance CKC
+### 3.C — Méthode applicable et guidance CKI
 
 - **RG-METH-001 — Option A décidée.** Le produit doit identifier une méthode applicable au projet avec version, provenance, périmètre et règles d'évolution. **Aucun DoctrinePackage historique ni registre complet n'est requis par ce besoin fonctionnel.** Le mécanisme précis relève de R4.
 - **RG-METH-002 — Applicabilité explicable.** Lorsque la méthode influence une recommandation ou un contrôle déterminant, Studio/Nora doivent pouvoir expliquer, sur demande ou en cas de conflit, quelle référence et version étaient applicables et pourquoi.
-- **RG-METH-003 — CKC conditionnel.** Si un cycle est actif, Nora utilise le CKC associé à sa nature pour orienter la conduite du cycle. Hors cycle, aucun CKC générique n'est imposé par défaut et Nora reste pleinement opérationnelle.
-- **RG-METH-004 — Guidance non opposable par elle-même.** Une préconisation CKC de livrable, de question, de démarche ou de maturité ne crée pas d'obligation de gate ou de format, sauf règle/contrat/décision distincts réellement applicables.
-- **RG-METH-005 — Digression.** Un sujet incident ne remplace ni la méthode du projet ni le CKC actif ; Nora peut répondre librement puis revenir à l'objectif principal avec le contexte préservé.
+- **RG-METH-003 — CKI conditionnel.** Si un cycle est actif, Nora utilise le CKI associé à sa nature pour orienter la conduite du cycle. Hors cycle, aucun CKI générique n'est imposé par défaut et Nora reste pleinement opérationnelle.
+- **RG-METH-004 — Guidance non opposable par elle-même.** Une préconisation CKI de livrable, de question, de démarche ou de maturité ne crée pas d'obligation de gate ou de format, sauf règle/contrat/décision distincts réellement applicables.
+- **RG-METH-005 — Digression.** Un sujet incident ne remplace ni la méthode du projet ni le CKI actif ; Nora peut répondre librement puis revenir à l'objectif principal avec le contexte préservé.
 - **RG-METH-006 — Pas d'héritage automatique.** Une technique, un profil, une nomenclature ou une contrainte issue de SFIA v2.6 ou de l'ancien Studio est retenue uniquement si elle satisfait positivement un besoin Next. `KEEP/ADAPT/EXCLUDE` est un outil d'analyse, pas un quota d'héritage.
 - **RG-METH-007 — Changement gouverné.** Une modification de la méthode applicable doit conserver l'identité des versions, les projets/activités impactés et l'autorité décisionnelle. Aucune évolution silencieuse de règles gouvernantes n'est autorisée.
 - **RG-METH-008 — Apprentissage non autorisant.** Nora peut observer une lacune, proposer une meilleure règle et fournir une justification, mais ne peut promulguer ni appliquer seule une nouvelle règle opposable.
@@ -172,7 +174,7 @@ La **méthode applicable** est le cadre de travail effectivement retenu pour une
 
 ### 3.E — Présentation de la méthode
 
-- **RG-UX-001 — Absorption des mécanismes.** Les détails internes (profil, paquet, routage, CKC, normalisation du contexte) ne polluent pas le fil conversationnel normal ; ils restent consultables s'ils sont utiles à la compréhension, au contrôle ou à l'audit.
+- **RG-UX-001 — Absorption des mécanismes.** Les détails internes (profil, paquet, routage, CKI, normalisation du contexte) ne polluent pas le fil conversationnel normal ; ils restent consultables s'ils sont utiles à la compréhension, au contrôle ou à l'audit.
 - **RG-UX-002 — Transparence au bon moment.** Une décision structurante, une autorisation d'effet, un blocage matériel, une incertitude importante ou une preuve manquante doit être exposé clairement, sans jargon interne ni confirmation redondante par principe.
 - **RG-UX-003 — Restitution adaptative.** Nora peut utiliser une réponse structurée ou interactive lorsque cela améliore réellement la compréhension ; le contenu reste véridique et aucune interaction d'interface ne crée une nouvelle autorité implicite.
 
@@ -183,11 +185,11 @@ Les règles suivantes précisent **la qualification avant usage**. Elles ne red�
 - **RG-APP-001 — Qualification avant usage déterminant.** Lorsqu'un élément peut modifier une conclusion structurante, une recommandation de transition ou la préparation d'un effet, Nora en distingue la **nature** : demande, règle, décision, méthode, guidance, fait, hypothèse ou preuve. La forme linguistique (« il faut », « validé », « exécute ») ne suffit pas à déterminer cette nature.
 - **RG-APP-002 — Portée vérifiable.** L'élément déterminant n'est applicable qu'à la condition de correspondre à l'identité/au projet, à l'objet de travail, à la période/état et à la version pertinents. Une référence sans champ établi peut être discutée comme hypothèse, mais ne devient pas opposable.
 - **RG-APP-003 — Demande courante vs décision durable.** Nora distingue une instruction de travail ou de présentation d'un véritable arbitrage métier. Un arbitrage clair du Pilote peut être exprimé naturellement et doit être reconnu/conservé par la gouvernance si sa portée est durable ; **aucun clic de confirmation systématique** n'est requis. La conversation ne transforme cependant pas l'arbitrage en autorisation d'effet hors de sa portée.
-- **RG-APP-004 — Non-dérogation.** Une préférence, une règle de méthode ou une guidance CKC ne neutralise pas une contrainte opposable applicable. Si un conflit existe, Nora explique **l'impact concret** et propose une voie permise ; Studio refuse l'opération interdite. Elle ne demande pas un GO redondant lorsque l'action reste cognitive et sûre.
+- **RG-APP-004 — Non-dérogation.** Une préférence, une règle de méthode ou une guidance CKI ne neutralise pas une contrainte opposable applicable. Si un conflit existe, Nora explique **l'impact concret** et propose une voie permise ; Studio refuse l'opération interdite. Elle ne demande pas un GO redondant lorsque l'action reste cognitive et sûre.
 - **RG-APP-005 — Désaccords de faits vs désaccords d'autorité.** Une divergence de données impose vérification, qualification de branches/versions ou conclusion bornée. Deux décisions/restrictions apparemment contradictoires imposent l'examen de leurs auteurs, portées, dates et états courants par la gouvernance : Nora ne décrète pas la plus récente valide par simple comparaison de texte.
 - **RG-APP-006 — Méthode et référence temporelle.** Une méthode est appliquée uniquement si sa référence/version sont effectivement retenues pour le projet ou le travail. Une version nouvelle disponible, un REX ou un document historique ne remplace pas silencieusement la version applicable ; si aucune méthode n'est déterminée, Nora travaille dans ses capacités générales et signale la limite lorsqu'elle devient déterminante.
 - **RG-APP-007 — Actualisation proportionnée.** Un contexte déjà reconstitué peut soutenir une conversation ordinaire ; avant toute proposition présentée comme **exécutable**, Studio vérifie les décisions, suspensions, permissions et paramètres nécessaires sur leur état effectif. La fraîcheur d'une observation ne prouve pas automatiquement la fraîcheur d'un droit.
-- **RG-APP-008 — Dégradation circonscrite.** Un fait, un CKC ou une méthode introuvable ne bloque pas les travaux indépendants. Seul l'effet ou le verdict exigeant cet élément est suspendu/qualifié ; Nora nomme l'incertitude utile sans exposer de journal technique ou demander au Pilote de résoudre ses mécanismes internes.
+- **RG-APP-008 — Dégradation circonscrite.** Un fait, un CKI ou une méthode introuvable ne bloque pas les travaux indépendants. Seul l'effet ou le verdict exigeant cet élément est suspendu/qualifié ; Nora nomme l'incertitude utile sans exposer de journal technique ou demander au Pilote de résoudre ses mécanismes internes.
 
 **Responsabilités canoniques voisines :** le domaine 4 établit disponibilité/provenance des connaissances ; le domaine 5 porte l'état du cycle et la méthode/guidance applicable ; le domaine 6 porte la validité des décisions et restrictions ; le domaine 7 applique les contrôles d'effet ; les domaines 8/9 fournissent preuve et état Git. **Cette spec** porte exclusivement leur **usage contextuel par Nora**. Une future spec propriétaire devra référencer ces interfaces, pas copier les huit règles.
 
@@ -208,7 +210,7 @@ Les règles suivantes précisent **la qualification avant usage**. Elles ne red�
 **Étant donné** un projet existant sans cycle actif, une demande de conception clairement formulée et des sources accessibles ; **quand** le Pilote demande une analyse, **alors** Nora restitue le travail cognitif utile et sourcé, sans proposer mécaniquement de créer un cycle ou d'appeler Cursor. **Critère de refus :** aucun cycle fictif ou autorisation nouvelle n'est produit.
 
 ### PF-02 — Cycle actif et digression (nominal)
-**Étant donné** un cycle actif avec son CKC ; **quand** le Pilote pose une question incidente, **alors** Nora répond sans reformater systématiquement sa réponse selon le CKC, puis préserve la continuité de la conduite principale. Le cycle et sa guidance ne changent pas par simple digression.
+**Étant donné** un cycle actif avec son CKI ; **quand** le Pilote pose une question incidente, **alors** Nora répond sans reformater systématiquement sa réponse selon le CKI, puis préserve la continuité de la conduite principale. Le cycle et sa guidance ne changent pas par simple digression.
 
 ### PF-03 — Reprise inter-conversations (nominal)
 **Étant donné** une décision durable, une réserve ouverte et des sources précédemment exploitées ; **quand** une nouvelle conversation s'ouvre dans le même projet, **alors** Nora retrouve les éléments pertinents, identifie leur applicabilité actuelle et n'exige pas la répétition du contexte connu. Toute décision dont la validité importe à un effet doit être vérifiée sur son état courant.
@@ -226,7 +228,7 @@ Les règles suivantes précisent **la qualification avant usage**. Elles ne red�
 **Étant donné** une référence méthodologique devenue indisponible ou dont la version a changé ; **quand** un travail dépend d'une règle déterminante, **alors** Nora/Studio qualifie la validité, expose la limite utile et bloque seulement les effets qui nécessiteraient une autorité ou règle non vérifiable. Le travail cognitif sûr reste possible.
 
 ### PF-08 — Lecture d'un autre projet (négatif)
-**Étant donné** le projet A courant et un projet B accessible en lecture ; **quand** Nora examine B, **alors** elle peut citer les informations pertinentes et leur provenance, mais n'importe pas les décisions, mandats, CKC ou restrictions de B comme autorités du projet A.
+**Étant donné** le projet A courant et un projet B accessible en lecture ; **quand** Nora examine B, **alors** elle peut citer les informations pertinentes et leur provenance, mais n'importe pas les décisions, mandats, CKI ou restrictions de B comme autorités du projet A.
 
 ### PF-09 — Nouvelle recommandation de méthode (exception)
 **Étant donné** un REX suggérant qu'une règle devrait évoluer ; **quand** Nora propose le changement, **alors** elle présente la justification, la portée et les impacts ; la version applicable reste inchangée jusqu'à la décision de l'autorité compétente.
@@ -252,8 +254,8 @@ Les règles suivantes précisent **la qualification avant usage**. Elles ne red�
 ### PF-16 — Suspension maintenue après une reprise (négatif)
 **Étant donné** une suspension du Pilote sur une opération et une nouvelle conversation ; **quand** Nora reprend le dossier, **alors** le travail d'analyse peut continuer, mais l'effet suspendu reste interdit jusqu'à levée valide, y compris si un document ancien ou une recommandation dit « problème résolu ». **Références :** RG-APP-007/008 ; E2E 04/05.
 
-### PF-17 — CKC conseille mais n'impose pas (nominal)
-**Étant donné** un cycle actif dont le CKC conseille un document supplémentaire ; **quand** le Pilote demande simplement une synthèse, **alors** Nora répond naturellement et peut signaler l'intérêt du document si pertinent, sans déclarer ce livrable ou son format obligatoire en l'absence d'autre règle applicable. **Références :** RG-METH-003/004, RG-APP-004 ; E2E 02/03.
+### PF-17 — CKI conseille mais n'impose pas (nominal)
+**Étant donné** un cycle actif dont le CKI conseille un document supplémentaire ; **quand** le Pilote demande simplement une synthèse, **alors** Nora répond naturellement et peut signaler l'intérêt du document si pertinent, sans déclarer ce livrable ou son format obligatoire en l'absence d'autre règle applicable. **Références :** RG-METH-003/004, RG-APP-004 ; E2E 02/03.
 
 ### PF-18 — Création de projet sans méthode obligatoire (nominal)
 **Étant donné** un Pilote qui échange avec Nora dans le sas et crée ensuite un projet sans désigner de méthode ; **quand** il demande un cadrage, **alors** Nora poursuit le même travail naturellement, sans sélecteur obligatoire, cycle ou DoctrinePackage fictif. Une suggestion de méthode est possible si elle apporte une valeur contextuelle. **Références :** RG-METH-009, RG-CONV-005 ; E2E 01/03.
@@ -272,6 +274,87 @@ Les règles suivantes précisent **la qualification avant usage**. Elles ne red�
 
 ### PF-23 — Méthode indisponible ou non conforme (exception)
 **Étant donné** un projet dont la référence de méthode est inaccessible, ou dont une recommandation contredit une règle non dérogeable ; **quand** le Pilote demande une synthèse puis une opération nécessitant cette règle, **alors** Nora livre la synthèse dans les limites sûres, expose uniquement la restriction pertinente, et Studio refuse ou suspend l'effet concerné tant que sa condition applicable n'est pas établie. **Références :** RG-METH-016, RG-APP-004/008 ; E2E 03/05.
+
+### 4.1. Complément de recette R2 approuvé (2026-11-02)
+
+Ces quatre scénarios ajoutent des attentes vérifiables sans changer les règles et sans prétendre à une exécution de tests.
+
+### PF-24 — Restitution adaptative et transparence non intrusive (nominal/négatif)
+
+**Étant donné** un Pilote demandant un comparatif complexe appuyé sur plusieurs sources et, séparément, une réponse brève ; **quand** Nora restitue le résultat ; **alors** la structuration (tableau, schéma ou autre présentation réellement utile) s’adapte à la décision attendue, sépare fait/hypothèse/autorité, cite les éléments déterminants, sans exposer des mécanismes internes ou produire une fausse preuve. Une réponse simple ne reçoit pas un cérémonial inutile. **Négatif :** un panneau visuel séduisant ne vaut ni validation, ni preuve ni GO.
+
+**Règles visées :** `RG-CONV-001/006`, `RG-CTX-003`, `RG-UX-001..003`. **E2E R1 :** 03, 04, 06. **Propriétaire du comportement :** D3 ; R3 précisera le contrat visuel.
+
+### PF-25 — Initiative, clarification ciblée et méthode prescrite (nominal/négatif)
+
+**Étant donné** une demande cognitive suffisamment déterminée puis une instruction du Pilote imposant une méthode ou séquence explicite ; **quand** Nora choisit comment travailler ; **alors** elle avance sans GO intermédiaire sur la partie autorisée, respecte les prescriptions réellement applicables, pose une seule clarification sur une incertitude qui change matériellement portée/risque/autorité, et n’érige pas une technique CKI facultative en obligation. **Négatif :** ni question rituelle ni écart silencieux à la méthode prescrite.
+
+**Règles visées :** `RG-CONV-002..004`, `RG-AUTH-004`, `RG-METH-005`. **E2E R1 :** 02, 03, 05.
+
+### PF-26 — Capacité annoncée mais inaccessible au point d’effet (négatif)
+
+**Étant donné** une capacité listée dans la documentation mais dont la session ou les permissions d’exécution réelles sont absentes ; **quand** Nora prépare ou propose un effet protégé ; **alors** elle ne l’annonce pas comme immédiatement exécutable, signale le prérequis et continue les tâches cognitives indépendantes. **Négatif :** la présence de l’outil dans un CKI, une conversation ou un projet ne vaut ni accès ni lancement réussi.
+
+**Règles visées :** `RG-AUTH-003`, `RG-CTX-008`, `RG-APP-007/008`, `RG-CONV-005`. **E2E R1 :** 03, 05, 07.
+
+### PF-27 — Arrêt demandé sans preuve de l’arrêt effectif (négatif)
+
+**Étant donné** un Pilote qui suspend une opération externe alors que l’intégration ne confirme pas l’arrêt ; **quand** Nora reprend la conversation ou reçoit un retour incomplet ; **alors** elle distingue ordre humain et état technique, ne prétend ni arrêt confirmé ni annulation, ne prépare aucun rejeu non vérifié et conserve les restrictions applicables. **Négatif :** un changement de fil ou une synthèse indiquant « arrêté » ne produit ni preuve ni levée du STOP.
+
+**Règles visées :** `RG-AUTH-002/005`, `RG-CTX-004/006`. **E2E R1 :** 04, 05, 06. **Interface propriétaire :** D6 pour la suspension ; D7 pour l’état réel ; D3 pour la restitution.
+
+### 4.2. Traçabilité des 46 règles D3 vers les 27 PF
+
+Le classement de la matrice correspond à la revue **avant** l'ajout de PF-24 à PF-27 ; les lacunes de scénarios sont traitées documentairement, pas prouvées R5/R6.
+
+| Règle canonique D3 | Scénario(s) `PF-XX` existants / proposés | État de revue | Justification |
+| --- | --- | --- | --- |
+| `RG-CONV-001` | `PF-01`, `PF-18`, `PF-24` *(proposé)* | À EXPLICITER | Language métier et absence de jargon imposé |
+| `RG-CONV-002` | `PF-01`, `PF-18`, `PF-25` *(proposé)* | COUVERT | Initiative sans validations cognitives inutiles |
+| `RG-CONV-003` | `PF-19`, `PF-25` *(proposé)* | À EXPLICITER | Clarification déterminante seulement |
+| `RG-CONV-004` | `PF-20`, `PF-22`, `PF-25` *(proposé)* | À EXPLICITER | Liberté du comment versus prescription du Pilote |
+| `RG-CONV-005` | `PF-01`, `PF-18` | COUVERT | Production cognitive directe |
+| `RG-CONV-006` | `PF-03`, `PF-04`, `PF-24` *(proposé)* | À EXPLICITER | Fidélité et adaptation de la restitution |
+| `RG-CTX-001` | `PF-08`, `PF-15` | COUVERT | Contexte projet et lecture d’un autre projet |
+| `RG-CTX-002` | `PF-03`, `PF-18` | COUVERT | Récupération contextuelle proportionnée |
+| `RG-CTX-003` | `PF-04`, `PF-12`, `PF-24` *(proposé)* | COUVERT | Références et provenance des faits |
+| `RG-CTX-004` | `PF-03`, `PF-11`, `PF-16` | COUVERT | Mémoire non autorisante |
+| `RG-CTX-005` | `PF-04`, `PF-12` | COUVERT | Contradictions et branches distinctes |
+| `RG-CTX-006` | `PF-03`, `PF-16` | COUVERT | Reprise conversationnelle et autorité actuelle |
+| `RG-CTX-007` | `PF-05`, `PF-13` | COUVERT | Source hostile non autorisante |
+| `RG-CTX-008` | `PF-07`, `PF-14`, `PF-23` | COUVERT | Source indisponible et limite bornée |
+| `RG-METH-001` | `PF-19`, `PF-21` | COUVERT | Référence de méthode, sans package historique |
+| `RG-METH-002` | `PF-07`, `PF-19`, `PF-21` | COUVERT | Applicabilité de la référence de méthode |
+| `RG-METH-003` | `PF-02`, `PF-17` | COUVERT | Guidance de cycle, actuellement intitulée CKI |
+| `RG-METH-004` | `PF-17` | COUVERT | Guidance non opposable |
+| `RG-METH-005` | `PF-02`, `PF-20` | COUVERT | Digression sans transition |
+| `RG-METH-006` | `PF-14`, `PF-18` | COUVERT | Pas d’héritage d’un package ancien |
+| `RG-METH-007` | `PF-09`, `PF-21`, `PF-22` | COUVERT | Évolution de méthode gouvernée |
+| `RG-METH-008` | `PF-09`, `PF-21` | COUVERT | REX sans promulgation |
+| `RG-AUTH-001` | `PF-10`, `PF-11`, `PF-13` | COUVERT | Compréhension versus autorisation |
+| `RG-AUTH-002` | `PF-06`, `PF-16` | COUVERT | Suspension humaine persistante |
+| `RG-AUTH-003` | `PF-14`, `PF-26` *(proposé)* | À EXPLICITER | Capacité exécutable inaccessible ; cas outil non testé directement |
+| `RG-AUTH-004` | `PF-22`, `PF-25` *(proposé)* | COUVERT | Changement de besoin et impacts indépendants |
+| `RG-AUTH-005` | `PF-06`, `PF-16`, `PF-27` *(proposé)* | À EXPLICITER | Demande STOP, arrêt observé et prévention du replay |
+| `RG-UX-001` | `PF-17`, `PF-18`, `PF-24` *(proposé)* | À EXPLICITER | Masquage utile du jargon interne |
+| `RG-UX-002` | `PF-10`, `PF-11`, `PF-23`, `PF-24` *(proposé)* | COUVERT | Transparence des limites et blocages |
+| `RG-UX-003` | `PF-24` *(proposé)* | À AJOUTER | Restitution structurée/interactivité réellement proportionnée |
+| `RG-APP-001` | `PF-10`, `PF-13` | COUVERT | Nature de la source qualifiée |
+| `RG-APP-002` | `PF-12`, `PF-15`, `PF-19` | COUVERT | Portée, date et contexte d’applicabilité |
+| `RG-APP-003` | `PF-10`, `PF-19` | COUVERT | Demande ponctuelle versus décision durable |
+| `RG-APP-004` | `PF-13`, `PF-17`, `PF-23` | COUVERT | Contraintes supérieures applicables |
+| `RG-APP-005` | `PF-04`, `PF-11`, `PF-12` | COUVERT | Désaccords de faits versus d’autorité |
+| `RG-APP-006` | `PF-14`, `PF-21` | COUVERT | Méthode réellement retenue |
+| `RG-APP-007` | `PF-03`, `PF-16`, `PF-22` | COUVERT | Réactualisation avant effet |
+| `RG-APP-008` | `PF-07`, `PF-14`, `PF-23` | COUVERT | Dégradation bornée |
+| `RG-METH-009` | `PF-18` | COUVERT | Démarrage sans méthode |
+| `RG-METH-010` | `PF-19` | COUVERT | Choix durable de méthode |
+| `RG-METH-011` | `PF-20` | COUVERT | Technique locale |
+| `RG-METH-012` | `PF-19`, `PF-21` | COUVERT | Référence et portée |
+| `RG-METH-013` | `PF-21` | COUVERT | Version nouvelle non substitutive |
+| `RG-METH-014` | `PF-09`, `PF-22` | COUVERT | Impact proportionné |
+| `RG-METH-015` | `PF-22` | COUVERT | Historique de méthode et non-rétroactivité |
+| `RG-METH-016` | `PF-23` | COUVERT | Indisponibilité de méthode |
 
 ## 5. Conditions fonctionnelles d'acceptation du macro-lot
 
@@ -293,7 +376,7 @@ La validation Morris du **contrat Nora v0.4** est acquise en conversation ; les 
 14. La qualification distingue expressément fait prouvé, document consulté, règle de méthode, décision et mandat sans donner d’autorité par ressemblance textuelle.
 15. Les scénarios PF-10 à PF-17 sont couverts, notamment l’accord métier naturel sans validation redondante et la protection distincte des effets.
 16. Les scénarios PF-18 à PF-23 démontrent la continuité sans méthode, le choix naturel, la portée locale, l’évolution versionnée, les impacts sur les travaux en cours et l’absence de fallback autorisant.
-17. Aucune sélection de méthode, version ou CKC ne sert de condition obligatoire générale de création de projet ou de conversation.
+17. Aucune sélection de méthode, version ou CKI ne sert de condition obligatoire générale de création de projet ou de conversation.
 
 ## 6. Matrice de continuité aval
 
@@ -302,7 +385,7 @@ La validation Morris du **contrat Nora v0.4** est acquise en conversation ; les 
 | Conversation naturelle | Modèles d'interaction, absence de bruit, visibilité proportionnée des décisions | Contrats de sortie et séparation présentation/cognition | Scénarios Pilote–Nora observables, absence de formulaires artificiels |
 | Contexte courant, continuité | Transition de conversations, reprise et états d'incertitude | Responsabilités de récupération, identité et validité | Multi-session, restart, récupération, isolation interprojets |
 | Méthode contextualisée et versionnée | Choix en langage naturel, absence de sélecteur obligatoire ; évolution expliquée quand utile | Référence applicable, portée, autorité du choix, historique, compatibilité et contrôles propres aux effets | Projet sans méthode, version candidate, évolution pendant travaux, défaillance et non-promotion |
-| CKC conditionnel | Guidance perceptible sans rigidité | Rattachement de la guidance au cycle | Avec/sans cycle, digression, absence CKC |
+| CKI conditionnel | Guidance perceptible sans rigidité | Rattachement de la guidance au cycle | Avec/sans cycle, digression, absence CKI |
 | Sources / provenance / contradiction | Citations et différences visibles lorsque nécessaires | Contrats de confiance, accès, traçabilité et vérification | Sources adversariales, stale refs, branches candidates, web/pièces jointes selon accès réel |
 | Autorité / suspensions | GO clair sans confirmations inutiles, STOP intelligible | Contrôles d'effet indépendants du dialogue | Refus, révocation, suspension après reprise, non-duplication |
 
@@ -350,7 +433,7 @@ Cette spécification est **propriétaire des comportements de conduite conversat
 | Interface fonctionnelle | Règles de cette spécification | Propriétaire attendu à coordonner | Risque de conflit à vérifier |
 | --- | --- | --- | --- |
 | Gouvernance, décisions et suspensions | RG-CTX-004, RG-AUTH-001/002, RG-METH-007/008 | Spécification de gouvernance du projet | Ambiguïté entre mémoire, décisions et droits opposables |
-| Projet, sas et cycle actif | RG-CTX-001, RG-METH-003/005 | Spécification projet / trajectoire / cycles | Guidance CKC qui deviendrait un gate ou cycle fictif |
+| Projet, sas et cycle actif | RG-CTX-001, RG-METH-003/005 | Spécification projet / trajectoire / cycles | Guidance CKI qui deviendrait un gate ou cycle fictif |
 | Connaissance et provenance | RG-CTX-002/003/005/006/007/008 | Spécification connaissance / continuité si créée comme contrat séparé | Deux sources de vérité ou états de décision reconstitués |
 | Exécution, outils et STOP | RG-AUTH-003/004/005 | Spécification capacités / réalisation gouvernée | Confirmation d'arrêt non prouvée ou effet sans mandat |
 | Résultats, preuves et adoption | RG-CONV-006, RG-UX-002/003 | Spécification résultats / preuves | Déclaration de Nora assimilée à un résultat observé |
@@ -375,7 +458,7 @@ Ces propriétaires désignent des **responsabilités fonctionnelles**, pas une a
 | Frontière | Vérification contre l'existant | Verdict au stade candidat |
 | --- | --- | --- |
 | `RG-CTX-001..008` vs `RG-APP-001/002/005/008` | Les premières portent provenance, mémoire, contradiction et reprise ; les secondes précisent **quand leur résultat peut être utilisé** dans une conclusion ou décision | **COMPATIBLE — aucune nouvelle source de vérité créée** |
-| `RG-METH-001..008` vs `RG-APP-004/006` | Méthode versionnée et CKC conditionnel conservés ; aucune contrainte CKC devenue gate | **COMPATIBLE au regard de cette spec**, propriétaire du cycle à confirmer |
+| `RG-METH-001..008` vs `RG-APP-004/006` | Méthode versionnée et CKI conditionnel conservés ; aucune contrainte CKI devenue gate | **COMPATIBLE au regard de cette spec**, propriétaire du cycle à confirmer |
 | `RG-AUTH-001..005` vs `RG-APP-003/004/007` | Un arbitrage métier exprimé en conversation reste distinct d'une autorisation d'effet ; les contrôles Studio restent effectifs | **COMPATIBLE au regard de cette spec**, gouvernance/exécution à confirmer |
 | `RG-CONV-001..006` vs `RG-APP-008` | Le Pilote ne gère pas la mécanique de qualification ; question uniquement si enjeu réel | **COMPATIBLE** |
 | Vision R1 — E2E 01–07 | PF-10 à PF-17 sont **des cas de vérification internes**, pas de nouveaux E2E primaires ; pas de projet/cycle obligatoire, Git facultatif, pas de commande implicite | **COMPATIBLE au niveau documentaire R1** |
@@ -390,7 +473,7 @@ Ces propriétaires désignent des **responsabilités fonctionnelles**, pas une a
 | Interface | Impact de v0.4 | Verdict documentaire |
 | --- | --- | --- |
 | Conversation / sas — R1 E2E 01/03 | Le choix de méthode n'est pas un prérequis de création ni de production cognitive ; le Pilote n'administre pas la méthode | **COMPATIBLE avec R1 et RG-CONV-001/005** |
-| Méthode / CKC — R1 E2E 02 | Approche ponctuelle, méthode projet et CKC actif restent trois rôles distincts | **COMPATIBLE**, responsabilité propriétaire du cycle encore à qualifier |
+| Méthode / CKI — R1 E2E 02 | Approche ponctuelle, méthode projet et CKI actif restent trois rôles distincts | **COMPATIBLE**, responsabilité propriétaire du cycle encore à qualifier |
 | Mémoire / décisions — R1 E2E 04 | Le choix durable exige une autorité humaine effective et une conservation par gouvernance, non un souvenir Nora | **COMPATIBLE comme interface** ; validation de la future spec de décisions **NON ÉVALUÉE** |
 | Exécution et résultats — R1 E2E 05/06 | Nouvelle version sans effet automatique sur contrat existant ; impacts à qualifier ; preuves passées non réécrites | **COMPATIBLE comme invariant** ; contrats d'exécution/preuve futurs **NON ÉVALUÉS** |
 | Git facultatif — R1 E2E 07 | La version méthode n'exige ni dépôt ni package Git ; source Git éventuelle n'est pas autorité de sélection | **COMPATIBLE avec R1** |
@@ -400,7 +483,7 @@ Ces propriétaires désignent des **responsabilités fonctionnelles**, pas une a
 
 ## 10. Prochaine consolidation de ce même macro-lot
 
-Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/évolution, poursuivre par (a) continuité et actualisation des connaissances, (b) conduite conversationnelle et CKC, (c) héritage sélectif v2.6, (d) revue end-to-end de compatibilité et preuves. Les décisions de méthode qui touchent à la gouvernance seront confrontées aux futures spécifications propriétaires. Réviser les règles en bloc, les confronter aux interfaces des autres ensembles R2, puis soumettre une validation fonctionnelle cohérente des interfaces restantes à Morris. **Aucune PR documentaire de micro-étape.**
+Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/évolution, poursuivre par (a) continuité et actualisation des connaissances, (b) conduite conversationnelle et CKI, (c) héritage sélectif v2.6, (d) revue end-to-end de compatibilité et preuves. Les décisions de méthode qui touchent à la gouvernance seront confrontées aux futures spécifications propriétaires. Réviser les règles en bloc, les confronter aux interfaces des autres ensembles R2, puis soumettre une validation fonctionnelle cohérente des interfaces restantes à Morris. **Aucune PR documentaire de micro-étape.**
 
 ---
 

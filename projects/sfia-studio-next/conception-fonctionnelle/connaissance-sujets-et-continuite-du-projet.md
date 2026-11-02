@@ -28,7 +28,7 @@
 | **4 — Connaissance et investigation** | Identité et évolution des sujets, connaissances sourcées, recherche contextuelle et points ouverts ; organisation et fraîcheur de leur représentation | **Propriétaire de cette spec** |
 | **3 — Conduite Pilote–Nora** | Choix des informations pertinentes, dialogue, raisonnement, synthèse et restitution naturelle | Consomme la connaissance et qualifie les limites ; référence `RG-CTX-001..008`, `RG-APP-001..008`, `RG-CONV-001..006` ; **ne duplique pas les faits d'autorité** |
 | **6 — Décisions et gouvernance** | Décisions humaines, mandats, révocations, suspensions, droits et état opposable | Les sujets et la vue Décisions **référencent** les états officiels ; aucune copie autorisante dans la mémoire |
-| **5 — Trajectoire et cycles** | Cycle actif, transitions, CKC et méthode retenue selon son contrat propriétaire | Les changements de cycle modifient le contexte de récupération, **pas** la propriété des connaissances |
+| **5 — Trajectoire et cycles** | Cycle actif, transitions, CKI et méthode retenue selon son contrat propriétaire | Les changements de cycle modifient le contexte de récupération, **pas** la propriété des connaissances |
 | **8 — Résultats et preuves** | Statut de conformité, observation, preuves et verdicts | Une connaissance peut référencer une preuve, **pas** requalifier seule le niveau de démonstration |
 | **9 — Intégration Git** | Accès autorisé aux branches, commits, documents et état Git consultable | Conserve référence et portée de source, sans confondre Git partagé et projet Studio partagé |
 
@@ -82,7 +82,7 @@ Ces informations décrivent les besoins fonctionnels ; **aucune table, classe, b
 - **PF-KNOW-05 — Git candidate vs baseline.** Une mémoire affirme « intégré », mais la source correspond à une branche candidate non mergée ; la vue actuelle distingue les deux états, sans déclarer le merge réalisé. *(E2E 04/07 ; 006–008/012.)*
 - **PF-KNOW-06 — Connaissance interprojet.** Le projet A consulte un document Git accessible du projet B ; son contenu peut être cité, mais ni les décisions, ni la mémoire privée, ni les permissions de B ne deviennent celles de A. *(E2E 04/07 ; 002/014.)*
 - **PF-KNOW-07 — Source inaccessible.** À la reprise, une source importante est inaccessible ou les droits ont été retirés : Nora utilise les seuls acquis autorisés, signale la limite et ne recrée pas la source par affirmation. *(E2E 03/04/07 ; 012–014.)*
-- **PF-KNOW-08 — Transition de cycle.** Après clôture d'un cycle et ouverture autorisée du suivant, les sujets et réserves restent disponibles ; le CKC ne réécrit pas leur identité, leur historique ou les décisions. *(E2E 02/04 ; 003/004/011/015.)*
+- **PF-KNOW-08 — Transition de cycle.** Après clôture d'un cycle et ouverture autorisée du suivant, les sujets et réserves restent disponibles ; le CKI ne réécrit pas leur identité, leur historique ou les décisions. *(E2E 02/04 ; 003/004/011/015.)*
 - **PF-KNOW-09 — Retour d'exécution.** Un rapport Cursor indique « tests réussis » sans traces accessibles ; l'information est conservée comme déclaration, pas comme preuve indépendante ni comme `ADOPTED`. *(E2E 06 ; 010.)*
 - **PF-KNOW-10 — Sas repris puis projet créé.** Le Pilote retrouve une préparation entamée dans le sas, crée explicitement son projet et poursuit le même fil visible avec ses connaissances pertinentes, sans cycle/Git imposé. *(E2E 01/04 ; 001/002/015.)*
 
@@ -112,4 +112,9 @@ Ces informations décrivent les besoins fonctionnels ; **aucune table, classe, b
 | **R5** | Réalisation verticale avec Nora et les domaines propriétaires, tests de transition de cycle et de session, citations/accès, absence de partage implicite |
 | **R6** | Vérifications représentatives en conditions déclarées, preuves de reprise et de non-élévation, qualité réelle de la conversation ; adoption distincte |
 
-**Capacité suivante du macro-lot :** consolider le contrôle du CKC, de la conduite conversationnelle et de l'héritage sélectif v2.6, puis revue croisée de Nora + Connaissance avant une validation d'ensemble. R2 n'est pas clos ; aucune architecture technique ou implémentation adoptée.
+**Capacité suivante du macro-lot :** consolider le contrôle du CKI, de la conduite conversationnelle et de l'héritage sélectif v2.6, puis revue croisée de Nora + Connaissance avant une validation d'ensemble. R2 n'est pas clos ; aucune architecture technique ou implémentation adoptée.
+
+
+## 8. Consolidation R2 — 2026-11-02
+
+CKI est le terme cible Next (CKC reste historique R1). D4 garde les connaissances et sujets, non le CKI, le cycle D5, la décision D6 ou la preuve D8. Interfaces D6/D8/D9 désormais confrontées documentairement ; aucune preuve LIVE/REAL.

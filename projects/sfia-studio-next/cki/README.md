@@ -122,3 +122,8 @@ Chaque CKI reçoit une **casquette professionnelle détaillée**, avec cinq mét
 - SEF v0.2 : `projects/sfia-studio-next/governance/SEF.md` ; Roadmap : `projects/sfia-studio-next/governance/roadmap.md` ; décisions : `governance/decisions/`.
 
 **Statut final : 15 CKI Next v0.2 + matrice centrale — contenus candidats publiés sur branche R2 sous GO Git Morris.** Principes de correspondance et de relations validés ; fiches et matrice à revoir sans `VALIDATED SPEC` global ; aucune PR, aucun merge, aucune implémentation ni valeur cognitive prouvée.
+
+
+## 12. Revue CKI R2 — 2026-11-02
+
+[Examen des quinze spécialités et cinquante relations](../conception-fonctionnelle/revue-de-coherence-des-cki.md) : pas de contradiction normative bloquante identifiée. **Statut des contenus inchangé : CANDIDATE v0.2**, distinct de D5 validé et sans preuve runtime ni ADOPTED.
