@@ -714,6 +714,44 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Critères d'acceptation à spécifier et démontrer ultérieurement :** contrat consultable et cohérent avec l'instruction exécutée, contrôle de l'identité et des accès, **un lancement par autorisation applicable**, respect des limites/STOP, états réellement traçables, gestion des conflits/échecs et absence de double lancement. **R2 :** contrats et règles d'état ; **R3 :** inspection Pilot-first, autorisation et suivi ; **R4 :** isolation, intégrations et prévention des conflits ; **R5–R6 :** preuves d'exécution et d'échec/reprise en conditions réelles. **Studio Next : N/A — NON IMPLÉMENTÉ ; R1 IN PROGRESS.**
 
+### 2.35. Scénario end-to-end R1 — résultats, preuves, corrections et acceptation humaine (2026-11-02)
+
+**Statut : VALIDATED BY MORRIS — scénario E2E 06.** Le scénario confirme la séparation entre réalisation (domaine 7), qualification des résultats/preuves (domaine 8) et décision/acceptation humaine (domaine 6), sans nouveau moteur, certification automatique ni adoption implicite. La forme UX exacte du bilan et la profondeur de vérification restent à concevoir et éprouver.
+
+**Résultat utilisateur :** après une réalisation déléguée, le Pilote comprend **ce que l'exécuteur déclare avoir réalisé, ce que Studio/Nora ont effectivement pu observer ou vérifier, ce qui demeure incertain ou non conforme, et quelles suites sont possibles**. Nora rend un bilan intelligible et sourcé et peut préparer une correction utile, mais **n'accepte pas le résultat à la place du Pilote** et ne relance pas Cursor automatiquement.
+
+**Parcours nominal :**
+1. **Retour d'exécution :** Studio collecte l'état terminal ou partiel, le rapport Cursor si disponible, les références, traces et artefacts effectivement reçus. « Terminée » est un état d'exécution, pas un verdict de conformité.
+2. **Investigation par Nora :** Nora confronte les déclarations de Cursor au contrat autorisé et aux preuves effectivement accessibles : branche/diff/commits Git, résultats de tests, artefacts, journaux, captures et autres éléments pertinents selon l'objectif et le risque.
+3. **Qualification proportionnée :** distinguer **effets réalisés et constatés**, **objectif couvert**, **résultat conforme suffisamment étayé**, **éléments seulement déclarés**, **écarts**, **réserves** et **preuves insuffisantes/inaccessibles** ; ne pas exiger un dossier universel de certification pour chaque opération.
+4. **Restitution Pilot-first :** présenter un bilan court, structuré et adaptable (§2.32) : faits établis, différences avec le contrat, sources/liens effectifs, incertitudes et prochaine action recommandée. Les détails de preuve peuvent être consultés si nécessaire. Ne pas afficher un succès global non démontré.
+5. **Suite corrective si utile :** Nora peut spontanément préparer un contrat de correction ou de vérification dans le périmètre applicable ; **nouveau lancement uniquement après inspection, vérifications et acte « Exécuter »** du Pilote. Dépassement de portée, nouveau risque ou effet protégé → requalification et gate correspondant.
+6. **Décision et continuité :** le Pilote peut accepter, faire corriger, reporter, maintenir ou accepter des réserves selon son autorité. Studio conserve la décision **effectivement exprimée**, sa portée et les résultats/proofs pertinents ; les réserves ouvertes restent accessibles transversalement (§2.11). Aucune acceptation métier, publication Git, merge ou **ADOPTED** n'est inférée du seul résultat technique.
+
+**Trois issues illustratives :**
+
+| Situation | Restitution et suite attendues |
+| --- | --- |
+| **Résultat suffisamment démontré** | Résultats, références et réserves résiduelles ; proposition d'acceptation au Pilote, sans l'anticiper. |
+| **Résultat partiel ou preuve insuffisante** | Distinguer les effets réalisés et non vérifiés, qualifier les écarts et proposer un complément ou une vérification. |
+| **Échec, interruption ou contradiction** | État réellement connu, effets déjà produits, zones inconnues et reprise gouvernée ; aucun rollback ou succès présumé. |
+
+**Exemple de discernement :** Cursor déclare l'exécution terminée et les tests réussis ; les modifications Git sont effectivement constatées, mais les résultats de tests restent inaccessibles. Nora peut établir la présence des modifications, mais indique **« tests non vérifiés ; conformité globale non démontrée »**. Le Pilote voit les éléments probants et la recommandation de produire/vérifier les preuves manquantes, sans coche de conformité générale fictive.
+
+**Exceptions et invariants :**
+- **Rapport absent/incomplet :** consulter les seules sources accessibles ; présenter les manques et le statut de vérification sans inventer un succès.
+- **Rapport et Git contradictoires :** identifier dépôt, branche, référence, auteur, date et portée ; signaler le désaccord et investiguer jusqu'à un niveau proportionné, sans effacer le conflit.
+- **Tests annoncés sans traces :** ne pas transformer la déclaration de l'exécuteur en preuve indépendante ou en conformité démontrée.
+- **Correction hors mandat :** préparer une nouvelle proposition et obtenir les décisions/permissions correspondantes ; **aucune boucle corrective autonome**.
+- **Acceptation avec réserves :** enregistrer seulement ce que le Pilote a réellement accepté et les réserves/conditions encore ouvertes ; retrouver celles-ci via les sujets et l'accès transversal aux points ouverts.
+- **Interruption, reprise ou perte de session :** rattacher chaque observation, rapport, preuve et décision au projet/contrat/exécution concernés ; ne pas combler les inconnues ni supposer que l'exécution a continué.
+- **Source de preuve inaccessible ou trompeuse :** limite et provenance explicites ; l'absence de preuve ne doit pas être camouflée par une présentation visuelle réussie.
+- **Acceptation humaine :** un accord conversationnel clair peut suffire pour un arbitrage métier dans sa portée, **sans clic redondant**, mais il n'accorde pas d'effets Git/projet/techniques non autorisés et ne constitue pas une promotion **ADOPTED**.
+
+**Contrats et responsabilités :** domaine **7** = exécution, retours et observations disponibles ; domaine **8** = contrôle des résultats, preuves, écarts et niveau de conformité ; domaine **6** = acceptation, arbitrages et permissions du Pilote ; domaine **3** = analyse/restitution cognitive ; domaine **4** = conservation du contexte et des points ouverts ; domaine **9** = accès Git/provenance. Aucune obligation de créer un cycle ou une nouvelle mission pour qualifier le retour.
+
+**Critères à spécifier puis prouver en R2–R6 :** distinction systématique **déclaration / observation / conformité / acceptation** ; bilan intelligible avec liens réellement accessibles ; vérification proportionnée ; restitution honnête des échecs et inconnues ; conservation des réserves et décisions applicables ; proposition corrective sans exécution automatique ; reprise après interruption. **R2 :** règles de verdict, preuves et acceptation ; **R3 :** UX des bilans, sources et options ; **R4 :** chaîne de provenance, intégrité et reprise ; **R5–R6 :** essais E2E réalistes et vérifications LIVE/REAL. **Next : N/A — NON IMPLÉMENTÉ ; R1 IN PROGRESS.**
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -788,7 +826,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 à 05 VALIDATED BY MORRIS** (§§2.30–2.34) : sas récupérable, cycle actif unique, production cognitive structurée, mémoire/décisions continues avec journal simplifié et **réalisation technique sous contrat inspectable et autorisation « Exécuter »**. Les scénarios suivants, notamment résultats/preuves, exceptions transverses, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
+27. **Suite R1 : cadrage non clôturé.** La **carte IN/OUT des neuf domaines est VALIDATED BY MORRIS au niveau des frontières fonctionnelles** (§2.29), après arbitrages des domaines 3, 6, 7, 8 et 9 (§§2.25–2.28). Les compléments issus de la revue de l'ancienne application ne sont **pas retenus comme ajouts R1**. **Scénarios E2E 01 à 06 VALIDATED BY MORRIS** (§§2.30–2.35) : sas récupérable, cycle actif unique, production cognitive structurée, mémoire/décisions continues, **exécution bornée sous « Exécuter »**, et **résultats/preuves confrontés aux déclarations Cursor avec acceptation humaine distincte**. Le scénario Git partagé E2E 07, les exceptions transverses, dépendances, critères d'exit et gates restent à qualifier ; cette validation ne clôture ni R1 ni la conception R2.
 
 ## 7. Références fondatrices et traçabilité
 
@@ -844,5 +882,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Révision et validation E2E 04 du 2026-11-02 :** Morris confirme la continuité inter-conversations, la mémoire hiérarchique et la séparation effective entre connaissance, décision et autorisation. Il **remplace l'orientation historique à quatre vues du journal** : **Sujets et Décisions** demeurent les deux seules vues dédiées ; un **accès transversal aux points ouverts** regroupe les réserves significatives, blocages, questions et conditions non résolues, sans imposer un onglet permanent autonome. **Pas de vue Recommandations** : les recommandations utiles restent contextualisées dans les sujets/conversations. §§2.11 et 2.33 et carte du domaine 4 synchronisés ; mécanismes, UX et preuves R2–R6 ouverts, aucune sortie R1 ni architecture adoptée.
 
 **Validation du scénario E2E 05 le 2026-11-02 :** Morris confirme la séparation entre accord conversationnel, décision structurante et autorisation technique, avec contrat d'exécution Pilot-first inspectable, instruction exacte consultable, clic explicite « Exécuter », réalisation bornée par Cursor et restitution des seuls états réellement observés. Il valide le traitement des exceptions d'accès, de risque, de double lancement, de suspension et de reprise, sans présumer une interruption LIVE ni une conformité automatique. Détails en §2.34 ; E2E 06 reste à instruire, R1 non clôturé.
+
+**Validation du scénario E2E 06 le 2026-11-02 :** Morris confirme la chaîne **retours Cursor → investigation et vérification proportionnée par Nora → bilan Pilot-first → éventuel contrat correctif non exécuté → acceptation/arbitrage humain**, avec séparation entre exécution terminée, résultat atteint, conformité démontrée, preuve manquante, décision métier et adoption. Les réserves acceptées ou non résolues restent retrouvables transversalement ; rapports, tests et Git contradictoires ne sont pas certifiés par simple déclaration. §2.35 ; E2E 07 à instruire, R1 non clôturé.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
