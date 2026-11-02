@@ -1,21 +1,21 @@
-# SFIA Studio Next — Spécification fonctionnelle candidate
+# SFIA Studio Next — Spécification fonctionnelle
 ## Contexte, méthode applicable et conduite gouvernée de Nora
 
 | Métadonnée | Valeur |
 | --- | --- |
-| Version documentaire | **0.3 — candidate R2 / D0 — applicabilité contextuelle détaillée** |
+| Version documentaire | **0.4 — VALIDATED SPEC (Morris, 2026-11-02) — sélection et évolution de la méthode** |
 | Date | **2026-11-02** |
 | Projet | **SFIA Studio Next** — `projects/sfia-studio-next/` |
-| Base examinée | `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 `sfia/next-r2-functional-specs@b83300cc9ea5b890fdf3689c0e2864530f8b16d9` (v0.2 publiée, vérifiée) |
-| Statut du document | **DOCUMENTED — PROPOSITION DE SPÉCIFICATION**, pas `VALIDATED SPEC` |
+| Base examinée | `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 `sfia/next-r2-functional-specs@ef000f2f5f9acaafbc214720586926a1820a556d` (v0.3 publiée, vérifiée) |
+| Statut du document | **VALIDATED SPEC — contenu v0.4 approuvé par Morris en conversation ; interfaces transverses réservées** |
 | Décision nouvelle exprimée par Morris | **Option A retenue** : méthode contextualisée et versionnée, sans DoctrinePackage historique imposé |
 | Éléments validés en R1 | Neuf domaines IN/OUT, sept E2E, parcours conversationnel, responsabilité Pilote/Nora/Studio, CKC conditionnel, autonomie bornée, séparation autorité et contexte |
 | Responsable des arbitrages | **Morris** ; le Pilote est l'autorité métier du futur runtime |
 | Nature du travail | R2 : **fonctionnel** ; aucune décision de stack, API, schéma physique, moteur ou runtime |
 | Référencement R2 | [`README.md`](README.md) — index des spécifications, responsabilités et contrôles transverses |
-| Intégration Git | **v0.3 synchronisée sur branche Git candidate** ; aucune PR, aucun merge `main`, aucun statut `VALIDATED SPEC` inféré |
+| Intégration Git | **v0.3 publiée sur branche R2** ; **v0.4 synchronisée sur branche candidate** ; aucune PR ni merge |
 
-> **Règle de lecture :** les orientations R1 et le choix Morris « option A » ont une autorité décisionnelle propre. Les règles `RG-*` ci-dessous sont leur **traduction fonctionnelle candidate** : elles restent soumises à revue et approbation de contenu avant de devenir `VALIDATED SPEC`. Aucune implémentation Next n'est revendiquée.
+> **Règle de lecture :** les orientations R1 et le choix Morris « option A » ont une autorité décisionnelle propre. Les règles `RG-*` ci-dessous constituent leur **traduction fonctionnelle validée par Morris**, avec réserves d'interface explicites. Aucune implémentation Next n'est revendiquée.
 
 ## 1. Finalité utilisateur et frontières
 
@@ -101,7 +101,35 @@ Une information utile à Nora n'est **pas automatiquement une instruction applic
 
 **Anti-surarchitecture :** il ne s'agit ni d'un « contexte complet » systématique, ni d'un score de confiance unique, ni d'un nouvel orchestrateur ; seules les garanties d'applicabilité observables doivent être satisfaites. L'architecture R4 déterminera comment les établir.
 
-## 3. Règles de gestion fonctionnelles candidates
+### 2.3. Sélection et évolution de la méthode — contrat fonctionnel candidat v0.4
+
+La **méthode applicable** est le cadre de travail effectivement retenu pour une portée déterminée. Elle ne doit pas être confondue avec (a) la capacité générale de Nora à raisonner sans méthode de projet explicite, (b) un CKC attaché au cycle actif, (c) les règles de sécurité et droits non dérogeables, ou (d) la méthode externe utilisée pour construire SFIA Studio Next.
+
+**Parcours de détermination sans assistant de configuration obligatoire :**
+
+1. Nora commence par comprendre l'intention et le contexte : sas, projet, sujet, éventuel cycle actif.
+2. Elle identifie une méthode déjà retenue et applicable à cette portée, si une telle référence existe, sans réexaminer chaque fois un catalogue.
+3. **Sans méthode explicitement retenue**, elle continue à investiguer et produire dans ses capacités générales. Elle peut proposer une méthode si cela améliore effectivement le pilotage, sans l'imposer comme prérequis à la création du projet ou à la conversation.
+4. Lorsqu'un choix durable de méthode modifie le cadre du projet, **le Pilote le décide** par une expression suffisamment claire ; Studio conserve le choix avec sa portée et sa référence. Nora peut librement adopter une technique ponctuelle pour accomplir une tâche sans prétendre modifier la méthode du projet.
+5. Une méthode retenue n'est applicable que dans sa version et sa portée effectives. Le CKC guide, séparément, le cycle actif ; une nouvelle méthode ou version simplement découverte ne remplace pas la référence retenue.
+
+| Situation | Comportement attendu | Absence d'effet implicite |
+| --- | --- | --- |
+| Sas ou projet sans méthode choisie | Nora conduit la conversation et produit de la valeur ; suggère une méthode seulement si utile | Pas de sélection forcée, pas de cycle créé |
+| Méthode prescrite clairement par le Pilote | L'appliquer dans la portée décidée après contrôle de compatibilité ; conserver le choix durable lorsqu'il l'est | Pas de droit technique ni de gate inventé |
+| Technique ponctuelle sur une tâche | Nora peut adapter sa démarche dans ses limites ; distinguer approche locale et méthode du projet | Pas de changement silencieux du cadre du projet |
+| Cycle actif doté d'un CKC | CKC oriente la progression sans supplanter la méthode et les règles opposables | Pas de deuxième sélectionneur de méthode ni de gate CKC |
+| Nouvelle version disponible | Comparer ses bénéfices, différences et impacts ; proposer un changement si pertinent | Pas d'upgrade tacite des projets existants |
+| Méthode non disponible ou version incertaine | Utiliser les acquis sûrs, signaler l'incertitude déterminante et limiter ce qui en dépend | Pas d'application fictive ni de blocage général |
+| Conflit méthode / exigence non dérogeable | Respecter la contrainte applicable, expliquer l'écart et proposer une voie licite | Pas de contournement par choix de méthode |
+
+**Minimum fonctionnel de traçabilité, lorsque la méthode est retenue durablement :** référence ou désignation compréhensible, version identifiable ou état de révision, provenance, portée (projet / activité / cycle selon pertinence), autorité du choix, moment/condition d'applicabilité, et éventuelle décision de révision ou de maintien. Ce minimum ne constitue **ni un schéma de persistance, ni un registre de packages, ni une contrainte semver**.
+
+**Évolution contrôlée, sans bureaucratie :** une observation/REX ou une version candidate peut motiver une recommandation ; une nouvelle version applicable au projet demande une décision du Pilote proportionnée aux impacts. La décision précise ce qui change et pour quelles activités, et n'efface pas les résultats passés. Les travaux en cours sont requalifiés seulement si leur méthode, leur portée ou leurs engagements sont effectivement touchés ; une exécution déjà autorisée reste encadrée par son contrat et ses contrôles propres. La procédure de modification d'une méthode générale du produit (par des autorités de gouvernance supérieures au Pilote) reste à concevoir dans le domaine propriétaire approprié.
+
+**Frontière de propriété :** cette spécification décrit **comment Nora utilise et propose** la méthode ; la future spécification Projet/Trajectoire/Cycles précisera la référence applicable au projet et ses changements de portée, et la spécification Décisions/Gouvernance établira la validité des arbitrages humains et des contraintes. Un seul propriétaire par état durable ; aucune mémoire méthodologique concurrente dans Nora.
+
+## 3. Règles de gestion fonctionnelles validées (interfaces réservées)
 
 ### 3.A — Conversation et autonomie cognitive
 
@@ -163,6 +191,17 @@ Les règles suivantes précisent **la qualification avant usage**. Elles ne red�
 
 **Responsabilités canoniques voisines :** le domaine 4 établit disponibilité/provenance des connaissances ; le domaine 5 porte l'état du cycle et la méthode/guidance applicable ; le domaine 6 porte la validité des décisions et restrictions ; le domaine 7 applique les contrôles d'effet ; les domaines 8/9 fournissent preuve et état Git. **Cette spec** porte exclusivement leur **usage contextuel par Nora**. Une future spec propriétaire devra référencer ces interfaces, pas copier les huit règles.
 
+### 3.G — Sélection et évolution contextualisée de la méthode (complément sans nouveau moteur)
+
+- **RG-METH-009 — Démarrage sans méthode imposée.** La création d'un projet, l'accès à Nora et la conduite cognitive n'exigent pas un choix de méthode préalable. En son absence, Nora utilise ses capacités générales et propose une méthode uniquement si le bénéfice est pertinent et expliqué. Précise `RG-METH-001`, `RG-CONV-005` et `RG-APP-006`.
+- **RG-METH-010 — Choix durable et expression naturelle.** Une méthode destinée à gouverner durablement le projet doit avoir été choisie ou confirmée par le Pilote avec une portée identifiable ; un accord conversationnel clair suffit sans formulaire systématique. Studio conserve le choix par sa responsabilité propriétaire ; Nora ne déduit pas cette décision de la simple consultation d'un document. Précise `RG-APP-003`.
+- **RG-METH-011 — Approche locale distincte.** Nora peut retenir une technique de travail ponctuelle lorsqu'elle respecte les prescriptions et contraintes, mais ne la présente pas comme une modification de la méthode du projet. La délimitation évite qu'une digression ou un sous-sujet réécrive le cadre général. Précise `RG-CONV-004` et `RG-METH-005`.
+- **RG-METH-012 — Référence minimale et portée.** Une méthode durablement applicable doit être identifiable par référence, version ou révision, provenance, portée, autorité du choix et conditions d'entrée en vigueur. Aucun format de package, semver ou schéma historique particulier n'est requis. Précise `RG-METH-001/002` et `RG-APP-002`.
+- **RG-METH-013 — Nouvelle version non substitutive.** Une nouvelle publication, recommandation ou version candidate ne remplace jamais silencieusement la méthode applicable. Nora peut comparer et conseiller ; la modification effective du cadre durable attend la décision compétente et sa conservation. Précise `RG-METH-007/008`.
+- **RG-METH-014 — Analyse d'impact proportionnée.** Avant de recommander un changement de méthode, Nora explicite les activités/cycles concernés, décisions et engagements impactés, avantages, risques, compatibilité et suites, à une profondeur justifiée par le changement réel. Elle ne force pas une revue exhaustive de tout le projet pour une évolution localisée. Précise `RG-AUTH-004`.
+- **RG-METH-015 — Historique et continuité sans rétroactivité implicite.** Le changement de méthode distingue état antérieur, nouvelle portée/prise d'effet et travaux restant en cours. Il n'efface ni les décisions précédentes, ni les preuves, ni les livrables déjà réalisés ; les opérations déjà contractées conservent leurs garde-fous propres et sont requalifiées si effectivement impactées. Précise `RG-CTX-006`, `RG-METH-007` et `RG-APP-007`.
+- **RG-METH-016 — Indisponibilité et incompatibilité bornées.** Si la référence est introuvable, révoquée ou incompatible avec une contrainte non dérogeable, Nora distingue travail cognitif sûr et décision/effet dépendant de la règle manquante. Elle n'invente pas de fallback gouvernant et n'interrompt pas artificiellement l'ensemble du projet. Précise `RG-CTX-008`, `RG-APP-004/008`.
+
 ## 4. Parcours fonctionnels à couvrir
 
 ### PF-01 — Travail naturel sans cycle actif (nominal)
@@ -216,9 +255,27 @@ Les règles suivantes précisent **la qualification avant usage**. Elles ne red�
 ### PF-17 — CKC conseille mais n'impose pas (nominal)
 **Étant donné** un cycle actif dont le CKC conseille un document supplémentaire ; **quand** le Pilote demande simplement une synthèse, **alors** Nora répond naturellement et peut signaler l'intérêt du document si pertinent, sans déclarer ce livrable ou son format obligatoire en l'absence d'autre règle applicable. **Références :** RG-METH-003/004, RG-APP-004 ; E2E 02/03.
 
+### PF-18 — Création de projet sans méthode obligatoire (nominal)
+**Étant donné** un Pilote qui échange avec Nora dans le sas et crée ensuite un projet sans désigner de méthode ; **quand** il demande un cadrage, **alors** Nora poursuit le même travail naturellement, sans sélecteur obligatoire, cycle ou DoctrinePackage fictif. Une suggestion de méthode est possible si elle apporte une valeur contextuelle. **Références :** RG-METH-009, RG-CONV-005 ; E2E 01/03.
+
+### PF-19 — Choix de méthode exprimé naturellement (nominal)
+**Étant donné** un projet sans méthode retenue et une proposition argumentée de Nora ; **quand** le Pilote indique clairement « Pour ce projet, nous suivons cette approche », **alors** Studio conserve un choix de méthode dans cette portée avec sa référence applicable, sans second clic arbitraire. Une ambiguïté sur la méthode ou son périmètre donne lieu à une question ciblée. **Références :** RG-METH-010/012, RG-APP-003 ; E2E 03/04.
+
+### PF-20 — Technique ponctuelle sans changement de projet (nominal)
+**Étant donné** un projet disposant d'une méthode retenue ; **quand** le Pilote demande une comparaison nécessitant une technique locale différente, **alors** Nora peut utiliser cette technique compatible sans modifier la méthode globale ni ouvrir ou fermer un cycle. **Références :** RG-METH-011, RG-METH-005 ; E2E 02/03.
+
+### PF-21 — Nouvelle version disponible, non adoptée (négatif)
+**Étant donné** une méthode projet en version A et une version B visible dans une source Git ou externe ; **quand** Nora découvre B, **alors** elle peut signaler ses différences et proposer une évolution, mais A reste applicable tant qu'aucune décision compétente ne change la portée. La présence de B sur `main` ne suffit pas à migrer le projet. **Références :** RG-METH-012/013 ; E2E 03/04/07.
+
+### PF-22 — Évolution décidée avec travaux en cours (alternatif)
+**Étant donné** une méthode A, des tâches terminées et une intervention technique préparée sous A ; **quand** le Pilote valide une évolution vers B pour une portée donnée, **alors** les travaux achevés et preuves restent historiquement vrais, les tâches futures suivent la nouvelle applicabilité et l'intervention préparée est requalifiée si son contrat ou ses contrôles sont impactés. Aucun effet déjà autorisé n'est extrapolé à une nouvelle portée. **Références :** RG-METH-014/015, RG-AUTH-004 ; E2E 02/04/05/06.
+
+### PF-23 — Méthode indisponible ou non conforme (exception)
+**Étant donné** un projet dont la référence de méthode est inaccessible, ou dont une recommandation contredit une règle non dérogeable ; **quand** le Pilote demande une synthèse puis une opération nécessitant cette règle, **alors** Nora livre la synthèse dans les limites sûres, expose uniquement la restriction pertinente, et Studio refuse ou suspend l'effet concerné tant que sa condition applicable n'est pas établie. **Références :** RG-METH-016, RG-APP-004/008 ; E2E 03/05.
+
 ## 5. Conditions fonctionnelles d'acceptation du macro-lot
 
-Le lot ne peut être soumis à `VALIDATED SPEC` que si les points suivants sont explicitement couverts et acceptés :
+La validation Morris du **contrat Nora v0.4** est acquise en conversation ; les exigences suivantes restent les critères de conformité et de revue transverse, dont les preuves et contrats voisins seront établis aux jalons applicables :
 
 1. Les responsabilités sont uniques et les frontières cognition / connaissance / méthode / autorité / effets sont explicites.
 2. Les règles ont une identité stable et un comportement testable, sans imposer des composants techniques.
@@ -235,6 +292,8 @@ Le lot ne peut être soumis à `VALIDATED SPEC` que si les points suivants sont 
 13. Les interactions avec toutes les spécifications R2 existantes ont été qualifiées selon le contrôle transversal de l’index, avec conflits résolus ou explicitement ouverts.
 14. La qualification distingue expressément fait prouvé, document consulté, règle de méthode, décision et mandat sans donner d’autorité par ressemblance textuelle.
 15. Les scénarios PF-10 à PF-17 sont couverts, notamment l’accord métier naturel sans validation redondante et la protection distincte des effets.
+16. Les scénarios PF-18 à PF-23 démontrent la continuité sans méthode, le choix naturel, la portée locale, l’évolution versionnée, les impacts sur les travaux en cours et l’absence de fallback autorisant.
+17. Aucune sélection de méthode, version ou CKC ne sert de condition obligatoire générale de création de projet ou de conversation.
 
 ## 6. Matrice de continuité aval
 
@@ -242,7 +301,7 @@ Le lot ne peut être soumis à `VALIDATED SPEC` que si les points suivants sont 
 | --- | --- | --- | --- |
 | Conversation naturelle | Modèles d'interaction, absence de bruit, visibilité proportionnée des décisions | Contrats de sortie et séparation présentation/cognition | Scénarios Pilote–Nora observables, absence de formulaires artificiels |
 | Contexte courant, continuité | Transition de conversations, reprise et états d'incertitude | Responsabilités de récupération, identité et validité | Multi-session, restart, récupération, isolation interprojets |
-| Méthode contextualisée et versionnée | Informations méthodologiques consultables si utiles | Version, applicabilité, compatibilité et enforcement | Changement de version, défaillance, refus de promotion implicite |
+| Méthode contextualisée et versionnée | Choix en langage naturel, absence de sélecteur obligatoire ; évolution expliquée quand utile | Référence applicable, portée, autorité du choix, historique, compatibilité et contrôles propres aux effets | Projet sans méthode, version candidate, évolution pendant travaux, défaillance et non-promotion |
 | CKC conditionnel | Guidance perceptible sans rigidité | Rattachement de la guidance au cycle | Avec/sans cycle, digression, absence CKC |
 | Sources / provenance / contradiction | Citations et différences visibles lorsque nécessaires | Contrats de confiance, accès, traçabilité et vérification | Sources adversariales, stale refs, branches candidates, web/pièces jointes selon accès réel |
 | Autorité / suspensions | GO clair sans confirmations inutiles, STOP intelligible | Contrôles d'effet indépendants du dialogue | Refus, révocation, suspension après reprise, non-duplication |
@@ -259,7 +318,7 @@ Le lot ne peut être soumis à `VALIDATED SPEC` que si les points suivants sont 
 
 | Point | Pourquoi il importe | Responsable / prochain niveau |
 | --- | --- | --- |
-| Méthode initiale d'un nouveau projet : proposée, choisie ou fournie ? | Détermine une applicabilité sans friction | **R2 — arbitrage Morris si structurant** |
+| Méthode initiale d'un nouveau projet : faut-il choisir un mécanisme obligatoire ? | **Décision v0.4 : non** ; conversation et création restent disponibles sans méthode, choix durable par le Pilote seulement si utile | **VALIDATED SPEC par Morris (2026-11-02)** |
 | Méthode indisponible au moment de la reprise | Définir les refus nécessaires sans bloquer toute conversation | **R2**, enforcement R4 |
 | Contradiction entre règle projet prescrite et règle non dérogeable | Éviter une hiérarchie simpliste qui contournerait l'autorité | **R2**, contrôle R4 |
 | Conditions exactes de capture et actualisation d'une connaissance durable | Éviter une mémoire exhaustive, périmée ou contradictoire | **R2**, persistance R4 |
@@ -326,10 +385,23 @@ Ces propriétaires désignent des **responsabilités fonctionnelles**, pas une a
 
 **Arbitrages conservés ouverts, sans adoption implicite :** origine/choix de la méthode initiale, qualification formelle d'une décision ambiguë, gestion de deux décisions réellement contradictoires, règles de fraicheur propres aux sources d'effets. Ces questions seront tranchées dans le même macro-lot avec les spécifications propriétaires correspondantes avant le gate `VALIDATED SPEC`.
 
+### 9.4. Revue d'interface de la sélection et de l'évolution v0.4
+
+| Interface | Impact de v0.4 | Verdict documentaire |
+| --- | --- | --- |
+| Conversation / sas — R1 E2E 01/03 | Le choix de méthode n'est pas un prérequis de création ni de production cognitive ; le Pilote n'administre pas la méthode | **COMPATIBLE avec R1 et RG-CONV-001/005** |
+| Méthode / CKC — R1 E2E 02 | Approche ponctuelle, méthode projet et CKC actif restent trois rôles distincts | **COMPATIBLE**, responsabilité propriétaire du cycle encore à qualifier |
+| Mémoire / décisions — R1 E2E 04 | Le choix durable exige une autorité humaine effective et une conservation par gouvernance, non un souvenir Nora | **COMPATIBLE comme interface** ; validation de la future spec de décisions **NON ÉVALUÉE** |
+| Exécution et résultats — R1 E2E 05/06 | Nouvelle version sans effet automatique sur contrat existant ; impacts à qualifier ; preuves passées non réécrites | **COMPATIBLE comme invariant** ; contrats d'exécution/preuve futurs **NON ÉVALUÉS** |
+| Git facultatif — R1 E2E 07 | La version méthode n'exige ni dépôt ni package Git ; source Git éventuelle n'est pas autorité de sélection | **COMPATIBLE avec R1** |
+| Architecture et provenance — R4 | Référence/version/portée fonctionnelles, sans modèle physique ni `DoctrinePackage` prescrit | **AUCUN CHOIX TECHNIQUE DÉCIDÉ** |
+
+**Décisions validées pour ce contrat :** (1) aucune méthode obligatoire au démarrage ; (2) changement durable de méthode par décision explicite du Pilote, naturellement exprimable. **Réserve :** évolution de la méthode générale du produit et compatibilité avec les projets existants, sans moteur concurrent.
+
 ## 10. Prochaine consolidation de ce même macro-lot
 
-Faire une revue croisée : (a) hiérarchie d'autorité et d'applicabilité **par type d'information**, (b) sélection/révision de méthode, (c) continuité et connaissances, (d) règles de conduite conversationnelle et rôle du CKC, (e) adaptation sélective 2.6, (f) tests d'acceptation. Réviser les règles en bloc, les confronter aux interfaces des autres ensembles R2, puis soumettre une seule validation fonctionnelle cohérente à Morris. **Aucune PR documentaire de micro-étape.**
+Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/évolution, poursuivre par (a) continuité et actualisation des connaissances, (b) conduite conversationnelle et CKC, (c) héritage sélectif v2.6, (d) revue end-to-end de compatibilité et preuves. Les décisions de méthode qui touchent à la gouvernance seront confrontées aux futures spécifications propriétaires. Réviser les règles en bloc, les confronter aux interfaces des autres ensembles R2, puis soumettre une validation fonctionnelle cohérente des interfaces restantes à Morris. **Aucune PR documentaire de micro-étape.**
 
 ---
 
-**Verdict documentaire : `R2 CONTEXTE & CONDUITE NORA — D0 CANDIDATE SPEC v0.3`**. Option A décidée en conversation ; contrat d’applicabilité, règles et scénarios supplémentaires candidats, non encore `VALIDATED SPEC` ; **v0.3 synchronisée sur branche Git candidate** ; runtime Next non implémenté.
+**Verdict documentaire : `R2 CONTEXTE & CONDUITE NORA — VALIDATED SPEC v0.4 (MORRIS, 2026-11-02)`**. Contrat fonctionnel approuvé en conversation, **sous réserve de qualification des interfaces avec les futures specs propriétaires**. **v0.4 synchronisée sur branche Git candidate** ; runtime Next non implémenté.
