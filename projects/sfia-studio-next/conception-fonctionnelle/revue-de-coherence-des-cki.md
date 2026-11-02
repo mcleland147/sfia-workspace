@@ -1,6 +1,6 @@
 # SFIA Studio Next — Revue documentaire des CKI v0.2
 
-**2026-11-02 · DOCUMENTED / CANDIDATE.** Sources : quinze fiches CKI et [matrice de cinquante relations](../cki/relations-methodologiques-cki.md) sur branche R2, confrontées aux contrats D3/D5–D9.
+**2026-11-02 · DOCUMENTED REVIEW / CKI CONTENT VALIDATED BY MORRIS.** Sources : quinze fiches CKI et [matrice de cinquante relations](../cki/relations-methodologiques-cki.md) sur branche R2, confrontées aux contrats D3/D5–D9.
 
 ## Résultat
 
@@ -28,4 +28,9 @@ Les quinze fiches ont été examinées pour leur contribution, pertinence/non-pe
 
 ## Suites
 
-Les CKI 07 (DevOps), 09 (QA), 10 (Sécurité), 11 (Release), 13 (PR readiness) et 14 (Post-merge) restent particulièrement surveillés : un conseil méthodologique, une CI verte ou une PR READY ne créent ni droit ni validation métier. **Les 15 contenus restent `CANDIDATE v0.2`** tant que Morris n'a pas validé explicitement leur contenu (ou autorisé son report). La validation fonctionnelle D5 ne les valide pas automatiquement. En R3 : UX du CKI ; R4 : version/disponibilité ; R5/R6 : tests de conseil, non-activation secondaire et absence de permissions implicites. Aucun ADOPTED.
+Les CKI 07 (DevOps), 09 (QA), 10 (Sécurité), 11 (Release), 13 (PR readiness) et 14 (Post-merge) restent particulièrement surveillés : un conseil méthodologique, une CI verte ou une PR READY ne créent ni droit ni validation métier. **Morris a explicitement validé les 15 contenus et la matrice : `VALIDATED CONTENT v0.2` (2026-11-02).** Cette décision distincte de D5 ne vaut pas adoption ni vérification en runtime. En R3 : UX du CKI ; R4 : version/disponibilité ; R5/R6 : tests de conseil, non-activation secondaire et absence de permissions implicites. Aucun ADOPTED.
+
+
+## Décision de contenu et réserves techniques — 2026-11-02
+
+La revue spécialisée est achevée ; Morris confirme avoir contrôlé et validé les quinze fiches ainsi que la matrice de cinquante liens. Les risques de conseil intempestif, d'activation secondaire et de confusion entre maturité et autorisation seront éprouvés en R5–R6. Cette validation documentaire n'est pas un GO de PR, de merge, de promotion du runtime ou de passage R3.

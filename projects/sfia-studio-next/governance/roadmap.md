@@ -2,14 +2,14 @@
 
 **Nature :** feuille de route de construction Next ; distincte de `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`.
 
-**État courant au 2026-11-02 : R1 CLOSED WITH CARRIED RESERVES / R2 IN PROGRESS (documentaire).** [PR R1 #639](https://github.com/mcleland147/sfia-workspace/pull/639) **mergée le 2026-11-02T09:41:54Z** ; `main@8751775edc314e8fc7f0855104e5000290be9839` vérifié. Neuf specs D1–D9 validées individuellement sur branche R2 candidate, consolidation transverse en cours. **Aucun GO de sortie R2, PR/merge R2, R3 engagé ou ADOPTED**. Corpus CKI spécialisé candidat ; Next `N/A — NON IMPLÉMENTÉ`.
+**État courant au 2026-11-02 : R1 CLOSED WITH CARRIED RESERVES / R2 FORMAL EXIT REVIEW IN PROGRESS.** [PR R1 #639](https://github.com/mcleland147/sfia-workspace/pull/639) mergée et `main@8751775edc314e8fc7f0855104e5000290be9839` vérifié. Les neuf spécifications fonctionnelles D1–D9 sont validées individuellement ; **300 règles / 241 scénarios** documentaires. Les 15 CKI et 50 relations sont `VALIDATED CONTENT v0.2` par Morris. Une revue de sortie favorable avec réserves est préparée sur branche candidate, **mais aucune décision `R2 CLOSED`, PR/merge R2, R3 engagé ou ADOPTED ne sont présumés**. Produit Next : `N/A — NON IMPLÉMENTÉ`.
 
 | Jalon | Statut | Résultat/exit |
 | --- | --- | --- |
 | R0-A — méthode et rebaseline | **VALIDATED — ON MAIN via PR #636** | SEF v0.2 approuvé, frontières et périmètre Next décidés |
 | R0-B — bootstrap gouverné | **CLOSED BY MORRIS GO — POST-MERGE VERIFIED** | PR #636 merged sur `main` ; SEF, Roadmap et naming validés ; vision + 3 PNG originaux et routage Next présents ; preuves Git post-merge ; pas de preuve produit LIVE/REAL ni de CI Next revendiquée |
 | R1 — cadrage produit | **CLOSED BY MORRIS WITH CARRIED RESERVES — PR #639 MERGED / POST-MERGE VERIFIED** | Vision R1, neuf domaines et sept E2E ; `main@8751775…` prouvé, runtime Next non implémenté. |
-| R2 — conception fonctionnelle | **IN PROGRESS — 9 DOMAINES VALIDÉS INDIVIDUELLEMENT ; CONSOLIDATION TRANSVERSE** | 300 règles, 241 scénarios documentaires (237 initiaux + 4 D3), quatre axes méthodologiques fonctionnellement qualifiés ; CKI candidat ; revue d'exit Morris à venir. |
+| R2 — conception fonctionnelle | **FORMAL EXIT REVIEW — RECOMMENDED WITH CARRIED RESERVES ; MORRIS DECISION PENDING** | Neuf domaines validés individuellement, 300 règles, 241 scénarios et sept E2E R1 ; quinze CKI et cinquante liens validés en contenu. Réserves UX R3, conception technique R4, tests R5/R6. Rapport de sortie disponible, PR/merge non lancés. |
 | R3 — UX/UI | **NOT STARTED** | Parcours, maquettes et contrats UX approuvés |
 | R4 — architecture technique | **NOT STARTED** | Architecture, ADR, contrats, responsabilités et choix de persistence |
 | R5 — reconstruction par macro-capacités | **NOT STARTED** | Code neuf, preuves verticales, documents synchronisés |
@@ -35,8 +35,8 @@
 
 - **Base R1 :** PR #639 mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 distincte.
 - **R2 :** 9 specs individuelles validées par Morris, 300 RG, 241 PF documentaires après les 4 PF D3 approuvés ; sept E2E R1 non exécutés.
-- **CKI :** 15 fiches et 50 relations revues, contenus candidats ; validation spécifique Morris à statuer.
-- **Gates :** revue formelle de sortie R2, puis autorisations PR/CI/merge et vérification post-merge ; R3 non engagé. La présente correction est publiée sur **branche candidate**, pas directement `main`.
+- **CKI :** 15 fiches et 50 relations `VALIDATED CONTENT v0.2` par Morris le 2026-11-02 ; preuve d'usage et de valeur cognitive à obtenir en R5/R6.
+- **Gates :** revue formelle de sortie R2 documentée ([rapport](../conception-fonctionnelle/revue-formelle-sortie-r2.md)), verdict de clôture à décider par Morris ; PR/CI/merge sous GO spécifique puis vérification post-merge. R3 non engagé ; cette source reste sur **branche candidate**, pas directement `main`.
 
 ## R0-B — critères de clôture et réserves factuelles (2026-11-01)
 

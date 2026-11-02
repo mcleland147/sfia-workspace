@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **R2 EN COURS** ; les neuf domaines D1–D9 `VALIDATED SPEC` individuellement (D3 Nora v0.4 ; D1/D2 et D4–D9 v0.1) par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
+| Statut | **R2 EN REVUE FORMELLE DE SORTIE** ; les neuf domaines D1–D9 `VALIDATED SPEC` individuellement (D3 Nora v0.4 ; D1/D2 et D4–D9 v0.1) par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -20,7 +20,7 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 
 | Spécification | Responsabilité principale | État du contenu | Dépendances / revue transverse |
 | --- | --- | --- | --- |
-| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance de cycle (CKC historique → CKI Next candidat) et frontières de conduite | **VALIDATED SPEC v0.4 — MORRIS 2026-11-02** ; publiée sur branche R2. 46 RG, 27 PF ; interfaces revues documentairement | Interfaces D1–D9 confrontées selon leur portée ; compatibilité documentaire favorable, preuves R4–R6 ouvertes |
+| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance de cycle (CKC historique → CKI Next validé en contenu) et frontières de conduite | **VALIDATED SPEC v0.4 — MORRIS 2026-11-02** ; publiée sur branche R2. 46 RG, 27 PF ; interfaces revues documentairement | Interfaces D1–D9 confrontées selon leur portée ; compatibilité documentaire favorable, preuves R4–R6 ouvertes |
 | [Connaissance, sujets et continuité du projet](connaissance-sujets-et-continuite-du-projet.md) | Domaine 4 : conservation sélective des acquis, organisation des sujets, points ouverts, provenance, historique et reprise inter-conversations | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 15 RG, 10 PF ; publiée sur branche R2 | Interfaces D1–D9 confrontées selon leur portée ; compatibilité documentaire favorable, preuves R4–R6 ouvertes |
 | [Trajectoire du projet, cycles et guidance CKI](trajectoire-cycles-et-guidance-cki.md) | Domaine 5 : trajectoire prévisionnelle/effective, unique cycle actif, transitions gouvernées, CKI autonome et relations non contraignantes, méthode applicable et maturité | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 40 RG-TRJ, 30 PF-TRJ ; interfaces réservées | Interfaces D1–D9 confrontées selon leur portée ; compatibilité documentaire favorable, preuves R4–R6 ouvertes |
 | [Décisions, mandats et gouvernance du Pilote](decisions-et-gouvernance-du-pilote.md) | **Domaine 6** : décisions du Pilote, validité/portée, mandats, suspensions, révocations, restrictions et acceptation, sans autorité concurrente | **VALIDATED SPEC v0.1 — MORRIS 2026-11-02** ; 36 RG-GOV, 28 PF-GOV ; interfaces réservées | Interfaces D1–D9 confrontées selon leur portée ; compatibilité documentaire favorable, preuves R4–R6 ouvertes |
@@ -104,7 +104,7 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Revue bilatérale initiale :** aucune incompatibilité manifeste avec les 46 règles validées de Nora v0.4 ou les sept E2E R1 ; les interfaces des specs non encore créées restent `NON ÉVALUÉES`.
 - **Statut :** `VALIDATED SPEC v0.1` par Morris le 2026-11-02, synchronisée sur la branche R2, interfaces futures réservées.
 
-## 10. Corpus CKI Next — publication candidate et liens canoniques
+## 10. Corpus CKI Next — contenu validé et liens canoniques
 
 - [15 CKI autonomes et spécialisés](../cki/README.md) — un CKI par type de cycle, un seul CKI principal associé au cycle actif, catalogue extensible au-delà de 15.
 - [Matrice centrale des relations](../cki/relations-methodologiques-cki.md) — 50 relations orientées et conditionnelles (transmission, approfondissement, retour et éclairage transversal) ; **aucune activation d'un deuxième CKI, aucune transition automatique**.
@@ -114,7 +114,7 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 
 - **Propriétaire :** domaine 5. Un seul cycle actif par projet et un seul CKI principal associé ; catalogue initial de 15 spécialités extensible, sans interdépendance entre CKI. Aucun cycle imposé avant l'aide cognitive de Nora.
 - **Frontières :** le domaine 3 conduit le dialogue et apprécie la maturité ; le domaine 4 garde la connaissance ; le domaine 5 conserve trajectoire, état des cycles, association CKI et référence durable de méthode ; le domaine 6 valide les GO et décisions ; les domaines 7–9 restent responsables des opérations, preuves et droits Git.
-- **Traçabilité de la revue :** 40 règles, 30 scénarios ; 15 fiches CKI candidates et 50 relations orientées examinées, sans conflit documentaire normatif identifié. Aucune preuve runtime ni validation du contenu CKI v0.2 inférée.
+- **Traçabilité de la revue :** 40 règles, 30 scénarios ; 15 fiches CKI et 50 relations orientées validées en contenu par Morris le 2026-11-02 ; sans conflit documentaire normatif identifié. Aucune preuve runtime ni adoption produit inférée.
 - **Écarts 5.1 sous suivi dans la spec** : (1) CKC/CKI : harmonisation en consolidation R2 ; (2) CKI indisponible : fonctionnellement qualifié, R4/R5–R6 ; (3) liens/matrice : non-contraignants, R5/R6 à éprouver ; (4) maturité/gates : revue D6 et D8 avant exit R2 ; (5) Roadmap `main` obsolète : `KNOWN GAP`, mise à jour de gouvernance sous décision et mandat D2 séparés.
 - **Limite :** publication sur branche R2 ≠ validation globale R2, PR, merge, implémentation, preuve comportementale ou adoption.
 
@@ -166,6 +166,13 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Neuf specs validées individuellement ; 300 règles et 241 scénarios** (237 initiaux + 4 PF D3 approuvés), sept E2E R1 documentés non exécutés.
 - **Lexique :** CKI cible Next, CKC historique R1. Pas de deuxième moteur ou gate.
 - **Interfaces :** confrontées documentairement, sans prétendre que les anciennes mentions « non évaluées » sont encore l'état courant. Les réserves techniques conservent leurs propriétaires et jalons R3–R6.
-- **CKI :** [revue des quinze fiches et cinquante relations](revue-de-coherence-des-cki.md) réalisée ; contenus toujours `CANDIDATE` avant validation Morris spécifique.
+- **CKI :** [revue des quinze fiches et cinquante relations](revue-de-coherence-des-cki.md) réalisée ; contenus désormais `VALIDATED CONTENT v0.2` par Morris ; preuves comportementales R5/R6 ouvertes.
 - **Roadmap :** correction R1 merged/R2 en cours sur branche R2 ; `main` inchangé jusqu'à PR/merge autorisés.
 - **Gates :** bilan de sortie R2 avec Morris, puis PR, CI, merge, post-merge ; R3 non engagé.
+
+
+## 19. Préparation de la revue formelle de sortie R2 — 2026-11-02
+
+- [Rapport de revue formelle R2](revue-formelle-sortie-r2.md) : contrats D1–D9, 300 RG, 241 PF, sept E2E R1 ; contrôle documentaire et réserves de conception R3–R6.
+- **CKI :** 15 contenus et matrice de 50 relations `VALIDATED CONTENT v0.2` par Morris ; ce statut ne signifie pas `IMPLEMENTED`, `BEHAVIOR PROVEN` ni `ADOPTED`.
+- **Verdict proposé :** `R2 EXIT REVIEW — FAVORABLE WITH CARRIED RESERVES`, à soumettre au gate explicite de clôture Morris. Aucun `R2 CLOSED` enregistré, PR/merge ni R3 engagé par la seule publication de ce bilan.
