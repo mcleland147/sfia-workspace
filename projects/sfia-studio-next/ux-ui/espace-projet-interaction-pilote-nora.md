@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.4**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.5**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -8,7 +8,7 @@
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
 | Macro-lot R3 | Architecture d'interaction et continuité du travail Pilote–Nora |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — CANDIDATE UX / CONTRIBUTION GIT D1** ; B2 et V3 explorés, parcours de retour défini, **aucun design final validé** |
+| État du présent document | **DOCUMENTED — CANDIDATE UX / CONTRIBUTION GIT D1** ; B2/V3 et parcours de retour illustrés dans un nouveau Figma éditable, **aucun design final validé** |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
 | Source Git vérifiée | `mcleland147/sfia-workspace`, `main@3c7fe7d1f801c115de235b656fb2610fef115cdf` (2026-11-02) |
 | État Git Next | Roadmap : R1/R2 clôturés avec réserves ; **R3 NOT STARTED** dans Git avant publication de tout livrable R3 |
@@ -336,6 +336,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 
 | 2026-11-03 | Intégrer V3, entre-deux sélectif V1/V2 ; poursuivre le parcours Travail / Journal / Décision / Retour. | Préférence et GO de poursuite exprimés par Morris, sans approbation de tous les détails | **HYPOTHÈSE PRIVILÉGIÉE — DOCUMENTED / CANDIDATE UX** ; publication D1 sur la branche existante, sans PR/merge. |
 
+| 2026-11-03 | Créer un fichier Figma Design neuf et indépendant pour visualiser V3 (trois écrans) ; conserver contexte condensable en hypothèse. | GO Morris explicite pour Figma neuf, consultation P3 seulement en lecture ; approbation du principe de condensation, pas des écrans | **FIGMA CANDIDATE — THREE EDITABLE SCREENS** ; pas de validation, prototype cliquable, développement ni preuve runtime. |
+
 ### Règle de maintenance
 
 À chaque échange qui modifie substantiellement la conception :
@@ -570,3 +572,42 @@ Produire les **wireframes desktop et petit écran** de la V3 et de ce parcours ;
 **Gate :** verdict UX explicite de Morris après revue des parcours et maquettes. Le GO actuel porte sur la **conception et la documentation candidate** seulement ; aucun GO de PR/merge, refonte de la doctrine, Figma ou implémentation ne découle du choix de poursuivre V3.
 
 **Statut : DOCUMENTED — CANDIDATE UX v0.4 ; N/A — NON IMPLÉMENTÉ.**
+
+
+## 16. Premiers écrans Figma — visualisation V3 (v0.5)
+
+### 16.1 Autorisation et séparation des espaces
+
+Morris autorise explicitement la **création de premiers écrans dans un nouvel espace Figma**, distinct de l'ancien P3. L'ancien Figma historique peut être consulté pour capitalisation, mais n'est pas la destination d'édition. L'outil a créé un **nouveau fichier Figma Design indépendant** dans l'équipe de Morris : aucun dossier-projet Figma spécifique n'a été créé (cette opération n'est pas exposée par le connecteur utilisé).
+
+**Nouveau fichier :** [SFIA Studio Next — R3 UX · Espace projet Pilote–Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP).
+
+**Statut : DESIGN CANDIDAT / BASSE FIDÉLITÉ**, produit avec calques texte, cadres auto-layout et instances de composants éditables, sans reprise des écrans P3, sans modification de l'ancien fichier et sans preuve de fonctionnement du produit Next.
+
+### 16.2 Écrans produits et objectifs
+
+| Écran | Lien | Ce que la composition doit permettre d'examiner |
+| --- | --- | --- |
+| 01 — Ouverture projet / V3 | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=5-5) | Repère contextuel initial, accès direct au projet/Journal, reprise du travail Nora |
+| 02 — Travail avec Nora | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=5-69) | Contexte condensé, place dominante à la conversation et aux résultats adaptatifs |
+| 03 — Inspection d'une décision | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=5-143) | Décision inspectable sans acte implicite, maintien identifiable de l'origine et accès au Journal |
+
+**Données fictives :** projet Atlas, comparatif de deux architectures et exemple de décision. Les badges, nombres, états et éléments de contenu sont des **fixtures de maquette**, jamais des faits établis sur le programme SFIA Studio Next. Les états illustrés ne revendiquent pas de comportement produit LIVE/REAL.
+
+### 16.3 Ce que l'on peut évaluer, ce qui reste non prouvé
+
+**Évaluable maintenant par Morris :** hiérarchie de l'écran ; quantité de contexte visible ; relation entre rail, surfaces structurées et Nora ; lisibilité d'une restitution comparative ; principe du panneau d'inspection et retour.
+
+**Non prouvé :** transitions cliquables, historique récupérable, choix correct d'activité, droits et permissions effectifs, persistance du brouillon, responsive mobile, accessibilité vérifiée, capture runtime ou intégration technique. Les textes indiquant des actions restent des maquettes, non des contrôles fonctionnels.
+
+**Contrôle visuel effectué :** screenshots des écrans d'ouverture, de travail et d'inspection ; correction d'un chevauchement dans le texte de la décision, revérifiée visuellement. Les calques de texte sont éditables, famille Inter utilisée à titre provisoire et non validée comme identité typographique produit.
+
+### 16.4 Questions à discuter lors de la revue Figma
+
+1. La synthèse « Votre projet en bref » de l'écran 01 est-elle utile ou déjà trop envahissante ?
+2. Le bandeau condensé de l'écran 02 est-il assez discret et suffisamment informatif ?
+3. L'inspection de l'écran 03 doit-elle se déployer latéralement, en surface large ou selon la taille de l'objet ?
+4. La navigation latérale doit-elle afficher constamment Projet/Journal/Trajectoire ou être plus contextuelle ?
+5. Le contenu de Nora mérite-t-il une densité, une typographie ou des surfaces de travail différentes selon la nature des résultats ?
+
+**Sortie de cette étape :** premières maquettes Figma créées et contrôlées ; retour Morris requis avant tout verdict UX fort. Aucun GO de PR/merge, de changement de Roadmap, de création d'un design system adopté ou d'implémentation technique n'en découle.
