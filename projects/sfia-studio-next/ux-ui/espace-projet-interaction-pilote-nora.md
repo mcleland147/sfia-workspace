@@ -1,0 +1,453 @@
+# SFIA Studio Next — Espace projet et interaction Pilote–Nora
+
+**R3 — Conception UX/UI · Document de travail évolutif · v0.3**
+
+| Métadonnée | Valeur |
+| --- | --- |
+| Date d'initialisation / mise à jour | 2026-11-02 / 2026-11-02 (Europe/Paris) |
+| Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
+| Macro-lot R3 | Architecture d'interaction et continuité du travail Pilote–Nora |
+| Responsable des arbitrages | **Morris** |
+| État du présent document | **DOCUMENTED — CANDIDATE UX / CONTRIBUTION GIT D1** ; B2 et variantes basse fidélité proposés, **non validés** |
+| Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** ; préférence de travail de Morris, **non `VALIDATED SPEC` / non adoptée** |
+| Source Git vérifiée | `mcleland147/sfia-workspace`, `main@3c7fe7d1f801c115de235b656fb2610fef115cdf` (2026-11-02) |
+| État Git Next | Roadmap : R1/R2 clôturés avec réserves ; **R3 NOT STARTED** dans Git avant publication de tout livrable R3 |
+| État technique | **N/A — NON IMPLÉMENTÉ** ; architecture, UX runtime et preuves Next inexistantes à ce stade |
+| Chemin Git autorisé pour ce document (GO Morris 2026-11-02) | `projects/sfia-studio-next/ux-ui/espace-projet-interaction-pilote-nora.md` |
+| État local du dépôt | **NON OBSERVÉ** ; publication sur branche candidate uniquement, sans PR/merge ni changement Figma |
+
+> **Règle de lecture :** ce document formalise des constats, contraintes et hypothèses UX. Il ne modifie ni la vision R1 ni les neuf contrats fonctionnels R2 ; une hypothèse pertinente n'est pas un arbitrage validé. Les maquettes, contrats UX approuvés et tests utilisateurs restent à produire.
+
+## 1. Finalité et résultat recherché
+
+Concevoir **un espace projet cohérent** dans lequel le Pilote peut :
+
+1. travailler naturellement avec Nora et obtenir des restitutions cognitives riches ;
+2. retrouver directement les connaissances et états structurés de son projet sans devoir questionner Nora ;
+3. inspecter une proposition, un document, une source, une décision, un contrat ou une preuve avec le niveau de détail approprié ;
+4. exercer son autorité au bon moment, sans ritualisation inutile ;
+5. revenir à son activité et reprendre après interruption sans confusion de contexte ni affirmation fictive.
+
+**Critère directeur candidat :** Studio doit être perçu comme **un environnement de travail continu**, non comme une juxtaposition de chats, écrans et registres. La simplification doit réduire la charge cognitive, pas dissimuler des informations ou contrôles nécessaires.
+
+### IN — premier macro-lot R3
+
+Architecture d'interaction de l'espace projet ; articulation travail/conversation, consultation autonome et inspection ; navigation et transitions ; continuité, retours, interruptions et états limites ; prise en compte des sept E2E R1 et obligations UX D1–D9 ; comparaison des variantes ; principes testables et préparation de prototypes.
+
+### OUT — à ce stade
+
+Design system et branding définitifs ; palette/thème ; pixels et composants figés ; architecture technique, persistance, API, librairie de rendu, code, intégration Cursor/Git, tests runtime ; modification des règles métier R2 ; validation ou adoption du produit.
+
+## 2. Sources et hiérarchie de lecture
+
+**Sources normatives Next (Git `main` vérifié) :**
+
+- [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [convention de nommage](../governance/product-naming-conventions.md) ;
+- [vision produit R1](../cadrage/vision-produit.md), notamment §§2.11, 2.15–2.21, 2.29–2.36 et sept E2E ;
+- [référentiel R2 D1–D9](../conception-fonctionnelle/README.md), ses neuf spécifications et réserves reportées ;
+- [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) et [décision de sortie R2](../governance/decisions/2026-11-02-r2-functional-exit.md).
+
+**Source comparative, sans autorité Next :** Figma historique P3, « SFIA Studio — P3 Workspace / Interaction Architecture » : https://www.figma.com/design/m4g8j0gNbEzfIuH6S9AZJF/SFIA-Studio-%E2%80%94-P3-Workspace---Interaction-Architecture?node-id=2-6 . L'audit précédent a couvert ses 17 pages, incluant les contenus des pages 01, 02 et 16 : elles ne sont pas vides. Les étiquettes `VALIDATED` de P3 ne constituent pas des décisions Next.
+
+**Ordre de validité :** décision applicable de Morris et sources R1/R2 pour le comportement produit ; ancien Figma pour l'inspiration et la comparaison ; présent document pour les hypothèses R3 à éprouver. Une suggestion UX ne peut pas créer une nouvelle autorité fonctionnelle.
+
+## 3. Invariants fonctionnels non négociables pour l'UX
+
+| Domaine | Contrat validé à préserver | Traduction UX à étudier |
+| --- | --- | --- |
+| D1 — Accès et portefeuille | Cockpit de consultation sans Nora globale ; contexte projet explicitement identifié (`RG-ACC-009/010/014`). | Navigation claire vers le bon projet ; séparation portefeuille / sas / espace projet. |
+| D2 — Création | Sas conversationnel, création explicite et **continuité visuelle du même fil** après création vérifiée (`RG-CRE-008/010/017/020`). | Continuité d'entrée dans l'espace projet ; reprise après interruption du sas. |
+| D3 — Nora | Initiative et travaux cognitifs directs, même sans cycle ; restitution **riche et adaptative** (`RG-CONV-002/005/006`, `RG-UX-001..003`). | La conversation accueille des contenus variés ; pas de gabarit ou procédure systématique. |
+| D4 — Connaissance | Sujets vivants, vue Décisions comme accès à D6, points ouverts transversaux, reprise contextualisée (`RG-KNOW-003/004/011/015`). | Consultation autonome, historique et liens vers sources, sans second registre. |
+| D5 — Trajectoire | Au plus un cycle actif ; aucun cycle requis pour converser ; étapes prévues ≠ cycles ouverts (`RG-TRJ-001/002/008/036`). | Visibilité proportionnée de la trajectoire et de l'état réel du cycle. |
+| D6 — Gouvernance | Arbitrage humain naturel lorsque suffisamment clair ; recommandation, décision, GO, exécution et acceptation distincts (`RG-GOV-001/002/008/024`). | Actes d'autorité intelligibles ; confirmation supplémentaire uniquement quand nécessaire. |
+| D7 — Réalisation | Contrat borné inspectable, **instruction exacte consultable**, acte distinct « Exécuter », état de tentative honnête (`RG-REAL-007/008/012/013/020`). | Inspection approfondie à la demande ; absence de lancement implicite. |
+| D8 — Résultats et preuves | Déclaration ≠ observation ≠ conformité ≠ acceptation (`RG-PRV-010/014/019/021/027`). | Résultats synthétiques, preuves consultables et inconnus visibles. |
+| D9 — Git | Facultatif par projet ; identité Studio ≠ droits Git ; états et mutations Git sous leur propre contrat. | Accès aux sources et à leur provenance sans rendre Git préalable à l'usage. |
+
+La conception doit également couvrir les **66 réserves R2 reportées** selon leur pertinence pour les parcours ; aucune couverture exhaustive UX n'est encore démontrée.
+
+## 4. Capitalisation de P3 : acquis et limites
+
+**À préserver :** navigation discrète et hiérarchisée ; conversation avec Nora comme espace majeur ; sas progressif ; propositions, décisions et exécutions inspectables ; attention aux états d'erreur, aux preuves et au responsive ; sobriété de la direction Linear/Attio/Stripe sans reprendre une identité tierce.
+
+**À challenger :** séparation fréquente entre Conversation / Aperçu / Exécution ; panneau contextuel potentiellement permanent ; multiplication des vues Journal/Historique/Synthèses ; place disproportionnée de métadonnées ou bordures ; accès global « Demander à Nora » incompatible avec D1 ; confusion possible entre état déclaré, vérifié et accepté.
+
+**Correction importante :** P3 portait déjà une ambition de continuité et d'interaction contextuelle ; B2 est une **évolution à éprouver**, pas une idée prétendument absente du chantier historique.
+
+## 5. Options étudiées et direction de travail
+
+| Option | Description | Intérêt | Risque / verdict provisoire |
+| --- | --- | --- | --- |
+| A — P3 rationalisé | Espaces et vues explicites, dont Conversation / Aperçu / Exécution, avec navigation simplifiée. | Prévisibilité des fonctions. | Fragmentation possible du travail ; alternative de comparaison conservée. |
+| B1 — Conversation toujours visible | Chat conservé à l'écran même pendant la consultation et l'inspection. | Présence de Nora immédiate. | Compression de l'espace utile et densité accrue ; non privilégiée. |
+| **B2 — Conversation toujours retrouvable** | Conversation comme point d'ancrage habituel, pouvant céder temporairement la surface à une consultation ou une inspection approfondie. | Continuité et espace adapté au contenu. | Réussite conditionnée par les règles de retour, d'orientation et de reprise ; **direction privilégiée pour exploration, non validée définitivement**. |
+
+**Expression de Morris (2026-11-02) :** B2 semble cohérente et peut servir d'hypothèse de travail ; Morris ne valide **pas** pour autant toutes les propositions ni l'architecture finale. Les décisions restent ouvertes et révisables.
+
+## 6. Modèle d'interaction B2 — hypothèse actuelle
+
+### 6.1. Quatre fonctions UX, pas quatre écrans
+
+1. **Se repérer :** savoir quel projet est réellement ouvert et accéder à ses fonctions, sans afficher tout l'état métier en permanence.
+2. **Travailler :** échanger avec Nora, investiguer, produire, comparer, décider dans la bonne portée et poursuivre son fil.
+3. **Consulter :** accéder directement aux informations structurées : projet, Sujets, Décisions, points ouverts, trajectoire, réalisations et résultats ; ne pas demander à Nora de tout réafficher.
+4. **Inspecter :** approfondir un contenu ou un effet et éventuellement accomplir l'acte pertinent dans ses conditions de gouvernance.
+
+Ces fonctions ne créent aucun domaine métier supplémentaire et **ne déterminent ni le nombre de pages ni la forme du rail**.
+
+### 6.2. Surfaces candidates et responsabilité d'affichage
+
+| Surface UX candidate | Usage | Comportement souhaité | À ne pas présumer |
+| --- | --- | --- | --- |
+| Repères d'espace | Identité projet et navigation ; restriction significative. | Continus et discrets ; contexte explicite. | Un tableau de bord obligatoire partout. |
+| Travail avec Nora | Fil, composition de réponses, action de réponse adaptée, rédaction. | Point de retour naturel ; contenus riches. | Chat toujours affiché à l'écran ou cycle obligatoire. |
+| Consultation du projet | Rechercher/parcourir Sujets, Décisions, points ouverts, trajectoire, résultats. | Accessible indépendamment de Nora, état actuel et historique distingués. | Nouveaux registres de vérité, multiplication des onglets. |
+| Inspection courte | Vérifier un sujet, une décision ou une provenance circonscrite. | Temporaire, réversible, retour au point d'origine. | Panneau droit permanent ou largeur fixe. |
+| Inspection approfondie | Document dense, comparaison, contrat d'exécution, preuves détaillées. | Peut occuper l'espace principal, avec retour clair. | Mutation ou autorisation implicite par ouverture. |
+
+**Gouverner** est un comportement transversal des interactions et non une vue séparée imposée. Un choix conversationnel n'est pas à lui seul une autorisation technique ; « Exécuter » reste l'acte dédié au contrat concerné.
+
+### 6.3. Règles d'interaction candidates à éprouver
+
+- **UX-H01 — Point d'ancrage retrouvable.** Depuis une consultation/inspection, le Pilote retrouve sans recherche sa conversation d'origine, son projet et l'activité pertinente.
+- **UX-H02 — Continuité proportionnée.** Pendant la navigation temporaire, conserver, dans la mesure concevable et testable, le brouillon non envoyé, la position de lecture et l'objet sélectionné. Les garanties de persistance inter-session seront décidées en R4 ; ne jamais prétendre avoir sauvegardé un état inconnu.
+- **UX-H03 — Autonomie de consultation.** Les états structurants du projet sont accessibles par navigation et recherche pertinentes sans question préalable à Nora.
+- **UX-H04 — Adaptation au contenu.** Une inspection courte et un document volumineux n'imposent pas le même espace ; le petit écran ne doit pas être traité comme un desktop artificiellement comprimé.
+- **UX-H05 — Autorité au bon endroit.** Propositions et décisions apparaissent dans le contexte de travail ; les actes protégés disposent du contrôle requis et d'une portée inspectable.
+- **UX-H06 — Honnêteté d'état.** Aucune icône ou formulation ne laisse inférer un lancement, arrêt, résultat vérifié ou acceptation non observé.
+- **UX-H07 — Absence de duplication métier.** La présentation de données dans plusieurs surfaces renvoie aux propriétaires D4/D5/D6/D7/D8/D9 plutôt que de produire plusieurs versions de vérité.
+- **UX-H08 — Retour ancré dans l’origine.** Une inspection ouverte depuis le travail, une consultation ou un lien direct possède une issue de retour intelligible, sans inventer une origine absente.
+- **UX-H09 — Navigation sans acte implicite.** Parcourir, agrandir ou fermer un contenu ne crée ni décision, ni cycle, ni contrat autorisé, ni exécution.
+- **UX-H10 — Reprise projet et isolation.** Revenir dans un projet ne mélange ni brouillons, ni connaissances, ni mandats d’autres projets ; les données réellement sauvegardées sont distinguées des états uniquement locaux.
+
+Ces formulations sont **des exigences UX candidates**, pas des règles fonctionnelles nouvelles approuvées.
+
+### 6.4. Carte des espaces et transitions — proposition v0.2
+
+Ce diagramme représente **des activités visibles et des possibilités de déplacement**, pas une architecture technique, des routes, des composants, des tables ou un moteur d'états. Les flèches n'accordent aucune autorisation métier. « Travail » désigne l'activité de conversation/production courante, **pas une obligation d'avoir un cycle actif**.
+
+```mermaid
+flowchart TD
+  PORT["Portefeuille personnel (D1) — sans Nora globale"]
+  SAS["Sas de création avec Nora (D2)"]
+  W["Espace projet — Travail avec Nora (D3)"]
+  C["Consultation directe — Projet / Journal / Trajectoire / Réalisations et résultats"]
+  I["Inspection d'un objet — courte ou étendue"]
+  A["Acte gouverné — décision, transition ou contrat selon propriétaire"]
+  R["Résultat / état observé / preuves accessibles"]
+
+  PORT -->|Ouvrir un projet existant| W
+  PORT -->|Préparer un nouveau projet| SAS
+  SAS -->|Créer le projet — effet vérifié, même fil visible| W
+  W <-->|Accès direct / Retour au travail| C
+  W <-->|Ouvrir un objet / Retour à l'origine| I
+  C <-->|Ouvrir un objet / Revenir à sa consultation| I
+  W -->|Expression explicite du Pilote| A
+  I -->|Inspecter puis acte applicable du Pilote| A
+  A -->|État réellement contrôlé| R
+  R -->|Consulter le détail| I
+  R -->|Reprendre le travail| W
+  W -->|Revenir au portefeuille| PORT
+```
+
+**Lecture :** le Journal et la trajectoire se consultent directement, sans message Nora obligatoire. Une inspection d'objet conserve son origine, qu'elle ait été ouverte depuis une réponse de Nora, la trajectoire ou une vue structurée. Les états d'autorité et d'exécution dépendent exclusivement de D2/D5/D6/D7/D8/D9, pas du choix de surface.
+
+**Limite du diagramme :** « Acte gouverné » rassemble uniquement des *interactions possibles*, et **ne désigne pas un processus universel** : une décision naturelle D6, un GO de cycle D5/D6, la création D2 et l'« Exécuter » D6/D7 ont des règles distinctes. Une analyse cognitive ne traverse pas obligatoirement cette étape.
+
+### 6.5. Carte d'accès : ce qui doit rester trouvable
+
+| Fonction accessible | Point d'entrée candidat depuis l'espace projet | Contenu principal ; limites | Comportement de retour |
+| --- | --- | --- | --- |
+| **Travail avec Nora** | Accès prioritaire et explicite depuis toute consultation | Fil/activité courante, réponses riches, brouillon et échanges, même sans cycle | Reprise du travail connu ou état de reprise honnête |
+| **Contexte du projet** | Accès direct « Projet » ou équivalent à concevoir | Finalité, acquis utiles, informations courantes, liens vers autres vues ; **pas** de registre bis | Retour à la dernière activité récupérable |
+| **Journal — Sujets** | Accès direct au Journal ; première vue principale | Organisation vivante des sujets, connaissances et liens ; aucune décision créée par navigation | Retour à la vue ou au travail d'origine |
+| **Journal — Décisions** | Seconde vue principale du même Journal | Références aux actes D6, portée, validité actuelle et histoire ; pas d'autorité portée par D4 | Idem ; inspection possible d'un arbitrage |
+| **Points ouverts** | Accès transversal depuis Projet, Journal ou contexte pertinent | Questions, dépendances, blocages et réserves, quel que soit leur sujet/cycle | Ne devient pas un troisième registre de gouvernance ni un onglet permanent imposé |
+| **Trajectoire et cycles** | Accès direct ou depuis le contexte du projet | Étapes envisagées distinctes des cycles réellement ouverts, cycle actif unique ou absence de cycle, transitions | Aucun changement de cycle par simple consultation |
+| **Réalisations / résultats** | Accès explicite depuis Projet ou le contexte d'un travail ; mode de navigation à tester | Tentatives D7, synthèses D8, réserves et preuves référencées ; une seule vérité par propriétaire | Permet de revenir à la conversation ou à l'objet de départ |
+
+**Arbitrage non pris :** les libellés, l'ordre, le niveau exact de navigation (rail, commande, vue, section), la visibilité permanente et le regroupement « Réalisations / résultats ». L'objectif est l'**accessibilité**, pas la multiplication des entrées de menu. Git facultatif ne constitue pas une rubrique obligatoire dans un projet non connecté.
+
+### 6.6. Contrat de transition : entrer, parcourir, revenir
+
+| Transition | Déclencheur utilisateur | Effet UX proposé | Données / frontières à respecter |
+| --- | --- | --- | --- |
+| **Portefeuille → Projet** | Ouvrir explicitement un projet accessible | Afficher son identité réelle et retrouver une activité pertinente, avec accès au contexte du projet | D1 vérifie le bon projet ; pas de récupération du contenu d'un autre projet |
+| **Portefeuille → Sas** | Préparer un nouveau projet | Ouvrir un travail avec Nora sous une identité **sas**, distincte du projet | D2 : aucune création implicite ni cycle/Git imposé |
+| **Sas → Projet** | Acte « Créer le projet » et effet établi | Continuer **visuellement le même fil**, avec point de passage explicite « Projet créé » | D2 `RG-CRE-017/018/020` ; si l'effet n'est pas connu, rester dans le sas |
+| **Travail → Consultation** | Chercher un sujet, une décision ou l'état du projet | Donner priorité à la consultation demandée, sans conversation obligatoirement affichée | Travail d'origine identifiable ; brouillon et position préservés dans la mesure prouvable |
+| **Travail → Inspection** | Ouvrir source, document, recommandation ou résultat lié à Nora | Inspection courte ou approfondie, selon complexité et risque | Référence et version de l'objet ; ouverture ≠ consentement ≠ décision |
+| **Consultation → Inspection** | Sélectionner un objet dans Journal, Trajectoire ou Résultats | Examiner l'objet ; garder le chemin de retour vers la consultation d'origine | Les données sont lues chez leur propriétaire canonique |
+| **Inspection → Origine** | Retour / fermer / Escape selon le modèle d'interface | Retrouver la consultation ou la position de travail *qui a ouvert l'inspection* | Si ouverture par lien direct, retour explicite vers le parent pertinent ; jamais une fausse origine |
+| **Consultation → Travail** | « Revenir au travail » ou poursuivre avec Nora sur un élément | Reprendre une activité identifiable ; éventuellement référencer explicitement l'objet sélectionné | Ne pas injecter silencieusement un message dans le fil ni modifier les décisions |
+| **Proposition → Décision** | Arbitrage explicite et suffisamment qualifié | Restituer l'acte et sa portée, sans double confirmation rituelle | D6 possède l'autorité et son état ; recommandation ≠ décision |
+| **Contrat inspecté → Exécution** | Acte dédié « Exécuter » sur la version applicable | Montrer demande, lancement constaté ou état incertain selon observations | D6/D7 : effet distinct ; droits, contrat exact, cible et STOP effectif à recontrôler |
+| **Exécution → Résultats** | Consulter un retour disponible ou revenir plus tard | Présenter état de tentative, déclaration, observation, conformité et acceptation séparément | D7 ≠ D8 ≠ D6 ; aucune activité simulée |
+| **Projet A → Projet B** | Navigation explicite | Changer clairement de référence de projet ; reprendre le contexte de B seulement une fois autorisé | Pas de brouillon, inspection, mandat ou connaissance de A transférés à B |
+
+**Point sensible :** l'accès direct à une décision depuis deux endroits ne doit pas entraîner deux copies qui divergent. Les chemins d'affichage diffèrent, la référence métier et le propriétaire restent uniques.
+
+### 6.7. Règles de continuité et mémoire de navigation proposées
+
+**Pendant une navigation au sein de la même session (hypothèse UX exigeante) :**
+
+- Conserver un **point de retour** relatif à l'activité d'origine : projet, travail/conversation concerné, objet inspecté et position utile. Un retour arrière ne doit pas ramener arbitrairement au portefeuille.
+- Préserver un **brouillon non envoyé** en cas de consultation courte ou d'inspection ; une éventuelle perte irréversible mérite une alerte contextualisée, pas une confirmation à chaque navigation.
+- Un **retour depuis inspection** doit rendre sa place à l'activité appelante. Éviter l'empilement de panneaux et sous-inspections qui rend l'origine introuvable ; les relations entre objets peuvent ouvrir un détail étendu avec chemin de retour explicite.
+- Un utilisateur peut consulter une autre conversation du **même projet** sans perte des acquis durables ; le modèle n'impose **ni une conversation unique par projet, ni la réinjection du transcript intégral**.
+- L'action « Poursuivre avec Nora sur cet élément » prépare un contexte/référencement compréhensible et contrôlable par le Pilote ; **elle n'envoie pas automatiquement de message** ni ne promeut le contenu consulté en décision.
+
+**Après interruption, expiration de session, rechargement ou ouverture par lien direct :**
+
+- Reconstituer les seules informations réellement enregistrées ou vérifiables ; présenter explicitement ce qui n'a pas été retrouvé. Ne pas promettre la restauration inter-session d'un brouillon tant que R4/R5 ne l'ont pas établi.
+- Contrôler le projet et les permissions courantes avant d'afficher du contenu privé. Un objet ouvert depuis un lien externe peut n'avoir **aucun travail d'origine** : proposer alors son contexte parent autorisé, pas un « retour au chat » fictif.
+- Requalifier l'autorité avant tout effet protégé ; une autorisation précédente ou un contrat dont la version a changé n'est pas réutilisé par simple restauration visuelle.
+- Sur un état inconnu (création, transition, lancement, STOP, résultat), afficher un état à vérifier et les actes utiles, sans annoncer réussite ou échec non prouvé.
+
+**Frontière R3/R4 :** R3 décrit l'expérience attendue et ses conditions d'échec ; R4 devra définir précisément persistance, reprise, liens profonds, droits, isolation et cohérence concurrente. Le prototype UX ne prouvera pas ces mécanismes techniques.
+
+### 6.8. Quand préférer consultation, inspection courte ou surface étendue ?
+
+| Besoin réel | Mode candidat | Justification UX | Alternative / garde-fou |
+| --- | --- | --- | --- |
+| Balayer les sujets du projet et comparer plusieurs décisions | **Consultation structurée** | Recherche, tri, contexte et comparaison entre objets | Ne pas reconstruire un listing dans le fil à chaque demande |
+| Vérifier un motif d'arbitrage ou une source courte | **Inspection courte** | Besoin ponctuel, retour immédiat | Passer en étendu si provenance, historique ou volume le demande |
+| Lire/modifier un document complexe ou comparer deux architectures | **Surface étendue** | Espace, lisibilité et profondeur de travail | Conserver lien avec la conversation d'origine ; mutation externe toujours distincte |
+| Inspecter une proposition de décision | **Inspection courte ou étendue selon enjeu** | Comprendre options, impacts et portée | Un clic de lecture ne vaut pas décision D6 |
+| Examiner un contrat d'exécution et l'instruction exacte | **Surface étendue conseillée** | Gravité d'un effet, identité du contrat et périmètre à vérifier | Action « Exécuter » uniquement sous les conditions D6/D7 ; pas de lancement par ouvrir/fermer |
+| Examiner un résultat et ses preuves | **Synthèse + inspection étendue si nécessaire** | Distinguer verdict, critères, événements et limites | « Terminé » ne signifie ni conforme ni accepté |
+| Vérifier le cycle actuel ou une étape proposée | **Consultation ou inspection courte** | Progression disponible directement ; détail à la demande | Un cycle proposé ne devient pas actif par navigation |
+
+Ce tableau **n'est pas une règle rigide de rendu** : Nora adapte ses productions aux contenus et au Pilote ; taille d'écran, accessibilité, complexité et tâche modifient la représentation pertinente.
+
+### 6.9. Point d'entrée d'un projet : arbitrage UX encore ouvert
+
+Deux entrées possibles sont à comparer sur un retour réel :
+
+- **Entrée par le travail récupérable :** rouvrir l'activité/conversation pertinente si elle est identifiée et autorisée ; afficher dans un repère discret les éléments courants utiles. *Atout :* continuité immédiate. *Risque :* reprendre un ancien sujet alors que le Pilote voulait seulement consulter son projet.
+- **Entrée par un contexte synthétique :** présenter ce qui est établi sur le projet et un accès direct au travail. *Atout :* orientation et visibilité. *Risque :* interposer un tableau de bord à chaque visite et affaiblir la conversation.
+
+**Préférence candidate à tester :** privilégier la reprise du travail lorsqu'elle est fiable ; rendre le contexte du projet directement accessible, et, en l'absence d'activité récupérable, fournir une entrée neutre vers Nora accompagnée des repères disponibles. **Aucun modèle de « dernier chat unique » n'est imposé.**
+
+### 6.10. Cas limites et conditions d'échec à prototyper
+
+1. **Sans cycle :** travail Nora et accès Journal/Projet parfaitement utiles ; aucun CKI ou gate inventé.
+2. **Cycle réellement actif :** le repère de cycle est compréhensible ; consultation d'un autre sujet ne change pas le CKI principal ni n'ouvre un second cycle.
+3. **Décision ambiguë :** Nora demande la précision déterminante ; la consultation de l'objet ne transforme rien en acte.
+4. **Contrat changé après inspection :** l'ancienne inspection ne rend pas la nouvelle version automatiquement exécutable ; signaler le changement et demander l'examen adéquat.
+5. **Lancement incertain :** état « à vérifier » approprié, sans relance aveugle ni télémétrie simulée.
+6. **Session expirée ou droit retiré :** aucun contenu privé d'un projet quitté/non autorisé ne s'affiche ; retour et reprise bornés.
+7. **Projet sans Git :** Nora, Journal, trajectoire, travail cognitif et gouvernance restent utilisables ; références indisponibles signalées sans fausse permission Git.
+8. **Petit écran, clavier ou lecteur d'écran :** accès direct à Travail/Journal, fermeture et retour explicites, lecture des statuts sans code couleur seul ; pas de panneau persistant comprimant artificiellement le contenu.
+
+### 6.11. Hypothèses et critères de décision pour la suite
+
+| Hypothèse | Critère de sélection à éprouver | État |
+| --- | --- | --- |
+| **B2 — conversation retrouvable** | Continuité non dégradée en consultant une source, une décision ou un contrat ; lecture complexe confortable | **Préférence de travail Morris — non validée** |
+| **Navigation par activités compréhensibles** | Projet/Journal/Trajectoire et résultats retrouvables sans chat ; pas de navigation de type domaine D1–D9 | **À TESTER** |
+| **Inspection réversible liée à son origine** | Le Pilote revient au bon contexte, y compris après ouverture depuis une consultation ou un lien direct | **À TESTER** |
+| **Profondeur d'affichage adaptée** | Source courte simple ; document/contrat complexe lisible sans écraser l'activité | **À TESTER** |
+| **Reprise du travail comme entrée préférée** | Les retours fréquents sont rapides, sans confusion quand l'intention est la consultation | **À ARBITRER après prototype** |
+
+Les quatre premières hypothèses appartiennent au **même macro-lot de cohérence d'interaction**. Il n'est pas nécessaire de lancer un mini-lot ou un nouveau document pour chacune.
+
+## 7. Parcours de référence à confronter au modèle
+
+### Parcours P1 — Travail cognitif sans cycle
+
+Projet ouvert, aucun cycle actif. Le Pilote demande une étude d'architecture ; Nora restitue un comparatif riche, sourcé et proportionné. Le Pilote inspecte une hypothèse, consulte une décision existante, revient au travail et poursuit. Aucun cycle, CKI ou contrat Cursor n'est créé du seul fait de cette interaction.
+
+### Parcours P2 — Reprise d'un projet avec cycle actif
+
+Le Pilote rouvre un projet. Il retrouve le **cycle réellement actif**, les acquis, sujets et points ouverts utiles. Il consulte une étape de trajectoire, puis une décision, sans activer un second cycle ni perdre la conversation. Une transition éventuelle exige le GO applicable ; les états prévu, proposé et effectif restent discernables.
+
+### Parcours P3 — Décision, réalisation et preuves
+
+Nora recommande une évolution. Le Pilote arbitre selon D6 ; l'arbitrage ne lance aucun outil. Nora prépare si nécessaire un contrat D7, ses impacts et son instruction exacte consultable. Le Pilote inspecte une version déterminée du contrat puis utilise **« Exécuter »**. Les retours sont montrés selon leur état réel ; Nora analyse les preuves disponibles et les réserves. Le Pilote conserve l'acceptation métier.
+
+### Parcours P4 — Frontières et interruptions (négatif)
+
+Le Pilote navigue vers un autre projet, perd sa session ou ferme l'inspection pendant un brouillon ; un accès, une récupération ou un retour est impossible. Studio doit distinguer le contexte réellement disponible du contexte demandé, préserver les permissions et afficher une limite exploitable. Aucun contenu privé d'un autre projet ni succès d'une opération non vérifiée ne doit être suggéré.
+
+### Parcours P5 — Continuité depuis le sas
+
+Le Pilote explore un projet dans le sas, le quitte puis le reprend. La création exige l'acte explicite et un effet vérifié. Une fois le projet effectivement créé, **le fil demeure visuellement continu** vers l'espace projet. En cas de création incertaine, la transition n'est pas présentée comme réussie.
+
+## 8. Critères d'évaluation du prototype et de revue UX
+
+La proposition devra permettre de démontrer sur les parcours précédents :
+
+1. **Orientation :** l'identité du projet et le contexte de travail ne sont jamais trompeurs.
+2. **Accès autonome :** un sujet, une décision et un point ouvert sont retrouvables sans passer par Nora.
+3. **Continuité :** inspection et consultation permettent de revenir facilement au bon endroit ; le comportement en cas d'interruption est explicite.
+4. **Clarté :** distinction perceptible entre recommandation, décision, GO, préparation d'un contrat, « Exécuter », tentative et résultat.
+5. **Restitution :** réponse simple légère ; résultat complexe véritablement structuré et consultable ; sources et limites visibles quand déterminantes.
+6. **Variabilité :** aucun cycle / cycle actif, desktop / petit écran, cas normal / refus / inconnu / données périmées.
+7. **Accessibilité et sobriété :** navigation clavier et lecture compréhensible sans seule dépendance aux couleurs ou icônes (exigence de conception à vérifier sur prototypes).
+8. **Conformité :** chaque comportement évalué est rapproché des RG/PF propriétaires et des réserves pertinentes ; aucune couverture n'est revendiquée sans revue.
+9. **Retour d’inspection :** depuis trois origines distinctes (conversation, Journal, lien direct), le chemin de retour est correct sans créer de faux contexte.
+10. **Lisibilité d’un contrat :** le Pilote distingue la version inspectée, le périmètre, l’instruction exacte et le moment où « Exécuter » est un acte effectif.
+
+**Preuve actuelle :** revue documentaire et modèle conceptuel seulement. **Non acquis :** prototypes, captures runtime Next, essais utilisateurs, tests comportementaux ou validation R3.
+
+## 9. Questions ouvertes et risques
+
+| Sujet ouvert | Tension à résoudre | Prochaine preuve attendue |
+| --- | --- | --- |
+| Accès directs au projet | Quels repères doivent rester visibles et lesquels à la demande ? | **Carte conceptuelle v0.2 produite ;** arbitrage du menu à tester sur prototype. |
+| Travail vs consultation | Quand changer de surface, quand afficher un aperçu, quand préserver visuellement le fil ? | Transitions comparées sur P1/P2. |
+| Inspections | Quand utiliser une surface légère, étendue ou une consultation autonome ? | **Contrats d’interaction candidats v0.2 produits ;** preuve prototype encore absente. |
+| Concurrence d'activités | Plusieurs sujets peuvent avancer ; un seul cycle peut être actif. Comment l'exprimer sans confusion ? | Test P2 et variantes d'état. |
+| Présentation adaptative Nora | Comment garder une réponse riche lisible, manipulable et retrouvable ? | Exemples de restitutions simples, documentaires et interactives. |
+| Gouvernance | Comment expliciter une décision sans « double validation », tout en protégeant « Exécuter » ? | Test P3 avec cas négatifs. |
+| Reprise et dégradation | Qu'est-ce qui revient réellement après interruption et comment présenter l'inconnu ? | Règles candidates §6.7 ; test P4/P5, preuve technique R4–R6 absente. |
+| Responsive/accessibilité | Quels comportements changent selon l'espace disponible ? | Prototypes desktop et petit écran testés. |
+| Entrée dans un projet | Reprendre le travail ou afficher d’abord le contexte synthétique ? | Comparer les deux comportements avec projet neuf et projet riche. |
+| Profondeur de navigation | Comment éviter l’empilement d’inspections et assurer le retour depuis un lien direct ? | Scénarios d’origine Travail/Journal/lien externe. |
+
+**Risques principaux :** chat-first devenu exclusif ; navigation allégée mais opaque ; panneaux emboîtés ; état affiché plus affirmatif que les preuves ; fuite d'autorité entre surfaces ; fragmentation des décisions dans plusieurs interfaces ; surconception avant validation des parcours.
+
+## 10. Trajectoire cohérente du macro-lot
+
+**Travail de conception R3, sans micro-cycles documentaires :**
+
+1. **Architecture d'interaction :** responsabilités des surfaces et transitions, modèles comparés, invariants et cas négatifs.
+2. **Confrontation par parcours :** P1–P5, alternatives et corrections ; produire une première représentation testable, sans figer l'identité graphique.
+3. **Revue Morris :** retenir, corriger ou rejeter le modèle avec conditions et réserves explicites.
+4. **Enrichissement UX du même macro-lot :** navigation détaillée, états d'interaction, restitutions Nora, accessibilité et responsive ; maquettes Figma seulement après cadrage suffisant et autorisation adaptée.
+5. **Gate :** approbation UX explicite pour le périmètre concerné, traçabilité Git selon un mandat distinct, puis transmission des besoins/contraintes techniques à R4.
+
+**Responsabilités :** ChatGPT prépare et challenge la conception (D0) ; Morris arbitre ; Figma peut matérialiser les variantes sous autorisation ; Cursor intervient uniquement sur les travaux techniques autorisés selon SFIA v2.6. Aucun changement R1/R2 silencieux.
+
+## 11. Registre d'évolution et décisions
+
+| Date | Élément | Nature | Statut / portée |
+| --- | --- | --- | --- |
+| 2026-11-02 | R1 : vision Pilote–Nora et sept E2E ; R2 : neuf specs, 300 règles, 241 scénarios et réserves. | **Référentiel amont** | **VALIDATED SPEC** R2, clôture R1/R2 avec réserves, non implémenté. |
+| 2026-11-02 | Audit de P3 : conserver les acquis, revoir fragmentation des vues et surfaces. | Diagnostic UX comparatif | **DOCUMENTED / analyse**, pas décision Next. |
+| 2026-11-02 | Comparer P3 rationalisé (A) et interaction contextuelle (B). | Hypothèse de démarche | **EXPLORATION**. |
+| 2026-11-02 | Privilégier B2 : conversation toujours retrouvable, pouvant céder l'espace à la consultation et à l'inspection. | **Préférence de travail exprimée par Morris** | **HYPOTHÈSE DIRECTRICE**, pas validation globale d'architecture UX. |
+| 2026-11-02 | Documenter progressivement les analyses et arbitrages UX. | Demande explicite de Morris | **GO de rédaction D0 locale** ; **aucun GO Git/publication**, aucun GO Figma. |
+| 2026-11-02 | Approfondir B2 ; produire carte des activités, transitions, critères et situations négatives (§6.4–6.11). | GO de poursuite du travail R3 par Morris | **DOCUMENTED — HYPOTHÈSES UX**, ni acceptation de la carte ni arbitrage du point d’entrée. |
+
+| 2026-11-02 | Produire deux variantes basse fidélité d'entrée projet et publier le document UX sur une branche Git dédiée. | GO Morris : poursuite de conception + publication documentaire bornée | **DOCUMENTED / CANDIDATE** ; aucun GO pour PR, merge ou validation du modèle. |
+
+### Règle de maintenance
+
+À chaque échange qui modifie substantiellement la conception :
+
+- intégrer la proposition dans la section fonctionnelle concernée et ajouter une ligne au registre avec date, auteur de l'arbitrage, source et portée ;
+- qualifier distinctement **HYPOTHÈSE / EN EXAMEN / VALIDÉ PAR MORRIS / REJETÉ / REPORTÉ** ; ne jamais transformer le silence ou l'absence d'objection en validation ;
+- conserver l'historique des décisions révisées et noter les impacts sur les règles R2 et les autres parcours ;
+- ne pas confondre **rédaction locale**, **contribution Git autorisée**, **merge**, **implémentation** et **preuve** ;
+- limiter le nombre de documents : enrichir prioritairement **ce document** tant qu'un découpage supplémentaire n'apporte pas une frontière de responsabilité ou un gate réel.
+
+## 12. Prochain sujet d'analyse — organisation concrète de la surface de travail
+
+**La carte logique B2 a été documentée en v0.2 (§6.4–6.11), pas encore démontrée ou approuvée. La v0.3 ajoute ci-dessous deux variantes basse fidélité d'entrée dans l'espace projet.** La suite cohérente du macro-lot consiste à produire **deux variantes de composition basse fidélité**, sans branding, pour comparer les comportements suivants :
+
+1. **Entrée dans un projet :** reprise du travail récupérable versus contexte synthétique initial, avec situation sans cycle et avec cycle.
+2. **Passage Travail ↔ Journal :** retrouver une décision, ouvrir son inspection, revenir au bon point de lecture puis poursuivre avec Nora sur cet objet.
+3. **Contrat technique :** depuis une recommandation Nora, inspection d'un contrat et de son instruction exacte, puis visibilité des états après « Exécuter » ; version changée ou lancement incertain en variante négative.
+
+**Gate attendu pour la suite :** avis Morris sur la direction relative de ces variantes après examen, sans créer d'approbation générale de B2 par défaut. Les maquettes Figma ne sont pas autorisées par le simple GO de travail conceptuel ; un GO distinct sera demandé si leur production ou modification est envisagée.
+
+**Hors portée :** PR, merge, modification de la Roadmap, suppression d'éléments P3, modification des règles R2, code et preuve runtime. **Publication D1 :** document candidat sur branche dédiée uniquement, sous GO de Morris ; la Roadmap sur main conserve « R3 NOT STARTED » tant qu'aucune décision et intégration distinctes ne la mettent à jour.
+
+## 13. Entrée dans l'espace projet — deux variantes basse fidélité (v0.3)
+
+**Objet du test :** comparer deux compositions de l'entrée dans un projet **au sein de B2**, sans remettre en cause la conversation retrouvable ni les accès autonomes. Ces schémas sont des *wireframes textuels*, non des maquettes Figma, ni une preuve de comportement. Leurs zones, tailles et libellés restent candidats.
+
+### 13.1 Variante V1 — Reprise du travail d'abord (*Resume-first*)
+
+~~~
++-------------------------------------------------------------+
+| SFIA STUDIO       > Projet identifié       [Chercher]       |
++--------------+----------------------------------------------+
+| Projets      | Travail avec Nora                           |
+|--------------|----------------------------------------------|
+| Travail   *  | Activité de travail retrouvée (si fiable)    |
+| Projet       |                                              |
+| Journal      | Nora : synthèse / analyse / résultat riche    |
+| Trajectoire  |                                              |
+|              | [Ouvrir une source] [Voir une décision]       |
+|--------------|                                              |
+| Contexte     |                                              |
+| utile :      |----------------------------------------------|
+| Cycle réel   | [Composer un message...]                     |
+| ou aucun     |                                              |
++--------------+----------------------------------------------+
+~~~
+
+**Comportement nominal candidat :** à l'ouverture d'un projet identifié et accessible, Studio reprend une activité pertinente **réellement récupérable**, puis rend immédiatement disponibles les informations du projet, le Journal et la trajectoire. Aucun chargement forcé de toutes les conversations, ni ouverture de cycle automatique. Le repère de cycle est discret, absent lorsqu'il n'y a pas de cycle.
+
+**Si aucune activité n'est fiable :** afficher une entrée neutre dans le projet, un accès aux travaux/conversations disponibles et une invitation non prescriptive à travailler avec Nora ; ne pas inventer un « dernier chat » ni lancer automatiquement une nouvelle conversation sans intention.
+
+**Intérêt :** accélère les retours fréquents et exprime directement la valeur conversationnelle. **Risque :** une activité retrouvée peut ne pas correspondre à l'intention du Pilote, surtout après une longue absence ou avec plusieurs conversations.
+
+### 13.2 Variante V2 — Contexte du projet d'abord (*Context-first*)
+
+~~~
++-------------------------------------------------------------+
+| SFIA STUDIO       > Projet identifié       [Chercher]       |
++--------------+----------------------------------------------+
+| Projets      | Projet : état de référence                   |
+|--------------|----------------------------------------------|
+| Travail      | [Reprendre avec Nora]                        |
+| Projet    *  |                                              |
+| Journal      | Travail(s) récupérable(s)                    |
+| Trajectoire  | [Activité A]  [Activité B]                    |
+|              |                                              |
+|--------------| Trajectoire : réel / prévisionnel             |
+|              | Sujets et points ouverts                     |
+|              | Décisions applicables (références D6)        |
+|              |                                              |
+|              | Aucun cycle, si aucun cycle n'est actif      |
++--------------+----------------------------------------------+
+~~~
+
+**Comportement nominal candidat :** l'ouverture affiche d'abord une synthèse factuelle du projet avec accès explicite aux travaux disponibles. L'activité Nora est accessible immédiatement mais n'occupe pas d'emblée l'espace principal. Les éléments de contexte sont des références vers les responsabilités D4–D8, jamais un nouveau registre.
+
+**Intérêt :** particulièrement lisible lors d'un retour après une longue interruption et pour un Pilote venu consulter, non converser. **Risque :** interposer une étape de navigation à chaque retour, reproduire un « dashboard » obligatoire et donner trop de poids à des indicateurs synthétiques incertains.
+
+### 13.3 Comparaison sur situations réelles
+
+| Situation | V1 — Reprise d'abord | V2 — Contexte d'abord | Point à éprouver |
+| --- | --- | --- | --- |
+| Projet créé via le sas | **Doit** préserver le même fil et afficher le passage « projet créé » : priorité contractuelle D2. | Ne doit pas intercaler un écran qui rompe le fil ; exception nécessaire à l'entrée normale V2. | D2 RG-CRE-017/018/020/021 |
+| Retour fréquent au projet | Travail immédiatement disponible si retrouvé et autorisé. | Sélection supplémentaire pour retrouver le travail. | Temps et gestes pour reprendre l'activité voulue |
+| Retour après plusieurs semaines | Peut ouvrir un sujet ancien inadapté. | Donne des repères actuels avant reprise. | Pertinence de l'activité et fraîcheur de la synthèse |
+| Plusieurs conversations | Ne présume pas qu'il en existe une seule ; proposer un choix si l'activité de référence est ambiguë. | Peut exposer les activités disponibles et leurs contextes. | Orientation sans ajouter un « gestionnaire de chats » complexe |
+| Aucun cycle actif | Nora demeure opérationnelle ; repère de cycle absent ou explicite. | Aucun cycle n'est inventé ; états du projet consultables. | R2 D3/D5 ; éviter la pression à ouvrir un cycle |
+| Cycle actif | Contexte réel accessible, sans monopoliser le travail. | Étape active et projection lisibles. | Différencier réel / proposé / futur |
+| Projet consulté pour retrouver une décision | Nécessite un accès direct et court au Journal. | Décisions disponibles dès l'entrée, mais sans copie d'autorité. | R2 D4/D6 ; nombre de gestes |
+| État de session ou données indisponibles | Aucun travail ni autorité fictivement restaurés. | Aucune synthèse artificiellement « à jour ». | Dégradation et confidentialité D1/D3/D4 |
+
+### 13.4 Hypothèse de synthèse, pas encore arbitrée
+
+**Préférence de conception à éprouver :** V1 pour la reprise habituelle lorsque le travail courant est identifiable, **avec les qualités d'orientation de V2 accessibles immédiatement**. Une entrée depuis le sas conserve impérativement le même fil. En l'absence de travail récupérable, l'interface propose une entrée de projet neutre, plutôt que d'inventer un historique ou d'imposer un cockpit.
+
+Ce compromis reste un **candidat** : ne pas coder une règle automatique « dernière conversation = travail pertinent » ni déduire l'intention de navigation de la seule date. Les informations du projet restent accessibles sans Nora.
+
+### 13.5 Transitions à prototyper ensuite
+
+1. **V1 → Journal → Décision → Retour :** conserver l'activité et la position d'origine ; la décision consultée reste la référence D6.
+2. **V2 → Travail choisi → Source → Retour :** reprise de l'activité effectivement sélectionnée, sans remonter à un autre projet.
+3. **Depuis Nora → Contrat D7 en surface élargie → « Exécuter » :** accès à l'instruction exacte et version inspectée, acte distinct ; présenter état inconnu si le lancement n'est pas établi.
+4. **Retour par lien direct :** ouvrir le projet et l'objet si les droits sont vérifiés ; ne pas inventer un écran « précédent ».
+5. **Petit écran / clavier :** rendre accessibles les mêmes responsabilités et un retour clair, sans supposer plusieurs colonnes.
+
+### 13.6 Critères de revue avant choix V1/V2
+
+- Accéder au travail pertinent et au Journal en peu d'étapes, sans que Nora soit nécessaire pour consulter.
+- Reprendre le même fil sas→projet après création effective, sans variante divergente.
+- Préserver les brouillons/positions de navigation selon les capacités réellement offertes ; ne pas promettre une restauration inter-session non prouvée.
+- Distinguer projection, cycle réel, décision, préparation, exécution, preuve et acceptation.
+- Gérer absence de cycle, plusieurs conversations, source périmée, session expirée et accès refusé.
+- Montrer sur prototype desktop et petit écran l'information prioritaire et le mécanisme de retour.
+
+**Verdict provisoire :** V1 semble le candidat principal pour l'usage régulier ; V2 sert de contre-proposition forte pour les reprises longues et la consultation. Aucun test utilisateur ou prototype cliquable n'a été effectué. **Prochain arbitrage Morris :** choix d'une direction après confrontation visuelle et parcours, sans transformation de préférence en décision implicite.
+
+**État du présent document :** version 0.3 candidate. Conception documentaire en cours ; publication Git bornée sous GO Morris, sans PR/merge. Les sources R1/R2 restent propriétaires des règles ; les choix de navigation détaillée, Figma, architecture technique et preuves sont à instruire.
