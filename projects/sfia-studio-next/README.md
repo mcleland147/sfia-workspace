@@ -2,7 +2,7 @@
 
 **Produit commercial :** SFIA Studio (nom conservé). **Programme interne :** SFIA Studio Next.
 
-**Statut au 2026-11-02 :** R0-A SEF v0.2 validé ; R0-B intégré et clôturé ; **R1 CLOSED BY MORRIS WITH CARRIED RESERVES**, décision [R1 formal exit](governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) et [vision v0.15](cadrage/vision-produit.md) (§§2.29–2.39). **Intégration Git R1 vérifiée via PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839` ; R2 EN REVUE DE SORTIE sur la branche `sfia/next-r2-functional-specs`**. Neuf domaines et sept scénarios validés ; quatre qualifications méthodologiques R2 documentées. Aucun runtime Next implémenté/adopté.
+**Statut au 2026-11-02 :** R0-A SEF v0.2 validé ; R0-B intégré et clôturé ; **R1 CLOSED BY MORRIS WITH CARRIED RESERVES**, décision [R1 formal exit](governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) et [vision v0.15](cadrage/vision-produit.md) (§§2.29–2.39). **Intégration Git R1 vérifiée via PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839` ; R2 CLOSED BY MORRIS WITH CARRIED RESERVES (intégration Git en attente) sur la branche `sfia/next-r2-functional-specs`**. Neuf domaines et sept scénarios validés ; quatre qualifications méthodologiques R2 documentées. Aucun runtime Next implémenté/adopté.
 
 ## Périmètres Git
 
@@ -17,7 +17,7 @@
 | --- | --- |
 | `governance/SEF.md` | Studio Engineering Framework v0.2 validé (méthode de construction Next) |
 | `governance/roadmap.md` | Roadmap Next ; **mentions pré-merge R1/R2 obsolètes sur `main`** à requalifier dans un mandat distinct ; R2 engagé sur branche candidate |
-| `governance/decisions/` | Décisions humaines, portée et réserves |
+| `governance/decisions/` | Décisions humaines, dont [sortie R2 avec réserves](governance/decisions/2026-11-02-r2-functional-exit.md) |
 | `governance/product-naming-conventions.md` | Convention de nommage orientée produit — **VALIDATED BY MORRIS 2026-11-01** |
 | `cadrage/vision-produit.md` | **R1 — vision Pilote/Nora v0.15, CLOSED WITH CARRIED RESERVES** ; 9 domaines IN/OUT, 7 E2E et reprise méthodologique R2 ; décisions, mémoire vivante, cycles/CKC, Git facultatif et réalisation gouvernée |
 | `cadrage/vision-cible/README.md` | Trois schémas de vision fondateurs et PNG originaux intégrés sur `main` (R0-B) |
@@ -42,6 +42,6 @@
 
 ## Première trajectoire
 
-R0-A validé → **R0-B clos sur `main`** → **R1 clos par Morris avec réserves, PR #639 intégrée et vérifiée** → **R2 conception fonctionnelle en revue formelle de sortie sur branche candidate, CKI validés en contenu ; R3 UX non engagé** → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
+R0-A validé → **R0-B clos sur `main`** → **R1 clos par Morris avec réserves, PR #639 intégrée et vérifiée** → **R2 conception fonctionnelle clôturé par Morris avec réserves, PR/merge à contrôler ; CKI validés en contenu ; R3 UX non engagé** → R3 UX → R4 architecture technique → R5 construction → R6 qualification/bascule.
 
 Voir `governance/roadmap.md` pour la qualification vivante et les gates. Git et preuves primaires priment sur les résumés ; la documentation décrit honnêtement la portée prouvée.

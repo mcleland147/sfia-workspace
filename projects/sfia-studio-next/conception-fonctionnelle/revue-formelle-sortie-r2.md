@@ -70,4 +70,9 @@ La **source de vérité des réserves reste chaque spécification**, sans créat
 3. **Contrôler la PR et CI** ; GO merge distinct ; vérifier `main` et les fichiers canoniques après merge.
 4. **Engager R3** sur la baseline intégrée, sans code ni architecture adoptés par inertie.
 
-**État au terme de ce rapport : `EXIT REVIEW FAVORABLE — MORRIS CLOSURE DECISION PENDING`.**
+**État initial du rapport : `EXIT REVIEW FAVORABLE — MORRIS CLOSURE DECISION PENDING` ; décision rendue ultérieurement le 2026-11-02, voir actualisation ci-dessous.**
+
+
+## 7. Décision post-revue — Morris (2026-11-02)
+
+Morris approuve explicitement la conclusion **`R2 CLOSED BY MORRIS — WITH CARRIED RESERVES`**. [Decision Record canonique](../governance/decisions/2026-11-02-r2-functional-exit.md). Les réserves demeurent dans leurs propriétaires R3–R6. **Cette décision clôture la conception documentaire**, mais ne prouve ni PR, ni merge, ni adoption du produit ; la promotion Git fait l'objet de gates séparés. R3 n'est pas encore lancé.

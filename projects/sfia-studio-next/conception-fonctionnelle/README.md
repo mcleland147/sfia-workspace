@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **R2 EN REVUE FORMELLE DE SORTIE** ; les neuf domaines D1–D9 `VALIDATED SPEC` individuellement (D3 Nora v0.4 ; D1/D2 et D4–D9 v0.1) par Morris ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
+| Statut | **R2 CLOSED BY MORRIS — WITH CARRIED RESERVES (2026-11-02)** au niveau documentaire ; [décision](../governance/decisions/2026-11-02-r2-functional-exit.md). Les 9 domaines D1–D9 sont `VALIDATED SPEC` et les 15 CKI + 50 relations `VALIDATED CONTENT`. **Intégration `main` en attente, R3 NOT STARTED, aucun ADOPTED.** |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -176,3 +176,10 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - [Rapport de revue formelle R2](revue-formelle-sortie-r2.md) : contrats D1–D9, 300 RG, 241 PF, sept E2E R1 ; contrôle documentaire et réserves de conception R3–R6.
 - **CKI :** 15 contenus et matrice de 50 relations `VALIDATED CONTENT v0.2` par Morris ; ce statut ne signifie pas `IMPLEMENTED`, `BEHAVIOR PROVEN` ni `ADOPTED`.
 - **Verdict proposé :** `R2 EXIT REVIEW — FAVORABLE WITH CARRIED RESERVES`, à soumettre au gate explicite de clôture Morris. Aucun `R2 CLOSED` enregistré, PR/merge ni R3 engagé par la seule publication de ce bilan.
+
+
+## 20. Décision formelle R2 — clôture avec réserves (2026-11-02)
+
+- **Morris valide le verdict de la [revue formelle](revue-formelle-sortie-r2.md) :** `R2 CLOSED BY MORRIS — WITH CARRIED RESERVES` ([Decision Record](../governance/decisions/2026-11-02-r2-functional-exit.md)).
+- **Portée :** acceptation globale de la cohérence documentaire des neuf domaines, des 300 RG, des 241 PF et des 15 CKI/50 relations en contenu. Aucune preuve de comportement, ni clôture automatique des 66 réserves.
+- **Gate Git :** PR, CI, merge et relecture de `main` séparés ; **R3 UX NOT STARTED** tant que la baseline R2 n'est pas intégrée et vérifiée.

@@ -2,14 +2,14 @@
 
 **Nature :** feuille de route de construction Next ; distincte de `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`.
 
-**État courant au 2026-11-02 : R1 CLOSED WITH CARRIED RESERVES / R2 FORMAL EXIT REVIEW IN PROGRESS.** [PR R1 #639](https://github.com/mcleland147/sfia-workspace/pull/639) mergée et `main@8751775edc314e8fc7f0855104e5000290be9839` vérifié. Les neuf spécifications fonctionnelles D1–D9 sont validées individuellement ; **300 règles / 241 scénarios** documentaires. Les 15 CKI et 50 relations sont `VALIDATED CONTENT v0.2` par Morris. Une revue de sortie favorable avec réserves est préparée sur branche candidate, **mais aucune décision `R2 CLOSED`, PR/merge R2, R3 engagé ou ADOPTED ne sont présumés**. Produit Next : `N/A — NON IMPLÉMENTÉ`.
+**État courant au 2026-11-02 : R1 CLOSED WITH CARRIED RESERVES / R2 CLOSED BY MORRIS WITH CARRIED RESERVES — GIT INTEGRATION PENDING.** [Décision R2](decisions/2026-11-02-r2-functional-exit.md) et [rapport de sortie](../conception-fonctionnelle/revue-formelle-sortie-r2.md) : 9 specs globalement approuvées, 300 RG, 241 PF documentés, 15 CKI/50 relations `VALIDATED CONTENT`. La PR R1 #639 reste mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839`. **La clôture R2 est décidée au niveau documentaire sur la branche candidate ; PR, CI, merge R2 et vérification post-merge restent à effectuer. R3 NOT STARTED.** Produit Next : N/A — NON IMPLÉMENTÉ.
 
 | Jalon | Statut | Résultat/exit |
 | --- | --- | --- |
 | R0-A — méthode et rebaseline | **VALIDATED — ON MAIN via PR #636** | SEF v0.2 approuvé, frontières et périmètre Next décidés |
 | R0-B — bootstrap gouverné | **CLOSED BY MORRIS GO — POST-MERGE VERIFIED** | PR #636 merged sur `main` ; SEF, Roadmap et naming validés ; vision + 3 PNG originaux et routage Next présents ; preuves Git post-merge ; pas de preuve produit LIVE/REAL ni de CI Next revendiquée |
 | R1 — cadrage produit | **CLOSED BY MORRIS WITH CARRIED RESERVES — PR #639 MERGED / POST-MERGE VERIFIED** | Vision R1, neuf domaines et sept E2E ; `main@8751775…` prouvé, runtime Next non implémenté. |
-| R2 — conception fonctionnelle | **FORMAL EXIT REVIEW — RECOMMENDED WITH CARRIED RESERVES ; MORRIS DECISION PENDING** | Neuf domaines validés individuellement, 300 règles, 241 scénarios et sept E2E R1 ; quinze CKI et cinquante liens validés en contenu. Réserves UX R3, conception technique R4, tests R5/R6. Rapport de sortie disponible, PR/merge non lancés. |
+| R2 — conception fonctionnelle | **CLOSED BY MORRIS — WITH CARRIED RESERVES ; GIT INTEGRATION PENDING** | [Décision de sortie R2](decisions/2026-11-02-r2-functional-exit.md) ; 9 specs, 300 RG, 241 PF, 15 CKI / 50 relations validés en contenu. Réserves R3–R6 tracées. PR/CI/merge/post-merge R2 distincts ; R3 NOT STARTED. |
 | R3 — UX/UI | **NOT STARTED** | Parcours, maquettes et contrats UX approuvés |
 | R4 — architecture technique | **NOT STARTED** | Architecture, ADR, contrats, responsabilités et choix de persistence |
 | R5 — reconstruction par macro-capacités | **NOT STARTED** | Code neuf, preuves verticales, documents synchronisés |
@@ -36,7 +36,7 @@
 - **Base R1 :** PR #639 mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 distincte.
 - **R2 :** 9 specs individuelles validées par Morris, 300 RG, 241 PF documentaires après les 4 PF D3 approuvés ; sept E2E R1 non exécutés.
 - **CKI :** 15 fiches et 50 relations `VALIDATED CONTENT v0.2` par Morris le 2026-11-02 ; preuve d'usage et de valeur cognitive à obtenir en R5/R6.
-- **Gates :** revue formelle de sortie R2 documentée ([rapport](../conception-fonctionnelle/revue-formelle-sortie-r2.md)), verdict de clôture à décider par Morris ; PR/CI/merge sous GO spécifique puis vérification post-merge. R3 non engagé ; cette source reste sur **branche candidate**, pas directement `main`.
+- **Gates :** revue formelle R2 favorable et **clôture Morris enregistrée** ([décision](decisions/2026-11-02-r2-functional-exit.md)). Préparation/PR et checks autorisés ; merge, vérification post-merge et démarrage R3 sous gates distincts. La source reste candidate tant que non mergée.
 
 ## R0-B — critères de clôture et réserves factuelles (2026-11-01)
 
@@ -76,3 +76,8 @@
 - **Gates restants :** GO Morris de sortie R1 **accordé** ; autorisation de publication **commit/PR/merge avec contrôles** également accordée pour la branche R1 et son périmètre documentaire. **Restent à prouver :** PR, checks applicables, merge et relecture de `main`; puis lancer R2 sur la baseline intégrée. Pas de code Next, CI Next, UX/ADR adoptés ni preuve LIVE/REAL.
 
 **Frontière de cette décision :** R0-B reste historique ; **R1 est clos sur décision de Morris avec réserves**, mais l'intégration Git doit être constatée après merge. Les validations R2/R4 et l'adoption runtime restent indépendantes. **La Roadmap doit être requalifiée sur preuves après chaque gate et R2 n'est pas engagé par le seul commit R1.**
+
+
+## Décision R2 — clôture fonctionnelle confirmée (2026-11-02)
+
+Morris valide la [sortie R2 avec réserves](decisions/2026-11-02-r2-functional-exit.md) sur la base du rapport transverse et des quinze CKI approuvés. **`R2 CLOSED BY MORRIS — WITH CARRIED RESERVES`** au niveau conception ; intégration `main` non prouvée. Prochaine étape : PR et vérification des gates, puis GO merge distinct, relecture `main` et seulement alors entrée R3 UX. Aucun code Next ni comportement prouvé.
