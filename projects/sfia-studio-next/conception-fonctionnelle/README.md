@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **DOCUMENTED — CANDIDATE (préparation locale)** ; aucune intégration Git, validation globale R2 ou adoption produit inférée |
+| Statut | **DOCUMENTED — CANDIDATE** ; première spec v0.3 synchronisée sur la branche R2 ; aucune validation globale R2, intégration `main` ou adoption produit inférée |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -20,7 +20,7 @@ La granularité suit les **capacités et résultats utilisateur cohérents**, pa
 
 | Spécification | Responsabilité principale | État du contenu | Dépendances / revue transverse |
 | --- | --- | --- | --- |
-| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance CKC et frontières de conduite | **CANDIDATE v0.2** — arbitrage Morris option A acté ; RG détaillées non encore approuvées comme `VALIDATED SPEC` | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
+| [Contexte et conduite gouvernée de Nora](contexte-et-conduite-gouvernee-de-nora.md) | Conversation naturelle, contexte mobilisé, méthode applicable, guidance CKC et frontières de conduite | **CANDIDATE v0.3 SUR BRANCHE** — option A actée ; contrat d’applicabilité détaillé (RG-APP-001..008, PF-10..17), règles non encore `VALIDATED SPEC` | Interfaces avec projet/cycle, gouvernance, connaissance, exécution, preuves ; **à vérifier quand leurs specs existent** |
 
 **Ne pas précréer une liste de spécifications vides.** Ajouter une entrée lorsqu'un périmètre a réellement fait l'objet d'un contrat fonctionnel rédigé et d'une responsabilité identifiée.
 
@@ -70,5 +70,12 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **R1** : clôturé par Morris avec réserves ; PR #639 mergée et `main@8751775edc314e8fc7f0855104e5000290be9839` vérifié.
 - **R2** : lancé en conception ; première spécification candidate rédigée. Choix **option A** (méthode contextualisée et versionnée) explicité par Morris ; pas de reprise automatique DoctrinePackage/v2.6.
 - **Source Next** : aucune architecture ni implémentation Next (`N/A — NON IMPLÉMENTÉ`).
-- **Git** : dans cette préparation locale, aucun commit/push, PR ou merge ; un mandat précis reste nécessaire pour synchronisation.
+- **Git** : branche `sfia/next-r2-functional-specs@b83300cc9ea5b890fdf3689c0e2864530f8b16d9` vérifiée (README et spec v0.2 publiés) ; v0.3 synchronisée sur cette branche sous mandat borné ; aucune PR ni aucun merge.
 - **Gouvernance** : la Roadmap et le README racine de `main` comportent encore des mentions pré-merge R1/R2 obsolètes. À synchroniser avec un mandat de rédaction/validation adapté, dans un lot documentaire utile ; ne pas créer de micro-PR autonome.
+
+## 7. Contrat d'applicabilité candidat — v0.3
+
+- **Responsabilité canonique conservée** : la spec « Contexte et conduite gouvernée de Nora » définit l'utilisation contextuelle par Nora, et non les décisions, la trajectoire, les permissions ou les preuves, qui relèvent de leurs domaines propriétaires.
+- **Évolution v0.3 proposée** : nature/applicabilité de huit catégories d'information, huit règles `RG-APP-001..008`, huit scénarios `PF-10..17`, revue d'interfaces et effets de bord. Aucun nouveau domaine ou E2E R1.
+- **Contrôle de compatibilité** : pas de contradiction identifiée entre la v0.3 et les 30 règles précédentes au stade documentaire ; six interfaces restent à requalifier lors des specs voisines. **`COMPATIBLE` interne ≠ `COMPATIBLE` avec des contrats encore inexistants.**
+- **État de publication** : **v0.3 publiée sur branche candidate** ; aucune intégration à `main` ni approbation `VALIDATED SPEC`.
