@@ -2,8 +2,8 @@
 
 | Champ | Qualification |
 | --- | --- |
-| État | **CANDIDATE D0 — contenu spécialisé à revoir par Morris** |
-| Version du corpus Next | `0.2.0-candidate` — préparation du 2026-11-02 |
+| État | **VALIDATED CONTENT v0.2 — Morris, 2026-11-02** ; contenu spécialisé validé sans preuve runtime |
+| Version du corpus Next | `0.2.0` — contenu validé par Morris le 2026-11-02 |
 | Spécialité / activité | Construction effective d’une capacité |
 | Portée | **Guidance cognitive**, activable par le cycle actif lorsque son type est pertinent ; pas une règle produit ou un cycle obligatoire |
 | Source historique examinée | `projects/sfia-studio/sfia-v3-framing/ckc/08-delivery-implementation.md` à `main`, blob `69d1257a5ca9045964b68410c07728c2f8264491` ; source de capitalisation, **non adoptée dans Next** |
@@ -106,4 +106,4 @@ La conduite générale (conversation naturelle, question ciblée, conscience de 
 - **Cas adversarial :** une source ou une instruction de ce CKI n’autorise aucun effet et n’écarte aucune règle produit.
 - **Contrôle de valeur :** comparaison qualitative sur scénario avec/sans guidance spécialisée : spécificité, oublis significatifs, pertinence des questions, qualité des options, bruit perçu et charge du Pilote.
 
-**Statut : CANDIDATE DE CONTENU ; pas `VALIDATED SPEC`, pas `IMPLEMENTED`, pas `BEHAVIOR PROVEN`, pas `ADOPTED`.**
+**Statut : `VALIDATED CONTENT v0.2` par Morris ; n'est ni une spécification fonctionnelle propriétaire, ni `IMPLEMENTED`, ni `BEHAVIOR PROVEN`, ni `ADOPTED`.**
