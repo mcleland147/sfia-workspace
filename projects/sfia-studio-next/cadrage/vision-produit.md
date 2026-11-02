@@ -422,6 +422,32 @@ La revue transverse du parcours Pilote–Nora relève comme **principes déjà s
 
 **Statut : principe produit VALIDATED BY MORRIS ; contrats R2, UX R3, architecture R4 et preuves R5/R6 non réalisés. Studio Next : N/A — NON IMPLÉMENTÉ.**
 
+
+### 2.25. Carte des capacités R1 — domaines 3 et 6 arbitrés (2026-11-02)
+
+**Statut : VALIDATED BY MORRIS pour les seules frontières fonctionnelles ci-dessous.** Ces arbitrages consolident la carte de neuf domaines proposée en conversation, **sans valider la carte entière, son IN/OUT exhaustif, les scénarios end-to-end, ni le domaine 7 dans son ensemble**. Les mécanismes, contrats, UX, architecture et preuves demeurent à concevoir en R2–R6.
+
+**Domaine 3 — Conduite conversationnelle Pilote–Nora : conduite cognitive complète validée.** Dans le sas de création et l'espace conversationnel du projet courant (avec ou sans cycle actif), Nora :
+- **comprend** l'intention, la finalité, les contraintes et le contexte fiable, sans formulaire ni workflow préalable ;
+- **prend l'initiative cognitive** pour explorer, questionner utilement, challenger, comparer et recommander sans sollicitation à chaque étape ;
+- **produit directement** les résultats cognitifs réalisables et autorisés : analyses, cadrages, conceptions, comparatifs, propositions et documents ;
+- **s'adapte** aux informations nouvelles et aux prescriptions explicites du Pilote, en qualifiant impacts, indépendances et blocages significatifs ;
+- **maintient la continuité** de l'objectif et des clarifications lors des digressions, interruptions et reprises, dans les limites effectives de la persistance et des accès ;
+- **restitue** un résultat exploitable, ses réserves et la suite utile, sans rituel administratif imposé.
+
+**Frontière avec le domaine 7 — Réalisation des travaux :** le domaine 3 couvre la conduite et la **production cognitive directe** par Nora. Le domaine 7 porte les **exécutions techniques, délégations et mutations gouvernées**, avec leurs autorisations et contrôles applicables. **Aucune délégation artificielle à Cursor** pour une analyse, un cadrage ou une rédaction que Nora peut réaliser directement ; une éventuelle publication ou mutation Git reste soumise à ses propres permissions/mandats. Cette frontière **ne prévalide pas les autres comportements du domaine 7**.
+
+**Domaine 6 — Décisions et gouvernance : distinction fonctionnelle validée.** Trois niveaux doivent demeurer séparés :
+1. **Compréhension conversationnelle :** préférence, clarification ou accord de travail pris en compte par Nora, **sans** création implicite d'un droit technique.
+2. **Décision structurante :** arbitrage effectivement exprimé et validé par le Pilote, référencé durablement avec auteur, source, portée, validité et historique ; une révision ou révocation n'efface pas silencieusement les décisions antérieures.
+3. **Autorisation ou interdiction opérationnelle :** acte qui commande des effets réels ; **Studio vérifie et applique** l'identité, la portée, l'actualité et les restrictions du mandat. La compréhension ou la reformulation de Nora ne suffit pas à ouvrir un droit d'exécution.
+
+**Responsabilités et invariants du domaine 6 :** le **Pilote** décide, accepte les risques, autorise, suspend ou révoque ; **Nora** détecte et contextualise les arbitrages, prépare les choix, explicite contradictions et conséquences, sans usurper l'autorité ; **Studio** conserve et applique les décisions/mandats opposables. Pas de double validation systématique d'un arbitrage conversationnel clair, mais maintien des actes explicites déjà retenus : **« Créer le projet »** et **« Exécuter »** pour leurs effets respectifs. Une **suspension humaine** ne peut être levée par Nora seule. Les décisions, mémoires et autorisations restent **propres au Pilote et au projet Studio** ; consulter une décision Git d'un autre projet ne la rend ni applicable ni autorisante dans le projet courant. Le journal peut présenter ces éléments sans devenir une autorité concurrente.
+
+**IN fonctionnel confirmé pour ces deux domaines :** conduite cognitive complète et production directe autorisée ; distinction préférence / décision / autorisation ; décisions durables et révisables ; application des restrictions et suspensions humaines ; continuité contextualisée. **OUT :** mission ou cycle préalable obligatoire pour tout raisonnement, délégation cognitive systématique, validation formelle de chaque message, décision métier autonome de Nora, transfert implicite d'autorité entre projets, moteur de gouvernance parallèle.
+
+**Suite :** R1 poursuit la revue des autres domaines, puis les scénarios nominaux et les exceptions. R2 précise règles/contrats/états, R3 l'UX, R4 l'architecture, R5–R6 les preuves. **Studio Next : N/A — NON IMPLÉMENTÉ.**
+
 ## 3. Répartition des responsabilités — principes validés
 
 | Dimension | Nora | Pilote |
@@ -496,7 +522,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 24. **GitHub / dépôts / Cursor : principes de vision validés.** Connexion GitHub personnelle, accès Git autorisés par utilisateur, projet possible sans dépôt, emplacement proposé ou prescrit au besoin, accès Cursor indépendants et dépôts partagés possibles (§2.23).
 25. **Cursor CLI et multi-utilisateur : faisabilité à démontrer.** CLI candidat prioritaire issu du REX historique ; isoler les sessions Cursor et les droits Git, ne pas déduire les accès du seul login Studio, qualifier l'authentification, les branches et les cas concurrents en R2–R6 (§2.23).
 26. **Projets Studio individuels, Git partagé : option de collaboration validée.** Mémoire, conversations, décisions, cycles et autorisations restent propres à chaque projet/Pilote ; seules les sources explicitement accessibles permettent la collaboration ; pas de projet Studio collectif natif dans le périmètre initial (§2.24).
-27. **Suite R1 : cadrage non clôturé.** Une carte de neuf capacités (accès/portefeuille, création, conduite Nora, connaissance, trajectoires/cycles, décisions, réalisation, résultats, Git) a été **proposée en conversation, non validée** ; consolider IN/OUT, scénarios nominaux et exceptions, critères d'exit et dépendances R2–R6 avant tout GO de clôture (§2.22).
+27. **Suite R1 : cadrage non clôturé.** Une carte de neuf capacités (accès/portefeuille, création, conduite Nora, connaissance, trajectoires/cycles, décisions, réalisation, résultats, Git) a été **proposée en conversation** ; les frontières fonctionnelles des **domaines 3 et 6 sont validées par Morris** (§2.25), **sans validation de l'ensemble de la carte ni du domaine 7**. Consolider les autres domaines, l'IN/OUT global, les scénarios nominaux et exceptions, les critères d'exit et les dépendances R2–R6 avant tout GO de clôture (§2.22).
 
 ## 7. Références fondatrices et traçabilité
 
@@ -534,5 +560,7 @@ Cette chaîne est une **hypothèse de parcours à spécifier**, pas un moteur, u
 **Précisions et validation du 2026-11-02 (v0.13) :** Morris confirme la cible **connexion GitHub propre à chaque Pilote**, accès de Studio/Nora aux dépôts effectivement autorisés de ce compte, sans limitation à `sfia-workspace` ; création d'un projet Studio **sans dépôt obligatoire** ; choix ultérieur d'un emplacement Git par le Pilote ou sur proposition de Nora ; création/mutation Git confiée à Cursor sous contrat autorisé. Pour plusieurs utilisateurs, les dépôts partagés sont possibles avec habilitations individuelles et travaux isolés. **Cursor CLI est la piste prioritaire issue des essais REAL historiques**, avec authentification navigateur propre au compte Cursor, mais l'exécution sur serveur et l'isolation entre comptes sont à concevoir/prover ; GitHub Studio, session Cursor et droits Git de l'exécuteur restent distincts. **Aucun jeton GitHub personnel n'est supposé transféré de Studio vers Cursor.** La convention d'arborescence historique et le modèle de projet Studio partagé restent à qualifier **au moment de v0.13** (modèle individuel arbitré ensuite en v0.14, §2.24). **Ce sont des orientations de vision, pas des contrats techniques, une intégration choisie ni une preuve REAL** (§2.23).
 
 **Validation définitive du 2026-11-02 (v0.14) :** après examen des conséquences, Morris retient **les projets SFIA Studio individuels**, avec collaboration via **Git et sources accessibles**. Chaque Pilote conserve sa conversation Nora, sa mémoire, sa trajectoire, ses cycles et ses décisions ; **aucune mémoire ni décision automatiquement partagée**, même lorsque deux projets Studio utilisent le même dépôt. La consultation d'une décision publiée dans Git ne crée pas de décision applicable ou d'autorisation de modification dans l'autre projet. Pas de projet Studio collaboratif natif dans le périmètre initial. Les conflits Git, droits, branches et isolations Cursor restent à spécifier et à prouver. Cette validation ferme le **choix fonctionnel de collaboration R1**, pas la carte complète des capacités ni l'exit R1 (§2.24).
+
+**Arbitrages de carte R1 validés le 2026-11-02 (complément à la v0.14) :** Morris confirme pour le **domaine 3** la conduite cognitive complète avec production directe par Nora et réserve au **domaine 7** les exécutions/délégations/mutations gouvernées ; pour le **domaine 6**, il valide la séparation compréhension conversationnelle / décision structurante / autorisation opérationnelle, avec autorité humaine et contrôles effectifs par Studio. Détails et limites en §2.25. Carte globale, scénarios, exit R1 et mécanismes techniques non validés.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
