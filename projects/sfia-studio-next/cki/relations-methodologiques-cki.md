@@ -6,7 +6,7 @@
 | Statut | **VALIDATED CONTENT v0.2 — Morris, 2026-11-02** ; carte éditoriale, pas une spécification propriétaire de cycles |
 | Corpus couvert | 15 CKI Next `VALIDATED CONTENT` version `0.2.0` ; catalogue extensible, aucun plafond à 15 |
 | Rattachement fonctionnel | Domaine 5 — Trajectoire et cycles, spécification validée ; contenu CKI distinct |
-| État Git | **Publiée sur branche candidate R2** ; aucune PR ni merge `main` |
+| État Git | **MERGED / POST-MERGE GIT VERIFIED** — [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640) ; `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` |
 
 ## 1. Sémantique de la matrice
 
@@ -135,7 +135,7 @@ En **Architecture technique**, Nora peut analyser coût, consommation et durabil
 
 ## 4. Propriété, maintenance et trajectoire
 
-**R2 :** le futur contrat fonctionnel *Trajectoire et cycles* définit la correspondance type de cycle → CKI autonome, les transitions gouvernées et la consommation éventuelle d’une relation comme aide cognitive. Cette matrice **n’est pas** un modèle de droits, d’états ni de transitions.
+**R2 :** la spec validée `Trajectoire du projet, cycles et guidance CKI` (D5) possède la correspondance type de cycle → CKI, les transitions gouvernées et l'usage éventuel d'une relation comme aide cognitive. Cette matrice **n’est pas** un modèle de droits, d’états ni de transitions.
 
 **R3 :** l’UX ne doit pas exposer la matrice entière comme une navigation imposée ; une recommandation naturelle et éventuellement un lien explicable suffisent.
 

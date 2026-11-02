@@ -2,14 +2,14 @@
 
 **Nature :** feuille de route de construction Next ; distincte de `projects/sfia-studio/convergence/sfia-studio-convergence-roadmap.md`.
 
-**État courant au 2026-11-02 : R1 CLOSED WITH CARRIED RESERVES / R2 CLOSED BY MORRIS WITH CARRIED RESERVES — GIT INTEGRATION PENDING.** [Décision R2](decisions/2026-11-02-r2-functional-exit.md) et [rapport de sortie](../conception-fonctionnelle/revue-formelle-sortie-r2.md) : 9 specs globalement approuvées, 300 RG, 241 PF documentés, 15 CKI/50 relations `VALIDATED CONTENT`. La PR R1 #639 reste mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839`. **La clôture R2 est décidée au niveau documentaire sur la branche candidate ; PR, CI, merge R2 et vérification post-merge restent à effectuer. R3 NOT STARTED.** Produit Next : N/A — NON IMPLÉMENTÉ.
+**État courant au 2026-11-02 : R1 CLOSED WITH CARRIED RESERVES / R2 CLOSED BY MORRIS WITH CARRIED RESERVES — MERGED AND POST-MERGE GIT VERIFIED.** [Décision R2](decisions/2026-11-02-r2-functional-exit.md) et [rapport de sortie](../conception-fonctionnelle/revue-formelle-sortie-r2.md) : neuf specs globalement validées, 300 règles et 241 scénarios documentaires ; 15 CKI et 50 relations `VALIDATED CONTENT v0.2`. [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640) mergée le 2026-11-02T19:33:10Z ; `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` relu et arborescence identique à la candidate R2. **R3 UX NOT STARTED** ; aucune architecture Next, implémentation, preuve LIVE/REAL ni `ADOPTED`.
 
 | Jalon | Statut | Résultat/exit |
 | --- | --- | --- |
 | R0-A — méthode et rebaseline | **VALIDATED — ON MAIN via PR #636** | SEF v0.2 approuvé, frontières et périmètre Next décidés |
 | R0-B — bootstrap gouverné | **CLOSED BY MORRIS GO — POST-MERGE VERIFIED** | PR #636 merged sur `main` ; SEF, Roadmap et naming validés ; vision + 3 PNG originaux et routage Next présents ; preuves Git post-merge ; pas de preuve produit LIVE/REAL ni de CI Next revendiquée |
 | R1 — cadrage produit | **CLOSED BY MORRIS WITH CARRIED RESERVES — PR #639 MERGED / POST-MERGE VERIFIED** | Vision R1, neuf domaines et sept E2E ; `main@8751775…` prouvé, runtime Next non implémenté. |
-| R2 — conception fonctionnelle | **CLOSED BY MORRIS — WITH CARRIED RESERVES ; GIT INTEGRATION PENDING** | [Décision de sortie R2](decisions/2026-11-02-r2-functional-exit.md) ; 9 specs, 300 RG, 241 PF, 15 CKI / 50 relations validés en contenu. Réserves R3–R6 tracées. PR/CI/merge/post-merge R2 distincts ; R3 NOT STARTED. |
+| R2 — conception fonctionnelle | **CLOSED BY MORRIS — WITH CARRIED RESERVES ; PR #640 MERGED / POST-MERGE VERIFIED** | [Décision R2](decisions/2026-11-02-r2-functional-exit.md) ; 9 specs, 300 RG, 241 PF, 15 CKI et 50 relations validés ; réserves R3–R6 conservées. [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640), CI applicable PASS (build historique SKIPPED), `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` vérifié. R3 NOT STARTED. |
 | R3 — UX/UI | **NOT STARTED** | Parcours, maquettes et contrats UX approuvés |
 | R4 — architecture technique | **NOT STARTED** | Architecture, ADR, contrats, responsabilités et choix de persistence |
 | R5 — reconstruction par macro-capacités | **NOT STARTED** | Code neuf, preuves verticales, documents synchronisés |
@@ -25,7 +25,7 @@
    Index navigable : `cadrage/vision-cible/README.md` (VISION FONDATRICE, non architecture validée / non REAL).
 3. **R0-B Git integration : MERGED #636 / POST-MERGE VERIFIED — CLOSURE GO MORRIS (2026-11-01)** — documents Next, 3 PNG et deux fichiers partagés présents sur `main`; pas de modification du runtime historique `projects/sfia-studio/`. Merge GitHub autorisé par Morris et réalisé le 2026-11-01 ; post-merge Git vérifié. Le gate CI commun PR a réussi, la suite applicative historique a été SKIPPED ; **aucune CI Next ni test runtime Next n'est revendiqué**.
 4. **Nomenclature : VALIDATED BY MORRIS / ON MAIN** — règles de nommage de construction Next validées le 2026-11-01 ; guide et template partagés harmonisés et présents sur `main`. Le glossaire R1/R2 et les conventions techniques R4 restent à concevoir ; aucun exemple de classe automatiquement adopté.
-5. **R1 — CLOSED BY MORRIS / PR #639 MERGED ET POST-MERGE VÉRIFIÉ (2026-11-02)** — `main@8751775…` ; R2 en cours sur branche candidate, sans adoption d'architecture ni runtime.
+5. **R1 — CLOSED BY MORRIS / PR #639 MERGED ET POST-MERGE VÉRIFIÉ (2026-11-02)** — base `main@8751775…` ; **R2 fermé par Morris avec réserves puis PR #640 mergée et vérifiée** sur `main@455bb706ecdb13cc046b65b531e72ce96f4a4455`. Aucun choix d'architecture ni runtime adopté.
 
 **Dépendance structurante :** décisions historiques H7/H8 et G0-A/B conservées en tant qu'historique ; leur portée pour la nouvelle architecture reste à arbitrer, sans supersession implicite. Ancien runtime v3 **NON ADOPTED**.
 
@@ -36,7 +36,7 @@
 - **Base R1 :** PR #639 mergée sur `main@8751775edc314e8fc7f0855104e5000290be9839` ; branche R2 distincte.
 - **R2 :** 9 specs individuelles validées par Morris, 300 RG, 241 PF documentaires après les 4 PF D3 approuvés ; sept E2E R1 non exécutés.
 - **CKI :** 15 fiches et 50 relations `VALIDATED CONTENT v0.2` par Morris le 2026-11-02 ; preuve d'usage et de valeur cognitive à obtenir en R5/R6.
-- **Gates :** revue formelle R2 favorable et **clôture Morris enregistrée** ([décision](decisions/2026-11-02-r2-functional-exit.md)). Préparation/PR et checks autorisés ; merge, vérification post-merge et démarrage R3 sous gates distincts. La source reste candidate tant que non mergée.
+- **Gates :** clôture R2 Morris confirmée ; PR #640 et CI vérifiées, merge et lecture `main` réalisés. **L'entrée effective R3 UX demeure une décision distincte**, avec cadrage du premier macro-lot ; le produit Next reste non implémenté.
 
 ## R0-B — critères de clôture et réserves factuelles (2026-11-01)
 
@@ -80,4 +80,14 @@
 
 ## Décision R2 — clôture fonctionnelle confirmée (2026-11-02)
 
-Morris valide la [sortie R2 avec réserves](decisions/2026-11-02-r2-functional-exit.md) sur la base du rapport transverse et des quinze CKI approuvés. **`R2 CLOSED BY MORRIS — WITH CARRIED RESERVES`** au niveau conception ; intégration `main` non prouvée. Prochaine étape : PR et vérification des gates, puis GO merge distinct, relecture `main` et seulement alors entrée R3 UX. Aucun code Next ni comportement prouvé.
+Morris valide la [sortie R2 avec réserves](decisions/2026-11-02-r2-functional-exit.md) et les quinze CKI en contenu ; la PR #640 a ensuite été **mergée le 2026-11-02T19:33:10Z et vérifiée sur `main@455bb706ecdb13cc046b65b531e72ce96f4a4455`**. Il s'agit d'une intégration Git documentaire, sans preuve de fonctionnement produit. L'entrée R3 UX reste à décider, sans automatisme.
+
+
+## R2 — preuve post-merge Git #640 (constat du 2026-11-02)
+
+- **Autorité :** sortie R2 avec réserves approuvée par Morris ; GO merge #640 expressément accordé dans la conversation. La décision [R2](decisions/2026-11-02-r2-functional-exit.md) conserve sa portée historique ; ce constat n'en modifie pas rétroactivement les autorisations.
+- **Références :** [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640) `merged=true` le `2026-11-02T19:33:10Z` ; branche candidate finale `sfia/next-r2-functional-specs@61e2848035b41a237fbfe09dca3ae52f19f04c54` ; merge `455bb706ecdb13cc046b65b531e72ce96f4a4455` ; parents `8751775edc314e8fc7f0855104e5000290be9839` et `61e2848035b41a237fbfe09dca3ae52f19f04c54`.
+- **Équivalence des arborescences :** Git `tree=ffce65b39114773c56506ae12768d86fc0d886fd` identique sur le commit candidat et le commit de merge ; diff candidat → `main` ne contient aucun changement de fichier. `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` lu après le merge.
+- **Portée :** 32 fichiers Markdown dans `projects/sfia-studio-next/`, aucun fichier runtime, CI, chemin `method/` ou ancien Studio modifié. [Workflow #41510344563](https://github.com/mcleland147/sfia-workspace/actions/runs/41510344563) `SUCCESS` : détection `SUCCESS`, gate requis `SUCCESS`, build historique `SKIPPED` ; **aucune CI Next ni preuve produit LIVE/REAL**.
+- **Vérifications documentaires :** [spécifications D1–D9](../conception-fonctionnelle/README.md), [corpus CKI](../cki/README.md), [matrice](../cki/relations-methodologiques-cki.md), [décision R2](decisions/2026-11-02-r2-functional-exit.md) et rapport de sortie effectivement accessibles sur `main` ; contenu conforme.
+- **Suite :** gate Git R2 **ACQUIS — POST-MERGE VERIFIED**. **R3 UX NOT STARTED** : cadrer la capacité/parcours, risques, résultats, sources et critères UX avec Morris, sans démarrer de réalisation technique ou créer une architecture implicite.

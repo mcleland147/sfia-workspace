@@ -4,7 +4,7 @@
 | --- | --- |
 | Jalon | **R2 — conception fonctionnelle** (engagé après intégration vérifiée de R1, PR #639, `main@8751775edc314e8fc7f0855104e5000290be9839`) |
 | Nature | **Index canonique de travail des spécifications fonctionnelles R2** |
-| Statut | **R2 CLOSED BY MORRIS — WITH CARRIED RESERVES (2026-11-02)** au niveau documentaire ; [décision](../governance/decisions/2026-11-02-r2-functional-exit.md). Les 9 domaines D1–D9 sont `VALIDATED SPEC` et les 15 CKI + 50 relations `VALIDATED CONTENT`. **Intégration `main` en attente, R3 NOT STARTED, aucun ADOPTED.** |
+| Statut | **R2 CLOSED BY MORRIS — WITH CARRIED RESERVES / PR #640 MERGED — POST-MERGE VERIFIED (2026-11-02)** ; [décision](../governance/decisions/2026-11-02-r2-functional-exit.md), [preuve Git](../governance/roadmap.md#r2--preuve-post-merge-git-640-constat-du-2026-11-02). Neuf domaines D1–D9 `VALIDATED SPEC`, 15 CKI/50 relations `VALIDATED CONTENT v0.2` ; **R3 UX NOT STARTED** ; aucun `IMPLEMENTED`, `BEHAVIOR PROVEN` ou `ADOPTED`. |
 | Autorité de validation | **Morris**, après revue du contenu et des impacts ; commit sur branche candidate ≠ merge `main` |
 | Base fonctionnelle | [Vision R1](../cadrage/vision-produit.md), [SEF v0.2](../governance/SEF.md), [Roadmap Next](../governance/roadmap.md), [décision de sortie R1](../governance/decisions/2026-11-02-r1-cadrage-formal-exit.md) |
 
@@ -73,7 +73,7 @@ La revue est **bidirectionnelle** : une nouvelle spec est confrontée aux ancien
 
 La sortie R2 est un **gate distinct** : elle exige une cohérence globale des contrats métier, décisions, états, incidents et continuité, pas seulement la présence de fichiers dans Git.
 
-## 6. État initial et limites
+## 6. État initial et limites — historique de lancement R2
 
 - **R1** : clôturé par Morris avec réserves ; PR #639 mergée et `main@8751775edc314e8fc7f0855104e5000290be9839` vérifié.
 - **R2** : lancé en conception ; spécifications Nora v0.4 et Connaissance v0.1 approuvées, avec interfaces futures réservées. Choix **option A** (méthode contextualisée et versionnée) explicité par Morris ; pas de reprise automatique DoctrinePackage/v2.6.
@@ -108,15 +108,15 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 
 - [15 CKI autonomes et spécialisés](../cki/README.md) — un CKI par type de cycle, un seul CKI principal associé au cycle actif, catalogue extensible au-delà de 15.
 - [Matrice centrale des relations](../cki/relations-methodologiques-cki.md) — 50 relations orientées et conditionnelles (transmission, approfondissement, retour et éclairage transversal) ; **aucune activation d'un deuxième CKI, aucune transition automatique**.
-- **Statut :** principes de conception arbitrés par Morris ; fiches et matrice v0.2 **candidates publiées sur branche R2**, non `VALIDATED SPEC`, sans mécanisme d'autorité ni preuve produit. Le futur contrat propriétaire Domaine 5 — Trajectoire et cycles — est à concevoir et à vérifier contre les specs Nora/Connaissance.
+- **Statut actuel :** les quinze CKI et les cinquante relations sont `VALIDATED CONTENT v0.2` par Morris ; la spec propriétaire D5 est validée. [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640) intégrée sur `main` ; aucun moteur de guidance implémenté ni preuve comportementale.
 
 ## 11. Trajectoire, cycles et guidance CKI — VALIDATED SPEC v0.1
 
 - **Propriétaire :** domaine 5. Un seul cycle actif par projet et un seul CKI principal associé ; catalogue initial de 15 spécialités extensible, sans interdépendance entre CKI. Aucun cycle imposé avant l'aide cognitive de Nora.
 - **Frontières :** le domaine 3 conduit le dialogue et apprécie la maturité ; le domaine 4 garde la connaissance ; le domaine 5 conserve trajectoire, état des cycles, association CKI et référence durable de méthode ; le domaine 6 valide les GO et décisions ; les domaines 7–9 restent responsables des opérations, preuves et droits Git.
 - **Traçabilité de la revue :** 40 règles, 30 scénarios ; 15 fiches CKI et 50 relations orientées validées en contenu par Morris le 2026-11-02 ; sans conflit documentaire normatif identifié. Aucune preuve runtime ni adoption produit inférée.
-- **Écarts 5.1 sous suivi dans la spec** : (1) CKC/CKI : harmonisation en consolidation R2 ; (2) CKI indisponible : fonctionnellement qualifié, R4/R5–R6 ; (3) liens/matrice : non-contraignants, R5/R6 à éprouver ; (4) maturité/gates : revue D6 et D8 avant exit R2 ; (5) Roadmap `main` obsolète : `KNOWN GAP`, mise à jour de gouvernance sous décision et mandat D2 séparés.
-- **Limite :** publication sur branche R2 ≠ validation globale R2, PR, merge, implémentation, preuve comportementale ou adoption.
+- **Écarts 5.1 suivis :** (1) terminologie CKI harmonisée ; (2) indisponibilité à concevoir R4 et prouver R5/R6 ; (3) relations non contraignantes à éprouver ; (4) maturité ≠ gate, revue D6/D8 faite ; (5) Roadmap actualisée après PR #640, **écart de statut Git R2 résolu**, sans lever les réserves techniques.
+- **Limite :** le contenu a été intégré via PR #640 et la clôture R2 décidée ; cela ne vaut ni UX R3 validée, ni implémentation, ni preuve comportementale ni adoption.
 
 ## 12. Décisions, mandats et gouvernance du Pilote — VALIDATED SPEC v0.1
 
@@ -167,7 +167,7 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Lexique :** CKI cible Next, CKC historique R1. Pas de deuxième moteur ou gate.
 - **Interfaces :** confrontées documentairement, sans prétendre que les anciennes mentions « non évaluées » sont encore l'état courant. Les réserves techniques conservent leurs propriétaires et jalons R3–R6.
 - **CKI :** [revue des quinze fiches et cinquante relations](revue-de-coherence-des-cki.md) réalisée ; contenus désormais `VALIDATED CONTENT v0.2` par Morris ; preuves comportementales R5/R6 ouvertes.
-- **Roadmap :** correction R1 merged/R2 en cours sur branche R2 ; `main` inchangé jusqu'à PR/merge autorisés.
+- **Roadmap :** R1 et R2 intégrés et post-merge vérifiés sur `main` ; constat [Roadmap](../governance/roadmap.md) après PR #640. R3 UX non engagé.
 - **Gates :** bilan de sortie R2 avec Morris, puis PR, CI, merge, post-merge ; R3 non engagé.
 
 
@@ -182,4 +182,13 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 
 - **Morris valide le verdict de la [revue formelle](revue-formelle-sortie-r2.md) :** `R2 CLOSED BY MORRIS — WITH CARRIED RESERVES` ([Decision Record](../governance/decisions/2026-11-02-r2-functional-exit.md)).
 - **Portée :** acceptation globale de la cohérence documentaire des neuf domaines, des 300 RG, des 241 PF et des 15 CKI/50 relations en contenu. Aucune preuve de comportement, ni clôture automatique des 66 réserves.
-- **Gate Git :** PR, CI, merge et relecture de `main` séparés ; **R3 UX NOT STARTED** tant que la baseline R2 n'est pas intégrée et vérifiée.
+- **Gate Git :** PR #640 mergée avec CI applicable verte, identité des arbres et contrôle post-merge `main` acquis ; entrée R3 UX distincte.
+
+
+## 21. État de référence post-merge R2 (2026-11-02)
+
+- **Source opposable :** [décision de clôture R2](../governance/decisions/2026-11-02-r2-functional-exit.md) et [constat Git Roadmap](../governance/roadmap.md). [PR #640](https://github.com/mcleland147/sfia-workspace/pull/640) mergée ; `main@455bb706ecdb13cc046b65b531e72ce96f4a4455` vérifié ; tree candidate = tree merge (`ffce65b39114773c56506ae12768d86fc0d886fd`).
+- **Contenu sur `main` :** D1–D9 `VALIDATED SPEC`, **300 RG, 241 PF**, sept E2E R1 utilisés comme contrats de référence, quinze CKI et 50 relations `VALIDATED CONTENT v0.2` ; tests comportementaux non exécutés.
+- **Réserves :** 66 réserves numérotées dans leurs specs propriétaires, reportées vers R3 à R6 ; la conformité documentaire ne ferme pas la dette technique ou la preuve.
+- **Historique pré-merge :** les sections précédentes retraçant les étapes candidates et le verdict de revue restent conservées pour compréhension, mais **ne remplacent pas le présent état post-merge vérifié**.
+- **Prochaine capacité :** R3 UX : cockpit personnel, sas conversationnel et continuité, Nora/cycle/décision, contrat `Exécuter` et résultats/preuves, Git facultatif. **R3 NOT STARTED** jusqu'au cadrage/GO dédié ; ni R4 ni R5 anticipés.
