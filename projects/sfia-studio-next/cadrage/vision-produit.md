@@ -1121,7 +1121,7 @@ Pas de retour à la page historique « Synthèses » ou au moteur historique ; p
 
 ## 9. Complément validé — visibilité et contrôle du travail Nora (Morris, 2026-11-03)
 
-**Décision de contenu D2 : VALIDÉE PAR MORRIS — publication documentaire autorisée sur \`sfia/next-r3-ux-interaction-candidate\`.** Cette clarification complète la vision R1 §§2.21, 2.34 et 2.35 **sans rouvrir la décision de clôture R1 ni les neuf domaines et sept scénarios E2E**. Référence : [revue de sortie R3 candidate](../ux-ui/revue-formelle-sortie-r3.md), §4 ; [UX R3](../ux-ui/espace-projet-interaction-pilote-nora.md), §35–36.
+**Décision de contenu D2 : VALIDÉE PAR MORRIS — publication documentaire autorisée sur `sfia/next-r3-ux-interaction-candidate`.** Cette clarification complète la vision R1 §§2.21, 2.34 et 2.35 **sans rouvrir la décision de clôture R1 ni les neuf domaines et sept scénarios E2E**. Référence : [revue de sortie R3 candidate](../ux-ui/revue-formelle-sortie-r3.md), §4 ; [UX R3](../ux-ui/espace-projet-interaction-pilote-nora.md), §35–36.
 
 ### 9.1. Résultat attendu pour le Pilote — clarification 1/4
 
