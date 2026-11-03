@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit, CLOSED BY MORRIS WITH CARRIED RESERVES (2026-11-02)** |
-| Version du document | **0.15 — cadrage R1 clôturé** ; neuf domaines, sept scénarios E2E et quatre qualifications méthodologiques R2 |
+| Version du document | **0.15 — cadrage R1 clôturé ; complément Inspection approuvé le 2026-11-03 (branche candidate)** ; neuf domaines, sept scénarios E2E et quatre qualifications méthodologiques R2 |
 | Statut du contenu | **R1 CLOSED BY MORRIS — WITH CARRIED RESERVES** ; vision, 9 domaines, 7 E2E et frontières validés ; contrats R2, UX R3, architecture R4, code et preuve runtime **NON VALIDÉS / NON IMPLÉMENTÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -1019,3 +1019,102 @@ Cette chaîne est une **synthèse de l'expérience de vision validée au niveau 
 **GO de sortie R1 du 2026-11-02 :** Morris valide **R1 CLOSED WITH CARRIED RESERVES** et autorise la séquence Git distincte commit → PR → contrôles → merge → relecture post-merge ; décision enregistrée dans `governance/decisions/2026-11-02-r1-cadrage-formal-exit.md` et synthétisée en §2.39. Le démarrage R2 sur baseline intégrée reste conditionné à la vérification du merge, non à la seule rédaction de cette mention.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
+
+
+---
+
+### 2.40. Inspection et ressources documentaires de Nora — complément post-clôture approuvé (2026-11-03)
+
+**Résultat recherché.** Le Pilote peut examiner un objet de travail — document, source, sujet, décision, cycle, contrat, tentative, résultat ou preuve — sans perdre le fil de son activité avec Nora. L'Inspection est une **surface de présentation et d'interaction contextualisée**, et non un moteur métier supplémentaire. Sa forme est adaptative : présentation côte à côte ou agrandie, avec possibilité de revenir au contexte initial.
+
+**Production documentaire.** Lorsqu'une demande exprime clairement la création d'un **document** dans un projet existant, Nora produit directement un contenu structuré de type **Markdown**, avec titres, listes, tableaux, liens et blocs de code lorsque pertinents. Studio conserve automatiquement cette production comme **brouillon durable du projet**, identifiable et retrouvé indépendamment de la conversation. Cela ne transforme pas chaque réponse Nora en document, n'impose aucun cycle et ne crée aucune ressource Git.
+
+**Révision avec Nora.** Le Pilote peut demander la modification d'une section ou du document entier. Nora produit une version identifiable ; l'historique antérieur reste accessible et les différences peuvent être inspectées. Le choix d'une version de travail ne vaut ni acceptation métier, ni validation d'une spécification, ni permission de publication externe. L'édition manuelle riche n'est pas nécessaire à cette première capacité.
+
+**Sources et liens.** Nora peut présenter des références externes réellement disponibles : sites web, fichiers, commits et PR GitHub, avec origine, portée et limites. Un **hyperlien web est activable et peut s'ouvrir dans un nouvel onglet du navigateur où Studio fonctionne** ; l'utilisateur peut employer les mécanismes de son navigateur ou système pour l'ouvrir dans un navigateur externe. Studio ne construit **pas de navigateur web embarqué** et ne garantit pas techniquement la sélection d'une autre application de navigation. L'aperçu interne d'un contenu externe exige que celui-ci ait été réellement récupéré sous les permissions applicables. La lecture d'une source ne crée aucun mandat.
+
+**Autres objets inspectés.** Les décisions conservent leur propriétaire et validité D6 ; les contrats, instructions et tentatives relèvent de D7 ; les vérifications, preuves, écarts et verdicts relèvent de D8 ; les droits et références Git relèvent de D9. Une même information peut apparaître dans la conversation, le Journal ou l'Inspection **sans duplication de vérité**. Aucun affichage de « terminé » ou « conforme » sans source suffisante.
+
+**Continuité et fiabilité.** L'Inspection est consultable directement depuis le projet ou à partir d'une référence Nora, sans obligation de solliciter Nora. La sortie restaure la bonne activité et les états effectivement sauvegardés, sans feindre un brouillon ou une session récupérée. Accès interprojets, confidentialité, états inconnus et contenu externe hostile restent protégés.
+
+**Frontières et report.** Markdown est le format de production documentaire initial privilégié ; Word/PDF en édition native, navigateur interne, IDE, coédition simultanée et export multi-format avancé sont reportés. Les formats d'aperçu supplémentaires, mécanismes de stockage, de versionnage, de rendu sécurisé et de reprise sont qualifiés en R4 et démontrés en R5/R6.
+
+**Carte des responsabilités conservée :** D3 produit/révise et dialogue ; D4 porte la retrouvabilité documentaire, les références et la continuité ; D6 conserve l'autorité ; D7 porte les opérations externes ; D8 la qualification des résultats ; D9 la lecture et les effets Git. L'Inspection est une expérience transverse ; **aucun domaine 10** ni base de vérité parallèle n'est introduit.
+
+**Statut de cette section :** complément post-clôture R1 **APPROUVÉ PAR MORRIS (2026-11-03)** ; intégration documentaire sur branche candidate, sans révision rétroactive de la décision de sortie du 2026-11-02.
+
+### 2.41. Parcours E2E additionnels d'inspection — complément post-clôture approuvé (2026-11-03)
+
+### E2E — Production, révision et reprise d'un document
+
+1. Le Pilote demande explicitement une spécification dans son projet.
+2. Nora produit le Markdown ; Studio enregistre le brouillon et n'annonce la sauvegarde qu'après son établissement.
+3. Le document est présenté en Inspection, avec statut, version, provenance et lien vers l'activité d'origine.
+4. Le Pilote sélectionne une section et demande une révision par Nora ; une nouvelle version est enregistrée sans perdre l'ancienne.
+5. Le Pilote inspecte les différences, puis retrouve le document depuis le projet dans une nouvelle conversation.
+6. Une demande ultérieure de publication Git déclenche des contrôles distincts et ne se déduit pas de la sauvegarde interne.
+7. Cas négatifs : écriture interrompue, version concurrente, droits retirés, source contradictoire, suppression de session, brouillon demandé dans le sas sans projet enregistré.
+
+### E2E — Consultation de sources et de réalisations gouvernées
+
+1. Nora cite un fichier GitHub avec la ref effective et une source web avec son URL réelle.
+2. Le Pilote inspecte un extrait uniquement si Studio a pu le récupérer ; il peut ouvrir le lien original dans un **nouvel onglet** ou utiliser les mécanismes d'ouverture externe de son navigateur/système.
+3. Il revient au travail sans propagation d'autorité depuis la source ni changement du projet courant.
+4. Depuis Nora ou une consultation structurée, il inspecte un contrat D7, sa version et l'instruction technique exacte ; la lecture n'enclenche rien.
+5. Il consulte ensuite un rapport Cursor déclaré et un bilan D8 : les niveaux de constat et de conformité restent visiblement différents.
+6. Cas négatifs : source introuvable ou inaccessible, ref obsolète, URL non fiable, rapport sans preuve, retrait de permissions, contrat évolué depuis sa dernière inspection.
+
+**Traçabilité R1 :** E2E additionnels à rapprocher des sept E2E historiques plutôt que modifier rétroactivement leur validation ; aucun test n'est déclaré exécuté.
+
+## 8. Complément de vision — inspection complète du contrat et restitution (validation Morris du 2026-11-03)
+
+**Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
+
+### A. Complément §2.21 — résultat Pilote enrichi et contrat visible
+
+**Capacité cible :** lorsqu'une intervention externe est réellement nécessaire, Nora présente au Pilote un contrat d'exécution qui réunit dans **une même référence/version** : (a) une lecture immédiate, (b) six volets métier inspectables, (c) l'instruction technique complète destinée à l'exécuteur. Ce sont trois lectures du **même engagement**, pas trois autorisations ou sources de vérité concurrentes. La décision appartient au Pilote ; Nora transforme les informations, Studio doit en conserver la cohérence et en faire appliquer la portée.
+
+**Lecture immédiate / quatre engagements visibles :**
+- **Ce qui sera fait** : action concrète, principales cibles et effets observables envisagés.
+- **Ce qui ne sera pas fait** : exclusions déterminantes et limites non dérogeables.
+- **Résultat attendu** : livrables ou états escomptés, et comment leur présence pourra être constatée.
+- **Votre contrôle** : acte d'autorisation, restrictions/risques essentiels, capacité d'arrêt effectivement disponible, ce qui reste à vérifier.
+
+**Lecture métier détaillée / six volets, initialement repliés mais tous accessibles :** 1. Mission et résultats ; 2. Périmètre et effets ; 3. Exécuteur, capacités et autorité ; 4. Limites, STOP et réversibilité ; 5. Validation, preuves et sources ; 6. Identité et intégrité. Les volets ne sont pas des étapes obligatoires à cocher ni un formulaire que le Pilote doit remplir : ils sont une **inspection complète**. Aucun contenu déterminant ne peut être caché ou supprimé au seul motif que la mission paraît petite. Le Pilote peut tout ouvrir ou se contenter du résumé, sans qu'une absence de lecture efface la responsabilité d'exposer les risques et les limites essentiels.
+
+**Instruction technique associée :** accessible dans une zone supplémentaire repliée ; contenu **exact effectivement visé** (version et cible), avec traitement explicite des valeurs sensibles, non remplacé par une paraphrase approximative. L'instruction n'est pas nécessairement destinée à un novice, mais sa portée, ses effets et les interdictions pertinentes doivent concorder avec la lecture métier. Si l'exécuteur ne peut être identifié ou l'instruction exacte établie, Studio ne doit pas présenter le lancement comme prêt.
+
+**Condition de complétude :** une information peut être non applicable, conditionnelle ou inconnue. Une valeur inconnue qui conditionne un effet, un droit, un STOP, l'irréversibilité ou la validation bloque **l'effet concerné** tant qu'elle n'est pas qualifiée ; les détails non déterminants n'imposent pas un questionnaire ou une fausse valeur par défaut. Une catégorie sans application est indiquée « sans objet » avec motif si le doute serait trompeur.
+
+### B. Complément §2.34 — E2E 05, préparation → autorisation
+
+1. Nora qualifie l'intention et compose les six volets à partir des sources et décisions réellement applicables. Elle fournit des explications métier vérifiables, pas simplement une génération textuelle libre.
+2. Le contrat possède identité, version et cible suffisamment déterminées ; l'instruction associée est inspectable **dans la même version**. Les contrôles d'identité/intégrité exacts relèvent de R4, mais leur effet observable est requis dès R2 : pas de changement matériel silencieux entre inspection, autorisation et dispatch.
+3. Le Pilote voit d'abord les quatre engagements visibles et peut inspecter chaque volet séparément. Les effets irréversibles, les pouvoirs de l'exécutant, les permissions et les restrictions déterminants restent clairement exposés, y compris avant toute ouverture de volet.
+4. L'acte unique « Exécuter » porte sur la version applicable et les capacités/droits réellement disponibles. L'inspection n'est jamais une autorisation ; le clic ne prouve pas que Cursor ait réellement commencé.
+5. La transmission à l'exécuteur conserve IN/OUT, action et ressources, validation requise, STOP et reporting attendu ; Nora ne doit pas promettre qu'un élément présent en langage métier sera appliqué sans être représenté dans le mandat opérationnel.
+6. Une modification de cible, de risque, d'autorité, de sortie, de critère bloquant ou d'instruction matérielle entraîne requalification et nouvelle inspection/autorisation selon la portée affectée ; pas de simple mise à jour silencieuse du résumé.
+
+**Critères E2E à prouver :** mêmes cibles et effets entre lecture métier et instruction ; six volets consultables ; secrets protégés sans dissimulation d'action ; état « non lançable » si une précondition critique manque ; refus ou suspendu fidèles ; aucune exécution sur une version différente ; navigation d'inspection non autorisante ; pas de duplicata au double clic.
+
+### C. Complément §2.35 — E2E 06, résultat → synthèse → décision
+
+Nora produit une **synthèse de réalisation structurée**, utilisable sans questions répétées au Pilote. Les neuf rubriques de référence sont : 1. Résumé ; 2. Ce qui était prévu ; 3. Ce qui a été réalisé ; 4. Évaluation du résultat ; 5. Écarts, réserves et blocages ; 6. Impact sur le projet ; 7. Verdict de conformité **D8** (avec limites) ; 8. Recommandation / prochaine étape ; 9. Éléments vérifiés et sources. Le statut de réception **D6** est affiché séparément lorsqu'il existe ; il ne doit pas être implicite dans le verdict D8.
+
+Pour chaque affirmation déterminante, Nora doit pouvoir signaler : **déclaré par l'exécuteur**, **observé sur une source**, **corroboré sur une portée**, **non démontré**, ou **contradictoire**. Le fait qu'un champ soit affiché ne transforme pas une information manquante en preuve. La synthèse expose les limites de vérification, la provenance et les réserves utiles. Si aucun élément vérifiable n'est disponible, elle affiche cette situation au lieu d'inventer une réalisation et n'attribue pas une réussite globale.
+
+Le niveau de détails varie selon le sujet, mais la **structure de compréhension** demeure disponible. Une intervention modeste peut avoir des rubriques courtes ou « sans objet » motivées ; une intervention sensible doit exposer toutes les conséquences déterminantes. Le Pilote peut consulter le détail, les pièces et l'instruction de référence. Il doit pouvoir comprendre ce qui était attendu et ce qui a été fait **sans être obligé de poser les mêmes questions de suivi à Nora**.
+
+**Scénarios E2E supplémentaires de qualification** (à rattacher à E2E 05/06 et aux PF R2 ; identifiants définitifs non adoptés) :
+- E05-A : une mission documentaliste produit un résumé en quatre blocs et les six volets, sans contrat technique transmis tant que l'autorisation n'existe pas.
+- E05-B : l'instruction technique cible un troisième fichier hors périmètre de la vue métier ; Studio refuse la correspondance et exige la réinspection.
+- E05-C : un effet irréversible non mentionné dans le résumé est détecté ; le contrat n'est pas présenté comme prêt.
+- E05-D : une permission essentielle n'est pas vérifiable ; l'exécution est bloquée, inspection disponible.
+- E06-A : rapport « tests OK » sans sorties ; rubrique « Réalisé » = déclaré, Verdict D8 = non démontré.
+- E06-B : un effet partiel après STOP confirmé apparaît au bilan sans rollback fictif et avec impacts projet/points ouverts.
+- E06-C : une preuve postérieure contredit une conclusion antérieure ; la synthèse est révisée avec références et historique, sans effacement du verdict daté.
+- E06-D : le Pilote accepte avec réserves ; la décision D6 apparaît distinctement et les réserves D8 persistent.
+
+### D. Frontières et non-décisions
+
+Pas de retour à la page historique « Synthèses » ou au moteur historique ; pas d'uniformisation forcée de l'ensemble des réponses conversationnelles ; pas de nouvelle autorité technique ; pas d'adoption du template externe SFIA v2.6 comme sérialisation runtime. Le mécanisme de génération/projection, de liaison des versions, de validation, d'autorité, d'intégrité et de preuve sera spécifié en R4 puis implémenté/prové en R5–R6. Next : **N/A — NON IMPLÉMENTÉ**.
