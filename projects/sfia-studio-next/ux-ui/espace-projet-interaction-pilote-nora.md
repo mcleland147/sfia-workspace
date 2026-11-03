@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.22**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.23**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -8,7 +8,7 @@
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
 | Macro-lot R3 | Quatre capacités A–D retenues : **A — Entrée/continuité (revue acceptée avec réserves) ; B — Trajectoire/cycles/CKI/décisions (revue acceptée avec réserves) ; C — Réalisation et résultats (revue de cohérence PASS, contenu validé Morris) ; D — Git facultatif et qualité transverse (FIGMA CANDIDATE, revue Morris en attente)**. Travail séquentiel avec revue Morris par macro-lot. |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.22** ; direction B2/V3, **A/B acceptés avec réserves**, **C validé par Morris avec contrôle de cohérence de prototype**, **D construit en Figma et soumis à revue Morris**, R3 **ouvert**, aucun comportement runtime prouvé |
+| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.23** ; direction B2/V3, **A/B acceptés avec réserves**, **C validé par Morris avec contrôle de cohérence de prototype**, **D validé par Morris sur le contenu UX, raccordements terminés**, R3 **ouvert**, aucun comportement runtime prouvé |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
 | Source Git vérifiée | `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` (2026-11-03) ; branche documentaire candidate `sfia/next-r3-ux-interaction-candidate` |
 | État Git Next | R1/R2 clôturés avec réserves ; **Roadmap sur `main` historiquement « R3 NOT STARTED » malgré les travaux Figma/doc candidats — KNOWN GAP documentaire**, à régulariser par GO séparé |
@@ -1425,7 +1425,7 @@ Le contrat standard `06` présente bien **quatre engagements** et **six sections
 
 ## 33. Macro-lot D — Git facultatif et qualité transverse (2026-11-03)
 
-**Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE — REVIEW MORRIS PENDING.** Lot D engagé avec le GO de Morris après le contrôle C. Le parcours UX et les variantes Figma sont proposés à la revue ; aucune implémentation, vérification navigateur, autorisation technique ni promotion R3 n'en découlent. Le [guide R3 §14](audit-couverture-ux-r3.md) contient l'inventaire 35/35, la matrice individuelle 36 PF et les 41 RG D9.
+**Statut : VALIDATED UX CONTENT BY MORRIS — R3 GLOBAL REVIEW PENDING.** Lot D engagé avec le GO de Morris après le contrôle C. Le parcours UX et les variantes Figma sont proposés à la revue ; aucune implémentation, vérification navigateur, autorisation technique ni promotion R3 n'en découlent. Le [guide R3 §14](audit-couverture-ux-r3.md) contient l'inventaire 35/35, la matrice individuelle 36 PF et les 41 RG D9.
 
 ### 33.1. Résultat utilisateur et architecture de présentation
 
@@ -1467,10 +1467,38 @@ Les états d'incident suivent explicitement : « ordre demandé » ≠ « effet 
 
 ### 33.5. Revue structurelle, réserves et contrat R4–R6
 
-**Audit natif Figma :** 35 écrans supplémentaires séquentiels **171–205**, 26 états Git, huit variantes de qualité transverse et un état d'inspection des révisions ; [INDEX D — 44 accès](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=242-387), réemploi des écrans existants 09/12/70/87/06/08. La page 01 comporte **207 frames et 2 088 réactions NODE** : zéro destination inexistante, zéro auto-navigation et zéro action visible sans réaction. Captures index Git, source 175, mobile 198, focus 201, zoom 202 inspectées. La preuve est celle d'une **structure Figma**, pas d'un comportement conditionnel.
+**Audit de construction avant raccordement inter-lots :** 35 écrans supplémentaires séquentiels **171–205**, 26 états Git, huit variantes de qualité transverse et un état d'inspection des révisions ; [INDEX D — 44 accès](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=242-387), réemploi des écrans existants 09/12/70/87/06/08. La page 01 comporte **207 frames et 2 088 réactions NODE** : zéro destination inexistante, cinq ancres internes intentionnelles et zéro action visible sans réaction. Captures index Git, source 175, mobile 198, focus 201, zoom 202 inspectées. La preuve est celle d'une **structure Figma**, pas d'un comportement conditionnel.
 
 **Nettoyage Pilot-first final :** les 26 variantes Git présentent désormais uniquement les notions utiles au Pilote (source, version, droits, portée, autorité et limites). Les références R2/D6/D7/D8/D9 et les mentions techniques de prototype sont conservées dans les matrices et non exposées comme notices dans l'interface. Les huit variantes de qualité utilisent des messages utilisateur, sans afficher de codes de chantier ou de verdicts R6. Captures des écrans 175 et 198 relues après correction ; aucun ID ni lien de prototype modifié.
 
 **Dettes R4–R6 :** identification individuelle des accès Git, capacités séparées de Cursor, source de vérité du rattachement et de la ref/base, gestion des collisions, commit local vs distant, publication et merge, déconnexion/reprise, preuve D8, URL originale, sources non fiables, confidentialité interprojets, décision D6 et STOP. UX transverse : 1280/390/320, 200 %, keyboard-only, focus restauré, contraste et lecteurs d'écran, erreurs prolongées, mobile long, brouillon et retour à Nora. **R4** définit les contrats et les responsabilités ; **R5** construit avec tests ; **R6** prouve navigateur et REAL selon scénario.
 
-**Verdict : D — DOCUMENTED / FIGMA INTERACTIVE CANDIDATE — REVIEW MORRIS PENDING.** Morris reste arbitre de son acceptation et de l'éventuelle sortie R3. **Aucune promotion Git, PR, merge, R4, L5 ou ADOPTED** autorisés implicitement par cette documentation. La Roadmap `main` porte encore `R3 NOT STARTED` : **KNOWN GAP de baseline non mergée**, non modifié ici.
+**Verdict : D — VALIDATED UX CONTENT BY MORRIS, R3 GLOBAL REVIEW PENDING.** Morris reste arbitre de son acceptation et de l'éventuelle sortie R3. **Aucune promotion Git, PR, merge, R4, L5 ou ADOPTED** autorisés implicitement par cette documentation. La Roadmap `main` porte encore `R3 NOT STARTED` : **KNOWN GAP de baseline non mergée**, non modifié ici.
+
+## 34. Revue globale R3 — parcours A–D et frontières de preuve (2026-11-03)
+
+**Statut : GLOBAL UX REVIEW PENDING MORRIS.** A/B restent acceptés avec réserves, C est validé au niveau R1/R2 et UX, et D est validé par Morris sur le contenu UX et finalisé en Figma sur la branche candidate. Cette revue doit encore traiter les derniers points métier de Morris avant de statuer sur la sortie globale R3.
+
+**[Index Figma global A–D](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=264-401)** : 35 liens de revue vers les quatre capacités et les index détaillés. C'est une surface de validation des maquettes, **pas une page du produit**. Le produit garde le fil Nora et les accès contextuels ; Git est transversal et reste facultatif.
+
+### 34.1. Parcours contrôlés et destinations
+
+Le travail commence dans la [conversation 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214). La [consultation Git 12](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-148) est accessible depuis ce fil. Elle permet désormais de consulter un [projet sans dépôt 171](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=236-333), puis le [rattachement proposé 172](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=236-471), ou de sélectionner directement une [source candidate 173](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=236-609) et sa [provenance 175](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=236-885). Depuis 173 et 175, une action de lecture présente les [droits distincts 178](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=236-1299). Un accès refusé peut être inspecté depuis [09](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-923) vers [176](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=236-1023), sans information privée inventée.
+
+Les contrôles de droits orientent vers la [cible Git sous contrat 184](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=236-2127), puis le [contrat 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) et les [précontrôles 143](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1148). La [restitution 08](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827) garde séparée la [réception du Pilote 35](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-337). L'inspection des versions depuis les documents 04 et 18 converge vers [205](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=241-385). Les URL GitHub du 12 restent externes et réelles ; aucun lien interne ne se présente abusivement comme une ouverture GitHub.
+
+**Frontière de l'interactivité Figma :** autorisation, exécution, refus, STOP, conflit, réponse API et résultat sont des transitions conditionnelles à implémenter plus tard. Les liens de revue servent à inspecter leurs situations représentées ; ils n'en démontrent ni le déclenchement, ni le comportement, ni une permission réelle.
+
+### 34.2. Structure et numérotation contrôlées
+
+La page Figma de référence conserve ses trois pages 00/01/02 et une seule séquence de calques métier pour D **171–205**. La convention « numéro · responsabilité produit — situation » est appliquée sans trou ni doublon. Les deux index D/global ont été synchronisés sur les identifiants Figma inchangés. Les vues 171–196 conservent les quatre champs métier de source/référence/lecture/effet ; les variantes 197–204 gardent les contrats visuels de reflow, focus, zoom, lecture longue et reprise.
+
+**Audit final : 208 frames et 2 128 liens NODE**, aucun lien cassé, aucune action visible sans réaction, aucun numéro de calque dupliqué. Cinq liens internes aux écrans 03/129/130/131/133 servent volontairement « Aller à la dernière réponse » et ne constituent pas des boucles. L'index global, l'écran Git 12 et ses nouveaux accès ont été inspectés visuellement.
+
+### 34.3. Points à instruire avant la sortie R3
+
+La revue globale devra confronter la direction UX A–D aux règles R1/R2, distinguer les réserves de conception des preuves R4–R6 et décider lesquelles sont bloquantes pour la sortie R3. Restent notamment à prouver plus tard les droits Git effectifs, l'intégrité contrat/instruction, les reprises, l'accessibilité clavier et zoom navigateur, ainsi que les états LIVE/REAL.
+
+**Point annoncé par Morris pour discussion ultérieure :** comment le Pilote voit que Nora réfléchit ou réalise une mission, et quels états utiles sont effectivement disponibles depuis les API. Il s'agit d'un **sujet ouvert**, pas d'une spécification déjà validée : aucun mécanisme de streaming, de statut, de fréquence, d'événement ou de composant n'est supposé à ce stade. Selon l'arbitrage, une mise à jour ciblée R1/R2/UX pourra être nécessaire avant de considérer le cycle de conception achevé.
+
+**Gate maintenu : R3 NON CLOS / REVIEW MORRIS PENDING.** Aucune PR, merge, promotion, modification de la Roadmap normative, architecture R4 ou preuve d'implémentation n'est engagée par cette consolidation.
