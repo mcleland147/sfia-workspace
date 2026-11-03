@@ -1593,3 +1593,7 @@ Le [contrat de transposition](contrat-transposition-figma-code.md) prend en comp
 **Contrôles Figma de conception réalisés :** point de départ principal observé ; flux de revue dédié créé ; nombre de flux réduit de **39 à 3** ; **223/223 frames atteignables depuis la revue**, aucun numéro de frame nouveau dupliqué, aucune destination de réaction inexistante ; noms de calques des boutons 136/143/144 harmonisés avec leurs libellés affichés. Captures des index A–D, des sept E2E et des variantes non nominales examinées ; le global a été réagencé à **1440 × 1285 px** pour une lecture plus lisible en Présentation.
 
 **Réserves de sortie :** quatre clarifications R1/R2 **VALIDATED CONTENT BY MORRIS, intégrées sur branche candidate** ; tests navigateur, zoom, clavier, dynamique API, état après reload, arrêt réel, idempotence, conformité Figma–code et autres preuves R6 non produits. **READY FOR MORRIS FINAL UX REVIEW — R3 NOT CLOSED**. La validation et la clôture sont des décisions Morris distinctes ; PR/merge uniquement après gate spécifique.
+
+## 38. Décision Morris de sortie R3 (2026-11-03)
+
+La conception UX R3 est **CLOSED BY MORRIS — WITH CARRIED RESERVES**. La [décision formelle](../governance/decisions/2026-11-03-r3-ux-formal-exit.md) est enregistrée sur la branche candidate. Les mentions antérieures de revue en attente documentent des états précédents de préparation, et non le statut courant. **La promotion sur `main`, la PR/les checks, le merge, le runtime et le démarrage R4 demeurent séparés.**
