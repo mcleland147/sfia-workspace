@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.5**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.6**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -338,6 +338,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 
 | 2026-11-03 | Créer un fichier Figma Design neuf et indépendant pour visualiser V3 (trois écrans) ; conserver contexte condensable en hypothèse. | GO Morris explicite pour Figma neuf, consultation P3 seulement en lecture ; approbation du principe de condensation, pas des écrans | **FIGMA CANDIDATE — THREE EDITABLE SCREENS** ; pas de validation, prototype cliquable, développement ni preuve runtime. |
 
+| 2026-11-03 | Définir le périmètre candidat d'inspection au-delà de la visionneuse : documents créés/modifiés par Nora, objets métiers, sources Git/liens externes, contrats Cursor, rapports et preuves ; distinguer MVP et extensions. | Exploration à la demande de Morris ; aucun arbitrage d'édition ou de persistance validé | **ANALYSE / HYPOTHÈSES R3**, sans validation de formats, d'architecture ni d'intégrations. |
+
 ### Règle de maintenance
 
 À chaque échange qui modifie substantiellement la conception :
@@ -611,3 +613,78 @@ Morris autorise explicitement la **création de premiers écrans dans un nouvel 
 5. Le contenu de Nora mérite-t-il une densité, une typographie ou des surfaces de travail différentes selon la nature des résultats ?
 
 **Sortie de cette étape :** premières maquettes Figma créées et contrôlées ; retour Morris requis avant tout verdict UX fort. Aucun GO de PR/merge, de changement de Roadmap, de création d'un design system adopté ou d'implémentation technique n'en découle.
+
+
+## 17. Inspection — périmètre fonctionnel à instruire (v0.6)
+
+### 17.1 Objet et frontières
+
+**Question Morris :** quelles informations l'inspection affiche-t-elle, que Nora peut-elle produire ou modifier, que le Pilote peut-il examiner et faire depuis la surface, et comment présenter documents, liens GitHub, contrats d'exécution, rapports Cursor et bilans de preuves ? L'exemple utilisateur est une **visionneuse de document adjacente au chat**. Cette forme est une référence d'interaction, non une limite de capacité ni une obligation de panneau fixe.
+
+**Proposition R3 — non validée :** l'inspection est une **surface de consultation et d'interaction contextualisée, réversible et centrée sur un objet identifié**. Elle peut devenir étendue lorsque le volume ou le risque l'exige. Elle ne possède ni la conversation Nora, ni les registres D4/D5/D6/D7/D8/D9, ni un droit intrinsèque de mutation. Elle réutilise leurs références, états et garde-fous.
+
+Les objets ne doivent pas être réduits à des « documents » : une décision, un contrat, un bilan ou un point ouvert est un objet métier dont la présentation est adaptée, même s'il contient du texte et des références.
+
+### 17.2 Familles d'objets à rendre inspectables
+
+| Famille | Vue principale | Fonctions candidates | Propriétaire officiel / frontière |
+| --- | --- | --- | --- |
+| Documents et productions Nora | Document lisible (Markdown rendu, texte), provenance, version, statut de brouillon | Lire, ouvrir en grand, copier/exporter, voir versions/diff, demander modification à Nora | D3 production cognitive, D4 capitalisation pertinente ; la gestion de fichiers/version est **à concevoir R4**, non implémentée |
+| Sources externes / fichiers | Extrait ou aperçu réellement récupéré, fichier Git, lien d'origine, branche/commit/version quand disponible | Lire fichier autorisé, citer/ouvrir la source externe, comparer des références | D3/D4 provenance, D9 accès Git ; aucune navigation web intégrée imposée, aucun mandat de mutation par lecture |
+| Sujets et points ouverts | Objet, synthèse, relations, état connu, provenance et histoire | Examiner contexte, voir objets liés, discuter avec Nora, accéder au Journal | D4 source de connaissance ; pas de troisième registre de points ouverts |
+| Décisions du Pilote | Auteur, objet, portée, conditions, état applicable, source/historique | Comprendre, comparer historique, demander analyse ou révision selon acte compétent | D6 autorité exclusive ; inspection/édition visuelle ≠ décision |
+| Trajectoire et cycles | Étape réelle/projetée, dépendances, jalons et références | Voir le détail, contextualiser avec Nora | D5 ; navigation ≠ ouverture/changement de cycle |
+| Contrats d'exécution | Résumé intelligible, IN/OUT, effets, cibles, risques/STOP, instruction exacte/version | Inspecter, demander ajustement de projet de contrat, consulter instruction, puis « Exécuter » distinct lorsque applicable | D7 contrat/tentatives ; D6 autorisation ; D9 droits techniques : préparer/voir ≠ lancer |
+| Tentative et retour Cursor | État technique reçu, compte-rendu, erreurs, artefacts, lien de tentative | Explorer rapport, effets déclarés, inconnues, actions correctives proposées | D7 retours ; le rapport est une déclaration, pas une preuve suffisante |
+| Résultats et preuves | Attendu/observé/critères, écarts, réserves, sources probatoires, niveau de vérification | Examiner tests, diff, captures, éléments accessibles et bilan borné ; approfondir les écarts avec Nora | D8 qualification ; D6 acceptation métier ; D7 exécution ; ne pas transformer « terminé » en « conforme » |
+
+**Contenus annexes pertinents sans créer de nouveaux registres :** comparaisons structurées, tableaux, diagrammes, images/captures, extrait de code, rapport de revue, références Git et documents joints. Le format et le niveau de rendu dépendent d'une capacité réellement disponible, pas d'un support universel supposé.
+
+### 17.3 Ce que Nora peut faire — proposition
+
+- **Créer :** produire une analyse, spécification, note, synthèse ou document à partir d'une intention suffisamment claire, sans imposer Cursor, Git, contrat externe ni cycle pour une production purement cognitive (D3 RG-CONV-005, D8 RG-PRV-033).
+- **Proposer un objet consultable :** afficher une ressource persistante si elle a été réellement enregistrée ; sinon la présenter clairement comme contenu conversationnel/transitoire, sans simuler une sauvegarde.
+- **Réviser un brouillon :** à la demande du Pilote, produire une nouvelle version traçable avec la zone modifiée et la possibilité de comparer. La portée des modifications peut être une section ou l'ensemble de la production. **Candidat :** aucune réécriture silencieuse de la version précédente.
+- **Relier :** citer les sources disponibles et pointer vers les objets canoniques ; signaler les contenus périmés, non accessibles, non vérifiés ou contredits.
+- **Expliquer et approfondir :** répondre à une question sur le contenu inspecté depuis la conversation de travail, avec la référence/section sélectionnée et sans créer un second chat.
+- **Préparer et analyser :** proposer un acte métier D6, un contrat D7 ou un bilan D8 via leurs propriétaires, sans s'approprier leur autorité ni attester un effet qu'elle n'a pas observé.
+
+### 17.4 Ce que le Pilote peut faire — proposition
+
+- **Lire, agrandir, fermer, retrouver :** depuis Nora ou consultation autonome, avec retour à l'origine et conservation des états réellement sauvegardés.
+- **Explorer :** sommaire, sections, sources, versions, liens, éléments associés, historique et preuves, si disponibles.
+- **Copier, télécharger, exporter :** pour les formats réellement supportés, sans revendiquer l'édition native de tous les binaires.
+- **Demander une modification à Nora :** cibler une sélection, une section ou le document entier, voir l'avant/après et la nouvelle version ; l'édition manuelle complète de tous les formats est une **extension à arbitrer**, pas une condition du premier lot.
+- **Exercer ses choix :** arbitrer dans le contexte D6 et, pour un effet externe, inspecter le contrat D7 puis déclencher via l'acte distinct « Exécuter » après vérification. L'interface ne convertit pas les clics Lire/Inspecter/Retour en acte.
+- **Ouvrir l'original :** lien GitHub/web dans le navigateur externe ; un navigateur web embarqué est explicitement **hors hypothèse actuelle**, à la demande de Morris.
+
+### 17.5 Édition documentaire — frontières et décisions à instruire
+
+**Distinction à conserver :** (A) un brouillon documentaire créé pour le travail Nora–Pilote ; (B) un document existant du projet avec version et source officielle ; (C) un fichier externe GitHub. Une modification d'un brouillon ne vaut pas écriture de (B) ou push de (C).
+
+**Chaîne candidate minimale :** Nora produit un brouillon Markdown → Studio présente le contenu rendu avec provenance et statut → le Pilote demande « révise la section X » → Nora prépare une version candidate → inspection avant/après → la version réellement retenue est conservée dans le périmètre du projet si la capacité/politique de persistance est autorisée et effectivement disponible → publication éventuelle Git distincte, avec permissions, portée et autorité applicables. Ne pas inférer qu'un brouillon est automatiquement un fichier dans Git.
+
+**R4 doit qualifier :** identité/type de ressource, source de vérité, conservation/durabilité, versions, rendu sécurisé et protection contre contenu externe hostile, lecture de formats, droits, transfert de références sélectionnées vers Nora, états d'erreur, diff, compatibilité avec les décisions/proofs, conséquences de l'écriture (interne vs externe).
+
+### 17.6 Capacité initiale et trajectoire d'enrichissement — proposition non arbitrée
+
+**Socle cohérent à qualifier en premier :**
+1. Surface d'inspection commune et réversible pour objets canoniques + sources, avec mode court et étendu.
+2. **Markdown et texte en lecture rendue** comme premier support de production de Nora, avec provenance, identité, version et statut réel de sauvegarde ; extrait de code/rapports lorsque disponibles. PDF/Office : consultation/export à étudier sur capacités réelles, sans promettre un éditeur universel.
+3. Liens web/GitHub **ouvrables dans le navigateur externe** ; aperçu interne d'un fichier Git uniquement si le contenu a été effectivement récupéré avec les permissions nécessaires.
+4. Décisions D6, contrats D7, retours Cursor et bilans D8 présentés à partir de leurs propriétaires officiels ; accès aux rapports/éléments probatoires avec états de fiabilité distincts.
+5. Révision guidée des **brouillons Nora** avec version candidate et comparaison, si un support de persistance fiable est prévu dans le macro-lot d'implémentation.
+
+**Extensions à arbitrer après les premiers parcours :** édition libre inline, commentaires/ancrages, export DOCX/PDF, comparatif multi-documents, lecteur universel de fichiers, annotations collaboratives, éditeur de code, consultation de sites web intégrés, automatisations d'édition. Aucune de ces extensions ne doit créer une seconde conversation, un second gestionnaire de décisions ou une dette sans exit.
+
+### 17.7 Parcours discriminants à mettre à l'épreuve en Figma
+
+1. **Document Nora :** création → consultation Markdown → demande de modification ciblée → avant/après → nouvelle version reconnue → retour au fil.
+2. **Source Git :** Nora cite un fichier + branche/commit → aperçu si accessible → ouvrir sur GitHub dans le navigateur, sans droit d'écriture ni navigateur embarqué.
+3. **Contrat :** proposition Nora → inspection du contrat + instruction technique exacte et version → ajustement exige requalification → acte Exécuter distinct si applicable.
+4. **Résultat :** Cursor rapporte « tests OK » → inspection rapport D7 → contrôle D8 avec preuve manquante → état « non démontré » → possibilité de demander à Nora l'analyse des écarts.
+5. **Gouvernance :** inspection d'une décision historique depuis Journal ou Nora → applicabilité courante vérifiable → discuter avec Nora ou revenir, sans formalisation implicite.
+
+**Risques/exit :** complexité de rendu et formats, sources non fiables, faux sentiment de preuve/autorité, versions et permissions incohérentes, double registre d'objets, brouillon perdu, panneau fourre-tout. **Exit UX attendu :** garder visibles les actions réellement utiles à l'objet et sa source officielle, avec retour simple et états d'erreur honnêtes. **Gate Morris :** choix explicite des comportements éditoriaux et formats à retenir après revue Figma ; cette section n'est pas un GO d'architecture R4/R5 ni une décision produit validée.
+
+**Statut : DOCUMENTED — HYPOTHÈSES UX v0.6, pas VALIDATED SPEC / IMPLEMENTED / BEHAVIOR PROVEN / ADOPTED.**
