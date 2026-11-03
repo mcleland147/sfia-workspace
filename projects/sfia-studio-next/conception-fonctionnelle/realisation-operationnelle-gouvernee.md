@@ -347,7 +347,7 @@ La projection métier, le contrat opérationnel et l'instruction ne sont **pas t
 
 ## 9. Clarification validée — états observables d'interruption et reprise externe (Morris, 2026-11-03)
 
-**Clarifications 3/4 et 4/4, responsabilité D7 — VALIDATED CONTENT BY MORRIS (D2).** Réutilisent \`RG-REAL-019/020/021/023/026/027/029/032\` et leurs scénarios d'interface, sans créer de machine à états indépendante, nouveau numéro \`RG\`/\`PF\` ou garantie technique non observée.
+**Clarifications 3/4 et 4/4, responsabilité D7 — VALIDATED CONTENT BY MORRIS (D2).** Réutilisent `RG-REAL-019/020/021/023/026/027/029/032` et leurs scénarios d'interface, sans créer de machine à états indépendante, nouveau numéro `RG`/`PF` ou garantie technique non observée.
 
 ### 9.1. Événements, capacité d'arrêt et état inconnu
 
