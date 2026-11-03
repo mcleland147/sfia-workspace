@@ -71,3 +71,9 @@ Au point de décision, examiner :
 **Décision de clôture : PENDING MORRIS.** Sans ce GO : rester `R3 EXIT REVIEW FAVORABLE — CLOSURE PENDING`. Après le GO, enregistrer la décision sous mandat D2 puis préparer les opérations Git selon leurs gates propres ; aucun GO de merge ou de lancement R4 implicite.
 
 **Rapport documentaire de revue — statut `EXIT REVIEW CANDIDATE`.** Ne constitue ni exécution Cursor, ni décision Morris, ni PR, merge ou mise à jour de `main`.
+
+## 6. Clôture Morris enregistrée — 2026-11-03
+
+Depuis la rédaction initiale du présent rapport, Morris a prononcé le GO de clôture R3 avec réserves. La décision est consignée dans le [Decision Record R3](../governance/decisions/2026-11-03-r3-ux-formal-exit.md) sur la branche candidate.
+
+**Statut actuel : `R3 CLOSED BY MORRIS — WITH CARRIED RESERVES / GIT INTEGRATION PENDING`.** Les mentions « en attente » qui précèdent décrivent l'état de préparation du rapport avant cette décision. Elles ne sont plus le statut courant. Le GO de clôture ne vaut ni PR mergée, ni adoption produit, ni autorisation de lancement R4.
