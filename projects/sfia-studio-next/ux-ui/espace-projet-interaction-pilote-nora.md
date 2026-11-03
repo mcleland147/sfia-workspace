@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.11**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.12**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -347,6 +347,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Rendre navigable la traversée E2E, ajouter les trois états discriminants et les accès autonomes Projet/Git, vérifier réactions et fidélité UX. | GO Morris pour poursuivre R3 ; aucun mandat de promotion sur main | **FIGMA INTERACTIVE CANDIDATE** : 11 frames et liens vérifiés, aucun runtime Next. |
 
 | 2026-11-03 | Relier les documents Nora, les décisions et un refus Git au prototype global ; éprouver deux surfaces compactes à 1280 px, auditer les réactions et la lisibilité. | GO Morris de poursuite R3 ; sans nouveau mandat de PR, merge ou clôture | **FIGMA CANDIDATE** : 17 écrans, 103 liens internes ; tests produit, accessibilité et responsive exhaustif non réalisés. |
+
+| 2026-11-03 | Consolider les restitutions adaptatives de Nora : réponse simple, clarification déterminante, divergence des sources et digression/reprise dans le parcours produit Figma. | GO Morris de poursuite R3 ; revue de sortie et promotion Git non autorisées | **DOCUMENTED / FIGMA CANDIDATE v0.12**, aucun comportement live ni décision R4. |
 
 ### Règle de maintenance
 
@@ -920,3 +922,37 @@ L'audit du prototype relève de nombreux textes de **11–13 px**, notamment pou
 **Gate :** les écrans et interactions restent candidats R3 ; aucune nouvelle décision structurante, aucune PR/merge de cette branche UX, aucune mise à jour normative/roadmap, ni entrée en R4/R5 n'est induite. Seul Morris décide des promotions après revue.
 
 **Statut : DOCUMENTED / INTERACTIVE FIGMA CANDIDATE — 17 FRAMES, 103 INTERNAL LINKS ; R3 IN PROGRESS, NOT ADOPTED.**
+
+
+## 23. Nora — restitutions conversationnelles proportionnées et continuité (R3 v0.12, 2026-11-03)
+
+### 23.1. Résultat utilisateur et frontière du macro-ensemble
+
+La conduite de R3 se poursuit autour du **Pilote qui exprime son intention** et de Nora qui adapte sa forme de réponse. Le résultat n'est pas un nouveau moteur de dialogue : **la même surface de travail** doit pouvoir présenter une réponse simple, une clarification réellement déterminante, une analyse sourcée ou une reprise après digression. Les documents, sources et connaissances restent consultables sans imposer une étape ou une action gouvernante.
+
+**Sources applicables :** SEF v0.2 ; Roadmap Next (mention R3 NOT STARTED historique, KNOWN GAP) ; R1 vision, dont §§2.40–2.41 ; spécifications R2 D1–D9 sur \`main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990\` ; notamment D3 \`RG-CONV-001..006\`, \`RG-CTX-003/005/006/008\`, \`RG-METH-005\`, \`RG-UX-001..003\`, D4 \`RG-KNOW-006..015\`, D6 et D9 pour les frontières d'autorité. Aucun changement de ces règles. Le code et les preuves runtime Next restent \`N/A — NON IMPLÉMENTÉ\`.
+
+**IN :** réponse concise sans écran/format forcé, une seule clarification lorsque la destination de modification change les droits, qualification d'une contradiction entre sources et versions, digression puis retour au travail, références vers les objets existants. **OUT :** agent/registre Nora supplémentaire, nouveau canal de discussion, automatique publication Git, moteur de mémoire architecturé, comportement live et écran spécialisé par type de réponse.
+
+### 23.2. Quatre maquettes reliées au parcours E2E de référence
+
+Les écrans sont des **frames Figma natives, éditables et candidates**, ajoutées à la **page 04** du même fichier Studio Next : https://www.figma.com/design/itgvCulInEnFY6DvgIegvP.
+
+| Situation | Maquette | Contrat d'interaction visible | Frontière |
+| --- | --- | --- | --- |
+| Réponse directe | [15 — Nora répond simplement](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-37) | Réponse proportionnée à une question sur la différence recommandation/décision, sans carte structurée ni cycle obligatoire | Recommandation ≠ HumanDecision |
+| Clarification déterminante | [16 — Nora précise la destination](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-144) | Une seule question distingue révision du brouillon Nora et écriture Git ; possibilité d'inspecter l'objet concerné | Choix d'une source à inspecter ≠ autorisation d'écriture |
+| Sources contradictoires | [17 — Nora qualifie une divergence](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-251) | Référence main et branche candidate illustratives, provenance à vérifier et impossibilité d'affirmer une promotion non démontrée | Une source candidate n'est pas une baseline adoptée |
+| Digression et reprise | [18 — Nora préserve le contexte](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-358) | Réponse ponctuelle Markdown, puis rappel du travail principal et accès au document/Journal | Une digression n'altère pas méthode, cycle, décision ou mandat |
+
+**Navigation de prototype :** quatre états reliés par une séquence de démonstration à partir du composeur Nora, avec des clics contextuels permettant d'accéder à la révision du brouillon, aux sources Git et au Journal. Ces clics **simulent une interaction UX** et ne constituent pas une saisie ou réponse réellement générée par Nora. Un point de départ Figma « Variantes de réponse Nora · démonstration » a été ajouté ; les autres points d'entrée restent conservés.
+
+### 23.3. Contrôles Figma et limites
+
+Après insertion, le prototype E2E comprend **21 frames** (19 à 1680 × 970, 2 variantes compactes à 1280 × 970), **154 réactions de navigation interne**, **3 actions URL externes**, **4 points d'entrée**. Les contrôles structurels rapportent **0 destination manquante** et **0 navigation d'une frame vers elle-même** ; les quatre nouveaux rendus ont été inspectés visuellement. Ces nombres décrivent la structure des liens, **pas un test de chaque comportement utilisateur**.
+
+**Réserves de conception :** vérifier la densité et la lisibilité du fil à l'échelle réelle, l'accessibilité clavier/focus et le zoom, la gestion des messages longs et pièces jointes, le ciblage de sections, les erreurs d'indisponibilité et d'autorité, les variantes de restitutions nécessitant des contrôles. Un clic de démonstration sur une source ou un brouillon n'écrit aucune donnée et n'ouvre aucun droit.
+
+**Suite cohérente du jalon R3 :** poursuivre par les cas sensibles d'autorisation/STOP et de reprise après interruption, puis consolider les composants, la typographie, les états clavier et les adaptations. Vérifier ensuite la couverture transverse des parcours R1/R2 et préparer un **dossier de sortie R3 compact**, sans ajouter indéfiniment des sections historiques au document vivant : consolider sa structure avant intégration formelle. Les gates de PR/merge/Roadmap, de sortie R3 et d'entrée R4 restent réservés à Morris.
+
+**Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE R3 ; aucune preuve runtime Next, aucun ADOPTED.**
