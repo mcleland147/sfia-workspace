@@ -212,3 +212,24 @@ Chaque cas propose un résultat observable à démontrer ultérieurement. Les id
 **Critère de validation de contenu :** Morris valide le domaine 6 et ses frontières, en connaissance des réserves D6-01..08. Une `VALIDATED SPEC` n'implique ni la fermeture de toutes les interfaces futures, ni PR/merge, ni `BEHAVIOR PROVEN`/`ADOPTED`.
 
 **Verdict : `DOMAINE 6 — DÉCISIONS ET GOUVERNANCE — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 36 règles `RG-GOV-001..036`, 28 scénarios `PF-GOV-01..28`, conformité R1/Nora/Connaissance/Trajectoire/CKI analysée, futures interfaces D1/D2/D7–D9 `NON ÉVALUÉES`, Next `N/A — NON IMPLÉMENTÉ`.**
+
+
+---
+
+## 7. Complément post-clôture R2 — choix de version documentaire non autorisant (2026-11-03)
+
+**Statut : contenu validé par Morris le 2026-11-03, publié sur branche candidate.** Il complète la spécification historique v0.1 et ses règles/scénarios approuvés au 2026-11-02, sans modifier la décision de sortie R2 ni affirmer une implémentation Next.
+
+### Règle de gestion additionnelle
+
+- **RG-GOV-037 — Choix documentaire non autorisant.** Conserver un brouillon, demander une révision ou choisir une version de travail ne constituent pas par défaut une décision structurante, un GO Git, une acceptation du contenu comme spécification validée ni un acte « Exécuter ». Un arbitrage explicite portant sur la validité métier du document reste qualifié par D6 ; un effet externe reste soumis aux mandats D6/D7/D9 applicables. *Interfaces : RG-GOV-001/002/024 ; D3 DOC-010.*
+
+### Scénario(s) fonctionnel(s) additionnel(s)
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-GOV-29** | D6 | « Cette révision me plaît » sur un brouillon | Choix de travail interprété à sa portée, pas validation métier ni droit Git/Exécuter induit | GOV-037, GOV-001/024 |
+
+**Frontière :** décision métier, acceptation et autorisation D6 restent indépendantes de la simple gestion des brouillons, versions et actions de navigation dans l'Inspection.
+
+**R4–R6 :** droits, portée, reprise, version et comportements à concevoir puis prouver ; `N/A — NON IMPLÉMENTÉ`.
