@@ -1,7 +1,7 @@
 # SFIA Studio Next — Guide de couverture UX R3 (audit initial et couverture actuelle)
 
 **Date :** 3 novembre 2026  
-**Statut CURRENT :** guide de couverture sur branche UX candidate ; macro-lots A–D validés comme trajectoire, macro-lot B représenté dans Figma mais **pas validé comme sortie R3 / pas prêt à fabriquer globalement**. Les §§1–6 sont le snapshot initial (22 écrans), le §7 décrit le périmètre à jour (48 écrans).  
+**Statut CURRENT :** guide de couverture sur branche UX candidate ; trajectoire A–D validée ; **macro-lot B accepté par Morris au niveau de la revue UX, avec réserves reportées**. R3 global **non clos / non prêt à construire**. §§1–6 = audit historique ; §7 = référence B au moment de sa consolidation ; §8 = suite A.  
 **Nature :** audit initial de couverture fonctionnelle et de navigabilité ; **NON VALIDATED / NON READY FOR BUILD**.  
 **Sources :** `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990`, branche documentaire candidate `sfia/next-r3-ux-interaction-candidate@8736ea0353ad8b14fb96cc9c7ad83e7f5803659f`, Figma Next `itgvCulInEnFY6DvgIegvP` page 05, SEF v0.2, Roadmap, Vision R1, neuf propriétaires R2 D1–D9 et complément Inspection, document UX candidat v0.16. Git local non observé.
 
@@ -308,3 +308,12 @@ La correspondance ci-dessous **n'est pas une exécution de recette ni une confor
 **Réserves à transmettre R4 :** étude A intégrée modulaire vs B distribuée vs C éventuelle des restitutions Nora, contrat sémantique fiable des actions contextuelles, persistance/reprise, disponibilité/versions CKI, idempotence et concurrence de cycles/décisions, droits et isolation multi-Pilotes, interfaces de persistance, supervision et coûts/charge. A est hypothèse privilégiée, pas choix adopté.
 
 **Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE — MACRO-LOT B CONCEPTION CONSOLIDÉE, REVUE MORRIS ATTENDUE — NEXT N/A NON IMPLÉMENTÉ ; R3 NON CLOS.**
+
+
+## 8. Décision de revue Morris — macro-lot B et lancement A (2026-11-03)
+
+**Retour Morris :** « sur le principe, moi j'ai pas de sujet avec ce que t'as fait », après consultation du parcours Figma, du guide de couverture et du document de conception. **Verdict : B REVIEW ACCEPTED BY MORRIS WITH CARRIED RESERVES**, au niveau du parcours et de la conception UX. Ce n'est ni `COVERAGE VERIFIED`, ni preuve de fonctionnement, ni `VALIDATED SPEC` de tous les scénarios, ni sortie R3, ni ADOPTED.
+
+Les écarts/risques de B du §7.5 restent **ouverts et tracés** : navigation clavier/zoom, responsive, retour/focus, effets runtime, droits et autorité, CKI versionné, concurrence/idempotence, scénarios partagés avec les autres lots, vérification transverse des 324 RG et 259 PF. Morris confirme la poursuite **séquentielle par macro-lots** : maintenant **A — Entrée, sas, conversation et continuité**, puis revue avant le lot suivant. Pas de GO PR/merge/main, ni lancement R4/R5.
+
+**Statut B : REVIEW ACCEPTED WITH CARRIED RESERVES ; A : IN DESIGN ; R3 : OPEN ; NEXT : N/A — NON IMPLÉMENTÉ.**
