@@ -1,0 +1,1335 @@
+{
+  "schema": "SFIA_NEXT_R3_FRAME_INDEX_v0.1",
+  "source": "itgvCulInEnFY6DvgIegvP",
+  "page": "94:49",
+  "date": "2026-11-03",
+  "units": "px",
+  "frames": [
+    {
+      "id": "94:50",
+      "name": "01 · Portefeuille et choix du projet",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "94:135",
+      "name": "02 · Sas — conversation avant projet",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "94:214",
+      "name": "03 · Nora — conversation longue / en lecture",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "94:370",
+      "name": "04 · Document Nora — consultation",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "94:515",
+      "name": "05 · Journal — sujets et décisions",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "94:629",
+      "name": "06 · Contrat d'exécution — synthèse, volets et instruction",
+      "width": 1680,
+      "height": 1060
+    },
+    {
+      "id": "94:731",
+      "name": "07 · Tentative — attente de retour",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "94:827",
+      "name": "08 · Résultat — synthèse, conformité et preuves",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "94:923",
+      "name": "09 · Source Git — accès indisponible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "94:1037",
+      "name": "10 · Nora — vue compacte 1280",
+      "width": 1280,
+      "height": 970
+    },
+    {
+      "id": "96:34",
+      "name": "11 · Projet — synthèse consultable",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "96:148",
+      "name": "12 · Sources Git — consultation",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "96:262",
+      "name": "13 · Projet créé — poursuite du fil",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "96:370",
+      "name": "14 · Reprise du travail — contexte retrouvé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "97:35",
+      "name": "15 · Conversation — choix A approfondi",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "97:143",
+      "name": "16 · Conversation — choix B approfondi",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "97:251",
+      "name": "17 · Conversation — autre choix modifiable",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "97:359",
+      "name": "18 · Document Nora — révision guidée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "100:39",
+      "name": "19 · Rapport et preuves — inspection",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "102:43",
+      "name": "20 · Décision — consultation distincte",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "106:158",
+      "name": "21 · Réalisation — interruption demandée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "125:33",
+      "name": "22 · Trajectoire — sans cycle actif",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:35",
+      "name": "23 · Cycle — qualification proposée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:106",
+      "name": "24 · Cycle — actif et guidance CKI",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:178",
+      "name": "25 · Cycle — clôture envisagée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:249",
+      "name": "26 · Cycle — second cycle incompatible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:320",
+      "name": "27 · Cycle — clôture enregistrée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:391",
+      "name": "28 · Méthode — aucune retenue",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:462",
+      "name": "29 · Méthode — proposition initiale",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "127:533",
+      "name": "30 · Décision — clarification nécessaire",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:52",
+      "name": "31 · Décision — en vigueur",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:124",
+      "name": "32 · Décision — révision",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:195",
+      "name": "33 · Suspension — active",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:266",
+      "name": "34 · Suspension — levée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:337",
+      "name": "35 · Réception — choix du Pilote",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:409",
+      "name": "36 · Réception — acceptée avec réserves",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:480",
+      "name": "37 · Réception — refusée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:551",
+      "name": "38 · Réception — reportée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "128:622",
+      "name": "39 · CKI — indisponible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "129:72",
+      "name": "40 · Journal — décisions",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "129:144",
+      "name": "41 · Cycle — GO à clarifier",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "129:215",
+      "name": "42 · Cycle — transition partielle",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "129:286",
+      "name": "43 · Décision — contradiction",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "129:357",
+      "name": "44 · Cycle — maturité insuffisante",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "129:428",
+      "name": "45 · Décision — révocation",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "131:85",
+      "name": "46 · Décision — correction enregistrée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "131:156",
+      "name": "47 · Cycle — transition conjointe confirmée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "131:227",
+      "name": "48 · CKI — nouvelle version disponible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:92",
+      "name": "49 · Trajectoire — cycle UX achevé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:163",
+      "name": "50 · Architecture — cycle proposé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:234",
+      "name": "51 · Architecture — cycle actif",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:305",
+      "name": "52 · Ouverture — état à confirmer",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:376",
+      "name": "53 · Clôture — état à confirmer",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:447",
+      "name": "54 · Transition — effet non confirmé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:518",
+      "name": "55 · Reprise — cycle retrouvé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "143:589",
+      "name": "56 · Ouverture — demande déjà prise en compte",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "144:108",
+      "name": "57 · Trajectoire — Architecture active",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "144:179",
+      "name": "58 · CKI — guidance du cycle actif",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "144:250",
+      "name": "59 · CKI — relations utiles",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "147:115",
+      "name": "60 · Méthode — nouvelle version proposée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "147:186",
+      "name": "61 · Ouverture Architecture — en attente",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:120",
+      "name": "62 · Accès — connexion personnelle",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:192",
+      "name": "63 · Accès — session expirée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:264",
+      "name": "64 · Portefeuille — aucun projet",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:336",
+      "name": "65 · Portefeuille — liste de projets",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:408",
+      "name": "66 · Accès — projet non autorisé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:480",
+      "name": "67 · Accès — projet introuvable",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:552",
+      "name": "68 · Navigation — changement de projet",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:624",
+      "name": "69 · Navigation — autre projet ouvert",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:696",
+      "name": "70 · Portefeuille — Git non autorisé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:768",
+      "name": "71 · Portefeuille — informations partielles",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:840",
+      "name": "72 · Navigation — projet tiers évoqué",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "158:912",
+      "name": "73 · Portefeuille — retour sans projet créé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:145",
+      "name": "74 · Sas — préparation retrouvée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:217",
+      "name": "75 · Sas — clarification ciblée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:289",
+      "name": "76 · Sas — aperçu du projet",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:361",
+      "name": "77 · Création — demande en cours",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:433",
+      "name": "78 · Création — résultat incertain",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:505",
+      "name": "79 · Création — session non applicable",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:577",
+      "name": "80 · Création — échec avant enregistrement",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:649",
+      "name": "81 · Création — projet déjà retrouvé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:721",
+      "name": "82 · Sas — document préparé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:793",
+      "name": "83 · Sas — sources divergentes",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:865",
+      "name": "84 · Sas — demande combinée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:937",
+      "name": "85 · Sas — projet homonyme",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:1009",
+      "name": "86 · Sas — passage au projet incertain",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:1081",
+      "name": "87 · Sas — source Git consultée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "159:1153",
+      "name": "88 · Sas — reprise après session",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:175",
+      "name": "89 · Documents — bibliothèque du projet",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:247",
+      "name": "90 · Document — historique des versions",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:319",
+      "name": "91 · Document — comparer les révisions",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:391",
+      "name": "92 · Document — révision concurrente",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:463",
+      "name": "93 · Document — conservation incertaine",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:535",
+      "name": "94 · Document — accès refusé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:607",
+      "name": "95 · Document — version remplacée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:679",
+      "name": "96 · Document — révision conservée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:751",
+      "name": "97 · Journal — organiser les sujets",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:823",
+      "name": "98 · Journal — sujet renommé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:895",
+      "name": "99 · Journal — sujets regroupés",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:967",
+      "name": "100 · Journal — points ouverts",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1039",
+      "name": "101 · Connaissance — versions contradictoires",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1111",
+      "name": "102 · Connaissance — lecture interprojet",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1183",
+      "name": "103 · Connaissance — lecture refusée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1255",
+      "name": "104 · Connaissance — branche candidate",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1327",
+      "name": "105 · Document — exporter une copie",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1399",
+      "name": "106 · Document — production incomplète",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1471",
+      "name": "107 · Connaissance — fait éclairci",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "160:1543",
+      "name": "108 · Document — inspection et retour",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:216",
+      "name": "109 · Nora — première conversation",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:288",
+      "name": "110 · Nora — reprise contextualisée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:360",
+      "name": "111 · Nora — action devenue indisponible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:432",
+      "name": "112 · Nora — choix envoyé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:504",
+      "name": "113 · Nora — brouillon de réponse",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:576",
+      "name": "114 · Nora — conflit de sources",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:648",
+      "name": "115 · Nora — source non fiable",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:720",
+      "name": "116 · Nora — action non disponible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:792",
+      "name": "117 · Nora — digression puis reprise",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:864",
+      "name": "118 · Nora — demande documentaire",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:936",
+      "name": "119 · Nora — réponse partielle",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "161:1008",
+      "name": "120 · Nora — provenance expliquée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:241",
+      "name": "121 · Accès — connexion en cours",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:313",
+      "name": "122 · Accueil — présentation de Studio",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:385",
+      "name": "123 · Nora — conversation du projet Horizon",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:457",
+      "name": "124 · Sas — inspecter le brouillon",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:529",
+      "name": "125 · Sas — comparer deux sources",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:601",
+      "name": "126 · Document — version courante inspectée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:673",
+      "name": "127 · Connaissance — comparer les sources",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:745",
+      "name": "128 · Document — export en préparation",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "162:817",
+      "name": "129 · Nora — conversation à plusieurs réponses composites",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "163:266",
+      "name": "130 · Nora — idée exprimée dans le fil",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "163:430",
+      "name": "131 · Nora — fil propre au projet Horizon",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "166:278",
+      "name": "132 · Projet Orion — contexte confirmé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "166:350",
+      "name": "133 · Nora — conversation propre à Orion",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "169:275",
+      "name": "INDEX · Macro-lot A — revue des états, non UI produit",
+      "width": 1680,
+      "height": 1270
+    },
+    {
+      "id": "171:275",
+      "name": "134 · Nora — contenu affiché sous forme sûre",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:276",
+      "name": "135 · Nora — travail cognitif direct",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:385",
+      "name": "136 · Contrat — Proposition en attente d'inspection",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:603",
+      "name": "138 · Contrat — paramètres sensibles protégés",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:712",
+      "name": "139 · Contrat — version devenue périmée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:821",
+      "name": "140 · Contrat — exécuteur indisponible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:930",
+      "name": "141 · Contrat — droits d'écriture insuffisants",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:1039",
+      "name": "142 · Contrat — paramètres essentiels à préciser",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:1148",
+      "name": "143 · Autorisation — contrôles avant lancement",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:1252",
+      "name": "144 · Tentative — lancement demandé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:1356",
+      "name": "145 · Tentative — activité réellement observée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:1460",
+      "name": "146 · Tentative — communication perdue",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:1564",
+      "name": "147 · Tentative — double clic détecté",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "187:1668",
+      "name": "148 · Tentative — mauvaise identité d'exécuteur",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:291",
+      "name": "149 · Tentative — conflit de branche ou de portée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:395",
+      "name": "150 · Tentative — reprise après incident Studio",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:499",
+      "name": "151 · Interruption — STOP demandé, non confirmé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:602",
+      "name": "152 · Interruption — arrêt technique indisponible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:705",
+      "name": "153 · Interruption — arrêt confirmé avec effets",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:808",
+      "name": "154 · Suspension métier — reprise encore bloquée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:911",
+      "name": "155 · Rapport reçu — déclaration non vérifiée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:1017",
+      "name": "156 · Résultats — critères corroborés sur une portée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:1123",
+      "name": "157 · Preuves — rapport et sources contradictoires",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:1229",
+      "name": "158 · Preuves — accès refusé ou contexte périmé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:1335",
+      "name": "159 · Bilan — conformité partielle et réserves",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:1441",
+      "name": "160 · Contrat correctif — nouveau mandat nécessaire",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "188:1550",
+      "name": "161 · Bilan — sans dépôt Git ni cycle QA",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "190:318",
+      "name": "162 · Tentative — correction interne au mandat",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "190:455",
+      "name": "INDEX · Réalisation gouvernée et restitution — revue R3",
+      "width": 2330,
+      "height": 939
+    },
+    {
+      "id": "199:478",
+      "name": "163 · Contrat d'exécution — mission et résultats",
+      "width": 1680,
+      "height": 1230
+    },
+    {
+      "id": "199:648",
+      "name": "164 · Contrat d'exécution — périmètre et effets",
+      "width": 1680,
+      "height": 1270
+    },
+    {
+      "id": "199:820",
+      "name": "165 · Contrat d'exécution — exécuteur, capacités et autorité",
+      "width": 1680,
+      "height": 1230
+    },
+    {
+      "id": "199:990",
+      "name": "166 · Contrat d'exécution — limites, STOP et réversibilité",
+      "width": 1680,
+      "height": 1230
+    },
+    {
+      "id": "199:1160",
+      "name": "167 · Contrat d'exécution — validation, preuves et sources",
+      "width": 1680,
+      "height": 1230
+    },
+    {
+      "id": "199:1330",
+      "name": "168 · Contrat d'exécution — identité et intégrité",
+      "width": 1680,
+      "height": 1230
+    },
+    {
+      "id": "199:1500",
+      "name": "169 · Contrat d'exécution — instruction Cursor consultée",
+      "width": 1680,
+      "height": 1330
+    },
+    {
+      "id": "202:438",
+      "name": "170 · Résultat — synthèse détaillée et sourcée",
+      "width": 1680,
+      "height": 1200
+    },
+    {
+      "id": "236:333",
+      "name": "171 · Projet — sans dépôt Git",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:471",
+      "name": "172 · Sources Git — rattachement proposé",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:609",
+      "name": "173 · Sources Git — ressource sélectionnée",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:747",
+      "name": "174 · Sources Git — plusieurs dépôts consultés",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:885",
+      "name": "175 · Sources Git — référence et provenance",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1023",
+      "name": "176 · Sources Git — dépôt privé inaccessible",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1161",
+      "name": "177 · Sources Git — lecture révoquée",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1299",
+      "name": "178 · Sources Git — identités et droits distincts",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1437",
+      "name": "179 · Sources Git — dépôt public en lecture",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1575",
+      "name": "180 · Sources Git — instruction non fiable",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1713",
+      "name": "181 · Sources Git — dépôt partagé et projets isolés",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1851",
+      "name": "182 · Sources Git — base devenue périmée",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:1989",
+      "name": "183 · Sources Git — commit non retrouvé",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:2127",
+      "name": "184 · Sources Git — cible d'effet sous contrat",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "236:2265",
+      "name": "185 · Sources Git — commit, push, PR et merge",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:363",
+      "name": "186 · Sources Git — accusé perdu et doublon évité",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:501",
+      "name": "187 · Sources Git — publication distante échouée",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:639",
+      "name": "188 · Sources Git — merge non confirmé",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:777",
+      "name": "189 · Sources Git — interventions sur fichiers disjoints",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:915",
+      "name": "190 · Sources Git — collision sur un même fichier",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:1053",
+      "name": "191 · Sources Git — rattachement retiré",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:1191",
+      "name": "192 · Sources Git — reprise après déconnexion",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:1329",
+      "name": "193 · Sources Git — preuve insuffisante",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:1467",
+      "name": "194 · Projet — cycle Git non imposé",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:1605",
+      "name": "195 · Sources Git — effet Kubernetes distinct",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "237:1743",
+      "name": "196 · Sources Git — droits retirés pendant l'effet",
+      "width": 1680,
+      "height": 1080
+    },
+    {
+      "id": "238:385",
+      "name": "197 · Sources Git — consultation à 1280 px",
+      "width": 1280,
+      "height": 990
+    },
+    {
+      "id": "238:416",
+      "name": "198 · Sources Git — lecture mobile à 390 px",
+      "width": 390,
+      "height": 1350
+    },
+    {
+      "id": "238:440",
+      "name": "199 · Nora — réponse longue à 1280 px",
+      "width": 1280,
+      "height": 990
+    },
+    {
+      "id": "238:471",
+      "name": "200 · Nora — réponse longue mobile à 390 px",
+      "width": 390,
+      "height": 1350
+    },
+    {
+      "id": "238:495",
+      "name": "201 · Interaction — focus clavier visible",
+      "width": 1280,
+      "height": 990
+    },
+    {
+      "id": "238:526",
+      "name": "202 · Interaction — zoom et lecture à 200 %",
+      "width": 1280,
+      "height": 990
+    },
+    {
+      "id": "238:557",
+      "name": "203 · Nora — action périmée sur mobile",
+      "width": 390,
+      "height": 1350
+    },
+    {
+      "id": "238:581",
+      "name": "204 · Conversation — déconnexion et brouillon conservé",
+      "width": 1280,
+      "height": 990
+    },
+    {
+      "id": "241:385",
+      "name": "205 · Document — inspection des révisions",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "242:387",
+      "name": "INDEX · Git gouverné et qualité UX — revue R3",
+      "width": 2540,
+      "height": 1066
+    },
+    {
+      "id": "264:401",
+      "name": "INDEX · Revue globale R3 — parcours A–D",
+      "width": 2700,
+      "height": 696
+    },
+    {
+      "id": "281:389",
+      "name": "206 · Nora — analyse engagée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:570",
+      "name": "207 · Nora — source consultée",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:751",
+      "name": "208 · Nora — traitement sans détail",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:932",
+      "name": "209 · Intervention — événements Cursor disponibles",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:1113",
+      "name": "210 · Nora — arrêt demandé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:1294",
+      "name": "211 · Intervention — arrêt non confirmé",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:1475",
+      "name": "212 · Nora — acquis après interruption",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:1656",
+      "name": "213 · Nora — reprise à partir des acquis",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:1837",
+      "name": "214 · Nora — reprise devenue impossible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "281:2018",
+      "name": "215 · Nora — résultat partiel intelligible",
+      "width": 1680,
+      "height": 970
+    },
+    {
+      "id": "282:468",
+      "name": "216 · Nora — travail en cours à 390 px",
+      "width": 390,
+      "height": 1350
+    },
+    {
+      "id": "282:492",
+      "name": "217 · Nora — interruption et reprise à 390 px",
+      "width": 390,
+      "height": 1350
+    },
+    {
+      "id": "283:398",
+      "name": "INDEX · Activité Nora, arrêt et reprise — revue R3",
+      "width": 2350,
+      "height": 550
+    }
+  ]
+}
