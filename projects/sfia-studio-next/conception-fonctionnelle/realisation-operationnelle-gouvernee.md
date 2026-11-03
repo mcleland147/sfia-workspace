@@ -344,3 +344,37 @@ La projection métier, le contrat opérationnel et l'instruction ne sont **pas t
 - **R5–R6 :** preuve de l'identité de l'instruction réellement transmise, des refus et des tests, pas seulement couverture déterministe.
 
 **Non-décisions :** aucune classe/table/api imposée, pas de mécanisme « ExecutionContract v3 » adopté, pas de champs historiques `N2`, `PRODUCT_GOVERNED`, `studio.cursor.generalist` ou SHA d'exemple à reprendre par inertie.
+
+## 9. Clarification validée — états observables d'interruption et reprise externe (Morris, 2026-11-03)
+
+**Clarifications 3/4 et 4/4, responsabilité D7 — VALIDATED CONTENT BY MORRIS (D2).** Réutilisent \`RG-REAL-019/020/021/023/026/027/029/032\` et leurs scénarios d'interface, sans créer de machine à états indépendante, nouveau numéro \`RG\`/\`PF\` ou garantie technique non observée.
+
+### 9.1. Événements, capacité d'arrêt et état inconnu
+
+Le suivi opérationnel restitue **uniquement les événements reçus de l'intégration effective**, avec identité de la tentative, origine et actualité adaptées. Aucun flux continu de commandes Cursor, pourcentage d'avancement ou étape fictive n'est déduit de la seule activité affichée par Studio.
+
+L'interruption d'une tentative externe est **conditionnée par sa capacité effectivement disponible**, les autorisations et restrictions en vigueur et le périmètre ciblé. Les situations suivantes doivent rester distinguables :
+
+| Situation | Signification admissible |
+| --- | --- |
+| **Demande d'arrêt reçue** | Le Pilote ou la responsabilité D6 a demandé de restreindre/arrêter l'opération dans une portée ; aucun effet technique confirmé |
+| **Ordre d'arrêt transmis** | D7 a effectivement transmis la demande via une capacité autorisée ; ni réception par Cursor ni cessation ne sont déduites |
+| **Arrêt observé** | Une observation suffisante permet d'attester la cessation dans le périmètre indiqué, sans prétendre annuler les effets antérieurs |
+| **Arrêt indisponible** | L'intégration ne fournit pas une capacité fiable ou la cible/autorité ne le permet pas ; la limitation et les nouveaux effets interdits sont explicités |
+| **État inconnu / non confirmé** | Aucun retour fiable pour conclure à la cessation ; tentative et effets possibles sont conservés pour réconciliation |
+
+Un écran et un accusé de commande **ne certifient pas** qu'un processus s'est arrêté. D7 ne convertit pas une déconnexion ou une perte d'accusé en « arrêt confirmé », ne suppose ni rollback automatique ni succès. La liste de situations UX **ne prescrit pas une API, une table ou un transport** ; ces choix relèvent de R4.
+
+### 9.2. Acquis et condition de reprise
+
+Après arrêt, perte de session ou état partiel, conserver ou retrouver dans les responsabilités applicables : **tentative et contrat/version/cible, événements reçus, références de source, effets observés, effets possibles mais incertains, erreurs et travail restant identifié**. Une tâche annoncée « faite à 70 % » sans dénominateur fiable doit être décrite en états/étapes réellement établies.
+
+Avant reprise ou nouvelle tentative, vérifier à nouveau **l'état courant, les droits, la validité du mandat/contrat, la suspension D6, les versions/références, les effets déjà produits et l'idempotence**. Réutiliser les acquis sans rejouer silencieusement un effet ; si un nouveau contrat ou acte D6 est requis, le solliciter. Un retour au fil Nora n'est pas un dispatch technique.
+
+D8 qualifie les acquis et limites ; D3 en assure la traduction métier ; D6 conserve seule les décisions du Pilote. D7 n'atteste jamais la conformité ni l'acceptation d'une réalisation.
+
+### 9.3. Critères et gates R4–R6
+
+**R4 :** qualifier interruption effective par adaptateur, identité de tentative, accusés, provenance, persistance et risques de duplication. **R5/R6 :** tester l'arrêt disponible/indisponible, l'absence de confirmation, les effets partiels après STOP, le redémarrage/retry, les collisions de version et la suspension humaine, avec preuves adaptées et sans prétendre à une supervision cognitive continue.
+
+**Statut : précision fonctionnelle D7 validée par Morris, NON IMPLÉMENTÉ / NON PROUVÉ, publiée sur branche candidate uniquement.**
