@@ -226,3 +226,108 @@ Ces cas servent de **contrats de recette fonctionnelle à adapter aux risques** 
 **Règles D8 inchangées :** une déclaration d'exécuteur, un rapport et une preuve demeurent qualifiés séparément. `RG-PRV-003/010/012/015` demeurent propriétaires ; l'Inspection ne certifie pas une conformité ni ne crée une acceptation D6.
 
 **R5–R6 :** cas documentaire à exécuter ultérieurement, sans prétendre que la fonctionnalité existe déjà (`N/A — NON IMPLÉMENTÉ`).
+
+## 8. Complément fonctionnel validé — restitution structurée et preuves (validation Morris du 2026-11-03)
+
+**Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
+
+### 8.1. Finalité et frontière métier
+
+Après un travail délégué, le Pilote doit comprendre sans interrogations répétées : ce qui a été demandé, ce que l'exécuteur affirme avoir fait, ce qui a été **effectivement observé et vérifié**, quels critères sont ou non couverts, les écarts et impacts projet, les sources disponibles, les réserves encore ouvertes et les options de décision. Le bilan n'est pas un certificat ; Nora traduit les constats D8 et les événements D7, D6 conserve la réception.
+
+**Objet canonique :** une restitution intelligible se rattache au projet/Pilote et, lorsqu'il existe, au contrat, à sa version, à la tentative et aux critères applicables au moment de l'effet. La même synthèse peut être consultée depuis le fil Nora, le résultat ou les références du projet, **sans créer un second registre de preuve**.
+
+### 8.2. Contrat de restitution — neuf rubriques accessibles
+
+| Rubrique | Données et degré de précision exigés | Source / propriétaire | Si manquant ou non applicable |
+| --- | --- | --- | --- |
+| **1. Résumé** | Résultat recherché, résultat connu à date, portée et qualification prudente | Nora compose à partir D7/D8 | En l'absence de résultat : le dire, ne pas annoncer succès |
+| **2. Ce qui était prévu** | Contrat/version, effets, cibles, sorties et critères effectivement attendus | D7 / D6 pour périmètre autorisé | Absence de contrat : attente réellement connue, ne pas inventer une tentative |
+| **3. Ce qui a été réalisé** | Actions/artefacts/effets par item, avec distinction **déclaré** vs **observé** | D7 retours ; D9 faits Git si concernés | « Non observé » ou « inconnu » explicites ; n'inférer ni rollback ni fin |
+| **4. Évaluation du résultat** | Comparaison attendu/réel, exigences couvertes/non couvertes, conditions des contrôles | D8 | Qualification bornée ; une preuve partielle ne démontre pas le global |
+| **5. Écarts, réserves et blocages** | Écarts réels vs sources manquantes, gravité/effet, statut et suite | D8 ; D4 pour continuité | Absence d'écart identifié ≠ preuve de zéro écart ; réserves conservées |
+| **6. Impact sur le projet** | Conséquences démontrées sur livrables, trajectoire, dépendances, risques, sujets, capacité suivante | Nora interprète avec D4/D5/D6 | Impact non établi identifié comme tel ; pas de transition automatique |
+| **7. Verdict de conformité D8** | Conforme sur une portée, non conforme, partiel ou non démontré ; critères, sources et limites | D8 | Pas de « succès » générique par la seule fin technique ; bilan révisable |
+| **8. Recommandation / prochaine étape** | Action utile, destinataire, dépendances, nouvelle preuve ou correction possible, gate humain | Nora recommande ; D6 décide | Pas de reprise ou correctif autonome ; ne pas présenter une proposition comme autorisée |
+| **9. Éléments vérifiés et sources** | Types, références, contexte (branche/commit/environnement), dates/versions, accès et résultats de contrôle | D8 utilise éléments accessibles de D7/D9 et d'autres sources | Signaler « source inaccessible », « non vérifié », contradiction ; ne jamais fabriquer URL/SHA/tests |
+
+**Réception métier** : champ transversal distinct, alimenté **uniquement par D6** lorsqu'une décision explicite existe : acceptation, refus, report ou réserves acceptées dans la portée. Jamais déduit de la présentation de la synthèse, du verdict, d'un test ni d'un merge.
+
+**Proportionnalité = quantité de texte et profondeur d'enquête adaptées, pas perte de rubriques pertinentes.** Une mission simple peut avoir une mention concise « sans objet » pour un impact non applicable ; une opération sensible exige l'explicitation de chaque risque et des pièces déterminantes. La totalité des rubriques demeure consultable ; la vue brève n'efface pas le détail.
+
+### 8.3. Origine et statut de chaque affirmation déterminante
+
+Toute affirmation utile au verdict ou à la décision doit pouvoir être qualifiée avec : nature de l'assertion, objet/critère, source originale, version ou période, droit d'accès, degré d'observation, limites et contradictions éventuelles. Vocabulaires autorisés dans cette proposition : **déclaré / constaté ou observé / critère corroboré sur une portée / non démontré / écart établi / contradictoire**. Ces catégories sont du langage produit, pas des énumérations de base de données imposées en R2.
+
+Règles de calcul non acceptées : addition de preuves par nombre de documents, réussite automatique fondée sur « tests OK », assimilation d'un état terminal Cursor à la conformité D8, assimilation d'une conformité locale à l'adoption, assimilation d'une acceptation métier à la vérité technique. Le bilan est révisable lorsque de nouvelles observations apparaissent, sans effacer ses conclusions datées ni les contradictions.
+
+#### 8.3.1. Exemple de référence, intentionnellement non probatoire
+
+- **Prévu :** deux documents du projet Atlas à mettre à jour, exclusions code/CI/merge.
+- **Déclaré par Cursor :** « deux fichiers modifiés ; tests OK ».
+- **Observé :** aucun diff ni sortie de tests disponibles dans l'exemple.
+- **Évaluation :** déclarations non corroborées sur les critères déterminants.
+- **Verdict D8 :** conformité **NON DÉMONTRÉE**. Ne signifie pas « échec technique prouvé ».
+- **Impact :** stabilisation du cadrage non établie. Aucune transition de cycle ou décision métier inférée.
+- **Recommandation Nora :** demander diff exact et sorties de contrôles utiles ; préparer un complément si justifié.
+- **Décision D6 :** aucune acceptation prononcée.
+
+### 8.4. Comportements fonctionnels candidats à confronter aux RG-PRV existantes
+
+- **PRV-INFO-01 — Complétude intelligible :** Nora peut restituer les neuf rubriques ; aucune affirmation probatoire décisive n'est perdue au profit d'un résumé séduisant.
+- **PRV-INFO-02 — Source du prévu :** le prévu est celui du contrat/critère applicable, et non la promesse reconstruite après l'exécution.
+- **PRV-INFO-03 — Statut des réalisations :** chaque effet essentiel est distingué entre déclaré, observé, incertain et infirmé.
+- **PRV-INFO-04 — Évaluation vs verdict :** l'analyse par critère et la conclusion générale bornée peuvent différer sans contradiction.
+- **PRV-INFO-05 — Réserves persistantes :** les réserves ouvertes et leur effet restent consultables, même après réception avec réserves.
+- **PRV-INFO-06 — Impact circonstancié :** un effet externe n'entraîne pas automatiquement progression de jalon, capacité atteinte ni promotion de l'état projet.
+- **PRV-INFO-07 — Recommandation non autorisante :** une correction recommandée reste une proposition D3, le nouveau mandat passe D7 et D6.
+- **PRV-INFO-08 — Sources inspectables :** aucun lien ou SHA « d'illustration » n'est présenté comme une preuve réelle ; droits et fraîcheur sont respectés.
+- **PRV-INFO-09 — Synthèse révisable :** une preuve nouvelle modifie la conclusion courante, sans falsifier l'histoire du bilan précédent.
+- **PRV-INFO-10 — Adaptativité :** la forme est concise en première lecture, détaillée à la demande, mais les rubriques et limites restent accessibles quel que soit le volume de mission.
+
+### 8.5. Scénarios de qualification proposés
+
+| ID temporaire | Cas | Attendu |
+| --- | --- | --- |
+| PF-PRV-INFO-A | Rapport Cursor sans sortie de tests | « Tests déclarés, non vérifiés » ; verdict borné non démontré |
+| PF-PRV-INFO-B | Diff Git vérifié, tests absents | Modifications observées, conformité des tests non prouvée |
+| PF-PRV-INFO-C | Résultat partiel avec trois critères | Évaluation par critère, pas de succès universel |
+| PF-PRV-INFO-D | Effet réel observé après STOP | Effet conservé, état technique d'arrêt qualifié séparément |
+| PF-PRV-INFO-E | Déconnexion après dispatch | Ni fin, ni échec, ni rollback inféré |
+| PF-PRV-INFO-F | Une pièce contredit le rapport | Deux assertions conservées avec provenance, conclusion révisable |
+| PF-PRV-INFO-G | Capture ancienne | Version/environnement visible, pas de preuve de l'état courant |
+| PF-PRV-INFO-H | Source inaccessible | Limite explicite, aucune récupération hors droits |
+| PF-PRV-INFO-I | Pilote accepte avec réserves | Décision D6 distincte, réserves D8 maintenues |
+| PF-PRV-INFO-J | Projet sans Git | Sources non-Git pertinentes, pas de Git universel |
+| PF-PRV-INFO-K | Résultat entièrement produit par Nora | Synthèse utile sans inventer Cursor, Attempt ou ReviewBundle |
+| PF-PRV-INFO-L | Synthèse reprise après une nouvelle session | Dernière conclusion datée, sources, pertinence et fraîcheur retrouvables |
+
+### 8.6. Gates et non-décisions
+
+**R3 :** vue Pilot-first + détail intégral consultable + sources réelles et réserves ; les neuf rubriques font partie du contrat UX de la synthèse. **R4 :** associations contrat/tentative/critère/source/version, révision des conclusions, droits, contradiction et stockage sans registre concurrent. **R5/R6 :** exécuter les scénarios sur preuves réelles, mocks clairement distingués de navigateur/LIVE/REAL. **Aucune règle de score automatique, certification universelle ni deuxième acte D6 ne sont décidés.**
+
+## 9. Clarification validée — acquis, bilan partiel et reprise fiable (Morris, 2026-11-03)
+
+**Clarification 4/4, responsabilité D8 — VALIDATED CONTENT BY MORRIS (D2).** Explicite `RG-PRV-003/004/014/022/025` sans réécrire leurs contrats ni attribuer à D8 l'exécution D7, l'autorité D6 ou la mémoire D4.
+
+### 9.1. Acquis après interruption ou déconnexion
+
+Une restitution d'arrêt ou de reprise sépare dans un langage compréhensible :
+
+- **Réalisé :** sorties, livrables et effets effectivement observés, avec sources, versions et portée, distincts des seules affirmations de Cursor.
+- **Reste à faire :** critères ou actions non couverts, sur la base d'un périmètre clairement identifié ; une liste indicative n'est pas un pourcentage quantifié.
+- **À vérifier :** effets possibles ou déclarés non confirmés, tests manquants, sources devenues inaccessibles, contradictions, erreurs et réserves encore ouvertes.
+
+Le bilan conserve les sources, versions, conclusions datées et changements de portée utiles à une reprise. Il n'invente ni rollback, annulation, statut technique terminal, récupération d'une commande exacte ni certification globale. Il ne remplace pas les décisions de réception D6. Les neuf rubriques de synthèse restent disponibles, y compris lorsqu'une rubrique conclut « non démontré » ou « sans objet » motivé.
+
+### 9.2. Reprise gouvernée et absence de duplication
+
+D8 remet à D3 une lecture fidèle des **acquis et limites** ; D7 qualifie l'état de tentative et les effets techniques possibles, D6 les autorisations/suspensions, D4 les références retrouvables. Si la reprise implique de nouveaux effets, **leurs conditions doivent être revalidées** avant tout lancement. La conservation d'un résultat partiel ne vaut pas autorisation, succès ni reprise automatique.
+
+Aucun chiffre « 70 % » n'est produit à partir du temps écoulé, de l'animation ou de la quantité de texte. Un pourcentage n'est admissible que si le dénominateur et l'avancement sont **effectivement mesurables, attribuables et vérifiables**, et sa portée est explicitée.
+
+### 9.3. Preuves à produire ultérieurement
+
+**R4 :** relations de provenance/versions/critères et cohérence avec l'état D7 ; **R5–R6 :** cas de résultat partiel, état inconnu, preuve contradictoire, reprise intersession, autorité révoquée et double tentative évitée. Un écran Figma et un rapport de Cursor non vérifié ne suffisent pas à établir une conformité.
+
+**Statut : précision fonctionnelle D8 validée par Morris sur branche candidate ; qualification effective et comportements runtime non prouvés.**
