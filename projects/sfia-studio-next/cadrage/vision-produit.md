@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit, CLOSED BY MORRIS WITH CARRIED RESERVES (2026-11-02)** |
-| Version du document | **0.15 — cadrage R1 clôturé ; complément Inspection approuvé le 2026-11-03 (branche candidate)** ; neuf domaines, sept scénarios E2E et quatre qualifications méthodologiques R2 |
+| Version du document | **0.16 — R1 clôturé ; addendum Inspection et visibilité/contrôle de Nora validés le 2026-11-03 (branche candidate)** ; neuf domaines, sept scénarios E2E et quatre qualifications méthodologiques R2 |
 | Statut du contenu | **R1 CLOSED BY MORRIS — WITH CARRIED RESERVES** ; vision, 9 domaines, 7 E2E et frontières validés ; contrats R2, UX R3, architecture R4, code et preuve runtime **NON VALIDÉS / NON IMPLÉMENTÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -1118,3 +1118,23 @@ Le niveau de détails varie selon le sujet, mais la **structure de compréhensio
 ### 8.4. Frontières et non-décisions
 
 Pas de retour à la page historique « Synthèses » ou au moteur historique ; pas d'uniformisation forcée de l'ensemble des réponses conversationnelles ; pas de nouvelle autorité technique ; pas d'adoption du template externe SFIA v2.6 comme sérialisation runtime. Le mécanisme de génération/projection, de liaison des versions, de validation, d'autorité, d'intégrité et de preuve sera spécifié en R4 puis implémenté/prové en R5–R6. Next : **N/A — NON IMPLÉMENTÉ**.
+
+## 9. Complément validé — visibilité et contrôle du travail Nora (Morris, 2026-11-03)
+
+**Décision de contenu D2 : VALIDÉE PAR MORRIS — publication documentaire autorisée sur \`sfia/next-r3-ux-interaction-candidate\`.** Cette clarification complète la vision R1 §§2.21, 2.34 et 2.35 **sans rouvrir la décision de clôture R1 ni les neuf domaines et sept scénarios E2E**. Référence : [revue de sortie R3 candidate](../ux-ui/revue-formelle-sortie-r3.md), §4 ; [UX R3](../ux-ui/espace-projet-interaction-pilote-nora.md), §35–36.
+
+### 9.1. Résultat attendu pour le Pilote — clarification 1/4
+
+Lorsqu'il confie un travail à Nora, le Pilote doit **comprendre qu'un traitement est engagé**, pouvoir reconnaître son activité **dans la granularité effectivement établie** et distinguer ce qui est actif, terminé, encore ouvert ou inconnu. La présentation privilégie un état lisible et des étapes réellement observables ; elle ne transforme ni le temps écoulé ni l'animation d'interface en progression factuelle. En l'absence d'information détaillée, l'interface indique honnêtement « travail en cours — détail non disponible », sans produire de tâches fictives.
+
+Le Pilote peut connaître **la cible et la portée d'une demande d'arrêt** : interrompre une réponse cognitive de Nora n'est pas équivalent à demander l'arrêt d'une intervention extérieure confiée à Cursor. L'interface expose cette distinction avant toute action lorsque celle-ci est déterminante. Une demande d'arrêt est distinguée de sa confirmation effective, des effets déjà produits et des situations indéterminées.
+
+Nora rend visibles les **faits d'activité et leurs limites**, non son raisonnement interne détaillé, une instrumentation non disponible ou des données sensibles d'outil. L'effet de mouvement ou de couleur est une aide UX, jamais une preuve. Le Pilote peut ensuite retrouver les acquis attestés et le travail restant, sans obligation de repartir systématiquement de zéro ni garantie de « reprise exacte au même instant ».
+
+### 9.2. Responsabilités et acceptation
+
+- **D3** présente et contextualise les éléments effectivement connus ; **D6** demeure propriétaire des actes et suspensions humains ; **D7** porte l'état des tentatives externes, la capacité réelle d'interruption et la reprise technique ; **D8** qualifie les acquis, les effets et les inconnus ; **D4** assure leur retrouvabilité suivant les règles existantes.
+- **Scénarios d'acceptation à qualifier en R4–R6 :** réponse cognitive sans événements détaillés ; lecture d'outil effectivement attestée ; intervention externe sans télémétrie fine ; demande STOP avec et sans accusé ; état indéterminé ; acquis partiels retrouvables ; reprise nécessitant renouvellement des droits ; suspension humaine toujours opposable.
+- **OUT :** aucun nouveau moteur d'état/autorisation, aucun enregistrement ou interface API imposés, aucune surveillance continue du raisonnement, aucune progression en pourcentage inventée, aucun rollback implicite, aucune reprise technique automatique garantie et aucun statut LIVE/REAL revendiqué.
+
+**Statut : clarification de vision R1 VALIDATED CONTENT (Morris), sur branche candidate ; mise en œuvre et preuves renvoyées à R4–R6.**
