@@ -488,3 +488,49 @@ Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/é
 ---
 
 **Verdict documentaire : `R2 CONTEXTE & CONDUITE NORA — VALIDATED SPEC v0.4 (MORRIS, 2026-11-02)`**. Contrat fonctionnel approuvé en conversation, **sous réserve de qualification des interfaces avec les futures specs propriétaires**. **v0.4 synchronisée sur branche Git candidate** ; runtime Next non implémenté.
+
+
+---
+
+## 11. Complément post-clôture R2 — documents Nora et Inspection (2026-11-03)
+
+**Statut du complément : VALIDATED CONTENT BY MORRIS (2026-11-03), contribution Git candidate.** Les 46 règles et 27 PF historiques de D3 restent le périmètre de la sortie R2 du 2026-11-02 ; le présent addendum ajoute **16 règles** et **8 scénarios documentaires**, non exécutés. Ni `main`, ni les décisions historiques de clôture ne sont modifiés par cette contribution candidate.
+
+**Propriétaire fonctionnel :** D3 produit et révise cognitivement les documents ; D4 porte leur identité durable, versions et récupération ; la restitution et la navigation sont présentées sans registre autonome « Inspection ». Aucun cycle ni Git obligatoire.
+
+### 11.1. Documents Nora — règles RG-DOC-001..010
+
+- **RG-DOC-001 — Intention documentaire explicite.** Nora distingue la demande de production d'un document de la simple réponse conversationnelle. Un texte long, un tableau ou une synthèse spontanée ne sont pas enregistrés automatiquement comme document par leur seule longueur. *Interfaces : R1 §2.40 ; D4 KNOW-016 ; D2 CRE-027.*
+- **RG-DOC-002 — Brouillon automatiquement conservé.** Dans un projet existant, une demande suffisamment claire de document conduit à une tentative d'enregistrement interne comme brouillon durable, liée au Pilote et au projet ; Nora ne confirme la conservation que lorsque son état est effectivement établi. Aucun acte Git n'en découle. *Interfaces : D4 KNOW-016/018 ; D9 GIT-001/003.*
+- **RG-DOC-003 — Markdown structuré fidèle.** Nora produit un Markdown intelligible dont les titres, tableaux, listes, liens et blocs de code sont rendus sans altération sémantique. Une capacité d'affichage indisponible doit être signalée, avec restitution textuelle utilisable ; aucun script actif non fiable n'est interprété comme une commande. *Interfaces : D3 UX-003 ; sécurité R4.*
+- **RG-DOC-004 — Identité et provenance du document.** Nora expose la ressource effectivement créée, son titre, statut brouillon, version, contexte projet et sources déterminantes ; absence de version ou sauvegarde incertaine ne sont pas masquées. *Interfaces : D4 KNOW-016/017 ; D3 CONV-006.*
+- **RG-DOC-005 — Révision guidée et ciblable.** Le Pilote peut demander en langage naturel à Nora de revoir une section, une sélection ou tout le document ; Nora respecte la portée demandée, explicite les changements substantiels et ne modifie pas silencieusement d'autres parties. *Interfaces : D4 KNOW-017 ; D6 GOV-037.*
+- **RG-DOC-006 — Nouvelle version non destructive.** Une révision conservée produit une version identifiable, avec filiation vers sa version de base. Les anciennes versions restent consultables selon les règles de conservation, sans écrasement silencieux ; toute concurrence ou base périmée est qualifiée avant substitution. *Interfaces : D4 KNOW-017/018 ; R4 concurrence.*
+- **RG-DOC-007 — Comparaison compréhensible.** À la demande, Nora/Studio peuvent présenter la différence pertinente entre versions, y compris sections ajoutées, supprimées et modifiées. Un résumé ne remplace pas les contenus intégraux si la décision dépend du détail. *Interfaces : D4 KNOW-017 ; D3 UX-006.*
+- **RG-DOC-008 — Continuité conversation-document.** Nora peut répondre à une question visant une ressource et une section réellement identifiées, sans créer une deuxième conversation ; la référence contextuelle n'accorde aucun droit nouveau et reste valide seulement dans les accès courants. *Interfaces : D4 KNOW-019 ; D1 ACC-010/011.*
+- **RG-DOC-009 — Échec de production ou de sauvegarde loyal.** Un rendu impossible, une version enregistrée partiellement, une absence de droits ou un conflit expose une limitation exploitable ; aucune confirmation de « document conservé », « version 2 créée » ou « Git à jour » n'est affichée sans constat fiable. *Interfaces : D4 KNOW-018/020 ; D3 CONV-006.*
+- **RG-DOC-010 — Production interne distincte de publication externe.** Rédiger, réviser, copier ou conserver dans Studio sont distincts d'une écriture sur Git, dans un outil externe ou d'une décision métier. Nora peut proposer cette publication, mais l'effet est gouverné par les contrats D6/D7/D9 applicables. *Interfaces : D6 GOV-037 ; D7 REAL-001/007 ; D9 GIT-003/013.*
+
+### 11.2. Expérience transverse — règles RG-UX-004..009
+
+- **RG-UX-004 — Ouverture d'un objet inspectable.** Depuis Nora ou une consultation directe, un objet réellement accessible peut être ouvert dans une surface d'inspection contextuelle, liée au bon Pilote/projet, sans modifier l'objet ni son autorité. *Interfaces : D1 ACC-010/014 ; D4 KNOW-019 ; D6/D7/D8/D9.*
+- **RG-UX-005 — Profondeur adaptée.** L'inspection peut montrer l'essentiel, puis s'étendre lorsque la longueur, le format ou le risque du contenu l'exige ; elle ne devient pas un onglet métier obligatoire ni un panneau permanent imposé. *Interfaces : R3 V3 ; aucun layout imposé à R2.*
+- **RG-UX-006 — Retour sans acte implicite.** Quitter une inspection permet de revenir à l'origine réellement connue et aux états effectivement conservés ; ouvrir, fermer, agrandir, copier ou consulter ne valent ni HumanDecision, ni autorisation, ni réalisation. *Interfaces : D3 CONV-006 ; D6 GOV-001/024 ; D4 KNOW-020.*
+- **RG-UX-007 — Liens web activables dans le navigateur.** Les URL externes réelles présentées dans la conversation ou l'inspection sont activables avec un libellé intelligible. Dans l'application web, l'ouverture en **nouvel onglet du navigateur courant** est disponible ; l'utilisation d'un navigateur externe est laissée aux fonctionnalités de l'environnement utilisateur. Aucun navigateur web intégré n'est exigé. Les protections de navigation externe et de confidentialité relèvent de R4. *Interfaces : D3 UX-003 ; D9 GIT-041 pour Git.*
+- **RG-UX-008 — Source consultable ou limite déclarée.** Un aperçu Git/web/document externe n'affiche que ce qui a été réellement obtenu dans les accès autorisés, avec provenance/ref/fraîcheur adaptées. Si seul un lien est disponible, le système présente le lien sans inventer son contenu. *Interfaces : D4 KNOW-006/012 ; D9 GIT-009/017/041.*
+- **RG-UX-009 — Actions propres à l'objet.** Les actions visibles (réviser un brouillon, comparer, consulter une source, voir un contrat, examiner les preuves) sont déterminées par l'état et les permissions réellement applicables ; l'Inspection ne possède ni un éditeur universel, ni un moteur de décisions/exécution/preuve. *Interfaces : D3 DOC-005 ; D6/D7/D8/D9.*
+
+### 11.3. Scénarios documentaires additionnels — PF-28..35
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-28** | D3 | « Rédige une spécification Markdown » dans le projet | Nora produit directement un document ; sauvegarde du brouillon confirmée sur ressource existante, sans Git ni cycle | DOC-001..004, DOC-010 |
+| **PF-29** | D3 | Nora fournit un tableau, sans demande de document | Restitution conversationnelle riche ; aucune ressource documentaire créée artificiellement | DOC-001, UX-003 |
+| **PF-30** | D3 | Modifier une section choisie | Une nouvelle version identifiable conserve la précédente, changement borné à la demande | DOC-005..007 |
+| **PF-31** | D3 | Nora explique un paragraphe sélectionné dans l'Inspection | Même conversation et bonne version/section référencées ; aucun nouveau droit | DOC-008, UX-004/006 |
+| **PF-32** | D3 | Lien Internet depuis le chat | Lien réel activable dans un nouvel onglet du navigateur web ; possibilité d'ouverture via fonctions externes du navigateur/OS, sans navigateur embarqué | UX-007 |
+| **PF-33** | D3 | Rendu Markdown avec HTML/script non fiable | Rendu sécurisé ou textuel dégradé, sans exécution d'instruction ou divulgation | DOC-003, UX-008 |
+| **PF-34** | D3 | Génération puis sauvegarde interrompue | Pas de « brouillon conservé » fictif ; état inconnu/échec, récupération honnête | DOC-002/004/009 |
+| **PF-35** | D3 | Inspection depuis Nora, puis retour au fil | Reprise du bon projet et de l'origine réellement connue ; aucun acte métier induit | UX-004..006/009 |
+
+**Interfaces et limites :** conserver les règles antérieures D3 et l'autorité D6/D7/D8/D9 ; la version de travail courante, concurrence, rendu sécurisé Markdown, sauvegarde interrompue et choix de stockage restent à qualifier en R4 puis à prouver R5/R6. Aucune preuve runtime Next.
