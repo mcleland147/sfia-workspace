@@ -232,3 +232,18 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 **Vision associée :** [R1 — complément validé](../cadrage/vision-produit.md) ; référence UX [Parcours C, §32](../ux-ui/espace-projet-interaction-pilote-nora.md) et [Couverture C, §13](../ux-ui/audit-couverture-ux-r3.md) ; Figma canoniques [06 — Contrat](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) et [08 — Résultat](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827).
 
 **Gate :** R4 doit justifier le schéma de contrat, la correspondance de l'instruction effectivement transmise, les droits/identités et la chaîne de preuve ; R5 implémentera les comportements ; R6 vérifiera les effets, le navigateur et les refus LIVE/REAL applicables. **Aucun travail R4, PR, merge ni adoption n'a été autorisé par cette validation documentaire.** `main` reste la baseline publiée tant qu'aucun merge distinct n'est décidé.
+
+## 24. Clarifications transverses validées — activité Nora, arrêt et reprise (Morris, 2026-11-03)
+
+**Décision de contenu D2 : APPROUVÉE PAR MORRIS, intégration Git documentaire autorisée sur `sfia/next-r3-ux-interaction-candidate`.** Il s'agit d'un complément ciblé après clôture R1/R2, pas d'une nouvelle version de processus, d'un nouveau moteur de gouvernance ou d'une réouverture des décisions de sortie. **Aucun nouveau numéro RG/PF n'est créé** ; les règles préexistantes restent propriétaires.
+
+| Clarification validée | Propriétaire canonique | Références existantes préservées | Résultat |
+| --- | --- | --- | --- |
+| **1. Activité visible pour le Pilote** | [Vision R1 §9](../cadrage/vision-produit.md) | R1 §§2.21, 2.34–2.35 ; UX R3 §§35–36 | Travail et limites intelligibles ; cible de STOP explicite ; pas de raisonnement interne affiché |
+| **2. Projection cognitive, outil, Cursor** | [D3 §13](contexte-et-conduite-gouvernee-de-nora.md) | `RG-CTX-003/006`, `RG-AUTH-005` ; D7 `RG-REAL-019/023` | État cognitif distinct d'un événement d'outil reçu et d'une tentative Cursor réellement observée ; pas de faux pourcentage |
+| **3. Commande Arrêter / autorité** | [D6 §9](decisions-et-gouvernance-du-pilote.md) et [D7 §9.1](realisation-operationnelle-gouvernee.md) | `RG-GOV-016/018/019/020/022/025` ; `RG-REAL-020/026/027` | Arrêt disponible selon cible/droits ; demande reçue, ordre transmis, arrêt observé, indisponible et inconnu distincts |
+| **4. Acquis et reprise sans duplication** | [D3 §13.2](contexte-et-conduite-gouvernee-de-nora.md), [D7 §9.2](realisation-operationnelle-gouvernee.md), [D8 §9](resultats-et-preuves.md) | `RG-REAL-021/029/032`, `RG-PRV-003/004/014/022/025` | « Réalisé / reste à faire / à vérifier », sources, versions et effets retrouvables ; mandat et permissions recontrôlés |
+
+**Cohérence UX :** [maquettes Nora 206–217](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) et [contrat de transposition](../ux-ui/contrat-transposition-figma-code.md) restent des **sources de conception**, pas des événements API réels. Animation visuelle ≠ progression attestée. Exécution, interruption, reprise technique et preuve nécessitent l'architecture R4, la réalisation R5 et les contrôles R6.
+
+**État au présent jalon :** quatre clarifications de contenu **VALIDATED BY MORRIS** et intégrées sur la **branche candidate R3**. Les clôtures précédentes R1/R2 ne sont pas modifiées ; le rapport de [revue finale R3](../ux-ui/revue-formelle-sortie-r3.md) préparera le prochain **GO de clôture Morris**, toujours **NON PRONONCÉ**. Roadmap `main`, PR, merge, architecture, `IMPLEMENTED`, `BEHAVIOR PROVEN` et `ADOPTED` ne sont pas modifiés par ce mandat.
