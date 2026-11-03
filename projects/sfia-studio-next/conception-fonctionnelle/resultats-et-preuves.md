@@ -305,3 +305,29 @@ Règles de calcul non acceptées : addition de preuves par nombre de documents, 
 ### 8.6. Gates et non-décisions
 
 **R3 :** vue Pilot-first + détail intégral consultable + sources réelles et réserves ; les neuf rubriques font partie du contrat UX de la synthèse. **R4 :** associations contrat/tentative/critère/source/version, révision des conclusions, droits, contradiction et stockage sans registre concurrent. **R5/R6 :** exécuter les scénarios sur preuves réelles, mocks clairement distingués de navigateur/LIVE/REAL. **Aucune règle de score automatique, certification universelle ni deuxième acte D6 ne sont décidés.**
+
+## 9. Clarification validée — acquis, bilan partiel et reprise fiable (Morris, 2026-11-03)
+
+**Clarification 4/4, responsabilité D8 — VALIDATED CONTENT BY MORRIS (D2).** Explicite \`RG-PRV-003/004/014/022/025\` sans réécrire leurs contrats ni attribuer à D8 l'exécution D7, l'autorité D6 ou la mémoire D4.
+
+### 9.1. Acquis après interruption ou déconnexion
+
+Une restitution d'arrêt ou de reprise sépare dans un langage compréhensible :
+
+- **Réalisé :** sorties, livrables et effets effectivement observés, avec sources, versions et portée, distincts des seules affirmations de Cursor.
+- **Reste à faire :** critères ou actions non couverts, sur la base d'un périmètre clairement identifié ; une liste indicative n'est pas un pourcentage quantifié.
+- **À vérifier :** effets possibles ou déclarés non confirmés, tests manquants, sources devenues inaccessibles, contradictions, erreurs et réserves encore ouvertes.
+
+Le bilan conserve les sources, versions, conclusions datées et changements de portée utiles à une reprise. Il n'invente ni rollback, annulation, statut technique terminal, récupération d'une commande exacte ni certification globale. Il ne remplace pas les décisions de réception D6. Les neuf rubriques de synthèse restent disponibles, y compris lorsqu'une rubrique conclut « non démontré » ou « sans objet » motivé.
+
+### 9.2. Reprise gouvernée et absence de duplication
+
+D8 remet à D3 une lecture fidèle des **acquis et limites** ; D7 qualifie l'état de tentative et les effets techniques possibles, D6 les autorisations/suspensions, D4 les références retrouvables. Si la reprise implique de nouveaux effets, **leurs conditions doivent être revalidées** avant tout lancement. La conservation d'un résultat partiel ne vaut pas autorisation, succès ni reprise automatique.
+
+Aucun chiffre « 70 % » n'est produit à partir du temps écoulé, de l'animation ou de la quantité de texte. Un pourcentage n'est admissible que si le dénominateur et l'avancement sont **effectivement mesurables, attribuables et vérifiables**, et sa portée est explicitée.
+
+### 9.3. Preuves à produire ultérieurement
+
+**R4 :** relations de provenance/versions/critères et cohérence avec l'état D7 ; **R5–R6 :** cas de résultat partiel, état inconnu, preuve contradictoire, reprise intersession, autorité révoquée et double tentative évitée. Un écran Figma et un rapport de Cursor non vérifié ne suffisent pas à établir une conformité.
+
+**Statut : précision fonctionnelle D8 validée par Morris sur branche candidate ; qualification effective et comportements runtime non prouvés.**
