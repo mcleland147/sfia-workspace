@@ -308,7 +308,7 @@ Règles de calcul non acceptées : addition de preuves par nombre de documents, 
 
 ## 9. Clarification validée — acquis, bilan partiel et reprise fiable (Morris, 2026-11-03)
 
-**Clarification 4/4, responsabilité D8 — VALIDATED CONTENT BY MORRIS (D2).** Explicite \`RG-PRV-003/004/014/022/025\` sans réécrire leurs contrats ni attribuer à D8 l'exécution D7, l'autorité D6 ou la mémoire D4.
+**Clarification 4/4, responsabilité D8 — VALIDATED CONTENT BY MORRIS (D2).** Explicite `RG-PRV-003/004/014/022/025` sans réécrire leurs contrats ni attribuer à D8 l'exécution D7, l'autorité D6 ou la mémoire D4.
 
 ### 9.1. Acquis après interruption ou déconnexion
 
