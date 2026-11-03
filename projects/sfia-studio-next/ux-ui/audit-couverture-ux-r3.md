@@ -795,27 +795,29 @@ Les 72 RG restent sous autorité de leurs spécifications R2. Les références c
 
 
 
-### Références Figma consolidées et autorité de lecture
+### 13.1. Références Figma consolidées et autorité de lecture
 
-**Écrans canoniques** : [06 — Contrat, quatre engagements et six volets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) ; [08 — Résultat, neuf rubriques](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827). **Variantes fonctionnelles** : [06.1 mission](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-478), [06.2 périmètre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-648), [06.3 autorité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-820), [06.4 STOP](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-990), [06.5 validation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1160), [06.6 intégrité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1330), [06.7 instruction Cursor](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1500), [08.1 détail des résultats](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=202-438). [Index de revue des états C](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=190-455).
+**Nommage Figma consolidé :** les variantes sont numérotées en continu, de **163 à 170** après la situation 162 ; **163–168** = six volets du contrat, **169** = instruction Cursor, **170** = synthèse détaillée. Les frames canoniques **06/08** et leurs IDs restent stables ; les liens ciblent les IDs Figma, non leurs titres.
 
-**Nettoyage validé :** trois maquettes redondantes retirées après redirection : les anciens identifiants `137@187:494`, `163@199:319` et `171@202:335` **ne sont plus des destinations valides**. Les écrans 06 et 08 conservent leurs identifiants originaux pour préserver les références transverses. Les maquettes 135–162 restantes correspondent à des **situations distinctes** (préparation, droits, tentative, STOP, preuves), non à des pages produit obligatoires. Les pages Figma restent `00 · Fondations — Composants UI`, `01 · Parcours produit — Référence UX R3`, `02 · Contrats visuels — Nora et états`.
+**Écrans canoniques** : [06 — Contrat, quatre engagements et six volets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) ; [08 — Résultat, neuf rubriques](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827). **Variantes fonctionnelles** : [163 mission](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-478), [164 périmètre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-648), [165 autorité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-820), [166 STOP](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-990), [167 validation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1160), [168 intégrité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1330), [169 instruction Cursor](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1500), [170 détail des résultats](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=202-438). [Index de revue des états C](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=190-455).
+
+**Nettoyage validé :** trois maquettes redondantes retirées après redirection : les anciennes frames `187:494`, `199:319` et `202:335` **ne sont plus des destinations valides**. Les écrans 06 et 08 conservent leurs identifiants originaux pour préserver les références transverses. Les maquettes 135–162 restantes correspondent à des **situations distinctes** (préparation, droits, tentative, STOP, preuves), non à des pages produit obligatoires. Les pages Figma restent `00 · Fondations — Composants UI`, `01 · Parcours produit — Référence UX R3`, `02 · Contrats visuels — Nora et états`.
 
 **Priorité documentaire :** les décomptes et noms d'écrans de §12 / §31 sont des constats **avant consolidation** ; le présent addendum est l'inventaire courant. Les liens sont alignés sur l'état Figma après consolidation. Aucune trace ou capacité LIVE ne résulte de cette renumérotation UX.
 
-### A. Contrat d'exécution — six volets historiques et source canonique Next
+### 13.2. Contrat d'exécution — six volets historiques et source canonique Next
 
 | Référence de lecture historique | Décomposition du besoin Next | Responsable du fait / du comportement | Vue Figma Next | Risque si non spécifié | Contrôle de sortie |
 | --- | --- | --- | --- | --- | --- |
-| 1. Mission et résultats | Intention, objet, actions, livrables, contenu, critères | D3 prépare ; D7 possède contrat | 06.1 | Contrat vague, résultat non évaluable | R4 contrat, R5 critères, R6 test de couverture |
-| 2. Périmètre et effets | Cible, fichiers/ressources, IN/OUT, créer/modifier/supprimer, effet Git et exclusions | D7 effets et cibles ; D9 uniquement Git | 06.2 | Élargissement invisible, confusion lecture/écriture | R4 frontière ressources, R5 rejet hors-scope |
-| 3. Exécuteur, capacités et autorité | Acteur, capacité réelle, autorité D6, droits et mandats courants | D7 capacité/tentative ; D6 autorité ; D9 droits Git | 06.3 | Session tiers, permission imaginée, consentement fictif | R4 isolation et binding, R6 refus LIVE |
-| 4. Limites, STOP et réversibilité | Contraintes, STOP, possibilité d'arrêt, effets partiels, réversibilité effective, compensation | D7 STOP/effets ; D6 suspensions | 06.4 | STOP affiché comme rollback, effet durable caché | R4 sémantique, R6 arrêt avec mutation |
-| 5. Validation, preuves et sources | Critères, tests, sources, résultats, plan/rapport et réserves | D7 exige/récolte ; D8 qualifie ; D9 source Git | 06.5 | « Tests OK » réputé prouvé ; contradiction écrasée | R4 provenance, R5 tests, R6 contradiction |
-| 6. Identité et intégrité | Identité, version, instruction exacte, correspondance, requalification | D7 contrat/version ; D6 acte ciblé | 06.6 | Instruction modifiée après inspection, double lancement | R4 invariants/version, R6 double clic/dispatch |
-| Contrat technique brut (volet séparé) | Instruction exacte destinée à Cursor, exclusions/STOP/preuves | D7 avec apport cognitif D3 | 06.7 | Contenu métier ≠ contenu réellement envoyé | Test de même version/sens, secret non divulgué |
+| 1. Mission et résultats | Intention, objet, actions, livrables, contenu, critères | D3 prépare ; D7 possède contrat | 163 | Contrat vague, résultat non évaluable | R4 contrat, R5 critères, R6 test de couverture |
+| 2. Périmètre et effets | Cible, fichiers/ressources, IN/OUT, créer/modifier/supprimer, effet Git et exclusions | D7 effets et cibles ; D9 uniquement Git | 164 | Élargissement invisible, confusion lecture/écriture | R4 frontière ressources, R5 rejet hors-scope |
+| 3. Exécuteur, capacités et autorité | Acteur, capacité réelle, autorité D6, droits et mandats courants | D7 capacité/tentative ; D6 autorité ; D9 droits Git | 165 | Session tiers, permission imaginée, consentement fictif | R4 isolation et binding, R6 refus LIVE |
+| 4. Limites, STOP et réversibilité | Contraintes, STOP, possibilité d'arrêt, effets partiels, réversibilité effective, compensation | D7 STOP/effets ; D6 suspensions | 166 | STOP affiché comme rollback, effet durable caché | R4 sémantique, R6 arrêt avec mutation |
+| 5. Validation, preuves et sources | Critères, tests, sources, résultats, plan/rapport et réserves | D7 exige/récolte ; D8 qualifie ; D9 source Git | 167 | « Tests OK » réputé prouvé ; contradiction écrasée | R4 provenance, R5 tests, R6 contradiction |
+| 6. Identité et intégrité | Identité, version, instruction exacte, correspondance, requalification | D7 contrat/version ; D6 acte ciblé | 168 | Instruction modifiée après inspection, double lancement | R4 invariants/version, R6 double clic/dispatch |
+| Contrat technique brut (volet séparé) | Instruction exacte destinée à Cursor, exclusions/STOP/preuves | D7 avec apport cognitif D3 | 169 | Contenu métier ≠ contenu réellement envoyé | Test de même version/sens, secret non divulgué |
 
-### B. Quatre engagements visibles avant autorisation
+### 13.3. Quatre engagements visibles avant autorisation
 
 | Élément | Champs sources | Exigence de transformation | Risque à exposer |
 | --- | --- | --- | --- |
@@ -824,7 +826,7 @@ Les 72 RG restent sous autorité de leurs spécifications R2. Les références c
 | Résultat attendu | 1 + 5 | Livrables, critères et contrôles utiles | Absence de preuve ou promesse invérifiable |
 | Votre contrôle | 3 + 4 + 6 | Version, autorité, droits, risques, disponibilité STOP et acte Exécuter | Autorisation périmée, interruption impossible |
 
-### C. Synthèse de réalisation — neuf rubriques et sources
+### 13.4. Synthèse de réalisation — neuf rubriques et sources
 
 | Rubrique de la restitution historique | Source Next attendue | Transformation par Nora | Exemple de limite |
 | --- | --- | --- | --- |
@@ -839,27 +841,27 @@ Les 72 RG restent sous autorité de leurs spécifications R2. Les références c
 | Éléments vérifiés et sources | D8 avec provenance de D7/D9 | Liens réels, limites d'accès, versions et sources | Capture historique présentée comme courante |
 | Réception humaine, hors des neuf | D6 seulement | Montrer l'acte réellement prononcé | Pas d'acceptation implicite |
 
-### D. Analyse d'écart par jalon
+### 13.5. Analyse d'écart par jalon
 
 | Sujet | R1 actuelle | R2 actuelle | Complément candidat nécessaire | R3 et suite |
 | --- | --- | --- | --- | --- |
-| Contrat lisible et brut | Principe E2E 05 présent | D7 contrat inspectable présent | Six volets, données, correspondance métier/technique | 163–170 ; invariant R4 ; preuve R6 |
+| Contrat lisible et brut | Principe E2E 05 présent | D7 contrat inspectable présent | Six volets, données, correspondance métier/technique | 06 et 163–169 ; invariant R4 ; preuve R6 |
 | Réversibilité | STOP et effets partiels présents | D7 arrêt/effets mais peu de champ réversibilité | Nature du retour arrière, inconnue bloquante selon risque | 167 ; R4/R6 |
 | Instruction exacte | Version et instruction visées | D7 instruction stable | Champ/effet/instruction symétriques, divergence détectée | 170 ; R4/R5 |
 | Capacité et autorité | Responsabilités et Exécuter présents | D6/D7/D9 frontières claires | Valeurs d'état visibles, jamais fictives | 166 ; test de droits R6 |
-| Résultat et preuves | E2E 06 complet en principes | D8 langage de preuve robuste | Neuf rubriques et degré de détail, impact, prévu/réalisé | 171/172 ; R5/R6 |
+| Résultat et preuves | E2E 06 complet en principes | D8 langage de preuve robuste | Neuf rubriques et degré de détail, impact, prévu/réalisé | 08 et 170 ; R5/R6 |
 | Décision du Pilote | D6 distinct des résultats | D6 garde l'acte | Consultation de l'ensemble des faits avant réception | Vers écran B 35, sans duplication |
 | Guidance méthode | CKI non gouvernants | D3/D5 non autorisants | Aucun écran supplémentaire ou gate universel | Lot C puis D transverse |
 
-### E. Contrôles anti-régression
+### 13.6. Contrôles anti-régression
 
 - Une mission « simple » ne rend pas inaccessibles les risques, la portée, les critères ou les sources. Une rubrique peut être concise ou « sans objet », mais un fait déterminant ne disparaît pas.
 - Le contenu technique effectivement transmis doit correspondre aux engagements présentés, avec secrets protégés. Pas de modèle technique runtime ni d'empreinte SHA adoptés par une maquette.
 - Les anciennes données `TEST 15`, noms d'agents et niveaux internes ne sont pas transposés tels quels ; elles décrivent une **situation historique non autorisée**.
 - Aucun clic d'accordéon ne délègue un travail ; une navigation Figma « Exécuter » n'est qu'un parcours de précontrôles, pas un dispatch Cursor.
 - Le résultat « terminé » n'est pas un verdict de conformité ; le verdict n'est pas une acceptation ; l'acceptation n'est pas un merge ni `ADOPTED`.
-- Les documents R1/R2 clos restent la baseline jusqu'à approbation Morris de ces propositions et autorisation Git bornée. L'UX candidate ne suffit pas à promouvoir R3.
+- Les compléments fonctionnels R1/R2 ont été validés par Morris le 2026-11-03 et synchronisés sur la branche candidate ; la promotion de `main` demeure un gate Git distinct. L'UX candidate ne suffit pas à promouvoir R3.
 
-### 13.F. Contrôle final après nettoyage — 2026-11-03
+### 13.7. Contrôle final après nettoyage — 2026-11-03
 
-**Vérification effective de la page 01 Figma :** 171 frames de premier niveau, 1 753 réactions NODE inspectées, **aucune destination manquante et aucune auto-navigation**, toutes les références vers les trois frames supprimées requalifiées. Écrans canoniques : `06@94:629` et `08@94:827` ; six volets + instruction `06.1..06.7`, détail `08.1`. La page comporte toujours 3 contrôles visibles « Inspecter » sans réaction, sur des maquettes **antérieures et extérieures au périmètre C** : `94:449` (document), `97:438` (révision documentaire), `100:118` (rapport/preuves). **KNOWN GAP de prototype à instruire en revue transverse D**, sans déduire de destinations ni annoncer un parcours pleinement prouvé. Les captures des écrans 06/08, du volet STOP et de l'index ont été inspectées après consolidation. Les 28 variantes C historiques et leurs métriques antérieures restent une trace de fabrication, **pas l'inventaire courant**.
+**Vérification effective de la page 01 Figma :** 171 frames de premier niveau, 1 753 réactions NODE inspectées, **aucune destination manquante et aucune auto-navigation**, toutes les références vers les trois frames supprimées requalifiées. Écrans canoniques : `06@94:629` et `08@94:827` ; six volets + instruction `163..169`, détail `170`. La page comporte toujours 3 contrôles visibles « Inspecter » sans réaction, sur des maquettes **antérieures et extérieures au périmètre C** : `94:449` (document), `97:438` (révision documentaire), `100:118` (rapport/preuves). **KNOWN GAP de prototype à instruire en revue transverse D**, sans déduire de destinations ni annoncer un parcours pleinement prouvé. Les captures des écrans 06/08, du volet STOP et de l'index ont été inspectées après consolidation. Les 28 variantes C historiques et leurs métriques antérieures restent une trace de fabrication, **pas l'inventaire courant**.
