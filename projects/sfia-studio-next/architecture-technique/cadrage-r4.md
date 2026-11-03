@@ -3,13 +3,13 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | Nature | **Document de cadrage vivant** du jalon R4 ; support de travail et de synthèse, sans création d'une seconde autorité normative |
-| Version | **v0.1 — candidate D0**, 2026-11-03 |
-| Statut | **DRAFT — NOT VALIDATED / GIT CANDIDATE ON R4 BRANCH**. La Roadmap `main` indique R4 NOT STARTED à la baseline ; Morris a autorisé le 2026-11-03 le démarrage de l'étude A et le commit de ce candidat sur une branche dédiée, sans PR/merge |
+| Version | **v0.5 — revue produit du macro-lot A et passage de relais vers B**, 2026-11-03 ; candidate de conception sur branche R4 |
+| Statut | **MACRO-LOT A — ORIENTATION PRODUIT REVUE ET DEUX ARBITRAGES MORRIS ACQUIS ; ARCHITECTURE TECHNIQUE CANDIDATE**. Les points de conservation, sauvegarde et cohérence ont été examinés ; passage à B autorisé. Aucun ADR, choix de stack, code, preuve runtime ni ADOPTED. |
 | Responsable des arbitrages | Morris |
 | Rédaction / analyse | ChatGPT, sous contrôle des sources Git et des décisions Morris |
-| Référentiel observé | `mcleland147/sfia-workspace`, branche distante `main`, HEAD `7067c846ce7c57825dd31c532433d809e1a01216` (contrôle du 2026-11-03) |
+| Référentiel observé | `mcleland147/sfia-workspace`, branche distante `main@7067c846ce7c57825dd31c532433d809e1a01216` et candidate `sfia/next-r4-architecture-scoping@9898aa6965f10d3fcadd6958f6eacd1d9657450e` (contrôle Git 2026-11-03 ; 1 commit devant, 0 derrière, un seul fichier ajouté) |
 | Situation technique | **Next : N/A — NON IMPLÉMENTÉ**. Aucun code ni schéma de données cible adopté ; branche locale / index / worktree **NON OBSERVÉS** |
-| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` ; création sur branche dédiée sous mandat Morris du 2026-11-03, sans promotion sur `main` |
+| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` sur `sfia/next-r4-architecture-scoping` ; rédaction v0.5 sous GO documentaire borné de Morris, sans PR ni merge |
 
 ## 1. Finalité et position de départ
 
@@ -116,6 +116,369 @@ Ces options **ne sont pas des décisions d'architecture** ; elles pourront être
 
 **Critères de comparaison :** couverture des E2E, lisibilité de l'autorité, simplicité des contrats, coût de construction/exploitation, isolation, persistance, concurrence, reprise, sécurité, observabilité, évolutivité, tests, coût de migration et dette avec exit. Les coûts et capacités réels devront être étayés ; aucune supériorité de stack ne peut être déduite de l'étude historique seule.
 
+
+### 5.1. Première étude R4 — parcours sas → création → continuité (D0 ; direction V-A acceptée, mécanismes ouverts)
+
+**Base fonctionnelle vérifiée sur `main@7067c846` :** [D1 — accès](../conception-fonctionnelle/acces-et-portefeuille.md) `RG-ACC-001/002/005/009/017–018`, [D2 — sas et création](../conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md) `RG-CRE-001/008/010/011/014/017/019/020/023/024/027`, [D4 — connaissance](../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md) `RG-KNOW-016..020` et [revue R3](../ux-ui/revue-formelle-sortie-r3.md). **Exigences acquises :** identité GitHub personnelle et isolement ; sas sans projet ; création uniquement par acte explicite ; existence vérifiée avant succès ; fil visuellement continu ; documents produits avant le projet puis rattachables sans doublon ; ni Git, ni cycle, ni méthode, ni contrat Cursor implicites. Aucun modèle physique ou schéma de table n'est adopté par ces sources.
+
+**Question de conception unique :** comment établir un passage fiable et intelligible entre un contexte de préparation personnel et un projet persistant, tout en gardant les identités conversationnelles et documentaires, les provenance/versions et une récupération sans doublon ?
+
+#### Variantes de transition (indépendantes des options générales N1–N3)
+
+| Variante de conception | Mécanisme candidat | Atout principal | Dette / risque à maîtriser | Appréciation D0 |
+| --- | --- | --- | --- | --- |
+| **V-A — Préparation durable et rattachement transactionnel** | Un contexte de préparation indépendant existe avant projet ; fil et documents ont des identités stables ; l'acte de création enregistre le projet et son rattachement au contexte dans une frontière de cohérence transactionnelle. | Pas de copie du fil ; idempotence et reprise explicables ; mêmes références avant/après. | Cycle de vie du sas, références/permissions, transaction autour de métadonnées et éventuels objets externes à traiter. | **Direction d’étude acceptée par Morris**, mécanisme technique NON VALIDÉ. |
+| **V-B — Stockages ou services distincts avec liaison durable** | Le sas et le projet ont leurs propres persistances ; l'acte crée un lien explicite, éventuellement par événements durables et réconciliation. | Évolution séparée possible des sous-systèmes. | Cohérence inter-stockages, succès partiel, réplication, déduplication, reprise et observabilité plus complexes. | À conserver comme contre-option si une contrainte réelle l'exige. |
+| **V-C — Migration ou duplication du contenu lors de la création** | Copie/transfert des messages, documents et références du sas vers le projet ; l'UI reconstruit un fil continu. | Séparation simple des espaces de stockage si deux systèmes préexistants. | Risque de perte, double écriture, divergence des versions et identités, faille de coupure au milieu du transfert. | **Non recommandée par défaut**, sauf preuve d'un avantage décisif. |
+
+**Challenge important :** la continuité *visuelle* du même fil est validée en R1/R2 ; une identité technique `conversationId` strictement inchangée est une **solution candidate**, pas une obligation R2. V-A devra prouver qu'elle simplifie effectivement le modèle de données et les droits. De même, une **frontière transactionnelle de création/rattachement** n'implique pas que les octets documentaires, les sorties de modèle et tous les journaux résident dans une seule base physique.
+
+#### Responsabilités logiques candidates (aucun nom de classe, table ni service adopté)
+
+| Responsabilité | Propriétaire fonctionnel | Contrat attendu |
+| --- | --- | --- |
+| Identité et session | D1 | Identité GitHub du Pilote effectivement applicable ; isolation et refus à chaque lecture/mutation ; accès Git restant D9. |
+| Préparation du sas et acte de création | D2 | Préparation personnelle avant projet ; acte « Créer le projet » avec idempotence ; existence et propriété vérifiées ; lien durable vers fil et acquis. |
+| Conversation, interprétation et restitution Nora | D3 | Production cognitive et contexte sélectionné ; aucun message ni outil Nora ne crée seul le projet ou un mandat. |
+| Documents, références, connaissances, provenance | D4 | Identités et versions stables ; document d'abord rattaché à la préparation, puis associable au projet après création confirmée ; aucune promotion de statut épistémique. |
+| Décisions opposables | D6 | Aucune décision métier inventée par l'association ; auteur/portée/temps conservés si une décision explicite existe. |
+| Présentation / réhydratation | UX | Même fil lisible ; point de création visible après succès seulement ; écran d'erreur et retour cohérents ; aucune seconde machine d'autorité dans le front. |
+
+#### Séquence de référence candidate V-A (illustrative, à challenger)
+
+1. Le Pilote s'authentifie ; Studio ouvre ou retrouve **sa** préparation identifiable, sans projet durable. Les tours conversationnels et les documents sont conservés avec provenance et état réel selon les politiques à concevoir.
+2. Nora restitue un aperçu évolutif sans présumer de décision, de méthode, de cycle ni d'accès Git. Les questions bloquantes sont limitées à l'identité, à l'objet à créer et aux contraintes réellement déterminantes.
+3. Au clic **« Créer le projet »**, le serveur vérifie l'identité/session, le propriétaire de la préparation, les préconditions, la version utile et une **clé stable d'opération** (choix exact à définir). Aucun effet n'est accordé au seul modèle cognitif.
+4. Une commande contrôlée crée **un seul** projet et établit son association à la préparation, au fil et aux métadonnées documentaires durables ; toutes les écritures qui doivent être indivisibles partagent une transaction effective **si la technologie choisie le permet**. Un mécanisme de réconciliation explicite est requis pour toute ressource extérieure à cette transaction.
+5. Le serveur recharge l'état persistant ; seulement après succès vérifié, il confirme le projet et projette le marqueur « Projet créé » dans le même fil. Le portefeuille lit le propriétaire de projet effectif, non une projection optimiste de Nora.
+6. Le Pilote et Nora poursuivent sans cycle/CKI/méthode ni dépôt obligatoire. Le moteur de contexte charge des **références choisies et autorisées**, pas l'intégralité du transcript à chaque tour.
+
+#### Défaillances discriminantes à traiter dans les contrats R4
+
+| Incident | Comportement impératif | Décision de conception encore ouverte |
+| --- | --- | --- |
+| Double clic, retry HTTP, réponse perdue | Le même acte retrouve le même projet ou reste `UNKNOWN` pendant la vérification ; jamais un second projet silencieux. | Portée/expiration de la clé d'idempotence, unicité et restitution. |
+| Crash après commit, avant réponse UI | Une reconnexion retrouve le projet et l'association au fil sans reproduire l'effet. | Lecture de réconciliation par clé d'opération / préparation. |
+| Session révoquée au moment de créer | Refus des nouveaux effets protégés ; aucun contenu d'un autre Pilote divulgué. | Contrôle de l'identité à la frontière transactionnelle ; politique de session expirée. |
+| Document du sas dont les octets ne sont pas durablement enregistrés | Ne pas annoncer qu'il a été transféré ; montrer `PENDING`, `FAILED` ou `UNKNOWN` selon preuve. | Métadonnées, stockage objet, opération de finalisation et recovery. |
+| Source externe devenue inaccessible | La référence et la limite de validité sont conservées ; pas de réutilisation non autorisée ni d'autorité attribuée à la source. | Politique de provenance/currentness et lecture autorisée. |
+| Deux onglets modifient la même préparation | Pas d'écrasement silencieux du fil, des références ou du projet créé. | Versions, ordre des tours, contrôle de concurrence et conflits. |
+| Abandon du sas | Aucun projet fictif ; préparer une éventuelle reprise du sas selon droits et conservation. | Rétention, suppression, confidentialité, récupération. |
+
+#### Confrontation des grandes options N1–N3 sur ce seul E2E
+
+- **N1 — Next neuf et sobre :** compatible avec V-A, un modèle applicatif réduit et une frontière transactionnelle cohérente. **Hypothèse de travail privilégiée**, à démontrer contre les risques de croissance et les E2E futurs ; ne prescrit pas Next.js, PostgreSQL, SQLite, ORM ou moteur d'événements.
+- **N2 — Next neuf à frontières métier fortes :** compatible avec V-A si les responsabilités sont explicitement séparées **logiquement**, même si elles partagent une transaction au point de création. À éviter si elle produit une cascade de services, états ou agrégats sans nouvelle garantie.
+- **N3 — Réutilisation ponctuelle historique :** aucun composant ancien n'a, à ce stade, une justification objectivée de reprise pour le passage sas→projet. Les invariants historiques peuvent servir d'oracle critique, pas de schéma par défaut.
+
+**Direction d’étude V-A acceptée par Morris le 2026-11-03 (conception uniquement) :** approfondir V-A + N1 sobre, tout en conservant les frontières D1/D2/D3/D4/D6 et une possibilité d'évolution N2. V-B reste une alternative à défendre par des besoins d'échelle, d'isolation ou d'intégration concrets ; V-C est défavorable par défaut. Ne pas demander d'ADR ou choisir une base avant de préciser la vérité durable des documents, le modèle d'association, la concurrence et la récupération après incident.
+
+**Gate envisagé à la fin de cette première étude (supersédé par le mandat de revue globale §5.3) :** revue Morris du modèle de responsabilité, du lien durable et de la frontière transactionnelle ; le choix de direction V-A est déjà acquis en conversation, sans ADR ni choix de stack. Les preuves R5/R6 requises incluront tests transactions/retry/restart, isolement deux comptes, source inaccessible, projet sans Git ni cycle, continuité visuelle navigateur et document du sas repris sans duplication. État courant : **DOCUMENTED / CANDIDATE D0**, `N/A — NON IMPLÉMENTÉ`.
+
+
+### 5.2. V-A — modèle de responsabilités et transaction de création (D0, NON VALIDÉ TECHNIQUEMENT)
+
+**Mandat de progression (conversation Morris, 2026-11-03) :** « ok V-A on peut continuer ». Cela sélectionne **V-A pour approfondissement** et ne valide ni schéma, ni composant, ni stockage, ni ADR. Les propositions ci-dessous sont des **candidats d'architecture**, conditionnés à la revue des interfaces D1/D2/D3/D4/D6 et à l'absence de second moteur d'état. Le dépôt `main` affiche toujours R4 `NOT STARTED` dans sa Roadmap ; l'étude a été engagée en conversation sur branche candidate, sans mise à jour normative de ce statut.
+
+#### 5.2.1. Découpage minimal de vérité — ne pas confondre propriétaires métier et services physiques
+
+| Concept logique candidat | Responsabilité | Identité et durée | Invariant déterminant |
+| --- | --- | --- | --- |
+| **Préparation** (sas) | D2 possède le contexte personnel avant projet et le passage de frontière | Identifiant durable propre, propriétaire Pilote, état `OPEN`, `ATTACHED` ou `ABANDONED` proposés ; la rétention reste ouverte | Une préparation non créée n'est pas un projet ; au plus **un projet issu de cette préparation** par acte valable |
+| **Projet** | D2 crée, D1 expose au portefeuille, D6 contrôle la portée des actes et des décisions selon leurs propriétaires | Identité permanente distincte du nom, propriétaire Pilote | Existence et propriété établies avant confirmation/navigation ; aucune création automatique de cycle, méthode, CKI ou dépôt |
+| **Association préparation → projet** | D2, vérité durable de création et liaison | Relation unique, vérifiable par identifiant de préparation, d'opération et de projet | Aucune double association, relecture possible après perte de réponse ou redémarrage |
+| **Fil de conversation** | D3 orchestre la conversation et la projection UX ; les messages relèvent du contexte autorisé | Identité de fil indépendante de l'identité projet ; même fil visible après passage | Aucun transcript recopié/reconstruit pour simuler la continuité ; l'historique ne change pas de portée sans vérification des droits |
+| **Ressource documentaire / version** | D4 pour identité, conservation, provenance et états de sauvegarde | Identifiant stable, version courante et historique ; contenu éventuellement dans un stockage distinct | L'association au projet ne vaut pas confirmation de la sauvegarde des octets ; aucune duplication ou réécriture silencieuse |
+| **Connaissance / acquis** | D4 organise les éléments récupérables, avec leur source et qualification épistémique ; D3 sélectionne le contexte | Rattachement au sas avant projet puis au projet par relation vérifiée | Une hypothèse ne devient pas un fait, et une source ne devient pas un ordre ou un mandat |
+| **Décision opposable, si elle existe** | D6, indépendant du mécanisme de création | Auteur, portée, état, version et temporalité | Le clic « Créer le projet » est l'acte D2 dédié ; il ne crée pas automatiquement une HumanDecision générique ni un mandat Cursor |
+
+**Hypothèse de simplicité :** ces éléments sont des frontières conceptuelles et non sept microservices ou sept bases. La co-localisation transactionnelle des **métadonnées essentielles** de la préparation, du projet et de leur association peut simplifier fortement la cohérence, sans confondre les responsabilités D2/D3/D4/D6.
+
+#### 5.2.2. Cycle de vie logique et contrôle d'unicité
+
+- `OPEN` : préparation personnelle réutilisable, création non constatée. Les messages et documents préparatoires sont conservés selon un contrat réel de durabilité et de rétention.
+- `ATTACHED` : un projet unique, effectivement persisté, lui est associé ; les références de conversation et de documents demeurent stables. L'état de préparation et le projet sont liés par une relation durable.
+- `ABANDONED` : aucune création implicite ; politique de réouverture, rétention, purge, restauration et confidentialité **à arbitrer**. L'état n'efface pas silencieusement les traces utiles ou soumises à obligations.
+- `VERIFYING` / `UNKNOWN` / `FAILED` : états de **résultat d'opération ou de présentation**, **pas** de nouveaux états durables obligatoires de la préparation. Ils doivent pouvoir être requalifiés à partir des faits persistés.
+
+**Recommandation candidate :** le service de création garantit `at-most-one project per preparation` via une **contrainte effective d'unicité**, sans dépendre de l'état UI ou du processus Nora. Le renouvellement d'une intention pour fonder un **autre** projet passe par une nouvelle préparation explicite ; ce comportement reste à confronter aux scénarios utilisateur.
+
+#### 5.2.3. Contrats d'opération candidats (conceptuels ; pas d'API, nom de classe ou technologie adoptés)
+
+| Opération conceptuelle | Entrée essentielle | Résultat attendu / erreurs |
+| --- | --- | --- |
+| **Lire/reprendre une préparation** | Identité/session courante et référence de préparation | Retour autorisé d'état/fil/documents ; `NOT_FOUND` ou `FORBIDDEN` sans divulgation croisée |
+| **Créer explicitement un projet** | Identité D1 courante, préparation identifiée, acte « Créer le projet », identifiant d'opération stable, version des champs réellement approuvés | Projet et association **atomiquement confirmés** ; `ALREADY_CREATED` retourne le projet existant au même Pilote ; `CONFLICT`, `FORBIDDEN`, `UNKNOWN` selon faits observés |
+| **Vérifier une création après incertitude** | Identité/session vérifiée et référence d'opération ou de préparation | Relecture du projet/association et état réel ; jamais nouvelle création par simple vérification |
+| **Poursuivre le fil / retrouver les acquis** | Fil et contexte autorisé effectivement résolus, permissions et versions applicables | Conversation continue, contexte D4 sélectionné ; accès refusé ou limites de source indiquées honnêtement |
+| **Lire un document lié** | Ressource/version et identité autorisée, état de sauvegarde | Version accessible si durable ; sinon `PENDING`, `FAILED` ou `UNKNOWN` explicites, sans faux contenu disponible |
+
+**Idempotence :** la clé d'opération est conservée au-delà de la requête et réutilisée lors d'un retry ; l'unicité de la préparation protège aussi contre deux clés différentes issues de deux onglets. Une clé réutilisée avec un contenu matériellement différent doit être rejetée, non interprétée comme une nouvelle création. La durée de conservation de la clé et la forme de son empreinte restent à décider.
+
+**Concurrence :** l'éventuel contrôle de version porte sur les **champs de création réellement inspectés et confirmés**, et non nécessairement sur chaque message de Nora, pour ne pas bloquer artificiellement le Pilote. Deux propositions incompatibles doivent provoquer un conflit explicite/requalification avant effet. Le propriétaire de l'autorité ne passe jamais au client seul.
+
+#### 5.2.4. Point de cohérence et scénario de crash
+
+**Frontière transactionnelle candidate dans un magasin apte aux transactions :**
+
+1. Vérifier l'identité/session et l'accès à la préparation **au point d'effet**, et requalifier l'état de préparation ainsi que la version de création approuvée.
+2. Chercher toute association/projet déjà enregistré pour cette préparation ou cet acte. S'il existe et appartient au bon Pilote, retourner **la même identité de projet**, sans nouvel effet.
+3. Dans **une même transaction pour la vérité essentielle**, enregistrer le projet, sa propriété, l'association unique à la préparation, l'issue durable de l'acte et l'état `ATTACHED`. L'unicité et les contrôles de concurrence doivent résister aux requêtes simultanées.
+4. Après confirmation du commit, recharger l'état durable, puis autoriser l'affichage « Projet créé », le portefeuille et le marqueur de transition du fil. Si la réponse HTTP disparaît, une **lecture de réconciliation** retrouve les mêmes références ; aucune seconde création automatique.
+5. Les métadonnées documentaires et messages qui ne participent pas à la transaction conservent leurs **références immuables** ; leur disponibilité est vérifiée par leur propre responsable. Les effets hors transaction (objets, recherche, index, notifications) sont **reconciliables** et **ne deviennent pas nécessaires à la confirmation d'une création minimale**, sauf exigence explicitement établie.
+
+**Point critique :** « même transaction » n'autorise pas à prétendre que fichiers externes, générations IA ou journaux distants sont atomiques avec la création. La solution doit choisir une frontière de vérité **réelle** ; si ces données ne sont pas dans le même magasin, leur réconciliation se fait par références/états vérifiables, sans transaction distribuée fictive ni double écriture non gouvernée.
+
+**Exemple d'interruption :** l'opération crée et commit le projet, mais le navigateur reçoit un timeout. La reprise consulte la préparation et l'identifiant d'opération sous la session courante, retrouve `ATTACHED` et le projet unique, puis affiche le succès vérifié. Un clic supplémentaire ne re-joue pas la création.
+
+#### 5.2.5. Faits du sas et documents encore incomplets
+
+- Un document préparé garde une **identité durable propre**, un état de sauvegarde et des versions, même si sa création a démarré avant le projet ; l'association au projet ne force pas un renommage ou un nouveau `documentId` par principe.
+- **Recommandation à valider :** ne pas bloquer la création du projet pour un document facultatif `PENDING` si les métadonnées nécessaires sont conservées et l'UI décrit le fait ; la ressource reste `PENDING` jusqu'à confirmation réelle. Si la ressource est déterminante à l'identification du projet ou à un effet explicitement requis, appliquer une précondition proportionnée.
+- Les références des sources Git, web ou interprojets conservent auteur, origine, version/ref, fraîcheur et **droits recontrôlés à la lecture**. Une référence historique ne garantit ni accès futur ni pouvoir d'action.
+- La mémoire de Nora est un **mécanisme de sélection/composition** à partir de ressources D4 et des décisions applicables D6 ; elle ne duplique pas la vérité métier ni ne résume l'histoire en remplaçant les sources.
+
+#### 5.2.6. Scénarios discriminants et preuves à préparer pour R5/R6
+
+| ID d'étude | Situation | Garantie architecturale attendue | Niveau à prouver plus tard |
+| --- | --- | --- | --- |
+| A-01 | Sas exploré puis abandonné | Aucun projet ; conservation/reprise selon politique explicite | Test serveur + navigateur |
+| A-02 | Clic explicite et succès nominal | Un seul projet, même fil visible, portefeuille cohérent, aucun cycle ni Git auto | Transaction + E2E navigateur |
+| A-03 | Double clic et deux clés d'opération | Un seul projet associé ; réponse réconciliée | Test concurrence déterministe |
+| A-04 | Commit suivi d'un timeout et d'un redémarrage | L'effet est retrouvé sans rejouer la création | Test de redémarrage avec stockage réel |
+| A-05 | Deux onglets, changements concurrents du résumé de création | Refus/conflit explicable, pas d'écrasement du contenu approuvé | Test de version/transaction |
+| A-06 | Session expirée ou compte B accédant au sas A | Aucun accès ni effet, aucune fuite d'existence/sources privées | Tests de sécurité négatifs |
+| A-07 | Document de sas `PENDING` au clic | Lien durable conservé ; état vrai et reprise, aucune sauvegarde fictive | Test stockage objet/réconciliation |
+| A-08 | Source externe révoquée après création | Provenance connue, accès refusé, contexte Nora non autorisant | Test D4/D3 de currentness/droits |
+| A-09 | Réponse Nora reçue pendant le passage | Message attribuable au bon fil/contexte/version, sans création ni décision indirecte | Test des races asynchrones |
+| A-10 | Nouvelle conversation dans le même projet | Documents, acquis et décisions applicables retrouvables sans transcript complet | Test continuité D3/D4/D6 |
+
+**Blast radius conditionnel :** D1 (identité/isolation), D2 (acte et identité projet), D3 (fil/agent), D4 (documents et connaissance), D6 (références d'autorité), UX R3 (marqueur/continuité/erreurs), futurs D5/D7/D8/D9 (projet existant ne confère ni cycle, exécution, preuve ou accès Git). Les changements de contrats publics ou schéma devront documenter leur impact en R4 et être testés transversalement en R5.
+
+#### 5.2.7. Alternatives ouvertes dans la première itération — remplacées par la synthèse §5.3
+
+- **Modèle minimal recommandé pour comparaison :** un **noyau transactionnel unique pour la vérité de création/association**, des responsabilités métier distinctes D1/D2/D3/D4/D6, et des ressources référencées sans transfert massif. Cela ne signifie ni monolithe d'application obligatoire, ni base unique pour tous les octets, ni stockage SQL déjà adopté.
+- **Contre-option :** métadonnées de préparation/projet physiquement séparées. À envisager seulement si exigences de sécurité, volumétrie, isolation ou disponibilité l'exigent ; elle appelle alors un contrat explicite de cohérence partielle et de réconciliation au lieu de prétendre à une atomicité distribuée.
+- **Dans cette itération initiale**, le noyau transactionnel et les références durables étaient encore à préciser ; leur analyse est maintenant consolidée au §5.3. La revue Morris sera **globale**, pas un gate séparé sur chaque mécanisme.
+
+**Verdict de cette itération : `V-A — DIRECTION D'ÉTUDE APPROUVÉE / MODÈLE 5.2 CANDIDAT, NON VALIDÉ / N/A — NON IMPLÉMENTÉ`.** Le niveau de preuve est une confrontation documentaire et un raisonnement architectural ; aucun test runtime Next n'a été exécuté.
+
+### 5.3. Macro-lot A — architecture de conception consolidée (orientation produit revue ; technique candidate)
+
+**Mandat de méthode (Morris, 2026-11-03) :** ChatGPT instruit et synthétise **tout le macro-lot A** sans gate de micro-arbitrage technique, puis soumet en une fois la solution, ses alternatives, ses réserves et les arbitrages d'orientation à Morris. Le mandat ne transforme ni les recommandations en ADR approuvés, ni le document en baseline `main`, ni R4 en jalon clos. Les autres macro-lots R4 B–D restent à concevoir. Aucun code Next n'existe à cette date.
+
+#### 5.3.1. Décision de conception recommandée — architecture minimale cohérente
+
+**Recommandation technique à discuter globalement :** une **application web modulaire** avec **un noyau transactionnel relationnel unique pour les métadonnées métier du parcours A**, une conservation durable des messages et documents via des contrats explicites, et **des adaptateurs externes isolés** pour GitHub, les modèles IA et l'éventuel stockage d'objets. Aucun moteur d'orchestration métier indépendant ni microservice n'est requis pour ce parcours.
+
+Le qualificatif « modulaire » décrit ici des **frontières de responsabilité et des interfaces internes**, pas un découpage en déploiements. D1, D2, D3, D4 et D6 ne doivent pas devenir, par réflexe, cinq services, cinq états de session ou cinq bases de données. La topologie d'hébergement, le framework et les packages ne sont pas décidés par cette proposition.
+
+```mermaid
+flowchart TD
+  UX["Interface Studio : portefeuille / sas / projet / fil"]
+  EDGE["Frontière serveur : session, accès, commandes et lectures"]
+  DOMAIN["Modules applicatifs intégrés : D1 / D2 / D3 / D4"]
+  GOV["Contrats d'autorité D6 — intégration future, sans duplication"]
+  TX["Stockage transactionnel : vérités de métadonnées et messages durables"]
+  OBJ["Contenus volumineux / versions documentaires si nécessaires"]
+  LLM["Fournisseur IA via adaptateur, non autorisant"]
+  GIT["GitHub : identité et sources autorisées, pas de dépôt imposé"]
+  UX --> EDGE --> DOMAIN
+  DOMAIN --> TX
+  DOMAIN --> OBJ
+  DOMAIN --> LLM
+  DOMAIN --> GIT
+  DOMAIN -.-> GOV
+```
+
+**Ce diagramme représente une option logique, pas le nombre de processus ni les instances de stockage.** Le serveur fait respecter les contrôles ; la base garantit les invariants transactionnels ; l'interface affiche seulement des états relus. Il n'existe pas de deuxième journal autorisant dans l'interface, le transcript ou le fournisseur IA.
+
+**Choix de déploiement candidat :** une base relationnelle **PostgreSQL managée** est préférable pour un produit web multi-Pilotes avec écritures simultanées, contraintes d'unicité, transactions, sauvegardes et redémarrages multi-instances. Ce choix reste **à confirmer** avec l'environnement réel, le coût, les contraintes d'hébergement et l'exploitation de R4-D. Une base SQL embarquée ne serait acceptable que si un déploiement réellement mono-instance et une stratégie de sauvegarde/concurrence adaptés sont démontrés. Le SQL est ici une **famille technologique proposée**, pas un ADR adopté. Le stockage objet n'est nécessaire que lorsque la taille et la nature des contenus le justifient ; il ne remplace pas la vérité des métadonnées.
+
+**Alternatives écartées pour A à ce stade :** copie massive au passage sas→projet, moteur d'événements global, orchestration multi-services, deux magasins transactionnels pour la création, état essentiel en mémoire de processus, réplication du transcript comme vérité métier, adoption de l'ancien OA/Nora/F2. Elles ne sont pas impossibles ; aucune exigence R1–R3 vérifiée n'en justifie le coût initial.
+
+#### 5.3.2. Carte des propriétaires et contrats de frontière
+
+| Responsabilité | Propriétaire logique et frontière | Vérité détenue ou consommée | Effet permis / explicitement exclu |
+| --- | --- | --- | --- |
+| Identité et sessions | **D1** : point d'entrée Studio, principal authentifié, validité de session | Identité Studio dérivée d'une authentification GitHub vérifiée, session courante ; ne vaut pas permission Git/Cursor | Autoriser ou refuser l'accès au bon contexte ; jamais créer le projet ni attribuer un mandat |
+| Préparation et passage | **D2** : préparation, version de création, commande explicite, création, association | Préparation, projet individuel, association, résultat idempotent de commande | Créer le projet sous acte explicite ; jamais créer cycle, CKI, dépôt ou contrat technique |
+| Conversation avec Nora | **D3** : fil, échanges, activité et sélection du contexte | Messages durables et états de production réels ; utilise D2 pour résoudre le contexte | Produire/consulter/restituer ; **jamais inférer** un acte `Créer le projet` d'un simple texte |
+| Documents et connaissance | **D4** : identité de ressource, versions, provenance, acquis et limites d'accès | Métadonnées durables, état des octets, références de source et de connaissance | Rendre retrouvable ; ne transforme ni source en autorisation ni hypothèse en décision |
+| Autorité métier opposable | **D6** : décisions, restrictions, mandats si applicables | Registre canonique D6, **non copié dans D2 ou Nora** | Les futures décisions D6 ont leurs propres règles ; le clic de création reste un acte dédié D2 |
+| UX / rendu | Interface web, sous contrat des domaines | Projection dérivée de D1–D4/D6 | Afficher et guider ; aucun succès ou état métier seulement local n'est opposable |
+
+**Économie de responsabilité :** un seul propriétaire de chaque fait et de chaque effet, sans imposer une classe, un repository ou un service par ligne. Les composants ne sont justifiés qu'en R5 au moment du code, selon leur charge et leurs frontières réelles.
+
+#### 5.3.3. Modèle logique minimal et garanties de stockage
+
+Le modèle ci-dessous est un **contrat de données**, non un schéma SQL approuvé. Les noms sont illustratifs et devront suivre la convention de nommage Next lors de la construction.
+
+| Famille logique | Attributs/relations déterminants | Garantie proposée |
+| --- | --- | --- |
+| **Pilote Studio** | Identité interne stable ; référence externe GitHub vérifiée ; session/révocation | Un compte ne peut résoudre les objets d'un autre ; le compte externe n'est pas un droit de dépôt |
+| **Préparation** | `preparationId`, `ownerId`, statut courant, version de cadrage validable, horodatages | Existe **sans Project** ; relecture autorisée après interruption ; association unique après création |
+| **Projet** | `projectId`, `ownerId`, métadonnées minimales et date de création | Création confirmée uniquement si durable ; nom non unique autorisé ; projet privé au bon Pilote |
+| **Lien de création** | `preparationId → projectId`, auteur, opération et date de commit | **Unicité effective sur `preparationId`**, relation non ambiguë et retrouvable ; aucune création en double après retry |
+| **Résultat de commande** | `ownerId`, clé idempotente, empreinte de la demande approuvée, résultat/référence, instant | Même commande + même empreinte → même résultat ; autre empreinte → conflit ; durée de rétention à aligner sur la garantie de non-doublon |
+| **Conversation** | `conversationId`, référence initiale à la préparation, propriétaire, dates | Identité technique stable **candidate** pour le fil d'origine ; contexte projet résolu depuis le lien réel, pas en recopie |
+| **Message** | `messageId`, fil, auteur/type, statut d'enregistrement, ordre/version, source de génération | Messages durables ordonnés ; productions partielles jamais présentées comme un message achevé ; refus des duplications de requête |
+| **Document / version** | `documentId`, `revisionId`, préparation d'origine, blob optionnel, statut, empreinte, provenance | Identité continue ; version conservée, contenu accessible seulement s'il a réellement été sauvegardé ; pas de duplication au passage |
+| **Source et acquis** | référence, origine, version/date, portée de lecture, qualification, lien vers conversation/document | Source citée ≠ accès toujours applicable ; distinction faits/hypothèses/décisions ; index et résumés reconstructibles |
+
+**Invariants minimaux à démontrer :**
+
+1. `preparation.ownerId == authenticatedStudioPilot.id` au point de chaque lecture et commande ; jamais simple confiance dans un identifiant envoyé par le navigateur.
+2. La création relit les droits et le statut de la préparation dans la transaction ; le résultat est **0 ou 1 projet lié à une préparation**, jamais deux.
+3. La vérité `Project + ownership + preparation link + command result` partage **un même commit durable** ; une réponse HTTP ou une projection UI ne crée pas cette vérité.
+4. La création conserve la portée et les références des messages/documents antérieurs ; aucune promotion automatique de leurs contenus en faits vérifiés ou décisions.
+5. Le projet n'induit aucun cycle, CKI, méthode, dépôt Git, exécution Cursor ou autre autorité, même si l'aperçu en suggère.
+6. Tout accès à un document, sujet, fil, lien de source ou projet vérifie les **droits actuels**, y compris après création et reconnexion.
+7. Une décision future D6 est consultée auprès de D6, jamais déduite de la connaissance D4 ou de la réponse Nora.
+
+**Finesse de la frontière transactionnelle :** les métadonnées essentielles de création sont atomiques. Les octets d'un document stockés hors base, un appel de modèle, une indexation ou une observation Git ne sont **pas** dans cette transaction. Ils possèdent un statut et un mécanisme de réconciliation propres. Ne pas inventer une transaction distribuée, un rollback de fournisseur externe ou une sauvegarde automatique non prouvée.
+
+#### 5.3.4. Contrat de commande : créer et vérifier sans doublon
+
+**Préparer :** le client relit une `Preparation` accessible et la version de **l'aperçu effectivement approuvé** (nom/objet minimal). Les messages Nora plus récents ne rendent pas automatiquement cette version périmée : la version doit suivre les champs de création qui influencent l'acte, pas tous les tokens de la conversation.
+
+**Commander `CreateProject` (exemple conceptuel, non nom d'API adopté) :**
+
+- Entrée : session authentifiée, `preparationId`, `expectedCreationRevision`, données minimales explicitement inspectées, `idempotencyKey` stable générée pour l'acte du Pilote.
+- Préconditions : identité et propriété vérifiées ; préparation existante et autorisée ; demande issue **de l'action dédiée** ; champs déterminants assez clairs ; version d'aperçu correspondante ; absence d'interdiction applicable. Une phrase de Nora n'est pas le déclencheur de cette commande.
+- Transaction : verrouillage/concurrence de la préparation ; comparaison de version et recherche d'une association déjà committée ; validation du couple clé/empreinte ; insertion du projet et de sa propriété, du lien unique et du résultat durable ; commit. Les contraintes SQL sont **la dernière barrière** même face aux requêtes simultanées.
+- Réponse : `CREATED` ou `EXISTING` avec **le même `projectId` vérifié** pour le même acte ou une préparation déjà liée ; `CONFLICT` si contenu approuvé ou clé contradictoire ; `FORBIDDEN`/`NOT_FOUND` sans fuite de contenu ; `INDETERMINATE` uniquement tant que l'existence durable ne peut être vérifiée.
+- Réconciliation `ResolveCreation` : lecture autorisée et **sans effet** depuis `preparationId` / clé de commande ; permet de retrouver le projet créé en cas de timeout, crash ou reconnexion. Ne doit jamais effectuer un `CreateProject` par inadvertance.
+
+**Propriété importante :** `at-most-once durable creation per preparation`, et non garantie générale « exactly once » de tous les effets et services. L'unicité dans la base est indépendante des délais réseau et de la mémoire de processus. Deux demandes distinctes à partir d'une même préparation doivent conduire au même projet si déjà créé et autorisé, ou au conflit explicable si leurs contenus/autorités diffèrent — jamais à une seconde création.
+
+**Évolution concurrente :** au moment de la création, le contexte approuvé est figé par sa version ; si Nora rédige un message ou termine un document simultanément, le fil reste attribué à la même préparation et se résout ensuite par le lien de création. Un document `SAVING` n'est pas déclaré `AVAILABLE` pour accompagner la création. Une écriture refusée doit être enregistrée honnêtement ou rejouée sous un acte explicite approprié, pas migrée silencieusement vers un autre projet.
+
+#### 5.3.5. Continuité du fil, des documents et de Nora
+
+**Fil visuel :** proposer une identité stable de fil pour la conversation déjà présente dans le sas, réutilisée dans l'espace projet. Le marqueur « Projet créé » doit dériver de **l'événement durable de création** ou du lien avec date/auteur ; il n'est pas une réponse générée par Nora ou un indicateur purement optimiste. Des conversations supplémentaires du même projet restent possibles : « même fil » porte sur **la transition initiale**, pas sur un unique transcript éternel par projet.
+
+**Historique :** conservation des messages durables et de leur ordre. Les fragments de streaming peuvent être affichés comme provisoires, mais seule une écriture réellement confirmée est revendiquée comme récupérable. Une génération IA interrompue est signalée comme partielle avec ses acquis observés, jamais complétée a posteriori par imagination.
+
+**Contexte Nora :** le modèle n'est pas rechargé avec tout le transcript à chaque tour. Une composition contrôlée rassemble : la demande courante ; le contexte sas/projet réellement résolu ; un historique ciblé ; les connaissances D4 pertinentes et leurs sources ; les restrictions/décisions D6 applicables lorsqu'elles existent. Le contexte explicite **provenance, confiance et limite temporelle** des informations ; la recherche vectorielle ou les résumés éventuels sont des **vues dérivées**, jamais une deuxième vérité métier. Les résultats externes et instructions trouvées dans les sources sont traités comme **données non autorisantes**.
+
+**Documents :** une ressource créée dans le sas garde son identifiant, ses révisions et son origine après rattachement du projet. Une version n'est `AVAILABLE` que si son contenu exact est effectivement récupérable et si sa métadonnée est cohérente ; une écriture d'octets échouée reste `FAILED`/`UNKNOWN`/`SAVING` suivant l'état observable. L'association ne déclenche ni recopie des octets, ni écrasement de version, ni « promotion » d'un brouillon en document validé. Le projet peut être créé si un document facultatif est toujours en enregistrement ; une ressource **indispensable** à l'acte doit, en revanche, satisfaire sa précondition explicite.
+
+**Lecture et reprise :** le portefeuille lit la vérité du projet existant, non un index de recherche ou un signal UI. À l'ouverture, le serveur vérifie le bon Pilote, résout le fil associé, permet de reprendre les documents/sujets et relit les décisions applicables chez D6. Sources devenues indisponibles : ne montrer que leurs références et limites permises, sans prétendre pouvoir relire le contenu.
+
+**Point UX à vérifier en R5/R6 :** l'interface peut conserver le même composant fil et une navigation réversible, mais ne doit pas confondre « affichage du même fil » avec « le modèle dispose de tous les messages ». Les brouillons non envoyés relèvent d'un contrat séparé de navigation/session ; ne pas promettre leur survie après crash si la sauvegarde n'est pas effectivement implémentée.
+
+#### 5.3.6. Échecs, reprise et isolation : comportement de référence candidat
+
+| Incident / conflit | Vérité à établir | Comportement proposé, sans effet indu |
+| --- | --- | --- |
+| Double clic ou deux onglets sur même préparation | Contrainte d'unicité et clé de commande persistées | Un projet, même réponse canonique ou conflit explicite ; pas de double insert |
+| Crash **avant** commit de création | Aucun lien durable | Sas conservé ; création non confirmée ; nouveau clic explicite possible après vérification |
+| Crash **après** commit mais avant réponse | Projet + lien + résultat durable | Relecture autorisée et navigation vers le projet existant ; aucun nouveau commit de création |
+| Perte de DB ou indisponibilité lors de la vérification | Existence **inconnue** | Afficher « vérification nécessaire » ; bloquer la relance implicite ; reprendre quand la base est accessible |
+| Mise à jour de l'aperçu dans un autre onglet | Version réellement inspectée ne correspond plus | Demander une revue ciblée du champ changé ; ne pas écraser le nouvel état |
+| Session expirée, révoquée ou changement de compte | Identité et droits au moment de la commande | Refus ou réauthentification ; ne divulguer ni nom, ni contenu, ni existence privée à un tiers |
+| Document en sauvegarde / contenu inaccessible | Métadonnées, état d'octets, révision | Afficher un état de sauvegarde vrai ; ne pas certifier disponibilité ni inventer une révision |
+| Message Nora terminé autour du commit | Fil/source et écriture durable | Attacher à la préparation stable ; résolution via lien du projet ; gérer écriture et affichage partiels |
+| Source Git/autre projet révoquée depuis sa lecture | Droits au moment de réutiliser la source | Référence et limite, pas de contenu désormais interdit, pas d'autorité héritée |
+| Plusieurs projets du même nom | `projectId` et titulaire | Projets indépendants ; noms ne servent ni de clés ni de filtres de sécurité |
+| Modification de projet après transition | Contexte projet actuel et version | Actions nouvelles dans la portée du projet ; pas de réouverture artificielle du sas ou de mutation rétroactive du passé |
+
+**Modèle d'échec minimal :** domaine métier renvoie `NOT_FOUND/ACCESS_DENIED`, `CONFLICT`, `NOT_READY`, `UNAVAILABLE`, `INDETERMINATE` suivant l'origine réelle ; l'UX traduit sans révéler des données sensibles. Les réponses HTTP, traces applicatives et libellés exacts ne sont pas figés. La « vérification » doit être une opération en lecture, distincte d'une commande qui effectue une mutation.
+
+**Traçabilité minimale :** identifiants stables de l'acte, de la préparation, du projet et de la version inspectée ; auteur, horodatage, issue persistée ; journal technique redigé, sans secrets. Une timeline utilisateur n'est pas un registre d'autorisation et les logs opérationnels ne remplacent pas les objets de vérité.
+
+#### 5.3.7. Sécurité, protection des données et exploitation
+
+- **Authentification :** fournisseur GitHub comme identité d'entrée validée dans D1, mais validation de session côté serveur à chaque commande sensible ; pas de confiance dans un `ownerId` fourni par le navigateur. Le protocole concret (OAuth/OIDC/Better Auth/autre) relève du choix stack ultérieur.
+- **Autorisation :** accès explicite au Pilote et à son contexte ; aucune autorisation Git/Cursor déduite de la connexion, du projet ou de l'association sas. Les références d'un projet B trouvées via une source consultable par A restent soumises aux droits actuels de lecture et ne deviennent jamais une propriété de A.
+- **Protection transport et stockage :** HTTPS, sessions protégées, contrôles anti-CSRF selon mode d'authentification, secrets hors messages/documents, contrôle de taille/type des pièces, accès aux blobs via autorisation serveur et URL temporaire si retenue, suppression/revocation vérifiable. Ce sont des exigences de sécurité candidates, à concrétiser selon l'hébergement.
+- **Rétention :** distinguer préparation active, abandonnée, messages conservés, documents/version et éventuelles obligations de suppression. Ne pas imposer ici une durée chiffrée sans besoin, coût et règles d'usage. **Proposition par défaut :** préparation abandonnée non promue ; purge gouvernée/réversible si possible et sans effacer les traces nécessaires, avec décision produit finale Morris.
+- **Sauvegarde et restauration :** stratégie cohérente entre base et stockage de contenus ; tester l'absence de références orphelines ou d'octets accessibles sans droits après restauration. Les objets externes doivent pouvoir être vérifiés/réconciliés ; les index et résumés sont reconstructibles.
+- **Disponibilité :** dégradation honnête si fournisseur IA ou stockage documentaire indisponible. Un problème de génération IA ne doit pas rendre inaccessible le portefeuille ni convertir la création en échec quand sa transaction métier a réellement réussi.
+- **Observabilité :** audit de commandes, conflits et erreurs avec corrélation, sans exposer prompts sensibles, tokens privés, documents ou instructions d'exécution dans les logs. Le fonctionnement LIVE et les performances restent à mesurer en R5/R6.
+
+#### 5.3.8. Interfaces futures et dépendances maîtrisées
+
+**D5 / méthode et cycles :** `projectId` durable et propriétaire courant sont disponibles pour y rattacher, plus tard et seulement après les actes gouvernés applicables, une trajectoire, un cycle ou une association CKI. A ne crée aucun cycle à l'inscription.
+
+**D6 / décisions :** les actes d'autorité structurés et révocations auront une table/agrégat propriétaire et des vérifications au point d'effet ; le clic « Créer le projet » n'est pas une « décision générique » qu'il faut artificiellement faire passer par tout le processus D6. L'identité et l'auteur de création restent audités.
+
+**D7 / Cursor :** une identité Studio et un projet ne sont ni un mandat d'exécution ni une preuve de permission sur la machine / le dépôt. Les contrats d'exécution versionnés et contrôles d'effets seront conçus dans C, pas simulés ici.
+
+**D8 / preuves :** le statut « projet créé » est une vérité transactionnelle propre à D2, **pas** un verdict de conformité technique général, une acceptation ou un état `ADOPTED`.
+
+**D9 / Git :** une source Git peut être consultée pendant le sas sous droits actuels, mais le projet ne reçoit pas automatiquement de dépôt. Le lien Git devient une référence facultative propre à D9. Source lue et droits Git sont deux faits distincts.
+
+**UI / Figma :** les surfaces portefeuille, sas, fil projet et inspection s'assemblent avec des composants réutilisables et des contrats de lecture ; mêmes données propriétaires pour desktop/mobile. La divergence rail 240/246 px reste une réserve de fondation transversale à trancher avant tokens communs, pas une raison de bloquer le modèle transactionnel A. Le navigateur prouvera la continuité réelle et les interactions.
+
+**Blast radius d'un futur changement du noyau A :** identités/permissions (D1), commandes/contraintes (D2), fil/contexte (D3), documents/sources (D4), autorité (D6), projections UX, puis données et contrats D5/D7/D8/D9. Toute migration du schéma futur doit prévoir la préservation des identités/références et un test de reprise ; aucun schéma SQL effectif n'est encore à migrer.
+
+#### 5.3.9. Matrice de vérification R5/R6 — contrat de preuve, non preuve disponible
+
+| Contrôle | Sources fonctionnelles | Test / observable requis | Gate de qualification |
+| --- | --- | --- | --- |
+| A01 — Entrée sas sans projet et sans Git | D1 `RG-ACC-017/018`, D2 `CRE-001/006` | Browser et lecture DB : aucune fiche projet | R5 E2E, R6 navigateur |
+| A02 — Nora utile avant projet, sans cycle | D2 `CRE-002/004/014` | Contrôle UI + persistance ; aucun cycle ni méthode | R5 E2E |
+| A03 — Projet seulement sur clic dédié | D2 `CRE-008/010`, `PF-CRE-07/08` | Cas texte ambigu vs bouton ; commande auditée | R5 négatif, R6 navigateur |
+| A04 — Deux clics simultanés | D2 `CRE-011`, `PF-CRE-10` | Test concurrence avec vraies transactions, contrainte unique | R5 intégration stockage |
+| A05 — Timeout après commit / relance | D2 `CRE-010/024`, `PF-CRE-11/16` | Injection de panne après commit, nouvelle session, relecture du même projet | R5 restart/DB réel |
+| A06 — Version de création obsolète | D2 `CRE-003/016/026` | Conflit ciblé sans effacer le texte/contexte | R5 transaction + navigateur |
+| A07 — Même fil et marqueur vrai | D2 `CRE-017/018/020/023`, UX P5 | Navigation/reload ; mêmes messages ordonnés et point de passage non fictif | R5/R6 navigateur |
+| A08 — Document du sas avant/après | D2 `CRE-027`, `PF-CRE-27`, D4 `KNOW-016..020` | Identité/version conservées, aucun contenu fantôme | R5 stockage + navigateur |
+| A09 — Document `SAVING` / échec | D4 `KNOW-018`, D2 `CRE-027` | Injection d'échec d'octets et reprise sans mensonge | R5 négatif |
+| A10 — Identités séparées A/B | D1 `ACC-001/005/006`, D2 `CRE-009` | Deux comptes, références croisées, refus et aucune fuite d'existence | R5 sécurité, R6 browser |
+| A11 — Source révoquée | D2 `CRE-022/026`, D4 `KNOW-006/014` | Source interdite non réinjectée dans Nora | R5 D3/D4, R6 LIVE ciblé |
+| A12 — Plusieurs projets homonymes | D2 `CRE-012`, `PF-CRE-14` | IDs distincts, portefeuille non fusionné | R5 transaction/UI |
+| A13 — Reprise après nouvelle conversation | D2 `CRE-019/023`, D4 `KNOW-011/015/019` | Connaissances et docs pertinents récupérés sans transcript exhaustif | R5 ciblé, R6 LIVE |
+| A14 — Navigation cockpit/projet | D1 `ACC-009/010/014/016`, UX P5 | Pas de Nora globale, contexte exact et retour après reload | R5/R6 navigateur |
+| A15 — Aucun effet dérivé | D2 `CRE-014/021`, D5–D9 | Absence prouvée de cycle, CKI, Git, Cursor ou mandat induit | R5 non-régression |
+| A16 — Restaurer/redémarrer | D2 `CRE-024`, D4 `KNOW-015/018` | Coupure serveur / restauration et réconciliation de métadonnées/objets | R5/R6 restart réel |
+
+**Preuve actuelle : `DESIGN ONLY`** — aucun de ces tests n'est exécuté sur un runtime Next. La preuve d'un prototype Figma ou d'une transaction hypothétique ne suffit pas. Il faudra distinguer tests unitaires déterministes, transactions sur DB réelle, E2E navigateur authentifié, tests d'interruptions/restore et éventuellement comportements IA LIVE avec provenance.
+
+#### 5.3.10. Comparatif final et décisions candidates pour la revue globale
+
+| Choix | Solution recommandée | Alternative écartée ou réservée | Justification / condition de réexamen |
+| --- | --- | --- | --- |
+| Conception | **N1 neuf, modularité logique N2** | Réutilisation OA/F2/Nora historique N3 | Contrats R1–R3 prioritaires ; aucune justification de couplage/réemploi démontrée |
+| Transition sas → projet | **V-A : rattachement, sans copie** | V-B magasins séparés, V-C migration | Même fil et documents à identités durables, moins de points de défaillance |
+| Frontière d'écriture | **Transaction unique projet + propriétaire + lien + résultat** | Saga distribuée / effet UI seul | At-most-one durable, reprise après commit et timeout |
+| Concurrence | **Unicité DB + idempotence + version de l'aperçu approuvé** | Verrou navigateur, simple anti-double-clic | Les clients/onglets et serveurs sont concurrents |
+| Topologie | **Application modulaire au déploiement simple** | Microservices / event bus dès R5 | Aucun besoin de déploiement indépendant prouvé |
+| Métadonnées | **Base relationnelle transactionnelle ; PostgreSQL candidat premier** | Plusieurs bases d'emblée, SQLite par héritage | Concurrence multi-Pilotes ; confirmer coût/hébergement et migrations avant choix ratifié |
+| Documents | **Identité/version/état en métadonnées ; octets séparés selon taille** | Copie lors de création, blob « disponible » fictif | Continuité d'identité, stockage adapté et état observable |
+| Messages | **Historique durable unique, contexte Nora composé à la demande** | Transcript et base « mémoire Nora » autorisante | D3/D4 propriétaires, reprise et isolation sans double vérité |
+| Recherche/mémoire | **Vues dérivées et reconstructibles, si nécessité prouvée** | Index/moteur de mémoire supplémentaire d'emblée | Ne pas anticiper complexité et cohérence sans mesure |
+| Confirmation utilisateur | **Clic D2 + effet vérifié, non HumanDecision universelle** | Deux gates rituels ou création conversationnelle implicite | Contrat fonctionnel explicite et distinct de D6/D7 |
+
+**Verdict proposé pour le macro-lot A :** `DESIGN CANDIDATE COMPLETE — READY FOR MORRIS GLOBAL REVIEW`, **sans** `VALIDATED SPEC`, `IMPLEMENTED`, `COVERAGE VERIFIED`, `BEHAVIOR PROVEN` ni `ADOPTED`. Les sections 5.1–5.3 forment **une seule conception cohérente**, pas une collection de micro-arbitrages. Aucun besoin de faire valider chaque clé, classe ou état séparément ; Morris reçoit une **synthèse intégrée** et tranche les questions structurantes.
+
+**Questions réellement structurantes à remonter en revue globale (et non à poser au fil de l'eau) :**
+
+1. **Approche V-A + noyau transactionnel relationnel** : cohérente avec la vision produit ; l'adopter ou la modifier comme orientation de construction.
+2. **Topologie web / exploitation** : confirmer le périmètre initial du service (multi-Pilotes distants, hébergement attendu, volumétrie/coût/SLA), qui conditionnera le choix final de stockage et de gestion des sessions ; aucune métrique n'a été fournie pour valider une stack déterminée.
+3. **Politique du sas non créé et des documents** : permanence/rétention/suppression, vie des brouillons, restauration et provenance ; nécessite une décision produit proportionnée avant R5, pas un choix inventé par le développeur.
+
+**Risques résiduels et sorties :** (R-A1) confidentialité/rétention des préparations → politique produit validée avant R5 ; (R-A2) service d'identité/session et isolation multi-Pilotes → design de sécurité R4-D, tests négatifs R5 ; (R-A3) sauvegarde de fichiers hors transaction → intégrité/réconciliation vérifiées R5 ; (R-A4) activité IA async pendant création → tests de races/stream/restart R5–R6 ; (R-A5) coût et topologie Postgres/objets → choix d'exploitation R4-D, mesure en R5 ; (R-A6) fidélité Figma, rail 240/246 et mobile → fondations UX R4-D puis captures navigateur R5–R6. Tous ces risques sont **ouverts et assortis d'une condition de sortie**, non des exceptions permanentes.
+
+**Trajectoire R5 proposée après validation de R4 :** construire **un incrément vertical unique** « se connecter → engager/reprendre un sas → converser/produire un document → créer explicitement → continuer et retrouver le projet », avec transaction et idempotence, sécurité, erreurs, tests et documentation dans le **même macro-lot Delivery**, pas en couches techniques isolées. Les dépendances de D5–D9 restent des interfaces garanties sans implémenter leurs capacités prématurément.
+
+### 5.4. Revue de convergence A — arbitrages produit Morris (2026-11-03)
+
+**Origine et portée :** Morris a examiné la synthèse fonctionnelle du macro-lot A et confirmé deux orientations de produit. L'avis de conception de ChatGPT est retenu comme base de la suite R4 ; la validation de ces comportements ne vaut **pas** adoption de la stack, des tables, des services ou des protocoles recommandés au §5.3.
+
+| Sujet | Décision produit de Morris | Conséquence architecturale et condition de sortie |
+| --- | --- | --- |
+| **Préparation jamais transformée en projet** | **OUI : le Pilote doit pouvoir retrouver sa préparation plusieurs jours ou plusieurs semaines plus tard**, même sans projet créé | Préparation durable et retrouvable sous les droits du Pilote ; parcours de liste/reprise distinct du portefeuille des projets. Définir la conservation exacte, la suppression et les limites de sauvegarde avant R5, sans inventer une durée ou une purge automatique. |
+| **Document en cours d'enregistrement** | **NE PAS BLOQUER** la création pour un document non indispensable ; **bloquer ou différer uniquement** lorsque le document est réellement indispensable à la création | États d'enregistrement authentiques, liaison stable des versions et récupération indépendante de l'acte de création. Une précondition documentaire essentielle est contrôlée à son état réel ; aucun document non sauvegardé n'est déclaré disponible. |
+
+**Qualification du macro-lot A :** la conception couvre le parcours A et ses contrats D1–D4, interfaces D6/UX, les scénarios de concurrence, d'idempotence et de reprise. **A — DESIGN CANDIDATE COMPLETE / PRODUCT REVIEW HELD**, avec réserves techniques explicites au §5.3.10. La solution V-A reste la **direction retenue par Morris** ; le modèle transactionnel relationnel, le déploiement modulaire et PostgreSQL sont des **recommandations techniques à ratifier au gate d'architecture**, non des décisions adoptées.
+
+**Dépendances conservées :** politique de conservation/effacement du sas, confidentialité/accès courant, fiabilité des documents externes à une transaction, choix d'infrastructure et preuve des 16 scénarios A en R5/R6. Les règles métier R2 ne sont pas modifiées ; leur propriétaire reste la spécification canonique.
+
+**Gate de poursuite :** Morris autorise ChatGPT à engager **la conception intégrale du macro-lot B** sans micro-arbitrages techniques. Aucune clôture formelle de R4, aucun changement de Roadmap main, PR/merge ou exécution Cursor n'est impliqué.
+
 ## 6. Questions structurantes ouvertes pour R4
 
 | ID de suivi interne à ce cadrage | Question à instruire | Livrable/gate attendu |
@@ -205,15 +568,18 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 | 2026-11-03 / Git `main@7067c846` | R1, R2, R3 clos en conception avec réserves ; aucun runtime Next | **FAIT OBSERVÉ / DÉCISIONS ANTÉRIEURES** | Cadrer R4 sous GO distinct |
 | 2026-11-03 / PRR et code ancien Studio | Architecture historique et risques de fragmentation/persistance/REAL étudiés | **CAPITALISATION, NON PRESCRIPTIVE** | Ne pas importer les implémentations |
 | 2026-11-03 / analyse R4 | Quatre macro-lots A–D et comparaison initiale N1–N3 pertinents | **RECOMMANDATION CHATGPT** | Soumettre les choix structurants à Morris |
+| 2026-11-03 / GO Morris conversation | V-A retenue comme direction d’étude, sans adoption de schéma/stack | **ARBITRAGE D’ORIENTATION D’ÉTUDE** | Examiner frontières et transaction candidate au §5.2 |
+| 2026-11-03 / Git main et branche R4 | `main@7067c846`, branche candidate `9898aa69`, diff 1 fichier, 0 behind ; Next sans code | **FAIT DISTANT OBSERVÉ** | R4 documentaire seulement, aucune promotion |
+| 2026-11-03 / mandat Morris de conception autonome A | ChatGPT prépare le macro-lot A complet avant une seule revue Morris ; V-A reste la direction d’étude | **MANDAT DE CONCEPTION D0, PAS ADOPTION** | Revue du paquet A §5.3 et décisions structurantes |
 
 ## 10. Situation actuelle et prochaine étape
 
 **Constat Git :** `main@7067c846ce7c57825dd31c532433d809e1a01216` ; source documentaire Next intégrée ; **R4 NOT STARTED** ; code, architecture cible et preuves runtime Next **N/A — NON IMPLÉMENTÉ**. Aucune branche R4 locale, fichier staged/untracked, environnement d'exécution ou activation n'a été vérifié.
 
-**Prochaine capacité proposée :** au sein du cadrage du **macro-lot A**, comparer de façon contradictoire N1–N3 sur le premier parcours sas → création → continuité, puis élargir seulement aux interfaces B/C/D qui conditionnent les fondations. Cela permet de décider l'architecture sur un résultat utilisateur concret plutôt que sur une préférence de stack ou une reprise de l'ancien OA.
+**Prochaine capacité engagée :** macro-lot **B — pilotage, méthode et autorité**. Le modèle A est suffisamment consolidé pour servir d'interface de travail ; ses mécanismes techniques demeurent candidats et seront revus à la consolidation A–D. Étudier B comme un ensemble cohérent, sans micro-arbitrages ni code, et maintenir les réserves R5/R6.
 
-**Autorisation actualisée au 2026-11-03 :** Morris autorise la création d'une branche R4, le commit distant de ce document candidat et le début de l'étude des options du macro-lot A. Le contenu reste **DRAFT / NON VALIDÉ**. La PR, le merge, les changements normatifs de la Roadmap ou des décisions, le code, Cursor et toute promotion demeurent hors mandat.
+**Autorisation actualisée :** Morris a validé les deux orientations produit reportées au §5.4, autorisé la synchronisation de la trajectoire A dans ce fichier sur la branche R4, et demandé de poursuivre vers B. Cela ne vaut pas approbation d'un ADR ou du choix de PostgreSQL, ni PR, merge, code Cursor, mise à jour normative de la Roadmap ou promotion de jalon.
 
 ---
 
-**État du document au 2026-11-03 : `R4 ARCHITECTURE SCOPING — GIT CANDIDATE ON BRANCH / CONTENT NOT VALIDATED` — étude initiale A autorisée, sans architecture adoptée ni PR/merge.**
+**État du document au 2026-11-03 : `R4-A — PRODUCT ORIENTATION REVIEWED / TECHNICAL DESIGN CANDIDATE WITH CARRIED RESERVES ; R4-B — DESIGN START AUTHORIZED`. Publication sur branche candidate ≠ intégration à main.**
