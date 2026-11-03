@@ -7,7 +7,7 @@
 | Figma source | [SFIA Studio Next — Parcours produit](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP) |
 | Page mesurée | \`94:49\` — parcours produit, avec fondations et contrats visuels sur les autres pages |
 | Branche de documentation | \`sfia/next-r3-ux-interaction-candidate\` ; \`main\` non promue |
-| Index géométrique versionné | [\`index-geometrie-frames-r3.json\`](index-geometrie-frames-r3.json) — **221 frames et 891 blocs racines visibles** mesurés à la date du snapshot |
+| Index géométrique versionné | [\`index-geometrie-frames-r3.json\`](index-geometrie-frames-r3.json) — **223 frames et 901 blocs racines visibles**, après raccordement de deux index de revue mesurés à la date du snapshot |
 | Origine des mesures ci-dessous | Lecture directe des propriétés Figma \`x, y, width, height, layoutMode, padding, itemSpacing, cornerRadius, fontName, fontSize, fills\` |
 | Périmètre | Grammaire visuelle, layout, composants et état d'activité Nora ; reprise pour implémentation par Cursor |
 | NON inclus | Choix React/CSS, API ou base de données, contrat de streaming R4, code ou garantie « pixel-perfect » tous environnements |
@@ -163,3 +163,38 @@ Une capacité construite est livrée avec : références Figma, composant(s) et 
 3. **Fondations Figma :** résoudre l'écart de rail 240 vs 246 px et figer les tokens partagés avant déclaration « fidèle » ; l'index JSON est un snapshot, à régénérer si Figma évolue.
 4. **R5/R6 :** construire et prouver animation, commandes, reprises, niveaux d'accès, contrôles responsive et vérification visuelle sur un périmètre end-to-end représentatif. **R3 validé en conception ≠ implémenté ≠ prouvé ≠ ADOPTED**.
 5. **Gates :** la validation de ce contrat par Morris reste à obtenir avant intégration de choix de transposition normatifs ; aucune PR/merge, modification d'architecture, exécution Cursor ou clôture globale R3 n'est incluse dans le mandat.
+
+## 6. Couverture des familles, des variantes et du parcours — audit de finalisation R3 (2026-11-03)
+
+**Réponse à la question d'exhaustivité :** oui, les **neuf responsabilités produit**, les sept scénarios R1 et les **223 frames** sont inventoriés ou raccordés dans la source de conception. **Non, les dimensions détaillées de tous les descendants des 223 frames ne sont pas extraites dans ce contrat.** La fidélité d'implémentation ne peut donc pas être certifiée globalement sur le seul manifeste. L'extraction profonde s'effectue par capacité R4/R5 à partir de la frame, du composant et de la version retenus ; elle doit alimenter les tests de restitution.
+
+### 6.1. Taxonomie de réutilisation — neuf domaines R1/R2
+
+| Domaine propriétaire | Types d'écrans / états représentés dans Figma | Patrons visuels à transposer | Exemple d'IDs Figma |
+| --- | --- | --- | --- |
+| **D1 — Accès et portefeuille** | Portefeuille, identité, accès refusé, expiration, liste vide, isolation de projets | Portefeuille, carte projet, notification d'accès, rail conditionnel | `94:50`, `158:120`, `158:192`, `158:336` |
+| **D2 — Sas et création** | Sas libre, préparation retrouvée, aperçu, création demandée, succès confirmé, issue incertaine | Fil pré-projet, résumé, commande « Créer », état et continuité | `94:135`, `159:145`, `159:289`, `159:361`, `96:262` |
+| **D3 — Conduite Nora** | Conversation courte/longue, réponse adaptative, activité observable, interruption cognitive, reprise et mobile | Fil, message Nora, composer, activité, sources et actions contextuelles | `94:214`, `281:389`, `281:1113`, `282:468` |
+| **D4 — Connaissance** | Journal, documents, révisions, inspections, accès et provenance | Carte d'objet, versions, comparaison, retour au fil | `94:515`, `94:370`, `97:359`, `241:385` |
+| **D5 — Trajectoire et cycles** | Cycle proposé/actif, maturité, CKI, transition confirmée ou inconnue | Trajectoire, état de cycle, guidance, décision de transition | `125:33`, `127:35`, `127:106`, `127:320` |
+| **D6 — Décisions et gouvernance** | Décision, autorisation, restriction, révocation, suspension et réception humaine | Décision inspectable, action d'autorité, avertissement, gate | `128:52`, `128:195`, `128:337`, `129:428` |
+| **D7 — Réalisation** | Contrat, six volets, instruction Cursor, précontrôles, tentative, STOP et effets incertains | Contrat + accordéons, version, tentative, suivi, arrêt | `94:629`, `199:1500`, `187:1148`, `188:499` |
+| **D8 — Résultats et preuves** | Rapport, pièces, critères, conformité partielle, réserves et restitution | Synthèse, preuve, inspecteur, verdict borné, réception distincte | `94:827`, `100:39`, `188:911`, `202:438` |
+| **D9 — Intégration Git** | Git facultatif, ressource, identité, ref, droits, échec de push et conflits | Champs source/référence/droit/effet, contrôle et incident | `96:148`, `236:333`, `236:885`, `237:915` |
+
+Les variantes transverses 197–204 et 216–217 couvrent reflow, mobile, zoom, focus, dégradation et activité. **Une frame peut représenter plusieurs responsabilités** ; cette table définit des familles de composition, pas des moteurs concurrents ni une classification exclusive.
+
+### 6.2. Inventaire et chemins de revue
+
+- **[Index global R3](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=264-401)** : point de départ de revue, relié aux **223/223 frames** de la page 01.
+- **[Sept E2E de référence](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=299-389)** : carte cliquable des sept scénarios du cadrage R1 ; résultats confirmés et conditions négatives **inspectables**, non émis automatiquement.
+- **[14 variantes complémentaires](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=298-389)** : cycle, méthode, transition, CKI et lecture compacte non atteignables du fil nominal, conservées dans le parcours de revue.
+- Mode **Présenter** : trois entrées seulement — principal `94:50`, revue `264:401`, compact `94:1037`. Le parcours nominal n'a pas besoin de rendre tous les incidents actionnables.
+- **Numerotation :** 216 frames numérotées de 01 à 217 ; le numéro `137` a disparu au fil du remplacement de l'ancien écran d'instruction par **169 (`199:1500`)**. Il n'est pas recréé sous forme d'alias concurrent. Les sept autres frames sont des index de revue, exclus des écrans applicatifs.
+- La révision native du manifeste est **v0.3 : 223 frames, 901 blocs racines visibles**. Elle est une photo de mesure, pas une preuve que chaque enfant, token, état et contrainte responsive est contractuellement décrit.
+
+### 6.3. Contrat de sortie pour Cursor
+
+Pour chaque **capacité** implémentée, Cursor doit disposer avant le code de la liste des références Figma et variantes applicables, de la définition du composant partagé, des mesures profondes extraites des nœuds (y compris filiation, contraintes, typographies, variables et états), du contrat de comportement R2, des tests visuels ciblés et des exceptions acceptées. Un défaut ou désaccord entre deux frames partagées est **KNOWN GAP à arbitrer** et non une liberté de design. Les validations de conformité ne se déduisent pas de l'index des tailles.
+
+**Verdict : COMPLETE FAMILY COVERAGE / PARTIAL LEAF GEOMETRY — UX CONTRACT CANDIDATE.** La conception peut servir de base R4, mais la preuve « pixel perfect de tous les écrans » nécessite la transposition et les comparaisons runtime en R5–R6. Aucune décision de stack, PR, merge ou ADOPTED dans ce contrat.
