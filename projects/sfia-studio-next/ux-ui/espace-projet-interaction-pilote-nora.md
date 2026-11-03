@@ -1538,6 +1538,17 @@ Le Pilote voit que Nora travaille, l'étape ou l'opération **réellement établ
 
 **Le contrat ne fige pas les écrans en coordonnées absolues.** Un composant = une responsabilité, des états et des règles de reflow ; les références sont mesurables mais doivent rester adaptées aux contenus, longueurs, zooms et 1280/390/320 px. R4 devra qualifier la source des événements, le composant unique, l'architecture de rendu et les tokens. R5 construira ; R6 comparera géométries, polices, couleurs, captures, interactions, cas négatifs et reprises. Tolérances candidates à valider lors de la première baseline technique ; aucune conformité pixel-perfect proclamée.
 
+
+### 35.5. Relecture du prototype et état du manifeste
+
+**Audit Figma post-câblage (2026-11-03) :** 221 frames sur la page 01 ; les 12 variantes numérotées 206–217 existent, sans doublon. **2 309 réactions NODE**, **0 destination inexistante**, **0 commande visible nommée `Action /` laissée sans interaction**, trois URL externes inchangées. **15 ancrages intra-frame** « Aller à la dernière réponse » : 5 états historiques et 10 états Nora clonés, intentionnels, pas des cycles de navigation.
+
+La commande Envoyer du composer 03 ouvre l'état de travail 206 du prototype. Les carrés d'arrêt des états Nora en cours conduisent à 210 (STOP cognitif demandé) ou 211 (STOP externe demandé) ; ces deux états affichent ensuite un arrêt en attente non relançable depuis le composer. Les deux variantes mobiles conduisent à la demande d'arrêt et à la préparation de reprise. Les actions du panneau décrivent l'état, elles ne simulent pas un appel API ni une confirmation technique.
+
+**Manifeste :** [`index-geometrie-frames-r3.json`](index-geometrie-frames-r3.json) contient les **221 frames et 891 blocs visibles de premier niveau** (`id, nom, position, largeur, hauteur, type de layout`). Les mesures détaillées de la carte d'activité, du composer et du contrat d'exécution figurent dans [le contrat de transposition](contrat-transposition-figma-code.md). L'implémentation doit réextraire les descendants pertinents et les tokens/contraintes ; aucun claim de « pixel perfect » global n'est prononcé.
+
+**Vérification visuelle :** capture du desktop 206, du mobile 216 et de l'index Nora contrôlées. La planche mobile mesure 390×1350, pas un viewport imposé. Animation réelle, règles d'annonce accessibles, arrêt API, état après reload, idempotence et comparaison navigateur restent des preuves R5–R6.
+
 ### 35.4. Dette, exit et gate
 
 - **D2 à valider :** compléments R1 et R2 D3/D6/D7/D8 rédigés pour arbitrage Morris, mais **non publiés sur Git** comme règles acquises.
