@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.10**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.11**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -345,6 +345,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Reprendre R3 après PR #642 intégrée dans `main` et créer le parcours documentaire en quatre états Figma, sans requalifier R1/R2. | Reprise R3 demandée par Morris, travail UX exploratoire ; aucun GO de PR/merge UX ni validation écran finale | **DOCUMENTED — FIGMA CANDIDATE** ; revue Morris et tests de navigation à venir. |
 
 | 2026-11-03 | Rendre navigable la traversée E2E, ajouter les trois états discriminants et les accès autonomes Projet/Git, vérifier réactions et fidélité UX. | GO Morris pour poursuivre R3 ; aucun mandat de promotion sur main | **FIGMA INTERACTIVE CANDIDATE** : 11 frames et liens vérifiés, aucun runtime Next. |
+
+| 2026-11-03 | Relier les documents Nora, les décisions et un refus Git au prototype global ; éprouver deux surfaces compactes à 1280 px, auditer les réactions et la lisibilité. | GO Morris de poursuite R3 ; sans nouveau mandat de PR, merge ou clôture | **FIGMA CANDIDATE** : 17 écrans, 103 liens internes ; tests produit, accessibilité et responsive exhaustif non réalisés. |
 
 ### Règle de maintenance
 
@@ -869,3 +871,52 @@ Le **parcours principal** est Portefeuille → Sas → Projet créé → Travail
 **Gate :** le présent travail, approuvé en trajectoire par Morris, reste un livrable UX candidat ; ni PR/merge de la branche UX, ni changement de Roadmap, ni conception R4 ni implémentation R5 n'ont été autorisés par la présente étape.
 
 **Statut : DOCUMENTED / INTERACTIVE FIGMA PROTOTYPE — 11 CANDIDATE SCREENS ; NON IMPLEMENTED / NON BEHAVIOR PROVEN / NON ADOPTED.**
+
+
+## 22. Capacité UX Nora–connaissance–documents, décisions et première adaptation compacte (R3 v0.11, 2026-11-03)
+
+### 22.1. Objet du macro-ensemble
+
+Ce travail poursuit la conception **globale** du produit au lieu d'approfondir isolément l'Inspection. Il permet au Pilote, depuis le même espace Studio Next, de retrouver un document Nora, demander une révision, consulter une décision du projet, distinguer ensuite un contrat technique, et comprendre un refus de lecture Git, avec retour vers l'activité d'origine.
+
+**Base et autorité :** direction B2/V3 retenue par Morris ; SEF v0.2, R1 avec §§2.40–2.41 et complément R2 de 24 règles/18 scénarios intégrés par PR #642 à main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990. Les spécifications D1–D9 demeurent propriétaires des objets métier. Git local/staged/untracked : NON OBSERVÉ ; produit Next : N/A — NON IMPLÉMENTÉ. La Roadmap sur main est historiquement décalée (R3 NOT STARTED et chiffres pré-complément), KNOWN GAP non corrigé dans ce mandat.
+
+**IN UX :** navigation Nora → document → version → Projet, décision Journal → détail → retour/contrat distinct, accès Git → refus explicite → retour, première comparaison de disposition entre 1680 et 1280. **OUT :** édition native technique, exécution réelle, nouveau registre d'Inspection, navigateur web intégré, changement de règle R2 ou publication d'un design system.
+
+### 22.2. Écrans intégrés au même prototype Figma E2E
+
+**Fichier :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP ; **page :** « 04 · Parcours produit — Vue de bout en bout ».
+
+| Écran éditable | Objet UX et scénario | Limite explicite |
+| --- | --- | --- |
+| [09 — Document Nora en consultation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-540) | Brouillon Markdown identifié, contenu rendu, statut, version et actions de révision ; accès depuis Travail/Projet/Journal | Le document d'exemple est présenté comme enregistré **dans le scénario** ; aucune persistance réelle prouvée |
+| [10 — Révision documentaire avec Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-689) | Demande ciblée, version v2, comparaison de l'avant/après, retour possible à v1 | Ne prouve ni création de version ni résolution de concurrence en runtime |
+| [11 — Inspection d'une décision](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-838) | Identité, portée et origine de l'arbitrage ; retour au Journal ; lien distinct vers un contrat proposé | Inspecter n'est pas valider, accepter ni « Exécuter » ; décision entièrement fictive |
+| [12 — Source Git non accessible](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-941) | Contenu non récupéré, droits insuffisants, branche non vérifiée, retour à la liste sans inventer d'aperçu | Le refus est un exemple visuel, non un test de permissions réelles |
+| [13 — Nora en fenêtre compacte 1280](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=56-34) | Activité Nora prioritaire et surface de contexte secondaire non imposée | Variante de largeur uniquement, pas spécification mobile validée |
+| [14 — Inspection en fenêtre compacte 1280](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=56-141) | Inspection remplaçant la zone de travail avec « Retour à Nora », au lieu de trois colonnes comprimées | Prototype adaptatif statique, pas rendu navigateur responsive ni breakpoint implémenté |
+
+**Actions représentatives effectivement reliées :** depuis le rail « Documents Nora » de plusieurs vues, ouvrir le document ; de celui-ci demander une révision ; depuis Journal/Vue Projet examiner la décision ; depuis cette décision revenir au Journal ou consulter un contrat **sans lancer l'exécution** ; dans Sources Git ouvrir en nouvel onglet les fichiers SEF/Roadmap réels ou consulter l'état refusé d'une source candidate ; variante 1280 Nora ↔ Inspection.
+
+**Point de vigilance :** plusieurs contrôles qui ne sont pas nécessaires à la démonstration restent de simples affordances statiques ; ne pas revendiquer que tous les liens, menus ou états sont fonctionnels dans le prototype.
+
+### 22.3. Audit structurel et preuve disponible
+
+- **17 frames** sur la page E2E (15 desktop 1680×970, deux variantes 1280×970) ; tous les écrans ajoutés sont des calques Figma éditables, non des captures plates.
+- **103 réactions de navigation interne** et **3 actions URL externes** GitHub en nouvel onglet ; **0 destination manquante** et **0 auto-navigation de frame** dans l'audit.
+- **3 points de départ** : portefeuille principal, variante cycle actif, variante 1280.
+- La variante cycle actif reste indépendante du parcours sans cycle : cette absence de connexion est voulue, pour éviter de représenter un changement de cycle par une simple navigation.
+- Vérification ciblée des réactions héritées lors de la duplication : « Retour au Journal » de l'inspection de décision pointe vers Journal, et **non vers la tentative Cursor**. Le contenu non autorisé dans le scénario Git n'est pas affiché.
+- Captures Figma des six écrans ajoutés inspectées visuellement, y compris le rendu de la surface compacte et de la navigation Retour à Nora.
+
+**Niveau de preuve :** construction et structure du **prototype Figma**, pas exécution Studio Next, test utilisateurs réel, test navigateur, capture runtime, preuve de permissions, enregistrement, Git LIVE ou comportement E2E démontré. Les sources GitHub exactes restent soumises aux droits réels du navigateur.
+
+### 22.4. Constats de lisibilité et travaux UX restant à traiter
+
+L'audit du prototype relève de nombreux textes de **11–13 px**, notamment pour les métadonnées et explications secondaires. Les vues restent lisibles sur capture, mais leur **accessibilité, contraste effectif, zoom, focus clavier et usage sur fenêtres réduites ne sont pas démontrés**. Les deux variantes 1280 proposent une hypothèse de composition cohérente : Nora seule dans l'espace principal, ou Inspection occupant celui-ci avec retour explicite ; ce n'est **pas** un breakpoint contractuel.
+
+**Suite du macro-lot R3 :** homogénéiser l'échelle typographique et les composants, rendre visibles les états de focus et de sélection clavier, analyser les risques de troncature et zoom, tester un vrai parcours sujet/décision/document et son retour, couvrir les refus d'autorité et la reprise après interruption, puis préparer une **revue UX globale** avec critères de sortie R3. Ne pas fragmenter en un document par écran ni répéter la méthode R1/R2.
+
+**Gate :** les écrans et interactions restent candidats R3 ; aucune nouvelle décision structurante, aucune PR/merge de cette branche UX, aucune mise à jour normative/roadmap, ni entrée en R4/R5 n'est induite. Seul Morris décide des promotions après revue.
+
+**Statut : DOCUMENTED / INTERACTIVE FIGMA CANDIDATE — 17 FRAMES, 103 INTERNAL LINKS ; R3 IN PROGRESS, NOT ADOPTED.**
