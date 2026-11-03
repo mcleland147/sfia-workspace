@@ -1139,3 +1139,7 @@ La répartition est **non exclusive** : certains écrans portent des interfaces 
 - Trois profils de validation distincts : **graphe Figma** (vérifié), **parcours métier conceptuel** (inspectable, exceptions explicites), **parcours produit LIVE / navigateur / accessibilité** (N/A — NON IMPLÉMENTÉ).
 
 **Verdict préparé : PRESENTATION REVIEW COVERAGE VERIFIED — 9/9 DOMAINS, 7/7 E2E INSPECTABLE, 223/223 FRAMES REACHABLE. NOMINAL CONDITIONAL EFFECTS NOT PROVEN.** Revue finale Morris à conduire. La validation du présent audit ne ferme pas R3 ni n'autorise PR/merge ou R4.
+
+## 17. Sortie formelle R3 — décision enregistrée (2026-11-03)
+
+Morris a prononcé **R3 CLOSED BY MORRIS — WITH CARRIED RESERVES** au niveau conception UX. Le [Decision Record R3](../governance/decisions/2026-11-03-r3-ux-formal-exit.md) est sur la branche candidate ; les indications de revue non encore menée dans les sections historiques sont obsolètes comme statut courant. Les résultats du graphe Figma ne constituent pas des preuves de comportement runtime. **PR, merge, baseline `main` et R4 non inclus dans la décision de clôture.**
