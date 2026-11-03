@@ -624,7 +624,7 @@ Fichier Figma : https://www.figma.com/design/itgvCulInEnFY6DvgIegvP ; trois page
 | Interruption / suspension | [151](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-499), [152](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-602), [153](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-705), [154](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-808) | STOP demandé, STOP non supporté, arrêt confirmé avec effets, suspension opposable à la reprise |
 | Bilan et preuves | [155](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-911), [156](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-1017), [157](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-1123), [158](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-1229), [159](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-1335), [161](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-1550) | Rapport seul, conformité locale, contradiction, preuve inaccessible/périmée, réserves, sources sans Git/QA |
 
-**Audit Figma constaté après mutations :** 162 écrans produit et deux index de revue = 164 frames de premier niveau sur la page 01 ; 28 nouvelles variantes C ; 302 réactions de navigation NODE au total sur C + index C, **0 destination manquante, 0 auto-navigation, 0 action visible sans réaction** ; typographie Inter ; captures index C, contrat 137 et arrêt 153 inspectées. L'index est un outil de revue séparé du produit. Les transitions vers les variantes d'incident sont des conditions de conception, non des boutons du Pilote pour fabriquer des états. Aucune preuve de comportement conditionnel, navigateur, session, accès, focus ni LIVE/REAL n'en découle.
+**Audit Figma constaté après mutations :** 162 écrans produit et deux index de revue = 164 frames de premier niveau sur la page 01 ; 28 nouvelles variantes C ; 302 réactions de navigation NODE au total sur C + index C, **0 destination manquante, 0 auto-navigation, 0 action visible sans réaction** ; typographie Inter ; captures historiques de l'index C, de l'instruction contractuelle (ancienne 137, aujourd'hui 169) et de l'arrêt 153 inspectées. L'index est un outil de revue séparé du produit. Les transitions vers les variantes d'incident sont des conditions de conception, non des boutons du Pilote pour fabriquer des états. Aucune preuve de comportement conditionnel, navigateur, session, accès, focus ni LIVE/REAL n'en découle.
 
 ### 12.3. Matrice individuelle — 31 scénarios D7
 
@@ -1045,7 +1045,7 @@ Les **41 règles RG-GIT** restent sous autorité de la spécification D9 R2. Les
 
 - [Index Figma du suivi Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) : **12 variantes 206–217**, dont deux présentations mobiles. Leur parcours conditionnel ne préjuge d'aucun comportement LIVE ou REAL.
 - [Contrat de transposition Figma → code](contrat-transposition-figma-code.md) : géométrie, composants, règles responsive et contrôles automatisables, avec exemples de dimensions natives.
-- [Index JSON géométrique R3](index-geometrie-frames-r3.json) : **221 frames** et tailles `width/height` vérifiées à la date de mesure. Ce manifeste ne prétend pas fournir les contraintes internes complètes de chaque frame ; leur extraction reste obligatoire lors de la construction.
+- [Index JSON géométrique R3](index-geometrie-frames-r3.json) : **223 frames** et tailles `width/height` vérifiées à la date de mesure. Ce manifeste ne prétend pas fournir les contraintes internes complètes de chaque frame ; leur extraction reste obligatoire lors de la construction.
 - R1 : continuité, suspension humaine et compréhension du Pilote ; D3 : narration fidèle ; D6 : STOP/reprise en autorité ; D7 : événements réellement reçus et effets ; D8 : preuve et bilan partiel.
 
 ### 15.2. Scénarios de revue UX (non numérotation R2)
@@ -1064,21 +1064,78 @@ Les **41 règles RG-GIT** restent sous autorité de la spécification D9 R2. Les
 | Variants et couverture anti-régression | [Index](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) | UX transverse | Navigation à contrôler après dernier câblage |
 
 
-### 15.4. Contrôle final de cohérence et frontières
+### 15.3. Contrôle final de cohérence et frontières (snapshot avant revue intégrale)
 
-**Figma après raccordement :** 221 frames au total, **12 nouveaux cas Nora 206–217**, 18 liens de l'index d'activité, raccordement avec le composer 03 et les états STOP C, **2 309 liens NODE inspectés**, aucun lien vers un nœud inexistant, aucune action « Action / » visible sans réaction, aucun numéro de frame nouveau en doublon. **15 destinations internes au même écran** sont les raccourcis de lecture issus de 03 et conservés par les variantes Nora ; ce ne sont pas des redéclenchements d'exécution. Le carré du composer a une destination d'arrêt demandée, et non un statut arrêté immédiatement.
+**Figma après raccordement Nora, avant ajout des deux index de revue :** 221 frames au total, **12 nouveaux cas Nora 206–217**, 18 liens de l'index d'activité, raccordement avec le composer 03 et les états STOP C, **2 309 liens NODE inspectés**, aucun lien vers un nœud inexistant, aucune action « Action / » visible sans réaction, aucun numéro de frame nouveau en doublon. **15 destinations internes au même écran** sont les raccourcis de lecture issus de 03 et conservés par les variantes Nora ; ce ne sont pas des redéclenchements d'exécution. Le carré du composer a une destination d'arrêt demandée, et non un statut arrêté immédiatement.
 
-**Manifeste natif :** les 221 frames et **891 blocs racines visibles** possèdent un index versionné dans Git ; les calques profonds et variables de style doivent être extraits et comparés lors de l'implémentation. Le contrat visuel énonce une cible mesurable sur 03, 06, 206 et 216, avec tokens à arbitrer et exemples natifs de couleurs/typographies.
+**Manifeste actualisé lors de l'audit final :** les 223 frames et **901 blocs racines visibles** possèdent un index versionné dans Git ; les calques profonds et variables de style doivent être extraits et comparés lors de l'implémentation. Le contrat visuel énonce une cible mesurable sur 03, 06, 206 et 216, avec tokens à arbitrer et exemples natifs de couleurs/typographies.
 
 **Découpage de validation :** (1) **ce macro-lot UX : candidat à revue Morris** ; (2) proposition normative R1/R2 D3/D6/D7/D8 : **D2 NON VALIDÉE, NON PUBLIÉE sur Git** ; (3) R4–R6 : architecture des événements/STOP/reprise et preuves runtime à construire. **Aucun R3 EXIT, PR, merge, implémentation LIVE/REAL ou adoption.**
 
-### 15.3. Réserves et obligations de la revue
+### 15.4. Réserves et obligations de la revue
 
 1. Ne pas confondre activité cognitive, utilisation d'un outil et tentative externe ; un message d'avancement n'est ni un journal secret, ni une preuve d'effet.
 2. Différencier STOP demandé, STOP effectivement observé, arrêt indisponible et état inconnu. Reprise après pause technique et levée de suspension D6 restent séparées.
 3. La configuration de l'animation et des données API est **à concevoir/prover en R4/R5/R6**, pas déduite de la capture de ChatGPT.
-4. Un index de 221 frames ne signifie pas 221 écrans de produit à développer séparément. Préparer composants réutilisables et une capture/suite de tests par état.
+4. Un index de 223 frames ne signifie pas 221 écrans de produit à développer séparément. Préparer composants réutilisables et une capture/suite de tests par état.
 5. Avant tout verdict « conformité visuelle », comparer la source Figma datée, les dimensions mesurées, les styles calculés et le rendu navigateur dans les viewports retenus.
 6. Contrat R1/R2 et nouveaux scénarios PF/RG **non validés dans ce lot**. La décision Morris D2 est le gate de leur intégration Git normative.
 
 **Verdict :** couverture de conception candidate, préparée pour revue Morris ; R3 GLOBAL REVIEW PENDING, aucune PR/merge/R4/ADOPTED.
+
+## 16. Audit final du mode Présentation Figma — couverture des neuf domaines et sept E2E (2026-11-03)
+
+**Objet du contrôle :** vérifier que le Pilote et Morris peuvent parcourir les écrans de conception depuis un point de départ cohérent, distinguer les branches nominales des cas de revue, et inspecter les contrats des neuf domaines R1. Le constat est une **preuve de graphe Figma**, pas une preuve de navigation réellement exécutée dans un navigateur ni de comportement Studio LIVE/REAL.
+
+### 16.1. Deux modes distincts, sans faux états métier
+
+| Entrée Figma « Présenter » | Nœud | Usage | Portée vérifiée |
+| --- | --- | --- | --- |
+| **Parcours principal — Studio Next** | [01 · Portefeuille](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50) | Rejouer les commandes nominales déjà liées | **81 frames** accessibles directement ou indirectement ; aucune réussite technique fabriquée |
+| **Revue intégrale R3 — 9 domaines / 7 E2E** | [INDEX global A–D](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=264-401) | Inspecter nominal, états alternatifs et contrats | **223/223 frames** accessibles par réactions Figma |
+| **Variante — fenêtre compacte** | [10 · Nora à 1280 px](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-1037) | Examiner une variante de largeur | Point d'entrée indépendant conservé |
+
+**Le menu Présentation est rationalisé de 39 à 3 points de départ.** Aucun écran n'a été supprimé ; les références directes restent accessibles depuis l'index. La page 01 comporte **223 frames**, dont **216 numérotées (01 à 217 sauf 137)** et **7 index de revue**. Le numéro `137` correspond à une ancienne exploration d'instruction contractuelle absente du Figma actuel ; la référence propriétaire est **169 — instruction Cursor consultée**. Aucun alias ne doit concurrencer cette référence.
+
+Les **142 frames non accessibles depuis le point d'entrée nominal** comprennent des branches conditionnelles et index de revue ; cette absence est intentionnelle ou à instruire selon l'effet métier. La revue les rend toutes consultables sans insérer de fausses commandes d'état dans Studio.
+
+### 16.2. Couverture des sept scénarios de référence R1
+
+**[Index interactif des sept E2E](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=299-389)**. Chaque étape est une référence Figma cliquable. **Inspectable 7/7 ≠ démonstration d'effet réel 7/7.**
+
+| Scénario R1 validé | Frames de lecture | Vérification de parcours | Limite R4–R6 |
+| --- | --- | --- | --- |
+| E2E 01 — Sas → projet | 01 → 02 → 74 → 76 → 77 → 13 → 03 | Sas, reprise, aperçu, attente et fil confirmé tous inspectables. **77 → 13 non chaîné dans le nominal** : succès exige effet de création vérifié. | Enregistrement réel, idempotence, continuité du fil |
+| E2E 02 — Trajectoire/cycles | 22 → 23 → 52 → 24 → 25 → 27 → 58 | Proposé, ouverture demandée, actif, clôture envisagée et confirmée inspectables. **52 → 24 non automatique**. | Unicité cycle, autorité et confirmation d'état |
+| E2E 03 — Cognition/restitution | 03 → 206 → 04 → 18 → 215 | Fil Nora, état d'activité, document et résultat partiel inspectables. | API/stream, persistance, cohérence sources |
+| E2E 04 — Continuité/gouvernance | 14 → 11 → 05 → 40 → 31 → 33 | Reprise, journal Sujets/Décisions, décision et suspension disponibles. | Contexte / autorité réelle après reconnexion |
+| E2E 05 — Réalisation gouvernée | 06 → 169 → 143 → 144 → 145 → 151 | Contrat, instruction, précontrôles, demande, observation et STOP représentés. **143 → 144 → 145 non automatiquement chaîné**. | Permission, accusé, événements, interruption Cursor |
+| E2E 06 — Résultats/preuves | 07 → 155 → 19 → 08 → 35 | Attente, déclaration, inspection, synthèse et réception inspectables. | Retour et vérification réels, acceptation D6 |
+| E2E 07 — Git/collaboration | 12 → 171 → 173 → 175 → 178 → 190 → 193 | Git optionnel, source, ref, identité, conflit et preuve partielle consultables. | Permissions, branches, effets distants, collisions |
+
+### 16.3. Neuf responsabilités R1 couvertes par les écrans
+
+| Domaine | Écrans de référence | Niveau de preuve actuel |
+| --- | --- | --- |
+| D1 — Accès/portefeuille | 01, 62–73 | États et alternatives Figma représentés |
+| D2 — Création/sas | 02, 13, 74–88 | Création confirmée conditionnelle, continuité à prouver |
+| D3 — Nora | 03, 10, 15–17, 109–134, 206–217 | Cognition, états, reprise et mobile en conception |
+| D4 — Connaissance | 04, 05, 18, 89–108, 205 | Documents, journal et inspection en conception |
+| D5 — Trajectoire/cycle | 22–29, 41–60 | Cycle, CKI et transitions alternatives inspectables |
+| D6 — Gouvernance | 20, 30–40, 45, 143 | Décisions, mandats et suspensions sans enforcement prouvé |
+| D7 — Réalisation | 06, 07, 21, 135–154, 163–169 (137 absent) | Contrat/STOP/tentative ; événements futurs conditionnels |
+| D8 — Résultats/preuves | 08, 19, 35–38, 155–162, 170 | Synthèse, vérification et réception distinctes |
+| D9 — Git | 09, 12, 171–196 | Provenance/droits/effets représentés |
+| Transversal UX | 197–204, 216–217 + index | Reflow, zoom, focus, consultation, revue |
+
+La répartition est **non exclusive** : certains écrans portent des interfaces entre domaines. L'inventaire [223 frames / 901 blocs racines](index-geometrie-frames-r3.json) permet de retrouver tous les IDs ; il ne détaille pas tous les descendants.
+
+### 16.4. Audit de graph, lisibilité et cohérence
+
+- **Couverture depuis le point de revue : 223/223**. Les index complémentaires [14 variantes](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=298-389) et [7 scénarios E2E](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=299-389) ne sont **pas** des écrans du produit.
+- L'index global a été réagencé à **1440 × 1285 px**, deux rangées de deux capacités, afin de conserver des libellés lisibles au lancement de la présentation. Captures inspectées après correction du débordement initial.
+- Aucun lien vers une destination inexistante n'a été trouvé dans le graphe ; pas d'action visible nommée `Action /` laissée sans réaction. Les commandes 136/143/144 ont leurs noms de calques alignés sur leurs libellés visibles : « Inspecter le contrat complet » et « Voir le contrat ». La référence de contrat brut est **169**, pas l'ancienne 137.
+- Les commandes de présentation ne remplacent pas les actes : inspecter une issue confirmée depuis l'index n'implique ni appel API, ni écriture, ni état réel. Les transitions que seul un événement ou un gate peut déclencher restent **conditionnelles**, sans clic artificiel.
+- Trois profils de validation distincts : **graphe Figma** (vérifié), **parcours métier conceptuel** (inspectable, exceptions explicites), **parcours produit LIVE / navigateur / accessibilité** (N/A — NON IMPLÉMENTÉ).
+
+**Verdict préparé : PRESENTATION REVIEW COVERAGE VERIFIED — 9/9 DOMAINS, 7/7 E2E INSPECTABLE, 223/223 FRAMES REACHABLE. NOMINAL CONDITIONAL EFFECTS NOT PROVEN.** Revue finale Morris à conduire. La validation du présent audit ne ferme pas R3 ni n'autorise PR/merge ou R4.
