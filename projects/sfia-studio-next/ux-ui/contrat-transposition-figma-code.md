@@ -7,7 +7,7 @@
 | Figma source | [SFIA Studio Next — Parcours produit](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP) |
 | Page mesurée | \`94:49\` — parcours produit, avec fondations et contrats visuels sur les autres pages |
 | Branche de documentation | \`sfia/next-r3-ux-interaction-candidate\` ; \`main\` non promue |
-| Index géométrique versionné | [\`index-geometrie-frames-r3.json\`](index-geometrie-frames-r3.json) — **221 frames** inventoriées à la mesure |
+| Index géométrique versionné | [\`index-geometrie-frames-r3.json\`](index-geometrie-frames-r3.json) — **221 frames et 891 blocs racines visibles** mesurés à la date du snapshot |
 | Origine des mesures ci-dessous | Lecture directe des propriétés Figma \`x, y, width, height, layoutMode, padding, itemSpacing, cornerRadius, fontName, fontSize, fills\` |
 | Périmètre | Grammaire visuelle, layout, composants et état d'activité Nora ; reprise pour implémentation par Cursor |
 | NON inclus | Choix React/CSS, API ou base de données, contrat de streaming R4, code ou garantie « pixel-perfect » tous environnements |
@@ -48,7 +48,7 @@ Les valeurs \`x/y\` d'un enfant sont relatives à **son parent direct**, non au 
 | Contexte supérieur | \`94:673\` | hauteur **59**, padding gauche **30**, gap **16** |
 | Panneau contrat métier | \`199:428\` | \`x=685, y=45, w=739, h=795\` relatif à \`Contrat d'exécution\` ; padding **18**, gap **8** |
 | Accordéon mission fermé | \`199:449\` | \`x=18, y=297, w=700, h=52\` relatif au panneau ; padding **9**, gap **5**, rayon **9** |
-| Titre | \`94:682\` | **Inter Bold 24 px**, interligne **34 px**, couleur Figma \`rgb(244,246,252)\` environ — utiliser la valeur native / variable liée si disponible |
+| Titre | \`94:682\` | **Inter Bold 24 px**, interligne **34 px**, couleur native Figma **#F4F6FC** ; variable commune à qualifier si applicable |
 
 Il ne faut pas convertir ces coordonnées de référence en offsets rigides : le panneau de contrat doit suivre le conteneur et passer en colonne lorsque la place manque. Les six volets, l'instruction exacte et les quatre engagements validés restent contractuels au niveau métier, quelle que soit la géométrie.
 
@@ -127,7 +127,7 @@ L'activité courante peut recevoir un **accent chromatique animé discret**, dis
 
 ### 4.1. Source versionnée et extraction
 
-Avant d'implémenter une capacité visuelle, le contrat remis à Cursor identifie : (1) **Figma fileKey/page/frame ID**, (2) version de la source / capture de référence datée, (3) propriétaire de comportement R2, (4) propriétés Figma natives, (5) breakpoints et états applicables, (6) tests, (7) différences acceptées par Morris. Le manifeste JSON du répertoire fournit les IDs et tailles de l'ensemble des frames **à la date d'extraction**, pas la géométrie profonde de chaque descendant.
+Avant d'implémenter une capacité visuelle, le contrat remis à Cursor identifie : (1) **Figma fileKey/page/frame ID**, (2) version de la source / capture de référence datée, (3) propriétaire de comportement R2, (4) propriétés Figma natives, (5) breakpoints et états applicables, (6) tests, (7) différences acceptées par Morris. Le manifeste JSON du répertoire fournit les IDs, tailles et blocs de premier niveau de l'ensemble des frames **à la date d'extraction**, mais pas la géométrie profonde de chaque descendant.
 
 Pour chaque écran réellement construit, extraire les calques utiles et leurs propriétés : nom/ID/parent, \`x/y/w/h\`, layout \`HORIZONTAL|VERTICAL\`, padding, gap, rayon, bordure/épaisseur, couleur ou variable liée, famille/poids/taille/interligne de police, contraintes/resizing, visibilités, actions/states et composants réutilisés. **Ne jamais déduire une valeur non extraite d'une capture.** Les références étant mutables dans Figma, recontrôler le snapshot lors de l'intégration.
 
