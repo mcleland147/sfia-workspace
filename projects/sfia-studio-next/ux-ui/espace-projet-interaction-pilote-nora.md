@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.19**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.20**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -8,7 +8,7 @@
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
 | Macro-lot R3 | Quatre capacités A–D retenues par Morris : **A — Entrée/continuité ; B — Trajectoire/cycles/CKI/décisions ; C — Réalisation et résultats ; D — Git et qualité transverse**. Travail séquentiel, **B en premier**, revue par lot. |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.19** ; direction B2/V3, page de référence consolidée et 40 écrans/états du macro-lot B représentés et rapprochés des 59 PF D5/D6, **aucun design final approuvé ni sortie R3** |
+| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.20** ; direction B2/V3, **B accepté en revue Morris avec réserves**, **A représenté dans 73 variantes nouvelles** et ses 100 PF D1–D4 rapprochés ; R3 **non clos**, aucun comportement runtime prouvé |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
 | Source Git vérifiée | `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` (2026-11-03) ; branche documentaire candidate `sfia/next-r3-ux-interaction-candidate` |
 | État Git Next | R1/R2 clôturés avec réserves ; **Roadmap sur `main` historiquement « R3 NOT STARTED » malgré les travaux Figma/doc candidats — KNOWN GAP documentaire**, à régulariser par GO séparé |
@@ -16,9 +16,9 @@
 | Chemin Git autorisé pour ce document (GO Morris 2026-11-02) | `projects/sfia-studio-next/ux-ui/espace-projet-interaction-pilote-nora.md` |
 | État local du dépôt | **NON OBSERVÉ** ; contributions documentaires sur branche candidate et modifications Figma actives, **sans PR/merge** |
 
-> **Référence de travail actuelle (v0.18) :** les §§1–26 conservent **l'historique d'exploration UX** et certains décomptes datés. Le **§27 prime pour la navigation Figma active et l'état du macro-lot B** ; le [Guide de couverture UX R3](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md), en particulier §7 et sa matrice des 40 écrans B et des 59 scénarios D5/D6, porte le contrôle de couverture. Les trois pages Figma restantes sont Fondations, Parcours de référence et Contrats visuels. Le prototype UX n'est ni une spécification R4, ni du code, ni une preuve de comportement réel.
+> **Référence de travail actuelle (v0.20) :** les §§1–26 conservent **l'historique d'exploration UX** et certains décomptes datés. Les **§§27–29** sont le contrat UX courant ; le [Guide de couverture UX R3](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md), en particulier §7 (lot B, 59 scénarios D5/D6) et **§9 (lot A, 100 scénarios D1–D4)**, porte le contrôle de couverture. Les trois pages Figma restantes sont Fondations, Parcours de référence et Contrats visuels. Le prototype UX n'est ni une spécification R4, ni du code, ni une preuve de comportement réel.
 
-> **Archives Figma :** les liens directs anciens des §§1–26 ont été neutralisés après suppression des pages exploratoires. Une description historique n'est **pas** la preuve que sa variante existe encore telle quelle. Les liens actifs et leur contrat de parcours sont exclusivement ceux du §27 et du Guide §7.
+> **Archives Figma :** les liens directs anciens des §§1–26 ont été neutralisés après suppression des pages exploratoires. Une description historique n'est **pas** la preuve que sa variante existe encore telle quelle. Les liens actifs et leur contrat de parcours sont ceux des §§27–29 et du Guide §§7–9.
 
 > **Règle de lecture documentaire :** ce document formalise constats, contraintes, hypothèses et contrats UX candidats. Il ne modifie ni la vision R1 ni les neuf spécifications fonctionnelles R2 ; hypothèse et maquette ne valent pas arbitrage Morris ni implémentation. Les essais utilisateurs et la validation de sortie R3 restent à réaliser.
 
@@ -1206,3 +1206,41 @@ Morris a examiné le parcours, le guide et la conception et déclare ne pas avoi
 **Suite autorisée : A — Entrée et continuité** à partir des spécifications R2 D1 (accès/portefeuille), D2 (sas/création), D3 (conduite et restitutions Nora), D4 (connaissance/sujets/documents), en incluant les compléments Inspection. Conserver les surfaces de référence existantes, compléter les états essentiels, rattacher chaque interaction aux PF/RG, synchroniser Figma et guide dans le même lot. **Un seul macro-lot à la fois.**
 
 **Statut : v0.19 — B REVIEW ACCEPTED WITH CARRIED RESERVES ; A IN DESIGN ; R3 OPEN ; NEXT NON IMPLÉMENTÉ.**
+
+
+## 29. Macro-lot A — Entrée, création, conversation et continuité (R3 v0.20, 2026-11-03)
+
+### 29.1. Résultat Pilote, sources et limites
+
+**Mandat :** Morris a accepté le macro-lot B en revue UX avec réserves et autorisé la poursuite de **A — Entrée, sas, conversation et continuité**, un macro-lot à la fois. Il n'a pas approuvé les écrans A en revue, ni clos R3, ni autorisé PR/merge, R4, R5, ADOPTED ou modification de documents normatifs.
+
+**Sources propriétaires vérifiées sur Git main :** D1 `RG-ACC-001..025, PF-ACC-01..24` ; D2 `RG-CRE-001..027, PF-CRE-01..27` ; D3 `PF-01..35` et règles CONV/CTX/METH/APP/AUTH/DOC/UX ; D4 `RG-KNOW-001..020, PF-KNOW-01..14` ; R1 vision, SEF v0.2, décisions de clôture R1/R2 et interfaces D5/D6/D7/D8/D9. Le **[Guide de couverture UX R3 §9](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md)** répertorie les maquettes, leurs états, les actions et **chaque scénario fonctionnel D1–D4**, avec classement explicite des interfaces partagées et garanties R4.
+
+**Résultat attendu :** un Pilote ouvre son portefeuille personnel, entre dans un sas avec Nora, crée explicitement un projet seulement lorsqu'il le veut, poursuit le même travail sans rupture visuelle, dispose de réponses Nora composables et interactives, retrouve ses documents/versionnements/sujets et reprend ses acquis après interruption. Aucun dépôt Git, cycle ou méthode n'est imposé à l'entrée.
+
+### 29.2. Référentiel Figma actif et parcours de base
+
+Le [fichier Figma Next](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP) comporte trois pages pérennes (Fondations, Parcours produit, Contrats visuels). La [page de parcours produit](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50) a **134 maquettes produit**, dont **73 nouveaux écrans/états A numérotés 62–134** ; un [index de revue A](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=169-275) constitue une **135e frame racine non destinée au Pilote**, avec liens directs vers les 73 variantes et les points de départ du parcours nominal. Ces numéros servent à identifier les maquettes en revue, pas à nommer des modules produit.
+
+| Capacité du Pilote | Vues Figma de référence et effet UX attendu |
+| --- | --- |
+| **Accès et portefeuille** | [Connexion](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=158-120) ; [session expirée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=158-192) ; [portefeuille](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50) ; [liste longue](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=158-336) ; [projet inaccessible](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=158-408). Les cartes Atlas, Orion et Horizon ne conduisent plus au même projet ; sans session applicable, aucune donnée privée ne doit apparaître. |
+| **Sas et création** | [Sas de Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-135) ; [clarification ciblée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=159-217) ; [aperçu](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=159-289) ; « Créer » mène à [enregistrement en attente](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=159-361), **jamais directement à un succès présumé**. [Timeout](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=159-433), [échec](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=159-577), [rejeu](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=159-649) et [document préparé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=159-721) sont des variantes conditionnelles. |
+| **Conversation Nora** | [Conversation défilante](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214), [plusieurs réponses composites dans le même fil](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=162-817) sans compression des blocs, [choix envoyé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=161-432), [brouillon prérempli](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=161-504), [action contextuelle périmée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=161-360), [rendu textuel sûr](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=171-275). Un exemple de lien externe réel ouvre la source R1 dans un **nouvel onglet**. |
+| **Documents** | [Bibliothèque](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-175) ; [version courante](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=162-601) ; [historique](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-247) ; [comparaison](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-319) ; [conflit de révision](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-391) ; [conservation incertaine](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-463). Réviser et exporter sont distincts de publier ou de valider. |
+| **Journal et connaissance** | [Sujets et liens](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-751) ; [renommage](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-823) ; [regroupement](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-895) ; [points ouverts transverses](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=160-967), sans troisième source de décision ni déplacement des autorités. |
+| **Reprise et séparation interprojets** | [Projet créé / même fil](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-262), [contexte retrouvé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-370), [Nora après reprise](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=161-288), [Horizon](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=163-430) et [Orion](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=166-350) avec leurs propres fils et sans transfert de décisions, mémoire ou mandats. |
+
+**Grammaire :** les réponses Nora restent libres, proportionnées et composables. Les actions apparaissent au besoin, sans catalogue de libellés figés. Le clic vers un document, une source ou une fonction n'accorde aucun droit ; les contrôles effectifs, les cibles et leur histoire relèvent de Studio et de l'étude R4. Les informations du projet et la source de chaque objet sont liées au bon Pilote et aux droits actuels ; les écrans ne doivent pas polluer le travail utilisateur avec l'explication permanente des mécanismes internes.
+
+### 29.3. Couverture R2, preuve de graphe et limites
+
+**Matrice détaillée dans le Guide §9.4 :** **100 PF individuellement rapprochés** : 24 `PF-ACC`, 27 `PF-CRE`, 35 `PF` D3 et 14 `PF-KNOW`. Les lignes sont qualifiées **MAQUETTÉ A**, **MAQUETTÉ A / GARANTIE R4**, **PARTAGÉ B/C**, ou **CAPACITÉ NON SPÉCIFIÉE**. Une description visuelle ou un lien Figma **n'est pas une conformité fonctionnelle prouvée**. Les `RG` propriétaires sont associés dans les sources R2 ; la vérification individuelle des **324 règles et 259 scénarios globaux** reste une obligation de sortie R3.
+
+**Audit structurel final** : **134 frames produit + 1 index**, **1 278 navigations internes**, **5 actions de défilement**, **3 URLs externes**, **0 destination cassée**, **0 auto-navigation**, **0 bouton A visible sans réaction**, aucun composant utilisé sans maître. La bibliothèque de boutons partagée a été conservée ; plusieurs écrans d'exception sont accessibles directement depuis l'index de revue **sans bouton produit fictif déclenchant une panne**. L'audit prouve un **graphe de prototype Figma**, et non les comportements du produit Next (runtime **N/A — NON IMPLÉMENTÉ**).
+
+**R4 doit qualifier :** session individuelle et droits multi-Pilotes, disponibilité des objets et des raccourcis, stockage et récupération sas/projet/fil/document, création idempotente et reprise après interruption, versionnement des documents et résolution des conflits, protection du rendu Markdown/web, composition riche et coût/latence, actions contextuelles dynamiques résolues de manière sûre, frontières D6/D7/D9 et test de concurrence. Étude d'architecture de restitution Nora : **A intégrée modulaire privilégiée provisoirement**, B distribuée et C possible selon étude, **aucune option adoptée**.
+
+**À revoir avec Morris en sortie du lot A :** équilibre du parcours sas et portefeuille, navigabilité des documents et des sujets, cohérence des labels, accessibilité/zoom et responsive, déclencheurs réalistes des états exceptionnels, valeur des raccourcis et longueur des conversations. La création de 73 écrans d'états n'implique pas 73 pages applicatives distinctes : plusieurs devront être regroupés en composants ou variantes lors de l'architecture visuelle. **Aucun test navigateur réel n'a eu lieu**.
+
+**Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE v0.20 — B REVIEW ACCEPTED WITH CARRIED RESERVES ; A REVIEW MORRIS PENDING ; R3 NON CLOS ; NEXT NON IMPLÉMENTÉ.**
