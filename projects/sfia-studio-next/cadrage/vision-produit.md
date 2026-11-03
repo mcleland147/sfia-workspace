@@ -1070,7 +1070,7 @@ Cette chaîne est une **synthèse de l'expérience de vision validée au niveau 
 
 **Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
 
-### A. Complément §2.21 — résultat Pilote enrichi et contrat visible
+### 8.1. Complément §2.21 — résultat Pilote enrichi et contrat visible
 
 **Capacité cible :** lorsqu'une intervention externe est réellement nécessaire, Nora présente au Pilote un contrat d'exécution qui réunit dans **une même référence/version** : (a) une lecture immédiate, (b) six volets métier inspectables, (c) l'instruction technique complète destinée à l'exécuteur. Ce sont trois lectures du **même engagement**, pas trois autorisations ou sources de vérité concurrentes. La décision appartient au Pilote ; Nora transforme les informations, Studio doit en conserver la cohérence et en faire appliquer la portée.
 
@@ -1086,7 +1086,7 @@ Cette chaîne est une **synthèse de l'expérience de vision validée au niveau 
 
 **Condition de complétude :** une information peut être non applicable, conditionnelle ou inconnue. Une valeur inconnue qui conditionne un effet, un droit, un STOP, l'irréversibilité ou la validation bloque **l'effet concerné** tant qu'elle n'est pas qualifiée ; les détails non déterminants n'imposent pas un questionnaire ou une fausse valeur par défaut. Une catégorie sans application est indiquée « sans objet » avec motif si le doute serait trompeur.
 
-### B. Complément §2.34 — E2E 05, préparation → autorisation
+### 8.2. Complément §2.34 — E2E 05, préparation → autorisation
 
 1. Nora qualifie l'intention et compose les six volets à partir des sources et décisions réellement applicables. Elle fournit des explications métier vérifiables, pas simplement une génération textuelle libre.
 2. Le contrat possède identité, version et cible suffisamment déterminées ; l'instruction associée est inspectable **dans la même version**. Les contrôles d'identité/intégrité exacts relèvent de R4, mais leur effet observable est requis dès R2 : pas de changement matériel silencieux entre inspection, autorisation et dispatch.
@@ -1097,7 +1097,7 @@ Cette chaîne est une **synthèse de l'expérience de vision validée au niveau 
 
 **Critères E2E à prouver :** mêmes cibles et effets entre lecture métier et instruction ; six volets consultables ; secrets protégés sans dissimulation d'action ; état « non lançable » si une précondition critique manque ; refus ou suspendu fidèles ; aucune exécution sur une version différente ; navigation d'inspection non autorisante ; pas de duplicata au double clic.
 
-### C. Complément §2.35 — E2E 06, résultat → synthèse → décision
+### 8.3. Complément §2.35 — E2E 06, résultat → synthèse → décision
 
 Nora produit une **synthèse de réalisation structurée**, utilisable sans questions répétées au Pilote. Les neuf rubriques de référence sont : 1. Résumé ; 2. Ce qui était prévu ; 3. Ce qui a été réalisé ; 4. Évaluation du résultat ; 5. Écarts, réserves et blocages ; 6. Impact sur le projet ; 7. Verdict de conformité **D8** (avec limites) ; 8. Recommandation / prochaine étape ; 9. Éléments vérifiés et sources. Le statut de réception **D6** est affiché séparément lorsqu'il existe ; il ne doit pas être implicite dans le verdict D8.
 
@@ -1115,6 +1115,6 @@ Le niveau de détails varie selon le sujet, mais la **structure de compréhensio
 - E06-C : une preuve postérieure contredit une conclusion antérieure ; la synthèse est révisée avec références et historique, sans effacement du verdict daté.
 - E06-D : le Pilote accepte avec réserves ; la décision D6 apparaît distinctement et les réserves D8 persistent.
 
-### D. Frontières et non-décisions
+### 8.4. Frontières et non-décisions
 
 Pas de retour à la page historique « Synthèses » ou au moteur historique ; pas d'uniformisation forcée de l'ensemble des réponses conversationnelles ; pas de nouvelle autorité technique ; pas d'adoption du template externe SFIA v2.6 comme sérialisation runtime. Le mécanisme de génération/projection, de liaison des versions, de validation, d'autorité, d'intégrité et de preuve sera spécifié en R4 puis implémenté/prové en R5–R6. Next : **N/A — NON IMPLÉMENTÉ**.
