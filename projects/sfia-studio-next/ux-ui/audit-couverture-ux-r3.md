@@ -323,15 +323,15 @@ Les écarts/risques de B du §7.5 restent **ouverts et tracés** : navigation cl
 
 ### 9.1. Décision, périmètre et statut
 
-**Pré-check :** Git \`main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990\` ; R1 vision, R2 D1–D4 \`VALIDATED SPEC\`, SEF v0.2 et décisions R1/R2 consultés. **B accepté en revue par Morris avec réserves reportées (§8)** ; Morris autorise la poursuite séquentielle en **A**, sans autoriser PR, merge, changement de Roadmap/doctrine ni code. État local **NON OBSERVÉ**. Next \`N/A — NON IMPLÉMENTÉ\`.
+**Pré-check :** Git `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` ; R1 vision, R2 D1–D4 `VALIDATED SPEC`, SEF v0.2 et décisions R1/R2 consultés. **B accepté en revue par Morris avec réserves reportées (§8)** ; Morris autorise la poursuite séquentielle en **A**, sans autoriser PR, merge, changement de Roadmap/doctrine ni code. État local **NON OBSERVÉ**. Next `N/A — NON IMPLÉMENTÉ`.
 
 **Résultat recherché :** le Pilote s'identifie, consulte son portefeuille sans Nora globale, entre dans un sas libre, crée **explicitement** son projet, retrouve le même fil, échange avec Nora sans cycle obligatoire, puis consulte et organise documents/sujets/points ouverts en conservant les sources et leurs versions. Un autre projet reste un autre contexte.
 
 **IN :** D1 accès, session, portefeuille et isolation ; D2 sas, qualification, création et continuité ; D3 réponses composites et actions contextuelles, documents Nora et Inspection ; D4 capitalisation, sujets, versions et reprise. **OUT :** gestion de cycles et décisions propriétaires B ; effets techniques et STOP propriétaires C ; capacité d'écriture Git et qualité d'intégration D ; protocole d'identité, persistance, transactions, sécurité du rendu, coût/charge et droits techniques à qualifier en R4.
 
-**Figma Next :** [index de revue A](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=169-275) (**index pour la revue, jamais écran du Pilote**) ; [parcours produit de référence](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50). **134 frames produit** dont **73 nouvelles variantes A (62–134)**, plus un index de revue ; les 61 frames préexistantes demeurent. Trois pages durables : fondations, parcours, contrats visuels. Les anciennes variantes exploratoires supprimées ne sont pas ressuscitées.
+**Figma Next :** [index de revue A](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=169-275) (**index pour la revue, jamais écran du Pilote**) ; [parcours produit de référence](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50). **134 frames produit** dont **73 nouvelles variantes A (62–134)**, plus un index de revue (135 frames racines au total) ; les 61 frames préexistantes demeurent. Trois pages durables : fondations, parcours, contrats visuels. Les anciennes variantes exploratoires supprimées ne sont pas ressuscitées.
 
-**Intégrité Figma contrôlée avant publication :** 1 276 navigations entre frames, 5 défilements ciblés, 3 URL externes (incluant une source R1 réelle ouverte en nouvel onglet depuis une réponse Nora), **0 destination inconnue**, **0 boucle de navigation**, **0 bouton visible A sans liaison**, **instances natives liées à leurs composants**. Ces chiffres concernent un prototype éditable, **pas un navigateur applicatif ni des effets métier prouvés**.
+**Intégrité Figma contrôlée avant publication :** 1 278 navigations entre frames, 5 défilements ciblés, 3 URL externes (incluant une source R1 réelle ouverte en nouvel onglet depuis une réponse Nora), **0 destination inconnue**, **0 boucle de navigation**, **0 bouton visible A sans liaison**, **instances natives liées à leurs composants**. Ces chiffres concernent un prototype éditable, **pas un navigateur applicatif ni des effets métier prouvés**.
 
 ### 9.2. Chemins utilisateur de référence
 
@@ -425,7 +425,7 @@ Les écrans 62–134 sont des **situations UX**, pas des objets techniques, et u
 
 ### 9.4. Traçabilité individuelle de 100 scénarios D1–D4 (R2)
 
-**24 PF-ACC, 27 PF-CRE, 35 PF D3 et 14 PF-KNOW**, lus sur \`main\` avec leurs titres d'origine. La matrice ne déclare aucun scénario testé. \`MAQUETTÉ A\` = représentation candidate ; \`PARTAGÉ B/C\` = responsabilité voisine ; \`GARANTIE R4\` = interface visuelle insuffisante sans contrat et preuve technique ; \`CAPACITÉ NON SPÉCIFIÉE\` = ne pas inventer de commande produit.
+**24 PF-ACC, 27 PF-CRE, 35 PF D3 et 14 PF-KNOW**, lus sur `main` avec leurs titres d'origine. La matrice ne déclare aucun scénario testé. `MAQUETTÉ A` = représentation candidate ; `PARTAGÉ B/C` = responsabilité voisine ; `GARANTIE R4` = interface visuelle insuffisante sans contrat et preuve technique ; `CAPACITÉ NON SPÉCIFIÉE` = ne pas inventer de commande produit.
 
 | Scénario R2 propriétaire | Qualification UX actuelle | Maquettes de référence | Statut de qualification |
 | --- | --- | --- | --- |
@@ -546,4 +546,4 @@ Les écrans 62–134 sont des **situations UX**, pas des objets techniques, et u
 
 **À vérifier en revue UX A :** qualité des parcours à 1280 px, clavier/lecteur d'écran, retour au contexte sans perte de focus, densité documentaire, résilience des listes longues, sens des libellés et contraste, vrais déclencheurs des états conditionnels, identité distincte des projets et véracité des dates/versions d'exemple. Aucun moteur Next implémenté : tests navigateur/charge impossible à revendiquer.
 
-**Limites et gate :** \`A — DOCUMENTED / FIGMA INTERACTIVE CANDIDATE ; REVIEW MORRIS PENDING\`. B est accepté en revue avec réserves (§8). Les PF partagés avec B, C et D ne sont pas déclarés couverts globalement par A. L'index des **324 RG / 259 PF globaux** du produit reste à vérifier après les autres macro-lots. Aucune PR, merge, modification SEF/Roadmap, décision normative, démarrage R4/R5, preuve runtime ou ADOPTED.
+**Limites et gate :** `A — DOCUMENTED / FIGMA INTERACTIVE CANDIDATE ; REVIEW MORRIS PENDING`. B est accepté en revue avec réserves (§8). Les PF partagés avec B, C et D ne sont pas déclarés couverts globalement par A. L'index des **324 RG / 259 PF globaux** du produit reste à vérifier après les autres macro-lots. Aucune PR, merge, modification SEF/Roadmap, décision normative, démarrage R4/R5, preuve runtime ou ADOPTED.
