@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.14**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.15**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -353,6 +353,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Concevoir trois restitutions Nora riches (analyse A/B, parcours/dépendances, investigation sourcée) et consigner la réserve d’étude R4 A/B/C. | GO Morris de poursuite R3, préférence initiale A sans adoption | **DOCUMENTED / FIGMA CANDIDATE v0.13 — R4 RESERVE OPEN**, pas d'ADR ni de runtime. |
 
 | 2026-11-03 | Représenter dans Figma une réponse Nora unique mêlant investigation, comparaison, parcours, recommandation et actions dynamiques ; réserver leur architecture en R4. | GO Morris pour poursuivre R3, liberté cognitive confirmée, pas de choix technique | **DOCUMENTED / INTERACTIVE FIGMA CANDIDATE v0.14 — R4 STUDY OPEN**. |
+
+| 2026-11-03 | Adapter la réponse Nora composite au défilement d'un écran standard, stabiliser le composeur, retirer les notices techniques de l'UI et requalifier les trois vues antérieures comme explorations de formes. | Retour de Morris sur l'écran 22, cohérence d'usage validée en principe | **FIGMA R3 CANDIDATE v0.15** — défilement configuré, pas de validation navigateur. |
 
 ### Règle de maintenance
 
@@ -972,7 +974,7 @@ La réponse Nora doit pouvoir **combiner des formes visuelles proportionnées** 
 
 **IN UX :** grammaire visuelle réutilisable, composition mixte et réponse simple non encombrée, appels contextuels sans mutation implicite. **OUT :** catalogue fermé, moteur de rendu déjà choisi, nouvelle autorité, exécution Git/Cursor implicite, preuve de comportement runtime. Next demeure **N/A — NON IMPLÉMENTÉ**.
 
-### 24.2. Trois compositions sur la page Figma E2E existante
+### 24.2. Trois explorations de formes réutilisables sur la page Figma E2E existante
 
 **Fichier :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP ; page « 04 · Parcours produit — Vue de bout en bout ». Écrans natifs éditables, boutons liés aux vues correspondant réellement à leurs libellés.
 
@@ -1029,6 +1031,8 @@ Hypothèses de comparaison (pas de solutions retenues) :
 
 **Contenu d'un seul message :** investigation et deux sources avec limites ; analyse comparative A/B/C tabulaire ; étapes avec dépendances ; recommandation conditionnelle ; actions de consultation et poursuite. Cette combinaison est **illustrative, non obligatoire**. Le nombre et l'ordre des blocs sont choisis selon la demande. Une réponse courte reste courte.
 
+**Rectification UX demandée par Morris :** la composition n'a **pas à tenir en totalité dans une fenêtre**. Sur l'écran 22, la surface de travail 1680 × 970 présente une zone de lecture Nora à **défilement vertical** de 719 px ; le contenu composite déborde naturellement et le champ de saisie reste hors de cette zone, visible en bas. L'utilisateur découvre les sections successivement sans réduire systématiquement tableaux, typographie et espacements. C'est le comportement de présentation cible ; la propriété de scroll est configurée dans Figma, sans test de navigateur runtime.
+
 | Action contextuelle apparue dans la réponse | Destination Figma | Sens illustré |
 | --- | --- | --- |
 | Consulter le document | [Document Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-540) | Ouvrir un document connu, sans mutation |
@@ -1038,13 +1042,13 @@ Hypothèses de comparaison (pas de solutions retenues) :
 | Approfondir B | [24 — Message B transmis](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=83-156) | Poursuite conversationnelle équivalente pour B |
 | Autre option… | [25 — Brouillon libre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=83-263) | Préremplissage modifiable ; **aucun envoi automatique** |
 
-**Invariant UX :** le libellé et l'icône sont libres (« Voir l'exécution », « Consulter l'exécution », « Exécution ») mais ne portent ni l'identité de l'objet ni sa permission. Le clic utilise une intention et une cible qui restent contrôlées par Studio. L'utilisateur doit distinguer lecture, demande envoyée, brouillon prérempli, décision métier et acte Exécuter ; les deux derniers suivent leurs règles D6/D7 propres, sans autorisation implicite.
+**Invariant UX :** le libellé et l'icône sont libres (« Voir l'exécution », « Consulter l'exécution », « Exécution ») mais ne portent ni l'identité de l'objet ni sa permission. **Ce mécanisme n'est pas expliqué en permanence dans l'interface du Pilote ; il appartient au contrat fonctionnel/architectural.** Le clic utilise une intention et une cible qui restent contrôlées par Studio. L'utilisateur doit distinguer lecture, demande envoyée, brouillon prérempli, décision métier et acte Exécuter ; les deux derniers suivent leurs règles D6/D7 propres, sans autorisation implicite.
 
 **États à prévoir :** cible introuvable ou devenue inaccessible, action périmée, droits révoqués, envoi en cours/échoué, retour à la conversation, répétition de clic, ancien message rouvert après plusieurs mois. Ne jamais afficher un bouton fictif ou un succès non observé. Le choix explicite du Pilote doit rester compréhensible, modifiable lorsque pertinent, accessible clavier/lecteur d'écran.
 
 ### 25.3. R4 — étude spécifique de la génération et de l'exécution d'actions contextuelles
 
-**R4 STUDY REQUIRED — prolongement de la réserve A/B/C du §24.3, sans décision ni ADR anticipés.** La difficulté n'est pas de dessiner un bouton, mais d'assurer qu'une initiative expressive de Nora déclenche une capacité effectivement disponible et une cible fiable, sous l'autorité applicable.
+**R4 STUDY REQUIRED — prolongement de la réserve A/B/C du §24.3, sans décision ni ADR anticipés.** Le détail technique des actions (identifiants internes, droits, autorité implicite exclue, sérialisation) reste dans les sources de conception et les preuves, **pas dans les textes d'accompagnement ordinaires des boutons**. N'afficher au Pilote que les conséquences et incertitudes réellement utiles. La difficulté n'est pas de dessiner un bouton, mais d'assurer qu'une initiative expressive de Nora déclenche une capacité effectivement disponible et une cible fiable, sous l'autorité applicable.
 
 À examiner dans **la même étude d'architecture de restitution**, sans chantier technique parallèle :
 
@@ -1061,6 +1065,8 @@ Hypothèses de comparaison (pas de solutions retenues) :
 
 **Audit Figma :** 28 frames, 241 navigations internes, 3 liens GitHub externes et 6 points de départ ; aucune destination manquante ni auto-navigation détectée. Un seul message Nora contient cinq blocs de restitution ; six actions ont été reliées dans le prototype et les états A/B/brouillon permettent de visualiser leur conséquence. Les écrans et les textes restent modifiables ; interactions simulées, aucun appel runtime.
 
-**Suite :** tester réponses composites longues/défilantes, adaptation 1280, accessibilité/zoom, actions devenues indisponibles, qualité des libellés, puis consolidation du contrat de restitution dans un document R3 moins cumulatif. Aucun remplacement de R1/R2, changement Roadmap, PR/merge de la branche UX, entrée R4 ou adoption anticipée n'est inclus.
+**Contrôle complémentaire écran 22 :** Figma 1680 × 970 ; composant de lecture vertical (`overflowDirection=VERTICAL`, `clipsContent=true`, hauteur 719 px) ; contenu composite plus haut que le viewport ; composeur positionné sous cette lecture. Capture visuelle vérifiée, avec l'investigation et la comparaison d'abord, puis la suite accessible par défilement. Les libellés exposant les mécanismes techniques, le caractère non autorisant du bouton et l'état de non-implémentation ont été masqués ou remplacés par des informations utiles au projet. Les vues 19–21 sont explicitement renommées **explorations de formes**, pas des formats d'écran à imposer à Nora. Aucun essai de scroll en navigateur ni test utilisateur réel.
 
-**Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE v0.14 — R4 ACTION STUDY OPEN ; NEXT NON IMPLÉMENTÉ.**
+**Suite :** tester le défilement du prototype en présentation, les réponses composites successives, l'adaptation 1280, accessibilité/zoom, les actions devenues indisponibles, la qualité des libellés, puis consolider le contrat de restitution dans un document R3 moins cumulatif. Aucun remplacement de R1/R2, changement Roadmap, PR/merge de la branche UX, entrée R4 ou adoption anticipée n'est inclus.
+
+**Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE v0.15 — SCROLLABLE RESPONSE / USER-FACING COPY ; R4 ACTION STUDY OPEN ; NEXT NON IMPLÉMENTÉ.**
