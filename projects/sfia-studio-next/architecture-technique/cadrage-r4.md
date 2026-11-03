@@ -3,13 +3,13 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | Nature | **Document de cadrage vivant** du jalon R4 ; support de travail et de synthèse, sans création d'une seconde autorité normative |
-| Version | **v0.8 — macro-lots A/B/C et stratégie QA R4–R6**, 2026-11-03 ; candidat de conception synchronisé sur branche R4 |
-| Statut | **A — ORIENTATION PRODUIT REVUE / TECHNIQUE CANDIDATE ; B — REVUE SANS OBJECTION / CANDIDATE ; C — CONCEPTION CANDIDATE INTÉGRÉE SUR GO MORRIS ; QA A–D — STRATÉGIE DOCUMENTÉE**. D à concevoir ; aucun ADR, stack, runtime ou ADOPTED |
+| Version | **v0.9 — conception A/B/C/D et gouvernance ENV-01**, 2026-11-03 ; candidate documentaire sur branche R4, non mergée |
+| Statut | **R4 A/B/C/D — CONCEPTION CANDIDATE COMPLÈTE SUR BRANCHE ; QA A–D DOCUMENTÉE ; ENV-01 — VALIDATED CONTENT BY MORRIS, ROUTAGE NEXT-ONLY PUBLIÉ SUR BRANCHE**. DATA-01 et choix techniques non adoptés ; aucun code, runtime ou ADOPTED |
 | Responsable des arbitrages | Morris |
 | Rédaction / analyse | ChatGPT, sous contrôle des sources Git et des décisions Morris |
-| Référentiel observé | `mcleland147/sfia-workspace`, branche distante `main@7067c846ce7c57825dd31c532433d809e1a01216` et candidate `sfia/next-r4-architecture-scoping@9898aa6965f10d3fcadd6958f6eacd1d9657450e` (contrôle Git 2026-11-03 ; 1 commit devant, 0 derrière, un seul fichier ajouté) |
+| Référentiel vérifié à l'entrée de l'intégration D | `mcleland147/sfia-workspace`, `main@7067c846ce7c57825dd31c532433d809e1a01216` ; branche candidate `sfia/next-r4-architecture-scoping`, cadrage A/B/C blob `67d838963c44505e908a0f95bfc548a90e363042` ; ENV-01 blob `26fa518ca6fc710a5978cf3b32dfa2fc8d558de8` et routage partagé publiés sur la branche avant intégration D. Worktree local **NON OBSERVÉ**. |
 | Situation technique | **Next : N/A — NON IMPLÉMENTÉ**. Aucun code ni schéma de données cible adopté ; branche locale / index / worktree **NON OBSERVÉS** |
-| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` sur `sfia/next-r4-architecture-scoping` ; C ajouté après B/QA sur GO Morris, sans PR ni merge |
+| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` sur `sfia/next-r4-architecture-scoping` ; A/B/C/D intégrés avec QA et raccord ENV-01, sans PR/merge |
 
 ## 1. Finalité et position de départ
 
@@ -825,6 +825,490 @@ Une **synthèse courte** et une **vue détaillée** exposent le même état et l
 
 **Verdict C au 2026-11-03 : `MACRO-LOT C — DESIGN CANDIDATE COMPLETE / NO RUNTIME / NO QA EVIDENCE / REVIEW MORRIS PENDING`.**
 
+### 5.7. Macro-lot D — intégrations Git, exploitation et consolidation A–D (conception candidate intégrée)
+
+**Source intégrée :** étude D v0.4 (2026-11-03), requalifiée par le GO Morris du 2026-11-03. **Contenu approuvé pour publication sur branche R4** ; choix techniques D encore candidats et non ADR adoptés, DATA-01 politique de conservation non arbitrée formellement. **ENV-01 gouvernance de delivery validée par Morris (D2) et publiée avec son routage Next-only SFIA v2.6 sur la même branche**, sous `projects/sfia-studio-next/governance/environnements-recette-et-promotions.md`. La source ENV-01 est **la référence normative unique** ; les développements ci-dessous l'illustrent au titre de R4, sans l'étendre ni la dupliquer.
+
+**Contrat de capacité :** Git facultatif, identités et permissions séparées, provenance/ref et état Git réellement observés, aucune mutation ni promotion implicite ; intégration Cursor évaluée selon garanties effectives ; trajectoire locale PostgreSQL → serveur ; DEV/RECETTE/STABLE isolées et recette sur SHA figé avant merge autorisé ; preuves R5/R6 sans antériorité fictive. Les §5.7.1–5.7.16 ci-dessous restent des **orientations de conception**, sauf les décisions Morris explicitement identifiées.
+
+#### 5.7.1. Résultat pour le Pilote et frontière du macro-lot
+
+**Résultat attendu :** le Pilote peut travailler avec Nora **sans Git**, ou, s'il le souhaite, choisir des dépôts et des ressources réels pour consulter, raisonner et préparer des opérations ; l'exécution éventuellement autorisée demeure bornée à une identité, une cible, une base et un contrat vérifiables. Le Pilote comprend exactement ce qui est accessible, observé, incertain, bloqué ou modifié. Les résultats nourrissent le même projet et la même conversation sans dupliquer gouvernance, mémoire, preuves ni moteurs.
+
+**IN :** Git facultatif, identité Studio et habilitations distinctes, connexion et accès progressif aux dépôts, sélection des sources, provenance SHA/ref, lecture à version déterminée, inspection de sources, droit de mutation de l'exécuteur distinct, précontrôles avant effet, concurrence, dépôts partagés et identité individuelle, révocation, Git comme fait D9 et non verdict D8, adaptateurs Cursor/ressources, sécurité des secrets, événements d'intégration, récupération, cohérence UI/Figma, observation et QA transverses, intégration des contrats A/B/C, exigences de déploiement et d'exploitation candidates, trajectoire R5/R6.
+
+**OUT :** création automatique de dépôt à la création du projet, Git imposé, collaboration native multi-Pilotes dans un projet, merge ou release implicite, substitution d'une méthode/CKI par Git, exécution autonome sans « Exécuter », infrastructure Kubernetes présumée, intégration universelle de tous les éditeurs, adoption d'une stack ou d'un protocole sans gate Morris, code Next, preuve de fonctionnement, **ADOPTED**.
+
+**Recommandation D-A :** prolonger l'architecture **neuve, modulaire et sobre** A–C, avec une seule autorité par objet métier, des ports/adaptateurs limités aux capacités démontrées et des mécanismes d'identité Git séparés de l'identité Studio et de celle de Cursor. Préférer un accès GitHub **à permissions et dépôts délimités** compatible GitHub App **avec identité utilisateur** pour les actions demandées par le Pilote, sous réserve de faisabilité, plutôt qu'un PAT général réutilisé partout. Pour Cursor, **ne fixer le fournisseur/transport qu'après revue de capacité bornée** ; ne pas multiplier CLI+Cloud en deux moteurs d'exécution indépendants. Cette direction est technique **candidate**, non adoptée.
+
+#### 5.7.2. Une seule architecture logique pour les neuf domaines
+
+```mermaid
+flowchart TB
+  UI[Interface web : portefeuille, sas, projet, inspection et résultats]
+  PR[Application Studio : modules métier et contrats]
+  DB[(Stockage durable transactionnel candidat)]
+  OBJ[(Stockage de documents/artefacts si justifié)]
+  OUT[Worker borné : intentions externes durables]
+  GH[Adaptateur GitHub : accès, refs, droits et états]
+  CU[Adaptateur Cursor : capacité vérifiée, dispatch, observation]
+  UI --> PR
+  PR --> DB
+  PR -. objets volumineux et versions .-> OBJ
+  PR -->|autorisations vérifiées| OUT
+  PR -->|lectures et vérifications D9| GH
+  OUT -->|ordres D7 sous mandat D6| CU
+  CU -->|événements attestables| OUT
+  OUT -->|retours corrélés| PR
+  GH -->|faits Git, pas conformité| PR
+```
+
+**Il s'agit d'un découpage de responsabilités, pas d'un schéma de déploiement décidé.** Les neuf domaines correspondent à des modules métier, **pas** à neuf microservices. La séparation logique garantit la vérifiabilité sans imposer neuf bases. Les consultations et projections UI ne fabriquent pas un deuxième état propriétaire.
+
+| Contrat canonique | Propriétaire | Interface avec D et invariant |
+| --- | --- | --- |
+| Session, Pilote, sélection du projet | **D1** | Session actuelle et périmètre vérifiés ; GitHub login ≠ permission dépôt |
+| Préparation / création | **D2** | Projet existe réellement ; pas de dépôt/branche par création |
+| Conversation / restitution cognitive | **D3** | Nora exploite les sources sélectionnées comme données, jamais des instructions autorisantes |
+| Documents, sujets, acquis | **D4** | Références de source versionnées et privées, conservation/reprise sans duplicata Git |
+| Cycles / trajectoire / CKI / méthode | **D5** | Aucun lien Git n'ouvre de cycle, active de CKI ou change de méthode |
+| Actes du Pilote / restrictions | **D6** | Autorisation distincte de la disponibilité effective d'un token ou d'un outil |
+| Contrat, instruction, tentative et STOP | **D7** | Le moteur d'effet reste **unique**, même si plusieurs adaptateurs existent |
+| Qualification et preuves | **D8** | Diff ou SHA D9 = fait vérifié ; qualité/conformité/acceptation non induites |
+| Référence et accès Git, conflits, effets observés | **D9** | Lecture, cible d'écriture, droit, commit, push, PR et merge **distincts** |
+
+**Oracles :** D1 pour l'identité ; D2 pour l'existence du projet ; D5 pour l'état du cycle ; D6 pour l'autorité ; D7 pour la tentative ; D8 pour l'évaluation ; D9 pour l'état Git. Un message de Nora ou une animation ne remplace aucun oracle.
+
+#### 5.7.3. Identités, contrôle d'accès et secrets — proposition de sécurité
+
+##### 5.7.3.1. Trois périmètres indépendants, et non une « connexion globale »
+
+1. **Connexion Studio — D1** : compte individuel GitHub reconnu pour identifier le Pilote ; session produit valide et isolée. Ce lien permet d'entrer dans Studio, **pas de lire automatiquement tous les dépôts ni de commander Cursor**.
+2. **Lecture GitHub par Studio/Nora — D9** : sélection explicite de ressources ; autorisations de lecture limitées aux dépôts et opérations concernés ; la source retournée est versionnée et attribuable. Une source publique ne transfère pas d'autorité.
+3. **Exécution Cursor et opérations Git — D7/D9** : capacité et compte/service réellement visés, environnement isolé et permissions bornées ; distinguer la possibilité d'exécuter un agent de son droit d'écrire, pousser ou ouvrir une PR. **Aucun transfert tacite des jetons de la session Studio**.
+
+**Sélection technique à étudier en priorité : GitHub App, jeton utilisateur si action au nom du Pilote.** La documentation GitHub distingue les jetons d'installation (pouvoirs de l'application) des jetons d'accès utilisateur (intersection des droits application/utilisateur). **Pour agir au nom d'un utilisateur, privilégier ces derniers**, sous minimum de permissions ; une installation ne doit pas contourner l'accès du Pilote. Alternative : OAuth restreint démontrable si le produit/organisation ne peut pas utiliser une App, mais **jamais** un PAT personnel global stocké en clair ou partagé entre projets. Ce n'est pas un choix de fournisseur d'identité ou de bibliothèque déjà ratifié.
+
+**Contrôles d'implémentation attendus :** protection CSRF/state et session, secret coffre/chiffrement selon hébergement, jetons non diffusés à D3 ni au navigateur, minimisation des scopes, rotation/révocation, expiration détectée au point d'usage, compte de test isolé, journaux sans jetons/PII, permissions serveur vérifiées par chaque entrée, retrait effectif des nouveaux accès, politique de rétention/effacement portée en D1/D4. Les modèles exacts de token, consentement et stockage doivent être décidés avec un environnement concret avant R5.
+
+##### 5.7.3.2. La source est une donnée, même si elle contient une instruction
+
+Une phrase dans un README, commentaire de PR ou document tiers ne peut pas créer de HumanDecision, modifier le contrat d'exécution, supprimer une restriction ni injecter une cible Git. L'entrée source est encadrée par **provenance et confiance** ; Nora peut la citer ou l'analyser, jamais l'élever en autorité de session. Même principe pour une sortie d'outil, un webhook et un compte-rendu Cursor.
+
+**Blast radius sécurité :** injection de prompt, jetons exposés, confusion d'identité, permissions héritées, SSRF ou URL externe, dépôt privé, sortie trop verbeuse, pièces jointes, suppression et publication. La conception devra empêcher une capacité de « lire un lien » de devenir un accès réseau illimité ou une mutation d'infrastructure.
+
+#### 5.7.4. Git facultatif, liens, provenance et fraîcheur — modèle logique candidat
+
+##### 5.7.4.1. Liaison à une ressource sans fusion de projets
+
+**D9 conserve une association bornée** `projectRef / pilotRef / provider / repositoryRef / selectedScope / attachmentState / accessState / lastCheck` ; ce modèle est une illustration conceptuelle, **pas un schéma de table**. Plusieurs dépôts/refs peuvent être consultés, aucun n'est universellement « dépôt principal ». Une cible d'écriture explicitement choisie est un **autre contrat** que la ressource de lecture. Retirer une association invalide les nouveaux accès qui en dépendent, sans effacer les références et observations historiques conservables sous les droits applicables.
+
+La disponibilité et la sélection d'un dépôt ne deviennent pas des variables de méthode, CKI, cycle ou autorité. Deux Pilotes peuvent consulter le même dépôt sous droits distincts **sans partager** mémoire, journal, conversations, GO, tentatives et acceptation de leurs projets.
+
+##### 5.7.4.2. Lecture de référence et inspection
+
+**Entrée conceptuelle :** Pilote courant, projet, ressource demandée (dépôt/fichier/PR/commit), ref explicitement visée, portée de lecture, identité d'accès D9. **Sortie :** ressource réellement récupérée, dépôt, ref demandée, commit/SHA effectivement observé si fourni, date et contexte d'accès, type de donnée, lien original réel, restrictions et limites. D9 ne déclare pas la HEAD de `main` si la source lue est une branche candidate.
+
+**Source snapshot / référence de provenance :** conserver l'identité de la lecture déterminante et éventuellement un extrait autorisé/stocké si la politique de conservation le permet ; ne pas dépendre d'un URL mutable comme identifiant probatoire unique. La relecture ultérieure peut établir que la source a changé ; elle ne remplace pas silencieusement la vérité historique. Une URL GitHub reconnue ne signifie pas que le contenu est actuellement accessible ou validé.
+
+**Inspection R3 :** ouverture dans l'espace du projet, résumé Pilot-first, bouton/lien vers l'original réel en nouvel onglet, retour à la conversation, mention des limites et distinction branche candidate / `main`. Il n'y a ni navigateur embarqué imposé ni prise de décision par clic de consultation.
+
+##### 5.7.4.3. Concurrence, mutations et preuves Git
+
+Avant une mutation D7 impliquant Git, D9 requalifie **dépôt, compte exécuteur, écriture autorisée, branche, commit de base, HEAD courante, chemins/effets et éventuelles restrictions de branche**. La détection de changement de base exige conflit explicite ou nouveau contrat si le changement est matériel ; **pas de force push ou de suppression silencieuse**. Le verrou éventuel est local à la ressource/commande ; pas de verrou global de tout le dépôt, car des travaux réellement disjoints peuvent continuer.
+
+**Faits séparés :** fichier modifié localement ; commit local ; ref distante mise à jour ; PR créée ; PR mergée ; release publiée ; capacité utilisateur exposée ; **ADOPTED**. Chacun exige sa preuve et, pour les mutations protégées, un contrat et un acte D6 distincts. Un commit sur une branche candidate **n'est pas** la baseline `main` ; une PR non mergée n'est pas une intégration.
+
+En cas de timeout Git, **relire l'état distant avant tout retry** : ref/commit/diff PR réellement existants, base changée, autre mutation concurrente. Si l'incertitude est matériellement irréductible, garder `UNKNOWN` et protéger l'effet à risque. D9 n'atteste pas qu'un commit apporte une conformité de test ; cette question relève de D8.
+
+#### 5.7.5. Port Cursor et capacités réelles — choix comparés
+
+Le macro-lot C définit un unique responsable D7 et un adaptateur d'exécution. Le macro-lot D précise comment **prouver** que l'adaptateur connaît l'identité, la cible, le contrat, le retour, la tentative et sa capacité éventuelle de STOP.
+
+| Voie externe étudiée | Éléments documentés au 2026-11-03 | Avantages pour Studio | Risque / réserve R4 | Orientation |
+| --- | --- | --- | --- | --- |
+| **Cursor Cloud Agents API v1** | API officielle en **bêta publique** : agents/runs persistants, consultation des runs, streaming SSE ; la documentation décrit le risque de rediffusion d'un prompt après erreur réseau, et un comportement de PR à contrôler. Les webhooks v1 sont annoncés à venir dans la doc consultée. | Intégration web/service potentiellement plus directe ; observabilité de runs identifiables | Bêta, droits/capacités par compte, politiques de publication, arrêt et reprise à éprouver ; ne présumer **aucune** idempotence/STOP universelle | **Alternative conditionnelle**, après preuve de contrôle des effets hors mandat (dont PR automatique) et isolation conforme |
+| **Cursor CLI non interactive, runner maîtrisé** | CLI officielle documentée avec mode `agent -p`, authentification par clé ou login, possibilité d'opérer en environnement scripté ; le mode non interactif dispose d'outils d'écriture et de commandes. | Contrôle de l'environnement d'exécution côté Studio/runner, choix explicite des ressources et tests locaux | Exploitation et confinement du runner, jetons, accès Git, processus orphelin, disponibilité réelle du STOP et identité par Pilote ; pas de CLI partagée non isolée | **Candidat prioritaire pour la phase locale**, après preuve du confinement et des interdictions techniques ; pas de second moteur simultané |
+| **Réutiliser l'adaptateur de l'ancien Studio tel quel** | Aucun contrat Next prouvant compatibilité ni isolation ; historique de frontières et de persistance à simplifier | Éventuel gain ponctuel | Risque de reprendre les dépendances historiques et de masquer les gaps LIVE/REAL | **Écartée par défaut** sauf évaluation positive ciblée |
+
+**Décision recommandée :** **un seul port `ExecutionProvider` (nom illustratif)** sous le contrôle D7, avec capacités explicitement déclarées/vérifiées : démarrage borné, corrélation, lookup de statut, résultat exploitable, interruption disponible ou non, liste des actions Git possibles, identités, politiques d'effets et version d'API. Sélectionner **un** transport opérationnel pour la première capacité verticale R5, après un **test de capacité borné inclus dans le macro-lot de construction**, non un POC autonome ni deux systèmes concurrents. Échec du contrôle bloquant → pas de lancement, mais le reste du projet fonctionne.
+
+**Garde-fou critique :** si un API/runner peut créer automatiquement une PR, publier une branche ou déclencher d'autres effets sans que Studio puisse l'interdire et l'observer, ce mode **n'est pas admissible** pour un contrat dont le mandat les exclut. Un texte « ne crée pas de PR » dans le prompt ne remplace pas un contrôle techniquement opposable. Les scopes, l'identité effective et les possibilités de STOP doivent être démontrés dans l'environnement cible.
+
+**Observabilité non-fictionnelle :** un flux SSE ou un indicateur `RUNNING` n'atteste pas qu'une modification Git a été effectuée ni qu'un arrêt a été observé. D7 trace uniquement les événements authentifiés/reçus ; D9 constate les mutations ; D8 évalue les assertions. Les événements peuvent être retardés, dupliqués, absents ou avoir expiré. La relecture du run et des faits Git prime sur une animation.
+
+**Documentation officielle vérifiée :** Cursor CLI [vue d'ensemble](https://cursor.com/docs/cli/overview), [authentification](https://prod.cursor.com/docs/cli/reference/authentication), [Cloud Agents API v1](https://prod.cursor.com/docs/cloud-agent/api/endpoints). Ces pages décrivent des possibilités fournisseur, non une preuve d'accès effectif au compte ou au contexte Studio Next.
+
+#### 5.7.6. Contrats de frontière candidats pour les intégrations
+
+| Capacité / interface logique | Entrée qualifiée | Retour et cas d'échec | Autorité/propriétaire |
+| --- | --- | --- | --- |
+| `ListReadableRepositories` | Session D1, identité de connexion D9, périmètre demandé | Liste autorisée ou manque d'accès/connexion ; **jamais** dépôt non autorisé | D9 fournit, D1 vérifie session |
+| `AttachRepositorySource` | Projet, Pilote, ressource choisie, référence et portée | Association persistée et vérifiée, ou refus/unknown ; aucun dépôt créé | D9 rattachement ; D2 projet existant |
+| `ReadGitSource` | Dépôt, ref/commit, chemin, droit courant | Objet/ref réellement lus, contenu et provenance bornés ou accès refusé/périmé | D9 ; D3/D4 consommateurs |
+| `InspectGitTarget` | Contrat D7, effet et cible, identité exécuteur, HEAD/base demandées | Droits/capacité, ref observée, conflit, limitations et fraîcheur ; pas de mandat | D9 ; D6 autorise, D7 décide le dispatch admissible |
+| `ObserveGitEffect` | Tentative D7, commande/ressource, ref cible | Faits Git réels (commit local/distante/PR/merge), provenance ou incertitude | D9 ; D8 évalue la preuve |
+| `ProbeExecutionCapability` | Fournisseur, compte/installation, environnement, cible et type d'opération | Capacités documentées **et** observées, limitations, politique STOP/publication | D7 adaptateur, D9 permissions Git ; aucun autorisateur alternatif |
+| `DispatchExecution` | Contrat/version, mandat D6 actuel, précontrôles D7/D9, clé de commande | Tentative identifiée, état observé/unknown, pas de replay aveugle | **D7 exclusivement** |
+| `ReconcileExternalAttempt` | Tentative + corrélation et refs disponibles | État réconcilié, effets connus/possibles, réponse incomplète, besoin de contrôle humain | D7/D9 ; D8 qualifie ; D6 conserve autorité |
+
+**Important :** ces noms sont de la documentation architecturale candidate et **ne doivent pas** devenir des API, classes ou endpoints imposés sans décision R4. Ils désignent les responsabilités et les assertions à prouver, pas un nouvel orchestrateur. Le format et l'emplacement des tokens et informations sensibles ne transitent pas dans les objets cognitifs de Nora.
+
+#### 5.7.7. Données, exploitation, événements et sécurité transverses
+
+##### 5.7.7.1. Cohérence, persistance et reprise
+
+**Noyau transactionnel candidat A/B/C :** une persistance relationnelle solide est recommandée pour les identités de projet/préparation, liens conversation/documents, décisions D6, cycles D5, contrats D7, intentions/tentatives et références probatoires. **PostgreSQL** demeure le premier candidat pour cette cohérence et les besoins de concurrence, sans choix d'hébergeur, schéma physique ni contrat de déploiement adopté. La même base logique **n'implique pas** d'emboîter tous les modules dans la même table ou le même propriétaire.
+
+**Artefacts volumineux** (documents, captures, rapports, journaux, sources) : stockage objet seulement si justifié par volume/taille/accès ; identités et métadonnées dans la vérité relationnelle ; transitions de sauvegarde honnêtes, références stables et réconciliation en cas de stockage partiellement disponible. Une solution dédiée de recherche/embedding n'est pas décidée par défaut et ne devient jamais un registre de décisions ou une preuve.
+
+**Worker** : utiliser, si nécessaire, une intention durable pour les effets externes. La transaction interne ne s'étend pas au réseau ni au Git distant ; au réveil, réconcilier avant envoi répété. Un redémarrage, une perte de webhook ou une session déconnectée ne fabriquent aucun état terminal.
+
+**Garantie par propriétaire :** la vérité des permissions vient du fournisseur courant ; une attestation mise en cache ne vaut pas droit à vie. Les droits et la base Git doivent être recontrôlés au point d'effet, y compris après la validation du Pilote.
+
+##### 5.7.7.2. Événements et affichage honnête
+
+- Événements fournisseur de provenance déterminée : ID, ressource/tentative, source, état, date et ordre connu ; déduplication technique des livraisons ; anomalie conservée ; réconciliation de l'état courant avant verdict.
+- Webhooks GitHub : **vérifier signature HMAC-SHA256**, gérer retard, duplication, désordre et perte ; une livraison d'événement n'accorde aucun droit. Prévoir relecture/polling borné lorsque l'absence d'événement est déterminante. Source officielle : [GitHub webhooks signatures](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries), [livraisons manquées](https://docs.github.com/en/webhooks/using-webhooks/handling-failed-webhook-deliveries).
+- Activité Nora cognitive : constat disponible sur l'état du traitement sans exposer de raisonnement interne. Activité outil : invocation, réponse et erreur effectivement observées. Activité Cursor : statuts/run réels **lorsque l'adaptateur les donne** ; sinon « état non confirmé ».
+- UI : ne jamais afficher un pourcentage inventé, un STOP confirmé sans retour, une PR mergée si elle est seulement ouverte, ni « conforme » sur la base d'un rapport. Un état d'infrastructure indisponible n'efface pas la conversation ou les acquis déjà persistés.
+
+##### 5.7.7.3. Contrats d'exploitation à qualifier avant R5
+
+| Domaine non-fonctionnel | Orientation technique candidate | Exit mesurable attendu |
+| --- | --- | --- |
+| Sessions et isolation | Auth robuste, lecture et mutation server-side vérifiées, sessions expirées refusées | Deux comptes de test disjoints ; aucun accès par ID deviné, token révoqué sans fuite |
+| Durabilité et backup | Sauvegardes/restauration de la vérité durable ; objets corrélés, chiffrement selon contexte | Exercice de reprise avec préparation, décision, tentative, preuve et version retrouvables |
+| Secrets et accès Git | Coffre ou mécanisme de secrets adapté ; tokens à durée bornée, moindre privilège, rotation et révocation | Pas de jeton dans fil, logs, dump navigateur ou contrat d'inspection ; effet interdit sous droit retiré |
+| Disponibilité fournisseur | Statut courant, timeouts, limite de débit, erreurs explicites ; travail indépendant maintenu | Reprise sûre, sans duplicate dispatch ni retour fictif après indisponibilité |
+| Exploitabilité | Corrélations projet/contrat/tentative/source sans PII ni secrets, métriques d'erreurs | Diagnostic d'un incident par observations réelles et identité de version ; pas de tracing sensible |
+| Coûts et performances | Budget de requêtes, streaming proportionné, pagination et caches bornés/non autorisants | Mesures R5 sur cas représentatifs, budget/coût et seuils à décider avant exploitation |
+| Conservation / suppression | Préparations retrouvables jours/semaines (arbitrage A), documents/provenances protégés, durées précises ouvertes | Politique écrite, effets d'effacement/révocation testés ; pas de période inventée |
+| Accessibilité | R3 contrat Figma : navigation clavier, focus, zoom, reflow, réduction du mouvement | Comparaison navigateur 1680/1280/390/320, zoom 200 %, lecteur écran et erreurs/reprise |
+
+**Éviter le surdesign :** pas de bus d'événements global, pas de moteur BPMN, pas de base par module, pas de cluster Kubernetes, pas de système générique de plugins exécutants sans une capacité démontrée. Ces éléments peuvent être étudiés plus tard si une limite mesurée les justifie, avec exit clair.
+
+#### 5.7.8. Transposition UX R3 — contrat de composants et états
+
+**Structure :** une interface de projet cohérente avec Nora en surface primaire, un portefeuille sans conversation globale, inspection et retour préservés, et un même contrat métier projeté en cartes/volets et vue détaillée. D9 apparaît dans ce contexte quand utile, **pas comme un portail Git obligatoire**.
+
+**Familles de composants réutilisables candidates :** contexte de projet/rail, message et activité Nora, aperçu/inspection de source, sélection de dépôt/ref, résumé des droits/effects, aperçu de contrat et six volets, instruction brute consultable, contrôle d'exécution et STOP, état de tentative, synthèse D8 à neuf rubriques, référence de décision D6, point de retour vers activité d'origine. **Un composant = une responsabilité de rendu**, pas une page par erreur ni un état d'autorité local à l'UI.
+
+**Source visuelle R3 :** [Figma Next — parcours produit](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP), index et contrat de transposition du dépôt. La référence R3 inclut les variantes Git 171–205 et activité Nora 206–217 ; les frames sont des exemples d'états, pas autant de routes techniques. Source mesurée à recontrôler au moment du code ; rail 240 vs 246 px, tokens de fondation, tolérances et reflow **restent des décisions R4/R5 à qualifier**.
+
+**Priorités de comportement :** (a) aucun changement de droit/cible par inspection ; (b) lisibilité des sources/ref et candidate/main ; (c) états de non-prêt, unknown et STOP distincts ; (d) accès rapide à preuve et à l'original ; (e) brouillon et position de retour conservés si possible ; (f) accessibilité clavier/focus/restauration ; (g) réponses longues et écrans 320/390 px sans masquage des risques. Les comparaisons Figma n'établissent pas de résultat runtime.
+
+#### 5.7.9. Matrice QA D — scénarios discriminants, sources et oracles (R4 → R5 → R6)
+
+Les identifiants `D-01..D-26` sont **repères de conception**, pas des règles fonctionnelles nouvelles. Se référer aux **41 règles `RG-GIT-001..041` et 36 `PF-GIT-01..36`**, et aux scénarios canoniques D1/D6/D7/D8. Les essais d'intégration à effet réel n'ont lieu que sous environnement borné, contrat et GO pertinents ; l'absence de capacité LIVE/REAL demeure une réserve, pas un test passé.
+
+| ID | Situation discriminante | Oracle / observation requise | Source R2/R3 ; cible de preuve |
+| --- | --- | --- | --- |
+| D-01 | Projet nouveau sans Git | Projet D2 existe, Nora D3 utilisable, D9 n'a créé aucune ressource | GIT-001/002 ; R5 intégration + R6 navigateur |
+| D-02 | Connexion GitHub à Studio sans autorisation dépôt | Session D1 seule, aucune lecture/mutation par ce simple fait | GIT-008/010 ; R5 sécurité |
+| D-03 | Rattachement d'un dépôt demandé | Lien D9 porté sur bon projet/ressource, zéro création de repo | GIT-002..004 ; R5 intégration |
+| D-04 | Lecture d'un fichier sur une branche candidate | Origine/ref/SHA vérifiés, `main` non affirmée | GIT-017..024, PF-GIT-35 ; R5 + R6 navigateur |
+| D-05 | Source privée inaccessible | D9 refuse, D3/D4 ne divulguent aucun contenu caché | GIT-009/012/014 ; R5 sécurité |
+| D-06 | Lecture possible, écriture Cursor impossible | Lecture maintenue ; précontrôle D7 interdit mutation | GIT-008/013/027 ; R5 + R6 REAL borné si disponible |
+| D-07 | Deux Pilotes sur même dépôt avec projets séparés | Projets, mémoire, mandats et jetons isolés | GIT-016/033/036 ; R5 multi-compte |
+| D-08 | Un Pilote tente de lire décision privée de l'autre | D1/D4/D6 refusent même si dépôt commun | GIT-016/033 ; R5 sécurité |
+| D-09 | Source README donnant un faux GO | Aucun HumanDecision/autorisation inféré | GIT-015, GOV-005/006 ; R5 adversarial |
+| D-10 | Droits de lecture révoqués en cours de session | Accès nouveau refusé ; provenance antérieure qualifiée périmée | GIT-012/019 ; R5 + R6 |
+| D-11 | Base Git diffère de la HEAD courante | Conflit/impact visibles ; aucune écriture sur ancienne base sans requalification | GIT-023/028 ; R5 intégration |
+| D-12 | Deux écritures sur mêmes chemins | Détecter collision ; pas d'écrasement silencieux | GIT-028/035 ; R5 concurrence |
+| D-13 | Écritures réellement indépendantes | Peuvent progresser sous leurs contrats et refs propres, sans fusion de droits | GIT-034 ; R5 concurrence |
+| D-14 | L'exécuteur vient d'un autre compte | Pas de dispatch Git ; aucune réutilisation de token tiers | GIT-008/027, REAL-018 ; R5 sécurité |
+| D-15 | Tentative Cursor en CLI a un outil d'écriture | Confinement démontré, sorties et effets hors mandat interdits ou mode non éligible | GIT-025/026 ; R5 capability test |
+| D-16 | Fournisseur Cloud propose création PR automatique | Autopublication techniquement neutralisée ou mode refusé ; prompt seul insuffisant | GIT-025/030 ; R5 capability test |
+| D-17 | Contrat inspecté pour dépôt A, cible réelle B | Précontrôle D6/D7/D9 refuse le départ | GOV-025..027, GIT-026/027 ; R5 sécurité |
+| D-18 | Double clic « Exécuter » | Une commande/tentative cohérentes, aucune duplication injustifiée | REAL-017, GIT-032 ; R5 concurrence |
+| D-19 | ACK perdu après push éventuel | Lookup refs et attempt ; pas de retry aveugle, `UNKNOWN` si non résolu | GIT-031/032, REAL-020/029 ; R5 + R6 |
+| D-20 | Commit local sans ref distante | D9 distingue local/distant ; D8 borne les conclusions | GIT-017/021/031 ; R5 intégration |
+| D-21 | PR ouverte, merge non autorisé | PR réellement vérifiée ; merge interdit sans acte distinct | GIT-021/030 ; R5 + R6 |
+| D-22 | Git indisponible pendant conversation Nora | Travaux indépendants continuent ; état source non confirmé | GIT-040 ; R5 navigateur |
+| D-23 | Webhook dupliqué, hors ordre ou invalide | Signature vérifiée, corrélation/déduplication, état final relu si important | GIT-019/032 ; R5 intégration |
+| D-24 | Rapport Cursor annonce tests OK sans logs | D8 « tests non vérifiés », aucun statut conforme automatique | PRV-010/012 ; R5 qualification + R6 E2E |
+| D-25 | Navigation mobile/zoom/clavier avec source et contrat | Original, risques, STOP et retour accessibles ; focus et reflow corrects | UX R3, contrat Figma ; R5 navigateur puis R6 a11y |
+| D-26 | Déconnexion, reconnexion, tentative et source périmée | Références récupérées sous droits actuels, aucun mandat relancé ; acquis et inconnues distingués | GIT-037/040, REAL-029 ; R5 reprise + R6 E2E |
+
+**Critère de preuve :** une exécution R5/R6 identifie contexte/identité, version/ref/branche, données et environnement, action ou absence d'effet, observation originale, verdict limité. Un mock ne peut pas servir de preuve LIVE/REAL ; une capture Figma ne prouve aucune permission, mutation Git ou capacité d'arrêt.
+
+#### 5.7.10. Consolidation A–D : architecture de référence candidate globale
+
+##### 5.7.10.1. Contrat end-to-end de la vision produit
+
+| Parcours R1 | Contrats de macro-lot mobilisés | Invariant d'acceptation à préserver en R5/R6 |
+| --- | --- | --- |
+| **E2E 01 — création et fil continu** | A + D identité | Sas durable ; action « Créer le projet » explicite ; fil/documents retrouvés ; aucun Git imposé |
+| **E2E 02 — trajectoire et cycles** | B + A persistance | Trajectoire souple ; au plus un cycle actif ; GO D6 applicable ; un CKI principal par cycle |
+| **E2E 03 — investigation, production Nora** | A + B contexte + D outils/UX | Travail cognitif sans cycle ; source autorisée, provenance ; pas d'outil ou d'autorité inventés |
+| **E2E 04 — mémoire et décisions** | A + B + D isolation | Sujet/document/decision propriétaires distincts ; continuité inter-conversations ; aucun partage implicite |
+| **E2E 05 — décision, mandat, exécution** | B D6 + C D7 + D D9 | Contrat/version/instruction identiques ; « Exécuter » distinct ; droits au point d'effet ; tentative observable |
+| **E2E 06 — résultat, preuve, acceptation** | C D7/D8 + B D6 + D Git | Déclaré ≠ observé ≠ conforme ≠ accepté ; réserve persistante ; correction sous nouveau mandat |
+| **E2E 07 — Git personnel / dépôt partagé** | D D9 + A isolation + B autorité + C effets | Git facultatif ; deux Pilotes sur dépôt commun sans fusion des projets ; conflits et états Git réels |
+
+**Démonstration actuelle :** couverture **DOCUMENTAIRE candidate** de la chaîne R1–R3. Aucun E2E Next navigateur, LIVE ou REAL observé. Cette matrice permet de contrôler la cohérence, **pas de prononcer ADOPTED**.
+
+##### 5.7.10.2. Synthèse des décisions techniques recommandées — non adoptées
+
+| Sujet | Recommandation ChatGPT | Pourquoi | Gate / preuve / alternative |
+| --- | --- | --- | --- |
+| Architecture de déploiement | Application web et serveur **modulaires**, éventuellement worker d'effets, pas microservices par domaine | Une vérité métier, parcours continu et exploitation sobre | Vérification de performance et blast radius en R5 ; services distribués uniquement pour contrainte avérée |
+| Persistance | **PostgreSQL candidat** pour les objets transactionnels ; stockage objet conditionnel pour gros artefacts | Transactions, unicité, concurrence, reprise et traçabilité | Hébergement, backup, politique des données et migration à décider avant R5 |
+| Nora | Un contexte construit depuis les sources propriétaires, pas de deuxième base d'autorité | Réduction de dérive et connaissance contextualisée | Tests cognitifs et injection en R5/R6 |
+| Autorité / effet | D6 décisions, D7 contrats/tentatives, D8 preuves, D9 Git : propriétés distinctes | Empêcher double registre et fausse autorisation | Contrats négatifs + intégration réelle des droits |
+| Intégration GitHub | App et permissions délimitées, **identité utilisateur si acte au nom du Pilote** | Limiter privilèges et confusions d'identité | Test de compte, scopes, révocation ; OAuth restreint en alternative si nécessaire |
+| Cursor | Un adaptateur D7 ; **CLI isolée privilégiée en local**, Cloud API v1 en comparaison | Éviter deux moteurs et conserver observabilité/contrôle | Capabilities & actions non autorisées démontrées ; fournisseur retenu sous gate Morris |
+| Événements et reprise | Intentions durables, réconciliation et états inconnus visibles | Aucun effet externe dans la transaction locale ; éviter doubles mutations | Tests réseau/crash et API réelles, aucun retry risqué par défaut |
+| UX / restitution | Réutiliser les composants R3/Figma ; accès progressif aux détails | Pilote-first sans masquer l'incertitude ni les STOP | Revue tokens et tolérances ; captures navigateur et tests a11y en R5/R6 |
+| QA | Scénarios à risque R4, suites avec code R5, qualification transverse R6 | Tests dès la construction, pas après | Plans d'oracles et niveaux de preuve par macro-capacité |
+
+##### 5.7.10.3. Impacts et conditions d'évolution
+
+- **Changement du modèle d'identité :** requalifier accès D1, préparations A, projets, confidentialité D4, autorité D6, providers D7/D9, preuves D8 et UX. Changer d'auth n'est pas une adaptation invisible.
+- **Ajout d'un deuxième exécutant :** conserver D7/D6/D8, spécifier ses capacités/STOP/droits et effets ; ne pas ouvrir un second moteur de mandat. L'extension ne doit pas produire un code de gouvernance parallèle.
+- **Projet sans Git → avec Git :** rattachement D9 à la demande ; pas de migration de conversation ou de trajectoire. Recontrôler les droits actuels.
+- **Nouvelle spécialité CKI :** version du catalogue D5 et guidance D3, sans modifier D6/D7/D9 ni imposer un workflow.
+- **Collaboration plus riche souhaitée :** nouvelle décision produit préalable ; le partage d'un dépôt ne justifie pas une mémoire ou une autorité native multi-projets.
+- **Scalabilité :** mesurer d'abord latence, taille des rapports, concurrence et coûts ; extraire worker/service seulement lorsque les contraintes le justifient, avec contrat, observabilité et exit.
+
+##### 5.7.10.4. Réserves ouvertes et dette avec sortie explicite
+
+| Réserve | Risque utilisateur / technique | Propriétaire et exit |
+| --- | --- | --- |
+| **AUTH — identité et connexions** | Dépôts privés/le mauvais compte exposés, droits présumés | D1/D9 ; valider méthode d'auth/consentement, isolation, refus et révocation en environnement R5 |
+| **DATA — rétention et restauration** | Préparation perdue, documents/origines non retrouvables | A/D ; politique conservation/suppression et test backup/reprise, bonne articulation DB/artefacts avant R5 |
+| **CAPI — fournisseur Cursor** | Lancement ou PR hors mandat, statut/STOP fictif, erreur réseau rejouée | C/D ; démonstration bornée des capacités d'auth, publication, lookup, cancel/STOP et idempotence ; sinon pas de claim REAL |
+| **GIT — base et concurrence** | Écrasement de travaux, droits d'un autre Pilote, faux merge | D9/D7 ; scenario R5 multi-compte/conflict/timeout, preuve distante |
+| **UX — transposition** | Risques cachés, actions inaccessibles, rendu différent de R3 | R3/R4/R5 ; tokens et source calibrés, tests 320/390/1280/1680, zoom 200 %, focus/clavier |
+| **OBS — événements et preuves** | « Terminé »/« arrêté » affiché sans observation, conformité inventée | C/D ; matrices D7/D8, simulation incidents + observation API bornée, contradiction explicite |
+| **HOST — hébergement/exploitation** | Solution non exploitable en conditions réelles | R4 gate avant R5 ; sélectionner environnement, secrets, backup, coûts, capacité et sécurité ; tests de récupération |
+| **QA — couverture réellement réalisée** | Contrats testables mais non vérifiés | R5/R6 ; tests exécutés, preuves et réserves reliées aux RG/PF/E2E, gate Morris |
+
+**Dette contrôlée :** aucune réserve ne devient une « dette acceptable indéfiniment ». Les risques critiques d'autorité, secret, double effet et publication non autorisée doivent être traités **avant** l'effet externe REAL du périmètre visé.
+
+#### 5.7.11. Proposition de séquencement R5 en macro-capacités verticales
+
+| Regroupement de capacité, non micro-cycle | Résultat utilisateur livrable | Contrats/qualité intégrés dans le même travail | Dépendances / gate |
+| --- | --- | --- | --- |
+| **A — entrée et continuité** | Connexion, portefeuille, sas, projet créé explicitement, fil et document réellement durables | D1/D2/D3/D4, DB, erreurs, crash, sécurité, UX et tests | Choix hébergement/persistance ; premier parcours navigateur démontrable |
+| **B — gouvernance et pilotage** | Décisions durables, suspensions, trajectoire, cycle unique et CKI applicable | D3/D4/D5/D6, versions, permissions, scénarios adversariaux, tests UI | A durable ; preuve des invariants D5/D6 avant ouverture de cycles réels |
+| **C+D — réalisation gouvernée et Git en tranche verticale** | Contrat inspecté, vrai « Exécuter » borné, tentative, Git facultatif et résultat D8 compréhensible | D6/D7/D8/D9, source/ref/base, fournisseur effectivement éligible, QA négative, UI et preuve bornée | Réduire à un périmètre externe testable ; gate technique et humain pour REAL, aucune PR/merge automatique |
+| **Consolidation par capacités et R6** | Les sept E2E fonctionnent ensemble, sur les droits/environnements réellement qualifiés | Sécurité, visuel, navigation, connaissances, événements, non-régression et preuves E2E | R6 ne compense pas une absence de tests de lot en R5 ; adoption Morris après preuve et décision distincte |
+
+**Challenge de la trajectoire :** ne pas forcer des macro-lots d'implémentation « D9 seul », « base seule », « tests seuls », « UI seule ». Le premier effet externe R5 doit unir contrat D7, autorité D6, capacité D9, tentative, preuve D8 et UX pour produire **un résultat Pilote de bout en bout**, même si limité à une ressource sans risque. Une réalisation **sans Git** reste possible si une autre capacité exécutante réellement prouvée le justifie ; Git ne devient pas prérequis global.
+
+#### 5.7.12. Revue R4 globale à présenter à Morris — points d'arbitrage utiles
+
+##### 5.7.12.1. Ce qui paraît cohérent avec la vision et les règles acquises
+
+- **Entrée et continuité :** préparation durable, création volontaire et fil préservé ; pas de dépôt ni méthode imposés.
+- **Nora :** un partenaire cognitif capable d'explorer, produire et proposer sans appropriation de l'autorité ou des preuves.
+- **Pilotage :** projet individuel, trajectoire adaptable, un seul cycle actif, CKI spécialisé non contraignant, GO humains durables.
+- **Exécution :** contrat/version/instruction inspectables, « Exécuter », contrôles actuels, tentative observée et non rejouée aveuglément.
+- **Résultats :** déclaration/observation/conformité/acceptation distinctes, preuves et limitations accessibles.
+- **Git :** facultatif, accès progressif, provenance, dépôt partagé sans fusion de projets, mutation séparée du merge.
+- **UX :** principes R3 respectés, contrat Figma exploitable comme cible de comparaison future.
+
+**Qualification :** aucune contradiction majeure **de conception** identifiée dans les interfaces R1–R3 examinées. Cette revue **n'est pas une preuve de couverture exhaustive des 9 domaines ni de toutes les règles** ; la traçabilité détaillée est portée par les specs R2, matrices d'acceptation et futures preuves R5/R6. Les réserves existantes demeurent ouvertes.
+
+##### 5.7.12.2. Arbitrages Morris à soumettre en revue R4, et non avant
+
+1. **Architecture générale :** approuver ou réorienter la direction **application modulaire neuve / vérité transactionnelle cohérente**. Compromis : simplicité et maîtrise des effets plutôt qu'une constellation de services.
+2. **Hébergement et responsabilités d'exploitation :** la trajectoire **local PC puis serveur distant avec domaine** est décidée par Morris ; VPS/DB managée, budget, maintenance et secrets restent à dimensionner.
+3. **Modalité d'intégration Cursor :** **CLI privilégiée**, Cloud API en comparaison ; décider du transport après preuve des restrictions effectives sur push/PR, de l'isolation et des états STOP/reprise. Si garanties absentes, limiter les effets externes.
+4. **Politique de conservation des préparations/documents :** retrouver une préparation après **15 jours** est souhaité ; arbitrer la candidate DATA-01 §14.3 (archivage J+90, corbeille J+30, sauvegardes), sans purge automatique des préparations enregistrées.
+5. **Gate R4 → R5 et Git :** après revue des écarts, Morris décide la validation d'architecture, les ADR effectivement nécessaires, la publication PR/merge et l'ouverture de R5 ; ce document ne franchit aucun de ces gates par lui-même.
+
+**Ce qui n'appelle pas de micro-arbitrage Morris :** noms de tables, verrou exact, middleware, pagination, format de logs, bibliothèques, affichage d'une erreur technique. ChatGPT prépare les recommandations correspondantes et Cursor les implémente seulement sous contrat SFIA v2.6 lorsque le gate est ouvert.
+
+##### 5.7.12.3. Verdict et suite
+
+**D — DESIGN CANDIDATE COMPLETE.** La combinaison A–D offre une architecture explicable et testable **au niveau conception** : modules propriétaires uniques, intégration facultative, autorité humaine, anti-duplication, sécurité des frontières et stratégie de preuve R4/R5/R6. **N/A — NON IMPLÉMENTÉ** pour Next ; aucune preuve navigateur/REAL, aucune architecture validée/adoptée.
+
+**Suite proposée :** intégrer D dans le **même document R4 vivant après revue Morris**, réaliser une revue de cohérence/couverture des réserves et choix structurants A–D, puis préparer si approuvé un **gate R4 formel** et le plan des premières capacités R5. **Pas** de PR, merge, choix d'exécution fournisseur, code, ni modification de Roadmap sur ce mandat.
+
+---
+
+#### 5.7.13. Références vérifiées
+
+**Git Next (pré-check, 2026-11-03) :**
+
+- `projects/sfia-studio-next/governance/SEF.md` v0.2, `governance/roadmap.md`, `governance/product-naming-conventions.md`, `governance/decisions/2026-11-03-r3-ux-formal-exit.md` ; `main@7067c846ce7c57825dd31c532433d809e1a01216`.
+- `cadrage/vision-produit.md`, `conception-fonctionnelle/README.md`, `conception-fonctionnelle/acces-et-portefeuille.md`, `conception-fonctionnelle/integration-git-gouvernee.md` (RG-GIT-001..041 ; PF-GIT-01..36), `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md`, `conception-fonctionnelle/realisation-operationnelle-gouvernee.md`, `conception-fonctionnelle/resultats-et-preuves.md`, `ux-ui/espace-projet-interaction-pilote-nora.md` et `ux-ui/contrat-transposition-figma-code.md`.
+- Branche R4 `sfia/next-r4-architecture-scoping@9b169dcbb3c7e9a5d997662594c2d35c164a9c9c`, cadrage A/B/C + QA, **document publié sur branche candidate, pas `main`**.
+
+**Documentation technique externe (recherche et lecture publiques du 2026-11-03 ; ne prouve aucune installation Next) :**
+
+- GitHub, [Best practices for creating a GitHub App](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/best-practices-for-creating-a-github-app) et [choix des permissions](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/choosing-permissions-for-a-github-app).
+- GitHub, [Valider les signatures de webhook](https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries), [gestion des livraisons échouées](https://docs.github.com/en/webhooks/using-webhooks/handling-failed-webhook-deliveries).
+- Cursor, [CLI](https://cursor.com/docs/cli/overview), [authentification CLI](https://prod.cursor.com/docs/cli/reference/authentication), [Cloud Agents API v1 — bêta publique](https://prod.cursor.com/docs/cloud-agent/api/endpoints).
+
+*Fin du premier état d'étude D — les compléments de revue Morris et ENV-01 sont intégrés aux sous-sections suivantes ; le présent document reste une candidate R4 non mergée.*
+
+#### 5.7.14. Revue produit Morris et proposition de politiques de données — 2026-11-03
+
+##### 5.7.14.1. Décisions d'orientation acquises versus questions non tranchées
+
+| Sujet | Portée du propos de Morris (orientation produit) | Ce qui reste une proposition et non un ADR adopté |
+| --- | --- | --- |
+| Déploiement | **Phase 1 : application sur son PC ; phase 2 : serveur distant, OVH possible, accès par nom de domaine.** | Mode exact de packaging, système hôte, capacité VPS/managed DB, PRA et coût |
+| Données | **PostgreSQL accepté**, avec recommandation technique de ChatGPT | Version, exploitation, schéma, stratégie de stockage binaire, migration et réplication |
+| Git | **GitHub App à droits limités** et séparation de l'identité Pilote, des lectures Studio/Nora et des privilèges de Cursor | Modèle d'authentification, catégorie de jetons, consentement et permissions effectives par opération |
+| Cursor | **CLI privilégiée** pour l'amorçage, Cloud Agents API admise en comparaison ; interdiction d'une publication/push/PR hors contrat | Sélection du mode et capacités d'isolation, STOP, consultation, idempotence/ACK et observabilité à prouver |
+| Préparations | Retrouvabilité après **quinze jours** explicitement souhaitée ; bonne politique de suppression et de backup déléguée à la proposition ChatGPT | Durée complète, archivage, corbeille, purge, sauvegarde et restitution ci-dessous soumis à une décision de contenu |
+
+**Statut de la présente section :** orientations produit exprimées par Morris ; **politique DATA-01 candidate**, non VALIDATED SPEC, non Git et non exécutée. Les règles R2 D2/D4/D6/D7/D8 conservent leur autorité. Les durées exprimées sont un point de départ de conception, pas une garantie opérationnelle ni un contrat légal.
+
+##### 5.7.14.2. Déploiement identique local → serveur, sans migration applicative de doctrine
+
+**Architecture recommandée :** un produit web et backend modulaire, une base PostgreSQL dès la phase locale, mêmes schémas/migrations/test de reprise pour les deux environnements ; base indépendante du code source ; fichiers/artefacts et secret store hors dépôt. Les composants logiques D1–D9, décisions, contrats et tentatives conservent les mêmes identités au passage sur serveur. L'application locale est accessible depuis le navigateur du PC (`localhost`) ; cette adresse n'est pas un serveur public.
+
+| Phase | Forme opérationnelle candidate | Garde-fous et preuve attendue |
+| --- | --- | --- |
+| **1 — locale** | Application web locale + PostgreSQL sur le PC, configurations/volumes persistants séparés, profil d'exécution unique ou équivalent | Relance après reboot sans perdre préparation, décision, document, contrat ou tentative ; comptes secrets non stockés dans repo ; test de restauration hors base courante |
+| **2 — distante** | Serveur Linux (VPS OVH ou équivalent), domaine/DNS, terminaison HTTPS, backend et worker borné ; PostgreSQL sur même VPS **possible au départ** si ressources, isolation et backups hors serveur le permettent, sinon PostgreSQL managé | Accès HTTPS, accès DB non public, secrets protégés, journaux sans jetons, backups chiffrés hors machine et restauration exercée ; pas de Kubernetes ni cluster imposés |
+| **Migration** | **Migration gouvernée ponctuelle**, pas une synchronisation local ↔ distant implicite : geler les mutations et tentatives externes, sauvegarder, exporter de manière cohérente PostgreSQL et artefacts, transférer de façon protégée, restaurer puis vérifier intégrité/versions/ACL, reconfigurer secrets et callbacks, tester les 7 E2E critiques, basculer l'URL | Une **source de vérité active** après bascule ; preuve du nombre de projets/préparations, documents et révisions, décisions/suspensions, contrats/tentatives/états inconnus, références Git ; rollback par procédure explicite et sans double écriture |
+
+**Non-décisions :** OVH n'est pas retenu comme fournisseur ; une machine unique n'est pas affirmée suffisante sans dimensionnement ; PostgreSQL distant n'est pas supposé managé. Local et distant ne sont **pas deux registres actifs à réconcilier**. En cas de double activité après migration, refuser ou geler les effets externes tant que l'autorité de la base active n'est pas connue.
+
+##### 5.7.14.3. Proposition DATA-01 — conservation, archivage, suppression
+
+**Objectif produit :** protéger les acquis du Pilote sans imposer Git ni projet, empêcher les disparitions silencieuses, et limiter les données temporaires et les secrets.
+
+| Donnée / situation | Politique candidate recommandée | Contrôle vérifiable R5/R6 |
+| --- | --- | --- |
+| **Préparation sauvegardée non convertie** | **Pas de suppression automatique.** Visible/retrouvable bien au-delà de 15 jours. Après **90 jours d'inactivité**, déplacement dans une vue **Archives**, **sans destruction** et réouverture possible. | Reprise après 15/30/90+ jours simulée par horloge de test ; même fil et mêmes pièces, droits et état réels |
+| **Projet et préparation rattachée** | Conservation tant que le projet existe, sans durée fixe basée sur l'inactivité ; documents/versionnement sous l'autorité de D4. | Réouverture, historique, lien sas/projet, version et preuve accessibles selon droits |
+| **Suppression volontaire** | Action du Pilote sur la cible accessible ; passage en **corbeille pendant 30 jours**, restauration possible. Puis purge du stockage actif et des blobs concernés ; présenter clairement la date/portée de suppression. Traitement plus rapide d'une demande d'effacement explicite quand les contraintes applicables l'exigent. | Suppression/restauration refusées hors droits ; date et contenu de purge vérifiables ; aucun document orphelin libre d'accès |
+| **Historique d'autorité/preuve** | Ne pas masquer une décision/historique nécessaire sous une suppression superficielle. Politique de minimisation, dissociation des données personnelles et conservation justifiée par obligation/risque à arbitrer ; suppression projet ≠ effacement silencieux de faits soumis à rétention applicable. | Reprise et piste d'audit non falsifiée ; pas de conservation illimitée de données personnelles sans justification |
+| **Documents en cours d'enregistrement** | États réels `PENDING / AVAILABLE / FAILED / UNKNOWN` ; la création de projet n'attend pas un document non essentiel ; un document nécessaire à l'acte constitue une précondition explicite. | Crash, échec d'upload, documents volumineux, reprise de sauvegarde sans prétendre que des octets sont durables |
+| **Données techniques temporaires / logs** | Éviter le contenu brut des conversations, clés et jetons dans les logs ; proposition **14 jours** de conservation des journaux techniques non critiques, ajustable selon risque, plus longue uniquement si preuve/incident justifie. Les garanties d'idempotence conservent leurs propres identifiants au moins aussi longtemps que la période réelle de rejeu possible. | Inspection des logs, absence de secrets, nettoyage sans autoriser un replay à effet doublé |
+
+**Pourquoi ne pas supprimer à J+15 ou J+90 ?** Les 15 jours expriment un **minimum d'usage**. Effacer automatiquement une préparation représentant une heure de travail contredirait le principe de continuité. L'archivage permet de garder un portefeuille lisible sans perte d'acquis. Les durées 90/30/14 jours sont **recommandées mais non validées par Morris**.
+
+##### 5.7.14.4. Sauvegardes, récupération et suppression différée dans les copies
+
+- **Snapshot logique cohérent :** PostgreSQL + inventaire des documents/artefacts correspondant aux révisions réellement durables ; manifestes datés et vérifiables. Une copie de DB seule n'atteste pas la récupération d'un fichier stocké ailleurs. Vérifier la procédure de sauvegarde compatible avec les écritures concurrentes et les états `PENDING/UNKNOWN`.
+- **Phase locale :** sauvegarde chiffrée **chaque jour où la machine est active**, contrôle d'une sauvegarde manquée au redémarrage, une copie **hors du disque/PC** ou moyen de sauvegarde séparé ; conservation candidate de **7 quotidiennes + 4 hebdomadaires**, plus sauvegarde avant migration/mise à jour structurante. Un job qui ne tourne pas pendant la veille du PC ne doit pas être réputé exécuté.
+- **Phase serveur :** sauvegarde chiffrée et automatique au moins **quotidienne** vers un stockage **hors de la machine serveur**, proposition **30 jours glissants**, surveillance des échecs et exercice de restauration au moins à chaque changement sensible puis périodiquement. Des sauvegardes sur le même VPS seulement ne protègent pas d'une perte du VPS.
+- **Objectifs candidats :** perte de données depuis la dernière sauvegarde réussie **ciblée à ≤24 h si la fréquence est effectivement tenue**, récupération testée sur environnement isolé ; ne pas promettre de RTO contractuel avant mesure de restauration et choix d'hébergement. Pour une continuité plus stricte, requalifier la fréquence/PITR selon les risques et coûts.
+- **Suppression vs backups :** suppression visible des données actives après la corbeille, copies chiffrées inaccessibles en utilisation normale jusqu'à expiration de leur rotation ; en cas de restauration d'une ancienne copie, **rejouer le registre des suppressions** avant remise en service pour éviter leur réapparition. Les délais d'effacement total et obligations légales sont à confirmer avant hébergement public.
+- **Preuves de restauration :** reproduire à partir d'une copie la même préparation (après 15 jours), le même fil, document/version, décision/suspension et tentative externe non terminée avec statut honnête ; tester absence de doublon après restauration.
+
+##### 5.7.14.5. GitHub et Cursor : séparation mise en œuvre au point d'effet
+
+**GitHub App recommandée :** connexion Studio du Pilote distincte de la permission de consulter un dépôt ; accès limité aux ressources et actions nécessaires. Une GitHub App peut être installée sur des dépôts sélectionnés et employer des jetons aux permissions bornées ; un jeton utilisateur n'a que l'intersection des droits de l'utilisateur et de l'application. Les tokens/sessions GitHub ne sont pas automatiquement transmis au runner Cursor. Références : [permissions/installation GitHub App](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-a-third-party), [user access token et intersection des droits](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-a-user-access-token-for-a-github-app), [tokens installation à permissions réduites](https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/generating-an-installation-access-token-for-a-github-app).
+
+**Cursor CLI privilégiée, mais non présumée sûre :** la CLI en mode non interactif peut écrire des fichiers et lancer des commandes. Une phrase dans l'instruction « ne pas push / PR » ne peut donc constituer la seule barrière. **Exiger un runner ou environnement effectivement isolé**, répertoire de travail borné, credentials Git absents si non autorisés, session/identité non mutualisée, contrôle de sortie et des mutations, processus suivi et capacité réelle d'arrêt vérifiée. Sans preuve d'isolation du CLI sur le PC de Morris, **aucun lancement automatique d'effet sensible**. Référence : [Cursor CLI](https://cursor.com/docs/cli/overview).
+
+**Cloud Agents API :** évaluer sur le même contrat et les mêmes tests : capacité à conserver contrat/version/cible, à contrôler la création de branche/push/PR, à récupérer l'identité du run après perte d'ACK, à arrêter une action, à isoler droits/secrets, coûts et disponibilité ; ne présumer ni absence de PR automatique ni STOP certain. Si l'API dépasse la CLI sur ces obligations et passe un gate réel, elle pourra la remplacer **derrière le même port D7**. Aucun double moteur.
+
+##### 5.7.14.6. Contrat de vérification et condition de passage à R5
+
+| Contrôle discriminant | Proof attendue au jalon approprié | Condition bloquante |
+| --- | --- | --- |
+| Démarrage local PostgreSQL | Reboot + reprise de 15 jours, documents, projets et décisions | Aucune perte silencieuse ; base/repo séparés |
+| Migration local → serveur | Export + import dans environnement de test, même IDs, ACL et documents, un seul état actif | Pas de divergence, pas de double dispatch externe |
+| Effacement/restauration | Corbeille 30j, purge, rotation backup, replay des suppressions | Aucune fuite hors droit ni réapparition après restore |
+| Identités GitHub | Deux Pilotes/dépôts et permissions asymétriques, droits révoqués | Pas d'élargissement par installation/connexion |
+| Cursor CLI/Cloud | Même contrat avec tentative de push/PR interdit, double appel, stop demandé et ACK perdu | Interdiction **technique** des effets interdits, pas simple consigne |
+| QA transverse | Oracles propriétaire, tests R5 avec code ; E2E/REAL borné R6 | Pas de claim BEHAVIOR PROVEN/ADOPTED sur une maquette ou un test local seul |
+
+**Avis de clôture documentaire :** ces réponses lèvent l'ambiguïté majeure **local vs serveur**, confirment PostgreSQL comme choix de direction et encadrent GitHub/Cursor. L'étude D peut être portée à une **revue R4 globale**, mais les durées de conservation, le packaging, la séparation des secrets, la capacité réelle des agents et les ADR restent **candidats**. Aucune mise à jour Git/PR/merge, aucune clôture R4 et aucun lancement R5 ne sont inférés de la présente section.
+
+#### 5.7.15. Politique candidate ENV-01 — environnements locaux, recette avant merge et promotion gouvernée (2026-11-03)
+
+**Origine du besoin produit :** Morris demande une application disponible sur `localhost` dès R5, un espace stable pour son usage, une version candidate testable intégrant les changements de branche *avant toute fusion*, un cycle diagnostic→correction→retest→recette, des secrets hors Git, puis une transposition contrôlée en environnement serveur et production. **Ceci demeure une conception architecturale R4 candidate ; la politique ENV-01 et ses seules insertions Next-only ont été validées et publiées sur la branche R4, sans code, déploiement ni PR/merge.**
+
+##### 5.7.15.1. Résultat, IN/OUT et règle de vérité
+
+**Résultat utilisateur :** le Pilote accède à un point d'entrée constant pour tester le produit stable et à une URL distincte pour la recette d'une évolution, sans que les modifications en cours de Cursor changent la version qu'il teste. Chaque rapport de recette, anomalie et contrôle désigne un **commit SHA effectivement servi**, un environnement, une version des données, des paramètres de test pertinents et les observations. **Un poste local éteint ou en veille ne peut garantir la disponibilité 24/7 ; l'exigence locale est « disponible pendant les sessions de travail, avec démarrage/reprise contrôlés ».** Le futur hébergement distant pourra fournir une disponibilité continue selon son contrat d'exploitation.
+
+**IN :** lanes DEV/RECETTE/STABLE, isolation de code/processus/build, base et volumes, gestion des ports, secrets/configuration, gel du candidat, construction/CI, recette humaine, anomalies, retest, promotion et vérification post-merge, lancement/restauration, sécurité des effets externes, préfiguration de la production. **OUT :** déploiement public dès R5, merge sans GO Morris, environnements pour chaque micro-tâche, synchronisation récurrente de données sensibles entre lanes, secrets partagés par défaut, exécution externe réelle en recette sans mandat et identités bornées.
+
+##### 5.7.15.2. Trois lanes locales distinctes, sans trois architectures métier
+
+| Lane (nom d'exploitation, non module métier) | Référence / point d'entrée local candidat | Données et contrôle | Autorité et usage |
+| --- | --- | --- | --- |
+| **DEV — développement** | Worktree de la branche de travail ; `http://localhost:3100` | Build/dev server, base `studio_dev`, volume docs DEV, config DEV ; Cursor peut écrire **seulement** dans son périmètre autorisé | Expérimentation/diagnostic/itérations ; **jamais une preuve de recette figée** |
+| **RECETTE — candidat immuable** | Worktree dédié en **HEAD détachée au SHA approuvé pour le test** ; `http://localhost:3200` | Build isolé depuis SHA exact, base `studio_review`, jeu de données connu/restaurable, volumes REVIEW, comptes/jetons à droits limités | Morris vérifie scénarios, constate anomalies et rend son verdict sur **cette version précise**. Pas de hot reload ni modification de sources pendant session |
+| **STABLE — version intégrée qualifiée** | Worktree/artefact d'une version `main` **épinglée et vérifiée**, `http://localhost:3000` | Build, DB `studio_stable`, volumes STABLE et secrets distincts | Reprise et utilisation normale locale du Pilote ; une fusion sur `main` ne modifie pas automatiquement la version exposée avant contrôle post-merge |
+| **PRODUCTION future** | Serveur HTTPS sous nom de domaine, configuration propre | DB, artefacts, sauvegardes et secrets **production exclusivement** | Promotion contrôlée de la même version qualifiée ; pas de production R5 présumée ni d'accès externe implicite |
+
+**Note de rationalisation :** il s'agit du **même code applicatif et des mêmes contrats métiers**, déployés trois fois avec isolation d'exécution. Trois processus web, trois DB/roles PostgreSQL, trois volumes documentaires et trois configurations d'authentification adaptés ; **pas trois systèmes décisionnels différents**. Pour garder un coût local faible, DEV peut n'être lancé qu'en cours de travail, et RECETTE uniquement lors de la validation ; STABLE reste démarrable indépendamment et peut être maintenu actif pendant la session. Les ports proposés sont configurables mais **stables par lane** ; si occupés, le lancement doit échouer explicitement ou demander un reparamétrage tracé, jamais annoncer `3000` puis démarrer silencieusement sur `3021`.
+
+**Isolation Git conseillée :** worktrees séparés du dépôt `sfia-workspace` plutôt qu'un seul dossier dont on change constamment la branche. Le candidat RECETTE peut être checkout en detached HEAD pour éviter de modifier la branche utilisée par DEV ; un seul propriétaire d'écriture pour chaque worktree. Aucun contrôle ne prétend connaître les `staged/untracked` locaux avant exécution effective d'un pré-check par Cursor. Le travail candidat peut combiner `main` + le diff de branche ; le **SHA réellement lancé** doit être celui du résultat testé. Sur avancée de `main`, refaire le contrôle de compatibilité/merge prospective et les tests ciblés.
+
+##### 5.7.15.3. Contrat de configuration : secrets et services
+
+**Règle de sécurité :** les valeurs sensibles demeurent dans des fichiers hors versionnement (`.env.local`/fichiers propres aux lanes) ou un secret store local sécurisé. **Git ne contient que les noms/explications des variables** (`.env.example` sans secrets), des règles `.gitignore`, et les contrôles d'absence de secret. Ne pas exposer de clés côté navigateur, dans les captures, dans les logs ni dans les bundles : les variables marquées comme publiques par le framework ne contiennent **aucun secret**.
+
+**Familles à prévoir (noms indicatifs, non contrat de variables adopté) :** identité de la lane/port/URL de base ; URL, utilisateur et mot de passe de la base propre à la lane ; répertoire ou stockage des documents et clé de chiffrement si retenue ; session et cookies/signatures ; OpenAI API et budget/quotas ; GitHub App client/installation et clés privées ou mécanisme d'authentification adapté, callbacks par origine ; capacité Cursor CLI/Cloud et credentials propres à son environnement **seulement si réellement nécessaires** ; URL et contrôle d'origine des webhooks ; journalisation/observabilité expurgée. Toute variable manquante indispensable doit provoquer un refus de démarrage ou rendre **seulement la capacité correspondante** non disponible, avec cause explicable. Les autres fonctions cognitives non dépendantes doivent continuer.
+
+**Séparation forte :** un token de production n'est pas réutilisé dans DEV/RECETTE ; la recette ne cible pas des dépôts de production en écriture. Les clés GitHub App et les callbacks OAuth doivent correspondre au hostname/port réellement desservis, selon les possibilités et contraintes vérifiées du fournisseur. Le runtime stable a ses propres paramètres d'isolation et ses secrets de session ; aucun runner Cursor non maîtrisé ne reçoit l'environnement complet de Studio ni ses droits d'écriture distants. Pour tester une mutation, utiliser un dépôt Git de test contrôlé, une identité de test et un mandat borné ; la simple possession d'une clé ne confère pas autorité produit.
+
+**Gestion opérationnelle simple attendue R5 :** commandes de type `dev:start`, `review:deploy <sha>`, `stable:start`, `review:reset`, `status`, `logs` et `backup:verify` **comme capacités d'exploitation à spécifier**, pas comme scripts déjà créés. Démarrage idempotent, état des ports/services/DB, migrations contrôlées, erreurs d'auth et de connexion exposées, stop propre. Packaging par conteneurs compose ou équivalent candidat ; le moteur de conteneurs, le format du CLI et les noms exacts restent à décider avec la stack avant construction.
+
+##### 5.7.15.4. Cycle nominal d'intégration et gates
+
+1. **Qualification du macro-lot R5 :** besoin, RG/PF, UX, impacts, contrat, STOP, scénarios nominaux/négatifs et preuves ; création d'une branche de travail sous les droits et mandats applicables.
+2. **Construction DEV :** Cursor modifie la branche autorisée ; tests ciblés + intégration + sécurité + documents + lint/build, sans modifier la STABLE. Dev peut évoluer librement, mais les effets externes restent gouvernés D6/D7.
+3. **Gel du candidat de recette :** commit et SHA identifiés, base Git et diff requalifiés, état local propre ou réserves tracées ; build reproductible issu de ce SHA, CI applicable et migrations/fixtures qualifiées. La version publiée en RECETTE est **immuable pendant le test**.
+4. **Mise à disposition :** déployer vers RECETTE les code/build/config et DB/volumes propres, avec résultat de migration et données de test connues. Fiche de session : SHA, base, date, URL/port, schéma/jeu de données, capacités Git/OpenAI/Cursor réellement disponibles, erreurs/risques connus et scénario à vérifier.
+5. **Recette Morris :** parcours de réussite/refus/reprise, observation navigateur et preuves selon le risque ; décision `accepté pour intégration`, `accepté avec réserves admissibles`, `refusé` ou `reporté`. Le verdict utilisateur n'invente pas une preuve D8 ni une conformité technique.
+6. **Anomalie :** reproduire sur SHA et données connus ; sévérité, attendu/observé, captures/logs sans secrets, propriétaire et blast radius ; diagnostic/correction sur branche DEV. **Nouveau commit = nouvelle version RECETTE** avec tests de non-régression et re-validation des assertions impactées. Aucune correction silencieuse directement dans RECETTE.
+7. **Gate PR/merge :** la PR peut être ouverte **avant** le verdict de recette si elle sert à la revue/CI, uniquement sous GO applicable ; **le merge reste interdit** avant revue/tests/recette et GO Morris distinct. Vérifier `main`/base à jour et intégration prospective ; requalifier tout changement de contenu survenant depuis la recette.
+8. **Post-merge et promotion STABLE :** sur le commit effectivement intégré dans `main`, refaire au minimum build, tests de contrat et smoke navigateur + DB/permissions/absence de régression adaptés. Si le merge a créé un arbre différent de celui testé, étendre les tests selon le diff ; **ne pas annoncer la version stable tant que la vérification n'est pas passée**. Le nouvel artefact validé est ensuite promu, avec sauvegarde et plan de retour à la version antérieure (rollback code **≠** rollback automatique de schéma/données).
+9. **Qualification R6 / publication future :** campagnes multi-capacités et E2E/REAL bornés, sécurité, accessibilité, migration et reprise ; release distante uniquement après autorisation, sauvegarde, revue de migration et GO Morris dédié. Une validation locale ou un merge ne constitue pas `ADOPTED`.
+
+**Exemple vérifiable :** `main` intègre le sas actuel (stable SHA S), Cursor prépare l'ajout de documents sur branche B. Morris teste la **combinaison S + B**, figée au SHA C, sur `localhost:3200` avec `studio_review`. Une anomalie de sauvegarde génère un nouveau SHA C2 après correction, une recette C2 et des preuves nouvelles. Après GO et merge M, contrôles sur M avant de promouvoir STABLE de S à M. Pendant tout le processus, `localhost:3000` reste sur S et ses données ne sont pas réinitialisées.
+
+##### 5.7.15.5. QA, sûreté des données et erreurs attendues
+
+| Cas discriminant | Oracle vérifiable et condition d'acceptation | Porteur |
+| --- | --- | --- |
+| DEV modifié pendant une session RECETTE | SHA/artefact et comportement de RECETTE **inchangés** ; aucun hot reload distant | R4 environnement ; R5 test d'isolation |
+| Commit correctif pendant recette | Ancien verdict attaché à ancien SHA ; nouvelle recette C2 avec contrôles impactés | R5 QA et gate Morris |
+| Port 3000/3100/3200 pris | Refus explicite ou configuration traçable ; **pas** de fallback invisible | R5 exploitation |
+| Base DEV reset / migration | Données STABLE et RECETTE inchangées ; rôle et volume isolés | R5 DB/contrôles |
+| Déclenchement réel Cursor/Git en RECETTE | Bloqué par défaut ou autorisé **dans un bac à sable borné**, sous mandat applicable, sans secret production ni dépôt projet partagé non autorisé | R5 sécurité D6–D9 ; R6 REAL borné |
+| Mauvais fichier `.env` / variable manquante | Démarrage/refus de capacité explicitement qualifié ; aucune clé dans client/log/screenshot | R5 sécurité |
+| Migration non compatible retour arrière | Backup et plan de migration/roll-forward/repli documentés ; aucune promesse de rollback DB spontané | R5 exploitation |
+| PR basée sur ancien `main` | Base prospective vérifiée ; changement d'arbre → tests et revue réévalués avant merge | Git/CI gate |
+| Fusion effectuée malgré échec de recette | **Interdite par la politique** ; contrôle de branche et protection de merge à prouver | Gouvernance Morris/CI |
+| Régression après merge | STABLE reste sur ancienne version tant que post-merge ne passe pas ; incident et plan correctif/retour tracés | R5 release interne |
+| Redémarrage du poste | Sessions/processus relançables ; données persistantes restaurables ; environnement hors ligne si PC éteint explicité | R5 exploitation |
+| Recette et STABLE avec même document/compte | Isolation des données démontrée ; aucune mutation vers l'autre DB | R5 QA / sécurité |
+
+**Niveaux de preuve :** vérification Git/CI `≠` fonctionnement navigateur `≠` exécution externe REAL. Le rapport de recette relie scénarios R2/UX, conditions, environnement, SHA, erreurs et preuves ; le rapport de qualification R6 rejoue les traversées multi-capacités. Les preuves et tests appartiennent aux macro-lots de construction concernés, sans duplication d'un registre normatif QA.
+
+##### 5.7.15.6. Décisions de R4 et trajectoire de livraison
+
+**Recommandation technique à approuver au gate R4 :** ENV-01 devient un contrat de construction transverse **avec trois lanes locales logiquement isolées** (simultanéité au besoin, pas obligation de garder trois serveurs actifs en permanence), recette sur un SHA figé, non-fusion avant qualification et GO Morris, contrôles après intégration, secrets séparés, PostgreSQL par lane et futures procédures `staging → production` sans réécriture de la doctrine. Le runtime local et ses trois profils sont une seule application avec des données et des processus distincts, pas trois versions concurrentes de la vérité du projet.
+
+**Capacité suivante R5 :** livrer dès le premier macro-lot vertical **l'infrastructure minimale de testabilité** : démarrage DEV/RECETTE/STABLE, ports déclarés, bases/volumes isolés, fichiers exemple sans secrets, recette par SHA et fiche de déploiement ; puis ajouter CI, automatisation et scénarios pertinents dans le même lot qui produit la capacité. **Pas de macro-cycle infra théorique déconnecté d'un parcours utilisateur**. La future mise en production demandera un gate supplémentaire sur DNS/TLS, sauvegardes distantes, sécurité et coûts.
+
+**Questions encore ouvertes, sans bloquer la revue de cette proposition :** capacités matérielles effectives du PC, choix de packaging, solution de lancement automatique des services, intégration locale GitHub OAuth/callbacks, identité des dépôts de tests, seuil d'inactivité de recette et conventions exactes de versions/artefacts. Le premier pré-check R5 doit les mesurer, pas les inventer. La politique ENV-01 est **VALIDATED CONTENT BY MORRIS — ON R4 CANDIDATE BRANCH**, avec routage documentaire Git vérifiable ; ses mécanismes DEV/RECETTE/STABLE sont **NON IMPLÉMENTÉS**. Aucun PR, merge, code ni clôture formelle de R4 ne découle de cette publication.
+
+
+#### 5.7.16. Gouvernance ENV-01 et routage obligatoire à la construction — proposition de clôture R4 D (2026-11-03)
+
+**Clarification Morris :** la séparation DEV/RECETTE/STABLE et la qualification avant merge doivent être une **gouvernance durable de Next**, consultée à chaque nouveau cycle Cursor pertinent. Une phrase dans un ancien prompt ou une instruction locale non référencée ne suffit pas.
+
+**Source canonique D2 validée par Morris et publiée sur branche R4, unique :** `projects/sfia-studio-next/governance/environnements-recette-et-promotions.md` — document de gouvernance v0.1 préparé séparément, avec contrat des trois lanes, commit SHA de recette figé, DB PostgreSQL par lane, fichiers de secrets exclus de Git, préparation et retest des anomalies, autorité de PR/merge/promotion, contrôles post-merge et extension vers serveur/staging/production. La politique DATA-01 (§14) reste une proposition distincte de conservation et de sauvegardes ; elle ne doit pas être recopiée intégralement dans la politique ENV-01.
+
+**Routage Next-only intégré dans les sources SFIA v2.6 de la branche R4 (sans second template) :**
+
+1. `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` **§4.3.0b** : déclencher la lecture du document d'environnement pour toute construction, QA, recette, correctif, migration, PR readiness, post-merge ou release de Next ; laisser l'ancien Studio §4.3.0a intact.
+2. `prompts/templates/sfia-cycle-execution-template.md` **§2.0.H, mini-fiche §2.0.D, fiche §3 et squelette §5** : exiger une ref Git réellement consultée, un statut `REQUIRED / N/A`, les lanes/versions/DB/ports/secrets, le SHA candidat, les tests et gates, avec bloc concret dans chaque prompt Cursor applicable.
+3. **STOP ChatGPT** `PROMPT NOT GENERATED — NEXT ENVIRONMENT CONTRACT INCOMPLETE` si politique active non consultée ou contrat d'environnement non qualifié ; **STOP Cursor** `STOP — NEXT ENVIRONMENT GATE FAILED` en cas de mauvaise lane, pollution des données, secrets croisés, candidat RECETTE mutable ou effet sans autorisation.
+4. **Gate D2 Morris satisfait pour cette contribution documentaire :** contenu ENV-01 validé, écritures sur branche R4 autorisées pour `governance/` et les deux fichiers partagés `method/`/`prompts/`. **PR, merge, `main`, code et promotion restent sous GO distincts.** Le **push L3 de review-handoff v2.6**, mono-fichier, reste distinct de tout push projet.
+
+**Contractualisation R5 :** au premier macro-lot vertical, Cursor doit livrer les lanes techniquement fonctionnelles, les tests d'isolement, la recette par commit figé et les opérateurs de diagnostic nécessaires, en même temps que la première capacité utilisateur. **R6** reprend les E2E et l'extension de qualification. Cette exigence vaut **sur le périmètre des futurs prompts après activation Git du routage**, pas comme une capacité d'environnement déjà implémentée.
+
+**Statut : `R4-D DESIGN CANDIDATE ON BRANCH ; ENV-01 VALIDATED CONTENT + NEXT ROUTING ON BRANCH`.** Le guide, le template et la politique de gouvernance sont synchronisés sur la branche R4 uniquement ; aucun environnement, code, PR, merge, fermeture R4, comportement navigateur ni adoption ne sont inférés.
+
 ## 6. Questions structurantes ouvertes pour R4
 
 | ID de suivi interne à ce cadrage | Question à instruire | Livrable/gate attendu |
@@ -967,15 +1451,16 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 | 2026-11-03 / revue Morris B | Conception B examinée sans objection produit ; ses choix techniques restent candidats, non adoptés | **REVUE FAVORABLE / PAS VALIDATION D'ADR** | Synchroniser la candidate et poursuivre vers C |
 | 2026-11-03 / mandat Morris QA | Stratégie QA transverse A–D avec niveaux de preuve par jalon R4/R5/R6 | **MANDAT DOCUMENTAIRE / STRATÉGIE CANDIDATE** | Préparer les oracles en R4, tester avec R5, qualifier en R6 |
 | 2026-11-03 / GO Morris C | Macro-lot C §5.6 intégré, vingt-quatre scénarios candidats QA, frontières D6/D7/D8/D9 | **CONTENU CANDIDAT SUR BRANCHE, NON ADOPTÉ** | Concevoir et confronter D puis revue globale R4 |
+| 2026-11-03 / validation Morris ENV-01 et GO Git | Politique de gouvernance de delivery et routage Next-only dans guide/template SFIA v2.6 ; D §5.7 et consolidation A–D sur branche R4 | **D2 CONTENT VALIDATED — BRANCH ONLY ; D ARCHITECTURE CANDIDATE** | Revue globale Morris et gates PR/merge/R4 distincts |
 
 ## 10. Situation actuelle et prochaine étape
 
 **Constat Git :** `main@7067c846ce7c57825dd31c532433d809e1a01216` ; source documentaire Next intégrée ; **R4 NOT STARTED** ; code, architecture cible et preuves runtime Next **N/A — NON IMPLÉMENTÉ**. Aucune branche R4 locale, fichier staged/untracked, environnement d'exécution ou activation n'a été vérifié.
 
-**Prochaine capacité :** concevoir intégralement le macro-lot D — intégration Git facultative, identités, droits, API/outils externes, UX et observabilité transverses, puis consolider A–D et la feuille de route R5, sans déclencher de réalisation technique. Les scénarios QA sont définis en R4, exécutés graduellement en R5 et qualifiés de bout en bout en R6.
+**Prochaine capacité :** revue globale R4 par Morris : A/B/C/D, choix structurants et réserves, cohérence des sources et preuves de routage ENV-01 sur la branche. Puis gate distinct PR/merge et formalisation de la sortie R4 ; R5 n'est pas engagé implicitement. Les scénarios QA seront implémentés progressivement avec les capacités R5, puis qualifiés transversalement en R6.
 
-**Autorisation actuelle :** Morris a autorisé l'intégration de la conception C sur la branche R4 et la poursuite du dernier macro-lot D, en continuité des revues A/B et de la stratégie QA. La technique A/B/C reste **candidate**, non adoptée. PR, merge, mise à jour normative, code, prompt Cursor, adoption et choix structurants exigent des gates distincts.
+**Autorisation actuelle :** Morris a explicitement validé ENV-01 et ses raccords de routage dans les fichiers partagés SFIA v2.6, et autorisé leur publication documentaire avec la conception D sur la branche R4. La technique A/B/C/D demeure **candidate** et DATA-01 reste à arbitrer. PR, merge, écriture sur `main`, code, prompt Cursor, adoption et décisions architecturales définitives nécessitent leurs gates propres.
 
 ---
 
-**État du document au 2026-11-03 : `R4-A/B — DESIGN CANDIDATE REVIEWED ; R4-C — DESIGN CANDIDATE ON BRANCH ; QA A–D — DESIGN STRATEGY ; R4-D — DESIGN TO COMPLETE`. Aucun mécanisme technique Next ni architecture ADOPTED.**
+**État du document au 2026-11-03 : `R4-A/B/C/D — DESIGN CANDIDATE CONSOLIDATED ON BRANCH ; ENV-01 — D2 CONTENT VALIDATED AND ROUTED ON BRANCH ; QA A–D — DESIGN STRATEGY ; R4 GATE NOT CLOSED`. Aucun mécanisme technique Next ni architecture ADOPTED.**
