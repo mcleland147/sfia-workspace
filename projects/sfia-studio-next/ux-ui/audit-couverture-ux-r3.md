@@ -1039,7 +1039,7 @@ Les **41 règles RG-GIT** restent sous autorité de la spécification D9 R2. Les
 
 ## 15. Couverture de la consolidation Nora — activité, arrêt/reprise et fidélité Figma–code
 
-**GO Morris de construction du macro-lot :** périmètre autorisé en conception UX. **Statut de contenu : DOCUMENTED / FIGMA CANDIDATE — MORRIS REVIEW PENDING**. Les responsabilités R1/R2 sont reprises de leurs sources validées ; **les compléments normatifs doivent être approuvés en D2 avant publication**.
+**GO Morris de construction du macro-lot :** périmètre autorisé en conception UX. **Statut de contenu : DOCUMENTED / FIGMA CANDIDATE — MORRIS REVIEW PENDING**. Les responsabilités R1/R2 sont reprises de leurs sources validées ; **les quatre clarifications ont été approuvées en D2 par Morris et publiées sur la branche candidate R3**.
 
 ### 15.1. Contrat et inventaire
 
@@ -1070,7 +1070,7 @@ Les **41 règles RG-GIT** restent sous autorité de la spécification D9 R2. Les
 
 **Manifeste actualisé lors de l'audit final :** les 223 frames et **901 blocs racines visibles** possèdent un index versionné dans Git ; les calques profonds et variables de style doivent être extraits et comparés lors de l'implémentation. Le contrat visuel énonce une cible mesurable sur 03, 06, 206 et 216, avec tokens à arbitrer et exemples natifs de couleurs/typographies.
 
-**Découpage de validation :** (1) **ce macro-lot UX : candidat à revue Morris** ; (2) proposition normative R1/R2 D3/D6/D7/D8 : **D2 NON VALIDÉE, NON PUBLIÉE sur Git** ; (3) R4–R6 : architecture des événements/STOP/reprise et preuves runtime à construire. **Aucun R3 EXIT, PR, merge, implémentation LIVE/REAL ou adoption.**
+**Découpage de validation :** (1) **ce macro-lot UX : candidat à revue Morris** ; (2) quatre clarifications normatives R1/R2 D3/D6/D7/D8 : **D2 VALIDÉE MORRIS, INTÉGRÉE sur branche candidate** ; (3) R4–R6 : architecture des événements/STOP/reprise et preuves runtime à construire. **Aucun R3 EXIT, PR, merge, implémentation LIVE/REAL ou adoption.**
 
 ### 15.4. Réserves et obligations de la revue
 
@@ -1079,7 +1079,7 @@ Les **41 règles RG-GIT** restent sous autorité de la spécification D9 R2. Les
 3. La configuration de l'animation et des données API est **à concevoir/prover en R4/R5/R6**, pas déduite de la capture de ChatGPT.
 4. Un index de 223 frames ne signifie pas 221 écrans de produit à développer séparément. Préparer composants réutilisables et une capture/suite de tests par état.
 5. Avant tout verdict « conformité visuelle », comparer la source Figma datée, les dimensions mesurées, les styles calculés et le rendu navigateur dans les viewports retenus.
-6. Contrat R1/R2 et nouveaux scénarios PF/RG **non validés dans ce lot**. La décision Morris D2 est le gate de leur intégration Git normative.
+6. Les **quatre clarifications R1/R2 sont validées par Morris et intégrées sur la branche candidate**, en complément des règles RG/PF existantes ; aucune nouvelle numérotation RG/PF n'est créée et aucune preuve R4–R6 n'est déduite de ce GO.
 
 **Verdict :** couverture de conception candidate, préparée pour revue Morris ; R3 GLOBAL REVIEW PENDING, aucune PR/merge/R4/ADOPTED.
 
