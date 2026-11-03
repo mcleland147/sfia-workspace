@@ -3,13 +3,13 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | Nature | **Document de cadrage vivant** du jalon R4 ; support de travail et de synthèse, sans création d'une seconde autorité normative |
-| Version | **v0.7 — macro-lots A/B et stratégie QA R4–R6**, 2026-11-03 ; candidate documentaire publiée sur branche R4 |
-| Statut | **A — ORIENTATION PRODUIT REVUE / TECHNIQUE CANDIDATE ; B — REVUE MORRIS SANS OBJECTION, DESIGN CANDIDATE ; QA A–D — STRATÉGIE CANDIDATE AUTORISÉE À LA SYNCHRONISATION**. C à concevoir ; aucun ADR, stack, runtime ou ADOPTED |
+| Version | **v0.8 — macro-lots A/B/C et stratégie QA R4–R6**, 2026-11-03 ; candidat de conception synchronisé sur branche R4 |
+| Statut | **A — ORIENTATION PRODUIT REVUE / TECHNIQUE CANDIDATE ; B — REVUE SANS OBJECTION / CANDIDATE ; C — CONCEPTION CANDIDATE INTÉGRÉE SUR GO MORRIS ; QA A–D — STRATÉGIE DOCUMENTÉE**. D à concevoir ; aucun ADR, stack, runtime ou ADOPTED |
 | Responsable des arbitrages | Morris |
 | Rédaction / analyse | ChatGPT, sous contrôle des sources Git et des décisions Morris |
 | Référentiel observé | `mcleland147/sfia-workspace`, branche distante `main@7067c846ce7c57825dd31c532433d809e1a01216` et candidate `sfia/next-r4-architecture-scoping@9898aa6965f10d3fcadd6958f6eacd1d9657450e` (contrôle Git 2026-11-03 ; 1 commit devant, 0 derrière, un seul fichier ajouté) |
 | Situation technique | **Next : N/A — NON IMPLÉMENTÉ**. Aucun code ni schéma de données cible adopté ; branche locale / index / worktree **NON OBSERVÉS** |
-| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` sur `sfia/next-r4-architecture-scoping`, issue de `cf3f14dc33b642f7e96e5aa12f66074ffa112eeb` ; mise à jour B + QA mandatée par Morris, sans PR/merge |
+| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` sur `sfia/next-r4-architecture-scoping` ; C ajouté après B/QA sur GO Morris, sans PR ni merge |
 
 ## 1. Finalité et position de départ
 
@@ -598,6 +598,233 @@ L'absence de cycle ou de méthode est un **état normal**. Une technique locale 
 
 **Suite si revue B favorable :** C — contrat d'exécution inspectable, contrôle au point d'effet, tentative Cursor, STOP réellement observé et preuves D8, sans dupliquer l'autorité D6. Ne pas anticiper le choix des infrastructures ou le statut de sortie R4 global.
 
+### 5.6. Macro-lot C — réalisation gouvernée et preuves (conception candidate revue pour intégration)
+
+**Source :** [D6](../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), [D7](../conception-fonctionnelle/realisation-operationnelle-gouvernee.md), [D8](../conception-fonctionnelle/resultats-et-preuves.md), [D9](../conception-fonctionnelle/integration-git-gouvernee.md), UX R3 et stratégie QA §8.1. **GO Morris du 2026-11-03 :** intégration du contenu candidate C au document vivant sur la branche R4, puis poursuite de la consolidation D ; aucune validation d'ADR, de fournisseur Cursor, de modèle de persistance, de preuve LIVE/REAL ou d'adoption.
+
+**Contrat de sortie C :** préparation intellectuelle sans effet → contrat versionné inspectable → acte D6 « Exécuter » → précontrôles sur droits/contrat/risque → tentative D7 corrélée et observations réelles → qualification D8 par critère → synthèse Nora → acceptation/refus D6 distincts. Le scénario de réponse perdue reste **UNKNOWN**, sans retry automatique à risque. Les 24 scénarios ci-dessous sont des **candidats QA**, non des tests exécutés.
+
+#### 5.6.1. Résultat produit, frontière et décision de conception recommandée
+
+**Résultat Pilote :** Nora peut investiguer et préparer un travail. Lorsque la réalisation exige un effet externe, le Pilote inspecte un contrat dont l'instruction exacte est accessible, autorise explicitement *Exécuter*, suit seulement l'activité observable, peut demander un arrêt si la capacité existe, puis reçoit une synthèse fidèle distinguant résultat déclaré, fait constaté, conformité évaluée et réception humaine. Une correction ultérieure est un nouveau contrat gouverné ; une correction interne déjà comprise dans la tentative autorisée reste permise sous ses limites.
+
+**IN :** frontière cognitive/exécution, contrat versionné et inspectable, identité des cibles et engagements, mandat D6, capacités D9 et exécutant réel, contrôle au point d'effet, tentative et dispatch fiable, contrôle de doublon, corrélation et reprise, état observable, STOP, effets partiels, provenance des résultats, évaluation D8 par critère, synthèse Nora, réception D6, erreurs/permissions/confidentialité et niveaux de preuve QA.
+
+**OUT :** implémentation Next, promesse de capacité Cursor non vérifiée, supervision continue du raisonnement/commande par Nora, moteur universel multi-agents, Git imposé à tout projet, nouveau moteur de gouvernance, plan de migration de l'ancien OA, contrôle global R4/R5/R6, adoption automatique.
+
+**Recommandation C1 :** poursuivre l'**application modulaire neuve** proposée pour A/B avec des responsabilités **D6 autorité / D7 réalisation / D8 qualification / D9 Git effectif**. La mise en file des effets externes peut nécessiter une **intention durable de dispatch** et un adaptateur d'exécution borné, mais ne justifie pas un moteur autonome général ni un second orchestrateur Nora. Le serveur produit possède les contrôles opposables ; Nora prépare et interprète, jamais le mandat ni le fait technique. *Choix candidat, non adopté.*
+
+#### 5.6.2. Responsabilités et architecture logique
+
+| Propriétaire | État détenu / interface | Interdiction structurante |
+| --- | --- | --- |
+| **D1/D2** | Pilote et projet personnel effectivement autorisés, contexte de sas/projet | Un mandat ne peut traverser implicitement les projets ou les utilisateurs |
+| **D3 Nora** | Rédaction du contenu cognitif, préparation intellectuelle du travail, lecture et synthèse du bilan | Aucune création de mandat, dispatch, acceptation ou preuve autonome par prompt |
+| **D4 Connaissance** | Sujets, sources et documents, références d'acquis et points ouverts | Ni registre de tentatives, ni journal D6 ou verdict D8 parallèles |
+| **D5 Pilotage** | Contexte cycle/méthode/CKI quand existant | Un cycle n'est pas requis pour exécuter ; clôture de cycle ≠ acceptation |
+| **D6 Gouvernance** | Décision humaine opposable, validité de *Exécuter*, suspensions, restrictions, levées et réception | Aucun état technique Cursor inventé ; aucun droit Git déduit d'un GO |
+| **D7 Réalisation** | Contrat de réalisation, instruction associée, intention de lancement, tentative, corrélation, événements, observations disponibles, ordre STOP | N'émet pas de conformité ni d'acceptation ; ne rejoue pas aveuglément |
+| **Adaptateur d'exécution** (sous D7) | Capacité réellement attestée, vérification de l'identité et des paramètres, dispatch/lookup/STOP si disponibles, observations d'exécution | Aucune expansion de cible, permission ou contrat, aucune certification de résultat |
+| **D8 Résultats et preuves** | Éléments probatoires typés, vérification par critère, réserves et bilan daté révisable | Un rapport Cursor ne se certifie pas lui-même ; aucune réception D6 |
+| **D9 Git gouverné** | Dépôt, ref/base, identité et permissions, mutations et observations Git réelles | La connexion Studio ne vaut pas droit Git ni résultat conforme |
+| **UI** | Projections lisibles du contrat, de l'activité et des preuves depuis leurs propriétaires | Un bouton, une animation ou une navigation ne confirment aucun effet |
+
+**Vue des frontières (logique, non déploiement) :**
+
+```mermaid
+flowchart TD
+  N[Nora : proposition cognitive] --> C[D7 : contrat et instruction versionnés]
+  C --> U[UI : quatre engagements, six volets, instruction consultable]
+  U --> H[D6 : acte du Pilote « Exécuter »]
+  H --> P[D7 : précontrôles actuels]
+  G[D9 : identité, droits et référence Git si concerné] --> P
+  P --> T[D7 : tentative durable + dispatch borné]
+  T --> X[Adaptateur Cursor : capacité réellement disponible]
+  X --> O[D7 : événements et déclarations observables]
+  O --> E[D8 : confrontation des critères et des preuves]
+  E --> S[Nora : synthèse 9 rubriques]
+  S --> A[D6 : réception et décision du Pilote]
+  A -. nouvelle opération seulement .-> C
+```
+
+**Non-linéarité :** le contrôle avant effet peut refuser ; le dispatch peut rester incertain ; un STOP peut être indisponible ; des observations peuvent arriver après une coupure ; le Pilote peut continuer avec Nora sans attendre une tâche indépendante. La réception peut rester ouverte.
+
+#### 5.6.3. Contrat unique : aperçu, inspection et identité
+
+**Invariant :** il existe **un seul contrat métier versionné et immuable à l'instant de l'autorisation**, avec plusieurs vues et un rendu technique lié, pas trois mandats divergents. Les révisions créent une nouvelle version ; le snapshot autorisé demeure retraçable. Une demande cognitive, un brouillon et un contrat non autorisé ne sont pas des tentatives.
+
+**Présentation Pilot-first validée R2/R3 :** quatre engagements visibles : **Ce qui sera fait ; Ce qui ne sera pas fait ; Résultat attendu ; Votre contrôle**. Six volets consultables indépendamment, initialement repliés : (1) mission/résultats, (2) périmètre/effets, (3) exécutant/capacités/autorité, (4) limites/STOP/réversibilité, (5) validation/preuves/sources, (6) identité/intégrité. En détail distinct, l'**instruction technique exacte** destinée à Cursor est inspectable avant exécution avec secrets protégés.
+
+**Métadonnées minimales candidates (pas schéma adopté) :** `projectRef`, `pilotRef`, `contractId`, `contractRevision`, `businessSnapshot`, `instructionSnapshot`, `instructionFingerprint`, `targetBindings`, `resourceRefsWithVersions`, `effectClass`, `requiredPermissions`, `riskAndStops`, `testAndProofCriteria`, `createdBy`, `createdAt`, `supersedesRevision`, `currentValidity`. Une empreinte aide à contrôler l'intégrité mais **n'établit ni autorité ni permission**. Son format/canonisation et la signature éventuelle ne sont pas décidés.
+
+**Concordance bidirectionnelle :** pour chaque effet/cible/exclusion/risque important dans l'instruction, une information intelligible doit exister dans le contrat ; chaque engagement métier déterminant est présent dans l'instruction ou dans une précondition effectivement imposée par Studio. Le rendu « brut » ne peut masquer une action nouvelle derrière un placeholder ou une variable. Les secrets sont fournis sous contrôle au point d'effet, sans figurer dans la vue du Pilote, les logs ou la mémoire Nora. Un changement de cible, instruction, risque, version ou critère matériel invalide l'ancienne inspection et impose requalification D6.
+
+**Lecture UX sans effet :** ouvrir les volets, lire l'instruction, retourner au fil, inspecter le journal ou consulter une preuve ne crée aucune tentative. L'interface n'affiche « prêt » qu'au niveau des informations réellement vérifiées et recontrôle les capacités avant départ : « vérifiable au lancement » ne veut pas dire « autorisé durablement ».
+
+#### 5.6.4. Frontière d'autorisation et précontrôles : le seul point de lancement
+
+**Séquence candidate pour « Exécuter » :**
+
+1. **Identifier** le Pilote et le projet autorisés, la référence/version réellement affichée et l'acte de l'utilisateur ; les mots dans une source ou la proposition Nora ne font pas autorité.
+2. **Qualifier D6** : mandat sur **ce contrat, cette version et cette cible**, actif à cet instant, aucune suspension/révocation/contrainte prioritaire compatible avec un refus.
+3. **Requalifier D7** : contrat et instruction identiques au snapshot autorisé, périmètre, environnement, effets, STOP, risques irréversibles, capacité d'exécution supportée, version/base connue.
+4. **Interroger D9 si Git impliqué** : dépôt/ref/base, droits effectifs de l'identité exécutante au **point d'effet**, conflictualité et ressources réellement visées ; ne pas confondre lecture et écriture.
+5. **Créer/réutiliser** l'identité de commande idempotente et l'intention durable de lancement, selon un point de cohérence interne. Un double clic ne fabrique pas deux mandats.
+6. **Faire appliquer au dispatcher/adaptateur** les restrictions avant contact avec l'exécuteur. Les exigences qui ne peuvent pas être garanties par le fournisseur sont exposées comme limites **avant** tout lancement à risque.
+7. **Rattacher le résultat observable** : commande enregistrée, dispatch tenté, accusé corrélé, activité constatée, effet possible ou inconnu ; ne jamais passer directement de « clic » à « mission réussie ».
+
+**Éviter un TOCTOU trompeur :** une vérification faite lors de l'affichage ne suffit pas. Les décisions, droits, version, base Git et ressources sont recontrôlés aussi près que possible du point d'effet par la responsabilité réellement capable de les imposer. Une permission expirée entre deux contrôles impose le refus ou l'incertitude bornée ; elle ne doit pas être masquée par une UI optimiste.
+
+**Si le risque ou la réversibilité d'un effet déterminant sont inconnus :** pas de permission présumée par l'absence d'interdiction ; clarification ciblée ou retrait de l'effet concerné. Le risque acceptable ne dispense jamais d'une interdiction non dérogeable.
+
+#### 5.6.5. Tentative, dispatch, panne réseau et idempotence
+
+##### 5.6.5.1. La transaction interne n'englobe pas l'effet externe
+
+**Décision technique recommandée :** une **intention de dispatch durable et corrélée** à une tentative est enregistrée avant la transmission à Cursor (pattern de type *transactional outbox* si un bus local ou worker s'avère nécessaire). Cette intention est cohérente avec le mandat D6 et la version D7, mais **l'appel au fournisseur externe ne participe pas à la transaction SQL interne**. Ne jamais promettre une exécution « exactement une fois » sans support vérifiable du fournisseur ou mécanisme de réconciliation fiable.
+
+**Identités distinctes :** contrat/version, acte `Exécuter` D6, commande idempotente, tentative D7, corrélation externe, événements et artefacts. Une tentative ne se confond pas avec l'autorisation ; un contrat peut faire l'objet d'une nouvelle tentative **seulement sous un nouvel acte et une nouvelle identité applicables**, conformément à D6/D7.
+
+##### 5.6.5.2. Stratégie de non-rejeu et réconciliation
+
+| Situation | Traitement recommandé | Interdit |
+| --- | --- | --- |
+| Double clic avant dispatch | Même commande idempotente / même tentative retrouvée | Créer deux mandats ou deux exécutions |
+| Crash avant envoi **prouvé** | Reprendre après vérification des préconditions et de l'intention durable | Supposer un mandat encore valable sans contrôle |
+| Envoi potentiellement effectué, accusé perdu | **UNKNOWN / RECONCILIATION REQUIRED** ; rechercher corrélation chez l'exécuteur si l'API le permet | Réessayer aveuglément un effet possiblement produit |
+| Exécutant supporte idempotence démontrée | Réutiliser la même clé/corrélation dans sa portée documentée après recontrôles | Étendre cette garantie à Git ou à d'autres adaptateurs par analogie |
+| Aucune lecture distante ni idempotence disponible | Ne pas relancer automatiquement ; inspection/suite humaine et nouvelle commande si nécessaire | Déclarer « pas lancé » ou « relancé sans risque » |
+| Événement tardif ou dupliqué | Conserver provenance/ordre, reconnaître la tentative, dédupliquer les événements techniques déterministes | Écraser une contradiction ou remplacer l'histoire |
+| Redémarrage Studio | Recharger intentions/tentatives incomplètes, requalifier autorité et capacité, retrouver les acquis réels | Transformer un état incomplet en échec terminal fictif |
+
+**Garanties observables visées :** *au plus un nouveau dispatch injustifié par acte* **dans les capacités réelles de l'adaptateur** ; lorsqu'il n'est pas possible de le garantir, **pas de retry automatique à risque** et état explicitement incertain. Les opérations externes Git de D9 suivent leurs propres préconditions de ref et de non-écrasement.
+
+##### 5.6.5.3. Modèle d'observation multi-axes, sans machine d'état concurrente
+
+Pour l'affichage et l'audit, distinguer au minimum :
+
+- **Commande D7 :** proposition / autorisée / refusée / intention durable / envoi tenté / accusé ou inconnu ; ce sont des **états de contrôle**, non une confirmation du travail.
+- **Tentative externe :** disponibilité, activité reçue, issue déclarée, erreur, interruption demandée/transmise/observée ou état inconnu ; les événements sont attribués à leur source.
+- **Effets :** pas observés / partiels / observés par objet, avec provenance, environnement et version lorsque disponible.
+- **Qualification D8 :** déclaré, observé, critère étayé, non démontré, non conforme, contradictoire, daté et révisable.
+- **Réception D6 :** non décidée / acceptation / réserves / refus / report, selon l'acte compétent.
+
+Ces dimensions ne doivent **pas** être compressées en un unique champ universel `SUCCESS` qui masquerait les divergences. Les labels ci-dessus décrivent des faits interprétables, **pas des enums techniques adoptés**. Un statut technique déclaré terminé ne fait ni conformité D8 ni réception D6.
+
+#### 5.6.6. STOP, suspension et effets partiels
+
+**Contrat de commande :** une demande de STOP porte sur une **tentative/cible autorisée**, avec acteur, portée et motif utiles ; D6 conserve la restriction humaine, D7 transmet si le fournisseur supporte effectivement l'arrêt et journalise ce qu'il a observé. La reprise ne peut pas lever une suspension humaine.
+
+| Fait à distinguer | Sens admissible |
+| --- | --- |
+| STOP demandé | Le Pilote a exprimé l'intention ; les nouveaux effets concernés doivent être inhibés dans la portée contrôlable |
+| Ordre envoyé | L'intégration a transmis une commande ; cela **ne démontre pas** sa réception ou la cessation du travail |
+| STOP non supporté | Pas de capacité réelle disponible ; la limite est annoncée et les effets encore contrôlables sont bornés |
+| STOP observé | Une preuve suffisante établit que la tentative s'est arrêtée sur le périmètre observé |
+| STOP inconnu | Absence d'observation suffisante, avec risques et effets possibles conservés |
+| Effet produit avant/après demande | Retenu avec son horodatage/provenance ; aucune prétention d'annulation automatique |
+
+**Protocole de reprise :** relire contrat/version, décision et suspensions D6, état D7, droits/cible D9 si concerné, preuves et effets D8 ; exposer *réalisé / reste à faire / à vérifier*. Si l'opération externe est inconnue, ne pas fabriquer une relance sous l'ancien GO. La préparation d'un correctif est permise cognitivement ; son exécution nécessite **nouveau contrat + nouvel Exécuter**, même si elle paraît simple. Les ajustements au sein d'une tentative non terminée peuvent être réalisés seulement dans le mandat borné initial, sans élargissement.
+
+#### 5.6.7. Preuve et restitution : une conclusion révisable, pas un certificat automatique
+
+##### 5.6.7.1. Modèle probatoire proposé
+
+**D8 conserve la qualification**, reliée à la tentative D7 et à ses critères, avec : `claimId/criterion`, objet, version/portée, nature de pièce (déclaration Cursor, événement, diff, test, capture navigateur, inspection Git, observation indépendante), source, date/état, droits actuels, méthode de contrôle, limites, contradictions et résultat de qualification. Les pièces restent chez leur propriétaire lorsque possible, avec référence fiable ; les preuves déterminantes ne sont pas recopiées dans le Journal D4 comme vérités indépendantes. Les bilans datés demeurent consultables lorsqu'une observation ultérieure modifie la conclusion actuelle.
+
+**Exemples de verdicts admissibles :** `CURSOR DECLARES TESTS PASS` sans log → **tests déclarés, non vérifiés** ; commit réellement observé par D9 avec tests absents → **commit observé, qualité globale non démontrée** ; STOP confirmé après deux effets → **arrêt observé, deux effets déjà produits à qualifier**, sans rollback ; capture d'une autre branche → **preuve hors portée / non démontré**. Une information absente n'est pas automatiquement un échec prouvé.
+
+**Source hostile et confidentialité :** rapport, fichier Git ou résultat d'outil = **donnée**, jamais instruction normative pour Nora, D6 ou l'adaptateur. Les secrets sont occultés ; les sources inaccessibles ne sont pas récupérées hors droits. Un lien produit par Cursor n'est pas automatiquement une preuve accessible.
+
+##### 5.6.7.2. Neuf rubriques Pilot-first obligatoirement accessibles
+
+1. **Résumé** — objectif et situation réellement connue.
+2. **Ce qui était prévu** — contrat/version et critères applicables.
+3. **Ce qui a été réalisé** — déclaré vs constaté par objet.
+4. **Évaluation du résultat** — chaque critère couvert/non couvert et sa portée.
+5. **Écarts, réserves et blocages** — y compris les inconnus déterminants.
+6. **Impact sur le projet** — état D4/D5 réellement établi, sans cycle promu automatiquement.
+7. **Verdict de conformité D8** — conclusion bornée et révisable avec provenance.
+8. **Recommandation / prochaine étape** — Nora conseille ; aucune correction relancée implicitement.
+9. **Éléments vérifiés et sources** — origine, branche/ref, environnement, date/version et limites.
+
+Une **synthèse courte** et une **vue détaillée** exposent le même état et les mêmes réserves ; leur longueur varie selon le risque, pas leur véracité. **Réception du Pilote** : acte D6 distinct, éventuellement accepté avec réserves, qui ne change pas rétroactivement une observation D8 et ne vaut ni merge ni ADOPTED.
+
+#### 5.6.8. Choix comparés et exclusion du surdesign
+
+| Option | Avantage potentiel | Coût/risque | Position proposée |
+| --- | --- | --- | --- |
+| **C1 — D6/D7/D8/D9 propriétaires distincts, application modulaire, intention durable de dispatch + adaptateur borné** | Lisibilité de l'autorité et de la provenance, reprise ciblée, congruence A/B | Concevoir réellement la frontière SQL ↔ exécuteur et l'incertitude | **Recommandée pour approfondissement** |
+| C2 — Appel Cursor synchrone directement depuis l'écran ou Nora | Moins de code nominal | Perte des accusés, doublons, session liée au travail et bypass d'autorité | Écartée pour les effets gouvernés |
+| C3 — Orchestration universelle multi-exécuteurs avec état générique | Extensions futures possibles | Trop de moteurs/gates, risque de second propriétaire et explosion des transitions | Non justifiée pour le premier E2E |
+| C4 — Réutilisation technique de l'ancien OA/F2/W2 | Actifs existants | Dette/couplage et garanties LIVE non transférées à Next | Écartée par défaut, sauf preuve positive comparée |
+
+**Point d'architecture à ne pas trancher prématurément :** mode réel d'accès Cursor (CLI, service ou autre), sa capacité d'identité/corrélation/STOP, le degré de confinement de l'exécutant, le stockage des rapports volumineux, les secrets, et l'observabilité du push/PR/merge. Choix à vérifier en R4-D et à éprouver en R5/R6. Un adaptateur ne transforme pas une API inexistante en fonctionnalité réelle.
+
+#### 5.6.9. Matrice QA C : scénarios discriminants et oracles
+
+*Ces codes C01–C24 sont des repères de conception, **pas des IDs de tests exécutés**. Les RG/PF R2 restent canoniques ; chaque exécution R5 utilisera des données, assertions et versions réelles. Les niveaux de preuve R5/R6 sont précisés dans la stratégie QA du cadrage R4 §8.1.*
+
+| Cas | Situation | Oracle et conclusion attendue | Source principale |
+| --- | --- | --- | --- |
+| **C01** | Nora rédige une solution sans effet externe | Aucun contrat/tentative D7 créé artificiellement | D7 REAL-001/004 |
+| **C02** | Contrat complet consulté sans exécution | Quatre engagements, six volets et instruction exacte ; aucun effet/permission | D7 REAL-007/008/012, UX R3 |
+| **C03** | Risque/effet déterminant absent | Pas d'état « lançable » trompeur, clarification ciblée | D7 REAL-003/007/009 |
+| **C04** | Instruction et aperçu discordent sur une cible | Refus ou requalification, nouvelle version inspectable | D7 REAL-008/010/011 |
+| **C05** | Secret dans les paramètres techniques | Action/cible visibles, secret protégé, non journalisé | D7 REAL-010, D8 PRV-008 |
+| **C06** | Aucun cycle et aucun Git rattaché | Mission externe autorisable si capacités applicables, sans CKI/Git imposé | D7 REAL-002, D9 GIT-001 |
+| **C07** | « Fais-le » hors contrat inspecté | Aucune tentative déclenchée | D6 GOV-024, D7 REAL-013 |
+| **C08** | Contrat modifié après inspection | Ancien mandat insuffisant, vérification d'identité/version | D6 GOV-026, D7 REAL-011 |
+| **C09** | Droit Git révoqué juste avant effet | Refus de mutation, aucune extension de mandat | D6 GOV-027, D7 REAL-014/030 |
+| **C10** | Identité Cursor ou compte projet erronés | Aucune transmission d'instruction secrète ni lancement | D7 REAL-018, D9 permissions |
+| **C11** | Double clic « Exécuter » | Une seule commande/tentative, non-duplication au point contrôlable | D7 REAL-017, D6 GOV-028 |
+| **C12** | Perte ACK après dispatch possiblement effectué | UNKNOWN et réconciliation, **aucun retry aveugle** | D7 REAL-017/020/029 |
+| **C13** | Crash avant dispatch prouvé | Relecture de l'intention durable, droits et mandat avant relance contrôlée | D7 REAL-014/029 |
+| **C14** | Événement externe tardif ou dupliqué | Corrélation fiable, historique conservé, pas de double effet inféré | D7 REAL-019/021 |
+| **C15** | Rapport Cursor « tests OK », aucune trace | Tests déclarés non vérifiés, conformité non démontrée | D8 PRV-010/011/012 |
+| **C16** | Diff Git observé, tests absents | Diff établi par D9, conformité complète non démontrée | D8 PRV-009/010, D9 |
+| **C17** | Deux preuves contradictoires | Versions/branches explicites, conclusion bornée et révisable | D8 PRV-007/009 |
+| **C18** | Clic STOP avec support non vérifié | Demande conservée, arrêt non promis ni confirmé | D7 REAL-026, D6 GOV-020 |
+| **C19** | Arrêt observé après effets partiels | Effets maintenus, aucun rollback inventé, bilan réalisé/reste/à vérifier | D7 REAL-026/029, D8 §9 |
+| **C20** | Interruption non supportée | Limite technique affichée et nouveaux effets interdits où contrôlables | D7 §9, D6 GOV-022 |
+| **C21** | Reconnexion avec suspension humaine | Suspension toujours applicable, pas de reprise automatique | D6 GOV-017/018, D7 REAL-027 |
+| **C22** | Nora propose un correctif après bilan | Nouveau contrat et nouveau « Exécuter », pas d'auto-retry | D7 REAL-032/033, D6 GOV-033 |
+| **C23** | Résultat conforme mais pas reçu humainement | Verdict D8 possible, acceptation D6 absente, aucun ADOPTED | D8 PRV-021, D6 GOV-031 |
+| **C24** | Même dépôt partagé entre Pilotes | Aucune confusion de projets, jetons, mandats, rapports ou preuves | D6 GOV-014, D7 REAL-018, D9 |
+
+**R5 :** tests de contrats, identités, transitions, persistance, concurrence et injection d'échecs ; harnais adaptateur simulé pour les refus et ACK perdus ; tests navigateur UX des surfaces 06/07/08 ; intégration externe seulement dans un environnement réellement disponible et autorisé. **R6 :** E2E 05/06 + dépendances des sept E2E, tests réels ciblés sur l'exécuteur et Git sous droits, STOP si effectivement supporté, reprise sur pannes, non-régression, accessibilité et preuve de conformité. Aucune simulation ne vaut résultat REAL.
+
+**Critères d'arrêt QA :** mauvais compte, version d'instruction incertaine, droit manquant, mandat expiré, état d'effet inconnu non réconciliable, exclusion/réversibilité déterminante inconnue, branche concurrente non maîtrisée, source trompeuse donnant autorité. Ne pas lancer en vue d'obtenir des preuves à tout prix.
+
+#### 5.6.10. Blast radius, dépendances, dette et sorties
+
+| Interface affectée | Risque | Condition d'acceptation de la conception / exit |
+| --- | --- | --- |
+| **A ↔ C** | Projet et Pilote mal liés à la tentative | Isolation et propriétaire du projet requalifiés avant effet ; règles d'accès testables |
+| **B ↔ C** | Ancien GO, suspension ou méthode périmée consommée | D6 contrôle au point d'effet et sous reprise ; travaux indépendants non artificiellement bloqués |
+| **D3/D4 ↔ C** | Une proposition ou un document hostile devient mandat ou preuve | Qualifier la provenance ; séparation cognitive, connaissance, autorité, preuves |
+| **D7 ↔ D9** | Branches partagées, rights et HEAD périmés entre vue et exécution | Interface explicite pour ressource/ref/base/permissions et mutation ; contrôle d'intégrité proche de l'effet |
+| **D7 ↔ D8** | Rapport traité comme succès, preuves dupliquées | D8 lit déclarations D7 et observations effectives ; références, non copie d'une seconde vérité |
+| **D8 ↔ D6** | Conformité présentée comme acceptation, merge ou ADOPTED | Réception humaine identifiée, liée au résultat/version, sans promotion automatique |
+| **UX R3 ↔ C** | Les maquettes simulent un état/STOP/risque non réel | Contrat de projection, états inconnus, capture navigateur, reflow et inspection accessible |
+| **Exploitation** | Outbox ou worker bloqué, secrets fuités, traces manquantes | Observabilité des tentatives sans prétendre superviser toutes les commandes ; rotation/secret-store et réconciliation conçus |
+
+**Réserves/exit à instruire avant clôture R4 globale :** (C-R1) cartographie réelle des capacités Cursor et du STOP, avec déclaration des modes indisponibles ; (C-R2) garanties d'identité et isolation du runner et des secrets ; (C-R3) contrat d'idempotence externe et stratégie de non-rejeu lorsqu'aucun lookup n'existe ; (C-R4) relation immuable contrat ↔ instruction ↔ autorisation ↔ tentative ; (C-R5) coûts et conservation des artefacts/rapports ; (C-R6) critères de preuves indépendantes par nature d'effet ; (C-R7) intégration Git D9 (base/ref/droits et collisions) ; (C-R8) UX accessible du contrat/STOP/synthèse ; (C-R9) vérification R6 de la non-expansion des mandats et de la séparation des résultats. Les propriétaires R4-C/D, R5 et R6 sont indiqués dans leurs périmètres respectifs ; aucun exit n'est revendiqué exécuté.
+
+**Réserve de portée :** l'intégration Git est facultative ; un contrat peut viser d'autres effets externes vérifiables. Aucun modèle d'orchestrateur universel ni catalogue de plugins de capacité n'est adopté sous C. La preuve d'effet, de STOP ou d'identité ne peut être présumée d'un prototype ou de la documentation d'un fournisseur.
+
+#### 5.6.11. Revue macro-lot C et trajectoire suivante
+
+**Revue de cohérence documentaire proposée :** les fonctions D6/D7/D8/D9, les engagements des six volets, les quatre cartes, l'instruction exacte, la tentative et les neuf rubriques sont couverts sans second propriétaire ni double moteur. Les interdictions, états inconnus et scénarios négatifs disposent d'oracles de test. A/B restent des interfaces candidates, non des implémentations. **Niveau atteint : DOCUMENTED / DESIGN CANDIDATE.** Aucune preuve d'API Cursor, de comportement navigateur, d'effet Git, de STOP réel, de suite QA exécutée ou d'adoption n'est disponible.
+
+**Recommandation à la revue Morris :** retenir le modèle C1 comme base de conception sous trois conditions de validation R4-D : capacités réelles de l'exécuteur (y compris corrélation et STOP), identité/secrets/permissions et stratégie de réconciliation des effets dont l'issue n'est pas observable. Si une capacité manque, **réduire honnêtement la portée de la première construction R5** plutôt que simuler une garantie de lancement/arrêt. Les choix d'outbox, de technologie SQL et de déploiement restent candidats jusqu'à arbitrage technique R4 consolidé.
+
+**Suite :** préparer D — Git facultatif, intégrations, sécurité/exploitation, UX commune, matrice de conformité D1–D9 / 7 E2E, architecture consolidée et trajectoire de construction R5. La QA R4–R6 est déjà synchronisée sur la branche R4 ; la présente section C demeure **locale candidate** jusqu'à revue, sans nouveau commit ou PR implicite.
+
+---
+
+**Verdict C au 2026-11-03 : `MACRO-LOT C — DESIGN CANDIDATE COMPLETE / NO RUNTIME / NO QA EVIDENCE / REVIEW MORRIS PENDING`.**
+
 ## 6. Questions structurantes ouvertes pour R4
 
 | ID de suivi interne à ce cadrage | Question à instruire | Livrable/gate attendu |
@@ -739,15 +966,16 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 | 2026-11-03 / revue Morris A et commit `cf3f14dc` | Préparations durables retrouvables et création possible pendant sauvegarde non indispensable ; version v0.5 publiée sur branche R4 | **ARBITRAGES PRODUIT ACQUIS / GIT CANDIDATE, NON MAIN** | Politiques de conservation et preuves techniques R5/R6 |
 | 2026-11-03 / revue Morris B | Conception B examinée sans objection produit ; ses choix techniques restent candidats, non adoptés | **REVUE FAVORABLE / PAS VALIDATION D'ADR** | Synchroniser la candidate et poursuivre vers C |
 | 2026-11-03 / mandat Morris QA | Stratégie QA transverse A–D avec niveaux de preuve par jalon R4/R5/R6 | **MANDAT DOCUMENTAIRE / STRATÉGIE CANDIDATE** | Préparer les oracles en R4, tester avec R5, qualifier en R6 |
+| 2026-11-03 / GO Morris C | Macro-lot C §5.6 intégré, vingt-quatre scénarios candidats QA, frontières D6/D7/D8/D9 | **CONTENU CANDIDAT SUR BRANCHE, NON ADOPTÉ** | Concevoir et confronter D puis revue globale R4 |
 
 ## 10. Situation actuelle et prochaine étape
 
 **Constat Git :** `main@7067c846ce7c57825dd31c532433d809e1a01216` ; source documentaire Next intégrée ; **R4 NOT STARTED** ; code, architecture cible et preuves runtime Next **N/A — NON IMPLÉMENTÉ**. Aucune branche R4 locale, fichier staged/untracked, environnement d'exécution ou activation n'a été vérifié.
 
-**Prochaine capacité :** concevoir intégralement le macro-lot C — exécution gouvernée D7, preuve D8, autorité D6 et interfaces D9 — en exploitant les choix de A/B et la stratégie QA §8.1, puis présenter une synthèse produit et les risques bloquants à Morris. La QA se construit dès R5, R6 la qualifie transversement.
+**Prochaine capacité :** concevoir intégralement le macro-lot D — intégration Git facultative, identités, droits, API/outils externes, UX et observabilité transverses, puis consolider A–D et la feuille de route R5, sans déclencher de réalisation technique. Les scénarios QA sont définis en R4, exécutés graduellement en R5 et qualifiés de bout en bout en R6.
 
-**Autorisation actuelle :** Morris a confirmé que la revue B ne soulevait pas d'objection produit et autorisé la synchronisation documentaire de la stratégie QA R4–R6 sur la branche R4, ainsi que l'étude complète de C. Le contenu technique B demeure **candidat**, pas validé en tant qu'ADR. Les PR, merge, modifications normatives, code, prompt Cursor, adoption et choix structurants exigent des gates distincts.
+**Autorisation actuelle :** Morris a autorisé l'intégration de la conception C sur la branche R4 et la poursuite du dernier macro-lot D, en continuité des revues A/B et de la stratégie QA. La technique A/B/C reste **candidate**, non adoptée. PR, merge, mise à jour normative, code, prompt Cursor, adoption et choix structurants exigent des gates distincts.
 
 ---
 
-**État du document au 2026-11-03 : `R4-A — ORIENTATION REVIEWED / DESIGN CANDIDATE ; R4-B — REVIEWED WITHOUT PRODUCT OBJECTION / DESIGN CANDIDATE ; QA A–D — DESIGN STRATEGY CANDIDATE ; R4-C — TO BE DESIGNED`. Aucun mécanisme technique Next ni architecture ADOPTED.**
+**État du document au 2026-11-03 : `R4-A/B — DESIGN CANDIDATE REVIEWED ; R4-C — DESIGN CANDIDATE ON BRANCH ; QA A–D — DESIGN STRATEGY ; R4-D — DESIGN TO COMPLETE`. Aucun mécanisme technique Next ni architecture ADOPTED.**
