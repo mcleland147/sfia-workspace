@@ -256,3 +256,18 @@ Une tentative dont le lancement a été demandé mais non confirmé est **incert
 **Critères fonctionnels de revue :** aucune exécution sans autorité D6 et capacités réelles ; correspondance du contrat inspecté et de la tentative ; STOP/reprise sans faux état ; aucune correction automatique ; aucun CKI converti en permission ; résultats transmis sans faux verdict ; propriétaires D8/D9 respectés. Les inconnues techniques et interfaces non examinables restent des réserves et non des contradictions « résolues ».
 
 **Verdict documentaire : `DOMAINE 7 — RÉALISATION OPÉRATIONNELLE GOUVERNÉE — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 36 règles `RG-REAL-001..036`, 30 scénarios `PF-REAL-01..30`, revue R1 / Nora / Connaissance / Trajectoire-CKI / Gouvernance et corpus CKI v0.2 ; interfaces D8/D9/D1–2 `NON ÉVALUÉES` contre leurs futures specs ; Next `N/A — NON IMPLÉMENTÉ`.**
+
+
+---
+
+## 7. Complément post-clôture — couverture UX de l'inspection du contrat (2026-11-03)
+
+**Statut : complément de couverture validé par Morris (2026-11-03), sur branche candidate uniquement.** Ce complément n'ajoute aucune nouvelle règle au domaine ; il précise la vérification d'un scénario d'Inspection transverse sans modifier la clôture historique R2.
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-REAL-31** | D7 | Un contrat d'exécution est ouvert pour lecture | Version/instruction exactes consultables ; ouvrir/fermer ne déclenche aucune tentative | REAL-007/011/012, UX-006 |
+
+**Règles D7 inchangées :** le contrat, sa version et son instruction restent propriété D7 ; l'ouverture ou fermeture de l'Inspection ne lance rien. `RG-REAL-007/011/012/022/024` demeurent applicables ; l'acte « Exécuter » reste distinct et gouverné par D6.
+
+**R5–R6 :** cas documentaire à exécuter ultérieurement, sans prétendre que la fonctionnalité existe déjà (`N/A — NON IMPLÉMENTÉ`).
