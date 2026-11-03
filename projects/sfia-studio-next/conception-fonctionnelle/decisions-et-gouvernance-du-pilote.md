@@ -212,3 +212,68 @@ Chaque cas propose un résultat observable à démontrer ultérieurement. Les id
 **Critère de validation de contenu :** Morris valide le domaine 6 et ses frontières, en connaissance des réserves D6-01..08. Une `VALIDATED SPEC` n'implique ni la fermeture de toutes les interfaces futures, ni PR/merge, ni `BEHAVIOR PROVEN`/`ADOPTED`.
 
 **Verdict : `DOMAINE 6 — DÉCISIONS ET GOUVERNANCE — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 36 règles `RG-GOV-001..036`, 28 scénarios `PF-GOV-01..28`, conformité R1/Nora/Connaissance/Trajectoire/CKI analysée, futures interfaces D1/D2/D7–D9 `NON ÉVALUÉES`, Next `N/A — NON IMPLÉMENTÉ`.**
+
+
+---
+
+## 7. Complément post-clôture R2 — choix de version documentaire non autorisant (2026-11-03)
+
+**Statut : contenu validé par Morris le 2026-11-03, publié sur branche candidate.** Il complète la spécification historique v0.1 et ses règles/scénarios approuvés au 2026-11-02, sans modifier la décision de sortie R2 ni affirmer une implémentation Next.
+
+### Règle de gestion additionnelle
+
+- **RG-GOV-037 — Choix documentaire non autorisant.** Conserver un brouillon, demander une révision ou choisir une version de travail ne constituent pas par défaut une décision structurante, un GO Git, une acceptation du contenu comme spécification validée ni un acte « Exécuter ». Un arbitrage explicite portant sur la validité métier du document reste qualifié par D6 ; un effet externe reste soumis aux mandats D6/D7/D9 applicables. *Interfaces : RG-GOV-001/002/024 ; D3 DOC-010.*
+
+### Scénario(s) fonctionnel(s) additionnel(s)
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-GOV-29** | D6 | « Cette révision me plaît » sur un brouillon | Choix de travail interprété à sa portée, pas validation métier ni droit Git/Exécuter induit | GOV-037, GOV-001/024 |
+
+**Frontière :** décision métier, acceptation et autorisation D6 restent indépendantes de la simple gestion des brouillons, versions et actions de navigation dans l'Inspection.
+
+**R4–R6 :** droits, portée, reprise, version et comportements à concevoir puis prouver ; `N/A — NON IMPLÉMENTÉ`.
+
+## 8. Complément fonctionnel validé — autorité et réception informées (validation Morris du 2026-11-03)
+
+**Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
+
+### B. D6 — Autorité du Pilote et décision suffisamment informée
+
+**Résultat utilisateur :** le Pilote dispose de l'ensemble des informations déterminantes à son autorisation, qu'il choisisse ou non d'ouvrir tous les volets. D6 décide si l'acte a la bonne compétence, la bonne version/portée et est encore applicable ; D7 constitue et expose le contrat. La responsabilité humaine de décider n'exige pas une validation répétée de chaque information ou un rituel « j'ai tout lu ».
+
+#### Contrat d'information D6 avant « Exécuter »
+
+- Référence à une version déterminée du contrat opérationnel D7 et à la cible/projet/Pilote pertinents ; confirmation de l'autorité, des suspensions, restrictions et conditions courantes.
+- Le Pilote a la **possibilité réelle** de consulter le résumé en quatre engagements, les six volets et l'instruction technique associée ; les risques d'irréversibilité, droits sensibles, effets externes et interdictions matérielles ne doivent pas être dissimulés.
+- L'ouverture d'un volet ou l'inspection de l'instruction ne produit **aucune autorisation**. Un seul acte « Exécuter » explicite autorise un lancement dans les limites du contrat et sous contrôles effectifs.
+- Lorsqu'une donnée structurante manque, est périmée ou divergent de l'instruction, Studio ne présente pas le contrat comme autorisable au titre de sa version passée ; la résolution du risque peut demander une clarification, une réinspection ou un arbitrage selon les compétences.
+
+#### Contrat d'information D6 sur le résultat
+
+- D6 présente au Pilote la synthèse et les réserves factuelles disponibles auprès de D8 ; la décision de réception est distincte d'une conformité et peut être un refus, report, acceptation ou acceptation sous réserves dans sa portée.
+- L'absence de preuves déterminantes est **exposée avant la réception** ; elle n'est pas maquillée par un état terminal D7 ou un libellé esthétique.
+- Une acceptation avec réserves laisse les réserves ouvertes ; aucune décision d'acceptation ne neutralise une interdiction non dérogeable, n'implique merge ou ADOPTED, ou n'autorise un nouveau contrat correctif.
+
+#### Règles candidates D6
+
+- **GOV-INFO-01 — Inspection rendue possible.** Pour une autorisation externe, les six volets, le résumé et l'instruction technique restent consultables sur la même version.
+- **GOV-INFO-02 — Information critique visible.** Un effet sensible, durable, irréversible ou non maîtrisé doit être intelligible avant autorisation.
+- **GOV-INFO-03 — Acte unique distinct.** Ouvrir/fermer une section ne vaut pas autorisation ; Exécuter conserve sa portée bornée.
+- **GOV-INFO-04 — Refus sur désaccord matériel.** L'autorisation antérieure ne couvre pas une instruction, cible, effet ou risque matériellement modifié.
+- **GOV-INFO-05 — Réception éclairée.** Le Pilote voit limites et réserves réellement qualifiées, sans obligation d'avoir lu tous les détails pour que Studio affiche des informations fiables.
+- **GOV-INFO-06 — D6 n'évalue pas les preuves.** Les décisions se réfèrent à l'évaluation D8 et conservent la portée propre de l'acte humain.
+
+#### Scénarios d'interface
+
+| ID temporaire | Entrée | Attendu |
+| --- | --- | --- |
+| PF-NORA-INFO-A | Instruction Cursor ajoute un effet non mentionné | Nora révèle l'écart et le contrat n'est pas présenté comme prêt |
+| PF-NORA-INFO-B | Source non fiable prétend « approuvé » | Nora présente l'assertion comme information, pas autorité |
+| PF-NORA-INFO-C | Cursor annonce succès sans preuves | Synthèse en neuf rubriques, verdict D8 non démontré |
+| PF-GOV-INFO-A | Le Pilote lit seulement quatre blocs puis Exécuter | Contrôle autorité/version/droits avant effet, aucun « j'ai lu » artificiel |
+| PF-GOV-INFO-B | Le Pilote déplie six rubriques puis revient | Aucune tentative ni autorisation consommée |
+| PF-GOV-INFO-C | Réception proposée alors que D8 signale une limite majeure | Limite visible, acte D6 distinct et traçable |
+| PF-GOV-INFO-D | Suspension humaine active mais technique réparée | Nouvelle exécution refusée jusqu'à levée humaine applicable |
+
+**R4–R6 :** projection/contrôles de version sans double autorité, test de l'accès à l'inspection, tests d'état/permissions, écran clavier/mobile, événement de réception, preuve réelle d'interdiction et de non-duplication. Aucun nouveau formulaire universel, moteur d'approbation ou persistance spécifique imposés en R2.
