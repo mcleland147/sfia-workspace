@@ -210,3 +210,24 @@ Les qualificatifs ci-dessus concernent **les textes examinés**, pas une compati
 
 
 **Verdict : `R2 — CRÉATION DE PROJET ET CONTINUITÉ DU SAS — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 26 règles `RG-CRE`, 26 scénarios `PF-CRE`, 9 réserves ; conformité documentaire R1/D3–D9/CKI candidate revue ; Studio Next `N/A — NON IMPLÉMENTÉ`, contenu validé par Morris et publié sur branche R2, sans PR, merge ni ADOPTED.**
+
+
+---
+
+## 7. Complément post-clôture R2 — documents préparés dans le sas (2026-11-03)
+
+**Statut : contenu validé par Morris le 2026-11-03, publié sur branche candidate.** Il complète la spécification historique v0.1 et ses règles/scénarios approuvés au 2026-11-02, sans modifier la décision de sortie R2 ni affirmer une implémentation Next.
+
+### Règle de gestion additionnelle
+
+- **RG-CRE-027 — Brouillon produit avant création du projet.** Dans le sas, Nora peut produire un document de préparation sans créer de projet. Tant qu'aucun projet n'existe, Studio le rattache à la préparation et applique sa politique réelle de continuité, sans prétendre qu'il est déjà conservé « dans le projet ». Après l'acte explicite de création et confirmation de l'effet, le document peut être rattaché durablement au projet créé avec sa provenance et son fil, sans rupture du parcours ni doublon. *Interfaces : RG-CRE-008/010/017/020 ; D3 DOC-001/002 ; D4 KNOW-016/018.*
+
+### Scénario(s) fonctionnel(s) additionnel(s)
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-CRE-27** | D2 | Document rédigé dans le sas avant création | Préparation conservée selon l'état du sas ; après création explicite, rattachement et même fil, sans projet fictif en amont | CRE-027, CRE-008/017/020 |
+
+**Frontière :** avant « Créer le projet », le document relève de la préparation du sas, non du patrimoine d'un projet inexistant ; le transfert durable ne suit qu'une création vérifiée (RG-CRE-008/010/017/020).
+
+**R4–R6 :** droits, portée, reprise, version et comportements à concevoir puis prouver ; `N/A — NON IMPLÉMENTÉ`.
