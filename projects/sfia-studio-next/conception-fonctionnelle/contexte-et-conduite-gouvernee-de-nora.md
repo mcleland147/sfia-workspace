@@ -571,7 +571,7 @@ Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/é
 
 ## 13. Clarification validée — projection intelligible de l'activité Nora (Morris, 2026-11-03)
 
-**Clarification 2/4 — VALIDATED CONTENT BY MORRIS (D2).** Complète \`RG-CTX-003/006\`, \`RG-AUTH-005\` et les contrats de restitution D3, sans nouvelle série \`RG-*\` ou \`PF-*\`, sans modifier la clôture R2. Interface vers [R1 §9](../cadrage/vision-produit.md) et [D7 §9](realisation-operationnelle-gouvernee.md).
+**Clarification 2/4 — VALIDATED CONTENT BY MORRIS (D2).** Complète `RG-CTX-003/006`, `RG-AUTH-005` et les contrats de restitution D3, sans nouvelle série `RG-*` ou `PF-*`, sans modifier la clôture R2. Interface vers [R1 §9](../cadrage/vision-produit.md) et [D7 §9](realisation-operationnelle-gouvernee.md).
 
 ### 13.1. Trois origines distinctes, aucune inférence d'exécution
 
