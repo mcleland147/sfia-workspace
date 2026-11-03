@@ -1,14 +1,14 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.20**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.21**
 
 | Métadonnée | Valeur |
 | --- | --- |
 | Date d'initialisation / mise à jour | 2026-11-02 / 2026-11-03 (Europe/Paris) |
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
-| Macro-lot R3 | Quatre capacités A–D retenues par Morris : **A — Entrée/continuité ; B — Trajectoire/cycles/CKI/décisions ; C — Réalisation et résultats ; D — Git et qualité transverse**. Travail séquentiel, **B en premier**, revue par lot. |
+| Macro-lot R3 | Quatre capacités A–D retenues : **A — Entrée/continuité (revue acceptée avec réserves) ; B — Trajectoire/cycles/CKI/décisions (revue acceptée avec réserves) ; C — Réalisation et résultats (prochain) ; D — Git et qualité transverse (après C)**. Travail séquentiel avec revue Morris par macro-lot. |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.20** ; direction B2/V3, **B accepté en revue Morris avec réserves**, **A représenté dans 73 variantes nouvelles** et ses 100 PF D1–D4 rapprochés ; R3 **non clos**, aucun comportement runtime prouvé |
+| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.21** ; direction B2/V3, **macro-lots A/B acceptés en revue Morris avec réserves**, C puis D à instruire dans un nouveau chat ; R3 **ouvert**, aucun comportement runtime prouvé |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
 | Source Git vérifiée | `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` (2026-11-03) ; branche documentaire candidate `sfia/next-r3-ux-interaction-candidate` |
 | État Git Next | R1/R2 clôturés avec réserves ; **Roadmap sur `main` historiquement « R3 NOT STARTED » malgré les travaux Figma/doc candidats — KNOWN GAP documentaire**, à régulariser par GO séparé |
@@ -16,9 +16,9 @@
 | Chemin Git autorisé pour ce document (GO Morris 2026-11-02) | `projects/sfia-studio-next/ux-ui/espace-projet-interaction-pilote-nora.md` |
 | État local du dépôt | **NON OBSERVÉ** ; contributions documentaires sur branche candidate et modifications Figma actives, **sans PR/merge** |
 
-> **Référence de travail actuelle (v0.20) :** les §§1–26 conservent **l'historique d'exploration UX** et certains décomptes datés. Les **§§27–29** sont le contrat UX courant ; le [Guide de couverture UX R3](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md), en particulier §7 (lot B, 59 scénarios D5/D6) et **§9 (lot A, 100 scénarios D1–D4)**, porte le contrôle de couverture. Les trois pages Figma restantes sont Fondations, Parcours de référence et Contrats visuels. Le prototype UX n'est ni une spécification R4, ni du code, ni une preuve de comportement réel.
+> **Référence de travail actuelle (v0.21) :** les §§1–26 conservent **l'historique d'exploration UX** et certains décomptes datés. Les **§§27–30** sont le contrat UX courant ; le [Guide de couverture UX R3](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md), en particulier §§7–8 (lot B, 59 scénarios D5/D6), §§9–10 (lot A, 100 scénarios D1–D4) et §11 (contrat de reprise C/D), porte le contrôle de couverture. Les trois pages Figma restantes sont Fondations, Parcours de référence et Contrats visuels. Le prototype UX n'est ni une spécification R4, ni du code, ni une preuve de comportement réel.
 
-> **Archives Figma :** les liens directs anciens des §§1–26 ont été neutralisés après suppression des pages exploratoires. Une description historique n'est **pas** la preuve que sa variante existe encore telle quelle. Les liens actifs et leur contrat de parcours sont ceux des §§27–29 et du Guide §§7–9.
+> **Archives Figma :** les liens directs anciens des §§1–26 ont été neutralisés après suppression des pages exploratoires. Une description historique n'est **pas** la preuve que sa variante existe encore telle quelle. Les liens actifs et leur contrat de parcours sont ceux des §§27–30 et du Guide §§7–11.
 
 > **Règle de lecture documentaire :** ce document formalise constats, contraintes, hypothèses et contrats UX candidats. Il ne modifie ni la vision R1 ni les neuf spécifications fonctionnelles R2 ; hypothèse et maquette ne valent pas arbitrage Morris ni implémentation. Les essais utilisateurs et la validation de sortie R3 restent à réaliser.
 
@@ -1244,3 +1244,38 @@ Le [fichier Figma Next](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP) com
 **À revoir avec Morris en sortie du lot A :** équilibre du parcours sas et portefeuille, navigabilité des documents et des sujets, cohérence des labels, accessibilité/zoom et responsive, déclencheurs réalistes des états exceptionnels, valeur des raccourcis et longueur des conversations. La création de 73 écrans d'états n'implique pas 73 pages applicatives distinctes : plusieurs devront être regroupés en composants ou variantes lors de l'architecture visuelle. **Aucun test navigateur réel n'a eu lieu**.
 
 **Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE v0.20 — B REVIEW ACCEPTED WITH CARRIED RESERVES ; A REVIEW MORRIS PENDING ; R3 NON CLOS ; NEXT NON IMPLÉMENTÉ.**
+
+
+## 30. Revue du macro-lot A et transfert du travail C puis D (2026-11-03)
+
+### 30.1. Validation de revue Morris — portée exacte
+
+Morris a examiné les 73 nouvelles situations UX du macro-lot **A — Entrée/continuité**, le parcours et les deux documents Git. Il confirme que la proposition lui convient et demande une continuité stricte de la méthode de travail dans **un nouveau chat pour les deux lots restants, C puis D**.
+
+**État du contenu approuvé en revue UX : A — REVIEW ACCEPTED WITH CARRIED RESERVES ; B — REVIEW ACCEPTED WITH CARRIED RESERVES.** Ni R3 global, ni architecture technique, ni construction, ni couverture vérifiée, ni preuve comportementale ni ADOPTED ne sont ainsi approuvés. La suite est autorisée **au niveau de la conception UX**, pas de l'exécution technique.
+
+Référence concrète : [index d'inspection des 73 variantes A](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=169-275), [parcours Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50), [Guide UX R3, §9 (couverture A) et §§10–11 (revue/passation)](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md). La maquette A montre 134 écrans produit au total, dont les 73 nouvelles variantes, et un index de revue distinct non destiné au Pilote ; **100 PF D1–D4** ont été rapprochés avec une qualification visuelle/contractuelle, non avec des tests runtime.
+
+**Réserves conservées** : session/isolement multi-Pilotes, vrais états d'erreur et reprise, conservation des documents/sas/fil, conflits de version, actions Nora générées dynamiquement et contrôle des permissions, longueurs/réponses composites, zoom, accessibilité/focus, coûts et architecture de la restitution. La préférence pour **A intégrée modulaire** demeure une hypothèse **à comparer en étude R4** à B distribuée et possiblement C, sans adoption anticipée.
+
+### 30.2. Priorités et frontières du prochain chat
+
+Le **macro-lot C — Contrat, réalisation, STOP et preuves** est le **seul lot à concevoir en premier**. Il doit repartir de **R1 E2E 05/06** et des propriétaires R2 :
+
+- [D7 Réalisation opérationnelle gouvernée](../conception-fonctionnelle/realisation-operationnelle-gouvernee.md) : **36 RG, 31 PF**.
+- [D8 Résultats, preuves et qualification](../conception-fonctionnelle/resultats-et-preuves.md) : **36 RG, 33 PF**.
+- Interfaces indispensables avec [D6 Gouvernance du Pilote](../conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md), D3 Nora, D4 connaissance et [D9 Git](../conception-fonctionnelle/integration-git-gouvernee.md).
+
+**Fil de valeur C :** Nora qualifie → contrat inspectable versionné, instruction exacte et droits → acte Exécuter distinct du Pilote → tentative/retours réellement observés → STOP demandé versus confirmé, incident/reprise/rejeu → rapport et preuves inspectées → qualification sans faux verdict → décision/réception D6 ou contrat correctif distinct. Une recommandation ou acceptation n'est ni autorisation automatique ni preuve ni adoption.
+
+Écrans existants à **réviser et compléter plutôt que dupliquer** : [06 Contrat](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629), [07 Tentative](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-731), [08 Bilan](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827), [19 Rapport/preuves](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=100-39), [21 Interruption](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=106-158) ; décision de réception déjà développée en B, [35](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-337), sans deuxième moteur de décision.
+
+Le **macro-lot D** vient **après la revue du C** : Git facultatif et gouverné, consultation/autorisation d'écriture distinctes, dépôt partagé sans fusion interprojets, ref/base/commit/PR/merge et états honnêtes, puis qualité UX transverse. Source propriétaire : [D9 Git](../conception-fonctionnelle/integration-git-gouvernee.md), **41 RG / 36 PF** et R1 E2E 07. La vérification finale visera **324 RG / 259 PF** avec leurs interfaces et 7 E2E R1 plus compléments Inspection/document : **l'inventaire de couverture ne vaut pas test**.
+
+### 30.3. Règles de méthode transférées, sans requalification fictive
+
+**Méthode éprouvée B/A à reproduire :** (1) pré-check Git main/candidate + SEF/Roadmap/décisions/sources R1-R2 et statuts ; (2) audit du Figma existant et des PF/RG propriétaires ; (3) production native dans les mêmes trois pages Figma, réutilisant composants/style, avec écrans nominaux et alternatifs et toutes les destinations ; (4) captures et vérification réelle des liens, actions, scroll et contexte ; (5) synchronisation des **deux seuls documents UX** sur branche candidate avec matrice PF individuelle et réserves R4 ; (6) relecture distante, SHA/diff vérifiés, bilan transparent ; (7) **revue et décision Morris** avant le lot suivant. Éviter les micro-cycles documentaires et ne pas solliciter Cursor pour des tâches D0/D1.
+
+**Gates Git :** source de vérité main pour les specs R1/R2 et SEF ; la branche candidate contient la conception R3, non une baseline mergée. Roadmap sur main affiche encore **R3 NOT STARTED — KNOWN GAP**, sans mandat pour modifier sa valeur. Pas de PR, merge, suppression/renommage de branche, décision normative, architecture R4, réalisation technique Cursor ou ADOPTED par déduction. État local Git **NON OBSERVÉ**. Les choix produit et gates demeurent l'autorité de Morris.
+
+**Statut de reprise : A/B ACCEPTED IN UX REVIEW WITH CARRIED RESERVES ; C NEXT / REVIEW PENDING ; D AFTER C ; R3 OPEN ; R4/R5/R6 NOT STARTED ; NEXT N/A — NON IMPLÉMENTÉ.**
