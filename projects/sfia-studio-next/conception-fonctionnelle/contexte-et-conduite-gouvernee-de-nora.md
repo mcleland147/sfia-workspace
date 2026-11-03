@@ -568,3 +568,27 @@ Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/é
 - **NORA-INFO-04 — Assemblage sourcé.** Nora ne s'attribue pas un fait D7/D8/D9 qu'elle n'a pas reçu ou vérifié selon son rôle.
 - **NORA-INFO-05 — Restitution sur les neuf rubriques.** La synthèse expose les résultats et effets avec leur niveau de preuve, pas uniquement un avis général.
 - **NORA-INFO-06 — Action recommandée non exécutée.** Une recommandation D3 reste distincte de la décision D6 et du contrat D7.
+
+## 13. Clarification validée — projection intelligible de l'activité Nora (Morris, 2026-11-03)
+
+**Clarification 2/4 — VALIDATED CONTENT BY MORRIS (D2).** Complète \`RG-CTX-003/006\`, \`RG-AUTH-005\` et les contrats de restitution D3, sans nouvelle série \`RG-*\` ou \`PF-*\`, sans modifier la clôture R2. Interface vers [R1 §9](../cadrage/vision-produit.md) et [D7 §9](realisation-operationnelle-gouvernee.md).
+
+### 13.1. Trois origines distinctes, aucune inférence d'exécution
+
+1. **Réponse cognitive Nora :** « réponse en préparation » ou « analyse en cours » peut être présenté sans divulgation du raisonnement interne. Une étape cognitive n'est annoncée comme effectuée que si un résultat utile et réellement disponible la justifie ; le seul écoulement de temps n'établit aucun avancement.
+2. **Outil sollicité ou consulté :** l'action visible indique si la demande a été lancée, si un retour a été effectivement reçu, ou si son état demeure inconnu ; les sources et versions déterminantes sont rattachées à la provenance réellement accessible. Une simple intention de lecture n'est pas une consultation accomplie.
+3. **Tentative externe Cursor :** Nora reformule uniquement les faits d'activité **reçus et qualifiés via D7**, en conservant la distinction lancement demandé / accusé / activité observée / état inconnu. Nora n'est ni un superviseur technique temps réel par défaut ni la source de vérité des effets Cursor.
+
+Pour chaque situation, afficher une formulation intelligible et la limite connue sans halluciner des commandes, phases, résultats, preuves, pourcentages ou timestamps d'outil. Ne pas exposer de secrets, contenu privé inaccessible, logs sensibles ou délibération interne pour justifier l'animation. Une couleur ou animation d'activité est un signe de lecture **conditionné par un état valide**, non une preuve de travail externe ; maintenir une alternative sans mouvement et lisible sans code couleur.
+
+### 13.2. Interruption et retour dans le fil
+
+Nora explique **quel travail est visé** par « Arrêter » avant ou lors de l'action : interruption de la réponse cognitive, ou demande transmise à D7 pour une opération gouvernée. Si l'état effectif de l'opération externe est indéterminé, Nora ne le transforme pas en succès, échec, arrêt confirmé ou rollback. La suspension et les décisions humaines demeurent propriétaires D6.
+
+Après interruption ou changement de conversation, Nora récupère auprès des domaines propriétaires **les acquis utiles, références, versions, limites, réserves et travail restant**. Elle informe du contexte à recontrôler avant toute reprise qui produirait un effet. Elle ne prétend pas retrouver un token, une commande ou un pourcentage de traitement arbitraire, et ne relance aucun effet externe par simple génération conversationnelle.
+
+### 13.3. Conditions de qualification ultérieure
+
+**R4 :** définir les sources d'événements réellement disponibles et leur provenance, l'éventuelle persistance, le contrat de projection UI et le filtrage, sans créer un état concurrent D7/D6. **R5–R6 :** vérifier visuellement et en navigateur l'état en cours, les cas sans détail, les erreurs/outils indisponibles, l'animation réduite, l'interruption, la récupération après session et la fidélité des sources. Les maquettes [206–217](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) sont une **preuve de conception**, pas de comportement LIVE/REAL.
+
+**Statut : complément normatif de contenu validé sur branche candidate ; modèle API/implémentation/proof non adoptés.**
