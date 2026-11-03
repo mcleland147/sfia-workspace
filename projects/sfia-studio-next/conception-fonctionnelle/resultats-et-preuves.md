@@ -231,13 +231,13 @@ Ces cas servent de **contrats de recette fonctionnelle à adapter aux risques** 
 
 **Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
 
-### 1. Finalité et frontière métier
+### 8.1. Finalité et frontière métier
 
 Après un travail délégué, le Pilote doit comprendre sans interrogations répétées : ce qui a été demandé, ce que l'exécuteur affirme avoir fait, ce qui a été **effectivement observé et vérifié**, quels critères sont ou non couverts, les écarts et impacts projet, les sources disponibles, les réserves encore ouvertes et les options de décision. Le bilan n'est pas un certificat ; Nora traduit les constats D8 et les événements D7, D6 conserve la réception.
 
 **Objet canonique :** une restitution intelligible se rattache au projet/Pilote et, lorsqu'il existe, au contrat, à sa version, à la tentative et aux critères applicables au moment de l'effet. La même synthèse peut être consultée depuis le fil Nora, le résultat ou les références du projet, **sans créer un second registre de preuve**.
 
-### 2. Contrat de restitution — neuf rubriques accessibles
+### 8.2. Contrat de restitution — neuf rubriques accessibles
 
 | Rubrique | Données et degré de précision exigés | Source / propriétaire | Si manquant ou non applicable |
 | --- | --- | --- | --- |
@@ -255,7 +255,7 @@ Après un travail délégué, le Pilote doit comprendre sans interrogations rép
 
 **Proportionnalité = quantité de texte et profondeur d'enquête adaptées, pas perte de rubriques pertinentes.** Une mission simple peut avoir une mention concise « sans objet » pour un impact non applicable ; une opération sensible exige l'explicitation de chaque risque et des pièces déterminantes. La totalité des rubriques demeure consultable ; la vue brève n'efface pas le détail.
 
-### 3. Origine et statut de chaque affirmation déterminante
+### 8.3. Origine et statut de chaque affirmation déterminante
 
 Toute affirmation utile au verdict ou à la décision doit pouvoir être qualifiée avec : nature de l'assertion, objet/critère, source originale, version ou période, droit d'accès, degré d'observation, limites et contradictions éventuelles. Vocabulaires autorisés dans cette proposition : **déclaré / constaté ou observé / critère corroboré sur une portée / non démontré / écart établi / contradictoire**. Ces catégories sont du langage produit, pas des énumérations de base de données imposées en R2.
 
@@ -272,7 +272,7 @@ Règles de calcul non acceptées : addition de preuves par nombre de documents, 
 - **Recommandation Nora :** demander diff exact et sorties de contrôles utiles ; préparer un complément si justifié.
 - **Décision D6 :** aucune acceptation prononcée.
 
-### 4. Comportements fonctionnels candidats à confronter aux RG-PRV existantes
+### 8.4. Comportements fonctionnels candidats à confronter aux RG-PRV existantes
 
 - **PRV-INFO-01 — Complétude intelligible :** Nora peut restituer les neuf rubriques ; aucune affirmation probatoire décisive n'est perdue au profit d'un résumé séduisant.
 - **PRV-INFO-02 — Source du prévu :** le prévu est celui du contrat/critère applicable, et non la promesse reconstruite après l'exécution.
@@ -285,7 +285,7 @@ Règles de calcul non acceptées : addition de preuves par nombre de documents, 
 - **PRV-INFO-09 — Synthèse révisable :** une preuve nouvelle modifie la conclusion courante, sans falsifier l'histoire du bilan précédent.
 - **PRV-INFO-10 — Adaptativité :** la forme est concise en première lecture, détaillée à la demande, mais les rubriques et limites restent accessibles quel que soit le volume de mission.
 
-### 5. Scénarios de qualification proposés
+### 8.5. Scénarios de qualification proposés
 
 | ID temporaire | Cas | Attendu |
 | --- | --- | --- |
@@ -302,6 +302,6 @@ Règles de calcul non acceptées : addition de preuves par nombre de documents, 
 | PF-PRV-INFO-K | Résultat entièrement produit par Nora | Synthèse utile sans inventer Cursor, Attempt ou ReviewBundle |
 | PF-PRV-INFO-L | Synthèse reprise après une nouvelle session | Dernière conclusion datée, sources, pertinence et fraîcheur retrouvables |
 
-### 6. Gates et non-décisions
+### 8.6. Gates et non-décisions
 
 **R3 :** vue Pilot-first + détail intégral consultable + sources réelles et réserves ; les neuf rubriques font partie du contrat UX de la synthèse. **R4 :** associations contrat/tentative/critère/source/version, révision des conclusions, droits, contradiction et stockage sans registre concurrent. **R5/R6 :** exécuter les scénarios sur preuves réelles, mocks clairement distingués de navigateur/LIVE/REAL. **Aucune règle de score automatique, certification universelle ni deuxième acte D6 ne sont décidés.**
