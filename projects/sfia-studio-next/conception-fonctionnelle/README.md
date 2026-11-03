@@ -192,3 +192,43 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 - **Réserves :** 66 réserves numérotées dans leurs specs propriétaires, reportées vers R3 à R6 ; la conformité documentaire ne ferme pas la dette technique ou la preuve.
 - **Historique pré-merge :** les sections précédentes retraçant les étapes candidates et le verdict de revue restent conservées pour compréhension, mais **ne remplacent pas le présent état post-merge vérifié**.
 - **Prochaine capacité :** R3 UX : cockpit personnel, sas conversationnel et continuité, Nora/cycle/décision, contrat `Exécuter` et résultats/preuves, Git facultatif. **R3 NOT STARTED** jusqu'au cadrage/GO dédié ; ni R4 ni R5 anticipés.
+
+## 22. Complément fonctionnel post-clôture — Inspection et documents Nora (Morris, 2026-11-03)
+
+**Statut : complément de contenu validé par Morris, intégré dans les sources R1/R2 sur la branche `sfia/next-r1-r2-inspection-complement`, non encore fusionné dans `main`.** Il s'agit d'une extension traçable après la clôture R1/R2 du 2026-11-02, **sans réécrire les actes historiques de clôture**.
+
+**Référence R1 :** [Vision produit, §§2.40–2.41](../cadrage/vision-produit.md) — Inspection transverse, documents Nora durables, versionnement et révision guidée, liens externes activables dans un nouvel onglet du navigateur courant, sans navigateur intégré, et deux nouveaux parcours E2E documentaires.
+
+**Propriétaires des compléments R2 :**
+
+| Domaine | Règles approuvées ajoutées | Scénarios documentaires ajoutés | Statut / frontière |
+| --- | --- | --- | --- |
+| D2 — Sas | `RG-CRE-027` | `PF-CRE-27` | Brouillon lié au sas avant création explicite ; transfert après création réellement confirmée |
+| D3 — Nora | `RG-DOC-001..010` et `RG-UX-004..009` | `PF-28..35` | Création/révision cognitive, Markdown, restitution et navigation contextuelle |
+| D4 — Connaissance | `RG-KNOW-016..020` | `PF-KNOW-11..14` | Identité durable, version, provenance, récupération et droits |
+| D6 — Gouvernance | `RG-GOV-037` | `PF-GOV-29` | Choix documentaire sans acte métier ou autorisation technique |
+| D7 — Réalisation | Aucune nouvelle | `PF-REAL-31` | Contrat et instruction inspectés sans lancer une tentative |
+| D8 — Preuves | Aucune nouvelle | `PF-PRV-33` | Rapport Cursor distinct de conformité et acceptation |
+| D9 — Git | `RG-GIT-041` | `PF-GIT-35..36` | Aperçu autorisé, ref/branche/commit, lien GitHub externe non autorisant |
+| D1 / D5 | Aucune nouvelle | Aucune nouvelle | Identité/projet, cycle non obligatoire : règles antérieures suffisantes |
+
+**Delta documentaire approuvé :** **24 règles** et **18 scénarios** ajoutés au référentiel fonctionnel, soit **324 règles et 259 scénarios documentés** sur cette branche candidate (historique intégré sur `main` avant complément : **300 règles, 241 scénarios**). Ces chiffres ne sont **ni des tests exécutés, ni des preuves produit**.
+
+**Réserves de conception à qualifier en R4 :** conservation des brouillons du sas, politique d'archivage/suppression, source canonique de document, current version, concurrence entre révisions, rendu Markdown sécurisé, états d'enregistrement incertains, autorisations d'accès, sources Git périmées et ouverture des liens. **R3** réexaminera les maquettes [Figma Inspection](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP) et les parcours sur la base des présents contrats approuvés.
+
+**Gates :** la présente intégration documentaire **ne constitue pas** une autorisation de PR/merge, une mise à jour automatique de la Roadmap, ni une requalification des décisions de sortie R1/R2. PR/merge, vérification post-merge, architecture, implémentation et adoption requièrent leurs propres gates ; Next reste `N/A — NON IMPLÉMENTÉ`.
+
+## 23. Complétude fonctionnelle du contrat et de la restitution — validation Morris du 2026-11-03
+
+**Source de validation :** revue de Morris du 3 novembre 2026, portant explicitement sur les compléments R1/R2/C et l'intégration documentaire Git sur la branche `sfia/next-r3-ux-interaction-candidate`. Ce jalon **complète les specs VALIDATED SPEC existantes** sans rouvrir leur clôture initiale ni constituer un nouveau lot fonctionnel. Le présent index référence les sections nouvelles de leurs propriétaires ; il **ne crée pas un second modèle** ni une numérotation officielle parallèle des RG/PF.
+
+| Propriétaire | Contrat enrichi validé | Reprise R4–R6 |
+| --- | --- | --- |
+| [D3 — Nora](contexte-et-conduite-gouvernee-de-nora.md) | Projection métier fidèle des 4 engagements, 6 volets et de l'instruction ; bilan selon D8 | Qualification des inconnues, conservation de la provenance et rendu adaptatif |
+| [D6 — Gouvernance](decisions-et-gouvernance-du-pilote.md) | Autorisation sur version et effets applicables ; compréhension des restrictions et réception humaine informée | Enforcement, changements matériels, suspensions et traçabilité d'actes |
+| [D7 — Réalisation](realisation-operationnelle-gouvernee.md) | Contrat unique : 4 engagements visibles, 6 volets, instruction Cursor exacte inspectable et contrôles pré-effet | Identité/version/intégrité, secrets, idempotence, capacités réelles, STOP, retour |
+| [D8 — Résultats](resultats-et-preuves.md) | Restitution à 9 rubriques : prévu/réalisé, évaluation, écarts, impact, verdict, suite et éléments vérifiés | Provenance/version, déclaré/observé/conforme/accepté, contradictions et non-preuves |
+
+**Vision associée :** [R1 — complément validé](../cadrage/vision-produit.md) ; référence UX [Parcours C, §32](../ux-ui/espace-projet-interaction-pilote-nora.md) et [Couverture C, §13](../ux-ui/audit-couverture-ux-r3.md) ; Figma canoniques [06 — Contrat](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) et [08 — Résultat](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827).
+
+**Gate :** R4 doit justifier le schéma de contrat, la correspondance de l'instruction effectivement transmise, les droits/identités et la chaîne de preuve ; R5 implémentera les comportements ; R6 vérifiera les effets, le navigateur et les refus LIVE/REAL applicables. **Aucun travail R4, PR, merge ni adoption n'a été autorisé par cette validation documentaire.** `main` reste la baseline publiée tant qu'aucun merge distinct n'est décidé.
