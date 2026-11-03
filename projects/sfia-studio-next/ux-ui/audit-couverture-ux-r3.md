@@ -1036,3 +1036,40 @@ Les **41 règles RG-GIT** restent sous autorité de la spécification D9 R2. Les
 **Préparation de la revue globale :** A/B acceptés avec réserves ; C validé ; D validé en contenu UX et intégré au prototype. À qualifier avec Morris avant toute clôture R3 : cohérence des scénarios et réserves, contrats R4–R6, et sujet évoqué mais non cadré de **l'activité visible de Nora pendant une mission (progression et états éventuellement fournis par API)**. Aucun contrat d'événements, écran live ou télémétrie n'est décidé ici.
 
 **Gate : R3 GLOBAL REVIEW PENDING MORRIS.** Branche candidate uniquement ; aucune PR, merge, modification normative de la Roadmap, architecture R4, exécution LIVE/REAL ou ADOPTED.
+
+## 15. Couverture de la consolidation Nora — activité, arrêt/reprise et fidélité Figma–code
+
+**GO Morris de construction du macro-lot :** périmètre autorisé en conception UX. **Statut de contenu : DOCUMENTED / FIGMA CANDIDATE — MORRIS REVIEW PENDING**. Les responsabilités R1/R2 sont reprises de leurs sources validées ; **les compléments normatifs doivent être approuvés en D2 avant publication**.
+
+### 15.1. Contrat et inventaire
+
+- [Index Figma du suivi Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) : **12 variantes 206–217**, dont deux présentations mobiles. Leur parcours conditionnel ne préjuge d'aucun comportement LIVE ou REAL.
+- [Contrat de transposition Figma → code](contrat-transposition-figma-code.md) : géométrie, composants, règles responsive et contrôles automatisables, avec exemples de dimensions natives.
+- [Index JSON géométrique R3](index-geometrie-frames-r3.json) : **221 frames** et tailles `width/height` vérifiées à la date de mesure. Ce manifeste ne prétend pas fournir les contraintes internes complètes de chaque frame ; leur extraction reste obligatoire lors de la construction.
+- R1 : continuité, suspension humaine et compréhension du Pilote ; D3 : narration fidèle ; D6 : STOP/reprise en autorité ; D7 : événements réellement reçus et effets ; D8 : preuve et bilan partiel.
+
+### 15.2. Scénarios de revue UX (non numérotation R2)
+
+| Situation à vérifier | Écran / contrat | Propriétaire | Niveau de preuve |
+| --- | --- | --- | --- |
+| Activité cognitive sans fausse séquence | [206](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-389), [208](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-751) | D3 ; R1 | Maquette, pas raisonnement ni API observés |
+| Événement source présent | [207](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-570) | D3/D9 | Provenance future à vérifier |
+| Événements d'une tentative Cursor | [209](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-932) | D7 | Télémétrie et source non prouvées |
+| Envoyer → arrêter dans le même composer | [03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) → [206](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-389) → [210](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1113) | D3/D6/D7 | Navigation Figma seulement |
+| STOP externe demandé vs confirmé | [211](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1294), [151](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-499), [153](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-705) | D6/D7 | Aucun arrêt Cursor LIVE établi |
+| Conservation des acquis et reprise | [212](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1475), [213](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1656), [214](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1837) | D3/D6/D7/D8 | Checkpoints et effet non prouvés |
+| Restitution partielle sans faux pourcentage | [215](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-2018) | D8 | Évaluation future |
+| Mobile et focus / mouvement réduit | [216](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=282-468), [217](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=282-492) | UX / D3 | Visuel seulement, navigateur R6 requis |
+| Mesures exactes d'un écran | [206](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-389), [06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) | UX, propriétaire composant R4 | Géométrie native documentée, non capture runtime |
+| Variants et couverture anti-régression | [Index](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) | UX transverse | Navigation à contrôler après dernier câblage |
+
+### 15.3. Réserves et obligations de la revue
+
+1. Ne pas confondre activité cognitive, utilisation d'un outil et tentative externe ; un message d'avancement n'est ni un journal secret, ni une preuve d'effet.
+2. Différencier STOP demandé, STOP effectivement observé, arrêt indisponible et état inconnu. Reprise après pause technique et levée de suspension D6 restent séparées.
+3. La configuration de l'animation et des données API est **à concevoir/prover en R4/R5/R6**, pas déduite de la capture de ChatGPT.
+4. Un index de 221 frames ne signifie pas 221 écrans de produit à développer séparément. Préparer composants réutilisables et une capture/suite de tests par état.
+5. Avant tout verdict « conformité visuelle », comparer la source Figma datée, les dimensions mesurées, les styles calculés et le rendu navigateur dans les viewports retenus.
+6. Contrat R1/R2 et nouveaux scénarios PF/RG **non validés dans ce lot**. La décision Morris D2 est le gate de leur intégration Git normative.
+
+**Verdict :** couverture de conception candidate, préparée pour revue Morris ; R3 GLOBAL REVIEW PENDING, aucune PR/merge/R4/ADOPTED.
