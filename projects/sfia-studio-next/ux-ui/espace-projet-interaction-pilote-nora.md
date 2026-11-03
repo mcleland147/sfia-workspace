@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.24**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.25**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -8,7 +8,7 @@
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
 | Macro-lot R3 | Quatre capacités A–D retenues : **A — Entrée/continuité (revue acceptée avec réserves) ; B — Trajectoire/cycles/CKI/décisions (revue acceptée avec réserves) ; C — Réalisation et résultats (revue de cohérence PASS, contenu validé Morris) ; D — Git facultatif et qualité transverse (FIGMA CANDIDATE, revue Morris en attente)**. Travail séquentiel avec revue Morris par macro-lot. |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.24** ; direction B2/V3, **A/B acceptés avec réserves**, **C validé par Morris avec contrôle de cohérence de prototype**, **D validé par Morris sur le contenu UX, raccordements terminés**, R3 **ouvert**, aucun comportement runtime prouvé |
+| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.25** ; direction B2/V3, **A/B acceptés avec réserves**, **C validé par Morris avec contrôle de cohérence de prototype**, **D validé par Morris sur le contenu UX, raccordements terminés**, R3 **ouvert**, aucun comportement runtime prouvé |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
 | Source Git vérifiée | `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` (2026-11-03) ; branche documentaire candidate `sfia/next-r3-ux-interaction-candidate` |
 | État Git Next | R1/R2 clôturés avec réserves ; **Roadmap sur `main` historiquement « R3 NOT STARTED » malgré les travaux Figma/doc candidats — KNOWN GAP documentaire**, à régulariser par GO séparé |
@@ -1309,9 +1309,9 @@ Le Pilote poursuit une seule conversation avec Nora : elle qualifie sa demande, 
 
 ### 31.3. Actions et destinations : contrat d'une navigation honnête
 
-L'index de revue C est une **table de situations cliquables**, pas un menu permettant au Pilote de forcer une panne, un résultat positif ou un STOP confirmé. Dans les écrans produit, les commandes activées conduisent à une destination liée à leur acte : inspecter l'instruction (136 → 137), revenir sans lancer (137 → 136) ou demander Exécuter après inspection (137 → 143 : contrôles avant effet), consulter une déclaration après activité (145 → 155), retrouver l'activité après un rejeu (147 → 145), inspecter une version devenue périmée (149 → 139), inspecter le rapport et ses preuves (155/157/159 → 19), préparer un correctif distinct (155/157/159 → 160), exercer la décision de réception dans le parcours B (155/156/157/158/159/161 → 35), revenir au travail (→ espace Nora 94:214). Les états non nominaux dépendent d'observations **future runtime**, et non de boutons d'issue artificiels. Un refus ou une absence de droits ne présente pas Exécuter comme actif. Les écrans de STOP ne proposent aucun bouton de résultat simulé.
+L'index de revue C est une **table de situations cliquables**, pas un menu permettant au Pilote de forcer une panne, un résultat positif ou un STOP confirmé. Dans les écrans produit, les commandes activées conduisent à une destination liée à leur acte : inspecter le contrat (136 → 06), consulter l'instruction (06 → 169), revenir au contrat (169 → 06), ou demander Exécuter après inspection (169 → 143 : contrôles avant effet), consulter une déclaration après activité (145 → 155), retrouver l'activité après un rejeu (147 → 145), inspecter une version devenue périmée (149 → 139), inspecter le rapport et ses preuves (155/157/159 → 19), préparer un correctif distinct (155/157/159 → 160), exercer la décision de réception dans le parcours B (155/156/157/158/159/161 → 35), revenir au travail (→ espace Nora 94:214). Les états non nominaux dépendent d'observations **future runtime**, et non de boutons d'issue artificiels. Un refus ou une absence de droits ne présente pas Exécuter comme actif. Les écrans de STOP ne proposent aucun bouton de résultat simulé.
 
-**Contrôle réellement effectué :** Figma page 01 contient 162 maquettes produit et deux index distincts ; 28 nouvelles variantes C native/editables. Sur le périmètre des 28 + index C, audit programmatique de **302 réactions NODE, 0 destination manquante, 0 auto-navigation et 0 action visible sans réaction** ; captures effectives de l'index C, du contrat d'instruction 137 et du STOP confirmé 153 inspectées. Cette preuve couvre la structure/prototypage, pas la navigation effective en navigateur, le focus clavier, le comportement conditionnel, les API, les autorisations ou le runtime.
+**Contrôle réellement effectué :** Figma page 01 contient 162 maquettes produit et deux index distincts ; 28 nouvelles variantes C native/editables. Sur le périmètre des 28 + index C, audit programmatique de **302 réactions NODE, 0 destination manquante, 0 auto-navigation et 0 action visible sans réaction** ; captures effectives de l'index C, du volet d'instruction historiquement appelé 137 (remplacé par le canonique 169) et du STOP confirmé 153 inspectées. Cette preuve couvre la structure/prototypage, pas la navigation effective en navigateur, le focus clavier, le comportement conditionnel, les API, les autorisations ou le runtime.
 
 ### 31.4. Restitution adaptative Nora et vocabulaire de preuve
 
@@ -1534,24 +1534,62 @@ Le Pilote voit que Nora travaille, l'étape ou l'opération **réellement établ
 
 ### 35.3. Contrat de transposition mesurable
 
-**[Contrat Figma → code](contrat-transposition-figma-code.md)** : source UX unique pour l'implémentation mesurable ; **[inventaire de 221 frames et dimensions](index-geometrie-frames-r3.json)** conservé sur la branche candidate. Les mesures sont lues des propriétés natives Figma : ID, parent, `x/y/w/h`, auto-layout, padding, gap, rayon, font, interligne, couleur et états. Exemple extrait : carte Nora 206 **938×331, padding 18, rayon 12**, étapes **887×37**, action Arrêter **225×35** ; les tokens universels restent à consolider, notamment l'écart historique de rail **240 vs 246 px**.
+**[Contrat Figma → code](contrat-transposition-figma-code.md)** : source UX unique pour l'implémentation mesurable ; **[inventaire actualisé de 223 frames et dimensions](index-geometrie-frames-r3.json)** conservé sur la branche candidate. Les mesures sont lues des propriétés natives Figma : ID, parent, `x/y/w/h`, auto-layout, padding, gap, rayon, font, interligne, couleur et états. Exemple extrait : carte Nora 206 **938×331, padding 18, rayon 12**, étapes **887×37**, action Arrêter **225×35** ; les tokens universels restent à consolider, notamment l'écart historique de rail **240 vs 246 px**.
 
 **Le contrat ne fige pas les écrans en coordonnées absolues.** Un composant = une responsabilité, des états et des règles de reflow ; les références sont mesurables mais doivent rester adaptées aux contenus, longueurs, zooms et 1280/390/320 px. R4 devra qualifier la source des événements, le composant unique, l'architecture de rendu et les tokens. R5 construira ; R6 comparera géométries, polices, couleurs, captures, interactions, cas négatifs et reprises. Tolérances candidates à valider lors de la première baseline technique ; aucune conformité pixel-perfect proclamée.
 
 
-### 35.5. Relecture du prototype et état du manifeste
+### 35.4. Relecture du prototype et état du manifeste (snapshot pré-revue)
 
-**Audit Figma post-câblage (2026-11-03) :** 221 frames sur la page 01 ; les 12 variantes numérotées 206–217 existent, sans doublon. **2 309 réactions NODE**, **0 destination inexistante**, **0 commande visible nommée `Action /` laissée sans interaction**, trois URL externes inchangées. **15 ancrages intra-frame** « Aller à la dernière réponse » : 5 états historiques et 10 états Nora clonés, intentionnels, pas des cycles de navigation.
+**Audit Figma post-câblage avant les deux nouveaux index de revue (2026-11-03) :** 221 frames sur la page 01 ; les 12 variantes numérotées 206–217 existent, sans doublon. **2 309 réactions NODE**, **0 destination inexistante**, **0 commande visible nommée `Action /` laissée sans interaction**, trois URL externes inchangées. **15 ancrages intra-frame** « Aller à la dernière réponse » : 5 états historiques et 10 états Nora clonés, intentionnels, pas des cycles de navigation.
 
 La commande Envoyer du composer 03 ouvre l'état de travail 206 du prototype. Les carrés d'arrêt des états Nora en cours conduisent à 210 (STOP cognitif demandé) ou 211 (STOP externe demandé) ; ces deux états affichent ensuite un arrêt en attente non relançable depuis le composer. Les deux variantes mobiles conduisent à la demande d'arrêt et à la préparation de reprise. Les actions du panneau décrivent l'état, elles ne simulent pas un appel API ni une confirmation technique.
 
-**Manifeste :** [`index-geometrie-frames-r3.json`](index-geometrie-frames-r3.json) contient les **221 frames et 891 blocs visibles de premier niveau** (`id, nom, position, largeur, hauteur, type de layout`). Les mesures détaillées de la carte d'activité, du composer et du contrat d'exécution figurent dans [le contrat de transposition](contrat-transposition-figma-code.md). L'implémentation doit réextraire les descendants pertinents et les tokens/contraintes ; aucun claim de « pixel perfect » global n'est prononcé.
+**Manifeste :** [`index-geometrie-frames-r3.json`](index-geometrie-frames-r3.json) contient les **223 frames et 901 blocs visibles de premier niveau** (`id, nom, position, largeur, hauteur, type de layout`). Les mesures détaillées de la carte d'activité, du composer et du contrat d'exécution figurent dans [le contrat de transposition](contrat-transposition-figma-code.md). L'implémentation doit réextraire les descendants pertinents et les tokens/contraintes ; aucun claim de « pixel perfect » global n'est prononcé.
 
 **Vérification visuelle :** capture du desktop 206, du mobile 216 et de l'index Nora contrôlées. La planche mobile mesure 390×1350, pas un viewport imposé. Animation réelle, règles d'annonce accessibles, arrêt API, état après reload, idempotence et comparaison navigateur restent des preuves R5–R6.
 
-### 35.4. Dette, exit et gate
+### 35.5. Dette, exit et gate
 
 - **D2 à valider :** compléments R1 et R2 D3/D6/D7/D8 rédigés pour arbitrage Morris, mais **non publiés sur Git** comme règles acquises.
 - **R4–R6 :** aucune API Nora/stream, capacité stop Cursor, checkpoint ou reprise locale observée ; mécanisme exact et preuves restent N/A — NON IMPLÉMENTÉ.
 - **R3 :** les 12 variantes et le contrat mesuré sont des candidats UX à examiner. La revue globale A–D et le sujet d'observabilité restent ouverts avant décision de sortie.
 - **Git :** contribution documentaire D1 sur branche candidate et index JSON ; sans PR, merge, modification normative ni ADOPTED.
+
+## 36. Préparation de la revue finale R3 — parcours produit accessible en Présentation (2026-11-03)
+
+**Statut : GLOBAL UX REVIEW READY — MORRIS VERDICT PENDING.** Après l'autorisation de consolidation, vérification du point de départ natif Figma, du graphe de transitions, des écrans des neuf domaines et des sept E2E R1. Les pages 00 Fondations, 01 Parcours et 02 Contrats visuels sont conservées. Aucun statut `IMPLEMENTED`, `BEHAVIOR PROVEN` ou `ADOPTED` anticipé.
+
+### 36.1. Deux portes d'entrée, deux types de preuve
+
+**Mode Présenter — trois flux nommés, sans 36 destinations historiques redondantes :**
+
+- **Parcours principal — Studio Next** : [01 Portefeuille](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50), déroulement nominal des interactions et écrans qui ne présupposent aucun événement extérieur. **81 frames atteignables** sur les 223 ; les autres ne doivent pas devenir de fausses opérations déclenchables.
+- **Revue intégrale R3 — 9 domaines / 7 E2E** : [index global A–D](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=264-401), **223/223 frames atteignables** via les liens de revue, y compris les variantes négatives. C'est le flux à sélectionner pour valider l'ensemble du dossier UX.
+- **Variante — fenêtre compacte** : [10 Nora à 1280](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-1037).
+
+**[Index des sept E2E R1](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=299-389)** : lecture guidée des écrans qui représentent le **sas→projet**, la **trajectoire/cycle**, la **cognition**, la **continuité/gouvernance**, la **réalisation**, les **preuves/réception** et le **Git facultatif**. **[Index des 14 variantes complémentaires](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=298-389)** : states de cycle, méthode, CKI, transition, reprise et lecture compacte. Ces deux index ne sont pas des pages produit.
+
+Les 223 frames comprennent **216 cadres numérotés** et **7 index de revue**. Le numéro de maquette **137**, anciennement associé à l'inspection brute du contrat, n'existe plus ; il est remplacé fonctionnellement par **169 — instruction Cursor consultée** (`199:1500`). La numérotation existante est conservée pour ne pas casser la traçabilité historique, sans reconstruire un doublon de composant.
+
+### 36.2. Chaînes conceptuelles et limites de simulation
+
+| Parcours R1 | Vue inspectable | Transition nécessitant un état ou une autorité réelle |
+| --- | --- | --- |
+| E2E 01 | 01 → 02 → 74 → 76 → 77 → 13 → 03 | Le succès 13 ne suit pas automatiquement l'attente de création 77 |
+| E2E 02 | 22 → 23 → 52 → 24 → 25 → 27 → 58 | L'état actif 24 ne suit pas automatiquement l'ouverture à confirmer 52 |
+| E2E 03 | 03 → 206 → 04 → 18 → 215 | Les événements/avancements Nora ne sont pas une télémétrie LIVE |
+| E2E 04 | 14 → 11 → 05 → 40 → 31 → 33 | Décisions/suspensions représentées sans autorité runtime |
+| E2E 05 | 06 → 169 → 143 → 144 → 145 → 151 | Précontrôle → lancement → activité exigent un accusé et des effets observables |
+| E2E 06 | 07 → 155 → 19 → 08 → 35 | Rapport, preuves et réception ne sont pas déduits d'une attente |
+| E2E 07 | 12 → 171 → 173 → 175 → 178 → 190 → 193 | Une ressource Git n'autorise pas d'effet ni de résolution implicite |
+
+La différence est volontaire : **une présentation interactive peut inspecter chaque état, mais ne doit pas simuler une création confirmée, un cycle réellement ouvert, un STOP exécuté ou un résultat Cursor probant**. Le comportement conditionnel reste à construire en R4/R5 et à prouver en R6. Les données métiers et les frontières D1–D9 sont exhaustivement représentées au niveau des **familles UX et des sept scénarios validés**, pas vérifiées en runtime.
+
+### 36.3. Contrat Figma–Cursor et validation attendue
+
+Le [contrat de transposition](contrat-transposition-figma-code.md) prend en compte **les neuf familles d'écrans, les composants communs et les distinctions d'états**. Le [manifeste natif v0.3](index-geometrie-frames-r3.json) couvre **223 frames et 901 blocs de premier niveau** ; la géométrie détaillée des descendants est spécifiée **pour les écrans canoniques mesurés**, pas intégralement pour les 223. Cursor devra extraire les composants et variantes de chaque capacité implémentée, avec tests géométriques et captures navigateur, avant tout claim de fidélité. L'écart de rail **240 / 246 px** reste un choix de fondation à normaliser.
+
+**Contrôles Figma de conception réalisés :** point de départ principal observé ; flux de revue dédié créé ; nombre de flux réduit de **39 à 3** ; **223/223 frames atteignables depuis la revue**, aucun numéro de frame nouveau dupliqué, aucune destination de réaction inexistante ; noms de calques des boutons 136/143/144 harmonisés avec leurs libellés affichés. Captures des index A–D, des sept E2E et des variantes non nominales examinées ; le global a été réagencé à **1440 × 1285 px** pour une lecture plus lisible en Présentation.
+
+**Réserves de sortie :** R1/R2 D2 proposés pour les nouveaux états Nora mais pas publiés comme `VALIDATED SPEC` ; tests navigateur, zoom, clavier, dynamique API, état après reload, arrêt réel, idempotence, conformité Figma–code et autres preuves R6 non produits. **READY FOR MORRIS FINAL UX REVIEW — R3 NOT CLOSED**. La validation et la clôture sont des décisions Morris distinctes ; PR/merge uniquement après gate spécifique.
