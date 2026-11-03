@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.12**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.13**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -349,6 +349,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Relier les documents Nora, les décisions et un refus Git au prototype global ; éprouver deux surfaces compactes à 1280 px, auditer les réactions et la lisibilité. | GO Morris de poursuite R3 ; sans nouveau mandat de PR, merge ou clôture | **FIGMA CANDIDATE** : 17 écrans, 103 liens internes ; tests produit, accessibilité et responsive exhaustif non réalisés. |
 
 | 2026-11-03 | Consolider les restitutions adaptatives de Nora : réponse simple, clarification déterminante, divergence des sources et digression/reprise dans le parcours produit Figma. | GO Morris de poursuite R3 ; revue de sortie et promotion Git non autorisées | **DOCUMENTED / FIGMA CANDIDATE v0.12**, aucun comportement live ni décision R4. |
+
+| 2026-11-03 | Concevoir trois restitutions Nora riches (analyse A/B, parcours/dépendances, investigation sourcée) et consigner la réserve d’étude R4 A/B/C. | GO Morris de poursuite R3, préférence initiale A sans adoption | **DOCUMENTED / FIGMA CANDIDATE v0.13 — R4 RESERVE OPEN**, pas d'ADR ni de runtime. |
 
 ### Règle de maintenance
 
@@ -956,3 +958,56 @@ Après insertion, le prototype E2E comprend **21 frames** (19 à 1680 × 970, 2 
 **Suite cohérente du jalon R3 :** poursuivre par les cas sensibles d'autorisation/STOP et de reprise après interruption, puis consolider les composants, la typographie, les états clavier et les adaptations. Vérifier ensuite la couverture transverse des parcours R1/R2 et préparer un **dossier de sortie R3 compact**, sans ajouter indéfiniment des sections historiques au document vivant : consolider sa structure avant intégration formelle. Les gates de PR/merge/Roadmap, de sortie R3 et d'entrée R4 restent réservés à Morris.
 
 **Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE R3 ; aucune preuve runtime Next, aucun ADOPTED.**
+
+
+## 24. Grammaire de restitution structurée Nora et réserve d'étude R4 (R3 v0.13, 2026-11-03)
+
+### 24.1. Résultat utilisateur et sources applicables
+
+La réponse Nora doit pouvoir **combiner des formes visuelles proportionnées** : analyse, tableau, comparaison, recommandation conditionnelle, parcours, sources, niveaux de certitude, statuts et contrôles contextuels. La présentation doit renforcer le raisonnement, pas masquer les inconnues ni imposer un rituel de cartes.
+
+**Références vérifiées sur main :** R1 vision produit §2.32 (investigation, production cognitive et restitution structurée adaptative ; catalogue non fermé) ; R2 D3 **RG-CONV-006, RG-UX-001..003, PF-24** ; D4 connaissance et sources ; D6 autorité ; D7 réalisation ; D8 preuves ; D9 Git facultatif. SEF v0.2 §4.6 donne comme **exemple méthodologique non adopté** une capacité de « Réponse Nora fidèle, structurée et persistante » avec contrat sémantique, rendu, conservation et preuve navigateur.
+
+**IN UX :** grammaire visuelle réutilisable, composition mixte et réponse simple non encombrée, appels contextuels sans mutation implicite. **OUT :** catalogue fermé, moteur de rendu déjà choisi, nouvelle autorité, exécution Git/Cursor implicite, preuve de comportement runtime. Next demeure **N/A — NON IMPLÉMENTÉ**.
+
+### 24.2. Trois compositions sur la page Figma E2E existante
+
+**Fichier :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP ; page « 04 · Parcours produit — Vue de bout en bout ». Écrans natifs éditables, boutons liés aux vues correspondant réellement à leurs libellés.
+
+| Composition | Écran Figma | Résultat présenté | Invariant |
+| --- | --- | --- | --- |
+| **Analyse composite et recommandation conditionnelle** | [19 — A/B](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=76-37) | Tableau multicritère, hypothèses explicites, orientation A provisoire et approfondissement des dépendances | Préférence A ≠ décision d'architecture, contrat ou ADR |
+| **Parcours et dépendances** | [20 — Parcours](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=76-180) | Étapes visuelles, intervenants, risques de transition, accès Trajectoire / Contrat | Lire le parcours ≠ ouvrir un cycle ou autoriser l'exécution |
+| **Investigation sourcée et limites** | [21 — Sources et inconnues](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=76-334) | Cartes de références, faits, hypothèses, inconnues, action vers Sources / Journal | Candidate Git ≠ source applicable ou lecture prouvée |
+
+**Prototype :** depuis l'espace Nora existant, le composeur de démonstration peut ouvrir l'analyse A/B ; les boutons ouvrent les vues pertinentes, sans simuler de sauvegarde, décision ou lancement de Cursor. Un point d'entrée « Nora · restitutions riches et composites » est disponible dans Figma.
+
+**Audit :** captures des trois vues vérifiées ; 24 frames dans la traversée E2E, 193 liens de navigation interne, 3 actions URL externes, 5 points de départ, aucune destination manquante et aucune auto-navigation. Les vues utilisent Inter et sont éditables. Ces contrôles sont **structurels Figma**, non tests d'utilisateur, de lecteur d'écran, de navigateur Studio Next ou de performance.
+
+### 24.3. Réserve R4 — étude préalable de l'architecture de restitution
+
+**RÉSERVE OPEN / R4 — ÉTUDE À PRODUIRE AVANT CHOIX TECHNIQUE.** Morris privilégie provisoirement **A** en raison d'une simplicité et de coûts potentiellement inférieurs ; cette appréciation reste **une hypothèse à mesurer, pas un choix validé**. **B** reste ouverte et une **option C** peut apparaître si elle répond mieux aux contraintes observées.
+
+Hypothèses de comparaison (pas de solutions retenues) :
+
+- **A — intégrée et modulaire :** responsabilités de production cognitive, description sémantique, rendu et conservation séparées logiquement dans un ensemble principalement déployé ensemble.
+- **B — distribuée :** services et interfaces distincts pour tout ou partie de la restitution, avec autonomie éventuelle d'exploitation et de dimensionnement.
+- **C — à définir après étude :** architecture mixte ou autre solution justifiée par la charge et les invariants ; aucune abstraction ou service gratuit.
+
+**Contrat d'étude à instruire en R4 :**
+1. **Charge et performance :** volumétrie réelle et prévisible des réponses, diversité des contenus, concurrence, débit, latence perçue, réponses longues, streaming éventuel, limites et adaptation client.
+2. **Architecture sémantique et sécurité :** séparation Nora cognitive / description fidèle du rendu / UI, formats admissibles, rendu Markdown ou données externes non fiables, protections contre injection, permissions et isolation des utilisateurs.
+3. **Persistance et reprise :** identité de réponse, stockage/version des artefacts réellement durables, relecture fidèle et déterministe, historique, provenance, interruption et conflit, sans deuxième source de vérité.
+4. **Interactions et gouvernance :** composants interactifs de lecture, question et poursuite, HumanDecision et Exécuter exclus des interactions non autorisantes, interfaces D3/D4/D6/D7/D8/D9.
+5. **Coût et exploitation :** effort de construction, déploiement, supervision, support, évolution, tests, maintenance, isolation des pannes, coûts d'infrastructure et sortie de dette.
+6. **Comparatif étayé :** critères pondérés selon besoins mesurés, cas tests représentatifs (simple, composite, tabulaire long, sourcé, interactif), hypothèses et limites, risques, coût total, variantes A/B et C si justifiée, recommandation et preuve attendue.
+
+**Sortie attendue :** recommandation d'architecture motivée, arbitrage **Morris** sous gate R4 adapté, trace ADR ou architecture applicable, contrats d'acceptation et scénario de preuve R5/R6. L'étude n'est ni engagée techniquement ni remplacée par cette exploration Figma.
+
+### 24.4. Suite R3 et gates
+
+Éprouver ensuite l'adaptation des réponses longues, les tableaux denses, les compositions mixtes, les contenus en chargement, les interactions clavier et la lisibilité à 1280 px. Consolider en contrat UX les familles réellement nécessaires, sans multiplier les pages, ni figer une grille obligatoire.
+
+**Gates :** document UX candidat seulement ; pas de modification de R1/R2, SEF, Roadmap, ADR, PR ou merge ; aucun R4 décidé ni R5 implémenté. La préférence A et les conditions de l'étude seront à porter à la revue R3 puis à l'entrée R4.
+
+**Statut : DOCUMENTED / FIGMA CANDIDATE ; R4 A PREFERRED HYPOTHESIS — B/C OPEN — STUDY REQUIRED ; NEXT NON IMPLÉMENTÉ.**
