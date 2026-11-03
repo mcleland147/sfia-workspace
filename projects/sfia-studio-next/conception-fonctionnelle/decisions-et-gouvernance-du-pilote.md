@@ -277,3 +277,25 @@ Chaque cas propose un résultat observable à démontrer ultérieurement. Les id
 | PF-GOV-INFO-D | Suspension humaine active mais technique réparée | Nouvelle exécution refusée jusqu'à levée humaine applicable |
 
 **R4–R6 :** projection/contrôles de version sans double autorité, test de l'accès à l'inspection, tests d'état/permissions, écran clavier/mobile, événement de réception, preuve réelle d'interdiction et de non-duplication. Aucun nouveau formulaire universel, moteur d'approbation ou persistance spécifique imposés en R2.
+
+## 9. Clarification validée — portée et autorité de la commande Arrêter (Morris, 2026-11-03)
+
+**Clarification 3/4, responsabilité D6 — VALIDATED CONTENT BY MORRIS (D2).** Précise les règles existantes \`RG-GOV-004/016/018/019/020/022/025\` sans créer un second acte d'autorité ni requalifier R2 CLOSED. Interfaces : [R1 §9](../cadrage/vision-produit.md), [D3 §13](contexte-et-conduite-gouvernee-de-nora.md), [D7 §9](realisation-operationnelle-gouvernee.md).
+
+### 9.1. Commande et cible non ambiguës
+
+Une interface peut afficher **Arrêter** lorsqu'elle dispose d'une action d'interruption effectivement applicable au travail ciblé. Le Pilote doit pouvoir identifier si l'action concerne une **réponse cognitive de Nora** ou une **tentative externe gouvernée** ; le libellé « Arrêter » ne doit pas fusionner ces deux pouvoirs. Lorsque l'interruption externe n'est pas supportée, il faut afficher son indisponibilité et les possibilités honnêtes de restriction de nouveaux effets, plutôt que promettre un arrêt réel impossible.
+
+Pour une opération externe, D6 conserve la **demande humaine, son auteur, sa portée, son applicabilité, les décisions et suspensions**. Une demande recevable peut conduire à une transmission à D7 ; elle **ne prouve** ni la réception par l'exécuteur, ni la cessation, ni l'annulation d'effets déjà produits. Une commande ne confère pas de droits absents, ne remplace pas l'autorisation d'exécution et ne lève pas une suspension humaine.
+
+### 9.2. État de décision et reprise
+
+L'information présentée distingue au minimum, si applicable, **demande reçue**, **ordre transmis**, **arrêt observé**, **interruption indisponible** et **état inconnu**. D6 exprime uniquement les actes et restrictions dont il est propriétaire ; D7 fournit les retours techniques réellement observés, et D8 les effets et preuves. Les opérations déjà en cours et les effets antérieurs ne sont pas supprimés de l'histoire par l'apparition d'une commande STOP.
+
+Une **reprise technique** possible après incident n'est pas une **levée humaine** : si une suspension ou révocation du Pilote reste applicable, aucun nouvel effet n'est permis jusqu'à l'acte D6 compétent. Toute relance nécessitant un nouveau contrat/mandat suit les conditions D7 applicables.
+
+### 9.3. Transfert et preuve attendue
+
+**R4 :** identifier l'autorité et la portée de la demande, les capacités disponibles, les statuts de l'exécution et les frontières entre décisions et tentatives. **R5–R6 :** éprouver les cas « arrêt demandé sans confirmation », « arrêt indisponible », « effets après STOP », « reprise technique sous suspension active » et « autre Pilote sans autorité » avec preuves séparées. Une maquette présentant « interrompu » ne remplace aucune de ces observations.
+
+**Statut : clarification fonctionnelle D6 validée sur branche candidate, sans nouvelle décision de clôture, PR, merge ni effet produit.**
