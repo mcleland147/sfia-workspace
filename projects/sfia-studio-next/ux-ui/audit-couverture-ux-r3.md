@@ -859,3 +859,7 @@ Les 72 RG restent sous autorité de leurs spécifications R2. Les références c
 - Aucun clic d'accordéon ne délègue un travail ; une navigation Figma « Exécuter » n'est qu'un parcours de précontrôles, pas un dispatch Cursor.
 - Le résultat « terminé » n'est pas un verdict de conformité ; le verdict n'est pas une acceptation ; l'acceptation n'est pas un merge ni `ADOPTED`.
 - Les documents R1/R2 clos restent la baseline jusqu'à approbation Morris de ces propositions et autorisation Git bornée. L'UX candidate ne suffit pas à promouvoir R3.
+
+### 13.F. Contrôle final après nettoyage — 2026-11-03
+
+**Vérification effective de la page 01 Figma :** 171 frames de premier niveau, 1 753 réactions NODE inspectées, **aucune destination manquante et aucune auto-navigation**, toutes les références vers les trois frames supprimées requalifiées. Écrans canoniques : `06@94:629` et `08@94:827` ; six volets + instruction `06.1..06.7`, détail `08.1`. La page comporte toujours 3 contrôles visibles « Inspecter » sans réaction, sur des maquettes **antérieures et extérieures au périmètre C** : `94:449` (document), `97:438` (révision documentaire), `100:118` (rapport/preuves). **KNOWN GAP de prototype à instruire en revue transverse D**, sans déduire de destinations ni annoncer un parcours pleinement prouvé. Les captures des écrans 06/08, du volet STOP et de l'index ont été inspectées après consolidation. Les 28 variantes C historiques et leurs métriques antérieures restent une trace de fabrication, **pas l'inventaire courant**.
