@@ -261,7 +261,7 @@ Toute affirmation utile au verdict ou à la décision doit pouvoir être qualifi
 
 Règles de calcul non acceptées : addition de preuves par nombre de documents, réussite automatique fondée sur « tests OK », assimilation d'un état terminal Cursor à la conformité D8, assimilation d'une conformité locale à l'adoption, assimilation d'une acceptation métier à la vérité technique. Le bilan est révisable lorsque de nouvelles observations apparaissent, sans effacer ses conclusions datées ni les contradictions.
 
-#### Exemple de référence, intentionnellement non probatoire
+#### 8.3.1. Exemple de référence, intentionnellement non probatoire
 
 - **Prévu :** deux documents du projet Atlas à mettre à jour, exclusions code/CI/merge.
 - **Déclaré par Cursor :** « deux fichiers modifiés ; tests OK ».
