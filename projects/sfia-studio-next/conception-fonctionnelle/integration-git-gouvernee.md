@@ -244,3 +244,25 @@ Un projet sans dépôt continue à utiliser Nora, les cycles, décisions, mémoi
 **Critères R2 proposés :** autonomie complète du projet sans dépôt ; identité/permissions séparées ; lecture Git vérifiée et contextualisée ; cible/branche/base à effet significatif explicites ; mutations D7/D6 seulement ; ref d’observation D9 distincte du verdict D8 ; projet partagé seulement par Git accessible ; refus ou requalification sur conflit ; pas de CKI ou Kubernetes imposé. **Aucune architecture ni preuve REAL adoptée.**
 
 **Verdict documentaire : `R2 — DOMAINE 9 / INTÉGRATION GIT GOUVERNÉE — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 40 règles `RG-GIT-001..040`, 34 scénarios `PF-GIT-01..34`, 14 réserves `GIT-*`, confrontation R1/D3–D8/CKI v0.2 ; D1–D2 `NON ÉVALUÉS` contre specs futures ; Studio Next `N/A — NON IMPLÉMENTÉ`.**
+
+
+---
+
+## 7. Complément post-clôture R2 — aperçu de source Git et lien externe (2026-11-03)
+
+**Statut : contenu validé par Morris le 2026-11-03, publié sur branche candidate.** Il complète la spécification historique v0.1 et ses règles/scénarios approuvés au 2026-11-02, sans modifier la décision de sortie R2 ni affirmer une implémentation Next.
+
+### Règle de gestion additionnelle
+
+- **RG-GIT-041 — Aperçu Git et ouverture de l'original.** Lorsqu'une source Git réellement accessible est présentée en Inspection, Studio identifie l'objet, le dépôt, la branche/ref ou commit consultés, les limites d'actualité et le droit de lecture effectif. L'aperçu ne garantit pas la version courante de `main` si l'origine est candidate, et propose un lien réel ouvrable vers GitHub dans un nouvel onglet. L'aperçu, son téléchargement ou le clic sur le lien n'autorisent aucune écriture. *Interfaces : RG-GIT-003/009/017..024 ; D3 UX-007/008.*
+
+### Scénario(s) fonctionnel(s) additionnel(s)
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-GIT-35** | D9 | Nora cite une branche candidate et un fichier GitHub | Aperçu sourcé à la ref récupérée, lien original ouvert dans un onglet ; ne pas présenter candidate comme `main` | GIT-041, GIT-017..024 |
+| **PF-GIT-36** | D9 | Référence Git privée devenue inaccessible | Aucun aperçu inventé ; lien réel si diffusable et limite d'accès expliquée, sans fuite | GIT-041, GIT-009/012/014 |
+
+**Frontière :** le lien GitHub réel s'ouvre dans un nouvel onglet du navigateur courant ; l'ouverture dans un autre navigateur dépend des fonctions du navigateur/OS. Aucun navigateur intégré, aucun droit d'écriture déduit d'une consultation.
+
+**R4–R6 :** droits, portée, reprise, version et comportements à concevoir puis prouver ; `N/A — NON IMPLÉMENTÉ`.

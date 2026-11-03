@@ -211,3 +211,18 @@ Ces cas servent de **contrats de recette fonctionnelle à adapter aux risques** 
 **Critères d’acceptation fonctionnels proposés :** propriétaire unique de chaque statut/acte ; distinction déclaration/observation/conformité/acceptation ; rattachement au périmètre et sources réelles ; bilan intelligible ; gestion non trompeuse des défauts, inconnues et réserves ; aucun CKI/gate/merge/adoption créé par D8. Les absences de preuve technique et les interfaces futures restent des réserves, pas des « succès ».
 
 **Verdict : `R2 — DOMAINE 8 / RÉSULTATS ET PREUVES — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 36 règles `RG-PRV-001..036`, 32 scénarios `PF-PRV-01..32`, 12 réserves `PRV-*`, confrontation R1/D3–D7/CKI v0.2 ; interfaces D9 et D1–2 encore `NON ÉVALUÉES` ; Next `N/A — NON IMPLÉMENTÉ`.**
+
+
+---
+
+## 7. Complément post-clôture — couverture UX de la preuve (2026-11-03)
+
+**Statut : complément de couverture validé par Morris (2026-11-03), sur branche candidate uniquement.** Ce complément n'ajoute aucune nouvelle règle au domaine ; il précise la vérification d'un scénario d'Inspection transverse sans modifier la clôture historique R2.
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-PRV-33** | D8 | Cursor annonce « tests OK », aucune trace indépendante | Rapport inspectable, conformité **non démontrée**, pas d'acceptation implicite | PRV-003/010/015, GOV-037 |
+
+**Règles D8 inchangées :** une déclaration d'exécuteur, un rapport et une preuve demeurent qualifiés séparément. `RG-PRV-003/010/012/015` demeurent propriétaires ; l'Inspection ne certifie pas une conformité ni ne crée une acceptation D6.
+
+**R5–R6 :** cas documentaire à exécuter ultérieurement, sans prétendre que la fonctionnalité existe déjà (`N/A — NON IMPLÉMENTÉ`).
