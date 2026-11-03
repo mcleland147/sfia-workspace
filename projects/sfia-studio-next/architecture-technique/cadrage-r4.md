@@ -3,8 +3,8 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | Nature | **Document de cadrage vivant** du jalon R4 ; support de travail et de synthèse, sans création d'une seconde autorité normative |
-| Version | **v0.9 — conception A/B/C/D et gouvernance ENV-01**, 2026-11-03 ; candidate documentaire sur branche R4, non mergée |
-| Statut | **R4 A/B/C/D — CONCEPTION CANDIDATE COMPLÈTE SUR BRANCHE ; QA A–D DOCUMENTÉE ; ENV-01 — VALIDATED CONTENT BY MORRIS, ROUTAGE NEXT-ONLY PUBLIÉ SUR BRANCHE**. DATA-01 et choix techniques non adoptés ; aucun code, runtime ou ADOPTED |
+| Version | **v1.0 — architecture R4 A/B/C/D validée en contenu avec réserves**, 2026-11-04 ; contribution documentaire sur branche R4, non mergée |
+| Statut | **R4 ARCHITECTURE DESIGN VALIDATED BY MORRIS — WITH CARRIED RESERVES ; ADR R4-01..04 + DATA-01 APPROUVÉS ; ENV-01 D2 VALIDÉ ET ROUTÉ SUR BRANCHE ; QA A–D DOCUMENTÉE**. Intégration `main` et démarrage R5 sous gates distincts ; aucun code, runtime, LIVE/REAL ou `ADOPTED` |
 | Responsable des arbitrages | Morris |
 | Rédaction / analyse | ChatGPT, sous contrôle des sources Git et des décisions Morris |
 | Référentiel vérifié à l'entrée de l'intégration D | `mcleland147/sfia-workspace`, `main@7067c846ce7c57825dd31c532433d809e1a01216` ; branche candidate `sfia/next-r4-architecture-scoping`, cadrage A/B/C blob `67d838963c44505e908a0f95bfc548a90e363042` ; ENV-01 blob `26fa518ca6fc710a5978cf3b32dfa2fc8d558de8` et routage partagé publiés sur la branche avant intégration D. Worktree local **NON OBSERVÉ**. |
@@ -819,15 +819,15 @@ Une **synthèse courte** et une **vue détaillée** exposent le même état et l
 
 **Recommandation à la revue Morris :** retenir le modèle C1 comme base de conception sous trois conditions de validation R4-D : capacités réelles de l'exécuteur (y compris corrélation et STOP), identité/secrets/permissions et stratégie de réconciliation des effets dont l'issue n'est pas observable. Si une capacité manque, **réduire honnêtement la portée de la première construction R5** plutôt que simuler une garantie de lancement/arrêt. Les choix d'outbox, de technologie SQL et de déploiement restent candidats jusqu'à arbitrage technique R4 consolidé.
 
-**Suite :** préparer D — Git facultatif, intégrations, sécurité/exploitation, UX commune, matrice de conformité D1–D9 / 7 E2E, architecture consolidée et trajectoire de construction R5. La QA R4–R6 est déjà synchronisée sur la branche R4 ; la présente section C demeure **locale candidate** jusqu'à revue, sans nouveau commit ou PR implicite.
+**Suite réalisée :** D et sa consolidation A–D sont intégrés au §5.7. Les capacités et garanties détaillées restent à prouver en R5/R6 ; la décision Morris du 2026-11-04 approuve l'architecture au niveau conception, sans inférer de tests ni de déploiement.
 
 ---
 
-**Verdict C au 2026-11-03 : `MACRO-LOT C — DESIGN CANDIDATE COMPLETE / NO RUNTIME / NO QA EVIDENCE / REVIEW MORRIS PENDING`.**
+**Historique du 2026-11-03 : C était une conception candidate. Statut actuel : intégré au R4 consolidé, orientations validées par Morris le 2026-11-04 avec les ADR. `NO RUNTIME / NO QA EXECUTION EVIDENCE` reste vrai.**
 
 ### 5.7. Macro-lot D — intégrations Git, exploitation et consolidation A–D (conception candidate intégrée)
 
-**Source intégrée :** étude D v0.4 (2026-11-03), requalifiée par le GO Morris du 2026-11-03. **Contenu approuvé pour publication sur branche R4** ; choix techniques D encore candidats et non ADR adoptés, DATA-01 politique de conservation non arbitrée formellement. **ENV-01 gouvernance de delivery validée par Morris (D2) et publiée avec son routage Next-only SFIA v2.6 sur la même branche**, sous `projects/sfia-studio-next/governance/environnements-recette-et-promotions.md`. La source ENV-01 est **la référence normative unique** ; les développements ci-dessous l'illustrent au titre de R4, sans l'étendre ni la dupliquer.
+**Source intégrée :** étude D v0.4 (2026-11-03), puis décision Morris du 2026-11-04. **Contenu publié sur branche R4 ; ADR R4-01..04 et DATA-01 validés en conception**, avec mécanismes et preuves à produire en R5/R6. **ENV-01 gouvernance de delivery validée par Morris (D2) et publiée avec son routage Next-only SFIA v2.6 sur la même branche**, sous `projects/sfia-studio-next/governance/environnements-recette-et-promotions.md`. La source ENV-01 est **la référence normative unique** ; les développements ci-dessous l'illustrent au titre de R4, sans l'étendre ni la dupliquer.
 
 **Contrat de capacité :** Git facultatif, identités et permissions séparées, provenance/ref et état Git réellement observés, aucune mutation ni promotion implicite ; intégration Cursor évaluée selon garanties effectives ; trajectoire locale PostgreSQL → serveur ; DEV/RECETTE/STABLE isolées et recette sur SHA figé avant merge autorisé ; preuves R5/R6 sans antériorité fictive. Les §5.7.1–5.7.16 ci-dessous restent des **orientations de conception**, sauf les décisions Morris explicitement identifiées.
 
@@ -1117,7 +1117,7 @@ Les identifiants `D-01..D-26` sont **repères de conception**, pas des règles f
 1. **Architecture générale :** approuver ou réorienter la direction **application modulaire neuve / vérité transactionnelle cohérente**. Compromis : simplicité et maîtrise des effets plutôt qu'une constellation de services.
 2. **Hébergement et responsabilités d'exploitation :** la trajectoire **local PC puis serveur distant avec domaine** est décidée par Morris ; VPS/DB managée, budget, maintenance et secrets restent à dimensionner.
 3. **Modalité d'intégration Cursor :** **CLI privilégiée**, Cloud API en comparaison ; décider du transport après preuve des restrictions effectives sur push/PR, de l'isolation et des états STOP/reprise. Si garanties absentes, limiter les effets externes.
-4. **Politique de conservation des préparations/documents :** retrouver une préparation après **15 jours** est souhaité ; arbitrer la candidate DATA-01 §14.3 (archivage J+90, corbeille J+30, sauvegardes), sans purge automatique des préparations enregistrées.
+4. **Politique de conservation des préparations/documents :** DATA-01 §5.7.14.3–14.4 est **validée en contenu par Morris le 2026-11-04** (reprise 15+ jours, archivage J+90, corbeille J+30, sauvegardes). Le mécanisme d'effacement, les exceptions légales et les preuves de sauvegarde/restauration restent à implémenter et tester en R5/R6.
 5. **Gate R4 → R5 et Git :** après revue des écarts, Morris décide la validation d'architecture, les ADR effectivement nécessaires, la publication PR/merge et l'ouverture de R5 ; ce document ne franchit aucun de ces gates par lui-même.
 
 **Ce qui n'appelle pas de micro-arbitrage Morris :** noms de tables, verrou exact, middleware, pagination, format de logs, bibliothèques, affichage d'une erreur technique. ChatGPT prépare les recommandations correspondantes et Cursor les implémente seulement sous contrat SFIA v2.6 lorsque le gate est ouvert.
@@ -1126,7 +1126,7 @@ Les identifiants `D-01..D-26` sont **repères de conception**, pas des règles f
 
 **D — DESIGN CANDIDATE COMPLETE.** La combinaison A–D offre une architecture explicable et testable **au niveau conception** : modules propriétaires uniques, intégration facultative, autorité humaine, anti-duplication, sécurité des frontières et stratégie de preuve R4/R5/R6. **N/A — NON IMPLÉMENTÉ** pour Next ; aucune preuve navigateur/REAL, aucune architecture validée/adoptée.
 
-**Suite proposée :** intégrer D dans le **même document R4 vivant après revue Morris**, réaliser une revue de cohérence/couverture des réserves et choix structurants A–D, puis préparer si approuvé un **gate R4 formel** et le plan des premières capacités R5. **Pas** de PR, merge, choix d'exécution fournisseur, code, ni modification de Roadmap sur ce mandat.
+**Suite depuis le 2026-11-04 :** D est intégré, la revue globale et l'approbation des quatre ADR et de DATA-01 ont été prononcées par Morris. La contribution Git, la PR et le merge conservent leurs gates ; R5 exige un GO technique distinct. Aucune implémentation Next ni preuve de runtime n'est affirmée.
 
 ---
 
@@ -1158,7 +1158,7 @@ Les identifiants `D-01..D-26` sont **repères de conception**, pas des règles f
 | Cursor | **CLI privilégiée** pour l'amorçage, Cloud Agents API admise en comparaison ; interdiction d'une publication/push/PR hors contrat | Sélection du mode et capacités d'isolation, STOP, consultation, idempotence/ACK et observabilité à prouver |
 | Préparations | Retrouvabilité après **quinze jours** explicitement souhaitée ; bonne politique de suppression et de backup déléguée à la proposition ChatGPT | Durée complète, archivage, corbeille, purge, sauvegarde et restitution ci-dessous soumis à une décision de contenu |
 
-**Statut de la présente section :** orientations produit exprimées par Morris ; **politique DATA-01 candidate**, non VALIDATED SPEC, non Git et non exécutée. Les règles R2 D2/D4/D6/D7/D8 conservent leur autorité. Les durées exprimées sont un point de départ de conception, pas une garantie opérationnelle ni un contrat légal.
+**Statut actuel :** orientations produit et politique DATA-01 **approuvées par Morris le 2026-11-04 dans le Decision Record R4**. Les règles fonctionnelles R2 D2/D4/D6/D7/D8 conservent leur autorité ; les durées sont des valeurs de politique approuvées à implémenter, pas des garanties opérationnelles déjà démontrées ni des exceptions aux obligations légales.
 
 ##### 5.7.14.2. Déploiement identique local → serveur, sans migration applicative de doctrine
 
@@ -1172,7 +1172,7 @@ Les identifiants `D-01..D-26` sont **repères de conception**, pas des règles f
 
 **Non-décisions :** OVH n'est pas retenu comme fournisseur ; une machine unique n'est pas affirmée suffisante sans dimensionnement ; PostgreSQL distant n'est pas supposé managé. Local et distant ne sont **pas deux registres actifs à réconcilier**. En cas de double activité après migration, refuser ou geler les effets externes tant que l'autorité de la base active n'est pas connue.
 
-##### 5.7.14.3. Proposition DATA-01 — conservation, archivage, suppression
+##### 5.7.14.3. DATA-01 validée — conservation, archivage, suppression
 
 **Objectif produit :** protéger les acquis du Pilote sans imposer Git ni projet, empêcher les disparitions silencieuses, et limiter les données temporaires et les secrets.
 
@@ -1185,7 +1185,7 @@ Les identifiants `D-01..D-26` sont **repères de conception**, pas des règles f
 | **Documents en cours d'enregistrement** | États réels `PENDING / AVAILABLE / FAILED / UNKNOWN` ; la création de projet n'attend pas un document non essentiel ; un document nécessaire à l'acte constitue une précondition explicite. | Crash, échec d'upload, documents volumineux, reprise de sauvegarde sans prétendre que des octets sont durables |
 | **Données techniques temporaires / logs** | Éviter le contenu brut des conversations, clés et jetons dans les logs ; proposition **14 jours** de conservation des journaux techniques non critiques, ajustable selon risque, plus longue uniquement si preuve/incident justifie. Les garanties d'idempotence conservent leurs propres identifiants au moins aussi longtemps que la période réelle de rejeu possible. | Inspection des logs, absence de secrets, nettoyage sans autoriser un replay à effet doublé |
 
-**Pourquoi ne pas supprimer à J+15 ou J+90 ?** Les 15 jours expriment un **minimum d'usage**. Effacer automatiquement une préparation représentant une heure de travail contredirait le principe de continuité. L'archivage permet de garder un portefeuille lisible sans perte d'acquis. Les durées 90/30/14 jours sont **recommandées mais non validées par Morris**.
+**Pourquoi ne pas supprimer à J+15 ou J+90 ?** Les 15 jours expriment un **minimum d'usage**. Effacer automatiquement une préparation contredirait la continuité. L'archivage conserve un portefeuille lisible sans perte d'acquis. Les durées 90/30/14 jours ont été **validées en contenu par Morris le 2026-11-04**, sous les limites légales et les vérifications d'implémentation explicitées dans le Decision Record.
 
 ##### 5.7.14.4. Sauvegardes, récupération et suppression différée dans les copies
 
@@ -1215,7 +1215,7 @@ Les identifiants `D-01..D-26` sont **repères de conception**, pas des règles f
 | Cursor CLI/Cloud | Même contrat avec tentative de push/PR interdit, double appel, stop demandé et ACK perdu | Interdiction **technique** des effets interdits, pas simple consigne |
 | QA transverse | Oracles propriétaire, tests R5 avec code ; E2E/REAL borné R6 | Pas de claim BEHAVIOR PROVEN/ADOPTED sur une maquette ou un test local seul |
 
-**Avis de clôture documentaire :** ces réponses lèvent l'ambiguïté majeure **local vs serveur**, confirment PostgreSQL comme choix de direction et encadrent GitHub/Cursor. L'étude D peut être portée à une **revue R4 globale**, mais les durées de conservation, le packaging, la séparation des secrets, la capacité réelle des agents et les ADR restent **candidats**. Aucune mise à jour Git/PR/merge, aucune clôture R4 et aucun lancement R5 ne sont inférés de la présente section.
+**Avis de conception (2026-11-03) :** ces réponses lèvent l'ambiguïté majeure **local vs serveur**, confirment PostgreSQL comme choix de direction et encadrent GitHub/Cursor. **Depuis le 2026-11-04 :** les ADR et DATA-01 sont validés en contenu ; packaging, séparation des secrets et capacités réelles restent à implémenter/vérifier. Aucune mise à jour Git/PR/merge, aucune clôture R4 et aucun lancement R5 ne sont inférés de la présente section.
 
 #### 5.7.15. Politique candidate ENV-01 — environnements locaux, recette avant merge et promotion gouvernée (2026-11-03)
 
@@ -1411,7 +1411,7 @@ R4 doit aboutir à une **architecture compréhensible et testable sur le papier*
 | **C — exécution gouvernée, preuve** | Version inspectée identique à l'instruction envoyée, mandat D6 et droits D9 au point d'effet, pas de second lancement sur rejouement, STOP demandé ≠ observé, rapport ≠ preuve, correctif non automatique, conformité ≠ acceptation | Identifiants contrat/mandat/tentative, contrôles d'intégrité, protocole dispatch et réconciliation, provenance D8, adaptateur avec capacité d'arrêt attestable, harnais de fausses réponses et incidents | R5 : contrats/échecs/stubs + intégration bornée ; R6 : scénarios navigateur et REAL effectif **si autorisé et disponible**, sans claim autrement |
 | **D — Git et consolidation** | Git facultatif, séparation des identités, ref/base et droits contrôlés, collision sur dépôt partagé, candidate ≠ main, mutation Git ≠ merge/adoption, reflow/focus/zoom, récupération après perte de session | Adaptateurs, matrice de permissions, tests de concurrence/ref, environnement de validation, audit d'accès, assertions UX transverses | R5 : intégration Git sous identité de test, tests UI ; R6 : traversée des 7 E2E, droits, REAL borné et non-régression |
 
-**Contrôles déjà identifiés :** le §5.3 possède 16 cas A ; le §5.5 possède 18 cas B. Ce sont des **candidats de couverture**, non 34 tests passés ni une preuve exhaustive. Les scénarios C/D seront enrichis dans leur conception, puis reliés aux PF canoniques et aux réserves R2/R3.
+**Contrôles identifiés en conception :** A 16 (§5.3), B 18 (§5.5), C 24 (§5.6), D 26 (§5.7) — **84 scénarios candidats** au total, non exécutés. Leur lien aux PF canoniques et aux réserves R2/R3 sera concrétisé dans les suites de tests par capacité R5/R6, avec preuves réelles et sans second corpus normatif.
 
 ### 8.1.4. Conditions opérationnelles de préparation R5/R6
 
@@ -1452,15 +1452,16 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 | 2026-11-03 / mandat Morris QA | Stratégie QA transverse A–D avec niveaux de preuve par jalon R4/R5/R6 | **MANDAT DOCUMENTAIRE / STRATÉGIE CANDIDATE** | Préparer les oracles en R4, tester avec R5, qualifier en R6 |
 | 2026-11-03 / GO Morris C | Macro-lot C §5.6 intégré, vingt-quatre scénarios candidats QA, frontières D6/D7/D8/D9 | **CONTENU CANDIDAT SUR BRANCHE, NON ADOPTÉ** | Concevoir et confronter D puis revue globale R4 |
 | 2026-11-03 / validation Morris ENV-01 et GO Git | Politique de gouvernance de delivery et routage Next-only dans guide/template SFIA v2.6 ; D §5.7 et consolidation A–D sur branche R4 | **D2 CONTENT VALIDATED — BRANCH ONLY ; D ARCHITECTURE CANDIDATE** | Revue globale Morris et gates PR/merge/R4 distincts |
+| 2026-11-04 / arbitrage Morris R4 | Quatre ADR R4-01..04, DATA-01 et sortie de conception R4 approuvés avec réserves, [Decision Record](../governance/decisions/2026-11-04-r4-architecture-exit.md) | **ARCHITECTURE DESIGN VALIDATED WITH CARRIED RESERVES / NO RUNTIME** | PR/merge avec gates Git, puis R5 sous GO technique distinct |
 
 ## 10. Situation actuelle et prochaine étape
 
-**Constat Git :** `main@7067c846ce7c57825dd31c532433d809e1a01216` ; source documentaire Next intégrée ; **R4 NOT STARTED** ; code, architecture cible et preuves runtime Next **N/A — NON IMPLÉMENTÉ**. Aucune branche R4 locale, fichier staged/untracked, environnement d'exécution ou activation n'a été vérifié.
+**Constat Git (préparation de sortie, 2026-11-04) :** `main@7067c846ce7c57825dd31c532433d809e1a01216` conserve encore la Roadmap antérieure à la validation R4 ; **R4 est désormais validé en contenu par Morris au niveau conception avec réserves**, selon le [Decision Record R4](../governance/decisions/2026-11-04-r4-architecture-exit.md) sur branche candidate. Ce statut ne prétend ni merge dans `main` ni code, environnement, CI Next ou preuve runtime. Branche locale, fichiers staged/untracked et worktrees **NON OBSERVÉS**.
 
-**Prochaine capacité :** revue globale R4 par Morris : A/B/C/D, choix structurants et réserves, cohérence des sources et preuves de routage ENV-01 sur la branche. Puis gate distinct PR/merge et formalisation de la sortie R4 ; R5 n'est pas engagé implicitement. Les scénarios QA seront implémentés progressivement avec les capacités R5, puis qualifiés transversalement en R6.
+**Prochaine étape :** préparer et vérifier la PR R4 (architecture validée en contenu, ENV-01 et routage SFIA, DATA-01), contrôles CI/règles de protection et gate de merge distinct. **Après intégration Git vérifiée et autorisation R5**, première macro-capacité locale verticale avec continuité sas/projet et environnements DEV/RECETTE/STABLE gouvernés ; les tests sont réalisés avec R5 puis qualification transverse R6.
 
-**Autorisation actuelle :** Morris a explicitement validé ENV-01 et ses raccords de routage dans les fichiers partagés SFIA v2.6, et autorisé leur publication documentaire avec la conception D sur la branche R4. La technique A/B/C/D demeure **candidate** et DATA-01 reste à arbitrer. PR, merge, écriture sur `main`, code, prompt Cursor, adoption et décisions architecturales définitives nécessitent leurs gates propres.
+**Autorisation actuelle :** ENV-01 et son routage SFIA v2.6 étaient déjà validés et publiés sur branche R4. Morris a **validé les ADR R4-01..04 et DATA-01 le 2026-11-04**, demandé synchronisation documentaire et progression vers la PR/merge. Le contenu architectural est donc approuvé en conception, sans validation de chaque mécanisme ; PR/merge, écriture `main`, code, prompt Cursor, exploitation REAL et adoption restent sous leurs gates applicables.
 
 ---
 
-**État du document au 2026-11-03 : `R4-A/B/C/D — DESIGN CANDIDATE CONSOLIDATED ON BRANCH ; ENV-01 — D2 CONTENT VALIDATED AND ROUTED ON BRANCH ; QA A–D — DESIGN STRATEGY ; R4 GATE NOT CLOSED`. Aucun mécanisme technique Next ni architecture ADOPTED.**
+**État du document au 2026-11-04 : `R4 — ARCHITECTURE DESIGN APPROVED BY MORRIS WITH CARRIED RESERVES ; ADR R4-01..04 + DATA-01 — VALIDATED CONTENT ; ENV-01 — VALIDATED & ROUTED ON R4 BRANCH ; QA A–D — DESIGN CONTRACTS ; R5 NOT STARTED`. Aucun mécanisme technique Next, aucune preuve runtime ni produit ADOPTED.**
