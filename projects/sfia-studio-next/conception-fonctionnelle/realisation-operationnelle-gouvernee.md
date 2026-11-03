@@ -256,3 +256,91 @@ Une tentative dont le lancement a été demandé mais non confirmé est **incert
 **Critères fonctionnels de revue :** aucune exécution sans autorité D6 et capacités réelles ; correspondance du contrat inspecté et de la tentative ; STOP/reprise sans faux état ; aucune correction automatique ; aucun CKI converti en permission ; résultats transmis sans faux verdict ; propriétaires D8/D9 respectés. Les inconnues techniques et interfaces non examinables restent des réserves et non des contradictions « résolues ».
 
 **Verdict documentaire : `DOMAINE 7 — RÉALISATION OPÉRATIONNELLE GOUVERNÉE — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 36 règles `RG-REAL-001..036`, 30 scénarios `PF-REAL-01..30`, revue R1 / Nora / Connaissance / Trajectoire-CKI / Gouvernance et corpus CKI v0.2 ; interfaces D8/D9/D1–2 `NON ÉVALUÉES` contre leurs futures specs ; Next `N/A — NON IMPLÉMENTÉ`.**
+
+
+---
+
+## 7. Complément post-clôture — couverture UX de l'inspection du contrat (2026-11-03)
+
+**Statut : complément de couverture validé par Morris (2026-11-03), sur branche candidate uniquement.** Ce complément n'ajoute aucune nouvelle règle au domaine ; il précise la vérification d'un scénario d'Inspection transverse sans modifier la clôture historique R2.
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-REAL-31** | D7 | Un contrat d'exécution est ouvert pour lecture | Version/instruction exactes consultables ; ouvrir/fermer ne déclenche aucune tentative | REAL-007/011/012, UX-006 |
+
+**Règles D7 inchangées :** le contrat, sa version et son instruction restent propriété D7 ; l'ouverture ou fermeture de l'Inspection ne lance rien. `RG-REAL-007/011/012/022/024` demeurent applicables ; l'acte « Exécuter » reste distinct et gouverné par D6.
+
+**R5–R6 :** cas documentaire à exécuter ultérieurement, sans prétendre que la fonctionnalité existe déjà (`N/A — NON IMPLÉMENTÉ`).
+
+## 8. Complément fonctionnel validé — contrat d'information et instruction Cursor (validation Morris du 2026-11-03)
+
+**Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
+
+### 1. Objet et résultat utilisateur
+
+Avant de déléguer un effet à Cursor, le Pilote peut comprendre et inspecter un engagement opérationnel complet : **ce que Cursor fera, sur quoi, avec quel pouvoir, avec quels risques/STOP, quelles vérifications et quels liens de preuve, sous quelle version**. La forme métier n'est pas un résumé approximatif de l'instruction réelle. D7 conserve **un contrat opérationnel unique** dont Nora produit une projection métier et dont l'instruction technique conserve les engagements ; D6 autorise, D9 constate les droits Git applicables, D8 examine ensuite les résultats.
+
+### 2. Contrat d'information — six volets, valeurs et applicabilité
+
+**Modalités :** *Requis si effet externe*, *Conditionnel si concerné*, *Informateur/optionnel*, *Sans objet explicable*, *Inconnu déterminant bloquant*. « Requis » désigne la disponibilité fonctionnelle au moment d'une autorisation envisageable, non un formulaire imposé au Pilote. La provenance/portée et la fraîcheur sont nécessaires lorsque l'assertion conditionne le lancement.
+
+| Volet | Données à pouvoir représenter | Condition et propriétaire | Comportement si absent / incompatible |
+| --- | --- | --- | --- |
+| **1. Mission et résultats** | Intention et justification, objectif, action(s), livrable(s) / état(s) attendus, exigences de contenu et critères métier | Requis pour un effet ; Nora prépare, D7 conserve | Clarification ciblée si objectif/effet indéterminé ; pas de mission ou résultat inventé |
+| **2. Périmètre et effets** | Projet/Pilote, cibles, ressources, IN et OUT, nature créer/lire/modifier/supprimer, type d'effet, diffusion/publication éventuelle, dépendances et contraintes | Cibles/effets/IN/OUT requis ; Git seulement s'il existe ; D9 pour ref/permissions Git | Cible ou effet nouveau → réinspection ; pas de scope implicite, suppression ou merge déduit |
+| **3. Exécuteur, capacités et autorité** | Exécutant effectivement visé, capacité demandée/disponible, moyens et droits nécessaires, autorité humaine D6, restriction/suspension et état de permission | Requis pour autoriser ; disponibilité contrôlée au moment de l'effet | Exécuteur absent/mauvaise identité/droit absent → pas de départ ; pas de faux statut « lançable » |
+| **4. Limites, STOP et réversibilité** | Contraintes et interdictions, conditions d'arrêt, effets partiels possibles, degré/réalité de réversibilité, retour compensatoire si connu, effets durables/irréversibles, action si arrêt impossible | STOP/restrictions requis ; réversibilité qualifiée selon nature des effets | Une réversibilité inconnue ou un risque irréversible matériel non expliqué nécessite requalification ; STOP demandé ≠ STOP confirmé |
+| **5. Validation, preuves et sources** | Critères applicables, plan de contrôle proportionné, sorties/preuves exigées, traces de tests, exigences de rapport, références et sources réellement lues | Critères/preuves proportionnés requis ; sources conditionnelles ; D8 évalue après | Aucune conformité déclarée par anticipation ; sources inexistantes indiquées comme telles |
+| **6. Identité et intégrité** | Identité durable du contrat, version inspectée, instruction de même version, périmètre/projet, état du mandat, cible effective, correspondance vérifiable avant effet, tentative distincte ensuite | Requis à la frontière d'autorisation ; mécanisme technique à choisir R4 | Divergence matérielle, identité non établie ou substitution silencieuse → refus de lancement et requalification |
+
+**Projection Pilot-first :** quatre résumés **Ce qui sera fait / Ce qui ne sera pas fait / Résultat attendu / Votre contrôle** et les six volets toujours consultables. Une section ne se vide pas silencieusement : si elle est non applicable, indiquer « sans objet » lorsque cela évite une conclusion trompeuse ; si un fait critique est inconnu, le signaler et refuser l'effet concerné.
+
+### 3. Instruction technique à Cursor — correspondance bidirectionnelle
+
+La projection métier, le contrat opérationnel et l'instruction ne sont **pas trois mandats distincts**. L'instruction effectivement visée conserve au minimum, dans les cas applicables : objectif et livrables ; ressources/cibles et version/base ; fichiers et actions explicitement autorisés ; périmètre IN/OUT ; contraintes et interdictions ; autorité et permissions à vérifier ; STOP et reprise ; critères/plan de validation ; exigences de retour, traces et preuves ; signalement des inconnues/écarts. Le format de ces informations relève de R4, non d'un copier-coller obligatoire du template SFIA v2.6.
+
+**Fidélité fonctionnelle :** toute action/cible/risque significatif de l'instruction doit apparaître dans la lecture métier ; tout engagement déterminant exposé au Pilote doit être repris dans l'instruction ou dans une précondition/enforcement Studio correctement propriétaire, sans obligation de dupliquer les secrets. Des précisions de mise en œuvre non matérielles peuvent varier sous mandat, mais pas les exclusions, le résultat, les droits, le STOP ou les critères de conformité.
+
+**Inspection du brut :** le Pilote doit pouvoir ouvrir, lire et quitter une représentation de l'instruction exacte associée à la version autorisable. Les secrets restent protégés ; la suppression d'une valeur sensible ne peut cacher une mutation, une destination ou un risque. L'instruction réellement transmise est liée au contrat et un changement de sens impose réinspection. L'exigence n'impose pas d'exposer des jetons, un shell ou des informations protégées en clair.
+
+**Autorisation et dispatch :** le Pilote autorise **la version applicable**, non un texte générique ; D6 contrôle mandat/suspension, D7 contrôle contrat/exécuteur/tentative, D9 contrôle les ressources Git si concernées. Il ne faut pas confondre clic, demande de lancement, accusé technique, début observé et fin. La vérification doit empêcher doublons, rejouements aveugles et exécution sur version/compte tiers.
+
+### 4. Obligations fonctionnelles proposées, à confronter RG-REAL-001..036
+
+- **REAL-INFO-01 — Présentation complète.** D7 expose quatre engagements immédiats et six volets inspectables avec données explicites, conditionnelles et inconnues sans perdre une information déterminante.
+- **REAL-INFO-02 — Impact honnête.** Toute action ayant une conséquence externe, irréversible ou hors du périmètre standard est visible en langage métier avant autorisation.
+- **REAL-INFO-03 — Correspondance d'instruction.** Le contenu technique réellement visé et la lecture métier portent le même contrat/version/cible et les mêmes engagements matériels.
+- **REAL-INFO-04 — Traces de transformations.** Nora doit pouvoir expliquer un écart matériel de projection ; Studio interdit la substitution silencieuse d'effet sous une version inspectée.
+- **REAL-INFO-05 — Préconditions actuelles.** La disponibilité de l'exécuteur, l'identité effective et les droits ne sont pas inférés d'un libellé ou d'une session passée.
+- **REAL-INFO-06 — STOP et compensations.** Les conditions d'arrêt, les limites d'interruption et les effets antérieurs à l'arrêt sont exposés distinctement d'un retour arrière éventuel.
+- **REAL-INFO-07 — Réversibilité circonstanciée.** Réversible, partiellement réversible, irréversible ou non établie sont des qualifications métier contextualisées, pas un enum technique décidé en R2.
+- **REAL-INFO-08 — Contrôles et preuves proportionnés.** L'instruction exprime les vérifications, les traces de succès/échec et le rapport requis, selon le résultat attendu et le risque.
+- **REAL-INFO-09 — Identité/version.** Un mandat de même libellé mais de version différente ne peut être exécuté au titre d'une inspection antérieure.
+- **REAL-INFO-10 — Absence déterminante.** Si une valeur critique manque, Studio ne déclare pas le contrat « prêt à exécuter » ; Nora demande uniquement ce qui fait réellement défaut.
+- **REAL-INFO-11 — Matérialité de changement.** Modifier la cible, les effets, les critères structurants, le risque ou la capacité requise impose un nouveau contrôle et, si nécessaire, un nouvel acte D6.
+- **REAL-INFO-12 — Frontière de responsabilité.** D7 ne duplique ni le moteur de décision D6, ni les références Git D9, ni le jugement de conformité D8.
+
+### 5. Scénarios proposés de qualification R5–R6
+
+| ID temporaire | Situation | Comportement observable attendu |
+| --- | --- | --- |
+| PF-REAL-INFO-A | Contrat prêt, les six volets sont repliés | Les quatre engagements demeurent lisibles et les six volets + instruction brute sont accessibles sans autoriser |
+| PF-REAL-INFO-B | La cible de l'instruction ajoute un fichier | La vue métier est requalifiée et le lancement est interdit sous l'ancien mandat |
+| PF-REAL-INFO-C | Le Pilote ouvre/ferme chaque volet | Aucune tentative, aucun nouveau droit ni changement de version |
+| PF-REAL-INFO-D | Réversibilité inconnue pour une suppression durable | Le risque est signalé et le mandat concerné ne devient pas exécutable sans arbitrage suffisant |
+| PF-REAL-INFO-E | Exécuteur ou droits indisponibles | Bouton/état non trompeur, refus effectif avant effet |
+| PF-REAL-INFO-F | L'instruction technique est modifiée après inspection | Version/contrôle réévalués avant dispatch ; pas d'effet caché |
+| PF-REAL-INFO-G | Cursor modifie dans un mandat une condition interne | Rectification permise dans la tentative si le sens et le périmètre restent stables, sinon nouveau mandat |
+| PF-REAL-INFO-H | Arrêt confirmé après deux modifications | Effets conservés/qualifiés, aucune prétention de rollback |
+| PF-REAL-INFO-I | Double clic ou accusé perdu | Une seule tentative attribuable ; réconciliation avant retry |
+| PF-REAL-INFO-J | Projet sans Git | Contrat complet avec ressources applicables, absence de Git explicable sans blocage artificiel |
+| PF-REAL-INFO-K | Paramètre secret | Secret masqué, action/cible/risque toujours visibles et inspectables |
+| PF-REAL-INFO-L | Contrat correctif après rapport | Nouveau contrat inspecté, aucune relance automatique ni réemploi d'autorisation précédente |
+
+### 6. Exit et implications
+
+- **R3 :** quatre cartes visibles, six accordéons indépendants, instruction brute à accès repliable, retour sans lancer, Exécuter soumis aux contrôles ; variants Figma éditables.
+- **R4 :** un modèle de contrat et une source de vérité ; identité/version/empreinte éventuelle, résolution secrète, invariants de comparaison, type d'effet, droit, idempotence, sémantique de STOP, réversibilité et rapport de contrôle.
+- **R5–R6 :** preuve de l'identité de l'instruction réellement transmise, des refus et des tests, pas seulement couverture déterministe.
+
+**Non-décisions :** aucune classe/table/api imposée, pas de mécanisme « ExecutionContract v3 » adopté, pas de champs historiques `N2`, `PRODUCT_GOVERNED`, `studio.cursor.generalist` ou SHA d'exemple à reprendre par inertie.
