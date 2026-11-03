@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.8**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.9**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -762,3 +762,56 @@ La PR documentaire R1/R2 [#642](https://github.com/mcleland147/sfia-workspace/pu
 **Gate :** l'approbation formelle de la composition et des comportements UX reste à demander à Morris après revue. Pas de PR/merge/roadmap, ni architecture R4 ou implémentation R5 autorisés par cette seule étude.
 
 **Statut : DOCUMENTED / FIGMA CANDIDATE R3 v0.8 — aucun BEHAVIOR PROVEN ou ADOPTED.**
+
+
+## 20. Trajectoire UX globale R3 — direction de travail et six maquettes E2E (2026-11-03)
+
+### 20.1. Intention, portée et gouvernance
+
+Morris demande de ne plus concentrer R3 sur l'Inspection. L'objectif est une **expérience produit de bout en bout**, issue de la vision R1 et des neuf domaines R2, sans revue de chaque micro-état. Les arbitrages humains portent sur la direction UX et artistique et les vraies frontières produit ; ChatGPT conçoit et propose les parcours et écrans de manière autonome.
+
+**Direction existante conservée : B2 / V3.** Espace de travail continu dominé par Nora quand le Pilote travaille, reprise contextualisée dans le projet, consultation autonome et inspection ponctuelle. Le parcours complet attendu : **portefeuille personnel → sas conversationnel → création explicite → même fil dans le projet → travail cognitif et connaissance → trajectoire / décisions → contrat et autorisation distincte → résultats vérifiés ou réservés → suite**.
+
+**IN R3 :** navigation globale, continuité du sas et du projet, contextualisation Nora, variété des réponses, journal des connaissances et décisions, trajectoire sans cycle ou avec cycle actif, gouvernance, contrat et Exécuter, rapports et preuves, Git facultatif, documents et Inspection en capacités transverses, erreurs et refus utiles, accessibilité et adaptation aux écrans.
+
+**OUT R3 :** mécanismes physiques de persistance, architecture runtime, choix de moteurs, développement, tests techniques réels, modification des contrats R1/R2 ou validation/adoption anticipée. L'ancien Studio est une référence facultative sans héritage technique obligatoire.
+
+**Sources :** SEF v0.2, Roadmap Next, décisions R1/R2, vision R1 §§2.29–2.41, référentiel R2 D1–D9 avec complément Inspection PR #642 mergée et vérifiée sur main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990. La Roadmap sur main continue à afficher l'ancien état R3 NOT STARTED et les totaux pré-complément ; **KNOWN GAP documentaire**, correction relevant de la gouvernance sous GO distinct. Le présent document UX reste sur une branche candidate antérieure à PR #642, non fusionnée.
+
+### 20.2. Direction artistique candidate
+
+- **Sobriété et hiérarchie :** thème sombre, surfaces contenues, grilles simples, peu d'ornement, typographie Inter provisoire, priorité aux informations et aux actions utiles.
+- **Un langage visuel cohérent :** navigation personnelle claire ; identité du projet visible ; activité Nora centrale ; information consultable sans conversation forcée ; Inspection lorsque nécessaire.
+- **Sémantique des états :** libellé textuel indispensable ; couleurs discrètes pour interaction, information confirmée, réserve ou erreur. Pas de couleur seule comme preuve ou statut métier.
+- **Autorité proportionnée :** actes rares et explicites, particulièrement Créer le projet et Exécuter ; afficher l'instruction exacte ou les preuves à la demande, sans noyer l'espace courant.
+- **Responsive, accessibilité et design system :** à explorer après les parcours structurants ; aucun branding final validé par cette direction de travail.
+
+### 20.3. Six écrans éditables dans le nouveau Figma Next
+
+**Fichier :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP
+
+**Nouvelle page :** « 04 · Parcours produit — Vue de bout en bout ». Six frames 1680×970 en calques Figma, texte éditable et boutons réutilisés ; données et projets fictifs, **pas de prototype interactif ni preuve runtime**.
+
+| Étape | Frame Figma | Résultat utilisateur | Domaines |
+| --- | --- | --- | --- |
+| 01 — Portefeuille | [Écran 01](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-28) | Choisir le bon projet ou lancer une création, sans Nora globale | D1 / D2 |
+| 02 — Sas | [Écran 02](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-117) | Échanger avec Nora avant création, propositions non opposables, acte Créer le projet explicite | D2 / D3 / D6 |
+| 03 — Projet / Nora | [Écran 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-197) | Même fil après création, contexte bref V3, travail naturel sans cycle obligatoire | D2 / D3 / D4 / D5 |
+| 04 — Journal / trajectoire | [Écran 04](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-304) | Accès indépendant aux sujets, décisions et étapes ; prévu distinct de cycle réel | D4 / D5 / D6 |
+| 05 — Décision / contrat | [Écran 05](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-418) | Décision du Pilote sans effet technique ; contrat D7 inspectable, puis Exécuter distinct | D6 / D7 / D9 |
+| 06 — Bilan / preuves | [Écran 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-521) | Déclaration Cursor séparée du bilan de vérification et de l'acceptation, puis suite gouvernée | D7 / D8 / D6 / D9 |
+
+**Place de l'Inspection :** une capacité transverse déjà explorée dans les pages Figma précédentes, réutilisable depuis la conversation, le Journal, un document ou un contrat. Elle **n'est pas un parcours produit à elle seule**. Le quatrième écran « sauvegarde incertaine » de la page 03 est retiré du parcours nominal recommandé ; une défaillance de conservation mérite une information et reprise proportionnées, pas une étape UX permanente. Les garanties de fiabilité R2 ne sont pas supprimées.
+
+### 20.4. Suite de conception R3 en macro-lots UX cohérents
+
+1. **Continuité et navigation** : vérifier portefeuille → sas → projet, même fil conservé, reprise, consultation et retour, projet et autorité corrects. Produire un prototype ciblé de transitions.
+2. **Travail Nora et projet** : réponses simples/riches, journal, décisions, trajectoire avec ou sans cycle, documents, sources et Inspection sans second chat.
+3. **Autorité et résultat** : décision naturelle, contrat versionné, instruction exacte, Exécuter, tentative et retours, preuves et acceptation, avec refus/retrait de droits.
+4. **Système d'interaction consolidé** : responsive, accessibilité, liens externes, densité, cohérence des composants et couverture des sept E2E R1 plus les compléments après PR #642.
+
+**Mode de revue :** Morris valide la direction globale et les décisions de portée ; ChatGPT modélise les écrans et propose une revue globale à des jalons utiles. Ne pas imposer une validation de chaque écran, de chaque bouton ou d'une opération technique inexistante.
+
+**Points restant à qualifier :** la vraie continuité de navigation par prototype, une variante de projet à cycle actif, Git facultatif, reprise et incidents, mobilité, accessibilité, couverture explicite des exigences R2, puis validation globale de sortie R3. Le Figma n'est pas un runtime : aucun comportement LIVE/REAL ni ADOPTED revendiqué.
+
+**Statut : DOCUMENTED / SIX FIGMA SCREENS CANDIDATES ; direction B2/V3 existante prolongée, non globalement promue, R4 et R5 non engagés.**
