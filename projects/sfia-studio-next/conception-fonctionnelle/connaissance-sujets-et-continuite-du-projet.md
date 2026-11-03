@@ -118,3 +118,31 @@ Ces informations décrivent les besoins fonctionnels ; **aucune table, classe, b
 ## 8. Consolidation R2 — 2026-11-02
 
 CKI est le terme cible Next (CKC reste historique R1). D4 garde les connaissances et sujets, non le CKI, le cycle D5, la décision D6 ou la preuve D8. Interfaces D6/D8/D9 désormais confrontées documentairement ; aucune preuve LIVE/REAL.
+
+
+---
+
+## 9. Complément post-clôture R2 — ressources documentaires durables (2026-11-03)
+
+**Statut : contenu approuvé par Morris ; intégration sur branche candidate.** Le référentiel historique D4 (15 règles, 10 scénarios) n'est pas réécrit rétroactivement ; le complément ajoute cinq règles et quatre PF documentaires. **Propriétaire :** identité, versions, retrouvabilité et accès aux documents conservés du projet ; D3 conserve la rédaction/révision cognitive, D6 la gouvernance et D9 les sources Git.
+
+### 9.1. Règles RG-KNOW-016..020
+
+- **RG-KNOW-016 — Ressource documentaire canonique.** Un document de travail conservé possède une identité stable dans le bon projet, distincte de la conversation et de son éventuel fichier Git. La connaissance peut référencer son contenu, mais le même document n'est pas dupliqué en plusieurs vérités officielles.
+- **RG-KNOW-017 — Versions reliées.** L'identité documentaire relie les versions consultables, leur origine, les conditions de validité et la version de travail courante lorsque déterminable ; une révision ne réécrit pas le passé. Deux demandes concurrentes ne remplacent pas silencieusement l'une l'autre.
+- **RG-KNOW-018 — Sauvegarde et récupération honnêtes.** Studio distingue une ressource enregistrée, en cours d'enregistrement, échouée ou d'état inconnu et offre la reprise/contrôle proportionné ; aucune conservation durable n'est revendiquée sur une simple génération de texte.
+- **RG-KNOW-019 — Retrouvabilité indépendante du fil.** Le Pilote et Nora peuvent retrouver et ouvrir un document conservé du projet depuis une nouvelle conversation ou un accès de consultation autorisé, sans charger systématiquement tout l'historique. Les références à la conversation d'origine restent utiles mais non exclusives.
+- **RG-KNOW-020 — Portée et accès actuels.** La consultation, la référence et la version d'un document respectent l'identité, les permissions et la portée du projet. Accès retiré, source externe devenue inaccessible ou projet différent n'autorisent ni fuite ni copie implicite.
+
+**Réserve R4 :** l'identité canonique documentaire ne préjuge ni base de données, ni service, ni index ; gestion de conservation/archivage, concurrence, intégrité, permissions et reprise à définir sans registre d'autorité parallèle.
+
+### 9.2. Scénarios additionnels PF-KNOW-11..14
+
+| ID | Domaine | Situation / entrée | Comportement attendu | Règles / références |
+| --- | --- | --- | --- | --- |
+| **PF-KNOW-11** | D4 | Document repris dans une conversation nouvelle | Document, version et provenance retrouvables sans réinjecter tout le transcript | KNOW-016/017/019 |
+| **PF-KNOW-12** | D4 | Deux révisions basées sur la même version | Conflit ou divergence identifié ; aucune substitution silencieuse | KNOW-017/018 |
+| **PF-KNOW-13** | D4 | Droit d'accès retiré à une ressource | L'Inspection n'expose plus le contenu interdit ; aucune copie interprojets | KNOW-020, KNOW-014 |
+| **PF-KNOW-14** | D4 | Version d'un document officiellement remplacée | Historique consultable, version courante identifiable si déterminable, pas de réécriture du passé | KNOW-017, KNOW-007 |
+
+**Preuve :** scénarios documentaires, non exécutés ; comportement `N/A — NON IMPLÉMENTÉ`.
