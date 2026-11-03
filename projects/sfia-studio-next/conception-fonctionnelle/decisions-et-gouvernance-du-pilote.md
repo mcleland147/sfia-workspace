@@ -280,7 +280,7 @@ Chaque cas propose un résultat observable à démontrer ultérieurement. Les id
 
 ## 9. Clarification validée — portée et autorité de la commande Arrêter (Morris, 2026-11-03)
 
-**Clarification 3/4, responsabilité D6 — VALIDATED CONTENT BY MORRIS (D2).** Précise les règles existantes \`RG-GOV-004/016/018/019/020/022/025\` sans créer un second acte d'autorité ni requalifier R2 CLOSED. Interfaces : [R1 §9](../cadrage/vision-produit.md), [D3 §13](contexte-et-conduite-gouvernee-de-nora.md), [D7 §9](realisation-operationnelle-gouvernee.md).
+**Clarification 3/4, responsabilité D6 — VALIDATED CONTENT BY MORRIS (D2).** Précise les règles existantes `RG-GOV-004/016/018/019/020/022/025` sans créer un second acte d'autorité ni requalifier R2 CLOSED. Interfaces : [R1 §9](../cadrage/vision-produit.md), [D3 §13](contexte-et-conduite-gouvernee-de-nora.md), [D7 §9](realisation-operationnelle-gouvernee.md).
 
 ### 9.1. Commande et cible non ambiguës
 
