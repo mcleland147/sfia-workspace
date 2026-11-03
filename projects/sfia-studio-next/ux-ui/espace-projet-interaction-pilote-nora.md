@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.9**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.10**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -343,6 +343,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Illustrer l'inspection avec trois nouveaux écrans éditables dans le Figma Next existant : document Nora Markdown, sources GitHub/web, contrat Cursor/rapport/preuves. | Mandat Figma Morris ; hypothèses R3 §17 | **THREE FIGMA CANDIDATES REVIEWABLE**, pas validation fonctionnelle/architecture ; revue Morris avant retour R1/R2. |
 
 | 2026-11-03 | Reprendre R3 après PR #642 intégrée dans `main` et créer le parcours documentaire en quatre états Figma, sans requalifier R1/R2. | Reprise R3 demandée par Morris, travail UX exploratoire ; aucun GO de PR/merge UX ni validation écran finale | **DOCUMENTED — FIGMA CANDIDATE** ; revue Morris et tests de navigation à venir. |
+
+| 2026-11-03 | Rendre navigable la traversée E2E, ajouter les trois états discriminants et les accès autonomes Projet/Git, vérifier réactions et fidélité UX. | GO Morris pour poursuivre R3 ; aucun mandat de promotion sur main | **FIGMA INTERACTIVE CANDIDATE** : 11 frames et liens vérifiés, aucun runtime Next. |
 
 ### Règle de maintenance
 
@@ -815,3 +817,55 @@ Morris demande de ne plus concentrer R3 sur l'Inspection. L'objectif est une **e
 **Points restant à qualifier :** la vraie continuité de navigation par prototype, une variante de projet à cycle actif, Git facultatif, reprise et incidents, mobilité, accessibilité, couverture explicite des exigences R2, puis validation globale de sortie R3. Le Figma n'est pas un runtime : aucun comportement LIVE/REAL ni ADOPTED revendiqué.
 
 **Statut : DOCUMENTED / SIX FIGMA SCREENS CANDIDATES ; direction B2/V3 existante prolongée, non globalement promue, R4 et R5 non engagés.**
+
+
+## 21. Prototype Figma interactif R3 — navigation et frontières d'autorité (v0.10, 2026-11-03)
+
+### 21.1. Portée et sources
+
+Sur GO Morris de poursuite de la **direction UX B2/V3 déjà approuvée comme base de travail**, la page Figma « 04 · Parcours produit — Vue de bout en bout » a été complétée et rendue navigable, sans réclamer de validation micro-écran.
+
+**Point d'entrée Figma :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-28 ; utiliser **Présenter** pour démarrer le prototype.
+
+**Sources et statut :** SEF v0.2 ; Roadmap Next portant encore l'ancien état R3 NOT STARTED (KNOWN GAP documentaire) ; R1 §§2.29–2.41 ; référentiel R2 D1–D9 et complément PR #642 intégré à main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990 ; décisions de sortie R1/R2. La branche UX est une candidate historique non resynchronisée avec la nouvelle baseline ; aucun statut de sortie R3 ou d'adoption n'est présumé. Git local, fichiers staged/untracked : NON OBSERVÉ. Runtime Next : N/A — NON IMPLÉMENTÉ.
+
+### 21.2. Écrans supplémentaires et couverture utilisateur
+
+| Ajout | Frame éditable Figma | Résultat recherché |
+| --- | --- | --- |
+| 02B — Projet créé, même fil | [02B — Continuité Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=28-22) | La confirmation de création suit l'acte explicite du sas ; le Pilote poursuit avec Nora sans conversation recréée |
+| 04B — Cycle actif | [04B — Cycle actif](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=28-131) | Étapes achevée, active, prévue clairement distinguées ; CKI conseil non autorisant |
+| 05B — Retour technique encore absent | [05B — Tentative](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=28-245) | L'acte Exécuter ne produit pas un succès ou des preuves par fiction ; retour inconnu avant consultation séparée du résultat simulé |
+| 07 — Vue Projet | [07 — Projet](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=31-25) | Vue directe de la synthèse du projet, distincte de Nora et du Journal |
+| 08 — Sources Git facultatives | [08 — Sources Git](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=31-139) | Consultation sous droits et provenance explicites ; un lien vers un vrai fichier GitHub ouvrable en nouvel onglet, sans navigateur embarqué ni écriture |
+
+Le **parcours principal** est Portefeuille → Sas → Projet créé → Travail Nora → Journal/Vue Projet → Décision/Contrat → Exécuter → Tentative → Résultat de démonstration explicitement choisi. Un projet déjà existant est ouvrable directement depuis le Portefeuille. La vue Sources Git est accessible sans passer par Nora. Le scénario « cycle actif » constitue un **second point d'entrée volontairement séparé** ; une navigation depuis un projet sans cycle ne lui ouvre pas un cycle fictif.
+
+### 21.3. Contrôles Figma réalisés
+
+- **11 frames** Figma natives et éditables de 1680 × 970, comprenant les six écrans du §20, trois transitions/variantes et deux vues transverses.
+- **46 réactions de navigation interne** et **une réaction URL externe** avec ouverture dans un nouvel onglet ; **deux points d'entrée** (parcours principal et variante cycle actif).
+- Relecture des cibles : **0 destination interne manquante** dans les réactions relevées.
+- Contrôle visuel des nouvelles frames, correction des libellés hérités et des statuts de la variante cycle : Achevé / Actif / Prévu.
+- Lien de démonstration Git : fichier SEF Next réel dans mcleland147/sfia-workspace sur main. Le succès d'ouverture peut dépendre des droits effectifs dans le navigateur.
+
+**Frontières :** le prototype Figma simule navigation et changement de vue, **pas** les créations de projet, autorisations HumanDecision, actions de Cursor, stockage documentaire, flux Git ou résultats vérifiés. Les textes, projets et tentatives montrés sont illustratifs ; aucun comportement LIVE/REAL ni conformité runtime prouvée.
+
+### 21.4. Matrice de couverture R2 et sortie de ce sous-travail
+
+| Domaine R2 | Comportement visuellement représenté | Preuve restant à produire |
+| --- | --- | --- |
+| D1 / D2 | Portefeuille, sas, acte Créer le projet, fil continu | Session, création et transfert du fil en runtime |
+| D3 / D4 | Nora, réponse structurée, vue Projet, Journal et références | Gestion réelle des conversations/connaissances |
+| D5 | Sans cycle et variante avec cycle actif | Unicité et transitions réelles |
+| D6 / D7 | Décision du Pilote, contrat, instruction inspectable, Exécuter et tentative sans résultat immédiat | Autorisation, effet et états techniques établis |
+| D8 | Rapport déclaré, preuves, qualification et acceptation séparées | Chaîne probatoire et décisions réelles |
+| D9 | Git facultatif, consultation et ouverture externe | Droits, ref/commit et contenu réellement obtenu |
+
+**Incomplets en UX :** parcours document Nora et comparateur de versions à relier dans le prototype principal ; ouverture d'un objet précis et retour ; scénario de refus/permission; composants responsive ; clavier/accessibilité ; navigation de l'ensemble des CTA. **Le prototype reste ciblé** et ne rend pas encore tous les boutons opérationnels.
+
+**Suite cohérente R3 :** enrichir le même macro-parcours avec inspection de décision/sujet et retour, documentation Nora consultable depuis la vue Projet, un cas réel de cycle actif et des états de refus ; puis revue ergonomique globale, responsive et contrat visuel avant sortie R3. Éviter une page séparée pour chaque nouvelle interaction.
+
+**Gate :** le présent travail, approuvé en trajectoire par Morris, reste un livrable UX candidat ; ni PR/merge de la branche UX, ni changement de Roadmap, ni conception R4 ni implémentation R5 n'ont été autorisés par la présente étape.
+
+**Statut : DOCUMENTED / INTERACTIVE FIGMA PROTOTYPE — 11 CANDIDATE SCREENS ; NON IMPLEMENTED / NON BEHAVIOR PROVEN / NON ADOPTED.**
