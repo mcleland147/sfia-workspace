@@ -539,11 +539,11 @@ Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/é
 
 **Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
 
-### A. D3 — Transformation cognitive fidèle et restitution structurée
+### 12.1. Transformation cognitive fidèle et restitution structurée
 
 **Résultat utilisateur :** Nora n'est pas seulement un générateur de phrases ; elle transforme le travail préqualifié en une représentation métier fidèle de l'intervention que Studio sera en mesure d'autoriser et d'exécuter. Elle produit après le retour une synthèse structurée fidèle aux qualifications D8 et événements D7, **sans remplacer les informations sources ni exercer la décision D6**.
 
-#### Contrat de Nora pendant la préparation
+#### 12.1.1. Contrat de Nora pendant la préparation
 
 1. Identifier la finalité, les résultats attendus, la cible, les exclusions, les ressources, les risques, les restrictions opposables, les sources et les critères réellement nécessaires pour l'effet envisagé.
 2. **Composer les quatre engagements immédiats** et les **six volets métier** prévus par D7, sans supprimer d'information déterminante parce qu'elle gêne la compacité de la réponse.
@@ -552,7 +552,7 @@ Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/é
 5. Préparer ou contextualiser l'instruction technique de la version contractuelle, en expliquant les différences de forme avec le résumé, sans se présenter comme source d'autorité ni secrétiser une action importante.
 6. Ne pas transformer un résumé structuré en un document statique universel : les rubriques du contrat sont inspectables en contexte et peuvent être plus ou moins développées, selon le risque et la nature de l'effet.
 
-#### Contrat de Nora après réalisation
+#### 12.1.2. Contrat de Nora après réalisation
 
 1. Récupérer depuis les responsabilités propriétaires le **contrat prévu**, le statut technique D7, les preuves/conclusions D8 et les décisions D6 existantes.
 2. Produire ou réviser les **neuf rubriques de synthèse** : résumé ; prévu ; réalisé ; évaluation ; écarts/réserves/blocages ; impact projet ; verdict D8 ; recommandation/suite ; éléments vérifiés/sources.
@@ -560,7 +560,7 @@ Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/é
 4. Adapter l'ordre et la longueur à la lisibilité, tout en conservant l'accès au détail intégral et aux pièces nécessaires pour une décision informée. Le Pilote ne doit pas poser des questions récurrentes simplement parce que les faits déterminants n'ont pas été exposés.
 5. Proposer spontanément un contrôle ou un contrat correctif si utile, mais **sans lancement** ni promotion de jalon automatique.
 
-#### Règles candidates D3
+#### 12.1.3. Règles candidates D3
 
 - **NORA-INFO-01 — Fidélité de traduction métier.** La formulation accessible couvre tous les effets matériels et contraintes de l'instruction technique visée.
 - **NORA-INFO-02 — Complétude proportionnée.** La concision réduit le texte, pas l'accès aux informations pertinentes.
