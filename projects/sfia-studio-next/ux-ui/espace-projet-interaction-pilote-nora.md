@@ -1513,7 +1513,7 @@ Le Pilote voit que Nora travaille, l'étape ou l'opération **réellement établ
 
 **IN :** activité cognitive, événement d'outil reçu, tentative Cursor observée, absence de détail, demande d'arrêt, arrêt non confirmé, acquis, reprise contrôlée, réponse partielle, mobile, animation et accessibilité. **OUT :** simulation de télémétrie API non fournie, exécution/STOP technique prétendument prouvés, nouveau moteur d'état, source de mandat alternative, pourcentage fictif, rollback ou replay automatique.
 
-**Responsabilités inchangées :** D3 transforme les faits en récit compréhensible ; D6 porte le STOP humain et la levée ; D7 la tentative, les observations, les capacités et l'état d'interruption ; D8 la qualification des acquis et effets ; D4 conserve le contexte applicable. Le rendu UI consomme ces propriétaires, sans état concurrent. **Les compléments normatifs R1/D3/D6/D7/D8 sont proposés en D2 et restent à valider par Morris avant écriture Git normative.**
+**Responsabilités inchangées :** D3 transforme les faits en récit compréhensible ; D6 porte le STOP humain et la levée ; D7 la tentative, les observations, les capacités et l'état d'interruption ; D8 la qualification des acquis et effets ; D4 conserve le contexte applicable. Le rendu UI consomme ces propriétaires, sans état concurrent. **Les quatre clarifications R1/D3/D6/D7/D8 ont été validées par Morris et publiées en complément ciblé sur la branche candidate R3 ; voir [index R2 §24](../conception-fonctionnelle/README.md).**
 
 ### 35.2. Maquettes et interactions
 
@@ -1551,10 +1551,10 @@ La commande Envoyer du composer 03 ouvre l'état de travail 206 du prototype. Le
 
 ### 35.5. Dette, exit et gate
 
-- **D2 à valider :** compléments R1 et R2 D3/D6/D7/D8 rédigés pour arbitrage Morris, mais **non publiés sur Git** comme règles acquises.
+- **D2 acquis en contenu et sur branche candidate :** quatre clarifications approuvées par Morris, intégrées à R1 §9, D3 §13, D6 §9, D7 §9 et D8 §9 ; aucun nouveau RG/PF, changement de baseline `main` ni modification des décisions de clôture antérieures.
 - **R4–R6 :** aucune API Nora/stream, capacité stop Cursor, checkpoint ou reprise locale observée ; mécanisme exact et preuves restent N/A — NON IMPLÉMENTÉ.
 - **R3 :** les 12 variantes et le contrat mesuré sont des candidats UX à examiner. La revue globale A–D et le sujet d'observabilité restent ouverts avant décision de sortie.
-- **Git :** contribution documentaire D1 sur branche candidate et index JSON ; sans PR, merge, modification normative ni ADOPTED.
+- **Git :** contributions UX D1 et clarifications normatives D2 expressément autorisées sur la branche candidate ; aucune PR, merge, promotion de `main`, clôture R3 ni ADOPTED.
 
 ## 36. Préparation de la revue finale R3 — parcours produit accessible en Présentation (2026-11-03)
 
@@ -1592,4 +1592,4 @@ Le [contrat de transposition](contrat-transposition-figma-code.md) prend en comp
 
 **Contrôles Figma de conception réalisés :** point de départ principal observé ; flux de revue dédié créé ; nombre de flux réduit de **39 à 3** ; **223/223 frames atteignables depuis la revue**, aucun numéro de frame nouveau dupliqué, aucune destination de réaction inexistante ; noms de calques des boutons 136/143/144 harmonisés avec leurs libellés affichés. Captures des index A–D, des sept E2E et des variantes non nominales examinées ; le global a été réagencé à **1440 × 1285 px** pour une lecture plus lisible en Présentation.
 
-**Réserves de sortie :** R1/R2 D2 proposés pour les nouveaux états Nora mais pas publiés comme `VALIDATED SPEC` ; tests navigateur, zoom, clavier, dynamique API, état après reload, arrêt réel, idempotence, conformité Figma–code et autres preuves R6 non produits. **READY FOR MORRIS FINAL UX REVIEW — R3 NOT CLOSED**. La validation et la clôture sont des décisions Morris distinctes ; PR/merge uniquement après gate spécifique.
+**Réserves de sortie :** quatre clarifications R1/R2 **VALIDATED CONTENT BY MORRIS, intégrées sur branche candidate** ; tests navigateur, zoom, clavier, dynamique API, état après reload, arrêt réel, idempotence, conformité Figma–code et autres preuves R6 non produits. **READY FOR MORRIS FINAL UX REVIEW — R3 NOT CLOSED**. La validation et la clôture sont des décisions Morris distinctes ; PR/merge uniquement après gate spécifique.
