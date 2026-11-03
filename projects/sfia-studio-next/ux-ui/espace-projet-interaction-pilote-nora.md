@@ -1342,15 +1342,17 @@ Un rapport sans trace de test est lisible, mais les tests restent **non vérifi�
 
 
 
-### Références Figma consolidées et autorité de lecture
+### 32.1. Références Figma consolidées et autorité de lecture
 
-**Écrans canoniques** : [06 — Contrat, quatre engagements et six volets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) ; [08 — Résultat, neuf rubriques](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827). **Variantes fonctionnelles** : [06.1 mission](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-478), [06.2 périmètre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-648), [06.3 autorité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-820), [06.4 STOP](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-990), [06.5 validation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1160), [06.6 intégrité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1330), [06.7 instruction Cursor](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1500), [08.1 détail des résultats](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=202-438). [Index de revue des états C](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=190-455).
+**Nommage Figma courant :** une seule séquence de calques numérotés, avec 163–169 pour les états inspectables du contrat et 170 pour le détail du résultat. Les identifiants Figma des écrans 06 et 08 sont inchangés ; les sous-numéros `06.x` / `08.x` ont été retirés des noms de calques, pas du contenu fonctionnel.
 
-**Nettoyage validé :** trois maquettes redondantes retirées après redirection : les anciens identifiants `137@187:494`, `163@199:319` et `171@202:335` **ne sont plus des destinations valides**. Les écrans 06 et 08 conservent leurs identifiants originaux pour préserver les références transverses. Les maquettes 135–162 restantes correspondent à des **situations distinctes** (préparation, droits, tentative, STOP, preuves), non à des pages produit obligatoires. Les pages Figma restent `00 · Fondations — Composants UI`, `01 · Parcours produit — Référence UX R3`, `02 · Contrats visuels — Nora et états`.
+**Écrans canoniques** : [06 — Contrat, quatre engagements et six volets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) ; [08 — Résultat, neuf rubriques](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827). **Variantes fonctionnelles** : [163 mission](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-478), [164 périmètre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-648), [165 autorité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-820), [166 STOP](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-990), [167 validation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1160), [168 intégrité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1330), [169 instruction Cursor](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1500), [170 détail des résultats](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=202-438). [Index de revue des états C](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=190-455).
+
+**Nettoyage validé :** trois maquettes redondantes retirées après redirection : les anciennes frames `187:494`, `199:319` et `202:335` **ne sont plus des destinations valides**. Les écrans 06 et 08 conservent leurs identifiants originaux pour préserver les références transverses. Les maquettes 135–162 restantes correspondent à des **situations distinctes** (préparation, droits, tentative, STOP, preuves), non à des pages produit obligatoires. Les pages Figma restent `00 · Fondations — Composants UI`, `01 · Parcours produit — Référence UX R3`, `02 · Contrats visuels — Nora et états`.
 
 **Priorité documentaire :** les décomptes et noms d'écrans de §12 / §31 sont des constats **avant consolidation** ; le présent addendum est l'inventaire courant. Les liens sont alignés sur l'état Figma après consolidation. Aucune trace ou capacité LIVE ne résulte de cette renumérotation UX.
 
-### 1. Références et objectif
+### 32.2. Références et objectif
 
 - Fichier Next : [SFIA Studio Next — R3 UX](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP).
 - Fichier ancien comparatif : [page 10 Synthèses](https://www.figma.com/design/m4g8j0gNbEzfIuH6S9AZJF?node-id=164-2) ; [page 16 Exécution, C2](https://www.figma.com/design/m4g8j0gNbEzfIuH6S9AZJF?node-id=458-2).
@@ -1358,7 +1360,7 @@ Un rapport sans trace de test est lisible, mais les tests restent **non vérifi�
 
 L'expérience cible conserve **la conversation Nora** et le rail du projet. L'inspection se fait dans la surface contextuelle de droite, pas dans une interface d'exécution indépendante sans lien avec le fil. La synthèse ne réintroduit pas par inertie une route « Synthèses » globale ; elle devient une restitution structurée consultable dans le contexte d'un travail, avec accès aux détails et à la provenance.
 
-### 2. Contrat d'exécution — deux étages et une instruction brute
+### 32.3. Contrat d'exécution — deux étages et une instruction brute
 
 **Aperçu** : [06 — Contrat complet](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629), quatre engagements immédiatement visibles : **Ce qui sera fait**, **Ce qui ne sera pas fait**, **Résultat attendu**, **Votre contrôle**. Aucun effet externe ne doit dépendre de la lecture exhaustive des six volets, mais toutes les conséquences déterminantes restent accessibles et les risques essentiels ne sont pas masqués.
 
@@ -1377,7 +1379,7 @@ L'expérience cible conserve **la conversation Nora** et le rail du projet. L'in
 
 **Statuts de non-prêt :** capacité Cursor non vérifiée, droits de lecture sans écriture, version périmée, conflit de cible, restriction humaine active et valeurs critiques inconnues doivent rendre le déclenchement non trompeur. Les états antérieurs C (139–154) restent réutilisés comme situations de contrôle ; ce dossier ne prétend pas simuler matériellement ces incidents.
 
-### 3. Synthèse post-exécution — neuf rubriques et deux profondeurs
+### 32.4. Synthèse post-exécution — neuf rubriques et deux profondeurs
 
 - [08 — Synthèse Pilot-first](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827) : réponse rapide, neuf rubriques courtes, état de preuve et réception distincts ; accès au détail.
 - [172 — Synthèse détaillée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=202-438) : même contexte avec neuf rubriques complètes, leurs limites et la recommandation ; retour à la vue brève.
@@ -1386,24 +1388,24 @@ Les rubriques sont : résumé, prévu, réalisé, évaluation, écarts/réserves
 
 **Exemple retenu pour les deux maquettes** : Cursor **déclare** avoir mis à jour deux documents et avoir exécuté les contrôles ; les traces indépendantes ne sont pas fournies. La qualification affichée doit donc rester **NON DÉMONTRÉE**, et non « conforme » ou « atteint ». Aucun commit réel ni droit Git n'est supposé. Une mission courte ne justifie pas de faire disparaître « impact », « écarts » ou « sources » ; leur contenu peut être proportionné, pas absent.
 
-### 4. Critères UX / R4 à convertir en contrat exécutable
+### 32.5. Critères UX / R4 à convertir en contrat exécutable
 
 | Contrôle UX | Attendu | Preuve Figma | Preuve runtime future |
 | --- | --- | --- | --- |
-| 4 cartes immédiatement lisibles | Les effets et limites déterminants ne sont pas dissimulés | Vue 163 | Capture navigateur + test de données |
-| Six sections initialement repliées | Chaque volet est consultable sans déclencher Cursor | 163–169 | Tests clavier, souris, états, autorité |
+| 4 cartes immédiatement lisibles | Les effets et limites déterminants ne sont pas dissimulés | Vue 06 | Capture navigateur + test de données |
+| Six sections initialement repliées | Chaque volet est consultable sans déclencher Cursor | 163–168 | Tests clavier, souris, états, autorité |
 | Instruction brute en volet distinct | Même version, sens et périmètre, secrets protégés | 170 | Test identité/version/instruction au dispatch |
 | Affichage de manque critique | Non-prêt explicable | États C 139–154 | Tests de droits, capacité, STOP, changement matériel |
-| Synthèse avec neuf rubriques | Compréhension complète et proportionnée | 171–172 | Tests de provenance et scénarios D8 contradictoires |
-| Conformité ≠ acceptation | Verdict D8 et décision D6 distincts | 171/172 → 35 | Tests de décision et audit autorité |
+| Synthèse avec neuf rubriques | Compréhension complète et proportionnée | 08 et 170 | Tests de provenance et scénarios D8 contradictoires |
+| Conformité ≠ acceptation | Verdict D8 et décision D6 distincts | 08/170 → 35 | Tests de décision et audit autorité |
 | Continuité Nora | Fil projet visible, inspection réversible | Frames natives Figma | Navigation/focus/scroll/réponse étendue |
 
 **Autres réserves :** 1280 px, zoom, focus/clavier, contraintes mobiles, longs textes, droits et réhydratation après reload, vrai effet des « accordéons » sans multiplication de routes techniques, conformité aux règles D3/D6/D7/D8. Ces états représentent des variantes de prototype ; l'architecture R4 décidera si un seul composant peut afficher les ouvertures et le détail.
 
-**Verdict UX :** conception enrichie proposée et revue visuelle initiée ; **C — REVIEW MORRIS PENDING**. Aucune preuve `BEHAVIOR PROVEN`, aucun GO D/R4 ni adoption. Les compléments R1/R2 doivent être validés avant de figer le contrat UX.
+**Verdict UX :** conception enrichie proposée et revue visuelle initiée ; **C — REVIEW MORRIS PENDING**. Aucune preuve `BEHAVIOR PROVEN`, aucun GO D/R4 ni adoption. Les compléments R1/R2 ont été validés par Morris le 2026-11-03 ; leur promotion sur `main` reste un gate Git distinct.
 
-### 32.E. Contrôle des écrans canoniques et dette de navigation hors C
+### 32.6. Contrôle des écrans canoniques et dette de navigation hors C
 
-Les écrans **06** et **08** conservent leurs IDs Figma d'origine, y compris les liens entrants depuis les autres parcours R3. Le panneau d'inspection enrichi et la synthèse à neuf rubriques ont été transférés dans ces références, puis les variantes redondantes **137, 163 et 171** ont été supprimées après redirection des réactions. Dans l'exemple Atlas, le contenu de gauche et le contenu inspectable à droite concordent : **deux documents annoncés, preuves Git non disponibles, conformité non démontrée, réception non prononcée** ; aucune autorisation d'exécution fictive.
+Les écrans **06** et **08** conservent leurs IDs Figma d'origine, y compris les liens entrants depuis les autres parcours R3. Le panneau d'inspection enrichi et la synthèse à neuf rubriques ont été transférés dans ces références, puis les anciennes frames redondantes **`187:494`, `199:319` et `202:335`** ont été supprimées après redirection des réactions. Dans l'exemple Atlas, le contenu de gauche et le contenu inspectable à droite concordent : **deux documents annoncés, preuves Git non disponibles, conformité non démontrée, réception non prononcée** ; aucune autorisation d'exécution fictive.
 
 **Audit Figma 2026-11-03 :** 171 frames, 1 753 liens NODE examinés, 0 cible invalide, 0 auto-navigation. Trois actions visibles « Inspecter » sans destination existent sur les parcours documentaires historiques (nœuds `94:449`, `97:438`, `100:118`) : **KNOWN GAP hors C**, à reprendre uniquement après qualification de l'action attendue (lot D), sans interaction inventée. Le rendu navigateur et l'exécution LIVE/REAL restent **NON PROUVÉS**.
