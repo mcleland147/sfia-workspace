@@ -1401,3 +1401,9 @@ Les rubriques sont : résumé, prévu, réalisé, évaluation, écarts/réserves
 **Autres réserves :** 1280 px, zoom, focus/clavier, contraintes mobiles, longs textes, droits et réhydratation après reload, vrai effet des « accordéons » sans multiplication de routes techniques, conformité aux règles D3/D6/D7/D8. Ces états représentent des variantes de prototype ; l'architecture R4 décidera si un seul composant peut afficher les ouvertures et le détail.
 
 **Verdict UX :** conception enrichie proposée et revue visuelle initiée ; **C — REVIEW MORRIS PENDING**. Aucune preuve `BEHAVIOR PROVEN`, aucun GO D/R4 ni adoption. Les compléments R1/R2 doivent être validés avant de figer le contrat UX.
+
+### 32.E. Contrôle des écrans canoniques et dette de navigation hors C
+
+Les écrans **06** et **08** conservent leurs IDs Figma d'origine, y compris les liens entrants depuis les autres parcours R3. Le panneau d'inspection enrichi et la synthèse à neuf rubriques ont été transférés dans ces références, puis les variantes redondantes **137, 163 et 171** ont été supprimées après redirection des réactions. Dans l'exemple Atlas, le contenu de gauche et le contenu inspectable à droite concordent : **deux documents annoncés, preuves Git non disponibles, conformité non démontrée, réception non prononcée** ; aucune autorisation d'exécution fictive.
+
+**Audit Figma 2026-11-03 :** 171 frames, 1 753 liens NODE examinés, 0 cible invalide, 0 auto-navigation. Trois actions visibles « Inspecter » sans destination existent sur les parcours documentaires historiques (nœuds `94:449`, `97:438`, `100:118`) : **KNOWN GAP hors C**, à reprendre uniquement après qualification de l'action attendue (lot D), sans interaction inventée. Le rendu navigateur et l'exécution LIVE/REAL restent **NON PROUVÉS**.
