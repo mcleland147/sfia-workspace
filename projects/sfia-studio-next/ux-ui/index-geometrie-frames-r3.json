@@ -1,11 +1,11 @@
 {
-  "schema": "SFIA_NEXT_R3_FRAME_GEOMETRY_ROOTS_v0.2",
+  "schema": "SFIA_NEXT_R3_FRAME_GEOMETRY_ROOTS_v0.3",
   "source": "itgvCulInEnFY6DvgIegvP",
   "page": "94:49",
   "date": "2026-11-03",
   "units": "px",
-  "scope": "all 221 top-level frames with first-level visible block dimensions/positions; deeper canonical measurements in UI contract",
-  "frameCount": 221,
+  "scope": "all 223 top-level frames incl. 2 new review indexes; visible first-level layout bounds; deeper canonical measurements and behaviour in UI contract",
+  "frameCount": 223,
   "frames": [
     {
       "id": "94:50",
@@ -10246,8 +10246,8 @@
     {
       "id": "264:401",
       "name": "INDEX · Revue globale R3 — parcours A–D",
-      "w": 2700,
-      "h": 740,
+      "w": 1440,
+      "h": 1285,
       "children": [
         {
           "id": "264:402",
@@ -10255,7 +10255,7 @@
           "t": "TEXT",
           "x": 40,
           "y": 40,
-          "w": 2600,
+          "w": 1350,
           "h": 29,
           "l": null
         },
@@ -10265,7 +10265,7 @@
           "t": "TEXT",
           "x": 40,
           "y": 89,
-          "w": 2600,
+          "w": 1350,
           "h": 16,
           "l": null
         },
@@ -10275,7 +10275,7 @@
           "t": "FRAME",
           "x": 40,
           "y": 125,
-          "w": 2600,
+          "w": 1350,
           "h": 41,
           "l": "VERTICAL"
         },
@@ -10285,7 +10285,17 @@
           "t": "FRAME",
           "x": 40,
           "y": 186,
-          "w": 2566,
+          "w": 1350,
+          "h": 525,
+          "l": "HORIZONTAL"
+        },
+        {
+          "id": "304:2",
+          "n": "Deux capacités complémentaires R3",
+          "t": "FRAME",
+          "x": 40,
+          "y": 731,
+          "w": 1350,
           "h": 481,
           "l": "HORIZONTAL"
         },
@@ -10294,8 +10304,8 @@
           "n": "Gates : D validé par Morris sur le contenu ; R3 global non clôturé. Revue complémentaire à prévoir sur la visibilité du travail Nora. Pas de merge, R4, API LIVE/REAL ou ADOPTED.",
           "t": "TEXT",
           "x": 40,
-          "y": 687,
-          "w": 2600,
+          "y": 1232,
+          "w": 1350,
           "h": 13,
           "l": null
         }
@@ -10681,6 +10691,112 @@
           "y": 501,
           "w": 2250,
           "h": 15,
+          "l": null
+        }
+      ]
+    },
+    {
+      "id": "298:389",
+      "name": "INDEX · Variantes non nominales — couverture complète R3",
+      "w": 1680,
+      "h": 600,
+      "children": [
+        {
+          "id": "298:390",
+          "n": "VARIANTES R3 · CYCLES, DÉCISIONS ET REPRISE",
+          "t": "TEXT",
+          "x": 30,
+          "y": 30,
+          "w": 1590,
+          "h": 27,
+          "l": null
+        },
+        {
+          "id": "298:391",
+          "n": "Ces 14 cas sont inspectables pour validation. Ils ne sont pas déclenchés depuis le parcours nominal sans événement, droit ou décision applicable.",
+          "t": "TEXT",
+          "x": 30,
+          "y": 73,
+          "w": 1590,
+          "h": 16,
+          "l": null
+        },
+        {
+          "id": "298:392",
+          "n": "Trois familles de variantes",
+          "t": "FRAME",
+          "x": 30,
+          "y": 105,
+          "w": 1581,
+          "h": 409,
+          "l": "HORIZONTAL"
+        },
+        {
+          "id": "298:441",
+          "n": "Lien de revue / Retour à l'index global R3",
+          "t": "FRAME",
+          "x": 30,
+          "y": 530,
+          "w": 330,
+          "h": 40,
+          "l": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "id": "299:389",
+      "name": "INDEX · Sept parcours E2E de référence — revue R3",
+      "w": 1680,
+      "h": 1308,
+      "children": [
+        {
+          "id": "299:390",
+          "n": "SEPT PARCOURS END-TO-END · REVUE DE CONCEPTION",
+          "t": "TEXT",
+          "x": 34,
+          "y": 34,
+          "w": 1590,
+          "h": 27,
+          "l": null
+        },
+        {
+          "id": "299:391",
+          "n": "Lire les écrans par scénario. Les étapes « confirmé », « en attente » et les incidents sont des alternatives de revue : l'index ne simule pas une API ni un succès métier.",
+          "t": "TEXT",
+          "x": 34,
+          "y": 75,
+          "w": 1590,
+          "h": 15,
+          "l": null
+        },
+        {
+          "id": "299:392",
+          "n": "Sept scénarios",
+          "t": "FRAME",
+          "x": 34,
+          "y": 104,
+          "w": 1604,
+          "h": 1100,
+          "l": "HORIZONTAL"
+        },
+        {
+          "id": "299:538",
+          "n": "Étape de revue / Retour à la revue globale A–D",
+          "t": "FRAME",
+          "x": 34,
+          "y": 1218,
+          "w": 340,
+          "h": 29,
+          "l": "VERTICAL"
+        },
+        {
+          "id": "299:541",
+          "n": "Ces 7 chaînes sont la carte de lecture du parcours R1, non 7 traitements exécutés. Les cas alternatifs restent inspectables dans les index spécialisés, avec les règles D6/D7/D8 applicables.",
+          "t": "TEXT",
+          "x": 34,
+          "y": 1261,
+          "w": 1590,
+          "h": 13,
           "l": null
         }
       ]
