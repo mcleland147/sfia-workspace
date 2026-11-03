@@ -1063,6 +1063,15 @@ Les **41 règles RG-GIT** restent sous autorité de la spécification D9 R2. Les
 | Mesures exactes d'un écran | [206](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-389), [06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) | UX, propriétaire composant R4 | Géométrie native documentée, non capture runtime |
 | Variants et couverture anti-régression | [Index](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) | UX transverse | Navigation à contrôler après dernier câblage |
 
+
+### 15.4. Contrôle final de cohérence et frontières
+
+**Figma après raccordement :** 221 frames au total, **12 nouveaux cas Nora 206–217**, 18 liens de l'index d'activité, raccordement avec le composer 03 et les états STOP C, **2 309 liens NODE inspectés**, aucun lien vers un nœud inexistant, aucune action « Action / » visible sans réaction, aucun numéro de frame nouveau en doublon. **15 destinations internes au même écran** sont les raccourcis de lecture issus de 03 et conservés par les variantes Nora ; ce ne sont pas des redéclenchements d'exécution. Le carré du composer a une destination d'arrêt demandée, et non un statut arrêté immédiatement.
+
+**Manifeste natif :** les 221 frames et **891 blocs racines visibles** possèdent un index versionné dans Git ; les calques profonds et variables de style doivent être extraits et comparés lors de l'implémentation. Le contrat visuel énonce une cible mesurable sur 03, 06, 206 et 216, avec tokens à arbitrer et exemples natifs de couleurs/typographies.
+
+**Découpage de validation :** (1) **ce macro-lot UX : candidat à revue Morris** ; (2) proposition normative R1/R2 D3/D6/D7/D8 : **D2 NON VALIDÉE, NON PUBLIÉE sur Git** ; (3) R4–R6 : architecture des événements/STOP/reprise et preuves runtime à construire. **Aucun R3 EXIT, PR, merge, implémentation LIVE/REAL ou adoption.**
+
 ### 15.3. Réserves et obligations de la revue
 
 1. Ne pas confondre activité cognitive, utilisation d'un outil et tentative externe ; un message d'avancement n'est ni un journal secret, ni une preuve d'effet.
