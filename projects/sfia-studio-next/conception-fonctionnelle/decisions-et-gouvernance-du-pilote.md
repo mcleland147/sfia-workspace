@@ -238,24 +238,24 @@ Chaque cas propose un résultat observable à démontrer ultérieurement. Les id
 
 **Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
 
-### B. D6 — Autorité du Pilote et décision suffisamment informée
+### 8.1. Autorité du Pilote et décision suffisamment informée
 
 **Résultat utilisateur :** le Pilote dispose de l'ensemble des informations déterminantes à son autorisation, qu'il choisisse ou non d'ouvrir tous les volets. D6 décide si l'acte a la bonne compétence, la bonne version/portée et est encore applicable ; D7 constitue et expose le contrat. La responsabilité humaine de décider n'exige pas une validation répétée de chaque information ou un rituel « j'ai tout lu ».
 
-#### Contrat d'information D6 avant « Exécuter »
+#### 8.1.1. Contrat d'information D6 avant « Exécuter »
 
 - Référence à une version déterminée du contrat opérationnel D7 et à la cible/projet/Pilote pertinents ; confirmation de l'autorité, des suspensions, restrictions et conditions courantes.
 - Le Pilote a la **possibilité réelle** de consulter le résumé en quatre engagements, les six volets et l'instruction technique associée ; les risques d'irréversibilité, droits sensibles, effets externes et interdictions matérielles ne doivent pas être dissimulés.
 - L'ouverture d'un volet ou l'inspection de l'instruction ne produit **aucune autorisation**. Un seul acte « Exécuter » explicite autorise un lancement dans les limites du contrat et sous contrôles effectifs.
 - Lorsqu'une donnée structurante manque, est périmée ou divergent de l'instruction, Studio ne présente pas le contrat comme autorisable au titre de sa version passée ; la résolution du risque peut demander une clarification, une réinspection ou un arbitrage selon les compétences.
 
-#### Contrat d'information D6 sur le résultat
+#### 8.1.2. Contrat d'information D6 sur le résultat
 
 - D6 présente au Pilote la synthèse et les réserves factuelles disponibles auprès de D8 ; la décision de réception est distincte d'une conformité et peut être un refus, report, acceptation ou acceptation sous réserves dans sa portée.
 - L'absence de preuves déterminantes est **exposée avant la réception** ; elle n'est pas maquillée par un état terminal D7 ou un libellé esthétique.
 - Une acceptation avec réserves laisse les réserves ouvertes ; aucune décision d'acceptation ne neutralise une interdiction non dérogeable, n'implique merge ou ADOPTED, ou n'autorise un nouveau contrat correctif.
 
-#### Règles candidates D6
+#### 8.1.3. Règles candidates D6
 
 - **GOV-INFO-01 — Inspection rendue possible.** Pour une autorisation externe, les six volets, le résumé et l'instruction technique restent consultables sur la même version.
 - **GOV-INFO-02 — Information critique visible.** Un effet sensible, durable, irréversible ou non maîtrisé doit être intelligible avant autorisation.
@@ -264,7 +264,7 @@ Chaque cas propose un résultat observable à démontrer ultérieurement. Les id
 - **GOV-INFO-05 — Réception éclairée.** Le Pilote voit limites et réserves réellement qualifiées, sans obligation d'avoir lu tous les détails pour que Studio affiche des informations fiables.
 - **GOV-INFO-06 — D6 n'évalue pas les preuves.** Les décisions se réfèrent à l'évaluation D8 et conservent la portée propre de l'acte humain.
 
-#### Scénarios d'interface
+#### 8.1.4. Scénarios d'interface
 
 | ID temporaire | Entrée | Attendu |
 | --- | --- | --- |
