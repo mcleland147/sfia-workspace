@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.6**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.7**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -339,6 +339,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Créer un fichier Figma Design neuf et indépendant pour visualiser V3 (trois écrans) ; conserver contexte condensable en hypothèse. | GO Morris explicite pour Figma neuf, consultation P3 seulement en lecture ; approbation du principe de condensation, pas des écrans | **FIGMA CANDIDATE — THREE EDITABLE SCREENS** ; pas de validation, prototype cliquable, développement ni preuve runtime. |
 
 | 2026-11-03 | Définir le périmètre candidat d'inspection au-delà de la visionneuse : documents créés/modifiés par Nora, objets métiers, sources Git/liens externes, contrats Cursor, rapports et preuves ; distinguer MVP et extensions. | Exploration à la demande de Morris ; aucun arbitrage d'édition ou de persistance validé | **ANALYSE / HYPOTHÈSES R3**, sans validation de formats, d'architecture ni d'intégrations. |
+
+| 2026-11-03 | Illustrer l'inspection avec trois nouveaux écrans éditables dans le Figma Next existant : document Nora Markdown, sources GitHub/web, contrat Cursor/rapport/preuves. | Mandat Figma Morris ; hypothèses R3 §17 | **THREE FIGMA CANDIDATES REVIEWABLE**, pas validation fonctionnelle/architecture ; revue Morris avant retour R1/R2. |
 
 ### Règle de maintenance
 
@@ -688,3 +690,30 @@ Les objets ne doivent pas être réduits à des « documents » : une décision,
 **Risques/exit :** complexité de rendu et formats, sources non fiables, faux sentiment de preuve/autorité, versions et permissions incohérentes, double registre d'objets, brouillon perdu, panneau fourre-tout. **Exit UX attendu :** garder visibles les actions réellement utiles à l'objet et sa source officielle, avec retour simple et états d'erreur honnêtes. **Gate Morris :** choix explicite des comportements éditoriaux et formats à retenir après revue Figma ; cette section n'est pas un GO d'architecture R4/R5 ni une décision produit validée.
 
 **Statut : DOCUMENTED — HYPOTHÈSES UX v0.6, pas VALIDATED SPEC / IMPLEMENTED / BEHAVIOR PROVEN / ADOPTED.**
+
+
+## 18. Trois écrans Figma d'inspection — visualisation candidat R3 (v0.7)
+
+### 18.1 Mandat et statut
+
+À la demande de Morris, trois maquettes natives **éditables dans Figma** ont été créées dans le **fichier Next existant et indépendant de P3** sur une nouvelle page « 02 · Inspection — Documents, sources et exécution ». Le fichier historique Studio P3 n'a pas été modifié. Ces compositions reprennent l'esprit des références visuelles qu'a appréciées Morris, sans figer couleurs, typographies ou structure définitives.
+
+**Fichier :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP
+
+### 18.2 Scénarios inspectables
+
+| Cas UX | Maquette | Composition et proposition | Frontière métier |
+| --- | --- | --- | --- |
+| Document Nora et Markdown | [Écran 01](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=12-18) | Échange avec Nora, spécification Markdown structurée, tableau de règles, statut brouillon, révision ciblée, diff et conservation proposée | Création de brouillon ≠ validation ; conserver un contenu ≠ publier sur Git |
+| Sources GitHub et Internet | [Écran 02](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=12-167) | Ressource GitHub en lecture seule, branche/commit, provenance, extrait, lien web ouvrable à l'extérieur | Ni navigateur intégré ni écriture Git ; lecture sous droits réels ; contenu consulté non autorisant |
+| Contrat Cursor, rapport, preuves | [Écran 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=12-320) | Contrat D7, référence à l'instruction exacte, tentative déclarée terminée, rapport Cursor et qualification D8 séparés | Rapport ≠ preuve ; pas de second bouton Exécuter sur une tentative présentée terminée ; D6 garde l'autorité |
+
+**Contrôle :** captures visuelles des trois écrans 1680 × 970, ajustement des compositeurs et des actions, textes et composants éditables. Les données « Atlas » et les tentatives Cursor sont des illustrations fictives. Ce travail ne prouve ni les interactions, ni un comportement Nora/Cursor LIVE/REAL, ni la persistance documentaire.
+
+### 18.3 Étape suivante et gates
+
+Morris souhaite d'abord **examiner ces maquettes** et décider si le mécanisme d'inspection étendu apporte une valeur suffisante. **En cas d'accord**, une reprise ciblée du cadrage R1 et de la conception fonctionnelle R2 devra instruire l'évolution des capacités Nora, la nature et la durabilité des documents, les droits et effets externes, et les responsabilités D3/D4/D6/D7/D8/D9. L'accord UX ne rouvrira pas automatiquement les jalons ni ne modifiera les documents fonctionnels déjà validés ; les documents normatifs et le périmètre des écritures demanderont leurs gates propres.
+
+À instruire après revue : création/modification/version des documents Markdown, consultation des sources, sélection d'un extrait pour Nora, parcours de contrat et résultat, accessibilité, mobile, erreurs, dépendances, preuves et dette/exit.
+
+**Statut : DOCUMENTED / FIGMA CANDIDATES ; R1 et R2 inchangés ; Next non implémenté ; aucun ADOPTED.**
