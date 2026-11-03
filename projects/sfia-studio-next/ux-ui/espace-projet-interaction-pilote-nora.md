@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.15**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.16**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -355,6 +355,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Représenter dans Figma une réponse Nora unique mêlant investigation, comparaison, parcours, recommandation et actions dynamiques ; réserver leur architecture en R4. | GO Morris pour poursuivre R3, liberté cognitive confirmée, pas de choix technique | **DOCUMENTED / INTERACTIVE FIGMA CANDIDATE v0.14 — R4 STUDY OPEN**. |
 
 | 2026-11-03 | Adapter la réponse Nora composite au défilement d'un écran standard, stabiliser le composeur, retirer les notices techniques de l'UI et requalifier les trois vues antérieures comme explorations de formes. | Retour de Morris sur l'écran 22, cohérence d'usage validée en principe | **FIGMA R3 CANDIDATE v0.15** — défilement configuré, pas de validation navigateur. |
+
+| 2026-11-03 | Consolider R3 à l'échelle produit : nouvelle page Figma de parcours Pilote–Nora, repère « aller au plus récent », contrats visuels, variations d'autorité/STOP, matrice R1/R2 et réserves R4. | Mandat Morris de poursuivre le macro-lot autonome, sans solliciter de GO écran par écran ni promouvoir le jalon | **DOCUMENTED / FIGMA CONSOLIDATED CANDIDATE v0.16** ; tests navigateur, accessibilité et sortie R3 non validés. |
 
 ### Règle de maintenance
 
@@ -1070,3 +1072,84 @@ Hypothèses de comparaison (pas de solutions retenues) :
 **Suite :** tester le défilement du prototype en présentation, les réponses composites successives, l'adaptation 1280, accessibilité/zoom, les actions devenues indisponibles, la qualité des libellés, puis consolider le contrat de restitution dans un document R3 moins cumulatif. Aucun remplacement de R1/R2, changement Roadmap, PR/merge de la branche UX, entrée R4 ou adoption anticipée n'est inclus.
 
 **Statut : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE v0.15 — SCROLLABLE RESPONSE / USER-FACING COPY ; R4 ACTION STUDY OPEN ; NEXT NON IMPLÉMENTÉ.**
+
+
+## 26. Contrat UX intégré — parcours Pilote–Nora et état de maturité R3 (v0.16, 2026-11-03)
+
+### 26.1. Résultat d'ensemble et sources
+
+À la demande de Morris, R3 est repris comme **un seul macro-lot d'expérience produit** et non une série de validations de micro-écrans. La vision B2/V3 et la liberté expressive de Nora sont conservées ; la navigation, la connaissance, les interactions contextuelles, les autorités et les situations d'incertitude sont vérifiées **ensemble**.
+
+**Sources Git relues :** SEF v0.2, Roadmap Next, R1 vision (§§2.29–2.41, notamment §2.32), décisions de sortie R1/R2, R2 D1–D9 sur \`main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990\`, naming VALIDATED ; document UX candidat antérieur à cette version. L'état Git local/staged/untracked est **NON OBSERVÉ** ; le produit Next est **N/A — NON IMPLÉMENTÉ**. La Roadmap \`main\` affiche encore un état historique \`R3 NOT STARTED\` et des données R2 pré-complément : **KNOWN GAP documentaire, à régulariser par un gate spécifique**. La branche UX reste candidate, en avance et en retard sur \`main\` ; elle n'est pas une nouvelle baseline.
+
+**IN du macro-lot UX :** parcours de référence, navigation et retours, restitution Nora courte/longue/composite, accès aux objets, décisions, préparation/inspection/autorisation distincte, rapports et preuves, refus et suspension, adaptation compacte, contrats de présentation et couverture. **OUT :** moteur de rendu, sécurité/persistance effective, modèle d'exécution, système de composants codés, test runtime, décision A/B/C, gouvernance normative et promotion Git.
+
+### 26.2. Référence Figma de parcours, distincte de l'exploration
+
+**Nouveau point d'entrée de revue :** [05 — Référence UX intégrée, parcours Pilote–Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50). Cette page est volontairement **distincte** de la page 04 (« Vue de bout en bout »), qui conserve les hypothèses, essais et variantes historiques. Elle comporte **22 frames de référence éditables** : le parcours principal, les vues autonomes, les suites conversationnelles et des états de risque.
+
+**Planche transverse de conception :** [06 — Grammaire du fil et actions](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=104-15) ; [06 — Confiance et reprise](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=104-78). Ce sont **des contrats visuels à discuter et qualifier**, pas des interfaces supplémentaires ou des choix technologiques.
+
+**Parcours principaux à évaluer ensemble :**
+
+| Parcours | Transitions représentées | Invariants R2 et réserve |
+| --- | --- | --- |
+| **P1 — Entrer, créer et reprendre** | Portefeuille → Sas Nora → « Créer le projet » → confirmation/fil conservé → Travail ; accès direct au projet déjà existant | D1/D2/D3 : pas de Nora globale, création explicite, continuité sans cycle automatique |
+| **P2 — Travailler et consulter** | Conversation Nora composite et défilante → Document Nora → révision → Vue Projet/Journal → retour à la conversation ; actions contextuelles et choix A/B/libre | D3/D4/D9 : restitution adaptative, objets retrouvables, Git facultatif, aucune écriture implicite |
+| **P3 — Décider puis réaliser si nécessaire** | Journal → Décision consultée → Contrat inspecté → acte « Exécuter » → tentative en attente → résultat déclaré/partiellement qualifié → inspection preuves → retour Nora | D6/D7/D8 : recommandation ≠ décision ≠ autorisation d'effet ≠ déclaration ≠ preuve ≠ acceptation |
+| **P4 — Faire face à l'incertitude** | Source Git devenue inaccessible → retour aux sources/à Nora ; variante interruption demandée, arrêt **non confirmé**, sans reprise technique | D3/D6/D7/D9 : droits actuels, non-invention du retour, suspension humaine conservée |
+| **P5 — Composer selon l'espace et le cycle** | Vue compacte 1280, variante projet avec cycle actif, parcours sans cycle | D3/D5 : CKI guidance seulement, aucun cycle créé par navigation |
+
+**Audit structurel Figma de la page 05 :** 22 frames ; **179 actions de navigation interne entre frames**, **1 Scroll-To** vers la partie basse du message composite, **2 liens externes HTTPS**, **5 points d'entrée**, aucune destination inconnue et aucune boucle vers la frame source dans les réactions examinées. Les captures des écrans Nora, contrat, décision, preuves, STOP, cycle actif et des planches visuelles ont été examinées ; quelques textes secondaires restent petits. Il s'agit de **contrôles de structure, de rendu et de liens Figma**, pas d'une campagne de tests d'utilisation.
+
+### 26.3. Repère « Aller au plus récent » et règles d'ergonomie
+
+À partir d'un exemple concret de l'interface ChatGPT transmis par Morris, le modèle UX ajoute un **repère discret descendant**, au-dessus du composeur, lorsque l'utilisateur n'est pas au dernier message. L'écran 22 historique et la référence intégrée possèdent un contrôle Figma relié par **Scroll-To** vers les actions situées en bas du message composite. Une réponse peut dérouler plusieurs hauteurs d'écran : aucune réduction forcée de la typographie ou compression de tous les blocs pour un seul viewport.
+
+**Contrat UX candidat :**
+- Afficher le repère si la conversation peut encore être lue plus bas et que l'utilisateur n'est pas au dernier contenu pertinent ; masquer l'indicateur dès que la lecture arrive à son terme. Le réafficher lorsqu'un nouveau contenu arrive alors que le Pilote lit plus haut.
+- En cliquant, aller vers le dernier contenu du fil, pas seulement vers la fin d'une carte isolée ; préserver l'accès à tout l'historique par défilement normal.
+- Ne pas imposer un défilement automatique qui arrache au Pilote une lecture volontairement remontée ; afficher le repère plutôt qu'une interruption intrusive. L'arrivée d'un nouveau contenu et le retour dans une conversation demandent des règles de position de lecture à préciser.
+- Conserver le composeur distinct de la surface de lecture. L'indicateur doit être atteignable au clavier, identifié par un libellé accessible (« Aller au message le plus récent »), avec focus visible et mouvement réduit lorsque la préférence d'accessibilité le demande.
+
+**Limite de preuve :** Figma démontre l'**affordance** et une action \`SCROLL_TO\` configurée. Il ne démontre ni une logique conditionnelle attachée à la position réelle de scroll, ni le masquage automatique, ni les événements de streaming, ni l'accessibilité navigateur. La page 06 illustre explicitement **repère visible / masqué / réactivé**, sans prétendre les rendre dynamiques dans le prototype.
+
+### 26.4. Surface conversationnelle : contenu produit, non jargon d'implémentation
+
+Les écrans consolidés privilégient les noms d'actions et informations utiles : « Voir le bilan », « Consulter le document », « Retour au Journal », « Revenir à Nora », « Vérifications disponibles », « Interruption en attente de confirmation ». Les mentions « UX R3 CANDIDAT », les explications permanentes sur la sémantique des identifiants, le caractère non autorisant des raccourcis et les références aux gates R4/R5 ont été retirées des surfaces destinées au Pilote.
+
+**La discipline reste dans la documentation et l'architecture** : validation des cibles, permission au rendu/clic, état courant, erreur, idempotence, reprise, intégrité des actes humains. Les cas qui ont de vraies conséquences (contrat, STOP, preuve insuffisante, source inaccessible) gardent les informations nécessaires pour comprendre ce qui se passe.
+
+**Nora peut composer librement** une réponse de texte, tableaux, étapes, investigation, recommandations et actions, de manière courte ou longue. Il ne faut **ni un écran par type de restitution**, ni un système d'actions textuelles librement interprétées comme des commandes techniques. L'étude A/B/C R4 couvre le contrat sémantique et l'exécution fiable de ces actions.
+
+### 26.5. Couverture transversale des neuf domaines R2 — UX représentée, pas preuve d'exécution
+
+| Domaine | Surface et contrat de référence | Point restant à prouver / concevoir |
+| --- | --- | --- |
+| **D1 — Accès et portefeuille** | Portefeuille, sélection des projets, pas de Nora globale | Gestion réelle des accès et isolation |
+| **D2 — Création/Sas** | Sas récupérable, création explicite et fil poursuivi | Persistance/identité du fil après création |
+| **D3 — Nora** | Réponse brève, composite, sources, clarification, liberté de composition et défilement | Rendu sûr, streaming éventuel, accessibilité, états de reprise |
+| **D4 — Connaissance** | Vue Projet, Journal, documents et décision consultable | Recherche/rattachement réel des objets et provenance |
+| **D5 — Trajectoire/cycle** | Sans cycle et variante cycle actif, guidance non prescriptive | Transitions réelles et unicité du cycle actif |
+| **D6 — Décisions et autorité** | Décision consultée distincte d'Exécuter ; suspension humaine | Validité/opposabilité et révocation effectives |
+| **D7 — Réalisation** | Contrat inspectable, exécution explicitement demandée, tentative et interruption incertaine | États fiables, STOP effectif, idempotence et reprise technique |
+| **D8 — Preuves** | Rapport déclaré, inspection des preuves, conformité non conclue faute d'éléments | Chaîne probatoire, observabilité et acceptance réelle |
+| **D9 — Git** | Lecture facultative et ouverture externe, erreur d'accès | Droits, provenance, API et vérifications Git réelles |
+
+Cette matrice **ne vaut ni conformité des 300+ règles ni couverture vérifiée des scénarios R2** : les exigences et scénarios devront être rapprochés avec une preuve de compréhension/interaction pendant la revue UX, puis vérifiés au niveau approprié R5/R6. L'écran Figma ne vaut jamais preuve LIVE/REAL.
+
+### 26.6. Qualité UX et risques ouverts avant gate de sortie R3
+
+**Contrats visuels établis en conception :** hiérarchie navigation/conversation/inspection ; consultation autonome ; boutons de navigation versus réponses préremplies ; état indisponible ; état de tentative/rapport/proof ; repère de lecture ; déclinaisons 1680/1280 ; exemple de focus et de variations disponibles/indisponibles sur la planche.
+
+**Écarts à fermer ou accepter explicitement :**
+1. **Lisibilité et système d'échelle :** textes secondaires parfois à 11–13 px dans les maquettes héritées, densité des tableaux, contraste en contexte, focus clavier réel, zoom et lecteur d'écran — non testés.
+2. **Défilement interactif et focus :** Scroll-To configuré, mais visibilité conditionnelle de la flèche et absence d'auto-scroll intrusif non démontrées ; tester la session longue avec plusieurs réponses successives.
+3. **Transitions réelles et responsive :** prototype 1680 et essai de 1280, mais pas d'expérience mobile ou fenêtres très étroites retenue ; qualifier les supports effectivement ciblés, sans multiplier les tailles par inertie.
+4. **Affordances et interactions :** graphe principal Figma relié, mais toutes les commandes secondaires et menus ne sont pas fonctionnels ; validation d'usage et tests ciblés sur clavier, objet manquant, mandat périmé et double clic manquants.
+5. **Consolidation documentaire :** le présent document garde beaucoup d'historique d'exploration ; avant promotion, produire une version resserrée orientée contrat UX de référence, en conservant traçabilité et explorations candidates accessibles.
+6. **Architecture R4 :** étude de restitution A intégrée/B distribuée/C éventuelle, modèle sémantique des actions contextuelles, performance, persistance/reprise, sécurité et coût ; aucune hypothèse technique ne devient ADOPTED par l'effet du prototype.
+
+**Prochain gate réellement nécessaire :** revue Morris **groupée** sur les parcours majeurs, le langage visuel et la liste des réserves bloquantes/acceptées ; puis, sous GO distinct, finalisation et promotion documentaire Git. Aucun PR/merge, modification normative R1/R2/SEF, Roadmap, lancement Cursor R4 ou adoption technique autorisé par ce macro-lot.
+
+**Statut : DOCUMENTED / FIGMA CONSOLIDATED R3 CANDIDATE — R3 NOT FORMALLY CLOSED ; R4 STUDY OPEN ; NEXT NON IMPLÉMENTÉ.**
