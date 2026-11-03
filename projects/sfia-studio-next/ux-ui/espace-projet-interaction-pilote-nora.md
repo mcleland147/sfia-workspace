@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.18**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.19**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -8,7 +8,7 @@
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
 | Macro-lot R3 | Quatre capacités A–D retenues par Morris : **A — Entrée/continuité ; B — Trajectoire/cycles/CKI/décisions ; C — Réalisation et résultats ; D — Git et qualité transverse**. Travail séquentiel, **B en premier**, revue par lot. |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.18** ; direction B2/V3, page de référence consolidée et 40 écrans/états du macro-lot B représentés et rapprochés des 59 PF D5/D6, **aucun design final approuvé ni sortie R3** |
+| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.19** ; direction B2/V3, page de référence consolidée et 40 écrans/états du macro-lot B représentés et rapprochés des 59 PF D5/D6, **aucun design final approuvé ni sortie R3** |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
 | Source Git vérifiée | `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` (2026-11-03) ; branche documentaire candidate `sfia/next-r3-ux-interaction-candidate` |
 | État Git Next | R1/R2 clôturés avec réserves ; **Roadmap sur `main` historiquement « R3 NOT STARTED » malgré les travaux Figma/doc candidats — KNOWN GAP documentaire**, à régulariser par GO séparé |
@@ -1197,3 +1197,12 @@ Le [**Guide de couverture UX R3 — §7 actuel**](https://github.com/mcleland147
 **Restent hors du lot B** : A — accès/sas/continuité/documentation ; C — exécution, STOP et qualification technique des résultats ; D — Git gouverné et qualité UX transverse. **Restent à éprouver en R3** : zoom, accessibilité clavier/lecteur d'écran, états conditionnels dans une réelle session et retour au fil, lisibilité 1280 px ; **R4** devra qualifier les contrats techniques, erreurs, responsabilités de persistance et garde-fous. Studio Next : **N/A — NON IMPLÉMENTÉ**.
 
 **Statut de travail : DOCUMENTED / FIGMA INTERACTIVE CANDIDATE v0.18 — MACRO-LOT B CONSOLIDÉ, REVUE MORRIS À FAIRE — R3 NON CLOS.** Aucun commit sur \`main\`, PR, merge, GO R4, choix d'architecture, ADOPTED ou code Cursor inclus.
+
+
+## 28. Revue Morris du macro-lot B et mandat du macro-lot A (2026-11-03)
+
+Morris a examiné le parcours, le guide et la conception et déclare ne pas avoir de sujet sur le principe. **B — REVIEW ACCEPTED WITH CARRIED RESERVES** au niveau UX ; les garanties de R4, les preuves R5/R6 et la couverture R3 globale demeurent ouvertes. Aucun `ADOPTED`, GO PR/merge/main, architecture adoptée ou exécution Cursor.
+
+**Suite autorisée : A — Entrée et continuité** à partir des spécifications R2 D1 (accès/portefeuille), D2 (sas/création), D3 (conduite et restitutions Nora), D4 (connaissance/sujets/documents), en incluant les compléments Inspection. Conserver les surfaces de référence existantes, compléter les états essentiels, rattacher chaque interaction aux PF/RG, synchroniser Figma et guide dans le même lot. **Un seul macro-lot à la fois.**
+
+**Statut : v0.19 — B REVIEW ACCEPTED WITH CARRIED RESERVES ; A IN DESIGN ; R3 OPEN ; NEXT NON IMPLÉMENTÉ.**
