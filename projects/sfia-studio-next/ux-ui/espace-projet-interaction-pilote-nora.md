@@ -1,22 +1,24 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.16**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.17**
 
 | Métadonnée | Valeur |
 | --- | --- |
 | Date d'initialisation / mise à jour | 2026-11-02 / 2026-11-03 (Europe/Paris) |
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
-| Macro-lot R3 | Architecture d'interaction et continuité du travail Pilote–Nora |
+| Macro-lot R3 | Quatre capacités A–D retenues par Morris : **A — Entrée/continuité ; B — Trajectoire/cycles/CKI/décisions ; C — Réalisation et résultats ; D — Git et qualité transverse**. Travail séquentiel, **B en premier**, revue par lot. |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — CANDIDATE UX / CONTRIBUTION GIT D1** ; B2/V3 et parcours de retour illustrés dans un nouveau Figma éditable, **aucun design final validé** |
+| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.17** ; direction B2/V3, page de référence consolidée et 27 états du macro-lot B représentés, **aucun design final approuvé ni sortie R3** |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
-| Source Git vérifiée | `mcleland147/sfia-workspace`, `main@3c7fe7d1f801c115de235b656fb2610fef115cdf` (2026-11-02) |
-| État Git Next | Roadmap : R1/R2 clôturés avec réserves ; **R3 NOT STARTED** dans Git avant publication de tout livrable R3 |
+| Source Git vérifiée | `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` (2026-11-03) ; branche documentaire candidate `sfia/next-r3-ux-interaction-candidate` |
+| État Git Next | R1/R2 clôturés avec réserves ; **Roadmap sur `main` historiquement « R3 NOT STARTED » malgré les travaux Figma/doc candidats — KNOWN GAP documentaire**, à régulariser par GO séparé |
 | État technique | **N/A — NON IMPLÉMENTÉ** ; architecture, UX runtime et preuves Next inexistantes à ce stade |
 | Chemin Git autorisé pour ce document (GO Morris 2026-11-02) | `projects/sfia-studio-next/ux-ui/espace-projet-interaction-pilote-nora.md` |
-| État local du dépôt | **NON OBSERVÉ** ; publication sur branche candidate uniquement, sans PR/merge ni changement Figma |
+| État local du dépôt | **NON OBSERVÉ** ; contributions documentaires sur branche candidate et modifications Figma actives, **sans PR/merge** |
 
-> **Règle de lecture :** ce document formalise des constats, contraintes et hypothèses UX. Il ne modifie ni la vision R1 ni les neuf contrats fonctionnels R2 ; une hypothèse pertinente n'est pas un arbitrage validé. Les maquettes, contrats UX approuvés et tests utilisateurs restent à produire.
+> **Référence de travail actuelle (v0.17) :** les §§1–26 conservent **l'historique d'exploration UX** et certains décomptes datés. Le **§27 prime pour la navigation Figma active et l'état du macro-lot B** ; le [Guide de couverture UX R3](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md), en particulier §7 et sa matrice des 27 états, porte le contrôle de couverture. Les trois pages Figma restantes sont [Fondations](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=120-27), [Parcours de référence](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50) et [Contrats visuels](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=104-15). Le prototype UX n'est ni une spécification R4, ni du code, ni une preuve de comportement réel.
+
+> **Règle de lecture documentaire :** ce document formalise constats, contraintes, hypothèses et contrats UX candidats. Il ne modifie ni la vision R1 ni les neuf spécifications fonctionnelles R2 ; hypothèse et maquette ne valent pas arbitrage Morris ni implémentation. Les essais utilisateurs et la validation de sortie R3 restent à réaliser.
 
 ## 1. Finalité et résultat recherché
 
@@ -608,9 +610,9 @@ Morris autorise explicitement la **création de premiers écrans dans un nouvel 
 
 | Écran | Lien | Ce que la composition doit permettre d'examiner |
 | --- | --- | --- |
-| 01 — Ouverture projet / V3 | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=5-5) | Repère contextuel initial, accès direct au projet/Journal, reprise du travail Nora |
-| 02 — Travail avec Nora | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=5-69) | Contexte condensé, place dominante à la conversation et aux résultats adaptatifs |
-| 03 — Inspection d'une décision | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=5-143) | Décision inspectable sans acte implicite, maintien identifiable de l'origine et accès au Journal |
+| 01 — Ouverture projet / V3 | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50) | Repère contextuel initial, accès direct au projet/Journal, reprise du travail Nora |
+| 02 — Travail avec Nora | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Contexte condensé, place dominante à la conversation et aux résultats adaptatifs |
+| 03 — Inspection d'une décision | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=102-43) | Décision inspectable sans acte implicite, maintien identifiable de l'origine et accès au Journal |
 
 **Données fictives :** projet Atlas, comparatif de deux architectures et exemple de décision. Les badges, nombres, états et éléments de contenu sont des **fixtures de maquette**, jamais des faits établis sur le programme SFIA Studio Next. Les états illustrés ne revendiquent pas de comportement produit LIVE/REAL.
 
@@ -720,9 +722,9 @@ Les objets ne doivent pas être réduits à des « documents » : une décision,
 
 | Cas UX | Maquette | Composition et proposition | Frontière métier |
 | --- | --- | --- | --- |
-| Document Nora et Markdown | [Écran 01](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=12-18) | Échange avec Nora, spécification Markdown structurée, tableau de règles, statut brouillon, révision ciblée, diff et conservation proposée | Création de brouillon ≠ validation ; conserver un contenu ≠ publier sur Git |
-| Sources GitHub et Internet | [Écran 02](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=12-167) | Ressource GitHub en lecture seule, branche/commit, provenance, extrait, lien web ouvrable à l'extérieur | Ni navigateur intégré ni écriture Git ; lecture sous droits réels ; contenu consulté non autorisant |
-| Contrat Cursor, rapport, preuves | [Écran 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=12-320) | Contrat D7, référence à l'instruction exacte, tentative déclarée terminée, rapport Cursor et qualification D8 séparés | Rapport ≠ preuve ; pas de second bouton Exécuter sur une tentative présentée terminée ; D6 garde l'autorité |
+| Document Nora et Markdown | [Écran 01](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370) | Échange avec Nora, spécification Markdown structurée, tableau de règles, statut brouillon, révision ciblée, diff et conservation proposée | Création de brouillon ≠ validation ; conserver un contenu ≠ publier sur Git |
+| Sources GitHub et Internet | [Écran 02](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-148) | Ressource GitHub en lecture seule, branche/commit, provenance, extrait, lien web ouvrable à l'extérieur | Ni navigateur intégré ni écriture Git ; lecture sous droits réels ; contenu consulté non autorisant |
+| Contrat Cursor, rapport, preuves | [Écran 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=100-39) | Contrat D7, référence à l'instruction exacte, tentative déclarée terminée, rapport Cursor et qualification D8 séparés | Rapport ≠ preuve ; pas de second bouton Exécuter sur une tentative présentée terminée ; D6 garde l'autorité |
 
 **Contrôle :** captures visuelles des trois écrans 1680 × 970, ajustement des compositeurs et des actions, textes et composants éditables. Les données « Atlas » et les tentatives Cursor sont des illustrations fictives. Ce travail ne prouve ni les interactions, ni un comportement Nora/Cursor LIVE/REAL, ni la persistance documentaire.
 
@@ -755,10 +757,10 @@ La PR documentaire R1/R2 [#642](https://github.com/mcleland147/sfia-workspace/pu
 
 | État | Maquette éditable | Contrat illustré | Règles R2 principales |
 | --- | --- | --- | --- |
-| 01 — Création/conservation | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=18-28) | Document explicitement demandé ; Nora ne signale la sauvegarde qu'une fois l'état établi ; brouillon non validé et non publié | RG-DOC-001..004, RG-KNOW-016/018 |
-| 02 — Révision guidée | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=20-18) | Demande sur une section ; v2 enregistrée, v1 disponible ; présentation compréhensible des différences | RG-DOC-005..007, RG-KNOW-017 |
-| 03 — Retrouvabilité | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=20-163) | Réouverture du document depuis une autre activité avec la référence du projet ; même ressource canonique | RG-DOC-008, RG-KNOW-019/020 |
-| 04 — État inconnu | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=20-308) | Une v3 générée ne constitue pas une v3 enregistrée ; contrôle d'état et retour vers v2 connue | RG-DOC-009, RG-KNOW-018, RG-UX-006 |
+| 01 — Création/conservation | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370) | Document explicitement demandé ; Nora ne signale la sauvegarde qu'une fois l'état établi ; brouillon non validé et non publié | RG-DOC-001..004, RG-KNOW-016/018 |
+| 02 — Révision guidée | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=97-359) | Demande sur une section ; v2 enregistrée, v1 disponible ; présentation compréhensible des différences | RG-DOC-005..007, RG-KNOW-017 |
+| 03 — Retrouvabilité | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370) | Réouverture du document depuis une autre activité avec la référence du projet ; même ressource canonique | RG-DOC-008, RG-KNOW-019/020 |
+| 04 — État inconnu | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370) | Une v3 générée ne constitue pas une v3 enregistrée ; contrôle d'état et retour vers v2 connue | RG-DOC-009, RG-KNOW-018, RG-UX-006 |
 
 **Portée Figma :** calques, textes et composants **éditables** ; captures vérifiées (dont correction d'un badge de version sur l'état négatif). Les données du projet Atlas et les dialogues sont fictifs. Les actions présentées ne sont pas encore des transitions Figma cliquables ou des contrôles opérationnels.
 
@@ -808,12 +810,12 @@ Morris demande de ne plus concentrer R3 sur l'Inspection. L'objectif est une **e
 
 | Étape | Frame Figma | Résultat utilisateur | Domaines |
 | --- | --- | --- | --- |
-| 01 — Portefeuille | [Écran 01](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-28) | Choisir le bon projet ou lancer une création, sans Nora globale | D1 / D2 |
-| 02 — Sas | [Écran 02](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-117) | Échanger avec Nora avant création, propositions non opposables, acte Créer le projet explicite | D2 / D3 / D6 |
-| 03 — Projet / Nora | [Écran 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-197) | Même fil après création, contexte bref V3, travail naturel sans cycle obligatoire | D2 / D3 / D4 / D5 |
-| 04 — Journal / trajectoire | [Écran 04](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-304) | Accès indépendant aux sujets, décisions et étapes ; prévu distinct de cycle réel | D4 / D5 / D6 |
-| 05 — Décision / contrat | [Écran 05](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-418) | Décision du Pilote sans effet technique ; contrat D7 inspectable, puis Exécuter distinct | D6 / D7 / D9 |
-| 06 — Bilan / preuves | [Écran 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-521) | Déclaration Cursor séparée du bilan de vérification et de l'acceptation, puis suite gouvernée | D7 / D8 / D6 / D9 |
+| 01 — Portefeuille | [Écran 01](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50) | Choisir le bon projet ou lancer une création, sans Nora globale | D1 / D2 |
+| 02 — Sas | [Écran 02](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-135) | Échanger avec Nora avant création, propositions non opposables, acte Créer le projet explicite | D2 / D3 / D6 |
+| 03 — Projet / Nora | [Écran 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Même fil après création, contexte bref V3, travail naturel sans cycle obligatoire | D2 / D3 / D4 / D5 |
+| 04 — Journal / trajectoire | [Écran 04](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-515) | Accès indépendant aux sujets, décisions et étapes ; prévu distinct de cycle réel | D4 / D5 / D6 |
+| 05 — Décision / contrat | [Écran 05](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) | Décision du Pilote sans effet technique ; contrat D7 inspectable, puis Exécuter distinct | D6 / D7 / D9 |
+| 06 — Bilan / preuves | [Écran 06](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827) | Déclaration Cursor séparée du bilan de vérification et de l'acceptation, puis suite gouvernée | D7 / D8 / D6 / D9 |
 
 **Place de l'Inspection :** une capacité transverse déjà explorée dans les pages Figma précédentes, réutilisable depuis la conversation, le Journal, un document ou un contrat. Elle **n'est pas un parcours produit à elle seule**. Le quatrième écran « sauvegarde incertaine » de la page 03 est retiré du parcours nominal recommandé ; une défaillance de conservation mérite une information et reprise proportionnées, pas une étape UX permanente. Les garanties de fiabilité R2 ne sont pas supprimées.
 
@@ -837,7 +839,7 @@ Morris demande de ne plus concentrer R3 sur l'Inspection. L'objectif est une **e
 
 Sur GO Morris de poursuite de la **direction UX B2/V3 déjà approuvée comme base de travail**, la page Figma « 04 · Parcours produit — Vue de bout en bout » a été complétée et rendue navigable, sans réclamer de validation micro-écran.
 
-**Point d'entrée Figma :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=23-28 ; utiliser **Présenter** pour démarrer le prototype.
+**Point d'entrée Figma :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50 ; utiliser **Présenter** pour démarrer le prototype.
 
 **Sources et statut :** SEF v0.2 ; Roadmap Next portant encore l'ancien état R3 NOT STARTED (KNOWN GAP documentaire) ; R1 §§2.29–2.41 ; référentiel R2 D1–D9 et complément PR #642 intégré à main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990 ; décisions de sortie R1/R2. La branche UX est une candidate historique non resynchronisée avec la nouvelle baseline ; aucun statut de sortie R3 ou d'adoption n'est présumé. Git local, fichiers staged/untracked : NON OBSERVÉ. Runtime Next : N/A — NON IMPLÉMENTÉ.
 
@@ -845,11 +847,11 @@ Sur GO Morris de poursuite de la **direction UX B2/V3 déjà approuvée comme ba
 
 | Ajout | Frame éditable Figma | Résultat recherché |
 | --- | --- | --- |
-| 02B — Projet créé, même fil | [02B — Continuité Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=28-22) | La confirmation de création suit l'acte explicite du sas ; le Pilote poursuit avec Nora sans conversation recréée |
-| 04B — Cycle actif | [04B — Cycle actif](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=28-131) | Étapes achevée, active, prévue clairement distinguées ; CKI conseil non autorisant |
-| 05B — Retour technique encore absent | [05B — Tentative](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=28-245) | L'acte Exécuter ne produit pas un succès ou des preuves par fiction ; retour inconnu avant consultation séparée du résultat simulé |
-| 07 — Vue Projet | [07 — Projet](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=31-25) | Vue directe de la synthèse du projet, distincte de Nora et du Journal |
-| 08 — Sources Git facultatives | [08 — Sources Git](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=31-139) | Consultation sous droits et provenance explicites ; un lien vers un vrai fichier GitHub ouvrable en nouvel onglet, sans navigateur embarqué ni écriture |
+| 02B — Projet créé, même fil | [02B — Continuité Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-262) | La confirmation de création suit l'acte explicite du sas ; le Pilote poursuit avec Nora sans conversation recréée |
+| 04B — Cycle actif | [04B — Cycle actif](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-106) | Étapes achevée, active, prévue clairement distinguées ; CKI conseil non autorisant |
+| 05B — Retour technique encore absent | [05B — Tentative](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-731) | L'acte Exécuter ne produit pas un succès ou des preuves par fiction ; retour inconnu avant consultation séparée du résultat simulé |
+| 07 — Vue Projet | [07 — Projet](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-34) | Vue directe de la synthèse du projet, distincte de Nora et du Journal |
+| 08 — Sources Git facultatives | [08 — Sources Git](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-148) | Consultation sous droits et provenance explicites ; un lien vers un vrai fichier GitHub ouvrable en nouvel onglet, sans navigateur embarqué ni écriture |
 
 Le **parcours principal** est Portefeuille → Sas → Projet créé → Travail Nora → Journal/Vue Projet → Décision/Contrat → Exécuter → Tentative → Résultat de démonstration explicitement choisi. Un projet déjà existant est ouvrable directement depuis le Portefeuille. La vue Sources Git est accessible sans passer par Nora. Le scénario « cycle actif » constitue un **second point d'entrée volontairement séparé** ; une navigation depuis un projet sans cycle ne lui ouvre pas un cycle fictif.
 
@@ -899,12 +901,12 @@ Ce travail poursuit la conception **globale** du produit au lieu d'approfondir i
 
 | Écran éditable | Objet UX et scénario | Limite explicite |
 | --- | --- | --- |
-| [09 — Document Nora en consultation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-540) | Brouillon Markdown identifié, contenu rendu, statut, version et actions de révision ; accès depuis Travail/Projet/Journal | Le document d'exemple est présenté comme enregistré **dans le scénario** ; aucune persistance réelle prouvée |
-| [10 — Révision documentaire avec Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-689) | Demande ciblée, version v2, comparaison de l'avant/après, retour possible à v1 | Ne prouve ni création de version ni résolution de concurrence en runtime |
-| [11 — Inspection d'une décision](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-838) | Identité, portée et origine de l'arbitrage ; retour au Journal ; lien distinct vers un contrat proposé | Inspecter n'est pas valider, accepter ni « Exécuter » ; décision entièrement fictive |
-| [12 — Source Git non accessible](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-941) | Contenu non récupéré, droits insuffisants, branche non vérifiée, retour à la liste sans inventer d'aperçu | Le refus est un exemple visuel, non un test de permissions réelles |
-| [13 — Nora en fenêtre compacte 1280](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=56-34) | Activité Nora prioritaire et surface de contexte secondaire non imposée | Variante de largeur uniquement, pas spécification mobile validée |
-| [14 — Inspection en fenêtre compacte 1280](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=56-141) | Inspection remplaçant la zone de travail avec « Retour à Nora », au lieu de trois colonnes comprimées | Prototype adaptatif statique, pas rendu navigateur responsive ni breakpoint implémenté |
+| [09 — Document Nora en consultation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370) | Brouillon Markdown identifié, contenu rendu, statut, version et actions de révision ; accès depuis Travail/Projet/Journal | Le document d'exemple est présenté comme enregistré **dans le scénario** ; aucune persistance réelle prouvée |
+| [10 — Révision documentaire avec Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=97-359) | Demande ciblée, version v2, comparaison de l'avant/après, retour possible à v1 | Ne prouve ni création de version ni résolution de concurrence en runtime |
+| [11 — Inspection d'une décision](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=102-43) | Identité, portée et origine de l'arbitrage ; retour au Journal ; lien distinct vers un contrat proposé | Inspecter n'est pas valider, accepter ni « Exécuter » ; décision entièrement fictive |
+| [12 — Source Git non accessible](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-923) | Contenu non récupéré, droits insuffisants, branche non vérifiée, retour à la liste sans inventer d'aperçu | Le refus est un exemple visuel, non un test de permissions réelles |
+| [13 — Nora en fenêtre compacte 1280](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-1037) | Activité Nora prioritaire et surface de contexte secondaire non imposée | Variante de largeur uniquement, pas spécification mobile validée |
+| [14 — Inspection en fenêtre compacte 1280](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370) | Inspection remplaçant la zone de travail avec « Retour à Nora », au lieu de trois colonnes comprimées | Prototype adaptatif statique, pas rendu navigateur responsive ni breakpoint implémenté |
 
 **Actions représentatives effectivement reliées :** depuis le rail « Documents Nora » de plusieurs vues, ouvrir le document ; de celui-ci demander une révision ; depuis Journal/Vue Projet examiner la décision ; depuis cette décision revenir au Journal ou consulter un contrat **sans lancer l'exécution** ; dans Sources Git ouvrir en nouvel onglet les fichiers SEF/Roadmap réels ou consulter l'état refusé d'une source candidate ; variante 1280 Nora ↔ Inspection.
 
@@ -948,10 +950,10 @@ Les écrans sont des **frames Figma natives, éditables et candidates**, ajouté
 
 | Situation | Maquette | Contrat d'interaction visible | Frontière |
 | --- | --- | --- | --- |
-| Réponse directe | [15 — Nora répond simplement](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-37) | Réponse proportionnée à une question sur la différence recommandation/décision, sans carte structurée ni cycle obligatoire | Recommandation ≠ HumanDecision |
-| Clarification déterminante | [16 — Nora précise la destination](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-144) | Une seule question distingue révision du brouillon Nora et écriture Git ; possibilité d'inspecter l'objet concerné | Choix d'une source à inspecter ≠ autorisation d'écriture |
-| Sources contradictoires | [17 — Nora qualifie une divergence](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-251) | Référence main et branche candidate illustratives, provenance à vérifier et impossibilité d'affirmer une promotion non démontrée | Une source candidate n'est pas une baseline adoptée |
-| Digression et reprise | [18 — Nora préserve le contexte](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=63-358) | Réponse ponctuelle Markdown, puis rappel du travail principal et accès au document/Journal | Une digression n'altère pas méthode, cycle, décision ou mandat |
+| Réponse directe | [15 — Nora répond simplement](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Réponse proportionnée à une question sur la différence recommandation/décision, sans carte structurée ni cycle obligatoire | Recommandation ≠ HumanDecision |
+| Clarification déterminante | [16 — Nora précise la destination](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Une seule question distingue révision du brouillon Nora et écriture Git ; possibilité d'inspecter l'objet concerné | Choix d'une source à inspecter ≠ autorisation d'écriture |
+| Sources contradictoires | [17 — Nora qualifie une divergence](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Référence main et branche candidate illustratives, provenance à vérifier et impossibilité d'affirmer une promotion non démontrée | Une source candidate n'est pas une baseline adoptée |
+| Digression et reprise | [18 — Nora préserve le contexte](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-370) | Réponse ponctuelle Markdown, puis rappel du travail principal et accès au document/Journal | Une digression n'altère pas méthode, cycle, décision ou mandat |
 
 **Navigation de prototype :** quatre états reliés par une séquence de démonstration à partir du composeur Nora, avec des clics contextuels permettant d'accéder à la révision du brouillon, aux sources Git et au Journal. Ces clics **simulent une interaction UX** et ne constituent pas une saisie ou réponse réellement générée par Nora. Un point de départ Figma « Variantes de réponse Nora · démonstration » a été ajouté ; les autres points d'entrée restent conservés.
 
@@ -982,9 +984,9 @@ La réponse Nora doit pouvoir **combiner des formes visuelles proportionnées** 
 
 | Composition | Écran Figma | Résultat présenté | Invariant |
 | --- | --- | --- | --- |
-| **Analyse composite et recommandation conditionnelle** | [19 — A/B](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=76-37) | Tableau multicritère, hypothèses explicites, orientation A provisoire et approfondissement des dépendances | Préférence A ≠ décision d'architecture, contrat ou ADR |
-| **Parcours et dépendances** | [20 — Parcours](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=76-180) | Étapes visuelles, intervenants, risques de transition, accès Trajectoire / Contrat | Lire le parcours ≠ ouvrir un cycle ou autoriser l'exécution |
-| **Investigation sourcée et limites** | [21 — Sources et inconnues](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=76-334) | Cartes de références, faits, hypothèses, inconnues, action vers Sources / Journal | Candidate Git ≠ source applicable ou lecture prouvée |
+| **Analyse composite et recommandation conditionnelle** | [19 — A/B](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Tableau multicritère, hypothèses explicites, orientation A provisoire et approfondissement des dépendances | Préférence A ≠ décision d'architecture, contrat ou ADR |
+| **Parcours et dépendances** | [20 — Parcours](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Étapes visuelles, intervenants, risques de transition, accès Trajectoire / Contrat | Lire le parcours ≠ ouvrir un cycle ou autoriser l'exécution |
+| **Investigation sourcée et limites** | [21 — Sources et inconnues](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) | Cartes de références, faits, hypothèses, inconnues, action vers Sources / Journal | Candidate Git ≠ source applicable ou lecture prouvée |
 
 **Prototype :** depuis l'espace Nora existant, le composeur de démonstration peut ouvrir l'analyse A/B ; les boutons ouvrent les vues pertinentes, sans simuler de sauvegarde, décision ou lancement de Cursor. Un point d'entrée « Nora · restitutions riches et composites » est disponible dans Figma.
 
@@ -1029,7 +1031,7 @@ Hypothèses de comparaison (pas de solutions retenues) :
 
 ### 25.2. Une réponse UNIQUE, plusieurs formes visuelles et actions
 
-**Maquette principale :** [22 — Nora, réponse composite dans le fil](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=82-43), page 04 du Figma Next.
+**Maquette principale :** [22 — Nora, réponse composite dans le fil](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214), page 04 du Figma Next.
 
 **Contenu d'un seul message :** investigation et deux sources avec limites ; analyse comparative A/B/C tabulaire ; étapes avec dépendances ; recommandation conditionnelle ; actions de consultation et poursuite. Cette combinaison est **illustrative, non obligatoire**. Le nombre et l'ordre des blocs sont choisis selon la demande. Une réponse courte reste courte.
 
@@ -1037,12 +1039,12 @@ Hypothèses de comparaison (pas de solutions retenues) :
 
 | Action contextuelle apparue dans la réponse | Destination Figma | Sens illustré |
 | --- | --- | --- |
-| Consulter le document | [Document Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=49-540) | Ouvrir un document connu, sans mutation |
-| Voir l'exécution | [Tentative](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=28-245) | Consulter un état de réalisation, pas relancer Cursor |
-| Examiner les sources | [Sources Git](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=31-139) | Consulter des objets réellement autorisés |
-| Approfondir A | [23 — Message A transmis](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=83-49) | Demande explicite envoyée dans la conversation simulée ; aucune architecture décidée |
-| Approfondir B | [24 — Message B transmis](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=83-156) | Poursuite conversationnelle équivalente pour B |
-| Autre option… | [25 — Brouillon libre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=83-263) | Préremplissage modifiable ; **aucun envoi automatique** |
+| Consulter le document | [Document Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-370) | Ouvrir un document connu, sans mutation |
+| Voir l'exécution | [Tentative](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-731) | Consulter un état de réalisation, pas relancer Cursor |
+| Examiner les sources | [Sources Git](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=96-148) | Consulter des objets réellement autorisés |
+| Approfondir A | [23 — Message A transmis](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=97-35) | Demande explicite envoyée dans la conversation simulée ; aucune architecture décidée |
+| Approfondir B | [24 — Message B transmis](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=97-143) | Poursuite conversationnelle équivalente pour B |
+| Autre option… | [25 — Brouillon libre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=97-251) | Préremplissage modifiable ; **aucun envoi automatique** |
 
 **Invariant UX :** le libellé et l'icône sont libres (« Voir l'exécution », « Consulter l'exécution », « Exécution ») mais ne portent ni l'identité de l'objet ni sa permission. **Ce mécanisme n'est pas expliqué en permanence dans l'interface du Pilote ; il appartient au contrat fonctionnel/architectural.** Le clic utilise une intention et une cible qui restent contrôlées par Studio. L'utilisateur doit distinguer lecture, demande envoyée, brouillon prérempli, décision métier et acte Exécuter ; les deux derniers suivent leurs règles D6/D7 propres, sans autorisation implicite.
 
@@ -1153,3 +1155,54 @@ Cette matrice **ne vaut ni conformité des 300+ règles ni couverture vérifiée
 **Prochain gate réellement nécessaire :** revue Morris **groupée** sur les parcours majeurs, le langage visuel et la liste des réserves bloquantes/acceptées ; puis, sous GO distinct, finalisation et promotion documentaire Git. Aucun PR/merge, modification normative R1/R2/SEF, Roadmap, lancement Cursor R4 ou adoption technique autorisé par ce macro-lot.
 
 **Statut : DOCUMENTED / FIGMA CONSOLIDATED R3 CANDIDATE — R3 NOT FORMALLY CLOSED ; R4 STUDY OPEN ; NEXT NON IMPLÉMENTÉ.**
+
+## 27. Rationalisation Figma, guide de couverture et macro-lot B — référentiel UX actif (v0.17, 2026-11-03)
+
+### 27.1. Source de vérité de conception et décision de trajectoire
+
+**Mandat Morris du 2026-11-03 :** (1) intégrer le guide d'audit sur Git ; (2) rationaliser les pages/écrans du Figma Next et préserver les composants nécessaires ; (3) synchroniser ce document, les destinations et les contrats visuels ; (4) démarrer **le macro-lot B** et le revoir avant les macro-lots restants. **A, B, C, D sont validés comme trajectoire par macro-capacité**, pas comme interfaces finales ni architecture technique. Aucune modification de `main`, Roadmap, SEF, R1/R2, code Next ou PR n'est autorisée par cette décision.
+
+**Liens canoniques CURRENT :**
+
+| Référence active | Nature | Portée |
+| --- | --- | --- |
+| [Guide de couverture UX R3](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md) | Audit initial §§1–6 et actualisation §7 | Inventaire, états/actions, couverture ciblée, réserves et contrat de sortie |
+| [00 — Fondations](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=120-27) | Bibliothèque de deux composants maîtres | Actions primaires/secondaires, instances intactes après transfert |
+| [01 — Parcours produit](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-50) | **48 écrans éditables**, principal référentiel de navigation | 21 écrans initiaux conservés ; **27 états B nouveaux** |
+| [02 — Contrats visuels Nora](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=104-15) et [Confiance/reprise](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=104-78) | Planches de règles de présentation | Lecture, actions contextuelles, refus, preuve, indisponibilité |
+| [Trajectoire](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=125-33), [cycle actif](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-106), [Journal — Décisions](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-72), [réception](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-337) | Quatre points de revue du **lot B** | Parcours nominal et actes propres au Pilote ; les variantes et destinations de chaque écran sont inventoriées dans le guide §7.3 |
+
+**Nettoyage réalisé :** quatre pages historiques V3/Inspection/Documents/E2E supprimées **après migration et contrôle des deux composants partagés** ; écran de cycle actif historique `106:44` supprimé car devenu un doublon du `127:106`. Trois pages durables restent dans le Figma ; les écrans antérieurs non redondants restent réutilisables. Les URL des explorations supprimées présentes dans les §§1–26 ont été **redirigées vers une surface de référence active** pour éviter les liens morts. Cela ne signifie pas que toute variante exploratoire a été entièrement reproduite : notamment **sauvegarde documentaire incertaine** et **inspection compacte** restent des états à éprouver dans A/D. Le texte historique des sections antérieures reste conservé comme provenance de conception, non comme catalogue d'écrans actifs.
+
+### 27.2. Résultat métier du macro-lot B
+
+**Résultat Pilote :** lire la trajectoire prévue et réelle ; qualifier une proposition de cycle ; exprimer un GO humain clair ; constater ouverture, progression, clôture et transition sans créer de deuxième cycle actif ; exploiter le CKI correspondant sans gate supplémentaire ; choisir/faire évoluer une méthode à portée explicite ; consulter, corriger, suspendre, lever ou révoquer une décision ; prononcer réception/refus/report **distinctement de la conformité**.
+
+**IN :** parcours et états utilisateur, écrans natifs Figma, navigation, destinations, labels, séparation des propriétaires D3/D4/D5/D6/D8, résumés d'effets, variantes importantes et traçabilité ciblée. **OUT :** nouveaux moteurs de cycle, catalogue de classes, persistance de méthode ou d'autorité, API, règles de prééminence non validées, orchestration CKI, gouvernance normative, actualisation Roadmap, implémentation Cursor, preuve navigateur.
+
+| Capacité UX B | Écrans/prototype Figma CURRENT | Exigences et comportement |
+| --- | --- | --- |
+| Trajectoire prévue et effective | [22 — sans cycle](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=125-33), [23 — qualification](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-35), [24 — actif](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-106), [27 — clôturé](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-320) | D5 : proposition ≠ ouverture ; un cycle actif maximum, jamais de démarrage par navigation ou création |
+| Maturité, transitions et incidents | [25 — évaluation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-178), [26 — second cycle incompatible](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-249), [41 — GO ambigu](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-144), [42 — effet partiel](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-215), [44 — maturité insuffisante](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-357), [47 — transition confirmée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=131-156) | D5/D6 : GO de cycle ≠ exécution technique ; évaluer qualitativement ; clore/ouvrir séparément sans état fictionnel |
+| CKI et méthode | [28 — sans méthode](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-391), [29 — évolution proposée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-462), [39 — CKI indisponible](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-622), [48 — nouvelle version CKI](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=131-227) | D3/D5 : un seul CKI principal pour le cycle actif ; guidance non autorisante ; choix de méthode humain, versionné |
+| Journal et décisions du Pilote | [40 — Journal Décisions](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-72), [30 — clarification](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=127-533), [31 — décision](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-52), [32 — révision](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-124), [43 — contradiction](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-286), [45 — révocation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-428), [46 — correction enregistrée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=131-85) | D4/D6 : **Journal avec deux vues principales Sujets et Décisions** ; points ouverts transverses ; décisions avec auteur, projet, portée et historique, jamais autorité issue d'un texte source |
+| Suspension et reprise | [33 — suspension active](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-195), [34 — levée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-266) | D6/D7 : interdiction opposable jusqu'à levée humaine ; arrêt technique pas forcément confirmé ; pas de reprise externe automatique |
+| Réception | [35 — décision](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-337), [36 — acceptée avec réserves](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-409), [37 — refusée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-480), [38 — reportée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-551) | D6/D8 : bilan observé et limites présentées avant choix ; réception ≠ conformité ni adoption |
+
+**Interactions corrigées sur le parcours général :** accès « Trajectoire » pointant historiquement vers le Journal remplacé par [Trajectoire réelle](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=125-33) ; accès « Décisions » et onglet du Journal pointant vers [Journal des décisions](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=129-72) ; troisième onglet historique « Réserves et recommandations » masqué en tant que vue principale. Le [bilan d'exécution](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827) dispose d'un vrai raccourci **« Décider de la réception »**, vers l'écran B35. Les états conditionnels ne sont pas déclenchés artificiellement par des faux boutons de « choix d'échec » ; ils sont disponibles comme points de départ dédiés du prototype.
+
+### 27.3. Contrôle Figma et limite de preuve
+
+**Audit structurel après lot B :** **48 frames, 448 navigations entre frames, 2 liens externes, 1 cible de Scroll-To**, **0 destination manquante**, **0 auto-navigation**, **41/48 atteignables depuis le portefeuille**. Les sept autres états (compact 1280, interruption demandée, CKI indisponible, GO ambigu, transition partielle, maturité insuffisante, transition conjointe confirmée) sont des **variantes conditionnelles** : leur apparition dépendra du véritable état produit et des réponses serveur, non d'un bouton volontaire de test. **10 points de départ Figma** permettent de revoir les situations correspondantes. Les instances de composants restent liées ; captures Figma vérifiées pour Trajectoire, cycle actif, décision, réception, Journal et bilan.
+
+**Non prouvé :** comportements runtime, droits/persistance/idempotence, efficacité du STOP, actualisation/fiabilité d'une version CKI, retour de focus, résultat réellement enregistré, conformité R2, facilité d'usage utilisateur, adaptation clavier/zoom, réel état conditionnel des messages. Les engagements d'interaction doivent être transférés en R4 comme **contrats et erreurs à construire/prover**, et non en composants techniques déjà décidés.
+
+### 27.4. Contrat du prochain gate R3 et préparation à R4/R5
+
+**Lot B à revoir avant le suivant :** comprendre et corriger les 27 situations/états sur le [Guide §7.3](https://github.com/mcleland147/sfia-workspace/blob/sfia/next-r3-ux-interaction-candidate/projects/sfia-studio-next/ux-ui/audit-couverture-ux-r3.md) ; contrôler parcours de retour, vraies conséquences des choix, distinction GO/HD/Exécuter, cohérence des deux vues Journal, lisibilité et contexte Nora. Une validation groupée Morris sera nécessaire pour choisir les corrections de lot et ses réserves, sans micro-approbation pour chaque écran.
+
+**Macro-lots A/C/D restant à conduire** après B : accès, sas, continuité et connaissance ; réalisation et résultats ; Git facultatif, cas alternatifs transversaux et accessibilité. L'**index complet des 324 règles RG et 259 scénarios PF R2** n'est pas encore rapproché individuellement de chacune des interactions/états ; aucun « 100 % UX » ou « ready-to-build » ne peut être annoncé avant cette matrice et une revue transverse. Il faudra finaliser un **manuel de fabrication R3** : entrée/triggers, surface, information, action, effet métier, sortie, état alternatif, retour/focus, référence RG/PF, acceptation et réserve R4 pour chaque capacité, en réutilisant les mêmes composants et non un écran artificiel par scénario.
+
+**Réserves structurantes pour R4 :** étude de restitution Nora A intégrée vs B distribuée vs C issue d'une étude de charge/coût/latence ; contrat sémantique des actions contextuelles dynamiques sans bride cognitive ; évaluation de la persistance/continuité, identité et droits par Pilote, protections contre les données adversariales, idempotence et concurrence des transitions/autorités, portée des décisions, conformité/provenance des preuves, admission Cursor/Git. **Aucune option n'est adoptée à ce stade.**
+
+**Statut de travail : `DOCUMENTED / FIGMA INTERACTIVE CANDIDATE v0.17 — MACRO-LOT B DESIGNED, NOT REVIEWED FOR EXIT — R3 NOT CLOSED — NEXT NOT IMPLEMENTED`.**
