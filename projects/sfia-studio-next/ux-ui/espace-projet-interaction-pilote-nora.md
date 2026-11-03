@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.23**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.24**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -8,7 +8,7 @@
 | Produit | **SFIA Studio** ; programme de reconstruction **SFIA Studio Next** |
 | Macro-lot R3 | Quatre capacités A–D retenues : **A — Entrée/continuité (revue acceptée avec réserves) ; B — Trajectoire/cycles/CKI/décisions (revue acceptée avec réserves) ; C — Réalisation et résultats (revue de cohérence PASS, contenu validé Morris) ; D — Git facultatif et qualité transverse (FIGMA CANDIDATE, revue Morris en attente)**. Travail séquentiel avec revue Morris par macro-lot. |
 | Responsable des arbitrages | **Morris** |
-| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.23** ; direction B2/V3, **A/B acceptés avec réserves**, **C validé par Morris avec contrôle de cohérence de prototype**, **D validé par Morris sur le contenu UX, raccordements terminés**, R3 **ouvert**, aucun comportement runtime prouvé |
+| État du présent document | **DOCUMENTED — FIGMA UX CANDIDATE v0.24** ; direction B2/V3, **A/B acceptés avec réserves**, **C validé par Morris avec contrôle de cohérence de prototype**, **D validé par Morris sur le contenu UX, raccordements terminés**, R3 **ouvert**, aucun comportement runtime prouvé |
 | Direction explorée | **B2 — conversation toujours retrouvable, surfaces adaptatives** et **V3 — reprise contextualisée** ; hypothèses privilégiées de Morris, **non validées comme architecture finale** |
 | Source Git vérifiée | `mcleland147/sfia-workspace`, `main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990` (2026-11-03) ; branche documentaire candidate `sfia/next-r3-ux-interaction-candidate` |
 | État Git Next | R1/R2 clôturés avec réserves ; **Roadmap sur `main` historiquement « R3 NOT STARTED » malgré les travaux Figma/doc candidats — KNOWN GAP documentaire**, à régulariser par GO séparé |
@@ -1502,3 +1502,45 @@ La revue globale devra confronter la direction UX A–D aux règles R1/R2, disti
 **Point annoncé par Morris pour discussion ultérieure :** comment le Pilote voit que Nora réfléchit ou réalise une mission, et quels états utiles sont effectivement disponibles depuis les API. Il s'agit d'un **sujet ouvert**, pas d'une spécification déjà validée : aucun mécanisme de streaming, de statut, de fréquence, d'événement ou de composant n'est supposé à ce stade. Selon l'arbitrage, une mise à jour ciblée R1/R2/UX pourra être nécessaire avant de considérer le cycle de conception achevé.
 
 **Gate maintenu : R3 NON CLOS / REVIEW MORRIS PENDING.** Aucune PR, merge, promotion, modification de la Roadmap normative, architecture R4 ou preuve d'implémentation n'est engagée par cette consolidation.
+
+## 35. Consolidation R3 — activité Nora visible, STOP et contrat de transposition (2026-11-03)
+
+**Statut : CONCEPTION CANDIDATE — REVIEW MORRIS PENDING.** Sur GO Morris, ce macro-lot rassemble deux résultats cohérents : (a) visibilité du travail Nora, arrêt demandé/confirmé et reprise utile ; (b) contrat précis, mesurable et automatisable de transposition Figma vers le code. Il complète les macro-lots A–D validés sans créer une cinquième architecture produit autonome. **R3 non clos, aucun comportement de production ni niveau LIVE/REAL revendiqué.**
+
+### 35.1. Résultat, responsabilités et contrats
+
+Le Pilote voit que Nora travaille, l'étape ou l'opération **réellement établie**, l'état de la demande, les acquis et les limites. Il peut demander l'arrêt puis préparer une reprise sans perte artificielle ni double exécution. Une animation chromatique discrète identifie le statut actif sans divulguer le raisonnement interne de Nora. Un pourcentage d'avancement n'apparaît que si le dénominateur et les observations sont fiables.
+
+**IN :** activité cognitive, événement d'outil reçu, tentative Cursor observée, absence de détail, demande d'arrêt, arrêt non confirmé, acquis, reprise contrôlée, réponse partielle, mobile, animation et accessibilité. **OUT :** simulation de télémétrie API non fournie, exécution/STOP technique prétendument prouvés, nouveau moteur d'état, source de mandat alternative, pourcentage fictif, rollback ou replay automatique.
+
+**Responsabilités inchangées :** D3 transforme les faits en récit compréhensible ; D6 porte le STOP humain et la levée ; D7 la tentative, les observations, les capacités et l'état d'interruption ; D8 la qualification des acquis et effets ; D4 conserve le contexte applicable. Le rendu UI consomme ces propriétaires, sans état concurrent. **Les compléments normatifs R1/D3/D6/D7/D8 sont proposés en D2 et restent à valider par Morris avant écriture Git normative.**
+
+### 35.2. Maquettes et interactions
+
+**[Index de revue — activité Nora, interruption et reprise](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398)** ; 12 variantes de l'interface existante, calques **206–217** sans recréer de route produit.
+
+| Responsabilité UX | Frames canoniques |
+| --- | --- |
+| Travail cognitif et provenance | [206](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-389), [207](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-570), [208](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-751) |
+| Tentative externe observée | [209](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-932) ; contrôle STOP existant [151](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-499) |
+| Demande d'arrêt et état non confirmé | [210](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1113), [211](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1294) |
+| Acquis et reprise non destructive | [212](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1475), [213](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1656), [214](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-1837) |
+| Résultat partiel intelligible | [215](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=281-2018) |
+| Lecture / action à 390 px | [216](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=282-468), [217](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=282-492) |
+
+**Raccordements de prototype :** la commande Envoyer du [fil 03](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-214) ouvre le cas 206 ; pendant le travail, la commande Carré/« Arrêter la réponse » conduit à la demande d'arrêt 210 ; 210 conduit à l'état des acquis 212 ; 212 à la préparation 213, dont les vérifications peuvent mener au blocage 214. Depuis 209, « Demander l'arrêt » conduit à 211, relié à la situation D7 de STOP demandé. Les variantes restent sélectionnables dans l'index **pour la revue uniquement** ; aucun clic n'est une mutation réelle ou un événement API simulé comme preuve.
+
+**Motion :** texte d'activité avec accent visible, animation à faible amplitude ; stop / inconnu / terminé = mouvement arrêté ou état différencié ; `prefers-reduced-motion` = contenu stable, sans perte d'information. Focus, clavier, annonce d'état et contraste seront testés au navigateur en R6.
+
+### 35.3. Contrat de transposition mesurable
+
+**[Contrat Figma → code](contrat-transposition-figma-code.md)** : source UX unique pour l'implémentation mesurable ; **[inventaire de 221 frames et dimensions](index-geometrie-frames-r3.json)** conservé sur la branche candidate. Les mesures sont lues des propriétés natives Figma : ID, parent, `x/y/w/h`, auto-layout, padding, gap, rayon, font, interligne, couleur et états. Exemple extrait : carte Nora 206 **938×331, padding 18, rayon 12**, étapes **887×37**, action Arrêter **225×35** ; les tokens universels restent à consolider, notamment l'écart historique de rail **240 vs 246 px**.
+
+**Le contrat ne fige pas les écrans en coordonnées absolues.** Un composant = une responsabilité, des états et des règles de reflow ; les références sont mesurables mais doivent rester adaptées aux contenus, longueurs, zooms et 1280/390/320 px. R4 devra qualifier la source des événements, le composant unique, l'architecture de rendu et les tokens. R5 construira ; R6 comparera géométries, polices, couleurs, captures, interactions, cas négatifs et reprises. Tolérances candidates à valider lors de la première baseline technique ; aucune conformité pixel-perfect proclamée.
+
+### 35.4. Dette, exit et gate
+
+- **D2 à valider :** compléments R1 et R2 D3/D6/D7/D8 rédigés pour arbitrage Morris, mais **non publiés sur Git** comme règles acquises.
+- **R4–R6 :** aucune API Nora/stream, capacité stop Cursor, checkpoint ou reprise locale observée ; mécanisme exact et preuves restent N/A — NON IMPLÉMENTÉ.
+- **R3 :** les 12 variantes et le contrat mesuré sont des candidats UX à examiner. La revue globale A–D et le sujet d'observabilité restent ouverts avant décision de sortie.
+- **Git :** contribution documentaire D1 sur branche candidate et index JSON ; sans PR, merge, modification normative ni ADOPTED.
