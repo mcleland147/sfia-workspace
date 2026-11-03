@@ -1298,7 +1298,7 @@ Le Pilote poursuit une seule conversation avec Nora : elle qualifie sa demande, 
 | Fil / surface | Situations Figma | Contrat d'interaction |
 | --- | --- | --- |
 | Nora répond sans déléguer | [135](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-276) | Une investigation cognitive ou une réponse sourcée ne crée ni contrat Cursor ni tentative technique |
-| Contrat prêt à inspecter | [136](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-385), [137](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-494), [138](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-603) | Résumé Pilot-first, cible, IN/OUT, critères, STOP, instruction consultable dans la version correspondante ; secret non divulgué et aucun lancement par inspection |
+| Contrat prêt à inspecter | [136](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-385), [06.7](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1500), [138](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-603) | Résumé Pilot-first, cible, IN/OUT, critères, STOP, instruction consultable dans la version correspondante ; secret non divulgué et aucun lancement par inspection |
 | Qualification insuffisante ou périmée | [139](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-712), [140](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-821), [141](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-930), [142](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1039) | Contrat modifié → inspection nouvelle ; capacité indisponible ou droit lecture seule → aucun effet ; clarification seulement sur une information déterminante |
 | Autorisation et lancement | [143](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1148), [144](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1252), [145](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1356) | Exécuter est soumis aux contrôles de D6/D7/D9 avant effet ; demande, accusé et activité observée sont distincts, sans pourcentage fictif |
 | Incidents et reprise | [146](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1460), [147](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1564), [148](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1668), [149](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-291), [150](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=188-395) | Perte de communication ≠ échec prouvé ; double clic sans duplicata ; isolation Pilote ; dérive de base/permissions ; redémarrage avec réconciliation avant un nouveau déclenchement |
@@ -1335,3 +1335,69 @@ Un rapport sans trace de test est lisible, mais les tests restent **non vérifi�
 **Lot D — uniquement après revue C par Morris :** intégration Git D9 facultative et transverse UX (reflow 1280, zoom, clavier et focus, contraste, longues réponses et permissions requalifiées). Le lot C n'attribue aucun GO Git Product, PR/merge, décision normative, clôture R3, R4/R5/R6 ni ADOPTED.
 
 **Verdict documentaire : C — DOCUMENTED / FIGMA INTERACTIVE CANDIDATE — REVIEW MORRIS PENDING.** R3 global non clos, A/B UX acceptés avec réserves, lot D non commencé. Le guide §12 fait foi pour la traçabilité individuelle 64 PF / 72 RG ; cette section donne le contrat de parcours et sa limite de preuve.
+
+## 32. UX validée — contrat complet, synthèse et reprise R4 (Morris, 2026-11-03)
+
+**VALIDATED CONTENT BY MORRIS — 2026-11-03 ; Git sur branche candidate uniquement.** Les compléments R1/D3/D6/D7/D8 portent désormais les contrats métier et les responsabilités ; le présent document synchronise les maquettes Figma et les exigences de revue. **R3 NON CLOS**, R4 **NON DÉMARRÉ**, Next **NON IMPLÉMENTÉ** ; D hors périmètre sans GO.
+
+
+
+### Références Figma consolidées et autorité de lecture
+
+**Écrans canoniques** : [06 — Contrat, quatre engagements et six volets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629) ; [08 — Résultat, neuf rubriques](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827). **Variantes fonctionnelles** : [06.1 mission](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-478), [06.2 périmètre](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-648), [06.3 autorité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-820), [06.4 STOP](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-990), [06.5 validation](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1160), [06.6 intégrité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1330), [06.7 instruction Cursor](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1500), [08.1 détail des résultats](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=202-438). [Index de revue des états C](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=190-455).
+
+**Nettoyage validé :** trois maquettes redondantes retirées après redirection : les anciens identifiants `137@187:494`, `163@199:319` et `171@202:335` **ne sont plus des destinations valides**. Les écrans 06 et 08 conservent leurs identifiants originaux pour préserver les références transverses. Les maquettes 135–162 restantes correspondent à des **situations distinctes** (préparation, droits, tentative, STOP, preuves), non à des pages produit obligatoires. Les pages Figma restent `00 · Fondations — Composants UI`, `01 · Parcours produit — Référence UX R3`, `02 · Contrats visuels — Nora et états`.
+
+**Priorité documentaire :** les décomptes et noms d'écrans de §12 / §31 sont des constats **avant consolidation** ; le présent addendum est l'inventaire courant. Les liens sont alignés sur l'état Figma après consolidation. Aucune trace ou capacité LIVE ne résulte de cette renumérotation UX.
+
+### 1. Références et objectif
+
+- Fichier Next : [SFIA Studio Next — R3 UX](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP).
+- Fichier ancien comparatif : [page 10 Synthèses](https://www.figma.com/design/m4g8j0gNbEzfIuH6S9AZJF?node-id=164-2) ; [page 16 Exécution, C2](https://www.figma.com/design/m4g8j0gNbEzfIuH6S9AZJF?node-id=458-2).
+- Entrée historique Next : [06 Contrat](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629), [08 Résultat](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827), [35 Réception D6](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-337).
+
+L'expérience cible conserve **la conversation Nora** et le rail du projet. L'inspection se fait dans la surface contextuelle de droite, pas dans une interface d'exécution indépendante sans lien avec le fil. La synthèse ne réintroduit pas par inertie une route « Synthèses » globale ; elle devient une restitution structurée consultable dans le contexte d'un travail, avec accès aux détails et à la provenance.
+
+### 2. Contrat d'exécution — deux étages et une instruction brute
+
+**Aperçu** : [06 — Contrat complet](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-629), quatre engagements immédiatement visibles : **Ce qui sera fait**, **Ce qui ne sera pas fait**, **Résultat attendu**, **Votre contrôle**. Aucun effet externe ne doit dépendre de la lecture exhaustive des six volets, mais toutes les conséquences déterminantes restent accessibles et les risques essentiels ne sont pas masqués.
+
+**Six volets indépendamment dépliables** :
+
+1. [164 — Mission et résultats](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-478) : objet, actions, livrables, exigences, critères.
+2. [165 — Périmètre et effets](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-648) : cibles, IN/OUT, mutations, références et exclusions.
+3. [166 — Exécuteur, capacités et autorité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-820) : capacité visée, acteur, droits effectifs, décision du Pilote, état du mandat.
+4. [167 — Limites, STOP et réversibilité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-990) : risques, restrictions, arrêt demandé/observé, effets partiels et retour arrière non promis.
+5. [168 — Validation, preuves et sources](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1160) : critères, contrôles, traces, rapport attendu, provenance.
+6. [169 — Identité et intégrité](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1330) : contrat/version, instruction associée, correspondance, absence de hash inventé.
+
+**Inspection de l'instruction Cursor** : [170 — Instruction technique exacte (exemple)](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=199-1500). Le texte brut est situé après les six volets, **replié à l'ouverture**, accessible sans lancer ; il donne l'exemple d'une instruction contenant objectifs, ressources, actions, interdictions, STOP, tests et rapport, et signale explicitement qu'aucune commande réelle n'a été envoyée.
+
+**Actions de prototype** : fermer un volet revient à l'aperçu ; ouvrir un autre volet passe à sa variante ; « Retour au travail » revient au fil projet ; « Exécuter (contrôles) » mène à la maquette de précontrôles [143](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=187-1148). Ni la navigation ni les panneaux ne créent une tentative en runtime. Les entrées 06 et 136 ont été re-routées vers l'aperçu enrichi ; le bouton ancien Exécuter 06 conduit aux précontrôles plutôt qu'à une tentative présumée.
+
+**Statuts de non-prêt :** capacité Cursor non vérifiée, droits de lecture sans écriture, version périmée, conflit de cible, restriction humaine active et valeurs critiques inconnues doivent rendre le déclenchement non trompeur. Les états antérieurs C (139–154) restent réutilisés comme situations de contrôle ; ce dossier ne prétend pas simuler matériellement ces incidents.
+
+### 3. Synthèse post-exécution — neuf rubriques et deux profondeurs
+
+- [08 — Synthèse Pilot-first](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=94-827) : réponse rapide, neuf rubriques courtes, état de preuve et réception distincts ; accès au détail.
+- [172 — Synthèse détaillée](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=202-438) : même contexte avec neuf rubriques complètes, leurs limites et la recommandation ; retour à la vue brève.
+
+Les rubriques sont : résumé, prévu, réalisé, évaluation, écarts/réserves/blocages, impact projet, verdict D8, recommandation/étape suivante, éléments vérifiés/sources. Chaque rubrique brève ouvre la vue détaillée. Le lien vers réception conserve l'écran [35 D6](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=128-337), sans créer une seconde décision.
+
+**Exemple retenu pour les deux maquettes** : Cursor **déclare** avoir mis à jour deux documents et avoir exécuté les contrôles ; les traces indépendantes ne sont pas fournies. La qualification affichée doit donc rester **NON DÉMONTRÉE**, et non « conforme » ou « atteint ». Aucun commit réel ni droit Git n'est supposé. Une mission courte ne justifie pas de faire disparaître « impact », « écarts » ou « sources » ; leur contenu peut être proportionné, pas absent.
+
+### 4. Critères UX / R4 à convertir en contrat exécutable
+
+| Contrôle UX | Attendu | Preuve Figma | Preuve runtime future |
+| --- | --- | --- | --- |
+| 4 cartes immédiatement lisibles | Les effets et limites déterminants ne sont pas dissimulés | Vue 163 | Capture navigateur + test de données |
+| Six sections initialement repliées | Chaque volet est consultable sans déclencher Cursor | 163–169 | Tests clavier, souris, états, autorité |
+| Instruction brute en volet distinct | Même version, sens et périmètre, secrets protégés | 170 | Test identité/version/instruction au dispatch |
+| Affichage de manque critique | Non-prêt explicable | États C 139–154 | Tests de droits, capacité, STOP, changement matériel |
+| Synthèse avec neuf rubriques | Compréhension complète et proportionnée | 171–172 | Tests de provenance et scénarios D8 contradictoires |
+| Conformité ≠ acceptation | Verdict D8 et décision D6 distincts | 171/172 → 35 | Tests de décision et audit autorité |
+| Continuité Nora | Fil projet visible, inspection réversible | Frames natives Figma | Navigation/focus/scroll/réponse étendue |
+
+**Autres réserves :** 1280 px, zoom, focus/clavier, contraintes mobiles, longs textes, droits et réhydratation après reload, vrai effet des « accordéons » sans multiplication de routes techniques, conformité aux règles D3/D6/D7/D8. Ces états représentent des variantes de prototype ; l'architecture R4 décidera si un seul composant peut afficher les ouvertures et le détail.
+
+**Verdict UX :** conception enrichie proposée et revue visuelle initiée ; **C — REVIEW MORRIS PENDING**. Aucune preuve `BEHAVIOR PROVEN`, aucun GO D/R4 ni adoption. Les compléments R1/R2 doivent être validés avant de figer le contrat UX.
