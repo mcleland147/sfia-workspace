@@ -160,6 +160,12 @@ SFIA Studio Next Construction Pre-check (si scope `projects/sfia-studio-next/`) 
 - architecture Next Git/code/preuves : sources consultées / N/A motivé si aucun runtime Next
 - ancien runtime étudié : oui / non ; PRR historique applicable si oui / N/A
 - exit proof + gate Morris + next capability :
+- ENV-01 Next : REQUIRED / N/A motivé (read-only sans effet)
+- politique ENV-01 consultée depuis Git : path / ref / SHA blob / statut
+- lanes affectées et isolation code/build/DB/volumes/secrets/ports :
+- candidat RECETTE : SHA figé ou NOT AVAILABLE ; base/main et migrations :
+- preuves, STOP/reprise et gates Morris PR/merge/promotion :
+- verdict ENV : ENV ROUTING COMPLETE / PROMPT NOT GENERATED — NEXT ENVIRONMENT CONTRACT INCOMPLETE
 - verdict : NEXT CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO NEXT CONTEXT INCOMPLETE
 
 SFIA Studio Convergence Pre-check (historique uniquement) :
@@ -294,6 +300,10 @@ Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; do
 7. `projects/sfia-studio-next/governance/product-naming-conventions.md` si le nommage est concerné ; convention **VALIDATED BY MORRIS (2026-11-01)**, sans adoption automatique des exemples de modèles ;
 8. source architecturale **Next** + Git/code/preuves Next si runtime Next existe. En R0-B sans runtime Next, **N/A justifié**. Si l'analyse porte sur le code historique, consulter **Git/code historique et PRR README/volumes applicables**, même read-only ; l'ancien PRR n'est pas la référence architecture courante de Next ;
 9. routing guide, template v2.6, operating model, guardrails, review pack/handoff et gates externes.
+10. **Gouvernance ENV-01 de Studio Next :** pour les cycles de construction, évolution, correctif, code/configuration/DB, tests/CI, mise à disposition, QA/recette, PR readiness/post-merge ou déploiement, lire `projects/sfia-studio-next/governance/environnements-recette-et-promotions.md` **depuis Git à la ref applicable** ; relever la version, le statut de validation et le SHA/blob source, les lanes, leurs isolations et les gates de promotion. L'analyse Next strictement documentaire/read-only sans effet sur un environnement peut marquer `ENV-01 N/A — READ ONLY` (raison explicite). Ce contrôle ne modifie pas le pré-check historique §2.0.G.
+
+**Règle dure ENV-01 Next :** source obligatoire non lue, séparation et limites de lane non qualifiées, recette présentée comme PASS sans SHA réellement servi, ou gates PR/merge/promotion non établis ⇒ `PROMPT NOT GENERATED — NEXT ENVIRONMENT CONTRACT INCOMPLETE`. L'instruction Cursor doit prévoir `STOP — NEXT ENVIRONMENT GATE FAILED` en cas de contamination ou de cible non autorisée. Une règle publiée sur une branche candidate n'est pas encore appliquée par `main`.
+
 
 **Qualification obligatoire :** type et profil de cycle (Critical si risque structurant justifié) ; macro-lot et résultat utilisateur ; sources ; contrats/responsabilités ; impacts; dépendances ; capacité suivante ; exit proof ; état de dette et trajectoire de sortie ; autonomie/autorité ; périmètre des fichiers ; gates Morris et STOP. Associer tests + docs + preuves à la même capacité dans le **macro-lot**, éviter les micro-cycles documentaires sans valeur. Paralléliser seulement des sous-travaux aux frontières explicites, avec propriétaire d'intégration et tests communs.
 
@@ -399,6 +409,16 @@ Base / HEAD attendu :
 Working tree attendu :          [propre / fichiers non trackés listés]
 
 Documents à lire :
+SFIA Studio Next ENV-01 (si scope Next) :
+  applicability : REQUIRED / N/A motivé
+  policy Git path/ref/blob SHA/status :
+  DEV/RECETTE/STABLE affectées + invariants d'isolation :
+  branche/base SHA ; SHA candidat RECETTE ou NOT AVAILABLE :
+  limites secrets, identités et effets externes :
+  tests, anomalies/retests, contrôle post-merge et retour arrière :
+  gates Morris et STOP :
+  verdict : ENV ROUTING COMPLETE / PROMPT NOT GENERATED — NEXT ENVIRONMENT CONTRACT INCOMPLETE
+
 Fichiers à créer :
 Fichiers à modifier :
 Fichiers interdits / protégés :
@@ -558,6 +578,23 @@ STOP si anomalie.
 
 Sources à lire :
 [Liste explicite — selon profil et type de cycle]
+
+Studio Next — Gouvernance des environnements ENV-01 (uniquement si scope Next, à instancier) :
+- Source Git à lire : projects/sfia-studio-next/governance/environnements-recette-et-promotions.md [ref et blob SHA vérifiés, statut validé]
+- Applicabilité : [REQUIRED / N/A motivé ; read-only sans effet → N/A]
+- Environnement(s) autorisé(s) : [DEV / RECETTE / STABLE / futurs staging / production]
+- Environnements protégés : [RECETTE/STABLE protégés des écritures DEV par défaut]
+- Git : [branche/HEAD/base main ; SHA candidat et gel RECETTE ou NOT AVAILABLE]
+- Isolation à vérifier : [worktree/code/build, PostgreSQL/roles, volumes, ports, sessions et secrets]
+- RECETTE si livrée : [build SHA, URL, version schéma/dataset, capacités vérifiées, manifest non secret, preuves]
+- Effets externes : [GitHub/OpenAI/Cursor, identités/droits, sandbox/REAL et interdictions]
+- Tests et incidents : [scénarios, anomalies, correction sur DEV, nouveau SHA, retests, contrôle prospective merge/post-merge]
+- Promotion : [GO Morris distinct pour push projet, PR, merge, STABLE/release ; handoff L3 §7.10 mono-fichier seul autorisé]
+- STOP : [mauvaise lane, candidat mutable, DB/secret croisé, collision, migration dangereuse ou effet hors mandat]
+- Avant action Cursor : Git Truth Check local, vérification effective des lanes/ports/données ; état non accessible = NON OBSERVÉ, jamais PASS fictif
+- Verdict : ENV ROUTING COMPLETE / STOP — NEXT ENVIRONMENT GATE FAILED
+
+**Génération Next :** ChatGPT remplit les éléments connus et indique les contrôles locaux à réaliser par Cursor ; aucun placeholder ne subsiste dans un prompt final. Pour un cycle documentaire/read-only sans effet : `ENV-01 N/A — READ ONLY`, avec motif, sans démarrer de service. Ce bloc n'autorise aucun push projet et ne modifie pas le Review Handoff SFIA v2.6.
 
 Périmètre autorisé :
 [Actions et chemins autorisés]
