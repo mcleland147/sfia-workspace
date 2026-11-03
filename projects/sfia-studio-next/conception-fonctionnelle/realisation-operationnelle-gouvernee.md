@@ -276,11 +276,11 @@ Une tentative dont le lancement a été demandé mais non confirmé est **incert
 
 **Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
 
-### 1. Objet et résultat utilisateur
+### 8.1. Objet et résultat utilisateur
 
 Avant de déléguer un effet à Cursor, le Pilote peut comprendre et inspecter un engagement opérationnel complet : **ce que Cursor fera, sur quoi, avec quel pouvoir, avec quels risques/STOP, quelles vérifications et quels liens de preuve, sous quelle version**. La forme métier n'est pas un résumé approximatif de l'instruction réelle. D7 conserve **un contrat opérationnel unique** dont Nora produit une projection métier et dont l'instruction technique conserve les engagements ; D6 autorise, D9 constate les droits Git applicables, D8 examine ensuite les résultats.
 
-### 2. Contrat d'information — six volets, valeurs et applicabilité
+### 8.2. Contrat d'information — six volets, valeurs et applicabilité
 
 **Modalités :** *Requis si effet externe*, *Conditionnel si concerné*, *Informateur/optionnel*, *Sans objet explicable*, *Inconnu déterminant bloquant*. « Requis » désigne la disponibilité fonctionnelle au moment d'une autorisation envisageable, non un formulaire imposé au Pilote. La provenance/portée et la fraîcheur sont nécessaires lorsque l'assertion conditionne le lancement.
 
@@ -295,7 +295,7 @@ Avant de déléguer un effet à Cursor, le Pilote peut comprendre et inspecter u
 
 **Projection Pilot-first :** quatre résumés **Ce qui sera fait / Ce qui ne sera pas fait / Résultat attendu / Votre contrôle** et les six volets toujours consultables. Une section ne se vide pas silencieusement : si elle est non applicable, indiquer « sans objet » lorsque cela évite une conclusion trompeuse ; si un fait critique est inconnu, le signaler et refuser l'effet concerné.
 
-### 3. Instruction technique à Cursor — correspondance bidirectionnelle
+### 8.3. Instruction technique à Cursor — correspondance bidirectionnelle
 
 La projection métier, le contrat opérationnel et l'instruction ne sont **pas trois mandats distincts**. L'instruction effectivement visée conserve au minimum, dans les cas applicables : objectif et livrables ; ressources/cibles et version/base ; fichiers et actions explicitement autorisés ; périmètre IN/OUT ; contraintes et interdictions ; autorité et permissions à vérifier ; STOP et reprise ; critères/plan de validation ; exigences de retour, traces et preuves ; signalement des inconnues/écarts. Le format de ces informations relève de R4, non d'un copier-coller obligatoire du template SFIA v2.6.
 
@@ -305,7 +305,7 @@ La projection métier, le contrat opérationnel et l'instruction ne sont **pas t
 
 **Autorisation et dispatch :** le Pilote autorise **la version applicable**, non un texte générique ; D6 contrôle mandat/suspension, D7 contrôle contrat/exécuteur/tentative, D9 contrôle les ressources Git si concernées. Il ne faut pas confondre clic, demande de lancement, accusé technique, début observé et fin. La vérification doit empêcher doublons, rejouements aveugles et exécution sur version/compte tiers.
 
-### 4. Obligations fonctionnelles proposées, à confronter RG-REAL-001..036
+### 8.4. Obligations fonctionnelles proposées, à confronter RG-REAL-001..036
 
 - **REAL-INFO-01 — Présentation complète.** D7 expose quatre engagements immédiats et six volets inspectables avec données explicites, conditionnelles et inconnues sans perdre une information déterminante.
 - **REAL-INFO-02 — Impact honnête.** Toute action ayant une conséquence externe, irréversible ou hors du périmètre standard est visible en langage métier avant autorisation.
@@ -320,7 +320,7 @@ La projection métier, le contrat opérationnel et l'instruction ne sont **pas t
 - **REAL-INFO-11 — Matérialité de changement.** Modifier la cible, les effets, les critères structurants, le risque ou la capacité requise impose un nouveau contrôle et, si nécessaire, un nouvel acte D6.
 - **REAL-INFO-12 — Frontière de responsabilité.** D7 ne duplique ni le moteur de décision D6, ni les références Git D9, ni le jugement de conformité D8.
 
-### 5. Scénarios proposés de qualification R5–R6
+### 8.5. Scénarios proposés de qualification R5–R6
 
 | ID temporaire | Situation | Comportement observable attendu |
 | --- | --- | --- |
@@ -337,7 +337,7 @@ La projection métier, le contrat opérationnel et l'instruction ne sont **pas t
 | PF-REAL-INFO-K | Paramètre secret | Secret masqué, action/cible/risque toujours visibles et inspectables |
 | PF-REAL-INFO-L | Contrat correctif après rapport | Nouveau contrat inspecté, aucune relance automatique ni réemploi d'autorisation précédente |
 
-### 6. Exit et implications
+### 8.6. Exit et implications
 
 - **R3 :** quatre cartes visibles, six accordéons indépendants, instruction brute à accès repliable, retour sans lancer, Exécuter soumis aux contrôles ; variants Figma éditables.
 - **R4 :** un modèle de contrat et une source de vérité ; identité/version/empreinte éventuelle, résolution secrète, invariants de comparaison, type d'effet, droit, idempotence, sémantique de STOP, réversibilité et rapport de contrôle.
