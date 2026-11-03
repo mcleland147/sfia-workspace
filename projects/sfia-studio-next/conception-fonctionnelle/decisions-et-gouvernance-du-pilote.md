@@ -233,3 +233,69 @@ Chaque cas propose un résultat observable à démontrer ultérieurement. Les id
 **Frontière :** décision métier, acceptation et autorisation D6 restent indépendantes de la simple gestion des brouillons, versions et actions de navigation dans l'Inspection.
 
 **R4–R6 :** droits, portée, reprise, version et comportements à concevoir puis prouver ; `N/A — NON IMPLÉMENTÉ`.
+
+## 8. Complément fonctionnel validé — autorité et réception informées (validation Morris du 2026-11-03)
+
+**Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
+
+### 8.1. Autorité du Pilote et décision suffisamment informée
+
+**Résultat utilisateur :** le Pilote dispose de l'ensemble des informations déterminantes à son autorisation, qu'il choisisse ou non d'ouvrir tous les volets. D6 décide si l'acte a la bonne compétence, la bonne version/portée et est encore applicable ; D7 constitue et expose le contrat. La responsabilité humaine de décider n'exige pas une validation répétée de chaque information ou un rituel « j'ai tout lu ».
+
+#### 8.1.1. Contrat d'information D6 avant « Exécuter »
+
+- Référence à une version déterminée du contrat opérationnel D7 et à la cible/projet/Pilote pertinents ; confirmation de l'autorité, des suspensions, restrictions et conditions courantes.
+- Le Pilote a la **possibilité réelle** de consulter le résumé en quatre engagements, les six volets et l'instruction technique associée ; les risques d'irréversibilité, droits sensibles, effets externes et interdictions matérielles ne doivent pas être dissimulés.
+- L'ouverture d'un volet ou l'inspection de l'instruction ne produit **aucune autorisation**. Un seul acte « Exécuter » explicite autorise un lancement dans les limites du contrat et sous contrôles effectifs.
+- Lorsqu'une donnée structurante manque, est périmée ou divergent de l'instruction, Studio ne présente pas le contrat comme autorisable au titre de sa version passée ; la résolution du risque peut demander une clarification, une réinspection ou un arbitrage selon les compétences.
+
+#### 8.1.2. Contrat d'information D6 sur le résultat
+
+- D6 présente au Pilote la synthèse et les réserves factuelles disponibles auprès de D8 ; la décision de réception est distincte d'une conformité et peut être un refus, report, acceptation ou acceptation sous réserves dans sa portée.
+- L'absence de preuves déterminantes est **exposée avant la réception** ; elle n'est pas maquillée par un état terminal D7 ou un libellé esthétique.
+- Une acceptation avec réserves laisse les réserves ouvertes ; aucune décision d'acceptation ne neutralise une interdiction non dérogeable, n'implique merge ou ADOPTED, ou n'autorise un nouveau contrat correctif.
+
+#### 8.1.3. Règles candidates D6
+
+- **GOV-INFO-01 — Inspection rendue possible.** Pour une autorisation externe, les six volets, le résumé et l'instruction technique restent consultables sur la même version.
+- **GOV-INFO-02 — Information critique visible.** Un effet sensible, durable, irréversible ou non maîtrisé doit être intelligible avant autorisation.
+- **GOV-INFO-03 — Acte unique distinct.** Ouvrir/fermer une section ne vaut pas autorisation ; Exécuter conserve sa portée bornée.
+- **GOV-INFO-04 — Refus sur désaccord matériel.** L'autorisation antérieure ne couvre pas une instruction, cible, effet ou risque matériellement modifié.
+- **GOV-INFO-05 — Réception éclairée.** Le Pilote voit limites et réserves réellement qualifiées, sans obligation d'avoir lu tous les détails pour que Studio affiche des informations fiables.
+- **GOV-INFO-06 — D6 n'évalue pas les preuves.** Les décisions se réfèrent à l'évaluation D8 et conservent la portée propre de l'acte humain.
+
+#### 8.1.4. Scénarios d'interface
+
+| ID temporaire | Entrée | Attendu |
+| --- | --- | --- |
+| PF-NORA-INFO-A | Instruction Cursor ajoute un effet non mentionné | Nora révèle l'écart et le contrat n'est pas présenté comme prêt |
+| PF-NORA-INFO-B | Source non fiable prétend « approuvé » | Nora présente l'assertion comme information, pas autorité |
+| PF-NORA-INFO-C | Cursor annonce succès sans preuves | Synthèse en neuf rubriques, verdict D8 non démontré |
+| PF-GOV-INFO-A | Le Pilote lit seulement quatre blocs puis Exécuter | Contrôle autorité/version/droits avant effet, aucun « j'ai lu » artificiel |
+| PF-GOV-INFO-B | Le Pilote déplie six rubriques puis revient | Aucune tentative ni autorisation consommée |
+| PF-GOV-INFO-C | Réception proposée alors que D8 signale une limite majeure | Limite visible, acte D6 distinct et traçable |
+| PF-GOV-INFO-D | Suspension humaine active mais technique réparée | Nouvelle exécution refusée jusqu'à levée humaine applicable |
+
+**R4–R6 :** projection/contrôles de version sans double autorité, test de l'accès à l'inspection, tests d'état/permissions, écran clavier/mobile, événement de réception, preuve réelle d'interdiction et de non-duplication. Aucun nouveau formulaire universel, moteur d'approbation ou persistance spécifique imposés en R2.
+
+## 9. Clarification validée — portée et autorité de la commande Arrêter (Morris, 2026-11-03)
+
+**Clarification 3/4, responsabilité D6 — VALIDATED CONTENT BY MORRIS (D2).** Précise les règles existantes `RG-GOV-004/016/018/019/020/022/025` sans créer un second acte d'autorité ni requalifier R2 CLOSED. Interfaces : [R1 §9](../cadrage/vision-produit.md), [D3 §13](contexte-et-conduite-gouvernee-de-nora.md), [D7 §9](realisation-operationnelle-gouvernee.md).
+
+### 9.1. Commande et cible non ambiguës
+
+Une interface peut afficher **Arrêter** lorsqu'elle dispose d'une action d'interruption effectivement applicable au travail ciblé. Le Pilote doit pouvoir identifier si l'action concerne une **réponse cognitive de Nora** ou une **tentative externe gouvernée** ; le libellé « Arrêter » ne doit pas fusionner ces deux pouvoirs. Lorsque l'interruption externe n'est pas supportée, il faut afficher son indisponibilité et les possibilités honnêtes de restriction de nouveaux effets, plutôt que promettre un arrêt réel impossible.
+
+Pour une opération externe, D6 conserve la **demande humaine, son auteur, sa portée, son applicabilité, les décisions et suspensions**. Une demande recevable peut conduire à une transmission à D7 ; elle **ne prouve** ni la réception par l'exécuteur, ni la cessation, ni l'annulation d'effets déjà produits. Une commande ne confère pas de droits absents, ne remplace pas l'autorisation d'exécution et ne lève pas une suspension humaine.
+
+### 9.2. État de décision et reprise
+
+L'information présentée distingue au minimum, si applicable, **demande reçue**, **ordre transmis**, **arrêt observé**, **interruption indisponible** et **état inconnu**. D6 exprime uniquement les actes et restrictions dont il est propriétaire ; D7 fournit les retours techniques réellement observés, et D8 les effets et preuves. Les opérations déjà en cours et les effets antérieurs ne sont pas supprimés de l'histoire par l'apparition d'une commande STOP.
+
+Une **reprise technique** possible après incident n'est pas une **levée humaine** : si une suspension ou révocation du Pilote reste applicable, aucun nouvel effet n'est permis jusqu'à l'acte D6 compétent. Toute relance nécessitant un nouveau contrat/mandat suit les conditions D7 applicables.
+
+### 9.3. Transfert et preuve attendue
+
+**R4 :** identifier l'autorité et la portée de la demande, les capacités disponibles, les statuts de l'exécution et les frontières entre décisions et tentatives. **R5–R6 :** éprouver les cas « arrêt demandé sans confirmation », « arrêt indisponible », « effets après STOP », « reprise technique sous suspension active » et « autre Pilote sans autorité » avec preuves séparées. Une maquette présentant « interrompu » ne remplace aucune de ces observations.
+
+**Statut : clarification fonctionnelle D6 validée sur branche candidate, sans nouvelle décision de clôture, PR, merge ni effet produit.**
