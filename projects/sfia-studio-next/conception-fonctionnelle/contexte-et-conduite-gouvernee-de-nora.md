@@ -534,3 +534,61 @@ Après la qualification v0.3 du contexte et la proposition v0.4 de sélection/é
 | **PF-35** | D3 | Inspection depuis Nora, puis retour au fil | Reprise du bon projet et de l'origine réellement connue ; aucun acte métier induit | UX-004..006/009 |
 
 **Interfaces et limites :** conserver les règles antérieures D3 et l'autorité D6/D7/D8/D9 ; la version de travail courante, concurrence, rendu sécurisé Markdown, sauvegarde interrompue et choix de stockage restent à qualifier en R4 puis à prouver R5/R6. Aucune preuve runtime Next.
+
+## 12. Complément fonctionnel validé — traduction métier par Nora (validation Morris du 2026-11-03)
+
+**Statut : VALIDATED CONTENT BY MORRIS — 2026-11-03.** Complément ciblé approuvé après revue R1/R2/C, ajouté sur la version de `main@139c706e8b3d` sans révoquer les règles et scénarios antérieurs. Les identifiants de travail du présent complément ne créent pas un second corpus RG/PF canonique. **R4 :** conception et invariants ; **R5–R6 :** construction et preuves à produire ; Next **N/A — NON IMPLÉMENTÉ**. Aucun PR, merge, adoption ou clôture R3 autorisés par cette validation.
+
+### 12.1. Transformation cognitive fidèle et restitution structurée
+
+**Résultat utilisateur :** Nora n'est pas seulement un générateur de phrases ; elle transforme le travail préqualifié en une représentation métier fidèle de l'intervention que Studio sera en mesure d'autoriser et d'exécuter. Elle produit après le retour une synthèse structurée fidèle aux qualifications D8 et événements D7, **sans remplacer les informations sources ni exercer la décision D6**.
+
+#### 12.1.1. Contrat de Nora pendant la préparation
+
+1. Identifier la finalité, les résultats attendus, la cible, les exclusions, les ressources, les risques, les restrictions opposables, les sources et les critères réellement nécessaires pour l'effet envisagé.
+2. **Composer les quatre engagements immédiats** et les **six volets métier** prévus par D7, sans supprimer d'information déterminante parce qu'elle gêne la compacité de la réponse.
+3. Distinguer **données établies / hypothèses / inconnues / valeurs sans objet**, et remonter à D7 les lacunes qui empêchent de présenter un contrat applicable.
+4. Traduire les termes techniques en conséquences métier compréhensibles, mais conserver les cibles, exclusions, risques et pouvoirs effectifs ; « simplifier » n'autorise jamais à changer le sens.
+5. Préparer ou contextualiser l'instruction technique de la version contractuelle, en expliquant les différences de forme avec le résumé, sans se présenter comme source d'autorité ni secrétiser une action importante.
+6. Ne pas transformer un résumé structuré en un document statique universel : les rubriques du contrat sont inspectables en contexte et peuvent être plus ou moins développées, selon le risque et la nature de l'effet.
+
+#### 12.1.2. Contrat de Nora après réalisation
+
+1. Récupérer depuis les responsabilités propriétaires le **contrat prévu**, le statut technique D7, les preuves/conclusions D8 et les décisions D6 existantes.
+2. Produire ou réviser les **neuf rubriques de synthèse** : résumé ; prévu ; réalisé ; évaluation ; écarts/réserves/blocages ; impact projet ; verdict D8 ; recommandation/suite ; éléments vérifiés/sources.
+3. Ne jamais paraphraser « tests OK » de Cursor comme tests vérifiés si D8 ne l'a pas constaté ; citer la provenance et les limites des assertions matérielles.
+4. Adapter l'ordre et la longueur à la lisibilité, tout en conservant l'accès au détail intégral et aux pièces nécessaires pour une décision informée. Le Pilote ne doit pas poser des questions récurrentes simplement parce que les faits déterminants n'ont pas été exposés.
+5. Proposer spontanément un contrôle ou un contrat correctif si utile, mais **sans lancement** ni promotion de jalon automatique.
+
+#### 12.1.3. Règles candidates D3
+
+- **NORA-INFO-01 — Fidélité de traduction métier.** La formulation accessible couvre tous les effets matériels et contraintes de l'instruction technique visée.
+- **NORA-INFO-02 — Complétude proportionnée.** La concision réduit le texte, pas l'accès aux informations pertinentes.
+- **NORA-INFO-03 — Lacune critique explicite.** Une donnée déterminante indéterminée empêche la présentation d'une autorisation prête.
+- **NORA-INFO-04 — Assemblage sourcé.** Nora ne s'attribue pas un fait D7/D8/D9 qu'elle n'a pas reçu ou vérifié selon son rôle.
+- **NORA-INFO-05 — Restitution sur les neuf rubriques.** La synthèse expose les résultats et effets avec leur niveau de preuve, pas uniquement un avis général.
+- **NORA-INFO-06 — Action recommandée non exécutée.** Une recommandation D3 reste distincte de la décision D6 et du contrat D7.
+
+## 13. Clarification validée — projection intelligible de l'activité Nora (Morris, 2026-11-03)
+
+**Clarification 2/4 — VALIDATED CONTENT BY MORRIS (D2).** Complète `RG-CTX-003/006`, `RG-AUTH-005` et les contrats de restitution D3, sans nouvelle série `RG-*` ou `PF-*`, sans modifier la clôture R2. Interface vers [R1 §9](../cadrage/vision-produit.md) et [D7 §9](realisation-operationnelle-gouvernee.md).
+
+### 13.1. Trois origines distinctes, aucune inférence d'exécution
+
+1. **Réponse cognitive Nora :** « réponse en préparation » ou « analyse en cours » peut être présenté sans divulgation du raisonnement interne. Une étape cognitive n'est annoncée comme effectuée que si un résultat utile et réellement disponible la justifie ; le seul écoulement de temps n'établit aucun avancement.
+2. **Outil sollicité ou consulté :** l'action visible indique si la demande a été lancée, si un retour a été effectivement reçu, ou si son état demeure inconnu ; les sources et versions déterminantes sont rattachées à la provenance réellement accessible. Une simple intention de lecture n'est pas une consultation accomplie.
+3. **Tentative externe Cursor :** Nora reformule uniquement les faits d'activité **reçus et qualifiés via D7**, en conservant la distinction lancement demandé / accusé / activité observée / état inconnu. Nora n'est ni un superviseur technique temps réel par défaut ni la source de vérité des effets Cursor.
+
+Pour chaque situation, afficher une formulation intelligible et la limite connue sans halluciner des commandes, phases, résultats, preuves, pourcentages ou timestamps d'outil. Ne pas exposer de secrets, contenu privé inaccessible, logs sensibles ou délibération interne pour justifier l'animation. Une couleur ou animation d'activité est un signe de lecture **conditionné par un état valide**, non une preuve de travail externe ; maintenir une alternative sans mouvement et lisible sans code couleur.
+
+### 13.2. Interruption et retour dans le fil
+
+Nora explique **quel travail est visé** par « Arrêter » avant ou lors de l'action : interruption de la réponse cognitive, ou demande transmise à D7 pour une opération gouvernée. Si l'état effectif de l'opération externe est indéterminé, Nora ne le transforme pas en succès, échec, arrêt confirmé ou rollback. La suspension et les décisions humaines demeurent propriétaires D6.
+
+Après interruption ou changement de conversation, Nora récupère auprès des domaines propriétaires **les acquis utiles, références, versions, limites, réserves et travail restant**. Elle informe du contexte à recontrôler avant toute reprise qui produirait un effet. Elle ne prétend pas retrouver un token, une commande ou un pourcentage de traitement arbitraire, et ne relance aucun effet externe par simple génération conversationnelle.
+
+### 13.3. Conditions de qualification ultérieure
+
+**R4 :** définir les sources d'événements réellement disponibles et leur provenance, l'éventuelle persistance, le contrat de projection UI et le filtrage, sans créer un état concurrent D7/D6. **R5–R6 :** vérifier visuellement et en navigateur l'état en cours, les cas sans détail, les erreurs/outils indisponibles, l'animation réduite, l'interruption, la récupération après session et la fidélité des sources. Les maquettes [206–217](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) sont une **preuve de conception**, pas de comportement LIVE/REAL.
+
+**Statut : complément normatif de contenu validé sur branche candidate ; modèle API/implémentation/proof non adoptés.**
