@@ -1,6 +1,6 @@
 # SFIA Studio Next — Espace projet et interaction Pilote–Nora
 
-**R3 — Conception UX/UI · Document de travail évolutif · v0.7**
+**R3 — Conception UX/UI · Document de travail évolutif · v0.8**
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -341,6 +341,8 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | 2026-11-03 | Définir le périmètre candidat d'inspection au-delà de la visionneuse : documents créés/modifiés par Nora, objets métiers, sources Git/liens externes, contrats Cursor, rapports et preuves ; distinguer MVP et extensions. | Exploration à la demande de Morris ; aucun arbitrage d'édition ou de persistance validé | **ANALYSE / HYPOTHÈSES R3**, sans validation de formats, d'architecture ni d'intégrations. |
 
 | 2026-11-03 | Illustrer l'inspection avec trois nouveaux écrans éditables dans le Figma Next existant : document Nora Markdown, sources GitHub/web, contrat Cursor/rapport/preuves. | Mandat Figma Morris ; hypothèses R3 §17 | **THREE FIGMA CANDIDATES REVIEWABLE**, pas validation fonctionnelle/architecture ; revue Morris avant retour R1/R2. |
+
+| 2026-11-03 | Reprendre R3 après PR #642 intégrée dans `main` et créer le parcours documentaire en quatre états Figma, sans requalifier R1/R2. | Reprise R3 demandée par Morris, travail UX exploratoire ; aucun GO de PR/merge UX ni validation écran finale | **DOCUMENTED — FIGMA CANDIDATE** ; revue Morris et tests de navigation à venir. |
 
 ### Règle de maintenance
 
@@ -717,3 +719,46 @@ Morris souhaite d'abord **examiner ces maquettes** et décider si le mécanisme 
 À instruire après revue : création/modification/version des documents Markdown, consultation des sources, sélection d'un extrait pour Nora, parcours de contrat et résultat, accessibilité, mobile, erreurs, dépendances, preuves et dette/exit.
 
 **Statut : DOCUMENTED / FIGMA CANDIDATES ; R1 et R2 inchangés ; Next non implémenté ; aucun ADOPTED.**
+
+
+## 19. Reprise R3 après la baseline R1/R2 Inspection (2026-11-03)
+
+### 19.1. Sources et frontière du jalon
+
+La PR documentaire R1/R2 [#642](https://github.com/mcleland147/sfia-workspace/pull/642) a été mergée avec contrôle post-merge sur \`main@139c706e8b3dca6f1db836a14ffd1aafa1c5e990\`. La vision R1 comprend désormais §§2.40–2.41 ; l'index R2 comprend §22 et documente **324 règles, 259 scénarios** cumulés. Le complément post-clôture est approuvé par Morris. Les décisions historiques de sortie restent inchangées.
+
+**Source UX de travail :** le présent document sur la branche \`sfia/next-r3-ux-interaction-candidate\`, initiée avant PR #642. Son contenu est **candidate UX** ; la branche n'a pas été fusionnée avec \`main\` et doit être resynchronisée/qualifiée avant une PR UX éventuelle, sans considérer son historique comme baseline.
+
+**État de gouvernance :** la Roadmap \`main\` conserve actuellement l'inscription historique \`R3 NOT STARTED\`. La reprise de conception en conversation et dans Figma ne constitue pas à elle seule une décision de promotion, de clôture ou une mise à jour autorisée de la Roadmap.
+
+**Résultat du sous-parcours :** le Pilote peut demander un document Markdown, constater sa conservation effective, demander une révision ciblée sans écraser le passé, retrouver la même ressource depuis une autre activité et comprendre un échec de sauvegarde sans faux succès. Dans Studio Next, la réalisation demeure **N/A — NON IMPLÉMENTÉ**.
+
+### 19.2. Quatre états UX réalisés en Figma (étude basse/moyenne fidélité)
+
+**Fichier Figma Next indépendant :** https://www.figma.com/design/itgvCulInEnFY6DvgIegvP
+
+**Page :** \`03 · Parcours Nora — Document Markdown\`.
+
+| État | Maquette éditable | Contrat illustré | Règles R2 principales |
+| --- | --- | --- | --- |
+| 01 — Création/conservation | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=18-28) | Document explicitement demandé ; Nora ne signale la sauvegarde qu'une fois l'état établi ; brouillon non validé et non publié | RG-DOC-001..004, RG-KNOW-016/018 |
+| 02 — Révision guidée | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=20-18) | Demande sur une section ; v2 enregistrée, v1 disponible ; présentation compréhensible des différences | RG-DOC-005..007, RG-KNOW-017 |
+| 03 — Retrouvabilité | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=20-163) | Réouverture du document depuis une autre activité avec la référence du projet ; même ressource canonique | RG-DOC-008, RG-KNOW-019/020 |
+| 04 — État inconnu | [Voir dans Figma](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=20-308) | Une v3 générée ne constitue pas une v3 enregistrée ; contrôle d'état et retour vers v2 connue | RG-DOC-009, RG-KNOW-018, RG-UX-006 |
+
+**Portée Figma :** calques, textes et composants **éditables** ; captures vérifiées (dont correction d'un badge de version sur l'état négatif). Les données du projet Atlas et les dialogues sont fictifs. Les actions présentées ne sont pas encore des transitions Figma cliquables ou des contrôles opérationnels.
+
+### 19.3. Critères UX et risques à confronter à Morris
+
+1. **Évidence de sauvegarde :** le changement de statut est compréhensible et différent d'une approbation ou publication.
+2. **Brouillon courant et histoire :** l'utilisateur sait quelle version est affichée, quelles versions existent et ce qui a changé, sans empêcher une révision simple.
+3. **Autonomie d'accès :** la ressource se retrouve depuis le projet sans dépendre de l'historique conversationnel.
+4. **État incertain :** une tentative interrompue ou conflictuelle ne provoque ni confirmation fictive, ni remplacement silencieux, ni répétition dangereuse d'un effet.
+5. **Continuité B2/V3 :** inspection refermable, travail Nora retrouvable, pas de second chat ni de second propriétaire documentaire.
+6. **Représentation adaptative :** éprouver ensuite les interactions sur petit écran, les états de liste vide, de source inaccessible, de droits révoqués et de lien externe.
+
+**Prochaine activité cohérente :** revue des quatre états avec Morris, puis qualification des transitions nécessaires (ouverture depuis Nora / Projet, révision, comparaison, retour, état inconnu) et prototype Figma interactif ciblé. En sortie, compléter le parcours Git/web et contrat Cursor/preuves à partir des maquettes déjà existantes, sans multiplier des pages ni créer une architecture concurrente.
+
+**Gate :** l'approbation formelle de la composition et des comportements UX reste à demander à Morris après revue. Pas de PR/merge/roadmap, ni architecture R4 ou implémentation R5 autorisés par cette seule étude.
+
+**Statut : DOCUMENTED / FIGMA CANDIDATE R3 v0.8 — aucun BEHAVIOR PROVEN ou ADOPTED.**
