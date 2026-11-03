@@ -3,7 +3,7 @@
 | Champ | Valeur |
 | --- | --- |
 | Jalon | **R1 — cadrage produit, CLOSED BY MORRIS WITH CARRIED RESERVES (2026-11-02)** |
-| Version du document | **0.15 — cadrage R1 clôturé** ; neuf domaines, sept scénarios E2E et quatre qualifications méthodologiques R2 |
+| Version du document | **0.15 — cadrage R1 clôturé ; complément Inspection approuvé le 2026-11-03 (branche candidate)** ; neuf domaines, sept scénarios E2E et quatre qualifications méthodologiques R2 |
 | Statut du contenu | **R1 CLOSED BY MORRIS — WITH CARRIED RESERVES** ; vision, 9 domaines, 7 E2E et frontières validés ; contrats R2, UX R3, architecture R4, code et preuve runtime **NON VALIDÉS / NON IMPLÉMENTÉS** |
 | Autorité | Morris : validation des principes de vision ; arbitrages ultérieurs requis sur les sujets ouverts |
 | Nature | Cadrage de l'expérience et des responsabilités, **pas** spécification fonctionnelle exhaustive, maquette UX, ADR, code ou preuve REAL |
@@ -1019,3 +1019,49 @@ Cette chaîne est une **synthèse de l'expérience de vision validée au niveau 
 **GO de sortie R1 du 2026-11-02 :** Morris valide **R1 CLOSED WITH CARRIED RESERVES** et autorise la séquence Git distincte commit → PR → contrôles → merge → relecture post-merge ; décision enregistrée dans `governance/decisions/2026-11-02-r1-cadrage-formal-exit.md` et synthétisée en §2.39. Le démarrage R2 sur baseline intégrée reste conditionné à la vérification du merge, non à la seule rédaction de cette mention.
 
 **Politique d'entretien :** enrichir ce **même document vivant** lors de nouveaux arbitrages significatifs ; préserver une trace concise du statut et des conséquences. Ne pas créer un micro-document ou une PR par idée. Un point discuté mais non tranché demeure « à challenger », sans devenir une décision par reformulation.
+
+
+---
+
+### 2.40. Inspection et ressources documentaires de Nora — complément post-clôture approuvé (2026-11-03)
+
+**Résultat recherché.** Le Pilote peut examiner un objet de travail — document, source, sujet, décision, cycle, contrat, tentative, résultat ou preuve — sans perdre le fil de son activité avec Nora. L'Inspection est une **surface de présentation et d'interaction contextualisée**, et non un moteur métier supplémentaire. Sa forme est adaptative : présentation côte à côte ou agrandie, avec possibilité de revenir au contexte initial.
+
+**Production documentaire.** Lorsqu'une demande exprime clairement la création d'un **document** dans un projet existant, Nora produit directement un contenu structuré de type **Markdown**, avec titres, listes, tableaux, liens et blocs de code lorsque pertinents. Studio conserve automatiquement cette production comme **brouillon durable du projet**, identifiable et retrouvé indépendamment de la conversation. Cela ne transforme pas chaque réponse Nora en document, n'impose aucun cycle et ne crée aucune ressource Git.
+
+**Révision avec Nora.** Le Pilote peut demander la modification d'une section ou du document entier. Nora produit une version identifiable ; l'historique antérieur reste accessible et les différences peuvent être inspectées. Le choix d'une version de travail ne vaut ni acceptation métier, ni validation d'une spécification, ni permission de publication externe. L'édition manuelle riche n'est pas nécessaire à cette première capacité.
+
+**Sources et liens.** Nora peut présenter des références externes réellement disponibles : sites web, fichiers, commits et PR GitHub, avec origine, portée et limites. Un **hyperlien web est activable et peut s'ouvrir dans un nouvel onglet du navigateur où Studio fonctionne** ; l'utilisateur peut employer les mécanismes de son navigateur ou système pour l'ouvrir dans un navigateur externe. Studio ne construit **pas de navigateur web embarqué** et ne garantit pas techniquement la sélection d'une autre application de navigation. L'aperçu interne d'un contenu externe exige que celui-ci ait été réellement récupéré sous les permissions applicables. La lecture d'une source ne crée aucun mandat.
+
+**Autres objets inspectés.** Les décisions conservent leur propriétaire et validité D6 ; les contrats, instructions et tentatives relèvent de D7 ; les vérifications, preuves, écarts et verdicts relèvent de D8 ; les droits et références Git relèvent de D9. Une même information peut apparaître dans la conversation, le Journal ou l'Inspection **sans duplication de vérité**. Aucun affichage de « terminé » ou « conforme » sans source suffisante.
+
+**Continuité et fiabilité.** L'Inspection est consultable directement depuis le projet ou à partir d'une référence Nora, sans obligation de solliciter Nora. La sortie restaure la bonne activité et les états effectivement sauvegardés, sans feindre un brouillon ou une session récupérée. Accès interprojets, confidentialité, états inconnus et contenu externe hostile restent protégés.
+
+**Frontières et report.** Markdown est le format de production documentaire initial privilégié ; Word/PDF en édition native, navigateur interne, IDE, coédition simultanée et export multi-format avancé sont reportés. Les formats d'aperçu supplémentaires, mécanismes de stockage, de versionnage, de rendu sécurisé et de reprise sont qualifiés en R4 et démontrés en R5/R6.
+
+**Carte des responsabilités conservée :** D3 produit/révise et dialogue ; D4 porte la retrouvabilité documentaire, les références et la continuité ; D6 conserve l'autorité ; D7 porte les opérations externes ; D8 la qualification des résultats ; D9 la lecture et les effets Git. L'Inspection est une expérience transverse ; **aucun domaine 10** ni base de vérité parallèle n'est introduit.
+
+**Statut de cette section :** complément post-clôture R1 **APPROUVÉ PAR MORRIS (2026-11-03)** ; intégration documentaire sur branche candidate, sans révision rétroactive de la décision de sortie du 2026-11-02.
+
+### 2.41. Parcours E2E additionnels d'inspection — complément post-clôture approuvé (2026-11-03)
+
+### E2E — Production, révision et reprise d'un document
+
+1. Le Pilote demande explicitement une spécification dans son projet.
+2. Nora produit le Markdown ; Studio enregistre le brouillon et n'annonce la sauvegarde qu'après son établissement.
+3. Le document est présenté en Inspection, avec statut, version, provenance et lien vers l'activité d'origine.
+4. Le Pilote sélectionne une section et demande une révision par Nora ; une nouvelle version est enregistrée sans perdre l'ancienne.
+5. Le Pilote inspecte les différences, puis retrouve le document depuis le projet dans une nouvelle conversation.
+6. Une demande ultérieure de publication Git déclenche des contrôles distincts et ne se déduit pas de la sauvegarde interne.
+7. Cas négatifs : écriture interrompue, version concurrente, droits retirés, source contradictoire, suppression de session, brouillon demandé dans le sas sans projet enregistré.
+
+### E2E — Consultation de sources et de réalisations gouvernées
+
+1. Nora cite un fichier GitHub avec la ref effective et une source web avec son URL réelle.
+2. Le Pilote inspecte un extrait uniquement si Studio a pu le récupérer ; il peut ouvrir le lien original dans un **nouvel onglet** ou utiliser les mécanismes d'ouverture externe de son navigateur/système.
+3. Il revient au travail sans propagation d'autorité depuis la source ni changement du projet courant.
+4. Depuis Nora ou une consultation structurée, il inspecte un contrat D7, sa version et l'instruction technique exacte ; la lecture n'enclenche rien.
+5. Il consulte ensuite un rapport Cursor déclaré et un bilan D8 : les niveaux de constat et de conformité restent visiblement différents.
+6. Cas négatifs : source introuvable ou inaccessible, ref obsolète, URL non fiable, rapport sans preuve, retrait de permissions, contrat évolué depuis sa dernière inspection.
+
+**Traçabilité R1 :** E2E additionnels à rapprocher des sept E2E historiques plutôt que modifier rétroactivement leur validation ; aucun test n'est déclaré exécuté.
