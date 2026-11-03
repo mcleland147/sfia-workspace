@@ -3,13 +3,13 @@
 | Métadonnée | Valeur |
 | --- | --- |
 | Nature | **Document de cadrage vivant** du jalon R4 ; support de travail et de synthèse, sans création d'une seconde autorité normative |
-| Version | **v0.5 — revue produit du macro-lot A et passage de relais vers B**, 2026-11-03 ; candidate de conception sur branche R4 |
-| Statut | **MACRO-LOT A — ORIENTATION PRODUIT REVUE ET DEUX ARBITRAGES MORRIS ACQUIS ; ARCHITECTURE TECHNIQUE CANDIDATE**. Les points de conservation, sauvegarde et cohérence ont été examinés ; passage à B autorisé. Aucun ADR, choix de stack, code, preuve runtime ni ADOPTED. |
+| Version | **v0.7 — macro-lots A/B et stratégie QA R4–R6**, 2026-11-03 ; candidate documentaire publiée sur branche R4 |
+| Statut | **A — ORIENTATION PRODUIT REVUE / TECHNIQUE CANDIDATE ; B — REVUE MORRIS SANS OBJECTION, DESIGN CANDIDATE ; QA A–D — STRATÉGIE CANDIDATE AUTORISÉE À LA SYNCHRONISATION**. C à concevoir ; aucun ADR, stack, runtime ou ADOPTED |
 | Responsable des arbitrages | Morris |
 | Rédaction / analyse | ChatGPT, sous contrôle des sources Git et des décisions Morris |
 | Référentiel observé | `mcleland147/sfia-workspace`, branche distante `main@7067c846ce7c57825dd31c532433d809e1a01216` et candidate `sfia/next-r4-architecture-scoping@9898aa6965f10d3fcadd6958f6eacd1d9657450e` (contrôle Git 2026-11-03 ; 1 commit devant, 0 derrière, un seul fichier ajouté) |
 | Situation technique | **Next : N/A — NON IMPLÉMENTÉ**. Aucun code ni schéma de données cible adopté ; branche locale / index / worktree **NON OBSERVÉS** |
-| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` sur `sfia/next-r4-architecture-scoping` ; rédaction v0.5 sous GO documentaire borné de Morris, sans PR ni merge |
+| Emplacement Git candidat | `projects/sfia-studio-next/architecture-technique/cadrage-r4.md` sur `sfia/next-r4-architecture-scoping`, issue de `cf3f14dc33b642f7e96e5aa12f66074ffa112eeb` ; mise à jour B + QA mandatée par Morris, sans PR/merge |
 
 ## 1. Finalité et position de départ
 
@@ -479,6 +479,125 @@ Le modèle ci-dessous est un **contrat de données**, non un schéma SQL approuv
 
 **Gate de poursuite :** Morris autorise ChatGPT à engager **la conception intégrale du macro-lot B** sans micro-arbitrages techniques. Aucune clôture formelle de R4, aucun changement de Roadmap main, PR/merge ou exécution Cursor n'est impliqué.
 
+### 5.5. Macro-lot B — pilotage, méthode et autorité : conception intégrée (D0, CANDIDATE, non validée)
+
+**Mandat :** Morris a demandé de poursuivre après la revue produit A, en confiant à ChatGPT la conception technique d'un macro-lot cohérent avant revue globale. La présente section est une **proposition D0**, sans décision d'architecture adoptée, sans autorisation de modifier les spécifications R2 et sans implémentation. Sources examinées sur `main@7067c846ce7c57825dd31c532433d809e1a01216` : D3, D4, D5, D6, corpus CKI v0.2, vision R1, UX R3, SEF et Roadmap ; Next reste non implémenté.
+
+#### 5.5.1. Résultat Pilote, IN/OUT et principe architectural
+
+**Résultat attendu :** après avoir créé son projet, le Pilote travaille librement avec Nora, peut consulter ou modifier une trajectoire prévisionnelle, ouvrir et fermer un cycle lorsqu'il le décide, profiter d'une spécialisation CKI pertinente, choisir éventuellement une méthode de projet, retrouver les décisions et suspensions applicables et reprendre sans perte ni création d'autorité fictive.
+
+**IN :** identité et état durables de trajectoire, version des orientations retenues, cycles effectifs, unicité du cycle actif, catalogue/type/CKI et référence de contenu, méthode applicable et historique, décisions compétentes, restrictions, suspensions, levées, conflits d'autorité, reprise et continuité D3/D4, interfaces UX B2/V3, concurrence et idempotence. **OUT :** exécution Cursor/Git et effet externe (C/D), gestion des preuves et acceptation de conformité (C), tout moteur CKI prescriptif, workflow obligatoire ou décision métier autonome de Nora.
+
+**Architecture candidate :** **le même produit web modulaire et le même socle de cohérence transactionnelle que A**, avec des modules métier D5 et D6 séparés par leur responsabilité, et **un seul propriétaire des écritures opposables** pour chaque effet. Un module n'implique pas son propre microservice ou sa propre base. La cognition, le fil et l'UX ne détiennent pas d'état d'autorité concurrent.
+
+#### 5.5.2. Responsabilités et règles de propriété
+
+| Propriétaire | État détenu | Ce qu'il ne fait jamais |
+| --- | --- | --- |
+| **D1 / A** | Pilote authentifié et accès au projet personnel | Ne décide ni ne change de cycle, méthode ou mandat |
+| **D3 / Nora** | Dialogue, analyse, proposition de plan, jugement de maturité, restitution et contexte utile | Ne commet jamais une décision, transition, levée ou autorisation d'effet à partir de sa seule interprétation |
+| **D4 / Connaissance** | Sujets, questions, acquisitions, documents, références de sources et journal **Sujets** ; accès aux décisions par références D6 | N'entretient aucun deuxième registre de décisions, d'état de cycle ou de preuve |
+| **D5 / Pilotage** | Trajectoire prévisionnelle et retenue, cycles réels, type de cycle, association CKI, méthode applicable et historique | N'émet pas de GO et ne fabrique ni décision, ni acceptation, ni contrat Cursor |
+| **D6 / Gouvernance** | Actes humains opposables, auteur/source/portée/validité, mandats, suspensions, révocations, levées, résultat de vérification de l'autorité | Ne stocke pas une seconde vérité de cycle, n'exécute pas Cursor et n'invente pas les faits D8 |
+| **CKI — contenu spécialisation** | Version de contenu spécialisée, guide qualitatif ; informations et références gérées sous D5 et chargées pour D3 | Ne devient jamais un moteur de workflow, un gate, une permission ou une seconde méthode opposable |
+| **UX** | Vues du projet, de la trajectoire, des cycles, du journal et d'inspection, alimentées par des lectures propriétaires | N'infère aucun état réel depuis une animation, un libellé ou une proposition non confirmée |
+
+L'absence de cycle ou de méthode est un **état normal**. Une technique locale employée par Nora n'est pas un changement du cadre méthodologique retenu. Un cycle clôturé n'est pas un résultat automatiquement prouvé ou accepté.
+
+#### 5.5.3. Modèle logique minimal, sans multiplication de moteurs
+
+| Famille logique proposée (noms non figés) | Informations durables nécessaires | Garanties |
+| --- | --- | --- |
+| **Trajectoire** | Projet propriétaire, version, orientations et étapes prévisionnelles, liens vers objectifs/contraintes, source des propositions et choix retenus | Proposé ≠ retenu ≠ réellement exécuté ; évolution sans réécrire les cycles passés |
+| **Cycle** | Identité, projet, type reconnu, but, état effectif, révision, date d'ouverture/clôture, références de transition, CKI principal résolu | **Au plus un ACTIVE par projet**, y compris sous deux commandes simultanées ; clos ≠ effacé |
+| **Transition métier** | Acte visé, auteur/identité, état et version attendus, clé de commande, décision compétente, résultat effectif | Rejeu et incident après commit se réconcilient ; demandes et effets distincts |
+| **Méthode applicable** | Projet, référence/version/portée/provenance/condition d'effet, lien vers décision D6, historique des versions et remplacements | Peut être ABSENTE ; nouvelle version publiée ≠ version automatiquement retenue ; sans rétroactivité |
+| **Catalogue type/CKI** | Identité de type et de CKI, version/empreinte éditoriale, état de disponibilité et provenance | Correspondance 1 type → 1 CKI principal ; catalogue extensible, sans activation secondaire |
+| **Décision / autorisation D6** | Identité propriétaire, auteur, source humaine, objet et portée, effet temporel, version visée, statut, restrictions, relation de remplacement/levée | L'acte est distinct de l'effet ; ancienne décision et sa provenance restent auditables |
+| **Suspension / restriction** | Cible, catégorie et étendue, auteur/source, validité, statut courant et éventuelle levée compétente | Persistante après changement de conversation/cycle/session ; applicable au point d'effet |
+| **Lectures dérivées** | Contexte courant, vue de parcours, journal Décisions, résumé Nora, suggestion de maturité | Reconstruites depuis D4/D5/D6 ; ne peuvent arbitrer ni écrire seules |
+
+**Recommandation :** relationnel transactionnel commun pour les écritures internes D5/D6 et A, avec contraintes d'intégrité et versionnement optimiste, sans event sourcing global, base de connaissances autorisante, bus de commandes transversal ni moteur de workflow imposé. Les audits des décisions/transitions restent durables, mais un journal d'audit n'est pas le seul état métier. Les choix SQL exacts et la topologie restent des sujets de R4-D.
+
+#### 5.5.4. Scénarios de commande et frontières d'autorité
+
+**1. Proposer une trajectoire.** Nora formule des étapes et dépendances *candidates* en citant la connaissance D4, les contraintes et, si pertinent, la méthode actuelle. L'aperçu reste une proposition. Une acceptation du Pilote suffisamment claire et contextualisée peut devenir un arbitrage D6 ; D5 enregistre alors la version retenue, sans ouvrir les cycles prévus. La replanification ne change pas les faits des cycles antérieurs.
+
+**2. Ouvrir un cycle.** Une expression du Pilote peut constituer le GO naturel si l'objet, la cible et la portée sont suffisamment clairs : inutile de lui imposer un formulaire ou un clic de confirmation systématique. Studio authentifie l'auteur, établit la **source réellement humaine** et la décision applicable D6, contrôle la version de l'état D5, les restrictions, le type reconnu et l'absence de cycle actif concurrent, puis persiste l'ouverture **effectivement committée**. Nora et l'écran ne déclarent l'ouverture qu'après lecture vérifiée. Une mention du cycle par Nora ou par une source Git n'est pas un GO.
+
+**3. Concurrence et cohérence.** Pour une transition purement interne à Studio, privilégier une **transaction commune** entre l'acte D6 reconnu, son résultat appliqué et le changement d'état D5, avec vérification de révision, clé idempotente et garantie structurelle d'un cycle ACTIVE maximum par projet. Si la commande intervient après une décision déjà persistée, sa référence est réutilisée, pas recréée. Une impossibilité technique de transaction commune déclencherait une architecture de réconciliation **explicitement conçue**, jamais une assertion de succès. Le texte humain originel peut rester dans D3 même si la transaction métier échoue ; il ne devient pas une transition accomplie.
+
+**4. Clore / passer au cycle suivant.** Nora peut recommander une clôture à partir de la finalité, des acquis, dépendances et réserves : **pas de score universel ni de clôture automatique**. Le Pilote autorise la transition dans sa portée. Pour un GO combiné clôture+ouverture dont les deux effets sont exclusivement internes, privilégier un commit atomique afin d'éviter un état de « deux cycles actifs » ou une clôture réussie avec ouverture fictive. Lorsque les effets doivent réellement être séparés, les résultats partiels restent identifiés et la reprise doit les réconcilier sans rejouer automatiquement. La clôture conserve les travaux, décisions et réserves ; elle ne vaut pas conformité D8, acceptation D6 ou adoption.
+
+**5. Choisir ou modifier une méthode.** Aucun choix préalable n'est exigé. Si le Pilote retient durablement une méthode, D6 reconnaît sa décision dans sa portée ; D5 conserve référence, version, provenance, début d'applicabilité et historique. Une nouvelle version disponible n'écrase pas la méthode appliquée. Nora peut employer une technique locale différente si elle ne contourne aucune prescription ; cela ne modifie pas D5. Un changement matériel impose analyse d'impact proportionnée et requalification des travaux effectivement concernés, sans rouvrir tous les cycles ni réécrire les preuves.
+
+**6. Suspendre, révoquer, lever.** D6 conserve une restriction durable sur une cible assez précise. Les nouveaux effets concernés sont bloqués immédiatement au point de contrôle ; les activités cognitives indépendantes peuvent continuer. Une levée n'est effective qu'après acte compétent et n'accorde pas de nouvelles permissions Git ou Cursor. Pour une activité externe déjà engagée, D6 conserve l'ordre humain, tandis que D7 devra distinguer demande d'arrêt, transmission et arrêt réellement observé : cette interface relève de C. Une nouvelle session, une synthèse Nora ou un changement de cycle n'efface pas la suspension.
+
+**7. Conflits et ambiguïtés.** Une source externe, un document CKI ou une citation qui contient « GO » ne crée aucune décision. En cas d'ambiguïté déterminante sur auteur/objet/portée, Nora demande **une clarification ciblée** ; le travail cognitif sûr se poursuit. Deux décisions incompatibles sont évaluées selon auteur, portée, conditions d'effet, révocation et règles non dérogeables ; **la plus récente n'est pas automatiquement prioritaire**. Tant que le conflit reste déterminant, l'effet ciblé est refusé et la raison est restituée.
+
+**8. Résoudre l'état courant.** Au retour du Pilote, le serveur charge le projet A autorisé, puis les états effectifs D5 et les restrictions/actes applicables D6. D4 fournit sujets et acquis, et D3 compose son contexte avec provenance et limites. L'UX « Journal — Décisions » est une **projection de D6**, pas un autre propriétaire. La reprise des informations ne provoque aucun GO, aucun changement de méthode, aucune activation d'un cycle ni aucun effet Cursor.
+
+#### 5.5.5. CKI : spécialisation sans prescription ni dépendance cachée
+
+- **Condition d'activation :** un cycle effectivement ACTIVE et de type reconnu désigne **un seul CKI principal** ; sans cycle, Nora reste générale ; un sujet connexe ou la matrice des 50 relations ne sélectionne jamais un deuxième CKI.
+- **Identité et version :** la résolution de CKI est fondée sur un catalogue versionné avec provenance/empreinte. Pour une analyse déterminante, la référence effectivement disponible est traçable ; ne jamais inventer que la dernière version est celle utilisée. **Proposition technique :** épingler la version de CKI lors de l'ouverture du cycle ; une mise à jour explicite en cours de cycle reste étudiable après contrôle de compatibilité, sans modification silencieuse des analyses passées.
+- **Chargement :** le contrat de contexte D3 consomme la guidance spécialisée pertinente, sans transformer le contenu CKI en instruction de sécurité, en liste obligatoire de livrables ou en moteur de décision. Le contenu chargé est traité comme une source à niveau de confiance qualifié ; une consigne injectée ou malveillante n'est pas élevée au-dessus des règles produit.
+- **Indisponibilité :** absence de CKI, de version ou de lien non essentiel → Nora peut poursuivre son travail cognitif général en exposant la limite. Si l'information manquante est déterminante pour un acte de cycle ou une conclusion particulière, suspendre **cet effet ou verdict**, pas le projet entier. Ne pas substituer un CKI historique ni une « méthode par défaut » inventée.
+- **Matrice relationnelle :** les relations T/A/R/E aident à explorer ; elles ne représentent ni obligation, ni précédent de cycle, ni autorisation, ni graphe d'exécution. Les quinze spécialisations validées sont une première famille, non un plafond de types ou un carcan pour des projets non logiciels.
+
+#### 5.5.6. Lecture applicative et observabilité de l'autorité
+
+**Contrat conceptuel de lecture, pas d'API adoptée :** requérir un contexte projet autorisé ; lire la trajectoire et son état « proposé/retenu/effectif » ; charger le cycle courant et sa version ; résoudre la méthode retenue, le CKI réel et ses limites ; qualifier auprès de D6 les décisions/restrictions **dans leur portée** ; demander les connaissances/sources D4 ; composer seulement ensuite le contexte Nora. À chaque effet nouveau, ces informations sont **recontrôlées** côté serveur ; une vue précédemment ouverte peut être périmée.
+
+**Contrat d'écriture, pas de moteur générique :** une commande métier D5 explicite le projet, la cible, la version attendue, la référence de l'acte humain D6, la clé de répétition et le résultat relu ; D6 possède la validation de compétence, de portée et de restrictions. Les commandes refusées ne créent pas un cycle fictif ou une méthode implicitement adoptée. Les traces d'audit relient source humaine, décision, transition et version, sans exposer de secrets ni de chain-of-thought de Nora.
+
+**UX :** les écrans R3 doivent rendre lisibles, sans jargon imposé : « proposé » vs « retenu », « cycle actif » vs « à venir », méthode retenue ou absente, provenance de la décision, restriction actuelle, raison du blocage, prochaine action possible. L'inspection et le retour au fil ne mutent aucun état. Le journal **Sujets** reste D4 ; **Décisions** relit D6. Le Pilote peut toujours discuter avec Nora quand aucun cycle n'est actif.
+
+#### 5.5.7. Cas négatifs et preuves R5/R6
+
+| ID | Situation discriminante | Comportement à démontrer | Sources propriétaires |
+| --- | --- | --- | --- |
+| B01 | Projet neuf sans cycle ni méthode | Nora aide normalement, aucun état/CKI imposé | D3 METH-009, D5 TRJ-001 |
+| B02 | Trajectoire proposée, non retenue | Aucune ouverture ni adoption de fait | D5 TRJ-002/003, D6 GOV-023 |
+| B03 | GO naturel clair pour un cycle | Acte humain qualifié puis cycle effectivement ouvert et traçable, sans confirmation rituelle | D5 TRJ-009/015, D6 GOV-002/029 |
+| B04 | « Ce serait bien » ou texte cité | Aucune transition déduite d'une phrase équivoque ou d'une source externe | D6 GOV-004/005/006 |
+| B05 | Deux ouvertures concurrentes | Au plus un cycle ACTIVE ; la seconde est refusée/requalifiée | D5 TRJ-008/011/016 |
+| B06 | Double commande ou réponse perdue | Même résultat retrouvé ou état indéterminé explicite, jamais deux cycles | D5 TRJ-015/016 |
+| B07 | Clôture + ouverture combinées | Effets réellement appliqués identifiables ; aucun faux succès partiel ou double actif | D5 TRJ-012/014/016 |
+| B08 | Maturité jugée insuffisante par Nora | Recommandation étayée ; Pilote reste décideur, aucune clôture automatique | D5 TRJ-012/013, D6 GOV-008 |
+| B09 | Choix de méthode durable | Source D6 + version D5 concordantes et rechargées après restart | D3 METH-010/012, D5 TRJ-état méthode, D6 GOV-035 |
+| B10 | Nouvelle version méthode disponible | Pas de remplacement implicite ni réécriture historique | D3 METH-013/015, D6 GOV-035 |
+| B11 | Digression dans un cycle | Même cycle/CKI principal, réponse adaptée hors spécialité | D5 TRJ-018, CKI README §7 |
+| B12 | CKI indisponible ou hostile | Pas de fallback autorisant ni second CKI ; activité cognitive sûre maintenue | D5 TRJ-019/020, D3 APP-004/008 |
+| B13 | Deux décisions contradictoires | Scope/validité examinés, effet concerné bloqué jusqu'à résolution | D6 GOV-012/013/015 |
+| B14 | STOP après lequel le Pilote se reconnecte | Suspension toujours opposable, pas de levée par résumé ou changement de cycle | D6 GOV-017/018/020 |
+| B15 | Sources d'un autre projet sur Git partagé | Aucun import de mandat, cycle ou décision dans le projet courant | D1 ACC-005, D6 GOV-014 |
+| B16 | Décision ou méthode révoquée en cours de travail | Relecture avant effet, requalification ciblée, pas de replay autonome | D6 GOV-016/021/022/027 |
+| B17 | Journal Décisions vs historique | Une seule référence propriétaire D6, révision non rétroactive | D4 KNOW-003, D6 GOV-009/010 |
+| B18 | Interface retourne au fil depuis inspection | Aucun GO ni changement de cycle par navigation | UX R3, D5 TRJ-009, D6 GOV-005 |
+
+**Niveaux de preuve exigés :** tests déterministes des décisions et refus, intégration transactionnelle avec DB et concurrence réelle, redémarrage/reprise, scénarios navigateur sous authentification, puis études ciblées de Nora avec et sans CKI ainsi que sources malveillantes et contradictoires. La conformité ne peut pas être conclue d'un prototype UX ni d'une simple réponse de modèle IA. **État actuel : DESIGN ONLY ; tous ces tests restent à réaliser.**
+
+#### 5.5.8. Alternatives, impacts, risques et conditions de sortie
+
+**Comparaison intégrée des approches :**
+
+| Approche | Intérêt | Verdict candidat |
+| --- | --- | --- |
+| **M1 — Modules D5/D6 avec transaction commune et historique explicite** | Responsabilités lisibles, autorité opposable et un cycle actif garanti, sans infrastructure additionnelle | **Recommandée** ; cohérente avec le socle A |
+| **M2 — Workflow/automate global universel** | Modèle formel potentiel pour de nombreuses étapes obligatoires | **Non justifié** : contredit le cycle léger, surcharge les situations sans méthode/cycle |
+| **M3 — Event sourcing et moteur de projection généralisés** | Audit et reconstruction approfondis si échelle ou exigences spécifiques | **Reportée** ; coût de double lecture, maintenance et cohérence sans besoin démontré |
+| **M4 — Reprise du moteur OA/CKC/Workflow historique** | Certains concepts métier et tests existent | **Écartée par défaut** : couplage, héritage et terminologie sans gain net démontré pour Next |
+
+**Blast radius contrôlé :** la création de projet A fournit le contexte stable ; D5/D6 écrivent les états de cycle/méthode/autorité ; D3 consomme les décisions et contenus de manière qualifiée ; D4 conserve les références ; D7 devra vérifier la gouvernance au point d'effet et la transmission des suspensions ; D8 qualifiera les preuves, D9 les accès Git. Un nouveau type de cycle ou changement de méthode ne doit pas requérir des modifications non justifiées de tous les domaines.
+
+**Risques à préserver jusqu'aux gates :** (B-R1) erreurs de reconnaissance d'un acte en langage naturel → contrôle de source/auteur/objet, cas ambigus et refus ciblé ; (B-R2) concurrence de transitions / décisions → contrainte DB, version, idempotence et tests ; (B-R3) CKI mal adapté, version introuvable ou injection → version/provenance, tests adversariaux ; (B-R4) restriction humaine vs effet externe déjà lancé → frontière D6→D7 de C, aucune promesse de STOP exécuté ; (B-R5) changement de méthode au mauvais périmètre → version, décision et impact sur travaux ; (B-R6) dérive UI/journal vers une deuxième vérité → lecture propriétaire et tests de cohérence ; (B-R7) limite de conservation des décisions/mandats et confidentialité → politique sécurité/exploitation R4-D puis tests.
+
+**Critères de revue B (proposés, non prononcés) :** les parcours sans cycle, cycle unique, CKI versionné, méthode facultative, décision naturelle, suspension durable, conflit et reprise sont expliqués par **une seule architecture cohérente** ; leurs propriétaires et effets sont identifiables, leurs erreurs et tests connus, et les interfaces C/D explicites. Le choix d'une application modulaire et d'une transaction commune reste **candidat**, sans ADR approuvé. Aucun code, test NEXT LIVE/REAL ou statut ADOPTED n'en résulte.
+
+**Suite si revue B favorable :** C — contrat d'exécution inspectable, contrôle au point d'effet, tentative Cursor, STOP réellement observé et preuves D8, sans dupliquer l'autorité D6. Ne pas anticiper le choix des infrastructures ou le statut de sortie R4 global.
+
 ## 6. Questions structurantes ouvertes pour R4
 
 | ID de suivi interne à ce cadrage | Question à instruire | Livrable/gate attendu |
@@ -548,6 +667,52 @@ R4 doit aboutir à une **architecture compréhensible et testable sur le papier*
 
 **Verdict de sortie candidat, non prononcé :** `R4 — VALIDATED SPEC WITH GOVERNED RESERVES` uniquement si Morris valide la conception, ses risques/ADR et sa préparation R5. La Roadmap sera alors synchronisée selon le gate documentaire autorisé.
 
+## 8.1. Stratégie qualité et vérification R4 → R5 → R6 (2026-11-03, MANDAT MORRIS)
+
+**Origine du mandat :** Morris autorise la préparation et la synchronisation de la stratégie QA dans ce document vivant, puis la conception du macro-lot C. **État : stratégie candidate de construction, pas campagne exécutée.** Le SEF v0.2 §§4–6 impose les preuves graduées, les tests intégrés au même macro-lot de delivery et l'interdiction de repousser toute la qualité à R6.
+
+### 8.1.1. Responsabilités par jalon
+
+| Jalon | Responsabilité QA réelle | Gate / non-claim |
+| --- | --- | --- |
+| **R2 — fonctionnel, déjà validé en contenu** | Règles canoniques `RG-*`, scénarios `PF-*`, exigences de retour, réserves et 7 E2E R1 avec compléments R1–R3 | Les PF sont des **scénarios fonctionnels**, pas des tests exécutés |
+| **R3 — UX, conception close avec réserves** | États, parcours, visibilité, inspection, cas erreurs, accessibilité à transposer | Prototype Figma ≠ comportement navigateur |
+| **R4 — architecture** | Définir pour chaque macro-capacité les **oracles** (état vrai et propriétaire), invariants, scénarios discriminants, refus, conditions d'observation, mécanismes de test, niveaux de preuve, risques, environnements et critères d'arrêt | Conception testable ≠ couverture vérifiée |
+| **R5 — delivery par capacité verticale** | Construire **en même temps** code, tests unitaires/intégration/contrats, scénarios d'auth/concurrence/DB, navigateur si requis, données de test, instrumentation, documentation et preuves ; rejouer impacts croisés avant revue | Un test vert déterministe n'établit pas un E2E REAL |
+| **R6 — qualification de bout en bout** | Qualifier les 7 E2E et compléments selon la preuve requise, LIVE/REAL ciblé sous mandats et droits réels, sécurité, reprises, accessibilité, non-régression, exploitation et réserves ; consolidation des conclusions et gate Morris | Ni QA PASS, ni merge, ni conformité locale ne valent adoption automatique |
+
+**Principe :** R6 n'est pas le début des tests. Le harnais et les scénarios bloquants sont préparés en R4, exécutés progressivement en R5, puis traversés et qualifiés en R6. Une campagne globale exclusivement finale est exclue.
+
+### 8.1.2. Une traçabilité légère, pas un deuxième corpus de règles
+
+**Ligne de traçabilité par scénario à risque :** `source RG/PF/E2E et version → invariant/contrat architecturé → risque et condition observable de réussite/refus → niveau de test et environnement → preuve accessible/ID → verdict borné/réserve → propriétaire et gate`. Le **référentiel R2 demeure canonique** ; les identifiants `A01`, `B01`, etc. dans ce cadrage sont des **repères d'étude non normatifs**, pas de nouvelles RG/PF.
+
+**Couverture raisonnée :** ne pas exiger un pourcentage universel, un cas par phrase ni une traduction mécanique de toutes les 300 RG en scripts. Tout invariant structurant et toute frontière d'autorité/effet doivent posséder au moins un scénario nominal et un ou plusieurs scénarios négatifs pertinents. Justifier les exceptions, les données de test et les obligations LIVE/REAL. Les scénarios QA R5 ont des données/étapes/assertions concrètes **une fois l'interface et l'environnement figés**, jamais inventés en R4.
+
+**Étiquettes de preuve :** `DESIGN ONLY`, `DETERMINISTIC`, `INTEGRATION`, `BROWSER`, `LIVE`, `REAL` et limites associées. L'emploi de `COVERAGE VERIFIED` exige les exécutions et traces correspondantes ; `BEHAVIOR PROVEN` demande l'observation du comportement ciblé, pas un dossier de tests prévu. Aucune preuve Next exécutée à ce jour.
+
+### 8.1.3. Déclinaison par macro-lot d'architecture
+
+| Macro-lot | Invariants/scénarios discriminants à couvrir | Mécanismes préparés en R4 | Exécution attendue |
+| --- | --- | --- | --- |
+| **A — entrée, sas, continuité** | Projet seulement après acte, reprise de préparation des jours/semaines plus tard, unicité création même en double clic/timeout, fil visible, document en sauvegarde, isolation utilisateurs, récupération sans fiction | Identifiants durables, cohérence transactionnelle candidate, révision/idempotence, tests auth négatifs, crash/reconnexion, observation de sauvegarde et rendu UX | R5 : unit/intégration DB/concurrence/navigation ; R6 : parcours navigateur multi-session et sécurité |
+| **B — pilotage, méthode, autorité** | Au plus un cycle actif, GO naturel distingué de la recommandation, méthode facultative et versionnée, CKI principal unique, suspensions durables, conflits, non-rétroactivité, refus sous mauvais compte | Contraintes de version et d'unicité, décisions D6 sourcées, checks avant effet, lecture de contexte et CKI non autorisant, tests adversariaux | R5 : transitions réelles et tests négatifs ; R6 : E2E Nora avec/sans cycle, reconnexion et autorité |
+| **C — exécution gouvernée, preuve** | Version inspectée identique à l'instruction envoyée, mandat D6 et droits D9 au point d'effet, pas de second lancement sur rejouement, STOP demandé ≠ observé, rapport ≠ preuve, correctif non automatique, conformité ≠ acceptation | Identifiants contrat/mandat/tentative, contrôles d'intégrité, protocole dispatch et réconciliation, provenance D8, adaptateur avec capacité d'arrêt attestable, harnais de fausses réponses et incidents | R5 : contrats/échecs/stubs + intégration bornée ; R6 : scénarios navigateur et REAL effectif **si autorisé et disponible**, sans claim autrement |
+| **D — Git et consolidation** | Git facultatif, séparation des identités, ref/base et droits contrôlés, collision sur dépôt partagé, candidate ≠ main, mutation Git ≠ merge/adoption, reflow/focus/zoom, récupération après perte de session | Adaptateurs, matrice de permissions, tests de concurrence/ref, environnement de validation, audit d'accès, assertions UX transverses | R5 : intégration Git sous identité de test, tests UI ; R6 : traversée des 7 E2E, droits, REAL borné et non-régression |
+
+**Contrôles déjà identifiés :** le §5.3 possède 16 cas A ; le §5.5 possède 18 cas B. Ce sont des **candidats de couverture**, non 34 tests passés ni une preuve exhaustive. Les scénarios C/D seront enrichis dans leur conception, puis reliés aux PF canoniques et aux réserves R2/R3.
+
+### 8.1.4. Conditions opérationnelles de préparation R5/R6
+
+- **Environnements :** définir comptes de test isolés, dépôt(s) de test non sensibles, fixtures minimales d'erreur/reprise, scénario sans Git et capacité LIVE/REAL réellement accessible ; aucun effet sur `main` ni environnement productif déduit du dispositif QA.
+- **Oracles :** examiner l'état chez son propriétaire réel (D2 projet ; D5 cycle ; D6 décision/mandat ; D7 tentative ; D8 qualification ; D9 état Git). Les libellés UI et les messages Nora ne sont pas des oracles suffisants.
+- **Incident injection/réseau :** simuler ou provoquer à périmètre sûr double requête, ACK perdu, redémarrage, retrait de droits, suspension, événement tardif et preuve contradictoire. Un stub teste les transitions déterministes, **pas** la capacité Cursor REAL.
+- **Interface :** tests clavier, focus, zoom, reflow, longues réponses, états UNKNOWN, absence de clic déclencheur par navigation et transposition Figma selon les contrats R3 réellement applicables.
+- **Rapports et gates :** conserver les sorties d'exécution et preuves dans le macro-lot R5 propriétaire, puis agréger les manques pour R6. Toute limite est `KNOWN GAP` ou réserve avec impact, propriétaire et exit ; éviter un backlog de tests sans responsabilité.
+- **Blast radius :** toute évolution d'une interface D1–D9 reroule ses tests propriétaires et les consommateurs affectés ; préparer des contrats consommateurs plutôt que dupliquer les suites.
+
+**Condition de sortie R4 QA :** les quatre macro-lots ont les invariants, scénarios critiques, niveaux de preuve et interfaces de test spécifiés ; les contraintes de sécurité/exécution et l'environnement REAL éventuel sont qualifiés honnêtement. Les scripts, suites intégrales et résultats runtime ne sont pas requis pour la seule conception R4.
+
 ## 9. Gouvernance du document vivant
 
 Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifications D1–D9, le référentiel CKI, les décisions UX ni le futur `architecture-technique/current-reference.md` prévu par le SEF pour l'architecture effectivement implémentée.
@@ -571,15 +736,18 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 | 2026-11-03 / GO Morris conversation | V-A retenue comme direction d’étude, sans adoption de schéma/stack | **ARBITRAGE D’ORIENTATION D’ÉTUDE** | Examiner frontières et transaction candidate au §5.2 |
 | 2026-11-03 / Git main et branche R4 | `main@7067c846`, branche candidate `9898aa69`, diff 1 fichier, 0 behind ; Next sans code | **FAIT DISTANT OBSERVÉ** | R4 documentaire seulement, aucune promotion |
 | 2026-11-03 / mandat Morris de conception autonome A | ChatGPT prépare le macro-lot A complet avant une seule revue Morris ; V-A reste la direction d’étude | **MANDAT DE CONCEPTION D0, PAS ADOPTION** | Revue du paquet A §5.3 et décisions structurantes |
+| 2026-11-03 / revue Morris A et commit `cf3f14dc` | Préparations durables retrouvables et création possible pendant sauvegarde non indispensable ; version v0.5 publiée sur branche R4 | **ARBITRAGES PRODUIT ACQUIS / GIT CANDIDATE, NON MAIN** | Politiques de conservation et preuves techniques R5/R6 |
+| 2026-11-03 / revue Morris B | Conception B examinée sans objection produit ; ses choix techniques restent candidats, non adoptés | **REVUE FAVORABLE / PAS VALIDATION D'ADR** | Synchroniser la candidate et poursuivre vers C |
+| 2026-11-03 / mandat Morris QA | Stratégie QA transverse A–D avec niveaux de preuve par jalon R4/R5/R6 | **MANDAT DOCUMENTAIRE / STRATÉGIE CANDIDATE** | Préparer les oracles en R4, tester avec R5, qualifier en R6 |
 
 ## 10. Situation actuelle et prochaine étape
 
 **Constat Git :** `main@7067c846ce7c57825dd31c532433d809e1a01216` ; source documentaire Next intégrée ; **R4 NOT STARTED** ; code, architecture cible et preuves runtime Next **N/A — NON IMPLÉMENTÉ**. Aucune branche R4 locale, fichier staged/untracked, environnement d'exécution ou activation n'a été vérifié.
 
-**Prochaine capacité engagée :** macro-lot **B — pilotage, méthode et autorité**. Le modèle A est suffisamment consolidé pour servir d'interface de travail ; ses mécanismes techniques demeurent candidats et seront revus à la consolidation A–D. Étudier B comme un ensemble cohérent, sans micro-arbitrages ni code, et maintenir les réserves R5/R6.
+**Prochaine capacité :** concevoir intégralement le macro-lot C — exécution gouvernée D7, preuve D8, autorité D6 et interfaces D9 — en exploitant les choix de A/B et la stratégie QA §8.1, puis présenter une synthèse produit et les risques bloquants à Morris. La QA se construit dès R5, R6 la qualifie transversement.
 
-**Autorisation actualisée :** Morris a validé les deux orientations produit reportées au §5.4, autorisé la synchronisation de la trajectoire A dans ce fichier sur la branche R4, et demandé de poursuivre vers B. Cela ne vaut pas approbation d'un ADR ou du choix de PostgreSQL, ni PR, merge, code Cursor, mise à jour normative de la Roadmap ou promotion de jalon.
+**Autorisation actuelle :** Morris a confirmé que la revue B ne soulevait pas d'objection produit et autorisé la synchronisation documentaire de la stratégie QA R4–R6 sur la branche R4, ainsi que l'étude complète de C. Le contenu technique B demeure **candidat**, pas validé en tant qu'ADR. Les PR, merge, modifications normatives, code, prompt Cursor, adoption et choix structurants exigent des gates distincts.
 
 ---
 
-**État du document au 2026-11-03 : `R4-A — PRODUCT ORIENTATION REVIEWED / TECHNICAL DESIGN CANDIDATE WITH CARRIED RESERVES ; R4-B — DESIGN START AUTHORIZED`. Publication sur branche candidate ≠ intégration à main.**
+**État du document au 2026-11-03 : `R4-A — ORIENTATION REVIEWED / DESIGN CANDIDATE ; R4-B — REVIEWED WITHOUT PRODUCT OBJECTION / DESIGN CANDIDATE ; QA A–D — DESIGN STRATEGY CANDIDATE ; R4-C — TO BE DESIGNED`. Aucun mécanisme technique Next ni architecture ADOPTED.**
