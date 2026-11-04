@@ -206,3 +206,37 @@ En revanche, le choix ordinaire d'un type interne, d'un nom de fonction ou d'un 
 **Contrôles prévisibles sous ce profil :** Git Truth Check local et base/branche autorisée, sources SEF/Roadmap/décisions/R2/R3/R4/ENV-01/product-versioning + guide/template SFIA v2.6 au bon SHA, QA de permissions et concurrence, test PostgreSQL réel et reprise, Figma au composant concerné, tests BROWSER et Nora LIVE borné, **Review Pack Full mono-cycle** et **Review Handoff required / publish-in-cycle** si Cursor produit un rapport. La publication du handoff L3 mono-fichier ne constitue pas un push projet. Tout droit de mutation Git projet, migration STABLE, PR, merge et promotion demeure soumis à un GO distinct.
 
 **Gates avant prompt :** contrat d'exécution complet et son périmètre relus, validation Morris du profil et de la spec ML1 prête à construire, autorisation D3 **explicite** ; à défaut `PROMPT NOT GENERATED — SFIA STUDIO NEXT CONTEXT INCOMPLETE`. L'état des worktrees et secrets reste à vérifier sur le poste par Cursor ; aucun succès local n'est présumé.
+
+## 10. Revue finale de préparation du contrat de construction — 2026-11-04
+
+**Nature du contrôle :** revue documentaire D0 de la capacité ML1 avant éventuel prompt SFIA v2.6 ; ce complément n'est ni une validation `VALIDATED SPEC` par Morris, ni une exécution, ni une preuve runtime. Baseline source intégrée `main@5a972f291ef8819b179d879ae73b5943307ec3c1` ; la présente synchronisation est sur la branche candidate `docs/next-r5-roadmap-ml1-qualification-20261104`.
+
+### 10.1. Contrat à soumettre pour validation de construction
+
+| Bloc du contrat Cursor à venir | Obligation précise | Échec / STOP |
+| --- | --- | --- |
+| Résultat et bornes | **E2E01 complet** : login, portefeuille, sas durable, Nora LIVE bornée, document D4, acte explicite de création, lien atomique et continuité ; autres domaines futurs en garde-fous négatifs uniquement | Si le plan crée cycle, Git, mandat, preuve ou worker externe en ML1 |
+| Sources canoniques | Recharger sur **Git à la ref d'exécution** SEF, Roadmap, décisions R1–R4, R2 D1–D4, Figma R3/contrat, R4, ENV-01, politique produit, guide et template SFIA v2.6, spécification et matrice ML1 | Si sources absentes, divergent de la baseline ou conflit d'autorité non tranché |
+| Git et propriété | Branche technique dédiée **à nommer au mandat**, issue de `main` mergé ; vérification locale réelle ; files/paths allowlist par rôle et frontières D1–D4 ; aucune mutation dans décisions, SEF ou routage partagé | Si worktree pollué, base différente, chemin protégé, push projet/PR/merge hors GO |
+| Sécurité/identité | OAuth GitHub limité à login Studio ; cookies et sessions par lane, contrôles serveur à chaque accès, révocation effective et tests à deux Pilotes ; secrets hors Git | Si isolation non vérifiable ou droit Git déduit du login |
+| Persistance | PostgreSQL unique, DDL/migrations versionnées, contrainte SQL et transaction de création ; idempotence et gestion d'ACK perdu, crash, reprise ; D3 messages et D4 documents séparés | Si création doublonnée, sauvegarde fictive, deux propriétaires ou migration destructive non autorisée |
+| Nora / fournisseur | Agents SDK **derrière adaptateur**, D3 seule mémoire durable ; sorties partielles vs persistées distinguées ; tracing maîtrisé ; LIVE borné, sans outil d'effet externe | Si SDK crée une deuxième vérité ou si appel réel, coût, données et traces ne sont pas encadrés |
+| UX et QA | Figma natif consulté juste avant les composants codés, vérification navigateur et reflow ; Vitest, PostgreSQL de test réel, Playwright et oracles R4 A01–A16 avec preuve et niveaux honnêtes | Si mock présenté comme LIVE, si rendu UX non comparé, ou si `A11` Git total déclaré PASS en ML1 |
+| ENV et versioning | Lane DEV isolée puis candidat RECETTE immuable au SHA, manifest build/schema et historique de delivery dès le premier code ; aucune première version ou STABLE préattribuée | Si lanes/secrets croisés, livraison non traçable, RC inventée, promotion sans gate |
+| Review & handoff | Cycle `8 — Delivery / implémentation`, type `INC`, profil **Critical proposé** (sécurité initiale, base, identity) ; rapport complet mono-cycle, `Review Pack Full` et handoff Git L3 `required / publish-in-cycle` conforme au template | Si rapport modifié incomplet, handoff absent, push projet déguisé en handoff |
+
+**Blast radius encadré :** contrats de création et sessions D1/D2, conversations/messages D3, ressources/version D4, navigation et UX R3, données PostgreSQL, confidentialité, lanes, migration, tests, documentation et versioning. Les consommateurs ultérieurs D5–D9 n'ont **aucun effet positif** autorisé par ce contrat. Les noms des modules/objets suivent la responsabilité produit, jamais l'index des macro-lots.
+
+### 10.2. Ce qui reste ouvert sans justifier un nouveau macro-lot documentaire
+
+- **Validation Morris :** profil Critical et limite du mandat technique D3 ; les principes de stack ont déjà reçu un accord, pas un GO code.
+- **Au contrôle local de Cursor, avant toute action à effet :** branche/worktree réel, droits et outils, versions compatibles, secrets/auth GitHub et OpenAI disponibles ou non, PostgreSQL, lanes et ports. **NON OBSERVÉ** dans cette revue ; ne pas imaginer de PASS.
+- **Au moment du code dans le même macro-lot :** noms physiques API/DDL, schéma de migrations, politique exacte des erreurs/retries/stream, limites de taille D4, règles techniques de révocation, paramètres de télémétrie, versions de packages, tests exécutables, captures comparées à Figma. Le contrat des invariants et de leurs preuves est déjà posé.
+- **Point de départ version :** `0.1.0-rc.1` peut être proposé lors du premier build RECETTE, **sans attribution automatique** ; enregistrer `NOT AVAILABLE` en attendant.
+- **Inconnues bloquantes à traiter par STOP et non en contournement :** Git/local incohérent, permissions et secrets nécessaires indisponibles pour LIVE, violation du modèle d'autorité, absence de vraie DB, Figma requis inaccessible pour la surface à implémenter ou incapacité de tester les effets critiques.
+
+### 10.3. Verdict et gate suivant
+
+**Verdict : `ML1 CONTRACT REVIEWED FOR PROMPT PREPARATION / CORE INVARIANTS QUALIFIED / STACK APPROVED IN PRINCIPLE / PROFILE CRITICAL PROPOSED / SPEC NOT YET VALIDATED / GO D3 NOT GRANTED / NO RUNTIME PROOF`.**
+
+**Prochaine décision Morris :** approuver explicitement le contrat de construction ML1, son profil et l'autorisation **D3** bornée ; **ensuite seulement** produire un prompt Cursor instancié strictement depuis le guide et le template Git au SHA applicable, en un seul bloc complet. Le GO documentaire courant n'autorise pas de publier une PR technique, de fusionner ou de promouvoir le produit.
