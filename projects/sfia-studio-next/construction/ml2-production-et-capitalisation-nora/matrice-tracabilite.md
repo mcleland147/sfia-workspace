@@ -1,7 +1,7 @@
 # SFIA Studio Next — R5 / ML2 — Matrice de cohérence et d'acceptation candidate
 ## Produire et capitaliser avec Nora — R1 → R2 → R3 → R4 → R5 / QA / évaluation cognitive
 
-**Statut : DOCUMENTED / QUALIFICATION D0 — MATRICE CANDIDATE v0.2 / NOT TESTED / NOT VALIDATED SPEC.** Ce document trace les liens à instruire avant le code. Il ne prétend pas que les scénarios sont implémentés, exécutés ou acceptés. Le **principe d'évaluation comparative ChatGPT–Nora** est approuvé par Morris dans son ambition (2026-11-04) et canonisé dans la référence R5 §14 ; les scénarios ML2 et les oracles détaillés restent des propositions de travail.
+**Statut : DOCUMENTED / QUALIFICATION D0 — MATRICE CANDIDATE v0.3 / NOT TESTED / NOT VALIDATED SPEC.** Ce document trace les liens à instruire avant le code. Il ne prétend pas que les scénarios sont implémentés, exécutés ou acceptés. Le **principe d'évaluation comparative ChatGPT–Nora** est approuvé par Morris dans son ambition (2026-11-04) et canonisé dans la référence R5 §14 ; les scénarios ML2 et les oracles détaillés restent des propositions de travail.
 
 | Champ | Valeur |
 | --- | --- |
@@ -28,9 +28,9 @@
 | ML2-COH-05 | Produire un brouillon effectivement sauvegardé | E2E 03/04 + R1 §2.41 | D3 RG-DOC-002/004/009 ; D4 RG-KNOW-016/018/020 ; PF-28/34 ; PF-KNOW-11 | 04 (94:370), 118 (161:864), Inspection | D4 documents/revisions et statuts existants ; extension à faire | Q07, Q08, Q09, Q27 | D4, D3 consommateur ; GAP |
 | ML2-COH-06 | Révision ciblée non destructive, concurrence gérée | E2E 03/04 + R1 §2.41 | D3 RG-DOC-005..007 ; D4 RG-KNOW-017/018 ; PF-30 ; PF-KNOW-12/14 | 04 (94:370) → 18 (97:359) → 205 (241:385) | R4 modèle d'identités et versions ; contrôle de base non implémenté ML1 | Q10, Q11, Q12, Q27, COG-04 | D4 écrit, D3 propose ; GAP |
 | ML2-COH-07 | Inspection et retour fiable au fil/origine | E2E 03/04 + R1 §2.41 | D3 RG-DOC-008 ; RG-UX-004..006/009 ; PF-31/35 | 03 (94:214), 04 (94:370), 18 (97:359), 205 (241:385) ; transposition §4 | R4 UX / pas de transfert d'autorité | Q13, Q14, Q27 | UX consommateur D3/D4 ; GAP |
-| ML2-COH-08 | Capitaliser uniquement l'information utile | E2E 04, §§2.8/2.33 | D4 RG-KNOW-001/002/005..010 ; PF-KNOW-01/04/09 | Journal Sujets 05 ; 89–108 | R4 §5.3 D4, index dérivé non autorisant | Q15, Q16, COG-03 | D4 ; GAP |
-| ML2-COH-09 | Sujets vivants / points ouverts transversaux | E2E 04, §2.11 | D4 RG-KNOW-003/004 ; PF-KNOW-03/08 | Sujets 160:751 ; renommage 160:823 ; regroupement 160:895 ; points ouverts 160:967 | R4 B interface D6 : pas d'autorité dans D4 | Q17, Q18 | D4 ; scope complet à arbitrer |
-| ML2-COH-10 | **Créer/sélectionner fil B puis reprendre les acquis de A** | E2E 04, §2.33 + R1 §2.41 | D3 RG-CTX-002/006/008 ; D4 RG-KNOW-011/012/015/019 ; PF-03 ; PF-KNOW-02/10/11 | projet/reprise 14 (96:370) ; fil 03 (94:214) ; Journal 05 (94:515) ; **commande B non démontrée en R3** | R4 A13 ; ML1 sélectionne fil par préparation, six messages tronqués ; création/choix fil B absent | Q19, Q20, Q27, COG-05 | D3 possède fil, D4 contexte, D1/D2 droits ; **GAP UX/API/DB à qualifier** |
+| ML2-COH-08 | Capitaliser **proactivement et sélectivement** l'information utile, avec provenance | E2E 04, §§2.8/2.33 | D4 RG-KNOW-001/002/005..010 ; PF-KNOW-01/04/09 ; D3 RG-CTX | Journal Sujets 05 ; 89–108 | R4 §5.3 D4, index dérivé non autorisant | Q15, Q16, Q28, COG-03 | D4 ; **SCOPE VALIDATED MORRIS / NOT TESTED** |
+| ML2-COH-09 | **Sujets/sous-sujets réorganisables et points ouverts transversaux** ; identité/liens/histoire conservés | E2E 04, §§2.11/2.33 | D4 RG-KNOW-003/004/007/009 ; PF-KNOW-03/04/08 | Journal 05 (94:515) ; Sujets 160:751 ; renommage 160:823 ; regroupement 160:895 ; points ouverts 160:967 | R4 D4 / interface D6 : pas d'autorité dans D4 ; UX séparation de sujets à vérifier | Q17, Q18, Q28 | D4 ; **SCOPE VALIDATED MORRIS / UX CONTRACT TO QUALIFY** |
+| ML2-COH-10 | **Créer/sélectionner fil B puis reprendre les acquis de A** | E2E 04, §2.33 + R1 §2.41 | D3 RG-CTX-002/006/008 ; D4 RG-KNOW-011/012/015/019 ; PF-03 ; PF-KNOW-02/10/11 | projet/reprise 14 (96:370) ; fil 03 (94:214) ; Journal 05 (94:515) ; **commande B non démontrée en R3** | R4 A13 ; ML1 sélectionne fil par préparation, six messages tronqués ; création/choix fil B absent | Q19, Q20, Q27, Q28, COG-05 | D3 possède fil, D4 contexte, D1/D2 droits ; **SCOPE VALIDATED / GAP UX/API/DB** |
 | ML2-COH-11 | Provenance, fraîcheur et contradiction | E2E 03/04, §2.13 | D3 RG-APP-001/002/005/007/008 ; D4 RG-KNOW-006..009/012/013 ; PF-04 ; PF-KNOW-04/05/07 | Sources dans réponse/Inspection ; états d'absence | R4 version/ref, D4 une seule vérité | Q03, Q16, Q21, COG-03/06 | D4 source + D3 usage ; GAP |
 | ML2-COH-12 | Absence de fuite entre projets / droits actuels | E2E 04, §2.15 | D4 RG-KNOW-002/014/020 ; PF-KNOW-06/07/13 ; D3 PF-15 | Inspection refus / source indisponible | R4 A10/A11 et ADR R4-01 ; A11 Git ML4 | Q22, Q23 | D1/D4 ; MAPPED / limites Git OUT |
 | ML2-COH-13 | Aucun acte HumanDecision, cycle ou Git déduit du dialogue | E2E 03/04 + interfaces E2E 05/07 | D3 RG-AUTH-001..005, RG-DOC-010 ; D4 RG-KNOW-010 ; PF-26 | Nora 03, Inspection, retour au fil | R4 A15, B01/B18 ; futur D6/D7/D9 | Q24, COG-07 | D3/D4 ; interdiction transversale |
@@ -40,6 +40,19 @@
 | ML2-COH-17 | Qualité cognitive comparée ChatGPT ↔ Nora | E2E 03/04 ; vision R1 §1–2 | Ensemble pertinent D3/D4 selon chaque scénario ; pas de nouvelle RG | UX selon scénario ; aucune maquette créée pour tester | R5 global §14 ; preuve LIVE distincte de FAKE | COG-01..07, Q01/Q19 | ChatGPT évalue ; Morris accepte |
 
 **Exhaustivité :** ce tableau n'est pas une certification RG/PF individuelle complète. À la revue de spécification, produire un contrôle explicite d'inclusion/exclusion des ensembles D3/D4 applicables, qualifier toute règle sans oracle et conserver les interfaces D1/D2/D5/D6/D7/D8/D9 hors scope. **Le référentiel R2 demeure propriétaire du texte des règles** ; le présent tableau n'en crée aucune.
+
+
+### 1.0. Arbitrage Morris acquis sur les frontières de connaissance — 2026-11-04
+
+**VALIDÉ EN PÉRIMÈTRE, NON PROUVÉ EN CODE :** ML2 regroupe un unique résultat de mémoire vivante : **Sujets/sous-sujets**, **Acquis**, **Points ouverts**, **Documents** et **Reprise cognitive inter-conversations**. D4 garde la vérité des connaissances et documents ; D3 conduit les échanges et exploite le contexte ; D6 reste propriétaire des décisions et de leur validité (fonctionnalité ML3 hors ML2). Ne pas faire un outil autonome de fiches, une vue permanente « Réserves/Recommandations » ni un moteur de mémoire bis.
+
+**Compris en ML2 :** sélection proactive proportionnée par Nora (sans formulaire systématique), organisation/renommage/déplacement/regroupement-fusion/séparation des Sujets, points ouverts accessibles indépendamment de leur sujet, historique/provenance et gestion des contradictions, inspection du Journal et reprise dans une conversation B du même projet. Toute mutation structurante doit rester lisible, traçable et réversible lorsque pertinent, sans confirmation rituelle pour les gestes simples.
+
+**Invariants négatifs :** ni création d'une HumanDecision par résumé, ni élévation de droits, ni duplication de vérité, ni déclaration de capitalisation ou de fusion non committée. Une source plus récente peut résoudre une question factuelle, mais pas lever seule une réserve gouvernée.
+
+**Chaîne de preuve :** Q15/Q16/Q17/Q18/Q19/Q20 + **Q28 E2E** constituent une seule capacité cohérente ; reprise et évolution de Sujets ne sont pas considérées couvertes par le seul écran Journal. Les scénarios COG-03 et COG-05 évaluent la valeur cognitive en complément des observations DB/BROWSER, pas à leur place.
+
+**Non décidé ici :** tables/API, pipeline d'indexation, seuil exact de pertinence, mutations UX Figma natives et options streaming. La spec technique §6.4.1 fournit le contrat de travail détaillé, sans réécrire les RG/PF validés.
 
 ### 1.1. Liaison explicite aux parcours produit, aux tests et à la conception Figma
 
@@ -75,8 +88,8 @@ Les identifiants Q et COG ci-dessous sont **des repères locaux de preuve ML2**,
 | **Q14** | Demande de révision sur version inspectée devenue périmée | Écart signalé ; aucune substitution silencieuse ; sélection conservée si possible | BROWSER + DB | D3 DOC-005/006, R3 18/205 |
 | **Q15** | Dix échanges, plusieurs digressions | Seuls acquis/sujets utiles capitalisés ; pas de fiche pour chaque remarque | LIVE + DB | PF-KNOW-01, D4 KNOW-001/005 |
 | **Q16** | Résolution factuelle et réserve gouvernée distinctes | Question de fait actualisée sur preuve ; réserve toujours ouverte sans acte autorisé | DB + LIVE | PF-KNOW-04, D4 KNOW-009 |
-| **Q17** | Renommer/regrouper un sujet et retrouver un point ouvert | Identité, provenance, relations et question préservées | DB + BROWSER | PF-KNOW-03, R3 Sujets 160:823/895 |
-| **Q18** | Passage de conversation, consultation de Sujets | Sujets et points ouverts retrouvables sans troisième registre de décisions | BROWSER + DB | PF-KNOW-02/08 |
+| **Q17** | Renommer, regrouper/fusionner, puis **séparer** des sujets reliés à une question ouverte | Identités et filiation traçables, provenance, relations et question préservées ; mutation intelligible, reprise/reversibilité proportionnée | DB + BROWSER | RG-KNOW-003/004 ; PF-KNOW-03, R3 Sujets 160:823/895 ; séparation UX à qualifier |
+| **Q18** | Passage de conversation → Journal Sujets → point ouvert transversal → retour Nora | Sujet, acquis et point ouvert consultables ; retour à la bonne conversation sans message implicite, sans troisième registre de décisions ou onglet imposé | BROWSER + DB | RG-KNOW-004, PF-KNOW-02/08 ; R3 05 / 160:967 |
 | **Q19** | Depuis un projet existant, ouvrir fil A puis créer/sélectionner explicitement fil B, avec historique propre | **Deux IDs de conversation distincts** prouvés en DB/API, messages B dans B, A inchangé ; récupération D4 de document/version, acquis et point ouvert sans injecter intégralement A ; Nora LIVE poursuit utilement | PG + API + LIVE + BROWSER | A13, PF-KNOW-02/11, E2E04, COH-10 |
 | **Q20** | Reprise après session et après création du projet | Bon document/version et historique accessibles ; pas de transfert de droits | PG + BROWSER | A13, A14, PF-KNOW-10 |
 | **Q21** | Provenance insuffisante ou document supprimé/inaccessible | Nora dit ce qu'elle ignore, ne cite pas une lecture non effectuée | LIVE + droits | D3 RG-APP-008, PF-KNOW-07 |
@@ -86,6 +99,7 @@ Les identifiants Q et COG ci-dessous sont **des repères locaux de preuve ML2**,
 | **Q25** | API IA indisponible ou message interrompu | Utilisateur durable, état assistant fidèle ; reprise sans promettre génération arrière-plan ni effet non observé | API/PG + BROWSER | PF-34, D3 CONV-006 |
 | **Q26** | Ouvrir un lien réel puis revenir ; afficher 1680/1280/390/320 | URL activable nouvel onglet ; retour au bon fil ; reflow/focus/zoom sans contenu inaccessible | BROWSER + contrat Figma | PF-32/35, UX R3 §4 |
 | **Q27 — E2E intégrateur §2.41** | Fil A : demander document → sauvegarde confirmée → inspection → révision ciblée → comparaison → retour → fil B du même projet | Identité/révisions D4, source et statut réel en DB ; contrôle de base et diff ; origine UX restaurée ; **fil B distinct**, document et acquis retrouvés sous droits courants ; pas de Git ni décision implicite | BROWSER + PG + LIVE ; COG-04/05 comparatifs distincts | R1 §2.41 ; PF-28/30/31/34/35 ; PF-KNOW-11/12/14 ; COH-04..07/10 |
+| **Q28 — E2E mémoire vivante ML2** | Fil A : exploration → Nora capitalise un acquis sourcé et un point ouvert, pas les remarques passagères → consultation Journal → renommer/fusionner/séparer un Sujet → fil B → nouvelle source contradictoire | D4 prouve l'identité, l'historique, les liens et la provenance ; points ouverts toujours accessibles ; B récupère utilement acquis et limites ; fait historiquement contextualisé, réserve gouvernée non close ; aucun formulaire rituel ni décision D6 fictive | PG + BROWSER/Figma + Nora LIVE ; COG-03/05 et revue Morris | R1 E2E04 §2.33 ; D4 RG-KNOW-001..015, PF-KNOW-01..04/08 ; D3 RG-CTX/APP ; COH-08..11 |
 
 **Couverture amont :** R4 A13 est **centrale**, A08/A09/A10/A14/A15/A16 mobilisées selon la frontière ; B01/B18 sont des invariants interfaces, **la matrice B01–B18 entière n'est pas le contrat ML2**. Les test scripts, fixtures, comptes et assertions ne seront produits qu'avec les interfaces réellement codées dans le même lot.
 
@@ -131,7 +145,7 @@ Le référentiel méthodologique reste **construction/reference-delivery-r5.md �
 | Document/Inspection | frame 04, node-id 94:370 | Identité, version, provenance, rendu Markdown, actions contextuelles | DOM/composants/mesures et retour d'inspection |
 | Révision | frame 18, node-id 97:359 | Ciblage, confirmation version, modifications visibles | Test BROWSER + version DB |
 | Comparaison | frame 205, node-id 241:385 | Versions et diff, sans changement implicite de Git | Captures/browser + preuve version |
-| Sujets et points ouverts | node-ids 160:751, 160:823, 160:895, 160:967 | Liste/évolution/recherche et origine ; pas de décisions dupliquées | Contrat R3, BROWSER + provenance DB |
+| Sujets et points ouverts | Journal 05 (94:515), node-ids 160:751, 160:823, 160:895, 160:967 ; **séparation à confronter à R3** | Acquis sélectionnés, consultation/renommage/fusion/séparation, question transversale, histoire et retour Nora ; pas de décisions dupliquées | Q15–Q18/Q28, DB + BROWSER/Figma + provenance, dépendance D3/D4 |
 | Activité/reprise Nora | index frames 206–217, audit R3 §15 | États cognitifs réels vs activité d'outil/effet ; arrêt sans succès fictif | Sélection des variantes réellement impactées |
 | **Nouvelle conversation B** | projet/reprise 14 (`96:370`) ; conversation 03 (`94:214`) ; **aucun node-id de création de fil B prouvé** | Création/choix B explicite, conservation d'A, reprise sélective D4 ; contrôle UX manquant à qualifier, **pas à inventer** | **GAP R3 à confronter avec R1/R2 avant UI**, Q19 + BROWSER/DB |
 | Responsive/accessibilité | contrat-transposition-figma-code.md §4 | 1680, 1280, 390 et 320 ; reflow, clavier, focus, zoom et reduced motion | Propriétés Figma natives + captures/diff DOM |
@@ -147,20 +161,20 @@ Le référentiel méthodologique reste **construction/reference-delivery-r5.md �
 | **Nora LIVE** | @openai/agents est présent ; son système actuel est bref, contexte six messages tronqués ; aucun accès Git/Web réel | Ne pas annoncer une enquête multi-source que les capacités ML2 n'exécutent pas ; premier usage de documents internes avec vérité D4 |
 | **D4 et D6** | Sujets/décisions consultables dans la vision ; autorité HumanDecision hors ML2 | Matérialiser les données D4 propres ; référence D6 uniquement si source effective ; pas de moteur bis |
 | **Révision concurrente** | unicité DB ML1 mais service fondé sur max(revisionNumber)+1 | Définir contrat de base/version et tests conflits avant choix de migration/transaction |
-| **A13** | aucune vraie récupération sélective prouvée en ML1 | Q19/COG-05 obligation discriminante ML2 |
+| **A13** | aucune vraie récupération sélective prouvée en ML1 | Q19/Q28/COG-05 obligation discriminante ML2 |
 | **B / CI Next** | Required Gate historique ne teste pas Next | **Avant prochaine livraison significative** : réaliser et vérifier CI Next sous GO technique distinct |
 | **A / cookies DEV/RECETTE** | risque collision sur même host | Mitigation profils séparés acceptée ; correction avant STABLE |
 | **DATA-01 / backup** | politique approuvée, restauration pas prouvée | Réserver gate technique de restauration sur les modifications DB/ressources et R6 ; aucune adoption fictive |
 | **Évaluation comparative** | deux réponses LLM peuvent se tromper ou diverger légitimement | Fact-check indépendant, conditions déclarées, éventuel blind review, avis ChatGPT non opposable, décision Morris |
 
-**Décisions encore ouvertes avant mandat D3 :** profondeur d'organisation Sujets/points ouverts attendue dès ML2, priorité de la réponse progressive/streaming dans l'expérience, scénarios source interne garantis en RECETTE, critères d'acceptation UX/cognitifs suffisamment discriminants, coût/latence/tokens, migrations/permissions/blast radius et plan de CI Next. Ne pas transformer cette liste en micro-cycles administratifs.
+**Déjà validé par Morris pour ML2 :** Sujets, sous-sujets et réorganisation durable, Acquis, Points ouverts, Documents et Reprise cognitive comme une capacité fonctionnelle intégrée. **Restent à qualifier avant D3 :** approche technique simple, contrat UX natif de la séparation/fusion, priorité streaming, sources internes disponibles en RECETTE, oracles UX/cognitifs, coût/latence/tokens, migrations/permissions/blast radius et CI Next. Ne pas transformer cette liste en micro-cycles administratifs.
 
 ## 6. Gates et verdict de qualification
 
-1. **D0 documentaire :** cette matrice et la spec ML2 sont candidates ; source main et branche candidate sont distinctes. Les références et les cas sont proposés, pas validés en bloc par le seul accord sur le statement et le protocole ChatGPT–Nora.
+1. **D0 documentaire :** l'**IN/OUT métier de la mémoire vivante** est approuvé par Morris (2026-11-04) ; cette matrice et les mécanismes restants de la spec ML2 sont **candidats**, sans QA exécutée. La branche documentaire candidate reste distincte de main jusqu'à intégration autorisée ; l'accord de périmètre ne valide pas toutes les propositions techniques.
 2. **Validation du contrat :** Morris confirme les limites du lot et les oracles discriminants ; vérifier les propriétés Figma réellement applicables, les propriétaires R2/R4 et les gaps. Aucun choix technique structurant unilatéral.
 3. **Ouverture D3 :** sous GO distinct, Cursor effectue le Git local truth check, lit guide/template SFIA v2.6 depuis Git, implémente code+UX+DB+tests+docs dans le même macro-lot et fournit Review Pack + handoff conformes.
 4. **RECETTE :** un scénario E2E 03/04 complet, tests négatifs, capture browser, persistance D4 et Nora LIVE sous conditions documentées ; comparatif ChatGPT–Nora pertinent, avec vérification factuelle indépendante.
 5. **Intégration :** PR/merge et contrôles GitHub uniquement sous GO Morris spécifique ; smoke runtime postmerge avant éventuelle STABLE ; R6 et ADOPTED restent séparés.
 
-**Verdict : ML2 TRACEABILITY QUALIFICATION D0 / MAPPED CANDIDATE — NO TEST RUN, NO BEHAVIOR PROVEN, NO GO CURSOR / NO PR / NO MERGE.**
+**Verdict : ML2 LIVING KNOWLEDGE SCOPE VALIDATED BY MORRIS / TRACEABILITY D0 CANDIDATE — Q28 ADDED / NO TEST RUN, NO BEHAVIOR PROVEN, NO GO CURSOR / NO PR / NO MERGE.**
