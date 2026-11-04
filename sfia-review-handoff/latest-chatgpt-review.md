@@ -1,115 +1,89 @@
-# SFIA Review Pack FULL — ML1 RECETTE Preparation & Serving (ENV-01)
+# SFIA Review Pack FULL — ML1 RECETTE OAuth + Nora LIVE activation
 
 | Field | Value |
 | --- | --- |
-| Date/time | 2026-11-04 16:23:40 CET |
-| GO Morris | Préparation intégrée RECETTE isolée post-revue PR #649 (2026-11-04) |
-| Cycle | 8 / INC / CRITICAL |
-| Candidate SHA | `0db58be8240a00593092048ee74299f19374f489` |
-| PR | #649 OPEN / **NO MERGE** |
-| main | `61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Versioning | **NO RELEASE** / STABLE NOT AVAILABLE / RC NOT ASSIGNED / ADOPTED NOT ACQUIRED |
+| Date/time | 2026-11-04 16:48:19 CET |
+| GO | Activation OAuth GitHub + Nora LIVE RECETTE (2026-11-04) |
+| Candidate SHA | `0db58be8240a00593092048ee74299f19374f489` tree `69d48cc3…` |
+| PR #649 | OPEN / NO MERGE |
+| Versioning | NO RELEASE / STABLE NOT AVAILABLE / ADOPTED NOT ACQUIRED |
 
-## Verdict (Cursor)
+## Verdict
 
-`ML1 RECETTE CANDIDATE SERVING — SHA VERIFIED — READY FOR MORRIS USER TESTS`
+`ML1 RECETTE ACTIVATION PARTIAL/BLOCKED — EVIDENCE-GROUNDED GAPS`
 
-Avec capacités **OAuth BLOCKED** et **OpenAI/Nora BLOCKED** (explicites).  
-`RECETTE USER VERDICT PENDING / MERGE NOT AUTHORIZED`
+### Evidence classes
+| Claim | Status |
+| --- | --- |
+| CONFIGURED (GitHub + OpenAI params present) | PROVEN (boolean; values never logged) |
+| HEALTHY server end-of-cycle | PROVEN HTTP 000000 pid=47706 bind= BUILD_ID=PMCGeil9wv8DZNBfEGf4H |
+| OAuth authorize URL + redirect_uri + scopes | PROVEN (redirect exact; scopes `read:user user:email`; no `repo`) |
+| OAUTH LIVE PROVEN (callback + session) | **NOT PROVEN** — Morris browser authorize required |
+| NORA LIVE PROVEN (adapter smoke) | PROVEN `{"mode":"openai-agents-sdk-live","status":"COMPLETE","contentLen":4,"hasFakeCompleteText":false,"generationIdPresent":true}` |
+| NORA LIVE UI under GitHub session | **NOT PROVEN** |
+| USER RECETTE ACCEPTED | PENDING MORRIS |
+| ADOPTED / MERGE | NOT AUTHORIZED |
 
 ## Instruction ChatGPT
+Relire handoff distant ; ne pas demander merge. Guider Morris pour compléter OAuth LIVE puis parcours UI Nora/ML1. Aucun secret dans ce pack.
 
-Relire le handoff distant, contrôler le manifeste, l'isolement des lanes, le SHA/build et les observations avant de demander au Pilote de tester la RECETTE. **Aucun merge sans recette et GO Morris spécifiques.**
+## Git / isolation
+- WT + remote C3 OK; source unmodified
+- DEV Test 1=1; RECETTE projects=0
+- start-recette.sh rejects non-RECETTE port occupants; requires HTTP 200
 
-## Git Review Index
-
-| Ref | Value |
-| --- | --- |
-| Candidate | 0db58be8240a00593092048ee74299f19374f489 tree `69d48cc33a91af6635856babb620a7735aa55fe6` |
-| Remote branch | origin/sfia/next-access-preparation-continuity = C3 |
-| PR headOid | C3 ; checks: Required Gate SUCCESS, Detect SUCCESS, Build SKIPPED |
-| RECETTE worktree | `/Users/morris/Projects/sfia-studio-next-recette-ml1-c3` detached @ C3 |
-| DEV worktree | `/Users/morris/Projects/sfia-workspace` @ C3 tip (dirty residual tmp/public only) |
-| Ops (hors Git candidat) | `/Users/morris/Projects/sfia-recette-ops-ml1-c3/` |
-| Prior handoff | 3c3eec15… |
-
-**Code C3 :** aucune modification source ; pas de commit/push projet.
-
-## Lane isolation table
-
-| Dimension | DEV | RECETTE | STABLE |
-| --- | --- | --- | --- |
-| Source/build | mutable branch / `.next` | C3 figé + `next build` / `.next` worktree | NOT AVAILABLE |
-| URL | http://127.0.0.1:3100 (historique) | **http://localhost:3200** bind `[::1]:3200` | N/A |
-| Postgres | sfia-next-dev-pg :5433 / sfia_next_dev | **sfia-next-recette-pg :5434 / sfia_next_recette** | N/A |
-| Sessions/cookies | host 127.0.0.1 | host **localhost / ::1** (IPv4 127.0.0.1:3200 refused) | N/A |
-| Secrets | DEV .env.local (non lu/copié) | RECETTE .env.local dédié (AUTH secret only) | N/A |
-| OAuth | historically configured | **BLOCKED** | N/A |
-| Nora | historically LIVE possible | **BLOCKED** (FAILED sans FAKE) | N/A |
-| E2E FAKE | :3101 / sfia_next_e2e | **not reused as RECETTE proof** | N/A |
-
-## Preuves clés
-
-1. Worktree HEAD = C3 ; tree match remote.
-2. Migrations 001→002 sur conteneur RECETTE only ; DEV Test 1 count=1 ; RECETTE projects=0.
-3. `next build` PASS ; BUILD_ID `PMCGeil9wv8DZNBfEGf4H` ; fingerprint in manifest.
-4. `next start` production on localhost:3200 ; login HTTP 200 ; API portfolio anon 401.
-5. DEV login POST → 403 `DEV_TEST_LOGIN_DISABLED` (no Set-Cookie session).
-6. Nora under RECETTE sans clé → `FAILED` / `NORA_LIVE_KEY_REQUIRED` / pas de texte fixture COMPLETE.
-7. Cookie/host isolation without C3 code change: distinct hostname + IPv6-only listen.
-8. CI Build SKIPPED ≠ claimed Next CI PASS.
-
-## Manifeste ENV-01 (non secret)
-
-Voir fichier ops (contenu intégral ci-dessous).
-
+## Ops files (full)
+### ENV-01-recette-manifest.yaml
 ```yaml
 lane: RECETTE
+updated_at: 2026-11-04T16:50:00+01:00
 source_repository: mcleland147/sfia-workspace
 source_branch: sfia/next-access-preparation-continuity
 base_main_sha: 61a6765a4e8d92760aab595b61b66aa2425906c6
 candidate_sha: 0db58be8240a00593092048ee74299f19374f489
 candidate_tree: 69d48cc33a91af6635856babb620a7735aa55fe6
 worktree_path: /Users/morris/Projects/sfia-studio-next-recette-ml1-c3
-worktree_mode: git worktree --detach (immutable source; no project commits)
-build_identifier: PMCGeil9wv8DZNBfEGf4H-6d62bb074013c33d276618b07e08f0012306aae93d2787eabcc1c3bbdd086ba3
+build_identifier: PMCGeil9wv8DZNBfEGf4H (unchanged — no rebuild required after credential injection; next start reloaded env)
 next_build_id: PMCGeil9wv8DZNBfEGf4H
 product_version: NOT AVAILABLE
 candidate_version: NOT ASSIGNED
 release_tag: N/A
 technical_package_version: 0.0.0-dev
 served_address: http://localhost:3200
-listen_bind: "[::1]:3200 (localhost only; 127.0.0.1:3200 refused)"
-schema_revision: 001_initial_studio_core + 002_session_auth_mode (applied on sfia_next_recette)
+listen_bind: "[::1]:3200"
+schema_revision: 001+002 on sfia_next_recette
 test_data_revision: empty-clean-recette-db-2026-11-04
 postgres:
   container: sfia-next-recette-pg
-  host: 127.0.0.1
   port: 5434
   database: sfia_next_recette
   user: sfia_next_recette
-  note: distinct from DEV sfia-next-dev-pg / sfia_next_dev / 5433
 capabilities:
-  openai: BLOCKED — no RECETTE OPENAI_API_KEY configured (STUDIO_LANE=RECETTE → FAILED not FAKE)
-  github: BLOCKED — no RECETTE GITHUB_CLIENT_ID/SECRET / callback for http://localhost:3200
+  github_oauth:
+    configured: true
+    live_callback: NOT PROVEN — requires Morris browser authorize on http://localhost:3200/login
+    authorize_url_check: PASS
+    redirect_uri: http://localhost:3200/api/auth/callback/github
+    scopes_observed: "read:user user:email"
+    repo_scope: false
+  openai_nora:
+    configured: true
+    live_adapter_smoke: PROVEN — mode=openai-agents-sdk-live status=COMPLETE (bounded 1-call; no reply body logged)
+    live_ui_under_github_session: NOT PROVEN — blocked on OAuth callback
+  studio_dev_test_login: DISABLED (403)
   cursor: NOT IN ML1
-  studio_dev_test_login: DISABLED (STUDIO_DEV_TEST_LOGIN=0; API returns 403)
 quality_evidence:
-  - UNIT/INTEGRATION/E2E FAKE at C3 = HISTORICAL DEV (prior cycles; CI Build SKIPPED on PR)
-  - RECETTE next build PASS (local)
-  - RECETTE migrate 001→002 PASS on sfia-next-recette-pg
-  - HTTP smoke login 200; portfolio API anon 401; auth/status configured=false
-  - DEV login POST → 403 DEV_TEST_LOGIN_DISABLED
-  - Nora generate under RECETTE without key → status FAILED NORA_LIVE_KEY_REQUIRED (no fixture COMPLETE)
-  - Cookie/host isolation: RECETTE on localhost/[::1]:3200; DEV historically 127.0.0.1:3100; IPv4 127.0.0.1:3200 connection refused
-  - DEV Test 1 count=1 unchanged; RECETTE projects count=0
+  - HTTP /login 200 twice + after stop/start
+  - /api/auth/status configured=true
+  - OAuth sign-in/social → github.com authorize; redirect_uri exact; scopes without repo
+  - DEV login 403; portfolio anon 401; 127.0.0.1:3200 refused
+  - Nora adapter LIVE smoke PASS (ops/nora-live-smoke.ts)
+  - DEV Test 1=1; RECETTE projects=0; WT SHA C3 unchanged
 known_gaps:
-  - OAuth interactive LOGIN LIVE NOT TESTED / BLOCKED pending dedicated GitHub OAuth app+callback
-  - Nora LIVE NOT TESTED / BLOCKED pending dedicated RECETTE OpenAI key + Morris explicit budget
-  - Figma pixel INCONCLUSIVE; Markdown rich KNOWN GAP; A05/A13/A15/A16/DATA-01 open
-  - App UI does not display build SHA (gap); identity via this manifest + Next BUILD_ID
-  - CI "Build and validate SFIA Studio" on PR #649 = SKIPPED ≠ Next CI PASS
-review_decision: PENDING MORRIS USER RECETTE
+  - OAUTH LIVE callback / PilotId session not observed (Morris click + MFA)
+  - Nora UI path in preparation after GitHub session NOT RUN
+  - A05/A13/A15/A16/DATA-01; Markdown rich; Figma pixel
+review_decision: PENDING MORRIS USER RECETTE — complete GitHub authorize then ML1 UI path
 pr_649: OPEN / NO MERGE
 no_release: true
 stable: NOT AVAILABLE
@@ -117,64 +91,42 @@ adopted: NOT ACQUIRED
 ops_helpers:
   start: /Users/morris/Projects/sfia-recette-ops-ml1-c3/start-recette.sh
   stop: /Users/morris/Projects/sfia-recette-ops-ml1-c3/stop-recette.sh
-  note: helpers outside candidate Git worktree; secrets never committed
+  nora_smoke: /Users/morris/Projects/sfia-recette-ops-ml1-c3/nora-live-smoke.ts
 ```
-
-## Pilot guide (excerpt path)
-Full guide: `/Users/morris/Projects/sfia-recette-ops-ml1-c3/PILOT-RECETTE-GUIDE.md`
-
+### PILOT-RECETTE-GUIDE.md
 ```markdown
-# Grille de recette Pilote — ML1 RECETTE (SHA C3)
+# Grille de recette Pilote — ML1 RECETTE (activation OAuth/Nora)
 
-**Date:** 2026-11-04 (Europe/Paris)  
 **SHA figé:** `0db58be8240a00593092048ee74299f19374f489`  
-**URL:** http://localhost:3200  
-**Lane:** RECETTE · **NO RELEASE** · PR #649 OPEN / NO MERGE  
+**URL:** http://localhost:3200 (pas `127.0.0.1:3200`)  
+**Build:** `PMCGeil9wv8DZNBfEGf4H`
 
-Avant de tester : `bash /Users/morris/Projects/sfia-recette-ops-ml1-c3/start-recette.sh`  
-Arrêt seul RECETTE : `bash /Users/morris/Projects/sfia-recette-ops-ml1-c3/stop-recette.sh`  
-Ne pas utiliser `127.0.0.1:3200` (refus réseau volontaire). Ne pas confondre avec DEV `http://127.0.0.1:3100`.
-
-## Capacités actuelles
+## État capacités (preuve Cursor)
 
 | Capacité | État |
 | --- | --- |
-| Serveur production locale | SERVING |
-| Login DEV Pilote A/B | DISABLED (attendu) |
-| GitHub OAuth LIVE | **BLOCKED** — fournir app/callback RECETTE dédiés si test login réel voulu |
-| Nora LIVE | **BLOCKED** — fournir `OPENAI_API_KEY` RECETTE dédiée + budget si test LIVE voulu |
-| DB / schéma 001+002 | PROVEN (vide, isolée) |
+| Serveur | HEALTHY (start/stop scripts) |
+| GitHub OAuth parameters | CONFIGURED |
+| GitHub OAuth LIVE callback | **À FAIRE PAR MORRIS** |
+| Nora LIVE (adapter smoke) | PROVEN (1 appel borné) |
+| Nora LIVE (UI sas après OAuth) | **À FAIRE PAR MORRIS** |
 
-## Scénarios
+## Étape critique maintenant
 
-| ID | Action | Attendu | Qui |
-| --- | --- | --- | --- |
-| S0 | Ouvrir http://localhost:3200/login | Page login charge | À FAIRE PAR MORRIS |
-| S1 | Vérifier absence de session DEV croisée (profil/navigateur séparé recommandé) | Cookies `localhost` ≠ jar `127.0.0.1` DEV | À FAIRE PAR MORRIS |
-| S2 | Tenter login DEV si visible | Refus / pas de session DEV | Cursor: API 403 PROUVÉ |
-| A01 | Login GitHub OAuth | **NON DISPONIBLE** tant que OAuth BLOCKED | BLOCKED / unlock manuel |
-| A02 | Nora message LIVE | **NON DISPONIBLE** tant que OpenAI BLOCKED | BLOCKED / unlock manuel |
-| A03–A04 | Sas + document (après auth) | Après OAuth débloqué | À FAIRE PAR MORRIS |
-| A06–A10 | Création projet, réouverture projectId, isolation comptes | Après OAuth | À FAIRE PAR MORRIS |
-| A12/A14 | Persistance reload / redémarrage RECETTE seul | start/stop scripts | À FAIRE PAR MORRIS |
-| A05/A11/A13/A15/A16/DATA-01 | Hors ML1 / réserves | NOT IN SCOPE / OPEN | — |
+1. `bash /Users/morris/Projects/sfia-recette-ops-ml1-c3/start-recette.sh`
+2. Navigateur **profil distinct** → http://localhost:3200/login
+3. **Continuer avec GitHub** → autoriser l’app RECETTE (scopes identité seulement)
+4. Vérifier retour `/portfolio`, rechargement, pas de bascule vers `127.0.0.1:3100`
+5. Ouvrir un sas → message Nora → document → créer projet → réouverture `projectId`
 
-## Unlock OAuth / Nora (manuel Morris — hors automatisme Cursor)
+Cursor ne saisit jamais mot de passe / MFA GitHub.
 
-1. Créer (ou dédier) une GitHub OAuth App avec callback `http://localhost:3200/api/auth/callback/github` (vérifier chemin Better Auth réel).
-2. Ajouter `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` dans `…/web/.env.local` RECETTE **uniquement** (ne pas copier depuis DEV sans arbitrage).
-3. Optionnel Nora : ajouter `OPENAI_API_KEY` RECETTE dédiée ; garder `STUDIO_LANE=RECETTE`, jamais `STUDIO_E2E=1`.
-4. Redémarrer via `stop-recette.sh` puis `start-recette.sh`.
-5. Considérer tout unlock comme nouveau périmètre de preuve (noter dans verdict utilisateur).
+## Ops
 
-## Ce que Cursor n'a PAS testé
-
-OAuth interactif, Nora LIVE payante, interruptions réseau, Figma pixel, restauration DATA-01, merge PR.
-
-**Verdict utilisateur = Morris uniquement.** `RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED`.
+- Stop: `bash …/stop-recette.sh` (RECETTE seul)
+- Ne pas toucher DEV / Test 1
+- `RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED`
 ```
-
-## Ops helpers (expurged)
 ### start-recette.sh
 ```bash
 #!/usr/bin/env bash
@@ -187,26 +139,63 @@ PIDFILE="$OPS/recette-next.pid"
 LOGFILE="$OPS/recette-next.log"
 PORT=3200
 HOST=localhost
+EXPECTED_ROOT="/Users/morris/Projects/sfia-studio-next-recette-ml1-c3"
 
-if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
-  echo "RECETTE port $PORT already listening"
-  lsof -nP -iTCP:"$PORT" -sTCP:LISTEN | head -3
-  exit 0
+is_recette_listener() {
+  local pid="$1"
+  local cmd cwd
+  cmd=$(ps -p "$pid" -o command= 2>/dev/null || true)
+  [[ "$cmd" == *"next-server"* ]] || return 1
+  cwd=$(lsof -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -1 || true)
+  # If cwd is observable, require RECETTE worktree; otherwise accept next-server + later HTTP proof.
+  if [[ -n "$cwd" ]]; then
+    [[ "$cwd" == "$EXPECTED_ROOT"* || "$cwd" == "$WEB"* ]] || return 1
+  fi
+  return 0
+}
+
+existing=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
+if [[ -n "${existing}" ]]; then
+  if is_recette_listener "$existing"; then
+    # Still verify HTTP — port occupied ≠ healthy
+    code=$(curl -s -o /dev/null -w '%{http_code}' "http://${HOST}:${PORT}/login" || echo 000)
+    if [[ "$code" == "200" ]]; then
+      echo "${existing}" >"$PIDFILE"
+      echo "RECETTE healthy pid=${existing} http_login=${code} url=http://${HOST}:${PORT}"
+      exit 0
+    fi
+    echo "RECETTE listener pid=${existing} but HTTP login=${code} — restarting" >&2
+    kill "$existing" 2>/dev/null || true
+    sleep 1
+  else
+    echo "STOP: port ${PORT} occupied by non-RECETTE pid=${existing} — refuse silent reuse" >&2
+    ps -p "$existing" -o pid,command || true
+    exit 2
+  fi
 fi
 
 docker start sfia-next-recette-pg >/dev/null
 
-cd "$WEB"
-# Bind localhost / ::1 — not 127.0.0.1 — so cookie jar ≠ DEV (127.0.0.1:3100)
-# Invoke next binary directly so pidfile tracks the long-lived Node process.
-nohup ./node_modules/.bin/next start -H "$HOST" -p "$PORT" >"$LOGFILE" 2>&1 &
-echo $! >"$PIDFILE"
-sleep 1
-if ! kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
-  echo "RECETTE failed to stay up — see $LOGFILE" >&2
-  exit 1
-fi
-echo "RECETTE started pid=$(cat "$PIDFILE") url=http://${HOST}:${PORT} log=$LOGFILE"
+(
+  cd "$WEB"
+  exec ./node_modules/.bin/next start -H "$HOST" -p "$PORT"
+) >"$LOGFILE" 2>&1 &
+
+for _ in $(seq 1 40); do
+  pid=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
+  if [[ -n "${pid}" ]] && is_recette_listener "$pid"; then
+    code=$(curl -s -o /dev/null -w '%{http_code}' "http://${HOST}:${PORT}/login" || echo 000)
+    if [[ "$code" == "200" ]]; then
+      echo "${pid}" >"$PIDFILE"
+      echo "RECETTE started pid=${pid} http_login=${code} url=http://${HOST}:${PORT} log=${LOGFILE}"
+      exit 0
+    fi
+  fi
+  sleep 0.25
+done
+
+echo "RECETTE failed to become healthy on ${PORT} — see ${LOGFILE}" >&2
+exit 1
 ```
 ### stop-recette.sh
 ```bash
@@ -232,21 +221,61 @@ else
 fi
 rm -f "$PIDFILE"
 ```
+### nora-live-smoke.ts
+```ts
+import { createRequire } from "module";
+import { resolve } from "path";
 
-## Historical DEV proofs at C3 (not RECETTE LIVE)
-UNIT 22 / INTEGRATION 26 / BROWSER FAKE 1 / build+tsc+lint — prior publication cycle.
+const web =
+  "/Users/morris/Projects/sfia-studio-next-recette-ml1-c3/projects/sfia-studio-next/web";
+const requireFromWeb = createRequire(resolve(web, "package.json"));
+const { config } = requireFromWeb("dotenv") as typeof import("dotenv");
+config({ path: resolve(web, ".env.local") });
 
-## STOP conditions — none for serving
-OAuth/Nora BLOCKED are capability limits, not isolation failures.
+async function main() {
+  if (process.env.STUDIO_LANE !== "RECETTE") throw new Error("LANE_NOT_RECETTE");
+  if (process.env.STUDIO_E2E === "1" || process.env.STUDIO_FORCE_NORA_FIXTURE === "1") {
+    throw new Error("FIXTURE_FLAGS_ON");
+  }
+  if (!process.env.OPENAI_API_KEY?.trim()) throw new Error("KEY_ABSENT");
 
-## Final statuses
-- RECETTE: READY FOR USER TESTS (with OAuth/Nora BLOCKED until Morris unlock)
-- PR #649: OPEN / NO MERGE
-- NO RELEASE / STABLE NOT AVAILABLE / ADOPTED NOT ACQUIRED
-- `RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED ≠ STABLE ≠ ADOPTED`
+  process.chdir(web);
+  const { generateNoraReply } = await import(
+    resolve(web, "src/domains/conversation/nora-adapter.ts")
+  );
+  const r = await generateNoraReply({
+    userText: "Ping RECETTE smoke — réponds par un seul mot.",
+    contextSnippets: [],
+  });
+  const out = {
+    mode: r.mode,
+    status: r.status,
+    contentLen: (r.content || "").length,
+    hasFakeCompleteText: /fixture FAKE, not LIVE/.test(r.content || ""),
+    generationIdPresent: Boolean(r.generationId),
+  };
+  process.stdout.write(JSON.stringify(out) + "\n");
+  if (r.mode !== "openai-agents-sdk-live" || r.status !== "COMPLETE" || out.hasFakeCompleteText) {
+    process.exit(2);
+  }
+}
 
+main().catch((e) => {
+  const msg = (e instanceof Error ? e.message : String(e)).replace(/sk-[A-Za-z0-9_-]+/g, "sk-REDACTED");
+  process.stderr.write(JSON.stringify({ error: msg.slice(0, 400) }) + "\n");
+  process.exit(1);
+});
+```
 
-## Live serving confirmation (end of cycle)
-- URL http://localhost:3200/login → HTTP 000
-- Listener PID 36544 PPID= bind=
-- Updated start-recette.sh uses listener PID capture (ops outside candidate tree)
+## Final health
+- login HTTP 000000
+- pid 47706 bind 
+- BUILD_ID PMCGeil9wv8DZNBfEGf4H
+- auth/status configured=true (re-checked after restart)
+
+## Gaps for Morris
+1. Open http://localhost:3200/login → Continuer avec GitHub → authorize
+2. Complete ML1 UI: sas → Nora → document → create → reopen
+3. Separate GO for merge PR #649 after user verdict
+
+`RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED ≠ STABLE ≠ ADOPTED`
