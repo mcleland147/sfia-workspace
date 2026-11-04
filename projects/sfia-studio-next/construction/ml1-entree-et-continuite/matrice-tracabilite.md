@@ -131,3 +131,21 @@ Les correspondances d'identifiants sont classées par **capacité responsable du
 **Markdown UX :** KNOWN GAP — RICH MARKDOWN RENDERING NOT IMPLEMENTED.
 **Figma pixel :** INCONCLUSIVE (rail 246 native only).
 **PostCSS prod GHSA :** closed via override `8.5.32` ; Next 16 non requis pour cette famille.
+
+## 8. Synthèse de préclôture ML1 — revue documentaire post-merge du 2026-11-04
+
+**Statut : REVIEWED AGAINST MAIN CODE / CLOSURE DECISION PENDING MORRIS.** Référence Git de la livraison : #649, candidat `0db58be...`, merge `747cbec...` ; preuves primaires et catégorisation détaillées au §7 et dans `specification-technique.md` §15. Le présent récapitulatif **n'exécute pas de tests et ne modifie aucun verdict PASS/PARTIAL/OUT de §7**.
+
+| Axe / oracle restant | Niveau constaté | Propriétaire / suite et condition de sortie | Conséquence pour ML2 |
+| --- | --- | --- | --- |
+| A05 — commit puis ACK perdu, restart | PARTIAL : replay de création déjà effectuée en PG, pas de panne injectée post-commit avec réouverture complète | D2 / QA ML1 résiduelle ; tester la reprise discriminante avant de revendiquer l'oracle complet ou la qualification R6 correspondante | Pas de blocage **démontré** de la préparation ML2 ; risque de reprise explicitement conservé |
+| A13 — sélection pertinente d'acquis/connaissances | PARTIAL / NOT RUN comme oracle propre ; reload du transcript ≠ récupération cognitive | D3/D4 — capacité ML2 de continuité et capitalisation ; comparaisons de scénarios et preuves LIVE si applicables | **À inclure explicitement au contrat et à la preuve ML2**, pas à déclarer acquis en ML1 |
+| A15 — absence d'effets implicites D5–D9 | PARTIAL : absence d'outils dans l'adaptateur, code inspecté et stub non-effects ; pas de preuve négative exhaustive | Frontière D2/D3 puis propriétaires D5–D9 pour leurs futures réalisations ; tests négatifs réels selon blast radius | Préserver les interdictions ; nouvelle preuve lorsque des capacités d'effet sont introduites |
+| A16 et DATA-01 — redémarrage, restore, backup | PARTIAL / OUT ML1 pour restore DATA-01 ; pas de restauration injectée | ENV-01 / D2–D4 / R5–R6, avec reprise et restauration réellement testées avant le gate de qualification/promotion applicable | Dette d'exploitation à préserver, sans prétendre un ML1-bis obligatoire |
+| A11 — révocation de source Git | OUT OF ML1 correctement attribué | ML4 (Git facultatif / D9) ; révocation et interdiction de réemploi à démontrer | Pas de blocage intrinsèque du nominal ML2 sans Git |
+| Réserve A — cookies DEV/RECETTE | Risque structurel démontré sur hôte commun, pas de violation de droits inter-bases démontrée | D1/ENV-01 ; isolation technique et nouvelle recette des sessions **avant STABLE** | Mitigation profils séparés tant qu'acceptée ; ne pas en déduire isolation complète |
+| Réserve B — CI Next | Required Gate historique SUCCESS, build/test Next SKIPPED | Infrastructure delivery / workflow Next distinct sous GO Git partagé, **avant prochaine livraison significative** | Prérequis pour la **prochaine intégration significative**, pas une preuve que ML2 ne peut être cadré |
+| UX et cognition — Figma, Markdown, streaming | Fidélité Figma totale INCONCLUSIVE ; rendu Markdown riche absent ; dialogue Nora LIVE borné, réponse API synchrone JSON | UX D3/D4, lot propriétaire ; qualifier exigences et scénarios visuels dans ML2 si surfaces concernées | À examiner lors du contrat UX/cognitif ML2, sans modification rétroactive des preuves ML1 |
+| Schéma / documentation | `postgres-js` réellement utilisé ; script migrations 001+002 ; export `schemaRevision` toujours 001 | D2–D4 / As-Built synchronisé dans spec §15 ; vérifier l'effet de métadonnée dans le prochain travail technique approprié | Pas d'impact runtime établi par la seule lecture de l'export |
+
+**Décision de préclôture proposée, non autoritative :** le parcours utilisateur ML1 (entrée → sas durable → Nora bornée → première ressource → création explicite → reprise projet) est intégré et accepté en recette **avec réserves**. Aucun blocage technique nouveau de démarrage ML2 n'a été **démontré par cette revue documentaire**. La clôture du macro-lot, l'acceptation nominative des reports, l'éventuelle nécessité d'un correctif ML1-B et l'ouverture de ML2 relèvent de décisions Morris **distinctes**. **NO STABLE / NO RELEASE / NO ADOPTED.**
