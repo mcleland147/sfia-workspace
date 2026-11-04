@@ -5,7 +5,7 @@
 
 | Champ | Valeur |
 | --- | --- |
-| Référentiel Git source | mcleland147/sfia-workspace, main@9cd7a6c751f46d1be000d33a810fc9c344476ffc ; clarifications R1/R2/R3 D2 encore candidates |
+| Référentiel Git source | mcleland147/sfia-workspace, main@9cd7a6c751f46d1be000d33a810fc9c344476ffc ; clarifications D2 R1/R2/R3/R4/R5 **sur la même branche candidate, non mergées** |
 | Candidate Git | docs/next-ml2-knowledge-scope-20261104 — **non mergée** |
 | Spécification sœur | specification-technique.md, état D0 candidate |
 | Sources R1 | cadrage/vision-produit.md §§1–2, 2.8, 2.13–2.15, 2.20, 2.32 (E2E 03), 2.33 (E2E 04), 2.40–2.41 |
