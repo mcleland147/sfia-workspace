@@ -1,7 +1,7 @@
-# SFIA Studio Next — R5 / ML2 — Spécification technique candidate
+# SFIA Studio Next — R5 / ML2 — Spécification technique validée en contenu
 ## Produire, réviser et capitaliser avec Nora
 
-> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.6 — READY FOR MORRIS CONTENT REVIEW, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
+> **État : VALIDATED SPEC — ML2 v0.6, contenu du contrat D3/D4, UX et critères d'acceptation approuvé par Morris le 2026-11-04.** Le périmètre et les résultats attendus sont validés pour préparer le delivery ; les choix internes de signatures API/transactions, migrations et composants Figma restent à qualifier **dans les frontières du contrat**, avec retour Morris en cas d'écart structurant. **Validation documentaire ≠ GO Cursor ≠ implémentation ≠ preuve BROWSER/DB/LIVE ≠ RECETTE ≠ STABLE/RELEASE/ADOPTED**. Cette écriture sur branche candidate et sa future intégration à `main` sont des gates Git distincts.
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -39,7 +39,7 @@
 
 **Contrainte D5 constante :** au plus un cycle actif par projet, indépendamment des échanges ou digressions, avec le CKI de ce cycle uniquement. L'interface du fil n'est ni un moteur de cycle ni un registre de sujets ; D4 garde les acquis, documents et points ouverts indépendamment du volume d'historique affiché.
 
-**Requalification acquise dans Git :** les corrections R1/R2/R3/R4/R5 du modèle **un fil continu par projet** sont intégrées sur `main` par la PR #653, vérifiée le 2026-11-04. Le test initial de « deux fils A/B » a été retiré comme exigence inventée ; les présentes clarifications ML2 v0.6 sont **nouvelles, candidates, et distinctes de cette intégration**.
+**Requalification acquise dans Git :** les corrections R1/R2/R3/R4/R5 du modèle **un fil continu par projet** sont intégrées sur `main` par la PR #653, vérifiée le 2026-11-04. Le test initial de « deux fils A/B » a été retiré comme exigence inventée ; les présentes clarifications ML2 v0.6 ont reçu **validation de contenu Morris le 2026-11-04** et sont portées par une branche Git documentaire distincte jusqu'à leur merge.
 
 **Parcours R1 §2.41, conservé sans multi-chat :**
 
@@ -407,14 +407,14 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 ## 11. Gates de validation et prochaine étape
 
 **Gates nécessaires avant prompt Cursor / D3 :**
-- **Contrats de restitution à approuver en contenu :** Markdown enrichi et états d'activité honnêtes ; streaming **à tenter sans être bloquant pour le lot**, incident et dette/exit explicites si report ; vérifier le provider et l'arrêt réel avant promesse de progression.
-- **Contrats D3/D4 désormais détaillés en §5.4 pour validation Morris :** D4 conserve/rend disponible et contrôle les droits, D3 choisit la pertinence, mêmes fil/identités, documents/versions/capitalisation, conflits/idempotence/reconciliation ; signatures DB/API encore à construire sans changement d'autorité.
+- **Contrats de restitution VALIDATED SPEC :** Markdown enrichi et états d'activité honnêtes ; streaming **à tenter sans être bloquant pour le lot**, incident et dette/exit explicites si report ; vérifier le provider et l'arrêt réel avant toute promesse de progression.
+- **Contrats D3/D4 §5.4 VALIDATED SPEC :** D4 conserve/rend disponible et contrôle les droits ; D3 choisit la pertinence ; mêmes fil/identités, documents/versions/capitalisation, conflits/idempotence/réconciliation. Signatures et migrations à concevoir avec le code, sans changement d'autorité.
 - **Écart R3 résiduel :** clarification multi-chat déjà intégrée via PR #653 ; **parcours natif complet de séparation des Sujets non démontré**. §6.10 pose les états et oracles, reste à choisir/révérifier la composition Figma pertinente avant le code UX ; aucun gestionnaire de chats.
-- **Déjà approuvé en périmètre par Morris (2026-11-04)** : mémoire vivante intégrée D4, Sujets/sous-sujets et réorganisation, Acquis, Points ouverts et Reprise cognitive. **Encore à qualifier avant D3** : oracles exacts, composants et états UX/Figma, stratégie de sélection D4, options streaming, impact migration/sécurité et périmètre complet ML2 ; ce document reste **CANDIDATE**.
+- **VALIDATED SPEC par Morris (2026-11-04) :** mémoire vivante D4, Sujets/sous-sujets réorganisables, Acquis, Points ouverts, production/version documentaire, reprise du même fil ; oracles Q/COG et comportements UX pertinents. **Restent des vérifications d'ingénierie, non des validations produit anticipées :** réalisation Figma de la séparation, signatures/migrations/transactions et sécurité, sélection effective D3 des ressources D4, provider/streaming, performance et données de RECETTE, CI Next réellement exécutée.
 - Vérifier code/documentation/ADR/UX et source Figma pertinente sur ref actuel ; relever les gaps bloquants et le blast radius des nouvelles migrations, permissions et UI.
 - Définir branche autorisée, HEAD/base, fichiers, conditions STOP, QA, stratégie ENV-01, plan de reprise et preuve CI Next sous son GO technique adapté.
 - Lire les versions **Git** du routeur et du template Cursor SFIA v2.6 et n'émettre qu'alors le prompt officiel complet ; pas de template Next parallèle.
 
 **Critères de sortie candidats :** une production cognitive observable et utile, document enregistré/révisé/retrouvé, connaissance sélective utile et points ouverts, absence de fuite/autorité inventée, comportement honnête en panne, transposition UX contrôlée, comparatifs LIVE/ChatGPT commentés, dette/exit et preuves à SHA stable, acceptance Morris.
 
-**Verdict D0 : ML2 PRODUCT INTENT, SINGLE THREAD AND D4 KNOWLEDGE SCOPE VALIDATED BY MORRIS / D3–D4 AND UX ACCEPTANCE CONTRACT CANDIDATE v0.6 READY FOR MORRIS CONTENT REVIEW / NO CURSOR PROMPT / NO CODE / NO PR / NO MERGE / NOT ADOPTED.**
+**Verdict : ML2 v0.6 — VALIDATED SPEC BY MORRIS (2026-11-04) / CONTRACT READY FOR D3 GO PREPARATION / NO CURSOR PROMPT / NOT IMPLEMENTED / NO ML2 QA EXECUTED / NO RECETTE / NO STABLE / NO RELEASE / NOT ADOPTED.**
