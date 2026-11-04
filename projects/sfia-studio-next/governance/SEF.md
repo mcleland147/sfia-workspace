@@ -7,6 +7,7 @@
 | Programme de construction | **SFIA Studio Next** — désignation interne provisoire, distincte du produit historique |
 | Document | **SEF / R0-A — proposition de méthode et charte de lancement** |
 | Version | **0.2 — VALIDATED BY MORRIS / R0-A — 2026-11-01** · consolidation R0-A (arborescence dans `sfia-workspace` + contribution documentaire ChatGPT) |
+| Addendum normatif | **SEF-01 — primauté permanente de la vision produit : VALIDATED BY MORRIS — 2026-11-04 (REX ML1)**. Ne constitue pas une validation des autres enseignements. |
 | Date | 1er novembre 2026 (Europe/Paris) |
 | Autorité | **Morris** — gouvernance, architecture, doctrine, gates, création de repo, promotions |
 | Base Git historique inspectée | `mcleland147/sfia-workspace`, branche par défaut `main`, dernier commit retourné **`cd2020c82ecdcdaa073debd6985ee9c113bfba3e`** (consultation distante) |
@@ -81,6 +82,20 @@ La vision de départ est celle des trois schémas fournis par Morris : *Pilote �
 **SEF-14 — Pas de nouveau mécanisme inutile.** Réutiliser des concepts validés mais pas par inertie les architectures historiques ; éviter abstractions, POC, fixtures et fonctionnalités futures sans cas d’usage ou exit propre.
 
 **SEF-15 — Contribution directe ChatGPT proportionnée.** ChatGPT peut concevoir, rédiger et réviser directement les artefacts documentaires et de gouvernance du nouveau chantier, sans passage automatique par Cursor. L’intégration dans **Git distant** suit une autorisation Morris **bornée et traçable** (périmètre, branche, opérations, garde-fous). Rédaction ≠ approbation normative ; approbation ≠ commit/push/PR/merge. Modalités en §10.
+
+### Addendum validé à SEF-01 — Primauté permanente de la vision produit (2026-11-04)
+
+**Statut : VALIDATED BY MORRIS — REX ML1, enseignement 1.** Cette précision renforce le principe SEF-01 existant. Elle ne valide ni les autres enseignements du REX, ni de nouveaux gates ou mécanismes d'exécution, ni une modification de la doctrine produit.
+
+La construction de SFIA Studio Next est conduite en priorité par sa **vision produit, ses résultats utilisateurs et ses capacités métier attendues**.
+
+À chaque étape — cadrage, conception fonctionnelle, UX, architecture, construction, tests, revue et qualification — les travaux doivent être appréciés au regard de leur contribution à cette vision.
+
+**La conformité d'une implémentation à son contrat technique ne suffit pas à démontrer la réussite produit.**
+
+ChatGPT et Morris doivent régulièrement réinterroger la pertinence des travaux engagés, leur cohérence avec la cible globale et leur impact sur les capacités suivantes.
+
+Toute dérive significative doit être explicitée, analysée et arbitrée avant d'être prolongée dans le delivery.
 
 ## 4. La doctrine des macro-lots — **règle structurante**
 
