@@ -1,281 +1,194 @@
-# SFIA Review Pack FULL — ML1 RECETTE OAuth + Nora LIVE activation
+# SFIA Review Pack FULL — ML1 Pre-Merge Technical Qualification (PR #649)
 
 | Field | Value |
 | --- | --- |
-| Date/time | 2026-11-04 16:48:19 CET |
-| GO | Activation OAuth GitHub + Nora LIVE RECETTE (2026-11-04) |
-| Candidate SHA | `0db58be8240a00593092048ee74299f19374f489` tree `69d48cc3…` |
-| PR #649 | OPEN / NO MERGE |
-| Versioning | NO RELEASE / STABLE NOT AVAILABLE / ADOPTED NOT ACQUIRED |
+| Date/time | 2026-11-04 17:22:35 CET |
+| Cycle | **13 — PR readiness** / INC / Critical |
+| GO Morris | Contrôle technique final pré-merge (2026-11-04) — **PAS un GO merge** |
+| PR | [#649](https://github.com/mcleland147/sfia-workspace/pull/649) OPEN / MERGEABLE / CLEAN |
+| Head SHA | `0db58be8240a00593092048ee74299f19374f489` tree `69d48cc33a91af6635856babb620a7735aa55fe6` |
+| main | `61a6765a4e8d92760aab595b61b66aa2425906c6` (unchanged) |
+| Fichiers projet modifiés ce cycle | **aucun** |
+| Versioning | NO RELEASE / STABLE NOT AVAILABLE / NO ADOPTED |
 
 ## Verdict
 
-`ML1 RECETTE ACTIVATION PARTIAL/BLOCKED — EVIDENCE-GROUNDED GAPS`
+`ML1 PRE-MERGE TECHNICAL QUALIFICATION COMPLETE — MERGE GO PENDING`
 
-### Evidence classes
-| Claim | Status |
-| --- | --- |
-| CONFIGURED (GitHub + OpenAI params present) | PROVEN (boolean; values never logged) |
-| HEALTHY server end-of-cycle | PROVEN HTTP 000000 pid=47706 bind= BUILD_ID=PMCGeil9wv8DZNBfEGf4H |
-| OAuth authorize URL + redirect_uri + scopes | PROVEN (redirect exact; scopes `read:user user:email`; no `repo`) |
-| OAUTH LIVE PROVEN (callback + session) | **NOT PROVEN** — Morris browser authorize required |
-| NORA LIVE PROVEN (adapter smoke) | PROVEN `{"mode":"openai-agents-sdk-live","status":"COMPLETE","contentLen":4,"hasFakeCompleteText":false,"generationIdPresent":true}` |
-| NORA LIVE UI under GitHub session | **NOT PROVEN** |
-| USER RECETTE ACCEPTED | PENDING MORRIS |
-| ADOPTED / MERGE | NOT AUTHORIZED |
+Sous-qualification : **READY WITH CARRIED RESERVES** (A cookies + B CI Next).  
+Les deux écarts sont **qualifiés avec preuves** ; aucun n'est une faille d'autorité DB prouvée ; chacun exige un **gate Morris distinct** (merge vs remediation).
+
+**Fait de revue (conversation) :** Morris a accepté la recette fonctionnelle ML1 au SHA C3 — non encore consigné dans Git projet (roadmap/delivery-history sync = gate ultérieur).
 
 ## Instruction ChatGPT
-Relire handoff distant ; ne pas demander merge. Guider Morris pour compléter OAuth LIVE puis parcours UI Nora/ML1. Aucun secret dans ce pack.
 
-## Git / isolation
-- WT + remote C3 OK; source unmodified
-- DEV Test 1=1; RECETTE projects=0
-- start-recette.sh rejects non-RECETTE port occupants; requires HTTP 200
+Relire le handoff distant publié, vérifier PR #649 et son SHA directement, qualifier les deux écarts et proposer l'arbitrage Morris ; **ne pas recommander un GO merge en confondant GitHub required gate SUCCESS et CI Next SKIPPED.**
 
-## Ops files (full)
-### ENV-01-recette-manifest.yaml
-```yaml
-lane: RECETTE
-updated_at: 2026-11-04T16:50:00+01:00
-source_repository: mcleland147/sfia-workspace
-source_branch: sfia/next-access-preparation-continuity
-base_main_sha: 61a6765a4e8d92760aab595b61b66aa2425906c6
-candidate_sha: 0db58be8240a00593092048ee74299f19374f489
-candidate_tree: 69d48cc33a91af6635856babb620a7735aa55fe6
-worktree_path: /Users/morris/Projects/sfia-studio-next-recette-ml1-c3
-build_identifier: PMCGeil9wv8DZNBfEGf4H (unchanged — no rebuild required after credential injection; next start reloaded env)
-next_build_id: PMCGeil9wv8DZNBfEGf4H
-product_version: NOT AVAILABLE
-candidate_version: NOT ASSIGNED
-release_tag: N/A
-technical_package_version: 0.0.0-dev
-served_address: http://localhost:3200
-listen_bind: "[::1]:3200"
-schema_revision: 001+002 on sfia_next_recette
-test_data_revision: empty-clean-recette-db-2026-11-04
-postgres:
-  container: sfia-next-recette-pg
-  port: 5434
-  database: sfia_next_recette
-  user: sfia_next_recette
-capabilities:
-  github_oauth:
-    configured: true
-    live_callback: NOT PROVEN — requires Morris browser authorize on http://localhost:3200/login
-    authorize_url_check: PASS
-    redirect_uri: http://localhost:3200/api/auth/callback/github
-    scopes_observed: "read:user user:email"
-    repo_scope: false
-  openai_nora:
-    configured: true
-    live_adapter_smoke: PROVEN — mode=openai-agents-sdk-live status=COMPLETE (bounded 1-call; no reply body logged)
-    live_ui_under_github_session: NOT PROVEN — blocked on OAuth callback
-  studio_dev_test_login: DISABLED (403)
-  cursor: NOT IN ML1
-quality_evidence:
-  - HTTP /login 200 twice + after stop/start
-  - /api/auth/status configured=true
-  - OAuth sign-in/social → github.com authorize; redirect_uri exact; scopes without repo
-  - DEV login 403; portfolio anon 401; 127.0.0.1:3200 refused
-  - Nora adapter LIVE smoke PASS (ops/nora-live-smoke.ts)
-  - DEV Test 1=1; RECETTE projects=0; WT SHA C3 unchanged
-known_gaps:
-  - OAUTH LIVE callback / PilotId session not observed (Morris click + MFA)
-  - Nora UI path in preparation after GitHub session NOT RUN
-  - A05/A13/A15/A16/DATA-01; Markdown rich; Figma pixel
-review_decision: PENDING MORRIS USER RECETTE — complete GitHub authorize then ML1 UI path
-pr_649: OPEN / NO MERGE
-no_release: true
-stable: NOT AVAILABLE
-adopted: NOT ACQUIRED
-ops_helpers:
-  start: /Users/morris/Projects/sfia-recette-ops-ml1-c3/start-recette.sh
-  stop: /Users/morris/Projects/sfia-recette-ops-ml1-c3/stop-recette.sh
-  nora_smoke: /Users/morris/Projects/sfia-recette-ops-ml1-c3/nora-live-smoke.ts
-```
-### PILOT-RECETTE-GUIDE.md
-```markdown
-# Grille de recette Pilote — ML1 RECETTE (activation OAuth/Nora)
+`NO PROJECT COMMIT / NO PR UPDATE / NO MERGE / NO RELEASE / STABLE NOT AVAILABLE / NO ADOPTED`
 
-**SHA figé:** `0db58be8240a00593092048ee74299f19374f489`  
-**URL:** http://localhost:3200 (pas `127.0.0.1:3200`)  
-**Build:** `PMCGeil9wv8DZNBfEGf4H`
+## Git Review Index
 
-## État capacités (preuve Cursor)
-
-| Capacité | État |
+| Ref | Value |
 | --- | --- |
-| Serveur | HEALTHY (start/stop scripts) |
-| GitHub OAuth parameters | CONFIGURED |
-| GitHub OAuth LIVE callback | **À FAIRE PAR MORRIS** |
-| Nora LIVE (adapter smoke) | PROVEN (1 appel borné) |
-| Nora LIVE (UI sas après OAuth) | **À FAIRE PAR MORRIS** |
+| origin/main | 61a6765a… |
+| PR head / local HEAD / RECETTE WT | 0db58be8240a00593092048ee74299f19374f489 |
+| Prior handoff | 9b9720b0… |
+| CI on #649 | Detect SUCCESS ; Build validate **SKIPPED** ; Required Gate SUCCESS |
+| reviewDecision | empty (no GitHub approval recorded) |
 
-## Étape critique maintenant
+## A — Cookies / sessions
 
-1. `bash /Users/morris/Projects/sfia-recette-ops-ml1-c3/start-recette.sh`
-2. Navigateur **profil distinct** → http://localhost:3200/login
-3. **Continuer avec GitHub** → autoriser l’app RECETTE (scopes identité seulement)
-4. Vérifier retour `/portfolio`, rechargement, pas de bascule vers `127.0.0.1:3100`
-5. Ouvrir un sas → message Nora → document → créer projet → réouverture `projectId`
+### Constat prouvé
+1. DEV et RECETTE exposés tous deux sur hôte **`127.0.0.1`** (ports 3100 / 3200). **Le port ne sépare pas les cookies.**
+2. Code C3 : Better Auth sans `advanced.cookiePrefix` → cookie défaut **`better-auth.session_token`** (better-auth@1.7.16).
+3. Cookie DEV adapter : **`sfia_studio_session`**, `path=/`, `sameSite=lax`, pas de `Domain` → host-only sur `127.0.0.1`.
+4. Même nom de cookie + même host ⇒ **COOKIE COLLISION CONFIRMED** (disponibilité / écrasement / déconnexions croisées possibles dans **un même profil navigateur**).
+5. Autorité / DB : `BETTER_AUTH_SECRET` **diffère** DEV vs RECETTE ; `DATABASE_URL` **diffère** (`:5433/sfia_next_dev` vs `:5434/sfia_next_recette`) ; `STUDIO_LANE` DEV vs RECETTE. Un jeton de session d'une lane n'est **pas** une preuve d'accès à l'autre DB. **Franchissement d'autorité inter-DB : NOT PROVEN.**
+6. RECETTE : login DEV API fail-closed (historiquement 403). Cookie `sfia_studio_session` résiduel DEV envoyé à RECETTE : consume fail-closed hors `STUDIO_LANE=DEV`.
 
-Cursor ne saisit jamais mot de passe / MFA GitHub.
+### Résultat A
+`COOKIE COLLISION CONFIRMED` (session availability / UX)  
++ `CROSS-DB AUTHORITY BREACH NOT PROVEN` (secrets+DB isolés)
 
-## Ops
+| Champ | Valeur |
+| --- | --- |
+| Gravité | Haute pour hygiène ENV-01 cohabitation ; moyenne pour sécurité data (pas de preuve de lecture croisée DB) |
+| Mitigation recette | Profils navigateur séparés (déjà recommandée) — **pas** isolation produit forte |
+| Fix produit (ultérieur) | Hostname distinct résolu + callbacks OAuth alignés **ou** `cookiePrefix` / noms par lane — **nouveau SHA ≠ C3** → rebuild + re-recette sessions |
+| Arbitrage merge | **ACCEPTABLE CARRIED RESERVE** si Morris accepte mitigation opérationnelle + GO remediation post-merge/pre-STABLE |
+| STOP merge strict ENV-01 | Possible si Morris exige host isolation avant merge — **non forcé ici** faute de preuve breach DB |
 
-- Stop: `bash …/stop-recette.sh` (RECETTE seul)
-- Ne pas toucher DEV / Test 1
-- `RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED`
-```
-### start-recette.sh
-```bash
-#!/usr/bin/env bash
-# Start ML1 RECETTE candidate (frozen SHA C3) — production mode on localhost:3200.
-# Outside Git candidate tree. No secrets printed.
-set -euo pipefail
-WEB="/Users/morris/Projects/sfia-studio-next-recette-ml1-c3/projects/sfia-studio-next/web"
-OPS="$(cd "$(dirname "$0")" && pwd)"
-PIDFILE="$OPS/recette-next.pid"
-LOGFILE="$OPS/recette-next.log"
-PORT=3200
-HOST=localhost
-EXPECTED_ROOT="/Users/morris/Projects/sfia-studio-next-recette-ml1-c3"
+### Scénario manuel (sans exécution Cursor)
+1. Profil unique : login RECETTE OAuth sur :3200 ; noter présence cookie `better-auth.session_token`.
+2. Même profil : ouvrir DEV :3100 et login ; observer si RECETTE se déconnecte au reload :3200.
+3. Ne pas coller de valeurs de cookies dans un chat.
 
-is_recette_listener() {
-  local pid="$1"
-  local cmd cwd
-  cmd=$(ps -p "$pid" -o command= 2>/dev/null || true)
-  [[ "$cmd" == *"next-server"* ]] || return 1
-  cwd=$(lsof -a -p "$pid" -d cwd -Fn 2>/dev/null | sed -n 's/^n//p' | head -1 || true)
-  # If cwd is observable, require RECETTE worktree; otherwise accept next-server + later HTTP proof.
-  if [[ -n "$cwd" ]]; then
-    [[ "$cwd" == "$EXPECTED_ROOT"* || "$cwd" == "$WEB"* ]] || return 1
-  fi
-  return 0
-}
+## B — CI Next
 
-existing=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
-if [[ -n "${existing}" ]]; then
-  if is_recette_listener "$existing"; then
-    # Still verify HTTP — port occupied ≠ healthy
-    code=$(curl -s -o /dev/null -w '%{http_code}' "http://${HOST}:${PORT}/login" || echo 000)
-    if [[ "$code" == "200" ]]; then
-      echo "${existing}" >"$PIDFILE"
-      echo "RECETTE healthy pid=${existing} http_login=${code} url=http://${HOST}:${PORT}"
-      exit 0
-    fi
-    echo "RECETTE listener pid=${existing} but HTTP login=${code} — restarting" >&2
-    kill "$existing" 2>/dev/null || true
-    sleep 1
-  else
-    echo "STOP: port ${PORT} occupied by non-RECETTE pid=${existing} — refuse silent reuse" >&2
-    ps -p "$existing" -o pid,command || true
-    exit 2
-  fi
-fi
+### Constat prouvé
+Workflow `main:.github/workflows/sfia-studio-ci.yml` :
+- `detect.is_studio_path` = uniquement `projects/sfia-studio/*` + ce workflow.
+- PR #649 ne touche que `projects/sfia-studio-next/**` ⇒ `studio_changed=false`.
+- `validate` (build ancien Studio) **SKIPPED**.
+- `required_gate` **SUCCESS** car « non-Studio PR ; heavy validation not required ».
 
-docker start sfia-next-recette-pg >/dev/null
+Donc : **gate GitHub vert ≠ validation Next**.  
+`NEXT CI GAP CONFIRMED`.
 
-(
-  cd "$WEB"
-  exec ./node_modules/.bin/next start -H "$HOST" -p "$PORT"
-) >"$LOGFILE" 2>&1 &
+Preuves locales historiques au C3 (unit 22 / integration 26 / e2e FAKE 1 / build+tsc+lint) = **HISTORICAL LOCAL**, pas CI distante.
 
-for _ in $(seq 1 40); do
-  pid=$(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN -t 2>/dev/null | head -1 || true)
-  if [[ -n "${pid}" ]] && is_recette_listener "$pid"; then
-    code=$(curl -s -o /dev/null -w '%{http_code}' "http://${HOST}:${PORT}/login" || echo 000)
-    if [[ "$code" == "200" ]]; then
-      echo "${pid}" >"$PIDFILE"
-      echo "RECETTE started pid=${pid} http_login=${code} url=http://${HOST}:${PORT} log=${LOGFILE}"
-      exit 0
-    fi
-  fi
-  sleep 0.25
-done
+### Arbitrage B
+**ACCEPTABLE CARRIED RESERVE** pour merge ML1 **uniquement** avec GO Morris explicite acceptant l'absence de gate Next distant + engagement d'un workflow Next au prochain cycle CI (chemin shared `.github/workflows/` = GO distinct).
 
-echo "RECETTE failed to become healthy on ${PORT} — see ${LOGFILE}" >&2
-exit 1
-```
-### stop-recette.sh
-```bash
-#!/usr/bin/env bash
-# Stop only the RECETTE Next process. Does not stop DEV or drop DBs.
-set -euo pipefail
-OPS="$(cd "$(dirname "$0")" && pwd)"
-PIDFILE="$OPS/recette-next.pid"
-if [[ ! -f "$PIDFILE" ]]; then
-  echo "No RECETTE pidfile"
-  exit 0
-fi
-PID=$(cat "$PIDFILE")
-if kill -0 "$PID" 2>/dev/null; then
-  kill "$PID" || true
-  sleep 1
-  if kill -0 "$PID" 2>/dev/null; then
-    kill -9 "$PID" || true
-  fi
-  echo "RECETTE stopped pid=$PID"
-else
-  echo "RECETTE pid $PID not running"
-fi
-rm -f "$PIDFILE"
-```
-### nora-live-smoke.ts
-```ts
-import { createRequire } from "module";
-import { resolve } from "path";
+Sinon **MERGE BLOCKER** si Morris exige CI Next avant merge.
 
-const web =
-  "/Users/morris/Projects/sfia-studio-next-recette-ml1-c3/projects/sfia-studio-next/web";
-const requireFromWeb = createRequire(resolve(web, "package.json"));
-const { config } = requireFromWeb("dotenv") as typeof import("dotenv");
-config({ path: resolve(web, ".env.local") });
+### Proposition de patch (TEXTE SEULEMENT — non appliqué)
 
-async function main() {
-  if (process.env.STUDIO_LANE !== "RECETTE") throw new Error("LANE_NOT_RECETTE");
-  if (process.env.STUDIO_E2E === "1" || process.env.STUDIO_FORCE_NORA_FIXTURE === "1") {
-    throw new Error("FIXTURE_FLAGS_ON");
-  }
-  if (!process.env.OPENAI_API_KEY?.trim()) throw new Error("KEY_ABSENT");
+Fichier nouveau proposé : `.github/workflows/sfia-studio-next-ci.yml`
 
-  process.chdir(web);
-  const { generateNoraReply } = await import(
-    resolve(web, "src/domains/conversation/nora-adapter.ts")
-  );
-  const r = await generateNoraReply({
-    userText: "Ping RECETTE smoke — réponds par un seul mot.",
-    contextSnippets: [],
-  });
-  const out = {
-    mode: r.mode,
-    status: r.status,
-    contentLen: (r.content || "").length,
-    hasFakeCompleteText: /fixture FAKE, not LIVE/.test(r.content || ""),
-    generationIdPresent: Boolean(r.generationId),
-  };
-  process.stdout.write(JSON.stringify(out) + "\n");
-  if (r.mode !== "openai-agents-sdk-live" || r.status !== "COMPLETE" || out.hasFakeCompleteText) {
-    process.exit(2);
-  }
-}
+```yaml
+name: SFIA Studio Next CI
 
-main().catch((e) => {
-  const msg = (e instanceof Error ? e.message : String(e)).replace(/sk-[A-Za-z0-9_-]+/g, "sk-REDACTED");
-  process.stderr.write(JSON.stringify({ error: msg.slice(0, 400) }) + "\n");
-  process.exit(1);
-});
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "projects/sfia-studio-next/**"
+      - ".github/workflows/sfia-studio-next-ci.yml"
+  push:
+    branches: [main]
+    paths:
+      - "projects/sfia-studio-next/**"
+      - ".github/workflows/sfia-studio-next-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sfia-studio-next-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  next-validate:
+    name: Build and validate SFIA Studio Next
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: projects/sfia-studio-next/web
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: sfia_ci
+          POSTGRES_PASSWORD: sfia_ci
+          POSTGRES_DB: sfia_ci
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U sfia_ci -d sfia_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      STUDIO_LANE: DEV
+      STUDIO_DEV_TEST_LOGIN: "1"
+      DATABASE_URL: postgres://sfia_ci:sfia_ci@localhost:5432/sfia_ci
+      BETTER_AUTH_SECRET: ci-only-not-a-production-secret
+      BETTER_AUTH_URL: http://127.0.0.1:3100
+      # No GITHUB_/OPENAI_ secrets in CI — OAuth/Nora LIVE must stay BLOCKED here
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: projects/sfia-studio-next/web/package-lock.json
+      - run: npm ci
+      - name: Migrate CI DB
+        run: |
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f src/db/migrations/001_initial_studio_core.sql
+          psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f src/db/migrations/002_session_auth_mode.sql
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run build
+      - run: npm run test:unit
+      - run: npm run test:integration
+      # Playwright E2E optional later (browser + time); not required for first Next gate
+      - name: Secret pattern scan (Next paths)
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          matches="$(git grep -nE 'BEGIN (RSA |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}' -- 'projects/sfia-studio-next' || true)"
+          if [ -n "$matches" ]; then echo "$matches" >&2; exit 1; fi
+
+  next-required-gate:
+    name: SFIA Studio Next Required Gate
+    needs: [next-validate]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          set -euo pipefail
+          test "${{ needs.next-validate.result }}" = "success"
 ```
 
-## Final health
-- login HTTP 000000
-- pid 47706 bind 
-- BUILD_ID PMCGeil9wv8DZNBfEGf4H
-- auth/status configured=true (re-checked after restart)
+**Non-régression legacy :** ne pas modifier `sfia-studio-ci.yml` dans le même commit sans GO ; laisser l'ancien Studio gate inchangé.
 
-## Gaps for Morris
-1. Open http://localhost:3200/login → Continuer avec GitHub → authorize
-2. Complete ML1 UI: sas → Nora → document → create → reopen
-3. Separate GO for merge PR #649 after user verdict
+**Note migrate CI :** le script `db-migrate.sh` actuel cible Docker DEV — le patch ci-dessus utilise `psql` direct sur service CI (à valider au GO workflow).
 
-`RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED ≠ STABLE ≠ ADOPTED`
+## Matrice gates
+
+| Réserve | Statut | Merge | Remediation GO |
+| --- | --- | --- | --- |
+| A Cookies | COLLISION CONFIRMED ; no DB breach proven | Carried reserve OK with ops mitigation | Host/cookiePrefix — new SHA + re-recette |
+| B CI Next | GAP CONFIRMED (SKIPPED ≠ PASS) | Carried reserve OK if Morris accepts | Add Next workflow — shared path GO |
+| User recette C3 | ACCEPTED (chat) | Prerequisite for merge GO | Sync roadmap/delivery-history on Git gate |
+| Merge PR #649 | **PENDING GO Morris distinct** | — | — |
+
+## Sources consultées (refs)
+- main: SEF, roadmap, ADR R4, ENV-01, product-versioning, reference-delivery-r5, routing guide, template v2.6, `.github/workflows/sfia-studio-ci.yml`
+- C3: `auth.ts`, `session.ts`, `dev/login/route.ts`, `package.json`, better-auth@1.7.16 cookie defaults
+- Runtime read-only: RECETTE :3200 up ; DEV :3100 not listening this check ; PG both up
+
+## STOP / mutations
+Aucune. DEV/RECETTE non redémarrés ; aucun secret affiché ; aucun commit projet.
