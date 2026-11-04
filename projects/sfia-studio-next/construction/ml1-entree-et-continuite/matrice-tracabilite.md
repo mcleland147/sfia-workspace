@@ -3,12 +3,13 @@
 > **État Git au versement (2026-11-04) :** publication documentaire candidate sur `docs/next-r5-delivery-preparation-20261104`, base `main@a0b80b9ecd64149ed51f87235ae246e197e66462`. Ni `VALIDATED SPEC`, ni merge, ni GO Cursor. Les formules `NOT ON GIT` et `NO GIT WRITE` dans les historiques décrivent leur état à la rédaction, pas cette publication.
 
 
-**Statut :** `D0 CANDIDATE — LINKS VERIFIED AGAINST R1–R4, CONTENT NOT VALIDATED, NO CODE, NO TEST EXECUTED`  
-**Version :** v0.3 / 2026-11-04 — après revue D0  
-**Source Git :** `mcleland147/sfia-workspace`, `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; PR #646 mergée, local **NON OBSERVÉ**.  
-**R1 :** [vision-produit.md](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/cadrage/vision-produit.md), §§2.30 (E2E 01), 2.32 (E2E 03), 2.33 (E2E 04), 2.36 (E2E 07), plus addenda documentaires §2.41.  
-**R2 :** [D1 accès](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/acces-et-portefeuille.md), [D2 création](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md), [D3 Nora](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D4 connaissances](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md) et index de compléments R2.  
-**R3 :** [contrat de transposition](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/ux-ui/contrat-transposition-figma-code.md), [index de 223 frames](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/ux-ui/index-geometrie-frames-r3.json), `fileKey=itgvCulInEnFY6DvgIegvP`, page Figma `94:49`, extraction Git datée du 2026-11-03, blob `9d75cba6560896c279712982cd56b41488209685`.  
+**Statut (historique pré-implémentation, sections 1–6) :** `D0 CANDIDATE — LINKS VERIFIED AGAINST R1–R4, CONTENT NOT VALIDATED, NO CODE, NO TEST EXECUTED` — vrai **avant** construction locale ML1.
+**Statut (observé DEV 2026-11-04, section 7) :** résultats QA bornés `PASS/PARTIAL/OUT` sur runtime local — **ne remplace pas** le cadrage R4 ni n'implique `16/16 PASS` / ADOPTED.
+**Version :** v0.3 / 2026-11-04 — après revue D0 ; §7 ajoutée en construction locale
+**Source Git :** `mcleland147/sfia-workspace`, `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; PR #646 mergée, local **NON OBSERVÉ**.
+**R1 :** [vision-produit.md](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/cadrage/vision-produit.md), §§2.30 (E2E 01), 2.32 (E2E 03), 2.33 (E2E 04), 2.36 (E2E 07), plus addenda documentaires §2.41.
+**R2 :** [D1 accès](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/acces-et-portefeuille.md), [D2 création](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md), [D3 Nora](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md), [D4 connaissances](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md) et index de compléments R2.
+**R3 :** [contrat de transposition](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/ux-ui/contrat-transposition-figma-code.md), [index de 223 frames](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/ux-ui/index-geometrie-frames-r3.json), `fileKey=itgvCulInEnFY6DvgIegvP`, page Figma `94:49`, extraction Git datée du 2026-11-03, blob `9d75cba6560896c279712982cd56b41488209685`.
 **R4 :** [cadrage R4 §5.3.9 / §8.1](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/architecture-technique/cadrage-r4.md), [ADR R4-01/02](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/governance/decisions/2026-11-04-r4-architecture-exit.md), [ENV-01](https://github.com/mcleland147/sfia-workspace/blob/a0b80b9ecd64149ed51f87235ae246e197e66462/projects/sfia-studio-next/governance/environnements-recette-et-promotions.md).
 
 **Lecture :** les identifiants `A01..A16` sont **des cas QA de conception R4**, pas des tests existants. Les colonnes QA et Figma ci-dessous proposent une correspondance **à valider par revue**, et non une certification d'exhaustivité. Les images Figma sont mutables : relecture native et extraction ciblée **par Cursor pendant la construction UX, avant le code de la surface concernée** ; aucune extraction exhaustive préparatoire. `R3 ≠ QA ≠ implémentation`.
@@ -101,4 +102,32 @@ Les correspondances d'identifiants sont classées par **capacité responsable du
 - `A04/A05/A06` nécessitent une version d'aperçu inspecté et une clé idempotente avec empreinte, dont les replays sont reconstituables à la même préparation ; ne pas déduire « création unique » du seul résultat UI.
 - Les 30 identifiants Figma centraux repris dans la sélection ML1 et contrôlés lors de la revue figurent bien dans le manifeste v0.3 ; cela **ne certifie pas** la géométrie profonde ou la conformité runtime.
 
-**Verdict : `R1–R4 REFERENCES MAPPED / ORACLE SPLIT MADE EXPLICIT / NO TEST EXECUTED / CANDIDATE FOR MORRIS REVIEW`.**
+**Verdict historique (pré-implémentation) : `R1–R4 REFERENCES MAPPED / ORACLE SPLIT MADE EXPLICIT / NO TEST EXECUTED / CANDIDATE FOR MORRIS REVIEW`.** Ce constat daté reste exact pour les sections 1–6 ; il n'est **pas** le verdict runtime DEV du 2026-11-04.
+
+## 7. Qualification locale DEV — résultats A01–A16 (observés 2026-11-04)
+
+> **État temporel distinct** des sections 1–6 (`DESIGN ONLY` / aucun test exécuté à la rédaction documentaire). Ici : preuves exécutées en DEV local. Ne remplace pas le cadrage R4. Oracles lus depuis `architecture-technique/cadrage-r4.md` §5.3.9. **A13 ≠ OAuth** ; **A15 ≠ Figma/Markdown**. Réserves maintenues : A05, A11, A13, A15, A16, DATA-01.
+
+| Oracle | Description canonique (R4) | Preuve réelle | Niveau | Verdict |
+| --- | --- | --- | --- | --- |
+| A01 | Sas sans projet/Git | PG prep OPEN sans link + Playwright | PG INTEGRATION + BROWSER FAKE | PASS |
+| A02 | Nora utile sans cycle | Fixture PG + LIVE API adapter `openai-agents-sdk-live` COMPLETE (1 appel borné) + messages PG sans fixture ; BROWSER USER OBSERVED | LIVE API + PG + BROWSER USER OBSERVED | PASS (borné DEV) |
+| A03 | Création seulement commande dédiée | create-project command + UI bouton | PG + BROWSER FAKE | PASS |
+| A04 | Double clic / concurrence | PG concurrent + A04c cross-prep | PG INTEGRATION | PASS |
+| A05 | Timeout après commit | Replay ALREADY_CREATED seulement | PG | PARTIAL (pas d'injection crash) |
+| A06 | Version obsolète | stale revision CONFLICT | PG | PASS |
+| A07 | Même fil / marqueur | same message ids after create + reload Playwright | PG + BROWSER FAKE | PASS |
+| A08 | Document identité | doc id survives create | PG | PASS |
+| A09 | SAVING/échec | injectPersistFailure FAILED | PG | PASS |
+| A10 | Isolation A/B | PG + Playwright Pilot B 404 | PG + BROWSER FAKE | PASS |
+| A11 | Source révoquée | Git/D9 hors ML1 | — | OUT OF ML1 (justifié) |
+| A12 | Homonymes | two SameName projects | PG | PASS |
+| A13 | Reprise connaissances/docs sans transcript exhaustif | non implémenté comme oracle distinct (reload transcript ≠ A13) | NOT RUN | PARTIAL / gate ML2+ |
+| A14 | Cockpit/projet contexte | portfolio reopen by projectId ; pas de Nora globale | BROWSER FAKE (+ USER OAuth reopen observé) | PASS |
+| A15 | Aucun effet dérivé D5–D9 | adapter sans tools ; non-effects stub ; create-project n'écrit pas cycles/CKI/Git ; LIVE call sans outils | UNIT + code inspection + LIVE API sans tools | PARTIAL |
+| A16 | Restore/restart | new client read prep ; pas de restore injecté | PG | PARTIAL |
+| DATA-01 | Restore backup | — | — | OUT OF ML1 |
+
+**Markdown UX :** KNOWN GAP — RICH MARKDOWN RENDERING NOT IMPLEMENTED.
+**Figma pixel :** INCONCLUSIVE (rail 246 native only).
+**PostCSS prod GHSA :** closed via override `8.5.32` ; Next 16 non requis pour cette famille.

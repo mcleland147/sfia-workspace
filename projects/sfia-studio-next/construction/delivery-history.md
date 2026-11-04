@@ -1,0 +1,84 @@
+# SFIA Studio Next — Delivery history
+
+Append-only logical journal of Cursor product deliveries.
+**Product STABLE: NOT AVAILABLE.** Entries may be `NO RELEASE`.
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / entrée & continuité (premier vertical) |
+| Type | INC / nouvelle capacité, pré-1.0 |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Working tree | local uncommitted construction under `projects/sfia-studio-next/web` |
+| Product version target | `NO RELEASE` (proposal `0.1.0-rc.1` not attributed) |
+| Lane | DEV (`127.0.0.1:3100`, Postgres `5433`) |
+| Schema revision | `001_initial_studio_core` |
+| Tests | Vitest unit + PostgreSQL integration (see web test run) |
+| Evidence limits | GitHub OAuth LIVE BLOCKED without secrets; OpenAI LIVE optional; Figma native pending; RECETTE NOT AVAILABLE |
+| Status | LOCAL CONSTRUCTION — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-02-CRITIQUE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 consolidation critique (same lot) |
+| Type | INC corrective / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | Next 15.5.29; D2 fingerprint under lock; D4 prep-scoped docs + SAVING; D3 Agents SDK adapter; D1 authMode + Better Auth mount + loopback DEV login; Playwright smoke PASS |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | `001_initial_studio_core` + `002_session_auth_mode` |
+| Tests | unit 3 PASS; integration 13 PASS; Playwright 1 PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-03-CONTINUITE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 continuité D1–D2 (same lot) |
+| Type | INC corrective / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | Better Auth→PilotId session bridge; advisory-lock atomic idempotency across preparations; project reopen by projectId API/UI; Playwright portfolio path |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | unchanged (`001` + `002`) |
+| Tests | unit 3 PASS; integration 21 PASS; Playwright 1 PASS; build+tsc PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-04-OAUTH-STATUS-REPROOF
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 continuité D1–D2 (same lot) |
+| Type | INC corrective / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | Fix `/api/auth/status` when OAuth configured; re-proof A/B/C; bounded OAuth start URL (no callback LIVE claim); secrets never in handoff |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | unchanged |
+| Tests | unit 3; integration 21; Playwright 1; build+tsc; OAuth status+signin-start PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-05-LIVE-QA-CONSOLIDATION
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 LIVE qualification consolidation (same lot) |
+| Type | INC corrective / qualification |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Changes | D1 late GitHub link backfill; PostCSS override 8.5.32; A01–A16 reclass; Nora LIVE adapter proof; integration forces fixture; Playwright LIVE-aware |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Tests | unit 3; integration 22; Playwright 1; build+tsc; npm audit prod postcss closed |
+| Status | ML1 LOCAL QUALIFICATION REVIEWABLE candidate — no project push/PR/merge |
