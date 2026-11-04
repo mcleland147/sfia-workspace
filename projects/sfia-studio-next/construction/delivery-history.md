@@ -131,3 +131,23 @@ Append-only logical journal of Cursor product deliveries.
 | Lane | DEV |
 | Tests | unit 22; integration 26; Playwright FAKE 1; build/tsc/lint — see Review Pack |
 | Status | LOCAL CORRECTIVE candidate — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-MERGE-09
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 — entrée et continuité |
+| Type | INC / Git integration and bounded functional acceptance record |
+| Branch | `sfia/next-access-preparation-continuity` |
+| Candidate SHA | `0db58be8240a00593092048ee74299f19374f489` |
+| Candidate commits | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` → `8767185234bab9b2cad7800771a6bfc0ae1d19e4` → `0db58be8240a00593092048ee74299f19374f489` |
+| PR / merge | [#649](https://github.com/mcleland147/sfia-workspace/pull/649) MERGED on 2026-11-04; `main@747cbec0ac9c161306db34121b0447391b23589c` |
+| Tree | `69d48cc33a91af6635856babb620a7735aa55fe6` — identical between C3 candidate and merge |
+| RECETTE | Morris functional acceptance, including GitHub OAuth LIVE and Nora LIVE; build `PMCGeil9wv8DZNBfEGf4H` bound to C3 candidate |
+| Historical test evidence | Unit 22 PASS, PostgreSQL integration 26 PASS, Playwright 1 PASS with DEV fake identity/Nora fixture; separate LIVE observations; neither implies R6 or Next CI PASS |
+| Carried reserve A | DEV/RECETTE cookie collision on shared `127.0.0.1` host despite different ports; separate browser profiles mitigation; re-mediate/re-test before STABLE; no cross-DB authority breach proven |
+| Carried reserve B | Historical GitHub Required Gate SUCCESS with Next build SKIPPED; dedicated Next CI workflow and proof needed before next significant delivery, under distinct shared-path GO |
+| Post-merge runtime | Independent smoke NOT OBSERVED |
+| Product version | `NO RELEASE` ; `STABLE NOT AVAILABLE` ; no release tag / no ADOPTED |
+| Status | **MERGED / FUNCTIONAL RECETTE ACCEPTED WITH RESERVES — ML1 integration evidenced, technical remediation and R6 qualification still open** |

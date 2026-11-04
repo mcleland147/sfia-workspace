@@ -4,13 +4,21 @@
 | --- | --- |
 | **Chemin canonique** | `projects/sfia-studio-next/governance/environnements-recette-et-promotions.md` |
 | **Version / date** | v0.1 — 2026-11-03 (Europe/Paris) |
-| **Statut** | **VALIDATED CONTENT BY MORRIS (D2) — 2026-11-03 ; PUBLIÉ SUR BRANCHE CANDIDATE R4, NON MERGÉ SUR `main`**. Implémentation et vérification runtime à produire en R5/R6. |
+| **Statut** | **VALIDATED CONTENT BY MORRIS (D2) — 2026-11-03 / ON MAIN via PR #646 ; application R5/ML1 PARTIAL IMPLEMENTED + RECETTE ACCEPTÉE avec réserves après PR #649**. Politique inchangée ; obligations de remédiation et qualification R5/R6 ouvertes. |
 | **Périmètre** | SFIA Studio Next exclusivement ; R5 delivery, corrections, revue locale, QA/recette, intégration Git, R6 qualification et futures promotions en hébergement distant |
 | **Décideur** | Morris ; arbitrages produit, promotions et gates de Git |
 | **Processus externe** | SFIA v2.6 (`method/sfia-fast-track/core/sfia-cycle-routing-guide.md` §4.3.0b et `prompts/templates/sfia-cycle-execution-template.md` §2.0.H) ; ce document **ne crée pas de template Cursor concurrent** |
-| **Socle** | SEF v0.2 §4–§6 et §10 ; Roadmap Next ; conception R4 A/B/C/D sur branche candidate ; R1/R2/R3 et décisions validées |
-| **Git examiné** | `mcleland147/sfia-workspace` ; `main@7067c846ce7c57825dd31c532433d809e1a01216` ; R4 candidate `sfia/next-r4-architecture-scoping@9b169dcbb3c7e9a5d997662594c2d35c164a9c9c` (4 devant / 0 derrière) |
-| **État technique** | **Next : N/A — NON IMPLÉMENTÉ** ; aucun environnement DEV/RECETTE/STABLE, pipeline, script, protection ou preuve navigateur déclaré existant. Worktrees et index locaux **NON OBSERVÉS**. |
+| **Socle** | SEF v0.2 §4–§6 et §10 ; Roadmap Next ; ADR R4-01..04, DATA-01 et conception R4 intégrés via #646 ; R5 ML1 intégré via #649 ; R1/R2/R3 validés. |
+| **Git examiné** | `mcleland147/sfia-workspace` ; `main@747cbec0ac9c161306db34121b0447391b23589c` après merge #649 ; arbre ML1 `69d48cc33a91af6635856babb620a7735aa55fe6`. Les refs de R4 figurent dans l'historique de conception. |
+| **État technique** | **DEV et RECETTE utilisés pour ML1** : RECETTE sur build `PMCGeil9wv8DZNBfEGf4H` / candidat `0db58be...` accepté fonctionnellement par Morris ; secrets et DB distincts rapportés. **Collision structurelle des cookies sur même host (réserve A) ; CI Next non exécutée par l'ancien gate (réserve B)**. STABLE : NOT AVAILABLE. Runtime actuel, worktrees et smoke post-merge indépendant : NON OBSERVÉS. |
+
+## État d'application au premier vertical ML1 — constat post-merge du 2026-11-04
+
+- **ENV-01 est intégrée dans la baseline** ; ses dispositions ci-dessous restent la politique normative validée, sans assouplissement induit par l'acceptation ponctuelle des réserves.
+- **DEV/RECETTE :** deux lanes utilisées pour ML1 ; la recette fonctionnelle du candidat `0db58be...` et du build `PMCGeil9wv8DZNBfEGf4H` est acceptée par Morris. La disponibilité des processus au moment de cette lecture n'est pas vérifiée.
+- **Réserve A :** les ports 3100/3200 sur un même host `127.0.0.1` ne séparent pas les cookies ; bases et secrets distincts ne démontrent pas une isolation de session complète. Mitigation temporaire : profils navigateur séparés ; condition de sortie : isolation technique et re-recette des parcours concernés **avant STABLE**.
+- **Réserve B :** le Required Gate historique de la PR #649 a réussi sans exécuter le build Next ; CI Next à créer sous GO distinct avant une prochaine livraison significative.
+- **Post-merge et promotion :** merge `main@747cbec...` vérifié sur Git ; aucun smoke runtime indépendant post-merge, aucune version STABLE, aucune release ni ADOPTED. Les critères de qualification, restauration, DATA-01 et CI ne sont pas déclarés satisfaits par ce constat.
 
 ## 1. Finalité, autorité et conditions d'applicabilité
 
@@ -154,11 +162,11 @@ ENV-01 NEXT DELIVERY CHECK
 
 **Règle bloquante Cursor :** faire le Git Truth Check local, vérifier les ressources réellement disponibles ; en cas de mauvaise lane, migration/suppression de STABLE depuis DEV, secrets croisés, RECETTE mutable ou mutation distante non autorisée : `STOP — NEXT ENVIRONMENT GATE FAILED`, produire le diagnostic dans le review pack, sans prétendre à une recette PASS.
 
-**Important :** le document n'est pas routé par sa seule existence. Son routage effectif exige **les deux insertions dans le guide et le template partagés au même ref Git applicable**. La branche R4 candidate peut servir aux futures qualifications sur cette branche une fois les insertions vérifiées ; sur la baseline `main`, l'obligation ne sera activée qu'après PR/merge autorisés et relecture distante. Ne jamais présenter la publication d'une branche comme une intégration à `main`.
+**Important :** le document n'est pas routé par sa seule existence. Son routage effectif exige **les deux insertions dans le guide et le template partagés au même ref Git applicable**. Ces insertions Next-only ont été intégrées via #646 et relues sur `main` ; le routage est donc applicable aux travaux Next concernés. Le fonctionnement effectif de chaque prompt/contrôle reste à vérifier dans le cycle applicable, sans confondre intégration statique et preuve runtime.
 
 ## 9. Vérification de mise en place et conditions de sortie
 
-**Gate contenu D2 Morris : SATISFAIT pour ENV-01.** Morris a explicitement validé la politique et autorisé sa publication sur la branche R4, y compris les modifications bornées du guide et du template **partagés**, ainsi que le raccord d'architecture R4 (2026-11-03). Le GO concerne exclusivement cette contribution documentaire ; **PR, merge, écriture sur `main`, code, changements de secrets/runtime et promotion restent sous GO distincts.** Les durées de conservation DATA-01 et leurs contrats demeurent candidats tant qu'un arbitrage explicite ne les approuve pas.
+**Gate contenu D2 Morris : SATISFAIT pour ENV-01.** Morris a explicitement validé la politique et autorisé sa publication sur la branche R4, y compris les modifications bornées du guide et du template **partagés**, ainsi que le raccord d'architecture R4 (2026-11-03). Le GO concerne exclusivement cette contribution documentaire ; **PR, merge, écriture sur `main`, code, changements de secrets/runtime et promotion restent sous GO distincts.** La politique DATA-01 a ensuite été validée en contenu par Morris au jalon R4 ; son implémentation, ses sauvegardes et ses tests de restauration restent à démontrer en R5/R6.
 
 **Tests du routage** après publication autorisée :
 
