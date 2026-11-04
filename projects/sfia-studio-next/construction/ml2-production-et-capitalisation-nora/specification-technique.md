@@ -1,7 +1,7 @@
 # SFIA Studio Next — R5 / ML2 — Spécification technique candidate
 ## Produire, réviser et capitaliser avec Nora
 
-> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.1, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
+> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.2, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -22,7 +22,7 @@
 
 **Critère de produit discriminant :** le Pilote doit ressentir une aide intellectuelle qui fait progresser son travail, **et non un chat simplement persistant ni un gestionnaire de fichiers avec génération de texte**. Une similitude stylistique avec ChatGPT ne démontre pas cette valeur : l'oracle est le résultat utile et observable, le contexte recouvré, la qualité cognitive et les règles d'autorité.
 
-### 1.1. Parcours intégrateur de référence — E2E 03 + E2E 04
+### 1.1. Parcours intégrateur de référence — E2E 03 + E2E 04 + complément R1 §2.41
 
 1. Le Pilote ouvre un projet existant, sans cycle/CKI/Git obligatoire, et expose une question de conception comportant plusieurs options.
 2. Nora comprend l'objectif, respecte les prescriptions, cherche les éléments internes réellement accessibles, explicite les lacunes et produit une analyse comparative critique et une suite utile.
@@ -32,6 +32,16 @@
 6. Une source contradictoire, indisponible ou devenue périmée déclenche une qualification honnête ; aucune recommandation n'est promue en décision D6 ou en permission d'effet.
 
 **Acceptation macro-lot :** capacités observées en BROWSER + DB et situations Nora LIVE adaptées au même SHA de candidat et au même contexte déclaré ; revue comparative cognitive selon R5 §14 ; arbitrage Morris des réserves.
+
+### 1.2. Couverture d'une intention fondatrice qui dépasse les sept E2E historiques
+
+Le **parcours R1 §2.41 « Production, révision et reprise d'un document »** est un complément explicitement approuvé à la vision ; sa numérotation ne remplace pas les **sept E2E primaires**. Il doit être démontré comme **une chaîne utilisateur complète**, non par cinq écrans indépendants ou de seuls tests unitaires :
+
+`Projet / conversation A → intention documentaire explicite → rédaction Nora → sauvegarde confirmée D4 (brouillon + version + provenance) → Inspection → sélection/ordre de révision → version B distincte avec comparaison → fermeture/retour au bon fil → nouvelle conversation B du même projet → document/version/acquis retrouvés`.
+
+**Oracles cumulés** : conservation distincte de la génération, versions non destructives et correctement ordonnées, origine de navigation restituée, bon projet/acteur, continuité de connaissance D4 après changement de fil, absence de publication Git implicite. Sous erreur, conflit ou perte d'ACK, préserver le dernier état réellement établi. Relier ce parcours à `RG-DOC-001..010`, `RG-KNOW-016..020`, `PF-28/30/31/34/35`, `PF-KNOW-11/12/14`, et à Q07–Q14/Q19 dans la matrice ; les références de frames 03/04/18/205 restent à extraire nativement au bon moment.
+
+**Découverte R1 → R5 à surveiller** : le résultat « nouvelle conversation B » suppose **création et sélection réelles d'un fil distinct au sein du même projet**. Ni rechargement de la conversation A, ni copie intégrale de son transcript, ni création d'un second projet ne remplissent cet oracle. La conception R3 actuelle ne démontre pas à elle seule la commande produit correspondante : son UX précise doit être confrontée à R1/R2 avant le code, et tout écart structurant soumis à Morris.
 
 ## 2. IN / OUT et interfaces adjacentes
 
@@ -162,6 +172,17 @@ La **matrice ML2** associée contient les rattachements par fonctionnalité, les
 
 **Oracle central :** après une session conversationnelle nouvelle du **même projet**, Nora sait retrouver un acquis, une source/version, un document et une question encore ouverte pertinents sans copier tout l'historique brut dans le prompt.
 
+**Gap As-Built ML1 discriminant :** `getPreparationContext` et `getConversationId` résolvent actuellement un fil depuis la préparation ; `postUserMessageAndNora` écrit dans ce fil. La table `conversations` accepte plusieurs lignes, **mais aucune commande métier distincte « créer/choisir conversation B dans le projet » n'est prouvée**. Le simple schéma relationnel ne suffit pas.
+
+**Contrat fonctionnel-technique ML2 à préciser avant code :**
+1. Le Pilote ouvre un **projet effectivement accessible**, retrouve la conversation A historique, puis crée **explicitement une conversation B indépendante** ou choisit un fil B déjà conservé ; pas de bascule silencieuse ni d'écrasement d'A.
+2. Le propriétaire **D3** crée et identifie la conversation, la sélectionne et attache les nouveaux messages au fil demandé ; **D2** fournit le contexte projet/sas et ne crée aucun deuxième projet, tandis que **D1** garantit l'accès du Pilote. Le modèle exact de l'association et des interfaces serveur demeure candidat (pas de nom d'API ratifié).
+3. **D4** fournit à B une sélection autorisée et pertinente des acquis du projet, documents/versions, provenance et points ouverts, **indépendante** du transcript de A ; D3 consomme ces éléments sans les transformer en décision, instruction de méthode ni autorisation.
+4. La navigation B → A, changement de projet, refresh, nouvelle session, expiration ou accès refusé conserve une sélection compréhensible et les vérités durables. Un état non restauré est déclaré, jamais feint.
+5. La preuve distingue trois résultats : **deux identités de conversation durables réellement distinctes** (DB/API) ; **récupération D4 sans relecture exhaustive** (traces de sélection/provenance) ; **qualité cognitive de la reprise** (LIVE + comparaison contextualisée). Un seul de ces niveaux ne valide pas les deux autres.
+
+**Blast radius prioritaire :** résolution de préparation/projet, schéma relationnel, conversations/messages, navigation projet, contrôle d'autorisation, contexte Nora et tests ; préserver la continuité sas→projet et le fil initial prouvés en ML1. Un test qui renvoie simplement les six derniers messages reste **NOT COVERED** pour A13.
+
 - Identité, contexte et droits actuels revérifiés ; pas de fuite entre Pilotes ni entre projets, même si des documents ont des titres identiques.
 - Context selection proportionnée : éléments utiles au problème courant, fraîcheur vérifiable, limite déclarée pour tout élément indisponible.
 - Contradiction entre un résumé ancien et une nouvelle source : conserver les deux contextes datés, ne pas transformer l'ancienne assertion en vérité actuelle.
@@ -178,6 +199,19 @@ La **matrice ML2** associée contient les rattachements par fonctionnalité, les
 - Possibilité de demander une révision ciblée depuis une sélection inspectée, avec confirmation de portée et de version quand déterminantes, sans formulaire systématique.
 - Sujets, documents, points ouverts directement consultables, sans Nora globale sur le portefeuille et sans onglet supplémentaire de gouvernance.
 - Responsive et accessibilité : clavier/focus, reflow 1680/1280/390/320, zoom, contraste/reduced motion selon le contrat de transposition et l'état réel des composants.
+
+### 6.7. Quatre parcours UX de transposition à prouver, pas seulement des frames à afficher
+
+Les parcours ci-dessous **consomment** les contrats R1/R2 et les cadres R3 ; ils ne créent aucun nouvel écran canonique. Les transitions conditionnelles, états d'API, actions et propriétés natives seront contrôlés sur la source Figma pertinente avant le code UX.
+
+| Parcours / état utilisateur | Composition Figma documentée | Interaction et résultat conditionnel | Oracle BROWSER + propriétaire |
+| --- | --- | --- | --- |
+| **P1 — Rédiger et inspecter** | Conversation 03 (`94:214`) → document 04 (`94:370`) ; variante demande documentaire 118 (`161:864`) | Demande explicite ; génération ≠ sauvegarde ; ouvrir seulement une ressource D4 réellement enregistrée, ou afficher FAILED/UNKNOWN | Q06–Q09, D3 produit / D4 conserve |
+| **P2 — Réviser et comparer** | 04 → révision 18 (`97:359`) → comparaison 205 (`241:385`) → retour au point d'origine | Sélection et base de version contrôlables ; réussite, conflit ou inconnue distincts ; diff v1/v2 effectif, ancienne version non perdue | Q10–Q14, D4 versionne / D3 reformule |
+| **P3 — Sujets et retour à Nora** | Journal 05 (`94:515`) ; sujets `160:751`, renommage `160:823`, regroupement `160:895`, ouverts `160:967` → conversation 03 | Consulter sujet et point ouvert ; poursuivre avec Nora sur la bonne référence **sans envoyer de message implicitement**, retour à la consultation si inspection fermée | Q17/Q18, D4 référence / UX navigue |
+| **P4 — Nouveau fil et reprise** | Ouverture du projet/activité 14 (`96:370`) → conversation 03 ; documentaire 04/205 si référence retrouvée | **GAP UX à qualifier** : les frames de reprise projet/fil ne prouvent pas une commande de création/sélection du fil B. Définir le contrôle minimal utile à partir de R1/R2, préserver le fil A, reprendre B avec acquis D4 et sans faux historique | Q19/Q20/COG-05 ; D3 fil, D4 contexte, D1/D2 accès |
+
+**États négatifs à partager entre parcours** : document en cours de sauvegarde, échec/ACK perdu, conflit de version, source refusée ou périmée, autre projet, historique inaccessible, nouvelle conversation vide, interruption et retour sans origine. Une action d'inspection ne déclenche ni création, ni HumanDecision, ni publication. Ne pas ajouter les 223 maquettes comme autant de pages ou d'obligations de code.
 
 **Contrat de transposition à instancier avant code UX :** Figma fileKey = itgvCulInEnFY6DvgIegvP ; pour chaque frame choisie, node-id exact, page, snapshot daté, extraction native des descendants utiles, tokens, tailles, auto-layout, interactions, states ; comparaison navigateur et divergences approuvées. La lecture Git des références de frames **n'est pas une extraction native actualisée** ; aucune mesure profonde, capture ou fidélité pixel n'est revendiquée ici.
 
@@ -210,6 +244,8 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 **Méthode :** énoncé commun et corpus daté, versions et permissions déclarées ; productions indépendantes (si possible aveugles lors de la revue) ; grille comportementale, fact-check indépendant et verdict de revue. ChatGPT est **référence cognitive faillible**, non gold standard absolu, pas un oracle sur les droits/DB ni la seule autorité d'acceptation. Morris apprécie l'utilité et valide les réserves.
 
 **Trace minimale :** scenarioId, problème, contexte/sources accessibles à chacun, versions modèle/paramètres connus, SHA/build/lane, exécution et niveau de preuve, réponses ou références expurgées, observations et contre-exemples, verdict, responsable et re-test. Pas de seuil de similitude imposé ni de recherche du même raisonnement interne.
+
+**Référence comportementale ML1 à ne pas surestimer :** OAuth et conversation Nora LIVE **bornée** ont été recettés par Morris au C3 ; ML1 avait aussi messages durables, un document de base et un test BROWSER **FAKE**. Cela ne constitue **pas** une mesure de référence de profondeur d'analyse, critique, comparaison sourcée, rédaction autonome avancée, révision, mémoire sélective ou reprise dans un fil B. Pour chaque `COG-01..07`, inscrire `OBSERVED` seulement si une trace historique comparable existe ; sinon `NOT OBSERVED — BASELINE TO ESTABLISH`. Ne jamais transformer l'absence d'état de référence en score zéro ni inférer une amélioration chiffrée ; la première preuve ML2 établit alors le premier point mesuré. Comparer la *valeur observable* à la vision R1, puis ChatGPT/Nora dans des conditions déclarées.
 
 ## 9. Risques, dépendances, dette / exit
 
