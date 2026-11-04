@@ -310,7 +310,7 @@ Les parcours ci-dessous **consomment** les contrats R1/R2 et les cadres R3 ; ils
 
 ### 6.9. Qualification native Figma ciblée et écarts à résoudre
 
-**Consultation Figma read-only effectuée le 2026-11-04 :** fichier itgvCulInEnFY6DvgIegvP, références natives de la conversation 03 (94:214), du Journal 05 (94:515), des points ouverts 100 (160:967), du document 04 (94:370) et de l'activité 206 (281:389). Les métadonnées et compositions natives de ces **nœuds ciblés** sont consultables ; ce constat ne constitue ni un audit exhaustif des 223 frames, ni un contrat de dimensions descendants validé, ni une capture de l'application runtime.
+**Consultation Figma read-only effectuée le 2026-11-04 :** fichier itgvCulInEnFY6DvgIegvP, références natives ciblées de la conversation 03 (94:214), du Journal 05 (94:515), des documents 04 (94:370), révision 18 (97:359), comparaison 205 (241:385), Sujets 97 (160:751), renommage 98 (160:823), regroupement 99 (160:895), points ouverts 100 (160:967) et activité 206 (281:389). Ce constat **ne prouve ni parcours de séparation complet, ni audit des 223 frames, ni extraction exhaustive des descendants, ni dimensions validées pour toutes les variantes, ni capture de l'application runtime**.
 
 | Surface / fonction | Référence Figma consultée | État / action de produit à relier à la preuve |
 | --- | --- | --- |
@@ -384,7 +384,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 | **Seconde autorité mémoire/décisions** | D3 résume une recommandation comme acte D6 | Contrats propriétaires et tests négatifs ; absence de moteur D6 implicite |
 | **Qualité de récupération** | Contexte récent, périmé, non pertinent ou trop volumineux | A13 et reprise du même fil après session, provenances/versions, tests LIVE avec cas contradictoires |
 | **Concurrence documentaire** | Écrasement, doublon, version erronée | Contrôle de base/révision, transactions/contraintes et injection de conflit/retry |
-| **Streaming/rendu** | Format riche ou activité non réellement implémentés | Arbitrage sur valeur produit et protocole ; rendu Markdown sécurisé et BROWSER réel ; pas de streaming fictif |
+| **Streaming/rendu** | Format riche/activité non encore implémentés, streaming souhaité mais techniquement conditionnel | Tenter réellement en ML2 ; rendu Markdown sécurisé et BROWSER réel ; documenter obstacles et dette/exit Morris si report, sans streaming fictif |
 | **Sécurité / contenu externe** | XSS, fuite interprojets, injection dans les sources | Sanitization, contrôle serveur d'accès, refus et fixtures adversariales |
 | **Réserve B CI Next** | Prochaine livraison significative non validée par CI Next | Workflow Next sous GO partagé distinct, exécution réellement vérifiée **avant intégration ML2 significative** |
 | **Réserve A sessions DEV/RECETTE** | Même hôte/ports, cookies non séparés | Profils navigateur séparés provisoirement ; séparation technique et re-recette **avant STABLE** |
@@ -396,7 +396,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 
 ## 10. Plan d'implémentation intégré — candidat, pas des micro-cycles
 
-1. **Contrat et scénario discriminant** : partir du **périmètre Sujets/Acquis/Points ouverts/Reprise validé Morris**, qualifier les modalités UX/techniques, les options streaming, les scénarios cognitifs et les interfaces D3/D4. Contrôler l'écart entre R1 et R2/R3/R4.
+1. **Contrat et scénario discriminant** : partir du **périmètre Sujets/Acquis/Points ouverts/Reprise validé Morris**, appliquer les contrats D3/D4 §5.4 et UX §6.10, préparer la tentative de streaming non bloquante, les scénarios cognitifs et la composition Figma de séparation. Contrôler tout écart avec R1/R2/R3/R4 avant code.
 2. **Intégration verticale du travail Nora** : contextualisation depuis D4, production/révision de ressources, persistance et versions, UX de conversation/inspection et tests intégrés. Séquençage interne selon contraintes de schéma/contrats, pas par “micro-PR mémoire puis UI puis QA”.
 3. **Validation commune** : DB/concurrence/sécurité, navigateur/Figma, Nora LIVE et comparaisons cognitives indépendantes ; corriger les écarts et reprendre les seules portions impactées du candidat.
 4. **RECETTE Morris sur SHA figé** : démontrer une session qui produit un document et le révise, puis une reprise à froid du même fil permettant de retrouver ce document ; documenter limitations, exceptions et verdict.
