@@ -18,6 +18,16 @@
 | R6 — qualification et bascule | **NOT STARTED** | Tests E2E/REAL applicables, gouvernance de transition, GO adoption |
 
 
+## R5 — Préclôture documentaire ML1 / décision Morris en attente (2026-11-04)
+
+**Exercice distinct du REX :** le REX a identifié **quatre enseignements méthodologiques validés** ; la préclôture ML1 n'est pas un cinquième principe méthodologique. Les mises à jour de la présente branche documentaire rapprochent `construction/ml1-entree-et-continuite/specification-technique.md` §15, `matrice-tracabilite.md` §8 et les preuves Git de #649. **Aucun code ni nouveau test** ne sont produits par cette préclôture.
+
+**État actuel proposé :** `R5 IN PROGRESS / ML1 IMPLEMENTED AND MERGED / RECETTE MORRIS ACCEPTED WITH RESERVES / DOCUMENTARY CLOSURE REVIEWED — MORRIS FORMAL CLOSE PENDING`. Ne pas marquer `ML1 CLOSED` avant décision explicite.
+
+**Résultat pilote :** parcours nominal entrée/portefeuille → préparation et dialogue Nora → premier document → création explicite, idempotence et continuité du projet ; périmètre ML1 recetté au C3. **Réserves et écarts reconnus** : A cookies DEV/RECETTE (avant STABLE), B CI Next (avant prochaine livraison significative) ; A05/A13/A15/A16 et DATA-01 non totalement prouvés ; A11 Git relevant de ML4 ; Figma incomplet, Markdown riche absent, streaming D3 non implémenté, métadonnée de schéma à vérifier. Les niveaux de preuve restent ceux de la matrice, sans `16/16 PASS`.
+
+**Orientation de décision proposée :** clore ML1 **sur son résultat fonctionnel accepté avec reports explicites** si Morris confirme leur non-blocage. **Aucun ML1-B correctif n'est déclenché automatiquement** : un éventuel lot correctif exige une raison bloquante et un gate propres. ML2 demeure `NOT STARTED` jusqu'à son GO ; la CI Next doit être effectivement prouvée avant une prochaine intégration significative. **Pas de STABLE, release, ADOPTED ou smoke postmerge inventé.**
+
 ## R5 — Snapshot post-merge ML1 (2026-11-04)
 
 - **Preuve Git :** [PR #649](https://github.com/mcleland147/sfia-workspace/pull/649) `MERGED` ; candidat `0db58be8240a00593092048ee74299f19374f489` ; merge et `main` `747cbec0ac9c161306db34121b0447391b23589c` ; tree identique `69d48cc33a91af6635856babb620a7735aa55fe6` ; trois commits candidats préservés.
