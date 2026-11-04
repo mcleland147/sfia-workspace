@@ -181,7 +181,12 @@ npm audit --omit=dev       → postcss via next (high); fix would force next@16 
 - synthesis only: **no**
 - generated exceptions justified: **yes**
 - review pack reset and single-cycle: **yes**
-- handoff remote SHA and reread: *(filled after publish)*
+- handoff remote SHA and reread: **yes**
+- handoff before: `62ed6e519fd530e2e3851155901cf6daeec834fd`
+- handoff after: `d0fb5cf1ed2055c0ce32142461fedf5c3bc65c02`
+- handoff blob: `deeb4bddde80f0bfda564b202a585916e59f588c`
+- remote reread equality: yes
+- push note: first attempt Internal Server Error / commit_refs_rules; retry succeeded fast-forward `62ed6e51..d0fb5cf1`
 
 ## 9. Generated / binary exceptions (not inlined)
 
@@ -4505,3 +4510,16 @@ export default defineConfig({
 - Local corrective continuity complete on dirty branch; no project publish.
 - Status candidate: `READY FOR CHATGPT REVIEW` **after** handoff remote verify.
 - Gates still open: project push/PR/merge, RC, RECETTE, STABLE, OAuth LIVE, Nora LIVE.
+
+## 13. Handoff remote verification
+
+- Branch: `sfia/review-handoff`
+- Path: `sfia-review-handoff/latest-chatgpt-review.md`
+- Commit before: `62ed6e519fd530e2e3851155901cf6daeec834fd`
+- Commit after: `d0fb5cf1ed2055c0ce32142461fedf5c3bc65c02`
+- Blob: `deeb4bddde80f0bfda564b202a585916e59f588c`
+- Fast-forward only: yes
+- Remote content SHA256 equals local pack: yes
+- Project branch untouched by handoff publish
+
+**Verdict:** `READY FOR CHATGPT REVIEW`
