@@ -19,29 +19,54 @@ const SYSTEM_INSTRUCTIONS =
   "Aucun outil à effet externe n'est disponible. Réponds en français, concis.";
 
 /**
+ * Explicit fixture force — allowed only for DEV / automated E2E.
+ * Outside DEV (and without STUDIO_E2E), requesting a force is ignored for LIVE path
+ * and the caller must not treat that as a silent production kill-switch.
+ */
+export function mustUseNoraFixture(): boolean {
+  if (process.env.STUDIO_E2E === "1") return true;
+  if (process.env.STUDIO_FORCE_NORA_FIXTURE === "1") {
+    // Fail-closed outside DEV: force flag alone is not enough in non-DEV lanes.
+    return process.env.STUDIO_LANE === "DEV";
+  }
+  return false;
+}
+
+function fixtureReply(input: NoraGenerateInput, generationId: string): NoraGenerateResult {
+  const ctx = input.contextSnippets.slice(0, 3).join(" | ");
+  return {
+    generationId,
+    mode: "deterministic-fixture",
+    status: "COMPLETE",
+    streamingProvisional: false,
+    content:
+      `Nora (fixture FAKE, not LIVE): j'ai bien noté « ${input.userText.slice(0, 240)} ». ` +
+      `Je peux clarifier l'intention et proposer un aperçu de projet sans créer quoi que ce soit. ` +
+      (ctx ? `Contexte autorisé: ${ctx.slice(0, 200)}` : "Aucun acquis supplémentaire chargé."),
+  };
+}
+
+/**
  * D3 adapter — OpenAI Agents SDK behind this boundary when LIVE key present.
  * NEVER activates MemorySession / ConversationsSession as authority.
  * Without OPENAI_API_KEY: deterministic fixture only (NOT LIVE proof).
+ * STUDIO_E2E=1 / STUDIO_FORCE_NORA_FIXTURE=1 (DEV only): fixture even if a key is present —
+ * prevents Playwright reuse of a LIVE-keyed DEV server from emitting paid calls.
  */
 export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraGenerateResult> {
   const generationId = newId("gen");
+
+  if (mustUseNoraFixture()) {
+    return fixtureReply(input, generationId);
+  }
+
   const key = process.env.OPENAI_API_KEY?.trim();
   if (!key) {
-    const ctx = input.contextSnippets.slice(0, 3).join(" | ");
-    return {
-      generationId,
-      mode: "deterministic-fixture",
-      status: "COMPLETE",
-      streamingProvisional: false,
-      content:
-        `Nora (fixture FAKE, not LIVE): j'ai bien noté « ${input.userText.slice(0, 240)} ». ` +
-        `Je peux clarifier l'intention et proposer un aperçu de projet sans créer quoi que ce soit. ` +
-        (ctx ? `Contexte autorisé: ${ctx.slice(0, 200)}` : "Aucun acquis supplémentaire chargé."),
-    };
+    return fixtureReply(input, generationId);
   }
 
   try {
-    // Dynamic import keeps fixture path free of SDK side-effects when no key.
+    // Dynamic import keeps fixture path free of SDK side-effects when no key / E2E.
     const { Agent, run } = await import("@openai/agents");
     const agent = new Agent({
       name: "Nora",

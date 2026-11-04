@@ -83,9 +83,11 @@ describe("D1 identity → Pilot provisioning (simulated OAuth association)", () 
     expect(a.pilotId).not.toBe(b.pilotId);
   });
 
-  it("DEV login gate rejects absent/non-DEV lane, non-loopback Host/proxy; allows DEV+loopback", async () => {
+  it("DEV login gate rejects absent/non-DEV lane, spoof Host/proxy; allows DEV+loopback", async () => {
     const prevLane = process.env.STUDIO_LANE;
+    const prevLogin = process.env.STUDIO_DEV_TEST_LOGIN;
     try {
+      process.env.STUDIO_DEV_TEST_LOGIN = "1";
       delete process.env.STUDIO_LANE;
       await expect(
         createDevTestSession("a", { host: "127.0.0.1:3100" }),
@@ -107,6 +109,13 @@ describe("D1 identity → Pilot provisioning (simulated OAuth association)", () 
       await expect(
         createDevTestSession("a", {
           host: "127.0.0.1:3100",
+          forwardedFor: "127.0.0.1, 1.2.3.4",
+        }),
+      ).rejects.toThrow(/PROXY_FORBIDDEN/);
+
+      await expect(
+        createDevTestSession("a", {
+          host: "127.0.0.1:3100",
           forwardedHost: "evil.example.com",
         }),
       ).rejects.toThrow(/PROXY_FORBIDDEN/);
@@ -114,6 +123,20 @@ describe("D1 identity → Pilot provisioning (simulated OAuth association)", () 
       await expect(
         createDevTestSession("a", { host: "evil.example.com" }),
       ).rejects.toThrow(/HOST_FORBIDDEN/);
+
+      await expect(
+        createDevTestSession("a", { host: "localhost.attacker.example" }),
+      ).rejects.toThrow(/HOST_FORBIDDEN/);
+
+      await expect(
+        createDevTestSession("a", { host: "127.0.0.1.attacker.example" }),
+      ).rejects.toThrow(/HOST_FORBIDDEN/);
+
+      process.env.STUDIO_DEV_TEST_LOGIN = "0";
+      await expect(
+        createDevTestSession("a", { host: "127.0.0.1:3100" }),
+      ).rejects.toThrow(/DISABLED/);
+      process.env.STUDIO_DEV_TEST_LOGIN = "1";
 
       // Next DEV often mirrors loopback into x-forwarded-* — still allowed.
       const created = await createDevTestSession("a", {
@@ -129,6 +152,38 @@ describe("D1 identity → Pilot provisioning (simulated OAuth association)", () 
     } finally {
       if (prevLane === undefined) delete process.env.STUDIO_LANE;
       else process.env.STUDIO_LANE = prevLane;
+      if (prevLogin === undefined) delete process.env.STUDIO_DEV_TEST_LOGIN;
+      else process.env.STUDIO_DEV_TEST_LOGIN = prevLogin;
+    }
+  });
+
+  it("already-issued DEV cookie/token fails closed after lane leaves DEV", async () => {
+    const { resolveDevAdapterSessionByToken } = await import("@/domains/identity/session");
+    const prevLane = process.env.STUDIO_LANE;
+    const prevLogin = process.env.STUDIO_DEV_TEST_LOGIN;
+    try {
+      process.env.STUDIO_LANE = "DEV";
+      process.env.STUDIO_DEV_TEST_LOGIN = "1";
+      const created = await createDevTestSession("a", { host: "127.0.0.1:3100" });
+
+      const ok = await resolveDevAdapterSessionByToken(created.token);
+      expect(ok?.sessionId).toBe(created.sessionId);
+      expect(ok?.authMode).toBe("dev-test-login");
+
+      process.env.STUDIO_LANE = "RECETTE";
+      expect(await resolveDevAdapterSessionByToken(created.token)).toBeNull();
+
+      process.env.STUDIO_LANE = "DEV";
+      process.env.STUDIO_DEV_TEST_LOGIN = "0";
+      expect(await resolveDevAdapterSessionByToken(created.token)).toBeNull();
+
+      process.env.STUDIO_DEV_TEST_LOGIN = "1";
+      await revokeSession(created.sessionId);
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevLogin === undefined) delete process.env.STUDIO_DEV_TEST_LOGIN;
+      else process.env.STUDIO_DEV_TEST_LOGIN = prevLogin;
     }
   });
 

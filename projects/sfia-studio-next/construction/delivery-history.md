@@ -82,3 +82,37 @@ Append-only logical journal of Cursor product deliveries.
 | Lane | DEV |
 | Tests | unit 3; integration 22; Playwright 1; build+tsc; npm audit prod postcss closed |
 | Status | ML1 LOCAL QUALIFICATION REVIEWABLE candidate — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-06-PRECOMMIT
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 first local project commit |
+| Type | INC / same vertical |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Commit | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` (parent = base; unpublished) |
+| Changes | ML1 web vertical + D1 lane fail-closed emit; matrice temporal DESIGN ONLY vs DEV |
+| Product version | `NO RELEASE` |
+| Status | LOCAL COMMIT — awaiting ChatGPT review / Morris push gate |
+
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-07-PREPUSH-CORRECTIONS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 targeted pre-push corrections (same lot) |
+| Type | INC corrective / Critical Review findings |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Parent commit | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` (preserved) |
+| Commit | recorded as HEAD of this delivery commit (exact SHA in Review Pack / `git rev-parse HEAD` after commit; no silent second commit for circular SHA) |
+| Changes | A: strict loopback + DEV consume fail-closed; B: `db:migrate` 001→002 + fresh-container proof; C: owned E2E :3101 / `sfia_next_e2e` / Nora fixture-only |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Schema | `001` + `002` via `npm run db:migrate` |
+| Tests | unit / integration (incl. isolated migrate container) / Playwright FAKE E2E — see Review Pack |
+| Status | LOCAL CORRECTIVE candidate — no project push/PR/merge |
+
+Decision: self-SHA not written into the versioned row to avoid a circular amend; ChatGPT must resolve tip SHA from Git after the local commit.

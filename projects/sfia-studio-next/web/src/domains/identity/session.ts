@@ -67,9 +67,22 @@ async function resolveBetterAuthStudioSession(): Promise<StudioSession | null> {
   }
 }
 
-async function resolveDevAdapterSession(): Promise<StudioSession | null> {
-  const jar = await cookies();
-  const token = jar.get(COOKIE)?.value;
+/**
+ * Consume-time gate for DEV test sessions.
+ * A cookie issued earlier must not remain valid once the lane leaves DEV or the adapter is disabled.
+ */
+export function isDevAdapterConsumeAllowed(): boolean {
+  return process.env.STUDIO_LANE === "DEV" && process.env.STUDIO_DEV_TEST_LOGIN === "1";
+}
+
+/**
+ * Consume path for a DEV adapter token (shared by cookie resolver and tests).
+ * Fail-closed when lane/adapter flags leave DEV — even if the row is unexpired.
+ */
+export async function resolveDevAdapterSessionByToken(
+  token: string,
+): Promise<StudioSession | null> {
+  if (!isDevAdapterConsumeAllowed()) return null;
   if (!token) return null;
 
   const rows = await db
@@ -101,6 +114,13 @@ async function resolveDevAdapterSession(): Promise<StudioSession | null> {
   };
 }
 
+async function resolveDevAdapterSession(): Promise<StudioSession | null> {
+  const jar = await cookies();
+  const token = jar.get(COOKIE)?.value;
+  if (!token) return null;
+  return resolveDevAdapterSessionByToken(token);
+}
+
 export async function requireStudioSession(): Promise<StudioSession> {
   const s = await resolveStudioSession();
   if (!s) {
@@ -126,15 +146,48 @@ export type DevLoginGateInput = {
   realIp?: string | null;
 };
 
-function isLoopbackHost(value: string | null | undefined): boolean {
-  const host = (value ?? "").toLowerCase().split(",")[0]?.trim() ?? "";
-  if (!host) return false;
-  return (
-    host.startsWith("127.0.0.1") ||
-    host.startsWith("localhost") ||
-    host.startsWith("[::1]") ||
-    host === "::1"
-  );
+/**
+ * Exact loopback authority check — no prefix/suffix tricks (e.g. localhost.attacker.example).
+ * Allows: localhost[:port], 127.0.0.1[:port], [::1][:port], ::1.
+ * Rejects: commas/multi-value, userinfo, empty, non-loopback, invalid ports.
+ */
+export function isApprovedLoopbackAuthority(value: string | null | undefined): boolean {
+  if (value == null) return false;
+  const raw = value.trim().toLowerCase();
+  if (!raw) return false;
+  // Ambiguous multi-value header — never trust a partial first element.
+  if (raw.includes(",")) return false;
+  if (raw.includes("@")) return false;
+  if (/\s/.test(raw)) return false;
+
+  if (raw === "::1") return true;
+
+  const v4 = /^(127\.0\.0\.1)(?::(\d{1,5}))?$/.exec(raw);
+  if (v4) return isValidPort(v4[2]);
+
+  const local = /^(localhost)(?::(\d{1,5}))?$/.exec(raw);
+  if (local) return isValidPort(local[2]);
+
+  const v6 = /^\[::1\](?::(\d{1,5}))?$/.exec(raw);
+  if (v6) return isValidPort(v6[1]);
+
+  return false;
+}
+
+function isValidPort(port: string | undefined): boolean {
+  if (port === undefined) return true;
+  const n = Number(port);
+  return Number.isInteger(n) && n >= 1 && n <= 65535;
+}
+
+/**
+ * X-Forwarded-For / client IP: exactly one loopback address, no ports, no chain.
+ */
+export function isApprovedLoopbackClientIp(value: string | null | undefined): boolean {
+  if (value == null || value.trim() === "") return false;
+  const raw = value.trim().toLowerCase();
+  if (raw.includes(",") || raw.includes("@") || /\s/.test(raw)) return false;
+  return raw === "127.0.0.1" || raw === "::1" || raw === "[::1]";
 }
 
 function assertDevTestLoginAllowed(gate: DevLoginGateInput) {
@@ -146,17 +199,17 @@ function assertDevTestLoginAllowed(gate: DevLoginGateInput) {
     throw new Error("DEV_TEST_LOGIN_LANE_FORBIDDEN");
   }
   // Host alone is forgeable. Next DEV may set x-forwarded-* to loopback — allow only if
-  // every present forwarding signal is itself loopback. Non-loopback forward = reject.
-  if (!isLoopbackHost(gate.host)) {
+  // every present forwarding signal is itself an exact loopback authority.
+  if (!isApprovedLoopbackAuthority(gate.host)) {
     throw new Error("DEV_TEST_LOGIN_HOST_FORBIDDEN");
   }
-  if (gate.forwardedHost && !isLoopbackHost(gate.forwardedHost)) {
+  if (gate.forwardedHost != null && gate.forwardedHost !== "" && !isApprovedLoopbackAuthority(gate.forwardedHost)) {
     throw new Error("DEV_TEST_LOGIN_PROXY_FORBIDDEN");
   }
-  if (gate.forwardedFor && !isLoopbackHost(gate.forwardedFor)) {
+  if (gate.forwardedFor != null && gate.forwardedFor !== "" && !isApprovedLoopbackClientIp(gate.forwardedFor)) {
     throw new Error("DEV_TEST_LOGIN_PROXY_FORBIDDEN");
   }
-  if (gate.realIp && !isLoopbackHost(gate.realIp)) {
+  if (gate.realIp != null && gate.realIp !== "" && !isApprovedLoopbackClientIp(gate.realIp)) {
     throw new Error("DEV_TEST_LOGIN_PROXY_FORBIDDEN");
   }
 }

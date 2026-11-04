@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import path from "path";
 
-test("DEV fake login → sas → message → document → create → portfolio reopen by projectId", async ({
+test("DEV fake login → sas → message Nora FAKE → document → create → portfolio reopen by projectId", async ({
   page,
   context,
 }) => {
@@ -16,12 +16,13 @@ test("DEV fake login → sas → message → document → create → portfolio r
 
   await page.getByPlaceholder("Écrire à Nora…").fill("Bonjour Nora depuis Playwright");
   await page.getByRole("button", { name: "Envoyer" }).click();
-  // DEV may run fixture FAKE or Agents SDK LIVE depending on OPENAI_API_KEY presence.
-  await expect(
-    page.getByText(/Nora (deterministic-fixture|openai-agents-sdk-live) · COMPLETE|Nora \(fixture FAKE, not LIVE\)/, {
-      exact: false,
-    }),
-  ).toBeVisible({ timeout: 30000 });
+
+  // Automated E2E MUST be fixture FAKE — LIVE mode is a hard FAIL (paid/network boundary).
+  await expect(page.getByText("openai-agents-sdk-live")).toHaveCount(0);
+  await expect(page.getByText("Nora (fixture FAKE, not LIVE)", { exact: false })).toBeVisible({
+    timeout: 30000,
+  });
+  await expect(page.getByText("Nora deterministic-fixture · COMPLETE", { exact: false })).toBeVisible();
 
   await page.getByPlaceholder("Nom du projet").fill("Projet Playwright");
   await page.getByPlaceholder("Résumé inspecté").fill("résumé test");

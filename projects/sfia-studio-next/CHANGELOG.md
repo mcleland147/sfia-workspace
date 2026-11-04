@@ -3,6 +3,13 @@
 No promoted product release yet.
 
 ## Unreleased
+## Unreleased — ML1 targeted pre-push corrections 2026-11-04
+
+- D1: exact loopback Host/XFF parsing (reject `localhost.attacker.example` and multi-value XFF); DEV adapter consume fail-closed when lane ≠ DEV or test login disabled.
+- DB: `npm run db:migrate` applies `001` then `002` with `ON_ERROR_STOP`; fresh isolated container migration test.
+- E2E: owned Playwright server `:3101` + DB `sfia_next_e2e`; `STUDIO_E2E=1` forces Nora fixture; LIVE mode is FAIL in smoke.
+- STABLE/RC still NOT AVAILABLE / NO RELEASE.
+
 ## Unreleased — ML1 LIVE qualification consolidation 2026-11-04
 
 - D1: `ensurePilotForAuthUser` backfills `github_user_id` after late GitHub account link without changing PilotId; conflict ≠ merge.
