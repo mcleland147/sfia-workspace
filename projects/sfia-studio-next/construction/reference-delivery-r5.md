@@ -86,6 +86,15 @@ Un enregistrement de lien comporte au minimum :
 
 **Ne pas imposer une traduction mécanique 1 RG → 1 classe ou 1 test.** Exiger une couverture de chaque exigence en service du macro-lot avec preuve adaptée ; décrire `non applicable`, `déféré R6` ou `non couvert` seulement avec justification, responsable, risque et gate. Les invariants critiques et frontières d'effet ont scénarios positifs et négatifs, même si aucun test unitaire par phrase n'existe.
 
+**Complément de traçabilité validé — REX ML1, enseignement 4 (2026-11-04) : progression cognitive de Nora.** Pour chaque capacité cognitive **introduite ou enrichie** dans un macro-lot, utiliser la matrice de traçabilité et le contrat QA du lot propriétaire pour relier, sans nouvelle matrice parallèle :
+
+- **Compétence / valeur Pilote** : comportement que Nora doit améliorer, source R1/R2 et résultat utilisateur attendu.
+- **Référence comparable** : scénario(s) représentatif(s), conditions, versions/lane et état antérieur réellement observé ; écrire `NON MESURÉ` ou `N/A — NO PRIOR CAPABILITY` lorsqu'une comparaison historique est indisponible.
+- **Observation après livraison** : scénario(s) rejoués, oracle de pertinence, identité des sources/contexte, références test et preuves (SHA, environnement, niveau DETERMINISTIC/INTEGRATION/BROWSER/LIVE/REAL, limites).
+- **Écart / progression qualifiée** : amélioration démontrée, résultat inchangé, régression ou preuve insuffisante ; propriétaire, risque, correctif/dette et condition de sortie si applicable.
+
+Ne pas déduire une amélioration cognitive d'un composant installé, d'une réponse isolée de Nora ou d'un test FAKE. Les scénarios restent proportionnés au risque et à la valeur produit, sans seuil universel ni gate nouveau. **Les résultats historiques ML1 sont conservés tels quels** ; ils ne sont pas requalifiés a posteriori et ne constituent une baseline que dans la mesure où leurs preuves permettent une comparaison valide.
+
 ### 4.1. Exemple de rattachement — création explicite (illustratif, à confirmer en qualification ML1)
 
 - **R2** : `RG-CRE-008` (acte explicite) ; `PF-CRE-07/08` (selon contrat exact à recontrôler), plus règles d'idempotence et de reprise réellement applicables.
