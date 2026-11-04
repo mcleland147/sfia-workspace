@@ -249,3 +249,58 @@ Un lot ne doit pas être déclaré comportementalement achevé sans : code const
 - La conception des contrats peut continuer, mais la revue D0 ne sélectionne pas encore le framework, le fournisseur de sessions, le SDK/API Nora, l'ORM/DDL, ni les outils de test. Sélections techniques ordinaires à justifier dans le lot ; pivot architecture/autorité reste un gate Morris.
 
 **Verdict : `R5 DELIVERY REFERENCE D0 CANDIDATE v0.4 / ML1 TECHNICAL REVIEW DOCUMENTED / NOT GIT PUBLISHED / R5 CONSTRUCTION NOT STARTED`.**
+
+
+## 14. Qualification cognitive comparative ChatGPT ↔ Nora — orientation transversale validée Morris (2026-11-04)
+
+**Autorité de contenu :** Morris a validé le 2026-11-04 le principe d'une **évaluation comparative explicite du travail cognitif de Nora avec ChatGPT**, pour ML2 et les macro-lots ultérieurs qui font évoluer substantiellement ses capacités cognitives. Ce complément enrichit le dispositif R5 de **preuve produit**, sans réécrire R1/R2, sans créer une nouvelle doctrine SFIA, un score d'acceptation universel, un service de benchmark obligatoire ou un gate supplémentaire systématique. La décision d'intégration Git du document reste distincte du contenu validé ; aucun GO de code ou de construction ML2 n'en découle.
+
+### 14.1. Finalité et critère de vision
+
+**Intention produit :** Nora doit procurer une qualité de collaboration cognitive *comparable* à l'expérience de travail Pilote–ChatGPT : comprendre l'intention, explorer, investiguer avec les moyens disponibles, challenger, comparer, produire et réviser directement, restituer avec discernement, conserver les acquis et reprendre utilement.
+
+La cible **n'est pas** l'identité littérale des réponses, des prompts, des modèles ni des raisonnements internes. Un texte ressemblant à celui de ChatGPT ne prouve ni une connaissance retrouvée, ni une décision correctement qualifiée, ni la conservation d'un document. Une réponse de Nora différente mais plus utile, plus fiable ou mieux adaptée peut être supérieure. La vision R1 §§1–2 et E2E 03/04, les RG/PF de D3/D4, les contrats d'autorité D6 et les preuves d'observation restent les critères opposables.
+
+**Application :** ML2 est le premier macro-lot prioritaire ; réutiliser ces évaluations dans ML3–ML5 lorsqu'ils changent réellement la conduite, les décisions de collaboration, la restitution ou la reprise de Nora, **pas** à chaque correction UI/DB sans incidence cognitive.
+
+### 14.2. Responsabilités, indépendance et limites du jugement
+
+| Acteur ou référence | Rôle dans l'évaluation | Limite impérative |
+| --- | --- | --- |
+| **Vision R1 + R2 validé + situation réelle** | Fixer le résultat utilisateur, les prescriptions, les faits vérifiables, les restrictions et les oracles de comportement | Ne pas assimiler un mock, une maquette ou une réponse modèle à une preuve du produit |
+| **ChatGPT, évaluateur cognitif comparatif** | Produire si utile une réponse indépendante ; examiner compréhension, exploration, esprit critique, exactitude, initiative, restitution et continuité ; expliquer les écarts | Son texte est **fallible**, non autorisant, non suffisant pour certifier les faits ou l'équivalence cognitive |
+| **Nora dans Studio Next** | Produire un comportement observable dans la lane, au SHA, avec contexte, accès, modèle et capacités réellement déclarés | Ne pas imputer à Nora une incapacité lorsque la source, l'outil ou la permission manquait dans son environnement |
+| **Cursor, sous SFIA v2.6** | Implémenter et tester les contrats approuvés, produire logs/artefacts et corriger les écarts techniques | Aucun auto-verdict « comportement excellent » fondé sur le seul rapport de l'exécuteur |
+| **Morris, autorité produit** | Juger la valeur pour le Pilote, accepter les écarts, les réserves et les promotions selon les gates | La comparaison ChatGPT–Nora ne vaut jamais HumanDecision, GO d'exécution ou ADOPTED |
+
+### 14.3. Protocole intégré aux QA existantes
+
+1. **Choisir le scénario utilisateur discriminant** et rattacher E2E R1, RG/PF R2, UX R3, invariant R4 et oracle. Définir les attendus **avant** de lire la réponse de Nora ; distinguer critères de faits vérifiables et critères qualitatifs.
+2. **Déclarer les conditions** : problème exact, acteurs et projet, état initial, documents/sources, versions Git, contexte et historique disponibles, autorisations, horodatage, lane, SHA/build, fournisseur/modèle/configuration et éventuelles limites des outils. Lorsque les conditions d'accès diffèrent, l'indiquer et ne pas conclure à une infériorité du raisonnement sur cette seule base.
+3. **Produire deux réponses indépendantes** : Nora via un parcours réellement observé dans Studio ; ChatGPT sur l'énoncé commun, sans lui communiquer d'abord la réponse Nora. Pour une comparaison juste, fournir les mêmes sources accessibles ou qualifier précisément la dissymétrie. Aucune introspection des raisonnements internes n'est exigée.
+4. **Comparer selon une grille commune**, idéalement à l'aveugle lorsque praticable : compréhension/intention ; pertinence et complétude ; initiative et questionnement ; contradiction/alternatives ; fiabilité, sources, incertitudes et autorité ; présentation adaptée ; continuité, révision et actualisation de l'acquis. Noter les preuves et exemples concrets, non le seul style ou la longueur.
+5. **Vérifier indépendamment les affirmations déterminantes** contre les sources et les propriétaires techniques : DB/version/document pour durabilité, droits courants pour accès, Git pour refs, scénarios navigateur et LIVE pour le comportement. Un modèle ne sert pas d'oracle unique sur les faits ni sur sa propre conformité.
+6. **Qualifier le verdict et la suite** : répond au contrat / écart réel / différence légitime / comparaison non concluante / réserve. Identifier cause probable (contexte manquant, instruction, récupération D4, génération, rendu UI, droits, preuve), propriétaire, correction proportionnée et re-test. Morris accepte les arbitrages pertinents.
+
+**Robustesse :** exécuter plusieurs variantes ou répétitions pour un comportement notoirement variable lorsqu'un seul exemple peut induire en erreur. Privilégier quelques situations significatives plutôt qu'un classement artificiel de dizaines de réponses ; le panel peut évoluer avec la maturité du produit, sans entraînement sur des réponses ChatGPT figées.
+
+### 14.4. Familles de scénarios candidats à sélectionner selon le lot
+
+| Famille | Oracle cognitif et produit | Point de vigilance |
+| --- | --- | --- |
+| Analyse d'une demande ambiguë | Clarification strictement nécessaire, progression autonome dans le reste de la demande | Éviter une conversation réduite à un formulaire |
+| Comparaison et recommandation | Options sérieuses, hypothèses explicites, critique argumentée, suite utilisable | Pas de préférences de style érigées en vérité |
+| Contradiction et source périmée | Faits, dates, références, versions et incertitudes distingués | Ne pas prendre l'assertion du modèle pour preuve |
+| Production puis révision ciblée d'un document | Résultat structuré, version identifiable, modification bornée, historique conservé | Génération textuelle ≠ sauvegarde effective |
+| Reprise dans un nouveau fil | Acquis utiles et points ouverts retrouvés, provenance et actualité contrôlées | Une relecture du transcript intégral ne prouve pas la mémoire sélective |
+| Demande simple / digression | Réponse proportionnée, pas de cérémonie ni mécanisme interne inutile | Différences rédactionnelles acceptables |
+| Source inaccessible / outil absent | Limite honnête, poursuite des travaux cognitifs indépendants | Pas de recherche ou lecture inventée |
+| Décision ou opération protégée | Conseil clair sans HumanDecision ni effet externe implicite | La bonne réponse texte ne remplace pas l'enforcement D6/D7 |
+
+### 14.5. Support probatoire et gates
+
+La matrice QA du macro-lot conserve **une ligne par scénario comparatif utile** : sources R1–R4, énoncé/conditions, réponse Nora et résultat ChatGPT référencés, contrôle factuel indépendant, observations qualitatives, limitations, verdict, propriétaire et re-test. Les contenus sensibles sont expurgés, les références et SHA conservés. Un score qualitatif éventuel sert la discussion ; **aucun seuil numérique, “équivalence X %” ou identité de modèles n'est ratifié**.
+
+**Niveaux :** réponse ChatGPT de référence = artefact comparatif ; test simulé = DETERMINISTIC/FAKE ; comparaison avec Nora via vraie API et contexte connu = LIVE dans sa portée ; persistance ou navigateur revendiqués uniquement sur constat DB/BROWSER ; effets externes = REAL et contrôle d'autorité séparé. L'évaluation cognitive ne se substitue pas aux tests de sécurité, transactions, Figma et non-régression.
+
+**Intégration au processus existant :** préparer les cas à la qualification du lot, les exécuter durant le delivery/RECETTE, en débattre lors de la revue de sortie. **Pas de cycle, PR, moteur ou validation supplémentaire systématique.** ChatGPT recommande, Morris tranche ; les écarts acceptés restent tracés avec conditions de sortie. **ML2 : D0 de spécification en cours, aucun GO technique/PR/merge/STABLE/ADOPTED déduit de cet addendum.**
