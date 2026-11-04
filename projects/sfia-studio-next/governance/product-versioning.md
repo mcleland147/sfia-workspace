@@ -1,13 +1,13 @@
 # SFIA Studio Next — Politique de versioning du produit et registre des livraisons
 
-**Version du document :** v1.0 — contenu validé par Morris le 2026-11-04 ; publication candidate Git.  
-**Statut :** `D2 CONTENT VALIDATED MORRIS — 2026-11-04 / GIT CANDIDATE / NOT MERGED ON main / NOT YET ENFORCED ON main`.  
+**Version du document :** v1.0 — contenu validé par Morris le 2026-11-04 ; intégration sur `main` prouvée par la PR #647.  
+**Statut courant :** `D2 CONTENT VALIDATED MORRIS — 2026-11-04 / ON MAIN VIA PR #647 / NEXT ROUTING INTEGRATED / RUNTIME VERSIONING NOT IMPLEMENTED`.  
 **Emplacement canonique de publication :** `projects/sfia-studio-next/governance/product-versioning.md`.  
 **Périmètre :** versions et livraisons du **produit SFIA Studio Next**, et non versions de la méthode SFIA v2.6, du SEF, des documents R1–R5, des contrats Figma ou des migrations.  
-**Sources vérifiées :** `main@a0b80b9ecd64149ed51f87235ae246e197e66462`, SEF v0.2 §10, ENV-01, ADR R4-01..04, DATA-01, routing guide §4.3.0b, template v2.6 §2.0.H / §5 / §6.9 / §6.14.  
+**Sources de conception initiales :** `main@a0b80b9ecd64149ed51f87235ae246e197e66462`, SEF v0.2 §10, ENV-01, ADR R4-01..04, DATA-01, guide §4.3.0b, template v2.6 §2.0.H / §5 / §6.9 / §6.14. **Constat post-merge :** PR #647 intégrée et relue sur `main@5a972f291ef8819b179d879ae73b5943307ec3c1` ; les lectures ultérieures restent soumises à la vérification de la ref Git courante.  
 **Autorité :** Morris décide des évolutions structurantes, du classement `MAJOR` litigieux, de l'intégration et de la promotion ; ChatGPT qualifie et revoit ; Cursor modifie le code et tient les traces sous contrat autorisé.
 
-**Portée de la validation :** versioning produit approuvé en contenu ; activation dans le routage `main` seulement après PR/merge et vérification post-merge. Aucune version produit ou build réel attribué à ce jour. Le numéro initial et les moyens d'implémentation seront qualifiés dans ML1.
+**Portée de la validation :** versioning produit approuvé en contenu, **routage Next-only intégré sur `main` après PR/merge et vérification post-merge #647**. Aucune version produit ou build réel attribué à ce jour ; le numéro initial et la mise en œuvre technique restent à qualifier/implémenter dans ML1. **Contrat Git intégré ≠ mécanisme runtime implémenté ou prouvé.**
 
 ## 1. Objectif et règle générale
 
