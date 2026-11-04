@@ -54,7 +54,7 @@ Chaque ligne donne l'oracle R4 (recoupé) et les références applicables minima
 
 ## 3. Contrôle d'exhaustivité R2 D1/D2 (fichier associé)
 
-L'[inventaire](inventaire-r2.csv) énumère **103 références distinctes** : 25 `RG-ACC`, 24 `PF-ACC`, 27 `RG-CRE`, 27 `PF-CRE`. **Contrôle automatisé des séquences d'identifiants réalisé** lors de sa génération : aucune valeur manquante ou dupliquée dans ces quatre plages. C'est un inventaire, **pas 103 tests** et **pas une déclaration de conformité ML1**.
+L’[inventaire R2](inventaire-r2.csv) énumère **103 références distinctes** : 25 `RG-ACC`, 24 `PF-ACC`, 27 `RG-CRE`, 27 `PF-CRE`. **Contrôle automatisé des séquences d'identifiants réalisé** lors de sa génération : aucune valeur manquante ou dupliquée dans ces quatre plages. C'est un inventaire, **pas 103 tests** et **pas une déclaration de conformité ML1**.
 
 Les correspondances d'identifiants sont classées par **capacité responsable du premier contrôle**, et les cas particuliers sont signalés, notamment :
 
