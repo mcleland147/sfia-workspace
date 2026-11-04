@@ -26,7 +26,7 @@
 
 1. Le Pilote ouvre un projet existant, sans cycle/CKI/Git obligatoire, et expose une question de conception comportant plusieurs options.
 2. Nora comprend l'objectif, respecte les prescriptions, cherche les éléments internes réellement accessibles, explicite les lacunes et produit une analyse comparative critique et une suite utile.
-3. Le Pilote demande explicitement de rédiger un document de synthèse ; Nora fournit la rédaction et Studio conserve un brouillon durables, avec identité, révision, source, statut et contrôle d'accès.
+3. Le Pilote demande explicitement de rédiger un document de synthèse ; Nora fournit la rédaction et Studio conserve un brouillon durable, avec identité, révision, source, statut et contrôle d'accès.
 4. Le Pilote demande une révision ciblée d'une section ; le résultat conserve la version précédente, montre le changement pertinent et n'écrase ni les autres sections ni une révision concurrente.
 5. Dans une **nouvelle conversation du même projet**, Nora retrouve avec pertinence le document, les acquis structurants, une question encore ouverte et leur provenance, sans injection exhaustive du transcript.
 6. Une source contradictoire, indisponible ou devenue périmée déclenche une qualification honnête ; aucune recommandation n'est promue en décision D6 ou en permission d'effet.
