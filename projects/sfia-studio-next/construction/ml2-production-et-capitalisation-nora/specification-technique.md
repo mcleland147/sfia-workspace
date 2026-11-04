@@ -332,7 +332,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 
 **Trace minimale :** scenarioId, problème, contexte/sources accessibles à chacun, versions modèle/paramètres connus, SHA/build/lane, exécution et niveau de preuve, réponses ou références expurgées, observations et contre-exemples, verdict, responsable et re-test. Pas de seuil de similitude imposé ni de recherche du même raisonnement interne.
 
-**Référence comportementale ML1 à ne pas surestimer :** OAuth et conversation Nora LIVE **bornée** ont été recettés par Morris au C3 ; ML1 avait aussi messages durables, un document de base et un test BROWSER **FAKE**. Cela ne constitue **pas** une mesure de référence de profondeur d'analyse, critique, comparaison sourcée, rédaction autonome avancée, révision, mémoire sélective ou reprise dans un fil B. Pour chaque `COG-01..07`, inscrire `OBSERVED` seulement si une trace historique comparable existe ; sinon `NOT OBSERVED — BASELINE TO ESTABLISH`. Ne jamais transformer l'absence d'état de référence en score zéro ni inférer une amélioration chiffrée ; la première preuve ML2 établit alors le premier point mesuré. Comparer la *valeur observable* à la vision R1, puis ChatGPT/Nora dans des conditions déclarées.
+**Référence comportementale ML1 à ne pas surestimer :** OAuth et conversation Nora LIVE **bornée** ont été recettés par Morris au C3 ; ML1 avait aussi messages durables, un document de base et un test BROWSER **FAKE**. Cela ne constitue **pas** une mesure de référence de profondeur d'analyse, critique, comparaison sourcée, rédaction autonome avancée, révision, mémoire sélective ou reprise à froid du même fil. Pour chaque `COG-01..07`, inscrire `OBSERVED` seulement si une trace historique comparable existe ; sinon `NOT OBSERVED — BASELINE TO ESTABLISH`. Ne jamais transformer l'absence d'état de référence en score zéro ni inférer une amélioration chiffrée ; la première preuve ML2 établit alors le premier point mesuré. Comparer la *valeur observable* à la vision R1, puis ChatGPT/Nora dans des conditions déclarées.
 
 ## 9. Risques, dépendances, dette / exit
 
@@ -340,7 +340,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 | --- | --- | --- |
 | **Dérive vision → implémentation** | Une mémoire “techniquement présente” mais inutilisable par Nora | E2E 03/04 avec comparaison cognitive, inspection D4 et validation Morris |
 | **Seconde autorité mémoire/décisions** | D3 résume une recommandation comme acte D6 | Contrats propriétaires et tests négatifs ; absence de moteur D6 implicite |
-| **Qualité de récupération** | Contexte récent, périmé, non pertinent ou trop volumineux | A13 et nouveau fil, provenances/versions, tests LIVE avec cas contradictoires |
+| **Qualité de récupération** | Contexte récent, périmé, non pertinent ou trop volumineux | A13 et reprise du même fil après session, provenances/versions, tests LIVE avec cas contradictoires |
 | **Concurrence documentaire** | Écrasement, doublon, version erronée | Contrôle de base/révision, transactions/contraintes et injection de conflit/retry |
 | **Streaming/rendu** | Format riche ou activité non réellement implémentés | Arbitrage sur valeur produit et protocole ; rendu Markdown sécurisé et BROWSER réel ; pas de streaming fictif |
 | **Sécurité / contenu externe** | XSS, fuite interprojets, injection dans les sources | Sanitization, contrôle serveur d'accès, refus et fixtures adversariales |
@@ -357,7 +357,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 1. **Contrat et scénario discriminant** : partir du **périmètre Sujets/Acquis/Points ouverts/Reprise validé Morris**, qualifier les modalités UX/techniques, les options streaming, les scénarios cognitifs et les interfaces D3/D4. Contrôler l'écart entre R1 et R2/R3/R4.
 2. **Intégration verticale du travail Nora** : contextualisation depuis D4, production/révision de ressources, persistance et versions, UX de conversation/inspection et tests intégrés. Séquençage interne selon contraintes de schéma/contrats, pas par “micro-PR mémoire puis UI puis QA”.
 3. **Validation commune** : DB/concurrence/sécurité, navigateur/Figma, Nora LIVE et comparaisons cognitives indépendantes ; corriger les écarts et reprendre les seules portions impactées du candidat.
-4. **RECETTE Morris sur SHA figé** : démontrer une session qui produit un document, le révise et le reprend dans un autre fil ; documenter limitations, exceptions et verdict.
+4. **RECETTE Morris sur SHA figé** : démontrer une session qui produit un document et le révise, puis une reprise à froid du même fil permettant de retrouver ce document ; documenter limitations, exceptions et verdict.
 5. **Revue R5 et gates** : code, tests, architecture/doc Next et références synchronisés ; Review Pack/handoff SFIA v2.6 ; GO PR/merge distinct, vérification distante ; STABLE/R6/ADOPTED distincts.
 
 **Parallélisme :** seulement après stabilisation d'interface et ownership, par exemple moteur de récupération D4 et rendu UX sur contrats figés ; le schéma commun, la génération et la sauvegarde doivent avoir un intégrateur et des tests d'ensemble. Aucune restructuration d'architecture ou migration justifiée uniquement par la taille du lot.
