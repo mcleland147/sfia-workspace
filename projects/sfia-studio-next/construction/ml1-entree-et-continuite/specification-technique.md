@@ -451,3 +451,21 @@ Une alternative recevable est l'API Responses directe : si le SDK introduit une 
 Les limites sont **compatibilité architecturale vérifiée au niveau documentaire**, pas tests d'intégration avec des capacités inexistantes. Les nouvelles dépendances/versions seront contrôlées sur le premier environnement réel. **Aucun pivot R4 demandé**.
 
 **Suite et gates :** PR documentaire autorisée par Morris le 2026-11-04 après audit compact ; ouverture ≠ checks PASS ≠ merge ; autorisation de Cursor D3 séparée. Voir [revue documentaire et audit final](revue-coherence-technique.md).
+
+
+## 14. Implémentation locale DEV (working tree — 2026-11-04, qualification LIVE)
+
+> **Statut :** working tree local sur `sfia/next-access-preparation-continuity` ; **pas de push projet** ; comportement = code après consolidation LIVE QA.
+
+| Choix | Valeur |
+| --- | --- |
+| Application | `projects/sfia-studio-next/web` — Next.js **15.5.29** + React 19 + TypeScript |
+| Auth D1 | Better Auth session → `PilotId` ; `ensurePilotForAuthUser` **backfill** `github_user_id` si compte GitHub arrive après `user.create` (PilotId préservé ; conflit ≠ merge) ; DEV login isolé ; `/api/auth/status` toujours JSON |
+| SQL | PostgreSQL 16 Docker DEV `:5433` ; migrations `001` + `002` |
+| D2 | advisory xact lock `(pilotId,idempotencyKey)` avant mutations ; reconcile lie clé+préparation |
+| Continuité | `GET /api/projects/:projectId` sans query `preparationId` |
+| D3 | Agents SDK LIVE si `OPENAI_API_KEY` ; sinon fixture ; **pas** MemorySession ; tracing DEV `OPENAI_AGENTS_DISABLE_TRACING=1` |
+| D4 | owner+préparation ; documents durables ; Markdown riche **KNOWN GAP** (`whitespace-pre-wrap` brut) |
+| Dépendances | `overrides.postcss=8.5.32` (élimine nested Next 8.4.31) ; audit prod PostCSS/Next GHSA clos ; toolchain vitest/drizzle-kit reste dette DEV |
+| Version produit | `NO RELEASE` / STABLE `NOT AVAILABLE` |
+| Preuves | unit 3 ; integration 22 ; Playwright 1 ; build+tsc ; OAuth DB reconcile + BROWSER USER OBSERVED ; Nora LIVE API adapter PASS (1 appel borné) ; Figma pixel INCONCLUSIVE |

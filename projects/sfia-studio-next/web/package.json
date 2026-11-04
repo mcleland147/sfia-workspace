@@ -1,0 +1,53 @@
+{
+  "name": "sfia-studio-web",
+  "version": "0.0.0-dev",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack -p 3100 -H 127.0.0.1",
+    "build": "next build",
+    "start": "next start -p 3100 -H 127.0.0.1",
+    "lint": "next lint",
+    "db:migrate": "bash scripts/db-migrate.sh",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@openai/agents": "^0.21.0",
+    "better-auth": "^1.7.16",
+    "drizzle-orm": "^0.45.4",
+    "next": "^15.5.29",
+    "postgres": "^3.4.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "uuid": "^14.0.3",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/uuid": "^10.0.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "dotenv": "^18.0.9",
+    "drizzle-kit": "^0.31.11",
+    "eslint": "^9",
+    "eslint-config-next": "^15.5.29",
+    "playwright": "^1.64.1",
+    "postcss": "8.5.32",
+    "tailwindcss": "^3.4.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^3.2.4"
+  },
+  "description": "SFIA Studio web application (technical package version ≠ product release)",
+  "engines": {
+    "node": ">=20"
+  },
+  "overrides": {
+    "postcss": "8.5.32"
+  }
+}
