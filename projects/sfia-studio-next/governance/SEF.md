@@ -159,6 +159,17 @@ Ne pas confondre **concision documentaire** et **absence de trace** : les décis
 
 **Cycles SFIA v2.6** : le cycle et son profil restent déclarés (Light/Standard/Critical/Capitalization). **Standard par défaut** ; Critical sur risque réel de sécurité, architecture ou autorité, pas simplement parce qu'il y a plusieurs livrables. Capitalization n'est pas Critical par essence.
 
+### Complément validé — REX ML1, enseignement 3 : recul critique intégré au delivery (2026-11-04)
+
+**Statut : VALIDATED BY MORRIS.** Ce complément précise la pratique des étapes existantes du macro-lot, dans la continuité de SEF-01 et des responsabilités du §9. Il ne crée ni cycle systématique ni gate supplémentaire.
+
+- **À l'entrée du macro-lot :** Morris et ChatGPT vérifient le résultat utilisateur attendu, la contribution à la vision globale, les dépendances et la capacité suivante. Cette finalité doit être intelligible dans le contrat transmis à Cursor.
+- **Pendant le delivery :** chaque revue significative confronte le résultat à la cible produit, et pas seulement aux exigences techniques. Les anomalies importantes ou répétées déclenchent une recherche proportionnée de leurs causes : cadrage, contrat, instructions, architecture, implémentation ou preuves.
+- **À l'approche de la sortie :** avant de considérer le macro-lot comme terminé, une revue de cohérence vérifie que les capacités attendues ont effectivement été délivrées, que les écarts avec la vision cible sont qualifiés et que les conséquences pour la suite sont maîtrisées.
+
+**Ces vérifications sont intégrées aux travaux et revues existants.** Elles ne créent ni nouveaux cycles systématiques ni gates supplémentaires. Morris conserve les arbitrages.
+
+
 ## 6. Règles de qualité et de preuve
 
 ### 6.1 Contrat minimal de capacité
