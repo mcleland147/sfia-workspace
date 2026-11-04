@@ -1,7 +1,7 @@
 # SFIA Studio Next — R5 / ML2 — Spécification technique candidate
 ## Produire, réviser et capitaliser avec Nora
 
-> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.3, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
+> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.4, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -118,6 +118,24 @@ La **matrice ML2** associée contient les rattachements par fonctionnalité, les
 8. Capitaliser les acquis sélectifs utiles selon source/version/portée, sans fiche systématique ni acte d'autorité implicite. Conserver les erreurs/échecs utiles pour reprise, sans faux acquis.
 
 **Question technique ouverte :** sélection de contexte par requêtes SQL typées, résumés sourcés, recherche textuelle ou index dérivé — choisir la solution la plus simple capable de passer les scénarios ML2. Un index vectoriel et une orchestration de plusieurs agents ne sont **pas** des prérequis a priori.
+
+### 5.3. Contrats d'intégration D3 ↔ D4 — proposition de réalisation, pas API ratifiée
+
+**Source de responsabilité :** R2 D3/D4 et ADR R4-01/02 ; code ML1 relu sur main@9cd7a6c751f46d1be000d33a810fc9c344476ffc. L'adaptateur Nora courant utilise run(maxTurns: 1), produit un résultat final sans streaming et n'expose pas d'outils externes. Le service D3 lit six messages de 200 caractères au maximum et résout un fil par préparation ; D4 conserve des documents et révisions mais pas encore les connaissances/sujets/points ouverts. Ce constat de code **n'est pas une observation du runtime au présent**.
+
+| Frontière logique candidate | Demande / contexte | Réponse observable et garanties | Propriétaire |
+| --- | --- | --- | --- |
+| **Résoudre le travail courant** | Pilote authentifié, préparation/projet et conversation explicitement sélectionnée | Même projet autorisé et identité du fil ; accès refusé ou projet absent sans fuite ; sas→projet n'invente ni nouveau fil ni nouveau projet | D1/D2 identité et rattachement ; D3 fil |
+| **Sélectionner le contexte pertinent** | Projet, intention, références et autorisations vérifiées | Liste bornée d'acquis, sujets, documents/versions et points ouverts, avec source, date, portée, fiabilité, limite, identifiant ; aucun transcript exhaustif imposé | D4 sélection/provenance ; D3 consomme et choisit l'usage |
+| **Conduire une réponse Nora** | Intention, messages du fil, sélection D4, limites du fournisseur et règles d'autorité | Réponse textuelle/structurée et état effectif, corrélation de génération ; les données de source ne sont pas des instructions système | D3 |
+| **Conserver un document demandé** | Intention explicite du Pilote et contenu rédigé ; identité projet, clé d'opération et droits | Ressource D4 et révision durables, statut confirmé ou échec/inconnu ; aucune déclaration de sauvegarde avant vérité DB | D3 demande/rédige ; D4 écrit/versionne |
+| **Réviser un document** | Document, version de base réellement inspectée, section/cible, demande, clé corrélée | Conflit détecté, modification bornée, nouvelle version non destructive et diff consultable ; idempotence selon contrat à définir | D4 propriétaire |
+| **Capitaliser et requalifier** | Éléments significatifs sourcés, projet, contexte et source actuelle | Acquis/point ouvert/sujet réellement conservé ou limite signalée ; provenance, historique et droit de rectification ; aucune décision D6 créée | D4 vérité ; D3 sélection et restitution |
+| **Changer de conversation** | Projet courant, fil A, demande d'ouverture/choix de B | B est distinct de A ; messages ne se mélangent pas ; D4 fournit le contexte utile du projet au nouveau fil sous droits actuels | D3 fils ; D4 mémoire ; D1/D2 accès |
+
+**Règles d'intégration :** les contrats ci-dessus sont des **frontières et effets** ; leurs signatures TypeScript, routes HTTP, transactions, schémas, éventuelle indexation et statut machine doivent être proposés/contrôlés **avec le code dans le même macro-lot**, sans moteur concurrent. Ne pas promettre des outils Git/Web/externes à Nora à partir d'un prompt. Une réponse modèle ne peut produire seule un commit documentaire, une HumanDecision ou une modification D4 : l'application déclenche un effet **dans un contexte d'autorisation effectivement vérifié**.
+
+**Reprise et défaillance :** chaque écriture durable a un identifiant/corrélation adapté, un résultat réconciliable en lecture, un statut honnête en perte d'ACK/restart et une absence de double effet démontrée pour les opérations concernées. La matrice doit contrôler les courses entre réponses, changements de fil, changements de versions et droits retirés. Coûts/tokens/latence et limites de contexte sont consignés sans seuil universel inventé.
 
 ## 6. Spécification par résultats fonctionnels
 
@@ -246,6 +264,43 @@ Les parcours ci-dessous **consomment** les contrats R1/R2 et les cadres R3 ; ils
 
 **Contrat de transposition à instancier avant code UX :** Figma fileKey = itgvCulInEnFY6DvgIegvP ; pour chaque frame choisie, node-id exact, page, snapshot daté, extraction native des descendants utiles, tokens, tailles, auto-layout, interactions, states ; comparaison navigateur et divergences approuvées. La lecture Git des références de frames **n'est pas une extraction native actualisée** ; aucune mesure profonde, capture ou fidélité pixel n'est revendiquée ici.
 
+### 6.8. Expérience Nora — restitution, activité et streaming conditionnel (qualification candidate)
+
+**Exigence ferme issue de R1/R2 :** une réponse Nora doit être intelligible, structurée selon la tâche, sécurisée, réellement inspectable et honnête sur la génération, la sauvegarde et les limites. RG-CONV-006, RG-UX-001..003, RG-DOC-001..004, PF-24/29/33/34 sont les propriétaires des comportements ; **aucune règle R2 ne prescrit explicitement un transport streaming de tokens**.
+
+**Arbitrage technique non pris :** le streaming est une **option UX** susceptible d'améliorer la réactivité perçue. En ML2, la priorité proposée est une restitution riche et durable correcte ; le streaming n'est pas une preuve de qualité cognitive ni un prérequis automatique. Morris doit confirmer si le token streaming est une exigence de sortie ML2 ou une amélioration différable, en connaissance du coût de persistance/reconnexion/arrêt réel. Le contrat doit rester compatible avec les deux modes.
+
+| Situation | Comportement visible à rendre fidèle | Preuve / limite |
+| --- | --- | --- |
+| **Réponse courte** | Réponse proportionnée ; aucun panneau, formulaire ou activité factice | R2 PF-24/29 ; Q01/Q02 |
+| **Réponse complexe / document** | Markdown sûr : titres, listes, tableaux, liens réels, code ; affichage/comparaison de documents avec origine, version et statut confirmés ; pas de faux état « sauvegardé » | PF-28..35 ; Q04–Q14 |
+| **Attente du fournisseur** | Indicateur discret « Nora prépare une réponse » tant qu'une génération réellement en cours est connue ; pas de liste inventée d'étapes ni de pourcentage issu du temps | R3 frames 206/208, UX activité ; Q25 |
+| **Flux progressif, si retenu** | Fragments affichés comme **provisoires** ; seuls les messages validés/persistés sont qualifiés terminés ; client reconnecté retrouve l'état durable et non un flux fictivement reconstruit | QA conditionnelle Q29 ; commande, fréquence, limites d'API et transactions à éprouver |
+| **Arrêt / interruption, si effectivement supporté** | Distinguer demande d'arrêt, interruption confirmée, absence de confirmation et réponse partielle ; ne pas promettre l'annulation d'un effet/document déjà committé | R3 frames 210/212/215/216 ; Q25/Q29 ; le SDK et le transport doivent être observés |
+| **Erreur/timeout/UNKNOWN** | Message utilisateur conservé, échec ou inconnue lisible, possibilité de reprise/réconciliation ; aucun résultat/activité inventé | Q09/Q12/Q25, A05/A16 |
+
+**Architecture d'expérience :** la réponse conversationnelle reste dans D3 ; les documents/acquis et leurs statuts restent dans D4 ; l'UI ne fabrique aucun état propriétaire. Markdown est une **présentation sécurisée**, pas une surface d'exécution HTML/JS ; les sorties dynamiques gardent défilement naturel et accessibilité clavier/lecteur d'écran/réduction du mouvement.
+
+**STOP :** ne pas figer une route SSE/WebSocket, une bibliothèque Markdown ou un modèle de génération asynchrone sans nécessité démontrée. Si le streaming est retenu, qualifier les événements réellement disponibles, leur coût, l'anti-doublon, la perte de connexion et la récupération après restart **avant de revendiquer une réponse progressive fiable**.
+
+### 6.9. Qualification native Figma ciblée et écarts à résoudre
+
+**Consultation Figma read-only effectuée le 2026-11-04 :** fichier itgvCulInEnFY6DvgIegvP, références natives de la conversation 03 (94:214), du Journal 05 (94:515), des points ouverts 100 (160:967), du document 04 (94:370) et de l'activité 206 (281:389). Les métadonnées et compositions natives de ces **nœuds ciblés** sont consultables ; ce constat ne constitue ni un audit exhaustif des 223 frames, ni un contrat de dimensions descendants validé, ni une capture de l'application runtime.
+
+| Surface / fonction | Référence Figma consultée | État / action de produit à relier à la preuve |
+| --- | --- | --- |
+| **Conversation** | 03 — 94:214 | Présenter dialogue, réponse riche et provenance sans surcharge ; vérifier le bon fil A/B et le rendu dans le navigateur |
+| **Journal / Sujets** | 05 — 94:515 | Navigation Sujets, acquis, lien source et retour Nora ; la vue Décisions ne devient pas un registre D4 |
+| **Points ouverts transversaux** | 100 — 160:967 | Retrouver indépendamment d'un sujet, inspecter l'origine, revenir au fil ; pas de troisième source d'autorité |
+| **Document** | 04 — 94:370 | Source, version, statut et action d'inspection ; comportement complémentaire des frames 18 et 205 à extraire avant code |
+| **Activité cognitive** | 206 — 281:389 | Afficher un état effectivement disponible, pas les étapes internes imaginées ni un arrêt prétendument confirmé |
+
+**Deux écarts de couverture à conserver visibles :**
+- **Nouvelle conversation B** : l'UX R3 documente la reprise du projet et plusieurs fils possibles, mais aucun contrôle natif de **création/sélection B dans le même projet** n'est encore prouvé par les nœuds examinés ; qualifier le parcours complet contre D3/D4 et R1 §2.33 avant construction, sans inventer un écran canonique.
+- **Séparation/réorganisation des sujets** : Figma documente renommage et regroupement (160:823 / 160:895), mais la **séparation** et les retours d'erreur/conflit/réversibilité ne sont pas certifiés par le présent examen ; qualifier les états nécessaires pour satisfaire RG-KNOW-003/004 et Q17/Q28.
+
+**Contrat de transposition existant réutilisé** : ux-ui/contrat-transposition-figma-code.md §§3–4/6.3. À l'entrée de code UI, pour chaque parcours réellement impacté, extraire des nœuds **nativement et dans leur version datée** les descendants/contraintes/variables/states/actions et les confronter à des captures navigateur aux viewports 1680/1280/390/320, avec divergences Morris approuvées. Aucune modification Figma n'a été apportée par cette qualification documentaire.
+
 ## 7. Matrice de cohérence et protocole QA
 
 **Document lié :** matrice-tracabilite.md (même répertoire), propriétaire du rapprochement des capacités vers R1 E2E, RG/PF D2–D4, R3 frames, R4 invariants et oracles, propositions de preuve et statuts.
@@ -309,6 +364,9 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 ## 11. Gates de validation et prochaine étape
 
 **Gates nécessaires avant prompt Cursor / D3 :**
+- **Contrats de restitution qualifiés, pas encore validés :** priorité Markdown enrichi et états d'activité honnêtes ; arbitrer la place du streaming (obligation ML2 vs option différable) ; vérifier les garanties réelles du provider avant toute promesse d'arrêt/progression.
+- **Contrats D3/D4 candidats à stabiliser :** commandes de ressource, récupération sélective, capitalisation, sélection de fil B, idempotence et réconciliation, sans changer d'autorité.
+- **Écarts R3 identifiés :** commande fil B et parcours de séparation des sujets ; compléter les états de conception pertinents avant code UX, pas les 223 écrans.
 - **Déjà approuvé en périmètre par Morris (2026-11-04)** : mémoire vivante intégrée D4, Sujets/sous-sujets et réorganisation, Acquis, Points ouverts et Reprise cognitive. **Encore à qualifier avant D3** : oracles exacts, composants et états UX/Figma, stratégie de sélection D4, options streaming, impact migration/sécurité et périmètre complet ML2 ; ce document reste **CANDIDATE**.
 - Vérifier code/documentation/ADR/UX et source Figma pertinente sur ref actuel ; relever les gaps bloquants et le blast radius des nouvelles migrations, permissions et UI.
 - Définir branche autorisée, HEAD/base, fichiers, conditions STOP, QA, stratégie ENV-01, plan de reprise et preuve CI Next sous son GO technique adapté.
