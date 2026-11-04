@@ -107,12 +107,27 @@ Append-only logical journal of Cursor product deliveries.
 | Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
 | Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
 | Parent commit | `0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2` (preserved) |
-| Commit | recorded as HEAD of this delivery commit (exact SHA in Review Pack / `git rev-parse HEAD` after commit; no silent second commit for circular SHA) |
+| Commit | `8767185234bab9b2cad7800771a6bfc0ae1d19e4` (parent `0b982b3b…`; unpublished) |
 | Changes | A: strict loopback + DEV consume fail-closed; B: `db:migrate` 001→002 + fresh-container proof; C: owned E2E :3101 / `sfia_next_e2e` / Nora fixture-only |
 | Product version | `NO RELEASE` |
 | Lane | DEV |
 | Schema | `001` + `002` via `npm run db:migrate` |
 | Tests | unit / integration (incl. isolated migrate container) / Playwright FAKE E2E — see Review Pack |
-| Status | LOCAL CORRECTIVE candidate — no project push/PR/merge |
+| Status | LOCAL CORRECTIVE — preserved under subsequent guardrail commit |
 
-Decision: self-SHA not written into the versioned row to avoid a circular amend; ChatGPT must resolve tip SHA from Git after the local commit.
+## delivery_id: DELIV-2026-11-04-ML1-LOCAL-08-ENV-BOUNDARIES
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-04 (Europe/Paris) |
+| Macro-lot | R5 / ML1 pre-push environment boundaries (same lot) |
+| Type | INC corrective / isolation guardrails |
+| Branch | `sfia/next-access-preparation-continuity` (local only — not published) |
+| Base | `origin/main@61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Parent commit | `8767185234bab9b2cad7800771a6bfc0ae1d19e4` (preserved; commits 1–2 untouched) |
+| Commit | tip SHA after this delivery commit (resolve via `git rev-parse HEAD`; no circular amend) |
+| Changes | P1: Nora fixture DEV-only + fail-closed outside DEV / missing key; P2: E2E PG preflight before CREATE/migrate; P3: `distDir` `.next-e2e` vs `.next` |
+| Product version | `NO RELEASE` |
+| Lane | DEV |
+| Tests | unit 22; integration 26; Playwright FAKE 1; build/tsc/lint — see Review Pack |
+| Status | LOCAL CORRECTIVE candidate — no project push/PR/merge |

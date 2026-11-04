@@ -3,6 +3,13 @@
 No promoted product release yet.
 
 ## Unreleased
+## Unreleased — ML1 environment boundaries 2026-11-04
+
+- Nora: fixture COMPLETE only when `STUDIO_LANE=DEV` + E2E/force flags; flags outside DEV → FAILED (no LIVE, no FAKE COMPLETE); missing key outside DEV → FAILED.
+- E2E: read-only Postgres preflight (loopback `:5433` / `sfia_next_dev` + Docker mapping) before any CREATE/migrate; target `sfia_next_e2e` only.
+- Next: `STUDIO_E2E=1` → `distDir=.next-e2e` (operator keeps `.next`).
+- STABLE/RC still NOT AVAILABLE / NO RELEASE.
+
 ## Unreleased — ML1 targeted pre-push corrections 2026-11-04
 
 - D1: exact loopback Host/XFF parsing (reject `localhost.attacker.example` and multi-value XFF); DEV adapter consume fail-closed when lane ≠ DEV or test login disabled.

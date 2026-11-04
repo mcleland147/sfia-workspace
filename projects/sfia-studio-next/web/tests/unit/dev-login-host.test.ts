@@ -93,10 +93,12 @@ describe("Nora fixture force boundary", () => {
     }
   });
 
-  it("STUDIO_E2E=1 forces fixture regardless of lane (owned E2E runner)", () => {
+  it("STUDIO_E2E=1 forces fixture only in DEV (not RECETTE)", () => {
     process.env.STUDIO_E2E = "1";
-    process.env.STUDIO_LANE = "RECETTE";
+    process.env.STUDIO_LANE = "DEV";
     expect(mustUseNoraFixture()).toBe(true);
+    process.env.STUDIO_LANE = "RECETTE";
+    expect(mustUseNoraFixture()).toBe(false);
   });
 
   it("STUDIO_FORCE_NORA_FIXTURE=1 only forces fixture in DEV", () => {

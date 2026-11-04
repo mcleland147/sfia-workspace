@@ -18,18 +18,36 @@ const SYSTEM_INSTRUCTIONS =
   "Tu ne crées jamais de projet, cycle, dépôt Git ni mandat. " +
   "Aucun outil à effet externe n'est disponible. Réponds en français, concis.";
 
+function isDevLane(): boolean {
+  return process.env.STUDIO_LANE === "DEV";
+}
+
+function fixtureFlagsRequested(): boolean {
+  return process.env.STUDIO_E2E === "1" || process.env.STUDIO_FORCE_NORA_FIXTURE === "1";
+}
+
 /**
- * Explicit fixture force — allowed only for DEV / automated E2E.
- * Outside DEV (and without STUDIO_E2E), requesting a force is ignored for LIVE path
- * and the caller must not treat that as a silent production kill-switch.
+ * True only when intentional fixture is allowed: DEV lane + E2E/force flag.
+ * Outside DEV, flags never silently activate fixture (see generateNoraReply fail-closed).
  */
 export function mustUseNoraFixture(): boolean {
-  if (process.env.STUDIO_E2E === "1") return true;
-  if (process.env.STUDIO_FORCE_NORA_FIXTURE === "1") {
-    // Fail-closed outside DEV: force flag alone is not enough in non-DEV lanes.
-    return process.env.STUDIO_LANE === "DEV";
-  }
-  return false;
+  return isDevLane() && fixtureFlagsRequested();
+}
+
+/** Flags set while lane is not DEV — caller must fail closed (no FAKE COMPLETE, no LIVE). */
+export function noraFixtureFlagsOutsideDev(): boolean {
+  return fixtureFlagsRequested() && !isDevLane();
+}
+
+function boundaryFail(generationId: string, reason: string): NoraGenerateResult {
+  return {
+    generationId,
+    // mode marks that no OpenAI network path was taken
+    mode: "deterministic-fixture",
+    status: "FAILED",
+    streamingProvisional: false,
+    content: `Nora boundary FAILED: ${reason}. Aucun appel OpenAI; aucune réponse FAKE utilisable.`,
+  };
 }
 
 function fixtureReply(input: NoraGenerateInput, generationId: string): NoraGenerateResult {
@@ -49,12 +67,22 @@ function fixtureReply(input: NoraGenerateInput, generationId: string): NoraGener
 /**
  * D3 adapter — OpenAI Agents SDK behind this boundary when LIVE key present.
  * NEVER activates MemorySession / ConversationsSession as authority.
- * Without OPENAI_API_KEY: deterministic fixture only (NOT LIVE proof).
- * STUDIO_E2E=1 / STUDIO_FORCE_NORA_FIXTURE=1 (DEV only): fixture even if a key is present —
- * prevents Playwright reuse of a LIVE-keyed DEV server from emitting paid calls.
+ *
+ * Boundaries:
+ * - STUDIO_E2E / STUDIO_FORCE_NORA_FIXTURE → fixture COMPLETE only when STUDIO_LANE=DEV
+ * - Same flags outside DEV → FAILED (no LIVE, no FAKE COMPLETE)
+ * - Missing OPENAI_API_KEY in DEV → fixture COMPLETE (local DEV convenience)
+ * - Missing OPENAI_API_KEY outside DEV → FAILED (never silent FAKE in RECETTE/STABLE)
  */
 export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraGenerateResult> {
   const generationId = newId("gen");
+
+  if (noraFixtureFlagsOutsideDev()) {
+    return boundaryFail(
+      generationId,
+      "NORA_FIXTURE_LANE_FORBIDDEN (STUDIO_E2E/FORCE requires STUDIO_LANE=DEV)",
+    );
+  }
 
   if (mustUseNoraFixture()) {
     return fixtureReply(input, generationId);
@@ -62,11 +90,17 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
 
   const key = process.env.OPENAI_API_KEY?.trim();
   if (!key) {
+    if (!isDevLane()) {
+      return boundaryFail(
+        generationId,
+        "NORA_LIVE_KEY_REQUIRED outside DEV (no silent FAKE fallback)",
+      );
+    }
     return fixtureReply(input, generationId);
   }
 
   try {
-    // Dynamic import keeps fixture path free of SDK side-effects when no key / E2E.
+    // Dynamic import keeps fixture/boundary paths free of SDK side-effects.
     const { Agent, run } = await import("@openai/agents");
     const agent = new Agent({
       name: "Nora",
@@ -78,8 +112,6 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
       `${input.userText}\n\nContexte autorisé (borné):\n` +
       (input.contextSnippets.length ? input.contextSnippets.join("\n") : "(vide)");
 
-    // Non-streamed finalization: only COMPLETE after SDK result is obtained.
-    // Streaming UI may show provisional fragments separately; PG commit happens in service.
     const result = await run(agent, prompt, {
       maxTurns: 1,
     });

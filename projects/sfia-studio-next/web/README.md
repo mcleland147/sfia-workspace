@@ -51,7 +51,7 @@ npm run test:integration
 npm run test:e2e
 ```
 
-`test:e2e` starts an **owned** server on `127.0.0.1:3101` against isolated DB `sfia_next_e2e` (same Postgres instance, separate database). It forces Nora fixture FAKE (`STUDIO_E2E=1`, `OPENAI_API_KEY` neutralized) and does **not** reuse the operator DEV server on `:3100`. Operator data in `sfia_next_dev` (including project « Test 1 ») is untouched.
+`test:e2e` starts an **owned** server on `127.0.0.1:3101` against isolated DB `sfia_next_e2e` (same Postgres instance, separate database). Preflight (`scripts/e2e-preflight.ts`) validates operator `DATABASE_URL` (loopback `:5433` / `sfia_next_dev`) and Docker port mapping **before** any `CREATE DATABASE` or migrate. Nora fixture FAKE requires `STUDIO_LANE=DEV` + `STUDIO_E2E=1` (`OPENAI_API_KEY` neutralized). Cache dir: `.next-e2e` (operator DEV keeps `.next`). Does **not** reuse `:3100`. Operator data in `sfia_next_dev` (including project « Test 1 ») is untouched.
 
 ## Fake / Real boundaries
 
