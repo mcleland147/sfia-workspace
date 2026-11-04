@@ -66,9 +66,9 @@ Les corrections REV-01–REV-07 sont intégrées dans la spécification candidat
 
 ## 6. Livrables D0 de cette revue
 
-- `sfia-next-r5-specification-technique-ml1-candidate-v0.2.md` : spécification candidate révisée, contrats/propriétaires corrigés.
-- `sfia-next-r5-matrice-tracabilite-ml1-v0.3.md` : A11 partiellement différé, niveau LIVE Nora explicite.
-- `sfia-next-r5-reference-delivery-proposition-v0.4.md` : harmonisation du gate Figma, références corrigées.
+- [spécification technique ML1](specification-technique.md) : v0.2 revue, enrichie ensuite en v0.3 par un paquet de choix techniques **candidats**, non validés.
+- [matrice de traçabilité](matrice-tracabilite.md) : A11 partiellement différé, niveau LIVE Nora explicite.
+- [référence R5](../reference-delivery-r5.md) : harmonisation du gate Figma, références corrigées.
 
 **Aucune publication Git, aucun changement des décisions R4 ni des spécifications R2/R3, aucune implémentation, aucun test exécuté, aucun prompt Cursor.** L'accès natif Figma chez Cursor demeure une capacité annoncée, non vérifiée dans ce travail documentaire.
 

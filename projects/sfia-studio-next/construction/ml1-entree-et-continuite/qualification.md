@@ -21,7 +21,7 @@
 - R2 D1 `conception-fonctionnelle/acces-et-portefeuille.md` : 25 `RG-ACC` et 24 `PF-ACC` ; R2 D2 `creation-de-projet-et-continuite-du-sas.md` : 27 `RG-CRE` et 27 `PF-CRE`, **dont complément post-clôture `CRE-027`** ; interfaces ciblées D3/D4.
 - R3 `ux-ui/contrat-transposition-figma-code.md`, `ux-ui/index-geometrie-frames-r3.json` et fichier Figma `itgvCulInEnFY6DvgIegvP`. R3 couvre les familles/variantes ; **géométrie profonde partielle**.
 - R4 `architecture-technique/cadrage-r4.md` §§5.3 et 8.1, ADR **R4-01/02**, DATA-01, ENV-01, QA **A01–A16**.
-- Matrice de rattachement précise : `sfia-next-r5-matrice-tracabilite-ml1-v0.1.md` ; inventaire D1/D2 : `sfia-next-r5-r2-ml1-inventaire-v0.1.csv`. Ces deux artefacts sont locaux, non Git, proposés pour revue.
+- Matrice : [rattachement ML1](matrice-tracabilite.md) ; inventaire D1/D2 : [inventaire R2](inventaire-r2.csv). Initialement locaux, ces deux documents sont désormais publiés sur **branche Git candidate**, non fusionnés.
 
 ## 2. Périmètre IN / OUT et propriétaires
 

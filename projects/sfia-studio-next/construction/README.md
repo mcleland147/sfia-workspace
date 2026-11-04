@@ -7,7 +7,7 @@
 | [Référence globale R5](reference-delivery-r5.md) | Organisation, sources, macro-lots, gates et traçabilité | Candidate v0.4 |
 | [Contrat commun de spécification](contrat-specification-macro-lot.md) | Structure documentaire applicable par capacité, sans template Cursor parallèle | Candidate v0.2 |
 | [Qualification ML1](ml1-entree-et-continuite/qualification.md) | Résultat utilisateur, IN/OUT et interfaces | Candidate v0.1 |
-| [Spécification technique ML1](ml1-entree-et-continuite/specification-technique.md) | Mécanismes et contrats techniques proposés | Candidate v0.2 |
+| [Spécification technique ML1](ml1-entree-et-continuite/specification-technique.md) | Mécanismes, contrats et paquet de stack recommandé (non adopté) | Candidate v0.3 |
 | [Matrice ML1](ml1-entree-et-continuite/matrice-tracabilite.md) | R1/R2/R3/R4 et QA rattachés aux capacités | Candidate v0.3 |
 | [Inventaire R2 D1/D2](ml1-entree-et-continuite/inventaire-r2.csv) | 52 RG et 51 PF recensés | Inventaire de sources |
 | [Revue technique ML1](ml1-entree-et-continuite/revue-coherence-technique.md) | Corrections documentaires, arbitrages et réserves | Revue v0.1 |
