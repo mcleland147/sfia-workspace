@@ -199,6 +199,19 @@ Mentionner pour les preuves **DETERMINISTIC**, **BROWSER**, **LIVE**, **REAL** e
 
 **Pas de pourcentage de couverture universel** fixé par défaut ; les scénarios critiques et les frontières contractuelles sont le critère. Des seuils chiffrés pourront être décidés en R4 selon la stack et les risques.
 
+### Complément validé — REX ML1, enseignement 4 : progression cognitive démontrable de Nora (2026-11-04)
+
+**Statut : VALIDATED BY MORRIS.** Chaque macro-lot qui introduit ou améliore une capacité cognitive de Nora doit permettre d'apprécier **l'amélioration réelle du service rendu au Pilote**, et non seulement l'existence d'une nouvelle fonctionnalité ou d'un composant technique.
+
+Pour les capacités concernées, les matrices de traçabilité et contrats QA existants relient :
+
+- **La compétence attendue et sa valeur utilisateur** : ce que Nora doit permettre au Pilote de mieux accomplir.
+- **Un état de référence et des scénarios représentatifs comparables** : comportement réellement observé avant évolution, ou absence de référence explicitement signalée.
+- **Les résultats observés, leurs niveaux de preuve et leurs limites** : comparaison possible à conditions connues, sans confondre déterministe, intégration, navigateur et LIVE/REAL.
+- **Les écarts à corriger ou les améliorations à poursuivre** dans les macro-lots suivants, avec propriétaire et sortie lorsque nécessaire.
+
+La mesure est **proportionnée à la capacité développée**. Elle s'appuie sur les matrices, scénarios et preuves de leurs propriétaires, sans nouveau référentiel parallèle, seuil de performance artificiel ni gate supplémentaire. Elle ne réécrit pas rétroactivement les résultats ML1 et ne transforme pas une compétence projetée en capacité démontrée.
+
 ### 6.4 Prévention des régressions et test d'évolutivité
 
 Chaque évolution décrit le *blast radius* attendu. Les tests du propriétaire du contrat et des consommateurs affectés sont rejoués. Pour chaque fondation structurante, définir au moins un scénario d'extension plausible (nouvel outil / capacité Nora / type de mission) et vérifier qu'il n'exige pas de recoder les chemins d'autorité, les états projet ou l'expérience de dialogue sans motif métier.
