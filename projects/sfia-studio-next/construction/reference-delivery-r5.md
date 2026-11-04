@@ -303,4 +303,6 @@ La matrice QA du macro-lot conserve **une ligne par scénario comparatif utile**
 
 **Niveaux :** réponse ChatGPT de référence = artefact comparatif ; test simulé = DETERMINISTIC/FAKE ; comparaison avec Nora via vraie API et contexte connu = LIVE dans sa portée ; persistance ou navigateur revendiqués uniquement sur constat DB/BROWSER ; effets externes = REAL et contrôle d'autorité séparé. L'évaluation cognitive ne se substitue pas aux tests de sécurité, transactions, Figma et non-régression.
 
+**Instanciation ML2 candidate :** [Spécification technique — Produire et capitaliser avec Nora](ml2-production-et-capitalisation-nora/specification-technique.md) et [matrice R1–R5 / UX / QA / ChatGPT ↔ Nora](ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Ces deux documents sont des **propositions D0**, non des contrats de construction déjà approuvés ; leur publication candidate ne vaut pas GO D3.
+
 **Intégration au processus existant :** préparer les cas à la qualification du lot, les exécuter durant le delivery/RECETTE, en débattre lors de la revue de sortie. **Pas de cycle, PR, moteur ou validation supplémentaire systématique.** ChatGPT recommande, Morris tranche ; les écarts acceptés restent tracés avec conditions de sortie. **ML2 : D0 de spécification en cours, aucun GO technique/PR/merge/STABLE/ADOPTED déduit de cet addendum.**
