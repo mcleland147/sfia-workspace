@@ -1,14 +1,14 @@
-# SFIA Studio Next — R5 / ML2 — Spécification technique candidate
+# SFIA Studio Next — R5 / ML2 — Spécification technique validée en contenu
 ## Produire, réviser et capitaliser avec Nora
 
-> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.5, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
+> **État : VALIDATED SPEC — ML2 v0.6, contenu du contrat D3/D4, UX et critères d'acceptation approuvé par Morris le 2026-11-04.** Le périmètre et les résultats attendus sont validés pour préparer le delivery ; les choix internes de signatures API/transactions, migrations et composants Figma restent à qualifier **dans les frontières du contrat**, avec retour Morris en cas d'écart structurant. **Validation documentaire ≠ GO Cursor ≠ implémentation ≠ preuve BROWSER/DB/LIVE ≠ RECETTE ≠ STABLE/RELEASE/ADOPTED**. Cette écriture sur branche candidate et sa future intégration à `main` sont des gates Git distincts.
 
 | Métadonnée | Valeur |
 | --- | --- |
 | Macro-lot R5 | ML2 — Produire et capitaliser avec Nora |
 | Résultat Pilote | Une collaboration cognitive utile avec Nora, produisant des analyses et documents structurés, durables, révisables et récupérables avec provenance |
-| Référence de conception | main@9cd7a6c751f46d1be000d33a810fc9c344476ffc ; corrections R1/R2/R3/R4/R5 validées en portée par Morris et **publiées sur cette branche candidate, non intégrées à main** |
-| Branche documentaire de travail | docs/next-ml2-knowledge-scope-20261104 ; **candidate, distincte de main** |
+| Référence de conception | **main@cec6c058d98772d342f7a3576a0ca7ae1f3646cf**, post-PR #653 ; R1–R5 harmonisés sur la continuité d'un seul fil |
+| Branche documentaire de travail | docs/next-ml2-d3-d4-ux-contract-20261104 ; **candidate, distincte de main ; aucune PR/merge induite** |
 | Autorité | Morris : arbitrages, validation de contrat et gates ; ChatGPT : conception/revue/évaluation comparative ; Cursor : implémentation technique sous SFIA v2.6 |
 | État Git local / services démarrés | NON OBSERVÉS ; les preuves historiques de ML1 ne prouvent pas l'état runtime présent |
 | Produit amont | ML1 CLOSED BY MORRIS WITH CARRIED RESERVES, code mergé #649, validation fonctionnelle au candidat C3 |
@@ -39,7 +39,7 @@
 
 **Contrainte D5 constante :** au plus un cycle actif par projet, indépendamment des échanges ou digressions, avec le CKI de ce cycle uniquement. L'interface du fil n'est ni un moteur de cycle ni un registre de sujets ; D4 garde les acquis, documents et points ouverts indépendamment du volume d'historique affiché.
 
-**Requalification des références validées :** les formulations ambiguës de R1/R2 et l'hypothèse UX multi-chat de R3 ont fait l'objet d'une **correction documentaire D2 sous GO Morris du 2026-11-04 sur cette branche candidate**, aux côtés des rappels R4/R5. La baseline `main` demeure inchangée jusqu'au gate PR/merge distinct. Le test initial de « deux fils A/B » est **retiré comme exigence inventée**.
+**Requalification acquise dans Git :** les corrections R1/R2/R3/R4/R5 du modèle **un fil continu par projet** sont intégrées sur `main` par la PR #653, vérifiée le 2026-11-04. Le test initial de « deux fils A/B » a été retiré comme exigence inventée ; les présentes clarifications ML2 v0.6 ont reçu **validation de contenu Morris le 2026-11-04** et sont portées par une branche Git documentaire distincte jusqu'à leur merge.
 
 **Parcours R1 §2.41, conservé sans multi-chat :**
 
@@ -69,7 +69,7 @@
 - Deuxième moteur de mémoire/autorité, pipeline RAG obligatoire, base vectorielle par inertie, moteur universel de documents, imitation de réponses ChatGPT figées : exclus sans justification produit et technique.
 - R6 / STABLE : certification transverse, promotion ou ADOPTED non déduits du présent lot.
 
-**Arbitrage confirmé par Morris le 2026-11-04 :** ML2 inclut comme une **capacité intégrée** Sujets, Acquis, Points ouverts et Reprise cognitive, y compris la réorganisation durable des sujets (renommage, regroupement/fusion et séparation), sans moteur ni registre concurrents. La profondeur technique de réalisation est à concevoir au plus simple dans le respect des RG/PF R2 validés. **Frontières toujours à qualifier :** importance du streaming pour l'expérience Nora ; disponibilité des sources internes garanties pour la recette ; coûts/latence et interfaces réellement observables. Ce GO de périmètre ne vaut ni validation globale de cette spécification, ni GO Cursor.
+**Arbitrage confirmé par Morris le 2026-11-04 :** ML2 inclut comme **capacité intégrée** Sujets, Acquis, Points ouverts et Reprise cognitive, y compris renommage/regroupement/fusion/séparation, sans moteur concurrent. **Streaming : viser effectivement sa livraison dans ML2, sans bloquer la sortie sur obstacle qualifié**, avec cause et dette/exit soumises à Morris ; le principe n'est plus à arbitrer. **Frontières d'ingénierie à vérifier :** sources internes effectivement accessibles en recette, coûts/latence et API/DB/UX réellement disponibles. Ce GO de périmètre n'est ni validation globale de la spec, ni GO Cursor.
 
 ## 3. Hiérarchie des références, couverture et lacunes
 
@@ -125,21 +125,45 @@ La **matrice ML2** associée contient les rattachements par fonctionnalité, les
 
 ### 5.3. Contrats d'intégration D3 ↔ D4 — proposition de réalisation, pas API ratifiée
 
-**Source de responsabilité :** R2 D3/D4 et ADR R4-01/02 ; code ML1 relu sur main@9cd7a6c751f46d1be000d33a810fc9c344476ffc. L'adaptateur Nora courant utilise run(maxTurns: 1), produit un résultat final sans streaming et n'expose pas d'outils externes. Le service D3 lit six messages de 200 caractères au maximum et résout un fil par préparation ; D4 conserve des documents et révisions mais pas encore les connaissances/sujets/points ouverts. Ce constat de code **n'est pas une observation du runtime au présent**.
+**Source de responsabilité :** R2 D3/D4, ADR R4-01/02 et code ML1 relu sur main@cec6c058d98772d342f7a3576a0ca7ae1f3646cf. L'adaptateur Nora courant utilise run(maxTurns: 1), produit un résultat final sans streaming et n'expose pas d'outils externes. Le service D3 lit six messages de 200 caractères au maximum et résout un fil par préparation ; D4 conserve des documents et révisions mais pas encore les connaissances/sujets/points ouverts. Ce constat de code **n'est pas une observation du runtime au présent**.
 
 | Frontière logique candidate | Demande / contexte | Réponse observable et garanties | Propriétaire |
 | --- | --- | --- | --- |
 | **Résoudre le travail courant** | Pilote authentifié, sas/projet identifié, session initiale ou reprise | Même fil du projet retrouvé et autorisé, pas de sélection de chat secondaire ; accès refusé sans fuite | D1/D2 identité et rattachement ; D3 fil |
-| **Sélectionner le contexte pertinent** | Projet, intention, références et autorisations vérifiées | Liste bornée d'acquis, sujets, documents/versions et points ouverts, avec source, date, portée, fiabilité, limite, identifiant ; aucun transcript exhaustif imposé | D4 sélection/provenance ; D3 consomme et choisit l'usage |
+| **Accéder à la connaissance puis choisir le contexte** | Projet, intention, références et autorisations revérifiées | D4 expose des éléments autorisés avec identité, origine/version/date/limites et signale absences ; D3/Nora **sélectionne pour la demande** les éléments pertinents et leur usage, sans exiger le transcript exhaustif | **D4 disponibilité/provenance/droits ; D3 pertinence et restitution** (RG-KNOW-011, RG-CTX-002) |
 | **Conduire une réponse Nora** | Intention, messages du fil, sélection D4, limites du fournisseur et règles d'autorité | Réponse textuelle/structurée et état effectif, corrélation de génération ; les données de source ne sont pas des instructions système | D3 |
 | **Conserver un document demandé** | Intention explicite du Pilote et contenu rédigé ; identité projet, clé d'opération et droits | Ressource D4 et révision durables, statut confirmé ou échec/inconnu ; aucune déclaration de sauvegarde avant vérité DB | D3 demande/rédige ; D4 écrit/versionne |
 | **Réviser un document** | Document, version de base réellement inspectée, section/cible, demande, clé corrélée | Conflit détecté, modification bornée, nouvelle version non destructive et diff consultable ; idempotence selon contrat à définir | D4 propriétaire |
 | **Capitaliser et requalifier** | Éléments significatifs sourcés, projet, contexte et source actuelle | Acquis/point ouvert/sujet réellement conservé ou limite signalée ; provenance, historique et droit de rectification ; aucune décision D6 créée | D4 vérité ; D3 sélection et restitution |
-| **Reprendre ou changer de sujet** | Projet courant, nouvel échange après fermeture ou transition, même fil | Fil de travail stable ; D4 sélectionne les acquis pertinents sans rejouer tout l'historique ; aucun nouveau chat/cycle par la navigation | D3 fil/réponse ; D4 mémoire ; D1/D2 accès ; D5 cycle unique |
+| **Reprendre ou changer de sujet** | Projet courant, nouvel échange après fermeture ou transition, même fil | Fil de travail stable ; D4 rend disponibles les acquis autorisés, D3 sélectionne ceux pertinents ; aucun nouveau chat/cycle par la navigation | D3 fil/réponse/sélection ; D4 source ; D1/D2 accès ; D5 cycle unique |
 
 **Règles d'intégration :** les contrats ci-dessus sont des **frontières et effets** ; leurs signatures TypeScript, routes HTTP, transactions, schémas, éventuelle indexation et statut machine doivent être proposés/contrôlés **avec le code dans le même macro-lot**, sans moteur concurrent. Ne pas promettre des outils Git/Web/externes à Nora à partir d'un prompt. Une réponse modèle ne peut produire seule un commit documentaire, une HumanDecision ou une modification D4 : l'application déclenche un effet **dans un contexte d'autorisation effectivement vérifié**.
 
 **Reprise et défaillance :** chaque écriture durable a un identifiant/corrélation adapté, un résultat réconciliable en lecture, un statut honnête en perte d'ACK/restart et une absence de double effet démontrée pour les opérations concernées. La matrice doit contrôler les courses entre réponses, reconnexions/transitions de cycle, changements de versions et droits retirés. Coûts/tokens/latence et limites de contexte sont consignés sans seuil universel inventé.
+
+### 5.4. Contrat opérationnel D3/D4 et invariants d'échec — prêt pour revue de contenu, non signature d'API
+
+**Autorités fixées, mécanismes candidats :** ce tableau ne crée aucun propriétaire supplémentaire ni base de mémoire parallèle. D4 **conserve et rend disponibles** les données du bon projet ; D3/Nora **sélectionne, raisonne et restitue** les informations utiles à l'intention courante. Le modèle ne peut ni s'octroyer une permission, ni valider seul une écriture ou un acte D6. Le choix précis des routes/types/transactions est laissé à l'ingénierie D3 dans les limites de R4 ; tout pivot structurel retourne à Morris.
+
+| Contrat logique | Préconditions et données minimales | Postconditions / erreurs / reprise à observer |
+| --- | --- | --- |
+| **Contexte d'échange** | session autorisée D1, sas/projet D2, fil D3 unique, message et intention courante, éventuel cycle D5 réellement connu | conserver le même fil sas→projet et après reconnexion ; accès refusé sans fuite ; pas de création implicite de cycle/fil ; D3 borne le contexte |
+| **Disponibilité D4 → choix D3** | projet et droits actuels, identifiants de ressources, source/version/date, portée et limite de fraîcheur | D4 renvoie éléments disponibles ou limite explicite ; D3 choisit les éléments **utiles**, avec justification de provenance pour les points déterminants ; exclusion contrôlable d'un acquis périmé/non autorisé ; coût et volume bornés |
+| **Réponse Nora** | message utilisateur durable, contexte effectivement accessible, règles d'autorité, corrélation de génération | COMPLETED ou échec/UNKNOWN seulement si observé ; rendu adapté ; message utilisateur jamais perdu par panne fournisseur ; aucune recherche Git/Web ni outil réel annoncés sans accès |
+| **Création de document** | demande explicite, Pilote/projet, contenu rédigé, origine et clé d'opération corrélée | document + révision durablement retrouvables sous D4, état AVAILABLE confirmé ; en cas d'ACK perdu/erreur état UNKNOWN/FAILED réconciliable ; jamais de doublon volontaire par retry ou toast « enregistré » fictif |
+| **Révision non destructive** | document autorisé, révision de base **effectivement inspectée**, cible/section et instruction, corrélation | nouvelle révision reliée, version antérieure inchangée, diff v1/v2 inspectable ; si base périmée : **CONFLICT** sans écrasement ; récupération après restart ou timeout sans second effet |
+| **Capitalisation sélective** | acquis/point ouvert réellement utile proposé par D3, référence d'origine, type factuel/hypothèse, portée, droits | D4 persiste une seule vérité de connaissance avec provenance/état, ou retourne un refus/inconnu ; D3 n'annonce « capitalisé » qu'après résultat vérifié ; l'utilisateur peut inspecter/corriger ; recommandation ≠ D6 |
+| **Mutation de Sujet** | identité projet et Sujet, intention explicite du Pilote ou clarification proportionnée, opération et version de base | renommage/reclassement/regroupement/séparation traçables ; relations, points ouverts et sources retrouvables ; transformation ambiguë/concurrente refusée ou reproposée ; correction/reprise possible sans destruction d'origine |
+| **Reprise du même fil** | réouverture autorisée, ancien historique long, documents/acquis/points ouverts actuels | même identité de fil, restitution D4 indépendante de la fenêtre des six derniers messages, choix D3 proportionné, absence de transcript exhaustif imposé ; révocation appliquée à la nouvelle session |
+
+**Séparation entre reconnaissance et effet :** Nora peut proposer proactivement un acquis, mais **seule la confirmation d'écriture par le service D4** permet à l'interface d'affirmer sa conservation. Une donnée de source externe est traitée comme du contenu non autorisant, jamais comme une commande. Ne pas introduire de second service d'« intelligence mémoire » : index/recherche dérivés éventuels sont reconstruisibles et toujours subordonnés aux identités D4.
+
+**Concurrence et idempotence :** définir au cours du **même macro-lot de code** un mécanisme démontrable pour l'unicité, la corrélation des commandes, le contrôle de version et la reprise des états SAVING/AVAILABLE/FAILED/UNKNOWN ; la contrainte SQL actuelle d'unicité de numéro de révision **ne suffit pas** à établir la sûreté d'une révision concurrente. Une erreur tardive, un ACK perdu ou un restart doivent être réconciliés par lecture de la vérité persistée, **sans promettre une transaction atomique DB + fournisseur IA + stockage objet** si elle n'existe pas.
+
+**Sécurité :** contrôles serveur sur chaque lecture/écriture et sur les références croisées, isolation entre Pilotes/projets, droits réévalués après reconnexion et avant tout effet, absence de propagation de permissions depuis une source ou un document. Les références à D5/D6/D8/D9 restent descriptives tant que leurs domaines ne sont pas construits : pas de cycle, décision, preuve ou Git artificiellement simulés.
+
+**Points d'ingénierie autorisés sans arbitrage produit supplémentaire :** signatures et noms de fonctions internes, schéma minimum et migrations nécessaires, recherche SQL textuelle vs index reconstructible, structure de versions, gestion transactionnelle de concurrence, composants UX réutilisables, pilote de streaming et budget mesuré. **STOP / retour Morris** si l'implémentation exige une nouvelle autorité, un moteur concurrent, une technologie d'infrastructure structurante non justifiée, un changement de périmètre ou une modification d'une règle validée.
+
 
 ## 6. Spécification par résultats fonctionnels
 
@@ -286,7 +310,7 @@ Les parcours ci-dessous **consomment** les contrats R1/R2 et les cadres R3 ; ils
 
 ### 6.9. Qualification native Figma ciblée et écarts à résoudre
 
-**Consultation Figma read-only effectuée le 2026-11-04 :** fichier itgvCulInEnFY6DvgIegvP, références natives de la conversation 03 (94:214), du Journal 05 (94:515), des points ouverts 100 (160:967), du document 04 (94:370) et de l'activité 206 (281:389). Les métadonnées et compositions natives de ces **nœuds ciblés** sont consultables ; ce constat ne constitue ni un audit exhaustif des 223 frames, ni un contrat de dimensions descendants validé, ni une capture de l'application runtime.
+**Consultation Figma read-only effectuée le 2026-11-04 :** fichier itgvCulInEnFY6DvgIegvP, références natives ciblées de la conversation 03 (94:214), du Journal 05 (94:515), des documents 04 (94:370), révision 18 (97:359), comparaison 205 (241:385), Sujets 97 (160:751), renommage 98 (160:823), regroupement 99 (160:895), points ouverts 100 (160:967) et activité 206 (281:389). Ce constat **ne prouve ni parcours de séparation complet, ni audit des 223 frames, ni extraction exhaustive des descendants, ni dimensions validées pour toutes les variantes, ni capture de l'application runtime**.
 
 | Surface / fonction | Référence Figma consultée | État / action de produit à relier à la preuve |
 | --- | --- | --- |
@@ -301,6 +325,24 @@ Les parcours ci-dessous **consomment** les contrats R1/R2 et les cadres R3 ; ils
 - **Séparation/réorganisation des sujets** : Figma documente renommage et regroupement (160:823 / 160:895), mais la **séparation** et les retours d'erreur/conflit/réversibilité ne sont pas certifiés par le présent examen ; qualifier les états nécessaires pour satisfaire RG-KNOW-003/004 et Q17/Q28.
 
 **Contrat de transposition existant réutilisé** : ux-ui/contrat-transposition-figma-code.md §§3–4/6.3. À l'entrée de code UI, pour chaque parcours réellement impacté, extraire des nœuds **nativement et dans leur version datée** les descendants/contraintes/variables/states/actions et les confronter à des captures navigateur aux viewports 1680/1280/390/320, avec divergences Morris approuvées. Aucune modification Figma n'a été apportée par cette qualification documentaire.
+
+### 6.10. Contrat d'interaction UX candidat — états réels et séparation des Sujets
+
+**Relecture native Figma du 2026-11-04 (read-only, sans édition) :** conversation 03 \`94:214\`, Journal 05 \`94:515\`, document 04 \`94:370\`, révision 18 \`97:359\`, comparaison 205 \`241:385\`, Sujets 97 \`160:751\`, renommage 98 \`160:823\`, regroupement 99 \`160:895\`, points ouverts 100 \`160:967\`, activité Nora 206 \`281:389\`. Les frames **représentent des états illustratifs**, pas des transactions ni un parcours de séparation validé. Le contrat ci-dessous définit l'effet attendu ; les contrôles et calques natifs exacts sont à extraire avant code UI.
+
+| Parcours | États et actions attendus côté Pilote | Autorité à respecter / preuve |
+| --- | --- | --- |
+| **P1 — Réponse → document** | réponse lisible dans le fil ; indicateur de production effectif ; si document demandé : accès à l'objet seulement après sauvegarde confirmée ; FAILED/UNKNOWN lisibles et récupérables | D3 génère, D4 confirme ; Q04–Q09, Q25 |
+| **P2 — Inspection → révision → comparaison** | inspection version exacte et provenance ; demande sur section/base connues ; SAVING distinct de AVAILABLE ; CONFLICT si base périmée ; v1/v2 et diff inspectables ; retour au fil et à la position d'origine sans message envoyé | D4 versions/concurrence ; D3 formulation ; Q10–Q14/Q27 |
+| **P3 — Journal → Sujets / points ouverts** | liste et recherche des Sujets existants, source et liens accessibles ; renommer, regrouper ou réorganiser avec résultat confirmé ; points ouverts consultables transversalement ; retour à Nora sur la bonne référence | D4 identité/provenance/liens ; aucune vue autonome obligatoire « Réserves » ; Q15–Q18/Q28 |
+| **P3 — Séparer un Sujet** | action déclenchée depuis un Sujet existant lorsque nécessaire ; choisir les acquis/liens à reclasser et comprendre le résultat visé ; **prévisualiser si l'effet est structurant**, confirmer ou annuler ; résultat persistant vérifiable, ancien sens et filiation retrouvables, points ouverts non perdus ; échec ou conflit explicités | **GAP R3 natif : pas de parcours complet de séparation prouvé**. Ne pas créer d'écran gratuit : composer sur Sujets/Inspection existants si adapté ; faire valider la solution UX par Morris si une divergence structurante est nécessaire ; Q17/Q28 |
+| **P4 — Reprendre le travail** | quitter/revenir au même projet et au même fil ; documents/sujets/provenances retrouvables ; même contexte de travail pertinent après nombreux échanges ; aucun sélecteur « nouveau chat » ni cycle induit | D1/D2 identité/droits, D3 sélection, D4 connaissance, D5 cycle si disponible ; Q19/Q20/Q27/Q28 |
+| **Activité / streaming** | montrer seulement une génération connue ; le bouton d'arrêt n'apparaît comme opérant que si l'API/transport démontre sa capacité, distinguer STOP demandé et confirmé ; les fragments éventuels restent provisoires | streaming **tenté en ML2 mais non bloquant**, Q25 et Q29 selon capacité réellement livrée |
+
+**États transversaux minimaux à représenter et tester :** initial/vide ; lecture/chargement ; succès D4 confirmé ; écriture en cours ; échec ; état inconnu à réconcilier ; conflit de révision ou mutation ; accès retiré ; source périmée ; interruption ; retour avec origine perdue. Le Pilote ne voit ni succès inventé ni mutation invisible. Les contrôles clavier, focus, tailles 1680/1280/390/320, zoom et réduction du mouvement suivent le contrat Figma → code R3.
+
+**Contrat Figma à clôturer avant implémentation UI concernée :** la séparation des Sujets ne dispose pas encore d'une représentation native du début à la fin ; le contenu attendu et ses états sont **qualifiés dans ce contrat**, mais la composition/réutilisation exacte des calques et la revue de conformité Morris restent **à instruire**, sans réclamer une revue des 223 frames. Aucun calque n'est modifié ici. Une capture Figma ne vaut jamais preuve BROWSER ; chaque action doit être liée à une réponse réelle de D4.
+
 
 ## 7. Matrice de cohérence et protocole QA
 
@@ -342,7 +384,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 | **Seconde autorité mémoire/décisions** | D3 résume une recommandation comme acte D6 | Contrats propriétaires et tests négatifs ; absence de moteur D6 implicite |
 | **Qualité de récupération** | Contexte récent, périmé, non pertinent ou trop volumineux | A13 et reprise du même fil après session, provenances/versions, tests LIVE avec cas contradictoires |
 | **Concurrence documentaire** | Écrasement, doublon, version erronée | Contrôle de base/révision, transactions/contraintes et injection de conflit/retry |
-| **Streaming/rendu** | Format riche ou activité non réellement implémentés | Arbitrage sur valeur produit et protocole ; rendu Markdown sécurisé et BROWSER réel ; pas de streaming fictif |
+| **Streaming/rendu** | Format riche/activité non encore implémentés, streaming souhaité mais techniquement conditionnel | Tenter réellement en ML2 ; rendu Markdown sécurisé et BROWSER réel ; documenter obstacles et dette/exit Morris si report, sans streaming fictif |
 | **Sécurité / contenu externe** | XSS, fuite interprojets, injection dans les sources | Sanitization, contrôle serveur d'accès, refus et fixtures adversariales |
 | **Réserve B CI Next** | Prochaine livraison significative non validée par CI Next | Workflow Next sous GO partagé distinct, exécution réellement vérifiée **avant intégration ML2 significative** |
 | **Réserve A sessions DEV/RECETTE** | Même hôte/ports, cookies non séparés | Profils navigateur séparés provisoirement ; séparation technique et re-recette **avant STABLE** |
@@ -354,7 +396,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 
 ## 10. Plan d'implémentation intégré — candidat, pas des micro-cycles
 
-1. **Contrat et scénario discriminant** : partir du **périmètre Sujets/Acquis/Points ouverts/Reprise validé Morris**, qualifier les modalités UX/techniques, les options streaming, les scénarios cognitifs et les interfaces D3/D4. Contrôler l'écart entre R1 et R2/R3/R4.
+1. **Contrat et scénario discriminant** : partir du **périmètre Sujets/Acquis/Points ouverts/Reprise validé Morris**, appliquer les contrats D3/D4 §5.4 et UX §6.10, préparer la tentative de streaming non bloquante, les scénarios cognitifs et la composition Figma de séparation. Contrôler tout écart avec R1/R2/R3/R4 avant code.
 2. **Intégration verticale du travail Nora** : contextualisation depuis D4, production/révision de ressources, persistance et versions, UX de conversation/inspection et tests intégrés. Séquençage interne selon contraintes de schéma/contrats, pas par “micro-PR mémoire puis UI puis QA”.
 3. **Validation commune** : DB/concurrence/sécurité, navigateur/Figma, Nora LIVE et comparaisons cognitives indépendantes ; corriger les écarts et reprendre les seules portions impactées du candidat.
 4. **RECETTE Morris sur SHA figé** : démontrer une session qui produit un document et le révise, puis une reprise à froid du même fil permettant de retrouver ce document ; documenter limitations, exceptions et verdict.
@@ -365,14 +407,14 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 ## 11. Gates de validation et prochaine étape
 
 **Gates nécessaires avant prompt Cursor / D3 :**
-- **Contrats de restitution qualifiés, pas encore validés :** priorité Markdown enrichi et états d'activité honnêtes ; arbitrer la place du streaming (obligation ML2 vs option différable) ; vérifier les garanties réelles du provider avant toute promesse d'arrêt/progression.
-- **Contrats D3/D4 candidats à stabiliser :** commandes de ressource, récupération sélective dans le même fil, capitalisation, idempotence et réconciliation, sans changer d'autorité.
-- **Écarts R3 identifiés :** corriger l'hypothèse de multi-chat dans les sources validées via D2 ; qualifier le parcours de séparation des sujets, sans ajouter un gestionnaire de chats ni traiter les 223 écrans.
-- **Déjà approuvé en périmètre par Morris (2026-11-04)** : mémoire vivante intégrée D4, Sujets/sous-sujets et réorganisation, Acquis, Points ouverts et Reprise cognitive. **Encore à qualifier avant D3** : oracles exacts, composants et états UX/Figma, stratégie de sélection D4, options streaming, impact migration/sécurité et périmètre complet ML2 ; ce document reste **CANDIDATE**.
+- **Contrats de restitution VALIDATED SPEC :** Markdown enrichi et états d'activité honnêtes ; streaming **à tenter sans être bloquant pour le lot**, incident et dette/exit explicites si report ; vérifier le provider et l'arrêt réel avant toute promesse de progression.
+- **Contrats D3/D4 §5.4 VALIDATED SPEC :** D4 conserve/rend disponible et contrôle les droits ; D3 choisit la pertinence ; mêmes fil/identités, documents/versions/capitalisation, conflits/idempotence/réconciliation. Signatures et migrations à concevoir avec le code, sans changement d'autorité.
+- **Écart R3 résiduel :** clarification multi-chat déjà intégrée via PR #653 ; **parcours natif complet de séparation des Sujets non démontré**. §6.10 pose les états et oracles, reste à choisir/révérifier la composition Figma pertinente avant le code UX ; aucun gestionnaire de chats.
+- **VALIDATED SPEC par Morris (2026-11-04) :** mémoire vivante D4, Sujets/sous-sujets réorganisables, Acquis, Points ouverts, production/version documentaire, reprise du même fil ; oracles Q/COG et comportements UX pertinents. **Restent des vérifications d'ingénierie, non des validations produit anticipées :** réalisation Figma de la séparation, signatures/migrations/transactions et sécurité, sélection effective D3 des ressources D4, provider/streaming, performance et données de RECETTE, CI Next réellement exécutée.
 - Vérifier code/documentation/ADR/UX et source Figma pertinente sur ref actuel ; relever les gaps bloquants et le blast radius des nouvelles migrations, permissions et UI.
 - Définir branche autorisée, HEAD/base, fichiers, conditions STOP, QA, stratégie ENV-01, plan de reprise et preuve CI Next sous son GO technique adapté.
 - Lire les versions **Git** du routeur et du template Cursor SFIA v2.6 et n'émettre qu'alors le prompt officiel complet ; pas de template Next parallèle.
 
 **Critères de sortie candidats :** une production cognitive observable et utile, document enregistré/révisé/retrouvé, connaissance sélective utile et points ouverts, absence de fuite/autorité inventée, comportement honnête en panne, transposition UX contrôlée, comparatifs LIVE/ChatGPT commentés, dette/exit et preuves à SHA stable, acceptance Morris.
 
-**Verdict D0 : ML2 PRODUCT INTENT AND D4 KNOWLEDGE SCOPE VALIDATED BY MORRIS (2026-11-04) / REST OF TECHNICAL SPEC CANDIDATE / NO CURSOR PROMPT / NO CODE / NO PR / NO MERGE / NOT ADOPTED.**
+**Verdict : ML2 v0.6 — VALIDATED SPEC BY MORRIS (2026-11-04) / CONTRACT READY FOR D3 GO PREPARATION / NO CURSOR PROMPT / NOT IMPLEMENTED / NO ML2 QA EXECUTED / NO RECETTE / NO STABLE / NO RELEASE / NOT ADOPTED.**
