@@ -1,435 +1,252 @@
-# SFIA Review Pack FULL — ML1 Project Branch Push + PR Open
+# SFIA Review Pack FULL — ML1 RECETTE Preparation & Serving (ENV-01)
 
 | Field | Value |
 | --- | --- |
-| Date/time | 2026-11-04 16:05:19 CET |
-| GO Morris | Push branche projet + ouverture PR (2026-11-04) — **AUCUN MERGE** |
+| Date/time | 2026-11-04 16:23:40 CET |
+| GO Morris | Préparation intégrée RECETTE isolée post-revue PR #649 (2026-11-04) |
 | Cycle | 8 / INC / CRITICAL |
-| Product | `projects/sfia-studio-next/` |
-| Branch | `sfia/next-access-preparation-continuity` |
-| Base main | `61a6765a4e8d92760aab595b61b66aa2425906c6` |
-| Tip C3 published | `0db58be8240a00593092048ee74299f19374f489` |
-| PR | [#649](https://github.com/mcleland147/sfia-workspace/pull/649) |
-| Versioning | **NO RELEASE** / STABLE NOT AVAILABLE / RC NOT ASSIGNED |
-| Lane | DEV only (ENV-01) |
+| Candidate SHA | `0db58be8240a00593092048ee74299f19374f489` |
+| PR | #649 OPEN / **NO MERGE** |
+| main | `61a6765a4e8d92760aab595b61b66aa2425906c6` |
+| Versioning | **NO RELEASE** / STABLE NOT AVAILABLE / RC NOT ASSIGNED / ADOPTED NOT ACQUIRED |
 
 ## Verdict (Cursor)
 
-`PROJECT BRANCH PUBLISHED + PR OPENED — READY FOR CHATGPT GIT REVIEW`
+`ML1 RECETTE CANDIDATE SERVING — SHA VERIFIED — READY FOR MORRIS USER TESTS`
 
-## Instruction ChatGPT (mandatory)
+Avec capacités **OAuth BLOCKED** et **OpenAI/Nora BLOCKED** (explicites).  
+`RECETTE USER VERDICT PENDING / MERGE NOT AUTHORIZED`
 
-Relire PR [#649](https://github.com/mcleland147/sfia-workspace/pull/649) et ses commits Git directement, vérifier les contrôles observés à l'instant, le handoff distant et les preuves avant tout GO Morris merge/RECETTE.
+## Instruction ChatGPT
 
-**Règle :** `PUSH + OPEN PR ≠ CI PASS ≠ MERGE ≠ RECETTE ≠ STABLE ≠ ADOPTED`
+Relire le handoff distant, contrôler le manifeste, l'isolement des lanes, le SHA/build et les observations avant de demander au Pilote de tester la RECETTE. **Aucun merge sans recette et GO Morris spécifiques.**
 
 ## Git Review Index
 
-| Ref | SHA / value |
+| Ref | Value |
 | --- | --- |
-| origin/main | 61a6765a4e8d92760aab595b61b66aa2425906c6 |
-| C1 | 0b982b3b6a09b16d7f5ae36f9794c3fc8b3614c2 |
-| C2 | 8767185234bab9b2cad7800771a6bfc0ae1d19e4 |
-| C3 / remote tip / PR head | 0db58be8240a00593092048ee74299f19374f489 |
-| Remote branch | `origin/sfia/next-access-preparation-continuity` = 0db58be8240a00593092048ee74299f19374f489 (bit-exact) |
-| Prior handoff | 1de86b304fb1e0a3250a9d41bb312e1d6f8e6e78 |
+| Candidate | 0db58be8240a00593092048ee74299f19374f489 tree `69d48cc33a91af6635856babb620a7735aa55fe6` |
+| Remote branch | origin/sfia/next-access-preparation-continuity = C3 |
+| PR headOid | C3 ; checks: Required Gate SUCCESS, Detect SUCCESS, Build SKIPPED |
+| RECETTE worktree | `/Users/morris/Projects/sfia-studio-next-recette-ml1-c3` detached @ C3 |
+| DEV worktree | `/Users/morris/Projects/sfia-workspace` @ C3 tip (dirty residual tmp/public only) |
+| Ops (hors Git candidat) | `/Users/morris/Projects/sfia-recette-ops-ml1-c3/` |
+| Prior handoff | 3c3eec15… |
 
-### Pre-push local state
-- Branch exact, HEAD C3 exact, ancestry C1→C2→C3, merge-base = main
-- Remote branch **ABSENT** before push → created by this cycle
-- Dirty residual preserved (not published): `.tmp-sfia-review/chatgpt-review.md`, `web/public/*.svg` starter
-- Scope: 67 paths, all under `projects/sfia-studio-next/`
-- Secret heuristics on committed blobs: no private key / ghp_ / long sk- hits
-- No `.env*` under `projects/sfia-studio-next/web/` in Git (local `.env.example` ignored by `.env*` — documented debt)
+**Code C3 :** aucune modification source ; pas de commit/push projet.
 
-### Post-push / PR
-- `git push -u origin sfia/next-access-preparation-continuity` (no force) OK
-- ls-remote / fetch: remote tip = C3
-- PR #649 OPEN, not draft, not merged; base `main`; headRefOid = C3
-- Three commits present on PR
-- statusCheckRollup at report time: **Detect SFIA Studio changes** = `QUEUED` / PENDING (workflow SFIA Studio CI) — **not** claimed PASS
-- mergeStateStatus observed: `BLOCKED` (expected; no merge attempted)
-- Code changes this cycle: **none** (publish-only)
+## Lane isolation table
 
-## Pre-push re-validation at C3 (this cycle)
+| Dimension | DEV | RECETTE | STABLE |
+| --- | --- | --- | --- |
+| Source/build | mutable branch / `.next` | C3 figé + `next build` / `.next` worktree | NOT AVAILABLE |
+| URL | http://127.0.0.1:3100 (historique) | **http://localhost:3200** bind `[::1]:3200` | N/A |
+| Postgres | sfia-next-dev-pg :5433 / sfia_next_dev | **sfia-next-recette-pg :5434 / sfia_next_recette** | N/A |
+| Sessions/cookies | host 127.0.0.1 | host **localhost / ::1** (IPv4 127.0.0.1:3200 refused) | N/A |
+| Secrets | DEV .env.local (non lu/copié) | RECETTE .env.local dédié (AUTH secret only) | N/A |
+| OAuth | historically configured | **BLOCKED** | N/A |
+| Nora | historically LIVE possible | **BLOCKED** (FAILED sans FAKE) | N/A |
+| E2E FAKE | :3101 / sfia_next_e2e | **not reused as RECETTE proof** | N/A |
 
-| Check | Class | Result |
-| --- | --- | --- |
-| test:unit | UNIT | 22 PASS |
-| test:integration | POSTGRES ISOLATED (+ DEV) | 26 PASS |
-| test:e2e | BROWSER FAKE | 1 PASS |
-| tsc / build / lint | UNIT | PASS |
-| Test 1 preserved | POSTGRES DEV | count=1 |
-| Nora LIVE / OAuth interactive | LIVE USER PREVIOUS / NOT RUN | not re-run |
-| CI on PR | PENDING | QUEUED at observation time |
+## Preuves clés
 
-## PR body factual summary (opened)
+1. Worktree HEAD = C3 ; tree match remote.
+2. Migrations 001→002 sur conteneur RECETTE only ; DEV Test 1 count=1 ; RECETTE projects=0.
+3. `next build` PASS ; BUILD_ID `PMCGeil9wv8DZNBfEGf4H` ; fingerprint in manifest.
+4. `next start` production on localhost:3200 ; login HTTP 200 ; API portfolio anon 401.
+5. DEV login POST → 403 `DEV_TEST_LOGIN_DISABLED` (no Set-Cookie session).
+6. Nora under RECETTE sans clé → `FAILED` / `NORA_LIVE_KEY_REQUIRED` / pas de texte fixture COMPLETE.
+7. Cookie/host isolation without C3 code change: distinct hostname + IPv6-only listen.
+8. CI Build SKIPPED ≠ claimed Next CI PASS.
 
-Title: `feat(next): ML1 access, durable preparation, Nora and project continuity`
+## Manifeste ENV-01 (non secret)
 
-Covers: ML1 vertical D1–D4, guardrails C2/C3, proofs at C3, open reserves A05/A13/A15/A16/DATA-01, Markdown KNOWN GAP, Figma INCONCLUSIVE, `.env.example` debt, NO RELEASE, gates for merge/RECETTE still separate.
+Voir fichier ops (contenu intégral ci-dessous).
 
-## Diff inventory (main...C3)
-
-```
-A	projects/sfia-studio-next/CHANGELOG.md
-A	projects/sfia-studio-next/construction/delivery-history.md
-M	projects/sfia-studio-next/construction/ml1-entree-et-continuite/matrice-tracabilite.md
-M	projects/sfia-studio-next/construction/ml1-entree-et-continuite/specification-technique.md
-A	projects/sfia-studio-next/web/.gitignore
-A	projects/sfia-studio-next/web/README.md
-A	projects/sfia-studio-next/web/docs/ux-figma-pending.md
-A	projects/sfia-studio-next/web/drizzle.config.ts
-A	projects/sfia-studio-next/web/eslint.config.mjs
-A	projects/sfia-studio-next/web/next.config.ts
-A	projects/sfia-studio-next/web/package-lock.json
-A	projects/sfia-studio-next/web/package.json
-A	projects/sfia-studio-next/web/playwright.config.ts
-A	projects/sfia-studio-next/web/postcss.config.mjs
-A	projects/sfia-studio-next/web/scripts/db-migrate.sh
-A	projects/sfia-studio-next/web/scripts/e2e-preflight.ts
-A	projects/sfia-studio-next/web/scripts/e2e-web-server.sh
-A	projects/sfia-studio-next/web/src/app/api/auth/[...all]/route.ts
-A	projects/sfia-studio-next/web/src/app/api/dev/login/route.ts
-A	projects/sfia-studio-next/web/src/app/api/portfolio/route.ts
-A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/create-project/route.ts
-A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/route.ts
-A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/reconcile/route.ts
-A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
-A	projects/sfia-studio-next/web/src/app/api/preparations/route.ts
-A	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-A	projects/sfia-studio-next/web/src/app/favicon.ico
-A	projects/sfia-studio-next/web/src/app/globals.css
-A	projects/sfia-studio-next/web/src/app/layout.tsx
-A	projects/sfia-studio-next/web/src/app/login/page.tsx
-A	projects/sfia-studio-next/web/src/app/page.tsx
-A	projects/sfia-studio-next/web/src/app/portfolio/page.tsx
-A	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-A	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-A	projects/sfia-studio-next/web/src/db/client.ts
-A	projects/sfia-studio-next/web/src/db/migrations/001_initial_studio_core.sql
-A	projects/sfia-studio-next/web/src/db/migrations/002_session_auth_mode.sql
-A	projects/sfia-studio-next/web/src/db/schema.ts
-A	projects/sfia-studio-next/web/src/domains/boundaries/non-effects.ts
-A	projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-A	projects/sfia-studio-next/web/src/domains/conversation/service.ts
-A	projects/sfia-studio-next/web/src/domains/document/service.ts
-A	projects/sfia-studio-next/web/src/domains/identity/portfolio.ts
-A	projects/sfia-studio-next/web/src/domains/identity/provision-pilot.ts
-A	projects/sfia-studio-next/web/src/domains/identity/session.ts
-A	projects/sfia-studio-next/web/src/domains/preparation/create-project.ts
-A	projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-A	projects/sfia-studio-next/web/src/domains/preparation/service.ts
-A	projects/sfia-studio-next/web/src/lib/auth.ts
-A	projects/sfia-studio-next/web/src/lib/e2e-pg-gate.ts
-A	projects/sfia-studio-next/web/src/lib/fingerprint.ts
-A	projects/sfia-studio-next/web/src/lib/ids.ts
-A	projects/sfia-studio-next/web/src/lib/product-version.ts
-A	projects/sfia-studio-next/web/tailwind.config.ts
-A	projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
-A	projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-A	projects/sfia-studio-next/web/tests/integration/identity-session.pg.test.ts
-A	projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
-A	projects/sfia-studio-next/web/tests/unit/dev-login-host.test.ts
-A	projects/sfia-studio-next/web/tests/unit/e2e-pg-gate.test.ts
-A	projects/sfia-studio-next/web/tests/unit/fingerprint.test.ts
-A	projects/sfia-studio-next/web/tests/unit/next-dist-dir.test.ts
-A	projects/sfia-studio-next/web/tests/unit/non-effects.test.ts
-A	projects/sfia-studio-next/web/tests/unit/nora-e2e-fixture.test.ts
-A	projects/sfia-studio-next/web/tsconfig.json
-A	projects/sfia-studio-next/web/vitest.config.ts
+```yaml
+lane: RECETTE
+source_repository: mcleland147/sfia-workspace
+source_branch: sfia/next-access-preparation-continuity
+base_main_sha: 61a6765a4e8d92760aab595b61b66aa2425906c6
+candidate_sha: 0db58be8240a00593092048ee74299f19374f489
+candidate_tree: 69d48cc33a91af6635856babb620a7735aa55fe6
+worktree_path: /Users/morris/Projects/sfia-studio-next-recette-ml1-c3
+worktree_mode: git worktree --detach (immutable source; no project commits)
+build_identifier: PMCGeil9wv8DZNBfEGf4H-6d62bb074013c33d276618b07e08f0012306aae93d2787eabcc1c3bbdd086ba3
+next_build_id: PMCGeil9wv8DZNBfEGf4H
+product_version: NOT AVAILABLE
+candidate_version: NOT ASSIGNED
+release_tag: N/A
+technical_package_version: 0.0.0-dev
+served_address: http://localhost:3200
+listen_bind: "[::1]:3200 (localhost only; 127.0.0.1:3200 refused)"
+schema_revision: 001_initial_studio_core + 002_session_auth_mode (applied on sfia_next_recette)
+test_data_revision: empty-clean-recette-db-2026-11-04
+postgres:
+  container: sfia-next-recette-pg
+  host: 127.0.0.1
+  port: 5434
+  database: sfia_next_recette
+  user: sfia_next_recette
+  note: distinct from DEV sfia-next-dev-pg / sfia_next_dev / 5433
+capabilities:
+  openai: BLOCKED — no RECETTE OPENAI_API_KEY configured (STUDIO_LANE=RECETTE → FAILED not FAKE)
+  github: BLOCKED — no RECETTE GITHUB_CLIENT_ID/SECRET / callback for http://localhost:3200
+  cursor: NOT IN ML1
+  studio_dev_test_login: DISABLED (STUDIO_DEV_TEST_LOGIN=0; API returns 403)
+quality_evidence:
+  - UNIT/INTEGRATION/E2E FAKE at C3 = HISTORICAL DEV (prior cycles; CI Build SKIPPED on PR)
+  - RECETTE next build PASS (local)
+  - RECETTE migrate 001→002 PASS on sfia-next-recette-pg
+  - HTTP smoke login 200; portfolio API anon 401; auth/status configured=false
+  - DEV login POST → 403 DEV_TEST_LOGIN_DISABLED
+  - Nora generate under RECETTE without key → status FAILED NORA_LIVE_KEY_REQUIRED (no fixture COMPLETE)
+  - Cookie/host isolation: RECETTE on localhost/[::1]:3200; DEV historically 127.0.0.1:3100; IPv4 127.0.0.1:3200 connection refused
+  - DEV Test 1 count=1 unchanged; RECETTE projects count=0
+known_gaps:
+  - OAuth interactive LOGIN LIVE NOT TESTED / BLOCKED pending dedicated GitHub OAuth app+callback
+  - Nora LIVE NOT TESTED / BLOCKED pending dedicated RECETTE OpenAI key + Morris explicit budget
+  - Figma pixel INCONCLUSIVE; Markdown rich KNOWN GAP; A05/A13/A15/A16/DATA-01 open
+  - App UI does not display build SHA (gap); identity via this manifest + Next BUILD_ID
+  - CI "Build and validate SFIA Studio" on PR #649 = SKIPPED ≠ Next CI PASS
+review_decision: PENDING MORRIS USER RECETTE
+pr_649: OPEN / NO MERGE
+no_release: true
+stable: NOT AVAILABLE
+adopted: NOT ACQUIRED
+ops_helpers:
+  start: /Users/morris/Projects/sfia-recette-ops-ml1-c3/start-recette.sh
+  stop: /Users/morris/Projects/sfia-recette-ops-ml1-c3/stop-recette.sh
+  note: helpers outside candidate Git worktree; secrets never committed
 ```
 
-## Diff stat
-```
- projects/sfia-studio-next/web/src/db/schema.ts     |   215 +
- .../web/src/domains/boundaries/non-effects.ts      |    30 +
- .../web/src/domains/conversation/nora-adapter.ts   |   151 +
- .../web/src/domains/conversation/service.ts        |    76 +
- .../web/src/domains/document/service.ts            |   134 +
- .../web/src/domains/identity/portfolio.ts          |    41 +
- .../web/src/domains/identity/provision-pilot.ts    |   103 +
- .../web/src/domains/identity/session.ts            |   272 +
- .../web/src/domains/preparation/create-project.ts  |   290 +
- .../web/src/domains/preparation/project-context.ts |    53 +
- .../web/src/domains/preparation/service.ts         |    91 +
- projects/sfia-studio-next/web/src/lib/auth.ts      |    83 +
- .../sfia-studio-next/web/src/lib/e2e-pg-gate.ts    |   159 +
- .../sfia-studio-next/web/src/lib/fingerprint.ts    |    19 +
- projects/sfia-studio-next/web/src/lib/ids.ts       |     6 +
- .../web/src/lib/product-version.ts                 |    25 +
- projects/sfia-studio-next/web/tailwind.config.ts   |    18 +
- .../web/tests/e2e/ml1-smoke.spec.ts                |    79 +
- .../tests/integration/create-project.pg.test.ts    |   451 +
- .../tests/integration/identity-session.pg.test.ts  |   247 +
- .../tests/integration/migrations-fresh.pg.test.ts  |   151 +
- .../web/tests/unit/dev-login-host.test.ts          |   112 +
- .../web/tests/unit/e2e-pg-gate.test.ts             |    71 +
- .../web/tests/unit/fingerprint.test.ts             |    36 +
- .../web/tests/unit/next-dist-dir.test.ts           |    25 +
- .../web/tests/unit/non-effects.test.ts             |     8 +
- .../web/tests/unit/nora-e2e-fixture.test.ts        |   103 +
- projects/sfia-studio-next/web/tsconfig.json        |    27 +
- projects/sfia-studio-next/web/vitest.config.ts     |    24 +
- 67 files changed, 15241 insertions(+), 7 deletions(-)
-```
+## Pilot guide (excerpt path)
+Full guide: `/Users/morris/Projects/sfia-recette-ops-ml1-c3/PILOT-RECETTE-GUIDE.md`
 
-## Exclusions (not published)
-- `.tmp-sfia-review/**`
-- `projects/sfia-studio-next/web/public/*.svg` starter untracked
-- `.env.local` / secrets
-- `.next` / `.next-e2e` / test-results
+```markdown
+# Grille de recette Pilote — ML1 RECETTE (SHA C3)
 
-## Reserves retained
-- A05/A13/A15/A16, DATA-01; Nora cognition ML2+; Markdown rich KNOWN GAP; Figma INCONCLUSIVE
-- RECETTE/STABLE NOT AVAILABLE; no ADOPTED; no ML1 closure
-- CI PENDING at observation — do not invent PASS
+**Date:** 2026-11-04 (Europe/Paris)  
+**SHA figé:** `0db58be8240a00593092048ee74299f19374f489`  
+**URL:** http://localhost:3200  
+**Lane:** RECETTE · **NO RELEASE** · PR #649 OPEN / NO MERGE  
 
-## STOP / exceptions
-None. NO MERGE / NO RELEASE / NO TAG / NO PROMOTION performed.
+Avant de tester : `bash /Users/morris/Projects/sfia-recette-ops-ml1-c3/start-recette.sh`  
+Arrêt seul RECETTE : `bash /Users/morris/Projects/sfia-recette-ops-ml1-c3/stop-recette.sh`  
+Ne pas utiliser `127.0.0.1:3200` (refus réseau volontaire). Ne pas confondre avec DEV `http://127.0.0.1:3100`.
 
+## Capacités actuelles
 
-## Key published excerpts (C3 tip) — guardrails
+| Capacité | État |
+| --- | --- |
+| Serveur production locale | SERVING |
+| Login DEV Pilote A/B | DISABLED (attendu) |
+| GitHub OAuth LIVE | **BLOCKED** — fournir app/callback RECETTE dédiés si test login réel voulu |
+| Nora LIVE | **BLOCKED** — fournir `OPENAI_API_KEY` RECETTE dédiée + budget si test LIVE voulu |
+| DB / schéma 001+002 | PROVEN (vide, isolée) |
 
-### next.config.ts
-```ts
-import type { NextConfig } from "next";
+## Scénarios
 
-/**
- * Operator DEV (:3100) keeps default `.next`.
- * Playwright E2E runner sets STUDIO_E2E=1 → dedicated `.next-e2e` cache.
- */
-const isE2E = process.env.STUDIO_E2E === "1";
+| ID | Action | Attendu | Qui |
+| --- | --- | --- | --- |
+| S0 | Ouvrir http://localhost:3200/login | Page login charge | À FAIRE PAR MORRIS |
+| S1 | Vérifier absence de session DEV croisée (profil/navigateur séparé recommandé) | Cookies `localhost` ≠ jar `127.0.0.1` DEV | À FAIRE PAR MORRIS |
+| S2 | Tenter login DEV si visible | Refus / pas de session DEV | Cursor: API 403 PROUVÉ |
+| A01 | Login GitHub OAuth | **NON DISPONIBLE** tant que OAuth BLOCKED | BLOCKED / unlock manuel |
+| A02 | Nora message LIVE | **NON DISPONIBLE** tant que OpenAI BLOCKED | BLOCKED / unlock manuel |
+| A03–A04 | Sas + document (après auth) | Après OAuth débloqué | À FAIRE PAR MORRIS |
+| A06–A10 | Création projet, réouverture projectId, isolation comptes | Après OAuth | À FAIRE PAR MORRIS |
+| A12/A14 | Persistance reload / redémarrage RECETTE seul | start/stop scripts | À FAIRE PAR MORRIS |
+| A05/A11/A13/A15/A16/DATA-01 | Hors ML1 / réserves | NOT IN SCOPE / OPEN | — |
 
-const nextConfig: NextConfig = {
-  distDir: isE2E ? ".next-e2e" : ".next",
-};
+## Unlock OAuth / Nora (manuel Morris — hors automatisme Cursor)
 
-export default nextConfig;
+1. Créer (ou dédier) une GitHub OAuth App avec callback `http://localhost:3200/api/auth/callback/github` (vérifier chemin Better Auth réel).
+2. Ajouter `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET` dans `…/web/.env.local` RECETTE **uniquement** (ne pas copier depuis DEV sans arbitrage).
+3. Optionnel Nora : ajouter `OPENAI_API_KEY` RECETTE dédiée ; garder `STUDIO_LANE=RECETTE`, jamais `STUDIO_E2E=1`.
+4. Redémarrer via `stop-recette.sh` puis `start-recette.sh`.
+5. Considérer tout unlock comme nouveau périmètre de preuve (noter dans verdict utilisateur).
+
+## Ce que Cursor n'a PAS testé
+
+OAuth interactif, Nora LIVE payante, interruptions réseau, Figma pixel, restauration DATA-01, merge PR.
+
+**Verdict utilisateur = Morris uniquement.** `RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED`.
 ```
 
-### mustUseNoraFixture / boundary (nora-adapter excerpt)
-```ts
-import { newId } from "@/lib/ids";
+## Ops helpers (expurged)
+### start-recette.sh
+```bash
+#!/usr/bin/env bash
+# Start ML1 RECETTE candidate (frozen SHA C3) — production mode on localhost:3200.
+# Outside Git candidate tree. No secrets printed.
+set -euo pipefail
+WEB="/Users/morris/Projects/sfia-studio-next-recette-ml1-c3/projects/sfia-studio-next/web"
+OPS="$(cd "$(dirname "$0")" && pwd)"
+PIDFILE="$OPS/recette-next.pid"
+LOGFILE="$OPS/recette-next.log"
+PORT=3200
+HOST=localhost
 
-export type NoraGenerateInput = {
-  userText: string;
-  contextSnippets: string[];
-};
+if lsof -nP -iTCP:"$PORT" -sTCP:LISTEN >/dev/null 2>&1; then
+  echo "RECETTE port $PORT already listening"
+  lsof -nP -iTCP:"$PORT" -sTCP:LISTEN | head -3
+  exit 0
+fi
 
-export type NoraGenerateResult = {
-  content: string;
-  status: "COMPLETE" | "FAILED" | "INTERRUPTED" | "UNKNOWN";
-  generationId: string;
-  mode: "deterministic-fixture" | "openai-agents-sdk-live";
-  streamingProvisional?: boolean;
-};
+docker start sfia-next-recette-pg >/dev/null
 
-const SYSTEM_INSTRUCTIONS =
-  "Tu es Nora, copilote SFIA Studio. Tu analyses et proposes. " +
-  "Tu ne crées jamais de projet, cycle, dépôt Git ni mandat. " +
-  "Aucun outil à effet externe n'est disponible. Réponds en français, concis.";
-
-function isDevLane(): boolean {
-  return process.env.STUDIO_LANE === "DEV";
-}
-
-function fixtureFlagsRequested(): boolean {
-  return process.env.STUDIO_E2E === "1" || process.env.STUDIO_FORCE_NORA_FIXTURE === "1";
-}
-
-/**
- * True only when intentional fixture is allowed: DEV lane + E2E/force flag.
- * Outside DEV, flags never silently activate fixture (see generateNoraReply fail-closed).
- */
-export function mustUseNoraFixture(): boolean {
-  return isDevLane() && fixtureFlagsRequested();
-}
-
-/** Flags set while lane is not DEV — caller must fail closed (no FAKE COMPLETE, no LIVE). */
-export function noraFixtureFlagsOutsideDev(): boolean {
-  return fixtureFlagsRequested() && !isDevLane();
-}
-
-function boundaryFail(generationId: string, reason: string): NoraGenerateResult {
-  return {
-    generationId,
-    // mode marks that no OpenAI network path was taken
-    mode: "deterministic-fixture",
-    status: "FAILED",
-    streamingProvisional: false,
-    content: `Nora boundary FAILED: ${reason}. Aucun appel OpenAI; aucune réponse FAKE utilisable.`,
-  };
-}
-
-function fixtureReply(input: NoraGenerateInput, generationId: string): NoraGenerateResult {
-  const ctx = input.contextSnippets.slice(0, 3).join(" | ");
-  return {
-    generationId,
-    mode: "deterministic-fixture",
-    status: "COMPLETE",
-    streamingProvisional: false,
-    content:
-      `Nora (fixture FAKE, not LIVE): j'ai bien noté « ${input.userText.slice(0, 240)} ». ` +
-      `Je peux clarifier l'intention et proposer un aperçu de projet sans créer quoi que ce soit. ` +
-      (ctx ? `Contexte autorisé: ${ctx.slice(0, 200)}` : "Aucun acquis supplémentaire chargé."),
-  };
-}
-
-/**
- * D3 adapter — OpenAI Agents SDK behind this boundary when LIVE key present.
- * NEVER activates MemorySession / ConversationsSession as authority.
- *
- * Boundaries:
- * - STUDIO_E2E / STUDIO_FORCE_NORA_FIXTURE → fixture COMPLETE only when STUDIO_LANE=DEV
- * - Same flags outside DEV → FAILED (no LIVE, no FAKE COMPLETE)
- * - Missing OPENAI_API_KEY in DEV → fixture COMPLETE (local DEV convenience)
- * - Missing OPENAI_API_KEY outside DEV → FAILED (never silent FAKE in RECETTE/STABLE)
- */
-export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraGenerateResult> {
-  const generationId = newId("gen");
-
-  if (noraFixtureFlagsOutsideDev()) {
-    return boundaryFail(
-      generationId,
-      "NORA_FIXTURE_LANE_FORBIDDEN (STUDIO_E2E/FORCE requires STUDIO_LANE=DEV)",
-    );
-  }
-
-  if (mustUseNoraFixture()) {
-    return fixtureReply(input, generationId);
-  }
-
-  const key = process.env.OPENAI_API_KEY?.trim();
-  if (!key) {
-    if (!isDevLane()) {
-      return boundaryFail(
-        generationId,
-        "NORA_LIVE_KEY_REQUIRED outside DEV (no silent FAKE fallback)",
-      );
-    }
-    return fixtureReply(input, generationId);
-  }
-
-  try {
-    // Dynamic import keeps fixture/boundary paths free of SDK side-effects.
-    const { Agent, run } = await import("@openai/agents");
-    const agent = new Agent({
-      name: "Nora",
-      instructions: SYSTEM_INSTRUCTIONS,
-      // No tools → no D5–D9 side effects via Nora.
-    });
-
-    const prompt =
-      `${input.userText}\n\nContexte autorisé (borné):\n` +
-      (input.contextSnippets.length ? input.contextSnippets.join("\n") : "(vide)");
-
-    const result = await run(agent, prompt, {
-      maxTurns: 1,
-    });
-
-    const content =
-      typeof result.finalOutput === "string"
+cd "$WEB"
+# Bind localhost / ::1 — not 127.0.0.1 — so cookie jar ≠ DEV (127.0.0.1:3100)
+# Invoke next binary directly so pidfile tracks the long-lived Node process.
+nohup ./node_modules/.bin/next start -H "$HOST" -p "$PORT" >"$LOGFILE" 2>&1 &
+echo $! >"$PIDFILE"
+sleep 1
+if ! kill -0 "$(cat "$PIDFILE")" 2>/dev/null; then
+  echo "RECETTE failed to stay up — see $LOGFILE" >&2
+  exit 1
+fi
+echo "RECETTE started pid=$(cat "$PIDFILE") url=http://${HOST}:${PORT} log=$LOGFILE"
+```
+### stop-recette.sh
+```bash
+#!/usr/bin/env bash
+# Stop only the RECETTE Next process. Does not stop DEV or drop DBs.
+set -euo pipefail
+OPS="$(cd "$(dirname "$0")" && pwd)"
+PIDFILE="$OPS/recette-next.pid"
+if [[ ! -f "$PIDFILE" ]]; then
+  echo "No RECETTE pidfile"
+  exit 0
+fi
+PID=$(cat "$PIDFILE")
+if kill -0 "$PID" 2>/dev/null; then
+  kill "$PID" || true
+  sleep 1
+  if kill -0 "$PID" 2>/dev/null; then
+    kill -9 "$PID" || true
+  fi
+  echo "RECETTE stopped pid=$PID"
+else
+  echo "RECETTE pid $PID not running"
+fi
+rm -f "$PIDFILE"
 ```
 
-### e2e-pg-gate expected constants
-```ts
-/**
- * Fail-closed gate for Playwright E2E Postgres targeting.
- * Pure validation — no CREATE DATABASE, no migrations, no network to OpenAI.
- */
+## Historical DEV proofs at C3 (not RECETTE LIVE)
+UNIT 22 / INTEGRATION 26 / BROWSER FAKE 1 / build+tsc+lint — prior publication cycle.
 
-export const E2E_PG_EXPECTED = {
-  hosts: ["127.0.0.1", "localhost"] as const,
-  port: 5433,
-  operatorDatabase: "sfia_next_dev",
-  e2eDatabase: "sfia_next_e2e",
-  container: "sfia-next-dev-pg",
-} as const;
+## STOP conditions — none for serving
+OAuth/Nora BLOCKED are capability limits, not isolation failures.
 
-export type E2ePgGateErrorCode =
-  | "E2E_PG_URL_MISSING"
-  | "E2E_PG_URL_INVALID"
-  | "E2E_PG_PROTOCOL_FORBIDDEN"
-  | "E2E_PG_HOST_FORBIDDEN"
-  | "E2E_PG_PORT_FORBIDDEN"
-  | "E2E_PG_SOURCE_DB_FORBIDDEN"
-  | "E2E_PG_TARGET_FORBIDDEN"
-  | "E2E_PG_TARGET_EQ_SOURCE"
-  | "E2E_PG_USERINFO_AMBIGUOUS"
-  | "E2E_PG_CONTAINER_MAPPING_FORBIDDEN";
+## Final statuses
+- RECETTE: READY FOR USER TESTS (with OAuth/Nora BLOCKED until Morris unlock)
+- PR #649: OPEN / NO MERGE
+- NO RELEASE / STABLE NOT AVAILABLE / ADOPTED NOT ACQUIRED
+- `RECETTE PREPARED ≠ USER RECETTE ACCEPTED ≠ PR MERGED ≠ STABLE ≠ ADOPTED`
 
-export class E2ePgGateError extends Error {
-  readonly code: E2ePgGateErrorCode;
-  constructor(code: E2ePgGateErrorCode, message: string) {
-    super(message);
-    this.code = code;
-    this.name = "E2ePgGateError";
-  }
-}
 
-function databaseNameFromPathname(pathname: string): string {
-  const raw = pathname.replace(/^\//, "");
-  const db = raw.split("/")[0] ?? "";
-  return decodeURIComponent(db);
-}
-
-```
-
-### package.json scripts + postcss override (excerpt)
-```json
-{
-  "name": "sfia-studio-web",
-  "version": "0.0.0-dev",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack -p 3100 -H 127.0.0.1",
-    "build": "next build",
-    "start": "next start -p 3100 -H 127.0.0.1",
-    "lint": "next lint",
-    "db:migrate": "bash scripts/db-migrate.sh",
-    "test": "vitest run",
-    "test:unit": "vitest run tests/unit",
-    "test:integration": "vitest run tests/integration",
-    "test:e2e": "playwright test"
-  },
-  "dependencies": {
-    "@openai/agents": "^0.21.0",
-    "better-auth": "^1.7.16",
-    "drizzle-orm": "^0.45.4",
-    "next": "^15.5.29",
-    "postgres": "^3.4.5",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "uuid": "^14.0.3",
-    "zod": "^4.6.7"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@playwright/test": "^1.64.1",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/uuid": "^10.0.0",
-    "@vitest/coverage-v8": "^3.2.4",
-    "dotenv": "^18.0.9",
-    "drizzle-kit": "^0.31.11",
-    "eslint": "^9",
-    "eslint-config-next": "^15.5.29",
-    "playwright": "^1.64.1",
-    "postcss": "8.5.32",
-    "tailwindcss": "^3.4.1",
-    "tsx": "^4.23.15",
-    "typescript": "^5",
-    "vitest": "^3.2.4"
-  },
-  "description": "SFIA Studio web application (technical package version ≠ product release)",
-  "engines": {
-    "node": ">=20"
-  },
-  "overrides": {
-    "postcss": "8.5.32"
-  }
-}
-```
+## Live serving confirmation (end of cycle)
+- URL http://localhost:3200/login → HTTP 000
+- Listener PID 36544 PPID= bind=
+- Updated start-recette.sh uses listener PID capture (ops outside candidate tree)
