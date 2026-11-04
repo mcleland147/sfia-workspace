@@ -1,6 +1,6 @@
 # SFIA Studio Next — R5 / ML1 — Spécification technique candidate
 
-> **Lecture courante — revue de préclôture du 2026-11-04 :** les §§1–13 sont des états de conception historiques, et le §14 une photographie de travail DEV **antérieure aux deux derniers commits correctifs**. Le §15 ci-dessous qualifie l'**As-Built constaté sur Git** après PR #649. **Clôture ML1 en attente de décision Morris** ; cette lecture documentaire ne vaut ni nouveau test LIVE, ni smoke post-merge, ni STABLE/RELEASE/ADOPTED.
+> **Lecture courante — revue de préclôture du 2026-11-04 :** les §§1–13 sont des états de conception historiques, et le §14 une photographie de travail DEV **antérieure aux deux derniers commits correctifs**. Le §15 ci-dessous qualifie l'**As-Built constaté sur Git** après PR #649. **Clôture ML1 validée par Morris avec réserves le 2026-11-04** ; cette lecture documentaire ne vaut ni nouveau test LIVE, ni smoke post-merge, ni STABLE/RELEASE/ADOPTED.
 
 > **État Git au versement (2026-11-04) :** publication documentaire candidate sur `docs/next-r5-delivery-preparation-20261104`, base `main@a0b80b9ecd64149ed51f87235ae246e197e66462`. Ni `VALIDATED SPEC`, ni merge, ni GO Cursor. Les formules `NOT ON GIT` et `NO GIT WRITE` dans les historiques décrivent leur état à la rédaction, pas cette publication.
 
@@ -472,9 +472,9 @@ Les limites sont **compatibilité architecturale vérifiée au niveau documentai
 | Version produit | `NO RELEASE` / STABLE `NOT AVAILABLE` |
 | Preuves | unit 3 ; integration 22 ; Playwright 1 ; build+tsc ; OAuth DB reconcile + BROWSER USER OBSERVED ; Nora LIVE API adapter PASS (1 appel borné) ; Figma pixel INCONCLUSIVE |
 
-## 15. Réconciliation As-Built et préclôture documentaire — 2026-11-04
+## 15. Réconciliation As-Built et clôture documentaire avec réserves — 2026-11-04
 
-**Statut : DOCUMENTED / AS-BUILT SOURCE-REVIEWED / CLOSURE PROPOSED — MORRIS DECISION PENDING.** Cette section réconcilie la conception avec le **code Git intégré**, sans modification applicative, sans exécuter de nouveaux tests et sans effacer l'historique de conception. Source du runtime : PR [#649](https://github.com/mcleland147/sfia-workspace/pull/649), candidat `0db58be8240a00593092048ee74299f19374f489`, merge `747cbec0ac9c161306db34121b0447391b23589c` ; baseline documentaire consultée sur `main@2a232f595d4673efa3ddd743711b991ca819e4d8`. Worktree, sessions, secrets et runtime actuellement démarré : **NON OBSERVÉS**.
+**Statut : DOCUMENTED / AS-BUILT SOURCE-REVIEWED / ML1 CLOSED BY MORRIS WITH CARRIED RESERVES (2026-11-04).** Cette section réconcilie la conception avec le **code Git intégré**, sans modification applicative, sans exécuter de nouveaux tests et sans effacer l'historique de conception. Source du runtime : PR [#649](https://github.com/mcleland147/sfia-workspace/pull/649), candidat `0db58be8240a00593092048ee74299f19374f489`, merge `747cbec0ac9c161306db34121b0447391b23589c` ; baseline documentaire consultée sur `main@2a232f595d4673efa3ddd743711b991ca819e4d8`. Worktree, sessions, secrets et runtime actuellement démarré : **NON OBSERVÉS**.
 
 ### 15.1. Résultat produit et réalisation vérifiée dans le code
 
@@ -500,4 +500,4 @@ Les limites sont **compatibilité architecturale vérifiée au niveau documentai
 - **B / CI Next :** workflow dédié sous GO sur chemins partagés, avec exécution Next effective, **avant prochaine livraison significative** ; l'ancien Required Gate SUCCESS ne prouve pas les tests Next.
 - **A05/A15/A16, DATA-01 :** preuves partielles ou absentes, à conserver avec propriétaire/gate ; **A13** et connaissance sélective à requalifier dans la capacité cognitive/documentaire ML2 ; **A11** révocation Git relève de ML4 ; UX Figma/Markdown à traiter dans leur lot et leur gate appropriés.
 - Les écarts **streaming non implémenté**, métadonnée `schemaRevision` et driver effectivement sélectionné sont enregistrés ici en As-Built, **pas corrigés en code par cette opération**. Toute obligation de correction immédiate ou tout changement de périmètre validé relève d'un arbitrage Morris.
-- **Proposition de verdict :** *ML1 BUILT / MERGED / FUNCTIONAL RECETTE ACCEPTED WITH CARRIED RESERVES / DOCUMENTARY CLOSURE READY FOR MORRIS REVIEW*. Pas de déclaration `CLOSED` avant décision explicite Morris. La préparation de ML2 reste distincte de son GO technique ; aucun ML1-B correctif n'est présumé automatiquement nécessaire.
+- **Verdict Morris acquis le 2026-11-04 :** `ML1 CLOSED WITH CARRIED RESERVES — BUILT / MERGED #649 / FUNCTIONAL RECETTE ACCEPTED`. La clôture porte sur la première capacité utilisateur et la réconciliation documentaire As-Built ; elle **ne certifie pas** les tests non exécutés, le streaming, la conformité UX totale, la restauration, la CI Next ou un smoke runtime postmerge. L'acceptation des reports n'éteint **aucune** des conditions A/B et QA nommées ci-dessus. La préparation de ML2 reste distincte de son GO technique ; **pas de ML1-B correctif automatique**, ni de STABLE, release ou ADOPTED.
