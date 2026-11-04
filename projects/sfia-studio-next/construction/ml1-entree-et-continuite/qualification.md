@@ -197,3 +197,12 @@ En revanche, le choix ordinaire d'un type interne, d'un nom de fonction ou d'un 
 **Verdict v0.2 : `ML1 QUALIFIED FOR FINAL D3 CONTRACT REVIEW / IMPLEMENTATION PRINCIPLE ACCEPTED / NO STRUCTURAL R4 CONFLICT IDENTIFIED / SPEC NOT YET VALIDATED / NO CURSOR PROMPT / CODE N/A`.** Le geste suivant est une **revue ciblée du contrat d'exécution de ML1**, avec risques/STOP, fichiers et gates, suivie du GO Morris explicite avant toute exécution D3 ; pas une nouvelle étude globale des ML2–ML5.
 
 **Écart de fraîcheur non modifié dans ce lot :** l'en-tête de `governance/product-versioning.md` conserve une indication « branche candidate / non mergé » devenue historique après #647. Git et la Roadmap corrigée font foi ; correction de cette métadonnée à borner sous mandat documentaire approprié, sans changer la politique.
+
+
+### 9.4. Proposition de routage SFIA v2.6 pour le futur premier cycle Cursor
+
+**Cycle projet :** **8 — Delivery / implémentation** ; **typologie v2.4 : `INC`**, premier incrément produit vertical borné (pas `CAPA`, qui désigne une capitalisation méthode). **Profil proposé : `Critical`**, à valider explicitement par Morris lors du mandat D3, en raison de l'initialisation simultanée de l'identité/session et des droits inter-Pilotes, de PostgreSQL transactionnel/idempotence, des données durables à restaurer, du fournisseur IA LIVE et des premières isolations DEV/RECETTE. Ces facteurs touchent les fondations de sécurité et de persistance ; le profil renforcé ne justifie **aucune extension fonctionnelle** ni un micro-cycle séparé.
+
+**Contrôles prévisibles sous ce profil :** Git Truth Check local et base/branche autorisée, sources SEF/Roadmap/décisions/R2/R3/R4/ENV-01/product-versioning + guide/template SFIA v2.6 au bon SHA, QA de permissions et concurrence, test PostgreSQL réel et reprise, Figma au composant concerné, tests BROWSER et Nora LIVE borné, **Review Pack Full mono-cycle** et **Review Handoff required / publish-in-cycle** si Cursor produit un rapport. La publication du handoff L3 mono-fichier ne constitue pas un push projet. Tout droit de mutation Git projet, migration STABLE, PR, merge et promotion demeure soumis à un GO distinct.
+
+**Gates avant prompt :** contrat d'exécution complet et son périmètre relus, validation Morris du profil et de la spec ML1 prête à construire, autorisation D3 **explicite** ; à défaut `PROMPT NOT GENERATED — SFIA STUDIO NEXT CONTEXT INCOMPLETE`. L'état des worktrees et secrets reste à vérifier sur le poste par Cursor ; aucun succès local n'est présumé.
