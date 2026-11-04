@@ -1,5 +1,7 @@
 # SFIA Studio Next — R5 / ML1 — Spécification technique candidate
 
+> **Lecture courante — revue de préclôture du 2026-11-04 :** les §§1–13 sont des états de conception historiques, et le §14 une photographie de travail DEV **antérieure aux deux derniers commits correctifs**. Le §15 ci-dessous qualifie l'**As-Built constaté sur Git** après PR #649. **Clôture ML1 en attente de décision Morris** ; cette lecture documentaire ne vaut ni nouveau test LIVE, ni smoke post-merge, ni STABLE/RELEASE/ADOPTED.
+
 > **État Git au versement (2026-11-04) :** publication documentaire candidate sur `docs/next-r5-delivery-preparation-20261104`, base `main@a0b80b9ecd64149ed51f87235ae246e197e66462`. Ni `VALIDATED SPEC`, ni merge, ni GO Cursor. Les formules `NOT ON GIT` et `NO GIT WRITE` dans les historiques décrivent leur état à la rédaction, pas cette publication.
 
 ## Entrer, dialoguer et créer un projet avec continuité
@@ -469,3 +471,33 @@ Les limites sont **compatibilité architecturale vérifiée au niveau documentai
 | Dépendances | `overrides.postcss=8.5.32` (élimine nested Next 8.4.31) ; audit prod PostCSS/Next GHSA clos ; toolchain vitest/drizzle-kit reste dette DEV |
 | Version produit | `NO RELEASE` / STABLE `NOT AVAILABLE` |
 | Preuves | unit 3 ; integration 22 ; Playwright 1 ; build+tsc ; OAuth DB reconcile + BROWSER USER OBSERVED ; Nora LIVE API adapter PASS (1 appel borné) ; Figma pixel INCONCLUSIVE |
+
+## 15. Réconciliation As-Built et préclôture documentaire — 2026-11-04
+
+**Statut : DOCUMENTED / AS-BUILT SOURCE-REVIEWED / CLOSURE PROPOSED — MORRIS DECISION PENDING.** Cette section réconcilie la conception avec le **code Git intégré**, sans modification applicative, sans exécuter de nouveaux tests et sans effacer l'historique de conception. Source du runtime : PR [#649](https://github.com/mcleland147/sfia-workspace/pull/649), candidat `0db58be8240a00593092048ee74299f19374f489`, merge `747cbec0ac9c161306db34121b0447391b23589c` ; baseline documentaire consultée sur `main@2a232f595d4673efa3ddd743711b991ca819e4d8`. Worktree, sessions, secrets et runtime actuellement démarré : **NON OBSERVÉS**.
+
+### 15.1. Résultat produit et réalisation vérifiée dans le code
+
+| Frontière | Réalisation Git constatée | Limites ou divergence vis-à-vis de la candidate |
+| --- | --- | --- |
+| D1 — identité et portefeuille | Next.js 15.5.29 / React 19 / TypeScript, Better Auth OAuth GitHub ; identité `PilotId`, sessions, provisioning et portefeuille dans `web/src/domains/identity/` | DEV test login séparé de la preuve OAuth ; collisions possibles des cookies DEV/RECETTE sur même hôte, réserve ENV-01 A |
+| D2 — sas, création, continuité | Préparation PostgreSQL indépendante ; création dédiée via `createProjectCommand`, transaction, `pg_advisory_xact_lock` par Pilote/clé, empreinte et contrôle de révision, réconciliation ; `GET /api/projects/:projectId` et rattachement des ressources | A05 timeout après commit/restart pas intégralement injecté ; A16 restauration/redémarrage non démontrés en intégralité |
+| D3 — Nora et messages | `@openai/agents` derrière `nora-adapter.ts` ; pas de session SDK autoritative indépendante ni d'outil à effet externe ; message utilisateur enregistré avant appel et réponse persistée avec statut/génération ; fixture E2E bornée à DEV | **Pas de streaming HTTP effectivement implémenté** : `run(agent,...)` produit une réponse complète, le handler messages renvoie ensuite du JSON ; la proposition §§4.3/12 prévoyait un protocole stream. Contexte actuel réduit aux derniers messages, pas de récupération sélective D4 prouvée (A13). |
+| D4 — première ressource | `documents` et `document_revisions`, contenu Markdown versionné en PostgreSQL, états `SAVING/AVAILABLE/FAILED`, conservation des identifiants au rattachement | Rendu conversationnel Markdown riche absent ; bibliothèque de connaissances/révision avancée hors ML1, à qualifier dans ML2 |
+| Stockage / schéma | Drizzle **avec `postgres-js`** (`drizzle-orm/postgres-js`, package `postgres`), PostgreSQL 16, migrations SQL `001` et `002` ; override PostCSS `8.5.32` | La proposition §12 cite `node-postgres` : elle ne décrit pas le driver implémenté. `web/src/db/schema.ts` exporte encore `schemaRevision = "001_initial_studio_core"` tandis que le script de migration applique 001 puis 002 : **cohérence de métadonnée à vérifier**, sans inférer que la DB réelle est à 001. |
+| Outillage / versioning | Vitest, intégration PostgreSQL, Playwright DEV FAKE, `product-version.ts` et `package.json` technique `0.0.0-dev` | Aucun pipeline CI Next prouvé par le Required Gate historique ; **NO RELEASE**, aucune version produit STABLE ni ADOPTED |
+
+### 15.2. Preuves observées à distinguer
+
+- **Tests locaux au candidat C3 déclarés et inscrits dans la PR #649 :** 22 unitaires PASS, 26 intégration PostgreSQL PASS, 1 Playwright navigateur **DEV avec identité et Nora FAKE** PASS ; build/typecheck/lint PASS. **Ces tests n'ont pas été rejoués pendant la présente revue documentaire.**
+- **Recette fonctionnelle Morris sur le build `PMCGeil9wv8DZNBfEGf4H` lié au C3 :** GitHub OAuth LIVE et Nora LIVE bornée acceptés **avec réserves**. Le test Playwright FAKE ne devient pas preuve LIVE.
+- **Git :** C3 mergé via #649 et arbre vérifié ; cela **ne prouve pas** un smoke runtime indépendant après merge, ni CI Next, restauration, conformité Figma totale ou promotion.
+- **Oracle détaillé :** `matrice-tracabilite.md` §7 (preuves historiques et réserves) puis §8 (préclôture documentaire). La correspondance entre code et contrat est **partielle** aux frontières non testées.
+
+### 15.3. Réserves, décision et suite
+
+- **A / sessions DEV–RECETTE :** séparation de cookies à corriger et requalifier **avant STABLE** ; atténuation provisoire par profils navigateur distincts ; aucune fuite inter-bases démontrée.
+- **B / CI Next :** workflow dédié sous GO sur chemins partagés, avec exécution Next effective, **avant prochaine livraison significative** ; l'ancien Required Gate SUCCESS ne prouve pas les tests Next.
+- **A05/A15/A16, DATA-01 :** preuves partielles ou absentes, à conserver avec propriétaire/gate ; **A13** et connaissance sélective à requalifier dans la capacité cognitive/documentaire ML2 ; **A11** révocation Git relève de ML4 ; UX Figma/Markdown à traiter dans leur lot et leur gate appropriés.
+- Les écarts **streaming non implémenté**, métadonnée `schemaRevision` et driver effectivement sélectionné sont enregistrés ici en As-Built, **pas corrigés en code par cette opération**. Toute obligation de correction immédiate ou tout changement de périmètre validé relève d'un arbitrage Morris.
+- **Proposition de verdict :** *ML1 BUILT / MERGED / FUNCTIONAL RECETTE ACCEPTED WITH CARRIED RESERVES / DOCUMENTARY CLOSURE READY FOR MORRIS REVIEW*. Pas de déclaration `CLOSED` avant décision explicite Morris. La préparation de ML2 reste distincte de son GO technique ; aucun ML1-B correctif n'est présumé automatiquement nécessaire.
