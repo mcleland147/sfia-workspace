@@ -1,5 +1,7 @@
 # SFIA Studio Next — R5 / ML1 · Qualification de la première capacité verticale
 
+> **Note de lecture post-merge du 2026-11-04 :** le corps du présent document qualifie l'**entrée en construction** sur des refs historiques et ne constitue pas le statut actuel du code. ML1 a depuis été implémenté et mergé via PR #649, avec recette fonctionnelle Morris acceptée **avec réserves**. Pour l'As-Built et la préclôture, consulter `specification-technique.md` §15 et `matrice-tracabilite.md` §8 ; décision formelle de clôture **EN ATTENTE DE MORRIS**. Pas de STABLE, release, ADOPTED ni preuve runtime postmerge supplémentaire par cette note.
+
 > **État actualisé au 2026-11-04 :** préparation R5 et qualification initiale ML1 **intégrées à `main@5a972f291ef8819b179d879ae73b5943307ec3c1` via PR #647**, après R4 via #646. Le présent document est actualisé en qualification v0.2 sur branche dédiée. Une acceptation technique de principe ne vaut ni `VALIDATED SPEC`, ni GO Cursor, ni preuve produit.
 
 
