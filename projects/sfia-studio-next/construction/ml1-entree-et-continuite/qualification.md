@@ -99,7 +99,7 @@
 
 ## 5. Contrat QA/proof et ENV-01
 
-La [matrice ML1](sfia-next-r5-matrice-tracabilite-ml1-v0.1.md) attache **A01–A16** à des exigences, oracles et frames. Leur état à cette date est **`DESIGN ONLY / NOT EXECUTED`**.
+La [matrice ML1](matrice-tracabilite.md) attache **A01–A16** à des exigences, oracles et frames. Leur état à cette date est **`DESIGN ONLY / NOT EXECUTED`**.
 
 **Niveaux adaptés, à prouver séparément :**
 
