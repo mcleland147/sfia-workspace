@@ -7,7 +7,7 @@
 | --- | --- |
 | Macro-lot R5 | ML2 — Produire et capitaliser avec Nora |
 | Résultat Pilote | Une collaboration cognitive utile avec Nora, produisant des analyses et documents structurés, durables, révisables et récupérables avec provenance |
-| Référence de conception | main@9cd7a6c751f46d1be000d33a810fc9c344476ffc ; correction R1/R2/R3 en préparation D2, non intégrée |
+| Référence de conception | main@9cd7a6c751f46d1be000d33a810fc9c344476ffc ; corrections R1/R2/R3/R4/R5 validées en portée par Morris et **publiées sur cette branche candidate, non intégrées à main** |
 | Branche documentaire de travail | docs/next-ml2-knowledge-scope-20261104 ; **candidate, distincte de main** |
 | Autorité | Morris : arbitrages, validation de contrat et gates ; ChatGPT : conception/revue/évaluation comparative ; Cursor : implémentation technique sous SFIA v2.6 |
 | État Git local / services démarrés | NON OBSERVÉS ; les preuves historiques de ML1 ne prouvent pas l'état runtime présent |
@@ -39,7 +39,7 @@
 
 **Contrainte D5 constante :** au plus un cycle actif par projet, indépendamment des échanges ou digressions, avec le CKI de ce cycle uniquement. L'interface du fil n'est ni un moteur de cycle ni un registre de sujets ; D4 garde les acquis, documents et points ouverts indépendamment du volume d'historique affiché.
 
-**Requalification des références validées :** les formulations ambiguës de R1/R2 et les hypothèses de multi-chat de R3 doivent recevoir une correction éditoriale **D2 distincte, validée et autorisée pour Git par Morris**. Leurs versions actuelles sur main ne sont pas silencieusement réécrites par la présente candidate R5. Le test initial de « deux fils A/B » est **retiré comme exigence inventée**.
+**Requalification des références validées :** les formulations ambiguës de R1/R2 et l'hypothèse UX multi-chat de R3 ont fait l'objet d'une **correction documentaire D2 sous GO Morris du 2026-11-04 sur cette branche candidate**, aux côtés des rappels R4/R5. La baseline `main` demeure inchangée jusqu'au gate PR/merge distinct. Le test initial de « deux fils A/B » est **retiré comme exigence inventée**.
 
 **Parcours R1 §2.41, conservé sans multi-chat :**
 
@@ -297,7 +297,7 @@ Les parcours ci-dessous **consomment** les contrats R1/R2 et les cadres R3 ; ils
 | **Activité cognitive** | 206 — 281:389 | Afficher un état effectivement disponible, pas les étapes internes imaginées ni un arrêt prétendument confirmé |
 
 **Deux écarts de couverture à conserver visibles :**
-- **Ambiguïté R3 de multi-chat** : une hypothèse de plusieurs conversations avait été rédigée, mais **Morris retient un seul fil visible par projet**. Aucun contrôle de création/sélection B n'est à maquettiser. Les frames 03/14 servent à la reprise du même fil ; corrections des sources R3 sous gate D2 distinct.
+- **Ambiguïté R3 de multi-chat** : une hypothèse de plusieurs conversations avait été rédigée, mais **Morris retient un seul fil visible par projet**. Aucun contrôle de création/sélection B n'est à maquettiser. Les frames 03/14 servent à la reprise du même fil ; corrections rédactionnelles R3 présentes sur la branche candidate, **sans modification Figma ni promotion sur main**.
 - **Séparation/réorganisation des sujets** : Figma documente renommage et regroupement (160:823 / 160:895), mais la **séparation** et les retours d'erreur/conflit/réversibilité ne sont pas certifiés par le présent examen ; qualifier les états nécessaires pour satisfaire RG-KNOW-003/004 et Q17/Q28.
 
 **Contrat de transposition existant réutilisé** : ux-ui/contrat-transposition-figma-code.md §§3–4/6.3. À l'entrée de code UI, pour chaque parcours réellement impacté, extraire des nœuds **nativement et dans leur version datée** les descendants/contraintes/variables/states/actions et les confronter à des captures navigateur aux viewports 1680/1280/390/320, avec divergences Morris approuvées. Aucune modification Figma n'a été apportée par cette qualification documentaire.
