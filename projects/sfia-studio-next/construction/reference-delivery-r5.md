@@ -139,6 +139,10 @@ Le séquencement ci-dessous reprend les cinq macro-capacités de travail accept�
 
 **Correction de trajectoire à revalider avant construction :** R4 §5.7.11 recommande un *vertical C+D* pour le premier effet externe. Ne pas laisser la séparation documentaire ML4/ML5 produire un faux découplage technique : tout effet doit joindre D6+D7+D8 et capacité D9/outil réellement nécessaire dans **le même contrat d'intégration**. À l'inverse, l'accès aux sources Git sans effet peut être livré de façon autonome et facultative. Les fonctionnalités D3/D4 transversales peuvent nécessiter des travaux intégrés dans ML1 plutôt qu'un couloir artificiel vers ML2.
 
+## 6bis. Versioning produit validé en contenu — 2026-11-04
+
+La source propriétaire est [la politique de versioning produit](../governance/product-versioning.md), validée en contenu par Morris. Chaque delivery technique Cursor est historisé avec sa classe `PATCH/MINOR/MAJOR/NO RELEASE`, cible ou `-rc.N`, SHA/build, tests, preuves et gates. `construction/delivery-history.md` et le CHANGELOG produit sont créés **avec le premier macro-lot de code**, pas par un micro-cycle documentaire. Aucune version initiale n'est pré-attribuée ; candidate ≠ STABLE ; la promotion officielle reste gouvernée par ENV-01. Le routage partagé Next-only deviendra opposable sur `main` après PR/merge et vérification post-merge.
+
 ## 7. Processus opérationnel R5 et gates
 
 **P0 — Préparation du dispositif (étape présente).** Vérifier sources Git, comptes, référentiels, identité du parcours, modèle documentaire, liens et contradictions. Produire ce projet de référence et le modèle de spécification. **Aucun prompt Cursor. Aucun code, push, PR ou merge.**

@@ -166,6 +166,11 @@ SFIA Studio Next Construction Pre-check (si scope `projects/sfia-studio-next/`) 
 - candidat RECETTE : SHA figé ou NOT AVAILABLE ; base/main et migrations :
 - preuves, STOP/reprise et gates Morris PR/merge/promotion :
 - verdict ENV : ENV ROUTING COMPLETE / PROMPT NOT GENERATED — NEXT ENVIRONMENT CONTRACT INCOMPLETE
+- Product Versioning Next : REQUIRED / N/A motivé ; document Git governance/product-versioning.md, ref/SHA blob/statut validé
+- STABLE réellement prouvée : version/SHA/build ou NOT AVAILABLE
+- classe PATCH/MINOR/MAJOR/NO RELEASE, compatibilité, version cible/-rc.N et gates
+- source unique de version, delivery-history et changelog/release manifest
+- verdict versioning : VERSION CONTEXT LOADED / PROMPT NOT GENERATED — NEXT PRODUCT VERSION CONTEXT INCOMPLETE
 - verdict : NEXT CONTEXT LOADED / PROMPT NOT GENERATED — SFIA STUDIO NEXT CONTEXT INCOMPLETE
 
 SFIA Studio Convergence Pre-check (historique uniquement) :
@@ -301,6 +306,10 @@ Clarifications : Build Doctrine + Roadmap = gouvernance de **construction** ; do
 8. source architecturale **Next** + Git/code/preuves Next si runtime Next existe. En R0-B sans runtime Next, **N/A justifié**. Si l'analyse porte sur le code historique, consulter **Git/code historique et PRR README/volumes applicables**, même read-only ; l'ancien PRR n'est pas la référence architecture courante de Next ;
 9. routing guide, template v2.6, operating model, guardrails, review pack/handoff et gates externes.
 10. **Gouvernance ENV-01 de Studio Next :** pour les cycles de construction, évolution, correctif, code/configuration/DB, tests/CI, mise à disposition, QA/recette, PR readiness/post-merge ou déploiement, lire `projects/sfia-studio-next/governance/environnements-recette-et-promotions.md` **depuis Git à la ref applicable** ; relever la version, le statut de validation et le SHA/blob source, les lanes, leurs isolations et les gates de promotion. L'analyse Next strictement documentaire/read-only sans effet sur un environnement peut marquer `ENV-01 N/A — READ ONLY` (raison explicite). Ce contrôle ne modifie pas le pré-check historique §2.0.G.
+
+11. **Versioning produit Next — R5/R6 technique :** lire `projects/sfia-studio-next/governance/product-versioning.md` depuis Git à la ref applicable ; relever sa validation, dernière STABLE prouvée (sinon `NOT AVAILABLE`), type `PATCH/MINOR/MAJOR/NO RELEASE`, cible/candidate, compatibilité, source de version et SHA/build/lane ; enregistrer le delivery sous les gates ENV-01. Travail documentaire/read-only : `PRODUCT VERSIONING N/A — READ ONLY` motivé. Ne pas changer la version de la **méthode SFIA v2.6** ni §G historique ; politique candidate non active sur `main` avant merge et vérification post-merge.
+
+**Règle dure Versioning Next :** politique applicable absente/non lue/non validée à la ref, STABLE supposée, conflit de versions ou release annoncée sans preuve ⇒ `PROMPT NOT GENERATED — NEXT PRODUCT VERSION CONTEXT INCOMPLETE`. Collision, mismatch de SHA/build ou `MAJOR` sans arbitrage au point d'effet ⇒ `STOP — NEXT PRODUCT VERSION CONTRACT INCOMPLETE`.
 
 **Règle dure ENV-01 Next :** source obligatoire non lue, séparation et limites de lane non qualifiées, recette présentée comme PASS sans SHA réellement servi, ou gates PR/merge/promotion non établis ⇒ `PROMPT NOT GENERATED — NEXT ENVIRONMENT CONTRACT INCOMPLETE`. L'instruction Cursor doit prévoir `STOP — NEXT ENVIRONMENT GATE FAILED` en cas de contamination ou de cible non autorisée. Une règle publiée sur une branche candidate n'est pas encore appliquée par `main`.
 
@@ -593,6 +602,18 @@ Studio Next — Gouvernance des environnements ENV-01 (uniquement si scope Next,
 - STOP : [mauvaise lane, candidat mutable, DB/secret croisé, collision, migration dangereuse ou effet hors mandat]
 - Avant action Cursor : Git Truth Check local, vérification effective des lanes/ports/données ; état non accessible = NON OBSERVÉ, jamais PASS fictif
 - Verdict : ENV ROUTING COMPLETE / STOP — NEXT ENVIRONMENT GATE FAILED
+
+Studio Next — Product Versioning (si delivery technique Next) :
+- Politique Git : projects/sfia-studio-next/governance/product-versioning.md [ref/SHA blob, validation et statut branche/main]
+- Applicabilité : REQUIRED / N/A motivé
+- Dernière STABLE prouvée : version + SHA/build ou NOT AVAILABLE
+- Classe : PATCH / MINOR / MAJOR / NO RELEASE, compatibilité et justification
+- Version cible / candidate : MAJOR.MINOR.PATCH[-rc.N] ou NOT AVAILABLE si non décidée
+- Source unique de version runtime : chemin retenu / TO DECIDE IN ML1
+- Historique et changelog : delivery_id, construction/delivery-history.md, release notes au gate promotion
+- ENV-01 : lane, SHA/build, schéma, manifeste immuable
+- Gates : Morris MAJOR, RECETTE, push projet, PR, merge, STABLE/tag
+- STOP : politique non consultée, STABLE inventée, version/SHA incohérents, collision, absence de journal ou publication avant GO
 
 **Génération Next :** ChatGPT remplit les éléments connus et indique les contrôles locaux à réaliser par Cursor ; aucun placeholder ne subsiste dans un prompt final. Pour un cycle documentaire/read-only sans effet : `ENV-01 N/A — READ ONLY`, avec motif, sans démarrer de service. Ce bloc n'autorise aucun push projet et ne modifie pas le Review Handoff SFIA v2.6.
 

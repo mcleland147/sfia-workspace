@@ -75,6 +75,9 @@ Ports ci-dessus : **réservations candidates** à vérifier sur le poste, pas va
 
 ## 6. Manifeste obligatoire de mise à disposition RECETTE
 
+**Versioning produit Next :** appliquer [la politique produit validée](product-versioning.md) depuis Git. `candidate_sha` correspond au `source_sha` de la politique et `build_identifier` au `build_id` : ne pas créer de source concurrente. La version candidate de RECETTE et la version réellement STABLE ne sont pas interchangeables ; `NOT AVAILABLE` avant la première release. Historiser chaque delivery de code dans `construction/delivery-history.md` lors de sa mise en place, et publier dans le CHANGELOG seulement après promotion. Une correction nécessitant nouvelle recette implique nouveau SHA/candidat.
+
+
 À chaque candidat réellement livré, conserver dans les artefacts/rapport de macro-lot un **manifest non secret** avec ces champs ; pas de second registre normatif de statut projet.
 
 ```yaml
@@ -83,8 +86,11 @@ lane: RECETTE
 source_repository: mcleland147/sfia-workspace
 source_branch: '<branche autorisée>'
 base_main_sha: '<SHA vérifié>'
-candidate_sha: '<SHA figé>'
-build_identifier: '<identifiant et empreinte si disponible>'
+candidate_sha: '<source_sha figé>'
+build_identifier: '<build_id et empreinte si disponible>'
+product_version: '<version réellement STABLE ou NOT AVAILABLE>'
+candidate_version: '<MAJOR.MINOR.PATCH-rc.N ou NOT AVAILABLE>'
+release_tag: '<tag validé s il existe, sinon N/A>'
 served_address: 'http://127.0.0.1:3200' # proposée
 schema_revision: '<révision DB observée>'
 test_data_revision: '<dataset/fixture identifié>'

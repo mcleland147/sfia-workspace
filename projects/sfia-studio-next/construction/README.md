@@ -16,4 +16,4 @@
 
 **Gates :** publication sur branche ≠ PR ≠ merge ≠ validation du contrat technique ≠ code et tests ≠ promotion runtime. Les autres versions locales sont conservées dans la conversation, non recopiées en doublons Git.
 
-**Versioning produit :** proposition à instruire séparément et à faire valider avant routage obligatoire. La version de SFIA v2.6 est distincte de la future version du produit Studio Next.
+**Versioning produit :** [politique validée Morris en contenu (2026-11-04)](../governance/product-versioning.md), publiée sur cette branche candidate avec son routage Next-only et alignement ENV-01. Applicable sur `main` après gate PR/merge et contrôle post-merge ; aucune version applicative attribuée. Le versioning SFIA v2.6 reste indépendant.
