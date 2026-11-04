@@ -1,7 +1,7 @@
 # SFIA Studio Next — R5 / ML2 — Spécification technique candidate
 ## Produire, réviser et capitaliser avec Nora
 
-> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.2, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
+> **État : QUALIFICATION D0 / DOCUMENTED — SPECIFICATION TECHNIQUE CANDIDATE v0.3, NON VALIDÉE.** Le statement produit et le principe d'évaluation comparative ChatGPT ↔ Nora ont reçu l'accord de Morris le 2026-11-04 ; **l'ensemble des mécanismes, frontières fines, contrats et preuves ci-dessous restent à revoir/arbitrer avant toute construction D3**. Ce document n'est pas un GO Cursor, PR, merge, STABLE, RELEASE ou ADOPTED. Les interfaces proposées ne sont ni du code existant ni des API ratifiées.
 
 | Métadonnée | Valeur |
 | --- | --- |
@@ -50,7 +50,7 @@ Le **parcours R1 §2.41 « Production, révision et reprise d'un document »** e
 - D3 : conduite cognitive (compréhension de l'intention, clarification ciblée, initiative raisonnable, critique, analyse, production et restitution adaptative).
 - D3/D4 : présentation riche des résultats, Markdown sécurisé, distinction réponse conversationnelle vs ressource documentaire ; inspection d'objet et retour au fil.
 - D4 : ressource documentaire du projet (identité, révisions, provenance, sauvegarde, accès et récupération), production directe d'un brouillon puis révision non destructive.
-- D4 : capitalisation sélective de sujets, acquis et points ouverts ; consultation/reconstitution du contexte utile dans un **nouveau fil**, selon la portée du projet et les droits courants.
+- D4 : **capacité intégrée validée en périmètre** : capitalisation sélective proactive des acquis significatifs, organisation et réorganisation des Sujets/sous-sujets, points ouverts transversaux et récupération pertinente dans un **nouveau fil**, selon le projet et les droits courants ; aucune création systématique de fiches ou d'autorité.
 - Interface D2 : continuité du sas et du projet déjà établie ; brouillon conservé dans le sas et identité stable après création réellement confirmée.
 - QA produit : tests déterministes/DB/navigateur/LIVE, comparaisons indépendantes ChatGPT ↔ Nora, preuves négatives d'absence d'effet induit.
 - Outillage : CI Next dédiée avant la prochaine livraison significative, sous GO technique distinct sur les chemins partagés.
@@ -65,7 +65,7 @@ Le **parcours R1 §2.41 « Production, révision et reprise d'un document »** e
 - Deuxième moteur de mémoire/autorité, pipeline RAG obligatoire, base vectorielle par inertie, moteur universel de documents, imitation de réponses ChatGPT figées : exclus sans justification produit et technique.
 - R6 / STABLE : certification transverse, promotion ou ADOPTED non déduits du présent lot.
 
-**Frontières à confirmer par Morris :** degré d'organisation des Sujets et points ouverts livré en ML2 (parcours minimal utile vs toutes les variantes R2/R3) ; importance du streaming dans la perception de qualité ; niveau de disponibilité des sources internes pour le scénario de référence.
+**Arbitrage confirmé par Morris le 2026-11-04 :** ML2 inclut comme une **capacité intégrée** Sujets, Acquis, Points ouverts et Reprise cognitive, y compris la réorganisation durable des sujets (renommage, regroupement/fusion et séparation), sans moteur ni registre concurrents. La profondeur technique de réalisation est à concevoir au plus simple dans le respect des RG/PF R2 validés. **Frontières toujours à qualifier :** importance du streaming pour l'expérience Nora ; disponibilité des sources internes garanties pour la recette ; coûts/latence et interfaces réellement observables. Ce GO de périmètre ne vaut ni validation globale de cette spécification, ni GO Cursor.
 
 ## 3. Hiérarchie des références, couverture et lacunes
 
@@ -164,9 +164,40 @@ La **matrice ML2** associée contient les rattachements par fonctionnalité, les
 - Les sujets sont identifiables au-delà d'une conversation, reliés aux acquis/documents, et peuvent évoluer sans effacer provenance ou liens.
 - Les questions ouvertes et réserves importantes restent retrouvables même si le sujet est renommé ou réorganisé ; une réserve gouvernée ne se clôt pas seulement parce que Nora l'affirme.
 - Ne jamais copier une HumanDecision D6 ni produire un deuxième état de décision. La vue **Décisions** ne peut contenir que des références vers l'autorité réelle si cette capacité est disponible.
-- La gestion avancée des restructurations de sujets (fusion/scission/réorganisation et historique) est **à qualifier en acceptation ML2** contre PF-KNOW-03 et les surfaces R3 ; ne pas déclarer sa réalisation sur la seule création de fiches.
+- **Renommage, regroupement/fusion et séparation** des Sujets sont **IN ML2 validé en périmètre** (RG-KNOW-003/004 et PF-KNOW-03), avec préservation de l'identité, de l'origine, de l'historique et des liens. Leur interaction exacte et leur implémentation restent à qualifier contre R3, sans prétendre qu'une seule création de fiche couvre la règle.
 
 **Choix technique ouvert :** informations structurées canoniques vs index/projections dérivées ; contrat minimal et évolution du schéma à dimensionner à partir des parcours, sans “knowledge engine” autonome.
+
+### 6.4.1. Arbitrage de périmètre validé Morris — 2026-11-04 (ML2)
+
+**Principe directeur :** la mémoire vivante sert le travail du Pilote et les initiatives pertinentes de Nora, pas la tenue d'un classement. Un même parcours doit pouvoir identifier un acquis, le rattacher à un sujet, conserver un point ouvert, restituer leur provenance et les retrouver lorsqu'un travail reprend dans une autre conversation. **La validation de ce périmètre n'est pas une validation des structures DB/API ni de la totalité de ML2.**
+
+| Concept produit | Résultat observable dans ML2 | Propriété / frontière |
+| --- | --- | --- |
+| **Sujet / sous-sujet** | Organiser, consulter, renommer, déplacer, regrouper/fusionner ou séparer un thème sans perte de sens, d'identité suivie, de liens ou d'historique | D4 ; RG-KNOW-003/004, PF-KNOW-03 ; aucune duplication en arbre de menus ou autorité |
+| **Acquis** | Nora distingue faits, hypothèses, recommandations utiles, provenance, portée et version ; ne capitalise pas toutes les remarques | D4 conserve/actualise, D3 juge la pertinence et restitue ; RG-KNOW-001/005..009 |
+| **Point ouvert** | Une question, un blocage, une dépendance ou une réserve significative reste accessible au-delà du sujet et du fil qui l'a vue naître | D4 garde liens/état/provenance ; une réserve gouvernée reste soumise à D6, RG-KNOW-004/009 |
+| **Document** | Brouillon identifiable, versions et provenance inspectables, retrouvé depuis le projet sans relire son transcript | D4 identité/versions ; D3 production/révision ; RG-KNOW-016..020 |
+| **Décision** | Référence visible vers l'arbitrage réel, si le domaine propriétaire existe ; jamais générée par une recommandation ou un résumé | **D6 propriétaire (ML3)** ; D4 référence seulement, sans nouvel état d'autorité |
+
+**Comportement de Nora et autonomie proportionnée :**
+- Nora **peut sélectionner et capitaliser proactivement** un acquis ou un point ouvert réellement utile à la suite, sans confirmation rituelle ni formulaire à chaque échange. Le Pilote peut voir et corriger le résultat ; la reformulation ne devient ni une décision ni une preuve.
+- Un **changement structurant d'organisation** (fusion, scission ou reclassement affectant plusieurs liens) doit être compréhensible, traçable et réversible lorsque pertinent et techniquement possible ; aucun gate artificiel à chaque renommage. En cas de portée ambiguë, de conflit ou de perte potentielle de relations, clarification proportionnée avant mutation.
+- Les points ouverts demeurent consultables depuis le **Projet**, le **Journal — Sujets** et les éléments pertinents, **sans troisième registre ni onglet permanent obligatoire « Réserves/Recommandations »**. Le Journal — Décisions relève d'un autre propriétaire : pas de source D6 simulée en ML2.
+- Lors d'une **conversation B**, Nora récupère les acquis/sujets/points ouverts pertinents et leur état courant à partir de D4, sous droits vérifiés ; elle ne réclame pas le transcript de A et ne présente pas un fait historique comme applicable sans contrôle.
+- **Actualisation honnête :** une nouvelle source contradictoire est confrontée à l'ancien état contextualisé ; un fait peut être requalifié sur source suffisante, mais une réserve gouvernée ou un arbitrage D6 ne sont pas automatiquement levés.
+
+**Parcours intégrateur de cette capacité (Q15–Q20 et Q28) :**
+1. Dans le projet, le Pilote explore plusieurs options avec Nora ; hypothèse, acquis sourcé et question ouverte émergent.
+2. Nora capitalise avec discernement ; les remarques passagères restent dans la conversation. Le Journal — Sujets rend les éléments réellement enregistrés consultables, avec leurs liens et leur état.
+3. Le Pilote inspecte un Sujet, ses sources et son point ouvert, puis renomme/regroupe/sépare un thème ; le même point ouvert et ses provenances restent retrouvables.
+4. Le Pilote ouvre une **conversation B indépendante** ; Nora récupère le bon acquis et la question ouverte sans fuite interprojets ni réinjection du transcript exhaustif.
+5. Une source plus récente modifie l'appréciation d'un fait : Nora confronte, actualise sur preuve et n'efface ni l'historique ni une réserve gouvernée toujours ouverte.
+
+**Preuves cumulées attendues :** contenu réellement enregistré en D4 avec provenance/version, identités et liens maintenus après réorganisation, navigation BROWSER/Figma du Journal et retour à Nora, nouvelle conversation/continuité LIVE et DB, négatif « recommandation ≠ décision », comparaison cognitive ChatGPT–Nora et réception Morris. Les états inconnus/échecs restent honnêtes ; pas de « réorganisation terminée » sur simple génération textuelle.
+
+**Décision de conception encore ouverte :** représentation technique la plus simple des sujets, liens, mutations réversibles et sélection des acquis. Aucun graphe universel, base vectorielle ou orchestrateur multi-agent n'est prescrit. Préserver une vérité D4 unique ; qualifier migrations, concurrence, reprise, sécurité et coût dans l'étude technique du lot.
+
 
 ### 6.5. Reprise dans une autre conversation — D3/D4
 
@@ -267,7 +298,7 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 
 ## 10. Plan d'implémentation intégré — candidat, pas des micro-cycles
 
-1. **Contrat et scénario discriminant** : valider le périmètre réel des sujets/points ouverts, les options streaming, les scénarios cognitifs et les interfaces D3/D4. Contrôler l'écart entre R1 et R2/R3/R4.
+1. **Contrat et scénario discriminant** : partir du **périmètre Sujets/Acquis/Points ouverts/Reprise validé Morris**, qualifier les modalités UX/techniques, les options streaming, les scénarios cognitifs et les interfaces D3/D4. Contrôler l'écart entre R1 et R2/R3/R4.
 2. **Intégration verticale du travail Nora** : contextualisation depuis D4, production/révision de ressources, persistance et versions, UX de conversation/inspection et tests intégrés. Séquençage interne selon contraintes de schéma/contrats, pas par “micro-PR mémoire puis UI puis QA”.
 3. **Validation commune** : DB/concurrence/sécurité, navigateur/Figma, Nora LIVE et comparaisons cognitives indépendantes ; corriger les écarts et reprendre les seules portions impactées du candidat.
 4. **RECETTE Morris sur SHA figé** : démontrer une session qui produit un document, le révise et le reprend dans un autre fil ; documenter limitations, exceptions et verdict.
@@ -278,11 +309,11 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 ## 11. Gates de validation et prochaine étape
 
 **Gates nécessaires avant prompt Cursor / D3 :**
-- Morris approuve la frontière de capacité ML2 et ses principaux oracles, ainsi que l'étendue réelle de Sujets et du streaming ; le présent document reste **CANDIDATE**.
+- **Déjà approuvé en périmètre par Morris (2026-11-04)** : mémoire vivante intégrée D4, Sujets/sous-sujets et réorganisation, Acquis, Points ouverts et Reprise cognitive. **Encore à qualifier avant D3** : oracles exacts, composants et états UX/Figma, stratégie de sélection D4, options streaming, impact migration/sécurité et périmètre complet ML2 ; ce document reste **CANDIDATE**.
 - Vérifier code/documentation/ADR/UX et source Figma pertinente sur ref actuel ; relever les gaps bloquants et le blast radius des nouvelles migrations, permissions et UI.
 - Définir branche autorisée, HEAD/base, fichiers, conditions STOP, QA, stratégie ENV-01, plan de reprise et preuve CI Next sous son GO technique adapté.
 - Lire les versions **Git** du routeur et du template Cursor SFIA v2.6 et n'émettre qu'alors le prompt officiel complet ; pas de template Next parallèle.
 
 **Critères de sortie candidats :** une production cognitive observable et utile, document enregistré/révisé/retrouvé, connaissance sélective utile et points ouverts, absence de fuite/autorité inventée, comportement honnête en panne, transposition UX contrôlée, comparatifs LIVE/ChatGPT commentés, dette/exit et preuves à SHA stable, acceptance Morris.
 
-**Verdict D0 : ML2 PRODUCT INTENT AGREED / TECHNICAL SPEC CANDIDATE / NO CURSOR PROMPT / NO CODE / NO PR / NO MERGE / NOT ADOPTED.**
+**Verdict D0 : ML2 PRODUCT INTENT AND D4 KNOWLEDGE SCOPE VALIDATED BY MORRIS (2026-11-04) / REST OF TECHNICAL SPEC CANDIDATE / NO CURSOR PROMPT / NO CODE / NO PR / NO MERGE / NOT ADOPTED.**
