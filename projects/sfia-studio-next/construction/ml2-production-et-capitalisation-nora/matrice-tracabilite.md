@@ -1,13 +1,13 @@
-# SFIA Studio Next — R5 / ML2 — Matrice de cohérence et d'acceptation candidate
+# SFIA Studio Next — R5 / ML2 — Matrice de cohérence et d'acceptation validée en contenu
 ## Produire et capitaliser avec Nora — R1 → R2 → R3 → R4 → R5 / QA / évaluation cognitive
 
-**Statut : DOCUMENTED / QUALIFICATION D0 — MATRICE CANDIDATE v0.6 — READY FOR MORRIS CONTENT REVIEW / NOT TESTED / NOT VALIDATED SPEC.** Ce document trace les liens à instruire avant le code. Il ne prétend pas que les scénarios sont implémentés, exécutés ou acceptés. Le **principe d'évaluation comparative ChatGPT–Nora** est approuvé par Morris dans son ambition (2026-11-04) et canonisé dans la référence R5 §14 ; les scénarios ML2 et les oracles détaillés restent des propositions de travail.
+**Statut : VALIDATED SPEC — MATRICE ML2 v0.6 VALIDÉE EN CONTENU PAR MORRIS (2026-11-04) / NOT TESTED.** Cette matrice fixe les capacités, les scénarios et les oracles d'acceptation du contrat de construction, sans affirmer qu'ils sont implémentés, exécutés ou acceptés. L'évaluation cognitive comparative suit R5 §14 ; les paramètres exacts des tests, les données et les preuves seront réalisés et qualifiés pendant le delivery. **Validation documentaire ≠ GO Cursor ≠ QA PASS ≠ RECETTE ≠ ADOPTED.**
 
 | Champ | Valeur |
 | --- | --- |
 | Référentiel Git source | mcleland147/sfia-workspace, **main@cec6c058d98772d342f7a3576a0ca7ae1f3646cf** post-PR #653 ; sources R1–R5 du fil continu intégrées |
 | Candidate Git | docs/next-ml2-d3-d4-ux-contract-20261104 — **deux fichiers ML2 uniquement ; non mergée** |
-| Spécification sœur | specification-technique.md, état D0 candidate |
+| Spécification sœur | specification-technique.md, **VALIDATED SPEC v0.6 en contenu**, implémentation non démarrée |
 | Sources R1 | cadrage/vision-produit.md §§1–2, 2.8, 2.13–2.15, 2.20, 2.32 (E2E 03), 2.33 (E2E 04), 2.40–2.41 |
 | Sources R2 | contexte-et-conduite-gouvernee-de-nora.md (D3), connaissance-sujets-et-continuite-du-projet.md (D4), creation-de-projet-et-continuite-du-sas.md (D2) |
 | Sources R3 | ux-ui/espace-projet-interaction-pilote-nora.md ; audit-couverture-ux-r3.md ; contrat-transposition-figma-code.md ; Figma itgvCulInEnFY6DvgIegvP |
@@ -215,10 +215,10 @@ Le référentiel méthodologique reste **construction/reference-delivery-r5.md �
 
 ## 6. Gates et verdict de qualification
 
-1. **D0 documentaire :** l'IN/OUT produit et le fil continu sont approuvés par Morris ; les **contrats D3/D4 et UX v0.6 sont prêts pour revue de contenu Morris**, mais NON VALIDATED SPEC, aucun test ML2 exécuté. Cette branche candidate est distincte de main jusqu'à un GO de PR/merge spécifique.
-2. **Validation du contrat :** Morris confirme les limites du lot et les oracles discriminants ; vérifier les propriétés Figma réellement applicables, les propriétaires R2/R4 et les gaps. Aucun choix technique structurant unilatéral.
+1. **Validation de contenu D2 acquise :** Morris approuve le **contrat D3/D4, les états UX et les critères d'acceptation ML2 v0.6** le 2026-11-04 : **VALIDATED SPEC / NOT IMPLEMENTED / NOT TESTED**. Les signatures, migrations et sélections techniques restent à qualifier dans le lot, sans changer les propriétaires de responsabilités. La branche Git reste distincte de `main` jusqu'au gate PR/merge autorisé.
+2. **Contrat validé ; contrôles avant code :** vérifier les propriétés Figma réellement applicables, les propriétaires R2/R4, les interfaces et le blast radius. Le parcours de séparation des Sujets reste à composer/qualifier sur les surfaces existantes ; aucune décision structurante d'architecture ou de gouvernance n'est déléguée.
 3. **Ouverture D3 :** sous GO distinct, Cursor effectue le Git local truth check, lit guide/template SFIA v2.6 depuis Git, implémente code+UX+DB+tests+docs dans le même macro-lot et fournit Review Pack + handoff conformes.
 4. **RECETTE :** un scénario E2E 03/04 complet, tests négatifs, capture browser, persistance D4 et Nora LIVE sous conditions documentées ; comparatif ChatGPT–Nora pertinent, avec vérification factuelle indépendante.
 5. **Intégration :** PR/merge et contrôles GitHub uniquement sous GO Morris spécifique ; smoke runtime postmerge avant éventuelle STABLE ; R6 et ADOPTED restent séparés.
 
-**Verdict : ML2 PRODUCT SCOPE VALIDATED BY MORRIS / TECHNICAL-UX ACCEPTANCE MATRIX CANDIDATE v0.6 READY FOR MORRIS CONTENT REVIEW / NO TEST RUN / NO BEHAVIOR PROVEN / NO CURSOR PROMPT / NO PR / NO MERGE.**
+**Verdict : ML2 v0.6 VALIDATED SPEC BY MORRIS (2026-11-04) / CONTRACT AND QA ORACLES APPROVED / NOT IMPLEMENTED / NOT TESTED / NO BEHAVIOR PROVEN / NO CURSOR PROMPT / NO RECETTE / NO ADOPTED.**
