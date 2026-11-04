@@ -292,10 +292,12 @@ La cible **n'est pas** l'identité littérale des réponses, des prompts, des mo
 | Comparaison et recommandation | Options sérieuses, hypothèses explicites, critique argumentée, suite utilisable | Pas de préférences de style érigées en vérité |
 | Contradiction et source périmée | Faits, dates, références, versions et incertitudes distingués | Ne pas prendre l'assertion du modèle pour preuve |
 | Production puis révision ciblée d'un document | Résultat structuré, version identifiable, modification bornée, historique conservé | Génération textuelle ≠ sauvegarde effective |
-| Reprise dans un nouveau fil | Acquis utiles et points ouverts retrouvés, provenance et actualité contrôlées | Une relecture du transcript intégral ne prouve pas la mémoire sélective |
+| Reprise du même fil lors d'un échange ultérieur, après interruption ou changement de sujet | Acquis utiles, documents et points ouverts retrouvés, provenance et actualité contrôlées | Aucun multi-chat exigé ; une relecture du transcript intégral ne prouve pas la mémoire sélective |
 | Demande simple / digression | Réponse proportionnée, pas de cérémonie ni mécanisme interne inutile | Différences rédactionnelles acceptables |
 | Source inaccessible / outil absent | Limite honnête, poursuite des travaux cognitifs indépendants | Pas de recherche ou lecture inventée |
 | Décision ou opération protégée | Conseil clair sans HumanDecision ni effet externe implicite | La bonne réponse texte ne remplace pas l'enforcement D6/D7 |
+
+**Clarification produit validée Morris (2026-11-04) :** les cas de reprise cognitive concernent **un seul fil visible continu par projet**. Plusieurs échanges, sessions, sujets et cycles successifs ne créent pas de chats distincts. Les benchmarks R5/ML2 vérifient mémoire D4 sélective, reprise après nouvelle session et unicité du cycle actif D5 ; aucun test de « fil B » n'est imposé.
 
 ### 14.5. Support probatoire et gates
 
