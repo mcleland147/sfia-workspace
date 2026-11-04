@@ -284,6 +284,20 @@ R1–R4 peuvent contenir plusieurs ateliers, mais **ne justifient pas automatiqu
 - **Cursor** : exécute sous contrat SFIA v2.6, produit fichiers/tests/rapport/handoff ; **n'élargit pas** les frontières et ne prend pas les décisions d'architecture ou d'autorité.
 - **Pilote Studio (runtime futur)** : décide les HumanDecisions applicables ; différent de l'autorité Morris sur la construction.
 
+**Complément validé — REX ML1, enseignement 2 (2026-11-04) : responsabilité continue de cohérence produit.**
+
+La délégation d'un travail technique à Cursor ne transfère ni la responsabilité de la vision produit ni l'autorité des arbitrages.
+
+Morris conserve la responsabilité des décisions produit et des résultats attendus.
+
+ChatGPT assure, tout au long de la construction, la continuité de la réflexion fonctionnelle et produit. Ses revues ne se limitent pas à constater la conformité technique : elles évaluent également la pertinence de la solution, ses impacts sur la vision cible et les causes des écarts observés.
+
+Cursor réalise les travaux techniques dans les frontières du contrat autorisé. Il doit mobiliser son jugement d'ingénierie pour identifier les incohérences, risques et dépendances, puis les signaler sans prendre de décision structurante à la place de Morris.
+
+**La conformité au prompt Cursor ne décharge pas Morris et ChatGPT de leur responsabilité sur la pertinence de ce qui a été demandé.**
+
+Ce complément précise la pratique des responsabilités existantes ; il ne transfère aucune autorité, ne modifie pas le contrat SFIA v2.6 et n'autorise aucun gate ou effet technique supplémentaire.
+
 ### Stops absolus
 
 **STOP** si : source Git ou base non vérifiée lorsqu’indispensable ; doctrine produit ou capacité suivante non résolue ; architecture et propriétaire de contrat inconnus ; effet externe sans autorisation ; prompt Cursor sans template v2.6 consulté et contrat instancié **et sans routage Next qualifié** ; R0-B/écriture Git sans GO ; preuve LIVE/REAL ou ADOPTED revendiquée sans démonstration ; dette temporaire sans exit ; chemin parallèle non justifié.
