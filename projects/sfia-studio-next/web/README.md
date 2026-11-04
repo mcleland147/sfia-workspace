@@ -1,7 +1,9 @@
-# SFIA Studio — web application (DEV lane)
+# SFIA Studio Next — web application (DEV / RECETTE)
 
 Technical package under `projects/sfia-studio-next/web`.
 **Product STABLE version: NOT AVAILABLE.** `package.json` version `0.0.0-dev` is technical only (`NO RELEASE`).
+
+**ML1 integration snapshot (2026-11-04):** PR [#649](https://github.com/mcleland147/sfia-workspace/pull/649) merged, `main@747cbec0ac9c161306db34121b0447391b23589c` ; C3 candidate `0db58be8240a00593092048ee74299f19374f489` / RECETTE build `PMCGeil9wv8DZNBfEGf4H`. Morris accepted functional RECETTE (GitHub OAuth and Nora LIVE included) **with carried reserves**. This does not prove an independent post-merge runtime smoke, current server availability, STABLE or R6.
 
 ## Prerequisites
 
@@ -53,13 +55,16 @@ npm run test:e2e
 
 `test:e2e` starts an **owned** server on `127.0.0.1:3101` against isolated DB `sfia_next_e2e` (same Postgres instance, separate database). Preflight (`scripts/e2e-preflight.ts`) validates operator `DATABASE_URL` (loopback `:5433` / `sfia_next_dev`) and Docker port mapping **before** any `CREATE DATABASE` or migrate. Nora fixture FAKE requires `STUDIO_LANE=DEV` + `STUDIO_E2E=1` (`OPENAI_API_KEY` neutralized). Cache dir: `.next-e2e` (operator DEV keeps `.next`). Does **not** reuse `:3100`. Operator data in `sfia_next_dev` (including project « Test 1 ») is untouched.
 
+
+Historical local ML1 candidate evidence: 22 unit and 26 PostgreSQL integration tests PASS; 1 Playwright E2E PASS using DEV fake identity and Nora fixture. The legacy GitHub Required Gate for PR #649 was SUCCESS but **did not execute Next CI**; a dedicated Next workflow remains open (reserve B). These results must not be presented as remote Next CI proof.
+
 ## Fake / Real boundaries
 
 | Boundary | Status |
 |---|---|
-| GitHub OAuth | BLOCKED without client secrets; simulated identity→Pilot tests are NOT LIVE proof |
+| GitHub OAuth | LIVE interactive flow observed and functionally accepted by Morris in RECETTE at C3; local activation still requires lane-specific credentials. DEV fake identity is not OAuth proof. |
 | PostgreSQL | REAL DEV container on 5433 (`sfia_next_dev`); E2E uses sibling DB `sfia_next_e2e` |
-| Nora | Deterministic fixture unless `OPENAI_API_KEY` set outside E2E; E2E always fixture |
+| Nora | Bounded LIVE flow accepted in RECETTE; unit/integration/E2E fixture tests are deterministic and must not be labeled LIVE. E2E always fixture. |
 | Browser | Playwright REAL local browser + DEV fake identity on owned :3101 |
-| Figma native | PENDING — see `docs/ux-figma-pending.md` |
-| RECETTE/STABLE | NOT AVAILABLE |
+| Figma native | Partial native extraction (rail 246 px), component fidelity and runtime screenshot comparison still open; see `docs/ux-figma-pending.md`. Rich Markdown rendering is not implemented. |
+| RECETTE/STABLE | RECETTE used and accepted at C3 build (current process status not observed); STABLE NOT AVAILABLE. Reserve A: DEV and RECETTE sharing `127.0.0.1` may collide session cookies across ports; use separate browser profiles temporarily, technical isolation/re-test required before STABLE. |
