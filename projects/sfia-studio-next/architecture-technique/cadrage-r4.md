@@ -251,7 +251,7 @@ Ces options **ne sont pas des décisions d'architecture** ; elles pourront être
 | A-07 | Document de sas `PENDING` au clic | Lien durable conservé ; état vrai et reprise, aucune sauvegarde fictive | Test stockage objet/réconciliation |
 | A-08 | Source externe révoquée après création | Provenance connue, accès refusé, contexte Nora non autorisant | Test D4/D3 de currentness/droits |
 | A-09 | Réponse Nora reçue pendant le passage | Message attribuable au bon fil/contexte/version, sans création ni décision indirecte | Test des races asynchrones |
-| A-10 | Nouvelle conversation dans le même projet | Documents, acquis et décisions applicables retrouvables sans transcript complet | Test continuité D3/D4/D6 |
+| A-10 | Reprise du même fil après nouvelle session ou changement de sujet | Documents, acquis et décisions applicables retrouvables sans transcript complet | Test continuité D3/D4/D6 et identité du fil |
 
 **Blast radius conditionnel :** D1 (identité/isolation), D2 (acte et identité projet), D3 (fil/agent), D4 (documents et connaissance), D6 (références d'autorité), UX R3 (marqueur/continuité/erreurs), futurs D5/D7/D8/D9 (projet existant ne confère ni cycle, exécution, preuve ou accès Git). Les changements de contrats publics ou schéma devront documenter leur impact en R4 et être testés transversalement en R5.
 
@@ -430,10 +430,12 @@ Le modèle ci-dessous est un **contrat de données**, non un schéma SQL approuv
 | A10 — Identités séparées A/B | D1 `ACC-001/005/006`, D2 `CRE-009` | Deux comptes, références croisées, refus et aucune fuite d'existence | R5 sécurité, R6 browser |
 | A11 — Source révoquée | D2 `CRE-022/026`, D4 `KNOW-006/014` | Source interdite non réinjectée dans Nora | R5 D3/D4, R6 LIVE ciblé |
 | A12 — Plusieurs projets homonymes | D2 `CRE-012`, `PF-CRE-14` | IDs distincts, portefeuille non fusionné | R5 transaction/UI |
-| A13 — Reprise après nouvelle conversation | D2 `CRE-019/023`, D4 `KNOW-011/015/019` | Connaissances et docs pertinents récupérés sans transcript exhaustif | R5 ciblé, R6 LIVE |
+| A13 — Reprise du même fil après reconnexion ou de nombreux échanges | D2 `CRE-019/023`, D4 `KNOW-011/015/019` | Même identité de projet/fil ; sélection D4 d'acquis/documents au-delà des derniers messages, sans transcript exhaustif ni second cycle | R5 ciblé, R6 LIVE/DB/BROWSER |
 | A14 — Navigation cockpit/projet | D1 `ACC-009/010/014/016`, UX P5 | Pas de Nora globale, contexte exact et retour après reload | R5/R6 navigateur |
 | A15 — Aucun effet dérivé | D2 `CRE-014/021`, D5–D9 | Absence prouvée de cycle, CKI, Git, Cursor ou mandat induit | R5 non-régression |
 | A16 — Restaurer/redémarrer | D2 `CRE-024`, D4 `KNOW-015/018` | Coupure serveur / restauration et réconciliation de métadonnées/objets | R5/R6 restart réel |
+
+**Clarification d'architecture retenue Morris (2026-11-04) :** l'identité de fil conservée pour le Pilote désigne **un fil de travail visible et continu par projet**, non plusieurs chats sélectionnables. Les anciennes expressions A-10/A13 « nouvelle conversation » désignaient une reprise ou un nouvel échange. Ne pas introduire de gestionnaire multi-chat ni d'obligation de plusieurs identités de conversation par projet. Cette portée produit n'interdit pas une optimisation interne de stockage sans nouvelle interface utilisateur. **Un seul cycle actif par projet reste l'invariant D5.**
 
 **Preuve actuelle : `DESIGN ONLY`** — aucun de ces tests n'est exécuté sur un runtime Next. La preuve d'un prototype Figma ou d'une transaction hypothétique ne suffit pas. Il faudra distinguer tests unitaires déterministes, transactions sur DB réelle, E2E navigateur authentifié, tests d'interruptions/restore et éventuellement comportements IA LIVE avec provenance.
 

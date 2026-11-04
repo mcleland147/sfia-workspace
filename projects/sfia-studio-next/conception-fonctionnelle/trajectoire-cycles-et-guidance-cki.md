@@ -200,7 +200,7 @@ Le domaine 5 est propriétaire de la **référence de méthode courante du proje
 - **RG-TRJ-033 — Continuité sans mémoire parallèle.** Au changement de cycle, le domaine 5 fournit références de cycle, finalité, résultats et état de progression ; le domaine 4 restitue les sujets et points ouverts dans leurs identités et sources existantes. Aucun recopiage d’un journal de décisions ou de preuves dans l’état de cycle **Interface :** R1 E2E 02/04 ; `RG-KNOW-003/004/011/015`.
 
 
-- **RG-TRJ-034 — Reprise fidèle après interruption.** Après interruption ou nouvelle conversation, Studio identifie projet et cycle réellement actif, son type et la référence CKI pertinente, distingue transitions terminées ou échouées et ne réactive pas un cycle par une synthèse ou un souvenir Nora **Interface :** `RG-CTX-006`, `RG-KNOW-015`, R1 §2.31.
+- **RG-TRJ-034 — Reprise fidèle après interruption.** Après interruption, nouvel échange ou nouvelle session dans le même fil du projet, Studio identifie projet et cycle réellement actif, son type et la référence CKI pertinente, distingue transitions terminées ou échouées et ne réactive pas un cycle par une synthèse ou un souvenir Nora **Interface :** `RG-CTX-006`, `RG-KNOW-015`, R1 §2.31.
 
 
 - **RG-TRJ-035 — Réserve/suspension non résolue.** Un retour de cycle ou une amélioration apparente ne clôt ni une réserve gouvernée ni une suspension du Pilote. Leur état applicable est consulté auprès de l’autorité propriétaire avant une recommandation déterminante de transition **Interface :** `RG-AUTH-002`, `RG-KNOW-009`, domaines 6/8.
@@ -350,9 +350,9 @@ Ces cas détaillent les E2E primaires R1, **sans** inventer d’E2E supplémenta
 *Couverture :* 015–016, 034 ; R1 E2E 02/04.
 
 
-### PF-TRJ-19 — Reprise depuis autre conversation
+### PF-TRJ-19 — Reprise du même fil après interruption ou transition de cycle
 
-**Étant donné** une trajectoire et un cycle actifs avec sujets réorganisés ; **quand** le Pilote reprend ailleurs ; **alors** Nora retrouve l’état du cycle, le type CKI, les acquis via domaine 4 et les restrictions encore applicables, sans recopier des registres concurrents.
+**Étant donné** une trajectoire et un cycle actifs avec sujets réorganisés ; **quand** le Pilote revient dans son projet et son même fil après une interruption ou une transition autorisée ; **alors** Nora retrouve l’état du cycle, le type CKI, les acquis via domaine 4 et les restrictions encore applicables, sans recopier des registres concurrents.
 
 *Couverture :* 007, 017–018, 033–035 ; R1 E2E 02/04.
 

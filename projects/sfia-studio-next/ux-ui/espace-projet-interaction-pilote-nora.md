@@ -199,7 +199,7 @@ flowchart TD
 - Conserver un **point de retour** relatif à l'activité d'origine : projet, travail/conversation concerné, objet inspecté et position utile. Un retour arrière ne doit pas ramener arbitrairement au portefeuille.
 - Préserver un **brouillon non envoyé** en cas de consultation courte ou d'inspection ; une éventuelle perte irréversible mérite une alerte contextualisée, pas une confirmation à chaque navigation.
 - Un **retour depuis inspection** doit rendre sa place à l'activité appelante. Éviter l'empilement de panneaux et sous-inspections qui rend l'origine introuvable ; les relations entre objets peuvent ouvrir un détail étendu avec chemin de retour explicite.
-- Un utilisateur peut consulter une autre conversation du **même projet** sans perte des acquis durables ; le modèle n'impose **ni une conversation unique par projet, ni la réinjection du transcript intégral**.
+- **Hypothèse historique non retenue — voir §39 :** la possibilité d'une autre conversation indépendante du même projet était exploratoire. Le contrat actuel est le **retour au même fil continu**, avec sélection des acquis D4 et sans réinjection du transcript intégral.
 - L'action « Poursuivre avec Nora sur cet élément » prépare un contexte/référencement compréhensible et contrôlable par le Pilote ; **elle n'envoie pas automatiquement de message** ni ne promeut le contenu consulté en décision.
 
 **Après interruption, expiration de session, rechargement ou ouverture par lien direct :**
@@ -232,7 +232,7 @@ Deux entrées possibles sont à comparer sur un retour réel :
 - **Entrée par le travail récupérable :** rouvrir l'activité/conversation pertinente si elle est identifiée et autorisée ; afficher dans un repère discret les éléments courants utiles. *Atout :* continuité immédiate. *Risque :* reprendre un ancien sujet alors que le Pilote voulait seulement consulter son projet.
 - **Entrée par un contexte synthétique :** présenter ce qui est établi sur le projet et un accès direct au travail. *Atout :* orientation et visibilité. *Risque :* interposer un tableau de bord à chaque visite et affaiblir la conversation.
 
-**Préférence candidate à tester :** privilégier la reprise du travail lorsqu'elle est fiable ; rendre le contexte du projet directement accessible, et, en l'absence d'activité récupérable, fournir une entrée neutre vers Nora accompagnée des repères disponibles. **Aucun modèle de « dernier chat unique » n'est imposé.**
+**Préférence candidate à tester :** privilégier la reprise du travail lorsqu'elle est fiable ; rendre le contexte du projet directement accessible, et, en l'absence d'activité récupérable, fournir une entrée neutre vers Nora accompagnée des repères disponibles. **La reprise exploite le fil de travail continu retenu ; l'hypothèse historique de plusieurs chats n'est pas retenue (§39).**
 
 ### 6.10. Cas limites et conditions d'échec à prototyper
 
@@ -409,11 +409,11 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 +--------------+----------------------------------------------+
 ~~~
 
-**Comportement nominal candidat :** à l'ouverture d'un projet identifié et accessible, Studio reprend une activité pertinente **réellement récupérable**, puis rend immédiatement disponibles les informations du projet, le Journal et la trajectoire. Aucun chargement forcé de toutes les conversations, ni ouverture de cycle automatique. Le repère de cycle est discret, absent lorsqu'il n'y a pas de cycle.
+**Comportement nominal candidat :** à l'ouverture d'un projet identifié et accessible, Studio reprend une activité pertinente **réellement récupérable**, puis rend immédiatement disponibles les informations du projet, le Journal et la trajectoire. Aucun chargement forcé de tout le transcript dans le contexte Nora, ni ouverture de cycle automatique. Le repère de cycle est discret, absent lorsqu'il n'y a pas de cycle.
 
-**Si aucune activité n'est fiable :** afficher une entrée neutre dans le projet, un accès aux travaux/conversations disponibles et une invitation non prescriptive à travailler avec Nora ; ne pas inventer un « dernier chat » ni lancer automatiquement une nouvelle conversation sans intention.
+**Si aucune activité n'est fiable :** afficher une entrée neutre dans le projet, un accès aux travaux et objets pertinents et une invitation non prescriptive à poursuivre avec Nora dans le même fil ; ne pas inventer de messages, d'état de travail ou de cycle.
 
-**Intérêt :** accélère les retours fréquents et exprime directement la valeur conversationnelle. **Risque :** une activité retrouvée peut ne pas correspondre à l'intention du Pilote, surtout après une longue absence ou avec plusieurs conversations.
+**Intérêt :** accélère les retours fréquents et exprime directement la valeur conversationnelle. **Risque :** une activité retrouvée peut ne pas correspondre à l'intention du Pilote, surtout après une longue absence ou plusieurs changements de sujet dans le même fil.
 
 ### 13.2 Variante V2 — Contexte du projet d'abord (*Context-first*)
 
@@ -447,7 +447,7 @@ La proposition devra permettre de démontrer sur les parcours précédents :
 | Projet créé via le sas | **Doit** préserver le même fil et afficher le passage « projet créé » : priorité contractuelle D2. | Ne doit pas intercaler un écran qui rompe le fil ; exception nécessaire à l'entrée normale V2. | D2 RG-CRE-017/018/020/021 |
 | Retour fréquent au projet | Travail immédiatement disponible si retrouvé et autorisé. | Sélection supplémentaire pour retrouver le travail. | Temps et gestes pour reprendre l'activité voulue |
 | Retour après plusieurs semaines | Peut ouvrir un sujet ancien inadapté. | Donne des repères actuels avant reprise. | Pertinence de l'activité et fraîcheur de la synthèse |
-| Plusieurs conversations | Ne présume pas qu'il en existe une seule ; proposer un choix si l'activité de référence est ambiguë. | Peut exposer les activités disponibles et leurs contextes. | Orientation sans ajouter un « gestionnaire de chats » complexe |
+| Plusieurs sujets et reprises du même fil | Retrouver le fil continu et l'objet pertinent ; demander une précision uniquement si l'activité visée est ambiguë. | Exposer les acquis du Journal et l'activité du projet, sans sélecteur multi-chat. | Orientation sans gestionnaire de chats ; §39 prévaut |
 | Aucun cycle actif | Nora demeure opérationnelle ; repère de cycle absent ou explicite. | Aucun cycle n'est inventé ; états du projet consultables. | R2 D3/D5 ; éviter la pression à ouvrir un cycle |
 | Cycle actif | Contexte réel accessible, sans monopoliser le travail. | Étape active et projection lisibles. | Différencier réel / proposé / futur |
 | Projet consulté pour retrouver une décision | Nécessite un accès direct et court au Journal. | Décisions disponibles dès l'entrée, mais sans copie d'autorité. | R2 D4/D6 ; nombre de gestes |
@@ -473,7 +473,7 @@ Ce compromis reste un **candidat** : ne pas coder une règle automatique « dern
 - Reprendre le même fil sas→projet après création effective, sans variante divergente.
 - Préserver les brouillons/positions de navigation selon les capacités réellement offertes ; ne pas promettre une restauration inter-session non prouvée.
 - Distinguer projection, cycle réel, décision, préparation, exécution, preuve et acceptation.
-- Gérer absence de cycle, plusieurs conversations, source périmée, session expirée et accès refusé.
+- Gérer absence de cycle, plusieurs sujets/échanges dans le même fil, source périmée, session expirée et accès refusé.
 - Montrer sur prototype desktop et petit écran l'information prioritaire et le mécanisme de retour.
 
 **Verdict historique v0.3 :** V1 semblait le candidat principal pour l'usage régulier ; V2 servait de contre-proposition forte pour les reprises longues et la consultation. L'évolution candidate V3 est documentée §14. Aucun test utilisateur ou prototype cliquable n'a été effectué. **Prochain arbitrage Morris :** choix d'une direction après confrontation visuelle et parcours, sans transformation de préférence en décision implicite.
@@ -584,7 +584,7 @@ Le Pilote peut retrouver une décision antérieure, depuis une réponse de Nora 
 - Décision actuelle, historique modifiée/remplacée, suspendue ou révoquée ; décision introuvable ou accès retiré.
 - Retour vers le bon projet, pas vers un autre projet mentionné par hasard.
 - Navigation clavier et petit écran avec inspection occupant temporairement toute la surface si nécessaire.
-- Plusieurs conversations / origine absente / filtres de Journal non restaurables / perte de session.
+- Plusieurs sujets ou échanges successifs dans le même fil / origine absente / filtres de Journal non restaurables / perte de session.
 - Aucun clic de navigation ne crée une décision ni une action technique.
 - Le Pilote peut consulter une décision **sans Nora**, et la même décision a une seule autorité D6 quel que soit son point d'accès.
 - La reprise de saisie et la continuité intersession sont promises uniquement au niveau réellement prévu et testé, pas par une simulation visuelle.
@@ -1597,3 +1597,15 @@ Le [contrat de transposition](contrat-transposition-figma-code.md) prend en comp
 ## 38. Décision Morris de sortie R3 (2026-11-03)
 
 La conception UX R3 est **CLOSED BY MORRIS — WITH CARRIED RESERVES**. La [décision formelle](../governance/decisions/2026-11-03-r3-ux-formal-exit.md) est enregistrée sur la branche candidate. Les mentions antérieures de revue en attente documentent des états précédents de préparation, et non le statut courant. **La promotion sur `main`, la PR/les checks, le merge, le runtime et le démarrage R4 demeurent séparés.**
+
+## 39. Clarification Morris — fil de travail unique et continu par projet (2026-11-04)
+
+**Statut de cette précision : VALIDATED PRODUCT SCOPE BY MORRIS / UX TRACEABILITY CORRECTION.** La conception valide **un seul fil visible et continu de travail avec Nora par projet**, dont la conversation du sas est conservée après création effective. Le Pilote peut y conduire plusieurs échanges, explorer des sujets différents, interrompre et reprendre son activité, et traverser plusieurs cycles successifs ; **au plus un cycle est actif par projet**. Les Sujets, Documents et points ouverts restent consultables depuis D4, sans imposer la relecture intégrale du transcript pour recontextualiser Nora.
+
+**Historique et interprétation :** les variantes anciennes §§6.7, 13.1–13.6 et leurs expressions « plusieurs conversations », « activités A/B » ou « dernier chat » décrivaient des hypothèses d'exploration, **non retenues comme fonctionnalités multi-chat**. Lorsqu'une phrase suppose la création/sélection de fils indépendants, elle est **SUPERSEDED par le présent §39**. Une « nouvelle conversation » des exigences historiques R1/R2 signifie désormais un **nouvel échange ou une nouvelle session dans le même fil**, pas une liste de chats concurrents.
+
+**Contrat UX opposable pour la construction :** portefeuille → sas conversationnel récupérable → projet créé explicitement → **même fil visible** → travail Nora et accès direct Journal/Inspection/Document/Trajectoire → fermeture/reconnexion → **même fil** avec les acquis D4 pertinents et le cycle réellement actif. Ne créer aucun bouton « Nouveau chat », panneau d'historiques de chats, choix de conversations ou cycle propre à une conversation dans ML2. Une digression ne déclenche ni deuxième cycle ni deuxième CKI.
+
+**Figma existant :** conserver les frames natives de conversation `94:214`, création/continuité `96:262` et reprise `96:370`, et leurs états de retour ; elles ne constituent **pas** une preuve de multi-chat. Aucun écran supplémentaire n'est demandé. Les éventuels libellés visibles incohérents dans Figma seront qualifiés avant code, avec mandat d'édition distinct si nécessaire ; les anciens noms d'index/frame peuvent rester des repères de revue historique.
+
+**QA de sortie :** un même fil identifiable avant/après sas→projet, après refresh et nouvelle session ; documents/acquis retrouvés au-delà des messages récents ; pas de perte d'origine d'Inspection ; état du cycle actif unique lu chez D5 ; aucune autre conversation créée comme effet de navigation. Source de décision : Morris (2026-11-04) ; preuve de code et navigateur **NON OBSERVÉE** au stade du présent addendum.
