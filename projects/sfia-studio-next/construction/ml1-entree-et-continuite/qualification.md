@@ -1,11 +1,11 @@
 # SFIA Studio Next — R5 / ML1 · Qualification de la première capacité verticale
 
-> **État Git au versement (2026-11-04) :** publication documentaire candidate sur `docs/next-r5-delivery-preparation-20261104`, base `main@a0b80b9ecd64149ed51f87235ae246e197e66462`. Ni `VALIDATED SPEC`, ni merge, ni GO Cursor. Les formules `NOT ON GIT` et `NO GIT WRITE` dans les historiques décrivent leur état à la rédaction, pas cette publication.
+> **État actualisé au 2026-11-04 :** préparation R5 et qualification initiale ML1 **intégrées à `main@5a972f291ef8819b179d879ae73b5943307ec3c1` via PR #647**, après R4 via #646. Le présent document est actualisé en qualification v0.2 sur branche dédiée. Une acceptation technique de principe ne vaut ni `VALIDATED SPEC`, ni GO Cursor, ni preuve produit.
 
 
-**Statut :** `D0 — QUALIFICATION CANDIDATE / NOT VALIDATED SPEC / NO CODE / NO CURSOR PROMPT / GIT CANDIDATE NON MERGÉ`  
+**Statut actualisé :** `v0.2 / TECHNICAL DIRECTION ACCEPTED IN PRINCIPLE / CONTRACT QUALIFICATION IN PROGRESS / NOT VALIDATED SPEC / NO D3 GO / NO CODE`  
 **Date :** 2026-11-04 (Europe/Paris)  
-**Dépôt/ref inspecté :** `mcleland147/sfia-workspace`, `main@a0b80b9ecd64149ed51f87235ae246e197e66462`, PR #646 `MERGED` ; `main` protégée ; Git local, fichiers staged/untracked et worktrees : **NON OBSERVÉS**.  
+**Dépôt/ref inspecté :** `mcleland147/sfia-workspace`, `main@5a972f291ef8819b179d879ae73b5943307ec3c1`, PR #646 et #647 `MERGED / POST-MERGE VERIFIED` ; `main` protégée ; Git local, staged/untracked, ports, secrets et worktrees : **NON OBSERVÉS**.  
 **Méthode :** SEF v0.2, Next R1–R4, ENV-01, SFIA v2.6 (processus externe, **aucun prompt instancié**).  
 **Statut produit :** Studio Next `N/A — NON IMPLÉMENTÉ`; ni environnement, ni code, ni preuve browser/LIVE/REAL, ni STABLE, ni ADOPTED observés.
 
@@ -21,7 +21,7 @@
 - R2 D1 `conception-fonctionnelle/acces-et-portefeuille.md` : 25 `RG-ACC` et 24 `PF-ACC` ; R2 D2 `creation-de-projet-et-continuite-du-sas.md` : 27 `RG-CRE` et 27 `PF-CRE`, **dont complément post-clôture `CRE-027`** ; interfaces ciblées D3/D4.
 - R3 `ux-ui/contrat-transposition-figma-code.md`, `ux-ui/index-geometrie-frames-r3.json` et fichier Figma `itgvCulInEnFY6DvgIegvP`. R3 couvre les familles/variantes ; **géométrie profonde partielle**.
 - R4 `architecture-technique/cadrage-r4.md` §§5.3 et 8.1, ADR **R4-01/02**, DATA-01, ENV-01, QA **A01–A16**.
-- Matrice : [rattachement ML1](matrice-tracabilite.md) ; inventaire D1/D2 : [inventaire R2](inventaire-r2.csv). Initialement locaux, ces deux documents sont désormais publiés sur **branche Git candidate**, non fusionnés.
+- Matrice : [rattachement ML1](matrice-tracabilite.md) ; inventaire D1/D2 : [inventaire R2](inventaire-r2.csv). Ils sont désormais **sur `main` via #647** : 103 identifiants R2 recensés et 16 oracles QA A01–A16 rattachés, aucun exécuté.
 
 ## 2. Périmètre IN / OUT et propriétaires
 
@@ -56,7 +56,7 @@
 | Document du sas | Ressource/version et état SAVING/SAVED/FAILED/UNKNOWN non fictifs, association correcte après création | CRE-027 ; KNOW-016..020 ; PF-CRE-27 | A08, A09, A13, A16 | Métadonnées DB, stockage d'octets, transactions/compensation, stratégie d'erreurs |
 | Lanes/recette | Trois configurations isolables ; candidat immuable testé en RECETTE ; non-contamination et restauration | ENV-01, DATA-01 | A16 + contrôles ENV-01 | Scripts/ports/config réels, exploitation PostgreSQL, sauvegarde, smoke tests |
 
-**Orientation approuvée R4 (ne pas rouvrir sans motif) :** application modulaire neuve, frontière transactionnelle V-A et **PostgreSQL dès le premier incrément R5**, responsabilités D1–D4 distinctes et sans duplication d'autorité. **Non décidés à ce niveau** : framework, ORM, schéma final, routes, protocole exact des agents, UI kit, outils de migration ou d'authentification.
+**Orientation approuvée R4 (ne pas rouvrir sans motif) :** application modulaire neuve, frontière transactionnelle V-A et **PostgreSQL dès le premier incrément R5**, responsabilités D1–D4 distinctes et sans duplication d'autorité. **Paquet R5 accepté sur le principe** : Next.js/React/TypeScript, Better Auth OAuth GitHub, PostgreSQL/Drizzle, OpenAI Agents SDK derrière D3, contenu textuel D4 en PostgreSQL, Vitest/Playwright. Les versions exactes, DDL, endpoints, configuration OAuth/IA/lanes et version produit initiale **ne sont pas adoptés ou prouvés** par cet accord.
 
 ### 3.1. Données/invariants qui conditionnent le code
 
@@ -146,8 +146,54 @@ En revanche, le choix ordinaire d'un type interne, d'un nom de fonction ou d'un 
 
 ## 8. Verdict et prochaine capacité
 
-**Verdict : `ML1 QUALIFIED AT SOURCE/PERIMETER LEVEL — TECHNICAL SPEC NOT YET VALIDATED — UX EXTRACTION PENDING — CODE N/A — NON IMPLÉMENTÉ`.**
+**Verdict historique v0.1 :** `ML1 QUALIFIED AT SOURCE/PERIMETER LEVEL — TECHNICAL SPEC NOT YET VALIDATED — UX EXTRACTION PENDING — CODE N/A — NON IMPLÉMENTÉ`. Le verdict courant de v0.2 est donné en §9.
 
 **Prochaine capacité après ML1** : documents/connaissances et continuité exploitable (ML2), sans devoir déplacer ou recréer les données du sas ; pilotage (ML3), lecture Git facultative (ML4) et exécution gouvernée (ML5) s'appuient sur le même noyau d'identité, de contexte et d'autorité.
 
-**Aucune opération Git, aucun prompt Cursor, aucun démarrage R5 technique.**
+**Historique de la qualification v0.1 :** aucun prompt Cursor ni runtime R5. Les documents initiaux ont ensuite été intégrés via #647 ; la présente qualification ne lance toujours aucun code.
+
+## 9. Qualification ML1 sur baseline Git intégrée — actualisation 2026-11-04
+
+**GO présent :** Morris autorise la synchronisation factuelle de la Roadmap et la poursuite de la qualification ML1. Son accord de principe sur le paquet technique est retenu. **Il n'accorde pas un mandat D3 de code, ni une nouvelle décision sur les mécanismes de persistance, les droits ou le déploiement.** Les sources canoniques R1–R4, ENV-01, versioning produit, guide SFIA v2.6 §4.3.0b et template §2.0.H sont consultables sur `main@5a972f2`.
+
+### 9.1. Contrat de capacité confirmé
+
+**Résultat Pilote E2E01 :** s'authentifier, retrouver ses projets, démarrer/reprendre une préparation sans projet, échanger utilement avec Nora, produire un premier document durable, inspecter puis créer explicitement un projet **au plus une fois par préparation**, et reprendre **le même fil avec ses ressources** après reload/crash/reconnexion.
+
+| Domaine / IN | Garantie exigée | Frontière pérenne avec la suite |
+| --- | --- | --- |
+| D1 identité/portefeuille | Session vérifiée et révocable, propriété contrôlée à chaque accès, deux comptes isolés | Login GitHub Studio ≠ scopes/droits Git D9 |
+| D2 préparation/création | Préparation durable, version d'aperçu, clé+empreinte d'idempotence, transaction projet/lien/résultat, résolution après ACK perdu | ProjectId stable disponible aux futurs domaines D5/D6 |
+| D3 Nora | Conversations/messages et statuts persistés dans PostgreSQL ; streaming provisoire honnête ; contexte autorisé | Agents SDK adaptateur cognitif, ni mémoire concurrente, ni exécuteur D7 |
+| D4 premier document | Ressource/version/contenu et disponibilité réels avant projet, association sans duplication | Extension ML2 sans recréation de vérité |
+| UX R3 | Contrats Figma transposés au moment du composant concerné, responsive et clavier, source/capture traçables | Éléments et états partagés, pas un écran par frame |
+| ENV/versioning | DEV/RECETTE séparées, SHA recette figé, premiers logs et preuves ; STABLE seulement après promotion | `delivery-history.md` et version unique créés avec le premier code |
+
+**OUT inchangé :** cycle/CKI et HumanDecision positifs (ML3), GitHub App et permissions/lecture Git effective (ML4), dispatch Cursor/contrat d'exécution/STOP et preuves D8 (ML5), gestion documentaire avancée (ML2), adoption R6. L'absence de ces effets doit être testée ; ne pas simuler leur présence.
+
+### 9.2. Qualification technique à finaliser dans le même macro-lot, pas en micro-cycles
+
+1. **Git, environnement et sécurité :** Cursor devra observer son worktree, la branche et le diff réels ; DEV/RECETTE ont bases, secrets, sessions, ports et callbacks OAuth propres. Aucun état local ni configuration fournisseur n'est encore prouvé.
+2. **Stack reproductible :** choisir les versions mutuellement compatibles de Node/Next/React/Better Auth/Drizzle/Agents SDK **à l'installation autorisée**, figer les dépendances et vérifier les incompatibilités de runtime ou de licences ; ne pas inventer ces vérifications.
+3. **Auth :** OAuth GitHub pour identité seulement, sessions serveur et révocation démontrées en DB, anti-CSRF/permissions et refus inter-Pilotes ; contrôle de droits à chaque commande plutôt qu'une confiance dans le composant UI.
+4. **Persistance/transaction :** contraintes SQL uniques et FK, migrations, état de commande idempotente, comparaison de version d'aperçu, concurrence double clic, crash avant/après commit et opération distincte de réconciliation.
+5. **Nora :** absence de session SDK faisant autorité, composition du contexte depuis D3/D4 et droits actuels, réponse enregistrée ou interrompue honnêtement, coût/budget et traces expurgées, vérification LIVE bornée.
+6. **Document D4 / DATA-01 :** contenus textuels/versionnés récupérables après transition, vrai statut SAVING/FAILED/UNKNOWN, sauvegarde/restauration contrôlées, provenance conservée et absence de seconde base.
+7. **UX et QA :** index des frames Figma et éléments natifs pertinents consommés par Cursor juste avant le code UX ; analyse de l'écart desktop 240/246 px au niveau du composant commun ; tests navigateur et PostgreSQL réel. Matrice A01–A16 reste **DESIGN ONLY**, `A11` Git positif reporté à D9.
+8. **Livraison et version :** `0.1.0-rc.1` n'est qu'une option de premier candidat, non attribuée ; avant décision du premier build `product_version = NOT AVAILABLE`. Livrer code, tests, documentation synchronisée, manifeste SHA/build/schema et historique des deliveries ensemble ; aucun mouvement automatique de STABLE.
+
+### 9.3. Gates de la prochaine opération
+
+| Vérification | État actuel |
+| --- | --- |
+| Sources et frontières R1–R4, 103 IDs D1/D2, A01–A16 et extension future | **REVIEWED DOCUMENTARY** |
+| Architecture R4 / préparation R5 sur `main` | **MERGED / POST-MERGE VERIFIED** |
+| Stack et modèle technique général ML1 | **ACCEPTED IN PRINCIPLE** |
+| Spécification ML1 complète sous mandat d'implémentation | **TECHNICAL CANDIDATE — NOT VALIDATED SPEC** |
+| Prompt Cursor SFIA v2.6 complet et approuvé | **NOT GENERATED / NOT AUTHORIZED** |
+| GO Morris D3, branche, scope fichiers et effets | **NOT GRANTED** |
+| Code, environnements, tests, LIVE, RECETTE, version STABLE | **N/A — NON IMPLÉMENTÉ / NON OBSERVÉ** |
+
+**Verdict v0.2 : `ML1 QUALIFIED FOR FINAL D3 CONTRACT REVIEW / IMPLEMENTATION PRINCIPLE ACCEPTED / NO STRUCTURAL R4 CONFLICT IDENTIFIED / SPEC NOT YET VALIDATED / NO CURSOR PROMPT / CODE N/A`.** Le geste suivant est une **revue ciblée du contrat d'exécution de ML1**, avec risques/STOP, fichiers et gates, suivie du GO Morris explicite avant toute exécution D3 ; pas une nouvelle étude globale des ML2–ML5.
+
+**Écart de fraîcheur non modifié dans ce lot :** l'en-tête de `governance/product-versioning.md` conserve une indication « branche candidate / non mergé » devenue historique après #647. Git et la Roadmap corrigée font foi ; correction de cette métadonnée à borner sous mandat documentaire approprié, sans changer la politique.
