@@ -1,15 +1,17 @@
 # SFIA Studio Next — R5 · Référence de delivery
 
+> **Actualisation factuelle 2026-11-04, post-ML1 :** R5 **IN PROGRESS**, premier vertical ML1 **IMPLEMENTED / MERGED #649 / RECETTE FONCTIONNELLE ACCEPTÉE AVEC RÉSERVES** ; clôture formelle ML1 **VALIDÉE PAR MORRIS AVEC RÉSERVES le 2026-11-04**. Le présent document conserve ci-dessous la préparation D0/R5 datée **avant construction** ; ses mentions `CODE N/A`, `R5 NOT STARTED`, `PR NON MERGÉE` et `pas de preuve LIVE` décrivent cette période historique et non le runtime actuel. Voir Roadmap R5 et spécification ML1 §15, matrice ML1 §8. Les quatre enseignements REX sont distincts de la clôture ML1 ; aucun GO ML2 ou STABLE n'en découle.
+
 > **État Git au versement (2026-11-04) :** publication documentaire candidate sur `docs/next-r5-delivery-preparation-20261104`, base `main@a0b80b9ecd64149ed51f87235ae246e197e66462`. Ni `VALIDATED SPEC`, ni merge, ni GO Cursor. Les formules `NOT ON GIT` et `NO GIT WRITE` dans les historiques décrivent leur état à la rédaction, pas cette publication.
 
 
 **Version :** travail D0 / v0.4 — 2026-11-04  
-**Statut :** `PREPARATION DOCUMENTAIRE EN COURS — AJUSTEMENTS DE SÉQUENCEMENT ACCEPTÉS EN CONVERSATION / CONTENU CANDIDAT / GIT CANDIDATE NON MERGÉ / R5 CONSTRUCTION NOT STARTED`  
+**Statut de la préparation D0 initiale (historique) :** `PREPARATION DOCUMENTAIRE EN COURS / CONTENU CANDIDAT / R5 CONSTRUCTION NOT STARTED À CETTE DATE`. **État produit actuel :** voir note post-ML1 ci-dessus.  
 **Périmètre :** préparation du dispositif documentaire, de traçabilité, de vérification et de gouvernance de la construction R5.  
 **Autorité :** Morris valide les contrats, les arbitrages structurants, les gates et les opérations Git ; ChatGPT prépare et révise ; Cursor implémente sous SFIA v2.6 après mandat.  
 **Dépôt contrôlé :** [`mcleland147/sfia-workspace`](https://github.com/mcleland147/sfia-workspace), `main@a0b80b9ecd64149ed51f87235ae246e197e66462` ; branche `main` protégée. **Git local, staged, untracked et worktrees : NON OBSERVÉS.**  
 **Intégration R4 :** [PR #646](https://github.com/mcleland147/sfia-workspace/pull/646) mergée le 2026-11-03T23:33:19Z, SHA de merge identique au HEAD ci-dessus. Certains paragraphes historiques de la Roadmap et du cadrage R4 décrivent encore le gate PR/merge comme à venir : la preuve Git directe prime.  
-**Runtime Next :** `N/A — NON IMPLÉMENTÉ` ; pas de test produit, preuve navigateur/LIVE/REAL ni ADOPTED revendiqués.
+**Runtime Next au moment de cette préparation D0 (historique) :** `N/A — NON IMPLÉMENTÉ`. **Depuis :** ML1 construit/recetté, preuves bornées, non adopté ; voir note d'actualisation.
 
 > **Qualification du présent document :** le GO conversationnel de Morris autorise la consolidation D0 du dispositif et la préparation d’une **spécification technique candidate ML1**. Il ne valide pas automatiquement les choix techniques ouverts et n’autorise ni écriture Git, ni prompt/exécution Cursor, ni code. Les ajustements UX/QA de la discussion du 2026-11-04 sont intégrés ci-dessous.
 
@@ -85,6 +87,15 @@ Un enregistrement de lien comporte au minimum :
 **Cardinalités :** 1→N et N↔N autorisées. Règle unique dans sa spec R2 ; plusieurs réalisations dans R5 autorisées avec un propriétaire d'implémentation explicite ; même QA peut couvrir plusieurs fonctions. Les liens croisés sont des références, pas des duplications d'implémentation.
 
 **Ne pas imposer une traduction mécanique 1 RG → 1 classe ou 1 test.** Exiger une couverture de chaque exigence en service du macro-lot avec preuve adaptée ; décrire `non applicable`, `déféré R6` ou `non couvert` seulement avec justification, responsable, risque et gate. Les invariants critiques et frontières d'effet ont scénarios positifs et négatifs, même si aucun test unitaire par phrase n'existe.
+
+**Complément de traçabilité validé — REX ML1, enseignement 4 (2026-11-04) : progression cognitive de Nora.** Pour chaque capacité cognitive **introduite ou enrichie** dans un macro-lot, utiliser la matrice de traçabilité et le contrat QA du lot propriétaire pour relier, sans nouvelle matrice parallèle :
+
+- **Compétence / valeur Pilote** : comportement que Nora doit améliorer, source R1/R2 et résultat utilisateur attendu.
+- **Référence comparable** : scénario(s) représentatif(s), conditions, versions/lane et état antérieur réellement observé ; écrire `NON MESURÉ` ou `N/A — NO PRIOR CAPABILITY` lorsqu'une comparaison historique est indisponible.
+- **Observation après livraison** : scénario(s) rejoués, oracle de pertinence, identité des sources/contexte, références test et preuves (SHA, environnement, niveau DETERMINISTIC/INTEGRATION/BROWSER/LIVE/REAL, limites).
+- **Écart / progression qualifiée** : amélioration démontrée, résultat inchangé, régression ou preuve insuffisante ; propriétaire, risque, correctif/dette et condition de sortie si applicable.
+
+Ne pas déduire une amélioration cognitive d'un composant installé, d'une réponse isolée de Nora ou d'un test FAKE. Les scénarios restent proportionnés au risque et à la valeur produit, sans seuil universel ni gate nouveau. **Les résultats historiques ML1 sont conservés tels quels** ; ils ne sont pas requalifiés a posteriori et ne constituent une baseline que dans la mesure où leurs preuves permettent une comparaison valide.
 
 ### 4.1. Exemple de rattachement — création explicite (illustratif, à confirmer en qualification ML1)
 

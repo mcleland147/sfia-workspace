@@ -9,7 +9,7 @@ Technical package under `projects/sfia-studio-next/web`.
 
 - Node ≥ 20
 - Docker PostgreSQL DEV: container `sfia-next-dev-pg` on `127.0.0.1:5433`
-- `.env.local` (not committed) — see `.env.example` for required keys (blank placeholders only)
+- `.env.local` (not committed) — **no tracked `.env.example` exists in this repository snapshot**. Set the required configuration names from the implementation: `DATABASE_URL`, `STUDIO_LANE`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` for real OAuth, and `OPENAI_API_KEY` for Nora LIVE. `STUDIO_DEV_TEST_LOGIN` is an optional DEV-only test gate. Never commit credentials.
 
 ## Start DEV (port 3100)
 

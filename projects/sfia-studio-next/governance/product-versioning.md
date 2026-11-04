@@ -1,13 +1,13 @@
 # SFIA Studio Next — Politique de versioning du produit et registre des livraisons
 
 **Version du document :** v1.0 — contenu validé par Morris le 2026-11-04 ; intégration sur `main` prouvée par la PR #647.  
-**Statut courant :** `D2 CONTENT VALIDATED MORRIS — 2026-11-04 / ON MAIN VIA PR #647 / NEXT ROUTING INTEGRATED / RUNTIME VERSIONING NOT IMPLEMENTED`.  
+**Statut de la politique :** `D2 CONTENT VALIDATED MORRIS — 2026-11-04 / ON MAIN VIA PR #647 / NEXT ROUTING INTEGRATED`. **État produit post-ML1 :** métadonnées techniques en code, `NO RELEASE / STABLE NOT AVAILABLE` ; les textes pré-construction ci-dessous sont historiques.  
 **Emplacement canonique de publication :** `projects/sfia-studio-next/governance/product-versioning.md`.  
 **Périmètre :** versions et livraisons du **produit SFIA Studio Next**, et non versions de la méthode SFIA v2.6, du SEF, des documents R1–R5, des contrats Figma ou des migrations.  
 **Sources de conception initiales :** `main@a0b80b9ecd64149ed51f87235ae246e197e66462`, SEF v0.2 §10, ENV-01, ADR R4-01..04, DATA-01, guide §4.3.0b, template v2.6 §2.0.H / §5 / §6.9 / §6.14. **Constat post-merge :** PR #647 intégrée et relue sur `main@5a972f291ef8819b179d879ae73b5943307ec3c1` ; les lectures ultérieures restent soumises à la vérification de la ref Git courante.  
 **Autorité :** Morris décide des évolutions structurantes, du classement `MAJOR` litigieux, de l'intégration et de la promotion ; ChatGPT qualifie et revoit ; Cursor modifie le code et tient les traces sous contrat autorisé.
 
-**Portée de la validation :** versioning produit approuvé en contenu, **routage Next-only intégré sur `main` après PR/merge et vérification post-merge #647**. Aucune version produit ou build réel attribué à ce jour ; le numéro initial et la mise en œuvre technique restent à qualifier/implémenter dans ML1. **Contrat Git intégré ≠ mécanisme runtime implémenté ou prouvé.**
+**Portée de la validation :** versioning produit approuvé en contenu et routage Next-only intégré sur `main` après PR #647. **Actualisation factuelle 2026-11-04 post-ML1 :** l'application contient `web/src/lib/product-version.ts` et une version de package technique `0.0.0-dev`, non une version produit officielle ; la recette ML1 a utilisé le build `PMCGeil9wv8DZNBfEGf4H` au C3 `0db58be...`, merge #649. **Aucune version produit STABLE, release/tag ni adoption** ne sont établis. Les propositions de numérotation et d'implémentation des sections suivantes ne deviennent pas des décisions appliquées par cette mise à jour documentaire.
 
 ## 1. Objectif et règle générale
 
@@ -15,7 +15,7 @@ Une seule ligne de versions applicatives, continue et traçable, malgré les mac
 
 **Distinguer les cinq objets :** (1) version sémantique de l'application ; (2) révision Git SHA/source ; (3) build immuable ; (4) version de schéma/migration de données ; (5) environnement réellement servi. Une valeur de ces objets ne prouve pas les quatre autres.
 
-Aucune version logicielle initiale n'est attribuée à ce jour : `R5 CODE N/A — NON IMPLÉMENTÉ`. Le numéro de départ est décidé lors du premier incrément implémentable, avec proposition de débuter en `0.1.0` pour la phase pré-1.0 puis de promouvoir `1.0.0` au premier socle stable accepté ; ces valeurs sont **candidates**, non acquises.
+**Constat historique de conception pré-ML1 :** aucune version officielle initiale n'était alors attribuée et le code n'existait pas. **État actuel après #649 :** code ML1 intégré et package `0.0.0-dev` technique, **sans version produit attribuée ni STABLE**. Les propositions de débuter en `0.1.0` (pré-1.0) et de promouvoir `1.0.0` au premier socle stable restent des **options non attribuées**, soumises aux gates Morris applicables.
 
 ## 2. Format et sélection des incréments
 

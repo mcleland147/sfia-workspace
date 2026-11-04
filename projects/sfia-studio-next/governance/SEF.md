@@ -7,6 +7,7 @@
 | Programme de construction | **SFIA Studio Next** — désignation interne provisoire, distincte du produit historique |
 | Document | **SEF / R0-A — proposition de méthode et charte de lancement** |
 | Version | **0.2 — VALIDATED BY MORRIS / R0-A — 2026-11-01** · consolidation R0-A (arborescence dans `sfia-workspace` + contribution documentaire ChatGPT) |
+| Addendum normatif | **SEF-01 — primauté permanente de la vision produit : VALIDATED BY MORRIS — 2026-11-04 (REX ML1)**. Ne constitue pas une validation des autres enseignements. |
 | Date | 1er novembre 2026 (Europe/Paris) |
 | Autorité | **Morris** — gouvernance, architecture, doctrine, gates, création de repo, promotions |
 | Base Git historique inspectée | `mcleland147/sfia-workspace`, branche par défaut `main`, dernier commit retourné **`cd2020c82ecdcdaa073debd6985ee9c113bfba3e`** (consultation distante) |
@@ -82,6 +83,20 @@ La vision de départ est celle des trois schémas fournis par Morris : *Pilote �
 
 **SEF-15 — Contribution directe ChatGPT proportionnée.** ChatGPT peut concevoir, rédiger et réviser directement les artefacts documentaires et de gouvernance du nouveau chantier, sans passage automatique par Cursor. L’intégration dans **Git distant** suit une autorisation Morris **bornée et traçable** (périmètre, branche, opérations, garde-fous). Rédaction ≠ approbation normative ; approbation ≠ commit/push/PR/merge. Modalités en §10.
 
+### Addendum validé à SEF-01 — Primauté permanente de la vision produit (2026-11-04)
+
+**Statut : VALIDATED BY MORRIS — REX ML1, enseignement 1.** Cette précision renforce le principe SEF-01 existant. Elle ne valide ni les autres enseignements du REX, ni de nouveaux gates ou mécanismes d'exécution, ni une modification de la doctrine produit.
+
+La construction de SFIA Studio Next est conduite en priorité par sa **vision produit, ses résultats utilisateurs et ses capacités métier attendues**.
+
+À chaque étape — cadrage, conception fonctionnelle, UX, architecture, construction, tests, revue et qualification — les travaux doivent être appréciés au regard de leur contribution à cette vision.
+
+**La conformité d'une implémentation à son contrat technique ne suffit pas à démontrer la réussite produit.**
+
+ChatGPT et Morris doivent régulièrement réinterroger la pertinence des travaux engagés, leur cohérence avec la cible globale et leur impact sur les capacités suivantes.
+
+Toute dérive significative doit être explicitée, analysée et arbitrée avant d'être prolongée dans le delivery.
+
 ## 4. La doctrine des macro-lots — **règle structurante**
 
 ### 4.1 Définition
@@ -144,6 +159,17 @@ Ne pas confondre **concision documentaire** et **absence de trace** : les décis
 
 **Cycles SFIA v2.6** : le cycle et son profil restent déclarés (Light/Standard/Critical/Capitalization). **Standard par défaut** ; Critical sur risque réel de sécurité, architecture ou autorité, pas simplement parce qu'il y a plusieurs livrables. Capitalization n'est pas Critical par essence.
 
+### Complément validé — REX ML1, enseignement 3 : recul critique intégré au delivery (2026-11-04)
+
+**Statut : VALIDATED BY MORRIS.** Ce complément précise la pratique des étapes existantes du macro-lot, dans la continuité de SEF-01 et des responsabilités du §9. Il ne crée ni cycle systématique ni gate supplémentaire.
+
+- **À l'entrée du macro-lot :** Morris et ChatGPT vérifient le résultat utilisateur attendu, la contribution à la vision globale, les dépendances et la capacité suivante. Cette finalité doit être intelligible dans le contrat transmis à Cursor.
+- **Pendant le delivery :** chaque revue significative confronte le résultat à la cible produit, et pas seulement aux exigences techniques. Les anomalies importantes ou répétées déclenchent une recherche proportionnée de leurs causes : cadrage, contrat, instructions, architecture, implémentation ou preuves.
+- **À l'approche de la sortie :** avant de considérer le macro-lot comme terminé, une revue de cohérence vérifie que les capacités attendues ont effectivement été délivrées, que les écarts avec la vision cible sont qualifiés et que les conséquences pour la suite sont maîtrisées.
+
+**Ces vérifications sont intégrées aux travaux et revues existants.** Elles ne créent ni nouveaux cycles systématiques ni gates supplémentaires. Morris conserve les arbitrages.
+
+
 ## 6. Règles de qualité et de preuve
 
 ### 6.1 Contrat minimal de capacité
@@ -172,6 +198,19 @@ Mentionner pour les preuves **DETERMINISTIC**, **BROWSER**, **LIVE**, **REAL** e
 - **Exécution / effets externes** : permissions, contrat inspecté, STOP, idempotence, non-expansion, preuve REAL bornée avant claim REAL.
 
 **Pas de pourcentage de couverture universel** fixé par défaut ; les scénarios critiques et les frontières contractuelles sont le critère. Des seuils chiffrés pourront être décidés en R4 selon la stack et les risques.
+
+### Complément validé — REX ML1, enseignement 4 : progression cognitive démontrable de Nora (2026-11-04)
+
+**Statut : VALIDATED BY MORRIS.** Chaque macro-lot qui introduit ou améliore une capacité cognitive de Nora doit permettre d'apprécier **l'amélioration réelle du service rendu au Pilote**, et non seulement l'existence d'une nouvelle fonctionnalité ou d'un composant technique.
+
+Pour les capacités concernées, les matrices de traçabilité et contrats QA existants relient :
+
+- **La compétence attendue et sa valeur utilisateur** : ce que Nora doit permettre au Pilote de mieux accomplir.
+- **Un état de référence et des scénarios représentatifs comparables** : comportement réellement observé avant évolution, ou absence de référence explicitement signalée.
+- **Les résultats observés, leurs niveaux de preuve et leurs limites** : comparaison possible à conditions connues, sans confondre déterministe, intégration, navigateur et LIVE/REAL.
+- **Les écarts à corriger ou les améliorations à poursuivre** dans les macro-lots suivants, avec propriétaire et sortie lorsque nécessaire.
+
+La mesure est **proportionnée à la capacité développée**. Elle s'appuie sur les matrices, scénarios et preuves de leurs propriétaires, sans nouveau référentiel parallèle, seuil de performance artificiel ni gate supplémentaire. Elle ne réécrit pas rétroactivement les résultats ML1 et ne transforme pas une compétence projetée en capacité démontrée.
 
 ### 6.4 Prévention des régressions et test d'évolutivité
 
@@ -268,6 +307,20 @@ R1–R4 peuvent contenir plusieurs ateliers, mais **ne justifient pas automatiqu
 - **ChatGPT** : analyse, qualification, conception candidate, challenge, organisation macro-lots, **rédaction et révision documentaire directe** ; contribution Git **seulement sous autorisation bornée** (§10), préparation de contrats/templates, revue de preuves. **Ne décide pas** à la place de Morris.
 - **Cursor** : exécute sous contrat SFIA v2.6, produit fichiers/tests/rapport/handoff ; **n'élargit pas** les frontières et ne prend pas les décisions d'architecture ou d'autorité.
 - **Pilote Studio (runtime futur)** : décide les HumanDecisions applicables ; différent de l'autorité Morris sur la construction.
+
+**Complément validé — REX ML1, enseignement 2 (2026-11-04) : responsabilité continue de cohérence produit.**
+
+La délégation d'un travail technique à Cursor ne transfère ni la responsabilité de la vision produit ni l'autorité des arbitrages.
+
+Morris conserve la responsabilité des décisions produit et des résultats attendus.
+
+ChatGPT assure, tout au long de la construction, la continuité de la réflexion fonctionnelle et produit. Ses revues ne se limitent pas à constater la conformité technique : elles évaluent également la pertinence de la solution, ses impacts sur la vision cible et les causes des écarts observés.
+
+Cursor réalise les travaux techniques dans les frontières du contrat autorisé. Il doit mobiliser son jugement d'ingénierie pour identifier les incohérences, risques et dépendances, puis les signaler sans prendre de décision structurante à la place de Morris.
+
+**La conformité au prompt Cursor ne décharge pas Morris et ChatGPT de leur responsabilité sur la pertinence de ce qui a été demandé.**
+
+Ce complément précise la pratique des responsabilités existantes ; il ne transfère aucune autorité, ne modifie pas le contrat SFIA v2.6 et n'autorise aucun gate ou effet technique supplémentaire.
 
 ### Stops absolus
 
