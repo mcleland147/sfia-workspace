@@ -73,3 +73,27 @@ Les corrections REV-01–REV-07 sont intégrées dans la spécification candidat
 **Aucune publication Git, aucun changement des décisions R4 ni des spécifications R2/R3, aucune implémentation, aucun test exécuté, aucun prompt Cursor.** L'accès natif Figma chez Cursor demeure une capacité annoncée, non vérifiée dans ce travail documentaire.
 
 **Verdict final D0** : `R5/ML1 DESIGN REVIEW COMPLETE — REVISIONS PREPARED LOCALLY — MORRIS APPROVAL AND TECHNICAL SELECTIONS PENDING — R5 BUILD NOT STARTED`.
+
+## 7. Dernière vérification transverse avant PR documentaire — 2026-11-04
+
+**Mandat :** contrôle de synchronisation compact demandé par Morris, couvrant ML1 face à R1–R4 et aux interfaces futures D5–D9, sans concevoir les lots suivants ni anticiper l'implémentation. **Accord de principe** sur la stack ML1 ; **GO explicite pour ouverture de PR documentaire** conditionné par la vérification.
+
+| Contrôle | Vérification | Résultat et limites |
+| --- | --- | --- |
+| R1 / résultat utilisateur | E2E 01, et interfaces E2E 03/04/07 ; Pilote/Nora, sas et création explicite | **Aligné documentairement** ; ne réclame pas la réalisation complète des E2E 03/04/07 dès ML1 |
+| R2 D1/D2 | `inventaire-r2.csv` relu en format CSV à **8 colonnes** ; 103 lignes : 25 RG-ACC, 24 PF-ACC, 27 RG-CRE, 27 PF-CRE ; tous IDs retrouvés dans les deux spécifications canoniques, aucun doublon | **Inventaire complet des identifiants**, pas preuve exhaustive de la sémantique et pas 103 tests |
+| R2 D3/D4 | Propriétaire D3 des conversations et messages ; propriétaire D4 des documents/versions/provenance ; consultation du contexte selon droits courants | **Conforme en conception** ; sélection des messages et gestion des erreurs à prouver en runtime |
+| R2 D5–D9 / R4 B–D | Identité stable `PilotId/ProjectId` ; aucune création implicite de cycle, HumanDecision, mandat, preuve ou Git ; OAuth Studio ≠ droits Git ; SDK Nora ≠ exécuteur Cursor ; longue exécution D7 non portée par requête HTTP | **Compatibilité architecturale conditionnelle, pas implémentation ni test des lots futurs** |
+| R3 UX / Figma | 223 frames dans le manifeste R3 ; 30 IDs de frames relevés dans la matrice ML1 résolus ; `94:49` est le **page-id**, pas un frame ; extraction native ciblée pendant le développement | **Sélection et renvois conformes** ; rendu DOM/browser, tokens descendants, 240/246 px et responsive encore non prouvés |
+| R4 architecture et QA | ADR R4-01…04, DATA-01 et ENV-01 maintenus ; A01–A16 présents dans R4 et la matrice ML1 ; A11 Git seulement partiel | **Aucun oracle exécuté** ; intégrité transactionnelle, restart, backup et LIVE Nora à démontrer |
+| Stack / sécurité | Next.js/Node + Better Auth GitHub + Drizzle/Postgres + OpenAI Agents SDK ; séparation mémoire D3, contrôles de session, traces, permissions et des lanes | **Pas de conflit de principe identifié** ; versions exactes, compatibilités de packages et contraintes runtime à vérifier au premier build |
+| Version produit | Politique validée en contenu sur branche ; `NO RELEASE` pour la PR documentaire ; première préversion non décidée | **Conforme** ; mécanismes `delivery-history` et build manifest à créer avec le premier delivery de code |
+| Git et statuts | Baseline `main@a0b80b9`, branche documentaire dédiée ; contrôle des liens et du diff ; aucune mutation de code | **Prêt pour dépôt en PR documentaire** après relecture du HEAD final ; pas de merge ou de validation D3 |
+
+**Correction réellement effectuée avant PR :** l'export initial de `inventaire-r2.csv` contenait des marqueurs de conversion de table. Il a été restauré en **CSV natif** (103 lignes, 8 colonnes) et relu à distance après le commit de correction. Le problème de format est clos ; la couverture de tests demeure ouverte.
+
+**Réserves non bloquantes pour PR, mais bloquantes avant un verdict produit :** choix exact des dépendances et callbacks OAuth par lane ; sessions révoquées ; confidentialité des traces Agents SDK ; reprise sur crash/stream ; DDL et contraintes SQL ; mesures native Figma et captures navigateur ; tests PostgreSQL/bornés LIVE ; version candidate/build et instances DEV/RECETTE réelles.
+
+**Known gap indépendant :** la Roadmap `main` conserve un texte ancien présentant R4 comme non mergé, alors que la PR #646 est intégrée à `main@a0b80b9`. Ne pas modifier silencieusement le document normatif Roadmap dans cette PR ; mettre à jour sous gate de contenu/écriture dédié. Cette réserve n'invalide pas la vérité Git ni la PR candidate.
+
+**Verdict :** `ML1 CROSS-LOT COMPATIBILITY — NO BLOCKING DESIGN CONTRADICTION IDENTIFIED / R5 DOCUMENTARY PR READY TO OPEN / SPEC NOT FULLY VALIDATED / IMPLEMENTATION NOT PROVEN`. Cette conclusion est **limitée à la documentation** et ne remplace aucun gate CI, merge, D3, RECETTE ou adoption.
