@@ -870,3 +870,28 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
 - OBS-Q01 OAuth LIVE, export SDK distant : **NOT RUN**
 - CI Next sur nouveau SHA : **OPEN GATE** (pas de push projet)
 - RECETTE / STABLE / ADOPTED : **NOT AVAILABLE**
+
+## 23. As-Built correctif Critical post-revue — 2026-11-05 (local)
+
+> **LOCAL CORRECTIVE on `53be6097` / same branch / no project push.** Répond à la revue ChatGPT du handoff `865c731d` (5 familles). N'écrase pas §22.
+
+### 23.1 Correctifs
+
+| Famille | Invariant |
+| --- | --- |
+| FIX-TURN | RUNNING orphelin → UNKNOWN (stale/lease ou assistant déjà présent) ; CAS terminal ; replay FAILED/UNKNOWN sans fabriquer COMPLETE ; concurrence même clé |
+| FIX-D4 | Contenu uniquement si `revision.status===AVAILABLE` ; `getDocumentRevision` n'élève plus SAVING/UNKNOWN ; latest non-AVAILABLE → STALE sans auto-servir l'ancien |
+| FIX-SDK | Pas de 2ᵉ `run()` après stream d'état fournisseur UNCERTAIN ; `modelApplied`/`effortApplied` = null/UNVERIFIED ; notes catégorisées |
+| FIX-BUD | `OPERATIONAL_PROVISIONAL` explicite DEV only ; absent/hors DEV fail-closed ; `maxTurns` = budget policy (plus de cap silencieux 12) |
+| FIX-D4 search | Filtre DB avant LIMIT ; `totalMatched` exact/unknown ; coverage honnête ; chars d'enveloppe imputés au budget |
+| FIX-OBS | Allowlist meta ; query read-only (pas de mkdir) ; isolation lane sous `SFIA_OBS_DIR` ; purge DATA-01 14j ; redaction exact-key + secrets libres |
+
+### 23.2 Preuves locales (correctif)
+
+| Suite | Résultat |
+| --- | --- |
+| unit | 50 PASS (dont nora-adapter-corrective, obs retention/isolation, BUD fail-closed) |
+| PG integration | 62 PASS (dont `ml2-critical-corrective.pg.test.ts` FIX-TURN/D4) |
+| Playwright FAKE | 3 PASS |
+| tsc / build | PASS |
+| LIVE / CI new SHA / RECETTE | **NOT RUN** |

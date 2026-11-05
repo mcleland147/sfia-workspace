@@ -458,3 +458,23 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 | LIVE modèle/effort | NOT RUN | pas de GO LIVE |
 | Corpus B long | NOT RUN | OPERATIONAL TBD |
 | CI nouveau SHA | OPEN GATE | pas de push projet |
+
+## 16. As-Built correctif Critical — 2026-11-05
+
+> Complément post-revue handoff `865c731d`. Branche locale inchangée.
+
+| Oracle | État local | Preuve |
+| --- | --- | --- |
+| FIX-TURN-01 concurrence même clé | PG PROVEN | `ml2-critical-corrective.pg.test.ts` |
+| FIX-TURN-02 stale RUNNING → UNKNOWN | PG PROVEN | reconcile + reprise fil |
+| FIX-TURN-03 replay UNKNOWN sans COMPLETE inventé | PG PROVEN | idem |
+| FIX-D4-01 SAVING/UNKNOWN non AVAILABLE | PG PROVEN | read tool + getDocumentRevision |
+| FIX-D4-02 cross-pilot deny | PG PROVEN | pilot B denied |
+| FIX-SDK-01 pas de 2ᵉ run uncertain | UNIT PROVEN | mock Runner 1 appel |
+| FIX-SDK-02 erreurs catégorisées | UNIT PROVEN | categorizeProviderError |
+| FIX-BUD-01 fail-closed hors DEV | UNIT PROVEN | cognitive-policy |
+| FIX-D4-03 search >40 | PG PROVEN | 45 acquis + marker |
+| FIX-D4-04 chars envelope | PG PROVEN | budget décroît |
+| FIX-OBS-01/02 allowlist, RO query, purge, lanes | UNIT PROVEN | observability.test.ts |
+| C1–C6 régression | PG+BROWSER FAKE PROVEN | suites existantes PASS |
+| LIVE / CI / RECETTE | NOT RUN | hors mandat |

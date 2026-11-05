@@ -341,4 +341,4 @@ export const knowledgeSubjectEvents = pgTable(
   (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
 );
 
-export const schemaRevision = "004_ml2_integrity_corrective";
+export const schemaRevision = "005_ml2_conversation_turn_command";

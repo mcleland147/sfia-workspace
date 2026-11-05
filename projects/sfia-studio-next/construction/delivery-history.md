@@ -278,4 +278,23 @@ Append-only logical journal of Cursor product deliveries.
 | LIVE / RECETTE / CI new SHA | **NOT RUN / NOT AUTHORIZED** |
 | Status | LOCAL DELIVERY — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `LOCAL DELIVERY WITH RESERVES — REVIEW REQUIRED` |
-||
+
+## delivery_id: DELIV-2026-11-05-ML2-CRITICAL-CORRECTIVE-08
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~18:25 CET |
+| Macro-lot | R5 / ML2 — correctif Critical post-revue ChatGPT |
+| Type | EVOL corrective integrated (same ML2, not new lot) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
+| Parent entry SHA | `53be6097612825b24333821ab3001c35a0b4d757` |
+| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | TURN orphan reconcile+CAS ; D4 AVAILABLE-only ; no uncertain SDK fallback ; budgets fail-closed ; search pagination/budget ; OBS allowlist/RO/purge/lane |
+| Schema | `005` unchanged (forward-safe) ; `schemaRevision` aligned to 005 |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 50 PASS ; PG 62 PASS ; Playwright 3 PASS ; tsc+build PASS |
+| LIVE / CI new SHA / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL CORRECTIVE DELIVERY — REVIEW REQUIRED` |
+

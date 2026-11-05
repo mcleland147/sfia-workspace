@@ -21,11 +21,13 @@ describe("ML2 turn command idempotence (PG)", () => {
   let preparationId: string;
   let obsDir: string;
   const prevObs = process.env.SFIA_OBS_DIR;
+  const prevBase = process.env.SFIA_OBS_BASE;
 
   beforeAll(async () => {
     if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL required");
     obsDir = mkdtempSync(join(tmpdir(), "sfia-obs-pg-"));
     process.env.SFIA_OBS_DIR = obsDir;
+    process.env.SFIA_OBS_BASE = obsDir;
     const sess = await createDevTestSession("a", { host: "127.0.0.1:3100" });
     pilotId = sess.pilotId;
     const prep = await openOrCreatePreparation(pilotId);
@@ -35,6 +37,8 @@ describe("ML2 turn command idempotence (PG)", () => {
   afterAll(() => {
     if (prevObs === undefined) delete process.env.SFIA_OBS_DIR;
     else process.env.SFIA_OBS_DIR = prevObs;
+    if (prevBase === undefined) delete process.env.SFIA_OBS_BASE;
+    else process.env.SFIA_OBS_BASE = prevBase;
     rmSync(obsDir, { recursive: true, force: true });
   });
 

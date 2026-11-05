@@ -126,55 +126,77 @@ export default function PreparationPage() {
       };
     }
     const clientTurnKey = messageTurnKeyRef.current.key;
-    const res = await fetch(`/api/preparations/${preparationId}/messages`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        content: text,
-        clientTurnKey,
-        correlationKey: clientTurnKey,
-      }),
-    });
-    const j = await res.json();
-    setBusy(false);
-    if (res.ok) {
-      messageTurnKeyRef.current = null;
-      setDraft("");
-      setMessages(j.messages ?? []);
-      setNoraActivity("idle");
-      const policyPart = j.policy?.profile
-        ? ` · policy ${j.policy.profile}/${j.policy.profileType}`
-        : "";
-      const opPart = j.operationId ? ` · op ${String(j.operationId).slice(0, 18)}` : "";
-      const replayPart = j.idempotentReplay ? " · rejeu tour" : "";
-      const docPart =
-        j.documentSave?.status === "AVAILABLE"
-          ? ` · document ${j.documentSave.documentId} v${j.documentSave.revisionNumber}`
-          : j.documentSave
-            ? ` · document ${j.documentSave.status}`
-            : "";
-      const cap =
-        Array.isArray(j.capitalisation) && j.capitalisation.length
-          ? ` · capitalisé ${j.capitalisation.length} (AVAILABLE confirmé)`
+    try {
+      const res = await fetch(`/api/preparations/${preparationId}/messages`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          content: text,
+          clientTurnKey,
+          correlationKey: clientTurnKey,
+        }),
+      });
+      let j: Record<string, unknown> = {};
+      try {
+        j = (await res.json()) as Record<string, unknown>;
+      } catch {
+        j = { errorCategory: "RESPONSE_PARSE_FAILED" };
+      }
+      if (res.ok) {
+        messageTurnKeyRef.current = null;
+        setDraft("");
+        setMessages((j.messages as typeof messages) ?? []);
+        setNoraActivity("idle");
+        const policy = j.policy as
+          | { profile?: string; profileType?: string }
+          | undefined;
+        const policyPart = policy?.profile
+          ? ` · policy ${policy.profile}/${policy.profileType}`
           : "";
-      const docConflict =
-        j.documentSave?.status === "CONFLICT" ? ` · CONFLICT ${j.documentSave.reason ?? ""}` : "";
-      setStatus(
-        `Nora ${j.noraMode} · ${j.status}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}` +
-          (j.streaming?.attempted
-            ? ` · stream attempted=${j.streaming.attempted} delivered=${j.streaming.delivered}`
-            : ""),
-      );
-      await reload();
-    } else {
+        const opPart = j.operationId ? ` · op ${String(j.operationId).slice(0, 18)}` : "";
+        const replayPart = j.idempotentReplay ? " · rejeu tour" : "";
+        const documentSave = j.documentSave as
+          | { status?: string; documentId?: string; revisionNumber?: number; reason?: string }
+          | undefined;
+        const docPart =
+          documentSave?.status === "AVAILABLE"
+            ? ` · document ${documentSave.documentId} v${documentSave.revisionNumber}`
+            : documentSave
+              ? ` · document ${documentSave.status}`
+              : "";
+        const capitalisation = j.capitalisation;
+        const cap =
+          Array.isArray(capitalisation) && capitalisation.length
+            ? ` · capitalisé ${capitalisation.length} (AVAILABLE confirmé)`
+            : "";
+        const docConflict =
+          documentSave?.status === "CONFLICT" ? ` · CONFLICT ${documentSave.reason ?? ""}` : "";
+        const streaming = j.streaming as
+          | { attempted?: boolean; delivered?: boolean }
+          | undefined;
+        setStatus(
+          `Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}` +
+            (streaming?.attempted
+              ? ` · stream attempted=${streaming.attempted} delivered=${streaming.delivered}`
+              : ""),
+        );
+        await reload();
+      } else {
+        setNoraActivity("error");
+        // Keep turn key on network/conflict so retry reuses the same intention.
+        const cat = String(j.errorCategory ?? j.error ?? "échec message");
+        setStatus(
+          res.status === 409
+            ? `${cat} — intention de tour conservée`
+            : cat,
+        );
+      }
+    } catch {
       setNoraActivity("error");
-      // Keep turn key on network/conflict so retry reuses the same intention.
-      const cat = j.errorCategory ?? j.error ?? "échec message";
-      setStatus(
-        res.status === 409
-          ? `${cat} — intention de tour conservée`
-          : String(cat),
-      );
+      // Keep clientTurnKey — network failure must not mint a new intention.
+      setStatus("échec réseau — intention de tour conservée");
+    } finally {
+      setBusy(false);
     }
   }
 

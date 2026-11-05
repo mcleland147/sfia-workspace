@@ -634,6 +634,19 @@ export async function getDocumentRevision(
       .limit(1)
   )[0];
   if (!rev) return { status: "NOT_FOUND" as const };
+  // Content authority follows revision.status — never redefine SAVING/UNKNOWN as AVAILABLE.
+  if (rev.status !== "AVAILABLE") {
+    return {
+      status: rev.status as "FAILED" | "SAVING" | "UNKNOWN",
+      document: owned,
+      revision: {
+        ...rev,
+        // Refuse content body for non-AVAILABLE — callers must not treat as source.
+        contentMarkdown: "",
+      },
+      reason: "REVISION_NOT_AVAILABLE",
+    };
+  }
   return { status: "AVAILABLE" as const, document: owned, revision: rev };
 }
 

@@ -11,6 +11,7 @@ import {
   type D4ToolScope,
 } from "./d4-read-tools";
 import { emitObs, newAttemptId } from "@/lib/observability";
+import { isStudioError } from "@/lib/http-errors";
 
 export type NoraGenerateInput = {
   userText: string;
@@ -30,7 +31,9 @@ export type NoraAttemptRecord = {
   attemptId: string;
   kind: "stream" | "non_stream" | "fixture" | "fixture_tools";
   outcome: "SUCCESS" | "FAILED" | "UNKNOWN" | "INTERRUPTED";
+  /** Category only — never raw provider text. */
   notes?: string;
+  providerContacted?: "YES" | "NO" | "UNCERTAIN";
 };
 
 export type NoraGenerateResult = {
@@ -44,6 +47,7 @@ export type NoraGenerateResult = {
   streamingNotes?: string;
   policy: CognitivePolicy;
   modelRequested: string;
+  /** UNVERIFIED until a confirmed provider signal exists — never invent from request options alone. */
   modelApplied: string | null;
   effortRequested: string;
   effortApplied: string | null;
@@ -88,6 +92,27 @@ export function noraFixtureFlagsOutsideDev(): boolean {
   return fixtureFlagsRequested() && !isDevLane();
 }
 
+/** Map technical errors to safe categories — never leak provider/raw text. */
+export function categorizeProviderError(err: unknown): {
+  category: string;
+  interrupted: boolean;
+  preContactLikely: boolean;
+} {
+  const msg = err instanceof Error ? err.message : String(err);
+  const interrupted = /abort|timeout|AbortError/i.test(msg);
+  // Only treat as pre-contact when clearly local/config before network.
+  const preContactLikely =
+    /API key|OPENAI_API_KEY|missing.*key|invalid.*model.*settings|Cannot find module|setTracingDisabled/i.test(
+      msg,
+    ) && !/fetch|network|ECONN|socket|HTTP|429|500|502|503/i.test(msg);
+  let category = "PROVIDER_ERROR";
+  if (interrupted) category = "PROVIDER_INTERRUPTED";
+  else if (/model|not found|does not exist|unauthorized|insufficient|entitlement/i.test(msg)) {
+    category = "PROVIDER_MODEL_OR_ENTITLEMENT";
+  } else if (preContactLikely) category = "PROVIDER_PRE_CONTACT_CONFIG";
+  return { category, interrupted, preContactLikely };
+}
+
 function boundaryFail(
   generationId: string,
   reason: string,
@@ -122,7 +147,6 @@ async function fixtureReply(
   let d4CharsReturned = 0;
   let toolNotes = "";
 
-  // DETERMINISTIC proof path: for non-simple profiles, actually invoke D4 search under server scope.
   if (policy.toolAllowlist.length > 0 && input.toolScope) {
     const scope: D4ToolScope = {
       pilotId: input.toolScope.pilotId,
@@ -139,7 +163,10 @@ async function fixtureReply(
       limit: 5,
     });
     toolCallsObserved += 1;
-    d4CharsReturned += JSON.stringify(searched).length;
+    d4CharsReturned +=
+      "charsCharged" in searched
+        ? Number(searched.charsCharged ?? 0)
+        : JSON.stringify(searched).length;
     toolNotes = `fixture tool search status=${searched.status} items=${"items" in searched ? searched.items.length : 0}`;
   }
 
@@ -180,10 +207,12 @@ async function fixtureReply(
     attempt_id: attemptId,
     outcome: "SUCCESS",
     policy_version: policy.policyVersion,
-    profile_type: policy.profileType,
+    profile_type:
+      policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
     meta: {
       profile: policy.profile,
       tool_calls: toolCallsObserved,
+      profile_type_detail: policy.profileType,
     },
   });
 
@@ -206,6 +235,7 @@ async function fixtureReply(
         kind: toolCallsObserved ? "fixture_tools" : "fixture",
         outcome: "SUCCESS",
         notes: toolNotes || undefined,
+        providerContacted: "NO",
       },
     ],
     toolCallsObserved,
@@ -236,7 +266,6 @@ function buildPrompt(input: NoraGenerateInput, policy: CognitivePolicy): string 
 
 async function configureSdkTracingSafe(): Promise<void> {
   const agents = await import("@openai/agents");
-  // Critical: default SDK tracing may capture sensitive data.
   if (typeof agents.setTracingDisabled === "function") {
     agents.setTracingDisabled(true);
   }
@@ -251,7 +280,6 @@ async function runLiveWithTools(
   const { Agent, run } = await import("@openai/agents");
 
   const attempts: NoraAttemptRecord[] = [];
-  let toolCallsObserved = 0;
   const initialBudget = {
     remainingCalls: policy.budgets.maxD4ToolCalls,
     remainingChars: policy.budgets.maxD4CharsReturned,
@@ -288,11 +316,12 @@ async function runLiveWithTools(
   let streamingDelivered = false;
   let streamingNotes = "";
   let content = "";
-  const modelApplied: string | null = NORA_STUDY_MODEL;
-  const effortApplied: string | null = policy.effortRequested;
+  // Requested ≠ applied until provider confirms configuration.
+  const modelApplied: string | null = null;
+  const effortApplied: string | null = null;
+  let providerContacted: "YES" | "NO" | "UNCERTAIN" = "NO";
 
   try {
-    // Attempt 1: streaming when possible
     const streamAttemptId = newAttemptId();
     streamingAttempted = true;
     emitObs({
@@ -303,11 +332,19 @@ async function runLiveWithTools(
       attempt_id: streamAttemptId,
       outcome: "PARTIAL",
       policy_version: policy.policyVersion,
-      profile_type: policy.profileType,
-      meta: { kind: "stream", maxTurns, model: NORA_STUDY_MODEL },
+      profile_type:
+        policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+      meta: {
+        kind: "stream",
+        maxTurns,
+        model_requested: NORA_STUDY_MODEL,
+        max_turns_note: "maxTurns≠maxProviderCalls",
+      },
     });
 
     try {
+      // Invoking run() → provider contact becomes at least UNCERTAIN.
+      providerContacted = "UNCERTAIN";
       const streamed = await run(agent, prompt, {
         maxTurns,
         stream: true,
@@ -325,6 +362,7 @@ async function runLiveWithTools(
         let buf = "";
         for await (const chunk of textStream) {
           streamingDelivered = true;
+          providerContacted = "YES";
           buf += chunk;
           input.onProvisionalChunk?.(chunk);
         }
@@ -337,17 +375,17 @@ async function runLiveWithTools(
               : String(maybeStream.finalOutput).trim();
         }
         streamingNotes = streamingDelivered
-          ? "stream fragments received via toTextStream"
-          : "stream API invoked but no text chunks observed; used finalOutput";
+          ? "stream_fragments_received"
+          : "stream_invoked_no_chunks_finalOutput_used";
       } else if (maybeStream.finalOutput != null) {
+        providerContacted = "YES";
         content =
           typeof maybeStream.finalOutput === "string"
             ? maybeStream.finalOutput.trim()
             : String(maybeStream.finalOutput).trim();
-        streamingNotes =
-          "run(stream:true) returned without toTextStream; used finalOutput (non-progressive)";
+        streamingNotes = "stream_true_without_toTextStream_finalOutput";
       } else {
-        streamingNotes = "stream result shape unrecognized";
+        streamingNotes = "stream_result_shape_unrecognized";
       }
 
       attempts.push({
@@ -355,21 +393,76 @@ async function runLiveWithTools(
         kind: "stream",
         outcome: content ? "SUCCESS" : "UNKNOWN",
         notes: streamingNotes,
+        providerContacted,
       });
     } catch (streamErr) {
-      const msg = streamErr instanceof Error ? streamErr.message : String(streamErr);
-      streamingNotes = `stream path failed: ${msg}`;
+      const cat = categorizeProviderError(streamErr);
+      streamingNotes = cat.category;
+      const contact: "YES" | "NO" | "UNCERTAIN" = cat.preContactLikely
+        ? "NO"
+        : streamingDelivered
+          ? "YES"
+          : "UNCERTAIN";
+      providerContacted = contact;
       attempts.push({
         attemptId: streamAttemptId,
         kind: "stream",
-        outcome: /abort|timeout/i.test(msg) ? "INTERRUPTED" : "FAILED",
-        notes: streamingNotes,
+        outcome: cat.interrupted ? "INTERRUPTED" : contact === "UNCERTAIN" ? "UNKNOWN" : "FAILED",
+        notes: cat.category,
+        providerContacted: contact,
       });
 
-      // Distinct second attempt — never silent continuation of the same attempt_id.
-      if (controller.signal.aborted) {
-        throw streamErr;
+      // BLOQUANT: no automatic second run() when provider state is uncertain.
+      // Distinct retry only if failure attested BEFORE any provider contact.
+      if (contact !== "NO" || controller.signal.aborted) {
+        const status = cat.interrupted
+          ? ("INTERRUPTED" as const)
+          : contact === "UNCERTAIN"
+            ? ("UNKNOWN" as const)
+            : ("FAILED" as const);
+        return {
+          generationId,
+          mode: "openai-agents-sdk-live",
+          status,
+          streamingProvisional: false,
+          streamingAttempted,
+          streamingDelivered,
+          streamingNotes,
+          content: `Nora LIVE ${status}: état fournisseur ${contact === "UNCERTAIN" ? "incertain — aucune nouvelle tentative automatique" : "échoué"}. Message utilisateur déjà persisté. Détail technique non exposé.`,
+          policy,
+          modelRequested: policy.modelRequested,
+          modelApplied: null,
+          effortRequested: policy.effortRequested,
+          effortApplied: null,
+          attempts,
+          toolCallsObserved: policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls,
+          d4CharsReturned: policy.budgets.maxD4CharsReturned - initialBudget.remainingChars,
+        };
       }
+
+      // Pre-contact only: one explicit non-stream attempt under remaining budget.
+      if (attempts.length >= policy.budgets.maxProviderCalls) {
+        return {
+          generationId,
+          mode: "openai-agents-sdk-live",
+          status: "FAILED",
+          streamingProvisional: false,
+          streamingAttempted,
+          streamingDelivered,
+          streamingNotes: "PROVIDER_PRE_CONTACT_BUDGET_EXHAUSTED",
+          content:
+            "Nora LIVE FAILED: échec avant contact fournisseur et budget d'appels épuisé. Aucun effet métier inventé.",
+          policy,
+          modelRequested: policy.modelRequested,
+          modelApplied: null,
+          effortRequested: policy.effortRequested,
+          effortApplied: null,
+          attempts,
+          toolCallsObserved: 0,
+          d4CharsReturned: 0,
+        };
+      }
+
       const fallbackAttemptId = newAttemptId();
       emitObs({
         event_name: "d3.nora.provider_attempt",
@@ -379,9 +472,14 @@ async function runLiveWithTools(
         attempt_id: fallbackAttemptId,
         outcome: "PARTIAL",
         policy_version: policy.policyVersion,
-        profile_type: policy.profileType,
-        meta: { kind: "non_stream_fallback", prior_attempt: streamAttemptId },
+        profile_type:
+          policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
+        meta: {
+          kind: "non_stream_pre_contact_retry",
+          prior_attempt: streamAttemptId,
+        },
       });
+      providerContacted = "UNCERTAIN";
       const result = await run(agent, prompt, {
         maxTurns,
         signal: controller.signal,
@@ -390,18 +488,20 @@ async function runLiveWithTools(
         typeof result.finalOutput === "string"
           ? result.finalOutput.trim()
           : String(result.finalOutput ?? "").trim();
+      providerContacted = content ? "YES" : "UNCERTAIN";
       attempts.push({
         attemptId: fallbackAttemptId,
         kind: "non_stream",
         outcome: content ? "SUCCESS" : "UNKNOWN",
-        notes: "fallback after stream failure — independent attempt",
+        notes: "pre_contact_retry_only",
+        providerContacted,
       });
     }
   } finally {
     clearTimeout(wallTimer);
   }
 
-  toolCallsObserved = policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
+  const toolCallsObserved = policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls;
   const d4CharsReturned = policy.budgets.maxD4CharsReturned - initialBudget.remainingChars;
 
   if (!content) {
@@ -416,9 +516,9 @@ async function runLiveWithTools(
       content: "Réponse Agents SDK vide — état UNKNOWN, aucun effet métier inventé.",
       policy,
       modelRequested: policy.modelRequested,
-      modelApplied,
+      modelApplied: null,
       effortRequested: policy.effortRequested,
-      effortApplied,
+      effortApplied: null,
       attempts,
       toolCallsObserved,
       d4CharsReturned,
@@ -436,9 +536,10 @@ async function runLiveWithTools(
     content,
     policy,
     modelRequested: policy.modelRequested,
-    modelApplied,
+    // Content received ≠ verified model id from provider metadata.
+    modelApplied: "UNVERIFIED",
     effortRequested: policy.effortRequested,
-    effortApplied,
+    effortApplied: "UNVERIFIED",
     attempts,
     toolCallsObserved,
     d4CharsReturned,
@@ -448,11 +549,46 @@ async function runLiveWithTools(
 /**
  * D3 adapter — OpenAI Agents SDK behind this boundary when LIVE key present.
  * NEVER activates MemorySession / ConversationsSession as authority.
- * ML2: policy, D4 read tools, attempt tracking, tracing disabled by default.
+ * Critical corrective: no uncertain stream fallback; budgets fail-closed; notes redacted.
  */
+function minimalBoundaryPolicy(reasonCode: string): CognitivePolicy {
+  // Construct without env resolution — used only for boundary fail envelopes.
+  return {
+    policyVersion: "ml2-cog-policy-v2-corrective",
+    profileType: "TEST_BOUNDARY",
+    profile: "simple",
+    modelRequested: NORA_STUDY_MODEL,
+    effortRequested: "low",
+    toolAllowlist: [],
+    budgets: {
+      maxProviderCalls: 0,
+      maxD4ToolCalls: 0,
+      wallClockMs: 1_000,
+      maxD4CharsReturned: 0,
+    },
+    reasonCodes: [reasonCode],
+  };
+}
+
 export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraGenerateResult> {
   const generationId = newId("gen");
-  const policy = input.policyOverride ?? buildCognitivePolicy(input.userText);
+
+  // Lane fixture gate before policy — fail closed with a clear category.
+  if (noraFixtureFlagsOutsideDev()) {
+    return boundaryFail(
+      generationId,
+      "NORA_FIXTURE_LANE_FORBIDDEN (STUDIO_E2E/FORCE requires STUDIO_LANE=DEV)",
+      minimalBoundaryPolicy("NORA_FIXTURE_LANE_FORBIDDEN"),
+    );
+  }
+
+  let policy: CognitivePolicy;
+  try {
+    policy = input.policyOverride ?? buildCognitivePolicy(input.userText);
+  } catch (e) {
+    const reason = isStudioError(e) ? e.message : "COG_POLICY_REFUSED";
+    return boundaryFail(generationId, reason, minimalBoundaryPolicy("POLICY_RESOLVE_FAILED"));
+  }
 
   emitObs({
     event_name: "d3.nora.policy_selected",
@@ -460,22 +596,16 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
     operation_id: input.toolScope?.operationId,
     generation_id: generationId,
     policy_version: policy.policyVersion,
-    profile_type: policy.profileType,
+    profile_type:
+      policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
     meta: {
       profile: policy.profile,
       effort: policy.effortRequested,
       model: policy.modelRequested,
       tools: policy.toolAllowlist.join(","),
+      profile_type_detail: policy.profileType,
     },
   });
-
-  if (noraFixtureFlagsOutsideDev()) {
-    return boundaryFail(
-      generationId,
-      "NORA_FIXTURE_LANE_FORBIDDEN (STUDIO_E2E/FORCE requires STUDIO_LANE=DEV)",
-      policy,
-    );
-  }
 
   if (mustUseNoraFixture()) {
     return fixtureReply(input, generationId, policy);
@@ -496,32 +626,16 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
   try {
     return await runLiveWithTools(input, generationId, policy);
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "interrupted";
-    // Model missing / entitlement — no silent substitution
-    if (/model|not found|does not exist|unauthorized|insufficient/i.test(msg)) {
-      return {
-        ...boundaryFail(generationId, `PROVIDER_MODEL_OR_ENTITLEMENT: ${msg}`, policy),
-        mode: "openai-agents-sdk-live",
-        attempts: [
-          {
-            attemptId: newAttemptId(),
-            kind: "non_stream",
-            outcome: "FAILED",
-            notes: msg,
-          },
-        ],
-      };
-    }
-    const status = /timeout|abort/i.test(msg) ? ("INTERRUPTED" as const) : ("FAILED" as const);
+    const cat = categorizeProviderError(e);
     return {
       generationId,
       mode: "openai-agents-sdk-live",
-      status,
+      status: cat.interrupted ? "INTERRUPTED" : cat.preContactLikely ? "FAILED" : "UNKNOWN",
       streamingProvisional: false,
       streamingAttempted: true,
       streamingDelivered: false,
-      streamingNotes: msg,
-      content: `Nora LIVE ${status}: erreur fournisseur catégorisée. Message utilisateur déjà persisté. Détail technique non exposé.`,
+      streamingNotes: cat.category,
+      content: `Nora LIVE ${cat.interrupted ? "INTERRUPTED" : "UNKNOWN"}: erreur fournisseur catégorisée (${cat.category}). Message utilisateur déjà persisté. Détail technique non exposé.`,
       policy,
       modelRequested: policy.modelRequested,
       modelApplied: null,
@@ -531,8 +645,9 @@ export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraG
         {
           attemptId: newAttemptId(),
           kind: "non_stream",
-          outcome: status === "INTERRUPTED" ? "INTERRUPTED" : "FAILED",
-          notes: "provider_error_redacted",
+          outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
+          notes: cat.category,
+          providerContacted: cat.preContactLikely ? "NO" : "UNCERTAIN",
         },
       ],
       toolCallsObserved: 0,

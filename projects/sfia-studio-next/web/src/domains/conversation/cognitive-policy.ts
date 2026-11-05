@@ -1,13 +1,19 @@
 /**
  * D3 cognitive policy — proportional qualification without a second LLM classifier.
- * TEST_BOUNDARY budgets are stress-only; OPERATIONAL budgets are provisional TBD.
+ * TEST_BOUNDARY = stress-only. OPERATIONAL_PROVISIONAL = DEV explicit only (not validated).
+ * OPERATIONAL_VALIDATED = Morris-approved only (not yet available).
  */
 
+import { StudioError } from "@/lib/http-errors";
+
 export type CognitiveProfile = "simple" | "analyse" | "investigation";
-export type PolicyProfileType = "TEST_BOUNDARY" | "OPERATIONAL";
+export type PolicyProfileType =
+  | "TEST_BOUNDARY"
+  | "OPERATIONAL_PROVISIONAL"
+  | "OPERATIONAL_VALIDATED";
 export type ReasoningEffort = "low" | "medium" | "high";
 
-export const COGNITIVE_POLICY_VERSION = "ml2-cog-policy-v1" as const;
+export const COGNITIVE_POLICY_VERSION = "ml2-cog-policy-v2-corrective" as const;
 /** Study model — LIVE entitlement not proven in this cycle. */
 export const NORA_STUDY_MODEL = "gpt-6.1-sol" as const;
 
@@ -40,8 +46,8 @@ export const TEST_BOUNDARY_BUDGETS: Record<CognitiveProfile, BudgetLimits> = {
 
 /**
  * Provisional OPERATIONAL ceilings — finite and reconfigurable.
- * TBD pending realistic mission measurements + Morris validation.
- * Intentionally much higher than TEST_BOUNDARY (5–10+ min, large D4).
+ * NOT VALIDATED. Must be explicitly activated in DEV (SFIA_COG_PROFILE_TYPE).
+ * Must NEVER activate silently in RECETTE/PROD/protected lanes.
  */
 export const OPERATIONAL_BUDGETS_PROVISIONAL: Record<CognitiveProfile, BudgetLimits> = {
   simple: {
@@ -75,9 +81,78 @@ export type CognitivePolicy = {
   reasonCodes: string[];
 };
 
-function resolveProfileType(): PolicyProfileType {
-  const raw = (process.env.SFIA_COG_PROFILE_TYPE ?? "OPERATIONAL").trim().toUpperCase();
-  return raw === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL";
+function studioLane(): string {
+  return (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase() || "UNKNOWN";
+}
+
+function isProtectedLane(lane: string): boolean {
+  return lane === "RECETTE" || lane === "STABLE" || lane === "PROD" || lane === "PRODUCTION";
+}
+
+/**
+ * Fail-closed profile resolution.
+ * - absent → DEV defaults to TEST_BOUNDARY; protected/unknown → refuse
+ * - OPERATIONAL_PROVISIONAL → DEV only
+ * - OPERATIONAL_VALIDATED → not yet approved → refuse
+ * - legacy "OPERATIONAL" → alias of PROVISIONAL in DEV only
+ */
+export function resolveProfileType(override?: PolicyProfileType): PolicyProfileType {
+  if (override) {
+    if (override === "OPERATIONAL_VALIDATED") {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        "OPERATIONAL_VALIDATED non disponible — calibration Morris requise",
+        { httpStatus: 400 },
+      );
+    }
+    if (override === "OPERATIONAL_PROVISIONAL" && isProtectedLane(studioLane())) {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        "OPERATIONAL_PROVISIONAL interdit hors DEV",
+        { httpStatus: 400 },
+      );
+    }
+    return override;
+  }
+
+  const raw = (process.env.SFIA_COG_PROFILE_TYPE ?? "").trim().toUpperCase();
+  const lane = studioLane();
+
+  if (!raw) {
+    if (lane === "DEV") return "TEST_BOUNDARY";
+    throw new StudioError(
+      "INVALID_REQUEST",
+      "SFIA_COG_PROFILE_TYPE requis hors DEV (fail-closed)",
+      { httpStatus: 400 },
+    );
+  }
+
+  if (raw === "TEST_BOUNDARY") return "TEST_BOUNDARY";
+
+  if (raw === "OPERATIONAL_VALIDATED") {
+    throw new StudioError(
+      "INVALID_REQUEST",
+      "OPERATIONAL_VALIDATED non adopté — STOP calibration",
+      { httpStatus: 400 },
+    );
+  }
+
+  if (raw === "OPERATIONAL_PROVISIONAL" || raw === "OPERATIONAL") {
+    if (lane !== "DEV") {
+      throw new StudioError(
+        "INVALID_REQUEST",
+        "OPERATIONAL_PROVISIONAL / OPERATIONAL interdit hors STUDIO_LANE=DEV",
+        { httpStatus: 400 },
+      );
+    }
+    return "OPERATIONAL_PROVISIONAL";
+  }
+
+  throw new StudioError(
+    "INVALID_REQUEST",
+    `SFIA_COG_PROFILE_TYPE invalide: ${raw}`,
+    { httpStatus: 400 },
+  );
 }
 
 /**
@@ -122,8 +197,11 @@ export function qualifyCognitiveProfile(userText: string): {
   return { profile: "analyse", effort: "medium", reasonCodes };
 }
 
-export function buildCognitivePolicy(userText: string, overrideType?: PolicyProfileType): CognitivePolicy {
-  const profileType = overrideType ?? resolveProfileType();
+export function buildCognitivePolicy(
+  userText: string,
+  overrideType?: PolicyProfileType,
+): CognitivePolicy {
+  const profileType = resolveProfileType(overrideType);
   const q = qualifyCognitiveProfile(userText);
   const budgets =
     profileType === "TEST_BOUNDARY"
@@ -143,13 +221,16 @@ export function buildCognitivePolicy(userText: string, overrideType?: PolicyProf
     effortRequested: q.effort,
     toolAllowlist,
     budgets,
-    reasonCodes: [...q.reasonCodes, `PROFILE_TYPE_${profileType}`],
+    reasonCodes: [...q.reasonCodes, `PROFILE_TYPE_${profileType}`, `LANE_${studioLane()}`],
   };
 }
 
-/** maxTurns for Runner — finite; tools need room for tool→model loops. */
+/**
+ * maxTurns for Runner — model↔tool loop budget from policy.
+ * NOT identical to provider HTTP call count; no silent hard cap of 12.
+ * Gap: SDK maxTurns ≠ maxProviderCalls — documented honestly in reason/meta.
+ */
 export function maxTurnsForPolicy(policy: CognitivePolicy): number {
   if (policy.profile === "simple") return 1;
-  // Cap by provider call budget (each model turn ≈ one provider call in practice).
-  return Math.max(1, Math.min(policy.budgets.maxProviderCalls, 12));
+  return Math.max(1, policy.budgets.maxProviderCalls);
 }

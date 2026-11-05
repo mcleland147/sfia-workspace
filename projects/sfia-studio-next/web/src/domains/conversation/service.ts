@@ -90,6 +90,7 @@ export type TurnResult = {
   documentSave?: { status?: string; documentId?: string; revisionNumber?: number; reason?: string } | null;
   idempotentReplay: boolean;
   humanDecisionCreated: boolean;
+  reconciled?: boolean;
 };
 
 export async function postUserMessageAndNora(
@@ -121,9 +122,12 @@ export async function postUserMessageAndNora(
       request_id: requestId,
       operation_id: reserved.operationId,
       outcome: reserved.status === "COMPLETE" ? "SUCCESS" : "UNKNOWN",
-      meta: { status: reserved.status },
+      meta: {
+        status: reserved.status,
+        reconciled: Boolean(reserved.reconciled),
+      },
     });
-    if (reserved.resultJson) {
+    if (reserved.resultJson && reserved.status === "COMPLETE") {
       try {
         const parsed = JSON.parse(reserved.resultJson) as TurnResult;
         return {
@@ -132,11 +136,13 @@ export async function postUserMessageAndNora(
           requestId,
           idempotentReplay: true,
           humanDecisionCreated: false,
+          reconciled: reserved.reconciled,
         };
       } catch {
-        /* fall through to minimal replay */
+        /* fall through */
       }
     }
+    // FAILED/UNKNOWN: never fabricate a new result from a terminal non-COMPLETE command.
     return {
       operationId: reserved.operationId,
       requestId,
@@ -146,7 +152,8 @@ export async function postUserMessageAndNora(
       userMessageId: reserved.userMessageId,
       assistantMessageId: reserved.assistantMessageId,
       humanDecisionCreated: false,
-      noraMode: "deterministic-fixture",
+      reconciled: reserved.reconciled,
+      noraMode: reserved.status === "COMPLETE" ? "deterministic-fixture" : "replay-terminal",
     };
   }
 
@@ -186,7 +193,6 @@ export async function postUserMessageAndNora(
       },
     });
   } catch (e) {
-    // Provider may already have been contacted — do not auto-retry; mark UNKNOWN.
     await markTurnUnknown(reserved.commandId, "PROVIDER_EXCEPTION");
     emitObs({
       event_name: "d3.turn.unknown",
@@ -231,58 +237,104 @@ export async function postUserMessageAndNora(
       "Capitalisation heuristique — pas une autorité épistémique; LIVE COG requis pour qualification.",
     humanDecisionCreated: false,
   };
+  let capitalisationError: string | undefined;
   if (reply.status === "COMPLETE") {
-    capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-      userText: content,
-      assistantText: reply.content,
-      generationId: reply.generationId,
-      userMessageId: reserved.userMessageId,
-    });
+    try {
+      capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+        userText: content,
+        assistantText: reply.content,
+        generationId: reply.generationId,
+        userMessageId: reserved.userMessageId,
+      });
+    } catch {
+      capitalisationError = "CAPITALISATION_EXCEPTION";
+      emitObs({
+        event_name: "d3.turn.capitalisation_failed",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: "UNKNOWN",
+        error_category: "CAPITALISATION_EXCEPTION",
+      });
+    }
   }
   const confirmedCapitalisations = capitalisation.capitalisations.filter(
     (c) => c.status === "AVAILABLE",
   );
 
   let documentSave: Awaited<ReturnType<typeof savePreparationDocument>> | null = null;
+  let documentSaveUnknown = false;
   if (reply.status === "COMPLETE" && explicitDocumentIntent(content)) {
     const extracted = extractDocumentMarkdown(reply.content, content);
     if (extracted) {
-      documentSave = await savePreparationDocument(
-        pilotId,
-        preparationId,
-        extracted.title,
-        extracted.content,
-        undefined,
-        {
-          correlationKey: opts?.correlationKey
-            ? `doc:${opts.correlationKey}`
-            : `doc:${reply.generationId}`,
-          provenance: {
-            sourceKind: "nora",
-            generationId: reply.generationId,
-            userMessageId: reserved.userMessageId,
-            explicitRequest: true,
+      try {
+        documentSave = await savePreparationDocument(
+          pilotId,
+          preparationId,
+          extracted.title,
+          extracted.content,
+          undefined,
+          {
+            correlationKey: opts?.correlationKey
+              ? `doc:${opts.correlationKey}`
+              : `doc:${reply.generationId}`,
+            provenance: {
+              sourceKind: "nora",
+              generationId: reply.generationId,
+              userMessageId: reserved.userMessageId,
+              explicitRequest: true,
+            },
+            scope: "document",
           },
-          scope: "document",
-        },
-      );
+        );
+        if (documentSave.status !== "AVAILABLE") {
+          documentSaveUnknown = documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
+        }
+      } catch {
+        documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION" } as Awaited<
+          ReturnType<typeof savePreparationDocument>
+        >;
+        documentSaveUnknown = true;
+        emitObs({
+          event_name: "d3.turn.document_save_failed",
+          component: "d3.conversation",
+          request_id: requestId,
+          operation_id: reserved.operationId,
+          generation_id: reply.generationId,
+          outcome: "UNKNOWN",
+          error_category: "DOCUMENT_SAVE_EXCEPTION",
+        });
+      }
     }
   }
 
-  const turnStatus =
+  // COMPLETE must not mask unknown documentary effect.
+  let turnStatus: "COMPLETE" | "FAILED" | "UNKNOWN" =
     reply.status === "COMPLETE"
       ? "COMPLETE"
       : reply.status === "UNKNOWN"
         ? "UNKNOWN"
         : "FAILED";
 
-  const resultPayload = {
+  if (
+    reply.status === "COMPLETE" &&
+    (documentSaveUnknown || capitalisationError) &&
+    explicitDocumentIntent(content)
+  ) {
+    turnStatus = "UNKNOWN";
+  } else if (reply.status === "COMPLETE" && capitalisationError && !explicitDocumentIntent(content)) {
+    // Capitalisation failure alone does not invent success over D4 write — mark UNKNOWN if any write attempted.
+    turnStatus = "UNKNOWN";
+  }
+
+  const resultPayload: TurnResult = {
     userMessageId: reserved.userMessageId,
     assistantMessageId: assistantId,
     operationId: reserved.operationId,
     requestId,
     noraMode: reply.mode,
-    status: reply.status,
+    status: turnStatus === "COMPLETE" ? reply.status : turnStatus,
     generationId: reply.generationId,
     policy: {
       version: reply.policy.policyVersion,
@@ -309,20 +361,33 @@ export async function postUserMessageAndNora(
     },
     capitalisation: confirmedCapitalisations,
     capitalisationAttempted: capitalisation.capitalisations,
-    capitalisationLimit: capitalisation.selectionLimit,
+    capitalisationLimit: capitalisationError ?? capitalisation.selectionLimit,
     documentSave,
     idempotentReplay: false,
     humanDecisionCreated: false,
   };
 
-  await completeTurnCommand({
+  const applied = await completeTurnCommand({
     commandId: reserved.commandId,
     status: turnStatus,
     assistantMessageId: assistantId,
     generationId: reply.generationId,
     resultJson: JSON.stringify(resultPayload),
-    errorCategory: reply.status === "COMPLETE" ? undefined : reply.status,
+    errorCategory:
+      turnStatus === "COMPLETE" ? undefined : capitalisationError ?? reply.status,
   });
+
+  if (!applied.applied) {
+    emitObs({
+      event_name: "d3.turn.complete_cas_miss",
+      component: "d3.conversation",
+      request_id: requestId,
+      operation_id: reserved.operationId,
+      generation_id: reply.generationId,
+      outcome: "UNKNOWN",
+      error_category: "COMPLETE_CAS_MISSED",
+    });
+  }
 
   emitObs({
     event_name: "d3.turn.completed",
@@ -330,12 +395,16 @@ export async function postUserMessageAndNora(
     request_id: requestId,
     operation_id: reserved.operationId,
     generation_id: reply.generationId,
-    outcome: reply.status === "COMPLETE" ? "SUCCESS" : "FAILED",
+    outcome:
+      turnStatus === "COMPLETE" ? "SUCCESS" : turnStatus === "UNKNOWN" ? "UNKNOWN" : "FAILED",
     policy_version: reply.policy.policyVersion,
-    profile_type: reply.policy.profileType,
+    profile_type:
+      reply.policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
     meta: {
       attempts: reply.attempts.length,
       tool_calls: reply.toolCallsObserved,
+      turn_status: turnStatus,
+      cas_applied: applied.applied,
     },
   });
 
