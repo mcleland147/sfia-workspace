@@ -1470,7 +1470,7 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 
 ## 11. Complément architectural candidat — cognition adaptative et observabilité Nora (2026-11-05)
 
-> **PROPOSED / NOT VALIDATED BY MORRIS — complément de qualification R5, non nouvel ADR et non amendement des ADR R4-01..04 approuvés.** Sources : R1 §2.2/E2E 03, D3 §14 et D4 §10 candidats, R3 §40 candidat ; code candidat ML2 sous PR #655. Le présent paragraphe ne transforme pas les mentions historiques « R5 NOT STARTED » des sections précédentes en état présent. Git observé à l'ouverture : main 6e4406c6 ; ML2 candidat 08b89360 ; PR #655 OPEN DRAFT, non mergée. État local : NON OBSERVÉ.
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; mécanismes d'implémentation candidats, non nouvel ADR ni amendement des ADR R4-01..04 approuvés.** Sources : R1 §2.2/E2E 03, D3 §14 et D4 §10 candidats, R3 §40 candidat ; code candidat ML2 sous PR #655. Le présent paragraphe ne transforme pas les mentions historiques « R5 NOT STARTED » des sections précédentes en état présent. Git observé à l'ouverture : main 6e4406c6 ; ML2 candidat 08b89360 ; PR #655 OPEN DRAFT, non mergée. État local : NON OBSERVÉ.
 
 ### 11.1. Responsabilités et choix de sobriété
 
@@ -1518,4 +1518,4 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 | Exploitation | Corrélation génération ↔ tentatives ↔ outils ↔ résultats et coûts ; données sensibles protégées |
 | R5 / ML2 | COG-01..07 + variantes de chemin, preuve LIVE et analyse indépendante sur le même SHA |
 
-**Gate de qualification :** Morris décide du contenu, des éventuels ajustements ADR si nécessaires et du périmètre d'intégration avant recette ML2 ou report avec dette/exit. Ce complément reste documentaire, sans code, API adoptée, nouvelles tables, PR, merge, STABLE ou ADOPTED.
+**Gate de qualification :** le contenu de cette orientation est validé par Morris le 2026-11-05 ; Morris décide encore des éventuels ajustements ADR si nécessaires et du périmètre d'intégration avant recette ML2 ou report avec dette/exit. Ce complément reste documentaire, sans code, API adoptée, nouvelles tables, PR, merge, STABLE ou ADOPTED.
