@@ -424,3 +424,21 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 **Bloc de preuve minimal :** scénario/données/corpus daté, politique modèle+effort effectivement appliquée, `operation_id`, `request_id`, `generation_id`, `attempt_id` réels, événements et lacunes, `resource_ref/source_version` effectivement lus, état transactionnel propriétaire, SHA/build/lane, durée/usage mesurés ou indisponibles, vue diagnostique expurgée, comparaison cognitive indépendante, réserves et verdict. Aucune trace technique ne devient une décision D6 ni une preuve D8.
 
 **Réserves et STOP :** les interfaces/limites doivent être qualifiées avant GO Cursor ; les valeurs de budgets et la sélection fournisseur ne sont pas encore ratifiées ; la CI du SHA `08b89360` ne couvre pas la nouvelle extension. Un changement normatif d'autorité/persistance/ADR et une nouvelle destination externe sensible réclament une décision Morris spécifique. **STATUT : DOCUMENTED CANDIDATE / ZERO NEW TEST RUN / NO RECETTE.**
+
+## 14. Validation des cinq orientations et calibration obligatoire — compléments aux cas COG/OBS (2026-11-05)
+
+> **MORRIS DESIGN DIRECTION VALIDATED / ACCEPTANCE ORACLES CANDIDATE — NOT RUN.** Les cinq choix sont instruits ensemble dans [ML2 §21](specification-technique.md) ; ces oracles **complètent** COG-01..07, OBS-Q01..10 et C1–C6, sans nouvelle campagne autonome.
+
+| Contrôle commun | Oracle et contre-épreuve | Niveau de preuve / état |
+| --- | --- | --- |
+| **Q1 — modèle/effort** | `gpt-6.1-sol` effectivement accepté en LIVE et `low/medium/high` appliqués selon profil ; model/effort demandé ≠ appliqué si refus ; aucune substitution silencieuse | DETERMINISTIC + LIVE ; NOT RUN |
+| **Q2 — bornes artificielles de tests** | Profils 30/120/180 s, 0/32k/64k D4 et compteurs d'appels/outils provoquent des limites contrôlées, sorties limitées/UNKNOWN honnêtes ; pas d'effet D4 dupliqué | DETERMINISTIC + INTEGRATION ; NOT RUN |
+| **Q2 — usage réaliste long** | Missions représentatives **5–10 minutes ou davantage** et lectures D4 **sensiblement au-delà de 32k caractères** ; pagination, provenance, qualité/réponse utile, latence, coût et consommation réels ; pas de coupure induite par le stress TEST | LIVE ciblé + BROWSER + revue qualité ; NOT RUN |
+| **Q2 — recalibrage avant usage approfondi** | Comparaison mesures court/long : temps, volumes, saturation, coûts/tokens, fatigue UX, limites et sources ; politique opérationnelle ajustée, versionnée et approuvée par Morris, **sans reprendre les valeurs TEST par défaut** | Revue de preuve + gate Morris ; NOT RUN |
+| **Q3 — idempotence tour** | Même clé/empreinte → une commande/génération/écriture ; payload divergent → conflit ; deux POST, ordinal unique, fournisseur envoyé puis ACK perdu → UNKNOWN sans replay | PG/HTTP/BROWSER + C1–C6 ; NOT RUN |
+| **Q4 — diagnostic** | Logs JSON durables par lane, lookup `operation_id` après redémarrage, permissions/isolation, secret synthétique absent ; logs auxiliaires ≠ vérité D4 | INTEGRATION + BROWSER + OBS-Q01..10 ; NOT RUN |
+| **Q5 — Git/CI** | Branche intégratrice au SHA vérifié, PR vers `main` seulement sous GO, Next Required Gate réellement exécutée au nouveau SHA, anciennes PR sans mutation non autorisée | Git/CI remote + ENV-01 ; NOT RUN |
+
+**Deux corpus dans une même qualification ML2 :** (A) **stress contrôlé** : petites limites choisies pour provoquer timeout, saturations et STOP ; (B) **missions réalistes** : contextes D4 riches, enquêtes longues, droits/version/contradictions, consommation et qualité. Un PASS de corpus A seul **ne valide pas** la capacité réelle d'investigation de Nora. Inversement, relever les plafonds opérationnels ne doit pas effacer les tests A. Les seuils de production restent **TBD après mesures**, jamais `ADOPTED` sur la base de ce document.
+
+**Fiche de preuve :** configuration profil/policy_version, limites `TEST` ou `OPERATIONAL`, corpus/datation, taille des passages réellement retournés, appels modèle/outils, wall-clock, annulation, usage/cout mesuré ou indisponible, source/version/provenance, état SQL D4, chronologie expurgée, SHA/build/lane, tests COG/OBS, jugement de valeur Morris et réserves. Les tests LIVE sont distincts de la CI BROWSER FAKE. **Aucun nouveau test n'est réalisé par cette publication documentaire.**
