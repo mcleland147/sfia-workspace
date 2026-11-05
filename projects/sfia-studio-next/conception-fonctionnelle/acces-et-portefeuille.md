@@ -202,3 +202,14 @@ Les qualificatifs ci-dessus concernent **les textes examinés**, pas une compati
 
 
 **Verdict : `R2 — ACCÈS ET PORTEFEUILLE DU PILOTE — v0.1 VALIDATED SPEC (Morris, 2026-11-02)` ; 25 règles `RG-ACC`, 24 scénarios `PF-ACC`, 8 réserves ; conformité documentaire R1/D3–D9/CKI candidate revue ; Studio Next `N/A — NON IMPLÉMENTÉ`, contenu validé par Morris et publié sur branche R2, sans PR, merge ni ADOPTED.**
+
+## 7. Complément fonctionnel — diagnostic de l'identité et des sessions (2026-11-05)
+
+**Orientation d'observabilité transverse validée par Morris ; extension fonctionnelle candidate, distincte des règles D1 déjà validées.** La source de session reste Better Auth pour GitHub OAuth, avec l'adaptateur DEV seulement sous ses restrictions propres. L'observation ne crée ni fournisseur d'identité supplémentaire ni permission d'accès. Référence : [contrat transverse R4](../architecture-technique/contrat-observabilite-transverse.md) §§3–7 ; [vision R1 §10](../cadrage/vision-produit.md).
+
+**Règles candidates propriétaires :**
+- **RG-ACC-026 — Authenticité des états d'accès.** Différencier authentification requise, refus d'accès, session expirée/révoquée, échec OAuth ou de rattachement Pilote et indisponibilité d'une dépendance. Une exception PostgreSQL ou applicative n'est pas présentée comme SESSION_INVALID par défaut.
+- **RG-ACC-027 — Diagnostic d'authentification minimal.** Les tentatives et résultats effectivement observables du fournisseur et de D1 peuvent être corrélés à une opération Studio par un examinateur habilité ; ni cookies, ni secrets OAuth, ni jetons, ni identité brute en logs généralisés. Le mode DEV n'est jamais qualifié de connexion OAuth LIVE.
+- **RG-ACC-028 — Isolation des diagnostics.** Les événements de session n'accordent aucun droit et n'exposent aucune information d'un autre Pilote/projet/lane ; diagnostic et visibilité du portefeuille respectent les règles d'accès existantes.
+
+**Parcours candidats :** **PF-ACC-25** GitHub OAuth refusé et callback indisponible → catégorie et opération identifiables sans fuite ; **PF-ACC-26** panne DB lors de résolution de session → erreur de dépendance distinguée d'une session invalide ; **PF-ACC-27** session DEV réutilisée hors DEV, expirée ou révoquée → refus effectif et origine qualifiée, sans confusion avec OAuth. **Acceptation :** tests d'intégration d'erreur/accès et LIVE OAuth borné ; diagnostic consultable avec la sécurité/retention DATA-01, sans considérer un compteur d'événements comme preuve de réussite OAuth.
