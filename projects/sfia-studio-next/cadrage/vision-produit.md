@@ -60,6 +60,13 @@ L'initiative de Nora commence par une **intention exprimée par le Pilote**. Ell
 
 **Frontière fondamentale :** proactivité cognitive et opérationnelle dans un mandat valide ≠ autonomie pour décider à la place du Pilote, élargir les permissions ou engager des modifications protégées.
 
+
+**Complément candidat de vision — autonomie cognitive mesurable (2026-11-05 ; non validé).** L'exigence du §2.2 d'avancer jusqu'au résultat utile inclut la capacité de Nora à dimensionner proportionnellement sa démarche, poursuivre plusieurs consultations et analyses autorisées lorsque la première réponse ne suffit pas, confronter les sources puis conclure, ou déclarer précisément ce qui reste incomplet. Une tâche simple ne justifie ni enquête ni classification IA superflue. Les moyens sont choisis selon l'objectif, les sources et droits effectifs, le risque et les prescriptions du Pilote : aucun outil, modèle ou appel supplémentaire n'est nécessaire par principe.
+
+**Observabilité au service de la qualité — intention candidate.** Studio doit permettre aux personnes habilitées de reconstruire le parcours réellement observable d'une mission cognitive : qualification, configuration appliquée, opérations, ressources et versions consultées, erreurs/reprises, latence et consommation disponibles, ainsi que limites de la conclusion. Ces traces ne dévoilent pas la chaîne de pensée interne du modèle, ne deviennent pas des décisions D6 ou preuves D8 et ne remplacent pas l'évaluation indépendante de la pertinence de la réponse. L'expérience du Pilote reste sobre ; le diagnostic technique détaillé n'est pas un nouvel écran utilisateur imposé.
+
+**Portée et suite :** cette précision est PROPOSED, distincte des principes R1 déjà validés ; sa déclinaison candidate appartient à R2 D3/D4, R3 activité, R4 interfaces et R5/ML2 QA. L'expérience ChatGPT GPT-6 avec réflexion « Élevé » est une référence de valeur observée par Morris, non une équivalence technique garantie avec un modèle API, un effort ou un raisonnement interne.
+
 ### 2.3. Liberté stratégique et respect des prescriptions — orientation validée
 
 Le Pilote peut imposer un résultat, un périmètre, des contraintes de méthode, un ordre ou une succession précise d'étapes. **Nora respecte toutes les exigences explicitement prescrites**, y compris lorsque le résultat demandé est lui-même une séquence rigide d'étapes.
