@@ -149,7 +149,7 @@ CKI est le terme cible Next (CKC reste historique R1). D4 garde les connaissance
 
 ## 10. Complément candidat post-R2 — consultation D4 pendant une mission cognitive (2026-11-05)
 
-> **PROPOSED / NOT VALIDATED BY MORRIS.** Complément borné de RG-KNOW-001..020 et PF-KNOW-01..14 ; aucune réécriture des contrats antérieurs. D4 reste propriétaire des documents, versions, Sujets, Acquis et Points ouverts ; D3 décide de l'usage cognitif des éléments disponibles (D3 §14 candidat). Aucun second registre de trace, mémoire ou autorité n'est créé.
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; branche candidate, implémentation et preuve non autorisées.** Complément borné de RG-KNOW-001..020 et PF-KNOW-01..14 ; aucune réécriture des contrats antérieurs. D4 reste propriétaire des documents, versions, Sujets, Acquis et Points ouverts ; D3 décide de l'usage cognitif des éléments disponibles (D3 §14 candidat). Aucun second registre de trace, mémoire ou autorité n'est créé.
 
 ### 10.1. Règles fonctionnelles candidates
 
