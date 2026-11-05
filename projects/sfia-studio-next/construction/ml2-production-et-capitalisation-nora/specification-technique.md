@@ -595,3 +595,49 @@ La solution doit préférer Next.js/OpenTelemetry, Better Auth, PostgreSQL et Ag
 **Oracles ML2 :** OBS-Q01..10 applicables en DETERMINISTIC/DB/BROWSER/LIVE selon frontière ; confirmer les retours HTTP d'une panne DB et les refus d'accès, distinguer appel Nora/génération/tentative, préserver les contrats idempotents C1–C6, tester pertes d'ACK et confidentialité des traces. Pour chaque exemple : operationId, build/lane, événements réellement émis, résultat des transactions, limites diagnostiques et niveau de preuve explicites.
 
 **Séquençage :** un socle transversal cohérent d'observabilité peut être intégré avant RECETTE avec les capacités cognitives si Morris l'arbitre. Dans le cas contraire, la RECETTE doit décrire sa portée réduite et la dette/exit de diagnostic ; la publication documentaire n'est ni GO Cursor, ni autorisation de mutation PR #655, ni une recette prouvée.
+
+## 17. Contrat de reprise ML2 après arbitrage Morris — capacité cognitive instrumentée (2026-11-05)
+
+> **VALIDATED STRATEGIC SCOPE BY MORRIS / TECHNICAL EXECUTION CONTRACT TO QUALIFY / NO GO CURSOR.** [Décision propriétaire R5/ML2 du 2026-11-05](../../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md), [Roadmap](../../governance/roadmap.md), [R5 delivery §17](../reference-delivery-r5.md), [matrice de QA §10](matrice-tracabilite.md), [contrat d'observabilité](../../architecture-technique/contrat-observabilite-transverse.md). Ce chapitre **arbitre la trajectoire avant RECETTE** laissée candidate aux §§15.5 et 16.4 ; il ne transforme pas les hypothèses de mécanismes de ces chapitres en paramètres API adoptés. Les As-Built §§12–14 et leurs preuves restent inchangés.
+
+### 17.1. Capacité et frontières à réaliser sans micro-lots
+
+**Résultat pilote intégré :** une mission cognitive structurante peut approfondir la connaissance D4 au-delà du contexte injecté initialement, sous permissions courantes, avec configuration modèle/effort adaptée, contrôle des limites, réponse utile ou partielle explicite, et **diagnostic réellement consultable** du chemin. Une requête simple ne multiplie pas les appels sans raison.
+
+**IN confirmé dans la stratégie ML2 :** D3 modèle/effort explicites et qualification proportionnée ; boucle Agents SDK multi-étapes bornée + lecture D4 additionnelle autorisée ; reprise du résultat et sauvegarde D4 sans faux succès ; observabilité des frontières HTTP/AUTH/DB/D1–D4 réellement utilisées ; scénarios COG + OBS, non-régression C1–C6, CI et preuves RECETTE. **OUT :** Git/Web/Cursor sans D9/D7, commandes gouvernées D5/D6, routage multi-modèle automatique, classeur IA à chaque message, agent framework concurrent, dashboards industriels, seconde DB de logs, nouvelles tables métier par défaut.
+
+**Séparation fonctionnelle :** D3 qualifie et décide la configuration technique côté serveur ; D4 contrôle les accès, versions, résultats et écritures ; SDK exécute boucle/outils mais n'attribue ni permissions ni décisions D6 ; D1/D2 garantissent session/projet ; télémétrie observe, n'est pas la vérité D4 et ne rend aucune réponse conforme D8.
+
+### 17.2. Interfaces techniques à qualifier avant mandat technique
+
+| Frontière | Contrat de réalisation, erreurs et reprises | Points de preuve discriminants |
+| --- | --- | --- |
+| **Qualification D3** | Apprécier difficulté/risque/couverture, politique versionnée, éviter triage IA systématique ; conserver config/motifs non sensibles. Inconnu ne devient pas simple par défaut | Cas simple vs complexe, changement justifié d'effort, compatibilité réelle fournisseur |
+| **Modèle / effort** | Configuration explicite côté SDK/API, compatible avec modèle/SDK verrouillés et entitlement effectif. Sol / low-medium-high sont des références d'étude, **non des identifiants/paramètres API approuvés avant vérification** | Observation LIVE de la configuration envoyée et appliquée ; erreur non masquée par fallback de modèle |
+| **Agent / outils** | Runner Agents SDK natif avec tours/temps/appels bornés ; outil lecture-only D4 sur projet/identité/droits courants ; rapporter absence/refus, source partielle et version | Plusieurs consultations effectives dans une mission, aucune lecture interprojet, pas d'effet D6/D7/D9 |
+| **Convergence** | COMPLETE, PARTIAL, FAILED, INTERRUPTED ou UNKNOWN selon vérité du périmètre. Réévaluer seulement sur contradiction/manque ; stop demandé ≠ confirmé ; ni retries ni streams ne multiplient une écriture | Timeout, limite, panne provider, fallback stream, vide, fermeture de session, reprise sûre |
+| **D2/D4 et DB** | Réutiliser commandes/correlationKey, contrôles de version et journal D4 ; aucun stockage parallèle des effets. Réponse Nora ≠ document AVAILABLE | C1–C6, ACK perdu, concurrency, rollback, source/version contradictoire |
+| **HTTP / Auth** | Corrélation serveur et classification sécurisée : session réellement invalide, refus, validation, conflit, DB/service indisponible ; aucun catch fourre-tout 401 | OBS-Q01..03, HTTP 401/403/404/409/5xx justifiés sans fuite |
+| **Télémétrie** | Native-first Next.js/Better Auth/Postgres/Agents SDK ; lier operationId/traceId/generationId/attemptId et refs D4 ; confidentialité, coût usage, latence et statut réels | OBS-Q04..10, corrélation réelle, requête retrouvable, expurgation, exporteur indisponible |
+| **Consultation RECETTE** | Moyen minimal sécurisé de rechercher operationId et reconstruire une chronologie avec sources d'effets/limites ; outil de visualisation à qualifier sur valeur/simplicité | Diagnostic réel sur exemple COG complexe et incident API/DB ; pas seulement logs émis |
+| **UX** | Afficher états confirmés seulement, sans nouveau dashboard ; si parcours visuel change, vérifier Figma nativement puis BROWSER | Activité Nora 206–217, erreurs et reprise, viewports pertinents |
+
+**STOP technique avant prompt Cursor :** résoudre les compatibilités exactes du lockfile SDK 0.21.0 et paramètres fournisseur, budgets bornés, contrat de lecture D4, modèle de données télémétriques sans duplication, droits/retention/export, configuration DEV/RECETTE, impact streaming/retry, tests et fichiers. Si une nouvelle persistance normative ou une architecture pivot est nécessaire, remonter à Morris ; aucun choix ne se substitue par inertie aux ADR R4.
+
+### 17.3. Ordre d'intégration et preuve commune
+
+1. **Stabiliser les frontières** modèle/effort ↔ exécution ↔ outils D4 et opération/trace ↔ résultat ; pas de contrats concurrents.
+2. **Intégrer dans le même macro-lot** génération multi-étapes et diagnostic des chemins existants, avec tests unitaires et PostgreSQL d'isolation/idempotence, erreurs HTTP cohérentes et instrumentation native.
+3. **Tester les négatifs** : questions simples sans surinvestigation ; refus D4 ; source périmée ; budget/timeout/UNKNOWN ; erreurs DB et AUTH différenciées ; stream qui échoue puis second appel ; exporteur absent ; secret synthétique ; ACK perdu sans doublon.
+4. **Prouver en RECETTE préparatoire** sur un SHA/build/lane figés : mission complexe avec consultation D4 additionnelle et réponse utile, chronologie effectivement récupérée et sécurité de collecte ; comparer ChatGPT–Nora sur corpus déclaré (R5 §14), puis variantes COG-01..07 selon applicabilité.
+5. **Revoir la qualité et le coût** : Morris juge la valeur/les limites ; l'optimisation low/medium, Astra et multi-modèles ne sont pas une condition imposée avant premier benchmark suffisant.
+
+**Qualité minimale pour entrée en RECETTE :** les moyens de travail et le diagnostic sont **IMPLEMENTED avec couverture vérifiée** au périmètre choisi ; COG LIVE et OBS applicables ont été exécutés avec leur statut honnête ; toute lacune bloquante de sécurité/autorité/idempotence est résolue. Cela n'impose pas que toutes les réponses soient parfaites : la RECETTE Morris en juge précisément la qualité. Une preuve LIVE isolée n'est pas un ADOPTED.
+
+### 17.4. Risques et gates
+
+**Risque de dérive :** trop d'itérations sans outil utile, captures sensibles, erreurs faussement classées, répétition d'écriture, sur-coût de l'IA ou du tracing. **Contre-mesure :** limites, natives-first, mise en correspondance des identités existantes, non-régression C1–C6 et diagnostic éprouvé ; pas d'infrastructure de supervision avancée par défaut.
+
+**Dettes acceptables en candidature :** alerting avancé, routage multi-modèle, télémétrie des domaines non implémentés, UI de diagnostic Pilote. Chacune a responsable/réexamen/exit chez R5/lot propriétaire ; elle ne conditionne pas la recette de la capacité ML2 si ses oracles essentiels sont satisfaits.
+
+**Gates :** contenu stratégique validé Morris ; publication documentaire sur branche en cours ; **aucun GO Cursor D3** et aucune permission de changer la PR #655 ou \`main\` implicitement. Après revue du diff/SHAs et qualification du contrat, un mandat SFIA v2.6 distinct sera nécessaire ; ensuite seulement code+tests+preuves et RECETTE Morris sur SHA figé. PR readiness, merge, STABLE et ADOPTED sont indépendants.
