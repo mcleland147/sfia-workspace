@@ -333,3 +333,22 @@ Append-only logical journal of Cursor product deliveries.
 | LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
 | Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-PREMERGE-11
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~20:25 CET |
+| Macro-lot | R5 / ML2 — consolidation pré-merge PR #659 |
+| Type | INC corrective integrated (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**project push FF authorized**) |
+| Parent SHA | `df7357873b487d48e32af5de89995bcfbf720210` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
+| Corrected | UNKNOWN-CAP DB reconstitution ; ASSIST-REUSE generationId gate ; SAFE-01 two-session PG + DB-fail ; CI labels 001→006 |
+| Schema | unchanged (`006` already present) ; no new migration |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 PASS ; PG 89 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | PROJECT BRANCH PUSH (FF) — merge/LIVE/RECETTE still gated |
+| Verdict candidate | `PR #659 UPDATED — await CI Next on new SHA — READY FOR CHATGPT PRE-MERGE REVIEW` (CI status filled post-push) |

@@ -510,3 +510,25 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 | SAFE-01 | PARTIAL | rollback CAS miss ; pas d'injection panne DB dédiée |
 | REG-01 | PROVEN | unit 52 / PG 78 / e2e 3 / tsc+build |
 | LIVE / CI / RECETTE | NOT RUN | hors mandat |
+
+## 19. As-Built consolidation pré-merge PR #659 — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| UNKNOWN-CAP-01 | PG PROVEN | CAP-FENCE-04 : acquis CURRENT + refs dans payload UNKNOWN |
+| UNKNOWN-CAP-02 | PG PROVEN | replay même `clientTurnKey` reconstitue mêmes refs |
+| UNKNOWN-CAP-03 | PG PROVEN | pilote étranger ⇒ 0 ref |
+| UNKNOWN-CAP-04 | PG PROVEN | document versionné DB_CONFIRMED ; sujet sans gen non attribué |
+| ASSIST-REUSE-01 | PG PROVEN | `generationId` divergent ⇒ CONFLICT |
+| ASSIST-REUSE-02 | PG PROVEN | même gen / ACK perdu ⇒ idempotent |
+| ASSIST-REUSE-03 | PG PROVEN | reconcile ne lie pas gen mismatch / missing |
+| PG-CONTEND-01 | PG PROVEN | FOR SHARE session A bloque reconcile B |
+| PG-CONTEND-02 | PG PROVEN | FOR UPDATE terminal A bloque reconcile B |
+| PG-DBFAIL-01 | PG PROVEN | exception post-INSERT ⇒ rollback assistant, non-COMPLETE |
+| PG-DBFAIL-02 | PG PROVEN | cap TX ownership lost ⇒ 0 acquis publié |
+| PG-LEASE-01 | PG PROVEN | lease actif ⇒ pas de faux orphelin |
+| PG-ISOLATE-01 | PG PROVEN | pilote étranger + coupe connexion indépendante |
+| SAFE-01 (synthèse) | PG PROVEN (DEV) | deux sessions physiques ; runtime multi-process LIVE **NOT RUN** |
+| CI-LABELS | PROVEN local | workflow + migrations-fresh 001→006 |
+| REG-01 | PROVEN | unit 52 / PG 89 / e2e 3 / tsc+lint+build |
+| LIVE / RECETTE / merge | NOT RUN | hors mandat ; gate Morris |

@@ -941,3 +941,27 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
 | Playwright FAKE | 3 PASS |
 | tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
 | LIVE / CI / RECETTE | **NOT RUN** |
+
+## 26. As-Built consolidation pré-merge PR #659 — 2026-11-05
+
+> **PROJECT PUSH AUTHORIZED (same branch) / NO MERGE / NO RELEASE.** Parent `df735787` ; correctifs UNKNOWN-CAP + ASSIST-REUSE + SAFE-01 deux sessions PG + libellés CI 001→006.
+
+### 26.1 Invariants
+
+| ID | Invariant |
+| --- | --- |
+| UNKNOWN-CAP | Tour `UNKNOWN` reste UNKNOWN ; restitution D4 via `reconstituteConfirmedD4Effects` (relecture DB + `assertPrep`) ; pas de COMPLETE / assistant artificiel |
+| ASSIST-REUSE | Reuse assistant seulement si `generationId` des deux côtés présents et égaux ; sinon CONFLICT (terminal) ou non-liaison (reconcile) |
+| SAFE-01 | Contre-épreuves PG à **deux connexions postgres.js** (FOR SHARE / FOR UPDATE / panne TX / lease / isolation) |
+| CI labels | Commentaire + step `Apply migrations 001→006` ; test fresh migrations aligné 001→006 (comportement script inchangé) |
+
+### 26.2 Preuves locales (avant push)
+
+| Suite | Résultat |
+| --- | --- |
+| unit | 52 PASS |
+| PG | 89 PASS (dont `ml2-pg-contention.pg.test.ts` 6 + oracles UNKNOWN-CAP/ASSIST-REUSE) |
+| Playwright FAKE | 3 PASS |
+| tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
+| LIVE / RECETTE | **NOT RUN** |
+| CI nouveau SHA | à vérifier après push FF sur PR #659 |

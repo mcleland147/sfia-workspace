@@ -33,7 +33,7 @@ function applySql(file: string, database = DB) {
   );
 }
 
-describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres", () => {
+describe.skipIf(!dockerOk())("migrations 001→006 on fresh isolated Postgres", () => {
   let sql: ReturnType<typeof postgres> | null = null;
 
   beforeAll(async () => {
@@ -102,11 +102,13 @@ describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres", 
     }
   }, 30_000);
 
-  it("applies 001→004; auth_mode + knowledge + creation_correlation exist", async () => {
+  it("applies 001→006; auth_mode + knowledge + creation_correlation + turn owner_token exist", async () => {
     applySql("001_initial_studio_core.sql");
     applySql("002_session_auth_mode.sql");
     applySql("003_ml2_knowledge_documents.sql");
     applySql("004_ml2_integrity_corrective.sql");
+    applySql("005_ml2_conversation_turn_command.sql");
+    applySql("006_ml2_turn_owner_token.sql");
 
     const cols = await sql!`
       SELECT column_name, column_default, is_nullable
@@ -138,10 +140,11 @@ describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres", 
     const tables = await sql!`
       SELECT table_name FROM information_schema.tables
       WHERE table_schema = 'public'
-        AND table_name IN ('knowledge_subjects', 'knowledge_acquis', 'knowledge_open_points')
+        AND table_name IN ('knowledge_subjects', 'knowledge_acquis', 'knowledge_open_points', 'conversation_turn_commands')
       ORDER BY table_name
     `;
     expect(tables.map((t) => t.table_name)).toEqual([
+      "conversation_turn_commands",
       "knowledge_acquis",
       "knowledge_open_points",
       "knowledge_subjects",
@@ -157,13 +160,20 @@ describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres", 
       WHERE table_name = 'documents' AND column_name = 'creation_correlation_key'
     `;
     expect(corr).toHaveLength(1);
+    const ownerTok = await sql!`
+      SELECT column_name FROM information_schema.columns
+      WHERE table_name = 'conversation_turn_commands' AND column_name = 'owner_token'
+    `;
+    expect(ownerTok).toHaveLength(1);
   });
 
-  it("re-applying 001→004 is idempotent", () => {
+  it("re-applying 001→006 is idempotent", () => {
     expect(() => applySql("001_initial_studio_core.sql")).not.toThrow();
     expect(() => applySql("002_session_auth_mode.sql")).not.toThrow();
     expect(() => applySql("003_ml2_knowledge_documents.sql")).not.toThrow();
     expect(() => applySql("004_ml2_integrity_corrective.sql")).not.toThrow();
+    expect(() => applySql("005_ml2_conversation_turn_command.sql")).not.toThrow();
+    expect(() => applySql("006_ml2_turn_owner_token.sql")).not.toThrow();
   });
 
   it("controlled failure when a migration SQL is broken (ON_ERROR_STOP)", () => {

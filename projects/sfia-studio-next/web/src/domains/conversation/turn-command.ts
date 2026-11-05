@@ -231,7 +231,13 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
           )
           .limit(1)
       )[0];
-      if (existingAssistant) {
+      // Bind only when both sides have a matching generationId (no silent appropriation).
+      if (
+        existingAssistant &&
+        Boolean(row.generationId) &&
+        Boolean(existingAssistant.generationId) &&
+        row.generationId === existingAssistant.generationId
+      ) {
         assistantId = existingAssistant.id;
         generationId = existingAssistant.generationId ?? generationId;
       }
@@ -352,7 +358,12 @@ export async function reserveTurnCommand(args: {
               )
               .limit(1)
           )[0];
-          if (existingAssistant) {
+          if (
+            existingAssistant &&
+            Boolean(existing.generationId) &&
+            Boolean(existingAssistant.generationId) &&
+            existing.generationId === existingAssistant.generationId
+          ) {
             assistantId = existingAssistant.id;
             generationId = existingAssistant.generationId ?? generationId;
           }
@@ -585,15 +596,24 @@ export async function commitTurnTerminal(args: {
           });
           assistantMessageId = args.assistant.id;
         } else {
-          // Reuse only when identity matches this command's stored assistant (or first bind).
-          if (
-            owned.assistantMessageId &&
+          const sameId = existingAssistant.id === args.assistant.id;
+          const sameGen =
+            Boolean(args.assistant.generationId) &&
+            existingAssistant.generationId === args.assistant.generationId;
+          const alreadyBound = owned.assistantMessageId === existingAssistant.id;
+          const genConflict =
+            Boolean(args.assistant.generationId) &&
+            Boolean(existingAssistant.generationId) &&
+            existingAssistant.generationId !== args.assistant.generationId;
+          const idConflict =
+            Boolean(owned.assistantMessageId) &&
             owned.assistantMessageId !== existingAssistant.id &&
-            existingAssistant.id !== args.assistant.id
-          ) {
+            !sameId;
+
+          if (genConflict || idConflict || (!sameId && !sameGen && !alreadyBound)) {
             throw new StudioError(
               "CONFLICT",
-              "Ordinal assistant déjà lié à une autre identité de message",
+              "Ordinal assistant incompatible avec la génération/commande courante",
               { httpStatus: 409 },
             );
           }

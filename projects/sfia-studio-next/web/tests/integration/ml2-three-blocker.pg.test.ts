@@ -734,6 +734,217 @@ describe("ML2 three-blocker corrective (PG)", () => {
       );
     expect(kept).toHaveLength(1);
     expect(kept[0].status).toBe("CURRENT");
+
+    // UNKNOWN-CAP-01: response surfaces DB-confirmed acquis ref (not erased).
+    const caps = Array.isArray(result.capitalisation) ? result.capitalisation : [];
+    expect(caps.some((c: { id?: string }) => c.id === kept[0].id)).toBe(true);
+
+    // UNKNOWN-CAP-02: replay same key reconstitutes same refs, no second generation.
+    const replay = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Compare CAP04 option reprise après effet D4 déjà durable",
+      { clientTurnKey: key },
+    );
+    expect(replay.status).toBe("UNKNOWN");
+    expect(replay.idempotentReplay).toBe(true);
+    const replayCaps = Array.isArray(replay.capitalisation) ? replay.capitalisation : [];
+    expect(replayCaps.some((c: { id?: string }) => c.id === kept[0].id)).toBe(true);
+  });
+
+  it("UNKNOWN-CAP-03: foreign pilot cannot see reconstituted acquis refs", async () => {
+    const statement = `CAP03_FOREIGN_${Date.now()} statement durable isolé`;
+    await db.insert(knowledgeAcquis).values({
+      id: newId("acq"),
+      preparationId,
+      ownerPilotId: pilotId,
+      kind: "HYPOTHESIS",
+      statement,
+      provenanceJson: JSON.stringify({
+        sourceKind: "message",
+        sourceId: "msg_foreign_test",
+        generationId: "gen_foreign_test",
+        epistemic: "hypothesized",
+      }),
+      status: "CURRENT",
+    });
+    const { reconstituteConfirmedD4Effects } = await import("@/domains/knowledge/service");
+    const other = await createDevTestSession("b", { host: "127.0.0.1:3100" });
+    const foreign = await reconstituteConfirmedD4Effects(other.pilotId, preparationId, {
+      generationId: "gen_foreign_test",
+      userMessageId: "msg_foreign_test",
+    });
+    expect(foreign.capitalisation).toHaveLength(0);
+  });
+
+  it("ASSIST-REUSE-01: ordinal occupied with different generationId → CONFLICT / no COMPLETE", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `assist01-${Date.now()}`,
+      content: "Assist reuse conflict",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+    await db.insert(messages).values({
+      id: newId("msg"),
+      conversationId,
+      role: "assistant",
+      content: "foreign assistant",
+      status: "COMPLETE",
+      generationId: "gen_OTHER",
+      ordinal: reserved.ordinalAssistant,
+    });
+    const { commitTurnTerminal } = await import("@/domains/conversation/turn-command");
+    await expect(
+      commitTurnTerminal({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        status: "COMPLETE",
+        conversationId,
+        assistant: {
+          id: newId("msg"),
+          content: "new",
+          messageStatus: "COMPLETE",
+          generationId: "gen_MINE",
+          ordinal: reserved.ordinalAssistant,
+        },
+        generationId: "gen_MINE",
+      }),
+    ).rejects.toSatisfy((e: unknown) => e instanceof StudioError && e.code === "CONFLICT");
+  });
+
+  it("ASSIST-REUSE-02: same generationId reuse after ACK loss is idempotent", async () => {
+    const key = `assist02-${Date.now()}`;
+    const first = await postUserMessageAndNora(pilotId, preparationId, "Compare assist02 ACK", {
+      clientTurnKey: key,
+    });
+    expect(first.status).toBe("COMPLETE");
+    const replay = await postUserMessageAndNora(pilotId, preparationId, "Compare assist02 ACK", {
+      clientTurnKey: key,
+    });
+    expect(replay.status).toBe("COMPLETE");
+    expect(replay.idempotentReplay).toBe(true);
+    expect(replay.assistantMessageId).toBe(first.assistantMessageId);
+  });
+
+  it("ASSIST-REUSE-03: reconcile does not bind assistant with mismatched/missing generationId", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `assist03-${Date.now()}`,
+      content: "Assist reuse reconcile",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+    const foreignMsgId = newId("msg");
+    await db.insert(messages).values({
+      id: foreignMsgId,
+      conversationId,
+      role: "assistant",
+      content: "foreign reconcile assistant",
+      status: "COMPLETE",
+      generationId: "gen_FOREIGN_RECON",
+      ordinal: reserved.ordinalAssistant,
+    });
+    await db
+      .update(conversationTurnCommands)
+      .set({
+        generationId: "gen_CMD_OWN",
+        updatedAt: new Date(Date.now() - TURN_RUNNING_STALE_MS - 1000),
+      })
+      .where(eq(conversationTurnCommands.id, reserved.commandId));
+
+    const recon = await reconcileRunningCommand(reserved.commandId);
+    expect(recon.status).toBe("UNKNOWN");
+    expect(recon.assistantMessageId).toBeNull();
+    expect(recon.assistantMessageId).not.toBe(foreignMsgId);
+
+    // Missing generation on command ⇒ still no silent bind.
+    const reserved2 = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `assist03b-${Date.now()}`,
+      content: "Assist reuse missing gen",
+    });
+    if (reserved2.kind !== "fresh") throw new Error("expected fresh");
+    await db.insert(messages).values({
+      id: newId("msg"),
+      conversationId,
+      role: "assistant",
+      content: "orphan without matching gen proof",
+      status: "COMPLETE",
+      generationId: null,
+      ordinal: reserved2.ordinalAssistant,
+    });
+    await db
+      .update(conversationTurnCommands)
+      .set({
+        generationId: null,
+        updatedAt: new Date(Date.now() - TURN_RUNNING_STALE_MS - 1000),
+      })
+      .where(eq(conversationTurnCommands.id, reserved2.commandId));
+    const recon2 = await reconcileRunningCommand(reserved2.commandId);
+    expect(recon2.status).toBe("UNKNOWN");
+    expect(recon2.assistantMessageId).toBeNull();
+  });
+
+  it("UNKNOWN-CAP-04: document revision with matching provenance reconstitutes; subject without gen stays unattributed", async () => {
+    const { reconstituteConfirmedD4Effects } = await import("@/domains/knowledge/service");
+    const gen = `gen_cap04_${Date.now()}`;
+    const src = `msg_cap04_${Date.now()}`;
+    const docId = newId("doc");
+    const revId = newId("drev");
+    await db.insert(documents).values({
+      id: docId,
+      preparationId,
+      ownerPilotId: pilotId,
+      title: `CAP04 doc ${Date.now()}`,
+      creationCorrelationKey: `doc:${gen}`,
+    });
+    await db.insert(documentRevisions).values({
+      id: revId,
+      documentId: docId,
+      revisionNumber: 1,
+      status: "AVAILABLE",
+      contentMarkdown: "# CAP04 durable",
+      correlationKey: `doc:${gen}`,
+      provenanceJson: JSON.stringify({ generationId: gen, userMessageId: src }),
+      scope: "document",
+    });
+    // Subject has no generation provenance today — must not be falsely attributed.
+    await db.insert(knowledgeSubjects).values({
+      id: newId("subj"),
+      preparationId,
+      ownerPilotId: pilotId,
+      title: `CAP04 subject ${Date.now()}`,
+      status: "ACTIVE",
+    });
+
+    const hit = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
+      generationId: gen,
+      userMessageId: src,
+    });
+    expect(hit.documentSave?.documentId).toBe(docId);
+    expect(hit.documentSave?.confirmation).toBe("DB_CONFIRMED");
+    expect(hit.capitalisation.some((c) => c.kind === "document" && c.documentId === docId)).toBe(
+      true,
+    );
+    // Subjects have no generation provenance — reconstitution kinds are acquis|open_point|document only.
+    expect(hit.capitalisation.every((c) => c.kind !== "document" || c.documentId === docId)).toBe(
+      true,
+    );
+    expect(hit.capitalisationLimit).toContain("DB_RECONSTITUTED");
+    const subjectsAfter = await db
+      .select()
+      .from(knowledgeSubjects)
+      .where(eq(knowledgeSubjects.preparationId, preparationId));
+    expect(subjectsAfter.some((s) => s.title.startsWith("CAP04 subject"))).toBe(true);
+
+    const miss = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
+      generationId: "gen_unrelated",
+      userMessageId: "msg_unrelated",
+    });
+    expect(miss.documentSave).toBeNull();
+    expect(miss.capitalisation.filter((c) => c.kind === "document")).toHaveLength(0);
   });
 
   it("CAP-FENCE-05: pilot path without turnFence still creates subject", async () => {

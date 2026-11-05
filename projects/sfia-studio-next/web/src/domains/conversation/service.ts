@@ -7,6 +7,7 @@ import { generateNoraReply } from "./nora-adapter";
 import { getPreparationContext } from "@/domains/preparation/service";
 import {
   maybeCapitalizeFromExchange,
+  reconstituteConfirmedD4Effects,
   selectRelevantKnowledgeContext,
 } from "@/domains/knowledge/service";
 import { listDocuments, savePreparationDocument } from "@/domains/document/service";
@@ -146,7 +147,28 @@ export async function postUserMessageAndNora(
         /* fall through */
       }
     }
-    // FAILED/UNKNOWN: never fabricate a new result from a terminal non-COMPLETE command.
+    // FAILED/UNKNOWN: never fabricate COMPLETE; reconstitute durable D4 refs from DB when possible.
+    if (reserved.status === "UNKNOWN" || reserved.status === "FAILED") {
+      const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
+        generationId: reserved.generationId,
+        userMessageId: reserved.userMessageId,
+      });
+      return {
+        operationId: reserved.operationId,
+        requestId,
+        status: reserved.status,
+        idempotentReplay: true,
+        generationId: reserved.generationId,
+        userMessageId: reserved.userMessageId,
+        assistantMessageId: reserved.assistantMessageId,
+        humanDecisionCreated: false,
+        reconciled: reserved.reconciled,
+        noraMode: "replay-terminal",
+        capitalisation: reconstituted.capitalisation,
+        capitalisationLimit: reconstituted.capitalisationLimit,
+        documentSave: reconstituted.documentSave,
+      };
+    }
     return {
       operationId: reserved.operationId,
       requestId,
@@ -384,6 +406,17 @@ export async function postUserMessageAndNora(
     turnStatus = "UNKNOWN";
   }
 
+  // When ownership already lost, prefer DB reconstitution over in-memory lists
+  // (local vars may omit effects committed earlier in the turn).
+  let unknownCapReconstituted: Awaited<ReturnType<typeof reconstituteConfirmedD4Effects>> | null =
+    null;
+  if (ownershipLostBeforeD4 || turnStatus === "UNKNOWN") {
+    unknownCapReconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
+      generationId: reply.generationId,
+      userMessageId: reserved.userMessageId,
+    });
+  }
+
   const resultPayload: TurnResult = {
     userMessageId: reserved.userMessageId,
     assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
@@ -415,12 +448,16 @@ export async function postUserMessageAndNora(
       selectionMethod: knowledge.selectionMethod,
       selectionLimit: knowledge.selectionLimit,
     },
-    capitalisation: ownershipLostBeforeD4 ? [] : confirmedCapitalisations,
+    capitalisation: ownershipLostBeforeD4
+      ? (unknownCapReconstituted?.capitalisation ?? [])
+      : confirmedCapitalisations,
     capitalisationAttempted: ownershipLostBeforeD4 ? [] : capitalisation.capitalisations,
     capitalisationLimit: ownershipLostBeforeD4
-      ? "OWNERSHIP_LOST"
+      ? (unknownCapReconstituted?.capitalisationLimit ?? "OWNERSHIP_LOST")
       : capitalisationError ?? capitalisation.selectionLimit,
-    documentSave: ownershipLostBeforeD4 ? null : documentSave,
+    documentSave: ownershipLostBeforeD4
+      ? (unknownCapReconstituted?.documentSave ?? null)
+      : documentSave,
     idempotentReplay: false,
     humanDecisionCreated: false,
   };
@@ -429,29 +466,72 @@ export async function postUserMessageAndNora(
     await turnRaceHooks.beforeTerminalCommit();
   }
 
-  const applied = await commitTurnTerminal({
-    commandId: reserved.commandId,
-    ownerToken: reserved.ownerToken,
-    status: turnStatus,
-    conversationId: ctx.conversation.id,
-    assistant: ownershipLostBeforeD4
-      ? undefined
-      : {
-          id: assistantId,
-          content: reply.content,
-          messageStatus: reply.status,
-          generationId: reply.generationId,
-          ordinal: reserved.ordinalAssistant,
-        },
-    generationId: reply.generationId,
-    resultJson: JSON.stringify(resultPayload),
-    errorCategory:
-      turnStatus === "COMPLETE"
+  let applied: { applied: boolean };
+  try {
+    applied = await commitTurnTerminal({
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      status: turnStatus,
+      conversationId: ctx.conversation.id,
+      assistant: ownershipLostBeforeD4
         ? undefined
-        : ownershipLostBeforeD4
-          ? "OWNERSHIP_LOST"
-          : capitalisationError ?? reply.status,
-  });
+        : {
+            id: assistantId,
+            content: reply.content,
+            messageStatus: reply.status,
+            generationId: reply.generationId,
+            ordinal: reserved.ordinalAssistant,
+          },
+      generationId: reply.generationId,
+      resultJson: JSON.stringify(resultPayload),
+      errorCategory:
+        turnStatus === "COMPLETE"
+          ? undefined
+          : ownershipLostBeforeD4
+            ? "OWNERSHIP_LOST"
+            : capitalisationError ?? reply.status,
+    });
+  } catch (e) {
+    // Mid-TX DB failure after attempted assistant write — TX rolled back; never COMPLETE.
+    if (e instanceof StudioError && e.code === "CONFLICT") {
+      emitObs({
+        event_name: "d3.turn.assistant_identity_conflict",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: "UNKNOWN",
+        error_category: "ASSISTANT_IDENTITY_CONFLICT",
+      });
+    } else {
+      emitObs({
+        event_name: "d3.turn.terminal_tx_failed",
+        component: "d3.conversation",
+        request_id: requestId,
+        operation_id: reserved.operationId,
+        generation_id: reply.generationId,
+        outcome: "UNKNOWN",
+        error_category: "TERMINAL_TX_EXCEPTION",
+      });
+    }
+    try {
+      await markTurnUnknown(reserved.commandId, "TERMINAL_TX_EXCEPTION", reserved.ownerToken);
+    } catch {
+      /* ownership may already be lost */
+    }
+    const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
+      generationId: reply.generationId,
+      userMessageId: reserved.userMessageId,
+    });
+    return {
+      ...resultPayload,
+      status: "UNKNOWN",
+      assistantMessageId: null,
+      capitalisation: reconstituted.capitalisation,
+      capitalisationLimit: reconstituted.capitalisationLimit,
+      documentSave: reconstituted.documentSave,
+    };
+  }
 
   if (!applied.applied) {
     emitObs({
@@ -463,16 +543,20 @@ export async function postUserMessageAndNora(
       outcome: "UNKNOWN",
       error_category: "COMPLETE_CAS_MISSED",
     });
-    // Never return COMPLETE when ownership CAS failed.
+    // Never return COMPLETE when ownership CAS failed — but surface DB-confirmed D4 refs.
+    const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
+      generationId: reply.generationId,
+      userMessageId: reserved.userMessageId,
+    });
     return {
       ...resultPayload,
       status: "UNKNOWN",
       assistantMessageId: null,
-      documentSave: null,
-      capitalisation: [],
+      capitalisation: reconstituted.capitalisation,
+      capitalisationLimit: reconstituted.capitalisationLimit,
+      documentSave: reconstituted.documentSave,
     };
   }
-
   emitObs({
     event_name: "d3.turn.completed",
     component: "d3.conversation",
