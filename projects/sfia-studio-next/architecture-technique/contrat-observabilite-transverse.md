@@ -150,8 +150,18 @@ La promesse « zéro angle mort » est un **objectif de couverture des scénario
 
 **Acquis Morris 2026-11-05 :** orientation transverse ; priorité aux mécanismes natifs ; observabilité intelligente, couvrant les parcours critiques, sans duplication ; diagnostics Nora et qualité indépendants.
 
-**Non décidés :** produit de consultation, formats/API définitifs, stockages/schémas, collecte exhaustive versus sélection, budgets et seuils, modification des ADR ou d'ENV-01, choix de macro-lot d'intégration avant RECETTE, architecture déployée, Go Cursor.
+**Non décidés :** produit de consultation, formats/API définitifs, stockages/schémas, collecte exhaustive versus sélection, budgets et seuils, modification des ADR ou d'ENV-01, découpage technique précis dans ML2, architecture déployée, Go Cursor.
 
 **Conformité documentaire attendue :** R1 porte le résultat ; R2 D1–D9 les comportements propres ; R3 la visibilité utilisateur ; R4 le contrat et les frontières ; R5/ML2 la construction et les oracles. Cette source détaillée est référencée, non dupliquée dans un deuxième standard.
 
 **Statut : VALIDATED PRODUCT INTENT / TECHNICAL CONTRACT CANDIDATE / DOCUMENTED ON BRANCH — no code, no tests executed, no PR, no merge, no promotion, no ADOPTED.**
+
+## 10. Position de delivery après arbitrage R5/ML2 Morris (2026-11-05)
+
+> **VALIDATED STRATEGY FOR INTEGRATION BEFORE RECETTE — technique détaillée candidate.** [Decision Record de trajectoire](../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md) et [référence R5 §17](../construction/reference-delivery-r5.md), [ML2 §17](../construction/ml2-production-et-capitalisation-nora/specification-technique.md), [QA §10](../construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md). **Le choix « inclure le socle transverse en ML2 avant RECETTE » est désormais arbitré** ; les options ouvertes au §9 concernent seulement le moyen technique, l'exploitation, les seuils, les conditions de sécurité et la portée détaillée de ses preuves. Aucun changement d'ADR R4-01..04, DATA-01 ou ENV-01.
+
+**Périmètre d'exploitation minimal de ML2 :** corréler les parcours existants AUTH/API/DB/D1–D4, classifier les erreurs réelles et les tentatives Nora (modèle/effort/outils/tokens/durées si disponibles), retrouver en RECETTE une opération et sa chronologie sous habilitation, confronter ses états aux vérités D2/D4. La confidentialité et l'absence de secrets dans les traces sont des critères d'acceptation, pas des améliorations facultatives.
+
+**Couverture au rythme du produit :** OBS-Q01..10 pertinents au périmètre ML2 avec tests et données réels ; OBS-Q11/12 au moment de D9 et D7/D8. Les méthodes natives sont étudiées avant toute infrastructure spécifique. Un dashboard avancé, une base d'audit parallèle et l'instrumentation de domaines inexistants ne sont pas des conditions de RECETTE ML2.
+
+**STOP / gatification :** la publication documentaire ne choisit ni collecteur, ni système de stockage, ni schéma, ni API de supervision, ni rétention fournisseur, ni budgets de collecte. Il faut un contrat technique qualifié et un **GO Cursor D3 distinct** avant construction ; aucune conformité LIVE/REAL ni RECETTE ne découle de cette section.
