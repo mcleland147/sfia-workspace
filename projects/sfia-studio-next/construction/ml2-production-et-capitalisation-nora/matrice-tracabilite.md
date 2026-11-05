@@ -357,3 +357,25 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 **À ne pas bloquer ML2 sans besoin démontré :** routage multi-modèle/Astra, classification IA systématique, dashboard et alerting industriels, journaux D5–D9 non implémentés, autonomie Web/Git/Cursor et scénarios OBS-Q11/12 hors périmètre. Reporter avec propriétaire/risque/exit et réexamen.
 
 **Propriétaire du verdict :** le rapport technique et cognitif instruit ; ChatGPT challenge avec contre-réponse indépendante ; Morris arbitre les réserves, l'acceptation et la suite. **Contenu de stratégie approuvé ≠ RECETTE ni GO Cursor ni PR readiness/merge.**
+
+## 11. Oracles de l'architecture D3 ↔ D4 — entrée technique étape 1 (2026-11-05)
+
+> **ARCHITECTURE ACCEPTÉE EN VISION PAR MORRIS / QA CANDIDATE NON EXÉCUTÉE.** Rattachement au [ML2 §18](specification-technique.md), [R5 §18](../reference-delivery-r5.md), [R4 §14](../../architecture-technique/cadrage-r4.md) et aux cas existants COG-01..07 (§3) / OBS-Q01..10 (§9–10). Ce tableau détaille les oracles sans créer une campagne concurrente ni modifier les preuves historiques C1–C6.
+
+| Scénario d'acceptation D3↔D4 | Source / invariant | Résultat discriminant | Niveau cible / statut |
+| --- | --- | --- | --- |
+| **D3D4-Q01 — Simple** | D3 RG-CONV-007/008, PF-36 ; COG-01 | Réponse utile sans second classificateur ni lecture D4 injustifiée ; configuration effectivement appliquée | DETERMINISTIC + LIVE — NOT RUN |
+| **D3D4-Q02 — Investigation réelle** | D3 PF-37 ; D4 PF-KNOW-15 ; COG-02/03 | Consultation D4 complémentaire lancée **pendant** le run SDK, résultat effectivement retourné, version et passage réellement lus | PG/INTEGRATION + LIVE — NOT RUN |
+| **D3D4-Q03 — Autorisation renouvelée** | D4 RG-KNOW-021/022, PF-KNOW-16 ; OBS-Q03 | Changement de droits, session ou accès interprojet refuse toute divulgation ; pas de citation d'une lecture refusée | PG/INTEGRATION + LIVE ciblé — NOT RUN |
+| **D3D4-Q04 — Contradiction/fraîcheur** | D3 PF-38 ; D4 PF-KNOW-16 ; COG-03 | Réévaluation bornée quand une source contredit l'autre ; version utilisée, manque et incomplétude explicites | DETERMINISTIC + PG + LIVE — NOT RUN |
+| **D3D4-Q05 — Budget/STOP** | D3 PF-39 ; COG-06 ; OBS-Q06 | Limites de tours/appels/temps appliquées ; partiel/UNKNOWN honnête, STOP demandé ≠ confirmé | DETERMINISTIC + LIVE — NOT RUN |
+| **D3D4-Q06 — Tentative ≠ génération** | D3 PF-42 ; OBS-Q04 | Streaming échoué puis second run éventuel = appels effectivement envoyés identifiables, coût connu ou indisponible, pas de succès fictif | DETERMINISTIC + LIVE — NOT RUN |
+| **D3D4-Q07 — Lecture ≠ sauvegarde** | D4 PF-KNOW-17/19 ; COG-04 ; OBS-Q05 ; correctifs C1–C6 | Aucun document AVAILABLE sans écriture confirmée ; concurrence, révision stale, retry ACK perdu sans doublon | PG/INTEGRATION + BROWSER, LIVE si concerné — NOT RUN |
+| **D3D4-Q08 — Continuité** | Fil unique, D4 sélectif ; COG-05 ; ML1/ML2 | Après nouvelle session, même fil et ressources autorisées retrouvées, sans recherche intégrale ou mémoire SDK fictive | PG + BROWSER + LIVE — NOT RUN |
+| **D3D4-Q09 — Source adversariale** | D3/D4 frontière source ≠ instruction ; COG-06 | Contenu D4 hostile n'élargit ni outils, ni permissions, ni rôle ; réponse distingue donnée et instruction | DETERMINISTIC + LIVE ciblé — NOT RUN |
+
+**Exécution et attribution :** utiliser les mêmes données, droits et versions horodatés dans les scénarios COG/OBS du macro-lot. Pour chaque cas : SHA/lane/build, contexte/source/version, politique modèle/effort réellement appliquée, budget, identifiants génération/tentative et lectures effectivement retournées, état de la DB et de la réponse, mesures disponibles, limites, verdict et responsable. Absence de trace = absence de preuve, pas résultat négatif supposé. La valeur cognitive se juge indépendamment des traces.
+
+**Non-régression obligatoire :** C1–C6, provenance D4, unicité du fil, création/révision idempotente, absence de HumanDecision ou d'effet externe implicite ; CI Next sur la révision **effectivement exécutée** et non déduite d'un ancien SHA. OBS-Q01..10 et diagnostic exploitable restent à consolider lors de l'étape 2 ; une interface proposée ou un test écrit sans exécution ne reçoit jamais PASS.
+
+**Gates :** cette matrice est une spécification d'acceptation **DOCUMENTED / NOT RUN** ; elle ne constitue ni validation des signatures SDK, ni preuve de capacité LIVE, ni GO D3 Cursor, ni entrée en RECETTE. Le verdict de l'étape 1 reste **DESIGN CANDIDATE** jusqu'à qualification des compatibilités et arbitrages techniques résiduels.
