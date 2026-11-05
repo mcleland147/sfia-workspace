@@ -965,3 +965,58 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
 | tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
 | LIVE / RECETTE | **NOT RUN** |
 | CI nouveau SHA | à vérifier après push FF sur PR #659 |
+
+## 27. As-Built qualification intégrée pré-RECETTE — 2026-11-05
+
+> **PROJECT PUSH FF autorisé / NO LIVE / NO RECETTE ACTIVATION / NO MERGE / NO RELEASE.** Parent `bf2deb0e`. Durcit ASSIST-REUSE, SAFE-01 (oracles stricts + abort connexion client), D4 reconstitution sans attribution croisée, et prépare manifeste LIVE/RECETTE **sans exécution**.
+
+### 27.1 Correctifs techniques
+
+| ID | Changement |
+| --- | --- |
+| ASSIST-REUSE | `commitTurnTerminal` exige `generationId` non vides et égaux (commande/message/entrée) ; `sameId`/`alreadyBound` insuffisants seuls ; `bindTurnGenerationId` après génération |
+| SAFE-01 | CONTEND-01/02 : statut attendu `RUNNING` post-verrou ; await de B ; DBFAIL-03 = abort client mid-TX (pas `terminate_backend` sur DEV partagé) |
+| UNKNOWN-CAP | reconstitution : match `generationId` prioritaire ; `sourceId` seulement si provenance sans gen ; panne DB ≠ `PREP_NOT_VISIBLE` |
+| Sujets | toujours non attribuables sans provenance de génération |
+
+### 27.2 Plan LIVE borné — PRÉPARÉ, NON EXÉCUTÉ
+
+**Objectif :** qualifier cognition Nora + lecture D4 + observabilité sous fournisseur réel, budget et coupe-circuit Morris.
+
+| Élément | Contenu proposé |
+| --- | --- |
+| Scénarios | (1) question simple ; (2) comparaison complexe + outils D4 ; (3) contradiction de sources ; (4) ressource inaccessible ; (5) faux/échec fournisseur ; (6) reprise `clientTurnKey` / UNKNOWN ; (7) échec auth/DB |
+| Oracles | statut terminal honnête ; outils réellement appelés ; docs lus ; effets D4 sous droits ; pas d'équivalence ChatGPT↔Nora ; traces expurgées |
+| Identité / données | pilote de test DEV→LIVE GO ; préparation/projet figés ; documents versionnés ; droits explicites ; non-effets D6–D9 |
+| Budget | modèle/effort demandés vs appliqués ; `maxTurns` ; timeout ; plafond €/tokens ; critères d'arrêt + cleanup |
+| Preuves | `operationId` / generation / attempt ; OBS allowlist ; durée/usage ; **pas** de secret dans Git |
+| Préflight | SDK, ports, OBS, coûts — **sans** appel fournisseur tant que GO LIVE absent |
+| Bloquants GO | `BOUNDARY NOT PROVEN — MORRIS LIVE GO REQUIRED` ; cookie localhost collision à traiter avant session utilisateur |
+
+### 27.3 Manifeste candidat RECETTE — PREPARED NOT DEPLOYED
+
+| Champ | Valeur |
+| --- | --- |
+| Branche | `sfia/next-ml2-cognition-observability-integrated` |
+| Base | `origin/main@6e4406c6` |
+| Schema | `006` (pas de 007) |
+| Version | `0.0.0-dev` / **NO RELEASE** / STABLE NOT AVAILABLE |
+| Lane | DEV prouvée ; RECETTE/STABLE **non démarrées, non migrées, non peuplées** |
+| Isolation | worktrees/DB/roles/ports/cookies/secrets à vérifier avant activation ; collision cookies `127.0.0.1` connue |
+| Smoke/stop/reprise | à finaliser au SHA gelé post-GO ; toute correction change le SHA → réqualification |
+| Statut | `RECETTE CANDIDATE MANIFEST PREPARED — NOT DEPLOYED` |
+
+### 27.4 Preuves locales (cycle)
+
+| Suite | Résultat |
+| --- | --- |
+| unit / PG / e2e FAKE | voir delivery entry + CI du SHA final |
+| LIVE / RECETTE | **NOT RUN** |
+| Disconnect serveur partagé | **NOT USED** (interdit) ; abort client mid-TX = PROVEN distinct |
+
+## 28. Gaps realism explicitement ouverts
+
+- Multi-processus / multi-hôte LIVE : **NOT RUN**
+- OpenAI REAL / Better Auth OAuth réel : **NOT RUN**
+- RECETTE utilisateur Morris : **NOT RUN**
+- Comparaison cognitive LIVE ChatGPT↔Nora : **NOT RUN** (protocole documenté seulement)

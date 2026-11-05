@@ -352,3 +352,22 @@ Append-only logical journal of Cursor product deliveries.
 | LIVE / RECETTE | **NOT RUN / NOT AUTHORIZED** |
 | Status | PROJECT BRANCH PUSH (FF) — merge/LIVE/RECETTE still gated |
 | Verdict candidate | `PR #659 UPDATED — await CI Next on new SHA — READY FOR CHATGPT PRE-MERGE REVIEW` (CI status filled post-push) |
+
+## delivery_id: DELIV-2026-11-05-ML2-PRE-RECETTE-QUAL-12
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~20:50 CET |
+| Macro-lot | R5 / ML2 — qualification intégrée pré-RECETTE PR #659 |
+| Type | INC corrective + QA préparation (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**FF push authorized**) |
+| Parent SHA | `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
+| Corrected | ASSIST-REUSE dual-gen strict + bindTurnGenerationId ; SAFE-01 strict RUNNING + client abort mid-TX ; D4 gen-priority reconstitution ; LIVE/RECETTE docs préparés |
+| Schema | unchanged (`006`) ; no migration |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 PASS ; PG 93 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE | **NOT RUN / NOT DEPLOYED** ; manifeste PREPARED |
+| Status | PROJECT BRANCH PUSH (FF) — LIVE/RECETTE/merge gated Morris |
+| Verdict candidate | `ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS` |

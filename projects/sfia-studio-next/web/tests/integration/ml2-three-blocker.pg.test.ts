@@ -694,14 +694,15 @@ describe("ML2 three-blocker corrective (PG)", () => {
           )
           .limit(1)
       )[0];
-      // Valid D4 write while ownership still holds.
+      // Valid D4 write while ownership still holds — generationId must already be bound.
+      expect(row!.generationId).toBeTruthy();
       const cap = await capitalizeAcquis(pilotId, preparationId, {
         statement,
         kind: "HYPOTHESIS",
         provenance: {
           sourceKind: "message",
           sourceId: row!.userMessageId ?? "msg",
-          generationId: row!.generationId ?? "gen",
+          generationId: row!.generationId!,
           epistemic: "hypothesized",
         },
         turnFence: { commandId: row!.id, ownerToken: row!.ownerToken! },
@@ -827,6 +828,85 @@ describe("ML2 three-blocker corrective (PG)", () => {
     expect(replay.assistantMessageId).toBe(first.assistantMessageId);
   });
 
+  it("ASSIST-REUSE-04: missing generationId on existing message → CONFLICT even if sameId", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `assist04-${Date.now()}`,
+      content: "Assist reuse missing gen sameId",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+    const msgId = newId("msg");
+    await db.insert(messages).values({
+      id: msgId,
+      conversationId,
+      role: "assistant",
+      content: "assistant without generation",
+      status: "COMPLETE",
+      generationId: null,
+      ordinal: reserved.ordinalAssistant,
+    });
+    const { commitTurnTerminal } = await import("@/domains/conversation/turn-command");
+    await expect(
+      commitTurnTerminal({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        status: "COMPLETE",
+        conversationId,
+        assistant: {
+          id: msgId,
+          content: "assistant without generation",
+          messageStatus: "COMPLETE",
+          generationId: "gen_REQUIRED",
+          ordinal: reserved.ordinalAssistant,
+        },
+        generationId: "gen_REQUIRED",
+      }),
+    ).rejects.toSatisfy((e: unknown) => e instanceof StudioError && e.code === "CONFLICT");
+  });
+
+  it("ASSIST-REUSE-05: alreadyBound without matching dual generationId → CONFLICT", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `assist05-${Date.now()}`,
+      content: "Assist reuse alreadyBound missing gen",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+    const msgId = newId("msg");
+    await db.insert(messages).values({
+      id: msgId,
+      conversationId,
+      role: "assistant",
+      content: "prebound assistant",
+      status: "COMPLETE",
+      generationId: null,
+      ordinal: reserved.ordinalAssistant,
+    });
+    await db
+      .update(conversationTurnCommands)
+      .set({ assistantMessageId: msgId, generationId: null })
+      .where(eq(conversationTurnCommands.id, reserved.commandId));
+
+    const { commitTurnTerminal } = await import("@/domains/conversation/turn-command");
+    await expect(
+      commitTurnTerminal({
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        status: "COMPLETE",
+        conversationId,
+        assistant: {
+          id: msgId,
+          content: "prebound assistant",
+          messageStatus: "COMPLETE",
+          generationId: "gen_NOW",
+          ordinal: reserved.ordinalAssistant,
+        },
+        generationId: "gen_NOW",
+      }),
+    ).rejects.toSatisfy((e: unknown) => e instanceof StudioError && e.code === "CONFLICT");
+  });
+
   it("ASSIST-REUSE-03: reconcile does not bind assistant with mismatched/missing generationId", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
@@ -885,6 +965,32 @@ describe("ML2 three-blocker corrective (PG)", () => {
     const recon2 = await reconcileRunningCommand(reserved2.commandId);
     expect(recon2.status).toBe("UNKNOWN");
     expect(recon2.assistantMessageId).toBeNull();
+  });
+
+  it("UNKNOWN-CAP-05: generationId present must not attribute acquis from another gen via sourceId OR", async () => {
+    const { reconstituteConfirmedD4Effects } = await import("@/domains/knowledge/service");
+    const genA = `gen_a_${Date.now()}`;
+    const genB = `gen_b_${Date.now()}`;
+    const srcShared = `msg_shared_${Date.now()}`;
+    await db.insert(knowledgeAcquis).values({
+      id: newId("acq"),
+      preparationId,
+      ownerPilotId: pilotId,
+      kind: "HYPOTHESIS",
+      statement: `CROSS_GEN_${Date.now()} must not leak via sourceId OR`,
+      provenanceJson: JSON.stringify({
+        sourceKind: "message",
+        sourceId: srcShared,
+        generationId: genA,
+        epistemic: "hypothesized",
+      }),
+      status: "CURRENT",
+    });
+    const hit = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
+      generationId: genB,
+      userMessageId: srcShared,
+    });
+    expect(hit.capitalisation.filter((c) => c.kind === "acquis")).toHaveLength(0);
   });
 
   it("UNKNOWN-CAP-04: document revision with matching provenance reconstitutes; subject without gen stays unattributed", async () => {

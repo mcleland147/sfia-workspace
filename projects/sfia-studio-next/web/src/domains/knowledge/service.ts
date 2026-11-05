@@ -752,156 +752,180 @@ export async function reconstituteConfirmedD4Effects(
   capitalisationLimit: string;
 }> {
   try {
-    await assertPrep(pilotId, preparationId);
+    try {
+      await assertPrep(pilotId, preparationId);
+    } catch (e) {
+      const code = (e as { code?: string } | null)?.code;
+      if (code === "NOT_FOUND") {
+        return {
+          capitalisation: [],
+          documentSave: null,
+          capitalisationLimit: "PREP_NOT_VISIBLE — no D4 reconstitution across privilege boundary",
+        };
+      }
+      return {
+        capitalisation: [],
+        documentSave: null,
+        capitalisationLimit:
+          "DB_OR_LOOKUP_UNAVAILABLE — reconstitution failed; not an access denial",
+      };
+    }
+    const gen = refs.generationId?.trim() || null;
+    const src = refs.userMessageId?.trim() || null;
+    if (!gen && !src) {
+      return {
+        capitalisation: [],
+        documentSave: null,
+        capitalisationLimit: "NO_PROVENANCE_KEYS — cannot reconstitute D4 effects",
+      };
+    }
+
+    // Prefer generationId when present. sourceId is a fallback only when the effect has
+    // no generationId in provenance — never attribute another generation via shared sourceId.
+    const acquisProv = gen
+      ? sql`(
+          ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}
+          or (
+            coalesce(${knowledgeAcquis.provenanceJson}::jsonb->>'generationId', '') = ''
+            and ${src}::text is not null
+            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}
+          )
+        )`
+      : sql`${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}`;
+    const openProv = gen
+      ? sql`(
+          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}
+          or (
+            coalesce(${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId', '') = ''
+            and ${src}::text is not null
+            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}
+          )
+        )`
+      : sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}`;
+    const revWhere = gen
+      ? sql`(
+          ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
+          or ${documentRevisions.correlationKey} = ${"doc:" + gen}
+          or (
+            coalesce(${documentRevisions.provenanceJson}::jsonb->>'generationId', '') = ''
+            and ${src}::text is not null
+            and ${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}
+          )
+        )`
+      : sql`${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}`;
+
+    const effects: ConfirmedD4Effect[] = [];
+
+    const acquisRows = await db
+      .select({
+        id: knowledgeAcquis.id,
+        status: knowledgeAcquis.status,
+        provenanceJson: knowledgeAcquis.provenanceJson,
+      })
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.ownerPilotId, pilotId),
+          eq(knowledgeAcquis.status, "CURRENT"),
+          acquisProv,
+        ),
+      );
+
+    for (const row of acquisRows) {
+      effects.push({
+        kind: "acquis",
+        id: row.id,
+        status: row.status,
+        confirmation: "DB_CONFIRMED",
+      });
+    }
+
+    const openRows = await db
+      .select({
+        id: knowledgeOpenPoints.id,
+        status: knowledgeOpenPoints.status,
+      })
+      .from(knowledgeOpenPoints)
+      .where(
+        and(
+          eq(knowledgeOpenPoints.preparationId, preparationId),
+          eq(knowledgeOpenPoints.ownerPilotId, pilotId),
+          eq(knowledgeOpenPoints.status, "OPEN"),
+          openProv,
+        ),
+      );
+
+    for (const row of openRows) {
+      effects.push({
+        kind: "open_point",
+        id: row.id,
+        status: row.status,
+        confirmation: "DB_CONFIRMED",
+      });
+    }
+
+    let documentSave: {
+      status: string;
+      documentId: string;
+      revisionNumber?: number;
+      confirmation: "DB_CONFIRMED";
+    } | null = null;
+
+    const revRows = await db
+      .select({
+        id: documentRevisions.id,
+        documentId: documentRevisions.documentId,
+        revisionNumber: documentRevisions.revisionNumber,
+        status: documentRevisions.status,
+      })
+      .from(documentRevisions)
+      .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
+      .where(
+        and(
+          eq(documents.preparationId, preparationId),
+          eq(documents.ownerPilotId, pilotId),
+          eq(documentRevisions.status, "AVAILABLE"),
+          revWhere,
+        ),
+      )
+      .orderBy(desc(documentRevisions.revisionNumber))
+      .limit(1);
+
+    if (revRows[0]) {
+      const r = revRows[0];
+      effects.push({
+        kind: "document",
+        id: r.id,
+        status: r.status,
+        confirmation: "DB_CONFIRMED",
+        documentId: r.documentId,
+        revisionNumber: r.revisionNumber,
+      });
+      documentSave = {
+        status: "AVAILABLE",
+        documentId: r.documentId,
+        revisionNumber: r.revisionNumber,
+        confirmation: "DB_CONFIRMED",
+      };
+    }
+
+    return {
+      capitalisation: effects,
+      documentSave,
+      capitalisationLimit:
+        effects.length > 0
+          ? "DB_RECONSTITUTED — effects confirmed under pilot/prep rights; turn remains UNKNOWN"
+          : "NO_CONFIRMED_D4_EFFECTS_FOR_TURN",
+    };
   } catch {
     return {
       capitalisation: [],
       documentSave: null,
-      capitalisationLimit: "PREP_NOT_VISIBLE — no D4 reconstitution across privilege boundary",
+      capitalisationLimit:
+        "DB_OR_LOOKUP_UNAVAILABLE — reconstitution failed; not an access denial",
     };
   }
-  const gen = refs.generationId?.trim() || null;
-  const src = refs.userMessageId?.trim() || null;
-  if (!gen && !src) {
-    return {
-      capitalisation: [],
-      documentSave: null,
-      capitalisationLimit: "NO_PROVENANCE_KEYS — cannot reconstitute D4 effects",
-    };
-  }
-
-  const effects: ConfirmedD4Effect[] = [];
-
-  const acquisRows = await db
-    .select({
-      id: knowledgeAcquis.id,
-      status: knowledgeAcquis.status,
-      provenanceJson: knowledgeAcquis.provenanceJson,
-    })
-    .from(knowledgeAcquis)
-    .where(
-      and(
-        eq(knowledgeAcquis.preparationId, preparationId),
-        eq(knowledgeAcquis.ownerPilotId, pilotId),
-        eq(knowledgeAcquis.status, "CURRENT"),
-        gen && src
-          ? sql`(
-              ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}
-              or ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}
-            )`
-          : gen
-            ? sql`${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}`
-            : sql`${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}`,
-      ),
-    );
-
-  for (const row of acquisRows) {
-    effects.push({
-      kind: "acquis",
-      id: row.id,
-      status: row.status,
-      confirmation: "DB_CONFIRMED",
-    });
-  }
-
-  const openRows = await db
-    .select({
-      id: knowledgeOpenPoints.id,
-      status: knowledgeOpenPoints.status,
-    })
-    .from(knowledgeOpenPoints)
-    .where(
-      and(
-        eq(knowledgeOpenPoints.preparationId, preparationId),
-        eq(knowledgeOpenPoints.ownerPilotId, pilotId),
-        eq(knowledgeOpenPoints.status, "OPEN"),
-        gen && src
-          ? sql`(
-              ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}
-              or ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}
-            )`
-          : gen
-            ? sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}`
-            : sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}`,
-      ),
-    );
-
-  for (const row of openRows) {
-    effects.push({
-      kind: "open_point",
-      id: row.id,
-      status: row.status,
-      confirmation: "DB_CONFIRMED",
-    });
-  }
-
-  let documentSave: {
-    status: string;
-    documentId: string;
-    revisionNumber?: number;
-    confirmation: "DB_CONFIRMED";
-  } | null = null;
-
-  const revWhere =
-    gen && src
-      ? sql`(
-          ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
-          or ${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}
-          or ${documentRevisions.correlationKey} = ${"doc:" + gen}
-        )`
-      : gen
-        ? sql`(
-            ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
-            or ${documentRevisions.correlationKey} = ${"doc:" + gen}
-          )`
-        : sql`${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}`;
-
-  const revRows = await db
-    .select({
-      id: documentRevisions.id,
-      documentId: documentRevisions.documentId,
-      revisionNumber: documentRevisions.revisionNumber,
-      status: documentRevisions.status,
-    })
-    .from(documentRevisions)
-    .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
-    .where(
-      and(
-        eq(documents.preparationId, preparationId),
-        eq(documents.ownerPilotId, pilotId),
-        eq(documentRevisions.status, "AVAILABLE"),
-        revWhere,
-      ),
-    )
-    .orderBy(desc(documentRevisions.revisionNumber))
-    .limit(1);
-
-  if (revRows[0]) {
-    const r = revRows[0];
-    effects.push({
-      kind: "document",
-      id: r.id,
-      status: r.status,
-      confirmation: "DB_CONFIRMED",
-      documentId: r.documentId,
-      revisionNumber: r.revisionNumber,
-    });
-    documentSave = {
-      status: "AVAILABLE",
-      documentId: r.documentId,
-      revisionNumber: r.revisionNumber,
-      confirmation: "DB_CONFIRMED",
-    };
-  }
-
-  return {
-    capitalisation: effects,
-    documentSave,
-    capitalisationLimit:
-      effects.length > 0
-        ? "DB_RECONSTITUTED — effects confirmed under pilot/prep rights; turn remains UNKNOWN"
-        : "NO_CONFIRMED_D4_EFFECTS_FOR_TURN",
-  };
 }
 
 /**

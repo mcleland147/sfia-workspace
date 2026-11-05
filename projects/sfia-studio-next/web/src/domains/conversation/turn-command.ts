@@ -138,6 +138,31 @@ function isStaleRunning(updatedAt: Date | null | undefined): boolean {
  * Heartbeat + ownership proof. Refreshes updated_at so long active runs are not
  * falsely reconciled as orphans. Returns false if ownership lost.
  */
+/** Persist generation identity on a still-owned RUNNING/ACCEPTED command (pre-terminal). */
+export async function bindTurnGenerationId(
+  commandId: string,
+  ownerToken: string,
+  generationId: string,
+): Promise<{ bound: boolean }> {
+  const gen = generationId.trim();
+  if (!gen) return { bound: false };
+  const updated = await db
+    .update(conversationTurnCommands)
+    .set({
+      generationId: gen,
+      updatedAt: new Date(turnClock.nowMs()),
+    })
+    .where(
+      and(
+        eq(conversationTurnCommands.id, commandId),
+        eq(conversationTurnCommands.ownerToken, ownerToken),
+        sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+      ),
+    )
+    .returning({ id: conversationTurnCommands.id });
+  return { bound: updated.length > 0 };
+}
+
 export async function touchTurnLease(
   commandId: string,
   ownerToken: string,
@@ -552,6 +577,7 @@ export async function commitTurnTerminal(args: {
           .select({
             id: conversationTurnCommands.id,
             assistantMessageId: conversationTurnCommands.assistantMessageId,
+            generationId: conversationTurnCommands.generationId,
           })
           .from(conversationTurnCommands)
           .where(
@@ -596,21 +622,27 @@ export async function commitTurnTerminal(args: {
           });
           assistantMessageId = args.assistant.id;
         } else {
+          // Reuse only with demonstrable identity: both generationIds non-empty and equal,
+          // plus same message id or already-bound assistantMessageId. sameId/alreadyBound alone
+          // are never sufficient when generation proof is missing or mismatched.
+          const expectedGen = args.assistant.generationId?.trim() || null;
+          const messageGen = existingAssistant.generationId?.trim() || null;
+          const commandGen =
+            (args.generationId ?? owned.generationId)?.trim() || expectedGen;
+          const gensMatch =
+            Boolean(expectedGen) &&
+            Boolean(messageGen) &&
+            Boolean(commandGen) &&
+            expectedGen === messageGen &&
+            commandGen === messageGen;
           const sameId = existingAssistant.id === args.assistant.id;
-          const sameGen =
-            Boolean(args.assistant.generationId) &&
-            existingAssistant.generationId === args.assistant.generationId;
           const alreadyBound = owned.assistantMessageId === existingAssistant.id;
-          const genConflict =
-            Boolean(args.assistant.generationId) &&
-            Boolean(existingAssistant.generationId) &&
-            existingAssistant.generationId !== args.assistant.generationId;
           const idConflict =
             Boolean(owned.assistantMessageId) &&
             owned.assistantMessageId !== existingAssistant.id &&
             !sameId;
 
-          if (genConflict || idConflict || (!sameId && !sameGen && !alreadyBound)) {
+          if (!gensMatch || idConflict || (!sameId && !alreadyBound)) {
             throw new StudioError(
               "CONFLICT",
               "Ordinal assistant incompatible avec la génération/commande courante",

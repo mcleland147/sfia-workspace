@@ -532,3 +532,27 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 | CI-LABELS | PROVEN local | workflow + migrations-fresh 001→006 |
 | REG-01 | PROVEN | unit 52 / PG 89 / e2e 3 / tsc+lint+build |
 | LIVE / RECETTE / merge | NOT RUN | hors mandat ; gate Morris |
+
+## 20. As-Built qualification intégrée pré-RECETTE — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| ASSIST-REUSE-01 | PG PROVEN | gen divergent → CONFLICT |
+| ASSIST-REUSE-02 | PG PROVEN | ACK perdu idempotent |
+| ASSIST-REUSE-03 | PG PROVEN | reconcile sans gen match → non-liaison |
+| ASSIST-REUSE-04 | PG PROVEN | gen manquante message + sameId → CONFLICT |
+| ASSIST-REUSE-05 | PG PROVEN | alreadyBound sans dual gen → CONFLICT |
+| UNKNOWN-CAP-01..04 | PG PROVEN | restitution DB + droits ; sujets non attribués |
+| UNKNOWN-CAP-05 | PG PROVEN | pas d'attribution croisée via sourceId OR |
+| PG-CONTEND-01 | PG PROVEN | FOR SHARE bloque ; après release **RUNNING** strict |
+| PG-CONTEND-02 | PG PROVEN | FOR UPDATE bloque ; await B → RUNNING ; ownership intact |
+| PG-DBFAIL-01 | PG PROVEN | exception applicative post-INSERT → rollback |
+| PG-DBFAIL-02 | PG PROVEN | fence ownership (≠ disconnect) |
+| PG-DBFAIL-03 | PG PROVEN | abort **client** mid-TX (TEMP) ; pas terminate_backend DEV |
+| PG-LEASE-01 / PG-ISOLATE-01 | PG PROVEN | lease + isolation pilote |
+| SAFE-01 multi-process LIVE | NOT RUN | hors mandat |
+| REAL DB DISCONNECT (server kill) | NOT PROVEN — TOOLING GAP | interdit sur DEV partagé ; abort client distinct |
+| COG-01..07 / OBS-Q01..10 DET/FAKE | PROVEN (suites existantes) | LIVE cases **NOT RUN** |
+| LIVE protocol | PREPARED | spec §27.2 — **NOT EXECUTED** |
+| RECETTE manifeste | PREPARED NOT DEPLOYED | spec §27.3 |
+| LIVE / RECETTE / merge / ADOPTED | NOT RUN | gates Morris |

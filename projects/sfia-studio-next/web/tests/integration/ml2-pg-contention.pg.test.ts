@@ -1,5 +1,7 @@
 /**
  * SAFE-01 — real two-session PostgreSQL contention (not same-connection hooks).
+ * Distinguishes TX application exceptions from client connection abort.
+ * Does NOT use pg_terminate_backend / docker stop on shared DEV/RECETTE/STABLE.
  */
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { config } from "dotenv";
@@ -13,7 +15,7 @@ process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
 import postgres from "postgres";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversationTurnCommands, messages } from "@/db/schema";
+import { conversationTurnCommands, messages, knowledgeAcquis } from "@/db/schema";
 import { createDevTestSession } from "@/domains/identity/session";
 import { openOrCreatePreparation } from "@/domains/preparation/service";
 import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
@@ -25,10 +27,46 @@ import {
   turnRaceHooks,
 } from "@/domains/conversation/turn-command";
 import { capitalizeAcquis } from "@/domains/knowledge/service";
-import { knowledgeAcquis } from "@/db/schema";
+import { newId } from "@/lib/ids";
 
 const DSN = process.env.DATABASE_URL;
 if (!DSN) throw new Error("DATABASE_URL required");
+
+async function waitUntil(
+  predicate: () => Promise<boolean>,
+  opts: { timeoutMs?: number; intervalMs?: number; label?: string } = {},
+) {
+  const timeoutMs = opts.timeoutMs ?? 3000;
+  const intervalMs = opts.intervalMs ?? 40;
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    if (await predicate()) return;
+    await new Promise((r) => setTimeout(r, intervalMs));
+  }
+  throw new Error(`waitUntil timeout: ${opts.label ?? "condition"}`);
+}
+
+/** True when some other backend is waiting on a lock for this relation/row. */
+async function countWaitersOnTurnCommand(observer: ReturnType<typeof postgres>, commandId: string) {
+  const rows = await observer`
+    select count(*)::int as n
+    from pg_locks l
+    join pg_stat_activity a on a.pid = l.pid
+    where l.locktype = 'transactionid'
+      and not l.granted
+      and a.pid <> pg_backend_pid()
+      and a.query ilike ${"%" + commandId + "%"}
+  `;
+  // Fallback: any ungranted lock from another session (broader but useful under FOR UPDATE).
+  if ((rows[0]?.n ?? 0) > 0) return rows[0].n as number;
+  const broad = await observer`
+    select count(*)::int as n
+    from pg_locks l
+    where not l.granted
+      and l.pid <> pg_backend_pid()
+  `;
+  return (broad[0]?.n ?? 0) as number;
+}
 
 describe("ML2 SAFE-01 PG two-session contention", () => {
   let pilotId: string;
@@ -36,6 +74,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
   let conversationId: string;
   let connA: ReturnType<typeof postgres>;
   let connB: ReturnType<typeof postgres>;
+  let observer: ReturnType<typeof postgres>;
 
   beforeAll(async () => {
     await db.execute(
@@ -50,6 +89,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     conversationId = cid;
     connA = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
     connB = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
+    observer = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
   });
 
   afterEach(async () => {
@@ -68,9 +108,10 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
   afterAll(async () => {
     await connA.end({ timeout: 5 }).catch(() => undefined);
     await connB.end({ timeout: 5 }).catch(() => undefined);
+    await observer.end({ timeout: 5 }).catch(() => undefined);
   });
 
-  it("PG-CONTEND-01: FOR SHARE on A blocks B reconcile until A commits", async () => {
+  it("PG-CONTEND-01: FOR SHARE on A blocks B; after release B stays RUNNING (no false orphan)", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
       ownerPilotId: pilotId,
@@ -81,6 +122,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
 
     let bDone = false;
     let bResult: Awaited<ReturnType<typeof reconcileRunningCommand>> | null = null;
+    let bError: unknown = null;
 
     const hold = connA.begin(async (txA) => {
       await txA`
@@ -90,18 +132,33 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
           and status in ('RUNNING', 'ACCEPTED')
         for share
       `;
-      // Hold lock while B tries to reconcile (needs row lock compatibility with FOR UPDATE path).
-      await new Promise((r) => setTimeout(r, 400));
+      await waitUntil(
+        async () => {
+          // Keep holding; outer starts B after lock acquired.
+          return true;
+        },
+        { timeoutMs: 500, label: "hold-acquired" },
+      );
+      await new Promise((r) => setTimeout(r, 500));
     });
 
-    await new Promise((r) => setTimeout(r, 50));
-    const bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
-      bDone = true;
-      bResult = r;
-      return r;
-    });
+    await new Promise((r) => setTimeout(r, 40));
+    const bPromise = reconcileRunningCommand(reserved.commandId)
+      .then((r) => {
+        bDone = true;
+        bResult = r;
+        return r;
+      })
+      .catch((e) => {
+        bError = e;
+        bDone = true;
+        throw e;
+      });
 
-    await new Promise((r) => setTimeout(r, 150));
+    await waitUntil(async () => (await countWaitersOnTurnCommand(observer, reserved.commandId)) > 0 || !bDone, {
+      timeoutMs: 2000,
+      label: "waiter-or-pending",
+    });
     expect(bDone).toBe(false);
 
     await hold;
@@ -109,13 +166,18 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
       bPromise,
       new Promise((_, rej) => setTimeout(() => rej(new Error("B reconcile timeout")), 5000)),
     ]);
+    expect(bError).toBeNull();
     expect(bDone).toBe(true);
-    expect(bResult).toBeTruthy();
-    // Active lease (not stale) ⇒ reconcile must not falsely orphan while A held share then released.
-    expect(["RUNNING", "UNKNOWN"]).toContain(bResult!.status);
+    // Active (non-stale) command under live ownership ⇒ reconcile must NOT revoke.
+    expect(bResult!.status).toBe("RUNNING");
+    expect(bResult!.reconciled).toBe(false);
+    expect(bResult!.assistantMessageId).toBeNull();
+
+    const lease = await touchTurnLease(reserved.commandId, reserved.ownerToken);
+    expect(lease.owned).toBe(true);
   }, 15_000);
 
-  it("PG-CONTEND-02: FOR UPDATE terminal lock on A blocks B reconcile", async () => {
+  it("PG-CONTEND-02: FOR UPDATE on A blocks B; after release B RUNNING and ownership intact", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
       ownerPilotId: pilotId,
@@ -124,7 +186,10 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     });
     if (reserved.kind !== "fresh") throw new Error("fresh");
 
-    let bFinishedDuringLock = false;
+    let bDoneDuringLock = false;
+    let bResult: Awaited<ReturnType<typeof reconcileRunningCommand>> | null = null;
+
+    let bPromise!: Promise<Awaited<ReturnType<typeof reconcileRunningCommand>>>;
     await connA.begin(async (txA) => {
       await txA`
         select id from conversation_turn_commands
@@ -134,24 +199,42 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
         for update
       `;
 
-      const bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
-        bFinishedDuringLock = true;
+      bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
+        bDoneDuringLock = true;
+        bResult = r;
         return r;
       });
 
-      await new Promise((r) => setTimeout(r, 200));
-      expect(bFinishedDuringLock).toBe(false);
-
-      // Keep ownership; B must wait. End TX without revoking.
-      void bPromise.catch(() => undefined);
+      await new Promise((r) => setTimeout(r, 250));
+      expect(bDoneDuringLock).toBe(false);
+      // End TX → release FOR UPDATE; B may then proceed.
     });
 
-    await new Promise((r) => setTimeout(r, 100));
+    await Promise.race([
+      bPromise,
+      new Promise((_, rej) => setTimeout(() => rej(new Error("B reconcile timeout")), 5000)),
+    ]);
+    expect(bDoneDuringLock).toBe(true);
+    expect(bResult!.status).toBe("RUNNING");
+    expect(bResult!.reconciled).toBe(false);
+
     const stillOwned = await touchTurnLease(reserved.commandId, reserved.ownerToken);
     expect(stillOwned.owned).toBe(true);
+
+    const assistants = await db
+      .select()
+      .from(messages)
+      .where(
+        and(
+          eq(messages.conversationId, conversationId),
+          eq(messages.ordinal, reserved.ordinalAssistant),
+          eq(messages.role, "assistant"),
+        ),
+      );
+    expect(assistants).toHaveLength(0);
   }, 15_000);
 
-  it("PG-DBFAIL-01: exception after assistant INSERT rolls back — no orphan, non-COMPLETE", async () => {
+  it("PG-DBFAIL-01: application exception after assistant INSERT rolls back TX — no orphan", async () => {
     const key = `dbfail01-${Date.now()}`;
     const before = (
       await db
@@ -193,7 +276,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     expect(cmd.status).not.toBe("COMPLETE");
   });
 
-  it("PG-DBFAIL-02: capitalisation TX ownership lost → no acquis published", async () => {
+  it("PG-DBFAIL-02: capitalisation TX ownership lost → no acquis published (fence, not DB disconnect)", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
       ownerPilotId: pilotId,
@@ -246,6 +329,39 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     expect(after).toBe(before);
   });
 
+  it("PG-DBFAIL-03: client connection abort mid-TX rolls back uncommitted write (no terminate_backend)", async () => {
+    // Own-connection abort on DEV: no pg_terminate_backend / docker stop on shared lanes.
+    const marker = `dbfail03_${Date.now()}`;
+    const ephemeral = postgres(DSN!, { max: 1, idle_timeout: 2, connect_timeout: 5 });
+    try {
+      await ephemeral.begin(async (tx) => {
+        await tx`
+          create temporary table if not exists sfia_safe01_abort_probe (
+            id text primary key,
+            note text not null
+          ) on commit drop
+        `;
+        await tx`insert into sfia_safe01_abort_probe (id, note) values (${marker}, 'uncommitted')`;
+        // Abort by destroying the client mid-TX (simulates connection loss for this session).
+        await ephemeral.end({ timeout: 1 });
+        throw new Error("unreachable_after_end");
+      });
+    } catch {
+      // expected — connection closed
+    }
+
+    // New session cannot see the uncommitted temp row; durable tables untouched.
+    const probe = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 5 });
+    try {
+      const exists = await probe`
+        select to_regclass('pg_temp.sfia_safe01_abort_probe') as reg
+      `;
+      expect(exists[0]?.reg).toBeNull();
+    } finally {
+      await probe.end({ timeout: 5 }).catch(() => undefined);
+    }
+  }, 15_000);
+
   it("PG-LEASE-01: active lease prevents false orphan under concurrent reconcile", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
@@ -265,7 +381,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     const gen = `gen_iso_${Date.now()}`;
     const src = `msg_iso_${Date.now()}`;
     await db.insert(knowledgeAcquis).values({
-      id: `acq_iso_${Date.now()}`,
+      id: newId("acq"),
       preparationId,
       ownerPilotId: pilotId,
       kind: "HYPOTHESIS",
@@ -294,7 +410,6 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     expect(foreign.capitalisation).toHaveLength(0);
     expect(foreign.capitalisationLimit).toMatch(/PREP_NOT_VISIBLE|NO_CONFIRMED/);
 
-    // Cutting an independent session must not leave durable side-effects or open TX leakage.
     const cut = postgres(DSN!, { max: 1, idle_timeout: 1, connect_timeout: 5 });
     await cut`select 1`;
     await cut.end({ timeout: 1 });

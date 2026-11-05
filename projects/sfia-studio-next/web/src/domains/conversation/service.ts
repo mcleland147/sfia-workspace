@@ -12,6 +12,7 @@ import {
 } from "@/domains/knowledge/service";
 import { listDocuments, savePreparationDocument } from "@/domains/document/service";
 import {
+  bindTurnGenerationId,
   commitTurnTerminal,
   markTurnUnknown,
   requireTurnOwnership,
@@ -266,6 +267,9 @@ export async function postUserMessageAndNora(
       noraMode: reply.mode,
     };
   }
+
+  // Bind generationId while ownership holds so D4 provenance + UNKNOWN reconstitution share one key.
+  await bindTurnGenerationId(reserved.commandId, reserved.ownerToken, reply.generationId);
 
   const assistantId = newId("msg");
 
