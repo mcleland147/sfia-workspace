@@ -710,3 +710,25 @@ Deux responsabilités d'outil suffisent au départ, sous réserve de revue des s
 **Oracles à porter à la matrice §11 :** réponse simple sans recherches superflues, consultation D4 déclenchée pendant une mission LIVE, lecture versionnée, refus/revocation/interprojet, source contradictoire/périmée, limite/timeout, double tentative fournisseur sous une génération, documents et ACK perdus sans doublon, non-régression C1–C6 et fil unique. Niveaux DETERMINISTIC, PG/INTEGRATION, BROWSER et LIVE distincts ; ChatGPT comparateur non autorisant et Morris arbitre la valeur.
 
 **Contrat restant à finaliser :** compatibilité SDK/model settings, envelopes et permissions des outils, budgets, évènements/traces et sécurité/export de la future étape 2, forme des états techniques/cognitifs, corrélation et consultation en RECETTE, branche/CI/lane. Toute création de persistance normative, nouveau service de décision ou pivot ADR nécessite un gate Morris spécifique. **Aucun GO Cursor, PR/merge, RECETTE ni ADOPTED n'est consommé par ce chapitre.**
+
+## 19. Transposition ML2 de l'observabilité transverse (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+**Résultat du même ML2 :** chaque mission Nora et incident API/D4 significatif peut être diagnostiqué en RECETTE sans second moteur métier. Responsabilité canonique : contrat R4 d'observabilité §11 ; ML2 lie ses implémentations D1/D2/D3/D4, sans reproduire tout le catalogue générique.
+
+**IN :** ID HTTP/opération/génération/tentative, différenciation 401/403/400/409/5xx, lecture D4 réellement attestée, tentative streaming/fallback, mesures connues, effet DB D4 confirmé, trace expurgée consultable par ID et source SHA/lane ; résilience à la panne d'export ; tests COG/OBS/CI. **OUT :** métriques métier de D5–D9 non livrés, centre de supervision industriel, nouveau registre de vérité, écran Pilote de traces, middleware d'autorisation parallèle, changement de périmètre de HumanDecision.
+
+**Raccord aux chemins existants du candidat #655 :**
+
+1. `web/src/app/api/preparations/[preparationId]/{messages,documents,knowledge}` : classifier les exceptions et propagations d'ID ; ne plus retourner systématiquement `SESSION_INVALID` à chaque panne ; autres routes touchées selon blast radius réel.
+2. `web/src/domains/identity/session.ts` : distinguer invalidité de session et panne Better Auth/DB/provisionnement ; DEV adapter reste limité à DEV et ne masque pas une panne de production.
+3. `web/src/domains/conversation/{service.ts,nora-adapter.ts}` : lier opération et génération existante, instrumenter tentative réellement envoyée, éventuel second run et outils D4 ; conserver l'état partiel/inconnu et éviter les réponses fictives.
+4. `web/src/domains/knowledge/service.ts` et `web/src/domains/document/service.ts` : exposer références/version/retour d'accès et événements d'écriture **après** confirmation propriétaire ; préserver les transactions, locks, baseRevisionId, correlationKey, reconciliations C1–C6.
+5. `web/src/db/client.ts` et frontières services : mesurer disponibilité et durée sans écrire SQL brut ni ses paramètres ; ne pas intégrer une nouvelle DB de télémétrie par défaut.
+6. Instrumentation serveur Next et support d'exploitation RECETTE : vérifier compatibilité, protection, capture durable et requête par operation_id, diagnostic après redémarrage ; aucune route publique de consultation par défaut.
+7. CI / ENV-01 : un événement est identifié par SHA/build/lane réellement exécutés ; la CI Next doit exécuter les tests pertinents sur le nouveau SHA. La CI historique passée sur `08b89360` ne prouve pas les nouveaux chemins.
+
+**Pièges de fiabilité :** le `correlationKey` HTTP conversation est actuellement transmis au service mais seulement visible en création documentaire ; ne pas revendiquer un retry conversation idempotent avant sa propre preuve. Un ID d'opération est distinct de la vérité D4. Le SDK Agents JS peut exporter des contenus si les protections n'ont pas été appliquées ; la vérification précède les essais LIVE. En cas d'absence de trace, restituer la lacune sans inventer les états.
+
+**Exits avant entrée RECETTE ML2 :** (a) exemple d'opération complexe Nora avec outils D4 et chronologie consultable, (b) erreur DB qui renvoie une catégorie fidèle et un diagnostic, (c) deux tentatives fournisseur rattachées à une génération si fallback réel, (d) contrôle de secret synthétique, (e) consultation redémarrage/lane corrects, (f) non-régression C1–C6 et sécurité, (g) tests OBS-Q01..10 applicables au SHA et CI Next effectivement PASS. Aucune trace ne constitue un verdict de qualité cognitive R5 §14.
