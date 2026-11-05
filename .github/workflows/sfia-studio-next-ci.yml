@@ -184,6 +184,9 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           set -euo pipefail
+          # Readiness must prove the final TCP server accepts SQL.
+          # Do NOT treat socket-local pg_isready alone as definitive (official image
+          # may restart after init and terminate early connections).
           docker rm -f sfia-next-dev-pg >/dev/null 2>&1 || true
           docker run -d --name sfia-next-dev-pg \
             -e POSTGRES_USER=sfia_next_dev \
@@ -191,25 +194,64 @@ jobs:
             -e POSTGRES_DB=sfia_next_dev \
             -p 127.0.0.1:5433:5432 \
             postgres:16-alpine
+
+          psql_tcp() {
+            # TCP inside the container (not host socket). Failures return non-zero.
+            docker exec sfia-next-dev-pg \
+              psql -h 127.0.0.1 -p 5432 -U sfia_next_dev -d "$1" -v ON_ERROR_STOP=1 -tAc "$2"
+          }
+
+          echo "Waiting for PostgreSQL TCP SQL readiness (SELECT 1)…"
+          ready="false"
           for i in $(seq 1 60); do
-            if docker exec sfia-next-dev-pg pg_isready -U sfia_next_dev -d sfia_next_dev >/dev/null 2>&1; then
-              echo "postgres ready"
+            if out="$(psql_tcp sfia_next_dev 'SELECT 1' 2>/dev/null | tr -d '[:space:]')" && [ "${out}" = "1" ]; then
+              echo "postgres TCP SQL ready (attempt ${i}/60)"
+              ready="true"
               break
             fi
             sleep 1
-            if [ "$i" = "60" ]; then
-              echo "Postgres failed to become ready" >&2
-              docker logs sfia-next-dev-pg >&2 || true
-              exit 1
-            fi
           done
-          # Sibling E2E database — same identity check as scripts/e2e-web-server.sh
-          exists="$(docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -tAc \
-            "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" | tr -d '[:space:]')"
-          if [ "${exists}" != "1" ]; then
-            docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -v ON_ERROR_STOP=1 \
-              -c "CREATE DATABASE sfia_next_e2e OWNER sfia_next_dev;"
+          if [ "${ready}" != "true" ]; then
+            echo "Postgres TCP SQL readiness failed after 60s" >&2
+            docker logs sfia-next-dev-pg >&2 || true
+            exit 1
           fi
+
+          # Sibling E2E database — create only if absent; retry transient connection drops.
+          echo "Ensuring E2E database sfia_next_e2e…"
+          e2e_ok="false"
+          for i in $(seq 1 30); do
+            exists=""
+            if exists="$(psql_tcp postgres "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" 2>/dev/null | tr -d '[:space:]')"; then
+              if [ "${exists}" = "1" ]; then
+                e2e_ok="true"
+                break
+              fi
+              # Not present yet — attempt CREATE; ignore duplicate race, re-lookup next loop.
+              if psql_tcp postgres "CREATE DATABASE sfia_next_e2e OWNER sfia_next_dev;" >/dev/null 2>&1; then
+                :
+              fi
+              if exists="$(psql_tcp postgres "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" 2>/dev/null | tr -d '[:space:]')" && [ "${exists}" = "1" ]; then
+                e2e_ok="true"
+                break
+              fi
+            fi
+            sleep 1
+          done
+          if [ "${e2e_ok}" != "true" ]; then
+            echo "Failed to ensure E2E database sfia_next_e2e after retries" >&2
+            docker logs sfia-next-dev-pg >&2 || true
+            exit 1
+          fi
+
+          # Final proof: real SQL on both operator and E2E databases over TCP.
+          op="$(psql_tcp sfia_next_dev 'SELECT 1' | tr -d '[:space:]')"
+          e2e="$(psql_tcp sfia_next_e2e 'SELECT 1' | tr -d '[:space:]')"
+          if [ "${op}" != "1" ] || [ "${e2e}" != "1" ]; then
+            echo "Final TCP SQL proof failed (operator=${op:-empty} e2e=${e2e:-empty})" >&2
+            exit 1
+          fi
+          echo "PostgreSQL operator + E2E databases accept TCP SQL"
           docker port sfia-next-dev-pg 5432
 
       - name: Write CI .env.local (synthetic, non-secret lane)
