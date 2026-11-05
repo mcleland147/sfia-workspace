@@ -294,3 +294,26 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 **Option à soumettre à Morris :** intégrer avant RECETTE ML2 le socle cohérent de cognition mesurable si ses interfaces et ses tests peuvent être livrés sans fragiliser les invariants déjà démontrés. Sinon, inscrire par capacité l'écart explicite, son propriétaire, le risque, le prochain lot et l'exit avant d'accepter une RECETTE de portée limitée. Ni augmentation isolée de maxTurns, ni configuration Sol High, ni tracing SDK seul ne suffisent pour déclarer l'autonomie de Nora prouvée.
 
 **Gates inchangés :** contenu documentaire candidat → validation Morris → mandat technique distinct → code/tests/QA même lot → RECETTE au SHA figé → PR/merge/promotions séparés. Aucune réouverture automatique de R1–R4 ni adoption anticipée.
+
+## 9. Extension candidate de matrice — diagnostic transverse AUTH/API/DB/D1–D4 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / QA CANDIDATE — NOT EXECUTED.** Réf. [contrat transverse R4 §7](../../architecture-technique/contrat-observabilite-transverse.md), R1 §10, R2 [index §25](../../conception-fonctionnelle/README.md), R3 §41, R5 §16 et [ML2 spec §16](specification-technique.md). Ce chapitre complète la qualification Nora de §8, sans remplacer COG-01..07 ni les preuves C1–C6 acquises au candidat.
+
+| Scénario | Source/propriétaire | Attendu observable et niveau | Statut |
+| --- | --- | --- | --- |
+| **OBS-Q01** OAuth refusé | D1 RG-ACC-026..028 / PF-ACC-25 | Refus fournisseur/auth/session distingué, sans token ; INTEGRATION + LIVE ciblé | NOT RUN |
+| **OBS-Q02** DB indisponible sur API | D1 PF-ACC-26, D2 PF-CRE-30 | Catégorie DB/500–503 appropriée, pas faux SESSION_INVALID/401 ; INTEGRATION/HTTP | NOT RUN — KNOWN GAP |
+| **OBS-Q03** Lecture D4 interdite | D4 RG-KNOW-024 / PF-KNOW-18 | Refus tracé sans contenu interprojet ; DB/INTEGRATION | NOT RUN |
+| **OBS-Q04** 2 appels fournisseur sous 1 génération | D3 RG-CONV-013 / PF-42 | 1 intention, 2 tentatives rattachées, usage mesuré distinct ; DETERMINISTIC + LIVE | NOT RUN |
+| **OBS-Q05** Document sauvegardé / ACK perdu | D4 RG-KNOW-025 / PF-KNOW-19 ; D2 PF-CRE-29 | Transaction et réconciliation attestées, pas de doublon ; DB + BROWSER | SCÉNARIOS C3 EXISTANTS, corrélation transverse NOT RUN |
+| **OBS-Q06** Nora timeout/limite | D3 PF-39/PF-44 et §14 | Statut honnête, absence de COMPLETE fictif ; DETERMINISTIC + LIVE | NOT RUN |
+| **OBS-Q07** Trace/exporteur absent | D3 PF-44, contrat OBS-07 | Indisponibilité identifiable, aucune chronologie inventée ; INTEGRATION | NOT RUN |
+| **OBS-Q08** Requête lente | Frontière API/DB | Durée observée et composant identifié ; INTEGRATION | NOT RUN |
+| **OBS-Q09** Secret synthétique dans erreur | DATA-01 / sécurité D1-D4 | Aucun token/secret dans log, export ou UI ; DETERMINISTIC + INTEGRATION | NOT RUN |
+| **OBS-Q10** Lane/SHA incorrect | ENV-01 et R5 | Trace associée au build réellement servi ; INTEGRATION/BROWSER | NOT RUN |
+| **OBS-Q11** Git refus/rate limit | D9 §8 | REPORT au lot D9/ML4 — aucune capacité Git fausse en ML2 | NOT APPLICABLE ML2 |
+| **OBS-Q12** D7 dispatch sans ACK | D7 §10, D8 §10 | REPORT au lot propriétaire D7/D8 — aucun effet externe fictif en ML2 | NOT APPLICABLE ML2 |
+
+**Matrice d'acceptation :** chaque scénario retenu porte contexte, acteur, projet, lane, SHA/build/schema, identifiants corrélés, événements réellement récupérés et provenance, état DB/propriétaire, consommation lorsque mesurée, limite et verdict. Une analyse ChatGPT sur données observées peut challenger le chemin, mais elle ne constitue pas une preuve directe du runtime ou une chaîne de pensée.
+
+**Impact/priorité :** traiter OBS-Q02 et la corrélation AUTH/API/DB/D3/D4 comme écarts de conception à arbitrer **avant** de déclarer une capacité de diagnostic suffisante pour RECETTE. Les cases NOT RUN ne peuvent pas devenir PASS par publication de ce document. L'ajout à PR #655 nécessiterait un mandat technique explicitement borné, tests et re-recette sur SHA actualisé ; aucune promotion implicite.
