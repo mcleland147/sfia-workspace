@@ -3,16 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --bg: #0f1419;
-  --panel: #171d25;
-  --rail: #12171e;
-  --ink: #e8eef6;
-  --muted: #9aa7b8;
-  --accent: #3d8bfd;
-  --line: #2a3442;
-  --ok: #3ecf8e;
-  --warn: #e6b84d;
+  /* ML2 visual tokens aligned to Figma itgvCulInEnFY6DvgIegvP (conversation 03 / 94:214) */
+  --bg: #0a0e17;
+  --panel: #151c29;
+  --rail: #0d111b;
+  --ink: #f4f6fc;
+  --muted: #94a2bb;
+  --accent: #656fe1;
+  --accent-soft: #afa5ff;
+  --line: #313c51;
+  --ok: #a6dfbc;
+  --warn: #ebc789;
   --bad: #e35d6a;
+  --msg-nora: #1a2130;
+  --msg-pilot: #252d40;
 }
 
 html, body {
@@ -55,3 +59,43 @@ a:hover { text-decoration: underline; }
 .textarea { min-height: 96px; resize: vertical; }
 
 .muted { color: var(--muted); }
+
+.safe-md h1 { font-size: 1.25rem; font-weight: 700; margin: 0.6rem 0 0.35rem; }
+.safe-md h2 { font-size: 1.1rem; font-weight: 700; margin: 0.55rem 0 0.3rem; }
+.safe-md h3 { font-size: 1rem; font-weight: 600; margin: 0.45rem 0 0.25rem; }
+.safe-md p { margin: 0.35rem 0; color: var(--ink); }
+.safe-md ul, .safe-md ol { margin: 0.35rem 0 0.35rem 1.1rem; }
+.safe-md code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85em;
+  background: #0c1016;
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+}
+.safe-md pre {
+  background: #0c1016;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.75rem;
+  overflow: auto;
+  margin: 0.5rem 0;
+}
+.safe-md pre code { background: transparent; padding: 0; }
+.safe-md table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  font-size: 0.85rem;
+}
+.safe-md th, .safe-md td {
+  border: 1px solid var(--line);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+}
+.safe-md th { background: var(--msg-pilot); color: var(--muted); }
+.safe-md a { color: var(--accent-soft); }
+.safe-md hr { border: 0; border-top: 1px solid var(--line); margin: 0.75rem 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
