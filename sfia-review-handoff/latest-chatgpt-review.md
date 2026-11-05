@@ -1,1777 +1,762 @@
 # SFIA Studio Next — Review Pack FULL
-## Cycle: ML2 consolidation corrective C3/C4/C1
+## Cycle 7 — Intégration / DevOps — préparation intégration Git ML2 + instruction CI Next
 
-- Date/heure (Europe/Paris): 2026-11-05 04:32:40 CET
+- Date/heure (Europe/Paris): 2026-11-05 04:54:59 CET
 - Produit: `projects/sfia-studio-next/` exclusively
-- Type: correctif intégré, même macro-lot ML2 — NO RELEASE
-- Review Pack: FULL, nouveau mono-cycle (pas d'append du handoff précédent)
-- Livraison: NO RELEASE / pas de push branche projet / pas de PR
+- Typologie: EVOL / intégration de capacité existante
+- Review Pack: FULL, nouveau mono-cycle (réinitialisé; aucun append)
+- Livraison: NO RELEASE / pas de push branche projet / pas de PR / pas d'écriture `.github/workflows`
+- Handoff précédent tip: `64daed7fdf88c7a3da314ba77ba45896466b5e64`
 
 ## 1. Git Truth Check
 
-### Initial (avant écriture consolidation)
+### Initial / Final (même tip produit + commit docs cycle 7)
 - remote: `origin https://github.com/mcleland147/sfia-workspace.git`
 - branch: `sfia/next-ml2-production-capitalisation`
-- HEAD initial: `5c7dd7528ff859c9717db865c74d45930dff4219`
-- origin/main: `6e4406c63639330c7826423cdcf08f06ff019eed`
-- merge-base = origin/main (conforme)
-- Quatre commits ML2 présents: `d867365f`, `733eddf0`, `a9a468e9`, `5c7dd752`
-- Résidus préservés: `.tmp-sfia-review/`, `web/public/*.svg` (non stagés)
-- Worktrees autres lots présents; aucune modification concurrente ML2 observée
-
-### Final
-- branch: `sfia/next-ml2-production-capitalisation`
-- HEAD final: `1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01`
-- origin/main: `6e4406c63639330c7826423cdcf08f06ff019eed`
-- Nouveau commit consolidation: `1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01`
-- Commits locaux ML2 (origin/main..HEAD):
+- HEAD produit ML2 (code+correctifs): `1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01`
+- HEAD final cycle 7 (docs delivery-history): `f937477026d25812db000af4d16ab48bd22e9e47`
+- origin/main: `6e4406c63639330c7826423cdcf08f06ff019eed` (inchangé; merge-base = origin/main)
+- staged: vide
+- worktrees autres lots: présents; aucune écriture concurrente sur la branche ML2 observée
+- Continuité parents (linéaire):
 ```
+f9374770 1967b2c5 docs(next-ml2): record Cycle 7 integration-prep and CI proposal status
+1967b2c5 5c7dd752 fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
+5c7dd752 a9a468e9 fix(next-ml2): harden D4 integrity, document concurrency and capitalisation
+a9a468e9 733eddf0 test(next-ml2): PG/BROWSER proofs and As-Built delivery notes
+733eddf0 d867365f feat(next-ml2): UX surfaces and APIs for documents, journal, markdown
+d867365f 6e4406c6 feat(next-ml2): D4 knowledge registry and document revision contracts
+```
+- Commits origin/main..HEAD:
+```
+f9374770 docs(next-ml2): record Cycle 7 integration-prep and CI proposal status
 1967b2c5 fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
 5c7dd752 fix(next-ml2): harden D4 integrity, document concurrency and capitalisation
 a9a468e9 test(next-ml2): PG/BROWSER proofs and As-Built delivery notes
 733eddf0 feat(next-ml2): UX surfaces and APIs for documents, journal, markdown
 d867365f feat(next-ml2): D4 knowledge registry and document revision contracts
 ```
-- Working tree hors pack: uniquement `.tmp-sfia-review/chatgpt-review.md` (ce pack) + `web/public/*.svg` résidus non qualifiés
+- Cinq commits produit attendus **présents et continus**: `d867365f` → `733eddf0` → `a9a468e9` → `5c7dd752` → `1967b2c5`
+- Commit docs cycle 7 ajouté: `f9374770` (delivery-history uniquement)
+- Branche projet distante: **NON PUBLIÉE**
 
-## 2. Sources Git / décisions applicables
+## 2. Baseline / sources
 
-- Méthode SFIA v2.6: cycle-routing-guide, execution-template, rules-and-guardrails (lus)
-- Gouvernance Next: SEF, roadmap, R4 exit, naming, ENV-01, product-versioning
-- Vision/contrats: vision-produit, conduite Nora, connaissance sujets, cadrage-r4
-- ML2 v0.6 VALIDATED SPEC: specification-technique + matrice + reference-delivery-r5 — **non modifié en contrat produit**
-- Handoff précédent (cycle correctif): tip `0bbd7ccbf44771ba2d7c12e4feb70c27f6ee9a51` blob `6edc4742da2c034c6df9bdc88463c85ffa6d0d59`
-- Verdict ChatGPT précédent: `READY FOR MORRIS REVIEW — CORRECTIONS SUBSTANTIELLES / INTÉGRITÉ NON ENTIÈREMENT LEVÉE`
+- Méthode SFIA v2.6 + gouvernance Next + ML2 VALIDATED SPEC v0.6 + delivery-history lus
+- Workflows distants existants: `sfia-studio-ci.yml` (ancien Studio), `interv360-ci.yml` — **aucun ne valide** `projects/sfia-studio-next/web/`
+- Contrat D3/D4: inchangé en autorité; pas de multi-chat; pas de HumanDecision implicite
+- `db-migrate.sh` sur main: 001→002 seulement; sur branche ML2: **001→004** (adaptation déjà dans le candidat)
 
-## 3. Défauts reproduits (avant correctif consolidation)
-
-| Id | Défaut | Preuve avant |
-| --- | --- | --- |
-| C3-A | Après conflit d'unicité concurrent, chemin race pouvait retourner la révision gagnante **sans** vérifier fingerprint | Lecture code `savePreparationDocument` catch/race ; oracle: même clé + payload incompatible doit CONFLICT |
-| C3-B | `saveDoc()` générait `Date.now()` à chaque appel → retry après ACK perdu = nouvelle clé | Lecture `page.tsx` |
-| C4 | LCS correct mais matrice O(n·m) non bornée pour docs jusqu'à 100k chars / nombreuses lignes | Lecture `diffMarkdown` ; adversarial cells > mémoire |
-| C1 | Rollback testait status/affectations mais **pas** journal `knowledge_subject_events` ; concurrence même Acquis non assertée finement | Lecture test rollback |
-
-## 4. Correctifs — conception
-
-### C3-A — fingerprint tous chemins
-- Helper unique `reconcilePriorRevision` : compare empreinte stockée vs demandée
-- Appelé: lookup pré-création, race insert document, lookup révision, re-check TX, catch unicité
-- `waitForRevisionByCorrelation` borné (8×25ms) puis `UNKNOWN/CREATION_IN_FLIGHT` si révision absente — **jamais AVAILABLE inventé**
-- Même clé + même payload → AVAILABLE/idempotentReplay ; incompatible → `CONFLICT/CORRELATION_PAYLOAD_MISMATCH`
-- Isolation owner+preparation conservée sur toutes les recherches
-
-### C3-B — clé UI stable
-- État `createDocIntent` / `reviseIntent` + **refs** synchrones (anti double-clic avant commit React)
-- Clé générée une fois (`crypto.randomUUID`) ; conservée sur FAILED/UNKNOWN/réseau
-- Payload snapshot figé ; modification texte pendant intention → CONFLICT UI (pas de nouvelle clé auto)
-- Après AVAILABLE confirmé → intention effacée ; bouton « Nouvelle intention de création » explicite
-- Statut visible sur surface Document (`data-testid=surface-status`)
-
-### C4 — budget diff
-- `MAX_DIFF_CELLS = 2_000_000`
-- Si `(n+1)*(m+1) > budget` → `{ degraded:true, reason:DIFF_BUDGET_EXCEEDED, ops:[] }`
-- API compare → status `DEGRADED` + note explicite ; UI n'affiche pas un faux diff détaillé
-
-### C1 — preuves journal / concurrence
-- Rollback merge: 0 nouvel événement MERGED/SPLIT ; acquis/OP inchangés
-- Deux splits même Acquis: exactement 1 AVAILABLE + 1 FAILED/CONFLICT ; 1 événement SPLIT ; une affectation
-- Split+merge overlap: sérialisation ou double succès cohérent (acquis unique)
-- Aucun nouveau mécanisme de lock ajouté (FOR UPDATE existant conservé)
-
-## 5. Tests avant / après
-
-| Suite | Baseline handoff précédent | Après consolidation |
-| --- | --- | --- |
-| Vitest unit | 31 PASS | **34 PASS** |
-| Vitest PG integration | 45 PASS | **50 PASS** |
-| Playwright BROWSER FAKE | 2 PASS | **3 PASS** (ml1 + ml2 smoke + ml2-c3-stable-key) |
-| tsc --noEmit | PASS | PASS |
-| next lint | PASS | PASS |
-| next build | PASS | PASS |
-
-### Matrice corrective (statuts)
-
-| Scénario | Niveau | Résultat |
-| --- | --- | --- |
-| C3 même clé, même payload concurrent | PG | **PASS** DETERMINISTIC+PG |
-| C3 même clé, payload incompatible concurrent | PG | **PASS** PG |
-| C3 ACK perdu / retry | PG + BROWSER | **PASS** PG + BROWSER FAKE |
-| C3 clé stable entre retries UI | BROWSER | **PASS** BROWSER FAKE |
-| C3 cross-project / foreign pilot | PG | **PASS** PG |
-| C4 grande volumétrie / adversarial | UNIT | **PASS** DETERMINISTIC (DEGRADED) |
-| C4 occurrences répétées | UNIT | **PASS** DETERMINISTIC |
-| C1 rollback du journal | PG | **PASS** PG/REAL DB |
-| C1 même Acquis concurrent | PG | **PASS** PG |
-| Non-régression C2 | PG | **PASS** PG |
-| Non-régression C5 | UNIT+PG | **PASS** |
-| ML1 sas→projet | BROWSER FAKE | **PASS** |
-| LIVE Nora / COG panel | LIVE | **NOT RUN** |
-| CI Next gate | CI | **ABSENT** (hors périmètre) |
-
-## 6. Fichiers créés / modifiés (commit `1967b2c5`)
+## 3. Inventaire Git Review Index
 
 ```
-commit 1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01
-Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 04:31:52 2026 +0100
+M	projects/sfia-studio-next/construction/delivery-history.md
+A	projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/contrat-visuel-figma-ml2.md
+M	projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
+M	projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
+M	projects/sfia-studio-next/web/scripts/db-migrate.sh
+A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/route.ts
+A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/knowledge/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
+M	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+M	projects/sfia-studio-next/web/src/app/globals.css
+M	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+A	projects/sfia-studio-next/web/src/components/SafeMarkdown.tsx
+A	projects/sfia-studio-next/web/src/db/migrations/003_ml2_knowledge_documents.sql
+A	projects/sfia-studio-next/web/src/db/migrations/004_ml2_integrity_corrective.sql
+M	projects/sfia-studio-next/web/src/db/schema.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
+M	projects/sfia-studio-next/web/src/domains/document/service.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+M	projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/ml2-c3-stable-key.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/ml2-smoke.spec.ts
+M	projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
+M	projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/ml2-corrective-integrity.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+A	projects/sfia-studio-next/web/tests/unit/diff-ordered.test.ts
+A	projects/sfia-studio-next/web/tests/unit/ml2-cognition-fixture.test.ts
+A	projects/sfia-studio-next/web/tests/unit/safe-markdown.test.ts
+```
 
-    fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
-
-    Close residual integrity gaps from ChatGPT review: fingerprint on every
-    correlation reconcile path, stable UI creation intents across retries,
-    bounded DEGRADED diff, and PG assertions on subject events under rollback
-    and same-acquis concurrency. Local only — no project push.
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
- .../construction/delivery-history.md               |  18 ++
- .../matrice-tracabilite.md                         |  15 +
- .../specification-technique.md                     |  23 ++
- .../src/app/preparations/[preparationId]/page.tsx  | 298 +++++++++++++----
- .../web/src/domains/document/service.ts            | 352 +++++++++++++--------
- .../web/tests/e2e/ml1-smoke.spec.ts                |   4 +-
- .../web/tests/e2e/ml2-c3-stable-key.spec.ts        |  71 +++++
+### Diffstat
+```
+.../construction/delivery-history.md               |  72 ++
+ .../contrat-visuel-figma-ml2.md                    |  28 +
+ .../matrice-tracabilite.md                         |  45 ++
+ .../specification-technique.md                     |  98 +++
+ .../sfia-studio-next/web/scripts/db-migrate.sh     |   4 +-
+ .../documents/[documentId]/route.ts                |  86 +++
+ .../[preparationId]/documents/route.ts             |  12 +-
+ .../[preparationId]/knowledge/route.ts             |  65 ++
+ .../preparations/[preparationId]/messages/route.ts |  11 +-
+ .../app/api/preparations/[preparationId]/route.ts  |   4 +-
+ .../web/src/app/api/projects/[projectId]/route.ts  |   1 +
+ projects/sfia-studio-next/web/src/app/globals.css  |  62 +-
+ .../src/app/preparations/[preparationId]/page.tsx  | 716 +++++++++++++++++--
+ .../web/src/app/projects/[projectId]/page.tsx      | 239 ++++++-
+ .../web/src/components/SafeMarkdown.tsx            | 149 ++++
+ .../db/migrations/003_ml2_knowledge_documents.sql  |  75 ++
+ .../db/migrations/004_ml2_integrity_corrective.sql |  15 +
+ projects/sfia-studio-next/web/src/db/schema.ts     |  93 ++-
+ .../web/src/domains/conversation/nora-adapter.ts   | 227 ++++--
+ .../web/src/domains/conversation/service.ts        | 117 ++-
+ .../web/src/domains/document/service.ts            | 740 +++++++++++++++++--
+ .../web/src/domains/knowledge/service.ts           | 792 +++++++++++++++++++++
+ .../web/src/domains/preparation/project-context.ts |   3 +
+ .../web/tests/e2e/ml1-smoke.spec.ts                |  11 +-
+ .../web/tests/e2e/ml2-c3-stable-key.spec.ts        |  71 ++
+ .../web/tests/e2e/ml2-smoke.spec.ts                |  78 ++
  .../tests/integration/create-project.pg.test.ts    |   2 +-
- .../ml2-corrective-integrity.pg.test.ts            | 311 ++++++++++++++++--
- .../web/tests/unit/diff-ordered.test.ts            |  41 ++-
- 10 files changed, 924 insertions(+), 211 deletions(-)
+ .../tests/integration/migrations-fresh.pg.test.ts  |  33 +-
+ .../ml2-corrective-integrity.pg.test.ts            | 614 ++++++++++++++++
+ .../integration/ml2-knowledge-documents.pg.test.ts | 217 ++++++
+ .../web/tests/unit/diff-ordered.test.ts            |  77 ++
+ .../web/tests/unit/ml2-cognition-fixture.test.ts   |  40 ++
+ .../web/tests/unit/safe-markdown.test.ts           |  21 +
+ 33 files changed, 4574 insertions(+), 244 deletions(-)
 ```
 
-Créé: `web/tests/e2e/ml2-c3-stable-key.spec.ts`
-Modifiés: document/service.ts, preparations page, tests unit/PG/e2e, As-Built spec/matrice, delivery-history
-Non touchés: method/**, prompts/**, .github/workflows/**, SEF/ADR, Figma, main
-Migration: aucune nouvelle
+### Matrice fichier → responsabilité → changement → test → risque → verdict
 
-## 7. Diffs exploitables — document/service.ts
+| Fichier / zone | Responsabilité | Changement | Test | Risque | Verdict |
+| --- | --- | --- | --- | --- | --- |
+| `domains/knowledge/service.ts` | D4 Sujets/Acquis | Nouveau registre + TX/FOR UPDATE | PG C1 | Concurrence | INCLUDE |
+| `domains/document/service.ts` | D4 documents | Création/révision/diff/idempotence | PG C2–C4 + UNIT | Intégrité | INCLUDE |
+| `domains/conversation/*` | D3 Nora | Adapter + capitalisation prudente | UNIT+PG C5 + BROWSER | Fixture vs LIVE | INCLUDE |
+| `app/preparations/.../page.tsx` | UX sas | Surfaces + clé UI stable | BROWSER | UX minimale | INCLUDE |
+| `app/projects/.../page.tsx` | UX projet | Reprise fil/journal | BROWSER ML2 | Continuity | INCLUDE |
+| APIs documents/knowledge/messages | HTTP | Routes ML2 | PG+BROWSER | Auth owner | INCLUDE |
+| `SafeMarkdown.tsx` | Rendu | Markdown sûr | UNIT | XSS | INCLUDE |
+| migrations `003`/`004` | Schéma | Additif knowledge/docs + corr | migrations-fresh PG | Compat ML1 | INCLUDE |
+| `scripts/db-migrate.sh` | Ops | 001→004 | migrate local | Main n'avait que 001–002 | INCLUDE |
+| tests unit/PG/e2e | QA | Suites ML2 + corrective | self | — | INCLUDE |
+| construction As-Built/* | Docs | Spec/matrice/delivery | revue | — | INCLUDE |
+| `contrat-visuel-figma-ml2.md` | Docs UX | Contrat visuel | doc | Fidelity NOT PROVEN | INCLUDE doc |
+| `.github/workflows/**` | CI | **aucun changement candidat** | — | — | OUT OF SCOPE cycle |
+| `web/public/*.svg` (5) | Résidus | create-next-app defaults, untracked, **0 refs app** | — | Bruit PR | **EXCLUDE — ne pas committer** |
+| `.tmp-sfia-review/` | Artefacts revue | Pack + CI proposal | — | Non produit | EXCLUDE du candidat Git |
+| `method/**` `prompts/**` ancien Studio | Protégé | non touché | — | — | CLEAN |
 
-```diff
-commit 1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01
-Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 04:31:52 2026 +0100
+### Résidus SVG — qualification
 
-    fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
+| Fichier | Taille | SHA256 (16) | Origine | Usage app | Statut |
+| --- | --- | --- | --- | --- | --- |
+| file.svg | 391 | 2b67812c325c199a | create-next-app default | aucune ref | untracked → EXCLUDE |
+| globe.svg | 1035 | b614b9bf18392595 | idem | aucune ref | EXCLUDE |
+| next.svg | 1375 | 55995dfad6ecb494 | idem | aucune ref | EXCLUDE |
+| vercel.svg | 128 | f081337b2fee635b | idem | aucune ref | EXCLUDE |
+| window.svg | 385 | 644768c4aaeb4767 | idem | aucune ref | EXCLUDE |
 
-    Close residual integrity gaps from ChatGPT review: fingerprint on every
-    correlation reconcile path, stable UI creation intents across retries,
-    bounded DEGRADED diff, and PG assertions on subject events under rollback
-    and same-acquis concurrency. Local only — no project push.
+Décision technique Cursor: **ne pas ajouter** au candidat; signaler à Morris; ne pas supprimer sans GO (préservés sur disque).
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
+## 4. Compatibilité main / ML1
 
-diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
-index d5dc8c91..9e866a70 100644
---- a/projects/sfia-studio-next/web/src/domains/document/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
-@@ -6,6 +6,10 @@ import { getPreparationContext } from "@/domains/preparation/service";
- import { createHash } from "node:crypto";
+- `git merge-tree` prospective main←HEAD: **aucun marqueur de conflit**
+- main n'a pas avancé depuis la base `6e4406c6` (blast radius retest: N/A)
+- Socle ML1 conservé (auth, préparation, create-project, fil unique)
+- Migrations additive 003/004; `migrations-fresh.pg` PASS
+- Aucun chemin `projects/sfia-studio/` dans le diff
+- Secret scan borné sur diff Next: **clean**
+- `git diff --check origin/main...HEAD`: clean (cycle précédent + docs)
+- package.json version technique: `0.0.0-dev`; engines node `>=20`; local Node **v24.16.0**
+- package-lock: **non modifié** dans ce diff ML2 vs main (dépendances déjà sur main snapshot Next)
 
- const MAX_DOC_CHARS = 100_000;
-+/** Max LCS cells (n+1)*(m+1). Beyond this, comparison degrades explicitly. */
-+export const MAX_DIFF_CELLS = 2_000_000;
-+const IN_FLIGHT_POLL_MS = 25;
-+const IN_FLIGHT_POLL_ATTEMPTS = 8;
+## 5. Validations locales rejouées (ce cycle)
 
- function contentFingerprint(title: string, contentMarkdown: string): string {
-   return createHash("sha256")
-@@ -15,6 +19,91 @@ function contentFingerprint(title: string, contentMarkdown: string): string {
-     .digest("hex");
- }
+| Contrôle | Résultat | Niveau |
+| --- | --- | --- |
+| `npx tsc --noEmit` | PASS | DETERMINISTIC |
+| `npm run lint` | PASS | DETERMINISTIC |
+| `npm run build` | PASS | DETERMINISTIC |
+| `npm run test:unit` | **34 PASS** | DETERMINISTIC |
+| `npm run test:integration` | **50 PASS** | PG INTEGRATION |
+| `npm run test:e2e` | **3 PASS** | BROWSER FAKE |
+| CI GitHub Actions Next | **NOT RUN** | CI PROPOSAL only |
+| Nora LIVE / COG | NOT RUN | hors portée |
 
-+function readStoredFingerprint(
-+  provenanceJson: string,
-+  title: string,
-+  contentMarkdown: string,
-+): string {
-+  try {
-+    const parsed = JSON.parse(provenanceJson) as { contentFingerprint?: string };
-+    if (typeof parsed.contentFingerprint === "string" && parsed.contentFingerprint.length > 0) {
-+      return parsed.contentFingerprint;
-+    }
-+  } catch {
-+    // fall through — derive from stored body
-+  }
-+  return contentFingerprint(title, contentMarkdown);
-+}
-+
-+type ReconcileOk = {
-+  status: "AVAILABLE" | "SAVING" | "UNKNOWN";
-+  documentId: string;
-+  revisionId: string;
-+  revisionNumber: number;
-+  idempotentReplay: true;
-+};
-+
-+type ReconcileFailedPrior = {
-+  status: "FAILED";
-+  reason: "PRIOR_REVISION_FAILED";
-+  documentId: string;
-+  revisionId: string;
-+  revisionNumber: number;
-+  idempotentReplay: true;
-+};
-+
-+type ReconcileConflict = {
-+  status: "CONFLICT";
-+  reason: "CORRELATION_PAYLOAD_MISMATCH";
-+  documentId: string;
-+  revisionId: string;
-+  revisionNumber: number;
-+};
-+
-+/** Same fingerprint rule for every reconcile path (nominal, race, catch, TX). */
-+function reconcilePriorRevision(args: {
-+  prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
-+  documentId: string;
-+  documentTitle: string;
-+  expectedFp: string;
-+}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict {
-+  const storedFp = readStoredFingerprint(
-+    args.prior.provenanceJson,
-+    args.documentTitle,
-+    args.prior.contentMarkdown,
-+  );
-+  if (storedFp !== args.expectedFp) {
-+    return {
-+      status: "CONFLICT",
-+      reason: "CORRELATION_PAYLOAD_MISMATCH",
-+      documentId: args.documentId,
-+      revisionId: args.prior.id,
-+      revisionNumber: args.prior.revisionNumber,
-+    };
-+  }
-+  if (args.prior.status === "FAILED") {
-+    return {
-+      status: "FAILED",
-+      reason: "PRIOR_REVISION_FAILED",
-+      documentId: args.documentId,
-+      revisionId: args.prior.id,
-+      revisionNumber: args.prior.revisionNumber,
-+      idempotentReplay: true,
-+    };
-+  }
-+  const status =
-+    args.prior.status === "SAVING" || args.prior.status === "UNKNOWN"
-+      ? args.prior.status
-+      : "AVAILABLE";
-+  return {
-+    status,
-+    documentId: args.documentId,
-+    revisionId: args.prior.id,
-+    revisionNumber: args.prior.revisionNumber,
-+    idempotentReplay: true,
-+  };
-+}
-+
- async function findByCreationCorrelation(
-   pilotId: string,
-   preparationId: string,
-@@ -35,6 +124,30 @@ async function findByCreationCorrelation(
-   )[0];
- }
-
-+async function findRevisionByCorrelation(documentId: string, correlationKey: string) {
-+  return (
-+    await db
-+      .select()
-+      .from(documentRevisions)
-+      .where(
-+        and(
-+          eq(documentRevisions.documentId, documentId),
-+          eq(documentRevisions.correlationKey, correlationKey),
-+        ),
-+      )
-+      .limit(1)
-+  )[0];
-+}
-+
-+async function waitForRevisionByCorrelation(documentId: string, correlationKey: string) {
-+  for (let i = 0; i < IN_FLIGHT_POLL_ATTEMPTS; i++) {
-+    const rev = await findRevisionByCorrelation(documentId, correlationKey);
-+    if (rev) return rev;
-+    await new Promise((r) => setTimeout(r, IN_FLIGHT_POLL_MS));
-+  }
-+  return null;
-+}
-+
- async function latestRevisionFor(documentId: string) {
-   return (
-     await db
-@@ -77,49 +190,28 @@ export async function savePreparationDocument(
-       opts.correlationKey,
-     );
-     if (existingDoc) {
--      const priorRev = (
--        await db
--          .select()
--          .from(documentRevisions)
--          .where(
--            and(
--              eq(documentRevisions.documentId, existingDoc.id),
--              eq(documentRevisions.correlationKey, opts.correlationKey),
--            ),
--          )
--          .limit(1)
--      )[0];
-+      const priorRev =
-+        (await findRevisionByCorrelation(existingDoc.id, opts.correlationKey)) ??
-+        (await waitForRevisionByCorrelation(existingDoc.id, opts.correlationKey));
-       if (priorRev) {
--        const priorFp = (() => {
--          try {
--            return JSON.parse(priorRev.provenanceJson)?.contentFingerprint as string | undefined;
--          } catch {
--            return undefined;
--          }
--        })();
--        if (priorFp && priorFp !== fp) {
--          return {
--            status: "CONFLICT" as const,
--            reason: "CORRELATION_PAYLOAD_MISMATCH",
--            documentId: existingDoc.id,
--            revisionId: priorRev.id,
--            revisionNumber: priorRev.revisionNumber,
--          };
--        }
--        return {
--          status: priorRev.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-+        return reconcilePriorRevision({
-+          prior: priorRev,
-           documentId: existingDoc.id,
--          revisionId: priorRev.id,
--          revisionNumber: priorRev.revisionNumber,
--          idempotentReplay: true as const,
--        };
-+          documentTitle: existingDoc.title,
-+          expectedFp: fp,
-+        });
-       }
--      // Document exists for this creation key but revision missing — continue to create revision on that doc
--      documentId = existingDoc.id;
-+      // Document row exists but revision still absent after bounded wait
-+      return {
-+        status: "UNKNOWN" as const,
-+        reason: "CREATION_IN_FLIGHT",
-+        documentId: existingDoc.id,
-+      };
-     }
-   }
-
-   let docId = documentId;
-+  let ownedTitle = titleFinal;
-   if (!docId) {
-     docId = newId("doc");
-     try {
-@@ -132,7 +224,7 @@ export async function savePreparationDocument(
-         creationCorrelationKey: opts?.correlationKey ?? null,
-       });
-     } catch (e) {
--      // Concurrent create with same correlation key — reconcile
-+      // Concurrent create with same correlation key — reconcile WITH fingerprint
-       if (opts?.correlationKey) {
-         const raced = await findByCreationCorrelation(
-           pilotId,
-@@ -140,40 +232,32 @@ export async function savePreparationDocument(
-           opts.correlationKey,
-         );
-         if (raced) {
--          const priorRev = (
--            await db
--              .select()
--              .from(documentRevisions)
--              .where(
--                and(
--                  eq(documentRevisions.documentId, raced.id),
--                  eq(documentRevisions.correlationKey, opts.correlationKey),
--                ),
--              )
--              .limit(1)
--          )[0];
-+          const priorRev =
-+            (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
-+            (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
-           if (priorRev) {
--            return {
--              status: priorRev.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-+            return reconcilePriorRevision({
-+              prior: priorRev,
-               documentId: raced.id,
--              revisionId: priorRev.id,
--              revisionNumber: priorRev.revisionNumber,
--              idempotentReplay: true as const,
--            };
-+              documentTitle: raced.title,
-+              expectedFp: fp,
-+            });
-           }
--          docId = raced.id;
--        } else {
-           return {
--            status: "FAILED" as const,
--            reason: e instanceof Error ? e.message : "document create failed",
-+            status: "UNKNOWN" as const,
-+            reason: "CREATION_IN_FLIGHT",
-+            documentId: raced.id,
-           };
-         }
--      } else {
-         return {
-           status: "FAILED" as const,
-           reason: e instanceof Error ? e.message : "document create failed",
-         };
-       }
-+      return {
-+        status: "FAILED" as const,
-+        reason: e instanceof Error ? e.message : "document create failed",
-+      };
-     }
-   } else {
-     const owned = (
-@@ -190,46 +274,19 @@ export async function savePreparationDocument(
-         .limit(1)
-     )[0];
-     if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
-+    ownedTitle = owned.title;
-   }
-
-   // Revision-level idempotence for known document
-   if (opts?.correlationKey) {
--    const prior = (
--      await db
--        .select()
--        .from(documentRevisions)
--        .where(
--          and(
--            eq(documentRevisions.documentId, docId),
--            eq(documentRevisions.correlationKey, opts.correlationKey),
--          ),
--        )
--        .limit(1)
--    )[0];
-+    const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
-     if (prior) {
--      const priorFp = (() => {
--        try {
--          return JSON.parse(prior.provenanceJson)?.contentFingerprint as string | undefined;
--        } catch {
--          return undefined;
--        }
--      })();
--      if (priorFp && priorFp !== fp) {
--        return {
--          status: "CONFLICT" as const,
--          reason: "CORRELATION_PAYLOAD_MISMATCH",
--          documentId: docId,
--          revisionId: prior.id,
--          revisionNumber: prior.revisionNumber,
--        };
--      }
--      return {
--        status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-+      return reconcilePriorRevision({
-+        prior,
-         documentId: docId,
--        revisionId: prior.id,
--        revisionNumber: prior.revisionNumber,
--        idempotentReplay: true as const,
--      };
-+        documentTitle: ownedTitle,
-+        expectedFp: fp,
-+      });
-     }
-   }
-
-@@ -253,13 +310,12 @@ export async function savePreparationDocument(
-             .limit(1)
-         )[0];
-         if (prior) {
--          return {
--            status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-+          return reconcilePriorRevision({
-+            prior,
-             documentId: docId!,
--            revisionId: prior.id,
--            revisionNumber: prior.revisionNumber,
--            idempotentReplay: true as const,
--          };
-+            documentTitle: ownedTitle,
-+            expectedFp: fp,
-+          });
-         }
-       }
-
-@@ -316,29 +372,24 @@ export async function savePreparationDocument(
-       };
-     });
-   } catch (e) {
--    // Unique violation on correlation → reconcile
-+    // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
-     if (opts?.correlationKey) {
--      const prior = (
--        await db
--          .select()
--          .from(documentRevisions)
--          .where(
--            and(
--              eq(documentRevisions.documentId, docId),
--              eq(documentRevisions.correlationKey, opts.correlationKey),
--            ),
--          )
--          .limit(1)
--      )[0];
-+      const prior =
-+        (await findRevisionByCorrelation(docId, opts.correlationKey)) ??
-+        (await waitForRevisionByCorrelation(docId, opts.correlationKey));
-       if (prior) {
--        return {
--          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-+        return reconcilePriorRevision({
-+          prior,
-           documentId: docId,
--          revisionId: prior.id,
--          revisionNumber: prior.revisionNumber,
--          idempotentReplay: true as const,
--        };
-+          documentTitle: ownedTitle,
-+          expectedFp: fp,
-+        });
-       }
-+      return {
-+        status: "UNKNOWN" as const,
-+        reason: "CREATION_IN_FLIGHT",
-+        documentId: docId,
-+      };
-     }
-     return {
-       status: "FAILED" as const,
-@@ -565,24 +616,39 @@ export async function getDocumentRevision(
-   return { status: "AVAILABLE" as const, document: list.document, revision: rev };
- }
-
--/**
-- * Ordered Myers-style line diff via LCS — preserves duplicate lines and order.
-- * Not an AI summary; does not mutate versions.
-- */
--export function diffMarkdown(
--  a: string,
--  b: string,
--): {
-+export type DiffResult = {
-   added: string[];
-   removed: string[];
-   unchangedCount: number;
-   ops: Array<{ op: "equal" | "add" | "remove"; line: string }>;
--} {
-+  degraded?: boolean;
-+  reason?: string;
-+  lineCounts?: { left: number; right: number; cells: number; budget: number };
-+};
-+
-+/**
-+ * Ordered LCS line diff — preserves duplicates and order.
-+ * Budget: refuses exhaustive matrix when (n+1)*(m+1) > MAX_DIFF_CELLS.
-+ * Degraded result is explicit — never presented as a successful detailed diff.
-+ */
-+export function diffMarkdown(a: string, b: string): DiffResult {
-   const la = a.split("\n");
-   const lb = b.split("\n");
-   const n = la.length;
-   const m = lb.length;
--  // LCS lengths
-+  const cells = (n + 1) * (m + 1);
-+  if (cells > MAX_DIFF_CELLS) {
-+    return {
-+      added: [],
-+      removed: [],
-+      unchangedCount: 0,
-+      ops: [],
-+      degraded: true,
-+      reason: "DIFF_BUDGET_EXCEEDED",
-+      lineCounts: { left: n, right: m, cells, budget: MAX_DIFF_CELLS },
-+    };
-+  }
-+  // LCS lengths — allocated only under budget
-   const dp: number[][] = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
-   for (let i = n - 1; i >= 0; i--) {
-     for (let j = m - 1; j >= 0; j--) {
-@@ -622,7 +688,14 @@ export function diffMarkdown(
-     added.push(lb[j]);
-     j++;
-   }
--  return { added, removed, unchangedCount, ops };
-+  return {
-+    added,
-+    removed,
-+    unchangedCount,
-+    ops,
-+    degraded: false,
-+    lineCounts: { left: n, right: m, cells, budget: MAX_DIFF_CELLS },
-+  };
- }
-
- export async function compareDocumentRevisions(
-@@ -638,6 +711,25 @@ export async function compareDocumentRevisions(
-     return { status: "FAILED" as const, reason: "revision not available" };
-   }
-   const diff = diffMarkdown(left.revision.contentMarkdown, right.revision.contentMarkdown);
-+  if (diff.degraded) {
-+    return {
-+      status: "DEGRADED" as const,
-+      reason: diff.reason ?? "DIFF_BUDGET_EXCEEDED",
-+      documentId,
-+      left: {
-+        id: left.revision.id,
-+        revisionNumber: left.revision.revisionNumber,
-+        status: left.revision.status,
-+      },
-+      right: {
-+        id: right.revision.id,
-+        revisionNumber: right.revision.revisionNumber,
-+        status: right.revision.status,
-+      },
-+      diff,
-+      note: "Comparaison détaillée impossible sous la limite de calcul — pas un diff exhaustif.",
-+    };
-+  }
-   return {
-     status: "AVAILABLE" as const,
-     documentId,
+### Extraots logs
+<details><summary>unit tail</summary>
 
 ```
+.0.0-dev test:unit
+> vitest run tests/unit
 
-## 8. Diffs exploitables — preparations page (C3-B)
+◇ injected env (1) from .env.local
 
-```diff
-commit 1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01
-Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 04:31:52 2026 +0100
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
 
-    fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
+ ✓ tests/unit/diff-ordered.test.ts (8 tests) 4ms
+ ✓ tests/unit/next-dist-dir.test.ts (2 tests) 3ms
+ ✓ tests/unit/e2e-pg-gate.test.ts (4 tests) 2ms
+ ✓ tests/unit/nora-e2e-fixture.test.ts (7 tests) 2ms
+ ✓ tests/unit/dev-login-host.test.ts (6 tests) 1ms
+ ✓ tests/unit/ml2-cognition-fixture.test.ts (2 tests) 1ms
+ ✓ tests/unit/fingerprint.test.ts (2 tests) 1ms
+ ✓ tests/unit/safe-markdown.test.ts (2 tests) 1ms
+ ✓ tests/unit/non-effects.test.ts (1 test) 1ms
 
-    Close residual integrity gaps from ChatGPT review: fingerprint on every
-    correlation reconcile path, stable UI creation intents across retries,
-    bounded DEGRADED diff, and PG assertions on subject events under rollback
-    and same-acquis concurrency. Local only — no project push.
+ Test Files  9 passed (9)
+      Tests  34 passed (34)
+   Start at  04:52:26
+   Duration  1.54s (transform 73ms, setup 0ms, collect 769ms, tests 16ms, environment 0ms, prepare 184ms)
 
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-index a4269b70..df68a1b9 100644
---- a/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-@@ -1,6 +1,6 @@
- "use client";
-
--import { useCallback, useEffect, useMemo, useState } from "react";
-+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
- import { useParams, useRouter } from "next/navigation";
- import { SafeMarkdown } from "@/components/SafeMarkdown";
-
-@@ -46,8 +46,30 @@ export default function PreparationPage() {
-   const [splitSubjectId, setSplitSubjectId] = useState<string | null>(null);
-   const [splitTitle, setSplitTitle] = useState("");
-   const [splitAcquis, setSplitAcquis] = useState<string[]>([]);
-+  /** Stable creation intent — key survives retry/timeout until AVAILABLE or explicit new intent. */
-+  type CreateIntent = { key: string; contentSnapshot: string; title: string };
-+  type ReviseIntent = {
-+    key: string;
-+    documentId: string;
-+    baseRevisionId: string;
-+    contentSnapshot: string;
-+  };
-+  const [createDocIntent, setCreateDocIntent] = useState<CreateIntent | null>(null);
-+  const [reviseIntent, setReviseIntent] = useState<ReviseIntent | null>(null);
-+  /** Refs avoid double-click minting two keys before React state commits. */
-+  const createDocIntentRef = useRef<CreateIntent | null>(null);
-+  const reviseIntentRef = useRef<ReviseIntent | null>(null);
-   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
-
-+  function rememberCreateIntent(next: CreateIntent | null) {
-+    createDocIntentRef.current = next;
-+    setCreateDocIntent(next);
-+  }
-+  function rememberReviseIntent(next: ReviseIntent | null) {
-+    reviseIntentRef.current = next;
-+    setReviseIntent(next);
-+  }
-+
-   const reloadKnowledge = useCallback(async () => {
-     const res = await fetch(`/api/preparations/${preparationId}/knowledge`);
-     if (res.ok) {
-@@ -124,34 +146,125 @@ export default function PreparationPage() {
-   }
-
-   async function saveDoc() {
--    setBusy(true);
--    const correlationKey = docId
--      ? `revsave-${docId}-${Date.now()}`
--      : `create-doc-${preparationId}-${Date.now()}`;
--    const res = await fetch(`/api/preparations/${preparationId}/documents`, {
--      method: "POST",
--      headers: { "Content-Type": "application/json" },
--      body: JSON.stringify({
--        title: "Document du sas",
--        contentMarkdown: docText,
--        documentId: docId,
--        correlationKey,
--      }),
--    });
--    const j = await res.json();
--    setBusy(false);
--    if (j.status === "AVAILABLE") {
--      setDocId(j.documentId);
--      setBaseRevisionId(j.revisionId);
-+    const title = "Document du sas";
-+    // Existing document saves use a distinct revise-via-save key bound to doc+base intent
-+    if (docId) {
-+      let intent = reviseIntentRef.current;
-+      if (
-+        intent &&
-+        (intent.documentId !== docId ||
-+          intent.baseRevisionId !== (baseRevisionId ?? "") ||
-+          intent.contentSnapshot !== docText)
-+      ) {
-+        if (intent.contentSnapshot !== docText && intent.documentId === docId) {
-+          setStatus(
-+            "CONFLICT: contenu modifié pour la même intention de sauvegarde — annuler l'intention ou restaurer le payload",
-+          );
-+          return;
-+        }
-+        intent = null;
-+      }
-+      if (!intent) {
-+        intent = {
-+          key:
-+            typeof crypto !== "undefined" && "randomUUID" in crypto
-+              ? `revsave-${crypto.randomUUID()}`
-+              : `revsave-${docId}-${Math.random().toString(36).slice(2)}`,
-+          documentId: docId,
-+          baseRevisionId: baseRevisionId ?? "",
-+          contentSnapshot: docText,
-+        };
-+        rememberReviseIntent(intent);
-+      }
-+      setBusy(true);
-+      try {
-+        const res = await fetch(`/api/preparations/${preparationId}/documents`, {
-+          method: "POST",
-+          headers: { "Content-Type": "application/json" },
-+          body: JSON.stringify({
-+            title,
-+            contentMarkdown: intent.contentSnapshot,
-+            documentId: docId,
-+            correlationKey: intent.key,
-+          }),
-+        });
-+        const j = await res.json();
-+        if (j.status === "AVAILABLE") {
-+          setDocId(j.documentId);
-+          setBaseRevisionId(j.revisionId);
-+          rememberReviseIntent(null);
-+          rememberCreateIntent(null);
-+          setStatus(
-+            j.idempotentReplay
-+              ? `Document AVAILABLE (rejeu idempotent) rev ${j.revisionNumber}`
-+              : `Document AVAILABLE rev ${j.revisionNumber}`,
-+          );
-+          await reload();
-+        } else if (j.status === "CONFLICT") {
-+          setStatus(`CONFLICT document: ${j.reason ?? "version ou corrélation"} — clé conservée`);
-+        } else if (j.status === "UNKNOWN") {
-+          setStatus(`Document UNKNOWN: ${j.reason ?? "réconciliation"} — retry avec la même clé`);
-+        } else setStatus(`Document ${j.status}: ${j.reason ?? ""}`);
-+      } catch {
-+        setStatus("Échec réseau / ACK perdu — intention et clé conservées pour retry");
-+      } finally {
-+        setBusy(false);
-+      }
-+      return;
-+    }
-+
-+    // Creation intent: one key until AVAILABLE; payload change refused without new intent
-+    let intent = createDocIntentRef.current;
-+    if (intent && intent.contentSnapshot !== docText) {
-       setStatus(
--        j.idempotentReplay
--          ? `Document AVAILABLE (rejeu idempotent) rev ${j.revisionNumber}`
--          : `Document AVAILABLE rev ${j.revisionNumber}`,
-+        "CONFLICT: payload modifié pour la même intention de création — conserver le texte ou démarrer une nouvelle intention",
-       );
--      await reload();
--    } else if (j.status === "CONFLICT") {
--      setStatus(`CONFLICT document: ${j.reason ?? "version ou corrélation"}`);
--    } else setStatus(`Document ${j.status}: ${j.reason ?? ""}`);
-+      return;
-+    }
-+    if (!intent) {
-+      intent = {
-+        key:
-+          typeof crypto !== "undefined" && "randomUUID" in crypto
-+            ? `create-doc-${crypto.randomUUID()}`
-+            : `create-doc-${preparationId}-${Math.random().toString(36).slice(2)}`,
-+        contentSnapshot: docText,
-+        title,
-+      };
-+      rememberCreateIntent(intent);
-+    }
-+
-+    setBusy(true);
-+    try {
-+      const res = await fetch(`/api/preparations/${preparationId}/documents`, {
-+        method: "POST",
-+        headers: { "Content-Type": "application/json" },
-+        body: JSON.stringify({
-+          title: intent.title,
-+          contentMarkdown: intent.contentSnapshot,
-+          correlationKey: intent.key,
-+        }),
-+      });
-+      const j = await res.json();
-+      if (j.status === "AVAILABLE") {
-+        setDocId(j.documentId);
-+        setBaseRevisionId(j.revisionId);
-+        rememberCreateIntent(null);
-+        setStatus(
-+          j.idempotentReplay
-+            ? `Document AVAILABLE (rejeu idempotent) rev ${j.revisionNumber}`
-+            : `Document AVAILABLE rev ${j.revisionNumber}`,
-+        );
-+        await reload();
-+      } else if (j.status === "CONFLICT") {
-+        setStatus(`CONFLICT document: ${j.reason ?? "corrélation"} — clé d'intention conservée`);
-+      } else if (j.status === "UNKNOWN") {
-+        setStatus(`Document UNKNOWN: ${j.reason ?? "en vol"} — réessayer avec la même clé`);
-+      } else setStatus(`Document ${j.status}: ${j.reason ?? ""}`);
-+    } catch {
-+      setStatus("Échec réseau / ACK perdu — intention et clé conservées pour retry");
-+    } finally {
-+      setBusy(false);
-+    }
-   }
-
-   async function reviseDoc() {
-@@ -159,29 +272,67 @@ export default function PreparationPage() {
-       setStatus("Révision impossible: version de base inconnue");
-       return;
-     }
--    setBusy(true);
--    const res = await fetch(`/api/preparations/${preparationId}/documents/${docId}`, {
--      method: "POST",
--      headers: { "Content-Type": "application/json" },
--      body: JSON.stringify({
--        action: "revise",
-+    let intent = reviseIntentRef.current;
-+    if (
-+      intent &&
-+      (intent.documentId !== docId ||
-+        intent.baseRevisionId !== baseRevisionId ||
-+        intent.contentSnapshot !== docText)
-+    ) {
-+      if (intent.contentSnapshot !== docText && intent.documentId === docId) {
-+        setStatus(
-+          "CONFLICT: contenu modifié pour la même intention de révision — clé non renouvelée automatiquement",
-+        );
-+        return;
-+      }
-+      intent = null;
-+    }
-+    if (!intent) {
-+      intent = {
-+        key:
-+          typeof crypto !== "undefined" && "randomUUID" in crypto
-+            ? `rev-${crypto.randomUUID()}`
-+            : `rev-${Math.random().toString(36).slice(2)}`,
-+        documentId: docId,
-         baseRevisionId,
--        contentMarkdown: docText,
--        correlationKey: `rev-${Date.now()}`,
--        scope: "section",
--      }),
--    });
--    const j = await res.json();
--    setBusy(false);
--    if (j.status === "AVAILABLE") {
--      setBaseRevisionId(j.revisionId);
--      setStatus(`Révision AVAILABLE v${j.revisionNumber}`);
--      await reload();
--    } else if (j.status === "CONFLICT") {
--      setStatus(
--        `CONFLICT base périmée — attendu ${j.expectedBaseRevisionId}, actuel ${j.actualLatestRevisionId}`,
--      );
--    } else setStatus(`Révision ${j.status}: ${j.reason ?? ""}`);
-+        contentSnapshot: docText,
-+      };
-+      rememberReviseIntent(intent);
-+    }
-+    setBusy(true);
-+    try {
-+      const res = await fetch(`/api/preparations/${preparationId}/documents/${docId}`, {
-+        method: "POST",
-+        headers: { "Content-Type": "application/json" },
-+        body: JSON.stringify({
-+          action: "revise",
-+          baseRevisionId: intent.baseRevisionId,
-+          contentMarkdown: intent.contentSnapshot,
-+          correlationKey: intent.key,
-+          scope: "section",
-+        }),
-+      });
-+      const j = await res.json();
-+      if (j.status === "AVAILABLE") {
-+        setBaseRevisionId(j.revisionId);
-+        rememberReviseIntent(null);
-+        setStatus(`Révision AVAILABLE v${j.revisionNumber}`);
-+        await reload();
-+      } else if (j.status === "CONFLICT") {
-+        setStatus(
-+          `CONFLICT base périmée — attendu ${j.expectedBaseRevisionId}, actuel ${j.actualLatestRevisionId}`,
-+        );
-+      } else setStatus(`Révision ${j.status}: ${j.reason ?? ""}`);
-+    } catch {
-+      setStatus("Échec réseau / ACK perdu — intention de révision conservée");
-+    } finally {
-+      setBusy(false);
-+    }
-+  }
-+
-+  function startNewCreateIntent() {
-+    rememberCreateIntent(null);
-+    setStatus("Nouvelle intention de création — prochaine sauvegarde générera une nouvelle clé");
-   }
-
-   async function compareLatestTwo() {
-@@ -199,7 +350,7 @@ export default function PreparationPage() {
-       `/api/preparations/${preparationId}/documents/${docId}?left=${left.id}&right=${right.id}`,
-     );
-     const cmp = await cmpRes.json();
--    if (cmp.status === "AVAILABLE") {
-+    if (cmp.status === "AVAILABLE" && !cmp.diff?.degraded) {
-       setDiffText(
-         `v${cmp.left.revisionNumber} → v${cmp.right.revisionNumber}\n` +
-           `+ ${cmp.diff.added.length} lignes\n- ${cmp.diff.removed.length} lignes\n` +
-@@ -208,6 +359,11 @@ export default function PreparationPage() {
-       );
-       setSurface("document");
-       setStatus(`Diff v${cmp.left.revisionNumber}/v${cmp.right.revisionNumber}`);
-+    } else if (cmp.status === "DEGRADED" || cmp.diff?.degraded) {
-+      setDiffText("");
-+      setStatus(
-+        `Diff DEGRADED: ${cmp.reason ?? cmp.diff?.reason ?? "DIFF_BUDGET_EXCEEDED"} — comparaison détaillée impossible (pas un diff exhaustif)`,
-+      );
-     } else setStatus(`Diff ${cmp.status}`);
-   }
-
-@@ -399,7 +555,11 @@ export default function PreparationPage() {
-                 Une recommandation Nora n&apos;est jamais une HumanDecision.
-               </p>
-             </div>
--            {status ? <p className="text-sm muted">{status}</p> : null}
-+            {status ? (
-+              <p className="text-sm muted" data-testid="surface-status">
-+                {status}
-+              </p>
-+            ) : null}
-           </section>
-         </div>
-       ) : null}
-@@ -408,6 +568,11 @@ export default function PreparationPage() {
-         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-4">
-           <section className="panel p-4 space-y-3">
-             <h2 className="font-medium">Document — inspection / révision</h2>
-+            {status ? (
-+              <p className="text-sm muted" data-testid="surface-status">
-+                {status}
-+              </p>
-+            ) : null}
-             <div className="flex flex-wrap gap-2 text-xs">
-               {docs.map((d) => (
-                 <button
-@@ -432,16 +597,41 @@ export default function PreparationPage() {
-               onChange={(e) => setDocText(e.target.value)}
-             />
-             <div className="flex flex-wrap gap-2">
--              <button className="btn secondary" disabled={busy} onClick={saveDoc}>
--                Sauvegarder (nouvelle identité si besoin)
-+              <button
-+                className="btn secondary"
-+                disabled={busy}
-+                onClick={saveDoc}
-+                data-testid="doc-save"
-+              >
-+                Sauvegarder
-               </button>
--              <button className="btn" disabled={busy} onClick={reviseDoc}>
-+              <button className="btn" disabled={busy} onClick={reviseDoc} data-testid="doc-revise">
-                 Réviser sur version de base
-               </button>
-               <button className="btn secondary" disabled={busy} onClick={compareLatestTwo}>
-                 Comparer versions
-               </button>
-+              {createDocIntent && !docId ? (
-+                <button
-+                  className="btn secondary"
-+                  disabled={busy}
-+                  onClick={startNewCreateIntent}
-+                  data-testid="doc-new-intent"
-+                >
-+                  Nouvelle intention de création
-+                </button>
-+              ) : null}
-             </div>
-+            {createDocIntent && !docId ? (
-+              <p className="text-xs muted" data-testid="create-intent-key">
-+                Intention de création active · clé {createDocIntent.key}
-+              </p>
-+            ) : null}
-+            {reviseIntent ? (
-+              <p className="text-xs muted" data-testid="revise-intent-key">
-+                Intention de révision active · clé {reviseIntent.key}
-+              </p>
-+            ) : null}
-             {inspected?.latestRevision ? (
-               <p className="text-xs muted">
-                 Base inspectée: {baseRevisionId} · statut {inspected.latestRevision.status}
 
 ```
+</details>
 
-## 9. Diffs exploitables — tests
-
-```diff
-commit 1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01
-Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 04:31:52 2026 +0100
-
-    fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
-
-    Close residual integrity gaps from ChatGPT review: fingerprint on every
-    correlation reconcile path, stable UI creation intents across retries,
-    bounded DEGRADED diff, and PG assertions on subject events under rollback
-    and same-acquis concurrency. Local only — no project push.
-
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
-index 443d3b30..11fb2737 100644
---- a/projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
-+++ b/projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
-@@ -31,8 +31,8 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
-   await page.getByRole("button", { name: "Document", exact: true }).click();
-   const doc = page.locator("textarea").first();
-   await doc.fill("# Document Playwright\ncontenu");
--  await page.getByRole("button", { name: "Sauvegarder (nouvelle identité si besoin)" }).click();
--  await expect(page.getByText("AVAILABLE", { exact: false })).toBeVisible({ timeout: 10000 });
-+  await page.getByTestId("doc-save").click();
-+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
-
-   await page.getByRole("button", { name: "Travail" }).click();
-   await page.getByRole("button", { name: "Créer le projet" }).click();
-diff --git a/projects/sfia-studio-next/web/tests/e2e/ml2-c3-stable-key.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml2-c3-stable-key.spec.ts
-new file mode 100644
-index 00000000..9548754a
---- /dev/null
-+++ b/projects/sfia-studio-next/web/tests/e2e/ml2-c3-stable-key.spec.ts
-@@ -0,0 +1,71 @@
-+import { test, expect } from "@playwright/test";
-+
-+/**
-+ * C3-B: creation correlation key must stay stable across retries of the same intent.
-+ * BROWSER FAKE — no LIVE Nora required.
-+ */
-+test("ML2 C3-B: stable creation key across double-save retry", async ({ page }) => {
-+  await page.goto("/login");
-+  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
-+  await page.waitForURL("**/portfolio");
-+
-+  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
-+  await page.waitForURL("**/preparations/**");
-+
-+  await page.getByRole("button", { name: "Document", exact: true }).click();
-+  await expect(page.getByRole("heading", { name: /Document/ })).toBeVisible();
-+
-+  const area = page.locator("textarea").first();
-+  await area.fill("# Intent stable\n\nContenu pour clé corrélée.");
-+
-+  // Intercept first create: server commits, UI sees network failure (ACK perdu)
-+  let createCalls = 0;
-+  const keysSeen: string[] = [];
-+  await page.route("**/api/preparations/*/documents", async (route) => {
-+    const req = route.request();
-+    if (req.method() !== "POST") {
-+      await route.continue();
-+      return;
-+    }
-+    let body: { correlationKey?: string; documentId?: string } = {};
-+    try {
-+      body = req.postDataJSON() as { correlationKey?: string; documentId?: string };
-+    } catch {
-+      body = {};
-+    }
-+    if (body.correlationKey && !body.documentId) {
-+      keysSeen.push(body.correlationKey);
-+      createCalls += 1;
-+      if (createCalls === 1) {
-+        const upstream = await route.fetch();
-+        // Discard successful body — client observes failure
-+        await route.fulfill({
-+          status: 502,
-+          contentType: "application/json",
-+          body: JSON.stringify({ status: "FAILED", reason: "ACK_LOST_SIM" }),
-+        });
-+        void upstream;
-+        return;
-+      }
-+    }
-+    await route.continue();
-+  });
-+
-+  await page.getByTestId("doc-save").click();
-+  await expect(page.getByTestId("create-intent-key")).toBeVisible({ timeout: 15000 });
-+  await expect(page.getByTestId("surface-status")).toContainText(/Document FAILED|ACK|clé/i, {
-+    timeout: 10000,
-+  });
-+  const keyAfterFail = await page.getByTestId("create-intent-key").innerText();
-+  expect(keyAfterFail).toMatch(/create-doc-/);
-+
-+  // Retry without starting a new intention — same key, idempotent AVAILABLE
-+  await page.getByTestId("doc-save").click();
-+  await expect(page.getByTestId("surface-status")).toContainText(/Document AVAILABLE/i, {
-+    timeout: 20000,
-+  });
-+
-+  expect(keysSeen.length).toBeGreaterThanOrEqual(2);
-+  expect(keysSeen[0]).toBe(keysSeen[1]);
-+  await expect(page.getByTestId("create-intent-key")).toHaveCount(0);
-+});
-diff --git a/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-index 889312d8..57ef9f05 100644
---- a/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-@@ -401,7 +401,7 @@ describe("PostgreSQL create-project contracts", () => {
-       saved.documentId,
-     );
-     expect(cross.status).toBe("FAILED");
--    expect(cross.reason).toBe("FORBIDDEN");
-+    expect("reason" in cross ? cross.reason : undefined).toBe("FORBIDDEN");
-   });
-
-   it("A09b: injected persist failure yields FAILED not AVAILABLE", async () => {
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-corrective-integrity.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-corrective-integrity.pg.test.ts
-index 1dabcbd0..51f79541 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml2-corrective-integrity.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml2-corrective-integrity.pg.test.ts
-@@ -4,7 +4,15 @@ config({ path: ".env.local" });
-
- import { and, eq } from "drizzle-orm";
- import { db } from "@/db/client";
--import { documents, documentRevisions, knowledgeSubjects, knowledgeAcquis, pilots } from "@/db/schema";
-+import {
-+  documents,
-+  documentRevisions,
-+  knowledgeSubjects,
-+  knowledgeAcquis,
-+  knowledgeSubjectEvents,
-+  knowledgeOpenPoints,
-+  pilots,
-+} from "@/db/schema";
- import { newId } from "@/lib/ids";
- import { openOrCreatePreparation } from "@/domains/preparation/service";
- import {
-@@ -21,6 +29,7 @@ import {
-   savePreparationDocument,
-   listDocumentRevisions,
-   diffMarkdown,
-+  MAX_DIFF_CELLS,
- } from "@/domains/document/service";
-
- async function seedPilot(label: string) {
-@@ -111,37 +120,125 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-     expect(neo.originatedFromSubjectId).toBe(source.subjectId);
-   });
-
--  it("C1: merge rollback on injected failure — no partial journal", async () => {
-+  it("C1: merge rollback on injected failure — no residual MERGED/SPLIT events", async () => {
-     const pilotId = await seedPilot("C1-rollback");
-     const prep = await openOrCreatePreparation(pilotId);
-     const a = await ensureSubject(pilotId, prep.id, "Keep");
-     const b = await ensureSubject(pilotId, prep.id, "Absorb");
--    await capitalizeAcquis(pilotId, prep.id, {
-+    const acq = await capitalizeAcquis(pilotId, prep.id, {
-       statement: "Acquis sur absorb qui doit rester si rollback.",
-       kind: "HYPOTHESIS",
-       subjectId: b.subjectId,
-       provenance: { sourceKind: "pilot", epistemic: "hypothesized" },
-     });
-+    const op = await openPoint(pilotId, prep.id, {
-+      statement: "Point ouvert absorbé à restaurer après rollback.",
-+      subjectId: b.subjectId,
-+      provenance: { sourceKind: "pilot" },
-+    });
-+    const eventsBefore = await db
-+      .select()
-+      .from(knowledgeSubjectEvents)
-+      .where(
-+        and(
-+          eq(knowledgeSubjectEvents.preparationId, prep.id),
-+          eq(knowledgeSubjectEvents.ownerPilotId, pilotId),
-+        ),
-+      );
-+    const beforeIds = new Set(eventsBefore.map((e) => e.id));
-+    const beforeMergedSplit = eventsBefore.filter(
-+      (e) => e.eventType === "MERGED" || e.eventType === "SPLIT",
-+    );
-+
-     const failed = await mergeSubjects(pilotId, prep.id, a.subjectId!, b.subjectId!, {
-       injectFailureAfter: "move",
-     });
-     expect(failed.status).toBe("FAILED");
-     if (failed.status !== "FAILED") throw new Error("expected FAILED");
-     expect(failed.rolledBack).toBe(true);
-+
-     const bRow = (
-       await db.select().from(knowledgeSubjects).where(eq(knowledgeSubjects.id, b.subjectId!))
-     )[0];
-     expect(bRow.status).toBe("ACTIVE");
--    const k = await listKnowledge(pilotId, prep.id);
--    expect(k.subjects.find((s) => s.id === b.subjectId)?.status).toBe("ACTIVE");
--    expect(k.acquis.every((x) => x.subjectId === b.subjectId || x.subjectId === a.subjectId)).toBe(
--      true,
-+    const acqRow = (
-+      await db.select().from(knowledgeAcquis).where(eq(knowledgeAcquis.id, acq.acquisId!))
-+    )[0];
-+    expect(acqRow.subjectId).toBe(b.subjectId);
-+    const opRow = (
-+      await db.select().from(knowledgeOpenPoints).where(eq(knowledgeOpenPoints.id, op.openPointId!))
-+    )[0];
-+    expect(opRow.subjectId).toBe(b.subjectId);
-+
-+    const eventsAfter = await db
-+      .select()
-+      .from(knowledgeSubjectEvents)
-+      .where(
-+        and(
-+          eq(knowledgeSubjectEvents.preparationId, prep.id),
-+          eq(knowledgeSubjectEvents.ownerPilotId, pilotId),
-+        ),
-+      );
-+    const residualMutation = eventsAfter.filter(
-+      (e) =>
-+        !beforeIds.has(e.id) && (e.eventType === "MERGED" || e.eventType === "SPLIT"),
-+    );
-+    expect(residualMutation).toHaveLength(0);
-+    expect(
-+      eventsAfter.filter((e) => e.eventType === "MERGED" || e.eventType === "SPLIT"),
-+    ).toHaveLength(beforeMergedSplit.length);
-+  });
-+
-+  it("C1: concurrent splits targeting the same Acquis — at most one valid assignment", async () => {
-+    const pilotId = await seedPilot("C1-same-acq");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const source = await ensureSubject(pilotId, prep.id, "Same acquis origin");
-+    const shared = await capitalizeAcquis(pilotId, prep.id, {
-+      statement: "Acquis unique ciblé par deux séparations concurrentes.",
-+      kind: "HYPOTHESIS",
-+      subjectId: source.subjectId,
-+      provenance: { sourceKind: "pilot", epistemic: "hypothesized" },
-+    });
-+    const [r1, r2] = await Promise.all([
-+      splitSubject(pilotId, prep.id, source.subjectId!, {
-+        newTitle: "Branche A",
-+        acquisIds: [shared.acquisId!],
-+        openPointIds: [],
-+      }),
-+      splitSubject(pilotId, prep.id, source.subjectId!, {
-+        newTitle: "Branche B",
-+        acquisIds: [shared.acquisId!],
-+        openPointIds: [],
-+      }),
-+    ]);
-+    const available = [r1, r2].filter((r) => r.status === "AVAILABLE");
-+    const refused = [r1, r2].filter(
-+      (r) => r.status === "FAILED" || r.status === "CONFLICT",
-     );
--    const events = k; // events not listed — verify via subject status only
--    void events;
-+    expect(available.length).toBe(1);
-+    expect(refused.length).toBe(1);
-+    if (available[0].status !== "AVAILABLE") throw new Error("expected one AVAILABLE");
-+    const k = await listKnowledge(pilotId, prep.id);
-+    const row = k.acquis.find((x) => x.id === shared.acquisId)!;
-+    expect(row.subjectId).toBe(available[0].newSubjectId);
-+    // Exactly one SPLIT event; journal points at source with newSubjectId in payload
-+    const splitEvents = await db
-+      .select()
-+      .from(knowledgeSubjectEvents)
-+      .where(
-+        and(
-+          eq(knowledgeSubjectEvents.preparationId, prep.id),
-+          eq(knowledgeSubjectEvents.ownerPilotId, pilotId),
-+          eq(knowledgeSubjectEvents.eventType, "SPLIT"),
-+        ),
-+      );
-+    expect(splitEvents).toHaveLength(1);
-+    expect(splitEvents[0].subjectId).toBe(source.subjectId);
-+    const payload = JSON.parse(splitEvents[0].payloadJson) as { newSubjectId?: string };
-+    expect(payload.newSubjectId).toBe(available[0].newSubjectId);
-   });
-
--  it("C1: concurrent splits on same origin — one wins or both serialize safely", async () => {
-+  it("C1: concurrent splits on same origin distinct acquis — serialize with coherent filiation", async () => {
-     const pilotId = await seedPilot("C1-race");
-     const prep = await openOrCreatePreparation(pilotId);
-     const source = await ensureSubject(pilotId, prep.id, "Race origin");
-@@ -175,8 +272,62 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-     );
-     expect(statuses.filter((s) => s === "AVAILABLE").length).toBeGreaterThanOrEqual(1);
-     const k = await listKnowledge(pilotId, prep.id);
--    expect(k.acquis.find((x) => x.id === a1.acquisId)?.subjectId).toBeTruthy();
--    expect(k.acquis.find((x) => x.id === a2.acquisId)?.subjectId).toBeTruthy();
-+    const s1 = k.acquis.find((x) => x.id === a1.acquisId)!;
-+    const s2 = k.acquis.find((x) => x.id === a2.acquisId)!;
-+    expect(s1.subjectId).toBeTruthy();
-+    expect(s2.subjectId).toBeTruthy();
-+    // No double assignment of the same acquis identity
-+    expect(new Set([s1.id, s2.id]).size).toBe(2);
-+    if (r1.status === "AVAILABLE" && r2.status === "AVAILABLE") {
-+      expect(s1.subjectId).toBe(r1.newSubjectId);
-+      expect(s2.subjectId).toBe(r2.newSubjectId);
-+      expect(s1.subjectId).not.toBe(s2.subjectId);
-+    }
-+  });
-+
-+  it("C1: concurrent split+merge on overlapping resources — serialized or explicit conflict", async () => {
-+    const pilotId = await seedPilot("C1-split-merge");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const keep = await ensureSubject(pilotId, prep.id, "Keep SM");
-+    const absorb = await ensureSubject(pilotId, prep.id, "Absorb SM");
-+    const shared = await capitalizeAcquis(pilotId, prep.id, {
-+      statement: "Acquis overlap split et merge concurrent.",
-+      kind: "HYPOTHESIS",
-+      subjectId: absorb.subjectId,
-+      provenance: { sourceKind: "pilot", epistemic: "hypothesized" },
-+    });
-+    const [splitR, mergeR] = await Promise.all([
-+      splitSubject(pilotId, prep.id, absorb.subjectId!, {
-+        newTitle: "Split pendant merge",
-+        acquisIds: [shared.acquisId!],
-+        openPointIds: [],
-+      }),
-+      mergeSubjects(pilotId, prep.id, keep.subjectId!, absorb.subjectId!),
-+    ]);
-+    const outcomes = [splitR.status, mergeR.status];
-+    expect(
-+      outcomes.every((s) => s === "AVAILABLE" || s === "FAILED" || s === "CONFLICT"),
-+    ).toBe(true);
-+    expect(outcomes.filter((s) => s === "AVAILABLE").length).toBeGreaterThanOrEqual(1);
-+    // Final acquis has exactly one subject assignment — never lost, never duplicated
-+    const k = await listKnowledge(pilotId, prep.id);
-+    const row = k.acquis.find((x) => x.id === shared.acquisId)!;
-+    expect(row.subjectId).toBeTruthy();
-+    const absorbRow = (
-+      await db.select().from(knowledgeSubjects).where(eq(knowledgeSubjects.id, absorb.subjectId!))
-+    )[0];
-+    if (mergeR.status === "AVAILABLE" && splitR.status !== "AVAILABLE") {
-+      expect(absorbRow.status).toBe("MERGED");
-+      expect(row.subjectId).toBe(keep.subjectId);
-+    } else if (splitR.status === "AVAILABLE" && mergeR.status !== "AVAILABLE") {
-+      expect(absorbRow.status).toBe("ACTIVE");
-+      expect(row.subjectId).toBe(splitR.newSubjectId);
-+    } else if (splitR.status === "AVAILABLE" && mergeR.status === "AVAILABLE") {
-+      // Split moved first, then merge absorbed empty source — acquis stays on new subject
-+      expect(absorbRow.status).toBe("MERGED");
-+      expect(row.subjectId).toBe(splitR.newSubjectId);
-+      expect(row.subjectId).not.toBe(keep.subjectId);
-+    }
-   });
-
-   it("C2: concurrent revise same base → one AVAILABLE, one CONFLICT; no duplicate rev numbers", async () => {
-@@ -186,16 +337,17 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-       correlationKey: `c2-create-${newId("k")}`,
-     });
-     expect(v1.status).toBe("AVAILABLE");
-+    if (v1.status !== "AVAILABLE") throw new Error("expected AVAILABLE");
-     const [a, b] = await Promise.all([
-       reviseDocument(pilotId, prep.id, {
--        documentId: v1.documentId!,
--        baseRevisionId: v1.revisionId!,
-+        documentId: v1.documentId,
-+        baseRevisionId: v1.revisionId,
-         contentMarkdown: "# v2a\n",
-         correlationKey: `c2-a-${newId("k")}`,
-       }),
-       reviseDocument(pilotId, prep.id, {
--        documentId: v1.documentId!,
--        baseRevisionId: v1.revisionId!,
-+        documentId: v1.documentId,
-+        baseRevisionId: v1.revisionId,
-         contentMarkdown: "# v2b\n",
-         correlationKey: `c2-b-${newId("k")}`,
-       }),
-@@ -203,7 +355,7 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-     const outcomes = [a.status, b.status].sort();
-     expect(outcomes).toContain("AVAILABLE");
-     expect(outcomes).toContain("CONFLICT");
--    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId!);
-+    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
-     const nums = list.revisions.map((r) => r.revisionNumber);
-     expect(new Set(nums).size).toBe(nums.length);
-     expect(list.revisions.find((r) => r.id === v1.revisionId)?.contentMarkdown).toBe("# v1\n");
-@@ -215,9 +367,10 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-     const v1 = await savePreparationDocument(pilotId, prep.id, "Doc", "# base\n", undefined, {
-       correlationKey: `c2-base-${newId("k")}`,
-     });
-+    if (v1.status !== "AVAILABLE") throw new Error("expected AVAILABLE");
-     const failed = await reviseDocument(pilotId, prep.id, {
--      documentId: v1.documentId!,
--      baseRevisionId: v1.revisionId!,
-+      documentId: v1.documentId,
-+      baseRevisionId: v1.revisionId,
-       contentMarkdown: "# should not commit\n",
-       correlationKey: `c2-fail-${newId("k")}`,
-       injectFailureAfterLock: true,
-@@ -243,8 +396,11 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-       correlationKey: key,
-     });
-     expect(r1.status).toBe("AVAILABLE");
--    expect(r2.idempotentReplay).toBe(true);
--    expect(r3.idempotentReplay).toBe(true);
-+    if (r1.status !== "AVAILABLE") throw new Error("expected AVAILABLE");
-+    expect(r2.status).toBe("AVAILABLE");
-+    expect(r3.status).toBe("AVAILABLE");
-+    expect("idempotentReplay" in r2 && r2.idempotentReplay).toBe(true);
-+    expect("idempotentReplay" in r3 && r3.idempotentReplay).toBe(true);
-     expect(r2.documentId).toBe(r1.documentId);
-     expect(r3.documentId).toBe(r1.documentId);
-     const docs = await db
-@@ -257,9 +413,115 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-       correlationKey: key,
-     });
-     expect(bad.status).toBe("CONFLICT");
-+    if (bad.status !== "CONFLICT") throw new Error("expected CONFLICT");
-     expect(bad.reason).toBe("CORRELATION_PAYLOAD_MISMATCH");
-   });
-
-+  it("C3 concurrent: same key + same payload → one document, coherent AVAILABLE", async () => {
-+    const pilotId = await seedPilot("C3-conc-same");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const key = `conc-same-${newId("x")}`;
-+    const payload = "# concurrent same\n";
-+    const [a, b] = await Promise.all([
-+      savePreparationDocument(pilotId, prep.id, "T", payload, undefined, { correlationKey: key }),
-+      savePreparationDocument(pilotId, prep.id, "T", payload, undefined, { correlationKey: key }),
-+    ]);
-+    const statuses = [a.status, b.status];
-+    expect(statuses.every((s) => s === "AVAILABLE" || s === "UNKNOWN")).toBe(true);
-+    const docs = await db
-+      .select()
-+      .from(documents)
-+      .where(
-+        and(
-+          eq(documents.preparationId, prep.id),
-+          eq(documents.ownerPilotId, pilotId),
-+          eq(documents.creationCorrelationKey, key),
-+        ),
-+      );
-+    expect(docs).toHaveLength(1);
-+    const revs = await db
-+      .select()
-+      .from(documentRevisions)
-+      .where(eq(documentRevisions.documentId, docs[0].id));
-+    expect(revs).toHaveLength(1);
-+    // Final reconcile (ACK lost / restart) yields AVAILABLE with fingerprint match
-+    const again = await savePreparationDocument(pilotId, prep.id, "T", payload, undefined, {
-+      correlationKey: key,
-+    });
-+    expect(again.status).toBe("AVAILABLE");
-+    if (again.status !== "AVAILABLE") throw new Error("expected AVAILABLE");
-+    expect(again.documentId).toBe(docs[0].id);
-+    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
-+    if (a.status === "AVAILABLE" && b.status === "AVAILABLE") {
-+      expect(a.documentId).toBe(b.documentId);
-+      expect(a.revisionId).toBe(b.revisionId);
-+    }
-+  });
-+
-+  it("C3 concurrent: same key + incompatible payload → CONFLICT on loser path", async () => {
-+    const pilotId = await seedPilot("C3-conc-diff");
-+    const prep = await openOrCreatePreparation(pilotId);
-+    const key = `conc-diff-${newId("x")}`;
-+    const [a, b] = await Promise.all([
-+      savePreparationDocument(pilotId, prep.id, "T", "# payload-A\n", undefined, {
-+        correlationKey: key,
-+      }),
-+      savePreparationDocument(pilotId, prep.id, "T", "# payload-B\n", undefined, {
-+        correlationKey: key,
-+      }),
-+    ]);
-+    const docs = await db
-+      .select()
-+      .from(documents)
-+      .where(
-+        and(
-+          eq(documents.preparationId, prep.id),
-+          eq(documents.ownerPilotId, pilotId),
-+          eq(documents.creationCorrelationKey, key),
-+        ),
-+      );
-+    expect(docs).toHaveLength(1);
-+    const statuses = [a.status, b.status].sort();
-+    // Winner AVAILABLE (or UNKNOWN then settle); loser CONFLICT with CORRELATION_PAYLOAD_MISMATCH
-+    expect(statuses.includes("CONFLICT") || statuses.includes("AVAILABLE")).toBe(true);
-+    const conflicted = [a, b].filter((r) => r.status === "CONFLICT");
-+    if (conflicted.length > 0) {
-+      expect(conflicted.every((r) => r.reason === "CORRELATION_PAYLOAD_MISMATCH")).toBe(true);
-+    }
-+    // Deterministic post-settle: one payload wins; the other mismatches
-+    const settleA = await savePreparationDocument(pilotId, prep.id, "T", "# payload-A\n", undefined, {
-+      correlationKey: key,
-+    });
-+    const settleB = await savePreparationDocument(pilotId, prep.id, "T", "# payload-B\n", undefined, {
-+      correlationKey: key,
-+    });
-+    const settleStatuses = [settleA.status, settleB.status].sort();
-+    expect(settleStatuses).toContain("AVAILABLE");
-+    expect(settleStatuses).toContain("CONFLICT");
-+  });
-+
-+  it("C3: cross-project / foreign pilot correlation key does not leak", async () => {
-+    const p1 = await seedPilot("C3-x1");
-+    const p2 = await seedPilot("C3-x2");
-+    const prep1 = await openOrCreatePreparation(p1);
-+    const prep2 = await openOrCreatePreparation(p2);
-+    const key = `shared-looking-${newId("x")}`;
-+    const first = await savePreparationDocument(p1, prep1.id, "T", "# p1\n", undefined, {
-+      correlationKey: key,
-+    });
-+    expect(first.status).toBe("AVAILABLE");
-+    const other = await savePreparationDocument(p2, prep2.id, "T", "# p1\n", undefined, {
-+      correlationKey: key,
-+    });
-+    expect(other.status).toBe("AVAILABLE");
-+    expect(other.documentId).not.toBe(first.documentId);
-+    await expect(
-+      savePreparationDocument(p2, prep1.id, "T", "# p1\n", undefined, {
-+        correlationKey: key,
-+      }),
-+    ).rejects.toMatchObject({ code: "NOT_FOUND" });
-+  });
-+
-   it("C3: two distinct correlation keys → two documents", async () => {
-     const pilotId = await seedPilot("C3-two");
-     const prep = await openOrCreatePreparation(pilotId);
-@@ -283,15 +545,18 @@ describe("ML2 corrective C1–C5 integrity (PG)", () => {
-     const again = await savePreparationDocument(pilotId, prep.id, "Ack", "# ack\n", undefined, {
-       correlationKey: key,
-     });
-+    if (first.status !== "AVAILABLE") throw new Error("expected AVAILABLE");
-+    if (again.status !== "AVAILABLE") throw new Error("expected AVAILABLE replay");
-     expect(again.documentId).toBe(first.documentId);
-     expect(again.revisionId).toBe(first.revisionId);
--    expect(again.idempotentReplay).toBe(true);
-+    expect("idempotentReplay" in again && again.idempotentReplay).toBe(true);
-   });
-
--  it("C4: ordered diff duplicate semantics (unit-backed, also callable here)", () => {
-+  it("C4: ordered diff duplicate semantics + budget constant visible", () => {
-     const d = diffMarkdown("x\nx\ny", "x\ny");
-     expect(d.removed).toEqual(["x"]);
-     expect(d.added).toEqual([]);
-+    expect(MAX_DIFF_CELLS).toBeGreaterThan(0);
-   });
-
-   it("C5: FACT without epistemic=established is skipped; keyword-only chatter not capitalised", async () => {
-diff --git a/projects/sfia-studio-next/web/tests/unit/diff-ordered.test.ts b/projects/sfia-studio-next/web/tests/unit/diff-ordered.test.ts
-index 8790df03..63360712 100644
---- a/projects/sfia-studio-next/web/tests/unit/diff-ordered.test.ts
-+++ b/projects/sfia-studio-next/web/tests/unit/diff-ordered.test.ts
-@@ -1,5 +1,5 @@
- import { describe, expect, it } from "vitest";
--import { diffMarkdown } from "@/domains/document/service";
-+import { diffMarkdown, MAX_DIFF_CELLS } from "@/domains/document/service";
-
- describe("C4 ordered diffMarkdown", () => {
-   it("preserves duplicate lines when only one is removed", () => {
-@@ -7,6 +7,7 @@ describe("C4 ordered diffMarkdown", () => {
-     expect(d.removed).toEqual(["x"]);
-     expect(d.added).toEqual([]);
-     expect(d.unchangedCount).toBe(3);
-+    expect(d.degraded).toBe(false);
-   });
-
-   it("detects block move as remove+add in order", () => {
-@@ -35,4 +36,42 @@ describe("C4 ordered diffMarkdown", () => {
-     const d = diffMarkdown("a\n\nb", "a\nb");
-     expect(d.removed).toEqual([""]);
-   });
-+
-+  it("many short lines stay under budget and remain ordered", () => {
-+    const n = 400;
-+    const left = Array.from({ length: n }, (_, i) => `L${i}`).join("\n");
-+    const right = Array.from({ length: n }, (_, i) => (i === 200 ? "INSERTED" : `L${i}`)).join(
-+      "\n",
-+    );
-+    const d = diffMarkdown(left, right);
-+    expect(d.degraded).toBe(false);
-+    expect(d.added).toEqual(["INSERTED"]);
-+    expect(d.removed).toEqual(["L200"]);
-+    expect((d.lineCounts?.cells ?? 0) <= MAX_DIFF_CELLS).toBe(true);
-+  });
-+
-+  it("adversarial line-count product degrades explicitly — never fake detailed diff", () => {
-+    // Choose n,m such that (n+1)*(m+1) > MAX_DIFF_CELLS without huge strings
-+    const side = Math.ceil(Math.sqrt(MAX_DIFF_CELLS)) + 50;
-+    const left = Array.from({ length: side }, (_, i) => `A${i % 7}`).join("\n");
-+    const right = Array.from({ length: side }, (_, i) => `B${i % 11}`).join("\n");
-+    const cells = (side + 1) * (side + 1);
-+    expect(cells).toBeGreaterThan(MAX_DIFF_CELLS);
-+    const d = diffMarkdown(left, right);
-+    expect(d.degraded).toBe(true);
-+    expect(d.reason).toBe("DIFF_BUDGET_EXCEEDED");
-+    expect(d.ops).toEqual([]);
-+    expect(d.added).toEqual([]);
-+    expect(d.removed).toEqual([]);
-+    expect(d.lineCounts?.budget).toBe(MAX_DIFF_CELLS);
-+    expect(d.lineCounts?.cells).toBe(cells);
-+  });
-+
-+  it("near max document size with few lines still diffs (char limit ≠ cell budget)", () => {
-+    const chunk = "x".repeat(40_000);
-+    const d = diffMarkdown(`${chunk}\na`, `${chunk}\nb`);
-+    expect(d.degraded).toBe(false);
-+    expect(d.added).toEqual(["b"]);
-+    expect(d.removed).toEqual(["a"]);
-+  });
- });
+<details><summary>PG tail</summary>
 
 ```
+ctive-integrity.pg.test.ts
+◇ injected env (0) from .env.local
 
-## 10. Diffs documentation As-Built
+ ✓ tests/integration/ml2-corrective-integrity.pg.test.ts (18 tests) 366ms
+stderr | tests/integration/create-project.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/create-project.pg.test.ts (17 tests) 266ms
+stderr | tests/integration/ml2-knowledge-documents.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/ml2-knowledge-documents.pg.test.ts (6 tests) 218ms
+stderr | tests/integration/identity-session.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/identity-session.pg.test.ts (6 tests) 68ms
+
+ Test Files  5 passed (5)
+      Tests  50 passed (50)
+   Start at  04:52:45
+   Duration  5.62s (transform 83ms, setup 0ms, collect 2.38s, tests 2.76s, environment 0ms, prepare 102ms)
+
+
+```
+</details>
+
+<details><summary>e2e tail</summary>
+
+```
+ct_idx" already exists, skipping
+[WebServer] NOTICE:  column "creation_correlation_key" of relation "documents" already exists, skipping
+[WebServer] NOTICE:  relation "documents_prep_owner_corr_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "document_revisions_base_idx" already exists, skipping
+
+Running 3 tests using 1 worker
+
+(node:8815) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/ml1-smoke.spec.ts:4:5 › DEV fake login → sas → message Nora FAKE → document → create → portfolio reopen by projectId (11.7s)
+  ✓  2 tests/e2e/ml2-c3-stable-key.spec.ts:7:5 › ML2 C3-B: stable creation key across double-save retry (1.7s)
+  ✓  3 tests/e2e/ml2-smoke.spec.ts:4:5 › ML2 DEV: fil continu, document explicite, journal sujets, reprise projet (5.0s)
+
+  3 passed (22.1s)
+
+```
+</details>
+
+## 6. Contrôle réserves d'intégrité C1–C6
+
+| Id | Statut preuve locale | Notes |
+| --- | --- | --- |
+| C1 rollback journal | PASS PG | 0 MERGED/SPLIT résiduel |
+| C1 même Acquis concurrent | PASS PG | 1 AVAILABLE + 1 refuse; 1 SPLIT event |
+| C1 split+merge overlap | PASS PG | sérialisé / double succès cohérent |
+| C2 revise concurrent | PASS PG | AVAILABLE+CONFLICT; no dup rev# |
+| C3 same key same payload (+ concurrent) | PASS PG | 1 document |
+| C3 same key different payload | PASS PG | CONFLICT mismatch |
+| C3 ACK perdu + retry | PASS PG + BROWSER | clé UI stable |
+| C3 isolation inter-pilot/prep | PASS PG | NOT_FOUND cross-prep |
+| C4 ordered + MAX_DIFF_CELLS + DEGRADED | PASS UNIT | jamais faux exhaustif |
+| C5 epistemic / no HumanDecision | PASS UNIT+PG | |
+| C6 états BROWSER minimal | PASS BROWSER FAKE | pas de validation visuelle forte |
+
+### Reprises C3 encore **non couvertes** comme preuves (réserves bornées — ne pas inventer PASS)
+
+1. Rechargement / fermeture navigateur avant réconciliation d'intention (perte du state React / refs) — **NOT PROVEN** (clé en mémoire seulement).
+2. Panne process entre insert `documents` et première `document_revisions` hors chemins wait/UNKNOWN déjà testés en concurrence courte — **PARTIEL** (`UNKNOWN/CREATION_IN_FLIGHT` borné; pas de chaos injecté durable).
+3. Persistance d'intention UI cross-refresh (sessionStorage/server command) — **NOT IMPLEMENTED** (choix minimal accepté; réserve reprise).
+
+Aucun nouveau hardening général dans ce cycle.
+
+## 7. Proposition CI Next (intégrale)
+
+- Chemin cible (GO distinct requis pour écrire): `.github/workflows/sfia-studio-next-ci.yml`
+- Artefact cycle: `.tmp-sfia-review/ci-next-workflow-proposal.yml`
+- Check name stable pour future protection: **`SFIA Studio Next Required Gate`**
+- Indépendant de `SFIA Studio Required Gate` (ancien Studio)
+- PR sans path filter top-level → check jamais « absent »; hors périmètre → PASS explicite « Next NOT executed »
+- Effets sur workflows existants: **aucun** (fichier nouveau proposé)
+
+### Chemins qui devront être autorisés (GO Morris)
+
+1. Création `.github/workflows/sfia-studio-next-ci.yml` (copie du YAML ci-dessous)
+2. (Optionnel ultérieur) protection de branche `main` exigeant le check `SFIA Studio Next Required Gate` — **GO séparé**
+3. Publication branche projet / PR — **GO séparés**; CI remote SUCCESS seulement après (1)+run réel
+
+### YAML candidat complet
+
+```yaml
+# PROPOSAL ONLY — NOT INSTALLED
+# Target path (requires distinct Morris GO to write):
+#   .github/workflows/sfia-studio-next-ci.yml
+#
+# Product responsibility: SFIA Studio Next (projects/sfia-studio-next/web)
+# Does NOT validate projects/sfia-studio (legacy) or interv360.
+# Does NOT claim LIVE Nora / COG / RECETTE / STABLE.
+#
+# Design notes (path filters + required checks):
+# - pull_request to main has NO top-level paths: filter — workflow always runs
+#   so a future required check is never "absent" on unrelated PRs.
+# - Job `detect` decides whether heavy Next validation is required.
+# - Job `required_gate` is the stable check name for branch protection:
+#     "SFIA Studio Next Required Gate"
+# - Out-of-scope PRs: detect=success, validate=skipped, required_gate=PASS
+#   with explicit message that Next was NOT executed (not a fake green).
+# - push to main uses paths: so merges that only touch Next (or this workflow)
+#   re-validate; unrelated pushes do not burn CI minutes.
+#
+# Node: 24 (matches local operator Node v24.x and legacy Studio CI).
+# Postgres: 16-alpine ephemeral Docker container matching DEV gate identities:
+#   container sfia-next-dev-pg, 127.0.0.1:5433→5432, DBs sfia_next_dev + sfia_next_e2e.
+# Migrations on ML2 branch: 001→004 via scripts/db-migrate.sh (branch version).
+# Nora: STUDIO_E2E=1 + OPENAI_API_KEY neutralized — FAKE only.
+
+name: SFIA Studio Next CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+    paths:
+      - "projects/sfia-studio-next/**"
+      - ".github/workflows/sfia-studio-next-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sfia-studio-next-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect:
+    name: Detect SFIA Studio Next changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      next_changed: ${{ steps.detect.outputs.next_changed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect Next scope
+        id: detect
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          next_changed="false"
+          event_name="${{ github.event_name }}"
+
+          is_next_path() {
+            case "$1" in
+              projects/sfia-studio-next/*|.github/workflows/sfia-studio-next-ci.yml)
+                return 0
+                ;;
+              *)
+                return 1
+                ;;
+            esac
+          }
+
+          scan_range() {
+            local base_sha="$1"
+            local head_sha="$2"
+            local file=""
+            local found="false"
+
+            git rev-parse --verify "${base_sha}^{commit}" >/dev/null
+            git rev-parse --verify "${head_sha}^{commit}" >/dev/null
+
+            while IFS= read -r -d '' file; do
+              if is_next_path "${file}"; then
+                found="true"
+                break
+              fi
+            done < <(git diff -z --name-only "${base_sha}...${head_sha}")
+
+            printf '%s' "${found}"
+          }
+
+          if [ "${event_name}" = "pull_request" ]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
+            head_sha="${{ github.event.pull_request.head.sha }}"
+            if [ -z "${base_sha}" ] || [ -z "${head_sha}" ]; then
+              echo "Missing pull_request base/head SHA; fail-closed." >&2
+              exit 1
+            fi
+            next_changed="$(scan_range "${base_sha}" "${head_sha}")"
+          elif [ "${event_name}" = "push" ]; then
+            # Path filters already constrain push; treat as in-scope fail-closed.
+            next_changed="true"
+            before_sha="${{ github.event.before }}"
+            head_sha="${{ github.sha }}"
+            if [ -n "${before_sha}" ] && [ "${before_sha}" != "0000000000000000000000000000000000000000" ]; then
+              if ! git rev-parse --verify "${before_sha}^{commit}" >/dev/null 2>&1; then
+                echo "Cannot resolve github.event.before; fail-closed." >&2
+                exit 1
+              fi
+              corroborate="$(scan_range "${before_sha}" "${head_sha}")"
+              echo "push corroborate next_changed=${corroborate}"
+            fi
+          else
+            echo "Unsupported event_name=${event_name}; fail-closed." >&2
+            exit 1
+          fi
+
+          if [ "${next_changed}" != "true" ] && [ "${next_changed}" != "false" ]; then
+            echo "Invalid next_changed value; fail-closed." >&2
+            exit 1
+          fi
+
+          echo "event_name=${event_name}"
+          echo "next_changed=${next_changed}"
+          echo "next_changed=${next_changed}" >> "${GITHUB_OUTPUT}"
+
+  validate:
+    name: Build and validate SFIA Studio Next
+    needs: detect
+    if: >
+      needs.detect.result == 'success' &&
+      (
+        (github.event_name == 'pull_request' && needs.detect.outputs.next_changed == 'true') ||
+        github.event_name == 'push'
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+        working-directory: projects/sfia-studio-next/web
+    env:
+      STUDIO_LANE: DEV
+      STUDIO_DEV_TEST_LOGIN: "1"
+      STUDIO_E2E: "1"
+      STUDIO_FORCE_NORA_FIXTURE: "1"
+      # Synthetic CI-only values — never Morris workstation secrets, never LIVE OAuth/OpenAI.
+      BETTER_AUTH_SECRET: "ci-only-better-auth-secret-not-for-prod-32b"
+      BETTER_AUTH_URL: "http://127.0.0.1:3101"
+      DATABASE_URL: "postgres://sfia_next_dev:ci-only-local@127.0.0.1:5433/sfia_next_dev"
+      SFIA_PG_CONTAINER: sfia-next-dev-pg
+      SFIA_PG_USER: sfia_next_dev
+      SFIA_PG_DATABASE: sfia_next_dev
+      SFIA_E2E_DATABASE: sfia_next_e2e
+      # Force FAKE Nora — empty key; do not inject OPENAI_API_KEY / GitHub OAuth.
+      OPENAI_API_KEY: ""
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: projects/sfia-studio-next/web/package-lock.json
+
+      - name: Start ephemeral Postgres matching DEV gate identities
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          docker rm -f sfia-next-dev-pg >/dev/null 2>&1 || true
+          docker run -d --name sfia-next-dev-pg \
+            -e POSTGRES_USER=sfia_next_dev \
+            -e POSTGRES_PASSWORD=ci-only-local \
+            -e POSTGRES_DB=sfia_next_dev \
+            -p 127.0.0.1:5433:5432 \
+            postgres:16-alpine
+          for i in $(seq 1 60); do
+            if docker exec sfia-next-dev-pg pg_isready -U sfia_next_dev -d sfia_next_dev >/dev/null 2>&1; then
+              echo "postgres ready"
+              break
+            fi
+            sleep 1
+            if [ "$i" = "60" ]; then
+              echo "Postgres failed to become ready" >&2
+              docker logs sfia-next-dev-pg >&2 || true
+              exit 1
+            fi
+          done
+          # Sibling E2E database (created empty; migrate applied by e2e-web-server / migrate step)
+          docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -v ON_ERROR_STOP=1 \
+            -c "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" | grep -q 1 \
+            || docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -v ON_ERROR_STOP=1 \
+              -c "CREATE DATABASE sfia_next_e2e OWNER sfia_next_dev;"
+          docker port sfia-next-dev-pg 5432
+
+      - name: Write CI .env.local (synthetic, non-secret lane)
+        run: |
+          set -euo pipefail
+          printf '%s\n' \
+            'DATABASE_URL=postgres://sfia_next_dev:ci-only-local@127.0.0.1:5433/sfia_next_dev' \
+            'STUDIO_LANE=DEV' \
+            'STUDIO_DEV_TEST_LOGIN=1' \
+            'BETTER_AUTH_SECRET=ci-only-better-auth-secret-not-for-prod-32b' \
+            'BETTER_AUTH_URL=http://127.0.0.1:3101' \
+            > .env.local
+          # Explicitly omit OPENAI_API_KEY, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET
+
+      - name: Install dependencies (lockfile exact)
+        run: npm ci
+
+      - name: TypeScript
+        run: npx tsc --noEmit
+
+      - name: ESLint (next lint — version from lockfile)
+        run: npm run lint
+
+      - name: Build Next
+        run: npm run build
+
+      - name: Vitest unit
+        run: npm run test:unit
+
+      - name: Apply migrations 001→004 on operator DB
+        run: npm run db:migrate
+
+      - name: Vitest PostgreSQL integration
+        env:
+          # Integration tests read DATABASE_URL from .env.local / env; force FAKE Nora.
+          STUDIO_E2E: "1"
+          OPENAI_API_KEY: ""
+        run: |
+          set -euo pipefail
+          unset OPENAI_API_KEY || true
+          export OPENAI_API_KEY=
+          npm run test:integration
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright BROWSER FAKE
+        env:
+          STUDIO_E2E: "1"
+          STUDIO_FORCE_NORA_FIXTURE: "1"
+          OPENAI_API_KEY: ""
+        run: |
+          set -euo pipefail
+          unset OPENAI_API_KEY || true
+          export OPENAI_API_KEY=
+          npm run test:e2e
+
+      - name: Secret pattern scan (Next paths, targeted)
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          matches="$(git grep -nE 'BEGIN (RSA |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}' -- 'projects/sfia-studio-next' || true)"
+          if [ -n "${matches}" ]; then
+            echo "Potential secret material detected under projects/sfia-studio-next:" >&2
+            printf '%s\n' "${matches}" >&2
+            exit 1
+          fi
+          echo "Secret pattern scan passed"
+
+      - name: Trailing whitespace / conflict marker check
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            git diff --check "${BASE_SHA}...HEAD"
+          else
+            BEFORE="${{ github.event.before }}"
+            if [ -n "${BEFORE}" ] && [ "${BEFORE}" != "0000000000000000000000000000000000000000" ]; then
+              git diff --check "${BEFORE}...HEAD"
+            else
+              echo "No previous SHA available; skipping whitespace range check"
+            fi
+          fi
+
+      - name: Stop ephemeral Postgres
+        if: always()
+        working-directory: ${{ github.workspace }}
+        run: docker rm -f sfia-next-dev-pg >/dev/null 2>&1 || true
+
+  required_gate:
+    name: SFIA Studio Next Required Gate
+    needs:
+      - detect
+      - validate
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Aggregate required gate
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          detect_result="${{ needs.detect.result }}"
+          validate_result="${{ needs.validate.result }}"
+          next_changed="${{ needs.detect.outputs.next_changed }}"
+
+          echo "detect_result=${detect_result}"
+          echo "validate_result=${validate_result}"
+          echo "next_changed=${next_changed}"
+
+          if [ "${detect_result}" != "success" ]; then
+            echo "Required gate FAIL: detection did not succeed (result=${detect_result})." >&2
+            exit 1
+          fi
+
+          if [ "${next_changed}" != "true" ] && [ "${next_changed}" != "false" ]; then
+            echo "Required gate FAIL: unknown next_changed value." >&2
+            exit 1
+          fi
+
+          if [ "${next_changed}" = "false" ]; then
+            echo "Required gate PASS: non-Next pull request; Next validation was NOT executed (not claimed)."
+            exit 0
+          fi
+
+          if [ "${validate_result}" != "success" ]; then
+            echo "Required gate FAIL: Next validation required but result=${validate_result}." >&2
+            exit 1
+          fi
+
+          echo "Required gate PASS: Next validation succeeded."
+```
+
+### Matrice jobs
+
+| Job | Condition | Rôle |
+| --- | --- | --- |
+| detect | toujours (PR/push in-scope) | `next_changed` true/false |
+| validate | next_changed ou push | npm ci, tsc, lint, build, unit, migrate 001–004, PG, Playwright FAKE, secret scan, diff --check, Postgres Docker éphémère |
+| required_gate | always() | Agrège; hors Next PASS sans prétendre tester; Next FAIL si validate≠success |
+
+### Reproductibilité locale des commandes CI (DEV lane)
+
+```bash
+cd projects/sfia-studio-next/web
+npm ci
+npx tsc --noEmit
+npm run lint
+npm run build
+npm run test:unit
+npm run db:migrate          # container sfia-next-dev-pg, 001→004
+npm run test:integration    # OPENAI_API_KEY unset / STUDIO_E2E=1
+npm run test:e2e            # FAKE via e2e-web-server.sh
+```
+
+Exécutées ce cycle sur HEAD produit `1967b2c5` (+ docs `f9374770` n'affecte pas web): **PASS**.
+
+### Limites de preuve
+
+- Ce YAML **n'est pas** une preuve CI GitHub exécutée.
+- Pas de run Actions, pas de badge, pas de Required Gate distant actif.
+- Interv360 path-filter pattern **évité** volontairement (risque check skipped/missing).
+- Secrets CI = synthétiques; aucun secret Morris/OAuth/OpenAI injecté.
+
+## 8. ENV-01 / versioning
+
+- Lane: DEV only
+- RECETTE: aucune mutation
+- STABLE: NOT AVAILABLE
+- Candidat RECETTE: NOT AVAILABLE (SHA non publié/figé pour recette)
+- Version produit: NO RELEASE; classification prospective MINOR compatible ML2; package `0.0.0-dev`
+- Réserve ML1-A cookies same-host multi-ports: **non corrigée** (héritée)
+
+## 9. Readiness unique / gates restants (ordre)
+
+1. Morris accepte le dossier d'intégration + proposition CI (cette revue).
+2. GO: écrire `.github/workflows/sfia-studio-next-ci.yml` (+ éventuellement commit sur branche publiée).
+3. GO: push branche projet `sfia/next-ml2-production-capitalisation`.
+4. GO: ouvrir PR vers main.
+5. CI Next remote SUCCESS sur SHA identifié (Required Gate).
+6. GO: merge.
+7. Smoke post-merge / éventuelle RECETTE — gates distincts.
+8. ML3 — seulement après réception effective ML2.
+
+**Pas de PR READY** tant que l'étape 2–5 n'est pas réelle.
+
+## 10. Réserves / exits
+
+- ML2-S1 streaming UI/LIVE
+- ML2-S2 composition séparation UX
+- ML2-S3 Figma fidelity globale NOT PROVEN
+- CI Next: absente jusqu'à GO+run
+- COG-01..07 LIVE NOT RUN
+- C3 reprises refresh/intention durable: réserves bornées (§6)
+- SVG résidus: EXCLUDE
+
+## 11. Diff cycle 7 (docs only)
 
 ```diff
-commit 1967b2c56e59c2cfdf0ba17f2d50dbc9eadf5a01
+commit f937477026d25812db000af4d16ab48bd22e9e47
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 04:31:52 2026 +0100
+Date:   Thu Nov 5 04:53:54 2026 +0100
 
-    fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
+    docs(next-ml2): record Cycle 7 integration-prep and CI proposal status
 
-    Close residual integrity gaps from ChatGPT review: fingerprint on every
-    correlation reconcile path, stable UI creation intents across retries,
-    bounded DEGRADED diff, and PG assertions on subject events under rollback
-    and same-acquis concurrency. Local only — no project push.
+    Document local readiness for Git integration and the CI Next proposal
+    held only under .tmp — no workflow install, no project push.
 
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 03cdc58e..6c755124 100644
+index 6c755124..0b0c76be 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -187,3 +187,21 @@ Append-only logical journal of Cursor product deliveries.
- | Tests | unit 31 PASS ; PG integration 45 PASS ; Playwright 2 PASS ; tsc+build PASS |
+@@ -205,3 +205,21 @@ Append-only logical journal of Cursor product deliveries.
+ | Evidence limits | LIVE Nora / COG panel / Figma ML2-S3 / CI Next = NOT PROVEN or ABSENT |
  | Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
- | Verdict candidate | `READY FOR MORRIS REVIEW` (réserves S1/S2/S3/CI/COG qualifiées, non bloquantes pour intégrité) |
+ | Verdict candidate | `READY FOR MORRIS REVIEW` |
 +
-+## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-03
++## delivery_id: DELIV-2026-11-05-ML2-INTEGRATION-PREP-04
 +
 +| Field | Value |
 +| --- | --- |
 +| Date | 2026-11-05 (Europe/Paris) |
-+| Macro-lot | R5 / ML2 — consolidation corrective C3/C4/C1 |
-+| Type | Correctif intégré (même macro-lot) |
-+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
-+| Parent HEAD | `5c7dd7528ff859c9717db865c74d45930dff4219` |
++| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (préparation) |
++| Type | EVOL / préparation intégration Git + instruction CI |
++| Branch | `sfia/next-ml2-production-capitalisation` @ `1967b2c5` (local only — **not published**) |
 +| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
-+| Périmètre | C3-A fingerprint all paths ; C3-B clé UI stable ; C4 budget diff ; C1 journal + concurrence |
-+| Schema | unchanged (`004_ml2_integrity_corrective`) — no new migration |
-+| Product version | `NO RELEASE` |
-+| Tests | unit 34 PASS ; PG integration 50 PASS ; Playwright 3 PASS (FAKE) ; tsc+lint+build PASS |
-+| Evidence limits | LIVE Nora / COG panel / Figma ML2-S3 / CI Next = NOT PROVEN or ABSENT |
-+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
-+| Verdict candidate | `READY FOR MORRIS REVIEW` |
-diff --git a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-index 801b4cee..41717d5d 100644
---- a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-+++ b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-@@ -252,3 +252,18 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
- | C4 lignes répétées | PASS | PASS | N/A | PASS |
- | C5 faux FACT | PASS | PASS | PASS | PASS |
- | C6 état UI | PARTIEL BROWSER | PASS smoke | si effet | PASS partiel |
-+
-+### 7.2 Consolidation C3/C4/C1 (2026-11-05)
-+
-+| Défaut | Avant | Après | Niveau | Verdict |
-+| --- | --- | --- | --- | --- |
-+| C3 race sans fingerprint | FAIL (anomalie revue) | PASS | PG | PASS |
-+| C3 même clé payload incompatible concurrent | FAIL | PASS | PG | PASS |
-+| C3 ACK perdu / retry | PASS partiel | PASS | PG + BROWSER | PASS |
-+| C3 clé UI stable entre retries | FAIL (`Date.now`) | PASS | BROWSER | PASS |
-+| C3 cross-project | PARTIEL | PASS | PG | PASS |
-+| C4 volumétrie / budget | FAIL (O(nm) non borné) | PASS DEGRADED explicite | UNIT | PASS |
-+| C4 occurrences répétées | PASS | PASS | UNIT | PASS |
-+| C1 rollback journal événements | FAIL (non asserté) | PASS (0 MERGED/SPLIT résiduel) | PG | PASS |
-+| C1 même Acquis concurrent | PARTIEL | PASS (1 affectation) | PG | PASS |
-+| Non-régression C2/C5/ML1 | PASS | PASS | PG + BROWSER | PASS |
-diff --git a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-index 0a4174ab..3375f336 100644
---- a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-+++ b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-@@ -493,3 +493,26 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
- ### Réserves inchangées
-
- ML2-S1 streaming UI/LIVE ; ML2-S2 composition séparation (minimale) ; ML2-S3 matrice Figma viewports ; CI Next absente ; COG LIVE NOT RUN.
-+
-+## 14. As-Built consolidation C3/C4/C1 — 2026-11-05 (complément)
-+
-+> Correctif intégré du même macro-lot ML2. Ne réécrit pas VALIDATED SPEC §§1–11 ni le correctif §13.
-+
-+| Champ | Valeur |
-+| --- | --- |
-+| Branche | `sfia/next-ml2-production-capitalisation` (poursuite `d867365f`…`5c7dd752` + commit consolidation) |
-+| Migration | aucune nouvelle (004 conserve) |
-+| Schema revision | `004_ml2_integrity_corrective` |
-+
-+### Fermetures
-+
-+| Id | Mécanisme | Preuve |
-+| --- | --- | --- |
-+| C3-A | `reconcilePriorRevision` + fingerprint sur tous les chemins (lookup, race unicité, TX, catch, wait in-flight) ; `UNKNOWN/CREATION_IN_FLIGHT` si révision absente | PG concurrent same/diff payload + ACK perdu + cross-pilot |
-+| C3-B | Intention UI stable (`createDocIntent`/`reviseIntent` + refs) ; clé non renouvelée sur retry/ACK perdu ; refus payload incompatible ; statut visible sur surface Document | BROWSER `ml2-c3-stable-key` |
-+| C4 | `MAX_DIFF_CELLS=2_000_000` ; dégradation explicite `DEGRADED` / `DIFF_BUDGET_EXCEEDED` (jamais diff exhaustif faux) | UNIT adversarial + many short lines |
-+| C1 | Assertions journal : 0 événement MERGED/SPLIT résiduel après rollback ; même Acquis concurrent → 1 affectation ; split+merge overlap sérialisé | PG journal + concurrency |
-+
-+### Non-régression
-+
-+C2 concurrent revise ; C5 epistemic FACT ; ML1 sas→projet BROWSER FAKE — PASS.
++| Périmètre | Git Truth, inventaire candidat, revalidation locale, proposition CI Next (artefact `.tmp` uniquement) |
++| CI Next workflow path | **PROPOSED** `.github/workflows/sfia-studio-next-ci.yml` — contenu dans `.tmp-sfia-review/ci-next-workflow-proposal.yml` ; **NOT WRITTEN** under `.github/` |
++| CI Next remote | **NOT RUN** — requires distinct Morris GO to install workflow + publish SHA |
++| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
++| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS |
++| SVG residuals | 5× `web/public/*.svg` create-next-app defaults, untracked, unused → **EXCLUDE** (do not commit) |
++| Status | LOCAL INTEGRATION PREP — no project push/PR/merge ; Review Handoff L3 only |
++| Verdict candidate | `READY WITH RESERVES` (intégration Git bloquée tant que CI Next absente / non exécutée) |
 
 ```
 
-## 11. Fake/Real Qualification
+## 12. Décisions Morris indispensables
 
-| Preuve | Classe |
-| --- | --- |
-| Vitest unit (diff, fingerprint, fixtures) | DETERMINISTIC |
-| Vitest PG (50) | PG / REAL Postgres DEV lane |
-| Playwright 3 | BROWSER FAKE (Nora fixture, DEV login) |
-| Nora LIVE / COG | NOT RUN — no LIVE claim |
-| Figma fidelity ML2-S3 | NOT PROVEN |
+1. Accepter/refuser le readiness d'intégration locale ML2.
+2. GO distinct: installer le workflow CI Next proposé.
+3. GO distinct: push branche + PR (après ou avec CI).
+4. Décision sur SVG: confirmer EXCLUDE (recommandé).
+5. Ne pas ouvrir ML3 / RECETTE / STABLE / RELEASE sans gates ci-dessus.
 
-## 12. Réserves
+## 13. Verdict unique
 
-- ML2-S1: streaming UI progressive / LIVE — inchangée
-- ML2-S2: composition UX séparation — minimale, revue UX si structurant
-- ML2-S3: fidélité Figma globale — non prouvée
-- CI Next: absente du gate — GO workflow distinct requis
-- COG-01..07 LIVE: NOT RUN
-- Aucune nouvelle réserve bloquante d'intégrité C3/C4/C1 démontrée
+**READY WITH RESERVES**
 
-## 13. Décisions Morris restantes
-
-1. Accepter ou non l'intégrité corrective consolidée pour suite ML2 (intégration Git projet).
-2. GO distinct éventuel: push branche / PR / merge — **non fait ici**.
-3. GO RECETTE / LIVE Nora / COG panel — hors cycle.
-4. GO CI Next workflow — hors cycle.
-5. ML3: seulement après réception effective ML2.
-
-## 14. Verdict unique
-
-**READY FOR MORRIS REVIEW**
-
-Intégrité corrective C3 (fingerprint + clé UI), C4 (budget/DEGRADED) et C1 (journal + concurrence) couverte avec preuves exploitables DETERMINISTIC / PG / BROWSER FAKE. Réserves S1/S2/S3/CI/COG qualifiées, non bloquantes pour ce correctif. Pas de ML2 CLOSED / PR READY / RECETTE / STABLE / RELEASE / ADOPTED.
+Candidat ML2 local cohérent, mergeable prospectivement avec main, preuves locales C1–C6 reconfirmées, proposition CI Next complète et techniquement applicable. Intégration Git / PR **non ready** tant que CI Next n'est pas installée et exécutée. Pas de ML2 CLOSED, PR READY, RECETTE, STABLE, RELEASE, ADOPTED.
