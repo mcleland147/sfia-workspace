@@ -146,3 +146,21 @@ CKI est le terme cible Next (CKC reste historique R1). D4 garde les connaissance
 | **PF-KNOW-14** | D4 | Version d'un document officiellement remplacée | Historique consultable, version courante identifiable si déterminable, pas de réécriture du passé | KNOW-017, KNOW-007 |
 
 **Preuve :** scénarios documentaires, non exécutés ; comportement `N/A — NON IMPLÉMENTÉ`.
+
+## 10. Complément candidat post-R2 — consultation D4 pendant une mission cognitive (2026-11-05)
+
+> **PROPOSED / NOT VALIDATED BY MORRIS.** Complément borné de RG-KNOW-001..020 et PF-KNOW-01..14 ; aucune réécriture des contrats antérieurs. D4 reste propriétaire des documents, versions, Sujets, Acquis et Points ouverts ; D3 décide de l'usage cognitif des éléments disponibles (D3 §14 candidat). Aucun second registre de trace, mémoire ou autorité n'est créé.
+
+### 10.1. Règles fonctionnelles candidates
+
+- **RG-KNOW-021 — Lecture complémentaire autorisée.** Quand une première sélection est insuffisante, D4 peut fournir à Nora d'autres passages, documents ou Acquis par requête D3 contextualisée, après vérification des droits courants et du projet pour chaque lecture. La disponibilité d'un connecteur Git/Web ne se déduit pas du besoin de Nora.
+- **RG-KNOW-022 — Résultat de lecture et couverture honnêtes.** Toute réponse fournit, lorsqu'elles existent, identité/version/source/date, portée, limites, accès refusé ou indisponibilité. La seule présence d'un titre ne signifie pas lecture du document ; une extraction partielle n'est pas présentée comme exhaustive.
+- **RG-KNOW-023 — Connaissance distincte de l'activité.** Les événements techniques d'appel, compteurs de tokens ou traces SDK peuvent référencer les ressources D4, mais ne deviennent ni nouveaux Acquis ni preuve D8 ni décision D6. Les contenus privés ne sont pas systématiquement recopiés dans les traces.
+
+### 10.2. Scénarios fonctionnels candidats
+
+- **PF-KNOW-15 — Recherche incrémentale.** À partir d'une sélection initiale partielle, Nora demande des passages complémentaires du même projet ; D4 retourne des références/versions utilisables sans relire l'intégralité de la conversation.
+- **PF-KNOW-16 — Changement de droits ou de fraîcheur.** Une ressource est révoquée, remplacée ou devenue périmée entre deux lectures. D4 refuse ou qualifie la nouvelle consultation, sans divulguer l'ancienne donnée interdite.
+- **PF-KNOW-17 — Lecture, citation et écriture distinctes.** Une mission lit deux documents, cite un extrait et produit un brouillon explicitement demandé ; les identités, versions et opérations techniques restent distinctes de la confirmation de sauvegarde D4.
+
+**Qualification R5 :** PF-37/39/40 D3 et COG-03/05 sur le même projet/SHA. Interfaces exactes, limites, reprise et sécurité doivent être prouvées avec le code. Les identifiants candidats ne requalifient pas rétroactivement les inventaires validés en R2.
