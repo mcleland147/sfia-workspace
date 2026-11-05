@@ -375,7 +375,7 @@ Pour chaque mission représentative, mettre en regard **(a) l'activité réellem
 
 | Activité du même macro-lot | Contrat d'entrée | Preuve / sortie attendue |
 | --- | --- | --- |
-| Pré-check et intégration sources | \`main\`, PR #655, #656, branches docs, décisions Morris, SDK/versions/ENV-01, état local Cursor | Périmètre de changement et fichiers propriétaires ; aucune branche candidate présentée comme baseline |
+| Pré-check et intégration sources | `main`, PR #655, #656, branches docs, décisions Morris, SDK/versions/ENV-01, état local Cursor | Périmètre de changement et fichiers propriétaires ; aucune branche candidate présentée comme baseline |
 | Contrat technique exécutable | SDK/compatibilité fournisseur, outils D4, erreurs API, propagation des IDs, options de tracing, lecture sécurisée des traces | Choix explicites validés au gate technique, blast radius (API/DB/UX/sécurité), bornes et STOP |
 | Construction D3/D4 et instrumentation | Interfaces/états propriétaires inchangés ; outils lecture-only, bornes, télémétrie native-first | Code + tests + docs même cycle ; non-régression C1–C6 ; pas de nouveau moteur parallèle |
 | Vérification technique | ENV-01, DB/migrations, droits et CI Next réellement disponible/exécutée | Tests unitaires/PG/INTEGRATION/HTTP/BROWSER et sécurité avec résultats au même SHA |
