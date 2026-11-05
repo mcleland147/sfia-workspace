@@ -1612,7 +1612,7 @@ La conception UX R3 est **CLOSED BY MORRIS — WITH CARRIED RESERVES**. La [déc
 
 ## 40. Complément UX candidat — activité cognitive et diagnostic de mission (2026-11-05)
 
-> **PROPOSED / NOT VALIDATED BY MORRIS ; Figma et runtime non modifiés.** Déclinaison de la vision R1 §2.2, des règles candidates D3 §14 et des surfaces d'activité déjà prévues au R3 §35. La règle du fil unique §39 reste applicable ; aucun nouveau chat, écran d'administration ou journal de pensée du modèle n'est requis.
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; Figma et runtime non modifiés.** Déclinaison de la vision R1 §2.2, des règles candidates D3 §14 et des surfaces d'activité déjà prévues au R3 §35. La règle du fil unique §39 reste applicable ; aucun nouveau chat, écran d'administration ou journal de pensée du modèle n'est requis.
 
 **Résultat :** le Pilote obtient une réponse rapide lorsque le travail est direct. Lorsqu'une recherche complémentaire réellement autorisée se produit, la conversation peut indiquer uniquement des états confirmés : préparation, lecture D4 lancée/répondue, réponse partielle, erreur ou interruption. Les étapes mentales cachées, pourcentages inférés, horodatages inventés, recherches prétendues et STOP non confirmé sont interdits.
 
