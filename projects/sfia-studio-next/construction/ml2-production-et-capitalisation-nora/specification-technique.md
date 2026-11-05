@@ -793,3 +793,45 @@ Deux responsabilités d'outil suffisent au départ, sous réserve de revue des s
 **STOP pré-Cursor :** obtenir les valeurs de plafonds et le modèle/effort compatibles réellement vérifiés ; définir le contrat d'idempotence de tour et les mécanismes exacts de reprise ; arrêter le schéma de retour outil/état UX ; qualifier le collecteur/permissions et la rétention, les variantes de tracing et la consommation ; déterminer les fichiers impactés et la branche technique/CI sur un SHA réel. Toute évolution normative d'ADR, d'autorité, de persistance ou d'ENV-01 appelle un arbitrage Morris distinct. Voir [QA §13](matrice-tracabilite.md) et [R5 §20](../reference-delivery-r5.md).
 
 **Verdict documentaire : TECHNICAL DESIGN CONSOLIDATED AS CANDIDATE / SDK SOURCE REVIEWED / IMPLEMENTATION NOT AUTHORIZED / QA EXTENSION NOT RUN / NO PR, MERGE, RECETTE OR ADOPTED.**
+
+## 21. Qualification simultanée des cinq choix — validation Morris avec réserve de calibration (2026-11-05)
+
+> **VALIDATED DESIGN DIRECTION BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Morris accepte conjointement les cinq orientations du ML2, **avec correction expresse : les limites chiffrées ci-dessous sont des bornes de test initiales, non des plafonds du produit cible**. Le code, la migration et le LIVE ne sont pas prouvés ; GO D3 Cursor, PR, merge et RECETTE restent distincts. Cette section précise le §20, sans modifier R4/ADR, DATA-01, ENV-01 ni les As-Built. Voir [R5 §21](../reference-delivery-r5.md) et [QA §14](matrice-tracabilite.md).
+
+### 21.1. Modèle et effort — orientation validée en conception
+
+**Un modèle principal d'étude :** `gpt-6.1-sol`, configuré côté serveur ; `low` pour une demande simple, `medium` pour une analyse structurante, `high` pour une investigation exigeante. Qualification selon intention, risque et sources manquantes, sans appel LLM de classement systématique, routage Astra/Luna automatique ni élargissement d'autorité. L'accès à ce modèle, ses efforts, son comportement avec les outils D4 et son coût doivent être testés avec la clé/lane autorisées. Un refus fournisseur est signalé sans substitution silencieuse ; alternative soumise à Morris.
+
+### 21.2. Budgets — séparation impérative TEST et usage réel
+
+| Profil de **qualification initiale seulement** | Appels modèle max. | Lectures D4 supplémentaires max. | Durée de test max. | Contenu D4 retourné max. |
+| --- | ---: | ---: | ---: | ---: |
+| Simple | 1 | 0 | 30 s | 0 |
+| Analyse | 6 | 4 | 120 s | 32 000 caractères |
+| Investigation exigeante | 10 | 8 | 180 s | 64 000 caractères |
+
+**Statut de ces chiffres : `TEST-ONLY / NON DÉFINITIF / RECALIBRATION OBLIGATOIRE`.** Ce sont des plafonds artificiellement contraignants pour exercer budget épuisé, STOP, timeout, retour partiel ou `UNKNOWN` et mesurer le comportement. **120 secondes ou 32 000 caractères D4 ne sauraient être imposés comme limite d'une enquête produit réelle.** Des investigations légitimes peuvent prendre **5 à 10 minutes, voire davantage**, et requérir bien plus de contenu D4. Un test de dépassement réussi n'établit pas que Nora sait accomplir une mission longue.
+
+**Recalibrage contractuellement requis avant usage approfondi :**
+1. Isoler dans le runtime les profils `TEST_BOUNDARY` et les profils `OPERATIONAL` configurables ; aucun plafond TEST ne devient un défaut opérationnel implicite. Garder des plafonds opérationnels **finis, contrôlés, gouvernés et reconfigurables**, pas une exécution illimitée.
+2. Tester un corpus **A : limites courtes artificielles** et un corpus **B : investigations réalistes longues** avec lectures D4 volumineuses, pagination, sources contradictoires et permissions ; observer volumes réellement reçus, temps, latences, qualité, causes d'arrêt, tokens et coûts s'ils sont mesurés. Absence de mesure ≠ zéro.
+3. Ajuster les plafonds, la granularité de lecture, la continuité/reprise, la visibilité UX et les compromis coût/qualité à partir de ces résultats ; versionner la politique appliquée. Les chiffres de production restent **TBD jusqu'à preuve et validation Morris**. Synchroniser cette politique dans code/tests/docs du même ML2, ne pas la reporter sans propriétaire/exit.
+4. Une pagination/reprise D4 doit conserver référence, version, complétude et autorisation ; un extrait partiel n'est jamais cité comme exhaustif. STOP demandé ≠ interruption effectivement obtenue ; aucun retry de fournisseur déjà sollicité sans réconciliation.
+
+### 21.3. Intégrité du tour — orientation PostgreSQL
+
+**Principe accepté :** réserver une **commande de tour conversationnel durable** dans le PostgreSQL déjà propriétaire, sans moteur de conversation parallèle. Identité stable liée au fil (`client_turn_key` + empreinte de contenu + portée de session serveur), références `operation_id`, messages/génération et état. Une unicité `(conversation_id, client_turn_key)` et une réservation atomique de l'ordinal, sous verrou court, sont des contrats candidats ; ne jamais retenir la transaction pendant l'appel SDK. Une migration bornée, son schéma précis et ses consommateurs requièrent un mandat D3 spécifique.
+
+**Oracles :** même clé et même requête → résultat ou état existant sans second appel ; clé identique/payload divergent → conflit ; deuxième intention pendant RUNNING → conflit/attente explicite ; crash ou réponse perdue après envoi fournisseur → `UNKNOWN` ou résultat réconcilié depuis vérité D3/D4, **aucune regénération silencieuse**. Préserver C1–C6, révisions, idempotence des sauvegardes et unicité du fil. La télémétrie n'autorise jamais un effet.
+
+### 21.4. Diagnostic — option sobre retenue en orientation
+
+Événements JSON structurés **sans données sensibles**, capture durable par launcher/processus et **lane**, rotation DATA-01 (~14 jours non critiques), consultation locale en lecture seule par `operation_id` **après redémarrage**, contrôle des droits OS et séparation ENV-01. Corréler requête, opération, génération, tentatives réelles, lectures D4 et effets confirmés au SHA/build/lane servi. Vérifier `traceIncludeSensitiveData:false` et désactiver tout export SDK non approuvé ; absence de collecteur ou de trace → `DIAGNOSTIC INCOMPLETE`. Aucun nouveau store d'audit DB, dashboard Pilote ni infrastructure de monitoring imposée.
+
+### 21.5. Git et CI — stratégie validée, opérations non autorisées
+
+**Orientation Git/CI explicitement validée Morris :** sous **GO technique et Git futurs distincts**, créer une branche de construction intégratrice depuis le **HEAD documentaire vérifié** (pile #655–#658 + compléments). Lors d'un **GO PR distinct**, proposer **une PR intégratrice vers `main`** pour exécuter la CI Next réellement au nouveau SHA et revoir le diff complet. Les PR #655–#658 ne sont ni retargetées, ni mergées, ni fermées ou supprimées implicitement ; qualifier leur supersession et éviter les doubles merges au gate Morris. Ne pas confondre CI #655 `08b89360` SUCCESS et preuve sur la nouvelle construction.
+
+### 21.6. Acceptation et passage à la suite
+
+Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01..07, OBS-Q01..10, scénarios de stress **et** missions réalistes longues ; vérifier clé/model/effort en LIVE, outils D4, migrations PG, retries/UNKNOWN, capture de traces, sécurité, isolation, CI et statut réel de la lane. **Prochaine étape : revue de préparation du mandat SFIA v2.6, sans génération du prompt ni lancement Cursor sous le présent GO.** Code = non modifié ; tests de l'extension = NOT RUN ; RECETTE = NOT STARTED ; ADOPTED = non acquis.
