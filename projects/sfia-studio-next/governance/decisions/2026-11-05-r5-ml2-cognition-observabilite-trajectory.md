@@ -9,8 +9,8 @@
 | Nature | Décision de trajectoire R5 ; **aucun nouvel ADR R4**, aucune révision du SEF/SFIA v2.6 |
 | Source d'autorité | Validation explicite Morris en conversation le 2026-11-05, après revue des options A/B/C et accord pour la **trajectoire C** |
 | Sources propriétaires | [Roadmap](../roadmap.md), [R5 référence delivery](../../construction/reference-delivery-r5.md), [ML2 spécification](../../construction/ml2-production-et-capitalisation-nora/specification-technique.md), [ML2 matrice](../../construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md), [contrat observabilité](../../architecture-technique/contrat-observabilite-transverse.md), [R5 §14 cognition comparative](../../construction/reference-delivery-r5.md#14-qualification-cognitive-comparative-chatgpt--nora--orientation-transversale-validée-morris-2026-11-04) |
-| Branche de rédaction | \`docs/next-ml2-integrated-strategy-20261105\` basée sur \`docs/next-transverse-observability-20261105@0e83824fd059d0074375a698b71e8dce53860fd9\` |
-| État Git au pré-check | \`main@6e4406c63639330c7826423cdcf08f06ff019eed\` ; PR #655 OPEN/DRAFT \`08b89360\` ; PR #656 OPEN \`a0d805e9\` ; branche observabilité \`0e83824f\` ; Git local **NON OBSERVÉ** |
+| Branche de rédaction | `docs/next-ml2-integrated-strategy-20261105` basée sur `docs/next-transverse-observability-20261105@0e83824fd059d0074375a698b71e8dce53860fd9` |
+| État Git au pré-check | `main@6e4406c63639330c7826423cdcf08f06ff019eed` ; PR #655 OPEN/DRAFT `08b89360` ; PR #656 OPEN `a0d805e9` ; branche observabilité `0e83824f` ; Git local **NON OBSERVÉ** |
 
 ## 1. Décision actée — option C
 
@@ -46,7 +46,7 @@
 ## 3. Critères de convergence et d'acceptation avant RECETTE ML2
 
 **Entrée en RECETTE candidate (sous revue technique, sans garantir la réussite cognitive) :**
-1. Une question simple n'enclenche pas une investigation inutile, et une mission complexe **peut réellement** demander au moins une consultation D4 complémentaire dans les limites autorisées. \`maxTurns > 1\` sans outil/trace d'usage ne prouve rien.
+1. Une question simple n'enclenche pas une investigation inutile, et une mission complexe **peut réellement** demander au moins une consultation D4 complémentaire dans les limites autorisées. `maxTurns > 1` sans outil/trace d'usage ne prouve rien.
 2. Configuration modèle/effort vérifiée sur le chemin fournisseur effectif ; limites/couts/latences/tentatives identifiables, aucune réussite fictive.
 3. Erreurs SESSION_INVALID, autorisation, conflit, base et fournisseur différenciées ; une panne DB ne devient pas un faux refus d'authentification.
 4. Pour une mission, un examinateur habilité peut retrouver opération, contexte de build/lane, appel(s) et outil(s), ressources réellement lues, erreurs, durée/usage connu et effet D4 confirmé ou UNKNOWN. L'absence de trace est déclarée.
@@ -66,7 +66,7 @@
 | D. Qualification | Tests/diagnostics/COG/OBS sur un SHA/lane ; rectification des gaps | Gate entrée RECETTE puis verdict Morris |
 | E. Intégration Git | PR readiness, CI, review, merge, relecture distante ; STABLE à gate distinct | GO PR/merge/promotion Morris spécifiques |
 
-**Publication documentaire ≠ mise à jour de la PR #655.** Les branches de documents étant empilées, le choix de branch technique, rebase/cherry-pick, retarget et ordre de PR/merges doit être qualifié avant reprise : aucune branche non mergée n'est une baseline \`main\`.
+**Publication documentaire ≠ mise à jour de la PR #655.** Les branches de documents étant empilées, le choix de branch technique, rebase/cherry-pick, retarget et ordre de PR/merges doit être qualifié avant reprise : aucune branche non mergée n'est une baseline `main`.
 
 ## 5. État, preuves et suites
 
