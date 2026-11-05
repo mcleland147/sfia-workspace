@@ -1574,3 +1574,9 @@ Chemin logique : **intention Pilote → contexte D1/D2 → qualification/configu
 ### 14.3. Frontière avec l'étape suivante
 
 L'étape de conception **observabilité et corrélation** prendra ces opérations comme référentiel d'événements ; elle précisera le lien entre operationId, génération D3, tentatives SDK, lectures D4 et effets métiers confirmés, sans changer leurs propriétaires. Les choix de collecteur, export, rétention effective, schéma et consultation restent à qualifier séparément **dans le même macro-lot ML2**, avant un unique contrat de construction D3. Aucun test LIVE, PR/merge, RECETTE ou statut ADOPTED n'est déduit de cette clarification.
+
+## 15. Raccord de conception observabilité R4 → R5 (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+Sans réouverture de R4 ou des ADR, le détail technique de l'étape 2 est dans le **contrat d'observabilité transverse §11**, tandis que **ML2 §19** porte les intégrations D1–D4 et **R5 §19** les gates. L'architecture reste modulaire (ADR R4-01), la vérité métier demeure transactionnelle chez D2/D4 (ADR R4-02), la preuve et l'autorité restent séparées (ADR R4-03) et les lanes/builds sont gouvernés par ENV-01 (ADR R4-04). Toute nouvelle base de télémétrie, canal d'accès interprojet, effet externe ou refonte de l'autorité serait un changement structurant soumis à Morris, pas un détail technique implicite.
