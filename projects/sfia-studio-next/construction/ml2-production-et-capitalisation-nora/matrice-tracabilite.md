@@ -267,3 +267,30 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 | C1 rollback journal événements | FAIL (non asserté) | PASS (0 MERGED/SPLIT résiduel) | PG | PASS |
 | C1 même Acquis concurrent | PARTIEL | PASS (1 affectation) | PG | PASS |
 | Non-régression C2/C5/ML1 | PASS | PASS | PG + BROWSER | PASS |
+
+## 8. Extension candidate de traçabilité — autonomie et observabilité cognitive (2026-11-05)
+
+> **PROPOSED / NOT VALIDATED BY MORRIS / NOT TESTED.** Extension de la présente matrice, pas nouveau référentiel QA. Les preuves C3/C4/C1 et les anciens statuts COG-01..07 sont conservés à leur niveau réellement observé. Références : R1 §2.2/E2E 03 ; R2 D3 §14 règles RG-CONV-007..012 / RG-CTX-009..011 et PF-36..41 ; R2 D4 §10 RG-KNOW-021..023 / PF-KNOW-15..17 ; R3 §40 ; R4 §11 ; R5 §15 ; ML2 spec §15.
+
+### 8.1. Couverture fonctionnelle candidate et oracles
+
+| Capacité candidate | Résultat observable Pilote / évaluateur | Lien R2 et scénario existant | Oracle et niveau requis | Statut |
+| --- | --- | --- | --- | --- |
+| Qualification/effort proportionnés | Réponse simple sans travail superflu, analyse structurante correctement dimensionnée | D3 RG-CONV-007/008, PF-36 ; COG-01 | Config réellement appliquée et motif disponible ; DETERMINISTIC + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Investigation D4 multi-étapes | Nora peut approfondir dans les bonnes versions/permissions avant de conclure | D3 RG-CONV-009, RG-CTX-009 ; D4 RG-KNOW-021/022, PF-37, PF-KNOW-15/16 ; COG-02/03/05 | Appels/outils effectivement reçus, droits, couverture, résultat sourcé ; DB/INTEGRATION + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Réévaluation et convergence | Contradiction nouvelle ou limite → approfondissement borné / état partiel honnête | D3 RG-CONV-010/011, PF-38/39 ; COG-03/06 | Budget, STOP/timeout/UNKNOWN, absence d'effet fictif ; DETERMINISTIC + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Diagnostic de mission | Un examinateur habilité retrouve opérations, coûts/latences disponibles et sources sans confondre activité et pensée cachée | D3 RG-CONV-012, RG-CTX-010/011, PF-40 ; D4 RG-KNOW-023 / PF-KNOW-17 ; R5 §14 | SDK traces corrélées, métadonnées Studio exactes, données protégées, mesure vs estimation ; INTEGRATION + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Comparaison cognitive | Qualité et efficacité du chemin examinées indépendamment, sans oracle LLM unique | PF-41 ; COG-01..07 ; R5 §14 | Réponses indépendantes, même corpus/écarts déclarés, fact-check, exemple de redondance ou lacune, verdict Morris | NOT RUN |
+| Autorité inchangée | Une recommandation, trace ou lecture d'outil n'est pas une décision, preuve ou mutation protégée | RG-CTX-010/011 ; PF-39/41 ; COG-07 | Négatifs D6/D7/D8, sauvegarde D4 confirmée distincte de la génération ; DB/LIVE | NOT TESTED |
+
+### 8.2. Conditions de comparaison et instrument probatoire
+
+**Un seul protocole :** utiliser le §3 COG-01..07 et R5 §14. Pour chaque cas retenu, relever l'énoncé, les sources/droits, SHA/lane, politiques et paramètres effectifs, les identifiants et séquences d'appels effectivement observés, résultat et limites, latence/usage/coût lorsque disponibles, réponse ChatGPT indépendante et faits vérifiés à leur source. L'absence de télémétrie ou une asymétrie d'accès est explicitée ; aucun verdict d'équivalence fondé sur le style, la durée ou la similarité du texte.
+
+**Cas négatifs discriminants :** outil D4 refusé, ressource périmée, absence d'outil, génération vide, tentative streaming échouée puis retry fournisseur, limite de tours, arrêt demandé non confirmé, ressource sauvegardée mais ACK perdu, erreur interprojet. Les états de consommation technique ne modifient pas la vérité des documents, connaissances, décisions ou preuves.
+
+### 8.3. Décision d'intégration et dette
+
+**Option à soumettre à Morris :** intégrer avant RECETTE ML2 le socle cohérent de cognition mesurable si ses interfaces et ses tests peuvent être livrés sans fragiliser les invariants déjà démontrés. Sinon, inscrire par capacité l'écart explicite, son propriétaire, le risque, le prochain lot et l'exit avant d'accepter une RECETTE de portée limitée. Ni augmentation isolée de maxTurns, ni configuration Sol High, ni tracing SDK seul ne suffisent pour déclarer l'autonomie de Nora prouvée.
+
+**Gates inchangés :** contenu documentaire candidat → validation Morris → mandat technique distinct → code/tests/QA même lot → RECETTE au SHA figé → PR/merge/promotions séparés. Aucune réouverture automatique de R1–R4 ni adoption anticipée.
