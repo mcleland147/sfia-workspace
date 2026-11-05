@@ -33,7 +33,7 @@ function applySql(file: string, database = DB) {
   );
 }
 
-describe.skipIf(!dockerOk())("migrations 001→002 on fresh isolated Postgres", () => {
+describe.skipIf(!dockerOk())("migrations 001→003 on fresh isolated Postgres", () => {
   let sql: ReturnType<typeof postgres> | null = null;
 
   beforeAll(async () => {
@@ -102,9 +102,10 @@ describe.skipIf(!dockerOk())("migrations 001→002 on fresh isolated Postgres", 
     }
   }, 30_000);
 
-  it("applies 001 then 002; auth_mode exists with default; DEV session insert works", async () => {
+  it("applies 001 then 002 then 003; auth_mode + knowledge tables exist", async () => {
     applySql("001_initial_studio_core.sql");
     applySql("002_session_auth_mode.sql");
+    applySql("003_ml2_knowledge_documents.sql");
 
     const cols = await sql!`
       SELECT column_name, column_default, is_nullable
@@ -132,11 +133,30 @@ describe.skipIf(!dockerOk())("migrations 001→002 on fresh isolated Postgres", 
     `;
     const rows = await sql!`SELECT auth_mode FROM sessions WHERE id = 'sid_mig'`;
     expect(rows[0].auth_mode).toBe("dev-test-login");
+
+    const tables = await sql!`
+      SELECT table_name FROM information_schema.tables
+      WHERE table_schema = 'public'
+        AND table_name IN ('knowledge_subjects', 'knowledge_acquis', 'knowledge_open_points')
+      ORDER BY table_name
+    `;
+    expect(tables.map((t) => t.table_name)).toEqual([
+      "knowledge_acquis",
+      "knowledge_open_points",
+      "knowledge_subjects",
+    ]);
+    const revCols = await sql!`
+      SELECT column_name FROM information_schema.columns
+      WHERE table_name = 'document_revisions'
+        AND column_name IN ('base_revision_id', 'correlation_key', 'provenance_json')
+    `;
+    expect(revCols.length).toBe(3);
   });
 
-  it("re-applying 001+002 is idempotent (IF NOT EXISTS / IF NOT EXISTS column)", () => {
+  it("re-applying 001+002+003 is idempotent", () => {
     expect(() => applySql("001_initial_studio_core.sql")).not.toThrow();
     expect(() => applySql("002_session_auth_mode.sql")).not.toThrow();
+    expect(() => applySql("003_ml2_knowledge_documents.sql")).not.toThrow();
   });
 
   it("controlled failure when a migration SQL is broken (ON_ERROR_STOP)", () => {

@@ -151,3 +151,22 @@ Append-only logical journal of Cursor product deliveries.
 | Post-merge runtime | Independent smoke NOT OBSERVED |
 | Product version | `NO RELEASE` ; `STABLE NOT AVAILABLE` ; no release tag / no ADOPTED |
 | Status | **MERGED / FUNCTIONAL RECETTE ACCEPTED WITH RESERVES — ML1 integration evidenced, technical remediation and R6 qualification still open** |
+
+## delivery_id: DELIV-2026-11-05-ML2-LOCAL-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Produire et capitaliser avec Nora |
+| Type | INC / nouvelle capacité compatible (prospective MINOR) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | D3 cognition + D4 knowledge/documents + UX surfaces + streaming attempt + tests |
+| Product version target | `NO RELEASE` (NOT AVAILABLE — no official attribution) |
+| Compatibility | Additive migration `003_ml2_knowledge_documents` ; ML1 data preserved |
+| Schema | `001` + `002` + `003` |
+| Tests | unit 26 PASS ; PG integration 32 PASS ; Playwright 2 PASS (FAKE) ; `tsc` PASS ; `next build` PASS |
+| Evidence limits | Nora LIVE / COG panel / Figma fidelity matrix / CI Next = NOT PROVEN or ABSENT |
+| Streaming | Attempted in adapter (`stream: true`) ; UI progressive NOT wired ; LIVE streaming NOT PROVEN |
+| Status | LOCAL CONSTRUCTION — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY WITH RESERVES` |

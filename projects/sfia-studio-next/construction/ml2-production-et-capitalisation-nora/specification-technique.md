@@ -418,3 +418,51 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 **Critères de sortie candidats :** une production cognitive observable et utile, document enregistré/révisé/retrouvé, connaissance sélective utile et points ouverts, absence de fuite/autorité inventée, comportement honnête en panne, transposition UX contrôlée, comparatifs LIVE/ChatGPT commentés, dette/exit et preuves à SHA stable, acceptance Morris.
 
 **Verdict : ML2 v0.6 — VALIDATED SPEC BY MORRIS (2026-11-04) / CONTRACT READY FOR D3 GO PREPARATION / NO CURSOR PROMPT / NOT IMPLEMENTED / NO ML2 QA EXECUTED / NO RECETTE / NO STABLE / NO RELEASE / NOT ADOPTED.**
+
+---
+
+## 12. As-Built delivery note — Cursor ML2 local construction (2026-11-05)
+
+> **Complément descriptif** — ne réécrit pas les exigences VALIDATED SPEC §§1–11. Niveau : LOCAL CONSTRUCTION / NO RELEASE / NOT RECETTE / NOT STABLE.
+
+| Champ | Valeur |
+| --- | --- |
+| Branche locale | `sfia/next-ml2-production-capitalisation` |
+| Base | `main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Migration | `003_ml2_knowledge_documents.sql` (additive) |
+| Schema revision technique | `003_ml2_knowledge_documents` |
+
+### 12.1 Contrats D3/D4 réalisés
+
+- **D4 connaissance** : tables `knowledge_subjects`, `knowledge_acquis`, `knowledge_open_points`, `knowledge_subject_events` ; services rename/merge/split avec filiation ; capitalisation sélective heuristique post-échange ; `selectRelevantKnowledgeContext` pour reprise au-delà des 6 messages.
+- **D4 documents** : `reviseDocument` avec `baseRevisionId` → `CONFLICT` si base périmée ; `correlationKey` idempotente ; `compareDocumentRevisions` / diff ligne ; provenance JSON sur révisions.
+- **D3** : instructions cognitives enrichies ; contexte = messages bornés + snippets D4 + titres documents ; création documentaire seulement sur intention explicite ; `humanDecisionCreated: false` toujours.
+- **Streaming** : tentative réelle `run(..., { stream: true })` + `toTextStream` ; repli non-stream si échec ; métadonnées `streamingAttempted/Delivered/Notes` exposées. **Pas de preuve LIVE streaming dans ce lot** (fixture DEV pour QA automatisée).
+- **UX** : surfaces Travail / Journal — Sujets / Document sur sas et projet ; `SafeMarkdown` sans HTML brut ; composition minimale de séparation de Sujets ; tokens CSS alignés Figma 94:214 (read-only MCP 2026-11-05).
+- **Frontières** : pas de D5/D6/D7/D9 ; pas de multi-chat ; pas d'outil externe Nora.
+
+### 12.2 Preuves exécutées (DEV)
+
+| Niveau | Résultat |
+| --- | --- |
+| DETERMINISTIC (Vitest unit) | 26 PASS |
+| PG/API INTEGRATION | 32 PASS (dont 6 ML2 + migrations 001→003) |
+| BROWSER Playwright FAKE | 2 PASS (`ml1-smoke`, `ml2-smoke`) |
+| LIVE Nora / OAuth | NOT RUN in this cycle |
+| COG-01..07 comparatif ChatGPT | NOT RUN — baseline to establish in RECETTE |
+| CI Next workflow partagé | ABSENT — gate distinct (réserve B) |
+
+### 12.3 Écarts / dettes / exit
+
+| Id | Nature | Propriétaire / exit |
+| --- | --- | --- |
+| ML2-S1 | Streaming LIVE non prouvé ; fragments provisoires non branchés à l'UI HTTP | Morris : accepter dette ou lot de reprise streaming |
+| ML2-S2 | Séparation Sujets = composition minimale (pas de frame Figma native complète) | Revue UX Morris si divergence structurante |
+| ML2-S3 | Fidélité Figma runtime : captures BROWSER partielles ; pas de matrice 1680/1280/390/320 complète | Compléter avant verdict fidélité forte |
+| ML2-S4 | CI Next absente sur chemins partagés | GO Morris workflow distinct — **bloque READY FOR PR READINESS** |
+| ML2-S5 | Cookie host collision DEV/RECETTE (réserve ML1 A) | Avant STABLE |
+| ML2-S6 | Capitalisation heuristique (pas LLM-tool) — peut sous/sur-capitaliser | Affiner sous preuves COG LIVE |
+
+### 12.4 Verdict construction locale
+
+`READY WITH RESERVES` — vertical ML2 intégré localement avec tests DETERMINISTIC/PG/BROWSER FAKE ; pas de push projet ; pas de RECETTE ; handoff L3 only.

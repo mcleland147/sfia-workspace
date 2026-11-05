@@ -222,3 +222,19 @@ Le référentiel méthodologique reste **construction/reference-delivery-r5.md �
 5. **Intégration :** PR/merge et contrôles GitHub uniquement sous GO Morris spécifique ; smoke runtime postmerge avant éventuelle STABLE ; R6 et ADOPTED restent séparés.
 
 **Verdict : ML2 v0.6 VALIDATED SPEC BY MORRIS (2026-11-04) / CONTRACT AND QA ORACLES APPROVED / NOT IMPLEMENTED / NOT TESTED / NO BEHAVIOR PROVEN / NO CURSOR PROMPT / NO RECETTE / NO ADOPTED.**
+
+---
+
+## 7. As-Built preuve locale Cursor — 2026-11-05 (complément, non réécriture)
+
+Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **DETERMINISTIC / PG / BROWSER FAKE** exécutées ; **LIVE / COG panel / CI Next** non prouvés ici.
+
+| Famille | Statut local |
+| --- | --- |
+| Q04–Q14 documents / révision / conflit / diff | PARTIELLEMENT COUVERT (PG + API + UX) |
+| Q15–Q18 / Q28 Sujets / capitalisation / split | PARTIELLEMENT COUVERT (PG + composition UX minimale) |
+| Q19–Q20 reprise D4 hors fenêtre 6 messages | COUVERT PG (`selectRelevantKnowledgeContext`) + BROWSER fil unique |
+| Q25 activité | PARTIEL (indicateur « prépare ») — pas de STOP confirmé |
+| Q29 streaming | ATTEMPTED adapter ; UI progressive NOT WIRED ; LIVE NOT PROVEN |
+| COG-01..07 | NOT RUN |
+| Négatif recommandation ≠ D6 | COUVERT (`humanDecisionCreated: false`, kinds acquis) |
