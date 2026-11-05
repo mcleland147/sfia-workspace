@@ -595,7 +595,7 @@ Après interruption ou changement de conversation, Nora récupère auprès des d
 
 ## 14. Complément candidat post-R2 — qualification et conduite de mission cognitive (2026-11-05)
 
-> **Statut : PROPOSED / NOT VALIDATED BY MORRIS ; DOCUMENTED sur branche candidate.** Extension distincte des règles R2 déjà validées, sans modification rétroactive de leurs inventaires, décisions ou numérotations. Sources : R1 §§2.2/2.13 et E2E 03 ; D4 §10 candidat ; R3 §40 candidat ; R4 §11 candidat ; R5 §15 candidat. Aucun changement de périmètre ni contrat technique n'est adopté sans arbitrage Morris.
+> **Statut : VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; publication Git candidate, implémentation et promotion non autorisées.** Extension distincte des règles R2 déjà validées, sans modification rétroactive de leurs inventaires, décisions ou numérotations. Sources : R1 §§2.2/2.13 et E2E 03 ; D4 §10 candidat ; R3 §40 candidat ; R4 §11 candidat ; R5 §15 candidat. Aucun changement de périmètre ni contrat technique n'est adopté sans arbitrage Morris.
 
 ### 14.1. Résultat, IN/OUT et responsabilités
 
@@ -630,4 +630,4 @@ Après interruption ou changement de conversation, Nora récupère auprès des d
 
 **Preuves candidates :** DETERMINISTIC sur la qualification et les bornes ; DB/INTEGRATION sur lectures D4, isolation et corrélations ; BROWSER sur l'activité visible ; LIVE sur l'exécution fournisseur, les éventuelles itérations et la qualité ; comparaison cognitive indépendante COG-01..07. Augmenter simplement la valeur maxTurns, sans outillage ni preuve d'investigation, ne prouve pas PF-37. Une configuration d'effort n'est dite effective que si la frontière SDK correspondante est vérifiée.
 
-**Risques et exits :** traces sensibles → minimisation/droits/rétention DATA-01 ; classification excessive → mesurer et supprimer les appels non utiles ; itérations incontrôlées → bornes/état partiel ; confusion traces/autorité → responsabilités existantes ; divergence ML2 en cours → décision Morris sur extension et recette. Toutes ces règles restent candidates, sans GO Cursor, PR, merge ou ADOPTED.
+**Risques et exits :** traces sensibles → minimisation/droits/rétention DATA-01 ; classification excessive → mesurer et supprimer les appels non utiles ; itérations incontrôlées → bornes/état partiel ; confusion traces/autorité → responsabilités existantes ; divergence ML2 en cours → décision Morris sur extension et recette. Ces règles et parcours ont reçu validation de contenu Morris ; leurs choix d'implémentation, affectation de macro-lot et preuves restent ouverts, sans GO Cursor, PR, merge ou ADOPTED.
