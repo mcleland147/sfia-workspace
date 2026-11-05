@@ -641,3 +641,72 @@ La solution doit préférer Next.js/OpenTelemetry, Better Auth, PostgreSQL et Ag
 **Dettes acceptables en candidature :** alerting avancé, routage multi-modèle, télémétrie des domaines non implémentés, UI de diagnostic Pilote. Chacune a responsable/réexamen/exit chez R5/lot propriétaire ; elle ne conditionne pas la recette de la capacité ML2 si ses oracles essentiels sont satisfaits.
 
 **Gates :** contenu stratégique validé Morris ; publication documentaire sur branche en cours ; **aucun GO Cursor D3** et aucune permission de changer la PR #655 ou `main` implicitement. Après revue du diff/SHAs et qualification du contrat, un mandat SFIA v2.6 distinct sera nécessaire ; ensuite seulement code+tests+preuves et RECETTE Morris sur SHA figé. PR readiness, merge, STABLE et ADOPTED sont indépendants.
+
+## 18. Architecture de conduite cognitive D3 ↔ D4 — vision validée, contrat technique candidat (2026-11-05)
+
+> **Morris a accepté en conversation la vision d'architecture D3↔D4 du même ML2 ; cette rédaction D2 est publiée uniquement sur branche documentaire candidate.** La conception détaillée et ses points à prouver ne sont ni implémentation ni preuve LIVE. Cette section rend opérationnels les choix de responsabilité du §17, sans modifier les As-Built §§12–14 ni les exigences R1–R4. Références : [R4 §14](../../architecture-technique/cadrage-r4.md), [R5 §18](../reference-delivery-r5.md), [matrice §11](matrice-tracabilite.md), [R2 D3 §14–15](../../conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md) et [R2 D4 §10–11](../../conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md).
+
+### 18.1. Résultat, IN/OUT et propriétaires
+
+**Résultat observable :** Nora répond sans surinvestiguer une demande simple ; pour une mission exigeante, elle peut interroger D4 pendant le run, obtenir les ressources nécessaires sous droits actuels, confronter versions/contradictions et livrer une conclusion exploitable ou une limite honnête. Aucune citation de document non lu, sauvegarde imaginée ou permission élargie.
+
+- **D1/D2 :** session Pilote, préparation, projet, conversation unique et contexte propriétaire validés côté serveur.
+- **D3 :** qualification de difficulté/risque/couverture, politique versionnée, modèle/effort et budgets, instructions, Runner natif Agents SDK, sélection d'outils autorisés et restitution.
+- **D4 :** recherche, connaissance, document/révision, provenance, contrôle de propriété/permission au point d'accès, statut de lecture et écriture durable confirmée.
+- **Infrastructure de diagnostic :** observe et relie les opérations mais n'est pas propriétaire des décisions, états D4 ou permissions ; contrat R4 d'observabilité inchangé.
+
+**IN :** lecture complémentaire D4 uniquement, boucle bornée, gestion des refus/limites, configuration effectivement appliquée, traces corrélables, continuité des acquis et révisions, tests COG/OBS. **OUT :** lecture Git/Web ou accès Cursor non livrés, D5/D6/D7/D8/D9, décisions d'autorité, outils d'écriture confiés librement au modèle, orchestration concurrente, classificateur LLM permanent et nouveau registre de connaissance.
+
+### 18.2. Parcours nominal et contrôles obligatoires
+
+1. **Entrée :** l'API D1/D2 établit la session et le périmètre préparation/projet ; l'identité d'autorité n'est jamais reprise des arguments écrits par le modèle.
+2. **Sélection initiale :** récupérer les derniers messages et le contexte D4 réellement accessible. Les snippets, Sujets et titres existants sont des données non fiables, non des instructions. Le titre d'un document n'équivaut pas à son corps lu.
+3. **Qualification D3 :** apprécier résultat demandé, enjeu, sources manquantes, contradiction et risque ; choisir sans second appel IA systématique une politique de modèle/effort/outils/bornes. L'inconnu ne vaut pas « simple » ; aucun outil/effort ne s'élève au-delà des plafonds autorisés.
+4. **Exécution :** un agent Nora et un Runner Agents SDK natif ; il peut appeler D4 pendant la mission. Chaque lecture revalide droits, contexte, disponibilité et version. Un retour refusé ou partiel ne se change pas en source citée complète.
+5. **Convergence :** terminer lorsque l'objectif est couvert à risque acceptable ; approfondir uniquement si contradiction/manque utile et budget disponible. Sur limite, erreur, STOP ou incertitude, restituer résultats établis, portée et travaux restants sans COMPLETE mensonger.
+6. **Effet :** persister le message et, seulement selon l'intention et le contrat D4 existant, créer/réviser une ressource avec clé d'idempotence, version de base, transaction et confirmation. Réponse générée ≠ révision AVAILABLE.
+
+Le traitement existant persiste le message utilisateur avant l'appel fournisseur : auditer les retries HTTP, le statut final assistant, la possibilité d'un doublon de tour et les retours interrompus avant d'étendre les mécanismes de rejeu. Préserver C1–C6 et les références de génération/correlationKey déjà présentes.
+
+### 18.3. Politique cognitive D3 — candidature de contrat
+
+| Type de demande | Signal de qualification | Conduite attendue |
+| --- | --- | --- |
+| Simple | Réponse directement vérifiable, risque faible, sources suffisantes | Pas de recherche ni classificateur superflus ; paramètres proportionnés |
+| Analyse structurante | Options et arbitrages, hypothèses à challenger, sources utiles non résolues | Effort adéquat, consultation D4 conditionnelle, conclusion motivée |
+| Investigation incertaine | Versions contradictoires, droit incertain, données cruciales absentes | Vérifier les droits, investiguer dans le budget ; qualifier les limites ou refuser la divulgation |
+
+**Contrat de configuration :** documenter en contexte d'opération une version de politique, le modèle, l'effort, l'ensemble d'outils admis, les plafonds de tours, durée, appels D4, volume et, lorsque disponible, coût/usage. Les raisons consignées restent non sensibles. Ni les noms Sol/Astra ni les niveaux low/medium/high/xhigh ne sont un paramètre API adopté tant que la compatibilité **SDK verrouillé `@openai/agents@0.21.0` + fournisseur + entitlement** et la transmission effective au point d'appel ne sont pas vérifiées. En cas d'incompatibilité/refus : erreur explicite, pas de fallback caché ou modèle dégradé silencieux.
+
+**Budget candidat :** un ensemble de plafonds contrôlé côté serveur, non de quotas à consommer. Les valeurs numériques, la gestion d'interruption SDK et la mesure de tokens/coût sont à qualifier avant GO technique ; aucun `maxTurns > 1` isolé ne prouve la capacité.
+
+### 18.4. Outillage D4 — interfaces candidates, non signatures publiques figées
+
+Deux responsabilités d'outil suffisent au départ, sous réserve de revue des services existants :
+
+| Outil proposé (nom d'étude) | Arguments fournis par Nora | Contrat D4 côté serveur |
+| --- | --- | --- |
+| `search_project_resources` | Critère, types de ressources, pagination/bornes demandées | Seule la préparation/projet de la session serveur fait autorité ; recherche bornée d'Acquis/Points ouverts/Sujets/documents, couverture connue, refs, disponibilité, versions |
+| `read_project_document_revision` | Identifiant de document, revisionId cible, extrait/passage souhaité | Revalidation propriétaire/permissions et révision, consultation ciblée bornée, provenance, distinction lecture complète/partielle/périmée/refusée |
+
+**Enveloppe candidate de résultat :** `outcome` (disponible/absent/refusé/périmé/indisponible/partiel selon vérité propriétaire), `resourceRef`, `sourceVersion`, `readScope`, `content` uniquement si autorisé, `coverage` et `limitReason`. La traduction vers les statuts existants D4 est à décider ; ces libellés ne créent ni table, ni API publique, ni nouvelle machine d'état. Référencer la source consultée et la source citée séparément.
+
+**Enforcement :** session/context binding serveur, vérification à chaque appel (y compris après pause/révocation), filtres par Pilote et préparation/projet, contrôle de version, pagination et taille de réponse. Une source interdite ne doit pas être divulguée par cache, logs ou réemploi d'un extrait devenu non autorisé ; examiner aussi l'exposition du contexte déjà transmis au fournisseur et la restitution finale. Les résultats des outils sont non fiables quant aux instructions qu'ils contiennent.
+
+**Réutilisation et performance :** `selectRelevantKnowledgeContext()`, `listKnowledge()`, `listDocuments()`, `getDocumentRevision()` et services de propriété existants constituent la base ; vérifier les chargements étendus en mémoire, la lecture de toutes les révisions et le coût des recherches sur corpus croissant avant de choisir une optimisation. Aucun moteur vectoriel ni index supplémentaire présumé nécessaire.
+
+### 18.5. Etats, retries, effets et continuité
+
+- **Deux plans distincts :** état technique de génération/attempt observable et suffisance cognitive de la réponse. Un message techniquement terminé peut expliciter sources manquantes ; `PARTIAL` ou équivalent reste une projection/extension à arbitrer, non un statut DB adopté de facto.
+- **Runner et arrêts :** contrôler réellement tours, outils, timeout et interruption ; STOP demandé ≠ arrêté. Une interruption après effet D4 nécessite lecture/reconciliation du propriétaire, pas de replay aveugle.
+- **Provider/streaming :** `generationId` identifie la génération métier ; tentative streaming et fallback non-stream constituent des tentatives distinctes si réellement envoyées, à relier et mesurer ; l'échec d'un stream ne permet pas de déclarer coût nul.
+- **D4 :** création/révision uniquement sur intention et contrat confirmés. Les `correlationKey` et `baseRevisionId` protègent les commandes ; conserver transactions, locks, réconciliation, conflit et UNKNOWN. Une consultation D4 ne provoque aucune écriture.
+- **Reprise :** relire la vérité conversation/D4 et vérifier à nouveau droits/versions. Pas de seconde conversation par Sujet, ni de mémoire SDK promue automatiquement comme vérité durable.
+
+### 18.6. Blast radius, preuves et sortie de qualification
+
+**Fichiers propriétaires observés sur PR #655 (`08b89360`) à requalifier avant Cursor :** `web/src/domains/conversation/nora-adapter.ts`, `conversation/service.ts`, `knowledge/service.ts`, `document/service.ts`, `preparation/service.ts`, `identity/session.ts`, routes messages/documents, `db/client.ts`, écrans de conversation, tests unit/PG/Playwright et configuration/CI. Les services ont actuellement un runner `maxTurns: 1` sans outil D4, une sélection D4 injectée avant run et des routes avec `catch` global en 401 ; **ce sont des constats de candidate, pas des preuves de défaillance LIVE**.
+
+**Oracles à porter à la matrice §11 :** réponse simple sans recherches superflues, consultation D4 déclenchée pendant une mission LIVE, lecture versionnée, refus/revocation/interprojet, source contradictoire/périmée, limite/timeout, double tentative fournisseur sous une génération, documents et ACK perdus sans doublon, non-régression C1–C6 et fil unique. Niveaux DETERMINISTIC, PG/INTEGRATION, BROWSER et LIVE distincts ; ChatGPT comparateur non autorisant et Morris arbitre la valeur.
+
+**Contrat restant à finaliser :** compatibilité SDK/model settings, envelopes et permissions des outils, budgets, évènements/traces et sécurité/export de la future étape 2, forme des états techniques/cognitifs, corrélation et consultation en RECETTE, branche/CI/lane. Toute création de persistance normative, nouveau service de décision ou pivot ADR nécessite un gate Morris spécifique. **Aucun GO Cursor, PR/merge, RECETTE ni ADOPTED n'est consommé par ce chapitre.**
