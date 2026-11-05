@@ -50,13 +50,13 @@ describe("DEV adapter consume gate", () => {
     else process.env.STUDIO_DEV_TEST_LOGIN = prevLogin;
   });
 
-  it("allows consume only when STUDIO_LANE=DEV and STUDIO_DEV_TEST_LOGIN=1", () => {
+  it("allows consume on DEV or RECETTE when STUDIO_DEV_TEST_LOGIN=1; never STABLE", () => {
     process.env.STUDIO_LANE = "DEV";
     process.env.STUDIO_DEV_TEST_LOGIN = "1";
     expect(isDevAdapterConsumeAllowed()).toBe(true);
 
     process.env.STUDIO_LANE = "RECETTE";
-    expect(isDevAdapterConsumeAllowed()).toBe(false);
+    expect(isDevAdapterConsumeAllowed()).toBe(true);
 
     process.env.STUDIO_LANE = "STABLE";
     expect(isDevAdapterConsumeAllowed()).toBe(false);

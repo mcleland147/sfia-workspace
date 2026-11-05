@@ -93,7 +93,10 @@ async function resolveBetterAuthStudioSession(): Promise<StudioSession | null> {
  * A cookie issued earlier must not remain valid once the lane leaves DEV or the adapter is disabled.
  */
 export function isDevAdapterConsumeAllowed(): boolean {
-  return process.env.STUDIO_LANE === "DEV" && process.env.STUDIO_DEV_TEST_LOGIN === "1";
+  if (process.env.STUDIO_DEV_TEST_LOGIN !== "1") return false;
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  // DEV construction + RECETTE Morris essai only — never STABLE/PROD.
+  return lane === "DEV" || lane === "RECETTE";
 }
 
 /**
@@ -215,8 +218,9 @@ function assertDevTestLoginAllowed(gate: DevLoginGateInput) {
   if (process.env.STUDIO_DEV_TEST_LOGIN !== "1") {
     throw new Error("DEV_TEST_LOGIN_DISABLED");
   }
-  // Fail-closed: DEV test login requires an explicit STUDIO_LANE=DEV (absent ≠ DEV).
-  if (process.env.STUDIO_LANE !== "DEV") {
+  // Fail-closed: explicit lane DEV or RECETTE only (absent ≠ DEV; STABLE/PROD forbidden).
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  if (lane !== "DEV" && lane !== "RECETTE") {
     throw new Error("DEV_TEST_LOGIN_LANE_FORBIDDEN");
   }
   // Host alone is forgeable. Next DEV may set x-forwarded-* to loopback — allow only if
