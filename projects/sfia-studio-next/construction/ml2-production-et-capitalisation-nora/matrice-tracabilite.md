@@ -556,3 +556,18 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 | LIVE protocol | PREPARED | spec §27.2 — **NOT EXECUTED** |
 | RECETTE manifeste | PREPARED NOT DEPLOYED | spec §27.3 |
 | LIVE / RECETTE / merge / ADOPTED | NOT RUN | gates Morris |
+
+## 21. As-Built LIVE borné + RECETTE conditionnelle — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| COG-simple LIVE | REAL BOUNDARY PROVEN | COMPLETE + provider YES (`op_63d565b6`) |
+| COG-complex + D4 read | REAL BOUNDARY PROVEN | COMPLETE + 4 tool_calls search/read |
+| COG missing/forbidden doc | REAL BOUNDARY PARTIAL | COMPLETE live ; contenu réponse à valider en UI Morris |
+| OBS provider_attempt / turn.completed | PROVEN (DEV OBS) | events lane=DEV source_sha=01ae25e1 |
+| Cookie lane isolation | DETERMINISTIC PROVEN | `sfia_studio_session__${LANE}` |
+| SAFE-01 ephemeral persistent abort | PG PROVEN | container `sfia-safe01-ephemeral:55432` |
+| ChatGPT↔Nora comparatif | NOT RUN | hors accès |
+| OAuth GitHub REAL | NOT RUN | |
+| RECETTE Morris acceptation | NOT RUN | mise à disposition technique seulement |
+| merge / STABLE / ADOPTED | NOT RUN | |

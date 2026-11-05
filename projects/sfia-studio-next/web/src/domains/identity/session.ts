@@ -17,13 +17,24 @@ export type StudioSession = {
   authMode: AuthMode;
 };
 
-const COOKIE = "sfia_studio_session";
+/**
+ * Lane-scoped session cookie name to avoid cross-lane collision on the same host
+ * (ENV-01 réserve A: 127.0.0.1:3100 vs :3200 share host-only cookies if names collide).
+ * Better Auth cookies remain separately configured via BETTER_AUTH_URL per lane.
+ */
+function studioSessionCookieName(): string {
+  const lane = (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase() || "UNKNOWN";
+  const safe = lane.replace(/[^A-Z0-9]+/g, "_").slice(0, 24);
+  return `sfia_studio_session__${safe}`;
+}
+
+const COOKIE = studioSessionCookieName();
 
 /**
  * Single Studio session resolver.
  * Authority order:
  * 1. Better Auth session cookie (GitHub OAuth) → Pilot via users.pilotId / provision
- * 2. DEV-only `sfia_studio_session` cookie (explicit test adapter, not OAuth proof)
+ * 2. DEV-only lane-scoped `sfia_studio_session__*` cookie (explicit test adapter, not OAuth proof)
  */
 export async function resolveStudioSession(): Promise<StudioSession | null> {
   const fromBetterAuth = await resolveBetterAuthStudioSession();

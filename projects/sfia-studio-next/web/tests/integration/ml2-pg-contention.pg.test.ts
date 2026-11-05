@@ -155,10 +155,11 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
         throw e;
       });
 
-    await waitUntil(async () => (await countWaitersOnTurnCommand(observer, reserved.commandId)) > 0 || !bDone, {
-      timeoutMs: 2000,
-      label: "waiter-or-pending",
-    });
+    // Wait until B is blocked (ungranted lock) — not merely "not done yet".
+    await waitUntil(
+      async () => (await countWaitersOnTurnCommand(observer, reserved.commandId)) > 0,
+      { timeoutMs: 2500, label: "pg_locks waiter for B" },
+    );
     expect(bDone).toBe(false);
 
     await hold;
@@ -329,38 +330,53 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     expect(after).toBe(before);
   });
 
-  it("PG-DBFAIL-03: client connection abort mid-TX rolls back uncommitted write (no terminate_backend)", async () => {
-    // Own-connection abort on DEV: no pg_terminate_backend / docker stop on shared lanes.
+  it("PG-DBFAIL-03: client abort mid-TX on ephemeral persistent table — row never durable", async () => {
+    // Dedicated ephemeral Postgres (port 55432) — NOT shared DEV/RECETTE/STABLE.
+    // No pg_terminate_backend / docker stop on shared lanes.
+    const ephemeralDsn =
+      process.env.SFIA_SAFE01_EPHEMERAL_DSN ??
+      "postgres://safe01:safe01@127.0.0.1:55432/safe01";
     const marker = `dbfail03_${Date.now()}`;
-    const ephemeral = postgres(DSN!, { max: 1, idle_timeout: 2, connect_timeout: 5 });
+    const setup = postgres(ephemeralDsn, { max: 1, idle_timeout: 5, connect_timeout: 10 });
     try {
-      await ephemeral.begin(async (tx) => {
-        await tx`
-          create temporary table if not exists sfia_safe01_abort_probe (
-            id text primary key,
-            note text not null
-          ) on commit drop
-        `;
-        await tx`insert into sfia_safe01_abort_probe (id, note) values (${marker}, 'uncommitted')`;
-        // Abort by destroying the client mid-TX (simulates connection loss for this session).
-        await ephemeral.end({ timeout: 1 });
+      await setup`create table if not exists sfia_safe01_persist_probe (
+        id text primary key,
+        note text not null,
+        created_at timestamptz not null default now()
+      )`;
+      await setup`delete from sfia_safe01_persist_probe where id = ${marker}`;
+    } finally {
+      await setup.end({ timeout: 5 }).catch(() => undefined);
+    }
+
+    const writer = postgres(ephemeralDsn, { max: 1, idle_timeout: 2, connect_timeout: 10 });
+    try {
+      await writer.begin(async (tx) => {
+        await tx`insert into sfia_safe01_persist_probe (id, note) values (${marker}, 'uncommitted')`;
+        const mid = await tx`select count(*)::int as n from sfia_safe01_persist_probe where id = ${marker}`;
+        expect(mid[0]?.n).toBe(1);
+        await writer.end({ timeout: 1 });
         throw new Error("unreachable_after_end");
       });
     } catch {
-      // expected — connection closed
+      // connection aborted mid-TX
     }
 
-    // New session cannot see the uncommitted temp row; durable tables untouched.
-    const probe = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 5 });
+    const probe = postgres(ephemeralDsn, { max: 1, idle_timeout: 5, connect_timeout: 10 });
     try {
-      const exists = await probe`
-        select to_regclass('pg_temp.sfia_safe01_abort_probe') as reg
-      `;
-      expect(exists[0]?.reg).toBeNull();
+      const rows = await probe`select id from sfia_safe01_persist_probe where id = ${marker}`;
+      expect(rows).toHaveLength(0);
     } finally {
       await probe.end({ timeout: 5 }).catch(() => undefined);
     }
-  }, 15_000);
+
+    // Product DEV tables untouched by ephemeral probe.
+    const product = (
+      await db.execute(sql`select to_regclass('public.sfia_safe01_persist_probe') as reg`)
+    ) as unknown as Array<{ reg: string | null }>;
+    const reg = Array.isArray(product) ? product[0]?.reg : (product as { rows?: Array<{ reg: string | null }> })?.rows?.[0]?.reg;
+    expect(reg ?? null).toBeNull();
+  }, 20_000);
 
   it("PG-LEASE-01: active lease prevents false orphan under concurrent reconcile", async () => {
     const reserved = await reserveTurnCommand({

@@ -371,3 +371,22 @@ Append-only logical journal of Cursor product deliveries.
 | LIVE / RECETTE | **NOT RUN / NOT DEPLOYED** ; manifeste PREPARED |
 | Status | PROJECT BRANCH PUSH (FF) — LIVE/RECETTE/merge gated Morris |
 | Verdict candidate | `ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS` |
+
+## delivery_id: DELIV-2026-11-05-ML2-LIVE-RECETTE-COND-13
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~21:15 CET |
+| Macro-lot | R5 / ML2 — LIVE borné + RECETTE conditionnelle PR #659 |
+| Type | CAPA+INC+QA integrated (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` |
+| Parent SHA | `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` |
+| LIVE proofs | 3 scenarios `openai-agents-sdk-live` COMPLETE ; D4 tools on complex ; ~3 contacts / ~€1.05 est. ; model `gpt-6.1-sol` requested |
+| Corrected | cookie name per `STUDIO_LANE` ; SAFE-01 DBFAIL-03 ephemeral persistent table + pg_locks waiter |
+| Schema | `006` unchanged |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 93 ; e2e FAKE 3 ; tsc+lint+build — filled at commit |
+| RECETTE | activation conditionnelle après CI du SHA final ; ML1 RECETTE :3200 **non réinitialisée** |
+| Status | PROJECT PUSH FF + conditional RECETTE provision |
+| Verdict candidate | `ML2 LIVE BOUNDED REAL PROVEN — RECETTE CANDIDATE AVAILABLE FOR MORRIS REVIEW` (si gate E PASS) |

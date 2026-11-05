@@ -1017,6 +1017,42 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
 ## 28. Gaps realism explicitement ouverts
 
 - Multi-processus / multi-hôte LIVE : **NOT RUN**
-- OpenAI REAL / Better Auth OAuth réel : **NOT RUN**
-- RECETTE utilisateur Morris : **NOT RUN**
+- Better Auth OAuth GitHub réel : **NOT RUN** (DEV adapter seulement)
+- RECETTE utilisateur Morris : **PENDING** (candidat technique conditionnel)
 - Comparaison cognitive LIVE ChatGPT↔Nora : **NOT RUN** (protocole documenté seulement)
+- `modelApplied` fournisseur : souvent `UNVERIFIED` (contenu reçu ≠ metadata modèle)
+
+## 29. As-Built LIVE borné + cookies lane + SAFE-01 éphemère — 2026-11-05
+
+> **GO Morris LIVE/RECETTE conditionnelle.** Parent `01ae25e1`. LIVE exécuté en DEV sans fixture ; cookies session **suffixés par `STUDIO_LANE`** ; SAFE-01 DBFAIL-03 sur Postgres **éphémère** `127.0.0.1:55432` (table persistante), pas sur DEV/RECETTE partagés.
+
+### 29.1 Preuves LIVE bornées (DEV, source_sha `01ae25e1`)
+
+| Scénario | Mode | Status | Preuve |
+| --- | --- | --- | --- |
+| COG-simple | `openai-agents-sdk-live` | COMPLETE | provider YES ; effort low ; op `op_63d565b6…` |
+| COG-complex-d4 | `openai-agents-sdk-live` | COMPLETE | **4 tool_calls** D4 (search + 2× read revision) ; effort high |
+| COG-missing-doc | `openai-agents-sdk-live` | COMPLETE | provider YES ; pas de fuite fichier absent (statut COMPLETE honnête à relire contenu UI) |
+| Contacts / coût estimé | | | **3 / ~€1.05** (plafond 12 / €5) |
+| Fixture flags | | | absents (`STUDIO_E2E`/`FORCE` unset) |
+| Modèle demandé | | | `gpt-6.1-sol` (appliqué metadata : UNVERIFIED) |
+
+### 29.2 Isolation cookies
+
+| Lane | Cookie DEV adapter |
+| --- | --- |
+| DEV | `sfia_studio_session__DEV` |
+| RECETTE | `sfia_studio_session__RECETTE` |
+| Stratégie host | DEV `127.0.0.1` vs RECETTE `localhost` (hosts distincts ⇒ cookies non partagés) en plus du suffixe lane |
+
+### 29.3 SAFE-01
+
+| Oracle | État |
+| --- | --- |
+| PG-CONTEND-01/02 | PROVEN — waiter `pg_locks` + RUNNING strict |
+| PG-DBFAIL-03 | PROVEN — abort client mid-TX sur table **persistante** éphémère ; produit DEV non muté |
+| Server kill partagé | NOT USED (interdit) |
+
+### 29.4 Manifeste RECETTE (activation conditionnelle)
+
+Voir delivery entry + artefact local non secret ; **pas** d'acceptation métier Morris dans ce cycle.
