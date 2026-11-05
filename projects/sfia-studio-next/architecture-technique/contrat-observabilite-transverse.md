@@ -165,3 +165,73 @@ La promesse « zéro angle mort » est un **objectif de couverture des scénario
 **Couverture au rythme du produit :** OBS-Q01..10 pertinents au périmètre ML2 avec tests et données réels ; OBS-Q11/12 au moment de D9 et D7/D8. Les méthodes natives sont étudiées avant toute infrastructure spécifique. Un dashboard avancé, une base d'audit parallèle et l'instrumentation de domaines inexistants ne sont pas des conditions de RECETTE ML2.
 
 **STOP / gatification :** la publication documentaire ne choisit ni collecteur, ni système de stockage, ni schéma, ni API de supervision, ni rétention fournisseur, ni budgets de collecte. Il faut un contrat technique qualifié et un **GO Cursor D3 distinct** avant construction ; aucune conformité LIVE/REAL ni RECETTE ne découle de cette section.
+
+## 11. Architecture de corrélation et exploitation minimale de ML2 (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+**Positionnement :** précision technique candidate des invariants OBS-01..08 et du §10, sans adoption d'un fournisseur, de nouvelles tables métier, d'un backend industriel ou d'un service de supervision. La frontière D3↔D4 est documentée dans `cadrage-r4.md` §14 et la spécification ML2 §18.
+
+### 11.1. Contrat de corrélation sans confusion d'identités
+
+- `request_id` (nouveau concept technique candidat) : identifiant serveur d'une **tentative HTTP**, distinct à chaque émission/retry HTTP ; utilisable dans une réponse client sûre pour signaler un incident.
+- `operation_id` : référence serveur d'une **intention métier/logique** observée. Un retry n'est rattaché à la même opération que si un lien durable et autorisé est **effectivement vérifiable** ; ne jamais reconstruire la continuité depuis la proximité temporelle ou un identifiant fourni par le modèle.
+- `trace_id/span_id` : propriétés d'une trace technique Next.js/OTel lorsqu'elle existe ; elles ne remplacent ni request_id ni operation_id.
+- `generation_id` : identité D3 existante d'une génération Nora, pouvant correspondre à plusieurs tentatives fournisseur.
+- `attempt_id` : identifiant local d'une tentative **réellement initiée** de fournisseur, tool-call ou dépendance ; `provider_request_id` seulement s'il est reçu, jamais inventé.
+- `correlation_key`, `document_id`, `revision_id`, `source_version` : propriétés D2/D4 existantes, non remplaçables par des IDs de télémétrie. Ne jamais journaliser une clé brute présentant un risque de réutilisation ; n'exposer qu'une référence sûre à la commande validée.
+- `environment`, `source_sha`, `build_id`, `schema_revision` : identité immuable **du build/lane réellement servi** ; ne pas interroger le HEAD Git supposé pendant une requête.
+
+**Important :** la route conversation actuelle reçoit `correlationKey` mais celui-ci ne protège pas démonstrativement la persistance du message utilisateur contre une seconde requête ; l'instrumentation ne doit pas affirmer que deux requêtes constituent un seul échange idempotent. Vérifier le contrat conversation/retry séparément du contrôle documentaire C3.
+
+La relation entre SDK Agents tracing et OpenTelemetry Next.js n'est **pas présumée automatique**. La lier à l'entrée et à la sortie du véritable adaptateur D3 avec les références natives accessibles sur le SDK verrouillé, sans imposer de parenté de spans fictive. Les relations de causalité sont explicites ; les liens absents sont `UNAVAILABLE`.
+
+### 11.2. Catalogue minimal d'événements réellement discriminants
+
+| Frontière propriétaire | Événement candidat | Assertion autorisée |
+| --- | --- | --- |
+| HTTP | entrée et fin de requête, status, durée, request_id / operation_id | Une requête a traversé le serveur et a répondu / échoué dans la portée observée |
+| AUTH/D1 | résultat de résolution de session, refus, erreur fournisseur / provisionnement / DB | `SESSION_INVALID` seulement si session réellement absente/invalide ; autres défaillances différenciées |
+| D2 | intention/création/reconciliation et référence transactionnelle confirmée | Aucune création « réussie » depuis un simple appel HTTP ou ACK non reçu |
+| D3 | configuration de politique **appliquée**, début/fin de génération, tour si observé | Modèle/effort/bornes transmis au point SDK, jamais juste souhaités |
+| Fournisseur | tentative envoyée, réponse reçue, erreur, usage réellement disponible | Une génération peut contenir plusieurs tentatives, y compris fallback streaming |
+| Outil D3→D4 | demande, autorisation/refus, retour réellement reçu | Un titre demandé n'est pas une révision lue ; outil refusé ≠ succès |
+| D4 | lecture versionnée, sauvegarde/révision/reconciliation | `AVAILABLE` uniquement si D4 et DB confirment l'effet ; les événements de Sujets restent chez D4 |
+| PostgreSQL | indisponibilité, erreur de transaction, délai mesuré aux frontières pertinentes | Éviter SQL, valeurs de paramètres, données privées et causalité attribuée sans mesure |
+| Collecte | exporter/écriture/consultation indisponible, lacune détectée | Le diagnostic peut être incomplet sans transformer les effets métier en échec |
+
+**Schéma de restitution candidat :** `timestamp_utc`, `event_name`, `event_version`, `component`, `request_id`, `operation_id`, `generation_id`, `attempt_id`, `trace_refs?`, `outcome`, `error_category?`, `duration_ms?`, `usage?`, `measurement_kind`, `resource_ref?`, `source_version?`, `environment`, `source_sha`, `build_id`. Les champs absents restent absents/`UNAVAILABLE`, jamais zéro ou succès synthétique. Pas de contenu source ni d'ID utilisateur comme label métrique.
+
+### 11.3. Séparation stricte de la télémétrie et des faits métier
+
+Le diagnostic peut décrire `ATTEMPTED`, `REJECTED`, `FAILED`, `INTERRUPTED`, `UNKNOWN`, et `SUCCEEDED` seulement dans la frontière qui possède ce constat. Exemple : `provider.completed` ne prouve ni `document.available` ni pertinence cognitive ; `tool.called` ne prouve pas `resource.read` ; un `HTTP 200` ne prouve pas réception du résultat par le navigateur. En cas de conflit, la transaction D4 et sa version prévalent sur les logs. Ne pas créer de nouvelles tables métiers pour enregistrer chaque span ou recréer `knowledge_subject_events`.
+
+### 11.4. Collecte et consultation en RECETTE : solution minimale à éprouver
+
+**Option de référence pour qualification :** événements serveur structurés expurgés, capturés dans un stockage de journaux **non transactionnel**, séparé par lane, de manière réellement persistante après redémarrage, avec rétention/rotation DATA-01 et accès réservés à l'examinateur habilité. Consultation en lecture seule par `operation_id`/`request_id` et chronologie triée, éventuellement via outil CLI local ; pas de dashboard Pilote ni de requête SQL sur la DB métier pour agréger les logs. Une simple console non conservée ne satisfait pas le contrat.
+
+**Voie native complémentaire :** Next.js 15 et OpenTelemetry pour les spans HTTP si l'instrumentation est effectivement compatible ; Agents SDK pour ses spans de générations/outils **après vérification** de la version verrouillée `@openai/agents@0.21.0`, de la confidentialité et des conditions d'export ; Better Auth logger/hooks pour l'identité sans token/cookie ; PostgreSQL statistiques/logs ciblés. Un collector/exporter OTel complet n'est pas imposé : le mesurer contre la recherche locale durable, la sécurité, la complexité et l'utilité réelle. Si la capture ou l'export SDK risque de divulguer les contenus, le désactiver ou l'expurger jusqu'à vérification ; le besoin de diagnostic ne déroge pas à DATA-01.
+
+**Procédure de consultation à prouver :** (1) retrouver une requête par ID + build/lane réellement servis ; (2) reconstruire les étapes avec timestamps, statuts et mesure/indisponibilité ; (3) distinguer génération, tentatives et lectures D4 ; (4) confronter un effet document/révision à la base D4 sous les droits valides ; (5) indiquer les trous de trace/export ; (6) vérifier que la chronologie est consultable après redémarrage du processus RECETTE. Le canal d'exploitation ne doit pas être ouvert au navigateur Pilote ni à un autre projet/lane sans autorisation explicite.
+
+**Comparaison d'options avant GO technique :**
+
+| Option | Avantage | Inconvénient / condition |
+| --- | --- | --- |
+| Logs structurés + capture durable par lane + recherche CLI | Sobriété, lecture reproductible, pas de nouvelle plateforme | Garantir rotation, permissions, redémarrage, simultanéité et consultation réelle |
+| OpenTelemetry + collector et backend de traces | Chaînage natif/écosystème standard | Dépendances supplémentaires, configuration/export/rétention, coût d'exploitation et confidentialité à prouver |
+| Tracing SDK fournisseur seul | Détail interne génération/outils | Ne couvre pas AUTH/API/DB/D4 et peut sortir du périmètre de rétention/accès Studio ; **insuffisant seul** |
+
+La première option constitue un **candidat préféré**, pas un fournisseur ou un schéma adopté. La présence d'OpenTelemetry reste souhaitable lorsqu'elle simplifie réellement l'intégration.
+
+### 11.5. Erreurs et confidentialité
+
+Classifier au propriétaire les catégories `SESSION_INVALID` (401 authentique), `FORBIDDEN` (403 ou 404 non révélateur), `INVALID_REQUEST` (400), `CONFLICT` (409), `DEPENDENCY_UNAVAILABLE` (503 lorsque approprié), `INTERNAL` (500), et panne fournisseur distincte selon contrat. Les routes avec `catch { return 401 }` et le `catch` Better Auth qui absorbe indistinctement une panne DB sont des **KNOWN GAPS** du candidat #655. Remplacer cette confusion par une classification sûre **sans** fuite de messages SQL, clés, tokens ni informations de projets étrangers.
+
+Les logs et spans ne contiennent par défaut ni requête Pilote complète, ni document, ni réponse Nora, ni SQL/valeurs, ni token/cookie, ni pensée cachée. Protéger les références potentiellement personnelles, préserver DATA-01 (journaux techniques non critiques environ 14 jours), ENV-01 (volumes distincts et aucun secret partagé) et les règles propres de rétention du fournisseur. Vérifier le comportement de collecte et de suppression au lieu de revendiquer une protection par configuration supposée.
+
+### 11.6. Défauts de télémétrie et limites
+
+Si la collecte ou la consultation est indisponible, déclarer **DIAGNOSTIC INCOMPLETE** et, si l'opération métier est indépendante du journal auxiliaire, la laisser continuer. Ne jamais remplir artificiellement les étapes manquantes ; une panne brutale peut perdre les derniers événements et aucune promesse « zéro angle mort » n'est techniquement fondée. Les écritures d'audit métier obligatoires restent assurées par les propriétaires D2/D4 et leurs transactions, pas par le buffer de télémétrie.
+
+**Gates :** observabilité du code et procédure de consultation NOT IMPLEMENTED / NOT TESTED ; compatibilités, emplacement de journaux, configuration de capture et droits à figer dans le contrat technique avec accord Morris. Tests OBS-Q01..10 sur même SHA/lane, aucun claim LIVE ou BEHAVIOR PROVEN depuis ce texte.
