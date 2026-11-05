@@ -335,3 +335,21 @@ Pour chaque mission représentative, mettre en regard **(a) l'activité réellem
 **Option de report :** si les impacts/risques de mission multi-étapes, du tracing ou de la lecture D4 excèdent le mandat et la maturité ML2, conserver les exigences validées antérieures, recetter honnêtement le périmètre réalisable, documenter chaque écart avec propriétaire, risque, condition de sortie et nouveau gate Morris. Le verdict comparatif ne doit pas devenir « Nora équivalente à ChatGPT » sur un seul exemple ni après simple réussite technique.
 
 **Traçabilité :** utiliser la matrice ML2 et R5 §14, sans document de campagne concurrent. La décision de publication, la PR/merge, le GO Cursor, la RECETTE, R6 et ADOPTED restent distincts.
+
+## 16. Contrat transverse de diagnostic — rattachement R5 et preuve (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / R5 DELIVERY CANDIDAT — NE MODIFIE PAS les preuves ML1/ML2 existantes ni le protocole cognitif R5 §14.** Canonical source : [R4 — Contrat de diagnostic et d'observabilité transverse](../architecture-technique/contrat-observabilite-transverse.md). Le §15 couvre spécifiquement la qualité/activité Nora ; la présente section couvre aussi AUTH, HTTP, DB, D2 et les propriétaires futurs D5–D9.
+
+**Résultat de construction à qualifier :** sur une même opération et un même SHA de RECETTE, reconstituer le trajet HTTP → authentification/permission → service métier → DB/outils/fournisseur → réponse et effets confirmés, distinguer tentatives et réconciliations, identifier les zones NON OBSERVÉES, puis fournir une hypothèse diagnostique vérifiable. Conserver les identités déjà présentes (generationId D3, correlationKey/idempotence D2/D4) ; enrichir par un contexte d'opération plutôt que remplacer les contrats métiers.
+
+**Trajectoire candidate en macro-capacité cohérente, à arbitrer avec ML2 :**
+- Traces/erreurs API différenciées et corrélées, identité build/lane réelle ;
+- Better Auth et session resolver instrumentés sans secrets et sans faux 401 ;
+- PostgreSQL/Drizzle diagnostics proportionnés, journal D4 réutilisé, erreurs/transactions et effet réel séparés ;
+- Tracing Agents SDK configuré pour la confidentialité, tentatives LIVE comptées, réponse cognitive évaluée indépendamment ;
+- Recherche effective par operationId en RECETTE, signalement d'exporteur indisponible ;
+- QA OBS-Q01..10 au niveau approprié ; non-régression des invariants de session/DB/ACK, et de COG-01..07.
+
+**Hors périmètre ML2 par défaut :** simulation de télémétrie Git/D7/D8 et matériel technique non implémenté, nouvelle console Pilote, migration/entrepôt de logs par inertie, moteur générique d'audit et observabilité exhaustive de chaque opération.
+
+**Critère de sortie proposé :** pour les scénarios observables au SHA, fournir cas, état d'environnement, identifiants, extrait expurgé de la chronologie et sources de vérité réconciliées, mesures réelles, hypothèses/limitations et verdict. **Un log produit ne suffit pas ; un diagnostic doit être reproductible.** Toute couverture différée exige propriétaire, risque, exit et gate Morris. La construction technique demeure soumise à un GO Cursor SFIA v2.6 distinct ; PR #655/#656, RECETTE, merge et STABLE restent des gates autonomes.
