@@ -519,7 +519,7 @@ C2 concurrent revise ; C5 epistemic FACT ; ML1 sas→projet BROWSER FAKE — PAS
 
 ## 15. Complément candidat — qualification cognitive, boucle agentique et diagnostic ML2 (2026-11-05)
 
-> **PROPOSED / NOT VALIDATED BY MORRIS — sans réécriture des As-Built §§12–14 ni des décisions ML2 v0.6 acquises.** Ce chapitre est un contrat d'extension à examiner, pas une capacité déjà implémentée, un GO Cursor ni une obligation automatique de la RECETTE existante. Il s'appuie sur R1 §2.2/E2E 03, D3 §14 candidat, D4 §10 candidat, R3 §40 candidat, R4 §11 candidat, R5 §§14–15 et la matrice ML2 §8 candidate. Base documentaire : PR #655 OPEN DRAFT, tête vérifiée 08b89360 au début des travaux.
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; sans réécriture des As-Built §§12–14 ni des décisions ML2 v0.6 acquises, sans GO d'implémentation.** Ce chapitre est un contrat d'extension à examiner, pas une capacité déjà implémentée, un GO Cursor ni une obligation automatique de la RECETTE existante. Il s'appuie sur R1 §2.2/E2E 03, D3 §14 candidat, D4 §10 candidat, R3 §40 candidat, R4 §11 candidat, R5 §§14–15 et la matrice ML2 §8 candidate. Base documentaire : PR #655 OPEN DRAFT, tête vérifiée 08b89360 au début des travaux.
 
 ### 15.1. Résultat utilisateur, IN/OUT et état réel
 
