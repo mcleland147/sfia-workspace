@@ -1,0 +1,342 @@
+# SFIA Studio Next CI — installed on branch sfia/next-ml2-production-capitalisation
+# Product: projects/sfia-studio-next/web
+# Does NOT validate projects/sfia-studio (legacy) or interv360.
+# Does NOT claim LIVE Nora / COG / RECETTE / STABLE / remote Actions PASS until a real run.
+#
+# Design notes (path filters + required checks):
+# - pull_request to main has NO top-level paths: filter — workflow always runs
+#   so a future required check is never "absent" on unrelated PRs.
+# - Job `detect` decides whether heavy Next validation is required.
+# - Job `required_gate` stable check name for future branch protection:
+#     "SFIA Studio Next Required Gate"
+# - Out-of-scope PRs: detect=success, validate=skipped, required_gate=PASS
+#   with explicit message that Next was NOT executed (not a fake green).
+# - push to main uses paths: so merges that only touch Next (or this workflow)
+#   re-validate; unrelated pushes do not burn CI minutes.
+#
+# Node: 24. Postgres: 16-alpine ephemeral Docker matching DEV gate identities:
+#   container sfia-next-dev-pg, 127.0.0.1:5433→5432, DBs sfia_next_dev + sfia_next_e2e.
+# Migrations (ML2): 001→004 via scripts/db-migrate.sh.
+# Nora: STUDIO_E2E=1 + OPENAI_API_KEY neutralized — FAKE only.
+#
+# Corrections vs Cycle-7 proposal artefact:
+# - Header marked installed (no longer "PROPOSAL ONLY").
+# - E2E database creation uses psql -tAc identity check (same as e2e-web-server.sh).
+# - required_gate explicitly fails when Next is in-scope and validate is skipped/cancelled.
+
+name: SFIA Studio Next CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+    paths:
+      - "projects/sfia-studio-next/**"
+      - ".github/workflows/sfia-studio-next-ci.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sfia-studio-next-ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  detect:
+    name: Detect SFIA Studio Next changes
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      next_changed: ${{ steps.detect.outputs.next_changed }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect Next scope
+        id: detect
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          next_changed="false"
+          event_name="${{ github.event_name }}"
+
+          is_next_path() {
+            case "$1" in
+              projects/sfia-studio-next/*|.github/workflows/sfia-studio-next-ci.yml)
+                return 0
+                ;;
+              *)
+                return 1
+                ;;
+            esac
+          }
+
+          scan_range() {
+            local base_sha="$1"
+            local head_sha="$2"
+            local file=""
+            local found="false"
+
+            git rev-parse --verify "${base_sha}^{commit}" >/dev/null
+            git rev-parse --verify "${head_sha}^{commit}" >/dev/null
+
+            while IFS= read -r -d '' file; do
+              if is_next_path "${file}"; then
+                found="true"
+                break
+              fi
+            done < <(git diff -z --name-only "${base_sha}...${head_sha}")
+
+            printf '%s' "${found}"
+          }
+
+          if [ "${event_name}" = "pull_request" ]; then
+            base_sha="${{ github.event.pull_request.base.sha }}"
+            head_sha="${{ github.event.pull_request.head.sha }}"
+            if [ -z "${base_sha}" ] || [ -z "${head_sha}" ]; then
+              echo "Missing pull_request base/head SHA; fail-closed." >&2
+              exit 1
+            fi
+            next_changed="$(scan_range "${base_sha}" "${head_sha}")"
+          elif [ "${event_name}" = "push" ]; then
+            # Path filters already constrain push; treat as in-scope fail-closed.
+            next_changed="true"
+            before_sha="${{ github.event.before }}"
+            head_sha="${{ github.sha }}"
+            if [ -n "${before_sha}" ] && [ "${before_sha}" != "0000000000000000000000000000000000000000" ]; then
+              if ! git rev-parse --verify "${before_sha}^{commit}" >/dev/null 2>&1; then
+                echo "Cannot resolve github.event.before; fail-closed." >&2
+                exit 1
+              fi
+              corroborate="$(scan_range "${before_sha}" "${head_sha}")"
+              echo "push corroborate next_changed=${corroborate}"
+            fi
+          else
+            echo "Unsupported event_name=${event_name}; fail-closed." >&2
+            exit 1
+          fi
+
+          if [ "${next_changed}" != "true" ] && [ "${next_changed}" != "false" ]; then
+            echo "Invalid next_changed value; fail-closed." >&2
+            exit 1
+          fi
+
+          echo "event_name=${event_name}"
+          echo "next_changed=${next_changed}"
+          echo "next_changed=${next_changed}" >> "${GITHUB_OUTPUT}"
+
+  validate:
+    name: Build and validate SFIA Studio Next
+    needs: detect
+    if: >
+      needs.detect.result == 'success' &&
+      (
+        (github.event_name == 'pull_request' && needs.detect.outputs.next_changed == 'true') ||
+        github.event_name == 'push'
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        shell: bash
+        working-directory: projects/sfia-studio-next/web
+    env:
+      STUDIO_LANE: DEV
+      STUDIO_DEV_TEST_LOGIN: "1"
+      STUDIO_E2E: "1"
+      STUDIO_FORCE_NORA_FIXTURE: "1"
+      # Synthetic CI-only values — never Morris workstation secrets, never LIVE OAuth/OpenAI.
+      BETTER_AUTH_SECRET: "ci-only-better-auth-secret-not-for-prod-32b"
+      BETTER_AUTH_URL: "http://127.0.0.1:3101"
+      DATABASE_URL: "postgres://sfia_next_dev:ci-only-local@127.0.0.1:5433/sfia_next_dev"
+      SFIA_PG_CONTAINER: sfia-next-dev-pg
+      SFIA_PG_USER: sfia_next_dev
+      SFIA_PG_DATABASE: sfia_next_dev
+      SFIA_E2E_DATABASE: sfia_next_e2e
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: projects/sfia-studio-next/web/package-lock.json
+
+      - name: Neutralize LIVE Nora / OAuth env
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          # Do not inject OPENAI_API_KEY, GITHUB_CLIENT_ID, or GITHUB_CLIENT_SECRET.
+          unset OPENAI_API_KEY GITHUB_CLIENT_ID GITHUB_CLIENT_SECRET || true
+          echo "OPENAI_API_KEY is unset for this job (Nora FAKE only)."
+
+      - name: Start ephemeral Postgres matching DEV gate identities
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          docker rm -f sfia-next-dev-pg >/dev/null 2>&1 || true
+          docker run -d --name sfia-next-dev-pg \
+            -e POSTGRES_USER=sfia_next_dev \
+            -e POSTGRES_PASSWORD=ci-only-local \
+            -e POSTGRES_DB=sfia_next_dev \
+            -p 127.0.0.1:5433:5432 \
+            postgres:16-alpine
+          for i in $(seq 1 60); do
+            if docker exec sfia-next-dev-pg pg_isready -U sfia_next_dev -d sfia_next_dev >/dev/null 2>&1; then
+              echo "postgres ready"
+              break
+            fi
+            sleep 1
+            if [ "$i" = "60" ]; then
+              echo "Postgres failed to become ready" >&2
+              docker logs sfia-next-dev-pg >&2 || true
+              exit 1
+            fi
+          done
+          # Sibling E2E database — same identity check as scripts/e2e-web-server.sh
+          exists="$(docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -tAc \
+            "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" | tr -d '[:space:]')"
+          if [ "${exists}" != "1" ]; then
+            docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -v ON_ERROR_STOP=1 \
+              -c "CREATE DATABASE sfia_next_e2e OWNER sfia_next_dev;"
+          fi
+          docker port sfia-next-dev-pg 5432
+
+      - name: Write CI .env.local (synthetic, non-secret lane)
+        run: |
+          set -euo pipefail
+          printf '%s\n' \
+            'DATABASE_URL=postgres://sfia_next_dev:ci-only-local@127.0.0.1:5433/sfia_next_dev' \
+            'STUDIO_LANE=DEV' \
+            'STUDIO_DEV_TEST_LOGIN=1' \
+            'BETTER_AUTH_SECRET=ci-only-better-auth-secret-not-for-prod-32b' \
+            'BETTER_AUTH_URL=http://127.0.0.1:3101' \
+            > .env.local
+          # Explicitly omit OPENAI_API_KEY, GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET
+          # Never print .env.local or DATABASE_URL.
+
+      - name: Install dependencies (lockfile exact)
+        run: npm ci
+
+      - name: TypeScript
+        run: npx tsc --noEmit
+
+      - name: ESLint (next lint — version from lockfile)
+        run: npm run lint
+
+      - name: Build Next
+        run: npm run build
+
+      - name: Vitest unit
+        run: npm run test:unit
+
+      - name: Apply migrations 001→004 on operator DB
+        run: npm run db:migrate
+
+      - name: Vitest PostgreSQL integration
+        env:
+          STUDIO_E2E: "1"
+        run: |
+          set -euo pipefail
+          unset OPENAI_API_KEY || true
+          npm run test:integration
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Playwright BROWSER FAKE
+        env:
+          STUDIO_E2E: "1"
+          STUDIO_FORCE_NORA_FIXTURE: "1"
+        run: |
+          set -euo pipefail
+          unset OPENAI_API_KEY || true
+          npm run test:e2e
+
+      - name: Secret pattern scan (Next paths, targeted)
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          matches="$(git grep -nE 'BEGIN (RSA |OPENSSH )?PRIVATE KEY|AKIA[0-9A-Z]{16}' -- 'projects/sfia-studio-next' || true)"
+          if [ -n "${matches}" ]; then
+            echo "Potential secret material detected under projects/sfia-studio-next:" >&2
+            printf '%s\n' "${matches}" >&2
+            exit 1
+          fi
+          echo "Secret pattern scan passed"
+
+      - name: Trailing whitespace / conflict marker check
+        working-directory: ${{ github.workspace }}
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            git diff --check "${BASE_SHA}...HEAD"
+          else
+            BEFORE="${{ github.event.before }}"
+            if [ -n "${BEFORE}" ] && [ "${BEFORE}" != "0000000000000000000000000000000000000000" ]; then
+              git diff --check "${BEFORE}...HEAD"
+            else
+              echo "No previous SHA available; skipping whitespace range check"
+            fi
+          fi
+
+      - name: Stop ephemeral Postgres
+        if: always()
+        working-directory: ${{ github.workspace }}
+        run: docker rm -f sfia-next-dev-pg >/dev/null 2>&1 || true
+
+  required_gate:
+    name: SFIA Studio Next Required Gate
+    needs:
+      - detect
+      - validate
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Aggregate required gate
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          detect_result="${{ needs.detect.result }}"
+          validate_result="${{ needs.validate.result }}"
+          next_changed="${{ needs.detect.outputs.next_changed }}"
+
+          echo "detect_result=${detect_result}"
+          echo "validate_result=${validate_result}"
+          echo "next_changed=${next_changed}"
+
+          if [ "${detect_result}" != "success" ]; then
+            echo "Required gate FAIL: detection did not succeed (result=${detect_result})." >&2
+            exit 1
+          fi
+
+          if [ "${next_changed}" != "true" ] && [ "${next_changed}" != "false" ]; then
+            echo "Required gate FAIL: unknown next_changed value." >&2
+            exit 1
+          fi
+
+          if [ "${next_changed}" = "false" ]; then
+            echo "Required gate PASS: non-Next pull request; Next validation was NOT executed (not claimed)."
+            exit 0
+          fi
+
+          # Next in scope: validate must succeed. skipped/cancelled/failure → FAIL (no faux PASS).
+          if [ "${validate_result}" != "success" ]; then
+            echo "Required gate FAIL: Next validation required but result=${validate_result}." >&2
+            exit 1
+          fi
+
+          echo "Required gate PASS: Next validation succeeded."

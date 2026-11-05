@@ -223,3 +223,23 @@ Append-only logical journal of Cursor product deliveries.
 | SVG residuals | 5× `web/public/*.svg` create-next-app defaults, untracked, unused → **EXCLUDE** (do not commit) |
 | Status | LOCAL INTEGRATION PREP — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `READY WITH RESERVES` (intégration Git bloquée tant que CI Next absente / non exécutée) |
+
+## delivery_id: DELIV-2026-11-05-ML2-CI-NEXT-INSTALL-05
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (installation CI Next locale) |
+| Type | EVOL / workflow CI versionné sur branche construction |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Parent HEAD | `f937477026d25812db000af4d16ab48bd22e9e47` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Created | `.github/workflows/sfia-studio-next-ci.yml` |
+| Historical workflows | `sfia-studio-ci.yml` / `interv360-ci.yml` **unchanged** (hashes match origin/main) |
+| Gate name | `SFIA Studio Next Required Gate` (not yet added to GitHub branch protection) |
+| CI Next remote | **NOT RUN** — requires Morris GO to push branch / open PR for first Actions execution |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS ; actionlint PASS (no findings) |
+| SVG residuals | still EXCLUDE (untracked, not staged) |
+| Status | LOCAL CI INSTALL — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` (publication Git projet + premier run Actions = gates suivants) |
