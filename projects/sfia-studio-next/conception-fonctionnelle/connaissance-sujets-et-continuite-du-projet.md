@@ -164,3 +164,13 @@ CKI est le terme cible Next (CKC reste historique R1). D4 garde les connaissance
 - **PF-KNOW-17 — Lecture, citation et écriture distinctes.** Une mission lit deux documents, cite un extrait et produit un brouillon explicitement demandé ; les identités, versions et opérations techniques restent distinctes de la confirmation de sauvegarde D4.
 
 **Qualification R5 :** PF-37/39/40 D3 et COG-03/05 sur le même projet/SHA. Interfaces exactes, limites, reprise et sécurité doivent être prouvées avec le code. Les identifiants candidats ne requalifient pas rétroactivement les inventaires validés en R2.
+
+## 11. Complément fonctionnel — observations D4 et vérité des ressources (2026-11-05)
+
+**Orientation observabilité transverse validée Morris ; extension candidate du §10, sans nouveau magasin de connaissance ni journal de vérité parallèle.** [Contrat canonique de diagnostic](../architecture-technique/contrat-observabilite-transverse.md).
+
+- **RG-KNOW-024 — États distincts de consultation et effet.** Requête de lecture, résultat D4 effectivement retourné, citation utilisée, tentative de sauvegarde et écriture confirmée portent des observations distinctes ; un appel d'outil ne prouve pas l'exhaustivité des sources ni la conservation du contenu.
+- **RG-KNOW-025 — Reprise et corrélation des commandes D4.** Les clés de corrélation déjà utilisées pour création/révision et les versions métier restent propriétaires. Plusieurs appels HTTP/réessais peuvent être reliés sans devenir plusieurs documents ; une perte d'ACK impose une réconciliation.
+- **RG-KNOW-026 — Exploitation non intrusive.** Le journal existant des événements de Sujets demeure la source de ces mutations ; seules références/versions et résultats utiles sont exportés pour le diagnostic. Pas de contenu documentaire privé ni de provenance complète copiée automatiquement dans un collecteur technique.
+
+**Parcours candidats :** **PF-KNOW-18** consultation refusée puis réponse Nora → refus visible sans source inventée ; **PF-KNOW-19** sauvegarde réussie avec ACK perdu → effet D4 confirmé, retry sans nouvelle révision ; **PF-KNOW-20** fusion/séparation de Sujets avec rollback → journal transactionnel conforme et traces techniques distinctes, aucune mutation fictive. Couverture DB/INTEGRATION, BROWSER ciblé et diagnostic lié au SHA.
