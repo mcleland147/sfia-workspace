@@ -205,6 +205,10 @@ export const documentRevisions = pgTable(
     revisionNumber: integer("revision_number").notNull(),
     contentMarkdown: text("content_markdown").notNull(),
     status: text("status").notNull(), // SAVING | AVAILABLE | FAILED | UNKNOWN
+    baseRevisionId: text("base_revision_id"),
+    correlationKey: text("correlation_key"),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    scope: text("scope").notNull().default("document"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
@@ -212,4 +216,90 @@ export const documentRevisions = pgTable(
   ],
 );
 
-export const schemaRevision = "001_initial_studio_core";
+/** D4 — knowledge subjects / acquis / open points (ML2). */
+export const knowledgeSubjects = pgTable(
+  "knowledge_subjects",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    parentSubjectId: text("parent_subject_id"),
+    title: text("title").notNull(),
+    status: text("status").notNull().default("ACTIVE"),
+    originatedFromSubjectId: text("originated_from_subject_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_subjects_prep_idx").on(t.preparationId)],
+);
+
+export const knowledgeAcquis = pgTable(
+  "knowledge_acquis",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    subjectId: text("subject_id").references(() => knowledgeSubjects.id),
+    kind: text("kind").notNull().default("FACT"),
+    statement: text("statement").notNull(),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    status: text("status").notNull().default("CURRENT"),
+    supersedesAcquisId: text("supersedes_acquis_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_acquis_prep_idx").on(t.preparationId)],
+);
+
+export const knowledgeOpenPoints = pgTable(
+  "knowledge_open_points",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    subjectId: text("subject_id").references(() => knowledgeSubjects.id),
+    statement: text("statement").notNull(),
+    status: text("status").notNull().default("OPEN"),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_open_points_prep_idx").on(t.preparationId)],
+);
+
+export const knowledgeSubjectEvents = pgTable(
+  "knowledge_subject_events",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    subjectId: text("subject_id")
+      .notNull()
+      .references(() => knowledgeSubjects.id),
+    eventType: text("event_type").notNull(),
+    payloadJson: text("payload_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
+);
+
+export const schemaRevision = "003_ml2_knowledge_documents";

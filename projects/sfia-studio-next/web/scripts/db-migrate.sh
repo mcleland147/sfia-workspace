@@ -20,4 +20,5 @@ apply() {
 
 apply "001_initial_studio_core.sql"
 apply "002_session_auth_mode.sql"
-echo "db:migrate OK (001 then 002)"
+apply "003_ml2_knowledge_documents.sql"
+echo "db:migrate OK (001 then 002 then 003)"

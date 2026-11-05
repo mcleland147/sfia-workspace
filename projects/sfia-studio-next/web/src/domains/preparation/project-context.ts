@@ -3,6 +3,7 @@ import { db } from "@/db/client";
 import { preparationProjectLinks, projects } from "@/db/schema";
 import { listMessages } from "@/domains/conversation/service";
 import { listDocuments } from "@/domains/document/service";
+import { listKnowledge } from "@/domains/knowledge/service";
 import { getPreparationContext } from "@/domains/preparation/service";
 
 /**
@@ -41,6 +42,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
   const ctx = await getPreparationContext(pilotId, link.preparationId);
   const messages = await listMessages(pilotId, link.preparationId);
   const documents = await listDocuments(pilotId, link.preparationId);
+  const knowledge = await listKnowledge(pilotId, link.preparationId);
 
   return {
     project,
@@ -49,5 +51,6 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
     link,
     messages,
     documents,
+    knowledge,
   };
 }
