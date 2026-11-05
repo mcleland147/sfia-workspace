@@ -1,4 +1,4 @@
-import { and, desc, eq, inArray, ne } from "drizzle-orm";
+import { and, desc, eq, inArray, ne, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import {
   knowledgeAcquis,
@@ -15,7 +15,11 @@ export type Provenance = {
   generationId?: string;
   notedAt?: string;
   note?: string;
+  /** Epistemic confidence of the recorder — never upgrades authority. */
+  epistemic?: "observed" | "hypothesized" | "recommended" | "limited" | "established";
 };
+
+export type KnowledgeKind = "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
 
 function provenanceString(p: Provenance): string {
   return JSON.stringify({ ...p, notedAt: p.notedAt ?? new Date().toISOString() });
@@ -27,13 +31,52 @@ async function assertPrep(pilotId: string, preparationId: string) {
   return ctx;
 }
 
+type Tx = {
+  select: typeof db.select;
+  insert: typeof db.insert;
+  update: typeof db.update;
+  execute: typeof db.execute;
+};
+
+async function loadOwnedSubject(
+  pilotId: string,
+  preparationId: string,
+  subjectId: string,
+  tx: Tx = db,
+) {
+  return (
+    await tx
+      .select()
+      .from(knowledgeSubjects)
+      .where(
+        and(
+          eq(knowledgeSubjects.id, subjectId),
+          eq(knowledgeSubjects.ownerPilotId, pilotId),
+          eq(knowledgeSubjects.preparationId, preparationId),
+        ),
+      )
+      .limit(1)
+  )[0];
+}
+
+async function assertSubjectRef(
+  pilotId: string,
+  preparationId: string,
+  subjectId: string | null | undefined,
+) {
+  if (!subjectId) return null;
+  const row = await loadOwnedSubject(pilotId, preparationId, subjectId);
+  if (!row) return { error: "SUBJECT_FOREIGN_OR_UNKNOWN" as const };
+  return { subject: row };
+}
+
 /** Selective capitalisation — never invents D6 decisions. */
 export async function capitalizeAcquis(
   pilotId: string,
   preparationId: string,
   input: {
     statement: string;
-    kind?: "FACT" | "HYPOTHESIS" | "RECOMMENDATION" | "LIMIT";
+    kind?: KnowledgeKind;
     subjectId?: string | null;
     provenance: Provenance;
     supersedesAcquisId?: string;
@@ -44,37 +87,94 @@ export async function capitalizeAcquis(
   if (!statement || statement.length < 12) {
     return { status: "SKIPPED" as const, reason: "statement too thin for capitalisation" };
   }
-  // Do not capitalise recommendations as decisions — keep kind explicit.
-  const kind = input.kind ?? "FACT";
-  if (kind === "RECOMMENDATION") {
-    // Still allowed as acquis of type recommendation; never promotes to HumanDecision.
+
+  // Default: never auto-promote to FACT without explicit justification in provenance.
+  const kind: KnowledgeKind = input.kind ?? "HYPOTHESIS";
+  if (kind === "FACT" && input.provenance.epistemic !== "established") {
+    return {
+      status: "SKIPPED" as const,
+      reason: "FACT requires provenance.epistemic=established",
+    };
+  }
+
+  if (input.subjectId) {
+    const check = await assertSubjectRef(pilotId, preparationId, input.subjectId);
+    if ("error" in (check ?? {}) && check && "error" in check) {
+      return { status: "FAILED" as const, reason: check.error };
+    }
+    if (check?.subject && check.subject.status !== "ACTIVE") {
+      return { status: "FAILED" as const, reason: "SUBJECT_NOT_ACTIVE" };
+    }
+  }
+
+  if (input.supersedesAcquisId) {
+    const prior = (
+      await db
+        .select()
+        .from(knowledgeAcquis)
+        .where(
+          and(
+            eq(knowledgeAcquis.id, input.supersedesAcquisId),
+            eq(knowledgeAcquis.ownerPilotId, pilotId),
+            eq(knowledgeAcquis.preparationId, preparationId),
+          ),
+        )
+        .limit(1)
+    )[0];
+    if (!prior) return { status: "FAILED" as const, reason: "SUPERSEDES_FOREIGN_OR_UNKNOWN" };
+  }
+
+  // Trivial duplicate guard: same CURRENT statement under same subject
+  const dup = (
+    await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.ownerPilotId, pilotId),
+          eq(knowledgeAcquis.status, "CURRENT"),
+          eq(knowledgeAcquis.statement, statement),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (dup) {
+    return {
+      status: "AVAILABLE" as const,
+      acquisId: dup.id,
+      kind: dup.kind as KnowledgeKind,
+      deduplicated: true as const,
+    };
   }
 
   const id = newId("acq");
-  await db.insert(knowledgeAcquis).values({
-    id,
-    preparationId,
-    projectId: ctx.project?.id ?? null,
-    ownerPilotId: pilotId,
-    subjectId: input.subjectId ?? null,
-    kind,
-    statement,
-    provenanceJson: provenanceString(input.provenance),
-    status: "CURRENT",
-    supersedesAcquisId: input.supersedesAcquisId ?? null,
+  await db.transaction(async (tx) => {
+    await tx.insert(knowledgeAcquis).values({
+      id,
+      preparationId,
+      projectId: ctx.project?.id ?? null,
+      ownerPilotId: pilotId,
+      subjectId: input.subjectId ?? null,
+      kind,
+      statement,
+      provenanceJson: provenanceString(input.provenance),
+      status: "CURRENT",
+      supersedesAcquisId: input.supersedesAcquisId ?? null,
+    });
+    if (input.supersedesAcquisId) {
+      await tx
+        .update(knowledgeAcquis)
+        .set({ status: "SUPERSEDED", updatedAt: new Date() })
+        .where(
+          and(
+            eq(knowledgeAcquis.id, input.supersedesAcquisId),
+            eq(knowledgeAcquis.ownerPilotId, pilotId),
+            eq(knowledgeAcquis.preparationId, preparationId),
+          ),
+        );
+    }
   });
-  if (input.supersedesAcquisId) {
-    await db
-      .update(knowledgeAcquis)
-      .set({ status: "SUPERSEDED", updatedAt: new Date() })
-      .where(
-        and(
-          eq(knowledgeAcquis.id, input.supersedesAcquisId),
-          eq(knowledgeAcquis.ownerPilotId, pilotId),
-          eq(knowledgeAcquis.preparationId, preparationId),
-        ),
-      );
-  }
   return { status: "AVAILABLE" as const, acquisId: id, kind };
 }
 
@@ -86,6 +186,13 @@ export async function openPoint(
   const ctx = await assertPrep(pilotId, preparationId);
   const statement = input.statement.trim();
   if (!statement) return { status: "FAILED" as const, reason: "empty" };
+  if (input.subjectId) {
+    const check = await assertSubjectRef(pilotId, preparationId, input.subjectId);
+    if (check && "error" in check) return { status: "FAILED" as const, reason: check.error };
+    if (check?.subject && check.subject.status !== "ACTIVE") {
+      return { status: "FAILED" as const, reason: "SUBJECT_NOT_ACTIVE" };
+    }
+  }
   const id = newId("opn");
   await db.insert(knowledgeOpenPoints).values({
     id,
@@ -100,6 +207,10 @@ export async function openPoint(
   return { status: "AVAILABLE" as const, openPointId: id };
 }
 
+/**
+ * Soft topic resolution for capitalisation only — may reuse ACTIVE title match.
+ * MUST NOT be used by split/merge identity creation.
+ */
 export async function ensureSubject(
   pilotId: string,
   preparationId: string,
@@ -109,6 +220,10 @@ export async function ensureSubject(
   const ctx = await assertPrep(pilotId, preparationId);
   const cleaned = title.trim().slice(0, 200);
   if (!cleaned) return { status: "FAILED" as const, reason: "empty title" };
+  if (parentSubjectId) {
+    const parent = await assertSubjectRef(pilotId, preparationId, parentSubjectId);
+    if (parent && "error" in parent) return { status: "FAILED" as const, reason: parent.error };
+  }
   const existing = (
     await db
       .select()
@@ -137,6 +252,29 @@ export async function ensureSubject(
   return { status: "AVAILABLE" as const, subjectId: id, created: true };
 }
 
+/** Always creates a new subject identity (used by split). Title collision does not reuse. */
+async function createSubjectIdentity(
+  tx: Tx,
+  pilotId: string,
+  preparationId: string,
+  projectId: string | null,
+  title: string,
+  opts?: { parentSubjectId?: string | null; originatedFromSubjectId?: string | null },
+) {
+  const id = newId("subj");
+  await tx.insert(knowledgeSubjects).values({
+    id,
+    preparationId,
+    projectId,
+    ownerPilotId: pilotId,
+    parentSubjectId: opts?.parentSubjectId ?? null,
+    title: title.trim().slice(0, 200),
+    status: "ACTIVE",
+    originatedFromSubjectId: opts?.originatedFromSubjectId ?? null,
+  });
+  return id;
+}
+
 export async function renameSubject(
   pilotId: string,
   preparationId: string,
@@ -144,99 +282,136 @@ export async function renameSubject(
   newTitle: string,
 ) {
   await assertPrep(pilotId, preparationId);
-  const row = (
-    await db
-      .select()
-      .from(knowledgeSubjects)
-      .where(
-        and(
-          eq(knowledgeSubjects.id, subjectId),
-          eq(knowledgeSubjects.ownerPilotId, pilotId),
-          eq(knowledgeSubjects.preparationId, preparationId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!row) return { status: "FAILED" as const, reason: "NOT_FOUND" };
   const title = newTitle.trim().slice(0, 200);
-  await db
-    .update(knowledgeSubjects)
-    .set({ title, updatedAt: new Date() })
-    .where(eq(knowledgeSubjects.id, subjectId));
-  await db.insert(knowledgeSubjectEvents).values({
-    id: newId("sev"),
-    preparationId,
-    ownerPilotId: pilotId,
-    subjectId,
-    eventType: "RENAMED",
-    payloadJson: JSON.stringify({ from: row.title, to: title }),
-  });
-  return { status: "AVAILABLE" as const, subjectId, title };
+  if (!title) return { status: "FAILED" as const, reason: "empty title" };
+
+  try {
+    return await db.transaction(async (tx) => {
+      await tx.execute(
+        sql`select id from knowledge_subjects where id = ${subjectId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+      );
+      const row = await loadOwnedSubject(pilotId, preparationId, subjectId, tx as Tx);
+      if (!row) return { status: "FAILED" as const, reason: "NOT_FOUND" };
+      if (row.status !== "ACTIVE") return { status: "FAILED" as const, reason: "SUBJECT_NOT_ACTIVE" };
+
+      await tx
+        .update(knowledgeSubjects)
+        .set({ title, updatedAt: new Date() })
+        .where(eq(knowledgeSubjects.id, subjectId));
+      await tx.insert(knowledgeSubjectEvents).values({
+        id: newId("sev"),
+        preparationId,
+        ownerPilotId: pilotId,
+        subjectId,
+        eventType: "RENAMED",
+        payloadJson: JSON.stringify({ from: row.title, to: title }),
+      });
+      return { status: "AVAILABLE" as const, subjectId, title };
+    });
+  } catch (e) {
+    return {
+      status: "FAILED" as const,
+      reason: e instanceof Error ? e.message : "rename failed",
+    };
+  }
 }
 
-/** Merge B into A — A remains ACTIVE; B marked MERGED with filiation. */
+/** Merge B into A — atomic; A remains ACTIVE; B marked MERGED with filiation. */
 export async function mergeSubjects(
   pilotId: string,
   preparationId: string,
   targetSubjectId: string,
   sourceSubjectId: string,
+  opts?: { injectFailureAfter?: "lock" | "move" },
 ) {
   await assertPrep(pilotId, preparationId);
   if (targetSubjectId === sourceSubjectId) {
     return { status: "FAILED" as const, reason: "same subject" };
   }
-  const rows = await db
-    .select()
-    .from(knowledgeSubjects)
-    .where(
-      and(
-        eq(knowledgeSubjects.ownerPilotId, pilotId),
-        eq(knowledgeSubjects.preparationId, preparationId),
-        inArray(knowledgeSubjects.id, [targetSubjectId, sourceSubjectId]),
-      ),
-    );
-  if (rows.length !== 2) return { status: "FAILED" as const, reason: "NOT_FOUND" };
 
-  await db
-    .update(knowledgeAcquis)
-    .set({ subjectId: targetSubjectId, updatedAt: new Date() })
-    .where(
-      and(
-        eq(knowledgeAcquis.subjectId, sourceSubjectId),
-        eq(knowledgeAcquis.ownerPilotId, pilotId),
-      ),
-    );
-  await db
-    .update(knowledgeOpenPoints)
-    .set({ subjectId: targetSubjectId, updatedAt: new Date() })
-    .where(
-      and(
-        eq(knowledgeOpenPoints.subjectId, sourceSubjectId),
-        eq(knowledgeOpenPoints.ownerPilotId, pilotId),
-      ),
-    );
-  await db
-    .update(knowledgeSubjects)
-    .set({
-      status: "MERGED",
-      originatedFromSubjectId: targetSubjectId,
-      updatedAt: new Date(),
-    })
-    .where(eq(knowledgeSubjects.id, sourceSubjectId));
-  await db.insert(knowledgeSubjectEvents).values({
-    id: newId("sev"),
-    preparationId,
-    ownerPilotId: pilotId,
-    subjectId: targetSubjectId,
-    eventType: "MERGED",
-    payloadJson: JSON.stringify({ absorbed: sourceSubjectId }),
-  });
-  return { status: "AVAILABLE" as const, targetSubjectId, absorbedSubjectId: sourceSubjectId };
+  try {
+    return await db.transaction(async (tx) => {
+      // Deterministic lock order to avoid deadlocks
+      const ids = [targetSubjectId, sourceSubjectId].sort();
+      for (const id of ids) {
+        await tx.execute(
+          sql`select id from knowledge_subjects where id = ${id} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+        );
+      }
+      if (opts?.injectFailureAfter === "lock") {
+        throw new Error("injected failure after lock");
+      }
+
+      const rows = await tx
+        .select()
+        .from(knowledgeSubjects)
+        .where(
+          and(
+            eq(knowledgeSubjects.ownerPilotId, pilotId),
+            eq(knowledgeSubjects.preparationId, preparationId),
+            inArray(knowledgeSubjects.id, [targetSubjectId, sourceSubjectId]),
+          ),
+        );
+      if (rows.length !== 2) return { status: "FAILED" as const, reason: "NOT_FOUND" };
+      const target = rows.find((r) => r.id === targetSubjectId)!;
+      const source = rows.find((r) => r.id === sourceSubjectId)!;
+      if (target.status !== "ACTIVE" || source.status !== "ACTIVE") {
+        return { status: "CONFLICT" as const, reason: "SUBJECT_NOT_ACTIVE" };
+      }
+
+      await tx
+        .update(knowledgeAcquis)
+        .set({ subjectId: targetSubjectId, updatedAt: new Date() })
+        .where(
+          and(
+            eq(knowledgeAcquis.subjectId, sourceSubjectId),
+            eq(knowledgeAcquis.ownerPilotId, pilotId),
+            eq(knowledgeAcquis.preparationId, preparationId),
+          ),
+        );
+      await tx
+        .update(knowledgeOpenPoints)
+        .set({ subjectId: targetSubjectId, updatedAt: new Date() })
+        .where(
+          and(
+            eq(knowledgeOpenPoints.subjectId, sourceSubjectId),
+            eq(knowledgeOpenPoints.ownerPilotId, pilotId),
+            eq(knowledgeOpenPoints.preparationId, preparationId),
+          ),
+        );
+      if (opts?.injectFailureAfter === "move") {
+        throw new Error("injected failure after move");
+      }
+      await tx
+        .update(knowledgeSubjects)
+        .set({
+          status: "MERGED",
+          originatedFromSubjectId: targetSubjectId,
+          updatedAt: new Date(),
+        })
+        .where(eq(knowledgeSubjects.id, sourceSubjectId));
+      await tx.insert(knowledgeSubjectEvents).values({
+        id: newId("sev"),
+        preparationId,
+        ownerPilotId: pilotId,
+        subjectId: targetSubjectId,
+        eventType: "MERGED",
+        payloadJson: JSON.stringify({ absorbed: sourceSubjectId }),
+      });
+      return { status: "AVAILABLE" as const, targetSubjectId, absorbedSubjectId: sourceSubjectId };
+    });
+  } catch (e) {
+    return {
+      status: "FAILED" as const,
+      reason: e instanceof Error ? e.message : "merge failed",
+      rolledBack: true as const,
+    };
+  }
 }
 
 /**
- * Split: move selected acquis/open points to a new subject with filiation preserved.
- * Minimal composition — no new Figma screen; composes on existing Sujets surface.
+ * Split: move selected acquis/open points to a NEW subject identity.
+ * Never reuses an existing subject via title equality.
  */
 export async function splitSubject(
   pilotId: string,
@@ -247,81 +422,157 @@ export async function splitSubject(
     acquisIds: string[];
     openPointIds: string[];
   },
+  opts?: { injectFailureAfter?: "validate" | "create" | "move" },
 ) {
-  await assertPrep(pilotId, preparationId);
-  const source = (
-    await db
-      .select()
-      .from(knowledgeSubjects)
-      .where(
-        and(
-          eq(knowledgeSubjects.id, sourceSubjectId),
-          eq(knowledgeSubjects.ownerPilotId, pilotId),
-          eq(knowledgeSubjects.preparationId, preparationId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!source) return { status: "FAILED" as const, reason: "NOT_FOUND" };
+  const ctx = await assertPrep(pilotId, preparationId);
+  const newTitle = input.newTitle.trim().slice(0, 200);
+  if (!newTitle) return { status: "FAILED" as const, reason: "empty title" };
   if (input.acquisIds.length === 0 && input.openPointIds.length === 0) {
     return { status: "FAILED" as const, reason: "nothing to move" };
   }
 
-  const created = await ensureSubject(pilotId, preparationId, input.newTitle);
-  if (created.status !== "AVAILABLE" || !created.subjectId) {
-    return { status: "FAILED" as const, reason: "could not create target subject" };
-  }
-  const newSubjectId = created.subjectId;
-  await db
-    .update(knowledgeSubjects)
-    .set({
-      originatedFromSubjectId: sourceSubjectId,
-      updatedAt: new Date(),
-    })
-    .where(eq(knowledgeSubjects.id, newSubjectId));
+  try {
+    return await db.transaction(async (tx) => {
+      await tx.execute(
+        sql`select id from knowledge_subjects where id = ${sourceSubjectId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+      );
+      const source = await loadOwnedSubject(pilotId, preparationId, sourceSubjectId, tx as Tx);
+      if (!source) return { status: "FAILED" as const, reason: "NOT_FOUND" };
+      if (source.status !== "ACTIVE") {
+        return { status: "CONFLICT" as const, reason: "SUBJECT_NOT_ACTIVE" };
+      }
 
-  if (input.acquisIds.length) {
-    await db
-      .update(knowledgeAcquis)
-      .set({ subjectId: newSubjectId, updatedAt: new Date() })
-      .where(
-        and(
-          eq(knowledgeAcquis.ownerPilotId, pilotId),
-          eq(knowledgeAcquis.preparationId, preparationId),
-          inArray(knowledgeAcquis.id, input.acquisIds),
-        ),
+      // Validate every acquis belongs to source subject + prep + owner
+      if (input.acquisIds.length) {
+        const rows = await tx
+          .select()
+          .from(knowledgeAcquis)
+          .where(
+            and(
+              eq(knowledgeAcquis.ownerPilotId, pilotId),
+              eq(knowledgeAcquis.preparationId, preparationId),
+              inArray(knowledgeAcquis.id, input.acquisIds),
+            ),
+          );
+        if (rows.length !== input.acquisIds.length) {
+          return { status: "FAILED" as const, reason: "ACQUIS_FOREIGN_OR_UNKNOWN" };
+        }
+        const foreign = rows.filter((r) => r.subjectId !== sourceSubjectId);
+        if (foreign.length) {
+          return {
+            status: "FAILED" as const,
+            reason: "ACQUIS_NOT_IN_SOURCE_SUBJECT",
+            foreignIds: foreign.map((f) => f.id),
+          };
+        }
+      }
+      if (input.openPointIds.length) {
+        const rows = await tx
+          .select()
+          .from(knowledgeOpenPoints)
+          .where(
+            and(
+              eq(knowledgeOpenPoints.ownerPilotId, pilotId),
+              eq(knowledgeOpenPoints.preparationId, preparationId),
+              inArray(knowledgeOpenPoints.id, input.openPointIds),
+            ),
+          );
+        if (rows.length !== input.openPointIds.length) {
+          return { status: "FAILED" as const, reason: "OPEN_POINT_FOREIGN_OR_UNKNOWN" };
+        }
+        const foreign = rows.filter((r) => r.subjectId !== sourceSubjectId);
+        if (foreign.length) {
+          return {
+            status: "FAILED" as const,
+            reason: "OPEN_POINT_NOT_IN_SOURCE_SUBJECT",
+            foreignIds: foreign.map((f) => f.id),
+          };
+        }
+      }
+      if (opts?.injectFailureAfter === "validate") {
+        throw new Error("injected failure after validate");
+      }
+
+      // Always new identity — title equality must not reuse
+      const newSubjectId = await createSubjectIdentity(
+        tx as Tx,
+        pilotId,
+        preparationId,
+        ctx.project?.id ?? null,
+        newTitle,
+        { originatedFromSubjectId: sourceSubjectId },
       );
+      if (opts?.injectFailureAfter === "create") {
+        throw new Error("injected failure after create");
+      }
+
+      if (input.acquisIds.length) {
+        const moved = await tx
+          .update(knowledgeAcquis)
+          .set({ subjectId: newSubjectId, updatedAt: new Date() })
+          .where(
+            and(
+              eq(knowledgeAcquis.ownerPilotId, pilotId),
+              eq(knowledgeAcquis.preparationId, preparationId),
+              eq(knowledgeAcquis.subjectId, sourceSubjectId),
+              inArray(knowledgeAcquis.id, input.acquisIds),
+            ),
+          )
+          .returning({ id: knowledgeAcquis.id });
+        if (moved.length !== input.acquisIds.length) {
+          throw new Error("acquis move count mismatch — abort");
+        }
+      }
+      if (input.openPointIds.length) {
+        const moved = await tx
+          .update(knowledgeOpenPoints)
+          .set({ subjectId: newSubjectId, updatedAt: new Date() })
+          .where(
+            and(
+              eq(knowledgeOpenPoints.ownerPilotId, pilotId),
+              eq(knowledgeOpenPoints.preparationId, preparationId),
+              eq(knowledgeOpenPoints.subjectId, sourceSubjectId),
+              inArray(knowledgeOpenPoints.id, input.openPointIds),
+            ),
+          )
+          .returning({ id: knowledgeOpenPoints.id });
+        if (moved.length !== input.openPointIds.length) {
+          throw new Error("open point move count mismatch — abort");
+        }
+      }
+      if (opts?.injectFailureAfter === "move") {
+        throw new Error("injected failure after move");
+      }
+
+      await tx.insert(knowledgeSubjectEvents).values({
+        id: newId("sev"),
+        preparationId,
+        ownerPilotId: pilotId,
+        subjectId: sourceSubjectId,
+        eventType: "SPLIT",
+        payloadJson: JSON.stringify({
+          newSubjectId,
+          acquisIds: input.acquisIds,
+          openPointIds: input.openPointIds,
+          filiation: sourceSubjectId,
+        }),
+      });
+
+      return {
+        status: "AVAILABLE" as const,
+        sourceSubjectId,
+        newSubjectId,
+        filiationPreserved: true as const,
+        createdNewIdentity: true as const,
+      };
+    });
+  } catch (e) {
+    return {
+      status: "FAILED" as const,
+      reason: e instanceof Error ? e.message : "split failed",
+      rolledBack: true as const,
+    };
   }
-  if (input.openPointIds.length) {
-    await db
-      .update(knowledgeOpenPoints)
-      .set({ subjectId: newSubjectId, updatedAt: new Date() })
-      .where(
-        and(
-          eq(knowledgeOpenPoints.ownerPilotId, pilotId),
-          eq(knowledgeOpenPoints.preparationId, preparationId),
-          inArray(knowledgeOpenPoints.id, input.openPointIds),
-        ),
-      );
-  }
-  await db.insert(knowledgeSubjectEvents).values({
-    id: newId("sev"),
-    preparationId,
-    ownerPilotId: pilotId,
-    subjectId: sourceSubjectId,
-    eventType: "SPLIT",
-    payloadJson: JSON.stringify({
-      newSubjectId,
-      acquisIds: input.acquisIds,
-      openPointIds: input.openPointIds,
-    }),
-  });
-  return {
-    status: "AVAILABLE" as const,
-    sourceSubjectId,
-    newSubjectId,
-    filiationPreserved: true,
-  };
 }
 
 export async function listKnowledge(pilotId: string, preparationId: string) {
@@ -360,10 +611,6 @@ export async function listKnowledge(pilotId: string, preparationId: string) {
   return { subjects, acquis, openPoints };
 }
 
-/**
- * D4 availability → D3 selection context. Bounded, provenance-bearing, no full transcript.
- * Does NOT create authority; reconstructible summaries only.
- */
 export async function selectRelevantKnowledgeContext(
   pilotId: string,
   preparationId: string,
@@ -387,7 +634,7 @@ export async function selectRelevantKnowledgeContext(
 
   const rankedAcquis = acquis
     .filter((a) => a.status === "CURRENT")
-    .map((a) => ({ a, s: score(a.statement) + (a.kind === "FACT" ? 1 : 0) }))
+    .map((a) => ({ a, s: score(a.statement) }))
     .sort((x, y) => y.s - x.s || (y.a.createdAt?.getTime?.() ?? 0) - (x.a.createdAt?.getTime?.() ?? 0));
 
   const rankedOpen = openPoints
@@ -395,8 +642,6 @@ export async function selectRelevantKnowledgeContext(
     .map((o) => ({ o, s: score(o.statement) + 1 }))
     .sort((x, y) => y.s - x.s);
 
-  // Always include recent CURRENT acquis / OPEN points even with weak lexical match
-  // so reprise after many exchanges recovers D4 beyond the 6-message window.
   const pickedAcquis = rankedAcquis.slice(0, Math.min(limit, 5));
   const pickedOpen = rankedOpen.slice(0, Math.min(4, limit));
   const pickedSubjects = subjects.filter((s) => s.status === "ACTIVE").slice(0, 5);
@@ -425,12 +670,15 @@ export async function selectRelevantKnowledgeContext(
     },
     selectedAcquisIds: pickedAcquis.map((x) => x.a.id),
     selectedOpenPointIds: pickedOpen.map((x) => x.o.id),
+    selectionMethod: "lexical-heuristic" as const,
+    selectionLimit:
+      "Sélection lexicale bornée — n'établit pas de vérité épistémique; D3 doit qualifier pertinence et limites.",
   };
 }
 
 /**
- * Heuristic selective capitalisation after a Nora exchange.
- * Caps creations; never treats recommendation as HumanDecision.
+ * Heuristic capitalisation — auxiliary only, not epistemic authority.
+ * Defaults to HYPOTHESIS; FACT only if explicitly established.
  */
 export async function maybeCapitalizeFromExchange(
   pilotId: string,
@@ -442,10 +690,16 @@ export async function maybeCapitalizeFromExchange(
     userMessageId: string;
   },
 ) {
-  const results: Array<{ kind: string; id?: string; status: string }> = [];
+  const results: Array<{
+    kind: string;
+    id?: string;
+    status: string;
+    epistemicNote?: string;
+  }> = [];
   const lower = `${input.userText}\n${input.assistantText}`.toLowerCase();
+  const selectionLimit =
+    "Capitalisation heuristique (regex/lexical) — pas une autorité épistémique; LIVE COG requis pour qualification.";
 
-  // Subject from explicit topical cues
   let subjectId: string | null = null;
   const topicMatch = input.userText.match(
     /(?:sujet|thème|theme|à propos de|concernant)\s*[:«"]?\s*([^\n.«"]{4,80})/i,
@@ -455,30 +709,43 @@ export async function maybeCapitalizeFromExchange(
     if (s.status === "AVAILABLE" && s.subjectId) subjectId = s.subjectId;
   }
 
+  // Stronger gate than keyword alone: require comparative structure or explicit durable ask
   const looksComparative =
-    /compar(e|er|aison)|option[s]? [abc]|compromis|avantage|inconvénient/i.test(lower);
+    /compar(e|er|aison).{0,80}(option|compromis|avantage|inconvénient|critère)/i.test(lower) ||
+    (/option[s]?\s*[abc]/i.test(lower) && /compromis|avantage|inconvénient/i.test(lower));
   const looksOpen =
-    /\b(point ouvert|à clarifier|reste à|inconnu|hypothèse|question ouverte|dépendance)\b/i.test(
-      lower,
+    /\b(point ouvert|question ouverte|à clarifier|dépendance non résolue)\b/i.test(lower);
+  const looksDurableAsk =
+    /\b(retenir comme acquis|capitalise|mémorise|enregistre (cet|cette) acquis)\b/i.test(
+      input.userText,
     );
-  const looksDurable =
-    looksComparative ||
-    /conclusion|reten(?:ir|u)|acquis|décider|synthèse|hypothèse privilégiée/i.test(lower);
+  const looksRecommendation = /\brecommandation conditionnelle\b/i.test(lower);
 
-  if (looksDurable) {
+  if (looksDurableAsk || looksComparative) {
     const statement = extractSalientLine(input.assistantText) ?? input.userText.slice(0, 200);
+    const kind: KnowledgeKind = looksRecommendation
+      ? "RECOMMENDATION"
+      : looksComparative
+        ? "HYPOTHESIS"
+        : "HYPOTHESIS";
     const cap = await capitalizeAcquis(pilotId, preparationId, {
       statement,
-      kind: looksComparative ? "HYPOTHESIS" : "FACT",
+      kind,
       subjectId,
       provenance: {
         sourceKind: "message",
         sourceId: input.userMessageId,
         generationId: input.generationId,
-        note: "selective capitalisation post-exchange",
+        note: "heuristic capitalisation — not epistemic authority",
+        epistemic: kind === "RECOMMENDATION" ? "recommended" : "hypothesized",
       },
     });
-    results.push({ kind: "acquis", id: "acquisId" in cap ? cap.acquisId : undefined, status: cap.status });
+    results.push({
+      kind: "acquis",
+      id: "acquisId" in cap ? cap.acquisId : undefined,
+      status: cap.status,
+      epistemicNote: selectionLimit,
+    });
   }
 
   if (looksOpen) {
@@ -492,17 +759,23 @@ export async function maybeCapitalizeFromExchange(
         sourceKind: "message",
         sourceId: input.userMessageId,
         generationId: input.generationId,
+        epistemic: "limited",
       },
     });
     results.push({
       kind: "open_point",
       id: "openPointId" in op ? op.openPointId : undefined,
       status: op.status,
+      epistemicNote: selectionLimit,
     });
   }
 
-  // Explicit document request does not auto-capitalise every sentence — skip chatter.
-  return { capitalisations: results };
+  return {
+    capitalisations: results,
+    selectionMethod: "lexical-heuristic" as const,
+    selectionLimit,
+    humanDecisionCreated: false as const,
+  };
 }
 
 function extractSalientLine(text: string): string | null {

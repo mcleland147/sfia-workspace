@@ -106,7 +106,13 @@ export async function postUserMessageAndNora(
   });
 
   // Selective D4 capitalisation after durable assistant message
-  let capitalisation = { capitalisations: [] as Array<{ kind: string; id?: string; status: string }> };
+  let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
+    capitalisations: [],
+    selectionMethod: "lexical-heuristic",
+    selectionLimit:
+      "Capitalisation heuristique — pas une autorité épistémique; LIVE COG requis pour qualification.",
+    humanDecisionCreated: false,
+  };
   if (reply.status === "COMPLETE") {
     capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
       userText: content,
@@ -115,6 +121,10 @@ export async function postUserMessageAndNora(
       userMessageId: userMsgId,
     });
   }
+  // Only confirmed AVAILABLE writes may be announced as capitalised
+  const confirmedCapitalisations = capitalisation.capitalisations.filter(
+    (c) => c.status === "AVAILABLE",
+  );
 
   // Explicit document request → D4 save (generation ≠ save until AVAILABLE)
   let documentSave: Awaited<ReturnType<typeof savePreparationDocument>> | null = null;
@@ -153,8 +163,14 @@ export async function postUserMessageAndNora(
       delivered: reply.streamingDelivered ?? false,
       notes: reply.streamingNotes ?? null,
     },
-    knowledgeSelection: knowledge.counts,
-    capitalisation: capitalisation.capitalisations,
+    knowledgeSelection: {
+      ...knowledge.counts,
+      selectionMethod: knowledge.selectionMethod,
+      selectionLimit: knowledge.selectionLimit,
+    },
+    capitalisation: confirmedCapitalisations,
+    capitalisationAttempted: capitalisation.capitalisations,
+    capitalisationLimit: capitalisation.selectionLimit,
     documentSave,
     // Authority boundary: recommendation ≠ HumanDecision
     humanDecisionCreated: false,

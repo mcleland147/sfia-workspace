@@ -190,6 +190,7 @@ export const documents = pgTable(
       .notNull()
       .references(() => pilots.id),
     title: text("title").notNull(),
+    creationCorrelationKey: text("creation_correlation_key"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index("documents_prep_idx").on(t.preparationId)],
@@ -302,4 +303,4 @@ export const knowledgeSubjectEvents = pgTable(
   (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
 );
 
-export const schemaRevision = "003_ml2_knowledge_documents";
+export const schemaRevision = "004_ml2_integrity_corrective";

@@ -466,3 +466,30 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 ### 12.4 Verdict construction locale
 
 `READY WITH RESERVES` — vertical ML2 intégré localement avec tests DETERMINISTIC/PG/BROWSER FAKE ; pas de push projet ; pas de RECETTE ; handoff L3 only.
+
+---
+
+## 13. As-Built correctif intégrité — 2026-11-05 (complément)
+
+> Correctif du même macro-lot ML2. Ne réécrit pas VALIDATED SPEC §§1–11.
+
+| Champ | Valeur |
+| --- | --- |
+| Branche | `sfia/next-ml2-production-capitalisation` (poursuite des commits `d867365f`…`a9a468e9`) |
+| Migration | `004_ml2_integrity_corrective.sql` (additive) |
+| Schema revision | `004_ml2_integrity_corrective` |
+
+### Corrections C1–C6
+
+| Id | Mécanisme | Preuve |
+| --- | --- | --- |
+| C1 | Transactions + `FOR UPDATE` ; validation appartenance acquis/OP au Sujet source ; split crée toujours une **nouvelle** identité ; rollback injecté | PG corrective 13 tests |
+| C2 | `reviseDocument` : lock document + relecture latest dans la même TX → CONFLICT déterministe | concurrent revise PASS |
+| C3 | `documents.creation_correlation_key` unique ; lookup **avant** allocation d'id ; fingerprint payload → CONFLICT si mismatch | retry×3 + ACK perdu PASS |
+| C4 | Diff LCS ordonné (occurrences répétées) | unit ordered diff PASS |
+| C5 | FACT exige `epistemic=established` ; défaut HYPOTHESIS ; pas de capitalisation sur chatter ; annonce UI seulement si AVAILABLE | PG + conversation |
+| C6 | CONFLICT/FAILED distingués ; split garde le panneau si échec ; capitalisé seulement après AVAILABLE | UX + BROWSER smoke |
+
+### Réserves inchangées
+
+ML2-S1 streaming UI/LIVE ; ML2-S2 composition séparation (minimale) ; ML2-S3 matrice Figma viewports ; CI Next absente ; COG LIVE NOT RUN.

@@ -27,11 +27,9 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
     "Rédige un document de synthèse sur les options A et B",
   );
   await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText(/document doc_.*AVAILABLE|Document proposé|# Synthèse/i)).toBeVisible({
+  await expect(page.getByText(/Nora deterministic-fixture · COMPLETE · document \S+ v\d+/i)).toBeVisible({
     timeout: 30000,
   });
-  // Status line after save confirmation (generation ≠ save until AVAILABLE)
-  await expect(page.getByText(/document \S+ v\d+/i)).toBeVisible({ timeout: 15000 });
 
   // Journal — Sujets surface
   await page.getByRole("button", { name: "Journal — Sujets" }).click();

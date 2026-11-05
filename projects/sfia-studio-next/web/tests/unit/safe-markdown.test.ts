@@ -2,11 +2,12 @@ import { describe, expect, it } from "vitest";
 import { diffMarkdown } from "@/domains/document/service";
 
 describe("diffMarkdown", () => {
-  it("reports added and removed lines", () => {
+  it("reports added and removed lines in order", () => {
     const d = diffMarkdown("a\nb\nc", "a\nx\nc");
-    expect(d.removed).toContain("b");
-    expect(d.added).toContain("x");
-    expect(d.unchangedCount).toBeGreaterThanOrEqual(2);
+    expect(d.removed).toEqual(["b"]);
+    expect(d.added).toEqual(["x"]);
+    expect(d.unchangedCount).toBe(2);
+    expect(d.ops.map((o) => o.op)).toEqual(["equal", "remove", "add", "equal"]);
   });
 });
 

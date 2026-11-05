@@ -238,3 +238,17 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 | Q29 streaming | ATTEMPTED adapter ; UI progressive NOT WIRED ; LIVE NOT PROVEN |
 | COG-01..07 | NOT RUN |
 | Négatif recommandation ≠ D6 | COUVERT (`humanDecisionCreated: false`, kinds acquis) |
+
+### 7.1 Correctif C1–C6 (2026-11-05)
+
+| Défaut | Négatif | Après | DB | Verdict |
+| --- | --- | --- | --- | --- |
+| C1 Sujet hors source | PASS | PASS | PASS | PASS |
+| C1 rollback mutation | PASS | PASS | PASS | PASS |
+| C1 collision titre | PASS | PASS | PASS | PASS |
+| C2 révision concurrente | PASS | PASS | PASS | PASS |
+| C3 retry création | PASS | PASS | PASS | PASS |
+| C3 ACK perdu | PASS | PASS | PASS | PASS |
+| C4 lignes répétées | PASS | PASS | N/A | PASS |
+| C5 faux FACT | PASS | PASS | PASS | PASS |
+| C6 état UI | PARTIEL BROWSER | PASS smoke | si effet | PASS partiel |

@@ -170,3 +170,20 @@ Append-only logical journal of Cursor product deliveries.
 | Streaming | Attempted in adapter (`stream: true`) ; UI progressive NOT wired ; LIVE streaming NOT PROVEN |
 | Status | LOCAL CONSTRUCTION — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `READY WITH RESERVES` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CORRECTIVE-02
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — correctif intégrité D4 / documents / cognition |
+| Type | Correctif intégré (même macro-lot) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only) |
+| Parent HEAD | `a9a468e9f883128045c516a881f30d6372175c96` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | C1 sujets atomiques ; C2 concurrence révision ; C3 idempotence création ; C4 diff ordonné ; C5 épistémologie capitalisation ; C6 états UX |
+| Schema | `004_ml2_integrity_corrective` |
+| Product version | `NO RELEASE` |
+| Tests | unit 31 PASS ; PG integration 45 PASS ; Playwright 2 PASS ; tsc+build PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` (réserves S1/S2/S3/CI/COG qualifiées, non bloquantes pour intégrité) |

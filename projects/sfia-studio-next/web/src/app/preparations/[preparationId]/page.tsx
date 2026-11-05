@@ -104,11 +104,14 @@ export default function PreparationPage() {
           : j.documentSave
             ? ` · document ${j.documentSave.status}`
             : "";
-      const cap = Array.isArray(j.capitalisation) && j.capitalisation.length
-        ? ` · capitalisé ${j.capitalisation.length}`
-        : "";
+      const cap =
+        Array.isArray(j.capitalisation) && j.capitalisation.length
+          ? ` · capitalisé ${j.capitalisation.length} (AVAILABLE confirmé)`
+          : "";
+      const docConflict =
+        j.documentSave?.status === "CONFLICT" ? ` · CONFLICT ${j.documentSave.reason ?? ""}` : "";
       setStatus(
-        `Nora ${j.noraMode} · ${j.status}${docPart}${cap}` +
+        `Nora ${j.noraMode} · ${j.status}${docPart}${docConflict}${cap}` +
           (j.streaming?.attempted
             ? ` · stream attempted=${j.streaming.attempted} delivered=${j.streaming.delivered}`
             : ""),
@@ -122,18 +125,32 @@ export default function PreparationPage() {
 
   async function saveDoc() {
     setBusy(true);
+    const correlationKey = docId
+      ? `revsave-${docId}-${Date.now()}`
+      : `create-doc-${preparationId}-${Date.now()}`;
     const res = await fetch(`/api/preparations/${preparationId}/documents`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: "Document du sas", contentMarkdown: docText, documentId: docId }),
+      body: JSON.stringify({
+        title: "Document du sas",
+        contentMarkdown: docText,
+        documentId: docId,
+        correlationKey,
+      }),
     });
     const j = await res.json();
     setBusy(false);
     if (j.status === "AVAILABLE") {
       setDocId(j.documentId);
       setBaseRevisionId(j.revisionId);
-      setStatus(`Document AVAILABLE rev ${j.revisionNumber}`);
+      setStatus(
+        j.idempotentReplay
+          ? `Document AVAILABLE (rejeu idempotent) rev ${j.revisionNumber}`
+          : `Document AVAILABLE rev ${j.revisionNumber}`,
+      );
       await reload();
+    } else if (j.status === "CONFLICT") {
+      setStatus(`CONFLICT document: ${j.reason ?? "version ou corrélation"}`);
     } else setStatus(`Document ${j.status}: ${j.reason ?? ""}`);
   }
 
@@ -242,6 +259,10 @@ export default function PreparationPage() {
 
   async function confirmSplit() {
     if (!splitSubjectId || !splitTitle.trim()) return;
+    if (splitAcquis.length === 0) {
+      setStatus("Séparation annulable: sélectionner au moins un acquis du Sujet source");
+      return;
+    }
     const res = await fetch(`/api/preparations/${preparationId}/knowledge`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -254,15 +275,16 @@ export default function PreparationPage() {
       }),
     });
     const j = await res.json();
-    setStatus(
-      j.status === "AVAILABLE"
-        ? `Séparation OK → ${j.newSubjectId} (filiation conservée)`
-        : `Séparation ${j.status}: ${j.reason ?? ""}`,
-    );
-    setSplitSubjectId(null);
-    setSplitTitle("");
-    setSplitAcquis([]);
-    await reloadKnowledge();
+    if (j.status === "AVAILABLE" && j.createdNewIdentity) {
+      setStatus(`Séparation OK → ${j.newSubjectId} (nouvelle identité, filiation ${j.sourceSubjectId})`);
+      setSplitSubjectId(null);
+      setSplitTitle("");
+      setSplitAcquis([]);
+      await reloadKnowledge();
+    } else {
+      // Keep panel open on failure — no hidden mutation
+      setStatus(`Séparation ${j.status}: ${j.reason ?? "échec"} — aucune mutation partielle`);
+    }
   }
 
   const inspected = docs.find((d) => d.document.id === inspectDocId) ?? docs[0];

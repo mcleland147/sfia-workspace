@@ -21,6 +21,7 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       title?: string;
       contentMarkdown?: string;
       documentId?: string;
+      correlationKey?: string;
     };
     if (typeof body.contentMarkdown !== "string") {
       return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
@@ -31,8 +32,17 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       body.title ?? "Document du sas",
       body.contentMarkdown,
       body.documentId,
+      { correlationKey: body.correlationKey },
     );
-    return NextResponse.json(result, { status: result.status === "AVAILABLE" ? 200 : 500 });
+    const http =
+      result.status === "AVAILABLE"
+        ? 200
+        : result.status === "CONFLICT"
+          ? 409
+          : result.status === "FAILED"
+            ? 400
+            : 500;
+    return NextResponse.json(result, { status: http });
   } catch {
     return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
   }

@@ -33,7 +33,7 @@ function applySql(file: string, database = DB) {
   );
 }
 
-describe.skipIf(!dockerOk())("migrations 001→003 on fresh isolated Postgres", () => {
+describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres", () => {
   let sql: ReturnType<typeof postgres> | null = null;
 
   beforeAll(async () => {
@@ -102,10 +102,11 @@ describe.skipIf(!dockerOk())("migrations 001→003 on fresh isolated Postgres", 
     }
   }, 30_000);
 
-  it("applies 001 then 002 then 003; auth_mode + knowledge tables exist", async () => {
+  it("applies 001→004; auth_mode + knowledge + creation_correlation exist", async () => {
     applySql("001_initial_studio_core.sql");
     applySql("002_session_auth_mode.sql");
     applySql("003_ml2_knowledge_documents.sql");
+    applySql("004_ml2_integrity_corrective.sql");
 
     const cols = await sql!`
       SELECT column_name, column_default, is_nullable
@@ -151,12 +152,18 @@ describe.skipIf(!dockerOk())("migrations 001→003 on fresh isolated Postgres", 
         AND column_name IN ('base_revision_id', 'correlation_key', 'provenance_json')
     `;
     expect(revCols.length).toBe(3);
+    const corr = await sql!`
+      SELECT column_name FROM information_schema.columns
+      WHERE table_name = 'documents' AND column_name = 'creation_correlation_key'
+    `;
+    expect(corr).toHaveLength(1);
   });
 
-  it("re-applying 001+002+003 is idempotent", () => {
+  it("re-applying 001→004 is idempotent", () => {
     expect(() => applySql("001_initial_studio_core.sql")).not.toThrow();
     expect(() => applySql("002_session_auth_mode.sql")).not.toThrow();
     expect(() => applySql("003_ml2_knowledge_documents.sql")).not.toThrow();
+    expect(() => applySql("004_ml2_integrity_corrective.sql")).not.toThrow();
   });
 
   it("controlled failure when a migration SQL is broken (ON_ERROR_STOP)", () => {

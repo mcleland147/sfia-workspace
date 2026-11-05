@@ -1,10 +1,50 @@
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
 import { documentRevisions, documents } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { getPreparationContext } from "@/domains/preparation/service";
+import { createHash } from "node:crypto";
 
 const MAX_DOC_CHARS = 100_000;
+
+function contentFingerprint(title: string, contentMarkdown: string): string {
+  return createHash("sha256")
+    .update(title || "")
+    .update("\0")
+    .update(contentMarkdown)
+    .digest("hex");
+}
+
+async function findByCreationCorrelation(
+  pilotId: string,
+  preparationId: string,
+  correlationKey: string,
+) {
+  return (
+    await db
+      .select()
+      .from(documents)
+      .where(
+        and(
+          eq(documents.preparationId, preparationId),
+          eq(documents.ownerPilotId, pilotId),
+          eq(documents.creationCorrelationKey, correlationKey),
+        ),
+      )
+      .limit(1)
+  )[0];
+}
+
+async function latestRevisionFor(documentId: string) {
+  return (
+    await db
+      .select()
+      .from(documentRevisions)
+      .where(eq(documentRevisions.documentId, documentId))
+      .orderBy(desc(documentRevisions.revisionNumber))
+      .limit(1)
+  )[0];
+}
 
 export async function savePreparationDocument(
   pilotId: string,
@@ -26,16 +66,115 @@ export async function savePreparationDocument(
   const ctx = await getPreparationContext(pilotId, preparationId);
   if (!ctx.preparation) throw Object.assign(new Error("NOT_FOUND"), { code: "NOT_FOUND" });
 
+  const titleFinal = title || "Document du sas";
+  const fp = contentFingerprint(titleFinal, contentMarkdown);
+
+  // --- Creation idempotence: resolve durable command identity BEFORE allocating a new doc id ---
+  if (!documentId && opts?.correlationKey) {
+    const existingDoc = await findByCreationCorrelation(
+      pilotId,
+      preparationId,
+      opts.correlationKey,
+    );
+    if (existingDoc) {
+      const priorRev = (
+        await db
+          .select()
+          .from(documentRevisions)
+          .where(
+            and(
+              eq(documentRevisions.documentId, existingDoc.id),
+              eq(documentRevisions.correlationKey, opts.correlationKey),
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (priorRev) {
+        const priorFp = (() => {
+          try {
+            return JSON.parse(priorRev.provenanceJson)?.contentFingerprint as string | undefined;
+          } catch {
+            return undefined;
+          }
+        })();
+        if (priorFp && priorFp !== fp) {
+          return {
+            status: "CONFLICT" as const,
+            reason: "CORRELATION_PAYLOAD_MISMATCH",
+            documentId: existingDoc.id,
+            revisionId: priorRev.id,
+            revisionNumber: priorRev.revisionNumber,
+          };
+        }
+        return {
+          status: priorRev.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+          documentId: existingDoc.id,
+          revisionId: priorRev.id,
+          revisionNumber: priorRev.revisionNumber,
+          idempotentReplay: true as const,
+        };
+      }
+      // Document exists for this creation key but revision missing — continue to create revision on that doc
+      documentId = existingDoc.id;
+    }
+  }
+
   let docId = documentId;
   if (!docId) {
     docId = newId("doc");
-    await db.insert(documents).values({
-      id: docId,
-      preparationId,
-      projectId: ctx.project?.id ?? null,
-      ownerPilotId: pilotId,
-      title: title || "Document du sas",
-    });
+    try {
+      await db.insert(documents).values({
+        id: docId,
+        preparationId,
+        projectId: ctx.project?.id ?? null,
+        ownerPilotId: pilotId,
+        title: titleFinal,
+        creationCorrelationKey: opts?.correlationKey ?? null,
+      });
+    } catch (e) {
+      // Concurrent create with same correlation key — reconcile
+      if (opts?.correlationKey) {
+        const raced = await findByCreationCorrelation(
+          pilotId,
+          preparationId,
+          opts.correlationKey,
+        );
+        if (raced) {
+          const priorRev = (
+            await db
+              .select()
+              .from(documentRevisions)
+              .where(
+                and(
+                  eq(documentRevisions.documentId, raced.id),
+                  eq(documentRevisions.correlationKey, opts.correlationKey),
+                ),
+              )
+              .limit(1)
+          )[0];
+          if (priorRev) {
+            return {
+              status: priorRev.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+              documentId: raced.id,
+              revisionId: priorRev.id,
+              revisionNumber: priorRev.revisionNumber,
+              idempotentReplay: true as const,
+            };
+          }
+          docId = raced.id;
+        } else {
+          return {
+            status: "FAILED" as const,
+            reason: e instanceof Error ? e.message : "document create failed",
+          };
+        }
+      } else {
+        return {
+          status: "FAILED" as const,
+          reason: e instanceof Error ? e.message : "document create failed",
+        };
+      }
+    }
   } else {
     const owned = (
       await db
@@ -53,7 +192,7 @@ export async function savePreparationDocument(
     if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
   }
 
-  // Idempotent replay on correlation key
+  // Revision-level idempotence for known document
   if (opts?.correlationKey) {
     const prior = (
       await db
@@ -68,87 +207,150 @@ export async function savePreparationDocument(
         .limit(1)
     )[0];
     if (prior) {
+      const priorFp = (() => {
+        try {
+          return JSON.parse(prior.provenanceJson)?.contentFingerprint as string | undefined;
+        } catch {
+          return undefined;
+        }
+      })();
+      if (priorFp && priorFp !== fp) {
+        return {
+          status: "CONFLICT" as const,
+          reason: "CORRELATION_PAYLOAD_MISMATCH",
+          documentId: docId,
+          revisionId: prior.id,
+          revisionNumber: prior.revisionNumber,
+        };
+      }
       return {
         status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
         documentId: docId,
         revisionId: prior.id,
         revisionNumber: prior.revisionNumber,
-        idempotentReplay: true,
+        idempotentReplay: true as const,
       };
     }
   }
 
-  const last = (
-    await db
-      .select()
-      .from(documentRevisions)
-      .where(eq(documentRevisions.documentId, docId))
-      .orderBy(desc(documentRevisions.revisionNumber))
-      .limit(1)
-  )[0];
-  const revisionNumber = (last?.revisionNumber ?? 0) + 1;
-  const revisionId = newId("drev");
-
   try {
-    await db.insert(documentRevisions).values({
-      id: revisionId,
-      documentId: docId,
-      revisionNumber,
-      contentMarkdown,
-      status: "SAVING",
-      baseRevisionId: opts?.baseRevisionId ?? last?.id ?? null,
-      correlationKey: opts?.correlationKey ?? null,
-      provenanceJson: JSON.stringify(opts?.provenance ?? {}),
-      scope: opts?.scope ?? "document",
-    });
+    return await db.transaction(async (tx) => {
+      await tx.execute(
+        sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
+      );
 
-    if (opts?.injectPersistFailure) {
-      await db
+      if (opts?.correlationKey) {
+        const prior = (
+          await tx
+            .select()
+            .from(documentRevisions)
+            .where(
+              and(
+                eq(documentRevisions.documentId, docId!),
+                eq(documentRevisions.correlationKey, opts.correlationKey),
+              ),
+            )
+            .limit(1)
+        )[0];
+        if (prior) {
+          return {
+            status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+            documentId: docId!,
+            revisionId: prior.id,
+            revisionNumber: prior.revisionNumber,
+            idempotentReplay: true as const,
+          };
+        }
+      }
+
+      const last = (
+        await tx
+          .select()
+          .from(documentRevisions)
+          .where(eq(documentRevisions.documentId, docId!))
+          .orderBy(desc(documentRevisions.revisionNumber))
+          .limit(1)
+      )[0];
+      const revisionNumber = (last?.revisionNumber ?? 0) + 1;
+      const revisionId = newId("drev");
+
+      await tx.insert(documentRevisions).values({
+        id: revisionId,
+        documentId: docId!,
+        revisionNumber,
+        contentMarkdown,
+        status: "SAVING",
+        baseRevisionId: opts?.baseRevisionId ?? last?.id ?? null,
+        correlationKey: opts?.correlationKey ?? null,
+        provenanceJson: JSON.stringify({
+          ...(opts?.provenance ?? {}),
+          contentFingerprint: fp,
+        }),
+        scope: opts?.scope ?? "document",
+      });
+
+      if (opts?.injectPersistFailure) {
+        await tx
+          .update(documentRevisions)
+          .set({ status: "FAILED" })
+          .where(eq(documentRevisions.id, revisionId));
+        return {
+          status: "FAILED" as const,
+          reason: "injected persist failure",
+          documentId: docId!,
+          revisionId,
+          revisionNumber,
+        };
+      }
+
+      await tx
         .update(documentRevisions)
-        .set({ status: "FAILED" })
+        .set({ status: "AVAILABLE" })
         .where(eq(documentRevisions.id, revisionId));
+
       return {
-        status: "FAILED" as const,
-        reason: "injected persist failure",
-        documentId: docId,
+        status: "AVAILABLE" as const,
+        documentId: docId!,
         revisionId,
         revisionNumber,
       };
-    }
-
-    await db
-      .update(documentRevisions)
-      .set({ status: "AVAILABLE" })
-      .where(eq(documentRevisions.id, revisionId));
+    });
   } catch (e) {
-    try {
-      await db
-        .update(documentRevisions)
-        .set({ status: "FAILED" })
-        .where(eq(documentRevisions.id, revisionId));
-    } catch {
-      // best-effort
+    // Unique violation on correlation → reconcile
+    if (opts?.correlationKey) {
+      const prior = (
+        await db
+          .select()
+          .from(documentRevisions)
+          .where(
+            and(
+              eq(documentRevisions.documentId, docId),
+              eq(documentRevisions.correlationKey, opts.correlationKey),
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (prior) {
+        return {
+          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+          documentId: docId,
+          revisionId: prior.id,
+          revisionNumber: prior.revisionNumber,
+          idempotentReplay: true as const,
+        };
+      }
     }
     return {
       status: "FAILED" as const,
       reason: e instanceof Error ? e.message : "persist failed",
       documentId: docId,
-      revisionId,
-      revisionNumber,
     };
   }
-
-  return {
-    status: "AVAILABLE" as const,
-    documentId: docId,
-    revisionId,
-    revisionNumber,
-  };
 }
 
 /**
- * Targeted non-destructive revision with explicit base revision control.
- * CONFLICT when baseRevisionId is not the latest AVAILABLE revision.
+ * Targeted non-destructive revision with atomic base-revision control.
+ * Document row FOR UPDATE serializes concurrent successors of the same base.
  */
 export async function reviseDocument(
   pilotId: string,
@@ -161,137 +363,153 @@ export async function reviseDocument(
     scope?: string;
     sectionHint?: string;
     provenance?: Record<string, unknown>;
+    injectFailureAfterLock?: boolean;
   },
 ) {
   if (input.contentMarkdown.length > MAX_DOC_CHARS) {
     return { status: "FAILED" as const, reason: "content too large" };
   }
-  const owned = (
-    await db
-      .select()
-      .from(documents)
-      .where(
-        and(
-          eq(documents.id, input.documentId),
-          eq(documents.ownerPilotId, pilotId),
-          eq(documents.preparationId, preparationId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
 
-  // Idempotent correlation
-  const prior = (
-    await db
-      .select()
-      .from(documentRevisions)
-      .where(
-        and(
-          eq(documentRevisions.documentId, input.documentId),
-          eq(documentRevisions.correlationKey, input.correlationKey),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (prior) {
-    return {
-      status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
-      documentId: input.documentId,
-      revisionId: prior.id,
-      revisionNumber: prior.revisionNumber,
-      idempotentReplay: true as const,
-    };
-  }
-
-  const base = (
-    await db
-      .select()
-      .from(documentRevisions)
-      .where(
-        and(
-          eq(documentRevisions.id, input.baseRevisionId),
-          eq(documentRevisions.documentId, input.documentId),
-        ),
-      )
-      .limit(1)
-  )[0];
-  if (!base) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
-  if (base.status !== "AVAILABLE") {
-    return { status: "FAILED" as const, reason: "BASE_NOT_AVAILABLE", baseStatus: base.status };
-  }
-
-  const latest = (
-    await db
-      .select()
-      .from(documentRevisions)
-      .where(
-        and(
-          eq(documentRevisions.documentId, input.documentId),
-          eq(documentRevisions.status, "AVAILABLE"),
-        ),
-      )
-      .orderBy(desc(documentRevisions.revisionNumber))
-      .limit(1)
-  )[0];
-
-  if (!latest || latest.id !== input.baseRevisionId) {
-    return {
-      status: "CONFLICT" as const,
-      reason: "BASE_STALE",
-      documentId: input.documentId,
-      expectedBaseRevisionId: input.baseRevisionId,
-      actualLatestRevisionId: latest?.id ?? null,
-      actualLatestRevisionNumber: latest?.revisionNumber ?? null,
-    };
-  }
-
-  const revisionNumber = latest.revisionNumber + 1;
-  const revisionId = newId("drev");
   try {
-    await db.insert(documentRevisions).values({
-      id: revisionId,
-      documentId: input.documentId,
-      revisionNumber,
-      contentMarkdown: input.contentMarkdown,
-      status: "SAVING",
-      baseRevisionId: input.baseRevisionId,
-      correlationKey: input.correlationKey,
-      provenanceJson: JSON.stringify({
-        ...(input.provenance ?? {}),
-        sectionHint: input.sectionHint ?? null,
-      }),
-      scope: input.scope ?? "section",
-    });
-    await db
-      .update(documentRevisions)
-      .set({ status: "AVAILABLE" })
-      .where(eq(documentRevisions.id, revisionId));
-  } catch (e) {
-    try {
-      await db
+    return await db.transaction(async (tx) => {
+      await tx.execute(
+        sql`select id from documents where id = ${input.documentId} and owner_pilot_id = ${pilotId} and preparation_id = ${preparationId} for update`,
+      );
+
+      const owned = (
+        await tx
+          .select()
+          .from(documents)
+          .where(
+            and(
+              eq(documents.id, input.documentId),
+              eq(documents.ownerPilotId, pilotId),
+              eq(documents.preparationId, preparationId),
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
+
+      // Idempotent correlation inside the lock
+      const prior = (
+        await tx
+          .select()
+          .from(documentRevisions)
+          .where(
+            and(
+              eq(documentRevisions.documentId, input.documentId),
+              eq(documentRevisions.correlationKey, input.correlationKey),
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (prior) {
+        return {
+          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+          documentId: input.documentId,
+          revisionId: prior.id,
+          revisionNumber: prior.revisionNumber,
+          idempotentReplay: true as const,
+        };
+      }
+
+      const base = (
+        await tx
+          .select()
+          .from(documentRevisions)
+          .where(
+            and(
+              eq(documentRevisions.id, input.baseRevisionId),
+              eq(documentRevisions.documentId, input.documentId),
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (!base) return { status: "FAILED" as const, reason: "BASE_NOT_FOUND" };
+      if (base.status !== "AVAILABLE") {
+        return { status: "FAILED" as const, reason: "BASE_NOT_AVAILABLE", baseStatus: base.status };
+      }
+
+      const latest = (
+        await tx
+          .select()
+          .from(documentRevisions)
+          .where(
+            and(
+              eq(documentRevisions.documentId, input.documentId),
+              eq(documentRevisions.status, "AVAILABLE"),
+            ),
+          )
+          .orderBy(desc(documentRevisions.revisionNumber))
+          .limit(1)
+      )[0];
+
+      if (!latest || latest.id !== input.baseRevisionId) {
+        return {
+          status: "CONFLICT" as const,
+          reason: "BASE_STALE",
+          documentId: input.documentId,
+          expectedBaseRevisionId: input.baseRevisionId,
+          actualLatestRevisionId: latest?.id ?? null,
+          actualLatestRevisionNumber: latest?.revisionNumber ?? null,
+        };
+      }
+
+      if (input.injectFailureAfterLock) {
+        throw new Error("injected failure after lock");
+      }
+
+      const revisionNumber = latest.revisionNumber + 1;
+      const revisionId = newId("drev");
+      await tx.insert(documentRevisions).values({
+        id: revisionId,
+        documentId: input.documentId,
+        revisionNumber,
+        contentMarkdown: input.contentMarkdown,
+        status: "SAVING",
+        baseRevisionId: input.baseRevisionId,
+        correlationKey: input.correlationKey,
+        provenanceJson: JSON.stringify({
+          ...(input.provenance ?? {}),
+          sectionHint: input.sectionHint ?? null,
+        }),
+        scope: input.scope ?? "section",
+      });
+      await tx
         .update(documentRevisions)
-        .set({ status: "FAILED" })
+        .set({ status: "AVAILABLE" })
         .where(eq(documentRevisions.id, revisionId));
-    } catch {
-      // best-effort
+
+      return {
+        status: "AVAILABLE" as const,
+        documentId: input.documentId,
+        revisionId,
+        revisionNumber,
+        baseRevisionId: input.baseRevisionId,
+      };
+    });
+  } catch (e) {
+    // Unique (documentId, revisionNumber) race → treat as conflict if base became stale
+    const msg = e instanceof Error ? e.message : "persist failed";
+    if (/unique|duplicate/i.test(msg)) {
+      const latest = await latestRevisionFor(input.documentId);
+      return {
+        status: "CONFLICT" as const,
+        reason: "BASE_STALE",
+        documentId: input.documentId,
+        expectedBaseRevisionId: input.baseRevisionId,
+        actualLatestRevisionId: latest?.id ?? null,
+        actualLatestRevisionNumber: latest?.revisionNumber ?? null,
+      };
     }
     return {
       status: "FAILED" as const,
-      reason: e instanceof Error ? e.message : "persist failed",
+      reason: msg,
       documentId: input.documentId,
-      revisionId,
-      revisionNumber,
+      rolledBack: true as const,
     };
   }
-
-  return {
-    status: "AVAILABLE" as const,
-    documentId: input.documentId,
-    revisionId,
-    revisionNumber,
-    baseRevisionId: input.baseRevisionId,
-  };
 }
 
 export async function listDocuments(pilotId: string, preparationId: string) {
@@ -301,14 +519,7 @@ export async function listDocuments(pilotId: string, preparationId: string) {
     .where(and(eq(documents.preparationId, preparationId), eq(documents.ownerPilotId, pilotId)));
   const out = [];
   for (const d of docs) {
-    const rev = (
-      await db
-        .select()
-        .from(documentRevisions)
-        .where(eq(documentRevisions.documentId, d.id))
-        .orderBy(desc(documentRevisions.revisionNumber))
-        .limit(1)
-    )[0];
+    const rev = await latestRevisionFor(d.id);
     out.push({ document: d, latestRevision: rev ?? null });
   }
   return out;
@@ -354,20 +565,64 @@ export async function getDocumentRevision(
   return { status: "AVAILABLE" as const, document: list.document, revision: rev };
 }
 
-/** Line-oriented diff for inspection — not an AI summary. */
-export function diffMarkdown(a: string, b: string): {
+/**
+ * Ordered Myers-style line diff via LCS — preserves duplicate lines and order.
+ * Not an AI summary; does not mutate versions.
+ */
+export function diffMarkdown(
+  a: string,
+  b: string,
+): {
   added: string[];
   removed: string[];
   unchangedCount: number;
+  ops: Array<{ op: "equal" | "add" | "remove"; line: string }>;
 } {
   const la = a.split("\n");
   const lb = b.split("\n");
-  const setA = new Set(la);
-  const setB = new Set(lb);
-  const added = lb.filter((l) => !setA.has(l));
-  const removed = la.filter((l) => !setB.has(l));
-  const unchangedCount = la.filter((l) => setB.has(l)).length;
-  return { added, removed, unchangedCount };
+  const n = la.length;
+  const m = lb.length;
+  // LCS lengths
+  const dp: number[][] = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = m - 1; j >= 0; j--) {
+      dp[i][j] =
+        la[i] === lb[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+    }
+  }
+  const ops: Array<{ op: "equal" | "add" | "remove"; line: string }> = [];
+  const added: string[] = [];
+  const removed: string[] = [];
+  let unchangedCount = 0;
+  let i = 0;
+  let j = 0;
+  while (i < n && j < m) {
+    if (la[i] === lb[j]) {
+      ops.push({ op: "equal", line: la[i] });
+      unchangedCount++;
+      i++;
+      j++;
+    } else if (dp[i + 1][j] >= dp[i][j + 1]) {
+      ops.push({ op: "remove", line: la[i] });
+      removed.push(la[i]);
+      i++;
+    } else {
+      ops.push({ op: "add", line: lb[j] });
+      added.push(lb[j]);
+      j++;
+    }
+  }
+  while (i < n) {
+    ops.push({ op: "remove", line: la[i] });
+    removed.push(la[i]);
+    i++;
+  }
+  while (j < m) {
+    ops.push({ op: "add", line: lb[j] });
+    added.push(lb[j]);
+    j++;
+  }
+  return { added, removed, unchangedCount, ops };
 }
 
 export async function compareDocumentRevisions(

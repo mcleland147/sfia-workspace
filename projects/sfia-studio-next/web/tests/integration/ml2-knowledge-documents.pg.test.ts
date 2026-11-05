@@ -93,6 +93,7 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
       openPointIds: [],
     });
     expect(split.status).toBe("AVAILABLE");
+    if (split.status !== "AVAILABLE") throw new Error("expected AVAILABLE split");
     expect(split.filiationPreserved).toBe(true);
     const k = await listKnowledge(pilotId, prep.id);
     const neo = k.subjects.find((x) => x.id === split.newSubjectId);
@@ -107,41 +108,44 @@ describe("ML2 D4 knowledge + document concurrency (PG)", () => {
     const prep = await openOrCreatePreparation(pilotId);
     const v1 = await savePreparationDocument(pilotId, prep.id, "Spec", "# Spec\n\nSection A\n");
     expect(v1.status).toBe("AVAILABLE");
+    if (v1.status !== "AVAILABLE") throw new Error("v1");
     const v2 = await reviseDocument(pilotId, prep.id, {
-      documentId: v1.documentId!,
-      baseRevisionId: v1.revisionId!,
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId,
       contentMarkdown: "# Spec\n\nSection A révisée\n",
       correlationKey: "corr-rev-1",
       scope: "section",
     });
     expect(v2.status).toBe("AVAILABLE");
+    if (v2.status !== "AVAILABLE") throw new Error("v2");
 
     const conflict = await reviseDocument(pilotId, prep.id, {
-      documentId: v1.documentId!,
-      baseRevisionId: v1.revisionId!, // stale
+      documentId: v1.documentId,
+      baseRevisionId: v1.revisionId, // stale
       contentMarkdown: "# Spec\n\noverwrite?\n",
       correlationKey: "corr-rev-stale",
     });
     expect(conflict.status).toBe("CONFLICT");
 
     const replay = await reviseDocument(pilotId, prep.id, {
-      documentId: v1.documentId!,
-      baseRevisionId: v2.revisionId!,
+      documentId: v1.documentId,
+      baseRevisionId: v2.revisionId,
       contentMarkdown: "ignored on replay",
       correlationKey: "corr-rev-1",
     });
     expect(replay.status).toBe("AVAILABLE");
+    if (replay.status !== "AVAILABLE") throw new Error("replay");
     expect(replay.idempotentReplay).toBe(true);
     expect(replay.revisionId).toBe(v2.revisionId);
 
-    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId!);
+    const list = await listDocumentRevisions(pilotId, prep.id, v1.documentId);
     expect(list.revisions.length).toBeGreaterThanOrEqual(2);
     const cmp = await compareDocumentRevisions(
       pilotId,
       prep.id,
-      v1.documentId!,
-      v1.revisionId!,
-      v2.revisionId!,
+      v1.documentId,
+      v1.revisionId,
+      v2.revisionId,
     );
     expect(cmp.status).toBe("AVAILABLE");
     if (cmp.status === "AVAILABLE") {
