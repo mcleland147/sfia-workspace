@@ -393,3 +393,32 @@ Les reports vers ML3 (cycles/trajectoire), ML4 (Git D9), ML5 (exécutions/preuve
 **Critère d'entrée en RECETTE proposé :** Nora doit **réellement** pouvoir faire une lecture D4 complémentaire pendant une mission complexe, avec configuration et chemin vérifiables ; une question simple reste proportionnée ; les erreurs/états incomplets sont fidèles ; la chronologie d'une mission et les incidents critiques de Studio sont consultables sous droits ; la non-régression de l'intégrité ML2 et les contrôles de sécurité/CI sont prouvés. La RECETTE sert à juger la qualité, pas à prétendre qu'elle est déjà parfaite.
 
 **Gate actuel :** validation de trajectoire Morris **ACQUISE EN CONTENU**, contribution documentaire Git sur branche autorisée par la demande du 05-11. **STOP AVANT CODE** : aucune instanciation du template Cursor, publication de PR, merge, RECETTE, promotion ou ADOPTED n'est automatiquement autorisée.
+
+## 18. Qualification architecturale approuvée en vision — D3 ↔ D4 pour ML2 (2026-11-05)
+
+> **VISION ACCEPTÉE MORRIS / D2 DOCUMENTAIRE SUR BRANCHE CANDIDATE ; CONSTRUCTION NON AUTORISÉE.** Cette qualification décline la stratégie C du §17, sans la remplacer, et prépare les interfaces de la construction intégrée avant RECETTE. [R4 §14](../architecture-technique/cadrage-r4.md), [ML2 §18](ml2-production-et-capitalisation-nora/specification-technique.md), [matrice ML2 §11](ml2-production-et-capitalisation-nora/matrice-tracabilite.md) et [Decision Record](../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md) font référence.
+
+**Résultat Pilote :** Nora sait répondre simplement sans enquête inutile ou conduire une mission exigeante en recherchant pendant son travail des ressources D4 réellement autorisées, puis restituer sources, contradictions, limites et éventuels effets vérifiés. L'architecture ne vise ni la copie des réponses ChatGPT ni une autonomie d'actes protégés.
+
+**Répartition :** D1/D2 établissent session et contexte ; D3 détient la politique cognitive, les limites, le Runner Agents SDK et la restitution ; D4 détient les connaissances, versions et droits à chaque consultation, et seul D4 confirme une écriture ; l'observabilité relie des faits sans nouvelle autorité. Un agent Nora et une conduite D3, pas de classificateur IA obligatoire, de multi-agents ou de moteur de mémoire parallèle.
+
+### 18.1. Contrat de delivery intégré — sans micro-cycle indépendant
+
+| Travail interne du même ML2 | Résultat requis | Contrôle / preuve |
+| --- | --- | --- |
+| Politique D3 | Qualification proportionnée, configuration modèle/effort/bornes explicitée et appliquée ; pas d'escalade silencieuse | Question simple vs mission complexe ; SDK verrouillé/entitlement vérifiés ; LIVE ciblé |
+| Outils D4 | Recherche et lecture ciblée lecture-only de sources/révisions, droits courants, version, provenance, couverture/limites | DB/INTEGRATION : refus interprojet, révocation, source périmée, extrait incomplet ; LIVE : lecture réellement déclenchée pendant la mission |
+| Convergence | Runner natif multi-étapes borné, résultat suffisamment étayé ou incomplétude sincère | Limite de tours/temps/appels, erreur outil, annulation/timeout, second run fournisseur différencié |
+| Intégrité et continuité | Fil unique, statut assistant et écriture D4 séparés ; réconciliation et idempotence C1–C6 conservées | Tests PG/concurrence/ACK perdu, absence de double sauvegarde, non-régression ML1/ML2 |
+| Diagnostic transversal (étape de conception suivante) | Corréler HTTP/AUTH/DB/D3/D4, tentatives, sources et résultats consultables sans contenu sensible | OBS-Q01..10 pertinents, consultation RECETTE réelle, protection DATA-01 et ENV-01 |
+| Evaluation indépendante | Vérifier utilité, qualité de sources, contradictions et poursuite avec ChatGPT comme comparaison non autorisante | COG-01..07, fact-check indépendant, baseline manquante indiquée, verdict Morris distinct |
+
+### 18.2. Ordonnancement et gates
+
+1. **Architecture D3↔D4 :** vision approuvée, contrat détaillé candidat dans ML2 §18. Ne pas figer noms publics d'outils, codes de statut API ou budgets sans revue d'impact.
+2. **Étape suivante de conception :** définir observabilité/corrélation à partir des opérations D3/D4 réellement prévues, options natives et consultation des diagnostics.
+3. **Consolidation contractuelle :** vérifier compatibilité effective Agents SDK `0.21.0` + fournisseur, flux de session et permissions, branche/base, fichiers propriétaires, CI/ENV-01, matrice et risques ; revenir à Morris pour tout pivot ou changement d'autorité.
+4. **GO technique D3 distinct :** seulement ensuite préparer le prompt Cursor depuis routing/template Git SFIA v2.6 ; construire code/tests/docs et qualifier le même résultat ML2, sans « chantier cognition » et « chantier diagnostic » concurrents.
+5. **Gates de sortie :** QA déterministe et PostgreSQL, BROWSER, LIVE Nora et traçabilité vérifiable sur le SHA/lane ; RECETTE Morris spécifique, PR/readiness/merge puis STABLE/ADOPTED indépendants.
+
+**Gaps et exits à porter :** lecture ciblée D4 performante si corpus croît, revalidation d'autorité pendant la mission, séparation de l'état technique et de l'incomplétude cognitive, retry fournisseur, sécurité des prompts/sources, vérification de la compatibilité SDK, politique de coût et diagnostics exportés. Chaque report non bloquant garde propriétaire, risque et exit. **État courant : DESIGN DOCUMENTED / NOT IMPLEMENTED / NO NEW TESTS / NO GO CURSOR / NO RECETTE**.
