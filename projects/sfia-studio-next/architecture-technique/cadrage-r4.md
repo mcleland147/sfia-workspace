@@ -1519,3 +1519,21 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 | R5 / ML2 | COG-01..07 + variantes de chemin, preuve LIVE et analyse indépendante sur le même SHA |
 
 **Gate de qualification :** le contenu de cette orientation est validé par Morris le 2026-11-05 ; Morris décide encore des éventuels ajustements ADR si nécessaires et du périmètre d'intégration avant recette ML2 ou report avec dette/exit. Ce complément reste documentaire, sans code, API adoptée, nouvelles tables, PR, merge, STABLE ou ADOPTED.
+
+## 12. Complément d'architecture — observabilité transverse D1–D9 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT BY MORRIS / DETAIL TECHNIQUE CANDIDAT — sans nouvel ADR, ni remise en cause des ADR R4-01..04, DATA-01 ou ENV-01.** La visibilité et la trace Nora du §11 constituent un **cas d'application** de la capacité transverse ; elles ne justifient ni un second dispositif de logging, ni un propriétaire de vérité supplémentaire.
+
+**Référence technique canonique :** [Contrat transverse de diagnostic et d'observabilité](contrat-observabilite-transverse.md) v0.1. Il porte les invariants OBS-01..08, la corrélation des identifiants métier/fournisseur, l'enveloppe d'événements, les frontières AUTH/API/DB/D1–D9, la collecte native-first, le contrôle des données sensibles, la consultation et les oracles OBS-Q01..12. Ne pas les dupliquer intégralement dans le cadrage vivant.
+
+**Découpage R4 :**
+- **Transport/serveur** : étudier OpenTelemetry à l'entrée Next.js et la classification des erreurs API ; pas d'obligation d'installer une plateforme hébergée.
+- **Identité** : Better Auth journal/hooks sous restrictions DEV/OAuth ; une panne DB n'est pas une session refusée.
+- **Transaction** : PostgreSQL statistiques et logs ciblés, commandes D2/D4 et journal D4 des mutations de Sujets restent propriétaires ; pas de nouvelle table d'audit concurrente par défaut.
+- **Cognition** : tracing natif Agents SDK, generationId, tentatives OpenAI réelles, configuration et consommations D3 ; corrélation avec OpenTelemetry à démontrer, aucune pensée cachée accessible.
+- **Intégrations futures** : D5/D6/D7/D8/D9 instrumentent leurs propres frontières lors des macro-lots propriétaires ; les traces ne fabriquent pas d'autorité, de preuve ni de fait Git.
+- **Exploitation** : destination et consultation des traces en RECETTE, contrôle du collecteur, réduction des données sensibles, rétention DATA-01 et isolation ENV-01 ; aucun choix imposé de Jaeger/Grafana/Sentry/Datadog.
+
+**KNOWN GAPS observés sur ML2 candidat :** plusieurs routes API capturent toutes les exceptions et répondent 401 SESSION_INVALID, masquant potentiellement des pannes DB ou métier ; le chemin Nora maxTurns=1 sans outils et son repli streaming peuvent manquer de visibilité sur les tentatives réelles ; la corrélation de bout en bout et le backend de diagnostic RECETTE ne sont pas démontrés. Une table d'événements D4 est déjà présente : conserver la vérité transactionnelle, ne pas la dédoubler.
+
+**Blast radius :** route handlers, résolution de session, erreurs/HTTP, D2/D3/D4, client DB, SDK/tracing, sécurité/exporteur, CI et lanes. Les signatures, métriques, configuration exacte, coûts et stockage sont à qualifier contre le code/lockfile et les politiques avant contrat D3. **Gate :** Morris arbitrera le paquet cohérent à intégrer éventuellement avant RECETTE ML2, puis construction SFIA v2.6 distincte ; aucun code, runtime, backend, migration ni preuve n'est adopté par cette section.
