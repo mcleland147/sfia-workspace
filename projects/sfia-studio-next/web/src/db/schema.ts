@@ -205,6 +205,8 @@ export const conversationTurnCommands = pgTable(
     generationId: text("generation_id"),
     resultJson: text("result_json"),
     errorCategory: text("error_category"),
+    /** Ownership fence — invalidated on reconcile; required for terminal CAS / D4 gates. */
+    ownerToken: text("owner_token"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
     updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
   },
@@ -341,4 +343,4 @@ export const knowledgeSubjectEvents = pgTable(
   (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
 );
 
-export const schemaRevision = "005_ml2_conversation_turn_command";
+export const schemaRevision = "006_ml2_turn_owner_token";

@@ -478,3 +478,18 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 | FIX-OBS-01/02 allowlist, RO query, purge, lanes | UNIT PROVEN | observability.test.ts |
 | C1–C6 régression | PG+BROWSER FAKE PROVEN | suites existantes PASS |
 | LIVE / CI / RECETTE | NOT RUN | hors mandat |
+
+## 17. As-Built three-blocker — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| TURN-RACE-01 | PG PROVEN | ownership lost → UNKNOWN, no D4 |
+| TURN-RACE-02 | PG PROVEN | fence in document TX |
+| TURN-RACE-03 | PG PROVEN | concurrence clés / mismatch |
+| TURN-RACE-04 | PG PROVEN | lease heartbeat / stale |
+| D4-PAGE-01/02 | PG PROVEN | 620+ acquis, offsets >500 terminent |
+| D4-PAGE-04 | PG PROVEN | budget chars |
+| SDK-RETRY-01 | UNIT PROVEN | single run() on late errors |
+| C1–C6 régression | PG+BROWSER FAKE | suites existantes PASS |
+| LIVE / CI / RECETTE | NOT RUN | hors mandat |
+

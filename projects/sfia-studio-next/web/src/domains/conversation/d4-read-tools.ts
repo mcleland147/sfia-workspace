@@ -26,8 +26,8 @@ export type D4ToolScope = {
 
 export type ToolCoverage = "COMPLETE" | "PARTIAL" | "EMPTY" | "DENIED" | "NOT_FOUND" | "STALE";
 
-/** Soft scan ceiling per category — prevents unbounded in-memory loads. */
-const MAX_SCAN_PER_CATEGORY = 500;
+/** Deterministic type order for cross-category pagination. */
+const TYPE_ORDER = ["acquis", "document", "open_point", "subject"] as const;
 
 function trimChars(text: string, max: number): { text: string; coverage: ToolCoverage } {
   if (max <= 0) return { text: "", coverage: "DENIED" };
@@ -59,8 +59,8 @@ export type SearchProjectResourcesInput = {
 type SearchItem = Record<string, unknown>;
 
 /**
- * DB-scoped search with filter-before-limit where possible.
- * totalMatchedExact when scan did not hit the soft ceiling; otherwise totalMatched unknown.
+ * DB-scoped search with SQL OFFSET/LIMIT across categories (terminating pagination).
+ * Global order: TYPE_ORDER then id ASC. Never returns empty page with hasMore=true + stagnant offset.
  */
 export async function searchProjectResources(scope: D4ToolScope, input: SearchProjectResourcesInput) {
   if (scope.budget.remainingCalls <= 0 || scope.budget.remainingChars <= 0) {
@@ -75,211 +75,248 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
   scope.budget.remainingCalls -= 1;
 
   await assertScope(scope);
-  const types = input.types?.length
-    ? input.types
-    : (["acquis", "open_point", "subject", "document"] as const);
+  const requested = new Set(
+    input.types?.length
+      ? input.types
+      : (["acquis", "open_point", "subject", "document"] as const),
+  );
+  const types = TYPE_ORDER.filter((t) => requested.has(t));
   const limit = Math.min(Math.max(input.limit ?? 8, 1), 20);
   const offset = Math.max(input.offset ?? 0, 0);
   const q = (input.query ?? "").trim().toLowerCase();
 
-  const items: SearchItem[] = [];
-  let scanCapped = false;
-  let totalExact = 0;
+  type CatCount = { type: (typeof TYPE_ORDER)[number]; total: number };
+  const counts: CatCount[] = [];
 
-  if (types.includes("acquis")) {
-    const where = and(
-      eq(knowledgeAcquis.preparationId, scope.preparationId),
-      eq(knowledgeAcquis.ownerPilotId, scope.pilotId),
-      eq(knowledgeAcquis.status, "CURRENT"),
-      q
-        ? or(
-            ilike(knowledgeAcquis.statement, `%${q}%`),
-            ilike(knowledgeAcquis.kind, `%${q}%`),
-          )
-        : undefined,
-    );
-    const [{ value: total }] = await db.select({ value: count() }).from(knowledgeAcquis).where(where);
-    totalExact += Number(total);
-    if (Number(total) > MAX_SCAN_PER_CATEGORY) scanCapped = true;
-    const rows = await db
-      .select({
-        id: knowledgeAcquis.id,
-        kind: knowledgeAcquis.kind,
-        statement: knowledgeAcquis.statement,
-        status: knowledgeAcquis.status,
-        subjectId: knowledgeAcquis.subjectId,
-        createdAt: knowledgeAcquis.createdAt,
-      })
-      .from(knowledgeAcquis)
-      .where(where)
-      .orderBy(desc(knowledgeAcquis.createdAt), asc(knowledgeAcquis.id))
-      .limit(MAX_SCAN_PER_CATEGORY);
-    for (const r of rows) {
-      items.push({
-        type: "acquis",
-        id: r.id,
-        kind: r.kind,
-        subjectId: r.subjectId,
-        status: r.status,
-        preview: r.statement.slice(0, 200),
-        resource_ref: `acquis:${r.id}`,
-      });
+  for (const t of types) {
+    if (t === "acquis") {
+      const where = and(
+        eq(knowledgeAcquis.preparationId, scope.preparationId),
+        eq(knowledgeAcquis.ownerPilotId, scope.pilotId),
+        eq(knowledgeAcquis.status, "CURRENT"),
+        q
+          ? or(
+              ilike(knowledgeAcquis.statement, `%${q}%`),
+              ilike(knowledgeAcquis.kind, `%${q}%`),
+            )
+          : undefined,
+      );
+      const [{ value: total }] = await db.select({ value: count() }).from(knowledgeAcquis).where(where);
+      counts.push({ type: t, total: Number(total) });
+    } else if (t === "open_point") {
+      const where = and(
+        eq(knowledgeOpenPoints.preparationId, scope.preparationId),
+        eq(knowledgeOpenPoints.ownerPilotId, scope.pilotId),
+        eq(knowledgeOpenPoints.status, "OPEN"),
+        q ? ilike(knowledgeOpenPoints.statement, `%${q}%`) : undefined,
+      );
+      const [{ value: total }] = await db
+        .select({ value: count() })
+        .from(knowledgeOpenPoints)
+        .where(where);
+      counts.push({ type: t, total: Number(total) });
+    } else if (t === "subject") {
+      const where = and(
+        eq(knowledgeSubjects.preparationId, scope.preparationId),
+        eq(knowledgeSubjects.ownerPilotId, scope.pilotId),
+        ne(knowledgeSubjects.status, "ARCHIVED"),
+        q ? ilike(knowledgeSubjects.title, `%${q}%`) : undefined,
+      );
+      const [{ value: total }] = await db
+        .select({ value: count() })
+        .from(knowledgeSubjects)
+        .where(where);
+      counts.push({ type: t, total: Number(total) });
+    } else {
+      const where = and(
+        eq(documents.preparationId, scope.preparationId),
+        eq(documents.ownerPilotId, scope.pilotId),
+        q ? ilike(documents.title, `%${q}%`) : undefined,
+      );
+      const [{ value: total }] = await db.select({ value: count() }).from(documents).where(where);
+      counts.push({ type: t, total: Number(total) });
     }
   }
 
-  if (types.includes("open_point")) {
-    const where = and(
-      eq(knowledgeOpenPoints.preparationId, scope.preparationId),
-      eq(knowledgeOpenPoints.ownerPilotId, scope.pilotId),
-      eq(knowledgeOpenPoints.status, "OPEN"),
-      q ? ilike(knowledgeOpenPoints.statement, `%${q}%`) : undefined,
-    );
-    const [{ value: total }] = await db
-      .select({ value: count() })
-      .from(knowledgeOpenPoints)
-      .where(where);
-    totalExact += Number(total);
-    if (Number(total) > MAX_SCAN_PER_CATEGORY) scanCapped = true;
-    const rows = await db
-      .select({
-        id: knowledgeOpenPoints.id,
-        statement: knowledgeOpenPoints.statement,
-        status: knowledgeOpenPoints.status,
-        subjectId: knowledgeOpenPoints.subjectId,
-        createdAt: knowledgeOpenPoints.createdAt,
-      })
-      .from(knowledgeOpenPoints)
-      .where(where)
-      .orderBy(desc(knowledgeOpenPoints.createdAt), asc(knowledgeOpenPoints.id))
-      .limit(MAX_SCAN_PER_CATEGORY);
-    for (const r of rows) {
-      items.push({
-        type: "open_point",
-        id: r.id,
-        subjectId: r.subjectId,
-        status: r.status,
-        preview: r.statement.slice(0, 200),
-        resource_ref: `open_point:${r.id}`,
-      });
+  const totalExact = counts.reduce((s, c) => s + c.total, 0);
+  const page: SearchItem[] = [];
+  let skip = offset;
+  let need = limit;
+
+  for (const cat of counts) {
+    if (need <= 0) break;
+    if (skip >= cat.total) {
+      skip -= cat.total;
+      continue;
     }
+    const localOffset = skip;
+    const take = Math.min(need, cat.total - localOffset);
+    skip = 0;
+
+    if (cat.type === "acquis") {
+      const where = and(
+        eq(knowledgeAcquis.preparationId, scope.preparationId),
+        eq(knowledgeAcquis.ownerPilotId, scope.pilotId),
+        eq(knowledgeAcquis.status, "CURRENT"),
+        q
+          ? or(
+              ilike(knowledgeAcquis.statement, `%${q}%`),
+              ilike(knowledgeAcquis.kind, `%${q}%`),
+            )
+          : undefined,
+      );
+      const rows = await db
+        .select({
+          id: knowledgeAcquis.id,
+          kind: knowledgeAcquis.kind,
+          statement: knowledgeAcquis.statement,
+          status: knowledgeAcquis.status,
+          subjectId: knowledgeAcquis.subjectId,
+        })
+        .from(knowledgeAcquis)
+        .where(where)
+        .orderBy(asc(knowledgeAcquis.id))
+        .offset(localOffset)
+        .limit(take);
+      for (const r of rows) {
+        page.push({
+          type: "acquis",
+          id: r.id,
+          kind: r.kind,
+          subjectId: r.subjectId,
+          status: r.status,
+          preview: r.statement.slice(0, 200),
+          resource_ref: `acquis:${r.id}`,
+        });
+      }
+    } else if (cat.type === "open_point") {
+      const where = and(
+        eq(knowledgeOpenPoints.preparationId, scope.preparationId),
+        eq(knowledgeOpenPoints.ownerPilotId, scope.pilotId),
+        eq(knowledgeOpenPoints.status, "OPEN"),
+        q ? ilike(knowledgeOpenPoints.statement, `%${q}%`) : undefined,
+      );
+      const rows = await db
+        .select({
+          id: knowledgeOpenPoints.id,
+          statement: knowledgeOpenPoints.statement,
+          status: knowledgeOpenPoints.status,
+          subjectId: knowledgeOpenPoints.subjectId,
+        })
+        .from(knowledgeOpenPoints)
+        .where(where)
+        .orderBy(asc(knowledgeOpenPoints.id))
+        .offset(localOffset)
+        .limit(take);
+      for (const r of rows) {
+        page.push({
+          type: "open_point",
+          id: r.id,
+          subjectId: r.subjectId,
+          status: r.status,
+          preview: r.statement.slice(0, 200),
+          resource_ref: `open_point:${r.id}`,
+        });
+      }
+    } else if (cat.type === "subject") {
+      const where = and(
+        eq(knowledgeSubjects.preparationId, scope.preparationId),
+        eq(knowledgeSubjects.ownerPilotId, scope.pilotId),
+        ne(knowledgeSubjects.status, "ARCHIVED"),
+        q ? ilike(knowledgeSubjects.title, `%${q}%`) : undefined,
+      );
+      const rows = await db
+        .select({
+          id: knowledgeSubjects.id,
+          title: knowledgeSubjects.title,
+          status: knowledgeSubjects.status,
+        })
+        .from(knowledgeSubjects)
+        .where(where)
+        .orderBy(asc(knowledgeSubjects.id))
+        .offset(localOffset)
+        .limit(take);
+      for (const r of rows) {
+        page.push({
+          type: "subject",
+          id: r.id,
+          title: r.title,
+          status: r.status,
+          resource_ref: `subject:${r.id}`,
+        });
+      }
+    } else {
+      const where = and(
+        eq(documents.preparationId, scope.preparationId),
+        eq(documents.ownerPilotId, scope.pilotId),
+        q ? ilike(documents.title, `%${q}%`) : undefined,
+      );
+      const rows = await db
+        .select({
+          id: documents.id,
+          title: documents.title,
+        })
+        .from(documents)
+        .where(where)
+        .orderBy(asc(documents.id))
+        .offset(localOffset)
+        .limit(take);
+      for (const d of rows) {
+        const rev = (
+          await db
+            .select({
+              id: documentRevisions.id,
+              revisionNumber: documentRevisions.revisionNumber,
+              status: documentRevisions.status,
+            })
+            .from(documentRevisions)
+            .where(
+              and(
+                eq(documentRevisions.documentId, d.id),
+                eq(documentRevisions.status, "AVAILABLE"),
+              ),
+            )
+            .orderBy(desc(documentRevisions.revisionNumber))
+            .limit(1)
+        )[0];
+        page.push({
+          type: "document",
+          id: d.id,
+          title: d.title,
+          latestRevisionId: rev?.id ?? null,
+          latestRevisionNumber: rev?.revisionNumber ?? null,
+          latestStatus: rev?.status ?? null,
+          resource_ref: `document:${d.id}`,
+          note: "Title/metadata only — content requires read_project_document_revision",
+        });
+      }
+    }
+    need = limit - page.length;
   }
 
-  if (types.includes("subject")) {
-    const where = and(
-      eq(knowledgeSubjects.preparationId, scope.preparationId),
-      eq(knowledgeSubjects.ownerPilotId, scope.pilotId),
-      ne(knowledgeSubjects.status, "ARCHIVED"),
-      q ? ilike(knowledgeSubjects.title, `%${q}%`) : undefined,
-    );
-    const [{ value: total }] = await db
-      .select({ value: count() })
-      .from(knowledgeSubjects)
-      .where(where);
-    totalExact += Number(total);
-    if (Number(total) > MAX_SCAN_PER_CATEGORY) scanCapped = true;
-    const rows = await db
-      .select({
-        id: knowledgeSubjects.id,
-        title: knowledgeSubjects.title,
-        status: knowledgeSubjects.status,
-        updatedAt: knowledgeSubjects.updatedAt,
-      })
-      .from(knowledgeSubjects)
-      .where(where)
-      .orderBy(desc(knowledgeSubjects.updatedAt), asc(knowledgeSubjects.id))
-      .limit(MAX_SCAN_PER_CATEGORY);
-    for (const r of rows) {
-      items.push({
-        type: "subject",
-        id: r.id,
-        title: r.title,
-        status: r.status,
-        resource_ref: `subject:${r.id}`,
-      });
-    }
-  }
-
-  if (types.includes("document")) {
-    const where = and(
-      eq(documents.preparationId, scope.preparationId),
-      eq(documents.ownerPilotId, scope.pilotId),
-      q ? ilike(documents.title, `%${q}%`) : undefined,
-    );
-    const [{ value: total }] = await db.select({ value: count() }).from(documents).where(where);
-    totalExact += Number(total);
-    if (Number(total) > MAX_SCAN_PER_CATEGORY) scanCapped = true;
-    const rows = await db
-      .select({
-        id: documents.id,
-        title: documents.title,
-        createdAt: documents.createdAt,
-      })
-      .from(documents)
-      .where(where)
-      .orderBy(desc(documents.createdAt), asc(documents.id))
-      .limit(MAX_SCAN_PER_CATEGORY);
-    for (const d of rows) {
-      const rev = (
-        await db
-          .select({
-            id: documentRevisions.id,
-            revisionNumber: documentRevisions.revisionNumber,
-            status: documentRevisions.status,
-          })
-          .from(documentRevisions)
-          .where(
-            and(
-              eq(documentRevisions.documentId, d.id),
-              eq(documentRevisions.status, "AVAILABLE"),
-            ),
-          )
-          .orderBy(desc(documentRevisions.revisionNumber))
-          .limit(1)
-      )[0];
-      items.push({
-        type: "document",
-        id: d.id,
-        title: d.title,
-        latestRevisionId: rev?.id ?? null,
-        latestRevisionNumber: rev?.revisionNumber ?? null,
-        latestStatus: rev?.status ?? null,
-        resource_ref: `document:${d.id}`,
-        note: "Title/metadata only — content requires read_project_document_revision",
-      });
-    }
-  }
-
-  // Deterministic combined order for stable pagination (type, then id).
-  items.sort((a, b) => {
-    const ta = String(a.type);
-    const tb = String(b.type);
-    if (ta !== tb) return ta.localeCompare(tb);
-    return String(a.id).localeCompare(String(b.id));
-  });
-
-  const page = items.slice(offset, offset + limit);
-  const hasMore = offset + page.length < items.length || scanCapped;
-  const exhaustiveInAnnouncedScope = !scanCapped && offset + page.length >= items.length;
+  const hasMore = offset + page.length < totalExact;
+  // Terminating: empty page past end ⇒ hasMore false, nextOffset null (never stagnant cursor).
+  const nextOffset = hasMore ? offset + page.length : null;
 
   let coverage: ToolCoverage;
-  if (page.length === 0 && totalExact === 0 && !scanCapped) {
+  if (totalExact === 0) {
     coverage = "EMPTY";
-  } else if (exhaustiveInAnnouncedScope && page.length > 0 && offset === 0 && !hasMore) {
+  } else if (!hasMore && offset === 0) {
     coverage = "COMPLETE";
-  } else if (page.length === 0 && totalExact === 0) {
+  } else if (page.length === 0 && offset >= totalExact) {
     coverage = "EMPTY";
   } else {
-    coverage = hasMore || scanCapped || offset > 0 ? "PARTIAL" : "COMPLETE";
+    coverage = "PARTIAL";
   }
 
   const payload = {
     status: "AVAILABLE" as const,
     coverage,
-    totalMatched: scanCapped ? null : totalExact,
-    totalMatchedExact: !scanCapped,
-    totalMatchedSemantics: scanCapped ? ("unknown" as const) : ("exact" as const),
+    totalMatched: totalExact,
+    totalMatchedExact: true as const,
+    totalMatchedSemantics: "exact" as const,
     hasMore,
-    nextOffset: hasMore ? offset + page.length : null,
+    nextOffset,
     offset,
     limit,
     items: page,
@@ -288,9 +325,7 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
       preparationIdBound: true,
       modelChoseScope: false,
     },
-    note: scanCapped
-      ? "Scan capped — absence of a hit does not prove resource absence beyond scanned window"
-      : undefined,
+    note: undefined as string | undefined,
   };
 
   // Charge full returned envelope against D4 char budget.
@@ -333,7 +368,6 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
       chars_charged: charsCharged,
       coverage,
       has_more: hasMore,
-      scan_capped: scanCapped,
     },
   });
 

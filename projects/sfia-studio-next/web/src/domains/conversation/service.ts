@@ -1,6 +1,7 @@
 import { and, asc, eq } from "drizzle-orm";
 import { db } from "@/db/client";
 import { conversations, messages } from "@/db/schema";
+// db still used by getConversationId / listMessages
 import { newId } from "@/lib/ids";
 import { generateNoraReply } from "./nora-adapter";
 import { getPreparationContext } from "@/domains/preparation/service";
@@ -10,9 +11,12 @@ import {
 } from "@/domains/knowledge/service";
 import { listDocuments, savePreparationDocument } from "@/domains/document/service";
 import {
-  completeTurnCommand,
+  commitTurnTerminal,
   markTurnUnknown,
+  requireTurnOwnership,
   reserveTurnCommand,
+  touchTurnLease,
+  turnRaceHooks,
 } from "./turn-command";
 import { emitObs, newRequestId } from "@/lib/observability";
 import { StudioError } from "@/lib/http-errors";
@@ -182,18 +186,26 @@ export async function postUserMessageAndNora(
 
   let reply;
   try {
-    reply = await generateNoraReply({
-      userText: content,
-      contextSnippets,
-      knowledgeSnippets: [...knowledge.snippets, ...docSnippets],
-      toolScope: {
-        pilotId,
-        preparationId,
-        operationId: reserved.operationId,
-      },
-    });
+    // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
+    const leasePulse = setInterval(() => {
+      void touchTurnLease(reserved.commandId, reserved.ownerToken);
+    }, 60_000);
+    try {
+      reply = await generateNoraReply({
+        userText: content,
+        contextSnippets,
+        knowledgeSnippets: [...knowledge.snippets, ...docSnippets],
+        toolScope: {
+          pilotId,
+          preparationId,
+          operationId: reserved.operationId,
+        },
+      });
+    } finally {
+      clearInterval(leasePulse);
+    }
   } catch (e) {
-    await markTurnUnknown(reserved.commandId, "PROVIDER_EXCEPTION");
+    await markTurnUnknown(reserved.commandId, "PROVIDER_EXCEPTION", reserved.ownerToken);
     emitObs({
       event_name: "d3.turn.unknown",
       component: "d3.conversation",
@@ -205,30 +217,35 @@ export async function postUserMessageAndNora(
     throw e;
   }
 
-  const assistantId = newId("msg");
-  try {
-    await db.insert(messages).values({
-      id: assistantId,
-      conversationId: ctx.conversation.id,
-      role: "assistant",
-      content: reply.content,
-      status: reply.status,
-      generationId: reply.generationId,
-      ordinal: reserved.ordinalAssistant,
-    });
-  } catch (e) {
-    await markTurnUnknown(reserved.commandId, "ASSISTANT_PERSIST_FAILED");
+  if (turnRaceHooks.afterGenerateBeforeEffects) {
+    await turnRaceHooks.afterGenerateBeforeEffects();
+  }
+
+  // Ownership may have been revoked/reconciled during generation — no COMPLETE, no D4.
+  if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
     emitObs({
-      event_name: "d3.turn.unknown",
+      event_name: "d3.turn.ownership_lost",
       component: "d3.conversation",
       request_id: requestId,
       operation_id: reserved.operationId,
       generation_id: reply.generationId,
       outcome: "UNKNOWN",
-      error_category: "ASSISTANT_PERSIST_FAILED",
+      error_category: "OWNERSHIP_LOST_AFTER_GENERATE",
     });
-    throw e;
+    return {
+      operationId: reserved.operationId,
+      requestId,
+      status: "UNKNOWN",
+      generationId: reply.generationId,
+      userMessageId: reserved.userMessageId,
+      assistantMessageId: null,
+      idempotentReplay: false,
+      humanDecisionCreated: false,
+      noraMode: reply.mode,
+    };
   }
+
+  const assistantId = newId("msg");
 
   let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
     capitalisations: [],
@@ -238,99 +255,129 @@ export async function postUserMessageAndNora(
     humanDecisionCreated: false,
   };
   let capitalisationError: string | undefined;
-  if (reply.status === "COMPLETE") {
-    try {
-      capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
-        userText: content,
-        assistantText: reply.content,
-        generationId: reply.generationId,
-        userMessageId: reserved.userMessageId,
-      });
-    } catch {
-      capitalisationError = "CAPITALISATION_EXCEPTION";
-      emitObs({
-        event_name: "d3.turn.capitalisation_failed",
-        component: "d3.conversation",
-        request_id: requestId,
-        operation_id: reserved.operationId,
-        generation_id: reply.generationId,
-        outcome: "UNKNOWN",
-        error_category: "CAPITALISATION_EXCEPTION",
-      });
-    }
-  }
-  const confirmedCapitalisations = capitalisation.capitalisations.filter(
-    (c) => c.status === "AVAILABLE",
-  );
-
   let documentSave: Awaited<ReturnType<typeof savePreparationDocument>> | null = null;
   let documentSaveUnknown = false;
-  if (reply.status === "COMPLETE" && explicitDocumentIntent(content)) {
-    const extracted = extractDocumentMarkdown(reply.content, content);
-    if (extracted) {
+  let ownershipLostBeforeD4 = false;
+
+  if (reply.status === "COMPLETE") {
+    if (turnRaceHooks.beforeD4Effect) {
+      await turnRaceHooks.beforeD4Effect();
+    }
+    if (!(await requireTurnOwnership(reserved.commandId, reserved.ownerToken))) {
+      ownershipLostBeforeD4 = true;
+    } else {
       try {
-        documentSave = await savePreparationDocument(
-          pilotId,
-          preparationId,
-          extracted.title,
-          extracted.content,
-          undefined,
-          {
-            correlationKey: opts?.correlationKey
-              ? `doc:${opts.correlationKey}`
-              : `doc:${reply.generationId}`,
-            provenance: {
-              sourceKind: "nora",
-              generationId: reply.generationId,
-              userMessageId: reserved.userMessageId,
-              explicitRequest: true,
-            },
-            scope: "document",
-          },
-        );
-        if (documentSave.status !== "AVAILABLE") {
-          documentSaveUnknown = documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
-        }
+        capitalisation = await maybeCapitalizeFromExchange(pilotId, preparationId, {
+          userText: content,
+          assistantText: reply.content,
+          generationId: reply.generationId,
+          userMessageId: reserved.userMessageId,
+        });
       } catch {
-        documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION" } as Awaited<
-          ReturnType<typeof savePreparationDocument>
-        >;
-        documentSaveUnknown = true;
+        capitalisationError = "CAPITALISATION_EXCEPTION";
         emitObs({
-          event_name: "d3.turn.document_save_failed",
+          event_name: "d3.turn.capitalisation_failed",
           component: "d3.conversation",
           request_id: requestId,
           operation_id: reserved.operationId,
           generation_id: reply.generationId,
           outcome: "UNKNOWN",
-          error_category: "DOCUMENT_SAVE_EXCEPTION",
+          error_category: "CAPITALISATION_EXCEPTION",
         });
+      }
+
+      if (explicitDocumentIntent(content) && !ownershipLostBeforeD4) {
+        const extracted = extractDocumentMarkdown(reply.content, content);
+        if (extracted) {
+          try {
+            documentSave = await savePreparationDocument(
+              pilotId,
+              preparationId,
+              extracted.title,
+              extracted.content,
+              undefined,
+              {
+                correlationKey: opts?.correlationKey
+                  ? `doc:${opts.correlationKey}`
+                  : `doc:${reply.generationId}`,
+                provenance: {
+                  sourceKind: "nora",
+                  generationId: reply.generationId,
+                  userMessageId: reserved.userMessageId,
+                  explicitRequest: true,
+                },
+                scope: "document",
+                turnFence: {
+                  commandId: reserved.commandId,
+                  ownerToken: reserved.ownerToken,
+                  beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+                },
+              },
+            );
+            if (documentSave.status === "FAILED" && documentSave.reason === "TURN_OWNERSHIP_LOST") {
+              ownershipLostBeforeD4 = true;
+              documentSave = null;
+            } else if (documentSave.status !== "AVAILABLE") {
+              documentSaveUnknown =
+                documentSave.status === "UNKNOWN" || documentSave.status === "FAILED";
+            }
+          } catch {
+            documentSave = { status: "UNKNOWN", reason: "DOCUMENT_SAVE_EXCEPTION" } as Awaited<
+              ReturnType<typeof savePreparationDocument>
+            >;
+            documentSaveUnknown = true;
+            emitObs({
+              event_name: "d3.turn.document_save_failed",
+              component: "d3.conversation",
+              request_id: requestId,
+              operation_id: reserved.operationId,
+              generation_id: reply.generationId,
+              outcome: "UNKNOWN",
+              error_category: "DOCUMENT_SAVE_EXCEPTION",
+            });
+          }
+        }
       }
     }
   }
 
-  // COMPLETE must not mask unknown documentary effect.
+  const confirmedCapitalisations = capitalisation.capitalisations.filter(
+    (c) => c.status === "AVAILABLE",
+  );
+
   let turnStatus: "COMPLETE" | "FAILED" | "UNKNOWN" =
-    reply.status === "COMPLETE"
-      ? "COMPLETE"
-      : reply.status === "UNKNOWN"
-        ? "UNKNOWN"
-        : "FAILED";
+    ownershipLostBeforeD4
+      ? "UNKNOWN"
+      : reply.status === "COMPLETE"
+        ? "COMPLETE"
+        : reply.status === "UNKNOWN"
+          ? "UNKNOWN"
+          : "FAILED";
 
   if (
+    !ownershipLostBeforeD4 &&
     reply.status === "COMPLETE" &&
     (documentSaveUnknown || capitalisationError) &&
     explicitDocumentIntent(content)
   ) {
     turnStatus = "UNKNOWN";
-  } else if (reply.status === "COMPLETE" && capitalisationError && !explicitDocumentIntent(content)) {
-    // Capitalisation failure alone does not invent success over D4 write — mark UNKNOWN if any write attempted.
+  } else if (
+    !ownershipLostBeforeD4 &&
+    reply.status === "COMPLETE" &&
+    capitalisationError &&
+    !explicitDocumentIntent(content)
+  ) {
+    turnStatus = "UNKNOWN";
+  }
+
+  // Lost ownership ⇒ never claim COMPLETE even if reply looked complete.
+  if (ownershipLostBeforeD4) {
     turnStatus = "UNKNOWN";
   }
 
   const resultPayload: TurnResult = {
     userMessageId: reserved.userMessageId,
-    assistantMessageId: assistantId,
+    assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
     operationId: reserved.operationId,
     requestId,
     noraMode: reply.mode,
@@ -359,22 +406,42 @@ export async function postUserMessageAndNora(
       selectionMethod: knowledge.selectionMethod,
       selectionLimit: knowledge.selectionLimit,
     },
-    capitalisation: confirmedCapitalisations,
-    capitalisationAttempted: capitalisation.capitalisations,
-    capitalisationLimit: capitalisationError ?? capitalisation.selectionLimit,
-    documentSave,
+    capitalisation: ownershipLostBeforeD4 ? [] : confirmedCapitalisations,
+    capitalisationAttempted: ownershipLostBeforeD4 ? [] : capitalisation.capitalisations,
+    capitalisationLimit: ownershipLostBeforeD4
+      ? "OWNERSHIP_LOST"
+      : capitalisationError ?? capitalisation.selectionLimit,
+    documentSave: ownershipLostBeforeD4 ? null : documentSave,
     idempotentReplay: false,
     humanDecisionCreated: false,
   };
 
-  const applied = await completeTurnCommand({
+  if (turnRaceHooks.beforeTerminalCommit) {
+    await turnRaceHooks.beforeTerminalCommit();
+  }
+
+  const applied = await commitTurnTerminal({
     commandId: reserved.commandId,
+    ownerToken: reserved.ownerToken,
     status: turnStatus,
-    assistantMessageId: assistantId,
+    conversationId: ctx.conversation.id,
+    assistant: ownershipLostBeforeD4
+      ? undefined
+      : {
+          id: assistantId,
+          content: reply.content,
+          messageStatus: reply.status,
+          generationId: reply.generationId,
+          ordinal: reserved.ordinalAssistant,
+        },
     generationId: reply.generationId,
     resultJson: JSON.stringify(resultPayload),
     errorCategory:
-      turnStatus === "COMPLETE" ? undefined : capitalisationError ?? reply.status,
+      turnStatus === "COMPLETE"
+        ? undefined
+        : ownershipLostBeforeD4
+          ? "OWNERSHIP_LOST"
+          : capitalisationError ?? reply.status,
   });
 
   if (!applied.applied) {
@@ -387,6 +454,14 @@ export async function postUserMessageAndNora(
       outcome: "UNKNOWN",
       error_category: "COMPLETE_CAS_MISSED",
     });
+    // Never return COMPLETE when ownership CAS failed.
+    return {
+      ...resultPayload,
+      status: "UNKNOWN",
+      assistantMessageId: null,
+      documentSave: null,
+      capitalisation: [],
+    };
   }
 
   emitObs({

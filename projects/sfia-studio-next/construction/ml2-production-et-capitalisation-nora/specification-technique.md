@@ -895,3 +895,26 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
 | Playwright FAKE | 3 PASS |
 | tsc / build | PASS |
 | LIVE / CI new SHA / RECETTE | **NOT RUN** |
+
+## 24. As-Built three-blocker corrective — 2026-11-05 (local)
+
+> **LOCAL CORRECTIVE on `00736f3a` / same branch / no project push.** Trois blocages revue ChatGPT handoff `5c9b7aa4`.
+
+### 24.1 Invariants
+
+| ID | Invariant |
+| --- | --- |
+| TURN ownership | `owner_token` (migration 006) ; heartbeat lease ; D4 write fenced in TX ; terminal CAS+assistant atomiques ; CAS miss ⇒ jamais COMPLETE |
+| D4 pagination | SQL OFFSET/LIMIT multi-types ordonnés ; `hasMore=false` / `nextOffset=null` en fin ; pas de curseur stagnant |
+| SDK retry | Une seule invocation `run()` après exception ; pas de fallback non-stream |
+
+### 24.2 Preuves
+
+| Suite | Résultat |
+| --- | --- |
+| unit | 52 PASS |
+| PG | 68 PASS (dont `ml2-three-blocker.pg.test.ts` TURN-RACE/D4-PAGE) |
+| Playwright FAKE | 3 PASS |
+| tsc / build | PASS |
+| LIVE / CI / RECETTE | **NOT RUN** |
+

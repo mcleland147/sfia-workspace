@@ -1,6 +1,6 @@
 import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { documentRevisions, documents } from "@/db/schema";
+import { conversationTurnCommands, documentRevisions, documents } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { getPreparationContext } from "@/domains/preparation/service";
 import { createHash } from "node:crypto";
@@ -159,6 +159,13 @@ async function latestRevisionFor(documentId: string) {
   )[0];
 }
 
+export type TurnOwnershipFence = {
+  commandId: string;
+  ownerToken: string;
+  /** Optional test injection before the ownership check inside the write TX. */
+  beforeFenceCheck?: () => Promise<void>;
+};
+
 export async function savePreparationDocument(
   pilotId: string,
   preparationId: string,
@@ -171,6 +178,8 @@ export async function savePreparationDocument(
     provenance?: Record<string, unknown>;
     scope?: string;
     baseRevisionId?: string | null;
+    /** When set, document write aborts unless turn still owned (RUNNING + token). */
+    turnFence?: TurnOwnershipFence;
   },
 ) {
   if (contentMarkdown.length > MAX_DOC_CHARS) {
@@ -292,6 +301,39 @@ export async function savePreparationDocument(
 
   try {
     return await db.transaction(async (tx) => {
+      if (opts?.turnFence) {
+        if (opts.turnFence.beforeFenceCheck) {
+          await opts.turnFence.beforeFenceCheck();
+        }
+        await tx.execute(
+          sql`select id from conversation_turn_commands
+              where id = ${opts.turnFence.commandId}
+                and owner_token = ${opts.turnFence.ownerToken}
+                and status in ('RUNNING', 'ACCEPTED')
+              for share`,
+        );
+        const fenceRow = (
+          await tx
+            .select({ id: conversationTurnCommands.id })
+            .from(conversationTurnCommands)
+            .where(
+              and(
+                eq(conversationTurnCommands.id, opts.turnFence.commandId),
+                eq(conversationTurnCommands.ownerToken, opts.turnFence.ownerToken),
+                sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+              ),
+            )
+            .limit(1)
+        )[0];
+        if (!fenceRow) {
+          return {
+            status: "FAILED" as const,
+            reason: "TURN_OWNERSHIP_LOST",
+            rolledBack: true as const,
+          };
+        }
+      }
+
       await tx.execute(
         sql`select id from documents where id = ${docId} and owner_pilot_id = ${pilotId} for update`,
       );

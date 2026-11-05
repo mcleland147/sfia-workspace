@@ -1,7 +1,7 @@
 /**
  * Durable D3 turn command — short transactional reservation only.
  * Never hold a DB transaction open across the provider call.
- * Orphan RUNNING → conservative UNKNOWN / recovery; no permanent lock on the thread.
+ * Ownership fencing via owner_token: lost ownership ⇒ no COMPLETE, no further D4 commits.
  */
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
@@ -9,6 +9,7 @@ import { conversationTurnCommands, messages } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { StudioError } from "@/lib/http-errors";
 import { fingerprintRequest, newOperationId } from "@/lib/observability";
+import { randomUUID } from "node:crypto";
 
 export type TurnCommandStatus =
   | "ACCEPTED"
@@ -25,6 +26,7 @@ export type ReservedTurn = {
   conversationId: string;
   clientTurnKey: string;
   requestFingerprint: string;
+  ownerToken: string;
   ordinalUser: number;
   ordinalAssistant: number;
   userMessageId: string;
@@ -42,24 +44,70 @@ export type ReplayedTurn = {
   reconciled?: boolean;
 };
 
-/** Stale RUNNING lease — conservative unblock after wall-clock safety margin. */
+/** Stale RUNNING lease — only when heartbeat (updated_at) is older than this. */
 export const TURN_RUNNING_STALE_MS = 20 * 60 * 1000;
+
+/** Injectable clock for deterministic lease tests. */
+export const turnClock = {
+  nowMs: (): number => Date.now(),
+};
+
+/** Test hooks — must stay no-op in production paths. */
+export const turnRaceHooks: {
+  afterGenerateBeforeEffects?: () => Promise<void>;
+  beforeD4Effect?: () => Promise<void>;
+  beforeTerminalCommit?: () => Promise<void>;
+} = {};
 
 export function turnFingerprint(content: string): string {
   return fingerprintRequest(["v1", content.trim()]);
 }
 
+function newOwnerToken(): string {
+  return `own_${randomUUID()}`;
+}
+
 function isStaleRunning(updatedAt: Date | null | undefined): boolean {
   if (!updatedAt) return true;
-  return Date.now() - updatedAt.getTime() > TURN_RUNNING_STALE_MS;
+  return turnClock.nowMs() - updatedAt.getTime() > TURN_RUNNING_STALE_MS;
+}
+
+/**
+ * Heartbeat + ownership proof. Refreshes updated_at so long active runs are not
+ * falsely reconciled as orphans. Returns false if ownership lost.
+ */
+export async function touchTurnLease(
+  commandId: string,
+  ownerToken: string,
+): Promise<{ owned: boolean }> {
+  const updated = await db
+    .update(conversationTurnCommands)
+    .set({ updatedAt: new Date(turnClock.nowMs()) })
+    .where(
+      and(
+        eq(conversationTurnCommands.id, commandId),
+        eq(conversationTurnCommands.ownerToken, ownerToken),
+        sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+      ),
+    )
+    .returning({ id: conversationTurnCommands.id });
+  return { owned: updated.length > 0 };
+}
+
+/**
+ * Assert ownership still holds (short TX). Use before every D4 write boundary.
+ */
+export async function requireTurnOwnership(
+  commandId: string,
+  ownerToken: string,
+): Promise<boolean> {
+  const { owned } = await touchTurnLease(commandId, ownerToken);
+  return owned;
 }
 
 /**
  * Conservative reconciliation of an orphan RUNNING command.
- * - Assistant already persisted at ordinal → link + UNKNOWN (effect known for message; turn not COMPLETE without resultJson proof)
- * - Stale with no assistant → UNKNOWN, thread unlockable
- * - Fresh RUNNING → leave as-is (caller may 409)
- * Never invents COMPLETE or re-invokes provider.
+ * Invalidates owner_token so a late execution cannot CAS-complete or fence D4.
  */
 export async function reconcileRunningCommand(commandId: string): Promise<{
   status: TurnCommandStatus;
@@ -124,7 +172,6 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
 
     const stale = isStaleRunning(row.updatedAt);
     if (!stale && !assistantId) {
-      // Still legitimately in flight — do not force UNKNOWN.
       return {
         status: "RUNNING" as const,
         reconciled: false,
@@ -138,6 +185,7 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
       ? "RECONCILED_ASSISTANT_PRESENT_TURN_UNKNOWN"
       : "RECONCILED_STALE_RUNNING_NO_ASSISTANT";
 
+    // Invalidate owner_token — late owner can no longer commit.
     const updated = await tx
       .update(conversationTurnCommands)
       .set({
@@ -145,7 +193,8 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
         assistantMessageId: assistantId,
         generationId,
         errorCategory,
-        updatedAt: new Date(),
+        ownerToken: `revoked_${randomUUID()}`,
+        updatedAt: new Date(turnClock.nowMs()),
       })
       .where(
         and(
@@ -182,10 +231,6 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
   });
 }
 
-/**
- * Reserve ordinals + insert user message + create RUNNING command under a short lock.
- * Or return durable replay / conflict for the same client_turn_key.
- */
 export async function reserveTurnCommand(args: {
   conversationId: string;
   ownerPilotId: string;
@@ -224,7 +269,6 @@ export async function reserveTurnCommand(args: {
       }
 
       if (existing.status === "RUNNING" || existing.status === "ACCEPTED") {
-        // Peek assistant / staleness inside same lock for same-key recovery.
         let assistantId = existing.assistantMessageId;
         let generationId = existing.generationId;
         if (!assistantId && existing.ordinalAssistant != null) {
@@ -258,7 +302,8 @@ export async function reserveTurnCommand(args: {
               errorCategory: assistantId
                 ? "RECONCILED_ASSISTANT_PRESENT_TURN_UNKNOWN"
                 : "RECONCILED_STALE_RUNNING_NO_ASSISTANT",
-              updatedAt: new Date(),
+              ownerToken: `revoked_${randomUUID()}`,
+              updatedAt: new Date(turnClock.nowMs()),
             })
             .where(
               and(
@@ -317,7 +362,8 @@ export async function reserveTurnCommand(args: {
           .set({
             status: "UNKNOWN",
             errorCategory: "RECONCILED_STALE_RUNNING_OTHER_KEY",
-            updatedAt: new Date(),
+            ownerToken: `revoked_${randomUUID()}`,
+            updatedAt: new Date(turnClock.nowMs()),
           })
           .where(
             and(
@@ -345,6 +391,7 @@ export async function reserveTurnCommand(args: {
     const userMessageId = newId("msg");
     const commandId = newId("tcmd");
     const operationId = newOperationId();
+    const ownerToken = newOwnerToken();
 
     await tx.insert(messages).values({
       id: userMessageId,
@@ -363,10 +410,11 @@ export async function reserveTurnCommand(args: {
       requestFingerprint: fp,
       operationId,
       status: "RUNNING",
+      ownerToken,
       ordinalUser,
       ordinalAssistant,
       userMessageId,
-      updatedAt: new Date(),
+      updatedAt: new Date(turnClock.nowMs()),
     });
 
     return {
@@ -376,6 +424,7 @@ export async function reserveTurnCommand(args: {
       conversationId: args.conversationId,
       clientTurnKey,
       requestFingerprint: fp,
+      ownerToken,
       ordinalUser,
       ordinalAssistant,
       userMessageId,
@@ -384,9 +433,103 @@ export async function reserveTurnCommand(args: {
 }
 
 /**
- * Conditional terminal transition (CAS) — only from RUNNING/ACCEPTED.
- * Returns whether the update applied.
+ * Atomic terminal commit under ownership fence:
+ * insert assistant (if provided) + CAS status with owner_token in the same short TX.
+ * Lost ownership ⇒ applied:false — caller must not return COMPLETE.
  */
+export async function commitTurnTerminal(args: {
+  commandId: string;
+  ownerToken: string;
+  status: TurnCommandStatus;
+  conversationId: string;
+  assistant?: {
+    id: string;
+    content: string;
+    messageStatus: string;
+    generationId: string;
+    ordinal: number;
+  };
+  generationId?: string;
+  resultJson?: string;
+  errorCategory?: string;
+}): Promise<{ applied: boolean }> {
+  if (args.status === "RUNNING" || args.status === "ACCEPTED") {
+    throw new StudioError("INVALID_REQUEST", "commitTurnTerminal exige un statut terminal");
+  }
+
+  return db.transaction(async (tx) => {
+    if (args.assistant) {
+      // Insert only if ownership still holds — checked via subsequent CAS.
+      // Pre-check fence inside TX:
+      const owned = (
+        await tx
+          .select({ id: conversationTurnCommands.id })
+          .from(conversationTurnCommands)
+          .where(
+            and(
+              eq(conversationTurnCommands.id, args.commandId),
+              eq(conversationTurnCommands.ownerToken, args.ownerToken),
+              sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+            ),
+          )
+          .limit(1)
+      )[0];
+      if (!owned) {
+        return { applied: false };
+      }
+
+      // Idempotent ordinal: if assistant already there, reuse.
+      const existingAssistant = (
+        await tx
+          .select()
+          .from(messages)
+          .where(
+            and(
+              eq(messages.conversationId, args.conversationId),
+              eq(messages.ordinal, args.assistant.ordinal),
+              eq(messages.role, "assistant"),
+            ),
+          )
+          .limit(1)
+      )[0];
+
+      if (!existingAssistant) {
+        await tx.insert(messages).values({
+          id: args.assistant.id,
+          conversationId: args.conversationId,
+          role: "assistant",
+          content: args.assistant.content,
+          status: args.assistant.messageStatus,
+          generationId: args.assistant.generationId,
+          ordinal: args.assistant.ordinal,
+        });
+      }
+    }
+
+    const updated = await tx
+      .update(conversationTurnCommands)
+      .set({
+        status: args.status,
+        assistantMessageId: args.assistant?.id ?? null,
+        generationId: args.generationId ?? args.assistant?.generationId ?? null,
+        resultJson: args.resultJson ?? null,
+        errorCategory: args.errorCategory ?? null,
+        updatedAt: new Date(turnClock.nowMs()),
+      })
+      .where(
+        and(
+          eq(conversationTurnCommands.id, args.commandId),
+          eq(conversationTurnCommands.ownerToken, args.ownerToken),
+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+        ),
+      )
+      .returning({ id: conversationTurnCommands.id });
+
+    return { applied: updated.length > 0 };
+  });
+}
+
+/** @deprecated Prefer commitTurnTerminal with ownerToken — kept for markTurnUnknown paths. */
 export async function completeTurnCommand(args: {
   commandId: string;
   status: TurnCommandStatus;
@@ -394,9 +537,18 @@ export async function completeTurnCommand(args: {
   generationId?: string;
   resultJson?: string;
   errorCategory?: string;
+  ownerToken?: string;
 }): Promise<{ applied: boolean }> {
   if (args.status === "RUNNING" || args.status === "ACCEPTED") {
     throw new StudioError("INVALID_REQUEST", "completeTurnCommand exige un statut terminal");
+  }
+
+  const conditions = [
+    eq(conversationTurnCommands.id, args.commandId),
+    sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+  ];
+  if (args.ownerToken) {
+    conditions.push(eq(conversationTurnCommands.ownerToken, args.ownerToken));
   }
 
   const updated = await db
@@ -407,32 +559,43 @@ export async function completeTurnCommand(args: {
       generationId: args.generationId ?? null,
       resultJson: args.resultJson ?? null,
       errorCategory: args.errorCategory ?? null,
-      updatedAt: new Date(),
+      updatedAt: new Date(turnClock.nowMs()),
     })
-    .where(
-      and(
-        eq(conversationTurnCommands.id, args.commandId),
-        sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-      ),
-    )
+    .where(and(...conditions))
     .returning({ id: conversationTurnCommands.id });
 
   return { applied: updated.length > 0 };
 }
 
-export async function markTurnUnknown(commandId: string, errorCategory: string) {
+export async function markTurnUnknown(
+  commandId: string,
+  errorCategory: string,
+  ownerToken?: string,
+) {
   await completeTurnCommand({
     commandId,
     status: "UNKNOWN",
     errorCategory,
+    ownerToken,
   });
 }
 
-/** Force-stale helper for tests — advances updated_at into the past. */
+/** Force-stale helper for tests — advances updated_at into the past (uses turnClock). */
 export async function injectStaleRunningForTests(commandId: string, ageMs = TURN_RUNNING_STALE_MS + 1000) {
-  const past = new Date(Date.now() - ageMs);
+  const past = new Date(turnClock.nowMs() - ageMs);
   await db
     .update(conversationTurnCommands)
     .set({ updatedAt: past })
+    .where(eq(conversationTurnCommands.id, commandId));
+}
+
+/** Test helper: revoke ownership while leaving status RUNNING (simulates lost fence mid-flight). */
+export async function revokeOwnerTokenForTests(commandId: string) {
+  await db
+    .update(conversationTurnCommands)
+    .set({
+      ownerToken: `revoked_${randomUUID()}`,
+      updatedAt: new Date(turnClock.nowMs()),
+    })
     .where(eq(conversationTurnCommands.id, commandId));
 }

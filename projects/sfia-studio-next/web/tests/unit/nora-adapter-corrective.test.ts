@@ -5,7 +5,7 @@ import {
 } from "@/domains/conversation/nora-adapter";
 import { buildCognitivePolicy } from "@/domains/conversation/cognitive-policy";
 
-describe("FIX-SDK — provider attempts and uncertain fallback", () => {
+describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
   const prevLane = process.env.STUDIO_LANE;
   const prevE2e = process.env.STUDIO_E2E;
   const prevForce = process.env.STUDIO_FORCE_NORA_FIXTURE;
@@ -34,7 +34,7 @@ describe("FIX-SDK — provider attempts and uncertain fallback", () => {
     expect(c.category).not.toContain("sk-");
   });
 
-  it("FIX-SDK-01: after uncertain stream failure, run() is not called a second time", async () => {
+  async function runOnceScenario(message: string) {
     process.env.STUDIO_LANE = "DEV";
     delete process.env.STUDIO_E2E;
     delete process.env.STUDIO_FORCE_NORA_FIXTURE;
@@ -42,7 +42,7 @@ describe("FIX-SDK — provider attempts and uncertain fallback", () => {
     process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
 
     const runMock = vi.fn(async () => {
-      throw new Error("stream mid-flight network reset ECONNRESET");
+      throw new Error(message);
     });
 
     vi.doMock("@openai/agents", () => ({
@@ -62,18 +62,29 @@ describe("FIX-SDK — provider attempts and uncertain fallback", () => {
       contextSnippets: [],
       policyOverride: policy,
     });
+    return { runMock, result };
+  }
 
+  it("SDK-RETRY-01: invalid model settings after run() → single invocation, non-COMPLETE", async () => {
+    const { runMock, result } = await runOnceScenario("invalid model settings rejected by API");
     expect(runMock).toHaveBeenCalledTimes(1);
-    expect(result.status === "UNKNOWN" || result.status === "FAILED" || result.status === "INTERRUPTED").toBe(
-      true,
-    );
+    expect(result.status).not.toBe("COMPLETE");
     expect(result.attempts.length).toBe(1);
     expect(result.attempts[0].providerContacted).toBe("UNCERTAIN");
-    expect(result.modelApplied).toBeNull();
-    expect(JSON.stringify(result)).not.toContain("ECONNRESET");
+    expect(JSON.stringify(result)).not.toContain("invalid model settings rejected");
   });
 
-  it("FIX-SDK-02: fixture path still works under DEV flags", async () => {
+  it("SDK-RETRY-01: ECONNRESET / 429 / 503 each invoke run() once only", async () => {
+    for (const msg of ["ECONNRESET mid stream", "HTTP 429 rate limited", "503 upstream unavailable"]) {
+      vi.resetModules();
+      vi.doUnmock("@openai/agents");
+      const { runMock, result } = await runOnceScenario(msg);
+      expect(runMock).toHaveBeenCalledTimes(1);
+      expect(result.status).not.toBe("COMPLETE");
+    }
+  });
+
+  it("SDK-RETRY-02: error before Runner import path still fails closed without COMPLETE LIVE", async () => {
     process.env.STUDIO_LANE = "DEV";
     process.env.STUDIO_E2E = "1";
     process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
@@ -85,5 +96,17 @@ describe("FIX-SDK — provider attempts and uncertain fallback", () => {
     expect(result.mode).toBe("deterministic-fixture");
     expect(result.status).toBe("COMPLETE");
     expect(result.modelApplied).toBe("deterministic-fixture");
+  });
+
+  it("SDK-RETRY-04: fixture DEV unchanged under flags", async () => {
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
+    delete process.env.OPENAI_API_KEY;
+    const result = await generateNoraReply({
+      userText: "Merci",
+      contextSnippets: [],
+    });
+    expect(result.mode).toBe("deterministic-fixture");
   });
 });

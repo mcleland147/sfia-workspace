@@ -398,104 +398,39 @@ async function runLiveWithTools(
     } catch (streamErr) {
       const cat = categorizeProviderError(streamErr);
       streamingNotes = cat.category;
-      const contact: "YES" | "NO" | "UNCERTAIN" = cat.preContactLikely
-        ? "NO"
-        : streamingDelivered
-          ? "YES"
-          : "UNCERTAIN";
+      // Once run() was invoked, contact is at best UNCERTAIN — message text is NOT proof of non-send.
+      // No automatic second run() after any exception from the first invocation.
+      const contact: "YES" | "NO" | "UNCERTAIN" = streamingDelivered
+        ? "YES"
+        : "UNCERTAIN";
       providerContacted = contact;
       attempts.push({
         attemptId: streamAttemptId,
         kind: "stream",
-        outcome: cat.interrupted ? "INTERRUPTED" : contact === "UNCERTAIN" ? "UNKNOWN" : "FAILED",
+        outcome: cat.interrupted ? "INTERRUPTED" : "UNKNOWN",
         notes: cat.category,
         providerContacted: contact,
       });
 
-      // BLOQUANT: no automatic second run() when provider state is uncertain.
-      // Distinct retry only if failure attested BEFORE any provider contact.
-      if (contact !== "NO" || controller.signal.aborted) {
-        const status = cat.interrupted
-          ? ("INTERRUPTED" as const)
-          : contact === "UNCERTAIN"
-            ? ("UNKNOWN" as const)
-            : ("FAILED" as const);
-        return {
-          generationId,
-          mode: "openai-agents-sdk-live",
-          status,
-          streamingProvisional: false,
-          streamingAttempted,
-          streamingDelivered,
-          streamingNotes,
-          content: `Nora LIVE ${status}: état fournisseur ${contact === "UNCERTAIN" ? "incertain — aucune nouvelle tentative automatique" : "échoué"}. Message utilisateur déjà persisté. Détail technique non exposé.`,
-          policy,
-          modelRequested: policy.modelRequested,
-          modelApplied: null,
-          effortRequested: policy.effortRequested,
-          effortApplied: null,
-          attempts,
-          toolCallsObserved: policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls,
-          d4CharsReturned: policy.budgets.maxD4CharsReturned - initialBudget.remainingChars,
-        };
-      }
-
-      // Pre-contact only: one explicit non-stream attempt under remaining budget.
-      if (attempts.length >= policy.budgets.maxProviderCalls) {
-        return {
-          generationId,
-          mode: "openai-agents-sdk-live",
-          status: "FAILED",
-          streamingProvisional: false,
-          streamingAttempted,
-          streamingDelivered,
-          streamingNotes: "PROVIDER_PRE_CONTACT_BUDGET_EXHAUSTED",
-          content:
-            "Nora LIVE FAILED: échec avant contact fournisseur et budget d'appels épuisé. Aucun effet métier inventé.",
-          policy,
-          modelRequested: policy.modelRequested,
-          modelApplied: null,
-          effortRequested: policy.effortRequested,
-          effortApplied: null,
-          attempts,
-          toolCallsObserved: 0,
-          d4CharsReturned: 0,
-        };
-      }
-
-      const fallbackAttemptId = newAttemptId();
-      emitObs({
-        event_name: "d3.nora.provider_attempt",
-        component: "d3.nora_adapter",
-        operation_id: input.toolScope?.operationId,
-        generation_id: generationId,
-        attempt_id: fallbackAttemptId,
-        outcome: "PARTIAL",
-        policy_version: policy.policyVersion,
-        profile_type:
-          policy.profileType === "TEST_BOUNDARY" ? "TEST_BOUNDARY" : "OPERATIONAL",
-        meta: {
-          kind: "non_stream_pre_contact_retry",
-          prior_attempt: streamAttemptId,
-        },
-      });
-      providerContacted = "UNCERTAIN";
-      const result = await run(agent, prompt, {
-        maxTurns,
-        signal: controller.signal,
-      } as Parameters<typeof run>[2]);
-      content =
-        typeof result.finalOutput === "string"
-          ? result.finalOutput.trim()
-          : String(result.finalOutput ?? "").trim();
-      providerContacted = content ? "YES" : "UNCERTAIN";
-      attempts.push({
-        attemptId: fallbackAttemptId,
-        kind: "non_stream",
-        outcome: content ? "SUCCESS" : "UNKNOWN",
-        notes: "pre_contact_retry_only",
-        providerContacted,
-      });
+      const status = cat.interrupted ? ("INTERRUPTED" as const) : ("UNKNOWN" as const);
+      return {
+        generationId,
+        mode: "openai-agents-sdk-live",
+        status,
+        streamingProvisional: false,
+        streamingAttempted,
+        streamingDelivered,
+        streamingNotes,
+        content: `Nora LIVE ${status}: une seule tentative fournisseur — aucune relance automatique après exception. Message utilisateur déjà persisté. Détail technique non exposé.`,
+        policy,
+        modelRequested: policy.modelRequested,
+        modelApplied: null,
+        effortRequested: policy.effortRequested,
+        effortApplied: null,
+        attempts,
+        toolCallsObserved: policy.budgets.maxD4ToolCalls - initialBudget.remainingCalls,
+        d4CharsReturned: policy.budgets.maxD4CharsReturned - initialBudget.remainingChars,
+      };
     }
   } finally {
     clearTimeout(wallTimer);

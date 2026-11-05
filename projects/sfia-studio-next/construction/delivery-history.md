@@ -298,3 +298,21 @@ Append-only logical journal of Cursor product deliveries.
 | Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `LOCAL CORRECTIVE DELIVERY — REVIEW REQUIRED` |
 
+## delivery_id: DELIV-2026-11-05-ML2-THREE-BLOCKER-09
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~18:45 CET |
+| Macro-lot | R5 / ML2 — three-blocker Critical corrective |
+| Type | INC/EVOL corrective (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
+| Parent SHA | `00736f3a6c34f6f56d628b6dee2097a4aadda91b` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | owner_token fencing+CAS ; SQL pagination terminante ; no SDK auto-retry after run() |
+| Schema | migration `006_ml2_turn_owner_token` (forward-only) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 68 ; Playwright 3 ; tsc+build PASS |
+| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL THREE-BLOCKER CORRECTIVE DELIVERY — READY FOR CHATGPT REVIEW` |
+
