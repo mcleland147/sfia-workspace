@@ -1399,8 +1399,8 @@ index 2233dc09..4106109d 100644
 
 - Branche handoff : `sfia/review-handoff`
 - Chemin canonique : `sfia-review-handoff/latest-chatgpt-review.md`
-- Handoff SHA distant : `93ef9e81d55427c4e9fa1d3c71e25c06af62bd75`
-- Handoff blob distant : `f58838ef8ad3fec00bb5eabea61cddd222faecdb` (mis à jour si second commit méta)
+- Handoff tip branch : `origin/sfia/review-handoff` (fast-forward only mono-file)
+- Chemin blob : `sfia-review-handoff/latest-chatgpt-review.md` — SHA/blob exacts dans le rapport Cursor §handoff
 - Projet SHA : `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1`
 - PR : #659 DRAFT — https://github.com/mcleland147/sfia-workspace/pull/659
 - CI Next : run `42093406745` SUCCESS (52/89/3)
