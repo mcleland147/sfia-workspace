@@ -52,11 +52,73 @@ export const turnClock = {
   nowMs: (): number => Date.now(),
 };
 
+/** Ownership fence passed into D4 write TXs (documents + knowledge). */
+export type TurnOwnershipFence = {
+  commandId: string;
+  ownerToken: string;
+  /** Optional test injection before the ownership lock inside the write TX. */
+  beforeFenceCheck?: () => Promise<void>;
+};
+
+/** Forces terminal TX rollback when CAS cannot apply after a side-effect attempt. */
+export class TurnTerminalCasMissError extends Error {
+  readonly code = "TURN_TERMINAL_CAS_MISS";
+  constructor() {
+    super("TURN_TERMINAL_CAS_MISS");
+    this.name = "TurnTerminalCasMissError";
+  }
+}
+
+type FenceTx = {
+  execute: typeof db.execute;
+  select: typeof db.select;
+};
+
+/**
+ * Lock + verify turn ownership inside an open D4 write TX.
+ * Uses FOR SHARE so reconcile/UPDATE waits until the write commits or rolls back.
+ * Returns false when ownership is already lost (caller must abort write without commit).
+ */
+export async function assertTurnFenceInTx(
+  tx: FenceTx,
+  fence: TurnOwnershipFence,
+): Promise<boolean> {
+  if (fence.beforeFenceCheck) {
+    await fence.beforeFenceCheck();
+  }
+  await tx.execute(
+    sql`select id from conversation_turn_commands
+        where id = ${fence.commandId}
+          and owner_token = ${fence.ownerToken}
+          and status in ('RUNNING', 'ACCEPTED')
+        for share`,
+  );
+  const fenceRow = (
+    await tx
+      .select({ id: conversationTurnCommands.id })
+      .from(conversationTurnCommands)
+      .where(
+        and(
+          eq(conversationTurnCommands.id, fence.commandId),
+          eq(conversationTurnCommands.ownerToken, fence.ownerToken),
+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+        ),
+      )
+      .limit(1)
+  )[0];
+  return Boolean(fenceRow);
+}
+
 /** Test hooks — must stay no-op in production paths. */
 export const turnRaceHooks: {
   afterGenerateBeforeEffects?: () => Promise<void>;
   beforeD4Effect?: () => Promise<void>;
   beforeTerminalCommit?: () => Promise<void>;
+  /**
+   * Runs inside the terminal TX after optional assistant INSERT, before CAS UPDATE.
+   * May mutate the same TX (e.g. revoke token) to force CAS miss + rollback.
+   */
+  insideTerminalTxAfterInsert?: (tx: FenceTx) => Promise<void>;
 } = {};
 
 export function turnFingerprint(content: string): string {
@@ -118,6 +180,11 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
 }> {
   return db.transaction(async (tx) => {
     await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext(${"turn-reconcile:" + commandId}))`);
+
+    // FOR UPDATE waits for any in-flight terminal/D4 fence locks — never revoke mid-write.
+    await tx.execute(
+      sql`select id from conversation_turn_commands where id = ${commandId} for update`,
+    );
 
     const row = (
       await tx
@@ -434,7 +501,8 @@ export async function reserveTurnCommand(args: {
 
 /**
  * Atomic terminal commit under ownership fence:
- * insert assistant (if provided) + CAS status with owner_token in the same short TX.
+ * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
+ * CAS miss after INSERT throws → full TX rollback (no orphan assistant).
  * Lost ownership ⇒ applied:false — caller must not return COMPLETE.
  */
 export async function commitTurnTerminal(args: {
@@ -457,13 +525,23 @@ export async function commitTurnTerminal(args: {
     throw new StudioError("INVALID_REQUEST", "commitTurnTerminal exige un statut terminal");
   }
 
-  return db.transaction(async (tx) => {
-    if (args.assistant) {
-      // Insert only if ownership still holds — checked via subsequent CAS.
-      // Pre-check fence inside TX:
+  try {
+    return await db.transaction(async (tx) => {
+      // Exclusive lock: blocks reconcile revoke and concurrent terminal writers.
+      await tx.execute(
+        sql`select id from conversation_turn_commands
+            where id = ${args.commandId}
+              and owner_token = ${args.ownerToken}
+              and status in ('RUNNING', 'ACCEPTED')
+            for update`,
+      );
+
       const owned = (
         await tx
-          .select({ id: conversationTurnCommands.id })
+          .select({
+            id: conversationTurnCommands.id,
+            assistantMessageId: conversationTurnCommands.assistantMessageId,
+          })
           .from(conversationTurnCommands)
           .where(
             and(
@@ -478,57 +556,87 @@ export async function commitTurnTerminal(args: {
         return { applied: false };
       }
 
-      // Idempotent ordinal: if assistant already there, reuse.
-      const existingAssistant = (
-        await tx
-          .select()
-          .from(messages)
-          .where(
-            and(
-              eq(messages.conversationId, args.conversationId),
-              eq(messages.ordinal, args.assistant.ordinal),
-              eq(messages.role, "assistant"),
-            ),
-          )
-          .limit(1)
-      )[0];
+      let assistantMessageId = args.assistant?.id ?? owned.assistantMessageId ?? null;
 
-      if (!existingAssistant) {
-        await tx.insert(messages).values({
-          id: args.assistant.id,
-          conversationId: args.conversationId,
-          role: "assistant",
-          content: args.assistant.content,
-          status: args.assistant.messageStatus,
-          generationId: args.assistant.generationId,
-          ordinal: args.assistant.ordinal,
-        });
+      if (args.assistant) {
+        const existingAssistant = (
+          await tx
+            .select()
+            .from(messages)
+            .where(
+              and(
+                eq(messages.conversationId, args.conversationId),
+                eq(messages.ordinal, args.assistant.ordinal),
+                eq(messages.role, "assistant"),
+              ),
+            )
+            .limit(1)
+        )[0];
+
+        if (!existingAssistant) {
+          await tx.insert(messages).values({
+            id: args.assistant.id,
+            conversationId: args.conversationId,
+            role: "assistant",
+            content: args.assistant.content,
+            status: args.assistant.messageStatus,
+            generationId: args.assistant.generationId,
+            ordinal: args.assistant.ordinal,
+          });
+          assistantMessageId = args.assistant.id;
+        } else {
+          // Reuse only when identity matches this command's stored assistant (or first bind).
+          if (
+            owned.assistantMessageId &&
+            owned.assistantMessageId !== existingAssistant.id &&
+            existingAssistant.id !== args.assistant.id
+          ) {
+            throw new StudioError(
+              "CONFLICT",
+              "Ordinal assistant déjà lié à une autre identité de message",
+              { httpStatus: 409 },
+            );
+          }
+          assistantMessageId = existingAssistant.id;
+        }
       }
+
+      if (turnRaceHooks.insideTerminalTxAfterInsert) {
+        await turnRaceHooks.insideTerminalTxAfterInsert(tx as FenceTx);
+      }
+
+      const updated = await tx
+        .update(conversationTurnCommands)
+        .set({
+          status: args.status,
+          assistantMessageId,
+          generationId: args.generationId ?? args.assistant?.generationId ?? null,
+          resultJson: args.resultJson ?? null,
+          errorCategory: args.errorCategory ?? null,
+          updatedAt: new Date(turnClock.nowMs()),
+        })
+        .where(
+          and(
+            eq(conversationTurnCommands.id, args.commandId),
+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+          ),
+        )
+        .returning({ id: conversationTurnCommands.id });
+
+      if (updated.length === 0) {
+        // Must not commit a prior INSERT in this TX.
+        throw new TurnTerminalCasMissError();
+      }
+      return { applied: true };
+    });
+  } catch (e) {
+    if (e instanceof TurnTerminalCasMissError) {
+      return { applied: false };
     }
-
-    const updated = await tx
-      .update(conversationTurnCommands)
-      .set({
-        status: args.status,
-        assistantMessageId: args.assistant?.id ?? null,
-        generationId: args.generationId ?? args.assistant?.generationId ?? null,
-        resultJson: args.resultJson ?? null,
-        errorCategory: args.errorCategory ?? null,
-        updatedAt: new Date(turnClock.nowMs()),
-      })
-      .where(
-        and(
-          eq(conversationTurnCommands.id, args.commandId),
-          eq(conversationTurnCommands.ownerToken, args.ownerToken),
-          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-        ),
-      )
-      .returning({ id: conversationTurnCommands.id });
-
-    return { applied: updated.length > 0 };
-  });
+    throw e;
+  }
 }
-
 /** @deprecated Prefer commitTurnTerminal with ownerToken — kept for markTurnUnknown paths. */
 export async function completeTurnCommand(args: {
   commandId: string;

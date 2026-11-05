@@ -294,14 +294,28 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
     need = limit - page.length;
   }
 
-  const hasMore = offset + page.length < totalExact;
-  // Terminating: empty page past end ⇒ hasMore false, nextOffset null (never stagnant cursor).
-  const nextOffset = hasMore ? offset + page.length : null;
+  // Count and page are separate queries — not a MVCC snapshot. Under concurrent
+  // mutation, refuse stagnant cursors and do not claim exact snapshot completeness.
+  // Empty page while still "inside" a prior count, OR empty page at offset>0 with
+  // zero remaining matches (corpus wiped between pages) ⇒ non-snapshot / STALE.
+  const countPageInconsistent =
+    (page.length === 0 && offset < totalExact) ||
+    (page.length === 0 && offset > 0 && totalExact === 0);
+  // Empty page is always terminal (never hasMore=true with nextOffset===offset).
+  const candidateNext = offset + page.length;
+  const hasMore =
+    page.length > 0 && candidateNext < totalExact && candidateNext > offset;
+  const nextOffset = hasMore ? candidateNext : null;
 
   let coverage: ToolCoverage;
-  if (totalExact === 0) {
+  let corpusNote: string | undefined;
+  if (countPageInconsistent) {
+    coverage = "STALE";
+    corpusNote =
+      "Corpus changed between count and page (non-snapshot). Pagination terminated honestly.";
+  } else if (totalExact === 0 && page.length === 0) {
     coverage = "EMPTY";
-  } else if (!hasMore && offset === 0) {
+  } else if (!hasMore && offset === 0 && page.length === totalExact) {
     coverage = "COMPLETE";
   } else if (page.length === 0 && offset >= totalExact) {
     coverage = "EMPTY";
@@ -313,8 +327,10 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
     status: "AVAILABLE" as const,
     coverage,
     totalMatched: totalExact,
-    totalMatchedExact: true as const,
-    totalMatchedSemantics: "exact" as const,
+    totalMatchedExact: !countPageInconsistent,
+    totalMatchedSemantics: countPageInconsistent
+      ? ("point_in_time_count_non_snapshot" as const)
+      : ("exact" as const),
     hasMore,
     nextOffset,
     offset,
@@ -325,10 +341,8 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
       preparationIdBound: true,
       modelChoseScope: false,
     },
-    note: undefined as string | undefined,
-  };
-
-  // Charge full returned envelope against D4 char budget.
+    note: corpusNote,
+  };  // Charge full returned envelope against D4 char budget.
   let charsCharged = chargeBudget(scope, payload);
   if (scope.budget.remainingChars <= 0 && charsCharged > 0) {
     // Budget exhausted by this payload — shrink items honestly.

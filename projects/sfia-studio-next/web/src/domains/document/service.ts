@@ -1,9 +1,15 @@
 import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversationTurnCommands, documentRevisions, documents } from "@/db/schema";
+import { documentRevisions, documents } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { getPreparationContext } from "@/domains/preparation/service";
+import {
+  assertTurnFenceInTx,
+  type TurnOwnershipFence,
+} from "@/domains/conversation/turn-command";
 import { createHash } from "node:crypto";
+
+export type { TurnOwnershipFence };
 
 const MAX_DOC_CHARS = 100_000;
 /** Max LCS cells (n+1)*(m+1). Beyond this, comparison degrades explicitly. */
@@ -159,13 +165,6 @@ async function latestRevisionFor(documentId: string) {
   )[0];
 }
 
-export type TurnOwnershipFence = {
-  commandId: string;
-  ownerToken: string;
-  /** Optional test injection before the ownership check inside the write TX. */
-  beforeFenceCheck?: () => Promise<void>;
-};
-
 export async function savePreparationDocument(
   pilotId: string,
   preparationId: string,
@@ -302,30 +301,8 @@ export async function savePreparationDocument(
   try {
     return await db.transaction(async (tx) => {
       if (opts?.turnFence) {
-        if (opts.turnFence.beforeFenceCheck) {
-          await opts.turnFence.beforeFenceCheck();
-        }
-        await tx.execute(
-          sql`select id from conversation_turn_commands
-              where id = ${opts.turnFence.commandId}
-                and owner_token = ${opts.turnFence.ownerToken}
-                and status in ('RUNNING', 'ACCEPTED')
-              for share`,
-        );
-        const fenceRow = (
-          await tx
-            .select({ id: conversationTurnCommands.id })
-            .from(conversationTurnCommands)
-            .where(
-              and(
-                eq(conversationTurnCommands.id, opts.turnFence.commandId),
-                eq(conversationTurnCommands.ownerToken, opts.turnFence.ownerToken),
-                sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-              ),
-            )
-            .limit(1)
-        )[0];
-        if (!fenceRow) {
+        const owned = await assertTurnFenceInTx(tx, opts.turnFence);
+        if (!owned) {
           return {
             status: "FAILED" as const,
             reason: "TURN_OWNERSHIP_LOST",

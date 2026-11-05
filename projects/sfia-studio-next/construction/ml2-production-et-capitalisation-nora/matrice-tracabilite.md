@@ -493,3 +493,21 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 | C1–C6 régression | PG+BROWSER FAKE | suites existantes PASS |
 | LIVE / CI / RECETTE | NOT RUN | hors mandat |
 
+## 18. As-Built turn integrity — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| TURN-ATOMIC-01 | PG PROVEN | revoke pre-terminal → 0 assistant, UNKNOWN |
+| TURN-ATOMIC-02 | PG PROVEN | CAS miss after INSERT → TX rollback |
+| TURN-ATOMIC-03 | PG PROVEN | COMPLETE + same-key replay |
+| TURN-LEASE-01 | PG PROVEN | active lease vs stale reconcile |
+| CAP-FENCE-01 | PG PROVEN | ensureSubject fence |
+| CAP-FENCE-02 | PG PROVEN | capitalizeAcquis fence |
+| CAP-FENCE-03 | PG PROVEN | openPoint fence |
+| CAP-FENCE-04 | PG PROVEN | acquis kept after revoke ; non-COMPLETE |
+| CAP-FENCE-05 | PG PROVEN | pilot path sans fence |
+| D4-PAGE-03 | PG PROVEN | delete between pages → STALE terminal |
+| SAFE-01 | PARTIAL | rollback CAS miss ; pas d'injection panne DB dédiée |
+| REG-01 | PROVEN | unit 52 / PG 78 / e2e 3 / tsc+build |
+| LIVE / CI / RECETTE | NOT RUN | hors mandat |
+

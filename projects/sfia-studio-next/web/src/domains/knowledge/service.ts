@@ -8,6 +8,10 @@ import {
 } from "@/db/schema";
 import { newId } from "@/lib/ids";
 import { getPreparationContext } from "@/domains/preparation/service";
+import {
+  assertTurnFenceInTx,
+  type TurnOwnershipFence,
+} from "@/domains/conversation/turn-command";
 
 export type Provenance = {
   sourceKind: "message" | "document" | "revision" | "pilot" | "nora";
@@ -80,6 +84,8 @@ export async function capitalizeAcquis(
     subjectId?: string | null;
     provenance: Provenance;
     supersedesAcquisId?: string;
+    /** Required when write is imputed to a Nora turn — verified inside the write TX. */
+    turnFence?: TurnOwnershipFence;
   },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
@@ -149,7 +155,13 @@ export async function capitalizeAcquis(
   }
 
   const id = newId("acq");
-  await db.transaction(async (tx) => {
+  const write = await db.transaction(async (tx) => {
+    if (input.turnFence) {
+      const owned = await assertTurnFenceInTx(tx as Tx, input.turnFence);
+      if (!owned) {
+        return { status: "OWNERSHIP_LOST" as const };
+      }
+    }
     await tx.insert(knowledgeAcquis).values({
       id,
       preparationId,
@@ -174,14 +186,23 @@ export async function capitalizeAcquis(
           ),
         );
     }
+    return { status: "OK" as const };
   });
+  if (write.status === "OWNERSHIP_LOST") {
+    return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+  }
   return { status: "AVAILABLE" as const, acquisId: id, kind };
 }
 
 export async function openPoint(
   pilotId: string,
   preparationId: string,
-  input: { statement: string; subjectId?: string | null; provenance: Provenance },
+  input: {
+    statement: string;
+    subjectId?: string | null;
+    provenance: Provenance;
+    turnFence?: TurnOwnershipFence;
+  },
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
   const statement = input.statement.trim();
@@ -194,16 +215,28 @@ export async function openPoint(
     }
   }
   const id = newId("opn");
-  await db.insert(knowledgeOpenPoints).values({
-    id,
-    preparationId,
-    projectId: ctx.project?.id ?? null,
-    ownerPilotId: pilotId,
-    subjectId: input.subjectId ?? null,
-    statement,
-    status: "OPEN",
-    provenanceJson: provenanceString(input.provenance),
+  const write = await db.transaction(async (tx) => {
+    if (input.turnFence) {
+      const owned = await assertTurnFenceInTx(tx as Tx, input.turnFence);
+      if (!owned) {
+        return { status: "OWNERSHIP_LOST" as const };
+      }
+    }
+    await tx.insert(knowledgeOpenPoints).values({
+      id,
+      preparationId,
+      projectId: ctx.project?.id ?? null,
+      ownerPilotId: pilotId,
+      subjectId: input.subjectId ?? null,
+      statement,
+      status: "OPEN",
+      provenanceJson: provenanceString(input.provenance),
+    });
+    return { status: "OK" as const };
   });
+  if (write.status === "OWNERSHIP_LOST") {
+    return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+  }
   return { status: "AVAILABLE" as const, openPointId: id };
 }
 
@@ -216,6 +249,7 @@ export async function ensureSubject(
   preparationId: string,
   title: string,
   parentSubjectId?: string | null,
+  turnFence?: TurnOwnershipFence,
 ) {
   const ctx = await assertPrep(pilotId, preparationId);
   const cleaned = title.trim().slice(0, 200);
@@ -240,18 +274,29 @@ export async function ensureSubject(
   )[0];
   if (existing) return { status: "AVAILABLE" as const, subjectId: existing.id, created: false };
   const id = newId("subj");
-  await db.insert(knowledgeSubjects).values({
-    id,
-    preparationId,
-    projectId: ctx.project?.id ?? null,
-    ownerPilotId: pilotId,
-    parentSubjectId: parentSubjectId ?? null,
-    title: cleaned,
-    status: "ACTIVE",
+  const write = await db.transaction(async (tx) => {
+    if (turnFence) {
+      const owned = await assertTurnFenceInTx(tx as Tx, turnFence);
+      if (!owned) {
+        return { status: "OWNERSHIP_LOST" as const };
+      }
+    }
+    await tx.insert(knowledgeSubjects).values({
+      id,
+      preparationId,
+      projectId: ctx.project?.id ?? null,
+      ownerPilotId: pilotId,
+      parentSubjectId: parentSubjectId ?? null,
+      title: cleaned,
+      status: "ACTIVE",
+    });
+    return { status: "OK" as const };
   });
+  if (write.status === "OWNERSHIP_LOST") {
+    return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
+  }
   return { status: "AVAILABLE" as const, subjectId: id, created: true };
 }
-
 /** Always creates a new subject identity (used by split). Title collision does not reuse. */
 async function createSubjectIdentity(
   tx: Tx,
@@ -688,6 +733,8 @@ export async function maybeCapitalizeFromExchange(
     assistantText: string;
     generationId: string;
     userMessageId: string;
+    /** Propagated into every D4 capitalisation write TX. */
+    turnFence?: TurnOwnershipFence;
   },
 ) {
   const results: Array<{
@@ -695,18 +742,42 @@ export async function maybeCapitalizeFromExchange(
     id?: string;
     status: string;
     epistemicNote?: string;
+    reason?: string;
   }> = [];
   const lower = `${input.userText}\n${input.assistantText}`.toLowerCase();
   const selectionLimit =
     "Capitalisation heuristique (regex/lexical) — pas une autorité épistémique; LIVE COG requis pour qualification.";
+  const fence = input.turnFence;
 
   let subjectId: string | null = null;
   const topicMatch = input.userText.match(
     /(?:sujet|thème|theme|à propos de|concernant)\s*[:«"]?\s*([^\n.«"]{4,80})/i,
   );
   if (topicMatch?.[1]) {
-    const s = await ensureSubject(pilotId, preparationId, topicMatch[1].trim());
-    if (s.status === "AVAILABLE" && s.subjectId) subjectId = s.subjectId;
+    const s = await ensureSubject(
+      pilotId,
+      preparationId,
+      topicMatch[1].trim(),
+      undefined,
+      fence,
+    );
+    if (s.status === "AVAILABLE" && s.subjectId) {
+      subjectId = s.subjectId;
+    } else if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
+      results.push({
+        kind: "subject",
+        status: "FAILED",
+        reason: "TURN_OWNERSHIP_LOST",
+        epistemicNote: selectionLimit,
+      });
+      return {
+        capitalisations: results,
+        selectionMethod: "lexical-heuristic" as const,
+        selectionLimit: "OWNERSHIP_LOST",
+        humanDecisionCreated: false as const,
+        ownershipLost: true as const,
+      };
+    }
   }
 
   // Stronger gate than keyword alone: require comparative structure or explicit durable ask
@@ -732,6 +803,7 @@ export async function maybeCapitalizeFromExchange(
       statement,
       kind,
       subjectId,
+      turnFence: fence,
       provenance: {
         sourceKind: "message",
         sourceId: input.userMessageId,
@@ -740,6 +812,21 @@ export async function maybeCapitalizeFromExchange(
         epistemic: kind === "RECOMMENDATION" ? "recommended" : "hypothesized",
       },
     });
+    if (cap.status === "FAILED" && "reason" in cap && cap.reason === "TURN_OWNERSHIP_LOST") {
+      results.push({
+        kind: "acquis",
+        status: "FAILED",
+        reason: "TURN_OWNERSHIP_LOST",
+        epistemicNote: selectionLimit,
+      });
+      return {
+        capitalisations: results,
+        selectionMethod: "lexical-heuristic" as const,
+        selectionLimit: "OWNERSHIP_LOST",
+        humanDecisionCreated: false as const,
+        ownershipLost: true as const,
+      };
+    }
     results.push({
       kind: "acquis",
       id: "acquisId" in cap ? cap.acquisId : undefined,
@@ -755,6 +842,7 @@ export async function maybeCapitalizeFromExchange(
     const op = await openPoint(pilotId, preparationId, {
       statement,
       subjectId,
+      turnFence: fence,
       provenance: {
         sourceKind: "message",
         sourceId: input.userMessageId,
@@ -762,6 +850,21 @@ export async function maybeCapitalizeFromExchange(
         epistemic: "limited",
       },
     });
+    if (op.status === "FAILED" && "reason" in op && op.reason === "TURN_OWNERSHIP_LOST") {
+      results.push({
+        kind: "open_point",
+        status: "FAILED",
+        reason: "TURN_OWNERSHIP_LOST",
+        epistemicNote: selectionLimit,
+      });
+      return {
+        capitalisations: results,
+        selectionMethod: "lexical-heuristic" as const,
+        selectionLimit: "OWNERSHIP_LOST",
+        humanDecisionCreated: false as const,
+        ownershipLost: true as const,
+      };
+    }
     results.push({
       kind: "open_point",
       id: "openPointId" in op ? op.openPointId : undefined,
@@ -775,9 +878,9 @@ export async function maybeCapitalizeFromExchange(
     selectionMethod: "lexical-heuristic" as const,
     selectionLimit,
     humanDecisionCreated: false as const,
+    ownershipLost: false as const,
   };
 }
-
 function extractSalientLine(text: string): string | null {
   const lines = text
     .split(/\n+/)

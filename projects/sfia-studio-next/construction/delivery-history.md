@@ -316,3 +316,21 @@ Append-only logical journal of Cursor product deliveries.
 | Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `LOCAL THREE-BLOCKER CORRECTIVE DELIVERY — READY FOR CHATGPT REVIEW` |
 
+## delivery_id: DELIV-2026-11-05-ML2-TURN-INTEGRITY-10
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~19:15 CET |
+| Macro-lot | R5 / ML2 — turn transactional integrity |
+| Type | INC corrective (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
+| Parent SHA | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | atomic `commitTurnTerminal` (FOR UPDATE + rollback on CAS miss) ; knowledge write fencing ; D4-PAGE-03 STALE termination |
+| Schema | unchanged (`006` already present) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 78 ; Playwright 3 ; tsc+lint+build PASS |
+| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
+

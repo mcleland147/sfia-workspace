@@ -17,6 +17,9 @@ import {
   documents,
   documentRevisions,
   knowledgeAcquis,
+  knowledgeOpenPoints,
+  knowledgeSubjects,
+  messages,
 } from "@/db/schema";
 import { createDevTestSession } from "@/domains/identity/session";
 import { openOrCreatePreparation } from "@/domains/preparation/service";
@@ -37,7 +40,11 @@ import {
   TURN_RUNNING_STALE_MS,
 } from "@/domains/conversation/turn-command";
 import { searchProjectResources } from "@/domains/conversation/d4-read-tools";
-import { ensureSubject } from "@/domains/knowledge/service";
+import {
+  capitalizeAcquis,
+  ensureSubject,
+  openPoint,
+} from "@/domains/knowledge/service";
 import { newId } from "@/lib/ids";
 import { newOperationId } from "@/lib/observability";
 import { StudioError } from "@/lib/http-errors";
@@ -70,6 +77,7 @@ describe("ML2 three-blocker corrective (PG)", () => {
     delete turnRaceHooks.afterGenerateBeforeEffects;
     delete turnRaceHooks.beforeD4Effect;
     delete turnRaceHooks.beforeTerminalCommit;
+    delete turnRaceHooks.insideTerminalTxAfterInsert;
     turnClock.nowMs = () => Date.now();
     // Unlock conversation for next case — force any leftover RUNNING → UNKNOWN.
     await db.execute(
@@ -358,6 +366,453 @@ describe("ML2 three-blocker corrective (PG)", () => {
       expect(result.reason).toMatch(/BUDGET/);
     } else {
       expect(JSON.stringify(result).length).toBeLessThanOrEqual(40 + 200); // charged before/at deny path
+    }
+  });
+
+  it("TURN-ATOMIC-01: revoke before terminal → no assistant committed, non-COMPLETE", async () => {
+    const key = `atomic01-${Date.now()}`;
+    const msgsBefore = (await listMessages(pilotId, preparationId)).filter(
+      (m) => m.role === "assistant",
+    ).length;
+
+    turnRaceHooks.beforeTerminalCommit = async () => {
+      const row = (
+        await db
+          .select()
+          .from(conversationTurnCommands)
+          .where(
+            and(
+              eq(conversationTurnCommands.conversationId, conversationId),
+              eq(conversationTurnCommands.clientTurnKey, key),
+            ),
+          )
+          .limit(1)
+      )[0];
+      await revokeOwnerTokenForTests(row!.id);
+      await db
+        .update(conversationTurnCommands)
+        .set({ status: "UNKNOWN", errorCategory: "ATOMIC01_REVOKE", updatedAt: new Date() })
+        .where(eq(conversationTurnCommands.id, row!.id));
+    };
+
+    const result = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Compare atomic01 option A et B",
+      { clientTurnKey: key },
+    );
+    expect(result.status).toBe("UNKNOWN");
+    expect(result.assistantMessageId).toBeNull();
+
+    const cmd = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.conversationId, conversationId),
+            eq(conversationTurnCommands.clientTurnKey, key),
+          ),
+        )
+        .limit(1)
+    )[0];
+    expect(cmd.status).toBe("UNKNOWN");
+    expect(cmd.assistantMessageId).toBeNull();
+
+    const assistants = (await listMessages(pilotId, preparationId)).filter(
+      (m) => m.role === "assistant",
+    );
+    expect(assistants.length).toBe(msgsBefore);
+  });
+
+  it("TURN-ATOMIC-02: CAS miss after INSERT in same TX rolls back assistant", async () => {
+    const key = `atomic02-${Date.now()}`;
+    const msgsBefore = (
+      await db
+        .select()
+        .from(messages)
+        .where(and(eq(messages.conversationId, conversationId), eq(messages.role, "assistant")))
+    ).length;
+
+    turnRaceHooks.insideTerminalTxAfterInsert = async (tx) => {
+      await tx.execute(
+        sql`update conversation_turn_commands
+            set owner_token = ${"revoked_atomic02_" + Date.now()}
+            where conversation_id = ${conversationId}
+              and client_turn_key = ${key}`,
+      );
+    };
+
+    const result = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Compare atomic02 rollback assistant",
+      { clientTurnKey: key },
+    );
+    expect(result.status).toBe("UNKNOWN");
+    expect(result.assistantMessageId).toBeNull();
+
+    const msgsAfter = (
+      await db
+        .select()
+        .from(messages)
+        .where(and(eq(messages.conversationId, conversationId), eq(messages.role, "assistant")))
+    ).length;
+    expect(msgsAfter).toBe(msgsBefore);
+
+    const cmd = (
+      await db
+        .select()
+        .from(conversationTurnCommands)
+        .where(
+          and(
+            eq(conversationTurnCommands.conversationId, conversationId),
+            eq(conversationTurnCommands.clientTurnKey, key),
+          ),
+        )
+        .limit(1)
+    )[0];
+    // CAS miss rolled back status change too — still RUNNING or cleaned UNKNOWN by afterEach.
+    // Must not be COMPLETE with orphan assistant.
+    expect(cmd.status).not.toBe("COMPLETE");
+    expect(cmd.assistantMessageId).toBeNull();
+  });
+
+  it("TURN-ATOMIC-03: successful COMPLETE then same-key replay recovers without second generation", async () => {
+    const key = `atomic03-${Date.now()}`;
+    const first = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Compare atomic03 reprise ACK",
+      { clientTurnKey: key },
+    );
+    expect(first.status).toBe("COMPLETE");
+    expect(first.assistantMessageId).toBeTruthy();
+
+    const replay = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Compare atomic03 reprise ACK",
+      { clientTurnKey: key },
+    );
+    expect(replay.status).toBe("COMPLETE");
+    expect(replay.idempotentReplay).toBe(true);
+    expect(replay.assistantMessageId).toBe(first.assistantMessageId);
+
+    const cmds = await db
+      .select()
+      .from(conversationTurnCommands)
+      .where(
+        and(
+          eq(conversationTurnCommands.conversationId, conversationId),
+          eq(conversationTurnCommands.clientTurnKey, key),
+        ),
+      );
+    expect(cmds).toHaveLength(1);
+  });
+
+  it("TURN-LEASE-01: active lease blocks false orphan under concurrent reconcile", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `lease01-${Date.now()}`,
+      content: "Lease concurrent actif",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+
+    await touchTurnLease(reserved.commandId, reserved.ownerToken);
+    const recon = await reconcileRunningCommand(reserved.commandId);
+    expect(recon.status).toBe("RUNNING");
+    expect(recon.reconciled).toBe(false);
+    expect(await requireTurnOwnership(reserved.commandId, reserved.ownerToken)).toBe(true);
+
+    await injectStaleRunningForTests(reserved.commandId);
+    const stale = await reconcileRunningCommand(reserved.commandId);
+    expect(stale.status).toBe("UNKNOWN");
+    expect(stale.reconciled).toBe(true);
+  });
+
+  it("CAP-FENCE-01: revoke during ensureSubject → no subject created", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `cap01-${Date.now()}`,
+      content: "fence subject",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+    const title = `CAP_FENCE_SUBJ_${Date.now()}`;
+    const before = (
+      await db
+        .select()
+        .from(knowledgeSubjects)
+        .where(
+          and(
+            eq(knowledgeSubjects.preparationId, preparationId),
+            eq(knowledgeSubjects.title, title),
+          ),
+        )
+    ).length;
+
+    const result = await ensureSubject(pilotId, preparationId, title, undefined, {
+      commandId: reserved.commandId,
+      ownerToken: reserved.ownerToken,
+      beforeFenceCheck: async () => {
+        await revokeOwnerTokenForTests(reserved.commandId);
+      },
+    });
+    expect(result.status).toBe("FAILED");
+    expect("reason" in result && result.reason).toBe("TURN_OWNERSHIP_LOST");
+    const after = (
+      await db
+        .select()
+        .from(knowledgeSubjects)
+        .where(
+          and(
+            eq(knowledgeSubjects.preparationId, preparationId),
+            eq(knowledgeSubjects.title, title),
+          ),
+        )
+    ).length;
+    expect(after).toBe(before);
+  });
+
+  it("CAP-FENCE-02: revoke during capitalizeAcquis → no acquis", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `cap02-${Date.now()}`,
+      content: "fence acquis",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+    const statement = `CAP_FENCE_ACQ durable statement ${Date.now()} with enough length`;
+    const before = (
+      await db
+        .select()
+        .from(knowledgeAcquis)
+        .where(
+          and(
+            eq(knowledgeAcquis.preparationId, preparationId),
+            eq(knowledgeAcquis.statement, statement),
+          ),
+        )
+    ).length;
+
+    const result = await capitalizeAcquis(pilotId, preparationId, {
+      statement,
+      kind: "HYPOTHESIS",
+      provenance: {
+        sourceKind: "message",
+        sourceId: "msg_test",
+        generationId: "gen_test",
+        epistemic: "hypothesized",
+      },
+      turnFence: {
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        beforeFenceCheck: async () => {
+          await revokeOwnerTokenForTests(reserved.commandId);
+        },
+      },
+    });
+    expect(result.status).toBe("FAILED");
+    expect("reason" in result && result.reason).toBe("TURN_OWNERSHIP_LOST");
+    const after = (
+      await db
+        .select()
+        .from(knowledgeAcquis)
+        .where(
+          and(
+            eq(knowledgeAcquis.preparationId, preparationId),
+            eq(knowledgeAcquis.statement, statement),
+          ),
+        )
+    ).length;
+    expect(after).toBe(before);
+  });
+
+  it("CAP-FENCE-03: revoke during openPoint → no open point", async () => {
+    const reserved = await reserveTurnCommand({
+      conversationId,
+      ownerPilotId: pilotId,
+      clientTurnKey: `cap03-${Date.now()}`,
+      content: "fence open",
+    });
+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
+    const statement = `Point ouvert CAP_FENCE ${Date.now()}`;
+    const before = (
+      await db
+        .select()
+        .from(knowledgeOpenPoints)
+        .where(
+          and(
+            eq(knowledgeOpenPoints.preparationId, preparationId),
+            eq(knowledgeOpenPoints.statement, statement),
+          ),
+        )
+    ).length;
+
+    const result = await openPoint(pilotId, preparationId, {
+      statement,
+      provenance: { sourceKind: "message", epistemic: "limited" },
+      turnFence: {
+        commandId: reserved.commandId,
+        ownerToken: reserved.ownerToken,
+        beforeFenceCheck: async () => {
+          await revokeOwnerTokenForTests(reserved.commandId);
+        },
+      },
+    });
+    expect(result.status).toBe("FAILED");
+    expect("reason" in result && result.reason).toBe("TURN_OWNERSHIP_LOST");
+    const after = (
+      await db
+        .select()
+        .from(knowledgeOpenPoints)
+        .where(
+          and(
+            eq(knowledgeOpenPoints.preparationId, preparationId),
+            eq(knowledgeOpenPoints.statement, statement),
+          ),
+        )
+    ).length;
+    expect(after).toBe(before);
+  });
+
+  it("CAP-FENCE-04: acquis committed before revoke survives; turn stays non-COMPLETE", async () => {
+    const key = `cap04-${Date.now()}`;
+    const statement = `CAP04_KEEP_${Date.now()} hypothèse durable commitée avant révocation du tour`;
+    turnRaceHooks.beforeTerminalCommit = async () => {
+      const row = (
+        await db
+          .select()
+          .from(conversationTurnCommands)
+          .where(
+            and(
+              eq(conversationTurnCommands.conversationId, conversationId),
+              eq(conversationTurnCommands.clientTurnKey, key),
+            ),
+          )
+          .limit(1)
+      )[0];
+      // Valid D4 write while ownership still holds.
+      const cap = await capitalizeAcquis(pilotId, preparationId, {
+        statement,
+        kind: "HYPOTHESIS",
+        provenance: {
+          sourceKind: "message",
+          sourceId: row!.userMessageId ?? "msg",
+          generationId: row!.generationId ?? "gen",
+          epistemic: "hypothesized",
+        },
+        turnFence: { commandId: row!.id, ownerToken: row!.ownerToken! },
+      });
+      expect(cap.status).toBe("AVAILABLE");
+      await revokeOwnerTokenForTests(row!.id);
+      await db
+        .update(conversationTurnCommands)
+        .set({ status: "UNKNOWN", errorCategory: "CAP04_REVOKE", updatedAt: new Date() })
+        .where(eq(conversationTurnCommands.id, row!.id));
+    };
+
+    const result = await postUserMessageAndNora(
+      pilotId,
+      preparationId,
+      "Compare CAP04 option reprise après effet D4 déjà durable",
+      { clientTurnKey: key },
+    );
+    expect(result.status).toBe("UNKNOWN");
+    expect(result.assistantMessageId).toBeNull();
+
+    const kept = await db
+      .select()
+      .from(knowledgeAcquis)
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.statement, statement),
+        ),
+      );
+    expect(kept).toHaveLength(1);
+    expect(kept[0].status).toBe("CURRENT");
+  });
+
+  it("CAP-FENCE-05: pilot path without turnFence still creates subject", async () => {
+    const title = `PILOT_NO_FENCE_${Date.now()}`;
+    const result = await ensureSubject(pilotId, preparationId, title);
+    expect(result.status).toBe("AVAILABLE");
+    expect(result.subjectId).toBeTruthy();
+  });
+
+  it("D4-PAGE-03: concurrent delete between pages terminates without stagnant cursor", async () => {
+    const marker = `PAGE03_${Date.now()}`;
+    const subject = await ensureSubject(pilotId, preparationId, `Page03 ${Date.now()}`);
+    const ids: string[] = [];
+    for (let i = 0; i < 40; i++) {
+      const id = newId("acq");
+      ids.push(id);
+      await db.insert(knowledgeAcquis).values({
+        id,
+        preparationId,
+        ownerPilotId: pilotId,
+        subjectId: subject.subjectId!,
+        kind: "HYPOTHESIS",
+        statement: `Acquis ${marker} n=${i.toString().padStart(3, "0")}`,
+        provenanceJson: JSON.stringify({ sourceKind: "pilot", epistemic: "hypothesized" }),
+        status: "CURRENT",
+      });
+    }
+
+    const scope = {
+      pilotId,
+      preparationId,
+      operationId: newOperationId(),
+      generationId: newId("gen"),
+      budget: { remainingCalls: 20, remainingChars: 2_000_000 },
+    };
+
+    const first = await searchProjectResources(scope, {
+      query: marker,
+      types: ["acquis"],
+      limit: 10,
+      offset: 0,
+    });
+    expect(first.status).toBe("AVAILABLE");
+    if (first.status !== "AVAILABLE") throw new Error("available");
+    expect(first.hasMore).toBe(true);
+    const next = first.nextOffset!;
+    expect(next).toBeGreaterThan(0);
+
+    // Concurrent mutation: delete all remaining matches before next page.
+    await db
+      .update(knowledgeAcquis)
+      .set({ status: "SUPERSEDED", updatedAt: new Date() })
+      .where(
+        and(
+          eq(knowledgeAcquis.preparationId, preparationId),
+          eq(knowledgeAcquis.ownerPilotId, pilotId),
+          sql`${knowledgeAcquis.statement} like ${"%" + marker + "%"}`,
+        ),
+      );
+
+    const second = await searchProjectResources(scope, {
+      query: marker,
+      types: ["acquis"],
+      limit: 10,
+      offset: next,
+    });
+    expect(second.status).toBe("AVAILABLE");
+    if (second.status !== "AVAILABLE") throw new Error("available");
+    // Must terminate — never empty+hasMore with stagnant offset.
+    if (second.items.length === 0) {
+      expect(second.hasMore).toBe(false);
+      expect(second.nextOffset).toBeNull();
+      expect(second.coverage).toBe("STALE");
+      expect(second.totalMatchedExact).toBe(false);
+    } else {
+      if (second.hasMore) {
+        expect(second.nextOffset).not.toBeNull();
+        expect(second.nextOffset!).toBeGreaterThan(next);
+      }
     }
   });
 });

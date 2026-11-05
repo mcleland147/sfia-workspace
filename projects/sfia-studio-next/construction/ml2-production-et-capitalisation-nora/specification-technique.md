@@ -918,3 +918,27 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
 | tsc / build | PASS |
 | LIVE / CI / RECETTE | **NOT RUN** |
 
+## 25. As-Built turn integrity corrective — 2026-11-05 (local)
+
+> **LOCAL CORRECTIVE on `57f6fc54` / same branch / no project push.** Intégrité transactionnelle après revue handoff `4fbf624f`.
+
+### 25.1 Invariants
+
+| ID | Invariant |
+| --- | --- |
+| A1 terminal | `FOR UPDATE` puis INSERT assistant puis CAS ; CAS miss ⇒ rollback TX (`TurnTerminalCasMissError`) — aucun assistant orphelin |
+| A2 reconcile | `FOR UPDATE` sur commande avant révocation ; attend les fences D4 / terminal |
+| B capitalisation | `turnFence` dans `ensureSubject` / `capitalizeAcquis` / `openPoint` via `assertTurnFenceInTx` ; stop si `OWNERSHIP_LOST` |
+| Effets antérieurs | acquis déjà CURRENT avant révocation conservés ; pas de COMPLETE après CAS miss |
+| D4-PAGE-03 | page vide sous mutation ⇒ `coverage=STALE`, `hasMore=false`, pas de curseur stagnant |
+
+### 25.2 Preuves
+
+| Suite | Résultat |
+| --- | --- |
+| unit | 52 PASS |
+| PG | 78 PASS (TURN-ATOMIC / CAP-FENCE / D4-PAGE-03) |
+| Playwright FAKE | 3 PASS |
+| tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
+| LIVE / CI / RECETTE | **NOT RUN** |
+

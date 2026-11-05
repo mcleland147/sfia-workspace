@@ -253,6 +253,7 @@ export async function postUserMessageAndNora(
     selectionLimit:
       "Capitalisation heuristique — pas une autorité épistémique; LIVE COG requis pour qualification.",
     humanDecisionCreated: false,
+    ownershipLost: false,
   };
   let capitalisationError: string | undefined;
   let documentSave: Awaited<ReturnType<typeof savePreparationDocument>> | null = null;
@@ -272,7 +273,15 @@ export async function postUserMessageAndNora(
           assistantText: reply.content,
           generationId: reply.generationId,
           userMessageId: reserved.userMessageId,
+          turnFence: {
+            commandId: reserved.commandId,
+            ownerToken: reserved.ownerToken,
+            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
+          },
         });
+        if (capitalisation.ownershipLost) {
+          ownershipLostBeforeD4 = true;
+        }
       } catch {
         capitalisationError = "CAPITALISATION_EXCEPTION";
         emitObs({
