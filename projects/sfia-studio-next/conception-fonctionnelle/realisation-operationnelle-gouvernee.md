@@ -378,3 +378,11 @@ D8 qualifie les acquis et limites ; D3 en assure la traduction métier ; D6 cons
 **R4 :** qualifier interruption effective par adaptateur, identité de tentative, accusés, provenance, persistance et risques de duplication. **R5/R6 :** tester l'arrêt disponible/indisponible, l'absence de confirmation, les effets partiels après STOP, le redémarrage/retry, les collisions de version et la suspension humaine, avec preuves adaptées et sans prétendre à une supervision cognitive continue.
 
 **Statut : précision fonctionnelle D7 validée par Morris, NON IMPLÉMENTÉ / NON PROUVÉ, publiée sur branche candidate uniquement.**
+
+## 10. Interface de diagnostic transverse — exécutions D7 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / INTERFACE CANDIDATE — D7 non implémenté dans ML2.** [Contrat transverse d'observabilité R4](../architecture-technique/contrat-observabilite-transverse.md). D7 demeure l'unique propriétaire des contrats de réalisation, instructions, dispatchs, tentatives, ACK, réconciliation et arrêt ; une trace ne remplace aucun de ces objets.
+
+**Contrat D7 :** une commande de réalisation autorisée peut être reliée à l'identité du contrat/version, aux contrôles de capacité/droits courants, à chaque tentative fournisseur, aux retours disponibles, à la demande/confirmation de STOP et aux effets connus ou inconnus. Le numéro de tentative n'est ni une preuve d'exécution réussie ni une autorisation pour recommencer. Une coupure réseau après dispatch produit potentiellement UNKNOWN et impose une réconciliation avant toute répétition.
+
+**Négatifs et acceptation au lot propriétaire :** ACK perdu, webhook en retard/dupliqué, STOP demandé non confirmé, effet externe partiel, mandat D6 révoqué, panne du collecteur et reprise sans double effet. **Oracle :** tentative et effet D7 véritables, preuves D8 distinctes, traçabilité sans exposer les secrets de l'exécuteur. Aucune intégration Cursor/Git supplémentaire n'est ouverte par ce document.
