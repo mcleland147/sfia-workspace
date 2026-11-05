@@ -308,3 +308,30 @@ La matrice QA du macro-lot conserve **une ligne par scénario comparatif utile**
 **Instanciation ML2 candidate :** [Spécification technique — Produire et capitaliser avec Nora](ml2-production-et-capitalisation-nora/specification-technique.md) et [matrice R1–R5 / UX / QA / ChatGPT ↔ Nora](ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Ces deux documents sont des **propositions D0**, non des contrats de construction déjà approuvés ; leur publication candidate ne vaut pas GO D3.
 
 **Intégration au processus existant :** préparer les cas à la qualification du lot, les exécuter durant le delivery/RECETTE, en débattre lors de la revue de sortie. **Pas de cycle, PR, moteur ou validation supplémentaire systématique.** ChatGPT recommande, Morris tranche ; les écarts acceptés restent tracés avec conditions de sortie. **ML2 : D0 de spécification en cours, aucun GO technique/PR/merge/STABLE/ADOPTED déduit de cet addendum.**
+
+## 15. Complément candidat — diagnostic des missions cognitives et protocole de mesure (2026-11-05)
+
+> **PROPOSED / NOT VALIDATED BY MORRIS.** Complète le §14 **déjà validé** de comparaison ChatGPT–Nora : aucune nouvelle méthode de benchmark, aucun nouvel évaluateur autonome ni gate universel. Sources R1 §2.2/E2E 03, règles candidates D3 §14/D4 §10, R3 §40, R4 §11 et matrice ML2. La PR #655 et ses preuves déterministes/DB/BROWSER FAKE n'attestent pas encore la qualité cognitive LIVE, la politique modèle/effort ou la boucle de lecture D4 ; tous ces résultats restent NOT PROVEN tant que les cas applicables ne sont pas exécutés.
+
+### 15.1. Résultat du dispositif de mesure
+
+Pour chaque mission représentative, mettre en regard **(a) l'activité réellement exécutée, (b) la qualité du résultat pour le Pilote et (c) les coûts/limites mesurés**. Les traces du SDK documentent l'activité, pas le raisonnement caché ; ChatGPT produit une réponse de comparaison indépendante et faillible, les faits déterminants sont vérifiés à leurs sources, Morris arbitre la valeur utilisateur.
+
+**Observations minimales candidates :** scénario et contexte/permissions déclarés ; SHA/lane ; identifiant d'échange/génération et tentatives ; version de politique, configuration modèle/effort effective ; classification/motifs non sensibles ; appels outils et références/version des sources ; chronologie/erreurs/annulations ; latence et usage réellement connus, coût calculé à partir de tarifs explicités ; résultat PARTIAL/COMPLETE/FAILED/INTERRUPTED/UNKNOWN ; appréciation indépendante sur compréhension, faits, contradictions, couverture, initiative, pertinence et proportionnalité. Les champs manquants ne doivent pas être inventés, les contenus sensibles sont expurgés.
+
+### 15.2. Oracles supplémentaires dans la matrice ML2 existante
+
+- **Simple sans surinvestigation :** pas de classification IA ni d'appel D4 supplémentaire sans raison ; réponse et coût proportionnés.
+- **Complexe avec D4 :** plusieurs passages réellement recherchés sous droits actuels, sources/versions utiles, limites de couverture déclarées, conclusion étayée ou partielle.
+- **Contradiction en cours de mission :** approfondissement borné ou décision d'arrêter justifiée par des observations ; pas de boucle ni d'autorité nouvelle.
+- **Panne/timeout/retry :** tentative fournisseur visible, pas de double comptage d'une seule génération ni de faux résultat réussi ; corrélation du fallback streaming.
+- **Diagnostic indépendant :** opérateur habilité pouvant expliquer le chemin visible et examiner une redondance ou un manque, sans inventer la motivation mentale du modèle.
+- **Qualité cognitive :** variantes COG-01..07, réponse ChatGPT indépendante lorsque utile, fact-check externe à Nora, désaccord motivé non assimilé automatiquement à un échec.
+
+### 15.3. Périmètre candidat à arbitrer avant RECETTE
+
+**Recommandation de qualification, pas GO :** considérer en premier un socle cohérent ML2 (configuration explicite Sol/effort, qualification proportionnée, multi-étapes bornées avec une capacité D4 autorisée si faisable, traces natives corrélables et QA LIVE correspondante). L'intégration doit former un résultat prouvable avec code/tests/docs du même macro-lot ; ne pas fragmenter en micro-livraisons. D5/D6/ML3, Git/ML4 et actions externes gouvernées/ML5 ne sont pas avancés implicitement.
+
+**Option de report :** si les impacts/risques de mission multi-étapes, du tracing ou de la lecture D4 excèdent le mandat et la maturité ML2, conserver les exigences validées antérieures, recetter honnêtement le périmètre réalisable, documenter chaque écart avec propriétaire, risque, condition de sortie et nouveau gate Morris. Le verdict comparatif ne doit pas devenir « Nora équivalente à ChatGPT » sur un seul exemple ni après simple réussite technique.
+
+**Traçabilité :** utiliser la matrice ML2 et R5 §14, sans document de campagne concurrent. La décision de publication, la PR/merge, le GO Cursor, la RECETTE, R6 et ADOPTED restent distincts.
