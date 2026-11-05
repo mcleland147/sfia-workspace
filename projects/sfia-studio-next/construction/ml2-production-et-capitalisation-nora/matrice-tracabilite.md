@@ -270,7 +270,7 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 
 ## 8. Extension candidate de traçabilité — autonomie et observabilité cognitive (2026-11-05)
 
-> **PROPOSED / NOT VALIDATED BY MORRIS / NOT TESTED.** Extension de la présente matrice, pas nouveau référentiel QA. Les preuves C3/C4/C1 et les anciens statuts COG-01..07 sont conservés à leur niveau réellement observé. Références : R1 §2.2/E2E 03 ; R2 D3 §14 règles RG-CONV-007..012 / RG-CTX-009..011 et PF-36..41 ; R2 D4 §10 RG-KNOW-021..023 / PF-KNOW-15..17 ; R3 §40 ; R4 §11 ; R5 §15 ; ML2 spec §15.
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / NOT TESTED / NOT BEHAVIOR PROVEN.** Extension de la présente matrice, pas nouveau référentiel QA. Les preuves C3/C4/C1 et les anciens statuts COG-01..07 sont conservés à leur niveau réellement observé. Références : R1 §2.2/E2E 03 ; R2 D3 §14 règles RG-CONV-007..012 / RG-CTX-009..011 et PF-36..41 ; R2 D4 §10 RG-KNOW-021..023 / PF-KNOW-15..17 ; R3 §40 ; R4 §11 ; R5 §15 ; ML2 spec §15.
 
 ### 8.1. Couverture fonctionnelle candidate et oracles
 
