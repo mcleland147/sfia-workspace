@@ -434,3 +434,22 @@ Les reports vers ML3 (cycles/trajectoire), ML4 (Git D9), ML5 (exécutions/preuve
 **Pragmatisme :** préférer une capture structurée réellement durable et consultable à une plateforme de supervision prématurée. Étudier OpenTelemetry Next et tracing Agents SDK sur leurs versions verrouillées, vérifier privacy/retention/exporteur avant LIVE. Les logs non critiques suivent DATA-01 ; isolation et SHA de RECETTE suivent ENV-01. Un succès de CI au SHA #655 ne couvre pas cette extension. Conserver ML2 comme **un seul macro-lot**, pas deux PR techniques autonomes cognition/observabilité sans justificatif.
 
 **Dette/exits :** alerting avancé, métriques D5–D9 et dashboard Pilote reportés à leurs propriétaires ; choix de collecteur/exporteur, preuve de consultation, rétention fournisseur, contrôle des coûts et compatibilité SDK restent à résoudre avant exécution. GO technique, PR, merge, RECETTE et ADOPTED indépendants.
+
+## 20. ML2 — intégration de la cognition et du diagnostic en un contrat technique (2026-11-05)
+
+> **D0 TECHNICAL CONSOLIDATION CANDIDATE — GO TO DESIGN BY MORRIS 2026-11-05 ; NO GO CURSOR / NO RECETTE / NO PR OR MERGE.** Le résultat, les interfaces et les risques détaillés résident dans [ML2 §20](ml2-production-et-capitalisation-nora/specification-technique.md), les preuves dans [matrice §13](ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Cette section ne crée pas de macro-lot indépendant et ne révise ni R4 ni la décision de trajectoire C.
+
+**Outcome et suite :** rendre Nora réellement capable d'investigation complémentaire D4 et produire un diagnostic consultable sur les chemins actuellement implémentés, avant la RECETTE du même ML2. Successeur : ML3 cycles/trajectoire et domaines ultérieurs uniquement après verdict de ML2, sans inventer D5–D9.
+
+| Séquence interne intégrée | Livrable | Condition de passage |
+| --- | --- | --- |
+| 1. Contrat technique R5/ML2 | SDK `0.21.0` vérifié sur source officielle, frontières D1–D4, modèle/effort/bornes, outils, HTTP, idempotence de tour et diagnostic | Enveloppes statuts et permissions arrêtées, choix d'exploitation et coûts non sensibles qualifiés, aucun pivot implicite |
+| 2. Construction D3 sous SFIA v2.6 | Adapter Runner/streaming, outils D4 read-only, gestion fiable des tours/écritures, API/AUTH/DB et télémétrie native sécurisée avec consultation | Même code/CI/QA/doc ; Cursor sous GO technique spécifique, local Git truth check et rapport/handoff |
+| 3. Qualification intégrée | Réponses simples/complexes, sources/version refusées, poursuite limitée, incidents HTTP/DB/SDK et effets D4 confirmés | C1–C6, COG-01..07, OBS-Q01..10, niveaux DETERMINISTIC/PG/BROWSER/LIVE, sécurité et SHA/lane |
+| 4. Préparation RECETTE | Candidat SHA figé, lanes ENV-01, diagnostic retrouvable après redémarrage et rapport source/faits | Gate d'entrée Morris spécifique et bilan des lacunes ; aucun statut ADOPTED automatique |
+
+**Gates Git/CI :** les PR #655–#658 sont empilées, non intégrées à `main` ; branche documentaire de conception également non mergée. Le workflow Next du code #655 se déclenche sur `pull_request` ciblant `main` et `push` sur `main` : une PR empilée vers une branche intermédiaire ne démontre pas nécessairement ce gate. La CI Next a terminé `SUCCESS` sur le SHA de code `08b89360` (workflow 41999186495), mais **aucune CI ni preuve LIVE** ne couvre une future extension D3/observabilité. Qualifier base technique, stratégie de PR, déclenchement de CI et vérification distante avant tout mandat ; aucun rebase, retarget ou PR par défaut.
+
+**Fichiers et responsabilités :** D1 session/auth ; D2 préparation/fil ; D3 Nora ; D4 connaissance, documents et transactions ; API routes/DB/diagnostic ; UX si état visible ; tests/unitaires/PG/HTTP/BROWSER/LIVE ; CI et documentation dans un seul lot. Un changement de contrat public, de DB ou de stratégie de sécurité peut imposer un gate Morris spécifique.
+
+**Risque/exit dominant :** conserver une capacité produit utile sans multiplier les mécanismes. Le contrat requiert une vraie lecture D4 pendant un run, un diagnostic retrouvé et expurgé, des erreurs fidèles et des preuves d'intégrité sans régression. La sélection effective du modèle/effort, les budgets, la gestion des retries HTTP et stream, l'outil de consultation et ses droits doivent encore être arrêtés avant prompt. **ChatGPT consolide et challenge ; Cursor exécute uniquement sous mandat ; Morris arbitre l'acceptation.**
