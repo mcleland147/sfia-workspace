@@ -422,3 +422,15 @@ Les reports vers ML3 (cycles/trajectoire), ML4 (Git D9), ML5 (exécutions/preuve
 5. **Gates de sortie :** QA déterministe et PostgreSQL, BROWSER, LIVE Nora et traçabilité vérifiable sur le SHA/lane ; RECETTE Morris spécifique, PR/readiness/merge puis STABLE/ADOPTED indépendants.
 
 **Gaps et exits à porter :** lecture ciblée D4 performante si corpus croît, revalidation d'autorité pendant la mission, séparation de l'état technique et de l'incomplétude cognitive, retry fournisseur, sécurité des prompts/sources, vérification de la compatibilité SDK, politique de coût et diagnostics exportés. Chaque report non bloquant garde propriétaire, risque et exit. **État courant : DESIGN DOCUMENTED / NOT IMPLEMENTED / NO NEW TESTS / NO GO CURSOR / NO RECETTE**.
+
+## 19. Intégration du diagnostic dans le delivery ML2 (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+**Ordre du même macro-lot :** (1) vision D3↔D4 documentée §18 ; (2) contrat d'observation et de corrélation §19 ; (3) consolidation du contrat technique unique ; (4) GO Cursor D3 spécifique ; (5) code + QA + docs alignées sur la même branche technique ; (6) qualification déterministe/DB/BROWSER/LIVE et accès au diagnostic en RECETTE sous SHA figé ; (7) verdict Morris ; (8) intégration Git puis promotion à gates distincts.
+
+**Acceptation :** un examinateur autorisé retrouve une opération avec contexte réel de build/lane, request/operation/generation/attempt et sources D4 réellement reçues, état HTTP/AUTH/DB, limites, latence/usage lorsque disponibles et effet D4 confirmé ; les erreurs et lacunes ne sont jamais maquillées. Les observations restent séparées de la comparaison qualitative ChatGPT–Nora et de HumanDecision.
+
+**Pragmatisme :** préférer une capture structurée réellement durable et consultable à une plateforme de supervision prématurée. Étudier OpenTelemetry Next et tracing Agents SDK sur leurs versions verrouillées, vérifier privacy/retention/exporteur avant LIVE. Les logs non critiques suivent DATA-01 ; isolation et SHA de RECETTE suivent ENV-01. Un succès de CI au SHA #655 ne couvre pas cette extension. Conserver ML2 comme **un seul macro-lot**, pas deux PR techniques autonomes cognition/observabilité sans justificatif.
+
+**Dette/exits :** alerting avancé, métriques D5–D9 et dashboard Pilote reportés à leurs propriétaires ; choix de collecteur/exporteur, preuve de consultation, rétention fournisseur, contrôle des coûts et compatibilité SDK restent à résoudre avant exécution. GO technique, PR, merge, RECETTE et ADOPTED indépendants.
