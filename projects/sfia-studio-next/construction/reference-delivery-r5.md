@@ -311,7 +311,7 @@ La matrice QA du macro-lot conserve **une ligne par scénario comparatif utile**
 
 ## 15. Complément candidat — diagnostic des missions cognitives et protocole de mesure (2026-11-05)
 
-> **PROPOSED / NOT VALIDATED BY MORRIS.** Complète le §14 **déjà validé** de comparaison ChatGPT–Nora : aucune nouvelle méthode de benchmark, aucun nouvel évaluateur autonome ni gate universel. Sources R1 §2.2/E2E 03, règles candidates D3 §14/D4 §10, R3 §40, R4 §11 et matrice ML2. La PR #655 et ses preuves déterministes/DB/BROWSER FAKE n'attestent pas encore la qualité cognitive LIVE, la politique modèle/effort ou la boucle de lecture D4 ; tous ces résultats restent NOT PROVEN tant que les cas applicables ne sont pas exécutés.
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; périmètre technique/RECETTE encore à arbitrer.** Complète le §14 **déjà validé** de comparaison ChatGPT–Nora : aucune nouvelle méthode de benchmark, aucun nouvel évaluateur autonome ni gate universel. Sources R1 §2.2/E2E 03, règles candidates D3 §14/D4 §10, R3 §40, R4 §11 et matrice ML2. La PR #655 et ses preuves déterministes/DB/BROWSER FAKE n'attestent pas encore la qualité cognitive LIVE, la politique modèle/effort ou la boucle de lecture D4 ; tous ces résultats restent NOT PROVEN tant que les cas applicables ne sont pas exécutés.
 
 ### 15.1. Résultat du dispositif de mesure
 
