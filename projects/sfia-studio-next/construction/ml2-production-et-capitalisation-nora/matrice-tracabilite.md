@@ -379,3 +379,26 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 **Non-régression obligatoire :** C1–C6, provenance D4, unicité du fil, création/révision idempotente, absence de HumanDecision ou d'effet externe implicite ; CI Next sur la révision **effectivement exécutée** et non déduite d'un ancien SHA. OBS-Q01..10 et diagnostic exploitable restent à consolider lors de l'étape 2 ; une interface proposée ou un test écrit sans exécution ne reçoit jamais PASS.
 
 **Gates :** cette matrice est une spécification d'acceptation **DOCUMENTED / NOT RUN** ; elle ne constitue ni validation des signatures SDK, ni preuve de capacité LIVE, ni GO D3 Cursor, ni entrée en RECETTE. Le verdict de l'étape 1 reste **DESIGN CANDIDATE** jusqu'à qualification des compatibilités et arbitrages techniques résiduels.
+
+## 12. Précisions de preuve OBS au chemin intégré ML2 (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), sans renuméroter ni créer une seconde campagne. Tous sont **NOT RUN** pour la nouvelle construction.
+
+| Oracle existant | Variante de preuve concrète | Niveau et source de vérité |
+| --- | --- | --- |
+| OBS-Q01 | OAuth refusé, callback/provisionnement/DB différenciés, session DEV jamais présentée comme OAuth LIVE | INTEGRATION + LIVE ciblé, D1/Better Auth |
+| OBS-Q02 | Débrancher DB sur route messages ou documents avec session valide ; jamais faux 401, retour HTTP sûr et diagnostic disponible | HTTP/INTEGRATION, catégorie API et dépendance DB |
+| OBS-Q03 | Lecture D4 interprojet/révoquée pendant mission ; pas d'extrait ou titre interdit en trace/réponse | PG/INTEGRATION, D4 owner/current permissions |
+| OBS-Q04 | Streaming échoué, fallback réel : une génération, deux tentatives si envoyées, chacune datée/mesurée | DETERMINISTIC + LIVE, adaptateur D3/SDK ; mesure indisponible déclarée |
+| OBS-Q05 | Création ou révision D4 confirmée puis ACK perdu : même commande réconciliée, pas deux révisions | PG + BROWSER, D4 C1–C6 et correlationKey |
+| OBS-Q06 | Limite, timeout, STOP demandé/non confirmé ; résultat cognitif et état technique distincts | DETERMINISTIC + LIVE, D3 et source des événements |
+| OBS-Q07 | Export/collecte arrêté ou trace SDK absente ; diagnostic incomplet affiché, effet D4 inchangé | INTEGRATION + consultation par ID et lacune observée |
+| OBS-Q08 | Délais API/DB mesurés aux bons composants, sans SQL/valeurs personnelles | INTEGRATION, métrologie réelle (pas seuil inventé) |
+| OBS-Q09 | Erreur contenant token synthétique ; aucune fuite UI, journal/trace/export, review/handoff | DETERMINISTIC + INTEGRATION, inspection expurgée |
+| OBS-Q10 | Deux builds/lanes ; ID de diagnostic correspond au **build réellement servi**, encore interrogeable après redémarrage | INTEGRATION + BROWSER et collecte par lane |
+
+**Scénario intégrateur recommandé :** comparer deux documents D4 contradictoires ; Nora effectue une lecture complémentaire pendant run ; enregistrer la configuration appliquée, les tentatives réellement émises, la lecture reçue, les versions, la réponse/limite et le coût connu ; consulter la chronologie après redémarrage ; vérifier la vérité D4 indépendamment ; puis comparer Nora et ChatGPT sur même corpus selon R5 §14. Vérifier aussi secret synthétique, DB indisponible, refus D4 et exporter absent. Un avis ChatGPT n'est pas une preuve runtime.
+
+**Gates :** absence de données observées = `NOT OBSERVED` / `NOT RUN` ; aucune suppression des réserves ML1, aucune réécriture des As-Built ML2. OBS-Q11 et OBS-Q12 restent hors périmètre jusqu'à D9/D7. Le protocole appartient à la matrice ML2 existante, pas à un nouveau référentiel.
