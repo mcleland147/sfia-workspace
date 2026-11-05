@@ -510,4 +510,3 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 | SAFE-01 | PARTIAL | rollback CAS miss ; pas d'injection panne DB dédiée |
 | REG-01 | PROVEN | unit 52 / PG 78 / e2e 3 / tsc+build |
 | LIVE / CI / RECETTE | NOT RUN | hors mandat |
-

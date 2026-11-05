@@ -333,4 +333,3 @@ Append-only logical journal of Cursor product deliveries.
 | LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
 | Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
-

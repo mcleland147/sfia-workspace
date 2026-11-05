@@ -941,4 +941,3 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
 | Playwright FAKE | 3 PASS |
 | tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
 | LIVE / CI / RECETTE | **NOT RUN** |
-
