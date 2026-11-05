@@ -566,3 +566,32 @@ Priorité aux primitives natives Agents SDK et à leurs métadonnées de génér
 **Candidat pour la même livraison ML2 avant RECETTE :** examiner un ensemble cohérent configuration explicite + qualification proportionnée + lecture D4 complémentaire bornée si maîtrisée + boucle SDK native + traces suffisantes + QA de référence. Cela sert le résultat E2E 03/04 ; ne pas fragmenter code, tests et documentation.
 
 **Si report :** Morris qualifie l'écart, son propriétaire, le risque, le prochain macro-lot et l'exit, sans prétendre que ML3 ou ML4 résoudra automatiquement la cognition D3. Pas de GO Cursor, changement de branche ML2, PR, merge, RECETTE ou ADOPTED issu de la seule addition de ce chapitre.
+
+## 16. Complément technique candidat — observabilité transverse des parcours ML2 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / EXTENSION TECHNIQUE CANDIDATE — NON IMPLEMENTED / NOT BEHAVIOR PROVEN.** Ne modifie ni les As-Built §§12–14 ni le périmètre v0.6 précédemment validé. Référence unique : [R4 — Contrat de diagnostic transverse](../../architecture-technique/contrat-observabilite-transverse.md), [R5 §16](../reference-delivery-r5.md) et [matrice ML2 §9](matrice-tracabilite.md).
+
+### 16.1. Périmètre d'intégration à arbitrer
+
+**IN potentiel pour le même macro-lot avant RECETTE :** authentification D1, commandes de préparation/projet D2, requêtes HTTP, gestion d'erreurs, stockage/transactions PostgreSQL, conversation/Nora D3, récupération/sauvegarde D4, corrélation et consultation de diagnostic sur le SHA candidat. La qualité cognitive et les traces d'outils sont étudiées au §15 ; le contrat de diagnostic les relie aux frontières de l'application complète. **OUT :** D5/D6/D7/D8/D9 non implémentés, Git externe, agent-exécuteur, backend/écran de monitoring imposé, nouvelle source transactionnelle.
+
+### 16.2. Observations de code et gaps — à confirmer au Git Truth Check Cursor
+
+- **Routes API :** GET/POST messages, connaissance et documents contiennent des catches génériques répondant SESSION_INVALID/401 ; erreur DB/validation/bug peut être masquée, ce qui appelle une classification sûre et des tests négatifs sans divulgation.
+- **D1 :** Better Auth + sessions, identité OAuth réelle distincte de l'adaptateur DEV ; hooks existants ne prouvent pas une journalisation exploitable. Un échec d'auth.api.getSession peut être absorbé par un catch ; son diagnostic nécessite distinction explicite.
+- **D2/D4 :** clés de corrélation/idempotence, génération/sauvegarde et journal knowledge_subject_events existent déjà ; l'observabilité doit **lier** ces objets au lieu de les réimplémenter.
+- **D3 :** generationId existant ; SDK sans model/effort explicites et maxTurns=1 sans outil au candidat ; stream fallback vers second run fournisseur possible. L'instrumentation doit compter les tentatives effectivement envoyées, pas conclure au seul generationId.
+- **PostgreSQL :** client postgres/Drizzle sans instrumentateur SQL applicatif dédié observé ; statistiques/configuration Postgres live non observées. Impossible d'affirmer que des requêtes lentes sont déjà collectées.
+- **Instrumentation :** aucun dispositif bout-en-bout de traces OpenTelemetry, aucun exporteur consultable et aucune rétention LIVE ne sont démontrés par le code consulté.
+
+### 16.3. Interfaces et responsabilités à implémenter seulement après GO
+
+**Point d'entrée HTTP** : opération et contexte de trace serveur, classification des exceptions, résultat sûr pour le client, durée/statut. **D1** : authentification et refus réellement connus. **D2/D4** : références de commande, versions et effets persistés uniquement lorsqu'ils sont confirmés. **D3** : génération et tentatives fournisseur + outils + configuration appliquée. **Exploitation** : agréger/raccorder les identifiants natifs, restituer la chronologie et ses lacunes sous habilitation.
+
+La solution doit préférer Next.js/OpenTelemetry, Better Auth, PostgreSQL et Agents SDK natifs lorsque leurs versions verrouillées le permettent ; la capture sensible des traces SDK et le fonctionnement de l'exporteur sont vérifiés avant LIVE. La valeur d'une éventuelle bibliothèque supplémentaire doit être prouvée, sans base de logs Studio par défaut. Aucun choix de table, API, fournisseur de monitoring ou seuil d'alerte n'est acté dans cette spécification.
+
+### 16.4. QA, sécurité et gate
+
+**Oracles ML2 :** OBS-Q01..10 applicables en DETERMINISTIC/DB/BROWSER/LIVE selon frontière ; confirmer les retours HTTP d'une panne DB et les refus d'accès, distinguer appel Nora/génération/tentative, préserver les contrats idempotents C1–C6, tester pertes d'ACK et confidentialité des traces. Pour chaque exemple : operationId, build/lane, événements réellement émis, résultat des transactions, limites diagnostiques et niveau de preuve explicites.
+
+**Séquençage :** un socle transversal cohérent d'observabilité peut être intégré avant RECETTE avec les capacités cognitives si Morris l'arbitre. Dans le cas contraire, la RECETTE doit décrire sa portée réduite et la dette/exit de diagnostic ; la publication documentaire n'est ni GO Cursor, ni autorisation de mutation PR #655, ni une recette prouvée.
