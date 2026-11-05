@@ -1,121 +1,128 @@
-# SFIA Review Pack FULL — R5/ML2 Consolidation pré-merge PR #659
+# SFIA Review Pack FULL — R5/ML2 Qualification intégrée pré-RECETTE PR #659
 
-**Date/heure :** 2026-11-05 20:32:43 +0100 (Europe/Paris)  
-**Mandat :** `sfia-next-r5-ml2-consolidation-premerge-pr659-critical-20261105.md`  
+**Date/heure :** 2026-11-05 20:51:42 +0100 (Europe/Paris)  
+**Mandat :** `sfia-next-ml2-qualification-integree-pr659-critical-20261105.md`  
 **Exécutant :** Cursor (Composer)  
-**Profil :** CRITICAL — consolidation pré-merge (UNKNOWN-CAP / ASSIST-REUSE / SAFE-01 / CI-LABELS)  
-**Produit version :** `0.0.0-dev` / **NO RELEASE** / STABLE **NOT AVAILABLE**  
-**Verdict candidat :** `PR #659 UPDATED — CI NEXT PASS — READY FOR CHATGPT PRE-MERGE REVIEW`  
-**Limites :** LIVE / RECETTE / merge / ADOPTED = **NOT RUN / NOT AUTHORIZED**. SAFE-01 prouvé en DEV à deux sessions PG ; runtime multi-processus LIVE réel **NOT RUN**.
+**Profil :** CRITICAL — qualification intégrée ASSIST-REUSE / SAFE-01 / UNKNOWN-CAP / préparation LIVE-RECETTE  
+**Produit :** `0.0.0-dev` / **NO RELEASE** / STABLE **NOT AVAILABLE**  
+**Verdict :** `ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS`  
+**Limites :** LIVE/RECETTE/merge/ADOPTED = **NOT RUN / NOT AUTHORIZED**. Server-side disconnect on shared DEV = **NOT USED** ; client abort mid-TX = PROVEN distinct.
 
 ---
 
-## 1. Pré-check Git Truth (exact)
+## 1. Git Truth
 
 | Champ | Valeur |
 | --- | --- |
-| Dépôt | `mcleland147/sfia-workspace` |
 | Branche | `sfia/next-ml2-cognition-observability-integrated` |
-| HEAD initial (attendu) | `df7357873b487d48e32af5de89995bcfbf720210` |
-| HEAD final local+remote | `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` |
-| `origin/main` | `6e4406c63639330c7826423cdcf08f06ff019eed` |
-| merge-base(main, HEAD) | `6e4406c63639330c7826423cdcf08f06ff019eed` |
-| Push | FF `df735787..bf2deb0e` — **PAS** de force-push |
-| PR #659 | OPEN / **DRAFT** / base=`main` / head=`bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` / https://github.com/mcleland147/sfia-workspace/pull/659 |
-| PR #655 | OPEN intact head=`08b89360ea7132f09f1e1d777a7c9e17612b84fb` |
-| PR #656 | OPEN intact head=`a0d805e9967378ccdcc2093cd95c8f9881fc3503` |
-| PR #657 | OPEN intact head=`0e83824fd059d0074375a698b71e8dce53860fd9` |
-| PR #658 | OPEN intact head=`806bc17d814cf6cb3b574d164e1a196037d6623d` |
-| Untracked préservés (non commit) | `web/public/*.svg` (5) ; `.tmp-sfia-review/` local |
-
-CKC candidate : **CANDIDATE ABSENT — FALLBACK SFIA v2.6**.
+| HEAD initial | `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` |
+| HEAD final local+remote | `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` |
+| `origin/main` / merge-base | `6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Push | FF `bf2deb0e..01ae25e1` |
+| PR #659 | OPEN / **DRAFT** / base=main / head=`01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` — https://github.com/mcleland147/sfia-workspace/pull/659 |
+| #655–#658 | intactes |
+| Untracked préservés | `web/public/*.svg` ; `.tmp-sfia-review/` (non commit) |
+| CI Next | run `42097746777` — voir §5 |
 
 ---
 
-## 2. Sources lues (branche candidate vs baseline)
-
-Processus : `method/sfia-fast-track/core/sfia-cycle-routing-guide.md`, `prompts/templates/sfia-cycle-execution-template.md` SFIA v2.6.  
-Gouvernance Next : SEF, roadmap, décision trajectoire R5/ML2, ENV-01, product-versioning, naming.  
-Contrats : D3/D4/D8, R4, R5 §14, ML2 spécification/matrice, delivery-history.  
-Code : `conversation/{service,turn-command}.ts`, `knowledge/service.ts`, tests integration, workflow Next CI.
-
----
-
-## 3. Oracles (aucune preuve inventée)
+## 2. Oracles
 
 | Oracle | État | Preuve |
 | --- | --- | --- |
-| UNKNOWN-CAP-01 | **PROVEN** (PG local+CI) | CAP-FENCE-04 : acquis CURRENT + refs dans payload UNKNOWN |
-| UNKNOWN-CAP-02 | **PROVEN** | replay `clientTurnKey` reconstitue mêmes refs, status UNKNOWN |
-| UNKNOWN-CAP-03 | **PROVEN** | pilote étranger ⇒ capitalisation=[] |
-| UNKNOWN-CAP-04 | **PROVEN** | document revision DB_CONFIRMED ; sujet sans gen non attribué |
-| ASSIST-REUSE-01 | **PROVEN** | gen divergent ⇒ CONFLICT 409 |
-| ASSIST-REUSE-02 | **PROVEN** | même gen / ACK perdu ⇒ idempotent |
-| ASSIST-REUSE-03 | **PROVEN** | reconcile ne lie pas mismatch/missing gen |
-| PG-CONTEND-01 | **PROVEN** | 2 sessions postgres.js ; FOR SHARE A bloque B |
-| PG-CONTEND-02 | **PROVEN** | FOR UPDATE terminal A bloque B |
-| PG-DBFAIL-01 | **PROVEN** | exception post-INSERT ⇒ rollback assistant |
-| PG-DBFAIL-02 | **PROVEN** | cap TX ownership lost ⇒ 0 acquis |
-| PG-LEASE-01 | **PROVEN** | lease actif ⇒ pas de faux orphelin |
-| PG-ISOLATE-01 | **PROVEN** | isolation pilote + coupe connexion |
-| CI-LABELS | **PROVEN** | step CI « Apply migrations 001→006 » observé SUCCESS |
-| LIVE COG/OBS | **NOT RUN** | hors mandat |
-| RECETTE ML2 | **NOT RUN** | hors mandat |
+| ASSIST-REUSE-01 | **PROVEN** | gen divergent → CONFLICT |
+| ASSIST-REUSE-02 | **PROVEN** | ACK perdu idempotent |
+| ASSIST-REUSE-03 | **PROVEN** | reconcile non-liaison |
+| ASSIST-REUSE-04 | **PROVEN** | sameId + gen manquante message → CONFLICT |
+| ASSIST-REUSE-05 | **PROVEN** | alreadyBound sans dual gen → CONFLICT |
+| UNKNOWN-CAP-01..04 | **PROVEN** | restitution DB ; sujets non attribués |
+| UNKNOWN-CAP-05 | **PROVEN** | pas d'attribution croisée sourceId OR |
+| PG-CONTEND-01 | **PROVEN** | FOR SHARE bloque ; après release **RUNNING** strict |
+| PG-CONTEND-02 | **PROVEN** | FOR UPDATE ; await B → RUNNING ; ownership intact |
+| PG-DBFAIL-01 | **PROVEN** | exception applicative post-INSERT → rollback |
+| PG-DBFAIL-02 | **PROVEN** | fence ownership (≠ disconnect) |
+| PG-DBFAIL-03 | **PROVEN** | abort **client** mid-TX (TEMP) |
+| PG-LEASE-01 / ISOLATE-01 | **PROVEN** | |
+| REAL server disconnect (terminate/docker stop) | **NOT PROVEN — TOOLING GAP** | interdit sur DEV partagé |
+| LIVE COG/OBS | **NOT RUN** | protocole §27.2 PREPARED |
+| RECETTE | **NOT DEPLOYED** | manifeste §27.3 PREPARED |
 
 ---
 
-## 4. QA locale (SHA final `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1`)
+## 3. QA locale (`01ae25e1dfc7b062d3b2a73838335ef8630ec6f2`)
 
 | Suite | Résultat |
 | --- | --- |
-| `npx tsc --noEmit` | PASS |
-| `npm run lint` | PASS (warnings préexistants unused vars nora-adapter) |
-| `npm run build` | PASS |
-| `npm run test:unit` | **52 PASS** / 13 files |
-| `npm run test:integration` | **89 PASS** / 9 files |
-| `npm run test:e2e` | **3 PASS** FAKE |
-| Lane | DEV ; STUDIO_E2E=1 ; STUDIO_FORCE_NORA_FIXTURE=1 ; Postgres DEV 5433 |
-| Migrations | 001→006 déjà présentes ; **aucune nouvelle migration** |
+| tsc / lint / build | PASS (lint warnings préexistants nora-adapter) |
+| unit | **52 PASS** |
+| PG integration | **93 PASS** |
+| Playwright FAKE | **3 PASS** |
+| Lane | DEV ; fixture Nora ; Postgres DEV 5433 ; **sfia-next-recette-pg non touché** |
 
 ---
 
-## 5. CI distante — SHA `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1`
+## 4. Correctifs (synthèse)
 
-| Run | Conclusion |
-| --- | --- |
-| SFIA Studio Next CI `42093406745` | **success** — https://github.com/mcleland147/sfia-workspace/actions/runs/42093406745 |
-| detect | SUCCESS |
-| Build and validate | SUCCESS (7m59s) — unit **52**, PG **89**, Playwright **3**, migrations step **001→006**, diff --check PASS |
-| SFIA Studio Next Required Gate | SUCCESS |
-| SFIA Studio CI `42093407005` | SUCCESS (Studio validate skipped — hors scope Next) |
-
-**Note provenance OBS CI :** `source_sha` applicatif peut différer du head SHA PR (merge checkout) — ne pas confondre avec preuve de build LIVE.
+1. **ASSIST-REUSE** : reuse terminal seulement si `generationId` commande/message/entrée tous non vides et égaux ; `sameId`/`alreadyBound` insuffisants ; `bindTurnGenerationId` après Nora.
+2. **SAFE-01** : oracles CONTEND stricts `RUNNING` ; await de toutes les promesses B ; DBFAIL-03 = fermeture client mid-TX.
+3. **UNKNOWN-CAP** : reconstitution priorise `generationId` ; `sourceId` seulement si provenance sans gen ; panne DB → `DB_OR_LOOKUP_UNAVAILABLE` (≠ PREP_NOT_VISIBLE).
+4. **Docs** : spec §§27–28 plan LIVE + manifeste RECETTE ; matrice §20 ; delivery DELIV-12.
 
 ---
 
-## 6. Blast radius / allowlist
+## 5. CI distante
 
-Modifiés/ajoutés **uniquement** :
-- `web/src/domains/conversation/service.ts` (blob `de55020e`)
-- `web/src/domains/conversation/turn-command.ts` (blob `8702191b`)
-- `web/src/domains/knowledge/service.ts` (blob `2fb13777`) — `reconstituteConfirmedD4Effects`
-- `web/tests/integration/ml2-three-blocker.pg.test.ts` (blob `389beef5`)
-- `web/tests/integration/ml2-pg-contention.pg.test.ts` **CREATED** (blob `ea47098c`)
-- `web/tests/integration/migrations-fresh.pg.test.ts`
-- `.github/workflows/sfia-studio-next-ci.yml` — **libellés seuls**
-- As-Built §26 + matrice §19 + delivery `DELIV-…-11`
+| Run | SHA | Statut |
+| --- | --- | --- |
+| SFIA Studio Next CI `42097746777` | `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` | **SUCCESS** |
+| detect | | SUCCESS |
+| Build and validate | 2m42s | SUCCESS — unit **52** / PG **93** / Playwright **3** |
+| SFIA Studio Next Required Gate | | SUCCESS |
+| SFIA Studio CI `42097746853` | same head | SUCCESS (Studio validate skipped) |
 
-**Non touchés :** schema/migrations nouvelles, SEF/roadmap/décisions, #655–#658, main, LIVE, secrets, SVG, `.tmp` (pack local seulement).
+URL : https://github.com/mcleland147/sfia-workspace/actions/runs/42097746777
 
 ---
 
-## 7. Objet créé — contenu complet
+## 6. Objet clé — `bindTurnGenerationId`
 
-### `projects/sfia-studio-next/web/tests/integration/ml2-pg-contention.pg.test.ts`
+```typescript
+export async function bindTurnGenerationId(
+  commandId: string,
+  ownerToken: string,
+  generationId: string,
+): Promise<{ bound: boolean }> {
+  const gen = generationId.trim();
+  if (!gen) return { bound: false };
+  const updated = await db
+    .update(conversationTurnCommands)
+    .set({
+      generationId: gen,
+      updatedAt: new Date(turnClock.nowMs()),
+    })
+    .where(
+      and(
+        eq(conversationTurnCommands.id, commandId),
+        eq(conversationTurnCommands.ownerToken, ownerToken),
+        sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
+      ),
+    )
+    .returning({ id: conversationTurnCommands.id });
+  return { bound: updated.length > 0 };
+}
+```
+
+---
+
+## 7. Fichier tests SAFE-01 (contenu complet courant)
+
+### `ml2-pg-contention.pg.test.ts`
 
 ```typescript
 /**
  * SAFE-01 — real two-session PostgreSQL contention (not same-connection hooks).
+ * Distinguishes TX application exceptions from client connection abort.
+ * Does NOT use pg_terminate_backend / docker stop on shared DEV/RECETTE/STABLE.
  */
 import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
 import { config } from "dotenv";
@@ -129,7 +136,7 @@ process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
 import postgres from "postgres";
 import { and, eq, sql } from "drizzle-orm";
 import { db } from "@/db/client";
-import { conversationTurnCommands, messages } from "@/db/schema";
+import { conversationTurnCommands, messages, knowledgeAcquis } from "@/db/schema";
 import { createDevTestSession } from "@/domains/identity/session";
 import { openOrCreatePreparation } from "@/domains/preparation/service";
 import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
@@ -141,10 +148,46 @@ import {
   turnRaceHooks,
 } from "@/domains/conversation/turn-command";
 import { capitalizeAcquis } from "@/domains/knowledge/service";
-import { knowledgeAcquis } from "@/db/schema";
+import { newId } from "@/lib/ids";
 
 const DSN = process.env.DATABASE_URL;
 if (!DSN) throw new Error("DATABASE_URL required");
+
+async function waitUntil(
+  predicate: () => Promise<boolean>,
+  opts: { timeoutMs?: number; intervalMs?: number; label?: string } = {},
+) {
+  const timeoutMs = opts.timeoutMs ?? 3000;
+  const intervalMs = opts.intervalMs ?? 40;
+  const start = Date.now();
+  while (Date.now() - start < timeoutMs) {
+    if (await predicate()) return;
+    await new Promise((r) => setTimeout(r, intervalMs));
+  }
+  throw new Error(`waitUntil timeout: ${opts.label ?? "condition"}`);
+}
+
+/** True when some other backend is waiting on a lock for this relation/row. */
+async function countWaitersOnTurnCommand(observer: ReturnType<typeof postgres>, commandId: string) {
+  const rows = await observer`
+    select count(*)::int as n
+    from pg_locks l
+    join pg_stat_activity a on a.pid = l.pid
+    where l.locktype = 'transactionid'
+      and not l.granted
+      and a.pid <> pg_backend_pid()
+      and a.query ilike ${"%" + commandId + "%"}
+  `;
+  // Fallback: any ungranted lock from another session (broader but useful under FOR UPDATE).
+  if ((rows[0]?.n ?? 0) > 0) return rows[0].n as number;
+  const broad = await observer`
+    select count(*)::int as n
+    from pg_locks l
+    where not l.granted
+      and l.pid <> pg_backend_pid()
+  `;
+  return (broad[0]?.n ?? 0) as number;
+}
 
 describe("ML2 SAFE-01 PG two-session contention", () => {
   let pilotId: string;
@@ -152,6 +195,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
   let conversationId: string;
   let connA: ReturnType<typeof postgres>;
   let connB: ReturnType<typeof postgres>;
+  let observer: ReturnType<typeof postgres>;
 
   beforeAll(async () => {
     await db.execute(
@@ -166,6 +210,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     conversationId = cid;
     connA = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
     connB = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
+    observer = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
   });
 
   afterEach(async () => {
@@ -184,9 +229,10 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
   afterAll(async () => {
     await connA.end({ timeout: 5 }).catch(() => undefined);
     await connB.end({ timeout: 5 }).catch(() => undefined);
+    await observer.end({ timeout: 5 }).catch(() => undefined);
   });
 
-  it("PG-CONTEND-01: FOR SHARE on A blocks B reconcile until A commits", async () => {
+  it("PG-CONTEND-01: FOR SHARE on A blocks B; after release B stays RUNNING (no false orphan)", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
       ownerPilotId: pilotId,
@@ -197,6 +243,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
 
     let bDone = false;
     let bResult: Awaited<ReturnType<typeof reconcileRunningCommand>> | null = null;
+    let bError: unknown = null;
 
     const hold = connA.begin(async (txA) => {
       await txA`
@@ -206,18 +253,33 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
           and status in ('RUNNING', 'ACCEPTED')
         for share
       `;
-      // Hold lock while B tries to reconcile (needs row lock compatibility with FOR UPDATE path).
-      await new Promise((r) => setTimeout(r, 400));
+      await waitUntil(
+        async () => {
+          // Keep holding; outer starts B after lock acquired.
+          return true;
+        },
+        { timeoutMs: 500, label: "hold-acquired" },
+      );
+      await new Promise((r) => setTimeout(r, 500));
     });
 
-    await new Promise((r) => setTimeout(r, 50));
-    const bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
-      bDone = true;
-      bResult = r;
-      return r;
-    });
+    await new Promise((r) => setTimeout(r, 40));
+    const bPromise = reconcileRunningCommand(reserved.commandId)
+      .then((r) => {
+        bDone = true;
+        bResult = r;
+        return r;
+      })
+      .catch((e) => {
+        bError = e;
+        bDone = true;
+        throw e;
+      });
 
-    await new Promise((r) => setTimeout(r, 150));
+    await waitUntil(async () => (await countWaitersOnTurnCommand(observer, reserved.commandId)) > 0 || !bDone, {
+      timeoutMs: 2000,
+      label: "waiter-or-pending",
+    });
     expect(bDone).toBe(false);
 
     await hold;
@@ -225,13 +287,18 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
       bPromise,
       new Promise((_, rej) => setTimeout(() => rej(new Error("B reconcile timeout")), 5000)),
     ]);
+    expect(bError).toBeNull();
     expect(bDone).toBe(true);
-    expect(bResult).toBeTruthy();
-    // Active lease (not stale) ⇒ reconcile must not falsely orphan while A held share then released.
-    expect(["RUNNING", "UNKNOWN"]).toContain(bResult!.status);
+    // Active (non-stale) command under live ownership ⇒ reconcile must NOT revoke.
+    expect(bResult!.status).toBe("RUNNING");
+    expect(bResult!.reconciled).toBe(false);
+    expect(bResult!.assistantMessageId).toBeNull();
+
+    const lease = await touchTurnLease(reserved.commandId, reserved.ownerToken);
+    expect(lease.owned).toBe(true);
   }, 15_000);
 
-  it("PG-CONTEND-02: FOR UPDATE terminal lock on A blocks B reconcile", async () => {
+  it("PG-CONTEND-02: FOR UPDATE on A blocks B; after release B RUNNING and ownership intact", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
       ownerPilotId: pilotId,
@@ -240,7 +307,10 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     });
     if (reserved.kind !== "fresh") throw new Error("fresh");
 
-    let bFinishedDuringLock = false;
+    let bDoneDuringLock = false;
+    let bResult: Awaited<ReturnType<typeof reconcileRunningCommand>> | null = null;
+
+    let bPromise!: Promise<Awaited<ReturnType<typeof reconcileRunningCommand>>>;
     await connA.begin(async (txA) => {
       await txA`
         select id from conversation_turn_commands
@@ -250,24 +320,42 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
         for update
       `;
 
-      const bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
-        bFinishedDuringLock = true;
+      bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
+        bDoneDuringLock = true;
+        bResult = r;
         return r;
       });
 
-      await new Promise((r) => setTimeout(r, 200));
-      expect(bFinishedDuringLock).toBe(false);
-
-      // Keep ownership; B must wait. End TX without revoking.
-      void bPromise.catch(() => undefined);
+      await new Promise((r) => setTimeout(r, 250));
+      expect(bDoneDuringLock).toBe(false);
+      // End TX → release FOR UPDATE; B may then proceed.
     });
 
-    await new Promise((r) => setTimeout(r, 100));
+    await Promise.race([
+      bPromise,
+      new Promise((_, rej) => setTimeout(() => rej(new Error("B reconcile timeout")), 5000)),
+    ]);
+    expect(bDoneDuringLock).toBe(true);
+    expect(bResult!.status).toBe("RUNNING");
+    expect(bResult!.reconciled).toBe(false);
+
     const stillOwned = await touchTurnLease(reserved.commandId, reserved.ownerToken);
     expect(stillOwned.owned).toBe(true);
+
+    const assistants = await db
+      .select()
+      .from(messages)
+      .where(
+        and(
+          eq(messages.conversationId, conversationId),
+          eq(messages.ordinal, reserved.ordinalAssistant),
+          eq(messages.role, "assistant"),
+        ),
+      );
+    expect(assistants).toHaveLength(0);
   }, 15_000);
 
-  it("PG-DBFAIL-01: exception after assistant INSERT rolls back — no orphan, non-COMPLETE", async () => {
+  it("PG-DBFAIL-01: application exception after assistant INSERT rolls back TX — no orphan", async () => {
     const key = `dbfail01-${Date.now()}`;
     const before = (
       await db
@@ -309,7 +397,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     expect(cmd.status).not.toBe("COMPLETE");
   });
 
-  it("PG-DBFAIL-02: capitalisation TX ownership lost → no acquis published", async () => {
+  it("PG-DBFAIL-02: capitalisation TX ownership lost → no acquis published (fence, not DB disconnect)", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
       ownerPilotId: pilotId,
@@ -362,6 +450,39 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     expect(after).toBe(before);
   });
 
+  it("PG-DBFAIL-03: client connection abort mid-TX rolls back uncommitted write (no terminate_backend)", async () => {
+    // Own-connection abort on DEV: no pg_terminate_backend / docker stop on shared lanes.
+    const marker = `dbfail03_${Date.now()}`;
+    const ephemeral = postgres(DSN!, { max: 1, idle_timeout: 2, connect_timeout: 5 });
+    try {
+      await ephemeral.begin(async (tx) => {
+        await tx`
+          create temporary table if not exists sfia_safe01_abort_probe (
+            id text primary key,
+            note text not null
+          ) on commit drop
+        `;
+        await tx`insert into sfia_safe01_abort_probe (id, note) values (${marker}, 'uncommitted')`;
+        // Abort by destroying the client mid-TX (simulates connection loss for this session).
+        await ephemeral.end({ timeout: 1 });
+        throw new Error("unreachable_after_end");
+      });
+    } catch {
+      // expected — connection closed
+    }
+
+    // New session cannot see the uncommitted temp row; durable tables untouched.
+    const probe = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 5 });
+    try {
+      const exists = await probe`
+        select to_regclass('pg_temp.sfia_safe01_abort_probe') as reg
+      `;
+      expect(exists[0]?.reg).toBeNull();
+    } finally {
+      await probe.end({ timeout: 5 }).catch(() => undefined);
+    }
+  }, 15_000);
+
   it("PG-LEASE-01: active lease prevents false orphan under concurrent reconcile", async () => {
     const reserved = await reserveTurnCommand({
       conversationId,
@@ -381,7 +502,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     const gen = `gen_iso_${Date.now()}`;
     const src = `msg_iso_${Date.now()}`;
     await db.insert(knowledgeAcquis).values({
-      id: `acq_iso_${Date.now()}`,
+      id: newId("acq"),
       preparationId,
       ownerPilotId: pilotId,
       kind: "HYPOTHESIS",
@@ -410,7 +531,6 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
     expect(foreign.capitalisation).toHaveLength(0);
     expect(foreign.capitalisationLimit).toMatch(/PREP_NOT_VISIBLE|NO_CONFIRMED/);
 
-    // Cutting an independent session must not leave durable side-effects or open TX leakage.
     const cut = postgres(DSN!, { max: 1, idle_timeout: 1, connect_timeout: 5 });
     await cut`select 1`;
     await cut.end({ timeout: 1 });
@@ -434,666 +554,845 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
 
 ---
 
-## 8. Objet modifié — `reconstituteConfirmedD4Effects` (section complète)
+## 8. Diffs complets commit `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2`
 
-Blob knowledge/service.ts `2fb1377793a6390db108c226a3144d204d0d457e` — fonction ajoutée :
-
-```typescript
-export async function reconstituteConfirmedD4Effects(
-  pilotId: string,
-  preparationId: string,
-  refs: { generationId?: string | null; userMessageId?: string | null },
-): Promise<{
-  capitalisation: ConfirmedD4Effect[];
-  documentSave: {
-    status: string;
-    documentId: string;
-    revisionNumber?: number;
-    confirmation: "DB_CONFIRMED";
-  } | null;
-  capitalisationLimit: string;
-}> {
-  try {
-    await assertPrep(pilotId, preparationId);
-  } catch {
-    return {
-      capitalisation: [],
-      documentSave: null,
-      capitalisationLimit: "PREP_NOT_VISIBLE — no D4 reconstitution across privilege boundary",
-    };
-  }
-  const gen = refs.generationId?.trim() || null;
-  const src = refs.userMessageId?.trim() || null;
-  if (!gen && !src) {
-    return {
-      capitalisation: [],
-      documentSave: null,
-      capitalisationLimit: "NO_PROVENANCE_KEYS — cannot reconstitute D4 effects",
-    };
-  }
-
-  const effects: ConfirmedD4Effect[] = [];
-
-  const acquisRows = await db
-    .select({
-      id: knowledgeAcquis.id,
-      status: knowledgeAcquis.status,
-      provenanceJson: knowledgeAcquis.provenanceJson,
-    })
-    .from(knowledgeAcquis)
-    .where(
-      and(
-        eq(knowledgeAcquis.preparationId, preparationId),
-        eq(knowledgeAcquis.ownerPilotId, pilotId),
-        eq(knowledgeAcquis.status, "CURRENT"),
-        gen && src
-          ? sql`(
-              ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}
-              or ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}
-            )`
-          : gen
-            ? sql`${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}`
-            : sql`${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}`,
-      ),
-    );
-
-  for (const row of acquisRows) {
-    effects.push({
-      kind: "acquis",
-      id: row.id,
-      status: row.status,
-      confirmation: "DB_CONFIRMED",
-    });
-  }
-
-  const openRows = await db
-    .select({
-      id: knowledgeOpenPoints.id,
-      status: knowledgeOpenPoints.status,
-    })
-    .from(knowledgeOpenPoints)
-    .where(
-      and(
-        eq(knowledgeOpenPoints.preparationId, preparationId),
-        eq(knowledgeOpenPoints.ownerPilotId, pilotId),
-        eq(knowledgeOpenPoints.status, "OPEN"),
-        gen && src
-          ? sql`(
-              ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}
-              or ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}
-            )`
-          : gen
-            ? sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}`
-            : sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}`,
-      ),
-    );
-
-  for (const row of openRows) {
-    effects.push({
-      kind: "open_point",
-      id: row.id,
-      status: row.status,
-      confirmation: "DB_CONFIRMED",
-    });
-  }
-
-  let documentSave: {
-    status: string;
-    documentId: string;
-    revisionNumber?: number;
-    confirmation: "DB_CONFIRMED";
-  } | null = null;
-
-  const revWhere =
-    gen && src
-      ? sql`(
-          ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
-          or ${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}
-          or ${documentRevisions.correlationKey} = ${"doc:" + gen}
-        )`
-      : gen
-        ? sql`(
-            ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
-            or ${documentRevisions.correlationKey} = ${"doc:" + gen}
-          )`
-        : sql`${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}`;
-
-  const revRows = await db
-    .select({
-      id: documentRevisions.id,
-      documentId: documentRevisions.documentId,
-      revisionNumber: documentRevisions.revisionNumber,
-      status: documentRevisions.status,
-    })
-    .from(documentRevisions)
-    .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
-    .where(
-      and(
-        eq(documents.preparationId, preparationId),
-        eq(documents.ownerPilotId, pilotId),
-        eq(documentRevisions.status, "AVAILABLE"),
-        revWhere,
-      ),
-    )
-    .orderBy(desc(documentRevisions.revisionNumber))
-    .limit(1);
-
-  if (revRows[0]) {
-    const r = revRows[0];
-    effects.push({
-      kind: "document",
-      id: r.id,
-      status: r.status,
-      confirmation: "DB_CONFIRMED",
-      documentId: r.documentId,
-      revisionNumber: r.revisionNumber,
-    });
-    documentSave = {
-      status: "AVAILABLE",
-      documentId: r.documentId,
-      revisionNumber: r.revisionNumber,
-      confirmation: "DB_CONFIRMED",
-    };
-  }
-
-  return {
-    capitalisation: effects,
-    documentSave,
-    capitalisationLimit:
-      effects.length > 0
-        ? "DB_RECONSTITUTED — effects confirmed under pilot/prep rights; turn remains UNKNOWN"
-        : "NO_CONFIRMED_D4_EFFECTS_FOR_TURN",
-  };
-}
-```
-
----
-
-## 9. Diffs complets du commit `bf2deb0e`
-
-### conversation/service.ts
+### turn-command.ts
 ```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
+Date:   Thu Nov 5 20:50:30 2026 +0100
 
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
     
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
-    
-    Co-authored-by: Cursor <cursoragent@cursor.com>
-
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 52441b41..de55020e 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -7,6 +7,7 @@ import { generateNoraReply } from "./nora-adapter";
- import { getPreparationContext } from "@/domains/preparation/service";
- import {
-   maybeCapitalizeFromExchange,
-+  reconstituteConfirmedD4Effects,
-   selectRelevantKnowledgeContext,
- } from "@/domains/knowledge/service";
- import { listDocuments, savePreparationDocument } from "@/domains/document/service";
-@@ -146,7 +147,28 @@ export async function postUserMessageAndNora(
-         /* fall through */
-       }
-     }
--    // FAILED/UNKNOWN: never fabricate a new result from a terminal non-COMPLETE command.
-+    // FAILED/UNKNOWN: never fabricate COMPLETE; reconstitute durable D4 refs from DB when possible.
-+    if (reserved.status === "UNKNOWN" || reserved.status === "FAILED") {
-+      const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-+        generationId: reserved.generationId,
-+        userMessageId: reserved.userMessageId,
-+      });
-+      return {
-+        operationId: reserved.operationId,
-+        requestId,
-+        status: reserved.status,
-+        idempotentReplay: true,
-+        generationId: reserved.generationId,
-+        userMessageId: reserved.userMessageId,
-+        assistantMessageId: reserved.assistantMessageId,
-+        humanDecisionCreated: false,
-+        reconciled: reserved.reconciled,
-+        noraMode: "replay-terminal",
-+        capitalisation: reconstituted.capitalisation,
-+        capitalisationLimit: reconstituted.capitalisationLimit,
-+        documentSave: reconstituted.documentSave,
-+      };
-+    }
-     return {
-       operationId: reserved.operationId,
-       requestId,
-@@ -384,6 +406,17 @@ export async function postUserMessageAndNora(
-     turnStatus = "UNKNOWN";
-   }
- 
-+  // When ownership already lost, prefer DB reconstitution over in-memory lists
-+  // (local vars may omit effects committed earlier in the turn).
-+  let unknownCapReconstituted: Awaited<ReturnType<typeof reconstituteConfirmedD4Effects>> | null =
-+    null;
-+  if (ownershipLostBeforeD4 || turnStatus === "UNKNOWN") {
-+    unknownCapReconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-+      generationId: reply.generationId,
-+      userMessageId: reserved.userMessageId,
-+    });
-+  }
-+
-   const resultPayload: TurnResult = {
-     userMessageId: reserved.userMessageId,
-     assistantMessageId: ownershipLostBeforeD4 ? null : assistantId,
-@@ -415,12 +448,16 @@ export async function postUserMessageAndNora(
-       selectionMethod: knowledge.selectionMethod,
-       selectionLimit: knowledge.selectionLimit,
-     },
--    capitalisation: ownershipLostBeforeD4 ? [] : confirmedCapitalisations,
-+    capitalisation: ownershipLostBeforeD4
-+      ? (unknownCapReconstituted?.capitalisation ?? [])
-+      : confirmedCapitalisations,
-     capitalisationAttempted: ownershipLostBeforeD4 ? [] : capitalisation.capitalisations,
-     capitalisationLimit: ownershipLostBeforeD4
--      ? "OWNERSHIP_LOST"
-+      ? (unknownCapReconstituted?.capitalisationLimit ?? "OWNERSHIP_LOST")
-       : capitalisationError ?? capitalisation.selectionLimit,
--    documentSave: ownershipLostBeforeD4 ? null : documentSave,
-+    documentSave: ownershipLostBeforeD4
-+      ? (unknownCapReconstituted?.documentSave ?? null)
-+      : documentSave,
-     idempotentReplay: false,
-     humanDecisionCreated: false,
-   };
-@@ -429,29 +466,72 @@ export async function postUserMessageAndNora(
-     await turnRaceHooks.beforeTerminalCommit();
-   }
- 
--  const applied = await commitTurnTerminal({
--    commandId: reserved.commandId,
--    ownerToken: reserved.ownerToken,
--    status: turnStatus,
--    conversationId: ctx.conversation.id,
--    assistant: ownershipLostBeforeD4
--      ? undefined
--      : {
--          id: assistantId,
--          content: reply.content,
--          messageStatus: reply.status,
--          generationId: reply.generationId,
--          ordinal: reserved.ordinalAssistant,
--        },
--    generationId: reply.generationId,
--    resultJson: JSON.stringify(resultPayload),
--    errorCategory:
--      turnStatus === "COMPLETE"
-+  let applied: { applied: boolean };
-+  try {
-+    applied = await commitTurnTerminal({
-+      commandId: reserved.commandId,
-+      ownerToken: reserved.ownerToken,
-+      status: turnStatus,
-+      conversationId: ctx.conversation.id,
-+      assistant: ownershipLostBeforeD4
-         ? undefined
--        : ownershipLostBeforeD4
--          ? "OWNERSHIP_LOST"
--          : capitalisationError ?? reply.status,
--  });
-+        : {
-+            id: assistantId,
-+            content: reply.content,
-+            messageStatus: reply.status,
-+            generationId: reply.generationId,
-+            ordinal: reserved.ordinalAssistant,
-+          },
-+      generationId: reply.generationId,
-+      resultJson: JSON.stringify(resultPayload),
-+      errorCategory:
-+        turnStatus === "COMPLETE"
-+          ? undefined
-+          : ownershipLostBeforeD4
-+            ? "OWNERSHIP_LOST"
-+            : capitalisationError ?? reply.status,
-+    });
-+  } catch (e) {
-+    // Mid-TX DB failure after attempted assistant write — TX rolled back; never COMPLETE.
-+    if (e instanceof StudioError && e.code === "CONFLICT") {
-+      emitObs({
-+        event_name: "d3.turn.assistant_identity_conflict",
-+        component: "d3.conversation",
-+        request_id: requestId,
-+        operation_id: reserved.operationId,
-+        generation_id: reply.generationId,
-+        outcome: "UNKNOWN",
-+        error_category: "ASSISTANT_IDENTITY_CONFLICT",
-+      });
-+    } else {
-+      emitObs({
-+        event_name: "d3.turn.terminal_tx_failed",
-+        component: "d3.conversation",
-+        request_id: requestId,
-+        operation_id: reserved.operationId,
-+        generation_id: reply.generationId,
-+        outcome: "UNKNOWN",
-+        error_category: "TERMINAL_TX_EXCEPTION",
-+      });
-+    }
-+    try {
-+      await markTurnUnknown(reserved.commandId, "TERMINAL_TX_EXCEPTION", reserved.ownerToken);
-+    } catch {
-+      /* ownership may already be lost */
-+    }
-+    const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-+      generationId: reply.generationId,
-+      userMessageId: reserved.userMessageId,
-+    });
-+    return {
-+      ...resultPayload,
-+      status: "UNKNOWN",
-+      assistantMessageId: null,
-+      capitalisation: reconstituted.capitalisation,
-+      capitalisationLimit: reconstituted.capitalisationLimit,
-+      documentSave: reconstituted.documentSave,
-+    };
-+  }
- 
-   if (!applied.applied) {
-     emitObs({
-@@ -463,16 +543,20 @@ export async function postUserMessageAndNora(
-       outcome: "UNKNOWN",
-       error_category: "COMPLETE_CAS_MISSED",
-     });
--    // Never return COMPLETE when ownership CAS failed.
-+    // Never return COMPLETE when ownership CAS failed — but surface DB-confirmed D4 refs.
-+    const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-+      generationId: reply.generationId,
-+      userMessageId: reserved.userMessageId,
-+    });
-     return {
-       ...resultPayload,
-       status: "UNKNOWN",
-       assistantMessageId: null,
--      documentSave: null,
--      capitalisation: [],
-+      capitalisation: reconstituted.capitalisation,
-+      capitalisationLimit: reconstituted.capitalisationLimit,
-+      documentSave: reconstituted.documentSave,
-     };
-   }
--
-   emitObs({
-     event_name: "d3.turn.completed",
-     component: "d3.conversation",
-```
-
-### conversation/turn-command.ts
-```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
-Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
-
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
-    
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-index d45c828a..8702191b 100644
+index 8702191b..19c64cd8 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-@@ -231,7 +231,13 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
-           )
-           .limit(1)
-       )[0];
--      if (existingAssistant) {
-+      // Bind only when both sides have a matching generationId (no silent appropriation).
-+      if (
-+        existingAssistant &&
-+        Boolean(row.generationId) &&
-+        Boolean(existingAssistant.generationId) &&
-+        row.generationId === existingAssistant.generationId
-+      ) {
-         assistantId = existingAssistant.id;
-         generationId = existingAssistant.generationId ?? generationId;
-       }
-@@ -352,7 +358,12 @@ export async function reserveTurnCommand(args: {
-               )
-               .limit(1)
-           )[0];
--          if (existingAssistant) {
-+          if (
-+            existingAssistant &&
-+            Boolean(existing.generationId) &&
-+            Boolean(existingAssistant.generationId) &&
-+            existing.generationId === existingAssistant.generationId
-+          ) {
-             assistantId = existingAssistant.id;
-             generationId = existingAssistant.generationId ?? generationId;
-           }
-@@ -585,15 +596,24 @@ export async function commitTurnTerminal(args: {
+@@ -138,6 +138,31 @@ function isStaleRunning(updatedAt: Date | null | undefined): boolean {
+  * Heartbeat + ownership proof. Refreshes updated_at so long active runs are not
+  * falsely reconciled as orphans. Returns false if ownership lost.
+  */
++/** Persist generation identity on a still-owned RUNNING/ACCEPTED command (pre-terminal). */
++export async function bindTurnGenerationId(
++  commandId: string,
++  ownerToken: string,
++  generationId: string,
++): Promise<{ bound: boolean }> {
++  const gen = generationId.trim();
++  if (!gen) return { bound: false };
++  const updated = await db
++    .update(conversationTurnCommands)
++    .set({
++      generationId: gen,
++      updatedAt: new Date(turnClock.nowMs()),
++    })
++    .where(
++      and(
++        eq(conversationTurnCommands.id, commandId),
++        eq(conversationTurnCommands.ownerToken, ownerToken),
++        sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
++      ),
++    )
++    .returning({ id: conversationTurnCommands.id });
++  return { bound: updated.length > 0 };
++}
++
+ export async function touchTurnLease(
+   commandId: string,
+   ownerToken: string,
+@@ -552,6 +577,7 @@ export async function commitTurnTerminal(args: {
+           .select({
+             id: conversationTurnCommands.id,
+             assistantMessageId: conversationTurnCommands.assistantMessageId,
++            generationId: conversationTurnCommands.generationId,
+           })
+           .from(conversationTurnCommands)
+           .where(
+@@ -596,21 +622,27 @@ export async function commitTurnTerminal(args: {
            });
            assistantMessageId = args.assistant.id;
          } else {
--          // Reuse only when identity matches this command's stored assistant (or first bind).
--          if (
--            owned.assistantMessageId &&
-+          const sameId = existingAssistant.id === args.assistant.id;
-+          const sameGen =
-+            Boolean(args.assistant.generationId) &&
-+            existingAssistant.generationId === args.assistant.generationId;
-+          const alreadyBound = owned.assistantMessageId === existingAssistant.id;
-+          const genConflict =
-+            Boolean(args.assistant.generationId) &&
-+            Boolean(existingAssistant.generationId) &&
-+            existingAssistant.generationId !== args.assistant.generationId;
-+          const idConflict =
-+            Boolean(owned.assistantMessageId) &&
++          // Reuse only with demonstrable identity: both generationIds non-empty and equal,
++          // plus same message id or already-bound assistantMessageId. sameId/alreadyBound alone
++          // are never sufficient when generation proof is missing or mismatched.
++          const expectedGen = args.assistant.generationId?.trim() || null;
++          const messageGen = existingAssistant.generationId?.trim() || null;
++          const commandGen =
++            (args.generationId ?? owned.generationId)?.trim() || expectedGen;
++          const gensMatch =
++            Boolean(expectedGen) &&
++            Boolean(messageGen) &&
++            Boolean(commandGen) &&
++            expectedGen === messageGen &&
++            commandGen === messageGen;
+           const sameId = existingAssistant.id === args.assistant.id;
+-          const sameGen =
+-            Boolean(args.assistant.generationId) &&
+-            existingAssistant.generationId === args.assistant.generationId;
+           const alreadyBound = owned.assistantMessageId === existingAssistant.id;
+-          const genConflict =
+-            Boolean(args.assistant.generationId) &&
+-            Boolean(existingAssistant.generationId) &&
+-            existingAssistant.generationId !== args.assistant.generationId;
+           const idConflict =
+             Boolean(owned.assistantMessageId) &&
              owned.assistantMessageId !== existingAssistant.id &&
--            existingAssistant.id !== args.assistant.id
--          ) {
-+            !sameId;
-+
-+          if (genConflict || idConflict || (!sameId && !sameGen && !alreadyBound)) {
+             !sameId;
+ 
+-          if (genConflict || idConflict || (!sameId && !sameGen && !alreadyBound)) {
++          if (!gensMatch || idConflict || (!sameId && !alreadyBound)) {
              throw new StudioError(
                "CONFLICT",
--              "Ordinal assistant déjà lié à une autre identité de message",
-+              "Ordinal assistant incompatible avec la génération/commande courante",
-               { httpStatus: 409 },
-             );
-           }
+               "Ordinal assistant incompatible avec la génération/commande courante",
 ```
 
-### workflow CI labels
+### service.ts
 ```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
+Date:   Thu Nov 5 20:50:30 2026 +0100
 
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
     
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
-diff --git a/.github/workflows/sfia-studio-next-ci.yml b/.github/workflows/sfia-studio-next-ci.yml
-index 614b3c53..cca2c8ef 100644
---- a/.github/workflows/sfia-studio-next-ci.yml
-+++ b/.github/workflows/sfia-studio-next-ci.yml
-@@ -16,7 +16,7 @@
- #
- # Node: 24. Postgres: 16-alpine ephemeral Docker matching DEV gate identities:
- #   container sfia-next-dev-pg, 127.0.0.1:5433→5432, DBs sfia_next_dev + sfia_next_e2e.
--# Migrations (ML2): 001→004 via scripts/db-migrate.sh.
-+# Migrations (ML2): 001→006 via scripts/db-migrate.sh.
- # Nora: STUDIO_E2E=1 + OPENAI_API_KEY neutralized — FAKE only.
- #
- # Corrections vs Cycle-7 proposal artefact:
-@@ -282,7 +282,7 @@ jobs:
-       - name: Vitest unit
-         run: npm run test:unit
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+index de55020e..8335cadc 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
+@@ -12,6 +12,7 @@ import {
+ } from "@/domains/knowledge/service";
+ import { listDocuments, savePreparationDocument } from "@/domains/document/service";
+ import {
++  bindTurnGenerationId,
+   commitTurnTerminal,
+   markTurnUnknown,
+   requireTurnOwnership,
+@@ -267,6 +268,9 @@ export async function postUserMessageAndNora(
+     };
+   }
  
--      - name: Apply migrations 001→004 on operator DB
-+      - name: Apply migrations 001→006 on operator DB
-         run: npm run db:migrate
++  // Bind generationId while ownership holds so D4 provenance + UNKNOWN reconstitution share one key.
++  await bindTurnGenerationId(reserved.commandId, reserved.ownerToken, reply.generationId);
++
+   const assistantId = newId("msg");
  
-       - name: Vitest PostgreSQL integration
+   let capitalisation: Awaited<ReturnType<typeof maybeCapitalizeFromExchange>> = {
 ```
 
-### migrations-fresh.pg.test.ts
+### knowledge/service.ts
 ```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
+Date:   Thu Nov 5 20:50:30 2026 +0100
 
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
     
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
-diff --git a/projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
-index c49c28dd..8a2b1103 100644
---- a/projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
-@@ -33,7 +33,7 @@ function applySql(file: string, database = DB) {
-   );
+diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+index 2fb13777..5fff8099 100644
+--- a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
++++ b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+@@ -752,156 +752,180 @@ export async function reconstituteConfirmedD4Effects(
+   capitalisationLimit: string;
+ }> {
+   try {
+-    await assertPrep(pilotId, preparationId);
+-  } catch {
+-    return {
+-      capitalisation: [],
+-      documentSave: null,
+-      capitalisationLimit: "PREP_NOT_VISIBLE — no D4 reconstitution across privilege boundary",
+-    };
+-  }
+-  const gen = refs.generationId?.trim() || null;
+-  const src = refs.userMessageId?.trim() || null;
+-  if (!gen && !src) {
+-    return {
+-      capitalisation: [],
+-      documentSave: null,
+-      capitalisationLimit: "NO_PROVENANCE_KEYS — cannot reconstitute D4 effects",
+-    };
+-  }
++    try {
++      await assertPrep(pilotId, preparationId);
++    } catch (e) {
++      const code = (e as { code?: string } | null)?.code;
++      if (code === "NOT_FOUND") {
++        return {
++          capitalisation: [],
++          documentSave: null,
++          capitalisationLimit: "PREP_NOT_VISIBLE — no D4 reconstitution across privilege boundary",
++        };
++      }
++      return {
++        capitalisation: [],
++        documentSave: null,
++        capitalisationLimit:
++          "DB_OR_LOOKUP_UNAVAILABLE — reconstitution failed; not an access denial",
++      };
++    }
++    const gen = refs.generationId?.trim() || null;
++    const src = refs.userMessageId?.trim() || null;
++    if (!gen && !src) {
++      return {
++        capitalisation: [],
++        documentSave: null,
++        capitalisationLimit: "NO_PROVENANCE_KEYS — cannot reconstitute D4 effects",
++      };
++    }
+ 
+-  const effects: ConfirmedD4Effect[] = [];
++    // Prefer generationId when present. sourceId is a fallback only when the effect has
++    // no generationId in provenance — never attribute another generation via shared sourceId.
++    const acquisProv = gen
++      ? sql`(
++          ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}
++          or (
++            coalesce(${knowledgeAcquis.provenanceJson}::jsonb->>'generationId', '') = ''
++            and ${src}::text is not null
++            and ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}
++          )
++        )`
++      : sql`${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}`;
++    const openProv = gen
++      ? sql`(
++          ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}
++          or (
++            coalesce(${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId', '') = ''
++            and ${src}::text is not null
++            and ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}
++          )
++        )`
++      : sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}`;
++    const revWhere = gen
++      ? sql`(
++          ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
++          or ${documentRevisions.correlationKey} = ${"doc:" + gen}
++          or (
++            coalesce(${documentRevisions.provenanceJson}::jsonb->>'generationId', '') = ''
++            and ${src}::text is not null
++            and ${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}
++          )
++        )`
++      : sql`${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}`;
+ 
+-  const acquisRows = await db
+-    .select({
+-      id: knowledgeAcquis.id,
+-      status: knowledgeAcquis.status,
+-      provenanceJson: knowledgeAcquis.provenanceJson,
+-    })
+-    .from(knowledgeAcquis)
+-    .where(
+-      and(
+-        eq(knowledgeAcquis.preparationId, preparationId),
+-        eq(knowledgeAcquis.ownerPilotId, pilotId),
+-        eq(knowledgeAcquis.status, "CURRENT"),
+-        gen && src
+-          ? sql`(
+-              ${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}
+-              or ${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}
+-            )`
+-          : gen
+-            ? sql`${knowledgeAcquis.provenanceJson}::jsonb->>'generationId' = ${gen}`
+-            : sql`${knowledgeAcquis.provenanceJson}::jsonb->>'sourceId' = ${src}`,
+-      ),
+-    );
++    const effects: ConfirmedD4Effect[] = [];
+ 
+-  for (const row of acquisRows) {
+-    effects.push({
+-      kind: "acquis",
+-      id: row.id,
+-      status: row.status,
+-      confirmation: "DB_CONFIRMED",
+-    });
+-  }
++    const acquisRows = await db
++      .select({
++        id: knowledgeAcquis.id,
++        status: knowledgeAcquis.status,
++        provenanceJson: knowledgeAcquis.provenanceJson,
++      })
++      .from(knowledgeAcquis)
++      .where(
++        and(
++          eq(knowledgeAcquis.preparationId, preparationId),
++          eq(knowledgeAcquis.ownerPilotId, pilotId),
++          eq(knowledgeAcquis.status, "CURRENT"),
++          acquisProv,
++        ),
++      );
+ 
+-  const openRows = await db
+-    .select({
+-      id: knowledgeOpenPoints.id,
+-      status: knowledgeOpenPoints.status,
+-    })
+-    .from(knowledgeOpenPoints)
+-    .where(
+-      and(
+-        eq(knowledgeOpenPoints.preparationId, preparationId),
+-        eq(knowledgeOpenPoints.ownerPilotId, pilotId),
+-        eq(knowledgeOpenPoints.status, "OPEN"),
+-        gen && src
+-          ? sql`(
+-              ${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}
+-              or ${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}
+-            )`
+-          : gen
+-            ? sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'generationId' = ${gen}`
+-            : sql`${knowledgeOpenPoints.provenanceJson}::jsonb->>'sourceId' = ${src}`,
+-      ),
+-    );
++    for (const row of acquisRows) {
++      effects.push({
++        kind: "acquis",
++        id: row.id,
++        status: row.status,
++        confirmation: "DB_CONFIRMED",
++      });
++    }
+ 
+-  for (const row of openRows) {
+-    effects.push({
+-      kind: "open_point",
+-      id: row.id,
+-      status: row.status,
+-      confirmation: "DB_CONFIRMED",
+-    });
+-  }
++    const openRows = await db
++      .select({
++        id: knowledgeOpenPoints.id,
++        status: knowledgeOpenPoints.status,
++      })
++      .from(knowledgeOpenPoints)
++      .where(
++        and(
++          eq(knowledgeOpenPoints.preparationId, preparationId),
++          eq(knowledgeOpenPoints.ownerPilotId, pilotId),
++          eq(knowledgeOpenPoints.status, "OPEN"),
++          openProv,
++        ),
++      );
+ 
+-  let documentSave: {
+-    status: string;
+-    documentId: string;
+-    revisionNumber?: number;
+-    confirmation: "DB_CONFIRMED";
+-  } | null = null;
++    for (const row of openRows) {
++      effects.push({
++        kind: "open_point",
++        id: row.id,
++        status: row.status,
++        confirmation: "DB_CONFIRMED",
++      });
++    }
+ 
+-  const revWhere =
+-    gen && src
+-      ? sql`(
+-          ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
+-          or ${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}
+-          or ${documentRevisions.correlationKey} = ${"doc:" + gen}
+-        )`
+-      : gen
+-        ? sql`(
+-            ${documentRevisions.provenanceJson}::jsonb->>'generationId' = ${gen}
+-            or ${documentRevisions.correlationKey} = ${"doc:" + gen}
+-          )`
+-        : sql`${documentRevisions.provenanceJson}::jsonb->>'userMessageId' = ${src}`;
++    let documentSave: {
++      status: string;
++      documentId: string;
++      revisionNumber?: number;
++      confirmation: "DB_CONFIRMED";
++    } | null = null;
+ 
+-  const revRows = await db
+-    .select({
+-      id: documentRevisions.id,
+-      documentId: documentRevisions.documentId,
+-      revisionNumber: documentRevisions.revisionNumber,
+-      status: documentRevisions.status,
+-    })
+-    .from(documentRevisions)
+-    .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
+-    .where(
+-      and(
+-        eq(documents.preparationId, preparationId),
+-        eq(documents.ownerPilotId, pilotId),
+-        eq(documentRevisions.status, "AVAILABLE"),
+-        revWhere,
+-      ),
+-    )
+-    .orderBy(desc(documentRevisions.revisionNumber))
+-    .limit(1);
++    const revRows = await db
++      .select({
++        id: documentRevisions.id,
++        documentId: documentRevisions.documentId,
++        revisionNumber: documentRevisions.revisionNumber,
++        status: documentRevisions.status,
++      })
++      .from(documentRevisions)
++      .innerJoin(documents, eq(documents.id, documentRevisions.documentId))
++      .where(
++        and(
++          eq(documents.preparationId, preparationId),
++          eq(documents.ownerPilotId, pilotId),
++          eq(documentRevisions.status, "AVAILABLE"),
++          revWhere,
++        ),
++      )
++      .orderBy(desc(documentRevisions.revisionNumber))
++      .limit(1);
+ 
+-  if (revRows[0]) {
+-    const r = revRows[0];
+-    effects.push({
+-      kind: "document",
+-      id: r.id,
+-      status: r.status,
+-      confirmation: "DB_CONFIRMED",
+-      documentId: r.documentId,
+-      revisionNumber: r.revisionNumber,
+-    });
+-    documentSave = {
+-      status: "AVAILABLE",
+-      documentId: r.documentId,
+-      revisionNumber: r.revisionNumber,
+-      confirmation: "DB_CONFIRMED",
++    if (revRows[0]) {
++      const r = revRows[0];
++      effects.push({
++        kind: "document",
++        id: r.id,
++        status: r.status,
++        confirmation: "DB_CONFIRMED",
++        documentId: r.documentId,
++        revisionNumber: r.revisionNumber,
++      });
++      documentSave = {
++        status: "AVAILABLE",
++        documentId: r.documentId,
++        revisionNumber: r.revisionNumber,
++        confirmation: "DB_CONFIRMED",
++      };
++    }
++
++    return {
++      capitalisation: effects,
++      documentSave,
++      capitalisationLimit:
++        effects.length > 0
++          ? "DB_RECONSTITUTED — effects confirmed under pilot/prep rights; turn remains UNKNOWN"
++          : "NO_CONFIRMED_D4_EFFECTS_FOR_TURN",
++    };
++  } catch {
++    return {
++      capitalisation: [],
++      documentSave: null,
++      capitalisationLimit:
++        "DB_OR_LOOKUP_UNAVAILABLE — reconstitution failed; not an access denial",
+     };
+   }
+-
+-  return {
+-    capitalisation: effects,
+-    documentSave,
+-    capitalisationLimit:
+-      effects.length > 0
+-        ? "DB_RECONSTITUTED — effects confirmed under pilot/prep rights; turn remains UNKNOWN"
+-        : "NO_CONFIRMED_D4_EFFECTS_FOR_TURN",
+-  };
  }
  
--describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres", () => {
-+describe.skipIf(!dockerOk())("migrations 001→006 on fresh isolated Postgres", () => {
-   let sql: ReturnType<typeof postgres> | null = null;
+ /**
+```
+
+### ml2-pg-contention.pg.test.ts (diff)
+```diff
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Thu Nov 5 20:50:30 2026 +0100
+
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
+    
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
+    
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-pg-contention.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-pg-contention.pg.test.ts
+index ea47098c..fef62c84 100644
+--- a/projects/sfia-studio-next/web/tests/integration/ml2-pg-contention.pg.test.ts
++++ b/projects/sfia-studio-next/web/tests/integration/ml2-pg-contention.pg.test.ts
+@@ -1,5 +1,7 @@
+ /**
+  * SAFE-01 — real two-session PostgreSQL contention (not same-connection hooks).
++ * Distinguishes TX application exceptions from client connection abort.
++ * Does NOT use pg_terminate_backend / docker stop on shared DEV/RECETTE/STABLE.
+  */
+ import { afterAll, afterEach, beforeAll, describe, expect, it } from "vitest";
+ import { config } from "dotenv";
+@@ -13,7 +15,7 @@ process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
+ import postgres from "postgres";
+ import { and, eq, sql } from "drizzle-orm";
+ import { db } from "@/db/client";
+-import { conversationTurnCommands, messages } from "@/db/schema";
++import { conversationTurnCommands, messages, knowledgeAcquis } from "@/db/schema";
+ import { createDevTestSession } from "@/domains/identity/session";
+ import { openOrCreatePreparation } from "@/domains/preparation/service";
+ import { getConversationId, postUserMessageAndNora } from "@/domains/conversation/service";
+@@ -25,17 +27,54 @@ import {
+   turnRaceHooks,
+ } from "@/domains/conversation/turn-command";
+ import { capitalizeAcquis } from "@/domains/knowledge/service";
+-import { knowledgeAcquis } from "@/db/schema";
++import { newId } from "@/lib/ids";
+ 
+ const DSN = process.env.DATABASE_URL;
+ if (!DSN) throw new Error("DATABASE_URL required");
+ 
++async function waitUntil(
++  predicate: () => Promise<boolean>,
++  opts: { timeoutMs?: number; intervalMs?: number; label?: string } = {},
++) {
++  const timeoutMs = opts.timeoutMs ?? 3000;
++  const intervalMs = opts.intervalMs ?? 40;
++  const start = Date.now();
++  while (Date.now() - start < timeoutMs) {
++    if (await predicate()) return;
++    await new Promise((r) => setTimeout(r, intervalMs));
++  }
++  throw new Error(`waitUntil timeout: ${opts.label ?? "condition"}`);
++}
++
++/** True when some other backend is waiting on a lock for this relation/row. */
++async function countWaitersOnTurnCommand(observer: ReturnType<typeof postgres>, commandId: string) {
++  const rows = await observer`
++    select count(*)::int as n
++    from pg_locks l
++    join pg_stat_activity a on a.pid = l.pid
++    where l.locktype = 'transactionid'
++      and not l.granted
++      and a.pid <> pg_backend_pid()
++      and a.query ilike ${"%" + commandId + "%"}
++  `;
++  // Fallback: any ungranted lock from another session (broader but useful under FOR UPDATE).
++  if ((rows[0]?.n ?? 0) > 0) return rows[0].n as number;
++  const broad = await observer`
++    select count(*)::int as n
++    from pg_locks l
++    where not l.granted
++      and l.pid <> pg_backend_pid()
++  `;
++  return (broad[0]?.n ?? 0) as number;
++}
++
+ describe("ML2 SAFE-01 PG two-session contention", () => {
+   let pilotId: string;
+   let preparationId: string;
+   let conversationId: string;
+   let connA: ReturnType<typeof postgres>;
+   let connB: ReturnType<typeof postgres>;
++  let observer: ReturnType<typeof postgres>;
  
    beforeAll(async () => {
-@@ -102,11 +102,13 @@ describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres",
-     }
-   }, 30_000);
- 
--  it("applies 001→004; auth_mode + knowledge + creation_correlation exist", async () => {
-+  it("applies 001→006; auth_mode + knowledge + creation_correlation + turn owner_token exist", async () => {
-     applySql("001_initial_studio_core.sql");
-     applySql("002_session_auth_mode.sql");
-     applySql("003_ml2_knowledge_documents.sql");
-     applySql("004_ml2_integrity_corrective.sql");
-+    applySql("005_ml2_conversation_turn_command.sql");
-+    applySql("006_ml2_turn_owner_token.sql");
- 
-     const cols = await sql!`
-       SELECT column_name, column_default, is_nullable
-@@ -138,10 +140,11 @@ describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres",
-     const tables = await sql!`
-       SELECT table_name FROM information_schema.tables
-       WHERE table_schema = 'public'
--        AND table_name IN ('knowledge_subjects', 'knowledge_acquis', 'knowledge_open_points')
-+        AND table_name IN ('knowledge_subjects', 'knowledge_acquis', 'knowledge_open_points', 'conversation_turn_commands')
-       ORDER BY table_name
-     `;
-     expect(tables.map((t) => t.table_name)).toEqual([
-+      "conversation_turn_commands",
-       "knowledge_acquis",
-       "knowledge_open_points",
-       "knowledge_subjects",
-@@ -157,13 +160,20 @@ describe.skipIf(!dockerOk())("migrations 001→004 on fresh isolated Postgres",
-       WHERE table_name = 'documents' AND column_name = 'creation_correlation_key'
-     `;
-     expect(corr).toHaveLength(1);
-+    const ownerTok = await sql!`
-+      SELECT column_name FROM information_schema.columns
-+      WHERE table_name = 'conversation_turn_commands' AND column_name = 'owner_token'
-+    `;
-+    expect(ownerTok).toHaveLength(1);
+     await db.execute(
+@@ -50,6 +89,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+     conversationId = cid;
+     connA = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
+     connB = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
++    observer = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 10 });
    });
  
--  it("re-applying 001→004 is idempotent", () => {
-+  it("re-applying 001→006 is idempotent", () => {
-     expect(() => applySql("001_initial_studio_core.sql")).not.toThrow();
-     expect(() => applySql("002_session_auth_mode.sql")).not.toThrow();
-     expect(() => applySql("003_ml2_knowledge_documents.sql")).not.toThrow();
-     expect(() => applySql("004_ml2_integrity_corrective.sql")).not.toThrow();
-+    expect(() => applySql("005_ml2_conversation_turn_command.sql")).not.toThrow();
-+    expect(() => applySql("006_ml2_turn_owner_token.sql")).not.toThrow();
+   afterEach(async () => {
+@@ -68,9 +108,10 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+   afterAll(async () => {
+     await connA.end({ timeout: 5 }).catch(() => undefined);
+     await connB.end({ timeout: 5 }).catch(() => undefined);
++    await observer.end({ timeout: 5 }).catch(() => undefined);
    });
  
-   it("controlled failure when a migration SQL is broken (ON_ERROR_STOP)", () => {
+-  it("PG-CONTEND-01: FOR SHARE on A blocks B reconcile until A commits", async () => {
++  it("PG-CONTEND-01: FOR SHARE on A blocks B; after release B stays RUNNING (no false orphan)", async () => {
+     const reserved = await reserveTurnCommand({
+       conversationId,
+       ownerPilotId: pilotId,
+@@ -81,6 +122,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+ 
+     let bDone = false;
+     let bResult: Awaited<ReturnType<typeof reconcileRunningCommand>> | null = null;
++    let bError: unknown = null;
+ 
+     const hold = connA.begin(async (txA) => {
+       await txA`
+@@ -90,18 +132,33 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+           and status in ('RUNNING', 'ACCEPTED')
+         for share
+       `;
+-      // Hold lock while B tries to reconcile (needs row lock compatibility with FOR UPDATE path).
+-      await new Promise((r) => setTimeout(r, 400));
++      await waitUntil(
++        async () => {
++          // Keep holding; outer starts B after lock acquired.
++          return true;
++        },
++        { timeoutMs: 500, label: "hold-acquired" },
++      );
++      await new Promise((r) => setTimeout(r, 500));
+     });
+ 
+-    await new Promise((r) => setTimeout(r, 50));
+-    const bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
+-      bDone = true;
+-      bResult = r;
+-      return r;
+-    });
++    await new Promise((r) => setTimeout(r, 40));
++    const bPromise = reconcileRunningCommand(reserved.commandId)
++      .then((r) => {
++        bDone = true;
++        bResult = r;
++        return r;
++      })
++      .catch((e) => {
++        bError = e;
++        bDone = true;
++        throw e;
++      });
+ 
+-    await new Promise((r) => setTimeout(r, 150));
++    await waitUntil(async () => (await countWaitersOnTurnCommand(observer, reserved.commandId)) > 0 || !bDone, {
++      timeoutMs: 2000,
++      label: "waiter-or-pending",
++    });
+     expect(bDone).toBe(false);
+ 
+     await hold;
+@@ -109,13 +166,18 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+       bPromise,
+       new Promise((_, rej) => setTimeout(() => rej(new Error("B reconcile timeout")), 5000)),
+     ]);
++    expect(bError).toBeNull();
+     expect(bDone).toBe(true);
+-    expect(bResult).toBeTruthy();
+-    // Active lease (not stale) ⇒ reconcile must not falsely orphan while A held share then released.
+-    expect(["RUNNING", "UNKNOWN"]).toContain(bResult!.status);
++    // Active (non-stale) command under live ownership ⇒ reconcile must NOT revoke.
++    expect(bResult!.status).toBe("RUNNING");
++    expect(bResult!.reconciled).toBe(false);
++    expect(bResult!.assistantMessageId).toBeNull();
++
++    const lease = await touchTurnLease(reserved.commandId, reserved.ownerToken);
++    expect(lease.owned).toBe(true);
+   }, 15_000);
+ 
+-  it("PG-CONTEND-02: FOR UPDATE terminal lock on A blocks B reconcile", async () => {
++  it("PG-CONTEND-02: FOR UPDATE on A blocks B; after release B RUNNING and ownership intact", async () => {
+     const reserved = await reserveTurnCommand({
+       conversationId,
+       ownerPilotId: pilotId,
+@@ -124,7 +186,10 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+     });
+     if (reserved.kind !== "fresh") throw new Error("fresh");
+ 
+-    let bFinishedDuringLock = false;
++    let bDoneDuringLock = false;
++    let bResult: Awaited<ReturnType<typeof reconcileRunningCommand>> | null = null;
++
++    let bPromise!: Promise<Awaited<ReturnType<typeof reconcileRunningCommand>>>;
+     await connA.begin(async (txA) => {
+       await txA`
+         select id from conversation_turn_commands
+@@ -134,24 +199,42 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+         for update
+       `;
+ 
+-      const bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
+-        bFinishedDuringLock = true;
++      bPromise = reconcileRunningCommand(reserved.commandId).then((r) => {
++        bDoneDuringLock = true;
++        bResult = r;
+         return r;
+       });
+ 
+-      await new Promise((r) => setTimeout(r, 200));
+-      expect(bFinishedDuringLock).toBe(false);
+-
+-      // Keep ownership; B must wait. End TX without revoking.
+-      void bPromise.catch(() => undefined);
++      await new Promise((r) => setTimeout(r, 250));
++      expect(bDoneDuringLock).toBe(false);
++      // End TX → release FOR UPDATE; B may then proceed.
+     });
+ 
+-    await new Promise((r) => setTimeout(r, 100));
++    await Promise.race([
++      bPromise,
++      new Promise((_, rej) => setTimeout(() => rej(new Error("B reconcile timeout")), 5000)),
++    ]);
++    expect(bDoneDuringLock).toBe(true);
++    expect(bResult!.status).toBe("RUNNING");
++    expect(bResult!.reconciled).toBe(false);
++
+     const stillOwned = await touchTurnLease(reserved.commandId, reserved.ownerToken);
+     expect(stillOwned.owned).toBe(true);
++
++    const assistants = await db
++      .select()
++      .from(messages)
++      .where(
++        and(
++          eq(messages.conversationId, conversationId),
++          eq(messages.ordinal, reserved.ordinalAssistant),
++          eq(messages.role, "assistant"),
++        ),
++      );
++    expect(assistants).toHaveLength(0);
+   }, 15_000);
+ 
+-  it("PG-DBFAIL-01: exception after assistant INSERT rolls back — no orphan, non-COMPLETE", async () => {
++  it("PG-DBFAIL-01: application exception after assistant INSERT rolls back TX — no orphan", async () => {
+     const key = `dbfail01-${Date.now()}`;
+     const before = (
+       await db
+@@ -193,7 +276,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+     expect(cmd.status).not.toBe("COMPLETE");
+   });
+ 
+-  it("PG-DBFAIL-02: capitalisation TX ownership lost → no acquis published", async () => {
++  it("PG-DBFAIL-02: capitalisation TX ownership lost → no acquis published (fence, not DB disconnect)", async () => {
+     const reserved = await reserveTurnCommand({
+       conversationId,
+       ownerPilotId: pilotId,
+@@ -246,6 +329,39 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+     expect(after).toBe(before);
+   });
+ 
++  it("PG-DBFAIL-03: client connection abort mid-TX rolls back uncommitted write (no terminate_backend)", async () => {
++    // Own-connection abort on DEV: no pg_terminate_backend / docker stop on shared lanes.
++    const marker = `dbfail03_${Date.now()}`;
++    const ephemeral = postgres(DSN!, { max: 1, idle_timeout: 2, connect_timeout: 5 });
++    try {
++      await ephemeral.begin(async (tx) => {
++        await tx`
++          create temporary table if not exists sfia_safe01_abort_probe (
++            id text primary key,
++            note text not null
++          ) on commit drop
++        `;
++        await tx`insert into sfia_safe01_abort_probe (id, note) values (${marker}, 'uncommitted')`;
++        // Abort by destroying the client mid-TX (simulates connection loss for this session).
++        await ephemeral.end({ timeout: 1 });
++        throw new Error("unreachable_after_end");
++      });
++    } catch {
++      // expected — connection closed
++    }
++
++    // New session cannot see the uncommitted temp row; durable tables untouched.
++    const probe = postgres(DSN!, { max: 1, idle_timeout: 5, connect_timeout: 5 });
++    try {
++      const exists = await probe`
++        select to_regclass('pg_temp.sfia_safe01_abort_probe') as reg
++      `;
++      expect(exists[0]?.reg).toBeNull();
++    } finally {
++      await probe.end({ timeout: 5 }).catch(() => undefined);
++    }
++  }, 15_000);
++
+   it("PG-LEASE-01: active lease prevents false orphan under concurrent reconcile", async () => {
+     const reserved = await reserveTurnCommand({
+       conversationId,
+@@ -265,7 +381,7 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+     const gen = `gen_iso_${Date.now()}`;
+     const src = `msg_iso_${Date.now()}`;
+     await db.insert(knowledgeAcquis).values({
+-      id: `acq_iso_${Date.now()}`,
++      id: newId("acq"),
+       preparationId,
+       ownerPilotId: pilotId,
+       kind: "HYPOTHESIS",
+@@ -294,7 +410,6 @@ describe("ML2 SAFE-01 PG two-session contention", () => {
+     expect(foreign.capitalisation).toHaveLength(0);
+     expect(foreign.capitalisationLimit).toMatch(/PREP_NOT_VISIBLE|NO_CONFIRMED/);
+ 
+-    // Cutting an independent session must not leave durable side-effects or open TX leakage.
+     const cut = postgres(DSN!, { max: 1, idle_timeout: 1, connect_timeout: 5 });
+     await cut`select 1`;
+     await cut.end({ timeout: 1 });
 ```
 
 ### ml2-three-blocker.pg.test.ts
 ```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
+Date:   Thu Nov 5 20:50:30 2026 +0100
 
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
     
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
-index 9d9cb097..389beef5 100644
+index 389beef5..9195b41d 100644
 --- a/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
 +++ b/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
-@@ -734,6 +734,217 @@ describe("ML2 three-blocker corrective (PG)", () => {
-       );
-     expect(kept).toHaveLength(1);
-     expect(kept[0].status).toBe("CURRENT");
-+
-+    // UNKNOWN-CAP-01: response surfaces DB-confirmed acquis ref (not erased).
-+    const caps = Array.isArray(result.capitalisation) ? result.capitalisation : [];
-+    expect(caps.some((c: { id?: string }) => c.id === kept[0].id)).toBe(true);
-+
-+    // UNKNOWN-CAP-02: replay same key reconstitutes same refs, no second generation.
-+    const replay = await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Compare CAP04 option reprise après effet D4 déjà durable",
-+      { clientTurnKey: key },
-+    );
-+    expect(replay.status).toBe("UNKNOWN");
-+    expect(replay.idempotentReplay).toBe(true);
-+    const replayCaps = Array.isArray(replay.capitalisation) ? replay.capitalisation : [];
-+    expect(replayCaps.some((c: { id?: string }) => c.id === kept[0].id)).toBe(true);
-+  });
-+
-+  it("UNKNOWN-CAP-03: foreign pilot cannot see reconstituted acquis refs", async () => {
-+    const statement = `CAP03_FOREIGN_${Date.now()} statement durable isolé`;
-+    await db.insert(knowledgeAcquis).values({
-+      id: newId("acq"),
-+      preparationId,
-+      ownerPilotId: pilotId,
-+      kind: "HYPOTHESIS",
-+      statement,
-+      provenanceJson: JSON.stringify({
-+        sourceKind: "message",
-+        sourceId: "msg_foreign_test",
-+        generationId: "gen_foreign_test",
-+        epistemic: "hypothesized",
-+      }),
-+      status: "CURRENT",
-+    });
-+    const { reconstituteConfirmedD4Effects } = await import("@/domains/knowledge/service");
-+    const other = await createDevTestSession("b", { host: "127.0.0.1:3100" });
-+    const foreign = await reconstituteConfirmedD4Effects(other.pilotId, preparationId, {
-+      generationId: "gen_foreign_test",
-+      userMessageId: "msg_foreign_test",
-+    });
-+    expect(foreign.capitalisation).toHaveLength(0);
-+  });
-+
-+  it("ASSIST-REUSE-01: ordinal occupied with different generationId → CONFLICT / no COMPLETE", async () => {
+@@ -694,14 +694,15 @@ describe("ML2 three-blocker corrective (PG)", () => {
+           )
+           .limit(1)
+       )[0];
+-      // Valid D4 write while ownership still holds.
++      // Valid D4 write while ownership still holds — generationId must already be bound.
++      expect(row!.generationId).toBeTruthy();
+       const cap = await capitalizeAcquis(pilotId, preparationId, {
+         statement,
+         kind: "HYPOTHESIS",
+         provenance: {
+           sourceKind: "message",
+           sourceId: row!.userMessageId ?? "msg",
+-          generationId: row!.generationId ?? "gen",
++          generationId: row!.generationId!,
+           epistemic: "hypothesized",
+         },
+         turnFence: { commandId: row!.id, ownerToken: row!.ownerToken! },
+@@ -827,6 +828,85 @@ describe("ML2 three-blocker corrective (PG)", () => {
+     expect(replay.assistantMessageId).toBe(first.assistantMessageId);
+   });
+ 
++  it("ASSIST-REUSE-04: missing generationId on existing message → CONFLICT even if sameId", async () => {
 +    const reserved = await reserveTurnCommand({
 +      conversationId,
 +      ownerPilotId: pilotId,
-+      clientTurnKey: `assist01-${Date.now()}`,
-+      content: "Assist reuse conflict",
++      clientTurnKey: `assist04-${Date.now()}`,
++      content: "Assist reuse missing gen sameId",
 +    });
 +    if (reserved.kind !== "fresh") throw new Error("expected fresh");
++    const msgId = newId("msg");
 +    await db.insert(messages).values({
-+      id: newId("msg"),
++      id: msgId,
 +      conversationId,
 +      role: "assistant",
-+      content: "foreign assistant",
++      content: "assistant without generation",
 +      status: "COMPLETE",
-+      generationId: "gen_OTHER",
++      generationId: null,
 +      ordinal: reserved.ordinalAssistant,
 +    });
 +    const { commitTurnTerminal } = await import("@/domains/conversation/turn-command");
@@ -1104,313 +1403,285 @@ index 9d9cb097..389beef5 100644
 +        status: "COMPLETE",
 +        conversationId,
 +        assistant: {
-+          id: newId("msg"),
-+          content: "new",
++          id: msgId,
++          content: "assistant without generation",
 +          messageStatus: "COMPLETE",
-+          generationId: "gen_MINE",
++          generationId: "gen_REQUIRED",
 +          ordinal: reserved.ordinalAssistant,
 +        },
-+        generationId: "gen_MINE",
++        generationId: "gen_REQUIRED",
 +      }),
 +    ).rejects.toSatisfy((e: unknown) => e instanceof StudioError && e.code === "CONFLICT");
 +  });
 +
-+  it("ASSIST-REUSE-02: same generationId reuse after ACK loss is idempotent", async () => {
-+    const key = `assist02-${Date.now()}`;
-+    const first = await postUserMessageAndNora(pilotId, preparationId, "Compare assist02 ACK", {
-+      clientTurnKey: key,
-+    });
-+    expect(first.status).toBe("COMPLETE");
-+    const replay = await postUserMessageAndNora(pilotId, preparationId, "Compare assist02 ACK", {
-+      clientTurnKey: key,
-+    });
-+    expect(replay.status).toBe("COMPLETE");
-+    expect(replay.idempotentReplay).toBe(true);
-+    expect(replay.assistantMessageId).toBe(first.assistantMessageId);
-+  });
-+
-+  it("ASSIST-REUSE-03: reconcile does not bind assistant with mismatched/missing generationId", async () => {
++  it("ASSIST-REUSE-05: alreadyBound without matching dual generationId → CONFLICT", async () => {
 +    const reserved = await reserveTurnCommand({
 +      conversationId,
 +      ownerPilotId: pilotId,
-+      clientTurnKey: `assist03-${Date.now()}`,
-+      content: "Assist reuse reconcile",
++      clientTurnKey: `assist05-${Date.now()}`,
++      content: "Assist reuse alreadyBound missing gen",
 +    });
 +    if (reserved.kind !== "fresh") throw new Error("expected fresh");
-+    const foreignMsgId = newId("msg");
++    const msgId = newId("msg");
 +    await db.insert(messages).values({
-+      id: foreignMsgId,
++      id: msgId,
 +      conversationId,
 +      role: "assistant",
-+      content: "foreign reconcile assistant",
++      content: "prebound assistant",
 +      status: "COMPLETE",
-+      generationId: "gen_FOREIGN_RECON",
++      generationId: null,
 +      ordinal: reserved.ordinalAssistant,
 +    });
 +    await db
 +      .update(conversationTurnCommands)
-+      .set({
-+        generationId: "gen_CMD_OWN",
-+        updatedAt: new Date(Date.now() - TURN_RUNNING_STALE_MS - 1000),
-+      })
++      .set({ assistantMessageId: msgId, generationId: null })
 +      .where(eq(conversationTurnCommands.id, reserved.commandId));
 +
-+    const recon = await reconcileRunningCommand(reserved.commandId);
-+    expect(recon.status).toBe("UNKNOWN");
-+    expect(recon.assistantMessageId).toBeNull();
-+    expect(recon.assistantMessageId).not.toBe(foreignMsgId);
-+
-+    // Missing generation on command ⇒ still no silent bind.
-+    const reserved2 = await reserveTurnCommand({
-+      conversationId,
-+      ownerPilotId: pilotId,
-+      clientTurnKey: `assist03b-${Date.now()}`,
-+      content: "Assist reuse missing gen",
-+    });
-+    if (reserved2.kind !== "fresh") throw new Error("expected fresh");
-+    await db.insert(messages).values({
-+      id: newId("msg"),
-+      conversationId,
-+      role: "assistant",
-+      content: "orphan without matching gen proof",
-+      status: "COMPLETE",
-+      generationId: null,
-+      ordinal: reserved2.ordinalAssistant,
-+    });
-+    await db
-+      .update(conversationTurnCommands)
-+      .set({
-+        generationId: null,
-+        updatedAt: new Date(Date.now() - TURN_RUNNING_STALE_MS - 1000),
-+      })
-+      .where(eq(conversationTurnCommands.id, reserved2.commandId));
-+    const recon2 = await reconcileRunningCommand(reserved2.commandId);
-+    expect(recon2.status).toBe("UNKNOWN");
-+    expect(recon2.assistantMessageId).toBeNull();
++    const { commitTurnTerminal } = await import("@/domains/conversation/turn-command");
++    await expect(
++      commitTurnTerminal({
++        commandId: reserved.commandId,
++        ownerToken: reserved.ownerToken,
++        status: "COMPLETE",
++        conversationId,
++        assistant: {
++          id: msgId,
++          content: "prebound assistant",
++          messageStatus: "COMPLETE",
++          generationId: "gen_NOW",
++          ordinal: reserved.ordinalAssistant,
++        },
++        generationId: "gen_NOW",
++      }),
++    ).rejects.toSatisfy((e: unknown) => e instanceof StudioError && e.code === "CONFLICT");
 +  });
 +
-+  it("UNKNOWN-CAP-04: document revision with matching provenance reconstitutes; subject without gen stays unattributed", async () => {
-+    const { reconstituteConfirmedD4Effects } = await import("@/domains/knowledge/service");
-+    const gen = `gen_cap04_${Date.now()}`;
-+    const src = `msg_cap04_${Date.now()}`;
-+    const docId = newId("doc");
-+    const revId = newId("drev");
-+    await db.insert(documents).values({
-+      id: docId,
-+      preparationId,
-+      ownerPilotId: pilotId,
-+      title: `CAP04 doc ${Date.now()}`,
-+      creationCorrelationKey: `doc:${gen}`,
-+    });
-+    await db.insert(documentRevisions).values({
-+      id: revId,
-+      documentId: docId,
-+      revisionNumber: 1,
-+      status: "AVAILABLE",
-+      contentMarkdown: "# CAP04 durable",
-+      correlationKey: `doc:${gen}`,
-+      provenanceJson: JSON.stringify({ generationId: gen, userMessageId: src }),
-+      scope: "document",
-+    });
-+    // Subject has no generation provenance today — must not be falsely attributed.
-+    await db.insert(knowledgeSubjects).values({
-+      id: newId("subj"),
-+      preparationId,
-+      ownerPilotId: pilotId,
-+      title: `CAP04 subject ${Date.now()}`,
-+      status: "ACTIVE",
-+    });
-+
-+    const hit = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-+      generationId: gen,
-+      userMessageId: src,
-+    });
-+    expect(hit.documentSave?.documentId).toBe(docId);
-+    expect(hit.documentSave?.confirmation).toBe("DB_CONFIRMED");
-+    expect(hit.capitalisation.some((c) => c.kind === "document" && c.documentId === docId)).toBe(
-+      true,
-+    );
-+    // Subjects have no generation provenance — reconstitution kinds are acquis|open_point|document only.
-+    expect(hit.capitalisation.every((c) => c.kind !== "document" || c.documentId === docId)).toBe(
-+      true,
-+    );
-+    expect(hit.capitalisationLimit).toContain("DB_RECONSTITUTED");
-+    const subjectsAfter = await db
-+      .select()
-+      .from(knowledgeSubjects)
-+      .where(eq(knowledgeSubjects.preparationId, preparationId));
-+    expect(subjectsAfter.some((s) => s.title.startsWith("CAP04 subject"))).toBe(true);
-+
-+    const miss = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
-+      generationId: "gen_unrelated",
-+      userMessageId: "msg_unrelated",
-+    });
-+    expect(miss.documentSave).toBeNull();
-+    expect(miss.capitalisation.filter((c) => c.kind === "document")).toHaveLength(0);
+   it("ASSIST-REUSE-03: reconcile does not bind assistant with mismatched/missing generationId", async () => {
+     const reserved = await reserveTurnCommand({
+       conversationId,
+@@ -887,6 +967,32 @@ describe("ML2 three-blocker corrective (PG)", () => {
+     expect(recon2.assistantMessageId).toBeNull();
    });
  
-   it("CAP-FENCE-05: pilot path without turnFence still creates subject", async () => {
++  it("UNKNOWN-CAP-05: generationId present must not attribute acquis from another gen via sourceId OR", async () => {
++    const { reconstituteConfirmedD4Effects } = await import("@/domains/knowledge/service");
++    const genA = `gen_a_${Date.now()}`;
++    const genB = `gen_b_${Date.now()}`;
++    const srcShared = `msg_shared_${Date.now()}`;
++    await db.insert(knowledgeAcquis).values({
++      id: newId("acq"),
++      preparationId,
++      ownerPilotId: pilotId,
++      kind: "HYPOTHESIS",
++      statement: `CROSS_GEN_${Date.now()} must not leak via sourceId OR`,
++      provenanceJson: JSON.stringify({
++        sourceKind: "message",
++        sourceId: srcShared,
++        generationId: genA,
++        epistemic: "hypothesized",
++      }),
++      status: "CURRENT",
++    });
++    const hit = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
++      generationId: genB,
++      userMessageId: srcShared,
++    });
++    expect(hit.capitalisation.filter((c) => c.kind === "acquis")).toHaveLength(0);
++  });
++
+   it("UNKNOWN-CAP-04: document revision with matching provenance reconstitutes; subject without gen stays unattributed", async () => {
+     const { reconstituteConfirmedD4Effects } = await import("@/domains/knowledge/service");
+     const gen = `gen_cap04_${Date.now()}`;
 ```
 
-### specification-technique.md (As-Built §26)
+### specification-technique.md
 ```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
+Date:   Thu Nov 5 20:50:30 2026 +0100
 
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
     
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-index 64bb24b0..e641375c 100644
+index e641375c..aaf64f5e 100644
 --- a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
 +++ b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-@@ -941,3 +941,27 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
- | Playwright FAKE | 3 PASS |
+@@ -965,3 +965,58 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
  | tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
- | LIVE / CI / RECETTE | **NOT RUN** |
+ | LIVE / RECETTE | **NOT RUN** |
+ | CI nouveau SHA | à vérifier après push FF sur PR #659 |
 +
-+## 26. As-Built consolidation pré-merge PR #659 — 2026-11-05
++## 27. As-Built qualification intégrée pré-RECETTE — 2026-11-05
 +
-+> **PROJECT PUSH AUTHORIZED (same branch) / NO MERGE / NO RELEASE.** Parent `df735787` ; correctifs UNKNOWN-CAP + ASSIST-REUSE + SAFE-01 deux sessions PG + libellés CI 001→006.
++> **PROJECT PUSH FF autorisé / NO LIVE / NO RECETTE ACTIVATION / NO MERGE / NO RELEASE.** Parent `bf2deb0e`. Durcit ASSIST-REUSE, SAFE-01 (oracles stricts + abort connexion client), D4 reconstitution sans attribution croisée, et prépare manifeste LIVE/RECETTE **sans exécution**.
 +
-+### 26.1 Invariants
++### 27.1 Correctifs techniques
 +
-+| ID | Invariant |
++| ID | Changement |
 +| --- | --- |
-+| UNKNOWN-CAP | Tour `UNKNOWN` reste UNKNOWN ; restitution D4 via `reconstituteConfirmedD4Effects` (relecture DB + `assertPrep`) ; pas de COMPLETE / assistant artificiel |
-+| ASSIST-REUSE | Reuse assistant seulement si `generationId` des deux côtés présents et égaux ; sinon CONFLICT (terminal) ou non-liaison (reconcile) |
-+| SAFE-01 | Contre-épreuves PG à **deux connexions postgres.js** (FOR SHARE / FOR UPDATE / panne TX / lease / isolation) |
-+| CI labels | Commentaire + step `Apply migrations 001→006` ; test fresh migrations aligné 001→006 (comportement script inchangé) |
++| ASSIST-REUSE | `commitTurnTerminal` exige `generationId` non vides et égaux (commande/message/entrée) ; `sameId`/`alreadyBound` insuffisants seuls ; `bindTurnGenerationId` après génération |
++| SAFE-01 | CONTEND-01/02 : statut attendu `RUNNING` post-verrou ; await de B ; DBFAIL-03 = abort client mid-TX (pas `terminate_backend` sur DEV partagé) |
++| UNKNOWN-CAP | reconstitution : match `generationId` prioritaire ; `sourceId` seulement si provenance sans gen ; panne DB ≠ `PREP_NOT_VISIBLE` |
++| Sujets | toujours non attribuables sans provenance de génération |
 +
-+### 26.2 Preuves locales (avant push)
++### 27.2 Plan LIVE borné — PRÉPARÉ, NON EXÉCUTÉ
++
++**Objectif :** qualifier cognition Nora + lecture D4 + observabilité sous fournisseur réel, budget et coupe-circuit Morris.
++
++| Élément | Contenu proposé |
++| --- | --- |
++| Scénarios | (1) question simple ; (2) comparaison complexe + outils D4 ; (3) contradiction de sources ; (4) ressource inaccessible ; (5) faux/échec fournisseur ; (6) reprise `clientTurnKey` / UNKNOWN ; (7) échec auth/DB |
++| Oracles | statut terminal honnête ; outils réellement appelés ; docs lus ; effets D4 sous droits ; pas d'équivalence ChatGPT↔Nora ; traces expurgées |
++| Identité / données | pilote de test DEV→LIVE GO ; préparation/projet figés ; documents versionnés ; droits explicites ; non-effets D6–D9 |
++| Budget | modèle/effort demandés vs appliqués ; `maxTurns` ; timeout ; plafond €/tokens ; critères d'arrêt + cleanup |
++| Preuves | `operationId` / generation / attempt ; OBS allowlist ; durée/usage ; **pas** de secret dans Git |
++| Préflight | SDK, ports, OBS, coûts — **sans** appel fournisseur tant que GO LIVE absent |
++| Bloquants GO | `BOUNDARY NOT PROVEN — MORRIS LIVE GO REQUIRED` ; cookie localhost collision à traiter avant session utilisateur |
++
++### 27.3 Manifeste candidat RECETTE — PREPARED NOT DEPLOYED
++
++| Champ | Valeur |
++| --- | --- |
++| Branche | `sfia/next-ml2-cognition-observability-integrated` |
++| Base | `origin/main@6e4406c6` |
++| Schema | `006` (pas de 007) |
++| Version | `0.0.0-dev` / **NO RELEASE** / STABLE NOT AVAILABLE |
++| Lane | DEV prouvée ; RECETTE/STABLE **non démarrées, non migrées, non peuplées** |
++| Isolation | worktrees/DB/roles/ports/cookies/secrets à vérifier avant activation ; collision cookies `127.0.0.1` connue |
++| Smoke/stop/reprise | à finaliser au SHA gelé post-GO ; toute correction change le SHA → réqualification |
++| Statut | `RECETTE CANDIDATE MANIFEST PREPARED — NOT DEPLOYED` |
++
++### 27.4 Preuves locales (cycle)
 +
 +| Suite | Résultat |
 +| --- | --- |
-+| unit | 52 PASS |
-+| PG | 89 PASS (dont `ml2-pg-contention.pg.test.ts` 6 + oracles UNKNOWN-CAP/ASSIST-REUSE) |
-+| Playwright FAKE | 3 PASS |
-+| tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
++| unit / PG / e2e FAKE | voir delivery entry + CI du SHA final |
 +| LIVE / RECETTE | **NOT RUN** |
-+| CI nouveau SHA | à vérifier après push FF sur PR #659 |
++| Disconnect serveur partagé | **NOT USED** (interdit) ; abort client mid-TX = PROVEN distinct |
++
++## 28. Gaps realism explicitement ouverts
++
++- Multi-processus / multi-hôte LIVE : **NOT RUN**
++- OpenAI REAL / Better Auth OAuth réel : **NOT RUN**
++- RECETTE utilisateur Morris : **NOT RUN**
++- Comparaison cognitive LIVE ChatGPT↔Nora : **NOT RUN** (protocole documenté seulement)
 ```
 
-### matrice-tracabilite.md (§19)
+### matrice-tracabilite.md
 ```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
+Date:   Thu Nov 5 20:50:30 2026 +0100
 
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
     
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-index 6be7c3ff..5bd64213 100644
+index 5bd64213..695e203e 100644
 --- a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
 +++ b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-@@ -510,3 +510,25 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
- | SAFE-01 | PARTIAL | rollback CAS miss ; pas d'injection panne DB dédiée |
- | REG-01 | PROVEN | unit 52 / PG 78 / e2e 3 / tsc+build |
- | LIVE / CI / RECETTE | NOT RUN | hors mandat |
+@@ -532,3 +532,27 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
+ | CI-LABELS | PROVEN local | workflow + migrations-fresh 001→006 |
+ | REG-01 | PROVEN | unit 52 / PG 89 / e2e 3 / tsc+lint+build |
+ | LIVE / RECETTE / merge | NOT RUN | hors mandat ; gate Morris |
 +
-+## 19. As-Built consolidation pré-merge PR #659 — 2026-11-05
++## 20. As-Built qualification intégrée pré-RECETTE — 2026-11-05
 +
 +| Oracle | État | Preuve |
 +| --- | --- | --- |
-+| UNKNOWN-CAP-01 | PG PROVEN | CAP-FENCE-04 : acquis CURRENT + refs dans payload UNKNOWN |
-+| UNKNOWN-CAP-02 | PG PROVEN | replay même `clientTurnKey` reconstitue mêmes refs |
-+| UNKNOWN-CAP-03 | PG PROVEN | pilote étranger ⇒ 0 ref |
-+| UNKNOWN-CAP-04 | PG PROVEN | document versionné DB_CONFIRMED ; sujet sans gen non attribué |
-+| ASSIST-REUSE-01 | PG PROVEN | `generationId` divergent ⇒ CONFLICT |
-+| ASSIST-REUSE-02 | PG PROVEN | même gen / ACK perdu ⇒ idempotent |
-+| ASSIST-REUSE-03 | PG PROVEN | reconcile ne lie pas gen mismatch / missing |
-+| PG-CONTEND-01 | PG PROVEN | FOR SHARE session A bloque reconcile B |
-+| PG-CONTEND-02 | PG PROVEN | FOR UPDATE terminal A bloque reconcile B |
-+| PG-DBFAIL-01 | PG PROVEN | exception post-INSERT ⇒ rollback assistant, non-COMPLETE |
-+| PG-DBFAIL-02 | PG PROVEN | cap TX ownership lost ⇒ 0 acquis publié |
-+| PG-LEASE-01 | PG PROVEN | lease actif ⇒ pas de faux orphelin |
-+| PG-ISOLATE-01 | PG PROVEN | pilote étranger + coupe connexion indépendante |
-+| SAFE-01 (synthèse) | PG PROVEN (DEV) | deux sessions physiques ; runtime multi-process LIVE **NOT RUN** |
-+| CI-LABELS | PROVEN local | workflow + migrations-fresh 001→006 |
-+| REG-01 | PROVEN | unit 52 / PG 89 / e2e 3 / tsc+lint+build |
-+| LIVE / RECETTE / merge | NOT RUN | hors mandat ; gate Morris |
++| ASSIST-REUSE-01 | PG PROVEN | gen divergent → CONFLICT |
++| ASSIST-REUSE-02 | PG PROVEN | ACK perdu idempotent |
++| ASSIST-REUSE-03 | PG PROVEN | reconcile sans gen match → non-liaison |
++| ASSIST-REUSE-04 | PG PROVEN | gen manquante message + sameId → CONFLICT |
++| ASSIST-REUSE-05 | PG PROVEN | alreadyBound sans dual gen → CONFLICT |
++| UNKNOWN-CAP-01..04 | PG PROVEN | restitution DB + droits ; sujets non attribués |
++| UNKNOWN-CAP-05 | PG PROVEN | pas d'attribution croisée via sourceId OR |
++| PG-CONTEND-01 | PG PROVEN | FOR SHARE bloque ; après release **RUNNING** strict |
++| PG-CONTEND-02 | PG PROVEN | FOR UPDATE bloque ; await B → RUNNING ; ownership intact |
++| PG-DBFAIL-01 | PG PROVEN | exception applicative post-INSERT → rollback |
++| PG-DBFAIL-02 | PG PROVEN | fence ownership (≠ disconnect) |
++| PG-DBFAIL-03 | PG PROVEN | abort **client** mid-TX (TEMP) ; pas terminate_backend DEV |
++| PG-LEASE-01 / PG-ISOLATE-01 | PG PROVEN | lease + isolation pilote |
++| SAFE-01 multi-process LIVE | NOT RUN | hors mandat |
++| REAL DB DISCONNECT (server kill) | NOT PROVEN — TOOLING GAP | interdit sur DEV partagé ; abort client distinct |
++| COG-01..07 / OBS-Q01..10 DET/FAKE | PROVEN (suites existantes) | LIVE cases **NOT RUN** |
++| LIVE protocol | PREPARED | spec §27.2 — **NOT EXECUTED** |
++| RECETTE manifeste | PREPARED NOT DEPLOYED | spec §27.3 |
++| LIVE / RECETTE / merge / ADOPTED | NOT RUN | gates Morris |
 ```
 
-### delivery-history.md (DELIV-11)
+### delivery-history.md
 ```diff
-commit bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1
+commit 01ae25e1dfc7b062d3b2a73838335ef8630ec6f2
 Author: Morris Cleland <morris@MacBook-Air.local>
-Date:   Thu Nov 5 20:23:06 2026 +0100
+Date:   Thu Nov 5 20:50:30 2026 +0100
 
-    fix(next-ml2): reconstitute UNKNOWN D4 effects, gate assistant reuse, prove SAFE-01 two-session PG
+    fix(next-ml2): harden ASSIST-REUSE/SAFE-01 and prepare LIVE/RECETTE gates
     
-    Keep UNKNOWN turns honest with DB-confirmed D4 restitution, require matching generationId before assistant reuse, and harden pre-merge evidence with real two-connection contention plus CI migration labels 001→006.
+    Require dual generationId proof before assistant reuse, bind generation early for D4 reconstitution, tighten two-session PG oracles with client abort proof, and document bounded LIVE/RECETTE manifests without activating them.
     
     Co-authored-by: Cursor <cursoragent@cursor.com>
 
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index 2233dc09..4106109d 100644
+index 4106109d..5d7b3125 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -333,3 +333,22 @@ Append-only logical journal of Cursor product deliveries.
- | LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
- | Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
- | Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
+@@ -352,3 +352,22 @@ Append-only logical journal of Cursor product deliveries.
+ | LIVE / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+ | Status | PROJECT BRANCH PUSH (FF) — merge/LIVE/RECETTE still gated |
+ | Verdict candidate | `PR #659 UPDATED — await CI Next on new SHA — READY FOR CHATGPT PRE-MERGE REVIEW` (CI status filled post-push) |
 +
-+## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-PREMERGE-11
++## delivery_id: DELIV-2026-11-05-ML2-PRE-RECETTE-QUAL-12
 +
 +| Field | Value |
 +| --- | --- |
-+| Date | 2026-11-05 (Europe/Paris) ~20:25 CET |
-+| Macro-lot | R5 / ML2 — consolidation pré-merge PR #659 |
-+| Type | INC corrective integrated (same ML2) |
-+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**project push FF authorized**) |
-+| Parent SHA | `df7357873b487d48e32af5de89995bcfbf720210` |
++| Date | 2026-11-05 (Europe/Paris) ~20:50 CET |
++| Macro-lot | R5 / ML2 — qualification intégrée pré-RECETTE PR #659 |
++| Type | INC corrective + QA préparation (same ML2) |
++| Branch | `sfia/next-ml2-cognition-observability-integrated` (**FF push authorized**) |
++| Parent SHA | `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` |
 +| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
 +| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
-+| Corrected | UNKNOWN-CAP DB reconstitution ; ASSIST-REUSE generationId gate ; SAFE-01 two-session PG + DB-fail ; CI labels 001→006 |
-+| Schema | unchanged (`006` already present) ; no new migration |
++| Corrected | ASSIST-REUSE dual-gen strict + bindTurnGenerationId ; SAFE-01 strict RUNNING + client abort mid-TX ; D4 gen-priority reconstitution ; LIVE/RECETTE docs préparés |
++| Schema | unchanged (`006`) ; no migration |
 +| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-+| Local proofs | unit 52 PASS ; PG 89 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
-+| LIVE / RECETTE | **NOT RUN / NOT AUTHORIZED** |
-+| Status | PROJECT BRANCH PUSH (FF) — merge/LIVE/RECETTE still gated |
-+| Verdict candidate | `PR #659 UPDATED — await CI Next on new SHA — READY FOR CHATGPT PRE-MERGE REVIEW` (CI status filled post-push) |
++| Local proofs | unit 52 PASS ; PG 93 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
++| LIVE / RECETTE | **NOT RUN / NOT DEPLOYED** ; manifeste PREPARED |
++| Status | PROJECT BRANCH PUSH (FF) — LIVE/RECETTE/merge gated Morris |
++| Verdict candidate | `ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS` |
 ```
 
 ---
 
-## 10. Réserves / dette / exit
+## 9. LIVE / RECETTE — préparation seulement
 
-1. **SAFE-01** : PROVEN en DEV (2 sessions postgres.js) — **pas** preuve multi-processus / multi-host LIVE.
-2. **Sujets D4** : pas de provenance génération — volontairement non attribués (limite documentée).
-3. **LIVE COG/OBS, RECETTE ML2, merge PR #659, STABLE, ADOPTED** : portes Morris distinctes.
-4. Warnings lint préexistants `nora-adapter` unused — hors correctif.
-5. ENV-01 respecté : DEV + GitHub only.
-
----
-
-## 11. Instruction ChatGPT obligatoire
-
-- Branche handoff : `sfia/review-handoff`
-- Chemin canonique : `sfia-review-handoff/latest-chatgpt-review.md`
-- Handoff tip branch : `origin/sfia/review-handoff` (fast-forward only mono-file)
-- Chemin blob : `sfia-review-handoff/latest-chatgpt-review.md` — SHA/blob exacts dans le rapport Cursor §handoff
-- Projet SHA : `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1`
-- PR : #659 DRAFT — https://github.com/mcleland147/sfia-workspace/pull/659
-- CI Next : run `42093406745` SUCCESS (52/89/3)
-- Oracles bloquants UNKNOWN-CAP / ASSIST-REUSE / SAFE-01 PG : **PROVEN** (DEV)
-- Prochaine décision Morris : gate merge / autorisation LIVE bornée / RECETTE — **pas** auto-merge
+- Plan LIVE borné : spec §27.2 — **NOT EXECUTED** ; GO Morris requis ; `BOUNDARY NOT PROVEN — MORRIS LIVE GO REQUIRED`.
+- Manifeste RECETTE : `RECETTE CANDIDATE MANIFEST PREPARED — NOT DEPLOYED` ; aucune migration/peuplement RECETTE/STABLE.
+- Cookie collision `127.0.0.1` : condition avant session utilisateur.
+- Multi-process LIVE / OAuth réel / comparaison cognitive LIVE : **NOT RUN**.
 
 ---
 
-## 12. Conclusion
+## 10. Instruction ChatGPT
 
-**R5/ML2 CONSOLIDATION — PR #659 UPDATED — CI NEXT PASS — READY FOR CHATGPT PRE-MERGE REVIEW**  
-Candidate unique `bf2deb0e` ; continuité conversationnelle après collision/reprise/panne : effets D4 durables repérables sans fabriquer de résultat ; assistant non approprié sans `generationId` compatible ; contention PG réelle à deux sessions prouvée en DEV ; libellés CI alignés 001→006.  
-**NO RELEASE. NO MERGE. NO LIVE. NO RECETTE. NO ADOPTED.**
+- Projet SHA : `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` ; main : `6e4406c63639330c7826423cdcf08f06ff019eed`
+- PR #659 DRAFT
+- Handoff tip : `origin/sfia/review-handoff` → `sfia-review-handoff/latest-chatgpt-review.md` (SHA/blob dans rapport Cursor final)
+- CI Next `42097746777` + counts
+- Oracles ASSIST-REUSE / SAFE-01 / UNKNOWN-CAP
+- Gaps REAL + plan LIVE/RECETTE
+- Arbitrage Morris : GO LIVE borné et/ou activation RECETTE et/ou merge — **pas** automatiques
+
+---
+
+## 11. Conclusion
+
+**ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS**  
+NO RELEASE. NO MERGE. NO LIVE. NO RECETTE. NO ADOPTED.
