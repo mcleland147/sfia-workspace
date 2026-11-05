@@ -516,3 +516,53 @@ ML2-S1 streaming UI/LIVE ; ML2-S2 composition séparation (minimale) ; ML2-S3 ma
 ### Non-régression
 
 C2 concurrent revise ; C5 epistemic FACT ; ML1 sas→projet BROWSER FAKE — PASS.
+
+## 15. Complément candidat — qualification cognitive, boucle agentique et diagnostic ML2 (2026-11-05)
+
+> **PROPOSED / NOT VALIDATED BY MORRIS — sans réécriture des As-Built §§12–14 ni des décisions ML2 v0.6 acquises.** Ce chapitre est un contrat d'extension à examiner, pas une capacité déjà implémentée, un GO Cursor ni une obligation automatique de la RECETTE existante. Il s'appuie sur R1 §2.2/E2E 03, D3 §14 candidat, D4 §10 candidat, R3 §40 candidat, R4 §11 candidat, R5 §§14–15 et la matrice ML2 §8 candidate. Base documentaire : PR #655 OPEN DRAFT, tête vérifiée 08b89360 au début des travaux.
+
+### 15.1. Résultat utilisateur, IN/OUT et état réel
+
+**Résultat :** Nora sait adapter sa démarche à la mission, rechercher de manière complémentaire dans les ressources D4 accessibles, poursuivre plusieurs opérations intellectuelles autorisées si nécessaire et conclure avec une réponse de qualité ou une incomplétude honnête. Pour les demandes simples, elle évite la surinvestigation. Les personnes habilitées disposent d'une trace permettant de diagnostiquer le déroulement effectivement observé, puis de confronter la qualité à une référence indépendante.
+
+**As-built candidat ML2 observé :** dans web/src/domains/conversation/nora-adapter.ts, l'Agent n'a ni modèle ni effort explicités, n'expose pas d'outil, et appelle le runner avec maxTurns=1. Le service D3 sélectionne de manière applicative une connaissance D4 avant l'appel ; Nora ne peut pas demander elle-même une lecture complémentaire pendant cette génération. Le repli streaming → non-streaming peut effectuer une seconde tentative fournisseur. Aucun de ces constats ne doit être réinterprété comme un échec des tests DB/BROWSER FAKE de ML2 déjà exécutés ; la capacité nouvelle est NOT IMPLEMENTED / NOT LIVE PROVEN.
+
+**IN candidat :** politique de qualification et configuration cognitive D3 ; limite effective d'itérations/temps/coûts ; capacité de lecture D4 bornée compatible Agents SDK ; tracing natif et corrélation des appels ; diagnostic de mission et QA COG existante étendue. **OUT :** nouveaux outils Git/Web/Cursor non gouvernés, moteurs D5/D6, actions D7/ML5, multi-agent obligatoire, seconde mémoire, choix automatique Astra par le modèle, exploitation en arrière-plan sans contrat de reprise ou console Pilote imposée.
+
+### 15.2. Contrats d'intégration candidats
+
+| Interface logique | Entrée | Sortie attendue et limites | Propriétaire |
+| --- | --- | --- | --- |
+| Qualifier une mission | intention, contexte métier fiable et sources accessibles | difficulté, besoins d'investigation, facteurs/limites et version de politique ; pas de second appel obligatoire | D3 |
+| Déterminer la configuration | qualification et politique serveur | modèle/effort compatibles, limites d'exécution et raisons synthétiques ; jamais autorité issue du modèle | D3 |
+| Poursuivre une consultation | projet, besoin d'information, identité/permissions courantes | résultats D4 référencés/versionnés ou absence/refus/partiel ; pas de lecture interprojet | D4, appelé par D3 |
+| Exécuter les étapes | configuration/outil déclaré, budget et corrélation | événements modèle/outil, sorties réelles, arrêt/erreur/incomplet ; aucune mutation protégée implicite | D3 / SDK |
+| Diagnostiquer | traces SDK + faits applicatifs et référence de réponse | chronologie, modèle/effort appliqués, sources, erreurs, latence/usage/coûts disponibles et lacunes | D3/exploitation habilitée |
+| Juger la qualité | réponse et contexte attestés, source de référence indépendante | verdict comparatif contextualisé, fait vérifié indépendamment, réserves et suite | ChatGPT recommande, Morris arbitre ; R5 §14 |
+
+**Politique candidate de travail :** référence GPT-6.1 Sol ; effort low/medium pour demandes simples/courantes si adéquates, high comme configuration d'évaluation des analyses structurantes, xhigh pour cas exceptionnels après tests ; Astra seulement comme alternative évaluée, non obligatoire. L'expérience ChatGPT GPT-6 « Élevé » est un objectif d'utilité, pas une preuve d'identité API. Les capacités réelles du SDK 0.21.0, du modèle, de l'environnement et du compte API doivent être vérifiées avant LIVE.
+
+**Limites et reprise :** distinguer identifiant métier de génération, appels fournisseur successifs, outils consultés, ack d'écriture D4 et éventuel retry. Timeout, maxTurns, interruption et état inconnu ne sont jamais convertis silencieusement en COMPLETE. Ne pas augmenter maxTurns sans outil réel et sans garde-fous. Tout appel complémentaire D4 respecte les mêmes contrats d'accès et de fraîcheur que les lectures initiales.
+
+### 15.3. Traces et données réellement nécessaires
+
+Priorité aux primitives natives Agents SDK et à leurs métadonnées de génération/appels d'outils. Le complément Studio doit corréler, sans stocker automatiquement les contenus sensibles : projet/fil/génération/tentative, SHA et lane, politique/configuration effectives, nom et résultat des capacités appelées, identités et versions des sources lues, événements d'erreur/reprise/arrêt, latences et compteurs d'usage, modèle fournisseur lorsqu'observable, coût ESTIMÉ distinct d'une facture, statut final. Ne pas stocker ni prétendre restituer la chaîne de pensée interne du modèle. Valider les options de capture/export, permissions, rétention et effacement avant RECETTE LIVE ; DATA-01 reste applicable.
+
+**Diagnostic utile :** permettre de constater une lecture redondante, un appel échoué ou une source absente, puis d'émettre une hypothèse d'amélioration, non une explication certaine des motivations internes. Le verdict de pertinence relève du protocole R5 §14 et des sources factuelles, pas du tracing en lui-même.
+
+### 15.4. Contrat d'essai à intégrer dans la matrice existante
+
+- COG-01 : simple/direct face à complexe/approfondi ; vérifier effort réellement appliqué, opérations nécessaires et absence de surinvestigation.
+- COG-02/03 : contradiction ou hypothèse fragile ; contrôler l'usage de sources D4 complémentaires et les limites de couverture.
+- COG-04 : génération puis sauvegarde/révision document : séparer les appels fournisseur et les effets D4 confirmés.
+- COG-05 : reprise du même fil et récupération D4 sous droits actuels ; ne pas confondre session et état d'une mission interrompue.
+- COG-06 : source ou outil absent, budget épuisé, timeout, retry : trace complète dans sa portée et résultat PARTIAL/UNKNOWN honnête.
+- COG-07 : aucune décision, autorisation ou action externe créée par une recommandation du modèle ou un appel d'outil de lecture.
+
+**Preuve graduée :** politique de sélection DETERMINISTIC, accès D4 DB/INTEGRATION, activité BROWSER seulement si modifiée, modèle/effort/tours/outils réellement observés en LIVE, qualité via comparaison indépendante. Ne pas déduire BEHAVIOR PROVEN d'un appel LIVE isolé ou d'un tracing complet.
+
+### 15.5. Gate et découpage de capacité
+
+**Candidat pour la même livraison ML2 avant RECETTE :** examiner un ensemble cohérent configuration explicite + qualification proportionnée + lecture D4 complémentaire bornée si maîtrisée + boucle SDK native + traces suffisantes + QA de référence. Cela sert le résultat E2E 03/04 ; ne pas fragmenter code, tests et documentation.
+
+**Si report :** Morris qualifie l'écart, son propriétaire, le risque, le prochain macro-lot et l'exit, sans prétendre que ML3 ou ML4 résoudra automatiquement la cognition D3. Pas de GO Cursor, changement de branche ML2, PR, merge, RECETTE ou ADOPTED issu de la seule addition de ce chapitre.
