@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
 
@@ -46,7 +46,29 @@ export default function PreparationPage() {
   const [splitSubjectId, setSplitSubjectId] = useState<string | null>(null);
   const [splitTitle, setSplitTitle] = useState("");
   const [splitAcquis, setSplitAcquis] = useState<string[]>([]);
+  /** Stable creation intent — key survives retry/timeout until AVAILABLE or explicit new intent. */
+  type CreateIntent = { key: string; contentSnapshot: string; title: string };
+  type ReviseIntent = {
+    key: string;
+    documentId: string;
+    baseRevisionId: string;
+    contentSnapshot: string;
+  };
+  const [createDocIntent, setCreateDocIntent] = useState<CreateIntent | null>(null);
+  const [reviseIntent, setReviseIntent] = useState<ReviseIntent | null>(null);
+  /** Refs avoid double-click minting two keys before React state commits. */
+  const createDocIntentRef = useRef<CreateIntent | null>(null);
+  const reviseIntentRef = useRef<ReviseIntent | null>(null);
   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
+
+  function rememberCreateIntent(next: CreateIntent | null) {
+    createDocIntentRef.current = next;
+    setCreateDocIntent(next);
+  }
+  function rememberReviseIntent(next: ReviseIntent | null) {
+    reviseIntentRef.current = next;
+    setReviseIntent(next);
+  }
 
   const reloadKnowledge = useCallback(async () => {
     const res = await fetch(`/api/preparations/${preparationId}/knowledge`);
@@ -124,34 +146,125 @@ export default function PreparationPage() {
   }
 
   async function saveDoc() {
-    setBusy(true);
-    const correlationKey = docId
-      ? `revsave-${docId}-${Date.now()}`
-      : `create-doc-${preparationId}-${Date.now()}`;
-    const res = await fetch(`/api/preparations/${preparationId}/documents`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title: "Document du sas",
-        contentMarkdown: docText,
-        documentId: docId,
-        correlationKey,
-      }),
-    });
-    const j = await res.json();
-    setBusy(false);
-    if (j.status === "AVAILABLE") {
-      setDocId(j.documentId);
-      setBaseRevisionId(j.revisionId);
+    const title = "Document du sas";
+    // Existing document saves use a distinct revise-via-save key bound to doc+base intent
+    if (docId) {
+      let intent = reviseIntentRef.current;
+      if (
+        intent &&
+        (intent.documentId !== docId ||
+          intent.baseRevisionId !== (baseRevisionId ?? "") ||
+          intent.contentSnapshot !== docText)
+      ) {
+        if (intent.contentSnapshot !== docText && intent.documentId === docId) {
+          setStatus(
+            "CONFLICT: contenu modifié pour la même intention de sauvegarde — annuler l'intention ou restaurer le payload",
+          );
+          return;
+        }
+        intent = null;
+      }
+      if (!intent) {
+        intent = {
+          key:
+            typeof crypto !== "undefined" && "randomUUID" in crypto
+              ? `revsave-${crypto.randomUUID()}`
+              : `revsave-${docId}-${Math.random().toString(36).slice(2)}`,
+          documentId: docId,
+          baseRevisionId: baseRevisionId ?? "",
+          contentSnapshot: docText,
+        };
+        rememberReviseIntent(intent);
+      }
+      setBusy(true);
+      try {
+        const res = await fetch(`/api/preparations/${preparationId}/documents`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            title,
+            contentMarkdown: intent.contentSnapshot,
+            documentId: docId,
+            correlationKey: intent.key,
+          }),
+        });
+        const j = await res.json();
+        if (j.status === "AVAILABLE") {
+          setDocId(j.documentId);
+          setBaseRevisionId(j.revisionId);
+          rememberReviseIntent(null);
+          rememberCreateIntent(null);
+          setStatus(
+            j.idempotentReplay
+              ? `Document AVAILABLE (rejeu idempotent) rev ${j.revisionNumber}`
+              : `Document AVAILABLE rev ${j.revisionNumber}`,
+          );
+          await reload();
+        } else if (j.status === "CONFLICT") {
+          setStatus(`CONFLICT document: ${j.reason ?? "version ou corrélation"} — clé conservée`);
+        } else if (j.status === "UNKNOWN") {
+          setStatus(`Document UNKNOWN: ${j.reason ?? "réconciliation"} — retry avec la même clé`);
+        } else setStatus(`Document ${j.status}: ${j.reason ?? ""}`);
+      } catch {
+        setStatus("Échec réseau / ACK perdu — intention et clé conservées pour retry");
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+
+    // Creation intent: one key until AVAILABLE; payload change refused without new intent
+    let intent = createDocIntentRef.current;
+    if (intent && intent.contentSnapshot !== docText) {
       setStatus(
-        j.idempotentReplay
-          ? `Document AVAILABLE (rejeu idempotent) rev ${j.revisionNumber}`
-          : `Document AVAILABLE rev ${j.revisionNumber}`,
+        "CONFLICT: payload modifié pour la même intention de création — conserver le texte ou démarrer une nouvelle intention",
       );
-      await reload();
-    } else if (j.status === "CONFLICT") {
-      setStatus(`CONFLICT document: ${j.reason ?? "version ou corrélation"}`);
-    } else setStatus(`Document ${j.status}: ${j.reason ?? ""}`);
+      return;
+    }
+    if (!intent) {
+      intent = {
+        key:
+          typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? `create-doc-${crypto.randomUUID()}`
+            : `create-doc-${preparationId}-${Math.random().toString(36).slice(2)}`,
+        contentSnapshot: docText,
+        title,
+      };
+      rememberCreateIntent(intent);
+    }
+
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/preparations/${preparationId}/documents`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: intent.title,
+          contentMarkdown: intent.contentSnapshot,
+          correlationKey: intent.key,
+        }),
+      });
+      const j = await res.json();
+      if (j.status === "AVAILABLE") {
+        setDocId(j.documentId);
+        setBaseRevisionId(j.revisionId);
+        rememberCreateIntent(null);
+        setStatus(
+          j.idempotentReplay
+            ? `Document AVAILABLE (rejeu idempotent) rev ${j.revisionNumber}`
+            : `Document AVAILABLE rev ${j.revisionNumber}`,
+        );
+        await reload();
+      } else if (j.status === "CONFLICT") {
+        setStatus(`CONFLICT document: ${j.reason ?? "corrélation"} — clé d'intention conservée`);
+      } else if (j.status === "UNKNOWN") {
+        setStatus(`Document UNKNOWN: ${j.reason ?? "en vol"} — réessayer avec la même clé`);
+      } else setStatus(`Document ${j.status}: ${j.reason ?? ""}`);
+    } catch {
+      setStatus("Échec réseau / ACK perdu — intention et clé conservées pour retry");
+    } finally {
+      setBusy(false);
+    }
   }
 
   async function reviseDoc() {
@@ -159,29 +272,67 @@ export default function PreparationPage() {
       setStatus("Révision impossible: version de base inconnue");
       return;
     }
-    setBusy(true);
-    const res = await fetch(`/api/preparations/${preparationId}/documents/${docId}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "revise",
+    let intent = reviseIntentRef.current;
+    if (
+      intent &&
+      (intent.documentId !== docId ||
+        intent.baseRevisionId !== baseRevisionId ||
+        intent.contentSnapshot !== docText)
+    ) {
+      if (intent.contentSnapshot !== docText && intent.documentId === docId) {
+        setStatus(
+          "CONFLICT: contenu modifié pour la même intention de révision — clé non renouvelée automatiquement",
+        );
+        return;
+      }
+      intent = null;
+    }
+    if (!intent) {
+      intent = {
+        key:
+          typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? `rev-${crypto.randomUUID()}`
+            : `rev-${Math.random().toString(36).slice(2)}`,
+        documentId: docId,
         baseRevisionId,
-        contentMarkdown: docText,
-        correlationKey: `rev-${Date.now()}`,
-        scope: "section",
-      }),
-    });
-    const j = await res.json();
-    setBusy(false);
-    if (j.status === "AVAILABLE") {
-      setBaseRevisionId(j.revisionId);
-      setStatus(`Révision AVAILABLE v${j.revisionNumber}`);
-      await reload();
-    } else if (j.status === "CONFLICT") {
-      setStatus(
-        `CONFLICT base périmée — attendu ${j.expectedBaseRevisionId}, actuel ${j.actualLatestRevisionId}`,
-      );
-    } else setStatus(`Révision ${j.status}: ${j.reason ?? ""}`);
+        contentSnapshot: docText,
+      };
+      rememberReviseIntent(intent);
+    }
+    setBusy(true);
+    try {
+      const res = await fetch(`/api/preparations/${preparationId}/documents/${docId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "revise",
+          baseRevisionId: intent.baseRevisionId,
+          contentMarkdown: intent.contentSnapshot,
+          correlationKey: intent.key,
+          scope: "section",
+        }),
+      });
+      const j = await res.json();
+      if (j.status === "AVAILABLE") {
+        setBaseRevisionId(j.revisionId);
+        rememberReviseIntent(null);
+        setStatus(`Révision AVAILABLE v${j.revisionNumber}`);
+        await reload();
+      } else if (j.status === "CONFLICT") {
+        setStatus(
+          `CONFLICT base périmée — attendu ${j.expectedBaseRevisionId}, actuel ${j.actualLatestRevisionId}`,
+        );
+      } else setStatus(`Révision ${j.status}: ${j.reason ?? ""}`);
+    } catch {
+      setStatus("Échec réseau / ACK perdu — intention de révision conservée");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function startNewCreateIntent() {
+    rememberCreateIntent(null);
+    setStatus("Nouvelle intention de création — prochaine sauvegarde générera une nouvelle clé");
   }
 
   async function compareLatestTwo() {
@@ -199,7 +350,7 @@ export default function PreparationPage() {
       `/api/preparations/${preparationId}/documents/${docId}?left=${left.id}&right=${right.id}`,
     );
     const cmp = await cmpRes.json();
-    if (cmp.status === "AVAILABLE") {
+    if (cmp.status === "AVAILABLE" && !cmp.diff?.degraded) {
       setDiffText(
         `v${cmp.left.revisionNumber} → v${cmp.right.revisionNumber}\n` +
           `+ ${cmp.diff.added.length} lignes\n- ${cmp.diff.removed.length} lignes\n` +
@@ -208,6 +359,11 @@ export default function PreparationPage() {
       );
       setSurface("document");
       setStatus(`Diff v${cmp.left.revisionNumber}/v${cmp.right.revisionNumber}`);
+    } else if (cmp.status === "DEGRADED" || cmp.diff?.degraded) {
+      setDiffText("");
+      setStatus(
+        `Diff DEGRADED: ${cmp.reason ?? cmp.diff?.reason ?? "DIFF_BUDGET_EXCEEDED"} — comparaison détaillée impossible (pas un diff exhaustif)`,
+      );
     } else setStatus(`Diff ${cmp.status}`);
   }
 
@@ -399,7 +555,11 @@ export default function PreparationPage() {
                 Une recommandation Nora n&apos;est jamais une HumanDecision.
               </p>
             </div>
-            {status ? <p className="text-sm muted">{status}</p> : null}
+            {status ? (
+              <p className="text-sm muted" data-testid="surface-status">
+                {status}
+              </p>
+            ) : null}
           </section>
         </div>
       ) : null}
@@ -408,6 +568,11 @@ export default function PreparationPage() {
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-4">
           <section className="panel p-4 space-y-3">
             <h2 className="font-medium">Document — inspection / révision</h2>
+            {status ? (
+              <p className="text-sm muted" data-testid="surface-status">
+                {status}
+              </p>
+            ) : null}
             <div className="flex flex-wrap gap-2 text-xs">
               {docs.map((d) => (
                 <button
@@ -432,16 +597,41 @@ export default function PreparationPage() {
               onChange={(e) => setDocText(e.target.value)}
             />
             <div className="flex flex-wrap gap-2">
-              <button className="btn secondary" disabled={busy} onClick={saveDoc}>
-                Sauvegarder (nouvelle identité si besoin)
+              <button
+                className="btn secondary"
+                disabled={busy}
+                onClick={saveDoc}
+                data-testid="doc-save"
+              >
+                Sauvegarder
               </button>
-              <button className="btn" disabled={busy} onClick={reviseDoc}>
+              <button className="btn" disabled={busy} onClick={reviseDoc} data-testid="doc-revise">
                 Réviser sur version de base
               </button>
               <button className="btn secondary" disabled={busy} onClick={compareLatestTwo}>
                 Comparer versions
               </button>
+              {createDocIntent && !docId ? (
+                <button
+                  className="btn secondary"
+                  disabled={busy}
+                  onClick={startNewCreateIntent}
+                  data-testid="doc-new-intent"
+                >
+                  Nouvelle intention de création
+                </button>
+              ) : null}
             </div>
+            {createDocIntent && !docId ? (
+              <p className="text-xs muted" data-testid="create-intent-key">
+                Intention de création active · clé {createDocIntent.key}
+              </p>
+            ) : null}
+            {reviseIntent ? (
+              <p className="text-xs muted" data-testid="revise-intent-key">
+                Intention de révision active · clé {reviseIntent.key}
+              </p>
+            ) : null}
             {inspected?.latestRevision ? (
               <p className="text-xs muted">
                 Base inspectée: {baseRevisionId} · statut {inspected.latestRevision.status}

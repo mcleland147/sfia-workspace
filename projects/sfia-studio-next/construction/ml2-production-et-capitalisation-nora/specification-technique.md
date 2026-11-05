@@ -493,3 +493,26 @@ Les tests ML2 à produire **avec le code et l'environnement** combinent :
 ### Réserves inchangées
 
 ML2-S1 streaming UI/LIVE ; ML2-S2 composition séparation (minimale) ; ML2-S3 matrice Figma viewports ; CI Next absente ; COG LIVE NOT RUN.
+
+## 14. As-Built consolidation C3/C4/C1 — 2026-11-05 (complément)
+
+> Correctif intégré du même macro-lot ML2. Ne réécrit pas VALIDATED SPEC §§1–11 ni le correctif §13.
+
+| Champ | Valeur |
+| --- | --- |
+| Branche | `sfia/next-ml2-production-capitalisation` (poursuite `d867365f`…`5c7dd752` + commit consolidation) |
+| Migration | aucune nouvelle (004 conserve) |
+| Schema revision | `004_ml2_integrity_corrective` |
+
+### Fermetures
+
+| Id | Mécanisme | Preuve |
+| --- | --- | --- |
+| C3-A | `reconcilePriorRevision` + fingerprint sur tous les chemins (lookup, race unicité, TX, catch, wait in-flight) ; `UNKNOWN/CREATION_IN_FLIGHT` si révision absente | PG concurrent same/diff payload + ACK perdu + cross-pilot |
+| C3-B | Intention UI stable (`createDocIntent`/`reviseIntent` + refs) ; clé non renouvelée sur retry/ACK perdu ; refus payload incompatible ; statut visible sur surface Document | BROWSER `ml2-c3-stable-key` |
+| C4 | `MAX_DIFF_CELLS=2_000_000` ; dégradation explicite `DEGRADED` / `DIFF_BUDGET_EXCEEDED` (jamais diff exhaustif faux) | UNIT adversarial + many short lines |
+| C1 | Assertions journal : 0 événement MERGED/SPLIT résiduel après rollback ; même Acquis concurrent → 1 affectation ; split+merge overlap sérialisé | PG journal + concurrency |
+
+### Non-régression
+
+C2 concurrent revise ; C5 epistemic FACT ; ML1 sas→projet BROWSER FAKE — PASS.

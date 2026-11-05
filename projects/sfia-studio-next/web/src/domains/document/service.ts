@@ -6,6 +6,10 @@ import { getPreparationContext } from "@/domains/preparation/service";
 import { createHash } from "node:crypto";
 
 const MAX_DOC_CHARS = 100_000;
+/** Max LCS cells (n+1)*(m+1). Beyond this, comparison degrades explicitly. */
+export const MAX_DIFF_CELLS = 2_000_000;
+const IN_FLIGHT_POLL_MS = 25;
+const IN_FLIGHT_POLL_ATTEMPTS = 8;
 
 function contentFingerprint(title: string, contentMarkdown: string): string {
   return createHash("sha256")
@@ -13,6 +17,91 @@ function contentFingerprint(title: string, contentMarkdown: string): string {
     .update("\0")
     .update(contentMarkdown)
     .digest("hex");
+}
+
+function readStoredFingerprint(
+  provenanceJson: string,
+  title: string,
+  contentMarkdown: string,
+): string {
+  try {
+    const parsed = JSON.parse(provenanceJson) as { contentFingerprint?: string };
+    if (typeof parsed.contentFingerprint === "string" && parsed.contentFingerprint.length > 0) {
+      return parsed.contentFingerprint;
+    }
+  } catch {
+    // fall through — derive from stored body
+  }
+  return contentFingerprint(title, contentMarkdown);
+}
+
+type ReconcileOk = {
+  status: "AVAILABLE" | "SAVING" | "UNKNOWN";
+  documentId: string;
+  revisionId: string;
+  revisionNumber: number;
+  idempotentReplay: true;
+};
+
+type ReconcileFailedPrior = {
+  status: "FAILED";
+  reason: "PRIOR_REVISION_FAILED";
+  documentId: string;
+  revisionId: string;
+  revisionNumber: number;
+  idempotentReplay: true;
+};
+
+type ReconcileConflict = {
+  status: "CONFLICT";
+  reason: "CORRELATION_PAYLOAD_MISMATCH";
+  documentId: string;
+  revisionId: string;
+  revisionNumber: number;
+};
+
+/** Same fingerprint rule for every reconcile path (nominal, race, catch, TX). */
+function reconcilePriorRevision(args: {
+  prior: { id: string; revisionNumber: number; status: string; contentMarkdown: string; provenanceJson: string };
+  documentId: string;
+  documentTitle: string;
+  expectedFp: string;
+}): ReconcileOk | ReconcileFailedPrior | ReconcileConflict {
+  const storedFp = readStoredFingerprint(
+    args.prior.provenanceJson,
+    args.documentTitle,
+    args.prior.contentMarkdown,
+  );
+  if (storedFp !== args.expectedFp) {
+    return {
+      status: "CONFLICT",
+      reason: "CORRELATION_PAYLOAD_MISMATCH",
+      documentId: args.documentId,
+      revisionId: args.prior.id,
+      revisionNumber: args.prior.revisionNumber,
+    };
+  }
+  if (args.prior.status === "FAILED") {
+    return {
+      status: "FAILED",
+      reason: "PRIOR_REVISION_FAILED",
+      documentId: args.documentId,
+      revisionId: args.prior.id,
+      revisionNumber: args.prior.revisionNumber,
+      idempotentReplay: true,
+    };
+  }
+  const status =
+    args.prior.status === "SAVING" || args.prior.status === "UNKNOWN"
+      ? args.prior.status
+      : "AVAILABLE";
+  return {
+    status,
+    documentId: args.documentId,
+    revisionId: args.prior.id,
+    revisionNumber: args.prior.revisionNumber,
+    idempotentReplay: true,
+  };
 }
 
 async function findByCreationCorrelation(
@@ -33,6 +122,30 @@ async function findByCreationCorrelation(
       )
       .limit(1)
   )[0];
+}
+
+async function findRevisionByCorrelation(documentId: string, correlationKey: string) {
+  return (
+    await db
+      .select()
+      .from(documentRevisions)
+      .where(
+        and(
+          eq(documentRevisions.documentId, documentId),
+          eq(documentRevisions.correlationKey, correlationKey),
+        ),
+      )
+      .limit(1)
+  )[0];
+}
+
+async function waitForRevisionByCorrelation(documentId: string, correlationKey: string) {
+  for (let i = 0; i < IN_FLIGHT_POLL_ATTEMPTS; i++) {
+    const rev = await findRevisionByCorrelation(documentId, correlationKey);
+    if (rev) return rev;
+    await new Promise((r) => setTimeout(r, IN_FLIGHT_POLL_MS));
+  }
+  return null;
 }
 
 async function latestRevisionFor(documentId: string) {
@@ -77,49 +190,28 @@ export async function savePreparationDocument(
       opts.correlationKey,
     );
     if (existingDoc) {
-      const priorRev = (
-        await db
-          .select()
-          .from(documentRevisions)
-          .where(
-            and(
-              eq(documentRevisions.documentId, existingDoc.id),
-              eq(documentRevisions.correlationKey, opts.correlationKey),
-            ),
-          )
-          .limit(1)
-      )[0];
+      const priorRev =
+        (await findRevisionByCorrelation(existingDoc.id, opts.correlationKey)) ??
+        (await waitForRevisionByCorrelation(existingDoc.id, opts.correlationKey));
       if (priorRev) {
-        const priorFp = (() => {
-          try {
-            return JSON.parse(priorRev.provenanceJson)?.contentFingerprint as string | undefined;
-          } catch {
-            return undefined;
-          }
-        })();
-        if (priorFp && priorFp !== fp) {
-          return {
-            status: "CONFLICT" as const,
-            reason: "CORRELATION_PAYLOAD_MISMATCH",
-            documentId: existingDoc.id,
-            revisionId: priorRev.id,
-            revisionNumber: priorRev.revisionNumber,
-          };
-        }
-        return {
-          status: priorRev.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+        return reconcilePriorRevision({
+          prior: priorRev,
           documentId: existingDoc.id,
-          revisionId: priorRev.id,
-          revisionNumber: priorRev.revisionNumber,
-          idempotentReplay: true as const,
-        };
+          documentTitle: existingDoc.title,
+          expectedFp: fp,
+        });
       }
-      // Document exists for this creation key but revision missing — continue to create revision on that doc
-      documentId = existingDoc.id;
+      // Document row exists but revision still absent after bounded wait
+      return {
+        status: "UNKNOWN" as const,
+        reason: "CREATION_IN_FLIGHT",
+        documentId: existingDoc.id,
+      };
     }
   }
 
   let docId = documentId;
+  let ownedTitle = titleFinal;
   if (!docId) {
     docId = newId("doc");
     try {
@@ -132,7 +224,7 @@ export async function savePreparationDocument(
         creationCorrelationKey: opts?.correlationKey ?? null,
       });
     } catch (e) {
-      // Concurrent create with same correlation key — reconcile
+      // Concurrent create with same correlation key — reconcile WITH fingerprint
       if (opts?.correlationKey) {
         const raced = await findByCreationCorrelation(
           pilotId,
@@ -140,40 +232,32 @@ export async function savePreparationDocument(
           opts.correlationKey,
         );
         if (raced) {
-          const priorRev = (
-            await db
-              .select()
-              .from(documentRevisions)
-              .where(
-                and(
-                  eq(documentRevisions.documentId, raced.id),
-                  eq(documentRevisions.correlationKey, opts.correlationKey),
-                ),
-              )
-              .limit(1)
-          )[0];
+          const priorRev =
+            (await findRevisionByCorrelation(raced.id, opts.correlationKey)) ??
+            (await waitForRevisionByCorrelation(raced.id, opts.correlationKey));
           if (priorRev) {
-            return {
-              status: priorRev.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+            return reconcilePriorRevision({
+              prior: priorRev,
               documentId: raced.id,
-              revisionId: priorRev.id,
-              revisionNumber: priorRev.revisionNumber,
-              idempotentReplay: true as const,
-            };
+              documentTitle: raced.title,
+              expectedFp: fp,
+            });
           }
-          docId = raced.id;
-        } else {
           return {
-            status: "FAILED" as const,
-            reason: e instanceof Error ? e.message : "document create failed",
+            status: "UNKNOWN" as const,
+            reason: "CREATION_IN_FLIGHT",
+            documentId: raced.id,
           };
         }
-      } else {
         return {
           status: "FAILED" as const,
           reason: e instanceof Error ? e.message : "document create failed",
         };
       }
+      return {
+        status: "FAILED" as const,
+        reason: e instanceof Error ? e.message : "document create failed",
+      };
     }
   } else {
     const owned = (
@@ -190,46 +274,19 @@ export async function savePreparationDocument(
         .limit(1)
     )[0];
     if (!owned) return { status: "FAILED" as const, reason: "FORBIDDEN" };
+    ownedTitle = owned.title;
   }
 
   // Revision-level idempotence for known document
   if (opts?.correlationKey) {
-    const prior = (
-      await db
-        .select()
-        .from(documentRevisions)
-        .where(
-          and(
-            eq(documentRevisions.documentId, docId),
-            eq(documentRevisions.correlationKey, opts.correlationKey),
-          ),
-        )
-        .limit(1)
-    )[0];
+    const prior = await findRevisionByCorrelation(docId, opts.correlationKey);
     if (prior) {
-      const priorFp = (() => {
-        try {
-          return JSON.parse(prior.provenanceJson)?.contentFingerprint as string | undefined;
-        } catch {
-          return undefined;
-        }
-      })();
-      if (priorFp && priorFp !== fp) {
-        return {
-          status: "CONFLICT" as const,
-          reason: "CORRELATION_PAYLOAD_MISMATCH",
-          documentId: docId,
-          revisionId: prior.id,
-          revisionNumber: prior.revisionNumber,
-        };
-      }
-      return {
-        status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+      return reconcilePriorRevision({
+        prior,
         documentId: docId,
-        revisionId: prior.id,
-        revisionNumber: prior.revisionNumber,
-        idempotentReplay: true as const,
-      };
+        documentTitle: ownedTitle,
+        expectedFp: fp,
+      });
     }
   }
 
@@ -253,13 +310,12 @@ export async function savePreparationDocument(
             .limit(1)
         )[0];
         if (prior) {
-          return {
-            status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+          return reconcilePriorRevision({
+            prior,
             documentId: docId!,
-            revisionId: prior.id,
-            revisionNumber: prior.revisionNumber,
-            idempotentReplay: true as const,
-          };
+            documentTitle: ownedTitle,
+            expectedFp: fp,
+          });
         }
       }
 
@@ -316,29 +372,24 @@ export async function savePreparationDocument(
       };
     });
   } catch (e) {
-    // Unique violation on correlation → reconcile
+    // Unique violation on correlation → reconcile WITH fingerprint (same rule as race path)
     if (opts?.correlationKey) {
-      const prior = (
-        await db
-          .select()
-          .from(documentRevisions)
-          .where(
-            and(
-              eq(documentRevisions.documentId, docId),
-              eq(documentRevisions.correlationKey, opts.correlationKey),
-            ),
-          )
-          .limit(1)
-      )[0];
+      const prior =
+        (await findRevisionByCorrelation(docId, opts.correlationKey)) ??
+        (await waitForRevisionByCorrelation(docId, opts.correlationKey));
       if (prior) {
-        return {
-          status: prior.status as "AVAILABLE" | "FAILED" | "SAVING" | "UNKNOWN",
+        return reconcilePriorRevision({
+          prior,
           documentId: docId,
-          revisionId: prior.id,
-          revisionNumber: prior.revisionNumber,
-          idempotentReplay: true as const,
-        };
+          documentTitle: ownedTitle,
+          expectedFp: fp,
+        });
       }
+      return {
+        status: "UNKNOWN" as const,
+        reason: "CREATION_IN_FLIGHT",
+        documentId: docId,
+      };
     }
     return {
       status: "FAILED" as const,
@@ -565,24 +616,39 @@ export async function getDocumentRevision(
   return { status: "AVAILABLE" as const, document: list.document, revision: rev };
 }
 
-/**
- * Ordered Myers-style line diff via LCS — preserves duplicate lines and order.
- * Not an AI summary; does not mutate versions.
- */
-export function diffMarkdown(
-  a: string,
-  b: string,
-): {
+export type DiffResult = {
   added: string[];
   removed: string[];
   unchangedCount: number;
   ops: Array<{ op: "equal" | "add" | "remove"; line: string }>;
-} {
+  degraded?: boolean;
+  reason?: string;
+  lineCounts?: { left: number; right: number; cells: number; budget: number };
+};
+
+/**
+ * Ordered LCS line diff — preserves duplicates and order.
+ * Budget: refuses exhaustive matrix when (n+1)*(m+1) > MAX_DIFF_CELLS.
+ * Degraded result is explicit — never presented as a successful detailed diff.
+ */
+export function diffMarkdown(a: string, b: string): DiffResult {
   const la = a.split("\n");
   const lb = b.split("\n");
   const n = la.length;
   const m = lb.length;
-  // LCS lengths
+  const cells = (n + 1) * (m + 1);
+  if (cells > MAX_DIFF_CELLS) {
+    return {
+      added: [],
+      removed: [],
+      unchangedCount: 0,
+      ops: [],
+      degraded: true,
+      reason: "DIFF_BUDGET_EXCEEDED",
+      lineCounts: { left: n, right: m, cells, budget: MAX_DIFF_CELLS },
+    };
+  }
+  // LCS lengths — allocated only under budget
   const dp: number[][] = Array.from({ length: n + 1 }, () => Array(m + 1).fill(0));
   for (let i = n - 1; i >= 0; i--) {
     for (let j = m - 1; j >= 0; j--) {
@@ -622,7 +688,14 @@ export function diffMarkdown(
     added.push(lb[j]);
     j++;
   }
-  return { added, removed, unchangedCount, ops };
+  return {
+    added,
+    removed,
+    unchangedCount,
+    ops,
+    degraded: false,
+    lineCounts: { left: n, right: m, cells, budget: MAX_DIFF_CELLS },
+  };
 }
 
 export async function compareDocumentRevisions(
@@ -638,6 +711,25 @@ export async function compareDocumentRevisions(
     return { status: "FAILED" as const, reason: "revision not available" };
   }
   const diff = diffMarkdown(left.revision.contentMarkdown, right.revision.contentMarkdown);
+  if (diff.degraded) {
+    return {
+      status: "DEGRADED" as const,
+      reason: diff.reason ?? "DIFF_BUDGET_EXCEEDED",
+      documentId,
+      left: {
+        id: left.revision.id,
+        revisionNumber: left.revision.revisionNumber,
+        status: left.revision.status,
+      },
+      right: {
+        id: right.revision.id,
+        revisionNumber: right.revision.revisionNumber,
+        status: right.revision.status,
+      },
+      diff,
+      note: "Comparaison détaillée impossible sous la limite de calcul — pas un diff exhaustif.",
+    };
+  }
   return {
     status: "AVAILABLE" as const,
     documentId,

@@ -401,7 +401,7 @@ describe("PostgreSQL create-project contracts", () => {
       saved.documentId,
     );
     expect(cross.status).toBe("FAILED");
-    expect(cross.reason).toBe("FORBIDDEN");
+    expect("reason" in cross ? cross.reason : undefined).toBe("FORBIDDEN");
   });
 
   it("A09b: injected persist failure yields FAILED not AVAILABLE", async () => {

@@ -31,8 +31,8 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await page.getByRole("button", { name: "Document", exact: true }).click();
   const doc = page.locator("textarea").first();
   await doc.fill("# Document Playwright\ncontenu");
-  await page.getByRole("button", { name: "Sauvegarder (nouvelle identité si besoin)" }).click();
-  await expect(page.getByText("AVAILABLE", { exact: false })).toBeVisible({ timeout: 10000 });
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
 
   await page.getByRole("button", { name: "Travail" }).click();
   await page.getByRole("button", { name: "Créer le projet" }).click();

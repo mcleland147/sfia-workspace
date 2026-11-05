@@ -252,3 +252,18 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 | C4 lignes répétées | PASS | PASS | N/A | PASS |
 | C5 faux FACT | PASS | PASS | PASS | PASS |
 | C6 état UI | PARTIEL BROWSER | PASS smoke | si effet | PASS partiel |
+
+### 7.2 Consolidation C3/C4/C1 (2026-11-05)
+
+| Défaut | Avant | Après | Niveau | Verdict |
+| --- | --- | --- | --- | --- |
+| C3 race sans fingerprint | FAIL (anomalie revue) | PASS | PG | PASS |
+| C3 même clé payload incompatible concurrent | FAIL | PASS | PG | PASS |
+| C3 ACK perdu / retry | PASS partiel | PASS | PG + BROWSER | PASS |
+| C3 clé UI stable entre retries | FAIL (`Date.now`) | PASS | BROWSER | PASS |
+| C3 cross-project | PARTIEL | PASS | PG | PASS |
+| C4 volumétrie / budget | FAIL (O(nm) non borné) | PASS DEGRADED explicite | UNIT | PASS |
+| C4 occurrences répétées | PASS | PASS | UNIT | PASS |
+| C1 rollback journal événements | FAIL (non asserté) | PASS (0 MERGED/SPLIT résiduel) | PG | PASS |
+| C1 même Acquis concurrent | PARTIEL | PASS (1 affectation) | PG | PASS |
+| Non-régression C2/C5/ML1 | PASS | PASS | PG + BROWSER | PASS |
