@@ -1547,3 +1547,30 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 **Délimitations :** D5/D6/D7/D8/D9 non construits gardent leurs contrats d'observation futurs ; aucun Git/Cursor/effet externe, nouveau moteur BPMN, plateforme de monitoring ou classeur IA systématique n'est anticipé. La compatibilité réelle du modèle, des outils et traces de l'Agents SDK reste à démontrer et ne vaut pas choix d'API adopté ; nouvelles mutations DB, pivot d'architecture, mécanisme de collecte sensible ou gate supplémentaire sont soumis à revue.
 
 **Gates :** contenu de stratégie Morris approuvé, documents sur branche candidate ; aucune nouvelle preuve BEHAVIOR PROVEN, aucun GO Cursor, PR/merge, RECETTE ou promotion par effet de cette synchronisation.
+
+## 14. R5/ML2 — Qualification d'architecture D3 ↔ D4 avant observabilité (2026-11-05)
+
+> **VISION D'ARCHITECTURE ACCEPTÉE PAR MORRIS EN CONVERSATION LE 2026-11-05 / CONTRIBUTION DOCUMENTAIRE D2 SUR BRANCHE CANDIDATE.** Cette section complète le raccord §13 ; elle ne réouvre ni R4, ni ADR R4-01..04, ni DATA-01 ou ENV-01. Les mécanismes exacts et leur exécution restent **TECHNICAL DESIGN CANDIDATE / NOT IMPLEMENTED / NO GO CURSOR**. Sources propriétaires : [ML2 §18](../construction/ml2-production-et-capitalisation-nora/specification-technique.md), [R5 §18](../construction/reference-delivery-r5.md), [matrice ML2 §11](../construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md) et [contrat d'observabilité transverse](contrat-observabilite-transverse.md).
+
+### 14.1. Responsabilités et chemin de conduite
+
+**Architecture retenue au niveau vision :** une seule conduite cognitive Nora sous responsabilité D3 et un Runner natif Agents SDK ; D4 reste l'unique propriétaire des connaissances, documents, versions, règles d'accès et effets de persistance. D1/D2 établissent identité, session, préparation et projet ; le contexte d'autorisation est lié côté serveur et n'est jamais attribué par les arguments du modèle. L'observabilité transverse accompagne le parcours sans devenir moteur de décision, mémoire, autorité ou registre transactionnel.
+
+Chemin logique : **intention Pilote → contexte D1/D2 → qualification/configuration D3 → Runner/outils de consultation D4 → vérification des droits et versions à chaque lecture → convergence D3 → restitution et éventuel effet D4 confirmé**. Une consultation, un contenu effectivement reçu, une citation et une sauvegarde sont des faits différents. Une source de projet est une donnée non fiable, jamais une instruction système.
+
+**IN :** politique de difficulté proportionnée et versionnée, modèle/effort explicitement configurés après vérification de compatibilité, outils D4 lecture-only, itérations bornées, requalification des sources/droits, résultat complet ou limité honnête, traçabilité réelle des appels et tentatives. **OUT :** agents concurrents, classificateur LLM obligatoire, lecture Git/Web/Cursor, effets D5–D9 anticipés, nouveau ledger métier, base de mémoire/autorité parallèle et dashboard d'exploitation imposé.
+
+### 14.2. Invariants d'intégration
+
+1. D3 configure et conduit ; D4 autorise et délivre chaque ressource ; le SDK ne décide pas des permissions, de la sauvegarde ou du résultat probatoire.
+2. L'outil D4 ne reçoit pas d'identité/projet faisant autorité depuis les arguments générés ; la session et le périmètre serveur sont revalidés à la consultation. Une révocation ou une ressource périmée doit interrompre la divulgation plutôt que réutiliser aveuglément un extrait antérieur.
+3. Les lectures renvoient une référence, une version et un périmètre **effectivement lus**, ou une absence/refus/incomplétude explicite ; un titre seul n'est pas une lecture.
+4. Une mission peut avoir plusieurs tentatives fournisseur ; une génération n'est ni une tentative unique, ni une écriture D4. Le streaming provisoire et son retry ne garantissent ni complétion ni idempotence.
+5. Bornes de tours, appels, temps et volume réellement contrôlées ; STOP demandé ≠ interruption constatée. Aucune transition COMPLETE ou sauvegarde AVAILABLE inventée.
+6. Préserver les corrections ML2 C1–C6, le fil unique, la version de base et les mécanismes transactionnels ; aucun changement de schéma/persistance par inertie.
+
+**Blast radius à qualifier :** adaptateur D3 et service conversation, sélection D4, accès aux révisions documentaires, session/auth, API/HTTP, contrôle de coûts/temps, SDK/streaming, sécurité des sorties et du contexte injecté, UX d'activité, tests et futur diagnostic. Toute évolution d'interface publique, stockage ou politique d'autorité non couverte par les ADR revient à Morris.
+
+### 14.3. Frontière avec l'étape suivante
+
+L'étape de conception **observabilité et corrélation** prendra ces opérations comme référentiel d'événements ; elle précisera le lien entre operationId, génération D3, tentatives SDK, lectures D4 et effets métiers confirmés, sans changer leurs propriétaires. Les choix de collecteur, export, rétention effective, schéma et consultation restent à qualifier séparément **dans le même macro-lot ML2**, avant un unique contrat de construction D3. Aucun test LIVE, PR/merge, RECETTE ou statut ADOPTED n'est déduit de cette clarification.
