@@ -92,7 +92,11 @@ export default function PreparationPage() {
     setCreationRevision(j.preparation?.creationRevision ?? 1);
     setProjectId(j.project?.id ?? null);
     const first = j.documents?.[0];
-    if (first) {
+    // While a create intent is open (e.g. ACK lost after server commit), do NOT adopt
+    // docId from a background reload. Adopting would hide the intent key and divert the
+    // next save into the revise path (new revsave key) instead of replaying the same
+    // creation correlation key. Docs list still updates above so the user can see truth.
+    if (first && !createDocIntentRef.current) {
       setDocId(first.document.id);
       setDocText(first.latestRevision?.contentMarkdown ?? docText);
       setBaseRevisionId(first.latestRevision?.id);

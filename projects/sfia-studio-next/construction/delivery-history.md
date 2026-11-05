@@ -243,3 +243,21 @@ Append-only logical journal of Cursor product deliveries.
 | SVG residuals | still EXCLUDE (untracked, not staged) |
 | Status | LOCAL CI INSTALL — no project push/PR/merge ; Review Handoff L3 only |
 | Verdict candidate | `READY FOR MORRIS REVIEW` (publication Git projet + premier run Actions = gates suivants) |
+
+## delivery_id: DELIV-2026-11-05-ML2-C3B-LOST-ACK-06
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 9 QA / validation (C3-B lost-ACK) |
+| Type | INC corrective / BROWSER FAKE C3-B |
+| Branch | `sfia/next-ml2-production-capitalisation` (PR #655 DRAFT) |
+| Parent HEAD | `23e55da80ac774511b467bc53ab7eaa5d60ac969` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Cause | After simulated ACK loss, incidental `reload()` adopted `docId` while create intent was still open, hiding `create-intent-key` and diverting retry into revise-via-save (rev 2 / new key) |
+| Fix | `page.tsx` reload skips `docId` adoption while `createDocIntentRef` is active; C3-B Playwright asserts stable create key, zero revise calls, single doc at revision 1 |
+| Schema | unchanged |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Status | CORRECTIVE on PR #655 — see Review Pack for CI proof |
+| Verdict candidate | pending GitHub Actions on published SHA |
+|
