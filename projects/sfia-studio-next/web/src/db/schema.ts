@@ -174,7 +174,45 @@ export const messages = pgTable(
     ordinal: integer("ordinal").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index("messages_conversation_idx").on(t.conversationId)],
+  (t) => [
+    index("messages_conversation_idx").on(t.conversationId),
+    uniqueIndex("messages_conversation_ordinal_uidx").on(t.conversationId, t.ordinal),
+  ],
+);
+
+/**
+ * D3 — durable turn command for full-turn idempotence.
+ * Uniqueness: (conversation_id, client_turn_key). Short lock only around reservation.
+ */
+export const conversationTurnCommands = pgTable(
+  "conversation_turn_commands",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    clientTurnKey: text("client_turn_key").notNull(),
+    requestFingerprint: text("request_fingerprint").notNull(),
+    operationId: text("operation_id").notNull(),
+    status: text("status").notNull(),
+    ordinalUser: integer("ordinal_user"),
+    ordinalAssistant: integer("ordinal_assistant"),
+    userMessageId: text("user_message_id"),
+    assistantMessageId: text("assistant_message_id"),
+    generationId: text("generation_id"),
+    resultJson: text("result_json"),
+    errorCategory: text("error_category"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("conversation_turn_commands_conv_key_uidx").on(t.conversationId, t.clientTurnKey),
+    uniqueIndex("conversation_turn_commands_operation_uidx").on(t.operationId),
+    index("conversation_turn_commands_conv_status_idx").on(t.conversationId, t.status),
+  ],
 );
 
 /** D4 — documents / revisions. */

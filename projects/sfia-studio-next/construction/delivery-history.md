@@ -260,4 +260,22 @@ Append-only logical journal of Cursor product deliveries.
 | Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
 | Status | CORRECTIVE on PR #655 — see Review Pack for CI proof |
 | Verdict candidate | pending GitHub Actions on published SHA |
-|
+
+## delivery_id: DELIV-2026-11-05-ML2-COG-OBS-INTEGRATED-07
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — cognition Nora + observabilité intégrées |
+| Type | EVOL / construction locale Critical |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
+| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b7c724b020011f19d8814333116674475` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Implemented | cognitive policy TEST_BOUNDARY≠OPERATIONAL ; D4 read tools ; turn command + migration 005 ; JSON obs sink ; HTTP error classification ; tracingDisabled |
+| Schema | `005_ml2_conversation_turn_command` applied on DEV `sfia_next_dev` + `sfia_next_e2e` |
+| Product version | `NO RELEASE` ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 42 PASS ; PG 53 PASS ; Playwright 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE / CI new SHA | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL DELIVERY — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL DELIVERY WITH RESERVES — REVIEW REQUIRED` |
+||

@@ -27,7 +27,10 @@ test("ML2 DEV: fil continu, document explicite, journal sujets, reprise projet",
     "Rédige un document de synthèse sur les options A et B",
   );
   await page.getByRole("button", { name: "Envoyer" }).click();
-  await expect(page.getByText(/Nora deterministic-fixture · COMPLETE · document \S+ v\d+/i)).toBeVisible({
+  // Status may include policy/operation metadata between COMPLETE and document proof.
+  await expect(
+    page.getByText(/Nora deterministic-fixture · COMPLETE[\s\S]*document \S+ v\d+/i),
+  ).toBeVisible({
     timeout: 30000,
   });
 

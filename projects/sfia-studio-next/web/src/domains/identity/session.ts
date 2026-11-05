@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { newId } from "@/lib/ids";
 import { cookies } from "next/headers";
 import { ensurePilotForAuthUser } from "@/domains/identity/provision-pilot";
+import { isDependencyFailure, StudioError } from "@/lib/http-errors";
 
 export type AuthMode = "github-oauth" | "dev-test-login" | "unknown";
 
@@ -61,7 +62,16 @@ async function resolveBetterAuthStudioSession(): Promise<StudioSession | null> {
       sessionId: sessionRow.id,
       authMode: authMode === "dev-test-login" ? "dev-test-login" : "github-oauth",
     };
-  } catch {
+  } catch (e) {
+    // Dependency/DB failures must not be silently converted into "no session".
+    // Callers map DEPENDENCY_UNAVAILABLE → 503; true auth miss stays null → 401.
+    if (isDependencyFailure(e)) {
+      throw new StudioError("DEPENDENCY_UNAVAILABLE", "Dépendance session indisponible", {
+        httpStatus: 503,
+        exposeMessage: false,
+        cause: e,
+      });
+    }
     // Better Auth misconfig / missing secret must not crash every API — fall through to DEV adapter.
     return null;
   }

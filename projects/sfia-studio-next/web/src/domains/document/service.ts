@@ -609,11 +609,32 @@ export async function getDocumentRevision(
   documentId: string,
   revisionId: string,
 ) {
-  const list = await listDocumentRevisions(pilotId, preparationId, documentId);
-  if (list.status !== "AVAILABLE") return { status: "FORBIDDEN" as const };
-  const rev = list.revisions.find((r) => r.id === revisionId);
+  // Targeted lookup — do not load every revision for the document.
+  const owned = (
+    await db
+      .select()
+      .from(documents)
+      .where(
+        and(
+          eq(documents.id, documentId),
+          eq(documents.ownerPilotId, pilotId),
+          eq(documents.preparationId, preparationId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!owned) return { status: "FORBIDDEN" as const };
+  const rev = (
+    await db
+      .select()
+      .from(documentRevisions)
+      .where(
+        and(eq(documentRevisions.id, revisionId), eq(documentRevisions.documentId, documentId)),
+      )
+      .limit(1)
+  )[0];
   if (!rev) return { status: "NOT_FOUND" as const };
-  return { status: "AVAILABLE" as const, document: list.document, revision: rev };
+  return { status: "AVAILABLE" as const, document: owned, revision: rev };
 }
 
 export type DiffResult = {

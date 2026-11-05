@@ -59,6 +59,8 @@ export default function PreparationPage() {
   /** Refs avoid double-click minting two keys before React state commits. */
   const createDocIntentRef = useRef<CreateIntent | null>(null);
   const reviseIntentRef = useRef<ReviseIntent | null>(null);
+  /** Stable client turn key for the current draft — reused across network retries. */
+  const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
   const idempotencyKey = useMemo(() => `create-${preparationId}`, [preparationId]);
 
   function rememberCreateIntent(next: CreateIntent | null) {
@@ -113,17 +115,38 @@ export default function PreparationPage() {
     if (!draft.trim()) return;
     setBusy(true);
     setNoraActivity("preparing");
+    const text = draft.trim();
+    if (!messageTurnKeyRef.current || messageTurnKeyRef.current.content !== text) {
+      messageTurnKeyRef.current = {
+        content: text,
+        key:
+          typeof crypto !== "undefined" && "randomUUID" in crypto
+            ? `turn-${crypto.randomUUID()}`
+            : `turn-${preparationId}-${Date.now()}`,
+      };
+    }
+    const clientTurnKey = messageTurnKeyRef.current.key;
     const res = await fetch(`/api/preparations/${preparationId}/messages`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ content: draft, correlationKey: `msg-${Date.now()}` }),
+      body: JSON.stringify({
+        content: text,
+        clientTurnKey,
+        correlationKey: clientTurnKey,
+      }),
     });
     const j = await res.json();
     setBusy(false);
     if (res.ok) {
+      messageTurnKeyRef.current = null;
       setDraft("");
       setMessages(j.messages ?? []);
       setNoraActivity("idle");
+      const policyPart = j.policy?.profile
+        ? ` · policy ${j.policy.profile}/${j.policy.profileType}`
+        : "";
+      const opPart = j.operationId ? ` · op ${String(j.operationId).slice(0, 18)}` : "";
+      const replayPart = j.idempotentReplay ? " · rejeu tour" : "";
       const docPart =
         j.documentSave?.status === "AVAILABLE"
           ? ` · document ${j.documentSave.documentId} v${j.documentSave.revisionNumber}`
@@ -137,7 +160,7 @@ export default function PreparationPage() {
       const docConflict =
         j.documentSave?.status === "CONFLICT" ? ` · CONFLICT ${j.documentSave.reason ?? ""}` : "";
       setStatus(
-        `Nora ${j.noraMode} · ${j.status}${docPart}${docConflict}${cap}` +
+        `Nora ${j.noraMode} · ${j.status}${policyPart}${opPart}${replayPart}${docPart}${docConflict}${cap}` +
           (j.streaming?.attempted
             ? ` · stream attempted=${j.streaming.attempted} delivered=${j.streaming.delivered}`
             : ""),
@@ -145,7 +168,13 @@ export default function PreparationPage() {
       await reload();
     } else {
       setNoraActivity("error");
-      setStatus(j.error ?? "échec message");
+      // Keep turn key on network/conflict so retry reuses the same intention.
+      const cat = j.errorCategory ?? j.error ?? "échec message";
+      setStatus(
+        res.status === 409
+          ? `${cat} — intention de tour conservée`
+          : String(cat),
+      );
     }
   }
 

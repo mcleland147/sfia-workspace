@@ -835,3 +835,38 @@ Deux responsabilités d'outil suffisent au départ, sous réserve de revue des s
 ### 21.6. Acceptation et passage à la suite
 
 Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01..07, OBS-Q01..10, scénarios de stress **et** missions réalistes longues ; vérifier clé/model/effort en LIVE, outils D4, migrations PG, retries/UNKNOWN, capture de traces, sécurité, isolation, CI et statut réel de la lane. **Prochaine étape : revue de préparation du mandat SFIA v2.6, sans génération du prompt ni lancement Cursor sous le présent GO.** Code = non modifié ; tests de l'extension = NOT RUN ; RECETTE = NOT STARTED ; ADOPTED = non acquis.
+
+## 22. As-Built construction intégratrice cognition/observabilité — 2026-11-05 (local)
+
+> **LOCAL IMPLEMENTATION / DETERMINISTIC+PG+BROWSER FAKE PROVEN PARTIAL / LIVE NOT RUN / NO PROJECT PUSH.** Branche `sfia/next-ml2-cognition-observability-integrated` depuis `docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b`. N'écrase pas §§12–14 ni la direction §§20–21.
+
+### 22.1 Réalisé
+
+| Capacité | Réalisation |
+| --- | --- |
+| Politique D3 | `cognitive-policy.ts` — profils simple/analyse/investigation ; modèle demandé `gpt-6.1-sol` ; efforts low/medium/high ; **TEST_BOUNDARY ≠ OPERATIONAL** |
+| Outils D4 lecture | `search_project_resources` + `read_project_document_revision` — portée serveur liée ; budget appels/chars ; refus/partiel distingués |
+| Runner | Agent unique avec tools allowlist ; `maxTurns` fini ; `setTracingDisabled(true)` ; attempts distincts stream/fallback |
+| Tour durable | table `conversation_turn_commands` + unicité ordinal messages (migration `005`) ; replay / PAYLOAD_MISMATCH / TURN_IN_PROGRESS |
+| Observabilité | JSONL lane-local `.obs/<lane>/` + stdout ; `obs:query` par `operation_id` ; redaction secrets |
+| HTTP | `StudioError` — DB≠401 ; routes messages/documents/knowledge classifiées |
+| UX | `clientTurnKey` stable sur retry message ; statut affiche policy/operation sans télémétrie rail |
+
+### 22.2 Preuves locales (DEV)
+
+| Suite | Résultat |
+| --- | --- |
+| unit | 42 PASS |
+| PG integration | 53 PASS (dont turn-command idempotence + tool call fixture) |
+| Playwright | 3 PASS |
+| tsc / lint / build | PASS |
+| migrate 001→005 | OK sur `sfia_next_dev` et `sfia_next_e2e` |
+
+### 22.3 Non-preuves / réserves
+
+- LIVE `gpt-6.1-sol` / entitlement / effort réel : **NOT RUN**
+- Corpus B missions 5–10 min + >32k D4 : **NOT RUN** (OPERATIONAL TBD)
+- COG-01..07 comparatif ChatGPT : **NOT RUN**
+- OBS-Q01 OAuth LIVE, export SDK distant : **NOT RUN**
+- CI Next sur nouveau SHA : **OPEN GATE** (pas de push projet)
+- RECETTE / STABLE / ADOPTED : **NOT AVAILABLE**

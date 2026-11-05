@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { requireStudioSession } from "@/domains/identity/session";
 import { listDocuments, savePreparationDocument } from "@/domains/document/service";
+import { studioErrorResponse } from "@/lib/http-errors";
 
 export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
   try {
@@ -8,8 +9,9 @@ export async function GET(_: Request, ctx: { params: Promise<{ preparationId: st
     const { preparationId } = await ctx.params;
     const documents = await listDocuments(session.pilotId, preparationId);
     return NextResponse.json({ documents });
-  } catch {
-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }
 
@@ -24,7 +26,10 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       correlationKey?: string;
     };
     if (typeof body.contentMarkdown !== "string") {
-      return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
+      return NextResponse.json(
+        { error: "INVALID_REQUEST", errorCategory: "INVALID_REQUEST" },
+        { status: 400 },
+      );
     }
     const result = await savePreparationDocument(
       session.pilotId,
@@ -43,7 +48,8 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
             ? 400
             : 500;
     return NextResponse.json(result, { status: http });
-  } catch {
-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }

@@ -6,6 +6,7 @@ import {
   renameSubject,
   splitSubject,
 } from "@/domains/knowledge/service";
+import { studioErrorResponse } from "@/lib/http-errors";
 
 export async function GET(_: Request, ctx: { params: Promise<{ preparationId: string }> }) {
   try {
@@ -13,8 +14,9 @@ export async function GET(_: Request, ctx: { params: Promise<{ preparationId: st
     const { preparationId } = await ctx.params;
     const knowledge = await listKnowledge(session.pilotId, preparationId);
     return NextResponse.json({ knowledge });
-  } catch {
-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }
 
@@ -58,8 +60,12 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       });
       return NextResponse.json(result);
     }
-    return NextResponse.json({ error: "INVALID_REQUEST" }, { status: 400 });
-  } catch {
-    return NextResponse.json({ error: "SESSION_INVALID" }, { status: 401 });
+    return NextResponse.json(
+      { error: "INVALID_REQUEST", errorCategory: "INVALID_REQUEST" },
+      { status: 400 },
+    );
+  } catch (e) {
+    const mapped = studioErrorResponse(e);
+    return NextResponse.json(mapped.body, { status: mapped.status });
   }
 }

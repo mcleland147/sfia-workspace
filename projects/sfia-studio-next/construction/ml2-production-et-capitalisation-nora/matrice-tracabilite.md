@@ -442,3 +442,19 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
 **Deux corpus dans une même qualification ML2 :** (A) **stress contrôlé** : petites limites choisies pour provoquer timeout, saturations et STOP ; (B) **missions réalistes** : contextes D4 riches, enquêtes longues, droits/version/contradictions, consommation et qualité. Un PASS de corpus A seul **ne valide pas** la capacité réelle d'investigation de Nora. Inversement, relever les plafonds opérationnels ne doit pas effacer les tests A. Les seuils de production restent **TBD après mesures**, jamais `ADOPTED` sur la base de ce document.
 
 **Fiche de preuve :** configuration profil/policy_version, limites `TEST` ou `OPERATIONAL`, corpus/datation, taille des passages réellement retournés, appels modèle/outils, wall-clock, annulation, usage/cout mesuré ou indisponible, source/version/provenance, état SQL D4, chronologie expurgée, SHA/build/lane, tests COG/OBS, jugement de valeur Morris et réserves. Les tests LIVE sont distincts de la CI BROWSER FAKE. **Aucun nouveau test n'est réalisé par cette publication documentaire.**
+
+## 15. As-Built preuves locales cognition/OBS — 2026-11-05
+
+> Complément — ne remplace pas les statuts historiques. Branche locale `sfia/next-ml2-cognition-observability-integrated`.
+
+| Famille | État local | Notes |
+| --- | --- | --- |
+| Politique TEST≠OPERATIONAL | DETERMINISTIC PROVEN | unit `cognitive-policy.test.ts` |
+| Tool D4 pendant run (fixture) | DETERMINISTIC + PG PROVEN | fixture + `ml2-turn-command.pg.test.ts` toolCalls≥1 |
+| Idempotence tour | PG PROVEN | même clé replay ; payload mismatch 409 |
+| OBS sink + query + redaction | DETERMINISTIC PROVEN | unit observability ; PG query by operation_id |
+| HTTP DB≠401 | DETERMINISTIC PROVEN | unit http-errors |
+| C1–C6 / Playwright ML1–ML2 | BROWSER FAKE PROVEN (régression) | 3/3 PASS |
+| LIVE modèle/effort | NOT RUN | pas de GO LIVE |
+| Corpus B long | NOT RUN | OPERATIONAL TBD |
+| CI nouveau SHA | OPEN GATE | pas de push projet |
