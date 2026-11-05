@@ -317,3 +317,43 @@ Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **D
 **Matrice d'acceptation :** chaque scénario retenu porte contexte, acteur, projet, lane, SHA/build/schema, identifiants corrélés, événements réellement récupérés et provenance, état DB/propriétaire, consommation lorsque mesurée, limite et verdict. Une analyse ChatGPT sur données observées peut challenger le chemin, mais elle ne constitue pas une preuve directe du runtime ou une chaîne de pensée.
 
 **Impact/priorité :** traiter OBS-Q02 et la corrélation AUTH/API/DB/D3/D4 comme écarts de conception à arbitrer **avant** de déclarer une capacité de diagnostic suffisante pour RECETTE. Les cases NOT RUN ne peuvent pas devenir PASS par publication de ce document. L'ajout à PR #655 nécessiterait un mandat technique explicitement borné, tests et re-recette sur SHA actualisé ; aucune promotion implicite.
+
+## 10. Qualification intégrée après décision Morris — cognition + observabilité avant RECETTE ML2 (2026-11-05)
+
+> **VALIDATED STRATEGIC SCOPE / ACCEPTANCE CONTRACT CANDIDATE / NO ADDITIONAL TEST RUN.** [Decision Record](../../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md), [Roadmap](../../governance/roadmap.md), [ML2 spécification §17](specification-technique.md), [R5 §14 et §17](../reference-delivery-r5.md), [contrat observabilité OBS-Q](../../architecture-technique/contrat-observabilite-transverse.md). Cette décision **retient l'intégration avant RECETTE**, sans changer les cas ni inventer leurs résultats aux §§1–9. Les preuves C1–C6 As-Built sont historiques au SHA candidat, pas une preuve des nouveaux chemins cognitifs/diagnostiques.
+
+### 10.1. Capacité → sources → oracles → gate
+
+| Capacité d'entrée RECETTE ML2 | Source fonctionnelle/technique | Cas d'essai et preuve à obtenir | Verdict actuel |
+| --- | --- | --- | --- |
+| **Qualification cognitive proportionnée** | D3 §14/15, ML2 §17.2, R5 §14 | COG-01/02 ; simple sans recherche superflue, complexe avec config modèle/effort appliquée ; DETERMINISTIC + LIVE | **NOT IMPLEMENTED / NOT PROVEN** |
+| **Boucle multi-étapes réellement outillée** | D3 RG-CONV-009, PF-37/38, ML2 §17 | COG-02/03/06 ; au moins une lecture D4 complémentaire effectivement effectuée en LIVE et bon résultat/refus ; INTEGRATION + LIVE | **NOT IMPLEMENTED / NOT PROVEN** |
+| **Accès et vérité D4** | D4 RG-KNOW-021..026, PF-KNOW-15..20, C1–C6 | COG-03/04/05/06 + OBS-Q03/05 ; droits/version/absence, aucune fuite, révision/ACK, concurrence ; DB + BROWSER, LIVE lorsque pertinent | **INTÉGRITÉ PARTIELLEMENT PROUVÉE C1–C6 sur candidat / chemin agentique NON PROUVÉ** |
+| **Honnêteté et limites** | D3 PF-39/43/44, D4, R3 §40/41 | COG-06/07 + OBS-Q04/06/07 ; timeout, STOP, plusieurs tentatives, aucun effet fictif, trace absente déclarée ; DETERMINISTIC + LIVE | **NOT RUN pour extension** |
+| **API/AUTH/DB diagnostics** | R2 D1/D2 §7/8, ML2 §16/17, contrat OBS | OBS-Q01/02/08/10 ; pas de faux 401, corrélation vers DB/env/build, négatifs ; INTEGRATION/HTTP et LIVE ciblé OAuth | **KNOWN GAP / NOT RUN** |
+| **Trace consultable et expurgée** | OBS-01..08, R4 contrat §§3–7, DATA-01 | OBS-Q04/07/09/10 ; lecture par operation_id, chronologie, refs sources, coûts/latences réels, secret synthétique absent ; INTEGRATION + LIVE | **NOT PROVEN** |
+| **Qualité cognitive indépendante** | R5 §14, COG-01..07, R1 E2E 03/04 | Corpus daté, réponses indépendantes, faits vérifiés séparément, critique des chemins redondants, valeur Pilote évaluée Morris ; LIVE + revue | **NOT RUN** |
+| **CI / isolement / non-régression** | ENV-01, ML1 réserves A/B, C1–C6, ML2 R5 QA | CI Next réellement exécutée au HEAD candidat, isolation DEV/RECETTE, DB/BROWSER, tests C1–C6 inchangés ou repris selon blast radius | **NON DÉMONTRÉ sur future révision** |
+
+### 10.2. Scénario transversal d'acceptation de référence
+
+**Entrée :** le Pilote demande de comparer plusieurs décisions architecturales et des spécifications du projet ; une source est contradictoire et une autre nécessite une consultation complémentaire D4. Les droits, versions et corpus sont datés.
+
+**Observation requise :**
+1. Qualification de difficulté et paramètres modèle/effort réellement sélectionnés ; pas d'appel de classification superflu systématique.
+2. Requête D4 initiale et **consultation supplémentaire pendant la mission**, sous projet/permissions corrects, sans déclarer un simple titre comme source lue.
+3. Analyse des contradictions et des limites, restitution utilisable ou incomplète honnête ; aucune décision D6/effet externe/écriture Git inférée.
+4. Chronologie d'opération retrouvable par l'examinateur habilité : tentative(s) fournisseur, outil(s), sources/version, erreurs, durée/usage et estimation explicitement séparée.
+5. Comparaison ChatGPT–Nora indépendante sur contexte équivalent, fact-check distinct, verdict motivé — **pas d'équivalence automatique**.
+
+**Contre-épreuves :** question simple sans surinvestigation ; source D4 refusée et absence expliquée ; session valide avec DB indisponible (pas faux SESSION_INVALID) ; fallback streaming et deuxième appel ; limite de tours ; logs anonymisés ; exporteur inactif ; ACK D4 perdu/réconcilié ; CI Next qui SKIP une validation in-scope → gate FAIL.
+
+**Fiche de preuve :** scénario, entrée, contexte, SHA/build/lane et droits, modules et références D4, IDs d'opération/génération/tentative/trace si disponibles, événements réellement collectés, statut de sortie, coût/latence mesurés ou indisponibles, corpus/comparaison, niveaux DETERMINISTIC/DB/BROWSER/LIVE, réserves, verdict. La mission peut réussir fonctionnellement avec un diagnostic insuffisant : **ces verdicts restent séparés**.
+
+### 10.3. Gate d'entrée et reports
+
+**Exigé avant entrée RECETTE de la capacité étendue :** mécanismes cognitifs et diagnostics minimaux implémentés et testés, lecture D4 LIVE effectivement démontrée, erreurs et accès respectés, non-régression C1–C6, contrôle de confidentialité, consultation réelle des traces au candidat et CI Next applicable exécutée. **La qualité finale de Nora sera justement examinée lors de la RECETTE Morris** ; elle n'est pas présumée parfaite à l'entrée.
+
+**À ne pas bloquer ML2 sans besoin démontré :** routage multi-modèle/Astra, classification IA systématique, dashboard et alerting industriels, journaux D5–D9 non implémentés, autonomie Web/Git/Cursor et scénarios OBS-Q11/12 hors périmètre. Reporter avec propriétaire/risque/exit et réexamen.
+
+**Propriétaire du verdict :** le rapport technique et cognitif instruit ; ChatGPT challenge avec contre-réponse indépendante ; Morris arbitre les réserves, l'acceptation et la suite. **Contenu de stratégie approuvé ≠ RECETTE ni GO Cursor ni PR readiness/merge.**
