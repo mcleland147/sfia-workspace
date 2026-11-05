@@ -1,36 +1,27 @@
 # SFIA Studio Next — Review Pack FULL
-## Cycle 13 — PR readiness / publication contrôlée ML2
+## Cycle 7 — Correctif PostgreSQL CI — PR #655
 
-- Date/heure (Europe/Paris): 2026-11-05 09:23:09 CET
-- Produit: SFIA Studio Next exclusively
-- Typologie: EVOL — publication Git + Draft PR + observation CI
-- Review Pack: FULL mono-cycle (réinitialisé)
-- Mandat: push branche + Draft PR + observe Actions + handoff L3
-- **NON autorisé / non fait:** merge, ready-for-merge, ruleset, second push correctif, RECETTE, RELEASE
+- Date/heure (Europe/Paris): 2026-11-05 09:40:46 CET
+- Mandat: correctif CI borné (workflow only) + push unique + observation run + handoff L3
+- **NON fait:** merge, ruleset, second push, modification tests/produit, RECETTE
 
-## 1. Git Truth Check
+## 1. Git Truth
 
-### Avant push
-- remote: `origin https://github.com/mcleland147/sfia-workspace.git`
+### Initial
 - branch: `sfia/next-ml2-production-capitalisation`
-- HEAD: `1dc120b0ec12f5c8c15eb4eb466a4cf9e57c0dbe` (**match exact mandat**)
-- origin/main: `6e4406c63639330c7826423cdcf08f06ff019eed` (inchangé)
-- merge-base = origin/main
-- branche distante: **ABSENTE** avant push
-- PR préexistante: aucune
-- staged: vide; untracked: `.tmp-sfia-review/` + 5 SVG (non poussés)
-- 7 commits linéaires attendus présents
+- HEAD local/distant: `1dc120b0ec12f5c8c15eb4eb466a4cf9e57c0dbe`
+- origin/main: `6e4406c63639330c7826423cdcf08f06ff019eed`
+- PR #655 OPEN/DRAFT
+- Run échec Postgres: 41993772561
 
-### Après publication
-- HEAD local final: `1dc120b0ec12f5c8c15eb4eb466a4cf9e57c0dbe` (inchangé — aucun commit produit supplémentaire)
-- remote branch SHA: `1dc120b0ec12f5c8c15eb4eb466a4cf9e57c0dbe` (**MATCH**)
-- workflow blob distant: `8803168a74ed508226f4d171c8b52cd988b06bd8`
-- SVG absents du remote tree ML2 diff / non trackés sur branche
-- Note: `.tmp-sfia-review/chatgpt-review.md` existe déjà sur **main** (historique Studio) — hors diff ML2
-
-## 2. Chaîne des commits publiés
-
+### Final
+- HEAD: `23e55da80ac774511b467bc53ab7eaa5d60ac969`
+- Parent: `1dc120b0ec12f5c8c15eb4eb466a4cf9e57c0dbe` (= 1dc120b0)
+- Remote branch SHA = HEAD
+- PR #655 headOid mis à jour; reste **DRAFT**
+- Commits origin/main..HEAD:
 ```
+23e55da8 fix(ci-next): wait for PostgreSQL TCP readiness before E2E database setup
 1dc120b0 ci(next): install SFIA Studio Next CI workflow on ML2 branch
 f9374770 docs(next-ml2): record Cycle 7 integration-prep and CI proposal status
 1967b2c5 fix(next-ml2): close C3 fingerprint/UI key, C4 diff budget, C1 journal proofs
@@ -40,151 +31,204 @@ a9a468e9 test(next-ml2): PG/BROWSER proofs and As-Built delivery notes
 d867365f feat(next-ml2): D4 knowledge registry and document revision contracts
 ```
 
-## 3. Inventaire fichiers (allowlist)
+## 2. Incident initial + diagnostic
 
-Allowlist: `projects/sfia-studio-next/**` + `.github/workflows/sfia-studio-next-ci.yml` — **34 fichiers**, SCOPE OK.
-Workflows historiques absents du diff. `git diff --check` PASS. Secret scan borné: clean. merge-tree: 0 conflits.
+- Step: Start ephemeral Postgres…
+- Symptôme: `postgres ready` via pg_isready puis `FATAL: terminating connection due to administrator command`
+- Hypothèse: readiness socket-local trop tôt pendant restart post-init de l'image officielle
+
+## 3. Correctif appliqué (fichier unique)
+
+- Fichier: `.github/workflows/sfia-studio-next-ci.yml`
+- Commit: `23e55da80ac774511b467bc53ab7eaa5d60ac969`
+- Message: `fix(ci-next): wait for PostgreSQL TCP readiness before E2E database setup`
+- Mécanisme: `psql -h 127.0.0.1 -p 5432` SELECT 1 retries (60×1s) ; création E2E idempotente retries (30×1s) ; preuve finale SQL operator+E2E
+- Conteneur/ports/DB/credentials: inchangés
+
+### Diff complet
+
+```diff
+commit 23e55da80ac774511b467bc53ab7eaa5d60ac969
+Author: Morris Cleland <morris@MacBook-Air.local>
+Date:   Thu Nov 5 09:34:42 2026 +0100
+
+    fix(ci-next): wait for PostgreSQL TCP readiness before E2E database setup
+
+    Replace socket-local pg_isready with bounded TCP SQL SELECT 1 retries
+    and idempotent E2E database creation to survive official image init restart.
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+diff --git a/.github/workflows/sfia-studio-next-ci.yml b/.github/workflows/sfia-studio-next-ci.yml
+index 8803168a..614b3c53 100644
+--- a/.github/workflows/sfia-studio-next-ci.yml
++++ b/.github/workflows/sfia-studio-next-ci.yml
+@@ -184,6 +184,9 @@ jobs:
+         working-directory: ${{ github.workspace }}
+         run: |
+           set -euo pipefail
++          # Readiness must prove the final TCP server accepts SQL.
++          # Do NOT treat socket-local pg_isready alone as definitive (official image
++          # may restart after init and terminate early connections).
+           docker rm -f sfia-next-dev-pg >/dev/null 2>&1 || true
+           docker run -d --name sfia-next-dev-pg \
+             -e POSTGRES_USER=sfia_next_dev \
+@@ -191,25 +194,64 @@ jobs:
+             -e POSTGRES_DB=sfia_next_dev \
+             -p 127.0.0.1:5433:5432 \
+             postgres:16-alpine
++
++          psql_tcp() {
++            # TCP inside the container (not host socket). Failures return non-zero.
++            docker exec sfia-next-dev-pg \
++              psql -h 127.0.0.1 -p 5432 -U sfia_next_dev -d "$1" -v ON_ERROR_STOP=1 -tAc "$2"
++          }
++
++          echo "Waiting for PostgreSQL TCP SQL readiness (SELECT 1)…"
++          ready="false"
+           for i in $(seq 1 60); do
+-            if docker exec sfia-next-dev-pg pg_isready -U sfia_next_dev -d sfia_next_dev >/dev/null 2>&1; then
+-              echo "postgres ready"
++            if out="$(psql_tcp sfia_next_dev 'SELECT 1' 2>/dev/null | tr -d '[:space:]')" && [ "${out}" = "1" ]; then
++              echo "postgres TCP SQL ready (attempt ${i}/60)"
++              ready="true"
+               break
+             fi
+             sleep 1
+-            if [ "$i" = "60" ]; then
+-              echo "Postgres failed to become ready" >&2
+-              docker logs sfia-next-dev-pg >&2 || true
+-              exit 1
++          done
++          if [ "${ready}" != "true" ]; then
++            echo "Postgres TCP SQL readiness failed after 60s" >&2
++            docker logs sfia-next-dev-pg >&2 || true
++            exit 1
++          fi
++
++          # Sibling E2E database — create only if absent; retry transient connection drops.
++          echo "Ensuring E2E database sfia_next_e2e…"
++          e2e_ok="false"
++          for i in $(seq 1 30); do
++            exists=""
++            if exists="$(psql_tcp postgres "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" 2>/dev/null | tr -d '[:space:]')"; then
++              if [ "${exists}" = "1" ]; then
++                e2e_ok="true"
++                break
++              fi
++              # Not present yet — attempt CREATE; ignore duplicate race, re-lookup next loop.
++              if psql_tcp postgres "CREATE DATABASE sfia_next_e2e OWNER sfia_next_dev;" >/dev/null 2>&1; then
++                :
++              fi
++              if exists="$(psql_tcp postgres "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" 2>/dev/null | tr -d '[:space:]')" && [ "${exists}" = "1" ]; then
++                e2e_ok="true"
++                break
++              fi
+             fi
++            sleep 1
+           done
+-          # Sibling E2E database — same identity check as scripts/e2e-web-server.sh
+-          exists="$(docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -tAc \
+-            "SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'" | tr -d '[:space:]')"
+-          if [ "${exists}" != "1" ]; then
+-            docker exec sfia-next-dev-pg psql -U sfia_next_dev -d postgres -v ON_ERROR_STOP=1 \
+-              -c "CREATE DATABASE sfia_next_e2e OWNER sfia_next_dev;"
++          if [ "${e2e_ok}" != "true" ]; then
++            echo "Failed to ensure E2E database sfia_next_e2e after retries" >&2
++            docker logs sfia-next-dev-pg >&2 || true
++            exit 1
++          fi
++
++          # Final proof: real SQL on both operator and E2E databases over TCP.
++          op="$(psql_tcp sfia_next_dev 'SELECT 1' | tr -d '[:space:]')"
++          e2e="$(psql_tcp sfia_next_e2e 'SELECT 1' | tr -d '[:space:]')"
++          if [ "${op}" != "1" ] || [ "${e2e}" != "1" ]; then
++            echo "Final TCP SQL proof failed (operator=${op:-empty} e2e=${e2e:-empty})" >&2
++            exit 1
+           fi
++          echo "PostgreSQL operator + E2E databases accept TCP SQL"
+           docker port sfia-next-dev-pg 5432
+
+       - name: Write CI .env.local (synthetic, non-secret lane)
 
 ```
-.github/workflows/sfia-studio-next-ci.yml
-projects/sfia-studio-next/construction/delivery-history.md
-projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/contrat-visuel-figma-ml2.md
-projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-projects/sfia-studio-next/web/scripts/db-migrate.sh
-projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
-projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/route.ts
-projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/knowledge/route.ts
-projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
-projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-projects/sfia-studio-next/web/src/app/globals.css
-projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
-projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-projects/sfia-studio-next/web/src/components/SafeMarkdown.tsx
-projects/sfia-studio-next/web/src/db/migrations/003_ml2_knowledge_documents.sql
-projects/sfia-studio-next/web/src/db/migrations/004_ml2_integrity_corrective.sql
-projects/sfia-studio-next/web/src/db/schema.ts
-projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-projects/sfia-studio-next/web/src/domains/conversation/service.ts
-projects/sfia-studio-next/web/src/domains/document/service.ts
-projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
-projects/sfia-studio-next/web/tests/e2e/ml2-c3-stable-key.spec.ts
-projects/sfia-studio-next/web/tests/e2e/ml2-smoke.spec.ts
-projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
-projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
-projects/sfia-studio-next/web/tests/integration/ml2-corrective-integrity.pg.test.ts
-projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
-projects/sfia-studio-next/web/tests/unit/diff-ordered.test.ts
-projects/sfia-studio-next/web/tests/unit/ml2-cognition-fixture.test.ts
-projects/sfia-studio-next/web/tests/unit/safe-markdown.test.ts
-```
 
-## 4. Push + Draft PR
+## 4. Validations locales
+
+| Contrôle | Résultat |
+| --- | --- |
+| actionlint | PASS (0 findings) |
+| git diff --check | PASS |
+| secret scan diff | clean |
+| Probe Docker isolé `sfia-next-ci-probe-pg` (port 55433) | PASS cold-start TCP + E2E create + idempotent |
+| Conteneur DEV Morris `sfia-next-dev-pg` | non perturbé (Up 17h) |
+| Suites unit/PG/e2e produit | non rejouées (changement workflow-only) — baseline locale antérieure 34/50/3 |
+
+## 5. Nouveau run GitHub Actions (SHA correctif)
 
 | Champ | Valeur |
 | --- | --- |
-| Push | `refs/heads/sfia/next-ml2-production-capitalisation` → origin (no force) |
-| SHA publié | `1dc120b0ec12f5c8c15eb4eb466a4cf9e57c0dbe` |
-| PR | **#655** |
-| URL | https://github.com/mcleland147/sfia-workspace/pull/655 |
-| Draft | **true** |
-| Base / Head | main ← sfia/next-ml2-production-capitalisation |
-| headOid | 1dc120b0ec12f5c8c15eb4eb466a4cf9e57c0dbe |
-| mergeable (GitHub) | MERGEABLE (observation API — **≠ autorisation merge**) |
+| Run Next CI | **41995565584** |
+| URL | https://github.com/mcleland147/sfia-workspace/actions/runs/41995565584 |
+| SHA | `23e55da80ac774511b467bc53ab7eaa5d60ac969` |
+| Conclusion workflow | **failure** |
+| Studio CI historique | 41995565784 **success** (Required Gate pass; validate skip) |
 
-## 5. Preuves locales réconciliées (HEAD produit = publié)
+### Jobs Next
 
-Portent sur l'arbre `1dc120b0` (dernier cycle install CI + packs antérieurs). Aucune modification produit depuis.
-
-| Niveau | Résultat |
+| Job | Conclusion |
 | --- | --- |
-| DETERMINISTIC | tsc/lint/build/actionlint PASS ; unit **34 PASS** |
-| PG INTEGRATION | **50 PASS** |
-| BROWSER FAKE | **3 PASS** |
-| GitHub Actions remote | **FAILED** (voir §6) |
-| Nora LIVE / COG | NOT RUN |
+| Detect SFIA Studio Next changes | **success** |
+| Build and validate SFIA Studio Next | **failure** |
+| SFIA Studio Next Required Gate | **failure** (agrège correctement) |
 
-## 6. GitHub Actions — observation réelle
+### Steps validate (preuve Postgres corrigée)
 
-### Runs sur SHA `1dc120b0`
-
-| Workflow | Run ID | Conclusion | URL |
-| --- | --- | --- | --- |
-| SFIA Studio CI (historique) | 41993772431 | **success** | https://github.com/mcleland147/sfia-workspace/actions/runs/41993772431 |
-| SFIA Studio Next CI | 41993772561 | **failure** | https://github.com/mcleland147/sfia-workspace/actions/runs/41993772561 |
-
-### Checks
-
-| Check | Conclusion | Notes |
-| --- | --- | --- |
-| Detect SFIA Studio changes | pass | hors Studio → validate skip |
-| Build and validate SFIA Studio | skipping | attendu |
-| **SFIA Studio Required Gate** | **pass** | ruleset historique OK ; distinct du Next |
-| Detect SFIA Studio Next changes | pass | next_changed=true |
-| Build and validate SFIA Studio Next | **fail** | step Postgres éphémère |
-| **SFIA Studio Next Required Gate** | **fail** | agrège failure validate (comportement correct) |
-
-### Cause racine (logs run 41993772561)
-
-Étape: `Start ephemeral Postgres matching DEV gate identities`
-
-1. Image `postgres:16-alpine` pull OK
-2. Conteneur démarre ; `pg_isready` → **`postgres ready`**
-3. Immédiatement après, `psql … SELECT/CREATE sfia_next_e2e` échoue:
-   - `FATAL: terminating connection due to administrator command`
-   - `server closed the connection unexpectedly`
-4. Exit code 2 → validate failure → Required Gate FAIL (next_changed=true)
-
-Interprétation: course au **premier démarrage Postgres** (restart post-init après un `pg_isready` précoce). Pas une régression applicative ML2 ; les suites locales restent vertes.
-
-### Correctif borné proposé (NON APPLIQUÉ — hors GO ; pas de second push)
-
-Dans `.github/workflows/sfia-studio-next-ci.yml`, après `postgres ready`, remplacer le CREATE one-shot par une boucle de retry (~30–60s) sur:
-- `SELECT 1 FROM pg_database WHERE datname='sfia_next_e2e'`
-- `CREATE DATABASE …` si absent
-- éventuel `sleep` court post-ready
-
-Gate requis pour appliquer: **nouveau GO Morris** (modification workflow + push correctif distinct — le présent GO de publication est consommé).
-
-## 7. Fake / Real Qualification
-
-- Cible CI: DETERMINISTIC + PG éphémère + BROWSER FAKE
-- Échec observé **avant** npm/tests (infra runner Postgres)
-- LIVE Nora / OAuth / COG / RECETTE: hors portée, non revendiqués
-- DETERMINISTIC local PROVEN ≠ CI remote SUCCESS ≠ READY FOR REAL
-
-## 8. ENV-01 / versioning
-
-- ENV ROUTING COMPLETE: DEV lecture/push/PR/observe ; RECETTE/STABLE non touchés
-- Version: NO RELEASE ; package `0.0.0-dev` ; STABLE NOT AVAILABLE
-- Candidat RECETTE: NOT AVAILABLE
-
-## 9. Réserves inchangées
-
-ML2-S1/S2/S3 ; COG LIVE ; C3 cross-refresh ; ML1-A cookies ; plus **CI Next remote FAILED** (Postgres race) jusqu'à correctif autorisé.
-
-## 10. Décisions Morris restantes
-
-1. Accepter le diagnostic CI (race Postgres) et autoriser un **cycle correctif CI borné** (workflow only + re-push/PR update).
-2. Ne pas merger #655 tant que Next Required Gate ≠ SUCCESS.
-3. Ne pas ajouter Next Required Gate au ruleset main avant SUCCESS distant.
-4. RECETTE / ML3 / RELEASE: ultérieurs.
-
-## 11. Git Review Index
-
-| Artefact | Réf |
+| Step | Conclusion |
 | --- | --- |
-| Branche distante | `origin/sfia/next-ml2-production-capitalisation@1dc120b0` |
-| Draft PR | #655 |
-| Next CI run | 41993772561 FAILURE |
-| Studio CI run | 41993772431 SUCCESS |
-| Workflow path | `.github/workflows/sfia-studio-next-ci.yml` blob `8803168a…` |
+| Start ephemeral Postgres… | **success** ← incident initial LEVÉ |
+| Write .env.local | success |
+| npm ci | success |
+| TypeScript | success |
+| ESLint | success |
+| Build Next | success |
+| Vitest unit | success |
+| Apply migrations 001→004 | success |
+| Vitest PostgreSQL integration | success |
+| Install Playwright Chromium | success |
+| Playwright BROWSER FAKE | **failure** ← NOUVEL échec |
+| Secret scan / diff --check | skipped (après fail) |
+| Stop ephemeral Postgres | success |
 
-## 12. Verdict unique
+### Nouveau diagnostic Playwright
 
-**PR PUBLISHED — CI NEXT FAILED — CORRECTION REQUIRED**
+- Test: `tests/e2e/ml2-c3-stable-key.spec.ts` — ML2 C3-B stable creation key
+- Résultat suite: **2 passed / 1 failed** (ml1-smoke + ml2-smoke OK)
+- Erreur: timeout 90s sur `getByTestId('create-intent-key').innerText()` après simulation ACK perdu (route fulfill 502)
+- Preflight E2E: `e2e-preflight OK` (operator→e2e, container, port 5433)
+- Interprétation: correctif Postgres **prouvé SUCCESS** ; flaky/CI-specific du scénario route-intercept C3-B (hors périmètre du GO Postgres-only)
+- **Aucun second push** (GO consommé pour un seul commit correctif CI Postgres)
 
-Branche et Draft PR #655 publiées sur SHA exact `1dc120b0`. CI Next a bien démarré (in-scope) mais a échoué à la création Postgres éphémère (race post-init). Required Gate Next a correctement échoué. Aucun merge. Aucun second push. Correctif workflow documenté, non appliqué.
+## 6. Fake/Real + ENV/Versioning
+
+- CI = PG réel éphémère + Playwright réel + Nora FAKE + identité DEV FAKE
+- LIVE/COG/OAuth/RECETTE/STABLE: NOT RUN / NOT AVAILABLE
+- NO RELEASE ; ENV ROUTING COMPLETE (DEV/CI only)
+
+## 7. Réserves / gates
+
+- Réserves produit inchangées (S1/S2/S3, COG, C3 refresh, ML1-A)
+- Gate suivant: GO distinct pour diagnostic/correctif **Playwright C3-B** (test ou harness), pas un nouveau chantier Postgres
+- Merge #655 toujours interdit
+
+## 8. Décisions Morris
+
+1. Constater levée de l'incident Postgres CI.
+2. Autoriser ou non un correctif borné du test/harness `ml2-c3-stable-key` (nouveau GO).
+3. Ne pas merger tant que Next Required Gate ≠ SUCCESS.
+
+## 9. Verdict unique
+
+**CI NEXT FAILED — NEW DIAGNOSTIC REQUIRED**
+
+Le correctif PostgreSQL TCP readiness est prouvé sur le run distant 41995565584 (Postgres + migrations + unit + PG integration SUCCESS). L'échec restant est Playwright `ml2-c3-stable-key` (1/3). PR #655 reste DRAFT. Pas de merge.
