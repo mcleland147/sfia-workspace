@@ -1,1395 +1,390 @@
-# SFIA Review Pack FULL — ML2 turn integrity corrective — 2026-11-05 19:15:04 CET
+# SFIA Review Pack FULL — R5/ML2 PR Readiness — 2026-11-05 19:36:15 CET
 
 ## 0. Mandat et verdict proposé
 
-- **Cycle :** Delivery projet / INC corrective intégrité transactionnelle / profil **Critical**
-- **Mandat :** correction locale des défauts A1 (assistant après CAS miss) et B (capitalisation D4 non fencée) après revue handoff `4fbf624f` ; contre-épreuve D4-PAGE-03 ; **aucun** push projet, PR, merge, LIVE, RECETTE
+- **Cycle :** PR readiness / qualification d'intégration R5-ML2 / profil **Critical**
+- **Mandat :** dossier de décision Git/PR au SHA `5cd8f10a` ; **aucun** push projet, création PR, merge, LIVE, RECETTE ; aucune modification produit
 - **CKC :** CANDIDATE ABSENT — FALLBACK SFIA v2.6
-- **Verdict candidat :** `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW`
-- **Produit :** après collision/reprise, aucun message assistant ni COMPLETE si le CAS terminal échoue ; aucune nouvelle écriture sujet/acquis/point après révocation ; effets D4 déjà durables conservés honnêtement ; pagination sous mutation se termine en STALE sans curseur stagnant
+- **Verdict candidat :** `PR READINESS WITH RESERVES — MORRIS ARBITRATION REQUIRED`
+- **Motif réserves :** (1) `CI NEW SHA NOT RUN` ; (2) `git diff --check origin/main...HEAD` échoue sur 3 EOF blank lines (ferait échouer le job CI trailing-check) ; (3) réponse tour UNKNOWN masque capitalisations déjà persistées ; (4) SAFE-01 PARTIAL ; (5) labels workflow « 001→004 » obsolètes alors que `db:migrate` applique 001→006
+- **Décision Morris sollicitée (distincte) :** GO PUSH PROJECT BRANCH puis GO PR intégratrice unique vers `main` **après** arbitrage des réserves (au minimum EOF blank + acceptation CI NOT RUN)
 
 ## 1. Git Truth
 
 | Item | Valeur |
 | --- | --- |
 | Branch | `sfia/next-ml2-cognition-observability-integrated` |
-| HEAD entrée (EXACT) | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
-| HEAD correctif | `5cd8f10a78a6797e07b7de805f78207d10183ce7` |
-| Parent correctif | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
-| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` |
-| origin review-handoff (pré-pub) | `4fbf624f6b50551f5db75a640927644e46e37813` |
-| Project push | **NON** |
-| Untracked preserved | pack local ; 5 SVG `web/public/*.svg` |
+| HEAD | `5cd8f10a78a6797e07b7de805f78207d10183ce7` |
+| Parent | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
+| merge-base(origin/main, HEAD) | `6e4406c63639330c7826423cdcf08f06ff019eed` (= origin/main) |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (inchangé vs pré-check) |
+| Ancêtre docs `6d85fd9b` | **ANCESTOR OK** |
+| Branche projet distante | **ABSENTE** |
+| Staged | aucun |
+| Untracked préservés | `.tmp-sfia-review/chatgpt-review.md` ; 5 SVG `web/public/*.svg` |
+| Handoff antérieur | `1eeb06e6` / blob `5d7e30c9` |
+| Commits `main..HEAD` | **72** |
+| Diff `origin/main...HEAD` | **70 files**, +11472 / −305 (32 A / 38 M) |
 
-### 1.1 Git Review Index (vs `57f6fc54888f607d8a70ef959f39057764e4b20a`)
+### 1.1 Stack PR historiques (observés GitHub 2026-11-05)
+
+| PR | État | Base | HEAD OID | Notes |
+| --- | --- | --- | --- | --- |
+| #655 | OPEN draft | `main` @ `6e4406c6` | `08b89360` | CI Next validate+required_gate **PASS** sur ce SHA historique |
+| #656 | OPEN | #655 branch | `a0d805e9` | docs cognition |
+| #657 | OPEN | #656 branch | `0e83824f` | docs observabilité |
+| #658 | OPEN | #657 branch | `806bc17d` | docs trajectoire ML2 |
+
+Ascendance locale : `08b89360` → `a0d805e9` → `0e83824f` → `806bc17d` → `6d85fd9b` → … → `5cd8f10a` — **tous ANCESTOR OK**.
+
+**Proposition Morris :** conserver #655–#658 ouvertes jusqu'à GO distinct ; publier **une PR intégratrice unique** depuis `sfia/next-ml2-cognition-observability-integrated` → `main` au SHA candidat ; puis arbitrer supersession/fermeture des PR empilées **sans double merge**.
+
+### 1.2 Git Review Index (`origin/main...HEAD`)
 
 ```
+A	.github/workflows/sfia-studio-next-ci.yml
+M	projects/sfia-studio-next/architecture-technique/cadrage-r4.md
+A	projects/sfia-studio-next/architecture-technique/contrat-observabilite-transverse.md
+M	projects/sfia-studio-next/cadrage/vision-produit.md
+M	projects/sfia-studio-next/conception-fonctionnelle/README.md
+M	projects/sfia-studio-next/conception-fonctionnelle/acces-et-portefeuille.md
+M	projects/sfia-studio-next/conception-fonctionnelle/connaissance-sujets-et-continuite-du-projet.md
+M	projects/sfia-studio-next/conception-fonctionnelle/contexte-et-conduite-gouvernee-de-nora.md
+M	projects/sfia-studio-next/conception-fonctionnelle/creation-de-projet-et-continuite-du-sas.md
+M	projects/sfia-studio-next/conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md
+M	projects/sfia-studio-next/conception-fonctionnelle/integration-git-gouvernee.md
+M	projects/sfia-studio-next/conception-fonctionnelle/realisation-operationnelle-gouvernee.md
+M	projects/sfia-studio-next/conception-fonctionnelle/resultats-et-preuves.md
+M	projects/sfia-studio-next/conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md
 M	projects/sfia-studio-next/construction/delivery-history.md
+A	projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/contrat-visuel-figma-ml2.md
 M	projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
 M	projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-M	projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
+M	projects/sfia-studio-next/construction/reference-delivery-r5.md
+A	projects/sfia-studio-next/governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md
+M	projects/sfia-studio-next/governance/roadmap.md
+M	projects/sfia-studio-next/ux-ui/espace-projet-interaction-pilote-nora.md
+M	projects/sfia-studio-next/web/.gitignore
+M	projects/sfia-studio-next/web/package.json
+M	projects/sfia-studio-next/web/scripts/db-migrate.sh
+A	projects/sfia-studio-next/web/scripts/obs-query.ts
+A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/[documentId]/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/documents/route.ts
+A	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/knowledge/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+M	projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/route.ts
+M	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
+M	projects/sfia-studio-next/web/src/app/globals.css
+M	projects/sfia-studio-next/web/src/app/preparations/[preparationId]/page.tsx
+M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+A	projects/sfia-studio-next/web/src/components/SafeMarkdown.tsx
+A	projects/sfia-studio-next/web/src/db/migrations/003_ml2_knowledge_documents.sql
+A	projects/sfia-studio-next/web/src/db/migrations/004_ml2_integrity_corrective.sql
+A	projects/sfia-studio-next/web/src/db/migrations/005_ml2_conversation_turn_command.sql
+A	projects/sfia-studio-next/web/src/db/migrations/006_ml2_turn_owner_token.sql
+M	projects/sfia-studio-next/web/src/db/schema.ts
+A	projects/sfia-studio-next/web/src/domains/conversation/cognitive-policy.ts
+A	projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
+M	projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
 M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
-M	projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+A	projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
 M	projects/sfia-studio-next/web/src/domains/document/service.ts
-M	projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-M	projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
+M	projects/sfia-studio-next/web/src/domains/identity/session.ts
+A	projects/sfia-studio-next/web/src/domains/knowledge/service.ts
+M	projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
+A	projects/sfia-studio-next/web/src/lib/http-errors.ts
+A	projects/sfia-studio-next/web/src/lib/observability.ts
+M	projects/sfia-studio-next/web/tests/e2e/ml1-smoke.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/ml2-c3-stable-key.spec.ts
+A	projects/sfia-studio-next/web/tests/e2e/ml2-smoke.spec.ts
+M	projects/sfia-studio-next/web/tests/integration/create-project.pg.test.ts
+M	projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/ml2-corrective-integrity.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/ml2-critical-corrective.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/ml2-knowledge-documents.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
+A	projects/sfia-studio-next/web/tests/integration/ml2-turn-command.pg.test.ts
+A	projects/sfia-studio-next/web/tests/unit/cognitive-policy.test.ts
+A	projects/sfia-studio-next/web/tests/unit/diff-ordered.test.ts
+A	projects/sfia-studio-next/web/tests/unit/http-errors.test.ts
+A	projects/sfia-studio-next/web/tests/unit/ml2-cognition-fixture.test.ts
+A	projects/sfia-studio-next/web/tests/unit/nora-adapter-corrective.test.ts
+M	projects/sfia-studio-next/web/tests/unit/nora-e2e-fixture.test.ts
+A	projects/sfia-studio-next/web/tests/unit/observability.test.ts
+A	projects/sfia-studio-next/web/tests/unit/safe-markdown.test.ts
 ```
 
 ```
-.../construction/delivery-history.md               |  18 +
- .../matrice-tracabilite.md                         |  18 +
- .../specification-technique.md                     |  24 ++
- .../web/src/domains/conversation/d4-read-tools.ts  |  36 +-
- .../web/src/domains/conversation/service.ts        |   9 +
- .../web/src/domains/conversation/turn-command.ts   | 212 +++++++---
- .../web/src/domains/document/service.ts            |  41 +-
- .../web/src/domains/knowledge/service.ts           | 149 +++++--
- .../tests/integration/ml2-three-blocker.pg.test.ts | 457 ++++++++++++++++++++-
- 9 files changed, 845 insertions(+), 119 deletions(-)
+.github/workflows/sfia-studio-next-ci.yml          | 384 +++++++++
+ .../architecture-technique/cadrage-r4.md           | 115 ++-
+ .../contrat-observabilite-transverse.md            | 247 ++++++
+ .../sfia-studio-next/cadrage/vision-produit.md     |  22 +
+ .../conception-fonctionnelle/README.md             |  18 +
+ .../acces-et-portefeuille.md                       |  11 +
+ .../connaissance-sujets-et-continuite-du-projet.md |  28 +
+ .../contexte-et-conduite-gouvernee-de-nora.md      |  49 ++
+ .../creation-de-projet-et-continuite-du-sas.md     |  10 +
+ .../decisions-et-gouvernance-du-pilote.md          |   8 +
+ .../integration-git-gouvernee.md                   |   8 +
+ .../realisation-operationnelle-gouvernee.md        |   8 +
+ .../resultats-et-preuves.md                        |   8 +
+ .../trajectoire-cycles-et-guidance-cki.md          |   8 +
+ .../construction/delivery-history.md               | 183 +++++
+ .../contrat-visuel-figma-ml2.md                    |  28 +
+ .../matrice-tracabilite.md                         | 289 +++++++
+ .../specification-technique.md                     | 524 ++++++++++++
+ .../construction/reference-delivery-r5.md          | 157 ++++
+ ...05-r5-ml2-cognition-observabilite-trajectory.md |  79 ++
+ projects/sfia-studio-next/governance/roadmap.md    |  25 +-
+ .../ux-ui/espace-projet-interaction-pilote-nora.md |  24 +
+ projects/sfia-studio-next/web/.gitignore           |   3 +
+ projects/sfia-studio-next/web/package.json         |   3 +-
+ .../sfia-studio-next/web/scripts/db-migrate.sh     |   6 +-
+ projects/sfia-studio-next/web/scripts/obs-query.ts |  42 +
+ .../documents/[documentId]/route.ts                |  86 ++
+ .../[preparationId]/documents/route.ts             |  28 +-
+ .../[preparationId]/knowledge/route.ts             |  71 ++
+ .../preparations/[preparationId]/messages/route.ts |  56 +-
+ .../app/api/preparations/[preparationId]/route.ts  |   4 +-
+ .../web/src/app/api/projects/[projectId]/route.ts  |   1 +
+ projects/sfia-studio-next/web/src/app/globals.css  |  62 +-
+ .../src/app/preparations/[preparationId]/page.tsx  | 791 ++++++++++++++++--
+ .../web/src/app/projects/[projectId]/page.tsx      | 239 +++++-
+ .../web/src/components/SafeMarkdown.tsx            | 149 ++++
+ .../db/migrations/003_ml2_knowledge_documents.sql  |  75 ++
+ .../db/migrations/004_ml2_integrity_corrective.sql |  15 +
+ .../005_ml2_conversation_turn_command.sql          |  51 ++
+ .../src/db/migrations/006_ml2_turn_owner_token.sql |  15 +
+ projects/sfia-studio-next/web/src/db/schema.ts     | 135 +++-
+ .../src/domains/conversation/cognitive-policy.ts   | 236 ++++++
+ .../web/src/domains/conversation/d4-read-tools.ts  | 651 +++++++++++++++
+ .../web/src/domains/conversation/nora-adapter.ts   | 571 +++++++++++--
+ .../web/src/domains/conversation/service.ts        | 487 ++++++++++-
+ .../web/src/domains/conversation/turn-command.ts   | 709 ++++++++++++++++
+ .../web/src/domains/document/service.ts            | 793 ++++++++++++++++--
+ .../web/src/domains/identity/session.ts            |  12 +-
+ .../web/src/domains/knowledge/service.ts           | 895 +++++++++++++++++++++
+ .../web/src/domains/preparation/project-context.ts |   3 +
+ .../sfia-studio-next/web/src/lib/http-errors.ts    | 125 +++
+ .../sfia-studio-next/web/src/lib/observability.ts  | 429 ++++++++++
+ .../web/tests/e2e/ml1-smoke.spec.ts                |  11 +-
+ .../web/tests/e2e/ml2-c3-stable-key.spec.ts        | 103 +++
+ .../web/tests/e2e/ml2-smoke.spec.ts                |  81 ++
+ .../tests/integration/create-project.pg.test.ts    |   2 +-
+ .../tests/integration/migrations-fresh.pg.test.ts  |  33 +-
+ .../ml2-corrective-integrity.pg.test.ts            | 614 ++++++++++++++
+ .../integration/ml2-critical-corrective.pg.test.ts | 319 ++++++++
+ .../integration/ml2-knowledge-documents.pg.test.ts | 217 +++++
+ .../tests/integration/ml2-three-blocker.pg.test.ts | 818 +++++++++++++++++++
+ .../tests/integration/ml2-turn-command.pg.test.ts  |  96 +++
+ .../web/tests/unit/cognitive-policy.test.ts        |  85 ++
+ .../web/tests/unit/diff-ordered.test.ts            |  77 ++
+ .../web/tests/unit/http-errors.test.ts             |  32 +
+ .../web/tests/unit/ml2-cognition-fixture.test.ts   |  40 +
+ .../web/tests/unit/nora-adapter-corrective.test.ts | 112 +++
+ .../web/tests/unit/nora-e2e-fixture.test.ts        |  12 +
+ .../web/tests/unit/observability.test.ts           | 128 +++
+ .../web/tests/unit/safe-markdown.test.ts           |  21 +
+ 70 files changed, 11472 insertions(+), 305 deletions(-)
 ```
 
-- **commits créés :** 1 — `5cd8f10a fix(next-ml2): atomic turn terminal and fence all capitalisation writes`
-- **tests :** unit 52 ; PG 78 ; Playwright 3 ; tsc+lint+build PASS
-- **diff :** 9 files, +845 / −119
+**Points d'attention index :**
+- Workflow **ajouté** : `.github/workflows/sfia-studio-next-ci.yml` (absent de `main`)
+- Migrations **003–006** + `db-migrate.sh` 001→006
+- Domaines D3/D4/OBS/UX/tests ML2 cumulés
+- Aucun secret détecté dans ce cycle (scan CI prévu dans workflow)
+- `git diff --check` : **3** « new blank line at EOF » (delivery-history, matrice, specification-technique)
 
 ## 2. ENV-01 / versioning
 
-- DEV only ; schema `006` inchangé (pas de nouvelle migration)
-- `NO RELEASE` ; delivery_id `DELIV-2026-11-05-ML2-TURN-INTEGRITY-10`
-- RECETTE/STABLE non touchées
+- Lane tests : DEV (`STUDIO_LANE=DEV`) ; PG DEV/E2E isolées ; FAKE fixture
+- Package : `0.0.0-dev` ; **NO RELEASE** ; STABLE NOT AVAILABLE
+- delivery_id courant : `DELIV-2026-11-05-ML2-TURN-INTEGRITY-10` présent
+- Migrations inventaire : 001→006 via `npm run db:migrate` → `scripts/db-migrate.sh`
+- RECETTE/STABLE : **NOT AUTHORIZED / NOT AVAILABLE**
+- Cookies localhost ML1 : réserve connue non remédiée ici
 
-## 3. Carte transactionnelle (conception)
+## 3. Contre-épreuves réserves ChatGPT
 
-| Frontière | Ordre locks / TX | Échec |
+### 3.1 Assistant ordinal / attribution silencieuse — MITIGATED (pas BLOCKER)
+
+Code `commitTurnTerminal` (`turn-command.ts`) :
+- Lock `FOR UPDATE` token+status avant INSERT/CAS
+- Si `owned.assistantMessageId` set et diverge de l'existant et du nouvel id → **CONFLICT 409**
+- Si `assistantMessageId` null et message existe à l'ordinal → réutilisation (récupération du même ordinal réservé à la commande)
+- Unicité `(conversation_id, ordinal)` limite l'attribution croisée
+
+**Réserve résiduelle OPEN (basse) :** exiger aussi `generationId` match lors du reuse sans `assistantMessageId` pré-lié — hardening optionnel avant merge, pas STOP PR.
+
+### 3.2 UNKNOWN après effets D4 déjà CURRENT — KNOWN GAP (produit)
+
+`service.ts` sur CAS miss retourne `capitalisation: []`, `documentSave: null` alors que CAP-FENCE-04 prouve l'acquis **persiste** en DB. Distinction : donnée D4 OK ; réponse tour sous-déclare. Reconstructible via API knowledge/docs. **Exit :** enrichir payload UNKNOWN avec refs d'effets déjà confirmés (GO correctif distinct) — gate **avant merge / RECETTE**, pas bloquant publication branche si accepté.
+
+### 3.3 Concurrence 2 sessions + panne DB (SAFE-01) — PARTIAL / RISK CARRIED
+
+Hooks séquentiels + FOR UPDATE/SHARE prouvés localement. Injection panne DB et deux backends indépendants **NOT RUN**. Gate : **avant merge/RECETTE** ; n'empêche pas push/PR sous acceptation Morris.
+
+### 3.4 D4-PAGE-03 — PROVEN (portée bornée)
+
+Reproduit ce cycle : mutation entre pages ⇒ `coverage=STALE`, `hasMore=false`, `totalMatchedExact=false`. Pas de snapshot global revendiqué.
+
+### 3.5 CI workflow labels 001→004 — OPEN cosmétique / doc
+
+Step name/commentaire « 001→004 » mais commande `npm run db:migrate` applique **001→006**. Fonctionnellement OK pour CI ; aligner libellés sous GO workflow (chemin protégé) **après** ou **avec** PR.
+
+### 3.6 `git diff --check` EOF — OPEN (impact CI)
+
+Trois fichiers docs échouent `git diff --check`. Le job CI « Trailing whitespace / conflict marker check » **échouerait** sur ce SHA. **Exit minimal :** retirer blank lines EOF (3 fichiers construction) sous GO avant push ou premier commit de régularisation — **sans élargir le scope**.
+
+## 4. Validations locales réexécutées (ce cycle)
+
+| Suite | Commande | Résultat |
 | --- | --- | --- |
-| `commitTurnTerminal` | `FOR UPDATE` (token+RUNNING) → INSERT assistant → CAS UPDATE ; hook test after INSERT | CAS 0 ⇒ `TurnTerminalCasMissError` ⇒ rollback TX ⇒ `applied:false` |
-| `reconcileRunningCommand` | advisory + `FOR UPDATE` row → revoke token | attend fences D4/terminal |
-| D4 document/knowledge | `assertTurnFenceInTx` (`FOR SHARE` + verify) puis écriture | `TURN_OWNERSHIP_LOST` / stop capitalisation |
-| Effet déjà CURRENT | non effacé après révocation ultérieure | UNKNOWN sans COMPLETE |
+| unit | `npm run test:unit` | **52 PASS** / 13 files |
+| PG | `npm run test:integration` | **78 PASS** / 8 files |
+| e2e FAKE | `npm run test:e2e` | **3 PASS** |
+| tsc | `npx tsc --noEmit` | PASS |
+| lint | `npm run lint` | PASS (2 warnings unused nora-adapter) |
+| build | `npm run build` | PASS |
+| LIVE | — | **NOT RUN** |
+| CI new SHA | — | **CI NEW SHA NOT RUN — AWAITS MORRIS PROJECT PUSH/PR GO** |
+| RECETTE | — | **NOT AUTHORIZED** |
 
-## 4. Corrections
+Baseline handoff `1eeb06e6` reproduite (52/78/3).
 
-### A1 — terminal atomique
-- Remplace SELECT sans verrou + INSERT + CAS soft-return par lock exclusif + rollback forcé sur CAS miss
-- Aucun assistant committé si ownership perdu
-
-### B — fence capitalisation
-- `TurnOwnershipFence` + `assertTurnFenceInTx` partagés (turn-command)
-- `ensureSubject` / `capitalizeAcquis` / `openPoint` vérifient dans la TX d'écriture
-- `maybeCapitalizeFromExchange` propage le fence et stoppe sur `ownershipLost`
-- Parcours Pilote sans fence inchangé (CAP-FENCE-05)
-
-### D4-PAGE-03
-- Page vide sous mutation ⇒ `coverage=STALE`, `hasMore=false`, `totalMatchedExact=false`
-- Jamais `hasMore` avec page vide / offset stagnant
-
-## 5. Matrice oracles
-
-| Oracle | État | Preuve |
-| --- | --- | --- |
-| TURN-ATOMIC-01 | PG PROVEN | revoke pre-terminal |
-| TURN-ATOMIC-02 | PG PROVEN | CAS miss after INSERT rollback |
-| TURN-ATOMIC-03 | PG PROVEN | replay COMPLETE |
-| TURN-LEASE-01 | PG PROVEN | lease vs stale |
-| CAP-FENCE-01..05 | PG PROVEN | subject/acquis/open/keep/pilot |
-| D4-PAGE-03 | PG PROVEN | STALE terminal |
-| SAFE-01 | PARTIAL | rollback CAS ; pas d'injection panne DB dédiée |
-| REG-01 | PROVEN | 52/78/3 + tsc/build |
-| LIVE/CI/RECETTE | NOT RUN | hors mandat |
-
-## 6. Fake / Real
+### Fake / Real Qualification
 
 | Classe | Statut |
 | --- | --- |
-| DETERMINISTIC | PROVEN (unit baseline) |
-| PG/INTEGRATION | PROVEN (integrity oracles) |
-| BROWSER FAKE | PROVEN (3) |
-| LIVE / CI new SHA / RECETTE | NOT RUN / NOT AUTHORIZED |
+| DETERMINISTIC | PROVEN |
+| PG/INTEGRATION | PROVEN |
+| BROWSER FAKE | PROVEN |
+| LIVE | NOT RUN |
+| CI NEW SHA | NOT RUN |
+| RECETTE | NOT AUTHORIZED |
 
-## 7. Fichiers créés
+## 5. Qualité candidate (synthèse)
 
-Aucun fichier créé (correctif sur fichiers existants uniquement).
+- **D3** : policies TEST≠OPERATIONAL ; fencing owner_token ; terminal atomique ; no SDK auto-retry ; UNKNOWN honnête (avec réserve payload capitalisation)
+- **D4** : AVAILABLE-only ; fence TX capitalisation+docs ; pagination SQL + STALE sous mutation
+- **OBS** : sink expurgé, tracingDisabled ; rétention 14j déclarée — vérifier exploitation réelle = KNOWN GAP ops
+- **API/UX** : clientTurnKey, C1–C6 couverts par suites existantes
+- **CI** : workflow inclus dans diff ; trigger PR→main ; Postgres ephemeral ; migrations via script complet ; validate sur #655 historique ≠ preuve `5cd8f10a`
 
-## 8. Fichiers MODIFIÉS — diff utile intégral `57f6fc54888f607d8a70ef959f39057764e4b20a..5cd8f10a78a6797e07b7de805f78207d10183ce7`
+## 6. Risques résiduels (registre)
 
-```diff
-diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index c19b1080..b92bac0f 100644
---- a/projects/sfia-studio-next/construction/delivery-history.md
-+++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -316,3 +316,21 @@ Append-only logical journal of Cursor product deliveries.
- | Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
- | Verdict candidate | `LOCAL THREE-BLOCKER CORRECTIVE DELIVERY — READY FOR CHATGPT REVIEW` |
+| ID | Statut | Impact Pilote | Exit | Gate |
+| --- | --- | --- | --- | --- |
+| R-EOF-CHECK | OPEN | CI rouge sur trailing-check | strip 3 EOF blanks | avant push ou 1er commit régul. |
+| R-CI-SHA | OPEN | pas de preuve Actions sur candidat | push+PR puis vérifier jobs | après GO push/PR |
+| R-UNKNOWN-CAP | KNOWN GAP | tour UNKNOWN sous-déclare acquis déjà CURRENT | payload refs D4 | avant merge/RECETTE |
+| R-SAFE01 | PARTIAL | contention/panne DB non prouvée 2-conn | tests injection | avant merge/RECETTE |
+| R-CI-LABELS | OPEN | confusion ops 004 vs 006 | corriger libellés workflow | avec/après PR (GO) |
+| R-ASSIST-REUSE | MITIGATED | attribution ordinale edge | check generationId | optionnel pre-merge |
+| R-LIVE-CORPUSB | OPEN | modèle/missions longues non prouvés | GO LIVE + corpus B | après CI |
+| R-COOKIE-LOCAL | KNOWN GAP | collision cookies localhost | ENV-01 | RECETTE |
+| R-PR-STACK | OPEN | double merge #655–658 | PR unique + supersession | GO Morris distinct |
 
-+## delivery_id: DELIV-2026-11-05-ML2-TURN-INTEGRITY-10
-+
-+| Field | Value |
-+| --- | --- |
-+| Date | 2026-11-05 (Europe/Paris) ~19:15 CET |
-+| Macro-lot | R5 / ML2 — turn transactional integrity |
-+| Type | INC corrective (same ML2) |
-+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
-+| Parent SHA | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
-+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
-+| Corrected | atomic `commitTurnTerminal` (FOR UPDATE + rollback on CAS miss) ; knowledge write fencing ; D4-PAGE-03 STALE termination |
-+| Schema | unchanged (`006` already present) |
-+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-+| Local proofs | unit 52 ; PG 78 ; Playwright 3 ; tsc+lint+build PASS |
-+| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
-+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
-+| Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
-+
-diff --git a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-index b488f5a5..c9ef28ed 100644
---- a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-+++ b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md
-@@ -493,3 +493,21 @@ Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), s
- | C1–C6 régression | PG+BROWSER FAKE | suites existantes PASS |
- | LIVE / CI / RECETTE | NOT RUN | hors mandat |
+## 7. Projet de PR intégratrice (NE PAS CRÉER — prêt à copier sous GO)
 
-+## 18. As-Built turn integrity — 2026-11-05
-+
-+| Oracle | État | Preuve |
-+| --- | --- | --- |
-+| TURN-ATOMIC-01 | PG PROVEN | revoke pre-terminal → 0 assistant, UNKNOWN |
-+| TURN-ATOMIC-02 | PG PROVEN | CAS miss after INSERT → TX rollback |
-+| TURN-ATOMIC-03 | PG PROVEN | COMPLETE + same-key replay |
-+| TURN-LEASE-01 | PG PROVEN | active lease vs stale reconcile |
-+| CAP-FENCE-01 | PG PROVEN | ensureSubject fence |
-+| CAP-FENCE-02 | PG PROVEN | capitalizeAcquis fence |
-+| CAP-FENCE-03 | PG PROVEN | openPoint fence |
-+| CAP-FENCE-04 | PG PROVEN | acquis kept after revoke ; non-COMPLETE |
-+| CAP-FENCE-05 | PG PROVEN | pilot path sans fence |
-+| D4-PAGE-03 | PG PROVEN | delete between pages → STALE terminal |
-+| SAFE-01 | PARTIAL | rollback CAS miss ; pas d'injection panne DB dédiée |
-+| REG-01 | PROVEN | unit 52 / PG 78 / e2e 3 / tsc+build |
-+| LIVE / CI / RECETTE | NOT RUN | hors mandat |
-+
-diff --git a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-index 15d383f6..5c07d513 100644
---- a/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-+++ b/projects/sfia-studio-next/construction/ml2-production-et-capitalisation-nora/specification-technique.md
-@@ -918,3 +918,27 @@ Les cinq orientations forment **un seul macro-lot ML2**, avec QA C1–C6, COG-01
- | tsc / build | PASS |
- | LIVE / CI / RECETTE | **NOT RUN** |
+**Titre proposé :**
+`feat(next): R5/ML2 Nora cognition, D4 capitalisation and turn integrity`
 
-+## 25. As-Built turn integrity corrective — 2026-11-05 (local)
-+
-+> **LOCAL CORRECTIVE on `57f6fc54` / same branch / no project push.** Intégrité transactionnelle après revue handoff `4fbf624f`.
-+
-+### 25.1 Invariants
-+
-+| ID | Invariant |
-+| --- | --- |
-+| A1 terminal | `FOR UPDATE` puis INSERT assistant puis CAS ; CAS miss ⇒ rollback TX (`TurnTerminalCasMissError`) — aucun assistant orphelin |
-+| A2 reconcile | `FOR UPDATE` sur commande avant révocation ; attend les fences D4 / terminal |
-+| B capitalisation | `turnFence` dans `ensureSubject` / `capitalizeAcquis` / `openPoint` via `assertTurnFenceInTx` ; stop si `OWNERSHIP_LOST` |
-+| Effets antérieurs | acquis déjà CURRENT avant révocation conservés ; pas de COMPLETE après CAS miss |
-+| D4-PAGE-03 | page vide sous mutation ⇒ `coverage=STALE`, `hasMore=false`, pas de curseur stagnant |
-+
-+### 25.2 Preuves
-+
-+| Suite | Résultat |
-+| --- | --- |
-+| unit | 52 PASS |
-+| PG | 78 PASS (TURN-ATOMIC / CAP-FENCE / D4-PAGE-03) |
-+| Playwright FAKE | 3 PASS |
-+| tsc / lint / build | PASS (lint: warnings préexistants nora-adapter unused) |
-+| LIVE / CI / RECETTE | **NOT RUN** |
-+
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts b/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
-index 9d6658a0..ef25e067 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/d4-read-tools.ts
-@@ -294,14 +294,28 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
-     need = limit - page.length;
-   }
+**Base :** `main` @ `6e4406c63639330c7826423cdcf08f06ff019eed`
+**Head :** `sfia/next-ml2-cognition-observability-integrated` @ `5cd8f10a78a6797e07b7de805f78207d10183ce7`
+**Draft recommandé :** oui jusqu'à CI NEW SHA PASS + revue ChatGPT
 
--  const hasMore = offset + page.length < totalExact;
--  // Terminating: empty page past end ⇒ hasMore false, nextOffset null (never stagnant cursor).
--  const nextOffset = hasMore ? offset + page.length : null;
-+  // Count and page are separate queries — not a MVCC snapshot. Under concurrent
-+  // mutation, refuse stagnant cursors and do not claim exact snapshot completeness.
-+  // Empty page while still "inside" a prior count, OR empty page at offset>0 with
-+  // zero remaining matches (corpus wiped between pages) ⇒ non-snapshot / STALE.
-+  const countPageInconsistent =
-+    (page.length === 0 && offset < totalExact) ||
-+    (page.length === 0 && offset > 0 && totalExact === 0);
-+  // Empty page is always terminal (never hasMore=true with nextOffset===offset).
-+  const candidateNext = offset + page.length;
-+  const hasMore =
-+    page.length > 0 && candidateNext < totalExact && candidateNext > offset;
-+  const nextOffset = hasMore ? candidateNext : null;
+### Body (copie)
 
-   let coverage: ToolCoverage;
--  if (totalExact === 0) {
-+  let corpusNote: string | undefined;
-+  if (countPageInconsistent) {
-+    coverage = "STALE";
-+    corpusNote =
-+      "Corpus changed between count and page (non-snapshot). Pagination terminated honestly.";
-+  } else if (totalExact === 0 && page.length === 0) {
-     coverage = "EMPTY";
--  } else if (!hasMore && offset === 0) {
-+  } else if (!hasMore && offset === 0 && page.length === totalExact) {
-     coverage = "COMPLETE";
-   } else if (page.length === 0 && offset >= totalExact) {
-     coverage = "EMPTY";
-@@ -313,8 +327,10 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
-     status: "AVAILABLE" as const,
-     coverage,
-     totalMatched: totalExact,
--    totalMatchedExact: true as const,
--    totalMatchedSemantics: "exact" as const,
-+    totalMatchedExact: !countPageInconsistent,
-+    totalMatchedSemantics: countPageInconsistent
-+      ? ("point_in_time_count_non_snapshot" as const)
-+      : ("exact" as const),
-     hasMore,
-     nextOffset,
-     offset,
-@@ -325,10 +341,8 @@ export async function searchProjectResources(scope: D4ToolScope, input: SearchPr
-       preparationIdBound: true,
-       modelChoseScope: false,
-     },
--    note: undefined as string | undefined,
--  };
--
--  // Charge full returned envelope against D4 char budget.
-+    note: corpusNote,
-+  };  // Charge full returned envelope against D4 char budget.
-   let charsCharged = chargeBudget(scope, payload);
-   if (scope.budget.remainingChars <= 0 && charsCharged > 0) {
-     // Budget exhausted by this payload — shrink items honestly.
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index 87863819..52441b41 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -253,6 +253,7 @@ export async function postUserMessageAndNora(
-     selectionLimit:
-       "Capitalisation heuristique — pas une autorité épistémique; LIVE COG requis pour qualification.",
-     humanDecisionCreated: false,
-+    ownershipLost: false,
-   };
-   let capitalisationError: string | undefined;
-   let documentSave: Awaited<ReturnType<typeof savePreparationDocument>> | null = null;
-@@ -272,7 +273,15 @@ export async function postUserMessageAndNora(
-           assistantText: reply.content,
-           generationId: reply.generationId,
-           userMessageId: reserved.userMessageId,
-+          turnFence: {
-+            commandId: reserved.commandId,
-+            ownerToken: reserved.ownerToken,
-+            beforeFenceCheck: turnRaceHooks.beforeD4Effect,
-+          },
-         });
-+        if (capitalisation.ownershipLost) {
-+          ownershipLostBeforeD4 = true;
-+        }
-       } catch {
-         capitalisationError = "CAPITALISATION_EXCEPTION";
-         emitObs({
-diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-index ec02196f..d45c828a 100644
---- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-+++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
-@@ -52,11 +52,73 @@ export const turnClock = {
-   nowMs: (): number => Date.now(),
- };
+```markdown
+## Summary
+- Intègre le macro-lot R5/ML2 « Produire et capitaliser avec Nora » : cognition D3 (profils, tools D4 read-only, turn command + owner_token), capitalisation/documents D4, observabilité expurgée, UX sas/portfolio.
+- Migrations forward-only `003`–`006` (knowledge/docs, integrity, turn_command, owner_token).
+- Correctifs Critical d'intégrité : fencing TX, pagination terminante/STALE, pas de retry SDK auto, terminal CAS atomique.
 
-+/** Ownership fence passed into D4 write TXs (documents + knowledge). */
-+export type TurnOwnershipFence = {
-+  commandId: string;
-+  ownerToken: string;
-+  /** Optional test injection before the ownership lock inside the write TX. */
-+  beforeFenceCheck?: () => Promise<void>;
-+};
-+
-+/** Forces terminal TX rollback when CAS cannot apply after a side-effect attempt. */
-+export class TurnTerminalCasMissError extends Error {
-+  readonly code = "TURN_TERMINAL_CAS_MISS";
-+  constructor() {
-+    super("TURN_TERMINAL_CAS_MISS");
-+    this.name = "TurnTerminalCasMissError";
-+  }
-+}
-+
-+type FenceTx = {
-+  execute: typeof db.execute;
-+  select: typeof db.select;
-+};
-+
-+/**
-+ * Lock + verify turn ownership inside an open D4 write TX.
-+ * Uses FOR SHARE so reconcile/UPDATE waits until the write commits or rolls back.
-+ * Returns false when ownership is already lost (caller must abort write without commit).
-+ */
-+export async function assertTurnFenceInTx(
-+  tx: FenceTx,
-+  fence: TurnOwnershipFence,
-+): Promise<boolean> {
-+  if (fence.beforeFenceCheck) {
-+    await fence.beforeFenceCheck();
-+  }
-+  await tx.execute(
-+    sql`select id from conversation_turn_commands
-+        where id = ${fence.commandId}
-+          and owner_token = ${fence.ownerToken}
-+          and status in ('RUNNING', 'ACCEPTED')
-+        for share`,
-+  );
-+  const fenceRow = (
-+    await tx
-+      .select({ id: conversationTurnCommands.id })
-+      .from(conversationTurnCommands)
-+      .where(
-+        and(
-+          eq(conversationTurnCommands.id, fence.commandId),
-+          eq(conversationTurnCommands.ownerToken, fence.ownerToken),
-+          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-+        ),
-+      )
-+      .limit(1)
-+  )[0];
-+  return Boolean(fenceRow);
-+}
-+
- /** Test hooks — must stay no-op in production paths. */
- export const turnRaceHooks: {
-   afterGenerateBeforeEffects?: () => Promise<void>;
-   beforeD4Effect?: () => Promise<void>;
-   beforeTerminalCommit?: () => Promise<void>;
-+  /**
-+   * Runs inside the terminal TX after optional assistant INSERT, before CAS UPDATE.
-+   * May mutate the same TX (e.g. revoke token) to force CAS miss + rollback.
-+   */
-+  insideTerminalTxAfterInsert?: (tx: FenceTx) => Promise<void>;
- } = {};
+## Vision produit
+Le Pilote converse avec Nora, consulte des sources AVAILABLE, capitalise sous droits, et ne reçoit jamais un COMPLETE ou une connaissance fabriquée après perte de propriété de tour.
 
- export function turnFingerprint(content: string): string {
-@@ -119,6 +181,11 @@ export async function reconcileRunningCommand(commandId: string): Promise<{
-   return db.transaction(async (tx) => {
-     await tx.execute(sql`SELECT pg_advisory_xact_lock(hashtext(${"turn-reconcile:" + commandId}))`);
+## Scope / Non-scope
+**IN :** D3/D4/OBS/UX/tests/CI Next workflow, docs construction ML2.
+**OUT :** LIVE OpenAI, corpus B long, RECETTE/STABLE, ADOPTED, retarget/merge des PR #655–#658 (arbitrés séparément).
 
-+    // FOR UPDATE waits for any in-flight terminal/D4 fence locks — never revoke mid-write.
-+    await tx.execute(
-+      sql`select id from conversation_turn_commands where id = ${commandId} for update`,
-+    );
-+
-     const row = (
-       await tx
-         .select()
-@@ -434,7 +501,8 @@ export async function reserveTurnCommand(args: {
+## Responsabilités
+- **D3** : tour, cognition, orchestration — pas propriétaire D4.
+- **D4** : sujets/acquis/points/docs/révisions + fence d'écriture Nora.
+- **D8** : preuves/observabilité — pas d'autorité métier.
 
- /**
-  * Atomic terminal commit under ownership fence:
-- * insert assistant (if provided) + CAS status with owner_token in the same short TX.
-+ * FOR UPDATE lock → optional assistant INSERT → CAS UPDATE in the same short TX.
-+ * CAS miss after INSERT throws → full TX rollback (no orphan assistant).
-  * Lost ownership ⇒ applied:false — caller must not return COMPLETE.
-  */
- export async function commitTurnTerminal(args: {
-@@ -457,13 +525,23 @@ export async function commitTurnTerminal(args: {
-     throw new StudioError("INVALID_REQUEST", "commitTurnTerminal exige un statut terminal");
-   }
+## SHA / base
+- Head: `5cd8f10a78a6797e07b7de805f78207d10183ce7`
+- Base main: `6e4406c63639330c7826423cdcf08f06ff019eed`
+- 72 commits ; 70 files ; +11472/−305
 
--  return db.transaction(async (tx) => {
--    if (args.assistant) {
--      // Insert only if ownership still holds — checked via subsequent CAS.
--      // Pre-check fence inside TX:
-+  try {
-+    return await db.transaction(async (tx) => {
-+      // Exclusive lock: blocks reconcile revoke and concurrent terminal writers.
-+      await tx.execute(
-+        sql`select id from conversation_turn_commands
-+            where id = ${args.commandId}
-+              and owner_token = ${args.ownerToken}
-+              and status in ('RUNNING', 'ACCEPTED')
-+            for update`,
-+      );
-+
-       const owned = (
-         await tx
--          .select({ id: conversationTurnCommands.id })
-+          .select({
-+            id: conversationTurnCommands.id,
-+            assistantMessageId: conversationTurnCommands.assistantMessageId,
-+          })
-           .from(conversationTurnCommands)
-           .where(
-             and(
-@@ -478,57 +556,87 @@ export async function commitTurnTerminal(args: {
-         return { applied: false };
-       }
+## Tests locaux (DEV FAKE)
+- unit 52 PASS ; PG 78 PASS ; Playwright 3 PASS ; tsc/lint/build PASS
+- LIVE NOT RUN ; RECETTE NOT AUTHORIZED
 
--      // Idempotent ordinal: if assistant already there, reuse.
--      const existingAssistant = (
--        await tx
--          .select()
--          .from(messages)
--          .where(
--            and(
--              eq(messages.conversationId, args.conversationId),
--              eq(messages.ordinal, args.assistant.ordinal),
--              eq(messages.role, "assistant"),
--            ),
--          )
--          .limit(1)
--      )[0];
-+      let assistantMessageId = args.assistant?.id ?? owned.assistantMessageId ?? null;
+## CI
+- Workflow `sfia-studio-next-ci.yml` inclus (absent de main aujourd'hui).
+- **CI NEW SHA NOT RUN** jusqu'à publication branche + PR.
+- Historique : Required Gate PASS sur PR #655 @ `08b89360` ≠ preuve de ce SHA.
+- Pré-check local : `git diff --check` signale 3 EOF blanks à régulariser avant expect green.
 
--      if (!existingAssistant) {
--        await tx.insert(messages).values({
--          id: args.assistant.id,
--          conversationId: args.conversationId,
--          role: "assistant",
--          content: args.assistant.content,
--          status: args.assistant.messageStatus,
--          generationId: args.assistant.generationId,
--          ordinal: args.assistant.ordinal,
--        });
-+      if (args.assistant) {
-+        const existingAssistant = (
-+          await tx
-+            .select()
-+            .from(messages)
-+            .where(
-+              and(
-+                eq(messages.conversationId, args.conversationId),
-+                eq(messages.ordinal, args.assistant.ordinal),
-+                eq(messages.role, "assistant"),
-+              ),
-+            )
-+            .limit(1)
-+        )[0];
-+
-+        if (!existingAssistant) {
-+          await tx.insert(messages).values({
-+            id: args.assistant.id,
-+            conversationId: args.conversationId,
-+            role: "assistant",
-+            content: args.assistant.content,
-+            status: args.assistant.messageStatus,
-+            generationId: args.assistant.generationId,
-+            ordinal: args.assistant.ordinal,
-+          });
-+          assistantMessageId = args.assistant.id;
-+        } else {
-+          // Reuse only when identity matches this command's stored assistant (or first bind).
-+          if (
-+            owned.assistantMessageId &&
-+            owned.assistantMessageId !== existingAssistant.id &&
-+            existingAssistant.id !== args.assistant.id
-+          ) {
-+            throw new StudioError(
-+              "CONFLICT",
-+              "Ordinal assistant déjà lié à une autre identité de message",
-+              { httpStatus: 409 },
-+            );
-+          }
-+          assistantMessageId = existingAssistant.id;
-+        }
-       }
--    }
+## Relation PR #655–#658
+Empilement docs/code historique **OPEN**. Cette PR est la **candidate unique** vers main. Ne pas merger les quatre en plus. Supersession/fermeture = GO Morris distinct.
 
--    const updated = await tx
--      .update(conversationTurnCommands)
--      .set({
--        status: args.status,
--        assistantMessageId: args.assistant?.id ?? null,
--        generationId: args.generationId ?? args.assistant?.generationId ?? null,
--        resultJson: args.resultJson ?? null,
--        errorCategory: args.errorCategory ?? null,
--        updatedAt: new Date(turnClock.nowMs()),
--      })
--      .where(
--        and(
--          eq(conversationTurnCommands.id, args.commandId),
--          eq(conversationTurnCommands.ownerToken, args.ownerToken),
--          sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
--        ),
--      )
--      .returning({ id: conversationTurnCommands.id });
-+      if (turnRaceHooks.insideTerminalTxAfterInsert) {
-+        await turnRaceHooks.insideTerminalTxAfterInsert(tx as FenceTx);
-+      }
+## Rollback / roll-forward
+Pas de rollback schéma destructif. Roll-forward migrations 001→006 ; restauration = backup/reprise DB (hors ce cycle).
 
--    return { applied: updated.length > 0 };
--  });
--}
-+      const updated = await tx
-+        .update(conversationTurnCommands)
-+        .set({
-+          status: args.status,
-+          assistantMessageId,
-+          generationId: args.generationId ?? args.assistant?.generationId ?? null,
-+          resultJson: args.resultJson ?? null,
-+          errorCategory: args.errorCategory ?? null,
-+          updatedAt: new Date(turnClock.nowMs()),
-+        })
-+        .where(
-+          and(
-+            eq(conversationTurnCommands.id, args.commandId),
-+            eq(conversationTurnCommands.ownerToken, args.ownerToken),
-+            sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
-+          ),
-+        )
-+        .returning({ id: conversationTurnCommands.id });
+## Gates Morris restants
+1. Régulariser EOF / accepter réserve CI check
+2. GO PUSH branche projet
+3. GO PR (ce body)
+4. Vérifier CI head_sha == 5cd8f10a (ou successeur régul.)
+5. Revue ChatGPT post-CI
+6. GO merge / puis LIVE / RECETTE séparés
 
-+      if (updated.length === 0) {
-+        // Must not commit a prior INSERT in this TX.
-+        throw new TurnTerminalCasMissError();
-+      }
-+      return { applied: true };
-+    });
-+  } catch (e) {
-+    if (e instanceof TurnTerminalCasMissError) {
-+      return { applied: false };
-+    }
-+    throw e;
-+  }
-+}
- /** @deprecated Prefer commitTurnTerminal with ownerToken — kept for markTurnUnknown paths. */
- export async function completeTurnCommand(args: {
-   commandId: string;
-diff --git a/projects/sfia-studio-next/web/src/domains/document/service.ts b/projects/sfia-studio-next/web/src/domains/document/service.ts
-index 6c95d23f..6d079275 100644
---- a/projects/sfia-studio-next/web/src/domains/document/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/document/service.ts
-@@ -1,10 +1,16 @@
- import { and, asc, desc, eq, sql } from "drizzle-orm";
- import { db } from "@/db/client";
--import { conversationTurnCommands, documentRevisions, documents } from "@/db/schema";
-+import { documentRevisions, documents } from "@/db/schema";
- import { newId } from "@/lib/ids";
- import { getPreparationContext } from "@/domains/preparation/service";
-+import {
-+  assertTurnFenceInTx,
-+  type TurnOwnershipFence,
-+} from "@/domains/conversation/turn-command";
- import { createHash } from "node:crypto";
-
-+export type { TurnOwnershipFence };
-+
- const MAX_DOC_CHARS = 100_000;
- /** Max LCS cells (n+1)*(m+1). Beyond this, comparison degrades explicitly. */
- export const MAX_DIFF_CELLS = 2_000_000;
-@@ -159,13 +165,6 @@ async function latestRevisionFor(documentId: string) {
-   )[0];
- }
-
--export type TurnOwnershipFence = {
--  commandId: string;
--  ownerToken: string;
--  /** Optional test injection before the ownership check inside the write TX. */
--  beforeFenceCheck?: () => Promise<void>;
--};
--
- export async function savePreparationDocument(
-   pilotId: string,
-   preparationId: string,
-@@ -302,30 +301,8 @@ export async function savePreparationDocument(
-   try {
-     return await db.transaction(async (tx) => {
-       if (opts?.turnFence) {
--        if (opts.turnFence.beforeFenceCheck) {
--          await opts.turnFence.beforeFenceCheck();
--        }
--        await tx.execute(
--          sql`select id from conversation_turn_commands
--              where id = ${opts.turnFence.commandId}
--                and owner_token = ${opts.turnFence.ownerToken}
--                and status in ('RUNNING', 'ACCEPTED')
--              for share`,
--        );
--        const fenceRow = (
--          await tx
--            .select({ id: conversationTurnCommands.id })
--            .from(conversationTurnCommands)
--            .where(
--              and(
--                eq(conversationTurnCommands.id, opts.turnFence.commandId),
--                eq(conversationTurnCommands.ownerToken, opts.turnFence.ownerToken),
--                sql`${conversationTurnCommands.status} IN ('RUNNING', 'ACCEPTED')`,
--              ),
--            )
--            .limit(1)
--        )[0];
--        if (!fenceRow) {
-+        const owned = await assertTurnFenceInTx(tx, opts.turnFence);
-+        if (!owned) {
-           return {
-             status: "FAILED" as const,
-             reason: "TURN_OWNERSHIP_LOST",
-diff --git a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-index 6dcf5e1a..d1a9afa1 100644
---- a/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-+++ b/projects/sfia-studio-next/web/src/domains/knowledge/service.ts
-@@ -8,6 +8,10 @@ import {
- } from "@/db/schema";
- import { newId } from "@/lib/ids";
- import { getPreparationContext } from "@/domains/preparation/service";
-+import {
-+  assertTurnFenceInTx,
-+  type TurnOwnershipFence,
-+} from "@/domains/conversation/turn-command";
-
- export type Provenance = {
-   sourceKind: "message" | "document" | "revision" | "pilot" | "nora";
-@@ -80,6 +84,8 @@ export async function capitalizeAcquis(
-     subjectId?: string | null;
-     provenance: Provenance;
-     supersedesAcquisId?: string;
-+    /** Required when write is imputed to a Nora turn — verified inside the write TX. */
-+    turnFence?: TurnOwnershipFence;
-   },
- ) {
-   const ctx = await assertPrep(pilotId, preparationId);
-@@ -149,7 +155,13 @@ export async function capitalizeAcquis(
-   }
-
-   const id = newId("acq");
--  await db.transaction(async (tx) => {
-+  const write = await db.transaction(async (tx) => {
-+    if (input.turnFence) {
-+      const owned = await assertTurnFenceInTx(tx as Tx, input.turnFence);
-+      if (!owned) {
-+        return { status: "OWNERSHIP_LOST" as const };
-+      }
-+    }
-     await tx.insert(knowledgeAcquis).values({
-       id,
-       preparationId,
-@@ -174,14 +186,23 @@ export async function capitalizeAcquis(
-           ),
-         );
-     }
-+    return { status: "OK" as const };
-   });
-+  if (write.status === "OWNERSHIP_LOST") {
-+    return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
-+  }
-   return { status: "AVAILABLE" as const, acquisId: id, kind };
- }
-
- export async function openPoint(
-   pilotId: string,
-   preparationId: string,
--  input: { statement: string; subjectId?: string | null; provenance: Provenance },
-+  input: {
-+    statement: string;
-+    subjectId?: string | null;
-+    provenance: Provenance;
-+    turnFence?: TurnOwnershipFence;
-+  },
- ) {
-   const ctx = await assertPrep(pilotId, preparationId);
-   const statement = input.statement.trim();
-@@ -194,16 +215,28 @@ export async function openPoint(
-     }
-   }
-   const id = newId("opn");
--  await db.insert(knowledgeOpenPoints).values({
--    id,
--    preparationId,
--    projectId: ctx.project?.id ?? null,
--    ownerPilotId: pilotId,
--    subjectId: input.subjectId ?? null,
--    statement,
--    status: "OPEN",
--    provenanceJson: provenanceString(input.provenance),
-+  const write = await db.transaction(async (tx) => {
-+    if (input.turnFence) {
-+      const owned = await assertTurnFenceInTx(tx as Tx, input.turnFence);
-+      if (!owned) {
-+        return { status: "OWNERSHIP_LOST" as const };
-+      }
-+    }
-+    await tx.insert(knowledgeOpenPoints).values({
-+      id,
-+      preparationId,
-+      projectId: ctx.project?.id ?? null,
-+      ownerPilotId: pilotId,
-+      subjectId: input.subjectId ?? null,
-+      statement,
-+      status: "OPEN",
-+      provenanceJson: provenanceString(input.provenance),
-+    });
-+    return { status: "OK" as const };
-   });
-+  if (write.status === "OWNERSHIP_LOST") {
-+    return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
-+  }
-   return { status: "AVAILABLE" as const, openPointId: id };
- }
-
-@@ -216,6 +249,7 @@ export async function ensureSubject(
-   preparationId: string,
-   title: string,
-   parentSubjectId?: string | null,
-+  turnFence?: TurnOwnershipFence,
- ) {
-   const ctx = await assertPrep(pilotId, preparationId);
-   const cleaned = title.trim().slice(0, 200);
-@@ -240,18 +274,29 @@ export async function ensureSubject(
-   )[0];
-   if (existing) return { status: "AVAILABLE" as const, subjectId: existing.id, created: false };
-   const id = newId("subj");
--  await db.insert(knowledgeSubjects).values({
--    id,
--    preparationId,
--    projectId: ctx.project?.id ?? null,
--    ownerPilotId: pilotId,
--    parentSubjectId: parentSubjectId ?? null,
--    title: cleaned,
--    status: "ACTIVE",
-+  const write = await db.transaction(async (tx) => {
-+    if (turnFence) {
-+      const owned = await assertTurnFenceInTx(tx as Tx, turnFence);
-+      if (!owned) {
-+        return { status: "OWNERSHIP_LOST" as const };
-+      }
-+    }
-+    await tx.insert(knowledgeSubjects).values({
-+      id,
-+      preparationId,
-+      projectId: ctx.project?.id ?? null,
-+      ownerPilotId: pilotId,
-+      parentSubjectId: parentSubjectId ?? null,
-+      title: cleaned,
-+      status: "ACTIVE",
-+    });
-+    return { status: "OK" as const };
-   });
-+  if (write.status === "OWNERSHIP_LOST") {
-+    return { status: "FAILED" as const, reason: "TURN_OWNERSHIP_LOST" };
-+  }
-   return { status: "AVAILABLE" as const, subjectId: id, created: true };
- }
--
- /** Always creates a new subject identity (used by split). Title collision does not reuse. */
- async function createSubjectIdentity(
-   tx: Tx,
-@@ -688,6 +733,8 @@ export async function maybeCapitalizeFromExchange(
-     assistantText: string;
-     generationId: string;
-     userMessageId: string;
-+    /** Propagated into every D4 capitalisation write TX. */
-+    turnFence?: TurnOwnershipFence;
-   },
- ) {
-   const results: Array<{
-@@ -695,18 +742,42 @@ export async function maybeCapitalizeFromExchange(
-     id?: string;
-     status: string;
-     epistemicNote?: string;
-+    reason?: string;
-   }> = [];
-   const lower = `${input.userText}\n${input.assistantText}`.toLowerCase();
-   const selectionLimit =
-     "Capitalisation heuristique (regex/lexical) — pas une autorité épistémique; LIVE COG requis pour qualification.";
-+  const fence = input.turnFence;
-
-   let subjectId: string | null = null;
-   const topicMatch = input.userText.match(
-     /(?:sujet|thème|theme|à propos de|concernant)\s*[:«"]?\s*([^\n.«"]{4,80})/i,
-   );
-   if (topicMatch?.[1]) {
--    const s = await ensureSubject(pilotId, preparationId, topicMatch[1].trim());
--    if (s.status === "AVAILABLE" && s.subjectId) subjectId = s.subjectId;
-+    const s = await ensureSubject(
-+      pilotId,
-+      preparationId,
-+      topicMatch[1].trim(),
-+      undefined,
-+      fence,
-+    );
-+    if (s.status === "AVAILABLE" && s.subjectId) {
-+      subjectId = s.subjectId;
-+    } else if (s.status === "FAILED" && "reason" in s && s.reason === "TURN_OWNERSHIP_LOST") {
-+      results.push({
-+        kind: "subject",
-+        status: "FAILED",
-+        reason: "TURN_OWNERSHIP_LOST",
-+        epistemicNote: selectionLimit,
-+      });
-+      return {
-+        capitalisations: results,
-+        selectionMethod: "lexical-heuristic" as const,
-+        selectionLimit: "OWNERSHIP_LOST",
-+        humanDecisionCreated: false as const,
-+        ownershipLost: true as const,
-+      };
-+    }
-   }
-
-   // Stronger gate than keyword alone: require comparative structure or explicit durable ask
-@@ -732,6 +803,7 @@ export async function maybeCapitalizeFromExchange(
-       statement,
-       kind,
-       subjectId,
-+      turnFence: fence,
-       provenance: {
-         sourceKind: "message",
-         sourceId: input.userMessageId,
-@@ -740,6 +812,21 @@ export async function maybeCapitalizeFromExchange(
-         epistemic: kind === "RECOMMENDATION" ? "recommended" : "hypothesized",
-       },
-     });
-+    if (cap.status === "FAILED" && "reason" in cap && cap.reason === "TURN_OWNERSHIP_LOST") {
-+      results.push({
-+        kind: "acquis",
-+        status: "FAILED",
-+        reason: "TURN_OWNERSHIP_LOST",
-+        epistemicNote: selectionLimit,
-+      });
-+      return {
-+        capitalisations: results,
-+        selectionMethod: "lexical-heuristic" as const,
-+        selectionLimit: "OWNERSHIP_LOST",
-+        humanDecisionCreated: false as const,
-+        ownershipLost: true as const,
-+      };
-+    }
-     results.push({
-       kind: "acquis",
-       id: "acquisId" in cap ? cap.acquisId : undefined,
-@@ -755,6 +842,7 @@ export async function maybeCapitalizeFromExchange(
-     const op = await openPoint(pilotId, preparationId, {
-       statement,
-       subjectId,
-+      turnFence: fence,
-       provenance: {
-         sourceKind: "message",
-         sourceId: input.userMessageId,
-@@ -762,6 +850,21 @@ export async function maybeCapitalizeFromExchange(
-         epistemic: "limited",
-       },
-     });
-+    if (op.status === "FAILED" && "reason" in op && op.reason === "TURN_OWNERSHIP_LOST") {
-+      results.push({
-+        kind: "open_point",
-+        status: "FAILED",
-+        reason: "TURN_OWNERSHIP_LOST",
-+        epistemicNote: selectionLimit,
-+      });
-+      return {
-+        capitalisations: results,
-+        selectionMethod: "lexical-heuristic" as const,
-+        selectionLimit: "OWNERSHIP_LOST",
-+        humanDecisionCreated: false as const,
-+        ownershipLost: true as const,
-+      };
-+    }
-     results.push({
-       kind: "open_point",
-       id: "openPointId" in op ? op.openPointId : undefined,
-@@ -775,9 +878,9 @@ export async function maybeCapitalizeFromExchange(
-     selectionMethod: "lexical-heuristic" as const,
-     selectionLimit,
-     humanDecisionCreated: false as const,
-+    ownershipLost: false as const,
-   };
- }
--
- function extractSalientLine(text: string): string | null {
-   const lines = text
-     .split(/\n+/)
-diff --git a/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
-index 3d2b97b1..9d9cb097 100644
---- a/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
-+++ b/projects/sfia-studio-next/web/tests/integration/ml2-three-blocker.pg.test.ts
-@@ -17,6 +17,9 @@ import {
-   documents,
-   documentRevisions,
-   knowledgeAcquis,
-+  knowledgeOpenPoints,
-+  knowledgeSubjects,
-+  messages,
- } from "@/db/schema";
- import { createDevTestSession } from "@/domains/identity/session";
- import { openOrCreatePreparation } from "@/domains/preparation/service";
-@@ -37,7 +40,11 @@ import {
-   TURN_RUNNING_STALE_MS,
- } from "@/domains/conversation/turn-command";
- import { searchProjectResources } from "@/domains/conversation/d4-read-tools";
--import { ensureSubject } from "@/domains/knowledge/service";
-+import {
-+  capitalizeAcquis,
-+  ensureSubject,
-+  openPoint,
-+} from "@/domains/knowledge/service";
- import { newId } from "@/lib/ids";
- import { newOperationId } from "@/lib/observability";
- import { StudioError } from "@/lib/http-errors";
-@@ -70,6 +77,7 @@ describe("ML2 three-blocker corrective (PG)", () => {
-     delete turnRaceHooks.afterGenerateBeforeEffects;
-     delete turnRaceHooks.beforeD4Effect;
-     delete turnRaceHooks.beforeTerminalCommit;
-+    delete turnRaceHooks.insideTerminalTxAfterInsert;
-     turnClock.nowMs = () => Date.now();
-     // Unlock conversation for next case — force any leftover RUNNING → UNKNOWN.
-     await db.execute(
-@@ -360,4 +368,451 @@ describe("ML2 three-blocker corrective (PG)", () => {
-       expect(JSON.stringify(result).length).toBeLessThanOrEqual(40 + 200); // charged before/at deny path
-     }
-   });
-+
-+  it("TURN-ATOMIC-01: revoke before terminal → no assistant committed, non-COMPLETE", async () => {
-+    const key = `atomic01-${Date.now()}`;
-+    const msgsBefore = (await listMessages(pilotId, preparationId)).filter(
-+      (m) => m.role === "assistant",
-+    ).length;
-+
-+    turnRaceHooks.beforeTerminalCommit = async () => {
-+      const row = (
-+        await db
-+          .select()
-+          .from(conversationTurnCommands)
-+          .where(
-+            and(
-+              eq(conversationTurnCommands.conversationId, conversationId),
-+              eq(conversationTurnCommands.clientTurnKey, key),
-+            ),
-+          )
-+          .limit(1)
-+      )[0];
-+      await revokeOwnerTokenForTests(row!.id);
-+      await db
-+        .update(conversationTurnCommands)
-+        .set({ status: "UNKNOWN", errorCategory: "ATOMIC01_REVOKE", updatedAt: new Date() })
-+        .where(eq(conversationTurnCommands.id, row!.id));
-+    };
-+
-+    const result = await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Compare atomic01 option A et B",
-+      { clientTurnKey: key },
-+    );
-+    expect(result.status).toBe("UNKNOWN");
-+    expect(result.assistantMessageId).toBeNull();
-+
-+    const cmd = (
-+      await db
-+        .select()
-+        .from(conversationTurnCommands)
-+        .where(
-+          and(
-+            eq(conversationTurnCommands.conversationId, conversationId),
-+            eq(conversationTurnCommands.clientTurnKey, key),
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    expect(cmd.status).toBe("UNKNOWN");
-+    expect(cmd.assistantMessageId).toBeNull();
-+
-+    const assistants = (await listMessages(pilotId, preparationId)).filter(
-+      (m) => m.role === "assistant",
-+    );
-+    expect(assistants.length).toBe(msgsBefore);
-+  });
-+
-+  it("TURN-ATOMIC-02: CAS miss after INSERT in same TX rolls back assistant", async () => {
-+    const key = `atomic02-${Date.now()}`;
-+    const msgsBefore = (
-+      await db
-+        .select()
-+        .from(messages)
-+        .where(and(eq(messages.conversationId, conversationId), eq(messages.role, "assistant")))
-+    ).length;
-+
-+    turnRaceHooks.insideTerminalTxAfterInsert = async (tx) => {
-+      await tx.execute(
-+        sql`update conversation_turn_commands
-+            set owner_token = ${"revoked_atomic02_" + Date.now()}
-+            where conversation_id = ${conversationId}
-+              and client_turn_key = ${key}`,
-+      );
-+    };
-+
-+    const result = await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Compare atomic02 rollback assistant",
-+      { clientTurnKey: key },
-+    );
-+    expect(result.status).toBe("UNKNOWN");
-+    expect(result.assistantMessageId).toBeNull();
-+
-+    const msgsAfter = (
-+      await db
-+        .select()
-+        .from(messages)
-+        .where(and(eq(messages.conversationId, conversationId), eq(messages.role, "assistant")))
-+    ).length;
-+    expect(msgsAfter).toBe(msgsBefore);
-+
-+    const cmd = (
-+      await db
-+        .select()
-+        .from(conversationTurnCommands)
-+        .where(
-+          and(
-+            eq(conversationTurnCommands.conversationId, conversationId),
-+            eq(conversationTurnCommands.clientTurnKey, key),
-+          ),
-+        )
-+        .limit(1)
-+    )[0];
-+    // CAS miss rolled back status change too — still RUNNING or cleaned UNKNOWN by afterEach.
-+    // Must not be COMPLETE with orphan assistant.
-+    expect(cmd.status).not.toBe("COMPLETE");
-+    expect(cmd.assistantMessageId).toBeNull();
-+  });
-+
-+  it("TURN-ATOMIC-03: successful COMPLETE then same-key replay recovers without second generation", async () => {
-+    const key = `atomic03-${Date.now()}`;
-+    const first = await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Compare atomic03 reprise ACK",
-+      { clientTurnKey: key },
-+    );
-+    expect(first.status).toBe("COMPLETE");
-+    expect(first.assistantMessageId).toBeTruthy();
-+
-+    const replay = await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Compare atomic03 reprise ACK",
-+      { clientTurnKey: key },
-+    );
-+    expect(replay.status).toBe("COMPLETE");
-+    expect(replay.idempotentReplay).toBe(true);
-+    expect(replay.assistantMessageId).toBe(first.assistantMessageId);
-+
-+    const cmds = await db
-+      .select()
-+      .from(conversationTurnCommands)
-+      .where(
-+        and(
-+          eq(conversationTurnCommands.conversationId, conversationId),
-+          eq(conversationTurnCommands.clientTurnKey, key),
-+        ),
-+      );
-+    expect(cmds).toHaveLength(1);
-+  });
-+
-+  it("TURN-LEASE-01: active lease blocks false orphan under concurrent reconcile", async () => {
-+    const reserved = await reserveTurnCommand({
-+      conversationId,
-+      ownerPilotId: pilotId,
-+      clientTurnKey: `lease01-${Date.now()}`,
-+      content: "Lease concurrent actif",
-+    });
-+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
-+
-+    await touchTurnLease(reserved.commandId, reserved.ownerToken);
-+    const recon = await reconcileRunningCommand(reserved.commandId);
-+    expect(recon.status).toBe("RUNNING");
-+    expect(recon.reconciled).toBe(false);
-+    expect(await requireTurnOwnership(reserved.commandId, reserved.ownerToken)).toBe(true);
-+
-+    await injectStaleRunningForTests(reserved.commandId);
-+    const stale = await reconcileRunningCommand(reserved.commandId);
-+    expect(stale.status).toBe("UNKNOWN");
-+    expect(stale.reconciled).toBe(true);
-+  });
-+
-+  it("CAP-FENCE-01: revoke during ensureSubject → no subject created", async () => {
-+    const reserved = await reserveTurnCommand({
-+      conversationId,
-+      ownerPilotId: pilotId,
-+      clientTurnKey: `cap01-${Date.now()}`,
-+      content: "fence subject",
-+    });
-+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
-+    const title = `CAP_FENCE_SUBJ_${Date.now()}`;
-+    const before = (
-+      await db
-+        .select()
-+        .from(knowledgeSubjects)
-+        .where(
-+          and(
-+            eq(knowledgeSubjects.preparationId, preparationId),
-+            eq(knowledgeSubjects.title, title),
-+          ),
-+        )
-+    ).length;
-+
-+    const result = await ensureSubject(pilotId, preparationId, title, undefined, {
-+      commandId: reserved.commandId,
-+      ownerToken: reserved.ownerToken,
-+      beforeFenceCheck: async () => {
-+        await revokeOwnerTokenForTests(reserved.commandId);
-+      },
-+    });
-+    expect(result.status).toBe("FAILED");
-+    expect("reason" in result && result.reason).toBe("TURN_OWNERSHIP_LOST");
-+    const after = (
-+      await db
-+        .select()
-+        .from(knowledgeSubjects)
-+        .where(
-+          and(
-+            eq(knowledgeSubjects.preparationId, preparationId),
-+            eq(knowledgeSubjects.title, title),
-+          ),
-+        )
-+    ).length;
-+    expect(after).toBe(before);
-+  });
-+
-+  it("CAP-FENCE-02: revoke during capitalizeAcquis → no acquis", async () => {
-+    const reserved = await reserveTurnCommand({
-+      conversationId,
-+      ownerPilotId: pilotId,
-+      clientTurnKey: `cap02-${Date.now()}`,
-+      content: "fence acquis",
-+    });
-+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
-+    const statement = `CAP_FENCE_ACQ durable statement ${Date.now()} with enough length`;
-+    const before = (
-+      await db
-+        .select()
-+        .from(knowledgeAcquis)
-+        .where(
-+          and(
-+            eq(knowledgeAcquis.preparationId, preparationId),
-+            eq(knowledgeAcquis.statement, statement),
-+          ),
-+        )
-+    ).length;
-+
-+    const result = await capitalizeAcquis(pilotId, preparationId, {
-+      statement,
-+      kind: "HYPOTHESIS",
-+      provenance: {
-+        sourceKind: "message",
-+        sourceId: "msg_test",
-+        generationId: "gen_test",
-+        epistemic: "hypothesized",
-+      },
-+      turnFence: {
-+        commandId: reserved.commandId,
-+        ownerToken: reserved.ownerToken,
-+        beforeFenceCheck: async () => {
-+          await revokeOwnerTokenForTests(reserved.commandId);
-+        },
-+      },
-+    });
-+    expect(result.status).toBe("FAILED");
-+    expect("reason" in result && result.reason).toBe("TURN_OWNERSHIP_LOST");
-+    const after = (
-+      await db
-+        .select()
-+        .from(knowledgeAcquis)
-+        .where(
-+          and(
-+            eq(knowledgeAcquis.preparationId, preparationId),
-+            eq(knowledgeAcquis.statement, statement),
-+          ),
-+        )
-+    ).length;
-+    expect(after).toBe(before);
-+  });
-+
-+  it("CAP-FENCE-03: revoke during openPoint → no open point", async () => {
-+    const reserved = await reserveTurnCommand({
-+      conversationId,
-+      ownerPilotId: pilotId,
-+      clientTurnKey: `cap03-${Date.now()}`,
-+      content: "fence open",
-+    });
-+    if (reserved.kind !== "fresh") throw new Error("expected fresh");
-+    const statement = `Point ouvert CAP_FENCE ${Date.now()}`;
-+    const before = (
-+      await db
-+        .select()
-+        .from(knowledgeOpenPoints)
-+        .where(
-+          and(
-+            eq(knowledgeOpenPoints.preparationId, preparationId),
-+            eq(knowledgeOpenPoints.statement, statement),
-+          ),
-+        )
-+    ).length;
-+
-+    const result = await openPoint(pilotId, preparationId, {
-+      statement,
-+      provenance: { sourceKind: "message", epistemic: "limited" },
-+      turnFence: {
-+        commandId: reserved.commandId,
-+        ownerToken: reserved.ownerToken,
-+        beforeFenceCheck: async () => {
-+          await revokeOwnerTokenForTests(reserved.commandId);
-+        },
-+      },
-+    });
-+    expect(result.status).toBe("FAILED");
-+    expect("reason" in result && result.reason).toBe("TURN_OWNERSHIP_LOST");
-+    const after = (
-+      await db
-+        .select()
-+        .from(knowledgeOpenPoints)
-+        .where(
-+          and(
-+            eq(knowledgeOpenPoints.preparationId, preparationId),
-+            eq(knowledgeOpenPoints.statement, statement),
-+          ),
-+        )
-+    ).length;
-+    expect(after).toBe(before);
-+  });
-+
-+  it("CAP-FENCE-04: acquis committed before revoke survives; turn stays non-COMPLETE", async () => {
-+    const key = `cap04-${Date.now()}`;
-+    const statement = `CAP04_KEEP_${Date.now()} hypothèse durable commitée avant révocation du tour`;
-+    turnRaceHooks.beforeTerminalCommit = async () => {
-+      const row = (
-+        await db
-+          .select()
-+          .from(conversationTurnCommands)
-+          .where(
-+            and(
-+              eq(conversationTurnCommands.conversationId, conversationId),
-+              eq(conversationTurnCommands.clientTurnKey, key),
-+            ),
-+          )
-+          .limit(1)
-+      )[0];
-+      // Valid D4 write while ownership still holds.
-+      const cap = await capitalizeAcquis(pilotId, preparationId, {
-+        statement,
-+        kind: "HYPOTHESIS",
-+        provenance: {
-+          sourceKind: "message",
-+          sourceId: row!.userMessageId ?? "msg",
-+          generationId: row!.generationId ?? "gen",
-+          epistemic: "hypothesized",
-+        },
-+        turnFence: { commandId: row!.id, ownerToken: row!.ownerToken! },
-+      });
-+      expect(cap.status).toBe("AVAILABLE");
-+      await revokeOwnerTokenForTests(row!.id);
-+      await db
-+        .update(conversationTurnCommands)
-+        .set({ status: "UNKNOWN", errorCategory: "CAP04_REVOKE", updatedAt: new Date() })
-+        .where(eq(conversationTurnCommands.id, row!.id));
-+    };
-+
-+    const result = await postUserMessageAndNora(
-+      pilotId,
-+      preparationId,
-+      "Compare CAP04 option reprise après effet D4 déjà durable",
-+      { clientTurnKey: key },
-+    );
-+    expect(result.status).toBe("UNKNOWN");
-+    expect(result.assistantMessageId).toBeNull();
-+
-+    const kept = await db
-+      .select()
-+      .from(knowledgeAcquis)
-+      .where(
-+        and(
-+          eq(knowledgeAcquis.preparationId, preparationId),
-+          eq(knowledgeAcquis.statement, statement),
-+        ),
-+      );
-+    expect(kept).toHaveLength(1);
-+    expect(kept[0].status).toBe("CURRENT");
-+  });
-+
-+  it("CAP-FENCE-05: pilot path without turnFence still creates subject", async () => {
-+    const title = `PILOT_NO_FENCE_${Date.now()}`;
-+    const result = await ensureSubject(pilotId, preparationId, title);
-+    expect(result.status).toBe("AVAILABLE");
-+    expect(result.subjectId).toBeTruthy();
-+  });
-+
-+  it("D4-PAGE-03: concurrent delete between pages terminates without stagnant cursor", async () => {
-+    const marker = `PAGE03_${Date.now()}`;
-+    const subject = await ensureSubject(pilotId, preparationId, `Page03 ${Date.now()}`);
-+    const ids: string[] = [];
-+    for (let i = 0; i < 40; i++) {
-+      const id = newId("acq");
-+      ids.push(id);
-+      await db.insert(knowledgeAcquis).values({
-+        id,
-+        preparationId,
-+        ownerPilotId: pilotId,
-+        subjectId: subject.subjectId!,
-+        kind: "HYPOTHESIS",
-+        statement: `Acquis ${marker} n=${i.toString().padStart(3, "0")}`,
-+        provenanceJson: JSON.stringify({ sourceKind: "pilot", epistemic: "hypothesized" }),
-+        status: "CURRENT",
-+      });
-+    }
-+
-+    const scope = {
-+      pilotId,
-+      preparationId,
-+      operationId: newOperationId(),
-+      generationId: newId("gen"),
-+      budget: { remainingCalls: 20, remainingChars: 2_000_000 },
-+    };
-+
-+    const first = await searchProjectResources(scope, {
-+      query: marker,
-+      types: ["acquis"],
-+      limit: 10,
-+      offset: 0,
-+    });
-+    expect(first.status).toBe("AVAILABLE");
-+    if (first.status !== "AVAILABLE") throw new Error("available");
-+    expect(first.hasMore).toBe(true);
-+    const next = first.nextOffset!;
-+    expect(next).toBeGreaterThan(0);
-+
-+    // Concurrent mutation: delete all remaining matches before next page.
-+    await db
-+      .update(knowledgeAcquis)
-+      .set({ status: "SUPERSEDED", updatedAt: new Date() })
-+      .where(
-+        and(
-+          eq(knowledgeAcquis.preparationId, preparationId),
-+          eq(knowledgeAcquis.ownerPilotId, pilotId),
-+          sql`${knowledgeAcquis.statement} like ${"%" + marker + "%"}`,
-+        ),
-+      );
-+
-+    const second = await searchProjectResources(scope, {
-+      query: marker,
-+      types: ["acquis"],
-+      limit: 10,
-+      offset: next,
-+    });
-+    expect(second.status).toBe("AVAILABLE");
-+    if (second.status !== "AVAILABLE") throw new Error("available");
-+    // Must terminate — never empty+hasMore with stagnant offset.
-+    if (second.items.length === 0) {
-+      expect(second.hasMore).toBe(false);
-+      expect(second.nextOffset).toBeNull();
-+      expect(second.coverage).toBe("STALE");
-+      expect(second.totalMatchedExact).toBe(false);
-+    } else {
-+      if (second.hasMore) {
-+        expect(second.nextOffset).not.toBeNull();
-+        expect(second.nextOffset!).toBeGreaterThan(next);
-+      }
-+    }
-+  });
- });
+## Checklist revue
+- [ ] Pas de secret dans diff
+- [ ] Migrations 006 présentes en CI migrate
+- [ ] UNKNOWN ≠ COMPLETE
+- [ ] D4 AVAILABLE-only
+- [ ] PR stack non double-mergée
 ```
 
-## 9. Instruction ChatGPT
+## 8. Décision demandée à Morris
 
-Avant toute revue Morris de ce cycle, ChatGPT doit lire sur Git distant `sfia/review-handoff` le fichier canonique `sfia-review-handoff/latest-chatgpt-review.md` au SHA publié dans le rapport. Vérifier blob, index, contenu créé, diffs des fichiers modifiés, invariants TURN-ATOMIC / CAP-FENCE / TURN-LEASE et D4-PAGE-03, tests, `origin/main`, HEAD local de sortie, statut FAKE/LIVE/CI/RECETTE et absence de push projet. Le handoff ne vaut ni validation code ni autorisation d'intégration.
+| Demande | Statut |
+| --- | --- |
+| GO PUSH PROJECT BRANCH | **À SOLLICITER** après arbitrage R-EOF-CHECK (et acceptation réserves) |
+| GO PR intégratrice | **À SOLLICITER** distinctement après push |
+| GO merge / LIVE / RECETTE | **NON** dans ce cycle |
+| NO-GO | si Morris refuse les réserves R-UNKNOWN-CAP / SAFE-01 sans correctif préalable |
 
-## 10. Verdict pack
+**Séquence post-GO :** (a) push SHA (éventuellement + micro-fix EOF) → (b) ouvrir PR unique draft → (c) vérifier Actions `validate`+`required_gate` sur head_sha → (d) revue ChatGPT → (e) GO merge distinct.
 
-`LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW`
+## 9. Next capability (hors cycle)
 
-Gates non consommés : push projet, PR #655–#658, merge, LIVE, RECETTE, STABLE, ADOPTED.
+Après CI vérifiée : LIVE borné `gpt-6.1-sol`, corpus B 5–10 min, candidate RECETTE figée — gates séparés.
+
+## 10. Sources consultées (rôles)
+
+- Prompt readiness Morris 2026-11-05 ; template v2.6 §6.11/§7–9 ; routing §4.3.0b
+- SEF/SEF-01, roadmap, ADR trajectoire C, ENV-01, product-versioning (refs ancêtre + HEAD)
+- Spec/matrice ML2 As-Built locaux §§17–25 ; delivery-history DELIV-…-10
+- Code HEAD : turn-command, service, knowledge, document, d4-read-tools, workflow CI
+- Handoff `1eeb06e6` (preuve revue, non canon produit)
+- GitHub PR #655–#658 observées via `gh`
+
+## 11. Fichiers projet créés/modifiés ce cycle
+
+**Aucun.** Pack temporaire + handoff L3 seulement.
+
+## 12. Instruction ChatGPT
+
+Avant revue de ce rapport, lire depuis `sfia/review-handoff` le fichier `sfia-review-handoff/latest-chatgpt-review.md` au SHA de publication déclaré ; contrôler le blob, l'index et les preuves réelles, la comparaison `main`↔`5cd8f10a`, la relation aux PR #655–#658, les réserves, les gates ENV-01/versioning, le déclencheur de CI Next et l'absence de push projet/PR. Produire un verdict de readiness et une recommandation à Morris ; **ne pas assimiler handoff réussi à GO Git projet**.
+
+## 13. Verdict pack
+
+`PR READINESS WITH RESERVES — MORRIS ARBITRATION REQUIRED`
+
+Interdits sans preuves/gates : `CI NEW SHA PASS`, `MERGED`, `LIVE VERIFIED`, `RECETTE ACCEPTED`, `STABLE`, `ADOPTED`.
