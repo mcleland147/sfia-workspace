@@ -1467,3 +1467,116 @@ Ce document **ne remplace pas** la Roadmap, les Decision Records, les spécifica
 ---
 
 **État du document au 2026-11-04 : `R4 — ARCHITECTURE DESIGN APPROVED BY MORRIS WITH CARRIED RESERVES ; ADR R4-01..04 + DATA-01 — VALIDATED CONTENT ; ENV-01 — VALIDATED & ROUTED ON R4 BRANCH ; QA A–D — DESIGN CONTRACTS ; R5 NOT STARTED`. Aucun mécanisme technique Next, aucune preuve runtime ni produit ADOPTED.**
+
+## 11. Complément architectural candidat — cognition adaptative et observabilité Nora (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; mécanismes d'implémentation candidats, non nouvel ADR ni amendement des ADR R4-01..04 approuvés.** Sources : R1 §2.2/E2E 03, D3 §14 et D4 §10 candidats, R3 §40 candidat ; code candidat ML2 sous PR #655. Le présent paragraphe ne transforme pas les mentions historiques « R5 NOT STARTED » des sections précédentes en état présent. Git observé à l'ouverture : main 6e4406c6 ; ML2 candidat 08b89360 ; PR #655 OPEN DRAFT, non mergée. État local : NON OBSERVÉ.
+
+### 11.1. Responsabilités et choix de sobriété
+
+**D3 est propriétaire unique de la configuration et de la conduite cognitive.** Sa responsabilité logique comprend (a) la qualification du travail, (b) la configuration effective du fournisseur, (c) l'exécution et l'exploitation des résultats des capacités autorisées, (d) la restitution et les états de génération. Ces étapes ne présupposent ni trois agents, ni trois services, ni un nouveau moteur d'orchestration, ni un deuxième état conversationnel. D4 possède les connaissances/versions, D6 l'autorité, D7 les opérations externes et D8 les verdicts de preuve.
+
+**Natif avant spécifique :** évaluer les primitives réellement disponibles dans la version SDK installée (Agents SDK 0.21.0 verrouillé dans le lockfile candidat ML2) : boucle d'appels d'outils, model settings, contrôle des tours, usage, traces/spans, interruption et reprise possible. Seules les fonctions et événements proprement SFIA manquants sont ajoutés dans D3/D4. Ne pas recopier le CWP, le routeur, les bases session ou les budgets de l'ancien Studio sans preuve positive de besoin.
+
+### 11.2. Configuration cognitive candidate
+
+**Politique de référence pour étude, pas choix adopté :** modèle principal GPT-6.1 Sol ; niveaux d'effort variables selon difficulté, medium pour travail courant, high comme point de comparaison pour audits/analyses structurantes, low pour demandes simples si qualité démontrée, xhigh à évaluer sur cas exigeants. Astra est une option d'escalade sous justification de valeur, coût, latence, entitlement et compatibilité ; aucun routage multi-modèle permanent n'est imposé. La satisfaction de Morris avec ChatGPT GPT-6 en réflexion élevée est une référence *comportementale*, non la preuve d'une identité d'API ou de configuration interne.
+
+**Contrat minimal :** qualification à partir des faits disponibles, éventuellement complétée par un appel sémantique lorsque utile ; décision de configuration côté serveur (modèle/effort/version de politique/limites et motifs non sensibles) ; validation du couple modèle/effort avant appel ; incohérence/refus sans remplacement silencieux par une configuration sous-dimensionnée. Ne pas ajouter un classificateur séparé systématique, un score magique ou une gradation qui traite l'inconnu comme du simple. Le nombre d'itérations du runner est indépendant du niveau d'effort du modèle.
+
+### 11.3. Exécution multi-étapes et frontières d'outils
+
+**As-built candidat ML2 observé :** nora-adapter.ts instancie un Agent sans modèle/effort explicites, appelle run avec maxTurns=1 et n'expose aucun outil. La sélection D4 intervient avant l'appel, via le service conversation, et l'agent ne peut pas réinterroger D4 en cours de génération. Cette limite est un **KNOWN GAP de la proposition d'autonomie complète**, pas une négation des capacités déjà implémentées. Un maxTurns augmenté seul, en l'absence d'outils et d'oracles, ne corrige pas le gap.
+
+**Candidat d'extension :** donner à Nora une lecture D4 réutilisant les contrôles de portée, identité, version et droits. Le SDK peut alors réaliser plusieurs itérations autorisées dans un budget fixé par Studio ; chaque résultat d'outil inclut succès, manque, refus ou limite selon le contrat applicatif. Les requêtes/retours ne créent ni décision, ni autorisation d'effet, ni preuve D8. Git, Web, Cursor et effets protégés restent absents tant que leurs propriétaires et permissions n'ont pas été livrés.
+
+**Gestion de mission :** durée, tours, nombre d'appels, tokens/coûts, STOP/annulation, refus de capacité et sortie partielle/UNKNOWN doivent être bornés et vérifiables. Les interruptions ou crashes ne valent pas reprise automatique ; les actions durables éventuelles respectent les garanties d'idempotence et de réconciliation D4/D7. En particulier, le fallback actuel du streaming vers un second run non streamé peut provoquer deux tentatives fournisseur pour une génération : l'observation doit distinguer génération métier, tentatives réelles et éventuels doublons avant de conclure sur le coût/fiabilité.
+
+### 11.4. Traces natives et corrélation Studio
+
+**Objectif :** reconstituer le déroulement *observable* d'une mission et rendre possible un diagnostic indépendant de sa réponse, sans prétendre lire les raisonnements internes du modèle. Examiner en premier le tracing/usage natif Agents SDK : contexte de trace, spans génération/outils, horodatages, erreurs, usage et possibilités d'export/filtrage ; vérifier son fonctionnement effectif dans RECETTE avec les secrets et options applicables. Un tracing SDK déclaré par défaut n'est pas une preuve d'export, de conservation, de complétude ni de conformité sécurité.
+
+**Corrélation minimale candidate :** identifiant de mission/échange, génération et tentatives fournisseur, utilisateur/projet sous identifiant restreint, SHA/lane, politique de qualification et configuration effective, modèle annoncé par le fournisseur si disponible, phases/outil et états, références D4 effectivement consultées, latence totale/étapes, usage/tokens/cache disponibles, estimation de coût explicitement tarifée, retries et finalité COMPLETE/PARTIAL/FAILED/INTERRUPTED/UNKNOWN. Les champs non observables sont marqués INDISPONIBLE ou ESTIMÉ plutôt qu'inventés. Une trace de « lecture » ne prouve pas l'usage ou l'exhaustivité d'une source.
+
+**Ownership :** le SDK enregistre ses événements natifs ; D3 associe seulement les identifiants et faits métier que le SDK ignore. D4 reste source transactionnelle des documents/Acquis ; D8 propriétaire des preuves de conformité ; aucune double mémoire ni ledger universel d'« explications de l'IA ». L'outil d'analyse peut corréler une réponse Nora avec un verdict comparatif de R5 §14, sans l'incorporer comme jugement automatique du runtime.
+
+### 11.5. Sécurité, coûts et conservation
+
+**DATA-01 et minimisation :** collecter par défaut métadonnées utiles et références, pas prompts, réponses, contenus de documents, secrets, tokens d'authentification ou chaîne de pensée bruts dans des journaux généralisés. Vérifier les éventuels champs sensibles capturés/exportés par défaut par le SDK et configurer leur contrôle avant LIVE ; accès à la trace réservé aux rôles habilités, isolation interprojets, politique d'effacement et conservation des journaux non critiques alignées sur les valeurs DATA-01 (environ 14 jours, sous réserves/contraintes applicables). Les preuves à conservation distincte ne deviennent pas des logs techniques anonymes.
+
+**Diagnostic coût :** mesurer séparément la qualification éventuelle, chaque tentative modèle, les outils et les reprises. Le coût n'est pas seulement le prix du modèle ; la configuration la plus économique doit rester suffisante pour la qualité. Les budgets doivent être configurables sous contrôle serveur et ne pas être augmentés par le texte ou un outil.
+
+### 11.6. Blast radius, QA et gate
+
+| Frontière | Impact candidat et test discriminant |
+| --- | --- |
+| D3 / Agents | Model settings réellement effectifs ; classification proportionnée, multi-tours bornés, annulation et états ; absence d'appel inutile sur question simple |
+| D4 / connaissance | Lecture complémentaire sous droits/version courants, absence de fuite, couverture et absence explicites |
+| D1/D2 / fil | Identité projet/sas et continuité inchangées ; une mission ne crée pas de second chat |
+| UX R3 | Afficher uniquement les événements connus, pas une progression inférée ; pas d'écran de diagnostic imposé |
+| D6/D7/D8/D9 | Aucun nouveau pouvoir, effet ni verdict dérivé d'un appel cognitive/tool |
+| Exploitation | Corrélation génération ↔ tentatives ↔ outils ↔ résultats et coûts ; données sensibles protégées |
+| R5 / ML2 | COG-01..07 + variantes de chemin, preuve LIVE et analyse indépendante sur le même SHA |
+
+**Gate de qualification :** le contenu de cette orientation est validé par Morris le 2026-11-05 ; Morris décide encore des éventuels ajustements ADR si nécessaires et du périmètre d'intégration avant recette ML2 ou report avec dette/exit. Ce complément reste documentaire, sans code, API adoptée, nouvelles tables, PR, merge, STABLE ou ADOPTED.
+
+## 12. Complément d'architecture — observabilité transverse D1–D9 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT BY MORRIS / DETAIL TECHNIQUE CANDIDAT — sans nouvel ADR, ni remise en cause des ADR R4-01..04, DATA-01 ou ENV-01.** La visibilité et la trace Nora du §11 constituent un **cas d'application** de la capacité transverse ; elles ne justifient ni un second dispositif de logging, ni un propriétaire de vérité supplémentaire.
+
+**Référence technique canonique :** [Contrat transverse de diagnostic et d'observabilité](contrat-observabilite-transverse.md) v0.1. Il porte les invariants OBS-01..08, la corrélation des identifiants métier/fournisseur, l'enveloppe d'événements, les frontières AUTH/API/DB/D1–D9, la collecte native-first, le contrôle des données sensibles, la consultation et les oracles OBS-Q01..12. Ne pas les dupliquer intégralement dans le cadrage vivant.
+
+**Découpage R4 :**
+- **Transport/serveur** : étudier OpenTelemetry à l'entrée Next.js et la classification des erreurs API ; pas d'obligation d'installer une plateforme hébergée.
+- **Identité** : Better Auth journal/hooks sous restrictions DEV/OAuth ; une panne DB n'est pas une session refusée.
+- **Transaction** : PostgreSQL statistiques et logs ciblés, commandes D2/D4 et journal D4 des mutations de Sujets restent propriétaires ; pas de nouvelle table d'audit concurrente par défaut.
+- **Cognition** : tracing natif Agents SDK, generationId, tentatives OpenAI réelles, configuration et consommations D3 ; corrélation avec OpenTelemetry à démontrer, aucune pensée cachée accessible.
+- **Intégrations futures** : D5/D6/D7/D8/D9 instrumentent leurs propres frontières lors des macro-lots propriétaires ; les traces ne fabriquent pas d'autorité, de preuve ni de fait Git.
+- **Exploitation** : destination et consultation des traces en RECETTE, contrôle du collecteur, réduction des données sensibles, rétention DATA-01 et isolation ENV-01 ; aucun choix imposé de Jaeger/Grafana/Sentry/Datadog.
+
+**KNOWN GAPS observés sur ML2 candidat :** plusieurs routes API capturent toutes les exceptions et répondent 401 SESSION_INVALID, masquant potentiellement des pannes DB ou métier ; le chemin Nora maxTurns=1 sans outils et son repli streaming peuvent manquer de visibilité sur les tentatives réelles ; la corrélation de bout en bout et le backend de diagnostic RECETTE ne sont pas démontrés. Une table d'événements D4 est déjà présente : conserver la vérité transactionnelle, ne pas la dédoubler.
+
+**Blast radius :** route handlers, résolution de session, erreurs/HTTP, D2/D3/D4, client DB, SDK/tracing, sécurité/exporteur, CI et lanes. Les signatures, métriques, configuration exacte, coûts et stockage sont à qualifier contre le code/lockfile et les politiques avant contrat D3. **Gate :** Morris arbitrera le paquet cohérent à intégrer éventuellement avant RECETTE ML2, puis construction SFIA v2.6 distincte ; aucun code, runtime, backend, migration ni preuve n'est adopté par cette section.
+
+## 13. Raccord de trajectoire R4 → R5 : cognition et observabilité intégrées à ML2 (2026-11-05)
+
+**STRATEGY VALIDATED BY MORRIS, IMPLEMENTATION NOT STARTED — sans réouverture des ADR R4-01..04 ni de la sortie R4.** [Décision R5/ML2](../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md), [Roadmap](../governance/roadmap.md), [contrat transverse](contrat-observabilite-transverse.md) §10 et [R5 delivery](../construction/reference-delivery-r5.md) §17.
+
+**Transposition :** la stratégie C adoptée pour la **suite de la construction ML2 avant RECETTE** combine (a) autonomie cognitive Nora proportionnée, multi-étapes SDK et lecture D4 complémentaire sous droits, (b) diagnostic transverse natif-first des flux actuellement implémentés AUTH/HTTP/PostgreSQL/D1–D4, (c) QA technique et comparative sur un même SHA/lane. Les §§11–12 restent les sources architecturales de conception ; le détail d'exécution et l'acceptation appartiennent à R5/ML2, sans nouvel orchestrateur, journal de vérité ou modèle d'autorité.
+
+**Délimitations :** D5/D6/D7/D8/D9 non construits gardent leurs contrats d'observation futurs ; aucun Git/Cursor/effet externe, nouveau moteur BPMN, plateforme de monitoring ou classeur IA systématique n'est anticipé. La compatibilité réelle du modèle, des outils et traces de l'Agents SDK reste à démontrer et ne vaut pas choix d'API adopté ; nouvelles mutations DB, pivot d'architecture, mécanisme de collecte sensible ou gate supplémentaire sont soumis à revue.
+
+**Gates :** contenu de stratégie Morris approuvé, documents sur branche candidate ; aucune nouvelle preuve BEHAVIOR PROVEN, aucun GO Cursor, PR/merge, RECETTE ou promotion par effet de cette synchronisation.
+
+## 14. R5/ML2 — Qualification d'architecture D3 ↔ D4 avant observabilité (2026-11-05)
+
+> **VISION D'ARCHITECTURE ACCEPTÉE PAR MORRIS EN CONVERSATION LE 2026-11-05 / CONTRIBUTION DOCUMENTAIRE D2 SUR BRANCHE CANDIDATE.** Cette section complète le raccord §13 ; elle ne réouvre ni R4, ni ADR R4-01..04, ni DATA-01 ou ENV-01. Les mécanismes exacts et leur exécution restent **TECHNICAL DESIGN CANDIDATE / NOT IMPLEMENTED / NO GO CURSOR**. Sources propriétaires : [ML2 §18](../construction/ml2-production-et-capitalisation-nora/specification-technique.md), [R5 §18](../construction/reference-delivery-r5.md), [matrice ML2 §11](../construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md) et [contrat d'observabilité transverse](contrat-observabilite-transverse.md).
+
+### 14.1. Responsabilités et chemin de conduite
+
+**Architecture retenue au niveau vision :** une seule conduite cognitive Nora sous responsabilité D3 et un Runner natif Agents SDK ; D4 reste l'unique propriétaire des connaissances, documents, versions, règles d'accès et effets de persistance. D1/D2 établissent identité, session, préparation et projet ; le contexte d'autorisation est lié côté serveur et n'est jamais attribué par les arguments du modèle. L'observabilité transverse accompagne le parcours sans devenir moteur de décision, mémoire, autorité ou registre transactionnel.
+
+Chemin logique : **intention Pilote → contexte D1/D2 → qualification/configuration D3 → Runner/outils de consultation D4 → vérification des droits et versions à chaque lecture → convergence D3 → restitution et éventuel effet D4 confirmé**. Une consultation, un contenu effectivement reçu, une citation et une sauvegarde sont des faits différents. Une source de projet est une donnée non fiable, jamais une instruction système.
+
+**IN :** politique de difficulté proportionnée et versionnée, modèle/effort explicitement configurés après vérification de compatibilité, outils D4 lecture-only, itérations bornées, requalification des sources/droits, résultat complet ou limité honnête, traçabilité réelle des appels et tentatives. **OUT :** agents concurrents, classificateur LLM obligatoire, lecture Git/Web/Cursor, effets D5–D9 anticipés, nouveau ledger métier, base de mémoire/autorité parallèle et dashboard d'exploitation imposé.
+
+### 14.2. Invariants d'intégration
+
+1. D3 configure et conduit ; D4 autorise et délivre chaque ressource ; le SDK ne décide pas des permissions, de la sauvegarde ou du résultat probatoire.
+2. L'outil D4 ne reçoit pas d'identité/projet faisant autorité depuis les arguments générés ; la session et le périmètre serveur sont revalidés à la consultation. Une révocation ou une ressource périmée doit interrompre la divulgation plutôt que réutiliser aveuglément un extrait antérieur.
+3. Les lectures renvoient une référence, une version et un périmètre **effectivement lus**, ou une absence/refus/incomplétude explicite ; un titre seul n'est pas une lecture.
+4. Une mission peut avoir plusieurs tentatives fournisseur ; une génération n'est ni une tentative unique, ni une écriture D4. Le streaming provisoire et son retry ne garantissent ni complétion ni idempotence.
+5. Bornes de tours, appels, temps et volume réellement contrôlées ; STOP demandé ≠ interruption constatée. Aucune transition COMPLETE ou sauvegarde AVAILABLE inventée.
+6. Préserver les corrections ML2 C1–C6, le fil unique, la version de base et les mécanismes transactionnels ; aucun changement de schéma/persistance par inertie.
+
+**Blast radius à qualifier :** adaptateur D3 et service conversation, sélection D4, accès aux révisions documentaires, session/auth, API/HTTP, contrôle de coûts/temps, SDK/streaming, sécurité des sorties et du contexte injecté, UX d'activité, tests et futur diagnostic. Toute évolution d'interface publique, stockage ou politique d'autorité non couverte par les ADR revient à Morris.
+
+### 14.3. Frontière avec l'étape suivante
+
+L'étape de conception **observabilité et corrélation** prendra ces opérations comme référentiel d'événements ; elle précisera le lien entre operationId, génération D3, tentatives SDK, lectures D4 et effets métiers confirmés, sans changer leurs propriétaires. Les choix de collecteur, export, rétention effective, schéma et consultation restent à qualifier séparément **dans le même macro-lot ML2**, avant un unique contrat de construction D3. Aucun test LIVE, PR/merge, RECETTE ou statut ADOPTED n'est déduit de cette clarification.
+
+## 15. Raccord de conception observabilité R4 → R5 (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+Sans réouverture de R4 ou des ADR, le détail technique de l'étape 2 est dans le **contrat d'observabilité transverse §11**, tandis que **ML2 §19** porte les intégrations D1–D4 et **R5 §19** les gates. L'architecture reste modulaire (ADR R4-01), la vérité métier demeure transactionnelle chez D2/D4 (ADR R4-02), la preuve et l'autorité restent séparées (ADR R4-03) et les lanes/builds sont gouvernés par ENV-01 (ADR R4-04). Toute nouvelle base de télémétrie, canal d'accès interprojet, effet externe ou refonte de l'autorité serait un changement structurant soumis à Morris, pas un détail technique implicite.

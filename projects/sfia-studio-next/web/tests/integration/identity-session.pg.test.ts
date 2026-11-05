@@ -93,10 +93,16 @@ describe("D1 identity → Pilot provisioning (simulated OAuth association)", () 
         createDevTestSession("a", { host: "127.0.0.1:3100" }),
       ).rejects.toThrow(/LANE_FORBIDDEN/);
 
-      process.env.STUDIO_LANE = "RECETTE";
+      process.env.STUDIO_LANE = "STABLE";
       await expect(
         createDevTestSession("a", { host: "127.0.0.1:3100" }),
       ).rejects.toThrow(/LANE_FORBIDDEN/);
+
+      // RECETTE + loopback + STUDIO_DEV_TEST_LOGIN=1 is allowed for Morris essai.
+      process.env.STUDIO_LANE = "RECETTE";
+      const recetteSess = await createDevTestSession("a", { host: "localhost:3210" });
+      expect(recetteSess.pilotId).toBeTruthy();
+      await revokeSession(recetteSess.sessionId);
 
       process.env.STUDIO_LANE = "DEV";
       await expect(
@@ -157,7 +163,7 @@ describe("D1 identity → Pilot provisioning (simulated OAuth association)", () 
     }
   });
 
-  it("already-issued DEV cookie/token fails closed after lane leaves DEV", async () => {
+  it("already-issued DEV cookie/token fails closed on STABLE or when adapter disabled", async () => {
     const { resolveDevAdapterSessionByToken } = await import("@/domains/identity/session");
     const prevLane = process.env.STUDIO_LANE;
     const prevLogin = process.env.STUDIO_DEV_TEST_LOGIN;
@@ -170,7 +176,8 @@ describe("D1 identity → Pilot provisioning (simulated OAuth association)", () 
       expect(ok?.sessionId).toBe(created.sessionId);
       expect(ok?.authMode).toBe("dev-test-login");
 
-      process.env.STUDIO_LANE = "RECETTE";
+      // Cross-lane browser isolation is cookie-name-per-lane + separate DB; STABLE remains forbidden.
+      process.env.STUDIO_LANE = "STABLE";
       expect(await resolveDevAdapterSessionByToken(created.token)).toBeNull();
 
       process.env.STUDIO_LANE = "DEV";

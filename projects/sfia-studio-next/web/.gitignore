@@ -16,6 +16,9 @@
 /playwright-report/
 /tests/e2e/artifacts/
 
+# lane-local observability sink (never commit)
+/.obs/
+
 # next.js
 /.next/
 /.next-e2e/

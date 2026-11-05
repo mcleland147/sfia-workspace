@@ -543,3 +543,11 @@ Ces cas détaillent les E2E primaires R1, **sans** inventer d’E2E supplémenta
 ---
 
 **Verdict documentaire : `R2 — TRAJECTOIRE / CYCLES / GUIDANCE CKI — VALIDATED SPEC v0.1 (Morris, 2026-11-02)` ; 40 règles `RG-TRJ-*`, 30 cas `PF-TRJ-*`, revue R1/Nora/Connaissance/CKI réalisée ; les interfaces D6–D9 restent `NON ÉVALUÉES` contre leurs futures specs, les écarts ont des responsables et échéances (§5.1) ; Next `N/A — NON IMPLÉMENTÉ`.**
+
+## 8. Interface de diagnostic transverse — états D5 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / INTERFACE CANDIDATE — D5 non implémenté dans ML2.** Le [contrat d'observabilité transverse](../architecture-technique/contrat-observabilite-transverse.md) s'appliquera aux transitions et conflits du propriétaire D5 sans devenir une source concurrente de vérité.
+
+**Contrat D5 :** pour un cycle, une méthode ou une guidance CKI, distinguer intention de transition, condition de validité, changement réellement confirmé, refus ou incohérence ; associer l'opération au projet, au cycle, à la version de méthode et à la configuration appliquée lorsqu'elles existent, sous droits courants. Un log d'invocation CKI ne prouve ni activation d'un second CKI ni maturité, clôture ou transition effective. La consultation d'activité par D3 ne modifie pas l'unicité du cycle actif.
+
+**Négatifs à qualifier au macro-lot propriétaire :** tentative de deuxième cycle actif, changement de méthode refusé, transaction de transition échouée, événement technique dupliqué ou perdu, consultation d'un projet tiers ; aucun événement ne crée de transition. **Preuve :** contrats D5, DB/INTEGRATION et parcours métier R5/R6 au bon SHA ; ne pas ajouter dès ML2 une télémétrie de cycles inexistants.

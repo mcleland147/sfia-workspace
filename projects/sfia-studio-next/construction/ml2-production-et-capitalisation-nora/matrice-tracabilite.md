@@ -222,3 +222,352 @@ Le référentiel méthodologique reste **construction/reference-delivery-r5.md �
 5. **Intégration :** PR/merge et contrôles GitHub uniquement sous GO Morris spécifique ; smoke runtime postmerge avant éventuelle STABLE ; R6 et ADOPTED restent séparés.
 
 **Verdict : ML2 v0.6 VALIDATED SPEC BY MORRIS (2026-11-04) / CONTRACT AND QA ORACLES APPROVED / NOT IMPLEMENTED / NOT TESTED / NO BEHAVIOR PROVEN / NO CURSOR PROMPT / NO RECETTE / NO ADOPTED.**
+
+---
+
+## 7. As-Built preuve locale Cursor — 2026-11-05 (complément, non réécriture)
+
+Branche `sfia/next-ml2-production-capitalisation` @ base `6e4406c6`. Preuves **DETERMINISTIC / PG / BROWSER FAKE** exécutées ; **LIVE / COG panel / CI Next** non prouvés ici.
+
+| Famille | Statut local |
+| --- | --- |
+| Q04–Q14 documents / révision / conflit / diff | PARTIELLEMENT COUVERT (PG + API + UX) |
+| Q15–Q18 / Q28 Sujets / capitalisation / split | PARTIELLEMENT COUVERT (PG + composition UX minimale) |
+| Q19–Q20 reprise D4 hors fenêtre 6 messages | COUVERT PG (`selectRelevantKnowledgeContext`) + BROWSER fil unique |
+| Q25 activité | PARTIEL (indicateur « prépare ») — pas de STOP confirmé |
+| Q29 streaming | ATTEMPTED adapter ; UI progressive NOT WIRED ; LIVE NOT PROVEN |
+| COG-01..07 | NOT RUN |
+| Négatif recommandation ≠ D6 | COUVERT (`humanDecisionCreated: false`, kinds acquis) |
+
+### 7.1 Correctif C1–C6 (2026-11-05)
+
+| Défaut | Négatif | Après | DB | Verdict |
+| --- | --- | --- | --- | --- |
+| C1 Sujet hors source | PASS | PASS | PASS | PASS |
+| C1 rollback mutation | PASS | PASS | PASS | PASS |
+| C1 collision titre | PASS | PASS | PASS | PASS |
+| C2 révision concurrente | PASS | PASS | PASS | PASS |
+| C3 retry création | PASS | PASS | PASS | PASS |
+| C3 ACK perdu | PASS | PASS | PASS | PASS |
+| C4 lignes répétées | PASS | PASS | N/A | PASS |
+| C5 faux FACT | PASS | PASS | PASS | PASS |
+| C6 état UI | PARTIEL BROWSER | PASS smoke | si effet | PASS partiel |
+
+### 7.2 Consolidation C3/C4/C1 (2026-11-05)
+
+| Défaut | Avant | Après | Niveau | Verdict |
+| --- | --- | --- | --- | --- |
+| C3 race sans fingerprint | FAIL (anomalie revue) | PASS | PG | PASS |
+| C3 même clé payload incompatible concurrent | FAIL | PASS | PG | PASS |
+| C3 ACK perdu / retry | PASS partiel | PASS | PG + BROWSER | PASS |
+| C3 clé UI stable entre retries | FAIL (`Date.now`) | PASS | BROWSER | PASS |
+| C3 cross-project | PARTIEL | PASS | PG | PASS |
+| C4 volumétrie / budget | FAIL (O(nm) non borné) | PASS DEGRADED explicite | UNIT | PASS |
+| C4 occurrences répétées | PASS | PASS | UNIT | PASS |
+| C1 rollback journal événements | FAIL (non asserté) | PASS (0 MERGED/SPLIT résiduel) | PG | PASS |
+| C1 même Acquis concurrent | PARTIEL | PASS (1 affectation) | PG | PASS |
+| Non-régression C2/C5/ML1 | PASS | PASS | PG + BROWSER | PASS |
+
+## 8. Extension candidate de traçabilité — autonomie et observabilité cognitive (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / NOT TESTED / NOT BEHAVIOR PROVEN.** Extension de la présente matrice, pas nouveau référentiel QA. Les preuves C3/C4/C1 et les anciens statuts COG-01..07 sont conservés à leur niveau réellement observé. Références : R1 §2.2/E2E 03 ; R2 D3 §14 règles RG-CONV-007..012 / RG-CTX-009..011 et PF-36..41 ; R2 D4 §10 RG-KNOW-021..023 / PF-KNOW-15..17 ; R3 §40 ; R4 §11 ; R5 §15 ; ML2 spec §15.
+
+### 8.1. Couverture fonctionnelle candidate et oracles
+
+| Capacité candidate | Résultat observable Pilote / évaluateur | Lien R2 et scénario existant | Oracle et niveau requis | Statut |
+| --- | --- | --- | --- | --- |
+| Qualification/effort proportionnés | Réponse simple sans travail superflu, analyse structurante correctement dimensionnée | D3 RG-CONV-007/008, PF-36 ; COG-01 | Config réellement appliquée et motif disponible ; DETERMINISTIC + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Investigation D4 multi-étapes | Nora peut approfondir dans les bonnes versions/permissions avant de conclure | D3 RG-CONV-009, RG-CTX-009 ; D4 RG-KNOW-021/022, PF-37, PF-KNOW-15/16 ; COG-02/03/05 | Appels/outils effectivement reçus, droits, couverture, résultat sourcé ; DB/INTEGRATION + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Réévaluation et convergence | Contradiction nouvelle ou limite → approfondissement borné / état partiel honnête | D3 RG-CONV-010/011, PF-38/39 ; COG-03/06 | Budget, STOP/timeout/UNKNOWN, absence d'effet fictif ; DETERMINISTIC + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Diagnostic de mission | Un examinateur habilité retrouve opérations, coûts/latences disponibles et sources sans confondre activité et pensée cachée | D3 RG-CONV-012, RG-CTX-010/011, PF-40 ; D4 RG-KNOW-023 / PF-KNOW-17 ; R5 §14 | SDK traces corrélées, métadonnées Studio exactes, données protégées, mesure vs estimation ; INTEGRATION + LIVE | NOT IMPLEMENTED / NOT TESTED |
+| Comparaison cognitive | Qualité et efficacité du chemin examinées indépendamment, sans oracle LLM unique | PF-41 ; COG-01..07 ; R5 §14 | Réponses indépendantes, même corpus/écarts déclarés, fact-check, exemple de redondance ou lacune, verdict Morris | NOT RUN |
+| Autorité inchangée | Une recommandation, trace ou lecture d'outil n'est pas une décision, preuve ou mutation protégée | RG-CTX-010/011 ; PF-39/41 ; COG-07 | Négatifs D6/D7/D8, sauvegarde D4 confirmée distincte de la génération ; DB/LIVE | NOT TESTED |
+
+### 8.2. Conditions de comparaison et instrument probatoire
+
+**Un seul protocole :** utiliser le §3 COG-01..07 et R5 §14. Pour chaque cas retenu, relever l'énoncé, les sources/droits, SHA/lane, politiques et paramètres effectifs, les identifiants et séquences d'appels effectivement observés, résultat et limites, latence/usage/coût lorsque disponibles, réponse ChatGPT indépendante et faits vérifiés à leur source. L'absence de télémétrie ou une asymétrie d'accès est explicitée ; aucun verdict d'équivalence fondé sur le style, la durée ou la similarité du texte.
+
+**Cas négatifs discriminants :** outil D4 refusé, ressource périmée, absence d'outil, génération vide, tentative streaming échouée puis retry fournisseur, limite de tours, arrêt demandé non confirmé, ressource sauvegardée mais ACK perdu, erreur interprojet. Les états de consommation technique ne modifient pas la vérité des documents, connaissances, décisions ou preuves.
+
+### 8.3. Décision d'intégration et dette
+
+**Option à soumettre à Morris :** intégrer avant RECETTE ML2 le socle cohérent de cognition mesurable si ses interfaces et ses tests peuvent être livrés sans fragiliser les invariants déjà démontrés. Sinon, inscrire par capacité l'écart explicite, son propriétaire, le risque, le prochain lot et l'exit avant d'accepter une RECETTE de portée limitée. Ni augmentation isolée de maxTurns, ni configuration Sol High, ni tracing SDK seul ne suffisent pour déclarer l'autonomie de Nora prouvée.
+
+**Gates inchangés :** contenu documentaire candidat → validation Morris → mandat technique distinct → code/tests/QA même lot → RECETTE au SHA figé → PR/merge/promotions séparés. Aucune réouverture automatique de R1–R4 ni adoption anticipée.
+
+## 9. Extension candidate de matrice — diagnostic transverse AUTH/API/DB/D1–D4 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / QA CANDIDATE — NOT EXECUTED.** Réf. [contrat transverse R4 §7](../../architecture-technique/contrat-observabilite-transverse.md), R1 §10, R2 [index §25](../../conception-fonctionnelle/README.md), R3 §41, R5 §16 et [ML2 spec §16](specification-technique.md). Ce chapitre complète la qualification Nora de §8, sans remplacer COG-01..07 ni les preuves C1–C6 acquises au candidat.
+
+| Scénario | Source/propriétaire | Attendu observable et niveau | Statut |
+| --- | --- | --- | --- |
+| **OBS-Q01** OAuth refusé | D1 RG-ACC-026..028 / PF-ACC-25 | Refus fournisseur/auth/session distingué, sans token ; INTEGRATION + LIVE ciblé | NOT RUN |
+| **OBS-Q02** DB indisponible sur API | D1 PF-ACC-26, D2 PF-CRE-30 | Catégorie DB/500–503 appropriée, pas faux SESSION_INVALID/401 ; INTEGRATION/HTTP | NOT RUN — KNOWN GAP |
+| **OBS-Q03** Lecture D4 interdite | D4 RG-KNOW-024 / PF-KNOW-18 | Refus tracé sans contenu interprojet ; DB/INTEGRATION | NOT RUN |
+| **OBS-Q04** 2 appels fournisseur sous 1 génération | D3 RG-CONV-013 / PF-42 | 1 intention, 2 tentatives rattachées, usage mesuré distinct ; DETERMINISTIC + LIVE | NOT RUN |
+| **OBS-Q05** Document sauvegardé / ACK perdu | D4 RG-KNOW-025 / PF-KNOW-19 ; D2 PF-CRE-29 | Transaction et réconciliation attestées, pas de doublon ; DB + BROWSER | SCÉNARIOS C3 EXISTANTS, corrélation transverse NOT RUN |
+| **OBS-Q06** Nora timeout/limite | D3 PF-39/PF-44 et §14 | Statut honnête, absence de COMPLETE fictif ; DETERMINISTIC + LIVE | NOT RUN |
+| **OBS-Q07** Trace/exporteur absent | D3 PF-44, contrat OBS-07 | Indisponibilité identifiable, aucune chronologie inventée ; INTEGRATION | NOT RUN |
+| **OBS-Q08** Requête lente | Frontière API/DB | Durée observée et composant identifié ; INTEGRATION | NOT RUN |
+| **OBS-Q09** Secret synthétique dans erreur | DATA-01 / sécurité D1-D4 | Aucun token/secret dans log, export ou UI ; DETERMINISTIC + INTEGRATION | NOT RUN |
+| **OBS-Q10** Lane/SHA incorrect | ENV-01 et R5 | Trace associée au build réellement servi ; INTEGRATION/BROWSER | NOT RUN |
+| **OBS-Q11** Git refus/rate limit | D9 §8 | REPORT au lot D9/ML4 — aucune capacité Git fausse en ML2 | NOT APPLICABLE ML2 |
+| **OBS-Q12** D7 dispatch sans ACK | D7 §10, D8 §10 | REPORT au lot propriétaire D7/D8 — aucun effet externe fictif en ML2 | NOT APPLICABLE ML2 |
+
+**Matrice d'acceptation :** chaque scénario retenu porte contexte, acteur, projet, lane, SHA/build/schema, identifiants corrélés, événements réellement récupérés et provenance, état DB/propriétaire, consommation lorsque mesurée, limite et verdict. Une analyse ChatGPT sur données observées peut challenger le chemin, mais elle ne constitue pas une preuve directe du runtime ou une chaîne de pensée.
+
+**Impact/priorité :** traiter OBS-Q02 et la corrélation AUTH/API/DB/D3/D4 comme écarts de conception à arbitrer **avant** de déclarer une capacité de diagnostic suffisante pour RECETTE. Les cases NOT RUN ne peuvent pas devenir PASS par publication de ce document. L'ajout à PR #655 nécessiterait un mandat technique explicitement borné, tests et re-recette sur SHA actualisé ; aucune promotion implicite.
+
+## 10. Qualification intégrée après décision Morris — cognition + observabilité avant RECETTE ML2 (2026-11-05)
+
+> **VALIDATED STRATEGIC SCOPE / ACCEPTANCE CONTRACT CANDIDATE / NO ADDITIONAL TEST RUN.** [Decision Record](../../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md), [Roadmap](../../governance/roadmap.md), [ML2 spécification §17](specification-technique.md), [R5 §14 et §17](../reference-delivery-r5.md), [contrat observabilité OBS-Q](../../architecture-technique/contrat-observabilite-transverse.md). Cette décision **retient l'intégration avant RECETTE**, sans changer les cas ni inventer leurs résultats aux §§1–9. Les preuves C1–C6 As-Built sont historiques au SHA candidat, pas une preuve des nouveaux chemins cognitifs/diagnostiques.
+
+### 10.1. Capacité → sources → oracles → gate
+
+| Capacité d'entrée RECETTE ML2 | Source fonctionnelle/technique | Cas d'essai et preuve à obtenir | Verdict actuel |
+| --- | --- | --- | --- |
+| **Qualification cognitive proportionnée** | D3 §14/15, ML2 §17.2, R5 §14 | COG-01/02 ; simple sans recherche superflue, complexe avec config modèle/effort appliquée ; DETERMINISTIC + LIVE | **NOT IMPLEMENTED / NOT PROVEN** |
+| **Boucle multi-étapes réellement outillée** | D3 RG-CONV-009, PF-37/38, ML2 §17 | COG-02/03/06 ; au moins une lecture D4 complémentaire effectivement effectuée en LIVE et bon résultat/refus ; INTEGRATION + LIVE | **NOT IMPLEMENTED / NOT PROVEN** |
+| **Accès et vérité D4** | D4 RG-KNOW-021..026, PF-KNOW-15..20, C1–C6 | COG-03/04/05/06 + OBS-Q03/05 ; droits/version/absence, aucune fuite, révision/ACK, concurrence ; DB + BROWSER, LIVE lorsque pertinent | **INTÉGRITÉ PARTIELLEMENT PROUVÉE C1–C6 sur candidat / chemin agentique NON PROUVÉ** |
+| **Honnêteté et limites** | D3 PF-39/43/44, D4, R3 §40/41 | COG-06/07 + OBS-Q04/06/07 ; timeout, STOP, plusieurs tentatives, aucun effet fictif, trace absente déclarée ; DETERMINISTIC + LIVE | **NOT RUN pour extension** |
+| **API/AUTH/DB diagnostics** | R2 D1/D2 §7/8, ML2 §16/17, contrat OBS | OBS-Q01/02/08/10 ; pas de faux 401, corrélation vers DB/env/build, négatifs ; INTEGRATION/HTTP et LIVE ciblé OAuth | **KNOWN GAP / NOT RUN** |
+| **Trace consultable et expurgée** | OBS-01..08, R4 contrat §§3–7, DATA-01 | OBS-Q04/07/09/10 ; lecture par operation_id, chronologie, refs sources, coûts/latences réels, secret synthétique absent ; INTEGRATION + LIVE | **NOT PROVEN** |
+| **Qualité cognitive indépendante** | R5 §14, COG-01..07, R1 E2E 03/04 | Corpus daté, réponses indépendantes, faits vérifiés séparément, critique des chemins redondants, valeur Pilote évaluée Morris ; LIVE + revue | **NOT RUN** |
+| **CI / isolement / non-régression** | ENV-01, ML1 réserves A/B, C1–C6, ML2 R5 QA | CI Next réellement exécutée au HEAD candidat, isolation DEV/RECETTE, DB/BROWSER, tests C1–C6 inchangés ou repris selon blast radius | **NON DÉMONTRÉ sur future révision** |
+
+### 10.2. Scénario transversal d'acceptation de référence
+
+**Entrée :** le Pilote demande de comparer plusieurs décisions architecturales et des spécifications du projet ; une source est contradictoire et une autre nécessite une consultation complémentaire D4. Les droits, versions et corpus sont datés.
+
+**Observation requise :**
+1. Qualification de difficulté et paramètres modèle/effort réellement sélectionnés ; pas d'appel de classification superflu systématique.
+2. Requête D4 initiale et **consultation supplémentaire pendant la mission**, sous projet/permissions corrects, sans déclarer un simple titre comme source lue.
+3. Analyse des contradictions et des limites, restitution utilisable ou incomplète honnête ; aucune décision D6/effet externe/écriture Git inférée.
+4. Chronologie d'opération retrouvable par l'examinateur habilité : tentative(s) fournisseur, outil(s), sources/version, erreurs, durée/usage et estimation explicitement séparée.
+5. Comparaison ChatGPT–Nora indépendante sur contexte équivalent, fact-check distinct, verdict motivé — **pas d'équivalence automatique**.
+
+**Contre-épreuves :** question simple sans surinvestigation ; source D4 refusée et absence expliquée ; session valide avec DB indisponible (pas faux SESSION_INVALID) ; fallback streaming et deuxième appel ; limite de tours ; logs anonymisés ; exporteur inactif ; ACK D4 perdu/réconcilié ; CI Next qui SKIP une validation in-scope → gate FAIL.
+
+**Fiche de preuve :** scénario, entrée, contexte, SHA/build/lane et droits, modules et références D4, IDs d'opération/génération/tentative/trace si disponibles, événements réellement collectés, statut de sortie, coût/latence mesurés ou indisponibles, corpus/comparaison, niveaux DETERMINISTIC/DB/BROWSER/LIVE, réserves, verdict. La mission peut réussir fonctionnellement avec un diagnostic insuffisant : **ces verdicts restent séparés**.
+
+### 10.3. Gate d'entrée et reports
+
+**Exigé avant entrée RECETTE de la capacité étendue :** mécanismes cognitifs et diagnostics minimaux implémentés et testés, lecture D4 LIVE effectivement démontrée, erreurs et accès respectés, non-régression C1–C6, contrôle de confidentialité, consultation réelle des traces au candidat et CI Next applicable exécutée. **La qualité finale de Nora sera justement examinée lors de la RECETTE Morris** ; elle n'est pas présumée parfaite à l'entrée.
+
+**À ne pas bloquer ML2 sans besoin démontré :** routage multi-modèle/Astra, classification IA systématique, dashboard et alerting industriels, journaux D5–D9 non implémentés, autonomie Web/Git/Cursor et scénarios OBS-Q11/12 hors périmètre. Reporter avec propriétaire/risque/exit et réexamen.
+
+**Propriétaire du verdict :** le rapport technique et cognitif instruit ; ChatGPT challenge avec contre-réponse indépendante ; Morris arbitre les réserves, l'acceptation et la suite. **Contenu de stratégie approuvé ≠ RECETTE ni GO Cursor ni PR readiness/merge.**
+
+## 11. Oracles de l'architecture D3 ↔ D4 — entrée technique étape 1 (2026-11-05)
+
+> **ARCHITECTURE ACCEPTÉE EN VISION PAR MORRIS / QA CANDIDATE NON EXÉCUTÉE.** Rattachement au [ML2 §18](specification-technique.md), [R5 §18](../reference-delivery-r5.md), [R4 §14](../../architecture-technique/cadrage-r4.md) et aux cas existants COG-01..07 (§3) / OBS-Q01..10 (§9–10). Ce tableau détaille les oracles sans créer une campagne concurrente ni modifier les preuves historiques C1–C6.
+
+| Scénario d'acceptation D3↔D4 | Source / invariant | Résultat discriminant | Niveau cible / statut |
+| --- | --- | --- | --- |
+| **D3D4-Q01 — Simple** | D3 RG-CONV-007/008, PF-36 ; COG-01 | Réponse utile sans second classificateur ni lecture D4 injustifiée ; configuration effectivement appliquée | DETERMINISTIC + LIVE — NOT RUN |
+| **D3D4-Q02 — Investigation réelle** | D3 PF-37 ; D4 PF-KNOW-15 ; COG-02/03 | Consultation D4 complémentaire lancée **pendant** le run SDK, résultat effectivement retourné, version et passage réellement lus | PG/INTEGRATION + LIVE — NOT RUN |
+| **D3D4-Q03 — Autorisation renouvelée** | D4 RG-KNOW-021/022, PF-KNOW-16 ; OBS-Q03 | Changement de droits, session ou accès interprojet refuse toute divulgation ; pas de citation d'une lecture refusée | PG/INTEGRATION + LIVE ciblé — NOT RUN |
+| **D3D4-Q04 — Contradiction/fraîcheur** | D3 PF-38 ; D4 PF-KNOW-16 ; COG-03 | Réévaluation bornée quand une source contredit l'autre ; version utilisée, manque et incomplétude explicites | DETERMINISTIC + PG + LIVE — NOT RUN |
+| **D3D4-Q05 — Budget/STOP** | D3 PF-39 ; COG-06 ; OBS-Q06 | Limites de tours/appels/temps appliquées ; partiel/UNKNOWN honnête, STOP demandé ≠ confirmé | DETERMINISTIC + LIVE — NOT RUN |
+| **D3D4-Q06 — Tentative ≠ génération** | D3 PF-42 ; OBS-Q04 | Streaming échoué puis second run éventuel = appels effectivement envoyés identifiables, coût connu ou indisponible, pas de succès fictif | DETERMINISTIC + LIVE — NOT RUN |
+| **D3D4-Q07 — Lecture ≠ sauvegarde** | D4 PF-KNOW-17/19 ; COG-04 ; OBS-Q05 ; correctifs C1–C6 | Aucun document AVAILABLE sans écriture confirmée ; concurrence, révision stale, retry ACK perdu sans doublon | PG/INTEGRATION + BROWSER, LIVE si concerné — NOT RUN |
+| **D3D4-Q08 — Continuité** | Fil unique, D4 sélectif ; COG-05 ; ML1/ML2 | Après nouvelle session, même fil et ressources autorisées retrouvées, sans recherche intégrale ou mémoire SDK fictive | PG + BROWSER + LIVE — NOT RUN |
+| **D3D4-Q09 — Source adversariale** | D3/D4 frontière source ≠ instruction ; COG-06 | Contenu D4 hostile n'élargit ni outils, ni permissions, ni rôle ; réponse distingue donnée et instruction | DETERMINISTIC + LIVE ciblé — NOT RUN |
+
+**Exécution et attribution :** utiliser les mêmes données, droits et versions horodatés dans les scénarios COG/OBS du macro-lot. Pour chaque cas : SHA/lane/build, contexte/source/version, politique modèle/effort réellement appliquée, budget, identifiants génération/tentative et lectures effectivement retournées, état de la DB et de la réponse, mesures disponibles, limites, verdict et responsable. Absence de trace = absence de preuve, pas résultat négatif supposé. La valeur cognitive se juge indépendamment des traces.
+
+**Non-régression obligatoire :** C1–C6, provenance D4, unicité du fil, création/révision idempotente, absence de HumanDecision ou d'effet externe implicite ; CI Next sur la révision **effectivement exécutée** et non déduite d'un ancien SHA. OBS-Q01..10 et diagnostic exploitable restent à consolider lors de l'étape 2 ; une interface proposée ou un test écrit sans exécution ne reçoit jamais PASS.
+
+**Gates :** cette matrice est une spécification d'acceptation **DOCUMENTED / NOT RUN** ; elle ne constitue ni validation des signatures SDK, ni preuve de capacité LIVE, ni GO D3 Cursor, ni entrée en RECETTE. Le verdict de l'étape 1 reste **DESIGN CANDIDATE** jusqu'à qualification des compatibilités et arbitrages techniques résiduels.
+
+## 12. Précisions de preuve OBS au chemin intégré ML2 (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+Ce tableau **précise** les oracles OBS-Q01..10 déjà recensés (§§9–10), sans renuméroter ni créer une seconde campagne. Tous sont **NOT RUN** pour la nouvelle construction.
+
+| Oracle existant | Variante de preuve concrète | Niveau et source de vérité |
+| --- | --- | --- |
+| OBS-Q01 | OAuth refusé, callback/provisionnement/DB différenciés, session DEV jamais présentée comme OAuth LIVE | INTEGRATION + LIVE ciblé, D1/Better Auth |
+| OBS-Q02 | Débrancher DB sur route messages ou documents avec session valide ; jamais faux 401, retour HTTP sûr et diagnostic disponible | HTTP/INTEGRATION, catégorie API et dépendance DB |
+| OBS-Q03 | Lecture D4 interprojet/révoquée pendant mission ; pas d'extrait ou titre interdit en trace/réponse | PG/INTEGRATION, D4 owner/current permissions |
+| OBS-Q04 | Streaming échoué, fallback réel : une génération, deux tentatives si envoyées, chacune datée/mesurée | DETERMINISTIC + LIVE, adaptateur D3/SDK ; mesure indisponible déclarée |
+| OBS-Q05 | Création ou révision D4 confirmée puis ACK perdu : même commande réconciliée, pas deux révisions | PG + BROWSER, D4 C1–C6 et correlationKey |
+| OBS-Q06 | Limite, timeout, STOP demandé/non confirmé ; résultat cognitif et état technique distincts | DETERMINISTIC + LIVE, D3 et source des événements |
+| OBS-Q07 | Export/collecte arrêté ou trace SDK absente ; diagnostic incomplet affiché, effet D4 inchangé | INTEGRATION + consultation par ID et lacune observée |
+| OBS-Q08 | Délais API/DB mesurés aux bons composants, sans SQL/valeurs personnelles | INTEGRATION, métrologie réelle (pas seuil inventé) |
+| OBS-Q09 | Erreur contenant token synthétique ; aucune fuite UI, journal/trace/export, review/handoff | DETERMINISTIC + INTEGRATION, inspection expurgée |
+| OBS-Q10 | Deux builds/lanes ; ID de diagnostic correspond au **build réellement servi**, encore interrogeable après redémarrage | INTEGRATION + BROWSER et collecte par lane |
+
+**Scénario intégrateur recommandé :** comparer deux documents D4 contradictoires ; Nora effectue une lecture complémentaire pendant run ; enregistrer la configuration appliquée, les tentatives réellement émises, la lecture reçue, les versions, la réponse/limite et le coût connu ; consulter la chronologie après redémarrage ; vérifier la vérité D4 indépendamment ; puis comparer Nora et ChatGPT sur même corpus selon R5 §14. Vérifier aussi secret synthétique, DB indisponible, refus D4 et exporter absent. Un avis ChatGPT n'est pas une preuve runtime.
+
+**Gates :** absence de données observées = `NOT OBSERVED` / `NOT RUN` ; aucune suppression des réserves ML1, aucune réécriture des As-Built ML2. OBS-Q11 et OBS-Q12 restent hors périmètre jusqu'à D9/D7. Le protocole appartient à la matrice ML2 existante, pas à un nouveau référentiel.
+
+## 13. Matrice intégratrice de qualification technique D3/D4/OBS (2026-11-05)
+
+> **QA CANDIDATE / NOT RUN — D0 CONSOLIDATION AFTER MORRIS GO.** Complète les cas ML2 existants et regroupe leurs preuves, sans créer une seconde campagne, un verdict fictif ou un nouveau référentiel. Propriétaire du résultat : [ML2 §20](specification-technique.md) ; livraison : [R5 §20](../reference-delivery-r5.md).
+
+| Contrat / cas existants | Oracle vérifiable, y compris négatifs | Niveau requis / verdict présent |
+| --- | --- | --- |
+| **Qualification et modèle** — COG-01/02 ; D3D4-Q01 | Simple sans second LLM/outil inutile, complexe avec policy/model/effort réels ; rejet explicite d'une configuration incompatible, aucun fallback caché | DETERMINISTIC + LIVE / NOT RUN |
+| **Boucle SDK outillée** — COG-02/03/06 ; D3D4-Q02 | Outil D4 déclenché pendant un run multi-tours et réponse utilisant l'extrait réellement reçu ; test `maxTurns`, signal, timeout | UNIT + PG/INTEGRATION + LIVE / NOT RUN |
+| **Contrôle D4 courant** — COG-03/05/06 ; D3D4-Q03/04 ; OBS-Q03 | Deux pilotes/deux projets, révocation entre deux lectures, source périmée/partielle/interdite, pas de reprise par cache ni citation inventée | PG/INTEGRATION + LIVE ciblé / NOT RUN |
+| **Convergence/stream/retry** — COG-06/07 ; D3D4-Q05/06 ; OBS-Q04/06 | Fragments provisoires, stream défaillant, deuxième appel attribué si envoyé, stop demandé vs confirmé, budget/timeout, réponse limitée/UNKNOWN honnête | DETERMINISTIC + LIVE / NOT RUN |
+| **Tour conversation et écritures** — COG-04/05 ; D3D4-Q07/08 ; OBS-Q05 ; C1–C6 | Double POST/retry après réponse perdue, ordre/ordinal, génération unique selon contrat, version stale, ACK D4 perdu et réconciliation, aucune double écriture ni sauvegarde fictive | PG CONCURRENCY + HTTP + BROWSER ; LIVE selon effet / NOT RUN FOR EXTENSION |
+| **Auth/API/DB fidèle** — OBS-Q01/02/08 | OAuth/session invalide ≠ panne DB, 401/403/404/409/500/503 justifiés, lenteur et erreur attribuables sans contenu sensible | INTEGRATION/HTTP + LIVE OAuth ciblé / KNOWN GAP NOT RUN |
+| **Diagnostic et sécurité** — OBS-Q04/07/09/10 | `operation_id` retrouvable après redémarrage, génération/tentatives/lectures/effet distincts, exporteur absent visible, secret synthétique absent de chaque sink et UI, SHA/build/lane réels | INTEGRATION + BROWSER + LIVE Nora / NOT RUN |
+| **Qualité indépendante** — COG-01..07 ; R5 §14 | Contexte comparable daté, fact-check indépendant, limites d'accès déclarées, critères de valeur et verdict Morris ; tracing correct ≠ qualité cognitive | LIVE + revue / NOT RUN |
+| **CI/ENV-01** — C1–C6 ; OBS-Q10 | CI Next exécutée au **nouveau** HEAD in-scope, migrations DB selon blast radius, isolation DEV/RECETTE, fixture distinguée LIVE, build SHA effectivement servi | CI/PG/BROWSER + LIVE/RECETTE selon lane / NOT RUN |
+
+**Scénario intégrateur unique :** sur un même projet et fil, comparer deux révisions documentaires contradictoires, provoquer une recherche D4 réellement déclenchée par Nora, confronter versions et droits, produire une réponse utile ou limitée, retrouver une chronologie sécurisée après redémarrage, puis enchaîner une demande de document explicitement sauvegardé et sa révision sans doublon. Rejouer avec source interdite, deux tentatives fournisseur, DB indisponible, ACK perdu, secret synthétique et exporteur absent. DETERMINISTIC/PG/BROWSER/SDK LIVE sont étiquetés séparément. Un test `maxTurns > 1` sans tool D4 réel ne passe pas.
+
+**Bloc de preuve minimal :** scénario/données/corpus daté, politique modèle+effort effectivement appliquée, `operation_id`, `request_id`, `generation_id`, `attempt_id` réels, événements et lacunes, `resource_ref/source_version` effectivement lus, état transactionnel propriétaire, SHA/build/lane, durée/usage mesurés ou indisponibles, vue diagnostique expurgée, comparaison cognitive indépendante, réserves et verdict. Aucune trace technique ne devient une décision D6 ni une preuve D8.
+
+**Réserves et STOP :** les interfaces/limites doivent être qualifiées avant GO Cursor ; les valeurs de budgets et la sélection fournisseur ne sont pas encore ratifiées ; la CI du SHA `08b89360` ne couvre pas la nouvelle extension. Un changement normatif d'autorité/persistance/ADR et une nouvelle destination externe sensible réclament une décision Morris spécifique. **STATUT : DOCUMENTED CANDIDATE / ZERO NEW TEST RUN / NO RECETTE.**
+
+## 14. Validation des cinq orientations et calibration obligatoire — compléments aux cas COG/OBS (2026-11-05)
+
+> **MORRIS DESIGN DIRECTION VALIDATED / ACCEPTANCE ORACLES CANDIDATE — NOT RUN.** Les cinq choix sont instruits ensemble dans [ML2 §21](specification-technique.md) ; ces oracles **complètent** COG-01..07, OBS-Q01..10 et C1–C6, sans nouvelle campagne autonome.
+
+| Contrôle commun | Oracle et contre-épreuve | Niveau de preuve / état |
+| --- | --- | --- |
+| **Q1 — modèle/effort** | `gpt-6.1-sol` effectivement accepté en LIVE et `low/medium/high` appliqués selon profil ; model/effort demandé ≠ appliqué si refus ; aucune substitution silencieuse | DETERMINISTIC + LIVE ; NOT RUN |
+| **Q2 — bornes artificielles de tests** | Profils 30/120/180 s, 0/32k/64k D4 et compteurs d'appels/outils provoquent des limites contrôlées, sorties limitées/UNKNOWN honnêtes ; pas d'effet D4 dupliqué | DETERMINISTIC + INTEGRATION ; NOT RUN |
+| **Q2 — usage réaliste long** | Missions représentatives **5–10 minutes ou davantage** et lectures D4 **sensiblement au-delà de 32k caractères** ; pagination, provenance, qualité/réponse utile, latence, coût et consommation réels ; pas de coupure induite par le stress TEST | LIVE ciblé + BROWSER + revue qualité ; NOT RUN |
+| **Q2 — recalibrage avant usage approfondi** | Comparaison mesures court/long : temps, volumes, saturation, coûts/tokens, fatigue UX, limites et sources ; politique opérationnelle ajustée, versionnée et approuvée par Morris, **sans reprendre les valeurs TEST par défaut** | Revue de preuve + gate Morris ; NOT RUN |
+| **Q3 — idempotence tour** | Même clé/empreinte → une commande/génération/écriture ; payload divergent → conflit ; deux POST, ordinal unique, fournisseur envoyé puis ACK perdu → UNKNOWN sans replay | PG/HTTP/BROWSER + C1–C6 ; NOT RUN |
+| **Q4 — diagnostic** | Logs JSON durables par lane, lookup `operation_id` après redémarrage, permissions/isolation, secret synthétique absent ; logs auxiliaires ≠ vérité D4 | INTEGRATION + BROWSER + OBS-Q01..10 ; NOT RUN |
+| **Q5 — Git/CI** | Branche intégratrice au SHA vérifié, PR vers `main` seulement sous GO, Next Required Gate réellement exécutée au nouveau SHA, anciennes PR sans mutation non autorisée | Git/CI remote + ENV-01 ; NOT RUN |
+
+**Deux corpus dans une même qualification ML2 :** (A) **stress contrôlé** : petites limites choisies pour provoquer timeout, saturations et STOP ; (B) **missions réalistes** : contextes D4 riches, enquêtes longues, droits/version/contradictions, consommation et qualité. Un PASS de corpus A seul **ne valide pas** la capacité réelle d'investigation de Nora. Inversement, relever les plafonds opérationnels ne doit pas effacer les tests A. Les seuils de production restent **TBD après mesures**, jamais `ADOPTED` sur la base de ce document.
+
+**Fiche de preuve :** configuration profil/policy_version, limites `TEST` ou `OPERATIONAL`, corpus/datation, taille des passages réellement retournés, appels modèle/outils, wall-clock, annulation, usage/cout mesuré ou indisponible, source/version/provenance, état SQL D4, chronologie expurgée, SHA/build/lane, tests COG/OBS, jugement de valeur Morris et réserves. Les tests LIVE sont distincts de la CI BROWSER FAKE. **Aucun nouveau test n'est réalisé par cette publication documentaire.**
+
+## 15. As-Built preuves locales cognition/OBS — 2026-11-05
+
+> Complément — ne remplace pas les statuts historiques. Branche locale `sfia/next-ml2-cognition-observability-integrated`.
+
+| Famille | État local | Notes |
+| --- | --- | --- |
+| Politique TEST≠OPERATIONAL | DETERMINISTIC PROVEN | unit `cognitive-policy.test.ts` |
+| Tool D4 pendant run (fixture) | DETERMINISTIC + PG PROVEN | fixture + `ml2-turn-command.pg.test.ts` toolCalls≥1 |
+| Idempotence tour | PG PROVEN | même clé replay ; payload mismatch 409 |
+| OBS sink + query + redaction | DETERMINISTIC PROVEN | unit observability ; PG query by operation_id |
+| HTTP DB≠401 | DETERMINISTIC PROVEN | unit http-errors |
+| C1–C6 / Playwright ML1–ML2 | BROWSER FAKE PROVEN (régression) | 3/3 PASS |
+| LIVE modèle/effort | NOT RUN | pas de GO LIVE |
+| Corpus B long | NOT RUN | OPERATIONAL TBD |
+| CI nouveau SHA | OPEN GATE | pas de push projet |
+
+## 16. As-Built correctif Critical — 2026-11-05
+
+> Complément post-revue handoff `865c731d`. Branche locale inchangée.
+
+| Oracle | État local | Preuve |
+| --- | --- | --- |
+| FIX-TURN-01 concurrence même clé | PG PROVEN | `ml2-critical-corrective.pg.test.ts` |
+| FIX-TURN-02 stale RUNNING → UNKNOWN | PG PROVEN | reconcile + reprise fil |
+| FIX-TURN-03 replay UNKNOWN sans COMPLETE inventé | PG PROVEN | idem |
+| FIX-D4-01 SAVING/UNKNOWN non AVAILABLE | PG PROVEN | read tool + getDocumentRevision |
+| FIX-D4-02 cross-pilot deny | PG PROVEN | pilot B denied |
+| FIX-SDK-01 pas de 2ᵉ run uncertain | UNIT PROVEN | mock Runner 1 appel |
+| FIX-SDK-02 erreurs catégorisées | UNIT PROVEN | categorizeProviderError |
+| FIX-BUD-01 fail-closed hors DEV | UNIT PROVEN | cognitive-policy |
+| FIX-D4-03 search >40 | PG PROVEN | 45 acquis + marker |
+| FIX-D4-04 chars envelope | PG PROVEN | budget décroît |
+| FIX-OBS-01/02 allowlist, RO query, purge, lanes | UNIT PROVEN | observability.test.ts |
+| C1–C6 régression | PG+BROWSER FAKE PROVEN | suites existantes PASS |
+| LIVE / CI / RECETTE | NOT RUN | hors mandat |
+
+## 17. As-Built three-blocker — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| TURN-RACE-01 | PG PROVEN | ownership lost → UNKNOWN, no D4 |
+| TURN-RACE-02 | PG PROVEN | fence in document TX |
+| TURN-RACE-03 | PG PROVEN | concurrence clés / mismatch |
+| TURN-RACE-04 | PG PROVEN | lease heartbeat / stale |
+| D4-PAGE-01/02 | PG PROVEN | 620+ acquis, offsets >500 terminent |
+| D4-PAGE-04 | PG PROVEN | budget chars |
+| SDK-RETRY-01 | UNIT PROVEN | single run() on late errors |
+| C1–C6 régression | PG+BROWSER FAKE | suites existantes PASS |
+| LIVE / CI / RECETTE | NOT RUN | hors mandat |
+
+## 18. As-Built turn integrity — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| TURN-ATOMIC-01 | PG PROVEN | revoke pre-terminal → 0 assistant, UNKNOWN |
+| TURN-ATOMIC-02 | PG PROVEN | CAS miss after INSERT → TX rollback |
+| TURN-ATOMIC-03 | PG PROVEN | COMPLETE + same-key replay |
+| TURN-LEASE-01 | PG PROVEN | active lease vs stale reconcile |
+| CAP-FENCE-01 | PG PROVEN | ensureSubject fence |
+| CAP-FENCE-02 | PG PROVEN | capitalizeAcquis fence |
+| CAP-FENCE-03 | PG PROVEN | openPoint fence |
+| CAP-FENCE-04 | PG PROVEN | acquis kept after revoke ; non-COMPLETE |
+| CAP-FENCE-05 | PG PROVEN | pilot path sans fence |
+| D4-PAGE-03 | PG PROVEN | delete between pages → STALE terminal |
+| SAFE-01 | PARTIAL | rollback CAS miss ; pas d'injection panne DB dédiée |
+| REG-01 | PROVEN | unit 52 / PG 78 / e2e 3 / tsc+build |
+| LIVE / CI / RECETTE | NOT RUN | hors mandat |
+
+## 19. As-Built consolidation pré-merge PR #659 — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| UNKNOWN-CAP-01 | PG PROVEN | CAP-FENCE-04 : acquis CURRENT + refs dans payload UNKNOWN |
+| UNKNOWN-CAP-02 | PG PROVEN | replay même `clientTurnKey` reconstitue mêmes refs |
+| UNKNOWN-CAP-03 | PG PROVEN | pilote étranger ⇒ 0 ref |
+| UNKNOWN-CAP-04 | PG PROVEN | document versionné DB_CONFIRMED ; sujet sans gen non attribué |
+| ASSIST-REUSE-01 | PG PROVEN | `generationId` divergent ⇒ CONFLICT |
+| ASSIST-REUSE-02 | PG PROVEN | même gen / ACK perdu ⇒ idempotent |
+| ASSIST-REUSE-03 | PG PROVEN | reconcile ne lie pas gen mismatch / missing |
+| PG-CONTEND-01 | PG PROVEN | FOR SHARE session A bloque reconcile B |
+| PG-CONTEND-02 | PG PROVEN | FOR UPDATE terminal A bloque reconcile B |
+| PG-DBFAIL-01 | PG PROVEN | exception post-INSERT ⇒ rollback assistant, non-COMPLETE |
+| PG-DBFAIL-02 | PG PROVEN | cap TX ownership lost ⇒ 0 acquis publié |
+| PG-LEASE-01 | PG PROVEN | lease actif ⇒ pas de faux orphelin |
+| PG-ISOLATE-01 | PG PROVEN | pilote étranger + coupe connexion indépendante |
+| SAFE-01 (synthèse) | PG PROVEN (DEV) | deux sessions physiques ; runtime multi-process LIVE **NOT RUN** |
+| CI-LABELS | PROVEN local | workflow + migrations-fresh 001→006 |
+| REG-01 | PROVEN | unit 52 / PG 89 / e2e 3 / tsc+lint+build |
+| LIVE / RECETTE / merge | NOT RUN | hors mandat ; gate Morris |
+
+## 20. As-Built qualification intégrée pré-RECETTE — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| ASSIST-REUSE-01 | PG PROVEN | gen divergent → CONFLICT |
+| ASSIST-REUSE-02 | PG PROVEN | ACK perdu idempotent |
+| ASSIST-REUSE-03 | PG PROVEN | reconcile sans gen match → non-liaison |
+| ASSIST-REUSE-04 | PG PROVEN | gen manquante message + sameId → CONFLICT |
+| ASSIST-REUSE-05 | PG PROVEN | alreadyBound sans dual gen → CONFLICT |
+| UNKNOWN-CAP-01..04 | PG PROVEN | restitution DB + droits ; sujets non attribués |
+| UNKNOWN-CAP-05 | PG PROVEN | pas d'attribution croisée via sourceId OR |
+| PG-CONTEND-01 | PG PROVEN | FOR SHARE bloque ; après release **RUNNING** strict |
+| PG-CONTEND-02 | PG PROVEN | FOR UPDATE bloque ; await B → RUNNING ; ownership intact |
+| PG-DBFAIL-01 | PG PROVEN | exception applicative post-INSERT → rollback |
+| PG-DBFAIL-02 | PG PROVEN | fence ownership (≠ disconnect) |
+| PG-DBFAIL-03 | PG PROVEN | abort **client** mid-TX (TEMP) ; pas terminate_backend DEV |
+| PG-LEASE-01 / PG-ISOLATE-01 | PG PROVEN | lease + isolation pilote |
+| SAFE-01 multi-process LIVE | NOT RUN | hors mandat |
+| REAL DB DISCONNECT (server kill) | NOT PROVEN — TOOLING GAP | interdit sur DEV partagé ; abort client distinct |
+| COG-01..07 / OBS-Q01..10 DET/FAKE | PROVEN (suites existantes) | LIVE cases **NOT RUN** |
+| LIVE protocol | PREPARED | spec §27.2 — **NOT EXECUTED** |
+| RECETTE manifeste | PREPARED NOT DEPLOYED | spec §27.3 |
+| LIVE / RECETTE / merge / ADOPTED | NOT RUN | gates Morris |
+
+## 21. As-Built LIVE borné + RECETTE conditionnelle — 2026-11-05
+
+| Oracle | État | Preuve |
+| --- | --- | --- |
+| COG-simple LIVE | REAL BOUNDARY PROVEN | COMPLETE + provider YES (`op_63d565b6`) |
+| COG-complex + D4 read | REAL BOUNDARY PROVEN | COMPLETE + 4 tool_calls search/read |
+| COG missing/forbidden doc | REAL BOUNDARY PARTIAL | COMPLETE live ; contenu réponse à valider en UI Morris |
+| OBS provider_attempt / turn.completed | PROVEN (DEV OBS) | events lane=DEV source_sha=01ae25e1 |
+| Cookie lane isolation | DETERMINISTIC PROVEN | `sfia_studio_session__${LANE}` |
+| SAFE-01 ephemeral persistent abort | PG PROVEN | container `sfia-safe01-ephemeral:55432` |
+| ChatGPT↔Nora comparatif | NOT RUN | hors accès |
+| OAuth GitHub REAL | NOT RUN | |
+| RECETTE Morris acceptation | NOT RUN | mise à disposition technique seulement |
+| merge / STABLE / ADOPTED | NOT RUN | |

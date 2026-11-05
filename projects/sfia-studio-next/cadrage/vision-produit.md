@@ -60,6 +60,13 @@ L'initiative de Nora commence par une **intention exprimée par le Pilote**. Ell
 
 **Frontière fondamentale :** proactivité cognitive et opérationnelle dans un mandat valide ≠ autonomie pour décider à la place du Pilote, élargir les permissions ou engager des modifications protégées.
 
+
+**Complément de vision — contenu validé par Morris le 2026-11-05 ; mécanismes techniques à qualifier.** L'exigence du §2.2 d'avancer jusqu'au résultat utile inclut la capacité de Nora à dimensionner proportionnellement sa démarche, poursuivre plusieurs consultations et analyses autorisées lorsque la première réponse ne suffit pas, confronter les sources puis conclure, ou déclarer précisément ce qui reste incomplet. Une tâche simple ne justifie ni enquête ni classification IA superflue. Les moyens sont choisis selon l'objectif, les sources et droits effectifs, le risque et les prescriptions du Pilote : aucun outil, modèle ou appel supplémentaire n'est nécessaire par principe.
+
+**Observabilité au service de la qualité — intention candidate.** Studio doit permettre aux personnes habilitées de reconstruire le parcours réellement observable d'une mission cognitive : qualification, configuration appliquée, opérations, ressources et versions consultées, erreurs/reprises, latence et consommation disponibles, ainsi que limites de la conclusion. Ces traces ne dévoilent pas la chaîne de pensée interne du modèle, ne deviennent pas des décisions D6 ou preuves D8 et ne remplacent pas l'évaluation indépendante de la pertinence de la réponse. L'expérience du Pilote reste sobre ; le diagnostic technique détaillé n'est pas un nouvel écran utilisateur imposé.
+
+**Portée et suite :** cette précision est VALIDATED IN CONTENT BY MORRIS (2026-11-05), distincte des principes R1 déjà validés ; sa déclinaison candidate appartient à R2 D3/D4, R3 activité, R4 interfaces et R5/ML2 QA. L'expérience ChatGPT GPT-6 avec réflexion « Élevé » est une référence de valeur observée par Morris, non une équivalence technique garantie avec un modèle API, un effort ou un raisonnement interne.
+
 ### 2.3. Liberté stratégique et respect des prescriptions — orientation validée
 
 Le Pilote peut imposer un résultat, un périmètre, des contraintes de méthode, un ordre ou une succession précise d'étapes. **Nora respecte toutes les exigences explicitement prescrites**, y compris lorsque le résultat demandé est lui-même une séquence rigide d'étapes.
@@ -1140,3 +1147,18 @@ Nora rend visibles les **faits d'activité et leurs limites**, non son raisonnem
 - **OUT :** aucun nouveau moteur d'état/autorisation, aucun enregistrement ou interface API imposés, aucune surveillance continue du raisonnement, aucune progression en pourcentage inventée, aucun rollback implicite, aucune reprise technique automatique garantie et aucun statut LIVE/REAL revendiqué.
 
 **Statut : clarification de vision R1 VALIDATED CONTENT (Morris), sur branche candidate ; mise en œuvre et preuves renvoyées à R4–R6.**
+
+## 10. Complément de vision — observabilité transverse du produit (orientation Morris du 2026-11-05)
+
+**VALIDATED PRODUCT INTENT BY MORRIS — documentation candidate ; choix techniques et couverture runtime ouverts.** La visibilité cognitive Nora prévue aux §§2.2, 2.32 et 9 est un cas particulier d'un besoin de **diagnostic global de SFIA Studio Next**. Le Pilote et les acteurs habilités doivent pouvoir comprendre les résultats, limites et dysfonctionnements des parcours d'authentification, API, données, projet, connaissance, cognition et, lorsqu'ils seront livrés, de la gouvernance, des actions externes, des preuves et des intégrations Git.
+
+**Résultat recherché :** pour une opération critique, retrouver sa version et son environnement, les étapes observées, erreurs/refus, ressources réellement consultées, tentatives, effets confirmés ou inconnus, mesures de temps/consommation et informations manquantes ; expliquer une cause probable et permettre de corriger ou de simplifier le parcours. La couverture est éprouvée par des incidents représentatifs, sans promesse irréaliste d'exhaustivité après crash ou silence fournisseur.
+
+**Trois frontières essentielles :**
+1. **Diagnostic technique ≠ vérité métier.** Les journaux et traces ne remplacent ni le document conservé (D4), ni la HumanDecision (D6), ni une réalisation gouvernée (D7), ni la preuve et son verdict (D8), ni les faits Git (D9).
+2. **Observation mesurée ≠ pensée interne.** Le chemin visible de Nora et ses opérations sont analysables ; son raisonnement caché ne l'est pas. R5 §14 conserve la comparaison qualitative indépendante.
+3. **Visibilité Pilote ≠ console technique.** Les surfaces existantes rendent uniquement les états pertinents effectivement observés ; les données détaillées d'exploitation sont consultées sous habilitation, sans répliquer les contenus confidentiels.
+
+**Direction de construction :** réutiliser les outils natifs des composants avant tout mécanisme spécifique ; corréler les frontières, limiter la collecte au diagnostic utile, isoler les environnements et respecter DATA-01. Aucune stack d'observabilité ni écran produit supplémentaire n'est adopté à ce stade.
+
+**Transposition :** [R2 index transverse](../conception-fonctionnelle/README.md) et règles propriétaires D1–D9 ; R3 états UX ; [R4 contrat canonique](../architecture-technique/contrat-observabilite-transverse.md) ; R5 QA et matrice ML2. **Gates :** intégration avant RECETTE ML2 ou report avec dette à arbitrer ; aucune modification SEF/ADR ni adoption induite.

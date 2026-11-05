@@ -299,3 +299,11 @@ Une **reprise technique** possible après incident n'est pas une **levée humain
 **R4 :** identifier l'autorité et la portée de la demande, les capacités disponibles, les statuts de l'exécution et les frontières entre décisions et tentatives. **R5–R6 :** éprouver les cas « arrêt demandé sans confirmation », « arrêt indisponible », « effets après STOP », « reprise technique sous suspension active » et « autre Pilote sans autorité » avec preuves séparées. Une maquette présentant « interrompu » ne remplace aucune de ces observations.
 
 **Statut : clarification fonctionnelle D6 validée sur branche candidate, sans nouvelle décision de clôture, PR, merge ni effet produit.**
+
+## 10. Interface de diagnostic transverse — décisions et autorité D6 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / INTERFACE CANDIDATE — capacité non implémentée dans ML2.** [Contrat technique transverse R4](../architecture-technique/contrat-observabilite-transverse.md). Le registre et les contrats HumanDecision/mandat/suspension restent exclusivement la vérité D6. Une trace ne peut ni créer, ni approuver, ni retirer une décision.
+
+**Contrat D6 :** les tentatives d'acte du Pilote peuvent être corrélées avec l'identité/scope/version du mandat et l'état réellement enregistré, avec distinction entre réception, validité vérifiée, refus, révocation, suspension ou incertitude. Les diagnostics détaillés sont réservés aux personnes habilitées ; aucune publication de données sensibles d'autorité par simple trace. Un échec de télémétrie n'étend ni n'annule une permission.
+
+**Négatifs à prévoir dans le lot D6 :** tentative de réutilisation d'une autorisation révoquée, demande STOP sans arrêt D7 attesté, acte hors portée, journal absent malgré décision persistée, événement technique dupliqué sans doublon D6. **Preuve :** état métier, tests d'autorité et événements corrélés ; aucun verdict d'acceptation ni nouveau gate déduit de la télémétrie.

@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { newId } from "@/lib/ids";
 import { cookies } from "next/headers";
 import { ensurePilotForAuthUser } from "@/domains/identity/provision-pilot";
+import { isDependencyFailure, StudioError } from "@/lib/http-errors";
 
 export type AuthMode = "github-oauth" | "dev-test-login" | "unknown";
 
@@ -16,13 +17,24 @@ export type StudioSession = {
   authMode: AuthMode;
 };
 
-const COOKIE = "sfia_studio_session";
+/**
+ * Lane-scoped session cookie name to avoid cross-lane collision on the same host
+ * (ENV-01 réserve A: 127.0.0.1:3100 vs :3200 share host-only cookies if names collide).
+ * Better Auth cookies remain separately configured via BETTER_AUTH_URL per lane.
+ */
+function studioSessionCookieName(): string {
+  const lane = (process.env.STUDIO_LANE ?? "UNKNOWN").trim().toUpperCase() || "UNKNOWN";
+  const safe = lane.replace(/[^A-Z0-9]+/g, "_").slice(0, 24);
+  return `sfia_studio_session__${safe}`;
+}
+
+const COOKIE = studioSessionCookieName();
 
 /**
  * Single Studio session resolver.
  * Authority order:
  * 1. Better Auth session cookie (GitHub OAuth) → Pilot via users.pilotId / provision
- * 2. DEV-only `sfia_studio_session` cookie (explicit test adapter, not OAuth proof)
+ * 2. DEV-only lane-scoped `sfia_studio_session__*` cookie (explicit test adapter, not OAuth proof)
  */
 export async function resolveStudioSession(): Promise<StudioSession | null> {
   const fromBetterAuth = await resolveBetterAuthStudioSession();
@@ -61,7 +73,16 @@ async function resolveBetterAuthStudioSession(): Promise<StudioSession | null> {
       sessionId: sessionRow.id,
       authMode: authMode === "dev-test-login" ? "dev-test-login" : "github-oauth",
     };
-  } catch {
+  } catch (e) {
+    // Dependency/DB failures must not be silently converted into "no session".
+    // Callers map DEPENDENCY_UNAVAILABLE → 503; true auth miss stays null → 401.
+    if (isDependencyFailure(e)) {
+      throw new StudioError("DEPENDENCY_UNAVAILABLE", "Dépendance session indisponible", {
+        httpStatus: 503,
+        exposeMessage: false,
+        cause: e,
+      });
+    }
     // Better Auth misconfig / missing secret must not crash every API — fall through to DEV adapter.
     return null;
   }
@@ -72,7 +93,10 @@ async function resolveBetterAuthStudioSession(): Promise<StudioSession | null> {
  * A cookie issued earlier must not remain valid once the lane leaves DEV or the adapter is disabled.
  */
 export function isDevAdapterConsumeAllowed(): boolean {
-  return process.env.STUDIO_LANE === "DEV" && process.env.STUDIO_DEV_TEST_LOGIN === "1";
+  if (process.env.STUDIO_DEV_TEST_LOGIN !== "1") return false;
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  // DEV construction + RECETTE Morris essai only — never STABLE/PROD.
+  return lane === "DEV" || lane === "RECETTE";
 }
 
 /**
@@ -194,8 +218,9 @@ function assertDevTestLoginAllowed(gate: DevLoginGateInput) {
   if (process.env.STUDIO_DEV_TEST_LOGIN !== "1") {
     throw new Error("DEV_TEST_LOGIN_DISABLED");
   }
-  // Fail-closed: DEV test login requires an explicit STUDIO_LANE=DEV (absent ≠ DEV).
-  if (process.env.STUDIO_LANE !== "DEV") {
+  // Fail-closed: explicit lane DEV or RECETTE only (absent ≠ DEV; STABLE/PROD forbidden).
+  const lane = (process.env.STUDIO_LANE ?? "").trim().toUpperCase();
+  if (lane !== "DEV" && lane !== "RECETTE") {
     throw new Error("DEV_TEST_LOGIN_LANE_FORBIDDEN");
   }
   // Host alone is forgeable. Next DEV may set x-forwarded-* to loopback — allow only if

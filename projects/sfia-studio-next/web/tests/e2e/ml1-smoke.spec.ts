@@ -28,17 +28,19 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   await page.getByPlaceholder("Résumé inspecté").fill("résumé test");
   await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
 
-  const doc = page.locator("textarea").nth(2);
+  await page.getByRole("button", { name: "Document", exact: true }).click();
+  const doc = page.locator("textarea").first();
   await doc.fill("# Document Playwright\ncontenu");
-  await page.getByRole("button", { name: "Sauvegarder le document" }).click();
-  await expect(page.getByText("AVAILABLE", { exact: false })).toBeVisible({ timeout: 10000 });
+  await page.getByTestId("doc-save").click();
+  await expect(page.getByTestId("surface-status")).toContainText(/AVAILABLE/i, { timeout: 10000 });
 
+  await page.getByRole("button", { name: "Travail" }).click();
   await page.getByRole("button", { name: "Créer le projet" }).click();
   await page.waitForURL("**/projects/**", { timeout: 15000 });
   const projectUrl = page.url();
   const projectId = projectUrl.split("/projects/")[1]?.split(/[?#]/)[0];
   expect(projectId).toBeTruthy();
-  await expect(page.getByText("marqueur", { exact: false })).toBeVisible();
+  await expect(page.getByText("Même fil", { exact: false })).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
 
   // Portfolio → open by projectId only (no preparationId query).
@@ -50,6 +52,7 @@ test("DEV fake login → sas → message Nora FAKE → document → create → p
   expect(page.url()).not.toContain("preparationId=");
   await expect(page.getByText("réouverture par projectId", { exact: false })).toBeVisible();
   await expect(page.getByText("Bonjour Nora depuis Playwright", { exact: true })).toBeVisible();
+  await page.getByRole("button", { name: "Documents" }).click();
   await expect(page.getByText("Document Playwright", { exact: false })).toBeVisible();
 
   await page.reload();

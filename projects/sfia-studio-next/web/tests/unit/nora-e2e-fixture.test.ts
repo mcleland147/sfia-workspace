@@ -85,10 +85,22 @@ describe("Nora E2E / lane fixture boundaries", () => {
     delete process.env.STUDIO_E2E;
     delete process.env.STUDIO_FORCE_NORA_FIXTURE;
     process.env.STUDIO_LANE = "RECETTE";
+    process.env.SFIA_COG_PROFILE_TYPE = "TEST_BOUNDARY";
     delete process.env.OPENAI_API_KEY;
     const result = await generateNoraReply({ userText: "no fake", contextSnippets: [] });
     expect(result.status).toBe("FAILED");
     expect(result.content).toMatch(/NORA_LIVE_KEY_REQUIRED/);
+    expect(result.content).not.toMatch(/fixture FAKE, not LIVE/);
+  });
+
+  it("RECETTE with absent cog profile type → FAILED fail-closed (no silent OPERATIONAL)", async () => {
+    delete process.env.STUDIO_E2E;
+    delete process.env.STUDIO_FORCE_NORA_FIXTURE;
+    delete process.env.SFIA_COG_PROFILE_TYPE;
+    process.env.STUDIO_LANE = "RECETTE";
+    const result = await generateNoraReply({ userText: "no silent op", contextSnippets: [] });
+    expect(result.status).toBe("FAILED");
+    expect(result.content).toMatch(/SFIA_COG_PROFILE_TYPE|fail-closed|COG_POLICY/i);
     expect(result.content).not.toMatch(/fixture FAKE, not LIVE/);
   });
 

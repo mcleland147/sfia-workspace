@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "obs:query": "tsx scripts/obs-query.ts"
   },
   "dependencies": {
     "@openai/agents": "^0.21.0",

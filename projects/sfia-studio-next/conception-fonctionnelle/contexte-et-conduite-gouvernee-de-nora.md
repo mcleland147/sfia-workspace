@@ -592,3 +592,52 @@ Après interruption ou changement de conversation, Nora récupère auprès des d
 **R4 :** définir les sources d'événements réellement disponibles et leur provenance, l'éventuelle persistance, le contrat de projection UI et le filtrage, sans créer un état concurrent D7/D6. **R5–R6 :** vérifier visuellement et en navigateur l'état en cours, les cas sans détail, les erreurs/outils indisponibles, l'animation réduite, l'interruption, la récupération après session et la fidélité des sources. Les maquettes [206–217](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) sont une **preuve de conception**, pas de comportement LIVE/REAL.
 
 **Statut : complément normatif de contenu validé sur branche candidate ; modèle API/implémentation/proof non adoptés.**
+
+## 14. Complément candidat post-R2 — qualification et conduite de mission cognitive (2026-11-05)
+
+> **Statut : VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; publication Git candidate, implémentation et promotion non autorisées.** Extension distincte des règles R2 déjà validées, sans modification rétroactive de leurs inventaires, décisions ou numérotations. Sources : R1 §§2.2/2.13 et E2E 03 ; D4 §10 candidat ; R3 §40 candidat ; R4 §11 candidat ; R5 §15 candidat. Aucun changement de périmètre ni contrat technique n'est adopté sans arbitrage Morris.
+
+### 14.1. Résultat, IN/OUT et responsabilités
+
+**Résultat Pilote :** Nora comprend la tâche simple ou complexe, qualifie le besoin d'investigation, utilise les outils et informations réellement autorisés, peut prolonger l'analyse sur plusieurs opérations, puis restitue un résultat assez étayé pour le risque ou une incomplétude honnête. Le Pilote n'a pas à choisir le modèle, l'effort de raisonnement ou le budget d'itérations ; il conserve le choix métier et les autorisations d'effet.
+
+**IN :** qualification cognitive proportionnée, investigation complémentaire, réévaluation bornée, convergence et état partiel honnêtes, diagnostic des opérations observées, évaluation indépendante. **OUT :** appels ou autonomie illimités, nouvelle autorité, outil externe fictif, surveillance de la chaîne de pensée brute, mémoire technique concurrente de D4, score universel de qualité ou démarche imposée à chaque message.
+
+**Propriétaires :** D3 conduit et qualifie ; D4 fournit et conserve la connaissance et ses versions ; D6 décide, D7 exécute les effets externes, D8 instruit les preuves, D9 contrôle les accès Git. Agents SDK et fournisseur exécutent des primitives cognitives sous ces frontières.
+
+### 14.2. Règles de gestion fonctionnelles candidates
+
+- **RG-CONV-007 — Qualification proportionnée.** Nora distingue demande simple, analyse exigeante et investigation à risque en fonction du résultat, de l'ambiguïté, des sources, des contradictions et de la criticité ; la longueur du message ou le cycle ne suffisent pas. Une qualification par un second appel IA n'est pas systématiquement nécessaire.
+- **RG-CONV-008 — Configuration cognitive gouvernée.** Studio peut sélectionner modèle, effort et limites compatibles avec le travail. La classification proposée par l'IA n'élargit jamais automatiquement le budget, les outils ou permissions autorisées. Aucun modèle précis n'est une exigence fonctionnelle R2.
+- **RG-CONV-009 — Travail multi-étapes borné.** Une mission exigeante peut comporter plusieurs consultations et itérations effectivement autorisées sans GO humain à chaque sous-étape. À chaque outil sont revérifiés le projet, les accès, les limites et les contraintes applicables.
+- **RG-CONV-010 — Réévaluation justifiée.** Une contradiction, un manque déterminant ou une nouvelle information peut entraîner un approfondissement ou changement borné de démarche ; pas de répétitions incontrôlées ni d'escalade de coût ou d'autorité silencieuse.
+- **RG-CONV-011 — Convergence et état réel.** Nora conclut quand les éléments suffisent à l'objectif et au risque. En cas de limite, erreur, interruption ou budget épuisé, elle restitue l'acquis, l'inconnu et la suite possible ; aucune réussite fictive.
+- **RG-CONV-012 — Diagnostic compréhensible.** Une personne habilitée peut analyser la configuration réellement appliquée, les appels, lectures, erreurs, reprises, mesures disponibles et références. Ce diagnostic distingue l'activité observée de l'appréciation qualitative, sans divulguer un raisonnement caché ni des données sensibles indues.
+- **RG-CTX-009 — Recherche supplémentaire D4.** Nora peut demander des ressources complémentaires au propriétaire D4, qui contrôle de nouveau l'accès, la version et la portée à chaque consultation, et expose les limites ou refus.
+- **RG-CTX-010 — Distinction des événements et sources.** Document consulté, passage effectivement reçu, référence citée et document sauvegardé sont des faits distincts. Une trace d'outil ne constitue ni acte D6 ni verdict D8.
+- **RG-CTX-011 — Trace non autorisante.** Un log SDK n'est ni un Acquis D4, ni une nouvelle mémoire durable de projet, ni une permission. Collecte, accès, durée de vie et effacement restent gouvernés.
+
+### 14.3. Parcours fonctionnels candidats et oracles
+
+- **PF-36 — Réponse simple.** À une demande directe, Nora répond sans enquête/classification inutiles. Vérifier proportionnalité, absence d'opérations superflues et configuration réellement appliquée.
+- **PF-37 — Investigation complexe.** Nora reçoit une comparaison de documents D4, consulte des éléments complémentaires sur le projet autorisé, confronte les versions et remet une synthèse sourcée. Vérifier chaque retour réel d'outil, couverture, droits et conclusion ; aucune lecture Git/Web prétendue sans capacité effective.
+- **PF-38 — Contradiction nouvelle.** Une source contredit une hypothèse initiale : Nora ajuste de façon bornée son investigation ou qualifie le blocage. Vérifier l'événement et l'absence de boucle ou d'extension de permission.
+- **PF-39 — Travail interrompu.** Après des consultations utiles, un timeout, STOP ou budget épuisé survient. Nora fournit un état partiel/UNKNOWN conforme aux événements ; pas de sauvegarde D4 ni d'effet D7 supposés.
+- **PF-40 — Diagnostic d'efficacité.** L'examinateur habilité retrouve la configuration, les étapes, lectures, éventuels doublons, latences, consommations et incidents. Une redondance observée peut être critiquée ; la cause interne demeure une hypothèse.
+- **PF-41 — Référence cognitive indépendante.** Réponses ChatGPT et Nora produites indépendamment sur une demande et des ressources déclarées sont confrontées à des faits vérifiés séparément. Différence stylistique ≠ défaut ; Morris juge la valeur, la réserve et la suite selon R5 §14.
+
+### 14.4. Acceptation et limites de preuve
+
+**Preuves candidates :** DETERMINISTIC sur la qualification et les bornes ; DB/INTEGRATION sur lectures D4, isolation et corrélations ; BROWSER sur l'activité visible ; LIVE sur l'exécution fournisseur, les éventuelles itérations et la qualité ; comparaison cognitive indépendante COG-01..07. Augmenter simplement la valeur maxTurns, sans outillage ni preuve d'investigation, ne prouve pas PF-37. Une configuration d'effort n'est dite effective que si la frontière SDK correspondante est vérifiée.
+
+**Risques et exits :** traces sensibles → minimisation/droits/rétention DATA-01 ; classification excessive → mesurer et supprimer les appels non utiles ; itérations incontrôlées → bornes/état partiel ; confusion traces/autorité → responsabilités existantes ; divergence ML2 en cours → décision Morris sur extension et recette. Ces règles et parcours ont reçu validation de contenu Morris ; leurs choix d'implémentation, affectation de macro-lot et preuves restent ouverts, sans GO Cursor, PR, merge ou ADOPTED.
+
+## 15. Complément fonctionnel — diagnostic transverse des missions Nora (2026-11-05)
+
+**Orientation d'observabilité transverse validée par Morris ; extension candidate à relier au §14 cognitif déjà approuvé.** D3 reste propriétaire de la conduite cognitive et des métadonnées de qualification, configuration, génération et tentative ; le SDK produit ses propres événements techniques. La source de diagnostic globale est le [contrat R4](../architecture-technique/contrat-observabilite-transverse.md), non un nouveau moteur cognitif ou une mémoire D4.
+
+- **RG-CONV-013 — Corrélation mission et requête.** Une mission Nora relie requête Studio, génération métier, tentatives fournisseur réelles, outils et sources D4 effectivement retournées ; la perte d'un stream ou un retry n'est pas masqué par un generationId unique.
+- **RG-CONV-014 — Diagnostic du paramétrage réellement appliqué.** Modèle, effort, limites et politique de qualification sont indiqués comme appliqués seulement si observés/vérifiés au point d'appel ; usage et coût estimé sont distingués, l'absence de données reste visible.
+- **RG-CONV-015 — Trace et qualité séparées.** Les étapes et erreurs observables servent à diagnostiquer inefficience et manque de couverture, non à déclarer automatiquement une réponse pertinente ; évaluation indépendante R5 §14 et sources factuelles conservées. Ne pas capturer le raisonnement interne caché ni les prompts complets par défaut.
+
+**Parcours candidats :** **PF-42** une requête produit deux tentatives OpenAI après échec streaming → une mission et deux appels identifiables, coût/erreur attribués ; **PF-43** outil D4 refuse une lecture → limite sincère, source non déclarée utilisée ; **PF-44** trace SDK ou export indisponible → diagnostic incomplet affiché comme tel, aucune reconstitution inventée. Les statuts visibles sont gouvernés par R3 §40 et R3 §41, pas par des pourcentages déduits du nombre de spans.

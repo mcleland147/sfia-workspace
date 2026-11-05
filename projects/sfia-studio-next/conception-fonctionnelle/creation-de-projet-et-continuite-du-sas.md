@@ -231,3 +231,13 @@ Les qualificatifs ci-dessus concernent **les textes examinés**, pas une compati
 **Frontière :** avant « Créer le projet », le document relève de la préparation du sas, non du patrimoine d'un projet inexistant ; le transfert durable ne suit qu'une création vérifiée (RG-CRE-008/010/017/020).
 
 **R4–R6 :** droits, portée, reprise, version et comportements à concevoir puis prouver ; `N/A — NON IMPLÉMENTÉ`.
+
+## 8. Complément fonctionnel — diagnostic des commandes de création et de continuité (2026-11-05)
+
+**Orientation observabilité transverse validée Morris ; extension fonctionnelle candidate.** D2 conserve la vérité de l'intention, de la commande de création, de l'idempotence et du projet effectivement créé. Les traces corrélées aident à comprendre le parcours mais ne forment pas une seconde commande. Référence : [contrat transverse](../architecture-technique/contrat-observabilite-transverse.md) et [vision R1 §10](../cadrage/vision-produit.md).
+
+- **RG-CRE-028 — Corrélation de la création.** Une même intention de création peut traverser plusieurs requêtes ou retries ; le diagnostic relie intention, tentative, commande et résultat effectivement confirmé, sans confondre identifiant de trace et clé d'idempotence.
+- **RG-CRE-029 — Erreur et effet incertain.** Si l'ACK est perdu ou une dépendance échoue pendant la création, D2 distingue projet confirmé, non créé et état inconnu nécessitant réconciliation ; aucun nouveau projet n'est déduit d'une nouvelle trace.
+- **RG-CRE-030 — Contexte de la lane.** Les anomalies de création et de reprise doivent pouvoir être rattachées au build/SHA et à l'environnement effectivement servis, sans mélange DEV/RECETTE/STABLE ni révélation interprojet.
+
+**Parcours candidats :** **PF-CRE-28** double clic/retry même intention → une création effective et plusieurs tentatives corrélées ; **PF-CRE-29** commit réussi mais réponse perdue → réconciliation de la commande existante sans doublon ; **PF-CRE-30** connexion DB indisponible et retour API → catégorie technique fidèle, échec/UNKNOWN sans session faussement invalidée. Tests DB/HTTP/BROWSER sur SHA et lane ; aucune nouvelle table de journal des commandes exigée par ce contrat.

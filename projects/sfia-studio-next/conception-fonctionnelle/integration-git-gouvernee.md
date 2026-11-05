@@ -266,3 +266,11 @@ Un projet sans dépôt continue à utiliser Nora, les cycles, décisions, mémoi
 **Frontière :** le lien GitHub réel s'ouvre dans un nouvel onglet du navigateur courant ; l'ouverture dans un autre navigateur dépend des fonctions du navigateur/OS. Aucun navigateur intégré, aucun droit d'écriture déduit d'une consultation.
 
 **R4–R6 :** droits, portée, reprise, version et comportements à concevoir puis prouver ; `N/A — NON IMPLÉMENTÉ`.
+
+## 8. Interface de diagnostic transverse — accès et opérations Git D9 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / INTERFACE CANDIDATE — D9 Git runtime non implémenté dans ML2.** Source de [diagnostic transverse](../architecture-technique/contrat-observabilite-transverse.md). D9 garde la propriété des comptes/installations, permissions réelles, dépôts/refs et observations Git ; l'identité de connexion Studio n'octroie aucun scope dépôt.
+
+**Contrat D9 futur :** pouvoir corréler la requête Studio et l'opération Git réellement autorisée à la référence dépôt/commit/ref, aux permissions examinées, à la tentative API, au statut, à la réponse fournisseur et à la ref effectivement relue. Refus, expiration, quota/rate limit, webhook manquant/dupliqué ou conflit de branche restent distingués. Ne jamais tracer un token OAuth/App, une clé privée ou un payload sensible intégral. Des événements fournisseur asynchrones ne prouvent pas seuls la vérité Git courante.
+
+**Parcours candidats à qualifier lors de ML4 :** OBS-Q11 refus Git/rate limit, source inaccessible, PR ouverte non mergée, requête de mutation dont ACK est perdu, webhook réémis ou signature invalide. **Preuve :** appel externe réel sur sandbox autorisé, ref observée et droits au point d'effet ; aucune mutation Git de production sans D6/D7 et gates applicables.

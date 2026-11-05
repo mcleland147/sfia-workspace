@@ -331,3 +331,11 @@ Aucun chiffre « 70 % » n'est produit à partir du temps écoulé, de l'animati
 **R4 :** relations de provenance/versions/critères et cohérence avec l'état D7 ; **R5–R6 :** cas de résultat partiel, état inconnu, preuve contradictoire, reprise intersession, autorité révoquée et double tentative évitée. Un écran Figma et un rapport de Cursor non vérifié ne suffisent pas à établir une conformité.
 
 **Statut : précision fonctionnelle D8 validée par Morris sur branche candidate ; qualification effective et comportements runtime non prouvés.**
+
+## 10. Interface de diagnostic transverse — preuves et verdicts D8 (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / INTERFACE CANDIDATE.** Le [contrat d'observabilité R4](../architecture-technique/contrat-observabilite-transverse.md) rend les opérations de vérification diagnostiquables, mais **un span, une ligne de log, un compteur ou une réponse fournisseur ne valent jamais un verdict D8**.
+
+**Propriété D8 :** rattacher la qualification de preuve aux sources, versions, objets, périmètres de test, conditions d'observation et niveaux DETERMINISTIC/DB/BROWSER/LIVE/REAL, avec statut/réserve/acceptation effectivement décidés selon les autorités applicables. L'absence de trace doit être déclarée comme limite probatoire ; une trace présente peut être incomplète, falsifiable ou hors périmètre et ne saurait suffire seule.
+
+**Négatifs au lot propriétaire :** événement « success » technique sans effet métier, test FAKE présenté LIVE, SHA différent du candidat recetté, proof candidate hors accès, preuve lacunaire mais verdict assuré. **Acceptation :** distinguer diagnostic des étapes et jugement de conformité ; D3 raconte fidèlement, D6 accepte/autorise selon portée, D7 porte l'état d'exécution, D8 le verdict.

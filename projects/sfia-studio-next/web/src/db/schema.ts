@@ -174,7 +174,47 @@ export const messages = pgTable(
     ordinal: integer("ordinal").notNull(),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
-  (t) => [index("messages_conversation_idx").on(t.conversationId)],
+  (t) => [
+    index("messages_conversation_idx").on(t.conversationId),
+    uniqueIndex("messages_conversation_ordinal_uidx").on(t.conversationId, t.ordinal),
+  ],
+);
+
+/**
+ * D3 — durable turn command for full-turn idempotence.
+ * Uniqueness: (conversation_id, client_turn_key). Short lock only around reservation.
+ */
+export const conversationTurnCommands = pgTable(
+  "conversation_turn_commands",
+  {
+    id: text("id").primaryKey(),
+    conversationId: text("conversation_id")
+      .notNull()
+      .references(() => conversations.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    clientTurnKey: text("client_turn_key").notNull(),
+    requestFingerprint: text("request_fingerprint").notNull(),
+    operationId: text("operation_id").notNull(),
+    status: text("status").notNull(),
+    ordinalUser: integer("ordinal_user"),
+    ordinalAssistant: integer("ordinal_assistant"),
+    userMessageId: text("user_message_id"),
+    assistantMessageId: text("assistant_message_id"),
+    generationId: text("generation_id"),
+    resultJson: text("result_json"),
+    errorCategory: text("error_category"),
+    /** Ownership fence — invalidated on reconcile; required for terminal CAS / D4 gates. */
+    ownerToken: text("owner_token"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    uniqueIndex("conversation_turn_commands_conv_key_uidx").on(t.conversationId, t.clientTurnKey),
+    uniqueIndex("conversation_turn_commands_operation_uidx").on(t.operationId),
+    index("conversation_turn_commands_conv_status_idx").on(t.conversationId, t.status),
+  ],
 );
 
 /** D4 — documents / revisions. */
@@ -190,6 +230,7 @@ export const documents = pgTable(
       .notNull()
       .references(() => pilots.id),
     title: text("title").notNull(),
+    creationCorrelationKey: text("creation_correlation_key"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [index("documents_prep_idx").on(t.preparationId)],
@@ -205,6 +246,10 @@ export const documentRevisions = pgTable(
     revisionNumber: integer("revision_number").notNull(),
     contentMarkdown: text("content_markdown").notNull(),
     status: text("status").notNull(), // SAVING | AVAILABLE | FAILED | UNKNOWN
+    baseRevisionId: text("base_revision_id"),
+    correlationKey: text("correlation_key"),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    scope: text("scope").notNull().default("document"),
     createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   },
   (t) => [
@@ -212,4 +257,90 @@ export const documentRevisions = pgTable(
   ],
 );
 
-export const schemaRevision = "001_initial_studio_core";
+/** D4 — knowledge subjects / acquis / open points (ML2). */
+export const knowledgeSubjects = pgTable(
+  "knowledge_subjects",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    parentSubjectId: text("parent_subject_id"),
+    title: text("title").notNull(),
+    status: text("status").notNull().default("ACTIVE"),
+    originatedFromSubjectId: text("originated_from_subject_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_subjects_prep_idx").on(t.preparationId)],
+);
+
+export const knowledgeAcquis = pgTable(
+  "knowledge_acquis",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    subjectId: text("subject_id").references(() => knowledgeSubjects.id),
+    kind: text("kind").notNull().default("FACT"),
+    statement: text("statement").notNull(),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    status: text("status").notNull().default("CURRENT"),
+    supersedesAcquisId: text("supersedes_acquis_id"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_acquis_prep_idx").on(t.preparationId)],
+);
+
+export const knowledgeOpenPoints = pgTable(
+  "knowledge_open_points",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    projectId: text("project_id").references(() => projects.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    subjectId: text("subject_id").references(() => knowledgeSubjects.id),
+    statement: text("statement").notNull(),
+    status: text("status").notNull().default("OPEN"),
+    provenanceJson: text("provenance_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_open_points_prep_idx").on(t.preparationId)],
+);
+
+export const knowledgeSubjectEvents = pgTable(
+  "knowledge_subject_events",
+  {
+    id: text("id").primaryKey(),
+    preparationId: text("preparation_id")
+      .notNull()
+      .references(() => preparations.id),
+    ownerPilotId: text("owner_pilot_id")
+      .notNull()
+      .references(() => pilots.id),
+    subjectId: text("subject_id")
+      .notNull()
+      .references(() => knowledgeSubjects.id),
+    eventType: text("event_type").notNull(),
+    payloadJson: text("payload_json").notNull().default("{}"),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index("knowledge_subject_events_subject_idx").on(t.subjectId)],
+);
+
+export const schemaRevision = "006_ml2_turn_owner_token";

@@ -151,3 +151,242 @@ Append-only logical journal of Cursor product deliveries.
 | Post-merge runtime | Independent smoke NOT OBSERVED |
 | Product version | `NO RELEASE` ; `STABLE NOT AVAILABLE` ; no release tag / no ADOPTED |
 | Status | **MERGED / FUNCTIONAL RECETTE ACCEPTED WITH RESERVES — ML1 integration evidenced, technical remediation and R6 qualification still open** |
+
+## delivery_id: DELIV-2026-11-05-ML2-LOCAL-01
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Produire et capitaliser avec Nora |
+| Type | INC / nouvelle capacité compatible (prospective MINOR) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | D3 cognition + D4 knowledge/documents + UX surfaces + streaming attempt + tests |
+| Product version target | `NO RELEASE` (NOT AVAILABLE — no official attribution) |
+| Compatibility | Additive migration `003_ml2_knowledge_documents` ; ML1 data preserved |
+| Schema | `001` + `002` + `003` |
+| Tests | unit 26 PASS ; PG integration 32 PASS ; Playwright 2 PASS (FAKE) ; `tsc` PASS ; `next build` PASS |
+| Evidence limits | Nora LIVE / COG panel / Figma fidelity matrix / CI Next = NOT PROVEN or ABSENT |
+| Streaming | Attempted in adapter (`stream: true`) ; UI progressive NOT wired ; LIVE streaming NOT PROVEN |
+| Status | LOCAL CONSTRUCTION — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY WITH RESERVES` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CORRECTIVE-02
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — correctif intégrité D4 / documents / cognition |
+| Type | Correctif intégré (même macro-lot) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only) |
+| Parent HEAD | `a9a468e9f883128045c516a881f30d6372175c96` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | C1 sujets atomiques ; C2 concurrence révision ; C3 idempotence création ; C4 diff ordonné ; C5 épistémologie capitalisation ; C6 états UX |
+| Schema | `004_ml2_integrity_corrective` |
+| Product version | `NO RELEASE` |
+| Tests | unit 31 PASS ; PG integration 45 PASS ; Playwright 2 PASS ; tsc+build PASS |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` (réserves S1/S2/S3/CI/COG qualifiées, non bloquantes pour intégrité) |
+
+## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-03
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — consolidation corrective C3/C4/C1 |
+| Type | Correctif intégré (même macro-lot) |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Parent HEAD | `5c7dd7528ff859c9717db865c74d45930dff4219` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | C3-A fingerprint all paths ; C3-B clé UI stable ; C4 budget diff ; C1 journal + concurrence |
+| Schema | unchanged (`004_ml2_integrity_corrective`) — no new migration |
+| Product version | `NO RELEASE` |
+| Tests | unit 34 PASS ; PG integration 50 PASS ; Playwright 3 PASS (FAKE) ; tsc+lint+build PASS |
+| Evidence limits | LIVE Nora / COG panel / Figma ML2-S3 / CI Next = NOT PROVEN or ABSENT |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` |
+
+## delivery_id: DELIV-2026-11-05-ML2-INTEGRATION-PREP-04
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (préparation) |
+| Type | EVOL / préparation intégration Git + instruction CI |
+| Branch | `sfia/next-ml2-production-capitalisation` @ `1967b2c5` (local only — **not published**) |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Périmètre | Git Truth, inventaire candidat, revalidation locale, proposition CI Next (artefact `.tmp` uniquement) |
+| CI Next workflow path | **PROPOSED** `.github/workflows/sfia-studio-next-ci.yml` — contenu dans `.tmp-sfia-review/ci-next-workflow-proposal.yml` ; **NOT WRITTEN** under `.github/` |
+| CI Next remote | **NOT RUN** — requires distinct Morris GO to install workflow + publish SHA |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS |
+| SVG residuals | 5× `web/public/*.svg` create-next-app defaults, untracked, unused → **EXCLUDE** (do not commit) |
+| Status | LOCAL INTEGRATION PREP — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY WITH RESERVES` (intégration Git bloquée tant que CI Next absente / non exécutée) |
+
+## delivery_id: DELIV-2026-11-05-ML2-CI-NEXT-INSTALL-05
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 7 Intégration / DevOps (installation CI Next locale) |
+| Type | EVOL / workflow CI versionné sur branche construction |
+| Branch | `sfia/next-ml2-production-capitalisation` (local only — **not published**) |
+| Parent HEAD | `f937477026d25812db000af4d16ab48bd22e9e47` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Created | `.github/workflows/sfia-studio-next-ci.yml` |
+| Historical workflows | `sfia-studio-ci.yml` / `interv360-ci.yml` **unchanged** (hashes match origin/main) |
+| Gate name | `SFIA Studio Next Required Gate` (not yet added to GitHub branch protection) |
+| CI Next remote | **NOT RUN** — requires Morris GO to push branch / open PR for first Actions execution |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local revalidation | unit 34 ; PG 50 ; Playwright 3 ; tsc+lint+build PASS ; actionlint PASS (no findings) |
+| SVG residuals | still EXCLUDE (untracked, not staged) |
+| Status | LOCAL CI INSTALL — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `READY FOR MORRIS REVIEW` (publication Git projet + premier run Actions = gates suivants) |
+
+## delivery_id: DELIV-2026-11-05-ML2-C3B-LOST-ACK-06
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — Cycle 9 QA / validation (C3-B lost-ACK) |
+| Type | INC corrective / BROWSER FAKE C3-B |
+| Branch | `sfia/next-ml2-production-capitalisation` (PR #655 DRAFT) |
+| Parent HEAD | `23e55da80ac774511b467bc53ab7eaa5d60ac969` |
+| Base | `origin/main@6e4406c63639330c7826423cdcf08f06ff019eed` |
+| Cause | After simulated ACK loss, incidental `reload()` adopted `docId` while create intent was still open, hiding `create-intent-key` and diverting retry into revise-via-save (rev 2 / new key) |
+| Fix | `page.tsx` reload skips `docId` adoption while `createDocIntentRef` is active; C3-B Playwright asserts stable create key, zero revise calls, single doc at revision 1 |
+| Schema | unchanged |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Status | CORRECTIVE on PR #655 — see Review Pack for CI proof |
+| Verdict candidate | pending GitHub Actions on published SHA |
+
+## delivery_id: DELIV-2026-11-05-ML2-COG-OBS-INTEGRATED-07
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) |
+| Macro-lot | R5 / ML2 — cognition Nora + observabilité intégrées |
+| Type | EVOL / construction locale Critical |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
+| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b7c724b020011f19d8814333116674475` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Implemented | cognitive policy TEST_BOUNDARY≠OPERATIONAL ; D4 read tools ; turn command + migration 005 ; JSON obs sink ; HTTP error classification ; tracingDisabled |
+| Schema | `005_ml2_conversation_turn_command` applied on DEV `sfia_next_dev` + `sfia_next_e2e` |
+| Product version | `NO RELEASE` ; package `0.0.0-dev` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 42 PASS ; PG 53 PASS ; Playwright 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE / CI new SHA | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL DELIVERY — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL DELIVERY WITH RESERVES — REVIEW REQUIRED` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CRITICAL-CORRECTIVE-08
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~18:25 CET |
+| Macro-lot | R5 / ML2 — correctif Critical post-revue ChatGPT |
+| Type | EVOL corrective integrated (same ML2, not new lot) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only — not published**) |
+| Parent entry SHA | `53be6097612825b24333821ab3001c35a0b4d757` |
+| Base documentary | `origin/docs/next-ml2-d3-d4-architecture-20261105@6d85fd9b` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | TURN orphan reconcile+CAS ; D4 AVAILABLE-only ; no uncertain SDK fallback ; budgets fail-closed ; search pagination/budget ; OBS allowlist/RO/purge/lane |
+| Schema | `005` unchanged (forward-safe) ; `schemaRevision` aligned to 005 |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 50 PASS ; PG 62 PASS ; Playwright 3 PASS ; tsc+build PASS |
+| LIVE / CI new SHA / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL CORRECTIVE DELIVERY — REVIEW REQUIRED` |
+
+## delivery_id: DELIV-2026-11-05-ML2-THREE-BLOCKER-09
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~18:45 CET |
+| Macro-lot | R5 / ML2 — three-blocker Critical corrective |
+| Type | INC/EVOL corrective (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
+| Parent SHA | `00736f3a6c34f6f56d628b6dee2097a4aadda91b` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | owner_token fencing+CAS ; SQL pagination terminante ; no SDK auto-retry after run() |
+| Schema | migration `006_ml2_turn_owner_token` (forward-only) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 68 ; Playwright 3 ; tsc+build PASS |
+| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL THREE-BLOCKER CORRECTIVE DELIVERY — READY FOR CHATGPT REVIEW` |
+
+## delivery_id: DELIV-2026-11-05-ML2-TURN-INTEGRITY-10
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~19:15 CET |
+| Macro-lot | R5 / ML2 — turn transactional integrity |
+| Type | INC corrective (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**local only**) |
+| Parent SHA | `57f6fc54888f607d8a70ef959f39057764e4b20a` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| Corrected | atomic `commitTurnTerminal` (FOR UPDATE + rollback on CAS miss) ; knowledge write fencing ; D4-PAGE-03 STALE termination |
+| Schema | unchanged (`006` already present) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 78 ; Playwright 3 ; tsc+lint+build PASS |
+| LIVE / CI / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge ; Review Handoff L3 only |
+| Verdict candidate | `LOCAL ML2 TURN INTEGRITY CORRECTIVE — READY FOR CHATGPT REVIEW` |
+
+## delivery_id: DELIV-2026-11-05-ML2-CONSOLIDATION-PREMERGE-11
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~20:25 CET |
+| Macro-lot | R5 / ML2 — consolidation pré-merge PR #659 |
+| Type | INC corrective integrated (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**project push FF authorized**) |
+| Parent SHA | `df7357873b487d48e32af5de89995bcfbf720210` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
+| Corrected | UNKNOWN-CAP DB reconstitution ; ASSIST-REUSE generationId gate ; SAFE-01 two-session PG + DB-fail ; CI labels 001→006 |
+| Schema | unchanged (`006` already present) ; no new migration |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 PASS ; PG 89 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE | **NOT RUN / NOT AUTHORIZED** |
+| Status | PROJECT BRANCH PUSH (FF) — merge/LIVE/RECETTE still gated |
+| Verdict candidate | `PR #659 UPDATED — await CI Next on new SHA — READY FOR CHATGPT PRE-MERGE REVIEW` (CI status filled post-push) |
+
+## delivery_id: DELIV-2026-11-05-ML2-PRE-RECETTE-QUAL-12
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~20:50 CET |
+| Macro-lot | R5 / ML2 — qualification intégrée pré-RECETTE PR #659 |
+| Type | INC corrective + QA préparation (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` (**FF push authorized**) |
+| Parent SHA | `bf2deb0e90e1bac7b444ccb58ed2cca20b7919d1` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` (unchanged) |
+| PR | `#659` OPEN DRAFT ; #655–#658 untouched |
+| Corrected | ASSIST-REUSE dual-gen strict + bindTurnGenerationId ; SAFE-01 strict RUNNING + client abort mid-TX ; D4 gen-priority reconstitution ; LIVE/RECETTE docs préparés |
+| Schema | unchanged (`006`) ; no migration |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 PASS ; PG 93 PASS ; Playwright FAKE 3 PASS ; tsc+lint+build PASS |
+| LIVE / RECETTE | **NOT RUN / NOT DEPLOYED** ; manifeste PREPARED |
+| Status | PROJECT BRANCH PUSH (FF) — LIVE/RECETTE/merge gated Morris |
+| Verdict candidate | `ML2 PRE-RECETTE TECHNICAL CONSOLIDATION — CI NEXT PASS — LIVE/RECETTE GATES PENDING MORRIS` |
+
+## delivery_id: DELIV-2026-11-05-ML2-LIVE-RECETTE-COND-13
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-05 (Europe/Paris) ~21:15 CET |
+| Macro-lot | R5 / ML2 — LIVE borné + RECETTE conditionnelle PR #659 |
+| Type | CAPA+INC+QA integrated (same ML2) |
+| Branch | `sfia/next-ml2-cognition-observability-integrated` |
+| Parent SHA | `01ae25e1dfc7b062d3b2a73838335ef8630ec6f2` |
+| origin/main | `6e4406c63639330c7826423cdcf08f06ff019eed` |
+| LIVE proofs | 3 scenarios `openai-agents-sdk-live` COMPLETE ; D4 tools on complex ; ~3 contacts / ~€1.05 est. ; model `gpt-6.1-sol` requested |
+| Corrected | cookie name per `STUDIO_LANE` ; SAFE-01 DBFAIL-03 ephemeral persistent table + pg_locks waiter |
+| Schema | `006` unchanged |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Local proofs | unit 52 ; PG 93 ; e2e FAKE 3 ; tsc+lint+build — filled at commit |
+| RECETTE | activation conditionnelle après CI du SHA final ; ML1 RECETTE :3200 **non réinitialisée** |
+| Status | PROJECT PUSH FF + conditional RECETTE provision |
+| Verdict candidate | `ML2 LIVE BOUNDED REAL PROVEN — RECETTE CANDIDATE AVAILABLE FOR MORRIS REVIEW` (si gate E PASS) |

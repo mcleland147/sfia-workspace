@@ -308,3 +308,160 @@ La matrice QA du macro-lot conserve **une ligne par scénario comparatif utile**
 **Instanciation ML2 candidate :** [Spécification technique — Produire et capitaliser avec Nora](ml2-production-et-capitalisation-nora/specification-technique.md) et [matrice R1–R5 / UX / QA / ChatGPT ↔ Nora](ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Ces deux documents sont des **propositions D0**, non des contrats de construction déjà approuvés ; leur publication candidate ne vaut pas GO D3.
 
 **Intégration au processus existant :** préparer les cas à la qualification du lot, les exécuter durant le delivery/RECETTE, en débattre lors de la revue de sortie. **Pas de cycle, PR, moteur ou validation supplémentaire systématique.** ChatGPT recommande, Morris tranche ; les écarts acceptés restent tracés avec conditions de sortie. **ML2 : D0 de spécification en cours, aucun GO technique/PR/merge/STABLE/ADOPTED déduit de cet addendum.**
+
+## 15. Complément candidat — diagnostic des missions cognitives et protocole de mesure (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 ; périmètre technique/RECETTE encore à arbitrer.** Complète le §14 **déjà validé** de comparaison ChatGPT–Nora : aucune nouvelle méthode de benchmark, aucun nouvel évaluateur autonome ni gate universel. Sources R1 §2.2/E2E 03, règles candidates D3 §14/D4 §10, R3 §40, R4 §11 et matrice ML2. La PR #655 et ses preuves déterministes/DB/BROWSER FAKE n'attestent pas encore la qualité cognitive LIVE, la politique modèle/effort ou la boucle de lecture D4 ; tous ces résultats restent NOT PROVEN tant que les cas applicables ne sont pas exécutés.
+
+### 15.1. Résultat du dispositif de mesure
+
+Pour chaque mission représentative, mettre en regard **(a) l'activité réellement exécutée, (b) la qualité du résultat pour le Pilote et (c) les coûts/limites mesurés**. Les traces du SDK documentent l'activité, pas le raisonnement caché ; ChatGPT produit une réponse de comparaison indépendante et faillible, les faits déterminants sont vérifiés à leurs sources, Morris arbitre la valeur utilisateur.
+
+**Observations minimales candidates :** scénario et contexte/permissions déclarés ; SHA/lane ; identifiant d'échange/génération et tentatives ; version de politique, configuration modèle/effort effective ; classification/motifs non sensibles ; appels outils et références/version des sources ; chronologie/erreurs/annulations ; latence et usage réellement connus, coût calculé à partir de tarifs explicités ; résultat PARTIAL/COMPLETE/FAILED/INTERRUPTED/UNKNOWN ; appréciation indépendante sur compréhension, faits, contradictions, couverture, initiative, pertinence et proportionnalité. Les champs manquants ne doivent pas être inventés, les contenus sensibles sont expurgés.
+
+### 15.2. Oracles supplémentaires dans la matrice ML2 existante
+
+- **Simple sans surinvestigation :** pas de classification IA ni d'appel D4 supplémentaire sans raison ; réponse et coût proportionnés.
+- **Complexe avec D4 :** plusieurs passages réellement recherchés sous droits actuels, sources/versions utiles, limites de couverture déclarées, conclusion étayée ou partielle.
+- **Contradiction en cours de mission :** approfondissement borné ou décision d'arrêter justifiée par des observations ; pas de boucle ni d'autorité nouvelle.
+- **Panne/timeout/retry :** tentative fournisseur visible, pas de double comptage d'une seule génération ni de faux résultat réussi ; corrélation du fallback streaming.
+- **Diagnostic indépendant :** opérateur habilité pouvant expliquer le chemin visible et examiner une redondance ou un manque, sans inventer la motivation mentale du modèle.
+- **Qualité cognitive :** variantes COG-01..07, réponse ChatGPT indépendante lorsque utile, fact-check externe à Nora, désaccord motivé non assimilé automatiquement à un échec.
+
+### 15.3. Périmètre candidat à arbitrer avant RECETTE
+
+**Recommandation de qualification, pas GO :** considérer en premier un socle cohérent ML2 (configuration explicite Sol/effort, qualification proportionnée, multi-étapes bornées avec une capacité D4 autorisée si faisable, traces natives corrélables et QA LIVE correspondante). L'intégration doit former un résultat prouvable avec code/tests/docs du même macro-lot ; ne pas fragmenter en micro-livraisons. D5/D6/ML3, Git/ML4 et actions externes gouvernées/ML5 ne sont pas avancés implicitement.
+
+**Option de report :** si les impacts/risques de mission multi-étapes, du tracing ou de la lecture D4 excèdent le mandat et la maturité ML2, conserver les exigences validées antérieures, recetter honnêtement le périmètre réalisable, documenter chaque écart avec propriétaire, risque, condition de sortie et nouveau gate Morris. Le verdict comparatif ne doit pas devenir « Nora équivalente à ChatGPT » sur un seul exemple ni après simple réussite technique.
+
+**Traçabilité :** utiliser la matrice ML2 et R5 §14, sans document de campagne concurrent. La décision de publication, la PR/merge, le GO Cursor, la RECETTE, R6 et ADOPTED restent distincts.
+
+## 16. Contrat transverse de diagnostic — rattachement R5 et preuve (2026-11-05)
+
+**VALIDATED PRODUCT INTENT MORRIS / R5 DELIVERY CANDIDAT — NE MODIFIE PAS les preuves ML1/ML2 existantes ni le protocole cognitif R5 §14.** Canonical source : [R4 — Contrat de diagnostic et d'observabilité transverse](../architecture-technique/contrat-observabilite-transverse.md). Le §15 couvre spécifiquement la qualité/activité Nora ; la présente section couvre aussi AUTH, HTTP, DB, D2 et les propriétaires futurs D5–D9.
+
+**Résultat de construction à qualifier :** sur une même opération et un même SHA de RECETTE, reconstituer le trajet HTTP → authentification/permission → service métier → DB/outils/fournisseur → réponse et effets confirmés, distinguer tentatives et réconciliations, identifier les zones NON OBSERVÉES, puis fournir une hypothèse diagnostique vérifiable. Conserver les identités déjà présentes (generationId D3, correlationKey/idempotence D2/D4) ; enrichir par un contexte d'opération plutôt que remplacer les contrats métiers.
+
+**Trajectoire candidate en macro-capacité cohérente, à arbitrer avec ML2 :**
+- Traces/erreurs API différenciées et corrélées, identité build/lane réelle ;
+- Better Auth et session resolver instrumentés sans secrets et sans faux 401 ;
+- PostgreSQL/Drizzle diagnostics proportionnés, journal D4 réutilisé, erreurs/transactions et effet réel séparés ;
+- Tracing Agents SDK configuré pour la confidentialité, tentatives LIVE comptées, réponse cognitive évaluée indépendamment ;
+- Recherche effective par operationId en RECETTE, signalement d'exporteur indisponible ;
+- QA OBS-Q01..10 au niveau approprié ; non-régression des invariants de session/DB/ACK, et de COG-01..07.
+
+**Hors périmètre ML2 par défaut :** simulation de télémétrie Git/D7/D8 et matériel technique non implémenté, nouvelle console Pilote, migration/entrepôt de logs par inertie, moteur générique d'audit et observabilité exhaustive de chaque opération.
+
+**Critère de sortie proposé :** pour les scénarios observables au SHA, fournir cas, état d'environnement, identifiants, extrait expurgé de la chronologie et sources de vérité réconciliées, mesures réelles, hypothèses/limitations et verdict. **Un log produit ne suffit pas ; un diagnostic doit être reproductible.** Toute couverture différée exige propriétaire, risque, exit et gate Morris. La construction technique demeure soumise à un GO Cursor SFIA v2.6 distinct ; PR #655/#656, RECETTE, merge et STABLE restent des gates autonomes.
+
+## 17. Stratégie R5 actée — ML2 cognition et observabilité avant RECETTE (Morris, 2026-11-05)
+
+**VALIDATED STRATEGY BY MORRIS / DOCUMENTED ON CANDIDATE BRANCH ; TECHNICAL IMPLEMENTATION NOT AUTHORIZED.** [Decision Record R5/ML2](../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md), [Roadmap R5](../governance/roadmap.md), [spécification ML2 §17](ml2-production-et-capitalisation-nora/specification-technique.md), [QA ML2 §10](ml2-production-et-capitalisation-nora/matrice-tracabilite.md) et [contrat transverse d'observabilité](../architecture-technique/contrat-observabilite-transverse.md). **Cette décision de séquencement remplace l'alternative encore ouverte au §15.3 et §16 pour le choix « intégrer avant RECETTE »**, pas leurs options techniques non arbitrées, ni les preuves historiques.
+
+### 17.1. Résultat et lot de construction intégré
+
+**Valeur attendue :** le Pilote confie une demande simple ou structurante à Nora ; celle-ci met en œuvre un effort suffisant, sait consulter D4 de manière complémentaire sous les droits actuels, confronte les informations, conclut ou marque l'inconnu, et laisse un parcours effectivement diagnostiquable au sein de Studio.
+
+**Contrat IN — une seule capacité intégrée de livraison ML2 :**
+1. **Cognition D3** : stratégie de qualification proportionnée ; modèle/effort explicites, compatibilité vérifiée ; agent natif Agents SDK avec plusieurs étapes autorisées lorsque nécessaires ; limites de tours, appels, temps et consommation, sans boucle non bornée.
+2. **Investigation D3→D4** : outil(s) de lecture complémentaire de connaissance/documents existants, réutilisant contrôles de projet, version, accès et provenance ; aucun outil d'effet externe ou de lecture Git fictif.
+3. **Restitution / D4** : réponse fiable, incertitudes explicites ; écriture/révision seulement si D4 a confirmé son effet ; non-régression des correctifs C1–C6, fil unique et réconciliation après ACK perdu.
+4. **Diagnostic transverse** : événements corrélables AUTH, HTTP, DB, D1–D4 ; classes d'erreurs sûres (faux 401 à corriger), tracing fournisseur/SDK, identité mission/génération/tentative et lectures D4, paramètres réellement appliqués, usages/latences disponibles, confidentialité et consultation opérationnelle en RECETTE.
+5. **Qualification** : QA d'intégration positive/négative, benchmark COG-01..07 de R5 §14, oracles OBS-Q01..10 pertinents, expérience utilisateur BROWSER et LIVE Nora, sécurité/isolation, build et lane traçables.
+
+**OUT / suite :** routage multi-modèle permanent, classificateur IA systématique, agents spécialisés sans preuve de valeur, backend de supervision/alerting avancé, écran Pilote de diagnostic, nouveau ledger métier et capacités D5/D6/D7/D8/D9 non implémentées. Les propriétaires futurs ajoutent leur observabilité au socle lors de leurs propres lots.
+
+### 17.2. Ordonnancement concret, dépendances et contrôles
+
+| Activité du même macro-lot | Contrat d'entrée | Preuve / sortie attendue |
+| --- | --- | --- |
+| Pré-check et intégration sources | `main`, PR #655, #656, branches docs, décisions Morris, SDK/versions/ENV-01, état local Cursor | Périmètre de changement et fichiers propriétaires ; aucune branche candidate présentée comme baseline |
+| Contrat technique exécutable | SDK/compatibilité fournisseur, outils D4, erreurs API, propagation des IDs, options de tracing, lecture sécurisée des traces | Choix explicites validés au gate technique, blast radius (API/DB/UX/sécurité), bornes et STOP |
+| Construction D3/D4 et instrumentation | Interfaces/états propriétaires inchangés ; outils lecture-only, bornes, télémétrie native-first | Code + tests + docs même cycle ; non-régression C1–C6 ; pas de nouveau moteur parallèle |
+| Vérification technique | ENV-01, DB/migrations, droits et CI Next réellement disponible/exécutée | Tests unitaires/PG/INTEGRATION/HTTP/BROWSER et sécurité avec résultats au même SHA |
+| Qualification cognitive et opérationnelle | Clé fournisseur/permissions LIVE, données datées et test autorisé ; tracing consultable | COG-01..07, OBS-Q01..10 applicables, comparaison ChatGPT–Nora, exemples de chronologies expurgées ; écarts décrits |
+| Gate RECETTE puis intégration | SHA/lane/build figés, preuve QA suffisante et réserves exposées | Morris décide RECETTE ; PR/readiness/merge et STABLE nécessitent leurs GO distincts |
+
+**Risque dominant :** étendre ML2 au point d'amoindrir la valeur de la livraison ou fragiliser l'intégrité déjà construite. **Mesure :** conduire ensemble la capacité utile et son diagnostic, réutiliser primitives SDK/Next/Better Auth/Postgres, limiter les outils D4, préserver les contrats D1–D4, exiger tests C1–C6 et preuve réelle ; pas de déploiement de plateforme de monitoring par inertie.
+
+**Risques associés :** traces insuffisantes ou sensibles (configurer, expurger et tester avant LIVE) ; qualification sous-dimensionnée (référence exigeante pour analyses complexes puis optimisation sur données) ; latence/coût sans borne (budgets et mesures) ; confusion génération/écriture (réconciliation) ; CI installée sur branche mais non prouvée à distance (gate distinct) ; cookie DEV/RECETTE de ML1 (réserve non effacée ; requalification selon impact avant STABLE).
+
+### 17.3. Dette et suite R5/R6
+
+Les reports vers ML3 (cycles/trajectoire), ML4 (Git D9), ML5 (exécutions/preuves) et R6 suivent le propriétaire métier. **Exit d'une capacité reportée** : besoin prouvé, prérequis/permissions, contrat d'effet et d'observation propre, tests LIVE/REAL adéquats, arbitrage Morris. Les améliorations de modèle/routage, budgets intelligents et dashboards ne deviennent priorités qu'après comparaison qualité/consommation et besoin réel.
+
+**Critère d'entrée en RECETTE proposé :** Nora doit **réellement** pouvoir faire une lecture D4 complémentaire pendant une mission complexe, avec configuration et chemin vérifiables ; une question simple reste proportionnée ; les erreurs/états incomplets sont fidèles ; la chronologie d'une mission et les incidents critiques de Studio sont consultables sous droits ; la non-régression de l'intégrité ML2 et les contrôles de sécurité/CI sont prouvés. La RECETTE sert à juger la qualité, pas à prétendre qu'elle est déjà parfaite.
+
+**Gate actuel :** validation de trajectoire Morris **ACQUISE EN CONTENU**, contribution documentaire Git sur branche autorisée par la demande du 05-11. **STOP AVANT CODE** : aucune instanciation du template Cursor, publication de PR, merge, RECETTE, promotion ou ADOPTED n'est automatiquement autorisée.
+
+## 18. Qualification architecturale approuvée en vision — D3 ↔ D4 pour ML2 (2026-11-05)
+
+> **VISION ACCEPTÉE MORRIS / D2 DOCUMENTAIRE SUR BRANCHE CANDIDATE ; CONSTRUCTION NON AUTORISÉE.** Cette qualification décline la stratégie C du §17, sans la remplacer, et prépare les interfaces de la construction intégrée avant RECETTE. [R4 §14](../architecture-technique/cadrage-r4.md), [ML2 §18](ml2-production-et-capitalisation-nora/specification-technique.md), [matrice ML2 §11](ml2-production-et-capitalisation-nora/matrice-tracabilite.md) et [Decision Record](../governance/decisions/2026-11-05-r5-ml2-cognition-observabilite-trajectory.md) font référence.
+
+**Résultat Pilote :** Nora sait répondre simplement sans enquête inutile ou conduire une mission exigeante en recherchant pendant son travail des ressources D4 réellement autorisées, puis restituer sources, contradictions, limites et éventuels effets vérifiés. L'architecture ne vise ni la copie des réponses ChatGPT ni une autonomie d'actes protégés.
+
+**Répartition :** D1/D2 établissent session et contexte ; D3 détient la politique cognitive, les limites, le Runner Agents SDK et la restitution ; D4 détient les connaissances, versions et droits à chaque consultation, et seul D4 confirme une écriture ; l'observabilité relie des faits sans nouvelle autorité. Un agent Nora et une conduite D3, pas de classificateur IA obligatoire, de multi-agents ou de moteur de mémoire parallèle.
+
+### 18.1. Contrat de delivery intégré — sans micro-cycle indépendant
+
+| Travail interne du même ML2 | Résultat requis | Contrôle / preuve |
+| --- | --- | --- |
+| Politique D3 | Qualification proportionnée, configuration modèle/effort/bornes explicitée et appliquée ; pas d'escalade silencieuse | Question simple vs mission complexe ; SDK verrouillé/entitlement vérifiés ; LIVE ciblé |
+| Outils D4 | Recherche et lecture ciblée lecture-only de sources/révisions, droits courants, version, provenance, couverture/limites | DB/INTEGRATION : refus interprojet, révocation, source périmée, extrait incomplet ; LIVE : lecture réellement déclenchée pendant la mission |
+| Convergence | Runner natif multi-étapes borné, résultat suffisamment étayé ou incomplétude sincère | Limite de tours/temps/appels, erreur outil, annulation/timeout, second run fournisseur différencié |
+| Intégrité et continuité | Fil unique, statut assistant et écriture D4 séparés ; réconciliation et idempotence C1–C6 conservées | Tests PG/concurrence/ACK perdu, absence de double sauvegarde, non-régression ML1/ML2 |
+| Diagnostic transversal (étape de conception suivante) | Corréler HTTP/AUTH/DB/D3/D4, tentatives, sources et résultats consultables sans contenu sensible | OBS-Q01..10 pertinents, consultation RECETTE réelle, protection DATA-01 et ENV-01 |
+| Evaluation indépendante | Vérifier utilité, qualité de sources, contradictions et poursuite avec ChatGPT comme comparaison non autorisante | COG-01..07, fact-check indépendant, baseline manquante indiquée, verdict Morris distinct |
+
+### 18.2. Ordonnancement et gates
+
+1. **Architecture D3↔D4 :** vision approuvée, contrat détaillé candidat dans ML2 §18. Ne pas figer noms publics d'outils, codes de statut API ou budgets sans revue d'impact.
+2. **Étape suivante de conception :** définir observabilité/corrélation à partir des opérations D3/D4 réellement prévues, options natives et consultation des diagnostics.
+3. **Consolidation contractuelle :** vérifier compatibilité effective Agents SDK `0.21.0` + fournisseur, flux de session et permissions, branche/base, fichiers propriétaires, CI/ENV-01, matrice et risques ; revenir à Morris pour tout pivot ou changement d'autorité.
+4. **GO technique D3 distinct :** seulement ensuite préparer le prompt Cursor depuis routing/template Git SFIA v2.6 ; construire code/tests/docs et qualifier le même résultat ML2, sans « chantier cognition » et « chantier diagnostic » concurrents.
+5. **Gates de sortie :** QA déterministe et PostgreSQL, BROWSER, LIVE Nora et traçabilité vérifiable sur le SHA/lane ; RECETTE Morris spécifique, PR/readiness/merge puis STABLE/ADOPTED indépendants.
+
+**Gaps et exits à porter :** lecture ciblée D4 performante si corpus croît, revalidation d'autorité pendant la mission, séparation de l'état technique et de l'incomplétude cognitive, retry fournisseur, sécurité des prompts/sources, vérification de la compatibilité SDK, politique de coût et diagnostics exportés. Chaque report non bloquant garde propriétaire, risque et exit. **État courant : DESIGN DOCUMENTED / NOT IMPLEMENTED / NO NEW TESTS / NO GO CURSOR / NO RECETTE**.
+
+## 19. Intégration du diagnostic dans le delivery ML2 (2026-11-05)
+
+> **VALIDATED IN CONTENT BY MORRIS — 2026-11-05 / DOCUMENTARY CANDIDATE ON BRANCH.** Contrat de conception ; détails de mise en œuvre, compatibilité fournisseur et mécanismes de collecte à qualifier avant GO Cursor. **NOT IMPLEMENTED / NOT TESTED / NO PR OR MERGE.**
+
+**Ordre du même macro-lot :** (1) vision D3↔D4 documentée §18 ; (2) contrat d'observation et de corrélation §19 ; (3) consolidation du contrat technique unique ; (4) GO Cursor D3 spécifique ; (5) code + QA + docs alignées sur la même branche technique ; (6) qualification déterministe/DB/BROWSER/LIVE et accès au diagnostic en RECETTE sous SHA figé ; (7) verdict Morris ; (8) intégration Git puis promotion à gates distincts.
+
+**Acceptation :** un examinateur autorisé retrouve une opération avec contexte réel de build/lane, request/operation/generation/attempt et sources D4 réellement reçues, état HTTP/AUTH/DB, limites, latence/usage lorsque disponibles et effet D4 confirmé ; les erreurs et lacunes ne sont jamais maquillées. Les observations restent séparées de la comparaison qualitative ChatGPT–Nora et de HumanDecision.
+
+**Pragmatisme :** préférer une capture structurée réellement durable et consultable à une plateforme de supervision prématurée. Étudier OpenTelemetry Next et tracing Agents SDK sur leurs versions verrouillées, vérifier privacy/retention/exporteur avant LIVE. Les logs non critiques suivent DATA-01 ; isolation et SHA de RECETTE suivent ENV-01. Un succès de CI au SHA #655 ne couvre pas cette extension. Conserver ML2 comme **un seul macro-lot**, pas deux PR techniques autonomes cognition/observabilité sans justificatif.
+
+**Dette/exits :** alerting avancé, métriques D5–D9 et dashboard Pilote reportés à leurs propriétaires ; choix de collecteur/exporteur, preuve de consultation, rétention fournisseur, contrôle des coûts et compatibilité SDK restent à résoudre avant exécution. GO technique, PR, merge, RECETTE et ADOPTED indépendants.
+
+## 20. ML2 — intégration de la cognition et du diagnostic en un contrat technique (2026-11-05)
+
+> **D0 TECHNICAL CONSOLIDATION CANDIDATE — GO TO DESIGN BY MORRIS 2026-11-05 ; NO GO CURSOR / NO RECETTE / NO PR OR MERGE.** Le résultat, les interfaces et les risques détaillés résident dans [ML2 §20](ml2-production-et-capitalisation-nora/specification-technique.md), les preuves dans [matrice §13](ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Cette section ne crée pas de macro-lot indépendant et ne révise ni R4 ni la décision de trajectoire C.
+
+**Outcome et suite :** rendre Nora réellement capable d'investigation complémentaire D4 et produire un diagnostic consultable sur les chemins actuellement implémentés, avant la RECETTE du même ML2. Successeur : ML3 cycles/trajectoire et domaines ultérieurs uniquement après verdict de ML2, sans inventer D5–D9.
+
+| Séquence interne intégrée | Livrable | Condition de passage |
+| --- | --- | --- |
+| 1. Contrat technique R5/ML2 | SDK `0.21.0` vérifié sur source officielle, frontières D1–D4, modèle/effort/bornes, outils, HTTP, idempotence de tour et diagnostic | Enveloppes statuts et permissions arrêtées, choix d'exploitation et coûts non sensibles qualifiés, aucun pivot implicite |
+| 2. Construction D3 sous SFIA v2.6 | Adapter Runner/streaming, outils D4 read-only, gestion fiable des tours/écritures, API/AUTH/DB et télémétrie native sécurisée avec consultation | Même code/CI/QA/doc ; Cursor sous GO technique spécifique, local Git truth check et rapport/handoff |
+| 3. Qualification intégrée | Réponses simples/complexes, sources/version refusées, poursuite limitée, incidents HTTP/DB/SDK et effets D4 confirmés | C1–C6, COG-01..07, OBS-Q01..10, niveaux DETERMINISTIC/PG/BROWSER/LIVE, sécurité et SHA/lane |
+| 4. Préparation RECETTE | Candidat SHA figé, lanes ENV-01, diagnostic retrouvable après redémarrage et rapport source/faits | Gate d'entrée Morris spécifique et bilan des lacunes ; aucun statut ADOPTED automatique |
+
+**Gates Git/CI :** les PR #655–#658 sont empilées, non intégrées à `main` ; branche documentaire de conception également non mergée. Le workflow Next du code #655 se déclenche sur `pull_request` ciblant `main` et `push` sur `main` : une PR empilée vers une branche intermédiaire ne démontre pas nécessairement ce gate. La CI Next a terminé `SUCCESS` sur le SHA de code `08b89360` (workflow 41999186495), mais **aucune CI ni preuve LIVE** ne couvre une future extension D3/observabilité. Qualifier base technique, stratégie de PR, déclenchement de CI et vérification distante avant tout mandat ; aucun rebase, retarget ou PR par défaut.
+
+**Fichiers et responsabilités :** D1 session/auth ; D2 préparation/fil ; D3 Nora ; D4 connaissance, documents et transactions ; API routes/DB/diagnostic ; UX si état visible ; tests/unitaires/PG/HTTP/BROWSER/LIVE ; CI et documentation dans un seul lot. Un changement de contrat public, de DB ou de stratégie de sécurité peut imposer un gate Morris spécifique.
+
+**Risque/exit dominant :** conserver une capacité produit utile sans multiplier les mécanismes. Le contrat requiert une vraie lecture D4 pendant un run, un diagnostic retrouvé et expurgé, des erreurs fidèles et des preuves d'intégrité sans régression. La sélection effective du modèle/effort, les budgets, la gestion des retries HTTP et stream, l'outil de consultation et ses droits doivent encore être arrêtés avant prompt. **ChatGPT consolide et challenge ; Cursor exécute uniquement sous mandat ; Morris arbitre l'acceptation.**
+
+## 21. ML2 — cinq orientations qualifiées et discipline de calibration des budgets (2026-11-05)
+
+> **VALIDATED DESIGN DIRECTION BY MORRIS ON 2026-11-05 / DOC CANDIDATE, NO CODE OR GO CURSOR.** [Spécification propriétaire ML2 §21](ml2-production-et-capitalisation-nora/specification-technique.md), [matrice §14](ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Cette section synchronise R5 sans créer une deuxième doctrine ni modifier la décision de trajectoire C.
+
+**Cinq orientations conjointement approuvées en conception :** (1) modèle principal `gpt-6.1-sol` et efforts `low/medium/high` selon qualification, sous vérification LIVE/entitlement ; (2) budgets bornés **de test uniquement**, recalibrage réel obligatoire ; (3) commande de tour D3 durable et idempotente dans PostgreSQL existant, migration sous mandat technique ; (4) diagnostic JSON expurgé/capturé durablement par lane, CLI read-only, sécurité DATA-01 et SDK ; (5) intégration technique depuis HEAD documentaire vérifié, PR unique `main` **sous GO spécifique**, traitement contrôlé des PR #655–#658.
+
+**Réserve Morris déterminante — capacité réelle :** les limites initiales 30/120/180 secondes et 0/32k/64k caractères D4 sont des **leviers de tests d'arrêt**, pas des SLA ni des plafonds futurs du produit. Il est attendu que des investigations utiles prennent **5–10 minutes ou plus** avec beaucoup plus de contenu D4. La qualification ML2 doit opposer un corpus de limites volontairement petites à un corpus réaliste long, documenter qualité/latence/coût/tokens/volumes réels, puis **ajuster et faire valider la politique opérationnelle avant utilisation approfondie**. Un succès de stress/timeout n'autorise pas à couper prématurément une mission normale ; conserver néanmoins des limites de sécurité finies, paramétrables et un arrêt honnête.
+
+**Critère de delivery supplémentaire :** code et tests doivent isoler les paramètres `TEST_BOUNDARY` des profils opérationnels calibrables, publier une identité de politique/configuration appliquée et permettre la requalification sans refonte de l'orchestrateur. Le parcours de mission longue doit pouvoir paginer/lire davantage, restituer limites/provenance, voire reprendre sous contrat explicite au lieu de prétendre qu'une lecture partielle est complète. La décision de seuils opérationnels définitifs exige des mesures sur données représentatives, pas un chiffre fixé en D0.
+
+**Gates :** revue de préparation du mandat technique, puis GO Cursor D3 et droits Git distincts ; construction cohérente code/migration/tests/docs/CI ; QA (C1–C6, COG, OBS, missions courtes ET longues) et DEV/RECETTE SHA/lane ; GO spécifique RECETTE, PR, merge et promotion. Aucun workflow de branche/protection ni PR n'est modifié par cette approbation de conception. **R5 reste IN PROGRESS / ML2 NOT RECETTED.**

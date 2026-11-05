@@ -247,3 +247,21 @@ La sortie R2 est un **gate distinct** : elle exige une cohérence globale des co
 **Cohérence UX :** [maquettes Nora 206–217](https://www.figma.com/design/itgvCulInEnFY6DvgIegvP?node-id=283-398) et [contrat de transposition](../ux-ui/contrat-transposition-figma-code.md) restent des **sources de conception**, pas des événements API réels. Animation visuelle ≠ progression attestée. Exécution, interruption, reprise technique et preuve nécessitent l'architecture R4, la réalisation R5 et les contrôles R6.
 
 **État au présent jalon :** quatre clarifications de contenu **VALIDATED BY MORRIS** et intégrées sur la **branche candidate R3**. Les clôtures précédentes R1/R2 ne sont pas modifiées ; le rapport de [revue finale R3](../ux-ui/revue-formelle-sortie-r3.md) préparera le prochain **GO de clôture Morris**, toujours **NON PRONONCÉ**. Roadmap `main`, PR, merge, architecture, `IMPLEMENTED`, `BEHAVIOR PROVEN` et `ADOPTED` ne sont pas modifiés par ce mandat.
+
+## 25. Extension transverse — observabilité et diagnostic (orientation Morris du 2026-11-05)
+
+**Vision produit validée par Morris ; déclinaisons R2 documentaires candidates, distinctes des 300 RG / 241 PF historiques de clôture et des compléments validés ultérieurement.** Le contrat de diagnostic n'ajoute **pas un dixième domaine**, ni un référentiel parallèle de règles. La source technique canonique est [R4 — Contrat transverse de diagnostic et d'observabilité](../architecture-technique/contrat-observabilite-transverse.md) ; [R1 §10](../cadrage/vision-produit.md) est propriétaire du résultat.
+
+| Propriétaire R2 | Extension de responsabilité, sans duplication | Règles/parcours candidats ou renvoi |
+| --- | --- | --- |
+| D1 — [Accès](acces-et-portefeuille.md) §7 | Authenticité des erreurs OAuth/session, différenciation de panne et isolation | RG-ACC-026..028 ; PF-ACC-25..27 |
+| D2 — [Création](creation-de-projet-et-continuite-du-sas.md) §8 | Identité commande, retry, ACK et projet réellement créé | RG-CRE-028..030 ; PF-CRE-28..30 |
+| D3 — [Nora](contexte-et-conduite-gouvernee-de-nora.md) §§14–15 | Corrélation génération/tentatives/outils et diagnostic cognitif | RG-CONV-013..015 ; PF-42..44 |
+| D4 — [Connaissance](connaissance-sujets-et-continuite-du-projet.md) §§10–11 | Lecture/sauvegarde/version, événements Sujets, idempotence | RG-KNOW-024..026 ; PF-KNOW-18..20 |
+| D5 — [Trajectoire](trajectoire-cycles-et-guidance-cki.md) §8 | Transitions et états de méthode/cycle réellement observés | Interface propriétaire ; ne pas pré-implémenter le moteur |
+| D6 — [Décisions](decisions-et-gouvernance-du-pilote.md) §10 | Acte, mandat et révocation conservés distincts d'un log | Interface propriétaire ; HumanDecision reste souveraine |
+| D7 — [Réalisation](realisation-operationnelle-gouvernee.md) §10 | Dispatch, tentatives, perte d'ACK, STOP et réconciliation | Interface propriétaire ; aucun exécuteur fictif |
+| D8 — [Preuves](resultats-et-preuves.md) §10 | Références/vérifications probatoires ≠ télémétrie | Interface propriétaire ; verdict indépendant |
+| D9 — [Git](integration-git-gouvernee.md) §8 | Droits, ref, appel, rate limit, webhook et effet Git réel | Interface propriétaire ; ML4 selon gate |
+
+**Contrôle de compatibilité :** les extensions ne modifient pas les propriétaires historiques, ni l'autorité D6, ni le journal D4, ni l'état du cycle D5. Les identifiants candidats ne sont **pas** ajoutés rétroactivement aux comptages de sortie R2 ; un changement structurel nécessiterait arbitrage. Les niveaux de preuve et scénarios OBS-Q01..12 sont définis dans la source R4 puis déclinaisons [R5](../construction/reference-delivery-r5.md), [ML2 spécification](../construction/ml2-production-et-capitalisation-nora/specification-technique.md) et [matrice QA](../construction/ml2-production-et-capitalisation-nora/matrice-tracabilite.md). Aucun code, RECETTE ou ADOPTED n'est prouvé par ces ajouts.
