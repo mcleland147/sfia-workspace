@@ -98,6 +98,30 @@ describe("FIX-SDK / SDK-RETRY — no automatic second run()", () => {
     expect(result.modelApplied).toBe("deterministic-fixture");
   });
 
+  it("does not claim CKI DELIVERED when generate fails before a fixture or provider body", async () => {
+    process.env.STUDIO_LANE = "RECETTE";
+    process.env.STUDIO_E2E = "1";
+    delete process.env.OPENAI_API_KEY;
+    const blocked = await generateNoraReply({
+      userText: "Merci",
+      contextSnippets: [],
+      ckiDelivery: "DELIVERED",
+    });
+    expect(blocked.status).toBe("FAILED");
+    expect(blocked.ckiDelivery).not.toBe("DELIVERED");
+
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    const ran = await generateNoraReply({
+      userText: "Merci",
+      contextSnippets: [],
+      ckiDelivery: "DELIVERED",
+    });
+    expect(ran.status).toBe("COMPLETE");
+    expect(ran.mode).toBe("deterministic-fixture");
+    expect(ran.ckiDelivery).toBe("DELIVERED");
+  });
+
   it("SDK-RETRY-04: fixture DEV unchanged under flags", async () => {
     process.env.STUDIO_LANE = "DEV";
     process.env.STUDIO_E2E = "1";

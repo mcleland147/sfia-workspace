@@ -15,6 +15,7 @@ export async function GET(_: Request, ctx: { params: Promise<{ projectId: string
       messages: data.messages,
       documents: data.documents,
       knowledge: data.knowledge,
+      pilotage: data.pilotage,
     });
   } catch (e) {
     const code = (e as { code?: string }).code;

@@ -190,3 +190,79 @@
 | R04 — combiné atomique / partiel séparé | RG-TRJ-014..016 ; RG-GOV-029 ; PF-TRJ-16/PF-GOV-05 ; B07 | Si OPEN(B) échoue avant commit, A reste ACTIVE ; après commit A CLOSED+B ACTIVE ; ACK perdu = UNKNOWN puis réconciliation ; **aucun PARTIAL ni écran #42 pour effet interne** | #47, #54, #56 ; **#42 conditionnel futur** | D5/D6 interne PG réel ; éventuel `PARTIAL` positif relève d'une frontière future réelle D7/D9, non testée par ML3 |
 
 **Validation de ces lignes :** références documentaires établies ; assertions sont des obligations de recette futures, **toutes `NOT EXECUTED`**. Un test peut satisfaire plusieurs références. L'état `INTERFACE` des PF D7/D8/D9 dans les 136 lignes demeure inchangé. Les extensions de matrice n'altèrent ni les identifiants, ni les statuts validés des RG/PF R2.
+---
+
+## Preuves code/tests ML3 (2026-11-06) — mapping condensé
+
+| QA | Preuve primaire |
+|---|---|
+| B01 | `ml3-pilotage.pg.test.ts` empty projection + e2e cycle-absent |
+| B03 | open cycle APPLIED + human decision |
+| B04 | ambiguous utterance REJECTED |
+| B05 | concurrent open → one ACTIVE |
+| B06 | same client key replay ALREADY_APPLIED |
+| B07 | transition fault hook → rollback A ACTIVE |
+| B09/B10 | CHOOSE/REPLACE/WITHDRAW method |
+| B11/B12 | `ml3-cki-intent` / cki-resolve unit + open pin |
+| B14 | restriction blocks open |
+| B15 | cross-project isolation |
+| B16 | revoke founding method → ABSENT |
+| B17 | GET `/decisions` journal |
+| B18 | GET pilotage read-only |
+
+Statut : `CODE MAPPED / LOCAL TESTS` — pas ADOPTED. LIVE Nora : NOT EXECUTED.
+
+## As-built correctif ML3 — testCaseRef B01–B18 (2026-11-06)
+
+Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2. Les identifiants sont les noms de cas dans le code, pas une nouvelle exigence. Lane visée : DEV. Pas une preuve RECETTE.
+
+| QA | testCaseRef | Ce que le cas couvre après correctif |
+|---|---|---|
+| B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
+| B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
+| B03 | même fichier › `opens a cycle from an explicit utterance without an operation` ; e2e champ « Énoncé GO » | GO naturel EXPLICIT_INTERACTION sans `operation` |
+| B04 | même fichier › `rejects an ambiguous OK without opening a cycle` ; unit `qualifies a clear GO` | Énoncé équivoque rejeté |
+| B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
+| B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
+| B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
+| B08 | non couvert par un cas dédié | Nora ne clôt pas un cycle sur un jugement de maturité : consigne d'adapter, pas un oracle exécuté |
+| B09 | même fichier › `chooses, replaces, withdraws and revokes the current method base without restoring the previous one` | Choix / remplacement / retrait / révocation de base |
+| B10 | unit `pins RESOLVED only when the file digest matches the approved manifest` | Pas de remplacement implicite du pin : digest hors manifeste → UNAVAILABLE |
+| B11 | unit `maps each cycle type to one CKI specialty file` | Une spécialité par type. Digression Nora hors spécialité : non exécutée comme tour LIVE |
+| B12 | unit `stays ASSOCIATED without a pin and UNAVAILABLE when the digest diverges` ; cas manifeste ci-dessus | Pas de fallback si octets absents ou non approuvés |
+| B13 | unit `ml3-b13-divergence` (+ C01/C02) ; PG `B13-*` + `C01` nora-context ; e2e C02 motifs | **Niveau A message↔décision** : DETERMINISTIC + PG ctx (FAKE adapter). **Niveau B typé** : PG INTEGRATION PROVEN. **Libre-texte matériel** : NOT PROVEN machine. **UX motifs** : unit + BROWSER FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) |
+| B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
+| B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
+| B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
+| B17 | e2e `decision-state` contient `APPLICABLE` ; PG `CR-02` journal `REVISED` / `APPLICABLE` | Journal affiche `state`, pas une validité séparée |
+| B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
+
+### Ajustement autorité CR-01..CR-04 (2026-11-06)
+
+| CR | testCaseRef | Verdict |
+| --- | --- | --- |
+| CR-01 | unit `CR-01: TRANSITION_CYCLE is blocked when source A or target B is restricted` ; PG `CR-01: transition blocked when target B or source A is restricted; A stays ACTIVE` | **CLOSED** (DEV PG + unit) |
+| CR-02 | PG `CR-02: REVISE_DECISION allowed for RECORD; refused for D5 founding kinds` | **CLOSED** (refuse sûr + typed ops) |
+| CR-03 | PG `CR-03: different RECORD statements on same objectRef do not globally block OPEN` | **CLOSED** for false-positive removal ; material free-text conflict **PARTIAL / NEEDS MORRIS** |
+| CR-04 | Review Pack FULL with embedded raw logs `/tmp/ml3-*.txt` | **CLOSED** if handoff verified |
+
+Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE — NOT MERGED — NOT ADOPTED**. LIVE Nora : NOT EXECUTED. B08/B11 LIVE cognitive : GOVERNED DEBT. B13 libre-texte matériel Niveau B : NOT PROVEN / PARTIAL.
+
+### B13-01..10 (2026-11-06) — contrat VALIDATED IN CONTENT BY MORRIS
+
+| ID | testCaseRef | Preuve | Limite |
+| --- | --- | --- | --- |
+| B13-01 | unit compatible formulations ; PG `B13-01/04` + `C01: two different but compatible…` | DETERMINISTIC + PG | pas de faux refus d'effet |
+| B13-02 | unit fixture `levelASignals` ; PG `C01: single D6 + new USER…` → adapter FAKE | FAKE intégration conversationnelle | LIVE cognitive NOT PROVEN |
+| B13-03 | PG `B13-03/07` restriction typed | PG INTEGRATION | libre-texte matériel NOT PROVEN (couverture partielle) |
+| B13-04 | PG independent open despite RECORD divergence | PG | — |
+| B13-05 | PG REPLACE → SUPERSEDED + nouvelle APPLICABLE | PG | via op typée ; pas de 2e clic rituel |
+| B13-06 | unit intent ambiguous OK (ml3-cki-intent) ; C01 ambiguous framing | DETERMINISTIC | aucune mutation sans acte |
+| B13-07 | PG restriction persists on projection reload | PG | — |
+| B13-08 | PG COGNITIVE_PROPOSAL cannot OPEN | PG | — |
+| B13-09 | PG REVOKE founding method → ABSENT | PG | REVOKED non présenté comme APPLICABLE (unit C01) |
+| B13-10 | PG act-instance / reconcile ALREADY_APPLIED | PG | — |
+| C01–C02 UX | unit `qualifyCommandOutcome` ; e2e RESTRICTION vs HUMAN_INTENT contrôlé | DETERMINISTIC + BROWSER FAKE | pixel Figma NOT VERIFIED |
+| R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
+| R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
+| R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |

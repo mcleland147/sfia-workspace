@@ -390,3 +390,143 @@ Append-only logical journal of Cursor product deliveries.
 | RECETTE | activation conditionnelle après CI du SHA final ; ML1 RECETTE :3200 **non réinitialisée** |
 | Status | PROJECT PUSH FF + conditional RECETTE provision |
 | Verdict candidate | `ML2 LIVE BOUNDED REAL PROVEN — RECETTE CANDIDATE AVAILABLE FOR MORRIS REVIEW` (si gate E PASS) |
+
+## delivery_id: DELIV-2026-11-06-ML3-PILOTAGE-DECISIONS-14
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — Piloter et décider |
+| Type | INC / nouvelle capacité D5–D6 (MINOR candidate) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project push/PR**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` (PR #660 docs merged) |
+| Schema | additive `007_ml3_pilotage_decisions` (from `006_ml2_turn_owner_token`) — applied **DEV only** |
+| Changes | D6 human_decisions/restrictions ; D5 trajectories/cycles/method ; business_commands + effects ; CKI pin R01 ; atomic CLOSE+OPEN R04 ; Nora pilotage/CKI context ; UX Pilotage panel ; tests unit/PG/e2e |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE ; package `0.0.0-dev` |
+| Lane | DEV construction ; RECETTE/STABLE **not mutated** |
+| Figma | visual contract #22 native + inventory lot B ; runtime comparison partial (screenshot e2e) — not pixel-perfect claim |
+| LIVE Nora | NOT EXECUTED — GATE MORRIS REQUIRED |
+| Status | LOCAL ML3 DELIVERY — review handoff only |
+| Verdict candidate | `LOCAL ML3 DELIVERY COMPLETE — REVIEW REQUIRED` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-CORRECTIFS-F01-F08
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — correctifs pilotage F01–F08 et T01–T04 |
+| Type | INC corrective (same ML3, not a new lot) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
+| Base | `7f1f41c` dirty candidate |
+| Schema | unchanged `007_ml3_pilotage_decisions` — `actInstanceId` lives in `source_action_key` + fingerprint, no migration 008 |
+| Corrected | Idempotence UI + GET by client key ; manifeste CKI 0.2.0 ; restriction ciblée ; journal `state` ; GO naturel sans operation ; identité d'acte ; `REVISE_DECISION` + contradiction exacte ; `DELIVERED` seulement après generate réel |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/STABLE not mutated |
+| LIVE Nora | NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+
+## delivery_id: DELIV-2026-11-06-ML3-AUTHORITY-CR01-CR04
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — ajustement autorité & preuves CR-01..CR-04 |
+| Type | INC corrective continuation (same ML3) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
+| Base | `7f1f41c` dirty candidate (hashes F01–F08 pack as baseline) |
+| Schema | unchanged `007` |
+| Corrected | Transition A+B restrictions ; REVISE vs D5 founding refuse ; no global statement contradiction ; Review Pack with real logs |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/STABLE not mutated |
+| LIVE Nora | NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+| Verdict candidate | `ML3 AUTHORITY ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-ASSISTED-CONTRADICTIONS
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 contradictions assistées (Niveau A Nora + Niveau B typé) |
+| Type | EVOL complementary on existing ML3 |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
+| Base | `7f1f41c` dirty candidate |
+| Contrat | B13 v0.1 **VALIDATED IN CONTENT BY MORRIS** 2026-11-06 |
+| Schema | unchanged `007` — no migration 008 |
+| Implemented | divergence-assist Level A ; nora-context/fixture ; UX legend ; typed Level B unchanged |
+| Product version | `NO RELEASE` |
+| Lane | DEV ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Status | LOCAL CANDIDATE — no project push/PR/merge |
+| Verdict candidate | `ML3 B13 DELIVERY COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (DEV limits) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-C01-C03-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 corrective continuation C01–C03 (after Critical Review) |
+| Type | INC corrective continuation (same ML3 ; not a new macro-lot) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project commit/push/PR**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` dirty candidate preserved |
+| Contrat B13 | v0.1 remains **VALIDATED IN CONTENT BY MORRIS** — Cursor hypothesis ≠ new normative decision |
+| Schema | unchanged `007` — no migration 008 ; no new authority category |
+| C01 | `findMessageDecisionConfrontations` — single APPLICABLE D6 + new USER message → structured `levelASignals` via conversation→nora-context→adapter (no second persisted decision) |
+| C02 | `qualifyCommandOutcome(status, reasonCode)` — CONFLICT≠authority ; RESTRICTION→authority-block ; STALE/HUMAN_INTENT/FINGERPRINT→technical ; ACTIVE_CYCLE→d5_state |
+| C03 | FULL Review Pack + integrated tests (unit/PG/e2e FAKE) ; real logs |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only (`127.0.0.1:5433/sfia_next_dev`) ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — handoff L3 only |
+| Verdict candidate | `ML3 B13 TARGETED ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-R1-R3-CORRECTIVE
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 R1–R3 final corrective (after Critical Review on C01–C03) |
+| Type | INC corrective continuation (same ML3 ; not a new macro-lot) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no project commit/push/PR**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` dirty candidate preserved |
+| Prior handoff | `sfia/review-handoff@9b98a7fa` blob `e921982c` |
+| Contrat B13 | v0.1 **VALIDATED IN CONTENT BY MORRIS** |
+| Schema | unchanged `007` |
+| R1 | Clear stale `lastOutcome` on new command ; UNKNOWN presentation replaces prior RESTRICTION motif |
+| R2 | Negation/polarity-safe Level A framing (never false COMPATIBLE on « n'est plus obligatoire ») |
+| R3 | PG integrated `postUserMessageAndNora` proof (persist USER+Nora, no invented HumanDecision) |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Status | LOCAL CORRECTIVE — handoff L3 only |
+| Verdict candidate | `ML3 B13 R1-R3 CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
+
+## delivery_id: DELIV-2026-11-06-ML3-B13-R2-R3-FINAL-ADJUST
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — B13 R2/R3 final targeted adjustments |
+| Type | INC corrective continuation (same ML3) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local only**) |
+| Base | `origin/main@7f1f41c` dirty candidate preserved |
+| Prior handoff | `sfia/review-handoff@541c0894` blob `ada98550` |
+| R2 | Polarity: jamais / aucunement / typographic apostrophe / ne doit pas être — never false COMPATIBLE |
+| R3 | Isolation proof: foreign APPLICABLE decision on same objectRef created BEFORE Nora gen ; marker absent from A context/reply |
+| Schema | unchanged `007` |
+| Product version | `NO RELEASE` |
+| Lane | DEV only ; LIVE Nora NOT EXECUTED |
+| Verdict candidate | `ML3 B13 R2-R3 TARGETED ADJUSTMENTS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-IMMUTABLE-CANDIDATE-PUBLISH
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — consolidation & publication candidat Git |
+| Type | RUN — consolidation / qualification / publication bornée |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**project push authorized — no PR/merge**) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
+| Schema | `007_ml3_pilotage_decisions` |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV proofs only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
+| Scope | Allowlist §6 only (docs + CKI manifest + web D5/D6/API/UX/tests) ; SVG / `.tmp-sfia-review` excluded |
+| Status | IMMUTABLE PROJECT CANDIDATE — SHA filled at commit/push |
+| Verdict candidate | `ML3 IMMUTABLE PROJECT CANDIDATE PUBLISHED — READY FOR CHATGPT GLOBAL CRITICAL REVIEW` |

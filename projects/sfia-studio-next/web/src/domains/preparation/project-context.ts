@@ -4,6 +4,7 @@ import { preparationProjectLinks, projects } from "@/db/schema";
 import { listMessages } from "@/domains/conversation/service";
 import { listDocuments } from "@/domains/document/service";
 import { listKnowledge } from "@/domains/knowledge/service";
+import { getPilotageProjection } from "@/domains/pilotage/service";
 import { getPreparationContext } from "@/domains/preparation/service";
 
 /**
@@ -43,6 +44,7 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
   const messages = await listMessages(pilotId, link.preparationId);
   const documents = await listDocuments(pilotId, link.preparationId);
   const knowledge = await listKnowledge(pilotId, link.preparationId);
+  const pilotage = await getPilotageProjection(pilotId, projectId);
 
   return {
     project,
@@ -52,5 +54,6 @@ export async function getOwnedProjectContext(pilotId: string, projectId: string)
     messages,
     documents,
     knowledge,
+    pilotage,
   };
 }

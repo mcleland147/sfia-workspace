@@ -33,7 +33,7 @@ function applySql(file: string, database = DB) {
   );
 }
 
-describe.skipIf(!dockerOk())("migrations 001→006 on fresh isolated Postgres", () => {
+describe.skipIf(!dockerOk())("migrations 001→007 on fresh isolated Postgres", () => {
   let sql: ReturnType<typeof postgres> | null = null;
 
   beforeAll(async () => {
@@ -102,13 +102,14 @@ describe.skipIf(!dockerOk())("migrations 001→006 on fresh isolated Postgres", 
     }
   }, 30_000);
 
-  it("applies 001→006; auth_mode + knowledge + creation_correlation + turn owner_token exist", async () => {
+  it("applies 001→007; auth_mode + knowledge + turn owner_token + pilotage tables exist", async () => {
     applySql("001_initial_studio_core.sql");
     applySql("002_session_auth_mode.sql");
     applySql("003_ml2_knowledge_documents.sql");
     applySql("004_ml2_integrity_corrective.sql");
     applySql("005_ml2_conversation_turn_command.sql");
     applySql("006_ml2_turn_owner_token.sql");
+    applySql("007_ml3_pilotage_decisions.sql");
 
     const cols = await sql!`
       SELECT column_name, column_default, is_nullable
@@ -165,15 +166,51 @@ describe.skipIf(!dockerOk())("migrations 001→006 on fresh isolated Postgres", 
       WHERE table_name = 'conversation_turn_commands' AND column_name = 'owner_token'
     `;
     expect(ownerTok).toHaveLength(1);
+
+    const pilotage = await sql!`
+      SELECT table_name FROM information_schema.tables
+      WHERE table_schema = 'public'
+        AND table_name IN (
+          'project_pilotage_state',
+          'trajectory_revisions',
+          'project_cycles',
+          'method_applications',
+          'human_decisions',
+          'governance_restrictions',
+          'business_commands',
+          'business_command_effects'
+        )
+      ORDER BY table_name
+    `;
+    expect(pilotage.map((t) => t.table_name)).toEqual([
+      "business_command_effects",
+      "business_commands",
+      "governance_restrictions",
+      "human_decisions",
+      "method_applications",
+      "project_cycles",
+      "project_pilotage_state",
+      "trajectory_revisions",
+    ]);
+    const activeIdx = await sql!`
+      SELECT indexdef FROM pg_indexes WHERE indexname = 'project_cycles_one_active_uidx'
+    `;
+    expect(String(activeIdx[0]?.indexdef)).toMatch(/UNIQUE/i);
+    expect(String(activeIdx[0]?.indexdef)).toMatch(/ACTIVE/);
+    const methodIdx = await sql!`
+      SELECT indexdef FROM pg_indexes WHERE indexname = 'method_applications_current_uidx'
+    `;
+    expect(String(methodIdx[0]?.indexdef)).toMatch(/is_current/i);
   });
 
-  it("re-applying 001→006 is idempotent", () => {
+  it("re-applying 001→007 is idempotent", () => {
     expect(() => applySql("001_initial_studio_core.sql")).not.toThrow();
     expect(() => applySql("002_session_auth_mode.sql")).not.toThrow();
     expect(() => applySql("003_ml2_knowledge_documents.sql")).not.toThrow();
     expect(() => applySql("004_ml2_integrity_corrective.sql")).not.toThrow();
     expect(() => applySql("005_ml2_conversation_turn_command.sql")).not.toThrow();
     expect(() => applySql("006_ml2_turn_owner_token.sql")).not.toThrow();
+    expect(() => applySql("007_ml3_pilotage_decisions.sql")).not.toThrow();
   });
 
   it("controlled failure when a migration SQL is broken (ON_ERROR_STOP)", () => {

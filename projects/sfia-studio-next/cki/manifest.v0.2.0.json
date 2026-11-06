@@ -1,0 +1,95 @@
+{
+  "version": "0.2.0",
+  "specialties": [
+    {
+      "ckiId": "01-cadrage",
+      "file": "01-cadrage.md",
+      "version": "0.2.0",
+      "sha256": "e8d7a0cbdf3c55b3a991945b336901b1d92172113d1384e62bf6a86f4ec7bff9"
+    },
+    {
+      "ckiId": "02-conception-fonctionnelle",
+      "file": "02-conception-fonctionnelle.md",
+      "version": "0.2.0",
+      "sha256": "663e2bd0f00fec3ae0f52bb580fd24dcfc769a9cd9a04bd05e8e694f5a57d292"
+    },
+    {
+      "ckiId": "03-architecture-fonctionnelle",
+      "file": "03-architecture-fonctionnelle.md",
+      "version": "0.2.0",
+      "sha256": "937bb2b52af6a1d2c16662a9c860526c59d53a0af054a993911884e05803d9b3"
+    },
+    {
+      "ckiId": "04-ux-ui",
+      "file": "04-ux-ui.md",
+      "version": "0.2.0",
+      "sha256": "ab7571d5dc7da094c4ec4dbb7647bef1b8d0435a8671a7d110bc45579e628030"
+    },
+    {
+      "ckiId": "05-backlog-user-stories",
+      "file": "05-backlog-user-stories.md",
+      "version": "0.2.0",
+      "sha256": "4b2636d8b6b82d1eb91de7e99914f616f70abe626a83b24f93b72f2a3e06622e"
+    },
+    {
+      "ckiId": "06-architecture-technique",
+      "file": "06-architecture-technique.md",
+      "version": "0.2.0",
+      "sha256": "8d07b5f4ab5c18ea184a39efb17a8b98a9bc79f884e93049271228f3b42c57ff"
+    },
+    {
+      "ckiId": "07-integration-devops",
+      "file": "07-integration-devops.md",
+      "version": "0.2.0",
+      "sha256": "260de6456a0baeda68156a9e506bb1847663235256ab8fc272db02adc22833e8"
+    },
+    {
+      "ckiId": "08-delivery-implementation",
+      "file": "08-delivery-implementation.md",
+      "version": "0.2.0",
+      "sha256": "e427432d6c9124eb936564c3b1fdc6ec760fc1f6bce082f4a662fa219b59e219"
+    },
+    {
+      "ckiId": "09-qa-validation",
+      "file": "09-qa-validation.md",
+      "version": "0.2.0",
+      "sha256": "02f51b97ecbd62ec621b8a8c0344525bb8e4eff761cb9cc03aa39d13280ebce7"
+    },
+    {
+      "ckiId": "10-securite-rssi",
+      "file": "10-securite-rssi.md",
+      "version": "0.2.0",
+      "sha256": "3ad89e906571dc184b0ee4a284c5b9d555108ebfebd0c196663caedb3d418edb"
+    },
+    {
+      "ckiId": "11-deploiement-release",
+      "file": "11-deploiement-release.md",
+      "version": "0.2.0",
+      "sha256": "b1e2625857d9b643a28372f4dff8e5dacf4c22828b262d0b3e29292009418c51"
+    },
+    {
+      "ckiId": "12-observabilite-run-readiness",
+      "file": "12-observabilite-run-readiness.md",
+      "version": "0.2.0",
+      "sha256": "ee9b8bedc9e39fbc039c9da2853d0dc7bb61f9270d6d49c7fe89cf619b95cb68"
+    },
+    {
+      "ckiId": "13-pr-readiness",
+      "file": "13-pr-readiness.md",
+      "version": "0.2.0",
+      "sha256": "2f75ee9ce71f531b4cf5c8b84fb1016b2d49f5b8acad042d66d4687b4e1d1727"
+    },
+    {
+      "ckiId": "14-post-merge",
+      "file": "14-post-merge.md",
+      "version": "0.2.0",
+      "sha256": "fae08d5fb13c51fadcdaf55252c78e750eeabfdfc6dffa5f1801477e124d6673"
+    },
+    {
+      "ckiId": "15-capitalisation-rex",
+      "file": "15-capitalisation-rex.md",
+      "version": "0.2.0",
+      "sha256": "208cbb007738a4d06d274a97500d9540dc3c0840c63a833340d372956eb645f4"
+    }
+  ]
+}

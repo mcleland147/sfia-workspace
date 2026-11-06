@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { SafeMarkdown } from "@/components/SafeMarkdown";
+import { PilotagePanel } from "@/components/PilotagePanel";
 
 type Msg = { id: string; role: string; content: string; status: string };
 type Doc = {
@@ -20,7 +21,7 @@ type Knowledge = {
   openPoints: Array<{ id: string; statement: string; status: string }>;
 };
 
-type Surface = "travail" | "journal" | "document";
+type Surface = "travail" | "pilotage" | "journal" | "document";
 
 export default function ProjectPage() {
   const params = useParams<{ projectId: string }>();
@@ -120,6 +121,7 @@ export default function ProjectPage() {
           {(
             [
               ["travail", "Travail"],
+              ["pilotage", "Pilotage"],
               ["journal", "Journal"],
               ["document", "Documents"],
             ] as const
@@ -200,6 +202,8 @@ export default function ProjectPage() {
         </div>
       ) : null}
 
+      {surface === "pilotage" ? <PilotagePanel projectId={params.projectId} /> : null}
+
       {surface === "document" ? (
         <div className="grid lg:grid-cols-2 gap-4">
           <section className="space-y-2">
@@ -267,6 +271,10 @@ export default function ProjectPage() {
                   {a.statement}
                 </div>
               ))}
+            <p className="text-xs muted pt-2">
+              Les décisions D6 opposables sont dans l&apos;onglet Pilotage (Journal—Décisions), pas
+              ici.
+            </p>
           </section>
         </div>
       ) : null}

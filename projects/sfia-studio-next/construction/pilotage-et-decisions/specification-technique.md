@@ -1,11 +1,12 @@
 # SFIA Studio Next — R5 / ML3 « Piloter et décider »
 ## Spécification technique v0.4 — candidate publiée sur branche documentaire
 
-**Statut :** `DOCUMENTED — D0 / CANDIDATE — NOT VALIDATED SPEC — NOT IMPLEMENTED`.
+**Statut historique D0 (en-tête v0.4) :** métadonnées de conception pré-delivery — ne décrivent plus l'état du candidat runtime.
+**Statut candidat courant (2026-11-06) :** `IMPLEMENTED — CANDIDATE` sur `sfia/next-pilotage-decisions-delivery` — **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
 **Date :** 2026-11-06 (Europe/Paris).
-**Dépôt :** `mcleland147/sfia-workspace` ; base `main@ab18316b9c1e849ff557f4ba561c638e9961bb89` ; branche documentaire `docs/next-pilotage-decisions-cadrage-20261105` (HEAD pré-publication `d3e61571f17db0bea03ac3c879a504e6fa99a2ef` ; HEAD publié à consulter dans Git).
-**Nature :** révision D0 consolidant les v0.2 Git / v0.3 locale et traitant R01–R04 ; **publication Git candidate autorisée par Morris le 2026-11-06**, sans merge sur `main`.
-**État local/runtime :** `NON OBSERVÉ` ; D5/D6 `N/A — NON IMPLÉMENTÉ`.
+**Dépôt :** `mcleland147/sfia-workspace` ; base `main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` ; branche candidat `sfia/next-pilotage-decisions-delivery`.
+**Nature :** as-built D5/D6 + B13 + correctifs CR/B13 ; publication Git candidat autorisée (GO Morris consolidation) **sans** merge `main`, sans RECETTE, sans STABLE.
+**État runtime candidat :** D5/D6 **IMPLEMENTED** (schéma `007`) sous lane DEV ; preuves FAKE/PG selon matrice B01–B18 ; Nora LIVE NOT EXECUTED.
 **Sources propriétaires :** `governance/SEF.md`, `governance/roadmap.md`, `governance/decisions/2026-11-04-r4-architecture-exit.md`, R2 `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md`, R2 `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` et compléments, R3 `ux-ui/audit-couverture-ux-r3.md` §7, R4 `architecture-technique/cadrage-r4.md` §5.5, corpus `cki/` v0.2.0, R5 `construction/reference-delivery-r5.md`, code ML1/ML2 sur `main`.
 **Annexes sur cette branche :** [Matrice individuelle R2–R4](tracabilite-r2-r3-r4.md) (136 liens et R01–R04) et [Revue de conception](revue-conception.md) (revue/gates).
 
@@ -258,3 +259,101 @@ La matrice annexe porte **une ligne par RG et PF D5/D6** : `40 RG-TRJ + 37 RG-GO
 **Gates :** (1) Morris examine et arbitre ces réserves de conception puis valide la **spécification globale** ; (2) GO Cursor D3/SFIA v2.6 indépendant et template Git consulté ; (3) développement/PG/UI/tests/docs en un macro-lot ; (4) revue sur pack complet et preuve ; (5) RECETTE/PR/merge/promotion/R6/adoption, chacun sous gate approprié. Aucune action Git de publication comprise dans ce document local.
 
 **Verdict :** `R5 / ML3 — TECHNICAL SPEC v0.4 D0 CANDIDATE — R01–R04 DESIGN PROPOSED/CLOSED FOR REVIEW — MORRIS CONTENT VALIDATION PENDING — NO CURSOR GO — NO IMPLEMENTATION — NO TEST — GIT DOCUMENTARY BRANCH COMMITTED — NO MAIN MERGE`.
+---
+
+## 12. As-built delivery ML3 (2026-11-06) — factual implementation note
+
+**Statut runtime :** `IMPLEMENTED — CANDIDATE` — publication branche projet autorisée ; **NOT RECETTE — NOT MERGED — NOT ADOPTED — NO RELEASE**.
+**Branche :** `sfia/next-pilotage-decisions-delivery` @ base `origin/main@7f1f41c`.
+**Schéma :** `007_ml3_pilotage_decisions` additive after `006`.
+**Version produit :** `NO RELEASE` (package technique `0.0.0-dev` ≠ STABLE).
+
+### Responsabilités livrées
+
+| Domaine | Module | Rôle |
+|---|---|---|
+| D6 | `web/src/domains/decisions/` | Décisions, restrictions, journal |
+| D5 | `web/src/domains/pilotage/` | Trajectoire, cycles, méthode, commandes, CKI resolve |
+| D3 raccord | `nora-adapter` + `nora-context` | Projection + guidance CKI bornée ; `DELIVERED` seulement si octets joints |
+| API | `/api/projects/[id]/pilotage`, `/commands`, `/decisions` | Auth session + idempotence |
+| UX | `PilotagePanel` + onglet projet | #22/#24/#28/#40 honnêtes ; pas de #42 positif |
+
+### Invariants runtime
+
+- Verrou `projects` `FOR UPDATE` + révision `project_pilotage_state`.
+- Un seul cycle `ACTIVE` (index partiel).
+- Pas de `PARTIAL` interne ; transition CLOSE+OPEN atomique.
+- CKI : ASSOCIATED / RESOLVED / DELIVERED distincts ; pas de fallback CKC historique.
+- Méthode ABSENTE normale ; CHOOSE/REPLACE/WITHDRAW/REVOKE_BASE sans restauration implicite.
+
+### Erreurs
+
+`APPLIED` · `ALREADY_APPLIED` · `REJECTED` · `CONFLICT` · `UNKNOWN` — HTTP 200/400/409/503 selon `pilotageCommandHttpStatus`.
+
+Les en-têtes historiques « NOT VALIDATED SPEC / NOT IMPLEMENTED » du document v0.4 restent des métadonnées pré-delivery ; ce §12 constate l'implémentation locale sans modifier les contrats R01–R04 validés en contenu Morris via #660.
+
+### Correctif ML3 (2026-11-06, local, non poussé)
+
+Idempotence UI par `actInstanceId` stable (retry = même clé, nouvel acte = nouvel id) et réconciliation `GET .../commands/by-key/:clientCommandKey`. CKI `RESOLVED` seulement si le digest du fichier égale l'entrée `cki/manifest.v0.2.0.json` (pas de migration silencieuse). Restriction `CYCLE_MUTATION` / `PILOTAGE_EFFECT` : `*` global, sinon cible (cycle, type ou méthode). GO naturel `EXPLICIT_INTERACTION` sans `operation`. `DELIVERED` seulement si le contenu CKI est joint et qu'un generate fixture/live a réellement tourné. Schéma inchangé (`007`).
+
+### Ajustement autorité CR-01..CR-04 (2026-11-06, local, non poussé)
+
+- **CR-01** — `TRANSITION_CYCLE` : évaluation D6 sur le cycle ACTIVE réel (A) **et** le `toCycleType` (B). Restriction sur A ou B → rejet unique, A reste ACTIVE, aucun B créé. Option A CLOSE+OPEN inchangée.
+- **CR-02** — `REVISE_DECISION` : autorisée pour `RECORD_DECISION` (documentaire, sans effet D5). Refusée (`USE_TYPED_OPERATION`) pour les kinds fondateurs D5 (cycle/méthode/trajectoire/restriction) afin de ne pas orpheliner `method_applications.decisionId` ni les pins de cycle. Remplacement/révocation via opérations typées.
+- **CR-03** — suppression du booléen project-global `statementA !== statementB` bloquant tous les effets D5 dépendants. Controles déterministes conservés (restrictions, état cycle/méthode, fondation). Conflit matériel D6 libre-texte : **B13 PARTIAL / NEEDS MORRIS ARBITRATION**.
+- **CR-04** — Review Pack FULL avec diffs/contenu exploitables et logs bruts (pas de placeholders).
+
+### B13 v0.1 — contradictions assistées par Nora (2026-11-06)
+
+**Statut contenu :** `VALIDATED IN CONTENT BY MORRIS` — 2026-11-06.
+Distinct de : publication Git normative · implémentation · preuve LIVE · ADOPTED.
+
+**Deux niveaux (contrat) :**
+
+| Niveau | Nature | Qui | Effet |
+| --- | --- | --- | --- |
+| A — Contradiction potentielle | Suspicion cognitive | Nora (D3) | Explique, clarifie, propose ; **aucune** HumanDecision, aucune interdiction D6 |
+| B — Conflit matériel déterminant | Contrôle typé au point d'effet | D6→D5 | Refuse seulement l'effet réellement concerné (restriction, état cycle/méthode, fondation, source) |
+
+**As-built local :**
+
+- `domains/decisions/divergence-assist.ts` — détection Niveau A bornée (même kind+objectRef+scope, statements distincts) ; `authorityClaim=NONE`.
+- `nora-context` — joint décisions applicables bornées + snippets Niveau A selon énoncé ; jamais d'appel IA en transaction PG.
+- `nora-adapter` fixture — clarification Niveau A déterministe ; consignes système B13 ; **LIVE NOT EXECUTED**.
+- D6/D5 — pas de restauration de `hasExactContradiction` global ; Option A inchangée ; pas de migration 008.
+- UX PilotagePanel — légende « suspicion ≠ interdiction » ; marqueur `authority-block-established` pour RESTRICTION/CONFLICT.
+
+**Limite honnête :** conflit matériel libre-texte non typé reste **NOT PROVEN** machine-side (clarification humaine + opérations typées). B13-03 prouvé pour conflits typés (restrictions / états).
+
+### B13 C01–C03 — corrective continuation (2026-11-06, local, non poussé)
+
+Après Critical Review B13 non acceptée. Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS).
+
+| Correctif | As-built |
+| --- | --- |
+| **C01** | `findMessageDecisionConfrontations(userText, applicableBriefs)` : rapproche un **message USER courant** d'une décision D6 **APPLICABLE** existante (kind/objectRef/portée bornés) **sans** deuxième décision persistée. Signaux structurés `LevelASignal` (`authorityClaim=NONE`, framing `POSSIBLE_CHANGE` / clarification). Chaîne : `conversation/service` → `buildPilotageNoraContext` → `levelASignals` → `nora-adapter` (fixture et LIVE partagent le même contrat d'entrée). Heuristique ≠ oracle métier D6. |
+| **C02** | `qualifyCommandOutcome({status, reasonCode})` : RESTRICTION→`authority-block-established` ; CONFLICT+STALE/HUMAN_INTENT/FINGERPRINT→`outcome-technical-*` ; CONFLICT+ACTIVE_CYCLE→`outcome-d5-state` ; UNKNOWN→réconciliation. Plus d'inférence d'autorité depuis la seule chaîne « CONFLICT ». |
+| **C03** | Preuves unit (C01/C02) + PG (contexte Nora sans 2e décision ; formulations compatibles) + Playwright FAKE (RESTRICTION vs HUMAN_INTENT contrôlé) + Review Pack FULL. |
+
+**Non modifié :** Option A CLOSE+OPEN ; migrations 007 ; moteur libre-texte universel (hors scope) ; autorité exclusive Pilote ; isolation projet.
+
+### B13 R1–R3 — correctif final après Critical Review (2026-11-06, local, non poussé)
+
+Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle politique d'autorité ni migration.
+
+| Correctif | As-built |
+| --- | --- |
+| **R1** | `PilotagePanel.runCommand` remet `lastOutcome` à `null` au démarrage d'une tentative. `resolveUnknown` / catch réseau positionnent `lastOutcome={status:"UNKNOWN"}`. Un motif RESTRICTION/CONFLICT antérieur ne reste plus affiché sous un statut UNKNOWN ou APPLIED suivant. PendingRecord / clés idempotentes inchangés. |
+| **R2** | `frameConfrontation` : polarité affirmée/négative des modalités (`n'est plus` / `n'est pas` / `pas` / `not`) → `POSSIBLE_CHANGE` ; décalage de portée globale↔locale → `AMBIGUOUS` ; synonymes affirmés (obligatoire↔requis) → `COMPATIBLE_RESTATEMENT` possible. Lexical overlap seul ne force plus une compatibilité trompeuse. Toujours `authorityClaim=NONE`. |
+| **R3** | Test PG `R3: postUserMessageAndNora integrates…` : une décision APPLICABLE + `postUserMessageAndNora` (fixture DEV) → messages USER/assistant persistés, relecture fil, `humanDecisionCreated=false`, journal inchangé, pas de mutation D5, replay idempotent, isolation inter-projets. |
+
+**Preuves :** unit R1/R2 ; PG R3 + suite ML3 ; Playwright R1 (UNKNOWN/APPLIED sans motif périmé) + C02 ; eslint chemins exacts ; tsc/build. **Limite :** libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; pixel Figma NOT VERIFIED.
+
+### B13 R2–R3 — derniers ajustements Critical Review (2026-11-06, local, non poussé)
+
+| Correctif | As-built |
+| --- | --- |
+| **R2** | `normalizeText` unifie apostrophes typographiques. `modalityPolarity` reconnaît `n'est jamais` / `n'est aucunement` / `ne doit|peut pas (être)` en plus de `plus`/`pas`. Ces négations ne produisent plus `COMPATIBLE_RESTATEMENT` par synonymes ou overlap. |
+| **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
+
+**Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.

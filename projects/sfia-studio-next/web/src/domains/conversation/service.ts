@@ -22,6 +22,7 @@ import {
 } from "./turn-command";
 import { emitObs, newRequestId } from "@/lib/observability";
 import { StudioError } from "@/lib/http-errors";
+import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
 
 export async function listMessages(pilotId: string, preparationId: string) {
   const ctx = await getPreparationContext(pilotId, preparationId);
@@ -207,6 +208,8 @@ export async function postUserMessageAndNora(
     return `DOCUMENT[${d.document.id}] «${d.document.title}» v${rev?.revisionNumber ?? "?"} status=${rev?.status ?? "∅"}`;
   });
 
+  const pilotageCtx = await buildNoraPilotageContext(pilotId, preparationId, content);
+
   let reply;
   try {
     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
@@ -218,6 +221,11 @@ export async function postUserMessageAndNora(
         userText: content,
         contextSnippets,
         knowledgeSnippets: [...knowledge.snippets, ...docSnippets],
+        pilotageSnippets: pilotageCtx.snippets,
+        // C01: same structured Level A contract for fixture and LIVE — never authority.
+        levelASignals: pilotageCtx.levelASignals,
+        // Requested level only. The adapter emits DELIVERED after a real generate.
+        ckiDelivery: pilotageCtx.ckiDelivery,
         toolScope: {
           pilotId,
           preparationId,
