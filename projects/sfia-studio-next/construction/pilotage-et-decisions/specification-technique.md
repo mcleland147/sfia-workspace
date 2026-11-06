@@ -1,221 +1,260 @@
-# SFIA Studio Next — R5 / ML3
-## Spécification technique candidate — Piloter et décider
+# SFIA Studio Next — R5 / ML3 « Piloter et décider »
+## Spécification technique v0.4 — candidate publiée sur branche documentaire
 
-**Version :** v0.2 — 2026-11-06 (Europe/Paris)  
-**Statut :** DOCUMENTED / D0 — CANDIDATE FOR REVIEW — NOT VALIDATED SPEC  
-**Source Git vérifiée :** mcleland147/sfia-workspace, main@ab18316b9c1e849ff557f4ba561c638e9961bb89  
-**Branche documentaire :** docs/next-pilotage-decisions-cadrage-20261105, candidate distincte de main  
-**Cadrage associé :** construction/pilotage-et-decisions/cadrage-lancement.md  
-**Autorité :** Morris — arbitrages, validation de contenu et gates ; ChatGPT — conception et revue ; Cursor — construction sous SFIA v2.6 avec mandat distinct  
-**État réel :** D5/D6 N/A — NON IMPLÉMENTÉ ; état Git local et runtime présents NON OBSERVÉS
+**Statut :** `DOCUMENTED — D0 / CANDIDATE — NOT VALIDATED SPEC — NOT IMPLEMENTED`.  
+**Date :** 2026-11-06 (Europe/Paris).  
+**Dépôt :** `mcleland147/sfia-workspace` ; base `main@ab18316b9c1e849ff557f4ba561c638e9961bb89` ; branche documentaire `docs/next-pilotage-decisions-cadrage-20261105` (HEAD pré-publication `d3e61571f17db0bea03ac3c879a504e6fa99a2ef` ; HEAD publié à consulter dans Git).  
+**Nature :** révision D0 consolidant les v0.2 Git / v0.3 locale et traitant R01–R04 ; **publication Git candidate autorisée par Morris le 2026-11-06**, sans merge sur `main`.  
+**État local/runtime :** `NON OBSERVÉ` ; D5/D6 `N/A — NON IMPLÉMENTÉ`.  
+**Sources propriétaires :** `governance/SEF.md`, `governance/roadmap.md`, `governance/decisions/2026-11-04-r4-architecture-exit.md`, R2 `conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md`, R2 `conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md` et compléments, R3 `ux-ui/audit-couverture-ux-r3.md` §7, R4 `architecture-technique/cadrage-r4.md` §5.5, corpus `cki/` v0.2.0, R5 `construction/reference-delivery-r5.md`, code ML1/ML2 sur `main`.  
+**Annexes sur cette branche :** [Matrice individuelle R2–R4](tracabilite-r2-r3-r4.md) (136 liens et R01–R04) et [Revue de conception](revue-conception.md) (revue/gates).
 
-> **Arbitrage Morris confirmé dans la conversation du 2026-11-06 :** option A — transition combinée atomique pour les effets D5/D6 exclusivement internes à Studio ; effets de clôture et d'ouverture distinctement observables ; effets réellement séparés et résultats partiels traités conditionnellement. Cet arbitrage précise le contrat technique R5. Il ne modifie pas les règles fonctionnelles R2 et ne vaut ni VALIDATED SPEC globale, ni GO Cursor/Git supplémentaire, ni preuve d'implémentation.
+> **Choix Morris déjà acquis :** option A — clôture du cycle A et ouverture du cycle B, si toutes les mutations D5/D6 sont internes à Studio, effectuées **dans une seule transaction PostgreSQL** ; deux faits de transition distinctement observables, commit unique. Une réussite partielle n'est possible que pour des effets réellement séparés, hors de cette frontière. **Choix de périmètre retenu :** noyau D6 réel (décisions, GO, révisions, restrictions et levées) dans ML3 ; D7/D8/D9 restent des interfaces, sans effets simulés. **Résolutions techniques proposées pour validation Morris :** R01 version/distribution CKI ; R02 sémantique de méthode ; R03 DDL/verrouillage/idempotence ; R04 résultat partiel. Les invariants R04 atomiques sont déjà arbitrés ; les choix détaillés R01–R03 sont à valider en contenu, **non implémentés**.
 
-## 1. Résultat Pilote, parcours et périmètre
+## 1. Résultat Pilote et frontière du macro-lot
 
-Dans son projet et le même fil Nora continu, le Pilote peut envisager et réviser une trajectoire, ouvrir ou terminer un cycle sur GO humain applicable, bénéficier de la guidance du CKI principal du cycle, choisir ou laisser absente une méthode durable, conserver et réviser ses décisions, suspensions et restrictions, puis retrouver l'état réel après interruption.
+Le Pilote peut reprendre son projet et son fil Nora, envisager une trajectoire sans l'appliquer, retenir une orientation de façon gouvernée, ouvrir un cycle pertinent sur un GO humain naturel, progresser avec une guidance CKI vérifiable lorsqu'elle est réellement disponible, enregistrer et réviser ses décisions, suspendre/lever des effets bornés et clore ou réorienter les cycles en retrouvant les faits durables après redémarrage.
 
-**Parcours fil rouge :** projet existant → proposition de trajectoire sans activation → GO humain clair → D6 qualifie l'autorité → D5 ouvre un seul cycle réel → Nora utilise, si effectivement accessible, le CKI pertinent → D4 restitue acquis et points ouverts → décision ou suspension gouvernée → clôture / transition / réorientation → reconnexion au même projet et fil → état actuel confirmé.
+**IN :** D5 trajectoire, état des cycles, méthode applicable et liaison CKI ; D6 actes humains, portée, validité, restrictions, révisions/révocations, suspensions/levées ; interfaces D1/D2/D3/D4 ; transactions PG et intégrité, API, UX R3 B, tests, observabilité et documentation as-built dans le même macro-lot. **OUT :** exécution Cursor D7, preuve et verdict D8, mutation Git D9, adoption globale, catalogue universel de méthodes, moteur de workflow et nouveaux parcours obligatoires.
 
-**IN :** D5 trajectoire/cycles/méthode/CKI ; D6 HumanDecisions, validité, suspensions, révocations et levées ; raccordement D3 et D4 ; données transactionnelles PostgreSQL, sécurité et reprises, UX lot B R3, tests QA B, observabilité et documentation courante.
+**Parcours d'acceptation commun :** projet existant → Nora propose une trajectoire → le Pilote retient ou non l'orientation → GO de cycle authentifié → enregistrement atomique D6/D5 → cycle ACTIVE + CKI associé → consommation de guidance si disponible, avec provenance → décision durable ou suspension → clôture/transition gouvernée → reconnexion au même fil et vérification de l'état. Un projet peut continuer normalement sans cycle ni méthode.
 
-**OUT :** déclenchement Cursor et contrats d'exécution D7, preuves et conformité D8, mutations Git D9, workflow obligatoire par CKI, automatisation des décisions humaines, R6, STABLE ou ADOPTED.
+## 2. Autorités et propriétaires — invariants transverses
 
-**Frontière produit :** sans cycle ni méthode, Nora reste pleinement utilisable pour les travaux cognitifs. Proposition, guidance, estimation de maturité et contenu cité ne constituent jamais une décision ou un changement d'état.
+| Domaine | Vérité propriétaire | Limite |
+|---|---|---|
+| D1/D2 | Session authentifiée, identité du Pilote, propriété du projet, préparation et continuité du fil | Une session, un projet ou GitHub OAuth ne sont pas des GO métier. |
+| D3 — Nora | Messages originaux, analyse de l'intention, propositions, réponse cognitive, consommation contrôlée de contexte | Le modèle ne produit aucun HumanDecision ni changement D5 à partir de sa seule sortie. |
+| D4 | Sujets, acquis, documents, points ouverts et provenance | Aucune duplication de mémoire ou preuve dans D5/D6. |
+| D5 | Trajectoires, cycles, méthode et association du CKI principal, états et historique | Ne crée ni compétence humaine ni permission. |
+| D6 | Source humaine, portée, décision opposable, restrictions et historique | Ne maintient pas un second état de cycle ni ne simule D7/D9. |
+| D7/D8/D9 | Futures frontières propriétaires d'exécution, preuve et Git | Contrats préparés seulement ; aucun faux objet métier opérationnel ML3. |
 
-## 2. Hiérarchie des sources et traçabilité
+Les lectures D3/UX constituent des **projections** des propriétaires. Les diagnostics techniques n'émettent aucun acte d'autorité. Les contrôles de droits/compétence sont relus **au point d'effet**, non déduits d'une vue affichée antérieurement.
 
-- **R1 :** cadrage/vision-produit.md et scénarios E2E relatifs à la conduite de projet, au pilotage et aux décisions.
-- **R2 D5 :** conception-fonctionnelle/trajectoire-cycles-et-guidance-cki.md — RG-TRJ-001..040, PF-TRJ-01..30.
-- **R2 D6 :** conception-fonctionnelle/decisions-et-gouvernance-du-pilote.md — RG-GOV-001..037, PF-GOV-01..29 et compléments applicables.
-- **R2 interfaces :** D3 contexte-et-conduite-gouvernee-de-nora.md ; D4 connaissance-sujets-et-continuite-du-projet.md.
-- **CKI :** cki/README.md, quinze fiches validées en contenu et relations-methodologiques-cki.md (50 relations informatives), sans présomption de chargement runtime.
-- **R3 :** ux-ui/audit-couverture-ux-r3.md §7 (lot B), ux-ui/contrat-transposition-figma-code.md ; Figma fileKey itgvCulInEnFY6DvgIegvP. Nœuds référencés dans le §8 ; Figma native non inspectée dans cette qualification D0.
-- **R4 :** architecture-technique/cadrage-r4.md §5.5, ADR R4-01 à R4-04, QA B01..B18, DATA-01.
-- **R5 :** construction/contrat-specification-macro-lot.md et construction/reference-delivery-r5.md ; as-built ML1/ML2 comme contraintes de compatibilité.
-- **Gouvernance :** governance/SEF.md, governance/roadmap.md et governance/decisions/.
+## 3. Contrat D6 — acte humain et applicabilité
 
-Le contrôle exhaustif individuel des RG/PF vers les contrats et tests n'est **pas encore terminé**. Les rattachements ci-dessous identifient les familles, non une déclaration de couverture vérifiée. L'en-tête de la Roadmap sur main mentionne encore #659 ouverte : **KNOWN GAP historique**, Git/merge vérifiés priment. Synchronisation ultérieure seulement sous mandat.
+### 3.1. Classes d'actes
 
-## 3. Architecture de capacité — un propriétaire par vérité
+Distinguer : préférence cognitive non opposable ; choix structurant durable ; GO cycle (ouvrir/clore/transitionner) ; suspension/restriction ; levée/révocation/révision ; choix durable de méthode ; acte de réception D8 et autorisation « Exécuter » D7, tous deux **hors réalisation ML3**. Un choix de brouillon/document n'est pas un GO Git, une validation normative ou un mandat. Une proposition CKI n'est jamais permission.
 
-| Responsabilité | Possède | N'empiète pas sur |
-| --- | --- | --- |
-| D1/D2 | Session authentifiée, propriétaire du projet, sas et continuité | Décision, GO ou cycle |
-| D3 | Message originel, qualification de l'intention, réponse Nora et contexte conversationnel | Décision opposable, permission, état réel de cycle |
-| D4 | Sujets, Acquis, Documents, Points ouverts, provenance | Deuxième registre D5/D6 |
-| D5 | Trajectoire, cycles et transitions, méthode applicable et CKI principal associé | Source de décision humaine |
-| D6 | Validité et historique des actes humains, portée, restrictions, suspensions, levées | Deuxième état de cycle ou exécution D7/D9 |
-| UX | Représentation des lectures propriétaires et commandes du Pilote | Autorité par animation ou navigation |
+### 3.2. Identité et provenance minimales
 
-**Orientation ratifiée R4 :** application web modulaire et une source transactionnelle PostgreSQL. D5 et D6 restent propriétaires logiques séparés au sein de la même application/base ; aucune deuxième base décisionnelle, moteur de workflow universel ou service distribué requis.
+L'acte stocké D6 référence : `decisionId`, `projectId`, `pilotId` authentifié, `sourceKind` (message utilisateur réel ou interaction humaine explicite), `sourceRef` et révision/corrélation, `kind`, `objectRef`, `scope` typé et borné, `effectConditions`, `state/version`, `effectiveAt`, `supersedes/revokes/lifts` s'il y a lieu, `createdAt`. La source conversationnelle doit être une **expression USER vérifiée**, rattachée au projet autorisé ; le modèle, une citation ou un texte importé ne peuvent fournir cette autorité. Minimiser la répétition du texte humain et protéger les détails sensibles.
 
-Le code Git main observé contient D1–D4, les tables et commandes ML1/ML2 et schemaRevision 006_ml2_turn_owner_token. Aucun service ni table D5/D6 n'est observé. Les mécanismes de commande de tour D3/ML2 peuvent fournir des références de provenance, mais **ne prouvent pas** l'idempotence ou l'autorité métier de D5/D6.
+**Validité D6 au point d'effet :** acteur habilité et projet courant ; cible/portée compatibles avec la commande ; provenance humaine fiable ; état/version ; contraintes supérieures ; restrictions et décisions incompatibles ; durée/conditions d'applicabilité. Conflit déterminant non résolu = refus de l'effet ciblé, sans bloquer la cognition indépendante. « Plus récente » n'est pas une règle de priorité.
 
-## 4. Contrat des opérations gouvernées
+### 3.3. Évolutions non destructives
 
-### 4.1. Commandes métier candidates, sans signatures API figées
+Révision, amendement, révocation ou levée sont des **actes distincts liés** à leur cible, avec date de prise d'effet et contexte conservés. L'applicabilité courante change mais les décisions et effets passés restent vrais. Une suspension humaine persistante ne disparaît ni avec une nouvelle session, ni avec un nouveau cycle, ni lorsque Nora juge le problème résolu. Lever une suspension n'accorde pas de droits nouveaux et ne rejoue pas une commande. Une demande d'arrêt externe est enregistrable comme intention/portée D6 ; elle **n'est pas** un constat d'arrêt D7.
 
-| Action | Préconditions | Postconditions D5/D6 |
-| --- | --- | --- |
-| Ouvrir un cycle | Pilote autorisé ; GO applicable ; projet, type reconnu et finalité explicites ; aucun actif concurrent | D6 acte applicable et D5 unique cycle ACTIVE confirmés |
-| Clore un cycle | GO applicable ; cycle identifié ACTIVE et version actuelle ; restrictions respectées | D5 CLOSED, bilan et réserves conservés ; aucune adoption induite |
-| Transition combinée | GO couvrant clôture A + ouverture B ; A ACTIVE/version courante, B cohérent, restrictions vérifiées | Un seul commit pour D6 et les deux effets D5, ou aucune mutation |
-| Retenir/réviser la trajectoire | Décision si portée durable ; version et dépendances contrôlées | Proposition / retenu / effectif distincts, historique sans rétroactivité |
-| Retenir/réviser la méthode | D6 choix compétent ; référence/version/portée identifiables | D5 méthode ABSENTE ou référence retenue versionnée |
-| Suspendre / révoquer / lever | Acte compétent ; cible et portée claires | D6 restriction applicable ou levée ; pas de reprise technique automatiquement déclenchée |
+**Révocation de méthode :** le contrat proposé R02 en §8 bis sépare retrait, remplacement, suspension d'usage, levée et révocation du choix courant. Révoquer le choix fondant la méthode actuellement applicable termine son application D5 et la laisse `ABSENT` sauf remplacement explicitement autorisé dans le même commit ; aucune restauration implicite. Si la cible est ambiguë, clarifier et ne pas muter.
 
-### 4.2. Informations minimales d'une commande
+## 4. Contrat D5 — états, trajectoire et méthode
 
-**Contrat logique (non DTO final) :** identifiant stable ; clé idempotente ; empreinte des paramètres déterminants ; projet cible ; acteur issu de session serveur ; référence au message humain D3 ou à une interaction directe UI ; catégorie d'acte ; cible/cycle source et révision attendue ; type/finalité cible ; révision de pilotage attendue ; GO D6 applicable ou éléments nécessaires à sa création atomique ; références de bilan et réserves réelles.
+Une **trajectoire proposée** peut rester seulement cognitive ou être conservée comme proposition sans acte d'autorité ; **retenue** exige une décision D6 qualifiée ; **effectif** décrit uniquement les cycles réellement committés. La réorientation n'efface pas les faits précédents. Les dépendances proviennent de contraintes projet ou décisions réelles, jamais de l'ordre des 15 CKI ni de la matrice des relations.
 
-D3 propose la qualification sémantique mais n'autorise pas. D6 vérifie l'acte originel et l'auteur/objet/portée ; D5 contrôle l'état et réalise l'effet. Identifiants envoyés par le client, citations D4, sorties Nora et anciens résumés ne constituent pas des preuves suffisantes.
+**Cycle :** type reconnu dans le catalogue applicable, finalité et identifiant stables ; états au minimum `ACTIVE` et `CLOSED` (tout autre état exige un besoin explicite) ; au plus un ACTIVE par projet. Une suspension D6 du travail n'implique pas un état cycle `SUSPENDED` ou un moteur concurrent. Ouvrir/clore nécessitent GO humain ; maturité Nora ≠ clôture et clôture ≠ acceptation/adoption. La clôture conserve bilan/réserves et références D4 sans recopier les contenus D4.
 
-Un GO conversationnel authentifié, clair et contextualisé ne nécessite pas de second clic systématique. En cas d'ambiguïté matérielle, demander seulement la clarification déterminante et ne pas muter.
+**Méthode :** `ABSENTE` est une valeur de projet légitime. Un choix durable conserve référence, version/révision, provenance, portée, date/condition d'effet et décision D6. Publication d'une nouvelle version ou technique locale de Nora ≠ changement de méthode. La modification, si décidée, est gouvernée et historisée sans rétroactivité ; impacts proportionnés sur les travaux concernés.
 
-### 4.3. Contrat de réponse
+## 5. CKI : association, version, distribution et usage
 
-Les retours distinguent au minimum : APPLIED (effet confirmé), ALREADY_APPLIED (rejeu cohérent), REJECTED (condition ou autorité manquante), CONFLICT (version/cible/empreinte), UNKNOWN (issue à réconcilier), et PARTIAL **uniquement si les effets sont réellement séparés**. Ces libellés sont des catégories conceptuelles, pas des codes publics adoptés.
+Le catalogue initial est constitué de **15 types / 15 CKI autonomes** et 50 relations consultatives, contenus v0.2.0 validés Morris. Catalogue extensible sous arbitrage, sans type implicite FinOps/GreenOps. **Un seul CKI principal** correspond au type du cycle effectivement ACTIVE ; hors cycle, aucun CKI principal. Digression ou relation T/A/R/E ne sélectionne jamais de second CKI. Le même CKI guide le travail et l'appréciation qualitative de maturité ; aucune règle de fermeture ni score universel n'en découle.
 
-Une ancienne commande réussie reste un fait historique même si la restriction ou le cycle courant a changé depuis. Sa relecture n'autorise pas de nouveau changement d'état.
+**Politique technique proposée R01 (§8 bis) :** associer la spécialité du type ; lorsque le contenu validé est résoluble, épingler référence/version/digest au commit d'ouverture ; sinon ouvrir avec association sans pin exploitable. Ne jamais migrer sur publication ; premier pin ultérieur ou changement de version = acte explicite du Pilote, tracé D5/D6. Le retour des octets de **la version déjà épinglée** peut rétablir la résolution sans nouvelle décision.
 
-## 5. Transaction D5/D6 et intégrité
+**Distribution candidate :** manifeste de ressources approuvées, en lecture seule et versionné avec l'application ou son stockage de contenus durable ; aucune lecture GitHub en direct requise à chaque tour. Conserver les versions encore référencées ou signaler l'indisponibilité réelle, pas de fallback CKC historique. Les références Git constituent une provenance de contenu et non une preuve de disponibilité au runtime.
 
-### 5.1. Invariants
+**Trois niveaux non équivalents :** `ASSOCIATED` (D5 référence le CKI) ; `RESOLVED` (octets/version effectivement vérifiés) ; `DELIVERED` (guidance effectivement ajoutée au contexte D3 transmis). Aucune de ces observations ne prouve à elle seule la qualité cognitive. Toute guidance est de niveau de confiance borné : aucune instruction du CKI ne peut créer un GO, une contrainte supérieure ou un mandat d'outil. Conflit réel avec la méthode retenue : adapter/écarter la technique facultative et signaler l'écart déterminant.
 
-1. **Un seul cycle ACTIVE maximum par projet**, garanti aussi par PostgreSQL contre les interleavings concurrents.
-2. **Origine humaine vérifiable et compétence D6 actuelle** pour toute transition, avec projet, cible et portée.
-3. **Restrictions au point d'effet** : relire dans la même frontière de cohérence la compétence, le contexte et les suspensions applicables.
-4. **Atomique en interne** : pour un GO combiné 100 % interne, clôture A + ouverture B + enregistrement D6 et résultat de commande requis = un commit ou zéro mutation.
-5. **Idempotence métier** : même clé/empreinte = retour de l'issue conservée, sans effet supplémentaire ; clé identique/empreinte différente = conflit.
-6. **Historique non destructif** : la clôture ne réécrit ni cycles ni décisions antérieurs.
-7. **Succès confirmé** : une phrase de Nora, un clic ou une requête acceptée ne prouvent jamais un commit.
-8. **Aucune promotion induite** : clôture ≠ conformité D8, acceptation métier, GO Cursor/Git ou ADOPTED.
+## 6. Modèle relationnel et migration — DDL non exécuté
 
-### 5.2. Séquence de transition combinée
+Extension additive du schéma Drizzle PostgreSQL courant `schemaRevision = 006_ml2_turn_owner_token`, sans modifier par défaut l'état de création du projet ML1 ni du tour ML2.
 
-Exemple Pilote : « Clôture le cadrage et ouvre l'architecture ».
+| Famille candidate | Champs/noyau d'intégrité | Responsable |
+|---|---|---|
+| `project_pilotage_state` | `project_id` PK/FK vers `projects`, `revision` monotone, référence courante trajectoire/méthode si nécessaire | D5 — état/version verrouillable |
+| `trajectory_revisions` | Projet, version, proposition ou choix retenu, source, orientation, lien décision | D5 — historiques |
+| `project_cycles` | Projet, type, objectif, `status`, dates, `revision`, références GO et CKI associé/version ou indisponible | D5 — état réel |
+| `cycle_commands` | Projet, acteur, clé idempotente, empreinte, source humaine, type d'opération, résultat durable | D5 — commande métier |
+| `cycle_command_effects` | Référence commande, effet `CLOSE` ou `OPEN`, cible et issue durable | D5 — observabilité par effet |
+| `method_applications` | Projet, référence/version/portée, décision D6, début/fin d'applicabilité, provenance | D5 — état méthode |
+| `human_decisions` / historique | Auteur, projet, source fiable, type, objet, portée, état, relations de révision/révocation | D6 — actes opposables |
+| `governance_restrictions` | Projet, cible/effets interdits, acte D6 d'origine, application, levée | D6 — restrictions |
+| Manifeste CKI | Référence canonique/version/provenance et disponibilité | D5/ressource approuvée ; table dédiée seulement si justifiée |
 
-1. Conserver l'origine de demande dans D3 ; qualifier l'intention, sans confondre texte du modèle et acte humain.
-2. Valider assez de contexte projet/type/finalité pour permettre le traitement ; clarifier avant transaction si nécessaire.
-3. Débuter une transaction PostgreSQL courte, avec une frontière de sérialisation par projet partagée par les mutations D5 et les restrictions D6 pertinentes.
-4. Rechercher la commande idempotente, comparer l'empreinte et retourner l'état déjà produit si applicable.
-5. Relire droits/projet, version, cycle source, restrictions, suspension et validité de la cible ; vérifier le catalogue de types.
-6. Qualifier et conserver l'acte humain D6 ou réutiliser sa référence opposable existante.
-7. Enregistrer chez D5 la clôture A et l'ouverture B, leurs références de décision et deux faits métier identifiables.
-8. Enregistrer l'issue durable de commande dans la même transaction.
-9. Commit unique ; si une condition échoue, rollback intégral des écritures internes.
-10. Restituer l'issue effectivement confirmée. Si l'ACK est perdu ou indéterminé, réconcilier par identité de commande avant toute nouvelle tentative.
+Les familles ne prescrivent pas nécessairement une table chacune : **dédupliquer** selon les requêtes et les invariants. Le Journal–Décisions reste une projection D6. Les IDs client ne sont jamais des droits ; les références doivent être contraintes au bon projet, y compris contre accès direct ou détournement de messages D3.
 
-Ni appel LLM, ni chargement CKI distant, ni écriture Git, ni tentative Cursor ne doit être inclus dans la transaction PostgreSQL du noyau D5/D6.
+**Invariants DB proposés :** index unique partiel `(project_id) WHERE status='ACTIVE'` ; clé unique commande métier `(project_id,pilot_id,idempotency_key)` et empreinte canonique ; versions et clés FK ; contraintes de validité d'états ; transaction commune D5/D6 ; pas de trigger qui crée un cycle au moment de créer le projet.
 
-Le message du Pilote peut demeurer durable dans D3 même si le commit D5/D6 échoue : la présence de la phrase n'équivaut pas à une transition accomplie.
+**Sérialisation :** `SELECT … FOR UPDATE` sur la ligne `projects` du projet propriétaire (proposition de verrou commun) pour toutes les mutations D5 et restrictions D6 pertinentes, puis lecture sous verrou de la révision, des droits, des décisions/restrictions et du cycle. Le schéma doit gérer les cas d'erreurs PG, la contention, l'index partiel et l'ordre CLOSE(A) puis OPEN(B), sans anomalie interprojets. Isolation et granularité exactes à démontrer, pas supposées sûres par simple choix d'API.
 
-### 5.3. Concurrence, restrictions et sérialisation
+**Migration :** ajout des seules structures utiles, vérification de compatibilité à partir de 006, pas d'effets sur données ML1/ML2, migrations réexécutables/contrôlées selon stratégie existante. DEV → RECETTE avec SHA figé sous mandat futur, aucun déploiement exécuté ici.
 
-Une frontière de sérialisation par projet est **proposée** pour ordonner transitions D5 et mutations D6 qui les interdisent. Les changements de restriction et les effets concernés doivent être coordonnés, pas vérifiés sur un ancien snapshot en ignorant une suspension concurrente.
+## 7. Services métier, commandes et API candidates
 
-- Si la suspension D6 est appliquée avant la transition, cette dernière est refusée dans sa portée.
-- Si la transition est committée avant la suspension, son fait historique reste vrai ; la suspension bloque les nouveaux effets concernés.
-- La levée d'une suspension ne relance jamais une transition ou une opération D7/Git automatiquement.
+**Contrats internes (noms logiques) :** `resolveProjectPilotage(project, actor)`, `proposeTrajectory(...)`, `applyTrajectoryDecision(...)`, `openCycle(...)`, `closeCycle(...)`, `transitionCycle(...)`, `chooseMethod(...)`, `recordHumanDecision(...)`, `reviseDecision(...)`, `applyRestriction(...)`, `liftRestriction(...)`, `evaluateCurrentAuthority(...)`, `resolveCycleGuidance(...)`, `reconcileCommand(...)`. Ne pas créer un microservice par verbe : appliquer les propriétaires D5/D6 et réutiliser la transaction PG commune.
 
-Implémentation candidate : verrou de cohérence court sur un état de projet, versions optimistes et index partiel d'unicité de projet pour ACTIVE. **La DDL, la stratégie d'isolation et les éventuelles contraintes différées restent à spécifier et tester**, notamment pour le passage A ACTIVE → A CLOSED / B ACTIVE.
+**Routes Next.js candidates et regroupables :** lecture `GET /api/projects/{projectId}/pilotage`, mutation `POST /api/projects/{projectId}/cycle-commands`, réconciliation `GET /api/projects/{projectId}/cycle-commands/{commandId}`, décision `GET/POST /api/projects/{projectId}/decisions`, restriction `POST /api/projects/{projectId}/restrictions`, méthode `POST /api/projects/{projectId}/method-choices`, guidance en lecture `GET /api/projects/{projectId}/guidance`. Les routes concrètes ne sont pas figées. Un point d'entrée ne peut utiliser une autorité de DTO : `pilotId` vient exclusivement de la session.
 
-## 6. Modèle relationnel conceptuel
+**Commande D5 minimale :** clé idempotente stable, empreinte des paramètres déterminants, projet URL validé, action, version attendue du projet, cycle source et version attendue, type/cible/objectif, référence D3 d'un message humain ou interaction explicitement captée ; D6 valide cette source et portée. Identité de tour D3 et clé de commande D5 restent distinctes ; la même source humaine ne permet pas de générer deux effets nouveaux par retry.
 
-| Famille de données | Informations et références | Obligation |
-| --- | --- | --- |
-| Pilotage courant du projet | Projet, version de cohérence | Sérialisation et comparaison d'état |
-| Cycles | Identité, projet, type, finalité, état, révision, dates, CKI principal/référence D6 | Unicité ACTIVE, fermeture historique |
-| Décisions D6 | Pilote, projet, source humaine, objet, portée, validité, état et évolutions | Aucun transfert d'autorité entre projets |
-| Commandes métier | Clé idempotente, empreinte, état, résultat, références d'effets | Retry sans second effet |
-| Histoire des transitions | Référence commande/GO, identité des effets clôture/ouverture | Audit sans deuxième vérité d'état |
-| Suspensions et restrictions | Cible, type, portée, origine humaine, levée et applicabilité | Opposables après reconnexion |
-| Méthode applicable | ABSENTE ou référence/version, provenance et dates d'effet | Choix volontaire et non rétroactif |
-| Catalogue CKI | Type, CKI, version/provenance et disponibilité | Un seul CKI principal par cycle ACTIVE |
+**Réponse ML3 interne :** `APPLIED`, `ALREADY_APPLIED` (lecture d'un effet historique committé), `REJECTED`, `CONFLICT`, `UNKNOWN` ; **aucun `PARTIAL` pour une commande purement interne atomique**. Un tel état reste une interface future pour de véritables effets séparés. Restituer commandId, version courante, référence décision et effets individuellement observés. Un ACK perdu impose lecture/réconciliation avant tout retry. Relecture historique sous droits actuels ne réautorise pas le même effet aujourd'hui.
 
-Les noms des familles ne fixent pas le nombre de tables. La contrainte d'unicité partielle sur un cycle ACTIVE par projet est une **recommandation R5** à traduire en migration D3 par Cursor, pas un mécanisme prouvé.
+**Catégories d'erreurs :** absence d'authentification (`401`), accès ou projet non exposable (`403/404` selon politique), entrée/GO ambigu (`400` ou clarification sans effet), conflit version/idempotence (`409`), dépendance PostgreSQL indisponible (`503` lorsque approprié), bug serveur (`500`) ; ne pas masquer toutes les erreurs en faux `401`.
 
-Les références interprojets doivent être rejetées au niveau des contrats de service et défendues par intégrité relationnelle lorsque pertinent.
+## 8. Transaction interne et cas difficiles
 
-## 7. Trajectoire, méthode, CKI et maturité
+1. Conserver le message originel humain D3 sans en déduire une décision déjà appliquée.
+2. Résoudre session/projet, qualifier l'intention et les paramètres ; clarifier l'ambiguïté déterminante avant mutation.
+3. Ouvrir une transaction DB courte ; verrouiller le projet selon la frontière D5/D6.
+4. Vérifier la clé/empreinte de la commande et requalifier les droits, versions, restriction et scope D6.
+5. Enregistrer l'acte applicable D6, fermer A et ouvrir B **dans le même commit** ; conserver deux effets de transition et le résultat commande.
+6. Commit ou rollback intégral ; confirmer l'effet seulement après constat durable. Aucune opération IA, Git ou Cursor dans cette transaction.
+7. Si résultat inconnu après perte de réponse, réconcilier par clé/ID avant une nouvelle commande.
 
-- **Trajectoire :** proposition ≠ orientation retenue ≠ cycles effectifs ; réorienter n'altère pas les faits historiques.
-- **Méthode :** ABSENTE possible ; choix durable décidé par le Pilote, historisé avec portée/version, sans import automatique d'une nouvelle publication.
-- **CKI :** 1 type de cycle actif → 1 CKI principal ; aucune activation hors cycle, aucun deuxième CKI lors d'une digression. Guidance seulement, pas gate ou mandat. Version effectivement utilisée et provenance doivent être retrouvables.
-- **Indisponibilité :** ne pas déclarer guidance appliquée si le contenu n'a pas été réellement obtenu ; Nora générale reste utilisable et signale la limite pertinente.
-- **Maturité :** analyse qualitative argumentée par Nora, sans score global automatique ni clôture imposée. D4 reste propriétaire des acquis, D6 des actes.
-- **Politique ouverte :** résolution de version CKI à l'ouverture, changement de version pendant le cycle et contrôle de disponibilité au point d'usage seront qualifiés avant validation finale.
+**Cas discriminants :** suspension committée avant transition → transition refusée ; transition committée avant suspension → fait passé maintenu, futurs effets bloqués ; cible B invalide → A reste ACTIVE ; double GO identique → une seule transition ; même clé autre empreinte → CONFLICT ; proposition de méthode sans GO → aucune mutation ; CKI non résolu → activité générale possible sans prétendre `DELIVERED` ; source externe « GO » → aucune autorité ; D3 message persistant avec TX échouée → texte visible mais aucun effet D5/D6.
 
-## 8. Contrat UX R3 — surfaces et états
+## 8 bis. Traitement conjoint R01–R04 — contrats techniques proposés pour validation Morris
 
-**Source :** ux-ui/audit-couverture-ux-r3.md §7 ; ux-ui/contrat-transposition-figma-code.md ; Figma fileKey itgvCulInEnFY6DvgIegvP. Les nœuds sont des références Git R3 ; lecture native Figma et runtime BROWSER actuels NON OBSERVÉS.
+**Nature de cette section :** résolution D0 de quatre réserves de spécification, par options explicites et testables. `R01–R04 = TRAITÉS EN CONCEPTION / CONTENU À VALIDER PAR MORRIS` ; ni approbation d'un schéma SQL exécutable, ni effet Git, ni preuve runtime. Les contrats R2 restent propriétaires ; les noms ci-dessous décrivent un modèle d'implémentation candidat.
 
-| Besoin UX | Figma node-id | Véracité exigée |
-| --- | --- | --- |
-| Cycle proposé | 127:35 | Proposition D3/D5 ≠ ouverture |
-| Ouverture en attente | 143:305 | GO reçu ≠ effet confirmé |
-| Cycle actif / CKI | 127:106 | D5 ACTIVE réel et CKI effectivement accessible |
-| Clôture en attente | 143:376 | GO ≠ CLOSED |
-| Transition combinée confirmée | 131:156 | Clôture A + ouverture B effectivement confirmées |
-| Effet non confirmé | 143:447 | Issue non déterminée ; réconciliation nécessaire |
-| Effet partiel | 129:215 | Seulement si des effets durables réellement séparés sont constatés |
-| Demande déjà traitée | 143:589 | Rejeu sans duplication |
-| Reprise du projet | 143:518 | D5/D6 relus, même fil D3 |
-| Journal Décisions | 129:72 | Projection D6, non registre dupliqué |
-| Suspension active / levée | 128:195 / 128:266 | D6 opposable / levée compétente et non relance technique |
+### R01 — Association, épinglage et distribution CKI
 
-Transposition ciblée au moment de la construction : propriétés Figma natives, composants partagés, états d'erreur, dimensions 1680/1280/390/320 px, clavier, focus, zoom, reflow et captures navigateur au SHA candidat. Aucun succès du prototype n'est traité comme succès serveur.
+**Choix proposé : épinglage de la version effectivement résolue au moment de l'ouverture, sans faire de sa disponibilité un gate de cycle.** La référence de spécialité découle du type reconnu du cycle ; la référence de contenu n'en découle pas automatiquement. D5 conserve : `cycleId`, `cycleType`, `ckiId`, `pinnedVersion` (nullable), `manifestRef`, `contentDigest` (nullable), `pinDecisionRef` ou `pinOrigin`, `pinnedAt` ; les champs de version restent nuls si aucune version approuvée et vérifiable n'est accessible. La *disponibilité de lecture* est un constat au point d'usage, non une permission.
 
-## 9. Contrat QA et preuves attendues
+| Situation | État/effet requis | Conduite Nora et changement autorisé |
+|---|---|---|
+| Pas de cycle ACTIVE | Aucun CKI principal actif | Nora générale, aucun chargement de CKI par défaut. |
+| Ouverture avec contenu approuvé, résoluble et intégrité vérifiée | `ckiId` associé + version et empreinte épinglées **dans la même transaction que l'ouverture** | Le chargement réel reste à vérifier à chaque génération. Pas de GO séparé pour cet épinglage consécutif au GO de cycle. |
+| Ouverture sans version exploitable | Cycle ACTIVE possible, `ckiId` associé, `pinnedVersion=NULL` avec motif non résolu | Aucune guidance CKI prétendue appliquée ; Nora générale. |
+| Version épinglée temporairement indisponible | Conserver le pin et l'historique, marquer `UNAVAILABLE` au point d'usage | Aucune substitution ; un retour du **même contenu/empreinte** permet de résoudre le pin sans nouvel acte humain. |
+| Une nouvelle version est publiée | Aucun effet sur le pin ni sur les décisions/méthodes | Peut proposer une comparaison ; ne la charge pas à la place du pin. |
+| Aucun pin à l'ouverture puis une version devient disponible | Toujours aucun pin | **Premier rattachement explicite** décidé par le Pilote à portée cycle, historisé par D6/D5 ; pas de rattrapage automatique silencieux. |
+| Remplacement de version en cours de cycle | Vérifier provenance, compatibilité, finalité et risques, puis acte explicite du Pilote et historique D5/D6 | La nouvelle version ne change que les usages futurs ; aucune réécriture des réponses passées. |
+| Contenu hostile, digest divergent ou état d'approbation invalide | Résolution refusée et diagnostic borné | Ne pas exposer comme `DELIVERED`, ne pas charger de CKI historique ni d'autre version en secours. |
 
-| Oracle | Références R2 et QA R4 | Preuve requise |
-| --- | --- | --- |
-| GO conversationnel clair | RG-TRJ-009/015, RG-GOV-002/005/029 ; B03 | D6 + D5 cohérents et navigateur authentifié |
-| GO ambigu ou cité | RG-GOV-004/006 ; PF-TRJ-05 ; B04 | Pas de mutation, clarification |
-| Concurrence | RG-TRJ-008/011/016 ; PF-TRJ-17 ; B05 | Deux connexions PG, au plus un ACTIVE |
-| Retry / ACK perdu | RG-TRJ-015/016 ; PF-TRJ-18 ; B06 | Lecture durable sans seconde transition |
-| Combiné atomique | RG-TRJ-012/014 ; PF-GOV-05 ; B07 | Deux effets committés ou aucun |
-| Panne entre les effets | RG-TRJ-014/015 ; complément B07 | Injection d'échec PG, rollback des deux mutations |
-| Suspension concurrente | RG-GOV-017/020/022 ; B14/B16 | Ordre de commit, nouveau contrôle au point d'effet |
-| Historique / Journal | RG-GOV-009/010 ; B17 | Propriété D6, histoire non réécrite |
-| Navigation | RG-GOV-005, RG-TRJ-009 ; B18 | Aucune mutation en retour au fil |
-| Effet durable séparé | PF-TRJ-16 | **CONDITIONNEL** ; test sur frontière réelle, jamais simulation d'un partiel interne atomique |
+**Source/distribution :** manifeste de ressources versionnées et immuables, activées **dans le déploiement réellement exécuté** à partir du corpus CKI approuvé (15 contenus v0.2.0, mais VALIDATED CONTENT ne signifie pas automatiquement chargé). Chaque entrée référence `type`, `ckiId`, `version`, origine Git immuable, empreinte cryptographique et état de disponibilité ; conservation des versions encore référencées. Livraison locale au build ou stockage durable contrôlé ; **aucun GitHub fetch à chaque tour Nora**. À la lecture, vérifier identité/version/digest avant de transmettre la guidance. L'usage d'une simple version sémantique sans empreinte ne suffit pas à garantir l'identité du contenu.
 
-Niveaux : déterministe, intégration PostgreSQL/concurrence, redémarrage/reprise, navigateur authentifié, Nora LIVE ciblée pour guidance/intention, cas adversariaux et isolation interprojets. Les scripts de test devront préciser acteur, préconditions, données, assertions propriétaire, environnement, SHA et preuve réelle.
+**Observabilité, non automate d'autorité :** `ASSOCIATED` = spécialité associée ; `RESOLVED` = octets de la version exacte contrôlés ; `DELIVERED` = contenu réellement joint au contexte transmis au modèle. Aucun de ces états ne démontre que Nora s'en est servie avec pertinence : l'apport cognitif relève de tests LIVE comparatifs, distincts des fixtures. Échec de résolution => réponse générale sans déclarer un CKI utilisé ; si une conclusion spécialisée en dépend matériellement, la qualifier comme non démontrée. **Pas de deuxième CKI**, pas de matrice transformée en workflow.
 
-**Tous les tests ML3 sont NOT EXECUTED**. La matrice de traçabilité exhaustive R2 → R3 → R4 → R5 sera complétée avant validation de la spécification globale.
+**Tests R01 :** B01/B10/B11/B12 et PF-TRJ-07/08/21/25/30 : aucun cycle ; ouverture avec pin ; ouverture sans version ; perte puis retour de l'empreinte identique ; nouvelle version disponible mais non utilisée ; décision explicite de premier pin/migration ; contenu corrompu et injection ; preuve de `DELIVERED` seulement lorsqu'observée. **Risque résiduel :** politique de conservation/distribution effectivement opérable par lane à démontrer en R5 ; ce mécanisme ne vaut pas VALIDATED SPEC avant gate Morris.
 
-## 10. Erreurs et réconciliation
+### R02 — Sémantique de révision, retrait, suspension et révocation de méthode
 
-| Événement | Comportement contractuel |
-| --- | --- |
-| GO ambigu, texte externe ou autorité absente | Clarification/refus, zéro mutation |
-| Restriction D6 applicable | Refus ciblé sans bloquer cognition indépendante |
-| Version obsolète ou cycle concurrent | Conflit puis lecture de l'état courant |
-| B invalide dans une transition interne A→B | Rollback complet, A reste actif |
-| Commit réussi mais réponse perdue | Retour du résultat historique réel par clé |
-| Issue technique indéterminée | UNKNOWN, réconciliation avant nouvel effet |
-| Même clé, autre empreinte | CONFLICT sans autorisation élargie |
-| Révocation après transition committée | Historique préservé, futurs effets requalifiés |
-| Clôture réellement séparée puis ouverture échouée | A CLOSED / B absent, PARTIAL déclaré avec suite gouvernée |
+**Choix proposé : actes typés et portée explicite ; une seule référence effective par périmètre concerné, aucune résurgence implicite.** Le fait qu'une méthode soit choisie (D5) est distinct de la décision humaine qui fonde sa validité (D6). Les deux propriétaires changent ensemble quand le sens de l'acte exige une mutation D5. Une restriction D6 peut limiter l'utilisation d'une méthode **sans** effacer la méthode retenue.
 
-## 11. Blast radius, delivery et gates
+| Acte humain suffisamment clair | Modification durable D6 | Conséquence D5 et histoire |
+|---|---|---|
+| `CHOOSE_METHOD` — choix initial | Créer décision applicable à la portée autorisée | Nouvelle application méthode versionnée ; pas de méthode implicite avant cet acte. |
+| `REPLACE_METHOD` — remplacer A par B | Réviser/remplacer l'acte avec portée et prise d'effet | Fin d'application A, début B dans **une transaction** ; aucun changement des faits/cycles antérieurs. |
+| `WITHDRAW_METHOD` — ne plus retenir de méthode | Décision de retrait explicite | Fin d'applicabilité, état `ABSENT` dans la portée ; pas de restauration d'une ancienne méthode. |
+| `SUSPEND_METHOD_USE` — suspendre une utilisation | Restriction D6 ciblée et persistante | La référence D5 reste enregistrée ; la projection la dit « retenue mais utilisation restreinte », jamais méthode supprimée. |
+| `LIFT_METHOD_RESTRICTION` | Levée explicite de la restriction identifiée | Recontrôle actuel de la méthode et de sa décision de base ; aucun mandat, cycle ou exécution relancé. |
+| `REVOKE_DECISION` sur le **choix qui fonde la méthode courante** | Révoquer la validité future de cette décision, sans effacer l'histoire | **Dans le même commit**, fermer l'application qui dépend de ce choix et passer à `ABSENT` pour cette portée, sauf remplacement explicite simultané et compétent ; ne pas rétablir la méthode précédente. |
+| `REVOKE_DECISION` sans lien avec l'application courante | Révocation bornée à son objet | Aucun changement D5 non pertinent ; les effets indépendants demeurent. |
+| Acte ambigu (« annule cette méthode » avec plusieurs cibles) ou décisions incompatibles | Aucune décision d'effet présumée ; conflit/clarification | Aucun remplacement/suppression automatique ; bloquer seulement l'effet dépendant jusqu'à résolution. |
 
-**Impacts à qualifier :** sessions D1/D2, provenance D3, prise de tour et idempotence ML2, références D4, DDL PostgreSQL et migrations depuis 006, API serveur, Journal/Trajectoire, sécurité/diagnostic, tests et architecture CURRENT Next.
+**Portées :** associer toujours le projet et une cible intelligible (`PROJECT` ou cycle/activité explicitement identifié lorsque le contrat applicable le permet). Ne pas déduire une hiérarchie « la dernière version gagne » entre portées ; plusieurs décisions incompatibles sur une même cible imposent requalification D6. L'absence de méthode dans une portée n'efface pas arbitrairement des choix indépendants. La projection courante doit distinguer **absence de choix**, **référence retenue** et **référence retenue mais interdite d'usage** ; l'interdiction relève de D6, pas d'un second état D5 `SUSPENDED`.
 
-**Un macro-lot cohérent :** schéma et services D5/D6, intégrations D3/D4, UX R3 B, tests/observabilité, documentation et preuves. Aucun micro-lot documentaire ou architecture parallèle.
+**Persistance :** historique non destructif `method_applications` avec décision fondatrice D6, référence/version, portée, `effectiveFrom/effectiveUntil` et raison de clôture ; une seule application courante par portée peut être imposée par index. Un `project_pilotage_state` conserve la révision de cohérence et, si nécessaire, une référence dénormalisée **strictement dérivée**, jamais une deuxième vérité writable. Le Journal Décisions relit D6, pas D5. L'analyse d'impact d'un changement qualifie les activités réellement touchées ; une clôture passée ne devient pas fausse.
 
-**Gates :**
-1. Finaliser contrats D6 de compétence/portée/restrictions puis CKI/méthode ; rattachement individuel de chaque règle/scénario R2.
-2. Préciser commandes, états, DDL/API, migrations, isolation et tests dans les frontières R4 validées.
-3. Morris valide le contenu complet de la spec (VALIDATED SPEC seulement sur décision explicite).
-4. GO Cursor SFIA v2.6/Git D3 distinct ; construction et preuves DEV, puis RECETTE ENV-01 sur SHA immuable.
-5. Revue de résultats, réserves/dette-exit, synchronisation de l'architecture CURRENT et Roadmap dans le delivery autorisé.
-6. PR, merge, promotion, R6 et ADOPTED : autorisations et preuves indépendantes.
+**Tests R02 :** B09/B10/B13/B16/B17, PF-TRJ-22/27–30 et PF-GOV-03/11/14/17/18/27 : remplacer ; retirer ; révoquer la base actuelle ; révoquer une décision historique non courante ; suspendre/lever sans effacer ; deux portées incompatibles ; publication vNext sans effet ; redémarrer et retrouver l'histoire ; simulation d'un impact restreint sur un cycle actif (sans re-clôture ni rollback). Aucun changement automatique du CKI principal.
 
-**Réserves ouvertes :** couverture individuelle R2 incomplète ; interfaces API/DDL non figées ; résolution/version CKI ; modalités détaillées d'autorité et de suspensions ; lecture native Figma ; réconciliation des effets réellement séparés ; runtime ML3 non implémenté ; aucune preuve.
+### R03 — Schéma, frontière transactionnelle, concurrence et idempotence
 
----
+**Choix proposé : PostgreSQL unique, verrou de ligne projet commun à toute mutation D5/D6 susceptible de changer une autorité ou un effet, avec contraintes structurelles en dernier recours.** `projects` existe dans ML2 ; une ligne `project_pilotage_state(project_id PRIMARY KEY, revision)` additive peut porter la révision de cohérence. Ne pas recopier session/projet/messages ou inventer un second registre d'autorité. La structure physique proposée est **à migrer/tester à partir de `006_ml2_turn_owner_token`**, pas à exécuter dans cette revue.
 
-**Verdict :** R5 / ML3 — SPECIFICATION TECHNIQUE D0 v0.2 CANDIDATE — OPTION A ACQUISE — NO GO CURSOR — NO TEST EXECUTED — NO PR/MERGE/ADOPTED.
+**Tables minimales à qualifier par le contrat Cursor (regroupements permis si invariants conservés) :** `project_pilotage_state` (révision), `trajectory_revisions`, `project_cycles`, `business_commands` et `business_command_effects`, `method_applications`, `human_decisions` + événements de révision, `governance_restrictions` ; manifeste CKI versionné sans nouvelle table obligatoire. Les vues de lecture sont reconstruites sur ces propriétaires. Ne pas conserver séparément deux champs mutables faisant foi pour la méthode, l'autorité ou le cycle courant.
+
+**Contraintes SQL candidates significatives (illustration à réviser, pas migration livrée) :**
+
+```sql
+-- dernier recours structurel, même si une requête concurrente contourne le code nominal
+CREATE UNIQUE INDEX project_cycles_single_active_per_project
+  ON project_cycles(project_id) WHERE status = 'ACTIVE';
+
+-- idempotence client : même identité métier, mêmes paramètres => même résultat
+CREATE UNIQUE INDEX business_commands_project_actor_key_uidx
+  ON business_commands(project_id, actor_pilot_id, client_command_key);
+
+-- anti-double effet par une même expression/interaction et une même intention
+-- source_action_key différencie deux intentions explicites d'un même message
+CREATE UNIQUE INDEX business_commands_human_intent_uidx
+  ON business_commands(project_id, source_kind, source_ref, source_action_key);
+```
+
+`source_kind`, `source_ref` et `source_action_key` sont non nuls pour les commandes à effet humain ; leur construction doit être déterministe et contrôlée côté serveur, sans prendre un DTO arbitraire ni le hash brut du texte pour une permission. Une même source peut porter **deux intentions différentes** ; la même intention ne doit pas produire deux effets avec des clés HTTP distinctes. Index/check sur états, format de portée et révisions ; références interprojets défendues par vérifications de propriétaire et, là où approprié, clés étrangères composées `(project_id, object_id)` vers des cibles garantissant cette unicité.
+
+**Ordonnancement transactionnel recommandé :**
+
+1. **Avant transaction courte :** authentifier la session, résoudre le projet propriété du Pilote ; conserver le message D3 déjà reçu (ou référence d'interaction humaine explicitement captée) ; qualifier l'intention sans appeler le LLM dans la transaction. Une source D3 est valide si c'est un **message utilisateur réel lié à la conversation de ce projet**, même si la réponse ultérieure de Nora a échoué ; ni réponse Nora, ni D4, ni citation, ni CKI ne sont des sources autorisantes.
+2. `BEGIN` ; `SELECT id FROM projects WHERE id=:projectId AND owner_pilot_id=:pilotId FOR UPDATE` ; vérification d'existence et relecture sous verrou des révisions, décisions, restrictions, cycles et paramètres matériels. **Toutes les mutations D5/D6 concernées prennent ce verrou dans cet ordre**, notamment inscription/levée d'une restriction et changement de méthode. Les lectures informatives restent des projections non autorisantes.
+3. Rechercher la commande par clé. Si la même clé existe et l'empreinte canonique correspond, restituer **son résultat durable historique** sans réappliquer et sans revalider rétroactivement une permission ; si empreinte différente, `CONFLICT` sans mutation. Ensuite contrôler l'unicité d'intention issue de la source humaine, afin d'éviter un second effet avec une autre clé. Une demande réellement nouvelle exige une source/intention distincte.
+4. Pour une nouvelle commande : vérifier session/compétence courante au point d'effet selon les propriétaires accessibles, version de projet attendue, portée, source USER, restrictions non dérogeables et contradictions ; décider `REJECTED`/`CONFLICT` sans effet si nécessaire. **Les révocations de session externes non sérialisées sur ce même verrou constituent une frontière temporelle à tester : ne pas promettre une atomicité cross-provider fictive.** Une révocation déjà effective avant le contrôle doit interdire l'effet.
+5. Enregistrer D6, mutations D5, détails des effets, résultat de la commande et incrément de révision **dans une transaction unique** ; `COMMIT`. Pour une transition A→B, clôturer A avant d'ouvrir B, en respectant l'index unique ACTIVE. Toute erreur entre les deux => `ROLLBACK` intégral.
+6. Répondre avec résultat réellement observé après commit. Si la réponse se perd ou si l'issue du commit est incertaine, retourner/afficher `UNKNOWN` **sans autoriser un retry aveugle** ; le client demande l'état par `commandId` ou clé stable. Si stockage inaccessible, l'issue reste inconnue. Si commande retrouvée committée, `ALREADY_APPLIED` ne signifie pas nouvelle autorisation.
+
+**Catégories de réponse internes ML3 :** `APPLIED`, `ALREADY_APPLIED`, `REJECTED`, `CONFLICT`, `UNKNOWN` (issue non confirmable) ; **pas de `PARTIAL` interne**. Un rejet durable peut être enregistré comme résultat de commande, mais ne doit pas être déguisé en décision D6 applicable ; en cas de rollback indisponible, garder la demande D3 sans déclarer d'effet. Déterminer HTTP `401` absence de session, `403/404` accès interdit/non exposable, `409` conflit/version, `503` indisponibilité PG et `500` erreur interne ; jamais convertir mécaniquement une panne SQL en faux `401`.
+
+**Gestion de concurrence et limites :** avec toutes les mutations métier participantes sérialisées par verrou projet, `READ COMMITTED` + relectures sous verrou constitue une stratégie candidate pragmatique ; la défense PG d'unicité protège contre les écarts. Les lectures externes et la révocation des sessions doivent être qualifiées au point d'effet. Tester le deadlock et l'ordre des verrous, le commit inconnu, la violation de contrainte, la réponse HTTP perdue, les messages USER `PENDING` (D3 provider en échec), deux projets indépendants, et le replay cross-session sous droits courants. **Cette stratégie est une proposition testable, pas une garantie démontrée.**
+
+**Tests R03 :** B03/B04/B05/B06/B07/B13/B14/B15/B16/B17/B18, PF-TRJ-04/05/06/15/17/18/19/20/24, PF-GOV-04/05/12/14/15/16/18/24 : deux connexions PG et commandes simultanées ; suspension concurrente GO (deux ordres de commit) ; même clé/même fingerprint ; même clé/empreinte différente ; autre clé/même intention ; source USER d'un autre projet ; erreur injectée entre CLOSE et OPEN ; commit sans ACK ; reprise ; DB indisponible ; cross-project FK. La preuve `BEHAVIOR PROVEN` ne se déduit pas du seul index SQL ou d'un test unitaire.
+
+### R04 — PF-TRJ-16, PF-GOV-05 et vérité des résultats partiels
+
+**Choix Morris déjà confirmé :** pour une transition D5/D6 *entièrement interne*, la clôture A et l'ouverture B sont deux **faits métier distinctement observables**, mais **une seule transaction atomique**. `PARTIAL` ne correspond à aucun état interne durable possible dans cette opération. La règle R2 demandant des résultats séparés ne présuppose pas l'existence de deux commits internes.
+
+| Point de coupure | Résultat réel ML3 | UX/diagnostic permis |
+|---|---|---|
+| Avant validation D6 | Aucun effet A/B, demande refusée ou clarifiée | GO non applicable ; pas de « clôturé ». |
+| Après écriture de CLOSE(A), avant OPEN(B), mais avant commit | Rollback intégral si OPEN échoue : A reste ACTIVE et B n'existe pas | `REJECTED`/erreur selon cause, deux effets **non appliqués**. |
+| Commit PG A CLOSED + B ACTIVE réussi, réponse HTTP perdue | Les **deux effets** existent ; le client ne connaît pas encore l'issue | `UNKNOWN` jusqu'à réconciliation ; puis les deux effets confirmés, jamais un partiel. |
+| Deux ouvertures concurrentes, conflit d'unicité | Un seul état ACTIVE vérifiable ; l'autre commande rejetée/requalifiée | Pas de cycle fantôme, pas de « ouverture en cours » permanente. |
+| Une opération **future** possède réellement des effets externes séparés déjà committés par D7/D9 | Résultats séparés à reconstituer auprès de leurs propriétaires, potentiellement PARTIAL | Interface et scénario à la charge du futur macro-lot ; **non simulés par ML3**. |
+
+**Contrat `business_command_effects` :** conserver deux enregistrements de résultat pour le combiné interne, chacun corrélé à la même commande et visible uniquement si le commit commun aboutit. Aucun effet CLOSE durable isolé ne peut être lu suite au rollback. Le `GET` de réconciliation retourne les deux faits ou aucun fait confirmé et l'état de commande réellement retrouvé ; absence de réponse ≠ effet partiel.
+
+**Portée du scénario PF-TRJ-16/PF-GOV-05 :** ML3 couvre la compréhension du GO combiné, les deux effets, le rollback intégral, les lectures et réponses honnêtes. La possibilité d'effet partiel R2 reste **conditionnelle et reportée aux véritables frontières séparées**, sans changer R2 ni fabriquer un cas artificiel. Les écrans R3 #47 (confirmé) et #54 (non confirmé) sont applicables ; **#42 (partiel) est inatteignable depuis la commande interne ML3** et ne sera testé comme comportement positif que dans un futur lot possédant un vrai effet séparé. Test ML3 négatif : une panne interne entre deux écritures **ne doit jamais** produire #42, `PARTIAL` ou un cycle A CLOSED / B absent.
+
+**Tests R04 :** B07 avec injection de panne entre deux écritures PG + contrôle après redémarrage ; perte ACK après commit ; stress deux appels; assertions sur commande et effets; non-apparition de #42. Toute revendication de résultat partiel futur devra identifier le propriétaire des effets externes et la preuve de chaque étape. Aucun `PARTIAL` ni compensation fictive dans ML3.
+
+### Décision de revue sur R01–R04
+
+Les quatre points ont une **solution technique explicitée et réfutable** ; ils ne sont plus des zones d'analyse sans proposition. Leur statut reste : **`DESIGN RESOLUTION PROPOSED — PENDING MORRIS CONTENT VALIDATION / NOT IMPLEMENTED / NOT TESTED`**. Aucune modification normative R2/R4 et aucun nouveau gate produit ne sont introduits ; les obligations d'essais, de sécurité DATA-01, d'UX native et de traçabilité code/test restent portées par la construction du même macro-lot.
+
+## 9. UX R3, contexte Nora et observabilité
+
+**R3 lot B :** état sans cycle #22 ; qualification proposée #23 ; cycle actif #24 ; méthode absente #28 ; méthode proposée #29 ; décision applicable #31 ; suspension #33/#34 ; CKI indisponible #39 ; Journal–Décisions #40 ; GO ambigu #41 ; vrai partiel #42 ; contradiction #43 ; transition combinée #47 ; mise à jour CKI candidate #48 ; ouverture en attente #52 ; clôture en attente #53 ; UNKNOWN #54 ; reprise #55 ; rejeu #56 ; guidance #58 ; relations #59 ; nouvelle méthode #60. Frames identifiées dans l'audit R3 Git, **Figma native et browser ML3 NON OBSERVÉS**. La maquette #42 doit être conditionnelle à un effet séparé réel et ne constitue pas un état de succès partiel dans notre transition interne atomique.
+
+**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. Le code ML2 `web/src/domains/conversation/nora-adapter.ts` ne charge pas D5/CKI aujourd'hui ; `service.ts` retourne `humanDecisionCreated:false`. Il faut intégrer D5/D6 **sans** déduire un GO d'une réponse de modèle ni modifier l'autorité de D3.
+
+**Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
+
+## 10. Traçabilité et QA
+
+La matrice annexe porte **une ligne par RG et PF D5/D6** : `40 RG-TRJ + 37 RG-GOV + 30 PF-TRJ + 29 PF-GOV = 136 références uniques`. Chaque ligne indique capacité propriétaire, frontière `IN / INTERFACE / OUT`, QA B candidat ou preuve différée et, pour les PF, références des surfaces UX R3. Les 59 PF ont une correspondance UX dans l'audit R3 ; la couverture est **DOCUMENTARY MAPPED**, pas **COVERAGE VERIFIED**.
+
+**QA R4 B01..B18 à exécuter**, avec attention particulière : B03 GO naturel, B04 source équivoque, B05 unicité PG réelle, B06 ACK perdu, B07 atomicité CLOSE/OPEN, B08 maturité sans gate, B09/B10 méthode versionnée, B11 digression sans CKI secondaire, B12 indisponibilité/hostilité CKI, B13 conflit, B14 suspension persistante, B15 isolation interprojets, B16 révocation à l'effet, B17 projection Journal, B18 navigation sans effet.
+
+**Niveaux distincts de preuve :** unitaires/déterministes, PG transaction/concurrence/idempotence, migration/restart, navigateur authentifié + clavier/reflow, Nora LIVE contrôlée pour qualité de guidance/intention, adversarial/injection, RECETTE ENV-01 sur SHA figé. Tous **NOT EXECUTED** pour ML3. Ne pas créer de faux scénarios D7/D8/D9 ni déclarer PARTIAL sans cas d'exécution séparée réel.
+
+## 11. Blast radius, risques, réserves et gates
+
+**Blast radius :** AUTH/projet ML1 ; idempotence de tour et pipeline Nora ML2 ; modèles Drizzle et migration PG ; lecture D4 et absence de copie ; API Next/erreurs ; UX lot B et contrat visuel R3 ; logs, sécurité et suppression DATA-01 ; documentation architecture CURRENT synchronisée avec le code au même macro-lot ; futurs contrats D7/D8/D9.
+
+**Décisions de conception R01–R04 proposées, détaillées au §8 bis (à valider par Morris) ; réserves de réalisation restantes :**
+
+- `REV-01` — **TRAITÉ D0 / À VALIDER MORRIS :** politique d'épinglage CKI, indisponibilité, première association ultérieure, conservation des versions et distribution vérifiable ; vérifier par tests à la construction.
+- `REV-02` — **TRAITÉ D0 / À VALIDER MORRIS :** sémantique de choix, remplacement, retrait, suspension et révocation de la décision qui fonde la méthode ; vérifier les cas limites de portée.
+- `REV-03` — **TRAITÉ D0 / À VALIDER MORRIS :** stratégie de verrou commun, index et clés d'intention, ordre des opérations, catégories de réponse ; DDL final, migration et preuve PG restent à la charge Cursor.
+- `REV-04` — **TRAITÉ D0 / OPTION A MORRIS ACQUISE :** PF-TRJ-16/PF-GOV-05 couvrent le combiné interne atomique ; `PARTIAL` uniquement aux futures frontières réellement séparées, sans modifier R2.
+- `REV-05` — Compléter et relire le mapping individuel RG/PF vers assertions/test code exacts, preuves, SHA et lanes ; inventaire documentaire seul ≠ test.
+- `REV-06` — Revue de la transposition native Figma et des scénarios navigateur, y compris suspension, ambiguïté, méthode/CKI absent, responsive.
+- `REV-07` — Contrôles de confidentialité/rétention des décisions et des textes de provenance (DATA-01), isolation interprojets, réconciliation de droits, gestion du mode DEV auth.
+- `REV-08` — Maintenir les interfaces D7/D8/D9 réellement hors effet, sans faux STOP, fausse réception ou fausse autorisation Git ; l'implémentation ML3 ne les délivre pas.
+
+**Gates :** (1) Morris examine et arbitre ces réserves de conception puis valide la **spécification globale** ; (2) GO Cursor D3/SFIA v2.6 indépendant et template Git consulté ; (3) développement/PG/UI/tests/docs en un macro-lot ; (4) revue sur pack complet et preuve ; (5) RECETTE/PR/merge/promotion/R6/adoption, chacun sous gate approprié. Aucune action Git de publication comprise dans ce document local.
+
+**Verdict :** `R5 / ML3 — TECHNICAL SPEC v0.4 D0 CANDIDATE — R01–R04 DESIGN PROPOSED/CLOSED FOR REVIEW — MORRIS CONTENT VALIDATION PENDING — NO CURSOR GO — NO IMPLEMENTATION — NO TEST — GIT DOCUMENTARY BRANCH COMMITTED — NO MAIN MERGE`.
