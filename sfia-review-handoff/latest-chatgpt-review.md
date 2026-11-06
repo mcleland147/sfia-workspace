@@ -1,23 +1,19 @@
-# SFIA Studio Next — ML3 F01/F02 Conversation-Authority Review Pack FULL
+# SFIA Studio Next — ML3 F01/F02 C01/C02/C03 Authority Recovery Continuity Review Pack FULL
 
-## 01. Date, GO, profil, lot
-- Date UTC: 2026-11-06T15:41:39Z
-- GO Morris: 2026-11-06 CRITICAL INC F01/F02 — consolidation fonctionnelle bornée
+## A. Date, GO, type, profil
+- Date UTC: 2026-11-06T16:03:57Z
+- GO Morris: 2026-11-06 CRITICAL INC — F01/F02 authority / recovery / continuity after CR NOT ACCEPTED
+- Type: INC corrective continuation (same ML3 macro-lot)
 - Profil: CRITICAL
-- Macro-lot: R5 / ML3 « Piloter et décider »
-- Type: INC — conversation → autorité D5/D6
-- Autorisé: mutations locales candidat + handoff L3 uniquement
-- Interdit: commit/push projet, PR, merge, RECETTE, Nora LIVE, STABLE, migration 008
+- Autorisé: code local + tests + docs + Review Pack FULL + handoff L3
+- Interdit: commit/push projet, PR, merge, migration 008, RECETTE, LIVE, STABLE
 
-## 02. Git Truth initial/final
-- Repository: mcleland147/sfia-workspace
+## B. Git Truth initial/final
 - Branch: `sfia/next-pilotage-decisions-delivery`
-- HEAD local: `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4`
-- origin/sfia/next-pilotage-decisions-delivery: `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4`
+- HEAD / origin delivery: `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` / `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` (= 8bf8b5ce expected)
 - origin/main: `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480`
-- Candidate distant de référence (inchangé): `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4`
-- Prior handoff: `sfia/review-handoff@c0e8a989` blob `380beab4`
-- `git status --porcelain=v1 --untracked-files=all`:
+- Prior handoff: `c2bec44bfea9d8a1e80518ecf26069e8c4858b74` blob `bbf43260c0faf4ef94a182d303861621f3dbdef8` (c2bec44b / bbf43260 expected at start)
+- Status:
 ```
  M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
@@ -27,6 +23,7 @@
  M projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
  M projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
  M projects/sfia-studio-next/web/src/domains/conversation/service.ts
+ M projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
  M projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
  M projects/sfia-studio-next/web/src/domains/pilotage/service.ts
  M projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
@@ -40,76 +37,75 @@
 ?? projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
 
 ```
-- Diff stat (local vs HEAD candidat, projets):
+- Diff stat:
 ```
- .../construction/delivery-history.md               |  20 +-
- .../specification-technique.md                     |  17 +-
- .../pilotage-et-decisions/tracabilite-r2-r3-r4.md  |  17 +-
+ .../construction/delivery-history.md               |  38 ++-
+ .../specification-technique.md                     |  28 +-
+ .../pilotage-et-decisions/tracabilite-r2-r3-r4.md  |  20 +-
  .../preparations/[preparationId]/messages/route.ts |   9 +-
- .../web/src/app/projects/[projectId]/page.tsx      |  52 ++++-
- .../web/src/components/PilotagePanel.tsx           |  70 ++++++-
- .../web/src/domains/conversation/service.ts        | 129 ++++++++++++-
- .../web/src/domains/pilotage/intent.ts             |  78 ++++++++
+ .../web/src/app/projects/[projectId]/page.tsx      | 294 +++++++++++++++--
+ .../web/src/components/PilotagePanel.tsx           | 124 +++++++-
+ .../web/src/domains/conversation/service.ts        | 220 ++++++++++++-
+ .../web/src/domains/conversation/turn-command.ts   |   8 +
+ .../web/src/domains/pilotage/intent.ts             | 115 +++++++
  .../web/src/domains/pilotage/service.ts            |  16 +-
- .../web/tests/e2e/ml3-pilotage.spec.ts             |  84 ++++++++
- .../web/tests/integration/ml3-pilotage.pg.test.ts  | 213 ++++++++++++++++++++-
- .../web/tests/unit/ml3-cki-intent.test.ts          |  23 +++
- 12 files changed, 711 insertions(+), 17 deletions(-)
+ .../web/tests/e2e/ml3-pilotage.spec.ts             | 140 +++++++++
+ .../web/tests/integration/ml3-pilotage.pg.test.ts  | 348 ++++++++++++++++++++-
+ .../web/tests/unit/ml3-cki-intent.test.ts          |  43 +++
+ 13 files changed, 1352 insertions(+), 51 deletions(-)
 
 ```
-- SVG untracked préservés (file/globe/next/vercel/window.svg) — non touchés.
-- Aucun commit projet, aucun push projet dans ce cycle.
+- SVG untracked préservés. Aucun commit/push projet.
 
-## 03. Sources lues et refs
-- PROCESSUS: method/sfia-fast-track/core/sfia-cycle-routing-guide.md ; prompts/templates/sfia-cycle-execution-template.md
-- NEXT governance: SEF.md, roadmap.md, decisions/, product-naming-conventions.md, environnements-recette-et-promotions.md (blob 14b61f0d), product-versioning.md (blob 8bc93e0f)
-- Fonctionnel: trajectoire-cycles-et-guidance-cki.md ; decisions-et-gouvernance-du-pilote.md ; contexte-et-conduite-gouvernee-de-nora.md (RG-GOV-001..016/027..029/035 ; RG-TRJ-001..016/037..040 ; PF-TRJ-04/05/15/18/19 ; PF-GOV-02..05/09/12/16..20)
-- Architecture: cadrage-r4.md §5.5 D3/D5/D6
-- UX: audit-couverture-ux-r3.md ; contrat-transposition-figma-code.md ; espace-projet-interaction-pilote-nora.md
-- Construction: specification-technique.md ; tracabilite-r2-r3-r4.md ; delivery-history.md
-- Code candidat 8bf8b5ce + worktree local F01/F02
-- Review Pack FULL précédent (handoff c0e8a989) relu
+## C. Sources et refs
+- SFIA v2.6 routing + cycle template
+- SEF/roadmap/decisions/naming ; ENV-01 blob 14b61f0d ; versioning blob 8bc93e0f
+- R2 décisions/trajectoire/nora ; RG-GOV-001..016/027..029 ; RG-TRJ-009/015/016
+- R3 audit/contrat/espace projet ; R4 cadrage §5.5
+- Construction as-built + handoff F01/F02 c2bec44b relu intégralement
+- Code local F01/F02 préservé puis corrigé C01–C03
 
-## 04. Diagnostic F01 avant correction
-- `postUserMessageAndNora` réservait le tour, appelait Nora, capitalisait — **sans** passer un GO USER par `executePilotageCommand`.
-- Parcours secondaire PilotagePanel « GO naturel » / « Ouvrir ce cycle » fonctionnel mais non conversationnel (RG-GOV-002 / B03 insuffisant seul).
-- API messages forçait `humanDecisionCreated: false`.
+## D. Diagnostic C01/C02/C03
+### C01
+- `Finalement…` qualifié CLEAR REVISE sans filtre exploratoire → faux acte possible (« je pense / pourrait »).
+- Level A POSSIBLE_CHANGE filtrait les cibles mais ne devait jamais autoriser seul.
 
-## 05. Diagnostic F02 avant correction
-- Backend RECORD/REVISE/REVOKE + ops D5 déjà présents via command-runner.
-- Journal surtout consultatif ; pas de parcours fil pour RECORD/REVISE.
-- `humanDecisionCreated` jamais factuel après tour conversationnel.
+### C02
+- D5/D6 appliqué avant Nora ; si Nora échoue avant terminal, `resultJson` manquait → replay perdait la visibilité métier.
+- `sendMessage` projet mintait une nouvelle `clientTurnKey` à chaque clic → retry = nouvel acte.
 
-## 06. Blast radius
-- conversation/service.ts (orchestration)
-- pilotage/intent.ts (RECORD/REVISE qualifiés)
-- pilotage/conversation-authority.ts (**nouveau**)
-- pilotage/service.ts (fromClearIntent statement/objectRef/revise-target)
-- messages/route.ts (vérité API)
-- projects/[projectId]/page.tsx (statut fil)
-- PilotagePanel.tsx (geste Journal Réviser)
-- tests unit/PG/e2e + docs as-built
-- Non touché: command-runner core authority (hors fromClearIntent), migrations, SEF/roadmap/decisions, method/, D7/D9, SVG
+### C03
+- `pilotageStatus` React-only disparaissait au reload.
+- Journal `decisions.slice(0,8)` sur ordre ascendant → masquait les plus récentes si >8.
 
-## 07. Séquencement USER→D3→D6→D5
-1. Session D1 authentifiée ; préparation/projet D2 liés.
-2. `reserveTurnCommand` — message USER persisté `COMPLETE` (source durable).
-3. `requireTurnOwnership` — si perdu: pas de commande métier tardive.
-4. `applyConversationalAuthority` → `qualifyPilotageIntent` → si CLEAR et projet: `executePilotageCommand` (`sourceKind=USER_MESSAGE`, `sourceRef=userMessageId`, `clientCommandKey=conv-auth:{clientTurnKey}`, `actInstanceId=userMessageId`) — TX courte D5/D6.
-5. Ambigu/NONE: **pas** d'appel commande (évite HUMAN_INTENT lock).
-6. `buildNoraPilotageContext` après effet + snippets d'effet/clarification.
-7. `generateNoraReply` (FAKE DEV) — hors TX PG.
-8. `commitTurnTerminal` avec `humanDecisionCreated` + `pilotageEffect` honnêtes.
-9. Replay tour: payload stocké ; pas de second effet métier.
+## E. Blast radius
+- intent.ts, conversation-authority.ts (new+updated), conversation/service.ts, turn-command.ts
+- page.tsx, PilotagePanel.tsx, messages route (prior)
+- tests unit/PG/e2e + docs construction
+- Non touché: command-runner core, migrations, SEF/roadmap, SVG
 
-## 08. Propriétaires et interfaces
-- D3: messages, tour, contexte, réponse Nora (aucune permission).
-- D5/D6: seule frontière `executePilotageCommand` / `runBusinessCommand`.
-- D4: lecture/capitalisation inchangée ; jamais source d'HumanDecision.
-- UX: fil = expérience principale ; Journal = complément authentifié EXPLICIT_INTERACTION.
+## F. Séquencement AVANT / APRÈS
+### AVANT (F01/F02)
+USER persist → authority → Nora → terminal resultJson (seul porteur de pilotageEffect)
+Client: nouvelle clé à chaque send ; Journal slice oldest 8
 
-## 09. Fichier créé (intégral)
-### projects/sfia-studio-next/web/src/domains/pilotage/conversation-authority.ts
+### APRÈS (C01–C03)
+USER persist COMPLETE
+→ ownership
+→ applyConversationalAuthority (short TX) ; skip if AMBIGUOUS exploratory
+→ (hook afterAuthorityBeforeNora)
+→ Nora OR provider failure
+→ on failure: markTurnUnknown(resultJson with pilotageEffect) ; return UNKNOWN without inventing COMPLETE
+→ replay UNKNOWN: reconstitute from business_commands via conv-auth:{key} / USER_MESSAGE sourceRef
+Client: stable turn key + sessionStorage pending (no secrets) + reconcile by-key
+Journal: 8 newest + expand full history
+
+## G. Inventaire fichiers
+- CREATED (untracked): conversation-authority.ts
+- MODIFIED: intent, service conversation, turn-command, page, PilotagePanel, messages route, service pilotage, tests, docs
+
+## H. Fichier créé (intégral)
+### conversation-authority.ts
 ```typescript
 /**
  * F01/F02 — bridge from a persisted USER message to the existing D5/D6
@@ -120,18 +116,22 @@
  * 2. Short business TX via executePilotageCommand only — never around Nora.
  * 3. Ambiguous / insufficient acts do not call the command runner
  *    (avoids HUMAN_INTENT locks on clarification turns).
+ * 4. C02 — durable effects are recoverable via business_commands
+ *    (conv-auth:{clientTurnKey} / USER_MESSAGE sourceRef), not only resultJson.
  */
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { db } from "@/db/client";
-import { humanDecisions } from "@/db/schema";
+import { businessCommandEffects, businessCommands, humanDecisions } from "@/db/schema";
 import {
   findMessageDecisionConfrontations,
   type DecisionBrief,
 } from "@/domains/decisions/divergence-assist";
+import { toCommandResult } from "@/domains/pilotage/command-runner";
 import { qualifyPilotageIntent } from "@/domains/pilotage/intent";
 import {
   executePilotageCommand,
   getPilotageProjection,
+  reconcileCommandByClientKey,
 } from "@/domains/pilotage/service";
 import type { CommandResult, PilotageRequestBody } from "@/domains/pilotage/types";
 
@@ -162,8 +162,15 @@ export type ConversationalAuthorityOutcome = {
   humanDecisionCreated: boolean;
   decisionId: string | null;
   clarification?: string;
-  source: "none" | "user_message_command" | "clarification_only";
+  source: "none" | "user_message_command" | "clarification_only" | "reconstituted";
+  /** Stable business key — searchable after Nora/HTTP interruption. */
+  clientCommandKey?: string;
 };
+
+/** Stable D5/D6 client key for a conversational turn — not a second registry. */
+export function conversationalCommandKey(clientTurnKey: string): string {
+  return `conv-auth:${clientTurnKey.trim()}`;
+}
 
 async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
   const rows = await db
@@ -190,6 +197,11 @@ async function loadDecisionBriefs(projectId: string): Promise<DecisionBrief[]> {
   }));
 }
 
+/**
+ * Resolve a documentary REVISE target.
+ * Level A POSSIBLE_CHANGE only filters candidates — never authorizes by itself.
+ * Qualify must already be CLEAR (caller). Founding D5 kinds are refused.
+ */
 function resolveReviseTarget(
   utterance: string,
   briefs: DecisionBrief[],
@@ -235,6 +247,91 @@ function resolveReviseTarget(
   return { ok: true, decisionId: target.id, statement: statement.slice(0, 500) };
 }
 
+function outcomeFromCommand(
+  command: CommandResult,
+  operation: string,
+  clientCommandKey: string,
+  source: ConversationalAuthorityOutcome["source"] = "user_message_command",
+): ConversationalAuthorityOutcome {
+  const applied = command.status === "APPLIED" || command.status === "ALREADY_APPLIED";
+  return {
+    attempted: true,
+    intentClarity: "CLEAR",
+    operation,
+    command,
+    humanDecisionCreated: applied && Boolean(command.decisionId),
+    decisionId: command.decisionId,
+    source,
+    clientCommandKey,
+    intentReason:
+      command.status === "REJECTED" || command.status === "CONFLICT" || command.status === "UNKNOWN"
+        ? command.reason
+        : undefined,
+    clarification:
+      command.status === "REJECTED" && command.reasonCode === "AMBIGUOUS"
+        ? command.reason
+        : undefined,
+  };
+}
+
+/**
+ * C02 — reconstitute a prior conversational D5/D6 effect from the durable registry.
+ * Prefer clientCommandKey; fall back to USER_MESSAGE sourceRef (= userMessageId).
+ * Never invents APPLIED/REJECTED when nothing is found.
+ */
+export async function reconstituteConversationalAuthority(input: {
+  pilotId: string;
+  projectId: string;
+  clientTurnKey?: string | null;
+  userMessageId?: string | null;
+}): Promise<ConversationalAuthorityOutcome | null> {
+  const key = input.clientTurnKey?.trim()
+    ? conversationalCommandKey(input.clientTurnKey)
+    : null;
+  if (key) {
+    try {
+      const command = await reconcileCommandByClientKey(input.pilotId, input.projectId, key);
+      return outcomeFromCommand(
+        command,
+        command.effects[0]?.effectKind ?? "UNKNOWN",
+        key,
+        "reconstituted",
+      );
+    } catch {
+      /* fall through to sourceRef */
+    }
+  }
+  const messageId = input.userMessageId?.trim();
+  if (!messageId) return null;
+  const cmd = (
+    await db
+      .select()
+      .from(businessCommands)
+      .where(
+        and(
+          eq(businessCommands.projectId, input.projectId),
+          eq(businessCommands.actorPilotId, input.pilotId),
+          eq(businessCommands.sourceKind, "USER_MESSAGE"),
+          eq(businessCommands.sourceRef, messageId),
+        ),
+      )
+      .limit(1)
+  )[0];
+  if (!cmd) return null;
+  const effects = await db
+    .select()
+    .from(businessCommandEffects)
+    .where(eq(businessCommandEffects.commandId, cmd.id))
+    .orderBy(asc(businessCommandEffects.ordinal));
+  const command = toCommandResult(cmd, effects, "replay");
+  return outcomeFromCommand(
+    command,
+    cmd.operation || effects[0]?.effectKind || "UNKNOWN",
+    cmd.clientCommandKey,
+    "reconstituted",
+  );
+}
+
 /**
  * Attempt a governed D5/D6 command from a persisted USER message.
  * Caller must pass the durable message id as sourceRef / actInstanceId.
@@ -247,6 +344,7 @@ export async function applyConversationalAuthority(input: {
   clientTurnKey: string;
 }): Promise<ConversationalAuthorityOutcome> {
   const content = input.content.trim();
+  const clientCommandKey = conversationalCommandKey(input.clientTurnKey);
   const empty: ConversationalAuthorityOutcome = {
     attempted: false,
     intentClarity: "NONE",
@@ -254,8 +352,20 @@ export async function applyConversationalAuthority(input: {
     humanDecisionCreated: false,
     decisionId: null,
     source: "none",
+    clientCommandKey,
   };
   if (!content || !input.projectId || !input.userMessageId) return empty;
+
+  // C02 — if this turn key already produced a durable command, return it (no second effect).
+  const prior = await reconstituteConversationalAuthority({
+    pilotId: input.pilotId,
+    projectId: input.projectId,
+    clientTurnKey: input.clientTurnKey,
+    userMessageId: input.userMessageId,
+  });
+  if (prior?.attempted && prior.command) {
+    return prior;
+  }
 
   const qualified = qualifyPilotageIntent(content);
   if (qualified.clarity === "NONE") {
@@ -272,7 +382,6 @@ export async function applyConversationalAuthority(input: {
   }
 
   const projection = await getPilotageProjection(input.pilotId, input.projectId);
-  const clientCommandKey = `conv-auth:${input.clientTurnKey}`;
   const base: PilotageRequestBody = {
     clientCommandKey,
     expectedRevision: projection.revision,
@@ -296,6 +405,7 @@ export async function applyConversationalAuthority(input: {
         clarification: resolved.reason,
         source: "clarification_only",
         operation: "REVISE_DECISION",
+        clientCommandKey,
       };
     }
     const command = await executePilotageCommand(input.pilotId, input.projectId, {
@@ -305,7 +415,7 @@ export async function applyConversationalAuthority(input: {
       statement: resolved.statement,
       objectRef: qualified.objectRef,
     });
-    return outcomeFromCommand(command, "REVISE_DECISION");
+    return outcomeFromCommand(command, "REVISE_DECISION", clientCommandKey);
   }
 
   if (qualified.operation === "RECORD_DECISION") {
@@ -316,69 +426,196 @@ export async function applyConversationalAuthority(input: {
       objectRef: qualified.objectRef,
       objective: qualified.objective,
     });
-    return outcomeFromCommand(command, "RECORD_DECISION");
+    return outcomeFromCommand(command, "RECORD_DECISION", clientCommandKey);
   }
 
-  // Cycle / method / trajectory CLEAR intents — utterance path inside classifyCommand.
   const command = await executePilotageCommand(input.pilotId, input.projectId, {
     ...base,
-    // Leave operation unset so USER_MESSAGE classify uses the qualifier
-    // (keeps single qualification path). Explicit fields still allowed as hints.
     cycleType: qualified.cycleType,
     toCycleType: qualified.toCycleType,
     methodRef: qualified.methodRef,
     methodVersion: qualified.methodVersion,
     objective: qualified.objective,
   });
-  return outcomeFromCommand(command, qualified.operation);
-}
-
-function outcomeFromCommand(
-  command: CommandResult,
-  operation: string,
-): ConversationalAuthorityOutcome {
-  const applied = command.status === "APPLIED" || command.status === "ALREADY_APPLIED";
-  return {
-    attempted: true,
-    intentClarity: "CLEAR",
-    operation,
-    command,
-    humanDecisionCreated: applied && Boolean(command.decisionId),
-    decisionId: command.decisionId,
-    source: "user_message_command",
-    intentReason:
-      command.status === "REJECTED" || command.status === "CONFLICT" || command.status === "UNKNOWN"
-        ? command.reason
-        : undefined,
-    clarification:
-      command.status === "REJECTED" && command.reasonCode === "AMBIGUOUS"
-        ? command.reason
-        : undefined,
-  };
+  return outcomeFromCommand(command, qualified.operation, clientCommandKey);
 }
 
 ```
 
-## 10. Fichiers modifiés — diffs utiles complets
+## I. Diffs utiles complets
+
+### projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
+```diff
+diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
+index 75fcacc8..89790d47 100644
+--- a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
++++ b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
+@@ -10,10 +10,31 @@ export type IntentQualification =
+       methodRef?: string;
+       methodVersion?: string;
+       objective?: string;
++      /** Documentary decision text (RECORD / REVISE). */
++      statement?: string;
++      /** Bounded object key for D6 confrontation — not authority by itself. */
++      objectRef?: string;
++      /** Resolved only when the caller already knows the D6 target. */
++      decisionId?: string;
+     }
+   | { clarity: "AMBIGUOUS"; reason: string }
+   | { clarity: "NONE"; reason: string };
+
++/** Derive a short objectRef from a decision statement for journal / confrontation. */
++export function deriveDecisionObjectRef(statement: string): string {
++  const text = statement.trim().replace(/\s+/g, " ");
++  const anchored = text.match(
++    /(?:que\s+)?(?:la|le|l['’])?\s*([^,?.;]{3,60}?)\s+(?:est|sera|devient|reste|doit|peu[tv])\b/i,
++  );
++  if (anchored?.[1]) return anchored[1].trim().slice(0, 80);
++  const tokens = text
++    .toLowerCase()
++    .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
++    .filter((t) => t.length >= 4)
++    .slice(0, 4);
++  return (tokens.join(" ") || text.slice(0, 40)).trim();
++}
++
+ const PHRASES: Array<{ type: CycleType; phrase: string }> = [
+   { type: "CONCEPTION_FONCTIONNELLE", phrase: "conception fonctionnelle" },
+   { type: "ARCHITECTURE_FONCTIONNELLE", phrase: "architecture fonctionnelle" },
+@@ -45,10 +66,26 @@ const PHRASES: Array<{ type: CycleType; phrase: string }> = [
+ const AMBIGUOUS_EXACT =
+   /^(ok|okay|oui|d'accord|dac|vas-y|go|parfait|ça marche|ca marche)\.?$/i;
+
++/**
++ * C01 — exploratory / hypothetical language is never an opposable D6 act.
++ * Level A confrontation may still surface candidates; this gate stays linguistic.
++ */
++const EXPLORATORY_ACT =
++  /\b(je pense|je r[eé]fl[eé]chis|je me demande|j['’]envisage|pourrait|pourrais|ce serait|il serait|peut-être|peut etre|et si|nora (?:propose|sugg[eè]re)|int[eé]ressant|hypoth[eè]se|envisager|envisagerais|semblerait|aurait l['’]air)\b/i;
++
+ function normalize(text: string): string {
+   return text.trim().toLowerCase().replace(/\s+/g, " ");
+ }
+
++/** True when the wording is reflective/hypothetical — not a clear human performative. */
++export function isExploratoryActLanguage(text: string): boolean {
++  const t = text.trim();
++  if (!t) return true;
++  if (/\?$/.test(t)) return true;
++  if (/^(est-ce|dois-je|peut-on|devrait-on|et si)\b/i.test(t)) return true;
++  return EXPLORATORY_ACT.test(t);
++}
++
+ function escapeRe(phrase: string): string {
+   return phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+ }
+@@ -187,6 +224,84 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
+     return { clarity: "CLEAR", operation: "CLOSE_CYCLE", cycleType: matched.type, objective: text };
+   }
+
++  /**
++   * Documentary RECORD — explicit performative only.
++   * Questions, soft preferences, citations and Nora advice must not match.
++   */
++  const record = text.match(
++    /^(?:je décide(?:\s+que)?|décision\s*:|j['’]enregistre(?:\s+(?:la\s+décision|que))?)\s+(.+)$/i,
++  );
++  if (record) {
++    const statement = record[1].trim().replace(/[.;]+$/, "");
++    if (statement.length < 8) {
++      return { clarity: "AMBIGUOUS", reason: "Décision insuffisamment déterminée" };
++    }
++    if (isExploratoryActLanguage(statement) || isExploratoryActLanguage(text)) {
++      return { clarity: "AMBIGUOUS", reason: "Préférence exploratoire — pas une décision" };
++    }
++    return {
++      clarity: "CLEAR",
++      operation: "RECORD_DECISION",
++      objective: statement,
++      statement,
++      objectRef: deriveDecisionObjectRef(statement),
++    };
++  }
++
++  /**
++   * Documentary REVISE — C01: "Finalement…" alone is not enough when hedges remain.
++   * Explicit "Je révise la décision…" is the strong performative.
++   * Target resolution still requires D6 briefs (caller); Level A never authorizes alone.
++   */
++  const explicitRevise = text.match(
++    /^je (?:révise|revise|corrige|remplace|modifie)(?:\s+la\s+décision(?:\s+[^:]+)?)?\s*[:,]?\s*(.+)$/i,
++  );
++  if (explicitRevise) {
++    const statement = explicitRevise[1].trim().replace(/[.;]+$/, "");
++    if (statement.length < 8) {
++      return { clarity: "AMBIGUOUS", reason: "Révision insuffisamment déterminée" };
++    }
++    if (isExploratoryActLanguage(statement) || isExploratoryActLanguage(text)) {
++      return { clarity: "AMBIGUOUS", reason: "Réflexion — pas un acte de révision" };
++    }
++    return {
++      clarity: "CLEAR",
++      operation: "REVISE_DECISION",
++      objective: statement,
++      statement,
++      objectRef: deriveDecisionObjectRef(statement),
++    };
++  }
++
++  const softRevise = text.match(/^(?:finalement|désormais|dorénavant)[,:]?\s+(.+)$/i);
++  if (softRevise) {
++    const statement = softRevise[1].trim().replace(/[.;]+$/, "");
++    if (statement.length < 8) {
++      return { clarity: "AMBIGUOUS", reason: "Révision insuffisamment déterminée" };
++    }
++    // C01: hedges / questions / Nora suggestions must not become CLEAR REVISE.
++    if (isExploratoryActLanguage(statement) || isExploratoryActLanguage(text)) {
++      return {
++        clarity: "AMBIGUOUS",
++        reason: "Expression exploratoire — clarification requise, aucune révision automatique",
++      };
++    }
++    // Require an assertive change predicate (devient/est/reste/sera) — not mere topic mention.
++    if (!/\b(devient|est|reste|sera|n['’]est plus|n['’]est pas)\b/i.test(statement)) {
++      return {
++        clarity: "AMBIGUOUS",
++        reason: "Changement de décision non asserté — précisez l'acte de révision",
++      };
++    }
++    return {
++      clarity: "CLEAR",
++      operation: "REVISE_DECISION",
++      objective: statement,
++      statement,
++      objectRef: deriveDecisionObjectRef(statement),
++    };
++  }
++
+   if (cyclesMentioned(text).length >= 2) {
+     return { clarity: "AMBIGUOUS", reason: "Plusieurs cycles cités" };
+   }
+
+```
 
 ### projects/sfia-studio-next/web/src/domains/conversation/service.ts
 ```diff
 diff --git a/projects/sfia-studio-next/web/src/domains/conversation/service.ts b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-index fb89d5d0..4ba0778a 100644
+index fb89d5d0..a8b668a4 100644
 --- a/projects/sfia-studio-next/web/src/domains/conversation/service.ts
 +++ b/projects/sfia-studio-next/web/src/domains/conversation/service.ts
-@@ -22,6 +22,10 @@ import {
+@@ -22,6 +22,11 @@ import {
  } from "./turn-command";
  import { emitObs, newRequestId } from "@/lib/observability";
  import { StudioError } from "@/lib/http-errors";
 +import {
 +  applyConversationalAuthority,
++  reconstituteConversationalAuthority,
 +  type ConversationalAuthorityOutcome,
 +} from "@/domains/pilotage/conversation-authority";
  import { buildNoraPilotageContext } from "@/domains/pilotage/nora-context";
 
  export async function listMessages(pilotId: string, preparationId: string) {
-@@ -96,10 +100,52 @@ export type TurnResult = {
+@@ -96,10 +101,88 @@ export type TurnResult = {
    capitalisationLimit?: string;
    documentSave?: { status?: string; documentId?: string; revisionNumber?: number; reason?: string } | null;
    idempotentReplay: boolean;
@@ -400,6 +637,7 @@ index fb89d5d0..4ba0778a 100644
 +    decisionId?: string | null;
 +    clarification?: string;
 +    source: ConversationalAuthorityOutcome["source"];
++    clientCommandKey?: string;
 +    effects?: Array<{ effectKind: string; targetRef: string }>;
 +  } | null;
    reconciled?: boolean;
@@ -421,6 +659,7 @@ index fb89d5d0..4ba0778a 100644
 +    decisionId: authority.decisionId,
 +    clarification: authority.clarification,
 +    source: authority.source,
++    clientCommandKey: authority.clientCommandKey,
 +    effects: authority.command?.effects?.map((e) => ({
 +      effectKind: e.effectKind,
 +      targetRef: e.targetRef,
@@ -428,10 +667,44 @@ index fb89d5d0..4ba0778a 100644
 +  };
 +}
 +
++async function resolvePilotageEffectForReplay(input: {
++  pilotId: string;
++  projectId: string | null | undefined;
++  clientTurnKey?: string | null;
++  userMessageId?: string | null;
++  fromJson: TurnResult["pilotageEffect"] | null | undefined;
++  humanDecisionCreated: boolean;
++}): Promise<{ pilotageEffect: TurnResult["pilotageEffect"]; humanDecisionCreated: boolean }> {
++  if (input.fromJson?.attempted && input.fromJson.status) {
++    return {
++      pilotageEffect: input.fromJson,
++      humanDecisionCreated: input.humanDecisionCreated || Boolean(input.fromJson.decisionId),
++    };
++  }
++  if (!input.projectId) {
++    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
++  }
++  const reconstituted = await reconstituteConversationalAuthority({
++    pilotId: input.pilotId,
++    projectId: input.projectId,
++    clientTurnKey: input.clientTurnKey,
++    userMessageId: input.userMessageId,
++  });
++  if (!reconstituted) {
++    return { pilotageEffect: input.fromJson ?? null, humanDecisionCreated: input.humanDecisionCreated };
++  }
++  const effect = pilotageEffectFromAuthority(reconstituted);
++  return {
++    pilotageEffect: effect,
++    humanDecisionCreated:
++      input.humanDecisionCreated || Boolean(reconstituted.humanDecisionCreated),
++  };
++}
++
  export async function postUserMessageAndNora(
    pilotId: string,
    preparationId: string,
-@@ -142,7 +188,8 @@ export async function postUserMessageAndNora(
+@@ -142,19 +225,39 @@ export async function postUserMessageAndNora(
            operationId: reserved.operationId,
            requestId,
            idempotentReplay: true,
@@ -441,7 +714,13 @@ index fb89d5d0..4ba0778a 100644
            reconciled: reserved.reconciled,
          };
        } catch {
-@@ -155,6 +202,17 @@ export async function postUserMessageAndNora(
+         /* fall through */
+       }
+     }
+-    // FAILED/UNKNOWN: never fabricate COMPLETE; reconstitute durable D4 refs from DB when possible.
++    // FAILED/UNKNOWN: never fabricate COMPLETE; reconstitute durable D4 + D5/D6 from DB.
+     if (reserved.status === "UNKNOWN" || reserved.status === "FAILED") {
+       const reconstituted = await reconstituteConfirmedD4Effects(pilotId, preparationId, {
          generationId: reserved.generationId,
          userMessageId: reserved.userMessageId,
        });
@@ -456,20 +735,28 @@ index fb89d5d0..4ba0778a 100644
 +          /* ignore */
 +        }
 +      }
++      const resolved = await resolvePilotageEffectForReplay({
++        pilotId,
++        projectId: ctx.project?.id,
++        clientTurnKey: reserved.clientTurnKey ?? clientTurnKey,
++        userMessageId: reserved.userMessageId,
++        fromJson: replayPilotage,
++        humanDecisionCreated: replayDecision,
++      });
        return {
          operationId: reserved.operationId,
          requestId,
-@@ -163,7 +221,8 @@ export async function postUserMessageAndNora(
+@@ -163,7 +266,8 @@ export async function postUserMessageAndNora(
          generationId: reserved.generationId,
          userMessageId: reserved.userMessageId,
          assistantMessageId: reserved.assistantMessageId,
 -        humanDecisionCreated: false,
-+        humanDecisionCreated: replayDecision,
-+        pilotageEffect: replayPilotage,
++        humanDecisionCreated: resolved.humanDecisionCreated,
++        pilotageEffect: resolved.pilotageEffect,
          reconciled: reserved.reconciled,
          noraMode: "replay-terminal",
          capitalisation: reconstituted.capitalisation,
-@@ -180,6 +239,7 @@ export async function postUserMessageAndNora(
+@@ -180,6 +284,7 @@ export async function postUserMessageAndNora(
        userMessageId: reserved.userMessageId,
        assistantMessageId: reserved.assistantMessageId,
        humanDecisionCreated: false,
@@ -477,7 +764,7 @@ index fb89d5d0..4ba0778a 100644
        reconciled: reserved.reconciled,
        noraMode: reserved.status === "COMPLETE" ? "deterministic-fixture" : "replay-terminal",
      };
-@@ -194,6 +254,48 @@ export async function postUserMessageAndNora(
+@@ -194,6 +299,48 @@ export async function postUserMessageAndNora(
      meta: { client_turn_key_fp: reserved.requestFingerprint.slice(0, 12) },
    });
 
@@ -526,7 +813,7 @@ index fb89d5d0..4ba0778a 100644
    const existing = await listMessages(pilotId, preparationId);
    const contextSnippets = existing
      .filter((m) => m.status === "COMPLETE" && m.id !== reserved.userMessageId)
-@@ -208,7 +310,25 @@ export async function postUserMessageAndNora(
+@@ -208,10 +355,32 @@ export async function postUserMessageAndNora(
      return `DOCUMENT[${d.document.id}] «${d.document.title}» v${rev?.revisionNumber ?? "?"} status=${rev?.status ?? "∅"}`;
    });
 
@@ -552,7 +839,14 @@ index fb89d5d0..4ba0778a 100644
 
    let reply;
    try {
-@@ -221,7 +341,7 @@ export async function postUserMessageAndNora(
++    // C02 fault boundary: after authority, before/during Nora — same recovery path.
++    if (turnRaceHooks.afterAuthorityBeforeNora) {
++      await turnRaceHooks.afterAuthorityBeforeNora();
++    }
+     // Heartbeat during long provider work so stale lease does not falsely orphan an active run.
+     const leasePulse = setInterval(() => {
+       void touchTurnLease(reserved.commandId, reserved.ownerToken);
+@@ -221,7 +390,7 @@ export async function postUserMessageAndNora(
          userText: content,
          contextSnippets,
          knowledgeSnippets: [...knowledge.snippets, ...docSnippets],
@@ -561,7 +855,61 @@ index fb89d5d0..4ba0778a 100644
          // C01: same structured Level A contract for fixture and LIVE — never authority.
          levelASignals: pilotageCtx.levelASignals,
          // Requested level only. The adapter emits DELIVERED after a real generate.
-@@ -471,7 +591,8 @@ export async function postUserMessageAndNora(
+@@ -235,8 +404,30 @@ export async function postUserMessageAndNora(
+     } finally {
+       clearInterval(leasePulse);
+     }
+-  } catch (e) {
+-    await markTurnUnknown(reserved.commandId, "PROVIDER_EXCEPTION", reserved.ownerToken);
++  } catch {
++    // C02 — Nora failure must not erase a already-committed D5/D6 effect.
++    // Persist an honest UNKNOWN turn payload that still surfaces pilotageEffect.
++    const unknownPayload: TurnResult = {
++      userMessageId: reserved.userMessageId,
++      assistantMessageId: null,
++      operationId: reserved.operationId,
++      requestId,
++      status: "UNKNOWN",
++      idempotentReplay: false,
++      humanDecisionCreated: Boolean(authority?.humanDecisionCreated),
++      pilotageEffect: pilotageEffectFromAuthority(authority),
++      noraMode: "provider-exception",
++    };
++    try {
++      await markTurnUnknown(
++        reserved.commandId,
++        "PROVIDER_EXCEPTION",
++        reserved.ownerToken,
++        JSON.stringify(unknownPayload),
++      );
++    } catch {
++      /* ownership may already be lost — still return reconstituted truth below */
++    }
+     emitObs({
+       event_name: "d3.turn.unknown",
+       component: "d3.conversation",
+@@ -245,7 +436,19 @@ export async function postUserMessageAndNora(
+       outcome: "UNKNOWN",
+       error_category: "PROVIDER_EXCEPTION",
+     });
+-    throw e;
++    const resolved = await resolvePilotageEffectForReplay({
++      pilotId,
++      projectId: ctx.project?.id,
++      clientTurnKey,
++      userMessageId: reserved.userMessageId,
++      fromJson: unknownPayload.pilotageEffect,
++      humanDecisionCreated: unknownPayload.humanDecisionCreated,
++    });
++    return {
++      ...unknownPayload,
++      humanDecisionCreated: resolved.humanDecisionCreated,
++      pilotageEffect: resolved.pilotageEffect,
++    };
+   }
+
+   if (turnRaceHooks.afterGenerateBeforeEffects) {
+@@ -471,7 +674,8 @@ export async function postUserMessageAndNora(
        ? (unknownCapReconstituted?.documentSave ?? null)
        : documentSave,
      idempotentReplay: false,
@@ -574,108 +922,587 @@ index fb89d5d0..4ba0778a 100644
 
 ```
 
-### projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
+### projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
 ```diff
-diff --git a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
-index 75fcacc8..715ba708 100644
---- a/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
-+++ b/projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
-@@ -10,10 +10,31 @@ export type IntentQualification =
-       methodRef?: string;
-       methodVersion?: string;
-       objective?: string;
-+      /** Documentary decision text (RECORD / REVISE). */
-+      statement?: string;
-+      /** Bounded object key for D6 confrontation — not authority by itself. */
-+      objectRef?: string;
-+      /** Resolved only when the caller already knows the D6 target. */
-+      decisionId?: string;
-     }
-   | { clarity: "AMBIGUOUS"; reason: string }
-   | { clarity: "NONE"; reason: string };
+diff --git a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+index 19c64cd8..1bb7ba40 100644
+--- a/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
++++ b/projects/sfia-studio-next/web/src/domains/conversation/turn-command.ts
+@@ -41,6 +41,8 @@ export type ReplayedTurn = {
+   generationId: string | null;
+   userMessageId: string | null;
+   assistantMessageId: string | null;
++  /** Stable turn key — enables C02 reconstitution of conv-auth:{key}. */
++  clientTurnKey?: string | null;
+   reconciled?: boolean;
+ };
 
-+/** Derive a short objectRef from a decision statement for journal / confrontation. */
-+export function deriveDecisionObjectRef(statement: string): string {
-+  const text = statement.trim().replace(/\s+/g, " ");
-+  const anchored = text.match(
-+    /(?:que\s+)?(?:la|le|l['’])?\s*([^,?.;]{3,60}?)\s+(?:est|sera|devient|reste|doit|peu[tv])\b/i,
-+  );
-+  if (anchored?.[1]) return anchored[1].trim().slice(0, 80);
-+  const tokens = text
-+    .toLowerCase()
-+    .split(/[^a-z0-9àâäéèêëïîôùûüç]+/i)
-+    .filter((t) => t.length >= 4)
-+    .slice(0, 4);
-+  return (tokens.join(" ") || text.slice(0, 40)).trim();
+@@ -111,6 +113,8 @@ export async function assertTurnFenceInTx(
+
+ /** Test hooks — must stay no-op in production paths. */
+ export const turnRaceHooks: {
++  /** C02 — after D5/D6 authority, before Nora provider (fault injection). */
++  afterAuthorityBeforeNora?: () => Promise<void>;
+   afterGenerateBeforeEffects?: () => Promise<void>;
+   beforeD4Effect?: () => Promise<void>;
+   beforeTerminalCommit?: () => Promise<void>;
+@@ -423,6 +427,7 @@ export async function reserveTurnCommand(args: {
+             generationId,
+             userMessageId: existing.userMessageId,
+             assistantMessageId: assistantId,
++            clientTurnKey: existing.clientTurnKey,
+             reconciled: true,
+           };
+         }
+@@ -441,6 +446,7 @@ export async function reserveTurnCommand(args: {
+         generationId: existing.generationId,
+         userMessageId: existing.userMessageId,
+         assistantMessageId: existing.assistantMessageId,
++        clientTurnKey: existing.clientTurnKey,
+       };
+     }
+
+@@ -731,12 +737,14 @@ export async function markTurnUnknown(
+   commandId: string,
+   errorCategory: string,
+   ownerToken?: string,
++  resultJson?: string,
+ ) {
+   await completeTurnCommand({
+     commandId,
+     status: "UNKNOWN",
+     errorCategory,
+     ownerToken,
++    resultJson,
+   });
+ }
+
+
+```
+
+### projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+index 09f0d896..c95b688e 100644
+--- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
++++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
+@@ -1,6 +1,6 @@
+ "use client";
+
+-import { useEffect, useState } from "react";
++import { useEffect, useRef, useState } from "react";
+ import { useParams, useRouter } from "next/navigation";
+ import { SafeMarkdown } from "@/components/SafeMarkdown";
+ import { PilotagePanel } from "@/components/PilotagePanel";
+@@ -23,6 +23,51 @@ type Knowledge = {
+
+ type Surface = "travail" | "pilotage" | "journal" | "document";
+
++type PilotageEffectView = {
++  attempted?: boolean;
++  intentClarity?: string;
++  intentReason?: string;
++  status?: string | null;
++  reasonCode?: string | null;
++  reason?: string | null;
++  operation?: string;
++  decisionId?: string | null;
++  clarification?: string;
++  clientCommandKey?: string;
++};
++
++type PendingTurn = {
++  content: string;
++  clientTurnKey: string;
++  clientCommandKey: string;
++};
++
++function pendingStorageKey(projectId: string) {
++  return `sfia.thread.pending:${projectId}`;
 +}
 +
- const PHRASES: Array<{ type: CycleType; phrase: string }> = [
-   { type: "CONCEPTION_FONCTIONNELLE", phrase: "conception fonctionnelle" },
-   { type: "ARCHITECTURE_FONCTIONNELLE", phrase: "architecture fonctionnelle" },
-@@ -187,6 +208,63 @@ export function qualifyPilotageIntent(utterance: string): IntentQualification {
-     return { clarity: "CLEAR", operation: "CLOSE_CYCLE", cycleType: matched.type, objective: text };
++function formatPilotageEffect(
++  effect: PilotageEffectView | null | undefined,
++  humanDecisionCreated?: boolean,
++): string {
++  if (!effect) return "";
++  if (effect.attempted) {
++    return [
++      effect.operation ?? "commande",
++      effect.status ?? "?",
++      effect.reasonCode ? `(${effect.reasonCode})` : null,
++      humanDecisionCreated && effect.decisionId ? `décision ${effect.decisionId}` : null,
++    ]
++      .filter(Boolean)
++      .join(" · ");
++  }
++  if (effect.clarification) return `Clarification · ${effect.clarification}`;
++  if (effect.intentClarity === "AMBIGUOUS") {
++    return `Intention ambiguë · ${effect.intentReason ?? effect.reason ?? ""}`;
++  }
++  return "";
++}
++
+ export default function ProjectPage() {
+   const params = useParams<{ projectId: string }>();
+   const router = useRouter();
+@@ -35,9 +80,132 @@ export default function ProjectPage() {
+   const [surface, setSurface] = useState<Surface>("travail");
+   const [draft, setDraft] = useState("");
+   const [busy, setBusy] = useState(false);
+-  const [noraActivity, setNoraActivity] = useState<"idle" | "preparing">("idle");
++  const [noraActivity, setNoraActivity] = useState<"idle" | "preparing" | "error">("idle");
+   const [status, setStatus] = useState("");
++  const [pilotageStatus, setPilotageStatus] = useState("");
++  const [decisionSummary, setDecisionSummary] = useState("");
+   const [inspect, setInspect] = useState<Doc | null>(null);
++  const [unresolvedPending, setUnresolvedPending] = useState<PendingTurn | null>(null);
++  const messageTurnKeyRef = useRef<{ content: string; key: string } | null>(null);
++
++  function rememberPending(pending: PendingTurn | null) {
++    if (typeof sessionStorage === "undefined") return;
++    const key = pendingStorageKey(params.projectId);
++    if (!pending) {
++      sessionStorage.removeItem(key);
++      setUnresolvedPending(null);
++      return;
++    }
++    sessionStorage.setItem(key, JSON.stringify(pending));
++    setUnresolvedPending(pending);
++  }
++
++  function readPending(): PendingTurn | null {
++    if (typeof sessionStorage === "undefined") return null;
++    try {
++      const raw = sessionStorage.getItem(pendingStorageKey(params.projectId));
++      if (!raw) return null;
++      return JSON.parse(raw) as PendingTurn;
++    } catch {
++      return null;
++    }
++  }
++
++  async function refreshDurablePilotage() {
++    const [decRes, projRes] = await Promise.all([
++      fetch(`/api/projects/${params.projectId}/decisions`),
++      fetch(`/api/projects/${params.projectId}/pilotage`),
++    ]);
++    if (decRes.ok) {
++      const dj = await decRes.json();
++      const decisions = (dj.decisions ?? []) as Array<{
++        id: string;
++        kind: string;
++        state: string;
++        statement: string;
++        createdAt?: string;
++      }>;
++      const applicable = decisions.filter((d) => d.state === "APPLICABLE");
++      const latest = [...decisions].sort((a, b) =>
++        String(b.createdAt ?? "").localeCompare(String(a.createdAt ?? "")),
++      )[0];
++      setDecisionSummary(
++        `${applicable.length} applicable(s) · ${decisions.length} au journal` +
++          (latest ? ` · dernière ${latest.kind}/${latest.state}` : ""),
++      );
++    }
++    if (projRes.ok) {
++      const pj = await projRes.json();
++      const cycle = pj.pilotage?.cycle ?? pj.cycle;
++      if (cycle?.status === "ACTIVE") {
++        setPilotageStatus((prev) =>
++          prev.includes("OPEN_CYCLE") || prev.includes("ACTIVE")
++            ? prev
++            : `cycle ${cycle.cycleType} ACTIVE (relecture durable)`,
++        );
++      }
++    }
++  }
++
++  async function reconcilePending(pending: PendingTurn) {
++    setBusy(true);
++    try {
++      const res = await fetch(
++        `/api/projects/${params.projectId}/pilotage/commands/by-key/${encodeURIComponent(pending.clientCommandKey)}`,
++      );
++      if (res.ok) {
++        const cmd = await res.json();
++        setPilotageStatus(
++          formatPilotageEffect(
++            {
++              attempted: true,
++              status: cmd.status,
++              reasonCode: cmd.reasonCode,
++              reason: cmd.reason,
++              operation: cmd.effects?.[0]?.effectKind ?? "commande",
++              decisionId: cmd.decisionId,
++              clientCommandKey: pending.clientCommandKey,
++            },
++            Boolean(cmd.decisionId) &&
++              (cmd.status === "APPLIED" || cmd.status === "ALREADY_APPLIED"),
++          ),
++        );
++        if (cmd.status && cmd.status !== "UNKNOWN") {
++          rememberPending(null);
++          messageTurnKeyRef.current = null;
++        }
++        await refreshDurablePilotage();
++        return;
++      }
++      // No durable command yet — retry the same turn key (idempotent if already applied).
++      if (!preparationId) return;
++      const retry = await fetch(`/api/preparations/${preparationId}/messages`, {
++        method: "POST",
++        headers: { "Content-Type": "application/json" },
++        body: JSON.stringify({
++          content: pending.content,
++          clientTurnKey: pending.clientTurnKey,
++        }),
++      });
++      const j = await retry.json().catch(() => ({}));
++      if (retry.ok) {
++        setMessages(j.messages ?? []);
++        setStatus(`Nora ${j.noraMode} · ${j.status}`);
++        const effect = j.pilotageEffect as PilotageEffectView | undefined;
++        setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
++        if (j.status === "COMPLETE" || (effect?.attempted && effect.status && effect.status !== "UNKNOWN")) {
++          rememberPending(null);
++          messageTurnKeyRef.current = null;
++          setDraft("");
++        }
++        await refreshDurablePilotage();
++      } else {
++        setStatus(String(j.error ?? j.errorCategory ?? "réconciliation impossible"));
++      }
++    } finally {
++      setBusy(false);
++    }
++  }
+
+   useEffect(() => {
+     async function load() {
+@@ -65,34 +233,89 @@ export default function ProjectPage() {
+         `Même fil · préparation ${j.preparation?.id ?? "liée"} · conversation ${j.conversation?.id ?? "—"} · réouverture par projectId`,
+       );
+       setError("");
++      await refreshDurablePilotage();
++      const pending = readPending();
++      if (pending) {
++        setUnresolvedPending(pending);
++        setPilotageStatus(
++          `Reprise en attente · clé ${pending.clientCommandKey.slice(0, 24)}…`,
++        );
++      }
+     }
+-    load();
++    void load();
++    // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [params.projectId, router]);
+
+   async function sendMessage() {
+     if (!draft.trim() || !preparationId) return;
+     setBusy(true);
+     setNoraActivity("preparing");
+-    const res = await fetch(`/api/preparations/${preparationId}/messages`, {
+-      method: "POST",
+-      headers: { "Content-Type": "application/json" },
+-      body: JSON.stringify({ content: draft }),
+-    });
+-    const j = await res.json();
+-    setBusy(false);
+-    setNoraActivity("idle");
+-    if (res.ok) {
+-      setDraft("");
+-      setMessages(j.messages ?? []);
+-      setStatus(`Nora ${j.noraMode} · ${j.status}`);
+-      // Refresh knowledge/docs after capitalisation / document save
+-      const proj = await fetch(`/api/projects/${params.projectId}`);
+-      if (proj.ok) {
+-        const pj = await proj.json();
+-        setDocuments(pj.documents ?? []);
+-        setKnowledge(pj.knowledge ?? null);
++    const text = draft.trim();
++    // C02 — same content reuses the same turn key until a terminal result clears it.
++    if (!messageTurnKeyRef.current || messageTurnKeyRef.current.content !== text) {
++      messageTurnKeyRef.current = {
++        content: text,
++        key:
++          typeof crypto !== "undefined" && "randomUUID" in crypto
++            ? `turn-${crypto.randomUUID()}`
++            : `turn-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
++      };
++    }
++    const clientTurnKey = messageTurnKeyRef.current.key;
++    const clientCommandKey = `conv-auth:${clientTurnKey}`;
++    rememberPending({ content: text, clientTurnKey, clientCommandKey });
++    try {
++      const res = await fetch(`/api/preparations/${preparationId}/messages`, {
++        method: "POST",
++        headers: { "Content-Type": "application/json" },
++        body: JSON.stringify({ content: text, clientTurnKey }),
++      });
++      let j: Record<string, unknown> = {};
++      try {
++        j = (await res.json()) as Record<string, unknown>;
++      } catch {
++        j = { errorCategory: "RESPONSE_PARSE_FAILED" };
+       }
+-    } else setStatus(j.error ?? "échec");
++      if (res.ok) {
++        setMessages((j.messages as Msg[]) ?? []);
++        setStatus(`Nora ${String(j.noraMode ?? "")} · ${String(j.status ?? "")}`);
++        const effect = j.pilotageEffect as PilotageEffectView | undefined;
++        setPilotageStatus(formatPilotageEffect(effect, Boolean(j.humanDecisionCreated)));
++        const turnDone =
++          j.status === "COMPLETE" ||
++          (effect?.attempted && effect.status && effect.status !== "UNKNOWN");
++        if (turnDone) {
++          rememberPending(null);
++          messageTurnKeyRef.current = null;
++          setDraft("");
++        } else if (j.status === "UNKNOWN" || j.status === "FAILED") {
++          // Keep pending — durable command may already exist.
++          setNoraActivity("error");
++        }
++        const proj = await fetch(`/api/projects/${params.projectId}`);
++        if (proj.ok) {
++          const pj = await proj.json();
++          setDocuments(pj.documents ?? []);
++          setKnowledge(pj.knowledge ?? null);
++        }
++        await refreshDurablePilotage();
++        setNoraActivity(
++          j.status === "UNKNOWN" || j.status === "FAILED" ? "error" : "idle",
++        );
++      } else {
++        setNoraActivity("error");
++        setStatus(
++          res.status === 409
++            ? `${String(j.errorCategory ?? j.error ?? "conflit")} — intention de tour conservée`
++            : String(j.error ?? j.errorCategory ?? "échec"),
++        );
++      }
++    } catch {
++      setNoraActivity("error");
++      setStatus("échec réseau — intention de tour conservée");
++    } finally {
++      setBusy(false);
++    }
    }
 
-+  /**
-+   * Documentary RECORD — explicit performative only.
-+   * Questions, soft preferences, citations and Nora advice must not match.
-+   */
-+  const record = text.match(
-+    /^(?:je décide(?:\s+que)?|décision\s*:|j['’]enregistre(?:\s+(?:la\s+décision|que))?)\s+(.+)$/i,
-+  );
-+  if (record) {
-+    const statement = record[1].trim().replace(/[.;]+$/, "");
-+    if (statement.length < 8) {
-+      return { clarity: "AMBIGUOUS", reason: "Décision insuffisamment déterminée" };
-+    }
-+    if (/\?$/.test(statement) || /^(est-ce|dois-je|peut-on|devrait-on|et si)\b/i.test(statement)) {
-+      return { clarity: "AMBIGUOUS", reason: "Question — pas un acte de décision" };
-+    }
-+    if (
-+      /\b(ce serait|il serait|pourrait|intéressant|peut-être|je pense que|nora (?:propose|suggère))\b/i.test(
-+        statement,
-+      )
-+    ) {
-+      return { clarity: "AMBIGUOUS", reason: "Préférence exploratoire — pas une décision" };
-+    }
-+    return {
-+      clarity: "CLEAR",
-+      operation: "RECORD_DECISION",
-+      objective: statement,
-+      statement,
-+      objectRef: deriveDecisionObjectRef(statement),
-+    };
-+  }
-+
-+  /**
-+   * Documentary REVISE candidate — target resolution requires D6 briefs (caller).
-+   * Without a unique applicable RECORD_DECISION target, the bridge must clarify.
-+   */
-+  const revise =
-+    text.match(/^(?:finalement|désormais|dorénavant)[,:]?\s+(.+)$/i) ||
-+    text.match(
-+      /^je (?:révise|revise|corrige|remplace|modifie)(?:\s+la\s+décision)?\s*[:,]?\s*(.+)$/i,
-+    );
-+  if (revise) {
-+    const statement = revise[1].trim().replace(/[.;]+$/, "");
-+    if (statement.length < 8) {
-+      return { clarity: "AMBIGUOUS", reason: "Révision insuffisamment déterminée" };
-+    }
-+    if (/\?$/.test(statement)) {
-+      return { clarity: "AMBIGUOUS", reason: "Question — pas une révision" };
-+    }
-+    return {
-+      clarity: "CLEAR",
-+      operation: "REVISE_DECISION",
-+      objective: statement,
-+      statement,
-+      objectRef: deriveDecisionObjectRef(statement),
-+    };
-+  }
-+
-   if (cyclesMentioned(text).length >= 2) {
-     return { clarity: "AMBIGUOUS", reason: "Plusieurs cycles cités" };
-   }
+   if (error) {
+@@ -170,7 +393,32 @@ export default function ProjectPage() {
+               <button className="btn" disabled={busy || !preparationId} onClick={sendMessage}>
+                 Envoyer
+               </button>
+-              {status ? <p className="text-xs muted">{status}</p> : null}
++              {unresolvedPending ? (
++                <button
++                  type="button"
++                  className="btn secondary"
++                  disabled={busy}
++                  data-testid="thread-reconcile-pending"
++                  onClick={() => void reconcilePending(unresolvedPending)}
++                >
++                  Réconcilier la tentative en cours
++                </button>
++              ) : null}
++              {status ? (
++                <p className="text-xs muted" data-testid="thread-nora-status">
++                  {status}
++                </p>
++              ) : null}
++              {pilotageStatus ? (
++                <p className="text-xs" data-testid="thread-pilotage-status" role="status">
++                  {pilotageStatus}
++                </p>
++              ) : null}
++              {decisionSummary ? (
++                <p className="text-xs muted" data-testid="thread-decision-summary">
++                  {decisionSummary}
++                </p>
++              ) : null}
+             </div>
+           </section>
+           <aside className="space-y-3">
+
+```
+
+### projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
+```diff
+diff --git a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
+index fe15ed92..16b1fc45 100644
+--- a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
++++ b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
+@@ -40,7 +40,8 @@ type DecisionRow = {
+   statement: string;
+   state: string;
+   objectRef?: string;
+-  createdAt: string;
++  createdAt?: string;
++  supersedesDecisionId?: string | null;
+ };
+
+ type CommandResult = {
+@@ -162,6 +163,10 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
+   const [methodVersion, setMethodVersion] = useState("2.6");
+   const [utterance, setUtterance] = useState("");
+   const [restrictionTarget, setRestrictionTarget] = useState("*");
++  const [reviseTargetId, setReviseTargetId] = useState<string | null>(null);
++  const [reviseDraft, setReviseDraft] = useState("");
++  /** C03 — show 8 most recent by default; expand to full chronological history. */
++  const [journalExpanded, setJournalExpanded] = useState(false);
+   const inflight = useRef(new Map<string, PendingRecord>());
+
+   const load = useCallback(async () => {
+@@ -759,15 +764,114 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
+             {decisions.length === 0 && !journalError ? (
+               <p className="text-sm muted">Aucune décision D6 enregistrée.</p>
+             ) : (
+-              decisions.slice(0, 8).map((d) => (
+-                <article key={d.id} className="text-sm panel p-2">
+-                  <div className="text-xs muted" data-testid="decision-state">
+-                    {d.kind} · {d.state || "état inconnu"}
+-                    {d.objectRef ? ` · ${d.objectRef}` : ""}
+-                  </div>
+-                  <div>{d.statement}</div>
+-                </article>
+-              ))
++              (() => {
++                const chronological = [...decisions].sort((a, b) =>
++                  String(a.createdAt ?? "").localeCompare(String(b.createdAt ?? "")),
++                );
++                const newestFirst = [...chronological].reverse();
++                const visible = journalExpanded ? chronological : newestFirst.slice(0, 8);
++                return (
++                  <>
++                    <p className="text-xs muted" data-testid="journal-count">
++                      {decisions.length} décision(s) ·{" "}
++                      {journalExpanded
++                        ? "historique complet (ancien → récent)"
++                        : "8 plus récentes (récent → ancien)"}
++                    </p>
++                    {visible.map((d) => (
++                      <article
++                        key={d.id}
++                        className="text-sm panel p-2 space-y-2"
++                        data-testid="decision-row"
++                      >
++                        <div className="text-xs muted" data-testid="decision-state">
++                          {d.kind} · {d.state || "état inconnu"}
++                          {d.objectRef ? ` · ${d.objectRef}` : ""}
++                        </div>
++                        <div>{d.statement}</div>
++                        {d.state === "APPLICABLE" && d.kind === "RECORD_DECISION" ? (
++                          reviseTargetId === d.id ? (
++                            <div className="space-y-2">
++                              <label className="block text-xs muted" htmlFor={`revise-${d.id}`}>
++                                Nouvel énoncé (révision documentaire)
++                              </label>
++                              <textarea
++                                id={`revise-${d.id}`}
++                                className="textarea text-sm"
++                                value={reviseDraft}
++                                onChange={(e) => setReviseDraft(e.target.value)}
++                                data-testid="journal-revise-draft"
++                                rows={2}
++                              />
++                              <div className="flex flex-wrap gap-2">
++                                <button
++                                  type="button"
++                                  className="btn"
++                                  disabled={busy || !reviseDraft.trim()}
++                                  data-testid="journal-revise-submit"
++                                  onClick={() =>
++                                    void runCommand(
++                                      {
++                                        operation: "REVISE_DECISION",
++                                        decisionId: d.id,
++                                        statement: reviseDraft.trim(),
++                                        sourceKind: "EXPLICIT_INTERACTION",
++                                        utterance: reviseDraft.trim(),
++                                      },
++                                      "Révision en cours",
++                                    ).then(() => {
++                                      setReviseTargetId(null);
++                                      setReviseDraft("");
++                                    })
++                                  }
++                                >
++                                  Enregistrer la révision
++                                </button>
++                                <button
++                                  type="button"
++                                  className="btn secondary"
++                                  disabled={busy}
++                                  onClick={() => {
++                                    setReviseTargetId(null);
++                                    setReviseDraft("");
++                                  }}
++                                >
++                                  Annuler
++                                </button>
++                              </div>
++                            </div>
++                          ) : (
++                            <button
++                              type="button"
++                              className="btn secondary text-xs"
++                              disabled={busy}
++                              data-testid="journal-revise-open"
++                              onClick={() => {
++                                setReviseTargetId(d.id);
++                                setReviseDraft(d.statement);
++                              }}
++                            >
++                              Réviser
++                            </button>
++                          )
++                        ) : null}
++                      </article>
++                    ))}
++                    {decisions.length > 8 ? (
++                      <button
++                        type="button"
++                        className="btn secondary text-xs"
++                        data-testid="journal-expand"
++                        onClick={() => setJournalExpanded((v) => !v)}
++                      >
++                        {journalExpanded
++                          ? "Réduire aux 8 plus récentes"
++                          : `Afficher tout l'historique (${decisions.length})`}
++                      </button>
++                    ) : null}
++                  </>
++                );
++              })()
+             )}
+           </section>
+         </aside>
+
+```
+
+### projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+```diff
+diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+index 385c5dfd..fc46d866 100644
+--- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
++++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
+@@ -51,7 +51,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
+       },
+     );
+     const messages = await listMessages(session.pilotId, preparationId);
+-    return NextResponse.json({ ...result, messages, humanDecisionCreated: false, requestId });
++    // Pass through factual flags from the turn — never force humanDecisionCreated=false.
++    return NextResponse.json({
++      ...result,
++      messages,
++      humanDecisionCreated: Boolean(result.humanDecisionCreated),
++      pilotageEffect: result.pilotageEffect ?? null,
++      requestId,
++    });
+   } catch (e) {
+     const mapped = studioErrorResponse(e);
+     emitObs({
 
 ```
 
@@ -723,228 +1550,13 @@ index c6872bc6..c8c7f441 100644
 
 ```
 
-### projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-index 385c5dfd..fc46d866 100644
---- a/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-+++ b/projects/sfia-studio-next/web/src/app/api/preparations/[preparationId]/messages/route.ts
-@@ -51,7 +51,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
-       },
-     );
-     const messages = await listMessages(session.pilotId, preparationId);
--    return NextResponse.json({ ...result, messages, humanDecisionCreated: false, requestId });
-+    // Pass through factual flags from the turn — never force humanDecisionCreated=false.
-+    return NextResponse.json({
-+      ...result,
-+      messages,
-+      humanDecisionCreated: Boolean(result.humanDecisionCreated),
-+      pilotageEffect: result.pilotageEffect ?? null,
-+      requestId,
-+    });
-   } catch (e) {
-     const mapped = studioErrorResponse(e);
-     emitObs({
-
-```
-
-### projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-```diff
-diff --git a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-index 09f0d896..cac6c6d2 100644
---- a/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-+++ b/projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-@@ -37,6 +37,7 @@ export default function ProjectPage() {
-   const [busy, setBusy] = useState(false);
-   const [noraActivity, setNoraActivity] = useState<"idle" | "preparing">("idle");
-   const [status, setStatus] = useState("");
-+  const [pilotageStatus, setPilotageStatus] = useState("");
-   const [inspect, setInspect] = useState<Doc | null>(null);
-
-   useEffect(() => {
-@@ -73,10 +74,15 @@ export default function ProjectPage() {
-     if (!draft.trim() || !preparationId) return;
-     setBusy(true);
-     setNoraActivity("preparing");
-+    setPilotageStatus("");
-+    const clientTurnKey =
-+      typeof crypto !== "undefined" && "randomUUID" in crypto
-+        ? `turn-${crypto.randomUUID()}`
-+        : `turn-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
-     const res = await fetch(`/api/preparations/${preparationId}/messages`, {
-       method: "POST",
-       headers: { "Content-Type": "application/json" },
--      body: JSON.stringify({ content: draft }),
-+      body: JSON.stringify({ content: draft, clientTurnKey }),
-     });
-     const j = await res.json();
-     setBusy(false);
-@@ -85,6 +91,39 @@ export default function ProjectPage() {
-       setDraft("");
-       setMessages(j.messages ?? []);
-       setStatus(`Nora ${j.noraMode} · ${j.status}`);
-+      const effect = j.pilotageEffect as
-+        | {
-+            attempted?: boolean;
-+            intentClarity?: string;
-+            intentReason?: string;
-+            status?: string | null;
-+            reasonCode?: string | null;
-+            reason?: string | null;
-+            operation?: string;
-+            decisionId?: string | null;
-+            clarification?: string;
-+          }
-+        | null
-+        | undefined;
-+      if (effect?.attempted) {
-+        const parts = [
-+          effect.operation ?? "commande",
-+          effect.status ?? "?",
-+          effect.reasonCode ? `(${effect.reasonCode})` : null,
-+          j.humanDecisionCreated && effect.decisionId
-+            ? `décision ${effect.decisionId}`
-+            : effect.decisionId
-+              ? null
-+              : null,
-+        ].filter(Boolean);
-+        setPilotageStatus(parts.join(" · "));
-+      } else if (effect?.clarification) {
-+        setPilotageStatus(`Clarification · ${effect.clarification}`);
-+      } else if (effect?.intentClarity === "AMBIGUOUS") {
-+        setPilotageStatus(`Intention ambiguë · ${effect.intentReason ?? effect.reason ?? ""}`);
-+      } else {
-+        setPilotageStatus("");
-+      }
-       // Refresh knowledge/docs after capitalisation / document save
-       const proj = await fetch(`/api/projects/${params.projectId}`);
-       if (proj.ok) {
-@@ -170,7 +209,16 @@ export default function ProjectPage() {
-               <button className="btn" disabled={busy || !preparationId} onClick={sendMessage}>
-                 Envoyer
-               </button>
--              {status ? <p className="text-xs muted">{status}</p> : null}
-+              {status ? (
-+                <p className="text-xs muted" data-testid="thread-nora-status">
-+                  {status}
-+                </p>
-+              ) : null}
-+              {pilotageStatus ? (
-+                <p className="text-xs" data-testid="thread-pilotage-status" role="status">
-+                  {pilotageStatus}
-+                </p>
-+              ) : null}
-             </div>
-           </section>
-           <aside className="space-y-3">
-
-```
-
-### projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-```diff
-diff --git a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-index fe15ed92..056d059c 100644
---- a/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-+++ b/projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-@@ -162,6 +162,8 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
-   const [methodVersion, setMethodVersion] = useState("2.6");
-   const [utterance, setUtterance] = useState("");
-   const [restrictionTarget, setRestrictionTarget] = useState("*");
-+  const [reviseTargetId, setReviseTargetId] = useState<string | null>(null);
-+  const [reviseDraft, setReviseDraft] = useState("");
-   const inflight = useRef(new Map<string, PendingRecord>());
-
-   const load = useCallback(async () => {
-@@ -760,12 +762,78 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
-               <p className="text-sm muted">Aucune décision D6 enregistrée.</p>
-             ) : (
-               decisions.slice(0, 8).map((d) => (
--                <article key={d.id} className="text-sm panel p-2">
-+                <article key={d.id} className="text-sm panel p-2 space-y-2" data-testid="decision-row">
-                   <div className="text-xs muted" data-testid="decision-state">
-                     {d.kind} · {d.state || "état inconnu"}
-                     {d.objectRef ? ` · ${d.objectRef}` : ""}
-                   </div>
-                   <div>{d.statement}</div>
-+                  {d.state === "APPLICABLE" && d.kind === "RECORD_DECISION" ? (
-+                    reviseTargetId === d.id ? (
-+                      <div className="space-y-2">
-+                        <label className="block text-xs muted" htmlFor={`revise-${d.id}`}>
-+                          Nouvel énoncé (révision documentaire)
-+                        </label>
-+                        <textarea
-+                          id={`revise-${d.id}`}
-+                          className="textarea text-sm"
-+                          value={reviseDraft}
-+                          onChange={(e) => setReviseDraft(e.target.value)}
-+                          data-testid="journal-revise-draft"
-+                          rows={2}
-+                        />
-+                        <div className="flex flex-wrap gap-2">
-+                          <button
-+                            type="button"
-+                            className="btn"
-+                            disabled={busy || !reviseDraft.trim()}
-+                            data-testid="journal-revise-submit"
-+                            onClick={() =>
-+                              void runCommand(
-+                                {
-+                                  operation: "REVISE_DECISION",
-+                                  decisionId: d.id,
-+                                  statement: reviseDraft.trim(),
-+                                  sourceKind: "EXPLICIT_INTERACTION",
-+                                  utterance: reviseDraft.trim(),
-+                                },
-+                                "Révision en cours",
-+                              ).then(() => {
-+                                setReviseTargetId(null);
-+                                setReviseDraft("");
-+                              })
-+                            }
-+                          >
-+                            Enregistrer la révision
-+                          </button>
-+                          <button
-+                            type="button"
-+                            className="btn secondary"
-+                            disabled={busy}
-+                            onClick={() => {
-+                              setReviseTargetId(null);
-+                              setReviseDraft("");
-+                            }}
-+                          >
-+                            Annuler
-+                          </button>
-+                        </div>
-+                      </div>
-+                    ) : (
-+                      <button
-+                        type="button"
-+                        className="btn secondary text-xs"
-+                        disabled={busy}
-+                        data-testid="journal-revise-open"
-+                        onClick={() => {
-+                          setReviseTargetId(d.id);
-+                          setReviseDraft(d.statement);
-+                        }}
-+                      >
-+                        Réviser
-+                      </button>
-+                    )
-+                  ) : null}
-                 </article>
-               ))
-             )}
-
-```
-
 ### projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts b/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
-index 4a7a6445..9ff74c72 100644
+index 4a7a6445..29f2cd25 100644
 --- a/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
 +++ b/projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
-@@ -98,6 +98,29 @@ describe("ml3 CKI resolution and intent", () => {
+@@ -98,6 +98,49 @@ describe("ml3 CKI resolution and intent", () => {
      expect(qualifyPilotageIntent("ouvre le cycle cadrage et le cycle sécurité").clarity).toBe("AMBIGUOUS");
    });
 
@@ -971,6 +1583,26 @@ index 4a7a6445..9ff74c72 100644
 +    ).toBe("AMBIGUOUS");
 +  });
 +
++  it("C01: exploratory Finalement / questions never CLEAR REVISE", () => {
++    expect(
++      qualifyPilotageIntent("Finalement, je pense que GitHub pourrait être facultatif.").clarity,
++    ).toBe("AMBIGUOUS");
++    expect(
++      qualifyPilotageIntent("Finalement, et si GitHub devenait facultatif ?").clarity,
++    ).toBe("AMBIGUOUS");
++    expect(qualifyPilotageIntent("Je réfléchis à rendre GitHub facultatif.").clarity).toBe(
++      "NONE",
++    );
++    expect(qualifyPilotageIntent("Nora propose de rendre GitHub facultatif.").clarity).toBe(
++      "NONE",
++    );
++    expect(
++      qualifyPilotageIntent(
++        "Je révise la décision GitHub : la connexion est facultative.",
++      ),
++    ).toMatchObject({ clarity: "CLEAR", operation: "REVISE_DECISION" });
++  });
++
    it("pins RESOLVED only when the file digest matches the approved manifest", () => {
      const manifest = loadCkiManifest();
      expect(manifest?.version).toBe("0.2.0");
@@ -980,7 +1612,7 @@ index 4a7a6445..9ff74c72 100644
 ### projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-index f333a075..6334ccd2 100644
+index f333a075..9a735035 100644
 --- a/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
 +++ b/projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
 @@ -1040,7 +1040,8 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
@@ -993,7 +1625,7 @@ index f333a075..6334ccd2 100644
        // USER text is relevant to B's objectRef — without project filter B would be confrontable.
        expect(utteranceTouchesObject(userText, "github-connexion")).toBe(true);
 
-@@ -1167,4 +1168,214 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
+@@ -1167,4 +1168,349 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
      });
      expect(opened.status).toBe("APPLIED");
    });
@@ -1207,6 +1839,141 @@ index f333a075..6334ccd2 100644
 +      else process.env.STUDIO_E2E = prevE2e;
 +    }
 +  });
++
++  it("C01: exploratory Finalement does not REVISE an applicable RECORD", async () => {
++    const { postUserMessageAndNora } = await import("@/domains/conversation/service");
++    const prevLane = process.env.STUDIO_LANE;
++    const prevE2e = process.env.STUDIO_E2E;
++    process.env.STUDIO_LANE = "DEV";
++    process.env.STUDIO_E2E = "1";
++    try {
++      const { pilotId, projectId, preparationId } = await seedProject("c01-exp");
++      const recorded = await postUserMessageAndNora(
++        pilotId,
++        preparationId,
++        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
++        { clientTurnKey: `c01-rec-${newId("turn")}` },
++      );
++      expect(recorded.humanDecisionCreated).toBe(true);
++      const before = await listDecisionJournal(pilotId, projectId);
++      const applicableBefore = before.filter((d) => d.state === "APPLICABLE");
++      expect(applicableBefore).toHaveLength(1);
++
++      for (const text of [
++        "Finalement, je pense que GitHub pourrait être facultatif.",
++        "Finalement, et si GitHub devenait facultatif ?",
++        "Je réfléchis à rendre GitHub facultatif.",
++        "Nora propose de rendre GitHub facultatif.",
++      ]) {
++        const r = await postUserMessageAndNora(pilotId, preparationId, text, {
++          clientTurnKey: `c01-${newId("turn")}`,
++        });
++        expect(r.humanDecisionCreated).toBe(false);
++        expect(r.pilotageEffect?.attempted).toBeFalsy();
++      }
++      const after = await listDecisionJournal(pilotId, projectId);
++      expect(after.filter((d) => d.state === "APPLICABLE").map((d) => d.id)).toEqual(
++        applicableBefore.map((d) => d.id),
++      );
++      expect(after.some((d) => d.state === "REVISED")).toBe(false);
++    } finally {
++      if (prevLane === undefined) delete process.env.STUDIO_LANE;
++      else process.env.STUDIO_LANE = prevLane;
++      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
++      else process.env.STUDIO_E2E = prevE2e;
++    }
++  });
++
++  it("C02: D6 APPLIED survives Nora provider failure and reconstitutes on replay", async () => {
++    const { postUserMessageAndNora } = await import("@/domains/conversation/service");
++    const { turnRaceHooks } = await import("@/domains/conversation/turn-command");
++    const { reconstituteConversationalAuthority } = await import(
++      "@/domains/pilotage/conversation-authority"
++    );
++    const prevLane = process.env.STUDIO_LANE;
++    const prevE2e = process.env.STUDIO_E2E;
++    process.env.STUDIO_LANE = "DEV";
++    process.env.STUDIO_E2E = "1";
++    try {
++      const { pilotId, projectId, preparationId } = await seedProject("c02-fault");
++      const turnKey = `c02-fault-${newId("turn")}`;
++      turnRaceHooks.afterAuthorityBeforeNora = async () => {
++        throw new Error("INJECTED_PROVIDER_FAILURE");
++      };
++      const result = await postUserMessageAndNora(
++        pilotId,
++        preparationId,
++        "Ouvre le cycle cadrage.",
++        { clientTurnKey: turnKey },
++      );
++      expect(result.status).toBe("UNKNOWN");
++      expect(result.pilotageEffect?.attempted).toBe(true);
++      expect(result.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
++      expect(result.humanDecisionCreated).toBe(true);
++      expect((await getPilotageProjection(pilotId, projectId)).cycle?.status).toBe("ACTIVE");
++
++      delete turnRaceHooks.afterAuthorityBeforeNora;
++      const replay = await postUserMessageAndNora(
++        pilotId,
++        preparationId,
++        "Ouvre le cycle cadrage.",
++        { clientTurnKey: turnKey },
++      );
++      expect(replay.idempotentReplay).toBe(true);
++      expect(replay.status).toBe("UNKNOWN");
++      expect(replay.pilotageEffect?.attempted).toBe(true);
++      expect(replay.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
++      expect(replay.humanDecisionCreated).toBe(true);
++      expect(
++        (await db.select().from(projectCycles).where(eq(projectCycles.projectId, projectId))).filter(
++          (c) => c.status === "ACTIVE",
++        ),
++      ).toHaveLength(1);
++
++      const reconstituted = await reconstituteConversationalAuthority({
++        pilotId,
++        projectId,
++        clientTurnKey: turnKey,
++        userMessageId: result.userMessageId,
++      });
++      expect(reconstituted?.attempted).toBe(true);
++      expect(reconstituted?.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
++    } finally {
++      delete turnRaceHooks.afterAuthorityBeforeNora;
++      if (prevLane === undefined) delete process.env.STUDIO_LANE;
++      else process.env.STUDIO_LANE = prevLane;
++      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
++      else process.env.STUDIO_E2E = prevE2e;
++    }
++  });
++
++  it("C03: journal lists >8 decisions with newest accessible and older recoverable", async () => {
++    const { pilotId, projectId } = await seedProject("c03-journal");
++    let revision = 0;
++    for (let i = 0; i < 12; i += 1) {
++      const recorded = await executePilotageCommand(pilotId, projectId, {
++        clientCommandKey: newId("idem"),
++        expectedRevision: revision,
++        sourceKind: "EXPLICIT_INTERACTION",
++        sourceRef: newId("src"),
++        operation: "RECORD_DECISION",
++        objectRef: `obj-${i}`,
++        statement: `Décision documentaire numéro ${i} pour le journal.`,
++      });
++      expect(recorded.status).toBe("APPLIED");
++      revision = recorded.revision ?? revision + 1;
++    }
++    const journal = await listDecisionJournal(pilotId, projectId);
++    expect(journal.length).toBeGreaterThanOrEqual(12);
++    const newest = journal[journal.length - 1];
++    expect(newest?.statement).toMatch(/numéro 11/);
++    expect(journal[0]?.statement).toMatch(/numéro 0/);
++    const applicable = journal.filter((d) => d.state === "APPLICABLE");
++    expect(applicable.length).toBeGreaterThanOrEqual(12);
++    // Newest is beyond the old slice(0,8) window of oldest-first — still present.
++    expect(applicable.some((d) => d.statement.includes("numéro 11"))).toBe(true);
++    expect(applicable.some((d) => d.statement.includes("numéro 0"))).toBe(true);
++  });
  });
 
 ```
@@ -1214,10 +1981,10 @@ index f333a075..6334ccd2 100644
 ### projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
 ```diff
 diff --git a/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts b/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
-index 4403fac3..38f22924 100644
+index 4403fac3..e8737523 100644
 --- a/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
 +++ b/projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
-@@ -208,3 +208,87 @@ test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({
+@@ -208,3 +208,143 @@ test("ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED", async ({
    await expect(page.getByTestId("authority-block-established")).toHaveCount(0);
    await expect(page.getByTestId("outcome-unknown")).toHaveCount(0);
  });
@@ -1305,13 +2072,69 @@ index 4403fac3..38f22924 100644
 +  });
 +  await expect(page.getByText(/facultative/i).first()).toBeVisible({ timeout: 10000 });
 +});
++
++/**
++ * C03 — Journal >8: newest visible by default; full history via expand.
++ * Seeds via D6 API (not the fil loop) to avoid stale status races.
++ */
++test("ML3 C03: Journal décisions >8 avec historique accessible", async ({ page }) => {
++  await page.goto("/login");
++  await page.getByRole("button", { name: "Pilote A (DEV)" }).click();
++  await page.waitForURL("**/portfolio");
++  await page.getByRole("button", { name: "Ouvrir un sas (sans projet)" }).click();
++  await page.waitForURL("**/preparations/**");
++  await page.getByPlaceholder("Écrire à Nora…").fill("ML3 C03 journal seed");
++  await page.getByRole("button", { name: "Envoyer" }).click();
++  await expect(page.getByText("deterministic-fixture", { exact: false })).toBeVisible({
++    timeout: 30000,
++  });
++  await page.getByRole("button", { name: "Travail" }).click();
++  await page.getByPlaceholder("Nom du projet").fill("Projet ML3 C03 Journal");
++  await page.getByPlaceholder("Résumé inspecté").fill("e2e c03");
++  await page.getByRole("button", { name: "Enregistrer l'aperçu" }).click();
++  await expect(page.getByText(/Aperçu révision \d+/i)).toBeVisible({ timeout: 10000 });
++  await page.getByRole("button", { name: "Créer le projet" }).click();
++  await page.waitForURL("**/projects/**", { timeout: 20000 });
++
++  const projectId = page.url().split("/projects/")[1]?.split(/[?#]/)[0];
++  expect(projectId).toBeTruthy();
++  let revision = 0;
++  for (let i = 0; i < 12; i += 1) {
++    const actInstanceId = `c03-act-${i}-${Date.now()}`;
++    const res = await page.request.post(`/api/projects/${projectId}/pilotage/commands`, {
++      data: {
++        clientCommandKey: `c03-cmd-${actInstanceId}`,
++        expectedRevision: revision,
++        operation: "RECORD_DECISION",
++        sourceKind: "EXPLICIT_INTERACTION",
++        sourceRef: `ui:RECORD:${actInstanceId}`,
++        actInstanceId,
++        objectRef: `c03-obj-${i}`,
++        statement: `Décision documentaire C03-${i} obligatoire pour ce projet.`,
++      },
++    });
++    expect(res.ok()).toBeTruthy();
++    const body = await res.json();
++    expect(body.status).toMatch(/APPLIED|ALREADY_APPLIED/);
++    revision = body.revision ?? revision + 1;
++  }
++
++  await page.getByRole("button", { name: "Pilotage" }).click();
++  await expect(page.getByTestId("journal-count")).toContainText(/1[0-9] décision/i, {
++    timeout: 15000,
++  });
++  await expect(page.getByText(/C03-11/i).first()).toBeVisible();
++  await page.getByTestId("journal-expand").click();
++  await expect(page.getByText(/C03-0/i).first()).toBeVisible({ timeout: 10000 });
++  await expect(page.getByTestId("decision-row")).toHaveCount(12, { timeout: 5000 });
++});
 
 ```
 
 ### projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
 ```diff
 diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-index 96edf7ea..fc42f462 100644
+index 96edf7ea..b6373650 100644
 --- a/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
 +++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
 @@ -229,7 +229,7 @@ Les quatre points ont une **solution technique explicitée et réfutable** ; ils
@@ -1323,7 +2146,7 @@ index 96edf7ea..fc42f462 100644
 
  **Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
 
-@@ -357,3 +357,18 @@ Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle pol
+@@ -357,3 +357,29 @@ Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle pol
  | **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
 
  **Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.
@@ -1342,13 +2165,24 @@ index 96edf7ea..fc42f462 100644
 +| **Idempotence** | Tour D3 (`clientTurnKey`) et commande métier (`conv-auth:…`) corrélés sans second moteur. UNKNOWN métier → réconciliation existante avant rejeu. |
 +| **Couverture** | IMPLEMENTED local + BEHAVIOR PROVEN (unit intent, PG F01/F02, Playwright fil) ; ADOPTED / RECETTE / LIVE / STABLE = NOT CLAIMED. |
 +| **Limites** | Qualificateur FR borné (pas NLP universel) ; pas de migration 008 ; pas de publication projet sans GO distinct. |
++
++### C01/C02/C03 — autorité / reprise / continuité (2026-11-06, local, **pas de commit projet**)
++
++Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5ce` inchangé.
++
++| Correctif | As-built |
++| --- | --- |
++| **C01** | `isExploratoryActLanguage` ; « Finalement… » avec hedges (`je pense`, `pourrait`, `et si`, Nora) → AMBIGUOUS, aucune mutation. Assertive « Finalement, X devient Y » + cible unique RECORD → REVISE possible. « Je révise la décision… » performatif explicite. Level A ≠ autorité. |
++| **C02** | Effet D5/D6 avant Nora ; `markTurnUnknown(..., resultJson)` conserve `pilotageEffect` ; `reconstituteConversationalAuthority` via `conv-auth:{clientTurnKey}` / `USER_MESSAGE` sourceRef ; replay UNKNOWN reconstitue depuis `business_commands`. Clé client stable (ref + sessionStorage pending, pas de secret). Tour Nora et commande métier restent distincts. |
++| **C03** | Fil : résumé durable décisions + bouton réconciliation pending après reload. Journal : 8 plus récentes par défaut + expand historique complet (pas `slice(0,8)` des plus anciennes). |
++| **Preuves** | unit C01 ; PG C01/C02 fault/C03>8 ; Playwright F01/F02/C03. LIVE/RECETTE/STABLE NOT CLAIMED. |
 
 ```
 
 ### projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
 ```diff
 diff --git a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-index 8a7f1f66..ed9cac1f 100644
+index 8a7f1f66..6906dc51 100644
 --- a/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
 +++ b/projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
 @@ -220,8 +220,8 @@ Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2.
@@ -1371,7 +2205,7 @@ index 8a7f1f66..ed9cac1f 100644
  | B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
 
  ### Ajustement autorité CR-01..CR-04 (2026-11-06)
-@@ -266,3 +266,14 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
+@@ -266,3 +266,17 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
  | R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
  | R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
  | R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
@@ -1386,16 +2220,19 @@ index 8a7f1f66..ed9cac1f 100644
 +| F01-I | PG `F01: restriction blocks conversational GO…` | REJECTED RESTRICTION ; humanDecisionCreated=false | — |
 +| F02-A/D | PG `F02: RECORD then REVISE…` ; e2e fil+Journal | RECORD → REVISED/APPLICABLE chain | fondations D5 non révisables génériquement |
 +| F02-E | même cas F02 founding refuse | clarification ; cycle CADRAGE inchangé | — |
++| C01 | unit exploratory ; PG `C01: exploratory Finalement…` | réflexion ≠ mutation D6 | NLP universel NOT CLAIMED |
++| C02 | PG `C02: D6 APPLIED survives Nora provider failure…` | UNKNOWN tour + effet métier reconstituté | LIVE NOT EXECUTED |
++| C03 | PG journal>8 ; e2e expand historique | 8 récentes + historique complet | — |
 
 ```
 
 ### projects/sfia-studio-next/construction/delivery-history.md
 ```diff
 diff --git a/projects/sfia-studio-next/construction/delivery-history.md b/projects/sfia-studio-next/construction/delivery-history.md
-index b14f5688..f75059db 100644
+index b14f5688..8ec94581 100644
 --- a/projects/sfia-studio-next/construction/delivery-history.md
 +++ b/projects/sfia-studio-next/construction/delivery-history.md
-@@ -528,5 +528,23 @@ Append-only logical journal of Cursor product deliveries.
+@@ -528,5 +528,41 @@ Append-only logical journal of Cursor product deliveries.
  | Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
  | Lane | DEV proofs only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
  | Scope | Allowlist §6 only (docs + CKI manifest + web D5/D6/API/UX/tests) ; SVG / `.tmp-sfia-review` excluded |
@@ -1420,162 +2257,135 @@ index b14f5688..f75059db 100644
 +| Lane | DEV only ; RECETTE/LIVE Nora/STABLE NOT AUTHORIZED |
 +| Status | LOCAL CORRECTIVE — handoff L3 only |
 +| Verdict candidate | `ML3 F01/F02 CONVERSATION-AUTHORITY INTEGRATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
++
++## delivery_id: DELIV-2026-11-06-ML3-F01-F02-C01-C02-C03-AUTHORITY-RECOVERY
++
++| Field | Value |
++| --- | --- |
++| Date | 2026-11-06 (Europe/Paris) |
++| Macro-lot | R5 / ML3 — F01/F02 C01/C02/C03 after Critical Review NOT ACCEPTED |
++| Type | INC corrective continuation (same ML3) |
++| Branch | `sfia/next-pilotage-decisions-delivery` (**local — no project commit/push**) |
++| Prior handoff | `sfia/review-handoff@c2bec44b` blob `bbf43260` |
++| Candidate ref | `8bf8b5ce` unchanged |
++| Schema | unchanged `007` |
++| C01 | Exploratory language ≠ REVISE ; Level A non-authorizing |
++| C02 | Durable reconstitution via business_commands + stable client turn key |
++| C03 | Thread continuity after reload ; Journal >8 expandable |
++| Product version | `NO RELEASE` |
++| Lane | DEV only |
++| Verdict candidate | `ML3 F01/F02 AUTHORITY AND RECOVERY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
 
 ```
 
 
-## 11. API messages et vérité du résultat
-- Route POST ne force plus `humanDecisionCreated:false`.
-- Retourne `humanDecisionCreated` factuel + `pilotageEffect` (attempted, intentClarity, status, reasonCode, decisionId, clarification, source, effects).
-- Ne mélange pas « acte détecté » / « commande tentée » / « décision créée ».
+## J. Tests fausse révision (C01)
+- Unit: exploratory Finalement / questions / Nora → AMBIGUOUS/NONE ; assertive + Je révise → CLEAR
+- PG: RECORD then exploratory messages → journal APPLICABLE inchangé, pas de REVISED
 
-## 12. Tests GO naturel et négatifs
-- Unit: RECORD/REVISE + soft preference (ml3-cki-intent) — PASS
-- PG F01 clear GO via postUserMessageAndNora — PASS
-- PG F01 ambiguous OK + assistant SOURCE reject — PASS
-- PG F01 restriction RESTRICTION — PASS
-- E2E F01 fil principal — PASS
+## K. Tests reprise après effet (C02)
+- PG T01: afterAuthorityBeforeNora throw → status UNKNOWN ; pilotageEffect APPLIED ; cycle ACTIVE
+- Replay même clientTurnKey → idempotentReplay UNKNOWN ; un seul ACTIVE ; reconstitution by key
 
-## 13. Tests décisions/révisions
-- PG F02 RECORD then REVISE + founding refuse — PASS
-- E2E F02 fil RECORD + Journal revise — PASS
-- R3 soft text updated (no auto-revise on Level A alone)
+## L. Replay / concurrence
+- Même key / même payload: reconstitute, pas de 2e effet
+- Payload mismatch: contrat existant PAYLOAD_MISMATCH (turn-command)
+- Restriction path: F01 rest test still REJECTED sans faux succès
 
-## 14. PG, idempotence, sécurité, reprise
-- Replay même clientTurnKey: idempotentReplay ; 1 ACTIVE
-- clientCommandKey métier corrélé `conv-auth:…`
-- Foreign/assistant SOURCE reject
-- Restriction: REJECTED, humanDecisionCreated=false
-- Schema 007 inchangé ; migrate 001→007 OK
+## M. Assertions PG D6
+- C01: applicable ids stables
+- C02: HumanDecision + OPEN effects durables
+- C03: ≥12 RECORD ; newest + oldest présents
 
-## 15. Navigateur FAKE et rendu UX
-- 5/5 Playwright PASS (dont F01 fil, F02 Journal)
-- pixel Figma: NOT VERIFIED
-- thread-pilotage-status / thread-nora-status visibles
+## N. UX fil et Journal >8
+- page: pending reconcile, decisionSummary after reload
+- PilotagePanel: journal-count, journal-expand, newest-first default
 
-## 16. Non-régression ML1/ML2/ML3
-- unit tests/unit: 83 PASS
-- ml3-pilotage.pg: 28 PASS
-- e2e ml3-pilotage: 5 PASS
-- tsc --noEmit: 0
-- eslint chemins exacts: 0
-- next build: OK
-- migrations 001→007: OK
+## O. Navigateur FAKE
+- 6/6 Playwright PASS (F01, F02, C03, B13, baseline)
+- Pixel Figma: NOT VERIFIED
 
-## 17. Logs / commandes exactes
-- CWD: `/Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web`
-- Lane: STUDIO_LANE=DEV ; DATABASE_URL → 127.0.0.1:5433/sfia_next_dev
-- `npx vitest run tests/unit` → 83 passed (2026-11-06T15:41:39Z window)
-- `npx vitest run tests/integration/ml3-pilotage.pg.test.ts` → 28 passed
-- `npx playwright test tests/e2e/ml3-pilotage.spec.ts` → 5 passed
-- `npx next build` → success
-- Evidence tails:
+## P. Non-régression
+- unit 84 PASS
+- PG ML3 31 PASS
+- e2e 6 PASS
+- tsc 0 ; eslint chemins exacts 0 ; next build OK ; migrate 001→007 OK
 
-### ml3-f01f02-pg.txt (tail)
+## Q. Commandes / logs
+- CWD: projects/sfia-studio-next/web
+- STUDIO_LANE=DEV ; DB 127.0.0.1:5433/sfia_next_dev
+### pg tail
 ```
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.919Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_21bfb184-09a5-4cb6-a14c-9d3d1a3b3bf8","generation_id":"gen_55228cc3-50a8-4c72-9d20-99bf00dcc333","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.920Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_21bfb184-09a5-4cb6-a14c-9d3d1a3b3bf8","generation_id":"gen_55228cc3-50a8-4c72-9d20-99bf00dcc333","attempt_id":"att_7a687a6b-06e1-411b-a0b6-d848d9336d4b","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.925Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_8da4d33d-0ed4-4e2f-a89b-4f8a08dc1b60","operation_id":"op_21bfb184-09a5-4cb6-a14c-9d3d1a3b3bf8","generation_id":"gen_55228cc3-50a8-4c72-9d20-99bf00dcc333","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.931Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_63d46c48-d90c-4620-8def-5f95b90e9ca3","operation_id":"op_c19943cd-ad87-4883-b23a-35be56d18886","outcome":"PARTIAL","meta":{"client_turn_key_fp":"b4d3c50b48d5"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.944Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_63d46c48-d90c-4620-8def-5f95b90e9ca3","operation_id":"op_c19943cd-ad87-4883-b23a-35be56d18886","outcome":"SUCCESS","meta":{}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.954Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_c19943cd-ad87-4883-b23a-35be56d18886","generation_id":"gen_5b2a216f-933b-4e1e-b309-3aae58b420a2","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.954Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_c19943cd-ad87-4883-b23a-35be56d18886","generation_id":"gen_5b2a216f-933b-4e1e-b309-3aae58b420a2","attempt_id":"att_e20ad584-3d63-4da7-84ed-ecd0718677e1","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.959Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_63d46c48-d90c-4620-8def-5f95b90e9ca3","operation_id":"op_c19943cd-ad87-4883-b23a-35be56d18886","generation_id":"gen_5b2a216f-933b-4e1e-b309-3aae58b420a2","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.977Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_3ca97db2-89ad-4b55-ac61-3d063b4d564b","operation_id":"op_c94d3b01-e226-469f-aca6-e9c9cc541c99","outcome":"PARTIAL","meta":{"client_turn_key_fp":"94ccc4a50e09"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.982Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_3ca97db2-89ad-4b55-ac61-3d063b4d564b","operation_id":"op_c94d3b01-e226-469f-aca6-e9c9cc541c99","outcome":"PARTIAL","meta":{}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.992Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_c94d3b01-e226-469f-aca6-e9c9cc541c99","generation_id":"gen_c9a6be1c-8b85-4acb-8778-4f8cf966192b","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.992Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_c94d3b01-e226-469f-aca6-e9c9cc541c99","generation_id":"gen_c9a6be1c-8b85-4acb-8778-4f8cf966192b","attempt_id":"att_2eb46e65-74f9-4f02-bdf9-45c2d808736c","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:01.997Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_3ca97db2-89ad-4b55-ac61-3d063b4d564b","operation_id":"op_c94d3b01-e226-469f-aca6-e9c9cc541c99","generation_id":"gen_c9a6be1c-8b85-4acb-8778-4f8cf966192b","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:02.021Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_bd801530-7180-4e97-a277-0f45440dbd84","operation_id":"op_3c1c4a51-3cd3-41ed-8e30-c62763bcd0d9","outcome":"PARTIAL","meta":{"client_turn_key_fp":"eb0aea096050"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:02.030Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_bd801530-7180-4e97-a277-0f45440dbd84","operation_id":"op_3c1c4a51-3cd3-41ed-8e30-c62763bcd0d9","outcome":"FAILED","meta":{}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:02.041Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_3c1c4a51-3cd3-41ed-8e30-c62763bcd0d9","generation_id":"gen_addd8da9-551e-4a26-832f-9171e6e381dc","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:02.041Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_3c1c4a51-3cd3-41ed-8e30-c62763bcd0d9","generation_id":"gen_addd8da9-551e-4a26-832f-9171e6e381dc","attempt_id":"att_5b8c6c25-40fe-49de-a613-02f5f1ddddaa","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
-SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T15:39:02.047Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_bd801530-7180-4e97-a277-0f45440dbd84","operation_id":"op_3c1c4a51-3cd3-41ed-8e30-c62763bcd0d9","generation_id":"gen_addd8da9-551e-4a26-832f-9171e6e381dc","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
- ✓ tests/integration/ml3-pilotage.pg.test.ts (28 tests) 1363ms
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.037Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_500663db-b7d7-42a9-9f20-11a07f2d8022","operation_id":"op_acf935ca-af8b-4c6c-8778-e99eb68b71e3","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.045Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_acf935ca-af8b-4c6c-8778-e99eb68b71e3","generation_id":"gen_5ba9a126-0dda-4600-90cb-fcc2f26e48ad","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.046Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_acf935ca-af8b-4c6c-8778-e99eb68b71e3","generation_id":"gen_5ba9a126-0dda-4600-90cb-fcc2f26e48ad","attempt_id":"att_7fb555db-9485-4c7b-a83a-1b200cf69bb6","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.050Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_500663db-b7d7-42a9-9f20-11a07f2d8022","operation_id":"op_acf935ca-af8b-4c6c-8778-e99eb68b71e3","generation_id":"gen_5ba9a126-0dda-4600-90cb-fcc2f26e48ad","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.054Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_fb192ccc-ff7a-4321-a77d-79962282904e","operation_id":"op_2ceab54f-374c-4f47-8698-e6ebd57ef496","outcome":"PARTIAL","meta":{"client_turn_key_fp":"552a41ba8196"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.056Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_fb192ccc-ff7a-4321-a77d-79962282904e","operation_id":"op_2ceab54f-374c-4f47-8698-e6ebd57ef496","outcome":"PARTIAL","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.065Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","operation_id":"op_2ceab54f-374c-4f47-8698-e6ebd57ef496","generation_id":"gen_bf8bfa38-c865-476b-9c97-ce21b43f7f55","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.065Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","operation_id":"op_2ceab54f-374c-4f47-8698-e6ebd57ef496","generation_id":"gen_bf8bfa38-c865-476b-9c97-ce21b43f7f55","attempt_id":"att_5da092ff-cb46-47c3-8334-03d18804fefe","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.069Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.completed","component":"d3.conversation","request_id":"req_fb192ccc-ff7a-4321-a77d-79962282904e","operation_id":"op_2ceab54f-374c-4f47-8698-e6ebd57ef496","generation_id":"gen_bf8bfa38-c865-476b-9c97-ce21b43f7f55","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"attempts":1,"tool_calls":0,"turn_status":"COMPLETE","cas_applied":true}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.082Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.accepted","component":"d3.conversation","request_id":"req_d73a4434-bbf1-45c5-bbcd-91cbaaee9ab1","operation_id":"op_76726477-7a5b-4df5-b2a7-b65b784f2118","outcome":"PARTIAL","meta":{"client_turn_key_fp":"eb0aea096050"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.093Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.conversational_authority","component":"d3.conversation","request_id":"req_d73a4434-bbf1-45c5-bbcd-91cbaaee9ab1","operation_id":"op_76726477-7a5b-4df5-b2a7-b65b784f2118","outcome":"SUCCESS","meta":{}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.103Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.unknown","component":"d3.conversation","request_id":"req_d73a4434-bbf1-45c5-bbcd-91cbaaee9ab1","operation_id":"op_76726477-7a5b-4df5-b2a7-b65b784f2118","outcome":"UNKNOWN","error_category":"PROVIDER_EXCEPTION"}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T16:00:28.108Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.turn.replay","component":"d3.conversation","request_id":"req_064b9d81-72ad-4164-837c-4ea2fabc8384","operation_id":"op_76726477-7a5b-4df5-b2a7-b65b784f2118","outcome":"UNKNOWN","meta":{"status":"UNKNOWN","reconciled":false}}
+ ✓ tests/integration/ml3-pilotage.pg.test.ts (31 tests) 1412ms
 
  Test Files  1 passed (1)
-      Tests  28 passed (28)
-   Start at  16:39:00
-   Duration  1.73s (transform 127ms, setup 0ms, collect 264ms, tests 1.36s, environment 0ms, prepare 26ms)
+      Tests  31 passed (31)
+   Start at  17:00:26
+   Duration  1.77s (transform 116ms, setup 0ms, collect 235ms, tests 1.41s, environment 0ms, prepare 24ms)
 
 ```
-
-### ml3-f01f02-e2e.txt (tail)
+### e2e tail
 ```
-[WebServer] NOTICE:  relation "governance_restrictions_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands_client_key_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands_human_intent_uidx" already exists, skipping
-[WebServer] NOTICE:  relation "business_commands_project_idx" already exists, skipping
-[WebServer] NOTICE:  relation "business_command_effects" already exists, skipping
 [WebServer] NOTICE:  relation "business_command_effects_command_ordinal_uidx" already exists, skipping
 [WebServer] NOTICE:  relation "business_command_effects_command_idx" already exists, skipping
 
-Running 5 tests using 1 worker
+Running 6 tests using 1 worker
 
-(node:57161) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(node:65922) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
 (Use `node --trace-warnings ...` to show where the warning was created)
-  ✓  1 tests/e2e/ml3-pilotage.spec.ts:8:5 › ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible (12.0s)
-  ✓  2 tests/e2e/ml3-pilotage.spec.ts:63:5 › ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT (6.3s)
-  ✓  3 tests/e2e/ml3-pilotage.spec.ts:140:5 › ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED (4.5s)
-  ✓  4 tests/e2e/ml3-pilotage.spec.ts:216:5 › ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE (4.4s)
-  ✓  5 tests/e2e/ml3-pilotage.spec.ts:254:5 › ML3 F02: RECORD depuis le fil puis révision Journal (4.6s)
+  ✓  1 tests/e2e/ml3-pilotage.spec.ts:8:5 › ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible (11.8s)
+  ✓  2 tests/e2e/ml3-pilotage.spec.ts:63:5 › ML3 B13 C02: motif RESTRICTION vs conflit technique HUMAN_INTENT (6.2s)
+  ✓  3 tests/e2e/ml3-pilotage.spec.ts:140:5 › ML3 B13 R1: motif périmé effacé après UNKNOWN puis APPLIED (4.9s)
+  ✓  4 tests/e2e/ml3-pilotage.spec.ts:216:5 › ML3 F01: GO naturel depuis le fil ouvre un cycle ACTIVE (4.9s)
+  ✓  5 tests/e2e/ml3-pilotage.spec.ts:254:5 › ML3 F02: RECORD depuis le fil puis révision Journal (4.9s)
+  ✓  6 tests/e2e/ml3-pilotage.spec.ts:300:5 › ML3 C03: Journal décisions >8 avec historique accessible (6.2s)
 
-  5 passed (35.4s)
+  6 passed (42.1s)
 ```
 
-## 18. ENV-01 / versioning
-- ENV-01: REQUIRED — lane DEV only verified
-- RECETTE: NOT AUTHORIZED
-- Nora LIVE: NOT AUTHORIZED
-- STABLE: NOT AVAILABLE
-- VERSIONING: NO RELEASE — correctif local non promu
-- Package 0.0.0-dev: info technique seulement
-- Candidat distant demeure 8bf8b5ce (pas de nouveau SHA projet)
+## R. ENV-01 / versioning
+- DEV only ; RECETTE/LIVE/STABLE NOT AUTHORIZED
+- NO RELEASE ; candidat distant reste 8bf8b5ce
+- Cookie DEV/RECETTE collision: réserve connue non corrigée
 
-## 19. Fake/Real Qualification
-- FAKE Nora (STUDIO_E2E / deterministic-fixture): PROVEN
-- PG real DEV: PROVEN
-- LIVE Nora: NOT EXECUTED
-- RECETTE: NOT EXECUTED
-- Pixel Figma: NOT VERIFIED
+## S. Fake/Real Qualification
+- DETERMINISTIC + PG INTEGRATION + BROWSER FAKE: PROVEN for C01–C03 scenarios exercised
+- LIVE NOT EXECUTED ; RECETTE NOT AUTHORIZED ; STABLE NOT AVAILABLE
 
-## 20. Documentation as-built
-- specification-technique.md §F01/F02 + D3 contexte mis à jour
-- tracabilite B03/B04/B17 + table F01/F02
-- delivery-history DELIV-2026-11-06-ML3-F01-F02-CONVERSATION-AUTHORITY
-- Distinctions: IMPLEMENTED local ; BEHAVIOR PROVEN (unit/PG/e2e FAKE) ; ADOPTED/RECETTE/LIVE/STABLE NOT CLAIMED
+## T. Documentation as-built
+- specification-technique C01/C02/C03 ; tracabilité ; delivery-history DELIV-…-C01-C02-C03
 
-## 21. Réserves, risques, exits
-- Qualificateur FR borné — pas NLP universel
-- Cookie DEV/RECETTE collision: réserve ENV-01 connue, non corrigée ici
-- Libre-texte Niveau B matériel: NOT PROVEN
-- Worktree dirty vs candidat 8bf8b5ce: modifications locales non publiées projet
-- STOP architecture: aucune nouvelle migration / autorité inédite
+## U. Réserves
+- Qualificateur FR borné
+- sessionStorage pending aide reprise mais vérité = business_commands
+- Niveau B libre-texte NOT PROVEN
+- Worktree dirty vs 8bf8b5ce
 
-## 22. Git final et absence de push projet
-- HEAD toujours `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` == origin delivery
-- Modifications locales uncommitted (hors SVG)
-- Aucun push projet
+## V. Git final
+- HEAD `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` inchangé ; pas de push projet
 
-## 23. Handoff L3 distant
-- À publier via scripts/sfia/publish-review-handoff.sh
-- Branch: sfia/review-handoff
-- Path: sfia-review-handoff/latest-chatgpt-review.md
-- Message proposé: sfia: publish ML3 conversation-authority integration review
+## W. Handoff distant
+- À publier: sfia/review-handoff via publish-review-handoff.sh
+- Message: sfia: publish ML3 F01-F02 authority recovery and continuity review
 
-## 24. Verdict et prochain gate Morris
-**VERDICT: ML3 F01/F02 CONVERSATION-AUTHORITY INTEGRATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW.**
+## X. Verdict
+**ML3 F01/F02 AUTHORITY AND RECOVERY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW.**
 
-Gates A–N: Git OK ; Sources OK ; F01 impl+preuve OK ; F02 impl+révision OK ; Provenance OK ; TX/idempotence OK ; UNKNOWN path préservé ; Navigateur FAKE OK ; Non-régression OK ; Docs OK ; ENV-01/versioning OK ; Handoff (à vérifier après publish) ; Réserves documentées.
+Prochain gate: Critical Review → Morris → GO publication candidat distinct.
 
-Prochaines étapes:
-1. Critical Review ChatGPT du handoff
-2. Décision Morris sur écarts
-3. GO distinct publication nouveau candidat Git figé
-4. Nouvelle qualification globale
-5. GO RECETTE distinct
+INSTRUCTION CHATGPT: relire handoff GitHub ; comparer à 8bf8b5ce ; vérifier réflexion≠décision ; effet durable malgré échec Nora ; Journal>8 ; pas de migration/push projet.
 
-INSTRUCTION CHATGPT: avant revue, relire sur GitHub `sfia/review-handoff` / `sfia-review-handoff/latest-chatgpt-review.md` ; comparer au candidat `8bf8b5ce` en distinguant modifications locales non publiées.
-
-FIN — SFIA v2.6 R5/ML3 F01–F02 CORRECTIVE INTEGRATION.
+FIN — SFIA v2.6 / R5 ML3 / F01-F02 AUTHORITY, RECOVERY, CONTINUITY.
