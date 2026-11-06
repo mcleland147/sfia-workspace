@@ -1,373 +1,255 @@
-# SFIA STUDIO NEXT — ML3 RECETTE DEPLOYMENT AND SMOKE — REVIEW PACK FULL
+# SFIA Studio Next — R5 / ML3 — Cycle 09 QA/VALIDATION CRITICAL
+## SEC-01 remediation + OAuth readiness + Nora OpenAI LIVE (bounded)
 
-## A. Date / GO / profil
-- Date UTC: 2026-11-06T17:12:23Z
-- GO Morris: 2026-11-06 RUN CRITICAL
-- Cycle: R5 / ML3 RECETTE mise à disposition + smoke
-- Autorisé: ops RECETTE locales + handoff L3
-- Interdit: commit/push projet, PR/merge, LIVE Nora, STABLE, ADOPTED
+**Date UTC:** 2026-11-06
+**GO Morris:** 2026-11-06 — RECETTE LIVE sécurité, identité et cognition Nora
+**Profil:** CRITICAL — TYPE RUN
+**Lot:** Cycle 09 — un seul cycle intégré
+
+**Verdict Cursor:**
+
+```
+ML3 RECETTE LIVE QUALIFICATION PARTIAL —
+AUTH OAUTH CALLBACK MORRIS-OWNED —
+SEC-01 REMEDIATED —
+NORA OPENAI LIVE VERIFIED (TEST_BOUNDARY) —
+READY FOR MORRIS OAUTH SESSION + COGNITIVE RECETTE
+WITH CARRIED RESERVES.
+```
+
+**Ne signifie PAS:** OAuth callback LIVE Cursor-proven · RCT-01..07 accepted · ML3 closed · PR/merge · STABLE · ADOPTED · OPERATIONAL_VALIDATED.
+
+---
+
+## A. Mandat
+
+IN exécuté dans les limites observées: SEC-01; config RECETTE OAuth+OpenAI; Nora LIVE ≤6 tours; pack FULL; handoff L3.
+OUT respecté: pas de mutation code produit; pas de commit/push projet; pas de migration 008; pas de PR/merge; Nora non déclarée OPERATIONAL_VALIDATED.
+
+Morris a repris explicitement la preuve interactive OAuth (callback / lancement de session). Cursor laisse `STUDIO_DEV_TEST_LOGIN=0`, OAuth `configured:true`, URL http://127.0.0.1:3200/login.
+
+---
 
 ## B. Git Truth
-- Delivery HEAD local/remote: `ba831b25bc182f755be749243f256dbf7d5a1ca1` / `ba831b25bc182f755be749243f256dbf7d5a1ca1` (expected ba831b25…)
-- main: `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480`
-- Projet Git **non muté** ce cycle
-- Porcelain (DEV dirty preserved):
 
-```
-M .tmp-sfia-review/chatgpt-review.md
-?? projects/sfia-studio-next/web/public/file.svg
-?? projects/sfia-studio-next/web/public/globe.svg
-?? projects/sfia-studio-next/web/public/next.svg
-?? projects/sfia-studio-next/web/public/vercel.svg
-?? projects/sfia-studio-next/web/public/window.svg
-```
+| Ref | SHA |
+|-----|-----|
+| HEAD delivery | `ba831b25bc182f755be749243f256dbf7d5a1ca1` |
+| tree | `0f87848a31d2fa74febdde3c2d9dc2453c535bea` |
+| origin/main | `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
+| origin/sfia/next-pilotage-decisions-delivery | `ba831b25bc182f755be749243f256dbf7d5a1ca1` |
+| handoff précédent (compromis SEC-01) | `f9826d04e551d905e3cd38c89e046b5f7ff82c4d` blob `77f19a7f…` |
 
-## C. Sources
-ENV-01 blob 14b61f0d ; versioning 8bc93e0f ; handoff précédent 4be93f2a ; construction pilotage ; cadrage R4 ; template SFIA v2.6.
+Branche locale: `sfia/next-pilotage-decisions-delivery`
+Worktree build immuable: `/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25` (detached `ba831b25`)
+Préservés: 5 SVG untracked; delivery dirty review tmp only; aucun commit projet.
 
-## D–E. État RECETTE avant déploiement
-- Port 3200: ML1 LaunchAgent `com.sfia.studio.next.recette` servant `0db58be8` depuis `sfia-studio-next-recette-ml1-c3`
-- DB `sfia_next_recette` (ML1 schema) + `sfia_next_recette_ml2` (ML2, sans 007)
-- Conteneur `sfia-next-recette-pg` :5434
+---
 
-## F. Isolation
-- DEV `sfia-next-dev-pg`:5433 / `sfia_next_dev` **non muté**
-- E2E `sfia_next_e2e` non ciblé
-- Nouvelle DB additive `sfia_next_recette_ml3`
-- Backups: `artifacts/db-backups/*_20261106T170744Z.dump`
+## C. Sources Git lues (refs applicables)
 
-## G–H. Build / config
-- Worktree détaché ba831b25 tree 0f87848a ; `.next` préexistant réutilisé
-- `.env.local` RECETTE hors Git (gitignored) : STUDIO_LANE=RECETTE, port 3200, DEV_TEST_LOGIN=1, BETTER_AUTH_URL=http://127.0.0.1:3200, BETTER_AUTH_SECRET non-défaut, DATABASE_URL→sfia_next_recette_ml3, OPENAI unset
-- Auth mode smoke: DEV_TEST_ADAPTER (NOT OAuth LIVE)
+- Processus SFIA v2.6 routing + template cycle
+- ENV-01 `environnements-recette-et-promotions.md` blob `14b61f0d…`
+- Product versioning blob `8bc93e0f…`
+- Code servi (worktree ba831b25): `session.ts`, `auth.ts`, `nora-adapter.ts`, `cognitive-policy.ts`, `d4-read-tools.ts`, `conversation-authority.ts`, `service.ts`
+- Handoff f9826d04 scanné **sans recopier** le credential
 
-## I–J. Better Auth / cookies
-- Login adapter OK ; cookie `sfia_studio_session__RECETTE`
-- Cookie name DEV rejeté (401)
-- Pilot B → 404 sur projet A
-- Better Auth OAuth cookies: NOT EXERCISED
-- ENV-01 Reserve A CARRIED
+---
 
-## K–L. DB / migration
-```
-Applying 001_initial_studio_core.sql → sfia-next-recette-pg/sfia_next_recette_ml3
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE TABLE
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-Applying 002_session_auth_mode.sql → sfia-next-recette-pg/sfia_next_recette_ml3
-ALTER TABLE
-Applying 003_ml2_knowledge_documents.sql → sfia-next-recette-pg/sfia_next_recette_ml3
-ALTER TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-Applying 004_ml2_integrity_corrective.sql → sfia-next-recette-pg/sfia_next_recette_ml3
-ALTER TABLE
-CREATE INDEX
-CREATE INDEX
-Applying 005_ml2_conversation_turn_command.sql → sfia-next-recette-pg/sfia_next_recette_ml3
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-DO
-CREATE INDEX
-Applying 006_ml2_turn_owner_token.sql → sfia-next-recette-pg/sfia_next_recette_ml3
-ALTER TABLE
-UPDATE 0
-CREATE INDEX
-Applying 007_ml3_pilotage_decisions.sql → sfia-next-recette-pg/sfia_next_recette_ml3
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-CREATE INDEX
-CREATE TABLE
-CREATE INDEX
-CREATE INDEX
-DO
-db:migrate OK (001→007)
+## D. État runtime initial (avant cycle 09)
 
-```
-- 001→007 OK sur `sfia_next_recette_ml3` uniquement
-- human_decisions / business_commands / project_cycles présents
+- Port 3200: PID antérieur LaunchAgent `com.sfia.studio.next.recette.ml3`
+- Build ID Next: `iXlmY0CgReCKATLjOB-u7`
+- DB: `sfia_next_recette_ml3` @ `sfia-next-recette-pg:5434` schéma 007
+- Auth smoke: DEV_TEST_ADAPTER; OAuth non exercé
+- OpenAI unset (runner unsettait la clé)
 
-## M–N. Serveur servi
-- Unloaded ML1 agent ; loaded `com.sfia.studio.next.recette.ml3`
-- PID observé servi depuis worktree ba831b25
-- URL: http://127.0.0.1:3200
-- Identity: SHA/tree match OBSERVED
+---
 
-### Ops runner (non secret)
+## E–G. SEC-01 — diagnostic et révocation
 
-```bash
-#!/usr/bin/env bash
-set -euo pipefail
-WEB="/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25/projects/sfia-studio-next/web"
-OPS="/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25/artifacts/ops"
-LOG="$OPS/recette-ml3-next.log"
-cd "$WEB"
-# Load RECETTE env from local file (never printed)
-set -a
-# shellcheck disable=SC1091
-source "$WEB/.env.local"
-set +a
-unset OPENAI_API_KEY || true
-export NODE_ENV=production
-echo "$(date '+%Y-%m-%dT%H:%M:%S%z') START next-server SHA=ba831b25 lane=$STUDIO_LANE" >>"$OPS/recette-wrapper.log"
-exec ./node_modules/.bin/next start -H 127.0.0.1 -p 3200 >>"$LOG" 2>&1
+**Constat:** handoff Git `f9826d04` contenait une valeur de cookie `sfia_studio_session__RECETTE` (credential session, pas simple corrélation).
 
-```
+**Actions (sans afficher la valeur):**
+1. Extraction locale contrôlée du token depuis le blob historique.
+2. Match DB `sessions.token` → session `sid_f171495a-5984-4a26-9810-b3b724a94268` (`auth_mode=dev-test-login`, prefix `sess_89e`).
+3. `UPDATE sessions SET revoked_at=now()` sur cette ligne.
+4. Révocation élargie de **toutes** les sessions RECETTE actives (smoke local avait aussi des jars cookie).
+5. Redaction artefacts locaux: `.tmp-sfia-review/chatgpt-review.md`, `artifacts/smoke/*` → `sess_[REDACTED_SEC01]`.
+6. Scan post-redaction: **NONE** `sess_[0-9a-f-]{20,}` restant dans artefacts locaux destinés à publication.
 
-### Rollback notes
+**Preuve refus:**
+`Cookie: sfia_studio_session__RECETTE=<compromised>` → `GET /api/portfolio` **HTTP 401** `SESSION_INVALID` (re-vérifié après restart final).
 
-```
-Unloaded 2026-11-06 for ML3 RECETTE switchover:
-  launchctl bootout gui/$(id -u)/com.sfia.studio.next.recette
-Rollback ML1:
-  launchctl bootstrap gui/$(id -u) /Users/morris/Library/LaunchAgents/com.sfia.studio.next.recette.plist
-  (restores ML1 @ 0db58be8 on :3200 with sfia_next_recette DB)
+**Git:** aucun force-push / rewrite. L’ancien commit reste dans l’historique; le credential y est **révoqué côté runtime**.
 
-Rollback to previous RECETTE (ML1 @ 0db58be8):
-1. Stop ML3 next-server on :3200
-2. cd /Users/morris/Projects/sfia-studio-next-recette-ml1-c3/projects/sfia-studio-next/web
-3. Use its existing .env.local (sfia_next_recette DB on :5434)
-4. npx next start -p 3200 -H 127.0.0.1
-DB backups: artifacts/db-backups/*_20261106T170744Z.dump
-ML3 DB sfia_next_recette_ml3 is additive — does not replace ML1/ML2 DBs.
+**SEC-01 status:** **REMEDIATED**.
 
-```
+---
 
-## O. Smoke technique S01–S15
+## H–J. OAuth GitHub — configuration et start (Cursor) / callback (Morris)
 
-```
-S01 login HTTP=200
-S02 login shows DEV TEST ADAPTER controls
-S03 portfolio anon HTTP=401
-S04 login HTTP=200 body={"ok":true,"pilotId":"pilot_eb056a4a-88b3-4f02-842a-a68215afdd89","authMode":"dev-test-login","notice":"FAKE/REAL: DEV test login — NOT GitHub OAuth proof — loopback/DEV only"}
-5:#HttpOnly_127.0.0.1	FALSE	/	FALSE	0	sfia_studio_session__RECETTE	sess_89e6990b-4e1a-4118-aeae-bf5c20562ce1
-S05 portfolio auth HTTP=200
-S13 cookie lane=RECETTE
-S08 prep HTTP=200
-PREP=
-PREP=prep_5b89adae-7add-4f05-86cf-05ac6bc92ad7
-S08 preview HTTP=200
-S08 create HTTP=201
-PROJECT=proj_2e0de8ba-39b7-44e2-96f4-3d0bb6912bfe
-S06/S07/F10 IN_ML3=1 IN_DEV=0 IN_ML1=0
-S09 project HTTP=200
-S10 foreign pilot HTTP=200
-S10 login B HTTP=200 {"ok":true,"pilotId":"pilot_5a831af0-91fb-42e9-a98e-0ad833a7dfaa","authMode":"dev-test-login","notice":"FAKE/REAL: DEV test login — NOT GitHub OAuth proof — loopback/DEV only"}
-PILOT_A=pilot_eb056a4a-88b3-4f02-842a-a68215afdd89 PILOT_B=pilot_5a831af0-91fb-42e9-a98e-0ad833a7dfaa
-S10 foreign project HTTP=404
-S-cross DEV cookie name on RECETTE HTTP=401
-S12 no secrets in HTML
-S15 PID=92537 CWD=/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25/projects/sfia-studio-next/web
-S15 identity OK
-S14 project absent from DEV=0
-S11 stable OK
-F01 cycle absent / method ABSENT OK
-F02 messages HTTP=200
-F02 keys ['assistantMessageId', 'attempts', 'capitalisation', 'capitalisationAttempted', 'capitalisationLimit', 'd4CharsReturned', 'documentSave', 'generationId', 'humanDecisionCreated', 'idempotentReplay', 'knowledgeSelection', 'messages', 'noraMode', 'operationId', 'pilotageEffect', 'policy', 'requestId', 'status', 'streaming', 'toolCallsObserved', 'userMessageId']
-F02 status FAILED noraMode deterministic-fixture humanDecision True
-F02 pilotageEffect {'attempted': True, 'intentClarity': 'CLEAR', 'operation': 'OPEN_CYCLE', 'status': 'APPLIED', 'reasonCode': None, 'reason': None, 'commandId': 'bcmd_39cad16b-0952-4634-8983-0e0083b4b597', 'decisionId': 'dec_19392258-e814-421e-a059-c3abd829af98', 'source': 'user_message_command', 'clientCommandKey': 'conv-auth:recette-f02-open', 'effects': [{'effectKind': 'OPEN', 'targetRef': 'cyc_03b3bbec-6a7a-40e0-b854-8d561ff0dfcb'}]}
-F02 GO authority APPLIED despite Nora boundary (LIVE not authorized)
-ACTIVE|CADRAGE
-OPEN_CYCLE|APPLICABLE|USER_MESSAGE
-F03 OK no command attempted {'attempted': False, 'intentClarity': 'AMBIGUOUS', 'intentReason': 'Énoncé insuffisant', 'status': None, 'reasonCode': None, 'reason': 'Énoncé insuffisant', 'commandId': None, 'decisionId': None, 'clarification': 'Énoncé insuffisant', 'source': 'clarification_only', 'clientCommandKey': 'conv-auth:recette-f03-ok'}
-F03 still 1 ACTIVE
-F04 RECORD APPLIED dec_8e6e49a2-f652-47e2-a0ba-5f07617f677a
-F05 Journal RECORD APPLICABLE source USER_MESSAGE count 2
-F06 HTTP=200
-F06 REVISE APPLIED dec_9761816f-ac07-4044-8c1d-49c7437e852f
-F06 history REVISED→APPLICABLE OK
-F07 restrict HTTP=200 APPLIED None
-F07 CLOSE rejected RESTRICTION — no false success
-F08 by-key reconstitutes OPEN ALREADY_APPLIED dec_19392258-e814-421e-a059-c3abd829af98
-F09 cycle CADRAGE cki {'ckiId': '01-cadrage', 'pinnedVersion': '0.2.0', 'contentDigest': 'e8d7a0cbdf3c55b3a991945b336901b1d92172113d1384e62bf6a86f4ec7bff9', 'manifestRef': 'cki/manifest.v0.2.0.json#01-cadrage@0.2.0', 'pinOrigin': 'OPEN_PIN', 'availability': 'RESOLVED'}
-F09 CADRAGE ACTIVE — CKI pin fields: {'cki': {'ckiId': '01-cadrage', 'pinnedVersion': '0.2.0', 'contentDigest': 'e8d7a0cbdf3c55b3a991945b336901b1d92172113d1384e62bf6a86f4ec7bff9', 'manifestRef': 'cki/manifest.v0.2.0.json#01-cadrage@0.2.0', 'pinOrigin': 'OPEN_PIN', 'availability': 'RESOLVED'}}
-F10 non-contamination previously verified
-R-UX-01: client exclusive pending NON CONFORME carried; server reconcilable by-key OBSERVED (F08)
-S02 STUDIO_LANE=RECETTE served_address=http://127.0.0.1:3200
+**Config RECETTE (hors Git `.env.local` mode 0600):**
+- `BETTER_AUTH_URL=http://127.0.0.1:3200`
+- `BETTER_AUTH_SECRET` PRESENT non-défaut
+- `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` PRESENT (réutilisation locale contrôlée depuis store machine DEV → fichier RECETTE explicite; pas d’héritage process silencieux)
+- `STUDIO_DEV_TEST_LOGIN=0` (état final pour lancement Morris)
 
-```
+**Preuves Cursor:**
+| Test | Résultat |
+|------|----------|
+| `/api/auth/status` | `configured:true` — LIVE proof still requires successful callback |
+| POST `/api/auth/sign-in/social` | redirect GitHub authorize |
+| `redirect_uri` | `http://127.0.0.1:3200/api/auth/callback/github` |
+| scopes | `read:user` + `user:email` (pas de scope dépôt) |
+| UI `/login` | bouton « Continuer avec GitHub » |
+| DEV test login | **HTTP 403** `DEV_TEST_LOGIN_DISABLED` (état final) |
 
-## P–Q. Smoke fonctionnel F01–F10 + navigateur
-- F01–F10 API PASS (voir results + smoke JSON artifacts)
-- F02: OPEN_CYCLE APPLIED + HumanDecision USER_MESSAGE ; Nora status FAILED / NORA_LIVE_KEY_REQUIRED boundary (LIVE not authorized; fixture forbidden on RECETTE)
-- F09: CKI 01-cadrage@0.2.0 RESOLVED
-- Browser: login → project → Pilotage cycle-active + decision-state ; screenshot `artifacts/smoke/browser-pilotage.png`
+**Callback + session OAuth persistée:** **NOT CURSOR-PROVEN** — **MORRIS-OWNED** (demande explicite Morris).
+**OAUTH LIVE PROVEN:** **NO** (attente callback Morris).
 
-```
-login→portfolio OK
-project open OK http://127.0.0.1:3200/projects/proj_2e0de8ba-39b7-44e2-96f4-3d0bb6912bfe
-cycle-active visible
-decision-state visible
-screenshot OK
+---
 
-```
+## K. Isolation cookies / projets
 
-## R. FAKE/LIVE/REAL
-- Nora LIVE: NOT AUTHORIZED / NOT EXECUTED
-- Nora FAKE fixture on RECETTE: NOT AVAILABLE (fail-closed by design)
-- Auth: DEV_TEST_ADAPTER FAKE (explicit)
-- GitHub OAuth LIVE: NOT EXECUTED
-- Cursor/GitHub REAL tools: NOT USED
+- Cookie Studio lane-scoped: `sfia_studio_session__RECETTE`
+- Credential compromis refusé (401)
+- Sessions actives révoquées avant handoff final
+- Projet LIVE créé uniquement en DB RECETTE; count DEV `name LIKE '%Nora LIVE%'` = **0**
+- ENV-01 Reserve A (host cookie) **CARRIED** — isolation Better Auth cross-lane OAuth **NOT EXERCISED** tant que callback Morris non fait
 
-## S. R-UX-01
-NON CONFORME — CARRIED RESERVE Morris.
-Client exclusive pending not corrected.
-Server by-key reconciliation OBSERVED (F08).
-No D5/D6 unjustified effect / double effect / key loss observed in smoke.
+---
 
-## T. Autres réserves
-ENV-01 cookie host ; Level B free-text NOT PROVEN ; Figma NOT VERIFIED ; Nora LIVE NOT EXECUTED.
+## L–O. OpenAI LIVE + politique + modèle
 
-## U. Manifeste servi
+**Config:** `OPENAI_API_KEY` PRESENT dans `.env.local` RECETTE; runner ops **ne unset plus** la clé (cycle 09 GO).
+**Profil:** `SFIA_COG_PROFILE_TYPE=TEST_BOUNDARY` (fail-closed RECETTE; OPERATIONAL_PROVISIONAL non levé).
+**Modèle demandé:** `gpt-6.1-sol` — **présent** dans `GET /v1/models` (96 modèles listés).
+**Modèle appliqué:** non exposé distinctement dans l’enveloppe API; `policy.modelRequested=gpt-6.1-sol`; attempts `providerContacted=YES`, `outcome=SUCCESS`.
+**Mode:** `noraMode=openai-agents-sdk-live` — **pas de fixture**.
+**Budget campagne:** 6 tours utilisateur LIVE max — **6 utilisés** (LIVE-01,02,03,05,06,06b).
+**Supervision coût $:** non mesurée comme facturation; bornage = plafond tours + TEST_BOUNDARY.
 
-```json
-{
-  "lane": "RECETTE",
-  "state": "SERVED_SMOKE_VERIFIED",
-  "source_repository": "mcleland147/sfia-workspace",
-  "source_branch": "sfia/next-pilotage-decisions-delivery",
-  "base_main_sha": "7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480",
-  "candidate_sha": "ba831b25bc182f755be749243f256dbf7d5a1ca1",
-  "tree_sha": "0f87848a31d2fa74febdde3c2d9dc2453c535bea",
-  "build_identifier": "ml3-recette-served-ba831b25-20261106T171155Z",
-  "build_timestamp_utc": "2026-11-06T16:42:56Z",
-  "deployment_timestamp_utc": "2026-11-06T17:11:55Z",
-  "package_version": "0.0.0-dev",
-  "product_version": "NOT AVAILABLE",
-  "release_tag": "N/A",
-  "served_address": "http://127.0.0.1:3200",
-  "runtime_process": {
-    "pid": 92537,
-    "command": "next-server (v15.5.29)",
-    "launch_agent": "com.sfia.studio.next.recette.ml3"
-  },
-  "runtime_source_path": "/Users/morris/Projects/sfia-workspace-ml3-recette-build-ba831b25/projects/sfia-studio-next/web",
-  "schema_revision": "007_ml3_pilotage_decisions",
-  "test_data_revision": "smoke dataset on sfia_next_recette_ml3 (additive DB)",
-  "authentication_mode": "DEV_TEST_ADAPTER on RECETTE (STUDIO_DEV_TEST_LOGIN=1) \u2014 NOT GitHub OAuth LIVE proof",
-  "database_identity_non_secret": {
-    "container": "sfia-next-recette-pg",
-    "host_port": "127.0.0.1:5434",
-    "database": "sfia_next_recette_ml3",
-    "role": "sfia_next_recette",
-    "previous_dbs_preserved": [
-      "sfia_next_recette",
-      "sfia_next_recette_ml2"
-    ]
-  },
-  "cookie_isolation_evidence": {
-    "studio_cookie": "sfia_studio_session__RECETTE OBSERVED",
-    "dev_cookie_name_rejected": "sfia_studio_session__DEV \u2192 401 OBSERVED",
-    "pilot_isolation": "Pilot B \u2192 404 on Pilot A project OBSERVED",
-    "better_auth_cookies": "NOT EXERCISED (OAuth NOT USED this smoke)",
-    "host_cookie_reserve": "ENV-01 Reserve A CARRIED \u2014 separate LaunchAgents/profiles; technical BA isolation NOT PROVEN"
-  },
-  "migration_evidence": "001\u2192007 applied on sfia_next_recette_ml3 only; backups *_20261106T170744Z.dump; DEV untouched",
-  "smoke_evidence": {
-    "S01_S15": "PASS (see artifacts/smoke/results.txt)",
-    "F01_F10": "PASS API; browser F01/F05 surfaces PASS",
-    "nora": "LIVE NOT AUTHORIZED; fixture flags forbidden on RECETTE; boundary FAILED with authority still APPLIED"
-  },
-  "quality_evidence": "BROWSER FAKE adapter login + Playwright against served :3200; PG assertions on RECETTE ml3 DB",
-  "available_capabilities": [
-    "login DEV_TEST_ADAPTER",
-    "portfolio/projects",
-    "OPEN_CYCLE via fil GO",
-    "RECORD/REVISE D6",
-    "restrictions",
-    "CKI pin 01-cadrage@0.2.0",
-    "command by-key reconstitution"
-  ],
-  "unavailable_capabilities": [
-    "Nora LIVE",
-    "Nora FAKE fixture on RECETTE lane (by design fail-closed)",
-    "GitHub OAuth LIVE proof",
-    "STABLE",
-    "product release"
-  ],
-  "known_gaps": [
-    "R-UX-01 NON CONFORME \u2014 CARRIED RESERVE",
-    "ENV-01 cookie host Reserve A",
-    "Level B free-text NOT PROVEN",
-    "Figma pixel NOT VERIFIED",
-    "Nora cognitive LIVE NOT EXECUTED"
-  ],
-  "rollback_constraints": "bootout com.sfia.studio.next.recette.ml3; bootstrap com.sfia.studio.next.recette (ML1); ML3 DB additive \u2014 schema rollback not automatic",
-  "review_decision": "PENDING",
-  "morris_recette_acceptance": "PENDING",
-  "previous_runtime_replaced": {
-    "sha": "0db58be8240a00593092048ee74299f19374f489",
-    "path": "/Users/morris/Projects/sfia-studio-next-recette-ml1-c3/projects/sfia-studio-next/web",
-    "launch_agent_unloaded": "com.sfia.studio.next.recette"
-  }
-}
-```
+---
 
-## V. Commandes (extraits)
-- db-migrate with SFIA_PG_CONTAINER=sfia-next-recette-pg SFIA_PG_DATABASE=sfia_next_recette_ml3
-- launchctl bootout com.sfia.studio.next.recette ; bootstrap com.sfia.studio.next.recette.ml3
-- curl smoke S01–S15 / F01–F10
-- Playwright chromium against http://127.0.0.1:3200
+## P. Scénarios LIVE (≤6)
 
-## W. Arrêt / reprise / rollback
-- Stop ML3: `launchctl bootout gui/$(id -u)/com.sfia.studio.next.recette.ml3`
-- Restore ML1: bootstrap previous plist (see unload note)
-- DB: ML3 additive ; restore dumps available ; code rollback ≠ automatic DB rollback
+Projet: `proj_c0b8442a-0edb-4116-a905-c99e397dffc0`
+Prep: `prep_6e353d5c-…` (doc `Corpus recette LIVE D4`)
+Auth pour ces tours: **dev-test-login TEMPORAIRE** (réactivé uniquement pour cognition; **re-désactivé** ensuite). **Ne constitue pas une preuve OAuth.**
 
-## X. Git final
-- Delivery HEAD unchanged `ba831b25bc182f755be749243f256dbf7d5a1ca1`
-- No project commit/push
-- SVG / dirty DEV preserved
+| ID | Résultat factuel |
+|----|------------------|
+| LIVE-01 | COMPLETE · live · reformulation contraintes sans décision · `humanDecisionCreated=false` · tools=0 |
+| LIVE-02 | COMPLETE · live · comparaison A/B/C · tools=1 · d4Chars=754 · HD=false |
+| LIVE-03 | COMPLETE · live · lit D4 · cite `TOKEN_RECETTE_LIVE_D4_ALPHA_20261106` · tools=1 · provenance document v1 |
+| LIVE-05 | RECORD_DECISION explicite `dec_654c0fc2…` APPLICABLE puis tour cognitif · Nora signale divergence budget illimité vs décision · **aucune révision D6 par Nora** · HD=false |
+| LIVE-06 | phrasing « GO: ouvre le cycle CADRAGE… » · Nora refuse d’ouvrir elle-même · **CAS intent NONE** (autorité non déclenchée) · cycle non créé |
+| LIVE-06b | « Ouvre le cycle cadrage. » · **OPEN_CYCLE APPLIED** · `source_kind=USER_MESSAGE` · `dec_d8f30ac3…` · cycle `CADRAGE ACTIVE` · CKI `01-cadrage@0.2.0` RESOLVED · Nora confirme effet serveur |
+
+**LIVE-04 (CKI guidance):** couvert en observation post-06b (cycle+CKI résolus; Nora décrit état). Pas de 7ᵉ tour.
+
+**Classe de preuve:** NORA PROVIDER LIVE + D4 READ LIVE-IN-RECETTE + D5/D6 PG OBSERVED (GO 06b + RECORD_DECISION).
+**AUTH OAUTH LIVE:** NOT PROVEN (Morris).
+
+---
+
+## Q–R. D4 / CKI / D5–D6
+
+- Outils observés via `toolCallsObserved` ≥1 sur LIVE-02/03/05/06; chars D4 retournés.
+- Aucun outil Git/Cursor/shell fourni à Nora.
+- CKI pin `01-cadrage@0.2.0` après OPEN_CYCLE.
+- Invariants: sortie Nora ≠ HumanDecision; GO appliqué uniquement via CAS USER_MESSAGE (06b); LIVE-06 montre frontière Nora sans effet.
+
+---
+
+## S. Interdictions / refus
+
+- Nora n’ouvre pas le cycle elle-même (LIVE-06).
+- Nora ne révise pas la décision documentaire (LIVE-05).
+- DEV_TEST final disabled.
+- Pas de scope dépôt OAuth.
+
+---
+
+## T. R-UX-01
+
+**NON CONFORME — CARRIED RESERVE** (Morris). Non corrigé. Non observé comme rupture d’intégrité D5/D6 sur cette campagne.
+
+---
+
+## U. Autres réserves
+
+- ENV-01 cookie host Reserve A
+- B13 Niveau B libre-texte: NOT PROVEN
+- Figma pixel: NOT VERIFIED
+- OAuth callback: MORRIS PENDING
+- OPERATIONAL_VALIDATED: N/A
+- modelApplied distinct: NOT OBSERVED in envelope
+
+---
+
+## V. Commandes / logs (expurgés)
+
+- `launchctl bootout/bootstrap com.sfia.studio.next.recette.ml3`
+- Runner: `artifacts/ops/run-recette-ml3-next.sh` (OPENAI conservé depuis `.env.local`)
+- Obs: `d3.nora.provider_attempt` + `d3.turn.completed` lane=RECETTE source_sha=ba831b25
+- Artefacts locaux non Git: `…/artifacts/live-cog/LIVE-*.json`, `SUMMARY` partiel, `recette-served-manifest-live.json`
+- **Aucun secret / cookie / token dans ce pack.**
+
+---
+
+## W. Manifeste RECETTE (non secret)
+
+Voir `artifacts/ops/recette-served-manifest-live.json` (hors Git projet):
+
+- state: `SERVED_LIVE_PARTIAL_OAUTH_MORRIS_OWNED`
+- candidate_sha / tree / build_id Next inchangés
+- auth: OAuth configured; callback Morris; DEV_TEST off
+- nora: openai-agents-sdk-live · TEST_BOUNDARY · 6 tours
+
+---
+
+## X. Git final projet
+
+- HEAD toujours `ba831b25`
+- Aucun commit/push projet
+- SVG untracked préservés
+- Seule publication autorisée: handoff L3 ci-dessous
+
+---
 
 ## Y. Handoff distant
-(filled after publisher)
 
-## Z. Verdict
-**ML3 RECETTE DEPLOYED — SHA ba831b25 VERIFIED — TECHNICAL AND FUNCTIONAL SMOKE PASSED — READY FOR MORRIS FUNCTIONAL RECETTE WITH CARRIED RESERVES.**
+Publié via `scripts/sfia/publish-review-handoff.sh` (voir SHA/blob après publication).
+Audit pré-publication: pas de `sess_`, pas de `sk-`, pas de secrets.
 
-Next: ChatGPT Critical Review → Morris RCT-01..07. No PR/merge/STABLE automatic.
+Ancien handoff `f9826d04` reste historique (« session compromised — revoked »).
+
+---
+
+## Z. Verdict / prochain gate
+
+**PARTIAL** — SEC-01 OK · Nora OpenAI LIVE OK (TEST_BOUNDARY) · OAuth callback **à charge Morris**.
+
+**Gate suivant:**
+1. Morris complète OAuth LIVE sur http://127.0.0.1:3200/login (Continuer avec GitHub).
+2. ChatGPT Critical Review de ce pack.
+3. Puis campagne RCT-01..07 cognitive LIVE sous session OAuth, réserves déclarées.
+
+Aucun GO PR/merge/promotion automatique.
+
+---
+
+## Evidence classes (séparées)
+
+| Classe | Statut |
+|--------|--------|
+| DETERMINISTIC / PG | OBSERVED (révocation, HD, cycles, isolation DEV) |
+| AUTH OAUTH START | PROVEN |
+| AUTH OAUTH CALLBACK LIVE | MORRIS-OWNED / NOT CURSOR-PROVEN |
+| NORA PROVIDER LIVE | PROVEN (6 tours, providerContacted=YES) |
+| D4 READ LIVE-IN-RECETTE | PROVEN (TOKEN cité + toolCalls) |
+| D5/D6 PG | OBSERVED (RECORD_DECISION; OPEN_CYCLE USER_MESSAGE 06b) |
+| BROWSER FAKE | N/A this cycle |
+| OPERATIONAL_VALIDATED | NOT AVAILABLE |
