@@ -404,3 +404,42 @@ Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5c
 | **Non-impact démontré** | Ne provoque pas d'effet D5/D6 injustifié, de double effet, de perte de clé, ni de fuite interprojets (garde exclusive + même clé). |
 | **Condition de sortie** | Permettre la poursuite cognitive indépendante des effets indéterminés sans perdre tentative, clé ni réconciliation. |
 | **Autres réserves** | Cookie DEV/RECETTE (ENV-01) ; libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; Figma pixel NOT VERIFIED. |
+
+## As-built — correctifs RCT-02 (conversation → autorité)
+
+**Date :** 2026-11-06. **Branche locale :** `sfia/next-ml3-rct02-correctifs`. **Sans migration DB.**
+
+Le pont existant `USER_MESSAGE` → `qualifyPilotageIntent` → `applyConversationalAuthority` → `executePilotageCommand` est conservé. Les corrections portent sur :
+
+1. **Qualification** des actes performatifs dans un message développé (ouverture, clôture, révision, levée), sans exécuter questions/explorations/citations.
+2. **Délimitation** de l'énoncé durable (objectif de cycle sans ponctuation seule ; HumanDecision sans consignes « Nora, aide-moi… »).
+3. **Résolution** d'une restriction `ACTIVE` unique pour `LIFT_RESTRICTION` conversationnel.
+4. **Restitution** : `restrictions_actives=aucune` explicite ; CKI comme guidance cognitive interne non citée spontanément.
+
+Les parcours cockpit explicites restent le chemin structuré (`operation` fournie). Aucun second moteur D5/D6. Les anomalies historiques de données RECETTE ne sont pas migrées.
+
+### Critical Review ML3/RCT-02 — reprise C01/C05/C06 (2026-11-06, local)
+
+Après **NOT ACCEPTED** sur handoff `0a057278`. Périmètre borné aux trois anomalies de qualification ; moteur `executePilotageCommand` + source `USER_MESSAGE` + idempotence inchangés.
+
+| ID | Défaut observé | Correction as-built |
+|----|----------------|---------------------|
+| **C05** | `REVISE_DECISION` absorbait « . » (désignation/énoncé sans deux-points) | `extractReviseStatement` : coupure désignation ↔ nouvel arbitrage (`.` / `:` / tiret) ; cible via `findAuthorityReviseCandidates` + overlap d'énoncé si `objectRef` faible |
+| **C06** | « Ne lève pas… » / « Je ne souhaite pas lever… » → `LIFT_RESTRICTION` | `isNegatedOrNonPerformativeLift` ; résolution kind **et** `restrictionTargetRefHint` (cible contradictoire → clarification, zéro mutation) |
+| **C01** | Citation / specimen « Voici… : Nora, ouvre… » / « Ne fais pas ceci : … » → `OPEN_CYCLE` | `isNonPerformativeOpenFraming` (méta-framing + prohibition d'ouverture) sans casser T01 développé |
+| **C04 (non-régression)** | `Nora,` non coupé (`\b` après virgule) | `NORA_DIALOGUE_SPLIT` sans `\b` terminal après `Nora,` |
+
+Preuves : unit `ml3-rct02-intent` (T05 représentatif, négations, citations) + PG `RCT-02 Critical Review conversational chain` (non-effet + effets positifs en base). **Pas** de push projet / RECETTE.
+
+### Critical Re-Review ML3/RCT-02 — faux GO C06/C08 (2026-11-06, local)
+
+Après **NOT ACCEPTED** sur handoff `4b168905`. Qualification linguistique unifiée (pas d'exceptions textuelles isolées) :
+
+| Helper | Rôle |
+|--------|------|
+| `isSpecimenOrHistoricalFraming` | citation / specimen / « un ancien message disait : … » / « ne fais pas ceci : … » |
+| `refusesOrWithholdsAct(act)` | refus, non-autorisation, négation par classe d'acte (`open`/`close`/`lift`/`record`/`revise`) |
+| `isNonPerformativeOpenFraming` / `CloseFraming` / `isNegatedOrNonPerformativeLift` | compose les deux pour OPEN / CLOSE / LIFT |
+| RECORD / REVISE | mêmes gates specimen + refus avant CLEAR |
+
+Oracles négatifs supplémentaires : « Je refuse de lever… », « je ne t'autorise pas à lever… », « Ne fais pas ceci : Nora, clôture… », « Un ancien message disait : Nora, clôture… ». Positifs T01/T05 représentatif/T10/T13 et cockpits préservés. T05 = **formulation représentative** (transcript original intégral non établi).

@@ -324,8 +324,86 @@ export async function applyConversationalAuthority(input: {
     return outcomeFromCommand(command, "RECORD_DECISION", clientCommandKey);
   }
 
+  /** C06 — resolve a unique ACTIVE restriction before LIFT (never approximate). */
+  if (qualified.operation === "LIFT_RESTRICTION") {
+    const hint = (qualified.restrictionKindHint ?? "").trim().toUpperCase();
+    const targetHint = (qualified.restrictionTargetRefHint ?? "").trim();
+    const active = projection.restrictions.filter((r) => r.status === "ACTIVE");
+    let pool = hint
+      ? active.filter((r) => r.targetKind.toUpperCase() === hint)
+      : active;
+    // If the pilot named an instance/specialty, require a matching targetRef
+    // (a lone matching kind with a contradictory target is not enough).
+    if (targetHint && pool.length > 0) {
+      const hintNorm = targetHint.toUpperCase();
+      const narrowed = pool.filter((r) => {
+        const ref = (r.targetRef || "*").toUpperCase();
+        if (ref === "*" || ref === hintNorm) return true;
+        // Specialty name vs cycle id: allow when pilot says CADRAGE and target is cycle id
+        // only if projection cycle type matches — otherwise require exact/soft includes.
+        if (projection.cycle && hintNorm === projection.cycle.cycleType.toUpperCase()) {
+          return ref === projection.cycle.id.toUpperCase() || ref === "*";
+        }
+        return ref.includes(hintNorm) || hintNorm.includes(ref);
+      });
+      if (narrowed.length === 0) {
+        return {
+          attempted: false,
+          intentClarity: "AMBIGUOUS",
+          intentReason:
+            "Restriction active d'un autre cible que celle indiquée — précisez la cible exacte",
+          command: null,
+          humanDecisionCreated: false,
+          decisionId: null,
+          clarification:
+            "Restriction active d'un autre cible que celle indiquée — précisez la cible exacte",
+          source: "clarification_only",
+          operation: "LIFT_RESTRICTION",
+          clientCommandKey,
+        };
+      }
+      pool = narrowed;
+    }
+    if (pool.length === 0) {
+      return {
+        attempted: false,
+        intentClarity: "AMBIGUOUS",
+        intentReason: "Aucune restriction active correspondant à la demande",
+        command: null,
+        humanDecisionCreated: false,
+        decisionId: null,
+        clarification: "Aucune restriction active correspondant à la demande — précisez la cible",
+        source: "clarification_only",
+        operation: "LIFT_RESTRICTION",
+        clientCommandKey,
+      };
+    }
+    if (pool.length > 1) {
+      return {
+        attempted: false,
+        intentClarity: "AMBIGUOUS",
+        intentReason: "Plusieurs restrictions actives — précisez laquelle lever",
+        command: null,
+        humanDecisionCreated: false,
+        decisionId: null,
+        clarification: "Plusieurs restrictions actives — précisez laquelle lever",
+        source: "clarification_only",
+        operation: "LIFT_RESTRICTION",
+        clientCommandKey,
+      };
+    }
+    const target = pool[0];
+    const command = await executePilotageCommand(input.pilotId, input.projectId, {
+      ...base,
+      operation: "LIFT_RESTRICTION",
+      restrictionId: target.id,
+    });
+    return outcomeFromCommand(command, "LIFT_RESTRICTION", clientCommandKey);
+  }
+
   const command = await executePilotageCommand(input.pilotId, input.projectId, {
     ...base,
+    operation: qualified.operation,
     cycleType: qualified.cycleType,
     toCycleType: qualified.toCycleType,
     methodRef: qualified.methodRef,

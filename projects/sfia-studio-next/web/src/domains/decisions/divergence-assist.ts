@@ -111,6 +111,19 @@ export type AuthorityReviseCandidate = DecisionBrief & {
  * No chronological / newest-wins / truncation selection.
  * Caller must require exactly one candidate before REVISE.
  */
+/**
+ * C05 — when objectRef is weak/noisy, an explicit « je révise… » may still
+ * designate a prior RECORD via shared statement tokens (e.g. « remplace la
+ * priorité sur le suivi des décisions »). Requires ≥2 significant overlaps.
+ */
+function utteranceTouchesPriorStatement(userText: string, statement: string): boolean {
+  const hay = normalizeText(userText);
+  const tokens = significantTokens(statement).filter((t) => t.length >= 5);
+  if (tokens.length === 0) return false;
+  const hits = tokens.filter((t) => hay.includes(t));
+  return hits.length >= 2;
+}
+
 export function findAuthorityReviseCandidates(
   userText: string,
   rows: DecisionBrief[],
@@ -118,9 +131,13 @@ export function findAuthorityReviseCandidates(
   const text = userText.trim();
   if (!text) return [];
   const applicable = selectAllApplicableBriefs(rows);
+  const explicitRevise = /\bje\s+(?:révise|revise|corrige|remplace|modifie)\b/i.test(text);
   const out: AuthorityReviseCandidate[] = [];
   for (const row of applicable) {
-    if (!utteranceTouchesObject(text, row.objectRef)) continue;
+    const touchesObject = utteranceTouchesObject(text, row.objectRef);
+    const touchesStatement =
+      explicitRevise && utteranceTouchesPriorStatement(text, row.statement);
+    if (!touchesObject && !touchesStatement) continue;
     if (normalizeText(text) === normalizeText(row.statement)) continue;
     const framing = frameConfrontation(row.statement, text);
     // Compatible restatement is not a revise target.

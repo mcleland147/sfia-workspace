@@ -597,3 +597,49 @@ Append-only logical journal of Cursor product deliveries.
 | ENV-01 | DEV tests only ; RECETTE DB/runtime non mutés ; cookie host réserve |
 | Verdict candidate | `ML3 UPDATED IMMUTABLE CANDIDATE PUBLISHED — RECETTE BUILD PREPARED — READY FOR CHATGPT CRITICAL REVIEW` |
 | Note | SHA/tree/build exacts consignés dans Review Pack / manifeste local après commit (pas d'autoréférence dans ce fichier avant commit). |
+
+## delivery_id: DELIV-2026-11-06-ML3-RCT02-CORRECTIFS-LOCAL
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-06 |
+| Macro-lot | R5 / ML3 — correctifs RCT-02 C01–C08 (conversation → D5/D6) |
+| Type | INC CRITICAL |
+| Branche | `sfia/next-ml3-rct02-correctifs` |
+| Base entrée | `b9047a48` (docs RCT-02) sur candidat `ba831b25` |
+| Code | qualification naturelle OPEN/CLOSE/RECORD/REVISE/LIFT ; objectif sans « . » ; CKI silencieux ; `restrictions_actives=aucune` explicite |
+| Tests | unit RCT-02 + suites unit existantes ; PG `ml3-pilotage.pg` |
+| Product version | `NO RELEASE` / package `0.0.0-dev` |
+| ENV-01 | DEV isolé uniquement — RECETTE runtime non muté |
+| Push projet / PR / merge / deploy RECETTE | **NON** (hors mandat) |
+| Verdict candidat | `READY FOR MORRIS REVIEW — LOCAL CORRECTIVE DELIVERY` (sous réserve handoff L3) |
+
+## delivery_id: DELIV-2026-11-06-ML3-RCT02-CR-REWORK-LOCAL
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-06 |
+| Macro-lot | R5 / ML3 — Critical Review RCT-02 reprise C01/C05/C06 |
+| Type | INC CRITICAL REWORK |
+| Branche | `sfia/next-ml3-rct02-correctifs` |
+| Handoff rejeté | `0a057278` (NOT ACCEPTED — REWORK REQUIRED) |
+| Correctifs | C05 extractReviseStatement (T05 exact sans `:`) ; C06 négations + targetRef ; C01 framing non-performatif ; C04 split Nora ; overlap revise cible |
+| Preuves | unit `ml3-rct02-intent` ; PG `RCT-02 Critical Review conversational chain` (6) ; suite PG `ml3-pilotage` 41/41 |
+| Product version | `NO RELEASE` / package `0.0.0-dev` |
+| ENV-01 | DEV isolé — RECETTE runtime non muté |
+| Push projet / PR / merge / deploy RECETTE | **NON** |
+| Verdict candidat | `READY FOR CHATGPT RE-REVIEW` (si preuves vertes + handoff L3) |
+
+## delivery_id: DELIV-2026-11-06-ML3-RCT02-CR2-FALSE-GO-LOCAL
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-06 |
+| Macro-lot | R5 / ML3 — Critical Re-Review faux GO C06/C08 + gates unifiés |
+| Type | INC CRITICAL REWORK |
+| Branche | `sfia/next-ml3-rct02-correctifs` |
+| Handoff rejeté | `4b168905` (NOT ACCEPTED — REWORK REQUIRED) |
+| Correctifs | `isSpecimenOrHistoricalFraming` + `refusesOrWithholdsAct` sur OPEN/CLOSE/LIFT/RECORD/REVISE ; LIFT affirmative stricte |
+| Preuves | unit 47 ; PG CR 9/9 ; PG `ml3-pilotage` 44/44 ; lint/tsc/build PASS |
+| Push projet / PR / merge / deploy RECETTE | **NON** |
+| Verdict candidat | `READY FOR CHATGPT RE-REVIEW` |

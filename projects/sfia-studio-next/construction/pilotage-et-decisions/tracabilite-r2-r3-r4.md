@@ -283,3 +283,22 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
 | CR-01 | unit fenêtre 12 vs `findAuthorityReviseCandidates` ; PG 15+ doubles GitHub ; PG unique ; PG isolation | unicité D6 hors borne cognitive | — |
 | CR-02 | unit `shouldClearThreadPending` / `mayStartNewThreadAct` ; PG concurrence même clé ; e2e ACK perdu+reload | pending préservé ; pas de double effet | cookie DEV/RECETTE réserve existante |
 | R-UX-01 | garde exclusive pending (unit + e2e distinct act blocked) | **NON CONFORME** — CARRIED RESERVE Morris pour entrée RECETTE conditionnelle | sortie : cognition indépendante sans perdre tentative/clé |
+
+### RCT-02 C01–C08 — correctifs conversationnels (2026-11-06, local)
+
+| ID | Cause confirmée | Correction | Preuve | Limite |
+| --- | --- | --- | --- | --- |
+| C01 | `OPEN_CYCLE` ancré `^` ; citations/specimen ouverts | performatif mid-message + `isNonPerformativeOpenFraming` | unit C01 ± ; PG citation zéro cycle ; PG T01 OPEN | LIVE recette ciblée ultérieure |
+| C02 | résidu `.` après type | `sanitizeCycleObjective` | unit C02 ; PG objectif non « . » | — |
+| C03 | CKI présenté comme SOURCE à citer | guidance silencieuse + consignes adapter | code + unit non-régression | LIVE cognition NOT RE-PROVEN ici |
+| C04 | capture RECORD jusqu'à fin ; `\b` après `Nora,` | `extractDecisionCore` + split Nora corrigé | unit C04 ; PG T04→T05 statement propre | décisions historiques RECETTE non réécrites |
+| C05 | REVISE sans `:` → énoncé « . » | `extractReviseStatement` + overlap énoncé pour cible | unit T05 exact ; PG prior `REVISED` / new `APPLICABLE` | — |
+| C06 | négation → LIFT ; cible contradictoire | `isNegatedOrNonPerformativeLift` + `restrictionTargetRefHint` | unit négations ; PG ± LIFT | — |
+| C07 | `restrictions_actives` omis si vide | toujours émettre y compris `aucune` | code `nora-context` | LIVE Nora confirmation après deploy |
+| C08 | `CLOSE_CYCLE` ancré `^` | « je décide de clôturer … cycle TYPE » | unit C08 | — |
+
+| C06+ | refus / non-autorisation de levée | `refusesOrWithholdsAct('lift')` + affirmative stricte | unit + PG journal/revision/restriction inchangés | — |
+| C08+ | specimen / historique de clôture | `isNonPerformativeCloseFraming` | unit + PG cycle ACTIVE inchangé ; CLOSE positif T13 | — |
+| cross | specimen RECORD / OPEN historique / refus REVISE | gates partagés | PG journal + cycle inchangés | NLP universel NOT CLAIMED |
+
+Statut : **IMPLEMENTED — LOCAL CORRECTIVE (Critical Re-Review faux GO)** sur `sfia/next-ml3-rct02-correctifs` — **NOT PUSHED** — **NOT RECETTE** — **NOT MERGED** — **NOT ADOPTED**.
