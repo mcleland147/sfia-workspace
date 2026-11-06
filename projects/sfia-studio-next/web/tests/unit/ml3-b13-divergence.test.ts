@@ -1,12 +1,18 @@
 import { describe, expect, it, afterEach } from "vitest";
 import {
   buildLevelAClarification,
+  findAuthorityReviseCandidates,
   findMessageDecisionConfrontations,
   findPotentialDivergences,
   qualifyCommandOutcome,
   selectApplicableBriefs,
+  selectAllApplicableBriefs,
 } from "@/domains/decisions/divergence-assist";
 import { generateNoraReply } from "@/domains/conversation/nora-adapter";
+import {
+  mayStartNewThreadAct,
+  shouldClearThreadPending,
+} from "@/domains/pilotage/thread-recovery";
 
 const prior = {
   id: "dec_gh",
@@ -206,5 +212,136 @@ describe("B13 C02 qualifyCommandOutcome", () => {
     const q = qualifyCommandOutcome({ status: "UNKNOWN" });
     expect(q.kind).toBe("unknown");
     expect(q.testId).toBe("outcome-unknown");
+  });
+});
+
+describe("CR-01 authority revise candidates vs cognitive window", () => {
+  function brief(
+    id: string,
+    objectRef: string,
+    statement: string,
+    scope = "PROJECT",
+  ) {
+    return {
+      id,
+      kind: "RECORD_DECISION",
+      objectRef,
+      scope,
+      statement,
+      state: "APPLICABLE",
+      sourceKind: "EXPLICIT_INTERACTION",
+    };
+  }
+
+  it("cognitive window of 12 hides an older GitHub while authority sees both", () => {
+    const rows = [
+      brief("gh-old", "github", "GitHub est obligatoire pour ce projet."),
+      ...Array.from({ length: 13 }, (_, i) =>
+        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
+      ),
+      brief("gh-new", "github", "GitHub reste requis pour les déploiements."),
+    ];
+    expect(rows).toHaveLength(15);
+    const cognitive = selectApplicableBriefs(rows);
+    expect(cognitive).toHaveLength(12);
+    expect(cognitive.filter((r) => r.objectRef === "github").map((r) => r.id)).toEqual(["gh-new"]);
+    expect(selectAllApplicableBriefs(rows)).toHaveLength(15);
+
+    const utterance = "Finalement, GitHub devient facultatif.";
+    // Cognitive confrontation path would only see gh-new → false uniqueness.
+    const cognitiveSignals = findMessageDecisionConfrontations(utterance, rows).filter(
+      (s) => s.framing === "POSSIBLE_CHANGE",
+    );
+    expect(cognitiveSignals.map((s) => s.decisionId)).toEqual(["gh-new"]);
+
+    const authority = findAuthorityReviseCandidates(utterance, rows);
+    expect(authority.map((c) => c.id).sort()).toEqual(["gh-new", "gh-old"]);
+  });
+
+  it("single relevant applicable remains a unique authority candidate", () => {
+    const rows = [
+      brief("gh-only", "github", "GitHub est obligatoire pour ce projet."),
+      ...Array.from({ length: 14 }, (_, i) =>
+        brief(`fill-${i}`, `filler-${i}`, `Décision filler ${i} obligatoire.`),
+      ),
+    ];
+    const authority = findAuthorityReviseCandidates(
+      "Finalement, GitHub devient facultatif.",
+      rows,
+    );
+    expect(authority).toHaveLength(1);
+    expect(authority[0]?.id).toBe("gh-only");
+  });
+
+  it("same theme with distinct scopes stay separate candidates", () => {
+    const rows = [
+      brief("gh-proj", "github", "GitHub est obligatoire pour tout le projet.", "PROJECT"),
+      brief("gh-cycle", "github", "GitHub est obligatoire seulement pour ce cycle.", "CYCLE"),
+    ];
+    const authority = findAuthorityReviseCandidates(
+      "Finalement, GitHub devient facultatif.",
+      rows,
+    );
+    expect(authority).toHaveLength(2);
+    expect(new Set(authority.map((c) => c.scope))).toEqual(new Set(["PROJECT", "CYCLE"]));
+  });
+
+  it("REVOKED / REVISED are not authority candidates", () => {
+    const rows = [
+      { ...brief("gh-rev", "github", "GitHub est obligatoire."), state: "REVOKED" },
+      { ...brief("gh-revised", "github", "GitHub est requis."), state: "REVISED" },
+    ];
+    expect(findAuthorityReviseCandidates("Finalement, GitHub devient facultatif.", rows)).toEqual(
+      [],
+    );
+  });
+});
+
+describe("CR-02 thread pending lifecycle", () => {
+  it("does not clear pending when Nora COMPLETE but métier UNKNOWN", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "COMPLETE",
+        effectAttempted: true,
+        effectStatus: "UNKNOWN",
+      }),
+    ).toBe(false);
+  });
+
+  it("clears pending when métier is terminal APPLIED", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "UNKNOWN",
+        effectAttempted: true,
+        effectStatus: "APPLIED",
+      }),
+    ).toBe(true);
+  });
+
+  it("clears pending when no business attempt and Nora COMPLETE", () => {
+    expect(
+      shouldClearThreadPending({
+        noraStatus: "COMPLETE",
+        effectAttempted: false,
+        effectStatus: null,
+      }),
+    ).toBe(true);
+  });
+
+  it("exclusive guard blocks a distinct new act over unresolved pending", () => {
+    const pending = {
+      content: "Ouvre le cycle cadrage.",
+      clientTurnKey: "turn-1",
+      clientCommandKey: "conv-auth:turn-1",
+    };
+    expect(mayStartNewThreadAct({ unresolved: pending, nextContent: pending.content }).ok).toBe(
+      true,
+    );
+    const blocked = mayStartNewThreadAct({
+      unresolved: pending,
+      nextContent: "Je décide que GitHub est obligatoire.",
+    });
+    expect(blocked.ok).toBe(false);
+    if (!blocked.ok) expect(blocked.pending.clientTurnKey).toBe("turn-1");
   });
 });

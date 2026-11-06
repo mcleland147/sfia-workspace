@@ -98,6 +98,49 @@ describe("ml3 CKI resolution and intent", () => {
     expect(qualifyPilotageIntent("ouvre le cycle cadrage et le cycle sécurité").clarity).toBe("AMBIGUOUS");
   });
 
+  it("F01/F02: qualifies documentary RECORD/REVISE and rejects soft preferences", () => {
+    expect(
+      qualifyPilotageIntent(
+        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
+      ),
+    ).toMatchObject({
+      clarity: "CLEAR",
+      operation: "RECORD_DECISION",
+      objectRef: expect.stringMatching(/github|connexion/i),
+    });
+    expect(qualifyPilotageIntent("Finalement, GitHub devient facultatif.")).toMatchObject({
+      clarity: "CLEAR",
+      operation: "REVISE_DECISION",
+    });
+    expect(qualifyPilotageIntent("OK").clarity).toBe("AMBIGUOUS");
+    expect(
+      qualifyPilotageIntent("Ce serait intéressant de commencer.").clarity,
+    ).toBe("NONE");
+    expect(
+      qualifyPilotageIntent("Je décide que GitHub est obligatoire ?").clarity,
+    ).toBe("AMBIGUOUS");
+  });
+
+  it("C01: exploratory Finalement / questions never CLEAR REVISE", () => {
+    expect(
+      qualifyPilotageIntent("Finalement, je pense que GitHub pourrait être facultatif.").clarity,
+    ).toBe("AMBIGUOUS");
+    expect(
+      qualifyPilotageIntent("Finalement, et si GitHub devenait facultatif ?").clarity,
+    ).toBe("AMBIGUOUS");
+    expect(qualifyPilotageIntent("Je réfléchis à rendre GitHub facultatif.").clarity).toBe(
+      "NONE",
+    );
+    expect(qualifyPilotageIntent("Nora propose de rendre GitHub facultatif.").clarity).toBe(
+      "NONE",
+    );
+    expect(
+      qualifyPilotageIntent(
+        "Je révise la décision GitHub : la connexion est facultative.",
+      ),
+    ).toMatchObject({ clarity: "CLEAR", operation: "REVISE_DECISION" });
+  });
+
   it("pins RESOLVED only when the file digest matches the approved manifest", () => {
     const manifest = loadCkiManifest();
     expect(manifest?.version).toBe("0.2.0");

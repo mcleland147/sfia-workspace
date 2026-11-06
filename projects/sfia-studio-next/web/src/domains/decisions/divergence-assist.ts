@@ -90,6 +90,46 @@ export function selectApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
     .slice(-MAX_APPLICABLE_FOR_CONTEXT);
 }
 
+/**
+ * CR-01 — all APPLICABLE briefs for D6 authority resolution.
+ * Never apply the Nora cognitive window (MAX_APPLICABLE_FOR_CONTEXT).
+ * Bounded context ≠ uniqueness of an opposable target.
+ */
+export function selectAllApplicableBriefs(rows: DecisionBrief[]): DecisionBrief[] {
+  return rows.filter(
+    (r) => r.state === "APPLICABLE" && (r.objectRef ?? "").trim().length > 0,
+  );
+}
+
+export type AuthorityReviseCandidate = DecisionBrief & {
+  framing: LevelASignal["framing"];
+};
+
+/**
+ * CR-01 — D6 revise-target candidates across the full applicable set.
+ * Level A framing filters relevance only — never authorizes mutation.
+ * No chronological / newest-wins / truncation selection.
+ * Caller must require exactly one candidate before REVISE.
+ */
+export function findAuthorityReviseCandidates(
+  userText: string,
+  rows: DecisionBrief[],
+): AuthorityReviseCandidate[] {
+  const text = userText.trim();
+  if (!text) return [];
+  const applicable = selectAllApplicableBriefs(rows);
+  const out: AuthorityReviseCandidate[] = [];
+  for (const row of applicable) {
+    if (!utteranceTouchesObject(text, row.objectRef)) continue;
+    if (normalizeText(text) === normalizeText(row.statement)) continue;
+    const framing = frameConfrontation(row.statement, text);
+    // Compatible restatement is not a revise target.
+    if (framing === "COMPATIBLE_RESTATEMENT") continue;
+    out.push({ ...row, framing });
+  }
+  return out;
+}
+
 function normalizeText(text: string): string {
   // Normalize typographic apostrophes so « n’est » and « n'est » share one path.
   return text

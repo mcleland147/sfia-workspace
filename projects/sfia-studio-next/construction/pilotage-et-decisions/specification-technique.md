@@ -229,7 +229,7 @@ Les quatre points ont une **solution technique explicitée et réfutable** ; ils
 
 **R3 lot B :** état sans cycle #22 ; qualification proposée #23 ; cycle actif #24 ; méthode absente #28 ; méthode proposée #29 ; décision applicable #31 ; suspension #33/#34 ; CKI indisponible #39 ; Journal–Décisions #40 ; GO ambigu #41 ; vrai partiel #42 ; contradiction #43 ; transition combinée #47 ; mise à jour CKI candidate #48 ; ouverture en attente #52 ; clôture en attente #53 ; UNKNOWN #54 ; reprise #55 ; rejeu #56 ; guidance #58 ; relations #59 ; nouvelle méthode #60. Frames identifiées dans l'audit R3 Git, **Figma native et browser ML3 NON OBSERVÉS**. La maquette #42 doit être conditionnelle à un effet séparé réel et ne constitue pas un état de succès partiel dans notre transition interne atomique.
 
-**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. Le code ML2 `web/src/domains/conversation/nora-adapter.ts` ne charge pas D5/CKI aujourd'hui ; `service.ts` retourne `humanDecisionCreated:false`. Il faut intégrer D5/D6 **sans** déduire un GO d'une réponse de modèle ni modifier l'autorité de D3.
+**D3 — construction du contexte :** session/projet D1/D2 → état D5 (cycle/méthode/CKI référencé) et décisions/restrictions D6 → D4 (faits, documents, acquis) → résolution effective de la guidance CKI → composition de contexte Nora avec nature/provenance et limites → réponse explicable. **F01/F02 (2026-11-06, local worktree) :** après `reserveTurnCommand` (message USER `COMPLETE`), `applyConversationalAuthority` appelle `executePilotageCommand` / `runBusinessCommand` sous `sourceKind=USER_MESSAGE` **avant** l'appel fournisseur Nora ; `humanDecisionCreated` et `pilotageEffect` sont factuels (jamais forcés à `false`). Aucune autorité depuis la sortie Nora ni D4.
 
 **Observabilité :** relier operationId, commandId, projet/acteur de manière minimisée, source humaine, décision D6, effet D5, version état et résolution CKI. Les logs ne constituent jamais le registre métier ni une preuve de livraison D8. Corrélation connue vs inconnue explicite. Aucun secret, texte de décision sensible ou chaîne de pensée dans les métriques publiques.
 
@@ -357,3 +357,50 @@ Contrat B13 v0.1 inchangé (VALIDATED IN CONTENT BY MORRIS). Pas de nouvelle pol
 | **R3** | Isolation discriminante : décision B (`github-connexion` + marqueur unique) **persistée et APPLICABLE avant** `postUserMessageAndNora` sur A. Contexte B contient le marqueur ; contexte/réponse A ne le contiennent pas. USER text pertinent pour le même objectRef. Journal B inchangé ; replay idempotent. |
 
 **Limites documentées :** famille de négations FR bornée (pas un NLP universel) ; Niveau B libre-texte NOT PROVEN ; Nora LIVE / Figma NOT EXECUTED / NOT VERIFIED.
+
+### F01/F02 — conversation → autorité D5/D6 (2026-11-06, local, **pas de commit projet**)
+
+Candidat distant de référence inchangé : `8bf8b5ce`. Intégration locale sur worktree DEV.
+
+| Élément | As-built |
+| --- | --- |
+| **Séquencement** | `reserveTurnCommand` (USER durable COMPLETE) → ownership check → `applyConversationalAuthority` (TX métier courte) → `buildNoraPilotageContext` → `generateNoraReply` → `commitTurnTerminal`. Jamais de TX PG longue pendant Nora. |
+| **F01 GO** | Intention CLEAR (`ouvre le cycle…`, etc.) → `executePilotageCommand` avec `sourceRef=userMessageId`, `clientCommandKey=conv-auth:{clientTurnKey}`, `actInstanceId=userMessageId`. Ambigu (« OK ») / soft / source assistant → aucun effet. |
+| **F02 RECORD** | `Je décide que…` / `Décision :…` → `RECORD_DECISION` documentaire avec `objectRef` dérivé. Questions / préférences exploratoires → clarification, pas de commande. |
+| **F02 REVISE** | `Finalement…` + confrontation Niveau A `POSSIBLE_CHANGE` sur **une** cible `RECORD_DECISION` APPLICABLE → `REVISE_DECISION`. Fondations D5 → clarification (opération typée). Multi-cibles → clarification. Journal UX : geste `Réviser` (EXPLICIT_INTERACTION) en complément. |
+| **API vérité** | `pilotageEffect.{attempted,intentClarity,status,reasonCode,decisionId,clarification,source}` ; `humanDecisionCreated` seulement si décision id confirmée APPLIED/ALREADY_APPLIED. Replay conserve le payload. |
+| **Idempotence** | Tour D3 (`clientTurnKey`) et commande métier (`conv-auth:…`) corrélés sans second moteur. UNKNOWN métier → réconciliation existante avant rejeu. |
+| **Couverture** | IMPLEMENTED local + BEHAVIOR PROVEN (unit intent, PG F01/F02, Playwright fil) ; ADOPTED / RECETTE / LIVE / STABLE = NOT CLAIMED. |
+| **Limites** | Qualificateur FR borné (pas NLP universel) ; pas de migration 008 ; pas de publication projet sans GO distinct. |
+
+### C01/C02/C03 — autorité / reprise / continuité (2026-11-06, local, **pas de commit projet**)
+
+Correctif après Critical Review F01/F02 NOT ACCEPTED. Candidat distant `8bf8b5ce` inchangé.
+
+| Correctif | As-built |
+| --- | --- |
+| **C01** | `isExploratoryActLanguage` ; « Finalement… » avec hedges (`je pense`, `pourrait`, `et si`, Nora) → AMBIGUOUS, aucune mutation. Assertive « Finalement, X devient Y » + cible unique RECORD → REVISE possible. « Je révise la décision… » performatif explicite. Level A ≠ autorité. |
+| **C02** | Effet D5/D6 avant Nora ; `markTurnUnknown(..., resultJson)` conserve `pilotageEffect` ; `reconstituteConversationalAuthority` via `conv-auth:{clientTurnKey}` / `USER_MESSAGE` sourceRef ; replay UNKNOWN reconstitue depuis `business_commands`. Clé client stable (ref + sessionStorage pending, pas de secret). Tour Nora et commande métier restent distincts. |
+| **C03** | Fil : résumé durable décisions + bouton réconciliation pending après reload. Journal : 8 plus récentes par défaut + expand historique complet (pas `slice(0,8)` des plus anciennes). |
+| **Preuves** | unit C01 ; PG C01/C02 fault/C03>8 ; Playwright F01/F02/C03. LIVE/RECETTE/STABLE NOT CLAIMED. |
+
+### CR-01 / CR-02 — consolidation Critical Review (2026-11-06, local, **pas de commit projet**)
+
+| Élément | As-built |
+|---|---|
+| **CR-01** | `findAuthorityReviseCandidates` / `selectAllApplicableBriefs` scannent **toutes** les APPLICABLE du projet (pas `MAX_APPLICABLE_FOR_CONTEXT=12`). La fenêtre cognitive reste pour Nora uniquement. 0 candidat → clarification ; 1 → REVISE documentaire si acte clair ; plusieurs → clarification (portées distinctes signalées). Pas de newest-wins / truncation. Level A framing filtre la pertinence, n'autorise jamais. |
+| **CR-02** | `shouldClearThreadPending` : Nora COMPLETE **ne** clôt **pas** un effet métier UNKNOWN. Garde exclusive `mayStartNewThreadAct` : une saisie distincte n'écrase pas un pending non résolu. 404 by-key → reprise **même** `clientTurnKey`, pas de nouvelle clé. sessionStorage = aide locale, vérité = `business_commands`. |
+| **Preuves** | unit CR-01 fenêtre 12 vs autorité ; unit pending lifecycle ; PG 15+ doubles GitHub (aucune REVISE) ; PG unique REVISE ; PG isolation interprojets ; PG concurrence même clé ; Playwright ACK perdu → reload → reconcile sans double OPEN. LIVE/RECETTE/STABLE NOT CLAIMED. |
+
+### R-UX-01 — continuité cognitive pendant tentative métier non résolue
+
+| Champ | Qualification |
+|---|---|
+| **ID** | R-UX-01 |
+| **Statut** | **NON CONFORME** — KNOWN FUNCTIONAL GAP |
+| **Arbitrage Morris** | CARRIED RESERVE — ACCEPTÉE CONDITIONNELLEMENT POUR PRÉPARATION / ENTRÉE RECETTE (2026-11-06). **Pas** ACCEPTED FUNCTIONALLY. |
+| **Comportement** | `mayStartNewThreadAct` refuse un nouvel acte distinct tant qu'un pending fil n'est pas résolu/réconcilié. |
+| **Impact** | Un travail conversationnel indépendant peut être temporairement bloqué pendant une tentative métier indéterminée. |
+| **Non-impact démontré** | Ne provoque pas d'effet D5/D6 injustifié, de double effet, de perte de clé, ni de fuite interprojets (garde exclusive + même clé). |
+| **Condition de sortie** | Permettre la poursuite cognitive indépendante des effets indéterminés sans perdre tentative, clé ni réconciliation. |
+| **Autres réserves** | Cookie DEV/RECETTE (ENV-01) ; libre-texte matériel Niveau B NOT PROVEN ; Nora LIVE NOT EXECUTED ; Figma pixel NOT VERIFIED. |

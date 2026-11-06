@@ -528,5 +528,72 @@ Append-only logical journal of Cursor product deliveries.
 | Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
 | Lane | DEV proofs only ; RECETTE/STABLE not mutated ; LIVE Nora NOT EXECUTED |
 | Scope | Allowlist §6 only (docs + CKI manifest + web D5/D6/API/UX/tests) ; SVG / `.tmp-sfia-review` excluded |
-| Status | IMMUTABLE PROJECT CANDIDATE — SHA filled at commit/push |
+| Status | IMMUTABLE PROJECT CANDIDATE — SHA `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` |
 | Verdict candidate | `ML3 IMMUTABLE PROJECT CANDIDATE PUBLISHED — READY FOR CHATGPT GLOBAL CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CONVERSATION-AUTHORITY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 « Piloter et décider » — F01/F02 consolidation fonctionnelle |
+| Type | INC corrective (conversation → D5/D6) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local worktree — no project commit/push**) |
+| Candidate ref | `8bf8b5ce18f5d01da41a52b641f67baf4e8d0ef4` (unchanged remote) |
+| Base | `origin/main@7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
+| Schema | unchanged `007` (no migration 008) |
+| F01 | Fil Nora → `applyConversationalAuthority` → `executePilotageCommand` (USER_MESSAGE) |
+| F02 | RECORD/REVISE documentaires depuis fil + geste Journal ; fondations D5 restent typées |
+| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+| Lane | DEV only ; RECETTE/LIVE Nora/STABLE NOT AUTHORIZED |
+| Status | LOCAL CORRECTIVE — handoff L3 only |
+| Verdict candidate | `ML3 F01/F02 CONVERSATION-AUTHORITY INTEGRATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-C01-C02-C03-AUTHORITY-RECOVERY
+
+| Field | Value |
+| --- | --- |
+| Date | 2026-11-06 (Europe/Paris) |
+| Macro-lot | R5 / ML3 — F01/F02 C01/C02/C03 after Critical Review NOT ACCEPTED |
+| Type | INC corrective continuation (same ML3) |
+| Branch | `sfia/next-pilotage-decisions-delivery` (**local — no project commit/push**) |
+| Prior handoff | `sfia/review-handoff@c2bec44b` blob `bbf43260` |
+| Candidate ref | `8bf8b5ce` unchanged |
+| Schema | unchanged `007` |
+| C01 | Exploratory language ≠ REVISE ; Level A non-authorizing |
+| C02 | Durable reconstitution via business_commands + stable client turn key |
+| C03 | Thread continuity after reload ; Journal >8 expandable |
+| Product version | `NO RELEASE` |
+| Lane | DEV only |
+| Verdict candidate | `ML3 F01/F02 AUTHORITY AND RECOVERY CORRECTIONS COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-F01-F02-CR01-CR02-CONSOLIDATION
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-06 |
+| Macro-lot | R5 / ML3 — F01/F02 CR-01/CR-02 after Critical Review PARTIALLY ACCEPTED |
+| Type | INC CRITICAL |
+| CR-01 | D6 revise uniqueness over full APPLICABLE set (not Nora window of 12) |
+| CR-02 | Pending exclusive guard ; Nora COMPLETE ≠ métier UNKNOWN clear ; ACK-lost browser proof |
+| Git projet | HEAD `8bf8b5ce` inchangé — **aucun** commit/push projet |
+| ENV-01 | DEV only (`127.0.0.1:5433/sfia_next_dev`) |
+| Versioning | NO RELEASE / STABLE NOT AVAILABLE |
+| Verdict candidate | `ML3 F01/F02 AUTHORITY TARGET AND RECOVERY CONSOLIDATION COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` |
+
+## delivery_id: DELIV-2026-11-06-ML3-CANDIDATE-PUBLICATION-RECETTE-BUILD-PREP
+
+| Champ | Valeur |
+|---|---|
+| Date UTC | 2026-11-06 |
+| Macro-lot | R5 / ML3 — publication candidat corrigé + préparation build RECETTE |
+| Type | RUN CRITICAL |
+| Branche | `sfia/next-pilotage-decisions-delivery` |
+| Base précédente | `8bf8b5ce` |
+| R-UX-01 | NON CONFORME — CARRIED RESERVE Morris (entrée RECETTE conditionnelle) ; pas ACCEPTED FUNCTIONALLY |
+| Publication | commit + push FF autorisés ; PR/merge/STABLE/deploy RECETTE **non** autorisés |
+| Build | worktree propre au SHA publié → artefact préparé, **BUILD_PREPARED_NOT_DEPLOYED** |
+| Versioning | NO RELEASE ; package `0.0.0-dev` technique ; product_version NOT AVAILABLE |
+| ENV-01 | DEV tests only ; RECETTE DB/runtime non mutés ; cookie host réserve |
+| Verdict candidate | `ML3 UPDATED IMMUTABLE CANDIDATE PUBLISHED — RECETTE BUILD PREPARED — READY FOR CHATGPT CRITICAL REVIEW` |
+| Note | SHA/tree/build exacts consignés dans Review Pack / manifeste local après commit (pas d'autoréférence dans ce fichier avant commit). |

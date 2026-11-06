@@ -340,6 +340,14 @@ function fromClearIntent(
 ): ClassifyResult {
   const cycleType =
     qualified.cycleType ?? (body.cycleType && isCycleType(body.cycleType) ? body.cycleType : null);
+  if (qualified.operation === "REVISE_DECISION" && !(body.decisionId ?? qualified.decisionId)) {
+    return {
+      ok: false,
+      reasonCode: "AMBIGUOUS",
+      reason: "Révision sans cible D6 déterminée",
+      sourceActionKey: "REJECT|AMBIGUOUS|revise-target",
+    };
+  }
   const command: ClassifiedCommand = {
     operation: qualified.operation,
     sourceKind,
@@ -352,14 +360,16 @@ function fromClearIntent(
     trajectoryRevisionId: body.trajectoryRevisionId ?? null,
     methodRef: (qualified.methodRef ?? body.methodRef ?? "").trim(),
     methodVersion: (qualified.methodVersion || body.methodVersion || "").trim(),
-    decisionId: body.decisionId ?? null,
+    decisionId: body.decisionId ?? qualified.decisionId ?? null,
     restrictionId: body.restrictionId ?? null,
     targetKind: body.targetKind ?? "",
     targetRef: (body.targetRef ?? "*").trim() || "*",
-    statement: (body.statement ?? qualified.objective ?? "").trim().slice(0, 500),
+    statement: (body.statement ?? qualified.statement ?? qualified.objective ?? "")
+      .trim()
+      .slice(0, 500),
     balanceNote: (body.balanceNote ?? "").trim(),
     actInstanceId: (body.actInstanceId ?? "").trim(),
-    objectRef: (body.objectRef ?? "").trim(),
+    objectRef: (body.objectRef ?? qualified.objectRef ?? "").trim(),
     sourceActionKey: "",
   };
   if (

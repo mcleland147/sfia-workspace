@@ -41,6 +41,8 @@ export type ReplayedTurn = {
   generationId: string | null;
   userMessageId: string | null;
   assistantMessageId: string | null;
+  /** Stable turn key — enables C02 reconstitution of conv-auth:{key}. */
+  clientTurnKey?: string | null;
   reconciled?: boolean;
 };
 
@@ -111,6 +113,8 @@ export async function assertTurnFenceInTx(
 
 /** Test hooks — must stay no-op in production paths. */
 export const turnRaceHooks: {
+  /** C02 — after D5/D6 authority, before Nora provider (fault injection). */
+  afterAuthorityBeforeNora?: () => Promise<void>;
   afterGenerateBeforeEffects?: () => Promise<void>;
   beforeD4Effect?: () => Promise<void>;
   beforeTerminalCommit?: () => Promise<void>;
@@ -423,6 +427,7 @@ export async function reserveTurnCommand(args: {
             generationId,
             userMessageId: existing.userMessageId,
             assistantMessageId: assistantId,
+            clientTurnKey: existing.clientTurnKey,
             reconciled: true,
           };
         }
@@ -441,6 +446,7 @@ export async function reserveTurnCommand(args: {
         generationId: existing.generationId,
         userMessageId: existing.userMessageId,
         assistantMessageId: existing.assistantMessageId,
+        clientTurnKey: existing.clientTurnKey,
       };
     }
 
@@ -731,12 +737,14 @@ export async function markTurnUnknown(
   commandId: string,
   errorCategory: string,
   ownerToken?: string,
+  resultJson?: string,
 ) {
   await completeTurnCommand({
     commandId,
     status: "UNKNOWN",
     errorCategory,
     ownerToken,
+    resultJson,
   });
 }
 

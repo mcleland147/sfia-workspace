@@ -51,7 +51,14 @@ export async function POST(req: Request, ctx: { params: Promise<{ preparationId:
       },
     );
     const messages = await listMessages(session.pilotId, preparationId);
-    return NextResponse.json({ ...result, messages, humanDecisionCreated: false, requestId });
+    // Pass through factual flags from the turn — never force humanDecisionCreated=false.
+    return NextResponse.json({
+      ...result,
+      messages,
+      humanDecisionCreated: Boolean(result.humanDecisionCreated),
+      pilotageEffect: result.pilotageEffect ?? null,
+      requestId,
+    });
   } catch (e) {
     const mapped = studioErrorResponse(e);
     emitObs({

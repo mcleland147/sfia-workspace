@@ -1040,7 +1040,8 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       expect(journalBBefore.some((d) => d.statement.includes(foreignMarker))).toBe(true);
       expect(journalBBefore.some((d) => d.id === recordedB.decisionId)).toBe(true);
 
-      const userText = "Finalement, GitHub devient facultatif.";
+      // Soft reflection — Level A confrontation without F02 revise performative.
+      const userText = "À propos de GitHub, ce serait intéressant de le rendre facultatif.";
       // USER text is relevant to B's objectRef — without project filter B would be confrontable.
       expect(utteranceTouchesObject(userText, "github-connexion")).toBe(true);
 
@@ -1166,5 +1167,546 @@ describe("PostgreSQL ML3 pilotage and decisions", () => {
       objective: "Compatible — pas de conflit matériel",
     });
     expect(opened.status).toBe("APPLIED");
+  });
+
+  it("F01: clear GO via postUserMessageAndNora opens one ACTIVE cycle with HumanDecision", async () => {
+    const { postUserMessageAndNora, listMessages } = await import(
+      "@/domains/conversation/service"
+    );
+    const prevLane = process.env.STUDIO_LANE;
+    const prevE2e = process.env.STUDIO_E2E;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    try {
+      const { pilotId, projectId, preparationId } = await seedProject("f01-go");
+      expect((await getPilotageProjection(pilotId, projectId)).cycle).toBeNull();
+      const turnKey = `f01-go-${newId("turn")}`;
+      const result = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Ouvre le cycle cadrage.",
+        { clientTurnKey: turnKey },
+      );
+      expect(result.status).toBe("COMPLETE");
+      expect(result.pilotageEffect?.attempted).toBe(true);
+      expect(result.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(result.pilotageEffect?.operation).toBe("OPEN_CYCLE");
+      expect(result.humanDecisionCreated).toBe(true);
+      expect(result.pilotageEffect?.decisionId).toBeTruthy();
+      const view = await getPilotageProjection(pilotId, projectId);
+      expect(view.cycle?.status).toBe("ACTIVE");
+      expect(view.cycle?.cycleType).toBe("CADRAGE");
+      const journal = await listDecisionJournal(pilotId, projectId);
+      expect(journal.some((d) => d.kind === "OPEN_CYCLE" && d.state === "APPLICABLE")).toBe(true);
+      const thread = await listMessages(pilotId, preparationId);
+      expect(thread.some((m) => m.id === result.userMessageId && m.role === "user")).toBe(true);
+      expect(thread.some((m) => m.id === result.assistantMessageId)).toBe(true);
+
+      const replay = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Ouvre le cycle cadrage.",
+        { clientTurnKey: turnKey },
+      );
+      expect(replay.idempotentReplay).toBe(true);
+      expect(replay.humanDecisionCreated).toBe(true);
+      expect(
+        (await db.select().from(projectCycles).where(eq(projectCycles.projectId, projectId))).filter(
+          (c) => c.status === "ACTIVE",
+        ),
+      ).toHaveLength(1);
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+      else process.env.STUDIO_E2E = prevE2e;
+    }
+  });
+
+  it("F01: ambiguous OK and hostile assistant source create no cycle", async () => {
+    const { postUserMessageAndNora } = await import("@/domains/conversation/service");
+    const prevLane = process.env.STUDIO_LANE;
+    const prevE2e = process.env.STUDIO_E2E;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    try {
+      const seeded = await seedProject("f01-neg");
+      const ok = await postUserMessageAndNora(
+        seeded.pilotId,
+        seeded.preparationId,
+        "OK",
+        { clientTurnKey: `f01-ok-${newId("turn")}` },
+      );
+      expect(ok.pilotageEffect?.attempted).toBe(false);
+      expect(ok.humanDecisionCreated).toBe(false);
+      expect((await getPilotageProjection(seeded.pilotId, seeded.projectId)).cycle).toBeNull();
+
+      const soft = await postUserMessageAndNora(
+        seeded.pilotId,
+        seeded.preparationId,
+        "Ce serait intéressant de commencer.",
+        { clientTurnKey: `f01-soft-${newId("turn")}` },
+      );
+      expect(soft.humanDecisionCreated).toBe(false);
+      expect((await getPilotageProjection(seeded.pilotId, seeded.projectId)).cycle).toBeNull();
+
+      const assistantId = await insertUserMessage(
+        seeded.preparationId,
+        "ouvre le cycle cadrage",
+        { role: "assistant", status: "COMPLETE", ordinal: 99 },
+      );
+      const hostile = await executePilotageCommand(seeded.pilotId, seeded.projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: 0,
+        sourceKind: "USER_MESSAGE",
+        sourceRef: assistantId,
+        utterance: "ouvre le cycle cadrage",
+      });
+      expect(hostile.status).toBe("REJECTED");
+      expect(hostile.reasonCode).toBe("SOURCE");
+      expect((await getPilotageProjection(seeded.pilotId, seeded.projectId)).cycle).toBeNull();
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+      else process.env.STUDIO_E2E = prevE2e;
+    }
+  });
+
+  it("F02: RECORD then REVISE from conversation thread with durable journal", async () => {
+    const { postUserMessageAndNora } = await import("@/domains/conversation/service");
+    const prevLane = process.env.STUDIO_LANE;
+    const prevE2e = process.env.STUDIO_E2E;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    try {
+      const { pilotId, projectId, preparationId } = await seedProject("f02-rec");
+      const record = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
+        { clientTurnKey: `f02-rec-${newId("turn")}` },
+      );
+      expect(record.pilotageEffect?.attempted).toBe(true);
+      expect(record.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(record.humanDecisionCreated).toBe(true);
+      const firstId = record.pilotageEffect?.decisionId;
+      expect(firstId).toBeTruthy();
+      let journal = await listDecisionJournal(pilotId, projectId);
+      expect(journal.filter((d) => d.state === "APPLICABLE" && d.kind === "RECORD_DECISION")).toHaveLength(
+        1,
+      );
+
+      const revise = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Finalement, GitHub devient facultatif.",
+        { clientTurnKey: `f02-rev-${newId("turn")}` },
+      );
+      expect(revise.pilotageEffect?.attempted).toBe(true);
+      expect(revise.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(revise.humanDecisionCreated).toBe(true);
+      expect(revise.pilotageEffect?.decisionId).toBeTruthy();
+      expect(revise.pilotageEffect?.decisionId).not.toBe(firstId);
+      journal = await listDecisionJournal(pilotId, projectId);
+      const applicable = journal.filter((d) => d.state === "APPLICABLE" && d.kind === "RECORD_DECISION");
+      expect(applicable).toHaveLength(1);
+      expect(applicable[0]?.statement).toMatch(/facultatif/i);
+      expect(journal.some((d) => d.id === firstId && d.state === "REVISED")).toBe(true);
+
+      // Founding OPEN cannot be generically revised from conversation.
+      const opened = await openCycle(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: (await getPilotageProjection(pilotId, projectId)).revision,
+        sourceRef: newId("src"),
+        cycleType: "CADRAGE",
+        objective: "fondation",
+      });
+      expect(opened.status).toBe("APPLIED");
+      const refuse = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Finalement, le cycle cadrage devient ux.",
+        { clientTurnKey: `f02-found-${newId("turn")}` },
+      );
+      expect(refuse.humanDecisionCreated).toBe(false);
+      expect(refuse.pilotageEffect?.attempted).toBe(false);
+      expect(refuse.pilotageEffect?.clarification || refuse.pilotageEffect?.intentReason).toMatch(
+        /typée|candidates|cible|applicable/i,
+      );
+      expect((await getPilotageProjection(pilotId, projectId)).cycle?.cycleType).toBe("CADRAGE");
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+      else process.env.STUDIO_E2E = prevE2e;
+    }
+  });
+
+  it("F01: restriction blocks conversational GO without false success", async () => {
+    const { postUserMessageAndNora } = await import("@/domains/conversation/service");
+    const prevLane = process.env.STUDIO_LANE;
+    const prevE2e = process.env.STUDIO_E2E;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    try {
+      const { pilotId, projectId, preparationId } = await seedProject("f01-rest");
+      const restricted = await applyGovernanceRestriction(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: 0,
+        sourceRef: newId("src"),
+        targetKind: "CYCLE_MUTATION",
+        targetRef: "*",
+        statement: "Pas de mutation de cycle",
+      });
+      expect(restricted.status).toBe("APPLIED");
+      const go = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Ouvre le cycle cadrage.",
+        { clientTurnKey: `f01-rest-${newId("turn")}` },
+      );
+      expect(go.pilotageEffect?.attempted).toBe(true);
+      expect(go.pilotageEffect?.status).toBe("REJECTED");
+      expect(go.pilotageEffect?.reasonCode).toBe("RESTRICTION");
+      expect(go.humanDecisionCreated).toBe(false);
+      expect((await getPilotageProjection(pilotId, projectId)).cycle).toBeNull();
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+      else process.env.STUDIO_E2E = prevE2e;
+    }
+  });
+
+  it("C01: exploratory Finalement does not REVISE an applicable RECORD", async () => {
+    const { postUserMessageAndNora } = await import("@/domains/conversation/service");
+    const prevLane = process.env.STUDIO_LANE;
+    const prevE2e = process.env.STUDIO_E2E;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    try {
+      const { pilotId, projectId, preparationId } = await seedProject("c01-exp");
+      const recorded = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Je décide que la connexion GitHub est obligatoire pour ce projet.",
+        { clientTurnKey: `c01-rec-${newId("turn")}` },
+      );
+      expect(recorded.humanDecisionCreated).toBe(true);
+      const before = await listDecisionJournal(pilotId, projectId);
+      const applicableBefore = before.filter((d) => d.state === "APPLICABLE");
+      expect(applicableBefore).toHaveLength(1);
+
+      for (const text of [
+        "Finalement, je pense que GitHub pourrait être facultatif.",
+        "Finalement, et si GitHub devenait facultatif ?",
+        "Je réfléchis à rendre GitHub facultatif.",
+        "Nora propose de rendre GitHub facultatif.",
+      ]) {
+        const r = await postUserMessageAndNora(pilotId, preparationId, text, {
+          clientTurnKey: `c01-${newId("turn")}`,
+        });
+        expect(r.humanDecisionCreated).toBe(false);
+        expect(r.pilotageEffect?.attempted).toBeFalsy();
+      }
+      const after = await listDecisionJournal(pilotId, projectId);
+      expect(after.filter((d) => d.state === "APPLICABLE").map((d) => d.id)).toEqual(
+        applicableBefore.map((d) => d.id),
+      );
+      expect(after.some((d) => d.state === "REVISED")).toBe(false);
+    } finally {
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+      else process.env.STUDIO_E2E = prevE2e;
+    }
+  });
+
+  it("C02: D6 APPLIED survives Nora provider failure and reconstitutes on replay", async () => {
+    const { postUserMessageAndNora } = await import("@/domains/conversation/service");
+    const { turnRaceHooks } = await import("@/domains/conversation/turn-command");
+    const { reconstituteConversationalAuthority } = await import(
+      "@/domains/pilotage/conversation-authority"
+    );
+    const prevLane = process.env.STUDIO_LANE;
+    const prevE2e = process.env.STUDIO_E2E;
+    process.env.STUDIO_LANE = "DEV";
+    process.env.STUDIO_E2E = "1";
+    try {
+      const { pilotId, projectId, preparationId } = await seedProject("c02-fault");
+      const turnKey = `c02-fault-${newId("turn")}`;
+      turnRaceHooks.afterAuthorityBeforeNora = async () => {
+        throw new Error("INJECTED_PROVIDER_FAILURE");
+      };
+      const result = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Ouvre le cycle cadrage.",
+        { clientTurnKey: turnKey },
+      );
+      expect(result.status).toBe("UNKNOWN");
+      expect(result.pilotageEffect?.attempted).toBe(true);
+      expect(result.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(result.humanDecisionCreated).toBe(true);
+      expect((await getPilotageProjection(pilotId, projectId)).cycle?.status).toBe("ACTIVE");
+
+      delete turnRaceHooks.afterAuthorityBeforeNora;
+      const replay = await postUserMessageAndNora(
+        pilotId,
+        preparationId,
+        "Ouvre le cycle cadrage.",
+        { clientTurnKey: turnKey },
+      );
+      expect(replay.idempotentReplay).toBe(true);
+      expect(replay.status).toBe("UNKNOWN");
+      expect(replay.pilotageEffect?.attempted).toBe(true);
+      expect(replay.pilotageEffect?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(replay.humanDecisionCreated).toBe(true);
+      expect(
+        (await db.select().from(projectCycles).where(eq(projectCycles.projectId, projectId))).filter(
+          (c) => c.status === "ACTIVE",
+        ),
+      ).toHaveLength(1);
+
+      const reconstituted = await reconstituteConversationalAuthority({
+        pilotId,
+        projectId,
+        clientTurnKey: turnKey,
+        userMessageId: result.userMessageId,
+      });
+      expect(reconstituted?.attempted).toBe(true);
+      expect(reconstituted?.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+    } finally {
+      delete turnRaceHooks.afterAuthorityBeforeNora;
+      if (prevLane === undefined) delete process.env.STUDIO_LANE;
+      else process.env.STUDIO_LANE = prevLane;
+      if (prevE2e === undefined) delete process.env.STUDIO_E2E;
+      else process.env.STUDIO_E2E = prevE2e;
+    }
+  });
+
+  it("C03: journal lists >8 decisions with newest accessible and older recoverable", async () => {
+    const { pilotId, projectId } = await seedProject("c03-journal");
+    let revision = 0;
+    for (let i = 0; i < 12; i += 1) {
+      const recorded = await executePilotageCommand(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: revision,
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: newId("src"),
+        operation: "RECORD_DECISION",
+        objectRef: `obj-${i}`,
+        statement: `Décision documentaire numéro ${i} pour le journal.`,
+      });
+      expect(recorded.status).toBe("APPLIED");
+      revision = recorded.revision ?? revision + 1;
+    }
+    const journal = await listDecisionJournal(pilotId, projectId);
+    expect(journal.length).toBeGreaterThanOrEqual(12);
+    const newest = journal[journal.length - 1];
+    expect(newest?.statement).toMatch(/numéro 11/);
+    expect(journal[0]?.statement).toMatch(/numéro 0/);
+    const applicable = journal.filter((d) => d.state === "APPLICABLE");
+    expect(applicable.length).toBeGreaterThanOrEqual(12);
+    // Newest is beyond the old slice(0,8) window of oldest-first — still present.
+    expect(applicable.some((d) => d.statement.includes("numéro 11"))).toBe(true);
+    expect(applicable.some((d) => d.statement.includes("numéro 0"))).toBe(true);
+  });
+
+  it("CR-01: 15+ applicables with two GitHub beyond cognitive window → no silent REVISE", async () => {
+    const { applyConversationalAuthority } = await import(
+      "@/domains/pilotage/conversation-authority"
+    );
+    const { selectApplicableBriefs, findAuthorityReviseCandidates } = await import(
+      "@/domains/decisions/divergence-assist"
+    );
+    const { pilotId, projectId, preparationId } = await seedProject("cr01-multi");
+    let revision = 0;
+    const statements: Array<{ objectRef: string; statement: string }> = [
+      { objectRef: "github", statement: "GitHub est obligatoire pour ce projet." },
+    ];
+    for (let i = 0; i < 13; i += 1) {
+      statements.push({
+        objectRef: `filler-${i}`,
+        statement: `Décision filler ${i} est obligatoire pour ce projet.`,
+      });
+    }
+    statements.push({
+      objectRef: "github",
+      statement: "GitHub reste requis pour les déploiements.",
+    });
+    expect(statements).toHaveLength(15);
+    for (const row of statements) {
+      const recorded = await executePilotageCommand(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: revision,
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: newId("src"),
+        operation: "RECORD_DECISION",
+        objectRef: row.objectRef,
+        statement: row.statement,
+      });
+      expect(recorded.status).toBe("APPLIED");
+      revision = recorded.revision ?? revision + 1;
+    }
+    const journal = await listDecisionJournal(pilotId, projectId);
+    const applicable = journal.filter((d) => d.state === "APPLICABLE");
+    expect(applicable.length).toBeGreaterThanOrEqual(15);
+    const briefs = applicable.map((d) => ({
+      id: d.id,
+      kind: d.kind,
+      objectRef: d.objectRef ?? "",
+      scope: d.scope ?? "PROJECT",
+      statement: d.statement ?? "",
+      state: d.state,
+      sourceKind: d.sourceKind,
+    }));
+    const cognitiveGithub = selectApplicableBriefs(briefs).filter((b) => b.objectRef === "github");
+    expect(cognitiveGithub).toHaveLength(1);
+    const authority = findAuthorityReviseCandidates(
+      "Finalement, GitHub devient facultatif.",
+      briefs,
+    );
+    expect(authority.length).toBeGreaterThanOrEqual(2);
+
+    const msgId = await insertUserMessage(
+      preparationId,
+      "Finalement, GitHub devient facultatif.",
+    );
+    const outcome = await applyConversationalAuthority({
+      pilotId,
+      projectId,
+      userMessageId: msgId,
+      content: "Finalement, GitHub devient facultatif.",
+      clientTurnKey: `cr01-multi-${newId("turn")}`,
+    });
+    expect(outcome.attempted).toBe(false);
+    expect(outcome.humanDecisionCreated).toBe(false);
+    expect(outcome.clarification || outcome.intentReason).toMatch(/plusieurs|candidates/i);
+    const after = await listDecisionJournal(pilotId, projectId);
+    expect(after.filter((d) => d.state === "REVISED")).toHaveLength(0);
+    expect(after.filter((d) => d.state === "APPLICABLE" && d.objectRef === "github")).toHaveLength(2);
+  });
+
+  it("CR-01: unique GitHub applicable beyond fillers → single REVISE", async () => {
+    const { applyConversationalAuthority } = await import(
+      "@/domains/pilotage/conversation-authority"
+    );
+    const { pilotId, projectId, preparationId } = await seedProject("cr01-unique");
+    let revision = 0;
+    const first = await executePilotageCommand(pilotId, projectId, {
+      clientCommandKey: newId("idem"),
+      expectedRevision: revision,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("src"),
+      operation: "RECORD_DECISION",
+      objectRef: "github",
+      statement: "GitHub est obligatoire pour ce projet.",
+    });
+    expect(first.status).toBe("APPLIED");
+    revision = first.revision ?? 1;
+    for (let i = 0; i < 14; i += 1) {
+      const filler = await executePilotageCommand(pilotId, projectId, {
+        clientCommandKey: newId("idem"),
+        expectedRevision: revision,
+        sourceKind: "EXPLICIT_INTERACTION",
+        sourceRef: newId("src"),
+        operation: "RECORD_DECISION",
+        objectRef: `filler-${i}`,
+        statement: `Décision filler ${i} est obligatoire pour ce projet.`,
+      });
+      expect(filler.status).toBe("APPLIED");
+      revision = filler.revision ?? revision + 1;
+    }
+    const msgId = await insertUserMessage(
+      preparationId,
+      "Finalement, GitHub devient facultatif.",
+    );
+    const outcome = await applyConversationalAuthority({
+      pilotId,
+      projectId,
+      userMessageId: msgId,
+      content: "Finalement, GitHub devient facultatif.",
+      clientTurnKey: `cr01-unique-${newId("turn")}`,
+    });
+    expect(outcome.attempted).toBe(true);
+    expect(outcome.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+    expect(outcome.humanDecisionCreated).toBe(true);
+    const after = await listDecisionJournal(pilotId, projectId);
+    expect(after.some((d) => d.id === first.decisionId && d.state === "REVISED")).toBe(true);
+    expect(
+      after.filter((d) => d.state === "APPLICABLE" && d.objectRef === "github"),
+    ).toHaveLength(1);
+  });
+
+  it("CR-01: foreign project GitHub is never a revise target", async () => {
+    const { applyConversationalAuthority } = await import(
+      "@/domains/pilotage/conversation-authority"
+    );
+    const a = await seedProject("cr01-iso-a");
+    const b = await seedProject("cr01-iso-b");
+    const inB = await executePilotageCommand(b.pilotId, b.projectId, {
+      clientCommandKey: newId("idem"),
+      expectedRevision: 0,
+      sourceKind: "EXPLICIT_INTERACTION",
+      sourceRef: newId("src"),
+      operation: "RECORD_DECISION",
+      objectRef: "github",
+      statement: "GitHub est obligatoire pour ce projet.",
+    });
+    expect(inB.status).toBe("APPLIED");
+    const msgId = await insertUserMessage(a.preparationId, "Finalement, GitHub devient facultatif.");
+    const outcome = await applyConversationalAuthority({
+      pilotId: a.pilotId,
+      projectId: a.projectId,
+      userMessageId: msgId,
+      content: "Finalement, GitHub devient facultatif.",
+      clientTurnKey: `cr01-iso-${newId("turn")}`,
+    });
+    expect(outcome.humanDecisionCreated).toBe(false);
+    expect(outcome.attempted).toBe(false);
+    const journalB = await listDecisionJournal(b.pilotId, b.projectId);
+    expect(journalB.filter((d) => d.state === "APPLICABLE")).toHaveLength(1);
+    expect(journalB.some((d) => d.state === "REVISED")).toBe(false);
+  });
+
+  it("CR-02: concurrent same-act OPEN yields at most one ACTIVE cycle", async () => {
+    // Race at the D5/D6 boundary (same conv-auth key). Parallel postUserMessageAndNora
+    // is fenced by TURN_IN_PROGRESS at D3 — that is expected and not a double-effect path.
+    const { applyConversationalAuthority } = await import(
+      "@/domains/pilotage/conversation-authority"
+    );
+    const { pilotId, projectId, preparationId } = await seedProject("cr02-race");
+    const turnKey = `cr02-race-${newId("turn")}`;
+    const msgId = await insertUserMessage(preparationId, "Ouvre le cycle cadrage.");
+    const [a, b] = await Promise.all([
+      applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: msgId,
+        content: "Ouvre le cycle cadrage.",
+        clientTurnKey: turnKey,
+      }),
+      applyConversationalAuthority({
+        pilotId,
+        projectId,
+        userMessageId: msgId,
+        content: "Ouvre le cycle cadrage.",
+        clientTurnKey: turnKey,
+      }),
+    ]);
+    for (const r of [a, b]) {
+      expect(r.attempted).toBe(true);
+      expect(r.command?.status).toMatch(/APPLIED|ALREADY_APPLIED/);
+      expect(r.humanDecisionCreated).toBe(true);
+    }
+    expect(
+      (await db.select().from(projectCycles).where(eq(projectCycles.projectId, projectId))).filter(
+        (c) => c.status === "ACTIVE",
+      ),
+    ).toHaveLength(1);
+    const cmds = await reconcileCommandByClientKey(pilotId, projectId, `conv-auth:${turnKey}`);
+    expect(cmds.status).toMatch(/APPLIED|ALREADY_APPLIED/);
   });
 });

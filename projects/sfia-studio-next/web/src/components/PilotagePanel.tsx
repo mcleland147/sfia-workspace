@@ -40,7 +40,8 @@ type DecisionRow = {
   statement: string;
   state: string;
   objectRef?: string;
-  createdAt: string;
+  createdAt?: string;
+  supersedesDecisionId?: string | null;
 };
 
 type CommandResult = {
@@ -162,6 +163,10 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
   const [methodVersion, setMethodVersion] = useState("2.6");
   const [utterance, setUtterance] = useState("");
   const [restrictionTarget, setRestrictionTarget] = useState("*");
+  const [reviseTargetId, setReviseTargetId] = useState<string | null>(null);
+  const [reviseDraft, setReviseDraft] = useState("");
+  /** C03 — show 8 most recent by default; expand to full chronological history. */
+  const [journalExpanded, setJournalExpanded] = useState(false);
   const inflight = useRef(new Map<string, PendingRecord>());
 
   const load = useCallback(async () => {
@@ -759,15 +764,114 @@ export function PilotagePanel({ projectId }: { projectId: string }) {
             {decisions.length === 0 && !journalError ? (
               <p className="text-sm muted">Aucune décision D6 enregistrée.</p>
             ) : (
-              decisions.slice(0, 8).map((d) => (
-                <article key={d.id} className="text-sm panel p-2">
-                  <div className="text-xs muted" data-testid="decision-state">
-                    {d.kind} · {d.state || "état inconnu"}
-                    {d.objectRef ? ` · ${d.objectRef}` : ""}
-                  </div>
-                  <div>{d.statement}</div>
-                </article>
-              ))
+              (() => {
+                const chronological = [...decisions].sort((a, b) =>
+                  String(a.createdAt ?? "").localeCompare(String(b.createdAt ?? "")),
+                );
+                const newestFirst = [...chronological].reverse();
+                const visible = journalExpanded ? chronological : newestFirst.slice(0, 8);
+                return (
+                  <>
+                    <p className="text-xs muted" data-testid="journal-count">
+                      {decisions.length} décision(s) ·{" "}
+                      {journalExpanded
+                        ? "historique complet (ancien → récent)"
+                        : "8 plus récentes (récent → ancien)"}
+                    </p>
+                    {visible.map((d) => (
+                      <article
+                        key={d.id}
+                        className="text-sm panel p-2 space-y-2"
+                        data-testid="decision-row"
+                      >
+                        <div className="text-xs muted" data-testid="decision-state">
+                          {d.kind} · {d.state || "état inconnu"}
+                          {d.objectRef ? ` · ${d.objectRef}` : ""}
+                        </div>
+                        <div>{d.statement}</div>
+                        {d.state === "APPLICABLE" && d.kind === "RECORD_DECISION" ? (
+                          reviseTargetId === d.id ? (
+                            <div className="space-y-2">
+                              <label className="block text-xs muted" htmlFor={`revise-${d.id}`}>
+                                Nouvel énoncé (révision documentaire)
+                              </label>
+                              <textarea
+                                id={`revise-${d.id}`}
+                                className="textarea text-sm"
+                                value={reviseDraft}
+                                onChange={(e) => setReviseDraft(e.target.value)}
+                                data-testid="journal-revise-draft"
+                                rows={2}
+                              />
+                              <div className="flex flex-wrap gap-2">
+                                <button
+                                  type="button"
+                                  className="btn"
+                                  disabled={busy || !reviseDraft.trim()}
+                                  data-testid="journal-revise-submit"
+                                  onClick={() =>
+                                    void runCommand(
+                                      {
+                                        operation: "REVISE_DECISION",
+                                        decisionId: d.id,
+                                        statement: reviseDraft.trim(),
+                                        sourceKind: "EXPLICIT_INTERACTION",
+                                        utterance: reviseDraft.trim(),
+                                      },
+                                      "Révision en cours",
+                                    ).then(() => {
+                                      setReviseTargetId(null);
+                                      setReviseDraft("");
+                                    })
+                                  }
+                                >
+                                  Enregistrer la révision
+                                </button>
+                                <button
+                                  type="button"
+                                  className="btn secondary"
+                                  disabled={busy}
+                                  onClick={() => {
+                                    setReviseTargetId(null);
+                                    setReviseDraft("");
+                                  }}
+                                >
+                                  Annuler
+                                </button>
+                              </div>
+                            </div>
+                          ) : (
+                            <button
+                              type="button"
+                              className="btn secondary text-xs"
+                              disabled={busy}
+                              data-testid="journal-revise-open"
+                              onClick={() => {
+                                setReviseTargetId(d.id);
+                                setReviseDraft(d.statement);
+                              }}
+                            >
+                              Réviser
+                            </button>
+                          )
+                        ) : null}
+                      </article>
+                    ))}
+                    {decisions.length > 8 ? (
+                      <button
+                        type="button"
+                        className="btn secondary text-xs"
+                        data-testid="journal-expand"
+                        onClick={() => setJournalExpanded((v) => !v)}
+                      >
+                        {journalExpanded
+                          ? "Réduire aux 8 plus récentes"
+                          : `Afficher tout l'historique (${decisions.length})`}
+                      </button>
+                    ) : null}
+                  </>
+                );
+              })()
             )}
           </section>
         </aside>

@@ -220,8 +220,8 @@ Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2. 
 |---|---|---|
 | B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
 | B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
-| B03 | même fichier › `opens a cycle from an explicit utterance without an operation` ; e2e champ « Énoncé GO » | GO naturel EXPLICIT_INTERACTION sans `operation` |
-| B04 | même fichier › `rejects an ambiguous OK without opening a cycle` ; unit `qualifies a clear GO` | Énoncé équivoque rejeté |
+| B03 | même fichier › `opens a cycle from an explicit utterance…` ; **F01** `F01: clear GO via postUserMessageAndNora…` ; e2e fil `ML3 F01: GO naturel depuis le fil` (+ champ PilotagePanel) | GO naturel USER_MESSAGE via fil **et** EXPLICIT_INTERACTION |
+| B04 | même fichier › `rejects an ambiguous OK…` ; **F01** `F01: ambiguous OK and hostile assistant…` ; unit intent | Énoncé équivoque / source hostile rejetés |
 | B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
 | B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
 | B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
@@ -234,7 +234,7 @@ Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2. 
 | B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
 | B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
 | B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
-| B17 | e2e `decision-state` contient `APPLICABLE` ; PG `CR-02` journal `REVISED` / `APPLICABLE` | Journal affiche `state`, pas une validité séparée |
+| B17 | e2e `decision-state` + **F02** journal revise ; PG `F02: RECORD then REVISE…` + `CR-02` | Journal `APPLICABLE`/`REVISED` ; RECORD/REVISE depuis fil |
 | B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
 
 ### Ajustement autorité CR-01..CR-04 (2026-11-06)
@@ -266,3 +266,20 @@ Statut candidat : `IMPLEMENTED — CANDIDATE` (branche projet) — **NOT RECETTE
 | R1 | unit UNKNOWN≠authority ; e2e RESTRICTION→UNKNOWN→APPLIED sans motif périmé | DETERMINISTIC + BROWSER FAKE | — |
 | R2 | unit jamais/aucunement/apostrophe typo + restatements positifs | DETERMINISTIC | famille FR bornée ; ≠ oracle D6 |
 | R3 | PG isolation : décision B APPLICABLE avant gen A ; même objectRef + marqueur ; ctx B+ / ctx A− | PG INTEGRATION (FAKE Nora) | LIVE NOT EXECUTED ; libre-texte matériel NOT PROVEN |
+
+### F01/F02 — conversation-authority (2026-11-06, local worktree)
+
+| ID | testCaseRef | Preuve | Limite |
+| --- | --- | --- | --- |
+| F01-A | PG `F01: clear GO via postUserMessageAndNora…` ; e2e fil | USER persisté → OPEN_CYCLE APPLIED → HumanDecision → 1 ACTIVE | LIVE Nora NOT EXECUTED |
+| F01-B/C | PG `F01: ambiguous OK and hostile assistant…` | OK / soft / role assistant → no cycle | — |
+| F01-D | même cas F01-A replay `clientTurnKey` | idempotentReplay ; 1 ACTIVE | — |
+| F01-I | PG `F01: restriction blocks conversational GO…` | REJECTED RESTRICTION ; humanDecisionCreated=false | — |
+| F02-A/D | PG `F02: RECORD then REVISE…` ; e2e fil+Journal | RECORD → REVISED/APPLICABLE chain | fondations D5 non révisables génériquement |
+| F02-E | même cas F02 founding refuse | clarification ; cycle CADRAGE inchangé | — |
+| C01 | unit exploratory ; PG `C01: exploratory Finalement…` | réflexion ≠ mutation D6 | NLP universel NOT CLAIMED |
+| C02 | PG `C02: D6 APPLIED survives Nora provider failure…` | UNKNOWN tour + effet métier reconstituté | LIVE NOT EXECUTED |
+| C03 | PG journal>8 ; e2e expand historique | 8 récentes + historique complet | — |
+| CR-01 | unit fenêtre 12 vs `findAuthorityReviseCandidates` ; PG 15+ doubles GitHub ; PG unique ; PG isolation | unicité D6 hors borne cognitive | — |
+| CR-02 | unit `shouldClearThreadPending` / `mayStartNewThreadAct` ; PG concurrence même clé ; e2e ACK perdu+reload | pending préservé ; pas de double effet | cookie DEV/RECETTE réserve existante |
+| R-UX-01 | garde exclusive pending (unit + e2e distinct act blocked) | **NON CONFORME** — CARRIED RESERVE Morris pour entrée RECETTE conditionnelle | sortie : cognition indépendante sans perdre tentative/clé |
