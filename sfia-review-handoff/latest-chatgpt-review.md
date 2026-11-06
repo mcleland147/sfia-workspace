@@ -1,35 +1,32 @@
-# SFIA Studio Next — ML3 Corrective Delivery Review Pack (FULL)
+# SFIA Studio Next — ML3 Authority Adjustment Review Pack (FULL)
 
 ## 1. Date / heure
-- Local: `2026-11-06 13:33:41 CET`
-- UTC: `2026-11-06T12:33:41Z`
-- Cycle: Cursor R5/ML3 corrective F01–F08 + T01–T04
-- Typologie: INC · Profil: CRITICAL · Macro-lot: ML3 existant (aucun nouveau lot)
+- Local: `2026-11-06 14:07:01 CET`
+- UTC: `2026-11-06T13:07:01Z`
+- Cycle: Cursor R5/ML3 CRITICAL corrective adjustment CR-01..CR-04
+- Typologie: INC — CORRECTIVE CONTINUATION · Profil: CRITICAL · Macro-lot: ML3 existant
 
-## 2. Objectif et GO Morris
-Corriger et qualifier le delivery ML3 existant (candidat local dirty) pour fournir au Pilote une capacité cohérente de pilotage et de décision (GO naturel, trajectoire, cycles, méthode, décisions, restrictions, reprise, réconciliation, CKI approuvé, fil Nora unique).
+## 2. GO, profil, périmètre
+**GO Morris:** 2026-11-06 — AJUSTEMENT ML3 BORNÉ (autorité & preuves).
 
-**GO Morris:** CORRECTIFS ML3 — 2026-11-06. Acceptation du cycle ≠ recette Morris, merge, STABLE, ADOPTED.
+Objectif: ajuster le candidat ML3 existant pour CR-01 (restrictions transition A+B), CR-02 (REVISE vs D5), CR-03 (contradictions ciblées), CR-04 (Review Pack exploitable), avec CODE+TESTS+PREUVES+AS-BUILT+PACK.
 
-**Interdits respectés:** pas de commit/push/PR projet ; pas de RECETTE ML3 ; pas de LIVE Nora ; pas de force push/reset/clean ; pas de migration RECETTE ; schema reste `007`.
+**Hors périmètre:** reconstruction ML3 ; réouverture F01–F08 hors impacts CR ; RECETTE ; LIVE Nora ; commit/push/PR projet ; migration 008 ; doctrine normative nouvelle.
 
-## 3. Git Truth Check
-
-### Initial / Final (identique pour HEAD — candidat local dirty)
+## 3. Branche, HEAD, origin/main
 | Champ | Valeur |
 | --- | --- |
-| Repository | `mcleland147/sfia-workspace` |
-| Root Next | `projects/sfia-studio-next/` |
 | Branche | `sfia/next-pilotage-decisions-delivery` |
 | HEAD | `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
 | origin/main | `7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480` |
-| Match attendu | OUI (`7f1f41c30df08a34c3c82b60f1da9b4f8fe0a480`) |
-| Remote delivery branch | AUCUNE attendue / non créée |
+| Match attendu | OUI (`7f1f41c…`) |
+| Remote delivery branch | absente (attendu) |
+| Prior handoff | commit `3687b90b` blob `76c442e6` |
 
 ### Worktrees
 ```
 /Users/morris/Projects/sfia-workspace                                                   7f1f41c3 [sfia/next-pilotage-decisions-delivery]
-/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023                              a677b9d3 [sfia/review-handoff]
+/Users/morris/Projects/sfia-review-handoff-m5a-gi-20261023                              3687b90b [sfia/review-handoff]
 /Users/morris/Projects/sfia-studio-next-recette-ml1-c3                                  0db58be8 (detached HEAD)
 /Users/morris/Projects/sfia-studio-next-recette-ml2-pr659                               54fc4e9c (detached HEAD)
 /Users/morris/Projects/sfia-workspace-akg-m5-l1-a09-audit-port-decoupling               0cb05b75 (detached HEAD)
@@ -70,7 +67,7 @@ Corriger et qualifier le delivery ML3 existant (candidat local dirty) pour fourn
 /Users/morris/Projects/sfia-workspace-run-akg-m5-l3s2-fresh-live-qa-01                  cd2020c8 (detached HEAD)
 ```
 
-### Status porcelain (final)
+## 4. Inventaire staged / tracked / untracked
 ```
 M .tmp-sfia-review/chatgpt-review.md
  M projects/sfia-studio-next/construction/delivery-history.md
@@ -112,243 +109,56 @@ M .tmp-sfia-review/chatgpt-review.md
 ?? projects/sfia-studio-next/web/tests/unit/ml3-authority.test.ts
 ?? projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
 ```
+Staged: (vide). Candidat DIRTY préservé (Product + SVG).
 
-### Diff name-status (tracked Product)
-```
-M	projects/sfia-studio-next/construction/delivery-history.md
-M	projects/sfia-studio-next/construction/pilotage-et-decisions/specification-technique.md
-M	projects/sfia-studio-next/construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md
-M	projects/sfia-studio-next/web/scripts/db-migrate.sh
-M	projects/sfia-studio-next/web/src/app/api/projects/[projectId]/route.ts
-M	projects/sfia-studio-next/web/src/app/projects/[projectId]/page.tsx
-M	projects/sfia-studio-next/web/src/db/schema.ts
-M	projects/sfia-studio-next/web/src/domains/conversation/nora-adapter.ts
-M	projects/sfia-studio-next/web/src/domains/conversation/service.ts
-M	projects/sfia-studio-next/web/src/domains/preparation/project-context.ts
-M	projects/sfia-studio-next/web/tests/integration/migrations-fresh.pg.test.ts
-M	projects/sfia-studio-next/web/tests/unit/nora-adapter-corrective.test.ts
-```
+## 5. Sources Git consultées
+- SFIA v2.6 routing + execution template
+- SEF, roadmap, ENV-01 blob `14b61f0d…`, versioning blob `8bc93e0f…`
+- ML3 construction (cadrage, spec §12, tracabilité, revue)
+- R2 D5/D6 (RG-GOV-009..022, 027..029, 035 ; RG-TRJ-008/014/015/016)
+- R3 UX audit ; R4 §5.5 B05–B07, B09, B13, B14, B16, B17
+- Handoffs `3687b90b`, `a677b9d3`, `2ee8c705`
+- Candidat local D5/D6/routes/schéma/tests/UI
 
-### Untracked (extrait Product + SVG préexistants)
-```
-projects/sfia-studio-next/cki/manifest.v0.2.0.json
-projects/sfia-studio-next/web/public/file.svg
-projects/sfia-studio-next/web/public/globe.svg
-projects/sfia-studio-next/web/public/next.svg
-projects/sfia-studio-next/web/public/vercel.svg
-projects/sfia-studio-next/web/public/window.svg
-projects/sfia-studio-next/web/src/app/api/projects/[projectId]/decisions/route.ts
-projects/sfia-studio-next/web/src/app/api/projects/[projectId]/pilotage/commands/[commandId]/route.ts
-projects/sfia-studio-next/web/src/app/api/projects/[projectId]/pilotage/commands/by-key/[clientCommandKey]/route.ts
-projects/sfia-studio-next/web/src/app/api/projects/[projectId]/pilotage/commands/route.ts
-projects/sfia-studio-next/web/src/app/api/projects/[projectId]/pilotage/route.ts
-projects/sfia-studio-next/web/src/components/PilotagePanel.tsx
-projects/sfia-studio-next/web/src/db/migrations/007_ml3_pilotage_decisions.sql
-projects/sfia-studio-next/web/src/domains/decisions/authority.ts
-projects/sfia-studio-next/web/src/domains/decisions/service.ts
-projects/sfia-studio-next/web/src/domains/decisions/types.ts
-projects/sfia-studio-next/web/src/domains/pilotage/cki-resolve.ts
-projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts
-projects/sfia-studio-next/web/src/domains/pilotage/intent.ts
-projects/sfia-studio-next/web/src/domains/pilotage/nora-context.ts
-projects/sfia-studio-next/web/src/domains/pilotage/service.ts
-projects/sfia-studio-next/web/src/domains/pilotage/types.ts
-projects/sfia-studio-next/web/tests/e2e/ml3-pilotage.spec.ts
-projects/sfia-studio-next/web/tests/integration/ml3-pilotage.pg.test.ts
-projects/sfia-studio-next/web/tests/unit/ml3-authority.test.ts
-projects/sfia-studio-next/web/tests/unit/ml3-cki-intent.test.ts
-```
+## 6. Contrats applicables et arbitrages
+- Option A CLOSE+OPEN : une transaction, deux effets, commit unique — **préservée**.
+- CR-02 : pas de nouvelle politique de révision générique sur effets D5 → **refuse `USE_TYPED_OPERATION`** + actes typés existants.
+- CR-03 : pas de NLP ; retrait faux positif global ; conflit matériel libre-texte → **NEEDS MORRIS ARBITRATION / B13 PARTIAL**.
+- Aucun changement normatif R2/R4.
 
-### Empreintes critiques — baseline Critical Review → après correctifs
-| Fichier | Baseline (review) | Après correctifs | Explication |
+## 7. Blast radius
+| Zone | Impact |
+| --- | --- |
+| `domains/decisions/authority.ts` | `toCycleType`/`toCycleId` dans candidats TRANSITION |
+| `domains/pilotage/command-runner.ts` | charge cycle ACTIVE réel ; retire bloc CONTRADICTION global |
+| `domains/pilotage/service.ts` | REVISE_DECISION refuse kinds fondateurs D5 |
+| tests unit/PG | CR-01/02/03 |
+| as-built / delivery-history / tracabilité | sync CR |
+| PilotagePanel / cki-resolve | **non modifiés ce cycle** (hash inchangé) |
+| schema 007 | inchangé |
+| RECETTE | non touchée |
+
+## 8. Fichiers créés (ce cycle)
+Aucun fichier Product nouveau. (Les untracked ML3 préexistaient.)
+
+Logs d'évidence copiés dans `.tmp-sfia-review/` pour inclusion handoff (éphémères hors Product).
+
+## 9. Fichiers modifiés — contenu / sections exploitables
+
+### 9.1 Empreintes avant (pack 3687b90b) → après (ce cycle)
+| Fichier | Avant | Après | Δ |
 | --- | --- | --- | --- |
-| command-runner.ts | `644080776955ccf0b9b3a19e7a926f9bb6e21bc7069f97afb4078b0b65d0957d` | `16933885c47991efc9f27be66211b55c210cfd57a92136b9e19d3cb0d764d2cf` | actInstanceId dans fingerprint/sourceActionKey ; CONTRADICTION bornée ; passage target context restrictions |
-| pilotage/service.ts | `c72a3498855f2facba2ca9cc2d573f871d5b532af8da574bc9e8de659145c648` | `08987aae31fe7d00a4254a34990cf833f4903134543b6591fbb9312a71c491ba` | GO naturel EXPLICIT_INTERACTION ; USER_MESSAGE status COMPLETE ; REVISE_DECISION ; reconcileByClientKey |
-| PilotagePanel.tsx | `63319c6f1607eabf1ec1504713af5c98a8ed43dcc4018f218c59ff66fe77e36f` | `11e887e869ed776734bb2937a2d94f0c4d0f929717b43673c585a553ba855fcd` | clé/actInstanceId stables ; UNKNOWN+reconcile ; journal `state` ; UX F08 |
-| cki-resolve.ts | (pré-correctif local) | `0b68fdccd0d882e65b71af948d5a6b621fbb1707751940f6e72669a5cdffe9e2` | manifeste approuvé v0.2.0 |
-| authority.ts | (pré-correctif local) | `0c1c92d5200af895b0efc0f679fcb3d29dfe304694ab0f75fa96e19c020ec94d` | targetRef CYCLE/PILOTAGE scopé |
-| manifest.v0.2.0.json | N/A (nouveau) | `49250f756908b864980d3ce739a37755f944495703b651e006d663223de87294` | inventaire SHA-256 15 spécialités |
+| command-runner.ts | `16933885c47991efc9f27be66211b55c210cfd57a92136b9e19d3cb0d764d2cf` | `64fdff9278f12f3f446b22d1b433ee38954d610c97d5cf687390724b850523e3` | modifié CR-01/03 |
+| pilotage/service.ts | `08987aae31fe7d00a4254a34990cf833f4903134543b6591fbb9312a71c491ba` | `38e58931a3539132940f2a42692b1ee97a247ff5c5f496fb8b1be5bae7e89166` | modifié CR-02 |
+| PilotagePanel.tsx | `11e887e869ed776734bb2937a2d94f0c4d0f929717b43673c585a553ba855fcd` | `11e887e869ed776734bb2937a2d94f0c4d0f929717b43673c585a553ba855fcd` | inchangé |
+| cki-resolve.ts | `0b68fdccd0d882e65b71af948d5a6b621fbb1707751940f6e72669a5cdffe9e2` | `0b68fdccd0d882e65b71af948d5a6b621fbb1707751940f6e72669a5cdffe9e2` | inchangé |
+| authority.ts | `0c1c92d5200af895b0efc0f679fcb3d29dfe304694ab0f75fa96e19c020ec94d` | `c3b8e899551fff98f749cf9aacc75447894436d307fee6f1475b69d01d72320c` | modifié CR-01 |
 
-**Candidat initial identifiable:** OUI — fichiers Product ML3 dirty + untracked préservés ; SVG public préexistants non touchés ; HEAD inchangé.
-
-## 4. Sources lues (réf.)
-- Processus: `method/sfia-fast-track/core/sfia-cycle-routing-guide.md` ; template v2.6
-- SEF/roadmap/ENV-01/versioning (main@7f1f41c)
-- ML3 conception: `construction/pilotage-et-decisions/` (cadrage, spec v0.4 #660, tracabilité, revue)
-- R2 D5/D6 ; R3 UX lot B ; R4 §5.5 B01–B18
-- CKI corpus VALIDATED CONTENT v0.2.0
-- Review handoffs: `a677b9d3` / blob `3aefb5ca` ; `2ee8c705`
-- Candidat local ML3 intégral (pilotage/, decisions/, PilotagePanel, APIs, tests)
-
-## 5. Fichiers créés et modifiés
-### Créés (Product correctifs / ML3)
-- `cki/manifest.v0.2.0.json`
-- `web/src/app/api/projects/[projectId]/pilotage/commands/by-key/[clientCommandKey]/route.ts`
-- (déjà candidats ML3 non trackés avant correctifs, enrichis): PilotagePanel, domains/pilotage/*, domains/decisions/*, APIs pilotage/decisions, migration 007, tests unit/pg/e2e
-
-### Modifiés (tracked)
-- `construction/delivery-history.md`
-- `construction/pilotage-et-decisions/specification-technique.md` (§12 correctif)
-- `construction/pilotage-et-decisions/tracabilite-r2-r3-r4.md` (appendice B01–B18)
-- `web/scripts/db-migrate.sh`
-- `web/src/app/api/projects/[projectId]/route.ts`
-- `web/src/app/projects/[projectId]/page.tsx`
-- `web/src/db/schema.ts`
-- `web/src/domains/conversation/nora-adapter.ts` (T01 DELIVERED)
-- `web/src/domains/conversation/service.ts`
-- `web/src/domains/preparation/project-context.ts`
-- `web/tests/integration/migrations-fresh.pg.test.ts`
-- `web/tests/unit/nora-adapter-corrective.test.ts`
-- `.tmp-sfia-review/chatgpt-review.md` (ce pack)
-
-## 6. Blast radius et responsabilités
-| Zone | Impact | Responsabilité |
-| --- | --- | --- |
-| D5 pilotage | command-runner, service, cki-resolve, types, APIs | vérité cycle/méthode/CKI ; idempotence |
-| D6 decisions | authority, service, types, journal API | restrictions ciblées ; revise ; journal state |
-| D3 conversation | nora-adapter DELIVERED honesty ; nora-context usageRestricted | pas d'autorité décisionnelle |
-| UX | PilotagePanel + project page tab | F01/F04/F08 |
-| DB | schema 007 inchangé (pas de 008) | actInstanceId dans hash/fingerprint |
-| CKI | manifeste v0.2.0 | pin strict |
-| RECETTE/STABLE | AUCUN | préservés |
-
-## 7. Contenu complet des fichiers créés (ou sections si volumineux)
-
-
-### 7.1 `cki/manifest.v0.2.0.json` (complet)
-
-```json
-# FILE: cki/manifest.v0.2.0.json
-{
-  "version": "0.2.0",
-  "specialties": [
-    {
-      "ckiId": "01-cadrage",
-      "file": "01-cadrage.md",
-      "version": "0.2.0",
-      "sha256": "e8d7a0cbdf3c55b3a991945b336901b1d92172113d1384e62bf6a86f4ec7bff9"
-    },
-    {
-      "ckiId": "02-conception-fonctionnelle",
-      "file": "02-conception-fonctionnelle.md",
-      "version": "0.2.0",
-      "sha256": "663e2bd0f00fec3ae0f52bb580fd24dcfc769a9cd9a04bd05e8e694f5a57d292"
-    },
-    {
-      "ckiId": "03-architecture-fonctionnelle",
-      "file": "03-architecture-fonctionnelle.md",
-      "version": "0.2.0",
-      "sha256": "937bb2b52af6a1d2c16662a9c860526c59d53a0af054a993911884e05803d9b3"
-    },
-    {
-      "ckiId": "04-ux-ui",
-      "file": "04-ux-ui.md",
-      "version": "0.2.0",
-      "sha256": "ab7571d5dc7da094c4ec4dbb7647bef1b8d0435a8671a7d110bc45579e628030"
-    },
-    {
-      "ckiId": "05-backlog-user-stories",
-      "file": "05-backlog-user-stories.md",
-      "version": "0.2.0",
-      "sha256": "4b2636d8b6b82d1eb91de7e99914f616f70abe626a83b24f93b72f2a3e06622e"
-    },
-    {
-      "ckiId": "06-architecture-technique",
-      "file": "06-architecture-technique.md",
-      "version": "0.2.0",
-      "sha256": "8d07b5f4ab5c18ea184a39efb17a8b98a9bc79f884e93049271228f3b42c57ff"
-    },
-    {
-      "ckiId": "07-integration-devops",
-      "file": "07-integration-devops.md",
-      "version": "0.2.0",
-      "sha256": "260de6456a0baeda68156a9e506bb1847663235256ab8fc272db02adc22833e8"
-    },
-    {
-      "ckiId": "08-delivery-implementation",
-      "file": "08-delivery-implementation.md",
-      "version": "0.2.0",
-      "sha256": "e427432d6c9124eb936564c3b1fdc6ec760fc1f6bce082f4a662fa219b59e219"
-    },
-    {
-      "ckiId": "09-qa-validation",
-      "file": "09-qa-validation.md",
-      "version": "0.2.0",
-      "sha256": "02f51b97ecbd62ec621b8a8c0344525bb8e4eff761cb9cc03aa39d13280ebce7"
-    },
-    {
-      "ckiId": "10-securite-rssi",
-      "file": "10-securite-rssi.md",
-      "version": "0.2.0",
-      "sha256": "3ad89e906571dc184b0ee4a284c5b9d555108ebfebd0c196663caedb3d418edb"
-    },
-    {
-      "ckiId": "11-deploiement-release",
-      "file": "11-deploiement-release.md",
-      "version": "0.2.0",
-      "sha256": "b1e2625857d9b643a28372f4dff8e5dacf4c22828b262d0b3e29292009418c51"
-    },
-    {
-      "ckiId": "12-observabilite-run-readiness",
-      "file": "12-observabilite-run-readiness.md",
-      "version": "0.2.0",
-      "sha256": "ee9b8bedc9e39fbc039c9da2853d0dc7bb61f9270d6d49c7fe89cf619b95cb68"
-    },
-    {
-      "ckiId": "13-pr-readiness",
-      "file": "13-pr-readiness.md",
-      "version": "0.2.0",
-      "sha256": "2f75ee9ce71f531b4cf5c8b84fb1016b2d49f5b8acad042d66d4687b4e1d1727"
-    },
-    {
-      "ckiId": "14-post-merge",
-      "file": "14-post-merge.md",
-      "version": "0.2.0",
-      "sha256": "fae08d5fb13c51fadcdaf55252c78e750eeabfdfc6dffa5f1801477e124d6673"
-    },
-    {
-      "ckiId": "15-capitalisation-rex",
-      "file": "15-capitalisation-rex.md",
-      "version": "0.2.0",
-      "sha256": "208cbb007738a4d06d274a97500d9540dc3c0840c63a833340d372956eb645f4"
-    }
-  ]
-}
-```
-
-### 7.2 API by-key route (complet)
+### 9.2 `authority.ts` COMPLET (après)
+Rôle: évaluation point-of-effect D6 des restrictions. Hash `c3b8e899551fff98f749cf9aacc75447894436d307fee6f1475b69d01d72320c` · 4456 octets.
 
 ```ts
-# FILE: by-key/[clientCommandKey]/route.ts
-import { NextResponse } from "next/server";
-import { requireStudioSession } from "@/domains/identity/session";
-import { reconcileCommandByClientKey } from "@/domains/pilotage/service";
-import { studioErrorResponse } from "@/lib/http-errors";
-
-export async function GET(
-  _: Request,
-  ctx: { params: Promise<{ projectId: string; clientCommandKey: string }> },
-) {
-  try {
-    const session = await requireStudioSession();
-    const { projectId, clientCommandKey } = await ctx.params;
-    const result = await reconcileCommandByClientKey(
-      session.pilotId,
-      projectId,
-      decodeURIComponent(clientCommandKey),
-    );
-    return NextResponse.json(result);
-  } catch (e) {
-    const mapped = studioErrorResponse(e);
-    return NextResponse.json(mapped.body, { status: mapped.status });
-  }
-}
-```
-
-### 7.3 `authority.ts` (complet)
-
-```ts
-# FILE: domains/decisions/authority.ts
+# FILE: projects/sfia-studio-next/web/src/domains/decisions/authority.ts
 import type { AuthorityRestriction, AuthorityVerdict } from "@/domains/decisions/types";
 
 const CYCLE_OPS = new Set(["OPEN_CYCLE", "CLOSE_CYCLE", "TRANSITION_CYCLE"]);
@@ -385,11 +195,31 @@ function matchesScopedTarget(
 }
 
 /**
+ * Identities actually mutated by the operation. TRANSITION_CYCLE mutates both
+ * the active source (A) and the target type being opened (B). Client-only strings
+ * that do not identify A or B are ignored when the server supplies the active cycle.
+ */
+export function cycleMutationCandidates(input: {
+  operation: string;
+  cycleId?: string | null;
+  cycleType?: string | null;
+  toCycleType?: string | null;
+  toCycleId?: string | null;
+}): Array<string | null | undefined> {
+  if (input.operation === "TRANSITION_CYCLE") {
+    return [input.cycleId, input.cycleType, input.toCycleType, input.toCycleId];
+  }
+  return [input.cycleId, input.cycleType];
+}
+
+/**
  * Point-of-effect authority. A lifted restriction does not count.
  * METHOD_USE limits use in the projection; it does not erase the retained method
  * and it does not block a later governance act.
  * CYCLE_MUTATION / PILOTAGE_EFFECT: `*` or empty blocks every matching operation;
  * any other targetRef blocks only the cycle, method, or effect it names.
+ * For TRANSITION_CYCLE, a restriction on source A or target B blocks the whole
+ * atomic CLOSE+OPEN (no partial effect).
  * LIFT / REVOKE / APPLY / RECORD / REVISE / PROPOSE stay available so the pilot can govern.
  */
 export function evaluateCurrentAuthority(input: {
@@ -398,6 +228,8 @@ export function evaluateCurrentAuthority(input: {
   methodRef?: string | null;
   cycleId?: string | null;
   cycleType?: string | null;
+  toCycleType?: string | null;
+  toCycleId?: string | null;
   effectTargetRef?: string | null;
 }): AuthorityVerdict {
   const rows = active(input.restrictions);
@@ -407,11 +239,12 @@ export function evaluateCurrentAuthority(input: {
       usageRestricted = true;
     }
   }
+  const cycleCandidates = cycleMutationCandidates(input);
   for (const r of rows) {
     if (
       r.targetKind === "CYCLE_MUTATION" &&
       CYCLE_OPS.has(input.operation) &&
-      matchesScopedTarget(r.targetRef, [input.cycleId, input.cycleType])
+      matchesScopedTarget(r.targetRef, cycleCandidates)
     ) {
       return {
         allowed: false,
@@ -427,8 +260,7 @@ export function evaluateCurrentAuthority(input: {
         TRAJECTORY_OPS.has(input.operation)) &&
       matchesScopedTarget(r.targetRef, [
         input.effectTargetRef,
-        input.cycleId,
-        input.cycleType,
+        ...cycleCandidates,
         input.methodRef,
       ])
     ) {
@@ -455,438 +287,599 @@ export function methodUsageRestricted(
 }
 ```
 
-### 7.4 `types.ts` pilotage (complet)
+
+### 9.3 `command-runner.ts` — sections CR-01/CR-03
+
+#### Justification §7.6
+`command-runner.ts` est critique pour CR-01/CR-03. Contenu **complet** inclus (pas un résumé).
+
+Hash `64fdff9278f12f3f446b22d1b433ee38954d610c97d5cf687390724b850523e3` · 18524 octets.
+
 
 ```ts
-# FILE: domains/pilotage/types.ts
-import type { CkiAvailability } from "@/domains/pilotage/cki-resolve";
-import type { CycleType } from "@/domains/pilotage/cki-resolve";
+# FILE: projects/sfia-studio-next/web/src/domains/pilotage/command-runner.ts
+import { createHash } from "crypto";
+import { and, asc, eq, sql } from "drizzle-orm";
+import { db } from "@/db/client";
+import {
+  businessCommandEffects,
+  businessCommands,
+  governanceRestrictions,
+  projectCycles,
+  projectPilotageState,
+} from "@/db/schema";
+import { evaluateCurrentAuthority } from "@/domains/decisions/authority";
+import type { ClassifiedCommand, CommandResult, PilotageRequestBody } from "@/domains/pilotage/types";
+import { StudioError } from "@/lib/http-errors";
+import { newId } from "@/lib/ids";
 
-/** Internal command outcomes. PARTIAL is intentionally absent: CLOSE+OPEN share one commit. */
-export const COMMAND_STATUSES = [
-  "APPLIED",
-  "ALREADY_APPLIED",
-  "REJECTED",
-  "CONFLICT",
-  "UNKNOWN",
-] as const;
+export type DbTx = Parameters<Parameters<typeof db.transaction>[0]>[0];
 
-export type CommandStatus = (typeof COMMAND_STATUSES)[number];
+export type ClientEnvelope = {
+  pilotId: string;
+  projectId: string;
+  body: PilotageRequestBody;
+};
 
-export const PILOTAGE_OPERATIONS = [
-  "PROPOSE_TRAJECTORY",
-  "RETAIN_TRAJECTORY",
-  "OPEN_CYCLE",
-  "CLOSE_CYCLE",
-  "TRANSITION_CYCLE",
-  "CHOOSE_METHOD",
-  "REPLACE_METHOD",
-  "WITHDRAW_METHOD",
-  "REVOKE_DECISION",
-  "APPLY_RESTRICTION",
-  "LIFT_RESTRICTION",
-  "RECORD_DECISION",
-  "REVISE_DECISION",
-] as const;
+export type ClassifyResult =
+  | { ok: true; command: ClassifiedCommand }
+  | { ok: false; reasonCode: string; reason: string; sourceActionKey: string };
 
-export type PilotageOperation = (typeof PILOTAGE_OPERATIONS)[number];
-
-export const SOURCE_KINDS = ["USER_MESSAGE", "EXPLICIT_INTERACTION", "COGNITIVE_PROPOSAL"] as const;
-
-export type SourceKind = (typeof SOURCE_KINDS)[number];
-
-export type CommandEffectView = {
+export type EffectDraft = {
   effectKind: string;
   targetRef: string;
-  outcome: string;
-  ordinal: number;
+  outcome?: string;
+  detail?: unknown;
 };
 
-export type CommandResult = {
-  status: CommandStatus;
-  commandId: string | null;
-  projectId: string;
-  revision: number | null;
-  decisionId: string | null;
-  effects: CommandEffectView[];
-  reason?: string;
-  reasonCode?: string;
-};
+export type MutateResult =
+  | { kind: "APPLIED"; decisionId: string | null; revision: number; effects: EffectDraft[] }
+  | { kind: "REJECTED"; reasonCode: string; reason: string; persist: boolean }
+  | { kind: "CONFLICT"; reasonCode: string; reason: string };
 
-export type PilotageRequestBody = {
-  clientCommandKey?: string;
-  expectedRevision?: number;
-  operation?: string;
-  utterance?: string;
-  sourceKind?: string;
-  sourceRef?: string;
-  objective?: string;
-  cycleType?: string;
-  cycleId?: string;
-  toCycleType?: string;
-  orientation?: string;
-  trajectoryRevisionId?: string;
-  methodRef?: string;
-  methodVersion?: string;
-  decisionId?: string;
-  restrictionId?: string;
-  targetKind?: string;
-  targetRef?: string;
-  statement?: string;
-  balanceNote?: string;
-  /** Stable id of one human gesture. Reused on retry; a new gesture sends a new id. */
-  actInstanceId?: string;
-  /** Exact decision object. Empty does not participate in contradiction matching. */
-  objectRef?: string;
-};
+type CommandRow = typeof businessCommands.$inferSelect;
+type EffectRow = typeof businessCommandEffects.$inferSelect;
 
-export type ClassifiedCommand = {
-  operation: PilotageOperation;
-  sourceActionKey: string;
-  sourceKind: SourceKind;
-  sourceRef: string;
-  objective: string;
-  cycleType: CycleType | null;
-  cycleId: string | null;
-  toCycleType: CycleType | null;
-  orientation: string;
-  trajectoryRevisionId: string | null;
-  methodRef: string;
-  methodVersion: string;
-  decisionId: string | null;
-  restrictionId: string | null;
-  targetKind: string;
-  targetRef: string;
-  statement: string;
-  balanceNote: string;
-  actInstanceId: string;
-  objectRef: string;
-};
-
-export type TrajectoryView = {
-  id: string;
-  revisionNumber: number;
-  status: string;
-  orientation: string;
-  decisionId: string | null;
-} | null;
-
-export type PilotageProjection = {
-  projectId: string;
-  revision: number;
-  trajectory: {
-    retained: TrajectoryView;
-    proposed: TrajectoryView;
-  };
-  cycle: {
-    id: string;
-    cycleType: string;
-    status: string;
-    objective: string;
-    revision: number;
-    cki: {
-      ckiId: string;
-      pinnedVersion: string | null;
-      contentDigest: string | null;
-      manifestRef: string | null;
-      pinOrigin: string | null;
-      availability: CkiAvailability;
-    };
-  } | null;
-  method:
-    | { presence: "ABSENT"; usageRestricted: false }
-    | {
-        presence: "RETAINED";
-        usageRestricted: boolean;
-        /** Set when usageRestricted: the retained method is not fully applicable. */
-        usageNote: string | null;
-        methodRef: string;
-        methodVersion: string;
-        decisionId: string;
-        applicationId: string;
-        scope: string;
-      };
-  restrictions: Array<{ id: string; targetKind: string; targetRef: string; status: string }>;
-};
-
-export function pilotageCommandHttpStatus(result: CommandResult): number {
-  if (result.status === "CONFLICT") return 409;
-  if (
-    result.status === "REJECTED" &&
-    (result.reasonCode === "AMBIGUOUS" || result.reasonCode === "INVALID")
-  ) {
-    return 400;
+function asRows<T>(result: unknown): T[] {
+  if (Array.isArray(result)) return result as T[];
+  if (result && typeof result === "object" && Array.isArray((result as { rows?: T[] }).rows)) {
+    return (result as { rows: T[] }).rows;
   }
-  if (result.status === "UNKNOWN") return 503;
-  return 200;
+  return [];
+}
+
+function errorText(e: unknown): string {
+  if (e instanceof Error) {
+    const cause = "cause" in e ? errorText(e.cause) : "";
+    return `${e.message} ${cause}`;
+  }
+  return "";
+}
+
+function pgCode(e: unknown): string | undefined {
+  if (!e || typeof e !== "object") return undefined;
+  const code = (e as { code?: unknown }).code;
+  if (typeof code === "string" && /^[0-9A-Z]{5}$/.test(code)) return code;
+  if ("cause" in e) return pgCode((e as { cause?: unknown }).cause);
+  return undefined;
+}
+
+export function commandFingerprint(input: ClientEnvelope): string {
+  const b = input.body;
+  const canonical = JSON.stringify({
+    balanceNote: (b.balanceNote ?? "").trim(),
+    cycleId: b.cycleId ?? "",
+    cycleType: b.cycleType ?? "",
+    decisionId: b.decisionId ?? "",
+    expectedRevision: b.expectedRevision,
+    methodRef: (b.methodRef ?? "").trim(),
+    methodVersion: (b.methodVersion ?? "").trim(),
+    objective: (b.objective ?? "").trim(),
+    operation: b.operation ?? "",
+    orientation: (b.orientation ?? "").trim(),
+    projectId: input.projectId,
+    restrictionId: b.restrictionId ?? "",
+    sourceKind: b.sourceKind ?? "",
+    sourceRef: b.sourceRef ?? "",
+    statement: (b.statement ?? "").trim(),
+    targetKind: b.targetKind ?? "",
+    targetRef: (b.targetRef ?? "").trim(),
+    toCycleType: b.toCycleType ?? "",
+    trajectoryRevisionId: b.trajectoryRevisionId ?? "",
+    utterance: (b.utterance ?? "").trim(),
+    actInstanceId: (b.actInstanceId ?? "").trim(),
+    objectRef: (b.objectRef ?? "").trim(),
+  });
+  return createHash("sha256").update(canonical).digest("hex");
+}
+
+export function buildSourceActionKey(input: {
+  operation: string;
+  cycleType?: string | null;
+  toCycleType?: string | null;
+  methodRef?: string | null;
+  methodVersion?: string | null;
+  decisionId?: string | null;
+  trajectoryRevisionId?: string | null;
+  targetKind?: string | null;
+  targetRef?: string | null;
+  restrictionId?: string | null;
+  actInstanceId?: string | null;
+}): string {
+  const canonical = [
+    input.operation,
+    input.cycleType ?? "",
+    input.toCycleType ?? "",
+    (input.methodRef ?? "").trim().toLowerCase(),
+    (input.methodVersion ?? "").trim(),
+    input.decisionId ?? "",
+    input.trajectoryRevisionId ?? "",
+    input.targetKind ?? "",
+    (input.targetRef ?? "").trim().toLowerCase(),
+    input.restrictionId ?? "",
+    (input.actInstanceId ?? "").trim(),
+  ].join("|");
+  return createHash("sha256").update(canonical).digest("hex");
+}
+
+function parseResultJson(raw: string): { reason?: string; reasonCode?: string } {
+  try {
+    const value = JSON.parse(raw) as { reason?: string; reasonCode?: string };
+    return value ?? {};
+  } catch {
+    return {};
+  }
+}
+
+export function toCommandResult(
+  cmd: CommandRow,
+  effects: EffectRow[],
+  mode: "replay" | "stored",
+): CommandResult {
+  const extra = parseResultJson(cmd.resultJson);
+  const status = mode === "replay" && cmd.status === "APPLIED" ? "ALREADY_APPLIED" : cmd.status;
+  return {
+    status: status === "APPLIED" || status === "REJECTED" || status === "ALREADY_APPLIED" ? status : "UNKNOWN",
+    commandId: cmd.id,
+    projectId: cmd.projectId,
+    revision: cmd.stateRevision,
+    decisionId: cmd.decisionId,
+    effects: effects.map((e) => ({
+      effectKind: e.effectKind,
+      targetRef: e.targetRef,
+      outcome: e.outcome,
+      ordinal: e.ordinal,
+    })),
+    reason: extra.reason,
+    reasonCode: extra.reasonCode,
+  };
+}
+
+function bare(input: ClientEnvelope, patch: Partial<CommandResult>): CommandResult {
+  return {
+    status: "CONFLICT",
+    commandId: null,
+    projectId: input.projectId,
+    revision: null,
+    decisionId: null,
+    effects: [],
+    ...patch,
+  };
+}
+
+async function loadEffects(tx: DbTx | typeof db, commandId: string): Promise<EffectRow[]> {
+  return tx
+    .select()
+    .from(businessCommandEffects)
+    .where(eq(businessCommandEffects.commandId, commandId))
+    .orderBy(asc(businessCommandEffects.ordinal));
+}
+
+async function findByKey(tx: DbTx | typeof db, input: ClientEnvelope) {
+  return (
+    await tx
+      .select()
+      .from(businessCommands)
+      .where(
+        and(
+          eq(businessCommands.projectId, input.projectId),
+          eq(businessCommands.actorPilotId, input.pilotId),
+          eq(businessCommands.clientCommandKey, input.body.clientCommandKey ?? ""),
+        ),
+      )
+      .limit(1)
+  )[0];
+}
+
+/**
+ * CR-03: free-text statement divergence is not a material contradiction oracle
+ * (RG-GOV-011..015). Project-global statementA!==statementB blocking of all
+ * dependent D5 effects was removed. Deterministic point-of-effect controls remain:
+ * restrictions, cycle/method state, founding decision validity, typed ops.
+ * Broader material D6 conflict recognition: NEEDS MORRIS ARBITRATION / B13 PARTIAL.
+ */
+
+async function findByActionKey(tx: DbTx, projectId: string, actionKey: string) {
+  return (
+    await tx
+      .select()
+      .from(businessCommands)
+      .where(and(eq(businessCommands.projectId, projectId), eq(businessCommands.sourceActionKey, actionKey)))
+      .limit(1)
+  )[0];
+}
+
+async function findByIntent(tx: DbTx, projectId: string, sourceKind: string, sourceRef: string, actionKey: string) {
+  return (
+    await tx
+      .select()
+      .from(businessCommands)
+      .where(
+        and(
+          eq(businessCommands.projectId, projectId),
+          eq(businessCommands.sourceKind, sourceKind),
+          eq(businessCommands.sourceRef, sourceRef),
+          eq(businessCommands.sourceActionKey, actionKey),
+        ),
+      )
+      .limit(1)
+  )[0];
+}
+
+async function currentRevision(tx: DbTx, projectId: string): Promise<number> {
+  const row = (
+    await tx
+      .select({ revision: projectPilotageState.revision })
+      .from(projectPilotageState)
+      .where(eq(projectPilotageState.projectId, projectId))
+      .limit(1)
+  )[0];
+  return row?.revision ?? 0;
+}
+
+async function insertCommand(
+  tx: DbTx,
+  input: ClientEnvelope,
+  fingerprint: string,
+  fields: {
+    sourceKind: string;
+    sourceRef: string;
+    sourceActionKey: string;
+    operation: string;
+    status: "APPLIED" | "REJECTED";
+    stateRevision: number;
+    decisionId: string | null;
+    reason?: string;
+    reasonCode?: string;
+    effects: EffectDraft[];
+  },
+): Promise<CommandResult> {
+  const id = newId("bcmd");
+  const now = new Date();
+  await tx.insert(businessCommands).values({
+    id,
+    projectId: input.projectId,
+    actorPilotId: input.pilotId,
+    clientCommandKey: input.body.clientCommandKey ?? "",
+    fingerprint,
+    sourceKind: fields.sourceKind,
+    sourceRef: fields.sourceRef,
+    sourceActionKey: fields.sourceActionKey,
+    operation: fields.operation,
+    expectedRevision: input.body.expectedRevision ?? 0,
+    stateRevision: fields.stateRevision,
+    status: fields.status,
+    resultJson: JSON.stringify({ reason: fields.reason, reasonCode: fields.reasonCode }),
+    decisionId: fields.decisionId,
+    createdAt: now,
+    updatedAt: now,
+  });
+  const effects: EffectRow[] = [];
+  for (let i = 0; i < fields.effects.length; i++) {
+    const draft = fields.effects[i];
+    const effectId = newId("eff");
+    const row = {
+      id: effectId,
+      commandId: id,
+      projectId: input.projectId,
+      effectKind: draft.effectKind,
+      targetRef: draft.targetRef,
+      outcome: draft.outcome ?? "APPLIED",
+      ordinal: i + 1,
+      detailJson: JSON.stringify(draft.detail ?? {}),
+      createdAt: now,
+    };
+    await tx.insert(businessCommandEffects).values(row);
+    effects.push({ ...row });
+  }
+  return toCommandResult(
+    {
+      id,
+      projectId: input.projectId,
+      actorPilotId: input.pilotId,
+      clientCommandKey: input.body.clientCommandKey ?? "",
+      fingerprint,
+      sourceKind: fields.sourceKind,
+      sourceRef: fields.sourceRef,
+      sourceActionKey: fields.sourceActionKey,
+      operation: fields.operation,
+      expectedRevision: input.body.expectedRevision ?? 0,
+      stateRevision: fields.stateRevision,
+      status: fields.status,
+      resultJson: JSON.stringify({ reason: fields.reason, reasonCode: fields.reasonCode }),
+      decisionId: fields.decisionId,
+      createdAt: now,
+      updatedAt: now,
+    },
+    effects,
+    "stored",
+  );
+}
+
+function validateEnvelope(input: ClientEnvelope): void {
+  const b = input.body;
+  if (!b.clientCommandKey?.trim()) {
+    throw new StudioError("INVALID_REQUEST", "clientCommandKey requis");
+  }
+  if (typeof b.expectedRevision !== "number" || !Number.isInteger(b.expectedRevision) || b.expectedRevision < 0) {
+    throw new StudioError("INVALID_REQUEST", "expectedRevision entier requis");
+  }
+  if (!b.sourceKind || !b.sourceRef?.trim()) {
+    throw new StudioError("INVALID_REQUEST", "sourceKind et sourceRef requis");
+  }
+  if (!b.operation && !b.utterance?.trim()) {
+    throw new StudioError("INVALID_REQUEST", "operation ou énoncé requis");
+  }
+}
+
+/**
+ * Short transaction: lock the project row, replay the client key, then mutate.
+ * A thrown fault between CLOSE and OPEN rolls the whole transaction back.
+ * There is no PARTIAL outcome.
+ */
+export async function runBusinessCommand(
+  input: ClientEnvelope,
+  handlers: {
+    classify: (tx: DbTx) => Promise<ClassifyResult>;
+    mutate: (tx: DbTx, command: ClassifiedCommand) => Promise<MutateResult>;
+  },
+): Promise<CommandResult> {
+  validateEnvelope(input);
+  const fingerprint = commandFingerprint(input);
+
+  try {
+    return await db.transaction(async (tx) => {
+      const locked = await tx.execute(
+        sql`select id from projects where id = ${input.projectId} and owner_pilot_id = ${input.pilotId} for update`,
+      );
+      if (!asRows<{ id: string }>(locked)[0]) {
+        throw new StudioError("NOT_FOUND", "Projet introuvable");
+      }
+
+      const prior = await findByKey(tx, input);
+      if (prior) {
+        if (prior.fingerprint !== fingerprint) {
+          return bare(input, {
+            status: "CONFLICT",
+            commandId: prior.id,
+            revision: prior.stateRevision,
+            reason: "Empreinte d'idempotence différente",
+            reasonCode: "FINGERPRINT",
+          });
+        }
+        const effects = await loadEffects(tx, prior.id);
+        return toCommandResult(prior, effects, "replay");
+      }
+
+      const revision = await currentRevision(tx, input.projectId);
+      if (revision !== input.body.expectedRevision) {
+        return bare(input, {
+          status: "CONFLICT",
+          revision,
+          reason: "Révision attendue périmée",
+          reasonCode: "STALE_REVISION",
+        });
+      }
+
+      const classified = await handlers.classify(tx);
+      const intentKey = classified.ok
+        ? {
+            sourceKind: classified.command.sourceKind,
+            sourceRef: classified.command.sourceRef,
+            sourceActionKey: classified.command.sourceActionKey,
+          }
+        : {
+            sourceKind: input.body.sourceKind ?? "EXPLICIT_INTERACTION",
+            sourceRef: input.body.sourceRef ?? "",
+            sourceActionKey: classified.sourceActionKey,
+          };
+      const intent = await findByIntent(
+        tx,
+        input.projectId,
+        intentKey.sourceKind,
+        intentKey.sourceRef,
+        intentKey.sourceActionKey,
+      );
+      if (intent) {
+        return bare(input, {
+          status: "CONFLICT",
+          commandId: intent.id,
+          revision,
+          reason: "Intention humaine déjà enregistrée",
+          reasonCode: "HUMAN_INTENT",
+        });
+      }
+      if (classified.ok && classified.command.actInstanceId) {
+        const sameAct = await findByActionKey(tx, input.projectId, classified.command.sourceActionKey);
+        if (sameAct) {
+          return bare(input, {
+            status: "CONFLICT",
+            commandId: sameAct.id,
+            revision,
+            reason: "Acte humain déjà enregistré",
+            reasonCode: "HUMAN_INTENT",
+          });
+        }
+      }
+
+      if (!classified.ok) {
+        return insertCommand(tx, input, fingerprint, {
+          sourceKind: intentKey.sourceKind,
+          sourceRef: intentKey.sourceRef,
+          sourceActionKey: intentKey.sourceActionKey,
+          operation: input.body.operation || "UTTERANCE",
+          status: "REJECTED",
+          stateRevision: revision,
+          decisionId: null,
+          reason: classified.reason,
+          reasonCode: classified.reasonCode,
+          effects: [],
+        });
+      }
+
+      const restrictions = await tx
+        .select()
+        .from(governanceRestrictions)
+        .where(
+          and(
+            eq(governanceRestrictions.projectId, input.projectId),
+            eq(governanceRestrictions.status, "ACTIVE"),
+          ),
+        );
+
+      // Resolve real active cycle for CLOSE / TRANSITION — do not trust client-only refs.
+      let cycleId = classified.command.cycleId;
+      let cycleType = classified.command.cycleType;
+      const toCycleType = classified.command.toCycleType;
+      if (
+        classified.command.operation === "CLOSE_CYCLE" ||
+        classified.command.operation === "TRANSITION_CYCLE"
+      ) {
+        const active = (
+          await tx
+            .select({ id: projectCycles.id, cycleType: projectCycles.cycleType })
+            .from(projectCycles)
+            .where(
+              and(eq(projectCycles.projectId, input.projectId), eq(projectCycles.status, "ACTIVE")),
+            )
+            .limit(1)
+        )[0];
+        if (active) {
+          cycleId = active.id;
+          cycleType = active.cycleType as typeof cycleType;
+        }
+      } else if (classified.command.operation === "OPEN_CYCLE") {
+        cycleType = classified.command.cycleType;
+        cycleId = null;
+      }
+
+      const verdict = evaluateCurrentAuthority({
+        operation: classified.command.operation,
+        restrictions,
+        methodRef: classified.command.methodRef,
+        cycleId,
+        cycleType,
+        toCycleType,
+        effectTargetRef:
+          classified.command.trajectoryRevisionId ||
+          classified.command.decisionId ||
+          classified.command.methodRef ||
+          classified.command.targetRef ||
+          toCycleType,
+      });
+      if (!verdict.allowed) {
+        return insertCommand(tx, input, fingerprint, {
+          sourceKind: classified.command.sourceKind,
+          sourceRef: classified.command.sourceRef,
+          sourceActionKey: classified.command.sourceActionKey,
+          operation: classified.command.operation,
+          status: "REJECTED",
+          stateRevision: revision,
+          decisionId: null,
+          reason: verdict.reason,
+          reasonCode: "RESTRICTION",
+          effects: [],
+        });
+      }
+
+      const mutated = await handlers.mutate(tx, classified.command);
+      if (mutated.kind === "CONFLICT") {
+        return bare(input, {
+          status: "CONFLICT",
+          revision,
+          reason: mutated.reason,
+          reasonCode: mutated.reasonCode,
+        });
+      }
+      if (mutated.kind === "REJECTED") {
+        if (!mutated.persist) {
+          return bare(input, {
+            status: "REJECTED",
+            revision,
+            reason: mutated.reason,
+            reasonCode: mutated.reasonCode,
+          });
+        }
+        return insertCommand(tx, input, fingerprint, {
+          sourceKind: classified.command.sourceKind,
+          sourceRef: classified.command.sourceRef,
+          sourceActionKey: classified.command.sourceActionKey,
+          operation: classified.command.operation,
+          status: "REJECTED",
+          stateRevision: revision,
+          decisionId: null,
+          reason: mutated.reason,
+          reasonCode: mutated.reasonCode,
+          effects: [],
+        });
+      }
+
+      return insertCommand(tx, input, fingerprint, {
+        sourceKind: classified.command.sourceKind,
+        sourceRef: classified.command.sourceRef,
+        sourceActionKey: classified.command.sourceActionKey,
+        operation: classified.command.operation,
+        status: "APPLIED",
+        stateRevision: mutated.revision,
+        decisionId: mutated.decisionId,
+        effects: mutated.effects,
+      });
+    });
+  } catch (e) {
+    if (errorText(e).includes("INJECTED_OPEN_FAILURE")) throw e;
+    if (e instanceof StudioError) throw e;
+    if (pgCode(e) === "23505") {
+      const prior = await findByKey(db, input);
+      if (prior && prior.fingerprint === fingerprint) {
+        const effects = await loadEffects(db, prior.id);
+        return toCommandResult(prior, effects, "replay");
+      }
+      if (prior && prior.fingerprint !== fingerprint) {
+        return bare(input, {
+          status: "CONFLICT",
+          commandId: prior.id,
+          reason: "Empreinte d'idempotence différente",
+          reasonCode: "FINGERPRINT",
+        });
+      }
+      return bare(input, {
+        status: "REJECTED",
+        reason: "Contrainte d'unicité",
+        reasonCode: "ACTIVE_CYCLE",
+      });
+    }
+    throw e;
+  }
 }
 ```
 
-### 7.5 `decisions/types.ts` (complet)
+### 9.4 `service.ts` — REVISE_DECISION (CR-02)
+Hash `38e58931a3539132940f2a42692b1ee97a247ff5c5f496fb8b1be5bae7e89166` · 42666 octets.
+
+Fichier ~1251 lignes. Section REVISE complète ci-dessous ; reste du fichier inchangé hors ce bloc pour ce cycle (autres correctifs F01–F08 déjà dans le candidat).
+
 
 ```ts
-# FILE: domains/decisions/types.ts
-/** D6 decision kinds stored on human_decisions.kind. */
-export const DECISION_KINDS = [
-  "RETAIN_TRAJECTORY",
-  "OPEN_CYCLE",
-  "CLOSE_CYCLE",
-  "TRANSITION_CYCLE",
-  "CHOOSE_METHOD",
-  "REPLACE_METHOD",
-  "WITHDRAW_METHOD",
-  "REVOKE_DECISION",
-  "APPLY_RESTRICTION",
-  "LIFT_RESTRICTION",
-  "RECORD_DECISION",
-  "REVISE_DECISION",
-] as const;
-
-export type DecisionKind = (typeof DECISION_KINDS)[number];
-
-export type DecisionState = "APPLICABLE" | "REVISED" | "REVOKED" | "SUPERSEDED";
-
-/** Restriction target kinds understood by evaluateCurrentAuthority. */
-export const RESTRICTION_TARGETS = ["CYCLE_MUTATION", "METHOD_USE", "PILOTAGE_EFFECT"] as const;
-
-export type RestrictionTargetKind = (typeof RESTRICTION_TARGETS)[number];
-
-export type AuthorityRestriction = {
-  id: string;
-  targetKind: string;
-  targetRef: string;
-  status: string;
-};
-
-export type AuthorityVerdict = {
-  allowed: boolean;
-  usageRestricted: boolean;
-  restrictionId?: string;
-  reason?: string;
-};
-```
-
-### 7.6 Justification volumétrique
-Les fichiers suivants dépassent le seuil de recopie intégrale utile dans le handoff ; ChatGPT doit examiner le worktree local dirty. Sections critiques fournies en §8 :
-- `service.ts` (~1218 lignes)
-- `command-runner.ts` (~581 lignes)
-- `PilotagePanel.tsx` (~782 lignes)
-- `cki-resolve.ts` (~247 lignes)
-- tests PG/e2e
-
-## 8. Sections / diffs utiles des fichiers modifiés
-
-
-### 8.1 classifyExplicitInteraction + USER_MESSAGE status (service.ts)
-
-```ts
-300|/** Statuses that may authorize a USER_MESSAGE GO. Others stay non-authoritative. */
-301|const USER_MESSAGE_GO_STATUSES = new Set(["COMPLETE"]);
-302|
-303|async function loadUserMessage(tx: DbTx, projectId: string, pilotId: string, messageId: string) {
-304|  return (
-305|    await tx
-306|      .select({
-307|        id: messages.id,
-308|        role: messages.role,
-309|        status: messages.status,
-310|        content: messages.content,
-311|        projectId: conversations.projectId,
-312|        ownerPilotId: conversations.ownerPilotId,
-313|      })
-314|      .from(messages)
-315|      .innerJoin(conversations, eq(messages.conversationId, conversations.id))
-316|      .where(eq(messages.id, messageId))
-317|      .limit(1)
-318|  )[0];
-319|}
-320|
-321|function userMessageAuthorizes(message: {
-322|  role: string;
-323|  status: string;
-324|  projectId: string | null;
-325|  ownerPilotId: string;
-326|}, projectId: string, pilotId: string): boolean {
-327|  return (
-328|    message.role.trim().toUpperCase() === "USER" &&
-329|    USER_MESSAGE_GO_STATUSES.has(message.status) &&
-330|    message.projectId === projectId &&
-331|    message.ownerPilotId === pilotId
-332|  );
-333|}
-334|
-335|function fromClearIntent(
-336|  sourceKind: SourceKind,
-337|  sourceRef: string,
-338|  qualified: ClearIntent,
-339|  body: PilotageRequestBody,
-340|): ClassifyResult {
-341|  const cycleType =
-342|    qualified.cycleType ?? (body.cycleType && isCycleType(body.cycleType) ? body.cycleType : null);
-343|  const command: ClassifiedCommand = {
-344|    operation: qualified.operation,
-345|    sourceKind,
-346|    sourceRef,
-347|    objective: (body.objective ?? qualified.objective ?? "").trim() || (cycleType ? `Cycle ${cycleType}` : ""),
-348|    cycleType,
-349|    cycleId: body.cycleId ?? null,
-350|    toCycleType: qualified.toCycleType ?? null,
-351|    orientation: (body.orientation ?? "").trim(),
-352|    trajectoryRevisionId: body.trajectoryRevisionId ?? null,
-353|    methodRef: (qualified.methodRef ?? body.methodRef ?? "").trim(),
-354|    methodVersion: (qualified.methodVersion || body.methodVersion || "").trim(),
-355|    decisionId: body.decisionId ?? null,
-356|    restrictionId: body.restrictionId ?? null,
-357|    targetKind: body.targetKind ?? "",
-358|    targetRef: (body.targetRef ?? "*").trim() || "*",
-359|    statement: (body.statement ?? qualified.objective ?? "").trim().slice(0, 500),
-360|    balanceNote: (body.balanceNote ?? "").trim(),
-361|    actInstanceId: (body.actInstanceId ?? "").trim(),
-362|    objectRef: (body.objectRef ?? "").trim(),
-363|    sourceActionKey: "",
-364|  };
-365|  if (
-366|    (command.operation === "CHOOSE_METHOD" || command.operation === "REPLACE_METHOD") &&
-367|    (!command.methodRef || !command.methodVersion)
-368|  ) {
-369|    return {
-370|      ok: false,
-371|      reasonCode: "INVALID",
-372|      reason: "Version de méthode requise",
-373|      sourceActionKey: buildSourceActionKey(command),
-374|    };
-375|  }
-376|  if ((command.operation === "OPEN_CYCLE" || command.operation === "TRANSITION_CYCLE") && !command.cycleType && command.operation === "OPEN_CYCLE") {
-377|    return { ok: false, reasonCode: "INVALID", reason: "Type de cycle requis", sourceActionKey: "REJECT|INVALID|open" };
-378|  }
-379|  if (command.operation === "TRANSITION_CYCLE" && (!command.cycleType || !command.toCycleType)) {
-380|    return { ok: false, reasonCode: "INVALID", reason: "Transition incomplète", sourceActionKey: "REJECT|INVALID|transition" };
-381|  }
-382|  command.sourceActionKey = buildSourceActionKey(command);
-383|  return { ok: true, command };
-384|}
-385|
-386|async function classifyCommand(tx: DbTx, input: ClientEnvelope): Promise<ClassifyResult> {
-387|  const body = input.body;
-388|  const sourceKind = body.sourceKind ?? "";
-389|  const sourceRef = body.sourceRef?.trim() ?? "";
-390|  if (!(SOURCE_KINDS as readonly string[]).includes(sourceKind)) {
-391|    return {
-392|      ok: false,
-393|      reasonCode: "SOURCE",
-394|      reason: "Source non autorisante",
-395|      sourceActionKey: `REJECT|SOURCE|${sourceKind}`,
-396|    };
-397|  }
-398|
-399|  if (sourceKind === "USER_MESSAGE") {
-400|    const message = await loadUserMessage(tx, input.projectId, input.pilotId, sourceRef);
-401|    if (!message || !userMessageAuthorizes(message, input.projectId, input.pilotId)) {
-402|      return {
-403|        ok: false,
-404|        reasonCode: "SOURCE",
-405|        reason: "Message utilisateur non vérifié pour ce projet",
-406|        sourceActionKey: `REJECT|SOURCE|${sourceRef}`,
-407|      };
-408|    }
-409|    const utterance = (body.utterance ?? "").trim();
-410|    if (utterance && utterance !== message.content.trim()) {
-411|      return {
-412|        ok: false,
-413|        reasonCode: "SOURCE",
-414|        reason: "L'énoncé ne correspond pas au message source",
-415|        sourceActionKey: "REJECT|SOURCE|mismatch",
-416|      };
-417|    }
-418|    const qualified = qualifyPilotageIntent(utterance || message.content);
-419|    if (qualified.clarity !== "CLEAR") {
-420|      const reasonCode = qualified.clarity === "AMBIGUOUS" ? "AMBIGUOUS" : "INVALID";
-421|      return {
-422|        ok: false,
-423|        reasonCode,
-424|        reason: qualified.reason,
-425|        sourceActionKey: `REJECT|${reasonCode}`,
-426|      };
-427|    }
-428|    if (body.operation && body.operation !== qualified.operation) {
-429|      return {
-430|        ok: false,
-431|        reasonCode: "AMBIGUOUS",
-432|        reason: "L'opération ne correspond pas à l'énoncé",
-433|        sourceActionKey: `REJECT|MISMATCH|${body.operation}`,
-434|      };
-435|    }
-436|    return fromClearIntent(sourceKind, sourceRef, qualified, body);
-437|  }
-438|
-439|  if (sourceKind === "COGNITIVE_PROPOSAL" && body.operation !== "PROPOSE_TRAJECTORY") {
-440|    return {
-441|      ok: false,
-442|      reasonCode: "SOURCE",
-443|      reason: "Une proposition cognitive n'est pas un GO",
-444|      sourceActionKey: "REJECT|SOURCE|cognitive",
-445|    };
-446|  }
-447|
-448|  const explicitNatural = classifyExplicitInteraction(body);
-449|  if (explicitNatural) return explicitNatural;
-450|
-451|  if (!body.operation || !(PILOTAGE_OPERATIONS as readonly string[]).includes(body.operation)) {
-452|    return {
-453|      ok: false,
-454|      reasonCode: "INVALID",
-455|      reason: "Opération inconnue",
-456|      sourceActionKey: `REJECT|INVALID|${body.operation ?? ""}`,
-457|    };
-458|  }
-459|
-460|  const operation = body.operation as PilotageOperation;
-```
-
-```ts
-1040| * EXPLICIT_INTERACTION with an utterance and no operation follows the same
-1041| * qualifier as USER_MESSAGE. A present operation stays on the structured path.
-1042| * Returns null when this body is not an utterance-only explicit GO.
-1043| */
-1044|export function classifyExplicitInteraction(body: PilotageRequestBody): ClassifyResult | null {
-1045|  if (body.sourceKind !== "EXPLICIT_INTERACTION") return null;
-1046|  if ((body.operation ?? "").trim()) return null;
-1047|  const sourceRef = body.sourceRef?.trim() ?? "";
-1048|  const utterance = (body.utterance ?? "").trim();
-1049|  if (!utterance) {
-1050|    return {
-1051|      ok: false,
-1052|      reasonCode: "INVALID",
-1053|      reason: "Opération inconnue",
-1054|      sourceActionKey: "REJECT|INVALID|",
-1055|    };
-1056|  }
-1057|  const qualified = qualifyPilotageIntent(utterance);
-1058|  if (qualified.clarity !== "CLEAR") {
-1059|    const reasonCode = qualified.clarity === "AMBIGUOUS" ? "AMBIGUOUS" : "INVALID";
-1060|    return {
-1061|      ok: false,
-1062|      reasonCode,
-1063|      reason: qualified.reason,
-1064|      sourceActionKey: `REJECT|${reasonCode}`,
-1065|    };
-1066|  }
-1067|  return fromClearIntent("EXPLICIT_INTERACTION", sourceRef, qualified, body);
-1068|}
-```
-
-### 8.2 REVISE_DECISION mutate (service.ts)
-
-```ts
-940|    const revision = await bumpRevision(tx, projectId);
-941|    return {
-942|      kind: "APPLIED",
-943|      decisionId,
-944|      revision,
-945|      effects: [{ effectKind: "LIFT_RESTRICTION", targetRef: command.restrictionId }],
-946|    };
-947|  }
-948|
 949|  if (command.operation === "REVISE_DECISION") {
 950|    if (!command.decisionId || !command.statement.trim()) {
 951|      return rejected("INVALID", "Décision et énoncé de révision requis");
@@ -902,904 +895,866 @@ Les fichiers suivants dépassent le seuil de recopie intégrale utile dans le ha
 961|    if (target.state !== "APPLICABLE") {
 962|      return rejected("NOT_APPLICABLE", "Seule une décision applicable se révise");
 963|    }
-964|    await markDecisionState(tx, target.id, "REVISED");
-965|    const decisionId = await insertHumanDecision(tx, {
-966|      projectId,
-967|      pilotId,
-968|      sourceKind: command.sourceKind,
-969|      sourceRef: command.sourceRef,
-970|      kind: target.kind,
-971|      objectRef: target.objectRef,
-972|      scope: target.scope,
-973|      statement: command.statement,
-974|      supersedesDecisionId: target.id,
-975|    });
-976|    const revision = await bumpRevision(tx, projectId);
-977|    return {
-978|      kind: "APPLIED",
-979|      decisionId,
-980|      revision,
-981|      effects: [{ effectKind: "REVISE_DECISION", targetRef: decisionId, detail: { revised: target.id } }],
-982|    };
-983|  }
-984|
-985|  if (command.operation === "RECORD_DECISION") {
-986|    const decisionId = await insertHumanDecision(tx, {
-987|      projectId,
-988|      pilotId,
-989|      sourceKind: command.sourceKind,
-990|      sourceRef: command.sourceRef,
-991|      kind: "RECORD_DECISION",
-992|      objectRef: command.objectRef || command.decisionId || "",
-993|      statement: command.statement || command.objective,
-994|    });
-995|    const revision = await bumpRevision(tx, projectId);
-996|    return {
-997|      kind: "APPLIED",
-998|      decisionId,
-999|      revision,
-1000|      effects: [{ effectKind: "RECORD_DECISION", targetRef: decisionId }],
+964|    /**
+965|     * CR-02: generic REVISE must not orphan D5 state that still references the
+966|     * founding decisionId (method_application, cycle open/close, restriction).
+967|     * Prefer typed ops already contracted: REPLACE_METHOD, RETAIN_TRAJECTORY,
+968|     * REVOKE_DECISION, WITHDRAW_METHOD, LIFT_RESTRICTION, TRANSITION_CYCLE, …
+969|     * Documentary RECORD_DECISION (no D5 effect) may be revised in place.
+970|     */
+971|    const D5_FOUNDING_KINDS = new Set([
+972|      "OPEN_CYCLE",
+973|      "CLOSE_CYCLE",
+974|      "TRANSITION_CYCLE",
+975|      "CHOOSE_METHOD",
+976|      "REPLACE_METHOD",
+977|      "WITHDRAW_METHOD",
+978|      "RETAIN_TRAJECTORY",
+979|      "PROPOSE_TRAJECTORY",
+980|      "APPLY_RESTRICTION",
+981|      "LIFT_RESTRICTION",
+982|      "REVOKE_DECISION",
+983|    ]);
+984|    if (D5_FOUNDING_KINDS.has(target.kind)) {
+985|      return rejected(
+986|        "USE_TYPED_OPERATION",
+987|        `Révision générique refusée pour ${target.kind} — utiliser l'opération métier typée (REPLACE_METHOD, RETAIN_TRAJECTORY, REVOKE_DECISION, WITHDRAW_METHOD, …)`,
+988|      );
+989|    }
+990|    const current = await currentMethod(tx, projectId);
+991|    if (current?.decisionId === target.id) {
+992|      return rejected(
+993|        "USE_TYPED_OPERATION",
+994|        "Cette décision fonde la méthode courante — utiliser REPLACE_METHOD, WITHDRAW_METHOD ou REVOKE_DECISION",
+995|      );
+996|    }
+997|    await markDecisionState(tx, target.id, "REVISED");
+998|    const decisionId = await insertHumanDecision(tx, {
+999|      projectId,
+1000|      pilotId,
+1001|      sourceKind: command.sourceKind,
+1002|      sourceRef: command.sourceRef,
+1003|      kind: target.kind,
+1004|      objectRef: target.objectRef,
+1005|      scope: target.scope,
+1006|      statement: command.statement,
+1007|      supersedesDecisionId: target.id,
+1008|    });
+1009|    const revision = await bumpRevision(tx, projectId);
+1010|    return {
+1011|      kind: "APPLIED",
+1012|      decisionId,
+1013|      revision,
+1014|      effects: [{ effectKind: "REVISE_DECISION", targetRef: decisionId, detail: { revised: target.id } }],
+1015|    };
+1016|  }
+1017|
 ```
 
-### 8.3 buildSourceActionKey + CONTRADICTION (command-runner.ts)
+### 9.5 Tests unitaires authority (complet)
 
 ```ts
-60|  if (!e || typeof e !== "object") return undefined;
-61|  const code = (e as { code?: unknown }).code;
-62|  if (typeof code === "string" && /^[0-9A-Z]{5}$/.test(code)) return code;
-63|  if ("cause" in e) return pgCode((e as { cause?: unknown }).cause);
-64|  return undefined;
-65|}
-66|
-67|export function commandFingerprint(input: ClientEnvelope): string {
-68|  const b = input.body;
-69|  const canonical = JSON.stringify({
-70|    balanceNote: (b.balanceNote ?? "").trim(),
-71|    cycleId: b.cycleId ?? "",
-72|    cycleType: b.cycleType ?? "",
-73|    decisionId: b.decisionId ?? "",
-74|    expectedRevision: b.expectedRevision,
-75|    methodRef: (b.methodRef ?? "").trim(),
-76|    methodVersion: (b.methodVersion ?? "").trim(),
-77|    objective: (b.objective ?? "").trim(),
-78|    operation: b.operation ?? "",
-79|    orientation: (b.orientation ?? "").trim(),
-80|    projectId: input.projectId,
-81|    restrictionId: b.restrictionId ?? "",
-82|    sourceKind: b.sourceKind ?? "",
-83|    sourceRef: b.sourceRef ?? "",
-84|    statement: (b.statement ?? "").trim(),
-85|    targetKind: b.targetKind ?? "",
-86|    targetRef: (b.targetRef ?? "").trim(),
-87|    toCycleType: b.toCycleType ?? "",
-88|    trajectoryRevisionId: b.trajectoryRevisionId ?? "",
-89|    utterance: (b.utterance ?? "").trim(),
-90|    actInstanceId: (b.actInstanceId ?? "").trim(),
-91|    objectRef: (b.objectRef ?? "").trim(),
-92|  });
-93|  return createHash("sha256").update(canonical).digest("hex");
-94|}
-95|
-96|export function buildSourceActionKey(input: {
-97|  operation: string;
-98|  cycleType?: string | null;
-99|  toCycleType?: string | null;
-100|  methodRef?: string | null;
-101|  methodVersion?: string | null;
-102|  decisionId?: string | null;
-103|  trajectoryRevisionId?: string | null;
-104|  targetKind?: string | null;
-105|  targetRef?: string | null;
-106|  restrictionId?: string | null;
-107|  actInstanceId?: string | null;
-108|}): string {
-109|  const canonical = [
-110|    input.operation,
-111|    input.cycleType ?? "",
-112|    input.toCycleType ?? "",
-113|    (input.methodRef ?? "").trim().toLowerCase(),
-114|    (input.methodVersion ?? "").trim(),
-115|    input.decisionId ?? "",
-116|    input.trajectoryRevisionId ?? "",
-117|    input.targetKind ?? "",
-118|    (input.targetRef ?? "").trim().toLowerCase(),
-119|    input.restrictionId ?? "",
-120|    (input.actInstanceId ?? "").trim(),
-121|  ].join("|");
-122|  return createHash("sha256").update(canonical).digest("hex");
-123|}
-124|
-125|function parseResultJson(raw: string): { reason?: string; reasonCode?: string } {
-126|  try {
-127|    const value = JSON.parse(raw) as { reason?: string; reasonCode?: string };
-128|    return value ?? {};
-129|  } catch {
-130|    return {};
-131|  }
-132|}
-133|
-134|export function toCommandResult(
-135|  cmd: CommandRow,
-136|  effects: EffectRow[],
-137|  mode: "replay" | "stored",
-138|): CommandResult {
-139|  const extra = parseResultJson(cmd.resultJson);
-140|  const status = mode === "replay" && cmd.status === "APPLIED" ? "ALREADY_APPLIED" : cmd.status;
-141|  return {
-142|    status: status === "APPLIED" || status === "REJECTED" || status === "ALREADY_APPLIED" ? status : "UNKNOWN",
-143|    commandId: cmd.id,
-144|    projectId: cmd.projectId,
-145|    revision: cmd.stateRevision,
-146|    decisionId: cmd.decisionId,
-147|    effects: effects.map((e) => ({
-148|      effectKind: e.effectKind,
-149|      targetRef: e.targetRef,
-150|      outcome: e.outcome,
-151|      ordinal: e.ordinal,
-152|    })),
-153|    reason: extra.reason,
-154|    reasonCode: extra.reasonCode,
-155|  };
-156|}
-157|
-158|function bare(input: ClientEnvelope, patch: Partial<CommandResult>): CommandResult {
-159|  return {
-160|    status: "CONFLICT",
-161|    commandId: null,
-162|    projectId: input.projectId,
-163|    revision: null,
-164|    decisionId: null,
-165|    effects: [],
-166|    ...patch,
-167|  };
-168|}
-169|
-170|async function loadEffects(tx: DbTx | typeof db, commandId: string): Promise<EffectRow[]> {
-171|  return tx
-172|    .select()
-173|    .from(businessCommandEffects)
-174|    .where(eq(businessCommandEffects.commandId, commandId))
-175|    .orderBy(asc(businessCommandEffects.ordinal));
-176|}
-177|
-178|async function findByKey(tx: DbTx | typeof db, input: ClientEnvelope) {
-179|  return (
-180|    await tx
-181|      .select()
-182|      .from(businessCommands)
-183|      .where(
-184|        and(
-185|          eq(businessCommands.projectId, input.projectId),
-186|          eq(businessCommands.actorPilotId, input.pilotId),
-187|          eq(businessCommands.clientCommandKey, input.body.clientCommandKey ?? ""),
-188|        ),
-189|      )
-190|      .limit(1)
-191|  )[0];
-192|}
-193|
-194|const DEPENDENT_EFFECTS = new Set([
-195|  "OPEN_CYCLE",
-196|  "CLOSE_CYCLE",
-197|  "TRANSITION_CYCLE",
-198|  "CHOOSE_METHOD",
-199|  "REPLACE_METHOD",
-200|  "WITHDRAW_METHOD",
-201|  "RETAIN_TRAJECTORY",
-202|]);
-203|
-204|/** Exact objectRef + kind + differing statements. No lexical or NLP comparison. */
-205|async function hasExactContradiction(tx: DbTx, projectId: string): Promise<boolean> {
-206|  const rows = await tx
-207|    .select({
-208|      kind: humanDecisions.kind,
-209|      objectRef: humanDecisions.objectRef,
-210|      statement: humanDecisions.statement,
-211|    })
-212|    .from(humanDecisions)
-213|    .where(and(eq(humanDecisions.projectId, projectId), eq(humanDecisions.state, "APPLICABLE")));
-214|  const groups = new Map<string, Set<string>>();
-215|  for (const row of rows) {
-216|    const objectRef = row.objectRef.trim();
-217|    if (!objectRef) continue;
-218|    const key = `${row.kind}\u0000${objectRef}`;
-219|    const bucket = groups.get(key) ?? new Set<string>();
-220|    bucket.add(row.statement.trim());
-221|    groups.set(key, bucket);
-222|    if (bucket.size > 1) return true;
-223|  }
-224|  return false;
-225|}
-226|
-227|async function findByActionKey(tx: DbTx, projectId: string, actionKey: string) {
-228|  return (
-229|    await tx
-230|      .select()
+# FILE: web/tests/unit/ml3-authority.test.ts
+import { describe, expect, it } from "vitest";
+import { evaluateCurrentAuthority, methodUsageRestricted } from "@/domains/decisions/authority";
+
+describe("ml3 authority restrictions", () => {
+  const cycleBlock = {
+    id: "r-cycle",
+    targetKind: "CYCLE_MUTATION",
+    targetRef: "*",
+    status: "ACTIVE",
+  };
+
+  it("blocks cycle mutations and still allows a lift", () => {
+    expect(evaluateCurrentAuthority({ operation: "OPEN_CYCLE", restrictions: [cycleBlock] }).allowed).toBe(
+      false,
+    );
+    expect(
+      evaluateCurrentAuthority({ operation: "TRANSITION_CYCLE", restrictions: [cycleBlock] }).allowed,
+    ).toBe(false);
+    expect(
+      evaluateCurrentAuthority({ operation: "LIFT_RESTRICTION", restrictions: [cycleBlock] }).allowed,
+    ).toBe(true);
+    expect(
+      evaluateCurrentAuthority({
+        operation: "OPEN_CYCLE",
+        restrictions: [{ ...cycleBlock, status: "LIFTED" }],
+      }).allowed,
+    ).toBe(true);
+  });
+
+  it("blocks only the named cycle and lets another cycle through", () => {
+    const uxOnly = {
+      id: "r-ux",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "UX_UI",
+      status: "ACTIVE",
+    };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "OPEN_CYCLE",
+        restrictions: [uxOnly],
+        cycleType: "UX_UI",
+      }).allowed,
+    ).toBe(false);
+    expect(
+      evaluateCurrentAuthority({
+        operation: "OPEN_CYCLE",
+        restrictions: [uxOnly],
+        cycleType: "CADRAGE",
+      }).allowed,
+    ).toBe(true);
+    expect(
+      evaluateCurrentAuthority({
+        operation: "CLOSE_CYCLE",
+        restrictions: [{ ...uxOnly, targetRef: "cyc-a" }],
+        cycleId: "cyc-a",
+      }).allowed,
+    ).toBe(false);
+    expect(
+      evaluateCurrentAuthority({
+        operation: "CLOSE_CYCLE",
+        restrictions: [{ ...uxOnly, targetRef: "cyc-a" }],
+        cycleId: "cyc-b",
+      }).allowed,
+    ).toBe(true);
+  });
+
+  it("treats a global cycle or pilotage target as blocking every candidate", () => {
+    for (const targetRef of ["*", ""]) {
+      const globalCycle = {
+        id: "r-global",
+        targetKind: "CYCLE_MUTATION",
+        targetRef,
+        status: "ACTIVE",
+      };
+      expect(
+        evaluateCurrentAuthority({
+          operation: "OPEN_CYCLE",
+          restrictions: [globalCycle],
+          cycleType: "CADRAGE",
+        }).allowed,
+      ).toBe(false);
+      expect(
+        evaluateCurrentAuthority({
+          operation: "OPEN_CYCLE",
+          restrictions: [globalCycle],
+          cycleType: "UX_UI",
+        }).allowed,
+      ).toBe(false);
+    }
+    const globalEffect = {
+      id: "r-effect",
+      targetKind: "PILOTAGE_EFFECT",
+      targetRef: "*",
+      status: "ACTIVE",
+    };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "CHOOSE_METHOD",
+        restrictions: [globalEffect],
+        methodRef: "Scrum",
+      }).allowed,
+    ).toBe(false);
+    expect(
+      evaluateCurrentAuthority({
+        operation: "OPEN_CYCLE",
+        restrictions: [globalEffect],
+        cycleType: "CADRAGE",
+      }).allowed,
+    ).toBe(false);
+    const namedEffect = { ...globalEffect, targetRef: "Scrum" };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "CHOOSE_METHOD",
+        restrictions: [namedEffect],
+        methodRef: "Scrum",
+        effectTargetRef: "Scrum",
+      }).allowed,
+    ).toBe(false);
+    expect(
+      evaluateCurrentAuthority({
+        operation: "CHOOSE_METHOD",
+        restrictions: [namedEffect],
+        methodRef: "Kanban",
+        effectTargetRef: "Kanban",
+      }).allowed,
+    ).toBe(true);
+  });
+
+  it("marks method use as restricted without treating that as erasure or a cycle block", () => {
+    const methodUse = {
+      id: "r-method",
+      targetKind: "METHOD_USE",
+      targetRef: "Scrum",
+      status: "ACTIVE",
+    };
+    expect(methodUsageRestricted([methodUse], "Scrum")).toBe(true);
+    expect(methodUsageRestricted([methodUse], "Kanban")).toBe(false);
+    const verdict = evaluateCurrentAuthority({
+      operation: "OPEN_CYCLE",
+      restrictions: [methodUse],
+      methodRef: "Scrum",
+    });
+    expect(verdict.allowed).toBe(true);
+    expect(verdict.usageRestricted).toBe(true);
+  });
+
+  it("CR-01: TRANSITION_CYCLE is blocked when source A or target B is restricted", () => {
+    const blockB = {
+      id: "r-b",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "UX_UI",
+      status: "ACTIVE",
+    };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "TRANSITION_CYCLE",
+        restrictions: [blockB],
+        cycleId: "cyc-a",
+        cycleType: "CADRAGE",
+        toCycleType: "UX_UI",
+      }).allowed,
+    ).toBe(false);
+    expect(
+      evaluateCurrentAuthority({
+        operation: "TRANSITION_CYCLE",
+        restrictions: [blockB],
+        cycleId: "cyc-a",
+        cycleType: "CADRAGE",
+        toCycleType: "DELIVERY",
+      }).allowed,
+    ).toBe(true);
+
+    const blockA = {
+      id: "r-a",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "CADRAGE",
+      status: "ACTIVE",
+    };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "TRANSITION_CYCLE",
+        restrictions: [blockA],
+        cycleId: "cyc-a",
+        cycleType: "CADRAGE",
+        toCycleType: "UX_UI",
+      }).allowed,
+    ).toBe(false);
+
+    const blockAId = {
+      id: "r-aid",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "cyc-a",
+      status: "ACTIVE",
+    };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "TRANSITION_CYCLE",
+        restrictions: [blockAId],
+        cycleId: "cyc-a",
+        cycleType: "CADRAGE",
+        toCycleType: "UX_UI",
+      }).allowed,
+    ).toBe(false);
+
+    const unrelated = {
+      id: "r-other",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "SECURITE",
+      status: "ACTIVE",
+    };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "TRANSITION_CYCLE",
+        restrictions: [unrelated],
+        cycleId: "cyc-a",
+        cycleType: "CADRAGE",
+        toCycleType: "UX_UI",
+      }).allowed,
+    ).toBe(true);
+
+    const global = {
+      id: "r-g",
+      targetKind: "CYCLE_MUTATION",
+      targetRef: "*",
+      status: "ACTIVE",
+    };
+    expect(
+      evaluateCurrentAuthority({
+        operation: "TRANSITION_CYCLE",
+        restrictions: [global],
+        cycleId: "cyc-a",
+        cycleType: "CADRAGE",
+        toCycleType: "UX_UI",
+      }).allowed,
+    ).toBe(false);
+  });
+});
 ```
+
+### 9.6 Tests PG — cas CR-01 / CR-02 / CR-03 (sections)
+
+#### CR-03: different RECORD statements
 
 ```ts
-480|        effectTargetRef:
-481|          classified.command.trajectoryRevisionId ||
-482|          classified.command.decisionId ||
-483|          classified.command.methodRef ||
-484|          classified.command.targetRef,
-485|      });
-486|      if (!verdict.allowed) {
-487|        return insertCommand(tx, input, fingerprint, {
-488|          sourceKind: classified.command.sourceKind,
-489|          sourceRef: classified.command.sourceRef,
-490|          sourceActionKey: classified.command.sourceActionKey,
-491|          operation: classified.command.operation,
-492|          status: "REJECTED",
-493|          stateRevision: revision,
-494|          decisionId: null,
-495|          reason: verdict.reason,
-496|          reasonCode: "RESTRICTION",
-497|          effects: [],
-498|        });
-499|      }
-500|
-501|      if (
-502|        DEPENDENT_EFFECTS.has(classified.command.operation) &&
-503|        (await hasExactContradiction(tx, input.projectId))
-504|      ) {
-505|        return bare(input, {
-506|          status: "CONFLICT",
-507|          revision,
-508|          reason: "Décisions applicables contradictoires sur le même objet",
-509|          reasonCode: "CONTRADICTION",
-510|        });
-511|      }
-512|
-513|      const mutated = await handlers.mutate(tx, classified.command);
-514|      if (mutated.kind === "CONFLICT") {
-515|        return bare(input, {
-516|          status: "CONFLICT",
-517|          revision,
-518|          reason: mutated.reason,
-519|          reasonCode: mutated.reasonCode,
-520|        });
-521|      }
-522|      if (mutated.kind === "REJECTED") {
-523|        if (!mutated.persist) {
-524|          return bare(input, {
-525|            status: "REJECTED",
-526|            revision,
-527|            reason: mutated.reason,
-528|            reasonCode: mutated.reasonCode,
-529|          });
-530|        }
+538|  it("CR-03: different RECORD statements on same objectRef do not globally block OPEN", async () => {
+539|    const { pilotId, projectId } = await seedProject("no-false-contradiction");
+540|    const first = await executePilotageCommand(pilotId, projectId, {
+541|      clientCommandKey: newId("idem"),
+542|      expectedRevision: 0,
+543|      sourceKind: "EXPLICIT_INTERACTION",
+544|      sourceRef: newId("src"),
+545|      operation: "RECORD_DECISION",
+546|      objectRef: "perimetre-portail",
+547|      statement: "Le périmètre inclut le portail",
+548|    });
+549|    expect(first.status).toBe("APPLIED");
+550|    const second = await executePilotageCommand(pilotId, projectId, {
+551|      clientCommandKey: newId("idem"),
+552|      expectedRevision: first.revision ?? 1,
+553|      sourceKind: "EXPLICIT_INTERACTION",
+554|      sourceRef: newId("src"),
+555|      operation: "RECORD_DECISION",
+556|      objectRef: "perimetre-portail",
+557|      statement: "Le périmètre exclut le portail",
+558|    });
+559|    expect(second.status).toBe("APPLIED");
+560|    // Independent cycle open must not be blocked by free-text divergence (RG-GOV-013).
+561|    const opened = await openCycle(pilotId, projectId, {
+562|      clientCommandKey: newId("idem"),
+563|      expectedRevision: second.revision ?? 2,
+564|      sourceRef: newId("src"),
+565|      cycleType: "CADRAGE",
+566|      objective: "Effet indépendant autorisé",
+567|    });
+568|    expect(opened.status).toBe("APPLIED");
+569|    expect((await getPilotageProjection(pilotId, projectId)).cycle?.status).toBe("ACTIVE");
+570|  });
 ```
 
-### 8.4 CKI manifest pin (cki-resolve.ts)
+#### CR-02: REVISE_DECISION allowed for RECORD
 
 ```ts
-115|/** Approved specialty catalogue. Missing or unreadable manifest → no pin. */
-116|export function loadCkiManifest(dir = resolveCkiDirectory()): CkiManifest | null {
-117|  const path = resolve(dir, CKI_MANIFEST_FILE);
-118|  if (!existsSync(path)) return null;
-119|  try {
-120|    const parsed = JSON.parse(readFileSync(path, "utf8")) as CkiManifest;
-121|    if (!parsed || parsed.version !== CKI_CORPUS_VERSION || !Array.isArray(parsed.specialties)) return null;
-122|    return parsed;
-123|  } catch {
-124|    return null;
-125|  }
-126|}
-127|
-128|function approvedEntry(ckiId: string, version: string | null): CkiManifestEntry | null {
-129|  if (!version) return null;
-130|  const manifest = loadCkiManifest();
-131|  if (!manifest) return null;
-132|  return (
-133|    manifest.specialties.find(
-134|      (entry) => entry.ckiId === ckiId && entry.version === version && entry.file === `${ckiId}.md`,
-135|    ) ?? null
-136|  );
-137|}
-138|
-139|function unresolvedPin(ckiId: string, availability: CkiAvailability): CkiPin {
-140|  return {
-141|    ckiId,
-142|    pinnedVersion: null,
-143|    contentDigest: null,
-144|    manifestRef: null,
-145|    pinOrigin: "UNRESOLVED",
-146|    availability,
-147|  };
-148|}
-149|
-150|/**
-151| * Pin at cycle open only when the file digest matches the approved manifest entry
-152| * for that specialty and corpus version. No silent substitution or migration.
-153| * Unreadable specialty → ASSOCIATED. Readable but unapproved → UNAVAILABLE.
-154| */
-155|export function resolveForOpen(cycleType: CycleType): CkiPin {
-156|  const ckiId = CYCLE_CKI[cycleType];
-157|  const bytes = readSpecialty(ckiId);
-158|  if (!bytes) return unresolvedPin(ckiId, "ASSOCIATED");
-159|  const entry = approvedEntry(ckiId, CKI_CORPUS_VERSION);
-160|  if (!entry || entry.sha256 !== bytes.digest || bytes.version !== CKI_CORPUS_VERSION) {
-161|    return unresolvedPin(ckiId, "UNAVAILABLE");
-162|  }
-163|  return {
-164|    ckiId,
-165|    pinnedVersion: entry.version,
-166|    contentDigest: bytes.digest,
-167|    manifestRef: `cki/${CKI_MANIFEST_FILE}#${ckiId}@${entry.version}`,
-168|    pinOrigin: "OPEN_PIN",
-169|    availability: "RESOLVED",
-170|  };
-171|}
-172|
-173|/**
-174| * Re-read a pin. RESOLVED only when the stored digest still matches the file
-175| * and the approved manifest entry for that ckiId+version. Divergent bytes → UNAVAILABLE.
-176| * No stored digest → stay ASSOCIATED (do not silent-pin or migrate on a later read).
-177| */
-178|export function resolvePinnedCki(pin: {
-179|  ckiId: string | null;
-180|  contentDigest: string | null;
-181|  pinnedVersion: string | null;
-182|  manifestRef?: string | null;
-183|  pinOrigin?: string | null;
-184|}): CkiPin {
-185|  if (!pin.ckiId) {
-186|    return {
-187|      ckiId: "",
-188|      pinnedVersion: null,
-189|      contentDigest: null,
-190|      manifestRef: null,
-191|      pinOrigin: null,
-192|      availability: "ASSOCIATED",
-193|    };
-194|  }
-195|  if (!pin.contentDigest) {
-196|    return {
-197|      ckiId: pin.ckiId,
-198|      pinnedVersion: null,
-199|      contentDigest: null,
-200|      manifestRef: pin.manifestRef ?? null,
-201|      pinOrigin: (pin.pinOrigin as CkiPin["pinOrigin"]) ?? "UNRESOLVED",
-202|      availability: "ASSOCIATED",
-203|    };
-204|  }
-205|  const bytes = readSpecialty(pin.ckiId);
-206|  const entry = approvedEntry(pin.ckiId, pin.pinnedVersion);
-207|  const approved =
-208|    !!bytes &&
-209|    bytes.digest === pin.contentDigest &&
-210|    !!entry &&
-211|    entry.sha256 === pin.contentDigest &&
-212|    entry.version === pin.pinnedVersion;
-213|  if (!approved || !bytes) {
-214|    return {
-215|      ckiId: pin.ckiId,
-216|      pinnedVersion: pin.pinnedVersion,
-217|      contentDigest: pin.contentDigest,
-218|      manifestRef: pin.manifestRef ?? null,
-219|      pinOrigin: (pin.pinOrigin as CkiPin["pinOrigin"]) ?? "OPEN_PIN",
-220|      availability: "UNAVAILABLE",
+572|  it("CR-02: REVISE_DECISION allowed for RECORD; refused for D5 founding kinds", async () => {
+573|    const { pilotId, projectId } = await seedProject("revise-d5");
+574|    const recorded = await executePilotageCommand(pilotId, projectId, {
+575|      clientCommandKey: newId("idem"),
+576|      expectedRevision: 0,
+577|      sourceKind: "EXPLICIT_INTERACTION",
+578|      sourceRef: newId("src"),
+579|      operation: "RECORD_DECISION",
+580|      objectRef: "note-cadrage",
+581|      statement: "Note initiale",
+582|    });
+583|    expect(recorded.status).toBe("APPLIED");
+584|    const revised = await executePilotageCommand(pilotId, projectId, {
+585|      clientCommandKey: newId("idem"),
+586|      expectedRevision: recorded.revision ?? 1,
+587|      sourceKind: "EXPLICIT_INTERACTION",
+588|      sourceRef: newId("src"),
+589|      operation: "REVISE_DECISION",
+590|      decisionId: recorded.decisionId!,
+591|      statement: "Note amendée",
+592|    });
+593|    expect(revised.status).toBe("APPLIED");
+594|    const journal = await listDecisionJournal(pilotId, projectId);
+595|    expect(journal.find((d) => d.id === recorded.decisionId)?.state).toBe("REVISED");
+596|    expect(journal.find((d) => d.id === revised.decisionId)?.state).toBe("APPLICABLE");
+597|    expect(journal.find((d) => d.id === revised.decisionId)?.supersedesDecisionId).toBe(
+598|      recorded.decisionId,
+599|    );
+600|
+601|    const opened = await openCycle(pilotId, projectId, {
+602|      clientCommandKey: newId("idem"),
+603|      expectedRevision: revised.revision ?? 2,
+604|      sourceRef: newId("src"),
+605|      cycleType: "CADRAGE",
+606|      objective: "Fondatrice",
+607|    });
+608|    expect(opened.status).toBe("APPLIED");
+609|    const refuseOpenRevise = await executePilotageCommand(pilotId, projectId, {
+610|      clientCommandKey: newId("idem"),
+611|      expectedRevision: opened.revision ?? 3,
+612|      sourceKind: "EXPLICIT_INTERACTION",
+613|      sourceRef: newId("src"),
+614|      operation: "REVISE_DECISION",
+615|      decisionId: opened.decisionId!,
+616|      statement: "Ne doit pas réécrire l'ouverture",
+617|    });
+618|    expect(refuseOpenRevise.status).toBe("REJECTED");
+619|    expect(refuseOpenRevise.reasonCode).toBe("USE_TYPED_OPERATION");
+620|    expect((await getPilotageProjection(pilotId, projectId)).cycle?.status).toBe("ACTIVE");
+621|    expect((await listDecisionJournal(pilotId, projectId)).find((d) => d.id === opened.decisionId)?.state).toBe(
+622|      "APPLICABLE",
+623|    );
+624|
+625|    const method = await chooseMethod(pilotId, projectId, {
+626|      clientCommandKey: newId("idem"),
+627|      expectedRevision: opened.revision ?? 3,
+628|      sourceRef: newId("src"),
+629|      methodRef: "Scrum",
+630|      methodVersion: "1.0",
+631|    });
+632|    expect(method.status).toBe("APPLIED");
+633|    const refuseMethodRevise = await executePilotageCommand(pilotId, projectId, {
+634|      clientCommandKey: newId("idem"),
+635|      expectedRevision: method.revision ?? 4,
+636|      sourceKind: "EXPLICIT_INTERACTION",
+637|      sourceRef: newId("src"),
+638|      operation: "REVISE_DECISION",
+639|      decisionId: method.decisionId!,
+640|      statement: "Ne doit pas orpheliner la méthode",
+641|    });
+642|    expect(refuseMethodRevise.status).toBe("REJECTED");
+643|    expect(refuseMethodRevise.reasonCode).toBe("USE_TYPED_OPERATION");
+644|    const view = await getPilotageProjection(pilotId, projectId);
+645|    expect(view.method).toMatchObject({ presence: "RETAINED", methodRef: "Scrum" });
+646|
+647|    const replaced = await replaceMethod(pilotId, projectId, {
+648|      clientCommandKey: newId("idem"),
+649|      expectedRevision: method.revision ?? 4,
+650|      sourceRef: newId("src"),
+651|      methodRef: "Kanban",
+652|      methodVersion: "2.0",
+653|    });
+654|    expect(replaced.status).toBe("APPLIED");
+655|    expect((await getPilotageProjection(pilotId, projectId)).method).toMatchObject({
+656|      presence: "RETAINED",
+657|      methodRef: "Kanban",
+658|    });
+659|    const revoked = await revokeFoundingDecision(pilotId, projectId, {
+660|      clientCommandKey: newId("idem"),
+661|      expectedRevision: replaced.revision ?? 5,
+662|      sourceRef: newId("src"),
+663|      decisionId: replaced.decisionId!,
+664|    });
+665|    expect(revoked.status).toBe("APPLIED");
+666|    expect((await getPilotageProjection(pilotId, projectId)).method.presence).toBe("ABSENT");
+667|  });
 ```
 
-### 8.5 PilotagePanel F01 runCommand / reconcile
-
-```tsx
-70|  balanceNote?: string;
-71|  decisionId?: string;
-72|};
-73|
-74|type PendingRecord = {
-75|  clientCommandKey: string;
-76|  actInstanceId: string;
-77|  actKey: string;
-78|  signature: string;
-79|  operation: string;
-80|  payload: Record<string, unknown>;
-81|  commandId?: string;
-82|  expectedRevision: number;
-83|  sourceRef: string;
-84|  sourceAction: { operation: string; actKey: string; actInstanceId: string };
-85|};
-86|
-87|const TERMINAL = new Set(["APPLIED", "ALREADY_APPLIED", "REJECTED", "CONFLICT"]);
-88|const CONFIRMED = new Set(["APPLIED", "ALREADY_APPLIED"]);
-89|
-90|function storageKey(projectId: string, operation: string, actKey: string) {
-91|  return `sfia.pilotage.pending:${projectId}:${operation}:${actKey}`;
-92|}
-93|
-94|function intentSignature(projectId: string, intent: IntentBody): string {
-95|  const operation = intent.operation?.trim() || "UTTERANCE";
-96|  return JSON.stringify({
-97|    projectId,
-98|    operation,
-99|    utterance: intent.utterance ?? "",
-100|    cycleType: intent.cycleType ?? "",
-101|    cycleId: intent.cycleId ?? "",
-102|    toCycleType: intent.toCycleType ?? "",
-103|    objective: intent.objective ?? "",
-104|    orientation: intent.orientation ?? "",
-105|    trajectoryRevisionId: intent.trajectoryRevisionId ?? "",
-106|    methodRef: intent.methodRef ?? "",
-107|    methodVersion: intent.methodVersion ?? "",
-108|    targetKind: intent.targetKind ?? "",
-109|    targetRef: intent.targetRef ?? "",
-110|    restrictionId: intent.restrictionId ?? "",
-111|    decisionId: intent.decisionId ?? "",
-112|    statement: intent.statement ?? "",
-113|  });
-114|}
-115|
-116|function readStored(projectId: string, operation: string, signature: string): PendingRecord | null {
-117|  if (typeof sessionStorage === "undefined") return null;
-118|  const prefix = `sfia.pilotage.pending:${projectId}:${operation}:`;
-119|  for (let i = 0; i < sessionStorage.length; i++) {
-120|    const key = sessionStorage.key(i);
-121|    if (!key?.startsWith(prefix)) continue;
-122|    try {
-123|      const rec = JSON.parse(sessionStorage.getItem(key) || "") as PendingRecord;
-124|      if (rec.signature === signature) return rec;
-125|    } catch {
-126|      /* ignore corrupt pending rows */
-127|    }
-128|  }
-129|  return null;
-130|}
-131|
-132|function writeStored(projectId: string, record: PendingRecord) {
-133|  sessionStorage.setItem(storageKey(projectId, record.operation, record.actKey), JSON.stringify(record));
-134|}
-135|
-136|function clearStored(projectId: string, record: PendingRecord) {
-137|  sessionStorage.removeItem(storageKey(projectId, record.operation, record.actKey));
-138|}
-139|
-140|/**
-141| * Surfaces ML3 Pilotage — états honnêtes.
-142| * Jamais d'effet présenté comme confirmé avant réponse serveur APPLIED/ALREADY_APPLIED.
-143| */
-144|export function PilotagePanel({ projectId }: { projectId: string }) {
-145|  const [projection, setProjection] = useState<PilotageProjection | null>(null);
-146|  const [decisions, setDecisions] = useState<DecisionRow[]>([]);
-147|  const [error, setError] = useState("");
-148|  const [journalError, setJournalError] = useState("");
-149|  const [status, setStatus] = useState("");
-150|  const [busy, setBusy] = useState(false);
-151|  const [pendingLabel, setPendingLabel] = useState<string | null>(null);
-152|  const [unresolved, setUnresolved] = useState<PendingRecord | null>(null);
-153|  const [cycleType, setCycleType] = useState("UX_UI");
-154|  const [toCycleType, setToCycleType] = useState("CADRAGE");
-155|  const [objective, setObjective] = useState("Qualifier l'expérience Pilote–Nora");
-156|  const [methodRef, setMethodRef] = useState("sfia-fast-track");
-157|  const [methodVersion, setMethodVersion] = useState("2.6");
-158|  const [utterance, setUtterance] = useState("");
-159|  const [restrictionTarget, setRestrictionTarget] = useState("*");
-160|  const inflight = useRef(new Map<string, PendingRecord>());
-161|
-162|  const load = useCallback(async () => {
-163|    const [pRes, dRes] = await Promise.all([
-164|      fetch(`/api/projects/${projectId}/pilotage`),
-165|      fetch(`/api/projects/${projectId}/decisions`),
-166|    ]);
-167|    if (pRes.status === 401 || dRes.status === 401) {
-168|      setError("Session requise");
-169|      return;
-170|    }
-171|    if (!pRes.ok) {
-172|      setError("Impossible de charger le pilotage");
-173|      return;
-174|    }
-175|    const pj = await pRes.json();
-176|    setProjection(pj.pilotage ?? pj);
-177|    if (!dRes.ok) {
-178|      let message = `Journal HTTP ${dRes.status}`;
-179|      try {
-180|        const dj = (await dRes.json()) as { error?: string; message?: string };
-181|        message = dj.error ?? dj.message ?? message;
-182|      } catch {
-183|        /* keep the HTTP status */
-184|      }
-185|      setJournalError(message);
-186|      setDecisions([]);
-187|    } else {
-188|      const dj = await dRes.json();
-189|      setDecisions(dj.decisions ?? []);
-190|      setJournalError("");
-191|    }
-192|    setError("");
-193|  }, [projectId]);
-194|
-195|  useEffect(() => {
-196|    void load();
-197|  }, [load]);
-198|
-199|  function forget(record: PendingRecord) {
-200|    inflight.current.delete(record.signature);
-201|    clearStored(projectId, record);
-202|    setUnresolved((current) => (current?.clientCommandKey === record.clientCommandKey ? null : current));
-203|  }
-204|
-205|  function remember(record: PendingRecord) {
-206|    inflight.current.set(record.signature, record);
-207|    writeStored(projectId, record);
-208|    setUnresolved(record);
-209|  }
-210|
-211|  async function reconcile(record: PendingRecord): Promise<CommandResult | null> {
-212|    try {
-213|      const byKey = await fetch(
-214|        `/api/projects/${projectId}/pilotage/commands/by-key/${encodeURIComponent(record.clientCommandKey)}`,
-215|      );
-216|      if (byKey.ok) return (await byKey.json()) as CommandResult;
-217|    } catch {
-218|      /* try the command id next */
-219|    }
-220|    if (!record.commandId) return null;
-221|    try {
-222|      const byId = await fetch(`/api/projects/${projectId}/pilotage/commands/${record.commandId}`);
-223|      if (byId.ok) return (await byId.json()) as CommandResult;
-224|    } catch {
-225|      return null;
-226|    }
-227|    return null;
-228|  }
-229|
-230|  async function applyResult(record: PendingRecord, result: CommandResult) {
-231|    if (result.commandId) {
-232|      record.commandId = result.commandId;
-233|      writeStored(projectId, record);
-234|    }
-235|    setStatus(
-236|      `${result.status}${result.reasonCode ? ` · ${result.reasonCode}` : ""}${result.reason ? ` — ${result.reason}` : ""}`,
-237|    );
-238|    if (CONFIRMED.has(result.status)) {
-239|      forget(record);
-240|      await load();
-241|      return;
-242|    }
-243|    if (TERMINAL.has(result.status)) {
-244|      forget(record);
-245|      return;
-246|    }
-247|    remember(record);
-248|  }
-249|
-250|  async function postRecord(record: PendingRecord): Promise<"network" | "nonjson" | CommandResult> {
-251|    let res: Response;
-252|    try {
-253|      res = await fetch(`/api/projects/${projectId}/pilotage/commands`, {
-254|        method: "POST",
-255|        headers: {
-256|          "Content-Type": "application/json",
-257|          "Idempotency-Key": record.clientCommandKey,
-258|        },
-259|        body: JSON.stringify(record.payload),
-260|      });
-261|    } catch {
-262|      return "network";
-263|    }
-264|    const text = await res.text();
-265|    let json: CommandResult;
-266|    try {
-267|      json = JSON.parse(text) as CommandResult;
-268|    } catch {
-269|      return "nonjson";
-270|    }
-271|    if (!res.ok && !json.status) {
-272|      return { status: `HTTP ${res.status}`, commandId: null, revision: null, reason: json.error };
-273|    }
-274|    return json;
-275|  }
-276|
-277|  async function resolveUnknown(record: PendingRecord) {
-278|    setStatus("UNKNOWN");
-279|    const found = await reconcile(record);
-280|    if (found?.status && found.status !== "UNKNOWN") {
-281|      await applyResult(record, found);
-282|      return;
-283|    }
-284|    const replay = await postRecord(record);
-285|    if (replay === "network" || replay === "nonjson") {
-286|      remember(record);
-287|      setStatus("UNKNOWN — commande non réconciliée");
-288|      return;
-289|    }
-290|    await applyResult(record, replay);
-291|  }
-292|
-293|  async function runCommand(intent: IntentBody, pending: string) {
-294|    const operation = intent.operation?.trim() || "UTTERANCE";
-295|    const signature = intentSignature(projectId, intent);
-296|    let record = inflight.current.get(signature) ?? readStored(projectId, operation, signature);
-297|    if (!record) {
-298|      const actInstanceId = crypto.randomUUID();
-299|      const actKey = actInstanceId;
-300|      const clientCommandKey = `cmd_${crypto.randomUUID()}`;
-301|      const sourceRef = `ui:${operation}:${actInstanceId}`;
-302|      const expectedRevision = projection?.revision ?? 0;
-303|      const payload: Record<string, unknown> = {
-304|        ...intent,
-305|        operation: intent.operation?.trim() ? intent.operation : undefined,
-306|        clientCommandKey,
-307|        expectedRevision,
-308|        actInstanceId,
-309|        sourceRef,
-310|        sourceKind: intent.sourceKind,
-311|      };
-312|      record = {
-313|        clientCommandKey,
-314|        actInstanceId,
-315|        actKey,
-316|        signature,
-317|        operation,
-318|        payload,
-319|        expectedRevision,
-320|        sourceRef,
-321|        sourceAction: { operation, actKey, actInstanceId },
-322|      };
-323|    }
-324|    inflight.current.set(signature, record);
-325|    writeStored(projectId, record);
-326|    setBusy(true);
-327|    setPendingLabel(pending);
-328|    setStatus("");
-329|    try {
-330|      const posted = await postRecord(record);
-331|      if (posted === "network" || posted === "nonjson") {
-332|        await resolveUnknown(record);
-333|        return;
-334|      }
-335|      await applyResult(record, posted);
-336|    } catch {
-337|      setStatus("UNKNOWN");
-338|      remember(record);
-339|    } finally {
-340|      setBusy(false);
-341|      setPendingLabel(null);
-342|    }
-343|  }
-344|
-345|  if (error) {
-346|    return <div className="panel p-4 text-sm">{error}</div>;
-347|  }
-348|  if (!projection) {
-349|    return <div className="panel p-4 text-sm muted">Chargement du pilotage…</div>;
-350|  }
-```
-
-### 8.6 Nora DELIVERED honesty (nora-adapter)
+#### CR-01: transition blocked when target B
 
 ```ts
-517|    reasonCodes: [reasonCode],
-518|  };
-519|}
-520|
-521|/**
-522| * DELIVERED is an observation of this generation, not of the projection.
-523| * Content may be attached (requested DELIVERED) and still not delivered if
-524| * generate failed before a fixture or provider body.
-525| */
-526|function stampCkiDelivery(
-527|  result: NoraGenerateResult,
-528|  requested: string | undefined,
-529|  generateRan: boolean,
-530|): NoraGenerateResult {
-531|  const asked = requested ?? result.ckiDelivery ?? "NONE";
-532|  const ckiDelivery = asked === "DELIVERED" && !generateRan ? "RESOLVED" : asked;
-533|  return { ...result, ckiDelivery };
-534|}
-535|
-536|export async function generateNoraReply(input: NoraGenerateInput): Promise<NoraGenerateResult> {
-537|  const generationId = newId("gen");
-538|
-539|  // Lane fixture gate before policy — fail closed with a clear category.
-540|  if (noraFixtureFlagsOutsideDev()) {
-541|    return stampCkiDelivery(
-542|      boundaryFail(
-543|        generationId,
-544|        "NORA_FIXTURE_LANE_FORBIDDEN (STUDIO_E2E/FORCE requires STUDIO_LANE=DEV)",
-545|        minimalBoundaryPolicy("NORA_FIXTURE_LANE_FORBIDDEN"),
-546|      ),
-547|      input.ckiDelivery,
-548|      false,
-549|    );
-550|  }
-551|
+669|  it("CR-01: transition blocked when target B or source A is restricted; A stays ACTIVE", async () => {
+670|    const { pilotId, projectId } = await seedProject("transition-restrict");
+671|    const opened = await openCycle(pilotId, projectId, {
+672|      clientCommandKey: newId("idem"),
+673|      expectedRevision: 0,
+674|      sourceRef: newId("src"),
+675|      cycleType: "CADRAGE",
+676|      objective: "Source A",
+677|    });
+678|    expect(opened.status).toBe("APPLIED");
+679|    const blockB = await applyGovernanceRestriction(pilotId, projectId, {
+680|      clientCommandKey: newId("idem"),
+681|      expectedRevision: opened.revision ?? 1,
+682|      sourceRef: newId("src"),
+683|      targetKind: "CYCLE_MUTATION",
+684|      targetRef: "UX_UI",
+685|      statement: "B restreint",
+686|    });
+687|    expect(blockB.status).toBe("APPLIED");
+688|    const refusedB = await transitionCycle(pilotId, projectId, {
+689|      clientCommandKey: newId("idem"),
+690|      expectedRevision: blockB.revision ?? 2,
+691|      sourceRef: newId("src"),
+692|      toCycleType: "UX_UI",
+693|    });
+694|    expect(refusedB.status).toBe("REJECTED");
+695|    expect(refusedB.reasonCode).toBe("RESTRICTION");
+696|    const afterB = await getPilotageProjection(pilotId, projectId);
+697|    expect(afterB.cycle?.cycleType).toBe("CADRAGE");
+698|    expect(afterB.cycle?.status).toBe("ACTIVE");
+699|    const cyclesAfterB = await db
+700|      .select()
+701|      .from(projectCycles)
+702|      .where(and(eq(projectCycles.projectId, projectId), eq(projectCycles.cycleType, "UX_UI")));
+703|    expect(cyclesAfterB).toHaveLength(0);
+704|
+705|    // Unrelated target type still allowed while UX_UI is restricted.
+706|    const toDelivery = await transitionCycle(pilotId, projectId, {
+707|      clientCommandKey: newId("idem"),
+708|      expectedRevision: blockB.revision ?? 2,
+709|      sourceRef: newId("src"),
+710|      toCycleType: "DELIVERY",
+711|    });
+712|    expect(toDelivery.status).toBe("APPLIED");
+713|    expect(toDelivery.effects.map((e) => e.effectKind).sort()).toEqual(["CLOSE", "OPEN"]);
+714|    expect((await getPilotageProjection(pilotId, projectId)).cycle?.cycleType).toBe("DELIVERY");
+715|
+716|    // Restrict current source type → further transition refused; cycle stays ACTIVE.
+717|    const blockA = await applyGovernanceRestriction(pilotId, projectId, {
+718|      clientCommandKey: newId("idem"),
+719|      expectedRevision: toDelivery.revision ?? 3,
+720|      sourceRef: newId("src"),
+721|      targetKind: "CYCLE_MUTATION",
+722|      targetRef: "DELIVERY",
+723|      statement: "A restreint",
+724|    });
+725|    expect(blockA.status).toBe("APPLIED");
+726|    const refusedA = await transitionCycle(pilotId, projectId, {
+727|      clientCommandKey: newId("idem"),
+728|      expectedRevision: blockA.revision ?? 4,
+729|      sourceRef: newId("src"),
+730|      toCycleType: "QA_VALIDATION",
+731|    });
+732|    expect(refusedA.status).toBe("REJECTED");
+733|    expect(refusedA.reasonCode).toBe("RESTRICTION");
+734|    expect((await getPilotageProjection(pilotId, projectId)).cycle?.cycleType).toBe("DELIVERY");
+735|    expect((await getPilotageProjection(pilotId, projectId)).cycle?.status).toBe("ACTIVE");
+736|
+737|    // Lift both restrictions → transition allowed again.
+738|    for (const effect of [...(blockB.effects ?? []), ...(blockA.effects ?? [])]) {
+739|      if (effect.effectKind !== "APPLY_RESTRICTION") continue;
+740|      const lift = await liftGovernanceRestriction(pilotId, projectId, {
+741|        clientCommandKey: newId("idem"),
+742|        expectedRevision: (await getPilotageProjection(pilotId, projectId)).revision,
+743|        sourceRef: newId("src"),
+744|        restrictionId: effect.targetRef,
+745|      });
+746|      expect(lift.status).toBe("APPLIED");
+747|    }
+748|    const afterLift = await transitionCycle(pilotId, projectId, {
+749|      clientCommandKey: newId("idem"),
+750|      expectedRevision: (await getPilotageProjection(pilotId, projectId)).revision,
+751|      sourceRef: newId("src"),
+752|      toCycleType: "QA_VALIDATION",
+753|    });
+754|    expect(afterLift.status).toBe("APPLIED");
+755|    expect((await getPilotageProjection(pilotId, projectId)).cycle?.cycleType).toBe("QA_VALIDATION");
+756|  });
 ```
 
-### 8.7 As-built §12 correctif + delivery-history + tracabilité appendice
+### 9.7 Documentation as-built modifiée
 
 ```md
-290|
-291|Les en-têtes historiques « NOT VALIDATED SPEC / NOT IMPLEMENTED » du document v0.4 restent des métadonnées pré-delivery ; ce §12 constate l'implémentation locale sans modifier les contrats R01–R04 validés en contenu Morris via #660.
-292|
 293|### Correctif ML3 (2026-11-06, local, non poussé)
 294|
-295|Idempotence UI par `actInstanceId` stable (retry = même clé, nouvel acte = nouvel id) et réconciliation `GET .../commands/by-key/:clientCommandKey`. CKI `RESOLVED` seulement si le digest du fichier égale l'entrée `cki/manifest.v0.2.0.json` (pas de migration silencieuse). Restriction `CYCLE_MUTATION` / `PILOTAGE_EFFECT` : `*` global, sinon cible (cycle, type ou méthode). GO naturel `EXPLICIT_INTERACTION` sans `operation`. `REVISE_DECISION` (précédente `REVISED`, nouvelle `APPLICABLE`) et blocage `CONTRADICTION` sur deux décisions `APPLICABLE` de même `kind` + `objectRef` exact et énoncés différents. `DELIVERED` seulement si le contenu CKI est joint et qu'un generate fixture/live a réellement tourné. Schéma inchangé (`007`).
+295|Idempotence UI par `actInstanceId` stable (retry = même clé, nouvel acte = nouvel id) et réconciliation `GET .../commands/by-key/:clientCommandKey`. CKI `RESOLVED` seulement si le digest du fichier égale l'entrée `cki/manifest.v0.2.0.json` (pas de migration silencieuse). Restriction `CYCLE_MUTATION` / `PILOTAGE_EFFECT` : `*` global, sinon cible (cycle, type ou méthode). GO naturel `EXPLICIT_INTERACTION` sans `operation`. `DELIVERED` seulement si le contenu CKI est joint et qu'un generate fixture/live a réellement tourné. Schéma inchangé (`007`).
+296|
+297|### Ajustement autorité CR-01..CR-04 (2026-11-06, local, non poussé)
+298|
+299|- **CR-01** — `TRANSITION_CYCLE` : évaluation D6 sur le cycle ACTIVE réel (A) **et** le `toCycleType` (B). Restriction sur A ou B → rejet unique, A reste ACTIVE, aucun B créé. Option A CLOSE+OPEN inchangée.
+300|- **CR-02** — `REVISE_DECISION` : autorisée pour `RECORD_DECISION` (documentaire, sans effet D5). Refusée (`USE_TYPED_OPERATION`) pour les kinds fondateurs D5 (cycle/méthode/trajectoire/restriction) afin de ne pas orpheliner `method_applications.decisionId` ni les pins de cycle. Remplacement/révocation via opérations typées.
+301|- **CR-03** — suppression du booléen project-global `statementA !== statementB` bloquant tous les effets D5 dépendants. Controles déterministes conservés (restrictions, état cycle/méthode, fondation). Conflit matériel D6 libre-texte : **B13 PARTIAL / NEEDS MORRIS ARBITRATION**.
+302|- **CR-04** — Review Pack FULL avec diffs/contenu exploitables et logs bruts (pas de substituts fictifs).
 ```
 
 ```md
-412|## delivery_id: DELIV-2026-11-06-ML3-CORRECTIFS-F01-F08
-413|
-414|| Field | Value |
-415|| --- | --- |
-416|| Date | 2026-11-06 (Europe/Paris) |
-417|| Macro-lot | R5 / ML3 — correctifs pilotage F01–F08 et T01–T04 |
-418|| Type | INC corrective (same ML3, not a new lot) |
-419|| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
-420|| Base | `7f1f41c` dirty candidate |
-421|| Schema | unchanged `007_ml3_pilotage_decisions` — `actInstanceId` lives in `source_action_key` + fingerprint, no migration 008 |
-422|| Corrected | Idempotence UI + GET by client key ; manifeste CKI 0.2.0 ; restriction ciblée ; journal `state` ; GO naturel sans operation ; identité d'acte ; `REVISE_DECISION` + contradiction exacte ; `DELIVERED` seulement après generate réel |
-423|| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
-424|| Lane | DEV only ; RECETTE/STABLE not mutated |
-425|| LIVE Nora | NOT EXECUTED |
-426|| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+428|## delivery_id: DELIV-2026-11-06-ML3-AUTHORITY-CR01-CR04
+429|
+430|| Field | Value |
+431|| --- | --- |
+432|| Date | 2026-11-06 (Europe/Paris) |
+433|| Macro-lot | R5 / ML3 — ajustement autorité & preuves CR-01..CR-04 |
+434|| Type | INC corrective continuation (same ML3) |
+435|| Branch | `sfia/next-pilotage-decisions-delivery` (**local only — no commit, no push, no PR**) |
+436|| Base | `7f1f41c` dirty candidate (hashes F01–F08 pack as baseline) |
+437|| Schema | unchanged `007` |
+438|| Corrected | Transition A+B restrictions ; REVISE vs D5 founding refuse ; no global statement contradiction ; Review Pack with real logs |
+439|| Product version | `NO RELEASE` ; STABLE NOT AVAILABLE |
+440|| Lane | DEV only ; RECETTE/STABLE not mutated |
+441|| LIVE Nora | NOT EXECUTED |
+442|| Status | LOCAL CORRECTIVE — no project push/PR/merge |
+443|| Verdict candidate | `ML3 AUTHORITY ADJUSTMENT COMPLETE — READY FOR CHATGPT CRITICAL REVIEW` (if proofs green) |
 ```
 
 ```md
-215|## As-built correctif ML3 — testCaseRef B01–B18 (2026-11-06)
-216|
-217|Appendice après correctifs F01–F08 / T01–T04. N'altère pas la matrice R2. Les identifiants sont les noms de cas dans le code, pas une nouvelle exigence. Lane visée : DEV. Pas une preuve RECETTE.
-218|
-219|| QA | testCaseRef | Ce que le cas couvre après correctif |
-220||---|---|---|
-221|| B01 | `PostgreSQL ML3 pilotage and decisions` › `starts empty: no cycle, no method, no retained trajectory` ; e2e `cycle-absent` | Projet neuf sans cycle ni méthode |
-222|| B02 | même fichier › `propose stays non-authoritative until an explicit retain` ; UI `retain-trajectory` | Proposition non ouvrante ; rétention explicite |
-223|| B03 | même fichier › `opens a cycle from an explicit utterance without an operation` ; e2e champ « Énoncé GO » | GO naturel EXPLICIT_INTERACTION sans `operation` |
-224|| B04 | même fichier › `rejects an ambiguous OK without opening a cycle` ; unit `qualifies a clear GO` | Énoncé équivoque rejeté |
-225|| B05 | même fichier › `keeps a single ACTIVE cycle when two opens race` | Une seule ligne ACTIVE |
-226|| B06 | même fichier › `replays the same key and conflicts when the fingerprint changes` ; `does not apply the same human act twice when only the client key changes` ; `reconcileCommandByClientKey` | Même clé rejouée ; même `actInstanceId` non dupliqué. Perte réseau UI : statut UNKNOWN + bouton réconcilier (non exécuté en PG) |
-227|| B07 | même fichier › `rolls back a transition when opening the next cycle fails` | CLOSE+OPEN annulés ensemble |
-228|| B08 | non couvert par un cas dédié | Nora ne clôt pas un cycle sur un jugement de maturité : consigne d'adapter, pas un oracle exécuté |
-229|| B09 | même fichier › `chooses, replaces, withdraws and revokes the current method base without restoring the previous one` | Choix / remplacement / retrait / révocation de base |
 230|| B10 | unit `pins RESOLVED only when the file digest matches the approved manifest` | Pas de remplacement implicite du pin : digest hors manifeste → UNAVAILABLE |
 231|| B11 | unit `maps each cycle type to one CKI specialty file` | Une spécialité par type. Digression Nora hors spécialité : non exécutée comme tour LIVE |
 232|| B12 | unit `stays ASSOCIATED without a pin and UNAVAILABLE when the digest diverges` ; cas manifeste ci-dessus | Pas de fallback si octets absents ou non approuvés |
-233|| B13 | même fichier PG › `revises an applicable decision and blocks effects while statements contradict` | Deux `APPLICABLE` même `objectRef`+`kind`, énoncés différents → `CONTRADICTION` ; `REVISE_DECISION` lève le blocage |
-234|| B14 | même fichier › `blocks a cycle open while a restriction is active and allows it after a lift` ; `applies a cycle restriction only to the named target` | STOP global et cible (A bloqué, B autorisé) |
+233|| B13 | PG `CR-03: different RECORD statements…` (pas de faux blocage global) ; unit/PG état cycle/méthode déterministe | **PARTIAL** : faux positif statement retiré (RG-GOV-013). Conflit matériel libre-texte D6 : **NOT PROVEN / NEEDS MORRIS ARBITRATION** |
+234|| B14 | même fichier › restrictions + `CR-01: transition blocked when target B or source A is restricted` | STOP global, cible, et transition A→B (restriction sur A ou B) |
 235|| B15 | même fichier › `isolates pilotage across projects and rejects a foreign user message` | Pas d'import inter-projets |
 236|| B16 | même fichier › révocation de la méthode fondatrice dans le cas méthode | Révocation avant effet courant, sans restauration |
-237|| B17 | e2e `decision-state` contient `APPLICABLE` ; PG journal `state` `REVISED` / `APPLICABLE` après révision | Journal affiche `state`, pas une validité séparée |
+237|| B17 | e2e `decision-state` contient `APPLICABLE` ; PG `CR-02` journal `REVISED` / `APPLICABLE` | Journal affiche `state`, pas une validité séparée |
 238|| B18 | même fichier › `starts empty` lecture seule `getPilotageProjection` ; GET `/pilotage` ne poste pas de commande | Navigation / lecture sans GO |
 239|
-240|Statut correctif : `LOCAL CANDIDATE — TESTS CITÉS, PAS ADOPTÉS`. LIVE Nora : NOT EXECUTED. B08 et la digression B11 restent des réserves, pas des preuves.
+240|### Ajustement autorité CR-01..CR-04 (2026-11-06)
+241|
+242|| CR | testCaseRef | Verdict |
+243|| --- | --- | --- |
+244|| CR-01 | unit `CR-01: TRANSITION_CYCLE is blocked when source A or target B is restricted` ; PG `CR-01: transition blocked when target B or source A is restricted; A stays ACTIVE` | **CLOSED** (DEV PG + unit) |
+245|| CR-02 | PG `CR-02: REVISE_DECISION allowed for RECORD; refused for D5 founding kinds` | **CLOSED** (refuse sûr + typed ops) |
+246|| CR-03 | PG `CR-03: different RECORD statements on same objectRef do not globally block OPEN` | **CLOSED** for false-positive removal ; material free-text conflict **PARTIAL / NEEDS MORRIS** |
+247|| CR-04 | Review Pack FULL with embedded raw logs `/tmp/ml3-*.txt` | **CLOSED** if handoff verified |
+248|
+249|Statut : `LOCAL CANDIDATE — TESTS CITÉS, PAS ADOPTÉS`. LIVE Nora : NOT EXECUTED. B08/B11 LIVE : GOVERNED DEBT. B13 matériel libre-texte : NEEDS MORRIS ARBITRATION.
 ```
 
-## 9. Justification des choix de correction
-1. **Pas de migration 008** — `actInstanceId` porté dans `source_action_key` (hash) + fingerprint JSON ; évite rewrite 007 et blast DB.
-2. **Manifeste CKI technique** — inventaire SHA-256 des octets Git déjà VALIDATED CONTENT v0.2.0 ; aucune nouvelle autorité éditoriale.
-3. **Restrictions ciblées** — sémantique R2/R4 bornée : `*`/vide = global ; sinon match exact cycleId|cycleType|methodRef|effectTargetRef ; pas d'invention de wildcards partiels.
-4. **Contradiction bornée** — exact `kind`+`objectRef`+statements différents ; pas de NLP.
-5. **GO naturel** — même `qualifyPilotageIntent` que USER_MESSAGE ; EXPLICIT_INTERACTION sans operation.
-6. **UI** — sessionStorage borné par projet+signature ; UNKNOWN honnête jusqu'à reconcile APPLIED.
+## 10. Preuves CR-01
+- Unit: TRANSITION bloquée si targetRef=B (UX_UI) ou A (CADRAGE/cyc-a) ou `*` ; permise si cible indépendante (SECURITE).
+- PG: A=CADRAGE ACTIVE → restrict UX_UI → transition CADRAGE→UX_UI REJECTED RESTRICTION, A reste ACTIVE, 0 cycle UX_UI ; transition vers DELIVERY APPLIED (CLOSE+OPEN) ; restrict DELIVERY → transition refusée ; lift → transition QA_VALIDATION APPLIED.
+- Option A préservée (deux effets sur succès ; zéro effet sur refus).
 
-## 10. F01–F08 avant / après
+## 11. Preuves CR-02
+- RECORD_DECISION → REVISE_DECISION APPLIED ; historique REVISED + nouvelle APPLICABLE + supersedesDecisionId.
+- OPEN_CYCLE founding → REVISE REJECTED `USE_TYPED_OPERATION` ; cycle reste ACTIVE/APPLICABLE.
+- CHOOSE_METHOD founding → REVISE REJECTED ; méthode RETAINED ; REPLACE_METHOD puis REVOKE ferme la méthode courante (ABSENT), pas de résurrection.
 
-| ID | Avant (Critical Review) | Après | Verdict |
-| --- | --- | --- | --- |
-| F01 | Nouvelle clé par appel ; pas de reconcile fiable | actInstanceId+clientCommandKey stables ; GET by-key ; UNKNOWN+replay same payload | **CLOSED** (DEV proven) |
-| F02 | Digest fichier ≠ approbation | `manifest.v0.2.0.json` ; pin si digest+version match | **CLOSED** |
-| F03 | CYCLE_MUTATION/PILOTAGE_EFFECT ignorent targetRef | matchesScopedTarget ; tests A bloqué / B permis | **CLOSED** |
-| F04 | API state vs UI validity | UI `state` APPLICABLE/REVISED/SUPERSEDED/REVOKED ; erreur journal visible | **CLOSED** |
-| F05 | utterance sans operation non qualifiée | `classifyExplicitInteraction` | **CLOSED** |
-| F06 | sourceRef statiques réutilisés | `ui:op:actInstanceId` ; hash inclut actInstanceId | **CLOSED** |
-| F07 | pas de revise générique / B13 faible | `REVISE_DECISION` + CONTRADICTION exacte | **CLOSED** (borné) |
-| F08 | API > UX | retain/close/transition/withdraw/restrict/lift/reconcile/journal | **CLOSED** (BROWSER FAKE) |
+## 12. Preuves CR-03
+- Deux RECORD APPLICABLE même objectRef, statements différents → OPEN_CYCLE **APPLIED** (plus de faux conflit global).
+- Restrictions restent opposables indépendamment.
+- Conflit matériel libre-texte non spécifié R2 de façon machine → **B13 PARTIAL / NEEDS MORRIS ARBITRATION** (pas de doctrine inventée).
 
-## 11. T01–T04
-| ID | Traitement | Verdict |
-| --- | --- | --- |
-| T01 | DELIVERED seulement si contenu joint ET generate a tourné ; sinon RESOLVED | **CLOSED** (FAKE/fixture) ; cognitive LIVE NOT PROVEN |
-| T02 | USER_MESSAGE exige role USER + status COMPLETE + projet/pilote | **CLOSED** |
-| T03 | projection + nora-context : usageRestricted → pas pleinement applicable | **CLOSED** |
-| T04 | appendice tracabilité B01–B18 avec testCaseRef ; pas de nouveau registre | **CLOSED** (doc) |
+## 13. Preuves CR-04
+Ce document inclut: hashes avant/après, authority complet, command-runner complet, section REVISE, tests unit complets, sections PG CR, logs bruts ci-dessous (pas de `{`+`tail`+`}` substituts fictifs).
 
-## 12. Migration
-Aucune migration 008. Schema reste `007_ml3_pilotage_decisions`. Fresh 001→007 PASS. Upgrade path inchangé.
-
-## 13. Preuve R01–R04
-Contrats R01–R04 (spec v0.4 #660) non modifiés normativement. As-built §12 mis à jour. Manifeste CKI = réalisation technique R01. Option A CLOSE+OPEN inchangée (tests PG).
-
-## 14. B01–B18 et 136 références
-Voir appendice `tracabilite-r2-r3-r4.md`. Synthèse:
-
-| Scénario | Couverture | Environnement | Limite |
-| --- | --- | --- | --- |
-| B01 | e2e cycle-absent/method-absent | BROWSER FAKE | — |
-| B02 | unit/pg propose ≠ GO | PG/unit | — |
-| B03 | e2e+pg GO naturel → D6/D5 | BROWSER+PG | — |
-| B04 | unit intent OK/hypothèse | unit | — |
-| B05 | pg concurrent opens | PG | — |
-| B06 | pg/ui same key reconcile | PG (+UI path) | abort réseau unit/UI path |
-| B07 | pg CLOSE+OPEN transactional | PG | — |
-| B08 | maturité Nora sans clôture | **NOT PROVEN LIVE** | GOVERNED DEBT |
-| B09 | method reload | pg/e2e | — |
-| B10 | CKI new version no auto | unit cki | — |
-| B11 | digression 2nd CKI | **NOT PROVEN LIVE** | GOVERNED DEBT |
-| B12 | hostile/missing CKI | unit | — |
-| B13 | contradiction exacte | pg/unit | pas de NLP |
-| B14 | restriction après reload | pg + UI storage | — |
-| B15 | isolation projets | pg | — |
-| B16 | révocation point d'effet | pg | — |
-| B17 | journal state | e2e+api | — |
-| B18 | nav retour fil sans effet | e2e (panel tab) | non pixel-perfect Figma |
-
-136 RG/PF : regroupements tests autorisés ; COVERAGE VERIFIED seulement si scénario propre exécuté — sinon NOT PROVEN / INTERFACE.
-
-## 15. Tests et logs exacts
-
-### Unit (18 PASS)
-```
-{tail('/tmp/ml3-unit.txt', 25)}
-```
-
-### PG ml3-pilotage (15 PASS)
-```
-{tail('/tmp/ml3-pg.txt', 20)}
-```
-
-### Migrations fresh (3 PASS)
-```
-{tail('/tmp/ml3-mig.txt', 20)}
-```
-
-### Playwright ml3-pilotage (1 PASS)
-```
-{tail('/tmp/ml3-e2e.txt', 25)}
-```
-
-### tsc / eslint
-- `npx tsc --noEmit` → EXIT 0
-- eslint pilotage/decisions/PilotagePanel → EXIT 0
-
-### Environnement preuves
+## 14. Résultats détaillés des tests
+Environnement:
 - `STUDIO_LANE=DEV`
-- `DATABASE_URL` unset → `.env.local` `127.0.0.1:5433/sfia_next_dev`
-- e2e DB: `sfia_next_e2e` (préflight)
-- RECETTE NOT USED
+- `DATABASE_URL` unset → injection `.env.local` host local `127.0.0.1:5433/sfia_next_dev` (pas de secret recopié)
+- e2e: lane e2e isolée (préflight)
+- RECETTE: NOT USED
+- Worktree candidat: `{head}` branch `{branch}`
 
-## 16. Fake / Real Qualification
+| Suite | Commande | Exit | Tests |
+| --- | --- | --- | --- |
+| unit | `npx vitest run tests/unit/ml3-authority.test.ts tests/unit/ml3-cki-intent.test.ts tests/unit/nora-adapter-corrective.test.ts` | 0 | 19 PASS |
+| PG | `npx vitest run tests/integration/ml3-pilotage.pg.test.ts` | 0 | 17 PASS |
+| mig | `npx vitest run tests/integration/migrations-fresh.pg.test.ts` | 0 | 3 PASS |
+| e2e | `npx playwright test tests/e2e/ml3-pilotage.spec.ts` | 0 | 1 PASS |
+| tsc | `npx tsc --noEmit` | 0 | clean |
+| eslint | targeted pilotage/decisions/panel/tests | 0 | clean |
+
+## 15. Logs réels (sans substituts fictifs)
+
+### 15.1 Unit
+
+path: `.tmp-sfia-review/ml3-unit.txt` (copied from /tmp/ml3-unit.txt)
+size: 7221 bytes
+sha256: 7ca077dc776f12535509a8c7931f199db4f21c001f8b978e8b12f34d31120ded
+
+```text
+◇ injected env (9) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.108Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_8b792261-acf8-4e69-b2b8-7a2182ad2564","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.110Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_8b792261-acf8-4e69-b2b8-7a2182ad2564","attempt_id":"att_947699d7-4ed7-421b-9b26-f1a64c2cf7f4","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.114Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_ee01cb4c-e2ae-4ecf-b3e1-a86bed916c58","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.114Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_ee01cb4c-e2ae-4ecf-b3e1-a86bed916c58","attempt_id":"att_a2523608-09e8-45ee-88de-3c19a3d4f5e5","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.117Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_3ba31345-e66a-4644-ac70-6222224ba9a5","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.117Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_3ba31345-e66a-4644-ac70-6222224ba9a5","attempt_id":"att_4ca6d256-6cbc-46d4-9469-82c5b64afcfe","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.120Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_8cccbc5a-e21b-4e9b-bc4b-c054fd2ceef2","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"analyse","effort":"medium","model":"gpt-6.1-sol","tools":"search_project_resources,read_project_document_revision","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.121Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.provider_attempt","component":"d3.nora_adapter","generation_id":"gen_8cccbc5a-e21b-4e9b-bc4b-c054fd2ceef2","attempt_id":"att_0956632c-6302-4ae7-bb3f-0343adf78d73","outcome":"PARTIAL","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"kind":"stream","maxTurns":6,"model_requested":"gpt-6.1-sol","max_turns_note":"maxTurns≠maxProviderCalls"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.121Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_ac486827-afcc-4029-a96a-326466aaac4f","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.121Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_ac486827-afcc-4029-a96a-326466aaac4f","attempt_id":"att_e0db6f75-1ddf-4d94-81bf-65271b46cbb9","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.122Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_6cf3f53d-3b48-42cb-8606-3f35e199c365","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.122Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_6cf3f53d-3b48-42cb-8606-3f35e199c365","attempt_id":"att_903b3df8-4487-40b2-92e1-81ad8c1d5d77","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.122Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.policy_selected","component":"d3.nora_adapter","generation_id":"gen_05b9e0a2-e7bd-493a-9ba2-ad2732a401cc","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","effort":"low","model":"gpt-6.1-sol","tools":"","profile_type_detail":"TEST_BOUNDARY"}}
+SFIA_OBS {"event_version":1,"ts_utc":"2026-11-06T13:04:36.122Z","lane":"DEV","source_sha":null,"build_id":null,"event_name":"d3.nora.fixture_complete","component":"d3.nora_adapter","generation_id":"gen_05b9e0a2-e7bd-493a-9ba2-ad2732a401cc","attempt_id":"att_23db9eed-01f8-4202-b6bd-053a03e75ca4","outcome":"SUCCESS","policy_version":"ml2-cog-policy-v2-corrective","profile_type":"TEST_BOUNDARY","meta":{"profile":"simple","tool_calls":0,"profile_type_detail":"TEST_BOUNDARY"}}
+ ✓ tests/unit/nora-adapter-corrective.test.ts (6 tests) 20ms
+ ✓ tests/unit/ml3-cki-intent.test.ts (8 tests) 6ms
+ ✓ tests/unit/ml3-authority.test.ts (5 tests) 1ms
+
+ Test Files  3 passed (3)
+      Tests  19 passed (19)
+   Start at  14:04:35
+   Duration  819ms (transform 88ms, setup 0ms, collect 443ms, tests 28ms, environment 0ms, prepare 66ms)
+```
+
+### 15.2 PG
+
+path: `.tmp-sfia-review/ml3-pg.txt` (copied from /tmp/ml3-pg.txt)
+size: 457 bytes
+sha256: 0f787322b446bd7304196b61cdbcc4677b90433d48009d414025cf856da83886
+
+```text
+◇ injected env (9) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+
+stderr | tests/integration/ml3-pilotage.pg.test.ts
+◇ injected env (0) from .env.local
+
+ ✓ tests/integration/ml3-pilotage.pg.test.ts (17 tests) 674ms
+
+ Test Files  1 passed (1)
+      Tests  17 passed (17)
+   Start at  14:04:40
+   Duration  988ms (transform 63ms, setup 0ms, collect 222ms, tests 674ms, environment 0ms, prepare 24ms)
+```
+
+### 15.3 Migrations
+
+path: `.tmp-sfia-review/ml3-mig.txt` (copied from /tmp/ml3-mig.txt)
+size: 518 bytes
+sha256: 229d02e7e962afbd63f934f0961e0d0212a2fe08a01cea1f84d73e104d84b5ce
+
+```text
+◇ injected env (9) from .env.local
+
+ RUN  v3.2.4 /Users/morris/Projects/sfia-workspace/projects/sfia-studio-next/web
+
+ ✓ tests/integration/migrations-fresh.pg.test.ts (3 tests) 2034ms
+   ✓ migrations 001→007 on fresh isolated Postgres > applies 001→007; auth_mode + knowledge + turn owner_token + pilotage tables exist  379ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  14:04:50
+   Duration  2.44s (transform 14ms, setup 0ms, collect 318ms, tests 2.03s, environment 0ms, prepare 23ms)
+```
+
+### 15.4 Playwright e2e (tail utile + verdict — log complet dans fichier)
+
+path: `.tmp-sfia-review/ml3-e2e.txt`
+size: 6336 bytes
+sha256: 13151987df5f3ede8f4dd51658a6b7ef68f4722982b7155a308cf896390f551c
+full log retained; excerpt last 80 lines:
+
+```text
+[WebServer] ◇ injected env (9) from .env.local
+[WebServer] e2e-preflight OK: operator=sfia_next_dev → e2e=sfia_next_e2e container=sfia-next-dev-pg port=5433
+[WebServer] NOTICE:  relation "pilots" already exists, skipping
+[WebServer] NOTICE:  relation "pilots_github_user_id_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "users" already exists, skipping
+[WebServer] NOTICE:  relation "sessions" already exists, skipping
+[WebServer] NOTICE:  relation "sessions_user_id_idx" already exists, skipping
+[WebServer] NOTICE:  relation "accounts" already exists, skipping
+[WebServer] NOTICE:  relation "verifications" already exists, skipping
+[WebServer] NOTICE:  relation "preparations" already exists, skipping
+[WebServer] NOTICE:  relation "preparations_owner_idx" already exists, skipping
+[WebServer] NOTICE:  relation "projects" already exists, skipping
+[WebServer] NOTICE:  relation "projects_owner_idx" already exists, skipping
+[WebServer] NOTICE:  relation "preparation_project_links" already exists, skipping
+[WebServer] NOTICE:  relation "create_project_commands" already exists, skipping
+[WebServer] NOTICE:  relation "create_project_commands_pilot_key_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "conversations" already exists, skipping
+[WebServer] NOTICE:  relation "conversations_prep_idx" already exists, skipping
+[WebServer] NOTICE:  relation "messages" already exists, skipping
+[WebServer] NOTICE:  relation "messages_conversation_idx" already exists, skipping
+[WebServer] NOTICE:  relation "documents" already exists, skipping
+[WebServer] NOTICE:  relation "documents_prep_idx" already exists, skipping
+[WebServer] NOTICE:  relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  relation "document_revisions_doc_rev_uidx" already exists, skipping
+[WebServer] NOTICE:  column "auth_mode" of relation "sessions" already exists, skipping
+[WebServer] NOTICE:  column "base_revision_id" of relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  column "correlation_key" of relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  column "provenance_json" of relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  column "scope" of relation "document_revisions" already exists, skipping
+[WebServer] NOTICE:  relation "document_revisions_corr_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_subjects" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_subjects_prep_idx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_subjects_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_acquis" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_acquis_prep_idx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_acquis_subject_idx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_open_points" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_open_points_prep_idx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_open_points_status_idx" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_subject_events" already exists, skipping
+[WebServer] NOTICE:  relation "knowledge_subject_events_subject_idx" already exists, skipping
+[WebServer] NOTICE:  column "creation_correlation_key" of relation "documents" already exists, skipping
+[WebServer] NOTICE:  relation "documents_prep_owner_corr_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "document_revisions_base_idx" already exists, skipping
+[WebServer] NOTICE:  relation "conversation_turn_commands" already exists, skipping
+[WebServer] NOTICE:  relation "conversation_turn_commands_conv_key_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "conversation_turn_commands_operation_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "conversation_turn_commands_conv_status_idx" already exists, skipping
+[WebServer] NOTICE:  relation "messages_conversation_ordinal_uidx" already exists, skipping
+[WebServer] NOTICE:  column "owner_token" of relation "conversation_turn_commands" already exists, skipping
+[WebServer] NOTICE:  relation "conversation_turn_commands_owner_token_idx" already exists, skipping
+[WebServer] NOTICE:  relation "human_decisions" already exists, skipping
+[WebServer] NOTICE:  relation "human_decisions_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "trajectory_revisions" already exists, skipping
+[WebServer] NOTICE:  relation "trajectory_revisions_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "project_pilotage_state" already exists, skipping
+[WebServer] NOTICE:  relation "project_cycles" already exists, skipping
+[WebServer] NOTICE:  relation "project_cycles_one_active_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "project_cycles_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "method_applications" already exists, skipping
+[WebServer] NOTICE:  relation "method_applications_current_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "method_applications_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "governance_restrictions" already exists, skipping
+[WebServer] NOTICE:  relation "governance_restrictions_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "business_commands" already exists, skipping
+[WebServer] NOTICE:  relation "business_commands_client_key_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "business_commands_human_intent_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "business_commands_project_idx" already exists, skipping
+[WebServer] NOTICE:  relation "business_command_effects" already exists, skipping
+[WebServer] NOTICE:  relation "business_command_effects_command_ordinal_uidx" already exists, skipping
+[WebServer] NOTICE:  relation "business_command_effects_command_idx" already exists, skipping
+
+Running 1 test using 1 worker
+
+(node:98910) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/e2e/ml3-pilotage.spec.ts:8:5 › ML3 pilotage: projet sans cycle → ouverture → cycle ACTIVE visible (13.5s)
+
+  1 passed (17.1s)
+E2E_EXIT:0
+```
+
+
+### 15.5 tsc
+
+path: `.tmp-sfia-review/ml3-tsc.txt` (copied from /tmp/ml3-tsc.txt)
+size: 66 bytes
+sha256: 7eb4cc74570c0a1f8c8d3b7f9bdc6cfe8995bfafae5d20c5a8ff6cd60d9d8c3c
+
+```text
+CMD: npx tsc --noEmit
+DATE: 2026-11-06T13:07:08Z
+LANE: DEV
+EXIT:0
+```
+
+### 15.6 eslint
+
+path: `.tmp-sfia-review/ml3-lint.txt` (copied from /tmp/ml3-lint.txt)
+size: 54 bytes
+sha256: e4905b82d90d9eb63c40b35e31a49d964a0a175ce68a731eafd638e09270fc50
+
+```text
+CMD: npx eslint ...
+DATE: 2026-11-06T13:07:10Z
+EXIT:0
+```
+
+## 16. B01–B18 — couverture honnête
+Voir appendice tracabilité. Recontrôlés ce cycle via suites PG/unit/e2e:
+B05,B06,B07,B09,B14,B16,B17 dans les 17 PG. B13 PARTIAL (faux positif retiré ; matériel libre-texte NOT PROVEN). B08/B11 LIVE NOT EXECUTED. B01–B04,B10,B12,B15,B18 couverts par suites existantes rejouées (unit/PG/e2e) — non prétendre preuves historiques non rejouées hors ces commandes.
+
+## 17. Comparaison avant/après fichiers critiques
+Voir §9.1. PilotagePanel et cki-resolve **identiques** au pack 3687b90b. authority / command-runner / service **modifiés** comme ci-dessus.
+
+## 18. Fake / Real Qualification
 | Frontière | Qualification |
 | --- | --- |
-| PostgreSQL | PG INTEGRATION PROVEN (DB isolée locale) |
-| Nora Agents SDK | FAKE / fixture — LIVE NOT EXECUTED |
-| UI | BROWSER FAKE (session DEV) |
-| CKI octets | DETERMINISTIC PROVEN vs manifeste |
+| PG | PG INTEGRATION PROVEN |
+| Unit | DETERMINISTIC PROVEN |
+| Browser | BROWSER FAKE PROVEN (1 e2e) |
+| Nora LIVE | NOT EXECUTED |
 | CKI cognitif | NOT PROVEN LIVE |
-| Git/Cursor D7/D9 | hors scope |
-| Claims interdits | non émis (READY FOR REAL / RECETTE ACCEPTED / ADOPTED / …) |
+| Claims interdits | non émis |
 
-## 17. Non-régression ML1/ML2
-- Migration 001→007 fresh PASS (ML1/ML2 tables présentes)
-- nora-adapter corrective unit suite PASS (ML2 turn integrity paths)
-- e2e ML3 utilise parcours sas→projet→fil (continuité ML1/ML2) puis onglet Pilotage
-- RECETTE ML1/ML2 : non mutée (aucune commande contre bases RECETTE)
+## 19. Non-régression ML1/ML2
+- migrations 001→007 fresh PASS
+- nora-adapter corrective unit PASS
+- e2e parcours sas→projet→pilotage PASS
+- RECETTE ML1/ML2 non mutée
 
-## 18. Réserves et dettes
-| ID | Sévérité | Description | Exit |
-| --- | --- | --- | --- |
-| B08 | GOVERNED DEBT | maturité Nora sans clôture autonome non oracles LIVE | GO LIVE Nora distinct + scénario |
-| B11 | GOVERNED DEBT | digression sans 2e CKI LIVE | idem |
-| F07-NLP | GOVERNED DEBT | contradiction = exact match seulement | arbitrage Morris si élargissement |
-| Figma pixel | GOVERNED DEBT | pas de conformité pixel-perfect déclarée | revue visuelle R3 sous GO |
-| RECETTE ML3 | BLOCKING (gate) | NOT AVAILABLE | GO Morris distinct |
+## 20. Réserves et STOP
+| ID | Sévérité | Exit |
+| --- | --- | --- |
+| B13 material free-text conflict | GOVERNED DEBT / NEEDS MORRIS ARBITRATION | doctrine D6 bornée sous GO |
+| B08/B11 LIVE | GOVERNED DEBT | GO Nora LIVE |
+| RECETTE ML3 | BLOCKING gate | GO Morris distinct |
+| Pixel Figma | GOVERNED DEBT | revue visuelle sous GO |
 
-## 19. Verdict de cycle
-**ML3 CORRECTIVE DELIVERY COMPLETE — READY FOR CHATGPT CRITICAL REVIEW.**
+Aucun STOP bloquant sur CR-01/CR-02 (solution refuse typée) ni CR-03 (retrait faux positif sans doctrine inventée).
 
-Pas READY FOR MERGE / RECETTE ACCEPTED / STABLE / RELEASE / ADOPTED.
+## 21. Gate Morris
+1. Critical Review ChatGPT de ce handoff
+2. Arbitrage B13 (si élargissement conflit matériel)
+3. RECETTE / PR / merge / STABLE : GO distincts
 
-## 20. Gates encore requis
-1. ChatGPT Critical Review du candidat local + handoff
-2. Arbitrage réserves Morris
-3. Éventuel ajustement ciblé sous GO
-4. Qualification RECETTE ML3 sous GO distinct
-5. PR readiness / intégration Git sous GO distinct
-6. Suite R5 puis R6 sous GO distinct
-
-## 21. Instruction ChatGPT
-Examiner ce Review Pack FULL et le **candidat local dirty** sur `sfia/next-pilotage-decisions-delivery@7f1f41c` (non poussé). Vérifier F01–F08 / T01–T04 contre le code réel (hashes §3), les tests §15, et les invariants D5/D6/Option A. Signaler tout écart code/doc, tout claim excessif, et toute sémantique inventée. Ne pas traiter ce delivery comme mergeable ou RECETTE.
+## 22. Instruction ChatGPT
+Vérifier CR-01..CR-04 contre le code inclus (§9), les logs bruts (§15) et les assertions PG. Confirmer que TRANSITION évalue A **et** B ; que REVISE fondateur D5 est refusé ; que le faux blocage global statement est absent ; que ce pack n'utilise pas de substituts fictifs de logs. Ne pas traiter comme mergeable, RECETTE, STABLE ou ADOPTED.
 
 ---
-FIN REVIEW PACK — mono-cycle correctif 2026-11-06
+FIN REVIEW PACK — mono-cycle CR-01..CR-04 — 2026-11-06T13:07:01Z
